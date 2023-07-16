@@ -69,22 +69,23 @@ symlinkJoin {
   ];
 
   passthru = {
-    updateScript = let
-      pythonEnv = python3.withPackages (ps: [ ps.requests ]);
-    in
-    writeScript "tsc-update" ''
-      #!${runtimeShell}
-      set -euo pipefail
-      export PATH=${
-        lib.makeBinPath [
-          nix-prefetch-github
-          nix
-          pythonEnv
-        ]
-      }:$PATH
-      exec python3 ${builtins.toString ./update.py} ${builtins.toString ./.}
-    ''
-    ;
+    updateScript =
+      let
+        pythonEnv = python3.withPackages (ps: [ ps.requests ]);
+      in
+      writeScript "tsc-update" ''
+        #!${runtimeShell}
+        set -euo pipefail
+        export PATH=${
+          lib.makeBinPath [
+            nix-prefetch-github
+            nix
+            pythonEnv
+          ]
+        }:$PATH
+        exec python3 ${builtins.toString ./update.py} ${builtins.toString ./.}
+      ''
+      ;
   };
 
   meta = {

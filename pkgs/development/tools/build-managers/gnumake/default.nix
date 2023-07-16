@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-3Rb7HWe/q3mnL16DkHNcSePo5wtJRaFasfgd23hlj7M=";
   };
 
-  # to update apply these patches with `git am *.patch` to https://git.savannah.gnu.org/git/make.git
+    # to update apply these patches with `git am *.patch` to https://git.savannah.gnu.org/git/make.git
   patches = [
     # Replaces /bin/sh with sh, see patch file for reasoning
     ./0001-No-impure-bin-sh.patch

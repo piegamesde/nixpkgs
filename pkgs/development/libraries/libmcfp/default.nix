@@ -20,7 +20,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Header only library that can collect configuration options from command line arguments";
+      "Header only library that can collect configuration options from command line arguments"
+      ;
     homepage = "https://github.com/mhekkel/libmcfp";
     license = licenses.bsd2;
     maintainers = with maintainers; [ natsukium ];

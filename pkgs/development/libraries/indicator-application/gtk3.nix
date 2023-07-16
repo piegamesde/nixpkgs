@@ -22,7 +22,8 @@ stdenv.mkDerivation rec {
 
   src = fetchbzr {
     url =
-      "https://code.launchpad.net/~indicator-applet-developers/${pname}/trunk.17.04";
+      "https://code.launchpad.net/~indicator-applet-developers/${pname}/trunk.17.04"
+      ;
     rev = "260";
     sha256 = "1f0jdyqqb5g86zdpbcyn16x94yjigsfiv2kf73dvni5rp1vafbq1";
   };
@@ -62,7 +63,7 @@ stdenv.mkDerivation rec {
   PKG_CONFIG_SYSTEMD_SYSTEMDUSERUNITDIR = "$(out)/lib/systemd/user";
   PKG_CONFIG_INDICATOR3_0_4_INDICATORDIR = "$(out)/lib/indicators3/7/";
 
-  # Upstart is not used in NixOS
+    # Upstart is not used in NixOS
   postFixup = ''
     rm -rf $out/share/indicator-application/upstart
     rm -rf $out/share/upstart

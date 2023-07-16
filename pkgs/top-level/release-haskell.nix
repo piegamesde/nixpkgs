@@ -38,31 +38,33 @@ let
     #
     # > accumulateDerivations [ drv1 "string" { foo = drv2; bar = { baz = drv3; }; } ]
     # [ drv1 drv2 drv3 ]
-  accumulateDerivations = jobList:
+  accumulateDerivations =
+    jobList:
     lib.concatMap (attrs:
       if lib.isDerivation attrs then
         [ attrs ]
       else
         lib.optionals (lib.isAttrs attrs)
-        (accumulateDerivations (lib.attrValues attrs))) jobList;
+        (accumulateDerivations (lib.attrValues attrs))) jobList
+    ;
 
-  # names of all subsets of `pkgs.haskell.packages`
-  #
-  # compilerNames looks like the following:
-  #
-  # ```
-  # {
-  #   ghc810 = "ghc810";
-  #   ghc8102Binary = "ghc8102Binary";
-  #   ghc8102BinaryMinimal = "ghc8102BinaryMinimal";
-  #   ghc8107 = "ghc8107";
-  #   ghc924 = "ghc924";
-  #   ...
-  # }
-  # ```
+    # names of all subsets of `pkgs.haskell.packages`
+    #
+    # compilerNames looks like the following:
+    #
+    # ```
+    # {
+    #   ghc810 = "ghc810";
+    #   ghc8102Binary = "ghc8102Binary";
+    #   ghc8102BinaryMinimal = "ghc8102BinaryMinimal";
+    #   ghc8107 = "ghc8107";
+    #   ghc924 = "ghc924";
+    #   ...
+    # }
+    # ```
   compilerNames = lib.mapAttrs (name: _: name) pkgs.haskell.packages;
 
-  # list of all compilers to test specific packages on
+    # list of all compilers to test specific packages on
   released = with compilerNames; [
     ghc884
     ghc8107
@@ -75,159 +77,170 @@ let
     ghc961
   ];
 
-  # packagePlatforms applied to `haskell.packages.*`
-  #
-  # This returns an attr set that looks like the following, where each Haskell
-  # package in the compiler attr set has its list of supported platforms as its
-  # value.
-  #
-  # ```
-  # {
-  #   ghc810 = {
-  #     conduit = [ ... ];
-  #     lens = [ "i686-cygwin" "x86_64-cygwin" ... "x86_64-windows" "i686-windows" ]
-  #     ...
-  #   };
-  #   ghc902 = { ... };
-  #   ...
-  # }
-  # ```
+    # packagePlatforms applied to `haskell.packages.*`
+    #
+    # This returns an attr set that looks like the following, where each Haskell
+    # package in the compiler attr set has its list of supported platforms as its
+    # value.
+    #
+    # ```
+    # {
+    #   ghc810 = {
+    #     conduit = [ ... ];
+    #     lens = [ "i686-cygwin" "x86_64-cygwin" ... "x86_64-windows" "i686-windows" ]
+    #     ...
+    #   };
+    #   ghc902 = { ... };
+    #   ...
+    # }
+    # ```
   compilerPlatforms =
     lib.mapAttrs (_: v: packagePlatforms v) pkgs.haskell.packages;
 
-  # This function lets you specify specific packages
-  # which are to be tested on a list of specific GHC
-  # versions and returns a job set for all specified
-  # combinations.
-  #
-  # You can call versionedCompilerJobs like the following:
-  #
-  # ```
-  # versionedCompilerJobs {
-  #   ghc-tags = ["ghc902" "ghc924"];
-  # }
-  # ```
-  #
-  # This would produce an output like the following:
-  #
-  # ```
-  # {
-  #   haskell.packages = {
-  #     ghc884 = {};
-  #     ghc810 = {};
-  #     ghc902 = {
-  #       ghc-tags = {
-  #         aarch64-darwin = <derivation...>;
-  #         aarch64-linux = <derivation...>;
-  #         ...
-  #       };
-  #     };
-  #     ghc924 = {
-  #       ghc-tags = { ... };
-  #     };
-  #     ...
-  #   };
-  # }
-  # ```
-  versionedCompilerJobs = config:
+    # This function lets you specify specific packages
+    # which are to be tested on a list of specific GHC
+    # versions and returns a job set for all specified
+    # combinations.
+    #
+    # You can call versionedCompilerJobs like the following:
+    #
+    # ```
+    # versionedCompilerJobs {
+    #   ghc-tags = ["ghc902" "ghc924"];
+    # }
+    # ```
+    #
+    # This would produce an output like the following:
+    #
+    # ```
+    # {
+    #   haskell.packages = {
+    #     ghc884 = {};
+    #     ghc810 = {};
+    #     ghc902 = {
+    #       ghc-tags = {
+    #         aarch64-darwin = <derivation...>;
+    #         aarch64-linux = <derivation...>;
+    #         ...
+    #       };
+    #     };
+    #     ghc924 = {
+    #       ghc-tags = { ... };
+    #     };
+    #     ...
+    #   };
+    # }
+    # ```
+  versionedCompilerJobs =
+    config:
     mapTestOn {
-      haskell.packages = let
-        # Mapping function that takes an attrset of jobs, and
-        # removes all jobs that are not specified in config.
-        #
-        # For example, imagine a call to onlyConfigJobs like:
-        #
-        # ```
-        # onlyConfigJobs
-        #   "ghc902"
-        #   {
-        #     conduit = [ ... ];
-        #     lens = [ "i686-cygwin" "x86_64-cygwin" ... "x86_64-windows" "i686-windows" ];
-        #   }
-        # ```
-        #
-        # onlyConfigJobs pulls out only those jobs that are specified in config.
-        #
-        # For instance, if config is `{ lens = [ "ghc902" ]; }`, then the above
-        # example call to onlyConfigJobs will return:
-        #
-        # ```
-        # { lens = [ "i686-cygwin" "x86_64-cygwin" ... "x86_64-windows" "i686-windows" ]; }
-        # ```
-        #
-        # If config is `{ lens = [ "ghc8107" ]; }`, then the above example call
-        # to onlyConfigJobs returns `{}`.
-        #
-        # onlyConfigJobs will also remove all platforms from a job that are not
-        # supported by the GHC it is compiled with.
-        onlyConfigJobs = ghc: jobs:
-          let
-            configFilteredJobset = lib.filterAttrs
-              (jobName: platforms: lib.elem ghc (config."${jobName}" or [ ]))
-              jobs;
+      haskell.packages =
+        let
+          # Mapping function that takes an attrset of jobs, and
+          # removes all jobs that are not specified in config.
+          #
+          # For example, imagine a call to onlyConfigJobs like:
+          #
+          # ```
+          # onlyConfigJobs
+          #   "ghc902"
+          #   {
+          #     conduit = [ ... ];
+          #     lens = [ "i686-cygwin" "x86_64-cygwin" ... "x86_64-windows" "i686-windows" ];
+          #   }
+          # ```
+          #
+          # onlyConfigJobs pulls out only those jobs that are specified in config.
+          #
+          # For instance, if config is `{ lens = [ "ghc902" ]; }`, then the above
+          # example call to onlyConfigJobs will return:
+          #
+          # ```
+          # { lens = [ "i686-cygwin" "x86_64-cygwin" ... "x86_64-windows" "i686-windows" ]; }
+          # ```
+          #
+          # If config is `{ lens = [ "ghc8107" ]; }`, then the above example call
+          # to onlyConfigJobs returns `{}`.
+          #
+          # onlyConfigJobs will also remove all platforms from a job that are not
+          # supported by the GHC it is compiled with.
+          onlyConfigJobs =
+            ghc: jobs:
+            let
+              configFilteredJobset = lib.filterAttrs
+                (jobName: platforms: lib.elem ghc (config."${jobName}" or [ ]))
+                jobs;
 
-            # Remove platforms from each job that are not supported by GHC.
-            # This is important so that we don't build jobs for platforms
-            # where GHC can't be compiled.
-            jobsetWithGHCPlatforms =
-              lib.mapAttrs (_: platforms: lib.intersectLists jobs.ghc platforms)
-              configFilteredJobset;
-          in
-          jobsetWithGHCPlatforms
+                # Remove platforms from each job that are not supported by GHC.
+                # This is important so that we don't build jobs for platforms
+                # where GHC can't be compiled.
+              jobsetWithGHCPlatforms = lib.mapAttrs
+                (_: platforms: lib.intersectLists jobs.ghc platforms)
+                configFilteredJobset;
+            in
+            jobsetWithGHCPlatforms
+            ;
+        in
+        lib.mapAttrs onlyConfigJobs compilerPlatforms
         ;
-      in
-      lib.mapAttrs onlyConfigJobs compilerPlatforms
-      ;
-    };
+    }
+    ;
 
-  # hydra jobs for `pkgs` of which we import a subset of
+    # hydra jobs for `pkgs` of which we import a subset of
   pkgsPlatforms = packagePlatforms pkgs;
 
-  # names of packages in an attribute set that are maintained
-  maintainedPkgNames = set:
+    # names of packages in an attribute set that are maintained
+  maintainedPkgNames =
+    set:
     builtins.attrNames
     (lib.filterAttrs (_: v: builtins.length (v.meta.maintainers or [ ]) > 0)
-      set);
+      set)
+    ;
 
   recursiveUpdateMany = builtins.foldl' lib.recursiveUpdate { };
 
-  # Remove multiple elements from a list at once.
-  #
-  # removeMany
-  #   :: [a]  -- list of elements to remove
-  #   -> [a]  -- list of elements from which to remove
-  #   -> [a]
-  #
-  # > removeMany ["aarch64-linux" "x86_64-darwin"] ["aarch64-linux" "x86_64-darwin" "x86_64-linux"]
-  # ["x86_64-linux"]
-  removeMany = itemsToRemove: list: lib.foldr lib.remove list itemsToRemove;
+    # Remove multiple elements from a list at once.
+    #
+    # removeMany
+    #   :: [a]  -- list of elements to remove
+    #   -> [a]  -- list of elements from which to remove
+    #   -> [a]
+    #
+    # > removeMany ["aarch64-linux" "x86_64-darwin"] ["aarch64-linux" "x86_64-darwin" "x86_64-linux"]
+    # ["x86_64-linux"]
+  removeMany =
+    itemsToRemove: list:
+    lib.foldr lib.remove list itemsToRemove
+    ;
 
-  # Recursively remove platforms from the values in an attribute set.
-  #
-  # removePlatforms
-  #   :: [String]
-  #   -> AttrSet
-  #   -> AttrSet
-  #
-  # > attrSet = {
-  #     foo = ["aarch64-linux" "x86_64-darwin" "x86_64-linux"];
-  #     bar.baz = ["aarch64-linux" "x86_64-linux"];
-  #     bar.quux = ["aarch64-linux" "x86_64-darwin"];
-  #   }
-  # > removePlatforms ["aarch64-linux" "x86_64-darwin"] attrSet
-  # {
-  #   foo = ["x86_64-linux"];
-  #   bar = {
-  #     baz = ["x86_64-linux"];
-  #     quux = [];
-  #   };
-  # }
-  removePlatforms = platformsToRemove: packageSet:
+    # Recursively remove platforms from the values in an attribute set.
+    #
+    # removePlatforms
+    #   :: [String]
+    #   -> AttrSet
+    #   -> AttrSet
+    #
+    # > attrSet = {
+    #     foo = ["aarch64-linux" "x86_64-darwin" "x86_64-linux"];
+    #     bar.baz = ["aarch64-linux" "x86_64-linux"];
+    #     bar.quux = ["aarch64-linux" "x86_64-darwin"];
+    #   }
+    # > removePlatforms ["aarch64-linux" "x86_64-darwin"] attrSet
+    # {
+    #   foo = ["x86_64-linux"];
+    #   bar = {
+    #     baz = ["x86_64-linux"];
+    #     quux = [];
+    #   };
+    # }
+  removePlatforms =
+    platformsToRemove: packageSet:
     lib.mapAttrsRecursive (_: val:
       if lib.isList val then
         removeMany platformsToRemove val
       else
-        val) packageSet;
+        val) packageSet
+    ;
 
   jobs = recursiveUpdateMany [
     (mapTestOn {
@@ -259,7 +272,7 @@ let
 
       agdaPackages = packagePlatforms pkgs.agdaPackages;
 
-      # top-level packages that depend on haskellPackages
+        # top-level packages that depend on haskellPackages
       inherit (pkgsPlatforms)
         agda
         arion
@@ -377,7 +390,7 @@ let
           ;
       };
 
-      # GHCs linked to musl.
+        # GHCs linked to musl.
       pkgsMusl.haskell.compiler =
         lib.recursiveUpdate (packagePlatforms pkgs.pkgsMusl.haskell.compiler) {
           # remove musl ghc865Binary since it is known to be broken and
@@ -388,12 +401,12 @@ let
           ghcjs = { };
           ghcjs810 = { };
 
-          # Can't be built with musl, see meta.broken comment in the drv
+            # Can't be built with musl, see meta.broken comment in the drv
           integer-simple.ghc884 = { };
           integer-simple.ghc88 = { };
         };
 
-      # Get some cache going for MUSL-enabled GHC.
+        # Get some cache going for MUSL-enabled GHC.
       pkgsMusl.haskellPackages = removePlatforms [
         # pkgsMusl is compiled natively with musl.  It is not
         # cross-compiled (unlike pkgsStatic).  We can only
@@ -412,9 +425,9 @@ let
           ;
       };
 
-      # Test some statically linked packages to catch regressions
-      # and get some cache going for static compilation with GHC.
-      # Use integer-simple to avoid GMP linking problems (LGPL)
+        # Test some statically linked packages to catch regressions
+        # and get some cache going for static compilation with GHC.
+        # Use integer-simple to avoid GMP linking problems (LGPL)
       pkgsStatic = removePlatforms [
         "aarch64-linux" # times out on Hydra
 
@@ -537,42 +550,43 @@ let
           '';
           maintainers = lib.teams.haskell.members;
         };
-        constituents = let
-          # Filter out all Darwin derivations.  We don't want flakey Darwin
-          # derivations and flakey Hydra Darwin builders to block the
-          # mergeable job from successfully building.
-          filterInLinux = lib.filter (drv:
-            drv.system == "x86_64-linux" || drv.system == "aarch64-linux");
-        in
-        filterInLinux (accumulateDerivations [
-          # haskell specific tests
-          jobs.tests.haskell
-          # important top-level packages
-          jobs.cabal-install
-          jobs.cabal2nix
-          jobs.cachix
-          jobs.darcs
-          jobs.haskell-language-server
-          jobs.hledger
-          jobs.hledger-ui
-          jobs.hpack
-          jobs.niv
-          jobs.pandoc
-          jobs.stack
-          jobs.stylish-haskell
-          # important haskell (library) packages
-          jobs.haskellPackages.cabal-plan
-          jobs.haskellPackages.distribution-nixpkgs
-          jobs.haskellPackages.hackage-db
-          jobs.haskellPackages.xmonad
-          jobs.haskellPackages.xmonad-contrib
-          # haskell packages maintained by @peti
-          # imported from the old hydra jobset
-          jobs.haskellPackages.hopenssl
-          jobs.haskellPackages.hsemail
-          jobs.haskellPackages.hsyslog
-        ])
-        ;
+        constituents =
+          let
+            # Filter out all Darwin derivations.  We don't want flakey Darwin
+            # derivations and flakey Hydra Darwin builders to block the
+            # mergeable job from successfully building.
+            filterInLinux = lib.filter (drv:
+              drv.system == "x86_64-linux" || drv.system == "aarch64-linux");
+          in
+          filterInLinux (accumulateDerivations [
+            # haskell specific tests
+            jobs.tests.haskell
+            # important top-level packages
+            jobs.cabal-install
+            jobs.cabal2nix
+            jobs.cachix
+            jobs.darcs
+            jobs.haskell-language-server
+            jobs.hledger
+            jobs.hledger-ui
+            jobs.hpack
+            jobs.niv
+            jobs.pandoc
+            jobs.stack
+            jobs.stylish-haskell
+            # important haskell (library) packages
+            jobs.haskellPackages.cabal-plan
+            jobs.haskellPackages.distribution-nixpkgs
+            jobs.haskellPackages.hackage-db
+            jobs.haskellPackages.xmonad
+            jobs.haskellPackages.xmonad-contrib
+            # haskell packages maintained by @peti
+            # imported from the old hydra jobset
+            jobs.haskellPackages.hopenssl
+            jobs.haskellPackages.hsemail
+            jobs.haskellPackages.hsyslog
+          ])
+          ;
       };
       maintained = pkgs.releaseTools.aggregate {
         name = "maintained-haskell-packages";

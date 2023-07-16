@@ -23,7 +23,7 @@ python3.pkgs.buildPythonApplication rec {
       python-magic
     ] ++ [ wireshark-cli ];
 
-  # Project has no tests
+    # Project has no tests
   doCheck = false;
   pythonImportsCheck = [ "hfinger" ];
 

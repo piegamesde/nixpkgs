@@ -31,7 +31,8 @@ buildPythonPackage rec {
     (fetchpatch {
       name = "switch-to-poetry-core.patch";
       url =
-        "https://github.com/HENNGE/arsenic/commit/ca82894a5f1e832ab9283a245258b334bdd48855.patch";
+        "https://github.com/HENNGE/arsenic/commit/ca82894a5f1e832ab9283a245258b334bdd48855.patch"
+        ;
       hash = "sha256-ECCUaJF4MRmFOKH1C6HowJ+zmbEPPiS7h9DlKw5otZc=";
     })
   ];
@@ -51,7 +52,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  # Depends on asyncio_extras which is not longer maintained
+    # Depends on asyncio_extras which is not longer maintained
   doCheck = false;
 
   pythonImportsCheck = [ "arsenic" ];

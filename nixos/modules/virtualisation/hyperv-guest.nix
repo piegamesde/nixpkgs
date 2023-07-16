@@ -48,10 +48,10 @@ in {
       ];
     };
 
-    environment.systemPackages =
-      [ config.boot.kernelPackages.hyperv-daemons.bin ];
+    environment.systemPackages = [ config.boot.kernelPackages.hyperv-daemons.bin ]
+      ;
 
-    # enable hotadding cpu/memory
+      # enable hotadding cpu/memory
     services.udev.packages = lib.singleton (pkgs.writeTextFile {
       name = "hyperv-cpu-and-memory-hotadd-udev-rules";
       destination = "/etc/udev/rules.d/99-hyperv-cpu-and-memory-hotadd.rules";

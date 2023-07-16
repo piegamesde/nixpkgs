@@ -8,7 +8,8 @@ with import ../../lib/testing-python.nix { inherit system pkgs; };
 with pkgs.lib;
 
 let
-  mkKubernetesBaseTest = {
+  mkKubernetesBaseTest =
+    {
       name,
       domain ? "my.zyx",
       test,
@@ -93,9 +94,10 @@ let
         start_all()
       '' + test;
     }
-  ;
+    ;
 
-  mkKubernetesMultiNodeTest = attrs:
+  mkKubernetesMultiNodeTest =
+    attrs:
     mkKubernetesBaseTest ({
       machines = {
         machine1 = {
@@ -109,9 +111,11 @@ let
       };
     } // attrs // {
       name = "kubernetes-${attrs.name}-multinode";
-    });
+    })
+    ;
 
-  mkKubernetesSingleNodeTest = attrs:
+  mkKubernetesSingleNodeTest =
+    attrs:
     mkKubernetesBaseTest ({
       machines = {
         machine1 = {
@@ -124,7 +128,8 @@ let
       };
     } // attrs // {
       name = "kubernetes-${attrs.name}-singlenode";
-    });
+    })
+    ;
 in {
   inherit
     mkKubernetesBaseTest

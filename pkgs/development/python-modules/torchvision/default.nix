@@ -88,7 +88,7 @@ buildPythonPackage {
       export FORCE_CUDA=1
     '';
 
-  # tries to download many datasets for tests
+    # tries to download many datasets for tests
   doCheck = false;
 
   pythonImportsCheck = [ "torchvision" ];

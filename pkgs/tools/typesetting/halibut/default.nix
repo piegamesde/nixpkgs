@@ -12,7 +12,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.chiark.greenend.org.uk/~sgtatham/halibut/halibut-${version}/halibut-${version}.tar.gz";
+      "https://www.chiark.greenend.org.uk/~sgtatham/halibut/halibut-${version}/halibut-${version}.tar.gz"
+      ;
     sha256 = "0ciikn878vivs4ayvwvr63nnhpcg12m8023xv514zxqpdxlzg85a";
   };
 

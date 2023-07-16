@@ -17,7 +17,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://launchpad.net/xpad/trunk/${version}/+download/xpad-${version}.tar.bz2";
+      "https://launchpad.net/xpad/trunk/${version}/+download/xpad-${version}.tar.bz2"
+      ;
     sha256 = "1qpmlwn0bcw1q73ag0l0fdnlzmwawfvsy4g9y5b0vyrc58lcp5d3";
   };
 

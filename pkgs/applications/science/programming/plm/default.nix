@@ -16,7 +16,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/BuggleInc/PLM/releases/download/v${version}/plm-${version}.jar";
+      "https://github.com/BuggleInc/PLM/releases/download/v${version}/plm-${version}.jar"
+      ;
     sha256 = "0i9ghx9pm3kpn9x9n1hl10zdr36v5mv3drx8lvhsqwhlsvz42p5i";
     name = "${pname}-${version}.jar";
   };

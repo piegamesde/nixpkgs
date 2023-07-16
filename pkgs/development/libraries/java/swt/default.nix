@@ -41,9 +41,9 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = [ "format" ];
 
-  # Alas, the Eclipse Project apparently doesn't produce source-only
-  # releases of SWT.  So we just grab a binary release and extract
-  # "src.zip" from that.
+    # Alas, the Eclipse Project apparently doesn't produce source-only
+    # releases of SWT.  So we just grab a binary release and extract
+    # "src.zip" from that.
   src = fetchzip {
     url = "https://archive.eclipse.org/eclipse/downloads/drops4/"
       + "R-${fullVersion}/${pname}-${version}-${metadata.platform}.zip";
@@ -88,39 +88,41 @@ stdenv.mkDerivation rec {
     sed -i 's/ \+$//' ./*.mak
   '';
 
-  postPatch = let
-    makefile-sed = builtins.toFile "swt-makefile.sed" (''
-      # fix pkg-config invocations in CFLAGS/LIBS pairs.
-      #
-      # change:
-      #     FOOCFLAGS = `pkg-config --cflags `foo bar`
-      #     FOOLIBS = `pkg-config --libs-only-L foo` -lbaz
-      # into:
-      #     FOOCFLAGS = `pkg-config --cflags foo bar`
-      #     FOOLIBS = `pkg-config --libs foo bar`
-      #
-      # the latter works more consistently.
-      /^[A-Z0-9_]\+CFLAGS = `pkg-config --cflags [^`]\+`$/ {
-        N
-        s'' + "/" + ''
-        ^\([A-Z0-9_]\+\)CFLAGS = `pkg-config --cflags \(.\+\)`\
-        \1LIBS = `pkg-config --libs-only-L .\+$'' + "/" + ''
-          \1CFLAGS = `pkg-config --cflags \2`\
-          \1LIBS = `pkg-config --libs \2`'' + ''
-            /
-          '' + ''
-            }
-            # fix WebKit libs not being there
-            s/\$(WEBKIT_LIB) \$(WEBKIT_OBJECTS)$/\0 `pkg-config --libs glib-2.0`/g
-          '');
-  in ''
-    declare -a makefiles=(./*.mak)
-    sed -i -f ${makefile-sed} "''${makefiles[@]}"
-    # assign Makefile variables eagerly & change backticks to `$(shell …)`
-    sed -i -e 's/ = `\([^`]\+\)`/ := $(shell \1)/' \
-      -e 's/`\([^`]\+\)`/$(shell \1)/' \
-      "''${makefiles[@]}"
-  '' ;
+  postPatch =
+    let
+      makefile-sed = builtins.toFile "swt-makefile.sed" (''
+        # fix pkg-config invocations in CFLAGS/LIBS pairs.
+        #
+        # change:
+        #     FOOCFLAGS = `pkg-config --cflags `foo bar`
+        #     FOOLIBS = `pkg-config --libs-only-L foo` -lbaz
+        # into:
+        #     FOOCFLAGS = `pkg-config --cflags foo bar`
+        #     FOOLIBS = `pkg-config --libs foo bar`
+        #
+        # the latter works more consistently.
+        /^[A-Z0-9_]\+CFLAGS = `pkg-config --cflags [^`]\+`$/ {
+          N
+          s'' + "/" + ''
+          ^\([A-Z0-9_]\+\)CFLAGS = `pkg-config --cflags \(.\+\)`\
+          \1LIBS = `pkg-config --libs-only-L .\+$'' + "/" + ''
+            \1CFLAGS = `pkg-config --cflags \2`\
+            \1LIBS = `pkg-config --libs \2`'' + ''
+              /
+            '' + ''
+              }
+              # fix WebKit libs not being there
+              s/\$(WEBKIT_LIB) \$(WEBKIT_OBJECTS)$/\0 `pkg-config --libs glib-2.0`/g
+            '');
+    in ''
+      declare -a makefiles=(./*.mak)
+      sed -i -f ${makefile-sed} "''${makefiles[@]}"
+      # assign Makefile variables eagerly & change backticks to `$(shell …)`
+      sed -i -e 's/ = `\([^`]\+\)`/ := $(shell \1)/' \
+        -e 's/`\([^`]\+\)`/$(shell \1)/' \
+        "''${makefiles[@]}"
+    ''
+    ;
 
   buildPhase = ''
     runHook preBuild

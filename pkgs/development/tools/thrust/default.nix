@@ -64,7 +64,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/breach/thrust/releases/download/v${version}/thrust-v${version}-linux-x64.zip";
+      "https://github.com/breach/thrust/releases/download/v${version}/thrust-v${version}-linux-x64.zip"
+      ;
     sha256 = "07rrnlj0gk500pvar4b1wdqm05p4n9yjwn911x93bd2qwc8r5ymc";
   };
 

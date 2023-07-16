@@ -9,7 +9,7 @@ buildPythonPackage rec {
   pname = "python-vxi11";
   version = "0.9";
 
-  # no tests in PyPI tarball
+    # no tests in PyPI tarball
   src = fetchFromGitHub {
     owner = "python-ivi";
     repo = pname;

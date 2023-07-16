@@ -10,7 +10,8 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://fontlibrary.org/assets/downloads/comic-relief/45c456b6db2aaf2f7f69ac66b5ac7239/comic-relief.zip";
+      "https://fontlibrary.org/assets/downloads/comic-relief/45c456b6db2aaf2f7f69ac66b5ac7239/comic-relief.zip"
+      ;
     stripRoot = false;
     hash = "sha256-lvkMfaQvLMZ8F0Q5JnpmMsIAkR+XfihoHIoS4z5QEvA=";
   };
@@ -44,9 +45,9 @@ stdenvNoCC.mkDerivation rec {
     platforms = platforms.all;
     maintainers = [ maintainers.rycee ];
 
-    # Reduce the priority of this package. The intent is that if you
-    # also install the `corefonts` package, then you probably will not
-    # want to install the font alias of this package.
+      # Reduce the priority of this package. The intent is that if you
+      # also install the `corefonts` package, then you probably will not
+      # want to install the font alias of this package.
     priority = 10;
   };
 }

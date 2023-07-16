@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-Layg1axFN86OFgxEyNFtIlm6Jtx317jZb/KH6IjJ8e4=";
 
-  #add missing dependencies and hashes
+    #add missing dependencies and hashes
   patches = [ ./go-modules.patch ];
 
   doCheck = false;

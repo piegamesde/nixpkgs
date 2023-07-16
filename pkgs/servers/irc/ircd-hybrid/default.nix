@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
   ];
 
   postInstall =
-    "echo postinstall; mkdir -p \${out}/ ; rm -rf \${out}/logs ; ln -s /home/ircd \${out}/logs;";
+    "echo postinstall; mkdir -p \${out}/ ; rm -rf \${out}/logs ; ln -s /home/ircd \${out}/logs;"
+    ;
 
   meta = {
     description = "An IPv6-capable IRC server";

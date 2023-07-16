@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ hypothesis ];
 
-  # pypi doesn't distribute tests
+    # pypi doesn't distribute tests
   doCheck = false;
 
   pythonImportsCheck = [ "rubymarshal" ];

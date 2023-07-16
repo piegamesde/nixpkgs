@@ -29,9 +29,9 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = [ openssl ] ++ lib.optional stdenv.isDarwin Security;
 
-  # disable downloading and building the tree-sitter grammars at build time
-  # grammars can be configured in a config file and installed with `zee --build`
-  # see https://github.com/zee-editor/zee#syntax-highlighting
+    # disable downloading and building the tree-sitter grammars at build time
+    # grammars can be configured in a config file and installed with `zee --build`
+    # see https://github.com/zee-editor/zee#syntax-highlighting
   ZEE_DISABLE_GRAMMAR_BUILD = 1;
 
   cargoHash = "sha256-fBBjtjM7AnyAL6EOFstL4h6yS+UoLgxck6Mc0tJcXaI=";

@@ -13,11 +13,13 @@ let
     ${generators.toINI {
       # String values need to be quoted
       mkKeyValue = generators.mkKeyValueDefault {
-        mkValueString = v:
+        mkValueString =
+          v:
           if isString v then
             ''"'' + (strings.escape [ ''"'' ] (toString v)) + ''"''
           else
-            generators.mkValueStringDefault { } v;
+            generators.mkValueStringDefault { } v
+          ;
       } " = ";
     } (lib.recursiveUpdate {
       Server = cfg.server;
@@ -26,10 +28,10 @@ let
       Preferences = cfg.preferences;
     } cfg.settings)}
   '';
-  # `hmac` is a secret used for cryptographic signing of video URLs.
-  # Generate it on first launch, then copy configuration and replace
-  # `@hmac@` with this value.
-  # We are not using sed as it would leak the value in the command line.
+    # `hmac` is a secret used for cryptographic signing of video URLs.
+    # Generate it on first launch, then copy configuration and replace
+    # `@hmac@` with this value.
+    # We are not using sed as it would leak the value in the command line.
   preStart = pkgs.writers.writePython3 "nitter-prestart" { } ''
     import os
     import secrets
@@ -81,7 +83,8 @@ in {
           type = types.bool;
           default = false;
           description = lib.mdDoc
-            "Set secure attribute on cookies. Keep it disabled to enable cookies when not using HTTPS.";
+            "Set secure attribute on cookies. Keep it disabled to enable cookies when not using HTTPS."
+            ;
         };
 
         httpMaxConnections = mkOption {
@@ -185,7 +188,8 @@ in {
           default = "";
           example = "nitter.net";
           description = lib.mdDoc
-            "Replace Twitter links with links to this instance (blank to disable).";
+            "Replace Twitter links with links to this instance (blank to disable)."
+            ;
         };
 
         replaceYouTube = mkOption {
@@ -193,7 +197,8 @@ in {
           default = "";
           example = "piped.kavin.rocks";
           description = lib.mdDoc
-            "Replace YouTube links with links to this instance (blank to disable).";
+            "Replace YouTube links with links to this instance (blank to disable)."
+            ;
         };
 
         replaceReddit = mkOption {
@@ -201,14 +206,16 @@ in {
           default = "";
           example = "teddit.net";
           description = lib.mdDoc
-            "Replace Reddit links with links to this instance (blank to disable).";
+            "Replace Reddit links with links to this instance (blank to disable)."
+            ;
         };
 
         replaceInstagram = mkOption {
           type = types.str;
           default = "";
           description = lib.mdDoc
-            "Replace Instagram links with links to this instance (blank to disable).";
+            "Replace Instagram links with links to this instance (blank to disable)."
+            ;
         };
 
         mp4Playback = mkOption {
@@ -252,8 +259,9 @@ in {
         infiniteScroll = mkOption {
           type = types.bool;
           default = false;
-          description = lib.mdDoc
-            "Infinite scrolling (requires JavaScript, experimental!).";
+          description =
+            lib.mdDoc "Infinite scrolling (requires JavaScript, experimental!)."
+            ;
         };
 
         stickyProfile = mkOption {
@@ -326,7 +334,8 @@ in {
       assertion = !cfg.redisCreateLocally
         || (cfg.cache.redisHost == "localhost" && cfg.cache.redisPort == 6379);
       message =
-        "When services.nitter.redisCreateLocally is enabled, you need to use localhost:6379 as a cache server.";
+        "When services.nitter.redisCreateLocally is enabled, you need to use localhost:6379 as a cache server."
+        ;
     } ];
 
     systemd.services.nitter = {
@@ -337,8 +346,8 @@ in {
         DynamicUser = true;
         StateDirectory = "nitter";
         Environment = [ "NITTER_CONF_FILE=/var/lib/nitter/nitter.conf" ];
-        # Some parts of Nitter expect `public` folder in working directory,
-        # see https://github.com/zedeus/nitter/issues/414
+          # Some parts of Nitter expect `public` folder in working directory,
+          # see https://github.com/zedeus/nitter/issues/414
         WorkingDirectory = "${cfg.package}/share/nitter";
         ExecStart = "${cfg.package}/bin/nitter";
         ExecStartPre = "${preStart}";
@@ -346,17 +355,19 @@ in {
           lib.mkIf (cfg.server.port < 1024) [ "CAP_NET_BIND_SERVICE" ];
         Restart = "on-failure";
         RestartSec = "5s";
-        # Hardening
-        CapabilityBoundingSet = if (cfg.server.port < 1024) then
-          [ "CAP_NET_BIND_SERVICE" ]
-        else
-          [ "" ];
+          # Hardening
+        CapabilityBoundingSet =
+          if (cfg.server.port < 1024) then
+            [ "CAP_NET_BIND_SERVICE" ]
+          else
+            [ "" ]
+          ;
         DeviceAllow = [ "" ];
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
         PrivateDevices = true;
-        # A private user cannot have process capabilities on the host's user
-        # namespace and thus CAP_NET_BIND_SERVICE has no effect.
+          # A private user cannot have process capabilities on the host's user
+          # namespace and thus CAP_NET_BIND_SERVICE has no effect.
         PrivateUsers = (cfg.server.port >= 1024);
         ProcSubset = "pid";
         ProtectClock = true;

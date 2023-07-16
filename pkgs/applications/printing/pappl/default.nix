@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
   patches = [ (fetchpatch {
     name = "file-offset-bits-64-linux.patch";
     url =
-      "https://github.com/michaelrsweet/pappl/commit/7ec4ce4331b6637c54a37943269e05d15ff6dd47.patch";
+      "https://github.com/michaelrsweet/pappl/commit/7ec4ce4331b6637c54a37943269e05d15ff6dd47.patch"
+      ;
     sha256 = "sha256-x5lriopWw6Mn2qjv19flsleEzPMHU4jYWRy0y6hTL5k=";
   }) ];
 
@@ -53,8 +54,8 @@ stdenv.mkDerivation rec {
     gnutls
   ] ++ lib.optionals withPAMSupport [ pam ];
 
-  # testing requires some networking
-  # doCheck = true;
+    # testing requires some networking
+    # doCheck = true;
 
   doInstallCheck = true;
   installCheckPhase = ''
@@ -68,8 +69,8 @@ stdenv.mkDerivation rec {
       "C-based framework/library for developing CUPS Printer Applications";
     homepage = "https://github.com/michaelrsweet/pappl";
     license = licenses.asl20;
-    platforms =
-      platforms.linux; # should also work for darwin, but requires additional work
+    platforms = platforms.linux
+      ; # should also work for darwin, but requires additional work
     maintainers = with maintainers; [ jonringer ];
   };
 }

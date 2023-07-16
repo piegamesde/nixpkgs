@@ -20,13 +20,14 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://damien.douxchamps.net/ieee1394/coriander/archives/coriander-${version}.tar.gz";
+      "http://damien.douxchamps.net/ieee1394/coriander/archives/coriander-${version}.tar.gz"
+      ;
     sha256 = "0l6hpfgy5r4yardilmdrggsnn1fbfww516sk5a90g1740cd435x5";
   };
 
-  # Workaround build failure on -fno-common toolchains:
-  #   ld: subtitles.o:src/coriander.h:110: multiple definition of
-  #     `main_window'; main.o:src/coriander.h:110: first defined here
+    # Workaround build failure on -fno-common toolchains:
+    #   ld: subtitles.o:src/coriander.h:110: multiple definition of
+    #     `main_window'; main.o:src/coriander.h:110: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   preConfigure = ''

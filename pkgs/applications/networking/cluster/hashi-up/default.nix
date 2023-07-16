@@ -19,7 +19,8 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "A lightweight utility to install HashiCorp Consul, Nomad, or Vault on any remote Linux host";
+      "A lightweight utility to install HashiCorp Consul, Nomad, or Vault on any remote Linux host"
+      ;
     homepage = "https://github.com/jsiebens/hashi-up";
     license = licenses.mit;
     maintainers = with maintainers; [ lucperkins ];

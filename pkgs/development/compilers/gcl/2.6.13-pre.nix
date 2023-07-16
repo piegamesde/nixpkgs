@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "gcl/gcl";
 
-  # breaks when compiling in parallel
+    # breaks when compiling in parallel
   enableParallelBuilding = false;
 
   patches = [ ];

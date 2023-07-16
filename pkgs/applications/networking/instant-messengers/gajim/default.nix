@@ -115,7 +115,7 @@ python3.pkgs.buildPythonApplication rec {
     ${python3.interpreter} -m unittest discover -s test/common -v
   '';
 
-  # necessary for wrapGAppsHook
+    # necessary for wrapGAppsHook
   strictDeps = false;
 
   meta = {

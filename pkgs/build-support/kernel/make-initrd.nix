@@ -13,11 +13,13 @@ let
   # the initramfs file and, if applicable, generating a u-boot image
   # from it.
   compressors = import ./initrd-compressor-meta.nix;
-  # Get the basename of the actual compression program from the whole
-  # compression command, for the purpose of guessing the u-boot
-  # compression type and filename extension.
-  compressorName = fullCommand:
-    builtins.elemAt (builtins.match "([^ ]*/)?([^ ]+).*" fullCommand) 1;
+    # Get the basename of the actual compression program from the whole
+    # compression command, for the purpose of guessing the u-boot
+    # compression type and filename extension.
+  compressorName =
+    fullCommand:
+    builtins.elemAt (builtins.match "([^ ]*/)?([^ ]+).*" fullCommand) 1
+    ;
 in
 {
   stdenvNoCC,
@@ -95,10 +97,12 @@ in
 }:
 let
   # !!! Move this into a public lib function, it is probably useful for others
-  toValidStoreName = x:
+  toValidStoreName =
+    x:
     with builtins;
     lib.concatStringsSep "-"
-    (filter (x: !(isList x)) (split "[^a-zA-Z0-9_=.?-]+" x));
+    (filter (x: !(isList x)) (split "[^a-zA-Z0-9_=.?-]+" x))
+    ;
 
 in
 stdenvNoCC.mkDerivation rec {
@@ -121,16 +125,16 @@ stdenvNoCC.mkDerivation rec {
   compress =
     "${_compressorExecutable} ${lib.escapeShellArgs _compressorArgsReal}";
 
-  # Pass the function through, for reuse in append-initrd-secrets. The
-  # function is used instead of the string, in order to support
-  # cross-compilation (append-initrd-secrets running on a different
-  # architecture than what the main initramfs is built on).
+    # Pass the function through, for reuse in append-initrd-secrets. The
+    # function is used instead of the string, in order to support
+    # cross-compilation (append-initrd-secrets running on a different
+    # architecture than what the main initramfs is built on).
   passthru = {
     compressorExecutableFunction = _compressorFunction;
     compressorArgs = _compressorArgsReal;
   };
 
-  # !!! should use XML.
+    # !!! should use XML.
   objects = map (x: x.object) contents;
   symlinks = map (x: x.symlink) contents;
   suffices = map (x:
@@ -139,9 +143,9 @@ stdenvNoCC.mkDerivation rec {
     else
       "none") contents;
 
-  # For obtaining the closure of `contents'.
-  # Note: we don't use closureInfo yet, as that won't build with nix-1.x.
-  # See #36268.
+    # For obtaining the closure of `contents'.
+    # Note: we don't use closureInfo yet, as that won't build with nix-1.x.
+    # See #36268.
   exportReferencesGraph = lib.zipListsWith (x: i: [
     ("closure-${toValidStoreName (baseNameOf x.symlink)}-${toString i}")
     x.object

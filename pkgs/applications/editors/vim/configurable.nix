@@ -123,8 +123,8 @@ stdenv.mkDerivation rec {
     default = common.src; # latest release
   };
 
-  patches = [ ./cflags-prune.diff ]
-    ++ lib.optional ftNixSupport ./ft-nix-support.patch;
+  patches =
+    [ ./cflags-prune.diff ] ++ lib.optional ftNixSupport ./ft-nix-support.patch;
 
   configureFlags = [
     "--with-features=${features}"
@@ -208,7 +208,7 @@ stdenv.mkDerivation rec {
     ] ++ lib.optional luaSupport lua ++ lib.optional pythonSupport python3
     ++ lib.optional tclSupport tcl ++ lib.optional rubySupport ruby;
 
-  # error: '__declspec' attributes are not enabled; use '-fdeclspec' or '-fms-extensions' to enable support for __declspec attributes
+    # error: '__declspec' attributes are not enabled; use '-fdeclspec' or '-fms-extensions' to enable support for __declspec attributes
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-fdeclspec";
 
   preConfigure = "" + lib.optionalString ftNixSupport ''

@@ -28,12 +28,13 @@ in {
         Currently only one graphical device can be shared. To allow users to access the device without root add them
         to the kvm group: `users.extraUsers.<yourusername>.extraGroups = [ "kvm" ];`
       '');
-      # multi GPU support is under the question
+        # multi GPU support is under the question
       device = mkOption {
         type = types.str;
         default = "0000:00:02.0";
         description = lib.mdDoc
-          "PCI ID of graphics card. You can figure it with {command}`ls /sys/class/mdev_bus`.";
+          "PCI ID of graphics card. You can figure it with {command}`ls /sys/class/mdev_bus`."
+          ;
       };
       vgpus = mkOption {
         default = { };
@@ -62,35 +63,40 @@ in {
       SUBSYSTEM=="vfio", OWNER="root", GROUP="kvm"
     '';
 
-    systemd = let
-      vgpus = listToAttrs (flatten (mapAttrsToList (mdev: opt:
-        map (id:
-          nameValuePair "kvmgt-${id}" {
-            inherit mdev;
-            uuid = id;
-          }) opt.uuid) cfg.vgpus));
-    in {
-      paths = mapAttrs (_: opt: {
-        description = "KVMGT VGPU ${opt.uuid} path";
-        wantedBy = [ "multi-user.target" ];
-        pathConfig = {
-          PathExists =
-            "/sys/bus/pci/devices/${cfg.device}/mdev_supported_types/${opt.mdev}/create";
-        };
-      }) vgpus;
+    systemd =
+      let
+        vgpus = listToAttrs (flatten (mapAttrsToList (mdev: opt:
+          map (id:
+            nameValuePair "kvmgt-${id}" {
+              inherit mdev;
+              uuid = id;
+            }) opt.uuid) cfg.vgpus));
+      in {
+        paths = mapAttrs (_: opt: {
+          description = "KVMGT VGPU ${opt.uuid} path";
+          wantedBy = [ "multi-user.target" ];
+          pathConfig = {
+            PathExists =
+              "/sys/bus/pci/devices/${cfg.device}/mdev_supported_types/${opt.mdev}/create"
+              ;
+          };
+        }) vgpus;
 
-      services = mapAttrs (_: opt: {
-        description = "KVMGT VGPU ${opt.uuid}";
-        serviceConfig = {
-          Type = "oneshot";
-          RemainAfterExit = true;
-          ExecStart =
-            "${pkgs.runtimeShell} -c 'echo ${opt.uuid} > /sys/bus/pci/devices/${cfg.device}/mdev_supported_types/${opt.mdev}/create'";
-          ExecStop =
-            "${pkgs.runtimeShell} -c 'echo 1 > /sys/bus/pci/devices/${cfg.device}/${opt.uuid}/remove'";
-        };
-      }) vgpus;
-    } ;
+        services = mapAttrs (_: opt: {
+          description = "KVMGT VGPU ${opt.uuid}";
+          serviceConfig = {
+            Type = "oneshot";
+            RemainAfterExit = true;
+            ExecStart =
+              "${pkgs.runtimeShell} -c 'echo ${opt.uuid} > /sys/bus/pci/devices/${cfg.device}/mdev_supported_types/${opt.mdev}/create'"
+              ;
+            ExecStop =
+              "${pkgs.runtimeShell} -c 'echo 1 > /sys/bus/pci/devices/${cfg.device}/${opt.uuid}/remove'"
+              ;
+          };
+        }) vgpus;
+      }
+      ;
   };
 
   meta.maintainers = with maintainers; [ patryk27 ];

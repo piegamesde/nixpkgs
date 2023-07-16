@@ -102,17 +102,17 @@ stdenv.mkDerivation rec {
       libX11
       libGL
     ];
-  # see https://github.com/NixOS/nixpkgs/pull/178367#issuecomment-1238827254
+    # see https://github.com/NixOS/nixpkgs/pull/178367#issuecomment-1238827254
 
   patches = map fetchpatch patchesToFetch;
 
   dontWrapQtApps = true;
 
-  # Shared libraries don't work, because of rpath troubles with the current
-  # nixpkgs cmake approach. It wants to call a binary at build time, just
-  # built and requiring one of the shared objects.
-  # At least, we use -fPIC for other packages to be able to use this in shared
-  # objects.
+    # Shared libraries don't work, because of rpath troubles with the current
+    # nixpkgs cmake approach. It wants to call a binary at build time, just
+    # built and requiring one of the shared objects.
+    # At least, we use -fPIC for other packages to be able to use this in shared
+    # objects.
   cmakeFlags = [
     "-DCMAKE_C_FLAGS=-fPIC"
     "-DCMAKE_CXX_FLAGS=-fPIC"
@@ -162,7 +162,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Open source libraries for 3D computer graphics, image processing and visualization";
+      "Open source libraries for 3D computer graphics, image processing and visualization"
+      ;
     homepage = "https://www.vtk.org/";
     license = licenses.bsd3;
     maintainers = with maintainers; [
@@ -170,8 +171,9 @@ stdenv.mkDerivation rec {
       tfmoraes
       lheckemann
     ];
-    platforms = with platforms; unix;
-    # /nix/store/xxxxxxx-apple-framework-Security/Library/Frameworks/Security.framework/Headers/Authorization.h:192:7: error: variably modified 'bytes' at file scope
+    platforms = with platforms;
+      unix;
+      # /nix/store/xxxxxxx-apple-framework-Security/Library/Frameworks/Security.framework/Headers/Authorization.h:192:7: error: variably modified 'bytes' at file scope
     broken = stdenv.isDarwin && (lib.versions.major majorVersion == "8");
   };
 }

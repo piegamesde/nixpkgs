@@ -66,13 +66,14 @@ import ../make-test-python.nix ({
     name = "lvm2-${flavour}-systemd-stage-1";
     meta.maintainers = with pkgs.lib.maintainers; [ das_j ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         lib,
         ...
       }: {
         imports = [ extraConfig ];
-        # Use systemd-boot
+          # Use systemd-boot
         virtualisation = {
           emptyDiskImages = [
             8192
@@ -99,7 +100,8 @@ import ../make-test-python.nix ({
 
         specialisation.boot-lvm.configuration.virtualisation.rootDevice =
           "/dev/test_vg/test_lv";
-      };
+      }
+      ;
 
     testScript = ''
       machine.wait_for_unit("multi-user.target")

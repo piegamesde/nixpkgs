@@ -89,13 +89,14 @@ stdenv.mkDerivation rec {
     # Fix crash on exit, remove on upgrade to 2.10.
     (fetchpatch {
       url =
-        "https://github.com/storaged-project/udisks/commit/6464e3083c27b9e4d97848b9e69e862f265511d5.patch";
+        "https://github.com/storaged-project/udisks/commit/6464e3083c27b9e4d97848b9e69e862f265511d5.patch"
+        ;
       hash = "sha256-XGprXjJLIL8l4P5MRTHV8GOQR1hpaaFiLgexGnO9Lvg=";
     })
   ];
 
   strictDeps = true;
-  # pkg-config had to be in both to find gtk-doc and gobject-introspection
+    # pkg-config had to be in both to find gtk-doc and gobject-introspection
   depsBuildBuild = [ pkg-config ];
   nativeBuildInputs = [
     autoreconfHook
@@ -153,14 +154,15 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A daemon, tools and libraries to access and manipulate disks, storage devices and technologies";
+      "A daemon, tools and libraries to access and manipulate disks, storage devices and technologies"
+      ;
     homepage = "https://www.freedesktop.org/wiki/Software/udisks/";
     license = with licenses; [
       lgpl2Plus
       gpl2Plus
     ]; # lgpl2Plus for the library, gpl2Plus for the tools & daemon
-    maintainers = teams.freedesktop.members
-      ++ (with maintainers; [ johnazoidberg ]);
+    maintainers =
+      teams.freedesktop.members ++ (with maintainers; [ johnazoidberg ]);
     platforms = platforms.linux;
   };
 }

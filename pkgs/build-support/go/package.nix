@@ -78,37 +78,45 @@
 with builtins;
 
 let
-  dep2src = goDep: {
-    inherit (goDep) goPackagePath;
-    src = if goDep.fetch.type == "git" then
-      fetchgit { inherit (goDep.fetch) url rev sha256; }
-    else if goDep.fetch.type == "hg" then
-      fetchhg { inherit (goDep.fetch) url rev sha256; }
-    else if goDep.fetch.type == "bzr" then
-      fetchbzr { inherit (goDep.fetch) url rev sha256; }
-    else if goDep.fetch.type == "FromGitHub" then
-      fetchFromGitHub { inherit (goDep.fetch) owner repo rev sha256; }
-    else
-      abort "Unrecognized package fetch type: ${goDep.fetch.type}";
-  };
+  dep2src =
+    goDep: {
+      inherit (goDep) goPackagePath;
+      src =
+        if goDep.fetch.type == "git" then
+          fetchgit { inherit (goDep.fetch) url rev sha256; }
+        else if goDep.fetch.type == "hg" then
+          fetchhg { inherit (goDep.fetch) url rev sha256; }
+        else if goDep.fetch.type == "bzr" then
+          fetchbzr { inherit (goDep.fetch) url rev sha256; }
+        else if goDep.fetch.type == "FromGitHub" then
+          fetchFromGitHub { inherit (goDep.fetch) owner repo rev sha256; }
+        else
+          abort "Unrecognized package fetch type: ${goDep.fetch.type}"
+        ;
+    }
+    ;
 
-  importGodeps = {
+  importGodeps =
+    {
       depsFile,
     }:
-    map dep2src (import depsFile);
+    map dep2src (import depsFile)
+    ;
 
-  goPath = if goDeps != null then
-    importGodeps { depsFile = goDeps; } ++ extraSrcs
-  else
-    extraSrcs;
+  goPath =
+    if goDeps != null then
+      importGodeps { depsFile = goDeps; } ++ extraSrcs
+    else
+      extraSrcs
+    ;
   package = stdenv.mkDerivation ((builtins.removeAttrs args [
     "goPackageAliases"
     "disabled"
     "extraSrcs"
   ]) // {
 
-    nativeBuildInputs = [ go ] ++ (lib.optional (!dontRenameImports) govers)
-      ++ nativeBuildInputs;
+    nativeBuildInputs =
+      [ go ] ++ (lib.optional (!dontRenameImports) govers) ++ nativeBuildInputs;
     buildInputs = buildInputs;
 
     inherit (go) GOOS GOARCH GO386;
@@ -180,11 +188,14 @@ let
     renameImports = args.renameImports or (let
       inputsWithAliases = lib.filter (x: x ? goPackageAliases)
         (buildInputs ++ (args.propagatedBuildInputs or [ ]));
-      rename = to: from:
-        "echo Renaming '${from}' to '${to}'; govers -d -m ${from} ${to}";
-      renames = p:
-        lib.concatMapStringsSep "\n" (rename p.goPackagePath)
-        p.goPackageAliases;
+      rename =
+        to: from:
+        "echo Renaming '${from}' to '${to}'; govers -d -m ${from} ${to}"
+        ;
+      renames =
+        p:
+        lib.concatMapStringsSep "\n" (rename p.goPackagePath) p.goPackageAliases
+        ;
     in
     lib.concatMapStringsSep "\n" renames inputsWithAliases
     );

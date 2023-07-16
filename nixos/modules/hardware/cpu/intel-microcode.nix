@@ -23,7 +23,7 @@ with lib;
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf config.hardware.cpu.intel.updateMicrocode {
     # Microcode updates must be the first item prepended in the initrd

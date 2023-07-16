@@ -27,7 +27,7 @@ buildPythonApplication rec {
     sha256 = "1rh7q432ynbysapsd075nif975ync71icpb71x2mb4j8jx1vzs45";
   };
 
-  # see: https://github.com/persepolisdm/persepolis/blob/3.2.0/setup.py#L130
+    # see: https://github.com/persepolisdm/persepolis/blob/3.2.0/setup.py#L130
   doCheck = false;
 
   preBuild = ''
@@ -44,11 +44,11 @@ buildPythonApplication rec {
     cp $src/xdg/com.github.persepolisdm.persepolis.desktop $out/share/applications
   '';
 
-  # prevent double wrapping
+    # prevent double wrapping
   dontWrapQtApps = true;
   nativeBuildInputs = [ wrapQtAppsHook ];
 
-  # feed args to wrapPythonApp
+    # feed args to wrapPythonApp
   makeWrapperArgs = [
     "--prefix PATH : ${
       lib.makeBinPath [

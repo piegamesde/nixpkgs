@@ -22,7 +22,7 @@ buildPythonPackage rec {
     gevent-websocket
   ];
 
-  # upstream doesn't have any tests, single file
+    # upstream doesn't have any tests, single file
   doCheck = false;
 
   pythonImportsCheck = [ "flask_sockets" ];

@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
   ] ++ lib.optional useLua lua5_3 ++ lib.optional usePcre pcre
     ++ lib.optional stdenv.isLinux systemd;
 
-  # TODO: make it work on bsd as well
+    # TODO: make it work on bsd as well
   makeFlags = [
     "PREFIX=${placeholder "out"}"
     ("TARGET=" + (if stdenv.isSunOS then

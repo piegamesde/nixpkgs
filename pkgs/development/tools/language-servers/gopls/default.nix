@@ -20,7 +20,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  # Only build gopls, and not the integration tests or documentation generator.
+    # Only build gopls, and not the integration tests or documentation generator.
   subPackages = [ "." ];
 
   meta = with lib; {

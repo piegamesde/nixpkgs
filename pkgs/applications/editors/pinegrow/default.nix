@@ -41,8 +41,8 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "pinegrow";
-  # deactivate auto update, because an old 6.21 version is getting mixed up
-  # see e.g. https://github.com/NixOS/nixpkgs/pull/184460
+    # deactivate auto update, because an old 6.21 version is getting mixed up
+    # see e.g. https://github.com/NixOS/nixpkgs/pull/184460
   version =
     versions.${pinegrowVersion}.version; # nixpkgs-update: no auto update
 
@@ -79,7 +79,7 @@ stdenv.mkDerivation rec {
 
   dontUnpack = true;
 
-  # Extract and copy executable in $out/bin
+    # Extract and copy executable in $out/bin
   installPhase = ''
     runHook preInstall
 
@@ -96,7 +96,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  # GSETTINGS_SCHEMAS_PATH is not set in installPhase
+    # GSETTINGS_SCHEMAS_PATH is not set in installPhase
   preFixup = ''
     wrapProgram $out/bin/pinegrow \
       ''${makeWrapperArgs[@]} \

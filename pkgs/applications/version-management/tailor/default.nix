@@ -16,12 +16,13 @@ python3.pkgs.buildPythonApplication rec {
 
   propagatedBuildInputs = with python3.pkgs; [ future ];
 
-  # AssertionError: Tailor Darcs repository not found!
+    # AssertionError: Tailor Darcs repository not found!
   doCheck = false;
 
   meta = with lib; {
     description =
-      "A tool to migrate changesets between various kinds of version control system.";
+      "A tool to migrate changesets between various kinds of version control system."
+      ;
     longDescription = ''
       With its ability to "translate the history" from one VCS kind to another,
       this tool makes it easier to keep the upstream changes merged in

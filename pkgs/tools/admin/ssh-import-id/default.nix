@@ -33,7 +33,7 @@ buildPythonPackage rec {
     installManPage $src/usr/share/man/man1/ssh-import-id.1
   '';
 
-  # handlers require main bin, main bin requires handlers
+    # handlers require main bin, main bin requires handlers
   makeWrapperArgs = [
     "--prefix"
     ":"

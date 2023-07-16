@@ -24,8 +24,8 @@ buildPythonPackage rec {
     async-timeout
   ];
 
-  # Project doesn't ship the tests
-  # https://github.com/kstaniek/python-ampio-smog-api/issues/2
+    # Project doesn't ship the tests
+    # https://github.com/kstaniek/python-ampio-smog-api/issues/2
   doCheck = false;
 
   pythonImportsCheck = [ "asmog" ];

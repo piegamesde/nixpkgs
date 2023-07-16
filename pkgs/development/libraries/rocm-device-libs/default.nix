@@ -9,12 +9,14 @@
 }:
 
 let
-  llvmNativeTarget = if stdenv.isx86_64 then
-    "X86"
-  else if stdenv.isAarch64 then
-    "AArch64"
-  else
-    throw "Unsupported ROCm LLVM platform";
+  llvmNativeTarget =
+    if stdenv.isx86_64 then
+      "X86"
+    else if stdenv.isAarch64 then
+      "AArch64"
+    else
+      throw "Unsupported ROCm LLVM platform"
+    ;
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "rocm-device-libs";
@@ -49,7 +51,7 @@ stdenv.mkDerivation (finalAttrs: {
     license = licenses.ncsa;
     maintainers = with maintainers; [ lovesegfault ] ++ teams.rocm.members;
     platforms = platforms.linux;
-    broken = versions.minor finalAttrs.version
-      != versions.minor stdenv.cc.version;
+    broken =
+      versions.minor finalAttrs.version != versions.minor stdenv.cc.version;
   };
 })

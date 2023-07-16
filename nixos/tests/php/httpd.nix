@@ -7,7 +7,8 @@ import ../make-test-python.nix ({
     name = "php-${php.version}-httpd-test";
     meta.maintainers = lib.teams.php.members;
 
-    nodes.machine = {
+    nodes.machine =
+      {
         config,
         lib,
         pkgs,
@@ -16,17 +17,21 @@ import ../make-test-python.nix ({
         services.httpd = {
           enable = true;
           adminAddr = "admin@phpfpm";
-          virtualHosts."phpfpm" = let
-            testdir = pkgs.writeTextDir "web/index.php" "<?php phpinfo();";
-          in {
-            documentRoot = "${testdir}/web";
-            locations."/" = { index = "index.php index.html"; };
-          } ;
+          virtualHosts."phpfpm" =
+            let
+              testdir = pkgs.writeTextDir "web/index.php" "<?php phpinfo();";
+            in {
+              documentRoot = "${testdir}/web";
+              locations."/" = { index = "index.php index.html"; };
+            }
+            ;
           phpPackage = php;
           enablePHP = true;
         };
-      };
-    testScript = {
+      }
+      ;
+    testScript =
+      {
         ...
       }: ''
         machine.wait_for_unit("httpd.service")
@@ -38,5 +43,6 @@ import ../make-test-python.nix ({
         # Check so we have database and some other extensions loaded
         for ext in ["json", "opcache", "pdo_mysql", "pdo_pgsql", "pdo_sqlite"]:
             assert ext in response, f"Missing {ext} extension"
-      '';
+      ''
+      ;
   })

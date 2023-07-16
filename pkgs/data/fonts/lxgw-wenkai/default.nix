@@ -10,7 +10,8 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/lxgw/LxgwWenKai/releases/download/v${version}/${pname}-v${version}.tar.gz";
+      "https://github.com/lxgw/LxgwWenKai/releases/download/v${version}/${pname}-v${version}.tar.gz"
+      ;
     hash = "sha256-Nkd0xXYCnR0NZAk/JCxy+zOlxIxD52Px4F9o2L9mgRE=";
   };
 

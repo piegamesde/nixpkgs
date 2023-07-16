@@ -20,14 +20,15 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  # no tests implemented
+    # no tests implemented
   doCheck = false;
 
   pythonImportsCheck = [ "nextcloudmonitor" ];
 
   meta = with lib; {
     changelog =
-      "https://github.com/meichthys/nextcloud_monitor/blob/${src.rev}/README.md#change-log";
+      "https://github.com/meichthys/nextcloud_monitor/blob/${src.rev}/README.md#change-log"
+      ;
     description = "Python wrapper around nextcloud monitor api";
     homepage = "https://github.com/meichthys/nextcloud_monitor";
     license = licenses.mit;

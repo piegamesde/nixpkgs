@@ -17,7 +17,7 @@ buildPythonPackage rec {
   version = "2.4.8";
   disabled = pythonOlder "3.6";
 
-  # no tests in PyPI dist
+    # no tests in PyPI dist
   src = fetchFromGitHub {
     owner = "icometrix";
     repo = pname;
@@ -34,9 +34,9 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  # python-gdcm just builds the python interface provided by the "gdcm" package, so
-  # we should be able to replace "python-gdcm" with "gdcm" but this doesn't work
-  # (similar to https://github.com/NixOS/nixpkgs/issues/84774)
+    # python-gdcm just builds the python interface provided by the "gdcm" package, so
+    # we should be able to replace "python-gdcm" with "gdcm" but this doesn't work
+    # (similar to https://github.com/NixOS/nixpkgs/issues/84774)
   postPatch = ''
     substituteInPlace setup.py --replace "python-gdcm" ""
     substituteInPlace tests/test_generic.py --replace "from common" "from dicom2nifti.common"

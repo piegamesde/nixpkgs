@@ -4,7 +4,8 @@ import ../make-test-python.nix ({
     name = "spark";
 
     nodes = {
-      worker = {
+      worker =
+        {
           nodes,
           pkgs,
           ...
@@ -14,8 +15,10 @@ import ../make-test-python.nix ({
             master = "master:7077";
           };
           virtualisation.memorySize = 2048;
-        };
-      master = {
+        }
+        ;
+      master =
+        {
           config,
           pkgs,
           ...
@@ -29,7 +32,8 @@ import ../make-test-python.nix ({
             7077
             8080
           ];
-        };
+        }
+        ;
     };
 
     testScript = ''

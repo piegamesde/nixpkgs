@@ -67,7 +67,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.rsyslog.com/files/download/rsyslog/${pname}-${version}.tar.gz";
+      "https://www.rsyslog.com/files/download/rsyslog/${pname}-${version}.tar.gz"
+      ;
     hash = "sha256-0JDpAoPrS4Dei0Pl/8bktZxOOXDyqpHmO+7woRcg100=";
   };
 
@@ -96,8 +97,8 @@ stdenv.mkDerivation rec {
     ] ++ lib.optional withCzmq czmq ++ lib.optional withRabbitmq rabbitmq-c
     ++ lib.optional withHiredis hiredis
     ++ lib.optional withMaxminddb libmaxminddb
-    ++ lib.optional withMysql libmysqlclient
-    ++ lib.optional withSystemd systemd;
+    ++ lib.optional withMysql libmysqlclient ++ lib.optional withSystemd systemd
+    ;
 
   configureFlags = with lib; [
     "--sysconfdir=/etc"

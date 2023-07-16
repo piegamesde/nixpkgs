@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
   pname = "gnome-bluetooth";
   version = "42.5";
 
-  # TODO: split out "lib"
+    # TODO: split out "lib"
   outputs = [
     "out"
     "dev"
@@ -58,8 +58,9 @@ stdenv.mkDerivation rec {
     docbook-xsl-nons
     docbook_xml_dtd_43
     python3
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute
-    stdenv.hostPlatform) [ mesonEmulatorHook ];
+  ] ++ lib.optionals
+    (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ]
+    ;
 
   buildInputs = [
     glib

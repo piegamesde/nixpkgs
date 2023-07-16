@@ -8,7 +8,7 @@
 let
   space-station-14-launcher = callPackage ./space-station-14-launcher.nix { };
 
-  # Workaround for hardcoded soundfont paths in downloaded engine assemblies.
+    # Workaround for hardcoded soundfont paths in downloaded engine assemblies.
   soundfont-fluid-fixed = runCommand "soundfont-fluid-fixed" { } ''
     mkdir -p "$out/share/soundfonts"
     ln -sf ${soundfont-fluid}/share/soundfonts/FluidR3_GM2-2.sf2 $out/share/soundfonts/FluidR3_GM.sf2
@@ -17,10 +17,12 @@ in
 buildFHSEnv rec {
   name = "space-station-14-launcher-wrapped";
 
-  targetPkgs = pkgs: [
-    space-station-14-launcher
-    soundfont-fluid-fixed
-  ];
+  targetPkgs =
+    pkgs: [
+      space-station-14-launcher
+      soundfont-fluid-fixed
+    ]
+    ;
 
   runScript = "SS14.Launcher";
 

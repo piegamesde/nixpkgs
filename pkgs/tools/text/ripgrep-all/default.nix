@@ -42,8 +42,8 @@ rustPlatform.buildRustPackage rec {
       }"
   '';
 
-  # Use upstream's example data to run a couple of queries to ensure the dependencies
-  # for all of the adapters are available.
+    # Use upstream's example data to run a couple of queries to ensure the dependencies
+    # for all of the adapters are available.
   installCheckPhase = ''
     set -e
     export PATH="$PATH:$out/bin"
@@ -68,7 +68,8 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "Ripgrep, but also search in PDFs, E-Books, Office documents, zip, tar.gz, and more";
+      "Ripgrep, but also search in PDFs, E-Books, Office documents, zip, tar.gz, and more"
+      ;
     longDescription = ''
       Ripgrep, but also search in PDFs, E-Books, Office documents, zip, tar.gz, etc.
 

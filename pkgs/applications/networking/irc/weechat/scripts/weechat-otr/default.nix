@@ -33,7 +33,7 @@ let
 
     buildInputs = [ gmp ];
 
-    # Tests are relying on old Python 2 modules.
+      # Tests are relying on old Python 2 modules.
     doCheck = false;
 
     preConfigure = ''

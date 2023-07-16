@@ -61,7 +61,7 @@ buildPythonApplication rec {
     re-assert
   ];
 
-  # i686-linux: dotnet-sdk not available
+    # i686-linux: dotnet-sdk not available
   doCheck = stdenv.buildPlatform.system != "i686-linux";
 
   postPatch = ''
@@ -167,7 +167,8 @@ buildPythonApplication rec {
 
   meta = with lib; {
     description =
-      "A framework for managing and maintaining multi-language pre-commit hooks";
+      "A framework for managing and maintaining multi-language pre-commit hooks"
+      ;
     homepage = "https://pre-commit.com/";
     license = licenses.mit;
     maintainers = with maintainers; [ borisbabic ];

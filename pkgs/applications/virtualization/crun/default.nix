@@ -69,8 +69,8 @@ stdenv.mkDerivation rec {
 
   NIX_LDFLAGS = "-lcriu";
 
-  # we need this before autoreconfHook does its thing in order to initialize
-  # config.h with the correct values
+    # we need this before autoreconfHook does its thing in order to initialize
+    # config.h with the correct values
   postPatch = ''
     echo ${version} > .tarball-version
     echo '#define GIT_VERSION "${src.rev}"' > git-version.h
@@ -87,7 +87,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     changelog = "https://github.com/containers/crun/releases/tag/${version}";
     description =
-      "A fast and lightweight fully featured OCI runtime and C library for running containers";
+      "A fast and lightweight fully featured OCI runtime and C library for running containers"
+      ;
     homepage = "https://github.com/containers/crun";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;

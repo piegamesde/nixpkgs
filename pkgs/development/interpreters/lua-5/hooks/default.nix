@@ -12,7 +12,8 @@ let
   luaInterpreter = lua.interpreter;
 in {
 
-  lua-setup-hook = LuaPathSearchPaths: LuaCPathSearchPaths:
+  lua-setup-hook =
+    LuaPathSearchPaths: LuaCPathSearchPaths:
     let
       hook = ./setup-hook.sh;
     in
@@ -25,7 +26,7 @@ in {
       substituteAllInPlace hook.sh
       mv hook.sh $out
     ''
-  ;
+    ;
 
   luarocksCheckHook = callPackage ({
       luarocks,
@@ -35,8 +36,8 @@ in {
       propagatedBuildInputs = [ luarocks ];
     } ./luarocks-check-hook.sh) { };
 
-  # luarocks installs data in a non-overridable location. Until a proper luarocks patch,
-  # we move the files around ourselves
+    # luarocks installs data in a non-overridable location. Until a proper luarocks patch,
+    # we move the files around ourselves
   luarocksMoveDataFolder = callPackage ({ }:
     makeSetupHook {
       name = "luarocks-move-rock";

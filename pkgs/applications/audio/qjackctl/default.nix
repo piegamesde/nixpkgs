@@ -19,7 +19,7 @@ mkDerivation rec {
   version = "0.9.10";
   pname = "qjackctl";
 
-  # some dependencies such as killall have to be installed additionally
+    # some dependencies such as killall have to be installed additionally
 
   src = fetchFromGitHub {
     owner = "rncbc";

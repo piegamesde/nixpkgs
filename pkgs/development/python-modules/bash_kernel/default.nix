@@ -23,7 +23,8 @@ buildPythonPackage rec {
 
   patches = [ (fetchpatch {
     url =
-      "https://patch-diff.githubusercontent.com/raw/takluyver/bash_kernel/pull/69.diff";
+      "https://patch-diff.githubusercontent.com/raw/takluyver/bash_kernel/pull/69.diff"
+      ;
     sha256 = "1qd7qjjmcph4dk6j0bl31h2fdmfiyyazvrc9xqqj8y21ki2sl33j";
   }) ];
 
@@ -38,7 +39,7 @@ buildPythonPackage rec {
     pexpect
   ];
 
-  # no tests
+    # no tests
   doCheck = false;
 
   preBuild = ''

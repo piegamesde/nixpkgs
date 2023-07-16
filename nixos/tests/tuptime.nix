@@ -5,13 +5,15 @@ import ./make-test-python.nix ({
     name = "tuptime";
     meta = with pkgs.lib.maintainers; { maintainers = [ evils ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
         imports = [ ../modules/profiles/minimal.nix ];
         services.tuptime.enable = true;
-      };
+      }
+      ;
 
     testScript = ''
       # see if it starts

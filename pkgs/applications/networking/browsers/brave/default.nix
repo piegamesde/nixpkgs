@@ -135,7 +135,7 @@ let
     "VaapiVideoEncoder"
   ] ++ optional enableVulkan "Vulkan";
 
-  # The feature disable is needed for VAAPI to work correctly: https://github.com/brave/brave-browser/issues/20935
+    # The feature disable is needed for VAAPI to work correctly: https://github.com/brave/brave-browser/issues/20935
   disableFeatures =
     optional enableVideoAcceleration "UseChromeOSDirectVideoDecoder";
 
@@ -146,7 +146,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/brave/brave-browser/releases/download/v${version}/brave-browser_${version}_amd64.deb";
+      "https://github.com/brave/brave-browser/releases/download/v${version}/brave-browser_${version}_amd64.deb"
+      ;
     sha256 = "sha256-O0nzJvnZU1xIzEtGdp/syQJqS4xMTrWBcNj01dLKc0U=";
   };
 
@@ -171,7 +172,8 @@ stdenv.mkDerivation rec {
   ];
 
   unpackPhase =
-    "dpkg-deb --fsys-tarfile $src | tar -x --no-same-permissions --no-same-owner";
+    "dpkg-deb --fsys-tarfile $src | tar -x --no-same-permissions --no-same-owner"
+    ;
 
   installPhase = ''
     runHook preInstall

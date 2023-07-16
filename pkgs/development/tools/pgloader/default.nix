@@ -18,7 +18,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/dimitri/pgloader/releases/download/v3.6.9/pgloader-bundle-3.6.9.tgz";
+      "https://github.com/dimitri/pgloader/releases/download/v3.6.9/pgloader-bundle-3.6.9.tgz"
+      ;
     sha256 = "sha256-pdCcRmoJnrfVnkhbT0WqLrRbCtOEmRgGRsXK+3uByeA=";
   };
 
@@ -63,7 +64,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://pgloader.io/";
     description =
-      "Loads data into PostgreSQL and allows you to implement Continuous Migration from your current database to PostgreSQL";
+      "Loads data into PostgreSQL and allows you to implement Continuous Migration from your current database to PostgreSQL"
+      ;
     maintainers = with maintainers; [ mguentner ];
     license = licenses.postgresql;
     platforms = platforms.all;

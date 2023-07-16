@@ -79,7 +79,7 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  # disable installation of the python scripting interface
+    # disable installation of the python scripting interface
   cmakeFlags = [ "-DBUILD_HSI:BOOl=OFF" ];
 
   env.NIX_CFLAGS_COMPILE = "-I${ilmbase.dev}/include/OpenEXR";
@@ -97,7 +97,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "http://hugin.sourceforge.net/";
     description =
-      "Toolkit for stitching photographs and assembling panoramas, together with an easy to use graphical front end";
+      "Toolkit for stitching photographs and assembling panoramas, together with an easy to use graphical front end"
+      ;
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ hrdinka ];
     platforms = platforms.linux;

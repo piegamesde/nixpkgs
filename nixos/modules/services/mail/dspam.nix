@@ -68,7 +68,8 @@ in {
         type = types.nullOr types.path;
         default = defaultSock;
         description = lib.mdDoc
-          "Path to local domain socket which is used for communication with the daemon. Set to null to disable UNIX socket.";
+          "Path to local domain socket which is used for communication with the daemon. Set to null to disable UNIX socket."
+          ;
       };
 
       extraConfig = mkOption {
@@ -81,14 +82,15 @@ in {
         type = types.nullOr types.str;
         default = null;
         description = lib.mdDoc
-          "If set, maintenance script will be run at specified (in systemd.timer format) interval";
+          "If set, maintenance script will be run at specified (in systemd.timer format) interval"
+          ;
       };
 
     };
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable (mkMerge [
     {
@@ -124,7 +126,7 @@ in {
           StateDirectoryMode = "0750";
           LogsDirectory = "dspam";
           LogsDirectoryMode = "0750";
-          # DSPAM segfaults on just about every error
+            # DSPAM segfaults on just about every error
           Restart = "on-abort";
           RestartSec = "1s";
         };

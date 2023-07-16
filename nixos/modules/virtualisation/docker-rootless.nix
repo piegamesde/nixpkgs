@@ -61,7 +61,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
     environment.systemPackages = [ cfg.package ];
@@ -72,11 +72,11 @@ in {
       fi
     '';
 
-    # Taken from https://github.com/moby/moby/blob/master/contrib/dockerd-rootless-setuptool.sh
+      # Taken from https://github.com/moby/moby/blob/master/contrib/dockerd-rootless-setuptool.sh
     systemd.user.services.docker = {
       wantedBy = [ "default.target" ];
       description = "Docker Application Container Engine (Rootless)";
-      # needs newuidmap from pkgs.shadow
+        # needs newuidmap from pkgs.shadow
       path = [ "/run/wrappers" ];
       environment = proxy_env;
       unitConfig = {
@@ -87,7 +87,8 @@ in {
       serviceConfig = {
         Type = "notify";
         ExecStart =
-          "${cfg.package}/bin/dockerd-rootless --config-file=${daemonSettingsFile}";
+          "${cfg.package}/bin/dockerd-rootless --config-file=${daemonSettingsFile}"
+          ;
         ExecReload = "${pkgs.procps}/bin/kill -s HUP $MAINPID";
         TimeoutSec = 0;
         RestartSec = 2;

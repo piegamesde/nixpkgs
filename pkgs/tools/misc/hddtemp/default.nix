@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-YYVBWEBUCT1TvootnoHJcXTzDwCvkcuHAKl+RC1571s=";
   };
 
-  # from Gentoo
+    # from Gentoo
   patches = [
     ./byteswap.patch
     ./dontwake.patch
@@ -27,8 +27,9 @@ stdenv.mkDerivation rec {
     ./satacmds.patch
   ];
 
-  configureFlags =
-    [ "--with-db-path=${placeholder "out"}/share/${pname}/hddtemp.db" ];
+  configureFlags = [ "--with-db-path=${
+      placeholder "out"
+    }/share/${pname}/hddtemp.db" ];
 
   postInstall = ''
     install -Dm444 ${db} $out/share/${pname}/hddtemp.db

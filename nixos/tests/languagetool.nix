@@ -9,12 +9,14 @@ import ./make-test-python.nix ({
     name = "languagetool";
     meta = with lib.maintainers; { maintainers = [ fbeffa ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         services.languagetool.enable = true;
         services.languagetool.port = port;
-      };
+      }
+      ;
 
     testScript = ''
       machine.start()

@@ -12,7 +12,7 @@ import ./make-test-python.nix ({
       src = pkgs.fetchFromGitHub {
         owner = "xxh";
         repo = "xxh-shell-zsh";
-        # gets rarely updated, we can then just replace the hash
+          # gets rarely updated, we can then just replace the hash
         rev = "91e1f84f8d6e0852c3235d4813f341230cac439f";
         sha256 = "sha256-Y1FrIRxTd0yooK+ZzKcCd6bLSy5E2fRXYAzrIsm7rIc=";
       };
@@ -32,7 +32,8 @@ import ./make-test-python.nix ({
     zsh-portable-binary = pkgs.fetchurl {
       # kept in sync with https://github.com/xxh/xxh-shell-zsh/tree/master/build.sh#L27
       url =
-        "https://github.com/romkatv/zsh-bin/releases/download/v3.0.1/zsh-5.8-linux-x86_64.tar.gz";
+        "https://github.com/romkatv/zsh-bin/releases/download/v3.0.1/zsh-5.8-linux-x86_64.tar.gz"
+        ;
       sha256 = "sha256-i8flMd2Isc0uLoeYQNDnOGb/kK3oTFVqQgIx7aOAIIo=";
     };
   in {
@@ -40,14 +41,17 @@ import ./make-test-python.nix ({
     meta = with lib.maintainers; { maintainers = [ lom ]; };
 
     nodes = {
-      server = {
+      server =
+        {
           ...
         }: {
           services.openssh.enable = true;
           users.users.root.openssh.authorizedKeys.keys = [ snakeOilPublicKey ];
-        };
+        }
+        ;
 
-      client = {
+      client =
+        {
           ...
         }: {
           programs.zsh.enable = true;
@@ -56,7 +60,8 @@ import ./make-test-python.nix ({
             xxh
             git
           ];
-        };
+        }
+        ;
     };
 
     testScript = ''

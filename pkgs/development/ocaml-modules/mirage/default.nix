@@ -34,7 +34,7 @@ buildDunePackage rec {
     stdlib-shims
   ];
 
-  # Tests need opam-monorepo
+    # Tests need opam-monorepo
   doCheck = false;
   checkInputs = [ alcotest ];
 

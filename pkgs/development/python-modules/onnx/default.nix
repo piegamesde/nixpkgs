@@ -85,12 +85,12 @@ buildPythonPackage rec {
     export MAX_JOBS=$NIX_BUILD_CORES
   '';
 
-  # The executables are just utility scripts that aren't too important
+    # The executables are just utility scripts that aren't too important
   postInstall = ''
     rm -r $out/bin
   '';
 
-  # The setup.py does all the configuration
+    # The setup.py does all the configuration
   dontUseCmakeConfigure = true;
 
   doCheck = true;

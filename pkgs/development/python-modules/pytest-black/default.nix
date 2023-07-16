@@ -26,7 +26,7 @@ buildPythonPackage rec {
     toml
   ];
 
-  # does not contain tests
+    # does not contain tests
   doCheck = false;
   pythonImportsCheck = [ "pytest_black" ];
 

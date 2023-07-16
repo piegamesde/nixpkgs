@@ -18,7 +18,8 @@ in {
     security.polkit.enable = mkEnableOption (lib.mdDoc "polkit");
 
     security.polkit.debug = mkEnableOption (lib.mdDoc
-      "debug logs from polkit. This is required in order to see log messages from rule definitions");
+      "debug logs from polkit. This is required in order to see log messages from rule definitions")
+      ;
 
     security.polkit.extraConfig = mkOption {
       type = types.lines;
@@ -77,10 +78,10 @@ in {
     systemd.services.polkit.restartTriggers = [ config.system.path ];
     systemd.services.polkit.stopIfChanged = false;
 
-    # The polkit daemon reads action/rule files
+      # The polkit daemon reads action/rule files
     environment.pathsToLink = [ "/share/polkit-1" ];
 
-    # PolKit rules for NixOS.
+      # PolKit rules for NixOS.
     environment.etc."polkit-1/rules.d/10-nixos.rules".text = ''
       polkit.addAdminRule(function(action, subject) {
         return [${

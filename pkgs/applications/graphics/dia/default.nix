@@ -36,7 +36,7 @@ stdenv.mkDerivation {
 
   patches = [ ./poppler-22_09-build-fix.patch ];
 
-  # Required for the PDF plugin when building with clang.
+    # Required for the PDF plugin when building with clang.
   CXXFLAGS = "-std=c++17";
 
   preConfigure = ''

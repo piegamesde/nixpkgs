@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ protobuf ];
 
-  # Tests are not shipped, only a tarball for Java is present
+    # Tests are not shipped, only a tarball for Java is present
   doCheck = false;
 
   pythonImportsCheck = [ "google.transit" ];

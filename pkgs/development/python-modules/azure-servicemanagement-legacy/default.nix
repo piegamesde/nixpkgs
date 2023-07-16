@@ -22,7 +22,7 @@ buildPythonPackage rec {
   ];
 
   pythonNamespaces = [ "azure" ];
-  # has no tests
+    # has no tests
   doCheck = false;
   pythonImportsCheck = [ "azure.servicemanagement" ];
 

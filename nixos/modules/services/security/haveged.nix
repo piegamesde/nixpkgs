@@ -22,7 +22,7 @@ in {
         haveged entropy daemon, which refills /dev/random when low.
         NOTE: does nothing on kernels newer than 5.6.
       '');
-      # source for the note https://github.com/jirka-h/haveged/issues/57
+        # source for the note https://github.com/jirka-h/haveged/issues/57
 
       refill_threshold = mkOption {
         type = types.int;
@@ -66,7 +66,7 @@ in {
           "CAP_SYS_ADMIN"
           "CAP_SYS_CHROOT"
         ];
-        # We can *not* set PrivateTmp=true as it can cause an ordering cycle.
+          # We can *not* set PrivateTmp=true as it can cause an ordering cycle.
         PrivateTmp = false;
         PrivateDevices = true;
         ProtectSystem = "full";

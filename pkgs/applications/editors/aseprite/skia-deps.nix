@@ -18,7 +18,8 @@
   };
   sfntly = fetchgit {
     url =
-      "https://chromium.googlesource.com/external/github.com/googlei18n/sfntly.git";
+      "https://chromium.googlesource.com/external/github.com/googlei18n/sfntly.git"
+      ;
     rev = "b18b09b6114b9b7fe6fc2f96d8b15e8a72f66916";
     sha256 = "0zf1h0dibmm38ldypccg4faacvskmd42vsk6zbxlfcfwjlqm6pp4";
   };

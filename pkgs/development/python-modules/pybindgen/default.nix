@@ -27,7 +27,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "pybindgen" ];
 
-  # Fails to import module 'cxxfilt' from pygccxml on Py3k
+    # Fails to import module 'cxxfilt' from pygccxml on Py3k
   doCheck = (!isPy3k);
 
   meta = with lib; {

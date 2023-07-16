@@ -34,9 +34,9 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ texttable ];
 
-  # NB: We want to use our igraph, not vendored igraph, but even with
-  # pkg-config on the PATH, their custom setup.py still needs to be explicitly
-  # told to do it. ~ C.
+    # NB: We want to use our igraph, not vendored igraph, but even with
+    # pkg-config on the PATH, their custom setup.py still needs to be explicitly
+    # told to do it. ~ C.
   setupPyGlobalFlags = [ "--use-pkg-config" ];
 
   nativeCheckInputs = [ unittestCheckHook ];

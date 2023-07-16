@@ -153,7 +153,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
   config = mkIf cfg.enable {
 
     # This is needed so we will have 'rabbitmqctl' in our PATH

@@ -9,7 +9,8 @@ stdenv.mkDerivation rec {
   version = "11.0.14";
   src = fetchurl {
     url =
-      "mirror://maven/org/eclipse/jetty/jetty-home/${version}/jetty-home-${version}.tar.gz";
+      "mirror://maven/org/eclipse/jetty/jetty-home/${version}/jetty-home-${version}.tar.gz"
+      ;
     sha256 = "sha256-lmS9B5dXJAc9j/RVs2sqMRaj1C5CN2trTszUXfPfHI4=";
   };
 

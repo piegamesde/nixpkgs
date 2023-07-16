@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
   };
   mavenDependenciesSha256 =
     "00r69n9hwvrn5cbhxklx7w00sjmqvcxs7gvhbm150ggy7bc865qv";
-  # This is adapted from https://github.com/volth/nixpkgs/blob/6aa470dfd57cae46758b62010a93c5ff115215d7/pkgs/applications/networking/cluster/hadoop/default.nix#L20-L32
+    # This is adapted from https://github.com/volth/nixpkgs/blob/6aa470dfd57cae46758b62010a93c5ff115215d7/pkgs/applications/networking/cluster/hadoop/default.nix#L20-L32
   fetchedMavenDeps = stdenv.mkDerivation {
     name = "exhibitor-${version}-maven-deps";
     inherit src nativeBuildInputs;
@@ -30,16 +30,17 @@ stdenv.mkDerivation rec {
       done
     '';
     installPhase =
-      "find $out/.m2 -type f \\! -regex '.+\\(pom\\|jar\\|xml\\|sha1\\)' -delete"; # delete files with lastModified timestamps inside
+      "find $out/.m2 -type f \\! -regex '.+\\(pom\\|jar\\|xml\\|sha1\\)' -delete"
+      ; # delete files with lastModified timestamps inside
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
     outputHash = mavenDependenciesSha256;
   };
 
-  # The purpose of this is to fetch the jar file out of public Maven and use Maven
-  # to build a monolithic, standalone jar, rather than build everything from source
-  # (given the state of Maven support in Nix). We're not actually building any java
-  # source here.
+    # The purpose of this is to fetch the jar file out of public Maven and use Maven
+    # to build a monolithic, standalone jar, rather than build everything from source
+    # (given the state of Maven support in Nix). We're not actually building any java
+    # source here.
   pomFileDir =
     "exhibitor-standalone/src/main/resources/buildscripts/standalone/maven";
   nativeBuildInputs = [
@@ -52,7 +53,8 @@ stdenv.mkDerivation rec {
   '';
   meta = with lib; {
     description =
-      "ZooKeeper co-process for instance monitoring, backup/recovery, cleanup and visualization";
+      "ZooKeeper co-process for instance monitoring, backup/recovery, cleanup and visualization"
+      ;
     homepage = "https://github.com/soabase/exhibitor";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.asl20;

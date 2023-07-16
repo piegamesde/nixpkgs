@@ -107,10 +107,12 @@ stdenv.mkDerivation rec {
     ./kill-legacy-darwin-apis.patch
     (substituteAll {
       src = ./dlopen-absolute-paths.diff;
-      cups = if cups != null then
-        lib.getLib cups
-      else
-        null;
+      cups =
+        if cups != null then
+          lib.getLib cups
+        else
+          null
+        ;
       icu = icu.out;
       libXfixes = libXfixes.out;
       glibc = stdenv.cc.libc.out;
@@ -118,7 +120,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "fix-medium-font.patch";
       url = "https://salsa.debian.org/qt-kde-team/qt/qt4-x11/raw/"
-        + "21b342d71c19e6d68b649947f913410fe6129ea4/debian/patches/kubuntu_39_fix_medium_font.diff";
+        + "21b342d71c19e6d68b649947f913410fe6129ea4/debian/patches/kubuntu_39_fix_medium_font.diff"
+        ;
       sha256 = "0bli44chn03c2y70w1n8l7ss4ya0b40jqqav8yxrykayi01yf95j";
     })
     # Patches are no longer available from here, so vendoring it for now.
@@ -132,7 +135,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "gcc9-foreach.patch";
       url = "https://salsa.debian.org/qt-kde-team/qt/qt4-x11/raw/"
-        + "0d4a3dd61ccb156dee556c214dbe91c04d44a717/debian/patches/gcc9-qforeach.patch";
+        + "0d4a3dd61ccb156dee556c214dbe91c04d44a717/debian/patches/gcc9-qforeach.patch"
+        ;
       sha256 = "0dzn6qxrgxb75rvck9kmy5gspawdn970wsjw56026dhkih8cp3pg";
     })
 
@@ -140,15 +144,16 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "gcc11-ptr-cmp.patch";
       url =
-        "https://github.com/qt/qttools/commit/7138c963f9d1258bc1b49cb4d63c3e2b7d0ccfda.patch";
+        "https://github.com/qt/qttools/commit/7138c963f9d1258bc1b49cb4d63c3e2b7d0ccfda.patch"
+        ;
       sha256 = "1a9g05r267c94qpw3ssb6k4lci200vla3vm5hri1nna6xwdsmrhc";
-      # "src/" -> "tools/"
+        # "src/" -> "tools/"
       stripLen = 2;
       extraPrefix = "tools/";
     })
   ] ++ lib.optional gtkStyle (substituteAll ({
     src = ./dlopen-gtkstyle.diff;
-    # substituteAll ignores env vars starting with capital letter
+      # substituteAll ignores env vars starting with capital letter
     gtk = gtk2.out;
   } // lib.optionalAttrs gnomeStyle {
     gconf = GConf.out;
@@ -156,7 +161,8 @@ stdenv.mkDerivation rec {
     gnome_vfs = gnome_vfs.out;
   })) ++ lib.optional stdenv.isAarch64 (fetchpatch {
     url =
-      "https://src.fedoraproject.org/rpms/qt/raw/ecf530486e0fb7fe31bad26805cde61115562b2b/f/qt-aarch64.patch";
+      "https://src.fedoraproject.org/rpms/qt/raw/ecf530486e0fb7fe31bad26805cde61115562b2b/f/qt-aarch64.patch"
+      ;
     sha256 = "1fbjh78nmafqmj7yk67qwjbhl3f6ylkp6x33b1dqxfw9gld8b3gl";
   }) ++ lib.optionals stdenv.hostPlatform.isMusl [
     ./qt-musl.patch
@@ -193,107 +199,110 @@ stdenv.mkDerivation rec {
   prefixKey = "-prefix ";
 
   configurePlatforms = [ ];
-  configureFlags = let
-    mk = cond: name: "-${lib.optionalString (!cond) "no-"}${name}";
-    platformFlag = if stdenv.hostPlatform != stdenv.buildPlatform then
-      "-xplatform"
+  configureFlags =
+    let
+      mk = cond: name: "-${lib.optionalString (!cond) "no-"}${name}";
+      platformFlag =
+        if stdenv.hostPlatform != stdenv.buildPlatform then
+          "-xplatform"
+        else
+          "-platform"
+        ;
+    in
+    (if stdenv.hostPlatform != stdenv.buildPlatform then
+      [
+        # I've not tried any case other than i686-pc-mingw32.
+        # -nomake tools: it fails linking some asian language symbols
+        # -no-svg: it fails to build on mingw64
+        "-static"
+        "-release"
+        "-confirm-license"
+        "-opensource"
+        "-no-opengl"
+        "-no-phonon"
+        "-no-svg"
+        "-make"
+        "qmake"
+        "-make"
+        "libs"
+        "-nomake"
+        "tools"
+      ]
     else
-      "-platform";
-  in
-  (if stdenv.hostPlatform != stdenv.buildPlatform then
-    [
-      # I've not tried any case other than i686-pc-mingw32.
-      # -nomake tools: it fails linking some asian language symbols
-      # -no-svg: it fails to build on mingw64
-      "-static"
-      "-release"
-      "-confirm-license"
-      "-opensource"
-      "-no-opengl"
-      "-no-phonon"
-      "-no-svg"
-      "-make"
-      "qmake"
-      "-make"
-      "libs"
-      "-nomake"
-      "tools"
+      [
+        "-v"
+        "-no-separate-debug-info"
+        "-release"
+        "-fast"
+        "-confirm-license"
+        "-opensource"
+
+        (mk (!stdenv.isFreeBSD) "opengl")
+        "-xrender"
+        "-xrandr"
+        "-xinerama"
+        "-xcursor"
+        "-xinput"
+        "-xfixes"
+        "-fontconfig"
+        "-qdbus"
+        (mk (cups != null) "cups")
+        "-glib"
+        "-dbus-linked"
+        "-openssl-linked"
+
+        "-${
+          if libmysqlclient != null then
+            "plugin"
+          else
+            "no"
+        }-sql-mysql"
+        "-system-sqlite"
+
+        "-exceptions"
+        "-xmlpatterns"
+
+        "-make"
+        "libs"
+        "-make"
+        "tools"
+        "-make"
+        "translations"
+        "-no-phonon"
+        "-no-webkit"
+        "-no-multimedia"
+        "-audio-backend"
+      ]) ++ [
+        "-${
+          if demos then
+            ""
+          else
+            "no"
+        }make"
+        "demos"
+        "-${
+          if examples then
+            ""
+          else
+            "no"
+        }make"
+        "examples"
+        "-${
+          if docs then
+            ""
+          else
+            "no"
+        }make"
+        "docs"
+      ] ++ lib.optional developerBuild "-developer-build"
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [
+      platformFlag
+      "unsupported/macx-clang-libc++"
+    ] ++ lib.optionals stdenv.hostPlatform.isWindows [
+      platformFlag
+      "win32-g++-4.6"
     ]
-  else
-    [
-      "-v"
-      "-no-separate-debug-info"
-      "-release"
-      "-fast"
-      "-confirm-license"
-      "-opensource"
-
-      (mk (!stdenv.isFreeBSD) "opengl")
-      "-xrender"
-      "-xrandr"
-      "-xinerama"
-      "-xcursor"
-      "-xinput"
-      "-xfixes"
-      "-fontconfig"
-      "-qdbus"
-      (mk (cups != null) "cups")
-      "-glib"
-      "-dbus-linked"
-      "-openssl-linked"
-
-      "-${
-        if libmysqlclient != null then
-          "plugin"
-        else
-          "no"
-      }-sql-mysql"
-      "-system-sqlite"
-
-      "-exceptions"
-      "-xmlpatterns"
-
-      "-make"
-      "libs"
-      "-make"
-      "tools"
-      "-make"
-      "translations"
-      "-no-phonon"
-      "-no-webkit"
-      "-no-multimedia"
-      "-audio-backend"
-    ]) ++ [
-      "-${
-        if demos then
-          ""
-        else
-          "no"
-      }make"
-      "demos"
-      "-${
-        if examples then
-          ""
-        else
-          "no"
-      }make"
-      "examples"
-      "-${
-        if docs then
-          ""
-        else
-          "no"
-      }make"
-      "docs"
-    ] ++ lib.optional developerBuild "-developer-build"
-  ++ lib.optionals stdenv.hostPlatform.isDarwin [
-    platformFlag
-    "unsupported/macx-clang-libc++"
-  ] ++ lib.optionals stdenv.hostPlatform.isWindows [
-    platformFlag
-    "win32-g++-4.6"
-  ]
-  ;
+    ;
 
   propagatedBuildInputs = [
     libXrender
@@ -316,7 +325,7 @@ stdenv.mkDerivation rec {
   # Qt doesn't directly need GLU (just GL), but many apps use, it's small and doesn't remain a runtime-dep if not used
     ++ lib.optional libGLSupported libGLU;
 
-  # The following libraries are only used in plugins
+    # The following libraries are only used in plugins
   buildInputs = [
     cups # Qt dlopen's libcups instead of linking to it
     postgresql

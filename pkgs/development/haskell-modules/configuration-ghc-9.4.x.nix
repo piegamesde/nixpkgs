@@ -5,22 +5,26 @@
 
 let
   inherit (pkgs) fetchpatch lib;
-  checkAgainAfter = pkg: ver: msg: act:
+  checkAgainAfter =
+    pkg: ver: msg: act:
     if builtins.compareVersions pkg.version ver <= 0 then
       act
     else
       builtins.throw
-      "Check if '${msg}' was resolved in ${pkg.pname} ${pkg.version} and update or remove this";
+      "Check if '${msg}' was resolved in ${pkg.pname} ${pkg.version} and update or remove this"
+    ;
 
 in with haskellLib;
 self: super:
 let
-  jailbreakForCurrentVersion = p: v:
-    checkAgainAfter p v "bad bounds" (doJailbreak p);
+  jailbreakForCurrentVersion =
+    p: v:
+    checkAgainAfter p v "bad bounds" (doJailbreak p)
+    ;
 in {
   llvmPackages = lib.dontRecurseIntoAttrs self.ghc.llvmPackages;
 
-  # Disable GHC core libraries.
+    # Disable GHC core libraries.
   array = null;
   base = null;
   binary = null;
@@ -51,26 +55,30 @@ in {
   stm = null;
   system-cxx-std-lib = null;
   template-haskell = null;
-  # GHC only builds terminfo if it is a native compiler
-  terminfo = if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform then
-    null
-  else
-    self.terminfo_0_4_1_6;
+    # GHC only builds terminfo if it is a native compiler
+  terminfo =
+    if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform then
+      null
+    else
+      self.terminfo_0_4_1_6
+    ;
   text = null;
   time = null;
   transformers = null;
   unix = null;
-  # GHC only bundles the xhtml library if haddock is enabled, check if this is
-  # still the case when updating: https://gitlab.haskell.org/ghc/ghc/-/blob/0198841877f6f04269d6050892b98b5c3807ce4c/ghc.mk#L463
-  xhtml = if self.ghc.hasHaddock or true then
-    null
-  else
-    self.xhtml_3000_2_2_1;
+    # GHC only bundles the xhtml library if haddock is enabled, check if this is
+    # still the case when updating: https://gitlab.haskell.org/ghc/ghc/-/blob/0198841877f6f04269d6050892b98b5c3807ce4c/ghc.mk#L463
+  xhtml =
+    if self.ghc.hasHaddock or true then
+      null
+    else
+      self.xhtml_3000_2_2_1
+    ;
 
-  # Tests fail because of typechecking changes
+    # Tests fail because of typechecking changes
   conduit = dontCheck super.conduit;
 
-  # consequences of doctest breakage follow:
+    # consequences of doctest breakage follow:
 
   ghc-source-gen =
     checkAgainAfter super.ghc-source-gen "0.4.3.0" "fails to build"
@@ -78,10 +86,10 @@ in {
 
   haskell-src-meta = doJailbreak super.haskell-src-meta;
 
-  # Tests fail in GHC 9.2
+    # Tests fail in GHC 9.2
   extra = dontCheck super.extra;
 
-  # Jailbreaks & Version Updates
+    # Jailbreaks & Version Updates
 
   aeson = doDistribute self.aeson_2_1_2_1;
   assoc = doJailbreak super.assoc;
@@ -126,21 +134,21 @@ in {
   libmpd = doJailbreak super.libmpd;
   generics-sop = doJailbreak super.generics-sop;
   microlens-th = doJailbreak super.microlens-th;
-  # generically needs base-orphans for 9.4 only
+    # generically needs base-orphans for 9.4 only
   base-orphans = dontCheck (doDistribute super.base-orphans);
   generically = addBuildDepend self.base-orphans super.generically;
 
-  # the dontHaddock is due to a GHC panic. might be this bug, not sure.
-  # https://gitlab.haskell.org/ghc/ghc/-/issues/21619
-  #
-  # We need >= 1.1.2 for ghc-9.4 support, but we don't have 1.1.x in
-  # hackage-packages.nix
+    # the dontHaddock is due to a GHC panic. might be this bug, not sure.
+    # https://gitlab.haskell.org/ghc/ghc/-/issues/21619
+    #
+    # We need >= 1.1.2 for ghc-9.4 support, but we don't have 1.1.x in
+    # hackage-packages.nix
   hedgehog = doDistribute (dontHaddock super.hedgehog_1_2);
-  # tasty-hedgehog > 1.3 necessary to work with hedgehog 1.2:
-  # https://github.com/qfpl/tasty-hedgehog/pull/63
+    # tasty-hedgehog > 1.3 necessary to work with hedgehog 1.2:
+    # https://github.com/qfpl/tasty-hedgehog/pull/63
   tasty-hedgehog = self.tasty-hedgehog_1_4_0_1;
 
-  # https://github.com/dreixel/syb/issues/38
+    # https://github.com/dreixel/syb/issues/38
   syb = dontCheck super.syb;
 
   splitmix = doJailbreak super.splitmix;
@@ -161,33 +169,34 @@ in {
 
   lens = doDistribute self.lens_5_2_2;
 
-  # Apply patches from head.hackage.
+    # Apply patches from head.hackage.
   language-haskell-extract = appendPatch (pkgs.fetchpatch {
     url =
-      "https://gitlab.haskell.org/ghc/head.hackage/-/raw/dfd024c9a336c752288ec35879017a43bd7e85a0/patches/language-haskell-extract-0.2.4.patch";
+      "https://gitlab.haskell.org/ghc/head.hackage/-/raw/dfd024c9a336c752288ec35879017a43bd7e85a0/patches/language-haskell-extract-0.2.4.patch"
+      ;
     sha256 = "0w4y3v69nd3yafpml4gr23l94bdhbmx8xky48a59lckmz5x9fgxv";
   }) (doJailbreak super.language-haskell-extract);
 
-  # Tests depend on `parseTime` which is no longer available
+    # Tests depend on `parseTime` which is no longer available
   hourglass = dontCheck super.hourglass;
 
   memory = super.memory_0_18_0;
 
-  # https://github.com/sjakobi/bsb-http-chunked/issues/38
+    # https://github.com/sjakobi/bsb-http-chunked/issues/38
   bsb-http-chunked = dontCheck super.bsb-http-chunked;
 
-  # need bytestring >= 0.11 which is only bundled with GHC >= 9.2
+    # need bytestring >= 0.11 which is only bundled with GHC >= 9.2
   regex-rure = doDistribute (markUnbroken super.regex-rure);
   jacinda = doDistribute super.jacinda;
   some = doJailbreak super.some;
 
-  # 2022-08-01: Tests are broken on ghc 9.2.4: https://github.com/wz1000/HieDb/issues/46
+    # 2022-08-01: Tests are broken on ghc 9.2.4: https://github.com/wz1000/HieDb/issues/46
   hiedb = dontCheck super.hiedb;
 
   hlint = self.hlint_3_5;
   hls-hlint-plugin = super.hls-hlint-plugin.override { inherit (self) hlint; };
 
-  # 2022-10-06: https://gitlab.haskell.org/ghc/ghc/-/issues/22260
+    # 2022-10-06: https://gitlab.haskell.org/ghc/ghc/-/issues/22260
   ghc-check = dontHaddock super.ghc-check;
 
   ghc-exactprint = overrideCabal (drv: {
@@ -205,11 +214,11 @@ in {
     ];
   }) self.ghc-exactprint_1_6_1_1;
 
-  # needed to build servant
+    # needed to build servant
   http-api-data = super.http-api-data_0_5_1;
   attoparsec-iso8601 = super.attoparsec-iso8601_1_1_0_0;
 
-  # requires newer versions to work with GHC 9.4
+    # requires newer versions to work with GHC 9.4
   swagger2 = dontCheck super.swagger2;
   servant = doJailbreak super.servant;
   servant-server = doJailbreak super.servant-server;
@@ -220,7 +229,7 @@ in {
   servant-client = doJailbreak super.servant-client;
   relude = doJailbreak super.relude;
 
-  # Fixes compilation failure with GHC >= 9.4 on aarch64-* due to an API change
+    # Fixes compilation failure with GHC >= 9.4 on aarch64-* due to an API change
   cborg = appendPatch (pkgs.fetchpatch {
     name = "cborg-support-ghc-9.4.patch";
     url = "https://github.com/well-typed/cborg/pull/304.diff";
@@ -229,27 +238,27 @@ in {
   }) super.cborg;
 
   ormolu = doDistribute self.ormolu_0_5_3_0;
-  # https://github.com/tweag/ormolu/issues/941
+    # https://github.com/tweag/ormolu/issues/941
   fourmolu = overrideCabal (drv: {
     libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.file-embed ];
   }) (disableCabalFlag "fixity-th" super.fourmolu_0_10_1_0);
 
-  # Apply workaround for Cabal 3.8 bug https://github.com/haskell/cabal/issues/8455
-  # by making `pkg-config --static` happy. Note: Cabal 3.9 is also affected, so
-  # the GHC 9.6 configuration may need similar overrides eventually.
+    # Apply workaround for Cabal 3.8 bug https://github.com/haskell/cabal/issues/8455
+    # by making `pkg-config --static` happy. Note: Cabal 3.9 is also affected, so
+    # the GHC 9.6 configuration may need similar overrides eventually.
   X11-xft = __CabalEagerPkgConfigWorkaround super.X11-xft;
-  # Jailbreaks for https://github.com/gtk2hs/gtk2hs/issues/323#issuecomment-1416723309
+    # Jailbreaks for https://github.com/gtk2hs/gtk2hs/issues/323#issuecomment-1416723309
   glib = __CabalEagerPkgConfigWorkaround (doJailbreak super.glib);
   cairo = __CabalEagerPkgConfigWorkaround (doJailbreak super.cairo);
   pango = __CabalEagerPkgConfigWorkaround (doJailbreak super.pango);
 
-  # The gtk2hs setup hook provided by this package lacks the ppOrdering field that
-  # recent versions of Cabal require. This leads to builds like cairo and glib
-  # failing during the Setup.hs phase: https://github.com/gtk2hs/gtk2hs/issues/323.
+    # The gtk2hs setup hook provided by this package lacks the ppOrdering field that
+    # recent versions of Cabal require. This leads to builds like cairo and glib
+    # failing during the Setup.hs phase: https://github.com/gtk2hs/gtk2hs/issues/323.
   gtk2hs-buildtools =
     appendPatch ./patches/gtk2hs-buildtools-fix-ghc-9.4.x.patch
     super.gtk2hs-buildtools;
 
-  # Pending text-2.0 support https://github.com/gtk2hs/gtk2hs/issues/327
+    # Pending text-2.0 support https://github.com/gtk2hs/gtk2hs/issues/327
   gtk = doJailbreak super.gtk;
 }

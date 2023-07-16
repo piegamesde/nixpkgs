@@ -17,7 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  # tests directory is set up, but has no tests
+    # tests directory is set up, but has no tests
   checkPhase = ''
     ${python.interpreter} -m unittest
   '';
@@ -26,7 +26,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Module to interact with Cisco Mobility Express APIs to fetch connected devices";
+      "Module to interact with Cisco Mobility Express APIs to fetch connected devices"
+      ;
     homepage = "https://github.com/fbradyirl/ciscomobilityexpress";
     license = licenses.mit;
     maintainers = with maintainers; [ uvnikita ];

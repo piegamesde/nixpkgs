@@ -23,7 +23,7 @@ buildPythonPackage rec {
 
   pythonNamespaces = "azure.mgmt";
 
-  # not included
+    # not included
   doCheck = false;
 
   pythonImportsCheck = [

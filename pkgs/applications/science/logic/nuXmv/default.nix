@@ -17,10 +17,12 @@ stdenv.mkDerivation rec {
         else
           "linux64"
       }.tar.gz";
-    sha256 = if stdenv.isDarwin then
-      "sha256-48I+FhJUUam1nMCMMM47CwGO82BYsNz0eHDHXBfqO2E="
-    else
-      "sha256-Gf+QgAjTrysZj7qTtt1wcQPganDtO0YtRY4ykhLPzVo=";
+    sha256 =
+      if stdenv.isDarwin then
+        "sha256-48I+FhJUUam1nMCMMM47CwGO82BYsNz0eHDHXBfqO2E="
+      else
+        "sha256-Gf+QgAjTrysZj7qTtt1wcQPganDtO0YtRY4ykhLPzVo="
+      ;
   };
 
   nativeBuildInputs = [ makeWrapper ];
@@ -37,7 +39,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Symbolic model checker for analysis of finite and infinite state systems";
+      "Symbolic model checker for analysis of finite and infinite state systems"
+      ;
     homepage = "https://nuxmv.fbk.eu/pmwiki.php";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;

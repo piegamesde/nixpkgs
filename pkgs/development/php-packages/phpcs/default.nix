@@ -15,7 +15,8 @@ mkDerivation {
 
   src = fetchurl {
     url =
-      "https://github.com/squizlabs/PHP_CodeSniffer/releases/download/${version}/phpcs.phar";
+      "https://github.com/squizlabs/PHP_CodeSniffer/releases/download/${version}/phpcs.phar"
+      ;
     sha256 = "sha256-ehQyOhSvn1gwLRVEJJLuEHaozXLAGKgWy0SWW/OpsBU=";
   };
 

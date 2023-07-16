@@ -30,7 +30,8 @@ let
     # 2. Sections that may contain (1).
     # 3. Sections that may contain (1) or (2).
     # 4. Etc.
-  prioOf = {
+  prioOf =
+    {
       name,
       value,
     }:
@@ -41,38 +42,47 @@ let
         target = 1; # Contains: options.
         subvolume = 2; # Contains: options, target.
         volume = 3; # Contains: options, target, subvolume.
-      }.${name} or (throw "Unknow section '${name}'");
+      }.${name} or (throw "Unknow section '${name}'")
+    ;
 
   genConfig' = set: concatStringsSep "\n" (genConfig set);
-  genConfig = set:
+  genConfig =
+    set:
     let
       pairs = mapAttrsToList (name: value: { inherit name value; }) set;
       sortedPairs = sort (a: b: prioOf a < prioOf b) pairs;
     in
     concatMap genPair sortedPairs
-  ;
-  genSection = sec: secName: value:
-    [ "${sec} ${secName}" ] ++ map (x: " " + x) (genConfig value);
-  genPair = {
+    ;
+  genSection =
+    sec: secName: value:
+    [ "${sec} ${secName}" ] ++ map (x: " " + x) (genConfig value)
+    ;
+  genPair =
+    {
       name,
       value,
     }:
     if !isAttrs value then
       [ "${name} ${value}" ]
     else
-      concatLists (mapAttrsToList (genSection name) value);
+      concatLists (mapAttrsToList (genSection name) value)
+    ;
 
-  sudo_doas = if config.security.sudo.enable then
-    "sudo"
-  else if config.security.doas.enable then
-    "doas"
-  else
-    throw
-    "The btrbk nixos module needs either sudo or doas enabled in the configuration";
+  sudo_doas =
+    if config.security.sudo.enable then
+      "sudo"
+    else if config.security.doas.enable then
+      "doas"
+    else
+      throw
+      "The btrbk nixos module needs either sudo or doas enabled in the configuration"
+    ;
 
   addDefaults = settings: { backend = "btrfs-progs-${sudo_doas}"; } // settings;
 
-  mkConfigFile = name: settings:
+  mkConfigFile =
+    name: settings:
     pkgs.writeTextFile {
       name = "btrbk-${name}.conf";
       text = genConfig' (addDefaults settings);
@@ -88,7 +98,8 @@ let
         fi
         set -e
       '';
-    };
+    }
+    ;
 
   cfg = config.services.btrbk;
   sshEnabled = cfg.sshAccess != [ ];
@@ -100,20 +111,23 @@ in {
     services.btrbk = {
       extraPackages = mkOption {
         description = lib.mdDoc
-          "Extra packages for btrbk, like compression utilities for `stream_compress`";
+          "Extra packages for btrbk, like compression utilities for `stream_compress`"
+          ;
         type = types.listOf types.package;
         default = [ ];
         example = literalExpression "[ pkgs.xz ]";
       };
       niceness = mkOption {
         description = lib.mdDoc
-          "Niceness for local instances of btrbk. Also applies to remote ones connecting via ssh when positive.";
+          "Niceness for local instances of btrbk. Also applies to remote ones connecting via ssh when positive."
+          ;
         type = types.ints.between (-20) 19;
         default = 10;
       };
       ioSchedulingClass = mkOption {
         description = lib.mdDoc
-          "IO scheduling class for btrbk (see ionice(1) for a quick description). Applies to local instances, and remote ones connecting by ssh if set to idle.";
+          "IO scheduling class for btrbk (see ionice(1) for a quick description). Applies to local instances, and remote ones connecting by ssh if set to idle."
+          ;
         type = types.enum [
           "idle"
           "best-effort"
@@ -123,7 +137,8 @@ in {
       };
       instances = mkOption {
         description = lib.mdDoc
-          "Set of btrbk instances. The instance named `btrbk` is the default one.";
+          "Set of btrbk instances. The instance named `btrbk` is the default one."
+          ;
         type = with types;
           attrsOf (submodule {
             options = {
@@ -136,13 +151,14 @@ in {
                 '';
               };
               settings = mkOption {
-                type = let
-                  t = types.attrsOf (types.either types.str (t // {
-                    description = "instances of this type recursively";
-                  }));
-                in
-                t
-                ;
+                type =
+                  let
+                    t = types.attrsOf (types.either types.str (t // {
+                      description = "instances of this type recursively";
+                    }));
+                  in
+                  t
+                  ;
                 default = { };
                 example = {
                   snapshot_preserve_min = "2d";
@@ -158,7 +174,8 @@ in {
                   };
                 };
                 description = lib.mdDoc
-                  "configuration options for btrbk. Nested attrsets translate to subsections.";
+                  "configuration options for btrbk. Nested attrsets translate to subsections."
+                  ;
               };
             };
           });
@@ -166,14 +183,16 @@ in {
       };
       sshAccess = mkOption {
         description = lib.mdDoc
-          "SSH keys that should be able to make or push snapshots on this system remotely with btrbk";
+          "SSH keys that should be able to make or push snapshots on this system remotely with btrbk"
+          ;
         type = with types;
           listOf (submodule {
             options = {
               key = mkOption {
                 type = str;
                 description = lib.mdDoc
-                  "SSH public key allowed to login as user `btrbk` to run remote backups.";
+                  "SSH public key allowed to login as user `btrbk` to run remote backups."
+                  ;
               };
               roles = mkOption {
                 type = listOf (enum [
@@ -191,7 +210,8 @@ in {
                   "send"
                 ];
                 description = lib.mdDoc
-                  "What actions can be performed with this SSH key. See ssh_filter_btrbk(1) for details";
+                  "What actions can be performed with this SSH key. See ssh_filter_btrbk(1) for details"
+                  ;
               };
             };
           });
@@ -235,30 +255,34 @@ in {
       } ];
     };
     security.doas = mkIf (sudo_doas == "doas") {
-      extraRules = let
-        doasCmdNoPass = cmd: {
-          users = [ "btrbk" ];
-          cmd = cmd;
-          noPass = true;
-        };
-      in [
-        (doasCmdNoPass "${pkgs.btrfs-progs}/bin/btrfs")
-        (doasCmdNoPass "${pkgs.coreutils}/bin/mkdir")
-        (doasCmdNoPass "${pkgs.coreutils}/bin/readlink")
-        # for ssh, they are not the same than the one hard coded in ${pkgs.btrbk}
-        (doasCmdNoPass "/run/current-system/bin/btrfs")
-        (doasCmdNoPass "/run/current-system/sw/bin/mkdir")
-        (doasCmdNoPass "/run/current-system/sw/bin/readlink")
+      extraRules =
+        let
+          doasCmdNoPass =
+            cmd: {
+              users = [ "btrbk" ];
+              cmd = cmd;
+              noPass = true;
+            }
+            ;
+        in [
+          (doasCmdNoPass "${pkgs.btrfs-progs}/bin/btrfs")
+          (doasCmdNoPass "${pkgs.coreutils}/bin/mkdir")
+          (doasCmdNoPass "${pkgs.coreutils}/bin/readlink")
+          # for ssh, they are not the same than the one hard coded in ${pkgs.btrbk}
+          (doasCmdNoPass "/run/current-system/bin/btrfs")
+          (doasCmdNoPass "/run/current-system/sw/bin/mkdir")
+          (doasCmdNoPass "/run/current-system/sw/bin/readlink")
 
-        # doas matches command, not binary
-        (doasCmdNoPass "btrfs")
-        (doasCmdNoPass "mkdir")
-        (doasCmdNoPass "readlink")
-      ] ;
+          # doas matches command, not binary
+          (doasCmdNoPass "btrfs")
+          (doasCmdNoPass "mkdir")
+          (doasCmdNoPass "readlink")
+        ]
+        ;
     };
     users.users.btrbk = {
       isSystemUser = true;
-      # ssh needs a home directory
+        # ssh needs a home directory
       home = "/var/lib/btrbk";
       createHome = true;
       shell = "${pkgs.bash}/bin/bash";
@@ -322,8 +346,8 @@ in {
           Persistent = true;
         };
       };
-    })
-      (filterAttrs (name: instance: instance.onCalendar != null) cfg.instances);
+    }) (filterAttrs (name: instance: instance.onCalendar != null) cfg.instances)
+      ;
   };
 
 }

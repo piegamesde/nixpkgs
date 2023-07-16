@@ -9,12 +9,14 @@ import ./make-test-python.nix ({
     name = "radarr";
     meta.maintainers = with maintainers; [ etu ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
         services.radarr.enable = true;
-      };
+      }
+      ;
 
     testScript = ''
       machine.wait_for_unit("radarr.service")

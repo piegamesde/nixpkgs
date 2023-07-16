@@ -24,7 +24,7 @@ python3.pkgs.buildPythonApplication rec {
     ruamel-yaml
   ];
 
-  # No tests available
+    # No tests available
   doCheck = false;
 
   pythonImportsCheck = [ "mitmproxy2swagger" ];

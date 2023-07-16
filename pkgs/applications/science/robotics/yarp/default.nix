@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     "-DCREATE_YARPCXX:BOOL=ON"
   ];
 
-  # since we cant expand $out in cmakeFlags
+    # since we cant expand $out in cmakeFlags
   preConfigure = ''cmakeFlags="$cmakeFlags -DCMAKE_INSTALL_LIBDIR=$out/lib"'';
 
   postInstall = "mv ./$out/lib/*.so $out/lib/";

@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ jupyterhub ];
 
-  # No tests available in the package
+    # No tests available in the package
   doCheck = false;
 
   pythonImportsCheck = [ "tmpauthenticator" ];

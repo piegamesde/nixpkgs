@@ -12,8 +12,8 @@ python3.pkgs.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "nicholasaleks";
     repo = "CrackQL";
-    # rev = "refs/tags/${version}";
-    # Switch to tag with the next update
+      # rev = "refs/tags/${version}";
+      # Switch to tag with the next update
     rev = "5bcf92f4520a4dd036baf9f47c5ebbf18e6a032a";
     hash = "sha256-XlHbGkwdOV1nobjtQP/M3IIEuzXHBuwf52EsXf3MWoM=";
   };

@@ -10,10 +10,12 @@
 }:
 
 let
-  int_t = if blas.isILP64 then
-    "int64_t"
-  else
-    "int32_t";
+  int_t =
+    if blas.isILP64 then
+      "int64_t"
+    else
+      "int32_t"
+    ;
   SHLIB_EXT = stdenv.hostPlatform.extensions.sharedLibrary;
 in
 stdenv.mkDerivation rec {
@@ -22,7 +24,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://faculty.cse.tamu.edu/davis/SuiteSparse/SuiteSparse-${version}.tar.gz";
+      "http://faculty.cse.tamu.edu/davis/SuiteSparse/SuiteSparse-${version}.tar.gz"
+      ;
     sha256 = "1zdn1y0ij6amj7smmcslkqgbqv9yy5cwmbyzqc9v6drzdzllgbpj";
   };
 

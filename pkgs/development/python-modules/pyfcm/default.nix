@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  # pyfcm's unit testing suite requires network access
+    # pyfcm's unit testing suite requires network access
   doCheck = false;
 
   meta = with lib; {

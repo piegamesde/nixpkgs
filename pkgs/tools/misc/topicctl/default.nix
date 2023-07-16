@@ -23,7 +23,7 @@ buildGoModule rec {
     "-X main.BuildDate=unknown"
   ];
 
-  # needs a kafka server
+    # needs a kafka server
   doCheck = false;
 
   meta = with lib; {

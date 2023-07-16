@@ -108,7 +108,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf config.services.dragonflydb.enable {
 
@@ -135,16 +135,16 @@ in {
 
         User = cfg.user;
 
-        # Filesystem access
+          # Filesystem access
         ReadWritePaths = [ settings.dir ];
         StateDirectory = "dragonflydb";
         StateDirectoryMode = "0700";
-        # Process Properties
+          # Process Properties
         LimitMEMLOCK = "infinity";
-        # Caps
+          # Caps
         CapabilityBoundingSet = "";
         NoNewPrivileges = true;
-        # Sandboxing
+          # Sandboxing
         ProtectSystem = "strict";
         ProtectHome = true;
         PrivateTmp = true;

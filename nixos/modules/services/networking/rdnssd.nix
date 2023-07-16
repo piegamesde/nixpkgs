@@ -23,7 +23,7 @@ in {
     services.rdnssd.enable = mkOption {
       type = types.bool;
       default = false;
-      #default = config.networking.enableIPv6;
+        #default = config.networking.enableIPv6;
       description = lib.mdDoc ''
         Whether to enable the RDNSS daemon
         ({command}`rdnssd`), which configures DNS servers in
@@ -34,14 +34,15 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf config.services.rdnssd.enable {
 
     assertions = [ {
       assertion = config.networking.resolvconf.enable;
       message =
-        "rdnssd needs resolvconf to work (probably something sets up a static resolv.conf)";
+        "rdnssd needs resolvconf to work (probably something sets up a static resolv.conf)"
+        ;
     } ];
 
     systemd.services.rdnssd = {
@@ -68,7 +69,8 @@ in {
 
       serviceConfig = {
         ExecStart =
-          "@${pkgs.ndisc6}/bin/rdnssd rdnssd -p /run/rdnssd/rdnssd.pid -r /run/rdnssd/resolv.conf -u rdnssd -H ${mergeHook}";
+          "@${pkgs.ndisc6}/bin/rdnssd rdnssd -p /run/rdnssd/rdnssd.pid -r /run/rdnssd/resolv.conf -u rdnssd -H ${mergeHook}"
+          ;
         Type = "forking";
         PIDFile = "/run/rdnssd/rdnssd.pid";
       };

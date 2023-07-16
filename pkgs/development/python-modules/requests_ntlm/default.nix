@@ -30,7 +30,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "requests_ntlm" ];
 
-  # Tests require networking
+    # Tests require networking
   doCheck = false;
 
   meta = with lib; {

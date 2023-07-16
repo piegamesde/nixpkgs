@@ -7,7 +7,8 @@ import ./make-test-python.nix ({
     name = "privacyidea";
     meta = with pkgs.lib.maintainers; { maintainers = [ ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         virtualisation.cores = 2;
@@ -19,7 +20,7 @@ import ./make-test-python.nix ({
           adminPasswordFile = pkgs.writeText "admin-password" "testing";
           adminEmail = "root@localhost";
 
-          # Don't try this at home!
+            # Don't try this at home!
           environmentFile = pkgs.writeText "pi-secrets.env" ''
             SECRET_KEY=testing
             PEPPER=testing
@@ -31,7 +32,8 @@ import ./make-test-python.nix ({
             uwsgi_pass unix:/run/privacyidea/socket;
           '';
         };
-      };
+      }
+      ;
 
     testScript = ''
       machine.start()

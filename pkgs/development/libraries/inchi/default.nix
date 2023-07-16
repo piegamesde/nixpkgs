@@ -29,8 +29,8 @@ stdenv.mkDerivation rec {
     sha256 = "1zbygqn0443p0gxwr4kx3m1bkqaj8x9hrpch3s41py7jq08f6x28";
   };
 
-  nativeBuildInputs = [ unzip ]
-    ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
+  nativeBuildInputs =
+    [ unzip ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
   outputs = [
     "out"
     "doc"
@@ -47,23 +47,25 @@ stdenv.mkDerivation rec {
       --replace "-soname" "-install_name" \
       --replace "gcc" $CC
   '';
-  installPhase = let
-    versionOneDot = versionMajor + "." + removeDots versionMinor;
-  in ''
-    runHook preInstall
+  installPhase =
+    let
+      versionOneDot = versionMajor + "." + removeDots versionMinor;
+    in ''
+      runHook preInstall
 
-    cd ../../..
-    mkdir -p $out/lib
-    mkdir -p $out/include/inchi
-    mkdir -p $doc/share/
+      cd ../../..
+      mkdir -p $out/lib
+      mkdir -p $out/include/inchi
+      mkdir -p $doc/share/
 
-    install -m 755 INCHI_API/bin/Linux/libinchi.so.${versionOneDot}.00 $out/lib
-    ln -s $out/lib/libinchi.so.${versionOneDot}.00 $out/lib/libinchi.so.1
-    ln -s $out/lib/libinchi.so.${versionOneDot}.00 $out/lib/libinchi.so
-    install -m 644 INCHI_BASE/src/*.h $out/include/inchi
+      install -m 755 INCHI_API/bin/Linux/libinchi.so.${versionOneDot}.00 $out/lib
+      ln -s $out/lib/libinchi.so.${versionOneDot}.00 $out/lib/libinchi.so.1
+      ln -s $out/lib/libinchi.so.${versionOneDot}.00 $out/lib/libinchi.so
+      install -m 644 INCHI_BASE/src/*.h $out/include/inchi
 
-    runHook postInstall
-  '' ;
+      runHook postInstall
+    ''
+    ;
 
   preFixup = lib.optionalString stdenv.isDarwin ''
     fixDarwinDylibNames $(find "$out" -name "*.so.*")

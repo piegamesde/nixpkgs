@@ -12,7 +12,7 @@ buildPythonPackage rec {
   pname = "docplex";
   version = "2.25.236";
 
-  # No source available from official repo
+    # No source available from official repo
   src = fetchPypi {
     inherit pname version;
     hash = "sha256-JWkUtMAROk4cePMuogx9dtyO/ihv6JAnDnXPrVD+UQ8=";
@@ -29,7 +29,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "IBM Decision Optimization CPLEX Modeling for Python";
     homepage =
-      "https://onboarding-oaas.docloud.ibmcloud.com/software/analytics/docloud/";
+      "https://onboarding-oaas.docloud.ibmcloud.com/software/analytics/docloud/"
+      ;
     license = licenses.asl20;
     maintainers = with maintainers; [ drewrisinger ];
   };

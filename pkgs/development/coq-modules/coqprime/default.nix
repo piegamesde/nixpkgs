@@ -49,7 +49,8 @@ mkCoqDerivation {
 
   meta = with lib; {
     description =
-      "Library to certify primality using Pocklington certificate and Elliptic Curve Certificate";
+      "Library to certify primality using Pocklington certificate and Elliptic Curve Certificate"
+      ;
     license = licenses.lgpl21;
     maintainers = [ maintainers.vbgl ];
   };

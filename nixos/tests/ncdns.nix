@@ -20,15 +20,16 @@ import ./make-test-python.nix ({
       }
     '';
 
-    # Disabled because DNSSEC does not currently validate,
-    # see https://github.com/namecoin/ncdns/issues/127
+      # Disabled because DNSSEC does not currently validate,
+      # see https://github.com/namecoin/ncdns/issues/127
     dnssec = false;
 
   in {
     name = "ncdns";
     meta = with pkgs.lib.maintainers; { maintainers = [ rnhmjoj ]; };
 
-    nodes.server = {
+    nodes.server =
+      {
         ...
       }: {
         networking.nameservers = [ "::1" ];
@@ -40,8 +41,8 @@ import ./make-test-python.nix ({
           port = 8332;
         };
 
-        # Fake namecoin RPC server because we can't
-        # run a full node in a test.
+          # Fake namecoin RPC server because we can't
+          # run a full node in a test.
         systemd.services.namecoind = {
           wantedBy = [ "multi-user.target" ];
           script = ''
@@ -64,7 +65,8 @@ import ./make-test-python.nix ({
         services.pdns-recursor.resolveNamecoin = true;
 
         environment.systemPackages = [ pkgs.dnsutils ];
-      };
+      }
+      ;
 
     testScript = (lib.optionalString dnssec ''
       with subtest("DNSSEC keys have been generated"):

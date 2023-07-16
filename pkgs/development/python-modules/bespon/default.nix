@@ -14,7 +14,7 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [ ];
-  # upstream doesn't contain tests
+    # upstream doesn't contain tests
   doCheck = false;
 
   pythonImportsCheck = [ "bespon" ];

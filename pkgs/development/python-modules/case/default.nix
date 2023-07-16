@@ -25,7 +25,7 @@ buildPythonPackage rec {
     six
   ];
 
-  # No real unittests, only coverage
+    # No real unittests, only coverage
   doCheck = false;
 
   pythonImportsCheck = [ "case" ];

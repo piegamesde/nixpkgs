@@ -41,10 +41,12 @@ with import ./functions.nix { inherit lib gemConfig; };
 let
   gemFiles = bundlerFiles args;
 
-  importedGemset = if builtins.typeOf gemFiles.gemset != "set" then
-    import gemFiles.gemset
-  else
-    gemFiles.gemset;
+  importedGemset =
+    if builtins.typeOf gemFiles.gemset != "set" then
+      import gemFiles.gemset
+    else
+      gemFiles.gemset
+    ;
 
   filteredGemset = filterGemset { inherit ruby groups; } importedGemset;
 
@@ -56,38 +58,46 @@ let
 
   hasBundler = builtins.hasAttr "bundler" filteredGemset;
 
-  bundler = if hasBundler then
-    gems.bundler
-  else
-    defs.bundler.override (attrs: { inherit ruby; });
+  bundler =
+    if hasBundler then
+      gems.bundler
+    else
+      defs.bundler.override (attrs: { inherit ruby; })
+    ;
 
   gems =
     lib.flip lib.mapAttrs configuredGemset (name: attrs: buildGem name attrs);
 
-  name' = if name != null then
-    name
-  else
-    let
-      gem = gems.${pname};
-      version = gem.version;
-    in
-    "${pname}-${version}"
-  ;
+  name' =
+    if name != null then
+      name
+    else
+      let
+        gem = gems.${pname};
+        version = gem.version;
+      in
+      "${pname}-${version}"
+    ;
 
-  pname' = if pname != null then
-    pname
-  else
-    name;
+  pname' =
+    if pname != null then
+      pname
+    else
+      name
+    ;
 
-  copyIfBundledByPath = {
+  copyIfBundledByPath =
+    {
       bundledByPath ? false,
       ...
     }:
     (lib.optionalString bundledByPath
       (assert gemFiles.gemdir != null; "cp -a ${gemFiles.gemdir}/* $out/") # */
-    );
+    )
+    ;
 
-  maybeCopyAll = pkgname:
+  maybeCopyAll =
+    pkgname:
     if pkgname == null then
       ""
     else
@@ -96,11 +106,11 @@ let
           gems.${pkgname} or (throw "bundlerEnv: gem ${pkgname} not found");
       in
       copyIfBundledByPath mainGem
-  ;
+    ;
 
-  # We have to normalize the Gemfile.lock, otherwise bundler tries to be
-  # helpful by doing so at run time, causing executables to immediately bail
-  # out. Yes, I'm serious.
+    # We have to normalize the Gemfile.lock, otherwise bundler tries to be
+    # helpful by doing so at run time, causing executables to immediately bail
+    # out. Yes, I'm serious.
   confFiles = runCommand "gemfile-and-lockfile" { } ''
     mkdir -p $out
     ${maybeCopyAll mainGemName}
@@ -111,13 +121,15 @@ let
     extraConfigPaths}
   '';
 
-  buildGem = name: attrs:
+  buildGem =
+    name: attrs:
     (let
       gemAttrs = composeGemAttrs ruby gems name attrs;
     in if gemAttrs.type == "path" then
       pathDerivation (gemAttrs.source // gemAttrs)
     else
-      buildRubyGem gemAttrs);
+      buildRubyGem gemAttrs)
+    ;
 
   envPaths = lib.attrValues gems ++ lib.optional (!hasBundler) bundler;
 
@@ -168,45 +180,48 @@ let
         inherit (ruby) meta;
       };
 
-      env = let
-        irbrc = builtins.toFile "irbrc" ''
-          if !(ENV["OLD_IRBRC"].nil? || ENV["OLD_IRBRC"].empty?)
-            require ENV["OLD_IRBRC"]
-          end
-          require 'rubygems'
-          require 'bundler/setup'
-        '';
-      in
-      stdenv.mkDerivation {
-        name = "${pname'}-interactive-environment";
-        nativeBuildInputs = [
-          wrappedRuby
-          basicEnv
-        ];
-        shellHook = ''
-          export OLD_IRBRC=$IRBRC
-          export IRBRC=${irbrc}
-        '';
-        buildCommand = ''
-          echo >&2 ""
-          echo >&2 "*** Ruby 'env' attributes are intended for interactive nix-shell sessions, not for building! ***"
-          echo >&2 ""
-          exit 1
-        '';
-      }
-      ;
+      env =
+        let
+          irbrc = builtins.toFile "irbrc" ''
+            if !(ENV["OLD_IRBRC"].nil? || ENV["OLD_IRBRC"].empty?)
+              require ENV["OLD_IRBRC"]
+            end
+            require 'rubygems'
+            require 'bundler/setup'
+          '';
+        in
+        stdenv.mkDerivation {
+          name = "${pname'}-interactive-environment";
+          nativeBuildInputs = [
+            wrappedRuby
+            basicEnv
+          ];
+          shellHook = ''
+            export OLD_IRBRC=$IRBRC
+            export IRBRC=${irbrc}
+          '';
+          buildCommand = ''
+            echo >&2 ""
+            echo >&2 "*** Ruby 'env' attributes are intended for interactive nix-shell sessions, not for building! ***"
+            echo >&2 ""
+            exit 1
+          '';
+        }
+        ;
     };
   };
 
-  basicEnv = if copyGemFiles then
-    runCommand name' basicEnvArgs ''
-      mkdir -p $out
-      for i in $paths; do
-        ${rsync}/bin/rsync -a $i/lib $out/
-      done
-      eval "$postBuild"
-    ''
-  else
-    buildEnv basicEnvArgs;
+  basicEnv =
+    if copyGemFiles then
+      runCommand name' basicEnvArgs ''
+        mkdir -p $out
+        for i in $paths; do
+          ${rsync}/bin/rsync -a $i/lib $out/
+        done
+        eval "$postBuild"
+      ''
+    else
+      buildEnv basicEnvArgs
+    ;
 in
 basicEnv

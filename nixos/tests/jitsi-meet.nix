@@ -6,13 +6,16 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib; { maintainers = teams.jitsi.members; };
 
     nodes = {
-      client = {
+      client =
+        {
           nodes,
           pkgs,
           ...
         }:
-        { };
-      server = {
+        { }
+        ;
+      server =
+        {
           config,
           pkgs,
           ...
@@ -37,7 +40,8 @@ import ./make-test-python.nix ({
           security.acme.defaults.email = "me@example.org";
           security.acme.defaults.server =
             "https://example.com"; # self-signed only
-        };
+        }
+        ;
     };
 
     testScript = ''

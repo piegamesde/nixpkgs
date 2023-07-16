@@ -77,39 +77,40 @@ stdenv.mkDerivation rec {
 
   buildInputs = lib.optionals (!headersOnly) [ cxxabi ];
 
-  cmakeFlags = let
-    # See: https://libcxx.llvm.org/BuildingLibcxx.html#cmdoption-arg-libcxx-cxx-abi-string
-    libcxx_cxx_abi_opt = {
-      "c++abi" = "system-libcxxabi";
-      "cxxrt" = "libcxxrt";
-    }.${cxxabi.libName} or (throw
-      "unknown cxxabi: ${cxxabi.libName} (${cxxabi.pname})");
-  in
-  [
-    "-DLLVM_ENABLE_RUNTIMES=libcxx"
-    "-DLIBCXX_CXX_ABI=${
-      if headersOnly then
-        "none"
-      else
-        libcxx_cxx_abi_opt
-    }"
-  ] ++ lib.optional (!headersOnly && cxxabi.libName == "c++abi")
-  "-DLIBCXX_CXX_ABI_INCLUDE_PATHS=${cxxabi.dev}/include/c++/v1"
-  ++ lib.optional (stdenv.hostPlatform.isMusl || stdenv.hostPlatform.isWasi)
-  "-DLIBCXX_HAS_MUSL_LIBC=1"
-  ++ lib.optional (stdenv.hostPlatform.useLLVM or false)
-  "-DLIBCXX_USE_COMPILER_RT=ON" ++ lib.optionals stdenv.hostPlatform.isWasm [
-    "-DLIBCXX_ENABLE_THREADS=OFF"
-    "-DLIBCXX_ENABLE_FILESYSTEM=OFF"
-    "-DLIBCXX_ENABLE_EXCEPTIONS=OFF"
-  ] ++ lib.optional (!enableShared) "-DLIBCXX_ENABLE_SHARED=OFF"
-  # If we're only building the headers we don't actually *need* a functioning
-  # C/C++ compiler:
-  ++ lib.optionals (headersOnly) [
-    "-DCMAKE_C_COMPILER_WORKS=ON"
-    "-DCMAKE_CXX_COMPILER_WORKS=ON"
-  ]
-  ;
+  cmakeFlags =
+    let
+      # See: https://libcxx.llvm.org/BuildingLibcxx.html#cmdoption-arg-libcxx-cxx-abi-string
+      libcxx_cxx_abi_opt = {
+        "c++abi" = "system-libcxxabi";
+        "cxxrt" = "libcxxrt";
+      }.${cxxabi.libName} or (throw
+        "unknown cxxabi: ${cxxabi.libName} (${cxxabi.pname})");
+    in
+    [
+      "-DLLVM_ENABLE_RUNTIMES=libcxx"
+      "-DLIBCXX_CXX_ABI=${
+        if headersOnly then
+          "none"
+        else
+          libcxx_cxx_abi_opt
+      }"
+    ] ++ lib.optional (!headersOnly && cxxabi.libName == "c++abi")
+    "-DLIBCXX_CXX_ABI_INCLUDE_PATHS=${cxxabi.dev}/include/c++/v1"
+    ++ lib.optional (stdenv.hostPlatform.isMusl || stdenv.hostPlatform.isWasi)
+    "-DLIBCXX_HAS_MUSL_LIBC=1"
+    ++ lib.optional (stdenv.hostPlatform.useLLVM or false)
+    "-DLIBCXX_USE_COMPILER_RT=ON" ++ lib.optionals stdenv.hostPlatform.isWasm [
+      "-DLIBCXX_ENABLE_THREADS=OFF"
+      "-DLIBCXX_ENABLE_FILESYSTEM=OFF"
+      "-DLIBCXX_ENABLE_EXCEPTIONS=OFF"
+    ] ++ lib.optional (!enableShared) "-DLIBCXX_ENABLE_SHARED=OFF"
+    # If we're only building the headers we don't actually *need* a functioning
+    # C/C++ compiler:
+    ++ lib.optionals (headersOnly) [
+      "-DCMAKE_C_COMPILER_WORKS=ON"
+      "-DCMAKE_CXX_COMPILER_WORKS=ON"
+    ]
+    ;
 
   ninjaFlags = lib.optional headersOnly "generate-cxx-headers";
   installTargets = lib.optional headersOnly "install-cxx-headers";
@@ -126,8 +127,8 @@ stdenv.mkDerivation rec {
       libc++ is an implementation of the C++ standard library, targeting C++11,
       C++14 and above.
     '';
-    # "All of the code in libc++ is dual licensed under the MIT license and the
-    # UIUC License (a BSD-like license)":
+      # "All of the code in libc++ is dual licensed under the MIT license and the
+      # UIUC License (a BSD-like license)":
     license = with lib.licenses; [
       mit
       ncsa

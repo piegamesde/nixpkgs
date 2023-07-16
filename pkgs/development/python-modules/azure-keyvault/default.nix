@@ -27,7 +27,7 @@ buildPythonPackage rec {
     azure-keyvault-secrets
   ];
 
-  # this is just a meta package, which contains keys and secrets packages
+    # this is just a meta package, which contains keys and secrets packages
   doCheck = false;
   doBuild = false;
 

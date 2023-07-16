@@ -17,9 +17,9 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = lib.optional (pythonOlder "3.3") monotonic;
 
-  # humanfriendly tests depends on coloredlogs which itself depends on
-  # humanfriendly. This lead to infinite recursion when trying to
-  # build this package so we have to disable the test suite :(
+    # humanfriendly tests depends on coloredlogs which itself depends on
+    # humanfriendly. This lead to infinite recursion when trying to
+    # build this package so we have to disable the test suite :(
   doCheck = false;
 
   meta = with lib; {

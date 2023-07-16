@@ -14,7 +14,8 @@
 }@attrs:
 
 let
-  pkg = self:
+  pkg =
+    self:
     builder (attrs // {
 
       src = fetchHex {
@@ -22,6 +23,7 @@ let
         inherit version;
         inherit sha256;
       };
-    });
+    })
+    ;
 in
 lib.fix pkg

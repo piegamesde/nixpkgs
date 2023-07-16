@@ -33,7 +33,8 @@ stdenv.mkDerivation rec {
 
   meta = {
     description =
-      "Schemas for DocBook 5.0, a semantic markup language for technical documentation";
+      "Schemas for DocBook 5.0, a semantic markup language for technical documentation"
+      ;
     homepage = "https://docbook.org/xml/5.0/";
     maintainers = [ lib.maintainers.eelco ];
     platforms = lib.platforms.all;

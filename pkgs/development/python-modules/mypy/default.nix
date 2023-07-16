@@ -54,13 +54,15 @@ buildPythonPackage rec {
     (fetchpatch {
       # https://github.com/python/mypy/pull/14781
       url =
-        "https://github.com/python/mypy/commit/ab7b69a0532a5fe976c9c2a1b713d82d630692a4.patch";
+        "https://github.com/python/mypy/commit/ab7b69a0532a5fe976c9c2a1b713d82d630692a4.patch"
+        ;
       hash = "sha256-dtzmoOZP3tOtxrBVhgqpdv+rnrTjTKHxQhBieuJXRtA=";
     })
     (fetchpatch {
       # https://github.com/python/mypy/pull/14787
       url =
-        "https://github.com/python/mypy/commit/243f584d43e6eb316920f3155067ce7c1b65d473.patch";
+        "https://github.com/python/mypy/commit/243f584d43e6eb316920f3155067ce7c1b65d473.patch"
+        ;
       hash = "sha256-uuh3S5ZyuJeTXyMvav2uSEao2qq23xMjK8rJjkY8RCY=";
       includes = [ "mypyc/build.py" ];
     })
@@ -85,12 +87,12 @@ buildPythonPackage rec {
     reports = [ lxml ];
   };
 
-  # Compile mypy with mypyc, which makes mypy about 4 times faster. The compiled
-  # version is also the default in the wheels on Pypi that include binaries.
-  # is64bit: unfortunately the build would exhaust all possible memory on i686-linux.
+    # Compile mypy with mypyc, which makes mypy about 4 times faster. The compiled
+    # version is also the default in the wheels on Pypi that include binaries.
+    # is64bit: unfortunately the build would exhaust all possible memory on i686-linux.
   env.MYPY_USE_MYPYC = stdenv.buildPlatform.is64bit;
 
-  # when testing reduce optimisation level to reduce build time by 20%
+    # when testing reduce optimisation level to reduce build time by 20%
   env.MYPYC_OPT_LEVEL = 1;
 
   pythonImportsCheck = [

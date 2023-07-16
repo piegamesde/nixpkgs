@@ -29,7 +29,8 @@ stdenv.mkDerivation {
     (fetchpatch {
       name = "fno-common.patch";
       url =
-        "https://github.com/tamentis/mdp/commit/95c77de3beb96dc7c76ff36d3f3dfb18411d7c54.patch";
+        "https://github.com/tamentis/mdp/commit/95c77de3beb96dc7c76ff36d3f3dfb18411d7c54.patch"
+        ;
       sha256 = "1j6yvjzkx31b758yav4arhlm5ig7phl8mgx4fcwj7lm2pfvzwcsz";
     })
   ];
@@ -45,8 +46,8 @@ stdenv.mkDerivation {
     substituteInPlace ./mdp.1 \
       --replace "/usr/bin/gpg" "${gnupg}/bin/gpg"
   '';
-  # we add symlinks to the binary and man page with the name 'gpg-mdp', in case
-  # the completely unrelated program also named 'mdp' is already installed.
+    # we add symlinks to the binary and man page with the name 'gpg-mdp', in case
+    # the completely unrelated program also named 'mdp' is already installed.
   postFixup = ''
     ln -s $out/bin/mdp $out/bin/gpg-mdp
     ln -s $out/share/man/man1/mdp.1.gz $out/share/man/man1/gpg-mdp.1.gz

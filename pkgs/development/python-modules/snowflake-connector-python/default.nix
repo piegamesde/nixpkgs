@@ -54,8 +54,8 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  # Tests require encrypted secrets, see
-  # https://github.com/snowflakedb/snowflake-connector-python/tree/master/.github/workflows/parameters
+    # Tests require encrypted secrets, see
+    # https://github.com/snowflakedb/snowflake-connector-python/tree/master/.github/workflows/parameters
   doCheck = false;
 
   pythonImportsCheck = [
@@ -65,7 +65,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     changelog =
-      "https://github.com/snowflakedb/snowflake-connector-python/blob/v${version}/DESCRIPTION.md";
+      "https://github.com/snowflakedb/snowflake-connector-python/blob/v${version}/DESCRIPTION.md"
+      ;
     description = "Snowflake Connector for Python";
     homepage = "https://github.com/snowflakedb/snowflake-connector-python";
     license = licenses.asl20;

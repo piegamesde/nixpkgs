@@ -79,8 +79,8 @@ buildGoModule rec {
     }/share/tinygo" ];
   subPackages = [ "." ];
 
-  # Output contains static libraries for different arm cpus
-  # and stripping could mess up these so only strip the compiler
+    # Output contains static libraries for different arm cpus
+    # and stripping could mess up these so only strip the compiler
   stripDebugList = [ "bin" ];
 
   postConfigure = lib.optionalString stdenv.isDarwin ''
@@ -133,29 +133,32 @@ buildGoModule rec {
     export HOME=$TMPDIR
   '';
 
-  postBuild = let
-    tinygoForBuild =
-      if (stdenv.buildPlatform.canExecute stdenv.hostPlatform) then
-        "build/tinygo"
-      else
-        "${buildPackages.tinygo}/bin/tinygo";
-  in ''
-    # Move binary
-    mkdir -p build
-    mv $GOPATH/bin/tinygo build/tinygo
+  postBuild =
+    let
+      tinygoForBuild =
+        if (stdenv.buildPlatform.canExecute stdenv.hostPlatform) then
+          "build/tinygo"
+        else
+          "${buildPackages.tinygo}/bin/tinygo"
+        ;
+    in ''
+      # Move binary
+      mkdir -p build
+      mv $GOPATH/bin/tinygo build/tinygo
 
-    make gen-device
+      make gen-device
 
-    export TINYGOROOT=$(pwd)
-    finalRoot=$out/share/tinygo
+      export TINYGOROOT=$(pwd)
+      finalRoot=$out/share/tinygo
 
-    for target in thumbv6m-unknown-unknown-eabi-cortex-m0 thumbv6m-unknown-unknown-eabi-cortex-m0plus thumbv7em-unknown-unknown-eabi-cortex-m4; do
-      mkdir -p $finalRoot/pkg/$target
-      for lib in compiler-rt picolibc; do
-        ${tinygoForBuild} build-library -target=''${target#*eabi-} -o $finalRoot/pkg/$target/$lib $lib
+      for target in thumbv6m-unknown-unknown-eabi-cortex-m0 thumbv6m-unknown-unknown-eabi-cortex-m0plus thumbv7em-unknown-unknown-eabi-cortex-m4; do
+        mkdir -p $finalRoot/pkg/$target
+        for lib in compiler-rt picolibc; do
+          ${tinygoForBuild} build-library -target=''${target#*eabi-} -o $finalRoot/pkg/$target/$lib $lib
+        done
       done
-    done
-  '' ;
+    ''
+    ;
 
   checkPhase = lib.optionalString (tinygoTests != [ ] && tinygoTests != null) ''
     make ''${tinygoTests[@]} XTENSA=0 ${

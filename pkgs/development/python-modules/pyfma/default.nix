@@ -27,8 +27,8 @@ buildPythonPackage rec {
 
   buildInputs = [ pybind11 ];
 
-  propagatedBuildInputs = [ numpy ]
-    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs =
+    [ numpy ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

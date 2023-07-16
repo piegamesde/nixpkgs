@@ -22,7 +22,8 @@ python3.pkgs.buildPythonApplication rec {
     (fetchpatch {
       name = "bitstring-4-compatibility.patch";
       url =
-        "https://github.com/espressif/esptool/commit/16fa58415be2a7ff059ece40d4545288565d0a23.patch";
+        "https://github.com/espressif/esptool/commit/16fa58415be2a7ff059ece40d4545288565d0a23.patch"
+        ;
       hash = "sha256-FYa9EvyET4P8VkdyMzJBkdxVYm0tFt2GPnfsjzBnevE=";
       excludes = [ "setup.py" ];
     })
@@ -41,9 +42,9 @@ python3.pkgs.buildPythonApplication rec {
     reedsolo
   ];
 
-  # wrapPythonPrograms will overwrite esptool.py with a bash script,
-  # but espefuse.py tries to import it. Since we don't add any binary paths,
-  # use patchPythonScript directly.
+    # wrapPythonPrograms will overwrite esptool.py with a bash script,
+    # but espefuse.py tries to import it. Since we don't add any binary paths,
+    # use patchPythonScript directly.
   dontWrapPythonPrograms = true;
   postFixup = ''
     buildPythonPath "$out $pythonPath"
@@ -55,7 +56,7 @@ python3.pkgs.buildPythonApplication rec {
 
   nativeCheckInputs = with python3.pkgs; [ pyelftools ];
 
-  # tests mentioned in `.github/workflows/test_esptool.yml`
+    # tests mentioned in `.github/workflows/test_esptool.yml`
   checkPhase = ''
     runHook preCheck
 

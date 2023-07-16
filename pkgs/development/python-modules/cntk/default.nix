@@ -60,7 +60,7 @@ buildPythonPackage {
     cp cntk/cntk_py.py $out/${python.sitePackages}/cntk
   '';
 
-  # Actual tests are broken.
+    # Actual tests are broken.
   checkPhase = ''
     cd $NIX_BUILD_TOP
     ${python.interpreter} -c "import cntk"

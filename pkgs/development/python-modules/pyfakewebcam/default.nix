@@ -20,7 +20,7 @@ buildPythonPackage rec {
     opencv4
   ];
 
-  # No tests are available
+    # No tests are available
   doCheck = false;
   pythonImportsCheck = [ "pyfakewebcam" ];
 

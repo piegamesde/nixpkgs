@@ -22,7 +22,8 @@ python3Packages.buildPythonApplication rec {
   patches = [ (fetchpatch {
     name = "support-for-pykeepass-4.0.3.patch";
     url =
-      "https://github.com/roddhjav/pass-import/commit/f1b167578916d971ee4f99be99ba0e86ef49015e.patch";
+      "https://github.com/roddhjav/pass-import/commit/f1b167578916d971ee4f99be99ba0e86ef49015e.patch"
+      ;
     hash = "sha256-u6bJbV3/QTfRaPauKSyCWNodpy6CKsreMXUZWKRbee0=";
   }) ];
 
@@ -41,8 +42,7 @@ python3Packages.buildPythonApplication rec {
     python3Packages.pytestCheckHook
   ];
 
-  disabledTests =
-    [ "test_import_gnome_keyring" # requires dbus, which pytest doesn't support
+  disabledTests = [ "test_import_gnome_keyring" # requires dbus, which pytest doesn't support
     ];
 
   postInstall = ''

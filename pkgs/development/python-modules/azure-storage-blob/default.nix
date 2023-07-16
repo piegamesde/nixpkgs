@@ -35,15 +35,17 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  # Module has no tests
+    # Module has no tests
   doCheck = false;
 
   meta = with lib; {
     description =
-      "Client library for Microsoft Azure Storage services containing the blob service APIs";
+      "Client library for Microsoft Azure Storage services containing the blob service APIs"
+      ;
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     changelog =
-      "https://github.com/Azure/azure-sdk-for-python/blob/azure-storage-blob_${version}/sdk/storage/azure-storage-blob/CHANGELOG.md";
+      "https://github.com/Azure/azure-sdk-for-python/blob/azure-storage-blob_${version}/sdk/storage/azure-storage-blob/CHANGELOG.md"
+      ;
     license = licenses.mit;
     maintainers = with maintainers; [
       cmcdragonkai

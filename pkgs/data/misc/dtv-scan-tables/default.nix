@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     #downloadPage = "https://git.linuxtv.org/dtv-scan-tables.git";
     # Weekly releases are supposed to be here
     downloadPage = "https://linuxtv.org/downloads/dtv-scan-tables/";
-    # but sometimes they lag behind several weeks or even months.
+      # but sometimes they lag behind several weeks or even months.
     description = "Digital TV (DVB) channel/transponder scan tables";
     homepage = "https://www.linuxtv.org/wiki/index.php/Dtv-scan-tables";
     license = with licenses; [

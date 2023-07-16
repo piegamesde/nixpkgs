@@ -20,7 +20,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "lazdavila";
     repo = pname;
-    # https://github.com/lazdavila/pescea/issues/4
+      # https://github.com/lazdavila/pescea/issues/4
     rev = "a3dd7deedc64205e24adbc4ff406a2f6aed3b240";
     hash = "sha256-5TkFrGaSkQOORhf5a7SjkzggFLPyqe9k3M0B4ljhWTQ=";
   };

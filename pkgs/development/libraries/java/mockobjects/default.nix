@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "18rnyqfcyh0s3dwkkaszdd50ssyjx5fa1y3ii309ldqg693lfgnz";
   };
 
-  # Work around the "unpacker appears to have produced no directories"
+    # Work around the "unpacker appears to have produced no directories"
   setSourceRoot = "sourceRoot=`pwd`";
 
   installPhase = ''
@@ -27,7 +27,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Generic unit testing framework and methodology for testing any kind of code";
+      "Generic unit testing framework and methodology for testing any kind of code"
+      ;
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     platforms = platforms.unix;
     license = licenses.asl20;

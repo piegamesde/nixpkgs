@@ -56,7 +56,7 @@ stdenvNoCC.mkDerivation rec {
     description = "Papirus icon theme";
     homepage = "https://github.com/PapirusDevelopmentTeam/papirus-icon-theme";
     license = licenses.gpl3Only;
-    # darwin gives hash mismatch in source, probably because of file names differing only in case
+      # darwin gives hash mismatch in source, probably because of file names differing only in case
     platforms = platforms.linux;
     maintainers = with maintainers; [
       romildo

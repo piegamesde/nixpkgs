@@ -30,14 +30,15 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ setuptools ];
 
-  # Module has no tests
+    # Module has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "vlc" ];
 
   meta = with lib; {
     description =
-      "Python bindings for VLC, the cross-platform multimedia player and framework";
+      "Python bindings for VLC, the cross-platform multimedia player and framework"
+      ;
     homepage = "https://wiki.videolan.org/PythonBinding";
     license = licenses.lgpl21Plus;
     maintainers = with maintainers; [ tbenst ];

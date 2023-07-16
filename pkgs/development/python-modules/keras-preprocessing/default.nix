@@ -37,7 +37,7 @@ buildPythonPackage rec {
     py.test tests/
   '';
 
-  # Cyclic dependency: keras-preprocessing's tests require Keras, which requires keras-preprocessing
+    # Cyclic dependency: keras-preprocessing's tests require Keras, which requires keras-preprocessing
   doCheck = false;
 
   meta = with lib; {

@@ -10,7 +10,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://kokkinizita.linuxaudio.org/linuxaudio/downloads/clthreads-${version}.tar.bz2";
+      "https://kokkinizita.linuxaudio.org/linuxaudio/downloads/clthreads-${version}.tar.bz2"
+      ;
     sha256 = "0cbs1w89q8wfjrrhvxf6xk0y02nkjl5hd0yb692c8ma01i6b2nf6";
   };
 

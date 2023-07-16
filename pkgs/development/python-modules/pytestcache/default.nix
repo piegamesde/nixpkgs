@@ -22,7 +22,7 @@ buildPythonPackage rec {
     py.test
   '';
 
-  # Too many failing tests. Are they maintained?
+    # Too many failing tests. Are they maintained?
   doCheck = false;
 
   meta = with lib; {

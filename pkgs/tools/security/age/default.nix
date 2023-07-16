@@ -18,17 +18,18 @@ buildGoModule rec {
     sha256 = "sha256-LRxxJQLQkzoCNYGS/XBixVmYXoZ1mPHKvFicPGXYLcw=";
   };
 
-  # Worked with the upstream to change the way test vectors were sourced from
-  # another repo at test run time, so we can run test without network access.
-  # https://github.com/FiloSottile/age/pull/476
-  #
-  # Changes landed after v1.1.1, so we'll patch this one until next release.
+    # Worked with the upstream to change the way test vectors were sourced from
+    # another repo at test run time, so we can run test without network access.
+    # https://github.com/FiloSottile/age/pull/476
+    #
+    # Changes landed after v1.1.1, so we'll patch this one until next release.
   patches = [
     # Revert "all: temporarily disable testscript tests"
     (fetchpatch {
       name = "0001-revert-temporarily-disabled-testscript-tests.patch";
       url =
-        "https://github.com/FiloSottile/age/commit/5471e05672de168766f5f11453fd324c53c264e5.patch";
+        "https://github.com/FiloSottile/age/commit/5471e05672de168766f5f11453fd324c53c264e5.patch"
+        ;
       sha256 = "sha256-F3oDhRWJqqcF9MDDWPeO9V/wUGXkmUXY87wgokUIoOk=";
     })
 
@@ -36,7 +37,8 @@ buildGoModule rec {
     (fetchpatch {
       name = "0002-depend-on-c2sp_cctv_age__TestVectors.patch";
       url =
-        "https://github.com/FiloSottile/age/commit/edf7388f7731b274b055dcab3ec4006cc4961b68.patch";
+        "https://github.com/FiloSottile/age/commit/edf7388f7731b274b055dcab3ec4006cc4961b68.patch"
+        ;
       sha256 = "sha256-CloCj/uF3cqTeCfRkV6TeYiovuDQXm1ZIklREWAot1E=";
     })
   ];

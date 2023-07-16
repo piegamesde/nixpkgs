@@ -61,7 +61,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "A sphinx extension for creating tooltips on the cross references of the documentation";
+      "A sphinx extension for creating tooltips on the cross references of the documentation"
+      ;
     longDescription = ''
       sphinx-hoverxref is a Sphinx extension to show a floating window
       (tooltips or modal dialogues) on the cross references of the

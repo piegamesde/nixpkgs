@@ -35,11 +35,13 @@
 
 let
   inherit (builtins) elemAt;
-  nullableOr = o: default:
+  nullableOr =
+    o: default:
     if o == null then
       default
     else
-      o;
+      o
+    ;
 
   bits = stdenv.hostPlatform.parsed.cpu.bits;
 
@@ -64,7 +66,8 @@ let
 
   squeakVmCommitHash = nullableOr args.squeakVmCommitHash or null (fetchurl {
     url =
-      "https://api.github.com/repos/OpenSmalltalk/opensmalltalk-vm/commits/${squeakVmVersionRelease}";
+      "https://api.github.com/repos/OpenSmalltalk/opensmalltalk-vm/commits/${squeakVmVersionRelease}"
+      ;
     curlOpts = "--header Accept:application/vnd.github.v3.sha";
     hash = nullableOr args.squeakVmCommitHashHash or null
       "sha256-quwmhpJlb2fp0fI9b03fBxSR44j1xmHPW20wkSqTOhQ=";
@@ -85,22 +88,25 @@ stdenv.mkDerivation {
     hash = nullableOr args.squeakVmHash or null
       "sha256-rNJn5ya+7ggC21MpwSrl2ByJDjVycONKHADboH7dQLM=";
   };
-  imageSrc = let
-    squeakImageName =
-      "Squeak${squeakVersionBase}-${squeakImageVersion}-${toString bits}bit";
-  in
-  fetchzip {
-    url =
-      "https://files.squeak.org/${squeakVersionBase}/${squeakImageName}/${squeakImageName}.zip";
-    name = "source";
-    stripRoot = false;
-    hash = nullableOr args.squeakImageHash or null
-      "sha256-wDuRyc/DNqG1D4DzyBkUvrzFkBlXBtbpnANZlRV/Fas=";
-  }
-  ;
+  imageSrc =
+    let
+      squeakImageName =
+        "Squeak${squeakVersionBase}-${squeakImageVersion}-${toString bits}bit";
+    in
+    fetchzip {
+      url =
+        "https://files.squeak.org/${squeakVersionBase}/${squeakImageName}/${squeakImageName}.zip"
+        ;
+      name = "source";
+      stripRoot = false;
+      hash = nullableOr args.squeakImageHash or null
+        "sha256-wDuRyc/DNqG1D4DzyBkUvrzFkBlXBtbpnANZlRV/Fas=";
+    }
+    ;
   sourcesSrc = fetchurl {
     url =
-      "https://files.squeak.org/sources_files/SqueakV${squeakSourcesVersion}.sources.gz";
+      "https://files.squeak.org/sources_files/SqueakV${squeakSourcesVersion}.sources.gz"
+      ;
     hash = nullableOr args.squeakSourcesHash or null
       "sha256-ZViZ1VgI32LwLTEyw7utp8oaAK3UmCNJnHqsGm1IKYE=";
   };
@@ -172,9 +178,9 @@ stdenv.mkDerivation {
       --replace '/bin/rm ' '${coreutils}/bin/rm '
   '';
 
-  # Workaround build failure on -fno-common toolchains:
-  #   ld: vm/vm.a(cogit.o):spur64src/vm/cogitX64SysV.c:2552: multiple definition of
-  #       `traceStores'; vm/vm.a(gcc3x-cointerp.o):spur64src/vm/cogit.h:140: first defined here
+    # Workaround build failure on -fno-common toolchains:
+    #   ld: vm/vm.a(cogit.o):spur64src/vm/cogitX64SysV.c:2552: multiple definition of
+    #       `traceStores'; vm/vm.a(gcc3x-cointerp.o):spur64src/vm/cogit.h:140: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   preAutoreconf = ''

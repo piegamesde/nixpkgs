@@ -17,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-I9QpQyW3sHyUgCYZYfJecTJDNHLaQtqnXG4WeA4p5VE=";
   };
 
-  # Tests are not part of the PyPI releases
+    # Tests are not part of the PyPI releases
   doCheck = false;
 
   pythonImportsCheck = [ "datadiff" ];

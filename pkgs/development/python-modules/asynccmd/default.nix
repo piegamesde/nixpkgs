@@ -25,12 +25,13 @@ buildPythonPackage rec {
     (fetchpatch {
       name = "deprecation-python-38.patch";
       url =
-        "https://github.com/valentinmk/asynccmd/commit/12afa60ac07db17e96755e266061f2c88cb545ff.patch";
+        "https://github.com/valentinmk/asynccmd/commit/12afa60ac07db17e96755e266061f2c88cb545ff.patch"
+        ;
       sha256 = "0l6sk93gj51qqrpw01a8iiyz14k6dd2z68vr9l9w9vx76l8725yf";
     })
   ];
 
-  # Tests are outdated
+    # Tests are outdated
   doCheck = false;
 
   pythonImportsCheck = [ "asynccmd" ];

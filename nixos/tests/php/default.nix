@@ -7,12 +7,14 @@
 
 let
   php' = php.buildEnv {
-    extensions = {
+    extensions =
+      {
         enabled,
         all,
       }:
       with all;
-      enabled ++ [ apcu ];
+      enabled ++ [ apcu ]
+      ;
   };
 in {
   fpm = import ./fpm.nix {

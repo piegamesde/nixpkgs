@@ -73,7 +73,7 @@ stdenv.mkDerivation {
     rm tests/test_fuse.py
   '';
 
-  # this symlink is needed for mount -t bcachefs to work
+    # this symlink is needed for mount -t bcachefs to work
   postFixup = ''
     ln -s $out/bin/mount.bcachefs.sh $out/bin/mount.bcachefs
     wrapProgram $out/bin/mount.bcachefs.sh \

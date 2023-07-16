@@ -31,7 +31,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchurl {
     url =
-      "https://github.com/Infisical/infisical/releases/download/v${finalAttrs.version}/infisical_${finalAttrs.version}_${plat}.tar.gz";
+      "https://github.com/Infisical/infisical/releases/download/v${finalAttrs.version}/infisical_${finalAttrs.version}_${plat}.tar.gz"
+      ;
     inherit sha256;
   };
 

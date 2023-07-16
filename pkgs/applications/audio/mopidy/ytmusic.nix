@@ -6,16 +6,18 @@
 
 let
   python = python3.override {
-    packageOverrides = self: super: {
-      ytmusicapi = super.ytmusicapi.overridePythonAttrs (old: rec {
-        version = "0.25.1";
-        src = self.fetchPypi {
-          inherit (old) pname;
-          inherit version;
-          hash = "sha256-uc/fgDetSYaCRzff0SzfbRhs3TaKrfE2h6roWkkj8yQ=";
-        };
-      });
-    };
+    packageOverrides =
+      self: super: {
+        ytmusicapi = super.ytmusicapi.overridePythonAttrs (old: rec {
+          version = "0.25.1";
+          src = self.fetchPypi {
+            inherit (old) pname;
+            inherit version;
+            hash = "sha256-uc/fgDetSYaCRzff0SzfbRhs3TaKrfE2h6roWkkj8yQ=";
+          };
+        });
+      }
+      ;
   };
 in
 python.pkgs.buildPythonApplication rec {
@@ -36,12 +38,13 @@ python.pkgs.buildPythonApplication rec {
 
   pythonImportsCheck = [ "mopidy_ytmusic" ];
 
-  # has no tests
+    # has no tests
   doCheck = false;
 
   meta = with lib; {
     changelog =
-      "https://github.com/OzymandiasTheGreat/mopidy-ytmusic/blob/v${version}/CHANGELOG.rst";
+      "https://github.com/OzymandiasTheGreat/mopidy-ytmusic/blob/v${version}/CHANGELOG.rst"
+      ;
     description = "Mopidy extension for playing music from YouTube Music";
     homepage = "https://github.com/OzymandiasTheGreat/mopidy-ytmusic";
     license = licenses.asl20;

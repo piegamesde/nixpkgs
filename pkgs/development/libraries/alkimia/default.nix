@@ -29,9 +29,9 @@ mkDerivation rec {
     graphviz
   ];
 
-  # qtwebengine is not a mandatory dependency, but it adds some features
-  # we might need for alkimia's dependents. See:
-  # https://github.com/KDE/alkimia/blob/v8.1.1/CMakeLists.txt#L124
+    # qtwebengine is not a mandatory dependency, but it adds some features
+    # we might need for alkimia's dependents. See:
+    # https://github.com/KDE/alkimia/blob/v8.1.1/CMakeLists.txt#L124
   buildInputs = [
     qtbase
     qtwebengine

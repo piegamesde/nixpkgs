@@ -10,10 +10,12 @@ in
 unwrapped.overrideAttrs (oldAttrs: {
   passthru = oldAttrs.passthru // {
     packages = kodiPackages;
-    withPackages = func:
+    withPackages =
+      func:
       callPackage ./wrapper.nix {
         kodi = unwrapped;
         addons = kodiPackages.requiredKodiAddons (func kodiPackages);
-      };
+      }
+      ;
   };
 })

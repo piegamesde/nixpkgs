@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     itk
   ];
 
-  # 2.0.0: linker error building examples
+    # 2.0.0: linker error building examples
   cmakeFlags = [
     "-DBUILD_EXAMPLES=OFF"
     "-DBUILD_SHARED_LIBS=ON"

@@ -21,7 +21,7 @@ stdenv.mkDerivation {
   pname = "p4est-sc${dbg}";
   version = "unstable-2021-06-14";
 
-  # fetch an untagged snapshot of the prev3-develop branch
+    # fetch an untagged snapshot of the prev3-develop branch
   src = fetchFromGitHub {
     owner = "cburstedde";
     repo = "libsc";
@@ -34,8 +34,8 @@ stdenv.mkDerivation {
     autoreconfHook
     pkg-config
   ];
-  propagatedNativeBuildInputs = lib.optional mpiSupport mpi
-    ++ lib.optional isOpenmpi openssh;
+  propagatedNativeBuildInputs =
+    lib.optional mpiSupport mpi ++ lib.optional isOpenmpi openssh;
   propagatedBuildInputs = [ zlib ];
   inherit debugEnable mpiSupport;
 
@@ -60,8 +60,8 @@ stdenv.mkDerivation {
     export HYDRA_IFACE=lo
   '';
 
-  # disallow Darwin checks due to prototype incompatibility of qsort_r
-  # to be fixed in a future version of the source code
+    # disallow Darwin checks due to prototype incompatibility of qsort_r
+    # to be fixed in a future version of the source code
   doCheck = !stdenv.isDarwin && stdenv.hostPlatform == stdenv.buildPlatform;
 
   meta = {

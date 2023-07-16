@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
     moveToOutput "share/libwebsockets-test-*" "$dev"
   '';
 
-  # $out/share/libwebsockets-test-server/plugins/libprotocol_*.so refers to crtbeginS.o
+    # $out/share/libwebsockets-test-server/plugins/libprotocol_*.so refers to crtbeginS.o
   disallowedReferences = [ stdenv.cc.cc ];
 
   meta = with lib; {
@@ -74,8 +74,8 @@ stdenv.mkDerivation rec {
       throughput in both directions.
     '';
     homepage = "https://libwebsockets.org/";
-    # Relicensed from LGPLv2.1+ to MIT with 4.0. Licensing situation
-    # is tricky, see https://github.com/warmcat/libwebsockets/blob/main/LICENSE
+      # Relicensed from LGPLv2.1+ to MIT with 4.0. Licensing situation
+      # is tricky, see https://github.com/warmcat/libwebsockets/blob/main/LICENSE
     license = with licenses; [
       mit
       publicDomain

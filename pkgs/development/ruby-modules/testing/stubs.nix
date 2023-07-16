@@ -6,7 +6,8 @@
   ...
 }:
 let
-  mkDerivation = {
+  mkDerivation =
+    {
       name,
       ...
     }@argSet:
@@ -24,8 +25,10 @@ let
       ];
       system = stdenv.hostPlatform.system;
       passAsFile = [ "text" ];
-    };
-  fetchurl = {
+    }
+    ;
+  fetchurl =
+    {
       url ? "",
       urls ? [ ],
       ...
@@ -35,7 +38,8 @@ let
         url
       else
         builtins.head urls
-    }";
+    }"
+    ;
 
   stdenv' = stdenv // {
     inherit mkDerivation;

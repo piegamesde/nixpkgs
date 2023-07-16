@@ -9,7 +9,8 @@ args@{
   parasites = [ "data-table-test" ];
 
   description =
-    "A library providing a data-table class, and useful functionality around this";
+    "A library providing a data-table class, and useful functionality around this"
+    ;
 
   deps = [
     args."alexandria"
@@ -25,7 +26,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/data-table/2016-02-08/data-table-20160208-git.tgz";
+      "http://beta.quicklisp.org/archive/data-table/2016-02-08/data-table-20160208-git.tgz"
+      ;
     sha256 = "0xzjk3jxx11ziw5348ddalygi84wwwcjcxmqvm5rscgzh012h8gm";
   };
 

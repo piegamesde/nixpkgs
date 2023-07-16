@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     findlib
   ];
 
-  # Fix build for recent ncurses versions
+    # Fix build for recent ncurses versions
   env.NIX_CFLAGS_COMPILE = "-DNCURSES_INTERNALS=1";
 
   createFindlibDestdir = true;

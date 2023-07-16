@@ -12,7 +12,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://apache/flink/${pname}-${version}/${pname}-${version}-bin-scala_2.12.tgz";
+      "mirror://apache/flink/${pname}-${version}/${pname}-${version}-bin-scala_2.12.tgz"
+      ;
     sha256 = "sha256-x60Lk/xXf+Isg1J6z5qAIZ2/dbDiztPIKWrdPITp3Tg=";
   };
 

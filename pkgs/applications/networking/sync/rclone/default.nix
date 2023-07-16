@@ -48,34 +48,39 @@ buildGoModule rec {
     "-X github.com/rclone/rclone/fs.Version=${version}"
   ];
 
-  postInstall = let
-    rcloneBin = if stdenv.buildPlatform.canExecute stdenv.hostPlatform then
-      "$out"
-    else
-      lib.getBin buildPackages.rclone;
-  in
-  ''
-    installManPage rclone.1
-    for shell in bash zsh fish; do
-      ${rcloneBin}/bin/rclone genautocomplete $shell rclone.$shell
-      installShellCompletion rclone.$shell
-    done
-  '' + lib.optionalString (enableCmount && !stdenv.isDarwin)
-  # use --suffix here to ensure we don't shadow /run/wrappers/bin/fusermount,
-  # as the setuid wrapper is required as non-root on NixOS.
-  ''
-    wrapProgram $out/bin/rclone \
-      --suffix PATH : "${lib.makeBinPath [ fuse ]}" \
-      --prefix LD_LIBRARY_PATH : "${fuse}/lib"
-  ''
-  ;
+  postInstall =
+    let
+      rcloneBin =
+        if stdenv.buildPlatform.canExecute stdenv.hostPlatform then
+          "$out"
+        else
+          lib.getBin buildPackages.rclone
+        ;
+    in
+    ''
+      installManPage rclone.1
+      for shell in bash zsh fish; do
+        ${rcloneBin}/bin/rclone genautocomplete $shell rclone.$shell
+        installShellCompletion rclone.$shell
+      done
+    '' + lib.optionalString (enableCmount && !stdenv.isDarwin)
+    # use --suffix here to ensure we don't shadow /run/wrappers/bin/fusermount,
+    # as the setuid wrapper is required as non-root on NixOS.
+    ''
+      wrapProgram $out/bin/rclone \
+        --suffix PATH : "${lib.makeBinPath [ fuse ]}" \
+        --prefix LD_LIBRARY_PATH : "${fuse}/lib"
+    ''
+    ;
 
   meta = with lib; {
     description =
-      "Command line program to sync files and directories to and from major cloud storage";
+      "Command line program to sync files and directories to and from major cloud storage"
+      ;
     homepage = "https://rclone.org";
     changelog =
-      "https://github.com/rclone/rclone/blob/v${version}/docs/content/changelog.md";
+      "https://github.com/rclone/rclone/blob/v${version}/docs/content/changelog.md"
+      ;
     license = licenses.mit;
     maintainers = with maintainers; [
       danielfullmer

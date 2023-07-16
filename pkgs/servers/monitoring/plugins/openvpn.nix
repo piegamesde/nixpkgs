@@ -15,7 +15,7 @@ python3Packages.buildPythonApplication rec {
     sha256 = "1vz3p7nckc5k5f06nm1xfzpykhyndh2dzyagmifrzg5k478p1lpm";
   };
 
-  # no tests
+    # no tests
   doCheck = false;
 
   meta = with lib; {

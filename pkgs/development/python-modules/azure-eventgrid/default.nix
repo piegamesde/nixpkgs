@@ -29,14 +29,15 @@ buildPythonPackage rec {
     msrestazure
   ];
 
-  # has no tests
+    # has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "azure.eventgrid" ];
 
   meta = with lib; {
     description =
-      "A fully-managed intelligent event routing service that allows for uniform event consumption using a publish-subscribe model";
+      "A fully-managed intelligent event routing service that allows for uniform event consumption using a publish-subscribe model"
+      ;
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
     maintainers = with maintainers; [ maxwilson ];

@@ -22,7 +22,7 @@ python3Packages.buildPythonApplication rec {
     appdirs
   ];
 
-  # upstream doesn't contain a test suite
+    # upstream doesn't contain a test suite
   doCheck = false;
 
   meta = with lib; {

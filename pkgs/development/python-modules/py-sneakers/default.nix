@@ -17,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-bIhkYTzRe4uM0kbNhbDTr6TiaOEBSiCSkPJKKCivDZY=";
   };
 
-  # Module has no tests
+    # Module has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "py_sneakers" ];

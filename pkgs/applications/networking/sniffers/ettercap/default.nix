@@ -36,7 +36,8 @@ stdenv.mkDerivation rec {
   patches = [ (fetchpatch2 {
     name = "curl-8.patch";
     url =
-      "https://github.com/Ettercap/ettercap/commit/9ec4066addc49483e40055e0738c2e0ef144702f.diff";
+      "https://github.com/Ettercap/ettercap/commit/9ec4066addc49483e40055e0738c2e0ef144702f.diff"
+      ;
     sha256 = "6D8lIxub0OS52BFr42yWRyqS2Q5CrpTLTt6rcItXFMM=";
   }) ];
 
@@ -73,7 +74,7 @@ stdenv.mkDerivation rec {
     "-DGTK3_GLIBCONFIG_INCLUDE_DIR=${glib.out}/lib/glib-2.0/include"
   ];
 
-  # TODO: Remove after the next release (0.8.4 should work without this):
+    # TODO: Remove after the next release (0.8.4 should work without this):
   env.NIX_CFLAGS_COMPILE = toString [ "-I${harfbuzz.dev}/include/harfbuzz" ];
 
   meta = with lib; {

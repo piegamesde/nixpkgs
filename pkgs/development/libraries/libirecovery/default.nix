@@ -36,9 +36,9 @@ stdenv.mkDerivation rec {
     libimobiledevice-glue
   ];
 
-  # Packager note: Not clear whether this needs a NixOS configuration,
-  # as only the `idevicerestore` binary was tested so far (which worked
-  # without further configuration).
+    # Packager note: Not clear whether this needs a NixOS configuration,
+    # as only the `idevicerestore` binary was tested so far (which worked
+    # without further configuration).
   configureFlags = [
     "--with-udevrulesdir=${placeholder "out"}/lib/udev/rules.d"
     ''--with-udevrule="OWNER=\"root\", GROUP=\"myusergroup\", MODE=\"0660\""''
@@ -46,7 +46,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Library and utility to talk to iBoot/iBSS via USB on Mac OS X, Windows, and Linux";
+      "Library and utility to talk to iBoot/iBSS via USB on Mac OS X, Windows, and Linux"
+      ;
     longDescription = ''
       libirecovery is a cross-platform library which implements communication to
       iBoot/iBSS found on Apple's iOS devices via USB. A command-line utility is also

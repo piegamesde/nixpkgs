@@ -35,7 +35,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.signalyst.eu/bins/${pname}/fc36/${pname}-${version}.fc36.x86_64.rpm";
+      "https://www.signalyst.eu/bins/${pname}/fc36/${pname}-${version}.fc36.x86_64.rpm"
+      ;
     hash = "sha256-MCRZ0XKi6pztVTuPQpPEn6wHsOwtSxR0Px9r12jnC9U=";
   };
 
@@ -104,8 +105,8 @@ stdenv.mkDerivation rec {
       --replace "NetworkManager-wait-online.service" ""
   '';
 
-  # NB: addOpenGLRunpath needs to run _after_ autoPatchelfHook, which runs in
-  # postFixup, so we tack it on here.
+    # NB: addOpenGLRunpath needs to run _after_ autoPatchelfHook, which runs in
+    # postFixup, so we tack it on here.
   doInstallCheck = true;
   installCheckPhase = ''
     addOpenGLRunpath $out/bin/hqplayerd

@@ -76,7 +76,8 @@ in {
         type = types.listOf types.str;
         default = [ ];
         description = lib.mdDoc
-          "List of extra groups that the Buildbot Worker user should be a part of.";
+          "List of extra groups that the Buildbot Worker user should be a part of."
+          ;
       };
 
       home = mkOption {
@@ -205,9 +206,10 @@ in {
         Group = cfg.group;
         WorkingDirectory = cfg.home;
 
-        # NOTE: call twistd directly with stdout logging for systemd
+          # NOTE: call twistd directly with stdout logging for systemd
         ExecStart =
-          "${python.pkgs.twisted}/bin/twistd --nodaemon --pidfile= --logfile - --python ${tacFile}";
+          "${python.pkgs.twisted}/bin/twistd --nodaemon --pidfile= --logfile - --python ${tacFile}"
+          ;
       };
 
     };

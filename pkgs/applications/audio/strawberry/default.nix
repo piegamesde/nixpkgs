@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-Z2b3/pIdSmZUO724hkdn78YrVuRiXALbTOUs+KJMjvU=";
   };
 
-  # the big strawberry shown in the context menu is *very* much in your face, so use the grey version instead
+    # the big strawberry shown in the context menu is *very* much in your face, so use the grey version instead
   postPatch = ''
     substituteInPlace src/context/contextalbum.cpp \
       --replace pictures/strawberry.png pictures/strawberry-grey.png
@@ -112,10 +112,11 @@ stdenv.mkDerivation rec {
     description = "Music player and music collection organizer";
     homepage = "https://www.strawberrymusicplayer.org/";
     changelog =
-      "https://raw.githubusercontent.com/jonaski/strawberry/${version}/Changelog";
+      "https://raw.githubusercontent.com/jonaski/strawberry/${version}/Changelog"
+      ;
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ peterhoeg ];
-    # upstream says darwin should work but they lack maintainers as of 0.6.6
+      # upstream says darwin should work but they lack maintainers as of 0.6.6
     platforms = platforms.linux;
   };
 }

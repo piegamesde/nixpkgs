@@ -23,13 +23,14 @@ stdenv.mkDerivation rec {
     # Improved C++17 compatibility
     (fetchpatch {
       url =
-        "https://github.com/quickfix/quickfix/commit/a46708090444826c5f46a5dbf2ba4b069b413c58.diff";
+        "https://github.com/quickfix/quickfix/commit/a46708090444826c5f46a5dbf2ba4b069b413c58.diff"
+        ;
       sha256 = "1wlk4j0wmck0zm6a70g3nrnq8fz0id7wnyxn81f7w048061ldhyd";
     })
     ./disableUnitTests.patch
   ];
 
-  # autoreconfHook does not work
+    # autoreconfHook does not work
   nativeBuildInputs = [
     autoconf
     automake
@@ -42,7 +43,7 @@ stdenv.mkDerivation rec {
     ./bootstrap
   '';
 
-  # More hacking out of the unittests
+    # More hacking out of the unittests
   preBuild = ''
     substituteInPlace Makefile --replace 'UnitTest++' ' '
   '';

@@ -1,6 +1,7 @@
 let
   tests = {
-    wayland = {
+    wayland =
+      {
         pkgs,
         ...
       }: {
@@ -12,8 +13,10 @@ let
         environment.variables.DISPLAY = "do not use";
 
         fonts.fonts = with pkgs; [ dejavu_fonts ];
-      };
-    xorg = {
+      }
+      ;
+    xorg =
+      {
         pkgs,
         ...
       }: {
@@ -28,10 +31,12 @@ let
           ${pkgs.vscodium}/bin/codium
         '';
         test-support.displayManager.auto.user = "alice";
-      };
+      }
+      ;
   };
 
-  mkTest = name: machine:
+  mkTest =
+    name: machine:
     import ./make-test-python.nix ({
         pkgs,
         ...
@@ -88,7 +93,8 @@ let
           # machine.send_key('ctrl-q')
           # machine.wait_until_fails('pgrep -x codium')
         '';
-      });
+      })
+    ;
 
 in
 builtins.mapAttrs (k: v: mkTest k v { }) tests

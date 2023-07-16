@@ -99,7 +99,8 @@ in {
           type = types.bool;
           default = true;
           description = lib.mdDoc
-            "Whether to set time from computer to the phone during starting connection";
+            "Whether to set time from computer to the phone during starting connection"
+            ;
         };
 
         pin = mkOption {
@@ -266,7 +267,8 @@ in {
           cat "${gammuPackage}/${initDBDir}/sqlite.sql" \
           | ${pkgs.sqlite.bin}/bin/sqlite3 ${sql.database}
         '' + (let
-          execPsql = extraArgs:
+          execPsql =
+            extraArgs:
             concatStringsSep " " [
               (optionalString (sql.password != null)
                 "PGPASSWORD=${sql.password}")
@@ -275,7 +277,8 @@ in {
               (optionalString (sql.user != null) "-U ${sql.user}")
               "$extraArgs"
               "${sql.database}"
-            ];
+            ]
+            ;
         in
         optionalString (service == "sql" && sql.driver == "native_pgsql") ''
           echo '\i '"${gammuPackage}/${initDBDir}/pgsql.sql" | ${execPsql ""}

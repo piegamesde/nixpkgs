@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     description =
       "A library to extract valid data from within an Excel (.xls) spreadsheet";
     homepage = "https://www.gaia-gis.it/fossil/freexl";
-    # They allow any of these
+      # They allow any of these
     license = with licenses; [
       gpl2Plus
       lgpl21Plus

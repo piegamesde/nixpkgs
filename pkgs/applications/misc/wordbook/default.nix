@@ -50,7 +50,7 @@ python3.pkgs.buildPythonApplication rec {
     wn
   ];
 
-  # prevent double wrapping
+    # prevent double wrapping
   dontWrapGApps = true;
 
   preFixup = ''

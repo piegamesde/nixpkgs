@@ -37,8 +37,8 @@ buildPythonPackage rec {
     repo = pname;
     rev = "refs/tags/${version}";
     hash = "sha256-T+XBRBfroG1gh9ZHU7V5wsgnI1xuNTXYAe6g5Xk8Qyg=";
-    # Remove unicode file names which leads to different checksums on HFS+
-    # vs. other filesystems because of unicode normalisation.
+      # Remove unicode file names which leads to different checksums on HFS+
+      # vs. other filesystems because of unicode normalisation.
     postFetch = ''
       rm -r $out/pelican/tests/output/custom_locale/posts
     '';
@@ -95,9 +95,9 @@ buildPythonPackage rec {
 
   LC_ALL = "en_US.UTF-8";
 
-  # We only want to patch shebangs in /bin, and not those
-  # of the project scripts that are created by Pelican.
-  # See https://github.com/NixOS/nixpkgs/issues/30116
+    # We only want to patch shebangs in /bin, and not those
+    # of the project scripts that are created by Pelican.
+    # See https://github.com/NixOS/nixpkgs/issues/30116
   dontPatchShebangs = true;
 
   postFixup = ''

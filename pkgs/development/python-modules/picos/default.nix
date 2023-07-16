@@ -19,7 +19,7 @@ buildPythonPackage rec {
     sha256 = "1k65iq791k5r08gh2kc6iz0xw1wyzqik19j6iam8ip732r7jm607";
   };
 
-  # Needed only for the tests
+    # Needed only for the tests
   nativeCheckInputs = [ networkx ];
 
   propagatedBuildInputs = [

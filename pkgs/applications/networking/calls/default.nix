@@ -92,7 +92,7 @@ stdenv.mkDerivation rec {
 
   mesonFlags = [ "-Dgtk_doc=true" ];
 
-  # Disable until tests are fixed upstream https://gitlab.gnome.org/GNOME/calls/-/issues/258
+    # Disable until tests are fixed upstream https://gitlab.gnome.org/GNOME/calls/-/issues/258
   doCheck = false;
 
   checkPhase = ''
@@ -108,7 +108,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A phone dialer and call handler";
     longDescription =
-      "GNOME Calls is a phone dialer and call handler. Setting NixOS option `programs.calls.enable = true` is recommended.";
+      "GNOME Calls is a phone dialer and call handler. Setting NixOS option `programs.calls.enable = true` is recommended."
+      ;
     homepage = "https://gitlab.gnome.org/GNOME/calls";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [

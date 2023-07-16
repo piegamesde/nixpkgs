@@ -84,7 +84,8 @@ let
     version
   else
     defaultVersion);
-  display-pkg = n: sep: v:
+  display-pkg =
+    n: sep: v:
     let
       d = displayVersion.${n} or (if sep == "" then
         ".."
@@ -117,7 +118,7 @@ let
         out = optionalString (d != "") (sep + d);
       }
     ] "") + optionalString (v == null) "-broken"
-  ;
+    ;
   append-version = p: n: p + display-pkg n "" coqPackages.${n}.version + "-";
   prefix-name = foldl append-version "" namePrefix;
   useDune = args.useDune or (useDuneifVersion fetched.version);
@@ -180,8 +181,9 @@ stdenv.mkDerivation (removeAttrs ({
   }) // (optionalAttrs (args ? useMelquiondRemake) rec {
     COQUSERCONTRIB = "$out/lib/coq/${coq.coq-version}/user-contrib";
     preConfigurePhases = "autoconf";
-    configureFlags =
-      [ "--libdir=${COQUSERCONTRIB}/${useMelquiondRemake.logpath or ""}" ];
+    configureFlags = [ "--libdir=${COQUSERCONTRIB}/${
+        useMelquiondRemake.logpath or ""
+      }" ];
     buildPhase = "./remake -j$NIX_BUILD_CORES";
     installPhase = "./remake install";
   }) // (removeAttrs args args-to-remove)) dropDerivationAttrs)

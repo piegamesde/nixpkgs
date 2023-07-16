@@ -5,26 +5,30 @@
 }:
 
 let
-  requireXcode = version: sha256:
+  requireXcode =
+    version: sha256:
     let
       xip = "Xcode_" + version + ".xip";
-      # TODO(alexfmpe): Find out how to validate the .xip signature in Linux
-      unxip = if stdenv.buildPlatform.isDarwin then
-        ''
-          open -W ${xip}
-          rm -rf ${xip}
-        ''
-      else
-        ''
-          xar -xf ${xip}
-          rm -rf ${xip}
-          pbzx -n Content | cpio -i
-          rm Content Metadata
-        '';
+        # TODO(alexfmpe): Find out how to validate the .xip signature in Linux
+      unxip =
+        if stdenv.buildPlatform.isDarwin then
+          ''
+            open -W ${xip}
+            rm -rf ${xip}
+          ''
+        else
+          ''
+            xar -xf ${xip}
+            rm -rf ${xip}
+            pbzx -n Content | cpio -i
+            rm Content Metadata
+          ''
+        ;
       app = requireFile rec {
         name = "Xcode.app";
         url =
-          "https://developer.apple.com/services-account/download?path=/Developer_Tools/Xcode_${version}/${xip}";
+          "https://developer.apple.com/services-account/download?path=/Developer_Tools/Xcode_${version}/${xip}"
+          ;
         hashMode = "recursive";
         inherit sha256;
         message = ''
@@ -47,7 +51,7 @@ let
 
     in
     app.overrideAttrs (oldAttrs: oldAttrs // { inherit meta; })
-  ;
+    ;
 
 in
 lib.makeExtensible (self: {

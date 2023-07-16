@@ -28,9 +28,9 @@ buildPythonApplication rec {
     zeroconf
   ];
 
-  # There are tests, but getting the following error:
-  # nix_run_setup: error: argument action: invalid choice: 'test' (choose from 'receive', 'find', 'send')
-  # Opendrop works as intended though
+    # There are tests, but getting the following error:
+    # nix_run_setup: error: argument action: invalid choice: 'test' (choose from 'receive', 'find', 'send')
+    # Opendrop works as intended though
   doCheck = false;
 
   meta = with lib; {

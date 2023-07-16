@@ -31,7 +31,7 @@ let
     src = fetchFromGitHub {
       owner = "CadQuery";
       repo = "pythonocc-core";
-      # no proper release to to use, this commit copied from the Anaconda receipe
+        # no proper release to to use, this commit copied from the Anaconda receipe
       rev = "701e924ae40701cbe6f9992bcbdc2ef22aa9b5ab";
       sha256 = "07zmiiw74dyj4v0ar5vqkvk30wzcpjjzbi04nsdk5mnlzslmyi6c";
     };

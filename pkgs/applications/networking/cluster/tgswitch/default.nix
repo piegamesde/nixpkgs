@@ -21,9 +21,9 @@ buildGoModule rec {
     "-w"
   ];
 
-  # There are many modifications need to be done to make tests run. For example:
-  # 1. Network access
-  # 2. Operation on `/var/empty` not permitted on macOS
+    # There are many modifications need to be done to make tests run. For example:
+    # 1. Network access
+    # 2. Operation on `/var/empty` not permitted on macOS
   doCheck = false;
 
   meta = with lib; {

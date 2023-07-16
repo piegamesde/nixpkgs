@@ -1,7 +1,8 @@
 import ./make-test-python.nix ({
   name = "corerad";
   nodes = {
-    router = {
+    router =
+      {
         config,
         pkgs,
         ...
@@ -17,10 +18,10 @@ import ./make-test-python.nix ({
           };
           services.corerad = {
             enable = true;
-            # Serve router advertisements to the client machine with prefix information matching
-            # any IPv6 /64 prefixes configured on this interface.
-            #
-            # This configuration is identical to the example in the CoreRAD NixOS module.
+              # Serve router advertisements to the client machine with prefix information matching
+              # any IPv6 /64 prefixes configured on this interface.
+              #
+              # This configuration is identical to the example in the CoreRAD NixOS module.
             settings = {
               interfaces = [
                 {
@@ -40,8 +41,10 @@ import ./make-test-python.nix ({
             };
           };
         };
-      };
-    client = {
+      }
+      ;
+    client =
+      {
         config,
         pkgs,
         ...
@@ -52,7 +55,8 @@ import ./make-test-python.nix ({
           boot.kernel.sysctl = { "net.ipv6.conf.all.autoconf" = true; };
           environment.systemPackages = with pkgs; [ ndisc6 ];
         };
-      };
+      }
+      ;
   };
 
   testScript = ''

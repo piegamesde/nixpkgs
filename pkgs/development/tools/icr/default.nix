@@ -38,7 +38,7 @@ crystal.buildCrystalPackage rec {
     which
   ];
 
-  # tests are failing due to our sandbox
+    # tests are failing due to our sandbox
   doCheck = false;
 
   postFixup = ''

@@ -40,9 +40,11 @@ in {
         if (lib.versionAtLeast (lib.getVersion cfg.unifiPackage) "7.3") then
           pkgs.jdk11
         else
-          pkgs.jre8;
+          pkgs.jre8
+        ;
       defaultText = literalExpression ''
-        if (lib.versionAtLeast (lib.getVersion cfg.unifiPackage) "7.3" then pkgs.jdk11 else pkgs.jre8'';
+        if (lib.versionAtLeast (lib.getVersion cfg.unifiPackage) "7.3" then pkgs.jdk11 else pkgs.jre8''
+        ;
       description = lib.mdDoc ''
         The JRE package to use. Check the release notes to ensure it is supported.
       '';
@@ -129,9 +131,10 @@ in {
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
 
-      # This a HACK to fix missing dependencies of dynamic libs extracted from jars
-      environment.LD_LIBRARY_PATH = with pkgs.stdenv; "${cc.cc.lib}/lib";
-      # Make sure package upgrades trigger a service restart
+        # This a HACK to fix missing dependencies of dynamic libs extracted from jars
+      environment.LD_LIBRARY_PATH = with pkgs.stdenv;
+        "${cc.cc.lib}/lib";
+        # Make sure package upgrades trigger a service restart
       restartTriggers = [
         cfg.unifiPackage
         cfg.mongodbPackage
@@ -146,16 +149,16 @@ in {
         User = "unifi";
         UMask = "0077";
         WorkingDirectory = "${stateDir}";
-        # the stop command exits while the main process is still running, and unifi
-        # wants to manage its own child processes. this means we have to set KillSignal
-        # to something the main process ignores, otherwise every stop will have unifi.service
-        # fail with SIGTERM status.
+          # the stop command exits while the main process is still running, and unifi
+          # wants to manage its own child processes. this means we have to set KillSignal
+          # to something the main process ignores, otherwise every stop will have unifi.service
+          # fail with SIGTERM status.
         KillSignal = "SIGCONT";
 
-        # Hardening
+          # Hardening
         AmbientCapabilities = "";
         CapabilityBoundingSet = "";
-        # ProtectClock= adds DeviceAllow=char-rtc r
+          # ProtectClock= adds DeviceAllow=char-rtc r
         DeviceAllow = "";
         DevicePolicy = "closed";
         LockPersonality = true;
@@ -189,9 +192,9 @@ in {
           "${stateDir}/webapps:rw"
         ];
 
-        # We must create the binary directories as bind mounts instead of symlinks
-        # This is because the controller resolves all symlinks to absolute paths
-        # to be used as the working directory.
+          # We must create the binary directories as bind mounts instead of symlinks
+          # This is because the controller resolves all symlinks to absolute paths
+          # to be used as the working directory.
         BindPaths = [
           "/var/log/unifi:${stateDir}/logs"
           "/run/unifi:${stateDir}/run"
@@ -201,9 +204,9 @@ in {
           "${cfg.unifiPackage}/webapps/ROOT:${stateDir}/webapps/ROOT"
         ];
 
-        # Needs network access
+          # Needs network access
         PrivateNetwork = false;
-        # Cannot be true due to OpenJDK
+          # Cannot be true due to OpenJDK
         MemoryDenyWriteExecute = false;
       };
     };

@@ -34,26 +34,26 @@
 
 let
   is64Bit = stdenv.hostPlatform.parsed.cpu.bits == 64;
-  # multi-lib glibc is only supported on x86_64
-  isMultiBuild = multiPkgs != null && stdenv.hostPlatform.system
-    == "x86_64-linux";
+    # multi-lib glibc is only supported on x86_64
+  isMultiBuild =
+    multiPkgs != null && stdenv.hostPlatform.system == "x86_64-linux";
   isTargetBuild = !isMultiBuild;
 
-  # list of packages (usually programs) which are only be installed for the
-  # host's architecture
+    # list of packages (usually programs) which are only be installed for the
+    # host's architecture
   targetPaths = targetPkgs pkgs ++ (if multiPkgs == null then
     [ ]
   else
     multiPkgs pkgs);
 
-  # list of packages which are installed for both x86 and x86_64 on x86_64
-  # systems
+    # list of packages which are installed for both x86 and x86_64 on x86_64
+    # systems
   multiPaths = multiPkgs pkgsi686Linux;
 
-  # base packages of the chroot
-  # these match the host's architecture, glibc_multi is used for multilib
-  # builds. glibcLocales must be before glibc or glibc_multi as otherwiese
-  # the wrong LOCALE_ARCHIVE will be used where only C.UTF-8 is available.
+    # base packages of the chroot
+    # these match the host's architecture, glibc_multi is used for multilib
+    # builds. glibcLocales must be before glibc or glibc_multi as otherwiese
+    # the wrong LOCALE_ARCHIVE will be used where only C.UTF-8 is available.
   basePkgs = with pkgs; [
     glibcLocales
     (if isMultiBuild then
@@ -100,7 +100,7 @@ let
     ${profile}
   '';
 
-  # Compose /etc for the chroot environment
+    # Compose /etc for the chroot environment
   etcPkg = stdenv.mkDerivation {
     name = "${name}-chrootenv-etc";
     buildCommand = ''
@@ -156,7 +156,7 @@ let
     '';
   };
 
-  # Composes a /usr-like directory structure
+    # Composes a /usr-like directory structure
   staticUsrProfileTarget = buildEnv {
     name = "${name}-usr-target";
     paths = [ etcPkg ] ++ basePkgs ++ targetPaths;
@@ -207,7 +207,7 @@ let
     ignoreCollisions = true;
   };
 
-  # setup library paths only for the targeted architecture
+    # setup library paths only for the targeted architecture
   setupLibDirs_target = ''
     # link content of targetPaths
     cp -rsHf ${staticUsrProfileTarget}/lib lib
@@ -219,7 +219,7 @@ let
     }
   '';
 
-  # setup /lib, /lib32 and /lib64
+    # setup /lib, /lib32 and /lib64
   setupLibDirs_multi = ''
     mkdir -m0755 lib32
     mkdir -m0755 lib64
@@ -238,12 +238,14 @@ let
     ln -Ls ${staticUsrProfileTarget}/lib/32/ld-linux.so.2 lib/
   '';
 
-  setupLibDirs = if isTargetBuild then
-    setupLibDirs_target
-  else
-    setupLibDirs_multi;
+  setupLibDirs =
+    if isTargetBuild then
+      setupLibDirs_target
+    else
+      setupLibDirs_multi
+    ;
 
-  # the target profile is the actual profile that will be used for the chroot
+    # the target profile is the actual profile that will be used for the chroot
   setupTargetProfile = ''
     mkdir -m0755 usr
     cd usr

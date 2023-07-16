@@ -9,14 +9,16 @@
 }:
 
 let
-  platform = if stdenv.isLinux then
-    "linux"
-  else if stdenv.isDarwin then
-    "mac"
-  else if stdenv.isWindows then
-    "windows"
-  else
-    throw "unsupported platform";
+  platform =
+    if stdenv.isLinux then
+      "linux"
+    else if stdenv.isDarwin then
+      "mac"
+    else if stdenv.isWindows then
+      "windows"
+    else
+      throw "unsupported platform"
+    ;
 in
 stdenv.mkDerivation rec {
   pname = "java-language-server";
@@ -25,7 +27,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "georgewfraser";
     repo = pname;
-    # commit hash is used as owner sometimes forgets to set tags. See https://github.com/georgewfraser/java-language-server/issues/104
+      # commit hash is used as owner sometimes forgets to set tags. See https://github.com/georgewfraser/java-language-server/issues/104
     rev = "1dfdc54d1f1e57646a0ec9c0b3f4a4f094bd9f17";
     sha256 = "sha256-zkbl/SLg09XK2ZhJNzWEtvFCQBRQ62273M/2+4HV1Lk=";
   };
@@ -102,7 +104,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A Java language server based on v3.0 of the protocol and implemented using the Java compiler API";
+      "A Java language server based on v3.0 of the protocol and implemented using the Java compiler API"
+      ;
     homepage = "https://github.com/georgewfraser/java-language-server";
     license = licenses.mit;
     maintainers = with maintainers; [ hqurve ];

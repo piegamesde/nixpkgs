@@ -49,7 +49,7 @@ buildPythonPackage rec {
     LC_ALL="en_US.UTF-8" ${python.interpreter} runAll.py
   '';
 
-  # See https://bitbucket.org/pypy/compatibility/wiki/reportlab%20toolkit
+    # See https://bitbucket.org/pypy/compatibility/wiki/reportlab%20toolkit
   disabled = isPyPy;
 
   meta = {

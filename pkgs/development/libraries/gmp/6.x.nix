@@ -31,9 +31,9 @@ in let
 
     patches = [ ./6.2.1-CVE-2021-43618.patch ];
 
-    #outputs TODO: split $cxx due to libstdc++ dependency
-    # maybe let ghc use a version with *.so shared with rest of nixpkgs and *.a added
-    # - see #5855 for related discussion
+      #outputs TODO: split $cxx due to libstdc++ dependency
+      # maybe let ghc use a version with *.so shared with rest of nixpkgs and *.a added
+      # - see #5855 for related discussion
     outputs = [
       "out"
       "dev"

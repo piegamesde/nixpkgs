@@ -32,7 +32,8 @@ let
   mirror = "mirror://kde";
   srcs = import ./srcs.nix { inherit fetchurl mirror; };
 
-  mkDerivation = args:
+  mkDerivation =
+    args:
     let
       inherit (args) pname;
       inherit (srcs.${pname}) src version;
@@ -46,18 +47,20 @@ let
 
       outputs = args.outputs or [ "out" ];
 
-      meta = let
-        meta = args.meta or { };
-      in
-      meta // {
-        homepage = meta.homepage or "http://www.kde.org";
-        platforms = meta.platforms or lib.platforms.linux;
-      }
-      ;
+      meta =
+        let
+          meta = args.meta or { };
+        in
+        meta // {
+          homepage = meta.homepage or "http://www.kde.org";
+          platforms = meta.platforms or lib.platforms.linux;
+        }
+        ;
     })
-  ;
+    ;
 
-  packages = self:
+  packages =
+    self:
     with self;
     let
       callPackage = self.newScope {
@@ -248,7 +251,7 @@ let
       yakuake = callPackage ./yakuake.nix { };
       zanshin = callPackage ./zanshin.nix { };
 
-      # Plasma Mobile Gear
+        # Plasma Mobile Gear
       alligator = callPackage ./alligator.nix { };
       angelfish = callPackage ./angelfish.nix { inherit srcs; };
       audiotube = callPackage ./audiotube.nix { };
@@ -267,7 +270,8 @@ let
       qmlkonsole = callPackage ./qmlkonsole.nix { };
       telly-skout = callPackage ./telly-skout.nix { };
       tokodon = callPackage ./tokodon.nix { };
-    } ;
+    }
+    ;
 
 in
 lib.makeScope libsForQt5.newScope packages

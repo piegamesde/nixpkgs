@@ -8,10 +8,13 @@
 let
   # Probably a bug in some FreeDict release files, but easier to trivially
   # work around than report. Not that it can cause any other problems..
-  makeDictdDBFreedict = src: name: locale:
-    makeDictdDB src name "{.,bin}" locale;
+  makeDictdDBFreedict =
+    src: name: locale:
+    makeDictdDB src name "{.,bin}" locale
+    ;
 
-  makeDictdDB = src: _name: _subdir: _locale:
+  makeDictdDB =
+    src: _name: _subdir: _locale:
     stdenv.mkDerivation {
       name = "dictd-db-${_name}";
       inherit src;
@@ -31,7 +34,8 @@ let
         description = "dictd-db dictionary for dictd";
         platforms = lib.platforms.linux;
       };
-    };
+    }
+    ;
 in rec {
   deu2eng = makeDictdDBFreedict (fetchurl {
     url = "mirror://sourceforge/freedict/deu-eng.tar.gz";
@@ -62,19 +66,21 @@ in rec {
     sha256 = "0fi6rrnbqnhc6lq8d0nmn30zdqkibrah0mxfg27hsn9z7alwbj3m";
   }) "eng-fra" "en_UK";
   jpn2eng = makeDictdDB (fetchurl {
-    url = let
-      version = "0.1";
-    in
-    "mirror://sourceforge/freedict/jpn-eng/${version}/freedict-jpn-eng-${version}.dictd.tar.xz"
-    ;
+    url =
+      let
+        version = "0.1";
+      in
+      "mirror://sourceforge/freedict/jpn-eng/${version}/freedict-jpn-eng-${version}.dictd.tar.xz"
+      ;
     sha256 = "sha256-juJBoEq7EztLZzOomc7uoZhXVaQPKoUvIxxPLB0xByc=";
   }) "jpn-eng" "jpn-eng" "ja_JP";
   eng2jpn = makeDictdDB (fetchurl {
-    url = let
-      version = "2022.04.06";
-    in
-    "https://download.freedict.org/dictionaries/eng-jpn/${version}/freedict-eng-jpn-${version}.dictd.tar.xz"
-    ;
+    url =
+      let
+        version = "2022.04.06";
+      in
+      "https://download.freedict.org/dictionaries/eng-jpn/${version}/freedict-eng-jpn-${version}.dictd.tar.xz"
+      ;
     sha256 = "sha256-kfRT2kgbV3XKarCr4mqDRT5A1jR8M8APky5M5MFYatE=";
   }) "eng-jpn" "eng-jpn" "en_UK";
   mueller_eng2rus_pkg = makeDictdDB (fetchurl {

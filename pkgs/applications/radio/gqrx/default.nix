@@ -65,16 +65,20 @@ gnuradioMinimal.pkgs.mkDerivation rec {
   ] ++ lib.optionals pulseaudioSupport [ libpulseaudio ]
     ++ lib.optionals portaudioSupport [ portaudio ];
 
-  cmakeFlags = let
-    audioBackend = if pulseaudioSupport then
-      "Pulseaudio"
-    else if portaudioSupport then
-      "Portaudio"
-    else
-      "Gr-audio";
-  in [ "-DLINUX_AUDIO_BACKEND=${audioBackend}" ] ;
+  cmakeFlags =
+    let
+      audioBackend =
+        if pulseaudioSupport then
+          "Pulseaudio"
+        else if portaudioSupport then
+          "Portaudio"
+        else
+          "Gr-audio"
+        ;
+    in [ "-DLINUX_AUDIO_BACKEND=${audioBackend}" ]
+    ;
 
-  # Prevent double-wrapping, inject wrapper args manually instead.
+    # Prevent double-wrapping, inject wrapper args manually instead.
   dontWrapGApps = true;
   preFixup = ''
     qtWrapperArgs+=("''${gappsWrapperArgs[@]}")
@@ -89,8 +93,8 @@ gnuradioMinimal.pkgs.mkDerivation rec {
       Software Radio Peripheral (USRP) devices.
     '';
     homepage = "https://gqrx.dk/";
-    # Some of the code comes from the Cutesdr project, with a BSD license, but
-    # it's currently unknown which version of the BSD license that is.
+      # Some of the code comes from the Cutesdr project, with a BSD license, but
+      # it's currently unknown which version of the BSD license that is.
     license = licenses.gpl3Plus;
     platforms = platforms.linux; # should work on Darwin / macOS too
     maintainers = with maintainers; [

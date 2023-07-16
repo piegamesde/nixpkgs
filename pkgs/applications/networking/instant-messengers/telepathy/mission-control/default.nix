@@ -22,7 +22,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://telepathy.freedesktop.org/releases/${pname}/${pname}-${version}.tar.gz";
+      "https://telepathy.freedesktop.org/releases/${pname}/${pname}-${version}.tar.gz"
+      ;
     sha256 = "0ibs575pfr0wmhfcw6ln6iz7gw2y45l3bah11rksf6g9jlwsxy1d";
   };
 
@@ -54,7 +55,7 @@ stdenv.mkDerivation rec {
     license = licenses.lgpl21Only;
     maintainers = with maintainers; [ ];
     platforms = platforms.unix;
-    # never built on aarch64-darwin since first introduction in nixpkgs
+      # never built on aarch64-darwin since first introduction in nixpkgs
     broken = stdenv.isDarwin && stdenv.isAarch64;
   };
 }

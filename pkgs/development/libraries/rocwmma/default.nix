@@ -109,8 +109,8 @@ stdenv.mkDerivation (finalAttrs: {
     patchShebangs docs/*.sh
   '';
 
-  # Unfortunately, it seems like we have to call make on this manually
-  # -DROCWMMA_BUILD_DOCS=ON is invalid, despite being on the README
+    # Unfortunately, it seems like we have to call make on this manually
+    # -DROCWMMA_BUILD_DOCS=ON is invalid, despite being on the README
   postBuild = lib.optionalString buildDocs ''
     export HOME=$(mktemp -d)
     ../docs/run_doc.sh

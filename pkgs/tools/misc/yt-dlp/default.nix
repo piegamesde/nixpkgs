@@ -21,9 +21,9 @@
 
 buildPythonPackage rec {
   pname = "yt-dlp";
-  # The websites yt-dlp deals with are a very moving target. That means that
-  # downloads break constantly. Because of that, updates should always be backported
-  # to the latest stable release.
+    # The websites yt-dlp deals with are a very moving target. That means that
+    # downloads break constantly. Because of that, updates should always be backported
+    # to the latest stable release.
   version = "2023.3.4";
 
   src = fetchPypi {
@@ -40,21 +40,23 @@ buildPythonPackage rec {
     websockets
   ];
 
-  # Ensure these utilities are available in $PATH:
-  # - ffmpeg: post-processing & transcoding support
-  # - rtmpdump: download files over RTMP
-  # - atomicparsley: embedding thumbnails
-  makeWrapperArgs = let
-    packagesToBinPath = [ ] ++ lib.optional atomicparsleySupport atomicparsley
-      ++ lib.optional ffmpegSupport ffmpeg ++ lib.optional rtmpSupport rtmpdump;
-  in
-  lib.optionalString (packagesToBinPath != [ ]) [ ''
-    --prefix PATH : "${lib.makeBinPath packagesToBinPath}"'' ]
-  ;
+    # Ensure these utilities are available in $PATH:
+    # - ffmpeg: post-processing & transcoding support
+    # - rtmpdump: download files over RTMP
+    # - atomicparsley: embedding thumbnails
+  makeWrapperArgs =
+    let
+      packagesToBinPath = [ ] ++ lib.optional atomicparsleySupport atomicparsley
+        ++ lib.optional ffmpegSupport ffmpeg
+        ++ lib.optional rtmpSupport rtmpdump;
+    in
+    lib.optionalString (packagesToBinPath != [ ]) [ ''
+      --prefix PATH : "${lib.makeBinPath packagesToBinPath}"'' ]
+    ;
 
   setupPyBuildFlags = [ "build_lazy_extractors" ];
 
-  # Requires network
+    # Requires network
   doCheck = false;
 
   postInstall = lib.optionalString withAlias ''
@@ -69,7 +71,8 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/yt-dlp/yt-dlp/";
     description =
-      "Command-line tool to download videos from YouTube.com and other sites (youtube-dl fork)";
+      "Command-line tool to download videos from YouTube.com and other sites (youtube-dl fork)"
+      ;
     longDescription = ''
       yt-dlp is a youtube-dl fork based on the now inactive youtube-dlc.
 

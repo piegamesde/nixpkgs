@@ -4,14 +4,16 @@ import ./make-test-python.nix ({
   }: {
     name = "vault";
     meta = with pkgs.lib.maintainers; { maintainers = [ lnl7 ]; };
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
         environment.systemPackages = [ pkgs.vault ];
         environment.variables.VAULT_ADDR = "http://127.0.0.1:8200";
         services.vault.enable = true;
-      };
+      }
+      ;
 
     testScript = ''
       start_all()

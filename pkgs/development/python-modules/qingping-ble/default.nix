@@ -45,7 +45,8 @@ buildPythonPackage rec {
     description = "Library for Qingping BLE devices";
     homepage = "https://github.com/bluetooth-devices/qingping-ble";
     changelog =
-      "https://github.com/Bluetooth-Devices/qingping-ble/blob/v${version}/CHANGELOG.md";
+      "https://github.com/Bluetooth-Devices/qingping-ble/blob/v${version}/CHANGELOG.md"
+      ;
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

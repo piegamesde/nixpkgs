@@ -14,7 +14,7 @@ let
 
   cfg = config.services.snapserver;
 
-  # Using types.nullOr to inherit upstream defaults.
+    # Using types.nullOr to inherit upstream defaults.
   sampleFormat = mkOption {
     type = with types; nullOr str;
     default = null;
@@ -33,7 +33,8 @@ let
     example = "flac";
   };
 
-  streamToOption = name: opt:
+  streamToOption =
+    name: opt:
     let
       os = val: optionalString (val != null) "${val}";
       os' = prefix: val: optionalString (val != null) (prefix + "${val}");
@@ -42,7 +43,7 @@ let
     ''--stream.stream="${opt.type}://'' + os opt.location + "?"
     + os' "name=" name + concatStrings (mapAttrsToList flatten opt.query)
     + ''"''
-  ;
+    ;
 
   optionalNull = val: ret: optional (val != null) ret;
 
@@ -82,7 +83,7 @@ in {
     "port"
   ]) ];
 
-  ###### interface
+    ###### interface
 
   options = {
 
@@ -296,7 +297,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 

@@ -11,7 +11,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.nasm.us/pub/nasm/releasebuilds/${version}/${pname}-${version}.tar.xz";
+      "https://www.nasm.us/pub/nasm/releasebuilds/${version}/${pname}-${version}.tar.xz"
+      ;
     sha256 = "sha256-x3dF9IAjde/u4uxcCta38DfqnIfJKxSaljf/CZ8WJVg=";
   };
 

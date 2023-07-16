@@ -12,8 +12,8 @@ let
       pname = "bee-unstable";
       version = "2021-01-30";
       rev = "824636a2c2629c329ab10275cef6a0b7395343ad";
-      goVersionString = "g" + builtins.substring 0 7
-        rev; # this seems to be some kind of standard of git describe...
+      goVersionString = "g" + builtins.substring 0 7 rev
+        ; # this seems to be some kind of standard of git describe...
       sha256 = "0ly1yqjq29arbak8lchdradf39l5bmxpbfir6ljjc7nyqdxz0sxg";
       vendorSha256 = "sha256-w5ZijaK8Adt1ZHPMmXqRWq0v0jdprRKRu03rePtZLXA=";
     };
@@ -46,15 +46,15 @@ buildGoModule {
 
   subPackages = [ "cmd/bee" ];
 
-  # no symbol table, no debug info, and pass the commit for the version string
+    # no symbol table, no debug info, and pass the commit for the version string
   ldflags = lib.optionals (lib.hasAttr "goVersionString" versionSpec) [
     "-s"
     "-w"
     "-X=github.com/ethersphere/bee.commit=${versionSpec.goVersionString}"
   ];
 
-  # Mimic the bee Makefile: without disabling CGO, two (transitive and
-  # unused) dependencies would fail to compile.
+    # Mimic the bee Makefile: without disabling CGO, two (transitive and
+    # unused) dependencies would fail to compile.
   preBuild = ''
     export CGO_ENABLED=0
   '';

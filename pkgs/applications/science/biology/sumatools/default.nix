@@ -31,7 +31,7 @@ in rec {
     inherit meta;
   };
 
-  # Sumatra
+    # Sumatra
   sumatra = stdenv.mkDerivation rec {
     version = "1.0.34";
     pname = "sumatra";
@@ -54,7 +54,7 @@ in rec {
     inherit meta;
   };
 
-  # Sumaclust
+    # Sumaclust
   sumaclust = stdenv.mkDerivation rec {
     version = "1.0.34";
     pname = "sumaclust";

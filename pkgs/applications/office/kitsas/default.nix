@@ -39,8 +39,8 @@ stdenv.mkDerivation rec {
     libzip
   ];
 
-  # We use a separate build-dir as otherwise ld seems to get confused between
-  # directory and executable name on buildPhase.
+    # We use a separate build-dir as otherwise ld seems to get confused between
+    # directory and executable name on buildPhase.
   preConfigure = ''
     mkdir build && cd build
   '';

@@ -6,18 +6,20 @@
 
 let
   py = python3.override {
-    packageOverrides = self: super: {
-      wtforms = super.wtforms.overridePythonAttrs (oldAttrs: rec {
-        version = "2.3.1";
+    packageOverrides =
+      self: super: {
+        wtforms = super.wtforms.overridePythonAttrs (oldAttrs: rec {
+          version = "2.3.1";
 
-        src = oldAttrs.src.override {
-          inherit version;
-          sha256 = "sha256-hhoTs65SHWcA2sOydxlwvTVKY7pwQ+zDqCtSiFlqGXI=";
-        };
+          src = oldAttrs.src.override {
+            inherit version;
+            sha256 = "sha256-hhoTs65SHWcA2sOydxlwvTVKY7pwQ+zDqCtSiFlqGXI=";
+          };
 
-        doCheck = false;
-      });
-    };
+          doCheck = false;
+        });
+      }
+      ;
   };
 in with py.pkgs;
 
@@ -55,7 +57,7 @@ buildPythonApplication rec {
     wtforms
   ];
 
-  # __init__.py attempts to mkdir in read-only file system
+    # __init__.py attempts to mkdir in read-only file system
   doCheck = false;
 
   meta = with lib; {

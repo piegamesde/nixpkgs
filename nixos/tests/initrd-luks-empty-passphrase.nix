@@ -20,7 +20,8 @@ import ./make-test-python.nix ({
   in {
     name = "initrd-luks-empty-passphrase";
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -61,7 +62,8 @@ import ./make-test-python.nix ({
           };
           virtualisation.rootDevice = "/dev/mapper/cryptroot";
         };
-      };
+      }
+      ;
 
     testScript = ''
       # Encrypt key with empty key so boot should try keyfile and then fallback to empty passphrase

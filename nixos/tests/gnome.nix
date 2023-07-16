@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
     name = "gnome";
     meta = with lib; { maintainers = teams.gnome.members; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }:
 
@@ -42,9 +43,11 @@ import ./make-test-python.nix ({
           };
         };
 
-      };
+      }
+      ;
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }:
@@ -54,21 +57,25 @@ import ./make-test-python.nix ({
         uid = toString user.uid;
         bus = "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/${uid}/bus";
         gdbus = "${bus} gdbus";
-        su = command: "su - ${user.name} -c '${command}'";
+        su =
+          command:
+          "su - ${user.name} -c '${command}'"
+          ;
 
-        # Call javascript in gnome shell, returns a tuple (success, output), where
-        # `success` is true if the dbus call was successful and output is what the
-        # javascript evaluates to.
+          # Call javascript in gnome shell, returns a tuple (success, output), where
+          # `success` is true if the dbus call was successful and output is what the
+          # javascript evaluates to.
         eval =
-          "call --session -d org.gnome.Shell -o /org/gnome/Shell -m org.gnome.Shell.Eval";
+          "call --session -d org.gnome.Shell -o /org/gnome/Shell -m org.gnome.Shell.Eval"
+          ;
 
-        # False when startup is done
+          # False when startup is done
         startingUp = su "${gdbus} ${eval} Main.layoutManager._startingUp";
 
-        # Start Console
+          # Start Console
         launchConsole = su "${bus} gapplication launch org.gnome.Console";
 
-        # Hopefully Console's wm class
+          # Hopefully Console's wm class
         wmClass = su "${gdbus} ${eval} global.display.focus_window.wm_class";
       in ''
         with subtest("Login to GNOME with GDM"):
@@ -100,5 +107,6 @@ import ./make-test-python.nix ({
             )
             machine.sleep(20)
             machine.screenshot("screen")
-      '' ;
+      ''
+      ;
   })

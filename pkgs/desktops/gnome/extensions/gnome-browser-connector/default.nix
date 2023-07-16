@@ -46,7 +46,7 @@ buildPythonApplication rec {
 
   dontWrapGApps = true;
 
-  # Arguments to be passed to `makeWrapper`, only used by buildPython*
+    # Arguments to be passed to `makeWrapper`, only used by buildPython*
   preFixup = ''
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';

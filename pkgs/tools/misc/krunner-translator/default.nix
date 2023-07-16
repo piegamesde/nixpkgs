@@ -50,7 +50,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A plugin for KRunner which integrates a translator, supports Google Translate, Bing Translator, youdao and Baidu Fanyi";
+      "A plugin for KRunner which integrates a translator, supports Google Translate, Bing Translator, youdao and Baidu Fanyi"
+      ;
     homepage = "https://github.com/naraesk/krunner-translator";
     license = licenses.gpl3;
     maintainers = with maintainers; [ pongo1231 ];

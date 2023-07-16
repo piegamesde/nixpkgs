@@ -6,14 +6,16 @@ import ./make-test-python.nix ({
     name = "peroxide";
     meta.maintainers = with lib.maintainers; [ aidalgol ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         config,
         pkgs,
         ...
       }: {
         networking.hostName = "nixos";
         services.peroxide.enable = true;
-      };
+      }
+      ;
 
     testScript = ''
       machine.wait_for_unit("peroxide.service")

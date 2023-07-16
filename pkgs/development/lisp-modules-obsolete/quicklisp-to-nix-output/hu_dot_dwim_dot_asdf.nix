@@ -7,7 +7,8 @@ args@{
   version = "20200925-darcs";
 
   description =
-    "Various ASDF extensions such as attached test and documentation system, explicit development support, etc.";
+    "Various ASDF extensions such as attached test and documentation system, explicit development support, etc."
+    ;
 
   deps = [
     args."asdf"
@@ -16,7 +17,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/hu.dwim.asdf/2020-09-25/hu.dwim.asdf-20200925-darcs.tgz";
+      "http://beta.quicklisp.org/archive/hu.dwim.asdf/2020-09-25/hu.dwim.asdf-20200925-darcs.tgz"
+      ;
     sha256 = "1812gk65x8yy8s817zhzga52zvdlagws4sw6a8f6zk7yaaa6br8h";
   };
 

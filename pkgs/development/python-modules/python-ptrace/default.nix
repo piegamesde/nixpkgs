@@ -14,7 +14,7 @@ buildPythonPackage rec {
     sha256 = "1e3bc6223f626aaacde8a7979732691c11b13012e702fee9ae16c87f71633eaa";
   };
 
-  # requires distorm, which is optionally
+    # requires distorm, which is optionally
   doCheck = false;
 
   propagatedBuildInputs = [ six ];

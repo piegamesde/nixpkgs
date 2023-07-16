@@ -8,15 +8,17 @@ import ./make-test-python.nix ({
     name = "systemd-analyze";
     meta = with pkgs.lib.maintainers; { maintainers = [ raskin ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         lib,
         ...
       }: {
         boot.kernelPackages = lib.mkIf latestKernel pkgs.linuxPackages_latest;
-        sound.enable =
-          true; # needed for the factl test, /dev/snd/* exists without them but udev doesn't care then
-      };
+        sound.enable = true
+          ; # needed for the factl test, /dev/snd/* exists without them but udev doesn't care then
+      }
+      ;
 
     testScript = ''
       machine.wait_for_unit("multi-user.target")

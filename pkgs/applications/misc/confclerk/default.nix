@@ -12,7 +12,8 @@ mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.toastfreeware.priv.at/tarballs/confclerk/confclerk-${version}.tar.gz";
+      "https://www.toastfreeware.priv.at/tarballs/confclerk/confclerk-${version}.tar.gz"
+      ;
     sha256 = "0l5i4d6lymh0k6gzihs41x4i8v1dz0mrwpga096af0vchpvlcarg";
   };
 

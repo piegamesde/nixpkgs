@@ -28,7 +28,8 @@ buildPgxExtension rec {
     (fetchpatch {
       name = "cargo-vendor.patch";
       url =
-        "https://github.com/timescale/promscale_extension/commit/3048bd959430e9abc2c1d5c772ab6b4fc1dc6a95.patch";
+        "https://github.com/timescale/promscale_extension/commit/3048bd959430e9abc2c1d5c772ab6b4fc1dc6a95.patch"
+        ;
       hash = "sha256-xTk4Ml8GN06QlJdrvAdVK21r30ZR/S83y5A5jJPdOw4=";
     })
   ];
@@ -43,18 +44,19 @@ buildPgxExtension rec {
   '';
   passthru.tests = { promscale = nixosTests.promscale; };
 
-  # tests take really long
+    # tests take really long
   doCheck = false;
 
   meta = with lib; {
     description =
-      "Promscale is an open source observability backend for metrics and traces powered by SQL";
+      "Promscale is an open source observability backend for metrics and traces powered by SQL"
+      ;
     homepage = "https://github.com/timescale/promscale_extension";
     maintainers = with maintainers; [ anpin ];
     platforms = postgresql.meta.platforms;
     license = licenses.unfree;
 
-    # as it needs to be used with timescaledb, simply use the condition from there
+      # as it needs to be used with timescaledb, simply use the condition from there
     broken = versionOlder postgresql.version "12"
       || versionAtLeast postgresql.version "15";
   };

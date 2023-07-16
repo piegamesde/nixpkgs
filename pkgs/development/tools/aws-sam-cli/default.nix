@@ -32,13 +32,15 @@ python3.pkgs.buildPythonApplication rec {
     regex
   ];
 
-  postFixup = if enableTelemetry then
-    "echo aws-sam-cli TELEMETRY IS ENABLED"
-  else
-    ''
-      # Disable telemetry: https://github.com/awslabs/aws-sam-cli/issues/1272
-      wrapProgram $out/bin/sam --set  SAM_CLI_TELEMETRY 0
-    '';
+  postFixup =
+    if enableTelemetry then
+      "echo aws-sam-cli TELEMETRY IS ENABLED"
+    else
+      ''
+        # Disable telemetry: https://github.com/awslabs/aws-sam-cli/issues/1272
+        wrapProgram $out/bin/sam --set  SAM_CLI_TELEMETRY 0
+      ''
+    ;
 
   patches = [
     # Click 8.1 removed `get_terminal_size`, recommending
@@ -51,7 +53,7 @@ python3.pkgs.buildPythonApplication rec {
     ./use_forward_compatible_log_silencing.patch
   ];
 
-  # fix over-restrictive version bounds
+    # fix over-restrictive version bounds
   postPatch = ''
     substituteInPlace requirements/base.txt \
       --replace "aws_lambda_builders==" "aws-lambda-builders #" \
@@ -72,7 +74,7 @@ python3.pkgs.buildPythonApplication rec {
       --replace "watchdog==" "watchdog #"
   '';
 
-  # Tests are not included in the PyPI package
+    # Tests are not included in the PyPI package
   doCheck = false;
 
   meta = with lib; {

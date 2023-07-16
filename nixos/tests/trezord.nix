@@ -10,12 +10,14 @@ import ./make-test-python.nix ({
       ];
     };
     nodes = {
-      machine = {
+      machine =
+        {
           ...
         }: {
           services.trezord.enable = true;
           services.trezord.emulator.enable = true;
-        };
+        }
+        ;
     };
 
     testScript = ''

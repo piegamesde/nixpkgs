@@ -16,7 +16,8 @@ with self;
     minimalOCamlVersion = "4.09";
     hash = "0wm2081kzd5zsqs516cn3f975bnnmnyynv8fa818gmfa65i6mxm8";
     meta.description =
-      "A library that makes it nicer to work with nested functional data structures";
+      "A library that makes it nicer to work with nested functional data structures"
+      ;
     propagatedBuildInputs = [ higher_kinded ];
   };
 
@@ -176,7 +177,7 @@ with self;
       ctypes
       openssl
     ];
-    # in ctypes.foreign 0.18.0 threaded and unthreaded have been merged
+      # in ctypes.foreign 0.18.0 threaded and unthreaded have been merged
     postPatch = ''
       substituteInPlace bindings/dune \
         --replace "ctypes.foreign.threaded" "ctypes.foreign"
@@ -392,7 +393,8 @@ with self;
     hash = "0nxx35lrb4f6zfs5l80a7cg7azf19c6g31vn9qjjpaxf6lgkck2n";
     minimalOCamlVersion = "4.04.2";
     meta.description =
-      "Syntax extension to define first class values representing record fields, to get and set record fields, iterate and fold over all fields of a record and create new record values";
+      "Syntax extension to define first class values representing record fields, to get and set record fields, iterate and fold over all fields of a record and create new record values"
+      ;
     propagatedBuildInputs = [ base ];
   };
 
@@ -511,7 +513,8 @@ with self;
     minimalOCamlVersion = "4.09";
     hash = "sha256:1c8blzh2f34vbm1z3mnvh670c6vda70chw805n2hmkd9j46l0cll";
     meta.description =
-      "[@@deriving] plugin to generate accessors for use with the Accessor libraries";
+      "[@@deriving] plugin to generate accessors for use with the Accessor libraries"
+      ;
     propagatedBuildInputs = [ accessor ];
   };
 
@@ -646,7 +649,8 @@ with self;
     hash = "1zf03xdrg4jig7pdcrdpbabyjkdpifb31z2z1bf9wfdawybdhwkq";
     minimalOCamlVersion = "4.04.2";
     meta.description =
-      "A ppx rewriter that generates hash functions from type expressions and definitions";
+      "A ppx rewriter that generates hash functions from type expressions and definitions"
+      ;
     propagatedBuildInputs = [
       ppx_compare
       ppx_sexp_conv
@@ -782,10 +786,11 @@ with self;
     hash = "0gk4nqz4i9v3hwjg5mvgpgwj0dfcgpyc7ikba93cafyhn6fy83zk";
     meta.description =
       "A [@@deriving] plugin to generate Python conversion functions ";
-    # Compatibility with ppxlib 0.23
+      # Compatibility with ppxlib 0.23
     patches = fetchpatch {
       url =
-        "https://github.com/janestreet/ppx_python/commit/b2fe0040cc39fa6164de868f8a20edb38d81170e.patch";
+        "https://github.com/janestreet/ppx_python/commit/b2fe0040cc39fa6164de868f8a20edb38d81170e.patch"
+        ;
       sha256 = "sha256:1mrdwp0zw3dqavzx3ffrmzq5cdlninyf67ksavfzxb8gb16w6zpz";
     };
     propagatedBuildInputs = [
@@ -995,7 +1000,8 @@ with self;
     hash = "06sb3zqhb3dwqsmn15d769hfgqwqhxnm52iqim9l767gvlwpmibb";
     minimalOCamlVersion = "4.04.2";
     meta.description =
-      "Library containing the definition of S-expressions and some base converters";
+      "Library containing the definition of S-expressions and some base converters"
+      ;
   };
 
   sexplib = janePackage {

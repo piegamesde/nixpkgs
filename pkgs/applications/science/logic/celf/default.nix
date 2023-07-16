@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ smlnj ];
 
-  # (can also build with MLton)
+    # (can also build with MLton)
   buildPhase = ''
     export SMLNJ_HOME=${smlnj}
     sml < main-export.sml

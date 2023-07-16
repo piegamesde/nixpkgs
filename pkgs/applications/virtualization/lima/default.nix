@@ -31,15 +31,15 @@ buildGoModule rec {
     sigtool
   ];
 
-  # clean fails with read only vendor dir
+    # clean fails with read only vendor dir
   postPatch = ''
     substituteInPlace Makefile \
       --replace 'binaries: clean' 'binaries:' \
       --replace 'codesign --entitlements vz.entitlements -s -' 'codesign --force --entitlements vz.entitlements -s -'
   '';
 
-  # It attaches entitlements with codesign and strip removes those,
-  # voiding the entitlements and making it non-operational.
+    # It attaches entitlements with codesign and strip removes those,
+    # voiding the entitlements and making it non-operational.
   dontStrip = stdenv.isDarwin;
 
   buildPhase = ''

@@ -22,7 +22,8 @@ let
     version = "0.12.6-2";
     src = fetchurl {
       url =
-        "https://github.com/wkhtmltopdf/packaging/releases/download/${version}/wkhtmltox-${version}.macos-cocoa.pkg";
+        "https://github.com/wkhtmltopdf/packaging/releases/download/${version}/wkhtmltox-${version}.macos-cocoa.pkg"
+        ;
       sha256 = "sha256-gaZrd7UI/t6NvKpnEnIDdIN2Vos2c6F/ZhG21R6YlPg=";
     };
 
@@ -49,7 +50,8 @@ let
     version = "0.12.6-3";
     src = fetchurl {
       url =
-        "https://github.com/wkhtmltopdf/packaging/releases/download/${version}/wkhtmltox-${version}.archlinux-x86_64.pkg.tar.xz";
+        "https://github.com/wkhtmltopdf/packaging/releases/download/${version}/wkhtmltox-${version}.archlinux-x86_64.pkg.tar.xz"
+        ;
       sha256 = "sha256-6Ewu8sPRbqvYWj27mBlQYpEN+mb+vKT46ljrdEUxckI=";
     };
 

@@ -10,10 +10,12 @@ let
   inherit (lib) mkOption types;
   copyChannel = true;
   cfg = config.openstackImage;
-  imageBootMode = if config.openstack.efi then
-    "uefi"
-  else
-    "legacy-bios";
+  imageBootMode =
+    if config.openstack.efi then
+      "uefi"
+    else
+      "legacy-bios"
+    ;
 in {
   imports = [ ../../../modules/virtualisation/openstack-config.nix ]
     ++ (lib.optional copyChannel ../../../modules/installer/cd-dvd/channel.nix);
@@ -23,7 +25,8 @@ in {
       type = types.str;
       description = lib.mdDoc "The name of the generated derivation";
       default =
-        "nixos-openstack-image-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}";
+        "nixos-openstack-image-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}"
+        ;
     };
 
     sizeMB = mkOption {
@@ -61,9 +64,8 @@ in {
       import ../../../lib/make-single-disk-zfs-image.nix {
         inherit lib config;
         inherit (cfg) contents format name;
-        pkgs = import ../../../.. {
-          inherit (pkgs) system;
-        }; # ensure we use the regular qemu-kvm package
+        pkgs = import ../../../.. { inherit (pkgs) system; }
+          ; # ensure we use the regular qemu-kvm package
 
         configFile = pkgs.writeText "configuration.nix" ''
           { modulesPath, ... }: {

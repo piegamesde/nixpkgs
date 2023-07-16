@@ -14,7 +14,8 @@ import ./make-test-python.nix ({
     };
 
     nodes = {
-      target = {
+      target =
+        {
           config,
           pkgs,
           lib,
@@ -72,9 +73,11 @@ import ./make-test-python.nix ({
 
           virtualisation.memorySize = 2048;
           virtualisation.emptyDiskImages = [ 2048 ];
-        };
+        }
+        ;
 
-      initiatorAuto = {
+      initiatorAuto =
+        {
           nodes,
           config,
           pkgs,
@@ -89,17 +92,19 @@ import ./make-test-python.nix ({
 
           environment.systemPackages = with pkgs; [ xfsprogs ];
 
-          system.extraDependencies =
-            [ nodes.initiatorRootDisk.config.system.build.toplevel ];
+          system.extraDependencies = [ nodes.initiatorRootDisk.config.system.build.toplevel ]
+            ;
 
           nix.settings = {
             substituters = lib.mkForce [ ];
             hashed-mirrors = null;
             connect-timeout = 1;
           };
-        };
+        }
+        ;
 
-      initiatorRootDisk = {
+      initiatorRootDisk =
+        {
           config,
           pkgs,
           modulesPath,
@@ -113,7 +118,7 @@ import ./make-test-python.nix ({
             "ip=${config.networking.primaryIPAddress}:::255.255.255.0::ens9:none"
           ]);
 
-          # defaults to true, puts some code in the initrd that tries to mount an overlayfs on /nix/store
+            # defaults to true, puts some code in the initrd that tries to mount an overlayfs on /nix/store
           virtualisation.writableStore = false;
 
           fileSystems = lib.mkOverride 5 {
@@ -129,10 +134,12 @@ import ./make-test-python.nix ({
             name = initiatorName;
             target = targetName;
           };
-        };
+        }
+        ;
     };
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }: ''
@@ -160,5 +167,6 @@ import ./make-test-python.nix ({
         initiatorRootDisk.wait_for_unit("iscsid")
         initiatorRootDisk.succeed("touch test")
         initiatorRootDisk.shutdown()
-      '';
+      ''
+      ;
   } )

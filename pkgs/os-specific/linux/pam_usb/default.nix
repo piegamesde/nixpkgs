@@ -18,7 +18,8 @@ let
   # Search in the environment if the same program exists with a set uid or
   # set gid bit.  If it exists, run the first program found, otherwise run
   # the default binary.
-  useSetUID = drv: path:
+  useSetUID =
+    drv: path:
     let
       name = baseNameOf path;
       bin = "${drv}${path}";
@@ -40,7 +41,7 @@ let
       done
       exec ${bin} "$@"
     ''
-  ;
+    ;
 
   pmountBin = useSetUID pmount "/bin/pmount";
   pumountBin = useSetUID pmount "/bin/pumount";
@@ -79,7 +80,7 @@ stdenv.mkDerivation rec {
       --replace 'pumount' '${pumountBin}'
   '';
 
-  # pmount is append to the PATH because pmounts binaries should have a set uid bit.
+    # pmount is append to the PATH because pmounts binaries should have a set uid bit.
   postInstall = ''
     mv $out/usr/* $out/. # fix color */
     rm -rf $out/usr

@@ -10,10 +10,12 @@
 }:
 
 let
-  testDir = if isPy3k then
-    "src"
-  else
-    "python2";
+  testDir =
+    if isPy3k then
+      "src"
+    else
+      "python2"
+    ;
 
 in
 buildPythonPackage rec {
@@ -27,9 +29,9 @@ buildPythonPackage rec {
 
   disabled = pythonAtLeast "3.5";
 
-  # Error for Python3.6: ImportError: cannot import name 'ann_module'
-  # See https://github.com/python/typing/pull/280
-  # Also, don't bother on PyPy: AssertionError: TypeError not raised
+    # Error for Python3.6: ImportError: cannot import name 'ann_module'
+    # See https://github.com/python/typing/pull/280
+    # Also, don't bother on PyPy: AssertionError: TypeError not raised
   doCheck = pythonOlder "3.6" && !isPyPy;
 
   nativeCheckInputs = [ unittestCheckHook ];

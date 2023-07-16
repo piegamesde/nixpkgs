@@ -21,7 +21,7 @@
 
 stdenv.mkDerivation rec {
   pname = "eid-mw";
-  # NOTE: Don't just blindly update to the latest version/tag. Releases are always for a specific OS.
+    # NOTE: Don't just blindly update to the latest version/tag. Releases are always for a specific OS.
   version = "5.1.10";
 
   src = fetchFromGitHub {
@@ -57,27 +57,29 @@ stdenv.mkDerivation rec {
     substituteInPlace plugins_tools/eid-viewer/Makefile.in \
       --replace "c_rehash" "openssl rehash"
   '';
-  # pinentry uses hardcoded `/usr/bin/pinentry`, so use the built-in (uglier) dialogs for pinentry.
+    # pinentry uses hardcoded `/usr/bin/pinentry`, so use the built-in (uglier) dialogs for pinentry.
   configureFlags = [ "--disable-pinentry" ];
 
   postPatch = ''
     sed 's@m4_esyscmd_s(.*,@[${version}],@' -i configure.ac
   '';
 
-  postInstall = let
-    eid-nssdb-in = substituteAll {
-      inherit (stdenv) shell;
-      isExecutable = true;
-      src = ./eid-nssdb.in;
-    };
-  in ''
-    install -D ${eid-nssdb-in} $out/bin/eid-nssdb
-    substituteInPlace $out/bin/eid-nssdb \
-      --replace "modutil" "${nssTools}/bin/modutil"
+  postInstall =
+    let
+      eid-nssdb-in = substituteAll {
+        inherit (stdenv) shell;
+        isExecutable = true;
+        src = ./eid-nssdb.in;
+      };
+    in ''
+      install -D ${eid-nssdb-in} $out/bin/eid-nssdb
+      substituteInPlace $out/bin/eid-nssdb \
+        --replace "modutil" "${nssTools}/bin/modutil"
 
-    rm $out/bin/about-eid-mw
-    wrapProgram $out/bin/eid-viewer --prefix XDG_DATA_DIRS : "$out/share/gsettings-schemas/$name"
-  '' ;
+      rm $out/bin/about-eid-mw
+      wrapProgram $out/bin/eid-viewer --prefix XDG_DATA_DIRS : "$out/share/gsettings-schemas/$name"
+    ''
+    ;
 
   enableParallelBuilding = true;
 

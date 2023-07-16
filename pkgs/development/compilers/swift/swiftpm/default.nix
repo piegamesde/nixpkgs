@@ -32,12 +32,12 @@ let
   generated = swiftpm2nix.helpers ./generated;
   cmakeGlue = callPackage ./cmake-glue.nix { };
 
-  # Common attributes for the bootstrap swiftpm and the final swiftpm.
+    # Common attributes for the bootstrap swiftpm and the final swiftpm.
   commonAttrs = {
     inherit (sources) version;
     src = sources.swift-package-manager;
     nativeBuildInputs = [ makeWrapper ];
-    # Required at run-time for the host platform to build package manifests.
+      # Required at run-time for the host platform to build package manifests.
     propagatedBuildInputs = [ Foundation ];
     patches = [
       ./patches/cmake-disable-rpath.patch
@@ -66,7 +66,7 @@ let
     '';
   };
 
-  # Tools invoked by swiftpm at run-time.
+    # Tools invoked by swiftpm at run-time.
   runtimeDeps = [ git ] ++ lib.optionals stdenv.isDarwin [
     xcbuild.xcrun
     # vtool is used to determine a minimum deployment target. This is part of
@@ -78,8 +78,9 @@ let
     '')
   ];
 
-  # Common attributes for the bootstrap derivations.
-  mkBootstrapDerivation = attrs:
+    # Common attributes for the bootstrap derivations.
+  mkBootstrapDerivation =
+    attrs:
     stdenv.mkDerivation (attrs // {
       nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ [
         cmake
@@ -126,28 +127,31 @@ let
         # so we don't have to account for that scenario.
         "-DCMAKE_BUILD_WITH_INSTALL_NAME_DIR=ON"
       ];
-    });
+    })
+    ;
 
-  # On Darwin, we only want ncurses in the linker search path, because headers
-  # are part of libsystem. Adding its headers to the search path causes strange
-  # mixing and errors.
-  # TODO: Find a better way to prevent this conflict.
-  ncursesInput = if stdenv.isDarwin then
-    ncurses.out
-  else
-    ncurses;
+    # On Darwin, we only want ncurses in the linker search path, because headers
+    # are part of libsystem. Adding its headers to the search path causes strange
+    # mixing and errors.
+    # TODO: Find a better way to prevent this conflict.
+  ncursesInput =
+    if stdenv.isDarwin then
+      ncurses.out
+    else
+      ncurses
+    ;
 
-  # Derivations for bootstrapping dependencies using CMake.
-  # This is based on the `swiftpm/Utilities/bootstrap` script.
-  #
-  # Some of the installation steps here are a bit hacky, because it seems like
-  # these packages were not really meant to be installed using CMake. The
-  # regular swiftpm bootstrap simply refers to the source and build
-  # directories. The advantage of separate builds is that we can more easily
-  # link libs together using existing Nixpkgs infra.
-  #
-  # In the end, we don't expose these derivations, and they only exist during
-  # the bootstrap phase. The final swiftpm derivation does not depend on them.
+    # Derivations for bootstrapping dependencies using CMake.
+    # This is based on the `swiftpm/Utilities/bootstrap` script.
+    #
+    # Some of the installation steps here are a bit hacky, because it seems like
+    # these packages were not really meant to be installed using CMake. The
+    # regular swiftpm bootstrap simply refers to the source and build
+    # directories. The advantage of separate builds is that we can more easily
+    # link libs together using existing Nixpkgs infra.
+    #
+    # In the end, we don't expose these derivations, and they only exist during
+    # the bootstrap phase. The final swiftpm derivation does not depend on them.
 
   swift-system = mkBootstrapDerivation {
     name = "swift-system";
@@ -231,7 +235,7 @@ let
     name = "Yams";
     src = generated.sources.Yams;
 
-    # Conflicts with BUILD file on case-insensitive filesystems.
+      # Conflicts with BUILD file on case-insensitive filesystems.
     cmakeBuildDir = "_build";
 
     postInstall = cmakeGlue.Yams;
@@ -314,7 +318,7 @@ let
     '';
   };
 
-  # Build a bootrapping swiftpm using CMake.
+    # Build a bootrapping swiftpm using CMake.
   swiftpm-bootstrap = mkBootstrapDerivation (commonAttrs // {
     pname = "swiftpm-bootstrap";
 
@@ -337,7 +341,7 @@ let
     '';
   });
 
-  # Build the final swiftpm with the bootstrapping swiftpm.
+    # Build the final swiftpm with the bootstrapping swiftpm.
 in
 stdenv.mkDerivation (commonAttrs // {
   pname = "swiftpm";
@@ -379,14 +383,14 @@ stdenv.mkDerivation (commonAttrs // {
     TERM=dumb swift-build -c release
   '';
 
-  # TODO: Tests depend on indexstore-db being provided by an existing Swift
-  # toolchain. (ie. looks for `../lib/libIndexStore.so` relative to swiftc.
-  #doCheck = true;
-  #checkPhase = ''
-  #  TERM=dumb swift-test -c release
-  #'';
+    # TODO: Tests depend on indexstore-db being provided by an existing Swift
+    # toolchain. (ie. looks for `../lib/libIndexStore.so` relative to swiftc.
+    #doCheck = true;
+    #checkPhase = ''
+    #  TERM=dumb swift-test -c release
+    #'';
 
-  # The following is dervied from Utilities/bootstrap, see install_swiftpm.
+    # The following is dervied from Utilities/bootstrap, see install_swiftpm.
   installPhase = ''
     binPath="$(swift-build --show-bin-path -c release)"
 

@@ -29,7 +29,7 @@ buildPythonPackage rec {
     six
   ];
 
-  # no tests in pypi tarball
+    # no tests in pypi tarball
   doCheck = false;
 
   pythonNamespaces = [ "azure.keyvault" ];
@@ -40,7 +40,8 @@ buildPythonPackage rec {
     description =
       "Microsoft Azure Key Vault Administration Client Library for Python";
     homepage =
-      "https://github.com/Azure/azure-sdk-for-python/tree/master/sdk/keyvault/azure-keyvault-administration";
+      "https://github.com/Azure/azure-sdk-for-python/tree/master/sdk/keyvault/azure-keyvault-administration"
+      ;
     license = licenses.mit;
     maintainers = with maintainers; [ jonringer ];
   };

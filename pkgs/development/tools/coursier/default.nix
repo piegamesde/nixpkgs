@@ -19,7 +19,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/coursier/coursier/releases/download/v${version}/coursier";
+      "https://github.com/coursier/coursier/releases/download/v${version}/coursier"
+      ;
     sha256 = "WuZnwVFycHTzU/3x07Yd5dcirwdHM7qAVR7Jq0Zqn/4=";
   };
 

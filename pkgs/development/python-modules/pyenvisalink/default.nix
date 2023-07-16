@@ -26,7 +26,7 @@ buildPythonPackage rec {
     pyserial
   ];
 
-  # Tests require an Envisalink device
+    # Tests require an Envisalink device
   doCheck = false;
 
   pythonImportsCheck = [ "pyenvisalink" ];

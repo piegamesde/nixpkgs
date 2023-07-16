@@ -49,7 +49,8 @@ buildGoModule rec {
     changelog =
       "https://github.com/aquasecurity/kube-bench/releases/tag/v${version}";
     description =
-      "Checks whether Kubernetes is deployed according to security best practices as defined in the CIS Kubernetes Benchmark";
+      "Checks whether Kubernetes is deployed according to security best practices as defined in the CIS Kubernetes Benchmark"
+      ;
     license = licenses.asl20;
     maintainers = with maintainers; [ jk ];
   };

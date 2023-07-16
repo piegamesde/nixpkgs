@@ -11,8 +11,8 @@ buildPythonPackage rec {
   version = "3.2.0";
   disabled = pythonOlder "3.6";
 
-  # Use fetchPypi to avoid the updater script to migrate it to `reactivex` which
-  # is being developed in the same repository
+    # Use fetchPypi to avoid the updater script to migrate it to `reactivex` which
+    # is being developed in the same repository
   src = fetchPypi {
     inherit version;
     pname = "Rx";
@@ -21,9 +21,9 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ nose ];
 
-  # Some tests are nondeterministic. (`grep sleep -r tests`)
-  # test_timeout_schedule_action_cancel: https://hydra.nixos.org/build/74954646
-  # test_new_thread_scheduler_timeout: https://hydra.nixos.org/build/74949851
+    # Some tests are nondeterministic. (`grep sleep -r tests`)
+    # test_timeout_schedule_action_cancel: https://hydra.nixos.org/build/74954646
+    # test_new_thread_scheduler_timeout: https://hydra.nixos.org/build/74949851
   doCheck = false;
 
   pythonImportsCheck = [ "rx" ];

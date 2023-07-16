@@ -23,7 +23,8 @@ stdenv.mkDerivation rec {
 
   srcIcon = fetchurl {
     url =
-      "https://aur.archlinux.org/cgit/aur.git/plain/xmind.png?h=xmind&id=41936c866b244b34d7dfbee373cbb835eed7860b";
+      "https://aur.archlinux.org/cgit/aur.git/plain/xmind.png?h=xmind&id=41936c866b244b34d7dfbee373cbb835eed7860b"
+      ;
     sha256 = "0jxq2fiq69q9ly0m6hx2qfybqad22sl42ciw636071khpqgc885f";
   };
 
@@ -55,39 +56,43 @@ stdenv.mkDerivation rec {
     ];
   };
 
-  installPhase = let
-    targetDir = if stdenv.hostPlatform.system == "i686-linux" then
-      "XMind_i386"
-    else
-      "XMind_amd64";
-  in ''
-    mkdir -p $out/{bin,libexec/configuration/,share/{applications/,fonts/,icons/hicolor/scalable/apps/}}
-    cp -r ${targetDir}/{configuration,p2,XMind{,.ini}} $out/libexec
-    cp -r {plugins,features} $out/libexec/
-    cp -r fonts $out/share/fonts/
-    cp "${desktopItem}/share/applications/XMind.desktop" $out/share/applications/XMind.desktop
-    cp ${srcIcon} $out/share/icons/hicolor/scalable/apps/xmind.png
+  installPhase =
+    let
+      targetDir =
+        if stdenv.hostPlatform.system == "i686-linux" then
+          "XMind_i386"
+        else
+          "XMind_amd64"
+        ;
+    in ''
+      mkdir -p $out/{bin,libexec/configuration/,share/{applications/,fonts/,icons/hicolor/scalable/apps/}}
+      cp -r ${targetDir}/{configuration,p2,XMind{,.ini}} $out/libexec
+      cp -r {plugins,features} $out/libexec/
+      cp -r fonts $out/share/fonts/
+      cp "${desktopItem}/share/applications/XMind.desktop" $out/share/applications/XMind.desktop
+      cp ${srcIcon} $out/share/icons/hicolor/scalable/apps/xmind.png
 
-    patchelf --set-interpreter $(cat ${stdenv.cc}/nix-support/dynamic-linker) \
-      $out/libexec/XMind
+      patchelf --set-interpreter $(cat ${stdenv.cc}/nix-support/dynamic-linker) \
+        $out/libexec/XMind
 
-    wrapProgram $out/libexec/XMind \
-      --prefix LD_LIBRARY_PATH : "${libPath}"
+      wrapProgram $out/libexec/XMind \
+        --prefix LD_LIBRARY_PATH : "${libPath}"
 
-    # Inspired by https://aur.archlinux.org/cgit/aur.git/tree/?h=xmind
-    cat >$out/bin/XMind <<EOF
-      #! ${runtimeShell}
-      if [ ! -d "\$HOME/.xmind" ]; then
-        mkdir -p "\$HOME/.xmind/configuration-cathy/"
-        cp -r $out/libexec/configuration/ \$HOME/.xmind/configuration-cathy/
-      fi
+      # Inspired by https://aur.archlinux.org/cgit/aur.git/tree/?h=xmind
+      cat >$out/bin/XMind <<EOF
+        #! ${runtimeShell}
+        if [ ! -d "\$HOME/.xmind" ]; then
+          mkdir -p "\$HOME/.xmind/configuration-cathy/"
+          cp -r $out/libexec/configuration/ \$HOME/.xmind/configuration-cathy/
+        fi
 
-      exec "$out/libexec/XMind" "\$@"
-    EOF
-    chmod +x $out/bin/XMind
+        exec "$out/libexec/XMind" "\$@"
+      EOF
+      chmod +x $out/bin/XMind
 
-    ln -s ${jre8} $out/libexec/jre
-  '' ;
+      ln -s ${jre8} $out/libexec/jre
+    ''
+    ;
 
   meta = with lib; {
     description = "Mind-mapping software";

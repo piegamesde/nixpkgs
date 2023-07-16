@@ -37,30 +37,40 @@
 
 let
   inherit (python3Packages) python dbus-python;
-  shouldUsePkg = pkg:
+  shouldUsePkg =
+    pkg:
     if pkg != null && lib.meta.availableOn stdenv.hostPlatform pkg then
       pkg
     else
-      null;
+      null
+    ;
 
   libOnly = prefix == "lib";
 
-  optDbus = if stdenv.isDarwin then
-    null
-  else
-    shouldUsePkg dbus;
-  optPythonDBus = if libOnly then
-    null
-  else
-    shouldUsePkg dbus-python;
-  optLibffado = if libOnly then
-    null
-  else
-    shouldUsePkg libffado;
-  optAlsaLib = if libOnly then
-    null
-  else
-    shouldUsePkg alsa-lib;
+  optDbus =
+    if stdenv.isDarwin then
+      null
+    else
+      shouldUsePkg dbus
+    ;
+  optPythonDBus =
+    if libOnly then
+      null
+    else
+      shouldUsePkg dbus-python
+    ;
+  optLibffado =
+    if libOnly then
+      null
+    else
+      shouldUsePkg libffado
+    ;
+  optAlsaLib =
+    if libOnly then
+      null
+    else
+      shouldUsePkg alsa-lib
+    ;
   optLibopus = shouldUsePkg libopus;
 in
 stdenv.mkDerivation (finalAttrs: {

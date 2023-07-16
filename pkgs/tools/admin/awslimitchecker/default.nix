@@ -55,7 +55,8 @@ python3Packages.buildPythonApplication rec {
     changelog =
       "https://github.com/jantman/awslimitchecker/blob/${version}/CHANGES.rst";
     description =
-      "A script and python package to check your AWS service limits and usage via boto3";
+      "A script and python package to check your AWS service limits and usage via boto3"
+      ;
     license = licenses.agpl3Plus;
     maintainers = with maintainers; [ zakame ];
   };

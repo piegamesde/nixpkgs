@@ -51,10 +51,10 @@ stdenv.mkDerivation (finalAttrs: rec {
       --replace '$(SHARE_DIR)/texmf' "$tex"
   '';
 
-  # Workaround build failure on -fno-common toolchains like upstream
-  # gcc-10. Otherwise build fails as:
-  #   ld: eukleides_build/triangle.o:(.bss+0x28): multiple definition of `A';
-  #     eukleides_build/quadrilateral.o:(.bss+0x18): first defined here
+    # Workaround build failure on -fno-common toolchains like upstream
+    # gcc-10. Otherwise build fails as:
+    #   ld: eukleides_build/triangle.o:(.bss+0x28): multiple definition of `A';
+    #     eukleides_build/quadrilateral.o:(.bss+0x18): first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   preInstall = ''
@@ -74,7 +74,7 @@ stdenv.mkDerivation (finalAttrs: rec {
 
   passthru = {
     tlType = "run";
-    # packages needed by euktoeps, euktopdf and eukleides.sty
+      # packages needed by euktoeps, euktopdf and eukleides.sty
     tlDeps = with texlive; [
       collection-pstricks
       epstopdf

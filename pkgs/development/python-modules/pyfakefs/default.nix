@@ -31,7 +31,7 @@ buildPythonPackage rec {
   '');
 
   nativeCheckInputs = [ pytestCheckHook ];
-  # https://github.com/jmcgeheeiv/pyfakefs/issues/581 (OSError: [Errno 9] Bad file descriptor)
+    # https://github.com/jmcgeheeiv/pyfakefs/issues/581 (OSError: [Errno 9] Bad file descriptor)
   disabledTests = [ "test_open_existing_pipe" ];
   pythonImportsCheck = [ "pyfakefs" ];
 

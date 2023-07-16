@@ -14,19 +14,21 @@ let
     # stable = testsLegacyNetwork { nixopsPkg = pkgs.nixops; };
     unstable = testsForPackage { nixopsPkg = pkgs.nixops_unstable; };
 
-    # inherit testsForPackage;
+      # inherit testsForPackage;
   };
 
   testsForPackage = lib.makeOverridable
     (args: lib.recurseIntoAttrs { legacyNetwork = testLegacyNetwork args; });
 
-  testLegacyNetwork = {
+  testLegacyNetwork =
+    {
       nixopsPkg,
     }:
     pkgs.nixosTest ({
       name = "nixops-legacy-network";
       nodes = {
-        deployer = {
+        deployer =
+          {
             config,
             lib,
             nodes,
@@ -43,18 +45,22 @@ let
               pkgs.figlet
             ];
 
-            # TODO: make this efficient, https://github.com/NixOS/nixpkgs/issues/180529
+              # TODO: make this efficient, https://github.com/NixOS/nixpkgs/issues/180529
             system.includeBuildDependencies = true;
-          };
-        server = {
+          }
+          ;
+        server =
+          {
             lib,
             ...
           }: {
             imports = [ ./legacy/base-configuration.nix ];
-          };
+          }
+          ;
       };
 
-      testScript = {
+      testScript =
+        {
           nodes,
         }:
         let
@@ -101,8 +107,10 @@ let
           deployer_do("cd ~/unicorn; nixops deploy --confirm")
 
           deployer_do("cd ~/unicorn; nixops ssh server 'hello | figlet'")
-        '' ;
-    });
+        ''
+        ;
+    })
+    ;
 
   inherit (import ../ssh-keys.nix pkgs)
     snakeOilPrivateKey
@@ -112,7 +120,8 @@ let
     /* Return a store path with a closure containing everything including
        derivations and all build dependency outputs, all the way down.
     */
-  allDrvOutputs = pkg:
+  allDrvOutputs =
+    pkg:
     let
       name = "allDrvOutputs-${pkg.pname or pkg.name or "unknown"}";
     in
@@ -126,7 +135,7 @@ let
         esac
       done <$refs
     ''
-  ;
+    ;
 
 in
 tests

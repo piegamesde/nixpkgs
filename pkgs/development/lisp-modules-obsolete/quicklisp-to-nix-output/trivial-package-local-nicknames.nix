@@ -12,7 +12,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/trivial-package-local-nicknames/2020-06-10/trivial-package-local-nicknames-20200610-git.tgz";
+      "http://beta.quicklisp.org/archive/trivial-package-local-nicknames/2020-06-10/trivial-package-local-nicknames-20200610-git.tgz"
+      ;
     sha256 = "1wabkcwz0v144rb2w3rvxlcj264indfnvlyigk1wds7nq0c8lwk5";
   };
 

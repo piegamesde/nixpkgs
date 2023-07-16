@@ -15,7 +15,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/libdnet/libdnet-${version}.tgz";
+      "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/libdnet/libdnet-${version}.tgz"
+      ;
     sha256 = "09mhbr8x66ykhf5581a5zjpplpjxibqzgkkpx689kybwg0wk1cw3";
   };
 
@@ -25,7 +26,7 @@ stdenv.mkDerivation rec {
   ];
   buildInputs = [ libtool ];
 
-  # .so endings are missing (quick and dirty fix)
+    # .so endings are missing (quick and dirty fix)
   postInstall = ''
     for i in $out/lib/*; do
       ln -s $i $i.so
@@ -34,7 +35,8 @@ stdenv.mkDerivation rec {
 
   meta = {
     description =
-      "Provides a simplified, portable interface to several low-level networking routines";
+      "Provides a simplified, portable interface to several low-level networking routines"
+      ;
     homepage = "https://github.com/dugsong/libdnet";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.marcweber ];

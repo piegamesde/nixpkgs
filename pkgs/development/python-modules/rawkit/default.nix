@@ -21,7 +21,8 @@ buildPythonPackage rec {
     # Python 3.7 compatibility
     (fetchpatch {
       url =
-        "https://github.com/photoshell/rawkit/commit/663e90afa835d398aedd782c87b8cd0bff64bc9f.patch";
+        "https://github.com/photoshell/rawkit/commit/663e90afa835d398aedd782c87b8cd0bff64bc9f.patch"
+        ;
       sha256 = "1cdw0x9bgk0b5jnpjnmd8jpbaryarr3cjqizq44366qh3l0jycxy";
     })
   ];

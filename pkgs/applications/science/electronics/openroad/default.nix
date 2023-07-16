@@ -91,7 +91,7 @@ mkDerivation rec {
     patchShebangs --build etc/find_messages.py
   '';
 
-  # Enable output images from the placer.
+    # Enable output images from the placer.
   cmakeFlags = [
     "-DUSE_SYSTEM_BOOST=ON"
     "-DUSE_CIMG_LIB=ON"
@@ -102,13 +102,13 @@ mkDerivation rec {
     "-DCMAKE_CXX_FLAGS=-DFMT_DEPRECATED_OSTREAM"
   ];
 
-  # Resynthesis needs access to the Yosys binaries.
+    # Resynthesis needs access to the Yosys binaries.
   qtWrapperArgs = [ "--prefix PATH : ${lib.makeBinPath [ yosys ]}" ];
 
   checkInputs = [ gtest ];
 
-  # Upstream uses vendored package versions for some dependencies, so regression testing is prudent
-  # to see if there are any breaking changes in unstable that should be vendored as well.
+    # Upstream uses vendored package versions for some dependencies, so regression testing is prudent
+    # to see if there are any breaking changes in unstable that should be vendored as well.
   doCheck = true;
   checkPhase = ''
     ../test/regression

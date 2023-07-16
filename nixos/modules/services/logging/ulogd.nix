@@ -27,7 +27,8 @@ in {
         type = settingsFormat.type;
         default = { };
         description = lib.mdDoc
-          "Configuration for ulogd. See {file}`/share/doc/ulogd/` in `pkgs.ulogd.doc`.";
+          "Configuration for ulogd. See {file}`/share/doc/ulogd/` in `pkgs.ulogd.doc`."
+          ;
       };
 
       logLevel = mkOption {

@@ -20,7 +20,7 @@ buildGoModule rec {
   modRoot = "./v2";
   subPackages = [ "cmd/nuclei/" ];
 
-  # Test files are not part of the release tarball
+    # Test files are not part of the release tarball
   doCheck = false;
 
   meta = with lib; {

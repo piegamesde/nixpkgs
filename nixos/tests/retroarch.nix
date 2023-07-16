@@ -9,7 +9,8 @@ import ./make-test-python.nix ({
       maintainers = teams.libretro.members ++ [ maintainers.j0hax ];
     };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }:
 
@@ -28,9 +29,11 @@ import ./make-test-python.nix ({
             user = "alice";
           };
         };
-      };
+      }
+      ;
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }:
@@ -55,5 +58,6 @@ import ./make-test-python.nix ({
                 "${xdo} key Alt+F1 sleep 10"
             )
             machine.screenshot("screen")
-      '' ;
+      ''
+      ;
   })

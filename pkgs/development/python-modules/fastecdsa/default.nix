@@ -29,9 +29,9 @@ buildPythonPackage rec {
     "fastecdsa/tests/test_rfc6979_ecdsa.py"
   ];
 
-  # skip tests for now, they fail with
-  # ImportError: cannot import name '_ecdsa' from 'fastecdsa'
-  # but the installed package works just fine
+    # skip tests for now, they fail with
+    # ImportError: cannot import name '_ecdsa' from 'fastecdsa'
+    # but the installed package works just fine
   doCheck = false;
 
   pythonImportsCheck = [ "fastecdsa" ];

@@ -28,11 +28,11 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ verilog ];
 
-  # the "translate" target both (a) builds the software and (b) runs
-  # the tests (without validating the results)
+    # the "translate" target both (a) builds the software and (b) runs
+    # the tests (without validating the results)
   buildTargets = [ "translate" ];
 
-  # the "diff" target examines the test results
+    # the "diff" target examines the test results
   checkTarget = "diff";
 
   installPhase = ''

@@ -18,31 +18,37 @@ import ./make-test-python.nix ({
       ];
     };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         config,
         ...
       }: {
-        assertions = let
-          helloName = (builtins.head
-            config.containers.test.config.system.extraDependencies).name;
-        in [ {
-          assertion = helloName == "custom-hello";
-          message = "Unexpected value: ${helloName}";
-        } ] ;
+        assertions =
+          let
+            helloName = (builtins.head
+              config.containers.test.config.system.extraDependencies).name;
+          in [ {
+            assertion = helloName == "custom-hello";
+            message = "Unexpected value: ${helloName}";
+          } ]
+          ;
 
         containers.test = {
           autoStart = true;
-          config = {
+          config =
+            {
               pkgs,
               config,
               ...
             }: {
               nixpkgs.pkgs = customPkgs;
               system.extraDependencies = [ pkgs.hello ];
-            };
+            }
+            ;
         };
-      };
+      }
+      ;
 
-    # This test only consists of evaluating the test machine
+      # This test only consists of evaluating the test machine
     testScript = "pass";
   } )

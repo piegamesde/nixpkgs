@@ -11,7 +11,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/boot-clj/boot-bin/releases/download/${version}/boot.sh";
+      "https://github.com/boot-clj/boot-bin/releases/download/${version}/boot.sh"
+      ;
     sha256 = "1hqp3xxmsj5vkym0l3blhlaq9g3w0lhjgmp37g6y3rr741znkk8c";
   };
 

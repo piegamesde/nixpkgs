@@ -8,7 +8,8 @@ with import ../lib/testing-python.nix { inherit system pkgs; };
 
 let
 
-  makeZfsTest = name:
+  makeZfsTest =
+    name:
     {
       kernelPackage ? if enableUnstable then
         pkgs.zfsUnstable.latestCompatibleLinuxPackages
@@ -27,7 +28,8 @@ let
         ];
       };
 
-      nodes.machine = {
+      nodes.machine =
+        {
           pkgs,
           lib,
           ...
@@ -54,7 +56,7 @@ let
 
           environment.systemPackages = [ pkgs.parted ];
 
-          # /dev/disk/by-id doesn't get populated in the NixOS test framework
+            # /dev/disk/by-id doesn't get populated in the NixOS test framework
           boot.zfs.devNodes = "/dev/disk/by-uuid";
 
           specialisation.samba.configuration = {
@@ -120,7 +122,8 @@ let
               };
             };
           };
-        } ;
+        }
+        ;
 
       testScript = ''
         machine.wait_for_unit("multi-user.target")
@@ -199,7 +202,8 @@ let
             )
       '' + extraTest;
 
-    };
+    }
+    ;
 
 in {
 
@@ -217,7 +221,8 @@ in {
   expand-partitions = makeTest {
     name = "multi-disk-zfs";
     nodes = {
-      machine = {
+      machine =
+        {
           pkgs,
           ...
         }: {
@@ -239,10 +244,12 @@ in {
           specialisation.resize.configuration = {
             services.zfs.expandOnBoot = [ "tank" ];
           };
-        };
+        }
+        ;
     };
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }: ''
@@ -273,6 +280,7 @@ in {
         else:
           print(f"Disk went from {start_size} to {new_size}, which doesn't seem right.")
           exit(1)
-      '';
+      ''
+      ;
   };
 }

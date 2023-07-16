@@ -13,7 +13,8 @@ let
 
   makeTest = import ./../make-test-python.nix;
 
-  makeBackupTest = {
+  makeBackupTest =
+    {
       package,
       name ? mkTestName package
     }:
@@ -22,7 +23,8 @@ let
       meta = with pkgs.lib.maintainers; { maintainers = [ rvl ]; };
 
       nodes = {
-        master = {
+        master =
+          {
             pkgs,
             ...
           }: {
@@ -42,7 +44,8 @@ let
                 "testdb"
               ];
             };
-          };
+          }
+          ;
       };
 
       testScript = ''
@@ -77,6 +80,7 @@ let
             "journalctl -u mysql-backup.service | grep 'fail.*doesnotexist' > /dev/null"
         )
       '';
-    };
+    }
+    ;
 in
 lib.mapAttrs (_: package: makeBackupTest { inherit package; }) mariadbPackages

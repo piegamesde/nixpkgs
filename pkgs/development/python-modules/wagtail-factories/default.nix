@@ -23,8 +23,8 @@ buildPythonPackage rec {
     wagtail
   ];
 
-  # Tests require wagtail which in turn requires wagtail-factories
-  # Note that pythonImportsCheck is not used because it requires a Django app
+    # Tests require wagtail which in turn requires wagtail-factories
+    # Note that pythonImportsCheck is not used because it requires a Django app
   doCheck = false;
 
   passthru.tests.wagtail-factories = callPackage ./tests.nix { };

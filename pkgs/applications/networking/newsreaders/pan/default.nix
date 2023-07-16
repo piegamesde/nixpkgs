@@ -26,7 +26,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://pan.rebelbase.com/download/releases/${version}/source/pan-${version}.tar.bz2";
+      "https://pan.rebelbase.com/download/releases/${version}/source/pan-${version}.tar.bz2"
+      ;
     sha256 = "17agd27sn4a7nahvkpg0w39kv74njgdrrygs74bbvpaj8rk2hb55";
   };
 

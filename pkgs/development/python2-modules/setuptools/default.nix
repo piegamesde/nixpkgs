@@ -13,7 +13,7 @@ let
   pname = "setuptools";
   version = "44.0.0";
 
-  # Create an sdist of setuptools
+    # Create an sdist of setuptools
   sdist = stdenv.mkDerivation rec {
     name = "${pname}-${version}-sdist.tar.gz";
 
@@ -70,10 +70,10 @@ buildPythonPackage rec {
 
   pipInstallFlags = [ "--ignore-installed" ];
 
-  # Adds setuptools to nativeBuildInputs causing infinite recursion.
+    # Adds setuptools to nativeBuildInputs causing infinite recursion.
   catchConflicts = false;
 
-  # Requires pytest, causing infinite recursion.
+    # Requires pytest, causing infinite recursion.
   doCheck = false;
 
   meta = with lib; {

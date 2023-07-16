@@ -31,7 +31,7 @@ buildPythonPackage rec {
     retrying
   ];
 
-  # Test require network access
+    # Test require network access
   doCheck = false;
 
   pythonImportsCheck = [ "meross_iot" ];

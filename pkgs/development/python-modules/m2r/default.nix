@@ -21,7 +21,8 @@ buildPythonPackage rec {
     # fix tests in python 3.10
     (fetchpatch {
       url =
-        "https://github.com/miyakogi/m2r/commit/58ee9cabdadf5e3deb13037f3052238f0f2bffcd.patch";
+        "https://github.com/miyakogi/m2r/commit/58ee9cabdadf5e3deb13037f3052238f0f2bffcd.patch"
+        ;
       hash = "sha256-CN3PWmnk7xsn1wngRHuEWmDTP3HtVNxkFv0xzD2Zjlo=";
     })
     ./docutils-0.19-compat.patch
@@ -47,7 +48,7 @@ buildPythonPackage rec {
       AndersonTorres
       SuperSandro2000
     ];
-    # https://github.com/miyakogi/m2r/issues/66
+      # https://github.com/miyakogi/m2r/issues/66
     broken = versionAtLeast mistune.version "2";
   };
 }

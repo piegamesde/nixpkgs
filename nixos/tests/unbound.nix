@@ -23,7 +23,8 @@ import ./make-test-python.nix ({
   let
     # common client configuration that we can just use for the multitude of
     # clients we are constructing
-    common = {
+    common =
+      {
         lib,
         pkgs,
         ...
@@ -31,14 +32,15 @@ import ./make-test-python.nix ({
         config = {
           environment.systemPackages = [ pkgs.knot-dns ];
 
-          # disable the root anchor update as we do not have internet access during
-          # the test execution
+            # disable the root anchor update as we do not have internet access during
+            # the test execution
           services.unbound.enableRootTrustAnchor = false;
 
-          # we want to test the full-variant of the package to also get DoH support
+            # we want to test the full-variant of the package to also get DoH support
           services.unbound.package = pkgs.unbound-full;
         };
-      };
+      }
+      ;
 
     cert =
       pkgs.runCommand "selfSignedCerts" { buildInputs = [ pkgs.openssl ]; } ''
@@ -53,7 +55,8 @@ import ./make-test-python.nix ({
     nodes = {
 
       # The server that actually serves our zones, this tests unbounds authoriative mode
-      authoritative = {
+      authoritative =
+        {
           lib,
           pkgs,
           config,
@@ -94,11 +97,13 @@ import ./make-test-python.nix ({
               };
             };
           };
-        };
+        }
+        ;
 
-      # The resolver that knows that fowards (only) to the authoritative server
-      # and listens on UDP/53, TCP/53 & TCP/853.
-      resolver = {
+        # The resolver that knows that fowards (only) to the authoritative server
+        # and listens on UDP/53, TCP/53 & TCP/853.
+      resolver =
+        {
           lib,
           nodes,
           ...
@@ -157,10 +162,12 @@ import ./make-test-python.nix ({
               } ];
             };
           };
-        };
+        }
+        ;
 
-      # machine that runs a local unbound that will be reconfigured during test execution
-      local_resolver = {
+        # machine that runs a local unbound that will be reconfigured during test execution
+      local_resolver =
+        {
           lib,
           nodes,
           config,
@@ -205,7 +212,7 @@ import ./make-test-python.nix ({
               extraGroups = [ config.users.users.unbound.group ];
             };
 
-            # user that is not permitted to access the unix socket
+              # user that is not permitted to access the unix socket
             unauthorizeduser = {
               isSystemUser = true;
               group = "unauthorizeduser";
@@ -217,7 +224,7 @@ import ./make-test-python.nix ({
             unauthorizeduser = { };
           };
 
-          # Used for testing configuration reloading
+            # Used for testing configuration reloading
           environment.etc = {
             "unbound-extra1.conf".text = ''
               forward-zone:
@@ -241,11 +248,13 @@ import ./make-test-python.nix ({
                 }
             '';
           };
-        };
+        }
+        ;
 
-      # plain node that only has network access and doesn't run any part of the
-      # resolver software locally
-      client = {
+        # plain node that only has network access and doesn't run any part of the
+        # resolver software locally
+      client =
+        {
           lib,
           nodes,
           ...
@@ -265,10 +274,12 @@ import ./make-test-python.nix ({
             address = "fd21::10";
             prefixLength = 64;
           } ];
-        };
+        }
+        ;
     };
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }: ''
@@ -395,5 +406,6 @@ import ./make-test-python.nix ({
             local_resolver.succeed("unbound-control reload")
             r = [("A", "3.4.5.6")]
             test(local_resolver, ["::1", "127.0.0.1"], zone="something.local.", records=r)
-      '';
+      ''
+      ;
   } )

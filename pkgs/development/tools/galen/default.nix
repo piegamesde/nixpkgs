@@ -14,7 +14,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/galenframework/galen/releases/download/galen-${version}/galen-bin-${version}.zip";
+      "https://github.com/galenframework/galen/releases/download/galen-${version}/galen-bin-${version}.zip"
+      ;
     sha256 = "13dq8cf0yy24vym6z7p8hb0mybgpcl4j5crsaq8a6pjfxz6d17mq";
   };
 

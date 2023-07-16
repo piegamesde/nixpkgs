@@ -11,30 +11,32 @@ let
 
   cfg = config.services.cntlm;
 
-  configFile = if cfg.configText != "" then
-    pkgs.writeText "cntlm.conf" ''
-      ${cfg.configText}
-    ''
-  else
-    pkgs.writeText "lighttpd.conf" ''
-      # Cntlm Authentication Proxy Configuration
-      Username ${cfg.username}
-      Domain ${cfg.domain}
-      Password ${cfg.password}
-      ${optionalString (cfg.netbios_hostname != "")
-      "Workstation ${cfg.netbios_hostname}"}
-      ${concatMapStrings (entry: ''
-        Proxy ${entry}
-      '') cfg.proxy}
-      ${optionalString (cfg.noproxy != [ ])
-      "NoProxy ${concatStringsSep ", " cfg.noproxy}"}
+  configFile =
+    if cfg.configText != "" then
+      pkgs.writeText "cntlm.conf" ''
+        ${cfg.configText}
+      ''
+    else
+      pkgs.writeText "lighttpd.conf" ''
+        # Cntlm Authentication Proxy Configuration
+        Username ${cfg.username}
+        Domain ${cfg.domain}
+        Password ${cfg.password}
+        ${optionalString (cfg.netbios_hostname != "")
+        "Workstation ${cfg.netbios_hostname}"}
+        ${concatMapStrings (entry: ''
+          Proxy ${entry}
+        '') cfg.proxy}
+        ${optionalString (cfg.noproxy != [ ])
+        "NoProxy ${concatStringsSep ", " cfg.noproxy}"}
 
-      ${concatMapStrings (port: ''
-        Listen ${toString port}
-      '') cfg.port}
+        ${concatMapStrings (port: ''
+          Listen ${toString port}
+        '') cfg.port}
 
-      ${cfg.extraConfig}
-    '';
+        ${cfg.extraConfig}
+      ''
+    ;
 
 in {
 
@@ -58,7 +60,8 @@ in {
       default = "/etc/cntlm.password";
       type = types.str;
       description = lib.mdDoc
-        "Proxy account password. Note: use chmod 0600 on /etc/cntlm.password for security.";
+        "Proxy account password. Note: use chmod 0600 on /etc/cntlm.password for security."
+        ;
     };
 
     netbios_hostname = mkOption {
@@ -104,7 +107,8 @@ in {
       type = types.lines;
       default = "";
       description = lib.mdDoc
-        "Additional config appended to the end of the generated {file}`cntlm.conf`.";
+        "Additional config appended to the end of the generated {file}`cntlm.conf`."
+        ;
     };
 
     configText = mkOption {
@@ -115,12 +119,13 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
     systemd.services.cntlm = {
       description =
-        "CNTLM is an NTLM / NTLM Session Response / NTLMv2 authenticating HTTP proxy";
+        "CNTLM is an NTLM / NTLM Session Response / NTLMv2 authenticating HTTP proxy"
+        ;
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {

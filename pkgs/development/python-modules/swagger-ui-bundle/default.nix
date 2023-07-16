@@ -16,14 +16,14 @@ buildPythonPackage rec {
     sha256 = "b462aa1460261796ab78fd4663961a7f6f347ce01760f1303bbbdf630f11f516";
   };
 
-  # patch away unused test requirements since package contains no tests
+    # patch away unused test requirements since package contains no tests
   postPatch = ''
     substituteInPlace setup.py --replace "setup_requires=['pytest-runner', 'flake8']" "setup_requires=[]"
   '';
 
   propagatedBuildInputs = [ jinja2 ];
 
-  # package contains no tests
+    # package contains no tests
   doCheck = false;
 
   meta = with lib; {

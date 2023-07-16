@@ -24,12 +24,13 @@ buildPythonApplication rec {
 
   patches = [ ./patch/fix-manifest.patch ];
 
-  # Different pandoc executables are not available
+    # Different pandoc executables are not available
   doCheck = false;
 
   meta = with lib; {
     description =
-      "Standalone pandoc filter from the pandoc-xnos suite for numbering sections and section references";
+      "Standalone pandoc filter from the pandoc-xnos suite for numbering sections and section references"
+      ;
     homepage = "https://github.com/tomduck/pandoc-secnos";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ ppenguin ];

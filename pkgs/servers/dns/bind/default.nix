@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://downloads.isc.org/isc/bind9/${version}/${pname}-${version}.tar.xz";
+      "https://downloads.isc.org/isc/bind9/${version}/${pname}-${version}.tar.xz"
+      ;
     sha256 = "sha256-R3Zrt7BjqrutBUOGsZCqf2wUUkQnr9Qnww7EJlEgJ+c=";
   };
 
@@ -92,12 +93,12 @@ stdenv.mkDerivation rec {
   '';
 
   enableParallelBuilding = true;
-  # TODO: investigate the aarch64-linux failures; see this and linked discussions:
-  # https://github.com/NixOS/nixpkgs/pull/192962
+    # TODO: investigate the aarch64-linux failures; see this and linked discussions:
+    # https://github.com/NixOS/nixpkgs/pull/192962
   doCheck = with stdenv.hostPlatform; !isStatic && !(isAarch64 && isLinux);
   checkTarget = "unit";
-  checkInputs = [ cmocka ]
-    ++ lib.optionals (!stdenv.hostPlatform.isMusl) [ tzdata ];
+  checkInputs =
+    [ cmocka ] ++ lib.optionals (!stdenv.hostPlatform.isMusl) [ tzdata ];
   preCheck = lib.optionalString stdenv.hostPlatform.isMusl ''
     # musl doesn't respect TZDIR, skip timezone-related tests
     sed -i '/^ISC_TEST_ENTRY(isc_time_formatISO8601L/d' tests/isc/time_test.c

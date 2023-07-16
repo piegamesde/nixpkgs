@@ -10,7 +10,8 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://github.com/erikflowers/weather-icons/archive/refs/tags/${version}.zip";
+      "https://github.com/erikflowers/weather-icons/archive/refs/tags/${version}.zip"
+      ;
     hash = "sha256-0ZFH2awUo4BkTpK1OsWZ4YKczJHo+HHM6ezGBJAmT+U=";
   };
 

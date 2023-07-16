@@ -22,10 +22,11 @@ appleDerivation {
     apple_sdk.frameworks.CoreSymbolication
     xnu
   ];
-  # -fcommon: workaround build failure on -fno-common toolchains:
-  #   duplicate symbol '_kCSRegionMachHeaderName' in: libproc.o dt_module_apple.o
+    # -fcommon: workaround build failure on -fno-common toolchains:
+    #   duplicate symbol '_kCSRegionMachHeaderName' in: libproc.o dt_module_apple.o
   env.NIX_CFLAGS_COMPILE =
-    "-DCTF_OLD_VERSIONS -DPRIVATE -DYYDEBUG=1 -I${xnu}/Library/Frameworks/System.framework/Headers -Wno-error=implicit-function-declaration -fcommon";
+    "-DCTF_OLD_VERSIONS -DPRIVATE -DYYDEBUG=1 -I${xnu}/Library/Frameworks/System.framework/Headers -Wno-error=implicit-function-declaration -fcommon"
+    ;
   NIX_LDFLAGS = "-L./Products/Release";
   xcbuildFlags = [
     "-target"
@@ -49,7 +50,7 @@ appleDerivation {
       --replace "#include <sandbox/rootless.h>" ""
   '';
 
-  # hack to handle xcbuild's broken lex handling
+    # hack to handle xcbuild's broken lex handling
   preBuild = ''
     pushd libdtrace
     yacc -d dt_grammar.y
@@ -61,7 +62,7 @@ appleDerivation {
       --replace '6EBC9808099BFBBF0001019C /* dt_lex.l */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.lex; name = dt_lex.l; path = libdtrace/dt_lex.l; sourceTree = "<group>"; };' '6EBC9808099BFBBF0001019C /* lex.yy.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = lex.yy.c; path = libdtrace/lex.yy.c; sourceTree = "<group>"; };'
   '';
 
-  # xcbuild doesn't support install
+    # xcbuild doesn't support install
   installPhase = ''
     mkdir -p $out
 

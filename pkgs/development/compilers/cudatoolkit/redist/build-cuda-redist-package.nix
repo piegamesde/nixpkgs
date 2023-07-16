@@ -41,13 +41,13 @@ backendStdenv.mkDerivation {
     stdenv.cc.cc.lib
   ];
 
-  # Picked up by autoPatchelf
-  # Needed e.g. for libnvrtc to locate (dlopen) libnvrtc-builtins
+    # Picked up by autoPatchelf
+    # Needed e.g. for libnvrtc to locate (dlopen) libnvrtc-builtins
   appendRunpaths = [ "$ORIGIN" ];
 
   dontBuild = true;
 
-  # TODO: choose whether to install static/dynamic libs
+    # TODO: choose whether to install static/dynamic libs
   installPhase = ''
     runHook preInstall
     rm LICENSE

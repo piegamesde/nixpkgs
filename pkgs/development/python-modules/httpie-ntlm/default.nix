@@ -21,7 +21,7 @@ buildPythonPackage rec {
     requests_ntlm
   ];
 
-  # Package have no tests
+    # Package have no tests
   doCheck = false;
 
   pythonImportsCheck = [ "httpie_ntlm" ];

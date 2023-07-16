@@ -11,22 +11,27 @@ let
 
   cfg = config.services.statsd;
 
-  isBuiltinBackend = name:
+  isBuiltinBackend =
+    name:
     builtins.elem name [
       "graphite"
       "console"
       "repeater"
-    ];
+    ]
+    ;
 
-  backendsToPackages = let
-    mkMap = list: name:
-      if isBuiltinBackend name then
-        list
-      else
-        list ++ [ pkgs.nodePackages.${name} ];
-  in
-  foldl mkMap [ ]
-  ;
+  backendsToPackages =
+    let
+      mkMap =
+        list: name:
+        if isBuiltinBackend name then
+          list
+        else
+          list ++ [ pkgs.nodePackages.${name} ]
+        ;
+    in
+    foldl mkMap [ ]
+    ;
 
   configFile = pkgs.writeText "statsd.conf" ''
     {
@@ -138,7 +143,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -146,7 +151,8 @@ in {
       assertion = !isBuiltinBackend backend
         -> hasAttrByPath [ backend ] pkgs.nodePackages;
       message =
-        "Only builtin backends (graphite, console, repeater) or backends enumerated in `pkgs.nodePackages` are allowed!";
+        "Only builtin backends (graphite, console, repeater) or backends enumerated in `pkgs.nodePackages` are allowed!"
+        ;
     }) cfg.backends;
 
     users.users.statsd = {

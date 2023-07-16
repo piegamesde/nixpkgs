@@ -24,7 +24,7 @@ buildPythonApplication rec {
     icalendar
   ];
 
-  # Yokadi doesn't have any tests
+    # Yokadi doesn't have any tests
   doCheck = false;
 
   meta = with lib; {

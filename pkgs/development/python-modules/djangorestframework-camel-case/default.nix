@@ -19,8 +19,8 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ six ];
 
-  # tests are only on GitHub but there are no tags
-  # https://github.com/vbabiy/djangorestframework-camel-case/issues/116
+    # tests are only on GitHub but there are no tags
+    # https://github.com/vbabiy/djangorestframework-camel-case/issues/116
   doCheck = false;
 
   pythonImportsCheck = [ "djangorestframework_camel_case" ];

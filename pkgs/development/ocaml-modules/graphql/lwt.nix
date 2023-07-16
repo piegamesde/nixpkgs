@@ -21,9 +21,8 @@ buildDunePackage rec {
 
   doCheck = true;
 
-  meta = graphql.meta // {
-    description = "Build GraphQL schemas with Lwt support";
-  };
+  meta =
+    graphql.meta // { description = "Build GraphQL schemas with Lwt support"; };
 
 }
 

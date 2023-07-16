@@ -11,33 +11,39 @@ let
   # If we're in hydra, we can dispense with the more verbose error
   # messages and make problems easier to spot.
   inHydra = config.inHydra or false;
-  # Allow the user to opt-into additional warnings, e.g.
-  # import <nixpkgs> { config = { showDerivationWarnings = [ "maintainerless" ]; }; }
+    # Allow the user to opt-into additional warnings, e.g.
+    # import <nixpkgs> { config = { showDerivationWarnings = [ "maintainerless" ]; }; }
   showWarnings = config.showDerivationWarnings;
 
-  getName = attrs:
+  getName =
+    attrs:
     attrs.name or ("${attrs.pname or "«name-missing»"}-${
         attrs.version or "«version-missing»"
-      }");
+      }")
+    ;
 
-  allowUnfree = config.allowUnfree || builtins.getEnv "NIXPKGS_ALLOW_UNFREE"
-    == "1";
+  allowUnfree =
+    config.allowUnfree || builtins.getEnv "NIXPKGS_ALLOW_UNFREE" == "1";
 
-  allowNonSource = let
-    envVar = builtins.getEnv "NIXPKGS_ALLOW_NONSOURCE";
-  in if envVar != "" then
-    envVar != "0"
-  else
-    config.allowNonSource or true;
+  allowNonSource =
+    let
+      envVar = builtins.getEnv "NIXPKGS_ALLOW_NONSOURCE";
+    in if envVar != "" then
+      envVar != "0"
+    else
+      config.allowNonSource or true
+    ;
 
   allowlist = config.allowlistedLicenses or config.whitelistedLicenses or [ ];
   blocklist = config.blocklistedLicenses or config.blacklistedLicenses or [ ];
 
-  areLicenseListsValid = if lib.mutuallyExclusive allowlist blocklist then
-    true
-  else
-    throw
-    "allowlistedLicenses and blocklistedLicenses are not mutually exclusive.";
+  areLicenseListsValid =
+    if lib.mutuallyExclusive allowlist blocklist then
+      true
+    else
+      throw
+      "allowlistedLicenses and blocklistedLicenses are not mutually exclusive."
+    ;
 
   hasLicense = attrs: attrs ? meta.license;
 
@@ -51,73 +57,94 @@ let
     hasLicense attrs && lib.lists.any (l: builtins.elem l blocklist)
     (lib.lists.toList attrs.meta.license);
 
-  allowBroken = config.allowBroken || builtins.getEnv "NIXPKGS_ALLOW_BROKEN"
-    == "1";
+  allowBroken =
+    config.allowBroken || builtins.getEnv "NIXPKGS_ALLOW_BROKEN" == "1";
 
   allowUnsupportedSystem = config.allowUnsupportedSystem
     || builtins.getEnv "NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM" == "1";
 
   isUnfree = licenses: lib.lists.any (l: !l.free or true) licenses;
 
-  hasUnfreeLicense = attrs:
-    hasLicense attrs && isUnfree (lib.lists.toList attrs.meta.license);
+  hasUnfreeLicense =
+    attrs:
+    hasLicense attrs && isUnfree (lib.lists.toList attrs.meta.license)
+    ;
 
-  hasNoMaintainers = attrs:
-    attrs ? meta.maintainers && (lib.length attrs.meta.maintainers) == 0;
+  hasNoMaintainers =
+    attrs:
+    attrs ? meta.maintainers && (lib.length attrs.meta.maintainers) == 0
+    ;
 
   isMarkedBroken = attrs: attrs.meta.broken or false;
 
   hasUnsupportedPlatform = pkg: !(lib.meta.availableOn hostPlatform pkg);
 
-  isMarkedInsecure = attrs: (attrs.meta.knownVulnerabilities or [ ]) != [ ];
+  isMarkedInsecure =
+    attrs:
+    (attrs.meta.knownVulnerabilities or [ ]) != [ ]
+    ;
 
-  # Alow granular checks to allow only some unfree packages
-  # Example:
-  # {pkgs, ...}:
-  # {
-  #   allowUnfree = false;
-  #   allowUnfreePredicate = (x: pkgs.lib.hasPrefix "vscode" x.name);
-  # }
+    # Alow granular checks to allow only some unfree packages
+    # Example:
+    # {pkgs, ...}:
+    # {
+    #   allowUnfree = false;
+    #   allowUnfreePredicate = (x: pkgs.lib.hasPrefix "vscode" x.name);
+    # }
   allowUnfreePredicate = config.allowUnfreePredicate or (x: false);
 
-  # Check whether unfree packages are allowed and if not, whether the
-  # package has an unfree license and is not explicitly allowed by the
-  # `allowUnfreePredicate` function.
-  hasDeniedUnfreeLicense = attrs:
-    hasUnfreeLicense attrs && !allowUnfree && !allowUnfreePredicate attrs;
+    # Check whether unfree packages are allowed and if not, whether the
+    # package has an unfree license and is not explicitly allowed by the
+    # `allowUnfreePredicate` function.
+  hasDeniedUnfreeLicense =
+    attrs:
+    hasUnfreeLicense attrs && !allowUnfree && !allowUnfreePredicate attrs
+    ;
 
-  allowInsecureDefaultPredicate = x:
-    builtins.elem (getName x) (config.permittedInsecurePackages or [ ]);
-  allowInsecurePredicate = x:
-    (config.allowInsecurePredicate or allowInsecureDefaultPredicate) x;
+  allowInsecureDefaultPredicate =
+    x:
+    builtins.elem (getName x) (config.permittedInsecurePackages or [ ])
+    ;
+  allowInsecurePredicate =
+    x:
+    (config.allowInsecurePredicate or allowInsecureDefaultPredicate) x
+    ;
 
-  hasAllowedInsecure = attrs:
+  hasAllowedInsecure =
+    attrs:
     !(isMarkedInsecure attrs) || allowInsecurePredicate attrs
-    || builtins.getEnv "NIXPKGS_ALLOW_INSECURE" == "1";
+    || builtins.getEnv "NIXPKGS_ALLOW_INSECURE" == "1"
+    ;
 
   isNonSource = sourceTypes: lib.lists.any (t: !t.isSource) sourceTypes;
 
-  hasNonSourceProvenance = attrs:
-    (attrs ? meta.sourceProvenance) && isNonSource attrs.meta.sourceProvenance;
+  hasNonSourceProvenance =
+    attrs:
+    (attrs ? meta.sourceProvenance) && isNonSource attrs.meta.sourceProvenance
+    ;
 
-  # Allow granular checks to allow only some non-source-built packages
-  # Example:
-  # { pkgs, ... }:
-  # {
-  #   allowNonSource = false;
-  #   allowNonSourcePredicate = with pkgs.lib.lists; pkg: !(any (p: !p.isSource && p != lib.sourceTypes.binaryFirmware) pkg.meta.sourceProvenance);
-  # }
+    # Allow granular checks to allow only some non-source-built packages
+    # Example:
+    # { pkgs, ... }:
+    # {
+    #   allowNonSource = false;
+    #   allowNonSourcePredicate = with pkgs.lib.lists; pkg: !(any (p: !p.isSource && p != lib.sourceTypes.binaryFirmware) pkg.meta.sourceProvenance);
+    # }
   allowNonSourcePredicate = config.allowNonSourcePredicate or (x: false);
 
-  # Check whether non-source packages are allowed and if not, whether the
-  # package has non-source provenance and is not explicitly allowed by the
-  # `allowNonSourcePredicate` function.
-  hasDeniedNonSourceProvenance = attrs:
+    # Check whether non-source packages are allowed and if not, whether the
+    # package has non-source provenance and is not explicitly allowed by the
+    # `allowNonSourcePredicate` function.
+  hasDeniedNonSourceProvenance =
+    attrs:
     hasNonSourceProvenance attrs && !allowNonSource
-    && !allowNonSourcePredicate attrs;
+    && !allowNonSourcePredicate attrs
+    ;
 
-  showLicenseOrSourceType = value:
-    toString (map (v: v.shortName or "unknown") (lib.lists.toList value));
+  showLicenseOrSourceType =
+    value:
+    toString (map (v: v.shortName or "unknown") (lib.lists.toList value))
+    ;
   showLicense = showLicenseOrSourceType;
   showSourceType = showLicenseOrSourceType;
 
@@ -136,51 +163,61 @@ let
     unknown-meta = x: "";
     maintainerless = x: "";
   };
-  remediation_env_var = allow_attr:
+  remediation_env_var =
+    allow_attr:
     {
       Unfree = "NIXPKGS_ALLOW_UNFREE";
       Broken = "NIXPKGS_ALLOW_BROKEN";
       UnsupportedSystem = "NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM";
       NonSource = "NIXPKGS_ALLOW_NONSOURCE";
-    }.${allow_attr};
-  remediation_phrase = allow_attr:
+    }.${allow_attr}
+    ;
+  remediation_phrase =
+    allow_attr:
     {
       Unfree = "unfree packages";
       Broken = "broken packages";
       UnsupportedSystem = "packages that are unsupported for this system";
       NonSource = "packages not built from source";
-    }.${allow_attr};
-  remediate_predicate = predicateConfigAttr: attrs: ''
+    }.${allow_attr}
+    ;
+  remediate_predicate =
+    predicateConfigAttr: attrs: ''
 
-    Alternatively you can configure a predicate to allow specific packages:
-      { nixpkgs.config.${predicateConfigAttr} = pkg: builtins.elem (lib.getName pkg) [
-          "${lib.getName attrs}"
-        ];
-      }
-  '';
+      Alternatively you can configure a predicate to allow specific packages:
+        { nixpkgs.config.${predicateConfigAttr} = pkg: builtins.elem (lib.getName pkg) [
+            "${lib.getName attrs}"
+          ];
+        }
+    ''
+    ;
 
-  # flakeNote will be printed in the remediation messages below.
+    # flakeNote will be printed in the remediation messages below.
   flakeNote =
-    "\n Note: For `nix shell`, `nix build`, `nix develop` or any other Nix 2.4+\n (Flake) command, `--impure` must be passed in order to read this\n environment variable.\n    ";
+    "\n Note: For `nix shell`, `nix build`, `nix develop` or any other Nix 2.4+\n (Flake) command, `--impure` must be passed in order to read this\n environment variable.\n    "
+    ;
 
-  remediate_allowlist = allow_attr: rebuild_amendment: attrs: ''
-    a) To temporarily allow ${
-      remediation_phrase allow_attr
-    }, you can use an environment variable
-       for a single invocation of the nix tools.
+  remediate_allowlist =
+    allow_attr: rebuild_amendment: attrs: ''
+      a) To temporarily allow ${
+        remediation_phrase allow_attr
+      }, you can use an environment variable
+         for a single invocation of the nix tools.
 
-         $ export ${remediation_env_var allow_attr}=1
-         ${flakeNote}
-    b) For `nixos-rebuild` you can set
-      { nixpkgs.config.allow${allow_attr} = true; }
-    in configuration.nix to override this.
-    ${rebuild_amendment attrs}
-    c) For `nix-env`, `nix-build`, `nix-shell` or any other Nix command you can add
-      { allow${allow_attr} = true; }
-    to ~/.config/nixpkgs/config.nix.
-  '';
+           $ export ${remediation_env_var allow_attr}=1
+           ${flakeNote}
+      b) For `nixos-rebuild` you can set
+        { nixpkgs.config.allow${allow_attr} = true; }
+      in configuration.nix to override this.
+      ${rebuild_amendment attrs}
+      c) For `nix-env`, `nix-build`, `nix-shell` or any other Nix command you can add
+        { allow${allow_attr} = true; }
+      to ~/.config/nixpkgs/config.nix.
+    ''
+    ;
 
-  remediate_insecure = attrs:
+  remediate_insecure =
+    attrs:
     ''
 
       Known issues:
@@ -215,9 +252,11 @@ let
                ];
              }
 
-      '';
+      ''
+    ;
 
-  remediateOutputsToInstall = attrs:
+  remediateOutputsToInstall =
+    attrs:
     let
       expectedOutputs = attrs.meta.outputsToInstall or [ ];
       actualOutputs = attrs.outputs or [ "out" ];
@@ -237,9 +276,11 @@ let
 
       ${lib.concatStrings
       (builtins.map (output: "  - ${output}\n") missingOutputs)}
-    '' ;
+    ''
+    ;
 
-  handleEvalIssue = {
+  handleEvalIssue =
+    {
       meta,
       attrs,
     }:
@@ -248,25 +289,30 @@ let
       errormsg ? ""
     }:
     let
-      msg = if inHydra then
-        "Failed to evaluate ${getName attrs}: «${reason}»: ${errormsg}"
-      else
-        ''
-          Package ‘${getName attrs}’ in ${
-            pos_str meta
-          } ${errormsg}, refusing to evaluate.
+      msg =
+        if inHydra then
+          "Failed to evaluate ${getName attrs}: «${reason}»: ${errormsg}"
+        else
+          ''
+            Package ‘${getName attrs}’ in ${
+              pos_str meta
+            } ${errormsg}, refusing to evaluate.
 
-        '' + (builtins.getAttr reason remediation) attrs;
+          '' + (builtins.getAttr reason remediation) attrs
+        ;
 
-      handler = if config ? handleEvalIssue then
-        config.handleEvalIssue reason
-      else
-        throw;
+      handler =
+        if config ? handleEvalIssue then
+          config.handleEvalIssue reason
+        else
+          throw
+        ;
     in
     handler msg
-  ;
+    ;
 
-  handleEvalWarning = {
+  handleEvalWarning =
+    {
       meta,
       attrs,
     }:
@@ -276,24 +322,28 @@ let
     }:
     let
       remediationMsg = (builtins.getAttr reason remediation) attrs;
-      msg = if inHydra then
-        "Warning while evaluating ${getName attrs}: «${reason}»: ${errormsg}"
-      else
-        "Package ${getName attrs} in ${
-          pos_str meta
-        } ${errormsg}, continuing anyway."
-        + (lib.optionalString (remediationMsg != "") ''
+      msg =
+        if inHydra then
+          "Warning while evaluating ${getName attrs}: «${reason}»: ${errormsg}"
+        else
+          "Package ${getName attrs} in ${
+            pos_str meta
+          } ${errormsg}, continuing anyway."
+          + (lib.optionalString (remediationMsg != "") ''
 
-          ${remediationMsg}'');
+            ${remediationMsg}'')
+        ;
       isEnabled = lib.findFirst (x: x == reason) null showWarnings;
     in if isEnabled != null then
       builtins.trace msg true
     else
-      true;
+      true
+    ;
 
-  # Deep type-checking. Note that calling `type.check` is not enough: see `lib.mkOptionType`'s documentation.
-  # We don't include this in lib for now because this function is flawed: it accepts things like `mkIf true 42`.
-  typeCheck = type: value:
+    # Deep type-checking. Note that calling `type.check` is not enough: see `lib.mkOptionType`'s documentation.
+    # We don't include this in lib for now because this function is flawed: it accepts things like `mkIf true 42`.
+  typeCheck =
+    type: value:
     let
       merged = lib.mergeDefinitions [ ] type [ {
         file = lib.unknownModule;
@@ -302,9 +352,9 @@ let
       eval = builtins.tryEval (builtins.deepSeq merged.mergedValue null);
     in
     eval.success
-  ;
+    ;
 
-  # TODO make this into a proper module and use the generic option documentation generation?
+    # TODO make this into a proper module and use the generic option documentation generation?
   metaTypes = with lib.types; rec {
     # These keys are documented
     description = str;
@@ -314,15 +364,16 @@ let
     homepage = either (listOf str) str;
     downloadPage = str;
     changelog = either (listOf str) str;
-    license = let
-      licenseType = either (attrsOf anything)
-        str; # TODO disallow `str` licenses, use a module
-    in
-    either licenseType (listOf licenseType)
-    ;
+    license =
+      let
+        licenseType = either (attrsOf anything) str
+          ; # TODO disallow `str` licenses, use a module
+      in
+      either licenseType (listOf licenseType)
+      ;
     sourceProvenance = listOf lib.types.attrs;
-    maintainers = listOf (attrsOf
-      anything); # TODO use the maintainer type from lib/tests/maintainer-module.nix
+    maintainers = listOf (attrsOf anything)
+      ; # TODO use the maintainer type from lib/tests/maintainer-module.nix
     priority = int;
     pkgConfigModules = listOf str;
     platforms =
@@ -332,22 +383,24 @@ let
     unfree = bool;
     unsupported = bool;
     insecure = bool;
-    # TODO: refactor once something like Profpatsch's types-simple will land
-    # This is currently dead code due to https://github.com/NixOS/nix/issues/2532
+      # TODO: refactor once something like Profpatsch's types-simple will land
+      # This is currently dead code due to https://github.com/NixOS/nix/issues/2532
     tests = attrsOf (mkOptionType {
       name = "test";
-      check = x:
+      check =
+        x:
         x == { } || ( # Accept {} for tests that are unsupported
-          isDerivation x && x ? meta.timeout);
+          isDerivation x && x ? meta.timeout)
+        ;
       merge = lib.options.mergeOneOption;
     });
     timeout = int;
 
-    # Needed for Hydra to expose channel tarballs:
-    # https://github.com/NixOS/hydra/blob/53335323ae79ca1a42643f58e520b376898ce641/doc/manual/src/jobs.md#meta-fields
+      # Needed for Hydra to expose channel tarballs:
+      # https://github.com/NixOS/hydra/blob/53335323ae79ca1a42643f58e520b376898ce641/doc/manual/src/jobs.md#meta-fields
     isHydraChannel = bool;
 
-    # Weirder stuff that doesn't appear in the documentation?
+      # Weirder stuff that doesn't appear in the documentation?
     maxSilent = int;
     knownVulnerabilities = listOf str;
     name = str;
@@ -365,7 +418,8 @@ let
     badPlatforms = platforms;
   };
 
-  checkMetaAttr = k: v:
+  checkMetaAttr =
+    k: v:
     if metaTypes ? ${k} then
       if typeCheck metaTypes.${k} v then
         null
@@ -380,12 +434,16 @@ let
         key 'meta.${k}' is unrecognized; expected one of: 
           [${
             lib.concatMapStringsSep ", " (x: "'${x}'") (lib.attrNames metaTypes)
-          }]'';
-  checkMeta = meta:
+          }]''
+    ;
+  checkMeta =
+    meta:
     lib.optionals config.checkMeta
-    (lib.remove null (lib.mapAttrsToList checkMetaAttr meta));
+    (lib.remove null (lib.mapAttrsToList checkMetaAttr meta))
+    ;
 
-  checkOutputsToInstall = attrs:
+  checkOutputsToInstall =
+    attrs:
     let
       expectedOutputs = attrs.meta.outputsToInstall or [ ];
       actualOutputs = attrs.outputs or [ "out" ];
@@ -395,17 +453,19 @@ let
     in if config.checkMeta then
       builtins.length missingOutputs > 0
     else
-      false;
+      false
+    ;
 
-  # Check if a derivation is valid, that is whether it passes checks for
-  # e.g brokenness or license.
-  #
-  # Return { valid: "yes", "warn" or "no" } and additionally
-  # { reason: String; errormsg: String } if it is not valid, where
-  # reason is one of "unfree", "blocklisted", "broken", "insecure", ...
-  # !!! reason strings are hardcoded into OfBorg, make sure to keep them in sync
-  # Along with a boolean flag for each reason
-  checkValidity = attrs:
+    # Check if a derivation is valid, that is whether it passes checks for
+    # e.g brokenness or license.
+    #
+    # Return { valid: "yes", "warn" or "no" } and additionally
+    # { reason: String; errormsg: String } if it is not valid, where
+    # reason is one of "unfree", "blocklisted", "broken", "insecure", ...
+    # !!! reason strings are hardcoded into OfBorg, make sure to keep them in sync
+    # Along with a boolean flag for each reason
+  checkValidity =
+    attrs:
     # Check meta attribute types first, to make sure it is always called even when there are other issues
     # Note that this is not a full type check and functions below still need to by careful about their inputs!
     let
@@ -509,16 +569,18 @@ let
           }
           # -----
         else
-          { valid = "yes"; });
+          { valid = "yes"; })
+    ;
 
-  # The meta attribute is passed in the resulting attribute set,
-  # but it's not part of the actual derivation, i.e., it's not
-  # passed to the builder and is not a dependency.  But since we
-  # include it in the result, it *is* available to nix-env for queries.
-  # Example:
-  #   meta = checkMeta.commonMeta { inherit validity attrs pos references; };
-  #   validity = checkMeta.assertValidity { inherit meta attrs; };
-  commonMeta = {
+    # The meta attribute is passed in the resulting attribute set,
+    # but it's not part of the actual derivation, i.e., it's not
+    # passed to the builder and is not a dependency.  But since we
+    # include it in the result, it *is* available to nix-env for queries.
+    # Example:
+    #   meta = checkMeta.commonMeta { inherit validity attrs pos references; };
+    #   validity = checkMeta.assertValidity { inherit meta attrs; };
+  commonMeta =
+    {
       validity,
       attrs,
       pos ? null,
@@ -533,24 +595,25 @@ let
       # Let's have a clean always accessible version here.
       name = attrs.name or "${attrs.pname}-${attrs.version}";
 
-      # If the packager hasn't specified `outputsToInstall`, choose a default,
-      # which is the name of `p.bin or p.out or p` along with `p.man` when
-      # present.
-      #
-      # If the packager has specified it, it will be overridden below in
-      # `// meta`.
-      #
-      #   Note: This default probably shouldn't be globally configurable.
-      #   Services and users should specify outputs explicitly,
-      #   unless they are comfortable with this default.
-      outputsToInstall = let
-        hasOutput = out: builtins.elem out outputs;
-      in
-      [ (lib.findFirst hasOutput null ([
-        "bin"
-        "out"
-      ] ++ outputs)) ] ++ lib.optional (hasOutput "man") "man"
-      ;
+        # If the packager hasn't specified `outputsToInstall`, choose a default,
+        # which is the name of `p.bin or p.out or p` along with `p.man` when
+        # present.
+        #
+        # If the packager has specified it, it will be overridden below in
+        # `// meta`.
+        #
+        #   Note: This default probably shouldn't be globally configurable.
+        #   Services and users should specify outputs explicitly,
+        #   unless they are comfortable with this default.
+      outputsToInstall =
+        let
+          hasOutput = out: builtins.elem out outputs;
+        in
+        [ (lib.findFirst hasOutput null ([
+          "bin"
+          "out"
+        ] ++ outputs)) ] ++ lib.optional (hasOutput "man") "man"
+        ;
     } // attrs.meta or { }
     # Fill `meta.position` to identify the source location of the package.
     // lib.optionalAttrs (pos != null) {
@@ -565,9 +628,10 @@ let
         else
           true);
     }
-  ;
+    ;
 
-  assertValidity = {
+  assertValidity =
+    {
       meta,
       attrs,
     }:
@@ -588,7 +652,7 @@ let
       }.${validity.valid};
 
     }
-  ;
+    ;
 
 in {
   inherit assertValidity commonMeta;

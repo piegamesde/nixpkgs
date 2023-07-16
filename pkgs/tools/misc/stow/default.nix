@@ -28,7 +28,8 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description =
-      "A tool for managing the installation of multiple software packages in the same run-time directory tree";
+      "A tool for managing the installation of multiple software packages in the same run-time directory tree"
+      ;
 
     longDescription = ''
       GNU Stow is a symlink farm manager which takes distinct packages

@@ -11,13 +11,15 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://www.sourcefiles.org/Utilities/Text_Utilities/bfr-${version}.tar.bz2";
+      "http://www.sourcefiles.org/Utilities/Text_Utilities/bfr-${version}.tar.bz2"
+      ;
     sha256 = "0fadfssvj9klj4dq9wdrzys1k2a1z2j0p6kgnfgbjv0n1bq6h4cy";
   };
 
   patches = [ (fetchurl {
     url =
-      "https://gitweb.gentoo.org/repo/gentoo.git/plain/app-misc/bfr/files/bfr-1.6-perl.patch";
+      "https://gitweb.gentoo.org/repo/gentoo.git/plain/app-misc/bfr/files/bfr-1.6-perl.patch"
+      ;
     sha256 = "1pk9jm3c1qzs727lh0bw61w3qbykaqg4jblywf9pvq5bypk88qfj";
   }) ];
 

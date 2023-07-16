@@ -82,11 +82,11 @@ stdenv.mkDerivation rec {
     "-DAIDEBUG=OFF"
   ] ++ lib.optional stdenv.isDarwin "-DCORESERVICES_LIB=${CoreServices}";
 
-  # Set the data directory for each executable. We cannot set it at build time
-  # with the PKGDATADIR cmake variable because each executable needs a specific
-  # one.
-  # This is not needed on darwin, since on that platform data files are saved
-  # in *.app/Contents/Resources/ too, and are picked up automatically.
+    # Set the data directory for each executable. We cannot set it at build time
+    # with the PKGDATADIR cmake variable because each executable needs a specific
+    # one.
+    # This is not needed on darwin, since on that platform data files are saved
+    # in *.app/Contents/Resources/ too, and are picked up automatically.
   postInstall = lib.optionalString (!stdenv.isDarwin) ''
     for prog in $out/bin/*; do
       wrapProgram "$prog" \
@@ -102,7 +102,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Tools from the vengi voxel engine, including a thumbnailer, a converter, and the VoxEdit voxel editor";
+      "Tools from the vengi voxel engine, including a thumbnailer, a converter, and the VoxEdit voxel editor"
+      ;
     longDescription = ''
       Tools from the vengi C++ voxel game engine. It includes a voxel editor
       with character animation support and loading/saving into a lot of voxel

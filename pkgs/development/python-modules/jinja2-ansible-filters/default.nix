@@ -20,7 +20,7 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-  # no tests include in sdist, and source not available
+    # no tests include in sdist, and source not available
   doCheck = false;
 
   pythonImportsCheck = [ "jinja2_ansible_filters" ];

@@ -25,7 +25,7 @@ buildPythonApplication rec {
 
   propagatedBuildInputs = [ requests ];
 
-  # No tests implemented
+    # No tests implemented
   doCheck = false;
 
   meta = with lib; {

@@ -5,16 +5,19 @@ import ./make-test-python.nix ({
   let
     userUid = 1000;
     usersGid = 100;
-    busybox = pkgs:
+    busybox =
+      pkgs:
       pkgs.busybox.override {
         # Without this, the busybox binary drops euid to ruid for most applets, including id.
         # See https://bugs.busybox.net/show_bug.cgi?id=15101
         extraConfig = "CONFIG_FEATURE_SUID n";
-      };
+      }
+      ;
   in {
     name = "wrappers";
 
-    nodes.machine = {
+    nodes.machine =
+      {
         config,
         pkgs,
         ...
@@ -51,7 +54,8 @@ import ./make-test-python.nix ({
             capabilities = "cap_chown+ep";
           };
         };
-      };
+      }
+      ;
 
     testScript = ''
       def cmd_as_regular(cmd):

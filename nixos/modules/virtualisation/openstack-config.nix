@@ -47,10 +47,12 @@ in {
 
     boot.growPartition = true;
     boot.kernelParams = [ "console=tty1" ];
-    boot.loader.grub.device = if (!cfg.efi) then
-      "/dev/vda"
-    else
-      "nodev";
+    boot.loader.grub.device =
+      if (!cfg.efi) then
+        "/dev/vda"
+      else
+        "nodev"
+      ;
     boot.loader.grub.efiSupport = cfg.efi;
     boot.loader.grub.efiInstallAsRemovable = cfg.efi;
     boot.loader.timeout = 1;
@@ -63,7 +65,7 @@ in {
     services.zfs.expandOnBoot = mkIf cfg.zfs.enable (lib.mkDefault "all");
     boot.zfs.devNodes = mkIf cfg.zfs.enable "/dev/";
 
-    # Allow root logins
+      # Allow root logins
     services.openssh = {
       enable = true;
       settings.PermitRootLogin = "prohibit-password";
@@ -72,10 +74,10 @@ in {
 
     users.users.root.initialPassword = "foobar";
 
-    # Enable the serial console on tty1
+      # Enable the serial console on tty1
     systemd.services."serial-getty@tty1".enable = true;
 
-    # Force getting the hostname from Openstack metadata.
+      # Force getting the hostname from Openstack metadata.
     networking.hostName = mkDefault "";
 
     systemd.services.openstack-init = {

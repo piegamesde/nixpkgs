@@ -28,8 +28,8 @@ rustPlatform.buildRustPackage rec {
     asciidoctor
     installShellFiles
   ] ++ lib.optional withPCRE2 pkg-config;
-  buildInputs = lib.optional withPCRE2 pcre2
-    ++ lib.optional stdenv.isDarwin Security;
+  buildInputs =
+    lib.optional withPCRE2 pcre2 ++ lib.optional stdenv.isDarwin Security;
 
   buildFeatures = lib.optional withPCRE2 "pcre2";
 
@@ -52,7 +52,8 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "A utility that combines the usability of The Silver Searcher with the raw speed of grep";
+      "A utility that combines the usability of The Silver Searcher with the raw speed of grep"
+      ;
     homepage = "https://github.com/BurntSushi/ripgrep";
     license = with licenses; [
       unlicense # or

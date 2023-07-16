@@ -52,7 +52,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Qt-based digital signal analyzer, using Suscan core and Sigutils DSP library";
+      "Qt-based digital signal analyzer, using Suscan core and Sigutils DSP library"
+      ;
     homepage = "https://github.com/BatchDrake/SigDigger";
     license = licenses.gpl3;
     platforms = platforms.all;

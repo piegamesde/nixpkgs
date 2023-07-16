@@ -116,7 +116,7 @@ in {
           Type = "forking";
           PIDFile = "/run/sssd.pid";
           StateDirectory = baseNameOf dataDir;
-          # We cannot use LoadCredential here because it's not available in ExecStartPre
+            # We cannot use LoadCredential here because it's not available in ExecStartPre
           EnvironmentFile =
             lib.mkIf (cfg.environmentFile != null) cfg.environmentFile;
         };
@@ -155,8 +155,8 @@ in {
       systemd.sockets.sssd-kcm = {
         description = "SSSD Kerberos Cache Manager responder socket";
         wantedBy = [ "sockets.target" ];
-        # Matches the default in MIT krb5 and Heimdal:
-        # https://github.com/krb5/krb5/blob/krb5-1.19.3-final/src/include/kcm.h#L43
+          # Matches the default in MIT krb5 and Heimdal:
+          # https://github.com/krb5/krb5/blob/krb5-1.19.3-final/src/include/kcm.h#L43
         listenStreams = [ "/var/run/.heim_org.h5l.kcm-socket" ];
       };
       krb5.libdefaults.default_ccache_name = "KCM:";

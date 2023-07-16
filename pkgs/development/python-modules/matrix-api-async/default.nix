@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ matrix-client ];
 
-  # no tests
+    # no tests
   doCheck = false;
 
   pythonImportsCheck = [ "matrix_api_async" ];

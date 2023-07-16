@@ -13,7 +13,8 @@ let
 
   makeTest = import ./../make-test-python.nix;
 
-  makeAutobackupTest = {
+  makeAutobackupTest =
+    {
       package,
       name ? mkTestName package,
     }:
@@ -55,7 +56,8 @@ let
                 "${pkgs.gzip}/bin/zcat /var/backup/mysql/daily/testdb/daily_testdb_*.sql.gz | grep hello"
             )
       '';
-    };
+    }
+    ;
 in
 lib.mapAttrs (_: package: makeAutobackupTest { inherit package; })
 mariadbPackages

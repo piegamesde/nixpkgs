@@ -19,7 +19,7 @@ buildPythonPackage rec {
     cd bindings/python
   '';
 
-  # upstream has no tests
+    # upstream has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "marisa" ];

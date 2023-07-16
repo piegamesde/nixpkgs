@@ -12,14 +12,15 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.ravenbrook.com/project/mps/release/${version}/mps-kit-${version}.tar.gz";
+      "https://www.ravenbrook.com/project/mps/release/${version}/mps-kit-${version}.tar.gz"
+      ;
     sha256 = "04ix4l7lk6nxxk9sawpnxbybvqb82lks5606ym10bc1qbc2kqdcz";
   };
 
   nativeBuildInputs = [ autoreconfHook ];
   buildInputs = [ sqlite ];
 
-  # needed for 1.116.0 to build with gcc7
+    # needed for 1.116.0 to build with gcc7
   env.NIX_CFLAGS_COMPILE = toString [
     "-Wno-implicit-fallthrough"
     "-Wno-error=clobbered"

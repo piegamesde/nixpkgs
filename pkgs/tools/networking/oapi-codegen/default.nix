@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-o9pEeM8WgGVopnfBccWZHwFR420mQAA4K/HV2RcU2wU=";
 
-  # Tests use network
+    # Tests use network
   doCheck = false;
 
   meta = with lib; {

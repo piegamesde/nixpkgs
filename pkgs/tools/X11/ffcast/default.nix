@@ -32,18 +32,20 @@ stdenv.mkDerivation rec {
 
   configureFlags = [ "--disable-xrectsel" ];
 
-  postInstall = let
-    binPath = lib.makeBinPath [
-      ffmpeg-full
-      imagemagick
-      xdpyinfo
-      xprop
-      xrectsel
-      xwininfo
-    ];
-  in ''
-    wrapProgram $out/bin/ffcast --prefix PATH : ${binPath}
-  '' ;
+  postInstall =
+    let
+      binPath = lib.makeBinPath [
+        ffmpeg-full
+        imagemagick
+        xdpyinfo
+        xprop
+        xrectsel
+        xwininfo
+      ];
+    in ''
+      wrapProgram $out/bin/ffcast --prefix PATH : ${binPath}
+    ''
+    ;
 
   meta = with lib; {
     description = "Run commands on rectangular screen regions";

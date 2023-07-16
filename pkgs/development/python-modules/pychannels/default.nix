@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  # Project has not published tests yet
+    # Project has not published tests yet
   doCheck = false;
   pythonImportsCheck = [ "pychannels" ];
 

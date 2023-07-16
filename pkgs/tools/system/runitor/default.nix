@@ -30,7 +30,7 @@ buildGoModule rec {
     version = "v${version}";
   };
 
-  # Unit tests require binding to local addresses for listening sockets.
+    # Unit tests require binding to local addresses for listening sockets.
   __darwinAllowLocalNetworking = true;
 
   meta = with lib; {

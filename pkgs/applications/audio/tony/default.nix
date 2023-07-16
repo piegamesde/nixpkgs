@@ -36,21 +36,24 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://code.soundsoftware.ac.uk/attachments/download/2616/${pname}-${version}.tar.gz";
+      "https://code.soundsoftware.ac.uk/attachments/download/2616/${pname}-${version}.tar.gz"
+      ;
     sha256 = "03g2bmlj08lmgvh54dyd635xccjn730g4wwlhpvsw04bffz8b7fp";
   };
 
   patches = [
     (fetchpatch2 {
       url =
-        "https://github.com/sonic-visualiser/svcore/commit/5a7b517e43b7f0b3f03b7fc3145102cf4e5b0ffc.patch";
+        "https://github.com/sonic-visualiser/svcore/commit/5a7b517e43b7f0b3f03b7fc3145102cf4e5b0ffc.patch"
+        ;
       stripLen = 1;
       extraPrefix = "svcore/";
       sha256 = "sha256-DOCdQqCihkR0g/6m90DbJxw00QTpyVmFzCxagrVWKiI=";
     })
     (fetchpatch2 {
       url =
-        "https://github.com/sonic-visualiser/svgui/commit/5b6417891cff5cc614e8c96664d68674eb12b191.patch";
+        "https://github.com/sonic-visualiser/svgui/commit/5b6417891cff5cc614e8c96664d68674eb12b191.patch"
+        ;
       stripLen = 1;
       extraPrefix = "svgui/";
       excludes = [ "svgui/widgets/CSVExportDialog.cpp" ];
@@ -89,7 +92,7 @@ stdenv.mkDerivation rec {
     sord
   ];
 
-  # comment out the tests
+    # comment out the tests
   preConfigure = ''
     sed -i 's/sub_test_svcore_/#sub_test_svcore_/' tony.pro
   '';

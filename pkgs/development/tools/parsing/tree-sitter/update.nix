@@ -48,7 +48,7 @@ let
     jsonFile "known-tree-sitter-org-grammar-repos"
     knownTreeSitterOrgGrammarRepos;
 
-  # repos of the tree-sitter github orga we want to ignore (not grammars)
+    # repos of the tree-sitter github orga we want to ignore (not grammars)
   ignoredTreeSitterOrgRepos = [
     "tree-sitter"
     "tree-sitter-cli"
@@ -82,9 +82,9 @@ let
   ignoredTreeSitterOrgReposJson =
     jsonFile "ignored-tree-sitter-org-repos" ignoredTreeSitterOrgRepos;
 
-  # Additional grammars that are not in the official github orga.
-  # If you need a grammar that already exists in the official orga,
-  # make sure to give it a different name.
+    # Additional grammars that are not in the official github orga.
+    # If you need a grammar that already exists in the official orga,
+    # make sure to give it a different name.
   otherGrammars = {
     "tree-sitter-beancount" = {
       orga = "polarmutex";
@@ -372,22 +372,26 @@ let
     };
   };
 
-  allGrammars = let
-    treeSitterOrgaGrammars = lib.listToAttrs (map (repo: {
-      name = repo;
-      value = {
-        orga = "tree-sitter";
-        inherit repo;
-      };
-    }) knownTreeSitterOrgGrammarRepos);
+  allGrammars =
+    let
+      treeSitterOrgaGrammars = lib.listToAttrs (map (repo: {
+        name = repo;
+        value = {
+          orga = "tree-sitter";
+          inherit repo;
+        };
+      }) knownTreeSitterOrgGrammarRepos);
 
-  in
-  lib.attrsets.unionOfDisjoint otherGrammars treeSitterOrgaGrammars
-  ;
+    in
+    lib.attrsets.unionOfDisjoint otherGrammars treeSitterOrgaGrammars
+    ;
 
-  jsonFile = name: val: (formats.json { }).generate name val;
+  jsonFile =
+    name: val:
+    (formats.json { }).generate name val
+    ;
 
-  # implementation of the updater
+    # implementation of the updater
   updateImpl = passArgs "updateImpl-with-args" {
     binaries = {
       curl = "${curl}/bin/curl";
@@ -398,30 +402,36 @@ let
   } (writers.writePython3 "updateImpl" { flakeIgnore = [ "E501" ]; }
     ./update_impl.py);
 
-  # Pass the given arguments to the command, in the ARGS environment variable.
-  # The arguments are just a json object that should be available in the script.
-  passArgs = name: argAttrs: script:
+    # Pass the given arguments to the command, in the ARGS environment variable.
+    # The arguments are just a json object that should be available in the script.
+  passArgs =
+    name: argAttrs: script:
     writeShellScript name ''
       env ARGS="$(< ${jsonFile "${name}-args" argAttrs})" \
         ${script} "$@"
-    '';
+    ''
+    ;
 
-  foreachSh = attrs: f:
+  foreachSh =
+    attrs: f:
     lib.concatMapStringsSep "\n" f
-    (lib.mapAttrsToList (k: v: { name = k; } // v) attrs);
+    (lib.mapAttrsToList (k: v: { name = k; } // v) attrs)
+    ;
 
   jsonNewlines = lib.concatMapStringsSep "\n" (lib.generators.toJSON { });
 
-  # Run the given script for each of the attr list.
-  # The attrs are passed to the script as a json value.
-  forEachParallel = name: script: listOfAttrs:
+    # Run the given script for each of the attr list.
+    # The attrs are passed to the script as a json value.
+  forEachParallel =
+    name: script: listOfAttrs:
     writeShellScript "for-each-parallel.sh" ''
       < ${writeText "${name}.json" (jsonNewlines listOfAttrs)} \
         ${xe}/bin/xe -F -j5 ${script} {}
-    '';
+    ''
+    ;
 
-  # The output directory in the current source tree.
-  # This will depend on your local environment, but that is intentional.
+    # The output directory in the current source tree.
+    # This will depend on your local environment, but that is intentional.
   outputDir = "${toString ./.}/grammars";
 
   update-all-grammars = writeShellScript "update-all-grammars.sh" ''

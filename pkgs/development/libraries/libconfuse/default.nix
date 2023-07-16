@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  # On darwin the tests depend on the installed libraries because of install_name.
+    # On darwin the tests depend on the installed libraries because of install_name.
   doInstallCheck = true;
   installCheckTarget = "check";
 

@@ -17,9 +17,9 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "keyboard" ];
 
-  # Specific OS tests are being run for other OS, like
-  # winmouse on Linux, which provides the following error:
-  # AttributeError: module 'ctypes' has no attribute 'WinDLL'
+    # Specific OS tests are being run for other OS, like
+    # winmouse on Linux, which provides the following error:
+    # AttributeError: module 'ctypes' has no attribute 'WinDLL'
   doCheck = false;
 
   meta = with lib; {

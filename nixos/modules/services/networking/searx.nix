@@ -54,7 +54,7 @@ in {
     "settingsFile"
   ]) ];
 
-  ###### interface
+    ###### interface
 
   options = {
 
@@ -168,7 +168,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
     environment.systemPackages = [ cfg.package ];

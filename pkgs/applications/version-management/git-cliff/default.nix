@@ -19,14 +19,15 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-ECTvfS09CglAavj8LJbfpxnaWQtsp4DZb7GMJHIeEAA=";
 
-  # attempts to run the program on .git in src which is not deterministic
+    # attempts to run the program on .git in src which is not deterministic
   doCheck = false;
 
   buildInputs = lib.optionals stdenv.isDarwin [ Security ];
 
   meta = with lib; {
     description =
-      "A highly customizable Changelog Generator that follows Conventional Commit specifications";
+      "A highly customizable Changelog Generator that follows Conventional Commit specifications"
+      ;
     homepage = "https://github.com/orhun/git-cliff";
     changelog =
       "https://github.com/orhun/git-cliff/blob/v${version}/CHANGELOG.md";

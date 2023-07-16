@@ -48,7 +48,8 @@ let
   #        fasm
   #        bluespec
   #     ]);
-  withPlugins = plugins:
+  withPlugins =
+    plugins:
     let
       paths = lib.closePropagation plugins;
       module_flags = with builtins;
@@ -65,7 +66,7 @@ let
           ${module_flags}
       '';
     })
-  ;
+    ;
 
   allPlugins = {
     bluespec = yosys-bluespec;
@@ -113,40 +114,42 @@ stdenv.mkDerivation rec {
     patchShebangs tests ./misc/yosys-config.in
   '';
 
-  preBuild = let
-    shortAbcRev = builtins.substring 0 7 abc-verifier.rev;
-  in ''
-    chmod -R u+w .
-    make config-${
-      if stdenv.cc.isClang or false then
-        "clang"
-      else
-        "gcc"
-    }
-    echo 'ABCEXTERNAL = ${abc-verifier}/bin/abc' >> Makefile.conf
+  preBuild =
+    let
+      shortAbcRev = builtins.substring 0 7 abc-verifier.rev;
+    in ''
+      chmod -R u+w .
+      make config-${
+        if stdenv.cc.isClang or false then
+          "clang"
+        else
+          "gcc"
+      }
+      echo 'ABCEXTERNAL = ${abc-verifier}/bin/abc' >> Makefile.conf
 
-    if ! grep -q "ABCREV = ${shortAbcRev}" Makefile; then
-      echo "ERROR: yosys isn't compatible with the provided abc (${shortAbcRev}), failing."
-      exit 1
-    fi
+      if ! grep -q "ABCREV = ${shortAbcRev}" Makefile; then
+        echo "ERROR: yosys isn't compatible with the provided abc (${shortAbcRev}), failing."
+        exit 1
+      fi
 
-    if ! grep -q "YOSYS_VER := $version" Makefile; then
-      echo "ERROR: yosys version in Makefile isn't equivalent to version of the nix package (allegedly ${version}), failing."
-      exit 1
-    fi
-  '' ;
+      if ! grep -q "YOSYS_VER := $version" Makefile; then
+        echo "ERROR: yosys version in Makefile isn't equivalent to version of the nix package (allegedly ${version}), failing."
+        exit 1
+      fi
+    ''
+    ;
 
   checkTarget = "test";
   doCheck = true;
   nativeCheckInputs = [ verilog ];
 
-  # Internally, yosys knows to use the specified hardcoded ABCEXTERNAL binary.
-  # But other tools (like mcy or symbiyosys) can't know how yosys was built, so
-  # they just assume that 'yosys-abc' is available -- but it's not installed
-  # when using ABCEXTERNAL
-  #
-  # add a symlink to fake things so that both variants work the same way. this
-  # is also needed at build time for the test suite.
+    # Internally, yosys knows to use the specified hardcoded ABCEXTERNAL binary.
+    # But other tools (like mcy or symbiyosys) can't know how yosys was built, so
+    # they just assume that 'yosys-abc' is available -- but it's not installed
+    # when using ABCEXTERNAL
+    #
+    # add a symlink to fake things so that both variants work the same way. this
+    # is also needed at build time for the test suite.
   postBuild = "ln -sfv ${abc-verifier}/bin/abc ./yosys-abc";
   postInstall = "ln -sfv ${abc-verifier}/bin/abc $out/bin/yosys-abc";
 

@@ -8,11 +8,13 @@ with lib;
 let
   pkg = pkgs._3proxy;
   cfg = config.services._3proxy;
-  optionalList = list:
+  optionalList =
+    list:
     if list == [ ] then
       "*"
     else
-      concatMapStringsSep "," toString list;
+      concatMapStringsSep "," toString list
+    ;
 in {
   options.services._3proxy = {
     enable = mkEnableOption (lib.mdDoc "3proxy");

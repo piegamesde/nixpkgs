@@ -27,8 +27,8 @@ buildPythonPackage rec {
     python-dateutil
   ];
 
-  # Library tested with external tool
-  # https://hitchdev.com/approach/contributing-to-hitch-libraries/
+    # Library tested with external tool
+    # https://hitchdev.com/approach/contributing-to-hitch-libraries/
   doCheck = false;
   pythonImportsCheck = [ "strictyaml" ];
 

@@ -8,10 +8,12 @@ let
   transitiveBrokenPkgs = lib.filterAttrs
     (_: v: !(builtins.tryEval (v.outPath or null)).success && !v.meta.broken)
     maintainedPkgs;
-  infoList = pkgs:
+  infoList =
+    pkgs:
     lib.concatStringsSep "\n" (lib.mapAttrsToList
       (name: drv: "${name} ${(builtins.elemAt drv.meta.maintainers 0).github}")
-      pkgs);
+      pkgs)
+    ;
 in {
   report = ''
     BROKEN:

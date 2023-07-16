@@ -37,8 +37,8 @@ stdenv.mkDerivation rec {
     "-Wno-error=uninitialized"
   ];
 
-  # Make sure we include the drivers and icd files in the output as the cmake
-  # generated install command only puts in the spirv-tools stuff.
+    # Make sure we include the drivers and icd files in the output as the cmake
+    # generated install command only puts in the spirv-tools stuff.
   installPhase = ''
     runHook preInstall
 
@@ -76,11 +76,12 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A high-performance CPU-based implementation of the Vulkan, OpenGL ES, and Direct3D 9 graphics APIs";
+      "A high-performance CPU-based implementation of the Vulkan, OpenGL ES, and Direct3D 9 graphics APIs"
+      ;
     homepage = "https://opensource.google/projects/swiftshader";
     license = licenses.asl20;
-    # Should be possible to support Darwin by changing the install phase with
-    # 's/Linux/Darwin/' and 's/so/dylib/' or something similar.
+      # Should be possible to support Darwin by changing the install phase with
+      # 's/Linux/Darwin/' and 's/so/dylib/' or something similar.
     platforms = [
       "i686-linux"
       "x86_64-linux"

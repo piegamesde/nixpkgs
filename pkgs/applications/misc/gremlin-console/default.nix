@@ -11,7 +11,8 @@ stdenv.mkDerivation rec {
   version = "3.6.2";
   src = fetchzip {
     url =
-      "https://downloads.apache.org/tinkerpop/${version}/apache-tinkerpop-gremlin-console-${version}-bin.zip";
+      "https://downloads.apache.org/tinkerpop/${version}/apache-tinkerpop-gremlin-console-${version}-bin.zip"
+      ;
     sha256 = "sha256-c7uwXqmMrWDYZ9CpGuVoo1e5yWHsoNd0zihZKdCTg7E=";
   };
 

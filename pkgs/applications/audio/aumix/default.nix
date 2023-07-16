@@ -25,7 +25,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "fno-common.patch";
       url =
-        "https://gitweb.gentoo.org/repo/gentoo.git/plain/media-sound/aumix/files/aumix-2.9.1-fno-common.patch?id=496c9ec7355f06f6d1d19be780a6981503e6df1f";
+        "https://gitweb.gentoo.org/repo/gentoo.git/plain/media-sound/aumix/files/aumix-2.9.1-fno-common.patch?id=496c9ec7355f06f6d1d19be780a6981503e6df1f"
+        ;
       sha256 = "0qwylhx1hawsmx1pc7ykrjq9phksc73dq9rss6ggq15n3ggnc95y";
     })
   ];

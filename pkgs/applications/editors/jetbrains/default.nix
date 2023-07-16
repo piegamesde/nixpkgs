@@ -37,21 +37,26 @@ let
   inherit (stdenv.hostPlatform) system;
 
   versions = builtins.fromJSON (lib.readFile (./versions.json));
-  versionKey = if stdenv.isLinux then
-    "linux"
-  else
-    system;
+  versionKey =
+    if stdenv.isLinux then
+      "linux"
+    else
+      system
+    ;
   products = versions.${versionKey} or (throw "Unsupported system: ${system}");
 
-  package = if stdenv.isDarwin then
-    ./darwin.nix
-  else
-    ./linux.nix;
+  package =
+    if stdenv.isDarwin then
+      ./darwin.nix
+    else
+      ./linux.nix
+    ;
   mkJetBrainsProduct = callPackage package { inherit vmopts; };
 
-  # Sorted alphabetically
+    # Sorted alphabetically
 
-  buildClion = {
+  buildClion =
+    {
       pname,
       version,
       src,
@@ -113,9 +118,11 @@ let
               --set CL_JDK "${jdk}"
           )
         '';
-    });
+    })
+    ;
 
-  buildDataGrip = {
+  buildDataGrip =
+    {
       pname,
       version,
       src,
@@ -137,9 +144,11 @@ let
         '';
         maintainers = with maintainers; [ ];
       };
-    });
+    })
+    ;
 
-  buildGateway = {
+  buildGateway =
+    {
       pname,
       version,
       src,
@@ -162,9 +171,11 @@ let
         '';
         maintainers = with maintainers; [ kouyk ];
       };
-    });
+    })
+    ;
 
-  buildGoland = {
+  buildGoland =
+    {
       pname,
       version,
       src,
@@ -198,9 +209,11 @@ let
         wrapProgram $out/bin/goland \
           --prefix CGO_CPPFLAGS " " "-U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0"
       '';
-    });
+    })
+    ;
 
-  buildIdea = {
+  buildIdea =
+    {
       pname,
       version,
       src,
@@ -235,9 +248,11 @@ let
         ];
         platforms = ideaPlatforms;
       };
-    });
+    })
+    ;
 
-  buildMps = {
+  buildMps =
+    {
       pname,
       version,
       src,
@@ -262,9 +277,11 @@ let
         '';
         maintainers = with maintainers; [ rasendubi ];
       };
-    });
+    })
+    ;
 
-  buildPhpStorm = {
+  buildPhpStorm =
+    {
       pname,
       version,
       src,
@@ -286,9 +303,11 @@ let
         '';
         maintainers = with maintainers; [ dritter ];
       };
-    });
+    })
+    ;
 
-  buildPycharm = {
+  buildPycharm =
+    {
       pname,
       version,
       src,
@@ -335,10 +354,12 @@ let
               ${python3.interpreter} plugins/python/helpers/pydev/setup_cython.py build_ext --inplace
           fi
         '';
-        # See https://www.jetbrains.com/help/pycharm/2022.1/cython-speedups.html
-      });
+          # See https://www.jetbrains.com/help/pycharm/2022.1/cython-speedups.html
+      })
+    ;
 
-  buildRider = {
+  buildRider =
+    {
       pname,
       version,
       src,
@@ -350,7 +371,7 @@ let
     (mkJetBrainsProduct {
       inherit pname version src wmClass jdk;
       product = "Rider";
-      # icu is required by Rider.Backend
+        # icu is required by Rider.Backend
       extraLdPath = [ icu ];
       meta = with lib; {
         homepage = "https://www.jetbrains.com/rider/";
@@ -375,9 +396,11 @@ let
         rm -rf lib/ReSharperHost/linux-x64/dotnet
         ln -s ${dotnet-sdk_6} lib/ReSharperHost/linux-x64/dotnet
       '');
-    });
+    })
+    ;
 
-  buildRubyMine = {
+  buildRubyMine =
+    {
       pname,
       version,
       src,
@@ -395,9 +418,11 @@ let
         longDescription = description;
         maintainers = with maintainers; [ edwtjo ];
       };
-    });
+    })
+    ;
 
-  buildWebStorm = {
+  buildWebStorm =
+    {
       pname,
       version,
       src,
@@ -419,7 +444,8 @@ let
         '';
         maintainers = with maintainers; [ abaldeau ];
       };
-    });
+    })
+    ;
 
 in {
   # Sorted alphabetically
@@ -483,7 +509,8 @@ in {
     product = "IntelliJ IDEA CE";
     version = products.idea-community.version;
     description =
-      "Integrated Development Environment (IDE) by Jetbrains, community edition";
+      "Integrated Development Environment (IDE) by Jetbrains, community edition"
+      ;
     license = lib.licenses.asl20;
     src = fetchurl {
       url = products.idea-community.url;
@@ -498,7 +525,8 @@ in {
     product = "IntelliJ IDEA";
     version = products.idea-ultimate.version;
     description =
-      "Integrated Development Environment (IDE) by Jetbrains, requires paid license";
+      "Integrated Development Environment (IDE) by Jetbrains, requires paid license"
+      ;
     license = lib.licenses.unfree;
     src = fetchurl {
       url = products.idea-ultimate.url;

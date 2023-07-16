@@ -16,11 +16,12 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://people.mpi-inf.mpg.de/~uwe/misc/${pname}/${pname}-${version}.tar.gz";
+      "https://people.mpi-inf.mpg.de/~uwe/misc/${pname}/${pname}-${version}.tar.gz"
+      ;
     sha256 = "1vp053bwv8sr40p3pn4sjaiq570zp7knh99z9ynk30v7ml4cz2i8";
   };
 
-  # remove for version >1.3
+    # remove for version >1.3
   patches = [ ./determinism.patch ];
 
   nativeBuildInputs = [
@@ -31,7 +32,7 @@ stdenv.mkDerivation rec {
     xorg.mkfontdir
   ];
 
-  # configure sizes, encodings and variants
+    # configure sizes, encodings and variants
   preConfigure = (if targetsDat == null then
     ''
       cat << EOF > TARGETS.dat
@@ -84,8 +85,8 @@ stdenv.mkDerivation rec {
     mkfontdir "$fontDir"
   '';
 
-  # Nix with multiple outputs adds several flags
-  # that the ./configure script doesn't understand.
+    # Nix with multiple outputs adds several flags
+    # that the ./configure script doesn't understand.
   configurePhase = ''
     runHook preConfigure
     ./configure --prefix="$out"

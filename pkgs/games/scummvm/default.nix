@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
   configurePlatforms = [ "host" ];
   configureFlags = [ "--enable-release" ];
 
-  # They use 'install -s', that calls the native strip instead of the cross
+    # They use 'install -s', that calls the native strip instead of the cross
   postConfigure = ''
     sed -i "s/-c -s/-c -s --strip-program=''${STRIP@Q}/" ports.mk
   '' + lib.optionalString stdenv.isDarwin ''
@@ -81,7 +81,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Program to run certain classic graphical point-and-click adventure games (such as Monkey Island)";
+      "Program to run certain classic graphical point-and-click adventure games (such as Monkey Island)"
+      ;
     homepage = "https://www.scummvm.org/";
     license = licenses.gpl2;
     maintainers = [ maintainers.peterhoeg ];

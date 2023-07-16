@@ -32,27 +32,31 @@ let
   myriad_firmware_version = "20221129_35";
   myriad_usb_firmware = fetchurl {
     url =
-      "https://storage.openvinotoolkit.org/dependencies/myriad/firmware_usb-ma2x8x_${myriad_firmware_version}.zip";
+      "https://storage.openvinotoolkit.org/dependencies/myriad/firmware_usb-ma2x8x_${myriad_firmware_version}.zip"
+      ;
     hash = "sha256-HKNWbSlMjSafOgrS9WmenbsmeaJKRVssw0NhIwPYZ70=";
   };
   myriad_pcie_firmware = fetchurl {
     url =
-      "https://storage.openvinotoolkit.org/dependencies/myriad/firmware_pcie-ma2x8x_${myriad_firmware_version}.zip";
+      "https://storage.openvinotoolkit.org/dependencies/myriad/firmware_pcie-ma2x8x_${myriad_firmware_version}.zip"
+      ;
     hash = "sha256-VmfrAoKQ++ySIgAxWQul+Hd0p7Y4sTF44Nz4RHpO6Mo=";
   };
 
-  # See GNA_VERSION in cmake/dependencies.cmake
+    # See GNA_VERSION in cmake/dependencies.cmake
   gna_version = "03.00.00.1910";
   gna = fetchurl {
     url =
-      "https://storage.openvinotoolkit.org/dependencies/gna/gna_${gna_version}.zip";
+      "https://storage.openvinotoolkit.org/dependencies/gna/gna_${gna_version}.zip"
+      ;
     hash = "sha256-iU3bwK40WfBFE7hTsMq8MokN1Oo3IooCK2oyEBvbt/g=";
   };
 
   tbbbind_version = "2_5";
   tbbbind = fetchurl {
     url =
-      "https://download.01.org/opencv/master/openvinotoolkit/thirdparty/linux/tbbbind_${tbbbind_version}_static_lin_v2.tgz";
+      "https://download.01.org/opencv/master/openvinotoolkit/thirdparty/linux/tbbbind_${tbbbind_version}_static_lin_v2.tgz"
+      ;
     hash = "sha256-hl54lMWEAiM8rw0bKIBW4OarK/fJ0AydxgVhxIS8kPQ=";
   };
 

@@ -13,7 +13,7 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "katef";
     repo = "kgt";
-    # 2021-04-07, no version tags (yet)
+      # 2021-04-07, no version tags (yet)
     rev = "a7cbc52d368e413a3f1212c0fafccc05b2a42606";
     sha256 = "1x6q30xb8ihxi26rzk3s2hqd827fim4l4wn3qq252ibrwcq6lqyj";
     fetchSubmodules = true;

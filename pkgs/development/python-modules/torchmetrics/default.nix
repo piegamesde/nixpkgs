@@ -33,7 +33,7 @@ buildPythonPackage {
     py-deprecate
   ];
 
-  # Let the user bring their own instance
+    # Let the user bring their own instance
   buildInputs = [ torch ];
 
   nativeCheckInputs = [
@@ -45,7 +45,7 @@ buildPythonPackage {
     pytestCheckHook
   ];
 
-  # A cyclic dependency in: integrations/test_lightning.py
+    # A cyclic dependency in: integrations/test_lightning.py
   doCheck = false;
   passthru.tests.check =
     torchmetrics.overridePythonAttrs (_: { doCheck = true; });
@@ -64,7 +64,8 @@ buildPythonPackage {
 
   meta = with lib; {
     description =
-      "Machine learning metrics for distributed, scalable PyTorch applications (used in pytorch-lightning)";
+      "Machine learning metrics for distributed, scalable PyTorch applications (used in pytorch-lightning)"
+      ;
     homepage = "https://torchmetrics.readthedocs.io";
     license = licenses.asl20;
     maintainers = with maintainers; [ SomeoneSerge ];

@@ -81,8 +81,8 @@ buildPythonPackage rec {
       rakesh4g
     ];
     platforms = platforms.linux;
-    # Scikit-image 0.19 update broke API, see https://github.com/scikit-image/scikit-image/releases/tag/v0.19.0
-    # and https://github.com/scikit-image/scikit-image/issues/6093
+      # Scikit-image 0.19 update broke API, see https://github.com/scikit-image/scikit-image/releases/tag/v0.19.0
+      # and https://github.com/scikit-image/scikit-image/issues/6093
     broken = lib.versionAtLeast scikitimage.version "0.19";
   };
 }

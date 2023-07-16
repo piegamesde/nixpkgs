@@ -7,7 +7,8 @@
   meta = with lib.maintainers; { maintainers = [ misuzu ]; };
 
   nodes = {
-    peer0 = {
+    peer0 =
+      {
         lib,
         ...
       }: {
@@ -24,9 +25,11 @@
             }
           ];
         };
-      };
+      }
+      ;
 
-    peer1 = {
+    peer1 =
+      {
         lib,
         ...
       }: {
@@ -43,7 +46,7 @@
             }
           ];
         };
-        # test that binding to [::] is working when ipv6 is disabled
+          # test that binding to [::] is working when ipv6 is disabled
         networking.enableIPv6 = false;
         services._3proxy = {
           enable = true;
@@ -64,9 +67,11 @@
           3128
           9999
         ];
-      };
+      }
+      ;
 
-    peer2 = {
+    peer2 =
+      {
         lib,
         ...
       }: {
@@ -103,9 +108,11 @@
           3128
           9999
         ];
-      };
+      }
+      ;
 
-    peer3 = {
+    peer3 =
+      {
         lib,
         pkgs,
         ...
@@ -146,7 +153,8 @@
           3128
           9999
         ];
-      };
+      }
+      ;
   };
 
   testScript = ''

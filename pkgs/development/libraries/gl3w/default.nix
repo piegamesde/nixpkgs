@@ -24,9 +24,9 @@ stdenv.mkDerivation rec {
     python3
     cmake
   ];
-  # gl3w installs a CMake config that when included expects to be able to
-  # build and link against both of these libraries
-  # (the gl3w generated C file gets compiled into the downstream target)
+    # gl3w installs a CMake config that when included expects to be able to
+    # build and link against both of these libraries
+    # (the gl3w generated C file gets compiled into the downstream target)
   propagatedBuildInputs = [
     libglvnd
     libGLU
@@ -34,8 +34,8 @@ stdenv.mkDerivation rec {
 
   dontUseCmakeBuildDir = true;
 
-  # These files must be copied rather than linked since they are considered
-  # outputs for the custom command, and CMake expects to be able to touch them
+    # These files must be copied rather than linked since they are considered
+    # outputs for the custom command, and CMake expects to be able to touch them
   preConfigure = ''
     mkdir -p include/{GL,KHR}
     cp ${libglvnd.dev}/include/GL/glcorearb.h include/GL/glcorearb.h

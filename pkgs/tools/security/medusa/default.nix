@@ -26,7 +26,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "fno-common.patch";
       url =
-        "https://github.com/jmk-foofus/medusa/commit/a667656ad085b3eb95309932666c250d97a92767.patch";
+        "https://github.com/jmk-foofus/medusa/commit/a667656ad085b3eb95309932666c250d97a92767.patch"
+        ;
       sha256 = "01marqqhjd3qwar3ymp50y1h2im5ilgpaxk7wrc2kcxgmzvbdfxc";
     })
   ];

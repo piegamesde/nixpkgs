@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-s2i2owXj96Y4LSOgy/wdeJIwYLa39Uz3mHpzx7Spr8I=";
   };
 
-  # TODO: render & install HTML documentation using asciidoctor
+    # TODO: render & install HTML documentation using asciidoctor
   nativeBuildInputs = [
     pkg-config
     python3Packages.wrapPython
@@ -90,8 +90,8 @@ stdenv.mkDerivation rec {
     sconsFlags+=" python_libdir=$out/lib/${python3Packages.python.libPrefix}/site-packages"
   '';
 
-  # - leapfetch=no disables going online at build time to fetch leap-seconds
-  #   info. See <gpsd-src>/build.txt for more info.
+    # - leapfetch=no disables going online at build time to fetch leap-seconds
+    #   info. See <gpsd-src>/build.txt for more info.
   sconsFlags = [
     "leapfetch=no"
     "gpsd_user=${gpsdUser}"
@@ -109,7 +109,7 @@ stdenv.mkDerivation rec {
     export LD_LIBRARY_PATH="$PWD"
   '';
 
-  # TODO: the udev rules file and the hotplug script need fixes to work on NixOS
+    # TODO: the udev rules file and the hotplug script need fixes to work on NixOS
   preInstall = ''
     mkdir -p "$out/lib/udev/rules.d"
   '';
@@ -119,7 +119,7 @@ stdenv.mkDerivation rec {
     "udev-install"
   ];
 
-  # remove binaries for x-less install because xgps sconsflag is partially broken
+    # remove binaries for x-less install because xgps sconsflag is partially broken
   postFixup = ''
     wrapPythonProgramsIn $out/bin "$out $pythonPath"
   '';

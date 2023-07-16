@@ -13,7 +13,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/revoltchat/desktop/releases/download/v${version}/Revolt-linux.AppImage";
+      "https://github.com/revoltchat/desktop/releases/download/v${version}/Revolt-linux.AppImage"
+      ;
     sha256 = "sha256-Wsm6ef2Reenq3/aKGaP2yzlOuLKaxKtRHCLLMxvWUUY=";
   };
 

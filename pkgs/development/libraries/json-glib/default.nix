@@ -64,9 +64,9 @@ stdenv.mkDerivation rec {
     (lib.mesonEnable "gtk_doc" withIntrospection)
   ];
 
-  # Run-time dependency gi-docgen found: NO (tried pkgconfig and cmake)
-  # it should be a build-time dep for build
-  # TODO: send upstream
+    # Run-time dependency gi-docgen found: NO (tried pkgconfig and cmake)
+    # it should be a build-time dep for build
+    # TODO: send upstream
   postPatch = ''
     substituteInPlace doc/meson.build \
       --replace "'gi-docgen', ver" "'gi-docgen', native:true, ver" \
@@ -97,7 +97,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A library providing (de)serialization support for the JavaScript Object Notation (JSON) format";
+      "A library providing (de)serialization support for the JavaScript Object Notation (JSON) format"
+      ;
     homepage = "https://wiki.gnome.org/Projects/JsonGlib";
     license = licenses.lgpl21Plus;
     maintainers = teams.gnome.members;

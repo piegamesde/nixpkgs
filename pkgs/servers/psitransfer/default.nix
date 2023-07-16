@@ -28,10 +28,11 @@ let
     # version must also be maintained in node-packages.json for node2nix
     version = "2.0.1";
 
-    # override node2nix package src to pull pre-built release of same version
+      # override node2nix package src to pull pre-built release of same version
     src = fetchzip {
       url =
-        "https://github.com/psi-4ward/psitransfer/releases/download/v${version}/psitransfer-v${version}.tar.gz";
+        "https://github.com/psi-4ward/psitransfer/releases/download/v${version}/psitransfer-v${version}.tar.gz"
+        ;
       sha256 = "mfldWTVmfcIRa+1g8YDnQqem5YmrFRfCxJoitWcXvns=";
       stripRoot = false;
     };

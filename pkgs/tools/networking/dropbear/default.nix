@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     (lib.concatStringsSep " ")
   ];
 
-  # https://www.gnu.org/software/make/manual/html_node/Libraries_002fSearch.html
+    # https://www.gnu.org/software/make/manual/html_node/Libraries_002fSearch.html
   preConfigure = ''
     makeFlagsArray=(
       VPATH=$(cat $NIX_CC/nix-support/orig-libc)/lib

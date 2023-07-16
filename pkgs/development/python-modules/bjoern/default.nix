@@ -11,7 +11,7 @@ buildPythonPackage rec {
   version = "3.2.1";
   format = "setuptools";
 
-  # tests are not published to pypi anymore
+    # tests are not published to pypi anymore
   src = fetchFromGitHub {
     owner = "jonashaag";
     repo = pname;

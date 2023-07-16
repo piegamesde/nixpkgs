@@ -66,16 +66,17 @@ stdenv.mkDerivation rec {
 
   dontUseCmakeBuildDir = true;
 
-  # This can be enabled, but it will exhause virtual memory on most machines.
+    # This can be enabled, but it will exhause virtual memory on most machines.
   enableParallelBuilding = false;
 
-  # Without hardeningDisable, certain flags are passed to the compile that break the build (primarily string format errors)
+    # Without hardeningDisable, certain flags are passed to the compile that break the build (primarily string format errors)
   hardeningDisable = [ "all" ];
 
   meta = {
     broken = stdenv.isDarwin && stdenv.isx86_64;
     description =
-      "A library for computer-vision scientists and targeted for the Multiple View Geometry community";
+      "A library for computer-vision scientists and targeted for the Multiple View Geometry community"
+      ;
     homepage = "https://openmvg.readthedocs.io/en/latest/";
     license = lib.licenses.mpl20;
     platforms = lib.platforms.unix;

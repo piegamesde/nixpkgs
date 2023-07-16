@@ -10,10 +10,12 @@
 with lib;
 
 let
-  package = if cfg.allowAuxiliaryImperativeNetworks then
-    pkgs.wpa_supplicant_ro_ssids
-  else
-    pkgs.wpa_supplicant;
+  package =
+    if cfg.allowAuxiliaryImperativeNetworks then
+      pkgs.wpa_supplicant_ro_ssids
+    else
+      pkgs.wpa_supplicant
+    ;
 
   cfg = config.networking.wireless;
   opt = options.networking.wireless;
@@ -22,41 +24,50 @@ let
     "SAE"
     "FT-SAE"
   ];
-  hasMixedWPA = opts:
+  hasMixedWPA =
+    opts:
     let
       hasWPA3 = !mutuallyExclusive opts.authProtocols wpa3Protocols;
       others = subtractLists wpa3Protocols opts.authProtocols;
     in
     hasWPA3 && others != [ ]
-  ;
+    ;
 
-  # Gives a WPA3 network higher priority
-  increaseWPA3Priority = opts:
+    # Gives a WPA3 network higher priority
+  increaseWPA3Priority =
+    opts:
     opts // optionalAttrs (hasMixedWPA opts) {
-      priority = if opts.priority == null then
-        1
-      else
-        opts.priority + 1;
-    };
+      priority =
+        if opts.priority == null then
+          1
+        else
+          opts.priority + 1
+        ;
+    }
+    ;
 
-  # Creates a WPA2 fallback network
-  mkWPA2Fallback = opts:
+    # Creates a WPA2 fallback network
+  mkWPA2Fallback =
+    opts:
     opts // {
       authProtocols = subtractLists wpa3Protocols opts.authProtocols;
-    };
+    }
+    ;
 
-  # Networks attrset as a list
+    # Networks attrset as a list
   networkList =
     mapAttrsToList (ssid: opts: opts // { inherit ssid; }) cfg.networks;
 
-  # List of all networks (normal + generated fallbacks)
-  allNetworks = if cfg.fallbackToWPA2 then
-    map increaseWPA3Priority networkList
-    ++ map mkWPA2Fallback (filter hasMixedWPA networkList)
-  else
-    networkList;
+    # List of all networks (normal + generated fallbacks)
+  allNetworks =
+    if cfg.fallbackToWPA2 then
+      map increaseWPA3Priority networkList
+      ++ map mkWPA2Fallback (filter hasMixedWPA networkList)
+    else
+      networkList
+    ;
 
-  # Content of wpa_supplicant.conf
+    # Content of wpa_supplicant.conf
   generatedConfig = concatStringsSep "\n" ((map mkNetwork allNetworks)
     ++ optional cfg.userControlled.enable (concatStringsSep "\n" [
       "ctrl_interface=/run/wpa_supplicant"
@@ -69,24 +80,29 @@ let
   configIsGenerated = with cfg;
     networks != { } || extraConfig != "" || userControlled.enable;
 
-  # the original configuration file
-  configFile = if configIsGenerated then
-    pkgs.writeText "wpa_supplicant.conf" generatedConfig
-  else
-    "/etc/wpa_supplicant.conf";
-  # the config file with environment variables replaced
+    # the original configuration file
+  configFile =
+    if configIsGenerated then
+      pkgs.writeText "wpa_supplicant.conf" generatedConfig
+    else
+      "/etc/wpa_supplicant.conf"
+    ;
+    # the config file with environment variables replaced
   finalConfig = ''"$RUNTIME_DIRECTORY"/wpa_supplicant.conf'';
 
-  # Creates a network block for wpa_supplicant.conf
-  mkNetwork = opts:
+    # Creates a network block for wpa_supplicant.conf
+  mkNetwork =
+    opts:
     let
       quote = x: ''"${x}"'';
       indent = x: "  " + x;
 
-      pskString = if opts.psk != null then
-        quote opts.psk
-      else
-        opts.pskRaw;
+      pskString =
+        if opts.psk != null then
+          quote opts.psk
+        else
+          opts.pskRaw
+        ;
 
       options = [
         "ssid=${quote opts.ssid}"
@@ -104,17 +120,21 @@ let
       network={
       ${concatMapStringsSep "\n" indent options}
       }
-    '' ;
+    ''
+    ;
 
-  # Creates a systemd unit for wpa_supplicant bound to a given (or any) interface
-  mkUnit = iface:
+    # Creates a systemd unit for wpa_supplicant bound to a given (or any) interface
+  mkUnit =
+    iface:
     let
       deviceUnit = optional (iface != null)
         "sys-subsystem-net-devices-${utils.escapeSystemdPath iface}.device";
-      configStr = if cfg.allowAuxiliaryImperativeNetworks then
-        "-c /etc/wpa_supplicant.conf -I ${finalConfig}"
-      else
-        "-c ${finalConfig}";
+      configStr =
+        if cfg.allowAuxiliaryImperativeNetworks then
+          "-c /etc/wpa_supplicant.conf -I ${finalConfig}"
+        else
+          "-c ${finalConfig}"
+        ;
     in {
       description = "WPA Supplicant instance"
         + optionalString (iface != null) " for interface ${iface}";
@@ -186,7 +206,8 @@ let
         # finally start daemon
         exec wpa_supplicant $args
       '';
-    } ;
+    }
+    ;
 
   systemctl = "/run/current-system/systemd/bin/systemctl";
 
@@ -337,12 +358,12 @@ in {
                 "FT-EAP"
                 "FT-SAE"
               ];
-              # The list can be obtained by running this command
-              # awk '
-              #   /^# key_mgmt: /{ run=1 }
-              #   /^#$/{ run=0 }
-              #   /^# [A-Z0-9-]{2,}/{ if(run){printf("\"%s\"\n", $2)} }
-              # ' /run/current-system/sw/share/doc/wpa_supplicant/wpa_supplicant.conf.example
+                # The list can be obtained by running this command
+                # awk '
+                #   /^# key_mgmt: /{ run=1 }
+                #   /^#$/{ run=0 }
+                #   /^# [A-Z0-9-]{2,}/{ if(run){printf("\"%s\"\n", $2)} }
+                # ' /run/current-system/sw/share/doc/wpa_supplicant/wpa_supplicant.conf.example
               type = types.listOf (types.enum [
                 "WPA-PSK"
                 "WPA-EAP"
@@ -527,27 +548,31 @@ in {
           auth
         ] <= 1;
       message = ''
-        options networking.wireless."${name}".{psk,pskRaw,auth} are mutually exclusive'';
+        options networking.wireless."${name}".{psk,pskRaw,auth} are mutually exclusive''
+        ;
     }) ++ [ {
       assertion = length cfg.interfaces > 1 -> !cfg.dbusControlled;
-      message = let
-        daemon = if config.networking.networkmanager.enable then
-          "NetworkManager"
-        else if config.services.connman.enable then
-          "connman"
-        else
-          null;
-        n = toString (length cfg.interfaces);
-      in
-      ''
-        It's not possible to run multiple wpa_supplicant instances with DBus support.
-        Note: you're seeing this error because `networking.wireless.interfaces` has
-        ${n} entries, implying an equal number of wpa_supplicant instances.
-      '' + optionalString (daemon != null) ''
-        You don't need to change `networking.wireless.interfaces` when using ${daemon}:
-        in this case the interfaces will be configured automatically for you.
-      ''
-      ;
+      message =
+        let
+          daemon =
+            if config.networking.networkmanager.enable then
+              "NetworkManager"
+            else if config.services.connman.enable then
+              "connman"
+            else
+              null
+            ;
+          n = toString (length cfg.interfaces);
+        in
+        ''
+          It's not possible to run multiple wpa_supplicant instances with DBus support.
+          Note: you're seeing this error because `networking.wireless.interfaces` has
+          ${n} entries, implying an equal number of wpa_supplicant instances.
+        '' + optionalString (daemon != null) ''
+          You don't need to change `networking.wireless.interfaces` when using ${daemon}:
+          in this case the interfaces will be configured automatically for you.
+        ''
+        ;
     } ];
 
     hardware.wirelessRegulatoryDatabase = true;
@@ -555,21 +580,23 @@ in {
     environment.systemPackages = [ package ];
     services.dbus.packages = optional cfg.dbusControlled package;
 
-    systemd.services = if cfg.interfaces == [ ] then
-      { wpa_supplicant = mkUnit null; }
-    else
-      listToAttrs
-      (map (i: nameValuePair "wpa_supplicant-${i}" (mkUnit i)) cfg.interfaces);
+    systemd.services =
+      if cfg.interfaces == [ ] then
+        { wpa_supplicant = mkUnit null; }
+      else
+        listToAttrs
+        (map (i: nameValuePair "wpa_supplicant-${i}" (mkUnit i)) cfg.interfaces)
+      ;
 
-    # Restart wpa_supplicant after resuming from sleep
+      # Restart wpa_supplicant after resuming from sleep
     powerManagement.resumeCommands = concatStringsSep "\n"
       (optional (cfg.interfaces == [ ])
         "${systemctl} try-restart wpa_supplicant"
         ++ map (i: "${systemctl} try-restart wpa_supplicant-${i}")
         cfg.interfaces);
 
-    # Restart wpa_supplicant when a wlan device appears or disappears. This is
-    # only needed when an interface hasn't been specified by the user.
+      # Restart wpa_supplicant when a wlan device appears or disappears. This is
+      # only needed when an interface hasn't been specified by the user.
     services.udev.extraRules = optionalString (cfg.interfaces == [ ]) ''
       ACTION=="add|remove", SUBSYSTEM=="net", ENV{DEVTYPE}=="wlan", \
       RUN+="${systemctl} try-restart wpa_supplicant.service"

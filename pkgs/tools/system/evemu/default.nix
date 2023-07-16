@@ -12,8 +12,8 @@ stdenv.mkDerivation rec {
   pname = "evemu";
   version = "2.7.0";
 
-  # We could have downloaded a release tarball from cgit, but it changes hash
-  # each time it is downloaded :/
+    # We could have downloaded a release tarball from cgit, but it changes hash
+    # each time it is downloaded :/
   src = fetchgit {
     url = "git://git.freedesktop.org/git/evemu";
     rev = "refs/tags/v${version}";
@@ -35,7 +35,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Records and replays device descriptions and events to emulate input devices through the kernel's input system";
+      "Records and replays device descriptions and events to emulate input devices through the kernel's input system"
+      ;
     homepage = "https://www.freedesktop.org/wiki/Evemu/";
     license = with licenses; [
       lgpl3Only

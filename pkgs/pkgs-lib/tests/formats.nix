@@ -6,7 +6,8 @@ let
 in with lib;
 let
 
-  evalFormat = format: args: def:
+  evalFormat =
+    format: args: def:
     let
       formatSet = format args;
       config = formatSet.type.merge [ ] (imap1 (n: def: {
@@ -20,9 +21,10 @@ let
       }) [ def ]);
     in
     formatSet.generate "test-format-file" config
-  ;
+    ;
 
-  runBuildTest = name:
+  runBuildTest =
+    name:
     {
       drv,
       expected,
@@ -38,14 +40,17 @@ let
         echo "Got different values than expected; diff above."
         exit 1
       fi
-    '';
+    ''
+    ;
 
-  runBuildTests = tests:
+  runBuildTests =
+    tests:
     pkgs.linkFarm "nixpkgs-pkgs-lib-format-tests" (mapAttrsToList
       (name: value: {
         inherit name;
         path = runBuildTest name value;
-      }) (filterAttrs (name: value: value != null) tests));
+      }) (filterAttrs (name: value: value != null) tests))
+    ;
 
 in
 runBuildTests {
@@ -273,23 +278,23 @@ runBuildTests {
     '';
   };
 
-  # This test is responsible for
-  #   1. testing type coercions
-  #   2. providing a more readable example test
-  # Whereas java-properties/default.nix tests the low level escaping, etc.
+    # This test is responsible for
+    #   1. testing type coercions
+    #   2. providing a more readable example test
+    # Whereas java-properties/default.nix tests the low level escaping, etc.
   testJavaProperties = {
     drv = evalFormat formats.javaProperties { } {
       floaty = 3.1415;
       tautologies = true;
       contradictions = false;
       foo = "bar";
-      # # Disallowed at eval time, because it's ambiguous:
-      # # add to store or convert to string?
-      # root = /root;
+        # # Disallowed at eval time, because it's ambiguous:
+        # # add to store or convert to string?
+        # root = /root;
       "1" = 2;
       package = pkgs.hello;
       "ütf 8" = "dûh";
-      # NB: Some editors (vscode) show this _whole_ line in right-to-left order
+        # NB: Some editors (vscode) show this _whole_ line in right-to-left order
       "الجبر" = "أكثر من مجرد أرقام";
     };
     expected = ''

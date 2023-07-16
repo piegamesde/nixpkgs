@@ -51,7 +51,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/ngtcp2/ngtcp2";
     description =
-      "ngtcp2 project is an effort to implement QUIC protocol which is now being discussed in IETF QUICWG for its standardization.";
+      "ngtcp2 project is an effort to implement QUIC protocol which is now being discussed in IETF QUICWG for its standardization."
+      ;
     license = licenses.mit;
     platforms = platforms.unix;
     maintainers = with maintainers; [ izorkin ];

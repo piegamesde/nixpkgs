@@ -22,7 +22,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ paramiko ];
 
-  # Tests require a running SSH server
+    # Tests require a running SSH server
   doCheck = false;
 
   pythonImportsCheck = [ "spur" ];

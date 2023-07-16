@@ -22,16 +22,17 @@ buildPythonPackage rec {
     (fetchpatch {
       name = "python311-compat.patch";
       url =
-        "https://github.com/urwid/urwid/commit/42c1ed1eeb663179b265bae9b384d7ec11c8a9b5.patch";
+        "https://github.com/urwid/urwid/commit/42c1ed1eeb663179b265bae9b384d7ec11c8a9b5.patch"
+        ;
       hash = "sha256-Oz8O/M6AdqbB6C/BB5rtxp8FgdGhZUxkSxKIyq5Dmho=";
     })
   ];
 
-  # tests need to be able to set locale
+    # tests need to be able to set locale
   LC_ALL = "en_US.UTF-8";
   nativeCheckInputs = [ glibcLocales ];
 
-  # tests which assert on strings don't decode results correctly
+    # tests which assert on strings don't decode results correctly
   doCheck = isPy3k;
 
   pythonImportsCheck = [ "urwid" ];

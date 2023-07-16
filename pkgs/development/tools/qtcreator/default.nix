@@ -39,7 +39,8 @@ mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://download.qt-project.org/official_releases/${pname}/${baseVersion}/${version}/qt-creator-opensource-src-${version}.tar.xz";
+      "http://download.qt-project.org/official_releases/${pname}/${baseVersion}/${version}/qt-creator-opensource-src-${version}.tar.xz"
+      ;
     sha256 = "1sz21ijzvhf5avblikffykbqa8zdq3sbg32g2dmyxv5w211v3lvz";
   };
 
@@ -57,11 +58,11 @@ mkDerivation rec {
 
   nativeBuildInputs = [ qmake ];
 
-  # 0001-Fix-clang-libcpp-regexp.patch is for fixing regexp that is used to
-  # find clang libc++ library include paths. By default it's not covering paths
-  # like libc++-version, which is default name for libc++ folder in nixos.
-  # ./0002-Dont-remove-clang-header-paths.patch is for forcing qtcreator to not
-  # remove system clang include paths.
+    # 0001-Fix-clang-libcpp-regexp.patch is for fixing regexp that is used to
+    # find clang libc++ library include paths. By default it's not covering paths
+    # like libc++-version, which is default name for libc++ folder in nixos.
+    # ./0002-Dont-remove-clang-header-paths.patch is for forcing qtcreator to not
+    # remove system clang include paths.
   patches = [
     ./0001-Fix-clang-libcpp-regexp.patch
     ./0002-Dont-remove-clang-header-paths.patch
@@ -71,11 +72,12 @@ mkDerivation rec {
 
   buildFlags = lib.optional withDocumentation "docs";
 
-  installFlags = [ "INSTALL_ROOT=$(out)" ]
-    ++ lib.optional withDocumentation "install_docs";
+  installFlags =
+    [ "INSTALL_ROOT=$(out)" ] ++ lib.optional withDocumentation "install_docs";
 
-  qtWrapperArgs =
-    [ "--set-default PERFPROFILER_PARSER_FILEPATH ${lib.getBin perf}/bin" ];
+  qtWrapperArgs = [ "--set-default PERFPROFILER_PARSER_FILEPATH ${
+      lib.getBin perf
+    }/bin" ];
 
   preConfigure = ''
     substituteInPlace src/plugins/plugins.pro \

@@ -22,7 +22,7 @@ buildPythonPackage rec {
     urllib3
   ];
 
-  # Project has no tests
+    # Project has no tests
   doCheck = false;
   pythonImportsCheck = [ "openwrt.ubus" ];
 

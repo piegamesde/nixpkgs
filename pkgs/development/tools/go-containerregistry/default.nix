@@ -30,14 +30,16 @@ buildGoModule rec {
 
   outputs = [ "out" ] ++ bins;
 
-  ldflags = let
-    t = "github.com/google/go-containerregistry";
-  in [
-    "-s"
-    "-w"
-    "-X ${t}/cmd/crane/cmd.Version=v${version}"
-    "-X ${t}/pkg/v1/remote/transport.Version=${version}"
-  ] ;
+  ldflags =
+    let
+      t = "github.com/google/go-containerregistry";
+    in [
+      "-s"
+      "-w"
+      "-X ${t}/cmd/crane/cmd.Version=v${version}"
+      "-X ${t}/pkg/v1/remote/transport.Version=${version}"
+    ]
+    ;
 
   postInstall = lib.concatStringsSep "\n" (map (bin: ''
     mkdir -p ''$${bin}/bin &&
@@ -45,12 +47,13 @@ buildGoModule rec {
     ln -s ''$${bin}/bin/${bin} $out/bin/
   '') bins);
 
-  # NOTE: no tests
+    # NOTE: no tests
   doCheck = false;
 
   meta = with lib; {
     description =
-      "Tools for interacting with remote images and registries including crane and gcrane";
+      "Tools for interacting with remote images and registries including crane and gcrane"
+      ;
     homepage = "https://github.com/google/go-containerregistry";
     license = licenses.asl20;
     maintainers = with maintainers; [ yurrriq ];

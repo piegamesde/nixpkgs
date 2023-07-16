@@ -12,7 +12,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://download.brother.com/welcome/dlf006814/mfcj6510dw_cupswrapper_GPL_source_${version}.tar.gz";
+      "https://download.brother.com/welcome/dlf006814/mfcj6510dw_cupswrapper_GPL_source_${version}.tar.gz"
+      ;
     sha256 = "0y5iffybxjin8injrdmc9n9hl4s6b8n6ck76m1z78bzi88vwmhai";
   };
 
@@ -67,7 +68,8 @@ stdenv.mkDerivation rec {
     license = with licenses; gpl2;
     platforms = with platforms; linux;
     downloadPage =
-      "http://support.brother.com/g/b/downloadlist.aspx?c=us&lang=en&prod=mfcj6510dw_all&os=128";
+      "http://support.brother.com/g/b/downloadlist.aspx?c=us&lang=en&prod=mfcj6510dw_all&os=128"
+      ;
     maintainers = with maintainers; [ ramkromberg ];
   };
 }

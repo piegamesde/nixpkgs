@@ -73,9 +73,9 @@ mkDerivation rec {
       --replace "/usr/bin/" "$out/bin/"
   '';
 
-  # Plasma gear 22.09 shipped before KWin 5.26 was made available.
-  # This feature requires 5.26. Otherwise plasma-dialer segfaults.
-  # Note that we may need to keep it disabled until it stops segfaulting outside of KWin.
+    # Plasma gear 22.09 shipped before KWin 5.26 was made available.
+    # This feature requires 5.26. Otherwise plasma-dialer segfaults.
+    # Note that we may need to keep it disabled until it stops segfaulting outside of KWin.
   cmakeFlags = [ "-DDIALER_BUILD_SHELL_OVERLAY=OFF" ];
 
   meta = with lib; {

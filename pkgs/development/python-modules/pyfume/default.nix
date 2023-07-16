@@ -31,7 +31,7 @@ buildPythonPackage rec {
     simpful
   ];
 
-  # Module has not test
+    # Module has not test
   doCheck = false;
 
   pythonImportsCheck = [ "pyfume" ];

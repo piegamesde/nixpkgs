@@ -21,6 +21,7 @@ buildOctavePackage rec {
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ KarlJoad ];
     description =
-      "Signal processing tools, including filtering, windowing and display functions";
+      "Signal processing tools, including filtering, windowing and display functions"
+      ;
   };
 }

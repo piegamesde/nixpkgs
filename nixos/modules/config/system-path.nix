@@ -112,12 +112,13 @@ in {
 
       pathsToLink = mkOption {
         type = types.listOf types.str;
-        # Note: We need `/lib' to be among `pathsToLink' for NSS modules
-        # to work.
+          # Note: We need `/lib' to be among `pathsToLink' for NSS modules
+          # to work.
         default = [ ];
         example = [ "/" ];
         description = lib.mdDoc
-          "List of directories to be symlinked in {file}`/run/current-system/sw`.";
+          "List of directories to be symlinked in {file}`/run/current-system/sw`."
+          ;
       };
 
       extraOutputsToInstall = mkOption {
@@ -129,14 +130,16 @@ in {
           "devdoc"
         ];
         description = lib.mdDoc
-          "List of additional package outputs to be symlinked into {file}`/run/current-system/sw`.";
+          "List of additional package outputs to be symlinked into {file}`/run/current-system/sw`."
+          ;
       };
 
       extraSetup = mkOption {
         type = types.lines;
         default = "";
         description = lib.mdDoc
-          "Shell fragments to be run after the system environment has been created. This should only be used for things that need to modify the internals of the environment, e.g. generating MIME caches. The environment being built can be accessed at $out.";
+          "Shell fragments to be run after the system environment has been created. This should only be used for things that need to modify the internals of the environment, e.g. generating MIME caches. The environment being built can be accessed at $out."
+          ;
       };
 
     };
@@ -156,8 +159,8 @@ in {
 
   config = {
 
-    environment.systemPackages = requiredPackages
-      ++ config.environment.defaultPackages;
+    environment.systemPackages =
+      requiredPackages ++ config.environment.defaultPackages;
 
     environment.pathsToLink = [
       "/bin"
@@ -185,8 +188,8 @@ in {
       paths = config.environment.systemPackages;
       inherit (config.environment) pathsToLink extraOutputsToInstall;
       ignoreCollisions = true;
-      # !!! Hacky, should modularise.
-      # outputs TODO: note that the tools will often not be linked by default
+        # !!! Hacky, should modularise.
+        # outputs TODO: note that the tools will often not be linked by default
       postBuild = ''
         # Remove wrapped binaries, they shouldn't be accessible via PATH.
         find $out/bin -maxdepth 1 -name ".*-wrapped" -type l -delete

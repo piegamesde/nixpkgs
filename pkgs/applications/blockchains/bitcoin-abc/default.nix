@@ -59,7 +59,7 @@ mkDerivation rec {
 
   cmakeFlags = lib.optionals (!withGui) [ "-DBUILD_BITCOIN_QT=OFF" ];
 
-  # many of the generated scripts lack execute permissions
+    # many of the generated scripts lack execute permissions
   postConfigure = ''
     find ./. -type f -iname "*.sh" -exec chmod +x {} \;
   '';

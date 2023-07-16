@@ -38,10 +38,12 @@ let
   inherit (cudaPackages) cudaFlags backendStdenv;
   inherit (cudaFlags) cudaCapabilities dropDot;
 
-  stdenv = if cudaSupport then
-    backendStdenv
-  else
-    inputs.stdenv;
+  stdenv =
+    if cudaSupport then
+      backendStdenv
+    else
+      inputs.stdenv
+    ;
 
   cudaJoined = symlinkJoin {
     name = "cuda-packages-unsplit";
@@ -114,7 +116,7 @@ stdenv.mkDerivation {
     "-DCUDAToolkit_INCLUDE_DIR=${cudaJoined}/include"
   ];
 
-  # pip wheel->pip install commands copied over from opencv4
+    # pip wheel->pip install commands copied over from opencv4
 
   buildPhase = ''
     make -j faiss
@@ -139,10 +141,10 @@ stdenv.mkDerivation {
     addOpenGLRunpath $demos/bin/*
   '';
 
-  # Need buildPythonPackage for this one
-  # pythonCheckImports = [
-  #   "faiss"
-  # ];
+    # Need buildPythonPackage for this one
+    # pythonCheckImports = [
+    #   "faiss"
+    # ];
 
   passthru = {
     inherit cudaSupport cudaPackages pythonSupport;
@@ -162,7 +164,8 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description =
-      "A library for efficient similarity search and clustering of dense vectors by Facebook Research";
+      "A library for efficient similarity search and clustering of dense vectors by Facebook Research"
+      ;
     homepage = "https://github.com/facebookresearch/faiss";
     license = licenses.mit;
     platforms = platforms.unix;

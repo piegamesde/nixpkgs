@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     openblas
   ];
 
-  # Prepare for the Python binding packaging.
+    # Prepare for the Python binding packaging.
   strictDeps = true;
 
   enableParallelBuilding = true;
@@ -49,9 +49,9 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  # Wrap with RASPA_DIR
-  # so that users can run $out/bin/simulate directly
-  # without the need of a `run` srcipt.
+    # Wrap with RASPA_DIR
+    # so that users can run $out/bin/simulate directly
+    # without the need of a `run` srcipt.
   postInstall = ''
     wrapProgram "$out/bin/simulate" \
       --set RASPA_DIR "$out"

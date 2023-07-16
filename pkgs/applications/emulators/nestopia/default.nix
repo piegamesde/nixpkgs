@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     sha256 = "0frr0gvjh5mxzdhj0ii3sh671slgnzlm8naqlc4h87rx4p4sz2y2";
   };
 
-  # nondeterministic failures when creating directories
+    # nondeterministic failures when creating directories
   enableParallelBuilding = false;
 
   hardeningDisable = [ "format" ];

@@ -29,7 +29,8 @@
 }:
 
 let
-  generic = {
+  generic =
+    {
       version,
       hash,
       extraBuildInputs ? [ ],
@@ -50,7 +51,7 @@ let
 
       postPatch = extraPatch;
 
-      # $out for the library and $examples for the example programs (in examples):
+        # $out for the library and $examples for the example programs (in examples):
       outputs = [
         "out"
         "examples"
@@ -100,7 +101,7 @@ let
         done
       '';
 
-      # Test via TinyWL (the "minimum viable product" Wayland compositor based on wlroots):
+        # Test via TinyWL (the "minimum viable product" Wayland compositor based on wlroots):
       passthru.tests.tinywl = nixosTests.tinywl;
 
       meta = with lib; {
@@ -119,7 +120,8 @@ let
           synthetica
         ];
       };
-    };
+    }
+    ;
 
 in rec {
   wlroots_0_14 = generic {

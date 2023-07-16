@@ -13,7 +13,7 @@ buildPythonPackage rec {
   version = "3.0.1";
   format = "setuptools";
 
-  # The PyPi source doesn't contain tests
+    # The PyPi source doesn't contain tests
   src = fetchFromGitHub {
     owner = "gintas";
     repo = pname;
@@ -23,8 +23,8 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ django ];
 
-  # Tests are failing with Django 3.2
-  # https://github.com/gintas/django-picklefield/issues/58
+    # Tests are failing with Django 3.2
+    # https://github.com/gintas/django-picklefield/issues/58
   doCheck = false;
 
   checkPhase = ''

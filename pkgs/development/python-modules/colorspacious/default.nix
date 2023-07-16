@@ -19,7 +19,8 @@ buildPythonPackage rec {
   meta = {
     homepage = "https://github.com/njsmith/colorspacious";
     description =
-      "A powerful, accurate, and easy-to-use Python library for doing colorspace conversions ";
+      "A powerful, accurate, and easy-to-use Python library for doing colorspace conversions "
+      ;
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ tbenst ];
   };

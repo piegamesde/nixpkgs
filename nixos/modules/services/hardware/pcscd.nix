@@ -10,10 +10,12 @@ with lib;
 let
   cfgFile = pkgs.writeText "reader.conf" config.services.pcscd.readerConfig;
 
-  package = if config.security.polkit.enable then
-    pkgs.pcscliteWithPolkit
-  else
-    pkgs.pcsclite;
+  package =
+    if config.security.polkit.enable then
+      pkgs.pcscliteWithPolkit
+    else
+      pkgs.pcsclite
+    ;
 
   pluginEnv = pkgs.buildEnv {
     name = "pcscd-plugins";
@@ -52,7 +54,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf config.services.pcscd.enable {
 
@@ -67,14 +69,14 @@ in {
       environment.PCSCLITE_HP_DROPDIR = pluginEnv;
       restartTriggers = [ "/etc/reader.conf" ];
 
-      # If the cfgFile is empty and not specified (in which case the default
-      # /etc/reader.conf is assumed), pcscd will happily start going through the
-      # entire confdir (/etc in our case) looking for a config file and try to
-      # parse everything it finds. Doesn't take a lot of imagination to see how
-      # well that works. It really shouldn't do that to begin with, but to work
-      # around it, we force the path to the cfgFile.
-      #
-      # https://github.com/NixOS/nixpkgs/issues/121088
+        # If the cfgFile is empty and not specified (in which case the default
+        # /etc/reader.conf is assumed), pcscd will happily start going through the
+        # entire confdir (/etc in our case) looking for a config file and try to
+        # parse everything it finds. Doesn't take a lot of imagination to see how
+        # well that works. It really shouldn't do that to begin with, but to work
+        # around it, we force the path to the cfgFile.
+        #
+        # https://github.com/NixOS/nixpkgs/issues/121088
       serviceConfig.ExecStart = [
         ""
         "${getBin package}/bin/pcscd -f -x -c ${cfgFile}"

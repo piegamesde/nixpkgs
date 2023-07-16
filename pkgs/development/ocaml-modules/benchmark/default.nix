@@ -14,7 +14,8 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://github.com/Chris00/ocaml-benchmark/releases/download/${version}/benchmark-${version}.tar.gz";
+      "https://github.com/Chris00/ocaml-benchmark/releases/download/${version}/benchmark-${version}.tar.gz"
+      ;
     sha256 = "16wi8ld7c3mq77ylpgbnj8qqqqimyzwxs47v06vyrwpma5pab5xa";
   };
 

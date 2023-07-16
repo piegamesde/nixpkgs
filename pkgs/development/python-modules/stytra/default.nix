@@ -43,7 +43,7 @@ buildPythonPackage rec {
     sha256 = "aab9d07575ef599a9c0ae505656e3c03ec753462df3c15742f1f768f2b578f0a";
   };
 
-  # crashes python
+    # crashes python
   preCheck = ''
     rm stytra/tests/test_z_experiments.py
   '';

@@ -25,20 +25,22 @@ buildPythonPackage rec {
     portalocker
   ] ++ lib.optionals isPy27 [ pathlib2 ];
 
-  # upstream doesn't update this requirement probably because they use pip
+    # upstream doesn't update this requirement probably because they use pip
   postPatch = ''
     substituteInPlace setup.py \
       --replace "portalocker~=1.0" "portalocker"
   '';
 
-  # No tests found
+    # No tests found
   doCheck = false;
 
   meta = with lib; {
     description =
-      "The Microsoft Authentication Library Extensions (MSAL-Extensions) for Python";
+      "The Microsoft Authentication Library Extensions (MSAL-Extensions) for Python"
+      ;
     homepage =
-      "https://github.com/AzureAD/microsoft-authentication-extensions-for-python";
+      "https://github.com/AzureAD/microsoft-authentication-extensions-for-python"
+      ;
     license = licenses.mit;
     maintainers = with maintainers; [ kamadorueda ];
   };

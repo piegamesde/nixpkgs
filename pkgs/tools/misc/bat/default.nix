@@ -39,8 +39,8 @@ rustPlatform.buildRustPackage rec {
     installShellCompletion $releaseDir/build/bat-*/out/assets/completions/bat.{bash,fish,zsh}
   '';
 
-  # Insert Nix-built `less` into PATH because the system-provided one may be too old to behave as
-  # expected with certain flag combinations.
+    # Insert Nix-built `less` into PATH because the system-provided one may be too old to behave as
+    # expected with certain flag combinations.
   postFixup = ''
     wrapProgram "$out/bin/bat" \
       --prefix PATH : "${lib.makeBinPath [ less ]}"

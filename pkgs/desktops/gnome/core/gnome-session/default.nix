@@ -31,7 +31,7 @@
 
 stdenv.mkDerivation rec {
   pname = "gnome-session";
-  # Also bump ./ctl.nix when bumping major version.
+    # Also bump ./ctl.nix when bumping major version.
   version = "44.0";
 
   outputs = [
@@ -99,9 +99,9 @@ stdenv.mkDerivation rec {
       {} +
   '';
 
-  # We move the GNOME sessions to another output since gnome-session is a dependency of
-  # GDM itself. If we do not hide them, it will show broken GNOME sessions when GDM is
-  # enabled without proper GNOME installation.
+    # We move the GNOME sessions to another output since gnome-session is a dependency of
+    # GDM itself. If we do not hide them, it will show broken GNOME sessions when GDM is
+    # enabled without proper GNOME installation.
   postInstall = ''
     mkdir $sessions
     moveToOutput share/wayland-sessions "$sessions"
@@ -111,9 +111,9 @@ stdenv.mkDerivation rec {
     rm -rf $out/libexec/gnome-session-ctl
   '';
 
-  # `bin/gnome-session` will reset the environment when run in wayland, we
-  # therefor wrap `libexec/gnome-session-binary` instead which is the actual
-  # binary needing wrapping
+    # `bin/gnome-session` will reset the environment when run in wayland, we
+    # therefor wrap `libexec/gnome-session-binary` instead which is the actual
+    # binary needing wrapping
   preFixup = ''
     wrapProgram "$out/libexec/gnome-session-binary" \
       --prefix GI_TYPELIB_PATH : "$GI_TYPELIB_PATH" \

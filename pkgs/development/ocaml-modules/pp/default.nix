@@ -11,7 +11,8 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/ocaml-dune/pp/releases/download/${version}/pp-${version}.tbz";
+      "https://github.com/ocaml-dune/pp/releases/download/${version}/pp-${version}.tbz"
+      ;
     hash = "sha256-5KTpjZaxu3aVD81tpOk4yG2YnfTX5I8C96RFlfWvHVY=";
   };
 
@@ -23,7 +24,8 @@ buildDunePackage rec {
 
   meta = with lib; {
     description =
-      "A an alternative pretty printing library to the Format module of the OCaml standard library";
+      "A an alternative pretty printing library to the Format module of the OCaml standard library"
+      ;
     license = licenses.mit;
     platforms = platforms.unix;
     maintainers = with maintainers; [ ];

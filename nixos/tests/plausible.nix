@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
     name = "plausible";
     meta = with lib.maintainers; { maintainers = [ ma27 ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -24,10 +25,12 @@ import ./make-test-python.nix ({
           server = {
             baseUrl = "http://localhost:8000";
             secretKeybaseFile = "${pkgs.writeText "dont-try-this-at-home"
-              "nannannannannannannannannannannannannannannannannannannan_batman!"}";
+              "nannannannannannannannannannannannannannannannannannannan_batman!"}"
+              ;
           };
         };
-      };
+      }
+      ;
 
     testScript = ''
       start_all()

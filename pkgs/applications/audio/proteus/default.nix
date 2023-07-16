@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     libXrandr
     libXrender
   ];
-  # JUCE loads most dependencies at runtime:
+    # JUCE loads most dependencies at runtime:
   runtimeDependencies = map lib.getLib buildInputs;
 
   env.NIX_CFLAGS_COMPILE = toString [
@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     "-ffat-lto-objects"
   ];
 
-  # The default "make install" only installs JUCE, which should not be installed, and does not install proteus.
+    # The default "make install" only installs JUCE, which should not be installed, and does not install proteus.
   installPhase = ''
     runHook preInstall
 

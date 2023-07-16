@@ -32,7 +32,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A command line note-taking, bookmarking, archiving, and knowledge base application";
+      "A command line note-taking, bookmarking, archiving, and knowledge base application"
+      ;
     longDescription = ''
       `nb` creates notes in text-based formats like Markdown, Emacs Org mode,
       and LaTeX, can work with files in any format, can import and export notes

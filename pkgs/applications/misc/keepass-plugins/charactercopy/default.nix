@@ -15,7 +15,8 @@ let
 
     src = fetchurl {
       url =
-        "https://github.com/SketchingDev/Character-Copy/releases/download/v${version}/CharacterCopy.plgx";
+        "https://github.com/SketchingDev/Character-Copy/releases/download/v${version}/CharacterCopy.plgx"
+        ;
       sha256 =
         "f8a81a60cd1aacc04c92a242479a8e4210452add019c52ebfbb1810b58d8800a";
     };
@@ -39,7 +40,7 @@ let
         "i686-linux"
         "x86_64-linux"
       ];
-      # licensing info was found in source files https://github.com/SketchingDev/Character-Copy/search?q=license
+        # licensing info was found in source files https://github.com/SketchingDev/Character-Copy/search?q=license
       license = licenses.gpl2;
       maintainers = with maintainers; [ nazarewk ];
     };

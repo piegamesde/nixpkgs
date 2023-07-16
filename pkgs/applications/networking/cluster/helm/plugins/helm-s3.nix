@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-/9TiY0XdkiNxW5JYeC5WD9hqySCyYYU8lB+Ft5Vm96I=";
 
-  # NOTE: Remove the install and upgrade hooks.
+    # NOTE: Remove the install and upgrade hooks.
   postPatch = ''
     sed -i '/^hooks:/,+2 d' plugin.yaml
   '';

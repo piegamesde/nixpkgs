@@ -140,7 +140,7 @@ stdenv.mkDerivation rec {
     "--set QT_QPA_PLATFORM xcb"
   ];
 
-  # Use nix-provided libraries instead of submodules
+    # Use nix-provided libraries instead of submodules
   postPatch = lib.optionalString stdenv.isDarwin ''
     substituteInPlace CMakeLists.txt \
       --replace "if(NOT APPLE)" "if(true)" \
@@ -182,10 +182,12 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://dolphin-emu.org";
     description = "Gamecube/Wii/Triforce emulator for x86_64 and ARMv8";
-    mainProgram = if stdenv.hostPlatform.isDarwin then
-      "Dolphin"
-    else
-      "dolphin-emu";
+    mainProgram =
+      if stdenv.hostPlatform.isDarwin then
+        "Dolphin"
+      else
+        "dolphin-emu"
+      ;
     branch = "master";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
@@ -195,7 +197,7 @@ stdenv.mkDerivation rec {
       xfix
       ivar
     ];
-    # Requires both LLVM and SDK bump
+      # Requires both LLVM and SDK bump
     broken = stdenv.isDarwin && stdenv.isx86_64;
   };
 }

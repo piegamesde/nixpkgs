@@ -13,7 +13,8 @@ stdenv.mkDerivation {
   src = fetchzip {
     url = "http://pauillac.inria.fr/~ddr/ledit/distrib/src/ledit-2.04.tgz";
     sha512 =
-      "16vlv6rcsddwrvsqqiwxdfv5rxvblhrx0k84g7pjibi0an241yx8aqf8cj4f4sgl5xfs3frqrdf12zqwjf2h4jvk8jyhyar8n0nj3g0";
+      "16vlv6rcsddwrvsqqiwxdfv5rxvblhrx0k84g7pjibi0an241yx8aqf8cj4f4sgl5xfs3frqrdf12zqwjf2h4jvk8jyhyar8n0nj3g0"
+      ;
   };
 
   preBuild = ''
@@ -31,7 +32,8 @@ stdenv.mkDerivation {
   meta = with lib; {
     homepage = "http://pauillac.inria.fr/~ddr/ledit/";
     description =
-      "A line editor, allowing to use shell commands with control characters like in emacs";
+      "A line editor, allowing to use shell commands with control characters like in emacs"
+      ;
     license = licenses.bsd3;
     maintainers = [ maintainers.delta ];
     broken = lib.versionOlder ocaml.version "4.03";

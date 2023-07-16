@@ -48,7 +48,8 @@ buildPythonPackage rec {
     description = "Library to support Elasticsearch for pySigma";
     homepage = "https://github.com/SigmaHQ/pySigma-backend-elasticsearch";
     changelog =
-      "https://github.com/SigmaHQ/pySigma-backend-elasticsearch/releases/tag/v${version}";
+      "https://github.com/SigmaHQ/pySigma-backend-elasticsearch/releases/tag/v${version}"
+      ;
     license = with licenses; [ lgpl21Only ];
     maintainers = with maintainers; [ fab ];
   };

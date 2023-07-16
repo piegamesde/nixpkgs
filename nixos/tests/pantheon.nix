@@ -9,7 +9,8 @@ import ./make-test-python.nix ({
 
     meta = with lib; { maintainers = teams.pantheon.members; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }:
 
@@ -20,11 +21,13 @@ import ./make-test-python.nix ({
         services.xserver.desktopManager.pantheon.enable = true;
 
         environment.systemPackages = [ pkgs.xdotool ];
-      };
+      }
+      ;
 
     enableOCR = true;
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }:
@@ -72,5 +75,6 @@ import ./make-test-python.nix ({
             machine.wait_for_window("io.elementary.terminal")
             machine.sleep(20)
             machine.screenshot("screen")
-      '' ;
+      ''
+      ;
   })

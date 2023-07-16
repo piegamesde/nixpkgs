@@ -21,7 +21,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/popcorn-official/popcorn-desktop/releases/download/v${version}/Popcorn-Time-${version}-linux64.zip";
+      "https://github.com/popcorn-official/popcorn-desktop/releases/download/v${version}/Popcorn-Time-${version}-linux64.zip"
+      ;
     sha256 = "sha256-cbKL5bgweZD/yfi/8KS0L7Raha8PTHqIm4qSPFidjUc=";
   };
 
@@ -57,7 +58,7 @@ stdenv.mkDerivation rec {
     "--prefix PATH : ${lib.makeBinPath [ stdenv.cc ]}"
   ];
 
-  # Extract and copy executable in $out/bin
+    # Extract and copy executable in $out/bin
   installPhase = ''
     mkdir -p $out/share/applications $out/bin $out/opt/bin $out/share/icons/hicolor/scalable/apps/
     # we can't unzip it in $out/lib, because nw.js will start with
@@ -70,7 +71,7 @@ stdenv.mkDerivation rec {
     ln -s $out/opt/popcorntime/src/app/images/icon.png $out/share/icons/hicolor/scalable/apps/popcorntime.png
   '';
 
-  # GSETTINGS_SCHEMAS_PATH is not set in installPhase
+    # GSETTINGS_SCHEMAS_PATH is not set in installPhase
   preFixup = ''
     wrapProgram $out/bin/popcorntime \
       ''${makeWrapperArgs[@]} \

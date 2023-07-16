@@ -49,7 +49,8 @@ let
     copyGemFiles = true;
   };
 
-  mkDesktopItem = {
+  mkDesktopItem =
+    {
       description,
     }:
     makeDesktopItem {
@@ -60,9 +61,11 @@ let
       categories = [ "Network" ];
       comment = description;
       keywords = [ "Mastodon" ];
-    };
+    }
+    ;
 
-  mkInfoPlist = {
+  mkInfoPlist =
+    {
       version,
     }:
     writeText "Info.plist" (lib.generators.toPlist { } {
@@ -75,7 +78,8 @@ let
       CFBundlePackageType = "APPL";
       CFBundleVersion = version;
       CFBundleShortVersionString = version;
-    });
+    })
+    ;
 
   inherit (gems) wrappedRuby;
 in with mikutterPaths;
@@ -133,16 +137,17 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  postInstall = let
-    infoPlist = mkInfoPlist { inherit version; };
-  in
-  lib.optionalString stdenv.isDarwin ''
-    mkdir -p ${appBinDir} ${appResourceDir}
-    install -Dm644 ${infoPlist} ${appPrefixDir}/Info.plist
-    ln -s $out/bin/mikutter ${appBinDir}/mikutter
-    png2icns ${appResourceDir}/mikutter.icns ${iconPath}
-  ''
-  ;
+  postInstall =
+    let
+      infoPlist = mkInfoPlist { inherit version; };
+    in
+    lib.optionalString stdenv.isDarwin ''
+      mkdir -p ${appBinDir} ${appResourceDir}
+      install -Dm644 ${infoPlist} ${appPrefixDir}/Info.plist
+      ln -s $out/bin/mikutter ${appBinDir}/mikutter
+      png2icns ${appResourceDir}/mikutter.icns ${iconPath}
+    ''
+    ;
 
   installCheckPhase = ''
     runHook preInstallCheck

@@ -41,7 +41,8 @@ stdenv.mkDerivation rec {
     #  objstack: assert that the alloc size will fit within a chunk
     name = "CVE-2019-25051.patch";
     url =
-      "https://github.com/gnuaspell/aspell/commit/0718b375425aad8e54e1150313b862e4c6fd324a.patch";
+      "https://github.com/gnuaspell/aspell/commit/0718b375425aad8e54e1150313b862e4c6fd324a.patch"
+      ;
     sha256 = "03z259xrk41x3j190gaprf3mqysyfgh3a04rjmch3h625vj95x39";
   }) ] ++ lib.optional searchNixProfiles ./data-dirs-from-nix-profiles.patch;
 
@@ -64,9 +65,9 @@ stdenv.mkDerivation rec {
     );
   '';
 
-  # Include u-deva.cmap and u-deva.cset in the aspell package
-  # to avoid conflict between 'mr' and 'hi' dictionaries as they
-  # both include those files.
+    # Include u-deva.cmap and u-deva.cset in the aspell package
+    # to avoid conflict between 'mr' and 'hi' dictionaries as they
+    # both include those files.
   postInstall = ''
     cp ${devaMapsSource}/u-deva.{cmap,cset} $out/lib/aspell/
   '';

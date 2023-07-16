@@ -10,7 +10,8 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ hexa ]; };
 
     nodes = {
-      server = {
+      server =
+        {
           config,
           ...
         }: {
@@ -20,9 +21,11 @@ import ./make-test-python.nix ({
             enable = true;
             port = port;
           };
-        };
+        }
+        ;
 
-      client = {
+      client =
+        {
           pkgs,
           ...
         }: {
@@ -52,7 +55,8 @@ import ./make-test-python.nix ({
                   toml.dump(CONFIG, fd)
             '')
           ];
-        };
+        }
+        ;
     };
 
     testScript = ''

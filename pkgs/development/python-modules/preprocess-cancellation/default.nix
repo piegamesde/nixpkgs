@@ -15,7 +15,7 @@ buildPythonPackage rec {
   disabled = pythonOlder "3.6"; # >= 3.6
   format = "pyproject";
 
-  # No tests in PyPI
+    # No tests in PyPI
   src = fetchFromGitHub {
     owner = "kageurufu";
     repo = "cancelobject-preprocessor";

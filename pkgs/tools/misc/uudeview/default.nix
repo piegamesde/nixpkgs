@@ -13,7 +13,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://www.fpx.de/fp/Software/UUDeview/download/${pname}-${version}.tar.gz";
+      "http://www.fpx.de/fp/Software/UUDeview/download/${pname}-${version}.tar.gz"
+      ;
     sha256 = "0dg4v888fxhmf51vxq1z1gd57fslsidn15jf42pj4817vw6m36p4";
   };
 
@@ -33,7 +34,8 @@ stdenv.mkDerivation rec {
     # format hardening
     (fetchpatch {
       url =
-        "https://raw.githubusercontent.com/OpenMandrivaAssociation/uudeview/master/uudeview-0.5.20-fix-str-fmt.patch";
+        "https://raw.githubusercontent.com/OpenMandrivaAssociation/uudeview/master/uudeview-0.5.20-fix-str-fmt.patch"
+        ;
       sha256 = "1biipck60mhpd0j6jwizaisvqa8alisw1dpfqm6zf7ic5b93hmfw";
       extraPrefix = "";
     })

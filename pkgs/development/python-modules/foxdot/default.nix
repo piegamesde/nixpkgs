@@ -21,7 +21,7 @@ buildPythonPackage rec {
     # but FoxDot is totally usable on macOS with the official SuperCollider binary
     ++ lib.optionals stdenv.isLinux [ supercollider ];
 
-  # Requires a running SuperCollider instance
+    # Requires a running SuperCollider instance
   doCheck = false;
 
   meta = with lib; {

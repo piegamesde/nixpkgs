@@ -17,7 +17,8 @@ import ./make-test-python.nix ({
     meta.maintainers = with lib.maintainers; [ marijanp ];
 
     nodes = rec {
-      server = {
+      server =
+        {
           config,
           pkgs,
           ...
@@ -28,18 +29,21 @@ import ./make-test-python.nix ({
             enable = true;
             capabilities.manage = true;
           };
-          networking.firewall.allowedTCPPorts =
-            [ config.services.hledger-web.port ];
+          networking.firewall.allowedTCPPorts = [ config.services.hledger-web.port ]
+            ;
           systemd.services.hledger-web.preStart = ''
             ln -s ${journal} /var/lib/hledger-web/.hledger.journal
           '';
-        };
-      apiserver = {
+        }
+        ;
+      apiserver =
+        {
           ...
         }: {
           imports = [ server ];
           services.hledger-web.serveApi = true;
-        };
+        }
+        ;
     };
 
     testScript = ''

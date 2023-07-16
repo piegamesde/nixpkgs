@@ -14,15 +14,17 @@ with lib;
 let
   cfg = config.networking.nat;
 
-  mkDest = externalIP:
+  mkDest =
+    externalIP:
     if externalIP == null then
       "-j MASQUERADE"
     else
-      "-j SNAT --to-source ${externalIP}";
+      "-j SNAT --to-source ${externalIP}"
+    ;
   dest = mkDest cfg.externalIP;
   destIPv6 = mkDest cfg.externalIPv6;
 
-  # Whether given IP (plus optional port) is an IPv6.
+    # Whether given IP (plus optional port) is an IPv6.
   isIPv6 = ip: builtins.length (lib.splitString ":" ip) > 2;
 
   helpers = import ./helpers.nix { inherit config lib; };
@@ -42,7 +44,8 @@ let
     ${cfg.extraStopCommands}
   '';
 
-  mkSetupNat = {
+  mkSetupNat =
+    {
       iptables,
       dest,
       internalIPs,
@@ -82,19 +85,25 @@ let
 
         ${concatMapStrings (loopbackip:
           let
-            matchIP = if isIPv6 fwd.destination then
-              "[[]([0-9a-fA-F:]+)[]]"
-            else
-              "([0-9.]+)";
+            matchIP =
+              if isIPv6 fwd.destination then
+                "[[]([0-9a-fA-F:]+)[]]"
+              else
+                "([0-9.]+)"
+              ;
             m = builtins.match "${matchIP}:([0-9-]+)" fwd.destination;
-            destinationIP = if m == null then
-              throw "bad ip:ports `${fwd.destination}'"
-            else
-              elemAt m 0;
-            destinationPorts = if m == null then
-              throw "bad ip:ports `${fwd.destination}'"
-            else
-              builtins.replaceStrings [ "-" ] [ ":" ] (elemAt m 1);
+            destinationIP =
+              if m == null then
+                throw "bad ip:ports `${fwd.destination}'"
+              else
+                elemAt m 0
+              ;
+            destinationPorts =
+              if m == null then
+                throw "bad ip:ports `${fwd.destination}'"
+              else
+                builtins.replaceStrings [ "-" ] [ ":" ] (elemAt m 1)
+              ;
           in ''
             # Allow connections to ${loopbackip}:${
               toString fwd.sourcePort
@@ -118,7 +127,8 @@ let
               -j SNAT --to-source ${loopbackip}
           '' ) fwd.loopbackIPs}
       '') forwardPorts}
-    '';
+    ''
+    ;
 
   setupNat = ''
     ${helpers}

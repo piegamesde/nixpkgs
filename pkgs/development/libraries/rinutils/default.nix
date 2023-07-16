@@ -12,7 +12,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/shlomif/${pname}/releases/download/${version}/${pname}-${version}.tar.xz";
+      "https://github.com/shlomif/${pname}/releases/download/${version}/${pname}-${version}.tar.xz"
+      ;
     sha256 = "sha256-2H/hGZcit/qb1QjhNTg/8HiPvX1lXL75dXwjIS+MIXs=";
   };
 
@@ -21,8 +22,8 @@ stdenv.mkDerivation rec {
     perl
   ];
 
-  # https://github.com/shlomif/rinutils/issues/5
-  # (variable was unused at time of writing)
+    # https://github.com/shlomif/rinutils/issues/5
+    # (variable was unused at time of writing)
   postPatch = ''
     substituteInPlace librinutils.pc.in \
       --replace '$'{exec_prefix}/@RINUTILS_INSTALL_MYLIBDIR@ @CMAKE_INSTALL_FULL_LIBDIR@

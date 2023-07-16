@@ -14,7 +14,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/project/quantumminigolf/quantumminigolf/${version}/quantumminigolf-${version}.src.tar.gz";
+      "mirror://sourceforge/project/quantumminigolf/quantumminigolf/${version}/quantumminigolf-${version}.src.tar.gz"
+      ;
     sha256 = "sha256-Y3LUGk6pAuNGVOYkc0WYDbgJFtwJJn+aLRHmCKY7W5k=";
   };
 
@@ -45,7 +46,7 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2;
     maintainers = with maintainers; [ raskin ];
     platforms = platforms.linux;
-    # never built on aarch64-linux since first introduction in nixpkgs
+      # never built on aarch64-linux since first introduction in nixpkgs
     broken = stdenv.isLinux && stdenv.isAarch64;
   };
 }

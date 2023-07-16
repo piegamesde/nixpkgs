@@ -58,7 +58,7 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "flatpak";
   version = "1.14.4";
 
-  # TODO: split out lib once we figure out what to do with triggerdir
+    # TODO: split out lib once we figure out what to do with triggerdir
   outputs = [
     "out"
     "dev"
@@ -70,9 +70,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchurl {
     url =
-      "https://github.com/flatpak/flatpak/releases/download/${finalAttrs.version}/flatpak-${finalAttrs.version}.tar.xz";
-    sha256 =
-      "sha256-ijTb0LZ8Q051mLmOxpCVPQRvDbJuSArq+0bXKuxxZ5k="; # Taken from https://github.com/flatpak/flatpak/releases/
+      "https://github.com/flatpak/flatpak/releases/download/${finalAttrs.version}/flatpak-${finalAttrs.version}.tar.xz"
+      ;
+    sha256 = "sha256-ijTb0LZ8Q051mLmOxpCVPQRvDbJuSArq+0bXKuxxZ5k="
+      ; # Taken from https://github.com/flatpak/flatpak/releases/
   };
 
   patches = [
@@ -145,7 +146,7 @@ stdenv.mkDerivation (finalAttrs: {
     librsvg # for flatpak-validate-icon
   ];
 
-  # Required by flatpak.pc
+    # Required by flatpak.pc
   propagatedBuildInputs = [
     glib
     ostree
@@ -153,7 +154,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeCheckInputs = [ valgrind ];
 
-  # TODO: some issues with temporary files
+    # TODO: some issues with temporary files
   doCheck = false;
 
   NIX_LDFLAGS = "-lpthread";
@@ -179,15 +180,17 @@ stdenv.mkDerivation (finalAttrs: {
     }/share/installed-tests/flatpak"
   ];
 
-  postPatch = let
-    vsc-py = python3.withPackages (pp: [ pp.pyparsing ]);
-  in ''
-    patchShebangs buildutil
-    patchShebangs tests
-    PATH=${
-      lib.makeBinPath [ vsc-py ]
-    }:$PATH patchShebangs --build subprojects/variant-schema-compiler/variant-schema-compiler
-  '' ;
+  postPatch =
+    let
+      vsc-py = python3.withPackages (pp: [ pp.pyparsing ]);
+    in ''
+      patchShebangs buildutil
+      patchShebangs tests
+      PATH=${
+        lib.makeBinPath [ vsc-py ]
+      }:$PATH patchShebangs --build subprojects/variant-schema-compiler/variant-schema-compiler
+    ''
+    ;
 
   preFixup = ''
     gappsWrapperArgs+=(

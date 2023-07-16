@@ -27,7 +27,7 @@ buildDunePackage rec {
 
   minimalOCamlVersion = "4.08";
 
-  # disable xmldiff tests, so we don't need to package unmaintained and legacy pkgs
+    # disable xmldiff tests, so we don't need to package unmaintained and legacy pkgs
   postPatch = "rm -rf examples/xmldiff";
 
   propagatedBuildInputs = [
@@ -43,7 +43,7 @@ buildDunePackage rec {
     uunf
     uucp
   ];
-  # uunf is broken on aarch64
+    # uunf is broken on aarch64
   doCheck = !stdenv.isAarch64;
 
   meta = with lib; {

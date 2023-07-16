@@ -34,23 +34,25 @@ let
     (lib.mapAttrsToList (nm: file: "ln -sv ${file.path or file} $out/${nm}")
       units)}
   '';
-  add-unit-snippet = name: file: ''
-    oldUnit=$(readlink -f "$unitDir/${name}" || echo "$unitDir/${name}")
-    if [ -f "$oldUnit" -a "$oldUnit" != "${file.path or file}" ]; then
-      unitsToStop+=("${name}")
-    fi
-    ln -sf "/etc/systemd-static/${namespace}/${name}" \
-      "$unitDir/.${name}.tmp"
-    mv -T "$unitDir/.${name}.tmp" "$unitDir/${name}"
-    ${lib.concatStringsSep "\n" (map (unit: ''
-      mkdir -p "$unitDir/${unit}.wants"
-      ln -sf "../${name}" \
-        "$unitDir/${unit}.wants/.${name}.tmp"
-      mv -T "$unitDir/${unit}.wants/.${name}.tmp" \
-        "$unitDir/${unit}.wants/${name}"
-    '') file.wanted-by or [ ])}
-    unitsToStart+=("${name}")
-  '';
+  add-unit-snippet =
+    name: file: ''
+      oldUnit=$(readlink -f "$unitDir/${name}" || echo "$unitDir/${name}")
+      if [ -f "$oldUnit" -a "$oldUnit" != "${file.path or file}" ]; then
+        unitsToStop+=("${name}")
+      fi
+      ln -sf "/etc/systemd-static/${namespace}/${name}" \
+        "$unitDir/.${name}.tmp"
+      mv -T "$unitDir/.${name}.tmp" "$unitDir/${name}"
+      ${lib.concatStringsSep "\n" (map (unit: ''
+        mkdir -p "$unitDir/${unit}.wants"
+        ln -sf "../${name}" \
+          "$unitDir/${unit}.wants/.${name}.tmp"
+        mv -T "$unitDir/${unit}.wants/.${name}.tmp" \
+          "$unitDir/${unit}.wants/${name}"
+      '') file.wanted-by or [ ])}
+      unitsToStart+=("${name}")
+    ''
+    ;
 in
 writeScriptBin "setup-systemd-units" ''
   #!${bash}/bin/bash -e

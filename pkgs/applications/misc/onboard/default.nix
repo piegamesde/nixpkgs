@@ -42,7 +42,8 @@ python3.pkgs.buildPythonApplication rec {
 
   src = fetchurl {
     url =
-      "https://launchpad.net/onboard/${majorVersion}/${version}/+download/${pname}-${version}.tar.gz";
+      "https://launchpad.net/onboard/${majorVersion}/${version}/+download/${pname}-${version}.tar.gz"
+      ;
     sha256 = "0r9q38ikmr4in4dwqd8m9gh9xjbgxnfxglnjbfcapw8ybfnf3jh1";
   };
 
@@ -161,7 +162,7 @@ python3.pkgs.buildPythonApplication rec {
     glib-compile-schemas $out/share/glib-2.0/schemas/
   '';
 
-  # Remove ubuntu icons.
+    # Remove ubuntu icons.
   postFixup = ''
     rm -rf  $out/share/icons/ubuntu-mono-*
   '';
@@ -169,7 +170,8 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     homepage = "https://launchpad.net/onboard";
     description =
-      "Onscreen keyboard useful for tablet PC users and for mobility impaired users";
+      "Onscreen keyboard useful for tablet PC users and for mobility impaired users"
+      ;
     maintainers = with maintainers; [ johnramsden ];
     license = licenses.gpl3;
   };

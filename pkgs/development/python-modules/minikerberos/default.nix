@@ -32,7 +32,7 @@ buildPythonPackage rec {
     unicrypto
   ];
 
-  # no tests are published: https://github.com/skelsec/minikerberos/pull/5
+    # no tests are published: https://github.com/skelsec/minikerberos/pull/5
   doCheck = false;
 
   pythonImportsCheck = [ "minikerberos" ];

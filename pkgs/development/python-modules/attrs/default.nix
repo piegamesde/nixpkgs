@@ -33,8 +33,8 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "attr" ];
 
-  # pytest depends on attrs, so we can't do this out-of-the-box.
-  # Instead, we do this as a passthru.tests test.
+    # pytest depends on attrs, so we can't do this out-of-the-box.
+    # Instead, we do this as a passthru.tests test.
   doCheck = false;
 
   passthru.tests = { pytest = callPackage ./tests.nix { }; };

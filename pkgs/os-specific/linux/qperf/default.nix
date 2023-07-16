@@ -23,7 +23,8 @@ stdenv.mkDerivation rec {
   patches = [ (fetchpatch {
     name = "version-bump.patch";
     url =
-      "https://github.com/linux-rdma/qperf/commit/34ec57ddb7e5ae1adfcfc8093065dff90b69a275.patch";
+      "https://github.com/linux-rdma/qperf/commit/34ec57ddb7e5ae1adfcfc8093065dff90b69a275.patch"
+      ;
     hash = "sha256-+7ckhUUB+7BG6qRKv0wgyIxkyvll2xjf3Wk1hpRsDo0=";
   }) ];
 

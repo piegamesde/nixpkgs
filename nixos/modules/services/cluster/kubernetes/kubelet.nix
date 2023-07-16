@@ -13,17 +13,19 @@ let
   otop = options.services.kubernetes;
   cfg = top.kubelet;
 
-  cniConfig = if cfg.cni.config != [ ] && cfg.cni.configDir != null then
-    throw "Verbatim CNI-config and CNI configDir cannot both be set."
-  else if cfg.cni.configDir != null then
-    cfg.cni.configDir
-  else
-    (pkgs.buildEnv {
-      name = "kubernetes-cni-config";
-      paths = imap (i: entry:
-        pkgs.writeTextDir "${toString (10 + i)}-${entry.type}.conf"
-        (builtins.toJSON entry)) cfg.cni.config;
-    });
+  cniConfig =
+    if cfg.cni.config != [ ] && cfg.cni.configDir != null then
+      throw "Verbatim CNI-config and CNI configDir cannot both be set."
+    else if cfg.cni.configDir != null then
+      cfg.cni.configDir
+    else
+      (pkgs.buildEnv {
+        name = "kubernetes-cni-config";
+        paths = imap (i: entry:
+          pkgs.writeTextDir "${toString (10 + i)}-${entry.type}.conf"
+          (builtins.toJSON entry)) cfg.cni.config;
+      })
+    ;
 
   infraContainer = pkgs.dockerTools.buildImage {
     name = "pause";
@@ -104,7 +106,7 @@ in {
     ] "")
   ];
 
-  ###### interface
+    ###### interface
   options.services.kubernetes.kubelet = with lib.types; {
 
     address = mkOption {
@@ -223,14 +225,16 @@ in {
 
     manifests = mkOption {
       description = lib.mdDoc
-        "List of manifests to bootstrap with kubelet (only pods can be created as manifest entry)";
+        "List of manifests to bootstrap with kubelet (only pods can be created as manifest entry)"
+        ;
       type = attrsOf attrs;
       default = { };
     };
 
     nodeIp = mkOption {
       description = lib.mdDoc
-        "IP address of the node. If set, kubelet will use this IP address for the node.";
+        "IP address of the node. If set, kubelet will use this IP address for the node."
+        ;
       default = null;
       type = nullOr str;
     };
@@ -256,7 +260,8 @@ in {
 
     taints = mkOption {
       description = lib.mdDoc
-        "Node taints (https://kubernetes.io/docs/concepts/configuration/assign-pod-node/).";
+        "Node taints (https://kubernetes.io/docs/concepts/configuration/assign-pod-node/)."
+        ;
       default = { };
       type = attrsOf (submodule [ taintOptions ]);
     };
@@ -276,7 +281,8 @@ in {
 
     unschedulable = mkOption {
       description = lib.mdDoc
-        "Whether to set node taint to unschedulable=true as it is the case of node that has only master role.";
+        "Whether to set node taint to unschedulable=true as it is the case of node that has only master role."
+        ;
       default = false;
       type = bool;
     };
@@ -292,7 +298,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
   config = mkMerge [
     (mkIf cfg.enable {
 
@@ -416,7 +422,7 @@ in {
         unitConfig = { StartLimitIntervalSec = 0; };
       };
 
-      # Allways include cni plugins
+        # Allways include cni plugins
       services.kubernetes.kubelet.cni.packages = [
         pkgs.cni-plugins
         pkgs.cni-plugin-flannel

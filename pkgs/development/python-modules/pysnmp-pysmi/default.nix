@@ -29,7 +29,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  # Circular dependency with pysnmplib
+    # Circular dependency with pysnmplib
   doCheck = false;
 
   pythonImportsCheck = [ "pysmi" ];

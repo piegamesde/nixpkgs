@@ -12,10 +12,12 @@ lib.makeScope pkgs.newScope (self:
     #### PLATFORM
 
     libIDL = callPackage ./platform/libIDL {
-      gettext = if stdenv.isDarwin then
-        pkgs.gettext
-      else
-        null;
+      gettext =
+        if stdenv.isDarwin then
+          pkgs.gettext
+        else
+          null
+        ;
     };
 
     ORBit2 = callPackage ./platform/ORBit2 { };
@@ -28,7 +30,7 @@ lib.makeScope pkgs.newScope (self:
 
     libgnomecanvas = callPackage ./platform/libgnomecanvas { };
 
-    # for git-head builds
+      # for git-head builds
     gnome-common = callPackage platform/gnome-common { };
 
     gnome_mime_data = callPackage ./platform/gnome-mime-data { };
@@ -45,7 +47,7 @@ lib.makeScope pkgs.newScope (self:
 
     gtkglext = callPackage ./platform/gtkglext { };
 
-    #### DESKTOP
+      #### DESKTOP
 
     gtksourceview = callPackage ./desktop/gtksourceview {
       autoreconfHook = pkgs.autoreconfHook269;

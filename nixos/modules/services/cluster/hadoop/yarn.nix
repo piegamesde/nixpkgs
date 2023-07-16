@@ -65,7 +65,8 @@ in {
         };
         memoryMB = mkOption {
           description = lib.mdDoc
-            "Amount of physical memory, in MB, that can be allocated for containers.";
+            "Amount of physical memory, in MB, that can be allocated for containers."
+            ;
           type = with types; nullOr ints.positive;
           default = null;
         };
@@ -205,15 +206,16 @@ in {
             "yarn.nodemanager.linux-container-executor.cgroups.hierarchy" =
               "/hadoop-yarn";
             "yarn.nodemanager.linux-container-executor.resources-handler.class" =
-              "org.apache.hadoop.yarn.server.nodemanager.util.CgroupsLCEResourcesHandler";
+              "org.apache.hadoop.yarn.server.nodemanager.util.CgroupsLCEResourcesHandler"
+              ;
             "yarn.nodemanager.linux-container-executor.cgroups.mount" = "true";
             "yarn.nodemanager.linux-container-executor.cgroups.mount-path" =
               "/run/wrappers/yarn-nodemanager/cgroup";
           })
         ];
 
-      networking.firewall.allowedTCPPortRanges =
-        [ (mkIf (cfg.yarn.nodemanager.openFirewall) {
+      networking.firewall.allowedTCPPortRanges = [ (mkIf
+        (cfg.yarn.nodemanager.openFirewall) {
           from = 1024;
           to = 65535;
         }) ];

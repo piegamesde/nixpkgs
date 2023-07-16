@@ -20,10 +20,11 @@
 let
   availablePlugins = rxvt-unicode-plugins;
 
-  # Transform the string "self" to the plugin itself.
-  # It's needed for plugins like bidi who depends on the perl
-  # package they provide themself.
-  mkPerlDeps = p:
+    # Transform the string "self" to the plugin itself.
+    # It's needed for plugins like bidi who depends on the perl
+    # package they provide themself.
+  mkPerlDeps =
+    p:
     let
       deps = p.perlPackages or [ ];
     in
@@ -32,15 +33,16 @@ let
         p
       else
         x) deps
-  ;
+    ;
 
-  # The wrapper is called with a `configure` function
-  # that takes the urxvt plugins as input and produce
-  # the configuration of the wrapper: list of plugins,
-  # extra dependencies and perl dependencies.
-  # This provides simple way to customize urxvt using
-  # the `.override` mechanism.
-  wrapper = {
+    # The wrapper is called with a `configure` function
+    # that takes the urxvt plugins as input and produce
+    # the configuration of the wrapper: list of plugins,
+    # extra dependencies and perl dependencies.
+    # This provides simple way to customize urxvt using
+    # the `.override` mechanism.
+  wrapper =
+    {
       configure,
       ...
     }:
@@ -73,7 +75,7 @@ let
         tests.test = nixosTests.terminal-emulators.urxvt;
       };
     }
-  ;
+    ;
 
 in
 lib.makeOverridable wrapper { inherit configure; }

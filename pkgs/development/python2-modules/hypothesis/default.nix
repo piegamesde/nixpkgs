@@ -24,7 +24,7 @@ buildPythonPackage rec {
   version = "4.57.1";
   pname = "hypothesis";
 
-  # Use github tarballs that includes tests
+    # Use github tarballs that includes tests
   src = fetchFromGitHub {
     owner = "HypothesisWorks";
     repo = "hypothesis-python";

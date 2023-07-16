@@ -41,7 +41,7 @@ buildPythonPackage rec {
       --replace "ffmpeg" "ffmpeg-python"
   '';
 
-  # https://github.com/fwestenberg/reolink/issues/83
+    # https://github.com/fwestenberg/reolink/issues/83
   doCheck = false;
 
   pytestFlagsArray = [ "test.py" ];

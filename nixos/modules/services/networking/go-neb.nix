@@ -52,35 +52,39 @@ in {
   };
 
   config = mkIf cfg.enable {
-    systemd.services.go-neb = let
-      finalConfigFile = if cfg.secretFile == null then
-        configFile
-      else
-        "/var/run/go-neb/config.yaml";
-    in {
-      description = "Extensible matrix bot written in Go";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
-      environment = {
-        BASE_URL = cfg.baseUrl;
-        BIND_ADDRESS = cfg.bindAddress;
-        CONFIG_FILE = finalConfigFile;
-      };
+    systemd.services.go-neb =
+      let
+        finalConfigFile =
+          if cfg.secretFile == null then
+            configFile
+          else
+            "/var/run/go-neb/config.yaml"
+          ;
+      in {
+        description = "Extensible matrix bot written in Go";
+        after = [ "network.target" ];
+        wantedBy = [ "multi-user.target" ];
+        environment = {
+          BASE_URL = cfg.baseUrl;
+          BIND_ADDRESS = cfg.bindAddress;
+          CONFIG_FILE = finalConfigFile;
+        };
 
-      serviceConfig = {
-        ExecStartPre = lib.optional (cfg.secretFile != null) ("+"
-          + pkgs.writeShellScript "pre-start" ''
-            umask 077
-            export $(xargs < ${cfg.secretFile})
-            ${pkgs.envsubst}/bin/envsubst -i "${configFile}" > ${finalConfigFile}
-            chown go-neb ${finalConfigFile}
-          '');
-        RuntimeDirectory = "go-neb";
-        ExecStart = "${pkgs.go-neb}/bin/go-neb";
-        User = "go-neb";
-        DynamicUser = true;
-      };
-    } ;
+        serviceConfig = {
+          ExecStartPre = lib.optional (cfg.secretFile != null) ("+"
+            + pkgs.writeShellScript "pre-start" ''
+              umask 077
+              export $(xargs < ${cfg.secretFile})
+              ${pkgs.envsubst}/bin/envsubst -i "${configFile}" > ${finalConfigFile}
+              chown go-neb ${finalConfigFile}
+            '');
+          RuntimeDirectory = "go-neb";
+          ExecStart = "${pkgs.go-neb}/bin/go-neb";
+          User = "go-neb";
+          DynamicUser = true;
+        };
+      }
+      ;
   };
 
   meta.maintainers = with maintainers; [

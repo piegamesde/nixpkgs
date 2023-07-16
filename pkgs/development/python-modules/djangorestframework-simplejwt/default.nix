@@ -32,7 +32,7 @@ buildPythonPackage rec {
     python-jose
   ];
 
-  # Test raises django.core.exceptions.ImproperlyConfigured
+    # Test raises django.core.exceptions.ImproperlyConfigured
   doCheck = false;
 
   pythonImportsCheck = [ "rest_framework_simplejwt" ];

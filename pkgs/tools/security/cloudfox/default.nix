@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-v8rEsp2mDgfjCO2VvWNIxex8F350MDnZ40bR4szv+3o=";
 
-  # Some tests are failing because of wrong filename/path
+    # Some tests are failing because of wrong filename/path
   doCheck = false;
 
   meta = with lib; {

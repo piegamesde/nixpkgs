@@ -63,7 +63,8 @@ stdenv.mkDerivation rec {
     # https://github.com/pdfpc/pdfpc/pull/687
     (fetchpatch {
       url =
-        "https://github.com/pdfpc/pdfpc/commit/d38edfac63bec54173b4b31eae5c7fb46cd8f714.diff";
+        "https://github.com/pdfpc/pdfpc/commit/d38edfac63bec54173b4b31eae5c7fb46cd8f714.diff"
+        ;
       hash = "sha256-KC2oyzcwU2fUmxaed8qAsKcePwR5KcXgpVdstJg8KmU=";
     })
   ];

@@ -30,17 +30,19 @@ buildPythonPackage rec {
     lxml
   ];
 
-  # Tests require a running Docker instance
+    # Tests require a running Docker instance
   doCheck = false;
 
   pythonImportsCheck = [ "blobfile" ];
 
   meta = with lib; {
     description =
-      "Read Google Cloud Storage, Azure Blobs, and local paths with the same interface";
+      "Read Google Cloud Storage, Azure Blobs, and local paths with the same interface"
+      ;
     homepage = "https://github.com/christopher-hesse/blobfile";
     changelog =
-      "https://github.com/christopher-hesse/blobfile/blob/v${version}/CHANGES.md";
+      "https://github.com/christopher-hesse/blobfile/blob/v${version}/CHANGES.md"
+      ;
     license = licenses.mit;
     maintainers = with maintainers; [ happysalada ];
   };

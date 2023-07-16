@@ -13,7 +13,8 @@ buildGraalvmNativeImage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/babashka/${pname}/releases/download/v${version}/${pname}-${version}-standalone.jar";
+      "https://github.com/babashka/${pname}/releases/download/v${version}/${pname}-${version}-standalone.jar"
+      ;
     sha256 = "sha256-tF+SqKY7tcJvmOATVwKIZemR2A3eqrbhvSBvr7tcq5U=";
   };
 
@@ -36,9 +37,9 @@ buildGraalvmNativeImage rec {
     $out/bin/bb '(vec (dedupe *input*))' <<< '[1 1 1 1 2]' | grep '[1 2]'
   '';
 
-  # As of v1.2.174, this will remove references to ${graalvmDrv}/conf/chronology,
-  # not sure the implications of this but this file is not available in
-  # graalvm19-ce anyway.
+    # As of v1.2.174, this will remove references to ${graalvmDrv}/conf/chronology,
+    # not sure the implications of this but this file is not available in
+    # graalvm19-ce anyway.
   postInstall = ''
     remove-references-to -t ${graalvmDrv} $out/bin/${executable}
   '';

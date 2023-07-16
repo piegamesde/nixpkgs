@@ -16,14 +16,14 @@ python3Packages.buildPythonPackage rec {
     fetchSubmodules = true;
     hash = "sha256-bxnRy+inWNArE2gUA/qDPy7NKvqBm43sbxdIaTc9N28=";
   };
-  # edl has a spurious dependency on "usb" which has nothing to do with the
-  # project and was probably added by accident trying to add pyusb
+    # edl has a spurious dependency on "usb" which has nothing to do with the
+    # project and was probably added by accident trying to add pyusb
   postPatch = ''
     sed -i '/'usb'/d' setup.py
   '';
-  # No tests set up
+    # No tests set up
   doCheck = false;
-  # EDL loaders are ELFs but shouldn't be touched, rest is Python anyways
+    # EDL loaders are ELFs but shouldn't be touched, rest is Python anyways
   dontStrip = true;
   propagatedBuildInputs = with python3Packages; [
     pyusb
@@ -43,7 +43,7 @@ python3Packages.buildPythonPackage rec {
     description = "Qualcomm EDL tool (Sahara / Firehose / Diag)";
     license = licenses.mit;
     maintainers = with maintainers; [ lorenz ];
-    # Case-sensitive files in 'Loader' submodule
+      # Case-sensitive files in 'Loader' submodule
     broken = stdenv.isDarwin;
   };
 }

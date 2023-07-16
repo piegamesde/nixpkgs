@@ -36,7 +36,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Multibase is a protocol for distinguishing base encodings and other simple string encodings";
+      "Multibase is a protocol for distinguishing base encodings and other simple string encodings"
+      ;
     homepage = "https://github.com/multiformats/py-multibase";
     license = licenses.mit;
     maintainers = with maintainers; [ rakesh4g ];

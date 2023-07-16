@@ -22,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-KOZN9oxPb91l8QVU07I49UMNXqox8j+oekA1fMtj6l8=";
   };
 
-  # Tests have additional requirements
+    # Tests have additional requirements
   doCheck = false;
 
   pythonImportsCheck = [ "stickytape" ];

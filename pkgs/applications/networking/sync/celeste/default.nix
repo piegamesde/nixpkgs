@@ -26,7 +26,8 @@ let
   librclone-mismatched-types-patch = fetchpatch {
     name = "use-c_char-to-be-platform-independent.patch";
     url =
-      "https://github.com/trevyn/librclone/commit/91fdf3fa5f5eea0dfd06981ba72e09034974fdad.patch";
+      "https://github.com/trevyn/librclone/commit/91fdf3fa5f5eea0dfd06981ba72e09034974fdad.patch"
+      ;
     hash = "sha256-8YDyUNP/ISP5jCliT6UCxZ89fdRFud+6u6P29XdPy58=";
   };
 in
@@ -65,13 +66,13 @@ rustPlatform.buildRustPackage rec {
     popd
   '';
 
-  # Cargo.lock is outdated
+    # Cargo.lock is outdated
   preConfigure = ''
     cargo update --offline
   '';
 
-  # We need to build celeste-tray first because celeste/src/launch.rs reads that file at build time.
-  # Upstream does the same: https://github.com/hwittenborn/celeste/blob/765dfa2/justfile#L1-L3
+    # We need to build celeste-tray first because celeste/src/launch.rs reads that file at build time.
+    # Upstream does the same: https://github.com/hwittenborn/celeste/blob/765dfa2/justfile#L1-L3
   cargoBuildFlags = [
     "--bin"
     "celeste-tray"

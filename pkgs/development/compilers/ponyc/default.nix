@@ -48,7 +48,7 @@ stdenv.mkDerivation (rec {
     z3
   ];
 
-  # Sandbox disallows network access, so disabling problematic networking tests
+    # Sandbox disallows network access, so disabling problematic networking tests
   patches = [
     ./disable-tests.patch
     (substituteAll {
@@ -56,7 +56,7 @@ stdenv.mkDerivation (rec {
       googletest = fetchFromGitHub {
         owner = "google";
         repo = "googletest";
-        # GoogleTest follows Abseil Live at Head philosophy, use latest commit from main branch as often as possible.
+          # GoogleTest follows Abseil Live at Head philosophy, use latest commit from main branch as often as possible.
         rev = "1a727c27aa36c602b24bf170a301aec8686b88e8"; # unstable-2023-03-07
         hash = "sha256-/FWBSxZESwj/QvdNK5BI2EfonT64DP1eGBZR4O8uJww=";
       };
@@ -114,14 +114,15 @@ stdenv.mkDerivation (rec {
            }"
     '';
 
-  # Stripping breaks linking for ponyc
+    # Stripping breaks linking for ponyc
   dontStrip = true;
 
   passthru.tests.pony-corral = pony-corral;
 
   meta = with lib; {
     description =
-      "Pony is an Object-oriented, actor-model, capabilities-secure, high performance programming language";
+      "Pony is an Object-oriented, actor-model, capabilities-secure, high performance programming language"
+      ;
     homepage = "https://www.ponylang.org";
     license = licenses.bsd2;
     maintainers = with maintainers; [

@@ -13,7 +13,7 @@ pythonPackages.buildPythonApplication rec {
     sha256 = "0gs791yb0cndg9879vayvcj329jwhzpk6wrf9ri12l5hg8g490za";
   };
 
-  # git should be on path for tool to work correctly
+    # git should be on path for tool to work correctly
   propagatedBuildInputs = [ git ] ++ (with pythonPackages; [
     click
     colorama
@@ -27,9 +27,9 @@ pythonPackages.buildPythonApplication rec {
     git
     pythonPackages.nose
   ]; # git needs to be on path
-  # 1. git fails to run as it cannot detect the email address, so we set it
-  # 2. $HOME is by default not a valid dir, so we have to set that too
-  # https://github.com/NixOS/nixpkgs/issues/12591
+    # 1. git fails to run as it cannot detect the email address, so we set it
+    # 2. $HOME is by default not a valid dir, so we have to set that too
+    # https://github.com/NixOS/nixpkgs/issues/12591
   preCheck = ''
     export HOME=$TMPDIR
     git config --global user.email "nobody@example.com"

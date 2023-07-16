@@ -38,7 +38,7 @@ buildPythonPackage rec {
     scikit-learn
   ];
 
-  # create scikit-learn dep version consistent
+    # create scikit-learn dep version consistent
   preBuild = ''
     toml-adapt -path pyproject.toml -a change -dep scikit-learn -ver X
   '';
@@ -49,7 +49,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "A framework for solving classification tasks using Nature-inspired algorithms";
+      "A framework for solving classification tasks using Nature-inspired algorithms"
+      ;
     homepage = "https://github.com/lukapecnik/NiaClass";
     license = licenses.mit;
     maintainers = with maintainers; [ firefly-cpp ];

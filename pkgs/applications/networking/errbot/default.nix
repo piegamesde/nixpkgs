@@ -51,7 +51,7 @@ python3.pkgs.buildPythonApplication rec {
     pytestCheckHook
   ];
 
-  # Slack backend test has an import issue
+    # Slack backend test has an import issue
   pytestFlagsArray = [ "--ignore=tests/backend_tests/slack_test.py" ];
 
   disabledTests = [
@@ -69,6 +69,6 @@ python3.pkgs.buildPythonApplication rec {
     maintainers = with maintainers; [ globin ];
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    # flaky on darwin, "RuntimeError: can't start new thread"
+      # flaky on darwin, "RuntimeError: can't start new thread"
   };
 }

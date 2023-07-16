@@ -13,7 +13,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/project/jnetmap/jNetMap%20${version}/jNetMap-${version}${versionSuffix}.jar";
+      "mirror://sourceforge/project/jnetmap/jNetMap%20${version}/jNetMap-${version}${versionSuffix}.jar"
+      ;
     sha256 = "sha256-e4Ssm2Sq/v1YZ7ZudAqgQ7Cz2ffwWbSmLFoKhaZvTPg=";
   };
 
@@ -40,7 +41,7 @@ stdenv.mkDerivation rec {
     homepage = "http://www.rakudave.ch/jnetmap/";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.gpl3Plus;
-    # Upstream supports macOS and Windows too.
+      # Upstream supports macOS and Windows too.
     platforms = platforms.linux;
     maintainers = [ maintainers.bjornfor ];
   };

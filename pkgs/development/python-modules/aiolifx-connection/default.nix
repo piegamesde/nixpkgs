@@ -21,7 +21,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ aiolifx ];
 
-  # tests are not implemented
+    # tests are not implemented
   doCheck = false;
 
   pythonImportsCheck = [ "aiolifx_connection" ];

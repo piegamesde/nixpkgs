@@ -39,12 +39,12 @@ buildPythonPackage rec {
       --replace 'ctypes.CDLL(libname)' 'np.ctypeslib.load_library("libfreeimage", "${freeimage}/lib")'
   '';
 
-  # tests must be run in the build directory
+    # tests must be run in the build directory
   preCheck = ''
     cd build/lib*
   '';
 
-  # re-enable as soon as https://github.com/luispedro/mahotas/issues/97 is fixed
+    # re-enable as soon as https://github.com/luispedro/mahotas/issues/97 is fixed
   disabledTests = [
     "test_colors"
     "test_ellipse_axes"

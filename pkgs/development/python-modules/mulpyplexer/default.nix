@@ -13,7 +13,7 @@ buildPythonPackage rec {
     sha256 = "0c5xzci1djy1yi9hxxh8g67l6ms8r7ad7ja20pv8hfbdysdrwkhl";
   };
 
-  # Project has no tests
+    # Project has no tests
   doCheck = false;
   pythonImportsCheck = [ "mulpyplexer" ];
 

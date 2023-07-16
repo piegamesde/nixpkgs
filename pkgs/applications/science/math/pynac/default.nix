@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "realpartloop.patch";
       url =
-        "https://git.sagemath.org/sage.git/plain/build/pkgs/pynac/patches/realpartloop.patch?h=9.4.beta5";
+        "https://git.sagemath.org/sage.git/plain/build/pkgs/pynac/patches/realpartloop.patch?h=9.4.beta5"
+        ;
       sha256 = "sha256-1nj0xtlFN5fZKEiRLD+tiW/ZtxMQre1ziEGA0OVUGE4=";
     })
   ];

@@ -9,12 +9,14 @@ import ./make-test-python.nix ({
     name = "jackett";
     meta.maintainers = with maintainers; [ etu ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
         services.jackett.enable = true;
-      };
+      }
+      ;
 
     testScript = ''
       machine.start()

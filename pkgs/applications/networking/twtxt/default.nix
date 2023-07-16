@@ -21,7 +21,7 @@ buildPythonApplication rec {
     sha256 = "sha256-CbFh1o2Ijinfb8X+h1GP3Tp+8D0D3/Czt/Uatd1B4cw=";
   };
 
-  # Relax some dependencies
+    # Relax some dependencies
   postPatch = ''
     substituteInPlace setup.py \
       --replace 'aiohttp>=2.2.5,<3' 'aiohttp' \

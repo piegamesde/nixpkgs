@@ -19,7 +19,8 @@ stdenv.mkDerivation {
   '';
   meta = with lib; {
     description =
-      "Application that allows to switch between the graphic cards of dual-GPU MacBook Pro models";
+      "Application that allows to switch between the graphic cards of dual-GPU MacBook Pro models"
+      ;
     homepage = "https://github.com/0xbb/gpu-switch";
     license = licenses.mit;
     platforms = platforms.linux;

@@ -95,53 +95,59 @@ let
     sha256 = "015g8520a0c55gwmv7pfdsgfz2rpdmh3d1nq5n9bd65n35492s3q";
   };
 
-  retdec-support = let
-    version =
-      "2018-02-08"; # make sure to adjust both hashes (once with withPEPatterns=true and once withPEPatterns=false)
-  in
-  fetchzip {
-    url =
-      "https://github.com/avast-tl/retdec-support/releases/download/${version}/retdec-support_${version}.tar.xz";
-    sha256 = if withPEPatterns then
-      "148i8flbyj1y4kfdyzsz7jsj38k4h97npjxj18h6v4wksd4m4jm7"
-    else
-      "0ixv9qyqq40pzyqy6v9jf5rxrvivjb0z0zn260nbmb9gk765bacy";
-    stripRoot = false;
-    # Removing PE signatures reduces this from 3.8GB -> 642MB (uncompressed)
-    postFetch = lib.optionalString (!withPEPatterns) ''
-      rm -r "$out/generic/yara_patterns/static-code/pe"
-    '';
-  } // {
-    inherit
-      version
-      ; # necessary to check the version against the expected version
-  }
-  ;
+  retdec-support =
+    let
+      version = "2018-02-08"
+        ; # make sure to adjust both hashes (once with withPEPatterns=true and once withPEPatterns=false)
+    in
+    fetchzip {
+      url =
+        "https://github.com/avast-tl/retdec-support/releases/download/${version}/retdec-support_${version}.tar.xz"
+        ;
+      sha256 =
+        if withPEPatterns then
+          "148i8flbyj1y4kfdyzsz7jsj38k4h97npjxj18h6v4wksd4m4jm7"
+        else
+          "0ixv9qyqq40pzyqy6v9jf5rxrvivjb0z0zn260nbmb9gk765bacy"
+        ;
+      stripRoot = false;
+        # Removing PE signatures reduces this from 3.8GB -> 642MB (uncompressed)
+      postFetch = lib.optionalString (!withPEPatterns) ''
+        rm -r "$out/generic/yara_patterns/static-code/pe"
+      '';
+    } // {
+      inherit
+        version
+        ; # necessary to check the version against the expected version
+    }
+    ;
 
-  # patch CMakeLists.txt for a dependency and compare the versions to the ones expected by upstream
-  # this has to be applied for every dependency (which it is in postPatch)
-  patchDep = dep: ''
-    # check if our version of dep is the same version that upstream expects
-    echo "Checking version of ${dep.dep_name}"
-    expected_rev="$( sed -n -e 's|.*URL https://github.com/.*/archive/\(.*\)\.zip.*|\1|p' "deps/${dep.dep_name}/CMakeLists.txt" )"
-    if [ "$expected_rev" != '${dep.rev}' ]; then
-      echo "The ${dep.dep_name} dependency has the wrong version: ${dep.rev} while $expected_rev is expected."
-      exit 1
-    fi
+    # patch CMakeLists.txt for a dependency and compare the versions to the ones expected by upstream
+    # this has to be applied for every dependency (which it is in postPatch)
+  patchDep =
+    dep: ''
+      # check if our version of dep is the same version that upstream expects
+      echo "Checking version of ${dep.dep_name}"
+      expected_rev="$( sed -n -e 's|.*URL https://github.com/.*/archive/\(.*\)\.zip.*|\1|p' "deps/${dep.dep_name}/CMakeLists.txt" )"
+      if [ "$expected_rev" != '${dep.rev}' ]; then
+        echo "The ${dep.dep_name} dependency has the wrong version: ${dep.rev} while $expected_rev is expected."
+        exit 1
+      fi
 
-    # patch the CMakeLists.txt file to use our local copy of the dependency instead of fetching it at build time
-    sed -i -e 's|URL .*|URL ${dep}|' "deps/${dep.dep_name}/CMakeLists.txt"
-  '';
+      # patch the CMakeLists.txt file to use our local copy of the dependency instead of fetching it at build time
+      sed -i -e 's|URL .*|URL ${dep}|' "deps/${dep.dep_name}/CMakeLists.txt"
+    ''
+    ;
 
 in
 stdenv.mkDerivation rec {
   pname = "retdec";
 
-  # If you update this you will also need to adjust the versions of the updated dependencies. You can do this by first just updating retdec
-  # itself and trying to build it. The build should fail and tell you which dependencies you have to upgrade to which versions.
-  # I've notified upstream about this problem here:
-  # https://github.com/avast-tl/retdec/issues/412
-  # gcc is pinned to gcc8 in all-packages.nix. That should probably be re-evaluated on update.
+    # If you update this you will also need to adjust the versions of the updated dependencies. You can do this by first just updating retdec
+    # itself and trying to build it. The build should fail and tell you which dependencies you have to upgrade to which versions.
+    # I've notified upstream about this problem here:
+    # https://github.com/avast-tl/retdec/issues/412
+    # gcc is pinned to gcc8 in all-packages.nix. That should probably be re-evaluated on update.
   version = "3.2";
 
   src = fetchFromGitHub {
@@ -175,8 +181,8 @@ stdenv.mkDerivation rec {
   cmakeFlags = [ "-DRETDEC_TESTS=ON" # build tests
     ];
 
-  # all dependencies that are normally fetched during build time (the subdirectories of `deps`)
-  # all of these need to be fetched through nix and the CMakeLists files need to be patched not to fetch them themselves
+    # all dependencies that are normally fetched during build time (the subdirectories of `deps`)
+    # all of these need to be fetched through nix and the CMakeLists files need to be patched not to fetch them themselves
   external_deps = [
     (capstone // { dep_name = "capstone"; })
     (elfio // { dep_name = "elfio"; })
@@ -192,18 +198,20 @@ stdenv.mkDerivation rec {
     (yaramod // { dep_name = "yaramod"; })
   ];
 
-  # Use newer yaramod to fix w/bison 3.2+
+    # Use newer yaramod to fix w/bison 3.2+
   patches = [
     # 2.1.2 -> 2.2.1
     (fetchpatch {
       url =
-        "https://github.com/avast-tl/retdec/commit/c9d23da1c6e23c149ed684c6becd3f3828fb4a55.patch";
+        "https://github.com/avast-tl/retdec/commit/c9d23da1c6e23c149ed684c6becd3f3828fb4a55.patch"
+        ;
       sha256 = "0hdq634f72fihdy10nx2ajbps561w03dfdsy5r35afv9fapla6mv";
     })
     # 2.2.1 -> 2.2.2
     (fetchpatch {
       url =
-        "https://github.com/avast-tl/retdec/commit/fb85f00754b5d13b781385651db557741679721e.patch";
+        "https://github.com/avast-tl/retdec/commit/fb85f00754b5d13b781385651db557741679721e.patch"
+        ;
       sha256 = "0a8mwmwb39pr5ag3q11nv81ncdk51shndqrkm92shqrmdq14va52";
     })
   ];

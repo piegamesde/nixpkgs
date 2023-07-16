@@ -16,7 +16,7 @@ python3.pkgs.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "kspi";
     repo = "notifymuch";
-    # https://github.com/kspi/notifymuch/issues/11
+      # https://github.com/kspi/notifymuch/issues/11
     rev = "9d4aaf54599282ce80643b38195ff501120807f0";
     sha256 = "1lssr7iv43mp5v6nzrfbqlfzx8jcc7m636wlfyhhnd8ydd39n6k4";
   };

@@ -23,7 +23,8 @@ buildPythonPackage rec {
 
   patches = [ (fetchpatch {
     url =
-      "https://github.com/testing-cabal/mock/commit/f3e3d82aab0ede7e25273806dc0505574d85eae2.patch";
+      "https://github.com/testing-cabal/mock/commit/f3e3d82aab0ede7e25273806dc0505574d85eae2.patch"
+      ;
     hash = "sha256-wPrv1/WeICZHn31UqFlICFsny2knvn3+Xg8BZoaGbwQ=";
   }) ];
 

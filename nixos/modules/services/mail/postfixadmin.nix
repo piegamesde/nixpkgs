@@ -11,10 +11,12 @@ let
   cfg = config.services.postfixadmin;
   fpm = config.services.phpfpm.pools.postfixadmin;
   localDB = cfg.database.host == "localhost";
-  user = if localDB then
-    cfg.database.username
-  else
-    "nginx";
+  user =
+    if localDB then
+      cfg.database.username
+    else
+      "nginx"
+    ;
 in {
   options.services.postfixadmin = {
     enable = mkOption {
@@ -75,7 +77,8 @@ in {
       passwordFile = mkOption {
         type = types.path;
         description = lib.mdDoc
-          "Password file for the postgresql connection. Must be readable by user `nginx`.";
+          "Password file for the postgresql connection. Must be readable by user `nginx`."
+          ;
       };
       dbname = mkOption {
         type = types.str;
@@ -88,7 +91,8 @@ in {
       type = types.lines;
       default = "";
       description = lib.mdDoc
-        "Extra configuration for the postfixadmin instance, see postfixadmin's config.inc.php for available options.";
+        "Extra configuration for the postfixadmin instance, see postfixadmin's config.inc.php for available options."
+        ;
     };
   };
 
@@ -119,8 +123,8 @@ in {
       ${cfg.extraConfig}
     '';
 
-    systemd.tmpfiles.rules =
-      [ "d /var/cache/postfixadmin/templates_c 700 ${user} ${user}" ];
+    systemd.tmpfiles.rules = [ "d /var/cache/postfixadmin/templates_c 700 ${user} ${user}" ]
+      ;
 
     services.nginx = {
       enable = true;
@@ -148,48 +152,49 @@ in {
       enable = true;
       ensureUsers = [ { name = cfg.database.username; } ];
     };
-    # The postgresql module doesn't currently support concepts like
-    # objects owners and extensions; for now we tack on what's needed
-    # here.
-    systemd.services.postfixadmin-postgres = let
-      pgsql = config.services.postgresql;
-    in
-    mkIf localDB {
-      after = [ "postgresql.service" ];
-      bindsTo = [ "postgresql.service" ];
-      wantedBy = [ "multi-user.target" ];
-      path = [
-        pgsql.package
-        pkgs.util-linux
-      ];
-      script = ''
-        set -eu
+      # The postgresql module doesn't currently support concepts like
+      # objects owners and extensions; for now we tack on what's needed
+      # here.
+    systemd.services.postfixadmin-postgres =
+      let
+        pgsql = config.services.postgresql;
+      in
+      mkIf localDB {
+        after = [ "postgresql.service" ];
+        bindsTo = [ "postgresql.service" ];
+        wantedBy = [ "multi-user.target" ];
+        path = [
+          pgsql.package
+          pkgs.util-linux
+        ];
+        script = ''
+          set -eu
 
-        PSQL() {
-            psql --port=${toString pgsql.port} "$@"
-        }
+          PSQL() {
+              psql --port=${toString pgsql.port} "$@"
+          }
 
-        PSQL -tAc "SELECT 1 FROM pg_database WHERE datname = '${cfg.database.dbname}'" | grep -q 1 || PSQL -tAc 'CREATE DATABASE "${cfg.database.dbname}" OWNER "${cfg.database.username}"'
-        current_owner=$(PSQL -tAc "SELECT pg_catalog.pg_get_userbyid(datdba) FROM pg_catalog.pg_database WHERE datname = '${cfg.database.dbname}'")
-        if [[ "$current_owner" != "${cfg.database.username}" ]]; then
-            PSQL -tAc 'ALTER DATABASE "${cfg.database.dbname}" OWNER TO "${cfg.database.username}"'
-            if [[ -e "${config.services.postgresql.dataDir}/.reassigning_${cfg.database.dbname}" ]]; then
-                echo "Reassigning ownership of database ${cfg.database.dbname} to user ${cfg.database.username} failed on last boot. Failing..."
-                exit 1
-            fi
-            touch "${config.services.postgresql.dataDir}/.reassigning_${cfg.database.dbname}"
-            PSQL "${cfg.database.dbname}" -tAc "REASSIGN OWNED BY \"$current_owner\" TO \"${cfg.database.username}\""
-            rm "${config.services.postgresql.dataDir}/.reassigning_${cfg.database.dbname}"
-        fi
-      '';
+          PSQL -tAc "SELECT 1 FROM pg_database WHERE datname = '${cfg.database.dbname}'" | grep -q 1 || PSQL -tAc 'CREATE DATABASE "${cfg.database.dbname}" OWNER "${cfg.database.username}"'
+          current_owner=$(PSQL -tAc "SELECT pg_catalog.pg_get_userbyid(datdba) FROM pg_catalog.pg_database WHERE datname = '${cfg.database.dbname}'")
+          if [[ "$current_owner" != "${cfg.database.username}" ]]; then
+              PSQL -tAc 'ALTER DATABASE "${cfg.database.dbname}" OWNER TO "${cfg.database.username}"'
+              if [[ -e "${config.services.postgresql.dataDir}/.reassigning_${cfg.database.dbname}" ]]; then
+                  echo "Reassigning ownership of database ${cfg.database.dbname} to user ${cfg.database.username} failed on last boot. Failing..."
+                  exit 1
+              fi
+              touch "${config.services.postgresql.dataDir}/.reassigning_${cfg.database.dbname}"
+              PSQL "${cfg.database.dbname}" -tAc "REASSIGN OWNED BY \"$current_owner\" TO \"${cfg.database.username}\""
+              rm "${config.services.postgresql.dataDir}/.reassigning_${cfg.database.dbname}"
+          fi
+        '';
 
-      serviceConfig = {
-        User = pgsql.superUser;
-        Type = "oneshot";
-        RemainAfterExit = true;
-      };
-    }
-    ;
+        serviceConfig = {
+          User = pgsql.superUser;
+          Type = "oneshot";
+          RemainAfterExit = true;
+        };
+      }
+      ;
 
     users.users.${user} = mkIf localDB {
       group = user;

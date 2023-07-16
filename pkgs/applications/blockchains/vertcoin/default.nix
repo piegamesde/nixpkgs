@@ -60,7 +60,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A digital currency with mining decentralisation and ASIC resistance as a key focus";
+      "A digital currency with mining decentralisation and ASIC resistance as a key focus"
+      ;
     homepage = "https://vertcoin.org/";
     license = licenses.mit;
     maintainers = [ maintainers.mmahut ];

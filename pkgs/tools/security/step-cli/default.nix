@@ -30,7 +30,8 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "A zero trust swiss army knife for working with X509, OAuth, JWT, OATH OTP, etc";
+      "A zero trust swiss army knife for working with X509, OAuth, JWT, OATH OTP, etc"
+      ;
     homepage = "https://smallstep.com/cli/";
     changelog =
       "https://github.com/smallstep/cli/blob/v${version}/CHANGELOG.md";

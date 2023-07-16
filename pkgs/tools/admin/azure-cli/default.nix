@@ -18,7 +18,7 @@ let
     hash = "sha256-QcY08YxwGywFCXy3PslEzc5qZd62y4XAcuIC9Udp6Cc=";
   };
 
-  # put packages that needs to be overridden in the py package scope
+    # put packages that needs to be overridden in the py package scope
   py = import ./python-packages.nix { inherit stdenv lib src version python3; };
 in
 py.pkgs.toPythonApplication (py.pkgs.buildAzureCliPackage {
@@ -177,20 +177,20 @@ py.pkgs.toPythonApplication (py.pkgs.buildAzureCliPackage {
     rm $out/bin/az.completion.sh
   '';
 
-  # wrap the executable so that the python packages are available
-  # it's just a shebang script which calls `python -m azure.cli "$@"`
+    # wrap the executable so that the python packages are available
+    # it's just a shebang script which calls `python -m azure.cli "$@"`
   postFixup = ''
     wrapProgram $out/bin/az \
       --set PYTHONPATH $PYTHONPATH
   '';
 
-  # almost the entire test suite requires an azure account setup and networking
-  # ensure that the azure namespaces are setup correctly and that azure.cli can be accessed
+    # almost the entire test suite requires an azure account setup and networking
+    # ensure that the azure namespaces are setup correctly and that azure.cli can be accessed
   checkPhase = ''
     HOME=$TMPDIR $out/bin/az --help > /dev/null
   '';
 
-  # ensure these namespaces are able to be accessed
+    # ensure these namespaces are able to be accessed
   pythonImportsCheck = [
     "azure.batch"
     "azure.cli.core"

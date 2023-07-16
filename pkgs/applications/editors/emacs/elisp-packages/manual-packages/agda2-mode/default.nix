@@ -9,7 +9,7 @@ trivialBuild rec {
 
   dontUnpack = true;
 
-  # already byte-compiled by Agda builder
+    # already byte-compiled by Agda builder
   buildPhase = ''
     agda=`${haskellPackages.Agda}/bin/agda-mode locate`
     cp `dirname $agda`/*.el* .

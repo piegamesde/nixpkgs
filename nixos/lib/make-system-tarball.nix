@@ -58,7 +58,7 @@ stdenv.mkDerivation {
   sources = map (x: x.source) contents;
   targets = map (x: x.target) contents;
 
-  # !!! should use XML.
+    # !!! should use XML.
   inherit symlinks objects;
 
   closureInfo = closureInfo { rootPaths = objects; };

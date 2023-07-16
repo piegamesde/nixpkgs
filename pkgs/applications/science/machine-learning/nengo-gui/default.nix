@@ -17,8 +17,8 @@ python3Packages.buildPythonPackage rec {
 
   propagatedBuildInputs = with python3Packages; [ nengo ];
 
-  # checks req missing:
-  #   pyimgur
+    # checks req missing:
+    #   pyimgur
   doCheck = false;
 
   meta = with lib; {

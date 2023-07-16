@@ -15,7 +15,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/trivia/2021-10-20/trivia-20211020-git.tgz";
+      "http://beta.quicklisp.org/archive/trivia/2021-10-20/trivia-20211020-git.tgz"
+      ;
     sha256 = "0gf63v42pq8cxr7an177p2mf25n5jpqxdf0zb4xqlm2sydk7ng1g";
   };
 

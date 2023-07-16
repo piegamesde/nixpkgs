@@ -69,7 +69,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ testtools ];
 
-  # multiple failures on sandbox
+    # multiple failures on sandbox
   doCheck = false;
 
   checkPhase = ''

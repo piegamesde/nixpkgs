@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
     name = "wmderland";
     meta = with pkgs.lib.maintainers; { maintainers = [ takagiy ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         lib,
         ...
       }: {
@@ -27,19 +28,23 @@ import ./make-test-python.nix ({
             RemainAfterExit = true;
             user = "alice";
           };
-          script = let
-            config = pkgs.writeText "config" ''
-              set $Mod = Mod1
-              bindsym $Mod+Return exec ${pkgs.xterm}/bin/xterm -cm -pc
-            '';
-          in ''
-            mkdir -p $HOME/.config/wmderland
-            cp ${config} $HOME/.config/wmderland/config
-          '' ;
+          script =
+            let
+              config = pkgs.writeText "config" ''
+                set $Mod = Mod1
+                bindsym $Mod+Return exec ${pkgs.xterm}/bin/xterm -cm -pc
+              '';
+            in ''
+              mkdir -p $HOME/.config/wmderland
+              cp ${config} $HOME/.config/wmderland/config
+            ''
+            ;
         };
-      };
+      }
+      ;
 
-    testScript = {
+    testScript =
+      {
         ...
       }: ''
         with subtest("ensure x starts"):
@@ -58,5 +63,6 @@ import ./make-test-python.nix ({
             machine.succeed("pgrep xterm")
             machine.execute("DISPLAY=:0 wmderlandc kill")
             machine.fail("pgrep xterm")
-      '';
+      ''
+      ;
   })

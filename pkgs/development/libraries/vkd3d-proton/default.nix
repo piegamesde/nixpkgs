@@ -11,7 +11,7 @@
 let
   # these are both embedded in the output files
   rev = "83308675078e9ea263fa8c37af95afdd15b3ab71";
-  # git describe --tags
+    # git describe --tags
   shortRev = builtins.substring 0 8 rev;
   realVersion = "v2.8-302-g${shortRev}";
 
@@ -46,7 +46,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/HansKristian-Work/vkd3d-proton";
     description =
-      "A fork of VKD3D, which aims to implement the full Direct3D 12 API on top of Vulkan";
+      "A fork of VKD3D, which aims to implement the full Direct3D 12 API on top of Vulkan"
+      ;
     license = licenses.lgpl21;
     maintainers = with maintainers; [ expipiplus1 ];
     platforms = platforms.all;

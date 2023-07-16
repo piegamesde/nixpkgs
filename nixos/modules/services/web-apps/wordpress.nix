@@ -14,7 +14,8 @@ let
   webserver = config.services.${cfg.webserver};
   stateDir = hostName: "/var/lib/wordpress/${hostName}";
 
-  pkg = hostName: cfg:
+  pkg =
+    hostName: cfg:
     pkgs.stdenv.mkDerivation rec {
       pname = "wordpress-${hostName}";
       version = src.version;
@@ -48,9 +49,11 @@ let
           "cp -r ${language} $out/share/wordpress/wp-content/languages/")
         cfg.languages}
       '';
-    };
+    }
+    ;
 
-  mergeConfig = cfg:
+  mergeConfig =
+    cfg:
     {
       # wordpress is installed onto a read-only file system
       DISALLOW_FILE_EDIT = true;
@@ -64,19 +67,25 @@ let
         }";
       DB_USER = cfg.database.user;
       DB_CHARSET = "utf8";
-      # Always set DB_PASSWORD even when passwordFile is not set. This is the
-      # default Wordpress behaviour.
-      DB_PASSWORD = if (cfg.database.passwordFile != null) then
-        { _file = cfg.database.passwordFile; }
-      else
-        "";
-    } // cfg.settings;
+        # Always set DB_PASSWORD even when passwordFile is not set. This is the
+        # default Wordpress behaviour.
+      DB_PASSWORD =
+        if (cfg.database.passwordFile != null) then
+          { _file = cfg.database.passwordFile; }
+        else
+          ""
+        ;
+    } // cfg.settings
+    ;
 
-  wpConfig = hostName: cfg:
+  wpConfig =
+    hostName: cfg:
     let
-      conf_gen = c:
+      conf_gen =
+        c:
         mapAttrsToList (k: v: "define('${k}', ${mkPhpValue v});")
-        cfg.mergedConfig;
+        cfg.mergedConfig
+        ;
     in
     pkgs.writeTextFile {
       name = "wp-config-${hostName}.php";
@@ -97,9 +106,10 @@ let
       '';
       checkPhase = "${pkgs.php81}/bin/php --syntax-check $target";
     }
-  ;
+    ;
 
-  mkPhpValue = v:
+  mkPhpValue =
+    v:
     let
       isHasAttr = s: isAttrs v && hasAttr s v;
     in if isString v then
@@ -118,7 +128,8 @@ let
     else
       abort "The Wordpress config value ${
         lib.generators.toPretty { } v
-      } can not be encoded.";
+      } can not be encoded."
+    ;
 
   secretsVars = [
     "AUTH_KEY"
@@ -130,23 +141,26 @@ let
     "LOGGED_IN_SALT"
     "NONCE_SALT"
   ];
-  secretsScript = hostStateDir: ''
-    # The match in this line is not a typo, see https://github.com/NixOS/nixpkgs/pull/124839
-    grep -q "LOOGGED_IN_KEY" "${hostStateDir}/secret-keys.php" && rm "${hostStateDir}/secret-keys.php"
-    if ! test -e "${hostStateDir}/secret-keys.php"; then
-      umask 0177
-      echo "<?php" >> "${hostStateDir}/secret-keys.php"
-      ${
-        concatMapStringsSep "\n" (var: ''
-          echo "define('${var}', '`tr -dc a-zA-Z0-9 </dev/urandom | head -c 64`');" >> "${hostStateDir}/secret-keys.php"
-        '') secretsVars
-      }
-      echo "?>" >> "${hostStateDir}/secret-keys.php"
-      chmod 440 "${hostStateDir}/secret-keys.php"
-    fi
-  '';
+  secretsScript =
+    hostStateDir: ''
+      # The match in this line is not a typo, see https://github.com/NixOS/nixpkgs/pull/124839
+      grep -q "LOOGGED_IN_KEY" "${hostStateDir}/secret-keys.php" && rm "${hostStateDir}/secret-keys.php"
+      if ! test -e "${hostStateDir}/secret-keys.php"; then
+        umask 0177
+        echo "<?php" >> "${hostStateDir}/secret-keys.php"
+        ${
+          concatMapStringsSep "\n" (var: ''
+            echo "define('${var}', '`tr -dc a-zA-Z0-9 </dev/urandom | head -c 64`');" >> "${hostStateDir}/secret-keys.php"
+          '') secretsVars
+        }
+        echo "?>" >> "${hostStateDir}/secret-keys.php"
+        chmod 440 "${hostStateDir}/secret-keys.php"
+      fi
+    ''
+    ;
 
-  siteOpts = {
+  siteOpts =
+    {
       lib,
       name,
       config,
@@ -408,7 +422,8 @@ let
       };
 
       config.virtualHost.hostName = mkDefault name;
-    };
+    }
+    ;
 in {
   # interface
   options = {
@@ -442,19 +457,21 @@ in {
     };
   };
 
-  # implementation
+    # implementation
   config = mkIf (eachSite != { }) (mkMerge [
     {
 
       assertions = (mapAttrsToList (hostName: cfg: {
         assertion = cfg.database.createLocally -> cfg.database.user == user;
         message = ''
-          services.wordpress.sites."${hostName}".database.user must be ${user} if the database is to be automatically provisioned'';
+          services.wordpress.sites."${hostName}".database.user must be ${user} if the database is to be automatically provisioned''
+          ;
       }) eachSite) ++ (mapAttrsToList (hostName: cfg: {
-        assertion = cfg.database.createLocally -> cfg.database.passwordFile
-          == null;
+        assertion =
+          cfg.database.createLocally -> cfg.database.passwordFile == null;
         message = ''
-          services.wordpress.sites."${hostName}".database.passwordFile cannot be specified if services.wordpress.sites."${hostName}".database.createLocally is set to true.'';
+          services.wordpress.sites."${hostName}".database.passwordFile cannot be specified if services.wordpress.sites."${hostName}".database.createLocally is set to true.''
+          ;
       }) eachSite);
 
       services.mysql =
@@ -465,9 +482,8 @@ in {
             mapAttrsToList (hostName: cfg: cfg.database.name) eachSite;
           ensureUsers = mapAttrsToList (hostName: cfg: {
             name = cfg.database.user;
-            ensurePermissions = {
-              "${cfg.database.name}.*" = "ALL PRIVILEGES";
-            };
+            ensurePermissions = { "${cfg.database.name}.*" = "ALL PRIVILEGES"; }
+              ;
           }) eachSite;
         };
 

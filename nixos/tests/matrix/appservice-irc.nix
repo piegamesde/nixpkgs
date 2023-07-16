@@ -9,7 +9,8 @@ import ../make-test-python.nix ({
     meta = { maintainers = pkgs.matrix-appservice-irc.meta.maintainers; };
 
     nodes = {
-      homeserver = {
+      homeserver =
+        {
           pkgs,
           ...
         }: {
@@ -23,7 +24,7 @@ import ../make-test-python.nix ({
 
                 enable_registration = true;
 
-                # don't use this in production, always use some form of verification
+                  # don't use this in production, always use some form of verification
                 enable_registration_without_verification = true;
 
                 listeners = [ {
@@ -48,9 +49,11 @@ import ../make-test-python.nix ({
 
             networking.firewall.allowedTCPPorts = [ 8008 ];
           };
-        };
+        }
+        ;
 
-      ircd = {
+      ircd =
+        {
           pkgs,
           ...
         }: {
@@ -71,9 +74,11 @@ import ../make-test-python.nix ({
             '';
           };
           networking.firewall.allowedTCPPorts = [ 6667 ];
-        };
+        }
+        ;
 
-      appservice = {
+      appservice =
+        {
           pkgs,
           ...
         }: {
@@ -97,14 +102,16 @@ import ../make-test-python.nix ({
           };
 
           networking.firewall.allowedTCPPorts = [ 8009 ];
-        };
+        }
+        ;
 
-      client = {
+      client =
+        {
           pkgs,
           ...
         }: {
-          environment.systemPackages =
-            [ (pkgs.writers.writePython3Bin "do_test" {
+          environment.systemPackages = [ (pkgs.writers.writePython3Bin
+            "do_test" {
               libraries = [ pkgs.python3Packages.matrix-nio ];
               flakeIgnore = [
                 # We don't live in the dark ages anymore.
@@ -198,7 +205,8 @@ import ../make-test-python.nix ({
               if __name__ == "__main__":
                   asyncio.run(run(sys.argv[1]))
             '') ];
-        };
+        }
+        ;
     };
 
     testScript = ''

@@ -4,7 +4,8 @@
   callPackage,
 }:
 let
-  common = arch:
+  common =
+    arch:
     callPackage ({
         bison,
         callPackage,
@@ -90,7 +91,8 @@ let
           maintainers = with maintainers; [ felixsinger ];
           platforms = platforms.linux;
         };
-      });
+      })
+    ;
 
 in
 lib.listToAttrs (map (arch: lib.nameValuePair arch (common arch { })) [

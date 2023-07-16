@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  # We are NOT in $sourceRoot here
+    # We are NOT in $sourceRoot here
   postUnpack = ''
     mkdir -p $sourceRoot/lib/qtil
     cp -r qtil/* $sourceRoot/lib/qtil/

@@ -18,7 +18,7 @@ buildPythonPackage rec {
   nativeCheckInputs = [ nose ];
   propagatedBuildInputs = [ six ];
 
-  # No tests included
+    # No tests included
   doCheck = false;
 
   meta = with lib; {

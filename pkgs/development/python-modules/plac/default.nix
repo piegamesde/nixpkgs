@@ -20,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-U3k97YJhQjulYNWcKVx96/5zND5VfsRjA3ZZHWhcDNg=";
   };
 
-  # tests are broken, see https://github.com/ialbert/plac/issues/74
+    # tests are broken, see https://github.com/ialbert/plac/issues/74
   doCheck = false;
 
   checkPhase = ''

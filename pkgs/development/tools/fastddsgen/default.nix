@@ -24,7 +24,7 @@ let
 
   gradle = gradle_7;
 
-  # fake build to pre-download deps into fixed-output derivation
+    # fake build to pre-download deps into fixed-output derivation
   deps = stdenv.mkDerivation {
     pname = "${pname}-deps";
     inherit src version;
@@ -39,7 +39,7 @@ let
       gradle --no-daemon -x submodulesUpdate assemble
     '';
 
-    # perl code mavenizes paths (com.squareup.okio/okio/1.13.0/a9283170b7305c8d92d25aff02a6ab7e45d06cbe/okio-1.13.0.jar -> com/squareup/okio/okio/1.13.0/okio-1.13.0.jar)
+      # perl code mavenizes paths (com.squareup.okio/okio/1.13.0/a9283170b7305c8d92d25aff02a6ab7e45d06cbe/okio-1.13.0.jar -> com/squareup/okio/okio/1.13.0/okio-1.13.0.jar)
     installPhase = ''
       find $GRADLE_USER_HOME/caches/modules-2 -type f -regex '.*\.\(jar\|pom\)' \
         | perl -pe 's#(.*/([^/]+)/([^/]+)/([^/]+)/[0-9a-f]{30,40}/([^/\s]+))$# ($x = $2) =~ tr|\.|/|; "install -Dm444 $1 \$out/$x/$3/$4/$5" #e' \
@@ -61,7 +61,7 @@ stdenv.mkDerivation {
     openjdk17
   ];
 
-  # use our offline deps
+    # use our offline deps
   postPatch = ''
     sed -ie '1i\
     pluginManagement {\

@@ -45,7 +45,7 @@ buildPythonPackage rec {
       --replace "pytest-runner" ""
   '';
 
-  # Most tests fail on darwin
+    # Most tests fail on darwin
   doCheck = !stdenv.isDarwin;
 
   pythonImportsCheck = [ "daphne" ];

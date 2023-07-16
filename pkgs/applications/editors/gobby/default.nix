@@ -57,7 +57,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "http://gobby.0x539.de/";
     description =
-      "A GTK-based collaborative editor supporting multiple documents in one session and a multi-user chat";
+      "A GTK-based collaborative editor supporting multiple documents in one session and a multi-user chat"
+      ;
     license = lib.licenses.gpl2Plus;
     maintainers = [ ];
     platforms = platforms.all;

@@ -10,7 +10,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   src = fetchzip {
     url =
-      "https://github.com/theleagueof/league-spartan/releases/download/${finalAttrs.version}/LeagueSpartan-${finalAttrs.version}.tar.xz";
+      "https://github.com/theleagueof/league-spartan/releases/download/${finalAttrs.version}/LeagueSpartan-${finalAttrs.version}.tar.xz"
+      ;
     hash = "sha256-dkvWRYli8vk+E0DkZ2NWCJKfSfdo4jEcGo0puQpFVVc=";
   };
 
@@ -25,7 +26,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   meta = {
     description =
-      "A fantastic new revival of ATF's classic Spartan, a geometric sans-serif that has no problem kicking its enemies in the chest.";
+      "A fantastic new revival of ATF's classic Spartan, a geometric sans-serif that has no problem kicking its enemies in the chest."
+      ;
     longDescription = ''
       A new classic, this is a bold, modern, geometric sans-serif that has no
       problem kicking its enemies in the chest.

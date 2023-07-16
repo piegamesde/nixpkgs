@@ -18,7 +18,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/cl-colors2/2021-10-20/cl-colors2-20211020-git.tgz";
+      "http://beta.quicklisp.org/archive/cl-colors2/2021-10-20/cl-colors2-20211020-git.tgz"
+      ;
     sha256 = "1vkhcyflp173szwnd1xg7hk0h1f3144qzwnsdv6a16rlxjz9h804";
   };
 

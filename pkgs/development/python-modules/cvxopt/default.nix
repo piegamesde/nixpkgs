@@ -41,8 +41,8 @@ buildPythonPackage rec {
     ]);
   doCheck = !stdenv.isDarwin;
 
-  # similar to Gsl, glpk, fftw there is also a dsdp interface
-  # but dsdp is not yet packaged in nixpkgs
+    # similar to Gsl, glpk, fftw there is also a dsdp interface
+    # but dsdp is not yet packaged in nixpkgs
   preConfigure = (if stdenv.isDarwin then
     ''
       export CVXOPT_BLAS_LIB=openblas

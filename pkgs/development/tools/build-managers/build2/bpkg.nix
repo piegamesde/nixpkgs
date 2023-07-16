@@ -44,13 +44,14 @@ stdenv.mkDerivation rec {
 
   doCheck = !stdenv.isDarwin; # tests hang
 
-  # Failing test
+    # Failing test
   postPatch = ''
     rm tests/rep-create.testscript
   '';
 
-  build2ConfigureFlags =
-    [ "config.bin.lib=${build2.configSharedStatic enableShared enableStatic}" ];
+  build2ConfigureFlags = [ "config.bin.lib=${
+      build2.configSharedStatic enableShared enableStatic
+    }" ];
 
   postInstall = lib.optionalString stdenv.isDarwin ''
     install_name_tool -add_rpath '${
@@ -60,7 +61,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "build2 package dependency manager";
-    # https://build2.org/bpkg/doc/bpkg.xhtml
+      # https://build2.org/bpkg/doc/bpkg.xhtml
     longDescription = ''
       The build2 package dependency manager is used to manipulate build
       configurations, packages, and repositories.

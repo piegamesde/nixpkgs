@@ -51,17 +51,20 @@ lib.makeOverridable ({
     # There are multiple places in the FDO spec that make "boolean" values actually tristate,
     # e.g. StartupNotify, where "unset" is literally defined as "do something reasonable".
     # So, handle null values separately.
-    boolOrNullToString = value:
+    boolOrNullToString =
+      value:
       if value == null then
         null
       else if builtins.isBool value then
         lib.boolToString value
       else
-        throw "makeDesktopItem: value must be a boolean or null!";
+        throw "makeDesktopItem: value must be a boolean or null!"
+      ;
 
-    # Multiple values are represented as one string, joined by semicolons.
-    # Technically, it's possible to escape semicolons in values with \;, but this is currently not implemented.
-    renderList = key: value:
+      # Multiple values are represented as one string, joined by semicolons.
+      # Technically, it's possible to escape semicolons in values with \;, but this is currently not implemented.
+    renderList =
+      key: value:
       if !builtins.isList value then
         throw "makeDesktopItem: value for ${key} must be a list!"
       else if builtins.any (item: lib.hasInfix ";" item) value then
@@ -70,10 +73,11 @@ lib.makeOverridable ({
       else if value == [ ] then
         null
       else
-        builtins.concatStringsSep ";" value;
+        builtins.concatStringsSep ";" value
+      ;
 
-    # The [Desktop Entry] section of the desktop file, as an attribute set.
-    # Please keep in spec order.
+      # The [Desktop Entry] section of the desktop file, as an attribute set.
+      # Please keep in spec order.
     mainSection = {
       "Type" = type;
       "Version" = "1.4";
@@ -98,21 +102,24 @@ lib.makeOverridable ({
       "StartupWMClass" = startupWMClass;
       "URL" = url;
       "PrefersNonDefaultGPU" = boolOrNullToString prefersNonDefaultGPU;
-      # "SingleMainWindow" = boolOrNullToString singleMainWindow;
+        # "SingleMainWindow" = boolOrNullToString singleMainWindow;
     } // extraConfig;
 
-    # Render a single attribute pair to a Key=Value line.
-    # FIXME: this isn't entirely correct for arbitrary strings, as some characters
-    # need to be escaped. There are currently none in nixpkgs though, so this is OK.
-    renderLine = name: value:
+      # Render a single attribute pair to a Key=Value line.
+      # FIXME: this isn't entirely correct for arbitrary strings, as some characters
+      # need to be escaped. There are currently none in nixpkgs though, so this is OK.
+    renderLine =
+      name: value:
       if value != null then
         "${name}=${value}"
       else
-        null;
+        null
+      ;
 
-    # Render a full section of the file from an attrset.
-    # Null values are intentionally left out.
-    renderSection = sectionName: attrs:
+      # Render a full section of the file from an attrset.
+      # Null values are intentionally left out.
+    renderSection =
+      sectionName: attrs:
       lib.pipe attrs [
         (lib.mapAttrsToList renderLine)
         (builtins.filter (v: v != null))
@@ -121,12 +128,14 @@ lib.makeOverridable ({
           [${sectionName}]
           ${section}
         '')
-      ];
+      ]
+      ;
 
     mainSectionRendered = renderSection "Desktop Entry" mainSection;
 
-    # Convert from javaCase names as used in Nix to PascalCase as used in the spec.
-    preprocessAction = {
+      # Convert from javaCase names as used in Nix to PascalCase as used in the spec.
+    preprocessAction =
+      {
         name,
         icon ? null,
         exec ? null
@@ -134,9 +143,12 @@ lib.makeOverridable ({
         "Name" = name;
         "Icon" = icon;
         "Exec" = exec;
-      };
-    renderAction = name: attrs:
-      renderSection "Desktop Action ${name}" (preprocessAction attrs);
+      }
+      ;
+    renderAction =
+      name: attrs:
+      renderSection "Desktop Action ${name}" (preprocessAction attrs)
+      ;
     actionsRendered = lib.mapAttrsToList renderAction actions;
 
     content = [ mainSectionRendered ] ++ actionsRendered;

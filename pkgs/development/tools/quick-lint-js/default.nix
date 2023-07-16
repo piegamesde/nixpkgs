@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
   ];
   doCheck = true;
 
-  # Temporary workaround for https://github.com/NixOS/nixpkgs/pull/108496#issuecomment-1192083379
+    # Temporary workaround for https://github.com/NixOS/nixpkgs/pull/108496#issuecomment-1192083379
   cmakeFlags = [ "-DCMAKE_SKIP_BUILD_RPATH=ON" ];
 
   passthru.tests = {

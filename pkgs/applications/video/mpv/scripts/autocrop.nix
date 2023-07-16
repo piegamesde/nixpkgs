@@ -17,7 +17,8 @@ stdenvNoCC.mkDerivation rec {
 
   meta = {
     description =
-      "This script uses the lavfi cropdetect filter to automatically insert a crop filter with appropriate parameters for the currently playing video.";
+      "This script uses the lavfi cropdetect filter to automatically insert a crop filter with appropriate parameters for the currently playing video."
+      ;
     homepage =
       "https://github.com/mpv-player/mpv/blob/master/TOOLS/lua/autocrop.lua";
     license = lib.licenses.gpl2Plus;

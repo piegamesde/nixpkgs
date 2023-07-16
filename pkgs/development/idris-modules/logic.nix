@@ -17,7 +17,7 @@ build-idris-package {
     sha256 = "0kvn1p0v71vkwlchf20243c47jcfid44w5r0mx4dydijq9gylxfz";
   };
 
-  # tests fail
+    # tests fail
   doCheck = false;
 
   meta = {

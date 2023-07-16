@@ -21,13 +21,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-/55oP6xA1LeLawOBkhh9acaDcObO4L4ojcy7e3vwnBw=";
   };
 
-  preConfigure = let
-    db_root = "${docbook-xsl-ns}/share/xml/docbook-xsl-ns";
-    ac_str = "AC_SUBST(DOCBOOK_ROOT)";
-    ac_str_sub = "DOCBOOK_ROOT=${db_root}; ${ac_str}";
-  in ''
-    substituteInPlace configure.ac --replace '${ac_str}' '${ac_str_sub}'
-  '' ;
+  preConfigure =
+    let
+      db_root = "${docbook-xsl-ns}/share/xml/docbook-xsl-ns";
+      ac_str = "AC_SUBST(DOCBOOK_ROOT)";
+      ac_str_sub = "DOCBOOK_ROOT=${db_root}; ${ac_str}";
+    in ''
+      substituteInPlace configure.ac --replace '${ac_str}' '${ac_str_sub}'
+    ''
+    ;
 
   nativeBuildInputs = [
     autoreconfHook

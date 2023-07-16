@@ -5,7 +5,8 @@
 }:
 
 rec {
-  dockerGen = {
+  dockerGen =
+    {
       version,
       cliRev,
       cliHash,
@@ -74,7 +75,7 @@ rec {
           hash = runcHash;
         };
 
-        # docker/runc already include these patches / are not applicable
+          # docker/runc already include these patches / are not applicable
         patches = [ ];
       });
 
@@ -89,8 +90,8 @@ rec {
           hash = containerdHash;
         };
 
-        buildInputs = oldAttrs.buildInputs
-          ++ lib.optionals withSeccomp [ libseccomp ];
+        buildInputs =
+          oldAttrs.buildInputs ++ lib.optionals withSeccomp [ libseccomp ];
       });
 
       docker-tini = tini.overrideAttrs (oldAttrs: {
@@ -104,7 +105,7 @@ rec {
           hash = tiniHash;
         };
 
-        # Do not remove static from make files as we want a static binary
+          # Do not remove static from make files as we want a static binary
         postPatch = "";
 
         buildInputs = [
@@ -262,7 +263,7 @@ rec {
             "${pluginsRef}/libexec/docker/cli-plugins"
       '';
 
-      # Keep eyes on BUILDTIME format - https://github.com/docker/cli/blob/${version}/scripts/build/.variables
+        # Keep eyes on BUILDTIME format - https://github.com/docker/cli/blob/${version}/scripts/build/.variables
       buildPhase = ''
         export GOCACHE="$TMPDIR/go-cache"
 
@@ -328,7 +329,8 @@ rec {
       meta = with lib; {
         homepage = "https://www.docker.com/";
         description =
-          "An open source project to pack, ship and run any application as a lightweight container";
+          "An open source project to pack, ship and run any application as a lightweight container"
+          ;
         longDescription = ''
           Docker is a platform designed to help developers build, share, and run modern applications.
 
@@ -345,10 +347,10 @@ rec {
         ];
       };
     })
-  ;
+    ;
 
-  # Get revisions from
-  # https://github.com/moby/moby/tree/${version}/hack/dockerfile/install/*
+    # Get revisions from
+    # https://github.com/moby/moby/tree/${version}/hack/dockerfile/install/*
   docker_20_10 = callPackage dockerGen rec {
     version = "20.10.23";
     cliRev = "v${version}";

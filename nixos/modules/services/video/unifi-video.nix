@@ -182,7 +182,8 @@ in {
 
     warnings = optional (options.services.unifi-video.openFirewall.highestPrio
       >= (mkOptionDefault null).priority)
-      "The current services.unifi-video.openFirewall = true default is deprecated and will change to false in 22.11. Set it explicitly to silence this warning.";
+      "The current services.unifi-video.openFirewall = true default is deprecated and will change to false in 22.11. Set it explicitly to silence this warning."
+      ;
 
     users.users.unifi-video = {
       description = "UniFi Video controller daemon user";
@@ -253,7 +254,7 @@ in {
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
       unitConfig.RequiresMountsFor = stateDir;
-      # Make sure package upgrades trigger a service restart
+        # Make sure package upgrades trigger a service restart
       restartTriggers = [
         cfg.unifiVideoPackage
         cfg.mongodbPackage

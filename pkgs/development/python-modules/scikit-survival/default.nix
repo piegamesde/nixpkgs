@@ -46,8 +46,8 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  # Hack needed to make pytest + cython work
-  # https://github.com/NixOS/nixpkgs/pull/82410#issuecomment-827186298
+    # Hack needed to make pytest + cython work
+    # https://github.com/NixOS/nixpkgs/pull/82410#issuecomment-827186298
   preCheck = ''
     export HOME=$(mktemp -d)
     cp -r $TMP/$sourceRoot/tests $HOME
@@ -55,7 +55,7 @@ buildPythonPackage rec {
   '';
   postCheck = "popd";
 
-  # very long tests, unnecessary for a leaf package
+    # very long tests, unnecessary for a leaf package
   disabledTests = [
     "test_coxph"
     "test_datasets"

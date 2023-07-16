@@ -32,7 +32,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "ChromiumOS libevdev. Renamed to avoid conflicts with the standard libevdev found in Linux distros";
+      "ChromiumOS libevdev. Renamed to avoid conflicts with the standard libevdev found in Linux distros"
+      ;
     license = licenses.bsd3;
     platforms = platforms.linux;
     homepage =

@@ -37,7 +37,8 @@ let
     destination = "/include/byteswap.h";
   };
 
-  makeLinuxHeaders = {
+  makeLinuxHeaders =
+    {
       src,
       version,
       patches ? [ ]
@@ -53,10 +54,10 @@ let
       strictDeps = true;
       enableParallelBuilding = true;
 
-      # It may look odd that we use `stdenvNoCC`, and yet explicit depend on a cc.
-      # We do this so we have a build->build, not build->host, C compiler.
+        # It may look odd that we use `stdenvNoCC`, and yet explicit depend on a cc.
+        # We do this so we have a build->build, not build->host, C compiler.
       depsBuildBuild = [ buildPackages.stdenv.cc ];
-      # `elf-header` is null when libc provides `elf.h`.
+        # `elf-header` is null when libc provides `elf.h`.
       nativeBuildInputs = [
         perl
         elf-header
@@ -90,7 +91,7 @@ let
         "HOSTCXX:=$(CXX_FOR_BUILD)"
       ];
 
-      # Skip clean on darwin, case-sensitivity issues.
+        # Skip clean on darwin, case-sensitivity issues.
       buildPhase = lib.optionalString (!stdenvNoCC.buildPlatform.isDarwin) ''
         make mrproper $makeFlags
       '' + (if stdenvNoCC.hostPlatform.isAndroid then
@@ -107,11 +108,11 @@ let
         make headers_check $makeFlags
       '';
 
-      # The following command requires rsync:
-      #   make headers_install INSTALL_HDR_PATH=$out $makeFlags
-      # but rsync depends on popt which does not compile on aarch64 without
-      # updateAutotoolsGnuConfigScriptsHook which is not enabled in stage2,
-      # so we replicate it with cp. This also reduces bootstrap closure size.
+        # The following command requires rsync:
+        #   make headers_install INSTALL_HDR_PATH=$out $makeFlags
+        # but rsync depends on popt which does not compile on aarch64 without
+        # updateAutotoolsGnuConfigScriptsHook which is not enabled in stage2,
+        # so we replicate it with cp. This also reduces bootstrap closure size.
       installPhase = ''
         mkdir -p $out
         cp -r usr/include $out
@@ -128,24 +129,25 @@ let
         license = licenses.gpl2;
         platforms = platforms.linux;
       };
-    };
+    }
+    ;
 in {
   inherit makeLinuxHeaders;
 
-  linuxHeaders = let
-    version = "6.2";
-  in
-  makeLinuxHeaders {
-    inherit version;
-    src = fetchurl {
-      url = "mirror://kernel/linux/kernel/v${
-          lib.versions.major version
-        }.x/linux-${version}.tar.xz";
-      hash = "sha256-dIYvqKtA7a6FuzOFwLcf4QMoi85RhSbWMZeACzy97LE=";
-    };
-    patches =
-      [ ./no-relocs.patch # for building x86 kernel headers on non-ELF platforms
-      ];
-  }
-  ;
+  linuxHeaders =
+    let
+      version = "6.2";
+    in
+    makeLinuxHeaders {
+      inherit version;
+      src = fetchurl {
+        url = "mirror://kernel/linux/kernel/v${
+            lib.versions.major version
+          }.x/linux-${version}.tar.xz";
+        hash = "sha256-dIYvqKtA7a6FuzOFwLcf4QMoi85RhSbWMZeACzy97LE=";
+      };
+      patches = [ ./no-relocs.patch # for building x86 kernel headers on non-ELF platforms
+        ];
+    }
+    ;
 }

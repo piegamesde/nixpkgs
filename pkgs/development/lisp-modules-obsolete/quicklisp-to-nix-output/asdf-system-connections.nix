@@ -13,7 +13,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/asdf-system-connections/2017-01-24/asdf-system-connections-20170124-git.tgz";
+      "http://beta.quicklisp.org/archive/asdf-system-connections/2017-01-24/asdf-system-connections-20170124-git.tgz"
+      ;
     sha256 = "0h8237bq3niw6glcsps77n1ykcmc5bjkcrbjyxjgkmcb1c5kwwpq";
   };
 

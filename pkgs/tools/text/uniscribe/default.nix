@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Explains Unicode characters/code points: Displays their name, category, and shows compositions";
+      "Explains Unicode characters/code points: Displays their name, category, and shows compositions"
+      ;
     homepage = "https://github.com/janlelis/uniscribe";
     license = licenses.mit;
     maintainers = with maintainers; [ kjeremy ];

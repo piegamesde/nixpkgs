@@ -47,8 +47,8 @@ stdenv.mkDerivation rec {
         "0"
     }" ];
 
-  # when using SDL_compat instead of SDL_classic, SDL_mixer isn't correctly
-  # detected, but there is no harm just specifying it
+    # when using SDL_compat instead of SDL_classic, SDL_mixer isn't correctly
+    # detected, but there is no harm just specifying it
   env.NIX_CFLAGS_COMPILE = toString [ "-I${lib.getDev SDL_mixer}/include/SDL" ];
 
   installPhase = ''

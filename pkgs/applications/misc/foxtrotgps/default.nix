@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
   pname = "foxtrotgps";
   version = "1.2.2+331";
 
-  # Pull directly from bzr because gpsd API version 9 is not supported on latest release
+    # Pull directly from bzr because gpsd API version 9 is not supported on latest release
   src = srcs.foxtrot;
 
   nativeBuildInputs = [
@@ -69,10 +69,10 @@ stdenv.mkDerivation rec {
     chmod -R u+w $sourceRoot/doc/screenshots
   '';
 
-  # Remove when foxtrotgps supports gpsd 3.23.1
-  # Patch for compatibility with gpsd 3.23.1. This was added for foxtrotgps
-  # 1.2.2+331. The command can be removed if the build of a newer version
-  # succeeds without it.
+    # Remove when foxtrotgps supports gpsd 3.23.1
+    # Patch for compatibility with gpsd 3.23.1. This was added for foxtrotgps
+    # 1.2.2+331. The command can be removed if the build of a newer version
+    # succeeds without it.
   postPatch = ''
     substituteInPlace src/gps_functions.c --replace "STATUS_NO_FIX" "STATUS_UNK"
   '';

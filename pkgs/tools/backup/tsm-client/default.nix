@@ -68,7 +68,8 @@ let
   meta = {
     homepage = "https://www.ibm.com/products/data-protection-and-recovery";
     downloadPage =
-      "https://www.ibm.com/support/pages/ibm-spectrum-protect-downloads-latest-fix-packs-and-interim-fixes";
+      "https://www.ibm.com/support/pages/ibm-spectrum-protect-downloads-latest-fix-packs-and-interim-fixes"
+      ;
     platforms = [ "x86_64-linux" ];
     mainProgram = "dsmc";
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
@@ -95,7 +96,8 @@ let
     test-gui = nixosTests.tsm-client-gui;
   };
 
-  mkSrcUrl = version:
+  mkSrcUrl =
+    version:
     let
       major = lib.versions.major version;
       minor = lib.versions.minor version;
@@ -108,7 +110,7 @@ let
       else
         "patches"
     }/client/v${major}r${minor}/Linux/LinuxX86/BA/v${major}${minor}${patch}/${version}-TIV-TSMBAC-LinuxX86.tar"
-  ;
+    ;
 
   unwrapped = stdenv.mkDerivation rec {
     name = "tsm-client-${version}-unwrapped";
@@ -116,7 +118,8 @@ let
     src = fetchurl {
       url = mkSrcUrl version;
       hash =
-        "sha512-DZCXb3fZO2VYJJJUdjGt9TSdrYNhf8w7QMgEERzX8xb74jjA+UPNI2dbNCeja/vrgRYLYipWZPyjTQJmkxlM/g==";
+        "sha512-DZCXb3fZO2VYJJJUdjGt9TSdrYNhf8w7QMgEERzX8xb74jjA+UPNI2dbNCeja/vrgRYLYipWZPyjTQJmkxlM/g=="
+        ;
     };
     inherit meta passthru;
 
@@ -151,8 +154,8 @@ let
       runHook postInstall
     '';
 
-    # fix relative symlinks after `/usr` was moved up one level,
-    # fix absolute symlinks pointing to `/opt`
+      # fix relative symlinks after `/usr` was moved up one level,
+      # fix absolute symlinks pointing to `/opt`
     preFixup = ''
       for link in $out/lib{,64}/* $out/bin/*
       do
@@ -190,13 +193,13 @@ buildEnv {
     "/opt/tivoli/tsm/client/ba/bin"
     "/opt/tivoli/tsm/client/api/bin64"
   ];
-  # * Provide top-level symlinks `dsm_dir` and `dsmi_dir`
-  #   to the so-called "installation directories"
-  # * Add symlinks to the "installation directories"
-  #   that point to the `dsm.sys` configuration files
-  # * Drop the Java GUI executable unless `enableGui` is set
-  # * Create wrappers for the command-line interface to
-  #   prepare `PATH` and `DSM_DIR` environment variables
+    # * Provide top-level symlinks `dsm_dir` and `dsmi_dir`
+    #   to the so-called "installation directories"
+    # * Add symlinks to the "installation directories"
+    #   that point to the `dsm.sys` configuration files
+    # * Drop the Java GUI executable unless `enableGui` is set
+    # * Create wrappers for the command-line interface to
+    #   prepare `PATH` and `DSM_DIR` environment variables
   postBuild = ''
     ln --symbolic --no-target-directory opt/tivoli/tsm/client/ba/bin $out/dsm_dir
     ln --symbolic --no-target-directory opt/tivoli/tsm/client/api/bin64 $out/dsmi_dir

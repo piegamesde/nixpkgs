@@ -14,19 +14,21 @@ let
   settingsFormat = pkgs.formats.ini { };
   configFile = settingsFormat.generate "custom.conf" cfg.gdm.settings;
 
-  xSessionWrapper = if (cfg.setupCommands == "") then
-    null
-  else
-    pkgs.writeScript "gdm-x-session-wrapper" ''
-      #!${pkgs.bash}/bin/bash
-      ${cfg.setupCommands}
-      exec "$@"
-    '';
+  xSessionWrapper =
+    if (cfg.setupCommands == "") then
+      null
+    else
+      pkgs.writeScript "gdm-x-session-wrapper" ''
+        #!${pkgs.bash}/bin/bash
+        ${cfg.setupCommands}
+        exec "$@"
+      ''
+    ;
 
-  # Solves problems like:
-  # https://wiki.archlinux.org/index.php/Talk:Bluetooth_headset#GDMs_pulseaudio_instance_captures_bluetooth_headset
-  # Instead of blacklisting plugins, we use Fedora's PulseAudio configuration for GDM:
-  # https://src.fedoraproject.org/rpms/gdm/blob/master/f/default.pa-for-gdm
+    # Solves problems like:
+    # https://wiki.archlinux.org/index.php/Talk:Bluetooth_headset#GDMs_pulseaudio_instance_captures_bluetooth_headset
+    # Instead of blacklisting plugins, we use Fedora's PulseAudio configuration for GDM:
+    # https://src.fedoraproject.org/rpms/gdm/blob/master/f/default.pa-for-gdm
   pulseConfig = pkgs.writeText "default.pa" ''
     load-module module-device-restore
     load-module module-card-restore
@@ -85,7 +87,7 @@ in {
 
   meta = { maintainers = teams.gnome.members; };
 
-  ###### interface
+    ###### interface
 
   options = {
 
@@ -95,7 +97,7 @@ in {
 
       debug = mkEnableOption (lib.mdDoc "debugging messages in GDM");
 
-      # Auto login options specific to GDM
+        # Auto login options specific to GDM
       autoLogin.delay = mkOption {
         type = types.int;
         default = 0;
@@ -135,7 +137,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.gdm.enable {
 
@@ -151,7 +153,7 @@ in {
 
     users.groups.gdm.gid = config.ids.gids.gdm;
 
-    # GDM needs different xserverArgs, presumable because using wayland by default.
+      # GDM needs different xserverArgs, presumable because using wayland by default.
     services.xserver.tty = null;
     services.xserver.display = null;
     services.xserver.verbose = null;
@@ -189,7 +191,7 @@ in {
         "f /run/gdm/.config/gnome-initial-setup-done 0711 gdm gdm - yes"
       ];
 
-    # Otherwise GDM will not be able to start correctly and display Wayland sessions
+      # Otherwise GDM will not be able to start correctly and display Wayland sessions
     systemd.packages = with pkgs.gnome; [
       gdm
       gnome-session
@@ -197,9 +199,9 @@ in {
     ];
     environment.systemPackages = [ pkgs.gnome.adwaita-icon-theme ];
 
-    # We dont use the upstream gdm service
-    # it has to be disabled since the gdm package has it
-    # https://github.com/NixOS/nixpkgs/issues/108672
+      # We dont use the upstream gdm service
+      # it has to be disabled since the gdm package has it
+      # https://github.com/NixOS/nixpkgs/issues/108672
     systemd.services.gdm.enable = false;
 
     systemd.services.display-manager.wants = [
@@ -223,11 +225,11 @@ in {
     ];
     systemd.services.display-manager.onFailure = [ "plymouth-quit.service" ];
 
-    # Prevent nixos-rebuild switch from bringing down the graphical
-    # session. (If multi-user.target wants plymouth-quit.service which
-    # conflicts display-manager.service, then when nixos-rebuild
-    # switch starts multi-user.target, display-manager.service is
-    # stopped so plymouth-quit.service can be started.)
+      # Prevent nixos-rebuild switch from bringing down the graphical
+      # session. (If multi-user.target wants plymouth-quit.service which
+      # conflicts display-manager.service, then when nixos-rebuild
+      # switch starts multi-user.target, display-manager.service is
+      # stopped so plymouth-quit.service can be started.)
     systemd.services.plymouth-quit.wantedBy = lib.mkForce [ ];
 
     systemd.services.display-manager.serviceConfig = {
@@ -243,52 +245,53 @@ in {
 
     systemd.services.display-manager.path = [ pkgs.gnome.gnome-session ];
 
-    # Allow choosing an user account
+      # Allow choosing an user account
     services.accounts-daemon.enable = true;
 
     services.dbus.packages = [ gdm ];
 
     systemd.user.services.dbus.wantedBy = [ "default.target" ];
 
-    programs.dconf.profiles.gdm = let
-      customDconf = pkgs.writeTextFile {
-        name = "gdm-dconf";
-        destination = "/dconf/gdm-custom";
-        text = ''
-          ${optionalString (!cfg.gdm.autoSuspend) ''
-            [org/gnome/settings-daemon/plugins/power]
-            sleep-inactive-ac-type='nothing'
-            sleep-inactive-battery-type='nothing'
-            sleep-inactive-ac-timeout=0
-            sleep-inactive-battery-timeout=0
-          ''}
-        '';
-      };
+    programs.dconf.profiles.gdm =
+      let
+        customDconf = pkgs.writeTextFile {
+          name = "gdm-dconf";
+          destination = "/dconf/gdm-custom";
+          text = ''
+            ${optionalString (!cfg.gdm.autoSuspend) ''
+              [org/gnome/settings-daemon/plugins/power]
+              sleep-inactive-ac-type='nothing'
+              sleep-inactive-battery-type='nothing'
+              sleep-inactive-ac-timeout=0
+              sleep-inactive-battery-timeout=0
+            ''}
+          '';
+        };
 
-      customDconfDb = pkgs.stdenv.mkDerivation {
-        name = "gdm-dconf-db";
+        customDconfDb = pkgs.stdenv.mkDerivation {
+          name = "gdm-dconf-db";
+          buildCommand = ''
+            ${pkgs.dconf}/bin/dconf compile $out ${customDconf}/dconf
+          '';
+        };
+      in
+      pkgs.stdenv.mkDerivation {
+        name = "dconf-gdm-profile";
         buildCommand = ''
-          ${pkgs.dconf}/bin/dconf compile $out ${customDconf}/dconf
+          # Check that the GDM profile starts with what we expect.
+          if [ $(head -n 1 ${gdm}/share/dconf/profile/gdm) != "user-db:user" ]; then
+            echo "GDM dconf profile changed, please update gdm.nix"
+            exit 1
+          fi
+          # Insert our custom DB behind it.
+          sed '2ifile-db:${customDconfDb}' ${gdm}/share/dconf/profile/gdm > $out
         '';
-      };
-    in
-    pkgs.stdenv.mkDerivation {
-      name = "dconf-gdm-profile";
-      buildCommand = ''
-        # Check that the GDM profile starts with what we expect.
-        if [ $(head -n 1 ${gdm}/share/dconf/profile/gdm) != "user-db:user" ]; then
-          echo "GDM dconf profile changed, please update gdm.nix"
-          exit 1
-        fi
-        # Insert our custom DB behind it.
-        sed '2ifile-db:${customDconfDb}' ${gdm}/share/dconf/profile/gdm > $out
-      '';
-    }
-    ;
+      }
+      ;
 
-    # Use AutomaticLogin if delay is zero, because it's immediate.
-    # Otherwise with TimedLogin with zero seconds the prompt is still
-    # presented and there's a little delay.
+      # Use AutomaticLogin if delay is zero, because it's immediate.
+      # Otherwise with TimedLogin with zero seconds the prompt is still
+      # presented and there's a little delay.
     services.xserver.displayManager.gdm.settings = {
       daemon = mkMerge [
         {
@@ -313,7 +316,7 @@ in {
     environment.etc."gdm/Xsession".source =
       config.services.xserver.displayManager.sessionData.wrapper;
 
-    # GDM LFS PAM modules, adapted somehow to NixOS
+      # GDM LFS PAM modules, adapted somehow to NixOS
     security.pam.services = {
       gdm-launch-environment.text = ''
         auth     required       pam_succeed_if.so audit quiet_success user = gdm

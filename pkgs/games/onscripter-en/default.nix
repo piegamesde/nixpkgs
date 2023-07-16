@@ -21,7 +21,8 @@ stdenv.mkDerivation {
   src = fetchurl {
     # The website is not available now.
     url =
-      "https://www.dropbox.com/s/ag21owy9poyr2oy/onscripter-en-20111009-src.tar.bz2";
+      "https://www.dropbox.com/s/ag21owy9poyr2oy/onscripter-en-20111009-src.tar.bz2"
+      ;
     sha256 = "sha256-pir3ExhehJ9zNygDN83S4GOs5ugDNMjngxEwklAz9c8=";
   };
 
@@ -40,7 +41,7 @@ stdenv.mkDerivation {
 
   configureFlags = [ "--no-werror" ];
 
-  # Without this libvorbisfile.so is not getting linked properly for some reason.
+    # Without this libvorbisfile.so is not getting linked properly for some reason.
   NIX_CFLAGS_LINK = "-lvorbisfile";
 
   preBuild = ''

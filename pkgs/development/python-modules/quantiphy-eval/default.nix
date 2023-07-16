@@ -26,18 +26,18 @@ buildPythonPackage rec {
     sly
   ];
 
-  # this has a circular dependency on quantiphy
+    # this has a circular dependency on quantiphy
   preBuild = ''
     sed -i '/quantiphy>/d' ./pyproject.toml
   '';
 
-  # tests require quantiphy import
+    # tests require quantiphy import
   doCheck = false;
 
-  # Also affected by the circular dependency on quantiphy
-  # pythonImportsCheck = [
-  #   "quantiphy_eval"
-  # ];
+    # Also affected by the circular dependency on quantiphy
+    # pythonImportsCheck = [
+    #   "quantiphy_eval"
+    # ];
 
   meta = with lib; {
     description = "QuantiPhy support for evals in-line";

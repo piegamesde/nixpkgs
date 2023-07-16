@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     gnuplot
   ];
 
-  # Fails on pngio_reg for unknown reason
+    # Fails on pngio_reg for unknown reason
   doCheck = false; # !stdenv.isDarwin;
 
   meta = {

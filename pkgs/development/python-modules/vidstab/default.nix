@@ -26,7 +26,7 @@ buildPythonPackage rec {
     matplotlib
   ];
 
-  # tests not packaged with pypi
+    # tests not packaged with pypi
   doCheck = false;
   pythonImportsCheck = [ "vidstab" ];
 

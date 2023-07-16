@@ -55,7 +55,8 @@ stdenv.mkDerivation rec {
     homepage = "https://zmap.io/";
     license = licenses.asl20;
     description =
-      "Fast single packet network scanner designed for Internet-wide network surveys";
+      "Fast single packet network scanner designed for Internet-wide network surveys"
+      ;
     maintainers = with maintainers; [ ma27 ];
     platforms = platforms.unix;
     broken = stdenv.isDarwin;

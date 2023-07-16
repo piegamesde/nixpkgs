@@ -53,8 +53,8 @@ let
       makeFlags="PREFIX=$out conf_dir=$out/etc/highlight/ CXX=$CXX AR=$AR"
     '';
 
-    # This has to happen _before_ the main build because it does a
-    # `make clean' for some reason.
+      # This has to happen _before_ the main build because it does a
+      # `make clean' for some reason.
     preBuild = lib.optionalString (!stdenv.isDarwin) ''
       make -C extras/swig $makeFlags perl
     '';

@@ -12,7 +12,8 @@
 }:
 
 let
-  packages = self:
+  packages =
+    self:
     let
       generatedJson = { inherit plugins themes languages; };
 
@@ -76,8 +77,8 @@ let
           "passthru"
         ])) { };
 
-      # Create a derivation from the official wordpress.org packages.
-      # This takes the type, the pname and the data generated from the go tool.
+        # Create a derivation from the official wordpress.org packages.
+        # This takes the type, the pname and the data generated from the go tool.
       mkOfficialWordpressDerivation = self.callPackage ({
           mkWordpressDerivation,
           fetchWordpress,
@@ -94,8 +95,8 @@ let
           src = fetchWordpress type data;
         }) { };
 
-      # Filter out all characters that might occur in a version string but that that are not allowed
-      # in store paths.
+        # Filter out all characters that might occur in a version string but that that are not allowed
+        # in store paths.
       filterWPString = builtins.replaceStrings [
         " "
         ","
@@ -136,25 +137,27 @@ let
         ""
       ];
 
-      # Fetch a package from the official wordpress.org SVN.
-      # The data supplied is the data straight from the go tool.
+        # Fetch a package from the official wordpress.org SVN.
+        # The data supplied is the data straight from the go tool.
       fetchWordpress = self.callPackage ({
           fetchsvn,
         }:
         type: data:
         fetchsvn {
           inherit (data) rev sha256;
-          url = if type == "plugin" || type == "theme" then
-            "https://" + type + "s.svn.wordpress.org/" + data.path
-          else if type == "language" then
-            "https://i18n.svn.wordpress.org/core/" + data.version + "/"
-            + data.path
-          else if type == "pluginLanguage" then
-            "https://i18n.svn.wordpress.org/plugins/" + data.path
-          else if type == "themeLanguage" then
-            "https://i18n.svn.wordpress.org/themes/" + data.path
-          else
-            throw "fetchWordpress: invalid package type ${type}";
+          url =
+            if type == "plugin" || type == "theme" then
+              "https://" + type + "s.svn.wordpress.org/" + data.path
+            else if type == "language" then
+              "https://i18n.svn.wordpress.org/core/" + data.version + "/"
+              + data.path
+            else if type == "pluginLanguage" then
+              "https://i18n.svn.wordpress.org/plugins/" + data.path
+            else if type == "themeLanguage" then
+              "https://i18n.svn.wordpress.org/themes/" + data.path
+            else
+              throw "fetchWordpress: invalid package type ${type}"
+            ;
         }) { };
 
     } // lib.mapAttrs (type: pkgs:
@@ -164,9 +167,9 @@ let
             type = lib.removeSuffix "s" type;
             inherit pname data;
           }) pkgs)) generatedJson
-  ;
+    ;
 
-  # This creates an extensible scope.
+    # This creates an extensible scope.
 in
 lib.recursiveUpdate
 ((lib.makeExtensible (_: (lib.makeScope newScope packages))).extend

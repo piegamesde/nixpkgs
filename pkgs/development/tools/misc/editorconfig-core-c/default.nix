@@ -30,7 +30,8 @@ stdenv.mkDerivation rec {
     # https://github.com/editorconfig/editorconfig-core-c/pull/81
     (fetchpatch {
       url =
-        "https://github.com/editorconfig/editorconfig-core-c/commit/e0ead79d3bb4179fe9bccd3e5598ed47cc0863a3.patch";
+        "https://github.com/editorconfig/editorconfig-core-c/commit/e0ead79d3bb4179fe9bccd3e5598ed47cc0863a3.patch"
+        ;
       sha256 = "t/DiPVyyYoMwFpNG6sD+rLWHheFCbMaILXyey6inGdc=";
     })
   ];
@@ -42,8 +43,8 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ pcre2 ];
 
-  # Multiple doxygen can not generate man pages in the same base directory in
-  # parallel: https://github.com/doxygen/doxygen/issues/6293
+    # Multiple doxygen can not generate man pages in the same base directory in
+    # parallel: https://github.com/doxygen/doxygen/issues/6293
   enableParallelBuilding = false;
 
   meta = with lib; {

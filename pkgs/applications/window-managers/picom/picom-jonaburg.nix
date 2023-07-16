@@ -18,7 +18,7 @@ picom.overrideAttrs (oldAttrs: rec {
     description =
       "A fork of picom featuring animations and improved rounded corners.";
     homepage = "https://github.com/jonaburg/picom";
-    maintainers = with maintainers;
-      oldAttrs.meta.maintainers ++ [ michaelBelsanti ];
+    maintainers =
+      with maintainers; oldAttrs.meta.maintainers ++ [ michaelBelsanti ];
   };
 })

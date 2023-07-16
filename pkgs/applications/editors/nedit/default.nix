@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     libXt
   ];
 
-  # the linux config works fine on darwin too!
+    # the linux config works fine on darwin too!
   buildFlags = lib.optional (stdenv.isLinux || stdenv.isDarwin) "linux";
 
   env.NIX_CFLAGS_COMPILE = "-DBUILD_UNTESTED_NEDIT -L${motif}/lib";

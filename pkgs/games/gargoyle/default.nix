@@ -62,32 +62,34 @@ stdenv.mkDerivation rec {
     libvorbis
   ];
 
-  # Workaround build failure on -fno-common toolchains:
-  #   ld: build/linux.release/alan3/Location.o:(.bss+0x0): multiple definition of
-  #     `logFile'; build/linux.release/alan3/act.o:(.bss+0x0): first defined here
-  # TODO: drop once updated to 2022.1 or later.
+    # Workaround build failure on -fno-common toolchains:
+    #   ld: build/linux.release/alan3/Location.o:(.bss+0x0): multiple definition of
+    #     `logFile'; build/linux.release/alan3/act.o:(.bss+0x0): first defined here
+    # TODO: drop once updated to 2022.1 or later.
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   buildPhase = jamenv + "jam -j$NIX_BUILD_CORES";
 
-  installPhase = if stdenv.isDarwin then
-    (substituteAll {
-      inherit (stdenv) shell;
-      isExecutable = true;
-      src = ./darwin.sh;
-    })
-  else
-    jamenv + ''
-      jam -j$NIX_BUILD_CORES install
-      mkdir -p "$out/bin"
-      ln -s ../libexec/gargoyle/gargoyle "$out/bin"
-      mkdir -p "$out/etc"
-      cp garglk/garglk.ini "$out/etc"
-      mkdir -p "$out/share/applications"
-      cp garglk/gargoyle.desktop "$out/share/applications"
-      mkdir -p "$out/share/icons/hicolor/32x32/apps"
-      cp garglk/gargoyle-house.png "$out/share/icons/hicolor/32x32/apps"
-    '';
+  installPhase =
+    if stdenv.isDarwin then
+      (substituteAll {
+        inherit (stdenv) shell;
+        isExecutable = true;
+        src = ./darwin.sh;
+      })
+    else
+      jamenv + ''
+        jam -j$NIX_BUILD_CORES install
+        mkdir -p "$out/bin"
+        ln -s ../libexec/gargoyle/gargoyle "$out/bin"
+        mkdir -p "$out/etc"
+        cp garglk/garglk.ini "$out/etc"
+        mkdir -p "$out/share/applications"
+        cp garglk/gargoyle.desktop "$out/share/applications"
+        mkdir -p "$out/share/icons/hicolor/32x32/apps"
+        cp garglk/gargoyle-house.png "$out/share/icons/hicolor/32x32/apps"
+      ''
+    ;
 
   enableParallelBuilding = true;
 

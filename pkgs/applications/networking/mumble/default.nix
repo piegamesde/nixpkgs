@@ -37,7 +37,8 @@
 }:
 
 let
-  generic = overrides: source:
+  generic =
+    overrides: source:
     stdenv.mkDerivation (source // overrides // {
       pname = overrides.type;
       version = source.version;
@@ -75,9 +76,11 @@ let
         ];
         platforms = platforms.linux;
       };
-    });
+    })
+    ;
 
-  client = source:
+  client =
+    source:
     generic {
       type = "mumble";
 
@@ -122,9 +125,11 @@ let
               ++ lib.optional pipewireSupport pipewire)
           }"
       '';
-    } source;
+    } source
+    ;
 
-  server = source:
+  server =
+    source:
     generic {
       type = "murmur";
 
@@ -140,12 +145,13 @@ let
           grpc
           which
         ];
-    } source;
+    } source
+    ;
 
   source = rec {
     version = "1.4.287";
 
-    # Needs submodules
+      # Needs submodules
     src = fetchFromGitHub {
       owner = "mumble-voip";
       repo = "mumble";
@@ -161,7 +167,8 @@ let
       # Remove with next version update
       (fetchpatch {
         url =
-          "https://github.com/mumble-voip/mumble/commit/13c051b36b387356815cff5d685bc628b74ba136.patch";
+          "https://github.com/mumble-voip/mumble/commit/13c051b36b387356815cff5d685bc628b74ba136.patch"
+          ;
         hash = "sha256-Rq8fb6NFd4DCNWm6OOMYIP7tBllufmQcB5CSxPU4qqg=";
       })
     ];

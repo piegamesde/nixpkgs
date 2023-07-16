@@ -39,7 +39,7 @@ buildPythonPackage rec {
     ws4py
   ];
 
-  # no tests in PyPI tarball
+    # no tests in PyPI tarball
   doCheck = false;
 
   meta = with lib; {

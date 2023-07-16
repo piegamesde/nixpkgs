@@ -24,21 +24,27 @@ let
   wrapper = ./hoogle-local-wrapper.sh;
   isGhcjs = ghc.isGhcjs or false;
   opts = lib.optionalString;
-  haddockExe = if !isGhcjs then
-    "haddock"
-  else
-    "haddock-ghcjs";
-  ghcDocLibDir = if !isGhcjs then
-    ghc.doc + "/share/doc/ghc*/html/libraries"
-  else
-    ghc + "/doc/lib";
-  # On GHCJS, use a stripped down version of GHC's prologue.txt
-  prologue = if !isGhcjs then
-    "${ghcDocLibDir}/prologue.txt"
-  else
-    writeText "ghcjs-prologue.txt" ''
-      This index includes documentation for many Haskell modules.
-    '';
+  haddockExe =
+    if !isGhcjs then
+      "haddock"
+    else
+      "haddock-ghcjs"
+    ;
+  ghcDocLibDir =
+    if !isGhcjs then
+      ghc.doc + "/share/doc/ghc*/html/libraries"
+    else
+      ghc + "/doc/lib"
+    ;
+    # On GHCJS, use a stripped down version of GHC's prologue.txt
+  prologue =
+    if !isGhcjs then
+      "${ghcDocLibDir}/prologue.txt"
+    else
+      writeText "ghcjs-prologue.txt" ''
+        This index includes documentation for many Haskell modules.
+      ''
+    ;
 
   docPackages = lib.closePropagation
     # we grab the doc outputs
@@ -52,14 +58,14 @@ buildPackages.stdenv.mkDerivation {
     hoogle
   ];
 
-  # compiling databases takes less time than copying the results
-  # between machines.
+    # compiling databases takes less time than copying the results
+    # between machines.
   preferLocalBuild = true;
 
-  # we still allow substitutes because a database is relatively small and if it
-  # is already built downloading is probably faster.  The substitution will only
-  # trigger for users who have already cached the database on a substituter and
-  # thus probably intend to substitute it.
+    # we still allow substitutes because a database is relatively small and if it
+    # is already built downloading is probably faster.  The substitution will only
+    # trigger for users who have already cached the database on a substituter and
+    # thus probably intend to substitute it.
   allowSubstitutes = true;
 
   inherit docPackages;
@@ -91,10 +97,12 @@ buildPackages.stdenv.mkDerivation {
     ${lib.concatMapStringsSep "\n" (el: ''
       ln -sfn ${el.haddockDir} "$out/share/doc/hoogle/${el.name}"
     '') (lib.filter (el: el.haddockDir != null) (builtins.map (p: {
-      haddockDir = if p ? haddockDir then
-        p.haddockDir p
-      else
-        null;
+      haddockDir =
+        if p ? haddockDir then
+          p.haddockDir p
+        else
+          null
+        ;
       name = p.pname;
     }) docPackages))}
 

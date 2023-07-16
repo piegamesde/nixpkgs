@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
     "--localedir=${cinnamon-translations}/share/locale"
   ];
 
-  # Taken from libnemo-extension.pc.
+    # Taken from libnemo-extension.pc.
   passthru.extensiondir = "lib/nemo/extensions-3.0";
 
   meta = with lib; {

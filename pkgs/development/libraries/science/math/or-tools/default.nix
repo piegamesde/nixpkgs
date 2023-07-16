@@ -33,26 +33,29 @@ stdenv.mkDerivation rec {
     # Disable test that requires external input: https://github.com/google/or-tools/issues/3429
     (fetchpatch {
       url =
-        "https://github.com/google/or-tools/commit/7072ae92ec204afcbfce17d5360a5884c136ce90.patch";
+        "https://github.com/google/or-tools/commit/7072ae92ec204afcbfce17d5360a5884c136ce90.patch"
+        ;
       hash = "sha256-iWE+atp308q7pC1L1FD6sK8LvWchZ3ofxvXssguozbM=";
     })
     # Fix test that broke in parallel builds: https://github.com/google/or-tools/issues/3461
     (fetchpatch {
       url =
-        "https://github.com/google/or-tools/commit/a26602f24781e7bfcc39612568aa9f4010bb9736.patch";
+        "https://github.com/google/or-tools/commit/a26602f24781e7bfcc39612568aa9f4010bb9736.patch"
+        ;
       hash = "sha256-gM0rW0xRXMYaCwltPK0ih5mdo3HtX6mKltJDHe4gbLc=";
     })
     # Backport fix in cmake test configuration where pip installs newer version from PyPi over local build,
     #  breaking checkPhase: https://github.com/google/or-tools/issues/3260
     (fetchpatch {
       url =
-        "https://github.com/google/or-tools/commit/edd1544375bd55f79168db315151a48faa548fa0.patch";
+        "https://github.com/google/or-tools/commit/edd1544375bd55f79168db315151a48faa548fa0.patch"
+        ;
       hash = "sha256-S//1YM3IoRCp3Ghg8zMF0XXgIpVmaw4gH8cVb9eUbqM=";
     })
   ];
 
-  # or-tools normally attempts to build Protobuf for the build platform when
-  # cross-compiling. Instead, just tell it where to find protoc.
+    # or-tools normally attempts to build Protobuf for the build platform when
+    # cross-compiling. Instead, just tell it where to find protoc.
   postPatch = ''
     echo "set(PROTOC_PRG $(type -p protoc))" > cmake/host.cmake
   '';
@@ -103,10 +106,10 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  # This extra configure step prevents the installer from littering
-  # $out/bin with sample programs that only really function as tests,
-  # and disables the upstream installation of a zipped Python egg that
-  # can’t be imported with our Python setup.
+    # This extra configure step prevents the installer from littering
+    # $out/bin with sample programs that only really function as tests,
+    # and disables the upstream installation of a zipped Python egg that
+    # can’t be imported with our Python setup.
   installPhase = ''
     cmake . -DBUILD_EXAMPLES=OFF -DBUILD_PYTHON=OFF -DBUILD_SAMPLES=OFF
     cmake --install .

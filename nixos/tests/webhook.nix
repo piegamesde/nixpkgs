@@ -9,7 +9,8 @@ in {
   name = "webhook";
 
   nodes = {
-    webhookMachine = {
+    webhookMachine =
+      {
         pkgs,
         ...
       }: {
@@ -38,15 +39,19 @@ in {
           };
           environment.WEBHOOK_MESSAGE = "Templates are working!";
         };
-      };
+      }
+      ;
   };
 
-  extraPythonPackages = p: [
-    p.requests
-    p.types-requests
-  ];
+  extraPythonPackages =
+    p: [
+      p.requests
+      p.types-requests
+    ]
+    ;
 
-  testScript = {
+  testScript =
+    {
       nodes,
       ...
     }: ''
@@ -73,5 +78,6 @@ in {
 
         assert response.status_code == 200
         assert response.content == b"Templates are working!"
-    '';
+    ''
+    ;
 }

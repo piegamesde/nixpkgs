@@ -4,7 +4,8 @@ import ./make-test-python.nix ({
     ...
   }: {
     name = "nix-ld";
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -13,7 +14,8 @@ import ./make-test-python.nix ({
           install -D -m755 ${pkgs.hello}/bin/hello $out/bin/hello
           patchelf $out/bin/hello --set-interpreter $(cat ${pkgs.nix-ld}/nix-support/ldpath)
         '') ];
-      };
+      }
+      ;
     testScript = ''
       start_all()
       machine.succeed("hello")

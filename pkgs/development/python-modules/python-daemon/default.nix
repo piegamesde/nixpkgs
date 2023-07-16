@@ -42,12 +42,14 @@ buildPythonPackage rec {
     # Should be fixed in the next release
     (fetchpatch {
       url =
-        "https://src.fedoraproject.org/rpms/python-daemon/raw/rawhide/f/python-daemon-safe_hasattr.patch";
+        "https://src.fedoraproject.org/rpms/python-daemon/raw/rawhide/f/python-daemon-safe_hasattr.patch"
+        ;
       hash = "sha256-p5epAlM/sdel01oZkSI1vahUZYX8r90WCJuvBnfMaus=";
     })
     (fetchpatch {
       url =
-        "https://src.fedoraproject.org/rpms/python-daemon/raw/rawhide/f/tests-remove-duplicate-mocking.patch";
+        "https://src.fedoraproject.org/rpms/python-daemon/raw/rawhide/f/tests-remove-duplicate-mocking.patch"
+        ;
       hash = "sha256-5b/dFR3Z8xaPw8AZU95apDZd4ZfmMQhAmavWkVaJog8=";
     })
   ];
@@ -84,7 +86,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library to implement a well-behaved Unix daemon process";
     homepage = "https://pagure.io/python-daemon/";
-    # See "Copying" section in https://pagure.io/python-daemon/blob/main/f/README
+      # See "Copying" section in https://pagure.io/python-daemon/blob/main/f/README
     license = with licenses; [
       gpl3Plus
       asl20

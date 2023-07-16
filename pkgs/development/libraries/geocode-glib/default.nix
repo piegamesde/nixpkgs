@@ -45,8 +45,9 @@ stdenv.mkDerivation rec {
     gtk-doc
     docbook-xsl-nons
     gobject-introspection
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute
-    stdenv.hostPlatform) [ mesonEmulatorHook ];
+  ] ++ lib.optionals
+    (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ]
+    ;
 
   buildInputs = [
     glib
@@ -66,7 +67,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A convenience library for the geocoding and reverse geocoding using Nominatim service";
+      "A convenience library for the geocoding and reverse geocoding using Nominatim service"
+      ;
     license = licenses.lgpl2Plus;
     maintainers = teams.gnome.members;
     platforms = platforms.unix;

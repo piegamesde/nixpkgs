@@ -79,7 +79,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "GObject based library API for managing information about operating systems, hypervisors and the (virtual) hardware devices they can support";
+      "GObject based library API for managing information about operating systems, hypervisors and the (virtual) hardware devices they can support"
+      ;
     homepage = "https://libosinfo.org/";
     changelog =
       "https://gitlab.com/libosinfo/libosinfo/-/blob/v${version}/NEWS";

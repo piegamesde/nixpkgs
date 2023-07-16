@@ -26,7 +26,8 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchpatch {
       url =
-        "https://salsa.debian.org/debian/afterstep/raw/master/debian/patches/44-Fix-build-with-gcc-5.patch";
+        "https://salsa.debian.org/debian/afterstep/raw/master/debian/patches/44-Fix-build-with-gcc-5.patch"
+        ;
       sha256 = "1vipy2lzzd2gqrsqk85pwgcdhargy815fxlbn57hsm45zglc3lj4";
     })
 
@@ -35,7 +36,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "binutils-2.36.patch";
       url =
-        "https://github.com/afterstep/afterstep/commit/5e9e897cf8c455390dd6f5b27fec49707f6b9088.patch";
+        "https://github.com/afterstep/afterstep/commit/5e9e897cf8c455390dd6f5b27fec49707f6b9088.patch"
+        ;
       sha256 = "1kk97max05r2p1a71pvpaza79ff0klz32rggik342p7ki3516qv8";
     })
   ];
@@ -58,7 +60,7 @@ stdenv.mkDerivation rec {
     dbus
   ];
 
-  # A strange type of bug: dbus is not immediately found by pkg-config
+    # A strange type of bug: dbus is not immediately found by pkg-config
   preConfigure = ''
     # binutils 2.37 fix
     # https://github.com/afterstep/afterstep/issues/2
@@ -75,10 +77,10 @@ stdenv.mkDerivation rec {
     export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE $(pkg-config dbus-1 --cflags)"
   '';
 
-  # Parallel build fails due to missing dependencies between private libaries:
-  #   ld: cannot find ../libAfterConf/libAfterConf.a: No such file or directory
-  # Let's disable parallel builds until it's fixed upstream:
-  #   https://github.com/afterstep/afterstep/issues/8
+    # Parallel build fails due to missing dependencies between private libaries:
+    #   ld: cannot find ../libAfterConf/libAfterConf.a: No such file or directory
+    # Let's disable parallel builds until it's fixed upstream:
+    #   https://github.com/afterstep/afterstep/issues/8
   enableParallelBuilding = false;
 
   meta = with lib; {

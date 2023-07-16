@@ -20,7 +20,7 @@ buildPythonPackage rec {
     six
   ];
 
-  # 0.5.10 was not tagged, https://github.com/py-bson/bson/issues/108
+    # 0.5.10 was not tagged, https://github.com/py-bson/bson/issues/108
   doCheck = false;
 
   pythonImportsCheck = [ "bson" ];

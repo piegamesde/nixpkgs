@@ -43,8 +43,8 @@ stdenv.mkDerivation rec {
      mv build build.sh
   '';
 
-  # Some tests are expected to fail on ARM64
-  # See: https://gitlab.com/spectre.app/cli/-/issues/27#note_962950844
+    # Some tests are expected to fail on ARM64
+    # See: https://gitlab.com/spectre.app/cli/-/issues/27#note_962950844
   doCheck = !(stdenv.isLinux && stdenv.isAarch64);
 
   checkPhase = ''

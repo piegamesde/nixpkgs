@@ -23,8 +23,8 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ setuptools ];
 
-  # wants to write to /tmp/foo which is likely already owned by another
-  # nixbld user on hydra
+    # wants to write to /tmp/foo which is likely already owned by another
+    # nixbld user on hydra
   doCheck = !stdenv.isDarwin;
 
   nativeCheckInputs = [

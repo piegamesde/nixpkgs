@@ -49,7 +49,8 @@ buildPythonPackage {
     changelog =
       "https://github.com/PaulAnnekov/ukrainealarm/releases/tag/v${version}";
     description =
-      "Implements api.ukrainealarm.com API that returns info about Ukraine air raid alarms";
+      "Implements api.ukrainealarm.com API that returns info about Ukraine air raid alarms"
+      ;
     homepage = "https://github.com/PaulAnnekov/ukrainealarm";
     license = licenses.mit;
     maintainers = with maintainers; [ hexa ];

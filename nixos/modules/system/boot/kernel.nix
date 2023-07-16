@@ -44,17 +44,19 @@ in {
     boot.kernelPackages = mkOption {
       default = pkgs.linuxPackages;
       type = types.raw;
-      apply = kernelPackages:
+      apply =
+        kernelPackages:
         kernelPackages.extend (self: super: {
           kernel = super.kernel.override (originalArgs: {
             inherit randstructSeed;
-            kernelPatches = (originalArgs.kernelPatches or [ ])
-              ++ kernelPatches;
+            kernelPatches =
+              (originalArgs.kernelPatches or [ ]) ++ kernelPatches;
             features = lib.recursiveUpdate super.kernel.features features;
           });
-        });
-      # We don't want to evaluate all of linuxPackages for the manual
-      # - some of it might not even evaluate correctly.
+        })
+        ;
+        # We don't want to evaluate all of linuxPackages for the manual
+        # - some of it might not even evaluate correctly.
       defaultText = literalExpression "pkgs.linuxPackages";
       example = literalExpression "pkgs.linuxKernel.packages.linux_5_10";
       description = lib.mdDoc ''
@@ -235,7 +237,7 @@ in {
         built outside of the kernel.  Combine these into a single tree of
         symlinks because modprobe only supports one directory.
       '';
-      # Convert the list of path to only one path.
+        # Convert the list of path to only one path.
       apply = pkgs.aggregateModules;
     };
 
@@ -259,7 +261,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkMerge [
     (mkIf config.boot.initrd.enable {
@@ -327,8 +329,8 @@ in {
 
       system.modulesTree = [ kernel ] ++ config.boot.extraModulePackages;
 
-      # Implement consoleLogLevel both in early boot and using sysctl
-      # (so you don't need to reboot to have changes take effect).
+        # Implement consoleLogLevel both in early boot and using sysctl
+        # (so you don't need to reboot to have changes take effect).
       boot.kernelParams = [ "loglevel=${toString config.boot.consoleLogLevel}" ]
         ++ optionals config.boot.vesa [
           "vga=0x317"
@@ -343,8 +345,8 @@ in {
         "atkbd"
       ];
 
-      # Create /etc/modules-load.d/nixos.conf, which is read by
-      # systemd-modules-load.service to load required kernel modules.
+        # Create /etc/modules-load.d/nixos.conf, which is read by
+        # systemd-modules-load.service to load required kernel modules.
       environment.etc = {
         "modules-load.d/nixos.conf".source = kernelModulesConf;
       };
@@ -361,41 +363,51 @@ in {
       };
 
       lib.kernelConfig = {
-        isYes = option: {
-          assertion = config: config.isYes option;
-          message = "CONFIG_${option} is not yes!";
-          configLine = "CONFIG_${option}=y";
-        };
+        isYes =
+          option: {
+            assertion = config: config.isYes option;
+            message = "CONFIG_${option} is not yes!";
+            configLine = "CONFIG_${option}=y";
+          }
+          ;
 
-        isNo = option: {
-          assertion = config: config.isNo option;
-          message = "CONFIG_${option} is not no!";
-          configLine = "CONFIG_${option}=n";
-        };
+        isNo =
+          option: {
+            assertion = config: config.isNo option;
+            message = "CONFIG_${option} is not no!";
+            configLine = "CONFIG_${option}=n";
+          }
+          ;
 
-        isModule = option: {
-          assertion = config: config.isModule option;
-          message = "CONFIG_${option} is not built as a module!";
-          configLine = "CONFIG_${option}=m";
-        };
+        isModule =
+          option: {
+            assertion = config: config.isModule option;
+            message = "CONFIG_${option} is not built as a module!";
+            configLine = "CONFIG_${option}=m";
+          }
+          ;
 
-        ### Usually you will just want to use these two
-        # True if yes or module
-        isEnabled = option: {
-          assertion = config: config.isEnabled option;
-          message = "CONFIG_${option} is not enabled!";
-          configLine = "CONFIG_${option}=y";
-        };
+          ### Usually you will just want to use these two
+          # True if yes or module
+        isEnabled =
+          option: {
+            assertion = config: config.isEnabled option;
+            message = "CONFIG_${option} is not enabled!";
+            configLine = "CONFIG_${option}=y";
+          }
+          ;
 
-        # True if no or omitted
-        isDisabled = option: {
-          assertion = config: config.isDisabled option;
-          message = "CONFIG_${option} is not disabled!";
-          configLine = "CONFIG_${option}=n";
-        };
+          # True if no or omitted
+        isDisabled =
+          option: {
+            assertion = config: config.isDisabled option;
+            message = "CONFIG_${option} is not disabled!";
+            configLine = "CONFIG_${option}=n";
+          }
+          ;
       };
 
-      # The config options that all modules can depend upon
+        # The config options that all modules can depend upon
       system.requiredKernelConfig = with config.lib.kernelConfig;
         [
           # !!! Should this really be needed?
@@ -403,18 +415,19 @@ in {
           (isYes "BINFMT_ELF")
         ] ++ (optional (randstructSeed != "") (isYes "GCC_PLUGIN_RANDSTRUCT"));
 
-      # nixpkgs kernels are assumed to have all required features
-      assertions = if config.boot.kernelPackages.kernel ? features then
-        [ ]
-      else
-        let
-          cfg = config.boot.kernelPackages.kernel.config;
-        in
-        map (attrs: {
-          assertion = attrs.assertion cfg;
-          inherit (attrs) message;
-        }) config.system.requiredKernelConfig
-      ;
+        # nixpkgs kernels are assumed to have all required features
+      assertions =
+        if config.boot.kernelPackages.kernel ? features then
+          [ ]
+        else
+          let
+            cfg = config.boot.kernelPackages.kernel.config;
+          in
+          map (attrs: {
+            assertion = attrs.assertion cfg;
+            inherit (attrs) message;
+          }) config.system.requiredKernelConfig
+        ;
 
     })
 

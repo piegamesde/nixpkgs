@@ -51,7 +51,8 @@ buildPythonPackage rec {
     description = "Library for Xiaomi BLE devices";
     homepage = "https://github.com/Bluetooth-Devices/xiaomi-ble";
     changelog =
-      "https://github.com/Bluetooth-Devices/xiaomi-ble/releases/tag/v${version}";
+      "https://github.com/Bluetooth-Devices/xiaomi-ble/releases/tag/v${version}"
+      ;
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

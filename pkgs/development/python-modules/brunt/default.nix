@@ -32,7 +32,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  # tests require Brunt hardware
+    # tests require Brunt hardware
   doCheck = false;
 
   pythonImportsCheck = [ "brunt" ];

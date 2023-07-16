@@ -119,12 +119,12 @@ mkDerivation rec {
     "-DPYSIDE_LIBRARY=PySide2::pyside2"
   ];
 
-  # This should work on both x86_64, and i686 linux
+    # This should work on both x86_64, and i686 linux
   preBuild = ''
     export NIX_LDFLAGS="-L${gfortran.cc}/lib64 -L${gfortran.cc}/lib $NIX_LDFLAGS";
   '';
 
-  # Their main() removes PYTHONPATH=, and we rely on it.
+    # Their main() removes PYTHONPATH=, and we rely on it.
   preConfigure = ''
     sed '/putenv("PYTHONPATH/d' -i src/Main/MainGui.cpp
 

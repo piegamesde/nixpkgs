@@ -19,7 +19,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "A simple Python module for parsing human names into their individual components";
+      "A simple Python module for parsing human names into their individual components"
+      ;
     homepage = "https://github.com/derek73/python-nameparser";
     license = licenses.lgpl21Plus;
   };

@@ -20,10 +20,10 @@ stdenv.mkDerivation rec {
     bzip2
   ];
 
-  # Workaround build failure on -fno-common toolchains like upstream
-  # gcc-10. Otherwise build fails as:
-  #   ld: ../util/libutil.a(estream-printf.o):/build/gnupg-1.4.23/util/../include/memory.h:100: multiple definition of
-  #     `memory_debug_mode'; gpgsplit.o:/build/gnupg-1.4.23/tools/../include/memory.h:100: first defined here
+    # Workaround build failure on -fno-common toolchains like upstream
+    # gcc-10. Otherwise build fails as:
+    #   ld: ../util/libutil.a(estream-printf.o):/build/gnupg-1.4.23/util/../include/memory.h:100: multiple definition of
+    #     `memory_debug_mode'; gpgsplit.o:/build/gnupg-1.4.23/tools/../include/memory.h:100: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   doCheck = true;
@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://gnupg.org";
     description =
-      "Classic (1.4) release of the GNU Privacy Guard, a GPL OpenPGP implementation";
+      "Classic (1.4) release of the GNU Privacy Guard, a GPL OpenPGP implementation"
+      ;
     license = licenses.gpl3Plus;
     longDescription = ''
       The GNU Privacy Guard is the GNU project's complete and free

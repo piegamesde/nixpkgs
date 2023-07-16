@@ -10,7 +10,8 @@ import ./make-test-python.nix ({
     meta.maintainers = with lib.maintainers; [ ma27 ];
 
     nodes = {
-      client = {
+      client =
+        {
           pkgs,
           ...
         }: {
@@ -85,9 +86,11 @@ import ./make-test-python.nix ({
               };
             };
           };
-        };
+        }
+        ;
 
-      node1 = {
+      node1 =
+        {
           pkgs,
           ...
         }: {
@@ -112,9 +115,11 @@ import ./make-test-python.nix ({
               };
             };
           };
-        };
+        }
+        ;
 
-      node2 = {
+      node2 =
+        {
           pkgs,
           ...
         }: {
@@ -136,9 +141,11 @@ import ./make-test-python.nix ({
               };
             };
           };
-        };
+        }
+        ;
 
-      node3 = {
+      node3 =
+        {
           pkgs,
           ...
         }: {
@@ -160,7 +167,8 @@ import ./make-test-python.nix ({
               };
             };
           };
-        };
+        }
+        ;
     };
 
     testScript = ''

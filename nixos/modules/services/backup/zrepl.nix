@@ -35,20 +35,20 @@ in {
     };
   };
 
-  ### Implementation ###
+    ### Implementation ###
 
   config = mkIf cfg.enable {
     environment.systemPackages = [ cfg.package ];
 
-    # zrepl looks for its config in this location by default. This
-    # allows the use of e.g. `zrepl signal wakeup <job>` without having
-    # to specify the storepath of the config.
+      # zrepl looks for its config in this location by default. This
+      # allows the use of e.g. `zrepl signal wakeup <job>` without having
+      # to specify the storepath of the config.
     environment.etc."zrepl/zrepl.yml".source = configFile;
 
     systemd.packages = [ cfg.package ];
 
-    # Note that pkgs.zrepl copies and adapts the upstream systemd unit, and
-    # the fields defined here only override certain fields from that unit.
+      # Note that pkgs.zrepl copies and adapts the upstream systemd unit, and
+      # the fields defined here only override certain fields from that unit.
     systemd.services.zrepl = {
       requires = [ "local-fs.target" ];
       wantedBy = [ "zfs.target" ];

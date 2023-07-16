@@ -24,20 +24,20 @@ buildPythonPackage rec {
     hash = "sha256-V23pgHQ9GdZ2mukFEMAhkp+dl/CQTGxWHAhF7s1VvHo=";
   };
 
-  propagatedBuildInputs = [ ruamel-yaml ]
-    ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  propagatedBuildInputs =
+    [ ruamel-yaml ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
   nativeCheckInputs = [
     git
     pytestCheckHook
   ];
 
-  # Note: this is not likely to ever work on Darwin
-  # https://github.com/pre-commit/pre-commit-hooks/pull/655
+    # Note: this is not likely to ever work on Darwin
+    # https://github.com/pre-commit/pre-commit-hooks/pull/655
   doCheck = !stdenv.isDarwin;
 
-  # the tests require a functional git installation which requires a valid HOME
-  # directory.
+    # the tests require a functional git installation which requires a valid HOME
+    # directory.
   preCheck = ''
     export HOME="$(mktemp -d)"
 
@@ -52,7 +52,8 @@ buildPythonPackage rec {
     description = "Some out-of-the-box hooks for pre-commit";
     homepage = "https://github.com/pre-commit/pre-commit-hooks";
     changelog =
-      "https://github.com/pre-commit/pre-commit-hooks/blob/v${version}/CHANGELOG.md";
+      "https://github.com/pre-commit/pre-commit-hooks/blob/v${version}/CHANGELOG.md"
+      ;
     license = licenses.mit;
     maintainers = with maintainers; [ kalbasit ];
   };

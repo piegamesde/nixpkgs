@@ -1,7 +1,8 @@
 import ./make-test-python.nix {
   name = "dhparams";
 
-  nodes.machine = {
+  nodes.machine =
+    {
       pkgs,
       ...
     }: {
@@ -9,15 +10,16 @@ import ./make-test-python.nix {
       environment.systemPackages = [ pkgs.openssl ];
 
       specialisation = {
-        gen1.configuration = {
+        gen1.configuration =
+          {
             config,
             ...
           }: {
             security.dhparams.params = {
               # Use low values here because we don't want the test to run for ages.
               foo.bits = 1024;
-              # Also use the old format to make sure the type is coerced in the right
-              # way.
+                # Also use the old format to make sure the type is coerced in the right
+                # way.
               bar = 1025;
             };
 
@@ -30,19 +32,20 @@ import ./make-test-python.nix {
                 # possible to provoke a race condition.
                 DefaultDependencies = false;
 
-                # We check later whether the service has been started or not.
+                  # We check later whether the service has been started or not.
                 ConditionPathExists = config.security.dhparams.params.foo.path;
               };
               serviceConfig.Type = "oneshot";
               serviceConfig.RemainAfterExit = true;
-              # The reason we only provide an ExecStop here is to ensure that we don't
-              # accidentally trigger an error because a file system is not yet ready
-              # during very early startup (we might not even have the Nix store
-              # available, for example if future changes in NixOS use systemd mount
-              # units to do early file system initialisation).
+                # The reason we only provide an ExecStop here is to ensure that we don't
+                # accidentally trigger an error because a file system is not yet ready
+                # during very early startup (we might not even have the Nix store
+                # available, for example if future changes in NixOS use systemd mount
+                # units to do early file system initialisation).
               serviceConfig.ExecStop = "${pkgs.coreutils}/bin/true";
             };
-          };
+          }
+          ;
         gen2.configuration = { security.dhparams.params.foo.bits = 1026; };
         gen3.configuration = { };
         gen4.configuration = {
@@ -56,21 +59,25 @@ import ./make-test-python.nix {
           security.dhparams.params.bar3 = { };
         };
       };
-    };
+    }
+    ;
 
-  testScript = {
+  testScript =
+    {
       nodes,
       ...
     }:
     let
-      getParamPath = gen: name:
+      getParamPath =
+        gen: name:
         let
           node = "gen${toString gen}";
         in
         nodes.machine.config.specialisation.${node}.configuration.security.dhparams.params.${name}.path
-      ;
+        ;
 
-      switchToGeneration = gen:
+      switchToGeneration =
+        gen:
         let
           switchCmd =
             "${nodes.machine.config.system.build.toplevel}/specialisation/gen${
@@ -79,7 +86,8 @@ import ./make-test-python.nix {
         in ''
           with machine.nested("switch to generation ${toString gen}"):
             machine.succeed("${switchCmd}")
-        '' ;
+        ''
+        ;
 
     in ''
       import re
@@ -139,5 +147,6 @@ import ./make-test-python.nix {
       with subtest("check whether defaultBitSize works as intended"):
           assert_param_bits("${getParamPath 5 "foo3"}", 1029)
           assert_param_bits("${getParamPath 5 "bar3"}", 1029)
-    '' ;
+    ''
+    ;
 }

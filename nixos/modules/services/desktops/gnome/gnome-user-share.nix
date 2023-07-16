@@ -28,7 +28,7 @@ with lib;
     ])
   ];
 
-  ###### interface
+    ###### interface
 
   options = {
 
@@ -41,7 +41,7 @@ with lib;
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf config.services.gnome.gnome-user-share.enable {
 

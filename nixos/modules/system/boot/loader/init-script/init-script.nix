@@ -47,7 +47,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf config.boot.loader.initScript.enable {
 

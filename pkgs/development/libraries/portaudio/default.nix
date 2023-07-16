@@ -35,7 +35,8 @@ stdenv.mkDerivation rec {
   ];
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang
-    "-Wno-error=nullability-inferred-on-nested-type -Wno-error=nullability-completeness-on-arrays -Wno-error=implicit-const-int-float-conversion";
+    "-Wno-error=nullability-inferred-on-nested-type -Wno-error=nullability-completeness-on-arrays -Wno-error=implicit-const-int-float-conversion"
+    ;
 
   propagatedBuildInputs = lib.optionals stdenv.isDarwin [
     AudioUnit
@@ -45,11 +46,11 @@ stdenv.mkDerivation rec {
     Carbon
   ];
 
-  # Disable parallel build as it fails as:
-  #   make: *** No rule to make target '../../../lib/libportaudio.la',
-  #     needed by 'libportaudiocpp.la'.  Stop.
-  # Next release should address it with
-  #     https://github.com/PortAudio/portaudio/commit/28d2781d9216115543aa3f0a0ffb7b4ee0fac551.patch
+    # Disable parallel build as it fails as:
+    #   make: *** No rule to make target '../../../lib/libportaudio.la',
+    #     needed by 'libportaudiocpp.la'.  Stop.
+    # Next release should address it with
+    #     https://github.com/PortAudio/portaudio/commit/28d2781d9216115543aa3f0a0ffb7b4ee0fac551.patch
   enableParallelBuilding = false;
 
   postPatch = ''
@@ -57,7 +58,7 @@ stdenv.mkDerivation rec {
     export AR=$(which $AR)
   '';
 
-  # not sure why, but all the headers seem to be installed by the make install
+    # not sure why, but all the headers seem to be installed by the make install
   installPhase = ''
     make install
   '' + lib.optionalString (!stdenv.isDarwin) ''
@@ -70,7 +71,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Portable cross-platform Audio API";
     homepage = "http://www.portaudio.com/";
-    # Not exactly a bsd license, but alike
+      # Not exactly a bsd license, but alike
     license = licenses.mit;
     maintainers = with maintainers; [ lovek323 ];
     platforms = platforms.unix;

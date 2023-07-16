@@ -22,7 +22,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ django ];
 
-  # Package doesn’t have any tests
+    # Package doesn’t have any tests
   doCheck = false;
 
   pythonImportsCheck = [ "django_vite" ];

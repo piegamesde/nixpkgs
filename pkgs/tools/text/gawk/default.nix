@@ -39,21 +39,21 @@ stdenv.mkDerivation rec {
     ./darwin-no-pma.patch
   ];
 
-  # PIE is incompatible with the "persistent malloc" ("pma") feature.
-  # While build system attempts to pass -no-pie to gcc. nixpkgs' `ld`
-  # wrapped still passes `-pie` flag to linker and breaks linkage.
-  # Let's disable "pie" until `ld` is fixed to do the right thing.
+    # PIE is incompatible with the "persistent malloc" ("pma") feature.
+    # While build system attempts to pass -no-pie to gcc. nixpkgs' `ld`
+    # wrapped still passes `-pie` flag to linker and breaks linkage.
+    # Let's disable "pie" until `ld` is fixed to do the right thing.
   hardeningDisable = [ "pie" ];
 
-  # When we do build separate interactive version, it makes sense to always include man.
+    # When we do build separate interactive version, it makes sense to always include man.
   outputs = [
     "out"
     "info"
   ] ++ lib.optional (!interactive) "man";
 
-  # no-pma fix
-  nativeBuildInputs = [ autoreconfHook ]
-    ++ lib.optional (doCheck && stdenv.isLinux) glibcLocales;
+    # no-pma fix
+  nativeBuildInputs =
+    [ autoreconfHook ] ++ lib.optional (doCheck && stdenv.isLinux) glibcLocales;
 
   buildInputs = lib.optional withSigsegv libsigsegv
     ++ lib.optional interactive readline ++ lib.optional stdenv.isDarwin locale;
@@ -79,10 +79,12 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    libsigsegv = if withSigsegv then
-      libsigsegv
-    else
-      null; # for stdenv bootstrap
+    libsigsegv =
+      if withSigsegv then
+        libsigsegv
+      else
+        null
+      ; # for stdenv bootstrap
   };
 
   meta = with lib; {

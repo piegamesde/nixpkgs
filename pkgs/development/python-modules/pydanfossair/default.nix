@@ -15,7 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-WTRiEQbd3wwNAz1gk0rS3khy6lg61rcGZQTMlBc0uO8=";
   };
 
-  # Project has no tests
+    # Project has no tests
   doCheck = false;
   pythonImportsCheck = [ "pydanfossair" ];
 

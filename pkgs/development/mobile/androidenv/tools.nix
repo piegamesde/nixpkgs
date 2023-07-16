@@ -13,8 +13,8 @@
 deployAndroidPackage {
   name = "androidsdk";
   inherit os package;
-  nativeBuildInputs = [ makeWrapper ]
-    ++ lib.optionals (os == "linux") [ autoPatchelfHook ];
+  nativeBuildInputs =
+    [ makeWrapper ] ++ lib.optionals (os == "linux") [ autoPatchelfHook ];
   buildInputs = lib.optional (os == "linux") ((with pkgs; [
     glibc
     freetype

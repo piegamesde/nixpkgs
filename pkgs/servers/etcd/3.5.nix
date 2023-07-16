@@ -19,7 +19,8 @@ let
 
   meta = with lib; {
     description =
-      "Distributed reliable key-value store for the most critical data of a distributed system";
+      "Distributed reliable key-value store for the most critical data of a distributed system"
+      ;
     license = licenses.asl20;
     homepage = "https://etcd.io/";
     maintainers = with maintainers; [
@@ -43,10 +44,10 @@ let
       mv $GOPATH/bin/{server,etcd}
     '';
 
-    # We set the GitSHA to `GitNotFound` to match official build scripts when
-    # git is unavailable. This is to avoid doing a full Git Checkout of etcd.
-    # User facing version numbers are still available in the binary, just not
-    # the sha it was built from.
+      # We set the GitSHA to `GitNotFound` to match official build scripts when
+      # git is unavailable. This is to avoid doing a full Git Checkout of etcd.
+      # User facing version numbers are still available in the binary, just not
+      # the sha it was built from.
     ldflags = [ "-X go.etcd.io/etcd/api/v3/version.GitSHA=GitNotFound" ];
   };
 

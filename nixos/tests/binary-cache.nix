@@ -9,7 +9,8 @@ import ./make-test-python.nix ({
     name = "binary-cache";
     meta.maintainers = with maintainers; [ thomasjm ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -19,7 +20,8 @@ import ./make-test-python.nix ({
         nix.extraOptions = ''
           experimental-features = nix-command
         '';
-      };
+      }
+      ;
 
     testScript = ''
       # Build the cache, then remove it from the store

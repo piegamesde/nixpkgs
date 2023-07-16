@@ -20,7 +20,7 @@ buildPythonPackage rec {
     pycryptodome
   ];
 
-  # no tests
+    # no tests
   doCheck = false;
   pythonImportsCheck = [ "solc_select" ];
 

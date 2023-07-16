@@ -61,7 +61,8 @@ let
   _llvm_9 = llvm_9.overrideAttrs (prev: {
     patches = (prev.patches or [ ]) ++ [ (fetchpatch {
       url =
-        "https://github.com/root-project/root/commit/a9c961cf4613ff1f0ea50f188e4a4b0eb749b17d.diff";
+        "https://github.com/root-project/root/commit/a9c961cf4613ff1f0ea50f188e4a4b0eb749b17d.diff"
+        ;
       stripLen = 3;
       hash = "sha256-LH2RipJICEDWOr7JzX5s0QiUhEwXNMFEJihYKy9qWpo=";
     }) ];
@@ -130,7 +131,7 @@ stdenv.mkDerivation rec {
 
   patches = [ ./sw_vers.patch ];
 
-  # Fix build against vanilla LLVM 9
+    # Fix build against vanilla LLVM 9
   postPatch = ''
     sed \
       -e '/#include "llvm.*RTDyldObjectLinkingLayer.h"/i#define private protected' \
@@ -217,8 +218,8 @@ stdenv.mkDerivation rec {
       "-Druntime_cxxmodules=OFF"
     ];
 
-  # Workaround the xrootd runpath bug #169677 by prefixing [DY]LD_LIBRARY_PATH with ${lib.makeLibraryPath xrootd}.
-  # TODO: Remove the [DY]LDLIBRARY_PATH prefix for xrootd when #200830 get merged.
+    # Workaround the xrootd runpath bug #169677 by prefixing [DY]LD_LIBRARY_PATH with ${lib.makeLibraryPath xrootd}.
+    # TODO: Remove the [DY]LDLIBRARY_PATH prefix for xrootd when #200830 get merged.
   postInstall = ''
     for prog in rootbrowse rootcp rooteventselector rootls rootmkdir rootmv rootprint rootrm rootslimtree; do
       wrapProgram "$out/bin/$prog" \
@@ -280,13 +281,13 @@ stdenv.mkDerivation rec {
     }"
   '';
 
-  # To use the debug information on the fly (without installation)
-  # add the outPath of root.debug into NIX_DEBUG_INFO_DIRS (in PATH-like format)
-  # and make sure that gdb from Nixpkgs can be found in PATH.
-  #
-  # Darwin currently fails to support it (#203380)
-  # we set it to true hoping to benefit from the future fix.
-  # Before that, please make sure if root.debug exists before using it.
+    # To use the debug information on the fly (without installation)
+    # add the outPath of root.debug into NIX_DEBUG_INFO_DIRS (in PATH-like format)
+    # and make sure that gdb from Nixpkgs can be found in PATH.
+    #
+    # Darwin currently fails to support it (#203380)
+    # we set it to true hoping to benefit from the future fix.
+    # Before that, please make sure if root.debug exists before using it.
   separateDebugInfo = true;
 
   setupHook = ./setup-hook.sh;

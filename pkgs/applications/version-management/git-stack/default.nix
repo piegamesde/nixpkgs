@@ -23,7 +23,7 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = lib.optionals stdenv.isDarwin [ Security ];
 
-  # Many tests try to access the file system.
+    # Many tests try to access the file system.
   doCheck = false;
 
   passthru.tests.version = testers.testVersion { package = git-stack; };

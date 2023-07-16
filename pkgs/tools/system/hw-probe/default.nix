@@ -85,67 +85,69 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ perl ];
 
-  makeWrapperArgs = let
-    requiredPrograms = [
-      hwinfo
-      dmidecode
-      smartmontools
-      pciutils
-      usbutils
-      edid-decode
-      iproute2 # (ip)
-      coreutils # (sort)
-      gnugrep
-      curl
-      gnutar
-      xz
-      kmod # (lsmod)
-    ];
-    recommendedPrograms = [
-      mcelog
-      hdparm
-      acpica-tools
-      drm_info
-      mesa-demos
-      memtester
-      sysstat # (iostat)
-      util-linuxMinimal # (rfkill)
-      xinput
-      libva-utils # (vainfo)
-      inxi
-      vulkan-tools
-      i2c-tools
-      opensc
+  makeWrapperArgs =
+    let
+      requiredPrograms = [
+        hwinfo
+        dmidecode
+        smartmontools
+        pciutils
+        usbutils
+        edid-decode
+        iproute2 # (ip)
+        coreutils # (sort)
+        gnugrep
+        curl
+        gnutar
+        xz
+        kmod # (lsmod)
+      ];
+      recommendedPrograms = [
+        mcelog
+        hdparm
+        acpica-tools
+        drm_info
+        mesa-demos
+        memtester
+        sysstat # (iostat)
+        util-linuxMinimal # (rfkill)
+        xinput
+        libva-utils # (vainfo)
+        inxi
+        vulkan-tools
+        i2c-tools
+        opensc
+      ]
+      # cpuid is only compatible with i686 and x86_64
+        ++ lib.optional
+        (lib.elem stdenv.hostPlatform.system cpuid.meta.platforms) cpuid;
+      conditionallyRecommendedPrograms =
+        lib.optional systemdSupport systemd; # (systemd-analyze)
+      suggestedPrograms = [
+        hplip # (hp-probe)
+        sane-backends # (sane-find-scanner)
+        # pnputils # (lspnp)
+      ];
+      programs = requiredPrograms ++ conditionallyRecommendedPrograms
+        ++ lib.optionals withRecommended recommendedPrograms
+        ++ lib.optionals withSuggested suggestedPrograms;
+    in [
+      "--set"
+      "PERL5LIB"
+      "${makePerlPath [
+        LWP
+        LWPProtocolHttps
+        HTTPMessage
+        URI
+        HTTPDate
+        TryTiny
+      ]}"
+      "--prefix"
+      "PATH"
+      ":"
+      "${lib.makeBinPath programs}"
     ]
-    # cpuid is only compatible with i686 and x86_64
-      ++ lib.optional (lib.elem stdenv.hostPlatform.system cpuid.meta.platforms)
-      cpuid;
-    conditionallyRecommendedPrograms =
-      lib.optional systemdSupport systemd; # (systemd-analyze)
-    suggestedPrograms = [
-      hplip # (hp-probe)
-      sane-backends # (sane-find-scanner)
-      # pnputils # (lspnp)
-    ];
-    programs = requiredPrograms ++ conditionallyRecommendedPrograms
-      ++ lib.optionals withRecommended recommendedPrograms
-      ++ lib.optionals withSuggested suggestedPrograms;
-  in [
-    "--set"
-    "PERL5LIB"
-    "${makePerlPath [
-      LWP
-      LWPProtocolHttps
-      HTTPMessage
-      URI
-      HTTPDate
-      TryTiny
-    ]}"
-    "--prefix"
-    "PATH"
-    ":"
-    "${lib.makeBinPath programs}"
-  ] ;
+    ;
 
   postInstall = ''
     wrapProgram $out/bin/hw-probe \

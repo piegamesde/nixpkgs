@@ -1,5 +1,6 @@
 let
-  generateNodeConf = {
+  generateNodeConf =
+    {
       lib,
       pkgs,
       config,
@@ -117,7 +118,8 @@ let
           };
         };
       };
-    };
+    }
+    ;
 in
 import ./make-test-python.nix ({
     pkgs,
@@ -126,7 +128,8 @@ import ./make-test-python.nix ({
     name = "networkd";
     meta = with pkgs.lib.maintainers; { maintainers = [ ninjatrappeur ]; };
     nodes = {
-      node1 = {
+      node1 =
+        {
           pkgs,
           ...
         }@attrs:
@@ -139,9 +142,10 @@ import ./make-test-python.nix ({
           };
         in
         generateNodeConf (attrs // localConf)
-      ;
+        ;
 
-      node2 = {
+      node2 =
+        {
           pkgs,
           ...
         }@attrs:
@@ -154,7 +158,7 @@ import ./make-test-python.nix ({
           };
         in
         generateNodeConf (attrs // localConf)
-      ;
+        ;
     };
     testScript = ''
       start_all()

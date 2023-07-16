@@ -34,8 +34,8 @@ buildPythonPackage rec {
     websockets
   ];
 
-  # Tests are not shipped and source is not tagged
-  # https://github.com/simbaja/gehome/issues/32
+    # Tests are not shipped and source is not tagged
+    # https://github.com/simbaja/gehome/issues/32
   doCheck = false;
 
   pythonImportsCheck = [ "gehomesdk" ];

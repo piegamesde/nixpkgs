@@ -25,7 +25,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/cl-smtp/2021-02-28/cl-smtp-20210228-git.tgz";
+      "http://beta.quicklisp.org/archive/cl-smtp/2021-02-28/cl-smtp-20210228-git.tgz"
+      ;
     sha256 = "1x965jyhifx8hss2v6qc6lr54nlckchs712dny376krwkl43jh5g";
   };
 

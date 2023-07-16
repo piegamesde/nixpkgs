@@ -36,7 +36,8 @@ python3.pkgs.buildPythonApplication rec {
     # Patch taken from https://gitlab.gnome.org/GNOME/d-feet/-/merge_requests/32
     (fetchpatch {
       url =
-        "https://gitlab.gnome.org/GNOME/d-feet/-/commit/05465d486afdba116dbc22fc22c1e6573aea4f22.patch";
+        "https://gitlab.gnome.org/GNOME/d-feet/-/commit/05465d486afdba116dbc22fc22c1e6573aea4f22.patch"
+        ;
       sha256 = "sFI3nd0YE/deGws/YcTpzC/em9QNgicyb4j7cTfOdhY=";
     })
   ];

@@ -237,14 +237,14 @@ in {
       };
     };
 
-    # nginx vhost
+      # nginx vhost
     services.nginx.virtualHosts."${cfg.vhostName}" = {
       locations."/".extraConfig = ''
         rewrite ^ https://$server_name/SOGo;
         allow all;
       '';
 
-      # For iOS 7
+        # For iOS 7
       locations."/principals/".extraConfig = ''
         rewrite ^ https://$server_name/SOGo/dav;
         allow all;
@@ -284,18 +284,16 @@ in {
         allow all;
       '';
 
-      locations."~ ^/SOGo/so/ControlPanel/Products/([^/]*)/Resources/(.*)$".extraConfig =
-        ''
-          alias ${pkgs.sogo}/lib/GNUstep/SOGo/$1.SOGo/Resources/$2;
-        '';
+      locations."~ ^/SOGo/so/ControlPanel/Products/([^/]*)/Resources/(.*)$".extraConfig = ''
+        alias ${pkgs.sogo}/lib/GNUstep/SOGo/$1.SOGo/Resources/$2;
+      '';
 
-      locations."~ ^/SOGo/so/ControlPanel/Products/[^/]*UI/Resources/.*\\.(jpg|png|gif|css|js)$".extraConfig =
-        ''
-          alias ${pkgs.sogo}/lib/GNUstep/SOGo/$1.SOGo/Resources/$2;
-        '';
+      locations."~ ^/SOGo/so/ControlPanel/Products/[^/]*UI/Resources/.*\\.(jpg|png|gif|css|js)$".extraConfig = ''
+        alias ${pkgs.sogo}/lib/GNUstep/SOGo/$1.SOGo/Resources/$2;
+      '';
     };
 
-    # User and group
+      # User and group
     users.groups.sogo = { };
     users.users.sogo = {
       group = "sogo";

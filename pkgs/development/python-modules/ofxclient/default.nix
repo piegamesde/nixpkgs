@@ -22,7 +22,7 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace '"argparse",' ""
   '';
 
-  # ImportError: No module named tests
+    # ImportError: No module named tests
   doCheck = false;
 
   propagatedBuildInputs = [

@@ -14,7 +14,8 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/gildor478/ocaml-fileutils/releases/download/v${version}/fileutils-${version}.tbz";
+      "https://github.com/gildor478/ocaml-fileutils/releases/download/v${version}/fileutils-${version}.tbz"
+      ;
     hash = "sha256-enu2vGo2tuvawrTkap6bENNmxaLUQXpfHWih+7oKRF8=";
   };
 

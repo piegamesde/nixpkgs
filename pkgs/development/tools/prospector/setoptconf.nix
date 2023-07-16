@@ -13,13 +13,14 @@ buildPythonPackage rec {
     sha256 = "0y2pgpraa36wzlzkxigvmz80mqd3mzcc9wv2yx9bliqks7fhlj70";
   };
 
-  # Base tests provided via PyPi are broken
+    # Base tests provided via PyPi are broken
   doCheck = false;
 
   meta = with lib; {
     homepage = "https://pypi.org/project/setoptconf-tmp";
     description =
-      "A module for retrieving program settings from various sources in a consistant method";
+      "A module for retrieving program settings from various sources in a consistant method"
+      ;
     license = licenses.mit;
     maintainers = with maintainers; [ kamadorueda ];
   };

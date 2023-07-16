@@ -11,7 +11,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://gist.githubusercontent.com/obadz/7e008b1f803c4cdcfaf7321c78bcbe92/raw/7e7361e71ff0f74655ee92bd6d2c042f8586f2ae/xgeometry-select.c";
+      "https://gist.githubusercontent.com/obadz/7e008b1f803c4cdcfaf7321c78bcbe92/raw/7e7361e71ff0f74655ee92bd6d2c042f8586f2ae/xgeometry-select.c"
+      ;
     sha256 = "0s7kirgh5iz91m3qy8xiq0j4gljy8zrcnylf4szl5h0lrsaqj7ya";
   };
 

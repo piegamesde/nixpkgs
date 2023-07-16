@@ -25,7 +25,7 @@ in {
     maintainers = with maintainers; [ ] ++ teams.pantheon.members;
   };
 
-  ###### interface
+    ###### interface
 
   options = {
 
@@ -38,7 +38,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 

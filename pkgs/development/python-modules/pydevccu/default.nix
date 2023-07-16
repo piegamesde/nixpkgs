@@ -19,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-r6QjtKEnMmWRfDAnxP5zMChCVwyi9Z2lFrYu7hPrTUg=";
   };
 
-  # Module has no tests
+    # Module has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "pydevccu" ];

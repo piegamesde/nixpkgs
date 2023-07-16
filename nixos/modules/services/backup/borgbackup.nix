@@ -9,26 +9,35 @@ with lib;
 
 let
 
-  isLocalPath = x:
+  isLocalPath =
+    x:
     builtins.substring 0 1 x == "/" # absolute path
     || builtins.substring 0 1 x == "." # relative path
-    || builtins.match "[.*:.*]" == null; # not machine:path
+    || builtins.match "[.*:.*]" == null
+    ; # not machine:path
 
-  mkExcludeFile = cfg:
+  mkExcludeFile =
+    cfg:
     # Write each exclude pattern to a new line
-    pkgs.writeText "excludefile" (concatMapStrings (s: s + "\n") cfg.exclude);
+    pkgs.writeText "excludefile" (concatMapStrings (s: s + "\n") cfg.exclude)
+    ;
 
-  mkPatternsFile = cfg:
+  mkPatternsFile =
+    cfg:
     # Write each pattern to a new line
-    pkgs.writeText "patternsfile" (concatMapStrings (s: s + "\n") cfg.patterns);
+    pkgs.writeText "patternsfile" (concatMapStrings (s: s + "\n") cfg.patterns)
+    ;
 
-  mkKeepArgs = cfg:
+  mkKeepArgs =
+    cfg:
     # If cfg.prune.keep e.g. has a yearly attribute,
     # its content is passed on as --keep-yearly
     concatStringsSep " "
-    (mapAttrsToList (x: y: "--keep-${x}=${toString y}") cfg.prune.keep);
+    (mapAttrsToList (x: y: "--keep-${x}=${toString y}") cfg.prune.keep)
+    ;
 
-  mkBackupScript = name: cfg:
+  mkBackupScript =
+    name: cfg:
     pkgs.writeShellScript "${name}-script" (''
       set -e
       on_exit()
@@ -90,18 +99,22 @@ let
         $extraPruneArgs
       borg compact $extraArgs $extraCompactArgs
       ${cfg.postPrune}
-    '');
+    '')
+    ;
 
-  mkPassEnv = cfg:
+  mkPassEnv =
+    cfg:
     with cfg.encryption;
     if passCommand != null then
       { BORG_PASSCOMMAND = passCommand; }
     else if passphrase != null then
       { BORG_PASSPHRASE = passphrase; }
     else
-      { };
+      { }
+    ;
 
-  mkBackupService = name: cfg:
+  mkBackupService =
+    name: cfg:
     let
       userHome = config.users.users.${cfg.user}.home;
       backupJobName = "borgbackup-job-${name}";
@@ -123,7 +136,7 @@ let
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;
-        # Only run when no other process is using CPU or disk
+          # Only run when no other process is using CPU or disk
         CPUSchedulingPolicy = "idle";
         IOSchedulingClass = "idle";
         ProtectSystem = "strict";
@@ -140,9 +153,10 @@ let
         inherit (cfg) extraArgs extraInitArgs extraCreateArgs extraPruneArgs;
       } // (mkPassEnv cfg) // cfg.environment;
     }
-  ;
+    ;
 
-  mkBackupTimers = name: cfg:
+  mkBackupTimers =
+    name: cfg:
     nameValuePair "borgbackup-job-${name}" {
       description = "BorgBackup job ${name} timer";
       wantedBy = [ "timers.target" ];
@@ -150,13 +164,15 @@ let
         Persistent = cfg.persistentTimer;
         OnCalendar = cfg.startAt;
       };
-      # if remote-backup wait for network
+        # if remote-backup wait for network
       after = optional (cfg.persistentTimer && !isLocalPath cfg.repo)
         "network-online.target";
-    };
+    }
+    ;
 
-  # utility function around makeWrapper
-  mkWrapperDrv = {
+    # utility function around makeWrapper
+  mkWrapperDrv =
+    {
       original,
       name,
       set ? { }
@@ -169,17 +185,21 @@ let
           concatStringsSep " \\\n "
           (mapAttrsToList (name: value: ''--set ${name} "${value}"'') set)
         }
-    '');
+    '')
+    ;
 
-  mkBorgWrapper = name: cfg:
+  mkBorgWrapper =
+    name: cfg:
     mkWrapperDrv {
       original = "${pkgs.borgbackup}/bin/borg";
       name = "borg-job-${name}";
       set = { BORG_REPO = cfg.repo; } // (mkPassEnv cfg) // cfg.environment;
-    };
+    }
+    ;
 
-  # Paths listed in ReadWritePaths must exist before service is started
-  mkActivationScript = name: cfg:
+    # Paths listed in ReadWritePaths must exist before service is started
+  mkActivationScript =
+    name: cfg:
     let
       install = "install -o ${cfg.user} -g ${cfg.group}";
     in
@@ -193,16 +213,19 @@ let
     '' + optionalString (isLocalPath cfg.repo && !cfg.removableDevice) ''
       ${install} -d ${escapeShellArg cfg.repo}
     ''))
-  ;
+    ;
 
-  mkPassAssertion = name: cfg: {
-    assertion = with cfg.encryption;
-      mode != "none" -> passCommand != null || passphrase != null;
-    message = "passCommand or passphrase has to be specified because"
-      + ''borgbackup.jobs.${name}.encryption != "none"'';
-  };
+  mkPassAssertion =
+    name: cfg: {
+      assertion = with cfg.encryption;
+        mode != "none" -> passCommand != null || passphrase != null;
+      message = "passCommand or passphrase has to be specified because"
+        + ''borgbackup.jobs.${name}.encryption != "none"'';
+    }
+    ;
 
-  mkRepoService = name: cfg:
+  mkRepoService =
+    name: cfg:
     nameValuePair "borgbackup-repo-${name}" {
       description = "Create BorgBackup repository ${name} directory";
       script = ''
@@ -214,9 +237,11 @@ let
         Type = "oneshot";
       };
       wantedBy = [ "multi-user.target" ];
-    };
+    }
+    ;
 
-  mkAuthorizedKey = cfg: appendOnly: key:
+  mkAuthorizedKey =
+    cfg: appendOnly: key:
     let
       # Because of the following line, clients do not need to specify an absolute repo path
       cdCommand = "cd ${escapeShellArg cfg.path}";
@@ -232,50 +257,58 @@ let
       serveCommand = "borg serve ${restrictedArg} ${appendOnlyArg} ${quotaArg}";
     in
     ''command="${cdCommand} && ${serveCommand}",restrict ${key}''
-  ;
+    ;
 
-  mkUsersConfig = name: cfg: {
-    users.${cfg.user} = {
-      openssh.authorizedKeys.keys =
-        (map (mkAuthorizedKey cfg false) cfg.authorizedKeys
-          ++ map (mkAuthorizedKey cfg true) cfg.authorizedKeysAppendOnly);
-      useDefaultShell = true;
-      group = cfg.group;
-      isSystemUser = true;
-    };
-    groups.${cfg.group} = { };
-  };
+  mkUsersConfig =
+    name: cfg: {
+      users.${cfg.user} = {
+        openssh.authorizedKeys.keys =
+          (map (mkAuthorizedKey cfg false) cfg.authorizedKeys
+            ++ map (mkAuthorizedKey cfg true) cfg.authorizedKeysAppendOnly);
+        useDefaultShell = true;
+        group = cfg.group;
+        isSystemUser = true;
+      };
+      groups.${cfg.group} = { };
+    }
+    ;
 
-  mkKeysAssertion = name: cfg: {
-    assertion = cfg.authorizedKeys != [ ] || cfg.authorizedKeysAppendOnly
-      != [ ];
-    message = "borgbackup.repos.${name} does not make sense"
-      + " without at least one public key";
-  };
+  mkKeysAssertion =
+    name: cfg: {
+      assertion =
+        cfg.authorizedKeys != [ ] || cfg.authorizedKeysAppendOnly != [ ];
+      message = "borgbackup.repos.${name} does not make sense"
+        + " without at least one public key";
+    }
+    ;
 
-  mkSourceAssertions = name: cfg: {
-    assertion = count isNull [
-      cfg.dumpCommand
-      cfg.paths
-    ] == 1;
-    message = ''
-      Exactly one of borgbackup.jobs.${name}.paths or borgbackup.jobs.${name}.dumpCommand
-      must be set.
-    '';
-  };
+  mkSourceAssertions =
+    name: cfg: {
+      assertion = count isNull [
+        cfg.dumpCommand
+        cfg.paths
+      ] == 1;
+      message = ''
+        Exactly one of borgbackup.jobs.${name}.paths or borgbackup.jobs.${name}.dumpCommand
+        must be set.
+      '';
+    }
+    ;
 
-  mkRemovableDeviceAssertions = name: cfg: {
-    assertion = !(isLocalPath cfg.repo) -> !cfg.removableDevice;
-    message = ''
-      borgbackup.repos.${name}: repo isn't a local path, thus it can't be a removable device!
-    '';
-  };
+  mkRemovableDeviceAssertions =
+    name: cfg: {
+      assertion = !(isLocalPath cfg.repo) -> !cfg.removableDevice;
+      message = ''
+        borgbackup.repos.${name}: repo isn't a local path, thus it can't be a removable device!
+      '';
+    }
+    ;
 
 in {
   meta.maintainers = with maintainers; [ dotlambda ];
   meta.doc = ./borgbackup.md;
 
-  ###### interface
+    ###### interface
 
   options.services.borgbackup.jobs = mkOption {
     description = lib.mdDoc ''
@@ -802,7 +835,7 @@ in {
       }));
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf (with config.services.borgbackup; jobs != { } || repos != { })
     (with config.services.borgbackup; {
@@ -819,14 +852,15 @@ in {
         # A repo named "foo" is mapped to systemd.services.borgbackup-repo-foo
         // mapAttrs' mkRepoService repos;
 
-      # A job named "foo" is mapped to systemd.timers.borgbackup-job-foo
-      # only generate the timer if interval (startAt) is set
-      systemd.timers = mapAttrs' mkBackupTimers
-        (filterAttrs (_: cfg: cfg.startAt != [ ]) jobs);
+        # A job named "foo" is mapped to systemd.timers.borgbackup-job-foo
+        # only generate the timer if interval (startAt) is set
+      systemd.timers =
+        mapAttrs' mkBackupTimers (filterAttrs (_: cfg: cfg.startAt != [ ]) jobs)
+        ;
 
       users = mkMerge (mapAttrsToList mkUsersConfig repos);
 
-      environment.systemPackages = with pkgs;
-        [ borgbackup ] ++ (mapAttrsToList mkBorgWrapper jobs);
+      environment.systemPackages =
+        with pkgs; [ borgbackup ] ++ (mapAttrsToList mkBorgWrapper jobs);
     });
 }

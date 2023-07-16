@@ -10,7 +10,7 @@
 buildPythonPackage rec {
   pname = "amaranth-boards";
   version = "unstable-2021-12-17";
-  # python setup.py --version
+    # python setup.py --version
   realVersion = "0.1.dev202+g${lib.substring 0 7 src.rev}";
 
   src = fetchFromGitHub {
@@ -30,7 +30,7 @@ buildPythonPackage rec {
     export SETUPTOOLS_SCM_PRETEND_VERSION="${realVersion}"
   '';
 
-  # no tests
+    # no tests
   doCheck = false;
 
   meta = with lib; {

@@ -37,7 +37,7 @@ buildPythonPackage rec {
     betamax-matchers
   ];
 
-  # Solves "__main__.py: error: unrecognized arguments: -nauto"
+    # Solves "__main__.py: error: unrecognized arguments: -nauto"
   preCheck = ''
     rm tox.ini
   '';

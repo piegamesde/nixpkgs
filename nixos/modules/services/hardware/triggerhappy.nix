@@ -30,7 +30,8 @@ let
     ${cfg.extraConfig}
   '';
 
-  bindingCfg = {
+  bindingCfg =
+    {
       ...
     }: {
       options = {
@@ -38,7 +39,8 @@ let
         keys = mkOption {
           type = types.listOf types.str;
           description = lib.mdDoc
-            "List of keys to match.  Key names as defined in linux/input-event-codes.h";
+            "List of keys to match.  Key names as defined in linux/input-event-codes.h"
+            ;
         };
 
         event = mkOption {
@@ -57,7 +59,8 @@ let
         };
 
       };
-    };
+    }
+    ;
 
 in {
 
@@ -107,7 +110,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -123,7 +126,8 @@ in {
       serviceConfig = {
         ExecStart = "${pkgs.triggerhappy}/bin/thd ${
             optionalString (cfg.user != "root") "--user ${cfg.user}"
-          } --socket ${socket} --triggers ${configFile} --deviceglob /dev/input/event*";
+          } --socket ${socket} --triggers ${configFile} --deviceglob /dev/input/event*"
+          ;
       };
     };
 

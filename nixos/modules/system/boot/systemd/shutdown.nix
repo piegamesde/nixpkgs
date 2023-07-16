@@ -9,17 +9,18 @@ let
 
   cfg = config.systemd.shutdownRamfs;
 
-  ramfsContents = let
-    storePaths = map (p: ''
-      ${p}
-    '') cfg.storePaths;
-    contents = lib.mapAttrsToList (_: v: ''
-      ${v.source}
-      ${v.target}'') (lib.filterAttrs (_: v: v.enable) cfg.contents);
-  in
-  pkgs.writeText "shutdown-ramfs-contents"
-  (lib.concatStringsSep "\n" (storePaths ++ contents))
-  ;
+  ramfsContents =
+    let
+      storePaths = map (p: ''
+        ${p}
+      '') cfg.storePaths;
+      contents = lib.mapAttrsToList (_: v: ''
+        ${v.source}
+        ${v.target}'') (lib.filterAttrs (_: v: v.enable) cfg.contents);
+    in
+    pkgs.writeText "shutdown-ramfs-contents"
+    (lib.concatStringsSep "\n" (storePaths ++ contents))
+    ;
 
 in {
   options.systemd.shutdownRamfs = {
@@ -76,7 +77,8 @@ in {
         ProtectSystem = "strict";
         ReadWritePaths = "/run/initramfs";
         ExecStart =
-          "${pkgs.makeInitrdNGTool}/bin/make-initrd-ng ${ramfsContents} /run/initramfs";
+          "${pkgs.makeInitrdNGTool}/bin/make-initrd-ng ${ramfsContents} /run/initramfs"
+          ;
       };
     };
   };

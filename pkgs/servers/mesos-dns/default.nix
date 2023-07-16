@@ -10,7 +10,7 @@ buildGoPackage rec {
 
   goPackagePath = "github.com/mesosphere/mesos-dns";
 
-  # Avoid including the benchmarking test helper in the output:
+    # Avoid including the benchmarking test helper in the output:
   subPackages = [ "." ];
 
   src = fetchFromGitHub {

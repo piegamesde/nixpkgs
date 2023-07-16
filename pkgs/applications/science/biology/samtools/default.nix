@@ -15,11 +15,12 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/samtools/samtools/releases/download/${version}/${pname}-${version}.tar.bz2";
+      "https://github.com/samtools/samtools/releases/download/${version}/${pname}-${version}.tar.bz2"
+      ;
     sha256 = "sha256-Ot85C2KCGf1kCPFGAqTEqpDmPhizldrXIqtRlDiipyk";
   };
 
-  # tests require `bgzip` from the htslib package
+    # tests require `bgzip` from the htslib package
   nativeCheckInputs = [ htslib ];
 
   nativeBuildInputs = [ perl ];

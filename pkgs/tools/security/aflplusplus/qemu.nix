@@ -18,12 +18,14 @@
 
 let
   qemuName = "qemu-3.1.0";
-  cpuTarget = if stdenv.targetPlatform.system == "x86_64-linux" then
-    "x86_64-linux-user"
-  else if stdenv.targetPlatform.system == "i686-linux" then
-    "i386-linux-user"
-  else
-    throw "aflplusplus: no support for ${stdenv.targetPlatform.system}!";
+  cpuTarget =
+    if stdenv.targetPlatform.system == "x86_64-linux" then
+      "x86_64-linux-user"
+    else if stdenv.targetPlatform.system == "i686-linux" then
+      "i386-linux-user"
+    else
+      throw "aflplusplus: no support for ${stdenv.targetPlatform.system}!"
+    ;
 in
 stdenv.mkDerivation {
   name = "aflplusplus-${qemuName}";

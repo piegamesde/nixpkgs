@@ -21,7 +21,8 @@ with lib;
 let
   version = "1003.1-2008";
 
-  singleBinary = cmd: providers:
+  singleBinary =
+    cmd: providers:
     let
       provider =
         providers.${stdenv.hostPlatform.parsed.kernel.name} or providers.linux;
@@ -33,7 +34,8 @@ let
         mainProgram = cmd;
         priority = 10;
         platforms =
-          lib.platforms.${stdenv.hostPlatform.parsed.kernel.name} or lib.platforms.all;
+          lib.platforms.${stdenv.hostPlatform.parsed.kernel.name} or lib.platforms.all
+          ;
       };
       passthru = { inherit provider; };
       preferLocalBuild = true;
@@ -51,10 +53,10 @@ let
         ln -s ${manpage} $out/share/man/man1/${cmd}.1.gz
       fi
     ''
-  ;
+    ;
 
-  # more is unavailable in darwin
-  # so we just use less
+    # more is unavailable in darwin
+    # so we just use less
   more_compat = runCommand "more-${pkgs.less.name}" { } ''
     mkdir -p $out/bin
     ln -s ${pkgs.less}/bin/less $out/bin/more
@@ -76,17 +78,21 @@ let
     };
     eject = { linux = pkgs.util-linux; };
     getconf = {
-      linux = if stdenv.hostPlatform.libc == "glibc" then
-        pkgs.stdenv.cc.libc
-      else
-        pkgs.netbsd.getconf;
+      linux =
+        if stdenv.hostPlatform.libc == "glibc" then
+          pkgs.stdenv.cc.libc
+        else
+          pkgs.netbsd.getconf
+        ;
       darwin = pkgs.darwin.system_cmds;
     };
     getent = {
-      linux = if stdenv.hostPlatform.libc == "glibc" then
-        pkgs.stdenv.cc.libc
-      else
-        pkgs.netbsd.getent;
+      linux =
+        if stdenv.hostPlatform.libc == "glibc" then
+          pkgs.stdenv.cc.libc
+        else
+          pkgs.netbsd.getent
+        ;
       darwin = pkgs.netbsd.getent;
     };
     getopt = {
@@ -174,8 +180,8 @@ let
     watch = {
       linux = pkgs.procps;
 
-      # watch is the only command from procps that builds currently on
-      # Darwin. Unfortunately no other implementations exist currently!
+        # watch is the only command from procps that builds currently on
+        # Darwin. Unfortunately no other implementations exist currently!
       darwin = pkgs.callPackage ../os-specific/linux/procps-ng { };
     };
     write = {
@@ -188,14 +194,16 @@ let
     };
   };
 
-  makeCompat = pname: paths:
+  makeCompat =
+    pname: paths:
     buildEnv {
       name = "${pname}-${version}";
       inherit paths;
-    };
+    }
+    ;
 
-  # Compatibility derivations
-  # Provided for old usage of these commands.
+    # Compatibility derivations
+    # Provided for old usage of these commands.
   compat = with bins;
     lib.mapAttrs makeCompat {
       procps = [

@@ -22,7 +22,7 @@ buildPythonPackage rec {
     sha256 = "0rcpx4vvj2c6wxp31vay7a2xa5p62kabi91vps9plj6710yz29nc";
   };
 
-  # https://github.com/virtuald/pyhcl/blob/51a7524b68fe21e175e157b8af931016d7a357ad/setup.py#L64
+    # https://github.com/virtuald/pyhcl/blob/51a7524b68fe21e175e157b8af931016d7a357ad/setup.py#L64
   configurePhase = ''
     echo '__version__ = "${version}"' > ./src/hcl/version.py
   '';
@@ -32,7 +32,7 @@ buildPythonPackage rec {
     pytest
   ];
 
-  # https://github.com/virtuald/pyhcl/blob/51a7524b68fe21e175e157b8af931016d7a357ad/tests/run_tests.sh#L4
+    # https://github.com/virtuald/pyhcl/blob/51a7524b68fe21e175e157b8af931016d7a357ad/tests/run_tests.sh#L4
   checkPhase = ''
     coverage run --source hcl -m pytest tests
   '';

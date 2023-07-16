@@ -102,7 +102,7 @@ with lib;
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = {
 
@@ -120,7 +120,7 @@ with lib;
       LOCALE_ARCHIVE = "${config.i18n.glibcLocales}/lib/locale/locale-archive";
     };
 
-    # ‘/etc/locale.conf’ is used by systemd.
+      # ‘/etc/locale.conf’ is used by systemd.
     environment.etc."locale.conf".source = pkgs.writeText "locale.conf" ''
       LANG=${config.i18n.defaultLocale}
       ${concatStringsSep "\n"

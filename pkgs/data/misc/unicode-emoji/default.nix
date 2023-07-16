@@ -8,7 +8,8 @@
 let
   version = "15.0";
 
-  fetchData = {
+  fetchData =
+    {
       suffix,
       hash,
     }:
@@ -33,7 +34,8 @@ let
 
         runHook postInstall
       '';
-    };
+    }
+    ;
 
   srcs = {
     emoji-sequences = fetchData {

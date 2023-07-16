@@ -12,7 +12,8 @@
 }:
 
 let
-  mkProtobufDerivation = buildProtobuf: stdenv:
+  mkProtobufDerivation =
+    buildProtobuf: stdenv:
     stdenv.mkDerivation {
       pname = "protobuf";
       inherit
@@ -47,10 +48,12 @@ let
       ];
 
       buildInputs = [ zlib ];
-      configureFlags = if buildProtobuf == null then
-        [ ]
-      else
-        [ "--with-protoc=${buildProtobuf}/bin/protoc" ];
+      configureFlags =
+        if buildProtobuf == null then
+          [ ]
+        else
+          [ "--with-protoc=${buildProtobuf}/bin/protoc" ]
+        ;
 
       enableParallelBuilding = true;
 
@@ -70,7 +73,8 @@ let
         mainProgram = "protoc";
         platforms = lib.platforms.unix;
       };
-    };
+    }
+    ;
 in
 mkProtobufDerivation (if (stdenv.buildPlatform != stdenv.hostPlatform) then
   (mkProtobufDerivation null buildPackages.stdenv)

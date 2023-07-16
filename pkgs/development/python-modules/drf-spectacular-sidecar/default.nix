@@ -19,14 +19,15 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ django ];
 
-  # no tests
+    # no tests
   doCheck = false;
 
   pythonImportsCheck = [ "drf_spectacular_sidecar" ];
 
   meta = with lib; {
     description =
-      "Serve self-contained distribution builds of Swagger UI and Redoc with Django";
+      "Serve self-contained distribution builds of Swagger UI and Redoc with Django"
+      ;
     homepage = "https://github.com/tfranzel/drf-spectacular-sidecar";
     license = licenses.bsd3;
     maintainers = with maintainers; [ SuperSandro2000 ];

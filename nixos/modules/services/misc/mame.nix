@@ -64,7 +64,8 @@ in {
         Type = "oneshot";
         RemainAfterExit = true;
         ExecStart =
-          "${pkgs.mame}/bin/taputil.sh -c ${cfg.user} ${cfg.emuAddr} ${cfg.hostAddr} -";
+          "${pkgs.mame}/bin/taputil.sh -c ${cfg.user} ${cfg.emuAddr} ${cfg.hostAddr} -"
+          ;
         ExecStop = "${pkgs.mame}/bin/taputil.sh -d ${cfg.user}";
       };
     };

@@ -27,8 +27,8 @@ buildPythonApplication rec {
     humanfriendly
   ];
 
-  # while git-annex does come with a testremote command that *could* be used,
-  # testing this special remote obviously depends on authenticating with google
+    # while git-annex does come with a testremote command that *could* be used,
+    # testing this special remote obviously depends on authenticating with google
   doCheck = false;
 
   pythonImportsCheck = [ "git_annex_remote_googledrive" ];

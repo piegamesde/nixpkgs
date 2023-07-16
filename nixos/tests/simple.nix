@@ -5,11 +5,13 @@ import ./make-test-python.nix ({
     name = "simple";
     meta = with pkgs.lib.maintainers; { maintainers = [ eelco ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         imports = [ ../modules/profiles/minimal.nix ];
-      };
+      }
+      ;
 
     testScript = ''
       start_all()

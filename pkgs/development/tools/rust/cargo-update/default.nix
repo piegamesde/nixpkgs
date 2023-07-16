@@ -56,7 +56,8 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "A cargo subcommand for checking and applying updates to installed executables";
+      "A cargo subcommand for checking and applying updates to installed executables"
+      ;
     homepage = "https://github.com/nabijaczleweli/cargo-update";
     changelog =
       "https://github.com/nabijaczleweli/cargo-update/releases/tag/v${version}";

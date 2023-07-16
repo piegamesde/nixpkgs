@@ -21,7 +21,8 @@ stdenv.mkDerivation (finalAttrs: {
   patches = [ (fetchpatch {
     # https://github.com/seryrzu/tandem_aligner/pull/4
     url =
-      "https://github.com/seryrzu/tandem_aligner/commit/8b516c94f90aaa9cb84278aa811285d4204b03a9.patch";
+      "https://github.com/seryrzu/tandem_aligner/commit/8b516c94f90aaa9cb84278aa811285d4204b03a9.patch"
+      ;
     hash = "sha256-kD46SykXklG/avK0+sc61YKFw9Bes8ZgFAjVXmcpN8k=";
     stripLen = 1;
   }) ];
@@ -41,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = true;
 
-  # adapted from target test_launch in Makefile
+    # adapted from target test_launch in Makefile
   checkPhase = ''
     runHook preCheck
     mkdir -p $TMPDIR/test_launch
@@ -59,7 +60,8 @@ stdenv.mkDerivation (finalAttrs: {
     description = "A parameter-free algorithm for sequence alignment";
     homepage = "https://github.com/seryrzu/tandem_aligner";
     changelog =
-      "https://github.com/seryrzu/tandem_aligner/releases/tag/v${finalAttrs.version}";
+      "https://github.com/seryrzu/tandem_aligner/releases/tag/v${finalAttrs.version}"
+      ;
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ amesgen ];
     platforms = lib.platforms.linux;

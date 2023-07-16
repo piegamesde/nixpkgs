@@ -12,7 +12,8 @@ mkDerivation (finalAttrs: {
 
   src = fetchurl {
     url =
-      "https://github.com/phpro/grumphp/releases/download/v${finalAttrs.version}/grumphp.phar";
+      "https://github.com/phpro/grumphp/releases/download/v${finalAttrs.version}/grumphp.phar"
+      ;
     sha256 = "sha256-EqzJb7DYZb7PnebErLVI/EZLxj0m26cniZlsu1feif0=";
   };
 

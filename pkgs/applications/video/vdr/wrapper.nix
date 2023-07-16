@@ -7,8 +7,10 @@
 }:
 let
 
-  makeXinePluginPath = l:
-    lib.concatStringsSep ":" (map (p: "${p}/lib/xine/plugins") l);
+  makeXinePluginPath =
+    l:
+    lib.concatStringsSep ":" (map (p: "${p}/lib/xine/plugins") l)
+    ;
 
   requiredXinePlugins =
     lib.flatten (map (p: p.passthru.requiredXinePlugins or [ ]) plugins);

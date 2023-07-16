@@ -34,7 +34,8 @@ python3.pkgs.buildPythonApplication rec {
 
   meta = with lib; {
     description =
-      "A simple tool to allow storage of signed, encrypted, incremental backups using Amazon's Glacier storage";
+      "A simple tool to allow storage of signed, encrypted, incremental backups using Amazon's Glacier storage"
+      ;
     license = licenses.lgpl2;
     homepage = "https://github.com/mrworf/iceshelf";
     maintainers = with maintainers; [ mmahut ];

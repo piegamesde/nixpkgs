@@ -15,8 +15,8 @@ buildPythonPackage rec {
     hash = "sha256-sfYa8hnLL+lmtft5oZISTy5jo/end6w8rfKVexqBvqg=";
   };
 
-  # The VERSION.txt file is required for setup.py
-  # See: https://github.com/KieranWynn/pyquaternion/blob/master/setup.py#L14-L15
+    # The VERSION.txt file is required for setup.py
+    # See: https://github.com/KieranWynn/pyquaternion/blob/master/setup.py#L14-L15
   postPatch = ''
     echo "${version}" > VERSION.txt
   '';

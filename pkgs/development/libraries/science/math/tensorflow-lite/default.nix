@@ -81,14 +81,16 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "include-schema-conversion-utils-source.patch";
       url =
-        "https://github.com/tensorflow/tensorflow/commit/f3c4f4733692150fd6174f2cd16438cfaba2e5ab.patch";
+        "https://github.com/tensorflow/tensorflow/commit/f3c4f4733692150fd6174f2cd16438cfaba2e5ab.patch"
+        ;
       sha256 = "0zx4hbz679kn79f30159rl1mq74dg45cvaawii0cyv48z472yy4k";
     })
     # TODO: remove on the next version bump
     (fetchpatch {
       name = "cxxstandard-var.patch";
       url =
-        "https://github.com/tensorflow/tensorflow/commit/9b128ae4200e10b4752f903492d1e7d11957ed5c.patch";
+        "https://github.com/tensorflow/tensorflow/commit/9b128ae4200e10b4752f903492d1e7d11957ed5c.patch"
+        ;
       sha256 = "1q0izdwdji5fbyqll6k4dmkzfykyvvz5cvc6hysdj285nkn2wy6h";
     })
   ];
@@ -108,53 +110,55 @@ stdenv.mkDerivation rec {
 
   makefile = "tensorflow/lite/tools/make/Makefile";
 
-  preBuild = let
-    includes = lib.concatMapStringsSep " "
-      (subdir: "-I $PWD/tensorflow/lite/tools/make/downloads/${subdir}") [
-        "neon_2_sse"
-        "gemmlowp"
-        "absl"
-        "fp16/include"
-        "farmhash/src"
-        "ruy"
-        "cpuinfo"
-        "cpuinfo/src"
-        "cpuinfo/include"
-        "cpuinfo/deps/clog/include"
-        "eigen"
-      ];
-  in ''
-    # enter the vendoring lair of doom
+  preBuild =
+    let
+      includes = lib.concatMapStringsSep " "
+        (subdir: "-I $PWD/tensorflow/lite/tools/make/downloads/${subdir}") [
+          "neon_2_sse"
+          "gemmlowp"
+          "absl"
+          "fp16/include"
+          "farmhash/src"
+          "ruy"
+          "cpuinfo"
+          "cpuinfo/src"
+          "cpuinfo/include"
+          "cpuinfo/deps/clog/include"
+          "eigen"
+        ];
+    in ''
+      # enter the vendoring lair of doom
 
-    prefix="$PWD/tensorflow/lite/tools/make/downloads"
+      prefix="$PWD/tensorflow/lite/tools/make/downloads"
 
-    mkdir -p "$prefix"
+      mkdir -p "$prefix"
 
-    tar xzf ${fft2d-src} -C "$prefix"
+      tar xzf ${fft2d-src} -C "$prefix"
 
-    ln -s ${ruy-src} "$prefix/ruy"
-    ln -s ${gemmlowp-src} "$prefix/gemmlowp"
-    ln -s ${neon-2-sse-src} "$prefix/neon_2_sse"
-    ln -s ${farmhash-src} "$prefix/farmhash"
-    ln -s ${cpuinfo-src} "$prefix/cpuinfo"
-    ln -s ${fp16-src} "$prefix/fp16"
-    ln -s ${tflite-eigen} "$prefix/eigen"
+      ln -s ${ruy-src} "$prefix/ruy"
+      ln -s ${gemmlowp-src} "$prefix/gemmlowp"
+      ln -s ${neon-2-sse-src} "$prefix/neon_2_sse"
+      ln -s ${farmhash-src} "$prefix/farmhash"
+      ln -s ${cpuinfo-src} "$prefix/cpuinfo"
+      ln -s ${fp16-src} "$prefix/fp16"
+      ln -s ${tflite-eigen} "$prefix/eigen"
 
-    # tensorflow lite is using the *source* of flatbuffers
-    ln -s ${flatbuffers.src} "$prefix/flatbuffers"
+      # tensorflow lite is using the *source* of flatbuffers
+      ln -s ${flatbuffers.src} "$prefix/flatbuffers"
 
-    # tensorflow lite expects to compile abseil into `libtensorflow-lite.a`
-    ln -s ${abseil-cpp.src} "$prefix/absl"
+      # tensorflow lite expects to compile abseil into `libtensorflow-lite.a`
+      ln -s ${abseil-cpp.src} "$prefix/absl"
 
-    # set CXXSTANDARD=c++17 here because abseil-cpp in nixpkgs is set as
-    # such and would be used in dependents like libedgetpu
-    buildFlagsArray+=(
-      INCLUDES="-I $PWD ${includes}"
-      CXXSTANDARD="-std=c++17"
-      TARGET_TOOLCHAIN_PREFIX=""
-      -j$NIX_BUILD_CORES
-      all)
-  '' ;
+      # set CXXSTANDARD=c++17 here because abseil-cpp in nixpkgs is set as
+      # such and would be used in dependents like libedgetpu
+      buildFlagsArray+=(
+        INCLUDES="-I $PWD ${includes}"
+        CXXSTANDARD="-std=c++17"
+        TARGET_TOOLCHAIN_PREFIX=""
+        -j$NIX_BUILD_CORES
+        all)
+    ''
+    ;
 
   installPhase = ''
     mkdir "$out"

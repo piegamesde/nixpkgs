@@ -30,13 +30,15 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://debian/pool/main/s/space-orbit/space-orbit_${version}.orig.tar.gz";
+      "mirror://debian/pool/main/s/space-orbit/space-orbit_${version}.orig.tar.gz"
+      ;
     sha256 = "1kx69f9jqnfzwjh47cl1df8p8hn3bnp6bznxnb6c4wx32ijn5gri";
   };
 
   patches = [ (fetchurl {
     url =
-      "mirror://debian/pool/main/s/space-orbit/space-orbit_${version}-${patchversion}.diff.gz";
+      "mirror://debian/pool/main/s/space-orbit/space-orbit_${version}-${patchversion}.diff.gz"
+      ;
     sha256 = "1v3s97day6fhv08l2rn81waiprhi1lfyjjsj55axfh6n6zqfn1w2";
   }) ];
 

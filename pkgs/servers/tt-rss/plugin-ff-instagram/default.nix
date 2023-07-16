@@ -7,8 +7,8 @@
 
 stdenv.mkDerivation {
   pname = "tt-rss-plugin-ff-instagram";
-  version =
-    "unstable-2019-01-10"; # No release, see https://github.com/wltb/ff_instagram/issues/6
+  version = "unstable-2019-01-10"
+    ; # No release, see https://github.com/wltb/ff_instagram/issues/6
 
   src = fetchFromGitHub {
     owner = "wltb";
@@ -25,7 +25,8 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description =
-      "Plugin for Tiny Tiny RSS that allows to fetch posts from Instagram user sites";
+      "Plugin for Tiny Tiny RSS that allows to fetch posts from Instagram user sites"
+      ;
     longDescription = ''
       Plugin for Tiny Tiny RSS that allows to fetch posts from Instagram user sites.
 

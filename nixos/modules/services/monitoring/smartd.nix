@@ -71,7 +71,8 @@ let
     "DEVICESCAN ${notifyOpts}${cfg.defaults.autodetected}"}
   '';
 
-  smartdDeviceOpts = {
+  smartdDeviceOpts =
+    {
       ...
     }: {
 
@@ -93,7 +94,8 @@ let
 
       };
 
-    };
+    }
+    ;
 
 in {
   ###### interface
@@ -254,14 +256,15 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 
     assertions = [ {
       assertion = cfg.autodetect || cfg.devices != [ ];
       message =
-        "smartd can't run with both disabled autodetect and an empty list of devices to monitor.";
+        "smartd can't run with both disabled autodetect and an empty list of devices to monitor."
+        ;
     } ];
 
     systemd.services.smartd = {

@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     inherit src;
     name = "${pname}-${version}";
     hash = "sha256-nRmOB9Jo+mmB0+wXrQvoII4e0ucV7bNCDeuk6CbcPdk=";
-    # TODO: move this to fetchCargoTarball
+      # TODO: move this to fetchCargoTarball
     dontConfigure = true;
   };
 
@@ -99,8 +99,8 @@ stdenv.mkDerivation rec {
     ++ lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
     "RUST_TARGET=${rust.toRustTarget stdenv.hostPlatform}";
 
-  doCheck =
-    false; # all tests fail on libtool-generated rsvg-convert not being able to find coreutils
+  doCheck = false
+    ; # all tests fail on libtool-generated rsvg-convert not being able to find coreutils
 
   GDK_PIXBUF_QUERYLOADERS = writeScript "gdk-pixbuf-loader-loaders-wrapped" ''
     ${
@@ -114,11 +114,11 @@ stdenv.mkDerivation rec {
     export PKG_CONFIG_VAPIGEN_VAPIGEN
   '';
 
-  # It wants to add loaders and update the loaders.cache in gdk-pixbuf
-  # Patching the Makefiles to it creates rsvg specific loaders and the
-  # relevant loader.cache here.
-  # The loaders.cache can be used by setting GDK_PIXBUF_MODULE_FILE to
-  # point to this file in a wrapper.
+    # It wants to add loaders and update the loaders.cache in gdk-pixbuf
+    # Patching the Makefiles to it creates rsvg specific loaders and the
+    # relevant loader.cache here.
+    # The loaders.cache can be used by setting GDK_PIXBUF_MODULE_FILE to
+    # point to this file in a wrapper.
   postConfigure = ''
     GDK_PIXBUF=$out/lib/gdk-pixbuf-2.0/2.10.0
     mkdir -p $GDK_PIXBUF/loaders
@@ -142,7 +142,7 @@ stdenv.mkDerivation rec {
         --replace 'RUN_QUERY_LOADER_TEST = false' 'RUN_QUERY_LOADER_TEST = test -z "$(DESTDIR)"' \
     '';
 
-  # Not generated when cross compiling.
+    # Not generated when cross compiling.
   postInstall =
     lib.optionalString (stdenv.hostPlatform.emulatorAvailable buildPackages) ''
       # Merge gdkpixbuf and librsvg loaders
@@ -158,42 +158,43 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = let
-      updateSource = gnome.updateScript { packageName = "librsvg"; };
+    updateScript =
+      let
+        updateSource = gnome.updateScript { packageName = "librsvg"; };
 
-      updateLockfile = {
-        command = [
-          "sh"
-          "-c"
-          ''
-            PATH=${
-              lib.makeBinPath [
-                common-updater-scripts
-                jq
-                nix
-              ]
-            }
-            # update-source-version does not allow updating to the same version so we need to clear it temporarily.
-            # Get the current version so that we can restore it later.
-            latestVersion=$(nix-instantiate --eval -A librsvg.version | jq --raw-output)
-            # Clear the version. Provide hash so that we do not need to do pointless TOFU.
-            # Needs to be a fake SRI hash that is non-zero, since u-s-v uses zero as a placeholder.
-            # Also cannot be here verbatim or u-s-v would be confused what to replace.
-            update-source-version librsvg 0 "sha256-${
-              lib.fixedWidthString 44 "B" "="
-            }" --source-key=cargoDeps > /dev/null
-            update-source-version librsvg "$latestVersion" --source-key=cargoDeps > /dev/null
-          ''
-        ];
-        # Experimental feature: do not copy!
-        supportedFeatures = [ "silent" ];
-      };
-    in
-    _experimental-update-script-combinators.sequence [
-      updateSource
-      updateLockfile
-    ]
-    ;
+        updateLockfile = {
+          command = [
+            "sh"
+            "-c"
+            ''
+              PATH=${
+                lib.makeBinPath [
+                  common-updater-scripts
+                  jq
+                  nix
+                ]
+              }
+              # update-source-version does not allow updating to the same version so we need to clear it temporarily.
+              # Get the current version so that we can restore it later.
+              latestVersion=$(nix-instantiate --eval -A librsvg.version | jq --raw-output)
+              # Clear the version. Provide hash so that we do not need to do pointless TOFU.
+              # Needs to be a fake SRI hash that is non-zero, since u-s-v uses zero as a placeholder.
+              # Also cannot be here verbatim or u-s-v would be confused what to replace.
+              update-source-version librsvg 0 "sha256-${
+                lib.fixedWidthString 44 "B" "="
+              }" --source-key=cargoDeps > /dev/null
+              update-source-version librsvg "$latestVersion" --source-key=cargoDeps > /dev/null
+            ''
+          ];
+            # Experimental feature: do not copy!
+          supportedFeatures = [ "silent" ];
+        };
+      in
+      _experimental-update-script-combinators.sequence [
+        updateSource
+        updateLockfile
+      ]
+      ;
   };
 
   meta = with lib; {

@@ -14,7 +14,8 @@ import ../make-test-python.nix ({
     name = "monica";
 
     nodes = {
-      machine = {
+      machine =
+        {
           pkgs,
           ...
         }: {
@@ -29,7 +30,8 @@ import ../make-test-python.nix ({
               sslCertificateKey = "${cert}/key.pem";
             };
           };
-        };
+        }
+        ;
     };
 
     testScript = ''

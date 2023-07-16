@@ -66,7 +66,7 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d)
   '';
 
-  # The test suite depends on cloud resources azure/aws
+    # The test suite depends on cloud resources azure/aws
   doCheck = false;
 
   pythonImportsCheck = [ "papermill" ];

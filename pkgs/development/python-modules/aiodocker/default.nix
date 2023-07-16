@@ -7,7 +7,7 @@
 
 buildPythonPackage rec {
   pname = "aiodocker";
-  # unstable includes support for python 3.10+
+    # unstable includes support for python 3.10+
   version = "unstable-2022-01-20";
 
   src = fetchFromGitHub {
@@ -19,7 +19,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ aiohttp ];
 
-  # tests require docker daemon
+    # tests require docker daemon
   doCheck = false;
   pythonImportsCheck = [ "aiodocker" ];
 

@@ -36,7 +36,8 @@ pkgs.lib.listToAttrs (builtins.map ({
         + pkgs.lib.optionalString systemdStage1 "-systemd-stage-1";
       meta = { };
 
-      nodes.machine = {
+      nodes.machine =
+        {
           lib,
           ...
         }:
@@ -55,7 +56,7 @@ pkgs.lib.listToAttrs (builtins.map ({
           networking.dhcpcd.enable = !withNetworkd;
           networking.useDHCP = !withNetworkd;
 
-          # Check if predictable interface names are working in stage-1
+            # Check if predictable interface names are working in stage-1
           boot.initrd.postDeviceCommands = script;
 
           boot.initrd.systemd = lib.mkIf systemdStage1 {
@@ -70,7 +71,8 @@ pkgs.lib.listToAttrs (builtins.map ({
               inherit script;
             };
           };
-        } ;
+        }
+        ;
 
       testScript = ''
         print(machine.succeed("ip link"))

@@ -101,12 +101,12 @@ let
     hash = "sha256-TEF/GHglOmsshlC6q4iw14ZMpvA0SaKwlidomAN+sRc=";
   };
 
-  # Contrib must be built in order to enable Tesseract support:
+    # Contrib must be built in order to enable Tesseract support:
   buildContrib = enableContrib || enableTesseract;
 
   useSystemProtobuf = !stdenv.isDarwin;
 
-  # See opencv/3rdparty/ippicv/ippicv.cmake
+    # See opencv/3rdparty/ippicv/ippicv.cmake
   ippicv = {
     src = fetchFromGitHub {
       owner = "opencv";
@@ -114,21 +114,23 @@ let
       rev = "32e315a5b106a7b89dbed51c28f8120a48b368b4";
       sha256 = "19w9f0r16072s59diqxsr5q6nmwyz9gnxjs49nglzhd66p3ddbkp";
     } + "/ippicv";
-    files = let
-      name = platform: "ippicv_2019_${platform}_general_20180723.tgz";
-    in if stdenv.hostPlatform.system == "x86_64-linux" then
-      { ${name "lnx_intel64"} = "c0bd78adb4156bbf552c1dfe90599607"; }
-    else if stdenv.hostPlatform.system == "i686-linux" then
-      { ${name "lnx_ia32"} = "4f38432c30bfd6423164b7a24bbc98a0"; }
-    else if stdenv.hostPlatform.system == "x86_64-darwin" then
-      { ${name "mac_intel64"} = "fe6b2bb75ae0e3f19ad3ae1a31dfa4a2"; }
-    else
-      throw
-      "ICV is not available for this platform (or not yet supported by this package)";
+    files =
+      let
+        name = platform: "ippicv_2019_${platform}_general_20180723.tgz";
+      in if stdenv.hostPlatform.system == "x86_64-linux" then
+        { ${name "lnx_intel64"} = "c0bd78adb4156bbf552c1dfe90599607"; }
+      else if stdenv.hostPlatform.system == "i686-linux" then
+        { ${name "lnx_ia32"} = "4f38432c30bfd6423164b7a24bbc98a0"; }
+      else if stdenv.hostPlatform.system == "x86_64-darwin" then
+        { ${name "mac_intel64"} = "fe6b2bb75ae0e3f19ad3ae1a31dfa4a2"; }
+      else
+        throw
+        "ICV is not available for this platform (or not yet supported by this package)"
+      ;
     dst = ".cache/ippicv";
   };
 
-  # See opencv_contrib/modules/xfeatures2d/cmake/download_vgg.cmake
+    # See opencv_contrib/modules/xfeatures2d/cmake/download_vgg.cmake
   vgg = {
     src = fetchFromGitHub {
       owner = "opencv";
@@ -145,7 +147,7 @@ let
     dst = ".cache/xfeatures2d/vgg";
   };
 
-  # See opencv_contrib/modules/xfeatures2d/cmake/download_boostdesc.cmake
+    # See opencv_contrib/modules/xfeatures2d/cmake/download_boostdesc.cmake
   boostdesc = {
     src = fetchFromGitHub {
       owner = "opencv";
@@ -165,7 +167,7 @@ let
     dst = ".cache/xfeatures2d/boostdesc";
   };
 
-  # See opencv_contrib/modules/face/CMakeLists.txt
+    # See opencv_contrib/modules/face/CMakeLists.txt
   face = {
     src = fetchFromGitHub {
       owner = "opencv";
@@ -177,22 +179,26 @@ let
     dst = ".cache/data";
   };
 
-  # See opencv/cmake/OpenCVDownload.cmake
-  installExtraFiles = extra:
+    # See opencv/cmake/OpenCVDownload.cmake
+  installExtraFiles =
+    extra:
     with lib;
     ''
       mkdir -p "${extra.dst}"
     '' + concatStrings (mapAttrsToList (name: md5: ''
       ln -s "${extra.src}/${name}" "${extra.dst}/${md5}-${name}"
-    '') extra.files);
+    '') extra.files)
+    ;
 
   opencvFlag = name: enabled: "-DWITH_${name}=${printEnabled enabled}";
 
-  printEnabled = enabled:
+  printEnabled =
+    enabled:
     if enabled then
       "ON"
     else
-      "OFF";
+      "OFF"
+    ;
 
 in
 stdenv.mkDerivation {
@@ -203,14 +209,14 @@ stdenv.mkDerivation {
     cp --no-preserve=mode -r "${contribSrc}/modules" "$NIX_BUILD_TOP/opencv_contrib"
   '';
 
-  # Ensures that we use the system OpenEXR rather than the vendored copy of the source included with OpenCV.
+    # Ensures that we use the system OpenEXR rather than the vendored copy of the source included with OpenCV.
   patches = [ ./cmake-don-t-use-OpenCVFindOpenEXR.patch ];
 
-  # This prevents cmake from using libraries in impure paths (which
-  # causes build failure on non NixOS)
-  # Also, work around https://github.com/NixOS/nixpkgs/issues/26304 with
-  # what appears to be some stray headers in dnn/misc/tensorflow
-  # in contrib when generating the Python bindings:
+    # This prevents cmake from using libraries in impure paths (which
+    # causes build failure on non NixOS)
+    # Also, work around https://github.com/NixOS/nixpkgs/issues/26304 with
+    # what appears to be some stray headers in dnn/misc/tensorflow
+    # in contrib when generating the Python bindings:
   postPatch = ''
     sed -i '/Add these standard paths to the search paths for FIND_LIBRARY/,/^\s*$/{d}' CMakeLists.txt
     sed -i -e 's|if len(decls) == 0:|if len(decls) == 0 or "opencv2/" not in hdr:|' ./modules/python/src2/gen2.py
@@ -286,7 +292,7 @@ stdenv.mkDerivation {
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString enableEXR "-I${ilmbase.dev}/include/OpenEXR";
 
-  # Configure can't find the library without this.
+    # Configure can't find the library without this.
   OpenBLAS_HOME = lib.optionalString enableOpenblas openblas;
 
   cmakeFlags = [
@@ -325,17 +331,17 @@ stdenv.mkDerivation {
     make doxygen
   '';
 
-  # By default $out/lib/pkgconfig/opencv.pc looks something like this:
-  #
-  #   prefix=/nix/store/10pzq1a8fkh8q4sysj8n6mv0w0nl0miq-opencv-3.4.1
-  #   exec_prefix=${prefix}
-  #   libdir=${exec_prefix}//nix/store/10pzq1a8fkh8q4sysj8n6mv0w0nl0miq-opencv-3.4.1/lib
-  #   ...
-  #   Libs: -L${exec_prefix}//nix/store/10pzq1a8fkh8q4sysj8n6mv0w0nl0miq-opencv-3.4.1/lib ...
-  #
-  # Note that ${exec_prefix} is set to $out but that $out is also appended to
-  # ${exec_prefix}. This causes linker errors in downstream packages so we strip
-  # of $out after the ${exec_prefix} prefix:
+    # By default $out/lib/pkgconfig/opencv.pc looks something like this:
+    #
+    #   prefix=/nix/store/10pzq1a8fkh8q4sysj8n6mv0w0nl0miq-opencv-3.4.1
+    #   exec_prefix=${prefix}
+    #   libdir=${exec_prefix}//nix/store/10pzq1a8fkh8q4sysj8n6mv0w0nl0miq-opencv-3.4.1/lib
+    #   ...
+    #   Libs: -L${exec_prefix}//nix/store/10pzq1a8fkh8q4sysj8n6mv0w0nl0miq-opencv-3.4.1/lib ...
+    #
+    # Note that ${exec_prefix} is set to $out but that $out is also appended to
+    # ${exec_prefix}. This causes linker errors in downstream packages so we strip
+    # of $out after the ${exec_prefix} prefix:
   postInstall = ''
     sed -i "s|{exec_prefix}/$out|{exec_prefix}|" \
       "$out/lib/pkgconfig/opencv.pc"

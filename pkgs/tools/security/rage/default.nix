@@ -24,7 +24,7 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = lib.optionals stdenv.isDarwin [ Foundation ];
 
-  # cargo test has an x86-only dependency
+    # cargo test has an x86-only dependency
   doCheck = stdenv.hostPlatform.isx86;
 
   postBuild = ''
@@ -39,7 +39,8 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "A simple, secure and modern encryption tool with small explicit keys, no config options, and UNIX-style composability";
+      "A simple, secure and modern encryption tool with small explicit keys, no config options, and UNIX-style composability"
+      ;
     homepage = "https://github.com/str4d/rage";
     changelog =
       "https://github.com/str4d/rage/raw/v${version}/rage/CHANGELOG.md";

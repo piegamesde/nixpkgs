@@ -11,7 +11,8 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     sha256 = "1a9xqhck0ikn8kfjk338h9v1yjn113gd83q0c50k78xa68xrnxjx";
     url =
-      "http://myweb.tiscali.co.uk/scottrix/linux/download/${pname}-${version}.tar.bz2";
+      "http://myweb.tiscali.co.uk/scottrix/linux/download/${pname}-${version}.tar.bz2"
+      ;
   };
 
   postPatch = ''

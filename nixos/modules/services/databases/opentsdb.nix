@@ -70,7 +70,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf config.services.opentsdb.enable {
 

@@ -12,10 +12,12 @@ let
 
   virtualbox = cfg.package.override {
     inherit (cfg) enableHardening headless enableWebService;
-    extensionPack = if cfg.enableExtensionPack then
-      pkgs.virtualboxExtpack
-    else
-      null;
+    extensionPack =
+      if cfg.enableExtensionPack then
+        pkgs.virtualboxExtpack
+      else
+        null
+      ;
   };
 
   kernelModules =
@@ -99,7 +101,8 @@ in {
   config = mkIf cfg.enable (mkMerge [
     {
       warnings = mkIf
-        (config.nixpkgs.config.virtualbox.enableExtensionPack or false) [ "'nixpkgs.virtualbox.enableExtensionPack' has no effect, please use 'virtualisation.virtualbox.host.enableExtensionPack'" ];
+        (config.nixpkgs.config.virtualbox.enableExtensionPack or false) [ "'nixpkgs.virtualbox.enableExtensionPack' has no effect, please use 'virtualisation.virtualbox.host.enableExtensionPack'" ]
+        ;
       boot.kernelModules = [
         "vboxdrv"
         "vboxnetadp"
@@ -108,29 +111,32 @@ in {
       boot.extraModulePackages = [ kernelModules ];
       environment.systemPackages = [ virtualbox ];
 
-      security.wrappers = let
-        mkSuid = program: {
-          source = "${virtualbox}/libexec/virtualbox/${program}";
-          owner = "root";
-          group = "vboxusers";
-          setuid = true;
-        };
-        executables = [
-          "VBoxHeadless"
-          "VBoxNetAdpCtl"
-          "VBoxNetDHCP"
-          "VBoxNetNAT"
-          "VBoxVolInfo"
-        ] ++ (lib.optionals (!cfg.headless) [
-          "VBoxSDL"
-          "VirtualBoxVM"
-        ]);
-      in
-      mkIf cfg.enableHardening (builtins.listToAttrs (map (x: {
-        name = x;
-        value = mkSuid x;
-      }) executables))
-      ;
+      security.wrappers =
+        let
+          mkSuid =
+            program: {
+              source = "${virtualbox}/libexec/virtualbox/${program}";
+              owner = "root";
+              group = "vboxusers";
+              setuid = true;
+            }
+            ;
+          executables = [
+            "VBoxHeadless"
+            "VBoxNetAdpCtl"
+            "VBoxNetDHCP"
+            "VBoxNetNAT"
+            "VBoxVolInfo"
+          ] ++ (lib.optionals (!cfg.headless) [
+            "VBoxSDL"
+            "VirtualBoxVM"
+          ]);
+        in
+        mkIf cfg.enableHardening (builtins.listToAttrs (map (x: {
+          name = x;
+          value = mkSuid x;
+        }) executables))
+        ;
 
       users.groups.vboxusers.gid = config.ids.gids.vboxusers;
 
@@ -144,7 +150,7 @@ in {
         SUBSYSTEM=="usb", ACTION=="remove", ENV{DEVTYPE}=="usb_device", RUN+="${virtualbox}/libexec/virtualbox/VBoxCreateUSBNode.sh --remove $major $minor"
       '';
 
-      # Since we lack the right setuid/setcap binaries, set up a host-only network by default.
+        # Since we lack the right setuid/setcap binaries, set up a host-only network by default.
     }
     (mkIf cfg.addNetworkInterface {
       systemd.services.vboxnet0 = {
@@ -175,8 +181,8 @@ in {
         address = "192.168.56.1";
         prefixLength = 24;
       } ];
-      # Make sure NetworkManager won't assume this interface being up
-      # means we have internet access.
+        # Make sure NetworkManager won't assume this interface being up
+        # means we have internet access.
       networking.networkmanager.unmanaged = [ "vboxnet0" ];
     })
     (mkIf config.networking.useNetworkd {

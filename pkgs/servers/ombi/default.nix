@@ -13,10 +13,12 @@
 }:
 
 let
-  os = if stdenv.isDarwin then
-    "osx"
-  else
-    "linux";
+  os =
+    if stdenv.isDarwin then
+      "osx"
+    else
+      "linux"
+    ;
   arch = {
     x86_64-linux = "x64";
     aarch64-linux = "arm64";
@@ -39,7 +41,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/Ombi-app/Ombi/releases/download/v${version}/${os}-${arch}.tar.gz";
+      "https://github.com/Ombi-app/Ombi/releases/download/v${version}/${os}-${arch}.tar.gz"
+      ;
     sha256 = hash;
   };
 
@@ -74,7 +77,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Self-hosted web application that automatically gives your shared Plex or Emby users the ability to request content by themselves";
+      "Self-hosted web application that automatically gives your shared Plex or Emby users the ability to request content by themselves"
+      ;
     homepage = "https://ombi.io/";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.gpl2Only;

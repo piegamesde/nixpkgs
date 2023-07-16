@@ -57,7 +57,8 @@ stdenv.mkDerivation rec {
     # https://gitlab.com/entangle/entangle/-/issues/67
     (fetchpatch {
       url =
-        "https://gitlab.com/entangle/entangle/-/commit/54795d275a93e94331a614c8712740fcedbdd4f0.patch";
+        "https://gitlab.com/entangle/entangle/-/commit/54795d275a93e94331a614c8712740fcedbdd4f0.patch"
+        ;
       sha256 = "iEgqGjKa0xwSdctwvNdEV361l9nx+bz53xn3fuDgtzY=";
     })
   ];
@@ -107,8 +108,8 @@ stdenv.mkDerivation rec {
     libXtst
   ]);
 
-  # Disable building of doc/reference since it requires network connection to render XML to HTML
-  # Patch build script shebangs
+    # Disable building of doc/reference since it requires network connection to render XML to HTML
+    # Patch build script shebangs
   postPatch = ''
     sed -i "/subdir('reference')/d" "docs/meson.build"
     patchShebangs --build build-aux meson_post_install.py

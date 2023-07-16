@@ -28,14 +28,17 @@ let
 
 in
 stdenv.mkDerivation (finalAttrs: {
-  pname = let
-    postfix = if monoSupport then
-      "sharp"
-    else
-      "gtk${gtkVersion}";
-  in
-  "libappindicator-${postfix}"
-  ;
+  pname =
+    let
+      postfix =
+        if monoSupport then
+          "sharp"
+        else
+          "gtk${gtkVersion}"
+        ;
+    in
+    "libappindicator-${postfix}"
+    ;
   version = "12.10.1+20.10.20200706.1";
 
   outputs = [
@@ -105,7 +108,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = with lib; {
     description =
-      "A library to allow applications to export a menu into the Unity Menu bar";
+      "A library to allow applications to export a menu into the Unity Menu bar"
+      ;
     homepage = "https://launchpad.net/libappindicator";
     license = with licenses; [
       lgpl21
@@ -117,7 +121,7 @@ stdenv.mkDerivation (finalAttrs: {
     }.${gtkVersion} or throwBadGtkVersion;
     platforms = platforms.linux;
     maintainers = [ maintainers.msteen ];
-    # TODO: Resolve the issues with the Mono bindings.
+      # TODO: Resolve the issues with the Mono bindings.
     broken = monoSupport;
   };
 })

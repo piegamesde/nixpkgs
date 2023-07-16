@@ -9,12 +9,14 @@ import ./make-test-python.nix ({
     name = "readarr";
     meta.maintainers = with maintainers; [ jocelynthode ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
         services.readarr.enable = true;
-      };
+      }
+      ;
 
     testScript = ''
       machine.wait_for_unit("readarr.service")

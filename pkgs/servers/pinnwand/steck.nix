@@ -33,7 +33,7 @@ python3Packages.buildPythonApplication rec {
     toml
   ];
 
-  # tests are not in pypi package
+    # tests are not in pypi package
   doCheck = false;
 
   passthru.tests = nixosTests.pinnwand;

@@ -11,7 +11,7 @@
 python3.pkgs.buildPythonApplication rec {
   pname = "glasgow";
   version = "unstable-2021-12-12";
-  # python software/setup.py --version
+    # python software/setup.py --version
   realVersion = "0.1.dev1679+g${lib.substring 0 7 src.rev}";
 
   src = fetchFromGitHub {
@@ -52,7 +52,7 @@ python3.pkgs.buildPythonApplication rec {
     export SETUPTOOLS_SCM_PRETEND_VERSION="${realVersion}"
   '';
 
-  # installCheck tries to build_ext again
+    # installCheck tries to build_ext again
   doInstallCheck = false;
 
   checkPhase = ''

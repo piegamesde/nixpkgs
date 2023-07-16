@@ -23,7 +23,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "pyqtbuild" ];
 
-  # There aren't tests
+    # There aren't tests
   doCheck = false;
 
   meta = with lib; {

@@ -22,7 +22,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Theme with some soft colors and nice background images loaded from unsplash.com";
+      "Theme with some soft colors and nice background images loaded from unsplash.com"
+      ;
     homepage = "https://github.com/Mikesch-mp/icingaweb2-theme-spring";
     license = licenses.publicDomain;
     platforms = platforms.all;

@@ -7,7 +7,8 @@ args@{
   version = "20200610-git";
 
   description =
-    "High-level virtual FS using CL-Fuse-Meta-FS to represent results of queries";
+    "High-level virtual FS using CL-Fuse-Meta-FS to represent results of queries"
+    ;
 
   deps = [
     args."alexandria"
@@ -31,7 +32,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/query-fs/2020-06-10/query-fs-20200610-git.tgz";
+      "http://beta.quicklisp.org/archive/query-fs/2020-06-10/query-fs-20200610-git.tgz"
+      ;
     sha256 = "1kcq2xs5dqwbhapknrynanwqn3c9h4cpi7hf362il2p6v6y4r413";
   };
 

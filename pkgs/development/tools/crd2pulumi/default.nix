@@ -27,7 +27,8 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "Generate typed CustomResources from a Kubernetes CustomResourceDefinition";
+      "Generate typed CustomResources from a Kubernetes CustomResourceDefinition"
+      ;
     homepage = "https://github.com/pulumi/crd2pulumi";
     license = licenses.asl20;
     maintainers = with maintainers; [ flokli ];

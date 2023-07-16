@@ -19,8 +19,8 @@
 let
 
   version = "0.8.1";
-  modulesVersion = with lib;
-    versions.major version + "." + versions.minor version;
+  modulesVersion =
+    with lib; versions.major version + "." + versions.minor version;
   modulesPath = "lib/SoapySDR/modules" + modulesVersion;
   extraPackagesSearchPath = lib.makeSearchPath modulesPath extraPackages;
 
@@ -59,7 +59,7 @@ stdenv.mkDerivation (finalAttrs: {
   cmakeFlags = [ "-DCMAKE_BUILD_TYPE=Release" ]
     ++ lib.optional usePython "-DUSE_PYTHON_CONFIG=ON";
 
-  # https://github.com/pothosware/SoapySDR/issues/352
+    # https://github.com/pothosware/SoapySDR/issues/352
   postPatch = ''
     substituteInPlace lib/SoapySDR.in.pc \
       --replace '$'{exec_prefix}/@CMAKE_INSTALL_LIBDIR@ @CMAKE_INSTALL_FULL_LIBDIR@ \

@@ -7,13 +7,15 @@ args@{
   version = "20200218-git";
 
   description =
-    "Fast JSON parsing library.  Mainly geared torwards fetching only a few keys of many objects, but efficient for other types of content too";
+    "Fast JSON parsing library.  Mainly geared torwards fetching only a few keys of many objects, but efficient for other types of content too"
+    ;
 
   deps = [ ];
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/jsown/2020-02-18/jsown-20200218-git.tgz";
+      "http://beta.quicklisp.org/archive/jsown/2020-02-18/jsown-20200218-git.tgz"
+      ;
     sha256 = "10cn1fkznyq73vxwy95wsd36yfiiakmk278lv7mzzsyqc1jrn2hj";
   };
 

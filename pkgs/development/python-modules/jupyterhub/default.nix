@@ -64,18 +64,18 @@ buildPythonPackage rec {
     hash = "sha256-3GGPZXwjukYoDjYlflCTGAZnS6Dp5kmK+wke/GIm1p0=";
   };
 
-  # Most of this only applies when building from source (e.g. js/css assets are
-  # pre-built and bundled in the official release tarball on pypi).
-  #
-  # Stuff that's always needed:
-  #   * At runtime, we need configurable-http-proxy, so we substitute the store
-  #     path.
-  #
-  # Other stuff that's only needed when building from source:
-  #   * js/css assets are fetched from npm.
-  #   * substitute store path for `lessc` commmand.
-  #   * set up NODE_PATH so `lessc` can find `less-plugin-clean-css`.
-  #   * don't run `npm install`.
+    # Most of this only applies when building from source (e.g. js/css assets are
+    # pre-built and bundled in the official release tarball on pypi).
+    #
+    # Stuff that's always needed:
+    #   * At runtime, we need configurable-http-proxy, so we substitute the store
+    #     path.
+    #
+    # Other stuff that's only needed when building from source:
+    #   * js/css assets are fetched from npm.
+    #   * substitute store path for `lessc` commmand.
+    #   * set up NODE_PATH so `lessc` can find `less-plugin-clean-css`.
+    #   * don't run `npm install`.
   preBuild = ''
     export NODE_PATH=${nodePackages.less-plugin-clean-css}/lib/node_modules
 
@@ -154,7 +154,8 @@ buildPythonPackage rec {
     description = "Serves multiple Jupyter notebook instances";
     homepage = "https://jupyter.org/";
     changelog =
-      "https://github.com/jupyterhub/jupyterhub/blob/${version}/docs/source/changelog.md";
+      "https://github.com/jupyterhub/jupyterhub/blob/${version}/docs/source/changelog.md"
+      ;
     license = licenses.bsd3;
     maintainers = with maintainers; [
       ixxie

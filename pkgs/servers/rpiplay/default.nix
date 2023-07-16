@@ -30,7 +30,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "use-static-ports.patch";
       url =
-        "https://github.com/FD-/RPiPlay/commit/2ffc287ba822e1d2b2ed0fc0e41a2bb3d9dab105.patch";
+        "https://github.com/FD-/RPiPlay/commit/2ffc287ba822e1d2b2ed0fc0e41a2bb3d9dab105.patch"
+        ;
       sha256 = "08dy829gyhyzw2n54zn5m3176cmd24k5hij24vpww5bhbwkbabww";
     })
   ];

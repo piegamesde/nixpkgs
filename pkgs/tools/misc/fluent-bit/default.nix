@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     "-DFLB_OUT_PGSQL=ON"
   ];
 
-  # _FORTIFY_SOURCE requires compiling with optimization (-O)
+    # _FORTIFY_SOURCE requires compiling with optimization (-O)
   env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.cc.isGNU [ "-O" ]
     # Workaround build failure on -fno-common toolchains:
     #   ld: /monkey/mk_tls.h:81: multiple definition of `mk_tls_server_timeout';

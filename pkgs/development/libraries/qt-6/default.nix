@@ -23,15 +23,18 @@ let
     mirror = "mirror://qt";
   };
 
-  addPackages = self:
+  addPackages =
+    self:
     with self;
     let
       callPackage = self.newScope ({
         inherit qtModule srcs;
-        stdenv = if stdenv.isDarwin then
-          darwin.apple_sdk_11_0.stdenv
-        else
-          stdenv;
+        stdenv =
+          if stdenv.isDarwin then
+            darwin.apple_sdk_11_0.stdenv
+          else
+            stdenv
+          ;
       });
     in {
 
@@ -198,10 +201,11 @@ let
           fix_qmake_libtool = ./hooks/fix-qmake-libtool.sh;
         };
       } ./hooks/qmake-hook.sh;
-    } ;
+    }
+    ;
 
-  # TODO(@Artturin): convert to makeScopeWithSplicing
-  # simple example of how to do that in 5568a4d25ca406809530420996d57e0876ca1a01
+    # TODO(@Artturin): convert to makeScopeWithSplicing
+    # simple example of how to do that in 5568a4d25ca406809530420996d57e0876ca1a01
   self = lib.makeScope newScope addPackages;
 in
 self

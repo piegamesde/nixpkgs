@@ -13,7 +13,8 @@ let
 in {
   options.services.portunus = {
     enable = mkEnableOption (lib.mdDoc
-      "Portunus, a self-contained user/group management and authentication service for LDAP");
+      "Portunus, a self-contained user/group management and authentication service for LDAP")
+      ;
 
     domain = mkOption {
       type = types.str;
@@ -170,13 +171,14 @@ in {
     assertions = [ {
       assertion = cfg.dex.enable -> cfg.ldap.searchUserName != "";
       message =
-        "services.portunus.dex.enable requires services.portunus.ldap.searchUserName to be set.";
+        "services.portunus.dex.enable requires services.portunus.ldap.searchUserName to be set."
+        ;
     } ];
 
-    # add ldapsearch(1) etc. to interactive shells
+      # add ldapsearch(1) etc. to interactive shells
     environment.systemPackages = [ cfg.ldap.package ];
 
-    # allow connecting via ldaps /w certificate without opening ports
+      # allow connecting via ldaps /w certificate without opening ports
     networking.hosts = mkIf cfg.ldap.tls {
       "::1" = [ cfg.domain ];
       "127.0.0.1" = [ cfg.domain ];

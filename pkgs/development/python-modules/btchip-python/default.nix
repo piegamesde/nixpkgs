@@ -30,7 +30,7 @@ buildPythonPackage rec {
 
   passthru.optional-dependencies.smartcard = [ pyscard ];
 
-  # tests requires hardware
+    # tests requires hardware
   doCheck = false;
 
   pythonImportsCheck = [ "btchip.btchip" ];

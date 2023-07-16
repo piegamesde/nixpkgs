@@ -18,8 +18,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  # cJSON actually uses C99 standard, not C89
-  # https://github.com/DaveGamble/cJSON/issues/275
+    # cJSON actually uses C99 standard, not C89
+    # https://github.com/DaveGamble/cJSON/issues/275
   postPatch = ''
     substituteInPlace CMakeLists.txt --replace -std=c89 -std=c99
   '';

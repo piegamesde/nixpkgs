@@ -41,9 +41,9 @@ buildGoModule rec {
       --prefix PATH : ${lib.makeBinPath [ git ]}
   '';
 
-  # Skip tests
-  # The repo's test folder has a README.md with detailed information. I don't
-  # know how to wrap the dependencies for these integration tests so skip for now.
+    # Skip tests
+    # The repo's test folder has a README.md with detailed information. I don't
+    # know how to wrap the dependencies for these integration tests so skip for now.
   doCheck = false;
 
   meta = with lib; {

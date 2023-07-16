@@ -41,7 +41,7 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  # Otherwise, there are errors due to the `abigen` macro from `ethers`.
+    # Otherwise, there are errors due to the `abigen` macro from `ethers`.
   auditable = false;
 
   nativeBuildInputs = [
@@ -72,13 +72,13 @@ rustPlatform.buildRustPackage rec {
     eval $(ssh-agent)
   '';
 
-  passthru.tests = {
-    version = testers.testVersion { package = radicle-cli; };
-  };
+  passthru.tests = { version = testers.testVersion { package = radicle-cli; }; }
+    ;
 
   meta = {
     description =
-      "Command-line tooling for Radicle, a decentralized code collaboration network";
+      "Command-line tooling for Radicle, a decentralized code collaboration network"
+      ;
     homepage = "https://radicle.xyz";
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ amesgen ];

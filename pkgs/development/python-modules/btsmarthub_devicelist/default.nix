@@ -33,7 +33,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Retrieve a list of devices from a bt smarthub or bt smarthub 2 on a local network";
+      "Retrieve a list of devices from a bt smarthub or bt smarthub 2 on a local network"
+      ;
     homepage = "https://github.com/jxwolstenholme/btsmarthub_devicelist";
     license = licenses.mit;
     maintainers = with maintainers; [ jamiemagee ];

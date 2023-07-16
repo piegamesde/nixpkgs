@@ -13,7 +13,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/courier/maildrop/${version}/maildrop-${version}.tar.bz2";
+      "mirror://sourceforge/courier/maildrop/${version}/maildrop-${version}.tar.bz2"
+      ;
     sha256 = "1a94p2b41iy334cwfwmzi19557dn5j61abh0cp2rfc9dkc8ibhdg";
   };
 

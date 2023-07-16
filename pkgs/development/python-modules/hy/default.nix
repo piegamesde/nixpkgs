@@ -25,11 +25,11 @@ buildPythonPackage rec {
     hash = "sha256-Ow3FAiH97lSaI3oSx702+jgScfNgf+JstuDpgPSB8LM=";
   };
 
-  # https://github.com/hylang/hy/blob/1.0a4/get_version.py#L9-L10
+    # https://github.com/hylang/hy/blob/1.0a4/get_version.py#L9-L10
   HY_VERSION = version;
 
-  propagatedBuildInputs = [ funcparserlib ]
-    ++ lib.optionals (pythonOlder "3.9") [ astor ];
+  propagatedBuildInputs =
+    [ funcparserlib ] ++ lib.optionals (pythonOlder "3.9") [ astor ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -50,17 +50,19 @@ buildPythonPackage rec {
       package = hy;
       command = "hy -v";
     };
-    # For backwards compatibility with removed pkgs/development/interpreters/hy
-    # Example usage:
-    #   hy.withPackages (ps: with ps; [ hyrule requests ])
-    withPackages = python-packages:
+      # For backwards compatibility with removed pkgs/development/interpreters/hy
+      # Example usage:
+      #   hy.withPackages (ps: with ps; [ hyrule requests ])
+    withPackages =
+      python-packages:
       (python.withPackages
         (ps: (python-packages ps) ++ [ ps.hy ])).overrideAttrs (old: {
           name = "${hy.name}-env";
           meta = lib.mergeAttrs (builtins.removeAttrs hy.meta [ "license" ]) {
             mainProgram = "hy";
           };
-        });
+        })
+      ;
   };
 
   meta = with lib; {

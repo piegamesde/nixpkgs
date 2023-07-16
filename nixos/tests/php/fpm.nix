@@ -7,7 +7,8 @@ import ../make-test-python.nix ({
     name = "php-${php.version}-fpm-nginx-test";
     meta.maintainers = lib.teams.php.members;
 
-    nodes.machine = {
+    nodes.machine =
+      {
         config,
         lib,
         pkgs,
@@ -18,21 +19,23 @@ import ../make-test-python.nix ({
         services.nginx = {
           enable = true;
 
-          virtualHosts."phpfpm" = let
-            testdir = pkgs.writeTextDir "web/index.php" "<?php phpinfo();";
-          in {
-            root = "${testdir}/web";
-            locations."~ \\.php$".extraConfig = ''
-              fastcgi_pass unix:${config.services.phpfpm.pools.foobar.socket};
-              fastcgi_index index.php;
-              include ${config.services.nginx.package}/conf/fastcgi_params;
-              include ${pkgs.nginx}/conf/fastcgi.conf;
-            '';
-            locations."/" = {
-              tryFiles = "$uri $uri/ index.php";
-              index = "index.php index.html index.htm";
-            };
-          } ;
+          virtualHosts."phpfpm" =
+            let
+              testdir = pkgs.writeTextDir "web/index.php" "<?php phpinfo();";
+            in {
+              root = "${testdir}/web";
+              locations."~ \\.php$".extraConfig = ''
+                fastcgi_pass unix:${config.services.phpfpm.pools.foobar.socket};
+                fastcgi_index index.php;
+                include ${config.services.nginx.package}/conf/fastcgi_params;
+                include ${pkgs.nginx}/conf/fastcgi.conf;
+              '';
+              locations."/" = {
+                tryFiles = "$uri $uri/ index.php";
+                index = "index.php index.html index.htm";
+              };
+            }
+            ;
         };
 
         services.phpfpm.pools."foobar" = {
@@ -50,8 +53,10 @@ import ../make-test-python.nix ({
             "pm.start_servers" = 2;
           };
         };
-      };
-    testScript = {
+      }
+      ;
+    testScript =
+      {
         ...
       }: ''
         machine.wait_for_unit("nginx.service")
@@ -65,5 +70,6 @@ import ../make-test-python.nix ({
         for ext in ["json", "opcache", "pdo_mysql", "pdo_pgsql", "pdo_sqlite", "apcu"]:
             assert ext in response, f"Missing {ext} extension"
             machine.succeed(f'test -n "$(php -m | grep -i {ext})"')
-      '';
+      ''
+      ;
   })

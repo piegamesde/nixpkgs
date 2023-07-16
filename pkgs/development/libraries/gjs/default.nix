@@ -69,8 +69,9 @@ stdenv.mkDerivation rec {
     libxml2 # for xml-stripblanks
     dbus # for dbus-run-session
     gobject-introspection
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute
-    stdenv.hostPlatform) [ mesonEmulatorHook ];
+  ] ++ lib.optionals
+    (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ]
+    ;
 
   buildInputs = [
     cairo

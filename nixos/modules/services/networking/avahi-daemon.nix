@@ -10,11 +10,13 @@ with lib;
 let
   cfg = config.services.avahi;
 
-  yesNo = yes:
+  yesNo =
+    yes:
     if yes then
       "yes"
     else
-      "no";
+      "no"
+    ;
 
   avahiDaemonConf = with cfg;
     pkgs.writeText "avahi-daemon.conf" ''
@@ -213,7 +215,8 @@ in {
         type = types.bool;
         default = false;
         description = lib.mdDoc
-          "Whether to register mDNS address records for all local IP addresses.";
+          "Whether to register mDNS address records for all local IP addresses."
+          ;
       };
 
       hinfo = mkOption {
@@ -237,7 +240,8 @@ in {
         type = types.bool;
         default = false;
         description = lib.mdDoc
-          "Whether to announce the locally used domain name for browsing by other hosts.";
+          "Whether to announce the locally used domain name for browsing by other hosts."
+          ;
       };
     };
 
@@ -310,8 +314,8 @@ in {
       wantedBy = [ "multi-user.target" ];
       requires = [ "avahi-daemon.socket" ];
 
-      # Make NSS modules visible so that `avahi_nss_support ()' can
-      # return a sensible value.
+        # Make NSS modules visible so that `avahi_nss_support ()' can
+        # return a sensible value.
       environment.LD_LIBRARY_PATH = config.system.nssModules.path;
 
       path = [

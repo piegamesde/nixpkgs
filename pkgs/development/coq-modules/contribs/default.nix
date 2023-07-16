@@ -6,9 +6,11 @@
 }:
 
 let
-  mkContrib = pname: coqs: param:
+  mkContrib =
+    pname: coqs: param:
     let
-      contribVersion = {
+      contribVersion =
+        {
           version ? null
         }:
         mkCoqDerivation ({
@@ -22,10 +24,11 @@ let
           "version"
           "rev"
           "sha256"
-        ])));
+        ])))
+        ;
     in
     lib.makeOverridable contribVersion { }
-  ;
+    ;
 in {
   aac-tactics = mkContrib "aac-tactics" [
     "8.7"

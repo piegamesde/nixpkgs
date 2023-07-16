@@ -32,7 +32,8 @@ buildPythonPackage rec {
     (fetchpatch {
       name = "use-docformatter-1.5.1.patch";
       url =
-        "https://github.com/tefra/xsdata/commit/040692db47e6e51028fd959c793e757858c392d7.patch";
+        "https://github.com/tefra/xsdata/commit/040692db47e6e51028fd959c793e757858c392d7.patch"
+        ;
       excludes = [ "setup.cfg" ];
       hash = "sha256-ncecMJLJUiUb4lB8ys+nyiGU/UmayK++o89h3sAwREQ=";
     })

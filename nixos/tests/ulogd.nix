@@ -7,7 +7,8 @@ import ./make-test-python.nix ({
 
     meta = with lib; { maintainers = with maintainers; [ p-h ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         networking.firewall.enable = false;
@@ -49,7 +50,8 @@ import ./make-test-python.nix ({
         };
 
         environment.systemPackages = with pkgs; [ tcpdump ];
-      };
+      }
+      ;
 
     testScript = ''
       start_all()

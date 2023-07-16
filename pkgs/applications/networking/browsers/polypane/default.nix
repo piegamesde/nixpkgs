@@ -10,7 +10,8 @@ let
 
   src = fetchurl {
     url =
-      "https://github.com/firstversionist/${pname}/releases/download/v${version}/${pname}-${version}.AppImage";
+      "https://github.com/firstversionist/${pname}/releases/download/v${version}/${pname}-${version}.AppImage"
+      ;
     name = "${pname}-${version}.AppImage";
     sha256 = "sha256-wMWO8eRH8O93m4/HaRTdG3DhyCvHWw+s3sAtN+VLBeY=";
   };
@@ -21,8 +22,10 @@ appimageTools.wrapType2 {
   inherit pname src version;
 
   multiPkgs = null;
-  extraPkgs = pkgs:
-    appimageTools.defaultFhsEnvArgs.multiPkgs pkgs ++ [ pkgs.bash ];
+  extraPkgs =
+    pkgs:
+    appimageTools.defaultFhsEnvArgs.multiPkgs pkgs ++ [ pkgs.bash ]
+    ;
 
   extraInstallCommands = ''
     ln -s $out/bin/${pname}-${version} $out/bin/${pname}

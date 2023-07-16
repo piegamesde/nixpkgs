@@ -36,12 +36,14 @@ else
 }:
 
 let
-  pname = if type == "aspnetcore" then
-    "aspnetcore-runtime"
-  else if type == "runtime" then
-    "dotnet-runtime"
-  else
-    "dotnet-sdk";
+  pname =
+    if type == "aspnetcore" then
+      "aspnetcore-runtime"
+    else if type == "runtime" then
+      "dotnet-runtime"
+    else
+      "dotnet-sdk"
+    ;
 
   descriptions = {
     aspnetcore = "ASP.NET Core Runtime ${version}";
@@ -49,13 +51,15 @@ let
     sdk = ".NET SDK ${version}";
   };
 
-  packageDeps = if type == "sdk" then
-    mkNugetDeps {
-      name = "${pname}-${version}-deps";
-      nugetDeps = packages;
-    }
-  else
-    null;
+  packageDeps =
+    if type == "sdk" then
+      mkNugetDeps {
+        name = "${pname}-${version}-deps";
+        nugetDeps = packages;
+      }
+    else
+      null
+    ;
 
 in
 stdenv.mkDerivation (finalAttrs: rec {
@@ -65,8 +69,8 @@ stdenv.mkDerivation (finalAttrs: rec {
     ;
 
     # Some of these dependencies are `dlopen()`ed.
-  nativeBuildInputs = [ makeWrapper ]
-    ++ lib.optional stdenv.isLinux autoPatchelfHook;
+  nativeBuildInputs =
+    [ makeWrapper ] ++ lib.optional stdenv.isLinux autoPatchelfHook;
 
   buildInputs = [
     stdenv.cc.cc
@@ -77,7 +81,8 @@ stdenv.mkDerivation (finalAttrs: rec {
   ] ++ lib.optional stdenv.isLinux lttng-ust_2_12;
 
   src = fetchurl (srcs."${stdenv.hostPlatform.system}" or (throw
-    "Missing source (url and hash) for host system: ${stdenv.hostPlatform.system}"));
+    "Missing source (url and hash) for host system: ${stdenv.hostPlatform.system}"))
+    ;
 
   sourceRoot = ".";
 
@@ -104,8 +109,8 @@ stdenv.mkDerivation (finalAttrs: rec {
     $out/bin/dotnet --info
   '';
 
-  # Tell autoPatchelf about runtime dependencies.
-  # (postFixup phase is run before autoPatchelfHook.)
+    # Tell autoPatchelf about runtime dependencies.
+    # (postFixup phase is run before autoPatchelfHook.)
   postFixup = lib.optionalString stdenv.isLinux ''
     patchelf \
       --add-needed libicui18n.so \
@@ -137,17 +142,19 @@ stdenv.mkDerivation (finalAttrs: rec {
     inherit icu;
     packages = packageDeps;
 
-    updateScript = if type == "sdk" then
-      let
-        majorVersion = with lib;
-          concatStringsSep "." (take 2 (splitVersion version));
-      in
-      writeShellScript "update-dotnet-${majorVersion}" ''
-        pushd pkgs/development/compilers/dotnet
-        exec ${./update.sh} "${majorVersion}"
-      ''
-    else
-      null;
+    updateScript =
+      if type == "sdk" then
+        let
+          majorVersion =
+            with lib; concatStringsSep "." (take 2 (splitVersion version));
+        in
+        writeShellScript "update-dotnet-${majorVersion}" ''
+          pushd pkgs/development/compilers/dotnet
+          exec ${./update.sh} "${majorVersion}"
+        ''
+      else
+        null
+      ;
 
     tests = {
       version = testers.testVersion { package = finalAttrs.finalPackage; };

@@ -8,7 +8,8 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ andrew-d ]; };
 
     nodes = {
-      gvisor = {
+      gvisor =
+        {
           pkgs,
           ...
         }: {
@@ -25,7 +26,8 @@ import ./make-test-python.nix ({
               prefixLength = 24;
             } ];
           };
-        };
+        }
+        ;
     };
 
     testScript = ''

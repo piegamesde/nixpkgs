@@ -15,7 +15,8 @@ stdenv.mkDerivation rec {
     # We're using the Internet Archive Wayback Machine because the company developing MemTest86 has stopped providing a versioned download link for the latest version:
     # https://forums.passmark.com/memtest86/44494-version-8-1-distribution-file-is-not-versioned
     url =
-      "https://web.archive.org/web/20211111004725/https://www.memtest86.com/downloads/memtest86-usb.zip";
+      "https://web.archive.org/web/20211111004725/https://www.memtest86.com/downloads/memtest86-usb.zip"
+      ;
     sha256 = "sha256-GJdZCUFw1uX4HcaaAy5QqDGNqHTFtrqla13wF7xCAaM=";
     stripRoot = false;
   };
@@ -57,8 +58,8 @@ stdenv.mkDerivation rec {
       A UEFI app that is able to detect errors in RAM.  It can be run from a
       bootloader.  Released under a proprietary freeware license.
     '';
-    # MemTest86 Free Edition is free to download with no restrictions on usage. However, the source code is not available.
-    # https://www.memtest86.com/tech_license-information.html
+      # MemTest86 Free Edition is free to download with no restrictions on usage. However, the source code is not available.
+      # https://www.memtest86.com/tech_license-information.html
     license = licenses.unfreeRedistributable;
     maintainers = with maintainers; [ cdepillabout ];
     platforms = platforms.linux;

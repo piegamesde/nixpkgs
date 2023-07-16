@@ -39,7 +39,8 @@ gcc12Stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Library for using C++20 coroutines in connection with certain asynchronous Qt actions";
+      "Library for using C++20 coroutines in connection with certain asynchronous Qt actions"
+      ;
     homepage = "https://github.com/danvratil/qcoro";
     license = licenses.mit;
     maintainers = with maintainers; [ smitop ];

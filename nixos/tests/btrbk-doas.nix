@@ -26,14 +26,15 @@ import ./make-test-python.nix ({
     };
 
     nodes = {
-      archive = {
+      archive =
+        {
           ...
         }: {
           security.sudo.enable = false;
           security.doas.enable = true;
           environment.systemPackages = with pkgs; [ btrfs-progs ];
-          # note: this makes the privateKey world readable.
-          # don't do it with real ssh keys.
+            # note: this makes the privateKey world readable.
+            # don't do it with real ssh keys.
           environment.etc."btrbk_key".text = privateKey;
           services.btrbk = {
             extraPackages = [ pkgs.lz4 ];
@@ -55,9 +56,11 @@ import ./make-test-python.nix ({
               };
             };
           };
-        };
+        }
+        ;
 
-      main = {
+      main =
+        {
           ...
         }: {
           security.sudo.enable = false;
@@ -93,7 +96,8 @@ import ./make-test-python.nix ({
               };
             };
           };
-        };
+        }
+        ;
     };
 
     testScript = ''

@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ matplotlib ];
 
-  # No tests included in archive
+    # No tests included in archive
   doCheck = false;
 
   pythonImportsCheck = [ "mpldatacursor" ];

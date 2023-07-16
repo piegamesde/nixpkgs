@@ -22,10 +22,12 @@
 
 let
   threadingSuffix = lib.optionalString withOpenMP "-mt";
-  blasIntSize = if blas64 then
-    "64"
-  else
-    "32";
+  blasIntSize =
+    if blas64 then
+      "64"
+    else
+      "32"
+    ;
 in
 stdenv.mkDerivation rec {
   pname = "amd-blis";
@@ -45,9 +47,9 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  # Tests currently fail with non-Zen CPUs due to a floating point
-  # exception in one of the generic kernels. Try to re-enable the
-  # next release.
+    # Tests currently fail with non-Zen CPUs due to a floating point
+    # exception in one of the generic kernels. Try to re-enable the
+    # next release.
   doCheck = false;
 
   enableParallelBuilding = true;

@@ -10,15 +10,19 @@ with lib;
 let
   cfg = config.services.spotifyd;
   toml = pkgs.formats.toml { };
-  warnConfig = if cfg.config != "" then
-    lib.trace
-    "Using the stringly typed .config attribute is discouraged. Use the TOML typed .settings attribute instead."
-  else
-    id;
-  spotifydConf = if cfg.settings != { } then
-    toml.generate "spotify.conf" cfg.settings
-  else
-    warnConfig (pkgs.writeText "spotifyd.conf" cfg.config);
+  warnConfig =
+    if cfg.config != "" then
+      lib.trace
+      "Using the stringly typed .config attribute is discouraged. Use the TOML typed .settings attribute instead."
+    else
+      id
+    ;
+  spotifydConf =
+    if cfg.settings != { } then
+      toml.generate "spotify.conf" cfg.settings
+    else
+      warnConfig (pkgs.writeText "spotifyd.conf" cfg.config)
+    ;
 in {
   options = {
     services.spotifyd = {
@@ -49,7 +53,8 @@ in {
     assertions = [ {
       assertion = cfg.config == "" || cfg.settings == { };
       message =
-        "At most one of the .config attribute and the .settings attribute may be set";
+        "At most one of the .config attribute and the .settings attribute may be set"
+        ;
     } ];
 
     systemd.services.spotifyd = {
@@ -62,7 +67,8 @@ in {
       environment.SHELL = "/bin/sh";
       serviceConfig = {
         ExecStart =
-          "${pkgs.spotifyd}/bin/spotifyd --no-daemon --cache-path /var/cache/spotifyd --config-path ${spotifydConf}";
+          "${pkgs.spotifyd}/bin/spotifyd --no-daemon --cache-path /var/cache/spotifyd --config-path ${spotifydConf}"
+          ;
         Restart = "always";
         RestartSec = 12;
         DynamicUser = true;

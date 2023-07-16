@@ -62,7 +62,8 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description =
-      "A libfprint-2-tod Touch OEM Driver for 2016 ThinkPad's fingerprint readers";
+      "A libfprint-2-tod Touch OEM Driver for 2016 ThinkPad's fingerprint readers"
+      ;
     homepage = "https://gitlab.freedesktop.org/3v1n0/libfprint-tod-vfs0090";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;

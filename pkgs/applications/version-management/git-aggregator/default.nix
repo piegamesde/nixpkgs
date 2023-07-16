@@ -35,7 +35,8 @@ python3Packages.buildPythonApplication rec {
 
   meta = with lib; {
     description =
-      "Manage the aggregation of git branches from different remotes to build a consolidated one";
+      "Manage the aggregation of git branches from different remotes to build a consolidated one"
+      ;
     homepage = "https://github.com/acsone/git-aggregator";
     license = licenses.agpl3Plus;
     maintainers = with maintainers; [ lourkeur ];

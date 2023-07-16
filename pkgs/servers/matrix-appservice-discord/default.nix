@@ -91,7 +91,7 @@ mkYarnPackage rec {
     done
   '';
 
-  # don't generate the dist tarball
+    # don't generate the dist tarball
   doDist = false;
 
   passthru = {

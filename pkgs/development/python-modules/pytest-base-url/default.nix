@@ -43,7 +43,8 @@ buildPythonPackage rec {
     description = "pytest plugin for URL based tests";
     homepage = "https://github.com/pytest-dev/pytest-base-url";
     changelog =
-      "https://github.com/pytest-dev/pytest-base-url/blob/v${version}/CHANGES.rst";
+      "https://github.com/pytest-dev/pytest-base-url/blob/v${version}/CHANGES.rst"
+      ;
     license = licenses.mpl20;
     maintainers = with maintainers; [ sephi ];
   };

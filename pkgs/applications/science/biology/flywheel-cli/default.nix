@@ -25,7 +25,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://storage.googleapis.com/flywheel-dist/cli/${version}/fw-${os}_amd64-${version}.zip";
+      "https://storage.googleapis.com/flywheel-dist/cli/${version}/fw-${os}_amd64-${version}.zip"
+      ;
     inherit sha256;
   };
 

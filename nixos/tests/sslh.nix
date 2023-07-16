@@ -2,7 +2,8 @@ import ./make-test-python.nix {
   name = "sslh";
 
   nodes = {
-    server = {
+    server =
+      {
         pkgs,
         lib,
         ...
@@ -12,7 +13,7 @@ import ./make-test-python.nix {
           address = "fe00:aa:bb:cc::2";
           prefixLength = 64;
         } ];
-        # sslh is really slow when reverse dns does not work
+          # sslh is really slow when reverse dns does not work
         networking.hosts = {
           "fe00:aa:bb:cc::2" = [ "server" ];
           "fe00:aa:bb:cc::1" = [ "client" ];
@@ -29,8 +30,8 @@ import ./make-test-python.nix {
           '';
         };
         services.openssh.enable = true;
-        users.users.root.openssh.authorizedKeys.keyFiles =
-          [ ./initrd-network-ssh/id_ed25519.pub ];
+        users.users.root.openssh.authorizedKeys.keyFiles = [ ./initrd-network-ssh/id_ed25519.pub ]
+          ;
         services.nginx = {
           enable = true;
           virtualHosts."localhost" = {
@@ -42,8 +43,10 @@ import ./make-test-python.nix {
             '';
           };
         };
-      };
-    client = {
+      }
+      ;
+    client =
+      {
         ...
       }: {
         networking.interfaces.eth1.ipv6.addresses = [ {
@@ -56,7 +59,8 @@ import ./make-test-python.nix {
             ./initrd-network-ssh/id_ed25519; # dont use this anywhere else
           mode = "0600";
         };
-      };
+      }
+      ;
   };
 
   testScript = ''

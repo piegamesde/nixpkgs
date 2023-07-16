@@ -25,7 +25,7 @@ import ../make-test-python.nix ({
         "inf"
       ];
     };
-    # A daemonset that responds 'server' on port 8000
+      # A daemonset that responds 'server' on port 8000
     networkTestDaemonset = pkgs.writeText "test.yml" ''
       apiVersion: apps/v1
       kind: DaemonSet
@@ -56,7 +56,8 @@ import ../make-test-python.nix ({
     name = "${k3s.name}-multi-node";
 
     nodes = {
-      server = {
+      server =
+        {
           pkgs,
           ...
         }: {
@@ -64,7 +65,7 @@ import ../make-test-python.nix ({
             gzip
             jq
           ];
-          # k3s uses enough resources the default vm fails.
+            # k3s uses enough resources the default vm fails.
           virtualisation.memorySize = 1536;
           virtualisation.diskSize = 4096;
 
@@ -104,9 +105,11 @@ import ../make-test-python.nix ({
             address = "192.168.1.1";
             prefixLength = 24;
           } ];
-        };
+        }
+        ;
 
-      server2 = {
+      server2 =
+        {
           pkgs,
           ...
         }: {
@@ -152,9 +155,11 @@ import ../make-test-python.nix ({
             address = "192.168.1.3";
             prefixLength = 24;
           } ];
-        };
+        }
+        ;
 
-      agent = {
+      agent =
+        {
           pkgs,
           ...
         }: {
@@ -181,7 +186,8 @@ import ../make-test-python.nix ({
             address = "192.168.1.2";
             prefixLength = 24;
           } ];
-        };
+        }
+        ;
     };
 
     meta = with pkgs.lib.maintainers; { maintainers = [ euank ]; };

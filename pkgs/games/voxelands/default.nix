@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
     maintainers = with maintainers; [ ];
-    broken =
-      stdenv.isAarch64; # build fails with "libIrrlicht.so: undefined reference to `png_init_filter_functions_neon'"
+    broken = stdenv.isAarch64
+      ; # build fails with "libIrrlicht.so: undefined reference to `png_init_filter_functions_neon'"
   };
 }

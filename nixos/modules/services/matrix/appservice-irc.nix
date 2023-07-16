@@ -47,7 +47,8 @@ in {
     needBindingCap = mkOption {
       type = bool;
       description = lib.mdDoc
-        "Whether the daemon needs to bind to ports below 1024 (e.g. for the ident service)";
+        "Whether the daemon needs to bind to ports below 1024 (e.g. for the ident service)"
+        ;
       default = false;
     };
 
@@ -164,8 +165,8 @@ in {
   config = mkIf cfg.enable {
     systemd.services.matrix-appservice-irc = {
       description = "Matrix-IRC bridge";
-      before =
-        [ "matrix-synapse.service" ]; # So the registration can be used by Synapse
+      before = [ "matrix-synapse.service" ]
+        ; # So the registration can be used by Synapse
       after = lib.optionals
         (cfg.settings.database.engine == "postgres") [ "postgresql.service" ];
       wantedBy = [ "multi-user.target" ];
@@ -236,9 +237,10 @@ in {
         RestrictRealtime = true;
         PrivateMounts = true;
         SystemCallFilter =
-          "~@aio @clock @cpu-emulation @debug @keyring @memlock @module @mount @obsolete @raw-io @setuid @swap";
+          "~@aio @clock @cpu-emulation @debug @keyring @memlock @module @mount @obsolete @raw-io @setuid @swap"
+          ;
         SystemCallArchitectures = "native";
-        # AF_UNIX is required to connect to a postgres socket.
+          # AF_UNIX is required to connect to a postgres socket.
         RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6";
       };
     };
@@ -251,6 +253,6 @@ in {
     };
   };
 
-  # uses attributes of the linked package
+    # uses attributes of the linked package
   meta.buildDocsInSandbox = false;
 }

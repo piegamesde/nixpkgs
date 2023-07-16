@@ -8,18 +8,24 @@ let
   cross = "${stdenv.hostPlatform.config}";
   static = stdenv.hostPlatform.isStatic;
 
-  cc = if !isCross then
-    "cc"
-  else
-    "${cross}-cc";
-  ar = if !isCross then
-    "ar"
-  else
-    "${cross}-ar";
-  ranlib = if !isCross then
-    "ranlib"
-  else
-    "${cross}-ranlib";
+  cc =
+    if !isCross then
+      "cc"
+    else
+      "${cross}-cc"
+    ;
+  ar =
+    if !isCross then
+      "ar"
+    else
+      "${cross}-ar"
+    ;
+  ranlib =
+    if !isCross then
+      "ranlib"
+    else
+      "${cross}-ranlib"
+    ;
 in
 stdenv.mkDerivation rec {
   postPatch = ''
@@ -27,9 +33,9 @@ stdenv.mkDerivation rec {
   '';
   pname = "tinycdb";
   version = "0.78";
-  # In general, static library (.a) goes to "dev", shared (.so) to
-  # "lib". In case of static build, there is no .so library, so "lib"
-  # output is useless and empty.
+    # In general, static library (.a) goes to "dev", shared (.so) to
+    # "lib". In case of static build, there is no .so library, so "lib"
+    # output is useless and empty.
   outputs = [
     "out"
     "dev"

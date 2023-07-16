@@ -18,10 +18,13 @@ let
   mkPhpIni = generators.toKeyValue {
     mkKeyValue = generators.mkKeyValueDefault { } " = ";
   };
-  mkPhpPackage = cfg:
-    cfg.phpPackage.buildEnv { extraConfig = mkPhpIni cfg.phpOptions; };
+  mkPhpPackage =
+    cfg:
+    cfg.phpPackage.buildEnv { extraConfig = mkPhpIni cfg.phpOptions; }
+    ;
 
-  dokuwikiAclAuthConfig = hostName: cfg:
+  dokuwikiAclAuthConfig =
+    hostName: cfg:
     let
       inherit (cfg) acl;
       acl_gen = concatMapStringsSep "\n"
@@ -38,24 +41,29 @@ let
       else
         acl_gen acl}
     ''
-  ;
+    ;
 
-  mergeConfig = cfg:
+  mergeConfig =
+    cfg:
     {
       useacl = false; # Dokuwiki default
       savedir = cfg.stateDir;
-    } // cfg.settings;
+    } // cfg.settings
+    ;
 
-  writePhpFile = name: text:
+  writePhpFile =
+    name: text:
     pkgs.writeTextFile {
       inherit name;
       text = ''
         <?php
         ${text}'';
       checkPhase = "${pkgs.php81}/bin/php --syntax-check $target";
-    };
+    }
+    ;
 
-  mkPhpValue = v:
+  mkPhpValue =
+    v:
     let
       isHasAttr = s: isAttrs v && hasAttr s v;
     in if isString v then
@@ -77,36 +85,44 @@ let
     else
       abort "The dokuwiki localConf value ${
         lib.generators.toPretty { } v
-      } can not be encoded.";
+      } can not be encoded."
+    ;
 
   mkPhpAttrVals = v: flatten (mapAttrsToList mkPhpKeyVal v);
-  mkPhpKeyVal = k: v:
+  mkPhpKeyVal =
+    k: v:
     let
-      values = if
-        (isAttrs v && (hasAttr "_file" v || hasAttr "_raw" v)) || !isAttrs v
-      then
-        [ " = ${mkPhpValue v};" ]
-      else
-        mkPhpAttrVals v;
+      values =
+        if
+          (isAttrs v && (hasAttr "_file" v || hasAttr "_raw" v)) || !isAttrs v
+        then
+          [ " = ${mkPhpValue v};" ]
+        else
+          mkPhpAttrVals v
+        ;
     in
     map (e: "[${escapeShellArg k}]${e}") (flatten values)
-  ;
+    ;
 
-  dokuwikiLocalConfig = hostName: cfg:
+  dokuwikiLocalConfig =
+    hostName: cfg:
     let
       conf_gen = c: map (v: "$conf${v}") (mkPhpAttrVals c);
     in
     writePhpFile "local-${hostName}.php" ''
       ${concatStringsSep "\n" (conf_gen cfg.mergedConfig)}
     ''
-  ;
+    ;
 
-  dokuwikiPluginsLocalConfig = hostName: cfg:
+  dokuwikiPluginsLocalConfig =
+    hostName: cfg:
     let
       pc = cfg.pluginsConfig;
-      pc_gen = pc:
+      pc_gen =
+        pc:
         concatStringsSep "\n"
-        (mapAttrsToList (n: v: "$plugins['${n}'] = ${boolToString v};") pc);
+        (mapAttrsToList (n: v: "$plugins['${n}'] = ${boolToString v};") pc)
+        ;
     in
     writePhpFile "plugins.local-${hostName}.php" ''
       ${if isString pc then
@@ -114,9 +130,10 @@ let
       else
         pc_gen pc}
     ''
-  ;
+    ;
 
-  pkg = hostName: cfg:
+  pkg =
+    hostName: cfg:
     cfg.package.combine {
       inherit (cfg) plugins templates;
 
@@ -125,13 +142,17 @@ let
       basePackage = cfg.package;
       localConfig = dokuwikiLocalConfig hostName cfg;
       pluginsConfig = dokuwikiPluginsLocalConfig hostName cfg;
-      aclConfig = if cfg.settings.useacl && cfg.acl != null then
-        dokuwikiAclAuthConfig hostName cfg
-      else
-        null;
-    };
+      aclConfig =
+        if cfg.settings.useacl && cfg.acl != null then
+          dokuwikiAclAuthConfig hostName cfg
+        else
+          null
+        ;
+    }
+    ;
 
-  aclOpts = {
+  aclOpts =
+    {
       ...
     }: {
       options = {
@@ -148,37 +169,42 @@ let
           example = "@external";
         };
 
-        level = let
-          available = {
-            "none" = 0;
-            "read" = 1;
-            "edit" = 2;
-            "create" = 4;
-            "upload" = 8;
-            "delete" = 16;
-          };
-        in
-        mkOption {
-          type = types.enum ((attrValues available) ++ (attrNames available));
-          apply = x:
-            if isInt x then
-              x
-            else
-              available.${x};
-          description = lib.mdDoc ''
-            Permission level to restrict the actor(s) to.
-            See <https://www.dokuwiki.org/acl#background_info> for explanation
-          '';
-          example = "read";
-        }
-        ;
+        level =
+          let
+            available = {
+              "none" = 0;
+              "read" = 1;
+              "edit" = 2;
+              "create" = 4;
+              "upload" = 8;
+              "delete" = 16;
+            };
+          in
+          mkOption {
+            type = types.enum ((attrValues available) ++ (attrNames available));
+            apply =
+              x:
+              if isInt x then
+                x
+              else
+                available.${x}
+              ;
+            description = lib.mdDoc ''
+              Permission level to restrict the actor(s) to.
+              See <https://www.dokuwiki.org/acl#background_info> for explanation
+            '';
+            example = "read";
+          }
+          ;
       };
-    };
+    }
+    ;
 
-  # The current implementations of `doRename`,  `mkRenamedOptionModule` do not provide the full options path when used with submodules.
-  # They would only show `settings.useacl' instead of `services.dokuwiki.sites."site1.local".settings.useacl'
-  # The partial re-implementation of these functions is done to help users in debugging by showing the full path.
-  mkRenamed = from: to:
+    # The current implementations of `doRename`,  `mkRenamedOptionModule` do not provide the full options path when used with submodules.
+    # They would only show `settings.useacl' instead of `services.dokuwiki.sites."site1.local".settings.useacl'
+    # The partial re-implementation of these functions is done to help users in debugging by showing the full path.
+  mkRenamed =
+    from: to:
     {
       config,
       options,
@@ -200,10 +226,12 @@ let
       options = setAttrByPath from (mkOption {
         visible = false;
         description = lib.mdDoc "Alias of {option}${showOption toPath}";
-        apply = x:
+        apply =
+          x:
           builtins.trace "Obsolete option `${
             showOption fromPath
-          }' is used. It was renamed to ${showOption toPath}" toOp;
+          }' is used. It was renamed to ${showOption toPath}" toOp
+          ;
       });
       config = mkMerge [
         {
@@ -214,9 +242,11 @@ let
         }
         (lib.modules.mkAliasAndWrapDefsWithPriority (setAttrByPath to) fromOpt)
       ];
-    } ;
+    }
+    ;
 
-  siteOpts = {
+  siteOpts =
+    {
       options,
       config,
       lib,
@@ -242,13 +272,15 @@ let
             ...
           }:
           let
-            showPath = suffix:
+            showPath =
+              suffix:
               lib.options.showOption ([
                 "services"
                 "dokuwiki"
                 "sites"
                 name
-              ] ++ suffix);
+              ] ++ suffix)
+              ;
             replaceExtraConfig = "Please use `${
                 showPath [ "settings" ]
               }' to pass structured settings instead.";
@@ -257,10 +289,12 @@ let
           in {
             options.extraConfig = mkOption {
               visible = false;
-              apply = x:
+              apply =
+                x:
                 throw ''
                   The option ${ecPath} can no longer be used since it's been removed.
-                  ${replaceExtraConfig}'';
+                  ${replaceExtraConfig}''
+                ;
             };
             config.assertions = [
               {
@@ -346,10 +380,12 @@ let
 
         aclFile = mkOption {
           type = with types; nullOr str;
-          default = if (config.mergedConfig.useacl && config.acl == null) then
-            "/var/lib/dokuwiki/${name}/acl.auth.php"
-          else
-            null;
+          default =
+            if (config.mergedConfig.useacl && config.acl == null) then
+              "/var/lib/dokuwiki/${name}/acl.auth.php"
+            else
+              null
+            ;
           description = lib.mdDoc ''
             Location of the dokuwiki acl rules. Mutually exclusive with services.dokuwiki.acl
             Mutually exclusive with services.dokuwiki.acl which is preferred.
@@ -374,10 +410,12 @@ let
 
         usersFile = mkOption {
           type = with types; nullOr str;
-          default = if config.mergedConfig.useacl then
-            "/var/lib/dokuwiki/${name}/users.auth.php"
-          else
-            null;
+          default =
+            if config.mergedConfig.useacl then
+              "/var/lib/dokuwiki/${name}/users.auth.php"
+            else
+              null
+            ;
           description = lib.mdDoc ''
             Location of the dokuwiki users file. List of users. Format:
 
@@ -538,9 +576,9 @@ let
           '';
         };
 
-        # Required for the mkRenamedOptionModule
-        # TODO: Remove me once https://github.com/NixOS/nixpkgs/issues/96006 is fixed
-        # or we don't have any more notes about the removal of extraConfig, ...
+          # Required for the mkRenamedOptionModule
+          # TODO: Remove me once https://github.com/NixOS/nixpkgs/issues/96006 is fixed
+          # or we don't have any more notes about the removal of extraConfig, ...
         warnings = mkOption {
           type = types.listOf types.unspecified;
           default = [ ];
@@ -554,7 +592,8 @@ let
           internal = true;
         };
       };
-    };
+    }
+    ;
 in {
   options = {
     services.dokuwiki = {
@@ -586,7 +625,7 @@ in {
     };
   };
 
-  # implementation
+    # implementation
   config = mkIf (eachSite != { }) (mkMerge [
     {
 
@@ -603,10 +642,12 @@ in {
           phpEnv = optionalAttrs (cfg.usersFile != null) {
             DOKUWIKI_USERS_AUTH_CONFIG = "${cfg.usersFile}";
           } // optionalAttrs (cfg.mergedConfig.useacl) {
-            DOKUWIKI_ACL_AUTH_CONFIG = if (cfg.acl != null) then
-              "${dokuwikiAclAuthConfig hostName cfg}"
-            else
-              "${toString cfg.aclFile}";
+            DOKUWIKI_ACL_AUTH_CONFIG =
+              if (cfg.acl != null) then
+                "${dokuwikiAclAuthConfig hostName cfg}"
+              else
+                "${toString cfg.aclFile}"
+              ;
           };
 
           settings = {

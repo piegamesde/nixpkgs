@@ -21,7 +21,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/cl-change-case/2021-04-11/cl-change-case-20210411-git.tgz";
+      "http://beta.quicklisp.org/archive/cl-change-case/2021-04-11/cl-change-case-20210411-git.tgz"
+      ;
     sha256 = "14s26b907h1nsnwdqbj6j4c9bvc4rc2l8ry2q1j7ibjfzqvhp4mj";
   };
 

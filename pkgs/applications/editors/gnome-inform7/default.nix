@@ -101,7 +101,7 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "ptomato";
     repo = "gnome-inform7";
-    # build from revision in the GTK3 branch as mainline requires webkit-1.0
+      # build from revision in the GTK3 branch as mainline requires webkit-1.0
     rev = "c37e045c159692aae2e4e79b917e5f96cfefa66a";
     sha256 = "Q4xoITs3AYXhvpWaABRAvJaUWTtUl8lYQ1k9zX7FrNw=";
   };

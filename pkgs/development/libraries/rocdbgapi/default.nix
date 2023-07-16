@@ -67,7 +67,7 @@ stdenv.mkDerivation (finalAttrs: {
     rocm-runtime
   ];
 
-  # Unfortunately, it seems like we have to call make on this manually
+    # Unfortunately, it seems like we have to call make on this manually
   postBuild = lib.optionalString buildDocs ''
     export HOME=$(mktemp -d)
     make -j$NIX_BUILD_CORES doc
@@ -97,7 +97,7 @@ stdenv.mkDerivation (finalAttrs: {
     license = with licenses; [ mit ];
     maintainers = teams.rocm.members;
     platforms = platforms.linux;
-    broken = versions.minor finalAttrs.version
-      != versions.minor stdenv.cc.version;
+    broken =
+      versions.minor finalAttrs.version != versions.minor stdenv.cc.version;
   };
 })

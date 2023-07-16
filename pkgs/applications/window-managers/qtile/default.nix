@@ -26,8 +26,7 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-HOyExVKOqZ4OeNM1/AiXQeiUV+EbSJLEjWEibm07ff8=";
   };
 
-  patches =
-    [ ./fix-restart.patch # https://github.com/NixOS/nixpkgs/issues/139568
+  patches = [ ./fix-restart.patch # https://github.com/NixOS/nixpkgs/issues/139568
     ];
 
   postPatch = ''
@@ -41,8 +40,8 @@ python3Packages.buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ pkg-config ]
-    ++ (with python3Packages; [ setuptools-scm ]);
+  nativeBuildInputs =
+    [ pkg-config ] ++ (with python3Packages; [ setuptools-scm ]);
 
   propagatedBuildInputs = with python3Packages; [
     xcffib
@@ -68,11 +67,11 @@ python3Packages.buildPythonPackage rec {
     libxkbcommon
   ];
 
-  # for `qtile check`, needs `stubtest` and `mypy` commands
+    # for `qtile check`, needs `stubtest` and `mypy` commands
   makeWrapperArgs = [ "--suffix PATH : ${lib.makeBinPath [ mypy ]}" ];
 
-  doCheck =
-    false; # Requires X server #TODO this can be worked out with the existing NixOS testing infrastructure.
+  doCheck = false
+    ; # Requires X server #TODO this can be worked out with the existing NixOS testing infrastructure.
 
   meta = with lib; {
     homepage = "http://www.qtile.org/";

@@ -38,7 +38,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  # Don't run tests for Python 2.7
+    # Don't run tests for Python 2.7
   doCheck = !isPy27;
 
   postPatch = ''

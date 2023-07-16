@@ -28,7 +28,7 @@ buildPythonPackage rec {
     pathlib2
   ];
 
-  # has no tests
+    # has no tests
   doCheck = false;
 
   meta = with lib; {

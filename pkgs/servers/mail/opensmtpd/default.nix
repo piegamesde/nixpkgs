@@ -46,8 +46,8 @@ stdenv.mkDerivation rec {
     ./cross_fix.diff # TODO: remove when https://github.com/OpenSMTPD/OpenSMTPD/pull/1177 will have made it into a release
   ];
 
-  # See https://github.com/OpenSMTPD/OpenSMTPD/issues/885 for the `sh bootstrap`
-  # requirement
+    # See https://github.com/OpenSMTPD/OpenSMTPD/issues/885 for the `sh bootstrap`
+    # requirement
   postPatch = ''
     substituteInPlace mk/smtpctl/Makefile.am --replace "chgrp" "true"
     substituteInPlace mk/smtpctl/Makefile.am --replace "chmod 2555" "chmod 0555"
@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
     "--with-table-db"
   ];
 
-  # See https://github.com/OpenSMTPD/OpenSMTPD/pull/884
+    # See https://github.com/OpenSMTPD/OpenSMTPD/pull/884
   makeFlags = [
     "CFLAGS=-ffunction-sections"
     "LDFLAGS=-Wl,--gc-sections"

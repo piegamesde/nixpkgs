@@ -56,7 +56,8 @@ in {
       };
       hvm = lib.mkOption {
         description =
-          "Unused legacy option. While support for non-hvm has been dropped, we keep this option around so that NixOps remains compatible with a somewhat recent `nixpkgs` and machines with an old `stateVersion`.";
+          "Unused legacy option. While support for non-hvm has been dropped, we keep this option around so that NixOps remains compatible with a somewhat recent `nixpkgs` and machines with an old `stateVersion`."
+          ;
         internal = true;
         default = true;
         readOnly = true;
@@ -67,15 +68,16 @@ in {
   config = lib.mkIf config.ec2.zfs.enable {
     networking.hostId = lib.mkDefault "00000000";
 
-    fileSystems = let
-      mountable = lib.filterAttrs (_: value: ((value.mount or null) != null))
-        config.ec2.zfs.datasets;
-    in
-    lib.mapAttrs' (dataset: opts:
-      lib.nameValuePair opts.mount {
-        device = dataset;
-        fsType = "zfs";
-      }) mountable
-    ;
+    fileSystems =
+      let
+        mountable = lib.filterAttrs (_: value: ((value.mount or null) != null))
+          config.ec2.zfs.datasets;
+      in
+      lib.mapAttrs' (dataset: opts:
+        lib.nameValuePair opts.mount {
+          device = dataset;
+          fsType = "zfs";
+        }) mountable
+      ;
   };
 }

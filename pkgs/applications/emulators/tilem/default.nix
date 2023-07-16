@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "http://lpg.ticalc.org/prj_tilem/";
     description =
-      "Emulator and debugger for Texas Instruments Z80-based graphing calculators";
+      "Emulator and debugger for Texas Instruments Z80-based graphing calculators"
+      ;
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [
       siraben

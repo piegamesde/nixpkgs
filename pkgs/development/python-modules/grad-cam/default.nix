@@ -40,7 +40,7 @@ buildPythonPackage rec {
     tqdm
   ];
 
-  # Let the user bring their own instance (as with torchmetrics)
+    # Let the user bring their own instance (as with torchmetrics)
   buildInputs = [ torch ];
 
   doCheck = false; # every nontrivial test tries to download a pretrained model

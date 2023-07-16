@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   buildInputs = [ pyvcf ];
 
-  # no tests
+    # no tests
   doCheck = false;
   pythonImportsCheck = [ "acebinf" ];
 

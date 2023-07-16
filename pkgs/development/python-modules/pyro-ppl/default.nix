@@ -55,7 +55,7 @@ buildPythonPackage rec {
     ];
   };
 
-  # pyro not shipping tests do simple smoke test instead
+    # pyro not shipping tests do simple smoke test instead
   doCheck = false;
 
   pythonImportsCheck = [

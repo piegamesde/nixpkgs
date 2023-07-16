@@ -27,12 +27,13 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "gcc-11.patch";
       url =
-        "https://github.com/linuxenko/chkservice/commit/26b12a7918c8a3bc449c92b458e6cd5c2d7b2e05.patch";
+        "https://github.com/linuxenko/chkservice/commit/26b12a7918c8a3bc449c92b458e6cd5c2d7b2e05.patch"
+        ;
       hash = "sha256-LaJLlqRyn1eoahbW2X+hDSt8iV4lhNRn0j0kLHB+RhM=";
     })
   ];
 
-  # Tools needed during build time
+    # Tools needed during build time
   nativeBuildInputs = [
     cmake
     # Makes the build faster, adds less than half a megabyte to the build

@@ -5,14 +5,18 @@
 }:
 
 let
-  os = if stdenv.isDarwin then
-    "macos"
-  else
-    "linux";
-  arch = if stdenv.isAarch64 then
-    "aarch64"
-  else
-    "x86_64";
+  os =
+    if stdenv.isDarwin then
+      "macos"
+    else
+      "linux"
+    ;
+  arch =
+    if stdenv.isAarch64 then
+      "aarch64"
+    else
+      "x86_64"
+    ;
   platform = "${os}-${arch}";
 in
 stdenv.mkDerivation rec {
@@ -21,7 +25,8 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://github.com/urbit/vere/releases/download/vere-v${version}/${platform}.tgz";
+      "https://github.com/urbit/vere/releases/download/vere-v${version}/${platform}.tgz"
+      ;
     sha256 = {
       x86_64-linux = "sha256-i5WofHC0aYldnA+KldeAmZQQo6yeI3yhmLHqPZOvi1c=";
       aarch64-linux = "sha256-QRarT+BtVPX7yURsqABZXcYyzqMGweIzo/MGpC2HhEo=";

@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     cmake
     doctest
   ];
-  # CMake is just used for finding doctest.
+    # CMake is just used for finding doctest.
   dontUseCmakeConfigure = true;
 
   mesonFlags = [ (lib.mesonEnable "tests"

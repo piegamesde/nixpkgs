@@ -51,7 +51,7 @@ buildPythonPackage rec {
       --replace "sklearn" "scikit-learn"
   '';
 
-  # Module doesn't have tests
+    # Module doesn't have tests
   doCheck = false;
 
   pythonImportsCheck = [ "WKTUtils" ];

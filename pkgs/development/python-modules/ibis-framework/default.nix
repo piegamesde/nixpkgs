@@ -97,7 +97,8 @@ buildPythonPackage rec {
     (fetchpatch {
       name = "fix-datafusion-compilation.patch";
       url =
-        "https://github.com/ibis-project/ibis/commit/009230421b2bc1f86591e8b850d37a489e8e4f06.patch";
+        "https://github.com/ibis-project/ibis/commit/009230421b2bc1f86591e8b850d37a489e8e4f06.patch"
+        ;
       hash = "sha256-5NHkgc8d2bkOMpbY1vme1XgNfyHSr0f7BrR3JTTjjPI=";
     })
   ];
@@ -133,8 +134,8 @@ buildPythonPackage rec {
     pytest-snapshot
     pytest-xdist
     rsync
-  ] ++ lib.concatMap (name: passthru.optional-dependencies.${name})
-    testBackends;
+  ] ++ lib.concatMap (name: passthru.optional-dependencies.${name}) testBackends
+    ;
 
   pytestFlagsArray = [
     "--dist=loadgroup"
@@ -147,7 +148,7 @@ buildPythonPackage rec {
     "--deselect=ibis/backends/duckdb/tests/test_register.py::test_read_sqlite"
   ];
 
-  # patch out tests that check formatting with black
+    # patch out tests that check formatting with black
   postPatch = ''
     find ibis/tests -type f -name '*.py' -exec sed -i \
       -e '/^ *assert_decompile_roundtrip/d' \
@@ -170,8 +171,8 @@ buildPythonPackage rec {
     rm -r "$IBIS_TEST_DATA_DIRECTORY"
   '';
 
-  pythonImportsCheck = [ "ibis" ]
-    ++ map (backend: "ibis.backends.${backend}") testBackends;
+  pythonImportsCheck =
+    [ "ibis" ] ++ map (backend: "ibis.backends.${backend}") testBackends;
 
   passthru = {
     optional-dependencies = {
@@ -255,7 +256,8 @@ buildPythonPackage rec {
     description = "Productivity-centric Python Big Data Framework";
     homepage = "https://github.com/ibis-project/ibis";
     changelog =
-      "https://github.com/ibis-project/ibis/blob/${version}/docs/release_notes.md";
+      "https://github.com/ibis-project/ibis/blob/${version}/docs/release_notes.md"
+      ;
     license = licenses.asl20;
     maintainers = with maintainers; [
       costrouc

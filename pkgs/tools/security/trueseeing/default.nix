@@ -34,7 +34,7 @@ python3.pkgs.buildPythonApplication rec {
       --replace "docker~=5.0.3" "docker"
   '';
 
-  # Project has no tests
+    # Project has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "trueseeing" ];

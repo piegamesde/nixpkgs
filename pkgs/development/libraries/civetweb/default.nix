@@ -25,8 +25,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  # The existence of the "build" script causes `mkdir -p build` to fail:
-  #   mkdir: cannot create directory 'build': File exists
+    # The existence of the "build" script causes `mkdir -p build` to fail:
+    #   mkdir: cannot create directory 'build': File exists
   preConfigure = ''
     rm build
   '';

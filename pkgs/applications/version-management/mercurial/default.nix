@@ -41,23 +41,26 @@ let
 
     format = "other";
 
-    passthru = {
-      inherit python;
-    }; # pass it so that the same version can be used in hg2git
+    passthru = { inherit python; }
+      ; # pass it so that the same version can be used in hg2git
 
-    cargoDeps = if rustSupport then
-      rustPlatform.fetchCargoTarball {
-        inherit src;
-        name = "mercurial-${version}";
-        sha256 = "sha256-dRajIqM91fESEm4EEa9qvS8h6/HlLZIJZztVGoS/G+M=";
-        sourceRoot = "mercurial-${version}/rust";
-      }
-    else
-      null;
-    cargoRoot = if rustSupport then
-      "rust"
-    else
-      null;
+    cargoDeps =
+      if rustSupport then
+        rustPlatform.fetchCargoTarball {
+          inherit src;
+          name = "mercurial-${version}";
+          sha256 = "sha256-dRajIqM91fESEm4EEa9qvS8h6/HlLZIJZztVGoS/G+M=";
+          sourceRoot = "mercurial-${version}/rust";
+        }
+      else
+        null
+      ;
+    cargoRoot =
+      if rustSupport then
+        "rust"
+      else
+        null
+      ;
 
     propagatedBuildInputs = lib.optional re2Support fb-re2
       ++ lib.optional gitSupport pygit2
@@ -71,8 +74,8 @@ let
       rust.cargo
       rust.rustc
     ]);
-    buildInputs = [ docutils ]
-      ++ lib.optionals stdenv.isDarwin [ ApplicationServices ];
+    buildInputs =
+      [ docutils ] ++ lib.optionals stdenv.isDarwin [ ApplicationServices ];
 
     makeFlags = [ "PREFIX=$(out)" ] ++ lib.optional rustSupport "PURE=--rust";
 
@@ -124,7 +127,8 @@ let
     };
   };
 
-  makeTests = {
+  makeTests =
+    {
       mercurial ? self,
       nameSuffix ? "",
       flags ? ""
@@ -162,10 +166,10 @@ let
         done
       '';
 
-      # This runs Mercurial _a lot_ of times.
+        # This runs Mercurial _a lot_ of times.
       requiredSystemFeatures = [ "big-parallel" ];
 
-      # Don't run tests if not-Linux or if cross-compiling.
+        # Don't run tests if not-Linux or if cross-compiling.
       meta.broken = !stdenv.hostPlatform.isLinux || stdenv.buildPlatform
         != stdenv.hostPlatform;
     } ''
@@ -199,7 +203,8 @@ let
       export HGTESTFLAGS="--blacklist blacklists/nix --timeout 1800 -j$NIX_BUILD_CORES ${flags}"
       make check
       touch $out
-    '';
+    ''
+    ;
 in
 self.overridePythonAttrs (origAttrs: {
   passthru = origAttrs.passthru // rec {
@@ -207,12 +212,15 @@ self.overridePythonAttrs (origAttrs: {
     # returns a list of extensions to install.
     #
     # for instance: mercurial.withExtension (pm: [ pm.hg-evolve ])
-    withExtensions = f:
+    withExtensions =
+      f:
       let
         python = self.python;
-        mercurialHighPrio = ps:
+        mercurialHighPrio =
+          ps:
           (ps.toPythonModule self).overrideAttrs
-          (oldAttrs: { meta = oldAttrs.meta // { priority = 50; }; });
+          (oldAttrs: { meta = oldAttrs.meta // { priority = 50; }; })
+          ;
         plugins = (f python.pkgs) ++ [ (mercurialHighPrio python.pkgs) ];
         env = python.withPackages (ps: plugins);
       in
@@ -256,7 +264,7 @@ self.overridePythonAttrs (origAttrs: {
           runHook postInstallCheck
         '';
       }
-    ;
+      ;
 
     tests = origAttrs.passthru.tests // {
       withExtensions = withExtensions (pm: [ pm.hg-evolve ]);

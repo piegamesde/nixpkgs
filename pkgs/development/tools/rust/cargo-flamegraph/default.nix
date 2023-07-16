@@ -36,7 +36,8 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "Easy flamegraphs for Rust projects and everything else, without Perl or pipes <3";
+      "Easy flamegraphs for Rust projects and everything else, without Perl or pipes <3"
+      ;
     homepage = "https://github.com/flamegraph-rs/flamegraph";
     license = with licenses; [
       asl20 # or

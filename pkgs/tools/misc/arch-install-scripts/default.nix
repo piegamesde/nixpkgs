@@ -68,10 +68,10 @@ resholve.mkDerivation rec {
         "bin/pacstrap"
       ];
 
-      # "none" for no shebang, "${bash}/bin/bash" for bash, etc.
+        # "none" for no shebang, "${bash}/bin/bash" for bash, etc.
       interpreter = "${bash}/bin/bash";
 
-      # packages resholve should resolve executables from
+        # packages resholve should resolve executables from
       inputs = [
         coreutils
         gawk
@@ -82,8 +82,8 @@ resholve.mkDerivation rec {
 
       execer = [ "cannot:${pacman}/bin/pacman-key" ];
 
-      # TODO: no good way to resolve mount/umount in Nix builds for now
-      # see https://github.com/abathur/resholve/issues/29
+        # TODO: no good way to resolve mount/umount in Nix builds for now
+        # see https://github.com/abathur/resholve/issues/29
       fix = {
         mount = true;
         umount = true;

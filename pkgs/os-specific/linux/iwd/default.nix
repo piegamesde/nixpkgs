@@ -43,8 +43,8 @@ stdenv.mkDerivation rec {
 
   nativeCheckInputs = [ openssl ];
 
-  # wrapPython wraps the scripts in $test. They pull in gobject-introspection,
-  # which doesn't cross-compile.
+    # wrapPython wraps the scripts in $test. They pull in gobject-introspection,
+    # which doesn't cross-compile.
   pythonPath = lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) [
     python3Packages.dbus-python
     python3Packages.pygobject3

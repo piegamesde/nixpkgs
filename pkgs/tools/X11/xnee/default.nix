@@ -63,11 +63,11 @@ stdenv.mkDerivation rec {
       "--enable-static"
     ];
 
-  # `cnee' is linked without `-lXi' and as a consequence has a RUNPATH that
-  # lacks libXi.
+    # `cnee' is linked without `-lXi' and as a consequence has a RUNPATH that
+    # lacks libXi.
   makeFlags = [ "LDFLAGS=-lXi" ];
 
-  # XXX: Actually tests require an X server.
+    # XXX: Actually tests require an X server.
   doCheck = true;
 
   meta = {

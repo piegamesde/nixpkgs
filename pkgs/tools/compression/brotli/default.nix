@@ -27,7 +27,8 @@ stdenv.mkDerivation (finalAttrs: {
     # context from https://github.com/google/brotli/pull/655
     # updated patch from https://github.com/google/brotli/pull/655
     url =
-      "https://github.com/google/brotli/commit/47a554804ceabb899ae924aaee54df806053d0d1.patch";
+      "https://github.com/google/brotli/commit/47a554804ceabb899ae924aaee54df806053d0d1.patch"
+      ;
     sha256 = "sOeXNVsCaBSD9i82GRUDrkyreGeQ7qaJWjjy/uLL0/0=";
   });
 
@@ -43,8 +44,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   checkTarget = "test";
 
-  # This breaks on Darwin because our cmake hook tries to make a build folder
-  # and the wonderful bazel BUILD file is already there (yay case-insensitivity?)
+    # This breaks on Darwin because our cmake hook tries to make a build folder
+    # and the wonderful bazel BUILD file is already there (yay case-insensitivity?)
   prePatch = ''
     rm BUILD
 
@@ -54,8 +55,8 @@ stdenv.mkDerivation (finalAttrs: {
     cat scripts/libbrotli*.pc.in
   '';
 
-  # Don't bother with "man" output for now,
-  # it currently only makes the manpages hard to use.
+    # Don't bother with "man" output for now,
+    # it currently only makes the manpages hard to use.
   postInstall = ''
     mkdir -p $out/share/man/man{1,3}
     cp ../docs/*.1 $out/share/man/man1/

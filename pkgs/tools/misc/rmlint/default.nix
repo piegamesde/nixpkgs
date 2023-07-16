@@ -72,12 +72,12 @@ stdenv.mkDerivation rec {
       --replace "gzip -c " "gzip -cn "
   '';
 
-  # Otherwise tries to access /usr.
+    # Otherwise tries to access /usr.
   prefixKey = "--prefix=";
 
   sconsFlags = lib.optionals (!withGui) [ "--without-gui" ];
 
-  # in GUI mode, this shells out to itself, and tries to import python modules
+    # in GUI mode, this shells out to itself, and tries to import python modules
   postInstall = lib.optionalString withGui ''
     gappsWrapperArgs+=(--prefix PATH : "$out/bin")
     gappsWrapperArgs+=(--prefix PYTHONPATH : "$(toPythonPath $out):$(toPythonPath ${python3.pkgs.pygobject3}):$(toPythonPath ${python3.pkgs.pycairo})")
@@ -85,7 +85,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Extremely fast tool to remove duplicates and other lint from your filesystem";
+      "Extremely fast tool to remove duplicates and other lint from your filesystem"
+      ;
     homepage = "https://rmlint.readthedocs.org";
     platforms = platforms.unix;
     license = licenses.gpl3;

@@ -11,7 +11,7 @@ buildPythonPackage rec {
   pname = "hjson";
   version = "3.0.2";
 
-  # N.B. pypi src tarball does not have tests
+    # N.B. pypi src tarball does not have tests
   src = fetchFromGitHub {
     owner = "hjson";
     repo = "hjson-py";

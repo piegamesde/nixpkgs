@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
   dontUseSetuptoolsBuild = true;
   dontUsePipInstall = true;
 
-  # Should be propagatedNativeBuildInputs
+    # Should be propagatedNativeBuildInputs
   propagatedBuildInputs = [
     # Override to remove dependencies to prevent infinite recursion.
     (pipInstallHook.override { pip = null; })
@@ -38,8 +38,8 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     mkdir -p $out/bin
-  ''
-    + (pip.postPatch or ""); # `pip` does not necessarily have a `postPatch` field.
+  '' + (pip.postPatch or "")
+    ; # `pip` does not necessarily have a `postPatch` field.
 
   nativeBuildInputs = [
     makeWrapper

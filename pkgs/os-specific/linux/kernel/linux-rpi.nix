@@ -23,16 +23,19 @@ lib.overrideDerivation (buildLinux (args // {
     repo = "linux";
     rev = tag;
     hash =
-      "sha512-6Dcpo81JBvc8NOv1nvO8JwjUgOOviRgHmXLLcGpE/pI2lEOcSeDRlB/FZtflzXTGilapvmwOSx5NxQfAmysHqQ==";
+      "sha512-6Dcpo81JBvc8NOv1nvO8JwjUgOOviRgHmXLLcGpE/pI2lEOcSeDRlB/FZtflzXTGilapvmwOSx5NxQfAmysHqQ=="
+      ;
   };
 
   defconfig = {
     "1" = "bcmrpi_defconfig";
     "2" = "bcm2709_defconfig";
-    "3" = if stdenv.hostPlatform.isAarch64 then
-      "bcmrpi3_defconfig"
-    else
-      "bcm2709_defconfig";
+    "3" =
+      if stdenv.hostPlatform.isAarch64 then
+        "bcmrpi3_defconfig"
+      else
+        "bcm2709_defconfig"
+      ;
     "4" = "bcm2711_defconfig";
   }.${toString rpiVersion};
 
@@ -51,16 +54,18 @@ lib.overrideDerivation (buildLinux (args // {
     DRM_AMDGPU n
   '';
 
-  extraMeta = if (rpiVersion < 3) then
-    {
-      platforms = with lib.platforms; arm;
-      hydraPlatforms = [ ];
-    }
-  else
-    {
-      platforms = with lib.platforms; arm ++ aarch64;
-      hydraPlatforms = [ "aarch64-linux" ];
-    };
+  extraMeta =
+    if (rpiVersion < 3) then
+      {
+        platforms = with lib.platforms; arm;
+        hydraPlatforms = [ ];
+      }
+    else
+      {
+        platforms = with lib.platforms; arm ++ aarch64;
+        hydraPlatforms = [ "aarch64-linux" ];
+      }
+    ;
 } // (args.argsOverride or { }))) (oldAttrs: {
   postConfigure = ''
     # The v7 defconfig has this set to '-v7' which screws up our modDirVersion.
@@ -68,8 +73,8 @@ lib.overrideDerivation (buildLinux (args // {
     sed -i $buildRoot/include/config/auto.conf -e 's/^CONFIG_LOCALVERSION=.*/CONFIG_LOCALVERSION=""/'
   '';
 
-  # Make copies of the DTBs named after the upstream names so that U-Boot finds them.
-  # This is ugly as heck, but I don't know a better solution so far.
+    # Make copies of the DTBs named after the upstream names so that U-Boot finds them.
+    # This is ugly as heck, but I don't know a better solution so far.
   postFixup = ''
     dtbDir=${
       if stdenv.isAarch64 then

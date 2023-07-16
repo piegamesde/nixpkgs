@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     miniupnpc
   ];
 
-  # SSL requires libevent at 2.1 with ssl support
+    # SSL requires libevent at 2.1 with ssl support
   configureFlags = [ "--disable-ssl" ];
 
   meta = {

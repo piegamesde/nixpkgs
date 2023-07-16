@@ -21,15 +21,18 @@
 }:
 
 let
-  fetchPatchFromAur = {
+  fetchPatchFromAur =
+    {
       name,
       sha256,
     }:
     fetchpatch {
       inherit name sha256;
       url =
-        "https://aur.archlinux.org/cgit/aur.git/plain/${name}?h=e6cc6bc80c672aaa1a2260abfe8823da299a192c";
-    };
+        "https://aur.archlinux.org/cgit/aur.git/plain/${name}?h=e6cc6bc80c672aaa1a2260abfe8823da299a192c"
+        ;
+    }
+    ;
 in
 stdenv.mkDerivation rec {
   pname = "bombono";
@@ -45,7 +48,8 @@ stdenv.mkDerivation rec {
   patches = [ (fetchpatch {
     name = "bombono-dvd-1.2.4-scons3.patch";
     url =
-      "https://svnweb.mageia.org/packages/cauldron/bombono-dvd/current/SOURCES/bombono-dvd-1.2.4-scons-python3.patch?revision=1447925&view=co&pathrev=1484457";
+      "https://svnweb.mageia.org/packages/cauldron/bombono-dvd/current/SOURCES/bombono-dvd-1.2.4-scons-python3.patch?revision=1447925&view=co&pathrev=1484457"
+      ;
     sha256 = "sha256-5OKBWrRZvHem2MTdAObfdw76ig3Z4ZdDFtq4CJoJISA=";
   }) ] ++ (map fetchPatchFromAur [
     {

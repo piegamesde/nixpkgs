@@ -96,8 +96,8 @@ stdenv.mkDerivation rec {
     moveToOutput share/vim "$out"
   '';
 
-  # Prevent tclPackageHook from auto-wrapping all binaries, we only
-  # need to wrap poke-gui
+    # Prevent tclPackageHook from auto-wrapping all binaries, we only
+    # need to wrap poke-gui
   dontWrapTclBinaries = true;
 
   postFixup = lib.optionalString guiSupport ''
@@ -123,7 +123,8 @@ stdenv.mkDerivation rec {
     description = "Interactive, extensible editor for binary data";
     homepage = "http://www.jemarch.net/poke";
     changelog =
-      "https://git.savannah.gnu.org/cgit/poke.git/plain/ChangeLog?h=releases/poke-${version}";
+      "https://git.savannah.gnu.org/cgit/poke.git/plain/ChangeLog?h=releases/poke-${version}"
+      ;
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [
       AndersonTorres

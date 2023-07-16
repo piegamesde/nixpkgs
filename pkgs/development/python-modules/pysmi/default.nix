@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ ply ];
 
-  # Tests require pysnmp, which in turn requires pysmi => infinite recursion
+    # Tests require pysnmp, which in turn requires pysmi => infinite recursion
   doCheck = false;
 
   meta = with lib; {

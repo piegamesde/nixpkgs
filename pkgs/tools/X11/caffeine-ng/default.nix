@@ -99,7 +99,8 @@ buildPythonApplication rec {
     mainProgram = "caffeine";
     maintainers = with maintainers; [ marzipankaiser ];
     description =
-      "Status bar application to temporarily inhibit screensaver and sleep mode";
+      "Status bar application to temporarily inhibit screensaver and sleep mode"
+      ;
     homepage = "https://codeberg.org/WhyNotHugo/caffeine-ng";
     license = licenses.gpl3;
     platforms = platforms.linux;

@@ -10,7 +10,8 @@ import ./make-test-python.nix ({
     name = "octoprint";
     meta.maintainers = with lib.maintainers; [ gador ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -33,7 +34,8 @@ import ./make-test-python.nix ({
             };
           };
         };
-      };
+      }
+      ;
 
     testScript = ''
       import json

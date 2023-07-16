@@ -27,10 +27,12 @@ in {
 
       stateDir = mkOption {
         type = types.path;
-        default = if versionAtLeast config.system.stateVersion "20.09" then
-          "/var/lib/supybot"
-        else
-          "/home/supybot";
+        default =
+          if versionAtLeast config.system.stateVersion "20.09" then
+            "/var/lib/supybot"
+          else
+            "/home/supybot"
+          ;
         defaultText = literalExpression "/var/lib/supybot";
         description =
           lib.mdDoc "The root directory, logs and plugins are stored here";

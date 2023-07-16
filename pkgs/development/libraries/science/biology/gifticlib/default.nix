@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  # without the test data, this is only a few basic tests
+    # without the test data, this is only a few basic tests
   doCheck = !stdenv.isDarwin;
   checkPhase = ''
     runHook preCheck

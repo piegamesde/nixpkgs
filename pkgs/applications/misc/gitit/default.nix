@@ -16,10 +16,12 @@
 
 let
   plain = haskellPackages.gitit;
-  plugins = if pluginSupport then
-    plain
-  else
-    haskell.lib.compose.disableCabalFlag "plugins" plain;
+  plugins =
+    if pluginSupport then
+      plain
+    else
+      haskell.lib.compose.disableCabalFlag "plugins" plain
+    ;
   static = haskell.lib.compose.justStaticExecutables plugins;
 
 in
@@ -60,7 +62,7 @@ in
     '';
 
     meta = drv.meta // {
-      maintainers = drv.meta.maintainers or [ ]
-        ++ [ lib.maintainers.Profpatsch ];
+      maintainers =
+        drv.meta.maintainers or [ ] ++ [ lib.maintainers.Profpatsch ];
     };
   })

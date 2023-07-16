@@ -28,7 +28,8 @@ buildPythonPackage rec {
       "Django middleware to compress responses using several algorithms";
     homepage = "https://github.com/friedelwolff/django-compression-middleware";
     changelog =
-      "https://github.com/friedelwolff/django-compression-middleware/releases/tag/v${version}";
+      "https://github.com/friedelwolff/django-compression-middleware/releases/tag/v${version}"
+      ;
     license = licenses.mpl20;
     maintainers = with maintainers; [
       0.0

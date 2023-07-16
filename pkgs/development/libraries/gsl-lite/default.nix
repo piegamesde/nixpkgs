@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
       BUILD_TESTS = doCheck;
     };
 
-  # Building tests is broken on Darwin.
+    # Building tests is broken on Darwin.
   doCheck = !stdenv.isDarwin;
 
   meta = with lib; {

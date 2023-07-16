@@ -43,7 +43,7 @@ buildPythonPackage rec {
     datadiff
   ];
 
-  # ImportError: No module named 'testproj.settings'
+    # ImportError: No module named 'testproj.settings'
   doCheck = false;
 
   pythonImportsCheck = [ "drf_yasg" ];

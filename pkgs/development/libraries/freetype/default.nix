@@ -41,14 +41,15 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "freetype";
   version = "2.13.0";
 
-  src = let
-    inherit (finalAttrs) pname version;
-  in
-  fetchurl {
-    url = "mirror://savannah/${pname}/${pname}-${version}.tar.xz";
-    sha256 = "sha256-XuI6vQR2NsJLLUPGYl3K/GZmHRrKZN7J4NBd8pWSYkw=";
-  }
-  ;
+  src =
+    let
+      inherit (finalAttrs) pname version;
+    in
+    fetchurl {
+      url = "mirror://savannah/${pname}/${pname}-${version}.tar.xz";
+      sha256 = "sha256-XuI6vQR2NsJLLUPGYl3K/GZmHRrKZN7J4NBd8pWSYkw=";
+    }
+    ;
 
   propagatedBuildInputs = [
     zlib
@@ -57,7 +58,7 @@ stdenv.mkDerivation (finalAttrs: {
     libpng
   ]; # needed when linking against freetype
 
-  # dependence on harfbuzz is looser than the reverse dependence
+    # dependence on harfbuzz is looser than the reverse dependence
   nativeBuildInputs = [
     pkg-config
     which
@@ -79,10 +80,10 @@ stdenv.mkDerivation (finalAttrs: {
     "--enable-freetype-config"
   ];
 
-  # native compiler to generate building tool
+    # native compiler to generate building tool
   CC_BUILD = "${buildPackages.stdenv.cc}/bin/cc";
 
-  # The asm for armel is written with the 'asm' keyword.
+    # The asm for armel is written with the 'asm' keyword.
   CFLAGS = lib.optionalString stdenv.isAarch32 "-std=gnu99";
 
   enableParallelBuilding = true;

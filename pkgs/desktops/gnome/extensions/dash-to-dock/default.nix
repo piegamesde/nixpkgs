@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
   pname = "gnome-shell-extension-dash-to-dock";
   version = "80";
 
-  # Temporarily switched to commit hash because stable version is buggy.
+    # Temporarily switched to commit hash because stable version is buggy.
   src = fetchFromGitHub {
     owner = "micheleg";
     repo = "dash-to-dock";
@@ -26,8 +26,9 @@ stdenv.mkDerivation rec {
     sassc
   ];
 
-  makeFlags =
-    [ "INSTALLBASE=${placeholder "out"}/share/gnome-shell/extensions" ];
+  makeFlags = [ "INSTALLBASE=${
+      placeholder "out"
+    }/share/gnome-shell/extensions" ];
 
   passthru = {
     extensionUuid = "dash-to-dock@micxgx.gmail.com";

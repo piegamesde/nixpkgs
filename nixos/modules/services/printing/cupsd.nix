@@ -31,11 +31,11 @@ let
       fi
     '';
 
-  # Here we can enable additional backends, filters, etc. that are not
-  # part of CUPS itself, e.g. the SMB backend is part of Samba.  Since
-  # we can't update ${cups.out}/lib/cups itself, we create a symlink tree
-  # here and add the additional programs.  The ServerBin directive in
-  # cups-files.conf tells cupsd to use this tree.
+    # Here we can enable additional backends, filters, etc. that are not
+    # part of CUPS itself, e.g. the SMB backend is part of Samba.  Since
+    # we can't update ${cups.out}/lib/cups itself, we create a symlink tree
+    # here and add the additional programs.  The ServerBin directive in
+    # cups-files.conf tells cupsd to use this tree.
   bindir = pkgs.buildEnv {
     name = "cups-progs";
     paths = [
@@ -53,11 +53,13 @@ let
     ignoreCollisions = true;
   };
 
-  writeConf = name: text:
+  writeConf =
+    name: text:
     pkgs.writeTextFile {
       inherit name text;
       destination = "/etc/cups/${name}";
-    };
+    }
+    ;
 
   cupsFilesFile = writeConf "cups-files.conf" ''
     SystemGroup root wheel
@@ -168,7 +170,7 @@ in {
     ] "")
   ];
 
-  ###### interface
+    ###### interface
 
   options = {
     services.printing = {
@@ -346,7 +348,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf config.services.printing.enable {
 
@@ -356,15 +358,15 @@ in {
       description = "CUPS printing services";
     };
 
-    environment.systemPackages = [ cups.out ]
-      ++ optional polkitEnabled cups-pk-helper;
+    environment.systemPackages =
+      [ cups.out ] ++ optional polkitEnabled cups-pk-helper;
     environment.etc.cups.source = "/var/lib/cups";
 
-    services.dbus.packages = [ cups.out ]
-      ++ optional polkitEnabled cups-pk-helper;
+    services.dbus.packages =
+      [ cups.out ] ++ optional polkitEnabled cups-pk-helper;
     services.udev.packages = cfg.drivers;
 
-    # Allow asswordless printer admin for members of wheel group
+      # Allow asswordless printer admin for members of wheel group
     security.polkit.extraConfig = mkIf polkitEnabled ''
       polkit.addRule(function(action, subject) {
           if (action.id == "org.opensuse.cupspkhelper.mechanism.all-edit" &&
@@ -374,13 +376,13 @@ in {
       });
     '';
 
-    # Cups uses libusb to talk to printers, and does not use the
-    # linux kernel driver. If the driver is not in a black list, it
-    # gets loaded, and then cups cannot access the printers.
+      # Cups uses libusb to talk to printers, and does not use the
+      # linux kernel driver. If the driver is not in a black list, it
+      # gets loaded, and then cups cannot access the printers.
     boot.blacklistedKernelModules = [ "usblp" ];
 
-    # Some programs like print-manager rely on this value to get
-    # printer test pages.
+      # Some programs like print-manager rely on this value to get
+      # printer test pages.
     environment.sessionVariables.CUPS_DATADIR = "${bindir}/share/cups";
 
     systemd.packages = [ cups.out ];

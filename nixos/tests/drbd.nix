@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
   let
     drbdPort = 7789;
 
-    drbdConfig = {
+    drbdConfig =
+      {
         nodes,
         ...
       }: {
@@ -48,7 +49,8 @@ import ./make-test-python.nix ({
             }
           '';
         };
-      };
+      }
+      ;
   in {
     name = "drbd";
     meta = with pkgs.lib.maintainers; {
@@ -61,7 +63,8 @@ import ./make-test-python.nix ({
     nodes.drbd1 = drbdConfig;
     nodes.drbd2 = drbdConfig;
 
-    testScript = {
+    testScript =
+      {
         nodes,
       }: ''
         drbd1.start()
@@ -94,5 +97,6 @@ import ./make-test-python.nix ({
             "mount /dev/drbd0 /mnt/drbd",
             "ls /mnt/drbd/hello",
         )
-      '';
+      ''
+      ;
   } )

@@ -12,14 +12,16 @@ let
   rootDir = "/run/biboumi/mnt-root";
   stateDir = "/var/lib/biboumi";
   settingsFile = pkgs.writeText "biboumi.cfg" (generators.toKeyValue {
-    mkKeyValue = k: v:
+    mkKeyValue =
+      k: v:
       if v == null then
         ""
       else
-        generators.mkKeyValueDefault { } "=" k v;
+        generators.mkKeyValueDefault { } "=" k v
+      ;
   } cfg.settings);
-  need_CAP_NET_BIND_SERVICE = cfg.settings.identd_port != 0
-    && cfg.settings.identd_port < 1024;
+  need_CAP_NET_BIND_SERVICE =
+    cfg.settings.identd_port != 0 && cfg.settings.identd_port < 1024;
 in {
   options = {
     services.biboumi = {
@@ -195,10 +197,10 @@ in {
 
       serviceConfig = {
         Type = "notify";
-        # Biboumi supports systemd's watchdog.
+          # Biboumi supports systemd's watchdog.
         WatchdogSec = 20;
         Restart = "always";
-        # Use "+" because credentialsFile may not be accessible to User= or Group=.
+          # Use "+" because credentialsFile may not be accessible to User= or Group=.
         ExecStartPre = [ ("+" + pkgs.writeShellScript "biboumi-prestart" ''
           set -eux
           cat ${settingsFile} '${cfg.credentialsFile}' |
@@ -206,13 +208,13 @@ in {
         '') ];
         ExecStart = "${pkgs.biboumi}/bin/biboumi /run/biboumi/biboumi.cfg";
         ExecReload = "${pkgs.coreutils}/bin/kill -USR1 $MAINPID";
-        # Firewalls needing opening for output connections can still do that
-        # selectively for biboumi with:
-        # users.users.biboumi.isSystemUser = true;
-        # and, for example:
-        # networking.nftables.ruleset = ''
-        #   add rule inet filter output meta skuid biboumi tcp accept
-        # '';
+          # Firewalls needing opening for output connections can still do that
+          # selectively for biboumi with:
+          # users.users.biboumi.isSystemUser = true;
+          # and, for example:
+          # networking.nftables.ruleset = ''
+          #   add rule inet filter output meta skuid biboumi tcp accept
+          # '';
         DynamicUser = true;
         RootDirectory = rootDir;
         RootDirectoryStartOnly = true;
@@ -237,13 +239,13 @@ in {
           builtins.storeDir
           "/etc"
         ];
-        # The following options are only for optimizing:
-        # systemd-analyze security biboumi
-        AmbientCapabilities =
-          [ (optionalString need_CAP_NET_BIND_SERVICE "CAP_NET_BIND_SERVICE") ];
-        CapabilityBoundingSet =
-          [ (optionalString need_CAP_NET_BIND_SERVICE "CAP_NET_BIND_SERVICE") ];
-        # ProtectClock= adds DeviceAllow=char-rtc r
+          # The following options are only for optimizing:
+          # systemd-analyze security biboumi
+        AmbientCapabilities = [ (optionalString need_CAP_NET_BIND_SERVICE
+          "CAP_NET_BIND_SERVICE") ];
+        CapabilityBoundingSet = [ (optionalString need_CAP_NET_BIND_SERVICE
+          "CAP_NET_BIND_SERVICE") ];
+          # ProtectClock= adds DeviceAllow=char-rtc r
         DeviceAllow = "";
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
@@ -252,8 +254,8 @@ in {
         PrivateMounts = true;
         PrivateNetwork = mkDefault false;
         PrivateTmp = true;
-        # PrivateUsers=true breaks AmbientCapabilities=CAP_NET_BIND_SERVICE
-        # See https://bugs.archlinux.org/task/65921
+          # PrivateUsers=true breaks AmbientCapabilities=CAP_NET_BIND_SERVICE
+          # See https://bugs.archlinux.org/task/65921
         PrivateUsers = !need_CAP_NET_BIND_SERVICE;
         ProtectClock = true;
         ProtectControlGroups = true;
@@ -264,7 +266,7 @@ in {
         ProtectKernelTunables = true;
         ProtectSystem = "strict";
         RemoveIPC = true;
-        # AF_UNIX is for /run/systemd/notify
+          # AF_UNIX is for /run/systemd/notify
         RestrictAddressFamilies = [
           "AF_UNIX"
           "AF_INET"

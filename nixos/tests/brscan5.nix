@@ -8,7 +8,8 @@ import ./make-test-python.nix ({
     name = "brscan5";
     meta = with pkgs.lib.maintainers; { maintainers = [ mattchrist ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -29,7 +30,8 @@ import ./make-test-python.nix ({
             };
           };
         };
-      };
+      }
+      ;
 
     testScript = ''
       import re

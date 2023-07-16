@@ -32,9 +32,9 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ twisted ];
 
-  # Test creates an excessive amount of temporary files (order of millions).
-  # Cleaning up those files already took over 15 hours already on my zfs
-  # filesystem and is not finished yet.
+    # Test creates an excessive amount of temporary files (order of millions).
+    # Cleaning up those files already took over 15 hours already on my zfs
+    # filesystem and is not finished yet.
   doCheck = false;
 
   checkPhase = ''

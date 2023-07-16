@@ -28,14 +28,16 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  postPatch = let
-    printVersion = writeShellScript "print-version" ''
-      echo ${lib.escapeShellArg version}
-    '';
-  in ''
-    # avoid git dependency
-    cp ${printVersion} build-aux/git-version-gen
-  '' ;
+  postPatch =
+    let
+      printVersion = writeShellScript "print-version" ''
+        echo ${lib.escapeShellArg version}
+      '';
+    in ''
+      # avoid git dependency
+      cp ${printVersion} build-aux/git-version-gen
+    ''
+    ;
 
   preConfigure = lib.optionalString (stdenv.isDarwin && enablePython) ''
     # prevent configure picking up stack_size from distutils.sysconfig
@@ -52,12 +54,12 @@ stdenv.mkDerivation rec {
     # configurePhase fails with python 3 when ncurses is missing
     ++ lib.optional isPython3 ncurses;
 
-  # prevent python tests from running when not building with python
+    # prevent python tests from running when not building with python
   configureFlags = lib.optional (!enablePython) "--disable-python";
 
   doCheck = true;
 
-  # the "xmlsuite" test requires the libxml2 c library as well as the python module
+    # the "xmlsuite" test requires the libxml2 c library as well as the python module
   nativeCheckInputs = lib.optionals enablePython [
     libxml2
     libxml2.dev

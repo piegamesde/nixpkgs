@@ -10,7 +10,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://hpux.connect.org.uk/ftp/hpux/Users/replace-${version}/replace-${version}-src-11.31.tar.gz";
+      "http://hpux.connect.org.uk/ftp/hpux/Users/replace-${version}/replace-${version}-src-11.31.tar.gz"
+      ;
     sha256 = "18hkwhaz25s6209n5mpx9hmkyznlzygqj488p2l7nvp9zrlxb9sf";
   };
 

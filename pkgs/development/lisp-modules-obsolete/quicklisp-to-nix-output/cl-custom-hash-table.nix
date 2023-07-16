@@ -12,7 +12,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/cl-custom-hash-table/2020-12-20/cl-custom-hash-table-20201220-git.tgz";
+      "http://beta.quicklisp.org/archive/cl-custom-hash-table/2020-12-20/cl-custom-hash-table-20201220-git.tgz"
+      ;
     sha256 = "1id16p7vdcgxzvrgk8h6fqi284hgd8cilbnbgsbrbd70n7nj8jg3";
   };
 

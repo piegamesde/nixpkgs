@@ -37,7 +37,7 @@ buildPythonApplication rec {
     urllib3
   ];
 
-  # Requires tox, many packages, and network access
+    # Requires tox, many packages, and network access
   checkPhase = ''
     $out/bin/custodian --help
   '';

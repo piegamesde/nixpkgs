@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  # This isn't used by the build and breaks the CMake build on case-insensitive filesystems (e.g., on Darwin)
+    # This isn't used by the build and breaks the CMake build on case-insensitive filesystems (e.g., on Darwin)
   preConfigure = "rm BUILD";
 
   cmakeFlags = [

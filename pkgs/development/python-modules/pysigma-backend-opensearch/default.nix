@@ -52,7 +52,8 @@ buildPythonPackage rec {
     description = "Library to support OpenSearch for pySigma";
     homepage = "https://github.com/SigmaHQ/pySigma-backend-opensearch";
     changelog =
-      "https://github.com/SigmaHQ/pySigma-backend-opensearch/releases/tag/v${version}";
+      "https://github.com/SigmaHQ/pySigma-backend-opensearch/releases/tag/v${version}"
+      ;
     license = with licenses; [ lgpl21Only ];
     maintainers = with maintainers; [ fab ];
   };

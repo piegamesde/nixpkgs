@@ -25,7 +25,7 @@ rustPlatform.buildRustPackage rec {
   pname = "lighthouse";
   version = "4.1.0";
 
-  # lighthouse/common/deposit_contract/build.rs
+    # lighthouse/common/deposit_contract/build.rs
   depositContractSpecVersion = "0.12.1";
   testnetDepositContractSpecVersion = "0.9.2.1";
 
@@ -80,13 +80,15 @@ rustPlatform.buildRustPackage rec {
 
   depositContractSpec = fetchurl {
     url =
-      "https://raw.githubusercontent.com/ethereum/eth2.0-specs/v${depositContractSpecVersion}/deposit_contract/contracts/validator_registration.json";
+      "https://raw.githubusercontent.com/ethereum/eth2.0-specs/v${depositContractSpecVersion}/deposit_contract/contracts/validator_registration.json"
+      ;
     hash = "sha256-ZslAe1wkmkg8Tua/AmmEfBmjqMVcGIiYHwi+WssEwa8=";
   };
 
   testnetDepositContractSpec = fetchurl {
     url =
-      "https://raw.githubusercontent.com/sigp/unsafe-eth2-deposit-contract/v${testnetDepositContractSpecVersion}/unsafe_validator_registration.json";
+      "https://raw.githubusercontent.com/sigp/unsafe-eth2-deposit-contract/v${testnetDepositContractSpecVersion}/unsafe_validator_registration.json"
+      ;
     hash = "sha256-aeTeHRT3QtxBRSNMCITIWmx89vGtox2OzSff8vZ+RYY=";
   };
 
@@ -100,7 +102,7 @@ rustPlatform.buildRustPackage rec {
 
   checkFeatures = [ ];
 
-  # All of these tests require network access and/or docker
+    # All of these tests require network access and/or docker
   cargoTestFlags = [
     "--workspace"
     "--exclude beacon_node"
@@ -113,7 +115,7 @@ rustPlatform.buildRustPackage rec {
     "--exclude web3signer_tests"
   ];
 
-  # All of these tests require network access
+    # All of these tests require network access
   checkFlags = [
     "--skip service::tests::tests::test_dht_persistence"
     "--skip time::test::test_reinsertion_updates_timeout"

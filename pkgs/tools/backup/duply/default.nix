@@ -20,7 +20,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/project/ftplicity/duply%20%28simple%20duplicity%29/2.4.x/duply_${version}.tgz";
+      "mirror://sourceforge/project/ftplicity/duply%20%28simple%20duplicity%29/2.4.x/duply_${version}.tgz"
+      ;
     hash = "sha256-DCrp3o/ukzkfnVaLbIK84bmYnXvqKsvlkGn3GJY3iNg=";
   };
 

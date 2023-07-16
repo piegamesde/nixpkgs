@@ -31,10 +31,12 @@
 with lib;
 
 let
-  warn = if verbose then
-    builtins.trace
-  else
-    (x: y: y);
+  warn =
+    if verbose then
+      builtins.trace
+    else
+      (x: y: y)
+    ;
   references = import (runCommandLocal "references.nix" {
     exportReferencesGraph = [
       "graph"
@@ -75,11 +77,14 @@ let
 
   dependsOnOld = drv: dependsOnOldMemo.${discard (toString drv)};
 
-  drvName = drv:
+  drvName =
+    drv:
     discard (substring 33 (stringLength (builtins.baseNameOf drv))
-      (builtins.baseNameOf drv));
+      (builtins.baseNameOf drv))
+    ;
 
-  rewriteHashes = drv: hashes:
+  rewriteHashes =
+    drv: hashes:
     runCommandLocal (drvName drv) { nixStore = "${nix.out}/bin/nix-store"; } ''
       $nixStore --dump ${drv} | sed 's|${
         baseNameOf drv
@@ -87,7 +92,8 @@ let
         concatStringsSep " -e " (mapAttrsToList
           (name: value: "'s|${baseNameOf name}|${baseNameOf value}|g'") hashes)
       } | $nixStore --restore $out
-    '';
+    ''
+    ;
 
   rewrittenDeps = listToAttrs [ {
     name = discard (toString oldDependency);

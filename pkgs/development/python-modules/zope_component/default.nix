@@ -30,7 +30,7 @@ buildPythonPackage rec {
     zope_i18nmessageid
   ];
 
-  # ignore tests because of a circular dependency on zope_security
+    # ignore tests because of a circular dependency on zope_security
   doCheck = false;
 
   meta = with lib; {

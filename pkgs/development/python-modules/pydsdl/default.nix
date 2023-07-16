@@ -19,12 +19,12 @@ buildPythonPackage rec {
     hash = "sha256-sn7KoJmJbr7Y+N9PAXyhJnts/hW+Gi06nrHj5VIDZMU=";
   };
 
-  # allow for writable directory for darwin
+    # allow for writable directory for darwin
   preBuild = ''
     export HOME=$TMPDIR
   '';
 
-  # Module doesn't contain tests
+    # Module doesn't contain tests
   doCheck = false;
 
   pythonImportsCheck = [ "pydsdl" ];

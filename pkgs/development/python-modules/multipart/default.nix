@@ -20,7 +20,8 @@ buildPythonPackage rec {
   patches = [ (fetchpatch {
     name = "dont-test-semicolon-separators-in-urlencoded-data.patch";
     url =
-      "https://github.com/defnull/multipart/commit/4d4ac6b79c453918ebf40c690e8d57d982ee840b.patch";
+      "https://github.com/defnull/multipart/commit/4d4ac6b79c453918ebf40c690e8d57d982ee840b.patch"
+      ;
     hash = "sha256-rMeMhQEhonWAHzy5M8Im5mL6km5a9O0CGVOV+T3UNqo=";
   }) ];
 

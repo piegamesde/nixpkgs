@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "AdaCore";
     repo = "spark2014";
-    # commit on fsf-12 branch
+      # commit on fsf-12 branch
     rev = "ab34e07080a769b63beacc141707b5885c49d375";
     sha256 = "sha256-7pe3eWitpxmqzjW6qEIEuN0qr2IR+kJ7Ssc9pTBcCD8=";
     fetchSubmodules = true;
@@ -60,7 +60,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "a software development technology specifically designed for engineering high-reliability applications";
+      "a software development technology specifically designed for engineering high-reliability applications"
+      ;
     homepage = "https://github.com/AdaCore/spark2014";
     maintainers = [ maintainers.jiegec ];
     license = licenses.gpl3;

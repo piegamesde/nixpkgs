@@ -71,7 +71,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Modern instant messaging for home and work that prioritizes chat interoperability and security";
+      "Modern instant messaging for home and work that prioritizes chat interoperability and security"
+      ;
     homepage = "https://www.trillian.im/";
     license = licenses.unfree;
     maintainers = with maintainers; [ majiir ];

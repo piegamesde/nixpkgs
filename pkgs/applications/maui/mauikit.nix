@@ -34,7 +34,8 @@ mkDerivation {
   meta = with lib; {
     homepage = "https://mauikit.org/";
     description =
-      "Free and modular front-end framework for developing fast and compelling user experiences";
+      "Free and modular front-end framework for developing fast and compelling user experiences"
+      ;
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ dotlambda ];
   };

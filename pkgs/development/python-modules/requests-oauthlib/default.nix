@@ -29,7 +29,7 @@ buildPythonPackage rec {
     requests-mock
   ];
 
-  # Exclude tests which require network access
+    # Exclude tests which require network access
   disabledTests = [
     "testCanPostBinaryData"
     "test_content_type_override"

@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     xorg.libXt
   ];
 
-  # TODO: macos
+    # TODO: macos
   makeFlags = [ "CONF=unix" ];
 
   installPhase = ''

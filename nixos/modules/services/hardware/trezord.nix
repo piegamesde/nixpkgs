@@ -14,7 +14,7 @@ in {
 
   meta = { doc = ./trezord.md; };
 
-  ### interface
+    ### interface
 
   options = {
     services.trezord = {
@@ -44,7 +44,7 @@ in {
     };
   };
 
-  ### implementation
+    ### implementation
 
   config = mkIf cfg.enable {
     services.udev.packages = [ pkgs.trezor-udev-rules ];

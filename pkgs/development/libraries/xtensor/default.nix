@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
   nativeCheckInputs = [ gtest ];
   checkTarget = "xtest";
 
-  # https://github.com/xtensor-stack/xtensor/issues/2542
+    # https://github.com/xtensor-stack/xtensor/issues/2542
   postPatch = ''
     substituteInPlace xtensor.pc.in \
       --replace '$'{prefix}/@CMAKE_INSTALL_LIBDIR@ @CMAKE_INSTALL_FULL_LIBDIR@

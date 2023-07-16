@@ -61,12 +61,14 @@ in let
     };
   };
 
-  withWarnings = x:
+  withWarnings =
+    x:
     lib.warnIf (evalConfigArgs ? extraArgs)
     "The extraArgs argument to eval-config.nix is deprecated. Please set config._module.args instead."
     lib.warnIf (evalConfigArgs ? check)
     "The check argument to eval-config.nix is deprecated. Please set config._module.check instead."
-    x;
+    x
+    ;
 
   legacyModules = lib.optional (evalConfigArgs ? extraArgs) {
     config = { _module.args = extraArgs; };
@@ -74,16 +76,19 @@ in let
     config = { _module.check = lib.mkDefault check; };
   };
 
-  allUserModules = let
-    # Add the invoking file (or specified modulesLocation) as error message location
-    # for modules that don't have their own locations; presumably inline modules.
-    locatedModules = if modulesLocation == null then
-      modules
-    else
-      map (lib.setDefaultModuleLocation modulesLocation) modules;
-  in
-  locatedModules ++ legacyModules
-  ;
+  allUserModules =
+    let
+      # Add the invoking file (or specified modulesLocation) as error message location
+      # for modules that don't have their own locations; presumably inline modules.
+      locatedModules =
+        if modulesLocation == null then
+          modules
+        else
+          map (lib.setDefaultModuleLocation modulesLocation) modules
+        ;
+    in
+    locatedModules ++ legacyModules
+    ;
 
   noUserModules = evalModulesMinimal ({
     inherit prefix specialArgs;
@@ -93,12 +98,11 @@ in let
     ];
   });
 
-  # Extra arguments that are useful for constructing a similar configuration.
+    # Extra arguments that are useful for constructing a similar configuration.
   modulesModule = {
     config = {
-      _module.args = {
-        inherit noUserModules baseModules extraModules modules;
-      };
+      _module.args = { inherit noUserModules baseModules extraModules modules; }
+        ;
     };
   };
 

@@ -73,7 +73,7 @@ buildPythonPackage rec {
     python-fontconfig
   ];
 
-  # Requires Noto Serif and Roboto Mono font
+    # Requires Noto Serif and Roboto Mono font
   doCheck = false;
 
   checkPhase = ''
@@ -87,8 +87,8 @@ buildPythonPackage rec {
     homepage = "https://github.com/ietf-tools/xml2rfc";
     changelog =
       "https://github.com/ietf-tools/xml2rfc/blob/v${version}/CHANGELOG.md";
-    # Well, parts might be considered unfree, if being strict; see:
-    # http://metadata.ftp-master.debian.org/changelogs/non-free/x/xml2rfc/xml2rfc_2.9.6-1_copyright
+      # Well, parts might be considered unfree, if being strict; see:
+      # http://metadata.ftp-master.debian.org/changelogs/non-free/x/xml2rfc/xml2rfc_2.9.6-1_copyright
     license = licenses.bsd3;
     maintainers = with maintainers; [
       vcunat

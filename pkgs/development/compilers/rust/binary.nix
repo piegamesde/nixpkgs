@@ -20,8 +20,8 @@ let
 
   bootstrapping = versionType == "bootstrap";
 
-  installComponents = "rustc,rust-std-${platform}"
-    + (optionalString bootstrapping ",cargo");
+  installComponents =
+    "rustc,rust-std-${platform}" + (optionalString bootstrapping ",cargo");
 
 in rec {
   rustc = stdenv.mkDerivation {
@@ -61,10 +61,10 @@ in rec {
       # https://github.com/rust-lang/rust/issues/34722#issuecomment-232164943
     '';
 
-    # The strip tool in cctools 973.0.1 and up appears to break rlibs in the
-    # binaries. The lib.rmeta object inside the ar archive should contain an
-    # .rmeta section, but it is removed. Luckily, this doesn't appear to be an
-    # issue for Rust builds produced by Nix.
+      # The strip tool in cctools 973.0.1 and up appears to break rlibs in the
+      # binaries. The lib.rmeta object inside the ar archive should contain an
+      # .rmeta section, but it is removed. Luckily, this doesn't appear to be an
+      # issue for Rust builds produced by Nix.
     dontStrip = stdenv.isDarwin;
 
     setupHooks = ./setup-hook.sh;
@@ -86,8 +86,8 @@ in rec {
       ];
     };
 
-    nativeBuildInputs = [ makeWrapper ]
-      ++ lib.optional (!stdenv.isDarwin) autoPatchelfHook;
+    nativeBuildInputs =
+      [ makeWrapper ] ++ lib.optional (!stdenv.isDarwin) autoPatchelfHook;
     buildInputs = [ bash ] ++ lib.optional (!stdenv.isDarwin) gcc.cc.lib
       ++ lib.optional stdenv.isDarwin Security;
 

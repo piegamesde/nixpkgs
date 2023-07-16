@@ -14,7 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-ozSnA6hoiRDQhpRk8fb4vTMNdYQ72rT4k1R7+ylBegE=";
   };
 
-  # Module doesn't have tests
+    # Module doesn't have tests
   doCheck = false;
 
   pythonImportsCheck = [ "docutils-stubs" ];

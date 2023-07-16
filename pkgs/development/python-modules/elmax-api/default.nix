@@ -28,7 +28,7 @@ buildPythonPackage rec {
     yarl
   ];
 
-  # Test require network access
+    # Test require network access
   doCheck = false;
 
   pythonImportsCheck = [ "elmax_api" ];

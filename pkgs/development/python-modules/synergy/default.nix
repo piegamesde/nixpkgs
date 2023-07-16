@@ -16,7 +16,7 @@ buildPythonPackage rec {
   version = "0.5.1";
   disabled = pythonOlder "3.5";
 
-  # Pypi does not contain unit tests
+    # Pypi does not contain unit tests
   src = fetchFromGitHub {
     owner = "djwooten";
     repo = "synergy";
@@ -37,7 +37,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "A Python library for calculating, analyzing, and visualizing drug combination synergy";
+      "A Python library for calculating, analyzing, and visualizing drug combination synergy"
+      ;
     homepage = "https://github.com/djwooten/synergy";
     maintainers = [ maintainers.ivar ];
     license = licenses.gpl3Plus;

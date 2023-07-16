@@ -37,7 +37,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  # requires networking
+    # requires networking
   doCheck = false;
 
   meta = {

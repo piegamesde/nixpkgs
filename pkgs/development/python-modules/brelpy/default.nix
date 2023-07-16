@@ -21,7 +21,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pycryptodome ];
 
-  # Source not tagged and PyPI releases don't contain tests
+    # Source not tagged and PyPI releases don't contain tests
   doCheck = false;
 
   pythonImportsCheck = [ "brelpy" ];

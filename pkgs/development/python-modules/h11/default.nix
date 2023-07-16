@@ -21,7 +21,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  # Some of the tests use localhost networking.
+    # Some of the tests use localhost networking.
   __darwinAllowLocalNetworking = true;
 
   passthru.tests = { inherit httpcore httpx wsproto; };

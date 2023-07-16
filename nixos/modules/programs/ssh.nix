@@ -322,8 +322,8 @@ in {
         "knownHost ${name} must contain either a publicKey or publicKeyFile";
     });
 
-    # SSH configuration. Slight duplication of the sshd_config
-    # generation in the sshd service.
+      # SSH configuration. Slight duplication of the sshd_config
+      # generation in the sshd service.
     environment.etc."ssh/ssh_config".text = ''
       # Custom options from `extraConfig`, to override generated options
       ${cfg.extraConfig}
@@ -365,7 +365,7 @@ in {
 
     environment.etc."ssh/ssh_known_hosts".text = knownHostsText;
 
-    # FIXME: this should really be socket-activated for über-awesomeness.
+      # FIXME: this should really be socket-activated for über-awesomeness.
     systemd.user.services.ssh-agent = mkIf cfg.startAgent {
       description = "SSH Agent";
       wantedBy = [ "default.target" ];
@@ -382,9 +382,9 @@ in {
         Restart = "on-failure";
         SuccessExitStatus = "0 2";
       };
-      # Allow ssh-agent to ask for confirmation. This requires the
-      # unit to know about the user's $DISPLAY (via ‘systemctl
-      # import-environment’).
+        # Allow ssh-agent to ask for confirmation. This requires the
+        # unit to know about the user's $DISPLAY (via ‘systemctl
+        # import-environment’).
       environment.SSH_ASKPASS =
         optionalString cfg.enableAskPassword askPasswordWrapper;
       environment.DISPLAY =

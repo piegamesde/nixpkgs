@@ -14,7 +14,7 @@ buildPythonPackage rec {
     stripRoot = false;
   };
 
-  # No tests included in archive
+    # No tests included in archive
   doCheck = false;
 
   meta = with lib; {

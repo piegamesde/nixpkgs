@@ -118,7 +118,8 @@ buildPythonPackage rec {
     description = "Data load and catalog system";
     homepage = "https://github.com/ContinuumIO/intake";
     changelog =
-      "https://github.com/intake/intake/blob/${version}/docs/source/changelog.rst";
+      "https://github.com/intake/intake/blob/${version}/docs/source/changelog.rst"
+      ;
     license = licenses.bsd2;
     maintainers = with maintainers; [ costrouc ];
   };

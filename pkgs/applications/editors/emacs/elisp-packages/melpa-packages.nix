@@ -26,47 +26,61 @@
 }:
 variant: self:
 let
-  dontConfigure = pkg:
+  dontConfigure =
+    pkg:
     if pkg != null then
       pkg.override (args: {
         melpaBuild = drv: args.melpaBuild (drv // { dontConfigure = true; });
       })
     else
-      null;
+      null
+    ;
 
-  markBroken = pkg:
+  markBroken =
+    pkg:
     if pkg != null then
       pkg.override (args: {
-        melpaBuild = drv:
+        melpaBuild =
+          drv:
           args.melpaBuild
-          (drv // { meta = (drv.meta or { }) // { broken = true; }; });
+          (drv // { meta = (drv.meta or { }) // { broken = true; }; })
+          ;
       })
     else
-      null;
+      null
+    ;
 
-  externalSrc = pkg: epkg:
+  externalSrc =
+    pkg: epkg:
     if pkg != null then
       pkg.override (args: {
-        melpaBuild = drv:
+        melpaBuild =
+          drv:
           args.melpaBuild (drv // {
             inherit (epkg) src version;
 
             propagatedUserEnvPkgs = [ epkg ];
-          });
+          })
+          ;
       })
     else
-      null;
+      null
+    ;
 
-  buildWithGit = pkg:
+  buildWithGit =
+    pkg:
     pkg.overrideAttrs (attrs: {
       nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ [ pkgs.git ];
-    });
+    })
+    ;
 
-  fix-rtags = pkg:
+  fix-rtags =
+    pkg:
     if pkg != null then
       dontConfigure (externalSrc pkg pkgs.rtags)
     else
-      null;
+      null
+    ;
 
   generateMelpa = lib.makeOverridable ({
       archiveJson ? ./recipes-archive-melpa.json
@@ -79,78 +93,90 @@ let
       overrides = lib.optionalAttrs (variant == "stable") {
 
         # upstream issue: missing file header
-        abridge-diff = if super.abridge-diff.version == "0.1" then
-          markBroken super.abridge-diff
-        else
-          super.abridge-diff;
+        abridge-diff =
+          if super.abridge-diff.version == "0.1" then
+            markBroken super.abridge-diff
+          else
+            super.abridge-diff
+          ;
 
-        # upstream issue: missing file header
+          # upstream issue: missing file header
         bufshow = markBroken super.bufshow;
 
-        # upstream issue: missing file header
+          # upstream issue: missing file header
         speech-tagger = markBroken super.speech-tagger;
 
-        # upstream issue: missing file header
+          # upstream issue: missing file header
         textmate = markBroken super.textmate;
 
-        # upstream issue: missing file header
+          # upstream issue: missing file header
         window-numbering = markBroken super.window-numbering;
 
-        # upstream issue: missing file header
+          # upstream issue: missing file header
         voca-builder = markBroken super.voca-builder;
 
-        # upstream issue: missing file header
+          # upstream issue: missing file header
         initsplit = markBroken super.initsplit;
 
-        # upstream issue: missing file header
+          # upstream issue: missing file header
         jsfmt = markBroken super.jsfmt;
 
-        # upstream issue: missing file header
+          # upstream issue: missing file header
         maxframe = markBroken super.maxframe;
 
-        # upstream issue: missing file header
+          # upstream issue: missing file header
         connection = markBroken super.connection;
 
-        # upstream issue: missing file header
+          # upstream issue: missing file header
         dictionary = markBroken super.dictionary;
 
-        # upstream issue: missing file header
-        fold-dwim = if super.fold-dwim.version == "1.2" then
-          markBroken super.fold-dwim
-        else
-          super.fold-dwim;
+          # upstream issue: missing file header
+        fold-dwim =
+          if super.fold-dwim.version == "1.2" then
+            markBroken super.fold-dwim
+          else
+            super.fold-dwim
+          ;
 
-        # upstream issue: missing file header
-        gl-conf-mode = if super.gl-conf-mode.version == "0.3" then
-          markBroken super.gl-conf-mode
-        else
-          super.gl-conf-mode;
+          # upstream issue: missing file header
+        gl-conf-mode =
+          if super.gl-conf-mode.version == "0.3" then
+            markBroken super.gl-conf-mode
+          else
+            super.gl-conf-mode
+          ;
 
-        # upstream issue: missing file header
-        ligo-mode = if super.ligo-mode.version == "0.3" then
-          markBroken super.ligo-mode
-        else
-          null; # auto-updater is failing; use manual one
+          # upstream issue: missing file header
+        ligo-mode =
+          if super.ligo-mode.version == "0.3" then
+            markBroken super.ligo-mode
+          else
+            null
+          ; # auto-updater is failing; use manual one
 
-        # upstream issue: missing file header
+          # upstream issue: missing file header
         link = markBroken super.link;
 
-        # upstream issue: missing file header
-        org-dp = if super.org-dp.version == "1" then
-          markBroken super.org-dp
-        else
-          super.org-dp;
+          # upstream issue: missing file header
+        org-dp =
+          if super.org-dp.version == "1" then
+            markBroken super.org-dp
+          else
+            super.org-dp
+          ;
 
-        # upstream issue: missing file header
-        revbufs = if super.revbufs.version == "1.2" then
-          markBroken super.revbufs
-        else
-          super.revbufs;
+          # upstream issue: missing file header
+        revbufs =
+          if super.revbufs.version == "1.2" then
+            markBroken super.revbufs
+          else
+            super.revbufs
+          ;
 
-        # upstream issue: missing file header
+          # upstream issue: missing file header
         elmine = markBroken super.elmine;
 
-        # upstream issue: missing file header
+          # upstream issue: missing file header
         ido-complete-space-or-hyphen =
           markBroken super.ido-complete-space-or-hyphen;
 
@@ -169,11 +195,11 @@ let
             LDFLAGS = "-L${pkgs.llvmPackages.libclang.lib}/lib";
           });
 
-        # part of a larger package
+          # part of a larger package
         caml = dontConfigure super.caml;
 
-        # part of a larger package
-        # upstream issue: missing package version
+          # part of a larger package
+          # upstream issue: missing package version
         cmake-mode = dontConfigure super.cmake-mode;
 
         company-rtags = fix-rtags super.company-rtags;
@@ -232,7 +258,7 @@ let
           ];
         });
 
-        # https://github.com/syl20bnr/evil-escape/pull/86
+          # https://github.com/syl20bnr/evil-escape/pull/86
         evil-escape = super.evil-escape.overrideAttrs (attrs: {
           postPatch = ''
             substituteInPlace evil-escape.el \
@@ -284,14 +310,14 @@ let
           '';
         });
 
-        # Build same version as Haskell package
+          # Build same version as Haskell package
         hindent =
           (externalSrc super.hindent pkgs.haskellPackages.hindent).overrideAttrs
           (attrs: { packageRequires = [ self.haskell-mode ]; });
 
         irony = super.irony.overrideAttrs (old: {
-          cmakeFlags = old.cmakeFlags or [ ]
-            ++ [ "-DCMAKE_INSTALL_BINDIR=bin" ];
+          cmakeFlags =
+            old.cmakeFlags or [ ] ++ [ "-DCMAKE_INSTALL_BINDIR=bin" ];
           env.NIX_CFLAGS_COMPILE = "-UCLANG_RESOURCE_DIR";
           preConfigure = ''
             cd server
@@ -322,7 +348,7 @@ let
           ];
         });
 
-        # tries to write a log file to $HOME
+          # tries to write a log file to $HOME
         insert-shebang =
           super.insert-shebang.overrideAttrs (attrs: { HOME = "/tmp"; });
 
@@ -332,8 +358,8 @@ let
           let
             libExt = pkgs.stdenv.targetPlatform.extensions.sharedLibrary;
           in {
-            nativeBuildInputs = (old.nativeBuildInputs or [ ])
-              ++ [ pkgs.pkg-config ];
+            nativeBuildInputs =
+              (old.nativeBuildInputs or [ ]) ++ [ pkgs.pkg-config ];
 
             buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.enchant2 ];
 
@@ -352,9 +378,8 @@ let
               popd
             '';
 
-            meta = old.meta // {
-              maintainers = [ lib.maintainers.DamienCassou ];
-            };
+            meta =
+              old.meta // { maintainers = [ lib.maintainers.DamienCassou ]; };
           } );
 
         sqlite3 = super.sqlite3.overrideAttrs (old: {
@@ -374,14 +399,13 @@ let
             popd
           '';
 
-          meta = old.meta // {
-            maintainers = [ lib.maintainers.DamienCassou ];
-          };
+          meta =
+            old.meta // { maintainers = [ lib.maintainers.DamienCassou ]; };
         });
 
         libgit = super.libgit.overrideAttrs (attrs: {
-          nativeBuildInputs = (attrs.nativeBuildInputs or [ ])
-            ++ [ pkgs.cmake ];
+          nativeBuildInputs =
+            (attrs.nativeBuildInputs or [ ]) ++ [ pkgs.cmake ];
           buildInputs = attrs.buildInputs ++ [ pkgs.libgit2 ];
           dontUseCmakeBuildDir = true;
           postPatch = ''
@@ -478,13 +502,13 @@ let
 
         ox-rss = buildWithGit super.ox-rss;
 
-        # upstream issue: missing file header
+          # upstream issue: missing file header
         mhc = super.mhc.override { inherit (self.melpaPackages) calfw; };
 
-        # missing .NET
+          # missing .NET
         nemerle = markBroken super.nemerle;
 
-        # part of a larger package
+          # part of a larger package
         notmuch = dontConfigure super.notmuch;
 
         rtags = dontConfigure (externalSrc super.rtags pkgs.rtags);
@@ -504,11 +528,11 @@ let
         });
 
         shm = super.shm.overrideAttrs (attrs: {
-          propagatedUserEnvPkgs =
-            [ pkgs.haskellPackages.structured-haskell-mode ];
+          propagatedUserEnvPkgs = [ pkgs.haskellPackages.structured-haskell-mode ]
+            ;
         });
 
-        # Telega has a server portion for it's network protocol
+          # Telega has a server portion for it's network protocol
         telega = super.telega.overrideAttrs (old: {
           buildInputs = old.buildInputs ++ [ pkgs.tdlib ];
           nativeBuildInputs = [ pkgs.pkg-config ];
@@ -565,7 +589,7 @@ let
           '';
         });
 
-        # Map legacy renames from emacs2nix since code generation was ported to emacs lisp
+          # Map legacy renames from emacs2nix since code generation was ported to emacs lisp
         _0blayout = super."0blayout";
         desktop-plus = super."desktop+";
         ghub-plus = super."ghub+";
@@ -578,31 +602,31 @@ let
         package-plus = super."package+";
         rect-plus = super."rect+";
 
-        # upstream issue: missing file header
+          # upstream issue: missing file header
         instapaper = markBroken super.instapaper;
 
-        # upstream issue: doesn't build
+          # upstream issue: doesn't build
         magit-stgit = markBroken super.magit-stgit;
 
-        # upstream issue: missing file header
+          # upstream issue: missing file header
         melancholy-theme = markBroken super.melancholy-theme;
 
-        # upstream issue: doesn't build
+          # upstream issue: doesn't build
         eterm-256color = markBroken super.eterm-256color;
 
-        # upstream issue: doesn't build
+          # upstream issue: doesn't build
         per-buffer-theme = markBroken super.per-buffer-theme;
 
-        # upstream issue: missing file header
+          # upstream issue: missing file header
         qiita = markBroken super.qiita;
 
-        # upstream issue: missing file header
+          # upstream issue: missing file header
         sql-presto = markBroken super.sql-presto;
 
         editorconfig = super.editorconfig.overrideAttrs
           (attrs: { propagatedUserEnvPkgs = [ pkgs.editorconfig-core-c ]; });
 
-        # missing dependencies
+          # missing dependencies
         evil-search-highlight-persist =
           super.evil-search-highlight-persist.overrideAttrs (attrs: {
             packageRequires = with self; [
@@ -616,7 +640,8 @@ let
             # Fix build; maintainer email fails to parse
             (pkgs.fetchpatch {
               url =
-                "https://github.com/lightquake/hamlet-mode/commit/253495d1330d6ec88d97fac136c78f57c650aae0.patch";
+                "https://github.com/lightquake/hamlet-mode/commit/253495d1330d6ec88d97fac136c78f57c650aae0.patch"
+                ;
               sha256 = "dSxS5yuXzCW96CUyvJWwjkhf1FMGBfiKKoBxeDVdz9Y=";
             })
           ];
@@ -624,7 +649,7 @@ let
 
         helm-rtags = fix-rtags super.helm-rtags;
 
-        # tries to write to $HOME
+          # tries to write to $HOME
         php-auto-yasnippets =
           super.php-auto-yasnippets.overrideAttrs (attrs: { HOME = "/tmp"; });
 
@@ -648,8 +673,8 @@ let
             "-DEMACS_SOURCE=${self.emacs.src}"
             "-DUSE_SYSTEM_LIBVTERM=ON"
           ];
-          # we need the proper out directory to exist, so we do this in the
-          # postInstall instead of postBuild
+            # we need the proper out directory to exist, so we do this in the
+            # postInstall instead of postBuild
           postInstall = (old.postInstall or "") + "\n" + ''
             pushd source/build >/dev/null
             make
@@ -660,16 +685,20 @@ let
         });
 
         w3m = super.w3m.override (args: {
-          melpaBuild = drv:
+          melpaBuild =
+            drv:
             args.melpaBuild (drv // {
-              prePatch = let
-                w3m = "${lib.getBin pkgs.w3m}/bin/w3m";
-              in ''
-                substituteInPlace w3m.el \
-                --replace 'defcustom w3m-command nil' \
-                'defcustom w3m-command "${w3m}"'
-              '' ;
-            });
+              prePatch =
+                let
+                  w3m = "${lib.getBin pkgs.w3m}/bin/w3m";
+                in ''
+                  substituteInPlace w3m.el \
+                  --replace 'defcustom w3m-command nil' \
+                  'defcustom w3m-command "${w3m}"'
+                ''
+                ;
+            })
+            ;
         });
 
         wordnut = super.wordnut.overrideAttrs (attrs: {

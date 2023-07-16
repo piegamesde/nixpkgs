@@ -28,7 +28,8 @@ let
     };
   };
 
-  toDrv = title: data:
+  toDrv =
+    title: data:
     stdenv.mkDerivation rec {
       inherit (data) id version description sha256;
       inherit title;
@@ -39,9 +40,9 @@ let
         inherit sha256;
         owner = "yquake2";
         repo = data.id;
-        rev = "${lib.toUpper id}_${
-            builtins.replaceStrings [ "." ] [ "_" ] version
-          }";
+        rev =
+          "${lib.toUpper id}_${builtins.replaceStrings [ "." ] [ "_" ] version}"
+          ;
       };
 
       installPhase = ''
@@ -56,7 +57,8 @@ let
         platforms = platforms.unix;
         maintainers = with maintainers; [ tadfisher ];
       };
-    };
+    }
+    ;
 
 in
 lib.mapAttrs toDrv games

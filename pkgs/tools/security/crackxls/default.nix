@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "fno-common.patch";
       url =
-        "https://github.com/GavinSmith0123/crackxls2003/commit/613d6c1844f76c7b67671aaa265375fed56c2a56.patch";
+        "https://github.com/GavinSmith0123/crackxls2003/commit/613d6c1844f76c7b67671aaa265375fed56c2a56.patch"
+        ;
       sha256 = "1pk67x67d9wji576mc57z5bzqlf9ygvn9m1z47w12mad7qmj9h1n";
     })
   ];
@@ -45,7 +46,7 @@ stdenv.mkDerivation rec {
     gmp
   ];
 
-  # Avoid "-O5 -march=native"
+    # Avoid "-O5 -march=native"
   makeFlags = [ "OPTIM_FLAGS=" ];
 
   installPhase = ''
@@ -56,7 +57,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/GavinSmith0123/crackxls2003/";
     description =
-      "Used to break the encryption on old Microsoft Excel and Microsoft Word files";
+      "Used to break the encryption on old Microsoft Excel and Microsoft Word files"
+      ;
     platforms = platforms.linux;
     license = licenses.gpl3;
   };

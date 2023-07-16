@@ -19,7 +19,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/file-attributes/2021-08-07/file-attributes-20210807-git.tgz";
+      "http://beta.quicklisp.org/archive/file-attributes/2021-08-07/file-attributes-20210807-git.tgz"
+      ;
     sha256 = "0f2kr886jn83hlsk6a548cd0vdq4f1dsxscnslni0nhlxsbi1gsg";
   };
 

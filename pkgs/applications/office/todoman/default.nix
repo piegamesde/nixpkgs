@@ -22,8 +22,8 @@ python3.pkgs.buildPythonApplication rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ installShellFiles ]
-    ++ (with python3.pkgs; [ setuptools-scm ]);
+  nativeBuildInputs =
+    [ installShellFiles ] ++ (with python3.pkgs; [ setuptools-scm ]);
 
   propagatedBuildInputs = with python3.pkgs; [
     atomicwrites

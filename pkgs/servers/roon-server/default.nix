@@ -31,7 +31,8 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url =
-      "https://download.roonlabs.com/updates/production/RoonServer_linuxx64_${urlVersion}.tar.bz2";
+      "https://download.roonlabs.com/updates/production/RoonServer_linuxx64_${urlVersion}.tar.bz2"
+      ;
     hash = "sha256-nd0dDiiUmwhuVivB78EXdj6LrK0ufdSrVYH/0Y++img=";
   };
 
@@ -52,62 +53,66 @@ stdenv.mkDerivation {
     makeWrapper
   ];
 
-  installPhase = let
-    # NB: While this might seem like odd behavior, it's what Roon expects. The
-    # tarball distribution provides scripts that do a bunch of nonsense on top
-    # of what wrapBin is doing here, so consider it the lesser of two evils.
-    # I didn't bother checking whether the symlinks are really necessary, but
-    # I wouldn't put it past Roon to have custom code based on the binary
-    # name, so we're playing it safe.
-    wrapBin = binPath: ''
-      (
-        binDir="$(dirname "${binPath}")"
-        binName="$(basename "${binPath}")"
-        dotnetDir="$out/RoonDotnet"
+  installPhase =
+    let
+      # NB: While this might seem like odd behavior, it's what Roon expects. The
+      # tarball distribution provides scripts that do a bunch of nonsense on top
+      # of what wrapBin is doing here, so consider it the lesser of two evils.
+      # I didn't bother checking whether the symlinks are really necessary, but
+      # I wouldn't put it past Roon to have custom code based on the binary
+      # name, so we're playing it safe.
+      wrapBin =
+        binPath: ''
+          (
+            binDir="$(dirname "${binPath}")"
+            binName="$(basename "${binPath}")"
+            dotnetDir="$out/RoonDotnet"
 
-        ln -sf "$dotnetDir/dotnet" "$dotnetDir/$binName"
-        rm "${binPath}"
-        makeWrapper "$dotnetDir/$binName" "${binPath}" \
-          --add-flags "$binDir/$binName.dll" \
-          --argv0 "$binName" \
-          --prefix LD_LIBRARY_PATH : "${
-            lib.makeLibraryPath [
-              alsa-lib
-              icu66
-              ffmpeg
-              openssl
-            ]
-          }" \
-          --prefix PATH : "$dotnetDir" \
-          --prefix PATH : "${
-            lib.makeBinPath [
-              alsa-utils
-              cifs-utils
-              ffmpeg
-            ]
-          }" \
-          --chdir "$binDir" \
-          --set DOTNET_ROOT "$dotnetDir"
-      )
-    '';
-  in ''
-    runHook preInstall
-    mkdir -p $out
-    mv * $out
+            ln -sf "$dotnetDir/dotnet" "$dotnetDir/$binName"
+            rm "${binPath}"
+            makeWrapper "$dotnetDir/$binName" "${binPath}" \
+              --add-flags "$binDir/$binName.dll" \
+              --argv0 "$binName" \
+              --prefix LD_LIBRARY_PATH : "${
+                lib.makeLibraryPath [
+                  alsa-lib
+                  icu66
+                  ffmpeg
+                  openssl
+                ]
+              }" \
+              --prefix PATH : "$dotnetDir" \
+              --prefix PATH : "${
+                lib.makeBinPath [
+                  alsa-utils
+                  cifs-utils
+                  ffmpeg
+                ]
+              }" \
+              --chdir "$binDir" \
+              --set DOTNET_ROOT "$dotnetDir"
+          )
+        ''
+        ;
+    in ''
+      runHook preInstall
+      mkdir -p $out
+      mv * $out
 
-    rm $out/check.sh
-    rm $out/start.sh
-    rm $out/VERSION
+      rm $out/check.sh
+      rm $out/start.sh
+      rm $out/VERSION
 
-    ${wrapBin "$out/Appliance/RAATServer"}
-    ${wrapBin "$out/Appliance/RoonAppliance"}
-    ${wrapBin "$out/Server/RoonServer"}
+      ${wrapBin "$out/Appliance/RAATServer"}
+      ${wrapBin "$out/Appliance/RoonAppliance"}
+      ${wrapBin "$out/Server/RoonServer"}
 
-    mkdir -p $out/bin
-    makeWrapper "$out/Server/RoonServer" "$out/bin/RoonServer" --chdir "$out"
+      mkdir -p $out/bin
+      makeWrapper "$out/Server/RoonServer" "$out/bin/RoonServer" --chdir "$out"
 
-    runHook postInstall
-  '' ;
+      runHook postInstall
+    ''
+    ;
 
   meta = with lib; {
     description = "The music player for music lovers";

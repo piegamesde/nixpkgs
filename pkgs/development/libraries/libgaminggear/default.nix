@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     "-DINSTALL_LIBDIR=lib"
   ];
 
-  # https://sourceforge.net/p/libgaminggear/discussion/general/thread/b43a776b3a/
+    # https://sourceforge.net/p/libgaminggear/discussion/general/thread/b43a776b3a/
   env.NIX_CFLAGS_COMPILE = toString [ "-I${harfbuzz.dev}/include/harfbuzz" ];
 
   postFixup = ''

@@ -121,7 +121,8 @@ in
   releaseRev = v: "v${v}";
 
   preConfigure = lib.optionalString recent
-    "substituteInPlace Makefile --replace quickChickTool.byte quickChickTool.native";
+    "substituteInPlace Makefile --replace quickChickTool.byte quickChickTool.native"
+    ;
 
   mlPlugin = true;
   nativeBuildInputs = lib.optional recent coq.ocamlPackages.ocamlbuild;
@@ -135,15 +136,16 @@ in
 
   meta = with lib; {
     description =
-      "Randomized property-based testing plugin for Coq; a clone of Haskell QuickCheck";
+      "Randomized property-based testing plugin for Coq; a clone of Haskell QuickCheck"
+      ;
     maintainers = with maintainers; [ jwiegley ];
   };
 }).overrideAttrs (o:
   let
     after_1_6 = lib.versions.isGe "1.6" o.version || o.version == "dev";
   in {
-    nativeBuildInputs = o.nativeBuildInputs
-      ++ lib.optional after_1_6 coq.ocamlPackages.cppo;
+    nativeBuildInputs =
+      o.nativeBuildInputs ++ lib.optional after_1_6 coq.ocamlPackages.cppo;
     propagatedBuildInputs = o.propagatedBuildInputs ++ lib.optionals after_1_6
       (with coq.ocamlPackages; [
         findlib

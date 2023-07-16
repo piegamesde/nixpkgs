@@ -18,7 +18,8 @@ python3.pkgs.buildPythonPackage rec {
     # replace tcp-latency which is not packaged with icmplib
     (fetchpatch {
       url =
-        "https://github.com/LedFx/LedFx/commit/98cd4256846ae3bdae7094eeacb3b02a4807dc6f.patch";
+        "https://github.com/LedFx/LedFx/commit/98cd4256846ae3bdae7094eeacb3b02a4807dc6f.patch"
+        ;
       excludes = [
         # only used in win.spec file which is windows specific
         "hiddenimports.py"
@@ -62,12 +63,13 @@ python3.pkgs.buildPythonPackage rec {
     zeroconf
   ];
 
-  # has no tests
+    # has no tests
   doCheck = false;
 
   meta = with lib; {
     description =
-      "LedFx is a network based LED effect controller with support for advanced real-time audio effects";
+      "LedFx is a network based LED effect controller with support for advanced real-time audio effects"
+      ;
     homepage = "https://github.com/LedFx/LedFx";
     changelog = "https://github.com/LedFx/LedFx/blob/${version}/CHANGELOG.rst";
     license = licenses.gpl3Only;

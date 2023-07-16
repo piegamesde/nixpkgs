@@ -18,7 +18,7 @@ pythonPackages.buildPythonApplication rec {
   buildInputs = [ glibcLocales ];
   propagatedBuildInputs = [ mopidy ];
 
-  # no tests implemented
+    # no tests implemented
   doCheck = false;
 
   meta = with lib; {

@@ -60,7 +60,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A nice way to view information about use of system resources, like memory and disk space";
+      "A nice way to view information about use of system resources, like memory and disk space"
+      ;
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = teams.gnome.members;

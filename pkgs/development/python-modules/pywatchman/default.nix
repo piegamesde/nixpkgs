@@ -19,7 +19,7 @@ buildPythonPackage rec {
       --replace "'watchman'" "'${watchman}/bin/watchman'"
   '';
 
-  # No tests in archive
+    # No tests in archive
   doCheck = false;
 
   meta = with lib; {

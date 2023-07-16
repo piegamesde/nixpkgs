@@ -69,12 +69,12 @@ let
     projectFile = "src/managed/ManagedPart.csproj";
     nugetDeps = ./deps.nix;
 
-    # include platform-specific dbgshim binary in nugetDeps
+      # include platform-specific dbgshim binary in nugetDeps
     dotnetFlags = [ "-p:UseDbgShimDependency=true" ];
     executables = [ ];
 
-    # this passes RID down to dotnet build command
-    # and forces dotnet to include binary dependencies in the output (libdbgshim)
+      # this passes RID down to dotnet build command
+      # and forces dotnet to include binary dependencies in the output (libdbgshim)
     selfContainedBuild = true;
   };
 in

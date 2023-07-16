@@ -60,7 +60,7 @@ buildPythonPackage rec {
     rm $out/lib/python*/site-packages/LICENSE
   '';
 
-  # Module has no tests
+    # Module has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "ansibledoctor" ];

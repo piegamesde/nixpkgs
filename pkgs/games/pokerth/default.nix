@@ -24,14 +24,17 @@
 let
   hiDPI = fetchpatch {
     url =
-      "https://github.com/pokerth/pokerth/commit/ad8c9cabfb85d8293720d0f14840278d38b5feeb.patch";
+      "https://github.com/pokerth/pokerth/commit/ad8c9cabfb85d8293720d0f14840278d38b5feeb.patch"
+      ;
     sha256 = "192x3lqvd1fanasb95shdygn997qfrpk1k62k1f4j3s5chkwvjig";
   };
 
-  revertPatch = patch:
+  revertPatch =
+    patch:
     runCommand "revert-${patch.name}" { } ''
       ${patchutils}/bin/interdiff ${patch} /dev/null > $out
-    '';
+    ''
+    ;
 
 in
 mkDerivation rec {

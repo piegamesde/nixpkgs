@@ -17,14 +17,15 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  # The tests try to connect to qemu
+    # The tests try to connect to qemu
   doCheck = false;
 
   pythonImportsCheck = [ "vagrant" ];
 
   meta = {
     description =
-      "Python module that provides a thin wrapper around the vagrant command line executable";
+      "Python module that provides a thin wrapper around the vagrant command line executable"
+      ;
     homepage = "https://github.com/todddeluca/python-vagrant";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.pmiddend ];

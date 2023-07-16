@@ -60,7 +60,8 @@ stdenv.mkDerivation rec {
     # https://gitlab.gnome.org/GNOME/gvfs/-/issues/465
     (fetchpatch2 {
       url =
-        "https://gitlab.gnome.org/GNOME/gvfs/-/commit/8327383e262e1e7f32750a8a2d3dd708195b0f53.patch";
+        "https://gitlab.gnome.org/GNOME/gvfs/-/commit/8327383e262e1e7f32750a8a2d3dd708195b0f53.patch"
+        ;
       hash = "sha256-ReD7qkezGeiJHyo9jTqEQNBjECqGhV9nSD+dYYGZWJ8=";
       revert = true;
     })

@@ -33,7 +33,8 @@ stdenv.mkDerivation rec {
     # https://github.com/christophgysin/pasystray/issues/98
     (fetchpatch {
       url =
-        "https://sources.debian.org/data/main/p/pasystray/0.7.1-1/debian/patches/0001-Build-against-ayatana-appindicator.patch";
+        "https://sources.debian.org/data/main/p/pasystray/0.7.1-1/debian/patches/0001-Build-against-ayatana-appindicator.patch"
+        ;
       sha256 = "0hijphrf52n2zfwdnrmxlp3a7iwznnkb79awvpzplz0ia2lqywpw";
     })
   ];

@@ -57,7 +57,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Python data analysis library that is optimized for humans instead of machines";
+      "Python data analysis library that is optimized for humans instead of machines"
+      ;
     homepage = "https://github.com/wireservice/agate";
     changelog =
       "https://github.com/wireservice/agate/blob/${version}/CHANGELOG.rst";

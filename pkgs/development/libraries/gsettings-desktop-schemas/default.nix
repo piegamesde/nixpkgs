@@ -61,7 +61,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas";
     description =
-      "Collection of GSettings schemas for settings shared by various components of a desktop";
+      "Collection of GSettings schemas for settings shared by various components of a desktop"
+      ;
     license = licenses.lgpl21Plus;
     maintainers = teams.gnome.members;
   };

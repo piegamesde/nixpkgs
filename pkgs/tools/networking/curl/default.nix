@@ -106,9 +106,9 @@ stdenv.mkDerivation (finalAttrs: {
     perl
   ];
 
-  # Zlib and OpenSSL must be propagated because `libcurl.la' contains
-  # "-lz -lssl", which aren't necessary direct build inputs of
-  # applications that use Curl.
+    # Zlib and OpenSSL must be propagated because `libcurl.la' contains
+    # "-lz -lssl", which aren't necessary direct build inputs of
+    # applications that use Curl.
   propagatedBuildInputs = with lib;
     optional brotliSupport brotli ++ optional c-aresSupport c-aresMinimal
     ++ optional gnutlsSupport gnutls ++ optional gsaslSupport gsasl
@@ -122,7 +122,7 @@ stdenv.mkDerivation (finalAttrs: {
     ++ optional wolfsslSupport wolfssl ++ optional rustlsSupport rustls-ffi
     ++ optional zlibSupport zlib ++ optional zstdSupport zstd;
 
-  # for the second line see https://curl.haxx.se/mail/tracker-2014-03/0087.html
+    # for the second line see https://curl.haxx.se/mail/tracker-2014-03/0087.html
   preConfigure = ''
     sed -e 's|/usr/bin|/no-such-path|g' -i.bak configure
     rm src/tool_hugehelp.c
@@ -165,9 +165,9 @@ stdenv.mkDerivation (finalAttrs: {
   CXX = "${stdenv.cc.targetPrefix}c++";
   CXXCPP = "${stdenv.cc.targetPrefix}c++ -E";
 
-  # takes 14 minutes on a 24 core and because many other packages depend on curl
-  # they cannot be run concurrently and are a bottleneck
-  # tests are available in passthru.tests.withCheck
+    # takes 14 minutes on a 24 core and because many other packages depend on curl
+    # they cannot be run concurrently and are a bottleneck
+    # tests are available in passthru.tests.withCheck
   doCheck = false;
   preCheck = ''
     patchShebangs tests/
@@ -195,32 +195,34 @@ stdenv.mkDerivation (finalAttrs: {
     ln $out/lib/libcurl${stdenv.hostPlatform.extensions.sharedLibrary} $out/lib/libcurl-gnutls${stdenv.hostPlatform.extensions.sharedLibrary}.4.4.0
   '';
 
-  passthru = let
-    useThisCurl = attr: attr.override { curl = finalAttrs.finalPackage; };
-  in {
-    inherit opensslSupport openssl;
-    tests = {
-      withCheck =
-        finalAttrs.finalPackage.overrideAttrs (_: { doCheck = true; });
-      fetchpatch = tests.fetchpatch.simple.override {
-        fetchpatch = (fetchpatch.override { fetchurl = useThisCurl fetchurl; })
-          // {
-            version = 1;
-          };
+  passthru =
+    let
+      useThisCurl = attr: attr.override { curl = finalAttrs.finalPackage; };
+    in {
+      inherit opensslSupport openssl;
+      tests = {
+        withCheck =
+          finalAttrs.finalPackage.overrideAttrs (_: { doCheck = true; });
+        fetchpatch = tests.fetchpatch.simple.override {
+          fetchpatch =
+            (fetchpatch.override { fetchurl = useThisCurl fetchurl; }) // {
+              version = 1;
+            };
+        };
+        curlpp = useThisCurl curlpp;
+        coeurl = useThisCurl coeurl;
+        haskell-curl = useThisCurl haskellPackages.curl;
+        ocaml-curly = useThisCurl ocamlPackages.curly;
+        pycurl = useThisCurl python3.pkgs.pycurl;
+        php-curl = useThisCurl phpExtensions.curl;
+          # error: attribute 'override' missing
+          # Additional checking with support http3 protocol.
+          # nginx-http3 = useThisCurl nixosTests.nginx-http3;
+        nginx-http3 = nixosTests.nginx-http3;
+        pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
       };
-      curlpp = useThisCurl curlpp;
-      coeurl = useThisCurl coeurl;
-      haskell-curl = useThisCurl haskellPackages.curl;
-      ocaml-curly = useThisCurl ocamlPackages.curly;
-      pycurl = useThisCurl python3.pkgs.pycurl;
-      php-curl = useThisCurl phpExtensions.curl;
-      # error: attribute 'override' missing
-      # Additional checking with support http3 protocol.
-      # nginx-http3 = useThisCurl nixosTests.nginx-http3;
-      nginx-http3 = nixosTests.nginx-http3;
-      pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
-    };
-  } ;
+    }
+    ;
 
   meta = with lib; {
     changelog = "https://curl.se/changes.html#${
@@ -231,7 +233,7 @@ stdenv.mkDerivation (finalAttrs: {
     license = licenses.curl;
     maintainers = with maintainers; [ lovek323 ];
     platforms = platforms.all;
-    # Fails to link against static brotli or gss
+      # Fails to link against static brotli or gss
     broken = stdenv.hostPlatform.isStatic && (brotliSupport || gssSupport);
     pkgConfigModules = [ "libcurl" ];
   };

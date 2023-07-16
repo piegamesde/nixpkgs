@@ -70,7 +70,7 @@ myNodePackages.package.override {
     homepage = "https://gitlab.com/mx-puppet/discord/mx-puppet-discord";
     maintainers = with maintainers; [ expipiplus1 ];
     platforms = platforms.unix;
-    # never built on aarch64-darwin since first introduction in nixpkgs
+      # never built on aarch64-darwin since first introduction in nixpkgs
     broken = stdenv.isDarwin && stdenv.isAarch64;
   };
 }

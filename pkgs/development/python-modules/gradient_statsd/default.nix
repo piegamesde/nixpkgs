@@ -37,7 +37,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "gradient_statsd" ];
 
-  # Pypi does not contain tests
+    # Pypi does not contain tests
   doCheck = false;
 
   meta = with lib; {

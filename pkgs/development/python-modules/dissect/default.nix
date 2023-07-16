@@ -77,7 +77,7 @@ buildPythonPackage rec {
     dissect-xfs
   ] ++ dissect-target.optional-dependencies.full;
 
-  # Module has no tests
+    # Module has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "dissect" ];

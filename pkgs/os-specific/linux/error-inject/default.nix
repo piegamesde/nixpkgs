@@ -49,7 +49,8 @@
 
     src = fetchgit {
       url =
-        "https://git.kernel.org/pub/scm/linux/kernel/git/gong.chen/aer-inject.git";
+        "https://git.kernel.org/pub/scm/linux/kernel/git/gong.chen/aer-inject.git"
+        ;
       rev = version;
       sha256 = "0bh6mzpk2mr4xidkammmkfk21b4dbq793qjg25ryyxd1qv0c6cg4";
     };
@@ -59,7 +60,7 @@
       flex
     ];
 
-    # how is this necessary?
+      # how is this necessary?
     makeFlags = [ "DESTDIR=${placeholder "out"}" ];
 
     postInstall = ''

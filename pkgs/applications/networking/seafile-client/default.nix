@@ -20,8 +20,8 @@ mkDerivation rec {
   src = fetchFromGitHub {
     owner = "haiwen";
     repo = "seafile-client";
-    # Tag v8.0.7 used to point to this commit, but was re-tagged later to a state
-    # that fails to link properly
+      # Tag v8.0.7 used to point to this commit, but was re-tagged later to a state
+      # that fails to link properly
     rev = "8b96abf64e6aa19e3beeff6b322bcd6d28120bdd";
     sha256 = "00wfr7dvbyl7pg1xgssgz8a94c7c4n5r9266lhy9qcbz456hdcgj";
   };
@@ -46,7 +46,8 @@ mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/haiwen/seafile-client";
     description =
-      "Desktop client for Seafile, the Next-generation Open Source Cloud Storage";
+      "Desktop client for Seafile, the Next-generation Open Source Cloud Storage"
+      ;
     license = licenses.asl20;
     platforms = platforms.linux;
     maintainers = with maintainers; [

@@ -28,8 +28,8 @@ buildPythonPackage rec {
     cd notebook_shim/tests
   '';
 
-  # TODO: understand & possibly fix why tests fail. On github most testfiles
-  # have been comitted with msgs "wip" though.
+    # TODO: understand & possibly fix why tests fail. On github most testfiles
+    # have been comitted with msgs "wip" though.
   doCheck = false;
 
   nativeCheckInputs = [

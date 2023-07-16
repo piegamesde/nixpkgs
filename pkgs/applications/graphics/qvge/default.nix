@@ -33,10 +33,12 @@ stdenv.mkDerivation rec {
     qmake
   ];
 
-  buildInputs = if stdenv.isDarwin then
-    [ qtsvg ]
-  else
-    [ qtx11extras ];
+  buildInputs =
+    if stdenv.isDarwin then
+      [ qtsvg ]
+    else
+      [ qtx11extras ]
+    ;
 
   meta = with lib; {
     description = "Qt Visual Graph Editor";

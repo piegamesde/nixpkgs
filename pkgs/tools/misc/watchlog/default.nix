@@ -23,7 +23,7 @@ rustPlatform.buildRustPackage rec {
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ kevincox ];
 
-    # Dependency only supports Linux + Windows: https://github.com/mentaljam/standard_paths/tree/master/src
+      # Dependency only supports Linux + Windows: https://github.com/mentaljam/standard_paths/tree/master/src
     platforms = with lib.platforms; linux ++ windows;
   };
 }

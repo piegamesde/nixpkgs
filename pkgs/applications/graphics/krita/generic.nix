@@ -54,7 +54,8 @@ mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://download.kde.org/${kde-channel}/${pname}/${version}/${pname}-${version}.tar.gz";
+      "https://download.kde.org/${kde-channel}/${pname}/${version}/${pname}-${version}.tar.gz"
+      ;
     inherit sha256;
   };
 
@@ -107,19 +108,21 @@ mkDerivation rec {
   env.NIX_CFLAGS_COMPILE = toString ([ "-I${ilmbase.dev}/include/OpenEXR" ]
     ++ lib.optional stdenv.cc.isGNU "-Wno-deprecated-copy");
 
-  # Krita runs custom python scripts in CMake with custom PYTHONPATH which krita determined in their CMake script.
-  # Patch the PYTHONPATH so python scripts can import sip successfully.
-  postPatch = let
-    pythonPath = python3Packages.makePythonPath (with python3Packages; [
-      sip
-      setuptools
-    ]);
-  in ''
-    substituteInPlace cmake/modules/FindSIP.cmake \
-      --replace 'PYTHONPATH=''${_sip_python_path}' 'PYTHONPATH=${pythonPath}'
-    substituteInPlace cmake/modules/SIPMacros.cmake \
-      --replace 'PYTHONPATH=''${_krita_python_path}' 'PYTHONPATH=${pythonPath}'
-  '' ;
+    # Krita runs custom python scripts in CMake with custom PYTHONPATH which krita determined in their CMake script.
+    # Patch the PYTHONPATH so python scripts can import sip successfully.
+  postPatch =
+    let
+      pythonPath = python3Packages.makePythonPath (with python3Packages; [
+        sip
+        setuptools
+      ]);
+    in ''
+      substituteInPlace cmake/modules/FindSIP.cmake \
+        --replace 'PYTHONPATH=''${_sip_python_path}' 'PYTHONPATH=${pythonPath}'
+      substituteInPlace cmake/modules/SIPMacros.cmake \
+        --replace 'PYTHONPATH=''${_krita_python_path}' 'PYTHONPATH=${pythonPath}'
+    ''
+    ;
 
   cmakeFlags = [
     "-DPYQT5_SIP_DIR=${python3Packages.pyqt5}/${python3Packages.python.sitePackages}/PyQt5/bindings"

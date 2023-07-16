@@ -22,7 +22,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  # Tests bind to localhost
+    # Tests bind to localhost
   __darwinAllowLocalNetworking = true;
 
   pythonImportsCheck = [ "boltons" ];

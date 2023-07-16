@@ -17,13 +17,20 @@ rec {
   # for brevity / line length
   spaces = l: builtins.concatStringsSep " " l;
   colons = l: builtins.concatStringsSep ":" l;
-  semicolons = l: builtins.concatStringsSep ";" l;
+  semicolons =
+    l:
+    builtins.concatStringsSep ";" l
+    ;
 
-  # Throw a fit with dotted attr path context
-  nope = path: msg: throw "${builtins.concatStringsSep "." path}: ${msg}";
+    # Throw a fit with dotted attr path context
+  nope =
+    path: msg:
+    throw "${builtins.concatStringsSep "." path}: ${msg}"
+    ;
 
-  # Special-case directive value representations by type
-  phraseDirective = solution: env: name: val:
+    # Special-case directive value representations by type
+  phraseDirective =
+    solution: env: name: val:
     if builtins.isInt val then
       builtins.toString val
     else if builtins.isString val then
@@ -41,23 +48,29 @@ rec {
         solution
         env
         name
-      ] "unexpected type: ${builtins.typeOf val}";
+      ] "unexpected type: ${builtins.typeOf val}"
+    ;
 
-  # Build fake/fix/keep directives from Nix types
-  phraseDirectives = solution: env: val:
-    lib.mapAttrsToList (phraseDirective solution env) val;
+    # Build fake/fix/keep directives from Nix types
+  phraseDirectives =
+    solution: env: val:
+    lib.mapAttrsToList (phraseDirective solution env) val
+    ;
 
-  # Custom ~search-path routine to handle relative path strings
-  relSafeBinPath = input:
+    # Custom ~search-path routine to handle relative path strings
+  relSafeBinPath =
+    input:
     if lib.isDerivation input then
       ((lib.getOutput "bin" input) + "/bin")
     else if builtins.isString input then
       input
     else
-      throw "unexpected type for input: ${builtins.typeOf input}";
+      throw "unexpected type for input: ${builtins.typeOf input}"
+    ;
 
-  # Special-case value representation by type/name
-  phraseEnvVal = solution: env: val:
+    # Special-case value representation by type/name
+  phraseEnvVal =
+    solution: env: val:
     if env == "inputs" then
       (colons (map relSafeBinPath val))
     else if builtins.isString val then
@@ -70,61 +83,79 @@ rec {
       nope [
         solution
         env
-      ] "unexpected type: ${builtins.typeOf val}";
+      ] "unexpected type: ${builtins.typeOf val}"
+    ;
 
-  # Shell-format each env value
-  shellEnv = solution: env: value:
-    lib.escapeShellArg (phraseEnvVal solution env value);
+    # Shell-format each env value
+  shellEnv =
+    solution: env: value:
+    lib.escapeShellArg (phraseEnvVal solution env value)
+    ;
 
-  # Build a single ENV=val pair
-  phraseEnv = solution: env: value:
-    "RESHOLVE_${lib.toUpper env}=${shellEnv solution env value}";
+    # Build a single ENV=val pair
+  phraseEnv =
+    solution: env: value:
+    "RESHOLVE_${lib.toUpper env}=${shellEnv solution env value}"
+    ;
 
-  /* Discard attrs:
-     - claimed by phraseArgs
-     - only needed for binlore.collect
-  */
-  removeUnneededArgs = value:
+    /* Discard attrs:
+       - claimed by phraseArgs
+       - only needed for binlore.collect
+    */
+  removeUnneededArgs =
+    value:
     removeAttrs value [
       "scripts"
       "flags"
       "unresholved"
-    ];
+    ]
+    ;
 
-  # Verify required arguments are present
-  validateSolution = {
+    # Verify required arguments are present
+  validateSolution =
+    {
       scripts,
       inputs,
       interpreter,
       ...
     }:
-    true;
+    true
+    ;
 
-  # Pull out specific solution keys to build ENV=val pairs
-  phraseEnvs = solution: value:
-    spaces (lib.mapAttrsToList (phraseEnv solution) (removeUnneededArgs value));
+    # Pull out specific solution keys to build ENV=val pairs
+  phraseEnvs =
+    solution: value:
+    spaces (lib.mapAttrsToList (phraseEnv solution) (removeUnneededArgs value))
+    ;
 
-  # Pull out specific solution keys to build CLI argstring
-  phraseArgs = {
+    # Pull out specific solution keys to build CLI argstring
+  phraseArgs =
+    {
       flags ? [ ],
       scripts,
       ...
     }:
-    spaces (flags ++ scripts);
+    spaces (flags ++ scripts)
+    ;
 
-  phraseBinloreArgs = value:
+  phraseBinloreArgs =
+    value:
     let
       hasUnresholved = builtins.hasAttr "unresholved" value;
     in {
       drvs = value.inputs ++ lib.optionals hasUnresholved [ value.unresholved ];
-      strip = if hasUnresholved then
-        [ value.unresholved ]
-      else
-        [ ];
-    } ;
+      strip =
+        if hasUnresholved then
+          [ value.unresholved ]
+        else
+          [ ]
+        ;
+    }
+    ;
 
-  # Build a single resholve invocation
-  phraseInvocation = solution: value:
+    # Build a single resholve invocation
+  phraseInvocation =
+    solution: value:
     if
       validateSolution value
     then
@@ -133,22 +164,28 @@ rec {
         phraseEnvs solution value
       } ${resholve}/bin/resholve --overwrite ${phraseArgs value}"
     else
-      throw "invalid solution"; # shouldn't trigger for now
+      throw "invalid solution"
+    ; # shouldn't trigger for now
 
-  injectUnresholved = solutions: unresholved:
+  injectUnresholved =
+    solutions: unresholved:
     (builtins.mapAttrs (name: value: value // { inherit unresholved; })
-      solutions);
+      solutions)
+    ;
 
-  # Build resholve invocation for each solution.
-  phraseCommands = solutions: unresholved:
+    # Build resholve invocation for each solution.
+  phraseCommands =
+    solutions: unresholved:
     builtins.concatStringsSep "\n" (lib.mapAttrsToList phraseInvocation
-      (injectUnresholved solutions unresholved));
+      (injectUnresholved solutions unresholved))
+    ;
 
-  /* subshell/PS4/set -x and : command to output resholve envs
-     and invocation. Extra context makes it clearer what the
-     Nix API is doing, makes nix-shell debugging easier, etc.
-  */
-  phraseContext = {
+    /* subshell/PS4/set -x and : command to output resholve envs
+       and invocation. Extra context makes it clearer what the
+       Nix API is doing, makes nix-shell debugging easier, etc.
+    */
+  phraseContext =
+    {
       invokable,
       prep ? ''cd "$out"''
     }: ''
@@ -159,20 +196,28 @@ rec {
         : invoking resholve with PWD=$PWD
         ${invokable}
       )
-    '';
-  phraseContextForPWD = invokable:
+    ''
+    ;
+  phraseContextForPWD =
+    invokable:
     phraseContext {
       inherit invokable;
       prep = "";
-    };
+    }
+    ;
   phraseContextForOut = invokable: phraseContext { inherit invokable; };
 
-  phraseSolution = name: solution:
-    (phraseContextForOut (phraseInvocation name solution));
-  phraseSolutions = solutions: unresholved:
-    phraseContextForOut (phraseCommands solutions unresholved);
+  phraseSolution =
+    name: solution:
+    (phraseContextForOut (phraseInvocation name solution))
+    ;
+  phraseSolutions =
+    solutions: unresholved:
+    phraseContextForOut (phraseCommands solutions unresholved)
+    ;
 
-  writeScript = name: partialSolution: text:
+  writeScript =
+    name: partialSolution: text:
     writeTextFile {
       inherit name text;
       executable = true;
@@ -182,8 +227,10 @@ rec {
       '' + lib.optionalString (partialSolution.interpreter != "none") ''
         ${partialSolution.interpreter} -n $out
       '';
-    };
-  writeScriptBin = name: partialSolution: text:
+    }
+    ;
+  writeScriptBin =
+    name: partialSolution: text:
     writeTextFile rec {
       inherit name text;
       executable = true;
@@ -194,8 +241,10 @@ rec {
       '' + lib.optionalString (partialSolution.interpreter != "none") ''
         ${partialSolution.interpreter} -n $out/bin/${name}
       '';
-    };
-  mkDerivation = {
+    }
+    ;
+  mkDerivation =
+    {
       pname,
       src,
       version,
@@ -230,14 +279,14 @@ rec {
       buildInputs = [ resholve ];
       disallowedReferences = [ resholve ];
 
-      # retain a reference to the base
+        # retain a reference to the base
       passthru = unresholved.passthru // {
         unresholved = unresholved;
-        # fallback attr for update bot to query our src
+          # fallback attr for update bot to query our src
         originalSrc = unresholved.src;
       };
 
-      # do these imply that we should use NoCC or something?
+        # do these imply that we should use NoCC or something?
       dontConfigure = true;
       dontBuild = true;
 
@@ -245,13 +294,13 @@ rec {
         cp -R $src $out
       '';
 
-      # enable below for verbose debug info if needed
-      # supports default python.logging levels
-      # LOGLEVEL="INFO";
+        # enable below for verbose debug info if needed
+        # supports default python.logging levels
+        # LOGLEVEL="INFO";
       preFixup = phraseSolutions solutions unresholved;
 
-      # don't break the metadata...
+        # don't break the metadata...
       meta = unresholved.meta;
     })
-  ;
+    ;
 }

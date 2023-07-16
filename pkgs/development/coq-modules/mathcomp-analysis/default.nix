@@ -113,13 +113,14 @@ let
       }
     ] null;
 
-  # list of analysis packages sorted by dependency order
+    # list of analysis packages sorted by dependency order
   packages = [
     "classical"
     "analysis"
   ];
 
-  mathcomp_ = package:
+  mathcomp_ =
+    package:
     let
       classical-deps = [
         mathcomp.algebra
@@ -130,20 +131,26 @@ let
         mathcomp.field
         mathcomp-bigenough
       ];
-      intra-deps = if package == "single" then
-        [ ]
-      else
-        map mathcomp_ (head (splitList (lib.pred.equal package) packages));
-      pkgpath = if package == "single" then
-        "."
-      else if package == "analysis" then
-        "theories"
-      else
-        "${package}";
-      pname = if package == "single" then
-        "mathcomp-analysis-single"
-      else
-        "mathcomp-${package}";
+      intra-deps =
+        if package == "single" then
+          [ ]
+        else
+          map mathcomp_ (head (splitList (lib.pred.equal package) packages))
+        ;
+      pkgpath =
+        if package == "single" then
+          "."
+        else if package == "analysis" then
+          "theories"
+        else
+          "${package}"
+        ;
+      pname =
+        if package == "single" then
+          "mathcomp-analysis-single"
+        else
+          "mathcomp-${package}"
+        ;
       derivation = mkCoqDerivation ({
         inherit version pname defaultVersion release repo owner;
 
@@ -173,7 +180,7 @@ let
 
         passthru = genAttrs packages mathcomp_;
       });
-      # split packages didn't exist before 0.6, so bulding nothing in that case
+        # split packages didn't exist before 0.6, so bulding nothing in that case
       patched-derivation1 = derivation.overrideAttrs (o:
         optionalAttrs (o.pname != null && o.pname != "mathcomp-analysis"
           && o.version != null && o.version != "dev"
@@ -189,12 +196,12 @@ let
       patched-derivation = patched-derivation2.overrideAttrs (o:
         optionalAttrs (o.version != null
           && (o.version == "dev" || versions.isGe "0.3.4" o.version)) {
-            propagatedBuildInputs = o.propagatedBuildInputs
-              ++ [ hierarchy-builder ];
+            propagatedBuildInputs =
+              o.propagatedBuildInputs ++ [ hierarchy-builder ];
           });
     in
     patched-derivation
-  ;
+    ;
 in
 mathcomp_ (if single then
   "single"

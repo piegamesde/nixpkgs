@@ -26,7 +26,8 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/mirage/decompress/releases/download/v${version}/decompress-${version}.tbz";
+      "https://github.com/mirage/decompress/releases/download/v${version}/decompress-${version}.tbz"
+      ;
     hash = "sha256-qMmmuhMlFNVq02JvvV55EkhEg2AQNQ7hYdQ7spv1di4=";
   };
 

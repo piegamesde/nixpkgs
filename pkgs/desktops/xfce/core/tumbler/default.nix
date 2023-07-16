@@ -31,7 +31,7 @@ mkXfceDerivation {
     poppler # technically the glib binding
   ];
 
-  # WrapGAppsHook won't touch this binary automatically, so we wrap manually.
+    # WrapGAppsHook won't touch this binary automatically, so we wrap manually.
   postFixup = ''
     wrapProgram $out/lib/tumbler-1/tumblerd "''${gappsWrapperArgs[@]}"
   '';

@@ -22,7 +22,7 @@ buildPythonPackage rec {
     })
   ];
 
-  # tests not included on pypi
+    # tests not included on pypi
   doCheck = false;
 
   pythonImportsCheck = [ "udatetime" ];

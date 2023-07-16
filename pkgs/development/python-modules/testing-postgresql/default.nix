@@ -13,7 +13,7 @@
 
 buildPythonPackage rec {
   pname = "testing-postgresql";
-  # Version 1.3.0 isn't working so let's use the latest commit from GitHub
+    # Version 1.3.0 isn't working so let's use the latest commit from GitHub
   version = "unstable-2017-10-31";
   format = "setuptools";
 
@@ -37,7 +37,7 @@ buildPythonPackage rec {
     sqlalchemy
   ];
 
-  # Add PostgreSQL to search path
+    # Add PostgreSQL to search path
   prePatch = ''
     substituteInPlace src/testing/postgresql.py \
       --replace "/usr/local/pgsql" "${postgresql}"
@@ -50,8 +50,8 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "testing.postgresql" ];
 
-  # Fix tests for Darwin build. See:
-  # https://github.com/NixOS/nixpkgs/pull/74716#issuecomment-598546916
+    # Fix tests for Darwin build. See:
+    # https://github.com/NixOS/nixpkgs/pull/74716#issuecomment-598546916
   __darwinAllowLocalNetworking = true;
 
   meta = with lib; {

@@ -126,8 +126,8 @@ let
       ++ lib.optionals withLibseccomp [ libseccomp ]
       ++ lib.optionals withAWS [ aws-sdk-cpp ];
 
-    propagatedBuildInputs = [ boehmgc ]
-      ++ lib.optionals (atLeast27) [ nlohmann_json ];
+    propagatedBuildInputs =
+      [ boehmgc ] ++ lib.optionals (atLeast27) [ nlohmann_json ];
 
     NIX_LDFLAGS = lib.optionals (!atLeast24) [
       # https://github.com/NixOS/nix/commit/3e85c57a6cbf46d5f0fe8a89b368a43abd26daba
@@ -205,12 +205,14 @@ let
     installFlags = [ "sysconfdir=$(out)/etc" ];
 
     doInstallCheck = true;
-    installCheckTarget = if atLeast210 then
-      "installcheck"
-    else
-      null;
+    installCheckTarget =
+      if atLeast210 then
+        "installcheck"
+      else
+        null
+      ;
 
-    # socket path becomes too long otherwise
+      # socket path becomes too long otherwise
     preInstallCheck = lib.optionalString stdenv.isDarwin ''
       export TMPDIR=$NIX_BUILD_TOP
     ''
@@ -240,7 +242,8 @@ let
 
     meta = with lib; {
       description =
-        "Powerful package manager that makes package management reliable and reproducible";
+        "Powerful package manager that makes package management reliable and reproducible"
+        ;
       longDescription = ''
         Nix is a powerful package manager for Linux and other Unix systems that
         makes package management reliable and reproducible. It provides atomic

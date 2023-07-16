@@ -85,7 +85,7 @@ let
       "test_episode_truncation"
     ];
 
-    # escape infinite recursion with rlax
+      # escape infinite recursion with rlax
     doCheck = false;
 
     passthru.tests = {

@@ -17,19 +17,23 @@ stdenv.mkDerivation rec {
   version = "1.32.0.6973-a787c5a8e";
   pname = "plexmediaserver";
 
-  # Fetch the source
-  src = if stdenv.hostPlatform.system == "aarch64-linux" then
-    fetchurl {
-      url =
-        "https://downloads.plex.tv/plex-media-server-new/${version}/debian/plexmediaserver_${version}_arm64.deb";
-      sha256 = "sha256-96nvvjrE+aHdGLKZpZvu1+JLDJNjM4fCKlK3UFW5VfM=";
-    }
-  else
-    fetchurl {
-      url =
-        "https://downloads.plex.tv/plex-media-server-new/${version}/debian/plexmediaserver_${version}_amd64.deb";
-      sha256 = "sha256-fwMD/vYdwMrUvDB7JmMmVCt47ZtD17zk3bfIuO91dH8=";
-    };
+    # Fetch the source
+  src =
+    if stdenv.hostPlatform.system == "aarch64-linux" then
+      fetchurl {
+        url =
+          "https://downloads.plex.tv/plex-media-server-new/${version}/debian/plexmediaserver_${version}_arm64.deb"
+          ;
+        sha256 = "sha256-96nvvjrE+aHdGLKZpZvu1+JLDJNjM4fCKlK3UFW5VfM=";
+      }
+    else
+      fetchurl {
+        url =
+          "https://downloads.plex.tv/plex-media-server-new/${version}/debian/plexmediaserver_${version}_amd64.deb"
+          ;
+        sha256 = "sha256-fwMD/vYdwMrUvDB7JmMmVCt47ZtD17zk3bfIuO91dH8=";
+      }
+    ;
 
   outputs = [
     "out"
@@ -60,7 +64,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  # We're running in a FHS userenv; don't patch anything
+    # We're running in a FHS userenv; don't patch anything
   dontPatchShebangs = true;
   dontStrip = true;
   dontPatchELF = true;

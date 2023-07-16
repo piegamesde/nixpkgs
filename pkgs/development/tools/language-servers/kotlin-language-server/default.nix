@@ -13,7 +13,8 @@ stdenv.mkDerivation rec {
   version = "1.3.3";
   src = fetchzip {
     url =
-      "https://github.com/fwcd/kotlin-language-server/releases/download/${version}/server.zip";
+      "https://github.com/fwcd/kotlin-language-server/releases/download/${version}/server.zip"
+      ;
     hash = "sha256-m0AgPJ8KgzOxHPB33pgSFe7JQxidPkhDUga56LuaDBA=";
   };
 
@@ -52,7 +53,8 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ vtuan10 ];
     homepage = "https://github.com/fwcd/kotlin-language-server";
     changelog =
-      "https://github.com/fwcd/kotlin-language-server/blob/${version}/CHANGELOG.md";
+      "https://github.com/fwcd/kotlin-language-server/blob/${version}/CHANGELOG.md"
+      ;
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
   };

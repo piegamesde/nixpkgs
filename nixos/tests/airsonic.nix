@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
     name = "airsonic";
     meta = with pkgs.lib.maintainers; { maintainers = [ sumnerevans ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -13,7 +14,8 @@ import ./make-test-python.nix ({
           enable = true;
           maxMemory = 800;
         };
-      };
+      }
+      ;
 
     testScript = ''
       def airsonic_is_up(_) -> bool:

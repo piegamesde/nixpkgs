@@ -27,7 +27,7 @@ buildPythonPackage rec {
     mock
   ];
 
-  # Tests are broken for macOS on python38
+    # Tests are broken for macOS on python38
   doCheck = !(stdenv.isDarwin && pythonAtLeast "3.8");
 
   meta = with lib; {

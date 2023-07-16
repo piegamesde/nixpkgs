@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
       library that can be use with other applications.
     '';
     homepage = "https://wildmidi.sourceforge.net/";
-    # The library is LGPLv3, the wildmidi executable is GPLv3
+      # The library is LGPLv3, the wildmidi executable is GPLv3
     license = licenses.lgpl3;
     platforms = platforms.linux;
     maintainers = [ maintainers.bjornfor ];

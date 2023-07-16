@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     sed -i /__USE_MISC/d lua/src/lib/liolib.c
   '';
 
-  # The build fails, unless we disable the default -Wall -Werror
+    # The build fails, unless we disable the default -Wall -Werror
   configureFlags = [ "--disable-warn" ];
 
   buildInputs = [

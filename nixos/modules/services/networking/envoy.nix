@@ -11,13 +11,15 @@ let
   cfg = config.services.envoy;
   format = pkgs.formats.json { };
   conf = format.generate "envoy.json" cfg.settings;
-  validateConfig = required: file:
+  validateConfig =
+    required: file:
     pkgs.runCommand "validate-envoy-conf" { } ''
       ${cfg.package}/bin/envoy --log-level error --mode validate -c "${file}" ${
         lib.optionalString (!required) "|| true"
       }
       cp "${file}" "$out"
-    '';
+    ''
+    ;
 
 in {
   options.services.envoy = {
@@ -76,7 +78,7 @@ in {
         CacheDirectory = [ "envoy" ];
         LogsDirectory = [ "envoy" ];
         Restart = "no";
-        # Hardening
+          # Hardening
         AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
         CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
         DeviceAllow = [ "" ];

@@ -84,10 +84,12 @@ lib.makeOverridable (
       fetchurl attrs.source
     else
       throw ''buildRubyGem: don't know how to build a gem of type "${type}"'');
-    documentFlag = if document == [ ] then
-      "-N"
-    else
-      "--document ${lib.concatStringsSep "," document}";
+    documentFlag =
+      if document == [ ] then
+        "-N"
+      else
+        "--document ${lib.concatStringsSep "," document}"
+      ;
 
   in
   stdenv.mkDerivation ((builtins.removeAttrs attrs [ "source" ]) // {
@@ -105,7 +107,7 @@ lib.makeOverridable (
     buildInputs = [ ruby ] ++ lib.optionals stdenv.isDarwin [ libobjc ]
       ++ buildInputs;
 
-    #name = builtins.trace (attrs.name or "no attr.name" ) "${namePrefix}${gemName}-${version}";
+      #name = builtins.trace (attrs.name or "no attr.name" ) "${namePrefix}${gemName}-${version}";
     name = attrs.name or "${namePrefix}${gemName}-${version}";
 
     inherit src;
@@ -139,8 +141,8 @@ lib.makeOverridable (
       runHook postUnpack
     '';
 
-    # As of ruby 3.0, ruby headers require -fdeclspec when building with clang
-    # Introduced in https://github.com/ruby/ruby/commit/0958e19ffb047781fe1506760c7cbd8d7fe74e57
+      # As of ruby 3.0, ruby headers require -fdeclspec when building with clang
+      # Introduced in https://github.com/ruby/ruby/commit/0958e19ffb047781fe1506760c7cbd8d7fe74e57
     env.NIX_CFLAGS_COMPILE = toString (lib.optionals (stdenv.cc.isClang
       && lib.versionAtLeast ruby.version.major "3") [ "-fdeclspec" ]);
 
@@ -173,10 +175,10 @@ lib.makeOverridable (
       runHook postBuild
     '';
 
-    # Note:
-    #   We really do need to keep the $out/${ruby.gemPath}/cache.
-    #   This is very important in order for many parts of RubyGems/Bundler to not blow up.
-    #   See https://github.com/bundler/bundler/issues/3327
+      # Note:
+      #   We really do need to keep the $out/${ruby.gemPath}/cache.
+      #   This is very important in order for many parts of RubyGems/Bundler to not blow up.
+      #   See https://github.com/bundler/bundler/issues/3327
     installPhase = attrs.installPhase or ''
       runHook preInstall
 

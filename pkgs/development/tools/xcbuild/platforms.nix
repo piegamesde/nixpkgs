@@ -19,11 +19,11 @@ let
 
   Version = { ProjectName = "OSXPlatformSupport"; };
 
-  # These files are all based off of Xcode spec fies found in
-  # /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Xcode/PrivatePlugIns/IDEOSXSupportCore.ideplugin/Contents/Resources.
+    # These files are all based off of Xcode spec fies found in
+    # /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Xcode/PrivatePlugIns/IDEOSXSupportCore.ideplugin/Contents/Resources.
 
-  # Based off of the "MacOSX Architectures.xcspec" file. All i386 stuff
-  # is removed because NixPkgs only supports darwin-x86_64 and darwin-arm64.
+    # Based off of the "MacOSX Architectures.xcspec" file. All i386 stuff
+    # is removed because NixPkgs only supports darwin-x86_64 and darwin-arm64.
   Architectures = [
     {
       Identifier = "Standard";
@@ -62,10 +62,12 @@ let
       ArchitectureSetting = "ARCHS_STANDARD_64_BIT";
     }
     {
-      Identifier = if stdenv.isAarch64 then
-        "arm64"
-      else
-        "x86_64";
+      Identifier =
+        if stdenv.isAarch64 then
+          "arm64"
+        else
+          "x86_64"
+        ;
       Type = "Architecture";
       Name = "Apple Silicon or Intel 64-bit";
     }
@@ -81,8 +83,8 @@ let
     }
   ];
 
-  # Based off of the "MacOSX Package Types.xcspec" file. Only keep the
-  # bare minimum needed.
+    # Based off of the "MacOSX Package Types.xcspec" file. Only keep the
+    # bare minimum needed.
   PackageTypes = [
     {
       Identifier = "com.apple.package-type.mach-o-executable";
@@ -90,7 +92,8 @@ let
       Name = "Mach-O Executable";
       DefaultBuildSettings = {
         EXECUTABLE_NAME =
-          "$(EXECUTABLE_PREFIX)$(PRODUCT_NAME)$(EXECUTABLE_VARIANT_SUFFIX)$(EXECUTABLE_SUFFIX)";
+          "$(EXECUTABLE_PREFIX)$(PRODUCT_NAME)$(EXECUTABLE_VARIANT_SUFFIX)$(EXECUTABLE_SUFFIX)"
+          ;
         EXECUTABLE_PATH = "$(EXECUTABLE_NAME)";
       };
       ProductReference = {
@@ -104,7 +107,8 @@ let
       Name = "Mach-O Object File";
       DefaultBuildSettings = {
         EXECUTABLE_NAME =
-          "$(EXECUTABLE_PREFIX)$(PRODUCT_NAME)$(EXECUTABLE_VARIANT_SUFFIX)$(EXECUTABLE_SUFFIX)";
+          "$(EXECUTABLE_PREFIX)$(PRODUCT_NAME)$(EXECUTABLE_VARIANT_SUFFIX)$(EXECUTABLE_SUFFIX)"
+          ;
         EXECUTABLE_PATH = "$(EXECUTABLE_NAME)";
       };
       ProductReference = {
@@ -118,7 +122,8 @@ let
       Name = "Mach-O Dynamic Library";
       DefaultBuildSettings = {
         EXECUTABLE_NAME =
-          "$(EXECUTABLE_PREFIX)$(PRODUCT_NAME)$(EXECUTABLE_VARIANT_SUFFIX)$(EXECUTABLE_SUFFIX)";
+          "$(EXECUTABLE_PREFIX)$(PRODUCT_NAME)$(EXECUTABLE_VARIANT_SUFFIX)$(EXECUTABLE_SUFFIX)"
+          ;
         EXECUTABLE_PATH = "$(EXECUTABLE_NAME)";
       };
       ProductReference = {
@@ -134,7 +139,8 @@ let
         EXECUTABLE_PREFIX = "lib";
         EXECUTABLE_SUFFIX = ".a";
         EXECUTABLE_NAME =
-          "$(EXECUTABLE_PREFIX)$(PRODUCT_NAME)$(EXECUTABLE_VARIANT_SUFFIX)$(EXECUTABLE_SUFFIX)";
+          "$(EXECUTABLE_PREFIX)$(PRODUCT_NAME)$(EXECUTABLE_VARIANT_SUFFIX)$(EXECUTABLE_SUFFIX)"
+          ;
         EXECUTABLE_PATH = "$(EXECUTABLE_NAME)";
       };
       ProductReference = {
@@ -152,7 +158,8 @@ let
         WRAPPER_NAME = "$(WRAPPER_PREFIX)$(PRODUCT_NAME)$(WRAPPER_SUFFIX)";
         CONTENTS_FOLDER_PATH = "$(WRAPPER_NAME)/Contents";
         EXECUTABLE_NAME =
-          "$(EXECUTABLE_PREFIX)$(PRODUCT_NAME)$(EXECUTABLE_VARIANT_SUFFIX)$(EXECUTABLE_SUFFIX)";
+          "$(EXECUTABLE_PREFIX)$(PRODUCT_NAME)$(EXECUTABLE_VARIANT_SUFFIX)$(EXECUTABLE_SUFFIX)"
+          ;
         EXECUTABLE_FOLDER_PATH = "$(CONTENTS_FOLDER_PATH)/MacOS";
         EXECUTABLE_PATH = "$(EXECUTABLE_FOLDER_PATH)/$(EXECUTABLE_NAME)";
         INFOPLIST_PATH = "$(CONTENTS_FOLDER_PATH)/Info.plist";
@@ -196,9 +203,9 @@ let
     }
   ];
 
-  # Based off of the "MacOSX Product Types.xcspec" file. All
-  # bundles/wrapper are removed, because we prefer dynamic products in
-  # NixPkgs.
+    # Based off of the "MacOSX Product Types.xcspec" file. All
+    # bundles/wrapper are removed, because we prefer dynamic products in
+    # NixPkgs.
   ProductTypes = [
     {
       Identifier = "com.apple.product-type.tool";

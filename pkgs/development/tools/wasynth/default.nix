@@ -16,16 +16,16 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-hbY+epUtYSQrvnAbCELsVcqd3UoXGn24FkzWfrM0K14=";
   };
 
-  # A lock file isn't provided, so it must be added manually.
+    # A lock file isn't provided, so it must be added manually.
   cargoLock.lockFile = ./Cargo.lock;
   postPatch = ''
     cp ${./Cargo.lock} Cargo.lock
   '';
 
-  # Not all of the tests pass.
+    # Not all of the tests pass.
   doCheck = false;
 
-  # These binaries are tests and should be removed.
+    # These binaries are tests and should be removed.
   postInstall = ''
     rm $out/bin/{luajit,luau}_translate
   '';

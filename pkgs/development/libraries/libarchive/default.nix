@@ -51,27 +51,31 @@ assert xarSupport -> libxml2 != null;
     "dev"
   ];
 
-  postPatch = let
-    skipTestPaths = [
-      # test won't work in nix sandbox
-      "libarchive/test/test_write_disk_perms.c"
-      # the filesystem does not necessarily have sparse capabilities
-      "libarchive/test/test_sparse_basic.c"
-      # the filesystem does not necessarily have hardlink capabilities
-      "libarchive/test/test_write_disk_hardlink.c"
-      # access-time-related tests flakey on some systems
-      "cpio/test/test_option_a.c"
-      "cpio/test/test_option_t.c"
-    ];
-    removeTest = testPath: ''
-      substituteInPlace Makefile.am --replace "${testPath}" ""
-      rm "${testPath}"
-    '';
-  in ''
-    substituteInPlace Makefile.am --replace '/bin/pwd' "$(type -P pwd)"
+  postPatch =
+    let
+      skipTestPaths = [
+        # test won't work in nix sandbox
+        "libarchive/test/test_write_disk_perms.c"
+        # the filesystem does not necessarily have sparse capabilities
+        "libarchive/test/test_sparse_basic.c"
+        # the filesystem does not necessarily have hardlink capabilities
+        "libarchive/test/test_write_disk_hardlink.c"
+        # access-time-related tests flakey on some systems
+        "cpio/test/test_option_a.c"
+        "cpio/test/test_option_t.c"
+      ];
+      removeTest =
+        testPath: ''
+          substituteInPlace Makefile.am --replace "${testPath}" ""
+          rm "${testPath}"
+        ''
+        ;
+    in ''
+      substituteInPlace Makefile.am --replace '/bin/pwd' "$(type -P pwd)"
 
-    ${lib.concatStringsSep "\n" (map removeTest skipTestPaths)}
-  '' ;
+      ${lib.concatStringsSep "\n" (map removeTest skipTestPaths)}
+    ''
+    ;
 
   nativeBuildInputs = [
     autoreconfHook
@@ -93,7 +97,7 @@ assert xarSupport -> libxml2 != null;
       fsprogs
     ] ++ lib.optional xarSupport libxml2;
 
-  # Without this, pkg-config-based dependencies are unhappy
+    # Without this, pkg-config-based dependencies are unhappy
   propagatedBuildInputs = lib.optionals stdenv.isLinux [
     attr
     acl
@@ -105,7 +109,7 @@ assert xarSupport -> libxml2 != null;
     echo "#include <windows.h>" >> config.h
   '';
 
-  # https://github.com/libarchive/libarchive/issues/1475
+    # https://github.com/libarchive/libarchive/issues/1475
   doCheck = !stdenv.hostPlatform.isMusl;
 
   preFixup = ''
@@ -126,7 +130,8 @@ assert xarSupport -> libxml2 != null;
       tools that use the libarchive library.
     '';
     changelog =
-      "https://github.com/libarchive/libarchive/releases/tag/v${finalAttrs.version}";
+      "https://github.com/libarchive/libarchive/releases/tag/v${finalAttrs.version}"
+      ;
     license = licenses.bsd3;
     maintainers = with maintainers; [
       jcumming
@@ -145,7 +150,8 @@ assert xarSupport -> libxml2 != null;
       (fetchpatch {
         name = "001-only-add-iconv-to-pc-file-if-needed.patch";
         url =
-          "https://github.com/libarchive/libarchive/commit/1f35c466aaa9444335a1b854b0b7223b0d2346c2.patch";
+          "https://github.com/libarchive/libarchive/commit/1f35c466aaa9444335a1b854b0b7223b0d2346c2.patch"
+          ;
         hash = "sha256-lb+zwWSH6/MLUIROvu9I/hUjSbb2jOWO755WC/r+lbY=";
       })
     ];

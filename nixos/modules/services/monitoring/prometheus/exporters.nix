@@ -29,18 +29,18 @@ let
 
   cfg = config.services.prometheus.exporters;
 
-  # each attribute in `exporterOpts` is expected to have specified:
-  #   - port        (types.int):   port on which the exporter listens
-  #   - serviceOpts (types.attrs): config that is merged with the
-  #                                default definition of the exporter's
-  #                                systemd service
-  #   - extraOpts   (types.attrs): extra configuration options to
-  #                                configure the exporter with, which
-  #                                are appended to the default options
-  #
-  #  Note that `extraOpts` is optional, but a script for the exporter's
-  #  systemd service must be provided by specifying either
-  #  `serviceOpts.script` or `serviceOpts.serviceConfig.ExecStart`
+    # each attribute in `exporterOpts` is expected to have specified:
+    #   - port        (types.int):   port on which the exporter listens
+    #   - serviceOpts (types.attrs): config that is merged with the
+    #                                default definition of the exporter's
+    #                                systemd service
+    #   - extraOpts   (types.attrs): extra configuration options to
+    #                                configure the exporter with, which
+    #                                are appended to the default options
+    #
+    #  Note that `extraOpts` is optional, but a script for the exporter's
+    #  systemd service must be provided by specifying either
+    #  `serviceOpts.script` or `serviceOpts.serviceConfig.ExecStart`
 
   exporterOpts = genAttrs [
     "apcupsd"
@@ -169,7 +169,8 @@ let
       };
     });
 
-  mkSubModule = {
+  mkSubModule =
+    {
       name,
       port,
       extraOpts,
@@ -193,7 +194,8 @@ let
         internal = true;
         default = { };
       };
-    };
+    }
+    ;
 
   mkSubModules = (foldl' (a: b: a // b) { } (mapAttrsToList (name: opts:
     mkSubModule {
@@ -203,7 +205,8 @@ let
       imports = opts.imports or [ ];
     }) exporterOpts));
 
-  mkExporterConf = {
+  mkExporterConf =
+    {
       name,
       conf,
       serviceOpts,
@@ -238,7 +241,7 @@ let
           serviceConfig.DynamicUser = mkDefault enableDynamicUser;
           serviceConfig.User = mkDefault conf.user;
           serviceConfig.Group = conf.group;
-          # Hardening
+            # Hardening
           serviceConfig.CapabilityBoundingSet = mkDefault [ "" ];
           serviceConfig.DeviceAllow = [ "" ];
           serviceConfig.LockPersonality = true;
@@ -267,7 +270,7 @@ let
         serviceOpts
       ]);
     }
-  ;
+    ;
 in {
 
   imports = (lib.forEach [
@@ -347,8 +350,9 @@ in {
         '';
       }
       {
-        assertion = cfg.mail.enable -> ((cfg.mail.configFile == null)
-          != (cfg.mail.configuration == null));
+        assertion = cfg.mail.enable
+          -> ((cfg.mail.configFile == null) != (cfg.mail.configuration == null))
+          ;
         message = ''
           Please specify either 'services.prometheus.exporters.mail.configuration'
             or 'services.prometheus.exporters.mail.configFile'.
@@ -363,8 +367,8 @@ in {
         '';
       }
     ] ++ (flip map (attrNames exporterOpts) (exporter: {
-      assertion = cfg.${exporter}.firewallFilter != null
-        -> cfg.${exporter}.openFirewall;
+      assertion =
+        cfg.${exporter}.firewallFilter != null -> cfg.${exporter}.openFirewall;
       message = ''
         The `firewallFilter'-option of exporter ${exporter} doesn't have any effect unless
         `openFirewall' is set to `true'!

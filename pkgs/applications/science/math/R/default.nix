@@ -53,16 +53,17 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "R";
   version = "4.2.3";
 
-  src = let
-    inherit (finalAttrs) pname version;
-  in
-  fetchurl {
-    url = "https://cran.r-project.org/src/base/R-${
-        lib.versions.major version
-      }/${pname}-${version}.tar.gz";
-    sha256 = "sha256-VeSpptQ74xTiwD0CZqb6VESv3OULMDv8O4Kzl5UW4HQ=";
-  }
-  ;
+  src =
+    let
+      inherit (finalAttrs) pname version;
+    in
+    fetchurl {
+      url = "https://cran.r-project.org/src/base/R-${
+          lib.versions.major version
+        }/${pname}-${version}.tar.gz";
+      sha256 = "sha256-VeSpptQ74xTiwD0CZqb6VESv3OULMDv8O4Kzl5UW4HQ=";
+    }
+    ;
 
   dontUseImakeConfigure = true;
 
@@ -107,8 +108,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   patches = [ ./no-usr-local-search-paths.patch ];
 
-  # Test of the examples for package 'tcltk' fails in Darwin sandbox. See:
-  # https://github.com/NixOS/nixpkgs/issues/146131
+    # Test of the examples for package 'tcltk' fails in Darwin sandbox. See:
+    # https://github.com/NixOS/nixpkgs/issues/146131
   postPatch = lib.optionalString stdenv.isDarwin ''
     substituteInPlace configure \
       --replace "-install_name libRblas.dylib" "-install_name $out/lib/R/lib/libRblas.dylib" \
@@ -170,9 +171,9 @@ stdenv.mkDerivation (finalAttrs: {
     "install-pdf"
   ];
 
-  # The store path to "which" is baked into src/library/base/R/unix/system.unix.R,
-  # but Nix cannot detect it as a run-time dependency because the installed file
-  # is compiled and compressed, which hides the store path.
+    # The store path to "which" is baked into src/library/base/R/unix/system.unix.R,
+    # but Nix cannot detect it as a run-time dependency because the installed file
+    # is compiled and compressed, which hides the store path.
   postFixup =
     "echo ${which} > $out/nix-support/undetected-runtime-dependencies";
 

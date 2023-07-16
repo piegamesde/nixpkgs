@@ -35,7 +35,7 @@ stdenv.mkDerivation (
     dontInstall = true;
     doDist = true;
 
-    # If we do install, install to a dummy location.
+      # If we do install, install to a dummy location.
     useTempPrefix = true;
 
     showBuildStats = true;
@@ -43,7 +43,7 @@ stdenv.mkDerivation (
     preConfigurePhases = "autoconfPhase";
     postPhases = "finalPhase";
 
-    # Autoconfiscate the sources.
+      # Autoconfiscate the sources.
     autoconfPhase = ''
       export VERSION=${version}
       export VERSION_SUFFIX=${versionSuffix}
@@ -106,12 +106,14 @@ stdenv.mkDerivation (
       eval "$nextPostUnpack"
     '';
 
-    nextPostUnpack = if args ? postUnpack then
-      args.postUnpack
-    else
-      "";
+    nextPostUnpack =
+      if args ? postUnpack then
+        args.postUnpack
+      else
+        ""
+      ;
 
-    # Cause distPhase to copy tar.bz2 in addition to tar.gz.
+      # Cause distPhase to copy tar.bz2 in addition to tar.gz.
     tarballs = "*.tar.gz *.tar.bz2 *.tar.xz";
 
     finalPhase = ''
@@ -135,8 +137,8 @@ stdenv.mkDerivation (
       { }) // {
         description = "Source distribution";
 
-        # Tarball builds are generally important, so give them a high
-        # default priority.
+          # Tarball builds are generally important, so give them a high
+          # default priority.
         schedulingPriority = 200;
       };
   }

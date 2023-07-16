@@ -32,7 +32,8 @@ let
     platforms = jre.meta.platforms;
   };
 
-  sizedLogo = size:
+  sizedLogo =
+    size:
     stdenv.mkDerivation {
       name = "clojupyter-logo-${size}x${size}.png";
 
@@ -53,7 +54,8 @@ let
       '';
 
       inherit meta;
-    };
+    }
+    ;
 
 in rec {
   launcher =

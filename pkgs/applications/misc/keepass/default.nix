@@ -54,28 +54,29 @@ buildDotnetPackage rec {
     gsettings = "${glib}/bin/gsettings";
   }) ];
 
-  # KeePass looks for plugins in under directory in which KeePass.exe is
-  # located. It follows symlinks where looking for that directory, so
-  # buildEnv is not enough to bring KeePass and plugins together.
-  #
-  # This derivation patches KeePass to search for plugins in specified
-  # plugin derivations in the Nix store and nowhere else.
-  pluginLoadPathsPatch = let
-    outputLc = toString (add 7 (length plugins));
-    patchTemplate = readFile ./keepass-plugins.patch;
-    loadTemplate = readFile ./keepass-plugins-load.patch;
-    loads = lib.concatStrings (map (p:
-      replaceStrings [ "$PATH$" ] [ (unsafeDiscardStringContext (toString p)) ]
-      loadTemplate) plugins);
-  in
-  replaceStrings [
-    "$OUTPUT_LC$"
-    "$DO_LOADS$"
-  ] [
-    outputLc
-    loads
-  ] patchTemplate
-  ;
+    # KeePass looks for plugins in under directory in which KeePass.exe is
+    # located. It follows symlinks where looking for that directory, so
+    # buildEnv is not enough to bring KeePass and plugins together.
+    #
+    # This derivation patches KeePass to search for plugins in specified
+    # plugin derivations in the Nix store and nowhere else.
+  pluginLoadPathsPatch =
+    let
+      outputLc = toString (add 7 (length plugins));
+      patchTemplate = readFile ./keepass-plugins.patch;
+      loadTemplate = readFile ./keepass-plugins-load.patch;
+      loads = lib.concatStrings (map (p:
+        replaceStrings [ "$PATH$" ] [ (unsafeDiscardStringContext
+          (toString p)) ] loadTemplate) plugins);
+    in
+    replaceStrings [
+      "$OUTPUT_LC$"
+      "$DO_LOADS$"
+    ] [
+      outputLc
+      loads
+    ] patchTemplate
+    ;
 
   passAsFile = [ "pluginLoadPathsPatch" ];
   postPatch = ''
@@ -114,32 +115,34 @@ buildDotnetPackage rec {
   dllFiles = [ "KeePassLib.dll" ];
   exeFiles = [ "KeePass.exe" ];
 
-  # plgx plugin like keefox requires mono to compile at runtime
-  # after loading. It is brought into plugins bin/ directory using
-  # buildEnv in the plugin derivation. Wrapper below makes sure it
-  # is found and does not pollute output path.
+    # plgx plugin like keefox requires mono to compile at runtime
+    # after loading. It is brought into plugins bin/ directory using
+    # buildEnv in the plugin derivation. Wrapper below makes sure it
+    # is found and does not pollute output path.
   binPaths = lib.concatStringsSep ":" (map (x: x + "/bin") plugins);
 
   dynlibPath = lib.makeLibraryPath [ gtk2 ];
 
-  postInstall = let
-    extractFDeskIcons = ./extractWinRscIconsToStdFreeDesktopDir.sh;
-  in ''
-    mkdir -p "$out/share/applications"
-    cp ${desktopItem}/share/applications/* $out/share/applications
-    wrapProgram $out/bin/keepass \
-      --prefix PATH : "$binPaths" \
-      --prefix LD_LIBRARY_PATH : "$dynlibPath"
+  postInstall =
+    let
+      extractFDeskIcons = ./extractWinRscIconsToStdFreeDesktopDir.sh;
+    in ''
+      mkdir -p "$out/share/applications"
+      cp ${desktopItem}/share/applications/* $out/share/applications
+      wrapProgram $out/bin/keepass \
+        --prefix PATH : "$binPaths" \
+        --prefix LD_LIBRARY_PATH : "$dynlibPath"
 
-    ${extractFDeskIcons} \
-      "./Translation/TrlUtil/Resources/KeePass.ico" \
-      '[^\.]+_[0-9]+_([0-9]+x[0-9]+)x[0-9]+\.png' \
-      '\1' \
-      '([^\.]+).+' \
-      'keepass' \
-      "$out" \
-      "./tmp"
-  '' ;
+      ${extractFDeskIcons} \
+        "./Translation/TrlUtil/Resources/KeePass.ico" \
+        '[^\.]+_[0-9]+_([0-9]+x[0-9]+)x[0-9]+\.png' \
+        '\1' \
+        '([^\.]+).+' \
+        'keepass' \
+        "$out" \
+        "./tmp"
+    ''
+    ;
 
   meta = {
     description = "GUI password manager with strong cryptography";

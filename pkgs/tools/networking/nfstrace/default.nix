@@ -24,14 +24,16 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchpatch {
       url =
-        "https://salsa.debian.org/debian/nfstrace/raw/debian/0.4.3.1-3/debian/patches/reproducible_build.patch";
+        "https://salsa.debian.org/debian/nfstrace/raw/debian/0.4.3.1-3/debian/patches/reproducible_build.patch"
+        ;
       sha256 = "0fd96r8xi142kjwibqkd46s6jwsg5kfc5v28bqsj9rdlc2aqmay5";
     })
     # Fixes build failure with gcc-10
     # Related PR https://github.com/epam/nfstrace/pull/42/commits/4562a895ed3ac0e811bdd489068ad3ebe4d7b501
     (fetchpatch {
       url =
-        "https://github.com/epam/nfstrace/commit/4562a895ed3ac0e811bdd489068ad3ebe4d7b501.patch";
+        "https://github.com/epam/nfstrace/commit/4562a895ed3ac0e811bdd489068ad3ebe4d7b501.patch"
+        ;
       sha256 = "1fbicbllyykjknik7asa81x0ixxmbwqwkiz74cnznagv10jlkj3p";
     })
 
@@ -40,7 +42,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "ncurses-6.3.patch";
       url =
-        "https://github.com/epam/nfstrace/commit/29c7c415f5412df1aae9b1e6ed3a2760d2c227a0.patch";
+        "https://github.com/epam/nfstrace/commit/29c7c415f5412df1aae9b1e6ed3a2760d2c227a0.patch"
+        ;
       sha256 = "134709w6bld010jx3xdy9imcjzal904a84n9f8vv0wnas5clxdmx";
     })
   ];
@@ -60,9 +63,9 @@ stdenv.mkDerivation rec {
   ];
   nativeBuildInputs = [ cmake ];
 
-  # To build with GCC 8+ it needs:
+    # To build with GCC 8+ it needs:
   CXXFLAGS = "-Wno-class-memaccess -Wno-ignored-qualifiers";
-  # CMake can't find json_c without:
+    # CMake can't find json_c without:
   env.NIX_CFLAGS_COMPILE = toString [
     "-I${json_c.dev}/include/json-c"
     "-Wno-error=address-of-packed-member"

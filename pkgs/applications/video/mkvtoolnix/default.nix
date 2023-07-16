@@ -36,13 +36,15 @@
 let
   inherit (lib) enableFeature optional optionals optionalString;
 
-  phase = name: args: ''
-    runHook pre${name}
+  phase =
+    name: args: ''
+      runHook pre${name}
 
-    rake ${args}
+      rake ${args}
 
-    runHook post${name}
-  '';
+      runHook post${name}
+    ''
+    ;
 
 in
 stdenv.mkDerivation rec {
@@ -66,8 +68,8 @@ stdenv.mkDerivation rec {
     rake
   ] ++ optional withGUI wrapQtAppsHook;
 
-  # 1. qtbase and qtmultimedia are needed without the GUI
-  # 2. we have utf8cpp in nixpkgs but it doesn't find it
+    # 1. qtbase and qtmultimedia are needed without the GUI
+    # 2. we have utf8cpp in nixpkgs but it doesn't find it
   buildInputs = [
     boost
     expat
@@ -88,7 +90,7 @@ stdenv.mkDerivation rec {
     zlib
   ] ++ optional withGUI cmark ++ optional stdenv.isDarwin libiconv;
 
-  # autoupdate is not needed but it silences a ton of pointless warnings
+    # autoupdate is not needed but it silences a ton of pointless warnings
   postPatch = ''
     patchShebangs . > /dev/null
     autoupdate configure.ac ac/*.m4
@@ -124,10 +126,12 @@ stdenv.mkDerivation rec {
     description = "Cross-platform tools for Matroska";
     homepage = "https://mkvtoolnix.download/";
     license = licenses.gpl2Only;
-    mainProgram = if withGUI then
-      "mkvtoolnix-gui"
-    else
-      "mkvtoolnix";
+    mainProgram =
+      if withGUI then
+        "mkvtoolnix-gui"
+      else
+        "mkvtoolnix"
+      ;
     maintainers = with maintainers; [
       codyopel
       rnhmjoj

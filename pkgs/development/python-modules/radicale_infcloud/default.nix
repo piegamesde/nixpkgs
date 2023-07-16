@@ -18,7 +18,7 @@ buildPythonPackage {
 
   propagatedBuildInputs = [ radicale ];
 
-  # has no tests
+    # has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "radicale" ];

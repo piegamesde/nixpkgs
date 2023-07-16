@@ -28,7 +28,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Pythonic alternative to John MacFarlane's pandocfilters, with extra helper functions";
+      "Pythonic alternative to John MacFarlane's pandocfilters, with extra helper functions"
+      ;
     homepage = "http://scorreia.com/software/panflute";
     changelog =
       "https://github.com/sergiocorreia/panflute/releases/tag/${version}";

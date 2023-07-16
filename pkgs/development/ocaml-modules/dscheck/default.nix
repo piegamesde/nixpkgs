@@ -15,7 +15,8 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/ocaml-multicore/dscheck/releases/download/${version}/dscheck-${version}.tbz";
+      "https://github.com/ocaml-multicore/dscheck/releases/download/${version}/dscheck-${version}.tbz"
+      ;
     hash = "sha256-zoouFZJcUp71yeluVb1xLUIMcFv99OpkcQQCHkPTKcI=";
   };
 

@@ -20,7 +20,7 @@ buildPythonApplication rec {
     gitpython
   ];
 
-  # no tests
+    # no tests
   doCheck = false;
 
   meta = with lib; {

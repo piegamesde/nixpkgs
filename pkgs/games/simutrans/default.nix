@@ -17,7 +17,8 @@
 let
   # Choose your "paksets" of objects, images, text, music, etc.
   paksets =
-    config.simutrans.paksets or "pak64 pak64.japan pak128 pak128.britain pak128.german";
+    config.simutrans.paksets or "pak64 pak64.japan pak128 pak128.britain pak128.german"
+    ;
 
   result = with lib;
     withPaks (if paksets == "*" then
@@ -33,11 +34,12 @@ let
 
   binary_src = fetchurl {
     url =
-      "mirror://sourceforge/simutrans/simutrans/${ver_dash}/simutrans-src-${ver_dash}.zip";
+      "mirror://sourceforge/simutrans/simutrans/${ver_dash}/simutrans-src-${ver_dash}.zip"
+      ;
     sha256 = "1f463r6kr5ig0zd3mncc74k93xbjywsq3d06j5r17831jyc9bzb9";
   };
 
-  # As of 2021/07, many of these paksets have not been updated for years, so are on old versions.
+    # As of 2021/07, many of these paksets have not been updated for years, so are on old versions.
   pakSpec =
     lib.mapAttrs (pakName: attrs: mkPak (attrs // { inherit pakName; })) {
       pak64 = {
@@ -52,7 +54,8 @@ let
 
       pak128 = {
         srcPath =
-          "pak128%20for%20ST%20120.4.1%20%282.8.1%2C%20priority%20signals%20%2B%20bugfix%29/pak128";
+          "pak128%20for%20ST%20120.4.1%20%282.8.1%2C%20priority%20signals%20%2B%20bugfix%29/pak128"
+          ;
         sha256 = "0z01y7r0rz7q79vr17bbnkgcbjjrimphy1dwb1pgbiv4klz7j5xw";
       };
       "pak128.britain" = {
@@ -69,15 +72,16 @@ let
         sha256 = "1cv1rzl1a3i5dvk476zq094wawk9hhdh2f0y4xrdny5gn17mb2xi";
       };
 
-      /* This release contains accented filenames that prevent unzipping.
-         "pak192.comic" = {
-           srcPath = "pak192comic%20for%20${ver2_dash}/pak192comic-0.4-${ver2_dash}up";
-           sha256 = throw "";
-         };
-      */
+        /* This release contains accented filenames that prevent unzipping.
+           "pak192.comic" = {
+             srcPath = "pak192comic%20for%20${ver2_dash}/pak192comic-0.4-${ver2_dash}up";
+             sha256 = throw "";
+           };
+        */
     };
 
-  mkPak = {
+  mkPak =
+    {
       sha256,
       pakName,
       srcPath ? null,
@@ -87,27 +91,31 @@ let
       name = "simutrans-${pakName}";
       dontUnpack = true;
       preferLocalBuild = true;
-      installPhase = let
-        src = fetchurl { inherit url sha256; };
-      in ''
-        mkdir -p "$out/share/simutrans/${pakName}"
-        cd "$out/share/simutrans/${pakName}"
-        "${unzip}/bin/unzip" "${src}"
-        chmod -R +w . # some zipfiles need that
+      installPhase =
+        let
+          src = fetchurl { inherit url sha256; };
+        in ''
+          mkdir -p "$out/share/simutrans/${pakName}"
+          cd "$out/share/simutrans/${pakName}"
+          "${unzip}/bin/unzip" "${src}"
+          chmod -R +w . # some zipfiles need that
 
-        set +o pipefail # no idea why it's needed
-        toStrip=`find . -iname '*.pak' | head -n 1 | sed 's|\./\(.*\)/[^/]*$|\1|'`
-        echo "Detected path '$toStrip' to strip"
-        mv ./"$toStrip"/* .
-        rm -f "$toStrip/.directory" #pak128.german had this
-        rmdir -p "$toStrip"
-      '' ;
-    };
+          set +o pipefail # no idea why it's needed
+          toStrip=`find . -iname '*.pak' | head -n 1 | sed 's|\./\(.*\)/[^/]*$|\1|'`
+          echo "Detected path '$toStrip' to strip"
+          mv ./"$toStrip"/* .
+          rm -f "$toStrip/.directory" #pak128.german had this
+          rmdir -p "$toStrip"
+        ''
+        ;
+    }
+    ;
 
-  /* The binaries need all data in one directory; the default is directory
-      of the executable, and another option is the current directory :-/
-  */
-  withPaks = paks:
+    /* The binaries need all data in one directory; the default is directory
+        of the executable, and another option is the current directory :-/
+    */
+  withPaks =
+    paks:
     buildEnv {
       inherit (binaries) name;
       paths = [ binaries ] ++ paks;
@@ -123,7 +131,8 @@ let
 
       passthru.meta = binaries.meta // { hydraPlatforms = [ ]; };
       passthru.binaries = binaries;
-    };
+    }
+    ;
 
   binaries = stdenv.mkDerivation {
     pname = "simutrans";
@@ -145,32 +154,36 @@ let
       SDL_mixer
     ];
 
-    configurePhase = let
-      # Configuration as per the readme.txt and config.template
-      platform = if stdenv.isLinux then
-        "linux"
-      else if stdenv.isDarwin then
-        "mac"
-      else
-        throw "add your platform";
-      config = ''
-        BACKEND = mixer_sdl
-        COLOUR_DEPTH = 16
-        OSTYPE = ${platform}
-        VERBOSE = 1
-      '';
-      #TODO: MULTI_THREAD = 1 is "highly recommended",
-      # but it's roughly doubling CPU usage for me
-    in ''
-      echo "${config}" > config.default
+    configurePhase =
+      let
+        # Configuration as per the readme.txt and config.template
+        platform =
+          if stdenv.isLinux then
+            "linux"
+          else if stdenv.isDarwin then
+            "mac"
+          else
+            throw "add your platform"
+          ;
+        config = ''
+          BACKEND = mixer_sdl
+          COLOUR_DEPTH = 16
+          OSTYPE = ${platform}
+          VERBOSE = 1
+        '';
+          #TODO: MULTI_THREAD = 1 is "highly recommended",
+          # but it's roughly doubling CPU usage for me
+      in ''
+        echo "${config}" > config.default
 
-      # Use ~/.simutrans instead of ~/simutrans
-      substituteInPlace simsys.cc --replace '%s/simutrans' '%s/.simutrans'
+        # Use ~/.simutrans instead of ~/simutrans
+        substituteInPlace simsys.cc --replace '%s/simutrans' '%s/.simutrans'
 
-      # use -O2 optimization (defaults are -O or -O3)
-      sed -i -e '/CFLAGS += -O/d' Makefile
-      export CFLAGS+=-O2
-    '' ;
+        # use -O2 optimization (defaults are -O or -O3)
+        sed -i -e '/CFLAGS += -O/d' Makefile
+        export CFLAGS+=-O2
+      ''
+      ;
 
     enableParallelBuilding = true;
 
@@ -184,7 +197,8 @@ let
 
     meta = with lib; {
       description =
-        "A simulation game in which the player strives to run a successful transport system";
+        "A simulation game in which the player strives to run a successful transport system"
+        ;
       longDescription = ''
         Simutrans is a cross-platform simulation game in which the
         player strives to run a successful transport system by

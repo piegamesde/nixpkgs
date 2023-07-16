@@ -22,7 +22,7 @@ let
     sha256 = "1ckw5cd4z96jkjhmzjq7k3kzjj7bvj38i5xq9r43cz0sn7w3470k";
   };
 
-  # TODO consider using `mix2nix` as soon as it supports git dependencies.
+    # TODO consider using `mix2nix` as soon as it supports git dependencies.
   mixFodDeps = beamPackages.fetchMixDeps {
     pname = "${pname}-deps";
     inherit src version;
@@ -50,7 +50,7 @@ beamPackages.mixRelease {
 
   nativeBuildInputs = [ nodejs ];
 
-  # https://github.com/whitfin/cachex/issues/205
+    # https://github.com/whitfin/cachex/issues/205
   stripDebug = false;
 
   passthru = {
@@ -73,7 +73,8 @@ beamPackages.mixRelease {
     license = licenses.agpl3Plus;
     homepage = "https://plausible.io/";
     description =
-      " Simple, open-source, lightweight (< 1 KB) and privacy-friendly web analytics alternative to Google Analytics.";
+      " Simple, open-source, lightweight (< 1 KB) and privacy-friendly web analytics alternative to Google Analytics."
+      ;
     maintainers = with maintainers; [ ];
     platforms = platforms.unix;
   };

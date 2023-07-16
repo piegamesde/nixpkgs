@@ -47,7 +47,8 @@ let
     version = "78.6.0";
     src = fetchurl {
       url =
-        "mirror://mozilla/firefox/releases/${version}esr/source/firefox-${version}esr.source.tar.xz";
+        "mirror://mozilla/firefox/releases/${version}esr/source/firefox-${version}esr.source.tar.xz"
+        ;
       sha256 = "0lyg65v380j8i2lrylwz8a5ya80822l8vcnlx3dfqpd3s6zzjsay";
     };
     patches = (old.patches or [ ]) ++ [ ./spidermonkey-cargo-toml.patch ];
@@ -59,7 +60,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://releases.wildfiregames.com/0ad-${version}-alpha-unix-build.tar.xz";
+      "http://releases.wildfiregames.com/0ad-${version}-alpha-unix-build.tar.xz"
+      ;
     sha256 = "Lhxt9+MxLnfF+CeIZkz/w6eNO/YGBsAAOSdeHRPA7ks=";
   };
 

@@ -5,12 +5,14 @@ import ./make-test-python.nix ({
     name = "packagekit";
     meta = with pkgs.lib.maintainers; { maintainers = [ peterhoeg ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         environment.systemPackages = with pkgs; [ dbus ];
         services.packagekit = { enable = true; };
-      };
+      }
+      ;
 
     testScript = ''
       start_all()

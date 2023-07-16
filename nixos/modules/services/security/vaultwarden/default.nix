@@ -12,11 +12,13 @@ let
   user = config.users.users.vaultwarden.name;
   group = config.users.groups.vaultwarden.name;
 
-  # Convert name from camel case (e.g. disable2FARemember) to upper case snake case (e.g. DISABLE_2FA_REMEMBER).
-  nameToEnvVar = name:
+    # Convert name from camel case (e.g. disable2FARemember) to upper case snake case (e.g. DISABLE_2FA_REMEMBER).
+  nameToEnvVar =
+    name:
     let
       parts = builtins.split "([A-Z0-9]+)" name;
-      partsToEnvVar = parts:
+      partsToEnvVar =
+        parts:
         foldl' (key: x:
           let
             last = stringLength key - 1;
@@ -30,30 +32,35 @@ let
             + optionalString (substring (last - 1) 1 key != "_") "_"
             + substring last 1 key + toUpper x
           else
-            key + toUpper x) "" parts;
+            key + toUpper x) "" parts
+        ;
     in if builtins.match "[A-Z0-9_]+" name != null then
       name
     else
-      partsToEnvVar parts;
+      partsToEnvVar parts
+    ;
 
-  # Due to the different naming schemes allowed for config keys,
-  # we can only check for values consistently after converting them to their corresponding environment variable name.
-  configEnv = let
-    configEnv = concatMapAttrs (name: value:
-      optionalAttrs (value != null) {
-        ${nameToEnvVar name} = if isBool value then
-          boolToString value
-        else
-          toString value;
-      }) cfg.config;
-  in
-  {
-    DATA_FOLDER = "/var/lib/bitwarden_rs";
-  } // optionalAttrs
-  (!(configEnv ? WEB_VAULT_ENABLED) || configEnv.WEB_VAULT_ENABLED == "true") {
-    WEB_VAULT_FOLDER = "${cfg.webVaultPackage}/share/vaultwarden/vault";
-  } // configEnv
-  ;
+    # Due to the different naming schemes allowed for config keys,
+    # we can only check for values consistently after converting them to their corresponding environment variable name.
+  configEnv =
+    let
+      configEnv = concatMapAttrs (name: value:
+        optionalAttrs (value != null) {
+          ${nameToEnvVar name} =
+            if isBool value then
+              boolToString value
+            else
+              toString value
+            ;
+        }) cfg.config;
+    in
+    {
+      DATA_FOLDER = "/var/lib/bitwarden_rs";
+    } // optionalAttrs (!(configEnv ? WEB_VAULT_ENABLED)
+      || configEnv.WEB_VAULT_ENABLED == "true") {
+        WEB_VAULT_FOLDER = "${cfg.webVaultPackage}/share/vaultwarden/vault";
+      } // configEnv
+    ;
 
   configFile = pkgs.writeText "vaultwarden.env" (concatStrings (mapAttrsToList
     (name: value: ''
@@ -213,7 +220,8 @@ in {
     assertions = [ {
       assertion = cfg.backupDir != null -> cfg.dbBackend == "sqlite";
       message =
-        "Backups for database backends other than sqlite will need customization";
+        "Backups for database backends other than sqlite will need customization"
+        ;
     } ];
 
     users.users.vaultwarden = {
@@ -253,7 +261,7 @@ in {
         BACKUP_FOLDER = cfg.backupDir;
       };
       path = with pkgs; [ sqlite ];
-      # if both services are started at the same time, vaultwarden fails with "database is locked"
+        # if both services are started at the same time, vaultwarden fails with "database is locked"
       before = [ "vaultwarden.service" ];
       serviceConfig = {
         SyslogIdentifier = "backup-vaultwarden";
@@ -277,6 +285,6 @@ in {
     };
   };
 
-  # uses attributes of the linked package
+    # uses attributes of the linked package
   meta.buildDocsInSandbox = false;
 }

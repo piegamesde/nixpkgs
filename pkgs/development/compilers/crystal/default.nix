@@ -56,7 +56,8 @@ let
     libffi
   ];
 
-  binaryUrl = version: rel:
+  binaryUrl =
+    version: rel:
     if arch == archs.aarch64-linux then
       "https://dev.alpinelinux.org/archive/crystal/crystal-${version}-aarch64-alpine-linux-musl.tar.gz"
     else if arch == archs.x86_64-darwin && lib.versionOlder version "1.2.0" then
@@ -66,9 +67,11 @@ let
     else
       "https://github.com/crystal-lang/crystal/releases/download/${version}/crystal-${version}-${
         toString rel
-      }-${arch}.tar.gz";
+      }-${arch}.tar.gz"
+    ;
 
-  genericBinary = {
+  genericBinary =
+    {
       version,
       sha256s,
       rel ? 1
@@ -89,7 +92,8 @@ let
       '';
 
       meta.platforms = lib.attrNames sha256s;
-    };
+    }
+    ;
 
   generic = ({
       version,
@@ -176,7 +180,7 @@ let
               --replace 'it "parses file paths"' 'pending "parses file paths"'
           '';
 
-        # Defaults are 4
+          # Defaults are 4
         preBuild = ''
           export CRYSTAL_WORKERS=$NIX_BUILD_CORES
           export threads=$NIX_BUILD_CORES
@@ -219,12 +223,12 @@ let
               "-Dwithout_ffi"
             ];
 
-        # This makes sure we don't keep depending on the previous version of
-        # crystal used to build this one.
+          # This makes sure we don't keep depending on the previous version of
+          # crystal used to build this one.
         CRYSTAL_LIBRARY_PATH = "${placeholder "lib"}/crystal";
 
-        # We *have* to add `which` to the PATH or crystal is unable to build
-        # stuff later if which is not available.
+          # We *have* to add `which` to the PATH or crystal is unable to build
+          # stuff later if which is not available.
         installPhase = ''
           runHook preInstall
 

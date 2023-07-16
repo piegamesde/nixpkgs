@@ -72,11 +72,15 @@ let
 
   arch = mozillaPlatforms.${stdenv.hostPlatform.system};
 
-  isPrefixOf = prefix: string:
-    builtins.substring 0 (builtins.stringLength prefix) string == prefix;
+  isPrefixOf =
+    prefix: string:
+    builtins.substring 0 (builtins.stringLength prefix) string == prefix
+    ;
 
-  sourceMatches = locale: source:
-    (isPrefixOf source.locale locale) && source.arch == arch;
+  sourceMatches =
+    locale: source:
+    (isPrefixOf source.locale locale) && source.arch == arch
+    ;
 
   policies = { DisableAppUpdate = true; } // config.firefox.policies or { };
 
@@ -85,10 +89,12 @@ let
 
   defaultSource = lib.findFirst (sourceMatches "en-US") { } sources;
 
-  mozLocale = if systemLocale == "ca_ES@valencia" then
-    "ca-valencia"
-  else
-    lib.replaceStrings [ "_" ] [ "-" ] systemLocale;
+  mozLocale =
+    if systemLocale == "ca_ES@valencia" then
+      "ca-valencia"
+    else
+      lib.replaceStrings [ "_" ] [ "-" ] systemLocale
+    ;
 
   source = lib.findFirst (sourceMatches mozLocale) defaultSource sources;
 
@@ -154,8 +160,8 @@ stdenv.mkDerivation {
     adwaita-icon-theme
   ];
 
-  # "strip" after "patchelf" may break binaries.
-  # See: https://github.com/NixOS/patchelf/issues/10
+    # "strip" after "patchelf" may break binaries.
+    # See: https://github.com/NixOS/patchelf/issues/10
   dontStrip = true;
   dontPatchELF = true;
 
@@ -200,8 +206,8 @@ stdenv.mkDerivation {
   passthru.execdir = "/bin";
   passthru.ffmpegSupport = true;
   passthru.gssSupport = true;
-  # update with:
-  # $ nix-shell maintainers/scripts/update.nix --argstr package firefox-bin-unwrapped
+    # update with:
+    # $ nix-shell maintainers/scripts/update.nix --argstr package firefox-bin-unwrapped
   passthru.updateScript = import ./update.nix {
     inherit
       pname
@@ -216,10 +222,12 @@ stdenv.mkDerivation {
       curl
       runtimeShell
       ;
-    baseUrl = if channel == "devedition" then
-      "https://archive.mozilla.org/pub/devedition/releases/"
-    else
-      "https://archive.mozilla.org/pub/firefox/releases/";
+    baseUrl =
+      if channel == "devedition" then
+        "https://archive.mozilla.org/pub/devedition/releases/"
+      else
+        "https://archive.mozilla.org/pub/firefox/releases/"
+      ;
   };
   meta = with lib; {
     changelog =

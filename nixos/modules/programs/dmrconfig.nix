@@ -11,9 +11,10 @@ let
   cfg = config.programs.dmrconfig;
 
 in {
-  meta.maintainers = with maintainers; [ ];
+  meta.maintainers = with maintainers;
+    [ ];
 
-  ###### interface
+    ###### interface
   options = {
     programs.dmrconfig = {
       enable = mkOption {
@@ -35,7 +36,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
   config = mkIf cfg.enable {
     environment.systemPackages = [ cfg.package ];
     services.udev.packages = [ cfg.package ];

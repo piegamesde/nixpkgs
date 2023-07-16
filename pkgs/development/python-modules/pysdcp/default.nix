@@ -18,7 +18,7 @@ buildPythonPackage rec {
     sha256 = "07396lsn610izaravqc6j5f6m0wjrzgc0d1r9dwqzj15g5zfc7wm";
   };
 
-  # Project has no tests
+    # Project has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "pysdcp" ];

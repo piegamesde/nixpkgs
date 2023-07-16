@@ -23,11 +23,12 @@ buildPythonPackage rec {
   patches = [ (fetchpatch {
     # Fix test compat with pytest 7.2.0
     url =
-      "https://github.com/pytest-dev/execnet/commit/c0459b92bc4a42b08281e69b8802d24c5d3415d4.patch";
+      "https://github.com/pytest-dev/execnet/commit/c0459b92bc4a42b08281e69b8802d24c5d3415d4.patch"
+      ;
     hash = "sha256-AT2qr7AUpFXcPps525U63A7ARcEVmf0HM6ya73Z2vi0=";
   }) ];
 
-  # remove vbox tests
+    # remove vbox tests
   postPatch = ''
     rm -v testing/test_termination.py
     rm -v testing/test_channel.py

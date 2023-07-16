@@ -10,9 +10,9 @@
 
 python3.pkgs.buildPythonApplication rec {
   pname = "pass-secret-service";
-  # PyPI has old alpha version. Since then the project has switched from using a
-  # seemingly abandoned D-Bus package pydbus and started using maintained
-  # dbus-next. So let's use latest from GitHub.
+    # PyPI has old alpha version. Since then the project has switched from using a
+    # seemingly abandoned D-Bus package pydbus and started using maintained
+    # dbus-next. So let's use latest from GitHub.
   version = "unstable-2022-07-18";
 
   src = fetchFromGitHub {
@@ -22,8 +22,8 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-lrNU5bkG4/fMu5rDywfiI8vNHyBsMf/fiWIeEHug03c=";
   };
 
-  # Need to specify session.conf file for tests because it won't be found under
-  # /etc/ in check phase.
+    # Need to specify session.conf file for tests because it won't be found under
+    # /etc/ in check phase.
   postPatch = ''
     substituteInPlace Makefile \
       --replace "dbus-run-session" "dbus-run-session --config-file=${dbus}/share/dbus-1/session.conf" \
@@ -51,15 +51,17 @@ python3.pkgs.buildPythonApplication rec {
     secretstorage
   ];
 
-  nativeCheckInputs = let
-    ps = python3.pkgs;
-  in [
-    dbus
-    gnupg
-    ps.pytest
-    ps.pytest-asyncio
-    ps.pypass
-  ] ;
+  nativeCheckInputs =
+    let
+      ps = python3.pkgs;
+    in [
+      dbus
+      gnupg
+      ps.pytest
+      ps.pytest-asyncio
+      ps.pypass
+    ]
+    ;
 
   checkTarget = "test";
 

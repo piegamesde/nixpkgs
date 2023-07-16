@@ -37,14 +37,15 @@ buildPythonPackage rec {
     cp -R examples $testsout/examples
   '';
 
-  # check in passthru.tests.pytest to escape infinite recursion with bsuite
+    # check in passthru.tests.pytest to escape infinite recursion with bsuite
   doCheck = false;
 
   passthru.tests = { pytest = callPackage ./tests.nix { }; };
 
   meta = with lib; {
     description =
-      "Haiku is a simple neural network library for JAX developed by some of the authors of Sonnet.";
+      "Haiku is a simple neural network library for JAX developed by some of the authors of Sonnet."
+      ;
     homepage = "https://github.com/deepmind/dm-haiku";
     license = licenses.asl20;
     maintainers = with maintainers; [ ndl ];

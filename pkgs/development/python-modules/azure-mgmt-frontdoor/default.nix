@@ -25,7 +25,7 @@ buildPythonPackage rec {
     azure-mgmt-core
   ];
 
-  # has no tests
+    # has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "azure.mgmt.frontdoor" ];

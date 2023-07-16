@@ -18,7 +18,7 @@ python3.pkgs.buildPythonApplication rec {
 
   propagatedBuildInputs = with python3.pkgs; [ requests ];
 
-  # Tests are not available
+    # Tests are not available
   doCheck = false;
 
   pythonImportsCheck = [ "graphqlmap" ];

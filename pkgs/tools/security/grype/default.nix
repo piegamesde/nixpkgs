@@ -15,8 +15,8 @@ buildGoModule rec {
     repo = pname;
     rev = "refs/tags/v${version}";
     hash = "sha256-ey0g7iog7PHxqgVaJROA2Myi4hGRe14RuA8tBTSc7Ok=";
-    # populate values that require us to use git. By doing this in postFetch we
-    # can delete .git afterwards and maintain better reproducibility of the src.
+      # populate values that require us to use git. By doing this in postFetch we
+      # can delete .git afterwards and maintain better reproducibility of the src.
     leaveDotGit = true;
     postFetch = ''
       cd "$out"

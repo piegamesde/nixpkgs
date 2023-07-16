@@ -8,11 +8,13 @@
 with lib;
 
 let
-  boolToStr = value:
+  boolToStr =
+    value:
     if value then
       "on"
     else
-      "off";
+      "off"
+    ;
   cfg = config.vmware;
 
   subformats = [
@@ -37,7 +39,8 @@ in {
       vmDerivationName = mkOption {
         type = types.str;
         default =
-          "nixos-vmware-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}";
+          "nixos-vmware-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}"
+          ;
         description = lib.mdDoc ''
           The name of the derivation for the VMWare appliance.
         '';
@@ -45,7 +48,8 @@ in {
       vmFileName = mkOption {
         type = types.str;
         default =
-          "nixos-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.vmdk";
+          "nixos-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.vmdk"
+          ;
         description = lib.mdDoc ''
           The file name of the VMWare appliance.
         '';

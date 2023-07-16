@@ -38,7 +38,8 @@ stdenv.mkDerivation rec {
 
   meta = {
     description =
-      "A library for semi-portable access to hardware-provided atomic memory update operations";
+      "A library for semi-portable access to hardware-provided atomic memory update operations"
+      ;
     license = lib.licenses.gpl2Plus;
     maintainers = [ lib.maintainers.raskin ];
     platforms = with lib.platforms; unix ++ windows;

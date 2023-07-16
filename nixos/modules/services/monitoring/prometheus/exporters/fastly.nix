@@ -26,11 +26,13 @@ in {
 
     tokenPath = mkOption {
       type = types.nullOr types.path;
-      apply = final:
+      apply =
+        final:
         if final == null then
           null
         else
-          toString final;
+          toString final
+        ;
       description = lib.mdDoc ''
         A run-time path to the token file, which is supposed to be provisioned
         outside of Nix store.

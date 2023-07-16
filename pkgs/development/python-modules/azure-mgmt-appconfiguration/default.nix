@@ -27,7 +27,7 @@ buildPythonPackage rec {
     msrestazure
   ];
 
-  # no tests included
+    # no tests included
   doCheck = false;
 
   pythonNamespaces = [ "azure.mgmt" ];

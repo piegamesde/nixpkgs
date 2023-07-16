@@ -25,7 +25,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/BrunoLevy/geogram/releases/download/v${version}/geogram_${version}.tar.gz";
+      "https://github.com/BrunoLevy/geogram/releases/download/v${version}/geogram_${version}.tar.gz"
+      ;
     hash = "sha256-91q0M/4kAr0UoWXOQIEYS1VbgEQ/F4EBOfJE9Vr1bnw=";
   };
 
@@ -88,31 +89,33 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  checkPhase = let
-    skippedTests = [
-      # Failing tests as of version 1.8.3
-      "FileConvert"
-      "Reconstruct"
-      "Remesh"
+  checkPhase =
+    let
+      skippedTests = [
+        # Failing tests as of version 1.8.3
+        "FileConvert"
+        "Reconstruct"
+        "Remesh"
 
-      # Skip slow RVD test
-      "RVD"
-    ];
-  in ''
-    runHook preCheck
+        # Skip slow RVD test
+        "RVD"
+      ];
+    in ''
+      runHook preCheck
 
-    ln -s ${testdata} ../tests/data
+      ln -s ${testdata} ../tests/data
 
-    source tests/testenv.sh
-    robot \
-      ${
-        lib.concatMapStringsSep " " (t: lib.escapeShellArg "--skip=${t}")
-        skippedTests
-      } \
-      ../tests
+      source tests/testenv.sh
+      robot \
+        ${
+          lib.concatMapStringsSep " " (t: lib.escapeShellArg "--skip=${t}")
+          skippedTests
+        } \
+        ../tests
 
-    runHook postCheck
-  '' ;
+      runHook postCheck
+    ''
+    ;
 
   meta = with lib; {
     description = "Programming Library with Geometric Algorithms";
@@ -124,8 +127,8 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/BrunoLevy/geogram";
     license = licenses.bsd3;
 
-    # Broken on aarch64-linux as of version 1.8.3
-    # See https://github.com/BrunoLevy/geogram/issues/74
+      # Broken on aarch64-linux as of version 1.8.3
+      # See https://github.com/BrunoLevy/geogram/issues/74
     broken = stdenv.isLinux && stdenv.isAarch64;
 
     platforms = [

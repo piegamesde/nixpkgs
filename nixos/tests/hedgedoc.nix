@@ -8,7 +8,8 @@ import ./make-test-python.nix ({
     meta = with lib.maintainers; { maintainers = [ willibutz ]; };
 
     nodes = {
-      hedgedocSqlite = {
+      hedgedocSqlite =
+        {
           ...
         }: {
           services = {
@@ -17,9 +18,11 @@ import ./make-test-python.nix ({
               settings.dbURL = "sqlite:///var/lib/hedgedoc/hedgedoc.db";
             };
           };
-        };
+        }
+        ;
 
-      hedgedocPostgres = {
+      hedgedocPostgres =
+        {
           ...
         }: {
           systemd.services.hedgedoc.after = [ "postgresql.service" ];
@@ -29,8 +32,8 @@ import ./make-test-python.nix ({
               settings.dbURL =
                 "postgres://hedgedoc:\${DB_PASSWORD}@localhost:5432/hedgedocdb";
 
-              # Do not use pkgs.writeText for secrets as
-              # they will end up in the world-readable Nix store.
+                # Do not use pkgs.writeText for secrets as
+                # they will end up in the world-readable Nix store.
               environmentFile = pkgs.writeText "hedgedoc-env" ''
                 DB_PASSWORD=snakeoilpassword
               '';
@@ -43,7 +46,8 @@ import ./make-test-python.nix ({
               '';
             };
           };
-        };
+        }
+        ;
     };
 
     testScript = ''

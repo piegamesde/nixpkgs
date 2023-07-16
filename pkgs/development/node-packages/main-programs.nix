@@ -12,7 +12,7 @@
   vue-cli = "vue";
   "@withgraphite/graphite-cli" = "gt";
 
-  # Packages that provide a single executable whose name differs from the package's `name`.
+    # Packages that provide a single executable whose name differs from the package's `name`.
   "@angular/cli" = "ng";
   "@antora/cli" = "antora";
   "@astrojs/language-server" = "astro-ls";

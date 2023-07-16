@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     fribidi
     libX11
   ];
-  # FIXME: Configure fails to use system glew.
+    # FIXME: Configure fails to use system glew.
   meta = with lib; {
     description = "A free implementation of the OpenGL Character Renderer";
     longDescription = ''

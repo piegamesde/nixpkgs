@@ -99,7 +99,7 @@ let
       "zlib"
     ];
 
-    # clean broken links to stuff not built
+      # clean broken links to stuff not built
     cleanBrokenLinks = ''
       for f in "$out"/bin/*; do
         if [[ ! -x "$f" ]]; then rm "$f"; fi
@@ -107,7 +107,7 @@ let
     '';
   };
 
-  # RISC-V: https://github.com/LuaJIT/LuaJIT/issues/628
+    # RISC-V: https://github.com/LuaJIT/LuaJIT/issues/628
   withLuaJIT = !(stdenv.hostPlatform.isPower && stdenv.hostPlatform.is64bit)
     && !stdenv.hostPlatform.isRiscV;
 in
@@ -196,7 +196,7 @@ rec { # un-indented
       "texlinks"
     ];
 
-    # TODO: perhaps improve texmf.cnf search locations
+      # TODO: perhaps improve texmf.cnf search locations
     postInstall =
       /* links format -> engine will be regenerated in texlive.combine
          note: for unlinking, the texlinks patch is irrelevant, so we use
@@ -277,7 +277,8 @@ rec { # un-indented
       (fetchpatch {
         name = "reproducible_exception_strings.patch";
         url =
-          "https://bugs.debian.org/cgi-bin/bugreport.cgi?att=1;bug=1009196;filename=reproducible_exception_strings.patch;msg=5";
+          "https://bugs.debian.org/cgi-bin/bugreport.cgi?att=1;bug=1009196;filename=reproducible_exception_strings.patch;msg=5"
+          ;
         sha256 = "sha256-RNZoEeTcWnrLaltcYrhNIORh42fFdwMzBfxMRWVurbk=";
       })
     ];
@@ -320,55 +321,56 @@ rec { # un-indented
 
     configureScript = ":";
 
-    # we use static libtexlua, because it's only used by a single binary
-    postConfigure = let
-      luajit = lib.optionalString withLuaJIT ",luajit";
-    in
-    lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform)
-    # without this, the native builds attempt to use the binary
-    # ${target-triple}-gcc, but we need to use the wrapper script.
-    ''
-      export BUILDCC=${buildPackages.stdenv.cc}/bin/cc
-    '' + ''
-      mkdir ./WorkDir && cd ./WorkDir
-      for path in libs/{pplib,teckit,lua53${luajit}} texk/web2c; do
-        (
-          if [[ "$path" =~ "libs/lua" ]]; then
-            extraConfig="--enable-static --disable-shared"
-          else
-            extraConfig=""
-          fi
-    '' + lib.optionalString
-    (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
-    # results of the tests performed by the configure scripts are
-    # toolchain-dependent, so native components and cross components cannot use
-    # the same cached test results.
-    # Disable the caching for components with native subcomponents.
-    ''
-      if [[ "$path" =~ "libs/luajit" ]] || [[ "$path" =~ "texk/web2c" ]]; then
-        extraConfig="$extraConfig --cache-file=/dev/null"
-      fi
-    '' + ''
-          mkdir -p "$path" && cd "$path"
-          "../../../$path/configure" $configureFlags $extraConfig
+      # we use static libtexlua, because it's only used by a single binary
+    postConfigure =
+      let
+        luajit = lib.optionalString withLuaJIT ",luajit";
+      in
+      lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform)
+      # without this, the native builds attempt to use the binary
+      # ${target-triple}-gcc, but we need to use the wrapper script.
+      ''
+        export BUILDCC=${buildPackages.stdenv.cc}/bin/cc
+      '' + ''
+        mkdir ./WorkDir && cd ./WorkDir
+        for path in libs/{pplib,teckit,lua53${luajit}} texk/web2c; do
+          (
+            if [[ "$path" =~ "libs/lua" ]]; then
+              extraConfig="--enable-static --disable-shared"
+            else
+              extraConfig=""
+            fi
+      '' + lib.optionalString
+      (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+      # results of the tests performed by the configure scripts are
+      # toolchain-dependent, so native components and cross components cannot use
+      # the same cached test results.
+      # Disable the caching for components with native subcomponents.
+      ''
+        if [[ "$path" =~ "libs/luajit" ]] || [[ "$path" =~ "texk/web2c" ]]; then
+          extraConfig="$extraConfig --cache-file=/dev/null"
+        fi
+      '' + ''
+            mkdir -p "$path" && cd "$path"
+            "../../../$path/configure" $configureFlags $extraConfig
 
-          if [[ "$path" =~ "libs/luajit" ]] || [[ "$path" =~ "libs/pplib" ]]; then
-            # ../../../texk/web2c/mfluadir/luapeg/lpeg.h:29:10: fatal error: 'lua.h' file not found
-            # ../../../texk/web2c/luatexdir/luamd5/md5lib.c:197:10: fatal error: 'utilsha.h' file not found
-            make ''${enableParallelBuilding:+-j''${NIX_BUILD_CORES}}
-          fi
-        )
-      done
-    ''
-    ;
+            if [[ "$path" =~ "libs/luajit" ]] || [[ "$path" =~ "libs/pplib" ]]; then
+              # ../../../texk/web2c/mfluadir/luapeg/lpeg.h:29:10: fatal error: 'lua.h' file not found
+              # ../../../texk/web2c/luatexdir/luamd5/md5lib.c:197:10: fatal error: 'utilsha.h' file not found
+              make ''${enableParallelBuilding:+-j''${NIX_BUILD_CORES}}
+            fi
+          )
+        done
+      ''
+      ;
 
     preBuild = "cd texk/web2c";
     enableParallelBuilding = true;
 
     doCheck = false; # fails
 
-    # now distribute stuff into outputs, roughly as upstream TL
-    # (uninteresting stuff remains in $out, typically duplicates from `core`)
+      # now distribute stuff into outputs, roughly as upstream TL
+      # (uninteresting stuff remains in $out, typically duplicates from `core`)
     outputs = [
       "out"
       "metafont"
@@ -478,8 +480,9 @@ rec { # un-indented
     pname = "latexindent";
     inherit (src) version;
 
-    src = lib.head
-      (builtins.filter (p: p.tlType == "run") texlive.latexindent.pkgs);
+    src =
+      lib.head (builtins.filter (p: p.tlType == "run") texlive.latexindent.pkgs)
+      ;
 
     outputs = [ "out" ];
 
@@ -497,7 +500,7 @@ rec { # un-indented
         --replace '$FindBin::RealBin/defaultSettings.yaml' ${src}/scripts/latexindent/defaultSettings.yaml
     '';
 
-    # Dirty hack to apply perlFlags, but do no build
+      # Dirty hack to apply perlFlags, but do no build
     preConfigure = ''
       touch Makefile.PL
     '';
@@ -539,7 +542,8 @@ rec { # un-indented
     meta = with lib; {
       homepage = "https://www.ctan.org/pkg/pygmentex";
       description =
-        "Auxiliary tool for typesetting code listings in LaTeX documents using Pygments";
+        "Auxiliary tool for typesetting code listings in LaTeX documents using Pygments"
+        ;
       longDescription = ''
         PygmenTeX is a Python-based LaTeX package that can be used for
         typesetting code listings in a LaTeX document using Pygments.
@@ -635,7 +639,7 @@ rec { # un-indented
       substituteInPlace "$out/bin/xdvi" \
         --replace "exec xdvi-xaw" "exec '$out/bin/xdvi-xaw'"
     '';
-    # TODO: it's suspicious that mktexpk generates fonts into ~/.texlive2014
+      # TODO: it's suspicious that mktexpk generates fonts into ~/.texlive2014
   };
 
 } # un-indented
@@ -656,7 +660,7 @@ rec { # un-indented
     HOME = ".";
 
     prePatch = "cd utils/xindy";
-    # hardcode clisp location
+      # hardcode clisp location
     postPatch = ''
       substituteInPlace xindy-*/user-commands/xindy.in \
         --replace "our \$clisp = ( \$is_windows ? 'clisp.exe' : 'clisp' ) ;" \
@@ -680,7 +684,7 @@ rec { # un-indented
     ];
 
     preInstall = ''mkdir -p "$out/bin" '';
-    # fixup various file-location errors of: lib/xindy/{xindy.mem,modules/}
+      # fixup various file-location errors of: lib/xindy/{xindy.mem,modules/}
     postInstall = ''
       mkdir -p "$out/lib/xindy"
       mv "$out"/{bin/xindy.mem,lib/xindy/}

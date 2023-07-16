@@ -24,8 +24,8 @@ let
     hash = "sha256-m2mO37qNjrznpdKeFHq6yE8cZx4sHBvPB2RHUtS1Uis=";
   };
 
-  # keep the scope, as it is used throughout the derivation and tests
-  # this also makes potential future overrides easier
+    # keep the scope, as it is used throughout the derivation and tests
+    # this also makes potential future overrides easier
   pythonPackages = python3.pkgs.overrideScope (final: prev: rec { });
 
   offlineCache = fetchYarnDeps {

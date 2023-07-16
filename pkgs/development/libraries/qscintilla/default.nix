@@ -15,7 +15,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.riverbankcomputing.com/static/Downloads/QScintilla/${version}/QScintilla_src-${version}.tar.gz";
+      "https://www.riverbankcomputing.com/static/Downloads/QScintilla/${version}/QScintilla_src-${version}.tar.gz"
+      ;
     sha256 = "sha256-tsfl8ntR0l8J/mz4Sumn8Idq8NZdjMtVEQnm57JYhfQ=";
   };
 
@@ -30,8 +31,8 @@ stdenv.mkDerivation rec {
     qmake
   ] ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
 
-  # Make sure that libqscintilla2.so is available in $out/lib since it is expected
-  # by some packages such as sqlitebrowser
+    # Make sure that libqscintilla2.so is available in $out/lib since it is expected
+    # by some packages such as sqlitebrowser
   postFixup = ''
     ln -s $out/lib/libqscintilla2_qt5.so $out/lib/libqscintilla2.so
   '';

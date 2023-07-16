@@ -76,10 +76,12 @@ let
     udev
   ];
 
-  buildType = if debugBuild then
-    "Debug"
-  else
-    "Release";
+  buildType =
+    if debugBuild then
+      "Debug"
+    else
+      "Release"
+    ;
 
 in
 stdenv.mkDerivation rec {
@@ -109,20 +111,22 @@ stdenv.mkDerivation rec {
     inherit rev;
     hash = "sha256-Vud4nIT2c7uOK7GKKw3plf41WzKqhg+2xpIwB/LyqnE=";
   };
-  cef-bin = let
-    fileName =
-      "cef_binary_104.4.26+g4180781+chromium-104.0.5112.102_linux64_minimal";
-    urlName = builtins.replaceStrings [ "+" ] [ "%2B" ] fileName;
-  in
-  fetchzip rec {
-    name = fileName;
-    url = "https://cef-builds.spotifycdn.com/${urlName}.tar.bz2";
-    hash = "sha256-0PAWWBR+9TO8hhejydWz8R6Df3d9A/Mb0VL8stlPz5Q=";
-  }
-  ;
+  cef-bin =
+    let
+      fileName =
+        "cef_binary_104.4.26+g4180781+chromium-104.0.5112.102_linux64_minimal";
+      urlName = builtins.replaceStrings [ "+" ] [ "%2B" ] fileName;
+    in
+    fetchzip rec {
+      name = fileName;
+      url = "https://cef-builds.spotifycdn.com/${urlName}.tar.bz2";
+      hash = "sha256-0PAWWBR+9TO8hhejydWz8R6Df3d9A/Mb0VL8stlPz5Q=";
+    }
+    ;
   clang-fmt = fetchurl {
     url =
-      "https://storage.googleapis.com/chromium-clang-format/942fc8b1789144b8071d3fc03ff0fcbe1cf81ac8";
+      "https://storage.googleapis.com/chromium-clang-format/942fc8b1789144b8071d3fc03ff0fcbe1cf81ac8"
+      ;
     hash = "sha256-5iAU49tQmLS7zkS+6iGT+6SEdERRo1RkyRpiRvc9nVY=";
   };
 
@@ -165,7 +169,7 @@ stdenv.mkDerivation rec {
     ../tools/compile.sh linux64 Release
   '';
 
-  # Mostly taken from jb/tools/common/create_modules.sh
+    # Mostly taken from jb/tools/common/create_modules.sh
   installPhase = ''
     runHook preInstall
 

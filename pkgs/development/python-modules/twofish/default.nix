@@ -19,7 +19,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ javaobj-py3 ];
 
-  # No tests implemented
+    # No tests implemented
   doCheck = false;
 
   meta = {

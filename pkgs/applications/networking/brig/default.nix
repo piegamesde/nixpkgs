@@ -42,12 +42,13 @@ buildGoModule rec {
       --zsh $src/autocomplete/zsh_autocomplete
   '';
 
-  # There are no tests for the brig executable.
+    # There are no tests for the brig executable.
   doCheck = false;
 
   meta = with lib; {
     description =
-      "File synchronization on top of IPFS with a git-like interface and a FUSE filesystem";
+      "File synchronization on top of IPFS with a git-like interface and a FUSE filesystem"
+      ;
     longDescription = ''
       brig is a distributed and secure file synchronization tool with a version
       control system. It is based on IPFS, written in Go and will feel familiar

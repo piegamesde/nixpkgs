@@ -28,7 +28,8 @@ in {
         type = types.bool;
         default = false;
         description = lib.mdDoc
-          "Whether to include the shibauthorizer and shibresponder FastCGI processes";
+          "Whether to include the shibauthorizer and shibresponder FastCGI processes"
+          ;
       };
 
       fastcgi.shibAuthorizerPort = mkOption {
@@ -57,7 +58,8 @@ in {
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         ExecStart =
-          "${pkgs.shibboleth-sp}/bin/shibd -F -d ${pkgs.shibboleth-sp} -c ${cfg.configFile}";
+          "${pkgs.shibboleth-sp}/bin/shibd -F -d ${pkgs.shibboleth-sp} -c ${cfg.configFile}"
+          ;
       };
     };
 

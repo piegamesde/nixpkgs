@@ -25,7 +25,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "http://rogue.rogueforge.net/rogue-5-4/";
     description =
-      "The final version of the original Rogue game developed for the UNIX operating system";
+      "The final version of the original Rogue game developed for the UNIX operating system"
+      ;
     platforms = platforms.all;
     license = licenses.bsd3;
     maintainers = [ maintainers.eelco ];

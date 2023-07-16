@@ -25,7 +25,8 @@ buildGoModule rec {
     (fetchpatch {
       name = "non-linux-method-signature.patch";
       url =
-        "https://github.com/v-byte-cpu/sx/commit/56457bfaa49eb6fbb7a33d7092d9c636b9c85895.patch";
+        "https://github.com/v-byte-cpu/sx/commit/56457bfaa49eb6fbb7a33d7092d9c636b9c85895.patch"
+        ;
       hash = "sha256-0lCu3tZ0fEiC7qWfk1APLVwwrK9eovbVa/yG7OuXEWQ=";
     })
   ];

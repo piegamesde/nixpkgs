@@ -31,11 +31,12 @@ buildPythonPackage rec {
     hash = "sha256-WnJYMk1gPLT0dBn7lmxVDNVkLYkDCgQOtM9fQ3kc6k0=";
   };
 
-  # It tries to write to file relative to it own location at runtime
-  # and gets permission denied, since Nix store is immutable.
+    # It tries to write to file relative to it own location at runtime
+    # and gets permission denied, since Nix store is immutable.
   patches = [ (fetchpatch {
     url =
-      "https://github.com/humitos/sphinx-version-warning/commit/cb1b47becf2a0d3b2570ca9929f42f7d7e472b6f.patch";
+      "https://github.com/humitos/sphinx-version-warning/commit/cb1b47becf2a0d3b2570ca9929f42f7d7e472b6f.patch"
+      ;
     hash = "sha256-Vj0QAHIBmc0VxE+TTmJePzvr5nc45Sn2qqM+C/pkgtM=";
   }) ];
 
@@ -55,7 +56,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "A sphinx extension to show a warning banner at the top of your documentation";
+      "A sphinx extension to show a warning banner at the top of your documentation"
+      ;
     homepage = "https://github.com/humitos/sphinx-version-warning";
     license = licenses.mit;
     maintainers = with maintainers; [ kaction ];

@@ -13,19 +13,21 @@
 
 let
   # Although those headers are also included in the source of `sgx-psw`, the `azure-dcap-client` build needs specific versions
-  filterSparse = list: ''
-    cp -r "$out"/. .
-    find "$out" -mindepth 1 -delete
-    cp ${lib.concatStringsSep " " list} "$out/"
-  '';
+  filterSparse =
+    list: ''
+      cp -r "$out"/. .
+      find "$out" -mindepth 1 -delete
+      cp ${lib.concatStringsSep " " list} "$out/"
+    ''
+    ;
   headers = linkFarmFromDrvs "azure-dcpa-client-intel-headers" [
     (fetchFromGitHub rec {
       name = "${repo}-headers";
       owner = "intel";
       repo = "SGXDataCenterAttestationPrimitives";
       rev = "0436284f12f1bd5da7e7a06f6274d36b4c8d39f9";
-      sparseCheckout =
-        [ "QuoteGeneration/quote_wrapper/common/inc/sgx_ql_lib_common.h" ];
+      sparseCheckout = [ "QuoteGeneration/quote_wrapper/common/inc/sgx_ql_lib_common.h" ]
+        ;
       hash = "sha256-ipKpYHbiwjCUXF/pCArJZy5ko1YX2wqMMdSnMUzhkgY=";
       postFetch = filterSparse sparseCheckout;
     })
@@ -79,13 +81,14 @@ stdenv.mkDerivation rec {
     "prefix=$(out)"
   ];
 
-  # Online test suite; run with
-  # $(nix-build -A sgx-azure-dcap-client.tests.suite)/bin/tests
+    # Online test suite; run with
+    # $(nix-build -A sgx-azure-dcap-client.tests.suite)/bin/tests
   passthru.tests.suite = callPackage ./test-suite.nix { };
 
   meta = with lib; {
     description =
-      "Interfaces between SGX SDKs and the Azure Attestation SGX Certification Cache";
+      "Interfaces between SGX SDKs and the Azure Attestation SGX Certification Cache"
+      ;
     homepage = "https://github.com/microsoft/azure-dcap-client";
     maintainers = with maintainers; [
       trundle

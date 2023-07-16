@@ -31,7 +31,7 @@ buildPythonPackage rec {
     })
   ];
 
-  # x86 instructions are needed for this component
+    # x86 instructions are needed for this component
   BUILD_VDF_CLIENT = lib.optionalString (!stdenv.isx86_64) "N";
 
   nativeBuildInputs = [
@@ -47,7 +47,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  # CMake needs to be run by setuptools rather than by its hook
+    # CMake needs to be run by setuptools rather than by its hook
   dontConfigure = true;
 
   meta = with lib; {

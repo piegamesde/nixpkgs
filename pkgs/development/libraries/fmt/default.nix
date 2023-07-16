@@ -8,7 +8,8 @@
 }:
 
 let
-  generic = {
+  generic =
+    {
       version,
       sha256,
       patches ? [ ]
@@ -54,7 +55,8 @@ let
         license = licenses.mit;
         platforms = platforms.all;
       };
-    };
+    }
+    ;
 in {
   fmt_8 = generic {
     version = "8.1.1";

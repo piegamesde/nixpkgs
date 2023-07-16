@@ -39,7 +39,7 @@ buildPythonPackage rec {
     torch
   ];
 
-  # create niapy and torch dep version consistent
+    # create niapy and torch dep version consistent
   preBuild = ''
     toml-adapt -path pyproject.toml -a change -dep niapy -ver X
     toml-adapt -path pyproject.toml -a change -dep torch -ver X
@@ -51,7 +51,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Designing and constructing neural network topologies using nature-inspired algorithms";
+      "Designing and constructing neural network topologies using nature-inspired algorithms"
+      ;
     homepage = "https://github.com/SasoPavlic/NiaNet";
     changelog = "https://github.com/SasoPavlic/NiaNet/releases/tag/v${version}";
     license = licenses.mit;

@@ -14,17 +14,19 @@ let
   configFile = settingsFormat.generate "thinkfan.yaml" cfg.settings;
   thinkfan = pkgs.thinkfan.override { inherit (cfg) smartSupport; };
 
-  # fan-speed and temperature levels
+    # fan-speed and temperature levels
   levelType = with types;
     let
-      tuple = ts:
+      tuple =
+        ts:
         mkOptionType {
           name = "tuple";
           merge = mergeOneOption;
           check = xs: all id (zipListsWith (t: x: t.check x) ts xs);
-          description = "tuple of"
-            + concatMapStrings (t: " (${t.description})") ts;
-        };
+          description =
+            "tuple of" + concatMapStrings (t: " (${t.description})") ts;
+        }
+        ;
       level = ints.unsigned;
       special = enum [
         "level auto"
@@ -37,10 +39,11 @@ let
       level
       level
     ]
-  ;
+    ;
 
-  # sensor or fan config
-  sensorType = name:
+    # sensor or fan config
+  sensorType =
+    name:
     types.submodule {
       freeformType = types.attrsOf settingsFormat.type;
       options = {
@@ -97,10 +100,12 @@ let
           '';
         };
       };
-    };
+    }
+    ;
 
-  # removes NixOS special and unused attributes
-  sensorToConf = {
+    # removes NixOS special and unused attributes
+  sensorToConf =
+    {
       type,
       query,
       ...
@@ -111,22 +116,25 @@ let
         "query"
       ])) args) // {
         "${type}" = query;
-      };
+      }
+    ;
 
-  syntaxNote = name: ''
-    ::: {.note}
-    This section slightly departs from the thinkfan.conf syntax.
-    The type and path must be specified like this:
-    ```
-      type = "tpacpi";
-      query = "/proc/acpi/ibm/${name}";
-    ```
-    instead of a single declaration like:
-    ```
-      - tpacpi: /proc/acpi/ibm/${name}
-    ```
-    :::
-  '';
+  syntaxNote =
+    name: ''
+      ::: {.note}
+      This section slightly departs from the thinkfan.conf syntax.
+      The type and path must be specified like this:
+      ```
+        type = "tpacpi";
+        query = "/proc/acpi/ibm/${name}";
+      ```
+      instead of a single declaration like:
+      ```
+        - tpacpi: /proc/acpi/ibm/${name}
+      ```
+      :::
+    ''
+    ;
 
 in {
 
@@ -281,7 +289,7 @@ in {
         configFile
       ] ++ cfg.extraArgs);
 
-      # must be added manually, see issue #81138
+        # must be added manually, see issue #81138
       thinkfan.wantedBy = [ "multi-user.target" ];
       thinkfan-wakeup.wantedBy = [ "sleep.target" ];
       thinkfan-sleep.wantedBy = [ "sleep.target" ];

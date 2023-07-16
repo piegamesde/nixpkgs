@@ -28,26 +28,28 @@ let
   # built with cuda support. This may be removed once
   # #226165 rewrites cudaStdenv
   inherit (cudaPackages) backendStdenv;
-  stdenv = if cudaSupport then
-    backendStdenv
-  else
-    inputs.stdenv;
+  stdenv =
+    if cudaSupport then
+      backendStdenv
+    else
+      inputs.stdenv
+    ;
 
 in
 stdenv.mkDerivation rec {
   pnameBase = "xgboost";
-  # prefix with r when building the R library
-  # The R package build results in a special xgboost.so file
-  # that contains a subset of the .so file use for the CLI
-  # and python version. In general, the CRAN version from
-  # nixpkgs's r-modules should be used, but this non-standard
-  # build allows for enabling CUDA and NCCL support which aren't
-  # included in the CRAN release. Build with:
-  # nix-build -E "with (import $NIXPKGS{}); \
-  #   let \
-  #     xgb = xgboost.override{rLibrary = true; doCheck = false;}; \
-  #   in \
-  #   rWrapper.override{ packages = [ xgb ]; }"
+    # prefix with r when building the R library
+    # The R package build results in a special xgboost.so file
+    # that contains a subset of the .so file use for the CLI
+    # and python version. In general, the CRAN version from
+    # nixpkgs's r-modules should be used, but this non-standard
+    # build allows for enabling CUDA and NCCL support which aren't
+    # included in the CRAN release. Build with:
+    # nix-build -E "with (import $NIXPKGS{}); \
+    #   let \
+    #     xgb = xgboost.override{rLibrary = true; doCheck = false;}; \
+    #   in \
+    #   rWrapper.override{ packages = [ xgb ]; }"
   pname = lib.optionalString rLibrary "r-" + pnameBase;
   version = "1.7.5";
 
@@ -103,41 +105,43 @@ stdenv.mkDerivation rec {
     }
   '';
 
-  # Disable finicky tests from dmlc core that fail in Hydra. XGboost team
-  # confirmed xgboost itself does not use this part of the dmlc code.
-  GTEST_FILTER = let
-    # Upstream Issue: https://github.com/xtensor-stack/xsimd/issues/456
-    filteredTests = lib.optionals stdenv.hostPlatform.isDarwin [
-      "ThreadGroup.TimerThread"
-      "ThreadGroup.TimerThreadSimple"
-    ];
-  in
-  "-${builtins.concatStringsSep ":" filteredTests}"
-  ;
+    # Disable finicky tests from dmlc core that fail in Hydra. XGboost team
+    # confirmed xgboost itself does not use this part of the dmlc code.
+  GTEST_FILTER =
+    let
+      # Upstream Issue: https://github.com/xtensor-stack/xsimd/issues/456
+      filteredTests = lib.optionals stdenv.hostPlatform.isDarwin [
+        "ThreadGroup.TimerThread"
+        "ThreadGroup.TimerThreadSimple"
+      ];
+    in
+    "-${builtins.concatStringsSep ":" filteredTests}"
+    ;
 
-  installPhase = let
-    libname = "libxgboost${stdenv.hostPlatform.extensions.sharedLibrary}";
-  in
-  ''
-    runHook preInstall
-    mkdir -p $out
-    cp -r ../include $out
-    cp -r ../dmlc-core/include/dmlc $out/include
-    cp -r ../rabit/include/rabit $out/include
-  '' + lib.optionalString (!rLibrary) ''
-    install -Dm755 ../lib/${libname} $out/lib/${libname}
-    install -Dm755 ../xgboost $out/bin/xgboost
-  ''
-  # the R library option builds a completely different binary xgboost.so instead of
-  # libxgboost.so, which isn't full featured for python and CLI
-  + lib.optionalString rLibrary ''
-    mkdir $out/library
-    export R_LIBS_SITE="$out/library:$R_LIBS_SITE''${R_LIBS_SITE:+:}"
-    make install -l $out/library
-  '' + ''
-    runHook postInstall
-  ''
-  ;
+  installPhase =
+    let
+      libname = "libxgboost${stdenv.hostPlatform.extensions.sharedLibrary}";
+    in
+    ''
+      runHook preInstall
+      mkdir -p $out
+      cp -r ../include $out
+      cp -r ../dmlc-core/include/dmlc $out/include
+      cp -r ../rabit/include/rabit $out/include
+    '' + lib.optionalString (!rLibrary) ''
+      install -Dm755 ../lib/${libname} $out/lib/${libname}
+      install -Dm755 ../xgboost $out/bin/xgboost
+    ''
+    # the R library option builds a completely different binary xgboost.so instead of
+    # libxgboost.so, which isn't full featured for python and CLI
+    + lib.optionalString rLibrary ''
+      mkdir $out/library
+      export R_LIBS_SITE="$out/library:$R_LIBS_SITE''${R_LIBS_SITE:+:}"
+      make install -l $out/library
+    '' + ''
+      runHook postInstall
+    ''
+    ;
 
   postFixup = lib.optionalString rLibrary ''
     if test -e $out/nix-support/propagated-build-inputs; then
@@ -147,7 +151,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Scalable, Portable and Distributed Gradient Boosting (GBDT, GBRT or GBM) Library";
+      "Scalable, Portable and Distributed Gradient Boosting (GBDT, GBRT or GBM) Library"
+      ;
     homepage = "https://github.com/dmlc/xgboost";
     license = licenses.asl20;
     platforms = platforms.unix;

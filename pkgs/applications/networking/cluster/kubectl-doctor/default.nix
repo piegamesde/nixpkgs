@@ -20,7 +20,8 @@ buildGoModule rec {
     # https://github.com/emirozer/kubectl-doctor/pull/21
     name = "go-1.19-client-go-0.25.patch";
     url =
-      "https://github.com/emirozer/kubectl-doctor/commit/a987ef58063e305409034af280d688a11682dbb9.patch";
+      "https://github.com/emirozer/kubectl-doctor/commit/a987ef58063e305409034af280d688a11682dbb9.patch"
+      ;
     sha256 = "sha256-NQd/WxUfYwBDowhnoUWaOV8k7msiOhff3Bjux+a9R9E=";
   }) ];
 

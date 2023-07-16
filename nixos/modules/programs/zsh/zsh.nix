@@ -286,17 +286,17 @@ in {
       fi
     '';
 
-    # Bug in nix flakes:
-    # If we use `.source` here the path is garbage collected also we point to it with a symlink
-    # see https://github.com/NixOS/nixpkgs/issues/132732
+      # Bug in nix flakes:
+      # If we use `.source` here the path is garbage collected also we point to it with a symlink
+      # see https://github.com/NixOS/nixpkgs/issues/132732
     environment.etc.zinputrc.text = builtins.readFile ./zinputrc;
 
-    environment.systemPackages = [ pkgs.zsh ]
-      ++ optional cfg.enableCompletion pkgs.nix-zsh-completions;
+    environment.systemPackages =
+      [ pkgs.zsh ] ++ optional cfg.enableCompletion pkgs.nix-zsh-completions;
 
     environment.pathsToLink = optional cfg.enableCompletion "/share/zsh";
 
-    #users.defaultUserShell = mkDefault "/run/current-system/sw/bin/zsh";
+      #users.defaultUserShell = mkDefault "/run/current-system/sw/bin/zsh";
 
     environment.shells = [
       "/run/current-system/sw/bin/zsh"

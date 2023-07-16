@@ -43,17 +43,17 @@ import ./default.nix {
 
   llvmBootstrapForDarwin = llvmPackages_11;
 
-  # For use at runtime
+    # For use at runtime
   llvmShared = llvm_15.override { enableSharedLibraries = true; };
 
-  # Expose llvmPackages used for rustc from rustc via passthru for LTO in Firefox
+    # Expose llvmPackages used for rustc from rustc via passthru for LTO in Firefox
   llvmPackages = llvmPackages_15;
 
-  # Note: the version MUST be one version prior to the version we're
-  # building
+    # Note: the version MUST be one version prior to the version we're
+    # building
   bootstrapVersion = "1.68.2";
 
-  # fetch hashes by running `print-hashes.sh ${bootstrapVersion}`
+    # fetch hashes by running `print-hashes.sh ${bootstrapVersion}`
   bootstrapHashes = {
     i686-unknown-linux-gnu =
       "a85e1aa0831e8bd31dc8ba3e042b6dea69b4d45fd5d1111bf6fd2cc9d58dd619";

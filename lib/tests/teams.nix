@@ -9,7 +9,8 @@
 let
   inherit (lib) types;
 
-  teamModule = {
+  teamModule =
+    {
       config,
       ...
     }: {
@@ -30,9 +31,11 @@ let
           default = [ ];
         };
       };
-    };
+    }
+    ;
 
-  checkTeam = team: uncheckedAttrs:
+  checkTeam =
+    team: uncheckedAttrs:
     let
       prefix = [
         "lib"
@@ -51,7 +54,7 @@ let
       }).config;
     in
     checkedAttrs
-  ;
+    ;
 
   checkedTeams = lib.mapAttrs checkTeam lib.teams;
 in

@@ -56,7 +56,8 @@ stdenv.mkDerivation rec {
     # https://reviews.llvm.org/D132298, Allow building libcxxabi alone
     (fetchpatch {
       url =
-        "https://github.com/llvm/llvm-project/commit/e6a0800532bb409f6d1c62f3698bdd6994a877dc.patch";
+        "https://github.com/llvm/llvm-project/commit/e6a0800532bb409f6d1c62f3698bdd6994a877dc.patch"
+        ;
       sha256 = "1xyjd56m4pfwq8p3xh6i8lhkk9kq15jaml7qbhxdf87z4jjkk63a";
       stripLen = 1;
     })
@@ -132,8 +133,8 @@ stdenv.mkDerivation rec {
     longDescription = ''
       libc++abi is a new implementation of low level support for a standard C++ library.
     '';
-    # "All of the code in libc++abi is dual licensed under the MIT license and
-    # the UIUC License (a BSD-like license)":
+      # "All of the code in libc++abi is dual licensed under the MIT license and
+      # the UIUC License (a BSD-like license)":
     license = with lib.licenses; [
       mit
       ncsa

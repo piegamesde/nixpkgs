@@ -39,7 +39,7 @@ buildPythonPackage rec {
     websockets
   ];
 
-  # no tests implemented
+    # no tests implemented
   doCheck = false;
 
   pythonImportsCheck = [ "sense_energy" ];

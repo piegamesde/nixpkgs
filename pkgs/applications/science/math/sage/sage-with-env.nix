@@ -48,25 +48,29 @@ let
     ecm
   ];
 
-  # remove python prefix, replace "-" in the name by "_", apply patch_names
-  # python3.8-some-pkg-1.0 -> some_pkg-1.0
-  pkg_to_spkg_name = pkg: patch_names:
+    # remove python prefix, replace "-" in the name by "_", apply patch_names
+    # python3.8-some-pkg-1.0 -> some_pkg-1.0
+  pkg_to_spkg_name =
+    pkg: patch_names:
     let
       parts = lib.splitString "-" pkg.name;
-      # remove python3.8-
-      stripped_parts = if (builtins.head parts) == python3.libPrefix then
-        builtins.tail parts
-      else
-        parts;
+        # remove python3.8-
+      stripped_parts =
+        if (builtins.head parts) == python3.libPrefix then
+          builtins.tail parts
+        else
+          parts
+        ;
       version = lib.last stripped_parts;
       orig_pkgname = lib.init stripped_parts;
       pkgname = patch_names (lib.concatStringsSep "_" orig_pkgname);
     in
     pkgname + "-" + version
-  ;
+    ;
 
-  # return the names of all dependencies in the transitive closure
-  transitiveClosure = dep:
+    # return the names of all dependencies in the transitive closure
+  transitiveClosure =
+    dep:
     if
       dep == null
     then
@@ -78,14 +82,16 @@ let
         lib.unique
         (builtins.concatLists (map transitiveClosure dep.propagatedBuildInputs))
       else
-        [ ]);
+        [ ])
+    ;
 
-  allInputs = lib.remove null (nativeBuildInputs ++ buildInputs
-    ++ pythonEnv.extraLibs ++ [ makeWrapper ]);
+  allInputs = lib.remove null
+    (nativeBuildInputs ++ buildInputs ++ pythonEnv.extraLibs ++ [ makeWrapper ])
+    ;
   transitiveDeps =
     lib.unique (builtins.concatLists (map transitiveClosure allInputs));
-  # fix differences between spkg and sage names
-  # (could patch sage instead, but this is more lightweight and also works for packages depending on sage)
+    # fix differences between spkg and sage names
+    # (could patch sage instead, but this is more lightweight and also works for packages depending on sage)
   patch_names = builtins.replaceStrings [
     "zope.interface"
     "node_three"
@@ -93,7 +99,7 @@ let
     "zope_interface"
     "threejs"
   ];
-  # spkg names (this_is_a_package-version) of all transitive deps
+    # spkg names (this_is_a_package-version) of all transitive deps
   input_names = map (dep: pkg_to_spkg_name dep patch_names) transitiveDeps;
 in
 stdenv.mkDerivation rec {

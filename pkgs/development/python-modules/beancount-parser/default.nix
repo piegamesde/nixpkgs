@@ -34,7 +34,8 @@ buildPythonPackage rec {
     description = "Standalone Lark based Beancount syntax parser";
     homepage = "https://github.com/LaunchPlatform/beancount-parser/";
     changelog =
-      "https://github.com/LaunchPlatform/beancount-parser/releases/tag/${version}";
+      "https://github.com/LaunchPlatform/beancount-parser/releases/tag/${version}"
+      ;
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ ambroisie ];
   };

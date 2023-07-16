@@ -16,7 +16,7 @@ buildDunePackage rec {
 
   duneVersion = "3";
 
-  # Fixes https://github.com/mirage/metrics/issues/57
+    # Fixes https://github.com/mirage/metrics/issues/57
   postPatch = ''
     substituteInPlace src/unix/dune --replace "mtime mtime.clock" "mtime"
   '';
@@ -34,8 +34,7 @@ buildDunePackage rec {
 
   doCheck = true;
 
-  meta = metrics.meta // {
-    description = "Unix backend for the Metrics library";
-  };
+  meta =
+    metrics.meta // { description = "Unix backend for the Metrics library"; };
 
 }

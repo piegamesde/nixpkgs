@@ -46,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
     "-DCMAKE_INSTALL_INCLUDEDIR=include"
   ] ++ lib.optionals buildTests [ "-DBUILD_TESTS=ON" ];
 
-  # Replace the manually set parallel jobs to NIX_BUILD_CORES
+    # Replace the manually set parallel jobs to NIX_BUILD_CORES
   postPatch = ''
     substituteInPlace CMakeLists.txt \
       --replace "8 P" "$NIX_BUILD_CORES P" \

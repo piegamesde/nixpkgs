@@ -49,7 +49,7 @@ in {
     "extraConfig"
   ] "Use services.zabbixProxy.settings instead.") ];
 
-  # interface
+    # interface
 
   options = {
 
@@ -65,12 +65,14 @@ in {
 
       package = mkOption {
         type = types.package;
-        default = if cfg.database.type == "mysql" then
-          pkgs.zabbix.proxy-mysql
-        else if cfg.database.type == "pgsql" then
-          pkgs.zabbix.proxy-pgsql
-        else
-          pkgs.zabbix.proxy-sqlite;
+        default =
+          if cfg.database.type == "mysql" then
+            pkgs.zabbix.proxy-mysql
+          else if cfg.database.type == "pgsql" then
+            pkgs.zabbix.proxy-pgsql
+          else
+            pkgs.zabbix.proxy-sqlite
+          ;
         defaultText = literalExpression "pkgs.zabbix.proxy-pgsql";
         description = lib.mdDoc "The Zabbix package to use.";
       };
@@ -129,10 +131,12 @@ in {
 
         port = mkOption {
           type = types.port;
-          default = if cfg.database.type == "mysql" then
-            mysql.port
-          else
-            pgsql.port;
+          default =
+            if cfg.database.type == "mysql" then
+              mysql.port
+            else
+              pgsql.port
+            ;
           defaultText = literalExpression ''
             if config.${opt.database.type} == "mysql"
             then config.${options.services.mysql.port}
@@ -143,10 +147,12 @@ in {
 
         name = mkOption {
           type = types.str;
-          default = if cfg.database.type == "sqlite" then
-            "${stateDir}/zabbix.db"
-          else
-            "zabbix";
+          default =
+            if cfg.database.type == "sqlite" then
+              "${stateDir}/zabbix.db"
+            else
+              "zabbix"
+            ;
           defaultText = literalExpression "zabbix";
           description = lib.mdDoc "Database name.";
         };
@@ -234,7 +240,7 @@ in {
 
   };
 
-  # implementation
+    # implementation
 
   config = mkIf cfg.enable {
 
@@ -247,13 +253,15 @@ in {
       {
         assertion = cfg.database.createLocally -> cfg.database.user == user;
         message =
-          "services.zabbixProxy.database.user must be set to ${user} if services.zabbixProxy.database.createLocally is set true";
+          "services.zabbixProxy.database.user must be set to ${user} if services.zabbixProxy.database.createLocally is set true"
+          ;
       }
       {
-        assertion = cfg.database.createLocally -> cfg.database.passwordFile
-          == null;
+        assertion =
+          cfg.database.createLocally -> cfg.database.passwordFile == null;
         message =
-          "a password cannot be specified if services.zabbixProxy.database.createLocally is set to true";
+          "a password cannot be specified if services.zabbixProxy.database.createLocally is set to true"
+          ;
       }
     ];
 
@@ -263,7 +271,7 @@ in {
         ListenIP = cfg.listen.ip;
         ListenPort = cfg.listen.port;
         Server = cfg.server;
-        # TODO: set to cfg.database.socket if database type is pgsql?
+          # TODO: set to cfg.database.socket if database type is pgsql?
         DBHost =
           optionalString (cfg.database.createLocally != true) cfg.database.host;
         DBName = cfg.database.name;
@@ -366,7 +374,8 @@ in {
 
       serviceConfig = {
         ExecStart =
-          "@${cfg.package}/sbin/zabbix_proxy zabbix_proxy -f --config ${configFile}";
+          "@${cfg.package}/sbin/zabbix_proxy zabbix_proxy -f --config ${configFile}"
+          ;
         Restart = "always";
         RestartSec = 2;
 

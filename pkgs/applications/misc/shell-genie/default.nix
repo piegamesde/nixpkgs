@@ -28,7 +28,7 @@ buildPythonPackage rec {
     typer
   ] ++ typer.optional-dependencies.all;
 
-  # No tests available
+    # No tests available
   doCheck = false;
 
   pythonImportsCheck = [ "shell_genie" ];

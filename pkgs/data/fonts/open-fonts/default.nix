@@ -10,7 +10,8 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/kiwi0fruit/open-fonts/releases/download/${version}/open-fonts.tar.xz";
+      "https://github.com/kiwi0fruit/open-fonts/releases/download/${version}/open-fonts.tar.xz"
+      ;
     hash = "sha256-NJKbdrvgZz9G7mjAJYzN7rU/fo2xRFZA2BbQ+A56iPw=";
   };
 

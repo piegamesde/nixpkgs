@@ -17,13 +17,13 @@ let
   version = virtualbox.version;
   xserverVListFunc = builtins.elemAt (lib.splitVersion xorg.xorgserver.version);
 
-  # Forced to 1.18; vboxvideo doesn't seem to provide any newer ABI,
-  # and nixpkgs doesn't support older ABIs anymore.
+    # Forced to 1.18; vboxvideo doesn't seem to provide any newer ABI,
+    # and nixpkgs doesn't support older ABIs anymore.
   xserverABI = "118";
 
-  # Specifies how to patch binaries to make sure that libraries loaded using
-  # dlopen are found. We grep binaries for specific library names and patch
-  # RUNPATH in matching binaries to contain the needed library paths.
+    # Specifies how to patch binaries to make sure that libraries loaded using
+    # dlopen are found. We grep binaries for specific library names and patch
+    # RUNPATH in matching binaries to contain the needed library paths.
   dlopenLibs = [
     {
       name = "libdbus-1.so";
@@ -45,7 +45,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://download.virtualbox.org/virtualbox/${version}/VBoxGuestAdditions_${version}.iso";
+      "http://download.virtualbox.org/virtualbox/${version}/VBoxGuestAdditions_${version}.iso"
+      ;
     sha256 = "21e0f407d2a4f5c286084a70718aa20235ea75969eca0cab6cfab43a3499a010";
   };
 
@@ -56,7 +57,8 @@ stdenv.mkDerivation rec {
   hardeningDisable = [ "pic" ];
 
   env.NIX_CFLAGS_COMPILE =
-    "-Wno-error=incompatible-pointer-types -Wno-error=implicit-function-declaration";
+    "-Wno-error=incompatible-pointer-types -Wno-error=implicit-function-declaration"
+    ;
 
   nativeBuildInputs = [
     patchelf
@@ -181,10 +183,10 @@ stdenv.mkDerivation rec {
     install -m 644 other/vboxvideo_drv_${xserverABI}.so $out/lib/xorg/modules/drivers/vboxvideo_drv.so
   '';
 
-  # Stripping breaks these binaries for some reason.
+    # Stripping breaks these binaries for some reason.
   dontStrip = true;
 
-  # Patch RUNPATH according to dlopenLibs (see the comment there).
+    # Patch RUNPATH according to dlopenLibs (see the comment there).
   postFixup = lib.concatMapStrings (library: ''
     for i in $(grep -F ${
       lib.escapeShellArg library.name

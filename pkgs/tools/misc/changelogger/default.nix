@@ -38,7 +38,8 @@ buildGoModule rec {
     description = "A tool to manage your changelog file in Markdown";
     homepage = "https://github.com/MarkusFreitag/changelogger";
     changelog =
-      "https://github.com/MarkusFreitag/changelogger/blob/v${version}/CHANGELOG.md";
+      "https://github.com/MarkusFreitag/changelogger/blob/v${version}/CHANGELOG.md"
+      ;
     license = licenses.mit;
     maintainers = with maintainers; [ tomsiewert ];
   };

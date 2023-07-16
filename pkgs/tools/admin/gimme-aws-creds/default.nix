@@ -10,34 +10,36 @@
 
 let
   python = python3.override {
-    packageOverrides = self: super: {
-      fido2 = super.fido2.overridePythonAttrs (oldAttrs: rec {
-        version = "0.9.3";
-        format = "setuptools";
-        src = self.fetchPypi {
-          inherit (oldAttrs) pname;
-          inherit version;
-          hash = "sha256-tF6JphCc/Lfxu1E3dqotZAjpXEgi+DolORi5RAg0Zuw=";
-        };
-      });
+    packageOverrides =
+      self: super: {
+        fido2 = super.fido2.overridePythonAttrs (oldAttrs: rec {
+          version = "0.9.3";
+          format = "setuptools";
+          src = self.fetchPypi {
+            inherit (oldAttrs) pname;
+            inherit version;
+            hash = "sha256-tF6JphCc/Lfxu1E3dqotZAjpXEgi+DolORi5RAg0Zuw=";
+          };
+        });
 
-      okta = super.okta.overridePythonAttrs (oldAttrs: rec {
-        version = "0.0.4";
-        format = "setuptools";
-        src = self.fetchPypi {
-          inherit (oldAttrs) pname;
-          inherit version;
-          hash = "sha256-U+eSxo02hP9BQLTLHAKvOCEJA2j4EQ/eVMC9tjhEkzI=";
-        };
-        propagatedBuildInputs = [
-          self.six
-          self.python-dateutil
-          self.requests
-        ];
-        pythonImportsCheck = [ "okta" ];
-        doCheck = false; # no tests were included with this version
-      });
-    };
+        okta = super.okta.overridePythonAttrs (oldAttrs: rec {
+          version = "0.0.4";
+          format = "setuptools";
+          src = self.fetchPypi {
+            inherit (oldAttrs) pname;
+            inherit version;
+            hash = "sha256-U+eSxo02hP9BQLTLHAKvOCEJA2j4EQ/eVMC9tjhEkzI=";
+          };
+          propagatedBuildInputs = [
+            self.six
+            self.python-dateutil
+            self.requests
+          ];
+          pythonImportsCheck = [ "okta" ];
+          doCheck = false; # no tests were included with this version
+        });
+      }
+      ;
   };
 in
 python.pkgs.buildPythonApplication rec {
@@ -101,7 +103,8 @@ python.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/Nike-Inc/gimme-aws-creds";
     changelog = "https://github.com/Nike-Inc/gimme-aws-creds/releases";
     description =
-      "A CLI that utilizes Okta IdP via SAML to acquire temporary AWS credentials";
+      "A CLI that utilizes Okta IdP via SAML to acquire temporary AWS credentials"
+      ;
     license = licenses.asl20;
     maintainers = with maintainers; [ dennajort ];
   };

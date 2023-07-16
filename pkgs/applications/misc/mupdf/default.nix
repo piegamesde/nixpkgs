@@ -32,8 +32,8 @@
 let
 
   # OpenJPEG version is hardcoded in package source
-  openJpegVersion = with stdenv;
-    lib.versions.majorMinor (lib.getVersion openjpeg);
+  openJpegVersion =
+    with stdenv; lib.versions.majorMinor (lib.getVersion openjpeg);
 
   freeglut-mupdf = freeglut.overrideAttrs (old: rec {
     pname = "freeglut-mupdf";
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
     substituteInPlace Makerules --replace "(shell pkg-config" "(shell $PKG_CONFIG"
   '';
 
-  # Use shared libraries to decrease size
+    # Use shared libraries to decrease size
   buildFlags = [ "shared" ];
 
   makeFlags = [
@@ -184,7 +184,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://mupdf.com";
     description =
-      "Lightweight PDF, XPS, and E-book viewer and toolkit written in portable C";
+      "Lightweight PDF, XPS, and E-book viewer and toolkit written in portable C"
+      ;
     license = licenses.agpl3Plus;
     maintainers = with maintainers; [
       vrthra

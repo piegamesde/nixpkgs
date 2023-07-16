@@ -37,7 +37,7 @@ buildPythonPackage rec {
     pyviz-comms
   ];
 
-  # tests not fully included with pypi release
+    # tests not fully included with pypi release
   doCheck = false;
 
   pythonImportsCheck = [ "holoviews" ];

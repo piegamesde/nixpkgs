@@ -61,10 +61,10 @@ stdenv.mkDerivation rec {
     # needs 'transcendentals' executable, which is only on linux
   doCheck = stdenv.isLinux;
 
-  # the compiler enforces -Werror, and -fno-strict-overflow makes it mad.
-  # hilariously this is something of a double negative: 'disable' the
-  # 'strictoverflow' hardening protection actually means we *allow* the compiler
-  # to do strict overflow optimization. somewhat misleading...
+    # the compiler enforces -Werror, and -fno-strict-overflow makes it mad.
+    # hilariously this is something of a double negative: 'disable' the
+    # 'strictoverflow' hardening protection actually means we *allow* the compiler
+    # to do strict overflow optimization. somewhat misleading...
   hardeningDisable = [ "strictoverflow" ];
 
   checkPhase = ''

@@ -34,9 +34,9 @@ buildPythonPackage rec {
       --replace '"libEGL.so"' '"${libGL}/lib/libEGL.so"'
   '';
 
-  # Tests fail because they try to open display. See
-  # https://github.com/NixOS/nixpkgs/pull/121439
-  # for details.
+    # Tests fail because they try to open display. See
+    # https://github.com/NixOS/nixpkgs/pull/121439
+    # for details.
   doCheck = false;
 
   pythonImportsCheck = [ "glcontext" ];

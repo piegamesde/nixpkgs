@@ -28,7 +28,8 @@ stdenv.mkDerivation rec {
     # Backport cross fix.
     (fetchpatch {
       url =
-        "https://github.com/libmtp/libmtp/commit/467fa26e6b14c0884b15cf6d191de97e5513fe05.patch";
+        "https://github.com/libmtp/libmtp/commit/467fa26e6b14c0884b15cf6d191de97e5513fe05.patch"
+        ;
       sha256 = "2DrRrdcguJ9su4LxtT6YOjer8gUTxIoHVpk+6M9P4cg=";
     })
   ];
@@ -61,7 +62,8 @@ stdenv.mkDerivation rec {
   ];
 
   makeFlags = lib.optionals (stdenv.isLinux && !stdenv.buildPlatform.canExecute
-    stdenv.hostPlatform) [ "MTP_HOTPLUG=${buildPackages.libmtp}/bin/mtp-hotplug" ];
+    stdenv.hostPlatform) [ "MTP_HOTPLUG=${buildPackages.libmtp}/bin/mtp-hotplug" ]
+    ;
 
   enableParallelBuilding = true;
 

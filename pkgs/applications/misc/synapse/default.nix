@@ -24,7 +24,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://launchpad.net/synapse-project/0.3/${version}/+download/${pname}-${version}.tar.xz";
+      "https://launchpad.net/synapse-project/0.3/${version}/+download/${pname}-${version}.tar.xz"
+      ;
     sha256 = "1g6x9knb4jy1d8zgssjhzkgac583137pibisy9whjs8mckaj4k1j";
   };
 

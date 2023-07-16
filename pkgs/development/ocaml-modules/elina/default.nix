@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "1nymykskq1yx87y4xl6hl9i4q6kv0qaq25rniqgl1bfn883p1ysc";
   };
 
-  # fails with make 4.4
+    # fails with make 4.4
   nativeBuildInputs = [
     gnumake42
     perl

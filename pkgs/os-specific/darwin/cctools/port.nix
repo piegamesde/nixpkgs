@@ -34,10 +34,10 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "tpoechtrager";
     repo = "cctools-port";
-    # This is the commit before: https://github.com/tpoechtrager/cctools-port/pull/114
-    # That specific change causes trouble for us (see the PR discussion), but
-    # is also currently the last commit on master at the time of writing, so we
-    # can just go back one step.
+      # This is the commit before: https://github.com/tpoechtrager/cctools-port/pull/114
+      # That specific change causes trouble for us (see the PR discussion), but
+      # is also currently the last commit on master at the time of writing, so we
+      # can just go back one step.
     rev = "457dc6ddf5244ebf94f28e924e3a971f1566bd66";
     sha256 = "0ns12q7vg9yand4dmdsps1917cavfbw67yl5q7bm6kb4ia5kkx13";
   };
@@ -63,12 +63,14 @@ stdenv.mkDerivation {
     ./ld-rpath-nonfinal.patch
     (fetchpatch {
       url =
-        "https://github.com/tpoechtrager/cctools-port/commit/4a734070cd2838e49658464003de5b92271d8b9e.patch";
+        "https://github.com/tpoechtrager/cctools-port/commit/4a734070cd2838e49658464003de5b92271d8b9e.patch"
+        ;
       hash = "sha256-72KaJyu7CHXxJJ1GNq/fz+kW1RslO3UaKI91LhBtiXA=";
     })
     (fetchpatch {
       url =
-        "https://github.com/MercuryTechnologies/cctools-port/commit/025899b7b3593dedb0c681e689e57c0e7bbd9b80.patch";
+        "https://github.com/MercuryTechnologies/cctools-port/commit/025899b7b3593dedb0c681e689e57c0e7bbd9b80.patch"
+        ;
       hash = "sha256-SWVUzFaJHH2fu9y8RcU3Nx/QKx60hPE5zFx0odYDeQs=";
     })
   ] ++ lib.optional stdenv.isDarwin ./darwin-no-memstream.patch;
@@ -81,7 +83,7 @@ stdenv.mkDerivation {
 
   enableParallelBuilding = true;
 
-  # TODO(@Ericson2314): Always pass "--target" and always targetPrefix.
+    # TODO(@Ericson2314): Always pass "--target" and always targetPrefix.
   configurePlatforms = [
     "build"
     "host"

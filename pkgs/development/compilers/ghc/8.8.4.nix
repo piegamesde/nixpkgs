@@ -99,7 +99,8 @@ let
   targetPrefix = lib.optionalString (targetPlatform != hostPlatform)
     "${targetPlatform.config}-";
 
-  buildMK = dontStrip:
+  buildMK =
+    dontStrip:
     ''
       BuildFlavour = ${ghcFlavour}
       ifneq \"\$(BuildFlavour)\" \"\"
@@ -175,29 +176,32 @@ let
     # profiling.
     + lib.optionalString targetPlatform.isWindows ''
       SplitSections = NO
-    '';
+    ''
+    ;
 
-  # Splicer will pull out correct variations
-  libDeps = platform:
+    # Splicer will pull out correct variations
+  libDeps =
+    platform:
     lib.optional enableTerminfo ncurses ++ [ libffi ]
     ++ lib.optional (!enableIntegerSimple) gmp
     ++ lib.optional (platform.libc != "glibc" && !targetPlatform.isWindows)
-    libiconv;
+    libiconv
+    ;
 
-  # TODO(@sternenseemann): is buildTarget LLVM unnecessary?
-  # GHC doesn't seem to have {LLC,OPT}_HOST
+    # TODO(@sternenseemann): is buildTarget LLVM unnecessary?
+    # GHC doesn't seem to have {LLC,OPT}_HOST
   toolsForTarget = [ pkgsBuildTarget.targetPackages.stdenv.cc ]
     ++ lib.optional useLLVM buildTargetLlvmPackages.llvm;
 
   targetCC = builtins.head toolsForTarget;
 
-  # Use gold either following the default, or to avoid the BFD linker due to some bugs / perf issues.
-  # But we cannot avoid BFD when using musl libc due to https://sourceware.org/bugzilla/show_bug.cgi?id=23856
-  # see #84670 and #49071 for more background.
+    # Use gold either following the default, or to avoid the BFD linker due to some bugs / perf issues.
+    # But we cannot avoid BFD when using musl libc due to https://sourceware.org/bugzilla/show_bug.cgi?id=23856
+    # see #84670 and #49071 for more background.
   useLdGold = targetPlatform.linker == "gold" || (targetPlatform.linker == "bfd"
     && (targetCC.bintools.bintools.hasGold or false) && !targetPlatform.isMusl);
 
-  # Makes debugging easier to see which variant is at play in `nix-store -q --tree`.
+    # Makes debugging easier to see which variant is at play in `nix-store -q --tree`.
   variantSuffix = lib.concatStrings [
     (lib.optionalString stdenv.hostPlatform.isMusl "-musl")
     (lib.optionalString enableIntegerSimple "-integer-simple")
@@ -248,7 +252,8 @@ stdenv.mkDerivation (rec {
     # https://github.com/haskell/cabal/issues/5887
     (fetchpatch {
       url =
-        "https://raw.githubusercontent.com/input-output-hk/haskell.nix/122bd81150386867da07fdc9ad5096db6719545a/overlays/patches/ghc/cabal-host.patch";
+        "https://raw.githubusercontent.com/input-output-hk/haskell.nix/122bd81150386867da07fdc9ad5096db6719545a/overlays/patches/ghc/cabal-host.patch"
+        ;
       sha256 = "sha256:0yd0sajgi24sc1w5m55lkg2lp6kfkgpp3lgija2c8y3cmkwfpdc1";
     })
 
@@ -261,8 +266,8 @@ stdenv.mkDerivation (rec {
 
   postPatch = "patchShebangs .";
 
-  # GHC is a bit confused on its cross terminology.
-  # TODO(@sternenseemann): investigate coreutils dependencies and pass absolute paths
+    # GHC is a bit confused on its cross terminology.
+    # TODO(@sternenseemann): investigate coreutils dependencies and pass absolute paths
   preConfigure =
     # Aarch64 allow backward bootstrapping since earlier versions are unstable.
     # Same for musl, as earlier versions do not provide a musl bindist for bootstrapping.
@@ -321,13 +326,13 @@ stdenv.mkDerivation (rec {
       done
     '';
 
-  # TODO(@Ericson2314): Always pass "--target" and always prefix.
+    # TODO(@Ericson2314): Always pass "--target" and always prefix.
   configurePlatforms = [
     "build"
     "host"
   ] ++ lib.optional (targetPlatform != hostPlatform) "target";
 
-  # `--with` flags for libraries needed for RTS linker
+    # `--with` flags for libraries needed for RTS linker
   configureFlags = [
     "--datadir=$doc/share/doc/ghc"
     "--with-curses-includes=${ncurses.dev}/include"
@@ -352,10 +357,10 @@ stdenv.mkDerivation (rec {
     ] ++ lib.optionals
     (disableLargeAddressSpace) [ "--disable-large-address-space" ];
 
-  # Make sure we never relax`$PATH` and hooks support for compatibility.
+    # Make sure we never relax`$PATH` and hooks support for compatibility.
   strictDeps = true;
 
-  # Don’t add -liconv to LDFLAGS automatically so that GHC will add it itself.
+    # Don’t add -liconv to LDFLAGS automatically so that GHC will add it itself.
   dontAddExtraLibs = true;
 
   nativeBuildInputs = [
@@ -370,7 +375,7 @@ stdenv.mkDerivation (rec {
     bootPkgs.hscolour
   ] ++ lib.optionals enableDocs [ sphinx ];
 
-  # For building runtime libs
+    # For building runtime libs
   depsBuildTarget = toolsForTarget;
 
   buildInputs = [
@@ -382,10 +387,10 @@ stdenv.mkDerivation (rec {
   depsTargetTargetPropagated =
     map (lib.getOutput "out") (libDeps targetPlatform);
 
-  # required, because otherwise all symbols from HSffi.o are stripped, and
-  # that in turn causes GHCi to abort
-  stripDebugFlags = [ "-S" ]
-    ++ lib.optional (!targetPlatform.isDarwin) "--keep-file-symbols";
+    # required, because otherwise all symbols from HSffi.o are stripped, and
+    # that in turn causes GHCi to abort
+  stripDebugFlags =
+    [ "-S" ] ++ lib.optional (!targetPlatform.isDarwin) "--keep-file-symbols";
 
   checkTarget = "test";
 
@@ -416,7 +421,7 @@ stdenv.mkDerivation (rec {
       # the presence of the haddock program.
     hasHaddock = enableHaddockProgram;
 
-    # Our Cabal compiler name
+      # Our Cabal compiler name
     haskellCompilerName = "ghc-${version}";
   };
 
@@ -436,10 +441,10 @@ stdenv.mkDerivation (rec {
       "aarch64-linux"
       "x86_64-darwin"
     ];
-    # integer-simple builds are broken with musl when bootstrapping using
-    # GHC 8.10.2 and below, however it is not possible to reverse bootstrap
-    # GHC 8.8.4 with GHC 8.10.7.
-    # See https://github.com/NixOS/nixpkgs/pull/138523#issuecomment-927339953
+      # integer-simple builds are broken with musl when bootstrapping using
+      # GHC 8.10.2 and below, however it is not possible to reverse bootstrap
+      # GHC 8.8.4 with GHC 8.10.7.
+      # See https://github.com/NixOS/nixpkgs/pull/138523#issuecomment-927339953
     broken = hostPlatform.isMusl && enableIntegerSimple;
   };
 

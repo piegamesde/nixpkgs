@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "DESTDIR=$(out)" ];
 
-  # Borrowed from Arch Linux's AUR
+    # Borrowed from Arch Linux's AUR
   patches = [
     # Adds executable permissions to resulting libraries
     # and changes their destination directory from "usr/lib/alsa-lib" to "lib/alsa-lib" to better align with nixpkgs filesystem hierarchy.

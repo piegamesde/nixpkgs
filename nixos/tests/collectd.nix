@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
     name = "collectd";
     meta = { };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         lib,
         ...
@@ -25,7 +26,8 @@ import ./make-test-python.nix ({
           };
         };
         environment.systemPackages = [ pkgs.rrdtool ];
-      };
+      }
+      ;
 
     testScript = ''
       machine.wait_for_unit("collectd.service")

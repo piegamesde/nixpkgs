@@ -8,11 +8,13 @@ with import ../lib/testing-python.nix { inherit system pkgs; };
 with pkgs.lib;
 
 let
-  matomoTest = package:
+  matomoTest =
+    package:
     makeTest {
       name = "matomo";
 
-      nodes.machine = {
+      nodes.machine =
+        {
           config,
           pkgs,
           ...
@@ -30,7 +32,8 @@ let
             package = pkgs.mariadb;
           };
           services.nginx.enable = true;
-        };
+        }
+        ;
 
       testScript = ''
         start_all()
@@ -44,7 +47,8 @@ let
                 "curl -sSfL http://localhost/ | grep '<title>Matomo[^<]*Installation'"
             )
       '';
-    };
+    }
+    ;
 in {
   matomo = matomoTest pkgs.matomo // {
     name = "matomo";

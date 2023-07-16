@@ -42,15 +42,17 @@ stdenv.mkDerivation {
     "--with-pythia=${pythia}"
   ];
 
-  postInstall = if stdenv.isDarwin then
-    ''
-      install_name_tool -add_rpath ${pythia}/lib "$out"/bin/run-pythia
-    ''
-  else
-    ''
-      wrapProgram $out/bin/run-pythia \
-        --prefix LD_LIBRARY_PATH : "${pythia}/lib"
-    '';
+  postInstall =
+    if stdenv.isDarwin then
+      ''
+        install_name_tool -add_rpath ${pythia}/lib "$out"/bin/run-pythia
+      ''
+    else
+      ''
+        wrapProgram $out/bin/run-pythia \
+          --prefix LD_LIBRARY_PATH : "${pythia}/lib"
+      ''
+    ;
 
   enableParallelBuilding = true;
 
@@ -60,7 +62,7 @@ stdenv.mkDerivation {
     homepage = "https://agile.hepforge.org/trac/wiki/Sacrifice";
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ veprbl ];
-    # never built on aarch64-darwin since first introduction in nixpkgs
+      # never built on aarch64-darwin since first introduction in nixpkgs
     broken = stdenv.isDarwin && stdenv.isAarch64;
   };
 }

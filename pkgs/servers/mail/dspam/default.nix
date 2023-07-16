@@ -40,7 +40,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/dspam/dspam/${pname}-${version}/${pname}-${version}.tar.gz";
+      "mirror://sourceforge/dspam/dspam/${pname}-${version}/${pname}-${version}.tar.gz"
+      ;
     sha256 = "1acklnxn1wvc7abn31l3qdj8q6k13s51k5gv86vka7q20jb5cxmf";
   };
   patches = [
@@ -54,7 +55,7 @@ stdenv.mkDerivation rec {
   ] ++ lib.optional withPgSQL postgresql ++ lib.optional withSQLite sqlite
     ++ lib.optional withDB db;
   nativeBuildInputs = [ makeWrapper ];
-  # patch out libmysql >= 5 check, since mariadb-connector is at 3.x
+    # patch out libmysql >= 5 check, since mariadb-connector is at 3.x
   postPatch = ''
     sed -i 's/atoi(m) >= 5/1/g' configure m4/mysql_drv.m4
   '';
@@ -81,14 +82,14 @@ stdenv.mkDerivation rec {
     "--with-mysql-libraries=${mariadb-connector-c.out}/lib/mysql"
   ] ++ lib.optional withPgSQL "--with-pgsql-libraries=${postgresql.lib}/lib";
 
-  # Workaround build failure on -fno-common toolchains like upstream
-  # gcc-10. Otherwise build fails as:
-  #   ld: .libs/hash_drv.o:/build/dspam-3.10.2/src/util.h:96: multiple definition of `verified_user';
-  #     .libs/libdspam.o:/build/dspam-3.10.2/src/util.h:96: first defined here
+    # Workaround build failure on -fno-common toolchains like upstream
+    # gcc-10. Otherwise build fails as:
+    #   ld: .libs/hash_drv.o:/build/dspam-3.10.2/src/util.h:96: multiple definition of `verified_user';
+    #     .libs/libdspam.o:/build/dspam-3.10.2/src/util.h:96: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
-  # Lots of things are hardwired to paths like sysconfdir. That's why we install with both "prefix" and "DESTDIR"
-  # and fix directory structure manually after that.
+    # Lots of things are hardwired to paths like sysconfdir. That's why we install with both "prefix" and "DESTDIR"
+    # and fix directory structure manually after that.
   installFlags = [ "DESTDIR=$(out)" ];
 
   postInstall = ''

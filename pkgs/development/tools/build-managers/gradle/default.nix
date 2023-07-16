@@ -93,38 +93,42 @@ rec {
 
       dontFixup = !stdenv.isLinux;
 
-      fixupPhase = let
-        arch = if stdenv.is64bit then
-          "amd64"
-        else
-          "i386";
-      in ''
-        for variant in "" "-ncurses5" "-ncurses6"; do
-          mkdir "patching$variant"
-          pushd "patching$variant"
-          jar xf $out/lib/gradle/lib/native-platform-linux-${arch}$variant-${nativeVersion}.jar
-          patchelf \
-            --set-rpath "${stdenv.cc.cc.lib}/lib64:${
-              lib.makeLibraryPath [
-                stdenv.cc.cc
-                ncurses5
-                ncurses6
-              ]
-            }" \
-            net/rubygrapefruit/platform/linux-${arch}$variant/libnative-platform*.so
-          jar cf native-platform-linux-${arch}$variant-${nativeVersion}.jar .
-          mv native-platform-linux-${arch}$variant-${nativeVersion}.jar $out/lib/gradle/lib/
-          popd
-        done
+      fixupPhase =
+        let
+          arch =
+            if stdenv.is64bit then
+              "amd64"
+            else
+              "i386"
+            ;
+        in ''
+          for variant in "" "-ncurses5" "-ncurses6"; do
+            mkdir "patching$variant"
+            pushd "patching$variant"
+            jar xf $out/lib/gradle/lib/native-platform-linux-${arch}$variant-${nativeVersion}.jar
+            patchelf \
+              --set-rpath "${stdenv.cc.cc.lib}/lib64:${
+                lib.makeLibraryPath [
+                  stdenv.cc.cc
+                  ncurses5
+                  ncurses6
+                ]
+              }" \
+              net/rubygrapefruit/platform/linux-${arch}$variant/libnative-platform*.so
+            jar cf native-platform-linux-${arch}$variant-${nativeVersion}.jar .
+            mv native-platform-linux-${arch}$variant-${nativeVersion}.jar $out/lib/gradle/lib/
+            popd
+          done
 
-        # The scanner doesn't pick up the runtime dependency in the jar.
-        # Manually add a reference where it will be found.
-        mkdir $out/nix-support
-        echo ${stdenv.cc.cc} > $out/nix-support/manual-runtime-dependencies
-        # Gradle will refuse to start without _both_ 5 and 6 versions of ncurses.
-        echo ${ncurses5} >> $out/nix-support/manual-runtime-dependencies
-        echo ${ncurses6} >> $out/nix-support/manual-runtime-dependencies
-      '' ;
+          # The scanner doesn't pick up the runtime dependency in the jar.
+          # Manually add a reference where it will be found.
+          mkdir $out/nix-support
+          echo ${stdenv.cc.cc} > $out/nix-support/manual-runtime-dependencies
+          # Gradle will refuse to start without _both_ 5 and 6 versions of ncurses.
+          echo ${ncurses5} >> $out/nix-support/manual-runtime-dependencies
+          echo ${ncurses6} >> $out/nix-support/manual-runtime-dependencies
+        ''
+        ;
 
       meta = with lib; {
         inherit platforms;
@@ -150,11 +154,12 @@ rec {
           liff
         ];
       };
-    };
+    }
+    ;
 
-  # NOTE: Default JDKs that are hardcoded below must be LTS versions
-  # and respect the compatibility matrix at
-  # https://docs.gradle.org/current/userguide/compatibility.html
+    # NOTE: Default JDKs that are hardcoded below must be LTS versions
+    # and respect the compatibility matrix at
+    # https://docs.gradle.org/current/userguide/compatibility.html
 
   gradle_8 = gen {
     version = "8.0.1";

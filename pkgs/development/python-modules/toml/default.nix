@@ -13,9 +13,9 @@ buildPythonPackage rec {
     sha256 = "b3bda1d108d5dd99f4a20d24d9c348e91c4db7ab1b749200bded2f839ccbe68f";
   };
 
-  # This package has a test script (built for Travis) that involves a)
-  # looking in the home directory for a binary test runner and b) using
-  # git to download a test suite.
+    # This package has a test script (built for Travis) that involves a)
+    # looking in the home directory for a binary test runner and b) using
+    # git to download a test suite.
   doCheck = false;
 
   meta = with lib; {

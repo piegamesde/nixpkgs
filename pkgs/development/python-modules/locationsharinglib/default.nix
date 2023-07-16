@@ -60,7 +60,8 @@ buildPythonPackage rec {
       "Python package to retrieve coordinates from a Google account";
     homepage = "https://locationsharinglib.readthedocs.io/";
     changelog =
-      "https://github.com/costastf/locationsharinglib/blob/${version}/HISTORY.rst";
+      "https://github.com/costastf/locationsharinglib/blob/${version}/HISTORY.rst"
+      ;
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

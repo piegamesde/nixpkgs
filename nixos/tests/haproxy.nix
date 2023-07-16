@@ -4,7 +4,8 @@ import ./make-test-python.nix ({
   }: {
     name = "haproxy";
     nodes = {
-      machine = {
+      machine =
+        {
           ...
         }: {
           services.haproxy = {
@@ -35,7 +36,8 @@ import ./make-test-python.nix ({
               } ];
             };
           };
-        };
+        }
+        ;
     };
     testScript = ''
       start_all()

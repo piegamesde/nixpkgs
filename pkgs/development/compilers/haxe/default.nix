@@ -12,7 +12,8 @@
 }:
 
 let
-  ocamlDependencies = version:
+  ocamlDependencies =
+    version:
     if lib.versionAtLeast version "4.2" then
       with ocaml-ng.ocamlPackages_4_12; [
         ocaml
@@ -38,14 +39,16 @@ let
         dune_3
         luv
         extlib-1-7-7
-      ];
+      ]
+    ;
 
   defaultPatch = ''
     substituteInPlace extra/haxelib_src/src/haxelib/client/Main.hx \
       --replace '"neko"' '"${neko}/bin/neko"'
   '';
 
-  generic = {
+  generic =
+    {
       sha256,
       version,
       prePatch ? defaultPatch
@@ -112,8 +115,8 @@ let
 
       dontStrip = true;
 
-      # While it might be a good idea to run the upstream test suite, let's at
-      # least make sure we can actually run the compiler.
+        # While it might be a good idea to run the upstream test suite, let's at
+        # least make sure we can actually run the compiler.
       doInstallCheck = true;
       installCheckPhase = ''
         # Get out of the source directory to make sure the stdlib from the
@@ -145,7 +148,8 @@ let
         ];
         platforms = platforms.linux ++ platforms.darwin;
       };
-    };
+    }
+    ;
 in {
   haxe_4_0 = generic {
     version = "4.0.5";

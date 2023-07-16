@@ -26,7 +26,7 @@ rustPlatform.buildRustPackage rec {
     libXext
   ];
 
-  # Needed for static linking
+    # Needed for static linking
   preConfigure = ''
     export LIBRARY_PATH=${libXNVCtrl}/lib:${libX11}/lib:${libXext}/lib
   '';

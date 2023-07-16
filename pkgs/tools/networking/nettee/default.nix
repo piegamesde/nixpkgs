@@ -16,7 +16,8 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url =
-      "http://saf.bio.caltech.edu/pub/software/linux_or_unix_tools/beta-nettee-${version}.tar.gz";
+      "http://saf.bio.caltech.edu/pub/software/linux_or_unix_tools/beta-nettee-${version}.tar.gz"
+      ;
     inherit sha256;
   };
 

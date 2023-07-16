@@ -57,7 +57,8 @@ stdenv.mkDerivation rec {
     description = "Classic cannon combat game";
     longDescription = ''
       Two castles, separated by a mountain, try to defeat each other with their cannonballs,
-      either by killing the opponent's king or by weakening the opponent enough so that the king capitulates.'';
+      either by killing the opponent's king or by weakening the opponent enough so that the king capitulates.''
+      ;
     homepage = "https://baller.tuxfamily.org/";
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.j0hax ];

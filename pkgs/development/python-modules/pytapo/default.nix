@@ -30,7 +30,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "pytapo" ];
 
-  # Tests require actual hardware
+    # Tests require actual hardware
   doCheck = false;
 
   meta = with lib; {

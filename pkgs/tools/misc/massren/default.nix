@@ -22,7 +22,8 @@ buildGoModule rec {
     # Add Go Modules support
     (fetchpatch {
       url =
-        "https://github.com/laurent22/massren/commit/83df215b6e112d1ec375b08d8c44dadc5107155d.patch";
+        "https://github.com/laurent22/massren/commit/83df215b6e112d1ec375b08d8c44dadc5107155d.patch"
+        ;
       hash = "sha256-FMTmUrv6zGq11vexUirAuK3H6r78RtoipqyWoh+pzrs=";
     })
   ];
@@ -32,17 +33,19 @@ buildGoModule rec {
     "-w"
   ];
 
-  preCheck = let
-    skippedTests = [
-      # Possible error about github.com/mattn/go-sqlite3
-      "Test_guessEditorCommand"
-      "Test_processFileActions"
-    ];
-  in ''
-    buildFlagsArray+=("-run" "[^(${
-      builtins.concatStringsSep "|" skippedTests
-    })]")
-  '' ;
+  preCheck =
+    let
+      skippedTests = [
+        # Possible error about github.com/mattn/go-sqlite3
+        "Test_guessEditorCommand"
+        "Test_processFileActions"
+      ];
+    in ''
+      buildFlagsArray+=("-run" "[^(${
+        builtins.concatStringsSep "|" skippedTests
+      })]")
+    ''
+    ;
 
   meta = with lib; {
     description = "Easily rename multiple files using your text editor";

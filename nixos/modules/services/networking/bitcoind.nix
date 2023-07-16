@@ -11,7 +11,8 @@ let
 
   eachBitcoind = config.services.bitcoind;
 
-  rpcUserOpts = {
+  rpcUserOpts =
+    {
       name,
       ...
     }: {
@@ -26,7 +27,8 @@ let
         passwordHMAC = mkOption {
           type = types.uniq (types.strMatching "[0-9a-f]+\\$[0-9a-f]{64}");
           example =
-            "f7efda5c189b999524f151318c0c86$d5b51b3beffbc02b724e5d095828e0bc8b2456e9ac8757ae3211a5d9b16a22ae";
+            "f7efda5c189b999524f151318c0c86$d5b51b3beffbc02b724e5d095828e0bc8b2456e9ac8757ae3211a5d9b16a22ae"
+            ;
           description = lib.mdDoc ''
             Password HMAC-SHA-256 for JSON-RPC connections. Must be a string of the
             format \<SALT-HEX\>$\<HMAC-HEX\>.
@@ -37,9 +39,11 @@ let
         };
       };
       config = { name = mkDefault name; };
-    };
+    }
+    ;
 
-  bitcoindOpts = {
+  bitcoindOpts =
+    {
       config,
       lib,
       name,
@@ -99,7 +103,8 @@ let
             type = types.nullOr types.port;
             default = null;
             description = lib.mdDoc
-              "Override the default port on which to listen for JSON-RPC connections.";
+              "Override the default port on which to listen for JSON-RPC connections."
+              ;
           };
           users = mkOption {
             default = { };
@@ -175,7 +180,8 @@ let
           '';
         };
       };
-    };
+    }
+    ;
 in {
 
   options = {
@@ -210,8 +216,9 @@ in {
       }
     ]) eachBitcoind);
 
-    environment.systemPackages = flatten
-      (mapAttrsToList (bitcoindName: cfg: [ cfg.package ]) eachBitcoind);
+    environment.systemPackages =
+      flatten (mapAttrsToList (bitcoindName: cfg: [ cfg.package ]) eachBitcoind)
+      ;
 
     systemd.services = mapAttrs' (bitcoindName: cfg:
       (nameValuePair "bitcoind-${bitcoindName}" (let
@@ -260,7 +267,7 @@ in {
           '';
           Restart = "on-failure";
 
-          # Hardening measures
+            # Hardening measures
           PrivateTmp = "true";
           ProtectSystem = "full";
           NoNewPrivileges = "true";

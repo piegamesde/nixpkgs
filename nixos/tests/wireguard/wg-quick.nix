@@ -11,7 +11,7 @@ import ../make-test-python.nix ({
     commonConfig = {
       boot.kernelPackages = lib.mkIf (kernelPackages != null) kernelPackages;
       networking.nftables.enable = nftables;
-      # Make sure iptables doesn't work with nftables enabled
+        # Make sure iptables doesn't work with nftables enabled
       boot.blacklistedKernelModules = lib.mkIf nftables [ "nft_compat" ];
     };
   in {

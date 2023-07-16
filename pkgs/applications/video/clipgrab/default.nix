@@ -21,7 +21,7 @@ mkDerivation rec {
 
   src = fetchurl {
     sha256 = "sha256-9H8raJd6MyyFICY8WUZQGLJ4teKPJUiQfqbu1HWAVIw=";
-    # The .tar.bz2 "Download" link is a binary blob, the source is the .tar.gz!
+      # The .tar.bz2 "Download" link is a binary blob, the source is the .tar.gz!
     url = "https://download.clipgrab.org/${pname}-${version}.tar.gz";
   };
 

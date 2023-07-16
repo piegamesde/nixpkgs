@@ -10,7 +10,7 @@ buildPythonPackage rec {
   version = "3.0.0";
   pname = "robotstatuschecker";
 
-  # no tests included in PyPI tarball
+    # no tests included in PyPI tarball
   src = fetchFromGitHub {
     owner = "robotframework";
     repo = "statuschecker";
@@ -26,7 +26,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "A tool for checking that Robot Framework test cases have expected statuses and log messages";
+      "A tool for checking that Robot Framework test cases have expected statuses and log messages"
+      ;
     homepage = "https://github.com/robotframework/statuschecker";
     license = licenses.asl20;
     maintainers = [ maintainers.marsam ];

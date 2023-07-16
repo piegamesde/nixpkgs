@@ -44,7 +44,7 @@ stdenvNoCC.mkDerivation rec {
 
   dontDropIconThemeCache = true;
 
-  # These fixup steps are slow and unnecessary for this package
+    # These fixup steps are slow and unnecessary for this package
   dontPatchELF = true;
   dontRewriteSymlinks = true;
 

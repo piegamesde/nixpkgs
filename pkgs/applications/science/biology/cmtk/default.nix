@@ -12,7 +12,8 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     name = "cmtk-source.tar.gz";
     url =
-      "https://www.nitrc.org/frs/download.php/8198/CMTK-${version}-Source.tar.gz//?i_agree=1&download_now=1";
+      "https://www.nitrc.org/frs/download.php/8198/CMTK-${version}-Source.tar.gz//?i_agree=1&download_now=1"
+      ;
     sha256 = "1nmsga9m7vcc4y4a6zl53ra3mwlgjwdgsq1j291awkn7zr1az6qs";
   };
 

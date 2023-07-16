@@ -43,7 +43,7 @@ buildPythonPackage rec {
     sqltrie
   ];
 
-  # Tests depend on upath which is unmaintained and only available as wheel
+    # Tests depend on upath which is unmaintained and only available as wheel
   doCheck = false;
 
   postPatch = ''

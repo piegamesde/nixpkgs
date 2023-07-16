@@ -41,14 +41,15 @@ rustPlatform.buildRustPackage rec {
 
   env = { ZSTD_SYS_USE_PKG_CONFIG = true; };
 
-  # tests require internet access
+    # tests require internet access
   doCheck = false;
 
   meta = with lib; {
     description = "Cargo plugin to generate list of all licenses for a crate";
     homepage = "https://github.com/EmbarkStudios/cargo-deny";
     changelog =
-      "https://github.com/EmbarkStudios/cargo-deny/blob/${version}/CHANGELOG.md";
+      "https://github.com/EmbarkStudios/cargo-deny/blob/${version}/CHANGELOG.md"
+      ;
     license = with licenses; [
       asl20 # or
       mit

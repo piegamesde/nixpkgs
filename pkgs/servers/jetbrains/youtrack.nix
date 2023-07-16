@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     description = "Issue tracking and project management tool for developers";
     maintainers = teams.serokell.members;
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
-    # https://www.jetbrains.com/youtrack/buy/license.html
+      # https://www.jetbrains.com/youtrack/buy/license.html
     license = licenses.unfree;
   };
 }

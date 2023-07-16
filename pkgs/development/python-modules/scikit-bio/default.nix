@@ -47,7 +47,7 @@ buildPythonPackage rec {
     scikit-learn
   ];
 
-  # cython package not included for tests
+    # cython package not included for tests
   doCheck = false;
 
   checkPhase = ''
@@ -59,7 +59,8 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "http://scikit-bio.org/";
     description =
-      "Data structures, algorithms and educational resources for bioinformatics";
+      "Data structures, algorithms and educational resources for bioinformatics"
+      ;
     license = licenses.bsd3;
     platforms = [
       "x86_64-linux"

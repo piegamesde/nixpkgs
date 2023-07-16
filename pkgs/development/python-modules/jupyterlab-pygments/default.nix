@@ -17,7 +17,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ jupyter-packaging ];
 
-  # no tests exist on upstream repo
+    # no tests exist on upstream repo
   doCheck = false;
 
   propagatedBuildInputs = [ pygments ];

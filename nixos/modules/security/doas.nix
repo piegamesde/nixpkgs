@@ -15,7 +15,8 @@ let
 
   mkGrpString = group: ":${toString group}";
 
-  mkOpts = rule:
+  mkOpts =
+    rule:
     concatStringsSep " " [
       (optionalString rule.noPass "nopass")
       (optionalString rule.noLog "nolog")
@@ -24,17 +25,21 @@ let
       "setenv { SSH_AUTH_SOCK TERMINFO TERMINFO_DIRS ${
         concatStringsSep " " rule.setEnv
       } }"
-    ];
+    ]
+    ;
 
-  mkArgs = rule:
+  mkArgs =
+    rule:
     if (rule.args == null) then
       ""
     else if (length rule.args == 0) then
       "args"
     else
-      "args ${concatStringsSep " " rule.args}";
+      "args ${concatStringsSep " " rule.args}"
+    ;
 
-  mkRule = rule:
+  mkRule =
+    rule:
     let
       opts = mkOpts rule;
 
@@ -52,7 +57,7 @@ let
         (map (grp: "permit ${opts} ${mkGrpString grp} ${as} ${cmd} ${args}")
           rule.groups))
     ]
-  ;
+    ;
 in {
 
   ###### interface
@@ -243,7 +248,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 

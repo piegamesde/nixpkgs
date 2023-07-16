@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.awstats;
   package = pkgs.awstats;
-  configOpts = {
+  configOpts =
+    {
       name,
       config,
       ...
@@ -99,7 +100,8 @@ let
           };
         };
       };
-    };
+    }
+    ;
   webServices = filterAttrs (name: value: value.webService.enable) cfg.configs;
 in {
   imports = [
@@ -225,13 +227,13 @@ in {
             '');
       }) cfg.configs;
 
-    # create data directory with the correct permissions
+      # create data directory with the correct permissions
     systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' 755 root root - -" ]
       ++ mapAttrsToList
       (name: opts: "d '${cfg.dataDir}/${name}' 755 root root - -") cfg.configs
       ++ [ "Z '${cfg.dataDir}' 755 root root - -" ];
 
-    # nginx options
+      # nginx options
     services.nginx.virtualHosts = mapAttrs' (name: opts: {
       name = opts.webService.hostname;
       value = {
@@ -252,7 +254,7 @@ in {
       };
     }) webServices;
 
-    # update awstats
+      # update awstats
     systemd.services = mkIf (cfg.updateAt != null) (mapAttrs' (name: opts:
       nameValuePair "awstats-${name}-update" {
         description = "update awstats for ${name}";

@@ -169,22 +169,25 @@ stdenv.mkDerivation rec {
 
   dontWrapGApps = true;
 
-  preFixup = let
-    libPath = lib.makeLibraryPath [
-      ffmpeg
-      libpulseaudio
-    ];
-  in ''
-        gappsWrapperArgs+=(
-          --prefix LD_LIBRARY_PATH : "${libPath}"
-        )
-    wrapGApp $out/lib/palemoon-${version}/palemoon
-  '' ;
+  preFixup =
+    let
+      libPath = lib.makeLibraryPath [
+        ffmpeg
+        libpulseaudio
+      ];
+    in ''
+          gappsWrapperArgs+=(
+            --prefix LD_LIBRARY_PATH : "${libPath}"
+          )
+      wrapGApp $out/lib/palemoon-${version}/palemoon
+    ''
+    ;
 
   meta = with lib; {
     homepage = "https://www.palemoon.org/";
     description =
-      "An Open Source, Goanna-based web browser focusing on efficiency and customization";
+      "An Open Source, Goanna-based web browser focusing on efficiency and customization"
+      ;
     longDescription = ''
       Pale Moon is an Open Source, Goanna-based web browser focusing on
       efficiency and customization.
@@ -197,7 +200,8 @@ stdenv.mkDerivation rec {
       extensions and themes to make the browser truly your own.
     '';
     changelog =
-      "https://repo.palemoon.org/MoonchildProductions/Pale-Moon/releases/tag/${version}_Release";
+      "https://repo.palemoon.org/MoonchildProductions/Pale-Moon/releases/tag/${version}_Release"
+      ;
     license = licenses.mpl20;
     maintainers = with maintainers; [
       AndersonTorres

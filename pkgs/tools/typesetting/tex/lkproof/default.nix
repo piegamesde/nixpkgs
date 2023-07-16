@@ -17,7 +17,8 @@ stdenv.mkDerivation {
   nativeBuildInputs = [ unzip ];
 
   installPhase =
-    "\n    mkdir -p $out/share/texmf-nix/tex/generic/lkproof\n    cp -prd *.sty $out/share/texmf-nix/tex/generic/lkproof\n  ";
+    "\n    mkdir -p $out/share/texmf-nix/tex/generic/lkproof\n    cp -prd *.sty $out/share/texmf-nix/tex/generic/lkproof\n  "
+    ;
 
   meta = with lib; {
     platforms = platforms.unix;

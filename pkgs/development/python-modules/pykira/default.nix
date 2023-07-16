@@ -17,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-MMjmA5N9Ms40eJP9fDDq+LIoPduAnqVrbNLXm+Vl5qw=";
   };
 
-  # Project has no tests
+    # Project has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "pykira" ];

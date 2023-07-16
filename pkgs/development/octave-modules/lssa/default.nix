@@ -18,7 +18,8 @@ buildOctavePackage rec {
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ KarlJoad ];
     description =
-      "Tools to compute spectral decompositions of irregularly-spaced time series";
+      "Tools to compute spectral decompositions of irregularly-spaced time series"
+      ;
     longDescription = ''
       A package implementing tools to compute spectral decompositions of
       irregularly-spaced time series. Currently includes functions based off

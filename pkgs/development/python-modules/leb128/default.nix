@@ -9,7 +9,7 @@ buildPythonPackage rec {
   pname = "leb128";
   version = "1.0.5";
 
-  # fetchPypi doesn't include files required for tests
+    # fetchPypi doesn't include files required for tests
   src = fetchFromGitHub {
     owner = "mohanson";
     repo = "leb128";

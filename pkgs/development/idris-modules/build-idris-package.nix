@@ -50,9 +50,9 @@ stdenv.mkDerivation ({
   ] ++ extraBuildInputs;
   propagatedBuildInputs = allIdrisDeps;
 
-  # Some packages use the style
-  # opts = -i ../../path/to/package
-  # rather than the declarative pkgs attribute so we have to rewrite the path.
+    # Some packages use the style
+    # opts = -i ../../path/to/package
+    # rather than the declarative pkgs attribute so we have to rewrite the path.
   patchPhase = ''
     runHook prePatch
     sed -i ${ipkgName}.ipkg -e "/^opts/ s|-i \\.\\./|-i ${idris-with-packages}/libs/|g"

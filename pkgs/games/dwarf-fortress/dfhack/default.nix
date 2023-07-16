@@ -62,24 +62,28 @@ let
 
   };
 
-  release = if lib.isAttrs dfVersion then
-    dfVersion
-  else if hasAttr dfVersion dfhack-releases then
-    getAttr dfVersion dfhack-releases
-  else
-    throw "[DFHack] Unsupported Dwarf Fortress version: ${dfVersion}";
+  release =
+    if lib.isAttrs dfVersion then
+      dfVersion
+    else if hasAttr dfVersion dfhack-releases then
+      getAttr dfVersion dfhack-releases
+    else
+      throw "[DFHack] Unsupported Dwarf Fortress version: ${dfVersion}"
+    ;
 
   version = release.dfHackRelease;
 
-  # revision of library/xml submodule
+    # revision of library/xml submodule
   xmlRev = release.xmlRev;
 
-  arch = if stdenv.hostPlatform.system == "x86_64-linux" then
-    "64"
-  else if stdenv.hostPlatform.system == "i686-linux" then
-    "32"
-  else
-    throw "Unsupported architecture";
+  arch =
+    if stdenv.hostPlatform.system == "x86_64-linux" then
+      "64"
+    else if stdenv.hostPlatform.system == "i686-linux" then
+      "32"
+    else
+      throw "Unsupported architecture"
+    ;
 
   fakegit = writeScriptBin "git" ''
     #! ${stdenv.shell}
@@ -120,29 +124,31 @@ stdenv.mkDerivation {
   patches = lib.optional (lib.versionOlder version "0.44.12-r3") (fetchpatch {
     name = "fix-stonesense.patch";
     url =
-      "https://github.com/DFHack/stonesense/commit/f5be6fe5fb192f01ae4551ed9217e97fd7f6a0ae.patch";
+      "https://github.com/DFHack/stonesense/commit/f5be6fe5fb192f01ae4551ed9217e97fd7f6a0ae.patch"
+      ;
     extraPrefix = "plugins/stonesense/";
     stripLen = 1;
     hash = "sha256-wje6Mkct29eyMOcJnbdefwBOLJko/s4JcJe52ojuW+8=";
   }) ++ lib.optional (lib.versionOlder version "0.47.04-r1") (fetchpatch {
     name = "fix-protobuf.patch";
     url =
-      "https://github.com/DFHack/dfhack/commit/7bdf958518d2892ee89a7173224a069c4a2190d8.patch";
+      "https://github.com/DFHack/dfhack/commit/7bdf958518d2892ee89a7173224a069c4a2190d8.patch"
+      ;
     hash = "sha256-p+mKhmYbnhWKNiGPMjbYO505Gcg634n0nudqH0NX3KY=";
   });
 
-  # gcc 11 fix
+    # gcc 11 fix
   CXXFLAGS =
     lib.optionalString (lib.versionOlder version "0.47.05-r3") "-fpermissive";
 
-  # As of
-  # https://github.com/DFHack/dfhack/commit/56e43a0dde023c5a4595a22b29d800153b31e3c4,
-  # dfhack gets its goodies from the directory above the Dwarf_Fortress
-  # executable, which leads to stock Dwarf Fortress and not the built
-  # environment where all the dfhack resources are symlinked to (typically
-  # ~/.local/share/df_linux). This causes errors like `tweak is not a
-  # recognized command` to be reported and dfhack to lose some of its
-  # functionality.
+    # As of
+    # https://github.com/DFHack/dfhack/commit/56e43a0dde023c5a4595a22b29d800153b31e3c4,
+    # dfhack gets its goodies from the directory above the Dwarf_Fortress
+    # executable, which leads to stock Dwarf Fortress and not the built
+    # environment where all the dfhack resources are symlinked to (typically
+    # ~/.local/share/df_linux). This causes errors like `tweak is not a
+    # recognized command` to be reported and dfhack to lose some of its
+    # functionality.
   postPatch = ''
     sed -i 's@cached_path = path_string.*@cached_path = getenv("DF_DIR");@' library/Process-linux.cpp
   '';
@@ -154,7 +160,7 @@ stdenv.mkDerivation {
     XMLLibXSLT
     fakegit
   ];
-  # We don't use system libraries because dfhack needs old C++ ABI.
+    # We don't use system libraries because dfhack needs old C++ ABI.
   buildInputs = [
     zlib
     SDL
@@ -178,8 +184,8 @@ stdenv.mkDerivation {
     "-DSTONESENSE_INTERNAL_SO=OFF"
   ];
 
-  # dfhack expects an unversioned libruby.so to be present in the hack
-  # subdirectory for ruby plugins to function.
+    # dfhack expects an unversioned libruby.so to be present in the hack
+    # subdirectory for ruby plugins to function.
   postInstall = ''
     ln -s ${ruby}/lib/libruby-*.so $out/hack/libruby.so
   '';
@@ -188,7 +194,8 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description =
-      "Memory hacking library for Dwarf Fortress and a set of tools that use it";
+      "Memory hacking library for Dwarf Fortress and a set of tools that use it"
+      ;
     homepage = "https://github.com/DFHack/dfhack/";
     license = licenses.zlib;
     platforms = [

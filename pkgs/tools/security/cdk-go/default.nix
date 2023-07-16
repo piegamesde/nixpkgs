@@ -18,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-aJN/d/BxmleRXKw6++k6e0Vb0Gs5zg1QfakviABYTog=";
 
-  # At least one test is outdated
+    # At least one test is outdated
   doCheck = false;
 
   meta = with lib; {
@@ -28,7 +28,7 @@ buildGoModule rec {
     license = with licenses; [ gpl2Only ];
     maintainers = with maintainers; [ fab ];
     mainProgram = "cdk";
-    broken =
-      stdenv.isDarwin; # needs to update gopsutil to at least v3.21.3 to include https://github.com/shirou/gopsutil/pull/1042
+    broken = stdenv.isDarwin
+      ; # needs to update gopsutil to at least v3.21.3 to include https://github.com/shirou/gopsutil/pull/1042
   };
 }

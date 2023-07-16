@@ -12,7 +12,8 @@ import ./make-test-python.nix ({
 
     nodes = {
 
-      geminiServer = {
+      geminiServer =
+        {
           config,
           pkgs,
           ...
@@ -66,7 +67,8 @@ import ./make-test-python.nix ({
             mkdir -p "${cfg.settings.DocBase}"
             echo "${testString}" > "${cfg.settings.DocBase}/test.gmi"
           '';
-        } ;
+        }
+        ;
     };
     testScript = ''
       geminiServer.wait_for_unit("molly-brown")

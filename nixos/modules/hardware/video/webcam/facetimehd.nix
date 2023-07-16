@@ -41,12 +41,12 @@ in {
     hardware.firmware = [ pkgs.facetimehd-firmware ]
       ++ optional cfg.withCalibration pkgs.facetimehd-calibration;
 
-    # unload module during suspend/hibernate as it crashes the whole system
+      # unload module during suspend/hibernate as it crashes the whole system
     powerManagement.powerDownCommands = ''
       ${pkgs.kmod}/bin/lsmod | ${pkgs.gnugrep}/bin/grep -q "^facetimehd" && ${pkgs.kmod}/bin/rmmod -f -v facetimehd
     '';
 
-    # and load it back on resume
+      # and load it back on resume
     powerManagement.resumeCommands = ''
       ${pkgs.kmod}/bin/modprobe -v facetimehd
     '';

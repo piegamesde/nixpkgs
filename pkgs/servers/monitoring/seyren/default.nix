@@ -12,7 +12,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/scobal/seyren/releases/download/${version}/seyren-${version}.jar";
+      "https://github.com/scobal/seyren/releases/download/${version}/seyren-${version}.jar"
+      ;
     sha256 = "1fixij04n8hgmaj8kw8i6vclwyd6n94x0n6ify73ynm6dfv8g37x";
   };
 

@@ -34,7 +34,7 @@ in {
       inherit config lib pkgs;
     };
 
-    # Azure metadata is available as a CD-ROM drive.
+      # Azure metadata is available as a CD-ROM drive.
     fileSystems."/metadata".device = "/dev/sr0";
 
     systemd.services.fetch-ssh-keys = {

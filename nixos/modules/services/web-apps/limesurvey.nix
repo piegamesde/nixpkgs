@@ -94,10 +94,12 @@ in {
 
       port = mkOption {
         type = types.port;
-        default = if cfg.database.type == "pgsql" then
-          5442
-        else
-          3306;
+        default =
+          if cfg.database.type == "pgsql" then
+            5442
+          else
+            3306
+          ;
         defaultText = literalExpression "3306";
         description = lib.mdDoc "Database host port.";
       };
@@ -126,12 +128,14 @@ in {
 
       socket = mkOption {
         type = types.nullOr types.path;
-        default = if mysqlLocal then
-          "/run/mysqld/mysqld.sock"
-        else if pgsqlLocal then
-          "/run/postgresql"
-        else
-          null;
+        default =
+          if mysqlLocal then
+            "/run/mysqld/mysqld.sock"
+          else if pgsqlLocal then
+            "/run/postgresql"
+          else
+            null
+          ;
         defaultText = literalExpression "/run/mysqld/mysqld.sock";
         description =
           lib.mdDoc "Path to the unix socket file to use for authentication.";
@@ -197,7 +201,7 @@ in {
     };
   };
 
-  # implementation
+    # implementation
 
   config = mkIf cfg.enable {
 
@@ -205,23 +209,27 @@ in {
       {
         assertion = cfg.database.createLocally -> cfg.database.type == "mysql";
         message =
-          "services.limesurvey.createLocally is currently only supported for database type 'mysql'";
+          "services.limesurvey.createLocally is currently only supported for database type 'mysql'"
+          ;
       }
       {
         assertion = cfg.database.createLocally -> cfg.database.user == user;
         message =
-          "services.limesurvey.database.user must be set to ${user} if services.limesurvey.database.createLocally is set true";
+          "services.limesurvey.database.user must be set to ${user} if services.limesurvey.database.createLocally is set true"
+          ;
       }
       {
         assertion = cfg.database.createLocally -> cfg.database.socket != null;
         message =
-          "services.limesurvey.database.socket must be set if services.limesurvey.database.createLocally is set to true";
+          "services.limesurvey.database.socket must be set if services.limesurvey.database.createLocally is set to true"
+          ;
       }
       {
-        assertion = cfg.database.createLocally -> cfg.database.passwordFile
-          == null;
+        assertion =
+          cfg.database.createLocally -> cfg.database.passwordFile == null;
         message =
-          "a password cannot be specified if services.limesurvey.database.createLocally is set to true";
+          "a password cannot be specified if services.limesurvey.database.createLocally is set to true"
+          ;
       }
     ];
 

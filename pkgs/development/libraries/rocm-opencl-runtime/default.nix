@@ -41,13 +41,13 @@ stdenv.mkDerivation (finalAttrs: {
 
   dontStrip = true;
 
-  # Remove clinfo, which is already provided through the
-  # `clinfo` package.
+    # Remove clinfo, which is already provided through the
+    # `clinfo` package.
   postInstall = ''
     rm -rf $out/bin
   '';
 
-  # Fix the ICD installation path for NixOS
+    # Fix the ICD installation path for NixOS
   postPatch = ''
     substituteInPlace khronos/icd/loader/linux/icd_linux.c \
       --replace 'ICD_VENDOR_PATH' '"${addOpenGLRunpath.driverLink}/etc/OpenCL/vendors/"'
@@ -72,7 +72,7 @@ stdenv.mkDerivation (finalAttrs: {
         lovesegfault
       ] ++ teams.rocm.members;
     platforms = platforms.linux;
-    broken = versions.minor finalAttrs.version
-      != versions.minor stdenv.cc.version;
+    broken =
+      versions.minor finalAttrs.version != versions.minor stdenv.cc.version;
   };
 })

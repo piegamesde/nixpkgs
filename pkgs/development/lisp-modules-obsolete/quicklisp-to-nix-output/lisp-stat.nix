@@ -37,7 +37,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/lisp-stat/2021-04-11/lisp-stat-20210411-git.tgz";
+      "http://beta.quicklisp.org/archive/lisp-stat/2021-04-11/lisp-stat-20210411-git.tgz"
+      ;
     sha256 = "110cfj1svn9m9xn6l8p5z88knp0idyf0zcbnwi9rrgxssvaiwncg";
   };
 

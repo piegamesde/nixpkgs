@@ -13,7 +13,8 @@ let
   virtualHosts = attrValues cfg.virtualHosts;
   acmeVHosts = filter (hostOpts: hostOpts.useACMEHost != null) virtualHosts;
 
-  mkVHostConf = hostOpts:
+  mkVHostConf =
+    hostOpts:
     let
       sslCertDir = config.security.acme.certs.${hostOpts.useACMEHost}.directory;
     in ''
@@ -29,31 +30,33 @@ let
 
         ${hostOpts.extraConfig}
       }
-    '' ;
+    ''
+    ;
 
-  configFile = let
-    Caddyfile = pkgs.writeTextDir "Caddyfile" ''
-      {
-        ${cfg.globalConfig}
-      }
-      ${cfg.extraConfig}
-    '';
+  configFile =
+    let
+      Caddyfile = pkgs.writeTextDir "Caddyfile" ''
+        {
+          ${cfg.globalConfig}
+        }
+        ${cfg.extraConfig}
+      '';
 
-    Caddyfile-formatted = pkgs.runCommand "Caddyfile-formatted" {
-      nativeBuildInputs = [ cfg.package ];
-    } ''
-      mkdir -p $out
-      cp --no-preserve=mode ${Caddyfile}/Caddyfile $out/Caddyfile
-      caddy fmt --overwrite $out/Caddyfile
-    '';
-  in
-  "${
-    if pkgs.stdenv.buildPlatform == pkgs.stdenv.hostPlatform then
-      Caddyfile-formatted
-    else
-      Caddyfile
-  }/Caddyfile"
-  ;
+      Caddyfile-formatted = pkgs.runCommand "Caddyfile-formatted" {
+        nativeBuildInputs = [ cfg.package ];
+      } ''
+        mkdir -p $out
+        cp --no-preserve=mode ${Caddyfile}/Caddyfile $out/Caddyfile
+        caddy fmt --overwrite $out/Caddyfile
+      '';
+    in
+    "${
+      if pkgs.stdenv.buildPlatform == pkgs.stdenv.hostPlatform then
+        Caddyfile-formatted
+      else
+        Caddyfile
+    }/Caddyfile"
+    ;
 
   acmeHosts = unique (catAttrs "useACMEHost" acmeVHosts);
 
@@ -86,7 +89,7 @@ in {
     ])
   ];
 
-  # interface
+    # interface
   options.services.caddy = {
     enable = mkEnableOption (lib.mdDoc "Caddy web server");
 
@@ -305,14 +308,15 @@ in {
 
   };
 
-  # implementation
+    # implementation
   config = mkIf cfg.enable {
 
     assertions = [ {
       assertion = cfg.configFile == configFile -> cfg.adapter == "caddyfile"
         || cfg.adapter == null;
       message =
-        "To specify an adapter other than 'caddyfile' please provide your own configuration via `services.caddy.configFile`";
+        "To specify an adapter other than 'caddyfile' please provide your own configuration via `services.caddy.configFile`"
+        ;
     } ] ++ map (name:
       mkCertOwnershipAssertion {
         inherit (cfg) group user;
@@ -330,7 +334,7 @@ in {
       }
     '';
 
-    # https://github.com/lucas-clemente/quic-go/wiki/UDP-Receive-Buffer-Size
+      # https://github.com/lucas-clemente/quic-go/wiki/UDP-Receive-Buffer-Size
     boot.kernel.sysctl."net.core.rmem_max" = mkDefault 2500000;
 
     systemd.packages = [ cfg.package ];
@@ -372,7 +376,7 @@ in {
         LogsDirectory = mkIf (cfg.logDir == "/var/log/caddy") [ "caddy" ];
         Restart = "on-abnormal";
 
-        # TODO: attempt to upstream these options
+          # TODO: attempt to upstream these options
         NoNewPrivileges = true;
         PrivateDevices = true;
         ProtectHome = true;
@@ -391,15 +395,16 @@ in {
       caddy.gid = config.ids.gids.caddy;
     };
 
-    security.acme.certs = let
-      certCfg = map (useACMEHost:
-        nameValuePair useACMEHost {
-          group = mkDefault cfg.group;
-          reloadServices = [ "caddy.service" ];
-        }) acmeHosts;
-    in
-    listToAttrs certCfg
-    ;
+    security.acme.certs =
+      let
+        certCfg = map (useACMEHost:
+          nameValuePair useACMEHost {
+            group = mkDefault cfg.group;
+            reloadServices = [ "caddy.service" ];
+          }) acmeHosts;
+      in
+      listToAttrs certCfg
+      ;
 
   };
 }

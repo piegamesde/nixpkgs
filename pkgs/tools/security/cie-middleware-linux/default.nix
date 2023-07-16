@@ -32,10 +32,10 @@ let
 
   gradle = gradle_7;
 
-  # Shared libraries needed by the Java application
+    # Shared libraries needed by the Java application
   libraries = lib.makeLibraryPath [ ghostscript ];
 
-  # Fixed-output derivation that fetches the Java dependencies
+    # Fixed-output derivation that fetches the Java dependencies
   javaDeps = stdenv.mkDerivation {
     pname = "cie-java-deps";
     inherit src version;
@@ -100,8 +100,8 @@ stdenv.mkDerivation {
       --replace 'file = "cieid"' 'file = "'$out'/bin/cieid"'
   '';
 
-  # Note: we use pushd/popd to juggle between the
-  # libraries and the Java application builds.
+    # Note: we use pushd/popd to juggle between the
+    # libraries and the Java application builds.
   preConfigure = "pushd libs";
 
   postBuild = ''
@@ -170,7 +170,7 @@ stdenv.mkDerivation {
     '';
     license = licenses.bsd3;
     platforms = platforms.unix;
-    # Note: fails due to a lot of broken type conversions
+      # Note: fails due to a lot of broken type conversions
     badPlatforms = platforms.darwin;
     maintainers = with maintainers; [ rnhmjoj ];
   };

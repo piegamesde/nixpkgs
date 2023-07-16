@@ -35,7 +35,7 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = lib.optional stdenv.isDarwin QuartzCore;
 
-  # Tests fail, as the Nix sandbox doesn't provide an appropriate adapter (e.g. Vulkan).
+    # Tests fail, as the Nix sandbox doesn't provide an appropriate adapter (e.g. Vulkan).
   doCheck = false;
 
   postInstall = ''

@@ -49,7 +49,8 @@
 }:
 
 let
-  wine-build = build: release:
+  wine-build =
+    build: release:
     lib.getAttr build (callPackage ./packages.nix {
       wineRelease = release;
       supportFlags = {
@@ -86,7 +87,8 @@ let
           ;
       };
       inherit moltenvk;
-    });
+    })
+    ;
 
 in if wineRelease == "staging" then
   callPackage ./staging.nix { wineUnstable = wine-build wineBuild "unstable"; }

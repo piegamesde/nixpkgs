@@ -52,7 +52,8 @@ stdenv.mkDerivation (finalAttrs: {
   patches = [ (fetchpatch {
     name = "Ensure-absolute-paths-in-pkg-config-file.patch";
     url =
-      "https://github.com/open62541/open62541/commit/023d4b6b8bdec987f8f3ffee6c09801bbee4fa2d.patch";
+      "https://github.com/open62541/open62541/commit/023d4b6b8bdec987f8f3ffee6c09801bbee4fa2d.patch"
+      ;
     sha256 = "sha256-mq4h32js2RjI0Ljown/01SXA3gc+7+zX8meIcvDPvoA=";
   }) ];
 
@@ -99,27 +100,28 @@ stdenv.mkDerivation (finalAttrs: {
     subunit
   ];
 
-  # Tests must run sequentially to avoid port collisions on localhost
+    # Tests must run sequentially to avoid port collisions on localhost
   enableParallelChecking = false;
 
-  preCheck = let
-    disabledTests =
-      lib.optionals (withEncryption == "mbedtls") [ "encryption_basic128rsa15" ]
-      ++ lib.optionals withPubSub [
-        # "Cannot set socket option IP_ADD_MEMBERSHIP"
-        "pubsub_publish"
-        "check_pubsub_get_state"
-        "check_pubsub_publish_rt_levels"
-        "check_pubsub_subscribe_config_freeze"
-        "check_pubsub_subscribe_rt_levels"
-        "check_pubsub_multiple_subscribe_rt_levels"
-      ];
-    regex = "^(${builtins.concatStringsSep "|" disabledTests})$";
-  in
-  lib.optionalString (disabledTests != [ ]) ''
-    checkFlagsArray+=(ARGS="-E ${lib.escapeRegex regex}")
-  ''
-  ;
+  preCheck =
+    let
+      disabledTests = lib.optionals
+        (withEncryption == "mbedtls") [ "encryption_basic128rsa15" ]
+        ++ lib.optionals withPubSub [
+          # "Cannot set socket option IP_ADD_MEMBERSHIP"
+          "pubsub_publish"
+          "check_pubsub_get_state"
+          "check_pubsub_publish_rt_levels"
+          "check_pubsub_subscribe_config_freeze"
+          "check_pubsub_subscribe_rt_levels"
+          "check_pubsub_multiple_subscribe_rt_levels"
+        ];
+      regex = "^(${builtins.concatStringsSep "|" disabledTests})$";
+    in
+    lib.optionalString (disabledTests != [ ]) ''
+      checkFlagsArray+=(ARGS="-E ${lib.escapeRegex regex}")
+    ''
+    ;
 
   postInstall = lib.optionalString withDoc ''
     # excluded files, see doc/CMakeLists.txt
@@ -143,20 +145,24 @@ stdenv.mkDerivation (finalAttrs: {
     rm -r bin/libopen62541*
   '';
 
-  passthru.tests = let
-    open62541Full = encBackend:
-      open62541.override {
-        withDoc = true;
-        # if (withExamples && withPubSub), one of the example currently fails to build
-        #withExamples = true;
-        withEncryption = encBackend;
-        withPubSub = true;
-      };
-  in {
-    open62541Full = open62541Full false;
-    open62541Full-openssl = open62541Full "openssl";
-    open62541Full-mbedtls = open62541Full "mbedtls";
-  } ;
+  passthru.tests =
+    let
+      open62541Full =
+        encBackend:
+        open62541.override {
+          withDoc = true;
+            # if (withExamples && withPubSub), one of the example currently fails to build
+            #withExamples = true;
+          withEncryption = encBackend;
+          withPubSub = true;
+        }
+        ;
+    in {
+      open62541Full = open62541Full false;
+      open62541Full-openssl = open62541Full "openssl";
+      open62541Full-mbedtls = open62541Full "mbedtls";
+    }
+    ;
 
   meta = with lib; {
     description = "Open source implementation of OPC UA";

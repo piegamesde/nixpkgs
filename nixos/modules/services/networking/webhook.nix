@@ -174,22 +174,24 @@ in {
   };
 
   config = mkIf cfg.enable {
-    assertions = let
-      overlappingHooks = builtins.intersectAttrs cfg.hooks cfg.hooksTemplated;
-    in [
-      {
-        assertion = hookFiles != [ ];
-        message =
-          "At least one hook needs to be configured for webhook to run.";
-      }
-      {
-        assertion = overlappingHooks == { };
-        message =
-          "`services.webhook.hooks` and `services.webhook.hooksTemplated` have overlapping attribute(s): ${
-            concatStringsSep ", " (builtins.attrNames overlappingHooks)
-          }";
-      }
-    ] ;
+    assertions =
+      let
+        overlappingHooks = builtins.intersectAttrs cfg.hooks cfg.hooksTemplated;
+      in [
+        {
+          assertion = hookFiles != [ ];
+          message =
+            "At least one hook needs to be configured for webhook to run.";
+        }
+        {
+          assertion = overlappingHooks == { };
+          message =
+            "`services.webhook.hooks` and `services.webhook.hooksTemplated` have overlapping attribute(s): ${
+              concatStringsSep ", " (builtins.attrNames overlappingHooks)
+            }";
+        }
+      ]
+      ;
 
     users.users = mkIf (cfg.user == defaultUser) {
       ${defaultUser} = {
@@ -210,22 +212,24 @@ in {
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
       environment = config.networking.proxy.envVars // cfg.environment;
-      script = let
-        args = [
-          "-ip"
-          cfg.ip
-          "-port"
-          (toString cfg.port)
-          "-urlprefix"
-          cfg.urlPrefix
-        ] ++ concatMap (hook: [
-          "-hooks"
-          hook
-        ]) hookFiles ++ optional cfg.enableTemplates "-template"
-          ++ optional cfg.verbose "-verbose" ++ cfg.extraArgs;
-      in ''
-        ${cfg.package}/bin/webhook ${escapeShellArgs args}
-      '' ;
+      script =
+        let
+          args = [
+            "-ip"
+            cfg.ip
+            "-port"
+            (toString cfg.port)
+            "-urlprefix"
+            cfg.urlPrefix
+          ] ++ concatMap (hook: [
+            "-hooks"
+            hook
+          ]) hookFiles ++ optional cfg.enableTemplates "-template"
+            ++ optional cfg.verbose "-verbose" ++ cfg.extraArgs;
+        in ''
+          ${cfg.package}/bin/webhook ${escapeShellArgs args}
+        ''
+        ;
       serviceConfig = {
         Restart = "on-failure";
         User = cfg.user;

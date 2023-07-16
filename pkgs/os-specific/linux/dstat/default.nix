@@ -24,14 +24,15 @@ python3Packages.buildPythonApplication rec {
     # this fixes another bug with python3
     (fetchpatch {
       url =
-        "https://github.com/efexgee/dstat/commit/220a785321b13b6df92a536080aca6ef1cb644ad.patch";
+        "https://github.com/efexgee/dstat/commit/220a785321b13b6df92a536080aca6ef1cb644ad.patch"
+        ;
       sha256 = "08kcz3yxvl35m55y7g1pr73x3bjcqnv0qlswxqyq8cqxg9zd64cn";
     })
   ];
 
   makeFlags = [ "prefix=$(out)" ];
 
-  # remove deprecation warnings
+    # remove deprecation warnings
   preFixup = ''
     sed -i "s/import collections/import collections.abc/g" $out/share/dstat/dstat.py $out/bin/dstat
     sed -i "s/collections.Sequence/collections.abc.Sequence/g" "$out"/bin/dstat

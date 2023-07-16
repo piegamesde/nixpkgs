@@ -32,12 +32,13 @@ stdenv.mkDerivation rec {
     "sed -i '41,43d' libbristolaudio/audioEngineJack.c"; # disable alsa/iatomic
 
   configurePhase =
-    "./configure --prefix=$out --enable-jack-default-audio --enable-jack-default-midi";
+    "./configure --prefix=$out --enable-jack-default-audio --enable-jack-default-midi"
+    ;
 
-  # Workaround build failure on -fno-common toolchains like upstream
-  # gcc-10. Otherwise build fails as:
-  #  ld: brightonCLI.o:/build/bristol-0.60.11/brighton/brightonCLI.c:139: multiple definition of
-  #    `event'; brightonMixerMenu.o:/build/bristol-0.60.11/brighton/brightonMixerMenu.c:1182: first defined here
+    # Workaround build failure on -fno-common toolchains like upstream
+    # gcc-10. Otherwise build fails as:
+    #  ld: brightonCLI.o:/build/bristol-0.60.11/brighton/brightonCLI.c:139: multiple definition of
+    #    `event'; brightonMixerMenu.o:/build/bristol-0.60.11/brighton/brightonMixerMenu.c:1182: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   preInstall = ''

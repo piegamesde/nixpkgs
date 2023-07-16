@@ -54,14 +54,15 @@ stdenv.mkDerivation rec {
     "--with-bdb-lib=${db.out}/lib"
   ];
 
-  # Fix broken DT_NEEDED in lib/redland/librdf_storage_sqlite.so.
+    # Fix broken DT_NEEDED in lib/redland/librdf_storage_sqlite.so.
   NIX_CFLAGS_LINK = "-lraptor2";
 
   doCheck = false; # fails 1 out of 17 tests with a segmentation fault
 
   meta = with lib; {
     description =
-      "C libraries that provide support for the Resource Description Framework (RDF)";
+      "C libraries that provide support for the Resource Description Framework (RDF)"
+      ;
     homepage = "https://librdf.org/";
     platforms = platforms.unix;
     license = licenses.asl20;

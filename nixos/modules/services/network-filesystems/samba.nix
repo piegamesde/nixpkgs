@@ -9,24 +9,27 @@ with lib;
 
 let
 
-  smbToString = x:
+  smbToString =
+    x:
     if builtins.typeOf x == "bool" then
       boolToString x
     else
-      toString x;
+      toString x
+    ;
 
   cfg = config.services.samba;
 
   samba = cfg.package;
 
-  shareConfig = name:
+  shareConfig =
+    name:
     let
       share = getAttr name cfg.shares;
     in
     "[${name}]\n " + (smbToString (map (key: ''
       ${key} = ${smbToString (getAttr key share)}
     '') (attrNames share)))
-  ;
+    ;
 
   configFile = pkgs.writeText "smb.conf" (if cfg.configText != null then
     cfg.configText
@@ -42,35 +45,37 @@ let
       ${smbToString (map shareConfig (attrNames cfg.shares))}
     '');
 
-  # This may include nss_ldap, needed for samba if it has to use ldap.
+    # This may include nss_ldap, needed for samba if it has to use ldap.
   nssModulesPath = config.system.nssModules.path;
 
-  daemonService = appName: args: {
-    description = "Samba Service Daemon ${appName}";
+  daemonService =
+    appName: args: {
+      description = "Samba Service Daemon ${appName}";
 
-    after = [ (mkIf (cfg.enableNmbd && "${appName}" == "smbd")
-      "samba-nmbd.service") ];
-    requiredBy = [ "samba.target" ];
-    partOf = [ "samba.target" ];
+      after = [ (mkIf (cfg.enableNmbd && "${appName}" == "smbd")
+        "samba-nmbd.service") ];
+      requiredBy = [ "samba.target" ];
+      partOf = [ "samba.target" ];
 
-    environment = {
-      LD_LIBRARY_PATH = nssModulesPath;
-      LOCALE_ARCHIVE = "/run/current-system/sw/lib/locale/locale-archive";
-    };
+      environment = {
+        LD_LIBRARY_PATH = nssModulesPath;
+        LOCALE_ARCHIVE = "/run/current-system/sw/lib/locale/locale-archive";
+      };
 
-    serviceConfig = {
-      ExecStart =
-        "${samba}/sbin/${appName} --foreground --no-process-group ${args}";
-      ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
-      LimitNOFILE = 16384;
-      PIDFile = "/run/${appName}.pid";
-      Type = "notify";
-      NotifyAccess = "all"; # may not do anything...
-    };
-    unitConfig.RequiresMountsFor = "/var/lib/samba";
+      serviceConfig = {
+        ExecStart =
+          "${samba}/sbin/${appName} --foreground --no-process-group ${args}";
+        ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
+        LimitNOFILE = 16384;
+        PIDFile = "/run/${appName}.pid";
+        Type = "notify";
+        NotifyAccess = "all"; # may not do anything...
+      };
+      unitConfig.RequiresMountsFor = "/var/lib/samba";
 
-    restartTriggers = [ configFile ];
-  };
+      restartTriggers = [ configFile ];
+    }
+    ;
 
 in {
   imports = [
@@ -87,7 +92,7 @@ in {
       "This option has been removed by upstream, see https://bugzilla.samba.org/show_bug.cgi?id=10669#c10")
   ];
 
-  ###### interface
+    ###### interface
 
   options = {
 
@@ -216,16 +221,17 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkMerge [
     {
       assertions = [ {
         assertion = cfg.nsswins -> cfg.enableWinbindd;
         message =
-          "If samba.nsswins is enabled, then samba.enableWinbindd must also be enabled";
+          "If samba.nsswins is enabled, then samba.enableWinbindd must also be enabled"
+          ;
       } ];
-      # Always provide a smb.conf to shut up programs like smbclient and smbspool.
+        # Always provide a smb.conf to shut up programs like smbclient and smbspool.
       environment.etc."samba/smb.conf".source = mkOptionDefault
         (if cfg.enable then
           configFile
@@ -245,8 +251,8 @@ in {
           wants = [ "network-online.target" ];
           wantedBy = [ "multi-user.target" ];
         };
-        # Refer to https://github.com/samba-team/samba/tree/master/packaging/systemd
-        # for correct use with systemd
+          # Refer to https://github.com/samba-team/samba/tree/master/packaging/systemd
+          # for correct use with systemd
         services = {
           samba-smbd = daemonService "smbd" "";
           samba-nmbd = mkIf cfg.enableNmbd (daemonService "nmbd" "");

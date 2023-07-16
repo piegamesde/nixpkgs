@@ -21,7 +21,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-yY/X0LVIH1ULegx8MIZyUxD1wPNxxISSCBxj9aY2wtA=";
 
-  # Strip the final binary.
+    # Strip the final binary.
   ldflags = [
     "-s"
     "-w"
@@ -29,12 +29,12 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  # Tests expect the binary to be located in the root directory.
+    # Tests expect the binary to be located in the root directory.
   preCheck = ''
     ln -s $GOPATH/bin/ocm ocm
   '';
 
-  # Tests fail in Darwin sandbox.
+    # Tests fail in Darwin sandbox.
   doCheck = !stdenv.isDarwin;
 
   postInstall = ''

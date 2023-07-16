@@ -16,10 +16,10 @@ buildPythonPackage rec {
 
   passthru = { inherit python; };
 
-  # Non-standard test suite. Needs custom checkPhase.
-  # Needs LLVM's `FileCheck` and `not`: `$out/bin/lit tests`
-  # There should be `llvmPackages.lit` since older LLVM versions may
-  # have the possibility of not correctly interfacing with newer lit versions
+    # Non-standard test suite. Needs custom checkPhase.
+    # Needs LLVM's `FileCheck` and `not`: `$out/bin/lit tests`
+    # There should be `llvmPackages.lit` since older LLVM versions may
+    # have the possibility of not correctly interfacing with newer lit versions
   doCheck = false;
 
   meta = {

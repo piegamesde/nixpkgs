@@ -32,9 +32,8 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "py_air_control_exporter" ];
 
-  passthru.tests = {
-    inherit (nixosTests.prometheus-exporters) py-air-control;
-  };
+  passthru.tests = { inherit (nixosTests.prometheus-exporters) py-air-control; }
+    ;
 
   meta = with lib; {
     description = "Exports Air Quality Metrics to Prometheus";

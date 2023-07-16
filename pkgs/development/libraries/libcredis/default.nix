@@ -10,11 +10,12 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/credis/credis-${version}.tar.gz";
+      "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/credis/credis-${version}.tar.gz"
+      ;
     sha256 = "1l3hlw9rrc11qggbg9a2303p3bhxxx2vqkmlk8avsrbqw15r1ayr";
   };
 
-  # credis build system has no install actions, provide our own.
+    # credis build system has no install actions, provide our own.
   installPhase = ''
     mkdir -p "$out/bin"
     mkdir -p "$out/lib"

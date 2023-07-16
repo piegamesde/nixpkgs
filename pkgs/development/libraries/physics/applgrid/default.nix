@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ gfortran ];
 
-  # For some reason zlib was only needed after bump to gfortran8
+    # For some reason zlib was only needed after bump to gfortran8
   buildInputs = [
     hoppet
     lhapdf
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = false; # broken
 
-  # Install private headers required by APFELgrid
+    # Install private headers required by APFELgrid
   postInstall = ''
     for header in src/*.h; do
       install -Dm644 "$header" "$out"/include/appl_grid/"`basename $header`"
@@ -50,7 +50,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "The APPLgrid project provides a fast and flexible way to reproduce the results of full NLO calculations with any input parton distribution set in only a few milliseconds rather than the weeks normally required to gain adequate statistics";
+      "The APPLgrid project provides a fast and flexible way to reproduce the results of full NLO calculations with any input parton distribution set in only a few milliseconds rather than the weeks normally required to gain adequate statistics"
+      ;
     license = licenses.gpl3;
     homepage = "http://applgrid.hepforge.org";
     platforms = platforms.unix;

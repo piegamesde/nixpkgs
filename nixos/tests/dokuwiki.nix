@@ -22,7 +22,8 @@ import ./make-test-python.nix ({
       src = pkgs.fetchzip {
         stripRoot = false;
         url =
-          "https://github.com/real-or-random/dokuwiki-plugin-icalevents/releases/download/${version}/dokuwiki-plugin-icalevents-${version}.zip";
+          "https://github.com/real-or-random/dokuwiki-plugin-icalevents/releases/download/${version}/dokuwiki-plugin-icalevents-${version}.zip"
+          ;
         hash = "sha256-IPs4+qgEfe8AAWevbcCM9PnyI0uoyamtWeg4rEb+9Wc=";
       };
       installPhase = "mkdir -p $out; cp -R * $out/";
@@ -38,7 +39,8 @@ import ./make-test-python.nix ({
       '';
     });
 
-    mkNode = webserver:
+    mkNode =
+      webserver:
       {
         ...
       }: {
@@ -93,7 +95,8 @@ import ./make-test-python.nix ({
           "site1.local"
           "site2.local"
         ];
-      };
+      }
+      ;
 
     titleFile = pkgs.writeText "dokuwiki-title" "DokuWiki on site2";
   in {

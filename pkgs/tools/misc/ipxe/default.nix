@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
     substituteInPlace src/util/genfsimg --replace "	syslinux " "	true "
   ''; # calling syslinux on a FAT image isn't going to work
 
-  # not possible due to assembler code
+    # not possible due to assembler code
   hardeningDisable = [
     "pic"
     "stackprotector"

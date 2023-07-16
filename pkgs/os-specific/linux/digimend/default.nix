@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     sed 's/depmod /true /' -i Makefile
   '';
 
-  # Fix build on Linux kernel >= 5.18
+    # Fix build on Linux kernel >= 5.18
   env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=implicit-fallthrough" ];
 
   nativeBuildInputs = kernel.moduleBuildDependencies;

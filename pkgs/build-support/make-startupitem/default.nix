@@ -37,7 +37,7 @@ stdenv.mkDerivation {
     cp $target $out/etc/xdg/autostart
   '';
 
-  # this will automatically put 'package' in the environment when you
-  # put its startup item in there.
+    # this will automatically put 'package' in the environment when you
+    # put its startup item in there.
   propagatedBuildInputs = [ package ];
 }

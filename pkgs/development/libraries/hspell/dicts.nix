@@ -4,7 +4,8 @@
 }:
 
 let
-  dict = variant: a:
+  dict =
+    variant: a:
     stdenv.mkDerivation ({
       inherit (hspell) version src patchPhase nativeBuildInputs;
       buildFlags = [ variant ];
@@ -16,7 +17,8 @@ let
         a.meta
       else
         { });
-    } // (removeAttrs a [ "meta" ]));
+    } // (removeAttrs a [ "meta" ]))
+    ;
 in {
   recurseForDerivations = true;
 

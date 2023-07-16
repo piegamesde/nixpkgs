@@ -16,7 +16,8 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url =
-      "https://bitbucket.org/mmottl/ocaml-makefile/downloads/ocaml-makefile-${version}.tar.gz";
+      "https://bitbucket.org/mmottl/ocaml-makefile/downloads/ocaml-makefile-${version}.tar.gz"
+      ;
     inherit sha256;
   };
 

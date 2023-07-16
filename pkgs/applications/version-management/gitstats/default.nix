@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
   pname = "gitstats";
   version = "2016-01-08";
 
-  # upstream does not make releases
+    # upstream does not make releases
   src = fetchFromGitHub {
     owner = "hoxu";
     repo = "gitstats";
@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "convert-gitstats-to-use-python3.patch";
       url =
-        "https://github.com/hoxu/gitstats/commit/ca415668ce6b739ca9fefba6acd29c63b89f4211.patch";
+        "https://github.com/hoxu/gitstats/commit/ca415668ce6b739ca9fefba6acd29c63b89f4211.patch"
+        ;
       hash = "sha256-sgjoj8eQ5CxQBffmhqymsmXb8peuaSbfFoWciLK3LOo=";
     })
   ];

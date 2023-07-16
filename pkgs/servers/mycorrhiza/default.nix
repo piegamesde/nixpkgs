@@ -31,7 +31,8 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "Filesystem and git-based wiki engine written in Go using mycomarkup as its primary markup language";
+      "Filesystem and git-based wiki engine written in Go using mycomarkup as its primary markup language"
+      ;
     homepage = "https://github.com/bouncepaw/mycorrhiza";
     license = licenses.agpl3Only;
     maintainers = with maintainers; [ chekoopa ];

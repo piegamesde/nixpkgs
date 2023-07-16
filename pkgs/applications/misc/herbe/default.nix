@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     description = "Daemon-less notifications without D-Bus";
     homepage = "https://github.com/dudik/herbe";
     license = licenses.mit;
-    # NOTE: Could also work on 'unix'.
+      # NOTE: Could also work on 'unix'.
     platforms = platforms.linux;
     maintainers = with maintainers; [ wishfort36 ];
   };

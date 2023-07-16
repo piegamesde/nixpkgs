@@ -16,10 +16,12 @@
 }:
 
 let
-  merlinVersion = if lib.versionAtLeast ocaml.version "4.14" then
-    "4.8"
-  else
-    "4.7";
+  merlinVersion =
+    if lib.versionAtLeast ocaml.version "4.14" then
+      "4.8"
+    else
+      "4.7"
+    ;
 
   hashes = {
     "4.7-412" = "sha256-0U3Ia7EblKULNy8AuXFVKACZvGN0arYJv7BWiBRgT0Y=";
@@ -45,7 +47,8 @@ else
 
     src = fetchurl {
       url =
-        "https://github.com/ocaml/merlin/releases/download/v${version}/merlin-${version}.tbz";
+        "https://github.com/ocaml/merlin/releases/download/v${version}/merlin-${version}.tbz"
+        ;
       sha256 = hashes."${version}";
     };
 
@@ -82,7 +85,8 @@ else
 
     meta = with lib; {
       description =
-        "An editor-independent tool to ease the development of programs in OCaml";
+        "An editor-independent tool to ease the development of programs in OCaml"
+        ;
       homepage = "https://github.com/ocaml/merlin";
       license = licenses.mit;
       maintainers = [

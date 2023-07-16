@@ -15,25 +15,26 @@ let
 
   cfg = config.environment;
 
-  exportedEnvVars = let
-    absoluteVariables = mapAttrs (n: toList) cfg.variables;
+  exportedEnvVars =
+    let
+      absoluteVariables = mapAttrs (n: toList) cfg.variables;
 
-    suffixedVariables = flip mapAttrs cfg.profileRelativeEnvVars
-      (envVar: listSuffixes:
-        concatMap (profile: map (suffix: "${profile}${suffix}") listSuffixes)
-        cfg.profiles);
+      suffixedVariables = flip mapAttrs cfg.profileRelativeEnvVars
+        (envVar: listSuffixes:
+          concatMap (profile: map (suffix: "${profile}${suffix}") listSuffixes)
+          cfg.profiles);
 
-    allVariables = zipAttrsWith (n: concatLists) [
-      absoluteVariables
-      suffixedVariables
-    ];
+      allVariables = zipAttrsWith (n: concatLists) [
+        absoluteVariables
+        suffixedVariables
+      ];
 
-    exportVariables =
-      mapAttrsToList (n: v: ''export ${n}="${concatStringsSep ":" v}"'')
-      allVariables;
-  in
-  concatStringsSep "\n" exportVariables
-  ;
+      exportVariables =
+        mapAttrsToList (n: v: ''export ${n}="${concatStringsSep ":" v}"'')
+        allVariables;
+    in
+    concatStringsSep "\n" exportVariables
+    ;
 
 in {
 
@@ -90,7 +91,7 @@ in {
       '';
     };
 
-    # !!! isn't there a better way?
+      # !!! isn't there a better way?
     environment.extraInit = mkOption {
       default = "";
       description = lib.mdDoc ''
@@ -194,10 +195,10 @@ in {
 
     system.build.binsh = pkgs.bashInteractive;
 
-    # Set session variables in the shell as well. This is usually
-    # unnecessary, but it allows changes to session variables to take
-    # effect without restarting the session (e.g. by opening a new
-    # terminal instead of logging out of X11).
+      # Set session variables in the shell as well. This is usually
+      # unnecessary, but it allows changes to session variables to take
+      # effect without restarting the session (e.g. by opening a new
+      # terminal instead of logging out of X11).
     environment.variables = config.environment.sessionVariables;
 
     environment.profileRelativeEnvVars =
@@ -214,8 +215,8 @@ in {
       /bin/sh
     '';
 
-    # For resetting environment with `. /etc/set-environment` when needed
-    # and discoverability (see motivation of #30418).
+      # For resetting environment with `. /etc/set-environment` when needed
+      # and discoverability (see motivation of #30418).
     environment.etc.set-environment.source = config.system.build.setEnvironment;
 
     system.build.setEnvironment = pkgs.writeText "set-environment" ''

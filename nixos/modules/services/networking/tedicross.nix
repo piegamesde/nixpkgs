@@ -25,7 +25,7 @@ in {
 
       config = mkOption {
         type = types.attrs;
-        # from https://github.com/TediCross/TediCross/blob/master/example.settings.yaml
+          # from https://github.com/TediCross/TediCross/blob/master/example.settings.yaml
         example = literalExpression ''
           {
             telegram = {
@@ -95,7 +95,8 @@ in {
       serviceConfig = {
         Type = "simple";
         ExecStart =
-          "${pkgs.nodePackages.tedicross}/bin/tedicross --config='${configYAML}' --data-dir='${dataDir}'";
+          "${pkgs.nodePackages.tedicross}/bin/tedicross --config='${configYAML}' --data-dir='${dataDir}'"
+          ;
         Restart = "always";
         DynamicUser = true;
         StateDirectory = baseNameOf dataDir;

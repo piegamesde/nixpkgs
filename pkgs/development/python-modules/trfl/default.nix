@@ -42,7 +42,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "trfl" ];
 
-  # Tests currently fail with assertion errors
+    # Tests currently fail with assertion errors
   doCheck = false;
 
   disabledTestPaths = [

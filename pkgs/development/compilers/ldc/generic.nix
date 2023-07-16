@@ -38,11 +38,12 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/ldc-developers/ldc/releases/download/v${version}/ldc-${version}-src.tar.gz";
+      "https://github.com/ldc-developers/ldc/releases/download/v${version}/ldc-${version}-src.tar.gz"
+      ;
     inherit sha256;
   };
 
-  # https://issues.dlang.org/show_bug.cgi?id=19553
+    # https://issues.dlang.org/show_bug.cgi?id=19553
   hardeningDisable = [ "fortify" ];
 
   postUnpack = ''
@@ -119,7 +120,7 @@ stdenv.mkDerivation rec {
     export DYLD_LIBRARY_PATH=$(pwd)/lib
   '';
 
-  # https://github.com/ldc-developers/ldc/issues/2497#issuecomment-459633746
+    # https://github.com/ldc-developers/ldc/issues/2497#issuecomment-459633746
   additionalExceptions =
     lib.optionalString stdenv.hostPlatform.isDarwin "|druntime-test-shared";
 
@@ -152,7 +153,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "The LLVM-based D compiler";
     homepage = "https://github.com/ldc-developers/ldc";
-    # from https://github.com/ldc-developers/ldc/blob/master/LICENSE
+      # from https://github.com/ldc-developers/ldc/blob/master/LICENSE
     license = with licenses; [
       bsd3
       boost

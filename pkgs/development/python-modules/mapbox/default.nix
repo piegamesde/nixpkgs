@@ -44,8 +44,8 @@ buildPythonPackage rec {
     description = "Mapbox SDK for Python";
     longDescription = "Low-level client API for Mapbox web services.";
     maintainers = with maintainers; [ ersin ];
-    # ImportError: cannot import name 'Mapping' from 'collections'
-    # and archived upstreamed
+      # ImportError: cannot import name 'Mapping' from 'collections'
+      # and archived upstreamed
     broken = true;
   };
 }

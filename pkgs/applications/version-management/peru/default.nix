@@ -22,7 +22,7 @@ python3Packages.buildPythonApplication rec {
     docopt
   ];
 
-  # No tests in archive
+    # No tests in archive
   doCheck = false;
 
   meta = with lib; {

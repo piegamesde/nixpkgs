@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
     sha256 = "0b12rsynrmkldlwcb62drk33kk0aqwbj10mq5y5x3hjf626gjwsi";
   };
 
-  # Building instructions:
-  # https://boxes.thomasjensen.com/build.html#building-on-linux--unix
+    # Building instructions:
+    # https://boxes.thomasjensen.com/build.html#building-on-linux--unix
   nativeBuildInputs = [
     bison
     flex
@@ -26,8 +26,8 @@ stdenv.mkDerivation rec {
 
   dontConfigure = true;
 
-  # Makefile references a system wide config file in '/usr/share'. Instead, we
-  # move it within the store by default.
+    # Makefile references a system wide config file in '/usr/share'. Instead, we
+    # move it within the store by default.
   preBuild = ''
     substituteInPlace Makefile \
       --replace "GLOBALCONF = /usr/share/boxes" \

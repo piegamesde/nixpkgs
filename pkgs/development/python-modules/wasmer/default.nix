@@ -13,7 +13,8 @@
 }:
 
 let
-  common = {
+  common =
+    {
       pname,
       buildAndTestSubdir,
       cargoHash,
@@ -51,8 +52,8 @@ let
           --replace "package.metadata.maturin" "broken"
       '';
 
-      buildInputs = lib.optionals stdenv.isDarwin [ libiconv ]
-        ++ extraBuildInputs;
+      buildInputs =
+        lib.optionals stdenv.isDarwin [ libiconv ] ++ extraBuildInputs;
 
       inherit buildAndTestSubdir;
 
@@ -61,7 +62,7 @@ let
         cp -R tests $testsout/tests
       '';
 
-      # check in passthru.tests.pytest because all packages are required to run the tests
+        # check in passthru.tests.pytest because all packages are required to run the tests
       doCheck = false;
 
       passthru.tests = lib.optionalAttrs (pname == "wasmer") {
@@ -78,7 +79,8 @@ let
         platforms = platforms.unix;
         maintainers = with maintainers; [ SuperSandro2000 ];
       };
-    };
+    }
+    ;
 in rec {
   wasmer = common {
     pname = "wasmer";

@@ -12,7 +12,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/openSUSE/xinetd/releases/download/${version}/xinetd-${version}.tar.xz";
+      "https://github.com/openSUSE/xinetd/releases/download/${version}/xinetd-${version}.tar.xz"
+      ;
     hash = "sha256-K6pYEBC8cDYavfo38SHpKuucXOZ/mnGRPOvWk1nMllQ=";
   };
 

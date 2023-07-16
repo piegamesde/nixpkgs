@@ -21,10 +21,10 @@ buildPythonPackage rec {
     ${python.interpreter} test.py
   '';
 
-  # Path to database need to be set.
-  # Somehow the setup.py flag is not propagated.
-  #setupPyBuildFlags = [ "--berkeley-db=${pkgs.db}" ];
-  # We can also use a variable
+    # Path to database need to be set.
+    # Somehow the setup.py flag is not propagated.
+    #setupPyBuildFlags = [ "--berkeley-db=${pkgs.db}" ];
+    # We can also use a variable
   preConfigure = ''
     export BERKELEYDB_DIR=${pkgs.db.dev};
   '';

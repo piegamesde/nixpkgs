@@ -31,7 +31,8 @@ buildPythonPackage rec {
 
   meta = {
     description =
-      "A python CLI and library for searching for words, documents, images, videos, news, maps and text translation using the DuckDuckGo.com search engine";
+      "A python CLI and library for searching for words, documents, images, videos, news, maps and text translation using the DuckDuckGo.com search engine"
+      ;
     homepage = "https://github.com/deedy5/duckduckgo_search";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ ];

@@ -59,7 +59,7 @@ python3.pkgs.buildPythonApplication rec {
     rapidfuzz
   ];
 
-  # the file should be executable but it isn't so our wrapper doesn't run
+    # the file should be executable but it isn't so our wrapper doesn't run
   preFixup = ''
     chmod 555 $out/bin/puddletag
     wrapQtApp $out/bin/puddletag

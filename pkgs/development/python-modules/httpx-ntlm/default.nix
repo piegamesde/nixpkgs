@@ -26,7 +26,8 @@ buildPythonPackage rec {
     (fetchpatch {
       name = "update-version-specifiers.patch";
       url =
-        "https://github.com/ulodciv/httpx-ntlm/commit/dac67a957c5c23df29d4790ddbc7cc4bccfc0e35.patch";
+        "https://github.com/ulodciv/httpx-ntlm/commit/dac67a957c5c23df29d4790ddbc7cc4bccfc0e35.patch"
+        ;
       hash = "sha256-YtgRrgGG/x7jvNg+NuQIrkOUdyD6Bk53fRaiXBwiV+o=";
     })
   ];
@@ -36,7 +37,7 @@ buildPythonPackage rec {
     pyspnego
   ];
 
-  # https://github.com/ulodciv/httpx-ntlm/issues/5
+    # https://github.com/ulodciv/httpx-ntlm/issues/5
   doCheck = false;
 
   pythonImportsCheck = [ "httpx_ntlm" ];

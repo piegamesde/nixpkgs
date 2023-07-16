@@ -7,7 +7,8 @@ args@{
   version = "lfarm-20150608-git";
 
   description =
-    "Server component of lfarm, a library for distributing work across machines.";
+    "Server component of lfarm, a library for distributing work across machines."
+    ;
 
   deps = [
     args."alexandria"
@@ -22,7 +23,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/lfarm/2015-06-08/lfarm-20150608-git.tgz";
+      "http://beta.quicklisp.org/archive/lfarm/2015-06-08/lfarm-20150608-git.tgz"
+      ;
     sha256 = "1rkjcfam4601yczs13pi2qgi5jql0c150dxja53hkcnqhkyqgl66";
   };
 

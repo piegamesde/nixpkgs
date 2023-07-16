@@ -34,7 +34,7 @@ buildPythonPackage rec {
       --replace "beautifulsoup4~=4.10.0" "beautifulsoup4>=4.10.0"
   '';
 
-  # Test require network access
+    # Test require network access
   doCheck = false;
 
   pythonImportsCheck = [ "socid_extractor" ];

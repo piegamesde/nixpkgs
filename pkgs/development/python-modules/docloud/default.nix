@@ -20,14 +20,15 @@ buildPythonPackage rec {
     six
   ];
 
-  # Pypi's tarball doesn't contain tests. Source not available.
+    # Pypi's tarball doesn't contain tests. Source not available.
   doCheck = false;
   pythonImportsCheck = [ "docloud" ];
 
   meta = with lib; {
     description = "The IBM Decision Optimization on Cloud Python client";
     homepage =
-      "https://onboarding-oaas.docloud.ibmcloud.com/software/analytics/docloud/";
+      "https://onboarding-oaas.docloud.ibmcloud.com/software/analytics/docloud/"
+      ;
     license = licenses.asl20;
     maintainers = with maintainers; [ drewrisinger ];
   };

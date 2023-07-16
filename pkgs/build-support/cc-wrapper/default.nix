@@ -104,32 +104,40 @@ let
   ccVersion = lib.getVersion cc;
   ccName = lib.removePrefix targetPrefix (lib.getName cc);
 
-  libc_bin = if libc == null then
-    ""
-  else
-    getBin libc;
-  libc_dev = if libc == null then
-    ""
-  else
-    getDev libc;
-  libc_lib = if libc == null then
-    ""
-  else
-    getLib libc;
+  libc_bin =
+    if libc == null then
+      ""
+    else
+      getBin libc
+    ;
+  libc_dev =
+    if libc == null then
+      ""
+    else
+      getDev libc
+    ;
+  libc_lib =
+    if libc == null then
+      ""
+    else
+      getLib libc
+    ;
   cc_solib = getLib cc + optionalString (targetPlatform != hostPlatform)
     "/${targetPlatform.config}";
 
-  # The wrapper scripts use 'cat' and 'grep', so we may need coreutils.
-  coreutils_bin = if nativeTools then
-    ""
-  else
-    getBin coreutils;
+    # The wrapper scripts use 'cat' and 'grep', so we may need coreutils.
+  coreutils_bin =
+    if nativeTools then
+      ""
+    else
+      getBin coreutils
+    ;
 
-  # The "suffix salt" is a arbitrary string added in the end of env vars
-  # defined by cc-wrapper's hooks so that multiple cc-wrappers can be used
-  # without interfering. For the moment, it is defined as the target triple,
-  # adjusted to be a valid bash identifier. This should be considered an
-  # unstable implementation detail, however.
+    # The "suffix salt" is a arbitrary string added in the end of env vars
+    # defined by cc-wrapper's hooks so that multiple cc-wrappers can be used
+    # without interfering. For the moment, it is defined as the target triple,
+    # adjusted to be a valid bash identifier. This should be considered an
+    # unstable implementation detail, however.
   suffixSalt = replaceStrings [
     "-"
     "."
@@ -149,8 +157,9 @@ let
     && !(stdenv.targetPlatform.useAndroidPrebuilt or false)
     && !(stdenv.targetPlatform.isiOS or false) && gccForLibs != null;
 
-  # older compilers (for example bootstrap's GCC 5) fail with -march=too-modern-cpu
-  isGccArchSupported = arch:
+    # older compilers (for example bootstrap's GCC 5) fail with -march=too-modern-cpu
+  isGccArchSupported =
+    arch:
     if targetPlatform.isPower then
       false
     else # powerpc does not allow -march=
@@ -165,7 +174,7 @@ let
         cooperlake = versionAtLeast ccVersion "10.0";
         tigerlake = versionAtLeast ccVersion "10.0";
         knm = versionAtLeast ccVersion "8.0";
-        # AMD
+          # AMD
         znver1 = versionAtLeast ccVersion "6.0";
         znver2 = versionAtLeast ccVersion "9.0";
         znver3 = versionAtLeast ccVersion "11.0";
@@ -176,12 +185,13 @@ let
         icelake-client = versionAtLeast ccVersion "7.0";
         icelake-server = versionAtLeast ccVersion "7.0";
         knm = versionAtLeast ccVersion "7.0";
-        # AMD
+          # AMD
         znver1 = versionAtLeast ccVersion "4.0";
         znver2 = versionAtLeast ccVersion "9.0";
       }.${arch} or true
     else
-      false;
+      false
+    ;
 
   darwinPlatformForCC = optionalString stdenv.targetPlatform.isDarwin
     (if (targetPlatform.darwinPlatform == "macos" && isGNU) then
@@ -209,10 +219,12 @@ stdenv.mkDerivation {
     name
   else
     "${ccName}-wrapper");
-  version = if cc == null then
-    ""
-  else
-    ccVersion;
+  version =
+    if cc == null then
+      ""
+    else
+      ccVersion
+    ;
 
   preferLocalBuild = true;
 
@@ -233,14 +245,16 @@ stdenv.mkDerivation {
     inherit bintools;
     inherit cc libc nativeTools nativeLibc nativePrefix isGNU isClang;
 
-    emacsBufferSetup = pkgs: ''
-      ; We should handle propagation here too
-      (mapc
-        (lambda (arg)
-          (when (file-directory-p (concat arg "/include"))
-            (setenv "NIX_CFLAGS_COMPILE_${suffixSalt}" (concat (getenv "NIX_CFLAGS_COMPILE_${suffixSalt}") " -isystem " arg "/include"))))
-        '(${concatStringsSep " " (map (pkg: ''"${pkg}"'') pkgs)}))
-    '';
+    emacsBufferSetup =
+      pkgs: ''
+        ; We should handle propagation here too
+        (mapc
+          (lambda (arg)
+            (when (file-directory-p (concat arg "/include"))
+              (setenv "NIX_CFLAGS_COMPILE_${suffixSalt}" (concat (getenv "NIX_CFLAGS_COMPILE_${suffixSalt}") " -isystem " arg "/include"))))
+          '(${concatStringsSep " " (map (pkg: ''"${pkg}"'') pkgs)}))
+      ''
+      ;
 
     inherit expand-response-params;
 
@@ -379,10 +393,10 @@ stdenv.mkDerivation {
     '';
 
   strictDeps = true;
-  propagatedBuildInputs = [ bintools ] ++ extraTools
-    ++ optionals cc.langD or false [ zlib ];
-  depsTargetTargetPropagated = optional (libcxx != null) libcxx
-    ++ extraPackages;
+  propagatedBuildInputs =
+    [ bintools ] ++ extraTools ++ optionals cc.langD or false [ zlib ];
+  depsTargetTargetPropagated =
+    optional (libcxx != null) libcxx ++ extraPackages;
 
   setupHooks = [ ../setup-hooks/role.bash ]
     ++ lib.optional (cc.langC or true) ./setup-hook.sh
@@ -701,37 +715,44 @@ stdenv.mkDerivation {
     expandResponseParams =
       "${expand-response-params}/bin/expand-response-params";
     shell = getBin shell + shell.shellPath or "";
-    gnugrep_bin = if nativeTools then
-      ""
-    else
-      gnugrep;
-    # stdenv.cc.cc should not be null and we have nothing better for now.
-    # if the native impure bootstrap is gotten rid of this can become `inherit cc;` again.
-    cc = if nativeTools then
-      ""
-    else
-      cc;
+    gnugrep_bin =
+      if nativeTools then
+        ""
+      else
+        gnugrep
+      ;
+      # stdenv.cc.cc should not be null and we have nothing better for now.
+      # if the native impure bootstrap is gotten rid of this can become `inherit cc;` again.
+    cc =
+      if nativeTools then
+        ""
+      else
+        cc
+      ;
     wrapperName = "CC_WRAPPER";
     inherit suffixSalt coreutils_bin bintools;
     inherit libc_bin libc_dev libc_lib;
     inherit darwinPlatformForCC darwinMinVersion darwinMinVersionVariable;
   };
 
-  meta = let
-    cc_ = if cc != null then
-      cc
+  meta =
+    let
+      cc_ =
+        if cc != null then
+          cc
+        else
+          { }
+        ;
+    in
+    (if cc_ ? meta then
+      removeAttrs cc.meta [ "priority" ]
     else
-      { };
-  in
-  (if cc_ ? meta then
-    removeAttrs cc.meta [ "priority" ]
-  else
-    { }) // {
-      description = lib.attrByPath [
-        "meta"
-        "description"
-      ] "System C compiler" cc_ + " (wrapper script)";
-      priority = 10;
-    }
-  ;
+      { }) // {
+        description = lib.attrByPath [
+          "meta"
+          "description"
+        ] "System C compiler" cc_ + " (wrapper script)";
+        priority = 10;
+      }
+    ;
 }

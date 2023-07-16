@@ -22,16 +22,18 @@ rustPlatform.buildRustPackage rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = if stdenv.isDarwin then
-    [
-      libiconv
-      CoreServices
-      Security
-    ]
-  else
-    [ openssl ];
+  buildInputs =
+    if stdenv.isDarwin then
+      [
+        libiconv
+        CoreServices
+        Security
+      ]
+    else
+      [ openssl ]
+    ;
 
-  # requires network
+    # requires network
   checkFlags = [ "--skip=tools::tests::download_and_install_binaries" ];
 
   cargoSha256 = "sha256-j/i2io1JfcNA7eeAXAAKMBtHORZm4J5dOFFNnzvx2cg=";

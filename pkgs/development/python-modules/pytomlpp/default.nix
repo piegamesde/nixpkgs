@@ -36,7 +36,7 @@ buildPythonPackage rec {
     matplotlib
   ];
 
-  # pelican requires > 2.7
+    # pelican requires > 2.7
   doCheck = !pythonOlder "3.6";
 
   disabledTests = [

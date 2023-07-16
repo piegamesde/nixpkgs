@@ -21,7 +21,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://confluence.ecmwf.int/download/attachments/45757960/eccodes-${version}-Source.tar.gz";
+      "https://confluence.ecmwf.int/download/attachments/45757960/eccodes-${version}-Source.tar.gz"
+      ;
     sha256 = "sha256-KDE0exUXr569cN08rYiugYqESNTmyGcapyhhfnNDHNU=";
   };
 
@@ -82,7 +83,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  # Only do tests that don't require downloading 120MB of testdata
+    # Only do tests that don't require downloading 120MB of testdata
   checkPhase = ''
     ctest -R "eccodes_t_(definitions|calendar|unit_tests|md5|uerra|grib_2nd_order_numValues|julian)" -VV
   '';
@@ -93,6 +94,7 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ knedlsepp ];
     platforms = platforms.unix;
     description =
-      "ECMWF library for reading and writing GRIB, BUFR and GTS abbreviated header";
+      "ECMWF library for reading and writing GRIB, BUFR and GTS abbreviated header"
+      ;
   };
 }

@@ -22,7 +22,7 @@ python3Packages.buildPythonPackage rec {
 
   pythonImportsCheck = [ "present" ];
 
-  # TypeError: don't know how to make test from: 0.6.0
+    # TypeError: don't know how to make test from: 0.6.0
   doCheck = false;
 
   meta = with lib; {

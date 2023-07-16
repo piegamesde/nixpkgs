@@ -13,10 +13,12 @@ let
 
   dir = "/var/lib/yandex-disk";
 
-  u = if cfg.user != null then
-    cfg.user
-  else
-    "yandexdisk";
+  u =
+    if cfg.user != null then
+      cfg.user
+    else
+      "yandexdisk"
+    ;
 
 in {
 
@@ -77,7 +79,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -95,7 +97,7 @@ in {
 
       wantedBy = [ "multi-user.target" ];
 
-      # FIXME: have to specify ${directory} here as well
+        # FIXME: have to specify ${directory} here as well
       unitConfig.RequiresMountsFor = dir;
 
       script = ''

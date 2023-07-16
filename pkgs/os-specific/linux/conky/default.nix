@@ -169,8 +169,8 @@ stdenv.mkDerivation rec {
     ++ optional pulseSupport "-DBUILD_PULSEAUDIO=ON"
     ++ optional journalSupport "-DBUILD_JOURNAL=ON";
 
-  # `make -f src/CMakeFiles/conky.dir/build.make src/CMakeFiles/conky.dir/conky.cc.o`:
-  # src/conky.cc:137:23: fatal error: defconfig.h: No such file or directory
+    # `make -f src/CMakeFiles/conky.dir/build.make src/CMakeFiles/conky.dir/conky.cc.o`:
+    # src/conky.cc:137:23: fatal error: defconfig.h: No such file or directory
   enableParallelBuilding = false;
 
   doCheck = true;

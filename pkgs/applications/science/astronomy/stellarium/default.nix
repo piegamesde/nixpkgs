@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
     export LC_ALL=en_US.UTF-8
   '';
 
-  # fatal error: 'QtSerialPort/QSerialPortInfo' file not found
+    # fatal error: 'QtSerialPort/QSerialPortInfo' file not found
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.isDarwin "-F${qtserialport}/lib";
 

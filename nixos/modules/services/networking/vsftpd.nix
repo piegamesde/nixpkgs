@@ -24,24 +24,26 @@ let
 
   inherit (pkgs) vsftpd;
 
-  yesNoOption = nixosName: vsftpdName: default: description: {
-    cfgText = "${vsftpdName}=${
-        if getAttr nixosName cfg then
-          "YES"
-        else
-          "NO"
-      }";
+  yesNoOption =
+    nixosName: vsftpdName: default: description: {
+      cfgText = "${vsftpdName}=${
+          if getAttr nixosName cfg then
+            "YES"
+          else
+            "NO"
+        }";
 
-    nixosOption = {
-      type = types.bool;
-      name = nixosName;
-      value = mkOption {
-        description = lib.mdDoc description;
-        inherit default;
+      nixosOption = {
         type = types.bool;
+        name = nixosName;
+        value = mkOption {
+          description = lib.mdDoc description;
+          inherit default;
+          type = types.bool;
+        };
       };
-    };
-  };
+    }
+    ;
 
   optionDescription = [
     (yesNoOption "allowWriteableChroot" "allow_writeable_chroot" false ''
@@ -172,7 +174,8 @@ in {
           ${x}
         '') cfg.userlist);
         defaultText = literalExpression ''
-          pkgs.writeText "userlist" (concatMapStrings (x: "''${x}\n") cfg.userlist)'';
+          pkgs.writeText "userlist" (concatMapStrings (x: "''${x}\n") cfg.userlist)''
+          ;
         description = lib.mdDoc ''
           Newline separated list of names to be allowed/denied if {option}`userlistEnable`
           is `true`. Meaning see {option}`userlistDeny`.
@@ -270,14 +273,15 @@ in {
         default = "";
         example = "ftpd_banner=Hello";
         description = lib.mdDoc
-          "Extra configuration to add at the bottom of the generated configuration file.";
+          "Extra configuration to add at the bottom of the generated configuration file."
+          ;
       };
 
     } // (listToAttrs (catAttrs "nixosOption" optionDescription));
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -286,13 +290,15 @@ in {
         assertion = (cfg.forceLocalLoginsSSL -> cfg.rsaCertFile != null)
           && (cfg.forceLocalDataSSL -> cfg.rsaCertFile != null);
         message =
-          "vsftpd: If forceLocalLoginsSSL or forceLocalDataSSL is true then a rsaCertFile must be provided!";
+          "vsftpd: If forceLocalLoginsSSL or forceLocalDataSSL is true then a rsaCertFile must be provided!"
+          ;
       }
       {
         assertion = (cfg.enableVirtualUsers -> cfg.userDbPath != null)
           && (cfg.enableVirtualUsers -> cfg.localUsers != null);
         message =
-          "vsftpd: If enableVirtualUsers is true, you need to setup both the userDbPath and localUsers options.";
+          "vsftpd: If enableVirtualUsers is true, you need to setup both the userDbPath and localUsers options."
+          ;
       }
     ];
 
@@ -301,10 +307,12 @@ in {
         group = "vsftpd";
         isSystemUser = true;
         description = "VSFTPD user";
-        home = if cfg.localRoot != null then
-          cfg.localRoot # <= Necessary for virtual users.
-        else
-          "/homeless-shelter";
+        home =
+          if cfg.localRoot != null then
+            cfg.localRoot # <= Necessary for virtual users.
+          else
+            "/homeless-shelter"
+          ;
       };
     } // optionalAttrs cfg.anonymousUser {
       "ftp" = {
@@ -319,12 +327,14 @@ in {
     users.groups.vsftpd = { };
     users.groups.ftp.gid = config.ids.gids.ftp;
 
-    # If you really have to access root via FTP use mkOverride or userlistDeny
-    # = false and whitelist root
-    services.vsftpd.userlist = if cfg.userlistDeny then
-      [ "root" ]
-    else
-      [ ];
+      # If you really have to access root via FTP use mkOverride or userlistDeny
+      # = false and whitelist root
+    services.vsftpd.userlist =
+      if cfg.userlistDeny then
+        [ "root" ]
+      else
+        [ ]
+      ;
 
     systemd = {
       tmpfiles.rules = optional cfg.anonymousUser

@@ -14,8 +14,8 @@ stdenv.mkDerivation rec {
   pname = "xautolock";
   version = "2.2-7-ga23dd5c";
 
-  # This repository contains xautolock-2.2 plus various useful patches that
-  # were collected from Debian, etc.
+    # This repository contains xautolock-2.2 plus various useful patches that
+    # were collected from Debian, etc.
   src = fetchFromGitHub {
     owner = "peti";
     repo = "xautolock";
@@ -46,7 +46,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Launch a given program when your X session has been idle for a given time";
+      "Launch a given program when your X session has been idle for a given time"
+      ;
     homepage = "http://www.ibiblio.org/pub/linux/X11/screensavers";
     maintainers = with maintainers; [ peti ];
     platforms = platforms.linux;

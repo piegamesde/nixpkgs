@@ -10,7 +10,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://deb.debian.org/debian/pool/non-free/n/nttcp/nttcp_${version}.orig.tar.gz";
+      "https://deb.debian.org/debian/pool/non-free/n/nttcp/nttcp_${version}.orig.tar.gz"
+      ;
     sha256 = "1bl17dsd53lbpjdqfmpgpd7dms6d2w3scpg7ki7qgfjhs8sarq50";
   };
 

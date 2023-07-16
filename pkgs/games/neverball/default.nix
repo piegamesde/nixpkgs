@@ -26,7 +26,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "fno-common.patch";
       url =
-        "https://github.com/Neverball/neverball/commit/a42492b8db06934c7a794630db92e3ff6ebaadaa.patch";
+        "https://github.com/Neverball/neverball/commit/a42492b8db06934c7a794630db92e3ff6ebaadaa.patch"
+        ;
       sha256 = "0sqyxfwpl4xxra8iz87j5rxzwani16xra2xl4l5z61shvq30308h";
     })
   ];
@@ -50,7 +51,7 @@ stdenv.mkDerivation rec {
     sed -i -e 's@-lvorbisfile@-lvorbisfile -lX11 -lgcc_s@' Makefile
   '';
 
-  # The map generation code requires a writable HOME
+    # The map generation code requires a writable HOME
   preConfigure = "export HOME=$TMPDIR";
 
   installPhase = ''

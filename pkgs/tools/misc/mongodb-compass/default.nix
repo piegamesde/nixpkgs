@@ -78,16 +78,19 @@ let
     (lib.getLib stdenv.cc.cc)
   ];
 
-  src = if stdenv.hostPlatform.system == "x86_64-linux" then
-    fetchurl {
-      url =
-        "https://downloads.mongodb.com/compass/mongodb-compass_${version}_amd64.deb";
-      sha256 = "sha256-GAg5zj2ETXdXVfVwNvf4VjRVEHePNWf28xMDsTyjiEs=";
-    }
-  else
-    throw "MongoDB compass is not supported on ${stdenv.hostPlatform.system}";
-  # NOTE While MongoDB Compass is available to darwin, I do not have resources to test it
-  # Feel free to make a PR adding support if desired
+  src =
+    if stdenv.hostPlatform.system == "x86_64-linux" then
+      fetchurl {
+        url =
+          "https://downloads.mongodb.com/compass/mongodb-compass_${version}_amd64.deb"
+          ;
+        sha256 = "sha256-GAg5zj2ETXdXVfVwNvf4VjRVEHePNWf28xMDsTyjiEs=";
+      }
+    else
+      throw "MongoDB compass is not supported on ${stdenv.hostPlatform.system}"
+    ;
+    # NOTE While MongoDB Compass is available to darwin, I do not have resources to test it
+    # Feel free to make a PR adding support if desired
 
 in
 stdenv.mkDerivation {

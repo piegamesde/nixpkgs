@@ -12,11 +12,13 @@ let
   group = config.services.nginx.group;
   user = config.services.nginx.user;
 
-  withTrailingSlash = str:
+  withTrailingSlash =
+    str:
     if hasSuffix "/" str then
       str
     else
-      "${str}/";
+      "${str}/"
+    ;
 
   localConfig = pkgs.writeText "config.local.php" ''
     <?php
@@ -55,15 +57,17 @@ in {
         $cfg['style'] = 'courgette';
         $cfg['organisation'] = 'ACME';
       '';
-      description = let
-        documentationLink =
-          "https://gitlab.com/mojo42/Jirafeau/-/blob/${cfg.package.version}/lib/config.original.php";
-      in
-      lib.mdDoc ''
-        Jirefeau configuration. Refer to <${documentationLink}> for supported
-        values.
-      ''
-      ;
+      description =
+        let
+          documentationLink =
+            "https://gitlab.com/mojo42/Jirafeau/-/blob/${cfg.package.version}/lib/config.original.php"
+            ;
+        in
+        lib.mdDoc ''
+          Jirefeau configuration. Refer to <${documentationLink}> for supported
+          values.
+        ''
+        ;
     };
 
     hostName = mkOption {
@@ -81,16 +85,17 @@ in {
     maxUploadTimeout = mkOption {
       type = types.str;
       default = "30m";
-      description = let
-        nginxCoreDocumentation =
-          "http://nginx.org/en/docs/http/ngx_http_core_module.html";
-      in
-      lib.mdDoc ''
-        Timeout for reading client request bodies and headers. Refer to
-        <${nginxCoreDocumentation}#client_body_timeout> and
-        <${nginxCoreDocumentation}#client_header_timeout> for accepted values.
-      ''
-      ;
+      description =
+        let
+          nginxCoreDocumentation =
+            "http://nginx.org/en/docs/http/ngx_http_core_module.html";
+        in
+        lib.mdDoc ''
+          Timeout for reading client request bodies and headers. Refer to
+          <${nginxCoreDocumentation}#client_body_timeout> and
+          <${nginxCoreDocumentation}#client_header_timeout> for accepted values.
+        ''
+        ;
     };
 
     nginxConfig = mkOption {
@@ -142,17 +147,21 @@ in {
         virtualHosts."${cfg.hostName}" = mkMerge [
           cfg.nginxConfig
           {
-            extraConfig = let
-              clientMaxBodySize = if cfg.maxUploadSizeMegabytes == 0 then
-                "0"
-              else
-                "${cfg.maxUploadSizeMegabytes}m";
-            in ''
-              index index.php;
-              client_max_body_size ${clientMaxBodySize};
-              client_body_timeout ${cfg.maxUploadTimeout};
-              client_header_timeout ${cfg.maxUploadTimeout};
-            '' ;
+            extraConfig =
+              let
+                clientMaxBodySize =
+                  if cfg.maxUploadSizeMegabytes == 0 then
+                    "0"
+                  else
+                    "${cfg.maxUploadSizeMegabytes}m"
+                  ;
+              in ''
+                index index.php;
+                client_max_body_size ${clientMaxBodySize};
+                client_body_timeout ${cfg.maxUploadTimeout};
+                client_header_timeout ${cfg.maxUploadTimeout};
+              ''
+              ;
             locations = {
               "~ \\.php$".extraConfig = ''
                 include ${config.services.nginx.package}/conf/fastcgi_params;
@@ -187,6 +196,6 @@ in {
     ];
   };
 
-  # uses attributes of the linked package
+    # uses attributes of the linked package
   meta.buildDocsInSandbox = false;
 }

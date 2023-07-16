@@ -31,7 +31,7 @@ buildPythonPackage rec {
     "--slurm-inc=${slurm.dev}/include"
   ];
 
-  # Test cases need /etc/slurm/slurm.conf and require a working slurm installation
+    # Test cases need /etc/slurm/slurm.conf and require a working slurm installation
   doCheck = false;
 
   meta = with lib; {

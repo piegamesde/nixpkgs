@@ -120,7 +120,8 @@ let
       "bindings-levmar"
     ]
   ] ++ lib.optionals allowUnfree [ "magma" ];
-  blasProviders = system:
+  blasProviders =
+    system:
     [
       "openblasCompat"
       "lapack-reference"
@@ -128,21 +129,26 @@ let
     ] ++ lib.optionals (allowUnfree && system.isx86) [
       "mkl"
       "mkl64"
-    ];
+    ]
+    ;
 
   blas64Providers = [
     "mkl64"
     "openblas"
   ];
 
-  mapListToAttrs = xs: f:
+  mapListToAttrs =
+    xs: f:
     builtins.listToAttrs (map (name: {
-      name = if builtins.isList name then
-        builtins.elemAt name (builtins.length name - 1)
-      else
-        name;
+      name =
+        if builtins.isList name then
+          builtins.elemAt name (builtins.length name - 1)
+        else
+          name
+        ;
       value = f name;
-    }) xs);
+    }) xs)
+    ;
 
 in {
   blas = mapListToAttrs supportedSystems (system':
@@ -158,17 +164,21 @@ in {
           system = system';
           overlays = [ (self: super: {
             lapack = super.lapack.override {
-              lapackProvider = if provider == "mkl64" then
-                super.mkl
-              else
-                builtins.getAttr provider super;
+              lapackProvider =
+                if provider == "mkl64" then
+                  super.mkl
+                else
+                  builtins.getAttr provider super
+                ;
               inherit isILP64;
             };
             blas = super.blas.override {
-              blasProvider = if provider == "mkl64" then
-                super.mkl
-              else
-                builtins.getAttr provider super;
+              blasProvider =
+                if provider == "mkl64" then
+                  super.mkl
+                else
+                  builtins.getAttr provider super
+                ;
               inherit isILP64;
             };
           }) ];

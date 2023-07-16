@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ libX11 ];
 
-  # we end up with symlinked unit files if we don't move them around ourselves
+    # we end up with symlinked unit files if we don't move them around ourselves
   postFixup = ''
     rm -r $out/lib/systemd
     mv $out/share/systemd $out/lib

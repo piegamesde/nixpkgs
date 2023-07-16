@@ -81,14 +81,14 @@ stdenv.mkDerivation rec {
 
   checkInputs = lib.optionals stdenv.isDarwin [ argp-standalone ];
 
-  # Note: postConfigure instead of postPatch in order to include some
-  # autoconf-generated files. The template files for the autogen'd scripts are
-  # not chmod +x, so patchShebangs misses them.
+    # Note: postConfigure instead of postPatch in order to include some
+    # autoconf-generated files. The template files for the autogen'd scripts are
+    # not chmod +x, so patchShebangs misses them.
   postConfigure = ''
     patchShebangs test
   '';
 
-  # Disable assertions which include -dev QtBase file paths.
+    # Disable assertions which include -dev QtBase file paths.
   env.NIX_CFLAGS_COMPILE = "-DQT_NO_DEBUG";
 
   configureFlags = [ "--without-python" ] ++ (if enableDbus then

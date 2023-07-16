@@ -27,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
     cmake
   ];
 
-  # Configure stage fails on aarch64-darwin otherwise, due to either clang 11 or gfortran 10.
+    # Configure stage fails on aarch64-darwin otherwise, due to either clang 11 or gfortran 10.
   hardeningDisable =
     lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ "stackprotector" ];
 
@@ -46,34 +46,37 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = { inherit blas64; };
 
-  postInstall = let
-    canonicalExtension = if stdenv.hostPlatform.isLinux then
-      "${stdenv.hostPlatform.extensions.sharedLibrary}.${
-        lib.versions.major finalAttrs.version
-      }"
-    else
-      stdenv.hostPlatform.extensions.sharedLibrary;
-  in
-  lib.optionalString blas64 ''
-    ln -s $out/lib/liblapack64${canonicalExtension} $out/lib/liblapack${canonicalExtension}
-    ln -s $out/lib/liblapacke64${canonicalExtension} $out/lib/liblapacke${canonicalExtension}
-  ''
-  ;
+  postInstall =
+    let
+      canonicalExtension =
+        if stdenv.hostPlatform.isLinux then
+          "${stdenv.hostPlatform.extensions.sharedLibrary}.${
+            lib.versions.major finalAttrs.version
+          }"
+        else
+          stdenv.hostPlatform.extensions.sharedLibrary
+        ;
+    in
+    lib.optionalString blas64 ''
+      ln -s $out/lib/liblapack64${canonicalExtension} $out/lib/liblapack${canonicalExtension}
+      ln -s $out/lib/liblapacke64${canonicalExtension} $out/lib/liblapacke${canonicalExtension}
+    ''
+    ;
 
   doCheck = true;
 
-  # Some CBLAS related tests fail on Darwin:
-  #  14 - CBLAS-xscblat2 (Failed)
-  #  15 - CBLAS-xscblat3 (Failed)
-  #  17 - CBLAS-xdcblat2 (Failed)
-  #  18 - CBLAS-xdcblat3 (Failed)
-  #  20 - CBLAS-xccblat2 (Failed)
-  #  21 - CBLAS-xccblat3 (Failed)
-  #  23 - CBLAS-xzcblat2 (Failed)
-  #  24 - CBLAS-xzcblat3 (Failed)
-  #
-  # Upstream issue to track:
-  # * https://github.com/Reference-LAPACK/lapack/issues/440
+    # Some CBLAS related tests fail on Darwin:
+    #  14 - CBLAS-xscblat2 (Failed)
+    #  15 - CBLAS-xscblat3 (Failed)
+    #  17 - CBLAS-xdcblat2 (Failed)
+    #  18 - CBLAS-xdcblat3 (Failed)
+    #  20 - CBLAS-xccblat2 (Failed)
+    #  21 - CBLAS-xccblat3 (Failed)
+    #  23 - CBLAS-xzcblat2 (Failed)
+    #  24 - CBLAS-xzcblat3 (Failed)
+    #
+    # Upstream issue to track:
+    # * https://github.com/Reference-LAPACK/lapack/issues/440
   ctestArgs =
     lib.optionalString stdenv.isDarwin "-E '^(CBLAS-(x[sdcz]cblat[23]))$'";
 

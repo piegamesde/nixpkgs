@@ -6,11 +6,13 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ mmahut ]; };
 
     nodes = {
-      machine = {
+      machine =
+        {
           ...
         }: {
           services.metabase.enable = true;
-        };
+        }
+        ;
     };
 
     testScript = ''

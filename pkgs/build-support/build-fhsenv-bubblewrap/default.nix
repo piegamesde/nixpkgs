@@ -34,10 +34,12 @@ assert (pname != null || version != null) -> (name == null && pname
 
 with builtins;
 let
-  pname = if args.name != null then
-    args.name
-  else
-    args.pname;
+  pname =
+    if args.name != null then
+      args.name
+    else
+      args.pname
+    ;
   versionStr = lib.optionalString (version != null) ("-" + version);
   name = pname + versionStr;
 
@@ -60,56 +62,57 @@ let
     "version"
   ]);
 
-  etcBindEntries = let
-    files = [
-      # NixOS Compatibility
-      "static"
-      "nix" # mainly for nixUnstable users, but also for access to nix/netrc
-      # Shells
-      "shells"
-      "bashrc"
-      "zshenv"
-      "zshrc"
-      "zinputrc"
-      "zprofile"
-      # Users, Groups, NSS
-      "passwd"
-      "group"
-      "shadow"
-      "hosts"
-      "resolv.conf"
-      "nsswitch.conf"
-      # User profiles
-      "profiles"
-      # Sudo & Su
-      "login.defs"
-      "sudoers"
-      "sudoers.d"
-      # Time
-      "localtime"
-      "zoneinfo"
-      # Other Core Stuff
-      "machine-id"
-      "os-release"
-      # PAM
-      "pam.d"
-      # Fonts
-      "fonts"
-      # ALSA
-      "alsa"
-      "asound.conf"
-      # SSL
-      "ssl/certs"
-      "ca-certificates"
-      "pki"
-    ];
-  in
-  map (path: "/etc/${path}") files
-  ;
+  etcBindEntries =
+    let
+      files = [
+        # NixOS Compatibility
+        "static"
+        "nix" # mainly for nixUnstable users, but also for access to nix/netrc
+        # Shells
+        "shells"
+        "bashrc"
+        "zshenv"
+        "zshrc"
+        "zinputrc"
+        "zprofile"
+        # Users, Groups, NSS
+        "passwd"
+        "group"
+        "shadow"
+        "hosts"
+        "resolv.conf"
+        "nsswitch.conf"
+        # User profiles
+        "profiles"
+        # Sudo & Su
+        "login.defs"
+        "sudoers"
+        "sudoers.d"
+        # Time
+        "localtime"
+        "zoneinfo"
+        # Other Core Stuff
+        "machine-id"
+        "os-release"
+        # PAM
+        "pam.d"
+        # Fonts
+        "fonts"
+        # ALSA
+        "alsa"
+        "asound.conf"
+        # SSL
+        "ssl/certs"
+        "ca-certificates"
+        "pki"
+      ];
+    in
+    map (path: "/etc/${path}") files
+    ;
 
-  # Create this on the fly instead of linking from /nix
-  # The container might have to modify it and re-run ldconfig if there are
-  # issues running some binary with LD_LIBRARY_PATH
+    # Create this on the fly instead of linking from /nix
+    # The container might have to modify it and re-run ldconfig if there are
+    # issues running some binary with LD_LIBRARY_PATH
   createLdConfCache = ''
     cat > /etc/ld.so.conf <<EOF
     /lib
@@ -127,17 +130,22 @@ let
     EOF
     ldconfig &> /dev/null
   '';
-  init = run:
+  init =
+    run:
     writeShellScript "${name}-init" ''
       source /etc/profile
       ${createLdConfCache}
       exec ${run} "$@"
-    '';
+    ''
+    ;
 
-  indentLines = str:
+  indentLines =
+    str:
     lib.concatLines
-    (map (s: "  " + s) (filter (s: s != "") (lib.splitString "\n" str)));
-  bwrapCmd = {
+    (map (s: "  " + s) (filter (s: s != "") (lib.splitString "\n" str)))
+    ;
+  bwrapCmd =
+    {
       initArgs ? ""
     }:
     ''
@@ -244,7 +252,8 @@ let
         ${init runScript} ${initArgs}
       )
       exec "''${cmd[@]}"
-    '';
+    ''
+    ;
 
   bin = writeShellScript "${name}-bwrap" (bwrapCmd { initArgs = ''"$@"''; });
 in

@@ -23,10 +23,12 @@
 }:
 
 let
-  fuse = if stdenv.isDarwin then
-    macfuse-stubs
-  else
-    fuse3;
+  fuse =
+    if stdenv.isDarwin then
+      macfuse-stubs
+    else
+      fuse3
+    ;
 in
 stdenv.mkDerivation rec {
   pname = "sshfs-fuse";
@@ -68,7 +70,7 @@ stdenv.mkDerivation rec {
     wrapProgram $out/bin/sshfs --prefix PATH : "${openssh}/bin"
   '';
 
-  # doCheck = true;
+    # doCheck = true;
   checkPhase = lib.optionalString (!stdenv.isDarwin) ''
     # The tests need fusermount:
     mkdir bin
@@ -84,7 +86,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     inherit platforms;
     description =
-      "FUSE-based filesystem that allows remote filesystems to be mounted over SSH";
+      "FUSE-based filesystem that allows remote filesystems to be mounted over SSH"
+      ;
     longDescription = macfuse-stubs.warning;
     homepage = "https://github.com/libfuse/sshfs";
     license = licenses.gpl2Plus;

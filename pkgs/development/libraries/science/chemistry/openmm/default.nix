@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-89ngeZHdjyL/OoGuQ+F5eaXE1/od0EEfIgw9eKdLtL8=";
   };
 
-  # "This test is stochastic and may occassionally fail". It does.
+    # "This test is stochastic and may occassionally fail". It does.
   postPatch = ''
     rm \
       platforms/*/tests/Test*BrownianIntegrator.* \
@@ -93,7 +93,7 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  # Couldn't get CUDA to run properly in the sandbox
+    # Couldn't get CUDA to run properly in the sandbox
   doCheck = !enableCuda && !enableOpencl;
 
   meta = with lib; {

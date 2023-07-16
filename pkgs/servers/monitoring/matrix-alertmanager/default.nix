@@ -38,7 +38,8 @@ mkYarnPackage rec {
 
   meta = with lib; {
     description =
-      "Bot to receive Alertmanager webhook events and forward them to chosen rooms";
+      "Bot to receive Alertmanager webhook events and forward them to chosen rooms"
+      ;
     homepage = "https://github.com/jaywink/matrix-alertmanager";
     license = licenses.mit;
     maintainers = with maintainers; [ yuka ];

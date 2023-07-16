@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-py0totvLLw3kahEtdZkES1t7tZsKBAUS6IMTcn847kE=";
 
-  # The print-cache tool is not an end-user tool (https://github.com/Necoro/feed2imap-go/issues/94)
+    # The print-cache tool is not an end-user tool (https://github.com/Necoro/feed2imap-go/issues/94)
   postInstall = ''
     rm -f $out/bin/print-cache
   '';

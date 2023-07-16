@@ -20,7 +20,8 @@ let
 
   freenet_ext = fetchurl {
     url =
-      "https://github.com/freenet/fred/releases/download/build01495/freenet-ext.jar";
+      "https://github.com/freenet/fred/releases/download/build01495/freenet-ext.jar"
+      ;
     sha256 = "sha256-MvKz1r7t9UE36i+aPr72dmbXafCWawjNF/19tZuk158=";
   };
 
@@ -63,8 +64,8 @@ stdenv.mkDerivation rec {
     inherit bash coreutils jre seednodes;
   };
 
-  # https://github.com/freenet/fred/blob/next/build-offline.sh
-  # fake build to pre-download deps into fixed-output derivation
+    # https://github.com/freenet/fred/blob/next/build-offline.sh
+    # fake build to pre-download deps into fixed-output derivation
   deps = stdenv.mkDerivation {
     pname = "${pname}-deps";
     inherit src version patches;
@@ -77,21 +78,21 @@ stdenv.mkDerivation rec {
       export GRADLE_USER_HOME=$(mktemp -d)
       gradle --no-daemon build
     '';
-    # perl code mavenizes pathes (com.squareup.okio/okio/1.13.0/a9283170b7305c8d92d25aff02a6ab7e45d06cbe/okio-1.13.0.jar -> com/squareup/okio/okio/1.13.0/okio-1.13.0.jar)
+      # perl code mavenizes pathes (com.squareup.okio/okio/1.13.0/a9283170b7305c8d92d25aff02a6ab7e45d06cbe/okio-1.13.0.jar -> com/squareup/okio/okio/1.13.0/okio-1.13.0.jar)
     installPhase = ''
       find $GRADLE_USER_HOME/caches/modules-2 -type f -regex '.*\.\(jar\|pom\)' \
         | perl -pe 's#(.*/([^/]+)/([^/]+)/([^/]+)/[0-9a-f]{30,40}/([^/\s]+))$# ($x = $2) =~ tr|\.|/|; "install -Dm444 $1 \$out/$x/$3/$4/''${\($5 =~ s/okio-jvm/okio/r)}" #e' \
         | sh
     '';
-    # Don't move info to share/
+      # Don't move info to share/
     forceShare = [ "dummy" ];
     outputHashMode = "recursive";
-    # Downloaded jars differ by platform
+      # Downloaded jars differ by platform
     outputHash = "sha256-CZf5M3lI7Lz9Pl8U/lNoQ6V6Jxbmkxau8L273XFFS2E=";
     outputHashAlgo = "sha256";
   };
 
-  # Point to our local deps repo
+    # Point to our local deps repo
   gradleInit = writeText "init.gradle" ''
     gradle.projectsLoaded {
       rootProject.allprojects {

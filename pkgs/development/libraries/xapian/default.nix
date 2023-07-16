@@ -12,7 +12,8 @@
 }:
 
 let
-  generic = version: hash:
+  generic =
+    version: hash:
     stdenv.mkDerivation {
       pname = "xapian";
       inherit version;
@@ -20,7 +21,8 @@ let
 
       src = fetchurl {
         url =
-          "https://oligarchy.co.uk/xapian/${version}/xapian-core-${version}.tar.xz";
+          "https://oligarchy.co.uk/xapian/${version}/xapian-core-${version}.tar.xz"
+          ;
         inherit hash;
       };
 
@@ -40,11 +42,11 @@ let
       env.AUTOMATED_TESTING =
         true; # https://trac.xapian.org/changeset/8be35f5e1/git
 
-      patches =
-        lib.optionals stdenv.isDarwin [ ./skip-flaky-darwin-test.patch ];
+      patches = lib.optionals stdenv.isDarwin [ ./skip-flaky-darwin-test.patch ]
+        ;
 
-      # the configure script thinks that Darwin has ___exp10
-      # but it’s not available on my systems (or hydra apparently)
+        # the configure script thinks that Darwin has ___exp10
+        # but it’s not available on my systems (or hydra apparently)
       postConfigure = lib.optionalString stdenv.isDarwin ''
         substituteInPlace config.h \
           --replace "#define HAVE___EXP10 1" "#undef HAVE___EXP10"
@@ -60,7 +62,8 @@ let
         maintainers = with maintainers; [ ];
         platforms = platforms.unix;
       };
-    };
+    }
+    ;
 in {
   # Don't forget to change the hashes in xapian-omega and
   # python3Packages.xapian. They inherit the version from this package, and

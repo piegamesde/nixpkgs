@@ -11,10 +11,12 @@ let
 
   src = fetchurl {
     url =
-      "https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-${version}.AppImage";
+      "https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-${version}.AppImage"
+      ;
     name = "${pname}-${version}.AppImage";
     sha512 =
-      "xGmE/ikL3ez0WTJKiOIcB5QtI7Ta9wq1Qedy9albWVpCS04FTnxQH5S0esTXw6j+iDTD8Lc2JbOhw8tYo/zRXg==";
+      "xGmE/ikL3ez0WTJKiOIcB5QtI7Ta9wq1Qedy9albWVpCS04FTnxQH5S0esTXw6j+iDTD8Lc2JbOhw8tYo/zRXg=="
+      ;
   };
 
   appimageContents = appimageTools.extractType2 { inherit pname version src; };
@@ -23,8 +25,10 @@ appimageTools.wrapType2 {
   inherit pname version src;
 
   multiPkgs = null; # no 32bit needed
-  extraPkgs = pkgs:
-    appimageTools.defaultFhsEnvArgs.multiPkgs pkgs ++ [ pkgs.bash ];
+  extraPkgs =
+    pkgs:
+    appimageTools.defaultFhsEnvArgs.multiPkgs pkgs ++ [ pkgs.bash ]
+    ;
 
   extraInstallCommands = ''
     ln -s $out/bin/${pname}-${version} $out/bin/${pname}

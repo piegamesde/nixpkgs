@@ -13,7 +13,7 @@ let
 in {
   meta = { maintainers = teams.pantheon.members; };
 
-  ###### interface
+    ###### interface
   options.services.touchegg = {
     enable =
       mkEnableOption (lib.mdDoc "touchegg, a multi-touch gesture recognizer");
@@ -26,7 +26,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
   config = mkIf cfg.enable {
     systemd.services.touchegg = {
       description = "Touchegg Daemon";

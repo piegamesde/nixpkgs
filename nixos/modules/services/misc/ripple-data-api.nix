@@ -181,16 +181,21 @@ in {
         LOG_FILE = "/dev/null";
       };
 
-      serviceConfig = let
-        importMode = if cfg.minLedger != null && cfg.maxLedger != null then
-          "${toString cfg.minLedger} ${toString cfg.maxLedger}"
-        else
-          cfg.importMode;
-      in {
-        ExecStart = "${pkgs.ripple-data-api}/bin/importer ${importMode} debug";
-        Restart = "always";
-        User = "ripple-data-api";
-      } ;
+      serviceConfig =
+        let
+          importMode =
+            if cfg.minLedger != null && cfg.maxLedger != null then
+              "${toString cfg.minLedger} ${toString cfg.maxLedger}"
+            else
+              cfg.importMode
+            ;
+        in {
+          ExecStart =
+            "${pkgs.ripple-data-api}/bin/importer ${importMode} debug";
+          Restart = "always";
+          User = "ripple-data-api";
+        }
+        ;
 
       preStart = mkMerge [
         (mkIf (cfg.couchdb.create) ''

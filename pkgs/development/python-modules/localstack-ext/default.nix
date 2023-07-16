@@ -52,7 +52,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "localstack_ext" ];
 
-  # No tests in repo
+    # No tests in repo
   doCheck = false;
 
   passthru.tests = { inherit localstack; };

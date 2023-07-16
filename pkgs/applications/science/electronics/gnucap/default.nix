@@ -10,7 +10,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://git.savannah.gnu.org/cgit/gnucap.git/snapshot/${pname}-${version}.tar.gz";
+      "https://git.savannah.gnu.org/cgit/gnucap.git/snapshot/${pname}-${version}.tar.gz"
+      ;
     sha256 = "12rlwd4mfc54qq1wrx5k8qk578xls5z4isf94ybkf2z6qxk4mhnj";
   };
 

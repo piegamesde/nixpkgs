@@ -43,9 +43,9 @@ stdenv.mkDerivation rec {
       --replace "CFLAGSX =" "CFLAGSX = -I${gdk-pixbuf-xlib.dev}/include/gdk-pixbuf-2.0"
   '';
 
-  # Workaround build failure on -fno-common toolchains like upstream
-  # gcc-10. Otherwise build fails as:
-  #   ld: plugin.o:(.bss+0x0): multiple definition of `stam'; panel.o:(.bss+0x20): first defined here
+    # Workaround build failure on -fno-common toolchains like upstream
+    # gcc-10. Otherwise build fails as:
+    #   ld: plugin.o:(.bss+0x0): multiple definition of `stam'; panel.o:(.bss+0x20): first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
   NIX_LDFLAGS = "-lX11";
 

@@ -17,10 +17,12 @@ let
         map (e: filterAttrs (k: v: v != null) e) v
       else
         v) cfg.settings));
-  runtimeConfigFile = if cfg.enableGossipEncryption then
-    "/run/wgautomesh/wgautomesh.toml"
-  else
-    configFile;
+  runtimeConfigFile =
+    if cfg.enableGossipEncryption then
+      "/run/wgautomesh/wgautomesh.toml"
+    else
+      configFile
+    ;
 in {
   options.services.wgautomesh = {
     enable = mkEnableOption (mdDoc "the wgautomesh daemon");
@@ -150,7 +152,8 @@ in {
         Restart = "always";
         RestartSec = "30";
         LoadCredential = mkIf
-          cfg.enableGossipEncryption [ "gossip_secret:${cfg.gossipSecretFile}" ];
+          cfg.enableGossipEncryption [ "gossip_secret:${cfg.gossipSecretFile}" ]
+          ;
 
         ExecStartPre = mkIf cfg.enableGossipEncryption [ ''
           ${pkgs.envsubst}/bin/envsubst \

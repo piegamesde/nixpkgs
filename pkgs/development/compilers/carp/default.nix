@@ -24,13 +24,14 @@ haskellPackages.mkDerivation rec {
     (fetchpatch {
       name = "carp-lts-20.patch";
       url =
-        "https://github.com/carp-lang/Carp/commit/25f50c92a57cc91b6cb4ec48df658439f936b641.patch";
+        "https://github.com/carp-lang/Carp/commit/25f50c92a57cc91b6cb4ec48df658439f936b641.patch"
+        ;
       sha256 = "14yjv0hcvw1qyjmrhksrj6chac3n14d1f1gcaxldfa05llrbfqk0";
     })
   ];
 
-  # -Werror breaks build with GHC >= 9.0
-  # https://github.com/carp-lang/Carp/issues/1386
+    # -Werror breaks build with GHC >= 9.0
+    # https://github.com/carp-lang/Carp/issues/1386
   postPatch = ''
     substituteInPlace CarpHask.cabal --replace "-Werror" ""
   '';
@@ -52,13 +53,13 @@ haskellPackages.mkDerivation rec {
 
   isExecutable = true;
 
-  # The carp executable must know where to find its core libraries and other
-  # files. Set the environment variable CARP_DIR so that it points to the root
-  # of the Carp repo. See:
-  # https://github.com/carp-lang/Carp/blob/master/docs/Install.md#setting-the-carp_dir
-  #
-  # Also, clang must be available run-time because carp is compiled to C which
-  # is then compiled with clang.
+    # The carp executable must know where to find its core libraries and other
+    # files. Set the environment variable CARP_DIR so that it points to the root
+    # of the Carp repo. See:
+    # https://github.com/carp-lang/Carp/blob/master/docs/Install.md#setting-the-carp_dir
+    #
+    # Also, clang must be available run-time because carp is compiled to C which
+    # is then compiled with clang.
   postInstall = ''
     wrapProgram $out/bin/carp                                  \
       --set CARP_DIR $src                                      \
@@ -74,6 +75,6 @@ haskellPackages.mkDerivation rec {
   license = lib.licenses.asl20;
   maintainers = with lib.maintainers; [ jluttine ];
 
-  # Windows not (yet) supported.
+    # Windows not (yet) supported.
   platforms = with lib.platforms; unix ++ darwin;
 }

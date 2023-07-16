@@ -11,14 +11,15 @@ import ./make-test-python.nix ({
       "192.168.1.3"
     ];
 
-    createNode = index:
+    createNode =
+      index:
       {
         pkgs,
         ...
       }:
       let
-        ip = builtins.elemAt nodesIps
-          index; # since we already use IPs to identify servers
+        ip = builtins.elemAt nodesIps index
+          ; # since we already use IPs to identify servers
       in {
         networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [ {
           address = ip;
@@ -94,9 +95,10 @@ import ./make-test-python.nix ({
           };
         };
 
-        # We always want to restart so the tests never hang
+          # We always want to restart so the tests never hang
         systemd.services.patroni.serviceConfig.StartLimitIntervalSec = 0;
-      } ;
+      }
+      ;
   in {
     name = "patroni";
 
@@ -105,7 +107,8 @@ import ./make-test-python.nix ({
       node2 = createNode 1;
       node3 = createNode 2;
 
-      etcd = {
+      etcd =
+        {
           pkgs,
           ...
         }: {
@@ -121,9 +124,11 @@ import ./make-test-python.nix ({
           };
 
           networking.firewall.allowedTCPPorts = [ 2379 ];
-        };
+        }
+        ;
 
-      client = {
+      client =
+        {
           pkgs,
           ...
         }: {
@@ -161,7 +166,8 @@ import ./make-test-python.nix ({
                   }
             '';
           };
-        };
+        }
+        ;
     };
 
     testScript = ''

@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ libkrb5 ];
 
-  # No tests in archive
+    # No tests in archive
   doCheck = false;
 
   meta = with lib; {

@@ -44,7 +44,8 @@ stdenv.mkDerivation rec {
     })
     (fetchpatch {
       url =
-        "https://src.fedoraproject.org/rpms/libserf/raw/rawhide/f/libserf-1.3.9-errgetfunc.patch";
+        "https://src.fedoraproject.org/rpms/libserf/raw/rawhide/f/libserf-1.3.9-errgetfunc.patch"
+        ;
       hash = "sha256-FQJvXOIZ0iItvbbcu4kR88j74M7fOi7C/0NN3o1/ub4=";
     })
   ];

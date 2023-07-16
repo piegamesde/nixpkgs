@@ -21,7 +21,7 @@ buildGoModule rec {
     rev = "v${version}";
     sha256 = "sha256-e+IdEGrJzDRUaAViUSyXdkYv9Hfub0ytmh3pl1f/nGM=";
   };
-  # there is a nested go.mod
+    # there is a nested go.mod
   sourceRoot = "source/cmd/otelcorecol";
   vendorHash = "sha256-8OkKPrK0xLWK5hIPaI7hgCGY0g7sWbaS/1HHqoTuqxk=";
 
@@ -42,9 +42,11 @@ buildGoModule rec {
   meta = with lib; {
     homepage = "https://github.com/open-telemetry/opentelemetry-collector";
     changelog =
-      "https://github.com/open-telemetry/opentelemetry-collector/blob/v${version}/CHANGELOG.md";
+      "https://github.com/open-telemetry/opentelemetry-collector/blob/v${version}/CHANGELOG.md"
+      ;
     description =
-      "OpenTelemetry Collector offers a vendor-agnostic implementation on how to receive, process and export telemetry data";
+      "OpenTelemetry Collector offers a vendor-agnostic implementation on how to receive, process and export telemetry data"
+      ;
     longDescription = ''
       The OpenTelemetry Collector offers a vendor-agnostic implementation on how
       to receive, process and export telemetry data. In addition, it removes the

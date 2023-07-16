@@ -29,7 +29,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/cl-async/2021-10-20/cl-async-20211020-git.tgz";
+      "http://beta.quicklisp.org/archive/cl-async/2021-10-20/cl-async-20211020-git.tgz"
+      ;
     sha256 = "1b3bwqvzw2pc83m4x8vbbxyriq58g0j3738mzq68v689zl071dl0";
   };
 

@@ -10,7 +10,8 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/Chris00/ocaml-${pname}/releases/download/${version}/csv-${version}.tbz";
+      "https://github.com/Chris00/ocaml-${pname}/releases/download/${version}/csv-${version}.tbz"
+      ;
     sha256 = "13m9n8mdss6jfbiw7d5bybxn4n85vmg4zw7dc968qrgjfy0w9zhk";
   };
 

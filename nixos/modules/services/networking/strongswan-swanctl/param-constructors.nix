@@ -45,17 +45,20 @@ with lib;
 with (import ./param-lib.nix lib);
 
 rec {
-  mkParamOfType = type: strongswanDefault: description: {
-    _type = "param";
-    option = mkOption {
-      type = types.nullOr type;
-      default = null;
-      description = documentDefault description strongswanDefault;
-    };
-    render = single toString;
-  };
+  mkParamOfType =
+    type: strongswanDefault: description: {
+      _type = "param";
+      option = mkOption {
+        type = types.nullOr type;
+        default = null;
+        description = documentDefault description strongswanDefault;
+      };
+      render = single toString;
+    }
+    ;
 
-  documentDefault = description: strongswanDefault:
+  documentDefault =
+    description: strongswanDefault:
     if strongswanDefault == null then
       mdDoc description
     else
@@ -63,7 +66,8 @@ rec {
 
 
         StrongSwan default: ````${builtins.toJSON strongswanDefault}````
-      '');
+      '')
+    ;
 
   single = f: name: value: { ${name} = f value; };
 
@@ -75,100 +79,117 @@ rec {
   mkIntParam = mkParamOfType types.int;
   mkOptionalIntParam = mkIntParam null;
 
-  # We should have floats in Nix...
+    # We should have floats in Nix...
   mkFloatParam = mkStrParam;
 
-  # TODO: Check for hex format:
+    # TODO: Check for hex format:
   mkHexParam = mkStrParam;
   mkOptionalHexParam = mkOptionalStrParam;
 
-  # TODO: Check for duration format:
+    # TODO: Check for duration format:
   mkDurationParam = mkStrParam;
   mkOptionalDurationParam = mkOptionalStrParam;
 
-  mkYesNoParam = strongswanDefault: description: {
-    _type = "param";
-    option = mkOption {
-      type = types.nullOr types.bool;
-      default = null;
-      description = documentDefault description strongswanDefault;
-    };
-    render = single (b:
-      if b then
-        "yes"
-      else
-        "no");
-  };
+  mkYesNoParam =
+    strongswanDefault: description: {
+      _type = "param";
+      option = mkOption {
+        type = types.nullOr types.bool;
+        default = null;
+        description = documentDefault description strongswanDefault;
+      };
+      render = single (b:
+        if b then
+          "yes"
+        else
+          "no");
+    }
+    ;
   yes = true;
   no = false;
 
   mkSpaceSepListParam = mkSepListParam " ";
   mkCommaSepListParam = mkSepListParam ",";
 
-  mkSepListParam = sep: strongswanDefault: description: {
-    _type = "param";
-    option = mkOption {
-      type = types.nullOr (types.listOf types.str);
-      default = null;
-      description = documentDefault description strongswanDefault;
-    };
-    render = single (value: concatStringsSep sep value);
-  };
+  mkSepListParam =
+    sep: strongswanDefault: description: {
+      _type = "param";
+      option = mkOption {
+        type = types.nullOr (types.listOf types.str);
+        default = null;
+        description = documentDefault description strongswanDefault;
+      };
+      render = single (value: concatStringsSep sep value);
+    }
+    ;
 
-  mkAttrsOfParams = params:
-    mkAttrsOf params (types.submodule { options = paramsToOptions params; });
+  mkAttrsOfParams =
+    params:
+    mkAttrsOf params (types.submodule { options = paramsToOptions params; })
+    ;
 
   mkAttrsOfParam = param: mkAttrsOf param param.option.type;
 
-  mkAttrsOf = param: option: description: {
-    _type = "param";
-    option = mkOption {
-      type = types.attrsOf option;
-      default = { };
-      description = mdDoc description;
-    };
-    render = single
-      (attrs: (paramsToRenderedStrings attrs (mapAttrs (_n: _v: param) attrs)));
-  };
+  mkAttrsOf =
+    param: option: description: {
+      _type = "param";
+      option = mkOption {
+        type = types.attrsOf option;
+        default = { };
+        description = mdDoc description;
+      };
+      render = single (attrs:
+        (paramsToRenderedStrings attrs (mapAttrs (_n: _v: param) attrs)));
+    }
+    ;
 
-  mkPrefixedAttrsOfParams = params:
+  mkPrefixedAttrsOfParams =
+    params:
     mkPrefixedAttrsOf params
-    (types.submodule { options = paramsToOptions params; });
+    (types.submodule { options = paramsToOptions params; })
+    ;
 
   mkPrefixedAttrsOfParam = param: mkPrefixedAttrsOf param param.option.type;
 
-  mkPrefixedAttrsOf = p: option: description: {
-    _type = "param";
-    option = mkOption {
-      type = types.attrsOf option;
-      default = { };
-      description = mdDoc description;
-    };
-    render = prefix: attrs:
-      let
-        prefixedAttrs =
-          mapAttrs' (name: nameValuePair "${prefix}-${name}") attrs;
-      in
-      paramsToRenderedStrings prefixedAttrs (mapAttrs (_n: _v: p) prefixedAttrs)
+  mkPrefixedAttrsOf =
+    p: option: description: {
+      _type = "param";
+      option = mkOption {
+        type = types.attrsOf option;
+        default = { };
+        description = mdDoc description;
+      };
+      render =
+        prefix: attrs:
+        let
+          prefixedAttrs =
+            mapAttrs' (name: nameValuePair "${prefix}-${name}") attrs;
+        in
+        paramsToRenderedStrings prefixedAttrs
+        (mapAttrs (_n: _v: p) prefixedAttrs)
+        ;
+    }
     ;
-  };
 
-  mkPostfixedAttrsOfParams = params: description: {
-    _type = "param";
-    option = mkOption {
-      type =
-        types.attrsOf (types.submodule { options = paramsToOptions params; });
-      default = { };
-      description = lib.mdDoc description;
-    };
-    render = postfix: attrs:
-      let
-        postfixedAttrs =
-          mapAttrs' (name: nameValuePair "${name}-${postfix}") attrs;
-      in
-      paramsToRenderedStrings postfixedAttrs
-      (mapAttrs (_n: _v: params) postfixedAttrs)
+  mkPostfixedAttrsOfParams =
+    params: description: {
+      _type = "param";
+      option = mkOption {
+        type =
+          types.attrsOf (types.submodule { options = paramsToOptions params; });
+        default = { };
+        description = lib.mdDoc description;
+      };
+      render =
+        postfix: attrs:
+        let
+          postfixedAttrs =
+            mapAttrs' (name: nameValuePair "${name}-${postfix}") attrs;
+        in
+        paramsToRenderedStrings postfixedAttrs
+        (mapAttrs (_n: _v: params) postfixedAttrs)
+        ;
+    }
     ;
-  };
 
 }

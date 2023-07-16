@@ -8,9 +8,9 @@ buildGoModule rec {
   pname = "gocode-gomod";
   version = "1.0.0";
 
-  # we must allow references to the original `go` package,
-  # because `gocode` needs to dig into $GOROOT to provide completions for the
-  # standard packages.
+    # we must allow references to the original `go` package,
+    # because `gocode` needs to dig into $GOROOT to provide completions for the
+    # standard packages.
   allowGoReference = true;
 
   src = fetchFromGitHub {

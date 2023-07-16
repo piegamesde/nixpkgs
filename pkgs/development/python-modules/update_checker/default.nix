@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  # requires network
+    # requires network
   doCheck = false;
 
   meta = with lib; {

@@ -449,7 +449,8 @@ let
               "hu_dot_dwim_dot_stefil" =
                 quicklisp-to-nix-packages."hu_dot_dwim_dot_stefil";
               "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def" =
-                quicklisp-to-nix-packages."hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def";
+                quicklisp-to-nix-packages."hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def"
+                ;
               "hu_dot_dwim_dot_stefil_plus_swank" =
                 quicklisp-to-nix-packages."hu_dot_dwim_dot_stefil_plus_swank";
               "iterate" = quicklisp-to-nix-packages."iterate";
@@ -1360,9 +1361,8 @@ let
 
     "cl-anonfun" = buildLispPackage
       ((f: x: (x // (f x))) (qlOverrides."cl-anonfun" or (x: { }))
-        (import ./quicklisp-to-nix-output/cl-anonfun.nix {
-          inherit fetchurl;
-        }));
+        (import ./quicklisp-to-nix-output/cl-anonfun.nix { inherit fetchurl; }))
+      ;
 
     "asdf-package-system" = buildLispPackage
       ((f: x: (x // (f x))) (qlOverrides."asdf-package-system" or (x: { }))
@@ -1441,9 +1441,8 @@ let
 
     "cl-difflib" = buildLispPackage
       ((f: x: (x // (f x))) (qlOverrides."cl-difflib" or (x: { }))
-        (import ./quicklisp-to-nix-output/cl-difflib.nix {
-          inherit fetchurl;
-        }));
+        (import ./quicklisp-to-nix-output/cl-difflib.nix { inherit fetchurl; }))
+      ;
 
     "pcall-queue" = buildLispPackage
       ((f: x: (x // (f x))) (qlOverrides."pcall-queue" or (x: { }))
@@ -2291,9 +2290,8 @@ let
 
     "prove-asdf" = buildLispPackage
       ((f: x: (x // (f x))) (qlOverrides."prove-asdf" or (x: { }))
-        (import ./quicklisp-to-nix-output/prove-asdf.nix {
-          inherit fetchurl;
-        }));
+        (import ./quicklisp-to-nix-output/prove-asdf.nix { inherit fetchurl; }))
+      ;
 
     "prove" = buildLispPackage
       ((f: x: (x // (f x))) (qlOverrides."prove" or (x: { }))
@@ -2918,7 +2916,8 @@ let
         "hu_dot_dwim_dot_common" =
           quicklisp-to-nix-packages."hu_dot_dwim_dot_common";
         "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank" =
-          quicklisp-to-nix-packages."hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank";
+          quicklisp-to-nix-packages."hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank"
+          ;
       }));
 
     "hu_dot_dwim_dot_asdf" = buildLispPackage
@@ -3646,9 +3645,8 @@ let
 
     "closer-mop" = buildLispPackage
       ((f: x: (x // (f x))) (qlOverrides."closer-mop" or (x: { }))
-        (import ./quicklisp-to-nix-output/closer-mop.nix {
-          inherit fetchurl;
-        }));
+        (import ./quicklisp-to-nix-output/closer-mop.nix { inherit fetchurl; }))
+      ;
 
     "clfswm" = buildLispPackage
       ((f: x: (x // (f x))) (qlOverrides."clfswm" or (x: { }))
@@ -4208,9 +4206,8 @@ let
 
     "cl-digraph" = buildLispPackage
       ((f: x: (x // (f x))) (qlOverrides."cl-digraph" or (x: { }))
-        (import ./quicklisp-to-nix-output/cl-digraph.nix {
-          inherit fetchurl;
-        }));
+        (import ./quicklisp-to-nix-output/cl-digraph.nix { inherit fetchurl; }))
+      ;
 
     "cl-dbi" = buildLispPackage
       ((f: x: (x // (f x))) (qlOverrides."cl-dbi" or (x: { }))
@@ -4617,9 +4614,8 @@ let
 
     "alexandria" = buildLispPackage
       ((f: x: (x // (f x))) (qlOverrides."alexandria" or (x: { }))
-        (import ./quicklisp-to-nix-output/alexandria.nix {
-          inherit fetchurl;
-        }));
+        (import ./quicklisp-to-nix-output/alexandria.nix { inherit fetchurl; }))
+      ;
 
     "acclimation" = buildLispPackage
       ((f: x: (x // (f x))) (qlOverrides."acclimation" or (x: { }))

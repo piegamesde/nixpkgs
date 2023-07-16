@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     ./autogen.sh
   '';
 
-  # link SKK-JISYO.L from skkdicts for the bundled tool `skk`
+    # link SKK-JISYO.L from skkdicts for the bundled tool `skk`
   preInstall = ''
     dictDir=$out/share/skk
     mkdir -p $dictDir

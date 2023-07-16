@@ -33,7 +33,8 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url =
-      "https://github.com/SimonLarsen/${pname}/releases/download/v${version}/${pname}-${version}.love";
+      "https://github.com/SimonLarsen/${pname}/releases/download/v${version}/${pname}-${version}.love"
+      ;
     sha256 = "0kzahxrgpb4vsk9yavy7f8nc34d62d1jqjrpsxslmy9ywax4yfpi";
   };
 

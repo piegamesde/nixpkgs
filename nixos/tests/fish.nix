@@ -4,7 +4,8 @@ import ./make-test-python.nix ({
   }: {
     name = "fish";
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }:
@@ -15,7 +16,8 @@ import ./make-test-python.nix ({
           coreutils
           procps # kill collides with coreutils' to test https://github.com/NixOS/nixpkgs/issues/56432
         ];
-      };
+      }
+      ;
 
     testScript = ''
       start_all()

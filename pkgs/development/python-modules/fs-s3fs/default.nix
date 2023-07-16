@@ -22,7 +22,7 @@ buildPythonPackage rec {
     boto3
   ];
 
-  # tests try to integrate an s3 bucket which can't be tested properly in an isolated environment.
+    # tests try to integrate an s3 bucket which can't be tested properly in an isolated environment.
   doCheck = false;
 
   meta = with lib; {

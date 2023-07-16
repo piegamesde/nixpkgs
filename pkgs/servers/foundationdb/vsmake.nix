@@ -34,7 +34,8 @@ let
     installPhase = "mkdir -p $out/include && cp -R boost $out/include/";
   };
 
-  makeFdb = {
+  makeFdb =
+    {
       version,
       branch,
       sha256
@@ -118,7 +119,7 @@ let
           "NOSTRIP=1"
         ] ++ lib.optionals officialRelease [ "RELEASE=true" ];
 
-      # on 6.0 and later, we can specify all this information manually
+        # on 6.0 and later, we can specify all this information manually
       configurePhase = lib.optionalString (lib.versionAtLeast version "6.0") ''
         export SOURCE_CONTROL=GIT
         export SCBRANCH="${branch}"
@@ -179,6 +180,7 @@ let
         platforms = [ "x86_64-linux" ];
         maintainers = with maintainers; [ thoughtpolice ];
       };
-    };
+    }
+    ;
 in
 makeFdb

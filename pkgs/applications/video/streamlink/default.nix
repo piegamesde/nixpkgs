@@ -40,7 +40,8 @@ python3Packages.buildPythonApplication rec {
   meta = with lib; {
     homepage = "https://streamlink.github.io/";
     description =
-      "CLI for extracting streams from various websites to video player of your choosing";
+      "CLI for extracting streams from various websites to video player of your choosing"
+      ;
     longDescription = ''
       Streamlink is a CLI utility that pipes videos from online
       streaming services to a variety of video players such as VLC, or

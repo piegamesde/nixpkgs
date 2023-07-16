@@ -23,12 +23,15 @@
 let
   functions = import ../bundled-common/functions.nix { inherit lib gemConfig; };
 
-  buildGems = gemset:
+  buildGems =
+    gemset:
     let
-      realGemset = if builtins.isAttrs gemset then
-        gemset
-      else
-        import gemset;
+      realGemset =
+        if builtins.isAttrs gemset then
+          gemset
+        else
+          import gemset
+        ;
       builtGems = lib.mapAttrs (name: initialAttrs:
         let
           attrs = functions.applyGemConfigs ({
@@ -40,11 +43,12 @@ let
       ) realGemset;
     in
     builtGems
-  ;
+    ;
 
   gems = buildGems (import ../../../top-level/ruby-packages.nix);
 
-  withPackages = selector:
+  withPackages =
+    selector:
     let
       selected = selector gems;
 
@@ -94,7 +98,7 @@ let
         gems = selected;
       };
     }
-  ;
+    ;
 
 in {
   inherit withPackages gems buildGems;

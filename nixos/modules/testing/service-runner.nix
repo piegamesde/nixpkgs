@@ -8,7 +8,8 @@ with lib;
 
 let
 
-  makeScript = name: service:
+  makeScript =
+    name: service:
     pkgs.writeScript "${name}-runner" ''
       #! ${pkgs.perl.withPackages (p: [ p.FileSlurp ])}/bin/perl -w
 
@@ -106,9 +107,11 @@ let
       }
 
       exit($mainRes & 127 ? 255 : $mainRes << 8);
-    '';
+    ''
+    ;
 
-  opts = {
+  opts =
+    {
       config,
       name,
       ...
@@ -122,7 +125,8 @@ let
         '';
       };
       config.runner = makeScript name config;
-    };
+    }
+    ;
 
 in {
   options = {

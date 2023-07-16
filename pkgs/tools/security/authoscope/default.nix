@@ -39,7 +39,7 @@ rustPlatform.buildRustPackage rec {
     installManPage docs/${pname}.1
   '';
 
-  # Tests requires access to httpin.org
+    # Tests requires access to httpin.org
   doCheck = false;
 
   meta = with lib; {

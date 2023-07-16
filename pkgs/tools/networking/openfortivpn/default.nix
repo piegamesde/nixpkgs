@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-xsH/Nb1/69R2EvAisDnrHWehjDIMBmElCV6evuTwBIQ=";
   };
 
-  # we cannot write the config file to /etc and as we don't need the file, so drop it
+    # we cannot write the config file to /etc and as we don't need the file, so drop it
   postPatch = ''
     substituteInPlace Makefile.am \
       --replace '$(DESTDIR)$(confdir)' /tmp
@@ -33,8 +33,8 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ openssl ] ++ lib.optional withSystemd systemd
-    ++ lib.optional withPpp ppp;
+  buildInputs =
+    [ openssl ] ++ lib.optional withSystemd systemd ++ lib.optional withPpp ppp;
 
   configureFlags = [ "--sysconfdir=/etc" ] ++ lib.optional withSystemd
     "--with-systemdsystemunitdir=${placeholder "out"}/lib/systemd/system"

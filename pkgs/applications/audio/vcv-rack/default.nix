@@ -252,8 +252,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Open-source virtual modular synthesizer";
     homepage = "https://vcvrack.com/";
-    # The source is GPL3+ licensed, some of the art is CC-BY-NC 4.0 or under a
-    # no-derivatives clause
+      # The source is GPL3+ licensed, some of the art is CC-BY-NC 4.0 or under a
+      # no-derivatives clause
     license = with licenses; [
       gpl3Plus
       cc-by-nc-40

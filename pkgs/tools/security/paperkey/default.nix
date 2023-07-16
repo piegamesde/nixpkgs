@@ -10,7 +10,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.jabberwocky.com/software/paperkey/${pname}-${version}.tar.gz";
+      "https://www.jabberwocky.com/software/paperkey/${pname}-${version}.tar.gz"
+      ;
     sha256 = "1xq5gni6gksjkd5avg0zpd73vsr97appksfx0gx2m38s4w9zsid2";
   };
 

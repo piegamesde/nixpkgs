@@ -28,7 +28,7 @@ let
 
   git_url = "https://chromium.googlesource.com";
 
-  # This data is from the DEPS file in the root of a V8 checkout.
+    # This data is from the DEPS file in the root of a V8 checkout.
   deps = {
     "base/trace_event/common" = fetchgit {
       url = "${git_url}/chromium/src/base/trace_event/common.git";
@@ -67,7 +67,7 @@ let
     };
   };
 
-  # See `gn_version` in DEPS.
+    # See `gn_version` in DEPS.
   gnSrc = fetchgit {
     url = "https://gn.googlesource.com/gn";
     rev = "8926696a4186279489cc2b8d768533e61bba73d7";

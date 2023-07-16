@@ -26,7 +26,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Materialized views with IVM (Incremental View Maintenance) for PostgreSQL";
+      "Materialized views with IVM (Incremental View Maintenance) for PostgreSQL"
+      ;
     homepage = "https://github.com/sraoss/pg_ivm";
     maintainers = with maintainers; [ ivan ];
     platforms = postgresql.meta.platforms;

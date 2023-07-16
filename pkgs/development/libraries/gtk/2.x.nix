@@ -43,7 +43,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchurl {
     url =
-      "mirror://gnome/sources/gtk+/2.24/${finalAttrs.pname}-${finalAttrs.version}.tar.xz";
+      "mirror://gnome/sources/gtk+/2.24/${finalAttrs.pname}-${finalAttrs.version}.tar.xz"
+      ;
     sha256 = "rCrHV/WULTGKMRpUsMgLXvKV8pnCpzxjL2v7H/Scxto=";
   };
 
@@ -96,15 +97,17 @@ stdenv.mkDerivation (finalAttrs: {
       Cocoa
     ];
 
-  preConfigure = if
-    (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11"
-      && stdenv.isDarwin)
-  then
-    ''
-      MACOSX_DEPLOYMENT_TARGET=10.16
-    ''
-  else
-    null;
+  preConfigure =
+    if
+      (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11"
+        && stdenv.isDarwin)
+    then
+      ''
+        MACOSX_DEPLOYMENT_TARGET=10.16
+      ''
+    else
+      null
+    ;
 
   configureFlags = [
     "--sysconfdir=/etc"

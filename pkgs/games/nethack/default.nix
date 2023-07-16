@@ -21,21 +21,25 @@
 }:
 
 let
-  platform = if stdenv.hostPlatform.isUnix then
-    "unix"
-  else
-    throw "Unknown platform for NetHack: ${stdenv.hostPlatform.system}";
-  unixHint = if x11Mode then
-    "linux-x11"
-  else if qtMode then
-    "linux-qt4"
-  else if stdenv.hostPlatform.isLinux then
-    "linux"
-  else if stdenv.hostPlatform.isDarwin then
-    "macosx10.10"
-    # We probably want something different for Darwin
-  else
-    "unix";
+  platform =
+    if stdenv.hostPlatform.isUnix then
+      "unix"
+    else
+      throw "Unknown platform for NetHack: ${stdenv.hostPlatform.system}"
+    ;
+  unixHint =
+    if x11Mode then
+      "linux-x11"
+    else if qtMode then
+      "linux-qt4"
+    else if stdenv.hostPlatform.isLinux then
+      "linux"
+    else if stdenv.hostPlatform.isDarwin then
+      "macosx10.10"
+      # We probably want something different for Darwin
+    else
+      "unix"
+    ;
   userDir = "~/.config/nethack";
   binPath = lib.makeBinPath [
     coreutils
@@ -45,12 +49,14 @@ let
 in
 stdenv.mkDerivation rec {
   version = "3.6.7";
-  pname = if x11Mode then
-    "nethack-x11"
-  else if qtMode then
-    "nethack-qt"
-  else
-    "nethack";
+  pname =
+    if x11Mode then
+      "nethack-x11"
+    else if qtMode then
+      "nethack-qt"
+    else
+      "nethack"
+    ;
 
   src = fetchurl {
     url = "https://nethack.org/download/${version}/nethack-${
@@ -192,10 +198,12 @@ stdenv.mkDerivation rec {
     description = "Rogue-like game";
     homepage = "http://nethack.org/";
     license = "nethack";
-    platforms = if x11Mode then
-      platforms.linux
-    else
-      platforms.unix;
+    platforms =
+      if x11Mode then
+        platforms.linux
+      else
+        platforms.unix
+      ;
     maintainers = with maintainers; [ abbradar ];
   };
 }

@@ -22,7 +22,7 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = lib.optional stdenv.isDarwin Security;
 
-  # 10 passed; 47 failed https://hydra.nixos.org/build/148943783/nixlog/1
+    # 10 passed; 47 failed https://hydra.nixos.org/build/148943783/nixlog/1
   doCheck = !stdenv.isDarwin;
 
   cargoPatches = [
@@ -31,7 +31,8 @@ rustPlatform.buildRustPackage rec {
     (fetchpatch {
       name = "update-linked-hash-map.patch";
       url =
-        "https://github.com/imsnif/bandwhich/commit/be06905de2c4fb91afc22d50bf3cfe5a1e8003f5.patch";
+        "https://github.com/imsnif/bandwhich/commit/be06905de2c4fb91afc22d50bf3cfe5a1e8003f5.patch"
+        ;
       hash = "sha256-FyZ7jUXK7ebXq7q/lvRSe7YdPnpYWKZE3WrSKLMjJeA=";
     })
 

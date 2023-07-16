@@ -25,7 +25,7 @@ let
     '';
   };
 
-  # A variant of libgreeting.so that returns a different message.
+    # A variant of libgreeting.so that returns a different message.
   libgoodbye = libgreeting.overrideAttrs (_: {
     name = "libgoodbye";
     code = ''
@@ -33,7 +33,7 @@ let
     '';
   });
 
-  # A simple consumer of libgreeting.so that just prints the greeting to stdout.
+    # A simple consumer of libgreeting.so that just prints the greeting to stdout.
   testProgram = stdenv.mkDerivation {
     name = "greeting-test";
 

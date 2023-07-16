@@ -30,7 +30,7 @@ in {
     ])
   ];
 
-  ###### interface
+    ###### interface
 
   options = {
 
@@ -157,7 +157,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
     assertions = [
@@ -204,18 +204,18 @@ in {
       "xenfs"
     ];
 
-    # The xenfs module is needed in system.activationScripts.xen, but
-    # the modprobe command there fails silently. Include xenfs in the
-    # initrd as a work around.
+      # The xenfs module is needed in system.activationScripts.xen, but
+      # the modprobe command there fails silently. Include xenfs in the
+      # initrd as a work around.
     boot.initrd.kernelModules = [ "xenfs" ];
 
-    # The radeonfb kernel module causes the screen to go black as soon
-    # as it's loaded, so don't load it.
+      # The radeonfb kernel module causes the screen to go black as soon
+      # as it's loaded, so don't load it.
     boot.blacklistedKernelModules = [ "radeonfb" ];
 
-    # Increase the number of loopback devices from the default (8),
-    # which is way too small because every VM virtual disk requires a
-    # loopback device.
+      # Increase the number of loopback devices from the default (8),
+      # which is way too small because every VM virtual disk requires a
+      # loopback device.
     boot.extraModprobeConfig = ''
       options loop max_loop=64
     '';
@@ -231,7 +231,7 @@ in {
       echo "${toString cfg.bootParams}" > $out/xen-params
     '';
 
-    # Mount the /proc/xen pseudo-filesystem.
+      # Mount the /proc/xen pseudo-filesystem.
     system.activationScripts.xen = ''
       if [ -d /proc/xen ]; then
           ${pkgs.kmod}/bin/modprobe xenfs 2> /dev/null
@@ -240,7 +240,7 @@ in {
       fi
     '';
 
-    # Domain 0 requires a pvops-enabled kernel.
+      # Domain 0 requires a pvops-enabled kernel.
     system.requiredKernelConfig = with config.lib.kernelConfig; [
       (isYes "XEN")
       (isYes "X86_IO_APIC")
@@ -274,7 +274,7 @@ in {
         "xen/oxenstored.conf".source = "${cfg.package}/etc/xen/oxenstored.conf";
       };
 
-    # Xen provides udev rules.
+      # Xen provides udev rules.
     services.udev.packages = [ cfg.package ];
 
     services.udev.path = [
@@ -316,7 +316,8 @@ in {
             Type = "notify";
             RemainAfterExit = true;
             NotifyAccess = "all";
-          };
+          }
+        ;
       postStart = ''
         ${optionalString
         (builtins.compareVersions cfg.package.version "4.8" < 0) ''
@@ -511,9 +512,9 @@ in {
         "xen-bridge.service"
         "xen-qemu.service"
       ];
-      ## To prevent a race between dhcpcd and xend's bridge setup script
-      ## (which renames eth* to peth* and recreates eth* as a virtual
-      ## device), start dhcpcd after xend.
+        ## To prevent a race between dhcpcd and xend's bridge setup script
+        ## (which renames eth* to peth* and recreates eth* as a virtual
+        ## device), start dhcpcd after xend.
       before = [ "dhcpd.service" ];
       restartIfChanged = false;
       serviceConfig.RemainAfterExit = "yes";

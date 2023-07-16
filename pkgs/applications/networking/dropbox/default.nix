@@ -26,7 +26,8 @@ let
   }.${stdenv.hostPlatform.system};
 
   installer =
-    "https://clientupdates.dropboxstatic.com/dbx-releng/client/dropbox-lnx.${arch}-${version}.tar.gz";
+    "https://clientupdates.dropboxstatic.com/dbx-releng/client/dropbox-lnx.${arch}-${version}.tar.gz"
+    ;
 
 in let
   desktopItem = makeDesktopItem {
@@ -47,7 +48,8 @@ in
 buildFHSEnv {
   name = "dropbox";
 
-  targetPkgs = pkgs:
+  targetPkgs =
+    pkgs:
     with pkgs;
     with xorg; [
       libICE
@@ -77,7 +79,8 @@ buildFHSEnv {
       libxshmfence
       libpthreadstubs
       libappindicator
-    ];
+    ]
+    ;
 
   extraInstallCommands = ''
     mkdir -p "$out/share/applications"

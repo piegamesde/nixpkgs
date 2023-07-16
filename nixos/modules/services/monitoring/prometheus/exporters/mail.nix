@@ -10,10 +10,12 @@ with lib;
 let
   cfg = config.services.prometheus.exporters.mail;
 
-  configFile = if cfg.configuration != null then
-    configurationFile
-  else
-    (escapeShellArg cfg.configFile);
+  configFile =
+    if cfg.configuration != null then
+      configurationFile
+    else
+      (escapeShellArg cfg.configFile)
+    ;
 
   configurationFile = pkgs.writeText "prometheus-mail-exporter.conf"
     (builtins.toJSON (

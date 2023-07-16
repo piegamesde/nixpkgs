@@ -50,8 +50,8 @@ python3Packages.buildPythonApplication rec {
     xlib
   ];
 
-  # the -cli symlink is just to maintain compabilility with older versions where
-  # there was a difference between the GUI and CLI versions.
+    # the -cli symlink is just to maintain compabilility with older versions where
+    # there was a difference between the GUI and CLI versions.
   postInstall = ''
     ln -s $out/bin/solaar $out/bin/solaar-cli
 
@@ -64,7 +64,7 @@ python3Packages.buildPythonApplication rec {
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';
 
-  # no tests
+    # no tests
   doCheck = false;
 
   pythonImportsCheck = [ "solaar" ];

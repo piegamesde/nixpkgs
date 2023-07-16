@@ -12,7 +12,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/asdf-package-system/2015-06-08/asdf-package-system-20150608-git.tgz";
+      "http://beta.quicklisp.org/archive/asdf-package-system/2015-06-08/asdf-package-system-20150608-git.tgz"
+      ;
     sha256 = "17lfwfc15hcag8a2jsaxkx42wmz2mwkvxf6vb2h9cim7dwsnyy29";
   };
 

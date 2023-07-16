@@ -34,7 +34,7 @@ buildPythonPackage rec {
     zeroconf
   ];
 
-  # no tests available
+    # no tests available
   doCheck = false;
 
   pythonImportsCheck = [ "pychromecast" ];
@@ -44,7 +44,8 @@ buildPythonPackage rec {
       "Library for Python to communicate with the Google Chromecast";
     homepage = "https://github.com/home-assistant-libs/pychromecast";
     changelog =
-      "https://github.com/home-assistant-libs/pychromecast/releases/tag/${version}";
+      "https://github.com/home-assistant-libs/pychromecast/releases/tag/${version}"
+      ;
     license = licenses.mit;
     maintainers = with maintainers; [ abbradar ];
     platforms = platforms.unix;

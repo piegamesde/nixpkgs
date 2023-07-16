@@ -42,8 +42,8 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ cffi ] ++ lib.optionals gurobiSupport
     ([ gurobipy ] ++ lib.optional (gurobiHome == null) gurobi);
 
-  # Source files have CRLF terminators, which make patch error out when supplied
-  # with diffs made on *nix machines
+    # Source files have CRLF terminators, which make patch error out when supplied
+    # with diffs made on *nix machines
   prePatch = ''
     find . -type f -exec ${dos2unix}/bin/dos2unix {} \;
   '';
@@ -61,7 +61,7 @@ buildPythonPackage rec {
     substituteInPlace pyproject.toml --replace "cffi==1.15.0" "cffi==1.15.*"
   '';
 
-  # Make MIP use the Gurobi solver, if configured to do so
+    # Make MIP use the Gurobi solver, if configured to do so
   makeWrapperArgs = lib.optional gurobiSupport "--set GUROBI_HOME ${
       if gurobiHome == null then
         gurobi.outPath
@@ -69,7 +69,7 @@ buildPythonPackage rec {
         gurobiHome
     }";
 
-  # Tests that rely on Gurobi are activated only when Gurobi support is enabled
+    # Tests that rely on Gurobi are activated only when Gurobi support is enabled
   disabledTests = lib.optional (!gurobiSupport) "gurobi";
 
   passthru.optional-dependencies = { inherit gurobipy numpy; };
@@ -77,7 +77,8 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://python-mip.com/";
     description =
-      "A collection of Python tools for the modeling and solution of Mixed-Integer Linear programs (MIPs)";
+      "A collection of Python tools for the modeling and solution of Mixed-Integer Linear programs (MIPs)"
+      ;
     downloadPage = "https://github.com/coin-or/python-mip/releases";
     changelog = "https://github.com/coin-or/python-mip/releases/tag/${version}";
     license = licenses.epl20;

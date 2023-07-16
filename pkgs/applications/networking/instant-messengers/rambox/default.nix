@@ -11,7 +11,8 @@ let
 
   src = fetchurl {
     url =
-      "https://github.com/ramboxapp/download/releases/download/v${version}/Rambox-${version}-linux-x64.AppImage";
+      "https://github.com/ramboxapp/download/releases/download/v${version}/Rambox-${version}-linux-x64.AppImage"
+      ;
     sha256 = "sha256-wvjCr1U+/1/GtebMNWJjizzegqZ+wWXUrmOshYtMq6o=";
   };
 
@@ -37,7 +38,8 @@ appimageTools.wrapType2 {
 
   meta = with lib; {
     description =
-      "Workspace Simplifier - a cross-platform application organizing web services into Workspaces similar to browser profiles";
+      "Workspace Simplifier - a cross-platform application organizing web services into Workspaces similar to browser profiles"
+      ;
     homepage = "https://rambox.app";
     license = licenses.unfree;
     maintainers = with maintainers; [ nazarewk ];

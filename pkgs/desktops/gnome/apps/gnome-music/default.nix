@@ -86,7 +86,7 @@ python3.pkgs.buildPythonApplication rec {
     pygobject3
   ];
 
-  # Prevent double wrapping, let the Python wrapper use the args in preFixup.
+    # Prevent double wrapping, let the Python wrapper use the args in preFixup.
   dontWrapGApps = true;
 
   preFixup = ''
@@ -95,7 +95,7 @@ python3.pkgs.buildPythonApplication rec {
 
   doCheck = false;
 
-  # handle setup hooks better
+    # handle setup hooks better
   strictDeps = false;
 
   passthru = {
@@ -108,7 +108,8 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     homepage = "https://wiki.gnome.org/Apps/Music";
     description =
-      "Music player and management application for the GNOME desktop environment";
+      "Music player and management application for the GNOME desktop environment"
+      ;
     maintainers = teams.gnome.members;
     license = licenses.gpl2Plus;
     platforms = platforms.unix;

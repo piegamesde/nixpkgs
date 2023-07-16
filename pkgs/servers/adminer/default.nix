@@ -10,10 +10,11 @@ stdenv.mkDerivation rec {
   version = "4.8.1";
   pname = "adminer";
 
-  # not using fetchFromGitHub as the git repo relies on submodules that are included in the tar file
+    # not using fetchFromGitHub as the git repo relies on submodules that are included in the tar file
   src = fetchurl {
     url =
-      "https://github.com/vrana/adminer/releases/download/v${version}/adminer-${version}.tar.gz";
+      "https://github.com/vrana/adminer/releases/download/v${version}/adminer-${version}.tar.gz"
+      ;
     sha256 = "sha256-2rkNq79sc5RBFxWuiaSlpWr0rwrnEFlnW1WcoxjoP2M=";
   };
 

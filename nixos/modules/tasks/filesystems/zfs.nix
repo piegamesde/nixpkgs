@@ -51,25 +51,26 @@ let
     "monthly"
   ];
 
-  # When importing ZFS pools, there's one difficulty: These scripts may run
-  # before the backing devices (physical HDDs, etc.) of the pool have been
-  # scanned and initialized.
-  #
-  # An attempted import with all devices missing will just fail, and can be
-  # retried, but an import where e.g. two out of three disks in a three-way
-  # mirror are missing, will succeed. This is a problem: When the missing disks
-  # are later discovered, they won't be automatically set online, rendering the
-  # pool redundancy-less (and far slower) until such time as the system reboots.
-  #
-  # The solution is the below. poolReady checks the status of an un-imported
-  # pool, to see if *every* device is available -- in which case the pool will be
-  # in state ONLINE, as opposed to DEGRADED, FAULTED or MISSING.
-  #
-  # The import scripts then loop over this, waiting until the pool is ready or a
-  # sufficient amount of time has passed that we can assume it won't be. In the
-  # latter case it makes one last attempt at importing, allowing the system to
-  # (eventually) boot even with a degraded pool.
-  importLib = {
+    # When importing ZFS pools, there's one difficulty: These scripts may run
+    # before the backing devices (physical HDDs, etc.) of the pool have been
+    # scanned and initialized.
+    #
+    # An attempted import with all devices missing will just fail, and can be
+    # retried, but an import where e.g. two out of three disks in a three-way
+    # mirror are missing, will succeed. This is a problem: When the missing disks
+    # are later discovered, they won't be automatically set online, rendering the
+    # pool redundancy-less (and far slower) until such time as the system reboots.
+    #
+    # The solution is the below. poolReady checks the status of an un-imported
+    # pool, to see if *every* device is available -- in which case the pool will be
+    # in state ONLINE, as opposed to DEGRADED, FAULTED or MISSING.
+    #
+    # The import scripts then loop over this, waiting until the pool is ready or a
+    # sufficient amount of time has passed that we can assume it won't be. In the
+    # latter case it makes one last attempt at importing, allowing the system to
+    # (eventually) boot even with a degraded pool.
+  importLib =
+    {
       zpoolCmd,
       awkCmd,
       cfgZfs,
@@ -99,29 +100,37 @@ let
         pool="$1"
         "${zpoolCmd}" import -d "${cfgZfs.devNodes}" -N $ZFS_FORCE "$pool"
       }
-    '';
+    ''
+    ;
 
-  getPoolFilesystems = pool:
+  getPoolFilesystems =
+    pool:
     filter (x: x.fsType == "zfs" && (fsToPool x) == pool)
-    config.system.build.fileSystems;
+    config.system.build.fileSystems
+    ;
 
-  getPoolMounts = prefix: pool:
+  getPoolMounts =
+    prefix: pool:
     let
       # Remove the "/" suffix because even though most mountpoints
       # won't have it, the "/" mountpoint will, and we can't have the
       # trailing slash in "/sysroot/" in stage 1.
-      mountPoint = fs:
-        escapeSystemdPath (prefix + (lib.removeSuffix "/" fs.mountPoint));
+      mountPoint =
+        fs:
+        escapeSystemdPath (prefix + (lib.removeSuffix "/" fs.mountPoint))
+        ;
     in
     map (x: "${mountPoint x}.mount") (getPoolFilesystems pool)
-  ;
+    ;
 
-  getKeyLocations = pool:
+  getKeyLocations =
+    pool:
     if isBool cfgZfs.requestEncryptionCredentials then
       {
         hasKeys = cfgZfs.requestEncryptionCredentials;
         command =
-          "${cfgZfs.package}/sbin/zfs list -rHo name,keylocation,keystatus ${pool}";
+          "${cfgZfs.package}/sbin/zfs list -rHo name,keylocation,keystatus ${pool}"
+          ;
       }
     else
       let
@@ -133,9 +142,11 @@ let
           "${cfgZfs.package}/sbin/zfs list -Ho name,keylocation,keystatus ${
             toString keys
           }";
-      } ;
+      }
+    ;
 
-  createImportService = {
+  createImportService =
+    {
       pool,
       systemd,
       force,
@@ -143,9 +154,9 @@ let
     }:
     nameValuePair "zfs-import-${pool}" {
       description = ''Import ZFS pool "${pool}"'';
-      # we need systemd-udev-settle to ensure devices are available
-      # In the future, hopefully someone will complete this:
-      # https://github.com/zfsonlinux/zfs/pull/4943
+        # we need systemd-udev-settle to ensure devices are available
+        # In the future, hopefully someone will complete this:
+        # https://github.com/zfsonlinux/zfs/pull/4943
       requires = [ "systemd-udev-settle.service" ];
       after = [
         "systemd-udev-settle.service"
@@ -160,63 +171,66 @@ let
         RemainAfterExit = true;
       };
       environment.ZFS_FORCE = optionalString force "-f";
-      script = let
-        keyLocations = getKeyLocations pool;
-      in
-      (importLib {
-        # See comments at importLib definition.
-        zpoolCmd = "${cfgZfs.package}/sbin/zpool";
-        awkCmd = "${pkgs.gawk}/bin/awk";
-        inherit cfgZfs;
-      }) + ''
-        poolImported "${pool}" && exit
-        echo -n "importing ZFS pool \"${pool}\"..."
-        # Loop across the import until it succeeds, because the devices needed may not be discovered yet.
-        for trial in `seq 1 60`; do
-          poolReady "${pool}" && poolImport "${pool}" && break
-          sleep 1
-        done
-        poolImported "${pool}" || poolImport "${pool}"  # Try one last time, e.g. to import a degraded pool.
-        if poolImported "${pool}"; then
-          ${
-            optionalString keyLocations.hasKeys ''
-              ${keyLocations.command} | while IFS=$'\t' read ds kl ks; do
-                {
-                if [[ "$ks" != unavailable ]]; then
-                  continue
-                fi
-                case "$kl" in
-                  none )
-                    ;;
-                  prompt )
-                    tries=3
-                    success=false
-                    while [[ $success != true ]] && [[ $tries -gt 0 ]]; do
-                      ${systemd}/bin/systemd-ask-password "Enter key for $ds:" | ${cfgZfs.package}/sbin/zfs load-key "$ds" \
-                        && success=true \
-                        || tries=$((tries - 1))
-                    done
-                    [[ $success = true ]]
-                    ;;
-                  * )
-                    ${cfgZfs.package}/sbin/zfs load-key "$ds"
-                    ;;
-                esac
-                } < /dev/null # To protect while read ds kl in case anything reads stdin
-              done
-            ''
-          }
-          echo "Successfully imported ${pool}"
-        else
-          exit 1
-        fi
-      ''
-      ;
-    };
+      script =
+        let
+          keyLocations = getKeyLocations pool;
+        in
+        (importLib {
+          # See comments at importLib definition.
+          zpoolCmd = "${cfgZfs.package}/sbin/zpool";
+          awkCmd = "${pkgs.gawk}/bin/awk";
+          inherit cfgZfs;
+        }) + ''
+          poolImported "${pool}" && exit
+          echo -n "importing ZFS pool \"${pool}\"..."
+          # Loop across the import until it succeeds, because the devices needed may not be discovered yet.
+          for trial in `seq 1 60`; do
+            poolReady "${pool}" && poolImport "${pool}" && break
+            sleep 1
+          done
+          poolImported "${pool}" || poolImport "${pool}"  # Try one last time, e.g. to import a degraded pool.
+          if poolImported "${pool}"; then
+            ${
+              optionalString keyLocations.hasKeys ''
+                ${keyLocations.command} | while IFS=$'\t' read ds kl ks; do
+                  {
+                  if [[ "$ks" != unavailable ]]; then
+                    continue
+                  fi
+                  case "$kl" in
+                    none )
+                      ;;
+                    prompt )
+                      tries=3
+                      success=false
+                      while [[ $success != true ]] && [[ $tries -gt 0 ]]; do
+                        ${systemd}/bin/systemd-ask-password "Enter key for $ds:" | ${cfgZfs.package}/sbin/zfs load-key "$ds" \
+                          && success=true \
+                          || tries=$((tries - 1))
+                      done
+                      [[ $success = true ]]
+                      ;;
+                    * )
+                      ${cfgZfs.package}/sbin/zfs load-key "$ds"
+                      ;;
+                  esac
+                  } < /dev/null # To protect while read ds kl in case anything reads stdin
+                done
+              ''
+            }
+            echo "Successfully imported ${pool}"
+          else
+            exit 1
+          fi
+        ''
+        ;
+    }
+    ;
 
   zedConf = generators.toKeyValue {
     mkKeyValue = generators.mkKeyValueDefault {
-      mkValueString = v:
+      mkValueString =
+        v:
         if isInt v then
           toString v
         else if isString v then
@@ -228,7 +242,8 @@ let
         else if isList v then
           ''"'' + (concatStringsSep " " v) + ''"''
         else
-          err "this value is" (toString v);
+          err "this value is" (toString v)
+        ;
     } "=";
   } cfgZED.settings;
 
@@ -240,19 +255,22 @@ in {
     "enableLegacyCrypto"
   ] "The corresponding package was removed from nixpkgs.") ];
 
-  ###### interface
+    ###### interface
 
   options = {
     boot.zfs = {
       package = mkOption {
         readOnly = true;
         type = types.package;
-        default = if config.boot.zfs.enableUnstable then
-          pkgs.zfsUnstable
-        else
-          pkgs.zfs;
+        default =
+          if config.boot.zfs.enableUnstable then
+            pkgs.zfsUnstable
+          else
+            pkgs.zfs
+          ;
         defaultText = literalExpression
-          "if config.boot.zfs.enableUnstable then pkgs.zfsUnstable else pkgs.zfs";
+          "if config.boot.zfs.enableUnstable then pkgs.zfsUnstable else pkgs.zfs"
+          ;
         description = lib.mdDoc "Configured ZFS userland tools package.";
       };
 
@@ -553,7 +571,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkMerge [
     (mkIf cfgZfs.enabled {
@@ -573,21 +591,23 @@ in {
         {
           assertion = !cfgZfs.forceImportAll || cfgZfs.forceImportRoot;
           message =
-            "If you enable boot.zfs.forceImportAll, you must also enable boot.zfs.forceImportRoot";
+            "If you enable boot.zfs.forceImportAll, you must also enable boot.zfs.forceImportRoot"
+            ;
         }
         {
           assertion = cfgZfs.allowHibernation -> !cfgZfs.forceImportRoot
             && !cfgZfs.forceImportAll;
           message =
-            "boot.zfs.allowHibernation while force importing is enabled will cause data corruption";
+            "boot.zfs.allowHibernation while force importing is enabled will cause data corruption"
+            ;
         }
       ];
 
       boot = {
         kernelModules = [ "zfs" ];
-        # https://github.com/openzfs/zfs/issues/260
-        # https://github.com/openzfs/zfs/issues/12842
-        # https://github.com/NixOS/nixpkgs/issues/106093
+          # https://github.com/openzfs/zfs/issues/260
+          # https://github.com/openzfs/zfs/issues/12842
+          # https://github.com/NixOS/nixpkgs/issues/106093
         kernelParams =
           lib.optionals (!config.boot.zfs.allowHibernation) [ "nohibernate" ];
 
@@ -641,7 +661,7 @@ in {
               cfgZfs.requestEncryptionCredentials)}
         '') rootPools));
 
-        # Systemd in stage 1
+          # Systemd in stage 1
         systemd = {
           packages = [ cfgZfs.package ];
           services = listToAttrs (map (pool:
@@ -664,7 +684,7 @@ in {
         '';
       systemd.shutdownRamfs.storePaths = [ "${cfgZfs.package}/bin/zpool" ];
 
-      # TODO FIXME See https://github.com/NixOS/nixpkgs/pull/99386#issuecomment-798813567. To not break people's bootloader and as probably not everybody would read release notes that thoroughly add inSystem.
+        # TODO FIXME See https://github.com/NixOS/nixpkgs/pull/99386#issuecomment-798813567. To not break people's bootloader and as probably not everybody would read release notes that thoroughly add inSystem.
       boot.loader.grub = mkIf (inInitrd || inSystem) { zfsSupport = true; };
 
       services.zfs.zed.settings = {
@@ -699,61 +719,70 @@ in {
         "zfs/zpool.d".source = "${cfgZfs.package}/etc/zfs/zpool.d/";
       };
 
-      system.fsPackages =
-        [ cfgZfs.package ]; # XXX: needed? zfs doesn't have (need) a fsck
+      system.fsPackages = [ cfgZfs.package ]
+        ; # XXX: needed? zfs doesn't have (need) a fsck
       environment.systemPackages = [ cfgZfs.package ]
-        ++ optional cfgSnapshots.enable
-        autosnapPkg; # so the user can run the command to see flags
+        ++ optional cfgSnapshots.enable autosnapPkg
+        ; # so the user can run the command to see flags
 
       services.udev.packages = [ cfgZfs.package ]; # to hook zvol naming, etc.
       systemd.packages = [ cfgZfs.package ];
 
-      systemd.services = let
-        createImportService' = pool:
-          createImportService {
-            inherit pool;
-            systemd = config.systemd.package;
-            force = cfgZfs.forceImportAll;
-          };
+      systemd.services =
+        let
+          createImportService' =
+            pool:
+            createImportService {
+              inherit pool;
+              systemd = config.systemd.package;
+              force = cfgZfs.forceImportAll;
+            }
+            ;
 
-        # This forces a sync of any ZFS pools prior to poweroff, even if they're set
-        # to sync=disabled.
-        createSyncService = pool:
-          nameValuePair "zfs-sync-${pool}" {
-            description = ''Sync ZFS pool "${pool}"'';
-            wantedBy = [ "shutdown.target" ];
-            unitConfig = { DefaultDependencies = false; };
-            serviceConfig = {
-              Type = "oneshot";
-              RemainAfterExit = true;
-            };
-            script = ''
-              ${cfgZfs.package}/sbin/zfs set nixos:shutdown-time="$(date)" "${pool}"
-            '';
-          };
+            # This forces a sync of any ZFS pools prior to poweroff, even if they're set
+            # to sync=disabled.
+          createSyncService =
+            pool:
+            nameValuePair "zfs-sync-${pool}" {
+              description = ''Sync ZFS pool "${pool}"'';
+              wantedBy = [ "shutdown.target" ];
+              unitConfig = { DefaultDependencies = false; };
+              serviceConfig = {
+                Type = "oneshot";
+                RemainAfterExit = true;
+              };
+              script = ''
+                ${cfgZfs.package}/sbin/zfs set nixos:shutdown-time="$(date)" "${pool}"
+              '';
+            }
+            ;
 
-        createZfsService = serv:
-          nameValuePair serv {
-            after = [ "systemd-modules-load.service" ];
-            wantedBy = [ "zfs.target" ];
-          };
+          createZfsService =
+            serv:
+            nameValuePair serv {
+              after = [ "systemd-modules-load.service" ];
+              wantedBy = [ "zfs.target" ];
+            }
+            ;
 
-      in
-      listToAttrs (map createImportService' dataPools
-        ++ map createSyncService allPools ++ map createZfsService [
-          "zfs-mount"
-          "zfs-share"
-          "zfs-zed"
-        ])
-      ;
+        in
+        listToAttrs (map createImportService' dataPools
+          ++ map createSyncService allPools ++ map createZfsService [
+            "zfs-mount"
+            "zfs-share"
+            "zfs-zed"
+          ])
+        ;
 
-      systemd.targets.zfs-import = let
-        services = map (pool: "zfs-import-${pool}.service") dataPools;
-      in {
-        requires = services;
-        after = services;
-        wantedBy = [ "zfs.target" ];
-      } ;
+      systemd.targets.zfs-import =
+        let
+          services = map (pool: "zfs-import-${pool}.service") dataPools;
+        in {
+          requires = services;
+          after = services;
+          wantedBy = [ "zfs.target" ];
+        }
+        ;
 
       systemd.targets.zfs.wantedBy = [ "multi-user.target" ];
     })
@@ -780,87 +809,97 @@ in {
         '';
       };
 
-      systemd.services."zpool-expand-pools" = let
-        # Create a string, to be interpolated in a bash script
-        # which enumerates all of the pools to expand.
-        # If the `pools` option is `true`, we want to dynamically
-        # expand every pool. Otherwise we want to enumerate
-        # just the specifically provided list of pools.
-        poolListProvider = if cfgExpandOnBoot == "all" then
-          "$(zpool list -H -o name)"
-        else
-          lib.escapeShellArgs cfgExpandOnBoot;
-      in {
-        description = "Expand specified ZFS pools";
-        wantedBy = [ "default.target" ];
-        after = [ "zfs.target" ];
+      systemd.services."zpool-expand-pools" =
+        let
+          # Create a string, to be interpolated in a bash script
+          # which enumerates all of the pools to expand.
+          # If the `pools` option is `true`, we want to dynamically
+          # expand every pool. Otherwise we want to enumerate
+          # just the specifically provided list of pools.
+          poolListProvider =
+            if cfgExpandOnBoot == "all" then
+              "$(zpool list -H -o name)"
+            else
+              lib.escapeShellArgs cfgExpandOnBoot
+            ;
+        in {
+          description = "Expand specified ZFS pools";
+          wantedBy = [ "default.target" ];
+          after = [ "zfs.target" ];
 
-        serviceConfig = {
-          Type = "oneshot";
-          RemainAfterExit = true;
-        };
+          serviceConfig = {
+            Type = "oneshot";
+            RemainAfterExit = true;
+          };
 
-        path = lib.optionals (cfgExpandOnBoot == "all") [ cfgZfs.package ];
+          path = lib.optionals (cfgExpandOnBoot == "all") [ cfgZfs.package ];
 
-        script = ''
-          for pool in ${poolListProvider}; do
-            systemctl start --no-block "zpool-expand@$pool"
-          done
-        '';
-      } ;
+          script = ''
+            for pool in ${poolListProvider}; do
+              systemctl start --no-block "zpool-expand@$pool"
+            done
+          '';
+        }
+        ;
     })
 
     (mkIf (cfgZfs.enabled && cfgSnapshots.enable) {
-      systemd.services = let
-        descr = name:
-          if name == "frequent" then
-            "15 mins"
-          else if name == "hourly" then
-            "hour"
-          else if name == "daily" then
-            "day"
-          else if name == "weekly" then
-            "week"
-          else if name == "monthly" then
-            "month"
-          else
-            throw "unknown snapshot name";
-        numSnapshots = name: builtins.getAttr name cfgSnapshots;
-      in
-      builtins.listToAttrs (map (snapName: {
-        name = "zfs-snapshot-${snapName}";
-        value = {
-          description = "ZFS auto-snapshotting every ${descr snapName}";
-          after = [ "zfs-import.target" ];
-          serviceConfig = {
-            Type = "oneshot";
-            ExecStart = "${zfsAutoSnap} ${cfgSnapFlags} ${snapName} ${
-                toString (numSnapshots snapName)
-              }";
+      systemd.services =
+        let
+          descr =
+            name:
+            if name == "frequent" then
+              "15 mins"
+            else if name == "hourly" then
+              "hour"
+            else if name == "daily" then
+              "day"
+            else if name == "weekly" then
+              "week"
+            else if name == "monthly" then
+              "month"
+            else
+              throw "unknown snapshot name"
+            ;
+          numSnapshots = name: builtins.getAttr name cfgSnapshots;
+        in
+        builtins.listToAttrs (map (snapName: {
+          name = "zfs-snapshot-${snapName}";
+          value = {
+            description = "ZFS auto-snapshotting every ${descr snapName}";
+            after = [ "zfs-import.target" ];
+            serviceConfig = {
+              Type = "oneshot";
+              ExecStart = "${zfsAutoSnap} ${cfgSnapFlags} ${snapName} ${
+                  toString (numSnapshots snapName)
+                }";
+            };
+            restartIfChanged = false;
           };
-          restartIfChanged = false;
-        };
-      }) snapshotNames)
-      ;
+        }) snapshotNames)
+        ;
 
-      systemd.timers = let
-        timer = name:
-          if name == "frequent" then
-            "*:0,15,30,45"
-          else
-            name;
-      in
-      builtins.listToAttrs (map (snapName: {
-        name = "zfs-snapshot-${snapName}";
-        value = {
-          wantedBy = [ "timers.target" ];
-          timerConfig = {
-            OnCalendar = timer snapName;
-            Persistent = "yes";
+      systemd.timers =
+        let
+          timer =
+            name:
+            if name == "frequent" then
+              "*:0,15,30,45"
+            else
+              name
+            ;
+        in
+        builtins.listToAttrs (map (snapName: {
+          name = "zfs-snapshot-${snapName}";
+          value = {
+            wantedBy = [ "timers.target" ];
+            timerConfig = {
+              OnCalendar = timer snapName;
+              Persistent = "yes";
+            };
           };
-        };
-      }) snapshotNames)
-      ;
+        }) snapshotNames)
+        ;
     })
 
     (mkIf (cfgZfs.enabled && cfgScrub.enable) {
@@ -880,8 +919,8 @@ in {
 
       systemd.timers.zfs-scrub = {
         wantedBy = [ "timers.target" ];
-        after =
-          [ "multi-user.target" ]; # Apparently scrubbing before boot is complete hangs the system? #53583
+        after = [ "multi-user.target" ]
+          ; # Apparently scrubbing before boot is complete hangs the system? #53583
         timerConfig = {
           OnCalendar = cfgScrub.interval;
           Persistent = "yes";
@@ -895,12 +934,13 @@ in {
         after = [ "zfs-import.target" ];
         path = [ cfgZfs.package ];
         startAt = cfgTrim.interval;
-        # By default we ignore errors returned by the trim command, in case:
-        # - HDDs are mixed with SSDs
-        # - There is a SSDs in a pool that is currently trimmed.
-        # - There are only HDDs and we would set the system in a degraded state
+          # By default we ignore errors returned by the trim command, in case:
+          # - HDDs are mixed with SSDs
+          # - There is a SSDs in a pool that is currently trimmed.
+          # - There are only HDDs and we would set the system in a degraded state
         serviceConfig.ExecStart =
-          "${pkgs.runtimeShell} -c 'for pool in $(zpool list -H -o name); do zpool trim $pool;  done || true' ";
+          "${pkgs.runtimeShell} -c 'for pool in $(zpool list -H -o name); do zpool trim $pool;  done || true' "
+          ;
       };
 
       systemd.timers.zpool-trim.timerConfig.Persistent = "yes";

@@ -22,10 +22,12 @@ let
   ];
   linuxDeps = [ ncurses6 ];
 
-  buildInputs = if stdenv.isDarwin then
-    darwinDeps
-  else
-    linuxDeps;
+  buildInputs =
+    if stdenv.isDarwin then
+      darwinDeps
+    else
+      linuxDeps
+    ;
   nativeBuildInputs = [
     installShellFiles
     cmake
@@ -83,7 +85,7 @@ buildGoPackage rec {
     "man"
   ];
 
-  # fails with `GOFLAGS=-trimpath`
+    # fails with `GOFLAGS=-trimpath`
   allowGoReference = true;
   preFixup = ''
     find $out -type f -exec ${removeReferencesTo}/bin/remove-references-to -t ${go} '{}' +

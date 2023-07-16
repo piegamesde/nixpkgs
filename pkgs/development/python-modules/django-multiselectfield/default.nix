@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ django ];
 
-  # No tests
+    # No tests
   doCheck = false;
 
   meta = {

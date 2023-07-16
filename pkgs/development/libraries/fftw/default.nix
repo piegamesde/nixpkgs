@@ -61,7 +61,7 @@ stdenv.mkDerivation (finalAttrs: {
     # doc generation causes Fortran wrapper generation which hard-codes gcc
     ++ lib.optional (!withDoc) "--disable-doc";
 
-  # fftw builds with -mtune=native by default
+    # fftw builds with -mtune=native by default
   postPatch = ''
     substituteInPlace configure --replace "-mtune=native" "-mtune=generic"
   '';

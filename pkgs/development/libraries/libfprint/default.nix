@@ -70,11 +70,11 @@ stdenv.mkDerivation rec {
     "-Dudev_hwdb_dir=${placeholder "out"}/lib/udev/hwdb.d"
   ];
 
-  nativeInstallCheckInputs =
-    [ (python3.withPackages (p: with p; [ pygobject3 ])) ];
+  nativeInstallCheckInputs = [ (python3.withPackages
+    (p: with p; [ pygobject3 ])) ];
 
-  # We need to run tests _after_ install so all the paths that get loaded are in
-  # the right place.
+    # We need to run tests _after_ install so all the paths that get loaded are in
+    # the right place.
   doCheck = false;
 
   doInstallCheck = true;
@@ -90,7 +90,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://fprint.freedesktop.org/";
     description =
-      "A library designed to make it easy to add support for consumer fingerprint readers";
+      "A library designed to make it easy to add support for consumer fingerprint readers"
+      ;
     license = licenses.lgpl21Only;
     platforms = platforms.linux;
     maintainers = with maintainers; [ abbradar ];

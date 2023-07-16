@@ -35,12 +35,13 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "fno-common.patch";
       url =
-        "https://github.com/lcdproc/lcdproc/commit/fda5302878692da933dc03cd011f8ddffefa07a4.patch";
+        "https://github.com/lcdproc/lcdproc/commit/fda5302878692da933dc03cd011f8ddffefa07a4.patch"
+        ;
       sha256 = "0ld6p1r4rjsnjr63afw3lp5lx25jxjs07lsp9yc3q96r91r835cy";
     })
   ];
 
-  # we don't need to see the GPL every time we launch lcdd in the foreground
+    # we don't need to see the GPL every time we launch lcdd in the foreground
   postPatch = ''
     substituteInPlace server/main.c \
       --replace 'output_GPL_notice();' '// output_GPL_notice();'
@@ -68,7 +69,7 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  # In 0.5.9: gcc: error: libbignum.a: No such file or directory
+    # In 0.5.9: gcc: error: libbignum.a: No such file or directory
   enableParallelBuilding = false;
 
   postFixup = ''
@@ -89,7 +90,7 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2;
     maintainers = with maintainers; [ peterhoeg ];
     platforms = platforms.unix;
-    # never built on aarch64-darwin since first introduction in nixpkgs
+      # never built on aarch64-darwin since first introduction in nixpkgs
     broken = stdenv.isDarwin && stdenv.isAarch64;
   };
 }

@@ -10,7 +10,8 @@
 }:
 
 let
-  packages = self:
+  packages =
+    self:
     let
       generatedJson = { inherit apps; };
 
@@ -28,7 +29,7 @@ let
       lib.makeExtensible (_:
         lib.mapAttrs (pname: data: self.mkNextcloudDerivation { inherit data; })
         pkgs)) generatedJson
-  ;
+    ;
 
 in
 (lib.makeExtensible (_: (lib.makeScope newScope packages))).extend

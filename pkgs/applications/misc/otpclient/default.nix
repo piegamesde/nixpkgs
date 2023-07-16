@@ -52,7 +52,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Highly secure and easy to use OTP client written in C/GTK that supports both TOTP and HOTP";
+      "Highly secure and easy to use OTP client written in C/GTK that supports both TOTP and HOTP"
+      ;
     homepage = "https://github.com/paolostivanin/OTPClient";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ alexbakker ];

@@ -19,7 +19,7 @@ stdenv.mkDerivation {
     substituteAll ${./utils.sh} $out
   '';
 
-  # Substituted variables
+    # Substituted variables
   inherit sigtool;
   codesignAllocate = "${cctools}/bin/${cctools.targetPrefix}codesign_allocate";
 }

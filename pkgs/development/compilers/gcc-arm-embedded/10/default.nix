@@ -19,7 +19,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://developer.arm.com/-/media/Files/downloads/gnu-rm/${release}/gcc-arm-none-eabi-${release}-${suffix}.tar.bz2";
+      "https://developer.arm.com/-/media/Files/downloads/gnu-rm/${release}/gcc-arm-none-eabi-${release}-${suffix}.tar.bz2"
+      ;
     sha256 = {
       aarch64-linux = "020j8gkzc0i0b74vz98gvngnwjm5222j1gk5nswfk6587krba1gn";
       x86_64-darwin = "0fr8pki2g4bfk1rk90dzwql37d0b71ngzs9zyx0g2jainan3sqgv";

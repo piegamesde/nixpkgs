@@ -44,7 +44,8 @@ stdenv.mkDerivation rec {
   patches = [ (fetchpatch {
     name = "symbolic-icons.patch";
     url =
-      "https://github.com/astroidmail/astroid/commit/7c2022f06a4146ad62e858bcaacdb4ee817851b9.patch";
+      "https://github.com/astroidmail/astroid/commit/7c2022f06a4146ad62e858bcaacdb4ee817851b9.patch"
+      ;
     hash = "sha256-hZHOg1wUR8Kpd6017fWzhMmG+/WQxSOCnsiyIvUcpbU=";
   }) ];
 

@@ -32,21 +32,23 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = if stdenv.isDarwin then
-    [
-      CoreFoundation
-      Cocoa
-      AudioToolbox
-      OpenGL
-      Foundation
-      ForceFeedback
-    ]
-  else
-    [
-      libGL
-      xorg.libX11
-      xorg.libXext
-    ];
+  buildInputs =
+    if stdenv.isDarwin then
+      [
+        CoreFoundation
+        Cocoa
+        AudioToolbox
+        OpenGL
+        Foundation
+        ForceFeedback
+      ]
+    else
+      [
+        libGL
+        xorg.libX11
+        xorg.libXext
+      ]
+    ;
 
   preConfigure = ''
     cd dev

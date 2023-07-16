@@ -19,7 +19,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ x256 ];
 
-  # Necessary because ctypes.util.find_library does not find the ncurses libraries
+    # Necessary because ctypes.util.find_library does not find the ncurses libraries
   postPatch = ''
     substituteInPlace './unicurses/__init__.py' \
       --replace "find_library('ncursesw')" '"${ncurses}/lib/libncursesw.so.6"' \

@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
 
   patches = lib.optionals stdenv.isDarwin [ ./darwin.patch ];
 
-  # The fuloong2f is not supported by aalib still
+    # The fuloong2f is not supported by aalib still
   preConfigure = ''
     cp ${automake}/share/automake*/config.{sub,guess} .
     configureFlagsArray+=(

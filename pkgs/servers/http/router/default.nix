@@ -28,12 +28,12 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = [ elfutils ];
 
-  # The v8 package will try to download a `librusty_v8.a` release at build time to our read-only filesystem
-  # To avoid this we pre-download the file and export it via RUSTY_V8_ARCHIVE
+    # The v8 package will try to download a `librusty_v8.a` release at build time to our read-only filesystem
+    # To avoid this we pre-download the file and export it via RUSTY_V8_ARCHIVE
   RUSTY_V8_ARCHIVE = callPackage ./librusty_v8.nix { };
 
-  cargoTestFlags =
-    [ "-- --skip=uplink::test::stream_from_uplink_error_no_retry" ];
+  cargoTestFlags = [ "-- --skip=uplink::test::stream_from_uplink_error_no_retry" ]
+    ;
 
   meta = with lib; {
     description =

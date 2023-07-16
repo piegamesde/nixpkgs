@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
     name = "containers-tmpfs";
     meta = { maintainers = with lib.maintainers; [ patryk27 ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -29,7 +30,8 @@ import ./make-test-python.nix ({
         };
 
         virtualisation.additionalPaths = [ pkgs.stdenv ];
-      };
+      }
+      ;
 
     testScript = ''
       machine.wait_for_unit("default.target")

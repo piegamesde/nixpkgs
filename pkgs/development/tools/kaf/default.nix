@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-Jpv02h+EeRhVdi/raStTEfHitz0A71dHpWdF/zcVJVU=";
 
-  # Many tests require a running Kafka instance
+    # Many tests require a running Kafka instance
   doCheck = false;
 
   meta = with lib; {

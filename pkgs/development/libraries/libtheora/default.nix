@@ -23,7 +23,8 @@ stdenv.mkDerivation rec {
     # fix error in autoconf scripts
     (fetchpatch {
       url =
-        "https://github.com/xiph/theora/commit/28cc6dbd9b2a141df94f60993256a5fca368fa54.diff";
+        "https://github.com/xiph/theora/commit/28cc6dbd9b2a141df94f60993256a5fca368fa54.diff"
+        ;
       sha256 = "16jqrq4h1b3krj609vbpzd5845cvkbh3mwmjrcdg35m490p19x9k";
     })
   ];

@@ -40,9 +40,9 @@ stdenv.mkDerivation rec {
     ./patches/autoconf.patch
   ];
 
-  # Workaround build failure on -fno-common toolchains:
-  #   ld: libgtklp.a(libgtklp.o):libgtklp/libgtklp.h:83: multiple definition of `progressBar';
-  #     file.o:libgtklp/libgtklp.h:83: first defined here
+    # Workaround build failure on -fno-common toolchains:
+    #   ld: libgtklp.a(libgtklp.o):libgtklp/libgtklp.h:83: multiple definition of `progressBar';
+    #     file.o:libgtklp/libgtklp.h:83: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   preConfigure = ''

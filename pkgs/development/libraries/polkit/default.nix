@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     "out"
   ]; # small man pages in $bin
 
-  # Tarballs do not contain subprojects.
+    # Tarballs do not contain subprojects.
   src = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";
     owner = "polkit";
@@ -63,7 +63,8 @@ stdenv.mkDerivation rec {
     # https://gitlab.freedesktop.org/polkit/polkit/-/merge_requests/100
     (fetchpatch {
       url =
-        "https://gitlab.freedesktop.org/polkit/polkit/-/commit/7ba07551dfcd4ef9a87b8f0d9eb8b91fabcb41b3.patch";
+        "https://gitlab.freedesktop.org/polkit/polkit/-/commit/7ba07551dfcd4ef9a87b8f0d9eb8b91fabcb41b3.patch"
+        ;
       sha256 = "ebbLILncq1hAZTBMsLm+vDGw6j0iQ0crGyhzyLZQgKA=";
     })
   ];
@@ -134,13 +135,13 @@ stdenv.mkDerivation rec {
         "libelogind"
     }" ];
 
-  # HACK: We want to install policy files files to $out/share but polkit
-  # should read them from /run/current-system/sw/share on a NixOS system.
-  # Similarly for config files in /etc.
-  # With autotools, it was possible to override Make variables
-  # at install time but Meson does not support this
-  # so we need to convince it to install all files to a temporary
-  # location using DESTDIR and then move it to proper one in postInstall.
+    # HACK: We want to install policy files files to $out/share but polkit
+    # should read them from /run/current-system/sw/share on a NixOS system.
+    # Similarly for config files in /etc.
+    # With autotools, it was possible to override Make variables
+    # at install time but Meson does not support this
+    # so we need to convince it to install all files to a temporary
+    # location using DESTDIR and then move it to proper one in postInstall.
   DESTDIR = "${placeholder "out"}/dest";
 
   inherit doCheck;
@@ -195,7 +196,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "http://www.freedesktop.org/wiki/Software/polkit";
     description =
-      "A toolkit for defining and handling the policy that allows unprivileged processes to speak to privileged processes";
+      "A toolkit for defining and handling the policy that allows unprivileged processes to speak to privileged processes"
+      ;
     license = licenses.lgpl2Plus;
     platforms = platforms.linux;
     maintainers = teams.freedesktop.members ++ (with maintainers; [ ]);

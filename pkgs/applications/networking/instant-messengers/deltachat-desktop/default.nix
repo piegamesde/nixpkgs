@@ -42,7 +42,8 @@ let
     };
   });
   esbuild' = esbuild.override {
-    buildGoModule = args:
+    buildGoModule =
+      args:
       buildGoModule (args // rec {
         version = "0.14.54";
         src = fetchFromGitHub {
@@ -52,7 +53,8 @@ let
           hash = "sha256-qCtpy69ROCspRgPKmCV0YY/EOSWiNU/xwDblU0bQp4w=";
         };
         vendorHash = "sha256-+BfxCyg0KkDQpHt/wycy/8CTG6YBA/VJvJFhhzUnSiQ=";
-      });
+      })
+      ;
   };
 in
 buildNpmPackage rec {
@@ -74,8 +76,8 @@ buildNpmPackage rec {
     python3
   ] ++ lib.optionals stdenv.isLinux [ copyDesktopItems ];
 
-  buildInputs = [ libdeltachat' ]
-    ++ lib.optionals stdenv.isDarwin [ CoreServices ];
+  buildInputs =
+    [ libdeltachat' ] ++ lib.optionals stdenv.isDarwin [ CoreServices ];
 
   env = {
     ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
@@ -143,7 +145,8 @@ buildNpmPackage rec {
     description = "Email-based instant messaging for Desktop";
     homepage = "https://github.com/deltachat/deltachat-desktop";
     changelog =
-      "https://github.com/deltachat/deltachat-desktop/blob/${src.rev}/CHANGELOG.md";
+      "https://github.com/deltachat/deltachat-desktop/blob/${src.rev}/CHANGELOG.md"
+      ;
     license = licenses.gpl3Plus;
     mainProgram = "deltachat";
     maintainers = with maintainers; [ dotlambda ];

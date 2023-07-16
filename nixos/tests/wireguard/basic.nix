@@ -65,12 +65,14 @@ import ../make-test-python.nix ({
               inherit (wg-snakeoil-keys.peer0) publicKey;
             };
 
-            postSetup = let
-              inherit (pkgs) iproute2;
-            in ''
-              ${iproute2}/bin/ip route replace 10.23.42.1/32 dev wg0
-              ${iproute2}/bin/ip route replace fc00::1/128 dev wg0
-            '' ;
+            postSetup =
+              let
+                inherit (pkgs) iproute2;
+              in ''
+                ${iproute2}/bin/ip route replace 10.23.42.1/32 dev wg0
+                ${iproute2}/bin/ip route replace fc00::1/128 dev wg0
+              ''
+              ;
           };
         };
       };

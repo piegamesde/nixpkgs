@@ -9,20 +9,24 @@ let
   # The x86-64-modern may need to be refined further in the future
   # but stdenv.hostPlatform CPU flags do not currently work on Darwin
   # https://discourse.nixos.org/t/darwin-system-and-stdenv-hostplatform-features/9745
-  archDarwin = if stdenv.isx86_64 then
-    "x86-64-modern"
-  else
-    "x86-64";
-  arch = if stdenv.isDarwin then
-    archDarwin
-  else if stdenv.isx86_64 then
-    "x86-64"
-  else if stdenv.isi686 then
-    "x86-32"
-  else if stdenv.isAarch64 then
-    "armv8"
-  else
-    "unknown";
+  archDarwin =
+    if stdenv.isx86_64 then
+      "x86-64-modern"
+    else
+      "x86-64"
+    ;
+  arch =
+    if stdenv.isDarwin then
+      archDarwin
+    else if stdenv.isx86_64 then
+      "x86-64"
+    else if stdenv.isi686 then
+      "x86-32"
+    else if stdenv.isAarch64 then
+      "armv8"
+    else
+      "unknown"
+    ;
 
   nnueFile = "nn-6877cd24400e.nnue";
   nnue = fetchurl {
@@ -43,8 +47,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-sK4Jw9BPGRvlm9oIcgGcmHe8G4GR4cEuD8MtDrHZKew=";
   };
 
-  # This addresses a linker issue with Darwin
-  # https://github.com/NixOS/nixpkgs/issues/19098
+    # This addresses a linker issue with Darwin
+    # https://github.com/NixOS/nixpkgs/issues/19098
   preBuild = lib.optionalString stdenv.isDarwin ''
     sed -i.orig '/^\#\#\# 3.*Link Time Optimization/,/^\#\#\# 3/d' Makefile
   '';

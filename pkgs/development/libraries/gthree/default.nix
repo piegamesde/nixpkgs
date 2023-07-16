@@ -38,7 +38,8 @@ stdenv.mkDerivation rec {
     # Add option for disabling examples
     (fetchpatch {
       url =
-        "https://github.com/alexlarsson/gthree/commit/75f05c40aba9d5f603d8a3c490c3406c1fe06776.patch";
+        "https://github.com/alexlarsson/gthree/commit/75f05c40aba9d5f603d8a3c490c3406c1fe06776.patch"
+        ;
       sha256 = "PBwLz4DLhC+7BtypVTFMFiF3hKAJeskU3XBKFHa3a84=";
     })
   ];
@@ -81,7 +82,7 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     maintainers = with maintainers; [ jtojnar ];
     platforms = platforms.unix;
-    broken =
-      stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/gthree.x86_64-darwin
+    broken = stdenv.isDarwin
+      ; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/gthree.x86_64-darwin
   };
 }

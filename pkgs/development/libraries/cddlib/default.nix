@@ -21,12 +21,13 @@ stdenv.mkDerivation rec {
     autoreconfHook
     texlive.combined.scheme-small # for building the documentation
   ];
-  # No actual checks yet (2018-05-05), but maybe one day.
-  # Requested here: https://github.com/cddlib/cddlib/issues/25
+    # No actual checks yet (2018-05-05), but maybe one day.
+    # Requested here: https://github.com/cddlib/cddlib/issues/25
   doCheck = true;
   meta = with lib; {
     description =
-      "An implementation of the Double Description Method for generating all vertices of a convex polyhedron";
+      "An implementation of the Double Description Method for generating all vertices of a convex polyhedron"
+      ;
     license = licenses.gpl2Plus;
     maintainers = teams.sage.members;
     platforms = platforms.unix;

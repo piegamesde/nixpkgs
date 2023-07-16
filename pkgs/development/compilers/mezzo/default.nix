@@ -56,7 +56,7 @@ else
       ocamlbuild
     ];
 
-    # Sets warning 3 as non-fatal
+      # Sets warning 3 as non-fatal
     prePatch = lib.optionalString (check-ocaml-version "4.02") ''
       substituteInPlace myocamlbuild.pre.ml \
       --replace '@1..3' '@1..2+3'
@@ -76,7 +76,8 @@ else
     meta = with lib; {
       homepage = "http://protz.github.io/mezzo/";
       description =
-        "A programming language in the ML tradition, which places strong emphasis on the control of aliasing and access to mutable memory";
+        "A programming language in the ML tradition, which places strong emphasis on the control of aliasing and access to mutable memory"
+        ;
       license = licenses.gpl2;
       platforms = ocaml.meta.platforms or [ ];
     };

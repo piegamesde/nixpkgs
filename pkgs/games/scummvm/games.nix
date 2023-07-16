@@ -10,7 +10,8 @@
 }:
 
 let
-  desktopItem = name: short: long: description:
+  desktopItem =
+    name: short: long: description:
     makeDesktopItem {
       categories = [
         "Game"
@@ -22,9 +23,11 @@ let
       genericName = description;
       icon = "scummvm";
       name = name;
-    };
+    }
+    ;
 
-  run = name: short: code:
+  run =
+    name: short: code:
     writeText "${short}.sh" ''
       #!${runtimeShell} -eu
 
@@ -32,9 +35,11 @@ let
         --path=@out@/share/${name} \
         --fullscreen \
         ${code}
-    '';
+    ''
+    ;
 
-  generic = {
+  generic =
+    {
       plong,
       pshort,
       pcode,
@@ -100,7 +105,7 @@ let
         inherit (scummvm.meta) platforms;
       };
     } // attrs')
-  ;
+    ;
 
 in {
   beneath-a-steel-sky = generic rec {
@@ -108,7 +113,8 @@ in {
     pshort = "bass";
     pcode = "sky";
     description =
-      "2D point-and-click science fiction thriller set in a bleak vision of the future";
+      "2D point-and-click science fiction thriller set in a bleak vision of the future"
+      ;
     version = "1.2";
     src = fetchurl {
       url = "mirror://sourceforge/scummvm/${pshort}-cd-${version}.zip";
@@ -140,18 +146,19 @@ in {
     pshort = "drascula";
     pcode = "drascula";
     description =
-      "Spanish 2D classic point & click style adventure with tons of humor and an easy interface";
+      "Spanish 2D classic point & click style adventure with tons of humor and an easy interface"
+      ;
     version = "1.0";
-    # srcs = {
+      # srcs = {
     src = fetchurl {
       url = "mirror://sourceforge/scummvm/${pshort}-${version}.zip";
       sha256 = "1pj29rpb754sn6a56f8brfv6f2m1p5qgaqik7d68pfi2bb5zccdp";
     };
-    # audio = fetchurl {
-    # url = "mirror://sourceforge/scummvm/${pshort}-audio-flac-2.0.zip";
-    # sha256 = "1zmqhrby8f5sj1qy6xjdgkvk9wyhr3nw8ljrrl58fmxb83x1rryw";
-    # };
-    # };
+      # audio = fetchurl {
+      # url = "mirror://sourceforge/scummvm/${pshort}-audio-flac-2.0.zip";
+      # sha256 = "1zmqhrby8f5sj1qy6xjdgkvk9wyhr3nw8ljrrl58fmxb83x1rryw";
+      # };
+      # };
     sourceRoot = ".";
     docs = [
       "readme.txt"

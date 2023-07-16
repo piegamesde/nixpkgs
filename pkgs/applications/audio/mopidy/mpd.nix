@@ -15,7 +15,7 @@ python3Packages.buildPythonApplication rec {
 
   propagatedBuildInputs = [ mopidy ];
 
-  # no tests implemented
+    # no tests implemented
   doCheck = false;
   pythonImportsCheck = [ "mopidy_mpd" ];
 

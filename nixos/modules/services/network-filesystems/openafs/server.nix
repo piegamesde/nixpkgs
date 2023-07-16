@@ -61,18 +61,20 @@ let
         end
       ''));
 
-  netInfo = if (cfg.advertisedAddresses != [ ]) then
-    pkgs.writeText "NetInfo" ((concatStringsSep ''
+  netInfo =
+    if (cfg.advertisedAddresses != [ ]) then
+      pkgs.writeText "NetInfo" ((concatStringsSep ''
 
-      f '' cfg.advertisedAddresses) + "\n")
-  else
-    null;
+        f '' cfg.advertisedAddresses) + "\n")
+    else
+      null
+    ;
 
   buCellServDB = pkgs.writeText "backup-cellServDB-${cfg.cellName}"
     (mkCellServDB cfg.cellName cfg.roles.backup.cellServDB);
 
-  useBuCellServDB = (cfg.roles.backup.cellServDB != [ ])
-    && (!cfg.roles.backup.enableFabs);
+  useBuCellServDB =
+    (cfg.roles.backup.cellServDB != [ ]) && (!cfg.roles.backup.enableFabs);
 
   cfg = config.services.openafsServer;
 
@@ -114,7 +116,8 @@ in {
         type = types.listOf types.str;
         default = [ ];
         description = lib.mdDoc
-          "List of IP addresses this server is advertised under. See NetInfo(5)";
+          "List of IP addresses this server is advertised under. See NetInfo(5)"
+          ;
       };
 
       cellName = mkOption {
@@ -126,8 +129,8 @@ in {
 
       cellServDB = mkOption {
         default = [ ];
-        type = with types;
-          listOf (submodule [ { options = cellServDBConfig; } ]);
+        type =
+          with types; listOf (submodule [ { options = cellServDBConfig; } ]);
         description =
           lib.mdDoc "Definition of all cell-local database server machines.";
       };
@@ -145,7 +148,8 @@ in {
             default = true;
             type = types.bool;
             description = lib.mdDoc
-              "Fileserver role, serves files and volumes from its local storage.";
+              "Fileserver role, serves files and volumes from its local storage."
+              ;
           };
 
           fileserverArgs = mkOption {
@@ -174,8 +178,9 @@ in {
           salvagerArgs = mkOption {
             default = "";
             type = types.str;
-            description = lib.mdDoc
-              "Arguments to the dasalvager process. See its man page.";
+            description =
+              lib.mdDoc "Arguments to the dasalvager process. See its man page."
+              ;
             example = "-showlog -showmounts";
           };
         };
@@ -305,12 +310,14 @@ in {
       {
         assertion = cfg.cellServDB != [ ];
         message =
-          "You must specify all cell-local database servers in config.services.openafsServer.cellServDB.";
+          "You must specify all cell-local database servers in config.services.openafsServer.cellServDB."
+          ;
       }
       {
         assertion = cfg.cellName != "";
         message =
-          "You must specify the local cell name in config.services.openafsServer.cellName.";
+          "You must specify the local cell name in config.services.openafsServer.cellName."
+          ;
       }
     ];
 

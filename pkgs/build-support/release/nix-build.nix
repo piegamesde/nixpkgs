@@ -38,7 +38,7 @@ stdenv.mkDerivation (
     # Also run a `make check'.
     doCheck = true;
 
-    # When doing coverage analysis, we don't care about the result.
+      # When doing coverage analysis, we don't care about the result.
     dontInstall = doingAnalysis;
     useTempPrefix = doingAnalysis;
 
@@ -117,7 +117,7 @@ stdenv.mkDerivation (
       ${preHook}
     '';
 
-    # Clean up after analysis
+      # Clean up after analysis
     postBuild = ''
       if [ ! -z "${toString (doCoverityAnalysis || doClangAnalysis)}" ]; then
         unalias make
@@ -155,10 +155,12 @@ stdenv.mkDerivation (
       args.meta
     else
       { }) // {
-        description = if doCoverageAnalysis then
-          "Coverage analysis"
-        else
-          "Nix package for ${stdenv.hostPlatform.system}";
+        description =
+          if doCoverageAnalysis then
+            "Coverage analysis"
+          else
+            "Nix package for ${stdenv.hostPlatform.system}"
+          ;
       };
 
   }

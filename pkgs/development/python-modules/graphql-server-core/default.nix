@@ -23,7 +23,8 @@ buildPythonPackage rec {
 
   patches = [ (fetchpatch {
     url =
-      "https://github.com/graphql-python/graphql-server-core/commit/865ee9d5602f352c958f6f7e15adbe9abe216784.patch";
+      "https://github.com/graphql-python/graphql-server-core/commit/865ee9d5602f352c958f6f7e15adbe9abe216784.patch"
+      ;
     sha256 = "03p44p4j8rys7mgamh2h9ibbnac2cqwvp5f5hrl2avj2hh0l6j46";
   }) ];
 
@@ -32,7 +33,7 @@ buildPythonPackage rec {
     promise
   ];
 
-  # fail with: cannot import name 'format_error' from 'graphql'
+    # fail with: cannot import name 'format_error' from 'graphql'
   doCheck = false;
 
   nativeCheckInputs = [ pytestCheckHook ];

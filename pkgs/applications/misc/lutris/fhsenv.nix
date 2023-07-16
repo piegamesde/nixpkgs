@@ -9,20 +9,25 @@
 
 let
 
-  qt5Deps = pkgs:
+  qt5Deps =
+    pkgs:
     with pkgs.qt5; [
       qtbase
       qtmultimedia
-    ];
-  gnomeDeps = pkgs:
+    ]
+    ;
+  gnomeDeps =
+    pkgs:
     with pkgs; [
       gnome.zenity
       gtksourceview
       gnome-desktop
       gnome.libgnome-keyring
       webkitgtk
-    ];
-  xorgDeps = pkgs:
+    ]
+    ;
+  xorgDeps =
+    pkgs:
     with pkgs.xorg; [
       libX11
       libXrender
@@ -40,7 +45,8 @@ let
       libXi
       libXcursor
       libXcomposite
-    ];
+    ]
+    ;
 
 in
 buildFHSEnv {
@@ -48,7 +54,8 @@ buildFHSEnv {
 
   runScript = "lutris";
 
-  targetPkgs = pkgs:
+  targetPkgs =
+    pkgs:
     with pkgs;
     [
       lutris-unwrapped
@@ -166,9 +173,11 @@ buildFHSEnv {
       bzip2
       game-music-emu
     ] ++ qt5Deps pkgs ++ gnomeDeps pkgs ++ lib.optional steamSupport pkgs.steam
-    ++ extraPkgs pkgs;
+    ++ extraPkgs pkgs
+    ;
 
-  multiPkgs = pkgs:
+  multiPkgs =
+    pkgs:
     with pkgs;
     [
       # Common
@@ -257,7 +266,8 @@ buildFHSEnv {
 
       # Winetricks
       fribidi
-    ] ++ xorgDeps pkgs ++ extraLibraries pkgs;
+    ] ++ xorgDeps pkgs ++ extraLibraries pkgs
+    ;
 
   extraInstallCommands = ''
     mkdir -p $out/share
@@ -265,13 +275,13 @@ buildFHSEnv {
     ln -sf ${lutris-unwrapped}/share/icons $out/share
   '';
 
-  # allows for some gui applications to share IPC
-  # this fixes certain issues where they don't render correctly
+    # allows for some gui applications to share IPC
+    # this fixes certain issues where they don't render correctly
   unshareIpc = false;
 
-  # Some applications such as Natron need access to MIT-SHM or other
-  # shared memory mechanisms. Unsharing the pid namespace
-  # breaks the ability for application to reference shared memory.
+    # Some applications such as Natron need access to MIT-SHM or other
+    # shared memory mechanisms. Unsharing the pid namespace
+    # breaks the ability for application to reference shared memory.
   unsharePid = false;
 
   meta = {

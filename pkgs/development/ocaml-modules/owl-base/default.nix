@@ -12,7 +12,8 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/owlbarn/owl/releases/download/${version}/owl-${version}.tbz";
+      "https://github.com/owlbarn/owl/releases/download/${version}/owl-${version}.tbz"
+      ;
     hash = "sha256-ONIQzmwcLwljH9WZUUMOTzZLWuA2xx7RsyzlWbKikmM=";
   };
 

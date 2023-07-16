@@ -17,16 +17,18 @@ assert (stdenv.isDarwin && stdenv.isx86_64);
 let
   cpuName = stdenv.hostPlatform.parsed.cpu.name;
   result = stdenv.mkDerivation {
-    pname = if sourcePerArch.packageType == "jdk" then
-      "adoptopenjdk-${sourcePerArch.vmType}-bin"
-    else
-      "adoptopenjdk-${sourcePerArch.packageType}-${sourcePerArch.vmType}-bin";
+    pname =
+      if sourcePerArch.packageType == "jdk" then
+        "adoptopenjdk-${sourcePerArch.vmType}-bin"
+      else
+        "adoptopenjdk-${sourcePerArch.packageType}-${sourcePerArch.vmType}-bin"
+      ;
     version =
       sourcePerArch.${cpuName}.version or (throw "unsupported CPU ${cpuName}");
 
     src = fetchurl { inherit (sourcePerArch.${cpuName}) url sha256; };
 
-    # See: https://github.com/NixOS/patchelf/issues/10
+      # See: https://github.com/NixOS/patchelf/issues/10
     dontStrip = 1;
 
     installPhase = ''
@@ -56,7 +58,7 @@ let
       EOF
     '';
 
-    # FIXME: use multiple outputs or return actual JRE package
+      # FIXME: use multiple outputs or return actual JRE package
     passthru.jre = result;
 
     passthru.home = result;

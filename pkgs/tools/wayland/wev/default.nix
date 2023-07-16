@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  # for scdoc
+    # for scdoc
   depsBuildBuild = [ pkg-config ];
   nativeBuildInputs = [
     pkg-config

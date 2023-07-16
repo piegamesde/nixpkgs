@@ -19,7 +19,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://kokkinizita.linuxaudio.org/linuxaudio/downloads/${pname}-${version}.tar.bz2";
+      "https://kokkinizita.linuxaudio.org/linuxaudio/downloads/${pname}-${version}.tar.bz2"
+      ;
     sha256 = "sha256-J9xrd/N4LrvGgi89Yj4ob4ZPUAEchrXJJQ+YVJ29Qhk=";
   };
 
@@ -46,16 +47,18 @@ stdenv.mkDerivation rec {
     "PREFIX=$(out)"
   ];
 
-  postInstall = let
-    cfg = ''
-      # Aeolus system wide default options
-      # Ignored if ~/.aeolusrc with local options exists
-      -u -S ${aeolus-stops}/${aeolus-stops.subdir}
-    '';
-  in ''
-    mkdir -p $out/etc
-    echo -n "${cfg}" > $out/etc/aeolus.conf
-  '' ;
+  postInstall =
+    let
+      cfg = ''
+        # Aeolus system wide default options
+        # Ignored if ~/.aeolusrc with local options exists
+        -u -S ${aeolus-stops}/${aeolus-stops.subdir}
+      '';
+    in ''
+      mkdir -p $out/etc
+      echo -n "${cfg}" > $out/etc/aeolus.conf
+    ''
+    ;
 
   meta = with lib; {
     description = "Synthetized (not sampled) pipe organ emulator";

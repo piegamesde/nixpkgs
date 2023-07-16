@@ -12,7 +12,7 @@ buildPythonPackage rec {
   version = "0.1.3";
   disabled = !isPy3k;
 
-  # pypi is missing files for tests
+    # pypi is missing files for tests
   src = fetchFromGitHub {
     owner = "emersion";
     repo = "python-emailthreads";

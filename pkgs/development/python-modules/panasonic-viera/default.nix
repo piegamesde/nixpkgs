@@ -25,7 +25,7 @@ buildPythonPackage rec {
     xmltodict
   ];
 
-  # upstream has no tests
+    # upstream has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "panasonic_viera" ];

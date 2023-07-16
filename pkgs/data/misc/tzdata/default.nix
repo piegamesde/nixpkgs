@@ -23,7 +23,8 @@ stdenv.mkDerivation rec {
   sourceRoot = ".";
 
   patches = lib.optionals
-    stdenv.hostPlatform.isWindows [ ./0001-Add-exe-extension-for-MS-Windows-binaries.patch ];
+    stdenv.hostPlatform.isWindows [ ./0001-Add-exe-extension-for-MS-Windows-binaries.patch ]
+    ;
 
   outputs = [
     "out"

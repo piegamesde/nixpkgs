@@ -17,12 +17,12 @@ buildGoModule rec {
 
   vendorHash = "sha256-KV7FmJQZj5QFPUZZjjOw9RTanq4MQtFi8qM90Pq1xTs=";
 
-  # This is the released subpackage from upstream repo
+    # This is the released subpackage from upstream repo
   subPackages = [ "examples/base" ];
 
   CGO_ENABLED = 0;
 
-  # Upstream build instructions
+    # Upstream build instructions
   ldflags = [
     "-s"
     "-w"

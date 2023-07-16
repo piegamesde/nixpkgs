@@ -33,7 +33,8 @@ import ./make-test-python.nix ({
     meta = { maintainers = with pkgs.lib.maintainers; [ knedlsepp ]; };
 
     nodes = {
-      fenicsnode = {
+      fenicsnode =
+        {
           pkgs,
           ...
         }: {
@@ -41,13 +42,16 @@ import ./make-test-python.nix ({
             gcc
             (python3.withPackages (ps: with ps; [ fenics ]))
           ];
-        };
+        }
+        ;
     };
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }: ''
         start_all()
         fenicsnode.succeed("${fenicsScript}")
-      '';
+      ''
+      ;
   } )

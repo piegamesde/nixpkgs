@@ -20,7 +20,8 @@ mkDerivation {
     license = lib.licenses.gpl2Plus;
     maintainers = [ lib.maintainers.schmittlauch ];
     description =
-      "A tool to select special characters from all installed fonts and copy them into the clipboard";
+      "A tool to select special characters from all installed fonts and copy them into the clipboard"
+      ;
   };
   nativeBuildInputs = [
     extra-cmake-modules

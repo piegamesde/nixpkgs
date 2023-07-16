@@ -58,7 +58,7 @@ in {
     '')
   ];
 
-  ###### interface
+    ###### interface
 
   options = {
 
@@ -95,7 +95,8 @@ in {
         default = { };
         example = { General = { ControllerMode = "bredr"; }; };
         description = lib.mdDoc
-          "Set configuration for system-wide bluetooth (/etc/bluetooth/main.conf).";
+          "Set configuration for system-wide bluetooth (/etc/bluetooth/main.conf)."
+          ;
       };
 
       input = mkOption {
@@ -108,7 +109,8 @@ in {
           };
         };
         description = lib.mdDoc
-          "Set configuration for the input service (/etc/bluetooth/input.conf).";
+          "Set configuration for the input service (/etc/bluetooth/input.conf)."
+          ;
       };
 
       network = mkOption {
@@ -116,16 +118,17 @@ in {
         default = { };
         example = { General = { DisableSecurity = true; }; };
         description = lib.mdDoc
-          "Set configuration for the network service (/etc/bluetooth/network.conf).";
+          "Set configuration for the network service (/etc/bluetooth/network.conf)."
+          ;
       };
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ package ]
-      ++ optional cfg.hsphfpd.enable pkgs.hsphfpd;
+    environment.systemPackages =
+      [ package ] ++ optional cfg.hsphfpd.enable pkgs.hsphfpd;
 
     environment.etc."bluetooth/input.conf".source =
       cfgFmt.generate "input.conf" cfg.input;
@@ -134,31 +137,33 @@ in {
     environment.etc."bluetooth/main.conf".source =
       cfgFmt.generate "main.conf" (recursiveUpdate defaults cfg.settings);
     services.udev.packages = [ package ];
-    services.dbus.packages = [ package ]
-      ++ optional cfg.hsphfpd.enable pkgs.hsphfpd;
+    services.dbus.packages =
+      [ package ] ++ optional cfg.hsphfpd.enable pkgs.hsphfpd;
     systemd.packages = [ package ];
 
     systemd.services = {
-      bluetooth = let
-        # `man bluetoothd` will refer to main.conf in the nix store but bluez
-        # will in fact load the configuration file at /etc/bluetooth/main.conf
-        # so force it here to avoid any ambiguity and things suddenly breaking
-        # if/when the bluez derivation is changed.
-        args = [
-          "-f"
-          "/etc/bluetooth/main.conf"
-        ] ++ optional hasDisabledPlugins
-          "--noplugin=${concatStringsSep "," cfg.disabledPlugins}";
-      in {
-        wantedBy = [ "bluetooth.target" ];
-        aliases = [ "dbus-org.bluez.service" ];
-        serviceConfig.ExecStart = [
-          ""
-          "${package}/libexec/bluetooth/bluetoothd ${escapeShellArgs args}"
-        ];
-        # restarting can leave people without a mouse/keyboard
-        unitConfig.X-RestartIfChanged = false;
-      } ;
+      bluetooth =
+        let
+          # `man bluetoothd` will refer to main.conf in the nix store but bluez
+          # will in fact load the configuration file at /etc/bluetooth/main.conf
+          # so force it here to avoid any ambiguity and things suddenly breaking
+          # if/when the bluez derivation is changed.
+          args = [
+            "-f"
+            "/etc/bluetooth/main.conf"
+          ] ++ optional hasDisabledPlugins
+            "--noplugin=${concatStringsSep "," cfg.disabledPlugins}";
+        in {
+          wantedBy = [ "bluetooth.target" ];
+          aliases = [ "dbus-org.bluez.service" ];
+          serviceConfig.ExecStart = [
+            ""
+            "${package}/libexec/bluetooth/bluetoothd ${escapeShellArgs args}"
+          ];
+            # restarting can leave people without a mouse/keyboard
+          unitConfig.X-RestartIfChanged = false;
+        }
+        ;
     } // (optionalAttrs cfg.hsphfpd.enable {
       hsphfpd = {
         after = [ "bluetooth.service" ];
@@ -166,7 +171,8 @@ in {
         wantedBy = [ "bluetooth.target" ];
 
         description =
-          "A prototype implementation used for connecting HSP/HFP Bluetooth devices";
+          "A prototype implementation used for connecting HSP/HFP Bluetooth devices"
+          ;
         serviceConfig.ExecStart = "${pkgs.hsphfpd}/bin/hsphfpd.pl";
       };
     });

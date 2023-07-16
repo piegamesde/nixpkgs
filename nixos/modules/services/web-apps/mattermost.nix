@@ -12,11 +12,13 @@ let
   cfg = config.services.mattermost;
 
   database =
-    "postgres://${cfg.localDatabaseUser}:${cfg.localDatabasePassword}@localhost:5432/${cfg.localDatabaseName}?sslmode=disable&connect_timeout=10";
+    "postgres://${cfg.localDatabaseUser}:${cfg.localDatabasePassword}@localhost:5432/${cfg.localDatabaseName}?sslmode=disable&connect_timeout=10"
+    ;
 
   postgresPackage = config.services.postgresql.package;
 
-  createDb = {
+  createDb =
+    {
       statePath ? cfg.statePath,
       localDatabaseUser ? cfg.localDatabaseUser,
       localDatabasePassword ? cfg.localDatabasePassword,
@@ -42,7 +44,8 @@ let
             }
         touch ${escapeShellArg "${statePath}/.db-created"}
       fi
-    '';
+    ''
+    ;
 
   mattermostPluginDerivations = with pkgs;
     map (plugin:
@@ -304,8 +307,8 @@ in {
 
       services.postgresql.enable = cfg.localDatabaseCreate;
 
-      # The systemd service will fail to execute the preStart hook
-      # if the WorkingDirectory does not exist
+        # The systemd service will fail to execute the preStart hook
+        # if the WorkingDirectory does not exist
       system.activationScripts.mattermost = ''
         mkdir -p "${cfg.statePath}"
       '';

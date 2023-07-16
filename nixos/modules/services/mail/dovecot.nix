@@ -124,7 +124,8 @@ let
       ++ map (module: module.override { dovecot = dovecotPkg; }) cfg.modules);
   };
 
-  mailboxConfig = mailbox:
+  mailboxConfig =
+    mailbox:
     ''
       mailbox "${mailbox.name}" {
         auto = ${toString mailbox.auto}
@@ -132,9 +133,11 @@ let
       autoexpunge = ${mailbox.autoexpunge}
     '' + optionalString (mailbox.specialUse != null) ''
       special_use = \${toString mailbox.specialUse}
-    '' + "}";
+    '' + "}"
+    ;
 
-  mailboxes = {
+  mailboxes =
+    {
       name,
       ...
     }: {
@@ -155,7 +158,8 @@ let
           default = "no";
           example = "subscribe";
           description = lib.mdDoc
-            "Whether to automatically create or create and subscribe to the mailbox or not.";
+            "Whether to automatically create or create and subscribe to the mailbox or not."
+            ;
         };
         specialUse = mkOption {
           type = types.nullOr (types.enum [
@@ -170,7 +174,8 @@ let
           default = null;
           example = "Junk";
           description = lib.mdDoc
-            "Null if no special use flag is set. Other than that every use flag mentioned in the RFC is valid.";
+            "Null if no special use flag is set. Other than that every use flag mentioned in the RFC is valid."
+            ;
         };
         autoexpunge = mkOption {
           type = types.nullOr types.str;
@@ -182,7 +187,8 @@ let
           '';
         };
       };
-    };
+    }
+    ;
 in {
   imports = [ (mkRemovedOptionModule [
     "services"
@@ -231,62 +237,71 @@ in {
         "Additional entries to put verbatim into Dovecot's config file.";
     };
 
-    mailPlugins = let
-      plugins = hint:
-        types.submodule {
-          options = {
-            enable = mkOption {
-              type = types.listOf types.str;
-              default = [ ];
-              description = lib.mdDoc
-                "mail plugins to enable as a list of strings to append to the ${hint} `$mail_plugins` configuration variable";
+    mailPlugins =
+      let
+        plugins =
+          hint:
+          types.submodule {
+            options = {
+              enable = mkOption {
+                type = types.listOf types.str;
+                default = [ ];
+                description = lib.mdDoc
+                  "mail plugins to enable as a list of strings to append to the ${hint} `$mail_plugins` configuration variable"
+                  ;
+              };
+            };
+          }
+          ;
+      in
+      mkOption {
+        type = with types;
+          submodule {
+            options = {
+              globally = mkOption {
+                description = lib.mdDoc
+                  "Additional entries to add to the mail_plugins variable for all protocols"
+                  ;
+                type = plugins "top-level";
+                example = { enable = [ "virtual" ]; };
+                default = { enable = [ ]; };
+              };
+              perProtocol = mkOption {
+                description = lib.mdDoc
+                  "Additional entries to add to the mail_plugins variable, per protocol"
+                  ;
+                type = attrsOf (plugins "corresponding per-protocol");
+                default = { };
+                example = { imap = [ "imap_acl" ]; };
+              };
             };
           };
+        description = lib.mdDoc
+          "Additional entries to add to the mail_plugins variable, globally and per protocol"
+          ;
+        example = {
+          globally.enable = [ "acl" ];
+          perProtocol.imap.enable = [ "imap_acl" ];
         };
-    in
-    mkOption {
-      type = with types;
-        submodule {
-          options = {
-            globally = mkOption {
-              description = lib.mdDoc
-                "Additional entries to add to the mail_plugins variable for all protocols";
-              type = plugins "top-level";
-              example = { enable = [ "virtual" ]; };
-              default = { enable = [ ]; };
-            };
-            perProtocol = mkOption {
-              description = lib.mdDoc
-                "Additional entries to add to the mail_plugins variable, per protocol";
-              type = attrsOf (plugins "corresponding per-protocol");
-              default = { };
-              example = { imap = [ "imap_acl" ]; };
-            };
-          };
+        default = {
+          globally.enable = [ ];
+          perProtocol = { };
         };
-      description = lib.mdDoc
-        "Additional entries to add to the mail_plugins variable, globally and per protocol";
-      example = {
-        globally.enable = [ "acl" ];
-        perProtocol.imap.enable = [ "imap_acl" ];
-      };
-      default = {
-        globally.enable = [ ];
-        perProtocol = { };
-      };
-    }
-    ;
+      }
+      ;
 
     configFile = mkOption {
       type = types.nullOr types.path;
       default = null;
       description =
         lib.mdDoc "Config file used for the whole dovecot configuration.";
-      apply = v:
+      apply =
+        v:
         if v != null then
           v
         else
-          pkgs.writeText "dovecot.conf" dovecotConf;
+          pkgs.writeText "dovecot.conf" dovecotConf
+        ;
     };
 
     mailLocation = mkOption {
@@ -361,11 +376,13 @@ in {
       type = types.attrsOf types.path;
       default = { };
       description = lib.mdDoc
-        "Sieve scripts to be executed. Key is a sequence, e.g. 'before2', 'after' etc.";
+        "Sieve scripts to be executed. Key is a sequence, e.g. 'before2', 'after' etc."
+        ;
     };
 
     showPAMFailure = mkEnableOption (lib.mdDoc
-      "showing the PAM failure message on authentication error (useful for OTPW)");
+      "showing the PAM failure message on authentication error (useful for OTPW)")
+      ;
 
     mailboxes = mkOption {
       type = with types;
@@ -399,7 +416,8 @@ in {
       default = "100G";
       example = "10G";
       description = lib.mdDoc
-        "Quota limit for the user in bytes. Supports suffixes b, k, M, G, T and %.";
+        "Quota limit for the user in bytes. Supports suffixes b, k, M, G, T and %."
+        ;
     };
 
   };
@@ -469,9 +487,9 @@ in {
         RuntimeDirectory = [ "dovecot2" ];
       };
 
-      # When copying sieve scripts preserve the original time stamp
-      # (should be 0) so that the compiled sieve script is newer than
-      # the source file and Dovecot won't try to compile it.
+        # When copying sieve scripts preserve the original time stamp
+        # (should be 0) so that the compiled sieve script is newer than
+        # the source file and Dovecot won't try to compile it.
       preStart = ''
         rm -rf ${stateDir}/sieve
       '' + optionalString (cfg.sieveScripts != { }) ''
@@ -492,7 +510,8 @@ in {
     environment.systemPackages = [ dovecotPkg ];
 
     warnings = mkIf (any isList
-      options.services.dovecot2.mailboxes.definitions) [ "Declaring `services.dovecot2.mailboxes' as a list is deprecated and will break eval in 21.05! See the release notes for more info for migration." ];
+      options.services.dovecot2.mailboxes.definitions) [ "Declaring `services.dovecot2.mailboxes' as a list is deprecated and will break eval in 21.05! See the release notes for more info for migration." ]
+      ;
 
     assertions = [
       {
@@ -500,18 +519,21 @@ in {
           && (cfg.sslCACert != null
             -> !(cfg.sslServerCert == null || cfg.sslServerKey == null));
         message =
-          "dovecot needs both sslServerCert and sslServerKey defined for working crypto";
+          "dovecot needs both sslServerCert and sslServerKey defined for working crypto"
+          ;
       }
       {
         assertion = cfg.showPAMFailure -> cfg.enablePAM;
         message =
-          "dovecot is configured with showPAMFailure while enablePAM is disabled";
+          "dovecot is configured with showPAMFailure while enablePAM is disabled"
+          ;
       }
       {
         assertion = cfg.sieveScripts != { }
           -> (cfg.mailUser != null && cfg.mailGroup != null);
         message =
-          "dovecot requires mailUser and mailGroup to be set when sieveScripts is set";
+          "dovecot requires mailUser and mailGroup to be set when sieveScripts is set"
+          ;
       }
     ];
 

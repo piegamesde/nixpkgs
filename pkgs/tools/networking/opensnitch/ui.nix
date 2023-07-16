@@ -58,7 +58,7 @@ python3Packages.buildPythonApplication rec {
   dontWrapQtApps = true;
   makeWrapperArgs = [ "\${qtWrapperArgs[@]}" ];
 
-  # All tests are sandbox-incompatible and disabled for now
+    # All tests are sandbox-incompatible and disabled for now
   doCheck = false;
 
   meta = with lib; {

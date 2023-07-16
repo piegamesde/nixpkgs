@@ -9,7 +9,7 @@ import ./make-test-python.nix ({
 
     nodes.machine = {
       services.nitter.enable = true;
-      # Test CAP_NET_BIND_SERVICE
+        # Test CAP_NET_BIND_SERVICE
       services.nitter.server.port = 80;
     };
 

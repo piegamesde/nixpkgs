@@ -27,7 +27,7 @@ in {
         }-backgrounds-${version}.tar.xz";
       hash = "sha256-lAn5diEYebCo2ZJCOn9rD87rOasUU0qnSOr0EnZKW4o=";
     };
-    # Fix broken symlinks in the Xfce background directory.
+      # Fix broken symlinks in the Xfce background directory.
     patches = [ ./f33-fix-xfce-path.patch ];
   };
 
@@ -40,7 +40,7 @@ in {
         }-backgrounds-${version}.tar.xz";
       hash = "sha256-0gotgQ4N0yE8WZbsu7B3jmUIZrycbqjEMxZl01JcJj4=";
     };
-    # Fix broken symlinks in the Xfce background directory.
+      # Fix broken symlinks in the Xfce background directory.
     patches = [ ./f34-fix-xfce-path.patch ];
   };
 
@@ -53,7 +53,7 @@ in {
         }-backgrounds-${version}.tar.xz";
       hash = "sha256-7t78sQ0BIkzgJ+phO55Bomyz02d8Vx1LAtSkjX8ppgE=";
     };
-    # Fix broken symlinks in the Xfce background directory.
+      # Fix broken symlinks in the Xfce background directory.
     patches = [ ./f35-fix-xfce-path.patch ];
   };
 

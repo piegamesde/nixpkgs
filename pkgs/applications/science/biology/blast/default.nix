@@ -18,7 +18,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/${version}/ncbi-blast-${version}+-src.tar.gz";
+      "https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/${version}/ncbi-blast-${version}+-src.tar.gz"
+      ;
     sha256 = "sha256-iVU3FNEz2vKMR3+D0zN5Szxi5BSECMByobRiDl7E/rI=";
   };
 
@@ -91,8 +92,8 @@ stdenv.mkDerivation rec {
   depsBuildBuild = [ buildPackages.stdenv.cc ];
   nativeBuildInputs = [ perl ];
 
-  # perl is necessary in buildInputs so that installed perl scripts get patched
-  # correctly
+    # perl is necessary in buildInputs so that installed perl scripts get patched
+    # correctly
   buildInputs = [
     coreutils
     perl
@@ -111,7 +112,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  # Many tests require either network access or locally available databases
+    # Many tests require either network access or locally available databases
   doCheck = false;
 
   meta = with lib; {
@@ -121,8 +122,8 @@ stdenv.mkDerivation rec {
     homepage = "https://blast.ncbi.nlm.nih.gov/Blast.cgi";
     license = licenses.publicDomain;
 
-    # Version 2.10.0 fails on Darwin
-    # See https://github.com/NixOS/nixpkgs/pull/61430
+      # Version 2.10.0 fails on Darwin
+      # See https://github.com/NixOS/nixpkgs/pull/61430
     platforms = platforms.linux;
     maintainers = with maintainers; [ luispedro ];
   };

@@ -17,7 +17,8 @@ with self;
     pname = "sexplib0";
     hash = "13xdd0pvypxqn0ldwdgikmlinrp3yfh8ixknv1xrpxbx3np4qp0g";
     meta.description =
-      "Library containing the definition of S-expressions and some base converters";
+      "Library containing the definition of S-expressions and some base converters"
+      ;
   };
 
   base = janePackage {
@@ -91,7 +92,8 @@ with self;
     pname = "fieldslib";
     hash = "0dlgr7cimqmjlcymk3bdcyzqzvdy12q5lqa844nqix0k2ymhyphf";
     meta.description =
-      "Syntax extension to define first class values representing record fields, to get and set record fields, iterate and fold over all fields of a record and create new record values";
+      "Syntax extension to define first class values representing record fields, to get and set record fields, iterate and fold over all fields of a record and create new record values"
+      ;
     propagatedBuildInputs = [ base ];
   };
 
@@ -149,7 +151,8 @@ with self;
     pname = "ppx_hash";
     hash = "1dfsfvhiyp1mnf24mr93svpdn432kla0y7x631lssacxxp2sadbg";
     meta.description =
-      "A ppx rewriter that generates hash functions from type expressions and definitions";
+      "A ppx rewriter that generates hash functions from type expressions and definitions"
+      ;
     propagatedBuildInputs = [
       ppx_compare
       ppx_sexp_conv
@@ -601,7 +604,7 @@ with self;
     ];
   };
 
-  ### Packages at version 0.11, with dependencies at version 0.12
+    ### Packages at version 0.11, with dependencies at version 0.12
 
   configurator = janePackage {
     pname = "configurator";

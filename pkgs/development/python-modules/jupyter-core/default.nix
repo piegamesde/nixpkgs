@@ -29,7 +29,8 @@ buildPythonPackage rec {
     (fetchpatch {
       # add support for platformdirs>=3
       url =
-        "https://github.com/jupyter/jupyter_core/commit/ff4086cdbdac2ea79c18632e4e35acebc1f7cf57.patch";
+        "https://github.com/jupyter/jupyter_core/commit/ff4086cdbdac2ea79c18632e4e35acebc1f7cf57.patch"
+        ;
       hash = "sha256-UhHO58xZ4hH47NBhOhsfBjgsUtA+1EIHxPBvnKA5w28=";
     })
   ];

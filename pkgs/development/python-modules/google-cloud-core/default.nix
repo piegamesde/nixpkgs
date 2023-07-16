@@ -34,7 +34,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ] ++ passthru.optional-dependencies.grpc;
 
-  # prevent google directory from shadowing google imports
+    # prevent google directory from shadowing google imports
   preCheck = ''
     rm -r google
   '';
@@ -45,7 +45,8 @@ buildPythonPackage rec {
     description = "API Client library for Google Cloud: Core Helpers";
     homepage = "https://github.com/googleapis/python-cloud-core";
     changelog =
-      "https://github.com/googleapis/python-cloud-core/blob/v${version}/CHANGELOG.md";
+      "https://github.com/googleapis/python-cloud-core/blob/v${version}/CHANGELOG.md"
+      ;
     license = licenses.asl20;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

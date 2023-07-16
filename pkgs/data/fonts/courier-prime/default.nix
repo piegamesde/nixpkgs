@@ -10,7 +10,8 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://github.com/quoteunquoteapps/CourierPrime/archive/7f6d46a766acd9391d899090de467c53fd9c9cb0/${pname}-${version}.zip";
+      "https://github.com/quoteunquoteapps/CourierPrime/archive/7f6d46a766acd9391d899090de467c53fd9c9cb0/${pname}-${version}.zip"
+      ;
     hash = "sha256-pMFZpytNtgoZrBj2Gj8SgJ0Lab8uVY5aQtcO2lFbHj4=";
   };
 

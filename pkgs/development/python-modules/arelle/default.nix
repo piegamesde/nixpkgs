@@ -21,8 +21,8 @@ buildPythonPackage rec {
 
   disabled = !isPy3k;
 
-  # Releases are published at http://arelle.org/download/ but sadly no
-  # tags are published on github.
+    # Releases are published at http://arelle.org/download/ but sadly no
+    # tags are published on github.
   src = fetchFromGitHub {
     owner = "Arelle";
     repo = "Arelle";
@@ -46,7 +46,7 @@ buildPythonPackage rec {
     openpyxl
   ] ++ lib.optionals gui [ tkinter ];
 
-  # arelle-gui is useless without gui dependencies, so delete it when !gui.
+    # arelle-gui is useless without gui dependencies, so delete it when !gui.
   postInstall = lib.optionalString (!gui) ''
     find $out/bin -name "*arelle-gui*" -delete
   '' +
@@ -57,7 +57,7 @@ buildPythonPackage rec {
       cp -vr $src/arelle $targetDir
     '';
 
-  # Documentation
+    # Documentation
   postBuild = ''
     (cd apidocs && make html && cp -r _build $doc)
   '';

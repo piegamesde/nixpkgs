@@ -20,7 +20,7 @@ buildPythonPackage rec {
     prometheus-client
   ];
 
-  # no tests
+    # no tests
   doCheck = false;
 
   pythonImportsCheck = [ "aiohttp_openmetrics" ];

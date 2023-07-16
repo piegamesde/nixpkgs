@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.services.logrotate;
 
-  generateLine = n: v:
+  generateLine =
+    n: v:
     if
       builtins.elem n [
         "files"
@@ -53,13 +54,17 @@ let
     else
       ''
         ${n} ${v}
-      '';
-  generateSection = indent: settings:
+      ''
+    ;
+  generateSection =
+    indent: settings:
     concatStringsSep (fixedWidthString indent " " "")
-    (filter (x: x != null) (mapAttrsToList generateLine settings));
+    (filter (x: x != null) (mapAttrsToList generateLine settings))
+    ;
 
-  # generateSection includes a final newline hence weird closing brace
-  mkConf = settings:
+    # generateSection includes a final newline hence weird closing brace
+  mkConf =
+    settings:
     if settings.global or false then
       generateSection 0 settings
     else
@@ -69,7 +74,8 @@ let
           (toList settings.files)
         } {
           ${generateSection 2 settings}}
-      '';
+      ''
+    ;
 
   settings = sortProperties (attrValues
     (filterAttrs (_: settings: settings.enable) (foldAttrs recursiveUpdate { } [

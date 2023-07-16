@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
     name = "turbovnc-headless-server";
     meta = { maintainers = with lib.maintainers; [ nh2 ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -23,18 +24,18 @@ import ./make-test-python.nix ({
         networking.firewall = {
           # Reject instead of drop, for failures instead of hangs.
           rejectPackets = true;
-          allowedTCPPorts =
-            [ 5900 # VNC :0, for seeing what's going on in the server
+          allowedTCPPorts = [ 5900 # VNC :0, for seeing what's going on in the server
             ];
         };
 
-        # So that we can ssh into the VM, see e.g.
-        # http://blog.patapon.info/nixos-local-vm/#accessing-the-vm-with-ssh
+          # So that we can ssh into the VM, see e.g.
+          # http://blog.patapon.info/nixos-local-vm/#accessing-the-vm-with-ssh
         services.openssh.enable = true;
         services.openssh.settings.PermitRootLogin = "yes";
         users.extraUsers.root.password = "";
         users.mutableUsers = false;
-      };
+      }
+      ;
 
     testScript = ''
       def wait_until_terminated_or_succeeds(

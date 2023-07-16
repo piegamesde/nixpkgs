@@ -22,7 +22,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  # Update location for run with pytest
+    # Update location for run with pytest
   preCheck = ''
     substituteInPlace tests/test_load.py \
       --replace "'xbefiles'" "'tests/xbefiles'"

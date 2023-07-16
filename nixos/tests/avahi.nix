@@ -14,32 +14,36 @@ import ./make-test-python.nix {
   name = "avahi";
   meta = with pkgs.lib.maintainers; { maintainers = [ eelco ]; };
 
-  nodes = let
-    cfg = {
-        ...
-      }:
-      {
-        services.avahi = {
-          enable = true;
-          nssmdns = true;
-          publish.addresses = true;
-          publish.domain = true;
-          publish.enable = true;
-          publish.userServices = true;
-          publish.workstation = true;
-          extraServiceFiles.ssh =
-            "${pkgs.avahi}/etc/avahi/services/ssh.service";
-        };
-      } // pkgs.lib.optionalAttrs (networkd) {
-        networking = {
-          useNetworkd = true;
-          useDHCP = false;
-        };
-      };
-  in {
-    one = cfg;
-    two = cfg;
-  } ;
+  nodes =
+    let
+      cfg =
+        {
+          ...
+        }:
+        {
+          services.avahi = {
+            enable = true;
+            nssmdns = true;
+            publish.addresses = true;
+            publish.domain = true;
+            publish.enable = true;
+            publish.userServices = true;
+            publish.workstation = true;
+            extraServiceFiles.ssh =
+              "${pkgs.avahi}/etc/avahi/services/ssh.service";
+          };
+        } // pkgs.lib.optionalAttrs (networkd) {
+          networking = {
+            useNetworkd = true;
+            useDHCP = false;
+          };
+        }
+        ;
+    in {
+      one = cfg;
+      two = cfg;
+    }
+    ;
 
   testScript = ''
     start_all()

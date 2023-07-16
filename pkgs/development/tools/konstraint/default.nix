@@ -17,7 +17,7 @@ buildGoModule rec {
   };
   vendorHash = "sha256-9CDond0OMnqvsLipEqnxbXZD6v/w+CJkPophBUchb7s=";
 
-  # Exclude go within .github folder
+    # Exclude go within .github folder
   excludedPackages = ".github";
 
   nativeBuildInputs = [ installShellFiles ];

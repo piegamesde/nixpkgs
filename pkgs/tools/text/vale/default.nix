@@ -34,13 +34,14 @@ buildGoModule rec {
     "-X main.version=${version}"
   ];
 
-  # Tests require network access
+    # Tests require network access
   doCheck = false;
 
   meta = with lib; {
     homepage = "https://vale.sh/";
     description =
-      "A syntax-aware linter for prose built with speed and extensibility in mind";
+      "A syntax-aware linter for prose built with speed and extensibility in mind"
+      ;
     license = licenses.mit;
     maintainers = [ maintainers.marsam ];
   };

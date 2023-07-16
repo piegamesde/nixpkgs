@@ -137,10 +137,12 @@ in {
 
           This defaults to the singleton list [ca] when the {option}`ca` option is defined.
         '';
-        default = if cfg.elasticsearch.ca == null then
-          [ ]
-        else
-          [ ca ];
+        default =
+          if cfg.elasticsearch.ca == null then
+            [ ]
+          else
+            [ ca ]
+          ;
         defaultText = literalExpression ''
           if config.${opt.elasticsearch.ca} == null then [ ] else [ ca ]
         '';
@@ -192,7 +194,8 @@ in {
       {
         assertion = lt6_6 -> cfg.elasticsearch.hosts == null;
         message =
-          "The option services.kibana.elasticsearch.hosts is only valid for kibana >= 6.6.";
+          "The option services.kibana.elasticsearch.hosts is only valid for kibana >= 6.6."
+          ;
       }
     ];
     systemd.services.kibana = {

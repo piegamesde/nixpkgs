@@ -24,7 +24,7 @@ stdenv.mkDerivation {
 
   dontBuild = true;
 
-  # remove root requirement, see: https://github.com/march-linux/connman_dmenu/issues/3
+    # remove root requirement, see: https://github.com/march-linux/connman_dmenu/issues/3
   postPatch = ''
     sed -i '89,92d' connman_dmenu
   '';

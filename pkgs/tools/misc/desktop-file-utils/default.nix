@@ -16,7 +16,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.freedesktop.org/software/${pname}/releases/${pname}-${version}.tar.xz";
+      "https://www.freedesktop.org/software/${pname}/releases/${pname}-${version}.tar.xz"
+      ;
     sha256 = "02bkfi6fyk4c0gh2avd897882ww5zl7qg7bzzf28qb57kvkvsvdj";
   };
 
@@ -25,12 +26,14 @@ stdenv.mkDerivation rec {
     # https://gitlab.freedesktop.org/xdg/desktop-file-utils/-/merge_requests/11
     (fetchpatch {
       url =
-        "https://gitlab.freedesktop.org/xdg/desktop-file-utils/-/commit/425177a28b6215e0745f95100160a08e810fd47c.patch";
+        "https://gitlab.freedesktop.org/xdg/desktop-file-utils/-/commit/425177a28b6215e0745f95100160a08e810fd47c.patch"
+        ;
       sha256 = "zu9EqTnQQGi5HqKh431JqigtJi+b16RuXSWQYbuuyxA=";
     })
     (fetchpatch {
       url =
-        "https://gitlab.freedesktop.org/xdg/desktop-file-utils/-/commit/56d220dd679c7c3a8f995a41a27a7d6f3df49dea.patch";
+        "https://gitlab.freedesktop.org/xdg/desktop-file-utils/-/commit/56d220dd679c7c3a8f995a41a27a7d6f3df49dea.patch"
+        ;
       sha256 = "p4kamGIm2QBHfIbvDnx+qu5Gi7OU3Z0nQKr39SsEKqk=";
     })
   ];

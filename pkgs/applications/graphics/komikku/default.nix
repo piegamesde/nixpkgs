@@ -69,10 +69,10 @@ python3.pkgs.buildPythonApplication rec {
     unidecode
   ];
 
-  # Tests require network
+    # Tests require network
   doCheck = false;
 
-  # Prevent double wrapping.
+    # Prevent double wrapping.
   dontWrapGApps = true;
 
   preFixup = ''

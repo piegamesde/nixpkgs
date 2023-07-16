@@ -50,7 +50,8 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/readthedocs/sphinx-autoapi";
     changelog =
-      "https://github.com/readthedocs/sphinx-autoapi/blob/v${version}/CHANGELOG.rst";
+      "https://github.com/readthedocs/sphinx-autoapi/blob/v${version}/CHANGELOG.rst"
+      ;
     description = "Provides 'autodoc' style documentation";
     longDescription = ''
       Sphinx AutoAPI provides 'autodoc' style documentation for

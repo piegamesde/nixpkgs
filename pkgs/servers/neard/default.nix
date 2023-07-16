@@ -23,7 +23,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://git.kernel.org/pub/scm/network/nfc/neard.git/snapshot/neard-${version}.tar.gz";
+      "https://git.kernel.org/pub/scm/network/nfc/neard.git/snapshot/neard-${version}.tar.gz"
+      ;
     sha256 = "wBPjEVMV4uEdFrXw8cjOmvvNuiaACq2RJF/ZtKXck4s=";
   };
 

@@ -14,11 +14,13 @@
 }:
 let
   py = python3.withPackages (ps: with ps; [ numpy ]);
-  option = cond:
+  option =
+    cond:
     if cond then
       "1"
     else
-      "0";
+      "0"
+    ;
 in
 stdenv.mkDerivation rec {
   pname = "kissfft-${datatype}${lib.optionalString enableOpenmp "-openmp"}";
@@ -33,7 +35,7 @@ stdenv.mkDerivation rec {
 
   patches = [ ./0001-pkgconfig-darwin.patch ];
 
-  # https://bugs.llvm.org/show_bug.cgi?id=45034
+    # https://bugs.llvm.org/show_bug.cgi?id=45034
   postPatch = lib.optionalString (stdenv.hostPlatform.isLinux
     && stdenv.cc.isClang && lib.versionOlder stdenv.cc.version "10") ''
       substituteInPlace test/Makefile \
@@ -74,7 +76,7 @@ stdenv.mkDerivation rec {
     ln -s ${pname}.pc $out/lib/pkgconfig/kissfft.pc
   '';
 
-  # Tools can't find kissfft libs on Darwin
+    # Tools can't find kissfft libs on Darwin
   postFixup = lib.optionalString (withTools && stdenv.hostPlatform.isDarwin) ''
     for bin in $out/bin/*; do
       install_name_tool -change lib${pname}.dylib $out/lib/lib${pname}.dylib $bin

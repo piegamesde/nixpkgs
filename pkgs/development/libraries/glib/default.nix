@@ -254,9 +254,9 @@ stdenv.mkDerivation (finalAttrs: {
     cp -r ${buildPackages.glib.devdoc} $devdoc
   '';
 
-  # Move man pages to the same output as their binaries (needs to be
-  # done after preFixupHooks which moves man pages too - in
-  # _multioutDocs)
+    # Move man pages to the same output as their binaries (needs to be
+    # done after preFixupHooks which moves man pages too - in
+    # _multioutDocs)
   postFixup = ''
     for i in $dev/bin/*; do
       moveToOutput "share/man/man1/''${i##*/}.1.*" "$dev"
@@ -288,8 +288,10 @@ stdenv.mkDerivation (finalAttrs: {
     gioModuleDir = "lib/gio/modules";
 
     makeSchemaDataDirPath = dir: name: "${dir}/share/gsettings-schemas/${name}";
-    makeSchemaPath = dir: name:
-      "${makeSchemaDataDirPath dir name}/glib-2.0/schemas";
+    makeSchemaPath =
+      dir: name:
+      "${makeSchemaDataDirPath dir name}/glib-2.0/schemas"
+      ;
     getSchemaPath = pkg: makeSchemaPath pkg pkg.name;
     getSchemaDataDirPath = pkg: makeSchemaDataDirPath pkg pkg.name;
 
@@ -305,7 +307,8 @@ stdenv.mkDerivation (finalAttrs: {
       versionPolicy = "odd-unstable";
     };
 
-    mkHardcodeGsettingsPatch = {
+    mkHardcodeGsettingsPatch =
+      {
         src,
         glib-schema-to-var,
       }:
@@ -314,7 +317,8 @@ stdenv.mkDerivation (finalAttrs: {
       (makeHardcodeGsettingsPatch {
         inherit src;
         schemaIdToVariableMapping = glib-schema-to-var;
-      });
+      })
+      ;
   };
 
   meta = with lib; {

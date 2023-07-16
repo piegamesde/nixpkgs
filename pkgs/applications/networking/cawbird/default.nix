@@ -69,8 +69,8 @@ stdenv.mkDerivation rec {
     patchShebangs data/meson_post_install.py
   '';
 
-  # supply Twitter API keys
-  # use keys supplied by @SuperSandro2000, see https://github.com/IBBoard/cawbird/blob/master/README.md#preparation
+    # supply Twitter API keys
+    # use keys supplied by @SuperSandro2000, see https://github.com/IBBoard/cawbird/blob/master/README.md#preparation
   mesonFlags = [
     "-Dconsumer_key_base64=YnJJNm01SE9PbEkzM3pWenZObVhVSHdlTg=="
     "-Dconsumer_secret_base64=YUc1SkcyYzhsenlKT2VOWWhVSXlJMERDaFh0WEswUG9oTEp4TzhZNEdJb1hXN0hhYlY="
@@ -79,7 +79,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Native GTK Twitter client for the Linux desktop";
     longDescription =
-      "Cawbird is a modern, easy and fun Twitter client. Fork of the discontinued Corebird.";
+      "Cawbird is a modern, easy and fun Twitter client. Fork of the discontinued Corebird."
+      ;
     homepage = "https://ibboard.co.uk/cawbird/";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

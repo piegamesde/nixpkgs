@@ -23,7 +23,7 @@ in {
     clusterIp = mkOption {
       description = lib.mdDoc "Dns addon clusterIP";
 
-      # this default is also what kubernetes users
+        # this default is also what kubernetes users
       default = (concatStringsSep "." (take 3 (splitString "."
         config.services.kubernetes.apiserver.serviceClusterIpRange))) + ".254";
       defaultText = literalMD ''
@@ -67,7 +67,8 @@ in {
       default = {
         imageName = "coredns/coredns";
         imageDigest =
-          "sha256:a0ead06651cf580044aeb0a0feba63591858fb2e43ade8c9dea45a6a89ae7e5e";
+          "sha256:a0ead06651cf580044aeb0a0feba63591858fb2e43ade8c9dea45a6a89ae7e5e"
+          ;
         finalImageTag = version;
         sha256 = "0wg696920smmal7552a2zdhfncndn5kfammfa8bk8l7dz9bhk0y1";
       };

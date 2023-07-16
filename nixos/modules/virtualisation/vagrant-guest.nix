@@ -23,7 +23,7 @@ in {
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
-  # Packages used by Vagrant
+    # Packages used by Vagrant
   environment.systemPackages = with pkgs; [
     findutils
     iputils
@@ -55,7 +55,7 @@ in {
     serviceConfig = {
       ExecStart = "${install-vagrant-ssh-key}/bin/install-vagrant-ssh-key";
       User = "vagrant";
-      # So it won't be (needlessly) restarted:
+        # So it won't be (needlessly) restarted:
       RemainAfterExit = true;
     };
   };

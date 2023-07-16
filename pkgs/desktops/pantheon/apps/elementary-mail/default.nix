@@ -64,8 +64,8 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/elementary/mail";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers;
-      [ ethancedwards8 ] ++ teams.pantheon.members;
+    maintainers =
+      with maintainers; [ ethancedwards8 ] ++ teams.pantheon.members;
     mainProgram = "io.elementary.mail";
   };
 }

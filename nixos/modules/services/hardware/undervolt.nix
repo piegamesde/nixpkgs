@@ -9,13 +9,15 @@ with lib;
 let
   cfg = config.services.undervolt;
 
-  mkPLimit = limit: window:
+  mkPLimit =
+    limit: window:
     if (limit == null && window == null) then
       null
     else
       assert asserts.assertMsg (limit != null && window != null)
         "Both power limit and window must be set";
-      "${toString limit} ${toString window}";
+      "${toString limit} ${toString window}"
+    ;
   cliArgs = lib.cli.toGNUCommandLine { } {
     inherit (cfg)
       verbose
@@ -181,13 +183,13 @@ in {
     systemd.services.undervolt = {
       description = "Intel Undervolting Service";
 
-      # Apply undervolt on boot, nixos generation switch and resume
+        # Apply undervolt on boot, nixos generation switch and resume
       wantedBy = [
         "multi-user.target"
         "post-resume.target"
       ];
-      after =
-        [ "post-resume.target" ]; # Not sure why but it won't work without this
+      after = [ "post-resume.target" ]
+        ; # Not sure why but it won't work without this
 
       serviceConfig = {
         Type = "oneshot";

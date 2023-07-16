@@ -20,12 +20,12 @@ rustPlatform.buildRustPackage rec {
 
   nativeCheckInputs = [ git ];
 
-  # tests require it to be in a git repository
+    # tests require it to be in a git repository
   preCheck = ''
     git init
   '';
 
-  # error: Found argument '--test-threads' which wasn't expected, or isn't valid in this context
+    # error: Found argument '--test-threads' which wasn't expected, or isn't valid in this context
   checkFlags = [
     "--skip"
     "runs_correctly"

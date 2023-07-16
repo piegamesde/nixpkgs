@@ -71,8 +71,8 @@ stdenv.mkDerivation rec {
     }"
   ];
 
-  # by default, it will query the python interpreter for it's sitepackages location
-  # however, that would write to a different nixstore path, pass our own sitePackages location
+    # by default, it will query the python interpreter for it's sitepackages location
+    # however, that would write to a different nixstore path, pass our own sitePackages location
   prePatch = lib.optionalString usePython ''
     substituteInPlace src/CMakeLists.txt \
       --replace 'DESTINATION ''${Python_SITEARCH}' 'DESTINATION "${
@@ -91,7 +91,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A double-entry accounting system with a command-line reporting interface";
+      "A double-entry accounting system with a command-line reporting interface"
+      ;
     homepage = "https://www.ledger-cli.org/";
     changelog = "https://github.com/ledger/ledger/raw/v${version}/NEWS.md";
     license = licenses.bsd3;

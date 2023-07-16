@@ -18,7 +18,7 @@ let
     arm = "aarch64";
   };
 
-  # Mapping from GCS component operating systems to Nix operating systems
+    # Mapping from GCS component operating systems to Nix operating systems
   oses = {
     LINUX = "linux";
     MACOSX = "darwin";
@@ -26,27 +26,29 @@ let
     CYGWIN = "cygwin";
   };
 
-  # Convert an archicecture + OS to a Nix platform
-  toNixPlatform = arch: os:
+    # Convert an archicecture + OS to a Nix platform
+  toNixPlatform =
+    arch: os:
     let
       arch' = arches.${arch} or (throw "unsupported architecture '${arch}'");
       os' = oses.${os} or (throw "unsupported OS '${os}'");
     in
     "${arch'}-${os'}"
-  ;
+    ;
 
-  # All architectures that are supported by GCS
+    # All architectures that are supported by GCS
   allArches = builtins.attrNames arches;
 
-  # A description of all available google-cloud-sdk components.
-  # It's a JSON file with a list of components, along with some metadata
+    # A description of all available google-cloud-sdk components.
+    # It's a JSON file with a list of components, along with some metadata
   snapshot = builtins.fromJSON (builtins.readFile snapshotPath);
 
-  # Generate a snapshot file for a single component.  It has the same format as
-  # `snapshot`, but only contains a single component.  These files are
-  # installed with google-cloud-sdk to let it know which components are
-  # available.
-  snapshotFromComponent = {
+    # Generate a snapshot file for a single component.  It has the same format as
+    # `snapshot`, but only contains a single component.  These files are
+    # installed with google-cloud-sdk to let it know which components are
+    # available.
+  snapshotFromComponent =
+    {
       component,
       revision,
       schema_version,
@@ -55,10 +57,12 @@ let
     builtins.toJSON {
       components = [ component ];
       inherit revision schema_version version;
-    };
+    }
+    ;
 
-  # Generate a set of components from a JSON file describing these components
-  componentsFromSnapshot = {
+    # Generate a set of components from a JSON file describing these components
+  componentsFromSnapshot =
+    {
       components,
       revision,
       schema_version,
@@ -71,10 +75,11 @@ let
         value = componentFromSnapshot self {
           inherit component revision schema_version version;
         };
-      }) components));
+      }) components))
+    ;
 
-  # Generate a single component from its snapshot, along with a set of
-  # available dependencies to choose from.
+    # Generate a single component from its snapshot, along with a set of
+    # available dependencies to choose from.
   componentFromSnapshot =
     # Component derivations that can be used as dependencies
     components:
@@ -87,15 +92,15 @@ let
     }@attrs:
     let
       baseUrl = builtins.dirOf schema_version.url;
-      # Architectures supported by this component.  Defaults to all available
-      # architectures.
+        # Architectures supported by this component.  Defaults to all available
+        # architectures.
       architectures =
         builtins.filter (arch: builtins.elem arch (builtins.attrNames arches))
         (lib.attrByPath [
           "platform"
           "architectures"
         ] allArches component);
-      # Operating systems supported by this component
+        # Operating systems supported by this component
       operating_systems =
         builtins.filter (os: builtins.elem os (builtins.attrNames oses))
         component.platform.operating_systems;
@@ -113,22 +118,25 @@ let
       ] "" component;
       dependencies = builtins.map (dep: builtins.getAttr dep components)
         component.dependencies;
-      platforms = if component.platform == { } then
-        lib.platforms.all
-      else
-        builtins.concatMap
-        (arch: builtins.map (os: toNixPlatform arch os) operating_systems)
-        architectures;
+      platforms =
+        if component.platform == { } then
+          lib.platforms.all
+        else
+          builtins.concatMap
+          (arch: builtins.map (os: toNixPlatform arch os) operating_systems)
+          architectures
+        ;
       snapshot = snapshotFromComponent attrs;
     }
-  ;
+    ;
 
-  # Filter out dependencies not supported by current system
+    # Filter out dependencies not supported by current system
   filterForSystem =
     builtins.filter (drv: builtins.elem system drv.meta.platforms);
 
-  # Make a google-cloud-sdk component
-  mkComponent = {
+    # Make a google-cloud-sdk component
+  mkComponent =
+    {
       pname,
       version
       # Source tarball, if any
@@ -182,6 +190,7 @@ let
       passthru = { dependencies = filterForSystem dependencies; };
       passAsFile = [ "snapshot" ];
       meta = { inherit description platforms; };
-    };
+    }
+    ;
 in
 componentsFromSnapshot snapshot

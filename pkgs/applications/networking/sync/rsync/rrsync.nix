@@ -13,8 +13,8 @@ stdenv.mkDerivation {
     (python3.withPackages
       (pythonPackages: with pythonPackages; [ braceexpand ]))
   ];
-  # Skip configure and build phases.
-  # We just want something from the support directory
+    # Skip configure and build phases.
+    # We just want something from the support directory
   dontConfigure = true;
   dontBuild = true;
 

@@ -19,15 +19,16 @@ buildGoModule rec {
 
   vendorHash = "sha256-IJCbh1ryyk0r72SrVEiI7K5nIFf1+UGjTkXaNKpGsmo=";
 
-  # Rename the binary instead of symlinking to avoid conflict with the
-  # Azure version of kubelogin
+    # Rename the binary instead of symlinking to avoid conflict with the
+    # Azure version of kubelogin
   postInstall = ''
     mv $out/bin/kubelogin $out/bin/kubectl-oidc_login
   '';
 
   meta = with lib; {
     description =
-      "A Kubernetes credential plugin implementing OpenID Connect (OIDC) authentication";
+      "A Kubernetes credential plugin implementing OpenID Connect (OIDC) authentication"
+      ;
     inherit (src.meta) homepage;
     license = licenses.asl20;
     maintainers = with maintainers; [ benley ];

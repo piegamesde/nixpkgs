@@ -61,7 +61,8 @@ buildPythonPackage rec {
     description = "Google Cloud Pub/Sub API client library";
     homepage = "https://github.com/googleapis/python-pubsub";
     changelog =
-      "https://github.com/googleapis/python-pubsub/blob/v${version}/CHANGELOG.md";
+      "https://github.com/googleapis/python-pubsub/blob/v${version}/CHANGELOG.md"
+      ;
     license = licenses.asl20;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

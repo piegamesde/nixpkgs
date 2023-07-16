@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
     name = "documize";
     meta = with pkgs.lib.maintainers; { maintainers = [ ma27 ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -17,7 +18,8 @@ import ./make-test-python.nix ({
           port = 3000;
           dbtype = "postgresql";
           db =
-            "host=localhost port=5432 sslmode=disable user=documize password=documize dbname=documize";
+            "host=localhost port=5432 sslmode=disable user=documize password=documize dbname=documize"
+            ;
         };
 
         systemd.services.documize-server = {
@@ -32,7 +34,8 @@ import ./make-test-python.nix ({
             CREATE DATABASE documize WITH OWNER documize;
           '';
         };
-      };
+      }
+      ;
 
     testScript = ''
       start_all()

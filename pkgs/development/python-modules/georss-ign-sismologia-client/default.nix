@@ -32,7 +32,8 @@ buildPythonPackage rec {
     homepage =
       "https://github.com/exxamalte/python-georss-ign-sismologia-client";
     changelog =
-      "https://github.com/exxamalte/python-georss-ign-sismologia-client/blob/v0.6/CHANGELOG.md";
+      "https://github.com/exxamalte/python-georss-ign-sismologia-client/blob/v0.6/CHANGELOG.md"
+      ;
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];
   };

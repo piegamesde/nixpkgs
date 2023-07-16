@@ -60,7 +60,7 @@ stdenv.mkDerivation {
     sed -i -e "s@/usr/bin/file@${file}/bin/file@" ./configure
   '';
 
-  ## fix bug with parallel building
+    ## fix bug with parallel building
   preBuild = ''
     make -C cinelerra versioninfo.h
   '';
@@ -114,7 +114,8 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description =
-      "Professional video editing and compositing environment (community version)";
+      "Professional video editing and compositing environment (community version)"
+      ;
     homepage = "http://cinelerra-cv.wikidot.com/";
     maintainers = with maintainers; [ marcweber ];
     license = licenses.gpl2Only;

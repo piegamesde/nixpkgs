@@ -17,14 +17,16 @@ let
     libXi
     SDL2
   ];
-  arch = if stdenv.isAarch64 then
-    "arm64"
-  else if stdenv.isAarch32 then
-    "arm_armhf_raspberry_pi"
-  else if stdenv.is64bit then
-    "x86_64"
-  else
-    "x86";
+  arch =
+    if stdenv.isAarch64 then
+      "arm64"
+    else if stdenv.isAarch32 then
+      "arm_armhf_raspberry_pi"
+    else if stdenv.is64bit then
+      "x86_64"
+    else
+      "x86"
+    ;
 in
 stdenv.mkDerivation rec {
   pname = "SunVox";
@@ -55,7 +57,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Small, fast and powerful modular synthesizer with pattern-based sequencer";
+      "Small, fast and powerful modular synthesizer with pattern-based sequencer"
+      ;
     license = licenses.unfreeRedistributable;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     homepage = "http://www.warmplace.ru/soft/sunvox/";

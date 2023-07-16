@@ -16,8 +16,8 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  # Project doesn't ship tests
-  # https://github.com/MikeBrink/python-picnic-api/issues/13
+    # Project doesn't ship tests
+    # https://github.com/MikeBrink/python-picnic-api/issues/13
   doCheck = false;
 
   pythonImportsCheck = [ "python_picnic_api" ];

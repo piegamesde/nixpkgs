@@ -38,7 +38,8 @@
 }:
 
 let
-  withPlugins = plugins:
+  withPlugins =
+    plugins:
     buildPythonApplication {
       pname = "${package.pname}-with-plugins";
       inherit (package) version;
@@ -61,7 +62,8 @@ let
       passthru = package.passthru // {
         withPlugins = morePlugins: withPlugins (morePlugins ++ plugins);
       };
-    };
+    }
+    ;
 
   package = buildPythonApplication rec {
     pname = "buildbot";
@@ -120,10 +122,10 @@ let
       substituteInPlace buildbot/scripts/logwatcher.py --replace '/usr/bin/tail' "$(type -P tail)"
     '';
 
-    # Silence the depreciation warning from SqlAlchemy
+      # Silence the depreciation warning from SqlAlchemy
     SQLALCHEMY_SILENCE_UBER_WARNING = 1;
 
-    # TimeoutErrors on slow machines -> aarch64
+      # TimeoutErrors on slow machines -> aarch64
     doCheck = !stdenv.isAarch64;
 
     preCheck = ''
@@ -144,7 +146,8 @@ let
 
     meta = with lib; {
       description =
-        "An open-source continuous integration framework for automating software build, test, and release processes";
+        "An open-source continuous integration framework for automating software build, test, and release processes"
+        ;
       homepage = "https://buildbot.net/";
       changelog =
         "https://github.com/buildbot/buildbot/releases/tag/v${version}";

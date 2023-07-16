@@ -38,7 +38,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/inferior-shell/2020-09-25/inferior-shell-20200925-git.tgz";
+      "http://beta.quicklisp.org/archive/inferior-shell/2020-09-25/inferior-shell-20200925-git.tgz"
+      ;
     sha256 = "1hykybcmdpcjk0irl4f1lmqc4aawpp1zfvh27qp6mldsibra7l80";
   };
 

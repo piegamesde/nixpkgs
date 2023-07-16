@@ -14,7 +14,8 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/let-def/lwd/releases/download/v${version}/lwd-${version}.tbz";
+      "https://github.com/let-def/lwd/releases/download/v${version}/lwd-${version}.tbz"
+      ;
     sha256 = "sha256-H/vyW2tn2OBuWwcmPs8NcINXgFe93MSxRd8dzeoXARI=";
   };
 

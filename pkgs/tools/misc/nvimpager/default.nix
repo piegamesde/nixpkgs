@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     util-linux
     neovim
   ];
-  # filter out one test that fails in the sandbox of nix
+    # filter out one test that fails in the sandbox of nix
   checkPhase = ''
     runHook preCheck
     script -ec "busted --lpath './?.lua' --filter-out 'handles man' test"

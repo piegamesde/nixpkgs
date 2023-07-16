@@ -76,9 +76,9 @@ stdenv.mkDerivation rec {
 
   NIX_CFLAGS = [ "-Wno-return-type" ];
 
-  # Workaround build failure on -fno-common toolchains:
-  # ld: libpacklib.a(kedit.o):kuip/klink1.h:11: multiple definition of `klnkaddr';
-  #   libzftplib.a(zftpcdf.o):zftp/zftpcdf.c:155: first defined here
+    # Workaround build failure on -fno-common toolchains:
+    # ld: libpacklib.a(kedit.o):kuip/klink1.h:11: multiple definition of `klnkaddr';
+    #   libzftplib.a(zftpcdf.o):zftp/zftpcdf.c:155: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   makeFlags = [
@@ -122,7 +122,8 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "http://cernlib.web.cern.ch";
     description =
-      "Legacy collection of libraries and modules for data analysis in high energy physics";
+      "Legacy collection of libraries and modules for data analysis in high energy physics"
+      ;
     broken = stdenv.isDarwin;
     platforms = [
       "i686-linux"

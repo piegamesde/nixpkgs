@@ -53,7 +53,7 @@ in {
     systemd.packages = [ package ];
     systemd.timers.google-oslogin-cache.wantedBy = [ "timers.target" ];
 
-    # enable the nss module, so user lookups etc. work
+      # enable the nss module, so user lookups etc. work
     system.nssModules = [ package ];
     system.nssDatabases.passwd = [
       "cache_oslogin"
@@ -64,8 +64,8 @@ in {
       "oslogin"
     ];
 
-    # Ugly: sshd refuses to start if a store path is given because /nix/store is group-writable.
-    # So indirect by a symlink.
+      # Ugly: sshd refuses to start if a store path is given because /nix/store is group-writable.
+      # So indirect by a symlink.
     environment.etc."ssh/authorized_keys_command_google_oslogin" = {
       mode = "0755";
       text = ''

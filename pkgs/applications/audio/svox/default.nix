@@ -10,7 +10,7 @@ stdenv.mkDerivation {
   pname = "svox";
   version = "2018-02-14";
 
-  # basically took the source code from android and borrowed autotool patches from debian
+    # basically took the source code from android and borrowed autotool patches from debian
   src = fetchFromGitHub {
     owner = "naggety";
     repo = "picotts";

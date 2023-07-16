@@ -30,7 +30,7 @@ buildPythonPackage rec {
     sha256 = "1nm4mj7pd7gz4ghic6b3wrnd1b59hd1f0axavdabfl79wy511l7r";
   };
 
-  # Set absolute nix store paths to the executables that pypass uses
+    # Set absolute nix store paths to the executables that pypass uses
   patches = [ (substituteAll {
     src = ./mark-executables.patch;
     git_exec = "${git}/bin/git";
@@ -40,7 +40,7 @@ buildPythonPackage rec {
     xclip_exec = "${xclip}/bin/xclip";
   }) ];
 
-  # Remove enum34 requirement if Python >= 3.4
+    # Remove enum34 requirement if Python >= 3.4
   postPatch = lib.optionalString (pythonAtLeast "3.4") ''
     substituteInPlace requirements.txt --replace "enum34" ""
   '';
@@ -55,7 +55,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ nose ];
 
-  # Configuration so that the tests work
+    # Configuration so that the tests work
   preCheck = ''
     HOME=$TEMP ${git}/bin/git config --global user.email "nix-builder@nixos.org"
     HOME=$TEMP ${git}/bin/git config --global user.name "Nix Builder"
@@ -63,9 +63,9 @@ buildPythonPackage rec {
     HOME=$TEMP make setup_gpg
   '';
 
-  # Run tests but exclude the test that uses clipboard as I wasn't able to make
-  # it work - probably the X clipboard just doesn't work in the build
-  # environment..
+    # Run tests but exclude the test that uses clipboard as I wasn't able to make
+    # it work - probably the X clipboard just doesn't work in the build
+    # environment..
   checkPhase = ''
     runHook preCheck
     HOME=$TEMP GNUPGHOME=pypass/tests/gnupg nosetests -v --exclude=test_show_clip .

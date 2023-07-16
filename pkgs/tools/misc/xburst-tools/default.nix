@@ -28,9 +28,9 @@ stdenv.mkDerivation {
     sh autogen.sh
   '';
 
-  # Workaround build failure on -fno-common toolchains:
-  #   mipsel-unknown-linux-uclibc-ld: boothandler.o:(.bss+0x8): multiple definition of
-  #     `start_addr'; main.o:(.bss+0x8): first defined here
+    # Workaround build failure on -fno-common toolchains:
+    #   mipsel-unknown-linux-uclibc-ld: boothandler.o:(.bss+0x8): multiple definition of
+    #     `start_addr'; main.o:(.bss+0x8): first defined here
   NIX_CFLAGS_COMPILE_FOR_TARGET = "-fcommon";
 
   configureFlags = lib.optionals (gccCross != null) [
@@ -43,7 +43,7 @@ stdenv.mkDerivation {
     "stackprotector"
   ];
 
-  # Not to strip cross build binaries (this is for the gcc-cross-wrapper)
+    # Not to strip cross build binaries (this is for the gcc-cross-wrapper)
   dontCrossStrip = true;
 
   nativeBuildInputs = [

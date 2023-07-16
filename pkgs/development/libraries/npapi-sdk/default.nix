@@ -11,7 +11,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://bitbucket.org/mgorny/npapi-sdk/downloads/${pname}-${version}.tar.bz2";
+      "https://bitbucket.org/mgorny/npapi-sdk/downloads/${pname}-${version}.tar.bz2"
+      ;
 
     sha256 = "0xxfcsjmmgbbyl9zwpzdshbx27grj5fnzjfmldmm9apws2yk9gq1";
   };
@@ -19,8 +20,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A bundle of NPAPI headers by Mozilla";
 
-    homepage =
-      "https://bitbucket.org/mgorny/npapi-sdk"; # see also https://github.com/mozilla/npapi-sdk
+    homepage = "https://bitbucket.org/mgorny/npapi-sdk"
+      ; # see also https://github.com/mozilla/npapi-sdk
     license = licenses.bsd3;
     platforms = platforms.linux;
   };

@@ -7,7 +7,8 @@ import ../make-test-python.nix ({
 
     meta = with lib.maintainers; { maintainers = [ yuka ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         services.peering-manager = {
@@ -16,9 +17,11 @@ import ../make-test-python.nix ({
             abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789
           '';
         };
-      };
+      }
+      ;
 
-    testScript = {
+    testScript =
+      {
         nodes,
       }: ''
         machine.start()
@@ -42,5 +45,6 @@ import ../make-test-python.nix ({
             machine.succeed(
                 "cd ${nodes.machine.config.system.build.peeringManagerPkg}/opt/peering-manager ; peering-manager-manage test --no-input"
             )
-      '';
+      ''
+      ;
   })

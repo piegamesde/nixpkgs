@@ -21,8 +21,8 @@ buildGoModule rec {
 
   deleteVendor = true;
 
-  # The certstore directory isn't recognized as a subpackage, but is when moved
-  # into the vendor directory.
+    # The certstore directory isn't recognized as a subpackage, but is when moved
+    # into the vendor directory.
   postUnpack = ''
     mkdir -p $sourceRoot/vendor/ghostunnel
     mv $sourceRoot/certstore $sourceRoot/vendor/ghostunnel/
@@ -36,7 +36,8 @@ buildGoModule rec {
   meta = with lib; {
     broken = stdenv.isDarwin;
     description =
-      "TLS proxy with mutual authentication support for securing non-TLS backend applications";
+      "TLS proxy with mutual authentication support for securing non-TLS backend applications"
+      ;
     homepage = "https://github.com/ghostunnel/ghostunnel#readme";
     changelog =
       "https://github.com/ghostunnel/ghostunnel/releases/tag/v${version}";

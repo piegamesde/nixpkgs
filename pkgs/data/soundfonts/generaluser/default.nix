@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
   pname = "generaluser";
   version = "1.471";
 
-  # we can't use fetchurl since stdenv does not handle unpacking *.zip's by default.
+    # we can't use fetchurl since stdenv does not handle unpacking *.zip's by default.
   src = fetchzip {
     # Linked on http://www.schristiancollins.com/generaluser.php:
     url =

@@ -11,7 +11,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://sigrok.org/download/source/sigrok-firmware-fx2lafw/sigrok-firmware-fx2lafw-${version}.tar.gz";
+      "https://sigrok.org/download/source/sigrok-firmware-fx2lafw/sigrok-firmware-fx2lafw-${version}.tar.gz"
+      ;
     sha256 = "sha256-o/RA1qhSpG4sXRmfwcjk2s0Aa8BODVV2KY7lXQVqzjs=";
   };
 
@@ -23,8 +24,8 @@ stdenv.mkDerivation rec {
     description = "Firmware for FX2 logic analyzers";
     homepage = "https://sigrok.org/";
 
-    # licensing details explained in:
-    # https://sigrok.org/gitweb/?p=sigrok-firmware-fx2lafw.git;a=blob;f=README;hb=HEAD#l122
+      # licensing details explained in:
+      # https://sigrok.org/gitweb/?p=sigrok-firmware-fx2lafw.git;a=blob;f=README;hb=HEAD#l122
     license = with licenses; [
       gpl2Plus # overall
       lgpl21Plus # fx2lib, Hantek 6022BE, Sainsmart DDS120 firmwares

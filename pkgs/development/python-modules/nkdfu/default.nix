@@ -25,7 +25,7 @@ buildPythonPackage rec {
     libusb1
   ];
 
-  # no tests
+    # no tests
   doCheck = false;
 
   pythonImportsCheck = [ "nkdfu" ];

@@ -14,15 +14,18 @@ stdenv.mkDerivation rec {
   version = "3.15.1.1";
   src = fetchurl {
     url =
-      "http://software-dl.ti.com/msp430/msp430_public_sw/mcu/msp430/MSPDS/3_15_1_001/export/MSP430_DLL_Developer_Package_Rev_3_15_1_1.zip";
+      "http://software-dl.ti.com/msp430/msp430_public_sw/mcu/msp430/MSPDS/3_15_1_001/export/MSP430_DLL_Developer_Package_Rev_3_15_1_1.zip"
+      ;
     sha256 = "1m1ssrwbhqvqwbp3m4hnjyxnz3f9d4acz9vl1av3fbnhvxr0d2hb";
   };
   sourceRoot = ".";
 
-  libname = if stdenv.hostPlatform.isWindows then
-    "MSP430${archPostfix}.dll"
-  else
-    "libmsp430${archPostfix}${stdenv.hostPlatform.extensions.sharedLibrary}";
+  libname =
+    if stdenv.hostPlatform.isWindows then
+      "MSP430${archPostfix}.dll"
+    else
+      "libmsp430${archPostfix}${stdenv.hostPlatform.extensions.sharedLibrary}"
+    ;
 
   nativeBuildInputs = [ unzip ] ++ lib.optional stdenv.isLinux autoPatchelfHook;
   buildInputs = [ stdenv.cc.cc ];

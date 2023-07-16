@@ -95,7 +95,7 @@ in {
         "postgresql.service"
       ];
 
-      # pg_dump
+        # pg_dump
       path = [ config.services.postgresql.package ];
 
       requires = [ "postgresql.service" ];

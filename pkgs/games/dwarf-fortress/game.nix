@@ -26,9 +26,9 @@ let
     SDL
   ];
 
-  # Map Dwarf Fortress platform names to Nixpkgs platform names.
-  # Other srcs are avilable like 32-bit mac & win, but I have only
-  # included the ones most likely to be needed by Nixpkgs users.
+    # Map Dwarf Fortress platform names to Nixpkgs platform names.
+    # Other srcs are avilable like 32-bit mac & win, but I have only
+    # included the ones most likely to be needed by Nixpkgs users.
   platforms = {
     x86_64-linux = "linux";
     i686-linux = "linux32";
@@ -42,18 +42,24 @@ let
   baseVersion = elemAt dfVersionTriple 1;
   patchVersion = elemAt dfVersionTriple 2;
 
-  game = if hasAttr dfVersion df-hashes then
-    getAttr dfVersion df-hashes
-  else
-    throw "Unknown Dwarf Fortress version: ${dfVersion}";
-  dfPlatform = if hasAttr stdenv.hostPlatform.system platforms then
-    getAttr stdenv.hostPlatform.system platforms
-  else
-    throw "Unsupported system: ${stdenv.hostPlatform.system}";
-  sha256 = if hasAttr dfPlatform game then
-    getAttr dfPlatform game
-  else
-    throw "Unsupported dfPlatform: ${dfPlatform}";
+  game =
+    if hasAttr dfVersion df-hashes then
+      getAttr dfVersion df-hashes
+    else
+      throw "Unknown Dwarf Fortress version: ${dfVersion}"
+    ;
+  dfPlatform =
+    if hasAttr stdenv.hostPlatform.system platforms then
+      getAttr stdenv.hostPlatform.system platforms
+    else
+      throw "Unsupported system: ${stdenv.hostPlatform.system}"
+    ;
+  sha256 =
+    if hasAttr dfPlatform game then
+      getAttr dfPlatform game
+    else
+      throw "Unsupported dfPlatform: ${dfPlatform}"
+    ;
 
 in
 stdenv.mkDerivation {
@@ -62,7 +68,8 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url =
-      "https://www.bay12games.com/dwarves/df_${baseVersion}_${patchVersion}_${dfPlatform}.tar.bz2";
+      "https://www.bay12games.com/dwarves/df_${baseVersion}_${patchVersion}_${dfPlatform}.tar.bz2"
+      ;
     inherit sha256;
   };
 

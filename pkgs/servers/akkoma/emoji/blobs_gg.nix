@@ -11,7 +11,8 @@ fetchzip {
   version = "unstable-2019-07-24";
 
   url =
-    "https://git.pleroma.social/pleroma/emoji-index/-/raw/${rev}/packs/blobs_gg.zip";
+    "https://git.pleroma.social/pleroma/emoji-index/-/raw/${rev}/packs/blobs_gg.zip"
+    ;
   hash = "sha256-dnOwW93xTyJKRnYgvPgsqZHNWod4y80aNhBSVKNk6do=";
 
   stripRoot = false;

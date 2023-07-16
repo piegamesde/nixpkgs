@@ -15,7 +15,8 @@
 }:
 
 let
-  fetchNpmPackage = {
+  fetchNpmPackage =
+    {
       name,
       version,
       hash,
@@ -61,7 +62,7 @@ let
         mkdir -p "${dirOf dst}"
         cp "${package}/${src}" "${dst}"
       ''))
-  ;
+    ;
 
   npmPackages = import ./npm_deps.nix;
 in
@@ -109,7 +110,7 @@ rustPlatform.buildRustPackage rec {
   # Provides the mig command used by the krb5-src build script
     ++ lib.optional stdenv.isDarwin bootstrap_cmds;
 
-  # Needed to get openssl-sys to use pkg-config.
+    # Needed to get openssl-sys to use pkg-config.
   OPENSSL_NO_VENDOR = 1;
 
   buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [
@@ -118,7 +119,7 @@ rustPlatform.buildRustPackage rec {
     Foundation
   ];
 
-  # Skip tests that use the network
+    # Skip tests that use the network
   checkFlags = [
     "--exact"
     "--skip test_client"

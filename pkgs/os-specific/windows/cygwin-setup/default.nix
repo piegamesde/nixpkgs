@@ -36,22 +36,23 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = let
-    mkStatic = flip overrideDerivation (o: {
-      dontDisableStatic = true;
-      configureFlags = toList (o.configureFlags or [ ])
-        ++ [ "--enable-static" ];
-      buildInputs = map mkStatic (o.buildInputs or [ ]);
-      propagatedBuildInputs = map mkStatic (o.propagatedBuildInputs or [ ]);
-    });
-  in
-  map mkStatic [
-    zlib
-    bzip2
-    xz
-    libgcrypt
-  ]
-  ;
+  buildInputs =
+    let
+      mkStatic = flip overrideDerivation (o: {
+        dontDisableStatic = true;
+        configureFlags =
+          toList (o.configureFlags or [ ]) ++ [ "--enable-static" ];
+        buildInputs = map mkStatic (o.buildInputs or [ ]);
+        propagatedBuildInputs = map mkStatic (o.propagatedBuildInputs or [ ]);
+      });
+    in
+    map mkStatic [
+      zlib
+      bzip2
+      xz
+      libgcrypt
+    ]
+    ;
 
   configureFlags = [ "--disable-shared" ];
 

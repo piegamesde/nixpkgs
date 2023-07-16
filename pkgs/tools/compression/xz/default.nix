@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     patchShebangs tests
   '';
 
-  # In stdenv-linux, prevent a dependency on bootstrap-tools.
+    # In stdenv-linux, prevent a dependency on bootstrap-tools.
   preConfigure = "CONFIG_SHELL=/bin/sh";
 
   postInstall = "rm -rf $out/share/doc";

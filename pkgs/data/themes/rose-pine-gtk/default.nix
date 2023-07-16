@@ -26,7 +26,7 @@ stdenvNoCC.mkDerivation rec {
   propagatedUserEnvPkgs = [ gtk-engine-murrine # murrine engine for Gtk2
     ];
 
-  # avoid the makefile which is only for theme maintainers
+    # avoid the makefile which is only for theme maintainers
   dontBuild = true;
 
   installPhase = ''

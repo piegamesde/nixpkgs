@@ -34,7 +34,7 @@ buildPythonPackage rec {
     parsimonious
   ];
 
-  # lots of: TypeError: isinstance() arg 2 must be a type or tuple of types
+    # lots of: TypeError: isinstance() arg 2 must be a type or tuple of types
   doCheck = false;
 
   nativeCheckInputs = [

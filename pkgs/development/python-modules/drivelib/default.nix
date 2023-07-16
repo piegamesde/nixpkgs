@@ -24,7 +24,7 @@ buildPythonPackage rec {
     expiringdict
   ];
 
-  # tests depend on a google auth token
+    # tests depend on a google auth token
   doCheck = false;
 
   pythonImportsCheck = [ "drivelib" ];

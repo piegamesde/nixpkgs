@@ -73,10 +73,10 @@ in {
 
       restartTriggers = [ config.environment.etc."keyd/default.conf".source ];
 
-      # this is configurable in 2.4.2, later versions seem to remove this option.
-      # post-2.4.2 may need to set makeFlags in the derivation:
-      #
-      #     makeFlags = [ "SOCKET_PATH/run/keyd/keyd.socket" ];
+        # this is configurable in 2.4.2, later versions seem to remove this option.
+        # post-2.4.2 may need to set makeFlags in the derivation:
+        #
+        #     makeFlags = [ "SOCKET_PATH/run/keyd/keyd.socket" ];
       environment.KEYD_SOCKET = "/run/keyd/keyd.sock";
 
       serviceConfig = {
@@ -91,7 +91,7 @@ in {
 
         RuntimeDirectory = "keyd";
 
-        # Hardening
+          # Hardening
         CapabilityBoundingSet = "";
         DeviceAllow = [
           "char-input rw"

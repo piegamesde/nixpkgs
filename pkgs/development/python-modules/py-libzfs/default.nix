@@ -21,7 +21,7 @@ buildPythonPackage rec {
   nativeBuildInputs = [ cython ];
   buildInputs = [ zfs ];
 
-  # Passing CFLAGS in configureFlags does not work, see https://github.com/truenas/py-libzfs/issues/107
+    # Passing CFLAGS in configureFlags does not work, see https://github.com/truenas/py-libzfs/issues/107
   postPatch = lib.optionalString stdenv.isLinux ''
     substituteInPlace configure \
       --replace \
@@ -37,8 +37,8 @@ buildPythonPackage rec {
     homepage = "https://github.com/truenas/py-libzfs";
     license = licenses.bsd2;
     maintainers = with maintainers; [ chuangzhu ];
-    # The project also supports macOS (OpenZFS on OSX, O3X), FreeBSD and OpenSolaris
-    # I don't have a machine to test out, thus only packaged for Linux
+      # The project also supports macOS (OpenZFS on OSX, O3X), FreeBSD and OpenSolaris
+      # I don't have a machine to test out, thus only packaged for Linux
     platforms = platforms.linux;
   };
 }

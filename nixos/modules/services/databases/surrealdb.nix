@@ -14,7 +14,8 @@ in {
   options = {
     services.surrealdb = {
       enable = mkEnableOption (lib.mdDoc
-        "A scalable, distributed, collaborative, document-graph database, for the realtime web ");
+        "A scalable, distributed, collaborative, document-graph database, for the realtime web ")
+        ;
 
       package = mkOption {
         default = pkgs.surrealdb;
@@ -76,7 +77,8 @@ in {
 
     systemd.services.surrealdb = {
       description =
-        "A scalable, distributed, collaborative, document-graph database, for the realtime web ";
+        "A scalable, distributed, collaborative, document-graph database, for the realtime web "
+        ;
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
 

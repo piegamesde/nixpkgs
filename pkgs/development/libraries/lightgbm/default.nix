@@ -31,18 +31,18 @@ assert cudaSupport -> openclSupport != true;
 
 stdenv.mkDerivation rec {
   pnameBase = "lightgbm";
-  # prefix with r when building the R library
-  # The R package build results in a special binary file
-  # that contains a subset of the .so file use for the CLI
-  # and python version. In general, the CRAN version from
-  # nixpkgs's r-modules should be used, but this non-standard
-  # build allows for enabling CUDA support and other features
-  # which aren't included in the CRAN release. Build with:
-  # nix-build -E "with (import $NIXPKGS{}); \
-  #   let \
-  #     lgbm = lightgbm.override{rLibrary = true; doCheck = false;}; \
-  #   in \
-  #   rWrapper.override{ packages = [ lgbm ]; }"
+    # prefix with r when building the R library
+    # The R package build results in a special binary file
+    # that contains a subset of the .so file use for the CLI
+    # and python version. In general, the CRAN version from
+    # nixpkgs's r-modules should be used, but this non-standard
+    # build allows for enabling CUDA support and other features
+    # which aren't included in the CRAN release. Build with:
+    # nix-build -E "with (import $NIXPKGS{}); \
+    #   let \
+    #     lgbm = lightgbm.override{rLibrary = true; doCheck = false;}; \
+    #   in \
+    #   rWrapper.override{ packages = [ lgbm ]; }"
   pname = lib.optionalString rLibrary "r-" + pnameBase;
   version = "3.3.5";
 
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
     rPackages.R6
   ];
 
-  # Skip APPLE in favor of linux build for .so files
+    # Skip APPLE in favor of linux build for .so files
   postPatch = ''
     export PROJECT_SOURCE_DIR=./
     substituteInPlace CMakeLists.txt \
@@ -109,8 +109,8 @@ stdenv.mkDerivation rec {
     export R_LIBS_SITE="$out/library:$R_LIBS_SITE''${R_LIBS_SITE:+:}"
   '';
 
-  # set the R package buildPhase to null because lightgbm has a
-  # custom builder script that builds and installs in one step
+    # set the R package buildPhase to null because lightgbm has a
+    # custom builder script that builds and installs in one step
   buildPhase = lib.optionals rLibrary "";
 
   inherit doCheck;
@@ -157,7 +157,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "LightGBM is a gradient boosting framework that uses tree based learning algorithms.";
+      "LightGBM is a gradient boosting framework that uses tree based learning algorithms."
+      ;
     homepage = "https://github.com/microsoft/LightGBM";
     license = licenses.mit;
     platforms = platforms.unix;

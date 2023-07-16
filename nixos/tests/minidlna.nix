@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
     name = "minidlna";
 
     nodes = {
-      server = {
+      server =
+        {
           ...
         }: {
           imports = [ ../modules/profiles/minimal.nix ];
@@ -23,11 +24,14 @@ import ./make-test-python.nix ({
               "Folder.jpg/folder.jpg/Thumb.jpg/thumb.jpg"
             ];
           };
-        };
-      client = {
+        }
+        ;
+      client =
+        {
           ...
         }:
-        { };
+        { }
+        ;
     };
 
     testScript = ''

@@ -59,7 +59,8 @@ let
     };
   };
 
-  makeSource = {
+  makeSource =
+    {
       system,
       phpMajor,
     }:
@@ -80,7 +81,7 @@ let
         }.so";
       sha256 = hashes.${system}.sha256.${phpMajor};
     }
-  ;
+    ;
   self = stdenv.mkDerivation rec {
     pname = "php-blackfire";
     extensionName = "blackfire";
@@ -131,41 +132,50 @@ let
         done
       '';
 
-      # All sources for updating by the update script.
-      updateables = let
-        createName = path:
+        # All sources for updating by the update script.
+      updateables =
+        let
+          createName =
+            path:
 
-          builtins.replaceStrings [ "." ] [ "_" ]
-          (lib.concatStringsSep "_" path);
+            builtins.replaceStrings [ "." ] [ "_" ]
+            (lib.concatStringsSep "_" path)
+            ;
 
-        createSourceParams = path:
+          createSourceParams =
+            path:
 
-          let
-            # The path will be either [«system» sha256], or [«system» sha256 «phpMajor» «zts»],
-            # Let’s skip the sha256.
-            rest = builtins.tail (builtins.tail path);
-          in {
-            system = builtins.head path;
-            phpMajor = if builtins.length rest == 0 then
-              null
-            else
-              builtins.head rest;
-          } ;
+            let
+              # The path will be either [«system» sha256], or [«system» sha256 «phpMajor» «zts»],
+              # Let’s skip the sha256.
+              rest = builtins.tail (builtins.tail path);
+            in {
+              system = builtins.head path;
+              phpMajor =
+                if builtins.length rest == 0 then
+                  null
+                else
+                  builtins.head rest
+                ;
+            }
+            ;
 
-        createUpdateable = path: _value:
+          createUpdateable =
+            path: _value:
 
-          lib.nameValuePair (createName path) (self.overrideAttrs
-            (attrs: { src = makeSource (createSourceParams path); }));
+            lib.nameValuePair (createName path) (self.overrideAttrs
+              (attrs: { src = makeSource (createSourceParams path); }))
+            ;
 
-        hashesOnly =
-          # Filter out all attributes other than hashes.
-          lib.filterAttrsRecursive (name: _value: name != "system") hashes;
-      in
-      builtins.listToAttrs
-      # Collect all leaf attributes (containing hashes).
-      (lib.collect (attrs: attrs ? name)
-        (lib.mapAttrsRecursive createUpdateable hashesOnly))
-      ;
+          hashesOnly =
+            # Filter out all attributes other than hashes.
+            lib.filterAttrsRecursive (name: _value: name != "system") hashes;
+        in
+        builtins.listToAttrs
+        # Collect all leaf attributes (containing hashes).
+        (lib.collect (attrs: attrs ? name)
+          (lib.mapAttrsRecursive createUpdateable hashesOnly))
+        ;
     };
 
     meta = with lib; {

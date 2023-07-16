@@ -38,7 +38,8 @@ import ./make-test-python.nix ({
         };
       };
 
-      client = {
+      client =
+        {
           nodes,
           config,
           ...
@@ -59,8 +60,8 @@ import ./make-test-python.nix ({
               port = 465;
             };
           };
-          environment.systemPackages =
-            [ (pkgs.writers.writePython3Bin "test-alps-login" { } ''
+          environment.systemPackages = [ (pkgs.writers.writePython3Bin
+            "test-alps-login" { } ''
               from urllib.request import build_opener, HTTPCookieProcessor, Request
               from urllib.parse import urlencode, urljoin
               from http.cookiejar import CookieJar
@@ -94,10 +95,12 @@ import ./make-test-python.nix ({
                   print(cookiejar)
                   assert all(cookie.name != "alps_session" for cookie in cookiejar)
             '') ];
-        };
+        }
+        ;
     };
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }: ''
@@ -113,5 +116,6 @@ import ./make-test-python.nix ({
           toString nodes.client.config.services.alps.port
         })
         client.succeed("test-alps-login")
-      '';
+      ''
+      ;
   })

@@ -21,7 +21,7 @@ stdenv.mkDerivation {
   patches = binutils-unwrapped_2_38.patches
     ++ [ ./build-components-separately.patch ];
 
-  # We just want to build libopcodes
+    # We just want to build libopcodes
   postPatch = ''
     cd opcodes
     find . ../include/opcode -type f -exec sed {} -i -e 's/"bfd.h"/<bfd.h>/' \;
@@ -33,7 +33,7 @@ stdenv.mkDerivation {
     bison
   ];
   buildInputs = [ libiberty ];
-  # dis-asm.h includes bfd.h
+    # dis-asm.h includes bfd.h
   propagatedBuildInputs = [ libbfd_2_38 ];
 
   configurePlatforms = [

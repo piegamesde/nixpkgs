@@ -36,16 +36,18 @@ let
   pname = "xonotic";
   version = "0.8.5";
   name = "${pname}-${version}";
-  variant = if withSDL && withGLX then
-    ""
-  else if withSDL then
-    "-sdl"
-  else if withGLX then
-    "-glx"
-  else if withDedicated then
-    "-dedicated"
-  else
-    "-what-even-am-i";
+  variant =
+    if withSDL && withGLX then
+      ""
+    else if withSDL then
+      "-sdl"
+    else if withGLX then
+      "-glx"
+    else if withDedicated then
+      "-dedicated"
+    else
+      "-what-even-am-i"
+    ;
 
   meta = {
     description = "A free fast-paced first-person shooter";
@@ -107,7 +109,7 @@ let
 
     sourceRoot = "Xonotic/source/darkplaces";
 
-    # "debug", "release", "profile"
+      # "debug", "release", "profile"
     target = "release";
 
     dontStrip = target != "release";
@@ -149,7 +151,7 @@ let
       popd
     '';
 
-    # Xonotic needs to find libcurl.so at runtime for map downloads
+      # Xonotic needs to find libcurl.so at runtime for map downloads
     dontPatchELF = true;
     postFixup = lib.optionalString withDedicated ''
       patchelf --add-needed ${curl.out}/lib/libcurl.so $out/bin/xonotic-dedicated

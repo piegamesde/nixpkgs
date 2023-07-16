@@ -38,7 +38,8 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "http://livestreamer.tanuki.se";
     description =
-      "Livestreamer is CLI program that extracts streams from various services and pipes them into a video player of choice";
+      "Livestreamer is CLI program that extracts streams from various services and pipes them into a video player of choice"
+      ;
     license = licenses.bsd2;
     maintainers = with maintainers; [ ];
   };

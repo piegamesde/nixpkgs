@@ -22,7 +22,8 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "A close to drop in replacement for cut that can use a regex delimiter instead of a fixed string";
+      "A close to drop in replacement for cut that can use a regex delimiter instead of a fixed string"
+      ;
     homepage = "https://github.com/sstadick/hck";
     changelog = "https://github.com/sstadick/hck/blob/v${version}/CHANGELOG.md";
     license = with licenses; [

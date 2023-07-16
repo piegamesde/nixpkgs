@@ -22,7 +22,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "raphaelm";
     repo = "django-hierarkey";
-    # https://github.com/raphaelm/django-hierarkey/commit/c81ace02ca404a8756e2931bb6faf55b6365e140
+      # https://github.com/raphaelm/django-hierarkey/commit/c81ace02ca404a8756e2931bb6faf55b6365e140
     rev = "c81ace02ca404a8756e2931bb6faf55b6365e140";
     hash = "sha256-sCARyTjuuAUptlOsFmApnsQpcksP+uYnq0lukXDMcuk=";
   };
@@ -43,7 +43,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Flexible and powerful hierarchical key-value store for your Django models";
+      "Flexible and powerful hierarchical key-value store for your Django models"
+      ;
     homepage = "https://github.com/raphaelm/django-hierarkey";
     license = licenses.asl20;
     maintainers = with maintainers; [ hexa ];

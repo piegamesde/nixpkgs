@@ -11,7 +11,7 @@ with lib;
 
   meta = { maintainers = teams.deepin.members; };
 
-  ###### interface
+    ###### interface
 
   options = {
 
@@ -24,7 +24,7 @@ with lib;
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf config.services.deepin.dde-daemon.enable {
 

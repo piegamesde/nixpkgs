@@ -13,7 +13,8 @@ let
   cfg = config.services.hylafax;
   mapModems = lib.forEach (lib.attrValues cfg.modems);
 
-  mkConfigFile = name: conf:
+  mkConfigFile =
+    name: conf:
     # creates hylafax config file,
     # makes sure "Include" is listed *first*
     let
@@ -26,34 +27,39 @@ let
     in
     pkgs.writeText "hylafax-config${name}"
     (concatStringsSep "\n" (include ++ other))
-  ;
+    ;
 
   globalConfigPath = mkConfigFile "" cfg.faxqConfig;
 
-  modemConfigPath = let
-    mkModemConfigFile = {
-        config,
-        name,
-        ...
-      }:
-      mkConfigFile ".${name}" (cfg.commonModemConfig // config);
-    mkLine = {
-        name,
-        type,
-        ...
-      }@modem: ''
-        # check if modem config file exists:
-        test -f "${pkgs.hylafaxplus}/spool/config/${type}"
-        ln \
-          --symbolic \
-          --no-target-directory \
-          "${mkModemConfigFile modem}" \
-          "$out/config.${name}"
-      '';
-  in
-  pkgs.runCommand "hylafax-config-modems" { preferLocalBuild = true; }
-  ''mkdir --parents "$out/" ${concatStringsSep "\n" (mapModems mkLine)}''
-  ;
+  modemConfigPath =
+    let
+      mkModemConfigFile =
+        {
+          config,
+          name,
+          ...
+        }:
+        mkConfigFile ".${name}" (cfg.commonModemConfig // config)
+        ;
+      mkLine =
+        {
+          name,
+          type,
+          ...
+        }@modem: ''
+          # check if modem config file exists:
+          test -f "${pkgs.hylafaxplus}/spool/config/${type}"
+          ln \
+            --symbolic \
+            --no-target-directory \
+            "${mkModemConfigFile modem}" \
+            "$out/config.${name}"
+        ''
+        ;
+    in
+    pkgs.runCommand "hylafax-config-modems" { preferLocalBuild = true; }
+    ''mkdir --parents "$out/" ${concatStringsSep "\n" (mapModems mkLine)}''
+    ;
 
   setupSpoolScript = pkgs.substituteAll {
     name = "hylafax-setup-spool.sh";
@@ -119,22 +125,24 @@ let
         PrivateDevices = true; # breaks /dev/tty...
         PrivateNetwork = true;
         PrivateTmp = true;
-        #ProtectClock = true;  # breaks /dev/tty... (why?)
+          #ProtectClock = true;  # breaks /dev/tty... (why?)
         ProtectControlGroups = true;
-        #ProtectHome = true;  # breaks custom spool dirs
+          #ProtectHome = true;  # breaks custom spool dirs
         ProtectKernelLogs = true;
         ProtectKernelModules = true;
         ProtectKernelTunables = true;
-        #ProtectSystem = "strict";  # breaks custom spool dirs
+          #ProtectSystem = "strict";  # breaks custom spool dirs
         RestrictNamespaces = true;
         RestrictRealtime = true;
       };
       filter = key: value: (value != null) || !(lib.hasAttr key hardening);
-      apply = service:
-        lib.filterAttrs filter (hardening // (service.serviceConfig or { }));
+      apply =
+        service:
+        lib.filterAttrs filter (hardening // (service.serviceConfig or { }))
+        ;
     in
     service: service // { serviceConfig = apply service; }
-  ;
+    ;
 
   services.hylafax-spool = {
     description = "HylaFAX spool area preparation";
@@ -169,18 +177,18 @@ let
     serviceConfig.Type = "forking";
     serviceConfig.ExecStart =
       ''${pkgs.hylafaxplus}/spool/bin/faxq -q "${cfg.spoolAreaPath}"'';
-    # This delays the "readiness" of this service until
-    # all modems are initialized (or a timeout is reached).
-    # Otherwise, sending a fax with the fax service
-    # stopped will always yield a failed send attempt:
-    # The fax service is started when the job is created with
-    # `sendfax`, but modems need some time to initialize.
+      # This delays the "readiness" of this service until
+      # all modems are initialized (or a timeout is reached).
+      # Otherwise, sending a fax with the fax service
+      # stopped will always yield a failed send attempt:
+      # The fax service is started when the job is created with
+      # `sendfax`, but modems need some time to initialize.
     serviceConfig.ExecStartPost = [ "${waitFaxqScript}" ];
-    # faxquit fails if the pipe is already gone
-    # (e.g. the service is already stopping)
+      # faxquit fails if the pipe is already gone
+      # (e.g. the service is already stopping)
     serviceConfig.ExecStop =
       ''-${pkgs.hylafaxplus}/spool/bin/faxquit -q "${cfg.spoolAreaPath}"'';
-    # disable some systemd hardening settings
+      # disable some systemd hardening settings
     serviceConfig.PrivateDevices = null;
     serviceConfig.RestrictRealtime = null;
   };
@@ -195,7 +203,7 @@ let
     serviceConfig.ExecStart =
       ''${pkgs.hylafaxplus}/spool/bin/hfaxd -q "${cfg.spoolAreaPath}" -d -I'';
     unitConfig.RequiresMountsFor = [ cfg.userAccessFile ];
-    # disable some systemd hardening settings
+      # disable some systemd hardening settings
     serviceConfig.PrivateDevices = null;
     serviceConfig.PrivateNetwork = null;
   };
@@ -236,7 +244,8 @@ let
     ];
   };
 
-  mkFaxgettyService = {
+  mkFaxgettyService =
+    {
       name,
       ...
     }:
@@ -258,15 +267,17 @@ let
       serviceConfig.KillMode = "process";
       serviceConfig.IgnoreSIGPIPE = false;
       serviceConfig.ExecStart = ''
-        -${pkgs.hylafaxplus}/spool/bin/faxgetty -q "${cfg.spoolAreaPath}" /dev/%I'';
-      # faxquit fails if the pipe is already gone
-      # (e.g. the service is already stopping)
+        -${pkgs.hylafaxplus}/spool/bin/faxgetty -q "${cfg.spoolAreaPath}" /dev/%I''
+        ;
+        # faxquit fails if the pipe is already gone
+        # (e.g. the service is already stopping)
       serviceConfig.ExecStop =
         ''-${pkgs.hylafaxplus}/spool/bin/faxquit -q "${cfg.spoolAreaPath}" %I'';
-      # disable some systemd hardening settings
+        # disable some systemd hardening settings
       serviceConfig.PrivateDevices = null;
       serviceConfig.RestrictRealtime = null;
-    };
+    }
+    ;
 
   modemServices = lib.listToAttrs (mapModems mkFaxgettyService);
 

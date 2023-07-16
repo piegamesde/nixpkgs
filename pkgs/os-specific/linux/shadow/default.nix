@@ -20,10 +20,12 @@
   tcb,
 }:
 let
-  glibc = if stdenv.hostPlatform != stdenv.buildPlatform then
-    glibcCross
-  else
-    assert stdenv.hostPlatform.libc == "glibc"; stdenv.cc.libc;
+  glibc =
+    if stdenv.hostPlatform != stdenv.buildPlatform then
+      glibcCross
+    else
+      assert stdenv.hostPlatform.libc == "glibc"; stdenv.cc.libc
+    ;
 
 in
 stdenv.mkDerivation rec {
@@ -70,18 +72,19 @@ stdenv.mkDerivation rec {
     # Fix HAVE_SHADOWGRP configure check
     (fetchpatch {
       url =
-        "https://github.com/shadow-maint/shadow/commit/a281f241b592aec636d1b93a99e764499d68c7ef.patch";
+        "https://github.com/shadow-maint/shadow/commit/a281f241b592aec636d1b93a99e764499d68c7ef.patch"
+        ;
       sha256 = "sha256-GJWg/8ggTnrbIgjI+HYa26DdVbjTHTk/IHhy7GU9G5w=";
     })
   ];
 
-  # The nix daemon often forbids even creating set[ug]id files.
+    # The nix daemon often forbids even creating set[ug]id files.
   postPatch = ''
     sed 's/^\(s[ug]idperms\) = [0-9]755/\1 = 0755/' -i src/Makefile.am
   '';
 
-  # Assume System V `setpgrp (void)', which is the default on GNU variants
-  # (`AC_FUNC_SETPGRP' is not cross-compilation capable.)
+    # Assume System V `setpgrp (void)', which is the default on GNU variants
+    # (`AC_FUNC_SETPGRP' is not cross-compilation capable.)
   preConfigure = ''
     export ac_cv_func_setpgrp_void=yes
     export shadow_cv_logdir=/var/log

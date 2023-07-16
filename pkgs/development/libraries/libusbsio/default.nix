@@ -7,10 +7,12 @@
   systemdMinimal,
 }:
 let
-  binDirPrefix = if stdenv.isDarwin then
-    "osx_"
-  else
-    "linux_";
+  binDirPrefix =
+    if stdenv.isDarwin then
+      "osx_"
+    else
+      "linux_"
+    ;
 in
 stdenv.mkDerivation rec {
   pname = "libusbsio";
@@ -40,9 +42,11 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage =
-      "https://www.nxp.com/design/software/development-software/library-for-windows-macos-and-ubuntu-linux:LIBUSBSIO";
+      "https://www.nxp.com/design/software/development-software/library-for-windows-macos-and-ubuntu-linux:LIBUSBSIO"
+      ;
     description =
-      "Library for communicating with devices connected via the USB bridge on LPC-Link2 and MCU-Link debug probes on supported NXP microcontroller evaluation boards";
+      "Library for communicating with devices connected via the USB bridge on LPC-Link2 and MCU-Link debug probes on supported NXP microcontroller evaluation boards"
+      ;
     platforms = platforms.all;
     license = licenses.bsd3;
     maintainers = with maintainers; [

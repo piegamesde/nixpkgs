@@ -48,8 +48,7 @@ buildPythonPackage rec {
     "ignore::trio.TrioDeprecationWarning"
   ];
 
-  disabledTestPaths =
-    [ "tests/python" # tries to import internal API test.test_asyncio
+  disabledTestPaths = [ "tests/python" # tries to import internal API test.test_asyncio
     ];
 
   pythonImportsCheck = [ "trio_asyncio" ];

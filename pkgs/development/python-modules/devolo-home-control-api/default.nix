@@ -38,7 +38,7 @@ buildPythonPackage rec {
     pytest-mock
   ];
 
-  # Disable test that requires network access
+    # Disable test that requires network access
   disabledTests = [
     "test__on_pong"
     "TestMprm"

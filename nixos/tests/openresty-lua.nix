@@ -14,7 +14,8 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ bbigras ]; };
 
     nodes = {
-      webserver = {
+      webserver =
+        {
           pkgs,
           lib,
           ...
@@ -40,10 +41,12 @@ import ./make-test-python.nix ({
               };
             };
           };
-        };
+        }
+        ;
     };
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }: ''
@@ -56,5 +59,6 @@ import ./make-test-python.nix ({
           f"curl -w '%{{http_code}}' --head --fail {url}"
         )
         assert http_code.split("\n")[-1] == "200"
-      '';
+      ''
+      ;
   } )

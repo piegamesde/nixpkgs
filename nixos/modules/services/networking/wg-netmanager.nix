@@ -17,7 +17,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
   config = mkIf cfg.enable {
     # NOTE: wg-netmanager runs as root
     systemd.services.wg-netmanager = {
@@ -36,8 +36,7 @@ in {
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         ExecStop = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
 
-        ReadWritePaths =
-          [ "/tmp" # wg-netmanager creates files in /tmp before deleting them after use
+        ReadWritePaths = [ "/tmp" # wg-netmanager creates files in /tmp before deleting them after use
           ];
       };
       unitConfig = {

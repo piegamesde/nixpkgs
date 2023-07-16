@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
   }: {
     name = "non-default-filesystems";
 
-    nodes.machine = {
+    nodes.machine =
+      {
         config,
         pkgs,
         lib,
@@ -49,7 +50,8 @@ import ./make-test-python.nix ({
             options = [ "subvol=/home" ];
           };
         };
-      } ;
+      }
+      ;
 
     testScript = ''
       machine.wait_for_unit("multi-user.target")

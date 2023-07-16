@@ -16,7 +16,8 @@ in {
   options = {
     services.woodpecker-server = {
       enable = lib.mkEnableOption (lib.mdDoc
-        "the Woodpecker-Server, a CI/CD application for automatic builds, deployments and tests");
+        "the Woodpecker-Server, a CI/CD application for automatic builds, deployments and tests")
+        ;
       package = lib.mkPackageOptionMD pkgs "woodpecker-server" { };
       environment = lib.mkOption {
         default = { };
@@ -31,7 +32,8 @@ in {
           }
         '';
         description = lib.mdDoc
-          "woodpecker-server config envrionment variables, for other options read the [documentation](https://woodpecker-ci.org/docs/administration/server-config)";
+          "woodpecker-server config envrionment variables, for other options read the [documentation](https://woodpecker-ci.org/docs/administration/server-config)"
+          ;
       };
       environmentFile = lib.mkOption {
         type = lib.types.nullOr lib.types.path;
@@ -70,9 +72,9 @@ in {
           Restart = "on-failure";
           RestartSec = 15;
           CapabilityBoundingSet = "";
-          # Security
+            # Security
           NoNewPrivileges = true;
-          # Sandboxing
+            # Sandboxing
           ProtectSystem = "strict";
           ProtectHome = true;
           PrivateTmp = true;
@@ -90,10 +92,11 @@ in {
           RestrictRealtime = true;
           RestrictSUIDSGID = true;
           PrivateMounts = true;
-          # System Call Filtering
+            # System Call Filtering
           SystemCallArchitectures = "native";
           SystemCallFilter =
-            "~@clock @privileged @cpu-emulation @debug @keyring @module @mount @obsolete @raw-io @reboot @setuid @swap";
+            "~@clock @privileged @cpu-emulation @debug @keyring @module @mount @obsolete @raw-io @reboot @setuid @swap"
+            ;
         };
         inherit (cfg) environment;
       };

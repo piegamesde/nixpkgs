@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-4tygoCQGIM0wqLfdWp55/oOPhD3lPUuTd9/LXQAASXU=";
   };
 
-  # Uses oconfigure
+    # Uses oconfigure
   prefixKey = "PREFIX=";
 
   meta = with lib; {
@@ -23,8 +23,8 @@ stdenv.mkDerivation rec {
     description = "BSD-licensed implementation of rsync";
     license = licenses.isc;
     maintainers = with maintainers; [ fgaz ];
-    # https://github.com/kristapsdz/openrsync#portability
-    # https://github.com/kristapsdz/oconfigure#readme
+      # https://github.com/kristapsdz/openrsync#portability
+      # https://github.com/kristapsdz/oconfigure#readme
     platforms = platforms.unix;
   };
 }

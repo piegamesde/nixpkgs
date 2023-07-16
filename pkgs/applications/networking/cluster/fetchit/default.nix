@@ -29,8 +29,8 @@ buildGoModule rec {
   ];
   buildInputs = [ lvm2 ];
 
-  # Flags are derived from
-  # https://github.com/containers/fetchit/blob/v0.0.1/Makefile#L20-L29
+    # Flags are derived from
+    # https://github.com/containers/fetchit/blob/v0.0.1/Makefile#L20-L29
   ldflags = [
     "-X k8s.io/client-go/pkg/version.gitMajor=0"
     "-X k8s.io/client-go/pkg/version.gitMinor=0"
@@ -56,7 +56,7 @@ buildGoModule rec {
     "providerless"
   ];
 
-  # There are no tests for cmd/fetchit.
+    # There are no tests for cmd/fetchit.
   doCheck = false;
 
   postInstall = ''

@@ -12,7 +12,8 @@ stdenv.mkDerivation rec {
   version = "4.4.0.0";
   src = fetchzip {
     url =
-      "https://github.com/broadinstitute/gatk/releases/download/${version}/gatk-${version}.zip";
+      "https://github.com/broadinstitute/gatk/releases/download/${version}/gatk-${version}.zip"
+      ;
     sha256 = "sha256-svOtIS6gz9nwVgVmVQbk9z6Ufyobpn6bFbZY4zurvUI=";
   };
 
@@ -34,7 +35,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://gatk.broadinstitute.org/hc/en-us";
     description =
-      "A wide variety of tools with a primary focus on variant discovery and genotyping.";
+      "A wide variety of tools with a primary focus on variant discovery and genotyping."
+      ;
     license = licenses.asl20;
     sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
     maintainers = with maintainers; [ apraga ];

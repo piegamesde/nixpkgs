@@ -51,7 +51,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf crashdump.enable {
     boot = {

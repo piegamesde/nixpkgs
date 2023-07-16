@@ -22,7 +22,7 @@ yarn2nix-moretea.mkYarnPackage {
   yarnLock = ./yarn.lock;
   yarnNix = ./yarn.nix;
 
-  # Tarball has CRLF line endings. This makes patching difficult, so let's convert them.
+    # Tarball has CRLF line endings. This makes patching difficult, so let's convert them.
   nativeBuildInputs = [ dos2unix ];
   prePatch = ''
     find . -name '*.js' -exec dos2unix {} +

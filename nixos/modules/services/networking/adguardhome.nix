@@ -25,29 +25,31 @@ let
 
 in {
 
-  imports = let
-    cfgPath = [
-      "services"
-      "adguardhome"
-    ];
-  in [
-    (mkRenamedOptionModuleWith {
-      sinceRelease = 2211;
-      from = cfgPath ++ [ "host" ];
-      to = cfgPath ++ [
-        "settings"
-        "bind_host"
+  imports =
+    let
+      cfgPath = [
+        "services"
+        "adguardhome"
       ];
-    })
-    (mkRenamedOptionModuleWith {
-      sinceRelease = 2211;
-      from = cfgPath ++ [ "port" ];
-      to = cfgPath ++ [
-        "settings"
-        "bind_port"
-      ];
-    })
-  ] ;
+    in [
+      (mkRenamedOptionModuleWith {
+        sinceRelease = 2211;
+        from = cfgPath ++ [ "host" ];
+        to = cfgPath ++ [
+          "settings"
+          "bind_host"
+        ];
+      })
+      (mkRenamedOptionModuleWith {
+        sinceRelease = 2211;
+        from = cfgPath ++ [ "port" ];
+        to = cfgPath ++ [
+          "settings"
+          "bind_port"
+        ];
+      })
+    ]
+    ;
 
   options.services.adguardhome = with types; {
     enable = mkEnableOption (lib.mdDoc "AdGuard Home network-wide ad blocker");
@@ -138,7 +140,8 @@ in {
             "bind_hosts"
           ] cfg.settings);
         message =
-          "AdGuard setting dns.bind_host or dns.bind_hosts needs to be configured for a minimal working configuration";
+          "AdGuard setting dns.bind_host or dns.bind_hosts needs to be configured for a minimal working configuration"
+          ;
       }
       {
         assertion = cfg.settings != null -> cfg.mutableSettings
@@ -147,7 +150,8 @@ in {
             "bootstrap_dns"
           ] cfg.settings;
         message =
-          "AdGuard setting dns.bootstrap_dns needs to be configured for a minimal working configuration";
+          "AdGuard setting dns.bootstrap_dns needs to be configured for a minimal working configuration"
+          ;
       }
     ];
 

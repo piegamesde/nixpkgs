@@ -16,7 +16,8 @@ python3Packages.buildPythonApplication rec {
 
   patches = [ (fetchpatch {
     url =
-      "https://repo.or.cz/iotop.git/patch/99c8d7cedce81f17b851954d94bfa73787300599";
+      "https://repo.or.cz/iotop.git/patch/99c8d7cedce81f17b851954d94bfa73787300599"
+      ;
     sha256 = "0rdgz6xpmbx77lkr1ixklliy1aavdsjmfdqvzwrjylbv0xh5wc8z";
   }) ];
 

@@ -6,7 +6,8 @@
 }:
 
 let
-  mkTest = {
+  mkTest =
+    {
       name,
       expected,
       src,
@@ -41,7 +42,7 @@ let
       done
       touch "$out"
     ''
-  ;
+    ;
 in {
   basic = mkTest {
     name = "basic";

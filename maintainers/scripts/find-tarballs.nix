@@ -33,14 +33,17 @@ let
 
   dependencies = map (x: x.value) (genericClosure {
     startSet = map keyDrv (derivationsIn' root);
-    operator = {
+    operator =
+      {
         key,
         value,
       }:
-      map keyDrv (immediateDependenciesOf value);
+      map keyDrv (immediateDependenciesOf value)
+      ;
   });
 
-  derivationsIn' = x:
+  derivationsIn' =
+    x:
     if !canEval x then
       [ ]
     else if isDerivation x then
@@ -52,24 +55,30 @@ let
         addErrorContext "while finding tarballs in '${n}':" (derivationsIn' v))
         x)
     else
-      [ ];
+      [ ]
+    ;
 
-  keyDrv = drv:
+  keyDrv =
+    drv:
     if canEval drv.drvPath then
       {
         key = drv.drvPath;
         value = drv;
       }
     else
-      { };
+      { }
+    ;
 
-  immediateDependenciesOf = drv:
+  immediateDependenciesOf =
+    drv:
     concatLists (mapAttrsToList (n: v: derivationsIn v) (removeAttrs drv ([
       "meta"
       "passthru"
-    ] ++ optionals (drv ? passthru) (attrNames drv.passthru))));
+    ] ++ optionals (drv ? passthru) (attrNames drv.passthru))))
+    ;
 
-  derivationsIn = x:
+  derivationsIn =
+    x:
     if !canEval x then
       [ ]
     else if isDerivation x then
@@ -77,7 +86,8 @@ let
     else if isList x then
       concatLists (map derivationsIn x)
     else
-      [ ];
+      [ ]
+    ;
 
   canEval = val: (builtins.tryEval val).success;
 

@@ -17,13 +17,14 @@ buildGoModule rec {
 
   vendorHash = "sha256-OoI1/OPBgAy4AysPPSCXGmf0S4opzxO7ZrwBsQYImwU=";
 
-  # some tests are broken and others require network access
+    # some tests are broken and others require network access
   doCheck = false;
 
   meta = with lib; {
     homepage = "https://github.com/google/gnostic";
     description =
-      "A compiler for APIs described by the OpenAPI Specification with plugins for code generation and other API support tasks";
+      "A compiler for APIs described by the OpenAPI Specification with plugins for code generation and other API support tasks"
+      ;
     changelog = "https://github.com/google/gnostic/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ urandom ];

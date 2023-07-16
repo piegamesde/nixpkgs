@@ -15,7 +15,7 @@ buildGoModule rec {
     sha256 = "sha256-7rNSBpiZslUGWw0P/Q1zRtNxo9MN8Vq6hG8pD6bJIsA=";
   };
 
-  # Upstream has a `./vendor` directory with all deps which we rely upon.
+    # Upstream has a `./vendor` directory with all deps which we rely upon.
   vendorSha256 = null;
 
   ldflags = [

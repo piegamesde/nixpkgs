@@ -14,7 +14,7 @@
 let
   version = "2.0.8";
 
-  # Make sure we override python, so the correct version is chosen
+    # Make sure we override python, so the correct version is chosen
   boostPython = boost.override {
     enablePython = true;
     inherit python;
@@ -43,7 +43,7 @@ stdenv.mkDerivation {
     ncurses
   ] ++ lib.optionals stdenv.isDarwin [ SystemConfiguration ];
 
-  # https://github.com/arvidn/libtorrent/issues/6865
+    # https://github.com/arvidn/libtorrent/issues/6865
   postPatch = ''
     substituteInPlace cmake/Modules/GeneratePkgConfig.cmake \
       --replace @CMAKE_INSTALL_PREFIX@/'$<'1: '$<'1:

@@ -12,7 +12,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/cl-dot/2020-09-25/cl-dot-20200925-git.tgz";
+      "http://beta.quicklisp.org/archive/cl-dot/2020-09-25/cl-dot-20200925-git.tgz"
+      ;
     sha256 = "01vx4yzasmgswrlyagjr2cz76g906jsijdwikdf8wvxyyq77gkla";
   };
 

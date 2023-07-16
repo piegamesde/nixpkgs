@@ -37,7 +37,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/hunchensocket/2021-05-31/hunchensocket-20210531-git.tgz";
+      "http://beta.quicklisp.org/archive/hunchensocket/2021-05-31/hunchensocket-20210531-git.tgz"
+      ;
     sha256 = "18zy11fir6vlg5vh29pr221dydbl9carfj9xkmsnygyzxkl6jghl";
   };
 

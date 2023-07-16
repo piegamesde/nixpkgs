@@ -81,21 +81,23 @@ stdenv.mkDerivation rec {
     zita-convolver
   ];
 
-  preFixup = let
-    lv2Plugins = [
-      calf # compressor exciter, bass enhancer and others
-      lsp-plugins # delay, limiter, multiband compressor
-      mda_lv2 # loudness
-      zam-plugins # maximizer
-    ];
-    ladspaPlugins = [ rubberband # pitch shifting
+  preFixup =
+    let
+      lv2Plugins = [
+        calf # compressor exciter, bass enhancer and others
+        lsp-plugins # delay, limiter, multiband compressor
+        mda_lv2 # loudness
+        zam-plugins # maximizer
       ];
-  in ''
-    gappsWrapperArgs+=(
-      --set LV2_PATH "${lib.makeSearchPath "lib/lv2" lv2Plugins}"
-      --set LADSPA_PATH "${lib.makeSearchPath "lib/ladspa" ladspaPlugins}"
-    )
-  '' ;
+      ladspaPlugins = [ rubberband # pitch shifting
+        ];
+    in ''
+      gappsWrapperArgs+=(
+        --set LV2_PATH "${lib.makeSearchPath "lib/lv2" lv2Plugins}"
+        --set LADSPA_PATH "${lib.makeSearchPath "lib/ladspa" ladspaPlugins}"
+      )
+    ''
+    ;
 
   separateDebugInfo = true;
 

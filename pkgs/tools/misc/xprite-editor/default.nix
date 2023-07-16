@@ -19,8 +19,8 @@ rustPlatform.buildRustPackage rec {
     rev = "7f899dff982642927024540e4bafd74e4ea5e52a";
     sha256 = "1k6k8y8gg1vdmyjz27q689q9rliw0rrnzwlpjcd4vlc6swaq9ahx";
     fetchSubmodules = true;
-    # Rename unicode file name which leads to different checksums on HFS+
-    # vs. other filesystems because of unicode normalization.
+      # Rename unicode file name which leads to different checksums on HFS+
+      # vs. other filesystems because of unicode normalization.
     postFetch = ''
       mv $out/config/palettes/Sweet\ Guaran*.hex $out/config/palettes/Sweet\ Guarana.hex
     '';

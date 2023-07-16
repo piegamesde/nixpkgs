@@ -67,8 +67,8 @@ in {
         copytruncate = true;
       };
 
-      systemd.tmpfiles.rules =
-        [ "d /var/www/simplestreams 0755 lxd-image-server ${cfg.group}" ];
+      systemd.tmpfiles.rules = [ "d /var/www/simplestreams 0755 lxd-image-server ${cfg.group}" ]
+        ;
 
       systemd.services.lxd-image-server = {
         wantedBy = [ "multi-user.target" ];
@@ -105,7 +105,7 @@ in {
           locations = {
             "/streams/v1/" = { index = "index.json"; };
 
-            # Serve json files with content type header application/json
+              # Serve json files with content type header application/json
             "~ .json$" = {
               extraConfig = ''
                 add_header Content-Type application/json;
@@ -124,7 +124,7 @@ in {
               '';
             };
 
-            # Deny access to document root and the images folder
+              # Deny access to document root and the images folder
             "~ ^/(images/)?$" = { return = "403"; };
           };
         };

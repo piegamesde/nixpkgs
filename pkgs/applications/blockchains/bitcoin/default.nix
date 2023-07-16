@@ -28,21 +28,24 @@ let
   desktop = fetchurl {
     # c2e5f3e is the last commit when the debian/bitcoin-qt.desktop file was changed
     url =
-      "https://raw.githubusercontent.com/bitcoin-core/packaging/c2e5f3e20a8093ea02b73cbaf113bc0947b4140e/debian/bitcoin-qt.desktop";
+      "https://raw.githubusercontent.com/bitcoin-core/packaging/c2e5f3e20a8093ea02b73cbaf113bc0947b4140e/debian/bitcoin-qt.desktop"
+      ;
     sha256 = "0cpna0nxcd1dw3nnzli36nf9zj28d2g9jf5y0zl9j18lvanvniha";
   };
 in
 stdenv.mkDerivation rec {
-  pname = if withGui then
-    "bitcoin"
-  else
-    "bitcoind";
+  pname =
+    if withGui then
+      "bitcoin"
+    else
+      "bitcoind"
+    ;
   version = "24.0.1";
 
   src = fetchurl {
-    urls =
-      [ "https://bitcoincore.org/bin/bitcoin-core-${version}/bitcoin-${version}.tar.gz" ];
-    # hash retrieved from signed SHA256SUMS
+    urls = [ "https://bitcoincore.org/bin/bitcoin-core-${version}/bitcoin-${version}.tar.gz" ]
+      ;
+      # hash retrieved from signed SHA256SUMS
     sha256 = "12d4ad6dfab4767d460d73307e56d13c72997e114fad4f274650f95560f5f2ff";
   };
 

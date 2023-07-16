@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     cp -r {WolframLanguageForJupyter,images,extras,LICENSE} $out/share/Wolfram
   '';
 
-  # no tests
+    # no tests
   doCheck = false;
 
   meta = with lib; {

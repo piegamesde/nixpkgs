@@ -26,7 +26,7 @@ buildPythonPackage rec {
     pyjwt
   ];
 
-  # Module has no tests
+    # Module has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "laundrify_aio" ];

@@ -152,15 +152,16 @@ mkDerivation {
     "dev"
   ];
 
-  cmakeFlags =
-    [ "-DNIXPKGS_BREEZE_WALLPAPERS=${getBin breeze-qt5}/share/wallpapers" ];
+  cmakeFlags = [ "-DNIXPKGS_BREEZE_WALLPAPERS=${
+      getBin breeze-qt5
+    }/share/wallpapers" ];
 
   patches = [
     ./0001-startkde.patch
     ./0002-absolute-wallpaper-install-dir.patch
   ];
 
-  # QT_INSTALL_BINS refers to qtbase, and qdbus is in qttools
+    # QT_INSTALL_BINS refers to qtbase, and qdbus is in qttools
   postPatch = ''
     substituteInPlace CMakeLists.txt \
       --replace 'ecm_query_qt(QtBinariesDir QT_INSTALL_BINS)' 'set(QtBinariesDir "${
@@ -168,8 +169,8 @@ mkDerivation {
       }/bin")'
   '';
 
-  # work around wrapQtAppsHook double-wrapping kcminit_startup,
-  # which is a symlink to kcminit
+    # work around wrapQtAppsHook double-wrapping kcminit_startup,
+    # which is a symlink to kcminit
   postFixup = ''
     ln -sf $out/bin/kcminit $out/bin/kcminit_startup
   '';

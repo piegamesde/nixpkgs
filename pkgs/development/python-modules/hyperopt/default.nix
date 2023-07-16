@@ -37,7 +37,7 @@ buildPythonPackage rec {
     tqdm
   ];
 
-  # tries to use /homeless-shelter to mimic container usage, etc
+    # tries to use /homeless-shelter to mimic container usage, etc
   doCheck = false;
 
   pythonImportsCheck = [ "hyperopt" ];

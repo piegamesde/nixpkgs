@@ -47,8 +47,8 @@ stdenv.mkDerivation rec {
     ++ lib.optional (lvm2 == null) "--disable-device-mapper"
     ++ lib.optional enableStatic "--enable-static";
 
-  # Tests were previously failing due to Hydra running builds as uid 0.
-  # That should hopefully be fixed now.
+    # Tests were previously failing due to Hydra running builds as uid 0.
+    # That should hopefully be fixed now.
   doCheck = !stdenv.hostPlatform.isMusl; # translation test
   nativeCheckInputs = [
     check
@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
       # Add your name here!
     ];
 
-    # GNU Parted requires libuuid, which is part of util-linux-ng.
+      # GNU Parted requires libuuid, which is part of util-linux-ng.
     platforms = lib.platforms.linux;
   };
 }

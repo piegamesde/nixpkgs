@@ -14,11 +14,12 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://launchpad.net/intltool/trunk/${version}/+download/${pname}-${version}.tar.gz";
+      "https://launchpad.net/intltool/trunk/${version}/+download/${pname}-${version}.tar.gz"
+      ;
     sha256 = "1karx4sb7bnm2j67q0q74hspkfn6lqprpy5r99vkn5bb36a4viv7";
   };
 
-  # fix "unescaped left brace" errors when using intltool in some cases
+    # fix "unescaped left brace" errors when using intltool in some cases
   patches = [ (fetchpatch {
     name = "perl5.26-regex-fixes.patch";
     urls = [

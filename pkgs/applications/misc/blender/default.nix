@@ -74,7 +74,8 @@ let
   optix = fetchzip {
     # url taken from the archlinux blender PKGBUILD
     url =
-      "https://developer.download.nvidia.com/redist/optix/v7.3/OptiX-7.3.0-Include.zip";
+      "https://developer.download.nvidia.com/redist/optix/v7.3/OptiX-7.3.0-Include.zip"
+      ;
     sha256 = "0max1j4822mchj0xpz9lqzh91zkmvsn4py0r174cvqfz8z8ykjk8";
   };
 
@@ -237,8 +238,8 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE =
     "-I${ilmbase.dev}/include/OpenEXR -I${python}/include/${python.libPrefix}";
 
-  # Since some dependencies are built with gcc 6, we need gcc 6's
-  # libstdc++ in our RPATH. Sigh.
+    # Since some dependencies are built with gcc 6, we need gcc 6's
+    # libstdc++ in our RPATH. Sigh.
   NIX_LDFLAGS = lib.optionalString cudaSupport "-rpath ${stdenv.cc.cc.lib}/lib";
 
   blenderExecutable = placeholder "out" + (if stdenv.isDarwin then
@@ -256,8 +257,8 @@ stdenv.mkDerivation rec {
       --add-flags '--python-use-system-env'
   '';
 
-  # Set RUNPATH so that libcuda and libnvrtc in /run/opengl-driver(-32)/lib can be
-  # found. See the explanation in libglvnd.
+    # Set RUNPATH so that libcuda and libnvrtc in /run/opengl-driver(-32)/lib can be
+    # found. See the explanation in libglvnd.
   postFixup = lib.optionalString cudaSupport ''
     for program in $out/bin/blender $out/bin/.blender-wrapped; do
       isELF "$program" || continue
@@ -268,9 +269,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "3D Creation/Animation/Publishing System";
     homepage = "https://www.blender.org";
-    # They comment two licenses: GPLv2 and Blender License, but they
-    # say: "We've decided to cancel the BL offering for an indefinite period."
-    # OptiX, enabled with cudaSupport, is non-free.
+      # They comment two licenses: GPLv2 and Blender License, but they
+      # say: "We've decided to cancel the BL offering for an indefinite period."
+      # OptiX, enabled with cudaSupport, is non-free.
     license = with licenses; [ gpl2Plus ] ++ optional cudaSupport unfree;
     platforms = [
       "x86_64-linux"

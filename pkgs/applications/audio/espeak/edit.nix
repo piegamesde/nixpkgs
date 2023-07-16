@@ -27,14 +27,14 @@ stdenv.mkDerivation rec {
     wxGTK32
   ];
 
-  # TODO:
-  # Uhm, seems like espeakedit still wants espeak-data/ in $HOME, even thought
-  # it should use $espeak/share/espeak-data. Have to contact upstream to get
-  # this fixed.
-  #
-  # Workaround:
-  #  cp -r $(nix-build -A espeak)/share/espeak-data ~
-  #  chmod +w ~/espeak-data
+    # TODO:
+    # Uhm, seems like espeakedit still wants espeak-data/ in $HOME, even thought
+    # it should use $espeak/share/espeak-data. Have to contact upstream to get
+    # this fixed.
+    #
+    # Workaround:
+    #  cp -r $(nix-build -A espeak)/share/espeak-data ~
+    #  chmod +w ~/espeak-data
 
   patches = [
     ./gcc6.patch

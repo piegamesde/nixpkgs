@@ -35,9 +35,9 @@ stdenv.mkDerivation rec {
   checkPhase = ''
     ctest -E '(Polynomial|ConvolutionFunction|Downsampling|EdgeTable|InterpolateExtrapolateImage)'
   '';
-  # testPolynomial - segfaults for some reason
-  # testConvolutionFunction, testDownsampling - main not called correctly
-  # testEdgeTable, testInterpolateExtrapolateImageFunction - setup fails
+    # testPolynomial - segfaults for some reason
+    # testConvolutionFunction, testDownsampling - main not called correctly
+    # testEdgeTable, testInterpolateExtrapolateImageFunction - setup fails
 
   postInstall = ''
     install -Dm644 -t "$out/share/bash-completion/completions/mirtk" share/completion/bash/mirtk

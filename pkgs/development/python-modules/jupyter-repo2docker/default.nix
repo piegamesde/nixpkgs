@@ -46,7 +46,7 @@ buildPythonPackage rec {
     traitlets
   ];
 
-  # Tests require a running Docker instance
+    # Tests require a running Docker instance
   doCheck = false;
 
   pythonImportsCheck = [

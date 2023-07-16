@@ -26,7 +26,7 @@ buildPythonPackage rec {
     google-auth-oauthlib
   ];
 
-  # tests require network access
+    # tests require network access
   doCheck = false;
 
   pythonImportsCheck = [ "pydata_google_auth" ];

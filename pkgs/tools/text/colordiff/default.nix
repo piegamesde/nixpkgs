@@ -47,7 +47,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Wrapper for 'diff' that produces the same output but with pretty 'syntax' highlighting";
+      "Wrapper for 'diff' that produces the same output but with pretty 'syntax' highlighting"
+      ;
     homepage = "https://www.colordiff.org/";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;

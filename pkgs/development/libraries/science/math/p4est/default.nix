@@ -18,7 +18,7 @@ stdenv.mkDerivation {
   pname = "p4est${dbg}";
   version = "unstable-2021-06-22";
 
-  # fetch an untagged snapshot of the prev3-develop branch
+    # fetch an untagged snapshot of the prev3-develop branch
   src = fetchFromGitHub {
     owner = "cburstedde";
     repo = "p4est";

@@ -49,13 +49,15 @@ with import ../../lib;
 
 let
 
-  evalFun = {
+  evalFun =
+    {
       specialArgs ? { }
     }:
     import ../lib/eval-config.nix {
       modules = [ configuration ];
       inherit specialArgs;
-    };
+    }
+    ;
 
   eval = evalFun { };
   inherit (eval) pkgs;
@@ -76,17 +78,20 @@ let
     "services.openssh.startWhenNeeded"
   ];
 
-  # for some reasons which we yet have to investigate, some options are
-  # time-consuming to compute, thus we filter them out at the moment.
+    # for some reasons which we yet have to investigate, some options are
+    # time-consuming to compute, thus we filter them out at the moment.
   excludedOptions = [
     "boot.systemd.services"
     "systemd.services"
     "kde.extraPackages"
   ];
-  excludeOptions = list:
-    filter (opt: !(elem (showOption opt.loc) excludedOptions)) list;
+  excludeOptions =
+    list:
+    filter (opt: !(elem (showOption opt.loc) excludedOptions)) list
+    ;
 
-  reportNewFailures = old: new:
+  reportNewFailures =
+    old: new:
     let
       filterChanges = filter ({
           fst,
@@ -101,38 +106,45 @@ let
         # assert fst.name == snd.name;
         snd.name);
 
-      # Use  tryEval (strict ...)  to know if there is any failure while
-      # evaluating the option value.
-      #
-      # Note, the `strict` function is not strict enough, but using toXML
-      # builtins multiply by 4 the memory usage and the time used to compute
-      # each options.
-      tryCollectOptions = moduleResult:
+        # Use  tryEval (strict ...)  to know if there is any failure while
+        # evaluating the option value.
+        #
+        # Note, the `strict` function is not strict enough, but using toXML
+        # builtins multiply by 4 the memory usage and the time used to compute
+        # each options.
+      tryCollectOptions =
+        moduleResult:
         forEach (excludeOptions (collect isOption moduleResult)) (opt:
           {
             name = showOption opt.loc;
-          } // builtins.tryEval (strict opt.value));
+          } // builtins.tryEval (strict opt.value))
+        ;
     in
     keepNames
     (filterChanges (zipLists (tryCollectOptions old) (tryCollectOptions new)))
-  ;
+    ;
 
-  # Create a list of modules where each module contains only one failling
-  # options.
-  introspectionModules = let
-    setIntrospection = opt: rec {
-      name = showOption opt.loc;
-      path = opt.loc;
-      config = setAttrByPath path
-        (throw "Usage introspection of '${name}' by forced failure.");
-    };
-  in
-  map setIntrospection (collect isOption eval.options)
-  ;
+    # Create a list of modules where each module contains only one failling
+    # options.
+  introspectionModules =
+    let
+      setIntrospection =
+        opt: rec {
+          name = showOption opt.loc;
+          path = opt.loc;
+          config = setAttrByPath path
+            (throw "Usage introspection of '${name}' by forced failure.");
+        }
+        ;
+    in
+    map setIntrospection (collect isOption eval.options)
+    ;
 
-  overrideConfig = thrower:
+  overrideConfig =
+    thrower:
     recursiveUpdateUntil (path: old: new: path == thrower.path) eval.config
-    thrower.config;
+    thrower.config
+    ;
 
   graph = map (thrower: {
     option = thrower.name;
@@ -141,41 +153,48 @@ let
       (evalFun { specialArgs = { config = overrideConfig thrower; }; }).options;
   }) introspectionModules;
 
-  displayOptionsGraph = let
-    checkList = if testOption != null then
-      [ testOption ]
-    else
-      testOptions;
-    checkAll = checkList == [ ];
-  in
-  flip filter graph ({
-      option,
-      ...
-    }:
-    (checkAll || elem option checkList) && !(elem option excludedTestOptions))
-  ;
+  displayOptionsGraph =
+    let
+      checkList =
+        if testOption != null then
+          [ testOption ]
+        else
+          testOptions
+        ;
+      checkAll = checkList == [ ];
+    in
+    flip filter graph ({
+        option,
+        ...
+      }:
+      (checkAll || elem option checkList) && !(elem option excludedTestOptions))
+    ;
 
-  graphToDot = graph: ''
-    digraph "Option Usages" {
-      ${
-        concatMapStrings ({
-            option,
-            usedBy,
-          }:
-          concatMapStrings (user: ''"${option}" -> "${user}"'') usedBy)
-        displayOptionsGraph
+  graphToDot =
+    graph: ''
+      digraph "Option Usages" {
+        ${
+          concatMapStrings ({
+              option,
+              usedBy,
+            }:
+            concatMapStrings (user: ''"${option}" -> "${user}"'') usedBy)
+          displayOptionsGraph
+        }
       }
-    }
-  '';
+    ''
+    ;
 
-  graphToText = graph:
+  graphToText =
+    graph:
     concatMapStrings ({
         usedBy,
         ...
       }:
       concatMapStrings (user: ''
         ${user}
-      '') usedBy) displayOptionsGraph;
+      '') usedBy) displayOptionsGraph
+    ;
 
 in rec {
   dotContent = graphToDot graph;

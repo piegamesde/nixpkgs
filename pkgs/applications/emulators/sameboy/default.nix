@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
   };
 
   enableParallelBuilding = true;
-  # glib and wrapGAppsHook are needed to make the Open ROM menu work.
+    # glib and wrapGAppsHook are needed to make the Open ROM menu work.
   nativeBuildInputs = [
     rgbds
     glib

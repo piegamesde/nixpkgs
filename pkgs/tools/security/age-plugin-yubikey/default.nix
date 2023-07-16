@@ -37,7 +37,8 @@ rustPlatform.buildRustPackage rec {
     description = "YubiKey plugin for age";
     homepage = "https://github.com/str4d/age-plugin-yubikey";
     changelog =
-      "https://github.com/str4d/age-plugin-yubikey/blob/${src.rev}/CHANGELOG.md";
+      "https://github.com/str4d/age-plugin-yubikey/blob/${src.rev}/CHANGELOG.md"
+      ;
     license = with licenses; [
       mit
       asl20

@@ -32,14 +32,16 @@ let
       echo Source root reset to ''${sourceRoot}
     '';
 
-    # https://sourceware.org/glibc/wiki/Release/2.26#Removal_of_.27xlocale.h.27
-    postPatch = if
-      (stdenv.hostPlatform.libc == "glibc" || stdenv.hostPlatform.libc
-        == "musl") && lib.versionOlder version "62.1"
-    then
-      "substituteInPlace i18n/digitlst.cpp --replace '<xlocale.h>' '<locale.h>'"
-    else
-      null; # won't find locale_t on darwin
+      # https://sourceware.org/glibc/wiki/Release/2.26#Removal_of_.27xlocale.h.27
+    postPatch =
+      if
+        (stdenv.hostPlatform.libc == "glibc" || stdenv.hostPlatform.libc
+          == "musl") && lib.versionOlder version "62.1"
+      then
+        "substituteInPlace i18n/digitlst.cpp --replace '<xlocale.h>' '<locale.h>'"
+      else
+        null
+      ; # won't find locale_t on darwin
 
     inherit patchFlags patches;
 
@@ -82,12 +84,12 @@ let
     ];
     outputBin = "dev";
 
-    # FIXME: This fixes dylib references in the dylibs themselves, but
-    # not in the programs in $out/bin.
+      # FIXME: This fixes dylib references in the dylibs themselves, but
+      # not in the programs in $out/bin.
     nativeBuildInputs =
       lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
 
-    # remove dependency on bootstrap-tools in early stdenv build
+      # remove dependency on bootstrap-tools in early stdenv build
     postInstall = lib.optionalString stdenv.isDarwin ''
       sed -i 's/INSTALL_CMD=.*install/INSTALL_CMD=install/' $out/lib/icu/${version}/pkgdata.inc
     '' + (let
@@ -133,10 +135,12 @@ let
     '';
   };
 
-  attrs = if buildRootOnly then
-    buildRootOnlyAttrs
-  else
-    realAttrs;
+  attrs =
+    if buildRootOnly then
+      buildRootOnlyAttrs
+    else
+      realAttrs
+    ;
 in
 stdenv.mkDerivation (finalAttrs:
   attrs // {

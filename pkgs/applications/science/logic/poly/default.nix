@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "SRI-CSL";
     repo = "libpoly";
-    # they've pushed to the release branch, use explicit tag
+      # they've pushed to the release branch, use explicit tag
     rev = "refs/tags/v${version}";
     sha256 = "sha256-vrYB6RQYShipZ0c0j1KcSTJR1h0rQKAAeJvODMar1GM=";
   };

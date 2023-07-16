@@ -24,7 +24,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  # all 2 of the tests both try to pull down from a url
+    # all 2 of the tests both try to pull down from a url
   doCheck = false;
 
   pythonImportsCheck = [

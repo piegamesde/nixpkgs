@@ -38,7 +38,7 @@ buildPythonPackage rec {
       --replace 'requests = "^2.27.1"' 'requests = "*"'
   '';
 
-  # Tests require credentials and requests-testing
+    # Tests require credentials and requests-testing
   doCheck = false;
 
   pythonImportsCheck = [ "aussiebb" ];

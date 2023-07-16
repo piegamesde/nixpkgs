@@ -12,16 +12,21 @@ let
     ;
 
     # Taken from haskell-modules/default.nix, should probably abstract this away
-  callPackageWithScope = scope: drv: args:
+  callPackageWithScope =
+    scope: drv: args:
     (callPackageWith scope drv args) // {
-      overrideScope = f:
+      overrideScope =
+        f:
         callPackageWithScope (mkScope (fix' (extends f scope.__unfix__))) drv
-        args;
-    };
+        args
+        ;
+    }
+    ;
 
   mkScope = scope: pkgs // pkgs.xorg // pkgs.gnome2 // scope;
 
-  idrisPackages = self:
+  idrisPackages =
+    self:
     let
       defaultScope = mkScope self;
 
@@ -59,7 +64,7 @@ let
 
       idris = pkgs.callPackage ./idris-wrapper.nix { inherit idris-no-deps; };
 
-      # Utilities for building packages
+        # Utilities for building packages
 
       with-packages = callPackage ./with-packages.nix { };
 
@@ -67,11 +72,11 @@ let
 
       build-idris-package = callPackage ./build-idris-package.nix { };
 
-      # The set of libraries that comes with idris
+        # The set of libraries that comes with idris
 
       builtins = pkgs.lib.mapAttrsToList (name: value: value) builtins_;
 
-      # Libraries
+        # Libraries
 
       array = callPackage ./array.nix { };
 
@@ -231,9 +236,10 @@ let
 
     } // builtins_ // pkgs.lib.optionalAttrs config.allowAliases {
       # removed packages
-      protobuf = throw
-        "idrisPackages.protobuf has been removed: abandoned by upstream"; # Added 2022-02-06
+      protobuf =
+        throw "idrisPackages.protobuf has been removed: abandoned by upstream"
+        ; # Added 2022-02-06
     }
-  ;
+    ;
 in
 fix' (extends overrides idrisPackages)

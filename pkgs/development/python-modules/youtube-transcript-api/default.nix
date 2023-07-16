@@ -35,7 +35,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Python API which allows you to get the transcripts/subtitles for a given YouTube video";
+      "Python API which allows you to get the transcripts/subtitles for a given YouTube video"
+      ;
     homepage = "https://github.com/jdepoix/youtube-transcript-api";
     license = licenses.mit;
     maintainers = [ maintainers.marsam ];

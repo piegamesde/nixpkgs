@@ -30,9 +30,9 @@ buildPythonPackage rec {
     tenacity
   ];
 
-  # Nearly all tests depend on a working AWS Athena instance,
-  # therefore deactivating them.
-  # https://github.com/laughingman7743/PyAthena/#testing
+    # Nearly all tests depend on a working AWS Athena instance,
+    # therefore deactivating them.
+    # https://github.com/laughingman7743/PyAthena/#testing
   doCheck = false;
 
   pythonImportsCheck = [ "pyathena" ];

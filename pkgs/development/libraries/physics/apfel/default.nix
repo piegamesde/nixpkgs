@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-fRdJ+C92tEC75iUwP9Tmm/EswrlA52eUo5fBjfieH9o=";
   };
 
-  # needed for aarch64-darwin
+    # needed for aarch64-darwin
   nativeBuildInputs = [ autoreconfHook ];
 
   buildInputs = [

@@ -19,10 +19,10 @@ buildPythonPackage rec {
 
   passthru.optional-dependencies = {
     websocket = [ websocket-client ];
-    # interactive_ui requires curses package
+      # interactive_ui requires curses package
   };
 
-  # no tests
+    # no tests
   doCheck = false;
 
   pythonImportsCheck = [ "samsungctl" ];

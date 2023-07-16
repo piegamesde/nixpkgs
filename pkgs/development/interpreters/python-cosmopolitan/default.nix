@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     unzip
   ];
 
-  # slashes are significant because upstream uses o/$(MODE)/foo.o
+    # slashes are significant because upstream uses o/$(MODE)/foo.o
   buildFlags = [ "o//third_party/python" ];
   checkTarget = "o//third_party/python/test";
   enableParallelBuilding = true;

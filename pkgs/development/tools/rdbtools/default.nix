@@ -19,7 +19,7 @@ buildPythonApplication rec {
     python-lzf
   ];
 
-  # No tests in published package
+    # No tests in published package
   doCheck = false;
 
   meta = with lib; {

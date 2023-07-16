@@ -53,7 +53,8 @@ let
 
     src = fetchzip {
       url =
-        "https://dl.unvanquished.net/deps/linux-amd64-default_${version}.tar.xz ";
+        "https://dl.unvanquished.net/deps/linux-amd64-default_${version}.tar.xz "
+        ;
       sha256 = "sha256-6r9j0HRMDC/7i8f4f5bBK4NmwsTpSChHrRWwz0ENAZo=";
     };
 
@@ -104,19 +105,21 @@ let
     targetPkgs = pkgs: [ libstdcpp-preload-for-unvanquished-nacl ];
   };
 
-  wrapBinary = binary: wrappername: ''
-    cat > $out/lib/${binary}-wrapper <<-EOT
-    #!/bin/sh
-    exec $out/lib/${binary} -pakpath ${unvanquished-assets} "\$@"
-    EOT
-    chmod +x $out/lib/${binary}-wrapper
+  wrapBinary =
+    binary: wrappername: ''
+      cat > $out/lib/${binary}-wrapper <<-EOT
+      #!/bin/sh
+      exec $out/lib/${binary} -pakpath ${unvanquished-assets} "\$@"
+      EOT
+      chmod +x $out/lib/${binary}-wrapper
 
-    cat > $out/bin/${wrappername} <<-EOT
-    #!/bin/sh
-    exec ${fhsEnv}/bin/unvanquished-fhs-wrapper $out/lib/${binary}-wrapper "\$@"
-    EOT
-    chmod +x $out/bin/${wrappername}
-  '';
+      cat > $out/bin/${wrappername} <<-EOT
+      #!/bin/sh
+      exec ${fhsEnv}/bin/unvanquished-fhs-wrapper $out/lib/${binary}-wrapper "\$@"
+      EOT
+      chmod +x $out/bin/${wrappername}
+    ''
+    ;
 
   unvanquished-assets = stdenv.mkDerivation {
     pname = "unvanquished-assets";
@@ -135,7 +138,7 @@ let
     '';
   };
 
-  # this really is the daemon game engine, the game itself is in the assets
+    # this really is the daemon game engine, the game itself is in the assets
 in
 stdenv.mkDerivation rec {
   pname = "unvanquished";
@@ -232,8 +235,8 @@ stdenv.mkDerivation rec {
     homepage = "https://unvanquished.net/";
     downloadPage = "https://unvanquished.net/download/";
     description = "A fast paced, first person strategy game";
-    # don't replace the following lib.licenses.zlib with just "zlib",
-    # or you would end up with the package instead
+      # don't replace the following lib.licenses.zlib with just "zlib",
+      # or you would end up with the package instead
     license = with lib.licenses; [
       mit
       gpl3Plus

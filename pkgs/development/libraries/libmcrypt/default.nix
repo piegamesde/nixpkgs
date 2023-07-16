@@ -12,7 +12,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/mcrypt/Libmcrypt/${version}/libmcrypt-${version}.tar.gz";
+      "mirror://sourceforge/mcrypt/Libmcrypt/${version}/libmcrypt-${version}.tar.gz"
+      ;
     sha256 = "0gipgb939vy9m66d3k8il98rvvwczyaw2ixr8yn6icds9c3nrsz4";
   };
 
@@ -23,7 +24,8 @@ stdenv.mkDerivation rec {
 
   meta = {
     description =
-      "Replacement for the old crypt() package and crypt(1) command, with extensions";
+      "Replacement for the old crypt() package and crypt(1) command, with extensions"
+      ;
     homepage = "https://mcrypt.sourceforge.net";
     license = "GPL";
     platforms = lib.platforms.all;

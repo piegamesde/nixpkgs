@@ -23,56 +23,61 @@ let
 
   manpageUrls = pkgs.path + "/doc/manpage-urls.json";
 
-  # We need to strip references to /nix/store/* from options,
-  # including any `extraSources` if some modules came from elsewhere,
-  # or else the build will fail.
-  #
-  # E.g. if some `options` came from modules in ${pkgs.customModules}/nix,
-  # you'd need to include `extraSources = [ pkgs.customModules ]`
+    # We need to strip references to /nix/store/* from options,
+    # including any `extraSources` if some modules came from elsewhere,
+    # or else the build will fail.
+    #
+    # E.g. if some `options` came from modules in ${pkgs.customModules}/nix,
+    # you'd need to include `extraSources = [ pkgs.customModules ]`
   prefixesToStrip = map (p: "${toString p}/") ([ prefix ] ++ extraSources);
   stripAnyPrefixes = lib.flip (lib.foldr lib.removePrefix) prefixesToStrip;
 
   optionsDoc = buildPackages.nixosOptionsDoc {
     inherit options revision baseOptionsJSON warningsAreErrors allowDocBook;
-    transformOptions = opt:
+    transformOptions =
+      opt:
       opt // {
         # Clean up declaration sites to not refer to the NixOS source tree.
         declarations = map stripAnyPrefixes opt.declarations;
-      };
+      }
+      ;
   };
 
   nixos-lib = import ../../lib { };
 
-  testOptionsDoc = let
-    eval = nixos-lib.evalTest {
-      # Avoid evaluating a NixOS config prototype.
-      config.node.type = lib.types.deferredModule;
-      options._module.args = lib.mkOption { internal = true; };
-    };
-  in
-  buildPackages.nixosOptionsDoc {
-    inherit (eval) options;
-    inherit revision;
-    transformOptions = opt:
-      opt // {
-        # Clean up declaration sites to not refer to the NixOS source tree.
-        declarations = map (decl:
-          if hasPrefix (toString ../../..) (toString decl) then
-            let
-              subpath = removePrefix "/"
-                (removePrefix (toString ../../..) (toString decl));
-            in {
-              url = "https://github.com/NixOS/nixpkgs/blob/master/${subpath}";
-              name = subpath;
-            }
-          else
-            decl) opt.declarations;
+  testOptionsDoc =
+    let
+      eval = nixos-lib.evalTest {
+        # Avoid evaluating a NixOS config prototype.
+        config.node.type = lib.types.deferredModule;
+        options._module.args = lib.mkOption { internal = true; };
       };
-    documentType = "none";
-    variablelistId = "test-options-list";
-    optionIdPrefix = "test-opt-";
-  }
-  ;
+    in
+    buildPackages.nixosOptionsDoc {
+      inherit (eval) options;
+      inherit revision;
+      transformOptions =
+        opt:
+        opt // {
+          # Clean up declaration sites to not refer to the NixOS source tree.
+          declarations = map (decl:
+            if hasPrefix (toString ../../..) (toString decl) then
+              let
+                subpath = removePrefix "/"
+                  (removePrefix (toString ../../..) (toString decl));
+              in {
+                url = "https://github.com/NixOS/nixpkgs/blob/master/${subpath}";
+                name = subpath;
+              }
+            else
+              decl) opt.declarations;
+        }
+        ;
+      documentType = "none";
+      variablelistId = "test-options-list";
+      optionIdPrefix = "test-opt-";
+    }
+    ;
 
   toc = builtins.toFile "toc.xml" ''
     <toc role="chunk-toc">
@@ -224,13 +229,15 @@ in rec {
 
     # Generate the NixOS manual.
   manualHTML = runCommand "nixos-manual-html" {
-    nativeBuildInputs = if allowDocBook then
-      [
-        buildPackages.libxml2.bin
-        buildPackages.libxslt.bin
-      ]
-    else
-      [ buildPackages.nixos-render-docs ];
+    nativeBuildInputs =
+      if allowDocBook then
+        [
+          buildPackages.libxml2.bin
+          buildPackages.libxslt.bin
+        ]
+      else
+        [ buildPackages.nixos-render-docs ]
+      ;
     inputs =
       lib.optionals (!allowDocBook) (lib.sourceFilesBySuffices ./. [ ".md" ]);
     meta.description = "The NixOS manual in HTML format";
@@ -285,10 +292,10 @@ in rec {
     echo "doc manual $dst" >> $out/nix-support/hydra-build-products
   ''; # */
 
-  # Alias for backward compatibility. TODO(@oxij): remove eventually.
+    # Alias for backward compatibility. TODO(@oxij): remove eventually.
   manual = manualHTML;
 
-  # Index page of the NixOS manual.
+    # Index page of the NixOS manual.
   manualHTMLIndex = "${manualHTML}/share/doc/nixos/index.html";
 
   manualEpub = runCommand "nixos-manual-epub" {
@@ -320,7 +327,7 @@ in rec {
     echo "doc-epub manual $manual" >> $out/nix-support/hydra-build-products
   '';
 
-  # Generate the NixOS manpages.
+    # Generate the NixOS manpages.
   manpages = runCommand "nixos-manpages" {
     nativeBuildInputs = [ buildPackages.installShellFiles ]
       ++ lib.optionals allowDocBook [

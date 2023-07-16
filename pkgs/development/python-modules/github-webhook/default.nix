@@ -20,7 +20,7 @@ buildPythonPackage rec {
     six
   ];
 
-  # touches network
+    # touches network
   doCheck = false;
 
   meta = with lib; {

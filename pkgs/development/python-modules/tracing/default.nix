@@ -11,13 +11,14 @@ buildPythonPackage rec {
 
   src = fetchurl {
     url =
-      "http://code.liw.fi/debian/pool/main/p/python-tracing/python-tracing_${version}.orig.tar.gz";
+      "http://code.liw.fi/debian/pool/main/p/python-tracing/python-tracing_${version}.orig.tar.gz"
+      ;
     sha256 = "1l4ybj5rvrrcxf8csyq7qx52izybd502pmx70zxp46gxqm60d2l0";
   };
 
   buildInputs = [ sphinx ];
 
-  # error: invalid command 'test'
+    # error: invalid command 'test'
   doCheck = false;
 
   meta = with lib; {

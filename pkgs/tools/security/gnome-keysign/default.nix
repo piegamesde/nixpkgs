@@ -26,7 +26,8 @@ python3.pkgs.buildPythonApplication rec {
     # fix build failure due to missing import
     (fetchpatch {
       url =
-        "https://gitlab.gnome.org/GNOME/gnome-keysign/commit/216c3677e68960afc517edc00529323e85909323.patch";
+        "https://gitlab.gnome.org/GNOME/gnome-keysign/commit/216c3677e68960afc517edc00529323e85909323.patch"
+        ;
       sha256 = "1w410gvcridbq26sry7fxn49v59ss2lc0w5ab7csva8rzs1nc990";
     })
 
@@ -34,7 +35,8 @@ python3.pkgs.buildPythonApplication rec {
     # https://gitlab.gnome.org/GNOME/gnome-keysign/merge_requests/23
     (fetchpatch {
       url =
-        "https://gitlab.gnome.org/GNOME/gnome-keysign/commit/ffc6f40584d7564951e1c8b6d18d4f8a6a3fa09d.patch";
+        "https://gitlab.gnome.org/GNOME/gnome-keysign/commit/ffc6f40584d7564951e1c8b6d18d4f8a6a3fa09d.patch"
+        ;
       sha256 = "1hs6mmhi2f21kvy26llzvp37yf0i0dr69d18r641139nr6qg6kwy";
       includes = [ "setup.py" ];
     })
@@ -72,7 +74,7 @@ python3.pkgs.buildPythonApplication rec {
     twisted
   ];
 
-  # bunch of linting
+    # bunch of linting
   doCheck = false;
 
   meta = with lib; {

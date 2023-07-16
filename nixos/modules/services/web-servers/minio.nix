@@ -10,11 +10,13 @@ with lib;
 let
   cfg = config.services.minio;
 
-  legacyCredentials = cfg:
+  legacyCredentials =
+    cfg:
     pkgs.writeText "minio-legacy-credentials" ''
       MINIO_ROOT_USER=${cfg.accessKey}
       MINIO_ROOT_PASSWORD=${cfg.secretKey}
-    '';
+    ''
+    ;
 in {
   meta.maintainers = [ maintainers.bachp ];
 
@@ -37,7 +39,8 @@ in {
       default = [ "/var/lib/minio/data" ];
       type = types.listOf types.path;
       description = lib.mdDoc
-        "The list of data directories for storing the objects. Use one path for regular operation and the minimum of 4 endpoints for Erasure Code mode.";
+        "The list of data directories for storing the objects. Use one path for regular operation and the minimum of 4 endpoints for Erasure Code mode."
+        ;
     };
 
     configDir = mkOption {
@@ -102,7 +105,8 @@ in {
 
   config = mkIf cfg.enable {
     warnings = optional ((cfg.accessKey != "") || (cfg.secretKey != ""))
-      "services.minio.`accessKey` and services.minio.`secretKey` are deprecated, please use services.minio.`rootCredentialsFile` instead.";
+      "services.minio.`accessKey` and services.minio.`secretKey` are deprecated, please use services.minio.`rootCredentialsFile` instead."
+      ;
 
     systemd = lib.mkMerge [
       {
@@ -122,12 +126,14 @@ in {
             User = "minio";
             Group = "minio";
             LimitNOFILE = 65536;
-            EnvironmentFile = if (cfg.rootCredentialsFile != null) then
-              cfg.rootCredentialsFile
-            else if ((cfg.accessKey != "") || (cfg.secretKey != "")) then
-              (legacyCredentials cfg)
-            else
-              null;
+            EnvironmentFile =
+              if (cfg.rootCredentialsFile != null) then
+                cfg.rootCredentialsFile
+              else if ((cfg.accessKey != "") || (cfg.secretKey != "")) then
+                (legacyCredentials cfg)
+              else
+                null
+              ;
           };
           environment = {
             MINIO_REGION = "${cfg.region}";
@@ -143,8 +149,8 @@ in {
         # The service will fail if the credentials file is missing
         services.minio.unitConfig.ConditionPathExists = cfg.rootCredentialsFile;
 
-        # The service will not restart if the credentials file has
-        # been changed. This can cause stale root credentials.
+          # The service will not restart if the credentials file has
+          # been changed. This can cause stale root credentials.
         paths.minio-root-credentials = {
           wantedBy = [ "multi-user.target" ];
 

@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
   dontPatch = true;
   dontPatchELF = true;
 
-  # fxload binary exist inside the `examples/bin` directory of `libusb1`
+    # fxload binary exist inside the `examples/bin` directory of `libusb1`
   postFixup = ''
     mkdir -p $out/bin
     ln -s ${passthru.libusb}/examples/bin/fxload $out/bin/fxload
@@ -25,7 +25,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/libusb/libusb";
     description =
-      "Tool to upload firmware to into an21, fx, fx2, fx2lp and fx3 ez-usb devices";
+      "Tool to upload firmware to into an21, fx, fx2, fx2lp and fx3 ez-usb devices"
+      ;
     license = licenses.gpl2Only;
     platforms = platforms.linux;
     maintainers = with maintainers; [ realsnick ];

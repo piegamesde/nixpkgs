@@ -17,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-g9YSr7bFdyfr84rKQztVD4P5+MfDtlYq0quXBx/YXzo=";
   };
 
-  # Upstream doesn't have tests
+    # Upstream doesn't have tests
   doCheck = false;
 
   pythonImportsCheck = [ "minidump" ];

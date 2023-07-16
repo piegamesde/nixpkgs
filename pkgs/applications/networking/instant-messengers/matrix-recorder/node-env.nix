@@ -12,12 +12,14 @@
 }:
 
 let
-  python = if nodejs ? python then
-    nodejs.python
-  else
-    python2;
+  python =
+    if nodejs ? python then
+      nodejs.python
+    else
+      python2
+    ;
 
-  # Create a tar wrapper that filters all the 'Ignoring unknown extended header keyword' noise
+    # Create a tar wrapper that filters all the 'Ignoring unknown extended header keyword' noise
   tarWrapper = runCommand "tarWrapper" { } ''
     mkdir -p $out/bin
 
@@ -29,8 +31,9 @@ let
     chmod +x $out/bin/tar
   '';
 
-  # Function that generates a TGZ file from a NPM project
-  buildNodeSourceDist = {
+    # Function that generates a TGZ file from a NPM project
+  buildNodeSourceDist =
+    {
       name,
       version,
       src,
@@ -51,9 +54,11 @@ let
         mkdir -p $out/nix-support
         echo "file source-dist $out/tarballs/$tgzFile" >> $out/nix-support/hydra-build-products
       '';
-    };
+    }
+    ;
 
-  includeDependencies = {
+  includeDependencies =
+    {
       dependencies,
     }:
     lib.optionalString (dependencies != [ ]) (lib.concatMapStrings
@@ -69,10 +74,12 @@ let
         fi
 
         cd ..
-      '') dependencies);
+      '') dependencies)
+    ;
 
-  # Recursively composes the dependencies of a package
-  composePackage = {
+    # Recursively composes the dependencies of a package
+  composePackage =
+    {
       name,
       packageName,
       src,
@@ -122,9 +129,11 @@ let
       ${includeDependencies { inherit dependencies; }}
       cd ..
       ${lib.optionalString (builtins.substring 0 1 packageName == "@") "cd .."}
-    '';
+    ''
+    ;
 
-  pinpointDependencies = {
+  pinpointDependencies =
+    {
       dependencies,
       production,
     }:
@@ -201,13 +210,15 @@ let
             cd ..
         fi
       ''}
-    '' ;
+    ''
+    ;
 
-  # Recursively traverses all dependencies of a package and pinpoints all
-  # dependencies in the package.json file to the versions that are actually
-  # being used.
+    # Recursively traverses all dependencies of a package and pinpoints all
+    # dependencies in the package.json file to the versions that are actually
+    # being used.
 
-  pinpointDependenciesOfPackage = {
+  pinpointDependenciesOfPackage =
+    {
       packageName,
       dependencies ? [ ],
       production ? true,
@@ -223,16 +234,17 @@ let
             "cd .."
           }
       fi
-    '';
+    ''
+    ;
 
-  # Extract the Node.js source code which is used to compile packages with
-  # native bindings
+    # Extract the Node.js source code which is used to compile packages with
+    # native bindings
   nodeSources = runCommand "node-sources" { } ''
     tar --no-same-owner --no-same-permissions -xf ${nodejs.src}
     mv node-* $out
   '';
 
-  # Script that adds _integrity fields to all package.json files to prevent NPM from consulting the cache (that is empty)
+    # Script that adds _integrity fields to all package.json files to prevent NPM from consulting the cache (that is empty)
   addIntegrityFieldsScript = writeTextFile {
     name = "addintegrityfields.js";
     text = ''
@@ -292,7 +304,7 @@ let
     '';
   };
 
-  # Reconstructs a package-lock file from the node_modules/ folder structure and package.json files with dummy sha1 hashes
+    # Reconstructs a package-lock file from the node_modules/ folder structure and package.json files with dummy sha1 hashes
   reconstructPackageLock = writeTextFile {
     name = "addintegrityfields.js";
     text = ''
@@ -355,7 +367,8 @@ let
     '';
   };
 
-  prepareAndInvokeNPM = {
+  prepareAndInvokeNPM =
+    {
       packageName,
       bypassCache,
       reconstructLock,
@@ -363,10 +376,12 @@ let
       production,
     }:
     let
-      forceOfflineFlag = if bypassCache then
-        "--offline"
-      else
-        "--registry http://www.example.com";
+      forceOfflineFlag =
+        if bypassCache then
+          "--offline"
+        else
+          "--registry http://www.example.com"
+        ;
     in ''
       # Pinpoint the versions of all dependencies to the ones that are actually being used
       echo "pinpointing versions of dependencies..."
@@ -420,10 +435,12 @@ let
             lib.optionalString production "--production"
           } install
       fi
-    '' ;
+    ''
+    ;
 
-  # Builds and composes an NPM package including all its dependencies
-  buildNodePackage = {
+    # Builds and composes an NPM package including all its dependencies
+  buildNodePackage =
+    {
       name,
       packageName,
       version,
@@ -511,10 +528,11 @@ let
         runHook postInstall
       '';
     } // extraArgs)
-  ;
+    ;
 
-  # Builds a development shell
-  buildNodeShell = {
+    # Builds a development shell
+  buildNodeShell =
+    {
       name,
       packageName,
       version,
@@ -614,14 +632,14 @@ let
         chmod +x $out/bin/shell
       '';
 
-      # Provide the dependencies in a development shell through the NODE_PATH environment variable
+        # Provide the dependencies in a development shell through the NODE_PATH environment variable
       inherit nodeDependencies;
       shellHook = lib.optionalString (dependencies != [ ]) ''
         export NODE_PATH=$nodeDependencies/lib/node_modules
         export PATH="$nodeDependencies/bin:$PATH"
       '';
     }
-  ;
+    ;
 in {
   buildNodeSourceDist = lib.makeOverridable buildNodeSourceDist;
   buildNodePackage = lib.makeOverridable buildNodePackage;

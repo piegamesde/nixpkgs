@@ -79,7 +79,7 @@ stdenv.mkDerivation rec {
 
   outputs = [ "out" ] ++ lib.optional pythonSupport "py";
 
-  # ncurses is a hidden dependency of waf when checking python
+    # ncurses is a hidden dependency of waf when checking python
   buildInputs = lib.optionals pythonSupport [
     castxml
     ncurses
@@ -113,7 +113,7 @@ stdenv.mkDerivation rec {
   buildTargets = "build" + lib.optionalString enableDoxygen " doxygen"
     + lib.optionalString withManual "sphinx";
 
-  # to prevent fatal error: 'backward_warning.h' file not found
+    # to prevent fatal error: 'backward_warning.h' file not found
   CXXFLAGS = "-D_GLIBCXX_PERMIT_BACKWARD_HASH";
 
   postBuild = with lib;
@@ -122,19 +122,19 @@ stdenv.mkDerivation rec {
         ++ optional withManual "./waf sphinx");
     in
     "${flags}"
-  ;
+    ;
 
   postInstall = ''
     moveToOutput "${pythonEnv.libPrefix}" "$py"
   '';
 
-  # we need to specify the proper interpreter else ns3 can check against a
-  # different version
+    # we need to specify the proper interpreter else ns3 can check against a
+    # different version
   checkPhase = ''
     ${pythonEnv.interpreter} ./test.py --nowaf
   '';
 
-  # strictoverflow prevents clang from discovering pyembed when bindings
+    # strictoverflow prevents clang from discovering pyembed when bindings
   hardeningDisable = [
     "fortify"
     "strictoverflow"
@@ -149,7 +149,7 @@ stdenv.mkDerivation rec {
       teto
       rgrunbla
     ];
-    # never built on aarch64-darwin since first introduction in nixpkgs
+      # never built on aarch64-darwin since first introduction in nixpkgs
     broken = (stdenv.isDarwin && stdenv.isAarch64)
       || (stdenv.isLinux && stdenv.isAarch64);
   };

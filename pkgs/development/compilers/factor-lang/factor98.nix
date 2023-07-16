@@ -52,7 +52,8 @@ let
     zlib
   ];
 
-  wrapFactorScript = {
+  wrapFactorScript =
+    {
       from,
       to ? false,
       runtimeLibs,
@@ -74,9 +75,11 @@ let
           lib.makeLibraryPath runtimeLibs
         } \
         --prefix PATH : ${lib.makeBinPath [ graphviz ]}
-    '';
+    ''
+    ;
 
-  wrapFactor = runtimeLibs:
+  wrapFactor =
+    runtimeLibs:
     runCommand (lib.appendToName "with-libs" interpreter).name {
       nativeBuildInputs = [ makeWrapper ];
       buildInputs = [ gdk-pixbuf ];
@@ -85,9 +88,10 @@ let
       from = "${interpreter}/lib/factor/.factor.wrapped";
       to = "$out/bin/factor";
       runtimeLibs = (runtimeLibs ++ interpreter.runtimeLibs);
-    });
+    })
+    ;
 
-  # Development helper for use in nix shell
+    # Development helper for use in nix shell
   wrapLocalFactor = writeScriptBin "wrapFactor" ''
     #!${runtimeShell}
     ${wrapFactorScript {
@@ -106,7 +110,8 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url =
-      "https://downloads.factorcode.org/releases/${version}/factor-src-${version}.zip";
+      "https://downloads.factorcode.org/releases/${version}/factor-src-${version}.zip"
+      ;
     sha256 = "01ip9mbnar4sv60d2wcwfz62qaamdvbykxw3gbhzqa25z36vi3ri";
   };
 
@@ -176,9 +181,9 @@ stdenv.mkDerivation {
     runHook postBuild
   '';
 
-  # For now, the check phase runs, but should always return 0. This way the logs
-  # contain the test failures until all unit tests are fixed. Then, it should
-  # return 1 if any test failures have occured.
+    # For now, the check phase runs, but should always return 0. This way the logs
+    # contain the test failures until all unit tests are fixed. Then, it should
+    # return 1 if any test failures have occured.
   doCheck = false;
   checkPhase = ''
     runHook preCheck

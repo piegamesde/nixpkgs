@@ -52,13 +52,15 @@ let
       type = types.nullOr types.path;
       default = null;
       description = lib.mdDoc
-        "Path to the RSA private key (not password-protected) used to decrypt authentication credentials from the client.";
+        "Path to the RSA private key (not password-protected) used to decrypt authentication credentials from the client."
+        ;
     };
     authorizedUsersFile = mkOption {
       type = types.nullOr types.path;
       default = null;
       description = lib.mdDoc
-        "Path to the configuration file containing authorized users credentials to run iperf tests.";
+        "Path to the configuration file containing authorized users credentials to run iperf tests."
+        ;
     };
     extraFlags = mkOption {
       type = types.listOf types.str;

@@ -28,7 +28,8 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url =
-      "https://gpuopen.com/download/radeon-developer-tool-suite/RadeonDeveloperToolSuite-${buildNum}.tgz";
+      "https://gpuopen.com/download/radeon-developer-tool-suite/RadeonDeveloperToolSuite-${buildNum}.tgz"
+      ;
     hash = "sha256-1JxW6vXfOYDaCnHWEq8crjuu0QrUCwahm+ipOKVDQPA=";
   };
 

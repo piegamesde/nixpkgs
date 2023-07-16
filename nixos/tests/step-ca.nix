@@ -13,7 +13,8 @@ import ./make-test-python.nix ({
   in {
     name = "step-ca";
     nodes = {
-      caserver = {
+      caserver =
+        {
           config,
           pkgs,
           ...
@@ -42,9 +43,11 @@ import ./make-test-python.nix ({
               };
             };
           };
-        };
+        }
+        ;
 
-      caclient = {
+      caclient =
+        {
           config,
           pkgs,
           ...
@@ -54,8 +57,8 @@ import ./make-test-python.nix ({
           security.acme.defaults.email = "root@example.org";
           security.acme.acceptTerms = true;
 
-          security.pki.certificateFiles =
-            [ "${test-certificates}/root_ca.crt" ];
+          security.pki.certificateFiles = [ "${test-certificates}/root_ca.crt" ]
+            ;
 
           networking.firewall.allowedTCPPorts = [
             80
@@ -71,16 +74,19 @@ import ./make-test-python.nix ({
               };
             };
           };
-        };
+        }
+        ;
 
-      catester = {
+      catester =
+        {
           config,
           pkgs,
           ...
         }: {
-          security.pki.certificateFiles =
-            [ "${test-certificates}/root_ca.crt" ];
-        };
+          security.pki.certificateFiles = [ "${test-certificates}/root_ca.crt" ]
+            ;
+        }
+        ;
     };
 
     testScript = ''

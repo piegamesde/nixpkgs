@@ -16,7 +16,8 @@ import ./make-test-python.nix ({
         roberth
       ];
     };
-    nodes.machine = {
+    nodes.machine =
+      {
         lib,
         pkgs,
         ...
@@ -28,11 +29,11 @@ import ./make-test-python.nix ({
 
         systemd.services.vault = {
           after = [ "postgresql.service" ];
-          # Try for about 10 minutes rather than the default of 5 attempts.
+            # Try for about 10 minutes rather than the default of 5 attempts.
           serviceConfig.RestartSec = 1;
           serviceConfig.StartLimitBurst = 600;
         };
-        # systemd.services.vault.unitConfig.RequiresMountsFor = "/run/keys/";
+          # systemd.services.vault.unitConfig.RequiresMountsFor = "/run/keys/";
 
         services.postgresql.enable = true;
         services.postgresql.initialScript = pkgs.writeText "init.psql" ''
@@ -51,7 +52,8 @@ import ./make-test-python.nix ({
 
           GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO vaultuser;
         '';
-      };
+      }
+      ;
 
     testScript = ''
       secretConfig = """

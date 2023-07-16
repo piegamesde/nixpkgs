@@ -19,7 +19,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/project/tinyfugue/tinyfugue/${verUrl}/tf-${version}.tar.gz";
+      "mirror://sourceforge/project/tinyfugue/tinyfugue/${verUrl}/tf-${version}.tar.gz"
+      ;
     sha256 = "12fra2fdwqj6ilv9wdkc33rkj343rdcf5jyff4yiwywlrwaa2l1p";
   };
 
@@ -30,10 +31,10 @@ stdenv.mkDerivation rec {
     zlib
   ] ++ optional sslSupport openssl;
 
-  # Workaround build failure on -fno-common toolchains like upstream
-  # gcc-10. Otherwise build fails as:
-  #   ld: world.o:/build/tf-50b8/src/socket.h:24: multiple definition of
-  #     `world_decl'; command.o:/build/tf-50b8/src/socket.h:24: first defined here
+    # Workaround build failure on -fno-common toolchains like upstream
+    # gcc-10. Otherwise build fails as:
+    #   ld: world.o:/build/tf-50b8/src/socket.h:24: multiple definition of
+    #     `world_decl'; command.o:/build/tf-50b8/src/socket.h:24: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   meta = {

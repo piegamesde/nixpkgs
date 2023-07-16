@@ -65,7 +65,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.dartlang.org/";
     maintainers = with maintainers; [ grburst ];
     description =
-      "Scalable programming language, with robust libraries and runtimes, for building web, server, and mobile apps";
+      "Scalable programming language, with robust libraries and runtimes, for building web, server, and mobile apps"
+      ;
     longDescription = ''
       Dart is a class-based, single inheritance, object-oriented language
       with C-style syntax. It offers compilation to JavaScript, interfaces,

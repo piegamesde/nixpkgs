@@ -80,14 +80,16 @@ let
     cl-liballegro = super.cl-liballegro.overrideLispAttrs
       (o: { nativeLibs = [ pkgs.allegro5 ]; });
     cl-ode = super.cl-ode.overrideLispAttrs (o: {
-      nativeLibs = let
-        ode' = pkgs.ode.overrideAttrs (o: {
-          configureFlags = [
-            "--enable-shared"
-            "--enable-double-precision"
-          ];
-        });
-      in [ ode' ] ;
+      nativeLibs =
+        let
+          ode' = pkgs.ode.overrideAttrs (o: {
+            configureFlags = [
+              "--enable-shared"
+              "--enable-double-precision"
+            ];
+          });
+        in [ ode' ]
+        ;
     });
     classimp =
       super.classimp.overrideLispAttrs (o: { nativeLibs = [ pkgs.assimp ]; });
@@ -131,10 +133,12 @@ let
       nativeBuildInputs = [ pkgs.gsl ];
       nativeLibs = [ pkgs.gsl ];
     });
-    cl-libyaml = super.cl-libyaml.overrideLispAttrs
-      (o: { nativeLibs = [ pkgs.libyaml ]; });
-    cl-libxml2 = super.cl-libxml2.overrideLispAttrs
-      (o: { nativeLibs = [ pkgs.libxml2 ]; });
+    cl-libyaml =
+      super.cl-libyaml.overrideLispAttrs (o: { nativeLibs = [ pkgs.libyaml ]; })
+      ;
+    cl-libxml2 =
+      super.cl-libxml2.overrideLispAttrs (o: { nativeLibs = [ pkgs.libxml2 ]; })
+      ;
     cl-readline = super.cl-readline.overrideLispAttrs
       (o: { nativeLibs = [ pkgs.readline ]; });
     md5 =
@@ -195,10 +199,12 @@ let
     });
   });
 
-  qlpkgs = if builtins.pathExists ./imported.nix then
-    pkgs.callPackage ./imported.nix { inherit build-asdf-system; }
-  else
-    { };
+  qlpkgs =
+    if builtins.pathExists ./imported.nix then
+      pkgs.callPackage ./imported.nix { inherit build-asdf-system; }
+    else
+      { }
+    ;
 
 in
 qlpkgs.overrideScope' overrides

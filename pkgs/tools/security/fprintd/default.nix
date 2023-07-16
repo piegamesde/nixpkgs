@@ -46,7 +46,8 @@ stdenv.mkDerivation rec {
     # backport upstream patch fixing tests
     (fetchpatch {
       url =
-        "https://gitlab.freedesktop.org/libfprint/fprintd/-/commit/ae04fa989720279e5558c3b8ff9ebe1959b1cf36.patch";
+        "https://gitlab.freedesktop.org/libfprint/fprintd/-/commit/ae04fa989720279e5558c3b8ff9ebe1959b1cf36.patch"
+        ;
       sha256 = "sha256-jW5vlzrbZQ1gUDLBf7G50GnZfZxhlnL2Eu+9Bghdwdw=";
     })
   ];
@@ -97,7 +98,7 @@ stdenv.mkDerivation rec {
     "${placeholder "out"}/share/polkit-1/actions";
   PKG_CONFIG_DBUS_1_DATADIR = "${placeholder "out"}/share";
 
-  # FIXME: Ugly hack for tests to find libpam_wrapper.so
+    # FIXME: Ugly hack for tests to find libpam_wrapper.so
   LIBRARY_PATH = lib.makeLibraryPath [ python3.pkgs.pypamtest ];
 
   doCheck = true;
@@ -118,7 +119,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://fprint.freedesktop.org/";
     description =
-      "D-Bus daemon that offers libfprint functionality over the D-Bus interprocess communication bus";
+      "D-Bus daemon that offers libfprint functionality over the D-Bus interprocess communication bus"
+      ;
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
     maintainers = with maintainers; [ abbradar ];

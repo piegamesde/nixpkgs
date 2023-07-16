@@ -23,7 +23,8 @@ let
 
   src = fetchurl {
     url =
-      "https://launcherupdates.lunarclientcdn.com/Lunar%20Client-${version}.AppImage";
+      "https://launcherupdates.lunarclientcdn.com/Lunar%20Client-${version}.AppImage"
+      ;
     name = "lunar-client.AppImage";
     hash = "sha256-8F6inLctNLCrTvO/f4IWHclpm/6vqW44NKbct0Epp4s=";
   };

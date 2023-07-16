@@ -8,7 +8,7 @@ python3Packages.buildPythonApplication rec {
   pname = "rpl";
   version = "1.10";
 
-  # Tests not included in pip package.
+    # Tests not included in pip package.
   doCheck = false;
 
   src = fetchFromGitHub {
@@ -18,8 +18,7 @@ python3Packages.buildPythonApplication rec {
     sha256 = "0yf3pc3fws4nnh4nd8d3jpglmsyi69d17qqgpcnkpqca5l4cd25w";
   };
 
-  patches =
-    [ ./remove-argparse-manpage.diff # quickfix for ImportError: No module named build_manpages.build_manpages
+  patches = [ ./remove-argparse-manpage.diff # quickfix for ImportError: No module named build_manpages.build_manpages
     ];
 
   buildInputs = [

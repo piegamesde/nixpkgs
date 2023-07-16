@@ -39,7 +39,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  # : cannot connect to X server
+    # : cannot connect to X server
   doCheck = false;
 
   pythonImportsCheck = [ "qtconsole" ];

@@ -27,8 +27,8 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://developers.google.com/speed/pagespeed/psol";
     license = licenses.asl20;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    # WARNING: This only works with Linux because the pre-built PSOL binary is only supplied for Linux.
-    # TODO: Build PSOL from source to support more platforms.
+      # WARNING: This only works with Linux because the pre-built PSOL binary is only supplied for Linux.
+      # TODO: Build PSOL from source to support more platforms.
     platforms = platforms.linux;
   };
 }

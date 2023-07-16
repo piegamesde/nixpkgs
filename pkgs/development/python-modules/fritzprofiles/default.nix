@@ -23,7 +23,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "fritzprofiles" ];
 
-  # no tests
+    # no tests
   doCheck = false;
 
   meta = with lib; {

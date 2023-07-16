@@ -8,18 +8,18 @@ lib.makeScope pkgs.newScope (self:
   with self; {
     updateScript = callPackage ./update.nix { };
 
-    # Temporary helper until gdk-pixbuf supports multiple cache files.
-    # This will go away, do not use outside Nixpkgs.
+      # Temporary helper until gdk-pixbuf supports multiple cache files.
+      # This will go away, do not use outside Nixpkgs.
     _gdkPixbufCacheBuilder_DO_NOT_USE =
       callPackage ./gdk-pixbuf-cache-builder.nix { };
 
     libsoup = pkgs.libsoup.override { gnomeSupport = true; };
     libchamplain = pkgs.libchamplain.override { libsoup = libsoup; };
 
-    # ISO installer
-    # installerIso = callPackage ./installer.nix {};
+      # ISO installer
+      # installerIso = callPackage ./installer.nix {};
 
-    #### Core (http://ftp.acc.umu.se/pub/GNOME/core/)
+      #### Core (http://ftp.acc.umu.se/pub/GNOME/core/)
 
     adwaita-icon-theme = callPackage ./core/adwaita-icon-theme { };
 
@@ -31,8 +31,8 @@ lib.makeScope pkgs.newScope (self:
 
     epiphany = callPackage ./core/epiphany { };
 
-    evince = callPackage ./core/evince
-      { }; # ToDo: dbus would prevent compilation, enable tests
+    evince = callPackage ./core/evince { }
+      ; # ToDo: dbus would prevent compilation, enable tests
 
     evolution-data-server = callPackage ./core/evolution-data-server { };
 
@@ -82,7 +82,7 @@ lib.makeScope pkgs.newScope (self:
 
     gnome-settings-daemon = callPackage ./core/gnome-settings-daemon { };
 
-    # Using 43 to match Mutter used in Pantheon
+      # Using 43 to match Mutter used in Pantheon
     gnome-settings-daemon43 = callPackage ./core/gnome-settings-daemon/43 { };
 
     gnome-software = callPackage ./core/gnome-software { };
@@ -103,7 +103,7 @@ lib.makeScope pkgs.newScope (self:
 
     mutter = callPackage ./core/mutter { };
 
-    # Needed for elementary's gala, wingpanel and greeter until support for higher versions is provided
+      # Needed for elementary's gala, wingpanel and greeter until support for higher versions is provided
     mutter43 = callPackage ./core/mutter/43 { };
 
     nautilus = callPackage ./core/nautilus { };
@@ -142,7 +142,7 @@ lib.makeScope pkgs.newScope (self:
 
     zenity = callPackage ./core/zenity { };
 
-    #### Apps (http://ftp.acc.umu.se/pub/GNOME/apps/)
+      #### Apps (http://ftp.acc.umu.se/pub/GNOME/apps/)
 
     accerciser = callPackage ./apps/accerciser { };
 
@@ -184,13 +184,13 @@ lib.makeScope pkgs.newScope (self:
 
     vinagre = callPackage ./apps/vinagre { };
 
-    #### Dev http://ftp.gnome.org/pub/GNOME/devtools/
+      #### Dev http://ftp.gnome.org/pub/GNOME/devtools/
 
     anjuta = callPackage ./devtools/anjuta { };
 
     devhelp = callPackage ./devtools/devhelp { };
 
-    #### Games
+      #### Games
 
     aisleriot = callPackage ./games/aisleriot { };
 
@@ -230,7 +230,7 @@ lib.makeScope pkgs.newScope (self:
 
     quadrapassel = callPackage ./games/quadrapassel { };
 
-    #### Misc -- other packages on http://ftp.gnome.org/pub/GNOME/sources/
+      #### Misc -- other packages on http://ftp.gnome.org/pub/GNOME/sources/
 
     geary = callPackage ./misc/geary { };
 
@@ -263,26 +263,36 @@ lib.makeScope pkgs.newScope (self:
     #### Legacy aliases. They need to be outside the scope or they will shadow the attributes from parent scope.
 
     empathy = throw
-      "The ‘gnome.empathy’ package was removed as it is unmaintained and no longer launches due to libsoup3 migration."; # added 2023-01-20
+      "The ‘gnome.empathy’ package was removed as it is unmaintained and no longer launches due to libsoup3 migration."
+      ; # added 2023-01-20
     gnome-desktop = throw
-      "The ‘gnome.gnome-desktop’ alias was removed. Please use ‘pkgs.gnome-desktop’ directly."; # converted to throw on 2022-10-26
+      "The ‘gnome.gnome-desktop’ alias was removed. Please use ‘pkgs.gnome-desktop’ directly."
+      ; # converted to throw on 2022-10-26
     gnome-todo = pkgs.endeavour; # added 2022-07-30
     libgnome-games-support = throw
-      "The ‘gnome.libgnome-games-support’ alias was removed. Please use ‘pkgs.libgnome-games-support’ directly."; # converted to throw on 2022-10-26
+      "The ‘gnome.libgnome-games-support’ alias was removed. Please use ‘pkgs.libgnome-games-support’ directly."
+      ; # converted to throw on 2022-10-26
 
     gnome-books = throw
-      "The ‘gnome.gnome-books’ package was removed as it is broken and abandoned."; # added 2022-10-26
+      "The ‘gnome.gnome-books’ package was removed as it is broken and abandoned."
+      ; # added 2022-10-26
     gnome-documents = throw
-      "The ‘gnome.gnome-documents’ package was removed as it is broken and abandoned."; # added 2022-10-26
+      "The ‘gnome.gnome-documents’ package was removed as it is broken and abandoned."
+      ; # added 2022-10-26
     gnome-devel-docs = throw
-      "The ‘gnome.gnome-devel-docs’ package was removed as it is outdated and no longer relevant."; # added 2022-10-26
+      "The ‘gnome.gnome-devel-docs’ package was removed as it is outdated and no longer relevant."
+      ; # added 2022-10-26
 
     mutter338 = throw
-      "The ‘gnome.mutter338’ package was removed as it is no longer needed by Pantheon."; # added 2023-02-22
+      "The ‘gnome.mutter338’ package was removed as it is no longer needed by Pantheon."
+      ; # added 2023-02-22
     mutter42 = throw
-      "The ‘gnome.mutter42’ package was removed as it is no longer needed by Pantheon."; # added 2023-03-23
+      "The ‘gnome.mutter42’ package was removed as it is no longer needed by Pantheon."
+      ; # added 2023-03-23
     gnome-settings-daemon338 = throw
-      "The ‘gnome.gnome-settings-daemon338’ package was removed as it is no longer needed by Pantheon."; # added 2023-02-22
+      "The ‘gnome.gnome-settings-daemon338’ package was removed as it is no longer needed by Pantheon."
+      ; # added 2023-02-22
     gnome-settings-daemon42 = throw
-      "The ‘gnome.gnome-settings-daemon42’ package was removed as it is no longer needed by Pantheon."; # added 2023-03-23
+      "The ‘gnome.gnome-settings-daemon42’ package was removed as it is no longer needed by Pantheon."
+      ; # added 2023-03-23
   }

@@ -20,7 +20,8 @@ import ./make-test-python.nix ({
         test-support.displayManager.auto.user = "alice";
       };
 
-      custom_lockcmd = {
+      custom_lockcmd =
+        {
           pkgs,
           ...
         }: {
@@ -38,7 +39,8 @@ import ./make-test-python.nix ({
             ];
             lockerCommand = "${pkgs.xlockmore}/bin/xlock -mode ant";
           };
-        };
+        }
+        ;
     };
 
     testScript = ''

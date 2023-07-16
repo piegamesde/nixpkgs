@@ -12,19 +12,23 @@ let
     ;
     # Utility to generate an AppArmor rule
     # only when the given path exists in config.environment.etc
-  etcRule = arg:
+  etcRule =
+    arg:
     let
-      go = {
+      go =
+        {
           path ? null,
           mode ? "r",
           trail ? ""
         }:
         lib.optionalString (hasAttr path etc)
-        "${mode} ${config.environment.etc.${path}.source}${trail},";
+        "${mode} ${config.environment.etc.${path}.source}${trail},"
+        ;
     in if isAttrs arg then
       go arg
     else
-      go { path = arg; };
+      go { path = arg; }
+    ;
 in {
   # FIXME: most of the etcRule calls below have been
   # written systematically by converting from apparmor-profiles's profiles
@@ -153,9 +157,9 @@ in {
       include "${pkgs.apparmor-profiles}/etc/apparmor.d/abstractions/dri-common"
       ${etcRule "drirc"}
     '';
-    # The config.fonts.fontconfig NixOS module adds many files to /etc/fonts/
-    # by symlinking them but without exporting them outside of its NixOS module,
-    # those are therefore added there to this "abstractions/fonts".
+      # The config.fonts.fontconfig NixOS module adds many files to /etc/fonts/
+      # by symlinking them but without exporting them outside of its NixOS module,
+      # those are therefore added there to this "abstractions/fonts".
     "abstractions/fonts" = ''
       include "${pkgs.apparmor-profiles}/etc/apparmor.d/abstractions/fonts"
       ${etcRule {

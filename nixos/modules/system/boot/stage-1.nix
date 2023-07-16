@@ -23,7 +23,7 @@ let
     config.system.modulesTree.override { name = kernel-name + "-modules"; };
   firmware = config.hardware.firmware;
 
-  # Determine the set of modules that we need to mount the root FS.
+    # Determine the set of modules that we need to mount the root FS.
   modulesClosure = pkgs.makeModulesClosure {
     rootModules = config.boot.initrd.availableKernelModules
       ++ config.boot.initrd.kernelModules;
@@ -32,15 +32,15 @@ let
     allowMissing = false;
   };
 
-  # The initrd only has to mount `/` or any FS marked as necessary for
-  # booting (such as the FS containing `/nix/store`, or an FS needed for
-  # mounting `/`, like `/` on a loopback).
+    # The initrd only has to mount `/` or any FS marked as necessary for
+    # booting (such as the FS containing `/nix/store`, or an FS needed for
+    # mounting `/`, like `/` on a loopback).
   fileSystems = filter utils.fsNeededForBoot config.system.build.fileSystems;
 
-  # Determine whether zfs-mount(8) is needed.
+    # Determine whether zfs-mount(8) is needed.
   zfsRequiresMountHelper = any (fs: lib.elem "zfsutil" fs.options) fileSystems;
 
-  # A utility for enumerating the shared-library dependencies of a program
+    # A utility for enumerating the shared-library dependencies of a program
   findLibs = pkgs.buildPackages.writeShellScriptBin "find-libs" ''
     set -euo pipefail
 
@@ -91,15 +91,15 @@ let
     done
   '';
 
-  # Some additional utilities needed in stage 1, like mount, lvm, fsck
-  # etc.  We don't want to bring in all of those packages, so we just
-  # copy what we need.  Instead of using statically linked binaries,
-  # we just copy what we need from Glibc and use patchelf to make it
-  # work.
+    # Some additional utilities needed in stage 1, like mount, lvm, fsck
+    # etc.  We don't want to bring in all of those packages, so we just
+    # copy what we need.  Instead of using statically linked binaries,
+    # we just copy what we need from Glibc and use patchelf to make it
+    # work.
   extraUtils = pkgs.runCommand "extra-utils" {
     nativeBuildInputs = [ pkgs.buildPackages.nukeReferences ];
-    allowedReferences =
-      [ "out" ]; # prevent accidents like glibc being included in the initrd
+    allowedReferences = [ "out" ]
+      ; # prevent accidents like glibc being included in the initrd
   } ''
     set +o pipefail
 
@@ -177,10 +177,12 @@ let
     ${optionalString (!config.boot.loader.supportsInitrdSecrets)
     (concatStringsSep "\n" (mapAttrsToList (dest: source:
       let
-        source' = if source == null then
-          dest
-        else
-          source;
+        source' =
+          if source == null then
+            dest
+          else
+            source
+          ;
       in ''
         mkdir -p $(dirname "$out/secrets/${dest}")
         # Some programs (e.g. ssh) doesn't like secrets to be
@@ -255,9 +257,9 @@ let
     fi
   ''; # */
 
-  # Networkd link files are used early by udev to set up interfaces early.
-  # This must be done in stage 1 to avoid race conditions between udev and
-  # network daemons.
+    # Networkd link files are used early by udev to set up interfaces early.
+    # This must be done in stage 1 to avoid race conditions between udev and
+    # network daemons.
   linkUnits = pkgs.runCommand "link-units" {
     allowedReferences = [ extraUtils ];
     preferLocalBuild = true;
@@ -313,8 +315,8 @@ let
       --replace ID_CDROM_MEDIA_TRACK_COUNT_DATA ID_CDROM_MEDIA
   ''; # */
 
-  # The init script of boot stage 1 (loading kernel modules for
-  # mounting the root FS).
+    # The init script of boot stage 1 (loading kernel modules for
+    # mounting the root FS).
   bootStage1 = pkgs.substituteAll {
     src = ./stage-1-init.sh;
 
@@ -358,20 +360,23 @@ let
           # Don't include zram devices
           && !(hasPrefix "/dev/zram" sd.device)) config.swapDevices);
 
-    fsInfo = let
-      f = fs: [
-        fs.mountPoint
-        (if fs.device != null then
-          fs.device
-        else
-          "/dev/disk/by-label/${fs.label}")
-        fs.fsType
-        (builtins.concatStringsSep "," fs.options)
-      ];
-    in
-    pkgs.writeText "initrd-fsinfo"
-    (concatStringsSep "\n" (concatMap f fileSystems))
-    ;
+    fsInfo =
+      let
+        f =
+          fs: [
+            fs.mountPoint
+            (if fs.device != null then
+              fs.device
+            else
+              "/dev/disk/by-label/${fs.label}")
+            fs.fsType
+            (builtins.concatStringsSep "," fs.options)
+          ]
+          ;
+      in
+      pkgs.writeText "initrd-fsinfo"
+      (concatStringsSep "\n" (concatMap f fileSystems))
+      ;
 
     setHostId = optionalString (config.networking.hostId != null) ''
       hi="${config.networking.hostId}"
@@ -386,8 +391,8 @@ let
     '';
   };
 
-  # The closure of the init script of boot stage 1 is what we put in
-  # the initial RAM disk.
+    # The closure of the init script of boot stage 1 is what we put in
+    # the initial RAM disk.
   initialRamdisk = pkgs.makeInitrd {
     name = "initrd-${kernel-name}";
     inherit (config.boot.initrd) compressor compressorArgs prepend;
@@ -437,58 +442,61 @@ let
     }) config.boot.initrd.extraFiles);
   };
 
-  # Script to add secret files to the initrd at bootloader update time
-  initialRamdiskSecretAppender = let
-    compressorExe = initialRamdisk.compressorExecutableFunction pkgs;
-  in
-  pkgs.writeScriptBin "append-initrd-secrets" ''
-    #!${pkgs.bash}/bin/bash -e
-    function usage {
-      echo "USAGE: $0 INITRD_FILE" >&2
-      echo "Appends this configuration's secrets to INITRD_FILE" >&2
-    }
+    # Script to add secret files to the initrd at bootloader update time
+  initialRamdiskSecretAppender =
+    let
+      compressorExe = initialRamdisk.compressorExecutableFunction pkgs;
+    in
+    pkgs.writeScriptBin "append-initrd-secrets" ''
+      #!${pkgs.bash}/bin/bash -e
+      function usage {
+        echo "USAGE: $0 INITRD_FILE" >&2
+        echo "Appends this configuration's secrets to INITRD_FILE" >&2
+      }
 
-    if [ $# -ne 1 ]; then
-      usage
-      exit 1
-    fi
-
-    if [ "$1"x = "--helpx" ]; then
-      usage
-      exit 0
-    fi
-
-    ${lib.optionalString (config.boot.initrd.secrets == { }) "exit 0"}
-
-    export PATH=${pkgs.coreutils}/bin:${pkgs.libarchive}/bin:${pkgs.gzip}/bin:${pkgs.findutils}/bin
-
-    function cleanup {
-      if [ -n "$tmp" -a -d "$tmp" ]; then
-        rm -fR "$tmp"
+      if [ $# -ne 1 ]; then
+        usage
+        exit 1
       fi
-    }
-    trap cleanup EXIT
 
-    tmp=$(mktemp -d ''${TMPDIR:-/tmp}/initrd-secrets.XXXXXXXXXX)
+      if [ "$1"x = "--helpx" ]; then
+        usage
+        exit 0
+      fi
 
-    ${lib.concatStringsSep "\n" (mapAttrsToList (dest: source:
-      let
-        source' = if source == null then
-          dest
-        else
-          toString source;
-      in ''
-        mkdir -p $(dirname "$tmp/.initrd-secrets/${dest}")
-        cp -a ${source'} "$tmp/.initrd-secrets/${dest}"
-      '' ) config.boot.initrd.secrets)}
+      ${lib.optionalString (config.boot.initrd.secrets == { }) "exit 0"}
 
-    # mindepth 1 so that we don't change the mode of /
-    (cd "$tmp" && find . -mindepth 1 -print0 | sort -z | bsdtar --uid 0 --gid 0 -cnf - -T - | bsdtar --null -cf - --format=newc @-) | \
-      ${compressorExe} ${
-        lib.escapeShellArgs initialRamdisk.compressorArgs
-      } >> "$1"
-  ''
-  ;
+      export PATH=${pkgs.coreutils}/bin:${pkgs.libarchive}/bin:${pkgs.gzip}/bin:${pkgs.findutils}/bin
+
+      function cleanup {
+        if [ -n "$tmp" -a -d "$tmp" ]; then
+          rm -fR "$tmp"
+        fi
+      }
+      trap cleanup EXIT
+
+      tmp=$(mktemp -d ''${TMPDIR:-/tmp}/initrd-secrets.XXXXXXXXXX)
+
+      ${lib.concatStringsSep "\n" (mapAttrsToList (dest: source:
+        let
+          source' =
+            if source == null then
+              dest
+            else
+              toString source
+            ;
+        in ''
+          mkdir -p $(dirname "$tmp/.initrd-secrets/${dest}")
+          cp -a ${source'} "$tmp/.initrd-secrets/${dest}"
+        '' ) config.boot.initrd.secrets)}
+
+      # mindepth 1 so that we don't change the mode of /
+      (cd "$tmp" && find . -mindepth 1 -print0 | sort -z | bsdtar --uid 0 --gid 0 -cnf - -T - | bsdtar --null -cf - --format=newc @-) | \
+        ${compressorExe} ${
+          lib.escapeShellArgs initialRamdisk.compressorArgs
+        } >> "$1"
+    ''
+    ;
 
 in {
   options = {
@@ -653,7 +661,8 @@ in {
       default = null;
       type = types.nullOr (types.listOf types.str);
       description = lib.mdDoc
-        "Arguments to pass to the compressor for the initrd image, or null to use the compressor's defaults.";
+        "Arguments to pass to the compressor for the initrd image, or null to use the compressor's defaults."
+        ;
     };
 
     boot.initrd.secrets = mkOption {
@@ -734,11 +743,12 @@ in {
           "The ‘fileSystems’ option does not specify your root file system.";
       }
       {
-        assertion = let
-          inherit (config.boot) resumeDevice;
-        in
-        resumeDevice == "" || builtins.substring 0 1 resumeDevice == "/"
-        ;
+        assertion =
+          let
+            inherit (config.boot) resumeDevice;
+          in
+          resumeDevice == "" || builtins.substring 0 1 resumeDevice == "/"
+          ;
         message = "boot.resumeDevice has to be an absolute path."
           + " Old \"x:y\" style is no longer supported.";
       }

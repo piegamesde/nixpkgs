@@ -40,10 +40,12 @@ let
   };
 
   bits = builtins.toString stdenv.hostPlatform.parsed.cpu.bits;
-  osname = if stdenv.isDarwin then
-    "osx"
-  else
-    stdenv.hostPlatform.parsed.kernel.name;
+  osname =
+    if stdenv.isDarwin then
+      "osx"
+    else
+      stdenv.hostPlatform.parsed.kernel.name
+    ;
 
   pathToDmd = "\${NIX_BUILD_TOP}/dmd/generated/${osname}/release/${bits}/dmd";
 
@@ -80,7 +82,7 @@ stdenv.mkDerivation rec {
 
   sourceRoot = ".";
 
-  # https://issues.dlang.org/show_bug.cgi?id=19553
+    # https://issues.dlang.org/show_bug.cgi?id=19553
   hardeningDisable = [ "fortify" ];
 
   patches = lib.optionals (lib.versionOlder version "2.088.0") [
@@ -88,7 +90,8 @@ stdenv.mkDerivation rec {
     # a newer DMD
     (fetchpatch {
       url =
-        "https://github.com/dlang/dmd/commit/c4d33e5eb46c123761ac501e8c52f33850483a8a.patch";
+        "https://github.com/dlang/dmd/commit/c4d33e5eb46c123761ac501e8c52f33850483a8a.patch"
+        ;
       stripLen = 1;
       extraPrefix = "dmd/";
       sha256 = "sha256-N21mAPfaTo+zGCip4njejasraV5IsWVqlGR5eOdFZZE=";
@@ -97,7 +100,8 @@ stdenv.mkDerivation rec {
     # Fixes C++ tests that compiled on older C++ but not on the current one
     (fetchpatch {
       url =
-        "https://github.com/dlang/druntime/commit/438990def7e377ca1f87b6d28246673bb38022ab.patch";
+        "https://github.com/dlang/druntime/commit/438990def7e377ca1f87b6d28246673bb38022ab.patch"
+        ;
       stripLen = 1;
       extraPrefix = "druntime/";
       sha256 = "sha256-/pPKK7ZK9E/mBrxm2MZyBNhYExE8p9jz8JqBdZSE6uY=";
@@ -161,8 +165,8 @@ stdenv.mkDerivation rec {
     tzdata
   ] ++ lib.optionals stdenv.isDarwin [ Foundation ];
 
-  nativeCheckInputs = [ gdb ]
-    ++ lib.optionals (lib.versionOlder version "2.089.0") [ unzip ];
+  nativeCheckInputs =
+    [ gdb ] ++ lib.optionals (lib.versionOlder version "2.089.0") [ unzip ];
 
   buildFlags = [
     "BUILD=release"
@@ -170,7 +174,7 @@ stdenv.mkDerivation rec {
     "PIC=1"
   ];
 
-  # Build and install are based on http://wiki.dlang.org/Building_DMD
+    # Build and install are based on http://wiki.dlang.org/Building_DMD
   buildPhase = ''
     runHook preBuild
 
@@ -194,10 +198,10 @@ stdenv.mkDerivation rec {
 
   checkFlags = buildFlags;
 
-  # many tests are disbled because they are failing
+    # many tests are disbled because they are failing
 
-  # NOTE: Purity check is disabled for checkPhase because it doesn't fare well
-  # with the DMD linker. See https://github.com/NixOS/nixpkgs/issues/97420
+    # NOTE: Purity check is disabled for checkPhase because it doesn't fare well
+    # with the DMD linker. See https://github.com/NixOS/nixpkgs/issues/97420
   checkPhase = ''
     runHook preCheck
 
@@ -243,8 +247,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Official reference compiler for the D language";
     homepage = "https://dlang.org/";
-    # Everything is now Boost licensed, even the backend.
-    # https://github.com/dlang/dmd/pull/6680
+      # Everything is now Boost licensed, even the backend.
+      # https://github.com/dlang/dmd/pull/6680
     license = licenses.boost;
     maintainers = with maintainers; [
       ThomasMader

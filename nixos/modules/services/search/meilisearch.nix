@@ -18,14 +18,15 @@ in {
   ];
   meta.doc = ./meilisearch.md;
 
-  ###### interface
+    ###### interface
 
   options.services.meilisearch = {
     enable = mkEnableOption (lib.mdDoc "MeiliSearch - a RESTful search API");
 
     package = mkOption {
       description = lib.mdDoc
-        "The package to use for meilisearch. Use this if you require specific features to be enabled. The default package has no features.";
+        "The package to use for meilisearch. Use this if you require specific features to be enabled. The default package has no features."
+        ;
       default = pkgs.meilisearch;
       defaultText = lib.literalExpression "pkgs.meilisearch";
       type = types.package;
@@ -52,7 +53,7 @@ in {
       ];
     };
 
-    # TODO change this to LoadCredentials once possible
+      # TODO change this to LoadCredentials once possible
     masterKeyEnvironmentFile = mkOption {
       description = lib.mdDoc ''
         Path to file which contains the master key.
@@ -114,7 +115,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
     systemd.services.meilisearch = {

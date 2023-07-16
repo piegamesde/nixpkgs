@@ -16,14 +16,15 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchurl {
     url =
-      "http://www.crufty.net/ftp/pub/sjg/${finalAttrs.pname}-${finalAttrs.version}.tar.gz";
+      "http://www.crufty.net/ftp/pub/sjg/${finalAttrs.pname}-${finalAttrs.version}.tar.gz"
+      ;
     hash = "sha256-hk9yGFgs95Dsc7ILcQVCXLn/ozUiJUF3LwMTMGtqC8Q=";
   };
 
-  # Make tests work with musl
-  # * Disable deptgt-delete_on_error test (alpine does this too)
-  # * Disable shell-ksh test (ksh doesn't compile with musl)
-  # * Fix test failing due to different strerror(3) output for musl and glibc
+    # Make tests work with musl
+    # * Disable deptgt-delete_on_error test (alpine does this too)
+    # * Disable shell-ksh test (ksh doesn't compile with musl)
+    # * Fix test failing due to different strerror(3) output for musl and glibc
   postPatch = lib.optionalString (stdenv.hostPlatform.libc == "musl") ''
     sed -i unit-tests/Makefile \
       -e '/deptgt-delete_on_error/d' \
@@ -44,29 +45,31 @@ stdenv.mkDerivation (finalAttrs: {
     (fetchpatch {
       name = "separate-tests.patch";
       url =
-        "https://raw.githubusercontent.com/alpinelinux/aports/2a36f7b79df44136c4d2b8e9512f908af65adfee/community/bmake/separate-tests.patch";
+        "https://raw.githubusercontent.com/alpinelinux/aports/2a36f7b79df44136c4d2b8e9512f908af65adfee/community/bmake/separate-tests.patch"
+        ;
       hash = "sha256-KkmqASAl46/6Of7JLOQDFUqkOw3rGLxnNmyg7Lk0RwM=";
     })
     # add a shebang to bmake's install(1) replacement
     (fetchpatch {
       name = "install-sh.patch";
       url =
-        "https://raw.githubusercontent.com/alpinelinux/aports/34cd8c45397c63c041cf3cbe1ba5232fd9331196/community/bmake/install-sh.patch";
+        "https://raw.githubusercontent.com/alpinelinux/aports/34cd8c45397c63c041cf3cbe1ba5232fd9331196/community/bmake/install-sh.patch"
+        ;
       hash = "sha256-RvFq5nsmDxq54UTnXGlfO6Rip/XQYj0ZySatqUxjEX0=";
     })
   ];
 
-  # The generated makefile is a small wrapper for calling ./boot-strap with a
-  # given op. On a case-insensitive filesystem this generated makefile clobbers
-  # a distinct, shipped, Makefile and causes infinite recursion during tests
-  # which eventually fail with "fork: Resource temporarily unavailable"
+    # The generated makefile is a small wrapper for calling ./boot-strap with a
+    # given op. On a case-insensitive filesystem this generated makefile clobbers
+    # a distinct, shipped, Makefile and causes infinite recursion during tests
+    # which eventually fail with "fork: Resource temporarily unavailable"
   configureFlags = [ "--without-makefile" ];
 
-  # Disabled tests:
-  # opt-chdir: ofborg complains about it somehow
-  # opt-keep-going-indirect: not yet known
-  # varmod-localtime: musl doesn't support TZDIR and this test relies on impure,
-  # implicit paths
+    # Disabled tests:
+    # opt-chdir: ofborg complains about it somehow
+    # opt-keep-going-indirect: not yet known
+    # varmod-localtime: musl doesn't support TZDIR and this test relies on impure,
+    # implicit paths
   BROKEN_TESTS = builtins.concatStringsSep " " [
     "opt-chdir"
     "opt-keep-going-indirect"
@@ -91,8 +94,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = true;
 
-  nativeCheckInputs = [ tzdata ]
-    ++ lib.optionals (stdenv.hostPlatform.libc != "musl") [ ksh ];
+  nativeCheckInputs =
+    [ tzdata ] ++ lib.optionals (stdenv.hostPlatform.libc != "musl") [ ksh ];
 
   checkPhase = ''
     runHook preCheck

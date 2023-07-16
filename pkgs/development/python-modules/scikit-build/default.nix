@@ -33,8 +33,8 @@ buildPythonPackage rec {
     hash = "sha256-qbnMdHm3HmyNQ0WW363gJSU6riOtsiqaLYWFD9Uc7P0=";
   };
 
-  # This line in the filterwarnings section of the pytest configuration leads to this error:
-  #  E   UserWarning: Distutils was imported before Setuptools, but importing Setuptools also replaces the `distutils` module in `sys.modules`. This may lead to undesirable behaviors or errors. To avoid these issues, avoid using distutils directly, ensure that setuptools is installed in the traditional way (e.g. not an editable install), and/or make sure that setuptools is always imported before distutils.
+    # This line in the filterwarnings section of the pytest configuration leads to this error:
+    #  E   UserWarning: Distutils was imported before Setuptools, but importing Setuptools also replaces the `distutils` module in `sys.modules`. This may lead to undesirable behaviors or errors. To avoid these issues, avoid using distutils directly, ensure that setuptools is installed in the traditional way (e.g. not an editable install), and/or make sure that setuptools is always imported before distutils.
   postPatch = ''
     sed -i "/'error',/d" pyproject.toml
   '';
@@ -86,7 +86,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Improved build system generator for CPython C/C++/Fortran/Cython extensions";
+      "Improved build system generator for CPython C/C++/Fortran/Cython extensions"
+      ;
     homepage = "https://github.com/scikit-build/scikit-build";
     license = with licenses; [
       mit

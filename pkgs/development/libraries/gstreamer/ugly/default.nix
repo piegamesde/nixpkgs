@@ -38,7 +38,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://gstreamer.freedesktop.org/src/${pname}/${pname}-${version}.tar.xz";
+      "https://gstreamer.freedesktop.org/src/${pname}/${pname}-${version}.tar.xz"
+      ;
     hash = "sha256-jzD0TbC9BjcJv2++VROOOpivCry2HDYPNVgrvhDoBpE=";
   };
 
@@ -97,10 +98,12 @@ stdenv.mkDerivation rec {
       the plug-ins or the supporting libraries might not be how we'd
       like. The code might be widely known to present patent problems.
     '';
-    license = if enableGplPlugins then
-      licenses.gpl2Plus
-    else
-      licenses.lgpl2Plus;
+    license =
+      if enableGplPlugins then
+        licenses.gpl2Plus
+      else
+        licenses.lgpl2Plus
+      ;
     platforms = platforms.unix;
     maintainers = with maintainers; [ matthewbauer ];
   };

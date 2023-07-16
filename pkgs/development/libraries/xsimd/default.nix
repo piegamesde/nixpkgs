@@ -22,15 +22,16 @@ stdenv.mkDerivation rec {
   doCheck = true;
   nativeCheckInputs = [ gtest ];
   checkTarget = "xtest";
-  GTEST_FILTER = let
-    # Upstream Issue: https://github.com/xtensor-stack/xsimd/issues/456
-    filteredTests =
-      lib.optionals stdenv.hostPlatform.isDarwin [ "error_gamma_test/*" ];
-  in
-  "-${builtins.concatStringsSep ":" filteredTests}"
-  ;
+  GTEST_FILTER =
+    let
+      # Upstream Issue: https://github.com/xtensor-stack/xsimd/issues/456
+      filteredTests =
+        lib.optionals stdenv.hostPlatform.isDarwin [ "error_gamma_test/*" ];
+    in
+    "-${builtins.concatStringsSep ":" filteredTests}"
+    ;
 
-  # https://github.com/xtensor-stack/xsimd/issues/748
+    # https://github.com/xtensor-stack/xsimd/issues/748
   postPatch = ''
     substituteInPlace xsimd.pc.in \
       --replace '$'{prefix}/@CMAKE_INSTALL_LIBDIR@ @CMAKE_INSTALL_FULL_LIBDIR@

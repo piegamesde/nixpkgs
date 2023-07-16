@@ -11,7 +11,8 @@ let
 
   eachBlockbook = config.services.blockbook-frontend;
 
-  blockbookOpts = {
+  blockbookOpts =
+    {
       config,
       lib,
       name,
@@ -92,7 +93,8 @@ let
           type = types.bool;
           default = false;
           description = lib.mdDoc
-            "Debug mode, return more verbose errors, reload templates on each request.";
+            "Debug mode, return more verbose errors, reload templates on each request."
+            ;
         };
 
         internal = mkOption {
@@ -158,7 +160,8 @@ let
           type = types.bool;
           default = true;
           description = lib.mdDoc
-            "Synchronizes until tip, if together with zeromq, keeps index synchronized.";
+            "Synchronizes until tip, if together with zeromq, keeps index synchronized."
+            ;
         };
 
         templateDir = mkOption {
@@ -167,7 +170,8 @@ let
           defaultText = literalExpression ''"''${package}/share/templates/"'';
           example = literalExpression ''"''${dataDir}/templates/static/"'';
           description = lib.mdDoc
-            "Location of the HTML templates. By default, ones shipped with the package are used.";
+            "Location of the HTML templates. By default, ones shipped with the package are used."
+            ;
         };
 
         extraConfig = mkOption {
@@ -213,7 +217,8 @@ let
           '';
         };
       };
-    };
+    }
+    ;
 in {
   # interface
 
@@ -226,22 +231,24 @@ in {
     };
   };
 
-  # implementation
+    # implementation
 
   config = mkIf (eachBlockbook != { }) {
 
     systemd.services = mapAttrs' (blockbookName: cfg:
       (nameValuePair "blockbook-frontend-${blockbookName}" (let
-        configFile = if cfg.configFile != null then
-          cfg.configFile
-        else
-          pkgs.writeText "config.conf" (builtins.toJSON ({
-            coin_name = "${cfg.coinName}";
-            rpc_user = "${cfg.rpc.user}";
-            rpc_pass = "${cfg.rpc.password}";
-            rpc_url = "${cfg.rpc.url}:${toString cfg.rpc.port}";
-            message_queue_binding = "${cfg.messageQueueBinding}";
-          } // cfg.extraConfig));
+        configFile =
+          if cfg.configFile != null then
+            cfg.configFile
+          else
+            pkgs.writeText "config.conf" (builtins.toJSON ({
+              coin_name = "${cfg.coinName}";
+              rpc_user = "${cfg.rpc.user}";
+              rpc_pass = "${cfg.rpc.password}";
+              rpc_url = "${cfg.rpc.url}:${toString cfg.rpc.port}";
+              message_queue_binding = "${cfg.messageQueueBinding}";
+            } // cfg.extraConfig))
+          ;
       in {
         description = "blockbook-frontend-${blockbookName} daemon";
         after = [ "network.target" ];

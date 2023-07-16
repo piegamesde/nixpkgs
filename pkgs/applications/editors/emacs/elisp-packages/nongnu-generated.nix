@@ -4340,7 +4340,8 @@
       version = "23.10.20230407101020";
       src = fetchurl {
         url =
-          "https://elpa.nongnu.org/nongnu/xah-fly-keys-23.10.20230407101020.tar";
+          "https://elpa.nongnu.org/nongnu/xah-fly-keys-23.10.20230407101020.tar"
+          ;
         sha256 = "1gdzl5s80hhfnskngjsw1wy18rs6k5hr5cvnj7pdli9ai10alx9y";
       };
       packageRequires = [ emacs ];

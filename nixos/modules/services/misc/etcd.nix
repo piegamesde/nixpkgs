@@ -30,7 +30,8 @@ in {
 
     advertiseClientUrls = mkOption {
       description = lib.mdDoc
-        "Etcd list of this member's client URLs to advertise to the rest of the cluster.";
+        "Etcd list of this member's client URLs to advertise to the rest of the cluster."
+        ;
       default = cfg.listenClientUrls;
       defaultText = literalExpression "config.${opt.listenClientUrls}";
       type = types.listOf types.str;
@@ -52,7 +53,8 @@ in {
 
     initialAdvertisePeerUrls = mkOption {
       description = lib.mdDoc
-        "Etcd list of this member's peer URLs to advertise to rest of the cluster.";
+        "Etcd list of this member's peer URLs to advertise to rest of the cluster."
+        ;
       default = cfg.listenPeerUrls;
       defaultText = literalExpression "config.${opt.listenPeerUrls}";
       type = types.listOf types.str;
@@ -138,7 +140,8 @@ in {
 
     peerClientCertAuth = mkOption {
       description = lib.mdDoc
-        "Whether to check all incoming peer requests from the cluster for valid client certificates signed by the supplied CA";
+        "Whether to check all incoming peer requests from the cluster for valid client certificates signed by the supplied CA"
+        ;
       default = false;
       type = types.bool;
     };

@@ -11,23 +11,29 @@ let
 
   cfg = config.services.babeld;
 
-  conditionalBoolToString = value:
+  conditionalBoolToString =
+    value:
     if (isBool value) then
       (boolToString value)
     else
-      (toString value);
+      (toString value)
+    ;
 
-  paramsString = params:
+  paramsString =
+    params:
     concatMapStringsSep " "
     (name: "${name} ${conditionalBoolToString (getAttr name params)}")
-    (attrNames params);
+    (attrNames params)
+    ;
 
-  interfaceConfig = name:
+  interfaceConfig =
+    name:
     let
       interface = getAttr name cfg.interfaces;
     in ''
       interface ${name} ${paramsString interface}
-    '' ;
+    ''
+    ;
 
   configFile = with cfg;
     pkgs.writeText "babeld.conf" (''
@@ -41,7 +47,7 @@ in {
 
   meta.maintainers = with maintainers; [ hexa ];
 
-  ###### interface
+    ###### interface
 
   options = {
 
@@ -90,7 +96,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf config.services.babeld.enable {
 
@@ -109,7 +115,8 @@ in {
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         ExecStart =
-          "${pkgs.babeld}/bin/babeld -c ${configFile} -I /run/babeld/babeld.pid -S /var/lib/babeld/state";
+          "${pkgs.babeld}/bin/babeld -c ${configFile} -I /run/babeld/babeld.pid -S /var/lib/babeld/state"
+          ;
         AmbientCapabilities = [ "CAP_NET_ADMIN" ];
         CapabilityBoundingSet = [ "CAP_NET_ADMIN" ];
         DevicePolicy = "closed";

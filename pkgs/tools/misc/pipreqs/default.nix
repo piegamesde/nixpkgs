@@ -19,7 +19,7 @@ buildPythonApplication rec {
     docopt
   ];
 
-  # Tests requires network access. Works fine without sandboxing
+    # Tests requires network access. Works fine without sandboxing
   doCheck = false;
 
   meta = with lib; {

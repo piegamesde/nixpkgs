@@ -69,7 +69,8 @@ else
 
     meta = with lib; {
       description =
-        "An OCaml library providing efficient access to a selection of character properties of the Unicode character database";
+        "An OCaml library providing efficient access to a selection of character properties of the Unicode character database"
+        ;
       homepage = webpage;
       inherit (ocaml.meta) platforms;
       license = licenses.bsd3;

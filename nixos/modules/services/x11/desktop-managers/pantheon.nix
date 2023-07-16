@@ -103,11 +103,11 @@ in {
         utils.removePackagesByName [ pkgs.pantheon.pantheon-agent-geoclue2 ]
         config.environment.pantheon.excludePackages;
 
-      services.xserver.displayManager.sessionPackages =
-        [ pkgs.pantheon.elementary-session-settings ];
+      services.xserver.displayManager.sessionPackages = [ pkgs.pantheon.elementary-session-settings ]
+        ;
 
-      # Ensure lightdm is used when Pantheon is enabled
-      # Without it screen locking will be nonfunctional because of the use of lightlocker
+        # Ensure lightdm is used when Pantheon is enabled
+        # Without it screen locking will be nonfunctional because of the use of lightlocker
       warnings = optional
         (config.services.xserver.displayManager.lightdm.enable != true) ''
           Using Pantheon without LightDM as a displayManager will break screenlocking from the UI.
@@ -116,8 +116,8 @@ in {
       services.xserver.displayManager.lightdm.greeters.pantheon.enable =
         mkDefault true;
 
-      # Without this, elementary LightDM greeter will pre-select non-existent `default` session
-      # https://github.com/elementary/greeter/issues/368
+        # Without this, elementary LightDM greeter will pre-select non-existent `default` session
+        # https://github.com/elementary/greeter/issues/368
       services.xserver.displayManager.defaultSession = mkDefault "pantheon";
 
       services.xserver.displayManager.sessionCommands = ''
@@ -137,7 +137,7 @@ in {
         fi
       '';
 
-      # Default services
+        # Default services
       hardware.bluetooth.enable = mkDefault true;
       hardware.pulseaudio.enable = mkDefault true;
       security.polkit.enable = true;
@@ -145,8 +145,8 @@ in {
       services.bamf.enable = true;
       services.colord.enable = mkDefault true;
       services.fwupd.enable = mkDefault true;
-      # TODO: Enable once #177946 is resolved
-      # services.packagekit.enable = mkDefault true;
+        # TODO: Enable once #177946 is resolved
+        # services.packagekit.enable = mkDefault true;
       services.power-profiles-daemon.enable = mkDefault true;
       services.touchegg.enable = mkDefault true;
       services.touchegg.package = pkgs.pantheon.touchegg;
@@ -177,7 +177,7 @@ in {
       services.xserver.updateDbusEnvironment = true;
       services.zeitgeist.enable = mkDefault true;
       services.geoclue2.enable = mkDefault true;
-      # pantheon has pantheon-agent-geoclue2
+        # pantheon has pantheon-agent-geoclue2
       services.geoclue2.enableDemoAgent = false;
       services.geoclue2.appConfig."io.elementary.desktop.agent-geoclue2" = {
         isAllowed = true;
@@ -193,7 +193,7 @@ in {
       programs.dconf.enable = true;
       networking.networkmanager.enable = mkDefault true;
 
-      # Global environment
+        # Global environment
       environment.systemPackages = (with pkgs.pantheon; [
         elementary-session-settings
         elementary-settings-daemon
@@ -232,7 +232,7 @@ in {
         pantheon-agent-polkit
       ])) config.environment.pantheon.excludePackages;
 
-      # Settings from elementary-default-settings
+        # Settings from elementary-default-settings
       environment.etc."gtk-3.0/settings.ini".source =
         "${pkgs.pantheon.elementary-default-settings}/etc/gtk-3.0/settings.ini";
 
@@ -246,9 +246,10 @@ in {
         xdg-desktop-portal-pantheon
       ];
 
-      # Override GSettings schemas
+        # Override GSettings schemas
       environment.sessionVariables.NIX_GSETTINGS_OVERRIDES_DIR =
-        "${nixos-gsettings-desktop-schemas}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas";
+        "${nixos-gsettings-desktop-schemas}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas"
+        ;
 
       environment.sessionVariables.GNOME_SESSION_DEBUG = mkIf cfg.debug "1";
 
@@ -257,22 +258,22 @@ in {
         "/share"
       ];
 
-      # Otherwise you can't store NetworkManager Secrets with
-      # "Store the password only for this user"
+        # Otherwise you can't store NetworkManager Secrets with
+        # "Store the password only for this user"
       programs.nm-applet.enable = true;
-      # Pantheon has its own network indicator
+        # Pantheon has its own network indicator
       programs.nm-applet.indicator = false;
 
-      # Shell integration for VTE terminals
+        # Shell integration for VTE terminals
       programs.bash.vteIntegration = mkDefault true;
       programs.zsh.vteIntegration = mkDefault true;
 
-      # Harmonize Qt applications under Pantheon
+        # Harmonize Qt applications under Pantheon
       qt.enable = true;
       qt.platformTheme = "gnome";
       qt.style = "adwaita";
 
-      # Default Fonts
+        # Default Fonts
       fonts.fonts = with pkgs; [
         inter
         open-dyslexic
@@ -313,7 +314,7 @@ in {
             sideload
           ])) config.environment.pantheon.excludePackages;
 
-      # needed by screenshot
+        # needed by screenshot
       fonts.fonts = [ pkgs.pantheon.elementary-redacted-script ];
     })
 

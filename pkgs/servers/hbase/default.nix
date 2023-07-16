@@ -9,7 +9,8 @@
 }:
 
 let
-  common = {
+  common =
+    {
       version,
       hash,
       jdk ? jdk11_headless,
@@ -42,7 +43,8 @@ let
         maintainers = with lib.maintainers; [ illustris ];
         platforms = lib.platforms.linux;
       };
-    };
+    }
+    ;
 in {
   hbase_2_4 = common {
     version = "2.4.16";

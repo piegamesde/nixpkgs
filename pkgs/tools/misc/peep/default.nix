@@ -19,7 +19,8 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "The CLI text viewer tool that works like less command on small pane within the terminal window";
+      "The CLI text viewer tool that works like less command on small pane within the terminal window"
+      ;
     homepage = "https://github.com/ryochack/peep";
     changelog = "https://github.com/ryochack/peep/releases/tag/${src.rev}";
     license = licenses.mit;

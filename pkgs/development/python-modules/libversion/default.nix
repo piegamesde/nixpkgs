@@ -42,7 +42,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Python bindings for libversion, which provides fast, powerful and correct generic version string comparison algorithm";
+      "Python bindings for libversion, which provides fast, powerful and correct generic version string comparison algorithm"
+      ;
     homepage = "https://github.com/repology/py-libversion";
     license = licenses.mit;
     maintainers = with maintainers; [ ryantm ];

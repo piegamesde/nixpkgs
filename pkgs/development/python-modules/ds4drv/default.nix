@@ -11,7 +11,7 @@ buildPythonPackage rec {
   pname = "ds4drv";
   version = "0.5.1";
 
-  # PyPi only carries py3 wheel
+    # PyPi only carries py3 wheel
   src = fetchFromGitHub {
     owner = "chrippa";
     repo = "ds4drv";

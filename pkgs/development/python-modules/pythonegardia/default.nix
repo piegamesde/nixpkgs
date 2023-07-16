@@ -22,7 +22,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  # Project has no tests, only two test file for manual interaction
+    # Project has no tests, only two test file for manual interaction
   doCheck = false;
 
   pythonImportsCheck = [ "pythonegardia" ];
@@ -31,7 +31,8 @@ buildPythonPackage rec {
     description = "Python interface with Egardia/Woonveilig alarms";
     homepage = "https://github.com/jeroenterheerdt/python-egardia";
     changelog =
-      "https://github.com/jeroenterheerdt/python-egardia/releases/tag/v${version}";
+      "https://github.com/jeroenterheerdt/python-egardia/releases/tag/v${version}"
+      ;
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

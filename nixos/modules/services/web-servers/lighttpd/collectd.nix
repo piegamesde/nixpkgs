@@ -31,8 +31,9 @@ in {
 
   options.services.lighttpd.collectd = {
 
-    enable = mkEnableOption (lib.mdDoc
-      "collectd subservice accessible at http://yourserver/collectd");
+    enable = mkEnableOption
+      (lib.mdDoc "collectd subservice accessible at http://yourserver/collectd")
+      ;
 
     collectionCgi = mkOption {
       type = types.path;

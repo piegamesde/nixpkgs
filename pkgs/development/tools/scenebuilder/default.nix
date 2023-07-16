@@ -41,8 +41,8 @@ let
       gradle --no-daemon build -x test
     '';
 
-    # Mavenize dependency paths
-    # e.g. org.codehaus.groovy/groovy/2.4.0/{hash}/groovy-2.4.0.jar -> org/codehaus/groovy/groovy/2.4.0/groovy-2.4.0.jar
+      # Mavenize dependency paths
+      # e.g. org.codehaus.groovy/groovy/2.4.0/{hash}/groovy-2.4.0.jar -> org/codehaus/groovy/groovy/2.4.0/groovy-2.4.0.jar
     installPhase = ''
       find $GRADLE_USER_HOME/caches/modules-2 -type f -regex '.*\.\(jar\|pom\)' \
         | perl -pe 's#(.*/([^/]+)/([^/]+)/([^/]+)/[0-9a-f]{30,40}/([^/\s]+))$# ($x = $2) =~ tr|\.|/|; "install -Dm444 $1 \$out/$x/$3/$4/$5" #e' \
@@ -54,7 +54,7 @@ let
     outputHash = "01dkayad68g3zpzdnjwrc0h6s7s6n619y5b576snc35l8g2r5sgd";
   };
 
-  # Point to our local deps repo
+    # Point to our local deps repo
   gradleInit = writeText "init.gradle" ''
     settingsEvaluated { settings ->
       settings.pluginManagement {
@@ -86,7 +86,8 @@ let
     exec = "scenebuilder";
     icon = "scenebuilder";
     comment =
-      "A visual, drag'n'drop, layout tool for designing JavaFX application user interfaces.";
+      "A visual, drag'n'drop, layout tool for designing JavaFX application user interfaces."
+      ;
     desktopName = "Scene Builder";
     mimeTypes = [
       "application/java"
@@ -138,7 +139,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     broken = stdenv.isDarwin;
     description =
-      "A visual, drag'n'drop, layout tool for designing JavaFX application user interfaces.";
+      "A visual, drag'n'drop, layout tool for designing JavaFX application user interfaces."
+      ;
     homepage = "https://gluonhq.com/products/scene-builder/";
     sourceProvenance = with sourceTypes; [
       fromSource

@@ -132,11 +132,11 @@ stdenv.mkDerivation rec {
     ln -s $out/opt/PixInsight/bin/PixInsight $out/bin/.
   '';
 
-  # Some very exotic Qt libraries are not available in nixpkgs
+    # Some very exotic Qt libraries are not available in nixpkgs
   autoPatchelfIgnoreMissingDeps = true;
 
-  # This mimics what is happening in PixInsight.sh and adds on top the libudev0-shim, which
-  # without PixInsight crashes at startup.
+    # This mimics what is happening in PixInsight.sh and adds on top the libudev0-shim, which
+    # without PixInsight crashes at startup.
   qtWrapperArgs = [
     "--prefix LD_LIBRARY_PATH : ${libudev0-shim}/lib"
     "--set LC_ALL en_US.utf8"

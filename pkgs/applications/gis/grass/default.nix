@@ -78,11 +78,11 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  # On Darwin the installer tries to symlink the help files into a system
-  # directory
+    # On Darwin the installer tries to symlink the help files into a system
+    # directory
   patches = [ ./no_symbolic_links.patch ];
 
-  # Correct mysql_config query
+    # Correct mysql_config query
   patchPhase = ''
     substituteInPlace configure --replace "--libmysqld-libs" "--libs"
   '';
@@ -113,11 +113,11 @@ stdenv.mkDerivation rec {
       "--without-x"
     ];
 
-  # Otherwise a very confusing "Can't load GDAL library" error
+    # Otherwise a very confusing "Can't load GDAL library" error
   makeFlags = lib.optional stdenv.isDarwin "GDAL_DYNAMIC=";
 
-  # Ensures that the python script run at build time are actually executable;
-  # otherwise, patchShebangs ignores them.
+    # Ensures that the python script run at build time are actually executable;
+    # otherwise, patchShebangs ignores them.
   postConfigure = ''
     for f in $(find . -name '*.py'); do
       chmod +x $f
@@ -140,7 +140,8 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://grass.osgeo.org/";
     description =
-      "GIS software suite used for geospatial data management and analysis, image processing, graphics and maps production, spatial modeling, and visualization";
+      "GIS software suite used for geospatial data management and analysis, image processing, graphics and maps production, spatial modeling, and visualization"
+      ;
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.all;
     maintainers = with lib.maintainers; [

@@ -27,7 +27,7 @@ buildPythonPackage rec {
     txzmq
   ];
 
-  # No tests found
+    # No tests found
   doCheck = false;
 
   pythonImportsCheck = [ "ilua" ];

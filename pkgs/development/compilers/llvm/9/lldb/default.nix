@@ -35,7 +35,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "lldb-use-system-debugserver-fix.patch";
       url =
-        "https://github.com/llvm-mirror/lldb/commit/be770754cc43da22eacdb70c6203f4582eeb011f.diff";
+        "https://github.com/llvm-mirror/lldb/commit/be770754cc43da22eacdb70c6203f4582eeb011f.diff"
+        ;
       sha256 = "sha256-tKkk6sn//0Hu0nlzoKWs5fXMWc+O2JAWOEJ1ZnaLuVU=";
       excludes = [ "packages/*" ];
       postFetch = ''

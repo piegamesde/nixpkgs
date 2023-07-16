@@ -7,7 +7,8 @@ import ./make-test-python.nix ({
     meta.maintainers = with lib.maintainers; [ jk ];
 
     nodes = {
-      authelia = {
+      authelia =
+        {
           config,
           pkgs,
           lib,
@@ -28,13 +29,14 @@ import ./make-test-python.nix ({
             };
           };
 
-          # These should not be set from nix but through other means to not leak the secret!
-          # This is purely for testing purposes!
+            # These should not be set from nix but through other means to not leak the secret!
+            # This is purely for testing purposes!
           environment.etc."authelia/storageEncryptionKeyFile" = {
             mode = "0400";
             user = "authelia-testing";
             text =
-              "you_must_generate_a_random_string_of_more_than_twenty_chars_and_configure_this";
+              "you_must_generate_a_random_string_of_more_than_twenty_chars_and_configure_this"
+              ;
           };
           environment.etc."authelia/jwtSecretFile" = {
             mode = "0400";
@@ -62,21 +64,24 @@ import ./make-test-python.nix ({
             enable = true;
 
             dynamicConfigOptions = {
-              tls.certificates = let
-                certDir = pkgs.runCommand "selfSignedCerts" {
-                  buildInputs = [ pkgs.openssl ];
-                } ''
-                  openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes -subj '/CN=example.com/CN=auth.example.com/CN=static.example.com' -days 36500
-                  mkdir -p $out
-                  cp key.pem cert.pem $out
-                '';
-              in [ {
-                certFile = "${certDir}/cert.pem";
-                keyFile = "${certDir}/key.pem";
-              } ] ;
+              tls.certificates =
+                let
+                  certDir = pkgs.runCommand "selfSignedCerts" {
+                    buildInputs = [ pkgs.openssl ];
+                  } ''
+                    openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes -subj '/CN=example.com/CN=auth.example.com/CN=static.example.com' -days 36500
+                    mkdir -p $out
+                    cp key.pem cert.pem $out
+                  '';
+                in [ {
+                  certFile = "${certDir}/cert.pem";
+                  keyFile = "${certDir}/key.pem";
+                } ]
+                ;
               http.middlewares.authelia.forwardAuth = {
                 address =
-                  "http://localhost:9091/api/verify?rd=https%3A%2F%2Fauth.example.com%2F";
+                  "http://localhost:9091/api/verify?rd=https%3A%2F%2Fauth.example.com%2F"
+                  ;
                 trustForwardHeader = true;
                 authResponseHeaders = [
                   "Remote-User"
@@ -136,15 +141,19 @@ import ./make-test-python.nix ({
             };
           };
 
-          systemd.services.simplehttp = let
-            fakeWebPageDir = pkgs.writeTextDir "index.html" "hello";
-          in {
-            script =
-              "${pkgs.python3}/bin/python -m http.server --directory ${fakeWebPageDir} 8000";
-            serviceConfig.Type = "simple";
-            wantedBy = [ "multi-user.target" ];
-          } ;
-        };
+          systemd.services.simplehttp =
+            let
+              fakeWebPageDir = pkgs.writeTextDir "index.html" "hello";
+            in {
+              script =
+                "${pkgs.python3}/bin/python -m http.server --directory ${fakeWebPageDir} 8000"
+                ;
+              serviceConfig.Type = "simple";
+              wantedBy = [ "multi-user.target" ];
+            }
+            ;
+        }
+        ;
     };
 
     testScript = ''

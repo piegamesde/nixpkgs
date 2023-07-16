@@ -16,7 +16,7 @@ buildPythonPackage rec {
     sha256 = "1d8f1s3i0s3h1jqvjq6cp639hhbbpxvyq7cf9dwzrvvvr0s0m8fm";
   };
 
-  # No tests in downloaded archive
+    # No tests in downloaded archive
   doCheck = false;
 
   pythonImportsCheck = [ "web_cache" ];

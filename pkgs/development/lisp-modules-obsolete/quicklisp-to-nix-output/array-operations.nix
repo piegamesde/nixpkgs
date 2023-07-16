@@ -19,7 +19,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/array-operations/2021-04-11/array-operations-20210411-git.tgz";
+      "http://beta.quicklisp.org/archive/array-operations/2021-04-11/array-operations-20210411-git.tgz"
+      ;
     sha256 = "0l6wxd3a1xdcmcsc93prq8ymainfsy15imiwnaik1i9g94fcbjz8";
   };
 

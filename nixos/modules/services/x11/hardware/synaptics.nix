@@ -11,10 +11,12 @@ with lib;
 let
   cfg = config.services.xserver.synaptics;
   opt = options.services.xserver.synaptics;
-  tapConfig = if cfg.tapButtons then
-    enabledTapConfig
-  else
-    disabledTapConfig;
+  tapConfig =
+    if cfg.tapButtons then
+      enabledTapConfig
+    else
+      disabledTapConfig
+    ;
   enabledTapConfig = ''
     Option "MaxTapTime" "180"
     Option "MaxTapMove" "220"
@@ -41,7 +43,8 @@ in {
         type = types.bool;
         default = false;
         description = lib.mdDoc
-          "Whether to enable touchpad support. Deprecated: Consider services.xserver.libinput.enable.";
+          "Whether to enable touchpad support. Deprecated: Consider services.xserver.libinput.enable."
+          ;
       };
 
       dev = mkOption {
@@ -58,7 +61,8 @@ in {
         type = types.nullOr types.str;
         default = "0.001";
         description = lib.mdDoc
-          "Cursor acceleration (how fast speed increases from minSpeed to maxSpeed).";
+          "Cursor acceleration (how fast speed increases from minSpeed to maxSpeed)."
+          ;
       };
 
       minSpeed = mkOption {
@@ -87,7 +91,8 @@ in {
         type = types.bool;
         default = false;
         description = lib.mdDoc
-          "Whether to enable two-finger drag-scrolling. Overridden by horizTwoFingerScroll and vertTwoFingerScroll.";
+          "Whether to enable two-finger drag-scrolling. Overridden by horizTwoFingerScroll and vertTwoFingerScroll."
+          ;
       };
 
       horizTwoFingerScroll = mkOption {
@@ -289,7 +294,8 @@ in {
     assertions = [ {
       assertion = !config.services.xserver.libinput.enable;
       message =
-        "Synaptics and libinput are incompatible, you cannot enable both (in services.xserver).";
+        "Synaptics and libinput are incompatible, you cannot enable both (in services.xserver)."
+        ;
     } ];
 
   };

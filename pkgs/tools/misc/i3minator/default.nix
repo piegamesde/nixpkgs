@@ -23,7 +23,7 @@ python3Packages.buildPythonApplication rec {
     python3Packages.i3-py
   ];
 
-  # No tests
+    # No tests
   doCheck = false;
 
   meta = with lib; {

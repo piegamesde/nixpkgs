@@ -1,7 +1,8 @@
 {
   traefik-crd = {
     url =
-      "https://k3s.io/k3s-charts/assets/traefik-crd/traefik-crd-20.3.1+up20.3.0.tgz";
+      "https://k3s.io/k3s-charts/assets/traefik-crd/traefik-crd-20.3.1+up20.3.0.tgz"
+      ;
     sha256 = "1775vjldvqvhzdbzanxhbaqbmkih09yb91im651q8bc7z5sb9ckn";
   };
   traefik = {

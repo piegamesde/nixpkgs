@@ -3,7 +3,8 @@ import ./make-test-python.nix ({
   }: {
     name = "snapper";
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         lib,
         ...
@@ -22,7 +23,8 @@ import ./make-test-python.nix ({
         };
         services.snapper.configs.home.subvolume = "/home";
         services.snapper.filters = "/nix";
-      };
+      }
+      ;
 
     testScript = ''
       machine.succeed("btrfs subvolume create /home/.snapshots")

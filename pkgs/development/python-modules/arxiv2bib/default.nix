@@ -10,7 +10,7 @@ buildPythonPackage rec {
   pname = "arxiv2bib";
   version = "1.0.8";
 
-  # Missing tests on Pypi
+    # Missing tests on Pypi
   src = fetchFromGitHub {
     owner = "nathangrigg";
     repo = "arxiv2bib";

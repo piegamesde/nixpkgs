@@ -73,18 +73,20 @@ buildPythonPackage {
 
   CUDA_HOME = "${cuda-native-redist}";
 
-  preBuild = if torch.cudaSupport then
-    with torch.cudaPackages;
-    let
-      cudaVersion = lib.concatStrings
-        (lib.splitVersion torch.cudaPackages.cudaMajorMinorVersion);
-    in
-    "make CUDA_VERSION=${cudaVersion} cuda${cudaMajorVersion}x"
-  else
-    "make CUDA_VERSION=CPU cpuonly";
+  preBuild =
+    if torch.cudaSupport then
+      with torch.cudaPackages;
+      let
+        cudaVersion = lib.concatStrings
+          (lib.splitVersion torch.cudaPackages.cudaMajorMinorVersion);
+      in
+      "make CUDA_VERSION=${cudaVersion} cuda${cudaMajorVersion}x"
+    else
+      "make CUDA_VERSION=CPU cpuonly"
+    ;
 
-  nativeBuildInputs = [ setuptools ]
-    ++ lib.optionals torch.cudaSupport [ cuda-native-redist ];
+  nativeBuildInputs =
+    [ setuptools ] ++ lib.optionals torch.cudaSupport [ cuda-native-redist ];
   buildInputs = lib.optionals torch.cudaSupport [ cuda-redist ];
 
   propagatedBuildInputs = [ torch ];

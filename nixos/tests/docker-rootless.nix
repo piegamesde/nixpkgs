@@ -9,7 +9,8 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ abbradar ]; };
 
     nodes = {
-      machine = {
+      machine =
+        {
           pkgs,
           ...
         }: {
@@ -19,10 +20,12 @@ import ./make-test-python.nix ({
             uid = 1000;
             isNormalUser = true;
           };
-        };
+        }
+        ;
     };
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }:
@@ -48,5 +51,6 @@ import ./make-test-python.nix ({
         )
         machine.succeed("${sudo} docker ps | grep sleeping")
         machine.succeed("${sudo} docker stop sleeping")
-      '' ;
+      ''
+      ;
   })

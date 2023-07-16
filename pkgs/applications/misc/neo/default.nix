@@ -11,7 +11,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/st3w/neo/releases/download/v${version}/neo-${version}.tar.gz";
+      "https://github.com/st3w/neo/releases/download/v${version}/neo-${version}.tar.gz"
+      ;
     sha256 = "sha256-pV5O1e/QpK8kjRYBinqq07YX7x06wF0pKiWKOKr0ank=";
   };
 

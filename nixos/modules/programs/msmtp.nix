@@ -87,28 +87,36 @@ in {
       group = "root";
     };
 
-    environment.etc."msmtprc".text = let
-      mkValueString = v:
-        if v == true then
-          "on"
-        else if v == false then
-          "off"
-        else
-          generators.mkValueStringDefault { } v;
-      mkKeyValueString = k: v: "${k} ${mkValueString v}";
-      mkInnerSectionString = attrs:
-        concatStringsSep "\n" (mapAttrsToList mkKeyValueString attrs);
-      mkAccountString = name: attrs: ''
-        account ${name}
-        ${mkInnerSectionString attrs}
-      '';
-    in ''
-      defaults
-      ${mkInnerSectionString cfg.defaults}
+    environment.etc."msmtprc".text =
+      let
+        mkValueString =
+          v:
+          if v == true then
+            "on"
+          else if v == false then
+            "off"
+          else
+            generators.mkValueStringDefault { } v
+          ;
+        mkKeyValueString = k: v: "${k} ${mkValueString v}";
+        mkInnerSectionString =
+          attrs:
+          concatStringsSep "\n" (mapAttrsToList mkKeyValueString attrs)
+          ;
+        mkAccountString =
+          name: attrs: ''
+            account ${name}
+            ${mkInnerSectionString attrs}
+          ''
+          ;
+      in ''
+        defaults
+        ${mkInnerSectionString cfg.defaults}
 
-      ${concatStringsSep "\n" (mapAttrsToList mkAccountString cfg.accounts)}
+        ${concatStringsSep "\n" (mapAttrsToList mkAccountString cfg.accounts)}
 
-      ${cfg.extraConfig}
-    '' ;
+        ${cfg.extraConfig}
+      ''
+      ;
   };
 }

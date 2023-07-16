@@ -83,8 +83,8 @@ in {
       };
 
       musicDirectory = mkOption {
-        type = with types;
-          either path (strMatching "(http|https|nfs|smb)://.+");
+        type =
+          with types; either path (strMatching "(http|https|nfs|smb)://.+");
         default = "${cfg.dataDir}/music";
         defaultText = literalExpression ''"''${dataDir}/music"'';
         description = lib.mdDoc ''
@@ -183,23 +183,24 @@ in {
                 Path to file containing the password.
               '';
             };
-            permissions = let
-              perms = [
-                "read"
-                "add"
-                "control"
-                "admin"
-              ];
-            in
-            mkOption {
-              type = types.listOf (types.enum perms);
-              default = [ "read" ];
-              description = lib.mdDoc ''
-                List of permissions that are granted with this password.
-                Permissions can be "${concatStringsSep ''", "'' perms}".
-              '';
-            }
-            ;
+            permissions =
+              let
+                perms = [
+                  "read"
+                  "add"
+                  "control"
+                  "admin"
+                ];
+              in
+              mkOption {
+                type = types.listOf (types.enum perms);
+                default = [ "read" ];
+                description = lib.mdDoc ''
+                  List of permissions that are granted with this password.
+                  Permissions can be "${concatStringsSep ''", "'' perms}".
+                '';
+              }
+              ;
           };
         });
         description = lib.mdDoc ''
@@ -234,7 +235,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -269,7 +270,7 @@ in {
 
       serviceConfig = {
         User = "${cfg.user}";
-        # Note: the first "" overrides the ExecStart from the upstream unit
+          # Note: the first "" overrides the ExecStart from the upstream unit
         ExecStart = [
           ""
           "${pkgs.mpd}/bin/mpd --systemd /run/mpd/mpd.conf"

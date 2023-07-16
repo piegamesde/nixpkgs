@@ -14,7 +14,8 @@ let
   libexec = "${pkgs.libreswan}/libexec/ipsec";
   ipsec = "${pkgs.libreswan}/sbin/ipsec";
 
-  trim = chars: str:
+  trim =
+    chars: str:
     let
       nonchars = filter (x: !(elem x.value chars)) (imap0 (i: v: {
         ind = i;
@@ -24,8 +25,10 @@ let
       ""
     else
       substring (head nonchars).ind
-      (add 1 (sub (last nonchars).ind (head nonchars).ind)) str;
-  indent = str:
+      (add 1 (sub (last nonchars).ind (head nonchars).ind)) str
+    ;
+  indent =
+    str:
     concatStrings (concatMap (s: [
       "  "
       (trim [
@@ -33,7 +36,8 @@ let
         "	"
       ] s)
       "\n"
-    ]) (splitString "\n" str));
+    ]) (splitString "\n" str))
+    ;
   configText = indent (toString cfg.configSetup);
   connectionText = concatStrings (mapAttrsToList (n: v: ''
     conn ${n}
@@ -74,7 +78,8 @@ in {
           virtual_private=%v4:10.0.0.0/8,%v4:192.168.0.0/16,%v4:172.16.0.0/12,%v4:25.0.0.0/8,%v4:100.64.0.0/10,%v6:fd00::/8,%v6:fe80::/10
         '';
         description = lib.mdDoc
-          "Options to go in the 'config setup' section of the Libreswan IPsec configuration";
+          "Options to go in the 'config setup' section of the Libreswan IPsec configuration"
+          ;
       };
 
       connections = mkOption {
@@ -131,7 +136,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -143,21 +148,21 @@ in {
     systemd.packages = [ pkgs.libreswan ];
     systemd.tmpfiles.packages = [ pkgs.libreswan ];
 
-    # Install configuration files
+      # Install configuration files
     environment.etc = {
       "ipsec.secrets".source = "${pkgs.libreswan}/etc/ipsec.secrets";
       "ipsec.conf".source = "${pkgs.libreswan}/etc/ipsec.conf";
       "ipsec.d/01-nixos.conf".source = configFile;
     } // policyFiles;
 
-    # Create NSS database directory
+      # Create NSS database directory
     systemd.tmpfiles.rules = [ "d /var/lib/ipsec/nss 755 root root -" ];
 
     systemd.services.ipsec = {
       description = "Internet Key Exchange (IKE) Protocol Daemon for IPsec";
       wantedBy = [ "multi-user.target" ];
-      restartTriggers = [ configFile ]
-        ++ mapAttrsToList (n: v: v.source) policyFiles;
+      restartTriggers =
+        [ configFile ] ++ mapAttrsToList (n: v: v.source) policyFiles;
       path = with pkgs; [
         libreswan
         iproute2

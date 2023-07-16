@@ -42,7 +42,8 @@ import ./make-test-python.nix ({
       ];
     };
 
-    client = index:
+    client =
+      index:
       {
         pkgs,
         ...
@@ -67,9 +68,11 @@ import ./make-test-python.nix ({
             bind_addr = ip;
           };
         };
-      } ;
+      }
+      ;
 
-    server = index:
+    server =
+      index:
       {
         pkgs,
         ...
@@ -77,8 +80,8 @@ import ./make-test-python.nix ({
       let
         numConsensusServers = builtins.length allConsensusServerHosts;
         thisConsensusServerHost = builtins.elemAt allConsensusServerHosts index;
-        ip =
-          thisConsensusServerHost; # since we already use IPs to identify servers
+        ip = thisConsensusServerHost
+          ; # since we already use IPs to identify servers
       in {
         networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [ {
           address = ip;
@@ -93,9 +96,9 @@ import ./make-test-python.nix ({
             extraConfig = defaultExtraConfig // {
               server = true;
               bootstrap_expect = numConsensusServers;
-              # Tell Consul that we never intend to drop below this many servers.
-              # Ensures to not permanently lose consensus after temporary loss.
-              # See https://github.com/hashicorp/consul/issues/8118#issuecomment-645330040
+                # Tell Consul that we never intend to drop below this many servers.
+                # Ensures to not permanently lose consensus after temporary loss.
+                # See https://github.com/hashicorp/consul/issues/8118#issuecomment-645330040
               autopilot.min_quorum = numConsensusServers;
               retry_join =
                 # If there's only 1 node in the network, we allow self-join;
@@ -105,11 +108,13 @@ import ./make-test-python.nix ({
                   allConsensusServerHosts
                 else
                   builtins.filter (h: h != thisConsensusServerHost)
-                  allConsensusServerHosts;
+                  allConsensusServerHosts
+                ;
               bind_addr = ip;
             };
           };
-      } ;
+      }
+      ;
   in {
     name = "consul";
 

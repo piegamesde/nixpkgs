@@ -17,7 +17,8 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/rgrinberg/opium/releases/download/${version}/opium-${version}.tbz";
+      "https://github.com/rgrinberg/opium/releases/download/${version}/opium-${version}.tbz"
+      ;
     hash = "sha256-MmuRhm3pC69TX4t9Sy/yPjnZUuVzwEs8E/EFS1n/L7Y=";
   };
 

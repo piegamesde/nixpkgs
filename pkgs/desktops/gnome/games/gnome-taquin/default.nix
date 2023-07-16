@@ -34,12 +34,14 @@ stdenv.mkDerivation rec {
     # Fix build with recent Vala.
     (fetchpatch {
       url =
-        "https://gitlab.gnome.org/GNOME/gnome-taquin/-/commit/99dea5e7863e112f33f16e59898c56a4f1a547b3.patch";
+        "https://gitlab.gnome.org/GNOME/gnome-taquin/-/commit/99dea5e7863e112f33f16e59898c56a4f1a547b3.patch"
+        ;
       sha256 = "U7djuMhb1XJaKAPyogQjaunOkbBK24r25YD7BgH05P4=";
     })
     (fetchpatch {
       url =
-        "https://gitlab.gnome.org/GNOME/gnome-taquin/-/commit/66be44dc20d114e449fc33156e3939fd05dfbb16.patch";
+        "https://gitlab.gnome.org/GNOME/gnome-taquin/-/commit/66be44dc20d114e449fc33156e3939fd05dfbb16.patch"
+        ;
       sha256 = "RN41RCLHlJyXTARSH9qjsmpYi1UFeMRssoYxRsbngDQ=";
     })
   ];

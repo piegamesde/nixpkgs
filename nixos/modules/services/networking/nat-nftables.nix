@@ -10,11 +10,13 @@ with lib;
 let
   cfg = config.networking.nat;
 
-  mkDest = externalIP:
+  mkDest =
+    externalIP:
     if externalIP == null then
       "masquerade"
     else
-      "snat ${externalIP}";
+      "snat ${externalIP}"
+    ;
   dest = mkDest cfg.externalIP;
   destIPv6 = mkDest cfg.externalIPv6;
 
@@ -27,28 +29,37 @@ let
   oifExpr = optionalString (cfg.externalInterface != null)
     ''oifname "${cfg.externalInterface}"'';
 
-  # Whether given IP (plus optional port) is an IPv6.
+    # Whether given IP (plus optional port) is an IPv6.
   isIPv6 = ip: length (lib.splitString ":" ip) > 2;
 
-  splitIPPorts = IPPorts:
+  splitIPPorts =
+    IPPorts:
     let
-      matchIP = if isIPv6 IPPorts then
-        "[[]([0-9a-fA-F:]+)[]]"
-      else
-        "([0-9.]+)";
+      matchIP =
+        if isIPv6 IPPorts then
+          "[[]([0-9a-fA-F:]+)[]]"
+        else
+          "([0-9.]+)"
+        ;
       m = builtins.match "${matchIP}:([0-9-]+)" IPPorts;
     in {
-      IP = if m == null then
-        throw "bad ip:ports `${IPPorts}'"
-      else
-        elemAt m 0;
-      ports = if m == null then
-        throw "bad ip:ports `${IPPorts}'"
-      else
-        elemAt m 1;
-    } ;
+      IP =
+        if m == null then
+          throw "bad ip:ports `${IPPorts}'"
+        else
+          elemAt m 0
+        ;
+      ports =
+        if m == null then
+          throw "bad ip:ports `${IPPorts}'"
+        else
+          elemAt m 1
+        ;
+    }
+    ;
 
-  mkTable = {
+  mkTable =
+    {
       ipVer,
       dest,
       ipSet,
@@ -64,30 +75,34 @@ let
       fwdPortsRange =
         filter (x: length (splitString "-" x.destination) > 1) forwardPorts;
 
-      # nftables maps for port forward
-      # l4proto . dport : addr . port
-      toFwdMap = forwardPorts:
+        # nftables maps for port forward
+        # l4proto . dport : addr . port
+      toFwdMap =
+        forwardPorts:
         toNftSet (map (fwd:
           with (splitIPPorts fwd.destination);
           "${fwd.proto} . ${toNftRange fwd.sourcePort} : ${IP} . ${ports}")
-          forwardPorts);
+          forwardPorts)
+        ;
       fwdMap = toFwdMap fwdPorts;
       fwdRangeMap = toFwdMap fwdPortsRange;
 
-      # nftables maps for port forward loopback dnat
-      # daddr . l4proto . dport : addr . port
-      toFwdLoopDnatMap = forwardPorts:
+        # nftables maps for port forward loopback dnat
+        # daddr . l4proto . dport : addr . port
+      toFwdLoopDnatMap =
+        forwardPorts:
         toNftSet (concatMap (fwd:
           map (loopbackip:
             with (splitIPPorts fwd.destination);
             "${loopbackip} . ${fwd.proto} . ${
               toNftRange fwd.sourcePort
-            } : ${IP} . ${ports}") fwd.loopbackIPs) forwardPorts);
+            } : ${IP} . ${ports}") fwd.loopbackIPs) forwardPorts)
+        ;
       fwdLoopDnatMap = toFwdLoopDnatMap fwdPorts;
       fwdLoopDnatRangeMap = toFwdLoopDnatMap fwdPortsRange;
 
-      # nftables set for port forward loopback snat
-      # daddr . l4proto . dport
+        # nftables set for port forward loopback snat
+        # daddr . l4proto . dport
       fwdLoopSnatSet = toNftSet (map (fwd:
         with (splitIPPorts fwd.destination);
         "${IP} . ${fwd.proto} . ${ports}") forwardPorts);
@@ -159,7 +174,8 @@ let
           ''
         }
       }
-    '' ;
+    ''
+    ;
 
 in {
 
@@ -169,12 +185,14 @@ in {
       {
         assertion = cfg.extraCommands == "";
         message =
-          "extraCommands is incompatible with the nftables based nat module: ${cfg.extraCommands}";
+          "extraCommands is incompatible with the nftables based nat module: ${cfg.extraCommands}"
+          ;
       }
       {
         assertion = cfg.extraStopCommands == "";
         message =
-          "extraStopCommands is incompatible with the nftables based nat module: ${cfg.extraStopCommands}";
+          "extraStopCommands is incompatible with the nftables based nat module: ${cfg.extraStopCommands}"
+          ;
       }
       {
         assertion = config.networking.nftables.rulesetFile == null;

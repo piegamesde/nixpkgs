@@ -45,21 +45,24 @@ stdenv.mkDerivation rec {
     # Fix undefined behavior
     (fetchpatch {
       url =
-        "https://gitlab.gnome.org/GNOME/libgda/-/commit/657b2f8497da907559a6769c5b1d2d7b5bd40688.patch";
+        "https://gitlab.gnome.org/GNOME/libgda/-/commit/657b2f8497da907559a6769c5b1d2d7b5bd40688.patch"
+        ;
       sha256 = "Qx4S9KQsTAr4M0QJi0Xr5kKuHSp4NwZJHoRPYyxIyTk=";
     })
 
     # Fix building vapi
     (fetchpatch {
       url =
-        "https://gitlab.gnome.org/GNOME/libgda/-/commit/57f618a3b2a3758ee3dcbf9bbdc566122dd8566d.patch";
+        "https://gitlab.gnome.org/GNOME/libgda/-/commit/57f618a3b2a3758ee3dcbf9bbdc566122dd8566d.patch"
+        ;
       sha256 = "pyfymUd61m1kHaGyMbUQMma+szB8mlqGWwcFBBQawf8=";
     })
 
     (fetchpatch {
       name = "CVE-2021-39359.patch";
       url =
-        "https://gitlab.gnome.org/GNOME/libgda/-/commit/bebdffb4de586fb43fd07ac549121f4b22f6812d.patch";
+        "https://gitlab.gnome.org/GNOME/libgda/-/commit/bebdffb4de586fb43fd07ac549121f4b22f6812d.patch"
+        ;
       sha256 = "sha256-UjHP1nhb5n6TOdaMdQeE2s828T4wv/0ycG3FAk+I1QA=";
     })
   ];

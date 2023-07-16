@@ -24,7 +24,8 @@ stdenv.mkDerivation (finalAttrs: {
     # And the arch patch: https://github.com/rocm-arch/rocm-arch/pull/742
     (fetchpatch {
       url =
-        "https://raw.githubusercontent.com/John-Gee/rocm-arch/d6812d308fee3caf2b6bb01b4d19fe03a6a0e3bd/rocm-opencl-runtime/enable-gfx800.patch";
+        "https://raw.githubusercontent.com/John-Gee/rocm-arch/d6812d308fee3caf2b6bb01b4d19fe03a6a0e3bd/rocm-opencl-runtime/enable-gfx800.patch"
+        ;
       hash = "sha256-59jFDIIsTTZcNns9RyMVWPRUggn/bSlAGrky4quu8B4=";
     })
   ];
@@ -57,12 +58,13 @@ stdenv.mkDerivation (finalAttrs: {
       "Source package of the Radeon Open Compute common language runtime";
     homepage = "https://github.com/ROCm-Developer-Tools/ROCclr";
     license = licenses.mit;
-    maintainers = with maintainers; [ lovesegfault ] ++ teams.rocm.members;
-    # rocclr seems to have some AArch64 ifdefs, but does not seem
-    # to be supported yet by the build infrastructure. Recheck in
-    # the future.
+    maintainers = with maintainers;
+      [ lovesegfault ] ++ teams.rocm.members;
+      # rocclr seems to have some AArch64 ifdefs, but does not seem
+      # to be supported yet by the build infrastructure. Recheck in
+      # the future.
     platforms = [ "x86_64-linux" ];
-    broken = versions.minor finalAttrs.version
-      != versions.minor stdenv.cc.version;
+    broken =
+      versions.minor finalAttrs.version != versions.minor stdenv.cc.version;
   };
 })

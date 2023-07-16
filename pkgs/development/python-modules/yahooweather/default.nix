@@ -16,7 +16,7 @@ buildPythonPackage rec {
     sha256 = "0bsxmngkpzvqm50i2cnxjzhpbdhb8s10ly8h5q08696cjihqdkpa";
   };
 
-  # Tests require network access
+    # Tests require network access
   doCheck = false;
 
   meta = with lib; {

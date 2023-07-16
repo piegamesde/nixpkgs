@@ -23,11 +23,13 @@
 }:
 
 let
-  zero_or_one = cond:
+  zero_or_one =
+    cond:
     if cond then
       1
     else
-      0;
+      0
+    ;
 
 in
 buildPythonPackage rec {
@@ -69,7 +71,7 @@ buildPythonPackage rec {
   PYARROW_WITH_HDFS = zero_or_one true;
   PYARROW_WITH_PARQUET = zero_or_one true;
   PYARROW_WITH_PARQUET_ENCRYPTION = zero_or_one true;
-  # Plasma is deprecated since arrow 10.0.0
+    # Plasma is deprecated since arrow 10.0.0
   PYARROW_WITH_PLASMA = zero_or_one false;
   PYARROW_WITH_S3 = zero_or_one arrow-cpp.enableS3;
   PYARROW_WITH_GCS = zero_or_one arrow-cpp.enableGcs;

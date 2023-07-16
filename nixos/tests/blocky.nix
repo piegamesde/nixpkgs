@@ -2,7 +2,8 @@ import ./make-test-python.nix {
   name = "blocky";
 
   nodes = {
-    server = {
+    server =
+      {
         pkgs,
         ...
       }: {
@@ -28,7 +29,8 @@ import ./make-test-python.nix {
             logLevel = "info";
           };
         };
-      };
+      }
+      ;
   };
 
   testScript = ''

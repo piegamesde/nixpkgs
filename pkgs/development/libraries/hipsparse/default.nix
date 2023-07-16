@@ -59,8 +59,8 @@ stdenv.mkDerivation (finalAttrs: {
     "-DCMAKE_INSTALL_INCLUDEDIR=include"
   ] ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ];
 
-  # We have to manually generate the matrices
-  # CMAKE_MATRICES_DIR seems to be reset in clients/tests/CMakeLists.txt
+    # We have to manually generate the matrices
+    # CMAKE_MATRICES_DIR seems to be reset in clients/tests/CMakeLists.txt
   postPatch = ''
     substituteInPlace clients/common/utility.cpp \
       --replace "#ifdef __cpp_lib_filesystem" " #if true"

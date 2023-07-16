@@ -45,26 +45,27 @@ rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } rec {
     };
   };
 
-  SKIA_SOURCE_DIR = let
-    repo = fetchFromGitHub {
-      owner = "rust-skia";
-      repo = "skia";
-      # see rust-skia:skia-bindings/Cargo.toml#package.metadata skia
-      rev = "m103-0.51.1";
-      sha256 = "sha256-w5dw/lGm40gKkHPR1ji/L82Oa808Kuh8qaCeiqBLkLw=";
-    };
-    # The externals for skia are taken from skia/DEPS
-    externals = linkFarm "skia-externals" (lib.mapAttrsToList (name: value: {
-      inherit name;
-      path = fetchgit value;
-    }) (lib.importJSON ./skia-externals.json));
-  in
-  runCommand "source" { } ''
-    cp -R ${repo} $out
-    chmod -R +w $out
-    ln -s ${externals} $out/third_party/externals
-  ''
-  ;
+  SKIA_SOURCE_DIR =
+    let
+      repo = fetchFromGitHub {
+        owner = "rust-skia";
+        repo = "skia";
+          # see rust-skia:skia-bindings/Cargo.toml#package.metadata skia
+        rev = "m103-0.51.1";
+        sha256 = "sha256-w5dw/lGm40gKkHPR1ji/L82Oa808Kuh8qaCeiqBLkLw=";
+      };
+        # The externals for skia are taken from skia/DEPS
+      externals = linkFarm "skia-externals" (lib.mapAttrsToList (name: value: {
+        inherit name;
+        path = fetchgit value;
+      }) (lib.importJSON ./skia-externals.json));
+    in
+    runCommand "source" { } ''
+      cp -R ${repo} $out
+      chmod -R +w $out
+      ln -s ${externals} $out/third_party/externals
+    ''
+    ;
 
   SKIA_GN_COMMAND = "${gn}/bin/gn";
   SKIA_NINJA_COMMAND = "${ninja}/bin/ninja";
@@ -76,10 +77,10 @@ rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } rec {
     removeReferencesTo
   ] ++ lib.optionals stdenv.isDarwin [ xcbuild ];
 
-  # All tests passes but at the end cargo prints for unknown reason:
-  #   error: test failed, to rerun pass '--bin neovide'
-  # Increasing the loglevel did not help. In a nix-shell environment
-  # the failure do not occure.
+    # All tests passes but at the end cargo prints for unknown reason:
+    #   error: test failed, to rerun pass '--bin neovide'
+    # Increasing the loglevel did not help. In a nix-shell environment
+    # the failure do not occure.
   doCheck = false;
 
   buildInputs = [
@@ -88,23 +89,25 @@ rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } rec {
     rustPlatform.bindgenHook
   ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.AppKit ];
 
-  postFixup = let
-    libPath = lib.makeLibraryPath ([
-      libglvnd
-      libxkbcommon
-      xorg.libXcursor
-      xorg.libXext
-      xorg.libXrandr
-      xorg.libXi
-    ] ++ lib.optionals enableWayland [ wayland ]);
-  in ''
-    # library skia embeds the path to its sources
-    remove-references-to -t "$SKIA_SOURCE_DIR" \
-      $out/bin/neovide
+  postFixup =
+    let
+      libPath = lib.makeLibraryPath ([
+        libglvnd
+        libxkbcommon
+        xorg.libXcursor
+        xorg.libXext
+        xorg.libXrandr
+        xorg.libXi
+      ] ++ lib.optionals enableWayland [ wayland ]);
+    in ''
+      # library skia embeds the path to its sources
+      remove-references-to -t "$SKIA_SOURCE_DIR" \
+        $out/bin/neovide
 
-    wrapProgram $out/bin/neovide \
-      --prefix LD_LIBRARY_PATH : ${libPath}
-  '' ;
+      wrapProgram $out/bin/neovide \
+        --prefix LD_LIBRARY_PATH : ${libPath}
+    ''
+    ;
 
   postInstall = ''
     for n in 16x16 32x32 48x48 256x256; do

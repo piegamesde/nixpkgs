@@ -17,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-uEz1gvG9FVa2DrxzcLnTMeuSR7awcM6J3+lZy6LAsDw=";
   };
 
-  # Waiting for upstream's clean-up
+    # Waiting for upstream's clean-up
   doCheck = false;
 
   pythonImportsCheck = [ "kitchen" ];

@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
     name = "gotify-server";
     meta = with pkgs.lib.maintainers; { maintainers = [ ma27 ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -16,7 +17,8 @@ import ./make-test-python.nix ({
           enable = true;
           port = 3000;
         };
-      };
+      }
+      ;
 
     testScript = ''
       machine.start()

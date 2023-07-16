@@ -27,8 +27,8 @@ buildGoModule rec {
     "-X main.commit=${src.rev}"
   ];
 
-  # we need to rename the resulting binary but can't use buildFlags with -o here
-  # because these are passed to "go install" which does not recognize -o
+    # we need to rename the resulting binary but can't use buildFlags with -o here
+    # because these are passed to "go install" which does not recognize -o
   postBuild = ''
     mv $GOPATH/bin/cli $GOPATH/bin/exo
 

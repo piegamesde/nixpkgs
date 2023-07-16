@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
   pname = "in-formant";
   version = "2021-06-30";
 
-  # no Qt6 yet, so we're stuck in the last Qt5-supporting commit: https://github.com/NixOS/nixpkgs/issues/108008
+    # no Qt6 yet, so we're stuck in the last Qt5-supporting commit: https://github.com/NixOS/nixpkgs/issues/108008
   src = fetchFromGitHub {
     owner = "in-formant";
     repo = "in-formant";
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
     cp in-formant $out/bin
   '';
 
-  # RPATH of binary /nix/store/.../bin/... contains a forbidden reference to /build/
+    # RPATH of binary /nix/store/.../bin/... contains a forbidden reference to /build/
   cmakeFlags = [ "-DCMAKE_SKIP_BUILD_RPATH=ON" ];
 
   meta = with lib; {

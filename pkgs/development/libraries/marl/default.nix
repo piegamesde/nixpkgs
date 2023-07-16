@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  # Turn on the flag to install after building the library.
+    # Turn on the flag to install after building the library.
   cmakeFlags = [ "-DMARL_INSTALL=ON" ];
 
   meta = with lib; {

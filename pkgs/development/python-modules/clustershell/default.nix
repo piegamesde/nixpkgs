@@ -56,10 +56,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "ClusterShell" ];
 
-  # Many tests want to open network connections
-  # https://github.com/cea-hpc/clustershell#test-suite
-  #
-  # Several tests fail on Darwin
+    # Many tests want to open network connections
+    # https://github.com/cea-hpc/clustershell#test-suite
+    #
+    # Several tests fail on Darwin
   checkPhase = ''
     rm tests/CLIClushTest.py
     rm tests/TreeWorkerTest.py

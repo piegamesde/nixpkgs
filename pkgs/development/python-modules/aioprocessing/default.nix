@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flit-core ];
 
-  # Tests aren't included in pypi package
+    # Tests aren't included in pypi package
   doCheck = false;
 
   pythonImportsCheck = [ "aioprocessing" ];

@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ zlib ] ++ lib.optional enableJemalloc jemalloc;
 
-  # Note: tcmalloc and mimalloc are also supported (and normal malloc)
+    # Note: tcmalloc and mimalloc are also supported (and normal malloc)
   cmakeFlags = lib.optional enableJemalloc "-DUSE_ALTERNATIVE_MALLOC=jemalloc";
 
   hardeningDisable = lib.optional stdenv.hostPlatform.isMusl "pie";
@@ -35,7 +35,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Lightweight high-performance multi-threaded web server";
     longDescription =
-      "A lightweight and speedy web server with a low memory\n      footprint (~500KiB for 10k idle connections), with minimal system calls and\n      memory allocation.  Lwan contains a hand-crafted HTTP request parser. Files are\n      served using the most efficient way according to their size: no copies between\n      kernel and userland for files larger than 16KiB.  Smaller files are sent using\n      vectored I/O of memory-mapped buffers. Header overhead is considered before\n      compressing small files.  Features include: mustache templating engine and IPv6\n      support.\n    ";
+      "A lightweight and speedy web server with a low memory\n      footprint (~500KiB for 10k idle connections), with minimal system calls and\n      memory allocation.  Lwan contains a hand-crafted HTTP request parser. Files are\n      served using the most efficient way according to their size: no copies between\n      kernel and userland for files larger than 16KiB.  Smaller files are sent using\n      vectored I/O of memory-mapped buffers. Header overhead is considered before\n      compressing small files.  Features include: mustache templating engine and IPv6\n      support.\n    "
+      ;
     homepage = "https://lwan.ws/";
     license = licenses.gpl2;
     platforms = platforms.linux;

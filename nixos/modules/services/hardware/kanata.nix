@@ -77,11 +77,14 @@ let
 
   mkName = name: "kanata-${name}";
 
-  mkDevices = devices:
+  mkDevices =
+    devices:
     optionalString ((length devices) > 0)
-    "linux-dev ${concatStringsSep ":" devices}";
+    "linux-dev ${concatStringsSep ":" devices}"
+    ;
 
-  mkConfig = name: keyboard:
+  mkConfig =
+    name: keyboard:
     pkgs.writeText "${mkName name}-config.kdb" ''
       (defcfg
         ${keyboard.extraDefCfg}
@@ -89,9 +92,11 @@ let
         linux-continue-if-no-devs-found yes)
 
       ${keyboard.config}
-    '';
+    ''
+    ;
 
-  mkService = name: keyboard:
+  mkService =
+    name: keyboard:
     nameValuePair (mkName name) {
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
@@ -114,7 +119,7 @@ let
           uinput.name
         ];
 
-        # hardening
+          # hardening
         DeviceAllow = [
           "/dev/uinput rw"
           "char-input r"
@@ -136,8 +141,8 @@ let
         ProtectKernelModules = true;
         ProtectKernelTunables = true;
         ProtectProc = "invisible";
-        RestrictAddressFamilies = [ "AF_UNIX" ]
-          ++ optional (keyboard.port != null) "AF_INET";
+        RestrictAddressFamilies =
+          [ "AF_UNIX" ] ++ optional (keyboard.port != null) "AF_INET";
         RestrictNamespaces = true;
         RestrictRealtime = true;
         SystemCallArchitectures = [ "native" ];
@@ -148,7 +153,8 @@ let
         ];
         UMask = "0077";
       };
-    };
+    }
+    ;
 in {
   options.services.kanata = {
     enable = mkEnableOption (mdDoc "kanata");

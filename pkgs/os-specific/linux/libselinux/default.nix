@@ -46,7 +46,8 @@ stdenv.mkDerivation rec {
     # normalizing the patch.
     (fetchurl {
       url =
-        "https://lore.kernel.org/selinux/20211113141616.361640-1-hi@alyssa.is/raw";
+        "https://lore.kernel.org/selinux/20211113141616.361640-1-hi@alyssa.is/raw"
+        ;
       sha256 = "16a2s2ji9049892i15yyqgp4r20hi1hij4c1s4s8law9jsx65b3n";
       postFetch = ''
         mv "$out" $TMPDIR/patch
@@ -66,8 +67,8 @@ stdenv.mkDerivation rec {
     fts
   ] ++ optionals enablePython [ python3 ];
 
-  # drop fortify here since package uses it by default, leading to compile error:
-  # command-line>:0:0: error: "_FORTIFY_SOURCE" redefined [-Werror]
+    # drop fortify here since package uses it by default, leading to compile error:
+    # command-line>:0:0: error: "_FORTIFY_SOURCE" redefined [-Werror]
   hardeningDisable = [ "fortify" ];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error";

@@ -30,11 +30,10 @@ buildDunePackage {
     ffmpeg-avdevice
   ];
 
-  # The tests fail
+    # The tests fail
   doCheck = false;
 
-  meta = ffmpeg-base.meta // {
-    description = "Bindings for the ffmpeg libraries";
-  };
+  meta =
+    ffmpeg-base.meta // { description = "Bindings for the ffmpeg libraries"; };
 
 }

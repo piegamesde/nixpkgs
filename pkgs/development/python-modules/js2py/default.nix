@@ -23,14 +23,15 @@ buildPythonPackage rec {
     tzlocal
   ];
 
-  # Test require network connection
+    # Test require network connection
   doCheck = false;
 
   pythonImportsCheck = [ "js2py" ];
 
   meta = with lib; {
     description =
-      "JavaScript to Python Translator & JavaScript interpreter written in 100% pure Python";
+      "JavaScript to Python Translator & JavaScript interpreter written in 100% pure Python"
+      ;
     homepage = "https://github.com/PiotrDabkowski/Js2Py";
     license = licenses.mit;
     maintainers = with maintainers; [ onny ];

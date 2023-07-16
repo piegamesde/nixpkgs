@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
     name = "dnsdist";
     meta = with pkgs.lib; { maintainers = with maintainers; [ jojosch ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         lib,
         ...
@@ -37,7 +38,8 @@ import ./make-test-python.nix ({
         };
 
         environment.systemPackages = with pkgs; [ dig ];
-      };
+      }
+      ;
 
     testScript = ''
       machine.wait_for_unit("bind.service")

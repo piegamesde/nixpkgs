@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
 
-  # Use compatible indexing for lapack and blas used
+    # Use compatible indexing for lapack and blas used
   buildInputs = assert (blas.isILP64 == lapack.isILP64);
     [
       blas

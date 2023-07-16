@@ -73,8 +73,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A light-weight image viewer";
     homepage = "https://feh.finalrewind.org/";
-    # released under a variant of the MIT license
-    # https://spdx.org/licenses/MIT-feh.html
+      # released under a variant of the MIT license
+      # https://spdx.org/licenses/MIT-feh.html
     license = licenses.mit-feh;
     maintainers = with maintainers; [
       viric

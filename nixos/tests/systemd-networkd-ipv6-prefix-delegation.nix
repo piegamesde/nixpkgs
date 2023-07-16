@@ -30,7 +30,8 @@ import ./make-test-python.nix ({
       # Note: On the ISPs device we don't really care if we are using networkd in
       # this example. That being said we can't use it (yet) as networkd doesn't
       # implement the serving side of DHCPv6. We will use ISC Kea for that task.
-      isp = {
+      isp =
+        {
           lib,
           pkgs,
           ...
@@ -54,8 +55,8 @@ import ./make-test-python.nix ({
             };
           };
 
-          # Since we want to program the routes that we delegate to the "customer"
-          # into our routing table we must provide kea with the required capability.
+            # Since we want to program the routes that we delegate to the "customer"
+            # into our routing table we must provide kea with the required capability.
           systemd.services.kea-dhcp6-server.serviceConfig = {
             AmbientCapabilities = [ "CAP_NET_ADMIN" ];
             CapabilityBoundingSet = [ "CAP_NET_ADMIN" ];
@@ -88,17 +89,17 @@ import ./make-test-python.nix ({
                   } ];
                 } ];
 
-                # This is the glue between Kea and the Kernel FIB. DHCPv6
-                # rightfully has no concept of setting up a route in your
-                # FIB. This step really depends on your setup.
-                #
-                # In a production environment your DHCPv6 server is likely
-                # not the router. You might want to consider BGP, NETCONF
-                # calls, … in those cases.
-                #
-                # In this example we use the run script hook, that lets use
-                # execute anything and passes information via the environment.
-                # https://kea.readthedocs.io/en/kea-2.2.0/arm/hooks.html#run-script-run-script-support-for-external-hook-scripts
+                  # This is the glue between Kea and the Kernel FIB. DHCPv6
+                  # rightfully has no concept of setting up a route in your
+                  # FIB. This step really depends on your setup.
+                  #
+                  # In a production environment your DHCPv6 server is likely
+                  # not the router. You might want to consider BGP, NETCONF
+                  # calls, … in those cases.
+                  #
+                  # In this example we use the run script hook, that lets use
+                  # execute anything and passes information via the environment.
+                  # https://kea.readthedocs.io/en/kea-2.2.0/arm/hooks.html#run-script-run-script-support-for-external-hook-scripts
                 hooks-libraries = [ {
                   library = "${pkgs.kea}/lib/kea/hooks/libdhcp_run_script.so";
                   parameters = {
@@ -142,14 +143,14 @@ import ./make-test-python.nix ({
               };
             };
 
-            # Finally we have to set up the router advertisements. While we could be
-            # using networkd or bird for this task `radvd` is probably the most
-            # venerable of them all. It was made explicitly for this purpose and
-            # the configuration is much more straightforward than what networkd
-            # requires.
-            # As outlined above we will have to set the `Managed` flag as otherwise
-            # the clients will not know if they should do DHCPv6. (Some do
-            # anyway/always)
+              # Finally we have to set up the router advertisements. While we could be
+              # using networkd or bird for this task `radvd` is probably the most
+              # venerable of them all. It was made explicitly for this purpose and
+              # the configuration is much more straightforward than what networkd
+              # requires.
+              # As outlined above we will have to set the `Managed` flag as otherwise
+              # the clients will not know if they should do DHCPv6. (Some do
+              # anyway/always)
             radvd = {
               enable = true;
               config = ''
@@ -166,12 +167,13 @@ import ./make-test-python.nix ({
             };
 
           };
-        };
+        }
+        ;
 
-      # This will be our (residential) router that receives the IPv6 prefix (IA_PD)
-      # and /128 (IA_NA) allocation.
-      #
-      # Here we will actually start using networkd.
+        # This will be our (residential) router that receives the IPv6 prefix (IA_PD)
+        # and /128 (IA_NA) allocation.
+        #
+        # Here we will actually start using networkd.
       router = {
         virtualisation.vlans = [
           1
@@ -188,9 +190,9 @@ import ./make-test-python.nix ({
         networking = {
           useNetworkd = true;
           useDHCP = false;
-          # Consider enabling this in production and generating firewall rules
-          # for fowarding/input from the configured interfaces so you do not have
-          # to manage multiple places
+            # Consider enabling this in production and generating firewall rules
+            # for fowarding/input from the configured interfaces so you do not have
+            # to manage multiple places
           firewall.enable = false;
         };
 
@@ -209,7 +211,7 @@ import ./make-test-python.nix ({
               networkConfig = {
                 Description = "ISP interface";
                 IPv6AcceptRA = true;
-                #DHCP = false; # no need for legacy IP
+                  #DHCP = false; # no need for legacy IP
               };
               linkConfig = {
                 # We care about this interface when talking about being "online".
@@ -217,7 +219,7 @@ import ./make-test-python.nix ({
                 # others and they should be able to reach us.
                 RequiredForOnline = "routable";
               };
-              # This configures the DHCPv6 client part towards the ISPs DHCPv6 server.
+                # This configures the DHCPv6 client part towards the ISPs DHCPv6 server.
               dhcpV6Config = {
                 # We have to include a request for a prefix in our DHCPv6 client
                 # request packets.
@@ -236,44 +238,44 @@ import ./make-test-python.nix ({
               };
             };
 
-            # Interface to the client. Here we should redistribute a /64 from
-            # the prefix we received from the ISP.
+              # Interface to the client. Here we should redistribute a /64 from
+              # the prefix we received from the ISP.
             "01-eth2" = {
               name = "eth2";
               networkConfig = {
                 Description = "Client interface";
-                # The client shouldn't be allowed to send us RAs, that would be weird.
+                  # The client shouldn't be allowed to send us RAs, that would be weird.
                 IPv6AcceptRA = false;
 
-                # Delegate prefixes from the DHCPv6 PD pool.
+                  # Delegate prefixes from the DHCPv6 PD pool.
                 DHCPPrefixDelegation = true;
                 IPv6SendRA = true;
               };
 
-              # In a production environment you should consider setting these as well:
-              # ipv6SendRAConfig = {
-              #EmitDNS = true;
-              #EmitDomains = true;
-              #DNS= = "fe80::1"; # or whatever "well known" IP your router will have on the inside.
-              # };
+                # In a production environment you should consider setting these as well:
+                # ipv6SendRAConfig = {
+                #EmitDNS = true;
+                #EmitDomains = true;
+                #DNS= = "fe80::1"; # or whatever "well known" IP your router will have on the inside.
+                # };
 
-              # This adds a "random" ULA prefix to the interface that is being
-              # advertised to the clients.
-              # Not used in this test.
-              # ipv6Prefixes = [
-              #   {
-              #     ipv6PrefixConfig = {
-              #       AddressAutoconfiguration = true;
-              #       PreferredLifetimeSec = 1800;
-              #       ValidLifetimeSec = 1800;
-              #     };
-              #   }
-              # ];
+                # This adds a "random" ULA prefix to the interface that is being
+                # advertised to the clients.
+                # Not used in this test.
+                # ipv6Prefixes = [
+                #   {
+                #     ipv6PrefixConfig = {
+                #       AddressAutoconfiguration = true;
+                #       PreferredLifetimeSec = 1800;
+                #       ValidLifetimeSec = 1800;
+                #     };
+                #   }
+                # ];
             };
 
-            # finally we are going to add a static IPv6 unique local address to
-            # the "lo" interface.  This will serve as ICMPv6 echo target to
-            # verify connectivity from the client to the router.
+              # finally we are going to add a static IPv6 unique local address to
+              # the "lo" interface.  This will serve as ICMPv6 echo target to
+              # verify connectivity from the client to the router.
             "01-lo" = {
               name = "lo";
               addresses = [ { addressConfig.Address = "FD42::1/128"; } ];
@@ -281,13 +283,13 @@ import ./make-test-python.nix ({
           };
         };
 
-        # make the network-online target a requirement, we wait for it in our test script
+          # make the network-online target a requirement, we wait for it in our test script
         systemd.targets.network-online.wantedBy = [ "multi-user.target" ];
       };
 
-      # This is the client behind the router. We should be receving router
-      # advertisements for both the ULA and the delegated prefix.
-      # All we have to do is boot with the default (networkd) configuration.
+        # This is the client behind the router. We should be receving router
+        # advertisements for both the ULA and the delegated prefix.
+        # All we have to do is boot with the default (networkd) configuration.
       client = {
         virtualisation.vlans = [ 2 ];
         systemd.services.systemd-networkd.environment.SYSTEMD_LOG_LEVEL =
@@ -297,7 +299,7 @@ import ./make-test-python.nix ({
           useDHCP = false;
         };
 
-        # make the network-online target a requirement, we wait for it in our test script
+          # make the network-online target a requirement, we wait for it in our test script
         systemd.targets.network-online.wantedBy = [ "multi-user.target" ];
       };
     };

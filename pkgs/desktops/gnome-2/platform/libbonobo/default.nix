@@ -30,7 +30,8 @@ stdenv.mkDerivation rec {
   ];
 
   preConfigure = # still using stuff deprecated in new glib versions
-    "sed 's/-DG_DISABLE_DEPRECATED//g' -i configure activation-server/Makefile.in";
+    "sed 's/-DG_DISABLE_DEPRECATED//g' -i configure activation-server/Makefile.in"
+    ;
 
   nativeBuildInputs = [
     flex

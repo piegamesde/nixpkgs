@@ -22,13 +22,14 @@ let
     loadkeys -b ${optionalString isUnicode "-u"} "${cfg.keyMap}" > $out
   '';
 
-  # Sadly, systemd-vconsole-setup doesn't support binary keymaps.
+    # Sadly, systemd-vconsole-setup doesn't support binary keymaps.
   vconsoleConf = pkgs.writeText "vconsole.conf" ''
     KEYMAP=${cfg.keyMap}
     ${optionalString (cfg.font != null) "FONT=${cfg.font}"}
   '';
 
-  consoleEnv = kbd:
+  consoleEnv =
+    kbd:
     pkgs.buildEnv {
       name = "console-env";
       paths = [ kbd ] ++ cfg.packages;
@@ -38,15 +39,15 @@ let
         "/share/keymaps"
         "/share/unimaps"
       ];
-    };
+    }
+    ;
 
 in {
   ###### interface
 
   options.console = {
-    enable = mkEnableOption (lib.mdDoc "virtual console") // {
-      default = true;
-    };
+    enable =
+      mkEnableOption (lib.mdDoc "virtual console") // { default = true; };
 
     font = mkOption {
       type = with types; nullOr (either str path);
@@ -132,7 +133,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkMerge [
     {
@@ -164,10 +165,10 @@ in {
       {
         environment.systemPackages = [ pkgs.kbd ];
 
-        # Let systemd-vconsole-setup.service do the work of setting up the
-        # virtual consoles.
+          # Let systemd-vconsole-setup.service do the work of setting up the
+          # virtual consoles.
         environment.etc."vconsole.conf".source = vconsoleConf;
-        # Provide kbd with additional packages.
+          # Provide kbd with additional packages.
         environment.etc.kbd.source = "${consoleEnv pkgs.kbd}/share";
 
         boot.initrd.preLVMCommands = mkIf (!config.boot.initrd.systemd.enable)
@@ -193,12 +194,12 @@ in {
 
         boot.initrd.systemd.contents = {
           "/etc/vconsole.conf".source = vconsoleConf;
-          # Add everything if we want full console setup...
+            # Add everything if we want full console setup...
           "/etc/kbd" = lib.mkIf cfg.earlySetup {
             source =
               "${consoleEnv config.boot.initrd.systemd.package.kbd}/share";
           };
-          # ...but only the keymaps if we don't
+            # ...but only the keymaps if we don't
           "/etc/kbd/keymaps" = lib.mkIf (!cfg.earlySetup) {
             source = "${
                 consoleEnv config.boot.initrd.systemd.package.kbd
@@ -227,7 +228,8 @@ in {
             RemainAfterExit = true;
             ExecStart = "${pkgs.coreutils}/bin/true";
             ExecReload =
-              "/run/current-system/systemd/bin/systemctl restart systemd-vconsole-setup";
+              "/run/current-system/systemd/bin/systemctl restart systemd-vconsole-setup"
+              ;
           };
         };
       }

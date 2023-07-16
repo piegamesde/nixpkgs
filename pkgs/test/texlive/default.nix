@@ -18,8 +18,8 @@
   '';
 
   opentype-fonts = runCommand "texlive-test-opentype" {
-    nativeBuildInputs =
-      [ (with texlive; combine { inherit scheme-medium libertinus-fonts; }) ];
+    nativeBuildInputs = [ (with texlive;
+      combine { inherit scheme-medium libertinus-fonts; }) ];
     input = builtins.toFile "opentype-testfile.tex" ''
       \documentclass{article}
       \usepackage{fontspec}
@@ -41,8 +41,8 @@
   '';
 
   chktex = runCommand "texlive-test-chktex" {
-    nativeBuildInputs =
-      [ (with texlive; combine { inherit scheme-infraonly chktex; }) ];
+    nativeBuildInputs = [ (with texlive;
+      combine { inherit scheme-infraonly chktex; }) ];
     input = builtins.toFile "chktex-sample.tex" ''
       \documentclass{article}
       \begin{document}
@@ -64,7 +64,8 @@
       input = fetchurl {
         name = "test_dvipng.tex";
         url =
-          "http://git.savannah.nongnu.org/cgit/dvipng.git/plain/test_dvipng.tex?id=b872753590a18605260078f56cbd6f28d39dc035";
+          "http://git.savannah.nongnu.org/cgit/dvipng.git/plain/test_dvipng.tex?id=b872753590a18605260078f56cbd6f28d39dc035"
+          ;
         sha256 = "1pjpf1jvwj2pv5crzdgcrzvbmn7kfmgxa39pcvskl4pa0c9hl88n";
       };
     } ''
@@ -81,7 +82,7 @@
       mv document*.png "$out"/
     '';
 
-    # test dvipng's limited capability to render postscript specials via GS
+      # test dvipng's limited capability to render postscript specials via GS
     ghostscript = runCommand "texlive-test-ghostscript" {
       nativeBuildInputs = [
         file
@@ -125,7 +126,7 @@
     '';
   };
 
-  # https://github.com/NixOS/nixpkgs/issues/75070
+    # https://github.com/NixOS/nixpkgs/issues/75070
   dvisvgm = runCommand "texlive-test-dvisvgm" {
     nativeBuildInputs = [
       file
@@ -158,12 +159,14 @@
     nativeBuildInputs = [ (with texlive;
       combine {
         inherit scheme-infraonly luatex texdoc;
-        pkgFilter = pkg:
+        pkgFilter =
+          pkg:
           lib.elem pkg.tlType [
             "run"
             "bin"
             "doc"
-          ];
+          ]
+          ;
       }) ];
   } ''
     texdoc --version
@@ -172,7 +175,7 @@
     grep texdoc.pdf "$out"
   '';
 
-  # test that language files are generated as expected
+    # test that language files are generated as expected
   hyphen-base = runCommand "texlive-test-hyphen-base" {
     hyphenBase = lib.head texlive.hyphen-base.pkgs;
     schemeFull = texlive.combined.scheme-full;
@@ -205,7 +208,7 @@
     done
   '';
 
-  # test that fmtutil.cnf is fully regenerated on scheme-full
+    # test that fmtutil.cnf is fully regenerated on scheme-full
   fmtutilCnf = runCommand "texlive-test-fmtutil.cnf" {
     kpathsea = lib.head texlive.kpathsea.pkgs;
     schemeFull = texlive.combined.scheme-full;

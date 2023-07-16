@@ -14,7 +14,8 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ ajs124 ]; };
 
     nodes = {
-      varnish = {
+      varnish =
+        {
           config,
           pkgs,
           ...
@@ -37,9 +38,11 @@ import ./make-test-python.nix ({
 
           networking.firewall.allowedTCPPorts = [ 80 ];
           system.extraDependencies = [ testPath ];
-        };
+        }
+        ;
 
-      client = {
+      client =
+        {
           lib,
           ...
         }: {
@@ -47,7 +50,8 @@ import ./make-test-python.nix ({
             require-sigs = false;
             substituters = lib.mkForce [ "http://varnish" ];
           };
-        };
+        }
+        ;
     };
 
     testScript = ''

@@ -28,7 +28,7 @@ let
   targetPrefix = lib.optionalString (targetPlatform != hostPlatform)
     (targetPlatform.config + "-");
 
-  # See description in cc-wrapper.
+    # See description in cc-wrapper.
   suffixSalt = replaceStrings [
     "-"
     "."
@@ -59,7 +59,7 @@ stdenv.mkDerivation {
   dontConfigure = true;
   dontUnpack = true;
 
-  # Additional flags passed to pkg-config.
+    # Additional flags passed to pkg-config.
   addFlags = lib.optional stdenv.targetPlatform.isStatic "--static";
 
   installPhase = ''
@@ -130,21 +130,24 @@ stdenv.mkDerivation {
     inherit targetPrefix suffixSalt baseBinName;
   };
 
-  meta = let
-    pkg-config_ = if pkg-config != null then
-      pkg-config
+  meta =
+    let
+      pkg-config_ =
+        if pkg-config != null then
+          pkg-config
+        else
+          { }
+        ;
+    in
+    (if pkg-config_ ? meta then
+      removeAttrs pkg-config.meta [ "priority" ]
     else
-      { };
-  in
-  (if pkg-config_ ? meta then
-    removeAttrs pkg-config.meta [ "priority" ]
-  else
-    { }) // {
-      description = lib.attrByPath [
-        "meta"
-        "description"
-      ] "pkg-config" pkg-config_ + " (wrapper script)";
-      priority = 10;
-    }
-  ;
+      { }) // {
+        description = lib.attrByPath [
+          "meta"
+          "description"
+        ] "pkg-config" pkg-config_ + " (wrapper script)";
+        priority = 10;
+      }
+    ;
 }

@@ -25,7 +25,8 @@ stdenv.mkDerivation {
     (fetchpatch {
       name = "fno-common.patch";
       url =
-        "https://github.com/tidalcycles/Dirt/commit/43fd267745d486228c4185b4fcbd7d9fbc362cc2.patch";
+        "https://github.com/tidalcycles/Dirt/commit/43fd267745d486228c4185b4fcbd7d9fbc362cc2.patch"
+        ;
       sha256 = "08r34ylzs31wwf0la995pb149ccq0vr7qg4792pkhca57zi0bff8";
     })
   ];
@@ -46,7 +47,8 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description =
-      "An unimpressive thingie for playing bits of samples with some level of accuracy";
+      "An unimpressive thingie for playing bits of samples with some level of accuracy"
+      ;
     homepage = "https://github.com/tidalcycles/Dirt";
     license = licenses.gpl3;
     maintainers = with maintainers; [ anderspapitto ];

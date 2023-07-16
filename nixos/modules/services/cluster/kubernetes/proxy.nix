@@ -25,7 +25,7 @@ in {
     "bindAddress"
   ]) ];
 
-  ###### interface
+    ###### interface
   options.services.kubernetes.proxy = with lib.types; {
 
     bindAddress = mkOption {
@@ -69,7 +69,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
   config = mkIf cfg.enable {
     systemd.services.kube-proxy = {
       description = "Kubernetes Proxy Service";
@@ -112,8 +112,8 @@ in {
       unitConfig = { StartLimitIntervalSec = 0; };
     };
 
-    services.kubernetes.proxy.hostname = with config.networking;
-      mkDefault hostName;
+    services.kubernetes.proxy.hostname =
+      with config.networking; mkDefault hostName;
 
     services.kubernetes.pki.certs = {
       kubeProxyClient = top.lib.mkCert {

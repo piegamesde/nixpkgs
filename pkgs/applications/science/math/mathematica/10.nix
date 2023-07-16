@@ -32,13 +32,15 @@
 }:
 
 let
-  platform = if
-    stdenv.hostPlatform.system == "i686-linux" || stdenv.hostPlatform.system
-    == "x86_64-linux"
-  then
-    "Linux"
-  else
-    throw "Mathematica requires i686-linux or x86_64 linux";
+  platform =
+    if
+      stdenv.hostPlatform.system == "i686-linux" || stdenv.hostPlatform.system
+      == "x86_64-linux"
+    then
+      "Linux"
+    else
+      throw "Mathematica requires i686-linux or x86_64 linux"
+    ;
 in
 stdenv.mkDerivation rec {
   inherit meta src version;
@@ -129,9 +131,9 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  # all binaries are already stripped
+    # all binaries are already stripped
   dontStrip = true;
 
-  # we did this in prefixup already
+    # we did this in prefixup already
   dontPatchELF = true;
 }

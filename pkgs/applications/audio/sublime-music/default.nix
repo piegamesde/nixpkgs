@@ -19,17 +19,19 @@
 
 let
   python = python3.override {
-    packageOverrides = self: super: {
-      semver = super.semver.overridePythonAttrs (oldAttrs: rec {
-        version = "2.13.0";
-        src = fetchFromGitHub {
-          owner = "python-semver";
-          repo = "python-semver";
-          rev = "refs/tags/${version}";
-          hash = "sha256-IWTo/P9JRxBQlhtcH3JMJZZrwAA8EALF4dtHajWUc4w=";
-        };
-      });
-    };
+    packageOverrides =
+      self: super: {
+        semver = super.semver.overridePythonAttrs (oldAttrs: rec {
+          version = "2.13.0";
+          src = fetchFromGitHub {
+            owner = "python-semver";
+            repo = "python-semver";
+            rev = "refs/tags/${version}";
+            hash = "sha256-IWTo/P9JRxBQlhtcH3JMJZZrwAA8EALF4dtHajWUc4w=";
+          };
+        });
+      }
+      ;
   };
 in
 python.pkgs.buildPythonApplication rec {
@@ -52,7 +54,7 @@ python.pkgs.buildPythonApplication rec {
     pythonRelaxDepsHook
   ]);
 
-  # Can be removed in later versions (probably > 0.11.16)
+    # Can be removed in later versions (probably > 0.11.16)
   pythonRelaxDeps = [
     "deepdiff"
     "python-mpv"
@@ -111,7 +113,8 @@ python.pkgs.buildPythonApplication rec {
     description = "GTK3 Subsonic/Airsonic client";
     homepage = "https://sublimemusic.app/";
     changelog =
-      "https://github.com/sublime-music/sublime-music/blob/v${version}/CHANGELOG.rst";
+      "https://github.com/sublime-music/sublime-music/blob/v${version}/CHANGELOG.rst"
+      ;
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [
       albakham

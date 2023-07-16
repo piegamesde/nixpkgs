@@ -18,7 +18,8 @@ let
   version = "4.7.8";
   geph-meta = with lib; {
     description =
-      "A modular Internet censorship circumvention system designed specifically to deal with national filtering.";
+      "A modular Internet censorship circumvention system designed specifically to deal with national filtering."
+      ;
     homepage = "https://geph.io";
     platforms = platforms.linux;
     maintainers = with maintainers; [ penalty1083 ];

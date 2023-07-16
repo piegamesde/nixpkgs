@@ -25,7 +25,8 @@ in rec {
 
     src = fetchurl {
       url =
-        "https://download.brother.com/welcome/dlf100441/dcp9020cdwlpr-${version}-1.i386.deb";
+        "https://download.brother.com/welcome/dlf100441/dcp9020cdwlpr-${version}-1.i386.deb"
+        ;
       sha256 = "1z6nma489s0a0b0a8wyg38yxanz4k99dg29fyjs4jlprsvmwk56y";
     };
 
@@ -73,7 +74,8 @@ in rec {
       license = licenses.unfree;
       platforms = platforms.linux;
       downloadPage =
-        "https://support.brother.com/g/b/downloadlist.aspx?c=gb&lang=en&prod=${model}_eu&os=128";
+        "https://support.brother.com/g/b/downloadlist.aspx?c=gb&lang=en&prod=${model}_eu&os=128"
+        ;
       maintainers = with maintainers; [ pshirshov ];
     };
   };
@@ -84,7 +86,8 @@ in rec {
 
     src = fetchurl {
       url =
-        "https://download.brother.com/welcome/dlf100443/dcp9020cdwcupswrapper-${version}-1.i386.deb";
+        "https://download.brother.com/welcome/dlf100443/dcp9020cdwcupswrapper-${version}-1.i386.deb"
+        ;
       sha256 = "04yqm1qv9p4hgp1p6mqq4siygl4056s6flv6kqln8mvmcr8zaq1s";
     };
 
@@ -123,7 +126,8 @@ in rec {
       license = licenses.unfree;
       platforms = platforms.linux;
       downloadPage =
-        "https://support.brother.com/g/b/downloadlist.aspx?c=gb&lang=en&prod=${model}_eu&os=128";
+        "https://support.brother.com/g/b/downloadlist.aspx?c=gb&lang=en&prod=${model}_eu&os=128"
+        ;
       maintainers = with maintainers; [ pshirshov ];
     };
   };

@@ -28,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-Vsje8gEJWNt2P1WOFm/IZSpJo04N0CXWxcmfADmP/M4=";
   };
 
-  # force pyproj to use ${proj}
+    # force pyproj to use ${proj}
   patches = [ (substituteAll {
     src = ./001.proj.patch;
     proj = proj;

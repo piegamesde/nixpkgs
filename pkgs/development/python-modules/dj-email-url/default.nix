@@ -22,12 +22,13 @@ buildPythonPackage rec {
     ${python.interpreter} test_dj_email_url.py
   '';
 
-  # tests not included with pypi release
+    # tests not included with pypi release
   doCheck = false;
 
   meta = with lib; {
     description =
-      "Use an URL to configure email backend settings in your Django Application";
+      "Use an URL to configure email backend settings in your Django Application"
+      ;
     homepage = "https://github.com/migonzalvar/dj-email-url";
     license = licenses.bsd0;
     maintainers = with maintainers; [ costrouc ];

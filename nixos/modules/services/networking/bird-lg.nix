@@ -10,55 +10,65 @@ with lib;
 let
   cfg = config.services.bird-lg;
 
-  stringOrConcat = sep: v:
+  stringOrConcat =
+    sep: v:
     if builtins.isString v then
       v
     else
-      concatStringsSep sep v;
+      concatStringsSep sep v
+    ;
 
-  frontend_args = let
-    fe = cfg.frontend;
-  in {
-    "--servers" = concatStringsSep "," fe.servers;
-    "--domain" = fe.domain;
-    "--listen" = fe.listenAddress;
-    "--proxy-port" = fe.proxyPort;
-    "--whois" = fe.whois;
-    "--dns-interface" = fe.dnsInterface;
-    "--bgpmap-info" = concatStringsSep "," cfg.frontend.bgpMapInfo;
-    "--title-brand" = fe.titleBrand;
-    "--navbar-brand" = fe.navbar.brand;
-    "--navbar-brand-url" = fe.navbar.brandURL;
-    "--navbar-all-servers" = fe.navbar.allServers;
-    "--navbar-all-url" = fe.navbar.allServersURL;
-    "--net-specific-mode" = fe.netSpecificMode;
-    "--protocol-filter" = concatStringsSep "," cfg.frontend.protocolFilter;
-  } ;
+  frontend_args =
+    let
+      fe = cfg.frontend;
+    in {
+      "--servers" = concatStringsSep "," fe.servers;
+      "--domain" = fe.domain;
+      "--listen" = fe.listenAddress;
+      "--proxy-port" = fe.proxyPort;
+      "--whois" = fe.whois;
+      "--dns-interface" = fe.dnsInterface;
+      "--bgpmap-info" = concatStringsSep "," cfg.frontend.bgpMapInfo;
+      "--title-brand" = fe.titleBrand;
+      "--navbar-brand" = fe.navbar.brand;
+      "--navbar-brand-url" = fe.navbar.brandURL;
+      "--navbar-all-servers" = fe.navbar.allServers;
+      "--navbar-all-url" = fe.navbar.allServersURL;
+      "--net-specific-mode" = fe.netSpecificMode;
+      "--protocol-filter" = concatStringsSep "," cfg.frontend.protocolFilter;
+    }
+    ;
 
-  proxy_args = let
-    px = cfg.proxy;
-  in {
-    "--allowed" = concatStringsSep "," px.allowedIPs;
-    "--bird" = px.birdSocket;
-    "--listen" = px.listenAddress;
-    "--traceroute_bin" = px.traceroute.binary;
-    "--traceroute_flags" = concatStringsSep " " px.traceroute.flags;
-    "--traceroute_raw" = px.traceroute.rawOutput;
-  } ;
+  proxy_args =
+    let
+      px = cfg.proxy;
+    in {
+      "--allowed" = concatStringsSep "," px.allowedIPs;
+      "--bird" = px.birdSocket;
+      "--listen" = px.listenAddress;
+      "--traceroute_bin" = px.traceroute.binary;
+      "--traceroute_flags" = concatStringsSep " " px.traceroute.flags;
+      "--traceroute_raw" = px.traceroute.rawOutput;
+    }
+    ;
 
-  mkArgValue = value:
+  mkArgValue =
+    value:
     if isString value then
       escapeShellArg value
     else if isBool value then
       boolToString value
     else
-      toString value;
+      toString value
+    ;
 
   filterNull = filterAttrs (_: v: v != "" && v != null && v != [ ]);
 
-  argsAttrToList = args:
+  argsAttrToList =
+    args:
     mapAttrsToList (name: value: "${name} " + mkArgValue value)
-    (filterNull args);
+    (filterNull args)
+    ;
 in {
   options = {
     services.bird-lg = {
@@ -273,7 +283,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = {
 

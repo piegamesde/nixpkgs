@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://download.enlightenment.org/rel/apps/${pname}/${pname}-${version}.tar.xz";
+      "https://download.enlightenment.org/rel/apps/${pname}/${pname}-${version}.tar.xz"
+      ;
     sha256 = "sha256-VttdIGuCG5qIMdJucT5BCscLIlWm9D/N98Ae794jt6I=";
   };
 

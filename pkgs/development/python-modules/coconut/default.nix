@@ -39,7 +39,7 @@ buildPythonPackage rec {
     tkinter
   ];
 
-  # Currently most tests have performance issues
+    # Currently most tests have performance issues
   pytestFlagsArray = [ "coconut/tests/constants_test.py" ];
 
   pythonImportsCheck = [ "coconut" ];

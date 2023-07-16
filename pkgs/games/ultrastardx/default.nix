@@ -97,7 +97,7 @@ stdenv.mkDerivation rec {
       export NIX_LDFLAGS="$NIX_LDFLAGS ${items}"
     '' ;
 
-  # dlopened libgcc requires the rpath not to be shrinked
+    # dlopened libgcc requires the rpath not to be shrinked
   dontPatchELF = true;
 
   meta = with lib; {

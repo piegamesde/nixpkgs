@@ -12,8 +12,8 @@ buildPythonApplication rec {
   pname = "git-review";
   version = "2.3.1";
 
-  # Manually set version because prb wants to get it from the git
-  # upstream repository (and we are installing from tarball instead)
+    # Manually set version because prb wants to get it from the git
+    # upstream repository (and we are installing from tarball instead)
   PBR_VERSION = version;
 
   src = fetchFromGitea {
@@ -36,9 +36,9 @@ buildPythonApplication rec {
     setuptools # implicit dependency, used to get package version through pkg_resources
   ];
 
-  # Don't run tests because they pull in external dependencies
-  # (a specific build of gerrit + maven plugins), and I haven't figured
-  # out how to work around this yet.
+    # Don't run tests because they pull in external dependencies
+    # (a specific build of gerrit + maven plugins), and I haven't figured
+    # out how to work around this yet.
   doCheck = false;
 
   pythonImportsCheck = [ "git_review" ];

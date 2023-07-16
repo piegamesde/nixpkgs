@@ -6,8 +6,10 @@ import ./make-test-python.nix ({
   }:
   let
 
-    runWithOpenSSL = file: cmd:
-      pkgs.runCommand file { buildInputs = [ pkgs.openssl ]; } cmd;
+    runWithOpenSSL =
+      file: cmd:
+      pkgs.runCommand file { buildInputs = [ pkgs.openssl ]; } cmd
+      ;
 
     ca_key = runWithOpenSSL "ca-key.pem" "openssl genrsa -out $out 2048";
     ca_pem = runWithOpenSSL "ca.pem" ''
@@ -103,7 +105,8 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ offline ]; };
 
     nodes = {
-      node1 = {
+      node1 =
+        {
           ...
         }: {
           require = [ nodeConfig ];
@@ -114,9 +117,11 @@ import ./make-test-python.nix ({
             ];
             initialAdvertisePeerUrls = [ "https://node1:2380" ];
           };
-        };
+        }
+        ;
 
-      node2 = {
+      node2 =
+        {
           ...
         }: {
           require = [ nodeConfig ];
@@ -127,9 +132,11 @@ import ./make-test-python.nix ({
             ];
             initialAdvertisePeerUrls = [ "https://node2:2380" ];
           };
-        };
+        }
+        ;
 
-      node3 = {
+      node3 =
+        {
           ...
         }: {
           require = [ nodeConfig ];
@@ -142,7 +149,8 @@ import ./make-test-python.nix ({
             initialAdvertisePeerUrls = [ "https://node3:2380" ];
             initialClusterState = "existing";
           };
-        };
+        }
+        ;
     };
 
     testScript = ''

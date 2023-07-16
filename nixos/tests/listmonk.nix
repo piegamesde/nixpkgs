@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
     name = "listmonk";
     meta.maintainers = with lib.maintainers; [ raitobezarius ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -18,7 +19,7 @@ import ./make-test-python.nix ({
           };
           database = {
             createLocally = true;
-            # https://github.com/knadh/listmonk/blob/174a48f252a146d7e69dab42724e3329dbe25ebe/internal/messenger/email/email.go#L18-L27
+              # https://github.com/knadh/listmonk/blob/174a48f252a146d7e69dab42724e3329dbe25ebe/internal/messenger/email/email.go#L18-L27
             settings.smtp = [ {
               enabled = true;
               host = "localhost";
@@ -27,7 +28,8 @@ import ./make-test-python.nix ({
             } ];
           };
         };
-      };
+      }
+      ;
 
     testScript = ''
       import json

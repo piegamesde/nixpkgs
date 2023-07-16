@@ -14,7 +14,8 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/anuragsoni/color/releases/download/${version}/color-${version}.tbz";
+      "https://github.com/anuragsoni/color/releases/download/${version}/color-${version}.tbz"
+      ;
     sha256 = "0wg3a36i1a7fnz5pf57qzbdghwr6dzp7nnxyrz9m9765lxsn65ph";
   };
 

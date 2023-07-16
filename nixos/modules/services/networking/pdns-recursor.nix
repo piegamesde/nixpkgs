@@ -20,12 +20,15 @@ let
     ];
   configType = with types; attrsOf (nullOr (oneOrMore valueType));
 
-  toBool = val:
+  toBool =
+    val:
     if val then
       "yes"
     else
-      "no";
-  serialize = val:
+      "no"
+    ;
+  serialize =
+    val:
     with types;
     if str.check val then
       val
@@ -38,7 +41,8 @@ let
     else if builtins.isList val then
       (concatMapStringsSep "," serialize val)
     else
-      "";
+      ""
+    ;
 
   configDir = pkgs.writeTextDir "recursor.conf" (concatStringsSep "\n"
     (flip mapAttrsToList cfg.settings (name: val: "${name}=${serialize val}")));
@@ -256,7 +260,8 @@ in {
     "pdns-recursor"
     "extraConfig"
   ]
-    "To change extra Recursor settings use services.pdns-recursor.settings instead.") ];
+    "To change extra Recursor settings use services.pdns-recursor.settings instead.") ]
+    ;
 
   meta.maintainers = with lib.maintainers; [ rnhmjoj ];
 

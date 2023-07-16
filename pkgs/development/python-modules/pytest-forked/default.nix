@@ -47,7 +47,8 @@ buildPythonPackage rec {
 
   meta = {
     changelog =
-      "https://github.com/pytest-dev/pytest-forked/blob/${src.rev}/CHANGELOG.rst";
+      "https://github.com/pytest-dev/pytest-forked/blob/${src.rev}/CHANGELOG.rst"
+      ;
     description = "Run tests in isolated forked subprocesses";
     homepage = "https://github.com/pytest-dev/pytest-forked";
     license = lib.licenses.mit;

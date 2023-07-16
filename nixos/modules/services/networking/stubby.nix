@@ -60,38 +60,41 @@ in {
         '';
       };
 
-      logLevel = let
-        logLevels = {
-          emerg = 0;
-          alert = 1;
-          crit = 2;
-          error = 3;
-          warning = 4;
-          notice = 5;
-          info = 6;
-          debug = 7;
-        };
-      in
-      mkOption {
-        default = null;
-        type = types.nullOr
-          (types.enum (attrNames logLevels ++ attrValues logLevels));
-        apply = v:
-          if isString v then
-            logLevels.${v}
-          else
-            v;
-        description = lib.mdDoc "Log verbosity (syslog keyword or level).";
-      }
-      ;
+      logLevel =
+        let
+          logLevels = {
+            emerg = 0;
+            alert = 1;
+            crit = 2;
+            error = 3;
+            warning = 4;
+            notice = 5;
+            info = 6;
+            debug = 7;
+          };
+        in
+        mkOption {
+          default = null;
+          type = types.nullOr
+            (types.enum (attrNames logLevels ++ attrValues logLevels));
+          apply =
+            v:
+            if isString v then
+              logLevels.${v}
+            else
+              v
+            ;
+          description = lib.mdDoc "Log verbosity (syslog keyword or level).";
+        }
+        ;
 
     };
   };
 
   config = mkIf cfg.enable {
     assertions = [ {
-      assertion = (cfg.settings.resolution_type or "")
-        == "GETDNS_RESOLUTION_STUB";
+      assertion =
+        (cfg.settings.resolution_type or "") == "GETDNS_RESOLUTION_STUB";
       message = ''
         services.stubby.settings.resolution_type must be set to "GETDNS_RESOLUTION_STUB".
         Is services.stubby.settings unset?

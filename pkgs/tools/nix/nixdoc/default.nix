@@ -22,7 +22,8 @@ rustPlatform.buildRustPackage rec {
     # Support nested identifiers https://github.com/nix-community/nixdoc/pull/27
     (fetchpatch {
       url =
-        "https://github.com/nix-community/nixdoc/pull/27/commits/ea542735bf675fe2ccd37edaffb9138d1a8c1b7e.patch";
+        "https://github.com/nix-community/nixdoc/pull/27/commits/ea542735bf675fe2ccd37edaffb9138d1a8c1b7e.patch"
+        ;
       sha256 = "1fmz44jv2r9qsnjxvkkjfb0safy69l4x4vx1g5gisrp8nwdn94rj";
     })
   ];

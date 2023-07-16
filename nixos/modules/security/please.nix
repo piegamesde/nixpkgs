@@ -65,20 +65,22 @@ in {
   };
 
   config = mkIf cfg.enable {
-    security.wrappers = let
-      owner = "root";
-      group = "root";
-      setuid = true;
-    in {
-      please = {
-        source = "${cfg.package}/bin/please";
-        inherit owner group setuid;
-      };
-      pleaseedit = {
-        source = "${cfg.package}/bin/pleaseedit";
-        inherit owner group setuid;
-      };
-    } ;
+    security.wrappers =
+      let
+        owner = "root";
+        group = "root";
+        setuid = true;
+      in {
+        please = {
+          source = "${cfg.package}/bin/please";
+          inherit owner group setuid;
+        };
+        pleaseedit = {
+          source = "${cfg.package}/bin/pleaseedit";
+          inherit owner group setuid;
+        };
+      }
+      ;
 
     security.please.settings = rec {
       # The "wheel" group is allowed to do anything by default but this can be

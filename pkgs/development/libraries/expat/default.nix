@@ -47,8 +47,8 @@ stdenv.mkDerivation rec {
     patchShebangs ./configure ./run.sh ./test-driver-wrapper.sh
   '';
 
-  # CMake files incorrectly calculate library path from dev prefix
-  # https://github.com/libexpat/libexpat/issues/501
+    # CMake files incorrectly calculate library path from dev prefix
+    # https://github.com/libexpat/libexpat/issues/501
   postFixup = ''
     substituteInPlace $dev/lib/cmake/expat-${version}/expat-noconfig.cmake \
       --replace "$"'{_IMPORT_PREFIX}' $out

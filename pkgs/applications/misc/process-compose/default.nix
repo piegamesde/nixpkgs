@@ -17,8 +17,8 @@ buildGoModule rec {
     repo = pname;
     rev = "v${version}";
     hash = "sha256-yNYoVz6vITKkAkqH/0p7D4sifTpjtEZS4syFSwN4v98=";
-    # populate values that require us to use git. By doing this in postFetch we
-    # can delete .git afterwards and maintain better reproducibility of the src.
+      # populate values that require us to use git. By doing this in postFetch we
+      # can delete .git afterwards and maintain better reproducibility of the src.
     leaveDotGit = true;
     postFetch = ''
       cd "$out"
@@ -29,7 +29,7 @@ buildGoModule rec {
     '';
   };
 
-  # ldflags based on metadata from git and source
+    # ldflags based on metadata from git and source
   preBuild = ''
     ldflags+=" -X ${config-module}.Commit=$(cat COMMIT)"
     ldflags+=" -X ${config-module}.Date=$(cat SOURCE_DATE_EPOCH)"
@@ -58,7 +58,8 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "A simple and flexible scheduler and orchestrator to manage non-containerized applications";
+      "A simple and flexible scheduler and orchestrator to manage non-containerized applications"
+      ;
     homepage = "https://github.com/F1bonacc1/process-compose";
     changelog =
       "https://github.com/F1bonacc1/process-compose/releases/tag/v${version}";

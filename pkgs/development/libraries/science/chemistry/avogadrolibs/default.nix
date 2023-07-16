@@ -25,7 +25,7 @@ let
       numpy
     ]);
 
-  # Pure data repositories
+    # Pure data repositories
   moleculesRepo = fetchFromGitHub {
     owner = "OpenChemistry";
     repo = "molecules";

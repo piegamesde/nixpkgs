@@ -92,7 +92,8 @@ let
     UNICORN_LISTENER = "/run/discourse/sockets/unicorn.sock";
   };
 
-  mkDiscoursePlugin = {
+  mkDiscoursePlugin =
+    {
       name ? null,
       pname ? null,
       version ? null,
@@ -107,10 +108,12 @@ let
         bundlerEnv (bundlerEnvArgs // { inherit name pname version ruby; });
     in
     stdenv.mkDerivation (builtins.removeAttrs args [ "bundlerEnvArgs" ] // {
-      pluginName = if name != null then
-        name
-      else
-        "${pname}-${version}";
+      pluginName =
+        if name != null then
+          name
+        else
+          "${pname}-${version}"
+        ;
       dontConfigure = true;
       dontBuild = true;
       installPhase = ''
@@ -133,7 +136,7 @@ let
           runHook postInstall
         '');
     })
-  ;
+    ;
 
   rake = runCommand "discourse-rake" { nativeBuildInputs = [ makeWrapper ]; } ''
     mkdir -p $out/bin
@@ -152,64 +155,66 @@ let
     name = "discourse-ruby-env-${version}";
     inherit version ruby;
     gemdir = ./rubyEnv;
-    gemset = let
-      gems = import ./rubyEnv/gemset.nix;
-    in
-    gems // {
-      mini_racer = gems.mini_racer // {
-        buildInputs = [ icu ];
-        dontBuild = false;
-        NIX_LDFLAGS = "-licui18n";
-      };
-      libv8-node = let
-        noopScript = writeShellScript "noop" "exit 0";
-        linkFiles = writeShellScript "link-files" ''
-          cd ../..
-
-          mkdir -p vendor/v8/${stdenv.hostPlatform.system}/libv8/obj/
-          ln -s "${nodejs_16.libv8}/lib/libv8.a" vendor/v8/${stdenv.hostPlatform.system}/libv8/obj/libv8_monolith.a
-
-          ln -s ${nodejs_16.libv8}/include vendor/v8/include
-
-          mkdir -p ext/libv8-node
-          echo '--- !ruby/object:Libv8::Node::Location::Vendor {}' >ext/libv8-node/.location.yml
-        '';
+    gemset =
+      let
+        gems = import ./rubyEnv/gemset.nix;
       in
-      gems.libv8-node // {
-        dontBuild = false;
-        postPatch = ''
-          cp ${noopScript} libexec/build-libv8
-          cp ${noopScript} libexec/build-monolith
-          cp ${noopScript} libexec/download-node
-          cp ${noopScript} libexec/extract-node
-          cp ${linkFiles} libexec/inject-libv8
-        '';
+      gems // {
+        mini_racer = gems.mini_racer // {
+          buildInputs = [ icu ];
+          dontBuild = false;
+          NIX_LDFLAGS = "-licui18n";
+        };
+        libv8-node =
+          let
+            noopScript = writeShellScript "noop" "exit 0";
+            linkFiles = writeShellScript "link-files" ''
+              cd ../..
+
+              mkdir -p vendor/v8/${stdenv.hostPlatform.system}/libv8/obj/
+              ln -s "${nodejs_16.libv8}/lib/libv8.a" vendor/v8/${stdenv.hostPlatform.system}/libv8/obj/libv8_monolith.a
+
+              ln -s ${nodejs_16.libv8}/include vendor/v8/include
+
+              mkdir -p ext/libv8-node
+              echo '--- !ruby/object:Libv8::Node::Location::Vendor {}' >ext/libv8-node/.location.yml
+            '';
+          in
+          gems.libv8-node // {
+            dontBuild = false;
+            postPatch = ''
+              cp ${noopScript} libexec/build-libv8
+              cp ${noopScript} libexec/build-monolith
+              cp ${noopScript} libexec/download-node
+              cp ${noopScript} libexec/extract-node
+              cp ${linkFiles} libexec/inject-libv8
+            '';
+          }
+          ;
+        mini_suffix = gems.mini_suffix // {
+          propagatedBuildInputs = [ libpsl ];
+          dontBuild = false;
+            # Use our libpsl instead of the vendored one, which isn't
+            # available for aarch64. It has to be called
+            # libpsl.x86_64.so or it isn't found.
+          postPatch = ''
+            cp $(readlink -f ${libpsl}/lib/libpsl.so) vendor/libpsl.x86_64.so
+          '';
+        };
+        sass-embedded = gems.sass-embedded // {
+          dontBuild = false;
+            # `sass-embedded` depends on `dart-sass-embedded` and tries to
+            # fetch that as `.tar.gz` from GitHub releases. That `.tar.gz`
+            # can also be specified via `SASS_EMBEDDED`. But instead of
+            # compressing our `dart-sass-embedded` just to decompress it
+            # again, we simply patch the Rakefile to symlink that path.
+          patches = [ ./rubyEnv/sass-embedded-static.patch ];
+          postPatch = ''
+            export SASS_EMBEDDED=${dart-sass-embedded}/bin
+          '';
+        };
       }
       ;
-      mini_suffix = gems.mini_suffix // {
-        propagatedBuildInputs = [ libpsl ];
-        dontBuild = false;
-        # Use our libpsl instead of the vendored one, which isn't
-        # available for aarch64. It has to be called
-        # libpsl.x86_64.so or it isn't found.
-        postPatch = ''
-          cp $(readlink -f ${libpsl}/lib/libpsl.so) vendor/libpsl.x86_64.so
-        '';
-      };
-      sass-embedded = gems.sass-embedded // {
-        dontBuild = false;
-        # `sass-embedded` depends on `dart-sass-embedded` and tries to
-        # fetch that as `.tar.gz` from GitHub releases. That `.tar.gz`
-        # can also be specified via `SASS_EMBEDDED`. But instead of
-        # compressing our `dart-sass-embedded` just to decompress it
-        # again, we simply patch the Rakefile to symlink that path.
-        patches = [ ./rubyEnv/sass-embedded-static.patch ];
-        postPatch = ''
-          export SASS_EMBEDDED=${dart-sass-embedded}/bin
-        '';
-      };
-    }
-    ;
 
     groups = [
       "default"
@@ -264,10 +269,10 @@ let
       ./asserts_patch-package_from_path.patch
     ];
 
-    # We have to set up an environment that is close enough to
-    # production ready or the assets:precompile task refuses to
-    # run. This means that Redis and PostgreSQL has to be running and
-    # database migrations performed.
+      # We have to set up an environment that is close enough to
+      # production ready or the assets:precompile task refuses to
+      # run. This means that Redis and PostgreSQL has to be running and
+      # database migrations performed.
     preBuild = ''
       # Yarn wants a real home directory to write cache, config, etc to
       export HOME=$NIX_BUILD_TOP/fake_home

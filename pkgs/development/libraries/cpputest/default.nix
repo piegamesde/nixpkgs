@@ -10,7 +10,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/cpputest/cpputest/releases/download/v${version}/${pname}-${version}.tar.gz";
+      "https://github.com/cpputest/cpputest/releases/download/v${version}/${pname}-${version}.tar.gz"
+      ;
     sha256 = "1xslavlb1974y5xvs8n1j9zkk05dlw8imy4saasrjlmibl895ii1";
   };
 

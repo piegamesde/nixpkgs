@@ -9,11 +9,13 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ offline ]; };
 
     nodes = {
-      node = {
+      node =
+        {
           ...
         }: {
           services.etcd.enable = true;
-        };
+        }
+        ;
     };
 
     testScript = ''

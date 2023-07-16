@@ -21,10 +21,10 @@ buildGoModule rec {
 
   doCheck = false;
 
-  # Optionally, a log counter binary can be created to parse journald logs.
-  # The binary is dynamically linked against systemd libraries, making it a
-  # Linux-only feature. See 'ENABLE_JOURNALD' upstream:
-  # https://github.com/kubernetes/node-problem-detector/blob/master/Makefile
+    # Optionally, a log counter binary can be created to parse journald logs.
+    # The binary is dynamically linked against systemd libraries, making it a
+    # Linux-only feature. See 'ENABLE_JOURNALD' upstream:
+    # https://github.com/kubernetes/node-problem-detector/blob/master/Makefile
   subPackages = [ "cmd/nodeproblemdetector" ]
     ++ lib.optionals stdenv.isLinux [ "cmd/logcounter" ];
 
@@ -47,7 +47,8 @@ buildGoModule rec {
     description = "Various problem detectors running on the Kubernetes nodes";
     homepage = "https://github.com/kubernetes/node-problem-detector";
     changelog =
-      "https://github.com/kubernetes/node-problem-detector/releases/tag/v${version}";
+      "https://github.com/kubernetes/node-problem-detector/releases/tag/v${version}"
+      ;
     license = licenses.asl20;
     maintainers = with maintainers; [ lbpdt ];
   };

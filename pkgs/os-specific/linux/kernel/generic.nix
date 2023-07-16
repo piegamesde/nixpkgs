@@ -90,7 +90,7 @@ let
       "src"
     ])) (lib.attrNames args));
 
-  # Combine the `features' attribute sets of all the kernel patches.
+    # Combine the `features' attribute sets of all the kernel patches.
   kernelFeatures = lib.foldr (x: y: (x.features or { }) // y) ({
     iwlwifi = true;
     efiBootStub = true;
@@ -117,8 +117,9 @@ let
       settings = extraStructuredConfig;
     }) kernelPatches;
 
-  # appends kernel patches extraConfig
-  kernelConfigFun = baseConfigStr:
+    # appends kernel patches extraConfig
+  kernelConfigFun =
+    baseConfigStr:
     let
       configFromPatches = map ({
           extraConfig ? "",
@@ -127,7 +128,7 @@ let
         extraConfig) kernelPatches;
     in
     lib.concatStringsSep "\n" ([ baseConfigStr ] ++ configFromPatches)
-  ;
+    ;
 
   configfile = stdenv.mkDerivation {
     inherit
@@ -157,12 +158,14 @@ let
     ] ++ lib.optional (lib.versionAtLeast version "5.2") pahole;
 
     platformName = stdenv.hostPlatform.linux-kernel.name;
-    # e.g. "defconfig"
-    kernelBaseConfig = if defconfig != null then
-      defconfig
-    else
-      stdenv.hostPlatform.linux-kernel.baseConfig;
-    # e.g. "bzImage"
+      # e.g. "defconfig"
+    kernelBaseConfig =
+      if defconfig != null then
+        defconfig
+      else
+        stdenv.hostPlatform.linux-kernel.baseConfig
+      ;
+      # e.g. "bzImage"
     kernelTarget = stdenv.hostPlatform.linux-kernel.target;
 
     makeFlags = lib.optionals (stdenv.hostPlatform.linux-kernel ? makeFlags)
@@ -207,10 +210,10 @@ let
 
     passthru = rec {
       module = import ../../../../nixos/modules/system/boot/kernel_config.nix;
-      # used also in apache
-      # { modules = [ { options = res.options; config = svc.config or svc; } ];
-      #   check = false;
-      # The result is a set of two attributes
+        # used also in apache
+        # { modules = [ { options = res.options; config = svc.config or svc; } ];
+        #   check = false;
+        # The result is a set of two attributes
       moduleStructuredConfig = (lib.evalModules {
         modules = [
           module
@@ -255,8 +258,8 @@ let
       "The isXen attribute is deprecated. All Nixpkgs kernels that support it now have Xen enabled."
       true;
 
-    # Adds dependencies needed to edit the config:
-    # nix-shell '<nixpkgs>' -A linux.configEnv --command 'make nconfig'
+      # Adds dependencies needed to edit the config:
+      # nix-shell '<nixpkgs>' -A linux.configEnv --command 'make nconfig'
     configEnv = kernel.overrideAttrs (old: {
       nativeBuildInputs = old.nativeBuildInputs or [ ] ++ (with buildPackages; [
         pkg-config
@@ -265,20 +268,23 @@ let
     });
 
     passthru = kernel.passthru // (removeAttrs passthru [ "passthru" ]);
-    tests = let
-      overridableKernel = finalKernel // {
-        override = args:
-          lib.warn
-          ("override is stubbed for NixOS kernel tests, not applying changes these arguments: "
-            + toString (lib.attrNames (if lib.isAttrs args then
-              args
-            else
-              args { }))) overridableKernel;
-      };
-    in
-    [ (nixosTests.kernel-generic.testsForKernel overridableKernel) ]
-    ++ kernelTests
-    ;
+    tests =
+      let
+        overridableKernel = finalKernel // {
+          override =
+            args:
+            lib.warn
+            ("override is stubbed for NixOS kernel tests, not applying changes these arguments: "
+              + toString (lib.attrNames (if lib.isAttrs args then
+                args
+              else
+                args { }))) overridableKernel
+            ;
+        };
+      in
+      [ (nixosTests.kernel-generic.testsForKernel overridableKernel) ]
+      ++ kernelTests
+      ;
   };
 
   finalKernel = lib.extendDerivation true passthru kernel;

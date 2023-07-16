@@ -133,8 +133,8 @@ in {
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ mirakurun ]
-      ++ optional cfg.allowSmartCardAccess polkitRule;
+    environment.systemPackages =
+      [ mirakurun ] ++ optional cfg.allowSmartCardAccess polkitRule;
     environment.etc = {
       "mirakurun/server.yml".source =
         settingsFmt.generate "server.yml" cfg.serverSettings;
@@ -168,8 +168,8 @@ in {
       port = mkIf (cfg.port != null) cfg.port;
     };
 
-    systemd.tmpfiles.rules =
-      [ "d '/etc/mirakurun' - ${username} ${groupname} - -" ];
+    systemd.tmpfiles.rules = [ "d '/etc/mirakurun' - ${username} ${groupname} - -" ]
+      ;
 
     systemd.services.mirakurun = {
       description = mirakurun.meta.description;
@@ -196,14 +196,18 @@ in {
         NODE_ENV = "production";
       };
 
-      restartTriggers = let
-        getconf = target:
-          config.environment.etc."mirakurun/${target}.yml".source;
-        targets = [ "server" ] ++ optional (cfg.tunerSettings != null) "tuners"
-          ++ optional (cfg.channelSettings != null) "channels";
-      in
-      (map getconf targets)
-      ;
+      restartTriggers =
+        let
+          getconf =
+            target:
+            config.environment.etc."mirakurun/${target}.yml".source
+            ;
+          targets = [ "server" ]
+            ++ optional (cfg.tunerSettings != null) "tuners"
+            ++ optional (cfg.channelSettings != null) "channels";
+        in
+        (map getconf targets)
+        ;
     };
   };
 }

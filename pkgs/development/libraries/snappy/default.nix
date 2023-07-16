@@ -25,7 +25,8 @@ stdenv.mkDerivation rec {
     # https://build.opensuse.org/package/show/openSUSE:Factory/snappy
     (fetchpatch {
       url =
-        "https://build.opensuse.org/public/source/openSUSE:Factory/snappy/reenable-rtti.patch?rev=a759aa6fba405cd40025e3f0ab89941d";
+        "https://build.opensuse.org/public/source/openSUSE:Factory/snappy/reenable-rtti.patch?rev=a759aa6fba405cd40025e3f0ab89941d"
+        ;
       sha256 = "sha256-RMuM5yd6zP1eekN/+vfS54EyY4cFbGDVor1E1vj3134=";
     })
   ];
@@ -37,8 +38,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  # See https://github.com/NixOS/nixpkgs/pull/219778#issuecomment-1464884412
-  # and https://github.com/NixOS/nixpkgs/pull/221215#issuecomment-1482564003.
+    # See https://github.com/NixOS/nixpkgs/pull/219778#issuecomment-1464884412
+    # and https://github.com/NixOS/nixpkgs/pull/221215#issuecomment-1482564003.
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.isDarwin "-Wno-sign-compare";
 
@@ -67,9 +68,9 @@ stdenv.mkDerivation rec {
     EOF
   '';
 
-  #checkTarget = "test";
+    #checkTarget = "test";
 
-  # requires gbenchmark and gtest but it also installs them out $dev
+    # requires gbenchmark and gtest but it also installs them out $dev
   doCheck = false;
 
   meta = with lib; {

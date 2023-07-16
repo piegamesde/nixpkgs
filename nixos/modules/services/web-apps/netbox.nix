@@ -84,10 +84,12 @@ in {
 
     package = mkOption {
       type = types.package;
-      default = if versionAtLeast config.system.stateVersion "23.05" then
-        pkgs.netbox
-      else
-        pkgs.netbox_3_3;
+      default =
+        if versionAtLeast config.system.stateVersion "23.05" then
+          pkgs.netbox
+        else
+          pkgs.netbox_3_3
+        ;
       defaultText = literalExpression ''
         if versionAtLeast config.system.stateVersion "23.05" then pkgs.netbox else pkgs.netbox_3_3;
       '';
@@ -199,11 +201,11 @@ in {
           HOST = "/run/postgresql";
         };
 
-        # Redis database settings. Redis is used for caching and for queuing
-        # background tasks such as webhook events. A separate configuration
-        # exists for each. Full connection details are required in both
-        # sections, and it is strongly recommended to use two separate database
-        # IDs.
+          # Redis database settings. Redis is used for caching and for queuing
+          # background tasks such as webhook events. A separate configuration
+          # exists for each. Full connection details are required in both
+          # sections, and it is strongly recommended to use two separate database
+          # IDs.
         REDIS = {
           tasks = {
             URL =
@@ -230,7 +232,7 @@ in {
             formatter = "precise";
           };
 
-          # log to console/systemd instead of file
+            # log to console/systemd instead of file
           root = {
             level = "INFO";
             handlers = [ "console" ];
@@ -266,80 +268,82 @@ in {
       ];
     };
 
-    systemd.services = let
-      defaultServiceConfig = {
-        WorkingDirectory = "${cfg.dataDir}";
-        User = "netbox";
-        Group = "netbox";
-        StateDirectory = "netbox";
-        StateDirectoryMode = "0750";
-        Restart = "on-failure";
-      };
-    in {
-      netbox-migration = {
-        description = "NetBox migrations";
-        wantedBy = [ "netbox.target" ];
-
-        environment = { PYTHONPATH = pkg.pythonPath; };
-
-        serviceConfig = defaultServiceConfig // {
-          Type = "oneshot";
-          ExecStart = ''
-            ${pkg}/bin/netbox migrate
-          '';
+    systemd.services =
+      let
+        defaultServiceConfig = {
+          WorkingDirectory = "${cfg.dataDir}";
+          User = "netbox";
+          Group = "netbox";
+          StateDirectory = "netbox";
+          StateDirectoryMode = "0750";
+          Restart = "on-failure";
         };
-      };
+      in {
+        netbox-migration = {
+          description = "NetBox migrations";
+          wantedBy = [ "netbox.target" ];
 
-      netbox = {
-        description = "NetBox WSGI Service";
-        wantedBy = [ "netbox.target" ];
-        after = [ "netbox-migration.service" ];
+          environment = { PYTHONPATH = pkg.pythonPath; };
 
-        preStart = ''
-          ${pkg}/bin/netbox trace_paths --no-input
-          ${pkg}/bin/netbox collectstatic --no-input
-          ${pkg}/bin/netbox remove_stale_contenttypes --no-input
-        '';
-
-        environment = { PYTHONPATH = pkg.pythonPath; };
-
-        serviceConfig = defaultServiceConfig // {
-          ExecStart = ''
-            ${pkgs.python3Packages.gunicorn}/bin/gunicorn netbox.wsgi \
-              --bind ${cfg.listenAddress}:${toString cfg.port} \
-              --pythonpath ${pkg}/opt/netbox/netbox
-          '';
+          serviceConfig = defaultServiceConfig // {
+            Type = "oneshot";
+            ExecStart = ''
+              ${pkg}/bin/netbox migrate
+            '';
+          };
         };
-      };
 
-      netbox-rq = {
-        description = "NetBox Request Queue Worker";
-        wantedBy = [ "netbox.target" ];
-        after = [ "netbox.service" ];
+        netbox = {
+          description = "NetBox WSGI Service";
+          wantedBy = [ "netbox.target" ];
+          after = [ "netbox-migration.service" ];
 
-        environment = { PYTHONPATH = pkg.pythonPath; };
-
-        serviceConfig = defaultServiceConfig // {
-          ExecStart = ''
-            ${pkg}/bin/netbox rqworker high default low
+          preStart = ''
+            ${pkg}/bin/netbox trace_paths --no-input
+            ${pkg}/bin/netbox collectstatic --no-input
+            ${pkg}/bin/netbox remove_stale_contenttypes --no-input
           '';
+
+          environment = { PYTHONPATH = pkg.pythonPath; };
+
+          serviceConfig = defaultServiceConfig // {
+            ExecStart = ''
+              ${pkgs.python3Packages.gunicorn}/bin/gunicorn netbox.wsgi \
+                --bind ${cfg.listenAddress}:${toString cfg.port} \
+                --pythonpath ${pkg}/opt/netbox/netbox
+            '';
+          };
         };
-      };
 
-      netbox-housekeeping = {
-        description = "NetBox housekeeping job";
-        after = [ "netbox.service" ];
+        netbox-rq = {
+          description = "NetBox Request Queue Worker";
+          wantedBy = [ "netbox.target" ];
+          after = [ "netbox.service" ];
 
-        environment = { PYTHONPATH = pkg.pythonPath; };
+          environment = { PYTHONPATH = pkg.pythonPath; };
 
-        serviceConfig = defaultServiceConfig // {
-          Type = "oneshot";
-          ExecStart = ''
-            ${pkg}/bin/netbox housekeeping
-          '';
+          serviceConfig = defaultServiceConfig // {
+            ExecStart = ''
+              ${pkg}/bin/netbox rqworker high default low
+            '';
+          };
         };
-      };
-    } ;
+
+        netbox-housekeeping = {
+          description = "NetBox housekeeping job";
+          after = [ "netbox.service" ];
+
+          environment = { PYTHONPATH = pkg.pythonPath; };
+
+          serviceConfig = defaultServiceConfig // {
+            Type = "oneshot";
+            ExecStart = ''
+              ${pkg}/bin/netbox housekeeping
+            '';
+          };
+        };
+      }
+      ;
 
     systemd.timers.netbox-housekeeping = {
       description = "Run NetBox housekeeping job";
@@ -354,7 +358,7 @@ in {
       group = "netbox";
     };
     users.groups.netbox = { };
-    users.groups."${config.services.redis.servers.netbox.user}".members =
-      [ "netbox" ];
+    users.groups."${config.services.redis.servers.netbox.user}".members = [ "netbox" ]
+      ;
   };
 }

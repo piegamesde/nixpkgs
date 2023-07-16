@@ -15,17 +15,21 @@ appimageTools.wrapAppImage rec {
     inherit name;
     src = fetchurl {
       url =
-        "https://github.com/keyboardio/${pname}/releases/download/v${version}/${pname}-${version}.AppImage";
+        "https://github.com/keyboardio/${pname}/releases/download/v${version}/${pname}-${version}.AppImage"
+        ;
       sha256 = "sha256-sQoEO1UII4Gbp7UbHCCyejsd94lkBbi93TH325EamFc=";
     };
   };
 
   multiPkgs = null;
-  extraPkgs = p: (appimageTools.defaultFhsEnvArgs.multiPkgs p) ++ [ p.glib ];
+  extraPkgs =
+    p:
+    (appimageTools.defaultFhsEnvArgs.multiPkgs p) ++ [ p.glib ]
+    ;
 
-  # Also expose the udev rules here, so it can be used as:
-  #   services.udev.packages = [ pkgs.chrysalis ];
-  # to allow non-root modifications to the keyboards.
+    # Also expose the udev rules here, so it can be used as:
+    #   services.udev.packages = [ pkgs.chrysalis ];
+    # to allow non-root modifications to the keyboards.
 
   extraInstallCommands = ''
     mv $out/bin/${name} $out/bin/${pname}

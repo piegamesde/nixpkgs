@@ -85,8 +85,8 @@ stdenv.mkDerivation rec {
     "-DOGRE_BUILD_COMPONENT_OVERLAY_IMGUI=FALSE"
     "-DOGRE_BUILD_DEPENDENCIES=OFF"
     "-DOGRE_BUILD_SAMPLES=${toString withSamples}"
-  ] ++ lib.optionals
-    stdenv.isDarwin [ "-DOGRE_BUILD_LIBS_AS_FRAMEWORKS=FALSE" ];
+  ] ++ lib.optionals stdenv.isDarwin [ "-DOGRE_BUILD_LIBS_AS_FRAMEWORKS=FALSE" ]
+    ;
 
   meta = {
     description = "3D Object-Oriented Graphics Rendering Engine";

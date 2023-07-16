@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
     name = "moodle";
     meta.maintainers = [ lib.maintainers.aanderse ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         services.moodle.enable = true;
@@ -14,10 +15,11 @@ import ./make-test-python.nix ({
         services.moodle.virtualHost.adminAddr = "root@example.com";
         services.moodle.initialPassword = "correcthorsebatterystaple";
 
-        # Ensure the virtual machine has enough memory to avoid errors like:
-        # Fatal error: Out of memory (allocated 152047616) (tried to allocate 33554440 bytes)
+          # Ensure the virtual machine has enough memory to avoid errors like:
+          # Fatal error: Out of memory (allocated 152047616) (tried to allocate 33554440 bytes)
         virtualisation.memorySize = 2000;
-      };
+      }
+      ;
 
     testScript = ''
       start_all()

@@ -25,13 +25,13 @@ buildPythonPackage rec {
   };
 
   nativeCheckInputs = [ pytestCheckHook ];
-  # image tests download files over the network
+    # image tests download files over the network
   pytestFlagsArray = [
     "-sv"
     "--ignore=mlxtend/image"
   ];
-  # Fixed in master, but failing in release version
-  # see: https://github.com/rasbt/mlxtend/pull/721
+    # Fixed in master, but failing in release version
+    # see: https://github.com/rasbt/mlxtend/pull/721
   disabledTests = [ "test_variance_explained_ratio" ];
 
   propagatedBuildInputs = [
@@ -49,7 +49,7 @@ buildPythonPackage rec {
     license = licenses.bsd3;
     maintainers = with maintainers; [ evax ];
     platforms = platforms.unix;
-    # incompatible with nixpkgs scikit-learn version
+      # incompatible with nixpkgs scikit-learn version
     broken = true;
   };
 }

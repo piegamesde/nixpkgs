@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pygments ];
 
-  # Tests only execute pygments with these styles
+    # Tests only execute pygments with these styles
   doCheck = false;
 
   pythonImportsCheck = [
@@ -32,7 +32,8 @@ buildPythonPackage rec {
     description = "A collection of accessible pygments styles";
     homepage = "https://github.com/Quansight-Labs/accessible-pygments";
     changelog =
-      "https://github.com/Quansight-Labs/accessible-pygments/raw/v${version}/CHANGELOG.md";
+      "https://github.com/Quansight-Labs/accessible-pygments/raw/v${version}/CHANGELOG.md"
+      ;
     license = licenses.bsd3;
     maintainers = with maintainers; [ marsam ];
   };

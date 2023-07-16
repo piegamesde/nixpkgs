@@ -67,7 +67,8 @@ buildPythonPackage rec {
     description = "Module for getting energy/gas prices from easyEnergy";
     homepage = "https://github.com/klaasnicolaas/python-easyenergy";
     changelog =
-      "https://github.com/klaasnicolaas/python-easyenergy/releases/tag/v${version}";
+      "https://github.com/klaasnicolaas/python-easyenergy/releases/tag/v${version}"
+      ;
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

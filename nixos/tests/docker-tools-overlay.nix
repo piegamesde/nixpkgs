@@ -13,13 +13,15 @@ import ./make-test-python.nix ({
     };
 
     nodes = {
-      docker = {
+      docker =
+        {
           ...
         }: {
           virtualisation.docker.enable = true;
           virtualisation.docker.storageDriver =
             "overlay"; # defaults to overlay2
-        };
+        }
+        ;
     };
 
     testScript = ''

@@ -108,7 +108,7 @@ stdenv.mkDerivation rec {
       libdrm
     ];
 
-  # Copied from the obs-linuxbrowser
+    # Copied from the obs-linuxbrowser
   postUnpack = ''
     mkdir -p cef/Release cef/Resources cef/libcef_dll_wrapper/
     for i in ${libcef}/share/cef/*; do
@@ -120,9 +120,9 @@ stdenv.mkDerivation rec {
     cp -r ${libcef}/include cef/
   '';
 
-  # obs attempts to dlopen libobs-opengl, it fails unless we make sure
-  # DL_OPENGL is an explicit path. Not sure if there's a better way
-  # to handle this.
+    # obs attempts to dlopen libobs-opengl, it fails unless we make sure
+    # DL_OPENGL is an explicit path. Not sure if there's a better way
+    # to handle this.
   cmakeFlags = [
     ''-DCMAKE_CXX_FLAGS=-DDL_OPENGL=\"$(out)/lib/libobs-opengl.so\"''
     "-DOBS_VERSION_OVERRIDE=${version}"

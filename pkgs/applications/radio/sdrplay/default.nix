@@ -6,12 +6,14 @@
   udev,
 }:
 let
-  arch = if stdenv.isx86_64 then
-    "x86_64"
-  else if stdenv.isi686 then
-    "i686"
-  else
-    throw "unsupported architecture";
+  arch =
+    if stdenv.isx86_64 then
+      "x86_64"
+    else if stdenv.isi686 then
+      "i686"
+    else
+      throw "unsupported architecture"
+    ;
 in
 stdenv.mkDerivation rec {
   pname = "sdrplay";

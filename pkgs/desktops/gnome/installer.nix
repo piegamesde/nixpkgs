@@ -7,7 +7,8 @@
 let
 
   module =
-    ../../../../nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix;
+    ../../../../nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix
+    ;
 
   config = (import ../../../../nixos/lib/eval-config.nix {
     inherit system;

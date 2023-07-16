@@ -13,9 +13,11 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://github.com/theotherp/${pname}/releases/download/v${version}/${pname}-${version}-linux.zip";
+      "https://github.com/theotherp/${pname}/releases/download/v${version}/${pname}-${version}-linux.zip"
+      ;
     hash =
-      "sha512-vc+VInEnh00bASxcEwSjJcsa0QJHmtRzSz30uW60wGmA24tlaJYSk42N5KpGFbkQkOkb2ijHmKGxPogSa4izRQ==";
+      "sha512-vc+VInEnh00bASxcEwSjJcsa0QJHmtRzSz30uW60wGmA24tlaJYSk42N5KpGFbkQkOkb2ijHmKGxPogSa4izRQ=="
+      ;
     stripRoot = false;
   };
 

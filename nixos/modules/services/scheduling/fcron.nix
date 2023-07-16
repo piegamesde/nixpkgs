@@ -11,12 +11,14 @@ let
 
   cfg = config.services.fcron;
 
-  queuelen = if cfg.queuelen == null then
-    ""
-  else
-    "-q ${toString cfg.queuelen}";
+  queuelen =
+    if cfg.queuelen == null then
+      ""
+    else
+      "-q ${toString cfg.queuelen}"
+    ;
 
-  # Duplicate code, also found in cron.nix. Needs deduplication.
+    # Duplicate code, also found in cron.nix. Needs deduplication.
   systemCronJobs = ''
     SHELL=${pkgs.bash}/bin/bash
     PATH=${config.system.path}/bin:${config.system.path}/sbin
@@ -28,12 +30,14 @@ let
     (map (job: job + "\n") config.services.cron.systemCronJobs)}
   '';
 
-  allowdeny = target: users: {
-    source = pkgs.writeText "fcron.${target}" (concatStringsSep "\n" users);
-    target = "fcron.${target}";
-    mode = "644";
-    gid = config.ids.gids.fcron;
-  };
+  allowdeny =
+    target: users: {
+      source = pkgs.writeText "fcron.${target}" (concatStringsSep "\n" users);
+      target = "fcron.${target}";
+      mode = "644";
+      gid = config.ids.gids.fcron;
+    }
+    ;
 
 in {
 
@@ -88,7 +92,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -102,24 +106,27 @@ in {
       (allowdeny "deny" cfg.deny)
       # see man 5 fcron.conf
       {
-        source = let
-          isSendmailWrapped = lib.hasAttr "sendmail" config.security.wrappers;
-          sendmailPath = if isSendmailWrapped then
-            "/run/wrappers/bin/sendmail"
-          else
-            "${config.system.path}/bin/sendmail";
-        in
-        pkgs.writeText "fcron.conf" ''
-          fcrontabs   =       /var/spool/fcron
-          pidfile     =       /run/fcron.pid
-          fifofile    =       /run/fcron.fifo
-          fcronallow  =       /etc/fcron.allow
-          fcrondeny   =       /etc/fcron.deny
-          shell       =       /bin/sh
-          sendmail    =       ${sendmailPath}
-          editor      =       ${pkgs.vim}/bin/vim
-        ''
-        ;
+        source =
+          let
+            isSendmailWrapped = lib.hasAttr "sendmail" config.security.wrappers;
+            sendmailPath =
+              if isSendmailWrapped then
+                "/run/wrappers/bin/sendmail"
+              else
+                "${config.system.path}/bin/sendmail"
+              ;
+          in
+          pkgs.writeText "fcron.conf" ''
+            fcrontabs   =       /var/spool/fcron
+            pidfile     =       /run/fcron.pid
+            fifofile    =       /run/fcron.fifo
+            fcronallow  =       /etc/fcron.allow
+            fcrondeny   =       /etc/fcron.deny
+            shell       =       /bin/sh
+            sendmail    =       ${sendmailPath}
+            editor      =       ${pkgs.vim}/bin/vim
+          ''
+          ;
         target = "fcron.conf";
         gid = config.ids.gids.fcron;
         mode = "0644";

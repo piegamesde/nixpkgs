@@ -22,7 +22,8 @@ buildPythonPackage {
   patches = [ (fetchpatch {
     name = "fix-py37-stopiteration-in-generators.patch";
     url =
-      "https://github.com/Scondo/purepng/pull/28/commits/62d71dfc2be9ffdc4b3e5f642af0281a8ce8f946.patch";
+      "https://github.com/Scondo/purepng/pull/28/commits/62d71dfc2be9ffdc4b3e5f642af0281a8ce8f946.patch"
+      ;
     sha256 = "1ag0pji3p012hmj8kadcd0vydv9702188c0isizsi964qcl4va6m";
   }) ];
   patchFlags = [
@@ -31,12 +32,12 @@ buildPythonPackage {
     "code"
   ];
 
-  # cython is optional - if not supplied, the "pure python" implementation will be used
+    # cython is optional - if not supplied, the "pure python" implementation will be used
   nativeBuildInputs = [ cython ];
 
-  # numpy is optional - if not supplied, tests simply have less coverage
+    # numpy is optional - if not supplied, tests simply have less coverage
   nativeCheckInputs = [ numpy ];
-  # checkPhase begins by deleting source dir to force test execution against installed version
+    # checkPhase begins by deleting source dir to force test execution against installed version
   checkPhase = ''
     rm -r code/png
     ${python.interpreter} code/test_png.py

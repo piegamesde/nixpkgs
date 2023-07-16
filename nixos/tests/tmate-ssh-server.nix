@@ -6,42 +6,51 @@ import ./make-test-python.nix ({
   let
     inherit (import ./ssh-keys.nix pkgs) snakeOilPrivateKey snakeOilPublicKey;
 
-    setUpPrivateKey = name: ''
-      ${name}.succeed(
-          "mkdir -p /root/.ssh",
-          "chown 700 /root/.ssh",
-          "cat '${snakeOilPrivateKey}' > /root/.ssh/id_snakeoil",
-          "chown 600 /root/.ssh/id_snakeoil",
-      )
-      ${name}.wait_for_file("/root/.ssh/id_snakeoil")
-    '';
+    setUpPrivateKey =
+      name: ''
+        ${name}.succeed(
+            "mkdir -p /root/.ssh",
+            "chown 700 /root/.ssh",
+            "cat '${snakeOilPrivateKey}' > /root/.ssh/id_snakeoil",
+            "chown 600 /root/.ssh/id_snakeoil",
+        )
+        ${name}.wait_for_file("/root/.ssh/id_snakeoil")
+      ''
+      ;
 
     sshOpts =
-      "-oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -oIdentityFile=/root/.ssh/id_snakeoil";
+      "-oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -oIdentityFile=/root/.ssh/id_snakeoil"
+      ;
 
   in {
     name = "tmate-ssh-server";
     nodes = {
-      server = {
+      server =
+        {
           ...
         }: {
           services.tmate-ssh-server = {
             enable = true;
             port = 2223;
           };
-        };
-      client = {
+        }
+        ;
+      client =
+        {
           ...
         }: {
           environment.systemPackages = [ pkgs.tmate ];
           services.openssh.enable = true;
           users.users.root.openssh.authorizedKeys.keys = [ snakeOilPublicKey ];
-        };
-      client2 = {
+        }
+        ;
+      client2 =
+        {
           ...
         }: {
           environment.systemPackages = [ pkgs.openssh ];
-        };
+        }
+        ;
     };
     testScript = ''
       start_all()

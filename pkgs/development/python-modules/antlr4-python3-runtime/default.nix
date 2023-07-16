@@ -13,7 +13,7 @@ buildPythonPackage rec {
 
   sourceRoot = "source/runtime/Python3";
 
-  # in 4.9, test was renamed to tests
+    # in 4.9, test was renamed to tests
   checkPhase = ''
     cd test*
     ${python.interpreter} run.py

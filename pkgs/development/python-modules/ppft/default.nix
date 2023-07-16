@@ -22,7 +22,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-  # darwin seems to hang
+    # darwin seems to hang
   doCheck = !stdenv.isDarwin;
   checkPhase = ''
     runHook preCheck

@@ -18,7 +18,7 @@ let
       config.boot.zfs.package;
   });
 
-  # Provides a fake "docker" binary mapping to podman
+    # Provides a fake "docker" binary mapping to podman
   dockerCompat = pkgs.runCommand
     "${podmanPackage.pname}-docker-compat-${podmanPackage.version}" {
       outputs = [
@@ -167,7 +167,7 @@ in {
     environment.systemPackages = [ cfg.package ]
       ++ lib.optional cfg.dockerCompat dockerCompat;
 
-    # https://github.com/containers/podman/blob/097cc6eb6dd8e598c0e8676d21267b4edb11e144/docs/tutorials/basic_networking.md#default-network
+      # https://github.com/containers/podman/blob/097cc6eb6dd8e598c0e8676d21267b4edb11e144/docs/tutorials/basic_networking.md#default-network
     environment.etc."containers/networks/podman.json" =
       lib.mkIf (cfg.defaultNetwork.settings != { }) {
         source = json.generate "podman.json" ({
@@ -193,10 +193,10 @@ in {
         network.network_backend = "netavark";
       } // lib.optionalAttrs cfg.enableNvidia {
         engine = {
-          conmon_env_vars =
-            [ "PATH=${lib.makeBinPath [ pkgs.nvidia-podman ]}" ];
-          runtimes.nvidia =
-            [ "${pkgs.nvidia-podman}/bin/nvidia-container-runtime" ];
+          conmon_env_vars = [ "PATH=${lib.makeBinPath [ pkgs.nvidia-podman ]}" ]
+            ;
+          runtimes.nvidia = [ "${pkgs.nvidia-podman}/bin/nvidia-container-runtime" ]
+            ;
         };
       };
     };
@@ -239,7 +239,8 @@ in {
     ];
 
     systemd.tmpfiles.rules = lib.optionals
-      cfg.dockerSocket.enable [ "L! /run/docker.sock - - - - /run/podman/podman.sock" ];
+      cfg.dockerSocket.enable [ "L! /run/docker.sock - - - - /run/podman/podman.sock" ]
+      ;
 
     users.groups.podman = { };
 
@@ -249,8 +250,8 @@ in {
         message = "Option dockerCompat conflicts with docker";
       }
       {
-        assertion = cfg.dockerSocket.enable
-          -> !config.virtualisation.docker.enable;
+        assertion =
+          cfg.dockerSocket.enable -> !config.virtualisation.docker.enable;
         message = ''
           The options virtualisation.podman.dockerSocket.enable and virtualisation.docker.enable conflict, because only one can serve the socket.
         '';

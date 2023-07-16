@@ -37,7 +37,7 @@ in {
 
       default = { };
 
-      # Example taken from the manpage
+        # Example taken from the manpage
       example = literalExpression ''
         {
           screencast = {

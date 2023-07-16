@@ -48,10 +48,10 @@ stdenv.mkDerivation rec {
     cd squashfs-tools
   '';
 
-  # Workaround build failure on -fno-common toolchains like upstream
-  # gcc-10. Otherwise build fails as:
-  #   ld: unsquashfs_xattr.o:/build/squashfs4.4/squashfs-tools/error.h:34: multiple definition of
-  #     `verbose'; unsquashfs.o:/build/squashfs4.4/squashfs-tools/error.h:34: first defined here
+    # Workaround build failure on -fno-common toolchains like upstream
+    # gcc-10. Otherwise build fails as:
+    #   ld: unsquashfs_xattr.o:/build/squashfs4.4/squashfs-tools/error.h:34: multiple definition of
+    #     `verbose'; unsquashfs.o:/build/squashfs4.4/squashfs-tools/error.h:34: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   installFlags = [ "INSTALL_DIR=\${out}/bin" ];
@@ -66,7 +66,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/devttys0/sasquatch";
     description =
-      "Set of patches to the standard unsquashfs utility (part of squashfs-tools) that attempts to add support for as many hacked-up vendor-specific SquashFS implementations as possible";
+      "Set of patches to the standard unsquashfs utility (part of squashfs-tools) that attempts to add support for as many hacked-up vendor-specific SquashFS implementations as possible"
+      ;
     license = licenses.gpl2Plus;
     maintainers = [ maintainers.pamplemousse ];
     platforms = platforms.linux;

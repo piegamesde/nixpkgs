@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "3666cbbe30e4d4e25401a5902ae359bc2c24248b.patch";
       url =
-        "https://swift.im/git/swift/patch/Swiften/Base/Platform.h?id=3666cbbe30e4d4e25401a5902ae359bc2c24248b";
+        "https://swift.im/git/swift/patch/Swiften/Base/Platform.h?id=3666cbbe30e4d4e25401a5902ae359bc2c24248b"
+        ;
       sha256 = "Wh8Nnfm0/EppSJ7aH2vTNObHtodE5tM19kV1oDfm70w=";
     })
   ];

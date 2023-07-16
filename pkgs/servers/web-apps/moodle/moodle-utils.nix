@@ -5,7 +5,8 @@
 }:
 
 let
-  buildMoodlePlugin = a@{
+  buildMoodlePlugin =
+    a@{
       name,
       src,
       pluginType,
@@ -31,7 +32,8 @@ let
 
         runHook postInstall
       '';
-    });
+    })
+    ;
 in {
   inherit buildMoodlePlugin;
 }

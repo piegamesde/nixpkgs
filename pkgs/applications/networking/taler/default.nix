@@ -25,7 +25,7 @@
 let
   taler-merchant-backoffice = fetchgit {
     url = "https://git.taler.net/merchant-backoffice.git";
-    # branch "prebuilt" as of 2022-07-01
+      # branch "prebuilt" as of 2022-07-01
     rev = "1ef7150f32960cb65ebea67839cd5023f29a3d1d";
     sha256 = "sha256-ZtLYWHi6l5DxFvDm8RFGUD0BiAfJXCZr/ggrP3Uw7/0=";
   };

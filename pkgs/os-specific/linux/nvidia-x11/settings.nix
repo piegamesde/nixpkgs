@@ -68,7 +68,8 @@ stdenv.mkDerivation {
     (fetchpatch {
       # fixes "multiple definition of `VDPAUDeviceFunctions'" linking errors
       url =
-        "https://github.com/NVIDIA/nvidia-settings/commit/a7c1f5fce6303a643fadff7d85d59934bd0cf6b6.patch";
+        "https://github.com/NVIDIA/nvidia-settings/commit/a7c1f5fce6303a643fadff7d85d59934bd0cf6b6.patch"
+        ;
       hash = "sha256-ZwF3dRTYt/hO8ELg9weoz1U/XcU93qiJL2d1aq1Jlak=";
     });
 
@@ -130,10 +131,12 @@ stdenv.mkDerivation {
     install doc/nvidia-settings.png -D -t $out/share/icons/hicolor/128x128/apps/
   '';
 
-  binaryName = if withGtk3 then
-    ".nvidia-settings-wrapped"
-  else
-    "nvidia-settings";
+  binaryName =
+    if withGtk3 then
+      ".nvidia-settings-wrapped"
+    else
+      "nvidia-settings"
+    ;
   postFixup = ''
     patchelf --set-rpath "$(patchelf --print-rpath $out/bin/$binaryName):$out/lib:${libXv}/lib" \
       $out/bin/$binaryName

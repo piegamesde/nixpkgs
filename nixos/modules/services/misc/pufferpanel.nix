@@ -113,12 +113,12 @@ in {
       path = cfg.extraPackages;
       environment = cfg.environment;
 
-      # Note that we export environment variables for service directories if the
-      # value is not set. An empty environment variable is considered to be set.
-      # E.g.
-      #   export PUFFER_LOGS=${PUFFER_LOGS-$LOGS_DIRECTORY}
-      # would set PUFFER_LOGS to $LOGS_DIRECTORY if PUFFER_LOGS environment
-      # variable is not defined.
+        # Note that we export environment variables for service directories if the
+        # value is not set. An empty environment variable is considered to be set.
+        # E.g.
+        #   export PUFFER_LOGS=${PUFFER_LOGS-$LOGS_DIRECTORY}
+        # would set PUFFER_LOGS to $LOGS_DIRECTORY if PUFFER_LOGS environment
+        # variable is not defined.
       script = ''
         ${lib.concatLines (lib.mapAttrsToList (name: value: ''
           export ${name}="''${${name}-${value}}"
@@ -148,10 +148,10 @@ in {
 
         EnvironmentFile = cfg.environmentFile;
 
-        # Command "pufferpanel shutdown --pid $MAINPID" sends SIGTERM (code 15)
-        # to the main process and waits for termination. This is essentially
-        # KillMode=mixed we are using here. See
-        # https://freedesktop.org/software/systemd/man/systemd.kill.html#KillMode=
+          # Command "pufferpanel shutdown --pid $MAINPID" sends SIGTERM (code 15)
+          # to the main process and waits for termination. This is essentially
+          # KillMode=mixed we are using here. See
+          # https://freedesktop.org/software/systemd/man/systemd.kill.html#KillMode=
         KillMode = "mixed";
 
         DynamicUser = true;

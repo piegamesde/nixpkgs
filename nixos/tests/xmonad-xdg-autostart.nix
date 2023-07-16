@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
     name = "xmonad-xdg-autostart";
     meta.maintainers = with lib.maintainers; [ oxalica ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         config,
         ...
@@ -30,9 +31,11 @@ import ./make-test-python.nix ({
             Exec=${pkgs.coreutils}/bin/touch ${config.users.users.alice.home}/xdg-autostart-executed
           '';
         }) ];
-      };
+      }
+      ;
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }:
@@ -41,5 +44,6 @@ import ./make-test-python.nix ({
       in ''
         machine.wait_for_x()
         machine.wait_for_file("${user.home}/xdg-autostart-executed")
-      '' ;
+      ''
+      ;
   })

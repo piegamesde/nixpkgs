@@ -3,34 +3,42 @@ lib: prev:
 let
   # Removing recurseForDerivation prevents derivations of aliased attribute
   # set to appear while listing all the packages available.
-  removeRecurseForDerivations = alias:
+  removeRecurseForDerivations =
+    alias:
     with lib;
     if alias.recurseForDerivations or false then
       removeAttrs alias [ "recurseForDerivations" ]
     else
-      alias;
+      alias
+    ;
 
-  # Disabling distribution prevents top-level aliases for non-recursed package
-  # sets from building on Hydra.
-  removeDistribute = alias:
+    # Disabling distribution prevents top-level aliases for non-recursed package
+    # sets from building on Hydra.
+  removeDistribute =
+    alias:
     with lib;
     if isDerivation alias then
       dontDistribute alias
     else
-      alias;
+      alias
+    ;
 
-  # Make sure that we are not shadowing something from
-  # writers.
-  checkInPkgs = n: alias:
+    # Make sure that we are not shadowing something from
+    # writers.
+  checkInPkgs =
+    n: alias:
     if builtins.hasAttr n prev then
       throw "Alias ${n} is still in writers"
     else
-      alias;
+      alias
+    ;
 
-  mapAliases = aliases:
+  mapAliases =
+    aliases:
     lib.mapAttrs (n: alias:
       removeDistribute (removeRecurseForDerivations (checkInPkgs n alias)))
-    aliases;
+    aliases
+    ;
 
 in
 mapAliases ({

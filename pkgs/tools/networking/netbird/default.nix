@@ -20,14 +20,16 @@
   ui ? false
 }:
 let
-  modules = if ui then
-    { "client/ui" = "netbird-ui"; }
-  else
-    {
-      client = "netbird";
-      management = "netbird-mgmt";
-      signal = "netbird-signal";
-    };
+  modules =
+    if ui then
+      { "client/ui" = "netbird-ui"; }
+    else
+      {
+        client = "netbird";
+        management = "netbird-mgmt";
+        signal = "netbird-signal";
+      }
+    ;
 in
 buildGoModule rec {
   pname = "netbird";
@@ -67,7 +69,7 @@ buildGoModule rec {
     "-X main.builtBy=nix"
   ];
 
-  # needs network access
+    # needs network access
   doCheck = false;
 
   postPatch = ''
@@ -106,7 +108,8 @@ buildGoModule rec {
     homepage = "https://netbird.io";
     changelog = "https://github.com/netbirdio/netbird/releases/tag/v${version}";
     description =
-      "Connect your devices into a single secure private WireGuard®-based mesh network with SSO/MFA and simple access controls";
+      "Connect your devices into a single secure private WireGuard®-based mesh network with SSO/MFA and simple access controls"
+      ;
     license = licenses.bsd3;
     maintainers = with maintainers; [ misuzu ];
   };

@@ -38,7 +38,7 @@ buildPythonPackage rec {
     responses
   ];
 
-  # tests are icnompatible with current django version
+    # tests are icnompatible with current django version
   doCheck = false;
 
   pythonImportsCheck = [ "rest_auth" ];

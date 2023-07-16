@@ -23,10 +23,12 @@
 # Do not bump lightly! Visit <http://www.bchemnet.com/suldr/supported.html>
 # to see what will break when upgrading. Consider a new versioned attribute.
 let
-  installationPath = if stdenv.hostPlatform.system == "x86_64-linux" then
-    "x86_64"
-  else
-    "i386";
+  installationPath =
+    if stdenv.hostPlatform.system == "x86_64-linux" then
+      "x86_64"
+    else
+      "i386"
+    ;
   appendPath =
     lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux") "64";
   libPath = lib.makeLibraryPath [
@@ -40,7 +42,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://www.bchemnet.com/suldr/driver/UnifiedLinuxDriver-${version}.tar.gz";
+      "http://www.bchemnet.com/suldr/driver/UnifiedLinuxDriver-${version}.tar.gz"
+      ;
     sha256 = "1vv3pzvqpg1dq3xjr8161x2yp3v7ca75vil56ranhw5pkjwq66x0";
   };
 

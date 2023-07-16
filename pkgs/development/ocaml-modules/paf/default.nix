@@ -29,7 +29,8 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/dinosaure/paf-le-chien/releases/download/${version}/paf-${version}.tbz";
+      "https://github.com/dinosaure/paf-le-chien/releases/download/${version}/paf-${version}.tbz"
+      ;
     hash = "sha256-oWRvwb8DhtF3ltWaZ6moKmgadFUngruo1UOIaGNV/oM=";
   };
 

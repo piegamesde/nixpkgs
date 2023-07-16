@@ -47,7 +47,8 @@ import ./make-test-python.nix ({
     name = "auth-mysql";
     meta.maintainers = with lib.maintainers; [ netali ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         services.mysql = {
@@ -121,7 +122,8 @@ import ./make-test-python.nix ({
             '';
           };
         };
-      };
+      }
+      ;
 
     testScript = ''
       def switch_to_tty(tty_number):

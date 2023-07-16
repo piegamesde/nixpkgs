@@ -18,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-iew/+/Ww6Uvz6Ctvswd8l5YFa3zihYxo1jvTe0ZTW9M=";
   };
 
-  # Prevent circular dependency
+    # Prevent circular dependency
   pythonRemoveDeps = [ "dvc" ];
 
   nativeBuildInputs = [
@@ -31,12 +31,12 @@ buildPythonPackage rec {
     sshfs
   ];
 
-  # bcrypt is enabled for sshfs in nixpkgs
+    # bcrypt is enabled for sshfs in nixpkgs
   postPatch = ''
     substituteInPlace setup.cfg --replace "sshfs[bcrypt]" "sshfs"
   '';
 
-  # Network access is needed for tests
+    # Network access is needed for tests
   doCheck = false;
 
   pythonCheckImports = [ "dvc_ssh" ];

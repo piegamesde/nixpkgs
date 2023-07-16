@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   disabled = !isPy3k;
 
-  # pypi package is missing test fixtures
+    # pypi package is missing test fixtures
   src = fetchFromGitHub {
     owner = "amelchio";
     repo = pname;

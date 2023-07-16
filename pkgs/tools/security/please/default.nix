@@ -30,7 +30,7 @@ rustPlatform.buildRustPackage rec {
     installManPage man/*
   '';
 
-  # Unit tests are broken on NixOS.
+    # Unit tests are broken on NixOS.
   doCheck = false;
 
   passthru.tests = { inherit (nixosTests) please; };

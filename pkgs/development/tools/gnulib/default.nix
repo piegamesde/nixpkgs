@@ -28,7 +28,7 @@ stdenv.mkDerivation {
     ln -s $out/gnulib-tool $out/bin/
   '';
 
-  # do not change headers to not update all vendored build files
+    # do not change headers to not update all vendored build files
   dontFixup = true;
 
   passthru = {

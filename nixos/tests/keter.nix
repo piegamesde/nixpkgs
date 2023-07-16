@@ -8,7 +8,8 @@ import ./make-test-python.nix ({
     name = "keter";
     meta = with pkgs.lib.maintainers; { maintainers = [ jappie ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         config,
         pkgs,
         ...
@@ -30,7 +31,8 @@ import ./make-test-python.nix ({
             '';
           };
         };
-      };
+      }
+      ;
 
     testScript = ''
       machine.wait_for_unit("keter.service")

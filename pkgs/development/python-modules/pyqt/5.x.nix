@@ -57,12 +57,12 @@ buildPythonPackage rec {
     '';
 
   enableParallelBuilding = true;
-  # HACK: paralellize compilation of make calls within pyqt's setup.py
-  # pkgs/stdenv/generic/setup.sh doesn't set this for us because
-  # make gets called by python code and not its build phase
-  # format=pyproject means the pip-build-hook hook gets used to build this project
-  # pkgs/development/interpreters/python/hooks/pip-build-hook.sh
-  # does not use the enableParallelBuilding flag
+    # HACK: paralellize compilation of make calls within pyqt's setup.py
+    # pkgs/stdenv/generic/setup.sh doesn't set this for us because
+    # make gets called by python code and not its build phase
+    # format=pyproject means the pip-build-hook hook gets used to build this project
+    # pkgs/development/interpreters/python/hooks/pip-build-hook.sh
+    # does not use the enableParallelBuilding flag
   postUnpack = ''
     export MAKEFLAGS+="''${enableParallelBuilding:+-j$NIX_BUILD_CORES}"
   '';
@@ -117,7 +117,7 @@ buildPythonPackage rec {
 
   dontConfigure = true;
 
-  # Checked using pythonImportsCheck
+    # Checked using pythonImportsCheck
   doCheck = false;
 
   pythonImportsCheck = [

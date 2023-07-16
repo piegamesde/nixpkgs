@@ -5,7 +5,8 @@
   symlinkJoin,
 }:
 let
-  generic = {
+  generic =
+    {
       modRoot,
       vendorSha256,
     }:
@@ -37,7 +38,8 @@ let
         license = licenses.gpl3Plus;
         maintainers = with maintainers; [ tchekda ];
       };
-    };
+    }
+    ;
 
   bird-lg-frontend = generic {
     modRoot = "frontend";

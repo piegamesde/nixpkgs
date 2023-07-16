@@ -11,24 +11,28 @@ let
   cfg = config.programs.sway;
 
   wrapperOptions = types.submodule {
-    options = let
-      mkWrapperFeature = default: description:
-        mkOption {
-          type = types.bool;
-          inherit default;
-          example = !default;
-          description = lib.mdDoc "Whether to make use of the ${description}";
-        };
-    in {
-      base = mkWrapperFeature true ''
-        base wrapper to execute extra session commands and prepend a
-        dbus-run-session to the sway command.
-      '';
-      gtk = mkWrapperFeature false ''
-        wrapGAppsHook wrapper to execute sway with required environment
-        variables for GTK applications.
-      '';
-    } ;
+    options =
+      let
+        mkWrapperFeature =
+          default: description:
+          mkOption {
+            type = types.bool;
+            inherit default;
+            example = !default;
+            description = lib.mdDoc "Whether to make use of the ${description}";
+          }
+          ;
+      in {
+        base = mkWrapperFeature true ''
+          base wrapper to execute extra session commands and prepend a
+          dbus-run-session to the sway command.
+        '';
+        gtk = mkWrapperFeature false ''
+          wrapGAppsHook wrapper to execute sway with required environment
+          variables for GTK applications.
+        '';
+      }
+      ;
   };
 
   defaultSwayPackage = pkgs.sway.override {
@@ -142,7 +146,7 @@ in {
     environment = {
       systemPackages = optional (cfg.package != null) cfg.package
         ++ cfg.extraPackages;
-      # Needed for the default wallpaper:
+        # Needed for the default wallpaper:
       pathsToLink =
         optionals (cfg.package != null) [ "/share/backgrounds/sway" ];
       etc = {
@@ -160,11 +164,11 @@ in {
     hardware.opengl.enable = mkDefault true;
     fonts.enableDefaultFonts = mkDefault true;
     programs.dconf.enable = mkDefault true;
-    # To make a Sway session available if a display manager like SDDM is enabled:
+      # To make a Sway session available if a display manager like SDDM is enabled:
     services.xserver.displayManager.sessionPackages =
       optionals (cfg.package != null) [ cfg.package ];
     programs.xwayland.enable = mkDefault true;
-    # For screen sharing (this option only has an effect with xdg.portal.enable):
+      # For screen sharing (this option only has an effect with xdg.portal.enable):
     xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
   };
 

@@ -24,14 +24,16 @@ stdenv.mkDerivation rec {
     hash = "sha256-ibPXs90ni2fkxJ09fNO6wWVpfCFdko6MjBFkEsyIih8=";
   };
 
-  postUnpack = let
-    opensslSourceArchive = fetchurl {
-      url = "https://www.openssl.org/source/openssl-${opensslVersion}.tar.gz";
-      hash = "sha256-C3o+XlnDSCf+DDp0t+yLrvMCuY+oAIjX+RU6oW+na9E=";
-    };
-  in ''
-    ln -s ${opensslSourceArchive} $sourceRoot/openssl_source/openssl-${opensslVersion}.tar.gz
-  '' ;
+  postUnpack =
+    let
+      opensslSourceArchive = fetchurl {
+        url = "https://www.openssl.org/source/openssl-${opensslVersion}.tar.gz";
+        hash = "sha256-C3o+XlnDSCf+DDp0t+yLrvMCuY+oAIjX+RU6oW+na9E=";
+      };
+    in ''
+      ln -s ${opensslSourceArchive} $sourceRoot/openssl_source/openssl-${opensslVersion}.tar.gz
+    ''
+    ;
 
   patches = [
     # https://github.com/intel/intel-sgx-ssl/pull/111
@@ -60,12 +62,12 @@ stdenv.mkDerivation rec {
 
   installFlags = [ "DESTDIR=$(out)" ];
 
-  # Build the test app
-  #
-  # Running the test app is currently only supported on Intel CPUs
-  # and will fail on non-Intel CPUs even in SGX simulation mode.
-  # Therefore, we only build the test app without running it until
-  # upstream resolves the issue: https://github.com/intel/intel-sgx-ssl/issues/113
+    # Build the test app
+    #
+    # Running the test app is currently only supported on Intel CPUs
+    # and will fail on non-Intel CPUs even in SGX simulation mode.
+    # Therefore, we only build the test app without running it until
+    # upstream resolves the issue: https://github.com/intel/intel-sgx-ssl/issues/113
   doInstallCheck = true;
   installCheckTarget = "all";
   installCheckFlags = [
@@ -80,7 +82,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Cryptographic library for Intel SGX enclave applications based on OpenSSL";
+      "Cryptographic library for Intel SGX enclave applications based on OpenSSL"
+      ;
     homepage = "https://github.com/intel/intel-sgx-ssl";
     maintainers = with maintainers; [
       trundle

@@ -12,13 +12,15 @@ let
   cfg = config.services.hbase-standalone;
   opt = options.services.hbase-standalone;
 
-  buildProperty = configAttr:
+  buildProperty =
+    configAttr:
     (builtins.concatStringsSep "\n" (lib.mapAttrsToList (name: value: ''
       <property>
         <name>${name}</name>
         <value>${builtins.toString value}</value>
       </property>
-    '') configAttr));
+    '') configAttr))
+    ;
 
   configFile = pkgs.writeText "hbase-site.xml" ''
     <configuration>
@@ -43,7 +45,7 @@ in {
     "hbase-standalone"
   ]) ];
 
-  ###### interface
+    ###### interface
 
   options = {
     services.hbase-standalone = {
@@ -121,7 +123,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 

@@ -9,10 +9,12 @@
 with lib;
 
 let
-  bits = if stdenv.is64bit then
-    "64"
-  else
-    "32";
+  bits =
+    if stdenv.is64bit then
+      "64"
+    else
+      "32"
+    ;
 
   libpath = makeLibraryPath [
     stdenv.cc.cc
@@ -28,7 +30,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.magewell.com/files/drivers/ProCaptureForLinux_${subVersion}.tar.gz";
+      "https://www.magewell.com/files/drivers/ProCaptureForLinux_${subVersion}.tar.gz"
+      ;
     sha256 = "197l86ad52ijmmq5an6891gd1chhkxqiagamcchirrky4c50qs36";
   };
 
@@ -44,8 +47,8 @@ stdenv.mkDerivation rec {
     "format"
   ];
 
-  makeFlags =
-    [ "KERNELDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build" ];
+  makeFlags = [ "KERNELDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build" ]
+    ;
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error=implicit-fallthrough";
 

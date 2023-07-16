@@ -11,7 +11,8 @@ import ./make-test-python.nix ({
     name = "sudo";
     meta = with pkgs.lib.maintainers; { maintainers = [ lschuermann ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         lib,
         ...
       }:
@@ -111,9 +112,11 @@ import ./make-test-python.nix ({
             }
           ];
         };
-      };
+      }
+      ;
 
-    nodes.strict = {
+    nodes.strict =
+      {
         ...
       }: {
         users.users = {
@@ -129,7 +132,8 @@ import ./make-test-python.nix ({
           wheelNeedsPassword = false;
           execWheelOnly = true;
         };
-      };
+      }
+      ;
 
     testScript = ''
       with subtest("users in wheel group should have passwordless sudo"):

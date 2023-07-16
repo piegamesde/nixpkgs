@@ -163,7 +163,7 @@ stdenv.mkDerivation rec {
       }"
     ];
 
-  # make install attempts to use the just-built cmake
+    # make install attempts to use the just-built cmake
   preInstall =
     lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
       sed -i 's|bin/cmake|${buildPackages.cmakeMinimal}/bin/cmake|g' Makefile
@@ -172,8 +172,8 @@ stdenv.mkDerivation rec {
   dontUseCmakeConfigure = true;
   enableParallelBuilding = true;
 
-  # This isn't an autoconf configure script; triples are passed via
-  # CMAKE_SYSTEM_NAME, etc.
+    # This isn't an autoconf configure script; triples are passed via
+    # CMAKE_SYSTEM_NAME, etc.
   configurePlatforms = [ ];
 
   doCheck = false; # fails

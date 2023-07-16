@@ -73,7 +73,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pythonRelaxDepsHook ];
 
-  # setuptools is necessary since pkg_resources is required at runtime.
+    # setuptools is necessary since pkg_resources is required at runtime.
   propagatedBuildInputs = [
     appdirs
     click
@@ -120,7 +120,7 @@ buildPythonPackage rec {
     tqdm
   ];
 
-  # Set BOKEH_CDN_VERSION to stop bokeh throwing an exception in tests
+    # Set BOKEH_CDN_VERSION to stop bokeh throwing an exception in tests
   preCheck = ''
     export HOME=$(mktemp -d)
     export BOKEH_CDN_VERSION=${bokeh.version}
@@ -244,8 +244,8 @@ buildPythonPackage rec {
     "tests/pytest_tests/unit_tests/test_library_public.py"
   ];
 
-  # Disable test that fails on darwin due to issue with python3Packages.psutil:
-  # https://github.com/giampaolo/psutil/issues/1219
+    # Disable test that fails on darwin due to issue with python3Packages.psutil:
+    # https://github.com/giampaolo/psutil/issues/1219
   disabledTests = lib.optionals stdenv.isDarwin [ "test_tpu_system_stats" ];
 
   pythonImportsCheck = [ "wandb" ];

@@ -25,7 +25,7 @@ pythonPackages.buildPythonApplication rec {
     tkinter
   ];
 
-  # No tests
+    # No tests
   doCheck = false;
 
   postInstall = ''

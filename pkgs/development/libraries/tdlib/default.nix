@@ -17,9 +17,9 @@ stdenv.mkDerivation rec {
     owner = "tdlib";
     repo = "td";
 
-    # The tdlib authors do not set tags for minor versions, but
-    # external programs depending on tdlib constrain the minor
-    # version, hence we set a specific commit with a known version.
+      # The tdlib authors do not set tags for minor versions, but
+      # external programs depending on tdlib constrain the minor
+      # version, hence we set a specific commit with a known version.
     rev = "93c42f6d7c1209937431469f80427d48907f1b8d";
     hash = "sha256-vdaVnC26txUBp8rlqx1CdLHlNlack3XXYdfFal1VLh4=";
   };
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
   ];
   nativeBuildInputs = [ cmake ];
 
-  # https://github.com/tdlib/td/issues/1974
+    # https://github.com/tdlib/td/issues/1974
   postPatch = ''
     substituteInPlace CMake/GeneratePkgConfig.cmake \
       --replace 'function(generate_pkgconfig' \

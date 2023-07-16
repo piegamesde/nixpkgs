@@ -135,7 +135,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals cupsSupport [ cups ]
     ++ lib.optionals stdenv.isDarwin [ Cocoa ]
     ++ lib.optionals stdenv.hostPlatform.isMusl [ libexecinfo ];
-  #TODO: colord?
+    #TODO: colord?
 
   propagatedBuildInputs = [
     # Required by pkg-config files.
@@ -172,8 +172,8 @@ stdenv.mkDerivation rec {
 
   separateDebugInfo = stdenv.isLinux;
 
-  # These are the defines that'd you'd get with --enable-debug=minimum (default).
-  # See: https://developer.gnome.org/gtk3/stable/gtk-building.html#extra-configuration-options
+    # These are the defines that'd you'd get with --enable-debug=minimum (default).
+    # See: https://developer.gnome.org/gtk3/stable/gtk-building.html#extra-configuration-options
   env = {
     NIX_CFLAGS_COMPILE = "-DG_ENABLE_DEBUG -DG_DISABLE_CAST_CHECKS";
   } // lib.optionalAttrs stdenv.hostPlatform.isMusl {
@@ -217,7 +217,7 @@ stdenv.mkDerivation rec {
     moveToOutput bin/gtk4-broadwayd "$out"
   '';
 
-  # Wrap demos
+    # Wrap demos
   postFixup = lib.optionalString (!stdenv.isDarwin) ''
     demos=(gtk4-demo gtk4-demo-application gtk4-icon-browser gtk4-widget-factory)
 

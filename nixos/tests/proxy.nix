@@ -4,7 +4,8 @@ import ./make-test-python.nix ({
   }:
 
   let
-    backend = {
+    backend =
+      {
         pkgs,
         ...
       }: {
@@ -15,13 +16,15 @@ import ./make-test-python.nix ({
             "${pkgs.valgrind.doc}/share/doc/valgrind/html";
         };
         networking.firewall.allowedTCPPorts = [ 80 ];
-      };
+      }
+      ;
   in {
     name = "proxy";
     meta = with pkgs.lib.maintainers; { maintainers = [ eelco ]; };
 
     nodes = {
-      proxy = {
+      proxy =
+        {
           nodes,
           ...
         }: {
@@ -59,15 +62,18 @@ import ./make-test-python.nix ({
             };
           };
           networking.firewall.allowedTCPPorts = [ 80 ];
-        };
+        }
+        ;
 
       backend1 = backend;
       backend2 = backend;
 
-      client = {
+      client =
+        {
           ...
         }:
-        { };
+        { }
+        ;
     };
 
     testScript = ''

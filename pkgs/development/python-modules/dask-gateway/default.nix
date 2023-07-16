@@ -10,7 +10,7 @@
 
 buildPythonPackage rec {
   pname = "dask-gateway";
-  # update dask-gateway lock step with dask-gateway-server
+    # update dask-gateway lock step with dask-gateway-server
   version = "2023.1.1";
   format = "pyproject";
 
@@ -31,7 +31,7 @@ buildPythonPackage rec {
     distributed
   ];
 
-  # tests requires cluster for testing
+    # tests requires cluster for testing
   doCheck = false;
 
   pythonImportsCheck = [ "dask_gateway" ];

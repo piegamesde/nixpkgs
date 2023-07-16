@@ -13,7 +13,7 @@ buildPythonPackage rec {
     sha256 = "021fg1a4n3527fz86zxfbsi0jrk0dnai1y92q6hwh5za68lrs710";
   };
 
-  # Tests require an API key and network access
+    # Tests require an API key and network access
   doCheck = false;
   pythonImportsCheck = [ "pytankerkoenig" ];
 

@@ -20,12 +20,14 @@
 # with the source and built objects so that we can just
 # use it as the external LLVM repo for this
 let
-  llvmNativeTarget = if stdenv.isx86_64 then
-    "X86"
-  else if stdenv.isAarch64 then
-    "AArch64"
-  else
-    throw "Unsupported ROCm LLVM platform";
+  llvmNativeTarget =
+    if stdenv.isx86_64 then
+      "X86"
+    else if stdenv.isAarch64 then
+      "AArch64"
+    else
+      throw "Unsupported ROCm LLVM platform"
+    ;
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "rocmlir";
@@ -70,27 +72,30 @@ stdenv.mkDerivation (finalAttrs: {
   dontBuild = true;
   doCheck = true;
 
-  # Certain libs aren't being generated, try enabling tests next update
-  checkTarget = if buildRockCompiler then
-    "librockCompiler"
-  else
-    "check-mlir-miopen-build-only";
+    # Certain libs aren't being generated, try enabling tests next update
+  checkTarget =
+    if buildRockCompiler then
+      "librockCompiler"
+    else
+      "check-mlir-miopen-build-only"
+    ;
 
-  postInstall = let
-    libPath = lib.makeLibraryPath [
-      zlib
-      ncurses
-      hip
-      stdenv.cc.cc
-    ];
-  in
-  lib.optionals (!buildRockCompiler) ''
-    mkdir -p $external/lib
-    cp -a external/llvm-project/llvm/lib/{*.a*,*.so*} $external/lib
-    patchelf --set-rpath $external/lib:$out/lib:${libPath} $external/lib/*.so*
-    patchelf --set-rpath $out/lib:$external/lib:${libPath} $out/{bin/*,lib/*.so*}
-  ''
-  ;
+  postInstall =
+    let
+      libPath = lib.makeLibraryPath [
+        zlib
+        ncurses
+        hip
+        stdenv.cc.cc
+      ];
+    in
+    lib.optionals (!buildRockCompiler) ''
+      mkdir -p $external/lib
+      cp -a external/llvm-project/llvm/lib/{*.a*,*.so*} $external/lib
+      patchelf --set-rpath $external/lib:$out/lib:${libPath} $external/lib/*.so*
+      patchelf --set-rpath $out/lib:$external/lib:${libPath} $out/{bin/*,lib/*.so*}
+    ''
+    ;
 
   passthru.updateScript = rocmUpdateScript {
     name = finalAttrs.pname;
@@ -106,7 +111,7 @@ stdenv.mkDerivation (finalAttrs: {
     license = with licenses; [ asl20 ];
     maintainers = teams.rocm.members;
     platforms = platforms.linux;
-    broken = versions.minor finalAttrs.version
-      != versions.minor stdenv.cc.version;
+    broken =
+      versions.minor finalAttrs.version != versions.minor stdenv.cc.version;
   };
 })

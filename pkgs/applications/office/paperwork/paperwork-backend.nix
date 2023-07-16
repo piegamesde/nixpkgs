@@ -38,7 +38,8 @@ buildPythonPackage rec {
     ./flaky_test.patch
     (fetchpatch {
       url =
-        "https://gitlab.gnome.org/World/OpenPaperwork/paperwork/-/commit/0f5cf0fe7ef223000e02c28e4c7576f74a778fe6.patch";
+        "https://gitlab.gnome.org/World/OpenPaperwork/paperwork/-/commit/0f5cf0fe7ef223000e02c28e4c7576f74a778fe6.patch"
+        ;
       hash = "sha256-NIK3j2TdydfeK3/udS/Pc+tJa/pPkfAmSPPeaYuaCq4=";
     })
   ];

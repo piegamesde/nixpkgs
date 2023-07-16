@@ -32,11 +32,13 @@ let
     ++ lib.optionals withQt5 [ "-DENABLE_QT5=ON" ]
     ++ lib.optionals withQt6 [ "-DENABLE_QT6=ON" ];
 
-  optFlag = w:
+  optFlag =
+    w:
     (if w then
       "1"
     else
-      "0");
+      "0")
+    ;
 in
 stdenv.mkDerivation rec {
   pname = "kime";
@@ -54,7 +56,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-/o9b7YvrpV+IujkllFWAz6Mg4CbS9BInF8antfZ0Vsw=";
   };
 
-  # Replace autostart path
+    # Replace autostart path
   postPatch = ''
     substituteInPlace res/kime.desktop --replace "/usr/bin/kime" "$out/bin/kime"
   '';

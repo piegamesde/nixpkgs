@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
   ] ++ lib.optionals
     enablePushNotifications [ "-DOPENDHT_PUSH_NOTIFICATIONS=ON" ];
 
-  # https://github.com/savoirfairelinux/opendht/issues/612
+    # https://github.com/savoirfairelinux/opendht/issues/612
   postPatch = ''
     substituteInPlace CMakeLists.txt \
       --replace '\$'{exec_prefix}/'$'{CMAKE_INSTALL_LIBDIR} '$'{CMAKE_INSTALL_FULL_LIBDIR} \

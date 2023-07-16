@@ -26,7 +26,7 @@ buildPythonPackage rec {
     rich
   ];
 
-  # Module has no tests
+    # Module has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "rich_rst" ];

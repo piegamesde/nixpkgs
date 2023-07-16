@@ -7,7 +7,7 @@
 }:
 let
   cfg = config.services.invidious;
-  # To allow injecting secrets with jq, json (instead of yaml) is used
+    # To allow injecting secrets with jq, json (instead of yaml) is used
   settingsFormat = pkgs.formats.json { };
   inherit (lib) types;
 
@@ -20,20 +20,23 @@ let
       after = [ "network-online.target" ];
       wantedBy = [ "multi-user.target" ];
 
-      script = let
-        jqFilter = "." + lib.optionalString (cfg.database.host != null) ''
-          [0].db.password = "'"'"$(cat ${
-            lib.escapeShellArg cfg.database.passwordFile
-          })"'"'"'' + " | .[0]"
-          + lib.optionalString (cfg.extraSettingsFile != null) " * .[1]";
-        jqFiles = [ settingsFile ]
-          ++ lib.optional (cfg.extraSettingsFile != null) cfg.extraSettingsFile;
-      in ''
-        export INVIDIOUS_CONFIG="$(${pkgs.jq}/bin/jq -s "${jqFilter}" ${
-          lib.escapeShellArgs jqFiles
-        })"
-        exec ${cfg.package}/bin/invidious
-      '' ;
+      script =
+        let
+          jqFilter = "." + lib.optionalString (cfg.database.host != null) ''
+            [0].db.password = "'"'"$(cat ${
+              lib.escapeShellArg cfg.database.passwordFile
+            })"'"'"'' + " | .[0]"
+            + lib.optionalString (cfg.extraSettingsFile != null) " * .[1]";
+          jqFiles = [ settingsFile ]
+            ++ lib.optional (cfg.extraSettingsFile != null)
+            cfg.extraSettingsFile;
+        in ''
+          export INVIDIOUS_CONFIG="$(${pkgs.jq}/bin/jq -s "${jqFilter}" ${
+            lib.escapeShellArgs jqFiles
+          })"
+          exec ${cfg.package}/bin/invidious
+        ''
+        ;
 
       serviceConfig = {
         RestartSec = "2s";
@@ -72,26 +75,28 @@ let
         user = lib.mkDefault "kemal";
         dbname = lib.mkDefault "invidious";
         port = cfg.database.port;
-        # Blank for unix sockets, see
-        # https://github.com/will/crystal-pg/blob/1548bb255210/src/pq/conninfo.cr#L100-L108
-        host = if cfg.database.host == null then
-          ""
-        else
-          cfg.database.host;
-        # Not needed because peer authentication is enabled
+          # Blank for unix sockets, see
+          # https://github.com/will/crystal-pg/blob/1548bb255210/src/pq/conninfo.cr#L100-L108
+        host =
+          if cfg.database.host == null then
+            ""
+          else
+            cfg.database.host
+          ;
+          # Not needed because peer authentication is enabled
         password = lib.mkIf (cfg.database.host == null) "";
       };
     } // (lib.optionalAttrs (cfg.domain != null) { inherit (cfg) domain; });
 
     assertions = [ {
-      assertion = cfg.database.host != null -> cfg.database.passwordFile
-        != null;
+      assertion =
+        cfg.database.host != null -> cfg.database.passwordFile != null;
       message =
         "If database host isn't null, database password needs to be set";
     } ];
   };
 
-  # Settings necessary for running with an automatically managed local database
+    # Settings necessary for running with an automatically managed local database
   localDatabaseConfig = lib.mkIf cfg.database.createLocally {
     # Default to using the local database if we create it
     services.invidious.database.host = lib.mkDefault null;
@@ -105,14 +110,14 @@ let
           "DATABASE ${cfg.settings.db.dbname}" = "ALL PRIVILEGES";
         };
       };
-      # This is only needed because the unix user invidious isn't the same as
-      # the database user. This tells postgres to map one to the other.
+        # This is only needed because the unix user invidious isn't the same as
+        # the database user. This tells postgres to map one to the other.
       identMap = ''
         invidious invidious ${cfg.settings.db.user}
       '';
-      # And this specifically enables peer authentication for only this
-      # database, which allows passwordless authentication over the postgres
-      # unix socket for the user map given above.
+        # And this specifically enables peer authentication for only this
+        # database, which allows passwordless authentication over the postgres
+        # unix socket for the user map given above.
       authentication = ''
         local ${cfg.settings.db.dbname} ${cfg.settings.db.user} peer map=invidious
       '';
@@ -120,8 +125,8 @@ let
 
     systemd.services.invidious-db-clean = {
       description = "Invidious database cleanup";
-      documentation =
-        [ "https://docs.invidious.io/Database-Information-and-Maintenance.md" ];
+      documentation = [ "https://docs.invidious.io/Database-Information-and-Maintenance.md" ]
+        ;
       startAt = lib.mkDefault "weekly";
       path = [ config.services.postgresql.package ];
       script = ''
@@ -161,7 +166,8 @@ let
     assertions = [ {
       assertion = cfg.domain != null;
       message =
-        "To use services.invidious.nginx, you need to set services.invidious.domain";
+        "To use services.invidious.nginx, you need to set services.invidious.domain"
+        ;
     } ];
   };
 in {
@@ -196,9 +202,9 @@ in {
       '';
     };
 
-    # This needs to be outside of settings to avoid infinite recursion
-    # (determining if nginx should be enabled and therefore the settings
-    # modified).
+      # This needs to be outside of settings to avoid infinite recursion
+      # (determining if nginx should be enabled and therefore the settings
+      # modified).
     domain = lib.mkOption {
       type = types.nullOr types.str;
       default = null;
@@ -211,7 +217,7 @@ in {
 
     port = lib.mkOption {
       type = types.port;
-      # Default from https://docs.invidious.io/Configuration.md
+        # Default from https://docs.invidious.io/Configuration.md
       default = 3000;
       description = lib.mdDoc ''
         The port Invidious should listen on.

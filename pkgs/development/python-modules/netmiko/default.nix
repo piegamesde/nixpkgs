@@ -33,12 +33,13 @@ buildPythonPackage rec {
     pyserial
   ];
 
-  # tests require closed-source pyats and genie packages
+    # tests require closed-source pyats and genie packages
   doCheck = false;
 
   meta = with lib; {
     description =
-      "Multi-vendor library to simplify Paramiko SSH connections to network devices";
+      "Multi-vendor library to simplify Paramiko SSH connections to network devices"
+      ;
     homepage = "https://github.com/ktbyers/netmiko/";
     license = licenses.mit;
     maintainers = [ maintainers.astro ];

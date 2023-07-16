@@ -59,8 +59,8 @@ mkYarnPackage rec {
 
     runHook postInstall
   '';
-  # Do not attempt generating a tarball for contents again.
-  # note: `doDist = false;` does not work.
+    # Do not attempt generating a tarball for contents again.
+    # note: `doDist = false;` does not work.
   distPhase = "true";
 
   desktopItems = [ (makeDesktopItem {
@@ -76,7 +76,8 @@ mkYarnPackage rec {
 
   meta = with lib; {
     description =
-      "An unofficial, featureful, open source, community-driven, free Microsoft To-Do app";
+      "An unofficial, featureful, open source, community-driven, free Microsoft To-Do app"
+      ;
     homepage = "https://github.com/davidsmorais/kuro";
     license = licenses.mit;
     maintainers = with maintainers; [ ChaosAttractor ];

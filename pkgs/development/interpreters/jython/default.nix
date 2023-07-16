@@ -13,7 +13,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://search.maven.org/remotecontent?filepath=org/python/jython-standalone/${version}/jython-standalone-${version}.jar";
+      "http://search.maven.org/remotecontent?filepath=org/python/jython-standalone/${version}/jython-standalone-${version}.jar"
+      ;
     sha256 = "sha256-2n89gpsUi8+oawWdyWTjqFVv7bAhCWyNsH4wxm+qubQ=";
   };
 

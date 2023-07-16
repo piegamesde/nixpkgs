@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     xorg.libX11
     xorg.libXres
   ];
-  # ?another optional: startup-notification
+    # ?another optional: startup-notification
 
   configureFlags = [ "--disable-introspection" ]; # not needed anywhere AFAIK
 
@@ -44,8 +44,8 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.gnome.org/GNOME/libwnck";
     license = lib.licenses.lgpl21;
     maintainers = with lib.maintainers; [ johnazoidberg ];
-    # ./xutils.h:31:10: fatal error: 'gdk/gdkx.h' file not found
-    # #include <gdk/gdkx.h>
+      # ./xutils.h:31:10: fatal error: 'gdk/gdkx.h' file not found
+      # #include <gdk/gdkx.h>
     broken = stdenv.isDarwin;
   };
 }

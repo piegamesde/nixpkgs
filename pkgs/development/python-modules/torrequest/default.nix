@@ -22,7 +22,7 @@ buildPythonPackage rec {
     stem
   ];
 
-  # This package does not contain any tests.
+    # This package does not contain any tests.
   doCheck = false;
 
   pythonImportsCheck = [ "torrequest" ];

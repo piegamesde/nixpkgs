@@ -18,7 +18,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-XBah55xfbWjQrkupebZE2uiveFhh/R0BF1KEKkY5Hx8=";
 
-  # skip flaky tests
+    # skip flaky tests
   checkFlags = [
     "--skip=flamegraph_base_symbol"
     "--skip=flamegraph_multiple_base_symbol"

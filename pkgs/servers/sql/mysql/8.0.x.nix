@@ -37,7 +37,8 @@ let
 
     src = fetchurl {
       url =
-        "https://dev.mysql.com/get/Downloads/MySQL-${self.mysqlVersion}/${pname}-${version}.tar.gz";
+        "https://dev.mysql.com/get/Downloads/MySQL-${self.mysqlVersion}/${pname}-${version}.tar.gz"
+        ;
       hash = "sha256-liAC9dkG9C9AsnejnS25OTEkjB8H/49DEsKI5jgD3RI=";
     };
 
@@ -47,11 +48,10 @@ let
       pkg-config
     ] ++ lib.optionals (!stdenv.isDarwin) [ rpcsvc-proto ];
 
-    patches =
-      [ ./no-force-outline-atomics.patch # Do not force compilers to turn on -moutline-atomics switch
+    patches = [ ./no-force-outline-atomics.patch # Do not force compilers to turn on -moutline-atomics switch
       ];
 
-    ## NOTE: MySQL upstream frequently twiddles the invocations of libtool. When updating, you might proactively grep for libtool references.
+      ## NOTE: MySQL upstream frequently twiddles the invocations of libtool. When updating, you might proactively grep for libtool references.
     postPatch = ''
       substituteInPlace cmake/libutils.cmake --replace /usr/bin/libtool libtool
       substituteInPlace cmake/os/Darwin.cmake --replace /usr/bin/libtool libtool

@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
     desktop-file-utils
   ];
 
-  # Required for USB redirection PolicyKit rules file
+    # Required for USB redirection PolicyKit rules file
   propagatedUserEnvPkgs = [ spice-gtk ];
 
   buildInputs = [

@@ -37,23 +37,26 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchurl {
     url =
-      "https://download.calibre-ebook.com/${finalAttrs.version}/calibre-${finalAttrs.version}.tar.xz";
+      "https://download.calibre-ebook.com/${finalAttrs.version}/calibre-${finalAttrs.version}.tar.xz"
+      ;
     hash = "sha256-HKSruKXYUMH1lj43CA3Rp3lXNlONXE1P9gFLaH16No4=";
   };
 
-  # https://sources.debian.org/patches/calibre/${finalAttrs.version}+dfsg-1
+    # https://sources.debian.org/patches/calibre/${finalAttrs.version}+dfsg-1
   patches = [
     #  allow for plugin update check, but no calibre version check
     (fetchpatch {
       name = "0001-only-plugin-update.patch";
       url =
-        "https://raw.githubusercontent.com/debian-calibre/calibre/debian/${finalAttrs.version}-1/debian/patches/0001-only-plugin-update.patch";
+        "https://raw.githubusercontent.com/debian-calibre/calibre/debian/${finalAttrs.version}-1/debian/patches/0001-only-plugin-update.patch"
+        ;
       hash = "sha256-uL1mSjgCl5ZRLbSuKxJM6XTfvVwog70F7vgKtQzQNEQ=";
     })
     (fetchpatch {
       name = "0007-Hardening-Qt-code.patch";
       url =
-        "https://raw.githubusercontent.com/debian-calibre/calibre/debian/${finalAttrs.version}-1/debian/patches/0007-Hardening-Qt-code.patch";
+        "https://raw.githubusercontent.com/debian-calibre/calibre/debian/${finalAttrs.version}-1/debian/patches/0007-Hardening-Qt-code.patch"
+        ;
       hash = "sha256-9P1kGrQbWAWDzu5EUiQr7TiCPHRWUA8hxPpEvFpK20k=";
     })
   ] ++ lib.optional (!unrarSupport) ./dont_build_unrar_plugin.patch;
@@ -171,13 +174,13 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  # Wrap manually
+    # Wrap manually
   dontWrapQtApps = true;
   dontWrapGApps = true;
 
-  # Remove some references to shrink the closure size. This reference (as of
-  # 2018-11-06) was a single string like the following:
-  #   /nix/store/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-podofo-0.9.6-dev/include/podofo/base/PdfVariant.h
+    # Remove some references to shrink the closure size. This reference (as of
+    # 2018-11-06) was a single string like the following:
+    #   /nix/store/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-podofo-0.9.6-dev/include/podofo/base/PdfVariant.h
   preFixup = ''
     remove-references-to -t ${podofo.dev} \
       $out/lib/calibre/calibre/plugins/podofo.so
@@ -203,11 +206,14 @@ stdenv.mkDerivation (finalAttrs: {
       free and open source and great for both casual users and computer experts.
     '';
     changelog =
-      "https://github.com/kovidgoyal/calibre/releases/tag/v${finalAttrs.version}";
-    license = if unrarSupport then
-      lib.licenses.unfreeRedistributable
-    else
-      lib.licenses.gpl3Plus;
+      "https://github.com/kovidgoyal/calibre/releases/tag/v${finalAttrs.version}"
+      ;
+    license =
+      if unrarSupport then
+        lib.licenses.unfreeRedistributable
+      else
+        lib.licenses.gpl3Plus
+      ;
     maintainers = with lib.maintainers; [
       pSub
       AndersonTorres

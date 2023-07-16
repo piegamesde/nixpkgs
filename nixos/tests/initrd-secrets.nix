@@ -7,29 +7,32 @@
 }:
 let
   secretInStore = pkgs.writeText "topsecret" "iamasecret";
-  testWithCompressor = compressor:
+  testWithCompressor =
+    compressor:
     testing.makeTest {
       name = "initrd-secrets-${compressor}";
 
       meta.maintainers = [ lib.maintainers.lheckemann ];
 
-      nodes.machine = {
+      nodes.machine =
+        {
           ...
         }: {
           virtualisation.useBootLoader = true;
           boot.initrd.secrets = {
             "/test" = secretInStore;
 
-            # This should *not* need to be copied in postMountCommands
+              # This should *not* need to be copied in postMountCommands
             "/run/keys/test" = secretInStore;
           };
           boot.initrd.postMountCommands = ''
             cp /test /mnt-root/secret-from-initramfs
           '';
           boot.initrd.compressor = compressor;
-          # zstd compression is only supported from 5.9 onwards. Remove when 5.10 becomes default.
+            # zstd compression is only supported from 5.9 onwards. Remove when 5.10 becomes default.
           boot.kernelPackages = pkgs.linuxPackages_latest;
-        };
+        }
+        ;
 
       testScript = ''
         start_all()
@@ -39,7 +42,8 @@ let
             "cmp ${secretInStore} /run/keys/test",
         )
       '';
-    };
+    }
+    ;
 in
 lib.flip lib.genAttrs testWithCompressor [
   "cat"

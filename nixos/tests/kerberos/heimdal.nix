@@ -3,7 +3,8 @@ import ../make-test-python.nix ({
     ...
   }: {
     name = "kerberos_server-heimdal";
-    nodes.machine = {
+    nodes.machine =
+      {
         config,
         libs,
         pkgs,
@@ -32,7 +33,8 @@ import ../make-test-python.nix ({
             };
           };
         };
-      };
+      }
+      ;
 
     testScript = ''
       machine.succeed(

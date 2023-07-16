@@ -32,7 +32,7 @@ buildPythonPackage rec {
       --replace "cmd = 'java" "cmd = '${jdk11}/bin/java"
   '';
 
-  # Disable tests because they require a dedicated Android emulator
+    # Disable tests because they require a dedicated Android emulator
   doCheck = false;
 
   pythonImportsCheck = [ "adbe" ];

@@ -15,7 +15,7 @@ buildPythonPackage rec {
   pname = "flake8-future-import";
   version = "0.4.7";
 
-  # PyPI tarball doesn't include the test suite
+    # PyPI tarball doesn't include the test suite
   src = fetchFromGitHub {
     owner = "xZise";
     repo = "flake8-future-import";
@@ -43,7 +43,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "A flake8 extension to check for the imported __future__ modules to make it easier to have a consistent code base";
+      "A flake8 extension to check for the imported __future__ modules to make it easier to have a consistent code base"
+      ;
     homepage = "https://github.com/xZise/flake8-future-import";
     license = licenses.mit;
   };

@@ -94,7 +94,7 @@ in with self;
     meta.description = "Jane Street's standard library for ppx rewriters";
   };
 
-  # Jane Street packages, up to ppx_base
+    # Jane Street packages, up to ppx_base
 
   ppx_optcomp = janePackage {
     pname = "ppx_optcomp";
@@ -162,7 +162,8 @@ in with self;
       ppx_sexp_conv
     ];
     meta.description =
-      "A ppx rewriter that generates hash functions from type expressions and definitions";
+      "A ppx rewriter that generates hash functions from type expressions and definitions"
+      ;
   };
 
   ppx_js_style = janePackage {
@@ -186,7 +187,7 @@ in with self;
     meta.description = "Base set of ppx rewriters";
   };
 
-  # Jane Street packages, up to ppx_bin_prot
+    # Jane Street packages, up to ppx_bin_prot
 
   fieldslib = janePackage {
     pname = "fieldslib";
@@ -272,7 +273,7 @@ in with self;
     meta.description = "Generation of bin_prot readers and writers from types";
   };
 
-  # Jane Street packages, up to ppx_jane
+    # Jane Street packages, up to ppx_jane
 
   ppx_assert = janePackage {
     pname = "ppx_assert";
@@ -406,7 +407,7 @@ in with self;
     meta.description = "Standard Jane Street ppx rewriters";
   };
 
-  # Jane Street packages, up to core
+    # Jane Street packages, up to core
 
   configurator = janePackage {
     pname = "configurator";
@@ -450,7 +451,7 @@ in with self;
     meta.description = "Jane Street's standard library overlay";
   };
 
-  # Jane Street packages, up to core_extended
+    # Jane Street packages, up to core_extended
 
   re2 = janePackage {
     pname = "re2";
@@ -483,7 +484,7 @@ in with self;
     meta = { description = "Jane Street Capital's standard library overlay"; };
   };
 
-  # Jane Street async packages
+    # Jane Street async packages
 
   async_kernel = janePackage {
     pname = "async_kernel";
@@ -574,7 +575,7 @@ in with self;
     meta.description = "Async wrappers for SSL";
   };
 
-  # Jane Street packages, up to expect_test_helpers
+    # Jane Street packages, up to expect_test_helpers
 
   sexp_pretty = janePackage {
     pname = "sexp_pretty";
@@ -606,7 +607,7 @@ in with self;
     meta.description = "Async helpers for writing expectation tests";
   };
 
-  # Miscellaneous Jane Street packages
+    # Miscellaneous Jane Street packages
 
   bignum = janePackage {
     pname = "bignum";
@@ -631,7 +632,8 @@ in with self;
     hash = "0w58z9jkz5qzbvf33wrzhfshzdvnrphj6dq8dmi52ykhfvxm7824";
     propagatedBuildInputs = [ async ];
     meta.description =
-      "Utilities for Versioned RPC communication with a child process over stdin and stdout";
+      "Utilities for Versioned RPC communication with a child process over stdin and stdout"
+      ;
   };
 
   core_bench = janePackage {

@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ idna ];
 
-  # Infinite recursion: tests require aiohttp, aiohttp requires idna-ssl
+    # Infinite recursion: tests require aiohttp, aiohttp requires idna-ssl
   doCheck = false;
 
   meta = with lib; {

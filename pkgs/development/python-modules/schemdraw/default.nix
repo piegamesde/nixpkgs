@@ -46,7 +46,7 @@ buildPythonPackage rec {
     ziamath
   ];
 
-  # Strip out references to unfree fonts from the test suite
+    # Strip out references to unfree fonts from the test suite
   postPatch = ''
     substituteInPlace test/test_styles.ipynb --replace "font='Times', " ""
   '';
@@ -57,7 +57,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "A package for producing high-quality electrical circuit schematic diagrams";
+      "A package for producing high-quality electrical circuit schematic diagrams"
+      ;
     homepage = "https://schemdraw.readthedocs.io/en/latest/";
     changelog = "https://schemdraw.readthedocs.io/en/latest/changes.html";
     license = licenses.mit;

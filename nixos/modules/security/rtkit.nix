@@ -31,7 +31,7 @@ with lib;
 
     security.polkit.enable = true;
 
-    # To make polkit pickup rtkit policies
+      # To make polkit pickup rtkit policies
     environment.systemPackages = [ pkgs.rtkit ];
 
     systemd.packages = [ pkgs.rtkit ];

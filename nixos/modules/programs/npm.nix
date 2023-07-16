@@ -45,7 +45,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = lib.mkIf cfg.enable {
     environment.etc.npmrc.text = cfg.npmrc;

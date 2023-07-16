@@ -19,7 +19,7 @@ let
     ;
   cfg = config.networking.stevenblack;
 
-  # needs to be in a specific order
+    # needs to be in a specific order
   activatedHosts = with cfg;
     [ ] ++ optionals (elem "fakenews" block) [ "fakenews" ]
     ++ optionals (elem "gambling" block) [ "gambling" ]

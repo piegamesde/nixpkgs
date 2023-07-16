@@ -178,10 +178,12 @@ let
 
   suffix = lib.optionalString (channel != "stable") "-${channel}";
 
-  crashpadHandlerBinary = if lib.versionAtLeast version "94" then
-    "chrome_crashpad_handler"
-  else
-    "crashpad_handler";
+  crashpadHandlerBinary =
+    if lib.versionAtLeast version "94" then
+      "chrome_crashpad_handler"
+    else
+      "crashpad_handler"
+    ;
 
 in
 stdenv.mkDerivation {
@@ -277,13 +279,15 @@ stdenv.mkDerivation {
     license = licenses.unfree;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     maintainers = with maintainers; [ primeos ];
-    # Note from primeos: By updating Chromium I also update Google Chrome and
-    # will try to merge PRs and respond to issues but I'm not actually using
-    # Google Chrome.
+      # Note from primeos: By updating Chromium I also update Google Chrome and
+      # will try to merge PRs and respond to issues but I'm not actually using
+      # Google Chrome.
     platforms = [ "x86_64-linux" ];
-    mainProgram = if (channel == "dev") then
-      "google-chrome-unstable"
-    else
-      "google-chrome-${channel}";
+    mainProgram =
+      if (channel == "dev") then
+        "google-chrome-unstable"
+      else
+        "google-chrome-${channel}"
+      ;
   };
 }

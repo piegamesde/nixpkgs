@@ -5,7 +5,8 @@ in
 import ./make-test-python.nix {
   name = "postfix";
 
-  nodes.machine = {
+  nodes.machine =
+    {
       pkgs,
       ...
     }: {
@@ -30,48 +31,51 @@ import ./make-test-python.nix {
         127.0.0.1 ${domain}
       '';
 
-      environment.systemPackages = let
-        sendTestMail = pkgs.writeScriptBin "send-testmail" ''
-          #!${pkgs.python3.interpreter}
-          import smtplib
+      environment.systemPackages =
+        let
+          sendTestMail = pkgs.writeScriptBin "send-testmail" ''
+            #!${pkgs.python3.interpreter}
+            import smtplib
 
-          with smtplib.SMTP('${domain}') as smtp:
-            smtp.sendmail('root@localhost', 'alice@localhost', 'Subject: Test\n\nTest data.')
-            smtp.quit()
-        '';
+            with smtplib.SMTP('${domain}') as smtp:
+              smtp.sendmail('root@localhost', 'alice@localhost', 'Subject: Test\n\nTest data.')
+              smtp.quit()
+          '';
 
-        sendTestMailStarttls = pkgs.writeScriptBin "send-testmail-starttls" ''
-          #!${pkgs.python3.interpreter}
-          import smtplib
-          import ssl
+          sendTestMailStarttls = pkgs.writeScriptBin "send-testmail-starttls" ''
+            #!${pkgs.python3.interpreter}
+            import smtplib
+            import ssl
 
-          ctx = ssl.create_default_context()
+            ctx = ssl.create_default_context()
 
-          with smtplib.SMTP('${domain}') as smtp:
-            smtp.ehlo()
-            smtp.starttls(context=ctx)
-            smtp.ehlo()
-            smtp.sendmail('root@localhost', 'alice@localhost', 'Subject: Test STARTTLS\n\nTest data.')
-            smtp.quit()
-        '';
+            with smtplib.SMTP('${domain}') as smtp:
+              smtp.ehlo()
+              smtp.starttls(context=ctx)
+              smtp.ehlo()
+              smtp.sendmail('root@localhost', 'alice@localhost', 'Subject: Test STARTTLS\n\nTest data.')
+              smtp.quit()
+          '';
 
-        sendTestMailSmtps = pkgs.writeScriptBin "send-testmail-smtps" ''
-          #!${pkgs.python3.interpreter}
-          import smtplib
-          import ssl
+          sendTestMailSmtps = pkgs.writeScriptBin "send-testmail-smtps" ''
+            #!${pkgs.python3.interpreter}
+            import smtplib
+            import ssl
 
-          ctx = ssl.create_default_context()
+            ctx = ssl.create_default_context()
 
-          with smtplib.SMTP_SSL(host='${domain}', context=ctx) as smtp:
-            smtp.sendmail('root@localhost', 'alice@localhost', 'Subject: Test SMTPS\n\nTest data.')
-            smtp.quit()
-        '';
-      in [
-        sendTestMail
-        sendTestMailStarttls
-        sendTestMailSmtps
-      ] ;
-    };
+            with smtplib.SMTP_SSL(host='${domain}', context=ctx) as smtp:
+              smtp.sendmail('root@localhost', 'alice@localhost', 'Subject: Test SMTPS\n\nTest data.')
+              smtp.quit()
+          '';
+        in [
+          sendTestMail
+          sendTestMailStarttls
+          sendTestMailSmtps
+        ]
+        ;
+    }
+    ;
 
   testScript = ''
     machine.wait_for_unit("postfix.service")

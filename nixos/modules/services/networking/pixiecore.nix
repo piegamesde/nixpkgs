@@ -41,7 +41,8 @@ in {
         type = types.bool;
         default = false;
         description = lib.mdDoc
-          "Log more things that aren't directly related to booting a recognized client";
+          "Log more things that aren't directly related to booting a recognized client"
+          ;
       };
 
       dhcpNoBind = mkOption {
@@ -109,7 +110,8 @@ in {
         type = types.str;
         example = "localhost:8080";
         description = lib.mdDoc
-          "host:port to connect to the API. Ignored unless mode is set to 'api'";
+          "host:port to connect to the API. Ignored unless mode is set to 'api'"
+          ;
       };
 
       extraArguments = mkOption {
@@ -149,38 +151,42 @@ in {
       serviceConfig = {
         User = "pixiecore";
         Restart = "always";
-        AmbientCapabilities = [ "cap_net_bind_service" ]
-          ++ optional cfg.dhcpNoBind "cap_net_raw";
-        ExecStart = let
-          argString = if cfg.mode == "boot" then
-            [
-              "boot"
-              cfg.kernel
-            ] ++ optional (cfg.initrd != "") cfg.initrd
-            ++ optionals (cfg.cmdLine != "") [
-              "--cmdline"
-              cfg.cmdLine
-            ]
-          else if cfg.mode == "quick" then
-            [
-              "quick"
-              cfg.quick
-            ]
-          else
-            [
-              "api"
-              cfg.apiServer
-            ];
-        in ''
-          ${pkgs.pixiecore}/bin/pixiecore \
-            ${lib.escapeShellArgs argString} \
-            ${optionalString cfg.debug "--debug"} \
-            ${optionalString cfg.dhcpNoBind "--dhcp-no-bind"} \
-            --listen-addr ${lib.escapeShellArg cfg.listen} \
-            --port ${toString cfg.port} \
-            --status-port ${toString cfg.statusPort} \
-            ${escapeShellArgs cfg.extraArguments}
-        '' ;
+        AmbientCapabilities =
+          [ "cap_net_bind_service" ] ++ optional cfg.dhcpNoBind "cap_net_raw";
+        ExecStart =
+          let
+            argString =
+              if cfg.mode == "boot" then
+                [
+                  "boot"
+                  cfg.kernel
+                ] ++ optional (cfg.initrd != "") cfg.initrd
+                ++ optionals (cfg.cmdLine != "") [
+                  "--cmdline"
+                  cfg.cmdLine
+                ]
+              else if cfg.mode == "quick" then
+                [
+                  "quick"
+                  cfg.quick
+                ]
+              else
+                [
+                  "api"
+                  cfg.apiServer
+                ]
+              ;
+          in ''
+            ${pkgs.pixiecore}/bin/pixiecore \
+              ${lib.escapeShellArgs argString} \
+              ${optionalString cfg.debug "--debug"} \
+              ${optionalString cfg.dhcpNoBind "--dhcp-no-bind"} \
+              --listen-addr ${lib.escapeShellArg cfg.listen} \
+              --port ${toString cfg.port} \
+              --status-port ${toString cfg.statusPort} \
+              ${escapeShellArgs cfg.extraArguments}
+          ''
+          ;
       };
     };
   };

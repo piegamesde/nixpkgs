@@ -22,7 +22,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/type-i/2019-12-27/type-i-20191227-git.tgz";
+      "http://beta.quicklisp.org/archive/type-i/2019-12-27/type-i-20191227-git.tgz"
+      ;
     sha256 = "0f8q6klqjgz1kdyhisfkk07izvgs04jchlv2kl3srjxfr5dj5jl5";
   };
 

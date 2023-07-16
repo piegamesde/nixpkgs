@@ -53,7 +53,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Decentralized open source information registration and transfer system based on the Bitcoin cryptocurrency";
+      "Decentralized open source information registration and transfer system based on the Bitcoin cryptocurrency"
+      ;
     homepage = "https://namecoin.org";
     license = licenses.mit;
     maintainers = with maintainers; [ ];

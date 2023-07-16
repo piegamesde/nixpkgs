@@ -29,7 +29,8 @@ import ../make-test-python.nix ({
     extraNodeConfs = {
       sqlite = { };
 
-      socket = {
+      socket =
+        {
           config,
           ...
         }: {
@@ -47,11 +48,12 @@ import ../make-test-python.nix ({
             virtualHosts."_".locations."/".proxyPass =
               "http://unix:/run/grafana/sock";
           };
-        };
+        }
+        ;
 
       declarativePlugins = {
-        services.grafana.declarativePlugins =
-          [ pkgs.grafanaPlugins.grafana-clock-panel ];
+        services.grafana.declarativePlugins = [ pkgs.grafanaPlugins.grafana-clock-panel ]
+          ;
       };
 
       postgresql = {

@@ -34,7 +34,8 @@ buildPythonPackage rec {
       name = "commit-cargo-lockfile";
       relative = "bindings/python";
       url =
-        "https://github.com/huggingface/safetensors/commit/a7061b4235b59312010b2dd6f9597381428ee9a2.patch";
+        "https://github.com/huggingface/safetensors/commit/a7061b4235b59312010b2dd6f9597381428ee9a2.patch"
+        ;
       hash = "sha256-iH4vQOL2LU93kd0dSS8/JJxKGb+kDstqnExjYSSwi78";
     })
   ];
@@ -63,7 +64,7 @@ buildPythonPackage rec {
     torch
   ];
   pytestFlagsArray = [ "tests" ];
-  # don't require PaddlePaddle (not in Nixpkgs), Flax, or Tensorflow (onerous) to run tests:
+    # don't require PaddlePaddle (not in Nixpkgs), Flax, or Tensorflow (onerous) to run tests:
   disabledTestPaths = [
     "tests/test_flax_comparison.py"
     "tests/test_paddle_comparison.py"

@@ -11,8 +11,8 @@ let
 
   cfg = config.krb5;
 
-  # This is to provide support for old configuration options (as much as is
-  # reasonable). This can be removed after 18.03 was released.
+    # This is to provide support for old configuration options (as much as is
+    # reasonable). This can be removed after 18.03 was released.
   defaultConfig = {
     libdefaults = optionalAttrs (cfg.defaultRealm != null) {
       default_realm = cfg.defaultRealm;
@@ -52,22 +52,27 @@ let
       ;
   });
 
-  filterEmbeddedMetadata = value:
+  filterEmbeddedMetadata =
+    value:
     if isAttrs value then
       (filterAttrs
         (attrName: attrValue: attrName != "_module" && attrValue != null) value)
     else
-      value;
+      value
+    ;
 
   indent = "  ";
 
-  mkRelation = name: value:
+  mkRelation =
+    name: value:
     if (isList value) then
       concatMapStringsSep "\n" (mkRelation name) value
     else
-      "${name} = ${mkVal value}";
+      "${name} = ${mkVal value}"
+    ;
 
-  mkVal = value:
+  mkVal =
+    value:
     if (value == true) then
       "true"
     else if (value == false) then
@@ -76,8 +81,9 @@ let
       (toString value)
     else if (isAttrs value) then
       let
-        configLines = concatLists
-          (map (splitString "\n") (mapAttrsToList mkRelation value));
+        configLines =
+          concatLists (map (splitString "\n") (mapAttrsToList mkRelation value))
+          ;
       in
       (concatStringsSep ''
 
@@ -85,9 +91,11 @@ let
 
           }''
     else
-      value;
+      value
+    ;
 
-  mkMappedAttrsOrString = value:
+  mkMappedAttrsOrString =
+    value:
     concatMapStringsSep "\n" (line:
       if builtins.stringLength line > 0 then
         "${indent}${line}"
@@ -95,7 +103,8 @@ let
         line) (splitString "\n" (if isAttrs value then
           concatStringsSep "\n" (mapAttrsToList mkRelation value)
         else
-          value));
+          value))
+    ;
 
 in {
 
@@ -315,35 +324,37 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 
     environment.systemPackages = [ cfg.kerberos ];
 
-    environment.etc."krb5.conf".text = if isString cfg.config then
-      cfg.config
-    else
-      (''
-        [libdefaults]
-        ${mkMappedAttrsOrString mergedConfig.libdefaults}
+    environment.etc."krb5.conf".text =
+      if isString cfg.config then
+        cfg.config
+      else
+        (''
+          [libdefaults]
+          ${mkMappedAttrsOrString mergedConfig.libdefaults}
 
-        [realms]
-        ${mkMappedAttrsOrString mergedConfig.realms}
+          [realms]
+          ${mkMappedAttrsOrString mergedConfig.realms}
 
-        [domain_realm]
-        ${mkMappedAttrsOrString mergedConfig.domain_realm}
+          [domain_realm]
+          ${mkMappedAttrsOrString mergedConfig.domain_realm}
 
-        [capaths]
-        ${mkMappedAttrsOrString mergedConfig.capaths}
+          [capaths]
+          ${mkMappedAttrsOrString mergedConfig.capaths}
 
-        [appdefaults]
-        ${mkMappedAttrsOrString mergedConfig.appdefaults}
+          [appdefaults]
+          ${mkMappedAttrsOrString mergedConfig.appdefaults}
 
-        [plugins]
-        ${mkMappedAttrsOrString mergedConfig.plugins}
-      '' + optionalString (mergedConfig.extraConfig != null)
-        ("\n" + mergedConfig.extraConfig));
+          [plugins]
+          ${mkMappedAttrsOrString mergedConfig.plugins}
+        '' + optionalString (mergedConfig.extraConfig != null)
+          ("\n" + mergedConfig.extraConfig))
+      ;
 
     warnings = flatten [
       (optional (cfg.defaultRealm != null) ''

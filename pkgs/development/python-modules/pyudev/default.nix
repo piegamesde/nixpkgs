@@ -36,8 +36,8 @@ buildPythonPackage rec {
     py.test
   '';
 
-  # Bunch of failing tests
-  # https://github.com/pyudev/pyudev/issues/187
+    # Bunch of failing tests
+    # https://github.com/pyudev/pyudev/issues/187
   doCheck = false;
 
   meta = {

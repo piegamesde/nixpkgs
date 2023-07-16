@@ -25,7 +25,7 @@ buildPythonPackage rec {
 
   dontUseSetuptoolsCheck = true;
 
-  # disable tests which fail due to socket related errors
+    # disable tests which fail due to socket related errors
   disabledTests = [
     "test_test_images_has_right_size"
     "test_test_labels_has_right_size"

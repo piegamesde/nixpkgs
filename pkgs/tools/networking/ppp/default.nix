@@ -70,7 +70,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://ppp.samba.org";
     description =
-      "Point-to-point implementation to provide Internet connections over serial lines";
+      "Point-to-point implementation to provide Internet connections over serial lines"
+      ;
     license = with licenses; [
       bsdOriginal
       publicDomain

@@ -26,7 +26,7 @@ buildPythonPackage rec {
       --replace "pytest-runner" ""
   '';
 
-  # FIXME: These do not work, and I have been unable to figure out why.
+    # FIXME: These do not work, and I have been unable to figure out why.
   doCheck = false;
 
   pythonImportsCheck = [ "reflink" ];

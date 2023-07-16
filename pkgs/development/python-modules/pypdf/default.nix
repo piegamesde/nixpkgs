@@ -37,7 +37,7 @@ buildPythonPackage rec {
     owner = "py-pdf";
     repo = "pypdf";
     rev = "refs/tags/${version}";
-    # fetch sample files used in tests
+      # fetch sample files used in tests
     fetchSubmodules = true;
     hash = "sha256-f+M4sfUzDy8hxHUiWG9hyu0EYvnjNA46OtHzBSJdID0=";
   };
@@ -72,8 +72,8 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "pypdf" ];
 
-  nativeCheckInputs = [ pytestCheckHook ]
-    ++ passthru.optional-dependencies.full;
+  nativeCheckInputs =
+    [ pytestCheckHook ] ++ passthru.optional-dependencies.full;
 
   pytestFlagsArray = [
     # don't access the network
@@ -83,7 +83,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "A pure-python PDF library capable of splitting, merging, cropping, and transforming the pages of PDF files";
+      "A pure-python PDF library capable of splitting, merging, cropping, and transforming the pages of PDF files"
+      ;
     homepage = "https://github.com/py-pdf/pypdf";
     changelog = "https://github.com/py-pdf/pypdf/blob/${src.rev}/CHANGELOG.md";
     license = licenses.bsd3;

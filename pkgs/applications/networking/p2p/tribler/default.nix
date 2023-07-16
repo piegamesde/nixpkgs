@@ -18,7 +18,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/Tribler/tribler/releases/download/v${version}/Tribler-v${version}.tar.xz";
+      "https://github.com/Tribler/tribler/releases/download/v${version}/Tribler-v${version}.tar.xz"
+      ;
     sha256 = "0ffh8chb47iaar8872gvalgm84fjzyxph16nixsxknnprqdxyrkx";
   };
 

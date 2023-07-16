@@ -17,9 +17,10 @@ let
     if pkgs.stdenv.buildPlatform == pkgs.stdenv.hostPlatform then
       cfgc.package
     else
-      pkgs.buildPackages.openssh;
+      pkgs.buildPackages.openssh
+    ;
 
-  # reports boolean as yes / no
+    # reports boolean as yes / no
   mkValueStringSshd = with lib;
     v:
     if isInt v then
@@ -37,7 +38,7 @@ let
         (lib.generators.toPretty { }) v
       }";
 
-  # dont use the "=" operator
+    # dont use the "=" operator
   settingsFormat = (pkgs.formats.keyValue {
     mkKeyValue =
       lib.generators.mkKeyValueDefault { mkValueString = mkValueStringSshd; }
@@ -97,22 +98,25 @@ let
 
   };
 
-  authKeysFiles = let
-    mkAuthKeyFile = u:
-      nameValuePair "ssh/authorized_keys.d/${u.name}" {
-        mode = "0444";
-        source = pkgs.writeText "${u.name}-authorized_keys" ''
-          ${concatStringsSep "\n" u.openssh.authorizedKeys.keys}
-          ${concatMapStrings (f: readFile f + "\n")
-          u.openssh.authorizedKeys.keyFiles}
-        '';
-      };
-    usersWithKeys = attrValues (flip filterAttrs config.users.users (n: u:
-      length u.openssh.authorizedKeys.keys != 0
-      || length u.openssh.authorizedKeys.keyFiles != 0));
-  in
-  listToAttrs (map mkAuthKeyFile usersWithKeys)
-  ;
+  authKeysFiles =
+    let
+      mkAuthKeyFile =
+        u:
+        nameValuePair "ssh/authorized_keys.d/${u.name}" {
+          mode = "0444";
+          source = pkgs.writeText "${u.name}-authorized_keys" ''
+            ${concatStringsSep "\n" u.openssh.authorizedKeys.keys}
+            ${concatMapStrings (f: readFile f + "\n")
+            u.openssh.authorizedKeys.keyFiles}
+          '';
+        }
+        ;
+      usersWithKeys = attrValues (flip filterAttrs config.users.users (n: u:
+        length u.openssh.authorizedKeys.keys != 0
+        || length u.openssh.authorizedKeys.keyFiles != 0));
+    in
+    listToAttrs (map mkAuthKeyFile usersWithKeys)
+    ;
 
 in {
   imports = [
@@ -246,7 +250,7 @@ in {
     ])
   ];
 
-  ###### interface
+    ###### interface
 
   options = {
 
@@ -473,7 +477,7 @@ in {
               };
               UseDns = mkOption {
                 type = types.bool;
-                # apply if cfg.useDns then "yes" else "no"
+                  # apply if cfg.useDns then "yes" else "no"
                 default = false;
                 description = lib.mdDoc ''
                   Specifies whether sshd(8) should look up the remote host name, and to check that the resolved host name for
@@ -607,7 +611,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -627,101 +631,108 @@ in {
       "ssh/sshd_config".source = sshconf;
     };
 
-    systemd = let
-      service = {
-        description = "SSH Daemon";
-        wantedBy = optional (!cfg.startWhenNeeded) "multi-user.target";
-        after = [ "network.target" ];
-        stopIfChanged = false;
-        path = [
-          cfgc.package
-          pkgs.gawk
-        ];
-        environment.LD_LIBRARY_PATH = nssModulesPath;
+    systemd =
+      let
+        service = {
+          description = "SSH Daemon";
+          wantedBy = optional (!cfg.startWhenNeeded) "multi-user.target";
+          after = [ "network.target" ];
+          stopIfChanged = false;
+          path = [
+            cfgc.package
+            pkgs.gawk
+          ];
+          environment.LD_LIBRARY_PATH = nssModulesPath;
 
-        restartTriggers = optionals
-          (!cfg.startWhenNeeded) [ config.environment.etc."ssh/sshd_config".source ];
+          restartTriggers = optionals
+            (!cfg.startWhenNeeded) [ config.environment.etc."ssh/sshd_config".source ]
+            ;
 
-        preStart = ''
-          # Make sure we don't write to stdout, since in case of
-          # socket activation, it goes to the remote side (#19589).
-          exec >&2
+          preStart = ''
+            # Make sure we don't write to stdout, since in case of
+            # socket activation, it goes to the remote side (#19589).
+            exec >&2
 
-          ${flip concatMapStrings cfg.hostKeys (k: ''
-            if ! [ -s "${k.path}" ]; then
-                if ! [ -h "${k.path}" ]; then
-                    rm -f "${k.path}"
-                fi
-                mkdir -m 0755 -p "$(dirname '${k.path}')"
-                ssh-keygen \
-                  -t "${k.type}" \
-                  ${optionalString (k ? bits) "-b ${toString k.bits}"} \
-                  ${optionalString (k ? rounds) "-a ${toString k.rounds}"} \
-                  ${optionalString (k ? comment) "-C '${k.comment}'"} \
-                  ${
-                    optionalString (k ? openSSHFormat && k.openSSHFormat) "-o"
-                  } \
-                  -f "${k.path}" \
-                  -N ""
-            fi
-          '')}
-        '';
+            ${flip concatMapStrings cfg.hostKeys (k: ''
+              if ! [ -s "${k.path}" ]; then
+                  if ! [ -h "${k.path}" ]; then
+                      rm -f "${k.path}"
+                  fi
+                  mkdir -m 0755 -p "$(dirname '${k.path}')"
+                  ssh-keygen \
+                    -t "${k.type}" \
+                    ${optionalString (k ? bits) "-b ${toString k.bits}"} \
+                    ${optionalString (k ? rounds) "-a ${toString k.rounds}"} \
+                    ${optionalString (k ? comment) "-C '${k.comment}'"} \
+                    ${
+                      optionalString (k ? openSSHFormat && k.openSSHFormat) "-o"
+                    } \
+                    -f "${k.path}" \
+                    -N ""
+              fi
+            '')}
+          '';
 
-        serviceConfig = {
-          ExecStart = (optionalString cfg.startWhenNeeded "-")
-            + "${cfgc.package}/bin/sshd "
-            + (optionalString cfg.startWhenNeeded "-i ") + "-D "
-            + # don't detach into a daemon process
-            "-f /etc/ssh/sshd_config";
-          KillMode = "process";
-        } // (if cfg.startWhenNeeded then
-          {
-            StandardInput = "socket";
-            StandardError = "journal";
-          }
-        else
-          {
-            Restart = "always";
-            Type = "simple";
-          });
-
-      };
-
-    in if cfg.startWhenNeeded then
-      {
-
-        sockets.sshd = {
-          description = "SSH Socket";
-          wantedBy = [ "sockets.target" ];
-          socketConfig.ListenStream = if cfg.listenAddresses != [ ] then
-            map (l:
-              "${l.addr}:${
-                toString (if l.port != null then
-                  l.port
-                else
-                  22)
-              }") cfg.listenAddresses
+          serviceConfig = {
+            ExecStart = (optionalString cfg.startWhenNeeded "-")
+              + "${cfgc.package}/bin/sshd "
+              + (optionalString cfg.startWhenNeeded "-i ") + "-D "
+              + # don't detach into a daemon process
+              "-f /etc/ssh/sshd_config";
+            KillMode = "process";
+          } // (if cfg.startWhenNeeded then
+            {
+              StandardInput = "socket";
+              StandardError = "journal";
+            }
           else
-            cfg.ports;
-          socketConfig.Accept = true;
-          # Prevent brute-force attacks from shutting down socket
-          socketConfig.TriggerLimitIntervalSec = 0;
+            {
+              Restart = "always";
+              Type = "simple";
+            });
+
         };
 
-        services."sshd@" = service;
+      in if cfg.startWhenNeeded then
+        {
 
-      }
-    else
-      {
+          sockets.sshd = {
+            description = "SSH Socket";
+            wantedBy = [ "sockets.target" ];
+            socketConfig.ListenStream =
+              if cfg.listenAddresses != [ ] then
+                map (l:
+                  "${l.addr}:${
+                    toString (if l.port != null then
+                      l.port
+                    else
+                      22)
+                  }") cfg.listenAddresses
+              else
+                cfg.ports
+              ;
+            socketConfig.Accept = true;
+              # Prevent brute-force attacks from shutting down socket
+            socketConfig.TriggerLimitIntervalSec = 0;
+          };
 
-        services.sshd = service;
+          services."sshd@" = service;
 
-      };
+        }
+      else
+        {
 
-    networking.firewall.allowedTCPPorts = if cfg.openFirewall then
-      cfg.ports
-    else
-      [ ];
+          services.sshd = service;
+
+        }
+      ;
+
+    networking.firewall.allowedTCPPorts =
+      if cfg.openFirewall then
+        cfg.ports
+      else
+        [ ]
+      ;
 
     security.pam.services.sshd = {
       startSession = true;
@@ -729,9 +740,9 @@ in {
       unixAuth = cfg.settings.PasswordAuthentication;
     };
 
-    # These values are merged with the ones defined externally, see:
-    # https://github.com/NixOS/nixpkgs/pull/10155
-    # https://github.com/NixOS/nixpkgs/pull/41745
+      # These values are merged with the ones defined externally, see:
+      # https://github.com/NixOS/nixpkgs/pull/10155
+      # https://github.com/NixOS/nixpkgs/pull/41745
     services.openssh.authorizedKeysFiles = [
       "%h/.ssh/authorized_keys"
       "/etc/ssh/authorized_keys.d/%u"
@@ -788,10 +799,12 @@ in {
     '';
 
     assertions = [ {
-      assertion = if cfg.settings.X11Forwarding then
-        cfgc.setXAuthLocation
-      else
-        true;
+      assertion =
+        if cfg.settings.X11Forwarding then
+          cfgc.setXAuthLocation
+        else
+          true
+        ;
       message = "cannot enable X11 forwarding without setting xauth location";
     } ] ++ forEach cfg.listenAddresses ({
         addr,

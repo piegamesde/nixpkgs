@@ -33,7 +33,8 @@ buildPythonPackage rec {
     ./pygobject-2.0-fix-darwin.patch
     (fetchpatch {
       url =
-        "https://github.com/macports/macports-ports/raw/f2975d5bbbc2459c661905c5a850cc661fa32f55/python/py-gobject/files/py-gobject-dynamic_lookup-11.patch";
+        "https://github.com/macports/macports-ports/raw/f2975d5bbbc2459c661905c5a850cc661fa32f55/python/py-gobject/files/py-gobject-dynamic_lookup-11.patch"
+        ;
       sha256 = "sha256-mtlyu+La3+iC5iQAmVJzDA5E35XGaRQy/EKXzvrWRCg=";
       extraPrefix = "";
     })
@@ -44,10 +45,10 @@ buildPythonPackage rec {
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ glib ];
 
-  # in a "normal" setup, pygobject and pygtk are installed into the
-  # same site-packages: we need a pth file for both. pygtk.py would be
-  # used to select a specific version, in our setup it should have no
-  # effect, but we leave it in case somebody expects and calls it.
+    # in a "normal" setup, pygobject and pygtk are installed into the
+    # same site-packages: we need a pth file for both. pygtk.py would be
+    # used to select a specific version, in our setup it should have no
+    # effect, but we leave it in case somebody expects and calls it.
   postInstall = lib.optionalString (!isPy3k) ''
     mv $out/${python.sitePackages}/{pygtk.pth,${pname}-${version}.pth}
 

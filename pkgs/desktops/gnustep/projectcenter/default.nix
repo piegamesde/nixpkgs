@@ -23,9 +23,9 @@ gsmakeDerivation {
     hash = "sha256-uXT2UUvMZNc6Fqi2BUXQimbZk8b3IqXzB+A2btBOmms=";
   };
 
-  # NOTE: need a patch for ProjectCenter to help it locate some necessary tools:
-  # 1. Framework/PCProjectLauncher.m, locate gdb (say among NIX_GNUSTEP_SYSTEM_TOOLS)
-  # 2. Framework/PCProjectBuilder.m, locate gmake (similar)
+    # NOTE: need a patch for ProjectCenter to help it locate some necessary tools:
+    # 1. Framework/PCProjectLauncher.m, locate gdb (say among NIX_GNUSTEP_SYSTEM_TOOLS)
+    # 2. Framework/PCProjectBuilder.m, locate gmake (similar)
   propagatedBuildInputs = [
     base
     back

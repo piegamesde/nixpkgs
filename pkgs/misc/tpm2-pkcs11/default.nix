@@ -36,9 +36,9 @@ stdenv.mkDerivation rec {
     VERSION = version;
   });
 
-  # The preConfigure phase doesn't seem to be working here
-  # ./bootstrap MUST be executed as the first step, before all
-  # of the autoreconfHook stuff
+    # The preConfigure phase doesn't seem to be working here
+    # ./bootstrap MUST be executed as the first step, before all
+    # of the autoreconfHook stuff
   postPatch = ''
     ./bootstrap
   '';
@@ -76,27 +76,31 @@ stdenv.mkDerivation rec {
   dontStrip = true;
   dontPatchELF = true;
 
-  # To be able to use the userspace resource manager, the RUNPATH must
-  # explicitly include the tpm2-abrmd shared libraries.
-  preFixup = let
-    rpath = lib.makeLibraryPath ((lib.optional abrmdSupport tpm2-abrmd) ++ [
-      tpm2-tss
-      sqlite
-      openssl
-      glibc
-      libyaml
-    ]);
-  in ''
-    patchelf \
-      --set-rpath ${rpath} \
-      ${
-        lib.optionalString abrmdSupport "--add-needed ${
-          lib.makeLibraryPath [ tpm2-abrmd ]
-        }/libtss2-tcti-tabrmd.so"
-      } \
-      --add-needed ${lib.makeLibraryPath [ tpm2-tss ]}/libtss2-tcti-device.so \
-      $out/lib/libtpm2_pkcs11.so.0.0.0
-  '' ;
+    # To be able to use the userspace resource manager, the RUNPATH must
+    # explicitly include the tpm2-abrmd shared libraries.
+  preFixup =
+    let
+      rpath = lib.makeLibraryPath ((lib.optional abrmdSupport tpm2-abrmd) ++ [
+        tpm2-tss
+        sqlite
+        openssl
+        glibc
+        libyaml
+      ]);
+    in ''
+      patchelf \
+        --set-rpath ${rpath} \
+        ${
+          lib.optionalString abrmdSupport "--add-needed ${
+            lib.makeLibraryPath [ tpm2-abrmd ]
+          }/libtss2-tcti-tabrmd.so"
+        } \
+        --add-needed ${
+          lib.makeLibraryPath [ tpm2-tss ]
+        }/libtss2-tcti-device.so \
+        $out/lib/libtpm2_pkcs11.so.0.0.0
+    ''
+    ;
 
   postInstall = ''
     mkdir -p $bin/bin/ $bin/share/tpm2_pkcs11/

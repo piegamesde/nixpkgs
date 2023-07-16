@@ -28,7 +28,7 @@ buildPythonPackage rec {
     jdk8
   ];
 
-  # requires network access
+    # requires network access
   doCheck = false;
 
   prePatch = ''

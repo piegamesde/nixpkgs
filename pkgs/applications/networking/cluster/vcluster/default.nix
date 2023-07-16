@@ -27,7 +27,7 @@ buildGoModule rec {
     "-w"
   ];
 
-  # Test is disabled because e2e tests expect k8s.
+    # Test is disabled because e2e tests expect k8s.
   doCheck = false;
 
   installPhase = ''

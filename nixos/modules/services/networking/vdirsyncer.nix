@@ -16,7 +16,8 @@ let
       mkKeyValue = mkKeyValueDefault { mkValueString = builtins.toJSON; } "=";
     };
 
-  toConfigFile = name: cfg':
+  toConfigFile =
+    name: cfg':
     if cfg'.configFile != null then
       cfg'.configFile
     else
@@ -27,32 +28,39 @@ let
           });
       } // (mapAttrs' (name: nameValuePair "pair ${name}") cfg'.config.pairs)
         // (mapAttrs' (name: nameValuePair "storage ${name}")
-          cfg'.config.storages)));
+          cfg'.config.storages)))
+    ;
 
-  userUnitConfig = name: cfg': {
-    serviceConfig = {
-      User = if cfg'.user == null then
-        "vdirsyncer"
-      else
-        cfg'.user;
-      Group = if cfg'.group == null then
-        "vdirsyncer"
-      else
-        cfg'.group;
-    } // (optionalAttrs (cfg'.user == null) { DynamicUser = true; })
-      // (optionalAttrs (cfg'.additionalGroups != [ ]) {
-        SupplementaryGroups = cfg'.additionalGroups;
-      }) // (optionalAttrs (cfg'.config.statusPath == null) {
-        StateDirectory = "vdirsyncer/${name}";
-        StateDirectoryMode = "0700";
-      });
-  };
+  userUnitConfig =
+    name: cfg': {
+      serviceConfig = {
+        User =
+          if cfg'.user == null then
+            "vdirsyncer"
+          else
+            cfg'.user
+          ;
+        Group =
+          if cfg'.group == null then
+            "vdirsyncer"
+          else
+            cfg'.group
+          ;
+      } // (optionalAttrs (cfg'.user == null) { DynamicUser = true; })
+        // (optionalAttrs (cfg'.additionalGroups != [ ]) {
+          SupplementaryGroups = cfg'.additionalGroups;
+        }) // (optionalAttrs (cfg'.config.statusPath == null) {
+          StateDirectory = "vdirsyncer/${name}";
+          StateDirectoryMode = "0700";
+        });
+    }
+    ;
 
   commonUnitConfig = {
     after = [ "network.target" ];
     serviceConfig = {
       Type = "oneshot";
-      # Sandboxing
+        # Sandboxing
       PrivateTmp = true;
       NoNewPrivileges = true;
       ProtectSystem = "strict";

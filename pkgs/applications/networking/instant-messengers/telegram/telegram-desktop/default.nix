@@ -74,7 +74,7 @@ in
 stdenv.mkDerivation rec {
   pname = "telegram-desktop";
   version = "4.8.1";
-  # Note: Update via pkgs/applications/networking/instant-messengers/telegram/tdesktop/update.py
+    # Note: Update via pkgs/applications/networking/instant-messengers/telegram/tdesktop/update.py
 
   src = fetchFromGitHub {
     owner = "telegramdesktop";
@@ -90,7 +90,8 @@ stdenv.mkDerivation rec {
     # see https://github.com/NixOS/nixpkgs/issues/218370
     (fetchpatch {
       url =
-        "https://salsa.debian.org/debian/telegram-desktop/-/raw/09b363ed5a4fcd8ecc3282b9bfede5fbb83f97ef/debian/patches/Disable-register-custom-scheme.patch";
+        "https://salsa.debian.org/debian/telegram-desktop/-/raw/09b363ed5a4fcd8ecc3282b9bfede5fbb83f97ef/debian/patches/Disable-register-custom-scheme.patch"
+        ;
       hash = "sha256-B8X5lnSpwwdp1HlvyXJWQPybEN+plOwimdV5gW6aY2Y=";
     })
   ];
@@ -106,7 +107,7 @@ stdenv.mkDerivation rec {
       --replace '"libwebkitgtk-6.0.so.4"' '"${webkitgtk_6_0}/lib/libwebkitgtk-6.0.so.4"'
   '';
 
-  # We want to run wrapProgram manually (with additional parameters)
+    # We want to run wrapProgram manually (with additional parameters)
   dontWrapGApps = true;
   dontWrapQtApps = true;
 

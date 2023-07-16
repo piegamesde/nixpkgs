@@ -27,7 +27,8 @@ let
   lib_ = lib;
   stdenv_ = stdenv;
 
-  readConfig = configfile:
+  readConfig =
+    configfile:
     import (runCommand "config.nix" { } ''
       echo "{" > "$out"
       while IFS='=' read key val; do
@@ -36,7 +37,8 @@ let
         echo '  "'"$key"'" = "'"''${no_firstquote%\"}"'";' >> "$out"
       done < "${configfile}"
       echo "}" >> $out
-    '').outPath;
+    '').outPath
+    ;
 in
 lib.makeOverridable ({
   # The kernel version
@@ -101,29 +103,32 @@ lib.makeOverridable ({
       (buildPackages.deterministic-uname.override { inherit modDirVersion; })
     ] ++ optional (lib.versionAtLeast version "5.13") zstd;
 
-    config = let
-      attrName = attr: "CONFIG_" + attr;
-    in
-    {
-      isSet = attr: hasAttr (attrName attr) config;
+    config =
+      let
+        attrName = attr: "CONFIG_" + attr;
+      in
+      {
+        isSet = attr: hasAttr (attrName attr) config;
 
-      getValue = attr:
-        if config.isSet attr then
-          getAttr (attrName attr) config
-        else
-          null;
+        getValue =
+          attr:
+          if config.isSet attr then
+            getAttr (attrName attr) config
+          else
+            null
+          ;
 
-      isYes = attr: (config.getValue attr) == "y";
+        isYes = attr: (config.getValue attr) == "y";
 
-      isNo = attr: (config.getValue attr) == "n";
+        isNo = attr: (config.getValue attr) == "n";
 
-      isModule = attr: (config.getValue attr) == "m";
+        isModule = attr: (config.getValue attr) == "m";
 
-      isEnabled = attr: (config.isModule attr) || (config.isYes attr);
+        isEnabled = attr: (config.isModule attr) || (config.isYes attr);
 
-      isDisabled = attr: (!(config.isSet attr)) || (config.isNo attr);
-    } // config_
-    ;
+        isDisabled = attr: (!(config.isSet attr)) || (config.isNo attr);
+      } // config_
+      ;
 
     isModular = config.isYes "MODULES";
 
@@ -175,7 +180,8 @@ lib.makeOverridable ({
         && lib.versionOlder version "5.19" && stdenv.hostPlatform.isPower)
       (fetchpatch {
         url =
-          "https://git.kernel.org/pub/scm/linux/kernel/git/powerpc/linux.git/patch/?id=d9e5c3e9e75162f845880535957b7fd0b4637d23";
+          "https://git.kernel.org/pub/scm/linux/kernel/git/powerpc/linux.git/patch/?id=d9e5c3e9e75162f845880535957b7fd0b4637d23"
+          ;
         hash = "sha256-bBOyJcP6jUvozFJU0SPTOf3cmnTQ6ZZ4PlHjiniHXLU=";
       });
 
@@ -272,7 +278,7 @@ lib.makeOverridable ({
       "pie"
     ];
 
-    # Absolute paths for compilers avoid any PATH-clobbering issues.
+      # Absolute paths for compilers avoid any PATH-clobbering issues.
     makeFlags = [
       "O=$(buildRoot)"
       "CC=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc"
@@ -301,72 +307,75 @@ lib.makeOverridable ({
         "INSTALL_DTBS_PATH=$(out)/dtbs"
       ];
 
-    preInstall = let
-      # All we really need to do here is copy the final image and System.map to $out,
-      # and use the kernel's modules_install, firmware_install, dtbs_install, etc. targets
-      # for the rest. Easy, right?
-      #
-      # Unfortunately for us, the obvious way of getting the built image path,
-      # make -s image_name, does not work correctly, because some architectures
-      # (*cough* aarch64 *cough*) change KBUILD_IMAGE on the fly in their install targets,
-      # so we end up attempting to install the thing we didn't actually build.
-      #
-      # Thankfully, there's a way out that doesn't involve just hardcoding everything.
-      #
-      # The kernel has an install target, which runs a pretty simple shell script
-      # (located at scripts/install.sh or arch/$arch/boot/install.sh, depending on
-      # which kernel version you're looking at) that tries to do something sensible.
-      #
-      # (it would be great to hijack this script immediately, as it has all the
-      #   information we need passed to it and we don't need it to try and be smart,
-      #   but unfortunately, the exact location of the scripts differs between kernel
-      #   versions, and they're seemingly not considered to be public API at all)
-      #
-      # One of the ways it tries to discover what "something sensible" actually is
-      # is by delegating to what's supposed to be a user-provided install script
-      # located at ~/bin/installkernel.
-      #
-      # (the other options are:
-      #   - a distribution-specific script at /sbin/installkernel,
-      #        which we can't really create in the sandbox easily
-      #   - an architecture-specific script at arch/$arch/boot/install.sh,
-      #        which attempts to guess _something_ and usually guesses very wrong)
-      #
-      # More specifically, the install script exec's into ~/bin/installkernel, if one
-      # exists, with the following arguments:
-      #
-      # $1: $KERNELRELEASE - full kernel version string
-      # $2: $KBUILD_IMAGE - the final image path
-      # $3: System.map - path to System.map file, seemingly hardcoded everywhere
-      # $4: $INSTALL_PATH - path to the destination directory as specified in installFlags
-      #
-      # $2 is exactly what we want, so hijack the script and use the knowledge given to it
-      # by the makefile overlords for our own nefarious ends.
-      #
-      # Note that the makefiles specifically look in ~/bin/installkernel, and
-      # writeShellScriptBin writes the script to <store path>/bin/installkernel,
-      # so HOME needs to be set to just the store path.
-      #
-      # FIXME: figure out a less roundabout way of doing this.
-      installkernel = buildPackages.writeShellScriptBin "installkernel" ''
-        cp -av $2 $4
-        cp -av $3 $4
-      '';
-    in ''
-      installFlagsArray+=("-j$NIX_BUILD_CORES")
-      export HOME=${installkernel}
-    '' ;
+    preInstall =
+      let
+        # All we really need to do here is copy the final image and System.map to $out,
+        # and use the kernel's modules_install, firmware_install, dtbs_install, etc. targets
+        # for the rest. Easy, right?
+        #
+        # Unfortunately for us, the obvious way of getting the built image path,
+        # make -s image_name, does not work correctly, because some architectures
+        # (*cough* aarch64 *cough*) change KBUILD_IMAGE on the fly in their install targets,
+        # so we end up attempting to install the thing we didn't actually build.
+        #
+        # Thankfully, there's a way out that doesn't involve just hardcoding everything.
+        #
+        # The kernel has an install target, which runs a pretty simple shell script
+        # (located at scripts/install.sh or arch/$arch/boot/install.sh, depending on
+        # which kernel version you're looking at) that tries to do something sensible.
+        #
+        # (it would be great to hijack this script immediately, as it has all the
+        #   information we need passed to it and we don't need it to try and be smart,
+        #   but unfortunately, the exact location of the scripts differs between kernel
+        #   versions, and they're seemingly not considered to be public API at all)
+        #
+        # One of the ways it tries to discover what "something sensible" actually is
+        # is by delegating to what's supposed to be a user-provided install script
+        # located at ~/bin/installkernel.
+        #
+        # (the other options are:
+        #   - a distribution-specific script at /sbin/installkernel,
+        #        which we can't really create in the sandbox easily
+        #   - an architecture-specific script at arch/$arch/boot/install.sh,
+        #        which attempts to guess _something_ and usually guesses very wrong)
+        #
+        # More specifically, the install script exec's into ~/bin/installkernel, if one
+        # exists, with the following arguments:
+        #
+        # $1: $KERNELRELEASE - full kernel version string
+        # $2: $KBUILD_IMAGE - the final image path
+        # $3: System.map - path to System.map file, seemingly hardcoded everywhere
+        # $4: $INSTALL_PATH - path to the destination directory as specified in installFlags
+        #
+        # $2 is exactly what we want, so hijack the script and use the knowledge given to it
+        # by the makefile overlords for our own nefarious ends.
+        #
+        # Note that the makefiles specifically look in ~/bin/installkernel, and
+        # writeShellScriptBin writes the script to <store path>/bin/installkernel,
+        # so HOME needs to be set to just the store path.
+        #
+        # FIXME: figure out a less roundabout way of doing this.
+        installkernel = buildPackages.writeShellScriptBin "installkernel" ''
+          cp -av $2 $4
+          cp -av $3 $4
+        '';
+      in ''
+        installFlagsArray+=("-j$NIX_BUILD_CORES")
+        export HOME=${installkernel}
+      ''
+      ;
 
-    # Some image types need special install targets (e.g. uImage is installed with make uinstall)
-    installTargets =
-      [ (kernelConf.installTarget or (if kernelConf.target == "uImage" then
-        "uinstall"
-      else if
-        kernelConf.target == "zImage" || kernelConf.target == "Image.gz"
-      then
-        "zinstall"
-      else
-        "install")) ];
+      # Some image types need special install targets (e.g. uImage is installed with make uinstall)
+    installTargets = [ (kernelConf.installTarget or (if
+      kernelConf.target == "uImage"
+    then
+      "uinstall"
+    else if
+      kernelConf.target == "zImage" || kernelConf.target == "Image.gz"
+    then
+      "zinstall"
+    else
+      "install")) ];
 
     postInstall = optionalString isModular ''
       if [ -z "''${dontStrip-}" ]; then
@@ -476,8 +485,8 @@ lib.makeOverridable ({
         + lib.concatStringsSep ", " (map (x: x.name) kernelPatches) + ")");
       license = lib.licenses.gpl2Only;
       homepage = "https://www.kernel.org/";
-      maintainers = lib.teams.linux-kernel.members
-        ++ [ maintainers.thoughtpolice ];
+      maintainers =
+        lib.teams.linux-kernel.members ++ [ maintainers.thoughtpolice ];
       platforms = platforms.linux;
       timeout = 14400; # 4 hours
     } // extraMeta;

@@ -49,7 +49,8 @@ stdenv.mkDerivation rec {
     changelog =
       "https://github.com/processone/tsung/blob/v${version}/CHANGELOG.md";
     description =
-      "A high-performance benchmark framework for various protocols including HTTP, XMPP, LDAP, etc";
+      "A high-performance benchmark framework for various protocols including HTTP, XMPP, LDAP, etc"
+      ;
     longDescription = ''
       Tsung is a distributed load testing tool. It is protocol-independent and
       can currently be used to stress HTTP, WebDAV, SOAP, PostgreSQL, MySQL,

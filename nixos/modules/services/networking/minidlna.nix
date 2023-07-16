@@ -77,7 +77,8 @@ in {
         default = "/var/cache/minidlna";
         example = "/tmp/minidlna";
         description = lib.mdDoc
-          "Specify the directory where you want MiniDLNA to store its database and album art cache.";
+          "Specify the directory where you want MiniDLNA to store its database and album art cache."
+          ;
       };
       options.friendly_name = mkOption {
         type = types.str;
@@ -92,15 +93,18 @@ in {
         default = "B";
         example = ".";
         description = lib.mdDoc
-          "Use a different container as the root of the directory tree presented to clients.";
+          "Use a different container as the root of the directory tree presented to clients."
+          ;
       };
       options.log_level = mkOption {
         type = types.str;
         default = "warn";
         example =
-          "general,artwork,database,inotify,scanner,metadata,http,ssdp,tivo=warn";
+          "general,artwork,database,inotify,scanner,metadata,http,ssdp,tivo=warn"
+          ;
         description = lib.mdDoc
-          "Defines the type of messages that should be logged and down to which level of importance.";
+          "Defines the type of messages that should be logged and down to which level of importance."
+          ;
       };
       options.inotify = mkOption {
         type = types.enum [
@@ -109,7 +113,8 @@ in {
         ];
         default = "no";
         description = lib.mdDoc
-          "Whether to enable inotify monitoring to automatically discover new files.";
+          "Whether to enable inotify monitoring to automatically discover new files."
+          ;
       };
       options.enable_tivo = mkOption {
         type = types.enum [
@@ -127,7 +132,8 @@ in {
         ];
         default = "no";
         description = lib.mdDoc
-          "Set this to yes to allow symlinks that point outside user-defined `media_dir`.";
+          "Set this to yes to allow symlinks that point outside user-defined `media_dir`."
+          ;
       };
     };
   };
@@ -195,7 +201,7 @@ in {
     ])
   ];
 
-  ###### implementation
+    ###### implementation
   config = mkIf cfg.enable {
     networking.firewall.allowedTCPPorts =
       mkIf cfg.openFirewall [ cfg.settings.port ];
@@ -221,7 +227,8 @@ in {
         RuntimeDirectory = "minidlna";
         PIDFile = "/run/minidlna/pid";
         ExecStart =
-          "${pkgs.minidlna}/sbin/minidlnad -S -P /run/minidlna/pid -f ${settingsFile}";
+          "${pkgs.minidlna}/sbin/minidlnad -S -P /run/minidlna/pid -f ${settingsFile}"
+          ;
       };
     };
   };

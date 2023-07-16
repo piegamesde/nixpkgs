@@ -23,7 +23,8 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "http://python-cerberus.org/";
     description =
-      "Lightweight, extensible schema and data validation tool for Python dictionaries";
+      "Lightweight, extensible schema and data validation tool for Python dictionaries"
+      ;
     license = licenses.mit;
   };
 }

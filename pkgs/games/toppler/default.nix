@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  # GIMP needs a writable home
+    # GIMP needs a writable home
   preBuild = ''
     export HOME=$(mktemp -d)
   '';

@@ -31,7 +31,7 @@ buildPythonPackage rec {
   ] ++ lib.optional (pythonOlder "3.5") typing
     ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
-  # No tests
+    # No tests
   doCheck = false;
 
   meta = with lib; {

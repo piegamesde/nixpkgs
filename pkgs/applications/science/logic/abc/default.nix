@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
 
   installPhase = "mkdir -p $out/bin && mv abc $out/bin";
 
-  # needed by yosys
+    # needed by yosys
   passthru.rev = src.rev;
 
   meta = with lib; {

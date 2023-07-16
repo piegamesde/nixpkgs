@@ -42,7 +42,8 @@ in {
 
     systemd.services.netbird = {
       description =
-        "A WireGuard-based mesh network that connects your devices into a single private network";
+        "A WireGuard-based mesh network that connects your devices into a single private network"
+        ;
       documentation = [ "https://netbird.io/docs/" ];
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];

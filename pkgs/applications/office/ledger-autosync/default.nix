@@ -13,7 +13,7 @@ python3Packages.buildPythonApplication rec {
   version = "1.0.3";
   format = "pyproject";
 
-  # no tests included in PyPI tarball
+    # no tests included in PyPI tarball
   src = fetchFromGitHub {
     owner = "egh";
     repo = "ledger-autosync";
@@ -46,8 +46,8 @@ python3Packages.buildPythonApplication rec {
       six
     ] ++ lib.optional useLedger ledger ++ lib.optional useHledger hledger;
 
-  # Checks require ledger as a python package,
-  # ledger does not support python3 while ledger-autosync requires it.
+    # Checks require ledger as a python package,
+    # ledger does not support python3 while ledger-autosync requires it.
   nativeCheckInputs = with python3Packages; [
     ledger
     hledger
@@ -56,8 +56,8 @@ python3Packages.buildPythonApplication rec {
     pytestCheckHook
   ];
 
-  # Disable some non-passing tests:
-  # https://github.com/egh/ledger-autosync/issues/127
+    # Disable some non-passing tests:
+    # https://github.com/egh/ledger-autosync/issues/127
   disabledTests = [
     "test_payee_match"
     "test_args_only"

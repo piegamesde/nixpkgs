@@ -7,7 +7,8 @@ import ../make-test-python.nix ({
 
     meta = with lib.maintainers; { maintainers = [ phaer ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         services.healthchecks = {
@@ -19,7 +20,8 @@ import ../make-test-python.nix ({
               "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
           };
         };
-      };
+      }
+      ;
 
     testScript = ''
       machine.start()

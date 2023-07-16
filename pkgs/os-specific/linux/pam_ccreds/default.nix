@@ -28,7 +28,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.padl.com/OSS/pam_ccreds.html";
     description =
-      "PAM module to locally authenticate using an enterprise identity when the network is unavailable";
+      "PAM module to locally authenticate using an enterprise identity when the network is unavailable"
+      ;
     license = licenses.gpl2;
     platforms = platforms.linux;
   };

@@ -136,7 +136,8 @@ let
 
   meta = with lib; {
     description =
-      "Library for the evaluation of molecular integrals of many-body operators over Gaussian functions";
+      "Library for the evaluation of molecular integrals of many-body operators over Gaussian functions"
+      ;
     homepage = "https://github.com/evaleev/libint";
     license = with licenses; [
       lgpl3Only
@@ -159,7 +160,7 @@ let
       hash = "sha256-lX+DVnhdOb8d7MX9umf33y88CNiGb3TYYlMZtQXfx+8=";
     };
 
-    # Replace hardcoded "/bin/rm" with normal "rm"
+      # Replace hardcoded "/bin/rm" with normal "rm"
     postPatch = ''
       for f in \
         bin/ltmain.sh \
@@ -257,15 +258,15 @@ let
       eigen
     ];
 
-    # Default is just "double", but SSE2 is available on all x86_64 CPUs.
-    # AVX support is advertised, but does not work in 2.6 (possibly in 2.7).
-    # Fortran interface is incompatible with changing the LIBINT2_REALTYPE.
+      # Default is just "double", but SSE2 is available on all x86_64 CPUs.
+      # AVX support is advertised, but does not work in 2.6 (possibly in 2.7).
+      # Fortran interface is incompatible with changing the LIBINT2_REALTYPE.
     cmakeFlags = [ "-DLIBINT2_SHGAUSS_ORDERING=${shGaussOrd}" ]
       ++ lib.optional enableFortran "-DENABLE_FORTRAN=ON"
       ++ lib.optional enableSSE
       "-DLIBINT2_REALTYPE=libint2::simd::VectorSSEDouble";
 
-    # Can only build in the source-tree. A lot of preprocessing magic fails otherwise.
+      # Can only build in the source-tree. A lot of preprocessing magic fails otherwise.
     dontUseCmakeBuildDir = true;
 
     inherit meta;

@@ -29,7 +29,8 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "A scalable overlay networking tool with a focus on performance, simplicity and security";
+      "A scalable overlay networking tool with a focus on performance, simplicity and security"
+      ;
     longDescription = ''
       Nebula is a scalable overlay networking tool with a focus on performance,
       simplicity and security. It lets you seamlessly connect computers

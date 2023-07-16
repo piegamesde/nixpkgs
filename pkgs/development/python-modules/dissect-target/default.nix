@@ -93,8 +93,8 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ]
-    ++ passthru.optional-dependencies.full;
+  nativeCheckInputs =
+    [ pytestCheckHook ] ++ passthru.optional-dependencies.full;
 
   pythonImportsCheck = [ "dissect.target" ];
 

@@ -34,8 +34,8 @@ let
       gradle -Dfile.encoding=utf-8 shadowJar;
     '';
 
-    # Mavenize dependency paths
-    # e.g. org.codehaus.groovy/groovy/2.4.0/{hash}/groovy-2.4.0.jar -> org/codehaus/groovy/groovy/2.4.0/groovy-2.4.0.jar
+      # Mavenize dependency paths
+      # e.g. org.codehaus.groovy/groovy/2.4.0/{hash}/groovy-2.4.0.jar -> org/codehaus/groovy/groovy/2.4.0/groovy-2.4.0.jar
     installPhase = ''
       find $GRADLE_USER_HOME/caches/modules-2 -type f -regex '.*\.\(jar\|pom\)' \
         | perl -pe 's#(.*/([^/]+)/([^/]+)/([^/]+)/[0-9a-f]{30,40}/([^/\s]+))$# ($x = $2) =~ tr|\.|/|; "install -Dm444 $1 \$out/$x/$3/$4/$5" #e' \
@@ -47,7 +47,7 @@ let
     outputHash = "sha256-Mx5CdiRxuql22kbLozzr9Rs2E2Svzg2zN1138Xa0pMc=";
   };
 
-  # Point to our local deps repo
+    # Point to our local deps repo
   gradleInit = writeText "init.gradle" ''
       logger.lifecycle 'Replacing Maven repositories with ${deps}...'
       gradle.projectsLoaded {

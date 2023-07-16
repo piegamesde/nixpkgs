@@ -23,7 +23,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "fno-common.patch";
       url =
-        "https://github.com/OpenRTX/dmrconfig/commit/1a6901488db26262a6b69f80b0e795864e9e8d0a.patch";
+        "https://github.com/OpenRTX/dmrconfig/commit/1a6901488db26262a6b69f80b0e795864e9e8d0a.patch"
+        ;
       sha256 = "03px1y95a8aspd251i1jj8ggqfjvkqby4lhn5pb7l5c1lzh6h762";
     })
   ];

@@ -74,7 +74,8 @@
     version = "23.01.0";
     src = fetchurl {
       url =
-        "${mirror}/stable/plasma-mobile/23.01.0/khealthcertificate-23.01.0.tar.xz";
+        "${mirror}/stable/plasma-mobile/23.01.0/khealthcertificate-23.01.0.tar.xz"
+        ;
       sha256 = "193agd3jg029vcq1h5hdg3gw6zgqcmszl6ffcrid0ajbbiic4pbm";
       name = "khealthcertificate-23.01.0.tar.xz";
     };
@@ -140,7 +141,8 @@
     version = "23.01.0";
     src = fetchurl {
       url =
-        "${mirror}/stable/plasma-mobile/23.01.0/plasma-phonebook-23.01.0.tar.xz";
+        "${mirror}/stable/plasma-mobile/23.01.0/plasma-phonebook-23.01.0.tar.xz"
+        ;
       sha256 = "0pprfgims9h6g1xw48w66bqkmqp7qp7gkc7k4zbj3lgmmnwh6z9i";
       name = "plasma-phonebook-23.01.0.tar.xz";
     };

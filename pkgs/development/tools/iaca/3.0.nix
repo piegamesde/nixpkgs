@@ -12,7 +12,8 @@ stdenv.mkDerivation rec {
     name = "iaca-version-v${version}-lin64.zip";
     sha256 = "0qd81bxg269cwwvfmdp266kvhcl3sdvhrkfqdrbmanawk0w7lvp1";
     url =
-      "https://software.intel.com/en-us/articles/intel-architecture-code-analyzer-download";
+      "https://software.intel.com/en-us/articles/intel-architecture-code-analyzer-download"
+      ;
   };
   unpackCmd = ''${unzip}/bin/unzip "$src"'';
   installPhase = ''
@@ -23,7 +24,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Intel Architecture Code Analyzer";
     homepage =
-      "https://software.intel.com/en-us/articles/intel-architecture-code-analyzer/";
+      "https://software.intel.com/en-us/articles/intel-architecture-code-analyzer/"
+      ;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
     platforms = [ "x86_64-linux" ];

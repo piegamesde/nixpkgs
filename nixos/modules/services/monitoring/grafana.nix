@@ -22,7 +22,8 @@ let
   settingsFormatIni = pkgs.formats.ini { };
   configFile = settingsFormatIni.generate "config.ini" cfg.settings;
 
-  mkProvisionCfg = name: attr: provisionCfg:
+  mkProvisionCfg =
+    name: attr: provisionCfg:
     if provisionCfg.path != null then
       provisionCfg.path
     else
@@ -33,7 +34,8 @@ let
         {
           apiVersion = 1;
           ${attr} = [ ];
-        });
+        })
+    ;
 
   datasourceFileOrDir =
     mkProvisionCfg "datasource" "datasources" cfg.provision.datasources;
@@ -48,19 +50,22 @@ let
   notifierFileOrDir =
     pkgs.writeText "notifier.yaml" (builtins.toJSON notifierConfiguration);
 
-  generateAlertingProvisioningYaml = x:
+  generateAlertingProvisioningYaml =
+    x:
     if (cfg.provision.alerting."${x}".path == null) then
       provisioningSettingsFormat.generate "${x}.yaml"
       cfg.provision.alerting."${x}".settings
     else
-      cfg.provision.alerting."${x}".path;
+      cfg.provision.alerting."${x}".path
+    ;
   rulesFileOrDir = generateAlertingProvisioningYaml "rules";
   contactPointsFileOrDir = generateAlertingProvisioningYaml "contactPoints";
   policiesFileOrDir = generateAlertingProvisioningYaml "policies";
   templatesFileOrDir = generateAlertingProvisioningYaml "templates";
   muteTimingsFileOrDir = generateAlertingProvisioningYaml "muteTimings";
 
-  ln = {
+  ln =
+    {
       src,
       dir,
       filename,
@@ -72,7 +77,8 @@ let
       else
         ln -sf ${src} $out/${dir}/${filename}.yaml
       fi
-    '';
+    ''
+    ;
   provisionConfDir = pkgs.runCommand "grafana-provisioning" {
     nativeBuildInputs = [ pkgs.xorg.lndir ];
   } ''
@@ -119,18 +125,24 @@ let
     }}
   '';
 
-  # Get a submodule without any embedded metadata:
-  _filter = x: filterAttrs (k: v: k != "_module") x;
+    # Get a submodule without any embedded metadata:
+  _filter =
+    x:
+    filterAttrs (k: v: k != "_module") x
+    ;
 
-  # FIXME(@Ma27) remove before 23.05. This is just a helper-type
-  # because `mkRenamedOptionModule` doesn't work if `foo.bar` is renamed
-  # to `foo.bar.baz`.
-  submodule' = module:
+    # FIXME(@Ma27) remove before 23.05. This is just a helper-type
+    # because `mkRenamedOptionModule` doesn't work if `foo.bar` is renamed
+    # to `foo.bar.baz`.
+  submodule' =
+    module:
     types.coercedTo (mkOptionType {
       name = "grafana-provision-submodule";
       description =
-        "Wrapper-type for backwards compat of Grafana's declarative provisioning";
-      check = x:
+        "Wrapper-type for backwards compat of Grafana's declarative provisioning"
+        ;
+      check =
+        x:
         if builtins.isList x then
           throw ''
             Provisioning dashboards and datasources declaratively by
@@ -139,10 +151,12 @@ let
             (or `services.grafana.provision.dashboards.settings.providers`) instead.
           ''
         else
-          isAttrs x || isFunction x;
-    }) id (types.submodule module);
+          isAttrs x || isFunction x
+        ;
+    }) id (types.submodule module)
+    ;
 
-  # http://docs.grafana.org/administration/provisioning/#datasources
+    # http://docs.grafana.org/administration/provisioning/#datasources
   grafanaTypes.datasourceConfig = types.submodule {
     freeformType = provisioningSettingsFormat.type;
 
@@ -162,13 +176,15 @@ let
         ];
         default = "proxy";
         description = lib.mdDoc
-          "Access mode. proxy or direct (Server or Browser in the UI). Required.";
+          "Access mode. proxy or direct (Server or Browser in the UI). Required."
+          ;
       };
       uid = mkOption {
         type = types.nullOr types.str;
         default = null;
         description = lib.mdDoc
-          "Custom UID which can be used to reference this datasource in other parts of the configuration, if not specified will be generated automatically.";
+          "Custom UID which can be used to reference this datasource in other parts of the configuration, if not specified will be generated automatically."
+          ;
       };
       url = mkOption {
         type = types.str;
@@ -194,7 +210,7 @@ let
     };
   };
 
-  # http://docs.grafana.org/administration/provisioning/#dashboards
+    # http://docs.grafana.org/administration/provisioning/#dashboards
   grafanaTypes.dashboardConfig = types.submodule {
     freeformType = provisioningSettingsFormat.type;
 
@@ -212,7 +228,8 @@ let
       options.path = mkOption {
         type = types.path;
         description = lib.mdDoc
-          "Path grafana will watch for dashboards. Required when using the 'file' type.";
+          "Path grafana will watch for dashboards. Required when using the 'file' type."
+          ;
       };
     };
   };
@@ -271,7 +288,8 @@ let
         type = types.bool;
         default = true;
         description = lib.mdDoc
-          "Should the notifier be sent reminder notifications while alerts continue to fire.";
+          "Should the notifier be sent reminder notifications while alerts continue to fire."
+          ;
       };
       frequency = mkOption {
         type = types.str;
@@ -876,17 +894,21 @@ in {
       type = with types; nullOr (listOf path);
       default = null;
       description = lib.mdDoc
-        "If non-null, then a list of packages containing Grafana plugins to install. If set, plugins cannot be manually installed.";
-      example = literalExpression
-        "with pkgs.grafanaPlugins; [ grafana-piechart-panel ]";
-      # Make sure each plugin is added only once; otherwise building
-      # the link farm fails, since the same path is added multiple
-      # times.
-      apply = x:
+        "If non-null, then a list of packages containing Grafana plugins to install. If set, plugins cannot be manually installed."
+        ;
+      example =
+        literalExpression "with pkgs.grafanaPlugins; [ grafana-piechart-panel ]"
+        ;
+        # Make sure each plugin is added only once; otherwise building
+        # the link farm fails, since the same path is added multiple
+        # times.
+      apply =
+        x:
         if isList x then
           lib.unique x
         else
-          x;
+          x
+        ;
     };
 
     package = mkOption {
@@ -914,13 +936,17 @@ in {
           paths = {
             plugins = mkOption {
               description = lib.mdDoc
-                "Directory where grafana will automatically scan and look for plugins";
-              default = if (cfg.declarativePlugins == null) then
-                "${cfg.dataDir}/plugins"
-              else
-                declarativePlugins;
+                "Directory where grafana will automatically scan and look for plugins"
+                ;
+              default =
+                if (cfg.declarativePlugins == null) then
+                  "${cfg.dataDir}/plugins"
+                else
+                  declarativePlugins
+                ;
               defaultText = literalExpression ''
-                if (cfg.declarativePlugins == null) then "''${cfg.dataDir}/plugins" else declarativePlugins'';
+                if (cfg.declarativePlugins == null) then "''${cfg.dataDir}/plugins" else declarativePlugins''
+                ;
               type = types.path;
             };
 
@@ -931,7 +957,8 @@ in {
               '';
               default = provisionConfDir;
               defaultText =
-                "directory with links to files generated from services.grafana.provision";
+                "directory with links to files generated from services.grafana.provision"
+                ;
               type = types.path;
             };
           };
@@ -968,7 +995,8 @@ in {
 
             domain = mkOption {
               description = lib.mdDoc
-                "The public facing domain name used to access grafana from a browser.";
+                "The public facing domain name used to access grafana from a browser."
+                ;
               default = "localhost";
               type = types.str;
             };
@@ -1010,7 +1038,8 @@ in {
 
             socket = mkOption {
               description = lib.mdDoc
-                "Path where the socket should be created when protocol=socket. Make sure that Grafana has appropriate permissions before you change this setting.";
+                "Path where the socket should be created when protocol=socket. Make sure that Grafana has appropriate permissions before you change this setting."
+                ;
               default = "/run/grafana/grafana.sock";
               type = types.str;
             };
@@ -1059,7 +1088,8 @@ in {
 
             path = mkOption {
               description = lib.mdDoc
-                "Only applicable to sqlite3 database. The file path where the database will be stored.";
+                "Only applicable to sqlite3 database. The file path where the database will be stored."
+                ;
               default = "${cfg.dataDir}/data/grafana.db";
               defaultText = literalExpression
                 ''"''${config.${opt.dataDir}}/data/grafana.db"'';
@@ -1168,7 +1198,8 @@ in {
 
           analytics.reporting_enabled = mkOption {
             description = lib.mdDoc
-              "Whether to allow anonymous usage reporting to stats.grafana.net.";
+              "Whether to allow anonymous usage reporting to stats.grafana.net."
+              ;
             default = true;
             type = types.bool;
           };
@@ -1210,7 +1241,8 @@ in {
 
                 deleteDatasources = mkOption {
                   description = lib.mdDoc
-                    "List of datasources that should be deleted from the database.";
+                    "List of datasources that should be deleted from the database."
+                    ;
                   default = [ ];
                   type = types.listOf (types.submodule {
                     options.name = mkOption {
@@ -1220,8 +1252,9 @@ in {
                     };
 
                     options.orgId = mkOption {
-                      description = lib.mdDoc
-                        "Organization ID of the datasource to delete.";
+                      description =
+                        lib.mdDoc "Organization ID of the datasource to delete."
+                        ;
                       type = types.int;
                     };
                   });
@@ -1358,13 +1391,15 @@ in {
 
                     options.folder = mkOption {
                       description = lib.mdDoc
-                        "Name of the folder the rule group will be stored in. Required.";
+                        "Name of the folder the rule group will be stored in. Required."
+                        ;
                       type = types.str;
                     };
 
                     options.interval = mkOption {
                       description = lib.mdDoc
-                        "Interval that the rule group should be evaluated at. Required.";
+                        "Interval that the rule group should be evaluated at. Required."
+                        ;
                       type = types.str;
                     };
                   });
@@ -1569,7 +1604,8 @@ in {
 
                 resetPolicies = mkOption {
                   description = lib.mdDoc
-                    "List of orgIds that should be reset to the default policy.";
+                    "List of orgIds that should be reset to the default policy."
+                    ;
                   default = [ ];
                   type = types.listOf types.int;
                 };
@@ -1718,15 +1754,17 @@ in {
                 };
 
                 muteTimes = mkOption {
-                  description = lib.mdDoc
-                    "List of mute time intervals to import or update.";
+                  description =
+                    lib.mdDoc "List of mute time intervals to import or update."
+                    ;
                   default = [ ];
                   type = types.listOf (types.submodule {
                     freeformType = provisioningSettingsFormat.type;
 
                     options.name = mkOption {
                       description = lib.mdDoc
-                        "Name of the mute time interval, must be unique. Required.";
+                        "Name of the mute time interval, must be unique. Required."
+                        ;
                       type = types.str;
                     };
                   });
@@ -1745,7 +1783,8 @@ in {
 
                     options.name = mkOption {
                       description = lib.mdDoc
-                        "Name of the mute time interval, must be unique. Required.";
+                        "Name of the mute time interval, must be unique. Required."
+                        ;
                       type = types.str;
                     };
                   });
@@ -1798,50 +1837,55 @@ in {
   };
 
   config = mkIf cfg.enable {
-    warnings = let
-      doesntUseFileProvider = opt: defaultValue:
-        let
-          regex = "${
-              optionalString (defaultValue != null) "^${defaultValue}$|"
-            }^\\$__(file|env)\\{.*}$|^\\$[^_\\$][^ ]+$";
-        in
-        builtins.match regex opt == null
-      ;
-      # Ensure that no custom credentials are leaked into the Nix store. Unless the default value
-      # is specified, this can be achieved by using the file/env provider:
-      # https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/#variable-expansion
-    in
-    (optional (doesntUseFileProvider cfg.settings.database.password ""
-      || doesntUseFileProvider cfg.settings.security.admin_password "admin") ''
-        Grafana passwords will be stored as plaintext in the Nix store!
-        Use file provider or an env-var instead.
+    warnings =
+      let
+        doesntUseFileProvider =
+          opt: defaultValue:
+          let
+            regex = "${
+                optionalString (defaultValue != null) "^${defaultValue}$|"
+              }^\\$__(file|env)\\{.*}$|^\\$[^_\\$][^ ]+$";
+          in
+          builtins.match regex opt == null
+          ;
+        # Ensure that no custom credentials are leaked into the Nix store. Unless the default value
+        # is specified, this can be achieved by using the file/env provider:
+        # https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/#variable-expansion
+      in
+      (optional (doesntUseFileProvider cfg.settings.database.password ""
+        || doesntUseFileProvider cfg.settings.security.admin_password
+        "admin") ''
+          Grafana passwords will be stored as plaintext in the Nix store!
+          Use file provider or an env-var instead.
+        '')
+      # Warn about deprecated notifiers.
+      ++ (optional (cfg.provision.notifiers != [ ]) ''
+        Notifiers are deprecated upstream and will be removed in Grafana 10.
+        Use `services.grafana.provision.alerting.contactPoints` instead.
       '')
-    # Warn about deprecated notifiers.
-    ++ (optional (cfg.provision.notifiers != [ ]) ''
-      Notifiers are deprecated upstream and will be removed in Grafana 10.
-      Use `services.grafana.provision.alerting.contactPoints` instead.
-    '')
-    # Ensure that `secureJsonData` of datasources provisioned via `datasources.settings`
-    # only uses file/env providers.
-    ++ (optional (let
-      datasourcesToCheck =
-        optionals (cfg.provision.datasources.settings != null)
-        cfg.provision.datasources.settings.datasources;
-      declarationUnsafe = {
-          secureJsonData,
-          ...
-        }:
-        secureJsonData != null
-        && any (flip doesntUseFileProvider null) (attrValues secureJsonData);
-    in
-    any declarationUnsafe datasourcesToCheck
-    ) ''
-      Declarations in the `secureJsonData`-block of a datasource will be leaked to the
-      Nix store unless a file-provider or an env-var is used!
-    '')
-    ++ (optional (any (x: x.secure_settings != null) cfg.provision.notifiers)
-      "Notifier secure settings will be stored as plaintext in the Nix store! Use file provider instead.")
-    ;
+      # Ensure that `secureJsonData` of datasources provisioned via `datasources.settings`
+      # only uses file/env providers.
+      ++ (optional (let
+        datasourcesToCheck =
+          optionals (cfg.provision.datasources.settings != null)
+          cfg.provision.datasources.settings.datasources;
+        declarationUnsafe =
+          {
+            secureJsonData,
+            ...
+          }:
+          secureJsonData != null
+          && any (flip doesntUseFileProvider null) (attrValues secureJsonData)
+          ;
+      in
+      any declarationUnsafe datasourcesToCheck
+      ) ''
+        Declarations in the `secureJsonData`-block of a datasource will be leaked to the
+        Nix store unless a file-provider or an env-var is used!
+      '')
+      ++ (optional (any (x: x.secure_settings != null) cfg.provision.notifiers)
+        "Notifier secure settings will be stored as plaintext in the Nix store! Use file provider instead.")
+      ;
 
     environment.systemPackages = [ cfg.package ];
 
@@ -1852,20 +1896,24 @@ in {
         message = "Cannot set both datasources settings and datasources path";
       }
       {
-        assertion = let
-          prometheusIsNotDirect = opt:
-            all ({
-                type,
-                access,
-                ...
-              }:
-              type == "prometheus" -> access != "direct") opt;
-        in
-        cfg.provision.datasources.settings == null
-        || prometheusIsNotDirect cfg.provision.datasources.settings.datasources
-        ;
+        assertion =
+          let
+            prometheusIsNotDirect =
+              opt:
+              all ({
+                  type,
+                  access,
+                  ...
+                }:
+                type == "prometheus" -> access != "direct") opt
+              ;
+          in
+          cfg.provision.datasources.settings == null || prometheusIsNotDirect
+          cfg.provision.datasources.settings.datasources
+          ;
         message =
-          "For datasources of type `prometheus`, the `direct` access mode is not supported anymore (since Grafana 9.2.0)";
+          "For datasources of type `prometheus`, the `direct` access mode is not supported anymore (since Grafana 9.2.0)"
+          ;
       }
       {
         assertion = cfg.provision.dashboards.settings == null
@@ -1917,13 +1965,15 @@ in {
         User = "grafana";
         RuntimeDirectory = "grafana";
         RuntimeDirectoryMode = "0755";
-        # Hardening
+          # Hardening
         AmbientCapabilities = lib.mkIf
           (cfg.settings.server.http_port < 1024) [ "CAP_NET_BIND_SERVICE" ];
-        CapabilityBoundingSet = if (cfg.settings.server.http_port < 1024) then
-          [ "CAP_NET_BIND_SERVICE" ]
-        else
-          [ "" ];
+        CapabilityBoundingSet =
+          if (cfg.settings.server.http_port < 1024) then
+            [ "CAP_NET_BIND_SERVICE" ]
+          else
+            [ "" ]
+          ;
         DeviceAllow = [ "" ];
         LockPersonality = true;
         NoNewPrivileges = true;
@@ -1948,8 +1998,8 @@ in {
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         SystemCallArchitectures = "native";
-        # Upstream grafana is not setting SystemCallFilter for compatibility
-        # reasons, see https://github.com/grafana/grafana/pull/40176
+          # Upstream grafana is not setting SystemCallFilter for compatibility
+          # reasons, see https://github.com/grafana/grafana/pull/40176
         SystemCallFilter = [
           "@system-service"
           "~@privileged"

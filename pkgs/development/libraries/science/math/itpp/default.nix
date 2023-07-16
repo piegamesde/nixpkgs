@@ -49,12 +49,13 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "IT++ is a C++ library of mathematical, signal processing and communication classes and functions";
+      "IT++ is a C++ library of mathematical, signal processing and communication classes and functions"
+      ;
     homepage = "https://itpp.sourceforge.net/";
     license = licenses.gpl3;
     platforms = platforms.unix;
     maintainers = with maintainers; [ andrew-d ];
-    broken =
-      stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/itpp.x86_64-darwin
+    broken = stdenv.isDarwin
+      ; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/itpp.x86_64-darwin
   };
 }

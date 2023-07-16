@@ -35,16 +35,16 @@ buildNpmPackage rec {
     libpulseaudio
   ];
 
-  # npm install will error when electron tries to download its binary
-  # we don't need it anyways since we wrap the program with our nixpkgs electron
+    # npm install will error when electron tries to download its binary
+    # we don't need it anyways since we wrap the program with our nixpkgs electron
   ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
 
-  # remove husky commit hooks, errors and aren't needed for packaging
+    # remove husky commit hooks, errors and aren't needed for packaging
   postPatch = ''
     rm -rf .husky
   '';
 
-  # override installPhase so we can copy the only folders that matter
+    # override installPhase so we can copy the only folders that matter
   installPhase = ''
     runHook preInstall
 
@@ -80,7 +80,8 @@ buildNpmPackage rec {
 
   meta = with lib; {
     description =
-      "A Discord and Fosscord electron-based client implemented without Discord API";
+      "A Discord and Fosscord electron-based client implemented without Discord API"
+      ;
     homepage = "https://github.com/SpacingBat3/WebCord";
     downloadPage = "https://github.com/SpacingBat3/WebCord/releases";
     changelog =

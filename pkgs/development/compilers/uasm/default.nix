@@ -14,9 +14,9 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "Terraspace";
     repo = pname;
-    # Specifying only the tag results in the following error during download:
-    # the given path has multiple possibilities: #<Git::Ref:0x00007f618689c378>, #<Git::Ref:0x00007f618689c1e8>
-    # Probably because upstream has both a tag and a branch with the same name
+      # Specifying only the tag results in the following error during download:
+      # the given path has multiple possibilities: #<Git::Ref:0x00007f618689c378>, #<Git::Ref:0x00007f618689c1e8>
+      # Probably because upstream has both a tag and a branch with the same name
     rev = "refs/tags/v${version}";
     hash = "sha256-QiRBscY6zefeLDDVhS/+j9yIJ+5QhgkDQh1CLl/CslM=";
   };
@@ -24,16 +24,19 @@ stdenv.mkDerivation rec {
   patches = [ (fetchpatch {
     name = "fix-v2_55-compilation-on-macos.patch";
     url =
-      "https://github.com/Terraspace/UASM/commit/b50c430cc3083c7f32e288a9f64fe1cafb03091d.patch";
+      "https://github.com/Terraspace/UASM/commit/b50c430cc3083c7f32e288a9f64fe1cafb03091d.patch"
+      ;
     sha256 = "sha256-FGFB282LSEKtGD1cIRH+Qi5bye5Gx4xb0Ty4J03xjCU";
   }) ];
 
   enableParallelBuilding = true;
 
-  makefile = if stdenv.isDarwin then
-    "ClangOSX64.mak"
-  else
-    "gccLinux64.mak";
+  makefile =
+    if stdenv.isDarwin then
+      "ClangOSX64.mak"
+    else
+      "gccLinux64.mak"
+    ;
 
   makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
 

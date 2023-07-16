@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Converts SACD image files, Philips DSDIFF and Sony DSF files to 24-bit high resolution wave files. Handles both DST and DSD streams. ";
+      "Converts SACD image files, Philips DSDIFF and Sony DSF files to 24-bit high resolution wave files. Handles both DST and DSD streams. "
+      ;
     longDescription = ''
       Super Audio CD decoder. Converts SACD image files, Philips DSDIFF and Sony DSF files to 24-bit high resolution wave files.
       Handles both DST and DSD streams.

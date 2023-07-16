@@ -61,7 +61,8 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description =
-      "Tool to record a running X desktop to an animation suitable for presentation in a web browser";
+      "Tool to record a running X desktop to an animation suitable for presentation in a web browser"
+      ;
     homepage = "https://github.com/GNOME/byzanz";
     license = licenses.gpl3;
     platforms = platforms.linux;

@@ -67,12 +67,14 @@ buildPythonPackage rec {
     pytestCheckHook
   ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
-  preCheck = let
-    pythonEnv = python.withPackages
-      (_: propagatedBuildInputs ++ nativeCheckInputs ++ [ pytest ]);
-  in ''
-    export PYTHONPATH=${pythonEnv}/${python.sitePackages}
-  '' ;
+  preCheck =
+    let
+      pythonEnv = python.withPackages
+        (_: propagatedBuildInputs ++ nativeCheckInputs ++ [ pytest ]);
+    in ''
+      export PYTHONPATH=${pythonEnv}/${python.sitePackages}
+    ''
+    ;
 
   pytestFlagsArray = [
     # Upstream theymselves limit the test scope
@@ -82,7 +84,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     changelog =
-      "https://github.com/home-assistant-libs/python-matter-server/releases/tag/${version}";
+      "https://github.com/home-assistant-libs/python-matter-server/releases/tag/${version}"
+      ;
     description = "Python server to interact with Matter";
     homepage = "https://github.com/home-assistant-libs/python-matter-server";
     license = licenses.asl20;

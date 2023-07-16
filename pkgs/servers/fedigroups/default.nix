@@ -24,7 +24,7 @@ rustPlatform.buildRustPackage rec {
     leaveDotGit = true; # git command in build.rs
   };
 
-  # The lockfile in the repo is not up to date
+    # The lockfile in the repo is not up to date
   postPatch = ''
     cp ${./Cargo.lock} Cargo.lock
   '';
@@ -47,7 +47,8 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://git.ondrovo.com/MightyPork/group-actor#fedi-groups";
     downloadPage = "https://git.ondrovo.com/MightyPork/group-actor/releases";
     description =
-      "An approximation of groups usable with Fediverse software that implements the Mastodon client API";
+      "An approximation of groups usable with Fediverse software that implements the Mastodon client API"
+      ;
     license = licenses.mit;
     maintainers = with maintainers; [ fgaz ];
     platforms = platforms.all;

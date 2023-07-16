@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
   version = "6.4.0";
   src = fetchurl {
     url =
-      "https://github.com/GenericMappingTools/gmt/releases/download/${version}/gmt-${version}-src.tar.gz";
+      "https://github.com/GenericMappingTools/gmt/releases/download/${version}/gmt-${version}-src.tar.gz"
+      ;
     sha256 = "sha256-0mfAx9b7MMnqfgKe8n2tsm/9e5LLS0cD+aO6Do85Ohs=";
   };
 

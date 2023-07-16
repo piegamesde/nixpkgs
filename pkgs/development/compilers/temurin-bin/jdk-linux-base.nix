@@ -45,10 +45,12 @@ let
   providedCpuTypes = builtins.filter (arch: builtins.elem arch validCpuTypes)
     (builtins.attrNames sourcePerArch);
   result = stdenv.mkDerivation {
-    pname = if sourcePerArch.packageType == "jdk" then
-      "${name-prefix}-bin"
-    else
-      "${name-prefix}-${sourcePerArch.packageType}-bin";
+    pname =
+      if sourcePerArch.packageType == "jdk" then
+        "${name-prefix}-bin"
+      else
+        "${name-prefix}-${sourcePerArch.packageType}-bin"
+      ;
 
     version =
       sourcePerArch.${cpuName}.version or (throw "unsupported CPU ${cpuName}");
@@ -73,7 +75,7 @@ let
       makeWrapper
     ];
 
-    # See: https://github.com/NixOS/patchelf/issues/10
+      # See: https://github.com/NixOS/patchelf/issues/10
     dontStrip = 1;
 
     installPhase = ''
@@ -119,7 +121,7 @@ let
         patchelf --add-needed libfontconfig.so {} \;
     '';
 
-    # FIXME: use multiple outputs or return actual JRE package
+      # FIXME: use multiple outputs or return actual JRE package
     passthru = {
       jre = result;
       home = result;
@@ -128,8 +130,8 @@ let
     meta = with lib; {
       license = licenses.gpl2Classpath;
       description = "${brand-name}, prebuilt OpenJDK binary";
-      platforms = builtins.map (arch: arch + "-linux")
-        providedCpuTypes; # some inherit jre.meta.platforms
+      platforms = builtins.map (arch: arch + "-linux") providedCpuTypes
+        ; # some inherit jre.meta.platforms
       maintainers = with maintainers; [ taku0 ];
       inherit knownVulnerabilities;
       mainProgram = "java";

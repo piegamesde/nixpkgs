@@ -14,8 +14,8 @@ let
   group = cfg.group;
   setgidGroup = cfg.setgidGroup;
 
-  haveAliases = cfg.postmasterAlias != "" || cfg.rootAlias != ""
-    || cfg.extraAliases != "";
+  haveAliases =
+    cfg.postmasterAlias != "" || cfg.rootAlias != "" || cfg.extraAliases != "";
   haveCanonical = cfg.canonical != "";
   haveTransport = cfg.transport != "";
   haveVirtual = cfg.virtual != "";
@@ -29,26 +29,30 @@ let
 
   clientRestrictions = concatStringsSep ", " (clientAccess ++ dnsBl);
 
-  mainCf = let
-    escape = replaceStrings [ "$" ] [ "$$" ];
-    mkList = items: "\n  " + concatStringsSep ",\n  " items;
-    mkVal = value:
-      if isList value then
-        mkList value
-      else
-        " " + (if value == true then
-          "yes"
-        else if value == false then
-          "no"
+  mainCf =
+    let
+      escape = replaceStrings [ "$" ] [ "$$" ];
+      mkList = items: "\n  " + concatStringsSep ",\n  " items;
+      mkVal =
+        value:
+        if isList value then
+          mkList value
         else
-          toString value);
-    mkEntry = name: value: "${escape name} =${mkVal value}";
-  in
-  concatStringsSep "\n" (mapAttrsToList mkEntry cfg.config) + "\n"
-  + cfg.extraConfig
-  ;
+          " " + (if value == true then
+            "yes"
+          else if value == false then
+            "no"
+          else
+            toString value)
+        ;
+      mkEntry = name: value: "${escape name} =${mkVal value}";
+    in
+    concatStringsSep "\n" (mapAttrsToList mkEntry cfg.config) + "\n"
+    + cfg.extraConfig
+    ;
 
-  masterCfOptions = {
+  masterCfOptions =
+    {
       options,
       config,
       name,
@@ -169,121 +173,138 @@ let
         };
       };
 
-      config.rawEntry = let
-        mkBool = bool:
-          if bool then
-            "y"
-          else
-            "n";
-        mkArg = arg: "${optionalString (hasPrefix "-" arg) "\n  "}${arg}";
-
-        maybeOption = fun: option:
-          if options.${option}.isDefined then
-            fun config.${option}
-          else
-            "-";
-
-        # This is special, because we have two options for this value.
-        wakeup = let
-          wakeupDefined = options.wakeup.isDefined;
-          wakeupUCDefined = options.wakeupUnusedComponent.isDefined;
-          finalValue = toString config.wakeup
-            + optionalString (wakeupUCDefined && !config.wakeupUnusedComponent)
-            "?";
-        in if wakeupDefined then
-          finalValue
-        else
-          "-";
-
-      in [
-        config.name
-        config.type
-        (maybeOption mkBool "private")
-        (maybeOption (b: mkBool (!b)) "privileged")
-        (maybeOption mkBool "chroot")
-        wakeup
-        (maybeOption toString "maxproc")
-        (config.command + " " + concatMapStringsSep " " mkArg config.args)
-      ] ;
-    };
-
-  masterCfContent = let
-
-    labels = [
-      "# service"
-      "type"
-      "private"
-      "unpriv"
-      "chroot"
-      "wakeup"
-      "maxproc"
-      "command + args"
-    ];
-
-    labelDefaults = [
-      "# "
-      ""
-      "(yes)"
-      "(yes)"
-      "(no)"
-      "(never)"
-      "(100)"
-      ""
-      ""
-    ];
-
-    masterCf = mapAttrsToList (const (getAttr "rawEntry")) cfg.masterConfig;
-
-    # A list of the maximum width of the columns across all lines and labels
-    maxWidths = let
-      foldLine = line: acc:
+      config.rawEntry =
         let
-          columnLengths = map stringLength line;
-        in
-        zipListsWith max acc columnLengths
-      ;
-      # We need to handle the last column specially here, because it's
-      # open-ended (command + args).
-      lines = [
-        labels
-        labelDefaults
-      ] ++ (map (l: init l ++ [ "" ]) masterCf);
-    in
-    foldr foldLine (genList (const 0) (length labels)) lines
+          mkBool =
+            bool:
+            if bool then
+              "y"
+            else
+              "n"
+            ;
+          mkArg = arg: "${optionalString (hasPrefix "-" arg) "\n  "}${arg}";
+
+          maybeOption =
+            fun: option:
+            if options.${option}.isDefined then
+              fun config.${option}
+            else
+              "-"
+            ;
+
+            # This is special, because we have two options for this value.
+          wakeup =
+            let
+              wakeupDefined = options.wakeup.isDefined;
+              wakeupUCDefined = options.wakeupUnusedComponent.isDefined;
+              finalValue = toString config.wakeup + optionalString
+                (wakeupUCDefined && !config.wakeupUnusedComponent) "?";
+            in if wakeupDefined then
+              finalValue
+            else
+              "-"
+            ;
+
+        in [
+          config.name
+          config.type
+          (maybeOption mkBool "private")
+          (maybeOption (b: mkBool (!b)) "privileged")
+          (maybeOption mkBool "chroot")
+          wakeup
+          (maybeOption toString "maxproc")
+          (config.command + " " + concatMapStringsSep " " mkArg config.args)
+        ]
+        ;
+    }
     ;
 
-    # Pad a string with spaces from the right (opposite of fixedWidthString).
-    pad = width: str:
-      let
-        padWidth = width - stringLength str;
-        padding = concatStrings (genList (const " ") padWidth);
-      in
-      str + optionalString (padWidth > 0) padding
-    ;
+  masterCfContent =
+    let
 
-    # It's + 2 here, because that's the amount of spacing between columns.
-    fullWidth = foldr (width: acc: acc + width + 2) 0 maxWidths;
-
-    formatLine = line: concatStringsSep "  " (zipListsWith pad maxWidths line);
-
-    formattedLabels = let
-      sep = "# " + concatStrings (genList (const "=") (fullWidth + 5));
-      lines = [
-        sep
-        (formatLine labels)
-        (formatLine labelDefaults)
-        sep
+      labels = [
+        "# service"
+        "type"
+        "private"
+        "unpriv"
+        "chroot"
+        "wakeup"
+        "maxproc"
+        "command + args"
       ];
+
+      labelDefaults = [
+        "# "
+        ""
+        "(yes)"
+        "(yes)"
+        "(no)"
+        "(never)"
+        "(100)"
+        ""
+        ""
+      ];
+
+      masterCf = mapAttrsToList (const (getAttr "rawEntry")) cfg.masterConfig;
+
+        # A list of the maximum width of the columns across all lines and labels
+      maxWidths =
+        let
+          foldLine =
+            line: acc:
+            let
+              columnLengths = map stringLength line;
+            in
+            zipListsWith max acc columnLengths
+            ;
+            # We need to handle the last column specially here, because it's
+            # open-ended (command + args).
+          lines = [
+            labels
+            labelDefaults
+          ] ++ (map (l: init l ++ [ "" ]) masterCf);
+        in
+        foldr foldLine (genList (const 0) (length labels)) lines
+        ;
+
+        # Pad a string with spaces from the right (opposite of fixedWidthString).
+      pad =
+        width: str:
+        let
+          padWidth = width - stringLength str;
+          padding = concatStrings (genList (const " ") padWidth);
+        in
+        str + optionalString (padWidth > 0) padding
+        ;
+
+        # It's + 2 here, because that's the amount of spacing between columns.
+      fullWidth = foldr (width: acc: acc + width + 2) 0 maxWidths;
+
+      formatLine =
+        line:
+        concatStringsSep "  " (zipListsWith pad maxWidths line)
+        ;
+
+      formattedLabels =
+        let
+          sep = "# " + concatStrings (genList (const "=") (fullWidth + 5));
+          lines = [
+            sep
+            (formatLine labels)
+            (formatLine labelDefaults)
+            sep
+          ];
+        in
+        concatStringsSep "\n" lines
+        ;
+
     in
-    concatStringsSep "\n" lines
+    formattedLabels + "\n" + concatMapStringsSep "\n" formatLine masterCf + "\n"
+    + cfg.extraMasterConf
     ;
 
-  in
-  formattedLabels + "\n" + concatMapStringsSep "\n" formatLine masterCf + "\n"
-  + cfg.extraMasterConf
-  ;
-
-  headerCheckOptions = {
+  headerCheckOptions =
+    {
       ...
     }: {
       options = {
@@ -301,21 +322,23 @@ let
             lib.mdDoc "The action to be executed when the pattern is matched";
         };
       };
-    };
+    }
+    ;
 
   headerChecks =
     concatStringsSep "\n" (map (x: "${x.pattern} ${x.action}") cfg.headerChecks)
     + cfg.extraHeaderChecks;
 
-  aliases = let
-    separator = optionalString (cfg.aliasMapType == "hash") ":";
-  in
-  optionalString (cfg.postmasterAlias != "") ''
-    postmaster${separator} ${cfg.postmasterAlias}
-  '' + optionalString (cfg.rootAlias != "") ''
-    root${separator} ${cfg.rootAlias}
-  '' + cfg.extraAliases
-  ;
+  aliases =
+    let
+      separator = optionalString (cfg.aliasMapType == "hash") ":";
+    in
+    optionalString (cfg.postmasterAlias != "") ''
+      postmaster${separator} ${cfg.postmasterAlias}
+    '' + optionalString (cfg.rootAlias != "") ''
+      root${separator} ${cfg.rootAlias}
+    '' + cfg.extraAliases
+    ;
 
   aliasesFile = pkgs.writeText "postfix-aliases" aliases;
   canonicalFile = pkgs.writeText "postfix-canonical" cfg.canonical;
@@ -563,7 +586,8 @@ in {
         default = "hash";
         example = "regexp";
         description = lib.mdDoc
-          "The format the alias map should have. Use regexp if you want to use regular expressions.";
+          "The format the alias map should have. Use regexp if you want to use regular expressions."
+          ;
       };
 
       config = mkOption {
@@ -740,14 +764,16 @@ in {
         type = types.attrsOf types.path;
         default = { };
         description = lib.mdDoc
-          "Aliases' tables to be compiled and placed into /var/lib/postfix/conf.";
+          "Aliases' tables to be compiled and placed into /var/lib/postfix/conf."
+          ;
       };
 
       mapFiles = mkOption {
         type = types.attrsOf types.path;
         default = { };
-        description = lib.mdDoc
-          "Maps to be compiled and placed into /var/lib/postfix/conf.";
+        description =
+          lib.mdDoc "Maps to be compiled and placed into /var/lib/postfix/conf."
+          ;
       };
 
       useSrs = mkOption {
@@ -760,7 +786,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf config.services.postfix.enable (mkMerge [
     {
@@ -768,7 +794,7 @@ in {
       environment = {
         etc.postfix.source = "/var/lib/postfix/conf";
 
-        # This makes it comfortable to run 'postqueue/postdrop' for example.
+          # This makes it comfortable to run 'postqueue/postdrop' for example.
         systemPackages = [ pkgs.postfix ];
       };
 
@@ -893,11 +919,11 @@ in {
         mail_owner = cfg.user;
         default_privs = "nobody";
 
-        # NixOS specific locations
+          # NixOS specific locations
         data_directory = "/var/lib/postfix/data";
         queue_directory = "/var/lib/postfix/queue";
 
-        # Default location of everything in package
+          # Default location of everything in package
         meta_directory = "${pkgs.postfix}/etc/postfix";
         command_directory = "${pkgs.postfix}/bin";
         sample_directory = "/etc/postfix";
@@ -912,10 +938,12 @@ in {
         mail_spool_directory = "/var/spool/mail/";
         setgid_group = cfg.setgidGroup;
       }) // optionalAttrs (cfg.relayHost != "") {
-        relayhost = if cfg.lookupMX then
-          "${cfg.relayHost}:${toString cfg.relayPort}"
-        else
-          "[${cfg.relayHost}]:${toString cfg.relayPort}";
+        relayhost =
+          if cfg.lookupMX then
+            "${cfg.relayHost}:${toString cfg.relayPort}"
+          else
+            "[${cfg.relayHost}]:${toString cfg.relayPort}"
+          ;
       } // optionalAttrs (!config.networking.enableIPv6) {
         inet_protocols = mkDefault "ipv4";
       } // optionalAttrs (cfg.networks != null) { mynetworks = cfg.networks; }
@@ -1019,14 +1047,17 @@ in {
           type = "inet";
           private = false;
           command = "smtpd";
-          args = let
-            mkKeyVal = opt: val: [
-              "-o"
-              (opt + "=" + val)
-            ];
-          in
-          concatLists (mapAttrsToList mkKeyVal cfg.submissionOptions)
-          ;
+          args =
+            let
+              mkKeyVal =
+                opt: val: [
+                  "-o"
+                  (opt + "=" + val)
+                ]
+                ;
+            in
+            concatLists (mapAttrsToList mkKeyVal cfg.submissionOptions)
+            ;
         };
       } // optionalAttrs cfg.enableSmtp {
         smtp_inet = {
@@ -1048,23 +1079,26 @@ in {
           type = "inet";
           private = false;
           command = "smtpd";
-          args = let
-            mkKeyVal = opt: val: [
-              "-o"
-              (opt + "=" + val)
-            ];
-            adjustSmtpTlsSecurityLevel =
-              !(cfg.submissionsOptions ? smtpd_tls_security_level)
-              || cfg.submissionsOptions.smtpd_tls_security_level == "none"
-              || cfg.submissionsOptions.smtpd_tls_security_level == "may";
-            submissionsOptions = cfg.submissionsOptions // {
-              smtpd_tls_wrappermode = "yes";
-            } // optionalAttrs adjustSmtpTlsSecurityLevel {
-              smtpd_tls_security_level = "encrypt";
-            };
-          in
-          concatLists (mapAttrsToList mkKeyVal submissionsOptions)
-          ;
+          args =
+            let
+              mkKeyVal =
+                opt: val: [
+                  "-o"
+                  (opt + "=" + val)
+                ]
+                ;
+              adjustSmtpTlsSecurityLevel =
+                !(cfg.submissionsOptions ? smtpd_tls_security_level)
+                || cfg.submissionsOptions.smtpd_tls_security_level == "none"
+                || cfg.submissionsOptions.smtpd_tls_security_level == "may";
+              submissionsOptions = cfg.submissionsOptions // {
+                smtpd_tls_wrappermode = "yes";
+              } // optionalAttrs adjustSmtpTlsSecurityLevel {
+                smtpd_tls_security_level = "encrypt";
+              };
+            in
+            concatLists (mapAttrsToList mkKeyVal submissionsOptions)
+            ;
         };
       };
     }

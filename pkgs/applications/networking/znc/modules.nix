@@ -6,7 +6,8 @@
 }:
 
 let
-  zncDerivation = a@{
+  zncDerivation =
+    a@{
       pname,
       src,
       module_name,
@@ -23,7 +24,8 @@ let
 
       meta = a.meta // { platforms = lib.platforms.unix; };
       passthru.module_name = module_name;
-    });
+    })
+    ;
 
 in {
 

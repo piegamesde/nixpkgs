@@ -9,9 +9,10 @@ let
   maintainer = mkOptionType {
     name = "maintainer";
     check = email: elem email (attrValues lib.maintainers);
-    merge = loc: defs:
-      listToAttrs
-      (singleton (nameValuePair (last defs).file (last defs).value));
+    merge =
+      loc: defs:
+      listToAttrs (singleton (nameValuePair (last defs).file (last defs).value))
+      ;
   };
 
   listOfMaintainers = types.listOf maintainer // {
@@ -20,13 +21,15 @@ let
     #        "maintainer1 <first@nixos.org>"
     #        "maintainer2 <second@nixos.org>" ];
     #   }
-    merge = loc: defs:
+    merge =
+      loc: defs:
       zipAttrs (flatten (imap1 (n: def:
         imap1 (m: def':
           maintainer.merge (loc ++ [ "[${toString n}-${toString m}]" ]) [ {
             inherit (def) file;
             value = def';
-          } ]) def.value) defs));
+          } ]) def.value) defs))
+      ;
   };
 
   docFile = types.path // {

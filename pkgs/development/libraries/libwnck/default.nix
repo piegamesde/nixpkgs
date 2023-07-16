@@ -45,7 +45,8 @@ stdenv.mkDerivation rec {
     # https://bugs.launchpad.net/ubuntu/+source/libwnck3/+bug/1990263
     (fetchpatch {
       url =
-        "https://gitlab.gnome.org/GNOME/libwnck/-/commit/6ceb684442eb26e3bdb8a38bf52264ad55f96a7b.patch";
+        "https://gitlab.gnome.org/GNOME/libwnck/-/commit/6ceb684442eb26e3bdb8a38bf52264ad55f96a7b.patch"
+        ;
       sha256 = "/1wCnElCrZB7XTDW/l3dxMKZ9czGnukbGu4/aQStoXE=";
     })
   ];
@@ -59,8 +60,9 @@ stdenv.mkDerivation rec {
     gtk-doc
     docbook_xsl
     docbook_xml_dtd_412
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute
-    stdenv.hostPlatform) [ mesonEmulatorHook ];
+  ] ++ lib.optionals
+    (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ]
+    ;
 
   buildInputs = [
     libX11
@@ -81,7 +83,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Library to manage X windows and workspaces (via pagers, tasklists, etc.)";
+      "Library to manage X windows and workspaces (via pagers, tasklists, etc.)"
+      ;
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
     maintainers = with maintainers; [ liff ];

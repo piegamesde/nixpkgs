@@ -19,7 +19,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://download.brother.com/welcome/dlf006843/mfcj470dwlpr-${version}.i386.deb";
+      "https://download.brother.com/welcome/dlf006843/mfcj470dwlpr-${version}.i386.deb"
+      ;
     sha256 = "7202dd895d38d50bb767080f2995ed350eed99bc2b7871452c3c915c8eefc30a";
   };
 
@@ -74,7 +75,8 @@ stdenv.mkDerivation rec {
     license = lib.licenses.unfree;
     platforms = lib.platforms.linux;
     downloadPage =
-      "http://support.brother.com/g/b/downloadlist.aspx?c=us&lang=en&prod=mfcj470dw_us_eu_as&os=128";
+      "http://support.brother.com/g/b/downloadlist.aspx?c=us&lang=en&prod=mfcj470dw_us_eu_as&os=128"
+      ;
     maintainers = [ lib.maintainers.yochai ];
   };
 }

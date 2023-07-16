@@ -10,7 +10,8 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://commondatastorage.googleapis.com/chromeos-localmirror/distfiles/crosextrafonts-carlito-${version}.tar.gz";
+      "https://commondatastorage.googleapis.com/chromeos-localmirror/distfiles/crosextrafonts-carlito-${version}.tar.gz"
+      ;
     sha256 = "sha256-S9ErbLwyHBzxbaduLFhcklzpVqCAZ65vbGTv9sz9r1o=";
   };
 
@@ -35,9 +36,9 @@ stdenvNoCC.mkDerivation rec {
     platforms = platforms.all;
     maintainers = [ maintainers.rycee ];
 
-    # Reduce the priority of this package. The intent is that if you
-    # also install the `vista-fonts` package, then you probably will
-    # not want to install the font alias of this package.
+      # Reduce the priority of this package. The intent is that if you
+      # also install the `vista-fonts` package, then you probably will
+      # not want to install the font alias of this package.
     priority = 10;
   };
 }

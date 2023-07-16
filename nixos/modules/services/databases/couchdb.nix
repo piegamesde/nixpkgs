@@ -83,7 +83,7 @@ in {
         '';
       };
 
-      # couchdb options: http://docs.couchdb.org/en/latest/config/index.html
+        # couchdb options: http://docs.couchdb.org/en/latest/config/index.html
 
       databaseDir = mkOption {
         type = types.path;
@@ -170,7 +170,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf config.services.couchdb.enable {
 
@@ -207,7 +207,7 @@ in {
         ERL_FLAGS = "-couch_ini ${cfg.package}/etc/default.ini ${configFile} ${
             pkgs.writeText "couchdb-extra.ini" cfg.extraConfig
           } ${cfg.configFile}";
-        # 5. the vm.args file
+          # 5. the vm.args file
         COUCHDB_ARGS_FILE = "${cfg.argsFile}";
         HOME = "${cfg.databaseDir}";
       };

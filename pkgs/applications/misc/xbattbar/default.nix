@@ -11,8 +11,8 @@ stdenv.mkDerivation rec {
   pname = "xbattbar";
   version = "1.4.9";
 
-  # The current active upstream of xbattbar seems to be the Debian source
-  # repository.
+    # The current active upstream of xbattbar seems to be the Debian source
+    # repository.
   src = fetchgit {
     url = "https://salsa.debian.org/debian/xbattbar.git";
     rev = "upstream/${version}";
@@ -21,13 +21,13 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ libX11 ];
 
-  # The following patches are applied:
-  # - sys-by-default: remove the APM checker binary, make the sys checker
-  #   script the default. Rationale: checking battery status by /proc/apm is
-  #   extremely oldschool and does not work on NixOS, while the sysfs script
-  #   does.
-  # - perl shebang patches for acpi/sys scripts
-  # - unhardcode path to checker scripts
+    # The following patches are applied:
+    # - sys-by-default: remove the APM checker binary, make the sys checker
+    #   script the default. Rationale: checking battery status by /proc/apm is
+    #   extremely oldschool and does not work on NixOS, while the sysfs script
+    #   does.
+    # - perl shebang patches for acpi/sys scripts
+    # - unhardcode path to checker scripts
   patchPhase = ''
     patch -p1 < ${./sys-by-default.patch}
     sed -i -e "s,/usr/lib/xbattbar/,$out/libexec/," xbattbar.c

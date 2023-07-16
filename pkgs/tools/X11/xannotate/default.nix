@@ -22,7 +22,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "fno-common.patch";
       url =
-        "https://github.com/blais/xannotate/commit/ee637e2dee103d0e654865c2202ea1b3af2a20d6.patch";
+        "https://github.com/blais/xannotate/commit/ee637e2dee103d0e654865c2202ea1b3af2a20d6.patch"
+        ;
       sha256 = "1lw22d5qs1bwp53l332yl3yypfvwrbi750wp7yv90nfn3ia0xhni";
     })
   ];

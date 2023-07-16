@@ -51,7 +51,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://distfiles.audacious-media-player.org/audacious-plugins-${version}.tar.bz2";
+      "http://distfiles.audacious-media-player.org/audacious-plugins-${version}.tar.bz2"
+      ;
     sha256 = "sha256-Zi72yMS9cNDzX9HF8IuRVJuUNmOLZfihozlWsJ34n8Y=";
   };
 
@@ -109,7 +110,6 @@ stdenv.mkDerivation rec {
 
   dontWrapQtApps = true;
 
-  meta = audacious.meta // {
-    description = "Plugins for Audacious music player";
-  };
+  meta =
+    audacious.meta // { description = "Plugins for Audacious music player"; };
 }

@@ -44,7 +44,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "A Python library that extracts as much information as possible from a video filename";
+      "A Python library that extracts as much information as possible from a video filename"
+      ;
     homepage = "https://guessit-io.github.io/guessit/";
     changelog =
       "https://github.com/guessit-io/guessit/raw/v${version}/CHANGELOG.md";

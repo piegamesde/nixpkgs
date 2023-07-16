@@ -12,7 +12,7 @@
 
 buildPythonPackage rec {
   pname = "hdfs";
-  # See https://github.com/mtth/hdfs/issues/176.
+    # See https://github.com/mtth/hdfs/issues/176.
   version = "2.5.8";
 
   src = fetchFromGitHub {

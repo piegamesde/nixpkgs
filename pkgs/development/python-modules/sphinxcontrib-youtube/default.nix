@@ -26,7 +26,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  # tests require internet access
+    # tests require internet access
   doCheck = false;
 
   pythonImportsCheck = [ "sphinxcontrib.youtube" ];

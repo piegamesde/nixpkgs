@@ -25,8 +25,8 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-QERnohWpkJ0LWkdxHrY6gKxdGqxDkLla7jlG44laojk=";
 
-  nativeBuildInputs = [ installShellFiles ]
-    ++ lib.optionals stdenv.isLinux [ pkg-config ];
+  nativeBuildInputs =
+    [ installShellFiles ] ++ lib.optionals stdenv.isLinux [ pkg-config ];
 
   buildInputs = lib.optionals stdenv.isLinux [
     libxcb
@@ -39,7 +39,7 @@ rustPlatform.buildRustPackage rec {
     installShellCompletion --zsh completions/_dym
   '';
 
-  # Clipboard doesn't exist in test environment
+    # Clipboard doesn't exist in test environment
   doCheck = false;
 
   meta = with lib; {

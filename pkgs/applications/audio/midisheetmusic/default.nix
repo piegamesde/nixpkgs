@@ -19,7 +19,8 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/midisheetmusic/MidiSheetMusic-${version}-linux-src.tar.gz";
+      "mirror://sourceforge/midisheetmusic/MidiSheetMusic-${version}-linux-src.tar.gz"
+      ;
     sha256 = "05c6zskj50g29f51lx8fvgzsi3f31z01zj6ssjjrgr7jfs7ak70p";
   };
 
@@ -38,9 +39,9 @@ stdenv.mkDerivation {
     ./build.sh
   '';
 
-  # include missing file with unit tests for building
-  # switch from mono nunit dll to standalone dll otherwise mono compiler barks
-  # run via nunit3 console, because mono nunit console wants access $HOME
+    # include missing file with unit tests for building
+    # switch from mono nunit dll to standalone dll otherwise mono compiler barks
+    # run via nunit3 console, because mono nunit console wants access $HOME
   checkPhase = ''
     substituteInPlace UnitTestDLL.csproj \
       --replace "</Compile>" '</Compile><Compile Include="Classes\UnitTest.cs"/>' \
@@ -49,7 +50,7 @@ stdenv.mkDerivation {
     nunit3-console bin/Debug/UnitTest.dll
   '';
 
-  # 2 tests of 47 are still failing
+    # 2 tests of 47 are still failing
   doCheck = false;
 
   installPhase = ''

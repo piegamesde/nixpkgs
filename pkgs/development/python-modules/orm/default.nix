@@ -37,7 +37,7 @@ buildPythonPackage rec {
       --replace "typesystem==0.3.1" "typesystem"
   '';
 
-  # Tests require databases
+    # Tests require databases
   doCheck = false;
 
   pythonImportsCheck = [ "orm" ];

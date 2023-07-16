@@ -124,7 +124,8 @@ in {
         applicationPasswordFile = mkOption {
           type = types.str;
           description = lib.mdDoc
-            "Path to the file containing the application password of this JIRA instance in Crowd";
+            "Path to the file containing the application password of this JIRA instance in Crowd"
+            ;
         };
 
         validationInterval = mkOption {

@@ -36,27 +36,31 @@ let
   mkdirp = makeSetupHook { name = "openra-mkdirp-hook"; } ./mkdirp.sh;
 
 in {
-  patchEngine = dir: version: ''
-    sed -i \
-      -e 's/^VERSION.*/VERSION = ${version}/g' \
-      -e '/fetch-geoip-db/d' \
-      -e '/GeoLite2-Country.mmdb.gz/d' \
-      ${dir}/Makefile
+  patchEngine =
+    dir: version: ''
+      sed -i \
+        -e 's/^VERSION.*/VERSION = ${version}/g' \
+        -e '/fetch-geoip-db/d' \
+        -e '/GeoLite2-Country.mmdb.gz/d' \
+        ${dir}/Makefile
 
-    sed -i 's|locations=.*|locations=${lua}/lib|' ${dir}/thirdparty/configure-native-deps.sh
-  '';
+      sed -i 's|locations=.*|locations=${lua}/lib|' ${dir}/thirdparty/configure-native-deps.sh
+    ''
+    ;
 
-  wrapLaunchGame = openraSuffix: ''
-    # Setting TERM=xterm fixes an issue with terminfo in mono: System.Exception: Magic number is wrong: 542
-    # https://github.com/mono/mono/issues/6752#issuecomment-365212655
-    wrapProgram $out/lib/openra${openraSuffix}/launch-game.sh \
-      --prefix PATH : "${path}" \
-      --prefix LD_LIBRARY_PATH : "${rpath}" \
-      --set TERM xterm
+  wrapLaunchGame =
+    openraSuffix: ''
+      # Setting TERM=xterm fixes an issue with terminfo in mono: System.Exception: Magic number is wrong: 542
+      # https://github.com/mono/mono/issues/6752#issuecomment-365212655
+      wrapProgram $out/lib/openra${openraSuffix}/launch-game.sh \
+        --prefix PATH : "${path}" \
+        --prefix LD_LIBRARY_PATH : "${rpath}" \
+        --set TERM xterm
 
-    makeWrapper $out/lib/openra${openraSuffix}/launch-game.sh $(mkdirp $out/bin)/openra${openraSuffix} \
-      --chdir "$out/lib/openra${openraSuffix}"
-  '';
+      makeWrapper $out/lib/openra${openraSuffix}/launch-game.sh $(mkdirp $out/bin)/openra${openraSuffix} \
+        --chdir "$out/lib/openra${openraSuffix}"
+    ''
+    ;
 
   packageAttrs = {
     buildInputs = with dotnetPackages;
@@ -77,7 +81,7 @@ in {
         StyleCopPlusMSBuild
       ] ++ [ libGL ];
 
-    # TODO: Test if this is correct.
+      # TODO: Test if this is correct.
     nativeBuildInputs = [
       curl
       unzip

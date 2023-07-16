@@ -34,7 +34,8 @@ mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A cross-platform image editor with a powerful features and a very friendly graphical user interface";
+      "A cross-platform image editor with a powerful features and a very friendly graphical user interface"
+      ;
     homepage = "https://photoflare.io";
     maintainers = [ maintainers.omgbebebe ];
     license = licenses.gpl3Plus;

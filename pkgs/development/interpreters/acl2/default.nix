@@ -44,11 +44,11 @@ stdenv.mkDerivation rec {
     sha256 = "12cv5ms1j3vfrq066km020nwxb6x2dzh12g8nz6xxyxysn44wzzi";
   };
 
-  # You can swap this out with any other IPASIR implementation at
-  # build time by using overrideAttrs (make sure the derivation you
-  # use has a "libname" attribute so we can plug it into the patch
-  # below).  Or, you can override it at runtime by setting the
-  # $IPASIR_SHARED_LIBRARY environment variable.
+    # You can swap this out with any other IPASIR implementation at
+    # build time by using overrideAttrs (make sure the derivation you
+    # use has a "libname" attribute so we can plug it into the patch
+    # below).  Or, you can override it at runtime by setting the
+    # $IPASIR_SHARED_LIBRARY environment variable.
   libipasir = callPackage ./libipasirglucose4 { };
 
   patches = [ (substituteAll {
@@ -81,9 +81,9 @@ stdenv.mkDerivation rec {
     (python3.withPackages (ps: [ ps.z3 ]))
   ];
 
-  # NOTE: Parallel building can be memory-intensive depending on the number of
-  # concurrent jobs.  For example, this build has been seen to use >120GB of
-  # RAM on an 85 core machine.
+    # NOTE: Parallel building can be memory-intensive depending on the number of
+    # concurrent jobs.  For example, this build has been seen to use >120GB of
+    # RAM on an 85 core machine.
   enableParallelBuilding = true;
 
   preConfigure = ''

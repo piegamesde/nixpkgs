@@ -17,12 +17,13 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-L5uqckG+NbatpBTejZw/Xk+OGZqsJgzHRwCTh1FJHVw=";
 
-  # tests require network access
+    # tests require network access
   doCheck = false;
 
   meta = with lib; {
     description =
-      "Run Rust files and expressions as scripts without any setup or compilation step";
+      "Run Rust files and expressions as scripts without any setup or compilation step"
+      ;
     homepage = "https://rust-script.org";
     changelog =
       "https://github.com/fornwall/rust-script/releases/tag/${version}";

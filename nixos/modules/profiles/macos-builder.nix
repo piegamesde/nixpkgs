@@ -100,12 +100,12 @@ in {
       };
     };
 
-    # DNS fails for QEMU user networking (SLiRP) on macOS.  See:
-    #
-    # https://github.com/utmapp/UTM/issues/2353
-    #
-    # This works around that by using a public DNS server other than the DNS
-    # server that QEMU provides (normally 10.0.2.3)
+      # DNS fails for QEMU user networking (SLiRP) on macOS.  See:
+      #
+      # https://github.com/utmapp/UTM/issues/2353
+      #
+      # This works around that by using a public DNS server other than the DNS
+      # server that QEMU provides (normally 10.0.2.3)
     networking.nameservers = [ "8.8.8.8" ];
 
     nix.settings = {
@@ -131,51 +131,52 @@ in {
       };
     };
 
-    system.build.macos-builder-installer = let
-      privateKey = "/etc/nix/${user}_${keyType}";
+    system.build.macos-builder-installer =
+      let
+        privateKey = "/etc/nix/${user}_${keyType}";
 
-      publicKey = "${privateKey}.pub";
+        publicKey = "${privateKey}.pub";
 
-      # This installCredentials script is written so that it's as easy as
-      # possible for a user to audit before confirming the `sudo`
-      installCredentials = hostPkgs.writeShellScript "install-credentials" ''
-        KEYS="''${1}"
-        INSTALL=${hostPkgs.coreutils}/bin/install
-        "''${INSTALL}" -g nixbld -m 600 "''${KEYS}/${user}_${keyType}" ${privateKey}
-        "''${INSTALL}" -g nixbld -m 644 "''${KEYS}/${user}_${keyType}.pub" ${publicKey}
-      '';
+          # This installCredentials script is written so that it's as easy as
+          # possible for a user to audit before confirming the `sudo`
+        installCredentials = hostPkgs.writeShellScript "install-credentials" ''
+          KEYS="''${1}"
+          INSTALL=${hostPkgs.coreutils}/bin/install
+          "''${INSTALL}" -g nixbld -m 600 "''${KEYS}/${user}_${keyType}" ${privateKey}
+          "''${INSTALL}" -g nixbld -m 644 "''${KEYS}/${user}_${keyType}.pub" ${publicKey}
+        '';
 
-      hostPkgs = config.virtualisation.host.pkgs;
+        hostPkgs = config.virtualisation.host.pkgs;
 
-      script = hostPkgs.writeShellScriptBin "create-builder" (
-        # When running as non-interactively as part of a DarwinConfiguration the working directory
-        # must be set to a writeable directory.
-        (if cfg.workingDirectory != "." then
-          ''
-            ${hostPkgs.coreutils}/bin/mkdir --parent "${cfg.workingDirectory}"
-            cd "${cfg.workingDirectory}"
-          ''
-        else
-          "") + ''
-            KEYS="''${KEYS:-./keys}"
-            ${hostPkgs.coreutils}/bin/mkdir --parent "''${KEYS}"
-            PRIVATE_KEY="''${KEYS}/${user}_${keyType}"
-            PUBLIC_KEY="''${PRIVATE_KEY}.pub"
-            if [ ! -e "''${PRIVATE_KEY}" ] || [ ! -e "''${PUBLIC_KEY}" ]; then
-                ${hostPkgs.coreutils}/bin/rm --force -- "''${PRIVATE_KEY}" "''${PUBLIC_KEY}"
-                ${hostPkgs.openssh}/bin/ssh-keygen -q -f "''${PRIVATE_KEY}" -t ${keyType} -N "" -C 'builder@localhost'
-            fi
-            if ! ${hostPkgs.diffutils}/bin/cmp "''${PUBLIC_KEY}" ${publicKey}; then
-              (set -x; sudo --reset-timestamp ${installCredentials} "''${KEYS}")
-            fi
-            KEYS="$(${hostPkgs.nix}/bin/nix-store --add "$KEYS")" ${config.system.build.vm}/bin/run-nixos-vm
-          '');
+        script = hostPkgs.writeShellScriptBin "create-builder" (
+          # When running as non-interactively as part of a DarwinConfiguration the working directory
+          # must be set to a writeable directory.
+          (if cfg.workingDirectory != "." then
+            ''
+              ${hostPkgs.coreutils}/bin/mkdir --parent "${cfg.workingDirectory}"
+              cd "${cfg.workingDirectory}"
+            ''
+          else
+            "") + ''
+              KEYS="''${KEYS:-./keys}"
+              ${hostPkgs.coreutils}/bin/mkdir --parent "''${KEYS}"
+              PRIVATE_KEY="''${KEYS}/${user}_${keyType}"
+              PUBLIC_KEY="''${PRIVATE_KEY}.pub"
+              if [ ! -e "''${PRIVATE_KEY}" ] || [ ! -e "''${PUBLIC_KEY}" ]; then
+                  ${hostPkgs.coreutils}/bin/rm --force -- "''${PRIVATE_KEY}" "''${PUBLIC_KEY}"
+                  ${hostPkgs.openssh}/bin/ssh-keygen -q -f "''${PRIVATE_KEY}" -t ${keyType} -N "" -C 'builder@localhost'
+              fi
+              if ! ${hostPkgs.diffutils}/bin/cmp "''${PUBLIC_KEY}" ${publicKey}; then
+                (set -x; sudo --reset-timestamp ${installCredentials} "''${KEYS}")
+              fi
+              KEYS="$(${hostPkgs.nix}/bin/nix-store --add "$KEYS")" ${config.system.build.vm}/bin/run-nixos-vm
+            '');
 
-    in
-    script.overrideAttrs (old: {
-      meta = (old.meta or { }) // { platforms = lib.platforms.darwin; };
-    })
-    ;
+      in
+      script.overrideAttrs (old: {
+        meta = (old.meta or { }) // { platforms = lib.platforms.darwin; };
+      })
+      ;
 
     system = {
       # To prevent gratuitous rebuilds on each change to Nixpkgs
@@ -216,8 +217,8 @@ in {
         host.port = cfg.hostPort;
       } ];
 
-      # Disable graphics for the builder since users will likely want to run it
-      # non-interactively in the background.
+        # Disable graphics for the builder since users will likely want to run it
+        # non-interactively in the background.
       graphics = false;
 
       sharedDirectories.keys = {
@@ -225,24 +226,24 @@ in {
         target = keysDirectory;
       };
 
-      # If we don't enable this option then the host will fail to delegate builds
-      # to the guest, because:
-      #
-      # - The host will lock the path to build
-      # - The host will delegate the build to the guest
-      # - The guest will attempt to lock the same path and fail because
-      #   the lockfile on the host is visible on the guest
-      #
-      # Snapshotting the host's /nix/store as an image isolates the guest VM's
-      # /nix/store from the host's /nix/store, preventing this problem.
+        # If we don't enable this option then the host will fail to delegate builds
+        # to the guest, because:
+        #
+        # - The host will lock the path to build
+        # - The host will delegate the build to the guest
+        # - The guest will attempt to lock the same path and fail because
+        #   the lockfile on the host is visible on the guest
+        #
+        # Snapshotting the host's /nix/store as an image isolates the guest VM's
+        # /nix/store from the host's /nix/store, preventing this problem.
       useNixStoreImage = true;
 
-      # Obviously the /nix/store needs to be writable on the guest in order for it
-      # to perform builds.
+        # Obviously the /nix/store needs to be writable on the guest in order for it
+        # to perform builds.
       writableStore = true;
 
-      # This ensures that anything built on the guest isn't lost when the guest is
-      # restarted.
+        # This ensures that anything built on the guest isn't lost when the guest is
+        # restarted.
       writableStoreUseTmpfs = false;
     };
   };

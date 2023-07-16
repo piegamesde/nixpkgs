@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
     # https://github.com/elementary/switchboard-plug-notifications/pull/83
     (fetchpatch {
       url =
-        "https://github.com/elementary/switchboard-plug-notifications/commit/2e0320aab62b6932e8ef5f941d02e244de381957.patch";
+        "https://github.com/elementary/switchboard-plug-notifications/commit/2e0320aab62b6932e8ef5f941d02e244de381957.patch"
+        ;
       sha256 = "0rcamasq837grck0i2yx6psggzrhv7p7m3mra5l0k9zsjxgar92v";
     })
   ];

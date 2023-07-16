@@ -44,7 +44,8 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "The Knative client library and CLI for creating, building, and deploying Knative Functions";
+      "The Knative client library and CLI for creating, building, and deploying Knative Functions"
+      ;
     homepage = "https://github.com/knative/func";
     changelog =
       "https://github.com/knative/func/releases/tag/knative-v${version}";

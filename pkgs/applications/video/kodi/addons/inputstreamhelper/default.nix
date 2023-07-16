@@ -11,7 +11,8 @@ buildKodiAddon rec {
 
   src = fetchzip {
     url =
-      "https://mirrors.kodi.tv/addons/nexus/${namespace}/${namespace}-${version}.zip";
+      "https://mirrors.kodi.tv/addons/nexus/${namespace}/${namespace}-${version}.zip"
+      ;
     sha256 = "sha256-FcOktwtOT7kDM+3y9qPDk3xU1qVeCduyAdUzebtJzv4=";
   };
 
@@ -25,7 +26,8 @@ buildKodiAddon rec {
     homepage =
       "https://github.com/emilsvennesson/script.module.inputstreamhelper";
     description =
-      "A simple Kodi module that makes life easier for add-on developers relying on InputStream based add-ons and DRM playback";
+      "A simple Kodi module that makes life easier for add-on developers relying on InputStream based add-ons and DRM playback"
+      ;
     license = licenses.mit;
     maintainers = teams.kodi.members;
   };

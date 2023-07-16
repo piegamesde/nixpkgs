@@ -28,8 +28,8 @@ stdenv.mkDerivation rec {
     OpenGL
   ];
 
-  # conflict between VTK and Nixpkgs;
-  # see https://github.com/NixOS/nixpkgs/issues/89167
+    # conflict between VTK and Nixpkgs;
+    # see https://github.com/NixOS/nixpkgs/issues/89167
   cmakeFlags = [
     "-DCMAKE_INSTALL_LIBDIR=lib"
     "-DCMAKE_INSTALL_INCLUDEDIR=include"

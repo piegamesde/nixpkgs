@@ -77,9 +77,9 @@ stdenv.mkDerivation rec {
     "doc"
   ];
 
-  # Right now we hardcode quite a few paths at build time. Probably we should
-  # patch networkmanager to allow passing these path in config file. This will
-  # remove unneeded build-time dependencies.
+    # Right now we hardcode quite a few paths at build time. Probably we should
+    # patch networkmanager to allow passing these path in config file. This will
+    # remove unneeded build-time dependencies.
   mesonFlags = [
     # System paths
     "--sysconfdir=/etc"
@@ -140,7 +140,8 @@ stdenv.mkDerivation rec {
     # Support for building with ppp 2.5.0
     (fetchpatch {
       url =
-        "https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/commit/5df19f5b26c5921a401e63fb329e844a02d6b1f2.diff";
+        "https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/commit/5df19f5b26c5921a401e63fb329e844a02d6b1f2.diff"
+        ;
       hash = "sha256-BDm0P2U4HENAtq7OowWVDxqALNbG0nr9k/CLdE61Sck=";
     })
   ];
@@ -189,8 +190,9 @@ stdenv.mkDerivation rec {
     docbook_xml_dtd_42
     docbook_xml_dtd_43
     pythonForDocs
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute
-    stdenv.hostPlatform) [ mesonEmulatorHook ];
+  ] ++ lib.optionals
+    (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ]
+    ;
 
   doCheck = false; # requires /sys, the net
 
@@ -233,7 +235,8 @@ stdenv.mkDerivation rec {
     description = "Network configuration and management tool";
     license = licenses.gpl2Plus;
     changelog =
-      "https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/raw/${version}/NEWS";
+      "https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/raw/${version}/NEWS"
+      ;
     maintainers = teams.freedesktop.members ++ (with maintainers; [
       domenkozar
       obadz

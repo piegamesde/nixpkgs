@@ -26,18 +26,20 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "sha256-9fdoTKaYfqsAXysRwgLq44UrmOGlr5rjF5Ge93PcHDk=";
   };
 
-  makeWrapperArgs = let
-    binPath = [
-      nix
-      git
-    ] ++ lib.optional withSandboxSupport bubblewrap
-      ++ lib.optional withNom nix-output-monitor;
-  in [
-    "--prefix PATH : ${lib.makeBinPath binPath}"
-    "--set-default NIX_SSL_CERT_FILE ${cacert}/etc/ssl/certs/ca-bundle.crt"
-    # we don't have any runtime deps but nix-review shells might inject unwanted dependencies
-    "--unset PYTHONPATH"
-  ] ;
+  makeWrapperArgs =
+    let
+      binPath = [
+        nix
+        git
+      ] ++ lib.optional withSandboxSupport bubblewrap
+        ++ lib.optional withNom nix-output-monitor;
+    in [
+      "--prefix PATH : ${lib.makeBinPath binPath}"
+      "--set-default NIX_SSL_CERT_FILE ${cacert}/etc/ssl/certs/ca-bundle.crt"
+      # we don't have any runtime deps but nix-review shells might inject unwanted dependencies
+      "--unset PYTHONPATH"
+    ]
+    ;
 
   doCheck = false;
 

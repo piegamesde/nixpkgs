@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-EXEt7l69etcBdDdEDlD1ODOdhTBZCVjgY1jhRUDd/W0=";
   };
 
-  # File is missing in the git checkout but required by autotools
+    # File is missing in the git checkout but required by autotools
   postPatch = ''
     touch ChangeLog
   '';
@@ -41,7 +41,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Harmonic inversion algorithm of Mandelshtam: decompose signal into sum of decaying sinusoids";
+      "Harmonic inversion algorithm of Mandelshtam: decompose signal into sum of decaying sinusoids"
+      ;
     homepage = "https://github.com/NanoComp/harminv";
     license = with licenses; [ gpl2Only ];
     maintainers = with maintainers; [

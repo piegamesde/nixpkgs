@@ -6,13 +6,16 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ offline ]; };
 
     nodes = {
-      machine = {
+      machine =
+        {
           ...
         }: {
           services.cadvisor.enable = true;
-        };
+        }
+        ;
 
-      influxdb = {
+      influxdb =
+        {
           lib,
           ...
         }:
@@ -20,7 +23,8 @@ import ./make-test-python.nix ({
           services.cadvisor.enable = true;
           services.cadvisor.storageDriver = "influxdb";
           services.influxdb.enable = true;
-        };
+        }
+        ;
     };
 
     testScript = ''

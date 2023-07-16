@@ -7,7 +7,8 @@ import ./make-test-python.nix ({
 
     meta = with lib; { maintainers = [ maintainers.federicoschonborn ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         imports = [ ./common/user-account.nix ];
@@ -26,9 +27,11 @@ import ./make-test-python.nix ({
           enable = true;
           extraPlugins = [ pkgs.budgie.budgie-analogue-clock-applet ];
         };
-      };
+      }
+      ;
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }:
@@ -54,5 +57,6 @@ import ./make-test-python.nix ({
             machine.wait_for_window("Terminal")
             machine.sleep(20)
             machine.screenshot("screen")
-      '' ;
+      ''
+      ;
   })

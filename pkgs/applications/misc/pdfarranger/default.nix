@@ -40,7 +40,7 @@ python3Packages.buildPythonApplication rec {
     python-dateutil
   ];
 
-  # incompatible with wrapGAppsHook
+    # incompatible with wrapGAppsHook
   strictDeps = false;
   dontWrapGApps = true;
   preFixup = ''
@@ -52,7 +52,8 @@ python3Packages.buildPythonApplication rec {
   meta = with lib; {
     inherit (src.meta) homepage;
     description =
-      "Merge or split pdf documents and rotate, crop and rearrange their pages using an interactive and intuitive graphical interface";
+      "Merge or split pdf documents and rotate, crop and rearrange their pages using an interactive and intuitive graphical interface"
+      ;
     platforms = platforms.linux;
     maintainers = with maintainers; [ symphorien ];
     license = licenses.gpl3Plus;

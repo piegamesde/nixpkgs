@@ -11,7 +11,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/libtom/libtommath/releases/download/v${version}/ltm-${version}.tar.xz";
+      "https://github.com/libtom/libtommath/releases/download/v${version}/ltm-${version}.tar.xz"
+      ;
     sha256 = "1c8q1qy88cjhdjlk3g24mra94h34c1ldvkjz0n2988c0yvn5xixp";
   };
 

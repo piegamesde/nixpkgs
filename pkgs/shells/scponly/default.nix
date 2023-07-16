@@ -21,8 +21,8 @@ stdenv.mkDerivation {
 
   strictDeps = true;
 
-  # chroot doesn't seem to work, so not enabling
-  # rsync could also be optionally enabled
+    # chroot doesn't seem to work, so not enabling
+    # rsync could also be optionally enabled
   configureFlags = [
     "--enable-winscp-compat"
     "scponly_PROG_SFTP_SERVER=${lib.getBin openssh}/libexec/sftp-server"

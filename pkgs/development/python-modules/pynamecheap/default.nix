@@ -11,7 +11,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  # Tests require access to api.sandbox.namecheap.com
+    # Tests require access to api.sandbox.namecheap.com
   doCheck = false;
 
   src = fetchFromGitHub {

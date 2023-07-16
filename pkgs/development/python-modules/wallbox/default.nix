@@ -25,7 +25,7 @@ buildPythonPackage rec {
     simplejson
   ];
 
-  # no tests implemented
+    # no tests implemented
   doCheck = false;
 
   pythonImportsCheck = [ "wallbox" ];

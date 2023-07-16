@@ -31,7 +31,8 @@ in rec {
 
   unitOption = mkOptionType {
     name = "systemd option";
-    merge = loc: defs:
+    merge =
+      loc: defs:
       let
         defs' = filterOverrides defs;
       in if isList (head defs').value then
@@ -47,7 +48,8 @@ in rec {
             }") defs'
 
       else
-        mergeEqualOption loc defs';
+        mergeEqualOption loc defs'
+      ;
   };
 
   sharedOptions = {
@@ -143,14 +145,16 @@ in rec {
         default = "";
         type = types.singleLineStr;
         description = lib.mdDoc
-          "Description of this unit used in systemd messages and progress indicators.";
+          "Description of this unit used in systemd messages and progress indicators."
+          ;
       };
 
       documentation = mkOption {
         default = [ ];
         type = types.listOf types.str;
         description = lib.mdDoc
-          "A list of URIs referencing documentation for this unit or its configuration.";
+          "A list of URIs referencing documentation for this unit or its configuration."
+          ;
       };
 
       requires = mkOption {
@@ -302,7 +306,8 @@ in rec {
   };
   stage1CommonUnitOptions = commonUnitOptions;
 
-  serviceOptions = {
+  serviceOptions =
+    {
       name,
       config,
       ...
@@ -321,8 +326,9 @@ in rec {
             PATH = "/foo/bar/bin";
             LANG = "nl_NL.UTF-8";
           };
-          description = lib.mdDoc
-            "Environment variables passed to the service's processes.";
+          description =
+            lib.mdDoc "Environment variables passed to the service's processes."
+            ;
         };
 
         path = mkOption {
@@ -449,7 +455,8 @@ in rec {
         })
       ];
 
-    };
+    }
+    ;
 
   stage2ServiceOptions = {
     imports = [
@@ -509,11 +516,13 @@ in rec {
           to adding a corresponding timer unit with
           {option}`OnCalendar` set to the value given here.
         '';
-        apply = v:
+        apply =
+          v:
           if isList v then
             v
           else
-            [ v ];
+            [ v ]
+          ;
       };
     };
   };

@@ -114,17 +114,16 @@ stdenv.mkDerivation rec {
 
   preConfigure = "NOCONFIGURE=1 ./autogen.sh";
 
-  configureFlags =
-    [ "--with-boost-python=boost_python${lib.versions.major python3.version}${
-      lib.versions.minor python3.version
-    }" ];
+  configureFlags = [ "--with-boost-python=boost_python${
+      lib.versions.major python3.version
+    }${lib.versions.minor python3.version}" ];
 
   makeFlags = [
     "libdocdir=${placeholder "doc"}/share/doc/$(book_name)"
     "devhelpdir=${placeholder "devdoc"}/share/devhelp/books/$(book_name)"
   ];
 
-  # Fontconfig error: Cannot load default config file
+    # Fontconfig error: Cannot load default config file
   FONTCONFIG_FILE = makeFontsConf { fontDirectories = [ freefont_ttf ]; };
 
   preFixup = ''

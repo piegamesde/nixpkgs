@@ -57,5 +57,5 @@
   icamerasrc-ipu6ep =
     callPackage ./icamerasrc { ipu6-camera-hal = ipu6ep-camera-hal; };
 
-  # note: gst-python is in ./python/default.nix - called under pythonPackages
+    # note: gst-python is in ./python/default.nix - called under pythonPackages
 }

@@ -23,7 +23,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/LLNL/sundials/releases/download/v${version}/sundials-${version}.tar.gz";
+      "https://github.com/LLNL/sundials/releases/download/v${version}/sundials-${version}.tar.gz"
+      ;
     hash = "sha256-QlIwOAUXHk290ZoB5Swdz+Da/FmcPP7bClwv+wRainU=";
   };
 

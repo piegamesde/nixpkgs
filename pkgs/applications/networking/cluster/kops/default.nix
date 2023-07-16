@@ -5,7 +5,8 @@
   installShellFiles,
 }:
 let
-  generic = {
+  generic =
+    {
       version,
       sha256,
       rev ? version,
@@ -67,7 +68,7 @@ let
         platforms = platforms.unix;
       };
     } // attrs'
-  ;
+    ;
 in rec {
   mkKops = generic;
 

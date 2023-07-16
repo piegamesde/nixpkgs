@@ -29,7 +29,8 @@ import ./make-test-python.nix ({
     name = "hockeypuck";
     meta.maintainers = with lib.maintainers; [ etu ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         # Used for test
@@ -45,7 +46,8 @@ import ./make-test-python.nix ({
             ensurePermissions."DATABASE hockeypuck" = "ALL PRIVILEGES";
           } ];
         };
-      };
+      }
+      ;
 
     testScript = ''
       machine.wait_for_unit("hockeypuck.service")

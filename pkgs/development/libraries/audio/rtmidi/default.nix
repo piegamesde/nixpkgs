@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "0001-rtmidi-Use-posix-sched_yield-instead-of-pthread_yield.patch";
       url =
-        "https://github.com/thestk/rtmidi/pull/278/commits/cfe34c02112c256235b62b45895fc2c401fd874d.patch";
+        "https://github.com/thestk/rtmidi/pull/278/commits/cfe34c02112c256235b62b45895fc2c401fd874d.patch"
+        ;
       sha256 = "0yzq7zbdkl5r4i0r6vy2kq986cqdxz2cpzb7s977mvh09kdikrw1";
     })
     # Remove when https://github.com/thestk/rtmidi/pull/277 merged
@@ -39,7 +40,8 @@ stdenv.mkDerivation rec {
       name =
         "0002-rtmidi-include-TargetConditionals.h-on-Apple-platforms.patch";
       url =
-        "https://github.com/thestk/rtmidi/pull/277/commits/9d863beb28f03ec53f3e4c22cc0d3c34a1e1789b.patch";
+        "https://github.com/thestk/rtmidi/pull/277/commits/9d863beb28f03ec53f3e4c22cc0d3c34a1e1789b.patch"
+        ;
       sha256 = "1hlrg23c1ycnwdvxpic8wvypiril04rlph0g820qn1naf92imfjg";
     })
   ];
@@ -79,7 +81,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A set of C++ classes that provide a cross platform API for realtime MIDI input/output";
+      "A set of C++ classes that provide a cross platform API for realtime MIDI input/output"
+      ;
     homepage = "https://www.music.mcgill.ca/~gary/rtmidi/";
     license = licenses.mit;
     maintainers = with maintainers; [ magnetophon ];

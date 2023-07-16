@@ -11,7 +11,8 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://fontlibrary.org/assets/downloads/u001/3ea00b3c0c8fa6ce4373e5766fafd651/u001.zip";
+      "https://fontlibrary.org/assets/downloads/u001/3ea00b3c0c8fa6ce4373e5766fafd651/u001.zip"
+      ;
     sha256 = "sha256-7H32pfr0g68XP5B48VUY99e6fbd7rhH6fEnCKNXWEkU=";
     stripRoot = false;
   };

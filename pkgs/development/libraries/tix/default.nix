@@ -18,7 +18,8 @@ tcl.mkTclDerivation {
     (fetchpatch {
       name = "tix-8.4.3-tcl8.5.patch";
       url =
-        "https://gitweb.gentoo.org/repo/gentoo.git/plain/dev-tcltk/tix/files/tix-8.4.3-tcl8.5.patch?id=56bd759df1d0c750a065b8c845e93d5dfa6b549d";
+        "https://gitweb.gentoo.org/repo/gentoo.git/plain/dev-tcltk/tix/files/tix-8.4.3-tcl8.5.patch?id=56bd759df1d0c750a065b8c845e93d5dfa6b549d"
+        ;
       sha256 = "0wzqmcxxq0rqpnjgxz10spw92yhfygnlwv0h8pcx2ycnqiljz6vj";
     })
     # Remove duplicated definition of XLowerWindow
@@ -26,15 +27,16 @@ tcl.mkTclDerivation {
   ] ++ lib.optional (tcl.release == "8.6") (fetchpatch {
     name = "tix-8.4.3-tcl8.6.patch";
     url =
-      "https://gitweb.gentoo.org/repo/gentoo.git/plain/dev-tcltk/tix/files/tix-8.4.3-tcl8.6.patch?id=56bd759df1d0c750a065b8c845e93d5dfa6b549d";
+      "https://gitweb.gentoo.org/repo/gentoo.git/plain/dev-tcltk/tix/files/tix-8.4.3-tcl8.6.patch?id=56bd759df1d0c750a065b8c845e93d5dfa6b549d"
+      ;
     sha256 = "1jaz0l22xj7x1k4rb9ia6i1psnbwk4pblgq4gfvya7gg7fbb7r36";
   });
   buildInputs = [ tk ];
-  # the configure script expects to find the location of the sources of
-  # tcl and tk in {tcl,tk}Config.sh
-  # In fact, it only needs some private headers. We copy them in
-  # the private_headers folders and trick the configure script into believing
-  # the sources are here.
+    # the configure script expects to find the location of the sources of
+    # tcl and tk in {tcl,tk}Config.sh
+    # In fact, it only needs some private headers. We copy them in
+    # the private_headers folders and trick the configure script into believing
+    # the sources are here.
   preConfigure = ''
     mkdir -p private_headers/generic
     < ${tcl}/lib/tclConfig.sh sed "s@TCL_SRC_DIR=.*@TCL_SRC_DIR=private_headers@" > tclConfig.sh

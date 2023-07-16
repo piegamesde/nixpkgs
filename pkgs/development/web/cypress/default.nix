@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     sha256 = checksum;
   };
 
-  # don't remove runtime deps
+    # don't remove runtime deps
   dontPatchELF = true;
 
   nativeBuildInputs = [

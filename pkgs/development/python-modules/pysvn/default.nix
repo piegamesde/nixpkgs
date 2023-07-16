@@ -25,7 +25,8 @@ buildPythonPackage rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/project/pysvn/pysvn/V${version}/pysvn-${version}.tar.gz";
+      "mirror://sourceforge/project/pysvn/pysvn/V${version}/pysvn-${version}.tar.gz"
+      ;
     hash = "sha256-LbAz+KjEY3nkSJAzJNwlnSRYoWr4i1ITRUPV3ZBH7cc=";
   };
 
@@ -88,7 +89,7 @@ buildPythonPackage rec {
     homepage = "https://pysvn.sourceforge.io/";
     license = licenses.asl20;
     maintainers = with maintainers; [ dotlambda ];
-    # g++: command not found
+      # g++: command not found
     broken = stdenv.isDarwin;
   };
 }

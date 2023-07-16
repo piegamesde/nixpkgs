@@ -11,7 +11,7 @@ buildPythonPackage rec {
   version = "4.0.0";
   disabled = pythonOlder "3.4";
 
-  # Archive on pypi has no tests.
+    # Archive on pypi has no tests.
   src = fetchFromGitHub {
     owner = "bbayles";
     repo = "python-pure-cdb";

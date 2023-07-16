@@ -10,7 +10,8 @@
 
 let
   esbuild' = buildPackages.esbuild.override {
-    buildGoModule = args:
+    buildGoModule =
+      args:
       buildPackages.buildGoModule (args // rec {
         version = "0.16.15";
         src = fetchFromGitHub {
@@ -20,7 +21,8 @@ let
           hash = "sha256-iTAtPHjrBvHweSIiAbkkbBLgjF3v68jipJEzc0I4G04=";
         };
         vendorHash = "sha256-+BfxCyg0KkDQpHt/wycy/8CTG6YBA/VJvJFhhzUnSiQ=";
-      });
+      })
+      ;
   };
 in
 buildNpmPackage rec {
@@ -49,8 +51,8 @@ buildNpmPackage rec {
     runHook postInstall
   '';
 
-  # Uncomment this when nix-update-script supports Gitea.
-  #passthru.updateScript = nix-update-script { };
+    # Uncomment this when nix-update-script supports Gitea.
+    #passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     homepage = "https://codeberg.org/annaaurora/kaufkauflist";

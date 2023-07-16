@@ -14,16 +14,20 @@ let
     "aarch64-darwin" = "darwin-aarch64";
     "x86_64-darwin" = "darwin-amd64";
   };
-  javaPlatformVersion = javaVersion:
+  javaPlatformVersion =
+    javaVersion:
     "${javaVersion}-${
       javaPlatform.${stdenv.system} or (throw
         "Unsupported platform: ${stdenv.system}")
-    }";
-  source = product: javaVersion:
+    }"
+    ;
+  source =
+    product: javaVersion:
     (import ./hashes.nix).${product}.${
       javaPlatformVersion javaVersion
     } or (throw
-      "Unsupported product combination: product=${product} java=${javaVersion} system=${stdenv.system}");
+      "Unsupported product combination: product=${product} java=${javaVersion} system=${stdenv.system}")
+    ;
 
 in rec {
   inherit
@@ -46,7 +50,7 @@ in rec {
     products = [ native-image-installable-svm-java11 ];
   };
 
-  # Mostly available for testing, not to be exposed at the top level
+    # Mostly available for testing, not to be exposed at the top level
   graalvm11-ce-full = graalvm11-ce-bare.override {
     products = [
       js-installable-svm-java11
@@ -104,9 +108,9 @@ in rec {
     src = fetchurl (source "wasm-installable-svm" javaVersion);
   };
 
-  ### Java 17 ###
+    ### Java 17 ###
 
-  # Mostly available for build purposes, not to be exposed at the top level
+    # Mostly available for build purposes, not to be exposed at the top level
   graalvm17-ce-bare = buildGraalvm rec {
     version = "22.3.1";
     javaVersion = "17";
@@ -119,7 +123,7 @@ in rec {
     products = [ native-image-installable-svm-java17 ];
   };
 
-  # Mostly available for testing, not to be exposed at the top level
+    # Mostly available for testing, not to be exposed at the top level
   graalvm17-ce-full = graalvm17-ce-bare.override {
     products = [
       js-installable-svm-java17
@@ -177,9 +181,9 @@ in rec {
     src = fetchurl (source "wasm-installable-svm" javaVersion);
   };
 
-  ### Java 19 ###
+    ### Java 19 ###
 
-  # Mostly available for build purposes, not to be exposed at the top level
+    # Mostly available for build purposes, not to be exposed at the top level
   graalvm19-ce-bare = buildGraalvm rec {
     version = "22.3.1";
     javaVersion = "19";
@@ -192,7 +196,7 @@ in rec {
     products = [ native-image-installable-svm-java19 ];
   };
 
-  # Mostly available for testing, not to be exposed at the top level
+    # Mostly available for testing, not to be exposed at the top level
   graalvm19-ce-full = graalvm19-ce-bare.override {
     products = [
       js-installable-svm-java19

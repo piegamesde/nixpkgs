@@ -11,7 +11,7 @@ let
   driver = playwright-driver;
   browsers = playwright-driver.browsers;
 
-  # nodeDependencies / package / shell
+    # nodeDependencies / package / shell
   playwright-test-raw =
     (callPackage ./default.nix { })."@playwright/test-${driver.version}";
 

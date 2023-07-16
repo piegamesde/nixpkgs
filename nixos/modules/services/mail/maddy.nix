@@ -357,8 +357,8 @@ in {
             Group = cfg.group;
             StateDirectory = [ "maddy" ];
           };
-          restartTriggers =
-            [ config.environment.etc."maddy/maddy.conf".source ];
+          restartTriggers = [ config.environment.etc."maddy/maddy.conf".source ]
+            ;
           wantedBy = [ "multi-user.target" ];
         };
         maddy-ensure-accounts = {

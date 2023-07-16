@@ -23,8 +23,8 @@ buildGoModule {
   vendorSha256 = "sha256-JhMefeUxo9ksyCnNsLgAhGG0Ix7kxCA/cYyiELd0H64=";
   proxyVendor = true;
 
-  # Build errors in mdbx when format hardening is enabled:
-  #   cc1: error: '-Wformat-security' ignored without '-Wformat' [-Werror=format-security]
+    # Build errors in mdbx when format hardening is enabled:
+    #   cc1: error: '-Wformat-security' ignored without '-Wformat' [-Werror=format-security]
   hardeningDisable = [ "format" ];
 
   subPackages = [

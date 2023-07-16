@@ -54,7 +54,8 @@ let
     };
   };
 
-  withPlugins = plugins:
+  withPlugins =
+    plugins:
     let
       vapoursynthWithPlugins = vapoursynth.withPlugins plugins;
     in
@@ -69,6 +70,6 @@ let
               --prefix LD_LIBRARY_PATH : ${vapoursynthWithPlugins}/lib
       done
     ''
-  ;
+    ;
 in
 withPlugins [ ]

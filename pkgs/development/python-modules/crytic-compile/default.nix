@@ -28,7 +28,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  # Test require network access
+    # Test require network access
   doCheck = false;
 
   pythonImportsCheck = [ "crytic_compile" ];

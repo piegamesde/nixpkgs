@@ -23,7 +23,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ bitlist ];
 
-  # Module has no test
+    # Module has no test
   doCheck = false;
 
   pythonImportsCheck = [ "fountains" ];

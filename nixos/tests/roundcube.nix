@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ globin ]; };
 
     nodes = {
-      roundcube = {
+      roundcube =
+        {
           config,
           pkgs,
           ...
@@ -15,8 +16,9 @@ import ./make-test-python.nix ({
             enable = true;
             hostName = "roundcube";
             database.password = "not production";
-            package = pkgs.roundcube.withPlugins
-              (plugins: [ plugins.persistent_login ]);
+            package =
+              pkgs.roundcube.withPlugins (plugins: [ plugins.persistent_login ])
+              ;
             plugins = [ "persistent_login" ];
             dicts = with pkgs.aspellDicts; [
               en
@@ -28,7 +30,8 @@ import ./make-test-python.nix ({
             forceSSL = false;
             enableACME = false;
           };
-        };
+        }
+        ;
     };
 
     testScript = ''

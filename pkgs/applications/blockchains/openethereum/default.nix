@@ -46,13 +46,13 @@ rustPlatform.buildRustPackage rec {
 
   buildFeatures = [ "final" ];
 
-  # Fix tests by preventing them from writing to /homeless-shelter.
+    # Fix tests by preventing them from writing to /homeless-shelter.
   preCheck = ''
     export HOME=$(mktemp -d)
   '';
 
-  # Exclude some tests that don't work in the sandbox
-  # - Nat test requires network access
+    # Exclude some tests that don't work in the sandbox
+    # - Nat test requires network access
   checkFlags = [
     "--skip"
     "configuration::tests::should_resolve_external_nat_hosts"

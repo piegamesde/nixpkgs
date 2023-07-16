@@ -19,7 +19,8 @@ let
 
   xplat = fetchurl {
     url =
-      "https://github.com/mono/msbuild/releases/download/v16.9.0/mono_msbuild_6.12.0.137.zip";
+      "https://github.com/mono/msbuild/releases/download/v16.9.0/mono_msbuild_6.12.0.137.zip"
+      ;
     sha256 = "1wnzbdpk4s9bmawlh359ak2b8zi0sgx1qvcjnvfncr1wsck53v7q";
   };
 
@@ -41,7 +42,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://download.mono-project.com/sources/msbuild/msbuild-${version}.tar.xz";
+      "https://download.mono-project.com/sources/msbuild/msbuild-${version}.tar.xz"
+      ;
     sha256 = "05ghqqkdj4s3d0xkp7mkdzjig5zj3k6ajx71j0g2wv6rdbvg6899";
   };
 
@@ -57,8 +59,8 @@ stdenv.mkDerivation rec {
     glibcLocales
   ];
 
-  # https://github.com/NixOS/nixpkgs/issues/38991
-  # bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+    # https://github.com/NixOS/nixpkgs/issues/38991
+    # bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
   LOCALE_ARCHIVE = lib.optionalString stdenv.isLinux
     "${glibcLocales}/lib/locale/locale-archive";
 
@@ -120,7 +122,7 @@ stdenv.mkDerivation rec {
 
   doInstallCheck = true;
 
-  # https://docs.microsoft.com/cs-cz/visualstudio/msbuild/walkthrough-creating-an-msbuild-project-file-from-scratch?view=vs-2019
+    # https://docs.microsoft.com/cs-cz/visualstudio/msbuild/walkthrough-creating-an-msbuild-project-file-from-scratch?view=vs-2019
   installCheckPhase = ''
         cat > Helloworld.cs <<EOF
     using System;
@@ -155,7 +157,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Mono version of Microsoft Build Engine, the build platform for .NET, and Visual Studio";
+      "Mono version of Microsoft Build Engine, the build platform for .NET, and Visual Studio"
+      ;
     homepage = "https://github.com/mono/msbuild";
     sourceProvenance = with sourceTypes; [
       fromSource

@@ -43,7 +43,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/ANTsX/ANTs";
     description =
-      "Advanced normalization toolkit for medical image registration and other processing";
+      "Advanced normalization toolkit for medical image registration and other processing"
+      ;
     maintainers = with maintainers; [ bcdarwin ];
     platforms = platforms.unix;
     license = licenses.bsd3;

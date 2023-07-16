@@ -60,7 +60,8 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://www.giuspen.com/cherrytree";
     changelog =
-      "https://raw.githubusercontent.com/giuspen/cherrytree/${version}/changelog.txt";
+      "https://raw.githubusercontent.com/giuspen/cherrytree/${version}/changelog.txt"
+      ;
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ ];
   };

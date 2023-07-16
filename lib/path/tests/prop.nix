@@ -15,14 +15,15 @@
 let
   lib = import libpath;
 
-  # read each file into a string
+    # read each file into a string
   strings = map (name: builtins.readFile (dir + "/${name}"))
     (builtins.attrNames (builtins.readDir dir));
 
   inherit (lib.path.subpath) normalise isValid;
   inherit (lib.asserts) assertMsg;
 
-  normaliseAndCheck = str:
+  normaliseAndCheck =
+    str:
     let
       originalValid = isValid str;
 
@@ -53,7 +54,7 @@ let
       tryOnce.value
     else
       ""
-  ;
+    ;
 
 in
 lib.genAttrs strings normaliseAndCheck

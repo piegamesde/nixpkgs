@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     ensureNewerSourcesForZipFilesHook
   ];
 
-  # waf bin has #!/usr/bin/env python
+    # waf bin has #!/usr/bin/env python
   buildInputs = [ python3 ];
 
   configurePhase = ''

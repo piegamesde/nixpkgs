@@ -12,12 +12,14 @@ let
   opt = options.services.moonraker;
   format = pkgs.formats.ini {
     # https://github.com/NixOS/nixpkgs/pull/121613#issuecomment-885241996
-    listToValue = l:
+    listToValue =
+      l:
       if builtins.length l == 1 then
         generators.mkValueStringDefault { } (head l)
       else
         lib.concatMapStrings (s: "\n  ${generators.mkValueStringDefault { } s}")
-        l;
+        l
+      ;
     mkKeyValue = generators.mkKeyValueDefault { } ":";
   };
 
@@ -124,7 +126,8 @@ in {
     assertions = [ {
       assertion = cfg.allowSystemControl -> config.security.polkit.enable;
       message =
-        "services.moonraker.allowSystemControl requires polkit to be enabled (security.polkit.enable).";
+        "services.moonraker.allowSystemControl requires polkit to be enabled (security.polkit.enable)."
+        ;
     } ];
 
     users.users = optionalAttrs (cfg.user == "moonraker") {
@@ -138,21 +141,22 @@ in {
       moonraker.gid = config.ids.gids.moonraker;
     };
 
-    environment.etc."moonraker.cfg".source = let
-      forcedConfig = {
-        server = {
-          host = cfg.address;
-          port = cfg.port;
-          klippy_uds_address = cfg.klipperSocket;
-        };
-        machine = { validate_service = false; };
-      } // (lib.optionalAttrs (cfg.configDir != null) {
-        file_manager = { config_path = cfg.configDir; };
-      });
-      fullConfig = recursiveUpdate cfg.settings forcedConfig;
-    in
-    format.generate "moonraker.cfg" fullConfig
-    ;
+    environment.etc."moonraker.cfg".source =
+      let
+        forcedConfig = {
+          server = {
+            host = cfg.address;
+            port = cfg.port;
+            klippy_uds_address = cfg.klipperSocket;
+          };
+          machine = { validate_service = false; };
+        } // (lib.optionalAttrs (cfg.configDir != null) {
+          file_manager = { config_path = cfg.configDir; };
+        });
+        fullConfig = recursiveUpdate cfg.settings forcedConfig;
+      in
+      format.generate "moonraker.cfg" fullConfig
+      ;
 
     systemd.tmpfiles.rules =
       [ "d '${cfg.stateDir}' - ${cfg.user} ${cfg.group} - -" ]
@@ -165,7 +169,7 @@ in {
       after = [ "network.target" ]
         ++ optional config.services.klipper.enable "klipper.service";
 
-      # Moonraker really wants its own config to be writable...
+        # Moonraker really wants its own config to be writable...
       script = ''
         config_path=${
         # Deprecated separate config dir
@@ -181,7 +185,7 @@ in {
         exec ${pkg}/bin/moonraker -d ${cfg.stateDir} -c "$config_path"
       '';
 
-      # Needs `ip` command
+        # Needs `ip` command
       path = [ pkgs.iproute2 ];
 
       serviceConfig = {

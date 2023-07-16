@@ -39,7 +39,7 @@ python3.pkgs.buildPythonApplication rec {
     runHook postInstall
   '';
 
-  # Project has no tests
+    # Project has no tests
   doCheck = false;
 
   meta = with lib; {

@@ -18,7 +18,7 @@ let
   pname = "rust-analyzer";
   publisher = "rust-lang";
 
-  # Use the plugin version as in vscode marketplace, updated by update script.
+    # Use the plugin version as in vscode marketplace, updated by update script.
   inherit (vsix) version;
 
   releaseTag = "2023-03-06";
@@ -31,9 +31,10 @@ let
   };
 
   build-deps =
-    nodePackages."rust-analyzer-build-deps-../../applications/editors/vscode/extensions/rust-lang.rust-analyzer/build-deps";
-  # FIXME: Making a new derivation to link `node_modules` and run `npm run package`
-  # will cause a build failure.
+    nodePackages."rust-analyzer-build-deps-../../applications/editors/vscode/extensions/rust-lang.rust-analyzer/build-deps"
+    ;
+    # FIXME: Making a new derivation to link `node_modules` and run `npm run package`
+    # will cause a build failure.
   vsix = build-deps.override {
     src = "${src}/editors/code";
     outputs = [
@@ -55,7 +56,7 @@ let
       darwin.apple_sdk.frameworks.Security
     ];
 
-    # Follows https://github.com/rust-lang/rust-analyzer/blob/41949748a6123fd6061eb984a47f4fe780525e63/xtask/src/dist.rs#L39-L65
+      # Follows https://github.com/rust-lang/rust-analyzer/blob/41949748a6123fd6061eb984a47f4fe780525e63/xtask/src/dist.rs#L39-L65
     postRebuild = ''
       jq '
         .version = $ENV.version |

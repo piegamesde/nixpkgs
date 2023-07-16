@@ -30,21 +30,23 @@ stdenv.mkDerivation rec {
   ];
 
   enableParallelBuilding = true;
-  # Lacks dependencies:
-  #   mkdir ...-libelf-0.8.13/lib
-  #   mkdir ...-libelf-0.8.13/lib
-  # mkdir: cannot create directory '...-libelf-0.8.13/lib': File exists
+    # Lacks dependencies:
+    #   mkdir ...-libelf-0.8.13/lib
+    #   mkdir ...-libelf-0.8.13/lib
+    # mkdir: cannot create directory '...-libelf-0.8.13/lib': File exists
   enableParallelInstalling = false;
 
   doCheck = true;
 
-  preConfigure = if !stdenv.hostPlatform.useAndroidPrebuilt then
-    null
-  else
-    ''
-      sed -i 's|DISTSUBDIRS = lib po|DISTSUBDIRS = lib|g' Makefile.in
-      sed -i 's|SUBDIRS = lib @POSUB@|SUBDIRS = lib|g' Makefile.in
-    '';
+  preConfigure =
+    if !stdenv.hostPlatform.useAndroidPrebuilt then
+      null
+    else
+      ''
+        sed -i 's|DISTSUBDIRS = lib po|DISTSUBDIRS = lib|g' Makefile.in
+        sed -i 's|SUBDIRS = lib @POSUB@|SUBDIRS = lib|g' Makefile.in
+      ''
+    ;
 
   configureFlags = [ ]
     # Configure check for dynamic lib support is broken, see
@@ -67,8 +69,8 @@ stdenv.mkDerivation rec {
   # cross-compiling, but `autoreconfHook` brings in `makeWrapper` which
   # doesn't work with the bootstrapTools bash, so can only do this for
   # cross builds when `stdenv.shell` is a newer bash.
-    ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
-    autoreconfHook;
+    ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) autoreconfHook
+    ;
 
   meta = {
     description = "ELF object file access library";

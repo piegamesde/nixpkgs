@@ -51,16 +51,18 @@ stdenv.mkDerivation rec {
 
   sourceRoot = ".";
 
-  unpackCmd = let
-    platforms = {
-      x86_64-linux = "amd64";
-      i686-linux = "i386";
-    };
-    platform = platforms.${stdenv.hostPlatform.system} or (throw
-      "unsupported system: ${stdenv.hostPlatform.system}");
-  in ''
-    ar p "$src/Debian/${region}/kyodialog_${platform}/kyodialog_${kyodialog_version}-0_${platform}.deb" data.tar.gz | tar -xz
-  '' ;
+  unpackCmd =
+    let
+      platforms = {
+        x86_64-linux = "amd64";
+        i686-linux = "i386";
+      };
+      platform = platforms.${stdenv.hostPlatform.system} or (throw
+        "unsupported system: ${stdenv.hostPlatform.system}");
+    in ''
+      ar p "$src/Debian/${region}/kyodialog_${platform}/kyodialog_${kyodialog_version}-0_${platform}.deb" data.tar.gz | tar -xz
+    ''
+    ;
 
   nativeBuildInputs = [
     autoPatchelfHook
@@ -69,8 +71,8 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ cups ] ++ lib.optionals withQtGui [ qt5.qtbase ];
 
-  # For lib/cups/filter/kyofilter_pre_H.
-  # The source already contains a copy of pypdf3, but we use the Nix package
+    # For lib/cups/filter/kyofilter_pre_H.
+    # The source already contains a copy of pypdf3, but we use the Nix package
   propagatedBuildInputs = with python3Packages; [
     reportlab
     pypdf3

@@ -27,7 +27,8 @@
 
 let
   url =
-    "https://hubstaff-production.s3.amazonaws.com/downloads/HubstaffClient/Builds/Release/1.6.13-269829b4/Hubstaff-1.6.13-269829b4.sh";
+    "https://hubstaff-production.s3.amazonaws.com/downloads/HubstaffClient/Builds/Release/1.6.13-269829b4/Hubstaff-1.6.13-269829b4.sh"
+    ;
   version = "1.6.13-269829b4";
   sha256 = "0i05d8kivm09hqsc1z6vn7w0bbc3l9dawssqpqsm7kqdyaq0l304";
 

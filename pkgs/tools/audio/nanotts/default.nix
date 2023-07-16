@@ -48,7 +48,8 @@ stdenv.mkDerivation {
 
   meta = {
     description =
-      "Speech synthesizer commandline utility that improves pico2wave, included with SVOX PicoTTS";
+      "Speech synthesizer commandline utility that improves pico2wave, included with SVOX PicoTTS"
+      ;
     homepage = "https://github.com/gmn/nanotts";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.strikerlulu ];

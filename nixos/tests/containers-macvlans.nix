@@ -14,14 +14,15 @@ import ./make-test-python.nix ({
 
     nodes = {
 
-      machine1 = {
+      machine1 =
+        {
           lib,
           ...
         }: {
           virtualisation.vlans = [ 1 ];
 
-          # To be able to ping containers from the host, it is necessary
-          # to create a macvlan on the host on the VLAN 1 network.
+            # To be able to ping containers from the host, it is necessary
+            # to create a macvlan on the host on the VLAN 1 network.
           networking.macvlans.mv-eth1-host = {
             interface = "eth1";
             mode = "bridge";
@@ -61,13 +62,16 @@ import ./make-test-python.nix ({
               };
             };
           };
-        };
+        }
+        ;
 
-      machine2 = {
+      machine2 =
+        {
           ...
         }: {
           virtualisation.vlans = [ 1 ];
-        };
+        }
+        ;
 
     };
 

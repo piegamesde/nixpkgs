@@ -37,9 +37,9 @@ stdenv.mkDerivation rec {
     xmlto
   ];
   buildInputs = [ libcap ];
-  # Needed for lddtree
-  propagatedBuildInputs =
-    [ (python3.withPackages (p: with p; [ pyelftools ])) ];
+    # Needed for lddtree
+  propagatedBuildInputs = [ (python3.withPackages (p: with p; [ pyelftools ])) ]
+    ;
 
   passthru.updateScript = gitUpdater {
     url = "https://anongit.gentoo.org/git/proj/pax-utils.git";

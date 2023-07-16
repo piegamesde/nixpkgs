@@ -51,8 +51,8 @@ in {
   config = {
     system.build.linodeImage = import ../../lib/make-disk-image.nix {
       name = "linode-image";
-      # NOTE: Linode specifically requires images to be `gzip`-ed prior to upload
-      # See: https://www.linode.com/docs/products/tools/images/guides/upload-an-image/#requirements-and-considerations
+        # NOTE: Linode specifically requires images to be `gzip`-ed prior to upload
+        # See: https://www.linode.com/docs/products/tools/images/guides/upload-an-image/#requirements-and-considerations
       postVM = ''
         ${pkgs.gzip}/bin/gzip -${
           toString cfg.compressionLevel
@@ -62,10 +62,12 @@ in {
       '';
       format = "raw";
       partitionTableType = "none";
-      configFile = if cfg.configFile == null then
-        defaultConfigFile
-      else
-        cfg.configFile;
+      configFile =
+        if cfg.configFile == null then
+          defaultConfigFile
+        else
+          cfg.configFile
+        ;
       inherit (cfg) diskSize;
       inherit config lib pkgs;
     };

@@ -54,22 +54,24 @@ let
       mv * $out/
     '';
 
-    # stripping self extracting javascript binaries likely breaks them
+      # stripping self extracting javascript binaries likely breaks them
     dontStrip = true;
 
     passthru = {
       fhs = buildFHSEnv {
         name = "onlyoffice-wrapper";
 
-        targetPkgs = pkgs: [
-          gcc-unwrapped.lib
-          onlyoffice-documentserver
+        targetPkgs =
+          pkgs: [
+            gcc-unwrapped.lib
+            onlyoffice-documentserver
 
-          # fonts
-          corefonts
-          dejavu_fonts
-          liberation_ttf_v1
-        ];
+            # fonts
+            corefonts
+            dejavu_fonts
+            liberation_ttf_v1
+          ]
+          ;
 
         extraBwrapArgs = [
           "--bind var/lib/onlyoffice/ var/lib/onlyoffice/"
@@ -138,13 +140,15 @@ let
 
     meta = with lib; {
       description =
-        "ONLYOFFICE Document Server is an online office suite comprising viewers and editors";
+        "ONLYOFFICE Document Server is an online office suite comprising viewers and editors"
+        ;
       longDescription = ''
         ONLYOFFICE Document Server is an online office suite comprising viewers and editors for texts, spreadsheets and presentations,
         fully compatible with Office Open XML formats: .docx, .xlsx, .pptx and enabling collaborative editing in real time.
       '';
       homepage =
-        "ONLYOFFICE Document Server is an online office suite comprising viewers and editors";
+        "ONLYOFFICE Document Server is an online office suite comprising viewers and editors"
+        ;
       license = licenses.agpl3;
       platforms = [ "x86_64-linux" ];
       sourceProvenance = [ sourceTypes.binaryNativeCode ];

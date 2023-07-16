@@ -24,7 +24,8 @@ let
     };
   };
 
-  common = pname:
+  common =
+    pname:
     {
       version,
       sha256,
@@ -32,8 +33,8 @@ let
       broken ? false
     }:
     let
-      fullVersion = version
-        + lib.optionalString (beta != null) "-beta${toString beta}";
+      fullVersion =
+        version + lib.optionalString (beta != null) "-beta${toString beta}";
       name = "${pname}-${fullVersion}";
     in
     stdenv.mkDerivation {
@@ -42,17 +43,16 @@ let
 
       src = fetchurl {
         url =
-          "https://github.com/atom/atom/releases/download/v${fullVersion}/atom-amd64.deb";
+          "https://github.com/atom/atom/releases/download/v${fullVersion}/atom-amd64.deb"
+          ;
         name = "${name}.deb";
         inherit sha256;
       };
 
-      nativeBuildInputs =
-        [ wrapGAppsHook # Fix error: GLib-GIO-ERROR **: No GSettings schemas are installed on the system
+      nativeBuildInputs = [ wrapGAppsHook # Fix error: GLib-GIO-ERROR **: No GSettings schemas are installed on the system
         ];
 
-      buildInputs =
-        [ gtk3 # Fix error: GLib-GIO-ERROR **: Settings schema 'org.gtk.Settings.FileChooser' is not installed
+      buildInputs = [ gtk3 # Fix error: GLib-GIO-ERROR **: Settings schema 'org.gtk.Settings.FileChooser' is not installed
         ];
 
       dontBuild = true;
@@ -115,6 +115,6 @@ let
         inherit broken;
       };
     }
-  ;
+    ;
 in
 lib.mapAttrs common versions

@@ -15,7 +15,8 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/hannesm/gmap/releases/download/${version}/gmap-${version}.tbz";
+      "https://github.com/hannesm/gmap/releases/download/${version}/gmap-${version}.tbz"
+      ;
     sha256 = "073wa0lrb0jj706j87cwzf1a8d1ff14100mnrjs8z3xc4ri9xp84";
   };
 

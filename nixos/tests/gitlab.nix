@@ -39,15 +39,18 @@ import ./make-test-python.nix ({
     };
 
     nodes = {
-      gitlab = {
+      gitlab =
+        {
           ...
         }: {
           imports = [ common/user-account.nix ];
 
-          virtualisation.memorySize = if pkgs.stdenv.is64bit then
-            4096
-          else
-            2047;
+          virtualisation.memorySize =
+            if pkgs.stdenv.is64bit then
+              4096
+            else
+              2047
+            ;
           virtualisation.cores = 4;
           virtualisation.useNixStoreImage = true;
           virtualisation.writableStore = false;
@@ -107,10 +110,12 @@ import ./make-test-python.nix ({
                 "${pkgs.openssl}/bin/openssl genrsa 2048 > $out";
             };
           };
-        };
+        }
+        ;
     };
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }:
@@ -188,7 +193,7 @@ import ./make-test-python.nix ({
           state_event = "close";
         });
 
-        # Wait for all GitLab services to be fully started.
+          # Wait for all GitLab services to be fully started.
         waitForServices = ''
           gitlab.wait_for_unit("gitaly.service")
           gitlab.wait_for_unit("gitlab-workhorse.service")
@@ -200,9 +205,10 @@ import ./make-test-python.nix ({
           gitlab.wait_until_succeeds("curl -sSf http://gitlab/users/sign_in")
         '';
 
-        # The actual test of GitLab. Only push data to GitLab if
-        # `doSetup` is is true.
-        test = doSetup:
+          # The actual test of GitLab. Only push data to GitLab if
+          # `doSetup` is is true.
+        test =
+          doSetup:
           ''
             GIT_SSH_COMMAND = "ssh -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/dev/null"
 
@@ -432,7 +438,8 @@ import ./make-test-python.nix ({
                     """
                 )
                 gitlab.succeed("test -s /tmp/archive.tar.bz2")
-          '';
+          ''
+          ;
 
       in
       ''
@@ -454,5 +461,5 @@ import ./make-test-python.nix ({
         )
         gitlab.systemctl("start gitlab.target")
       '' + waitForServices + test false
-    ;
+      ;
   } )

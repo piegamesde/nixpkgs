@@ -19,7 +19,8 @@ in {
   meta.maintainers = with pkgs.lib.maintainers; [ yayayayaka ];
 
   nodes = {
-    snipeit = {
+    snipeit =
+      {
         ...
       }: {
         services.snipe-it = {
@@ -41,18 +42,21 @@ in {
               (pkgs.writeText "snipe-it-mail-pass" "a-secure-mail-password");
           };
         };
-      };
+      }
+      ;
   };
 
-  testScript = {
+  testScript =
+    {
       nodes,
     }:
     let
       backupPath =
         "${nodes.snipeit.services.snipe-it.dataDir}/storage/app/backups";
 
-      # Snipe-IT has been installed successfully if the site name shows up on the login page
-      checkLoginPage = {
+        # Snipe-IT has been installed successfully if the site name shows up on the login page
+      checkLoginPage =
+        {
           shouldSucceed ? true
         }: ''
           snipeit.${
@@ -61,7 +65,8 @@ in {
             else
               "fail"
           }("""curl http://localhost/login | grep '${siteName}'""")
-        '';
+        ''
+        ;
     in ''
       start_all()
 
@@ -115,5 +120,6 @@ in {
 
           # Login page should be back again
           ${checkLoginPage { }}
-    '' ;
+    ''
+    ;
 }

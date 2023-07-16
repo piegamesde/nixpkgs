@@ -105,7 +105,7 @@ beamPackages.mixRelease rec {
         beamDeps = with final; [ prometheus_ex ];
       };
       majic = prev.majic.override { buildInputs = [ file ]; };
-      # Some additional build inputs and build fixes
+        # Some additional build inputs and build fixes
       http_signatures = prev.http_signatures.override {
         patchPhase = ''
           substituteInPlace mix.exs --replace ":logger" ":logger, :public_key"
@@ -118,8 +118,8 @@ beamPackages.mixRelease rec {
       syslog =
         prev.syslog.override { buildPlugins = with beamPackages; [ pc ]; };
 
-      # This needs a different version (1.0.14 -> 1.0.18) to build properly with
-      # our Erlang/OTP version.
+        # This needs a different version (1.0.14 -> 1.0.18) to build properly with
+        # our Erlang/OTP version.
       eimp = beamPackages.buildRebar3 rec {
         name = "eimp";
         version = "1.0.18";
@@ -137,7 +137,7 @@ beamPackages.mixRelease rec {
 
         beamDeps = with final; [ p1_utils ];
       };
-      # Required by eimp
+        # Required by eimp
       p1_utils = beamPackages.buildRebar3 rec {
         name = "p1_utils";
         version = "1.0.18";
@@ -152,32 +152,36 @@ beamPackages.mixRelease rec {
       };
 
       mime = prev.mime.override {
-        patchPhase = let
-          cfgFile = writeText "config.exs" ''
-            use Mix.Config
-            config :mime, :types, %{
-              "application/activity+json" => ["activity+json"],
-              "application/jrd+json" => ["jrd+json"],
-              "application/ld+json" => ["activity+json"],
-              "application/xml" => ["xml"],
-              "application/xrd+xml" => ["xrd+xml"]
-            }
-          '';
-        in ''
-          mkdir config
-          cp ${cfgFile} config/config.exs
-        '' ;
+        patchPhase =
+          let
+            cfgFile = writeText "config.exs" ''
+              use Mix.Config
+              config :mime, :types, %{
+                "application/activity+json" => ["activity+json"],
+                "application/jrd+json" => ["jrd+json"],
+                "application/ld+json" => ["activity+json"],
+                "application/xml" => ["xml"],
+                "application/xrd+xml" => ["xrd+xml"]
+              }
+            '';
+          in ''
+            mkdir config
+            cp ${cfgFile} config/config.exs
+          ''
+          ;
       };
 
-      crypt = let
-        version = prev.crypt.version;
-      in
-      prev.crypt.override {
-        buildInputs = [ libxcrypt-legacy ];
-        postInstall =
-          "mv $out/lib/erlang/lib/crypt-${version}/priv/{hex-source-crypt-${version},crypt}.so";
-      }
-      ;
+      crypt =
+        let
+          version = prev.crypt.version;
+        in
+        prev.crypt.override {
+          buildInputs = [ libxcrypt-legacy ];
+          postInstall =
+            "mv $out/lib/erlang/lib/crypt-${version}/priv/{hex-source-crypt-${version},crypt}.so"
+            ;
+        }
+        ;
     });
   };
 

@@ -25,9 +25,8 @@ in {
   options = {
 
     boot.initrd.systemd.dbus = {
-      enable = mkEnableOption (lib.mdDoc "dbus in stage 1") // {
-        visible = false;
-      };
+      enable =
+        mkEnableOption (lib.mdDoc "dbus in stage 1") // { visible = false; };
     };
 
     services.dbus = {
@@ -112,7 +111,7 @@ in {
 
       users.groups.messagebus.gid = config.ids.gids.messagebus;
 
-      # You still need the dbus reference implementation installed to use dbus-broker
+        # You still need the dbus reference implementation installed to use dbus-broker
       systemd.packages = [ pkgs.dbus ];
 
       services.dbus.packages = [
@@ -170,15 +169,15 @@ in {
 
       systemd.packages = [ pkgs.dbus-broker ];
 
-      # Just to be sure we don't restart through the unit alias
+        # Just to be sure we don't restart through the unit alias
       systemd.services.dbus.reloadIfChanged = true;
       systemd.user.services.dbus.reloadIfChanged = true;
 
-      # NixOS Systemd Module doesn't respect 'Install'
-      # https://github.com/NixOS/nixpkgs/issues/108643
+        # NixOS Systemd Module doesn't respect 'Install'
+        # https://github.com/NixOS/nixpkgs/issues/108643
       systemd.services.dbus-broker = {
         aliases = [ "dbus.service" ];
-        # Don't restart dbus. Bad things tend to happen if we do.
+          # Don't restart dbus. Bad things tend to happen if we do.
         reloadIfChanged = true;
         restartTriggers = [ configDir ];
         environment = { LD_LIBRARY_PATH = config.system.nssModules.path; };
@@ -186,7 +185,7 @@ in {
 
       systemd.user.services.dbus-broker = {
         aliases = [ "dbus.service" ];
-        # Don't restart dbus. Bad things tend to happen if we do.
+          # Don't restart dbus. Bad things tend to happen if we do.
         reloadIfChanged = true;
         restartTriggers = [ configDir ];
       };

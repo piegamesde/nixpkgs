@@ -23,7 +23,8 @@ stdenv.mkDerivation rec {
     # https://gitlab.com/iucode-tool/iucode-tool/-/merge_requests/4
     (fetchpatch {
       url =
-        "https://gitlab.com/iucode-tool/iucode-tool/-/commit/fda4aaa4727601dbe817fac001f234c19420351a.patch";
+        "https://gitlab.com/iucode-tool/iucode-tool/-/commit/fda4aaa4727601dbe817fac001f234c19420351a.patch"
+        ;
       hash = "sha256-BxYrXALpZFyJtFrgU5jFmzd1dIMPmpNgvYArgkwGt/w=";
     })
   ];

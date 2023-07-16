@@ -30,7 +30,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ packaging ]
     ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
-  # needs to be able to run dunami from PATH
+    # needs to be able to run dunami from PATH
   preCheck = ''
     export PATH=$PATH:$out/bin
     export HOME=$(mktemp -d)

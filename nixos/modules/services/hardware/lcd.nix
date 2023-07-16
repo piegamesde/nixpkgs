@@ -101,7 +101,8 @@ in with lib; {
           type = str;
           default = "dialout";
           description = lib.mdDoc
-            "The group to use for settings permissions. This group must exist or you will have to create it.";
+            "The group to use for settings permissions. This group must exist or you will have to create it."
+            ;
         };
 
         extraConfig = mkOption {
@@ -158,12 +159,12 @@ in with lib; {
         description = "LCDproc - client";
         after = [ "lcdd.service" ];
         wantedBy = [ "lcd.target" ];
-        # Allow restarting for eternity
+          # Allow restarting for eternity
         startLimitIntervalSec = lib.mkIf cfg.client.restartForever 0;
         serviceConfig = serviceCfg // {
           ExecStart = "${pkg}/bin/lcdproc -f -c ${clientCfg}";
-          # If the server is being restarted at the same time, the client will
-          # fail as it cannot connect, so space it out a bit.
+            # If the server is being restarted at the same time, the client will
+            # fail as it cannot connect, so space it out a bit.
           RestartSec = "5";
         };
       };

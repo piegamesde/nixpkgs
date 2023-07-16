@@ -14,7 +14,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://developers.yubico.com/pam-u2f/Releases/${pname}-${version}.tar.gz";
+      "https://developers.yubico.com/pam-u2f/Releases/${pname}-${version}.tar.gz"
+      ;
     sha256 = "sha256-cjYMaHVIXrTfQJ2o+PUrF4k/BeTZmFKcI4gUSA4RUiA=";
   };
 
@@ -29,7 +30,7 @@ stdenv.mkDerivation rec {
     configureFlagsArray+=("--with-pam-dir=$out/lib/security")
   '';
 
-  # a no-op makefile to prevent building the fuzz targets
+    # a no-op makefile to prevent building the fuzz targets
   postConfigure = ''
     cat > fuzz/Makefile <<EOF
     all:

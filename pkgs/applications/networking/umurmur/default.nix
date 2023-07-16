@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     libconfig
   ];
 
-  # https://github.com/umurmur/umurmur/issues/176
+    # https://github.com/umurmur/umurmur/issues/176
   postPatch = ''
     sed -i '/CRYPTO_mem_ctrl(CRYPTO_MEM_CHECK_ON);/d' src/ssli_openssl.c
   '';
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     license = licenses.bsd3;
     homepage = "https://github.com/umurmur/umurmur";
     platforms = platforms.all;
-    # never built on aarch64-darwin since first introduction in nixpkgs
+      # never built on aarch64-darwin since first introduction in nixpkgs
     broken = stdenv.isDarwin && stdenv.isAarch64;
   };
 }

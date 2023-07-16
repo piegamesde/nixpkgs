@@ -64,11 +64,12 @@ buildPythonPackage rec {
     homepage =
       "https://docs.databricks.com/dev-tools/python-sql-connector.html";
     changelog =
-      "https://github.com/databricks/databricks-sql-python/blob/v${version}/CHANGELOG.md";
+      "https://github.com/databricks/databricks-sql-python/blob/v${version}/CHANGELOG.md"
+      ;
     license = licenses.asl20;
     maintainers = with maintainers; [ harvidsen ];
-    # No SQLAlchemy 2.0 support
-    # https://github.com/databricks/databricks-sql-python/issues/91
+      # No SQLAlchemy 2.0 support
+      # https://github.com/databricks/databricks-sql-python/issues/91
     broken = true;
   };
 }

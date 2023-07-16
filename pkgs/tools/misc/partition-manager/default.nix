@@ -69,12 +69,13 @@ let
 in
 mkDerivation rec {
   pname = "partitionmanager";
-  # NOTE: When changing this version, also change the version of `kpmcore`.
+    # NOTE: When changing this version, also change the version of `kpmcore`.
   version = "22.12.1";
 
   src = fetchurl {
     url =
-      "mirror://kde/stable/release-service/${version}/src/${pname}-${version}.tar.xz";
+      "mirror://kde/stable/release-service/${version}/src/${pname}-${version}.tar.xz"
+      ;
     hash = "sha256-8uI7rWkjUALZAdciGwOpmjVzGDffwM86BI9B3S0eSho=";
   };
 

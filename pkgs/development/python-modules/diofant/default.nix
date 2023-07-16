@@ -35,7 +35,7 @@ buildPythonPackage rec {
     scipy
   ];
 
-  # tests take ~1h
+    # tests take ~1h
   doCheck = false;
 
   pythonImportsCheck = [ "diofant" ];

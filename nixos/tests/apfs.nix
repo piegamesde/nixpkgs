@@ -5,14 +5,16 @@ import ./make-test-python.nix ({
     name = "apfs";
     meta.maintainers = with pkgs.lib.maintainers; [ Luflosi ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
         virtualisation.emptyDiskImages = [ 1024 ];
 
         boot.supportedFilesystems = [ "apfs" ];
-      };
+      }
+      ;
 
     testScript = ''
       machine.wait_for_unit("basic.target")

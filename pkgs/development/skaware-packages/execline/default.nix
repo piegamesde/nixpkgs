@@ -7,10 +7,10 @@ with skawarePackages;
 let
   version = "2.9.3.0";
 
-  # Maintainer of manpages uses following versioning scheme: for every
-  # upstream $version he tags manpages release as ${version}.1, and,
-  # in case of extra fixes to manpages, new tags in form ${version}.2,
-  # ${version}.3 and so on are created.
+    # Maintainer of manpages uses following versioning scheme: for every
+    # upstream $version he tags manpages release as ${version}.1, and,
+    # in case of extra fixes to manpages, new tags in form ${version}.2,
+    # ${version}.3 and so on are created.
   manpages = fetchFromGitHub {
     owner = "flexibeast";
     repo = "execline-man-pages";
@@ -26,7 +26,8 @@ buildPackage {
   sha256 = "yAJ/pwki0RfN7ozCDSd+ONA/2WDm0TbYzsMmA9TsI40=";
 
   description =
-    "A small scripting language, to be used in place of a shell in non-interactive scripts";
+    "A small scripting language, to be used in place of a shell in non-interactive scripts"
+    ;
 
   outputs = [
     "bin"
@@ -37,7 +38,7 @@ buildPackage {
     "out"
   ];
 
-  # TODO: nsss support
+    # TODO: nsss support
   configureFlags = [
     "--libdir=\${lib}/lib"
     "--dynlibdir=\${lib}/lib"

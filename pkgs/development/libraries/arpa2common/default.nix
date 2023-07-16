@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     ragel
   ];
 
-  # the project uses single argument `printf` throughout the program
+    # the project uses single argument `printf` throughout the program
   hardeningDisable = [ "format" ];
 
   meta = {

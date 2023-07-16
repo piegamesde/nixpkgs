@@ -10,7 +10,7 @@ with lib;
 let
   cfg = config.services.minecraft-server;
 
-  # We don't allow eula=false anyways
+    # We don't allow eula=false anyways
   eulaFile = builtins.toFile "eula.txt" ''
     # eula.txt managed by NixOS Configuration
     eula=true
@@ -22,11 +22,13 @@ let
       uuid = v;
     }) cfg.whitelist));
 
-  cfgToString = v:
+  cfgToString =
+    v:
     if builtins.isBool v then
       boolToString v
     else
-      toString v;
+      toString v
+    ;
 
   serverPropertiesFile = pkgs.writeText "server.properties" (''
     # server.properties managed by NixOS configuration
@@ -43,22 +45,26 @@ let
     done
   '';
 
-  # To be able to open the firewall, we need to read out port values in the
-  # server properties, but fall back to the defaults when those don't exist.
-  # These defaults are from https://minecraft.gamepedia.com/Server.properties#Java_Edition_3
+    # To be able to open the firewall, we need to read out port values in the
+    # server properties, but fall back to the defaults when those don't exist.
+    # These defaults are from https://minecraft.gamepedia.com/Server.properties#Java_Edition_3
   defaultServerPort = 25565;
 
   serverPort = cfg.serverProperties.server-port or defaultServerPort;
 
-  rconPort = if cfg.serverProperties.enable-rcon or false then
-    cfg.serverProperties."rcon.port" or 25575
-  else
-    null;
+  rconPort =
+    if cfg.serverProperties.enable-rcon or false then
+      cfg.serverProperties."rcon.port" or 25575
+    else
+      null
+    ;
 
-  queryPort = if cfg.serverProperties.enable-query or false then
-    cfg.serverProperties."query.port" or 25565
-  else
-    null;
+  queryPort =
+    if cfg.serverProperties.enable-query or false then
+      cfg.serverProperties."query.port" or 25565
+    else
+      null
+    ;
 
 in {
   options = {
@@ -114,14 +120,16 @@ in {
       };
 
       whitelist = mkOption {
-        type = let
-          minecraftUUID = types.strMatching
-            "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}" // {
-              description = "Minecraft UUID";
-            };
-        in
-        types.attrsOf minecraftUUID
-        ;
+        type =
+          let
+            minecraftUUID = types.strMatching
+              "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+              // {
+                description = "Minecraft UUID";
+              };
+          in
+          types.attrsOf minecraftUUID
+          ;
         default = { };
         description = lib.mdDoc ''
           Whitelisted players, only has an effect when
@@ -181,7 +189,7 @@ in {
       jvmOpts = mkOption {
         type = types.separatedString " ";
         default = "-Xmx2048M -Xms2048M";
-        # Example options from https://minecraft.gamepedia.com/Tutorials/Server_startup_script
+          # Example options from https://minecraft.gamepedia.com/Tutorials/Server_startup_script
         example = "-Xms4092M -Xmx4092M -XX:+UseG1GC -XX:+CMSIncrementalPacing "
           + "-XX:+CMSClassUnloadingEnabled -XX:ParallelGCThreads=2 "
           + "-XX:MinHeapFreeRatio=5 -XX:MaxHeapFreeRatio=10";
@@ -233,7 +241,7 @@ in {
         StandardOutput = "journal";
         StandardError = "journal";
 
-        # Hardening
+          # Hardening
         CapabilityBoundingSet = [ "" ];
         DeviceAllow = [ "" ];
         LockPersonality = true;

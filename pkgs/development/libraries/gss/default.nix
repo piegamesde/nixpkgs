@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = lib.optional withShishi shishi;
 
-  # ./stdint.h:89:5: error: expected value in expression
+    # ./stdint.h:89:5: error: expected value in expression
   preConfigure = lib.optionalString stdenv.isDarwin ''
     export GNULIBHEADERS_OVERRIDE_WINT_T=0
   '';
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  # Fixup .la files
+    # Fixup .la files
   postInstall = lib.optionalString withShishi ''
     sed -i 's,\(-lshishi\),-L${shishi}/lib \1,' $out/lib/libgss.la
   '';

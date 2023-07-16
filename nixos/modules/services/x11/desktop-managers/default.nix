@@ -12,8 +12,8 @@ let
   xcfg = config.services.xserver;
   cfg = xcfg.desktopManager;
 
-  # If desktop manager `d' isn't capable of setting a background and
-  # the xserver is enabled, `feh' or `xsetroot' are used as a fallback.
+    # If desktop manager `d' isn't capable of setting a background and
+    # the xserver is enabled, `feh' or `xsetroot' are used as a fallback.
   needBGCond = d: !(d ? bgSupport && d.bgSupport) && xcfg.enable;
 
 in {

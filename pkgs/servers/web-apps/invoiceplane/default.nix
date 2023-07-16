@@ -14,7 +14,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/InvoicePlane/InvoicePlane/releases/download/v${version}/v${version}.zip";
+      "https://github.com/InvoicePlane/InvoicePlane/releases/download/v${version}/v${version}.zip"
+      ;
     sha256 = "sha256-EwhOwUoOy3LNZTDgp9kvR/0OsO2TDpWkdT0fd7u0Ns8=";
   };
 
@@ -31,7 +32,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Self-hosted open source application for managing your invoices, clients and payments";
+      "Self-hosted open source application for managing your invoices, clients and payments"
+      ;
     license = licenses.mit;
     homepage = "https://www.invoiceplane.com";
     platforms = platforms.all;

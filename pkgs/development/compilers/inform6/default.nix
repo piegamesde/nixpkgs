@@ -11,7 +11,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://ifarchive.org/if-archive/infocom/compilers/inform6/source/inform-${version}.tar.gz";
+      "https://ifarchive.org/if-archive/infocom/compilers/inform6/source/inform-${version}.tar.gz"
+      ;
     sha256 = "sha256-y55F/zV/99fS4ZITtPsSgkpMNfonFztZEP/QZxSQjfc=";
   };
 

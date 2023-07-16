@@ -15,12 +15,12 @@ appleDerivation {
       --replace '/usr/lib/libtermcap.dylib' 'libncurses.dylib'
   '';
 
-  # pkill requires special private headers that are unavailable in
-  # NixPkgs. These ones are needed:
-  #  - xpc/xpxc.h
-  #  - os/base_private.h
-  #  - _simple.h
-  # We disable it here for now. TODO: build pkill inside adv_cmds
+    # pkill requires special private headers that are unavailable in
+    # NixPkgs. These ones are needed:
+    #  - xpc/xpxc.h
+    #  - os/base_private.h
+    #  - _simple.h
+    # We disable it here for now. TODO: build pkill inside adv_cmds
   buildPhase = ''
     targets=$(xcodebuild -list \
                 | awk '/Targets:/{p=1;print;next} p&&/^\s*$/{p=0};p' \
@@ -32,7 +32,7 @@ appleDerivation {
     done
   '';
 
-  # temporary install phase until xcodebuild has "install" support
+    # temporary install phase until xcodebuild has "install" support
   installPhase = ''
     for f in Products/Release/*; do
       if [ -f $f ]; then

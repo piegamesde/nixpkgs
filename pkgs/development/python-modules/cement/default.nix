@@ -17,8 +17,8 @@ buildPythonPackage rec {
     hash = "sha256-rRGmlGZeKtKEV8VgSU9PjDaiX8WOUA1gip2R4E4dMJM=";
   };
 
-  # Disable test tests since they depend on a memcached server running on
-  # 127.0.0.1:11211.
+    # Disable test tests since they depend on a memcached server running on
+    # 127.0.0.1:11211.
   doCheck = false;
 
   pythonImportsCheck = [ "cement" ];

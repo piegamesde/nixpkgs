@@ -9,7 +9,7 @@ with lib;
 let
   cfg = config.services.tayga;
 
-  # Converts an address set to a string
+    # Converts an address set to a string
   strAddr = addr: "${addr.address}/${toString addr.prefixLength}";
 
   configFile = pkgs.writeText "tayga.conf" ''
@@ -23,7 +23,8 @@ let
     data-dir ${cfg.dataDir}
   '';
 
-  addrOpts = v:
+  addrOpts =
+    v:
     assert v == 4 || v == 6; {
       options = {
         address = mkOption {
@@ -48,32 +49,37 @@ let
           '';
         };
       };
-    };
+    }
+    ;
 
-  versionOpts = v: {
-    options = {
-      router = {
+  versionOpts =
+    v: {
+      options = {
+        router = {
+          address = mkOption {
+            type = types.str;
+            description =
+              lib.mdDoc "The IPv${toString v} address of the router.";
+          };
+        };
+
         address = mkOption {
-          type = types.str;
-          description = lib.mdDoc "The IPv${toString v} address of the router.";
+          type = types.nullOr types.str;
+          default = null;
+          description =
+            lib.mdDoc "The source IPv${toString v} address of the TAYGA server."
+            ;
+        };
+
+        pool = mkOption {
+          type = with types; nullOr (submodule (addrOpts v));
+          description = lib.mdDoc "The pool of IPv${
+              toString v
+            } addresses which are used for translation.";
         };
       };
-
-      address = mkOption {
-        type = types.nullOr types.str;
-        default = null;
-        description =
-          lib.mdDoc "The source IPv${toString v} address of the TAYGA server.";
-      };
-
-      pool = mkOption {
-        type = with types; nullOr (submodule (addrOpts v));
-        description = lib.mdDoc "The pool of IPv${
-            toString v
-          } addresses which are used for translation.";
-      };
-    };
-  };
+    }
+    ;
 in {
   options = {
     services.tayga = {
@@ -167,9 +173,9 @@ in {
         ExecReload = "${pkgs.coreutils}/bin/kill -SIGHUP $MAINPID";
         Restart = "always";
 
-        # Hardening Score:
-        #  - nixos-scripts: 2.1
-        #  - systemd-networkd: 1.6
+          # Hardening Score:
+          #  - nixos-scripts: 2.1
+          #  - systemd-networkd: 1.6
         ProtectHome = true;
         SystemCallFilter = [
           "@network-io"

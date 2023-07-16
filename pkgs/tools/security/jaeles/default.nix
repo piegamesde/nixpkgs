@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-R2cP5zNuGUs0/KeaGhbQm1m5gVBVhpcFrS/jsph3EBk=";
 
-  # Tests want to download signatures
+    # Tests want to download signatures
   doCheck = false;
 
   meta = with lib; {

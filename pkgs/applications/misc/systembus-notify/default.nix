@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  # requires a running dbus instance
+    # requires a running dbus instance
   doCheck = false;
 
   meta = with lib; {

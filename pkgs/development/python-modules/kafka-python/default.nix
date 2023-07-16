@@ -26,9 +26,9 @@ buildPythonPackage rec {
     py.test
   '';
 
-  # Upstream uses tox but we don't on Nix. Running tests manually produces however
-  #     from . import unittest
-  # E   ImportError: cannot import name 'unittest'
+    # Upstream uses tox but we don't on Nix. Running tests manually produces however
+    #     from . import unittest
+    # E   ImportError: cannot import name 'unittest'
   doCheck = false;
 
   meta = with lib; {

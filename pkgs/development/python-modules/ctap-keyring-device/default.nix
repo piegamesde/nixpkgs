@@ -34,7 +34,7 @@ buildPythonPackage rec {
     sha256 = "sha256-pEJkuz0wxKt2PkowmLE2YC+HPYa2ZiENK7FAW14Ec/Y=";
   };
 
-  # removing optional dependency needing pyobjc
+    # removing optional dependency needing pyobjc
   postPatch = ''
     substituteInPlace pytest.ini \
       --replace "--flake8 --black --cov" ""
@@ -68,7 +68,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "CTAP (client-to-authenticator-protocol) device backed by python's keyring library";
+      "CTAP (client-to-authenticator-protocol) device backed by python's keyring library"
+      ;
     homepage = "https://github.com/dany74q/ctap-keyring-device";
     license = licenses.mit;
     maintainers = with maintainers; [ dennajort ];

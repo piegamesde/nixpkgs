@@ -36,8 +36,8 @@ let
     sha256 = "sha256-LMz+ZgQVFGujoLA8rlyZ3VnW/NSlPipD5KwCe+cFtnY=";
   };
 
-  # bitmask-root is only used on GNU/Linux
-  # and may one day be replaced by pkg/helper
+    # bitmask-root is only used on GNU/Linux
+    # and may one day be replaced by pkg/helper
   bitmask-root = mkDerivation {
     inherit src version;
     sourceRoot = "source/helpers";
@@ -114,13 +114,13 @@ buildGoModule rec {
     CoreFoundation
     Security
   ];
-  # FIXME: building on Darwin currently fails
-  # due to missing debug symbols for Qt,
-  # this should be fixable once darwin.apple_sdk >= 10.13
-  # See https://bugreports.qt.io/browse/QTBUG-76777
+    # FIXME: building on Darwin currently fails
+    # due to missing debug symbols for Qt,
+    # this should be fixable once darwin.apple_sdk >= 10.13
+    # See https://bugreports.qt.io/browse/QTBUG-76777
 
-  # Not using buildGoModule's buildPhase:
-  # gui/build.sh will build Go modules into lib/libgoshim.a
+    # Not using buildGoModule's buildPhase:
+    # gui/build.sh will build Go modules into lib/libgoshim.a
   buildPhase = ''
     runHook preBuild
 
@@ -147,8 +147,8 @@ buildGoModule rec {
     install -m 444 -D -t $out/share/polkit-1/actions ${bitmask-root}/share/polkit-1/actions/se.leap.bitmask.policy
   '';
 
-  # Some tests need access to the Internet:
-  # Post "https://api.black.riseup.net/3/cert": dial tcp: lookup api.black.riseup.net on [::1]:53: read udp [::1]:56553->[::1]:53: read: connection refused
+    # Some tests need access to the Internet:
+    # Post "https://api.black.riseup.net/3/cert": dial tcp: lookup api.black.riseup.net on [::1]:53: read udp [::1]:56553->[::1]:53: read: connection refused
   doCheck = false;
 
   passthru = { inherit bitmask-root; };
@@ -170,7 +170,7 @@ buildGoModule rec {
     homepage = "https://bitmask.net";
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ julm ];
-    # darwin requires apple_sdk >= 10.13
+      # darwin requires apple_sdk >= 10.13
     platforms = lib.platforms.linux;
   };
 }

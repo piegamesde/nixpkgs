@@ -42,10 +42,11 @@ let
   config = import ./config.nix { inherit fetchFromSavannah; };
   rubygems = import ./rubygems { inherit stdenv lib fetchurl; };
 
-  # Contains the ruby version heuristics
+    # Contains the ruby version heuristics
   rubyVersion = import ./ruby-version.nix { inherit lib; };
 
-  generic = {
+  generic =
+    {
       version,
       sha256,
       cargoSha256 ? null
@@ -55,7 +56,7 @@ let
       atLeast30 = lib.versionAtLeast ver.majMin "3.0";
       atLeast31 = lib.versionAtLeast ver.majMin "3.1";
       atLeast32 = lib.versionAtLeast ver.majMin "3.2";
-      # https://github.com/ruby/ruby/blob/v3_2_2/yjit.h#L21
+        # https://github.com/ruby/ruby/blob/v3_2_2/yjit.h#L21
       yjitSupported = atLeast32 && (stdenv.hostPlatform.isx86_64
         || (!stdenv.hostPlatform.isWindows && stdenv.hostPlatform.isAarch64));
       self = lib.makeOverridable ({
@@ -128,15 +129,18 @@ let
 
           src = fetchurl {
             url =
-              "https://cache.ruby-lang.org/pub/ruby/${ver.majMin}/ruby-${ver}.tar.gz";
+              "https://cache.ruby-lang.org/pub/ruby/${ver.majMin}/ruby-${ver}.tar.gz"
+              ;
             inherit sha256;
           };
 
-          # Have `configure' avoid `/usr/bin/nroff' in non-chroot builds.
-          NROFF = if docSupport then
-            "${groff}/bin/nroff"
-          else
-            null;
+            # Have `configure' avoid `/usr/bin/nroff' in non-chroot builds.
+          NROFF =
+            if docSupport then
+              "${groff}/bin/nroff"
+            else
+              null
+            ;
 
           outputs = [ "out" ] ++ lib.optional docSupport "devdoc";
 
@@ -175,9 +179,9 @@ let
           propagatedBuildInputs = op jemallocSupport jemalloc;
 
           enableParallelBuilding = true;
-          # /build/ruby-2.7.7/lib/fileutils.rb:882:in `chmod':
-          #   No such file or directory @ apply2files - ...-ruby-2.7.7-devdoc/share/ri/2.7.0/system/ARGF/inspect-i.ri (Errno::ENOENT)
-          # make: *** [uncommon.mk:373: do-install-all] Error 1
+            # /build/ruby-2.7.7/lib/fileutils.rb:882:in `chmod':
+            #   No such file or directory @ apply2files - ...-ruby-2.7.7-devdoc/share/ri/2.7.0/system/ARGF/inspect-i.ri (Errno::ENOENT)
+            # make: *** [uncommon.mk:373: do-install-all] Error 1
           enableParallelInstalling = false;
 
           patches = op (lib.versionOlder ver.majMin "3.1")
@@ -190,7 +194,8 @@ let
               # Ruby 3.0 adds `-fdeclspec` to $CC instead of $CFLAGS. Fixed in later versions.
               (fetchpatch {
                 url =
-                  "https://github.com/ruby/ruby/commit/0acc05caf7518cd0d63ab02bfa036455add02346.patch";
+                  "https://github.com/ruby/ruby/commit/0acc05caf7518cd0d63ab02bfa036455add02346.patch"
+                  ;
                 sha256 = "sha256-43hI9L6bXfeujgmgKFVmiWhg7OXvshPCCtQ4TxqK1zk=";
               })
             ] ++ ops (!atLeast30 && rubygemsSupport) [
@@ -205,7 +210,8 @@ let
               # See https://github.com/ruby/ruby/pull/2930
               (fetchpatch {
                 url =
-                  "https://github.com/ruby/ruby/commit/261d8dd20afd26feb05f00a560abd99227269c1c.patch";
+                  "https://github.com/ruby/ruby/commit/261d8dd20afd26feb05f00a560abd99227269c1c.patch"
+                  ;
                 sha256 = "0wrii25cxcz2v8bgkrf7ibcanjlxwclzhayin578bf0qydxdm9qy";
               })
             ] ++ ops atLeast31 [
@@ -218,14 +224,16 @@ let
 
           cargoRoot = opString yjitSupport "yjit";
 
-          cargoDeps = if yjitSupport then
-            rustPlatform.fetchCargoTarball {
-              inherit src;
-              sourceRoot = "${pname}-${version}/${cargoRoot}";
-              sha256 = cargoSha256;
-            }
-          else
-            null;
+          cargoDeps =
+            if yjitSupport then
+              rustPlatform.fetchCargoTarball {
+                inherit src;
+                sourceRoot = "${pname}-${version}/${cargoRoot}";
+                sha256 = cargoSha256;
+              }
+            else
+              null
+            ;
 
           postUnpack = opString rubygemsSupport ''
             rm -rf $sourceRoot/{lib,test}/rubygems*
@@ -273,9 +281,9 @@ let
             export HOME=$TMPDIR
           '';
 
-          # fails with "16993 tests, 2229489 assertions, 105 failures, 14 errors, 89 skips"
-          # mostly TZ- and patch-related tests
-          # TZ- failures are caused by nix sandboxing, I didn't investigate others
+            # fails with "16993 tests, 2229489 assertions, 105 failures, 14 errors, 89 skips"
+            # mostly TZ- and patch-related tests
+            # TZ- failures are caused by nix sandboxing, I didn't investigate others
           doCheck = false;
 
           preInstall = ''
@@ -285,7 +293,7 @@ let
           '';
 
           installFlags = lib.optional docSupport "install-doc";
-          # Bundler tries to create this directory
+            # Bundler tries to create this directory
           postInstall = ''
             rbConfig=$(find $out/lib/ruby -name rbconfig.rb)
             # Remove references to the build environment from the closure
@@ -358,8 +366,8 @@ let
           '';
           doInstallCheck = true;
 
-          disallowedRequisites = op (!jitSupport) stdenv.cc.cc
-            ++ op useBaseRuby baseRuby;
+          disallowedRequisites =
+            op (!jitSupport) stdenv.cc.cc ++ op useBaseRuby baseRuby;
 
           meta = with lib; {
             description =
@@ -399,7 +407,7 @@ let
         }) args;
     in
     self
-  ;
+    ;
 
 in {
   mkRubyVersion = rubyVersion;

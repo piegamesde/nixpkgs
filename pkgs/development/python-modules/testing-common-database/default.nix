@@ -18,7 +18,7 @@ buildPythonPackage rec {
       --replace "collections.Callable" "collections.abc.Callable"
   '';
 
-  # There are no unit tests
+    # There are no unit tests
   doCheck = false;
 
   meta = with lib; {

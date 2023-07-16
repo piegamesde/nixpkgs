@@ -24,7 +24,8 @@ buildPythonPackage rec {
 
   patches = [ (fetchpatch {
     url =
-      "https://patch-diff.githubusercontent.com/raw/gugarosa/opytimark/pull/2.patch";
+      "https://patch-diff.githubusercontent.com/raw/gugarosa/opytimark/pull/2.patch"
+      ;
     hash = "sha256-r/oCKI9Q1nuCZDGHx7UW8j523sFe4EFmguMOJTs/LOU=";
   }) ];
 
@@ -32,7 +33,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  # several tests are failing
+    # several tests are failing
   disabledTests = [
     "test_year"
     "test_decorator"

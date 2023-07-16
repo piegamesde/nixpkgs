@@ -13,7 +13,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://git.metabarcoding.org/obitools/ecopcr/-/archive/ecopcr_v${version}/ecopcr-ecopcr_v${version}.tar.gz";
+      "https://git.metabarcoding.org/obitools/ecopcr/-/archive/ecopcr_v${version}/ecopcr-ecopcr_v${version}.tar.gz"
+      ;
     hash = "sha256-ssvWpi7HuuRRAkpqqrX3ijLuBqM3QsrmrG+t7/m6fZA=";
   };
 

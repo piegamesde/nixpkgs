@@ -16,7 +16,8 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/mirage/encore/releases/download/v${version}/encore-v${version}.tbz";
+      "https://github.com/mirage/encore/releases/download/v${version}/encore-v${version}.tbz"
+      ;
     sha256 = "a406bc9863b04bb424692045939d6c170a2bb65a98521ae5608d25b0559344f6";
   };
 

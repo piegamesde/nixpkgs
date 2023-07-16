@@ -9,10 +9,12 @@
 }:
 
 let
-  arch = if stdenv.isAarch64 then
-    "arm64"
-  else
-    "x86_64";
+  arch =
+    if stdenv.isAarch64 then
+      "arm64"
+    else
+      "x86_64"
+    ;
 in
 stdenv.mkDerivation rec {
   pname = "openwith";
@@ -43,7 +45,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Utility to specify which application bundle should open specific file extensions";
+      "Utility to specify which application bundle should open specific file extensions"
+      ;
     homepage = "https://github.com/jdek/openwith";
     license = licenses.unlicense;
     maintainers = with maintainers; [ zowoq ];

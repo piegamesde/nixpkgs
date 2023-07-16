@@ -41,9 +41,9 @@ python3.pkgs.buildPythonApplication rec {
     toml
   ];
 
-  # Upstream expects a old pytest-bdd version
-  # Once it changes we should update here too
-  # https://github.com/jrnl-org/jrnl/blob/develop/poetry.lock#L732
+    # Upstream expects a old pytest-bdd version
+    # Once it changes we should update here too
+    # https://github.com/jrnl-org/jrnl/blob/develop/poetry.lock#L732
   disabledTests = [ "bdd" ];
 
   postPatch = ''
@@ -59,7 +59,8 @@ python3.pkgs.buildPythonApplication rec {
 
   meta = with lib; {
     description =
-      "Simple command line journal application that stores your journal in a plain text file";
+      "Simple command line journal application that stores your journal in a plain text file"
+      ;
     homepage = "https://jrnl.sh/";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [

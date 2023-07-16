@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     gobject-introspection
   ];
 
-  # Requires in libgnomekbd.pc
+    # Requires in libgnomekbd.pc
   propagatedBuildInputs = [
     gtk3
     libxklavier

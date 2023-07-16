@@ -49,7 +49,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A fast, concise, readable, pragmatic and open sourced programming language";
+      "A fast, concise, readable, pragmatic and open sourced programming language"
+      ;
     homepage = "https://odin-lang.org/";
     license = licenses.bsd2;
     maintainers = with maintainers; [ luc65r ];

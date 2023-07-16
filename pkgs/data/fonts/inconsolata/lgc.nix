@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
       * Straight quotation marks.
     '';
 
-    # See `License.txt' for details.
+      # See `License.txt' for details.
     license = licenses.ofl;
     homepage = "https://github.com/MihailJP/Inconsolata-LGC";
     maintainers = with maintainers; [

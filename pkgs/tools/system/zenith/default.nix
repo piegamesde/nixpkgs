@@ -22,7 +22,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-GrrdE9Ih8x8N2HN+1NfxfthfHbufLAT/Ac+ZZWW5Zg8=";
   };
 
-  # remove cargo config so it can find the linker on aarch64-linux
+    # remove cargo config so it can find the linker on aarch64-linux
   postPatch = ''
     rm .cargo/config
   '';
@@ -35,10 +35,10 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  nativeBuildInputs = [ llvmPackages.clang ]
-    ++ lib.optional nvidiaSupport makeWrapper;
-  buildInputs = [ llvmPackages.libclang ]
-    ++ lib.optionals stdenv.isDarwin [ IOKit ];
+  nativeBuildInputs =
+    [ llvmPackages.clang ] ++ lib.optional nvidiaSupport makeWrapper;
+  buildInputs =
+    [ llvmPackages.libclang ] ++ lib.optionals stdenv.isDarwin [ IOKit ];
 
   buildFeatures = lib.optional nvidiaSupport "nvidia";
 

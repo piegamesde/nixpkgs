@@ -25,7 +25,8 @@ let
     ${cfg.extraConfig}
   '';
 
-  bindingCfg = {
+  bindingCfg =
+    {
       ...
     }: {
       options = {
@@ -58,7 +59,8 @@ let
         };
 
       };
-    };
+    }
+    ;
 
 in {
 
@@ -113,7 +115,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -138,7 +140,7 @@ in {
       };
     };
 
-    # For testing
+      # For testing
     environment.systemPackages = [ pkgs.actkbd ];
 
   };

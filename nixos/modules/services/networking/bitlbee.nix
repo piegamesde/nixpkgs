@@ -168,7 +168,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkMerge [
     (mkIf config.services.bitlbee.enable {

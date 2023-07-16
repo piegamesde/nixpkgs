@@ -55,7 +55,8 @@ stdenv.mkDerivation rec {
     # Remove with onnx submodule bump to 1.9+
     (fetchpatch {
       url =
-        "https://github.com/onnx/onnx/commit/d3bc82770474761571f950347560d62a35d519d7.patch";
+        "https://github.com/onnx/onnx/commit/d3bc82770474761571f950347560d62a35d519d7.patch"
+        ;
       extraPrefix = "Source/CNTKv2LibraryDll/proto/onnx/onnx_repo/";
       stripLen = 1;
       sha256 = "00raqj8wx30b06ky6cdp5vvc1mrzs7hglyi6h58hchw5lhrwkzxp";
@@ -73,10 +74,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ] ++ lib.optional cudaSupport addOpenGLRunpath;
 
-  # Force OpenMPI to use g++ in PATH.
+    # Force OpenMPI to use g++ in PATH.
   OMPI_CXX = "g++";
 
-  # Uses some deprecated tensorflow functions
+    # Uses some deprecated tensorflow functions
   env.NIX_CFLAGS_COMPILE = "-Wno-error=deprecated-declarations";
 
   buildInputs = [
@@ -149,15 +150,17 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/Microsoft/CNTK";
     description = "An open source deep-learning toolkit";
-    license = if onebitSGDSupport then
-      licenses.unfreeRedistributable
-    else
-      licenses.mit;
+    license =
+      if onebitSGDSupport then
+        licenses.unfreeRedistributable
+      else
+        licenses.mit
+      ;
     platforms = [ "x86_64-linux" ];
     maintainers = with maintainers; [ abbradar ];
-    # Newer cub is included with cudatoolkit now and it breaks the build.
-    # https://github.com/Microsoft/CNTK/issues/3191
-    # broken = cudaSupport;
+      # Newer cub is included with cudatoolkit now and it breaks the build.
+      # https://github.com/Microsoft/CNTK/issues/3191
+      # broken = cudaSupport;
     broken = true; # at 2022-11-23
   };
 }

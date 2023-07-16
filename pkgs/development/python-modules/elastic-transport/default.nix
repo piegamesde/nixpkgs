@@ -63,10 +63,12 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Transport classes and utilities shared among Python Elastic client libraries";
+      "Transport classes and utilities shared among Python Elastic client libraries"
+      ;
     homepage = "https://github.com/elasticsearch/elastic-transport-python";
     changelog =
-      "https://github.com/elastic/elastic-transport-python/releases/tag/v${version}";
+      "https://github.com/elastic/elastic-transport-python/releases/tag/v${version}"
+      ;
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
   };

@@ -48,9 +48,9 @@ stdenv.mkDerivation rec {
     mplayer = "${mplayer}/bin/mplayer";
   }) ];
 
-  # Workaround build failure on -fno-common toolchains:
-  #   ld: mpris-interface.o:src/playlist.h:32: multiple definition of
-  #     `plclose'; gui.o:src/playlist.h:32: first defined here
+    # Workaround build failure on -fno-common toolchains:
+    #   ld: mpris-interface.o:src/playlist.h:32: multiple definition of
+    #     `plclose'; gui.o:src/playlist.h:32: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   meta = with lib; {

@@ -10,7 +10,8 @@ stdenv.mkDerivation rec {
   configureFlags = [ "--enable-sse2" ];
   src = fetchurl {
     url =
-      "https://github.com/downloads/chokkan/liblbfgs/liblbfgs-${version}.tar.gz";
+      "https://github.com/downloads/chokkan/liblbfgs/liblbfgs-${version}.tar.gz"
+      ;
     sha256 = "1kv8d289rbz38wrpswx5dkhr2yh4fg4h6sszkp3fawxm09sann21";
   };
 

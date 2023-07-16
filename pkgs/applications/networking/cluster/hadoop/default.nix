@@ -32,7 +32,8 @@ assert elem stdenv.system [
 ];
 
 let
-  common = {
+  common =
+    {
       pname,
       platformAttrs,
       untarDir ? "${pname}-${version}",
@@ -90,7 +91,8 @@ let
       meta = recursiveUpdate {
         homepage = "https://hadoop.apache.org/";
         description =
-          "Framework for distributed processing of large data sets across clusters of computers";
+          "Framework for distributed processing of large data sets across clusters of computers"
+          ;
         license = licenses.asl20;
         sourceProvenance = with sourceTypes; [ binaryBytecode ];
 
@@ -111,7 +113,8 @@ let
         stdenv.system
         "meta"
       ] { } platformAttrs);
-    };
+    }
+    ;
 in {
   # Different version of hadoop support different java runtime versions
   # https://cwiki.apache.org/confluence/display/HADOOP/Hadoop+Java+Versions
@@ -171,8 +174,8 @@ in {
       hash = "sha256-qt2gpMr+NHuiVR+/zFRzRyRKG725/ZNBIM69z9J9wNw=";
     };
     jdk = jdk8_headless;
-    # not using native libs because of broken openssl_1_0_2 dependency
-    # can be manually overridden
+      # not using native libs because of broken openssl_1_0_2 dependency
+      # can be manually overridden
     tests = nixosTests.hadoop_3_2;
   };
   hadoop2 = common rec {

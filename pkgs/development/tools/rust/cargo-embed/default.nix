@@ -21,8 +21,8 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-xL1QbeOLnAJVcBdp2NIMlT5LMxkNwA99VzCHV9NjwUo=";
 
-  nativeBuildInputs = [ pkg-config ]
-    ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
+  nativeBuildInputs =
+    [ pkg-config ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
 
   buildInputs = [
     libusb1
@@ -35,7 +35,8 @@ rustPlatform.buildRustPackage rec {
     description = "A cargo extension for working with microcontrollers";
     homepage = "https://probe.rs/";
     changelog =
-      "https://github.com/probe-rs/probe-rs/blob/v${version}/cargo-embed/CHANGELOG.md";
+      "https://github.com/probe-rs/probe-rs/blob/v${version}/cargo-embed/CHANGELOG.md"
+      ;
     license = with licenses; [
       asl20 # or
       mit

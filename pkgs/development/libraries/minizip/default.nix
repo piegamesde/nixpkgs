@@ -17,7 +17,8 @@ stdenv.mkDerivation {
 
   meta = {
     description =
-      "Compression library implementing the deflate compression method found in gzip and PKZIP";
+      "Compression library implementing the deflate compression method found in gzip and PKZIP"
+      ;
     inherit (zlib.meta) license homepage;
     platforms = lib.platforms.unix;
   };

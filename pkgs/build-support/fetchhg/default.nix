@@ -29,17 +29,21 @@ else
 
     subrepoClause = lib.optionalString fetchSubrepos "S";
 
-    outputHashAlgo = if hash != null then
-      null
-    else
-      "sha256";
+    outputHashAlgo =
+      if hash != null then
+        null
+      else
+        "sha256"
+      ;
     outputHashMode = "recursive";
-    outputHash = if hash != null then
-      hash
-    else if sha256 != null then
-      sha256
-    else
-      lib.fakeSha256;
+    outputHash =
+      if hash != null then
+        hash
+      else if sha256 != null then
+        sha256
+      else
+        lib.fakeSha256
+      ;
 
     inherit url rev;
     inherit preferLocalBuild;

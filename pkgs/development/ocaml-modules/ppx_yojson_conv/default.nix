@@ -27,7 +27,8 @@ buildDunePackage rec {
 
   meta = with lib; {
     description =
-      "A PPX syntax extension that generates code for converting OCaml types to and from Yojson";
+      "A PPX syntax extension that generates code for converting OCaml types to and from Yojson"
+      ;
     homepage = "https://github.com/janestreet/ppx_yojson_conv";
     maintainers = with maintainers; [ djacu ];
     license = with licenses; [ mit ];

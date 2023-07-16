@@ -23,7 +23,8 @@ buildPythonPackage rec {
   patches = [ (fetchpatch {
     name = "django-4-compatibility.patch";
     url =
-      "https://github.com/skorokithakis/django-annoying/pull/101/commits/51b5bd7bc8bb7a410400667e00d0813603df32bd.patch";
+      "https://github.com/skorokithakis/django-annoying/pull/101/commits/51b5bd7bc8bb7a410400667e00d0813603df32bd.patch"
+      ;
     hash = "sha256-gLRlAtIHHJ85I88af3C3y+ZT+nXrj2KrV7QgOuEqspk=";
   }) ];
 
@@ -41,7 +42,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "A django application that tries to eliminate annoying things in the Django framework";
+      "A django application that tries to eliminate annoying things in the Django framework"
+      ;
     homepage = "https://skorokithakis.github.io/django-annoying/";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ambroisie ];

@@ -9,7 +9,8 @@ import ./make-test-python.nix ({
     meta.maintainers = with lib.maintainers; [ hexa ];
 
     nodes = {
-      machine = {
+      machine =
+        {
           config,
           ...
         }: {
@@ -32,7 +33,8 @@ import ./make-test-python.nix ({
               };
             };
           };
-        };
+        }
+        ;
     };
 
     testScript = ''

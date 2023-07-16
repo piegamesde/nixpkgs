@@ -10,38 +10,49 @@ with lib;
 let
 
   cfg = config.services.stunnel;
-  yesNo = val:
+  yesNo =
+    val:
     if val then
       "yes"
     else
-      "no";
+      "no"
+    ;
 
-  verifyRequiredField = type: field: n: c: {
-    assertion = hasAttr field c;
-    message =
-      ''stunnel: "${n}" ${type} configuration - Field ${field} is required.'';
-  };
+  verifyRequiredField =
+    type: field: n: c: {
+      assertion = hasAttr field c;
+      message =
+        ''stunnel: "${n}" ${type} configuration - Field ${field} is required.'';
+    }
+    ;
 
-  verifyChainPathAssert = n: c: {
-    assertion = (c.verifyHostname or null) == null
-      || (c.verifyChain || c.verifyPeer);
-    message = ''stunnel: "${n}" client configuration - hostname verification ''
-      + "is not possible without either verifyChain or verifyPeer enabled";
-  };
+  verifyChainPathAssert =
+    n: c: {
+      assertion =
+        (c.verifyHostname or null) == null || (c.verifyChain || c.verifyPeer);
+      message =
+        ''stunnel: "${n}" client configuration - hostname verification ''
+        + "is not possible without either verifyChain or verifyPeer enabled";
+    }
+    ;
 
   removeNulls = mapAttrs (_: filterAttrs (_: v: v != null));
-  mkValueString = v:
+  mkValueString =
+    v:
     if v == true then
       "yes"
     else if v == false then
       "no"
     else
-      generators.mkValueStringDefault { } v;
-  generateConfig = c:
+      generators.mkValueStringDefault { } v
+    ;
+  generateConfig =
+    c:
     generators.toINI {
       mkSectionName = id;
       mkKeyValue = k: v: "${k} = ${mkValueString v}";
-    } (removeNulls c);
+    } (removeNulls c)
+    ;
 
 in {
 
@@ -136,25 +147,31 @@ in {
             str
           ])));
 
-        apply = let
-          applyDefaults = c:
-            {
-              CAFile = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
-              OCSPaia = true;
-              verifyChain = true;
-            } // c;
-          setCheckHostFromVerifyHostname = c:
-            # To preserve backward-compatibility with the old NixOS stunnel module
-            # definition, allow "verifyHostname" as an alias for "checkHost".
-            c // {
-              checkHost = c.checkHost or c.verifyHostname or null;
-              verifyHostname = null; # Not a real stunnel configuration setting
-            };
-          forceClient = c: c // { client = true; };
-        in
-        mapAttrs
-        (_: c: forceClient (setCheckHostFromVerifyHostname (applyDefaults c)))
-        ;
+        apply =
+          let
+            applyDefaults =
+              c:
+              {
+                CAFile = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
+                OCSPaia = true;
+                verifyChain = true;
+              } // c
+              ;
+            setCheckHostFromVerifyHostname =
+              c:
+              # To preserve backward-compatibility with the old NixOS stunnel module
+              # definition, allow "verifyHostname" as an alias for "checkHost".
+              c // {
+                checkHost = c.checkHost or c.verifyHostname or null;
+                verifyHostname =
+                  null; # Not a real stunnel configuration setting
+              }
+              ;
+            forceClient = c: c // { client = true; };
+          in
+          mapAttrs
+          (_: c: forceClient (setCheckHostFromVerifyHostname (applyDefaults c)))
+          ;
 
         example = {
           foobar = {
@@ -168,7 +185,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -177,7 +194,8 @@ in {
         assertion = (length (attrValues cfg.servers) != 0)
           || ((length (attrValues cfg.clients)) != 0);
         message =
-          "stunnel: At least one server- or client-configuration has to be present.";
+          "stunnel: At least one server- or client-configuration has to be present."
+          ;
       })
 
       (mapAttrsToList verifyChainPathAssert cfg.clients)

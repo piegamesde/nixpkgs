@@ -15,7 +15,8 @@ let
   etcFiles =
     pkgs.callPackage ./brscan5_etc_files.nix { netDevices = netDeviceList; };
 
-  netDeviceOpts = {
+  netDeviceOpts =
+    {
       name,
       ...
     }: {
@@ -66,7 +67,8 @@ let
       };
 
       config = { name = mkDefault name; };
-    };
+    }
+    ;
 
 in {
   options = {

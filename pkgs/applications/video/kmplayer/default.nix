@@ -26,7 +26,8 @@ mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://kde/stable/kmplayer/${majorMinorVersion}/kmplayer-${version}.tar.bz2";
+      "mirror://kde/stable/kmplayer/${majorMinorVersion}/kmplayer-${version}.tar.bz2"
+      ;
     sha256 = "0wzdxym4fc83wvqyhcwid65yv59a2wvp1lq303cn124mpnlwx62y";
   };
 
@@ -40,7 +41,7 @@ mkDerivation rec {
       -e "s,^Exec.*,Exec=$out/bin/kmplayer -qwindowtitle %c %i %U,"
   '';
 
-  # required for kf5auth to work correctly
+    # required for kf5auth to work correctly
   cmakeFlags = [ "-DCMAKE_POLICY_DEFAULT_CMP0012=NEW" ];
 
   nativeBuildInputs = [

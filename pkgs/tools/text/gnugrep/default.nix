@@ -26,13 +26,13 @@ stdenv.mkDerivation {
     sha256 = "0g42svbc1nq5bamxfj6x7320wli4dlj86padk0hwgbk04hqxl42w";
   };
 
-  # https://git.savannah.gnu.org/cgit/gnulib.git/commit/?id=b50c6442e43d79471a31a2a202d3e50c0557446f
+    # https://git.savannah.gnu.org/cgit/gnulib.git/commit/?id=b50c6442e43d79471a31a2a202d3e50c0557446f
   patches =
     lib.optional stdenv.hostPlatform.isLoongArch64 ./sigsegv-loongarch.patch;
 
-  # Perl is needed for testing
-  nativeBuildInputs = [ perl ]
-    ++ lib.optional stdenv.hostPlatform.isLoongArch64 autoreconfHook;
+    # Perl is needed for testing
+  nativeBuildInputs =
+    [ perl ] ++ lib.optional stdenv.hostPlatform.isLoongArch64 autoreconfHook;
   outputs = [
     "out"
     "info"
@@ -43,20 +43,20 @@ stdenv.mkDerivation {
     libiconv
   ];
 
-  # cygwin: FAIL: multibyte-white-space
-  # freebsd: FAIL mb-non-UTF8-performance
-  # all platforms: timing sensitivity in long-pattern-perf
-  #doCheck = !stdenv.isDarwin && !stdenv.isSunOS && !stdenv.isCygwin && !stdenv.isFreeBSD;
+    # cygwin: FAIL: multibyte-white-space
+    # freebsd: FAIL mb-non-UTF8-performance
+    # all platforms: timing sensitivity in long-pattern-perf
+    #doCheck = !stdenv.isDarwin && !stdenv.isSunOS && !stdenv.isCygwin && !stdenv.isFreeBSD;
   doCheck = false;
 
-  # On macOS, force use of mkdir -p, since Grep's fallback
-  # (./install-sh) is broken.
+    # On macOS, force use of mkdir -p, since Grep's fallback
+    # (./install-sh) is broken.
   preConfigure = ''
     export MKDIR_P="mkdir -p"
   '';
 
-  # Fix reference to sh in bootstrap-tools, and invoke grep via
-  # absolute path rather than looking at argv[0].
+    # Fix reference to sh in bootstrap-tools, and invoke grep via
+    # absolute path rather than looking at argv[0].
   postInstall = ''
     rm $out/bin/egrep $out/bin/fgrep
     echo "#! /bin/sh" > $out/bin/egrep

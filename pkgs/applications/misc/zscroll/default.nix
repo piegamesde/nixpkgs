@@ -9,7 +9,7 @@ python3Packages.buildPythonApplication rec {
   pname = "zscroll";
   version = "2.0.1";
 
-  # don't prefix with python version
+    # don't prefix with python version
   namePrefix = "";
 
   src = fetchFromGitHub {

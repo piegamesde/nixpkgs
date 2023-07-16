@@ -6,32 +6,37 @@ lib.mapAttrs (lname: lset:
   let
     defaultLicense = rec {
       shortName = lname;
-      free =
-        true; # Most of our licenses are Free, explicitly declare unfree additions as such!
+      free = true
+        ; # Most of our licenses are Free, explicitly declare unfree additions as such!
       deprecated = false;
     };
 
-    mkLicense = licenseDeclaration:
+    mkLicense =
+      licenseDeclaration:
       let
         applyDefaults = license: defaultLicense // license;
-        applySpdx = license:
+        applySpdx =
+          license:
           if license ? spdxId then
             license // {
               url = "https://spdx.org/licenses/${license.spdxId}.html";
             }
           else
-            license;
-        applyRedistributable = license:
+            license
+          ;
+        applyRedistributable =
+          license:
           {
             redistributable = license.free;
-          } // license;
+          } // license
+          ;
       in
       lib.pipe licenseDeclaration [
         applyDefaults
         applySpdx
         applyRedistributable
       ]
-    ;
+      ;
   in
   mkLicense lset
 ) ({
@@ -241,7 +246,8 @@ lib.mapAttrs (lname: lset:
   cc-by-nc-nd-30 = {
     spdxId = "CC-BY-NC-ND-3.0";
     fullName =
-      "Creative Commons Attribution Non Commercial No Derivative Works 3.0 Unported";
+      "Creative Commons Attribution Non Commercial No Derivative Works 3.0 Unported"
+      ;
     free = false;
   };
 
@@ -388,7 +394,8 @@ lib.mapAttrs (lname: lset:
   elastic = {
     fullName = "ELASTIC LICENSE";
     url =
-      "https://github.com/elastic/elasticsearch/blob/master/licenses/ELASTIC-LICENSE.txt";
+      "https://github.com/elastic/elasticsearch/blob/master/licenses/ELASTIC-LICENSE.txt"
+      ;
     free = false;
   };
 
@@ -474,8 +481,8 @@ lib.mapAttrs (lname: lset:
 
   generaluser = {
     fullName = "GeneralUser GS License v2.0";
-    url =
-      "http://www.schristiancollins.com/generaluser.php"; # license included in sources
+    url = "http://www.schristiancollins.com/generaluser.php"
+      ; # license included in sources
   };
 
   gpl1Only = {
@@ -507,7 +514,8 @@ lib.mapAttrs (lname: lset:
 
   gpl2Oss = {
     fullName =
-      "GNU General Public License version 2 only (with OSI approved licenses linking exception)";
+      "GNU General Public License version 2 only (with OSI approved licenses linking exception)"
+      ;
     url = "https://www.mysql.com/about/legal/licensing/foss-exception";
   };
 
@@ -542,7 +550,7 @@ lib.mapAttrs (lname: lset:
     spdxId = "HPND-sell-variant";
   };
 
-  # Intel's license, seems free
+    # Intel's license, seems free
   iasl = {
     fullName = "iASL";
     url = "https://old.calculate-linux.org/packages/licenses/iASL";
@@ -565,7 +573,8 @@ lib.mapAttrs (lname: lset:
 
   inria-compcert = {
     fullName =
-      "INRIA Non-Commercial License Agreement for the CompCert verified compiler";
+      "INRIA Non-Commercial License Agreement for the CompCert verified compiler"
+      ;
     url = "https://compcert.org/doc/LICENSE.txt";
     free = false;
   };
@@ -591,7 +600,7 @@ lib.mapAttrs (lname: lset:
     fullName = "ISC License";
   };
 
-  # Proprietary binaries; free to redistribute without modification.
+    # Proprietary binaries; free to redistribute without modification.
   databricks = {
     fullName = "Databricks Proprietary License";
     url = "https://pypi.org/project/databricks-connect";
@@ -601,7 +610,8 @@ lib.mapAttrs (lname: lset:
   databricks-dbx = {
     fullName = "DataBricks eXtensions aka dbx License";
     url =
-      "https://github.com/databrickslabs/dbx/blob/743b579a4ac44531f764c6e522dbe5a81a7dc0e4/LICENSE";
+      "https://github.com/databrickslabs/dbx/blob/743b579a4ac44531f764c6e522dbe5a81a7dc0e4/LICENSE"
+      ;
     free = false;
     redistributable = false;
   };
@@ -615,7 +625,8 @@ lib.mapAttrs (lname: lset:
   issl = {
     fullName = "Intel Simplified Software License";
     url =
-      "https://software.intel.com/en-us/license/intel-simplified-software-license";
+      "https://software.intel.com/en-us/license/intel-simplified-software-license"
+      ;
     free = false;
   };
 
@@ -686,7 +697,8 @@ lib.mapAttrs (lname: lset:
 
   llgpl21 = {
     fullName =
-      "Lisp LGPL; GNU Lesser General Public License version 2.1 with Franz Inc. preamble for clarification of LGPL terms in context of Lisp";
+      "Lisp LGPL; GNU Lesser General Public License version 2.1 with Franz Inc. preamble for clarification of LGPL terms in context of Lisp"
+      ;
     url = "https://opensource.franz.com/preamble.html";
   };
 
@@ -710,13 +722,13 @@ lib.mapAttrs (lname: lset:
     url = "https://opensource.org/licenses/MirOS";
   };
 
-  # spdx.org does not (yet) differentiate between the X11 and Expat versions
-  # for details see https://en.wikipedia.org/wiki/MIT_License#Various_versions
+    # spdx.org does not (yet) differentiate between the X11 and Expat versions
+    # for details see https://en.wikipedia.org/wiki/MIT_License#Various_versions
   mit = {
     spdxId = "MIT";
     fullName = "MIT License";
   };
-  # https://spdx.org/licenses/MIT-feh.html
+    # https://spdx.org/licenses/MIT-feh.html
   mit-feh = {
     spdxId = "MIT-feh";
     fullName = "feh License";
@@ -782,7 +794,8 @@ lib.mapAttrs (lname: lset:
   ocamlpro_nc = {
     fullName = "OCamlPro Non Commercial license version 1";
     url =
-      "https://alt-ergo.ocamlpro.com/http/alt-ergo-2.2.0/OCamlPro-Non-Commercial-License.pdf";
+      "https://alt-ergo.ocamlpro.com/http/alt-ergo-2.2.0/OCamlPro-Non-Commercial-License.pdf"
+      ;
     free = false;
   };
 
@@ -897,8 +910,8 @@ lib.mapAttrs (lname: lset:
     fullName = "SGI Free Software License B v2.0";
   };
 
-  # Gentoo seems to treat it as a license:
-  # https://gitweb.gentoo.org/repo/gentoo.git/tree/licenses/SGMLUG?id=7d999af4a47bf55e53e54713d98d145f935935c1
+    # Gentoo seems to treat it as a license:
+    # https://gitweb.gentoo.org/repo/gentoo.git/tree/licenses/SGMLUG?id=7d999af4a47bf55e53e54713d98d145f935935c1
   sgmlug = { fullName = "SGML UG SGML Parser Materials license"; };
 
   sleepycat = {
@@ -917,9 +930,9 @@ lib.mapAttrs (lname: lset:
     fullName = "Server Side Public License";
     url = "https://www.mongodb.com/licensing/server-side-public-license";
     free = false;
-    # NOTE Debatable.
-    # The license a slightly modified AGPL but still considered unfree by the
-    # OSI for what seem like political reasons
+      # NOTE Debatable.
+      # The license a slightly modified AGPL but still considered unfree by the
+      # OSI for what seem like political reasons
     redistributable =
       true; # Definitely redistributable though, it's an AGPL derivative
   };
@@ -934,7 +947,8 @@ lib.mapAttrs (lname: lset:
     shortName = "TSL";
     fullName = "Timescale License Agreegment";
     url =
-      "https://github.com/timescale/timescaledb/blob/main/tsl/LICENSE-TIMESCALE";
+      "https://github.com/timescale/timescaledb/blob/main/tsl/LICENSE-TIMESCALE"
+      ;
     unfree = true;
   };
 
@@ -967,8 +981,8 @@ lib.mapAttrs (lname: lset:
   unfreeRedistributableFirmware = {
     fullName = "Unfree redistributable firmware";
     redistributable = true;
-    # Note: we currently consider these "free" for inclusion in the
-    # channel and NixOS images.
+      # Note: we currently consider these "free" for inclusion in the
+      # channel and NixOS images.
   };
 
   unicode-dfs-2015 = {
@@ -998,7 +1012,8 @@ lib.mapAttrs (lname: lset:
 
   virtualbox-puel = {
     fullName =
-      "Oracle VM VirtualBox Extension Pack Personal Use and Evaluation License (PUEL)";
+      "Oracle VM VirtualBox Extension Pack Personal Use and Evaluation License (PUEL)"
+      ;
     url = "https://www.virtualbox.org/wiki/VirtualBox_PUEL";
     free = false;
   };

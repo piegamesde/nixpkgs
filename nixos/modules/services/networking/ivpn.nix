@@ -26,7 +26,7 @@ in with lib; {
       ivpn-service
     ];
 
-    # iVPN writes to /etc/iproute2/rt_tables
+      # iVPN writes to /etc/iproute2/rt_tables
     networking.iproute2.enable = true;
     networking.firewall.checkReversePath = "loose";
 

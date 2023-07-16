@@ -55,14 +55,15 @@ python3.pkgs.buildPythonApplication rec {
     yarl
   ];
 
-  # no tests implemented
+    # no tests implemented
   checkPhase = ''
     $out/bin/appdaemon -v | grep -q "${version}"
   '';
 
   meta = with lib; {
     description =
-      "Sandboxed Python execution environment for writing automation apps for Home Assistant";
+      "Sandboxed Python execution environment for writing automation apps for Home Assistant"
+      ;
     homepage = "https://github.com/AppDaemon/appdaemon";
     changelog =
       "https://github.com/AppDaemon/appdaemon/blob/${version}/docs/HISTORY.rst";

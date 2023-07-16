@@ -15,12 +15,14 @@ let
   opt = options.services.mediatomb;
   name = cfg.package.pname;
   pkg = cfg.package;
-  optionYesNo = option:
+  optionYesNo =
+    option:
     if option then
       "yes"
     else
-      "no";
-  # configuration on media directory
+      "no"
+    ;
+    # configuration on media directory
   mediaDirectory = {
     options = {
       path = mkOption {
@@ -32,8 +34,9 @@ let
       recursive = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc
-          "Whether the indexation must take place recursively or not.";
+        description =
+          lib.mdDoc "Whether the indexation must take place recursively or not."
+          ;
       };
       hidden-files = mkOption {
         type = types.bool;
@@ -42,47 +45,51 @@ let
       };
     };
   };
-  toMediaDirectory = d: ''
-    <directory location="${d.path}" mode="inotify" recursive="${
-      optionYesNo d.recursive
-    }" hidden-files="${optionYesNo d.hidden-files}" />
-  '';
+  toMediaDirectory =
+    d: ''
+      <directory location="${d.path}" mode="inotify" recursive="${
+        optionYesNo d.recursive
+      }" hidden-files="${optionYesNo d.hidden-files}" />
+    ''
+    ;
 
-  transcodingConfig = if cfg.transcoding then
-    with pkgs; ''
-      <transcoding enabled="yes">
-        <mimetype-profile-mappings>
-          <transcode mimetype="video/x-flv" using="vlcmpeg" />
-          <transcode mimetype="application/ogg" using="vlcmpeg" />
-          <transcode mimetype="audio/ogg" using="ogg2mp3" />
-          <transcode mimetype="audio/x-flac" using="oggflac2raw"/>
-        </mimetype-profile-mappings>
-        <profiles>
-          <profile name="ogg2mp3" enabled="no" type="external">
-            <mimetype>audio/mpeg</mimetype>
-            <accept-url>no</accept-url>
-            <first-resource>yes</first-resource>
-            <accept-ogg-theora>no</accept-ogg-theora>
-            <agent command="${ffmpeg}/bin/ffmpeg" arguments="-y -i %in -f mp3 %out" />
-            <buffer size="1048576" chunk-size="131072" fill-size="262144" />
-          </profile>
-          <profile name="vlcmpeg" enabled="no" type="external">
-            <mimetype>video/mpeg</mimetype>
-            <accept-url>yes</accept-url>
-            <first-resource>yes</first-resource>
-            <accept-ogg-theora>yes</accept-ogg-theora>
-            <agent command="${libsForQt5.vlc}/bin/vlc"
-              arguments="-I dummy %in --sout #transcode{venc=ffmpeg,vcodec=mp2v,vb=4096,fps=25,aenc=ffmpeg,acodec=mpga,ab=192,samplerate=44100,channels=2}:standard{access=file,mux=ps,dst=%out} vlc:quit" />
-            <buffer size="14400000" chunk-size="512000" fill-size="120000" />
-          </profile>
-        </profiles>
-      </transcoding>
-    ''
-  else
-    ''
-      <transcoding enabled="no">
-      </transcoding>
-    '';
+  transcodingConfig =
+    if cfg.transcoding then
+      with pkgs; ''
+        <transcoding enabled="yes">
+          <mimetype-profile-mappings>
+            <transcode mimetype="video/x-flv" using="vlcmpeg" />
+            <transcode mimetype="application/ogg" using="vlcmpeg" />
+            <transcode mimetype="audio/ogg" using="ogg2mp3" />
+            <transcode mimetype="audio/x-flac" using="oggflac2raw"/>
+          </mimetype-profile-mappings>
+          <profiles>
+            <profile name="ogg2mp3" enabled="no" type="external">
+              <mimetype>audio/mpeg</mimetype>
+              <accept-url>no</accept-url>
+              <first-resource>yes</first-resource>
+              <accept-ogg-theora>no</accept-ogg-theora>
+              <agent command="${ffmpeg}/bin/ffmpeg" arguments="-y -i %in -f mp3 %out" />
+              <buffer size="1048576" chunk-size="131072" fill-size="262144" />
+            </profile>
+            <profile name="vlcmpeg" enabled="no" type="external">
+              <mimetype>video/mpeg</mimetype>
+              <accept-url>yes</accept-url>
+              <first-resource>yes</first-resource>
+              <accept-ogg-theora>yes</accept-ogg-theora>
+              <agent command="${libsForQt5.vlc}/bin/vlc"
+                arguments="-I dummy %in --sout #transcode{venc=ffmpeg,vcodec=mp2v,vb=4096,fps=25,aenc=ffmpeg,acodec=mpga,ab=192,samplerate=44100,channels=2}:standard{access=file,mux=ps,dst=%out} vlc:quit" />
+              <buffer size="14400000" chunk-size="512000" fill-size="120000" />
+            </profile>
+          </profiles>
+        </transcoding>
+      ''
+    else
+      ''
+        <transcoding enabled="no">
+        </transcoding>
+      ''
+    ;
 
   configText = optionalString (!cfg.customCfg) ''
     <?xml version="1.0" encoding="UTF-8"?>
@@ -391,52 +398,53 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
-  config = let
-    binaryCommand = "${pkg}/bin/${name}";
-    interfaceFlag =
-      optionalString (cfg.interface != "") "--interface ${cfg.interface}";
-    configFlag = optionalString (!cfg.customCfg)
-      "--config ${pkgs.writeText "config.xml" configText}";
-  in
-  mkIf cfg.enable {
-    systemd.services.mediatomb = {
-      description = "${cfg.serverName} media Server";
-      # Gerbera might fail if the network interface is not available on startup
-      # https://github.com/gerbera/gerbera/issues/1324
-      after = [
-        "network.target"
-        "network-online.target"
-      ];
-      wantedBy = [ "multi-user.target" ];
-      serviceConfig.ExecStart = "${binaryCommand} --port ${
-          toString cfg.port
-        } ${interfaceFlag} ${configFlag} --home ${cfg.dataDir}";
-      serviceConfig.User = cfg.user;
-      serviceConfig.Group = cfg.group;
-    };
-
-    users.groups =
-      optionalAttrs (cfg.group == "mediatomb") { mediatomb.gid = gid; };
-
-    users.users = optionalAttrs (cfg.user == "mediatomb") {
-      mediatomb = {
-        isSystemUser = true;
-        group = cfg.group;
-        home = cfg.dataDir;
-        createHome = true;
-        description = "${name} DLNA Server User";
+  config =
+    let
+      binaryCommand = "${pkg}/bin/${name}";
+      interfaceFlag =
+        optionalString (cfg.interface != "") "--interface ${cfg.interface}";
+      configFlag = optionalString (!cfg.customCfg)
+        "--config ${pkgs.writeText "config.xml" configText}";
+    in
+    mkIf cfg.enable {
+      systemd.services.mediatomb = {
+        description = "${cfg.serverName} media Server";
+          # Gerbera might fail if the network interface is not available on startup
+          # https://github.com/gerbera/gerbera/issues/1324
+        after = [
+          "network.target"
+          "network-online.target"
+        ];
+        wantedBy = [ "multi-user.target" ];
+        serviceConfig.ExecStart = "${binaryCommand} --port ${
+            toString cfg.port
+          } ${interfaceFlag} ${configFlag} --home ${cfg.dataDir}";
+        serviceConfig.User = cfg.user;
+        serviceConfig.Group = cfg.group;
       };
-    };
 
-    # Open firewall only if users enable it
-    networking.firewall = mkMerge [
-      (mkIf (cfg.openFirewall && cfg.interface != "") {
-        interfaces."${cfg.interface}" = defaultFirewallRules;
-      })
-      (mkIf (cfg.openFirewall && cfg.interface == "") defaultFirewallRules)
-    ];
-  }
-  ;
+      users.groups =
+        optionalAttrs (cfg.group == "mediatomb") { mediatomb.gid = gid; };
+
+      users.users = optionalAttrs (cfg.user == "mediatomb") {
+        mediatomb = {
+          isSystemUser = true;
+          group = cfg.group;
+          home = cfg.dataDir;
+          createHome = true;
+          description = "${name} DLNA Server User";
+        };
+      };
+
+        # Open firewall only if users enable it
+      networking.firewall = mkMerge [
+        (mkIf (cfg.openFirewall && cfg.interface != "") {
+          interfaces."${cfg.interface}" = defaultFirewallRules;
+        })
+        (mkIf (cfg.openFirewall && cfg.interface == "") defaultFirewallRules)
+      ];
+    }
+    ;
 }

@@ -44,10 +44,12 @@ let
   majorVersion = lib.versions.major version;
   minorVersion = lib.versions.minor version;
 
-  pname = if enableNpm then
-    "nodejs"
-  else
-    "nodejs-slim";
+  pname =
+    if enableNpm then
+      "nodejs"
+    else
+      "nodejs-slim"
+    ;
 
   useSharedHttpParser = !stdenv.isDarwin
     && lib.versionOlder "${majorVersion}.${minorVersion}" "11.4";
@@ -109,49 +111,50 @@ let
     setOutputFlags = false;
     moveToDev = false;
 
-    configureFlags = let
-      isCross = stdenv.hostPlatform != stdenv.buildPlatform;
-      inherit (stdenv.hostPlatform) gcc isAarch32;
-    in
-    sharedConfigureFlags
-    ++ lib.optionals (lib.versionOlder version "19") [ "--without-dtrace" ]
-    ++ (lib.optionals isCross [
-      "--cross-compiling"
-      "--without-intl"
-      "--without-snapshot"
-      "--dest-cpu=${
-        let
-          platform = stdenv.hostPlatform;
-        in if platform.isAarch32 then
-          "arm"
-        else if platform.isAarch64 then
-          "arm64"
-        else if platform.isMips32 && platform.isLittleEndian then
-          "mipsel"
-        else if platform.isMips32 && !platform.isLittleEndian then
-          "mips"
-        else if platform.isMips64 && platform.isLittleEndian then
-          "mips64el"
-        else if platform.isPower && platform.is32bit then
-          "ppc"
-        else if platform.isPower && platform.is64bit then
-          "ppc64"
-        else if platform.isx86_64 then
-          "x86_64"
-        else if platform.isx86_32 then
-          "x86"
-        else if platform.isS390 && platform.is64bit then
-          "s390x"
-        else if platform.isRiscV && platform.is64bit then
-          "riscv64"
-        else
-          throw "unsupported cpu ${stdenv.hostPlatform.uname.processor}"
-      }"
-    ]) ++ (lib.optionals (isCross && isAarch32
-      && lib.hasAttr "fpu" gcc) [ "--with-arm-fpu=${gcc.fpu}" ])
-    ++ (lib.optionals (isCross && isAarch32 && lib.hasAttr "float-abi"
-      gcc) [ "--with-arm-float-abi=${gcc.float-abi}" ]) ++ extraConfigFlags
-    ;
+    configureFlags =
+      let
+        isCross = stdenv.hostPlatform != stdenv.buildPlatform;
+        inherit (stdenv.hostPlatform) gcc isAarch32;
+      in
+      sharedConfigureFlags
+      ++ lib.optionals (lib.versionOlder version "19") [ "--without-dtrace" ]
+      ++ (lib.optionals isCross [
+        "--cross-compiling"
+        "--without-intl"
+        "--without-snapshot"
+        "--dest-cpu=${
+          let
+            platform = stdenv.hostPlatform;
+          in if platform.isAarch32 then
+            "arm"
+          else if platform.isAarch64 then
+            "arm64"
+          else if platform.isMips32 && platform.isLittleEndian then
+            "mipsel"
+          else if platform.isMips32 && !platform.isLittleEndian then
+            "mips"
+          else if platform.isMips64 && platform.isLittleEndian then
+            "mips64el"
+          else if platform.isPower && platform.is32bit then
+            "ppc"
+          else if platform.isPower && platform.is64bit then
+            "ppc64"
+          else if platform.isx86_64 then
+            "x86_64"
+          else if platform.isx86_32 then
+            "x86"
+          else if platform.isS390 && platform.is64bit then
+            "s390x"
+          else if platform.isRiscV && platform.is64bit then
+            "riscv64"
+          else
+            throw "unsupported cpu ${stdenv.hostPlatform.uname.processor}"
+        }"
+      ]) ++ (lib.optionals (isCross && isAarch32
+        && lib.hasAttr "fpu" gcc) [ "--with-arm-fpu=${gcc.fpu}" ])
+      ++ (lib.optionals (isCross && isAarch32 && lib.hasAttr "float-abi"
+        gcc) [ "--with-arm-float-abi=${gcc.float-abi}" ]) ++ extraConfigFlags
+      ;
 
     configurePlatforms = [ ];
 
@@ -159,12 +162,12 @@ let
 
     enableParallelBuilding = true;
 
-    # Don't allow enabling content addressed conversion as `nodejs`
-    # checksums it's image before conversion happens and image loading
-    # breaks:
-    #   $ nix build -f. nodejs --arg config '{ contentAddressedByDefault = true; }'
-    #   $ ./result/bin/node
-    #   Check failed: VerifyChecksum(blob).
+      # Don't allow enabling content addressed conversion as `nodejs`
+      # checksums it's image before conversion happens and image loading
+      # breaks:
+      #   $ nix build -f. nodejs --arg config '{ contentAddressedByDefault = true; }'
+      #   $ ./result/bin/node
+      #   Check failed: VerifyChecksum(blob).
     __contentAddressed = false;
 
     passthru.interpreterName = "nodejs";
@@ -279,7 +282,8 @@ let
       platforms = platforms.linux ++ platforms.darwin;
       mainProgram = "node";
       knownVulnerabilities = optional (versionOlder version "14")
-        "This NodeJS release has reached its end of life. See https://nodejs.org/en/about/releases/.";
+        "This NodeJS release has reached its end of life. See https://nodejs.org/en/about/releases/."
+        ;
     };
 
     passthru.python = python; # to ensure nodeEnv uses the same version

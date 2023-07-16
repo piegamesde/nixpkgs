@@ -47,7 +47,8 @@ buildPythonPackage rec {
     description = "Library for recovering Bluetooth adapters";
     homepage = "https://github.com/Bluetooth-Devices/bluetooth-auto-recovery";
     changelog =
-      "https://github.com/Bluetooth-Devices/bluetooth-auto-recovery/blob/v${version}/CHANGELOG.md";
+      "https://github.com/Bluetooth-Devices/bluetooth-auto-recovery/blob/v${version}/CHANGELOG.md"
+      ;
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

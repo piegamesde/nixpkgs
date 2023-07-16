@@ -16,7 +16,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage =
-      "https://www.shlomifish.org/open-source/projects/black-hole-solitaire-solver/";
+      "https://www.shlomifish.org/open-source/projects/black-hole-solitaire-solver/"
+      ;
     description =
       "A solver for Solitaire variants Golf, Black Hole, and All in a Row.";
     license = licenses.mit;
@@ -24,7 +25,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://fc-solve.shlomifish.org/downloads/fc-solve/${pname}-${version}.tar.xz";
+      "https://fc-solve.shlomifish.org/downloads/fc-solve/${pname}-${version}.tar.xz"
+      ;
     sha256 = "sha256-0y8yU291cykliPQbsNha5C1WE3bCGNxKtrrf5JBKN6c=";
   };
 

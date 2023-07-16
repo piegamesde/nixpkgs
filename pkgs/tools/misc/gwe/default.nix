@@ -92,7 +92,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "System utility designed to provide information, control the fans and overclock your NVIDIA card";
+      "System utility designed to provide information, control the fans and overclock your NVIDIA card"
+      ;
     homepage = "https://gitlab.com/leinardi/gwe";
     platforms = platforms.linux;
     license = licenses.gpl3Only;

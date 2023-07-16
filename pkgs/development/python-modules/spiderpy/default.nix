@@ -25,7 +25,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  # tests don't mock remote resources
+    # tests don't mock remote resources
   doCheck = false;
 
   pythonImportsCheck = [ "spiderpy.spiderapi" ];

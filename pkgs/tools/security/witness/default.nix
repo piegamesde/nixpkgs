@@ -20,7 +20,7 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  # We only want the witness binary, not the helper utilities for generating docs.
+    # We only want the witness binary, not the helper utilities for generating docs.
   subPackages = [ "." ];
 
   ldflags = [
@@ -29,9 +29,9 @@ buildGoModule rec {
     "-X github.com/testifysec/witness/cmd.Version=v${version}"
   ];
 
-  # Feed in all tests for testing
-  # This is because subPackages above limits what is built to just what we
-  # want but also limits the tests
+    # Feed in all tests for testing
+    # This is because subPackages above limits what is built to just what we
+    # want but also limits the tests
   preCheck = ''
     unset subPackages
   '';
@@ -53,7 +53,8 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "A pluggable framework for software supply chain security. Witness prevents tampering of build materials and verifies the integrity of the build process from source to target";
+      "A pluggable framework for software supply chain security. Witness prevents tampering of build materials and verifies the integrity of the build process from source to target"
+      ;
     longDescription = ''
       Witness prevents tampering of build materials and verifies the integrity
       of the build process from source to target. It works by wrapping commands

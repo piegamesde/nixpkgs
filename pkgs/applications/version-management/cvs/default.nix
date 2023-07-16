@@ -22,7 +22,8 @@ stdenv.mkDerivation rec {
     ./CVE-2017-12836.patch
     (fetchpatch {
       url =
-        "https://raw.githubusercontent.com/Homebrew/formula-patches/24118ec737c7/cvs/vasnprintf-high-sierra-fix.diff";
+        "https://raw.githubusercontent.com/Homebrew/formula-patches/24118ec737c7/cvs/vasnprintf-high-sierra-fix.diff"
+        ;
       sha256 = "1ql6aaia7xkfq3vqhlw5bd2z2ywka82zk01njs1b2szn699liymg";
     })
   ];

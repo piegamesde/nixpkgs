@@ -28,7 +28,8 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "A command-line tool for generating regular expressions from user-provided test cases";
+      "A command-line tool for generating regular expressions from user-provided test cases"
+      ;
     homepage = "https://github.com/pemistahl/grex";
     license = licenses.asl20;
     maintainers = with maintainers; [ SuperSandro2000 ];

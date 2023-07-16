@@ -33,11 +33,11 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  # For cross platform builds of p11-kit, libtasn1 in nativeBuildInputs
-  # provides the asn1Parser binary on the hostPlatform needed for building.
-  # at the same time, libtasn1 in buildInputs provides the libasn1 library
-  # to link against for the target platform.
-  # Hence, libtasn1 is required in both native and build inputs.
+    # For cross platform builds of p11-kit, libtasn1 in nativeBuildInputs
+    # provides the asn1Parser binary on the hostPlatform needed for building.
+    # at the same time, libtasn1 in buildInputs provides the libasn1 library
+    # to link against for the target platform.
+    # Hence, libtasn1 is required in both native and build inputs.
   nativeBuildInputs = [
     autoreconfHook
     docbook-xsl-nons
@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  # Tests run in fakeroot for non-root users
+    # Tests run in fakeroot for non-root users
   preCheck = ''
     if [ "$(id -u)" != "0" ]; then
       export FAKED_MODE=1

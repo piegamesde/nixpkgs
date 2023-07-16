@@ -34,7 +34,8 @@ buildDunePackage rec {
 
   src = fetchzip {
     url =
-      "https://github.com/mirage/mrmime/releases/download/v${version}/mrmime-v${version}.tbz";
+      "https://github.com/mirage/mrmime/releases/download/v${version}/mrmime-v${version}.tbz"
+      ;
     sha256 = "14k67v0b39b8jq3ny2ymi8g8sqx2gd81mlzsjphdzdqnlx6fk716";
   };
 

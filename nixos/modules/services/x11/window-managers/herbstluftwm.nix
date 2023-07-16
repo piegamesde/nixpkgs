@@ -39,12 +39,13 @@ in {
   config = mkIf cfg.enable {
     services.xserver.windowManager.session = singleton {
       name = "herbstluftwm";
-      start = let
-        configFileClause =
-          optionalString (cfg.configFile != null) ''-c "${cfg.configFile}"'';
-      in
-      "${cfg.package}/bin/herbstluftwm ${configFileClause}"
-      ;
+      start =
+        let
+          configFileClause =
+            optionalString (cfg.configFile != null) ''-c "${cfg.configFile}"'';
+        in
+        "${cfg.package}/bin/herbstluftwm ${configFileClause}"
+        ;
     };
     environment.systemPackages = [ cfg.package ];
   };

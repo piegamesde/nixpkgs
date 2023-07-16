@@ -18,7 +18,8 @@ stdenv.mkDerivation {
 
   src = requireFile rec {
     url =
-      "https://www.oracle.com/database/sqldeveloper/technologies/sqlcl/download/";
+      "https://www.oracle.com/database/sqldeveloper/technologies/sqlcl/download/"
+      ;
     name = "V${fileVersion}.zip";
     message = ''
       This Nix expression requires that ${name} already be part of the store. To

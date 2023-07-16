@@ -21,7 +21,7 @@ buildPythonPackage rec {
     six
   ];
 
-  # tests require text files that are not included in the pypi package
+    # tests require text files that are not included in the pypi package
   doCheck = false;
 
   meta = with lib; {

@@ -20,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-W9TNtbRhQmwZXhi0TJIDkZRtWhi92/iwL056YIcWnLM=";
   };
 
-  # 'mpv-jsonipc' does not have any tests
+    # 'mpv-jsonipc' does not have any tests
   doCheck = false;
 
   propagatedBuildInputs = [

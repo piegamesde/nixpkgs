@@ -36,7 +36,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = {
     assertions = [ {
@@ -46,7 +46,7 @@ in {
 
     systemd.services.nix-optimise = lib.mkIf config.nix.enable {
       description = "Nix Store Optimiser";
-      # No point this if the nix daemon (and thus the nix store) is outside
+        # No point this if the nix daemon (and thus the nix store) is outside
       unitConfig.ConditionPathIsReadWrite = "/nix/var/nix/daemon-socket";
       serviceConfig.ExecStart =
         "${config.nix.package}/bin/nix-store --optimise";

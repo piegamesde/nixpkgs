@@ -21,9 +21,9 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ util-linux ];
 
-  # * Remove broken install rules (they ignore $PREFIX) for stuff we don't need
-  #   anyway (it's distro specific stuff).
-  # * Fixup absolute path to modprobe.
+    # * Remove broken install rules (they ignore $PREFIX) for stuff we don't need
+    #   anyway (it's distro specific stuff).
+    # * Fixup absolute path to modprobe.
   prePatch = ''
     sed -e "/INSTALL.*initramfs\/hook/d" \
         -e "/INSTALL.*initcpio\/install/d" \

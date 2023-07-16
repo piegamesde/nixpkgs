@@ -25,7 +25,8 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url =
-      "https://github.com/SRI-CSL/Maude/archive/refs/tags/Maude${version}.tar.gz";
+      "https://github.com/SRI-CSL/Maude/archive/refs/tags/Maude${version}.tar.gz"
+      ;
     sha256 = "ueM8qi3fLogWT8bA+ZyBnd9Zr9oOKuoiu2YpG6o5J1E=";
   };
 
@@ -50,12 +51,12 @@ stdenv.mkDerivation {
     "fortify"
   ];
 
-  # Fix for glibc-2.34, see
-  # https://gitweb.gentoo.org/repo/gentoo.git/commit/dev-lang/maude/maude-3.1-r1.ebuild?id=f021cc6cfa1e35eb9c59955830f1fd89bfcb26b4
+    # Fix for glibc-2.34, see
+    # https://gitweb.gentoo.org/repo/gentoo.git/commit/dev-lang/maude/maude-3.1-r1.ebuild?id=f021cc6cfa1e35eb9c59955830f1fd89bfcb26b4
   configureFlags = [ "--without-libsigsegv" ];
 
-  # Certain tests (in particular, Misc/fileTest) expect us to build in a subdirectory
-  # We'll use the directory Opt/ as suggested in INSTALL
+    # Certain tests (in particular, Misc/fileTest) expect us to build in a subdirectory
+    # We'll use the directory Opt/ as suggested in INSTALL
   preConfigure = ''
     mkdir Opt; cd Opt
     configureFlagsArray=(

@@ -33,7 +33,8 @@ stdenv.mkDerivation (finalAttrs: {
     # https://github.com/nigels-com/glew/pull/342
     (fetchpatch {
       url =
-        "https://github.com/nigels-com/glew/commit/966e53fa153175864e151ec8a8e11f688c3e752d.diff";
+        "https://github.com/nigels-com/glew/commit/966e53fa153175864e151ec8a8e11f688c3e752d.diff"
+        ;
       sha256 = "sha256-xsSwdAbdWZA4KVoQhaLlkYvO711i3QlHGtv6v1Omkhw=";
     })
   ];
@@ -44,14 +45,16 @@ stdenv.mkDerivation (finalAttrs: {
     libXi
     libXext
   ];
-  propagatedBuildInputs = if stdenv.isDarwin then
-    [ OpenGL ]
-  else
-    [ libGLU ]; # GL/glew.h includes GL/glu.h
+  propagatedBuildInputs =
+    if stdenv.isDarwin then
+      [ OpenGL ]
+    else
+      [ libGLU ]
+    ; # GL/glew.h includes GL/glu.h
 
   cmakeDir = "cmake";
-  cmakeFlags = [ "-DBUILD_SHARED_LIBS=ON" ]
-    ++ lib.optional enableEGL "-DGLEW_EGL=ON";
+  cmakeFlags =
+    [ "-DBUILD_SHARED_LIBS=ON" ] ++ lib.optional enableEGL "-DGLEW_EGL=ON";
 
   postInstall = ''
     moveToOutput lib/cmake "''${!outputDev}"
@@ -80,7 +83,8 @@ stdenv.mkDerivation (finalAttrs: {
       free
       mit
       gpl2Only
-    ]; # For full details, see https://github.com/nigels-com/glew#copyright-and-licensing
+    ]
+      ; # For full details, see https://github.com/nigels-com/glew#copyright-and-licensing
     pkgConfigModules = [ "glew" ];
     platforms = with platforms;
       if enableEGL then

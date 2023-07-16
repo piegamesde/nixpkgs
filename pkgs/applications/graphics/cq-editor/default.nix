@@ -49,7 +49,7 @@ mkDerivationWith python3Packages.buildPythonApplication rec {
     pytest --no-xvfb
   '';
 
-  # requires X server
+    # requires X server
   doCheck = false;
 
   meta = with lib; {

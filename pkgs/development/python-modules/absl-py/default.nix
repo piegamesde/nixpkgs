@@ -19,7 +19,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ six ]
     ++ lib.optionals (pythonOlder "3.4") [ enum34 ];
 
-  # checks use bazel; should be revisited
+    # checks use bazel; should be revisited
   doCheck = false;
 
   meta = {

@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
   pname = "capnproto";
   version = "0.10.4";
 
-  # release tarballs are missing some ekam rules
+    # release tarballs are missing some ekam rules
   src = fetchFromGitHub {
     owner = "capnproto";
     repo = "capnproto";

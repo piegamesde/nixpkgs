@@ -38,20 +38,24 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "aseprite";
-  version = if unfree then
-    "1.2.16.3"
-  else
-    "1.1.7";
+  version =
+    if unfree then
+      "1.2.16.3"
+    else
+      "1.1.7"
+    ;
 
   src = fetchFromGitHub {
     owner = "aseprite";
     repo = "aseprite";
     rev = "v${version}";
     fetchSubmodules = true;
-    sha256 = if unfree then
-      "16yn7y9xdc5jd50cq7bmsm320gv23pp71lr8hg2nmynzc8ibyda8"
-    else
-      "0gd49lns2bpzbkwax5jf9x1xmg1j8ij997kcxr2596cwiswnw4di";
+    sha256 =
+      if unfree then
+        "16yn7y9xdc5jd50cq7bmsm320gv23pp71lr8hg2nmynzc8ibyda8"
+      else
+        "0gd49lns2bpzbkwax5jf9x1xmg1j8ij997kcxr2596cwiswnw4di"
+      ;
   };
 
   nativeBuildInputs = [
@@ -83,21 +87,25 @@ stdenv.mkDerivation rec {
     libGL
   ];
 
-  patches = if !unfree then
-    [ ./allegro-glibc-2.30.patch ]
-  else
-    [
-      (fetchpatch {
-        url =
-          "https://github.com/lfont/aseprite/commit/f1ebc47012d3fed52306ed5922787b4b98cc0a7b.patch";
-        sha256 = "03xg7x6b9iv7z18vzlqxhcfphmx4v3qhs9f5rgf38ppyklca5jyw";
-      })
-      (fetchpatch {
-        url =
-          "https://github.com/orivej/aseprite/commit/ea87e65b357ad0bd65467af5529183b5a48a8c17.patch";
-        sha256 = "1vwn8ivap1pzdh444sdvvkndp55iz146nhmd80xbm8cyzn3qmg91";
-      })
-    ];
+  patches =
+    if !unfree then
+      [ ./allegro-glibc-2.30.patch ]
+    else
+      [
+        (fetchpatch {
+          url =
+            "https://github.com/lfont/aseprite/commit/f1ebc47012d3fed52306ed5922787b4b98cc0a7b.patch"
+            ;
+          sha256 = "03xg7x6b9iv7z18vzlqxhcfphmx4v3qhs9f5rgf38ppyklca5jyw";
+        })
+        (fetchpatch {
+          url =
+            "https://github.com/orivej/aseprite/commit/ea87e65b357ad0bd65467af5529183b5a48a8c17.patch"
+            ;
+          sha256 = "1vwn8ivap1pzdh444sdvvkndp55iz146nhmd80xbm8cyzn3qmg91";
+        })
+      ]
+    ;
 
   postPatch = ''
     sed -i src/config.h -e "s-\\(#define VERSION\\) .*-\\1 \"$version\"-"
@@ -147,10 +155,12 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.aseprite.org/";
     description = "Animated sprite editor & pixel art tool";
-    license = if unfree then
-      licenses.unfree
-    else
-      licenses.gpl2;
+    license =
+      if unfree then
+        licenses.unfree
+      else
+        licenses.gpl2
+      ;
     longDescription = ''
       Aseprite is a program to create animated sprites. Its main features are:
 

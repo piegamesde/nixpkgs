@@ -26,7 +26,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "xfce") keep extra (self:
       pkgs.makeSetupHook { name = "xfce-automake-add-flags-hook"; }
       ./automakeAddFlags.sh;
 
-    #### CORE
+      #### CORE
 
     exo = callPackage ./core/exo { };
 
@@ -69,7 +69,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "xfce") keep extra (self:
         self.mkXfceDerivation.override { xfce4-dev-tools = null; };
     };
 
-    #### APPLICATIONS
+      #### APPLICATIONS
 
     catfish = callPackage ./applications/catfish { };
 
@@ -103,13 +103,13 @@ makeScopeWithSplicing (generateSplicesForMkScope "xfce") keep extra (self:
 
     xfce4-panel-profiles = callPackage ./applications/xfce4-panel-profiles { };
 
-    #### ART
+      #### ART
 
     xfce4-icon-theme = callPackage ./art/xfce4-icon-theme { };
 
     xfwm4-themes = callPackage ./art/xfwm4-themes { };
 
-    #### PANEL PLUGINS
+      #### PANEL PLUGINS
 
     xfce4-battery-plugin = callPackage ./panel-plugins/xfce4-battery-plugin { };
 
@@ -182,6 +182,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "xfce") keep extra (self:
       self.thunar.override { thunarPlugins = [ ]; }; # added 2019-11-04
 
     xfce4-hardware-monitor-plugin = throw
-      "xfce.xfce4-hardware-monitor-plugin has been removed: abandoned by upstream and does not build"; # added 2023-01-15
+      "xfce.xfce4-hardware-monitor-plugin has been removed: abandoned by upstream and does not build"
+      ; # added 2023-01-15
   }
 )

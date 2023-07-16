@@ -18,21 +18,21 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  # The default build phase (`make`) runs the test code. It's difficult to do
-  # the test in the build environment because it depends on the system package
-  # managers (apt/yum/pacman). We simply skip this phase since RoleSpec is
-  # shell based.
+    # The default build phase (`make`) runs the test code. It's difficult to do
+    # the test in the build environment because it depends on the system package
+    # managers (apt/yum/pacman). We simply skip this phase since RoleSpec is
+    # shell based.
   dontBuild = true;
 
-  # Wrap the program because `ROLESPEC_LIB` defaults to
-  # `/usr/local/lib/rolespec`.
+    # Wrap the program because `ROLESPEC_LIB` defaults to
+    # `/usr/local/lib/rolespec`.
   installPhase = ''
     make install PREFIX=$out
     wrapProgram $out/bin/rolespec --set ROLESPEC_LIB $out/lib/rolespec
   '';
 
-  # Since RoleSpec installs the shell script files in `lib` directory, the
-  # fixup phase shows some warnings. Disable these actions.
+    # Since RoleSpec installs the shell script files in `lib` directory, the
+    # fixup phase shows some warnings. Disable these actions.
   dontPatchELF = true;
   dontStrip = true;
 

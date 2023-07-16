@@ -32,15 +32,17 @@ let
     (n: v: nameValuePair "wakeup.${n}" (filterAttrs (_: v: v != null) v))
     cfg.wakeups;
 
-  # Whether the given check is enabled
-  hasCheck = class:
+    # Whether the given check is enabled
+  hasCheck =
+    class:
     (filterAttrs (n: v:
       v.enabled && (if v.class == null then
         n
       else
-        v.class) == class) cfg.checks) != { };
+        v.class) == class) cfg.checks) != { }
+    ;
 
-  # Dependencies needed by specific checks
+    # Dependencies needed by specific checks
   dependenciesForChecks = {
     "Smb" = pkgs.samba;
     "XIdleTime" = [
@@ -57,9 +59,8 @@ let
   checkType = types.submodule {
     freeformType = settingsFormat.type.nestedTypes.elemType;
 
-    options.enabled = mkEnableOption (mdDoc "this activity check") // {
-      default = true;
-    };
+    options.enabled =
+      mkEnableOption (mdDoc "this activity check") // { default = true; };
 
     options.class = mkOption {
       default = null;
@@ -93,9 +94,8 @@ let
   wakeupType = types.submodule {
     freeformType = settingsFormat.type.nestedTypes.elemType;
 
-    options.enabled = mkEnableOption (mdDoc "this wake-up check") // {
-      default = true;
-    };
+    options.enabled =
+      mkEnableOption (mdDoc "this wake-up check") // { default = true; };
 
     options.class = mkOption {
       default = null;
@@ -138,7 +138,8 @@ in {
             };
             wakeup_cmd = mkOption {
               default =
-                "sh -c 'echo 0 > /sys/class/rtc/rtc0/wakealarm && echo {timestamp:.0f} > /sys/class/rtc/rtc0/wakealarm' ";
+                "sh -c 'echo 0 > /sys/class/rtc/rtc0/wakealarm && echo {timestamp:.0f} > /sys/class/rtc/rtc0/wakealarm' "
+                ;
               type = with types; str;
               description = mdDoc ''
                 The command to execute for scheduling a wake up of the system. The given string is
@@ -229,27 +230,29 @@ in {
   config = mkIf cfg.enable {
     systemd.services.autosuspend = {
       description = "A daemon to suspend your server in case of inactivity";
-      documentation =
-        [ "https://autosuspend.readthedocs.io/en/latest/systemd_integration.html" ];
+      documentation = [ "https://autosuspend.readthedocs.io/en/latest/systemd_integration.html" ]
+        ;
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
       path = flatten
         (attrValues (filterAttrs (n: _: hasCheck n) dependenciesForChecks));
       serviceConfig = {
         ExecStart =
-          "${autosuspend}/bin/autosuspend -l ${autosuspend}/etc/autosuspend-logging.conf -c ${autosuspend-conf} daemon";
+          "${autosuspend}/bin/autosuspend -l ${autosuspend}/etc/autosuspend-logging.conf -c ${autosuspend-conf} daemon"
+          ;
       };
     };
 
     systemd.services.autosuspend-detect-suspend = {
       description = "Notifies autosuspend about suspension";
-      documentation =
-        [ "https://autosuspend.readthedocs.io/en/latest/systemd_integration.html" ];
+      documentation = [ "https://autosuspend.readthedocs.io/en/latest/systemd_integration.html" ]
+        ;
       wantedBy = [ "sleep.target" ];
       after = [ "sleep.target" ];
       serviceConfig = {
         ExecStart =
-          "${autosuspend}/bin/autosuspend -l ${autosuspend}/etc/autosuspend-logging.conf -c ${autosuspend-conf} presuspend";
+          "${autosuspend}/bin/autosuspend -l ${autosuspend}/etc/autosuspend-logging.conf -c ${autosuspend-conf} presuspend"
+          ;
       };
     };
   };

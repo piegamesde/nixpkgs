@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
     name = "photoprism";
     meta.maintainers = with lib.maintainers; [ stunkymonkey ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -19,7 +20,8 @@ import ./make-test-python.nix ({
         environment.extraInit = ''
           mkdir -p /media/photos
         '';
-      };
+      }
+      ;
 
     testScript = ''
       machine.wait_for_unit("multi-user.target")

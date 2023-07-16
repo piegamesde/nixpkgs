@@ -8,7 +8,8 @@
 }:
 
 let
-  generic = ver: assets:
+  generic =
+    ver: assets:
     stdenv.mkDerivation {
       name = "d${toString ver}x-rebirth-full-${assets.version}";
 
@@ -36,7 +37,8 @@ let
         platforms = with platforms; linux;
         hydraPlatforms = [ ];
       };
-    };
+    }
+    ;
 
 in {
   d1x-rebirth-full = generic 1 descent1-assets;

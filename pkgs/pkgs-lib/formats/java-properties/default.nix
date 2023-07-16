@@ -6,7 +6,8 @@ let
   inherit (lib) types;
   inherit (types) attrsOf oneOf coercedTo str bool int float package;
 in {
-  javaProperties = {
+  javaProperties =
+    {
       comment ? "Generated with Nix",
       boolToString ? lib.boolToString
     }: {
@@ -34,25 +35,27 @@ in {
       # We _can_ choose to support hierarchical config files
       # via nested attrsets, but the module author should
       # make sure that problem (2) does not occur.
-      type = let
-        elemType = oneOf ([
-          # `package` isn't generalized to `path` because path values
-          # are ambiguous. Are they host path strings (toString /foo/bar)
-          # or should they be added to the store? ("${/foo/bar}")
-          # The user must decide.
-          (coercedTo package toString str)
+      type =
+        let
+          elemType = oneOf ([
+            # `package` isn't generalized to `path` because path values
+            # are ambiguous. Are they host path strings (toString /foo/bar)
+            # or should they be added to the store? ("${/foo/bar}")
+            # The user must decide.
+            (coercedTo package toString str)
 
-          (coercedTo bool boolToString str)
-          (coercedTo int toString str)
-          (coercedTo float toString str)
-        ]) // {
-          description = "string, package, bool, int or float";
-        };
-      in
-      attrsOf elemType
-      ;
+            (coercedTo bool boolToString str)
+            (coercedTo int toString str)
+            (coercedTo float toString str)
+          ]) // {
+            description = "string, package, bool, int or float";
+          };
+        in
+        attrsOf elemType
+        ;
 
-      generate = name: value:
+      generate =
+        name: value:
         pkgs.runCommandLocal name {
           # Requirements
           # ============
@@ -93,34 +96,35 @@ in {
             pkgs.libiconvReal
           ];
 
-          jqCode = let
-            main = ''
-              to_entries
-                | .[]
-                | "\(
-                    .key
-                    | ${commonEscapes}
-                    | gsub(" "; "\\ ")
-                    | gsub("="; "\\=")
-                  ) = \(
-                    .value
-                    | ${commonEscapes}
-                    | gsub("^ "; "\\ ")
-                    | gsub("\\n "; "\n\\ ")
-                  )"
-            '';
-            # Most escapes are equal for both keys and values.
-            commonEscapes = ''
-              gsub("\\\\"; "\\\\")
-              | gsub("\\n"; "\\n\\\n")
-              | gsub("#"; "\\#")
-              | gsub("!"; "\\!")
-              | gsub("\\t"; "\\t")
-              | gsub("\r"; "\\r")
-            '';
-          in
-          main
-          ;
+          jqCode =
+            let
+              main = ''
+                to_entries
+                  | .[]
+                  | "\(
+                      .key
+                      | ${commonEscapes}
+                      | gsub(" "; "\\ ")
+                      | gsub("="; "\\=")
+                    ) = \(
+                      .value
+                      | ${commonEscapes}
+                      | gsub("^ "; "\\ ")
+                      | gsub("\\n "; "\n\\ ")
+                    )"
+              '';
+                # Most escapes are equal for both keys and values.
+              commonEscapes = ''
+                gsub("\\\\"; "\\\\")
+                | gsub("\\n"; "\\n\\\n")
+                | gsub("#"; "\\#")
+                | gsub("!"; "\\!")
+                | gsub("\\t"; "\\t")
+                | gsub("\r"; "\\r")
+              '';
+            in
+            main
+            ;
 
           inputEncoding = "UTF-8";
 
@@ -133,6 +137,8 @@ in {
             jq -r --arg hash '#' "$jqCode" "$valuePath" \
               | iconv --from-code "$inputEncoding" --to-code JAVA \
           ) > "$out"
-        '';
-    };
+        ''
+        ;
+    }
+    ;
 }

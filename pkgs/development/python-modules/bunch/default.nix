@@ -12,7 +12,7 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.7";
 
-  # Use a fork as upstream is dead
+    # Use a fork as upstream is dead
   src = fetchFromGitHub {
     owner = "olivecoder";
     repo = pname;
@@ -25,7 +25,7 @@ buildPythonPackage rec {
       --replace "rU" "r"
   '';
 
-  # No real tests available
+    # No real tests available
   doCheck = false;
 
   pythonImportsCheck = [ "bunch" ];

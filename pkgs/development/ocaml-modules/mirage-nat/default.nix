@@ -22,7 +22,8 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/mirage/${pname}/releases/download/v${version}/${pname}-${version}.tbz";
+      "https://github.com/mirage/${pname}/releases/download/v${version}/${pname}-${version}.tbz"
+      ;
     hash = "sha256-wReySOMulGkrPD60XxpgMrUoHzY9hQ7TZzYQyJ3eiik=";
   };
 
@@ -43,7 +44,8 @@ buildDunePackage rec {
 
   meta = with lib; {
     description =
-      "Mirage-nat is a library for network address translation to be used with MirageOS";
+      "Mirage-nat is a library for network address translation to be used with MirageOS"
+      ;
     homepage = "https://github.com/mirage/${pname}";
     license = licenses.isc;
     maintainers = [ maintainers.sternenseemann ];

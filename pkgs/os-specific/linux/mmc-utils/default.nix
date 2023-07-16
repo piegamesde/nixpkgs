@@ -11,7 +11,8 @@ stdenv.mkDerivation {
 
   src = fetchzip rec {
     url =
-      "https://git.kernel.org/pub/scm/utils/mmc/mmc-utils.git/snapshot/mmc-utils-${passthru.rev}.tar.gz";
+      "https://git.kernel.org/pub/scm/utils/mmc/mmc-utils.git/snapshot/mmc-utils-${passthru.rev}.tar.gz"
+      ;
     passthru.rev = "145c74ab6f2e13a9a8ccdbbf1758afedb8a3965c";
     sha256 = "cYLIO83uZHDe1COKtSN0SyFOoC3qrqMP0RNsOO9cQ70=";
   };

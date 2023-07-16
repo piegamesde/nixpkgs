@@ -5,28 +5,34 @@
   cacert,
 }:
 let
-  bowerVersion = version:
+  bowerVersion =
+    version:
     let
       components = lib.splitString "#" version;
       hash = lib.last components;
-      ver = if builtins.length components == 1 then
-        (cleanName version)
-      else
-        hash;
+      ver =
+        if builtins.length components == 1 then
+          (cleanName version)
+        else
+          hash
+        ;
     in
     ver
-  ;
+    ;
 
-  cleanName = name:
+  cleanName =
+    name:
     lib.replaceStrings [
       "/"
       ":"
     ] [
       "-"
       "-"
-    ] name;
+    ] name
+    ;
 
-  fetchbower = name: version: target: outputHash:
+  fetchbower =
+    name: version: target: outputHash:
     stdenvNoCC.mkDerivation {
       name = "${cleanName name}-${bowerVersion version}";
       buildCommand = ''
@@ -44,7 +50,8 @@ let
         bower2nix
         cacert
       ];
-    };
+    }
+    ;
 
 in
 fetchbower

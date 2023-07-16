@@ -10,10 +10,12 @@ let
     supportedSystems = [ ];
   };
 
-  make = crossSystem:
+  make =
+    crossSystem:
     import ./make-bootstrap-tools.nix {
       pkgs = releaseLib.pkgsForCross crossSystem system;
-    };
+    }
+    ;
 in
 lib.mapAttrs (n: make) (with lib.systems.examples; {
   armv5tel = sheevaplug;

@@ -16,7 +16,8 @@ in {
 
     services.airsonic = {
       enable = mkEnableOption (lib.mdDoc
-        "Airsonic, the Free and Open Source media streaming server (fork of Subsonic and Libresonic)");
+        "Airsonic, the Free and Open Source media streaming server (fork of Subsonic and Libresonic)")
+        ;
 
       user = mkOption {
         type = types.str;

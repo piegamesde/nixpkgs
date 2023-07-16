@@ -8,7 +8,8 @@ import ./make-test-python.nix ({
       Flakebi
     ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -20,7 +21,8 @@ import ./make-test-python.nix ({
           enable = true;
           passwordFile = builtins.toFile "password" "admin";
         };
-      };
+      }
+      ;
 
     testScript = ''
       import json

@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ django ];
 
-  # pypi version doesn't include runtest.py, needed to run tests
+    # pypi version doesn't include runtest.py, needed to run tests
   doCheck = false;
 
   pythonImportsCheck = [ "classytags" ];
@@ -29,7 +29,8 @@ buildPythonPackage rec {
     description = "Class based template tags for Django";
     homepage = "https://github.com/divio/django-classy-tags";
     changelog =
-      "https://github.com/django-cms/django-classy-tags/blob/${version}/CHANGELOG.rst";
+      "https://github.com/django-cms/django-classy-tags/blob/${version}/CHANGELOG.rst"
+      ;
     license = licenses.bsd3;
     maintainers = with maintainers; [ ];
   };

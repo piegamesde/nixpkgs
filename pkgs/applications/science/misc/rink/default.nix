@@ -32,7 +32,7 @@ rustPlatform.buildRustPackage rec {
   else
     [ openssl ]);
 
-  # Some tests fail and/or attempt to use internet servers.
+    # Some tests fail and/or attempt to use internet servers.
   doCheck = false;
 
   meta = with lib; {

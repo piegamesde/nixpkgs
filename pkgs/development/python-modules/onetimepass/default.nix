@@ -25,7 +25,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "One-time password library for HMAC-based (HOTP) and time-based (TOTP) passwords";
+      "One-time password library for HMAC-based (HOTP) and time-based (TOTP) passwords"
+      ;
     homepage = "https://github.com/tadeck/onetimepass";
     license = licenses.mit;
     maintainers = with maintainers; [ zakame ];

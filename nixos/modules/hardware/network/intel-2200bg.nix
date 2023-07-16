@@ -23,7 +23,7 @@
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = lib.mkIf config.networking.enableIntel2200BGFirmware {
 

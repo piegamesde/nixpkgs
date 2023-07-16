@@ -38,7 +38,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeCheckInputs = [ custom ];
 
-  # see comment on `custom`
+    # see comment on `custom`
   postPatch = ''
     for file in tests/fixtures/*-expected.sh; do
       substituteInPlace $file \

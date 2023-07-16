@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
     name = "containers-extra_veth";
     meta = { maintainers = with lib.maintainers; [ kampfschlaefer ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -58,7 +59,8 @@ import ./make-test-python.nix ({
         };
 
         virtualisation.additionalPaths = [ pkgs.stdenv ];
-      };
+      }
+      ;
 
     testScript = ''
       machine.wait_for_unit("default.target")

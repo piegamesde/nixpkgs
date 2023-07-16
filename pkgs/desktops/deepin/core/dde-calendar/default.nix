@@ -30,7 +30,8 @@ stdenv.mkDerivation rec {
   patches = [ (fetchpatch {
     name = "chore-use-GNUInstallDirs-in-CmakeLists.patch";
     url =
-      "https://github.com/linuxdeepin/dde-calendar/commit/b9d9555d90a36318eeee62ece49250b4bf8acd10.patch";
+      "https://github.com/linuxdeepin/dde-calendar/commit/b9d9555d90a36318eeee62ece49250b4bf8acd10.patch"
+      ;
     sha256 = "sha256-pvgxZPczs/lkwNjysNuVu+1AY69VZlxOn7hR9A02/3M=";
   }) ];
 
@@ -66,9 +67,9 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [ "-DVERSION=${version}" ];
 
-  # qt5integration must be placed before qtsvg in QT_PLUGIN_PATH
-  qtWrapperArgs =
-    [ "--prefix QT_PLUGIN_PATH : ${qt5integration}/${qtbase.qtPluginPrefix}" ];
+    # qt5integration must be placed before qtsvg in QT_PLUGIN_PATH
+  qtWrapperArgs = [ "--prefix QT_PLUGIN_PATH : ${qt5integration}/${qtbase.qtPluginPrefix}" ]
+    ;
 
   postFixup = ''
     wrapQtApp $out/lib/deepin-daemon/dde-calendar-service

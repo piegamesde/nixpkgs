@@ -16,8 +16,8 @@ rustPlatform.buildRustPackage rec {
     url = "https://code.tvl.fyi/depot.git:/ops/journaldriver.git";
     sha256 = "0bnf67k6pkw4rngn58b5zm19danr4sh2g6rfd4k5w2sa1lzqai04";
 
-    # TVL revision r/5656; as of 2023-01-13 the revision tag is
-    # unavailable through git, hence the pinned hash.
+      # TVL revision r/5656; as of 2023-01-13 the revision tag is
+      # unavailable through git, hence the pinned hash.
     rev = "4e191353228197ce548d63cb9955e53661244f9c";
   };
 

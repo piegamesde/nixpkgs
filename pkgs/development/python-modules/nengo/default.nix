@@ -23,10 +23,10 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ numpy ] ++ lib.optionals scipySupport [ scipy ]
     ++ lib.optionals scikitSupport [ scikit-learn ];
 
-  # checks req missing:
-  #   pytest-allclose
-  #   pytest-plt
-  #   pytest-rng
+    # checks req missing:
+    #   pytest-allclose
+    #   pytest-plt
+    #   pytest-rng
   doCheck = false;
 
   pythonImportsCheck = [ "nengo" ];

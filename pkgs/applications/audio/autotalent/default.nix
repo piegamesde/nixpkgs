@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "INSTALL_PLUGINS_DIR=$(out)/lib/ladspa" ];
 
-  # To avoid name clashes, plugins should be compiled with symbols hidden, except for `ladspa_descriptor`:
+    # To avoid name clashes, plugins should be compiled with symbols hidden, except for `ladspa_descriptor`:
   preConfigure = ''
     sed -r 's/^CFLAGS.*$/\0 -fvisibility=hidden/' -i Makefile
 

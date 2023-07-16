@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-OLT85GOcTnWmU+ZRem2+vY29nzvzXhnmIN2W+U6phPk=";
 
-  # Tests require network access
+    # Tests require network access
   doCheck = false;
 
   meta = with lib; {

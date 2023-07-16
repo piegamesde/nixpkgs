@@ -11,7 +11,8 @@ buildKodiAddon rec {
 
   src = fetchzip {
     url =
-      "https://mirrors.kodi.tv/addons/nexus/${namespace}/${namespace}-${version}.zip";
+      "https://mirrors.kodi.tv/addons/nexus/${namespace}/${namespace}-${version}.zip"
+      ;
     sha256 = "sha256-WsLR7iUh5F+LXMISBpWx71dLAtg/AMYF6BsiyKZakuE=";
   };
 

@@ -33,12 +33,12 @@ rustPlatform.buildRustPackage rec {
       AppKit
     ];
 
-  # Needed to get openssl-sys to use pkg-config.
+    # Needed to get openssl-sys to use pkg-config.
   OPENSSL_NO_VENDOR = 1;
 
-  # The cargo config overrides linkers for some targets, breaking the build
-  # on e.g. `aarch64-linux`. These overrides are not required in the Nix
-  # environment: delete them.
+    # The cargo config overrides linkers for some targets, breaking the build
+    # on e.g. `aarch64-linux`. These overrides are not required in the Nix
+    # environment: delete them.
   postPatch = "rm .cargo/config";
 
   meta = with lib; {

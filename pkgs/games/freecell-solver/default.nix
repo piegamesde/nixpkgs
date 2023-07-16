@@ -20,7 +20,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://fc-solve.shlomifish.org/downloads/fc-solve/${pname}-${version}.tar.xz";
+      "https://fc-solve.shlomifish.org/downloads/fc-solve/${pname}-${version}.tar.xz"
+      ;
     sha256 = "1cmaib69pijmcpvgjvrdry8j4xys8l906l80b8z21vvyhdwrfdnn";
   };
 
@@ -44,8 +45,8 @@ stdenv.mkDerivation rec {
     python3.pkgs.random2
   ];
 
-  # "ninja t/CMakeFiles/delta-states-test.t.exe.dir/__/delta_states.c.o" fails
-  # to depend on the generated "is_king.h".
+    # "ninja t/CMakeFiles/delta-states-test.t.exe.dir/__/delta_states.c.o" fails
+    # to depend on the generated "is_king.h".
   enableParallelBuilding = false;
 
   meta = {

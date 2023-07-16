@@ -44,7 +44,8 @@ rustPlatform.buildRustPackage rec {
     description = "Open Source Spotify client library and playback daemon";
     homepage = "https://github.com/librespot-org/librespot";
     changelog =
-      "https://github.com/librespot-org/librespot/blob/v${version}/CHANGELOG.md";
+      "https://github.com/librespot-org/librespot/blob/v${version}/CHANGELOG.md"
+      ;
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ bennofs ];
   };

@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
   ];
   preCheck = "make genmap_algo_test";
 
-  # disable benchmarks
+    # disable benchmarks
   preConfigure = ''
     echo > benchmarks/CMakeLists.txt
   '';

@@ -16,10 +16,12 @@
 }:
 
 let
-  luaValue = if luaSupport then
-    lua5
-  else
-    "no";
+  luaValue =
+    if luaSupport then
+      lua5
+    else
+      "no"
+    ;
   optional = lib.optional;
 
 in
@@ -63,8 +65,8 @@ stdenv.mkDerivation rec {
     "out"
     "nginx"
   ];
-  # by default modsecurity's install script copies compiled output to httpd's modules folder
-  # this patch removes those lines
+    # by default modsecurity's install script copies compiled output to httpd's modules folder
+    # this patch removes those lines
   patches = [ ./Makefile.am.patch ];
 
   doCheck = true;

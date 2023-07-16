@@ -21,7 +21,7 @@ let
           ${user}:${hash}
         '') cfg.web.credentials));
 
-  # default options in magneticod/main.go
+    # default options in magneticod/main.go
   dbURI = concatStrings [
     "sqlite3://${dataDir}/database.sqlite3"
     "?_journal_mode=WAL"
@@ -173,7 +173,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 

@@ -10,9 +10,9 @@ let
   cfg = config.services.mastodon;
   opt = options.services.mastodon;
 
-  # We only want to create a database if we're actually going to connect to it.
-  databaseActuallyCreateLocally = cfg.database.createLocally
-    && cfg.database.host == "/run/postgresql";
+    # We only want to create a database if we're actually going to connect to it.
+  databaseActuallyCreateLocally =
+    cfg.database.createLocally && cfg.database.host == "/run/postgresql";
 
   env = {
     RAILS_ENV = "production";
@@ -20,11 +20,11 @@ let
 
     LD_PRELOAD = "${pkgs.jemalloc}/lib/libjemalloc.so";
 
-    # mastodon-web concurrency.
+      # mastodon-web concurrency.
     WEB_CONCURRENCY = toString cfg.webProcesses;
     MAX_THREADS = toString cfg.webThreads;
 
-    # mastodon-streaming concurrency.
+      # mastodon-streaming concurrency.
     STREAMING_CLUSTER_NUM = toString cfg.streamingProcesses;
 
     DB_USER = cfg.database.user;
@@ -39,10 +39,12 @@ let
     SMTP_FROM_ADDRESS = cfg.smtp.fromAddress;
     PAPERCLIP_ROOT_PATH = "/var/lib/mastodon/public-system";
     PAPERCLIP_ROOT_URL = "/system";
-    ES_ENABLED = if (cfg.elasticsearch.host != null) then
-      "true"
-    else
-      "false";
+    ES_ENABLED =
+      if (cfg.elasticsearch.host != null) then
+        "true"
+      else
+        "false"
+      ;
     ES_HOST = cfg.elasticsearch.host;
     ES_PORT = toString (cfg.elasticsearch.port);
 
@@ -68,24 +70,24 @@ let
     # User and group
     User = cfg.user;
     Group = cfg.group;
-    # Working directory
+      # Working directory
     WorkingDirectory = cfg.package;
-    # State directory and mode
+      # State directory and mode
     StateDirectory = "mastodon";
     StateDirectoryMode = "0750";
-    # Logs directory and mode
+      # Logs directory and mode
     LogsDirectory = "mastodon";
     LogsDirectoryMode = "0750";
-    # Proc filesystem
+      # Proc filesystem
     ProcSubset = "pid";
     ProtectProc = "invisible";
-    # Access write directories
+      # Access write directories
     UMask = "0027";
-    # Capabilities
+      # Capabilities
     CapabilityBoundingSet = "";
-    # Security
+      # Security
     NoNewPrivileges = true;
-    # Sandboxing
+      # Sandboxing
     ProtectSystem = "strict";
     ProtectHome = true;
     PrivateTmp = true;
@@ -110,7 +112,7 @@ let
     RestrictSUIDSGID = true;
     RemoveIPC = true;
     PrivateMounts = true;
-    # System Call Filtering
+      # System Call Filtering
     SystemCallArchitectures = "native";
   };
 
@@ -121,25 +123,26 @@ let
       else
         [ ]) env))));
 
-  mastodonTootctl = let
-    sourceExtraEnv = lib.concatMapStrings (p: ''
-      source ${p}
-    '') cfg.extraEnvFiles;
-  in
-  pkgs.writeShellScriptBin "mastodon-tootctl" ''
-    set -a
-    export RAILS_ROOT="${cfg.package}"
-    source "${envFile}"
-    source /var/lib/mastodon/.secrets_env
-    ${sourceExtraEnv}
+  mastodonTootctl =
+    let
+      sourceExtraEnv = lib.concatMapStrings (p: ''
+        source ${p}
+      '') cfg.extraEnvFiles;
+    in
+    pkgs.writeShellScriptBin "mastodon-tootctl" ''
+      set -a
+      export RAILS_ROOT="${cfg.package}"
+      source "${envFile}"
+      source /var/lib/mastodon/.secrets_env
+      ${sourceExtraEnv}
 
-    sudo=exec
-    if [[ "$USER" != ${cfg.user} ]]; then
-      sudo='exec /run/wrappers/bin/sudo -u ${cfg.user} --preserve-env'
-    fi
-    $sudo ${cfg.package}/bin/tootctl "$@"
-  ''
-  ;
+      sudo=exec
+      if [[ "$USER" != ${cfg.user} ]]; then
+        sudo='exec /run/wrappers/bin/sudo -u ${cfg.user} --preserve-env'
+      fi
+      $sudo ${cfg.package}/bin/tootctl "$@"
+    ''
+    ;
 
   sidekiqUnits = lib.attrsets.mapAttrs' (name: processCfg:
     lib.nameValuePair "mastodon-sidekiq-${name}" (let
@@ -167,13 +170,14 @@ let
       };
       serviceConfig = {
         ExecStart =
-          "${cfg.package}/bin/sidekiq ${jobClassArgs} -c ${threads} -r ${cfg.package}";
+          "${cfg.package}/bin/sidekiq ${jobClassArgs} -c ${threads} -r ${cfg.package}"
+          ;
         Restart = "always";
         RestartSec = 20;
-        EnvironmentFile = [ "/var/lib/mastodon/.secrets_env" ]
-          ++ cfg.extraEnvFiles;
+        EnvironmentFile =
+          [ "/var/lib/mastodon/.secrets_env" ] ++ cfg.extraEnvFiles;
         WorkingDirectory = cfg.package;
-        # System Call Filtering
+          # System Call Filtering
         SystemCallFilter = [
           ("~" + lib.concatStringsSep " " systemCallsList)
           "@chown"
@@ -280,14 +284,16 @@ in {
 
       sidekiqThreads = lib.mkOption {
         description = lib.mdDoc
-          "Worker threads used by the mastodon-sidekiq-all service. If `sidekiqProcesses` is configured and any processes specify null `threads`, this value is used.";
+          "Worker threads used by the mastodon-sidekiq-all service. If `sidekiqProcesses` is configured and any processes specify null `threads`, this value is used."
+          ;
         type = lib.types.int;
         default = 25;
       };
 
       sidekiqProcesses = lib.mkOption {
         description = lib.mdDoc
-          "How many Sidekiq processes should be used to handle background jobs, and which job classes they handle. *Read the [upstream documentation](https://docs.joinmastodon.org/admin/scaling/#sidekiq) before configuring this!*";
+          "How many Sidekiq processes should be used to handle background jobs, and which job classes they handle. *Read the [upstream documentation](https://docs.joinmastodon.org/admin/scaling/#sidekiq) before configuring this!*"
+          ;
         type = with lib.types;
           attrsOf (submodule {
             options = {
@@ -301,12 +307,14 @@ in {
                   "ingress"
                 ]);
                 description = lib.mdDoc
-                  "If not empty, which job classes should be executed by this process. *Only one process should handle the 'scheduler' class. If left empty, this process will handle the 'scheduler' class.*";
+                  "If not empty, which job classes should be executed by this process. *Only one process should handle the 'scheduler' class. If left empty, this process will handle the 'scheduler' class.*"
+                  ;
               };
               threads = lib.mkOption {
                 type = nullOr int;
                 description = lib.mdDoc
-                  "Number of threads this process should use for executing jobs. If null, the configured `sidekiqThreads` are used.";
+                  "Number of threads this process should use for executing jobs. If null, the configured `sidekiqThreads` are used."
+                  ;
               };
             };
           });
@@ -443,8 +451,9 @@ in {
 
       database = {
         createLocally = lib.mkOption {
-          description = lib.mdDoc
-            "Configure local PostgreSQL database server for Mastodon.";
+          description =
+            lib.mdDoc "Configure local PostgreSQL database server for Mastodon."
+            ;
           type = lib.types.bool;
           default = true;
         };
@@ -458,10 +467,12 @@ in {
 
         port = lib.mkOption {
           type = lib.types.nullOr lib.types.port;
-          default = if cfg.database.createLocally then
-            null
-          else
-            5432;
+          default =
+            if cfg.database.createLocally then
+              null
+            else
+              5432
+            ;
           defaultText = lib.literalExpression ''
             if config.${opt.database.createLocally}
             then null
@@ -633,8 +644,8 @@ in {
     {
       assertions = [
         {
-          assertion = databaseActuallyCreateLocally
-            -> (cfg.user == cfg.database.user);
+          assertion =
+            databaseActuallyCreateLocally -> (cfg.user == cfg.database.user);
           message = ''
             For local automatic database provisioning (services.mastodon.database.createLocally == true) with peer
               authentication (services.mastodon.database.host == "/run/postgresql") to work services.mastodon.user
@@ -668,7 +679,8 @@ in {
             builtins.elem "scheduler" v.jobClasses || v.jobClasses == [ ])
             cfg.sidekiqProcesses);
           message = ''
-            There must be one and only one Sidekiq queue in services.mastodon.sidekiqProcesses with jobClass "scheduler".'';
+            There must be one and only one Sidekiq queue in services.mastodon.sidekiqProcesses with jobClass "scheduler".''
+            ;
         }
       ];
 
@@ -715,7 +727,7 @@ in {
         serviceConfig = {
           Type = "oneshot";
           SyslogIdentifier = "mastodon-init-dirs";
-          # System Call Filtering
+            # System Call Filtering
           SystemCallFilter = [
             ("~"
               + lib.concatStringsSep " " (systemCallsList ++ [ "@resources" ]))
@@ -766,10 +778,10 @@ in {
           };
         serviceConfig = {
           Type = "oneshot";
-          EnvironmentFile = [ "/var/lib/mastodon/.secrets_env" ]
-            ++ cfg.extraEnvFiles;
+          EnvironmentFile =
+            [ "/var/lib/mastodon/.secrets_env" ] ++ cfg.extraEnvFiles;
           WorkingDirectory = cfg.package;
-          # System Call Filtering
+            # System Call Filtering
           SystemCallFilter = [
             ("~"
               + lib.concatStringsSep " " (systemCallsList ++ [ "@resources" ]))
@@ -805,13 +817,13 @@ in {
           ExecStart = "${cfg.package}/run-streaming.sh";
           Restart = "always";
           RestartSec = 20;
-          EnvironmentFile = [ "/var/lib/mastodon/.secrets_env" ]
-            ++ cfg.extraEnvFiles;
+          EnvironmentFile =
+            [ "/var/lib/mastodon/.secrets_env" ] ++ cfg.extraEnvFiles;
           WorkingDirectory = cfg.package;
-          # Runtime directory and mode
+            # Runtime directory and mode
           RuntimeDirectory = "mastodon-streaming";
           RuntimeDirectoryMode = "0750";
-          # System Call Filtering
+            # System Call Filtering
           SystemCallFilter = [
             ("~" + lib.concatStringsSep " " (systemCallsList ++ [
               "@memlock"
@@ -842,13 +854,13 @@ in {
           ExecStart = "${cfg.package}/bin/puma -C config/puma.rb";
           Restart = "always";
           RestartSec = 20;
-          EnvironmentFile = [ "/var/lib/mastodon/.secrets_env" ]
-            ++ cfg.extraEnvFiles;
+          EnvironmentFile =
+            [ "/var/lib/mastodon/.secrets_env" ] ++ cfg.extraEnvFiles;
           WorkingDirectory = cfg.package;
-          # Runtime directory and mode
+            # Runtime directory and mode
           RuntimeDirectory = "mastodon-web";
           RuntimeDirectoryMode = "0750";
-          # System Call Filtering
+            # System Call Filtering
           SystemCallFilter = [
             ("~" + lib.concatStringsSep " " systemCallsList)
             "@chown"
@@ -869,15 +881,17 @@ in {
           environment = env;
           serviceConfig = {
             Type = "oneshot";
-            EnvironmentFile = [ "/var/lib/mastodon/.secrets_env" ]
-              ++ cfg.extraEnvFiles;
+            EnvironmentFile =
+              [ "/var/lib/mastodon/.secrets_env" ] ++ cfg.extraEnvFiles;
           } // cfgService;
-          script = let
-            olderThanDays = toString cfg.mediaAutoRemove.olderThanDays;
-          in ''
-            ${cfg.package}/bin/tootctl media remove --days=${olderThanDays}
-            ${cfg.package}/bin/tootctl preview_cards remove --days=${olderThanDays}
-          '' ;
+          script =
+            let
+              olderThanDays = toString cfg.mediaAutoRemove.olderThanDays;
+            in ''
+              ${cfg.package}/bin/tootctl media remove --days=${olderThanDays}
+              ${cfg.package}/bin/tootctl preview_cards remove --days=${olderThanDays}
+            ''
+            ;
           startAt = cfg.mediaAutoRemove.startAt;
         };
 
@@ -886,7 +900,7 @@ in {
         recommendedProxySettings = true; # required for redirections to work
         virtualHosts."${cfg.localDomain}" = {
           root = "${cfg.package}/public/";
-          # mastodon only supports https, but you can override this if you offload tls elsewhere.
+            # mastodon only supports https, but you can override this if you offload tls elsewhere.
           forceSSL = lib.mkDefault true;
           enableACME = lib.mkDefault true;
 

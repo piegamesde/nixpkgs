@@ -28,7 +28,7 @@ buildPythonPackage rec {
     orjson
   ];
 
-  # Project has no test
+    # Project has no test
   doCheck = false;
 
   pythonImportsCheck = [ "aioshelly" ];
@@ -37,7 +37,8 @@ buildPythonPackage rec {
     description = "Python library to control Shelly";
     homepage = "https://github.com/home-assistant-libs/aioshelly";
     changelog =
-      "https://github.com/home-assistant-libs/aioshelly/releases/tag/${version}";
+      "https://github.com/home-assistant-libs/aioshelly/releases/tag/${version}"
+      ;
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];
   };

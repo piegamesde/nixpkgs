@@ -80,7 +80,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://freedesktop.org/software/pulseaudio/releases/pulseaudio-${version}.tar.xz";
+      "http://freedesktop.org/software/pulseaudio/releases/pulseaudio-${version}.tar.xz"
+      ;
     sha256 = "sha256-ju8yzpHUeXn5X9mpNec4zX63RjQw2rxyhjJRdR5QSuQ=";
   };
 
@@ -269,7 +270,7 @@ stdenv.mkDerivation rec {
       "-Doss-output=disabled"
     ];
 
-  # tests fail on Darwin because of timeouts
+    # tests fail on Darwin because of timeouts
   doCheck = !stdenv.isDarwin;
   preCheck = ''
     export HOME=$(mktemp -d)

@@ -13,10 +13,10 @@ buildGoModule {
 
   vendorSha256 = "QNde5BqkSuqp3VJQOhn7aG6XknRDZQ62PE3WGhEJ5LU=";
 
-  # XXX: hack to make the ar archive go to the correct place
-  # This is necessary because passing `-o ...` to `ldflags` does not work
-  # (this doesn't get communicated everywhere in the chain, apparently, so
-  # `go` complains that it can't find an `a.out` file).
+    # XXX: hack to make the ar archive go to the correct place
+    # This is necessary because passing `-o ...` to `ldflags` does not work
+    # (this doesn't get communicated everywhere in the chain, apparently, so
+    # `go` complains that it can't find an `a.out` file).
   GOBIN = "${placeholder "out"}/lib";
   ldflags = [
     "-s"

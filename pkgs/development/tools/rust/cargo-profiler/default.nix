@@ -9,7 +9,7 @@ let
   pname = "cargo-profiler";
   owner = "svenstaro";
 
-  # Version-specific variables
+    # Version-specific variables
   version = "0.2.0";
   rev = "0a8ab772fd5c0f1579e4847c5d05aa443ffa2bc8";
   sha256 = "sha256-ZRAbvSMrPtgaWy9RwlykQ3iiPxHCMh/tS5p67/4XqqA=";

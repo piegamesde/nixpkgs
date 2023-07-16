@@ -58,7 +58,7 @@ in {
     ] "The web interface was removed from logstash")
   ];
 
-  ###### interface
+    ###### interface
 
   options = {
 
@@ -192,7 +192,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
     systemd.services.logstash = {
@@ -201,7 +201,8 @@ in {
       path = [ pkgs.bash ];
       serviceConfig = {
         ExecStartPre = ''
-          ${pkgs.coreutils}/bin/mkdir -p "${cfg.dataDir}" ; ${pkgs.coreutils}/bin/chmod 700 "${cfg.dataDir}"'';
+          ${pkgs.coreutils}/bin/mkdir -p "${cfg.dataDir}" ; ${pkgs.coreutils}/bin/chmod 700 "${cfg.dataDir}"''
+          ;
         ExecStart = concatStringsSep " " (filter (s: stringLength s != 0) [
           "${cfg.package}/bin/logstash"
           "-w ${toString cfg.filterWorkers}"

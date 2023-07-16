@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pyusb ];
 
-  # Module has no tests which are shipped and source is not tagged
+    # Module has no tests which are shipped and source is not tagged
   doCheck = false;
 
   pythonImportsCheck = [ "temperusb" ];

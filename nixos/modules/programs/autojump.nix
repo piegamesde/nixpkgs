@@ -24,7 +24,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
     environment.pathsToLink = [ "/share/autojump" ];

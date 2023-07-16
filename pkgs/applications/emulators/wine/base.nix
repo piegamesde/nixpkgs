@@ -60,10 +60,10 @@ stdenv.mkDerivation
   }) // rec {
     inherit version src;
 
-    pname = prevName
-      + lib.optionalString supportFlags.waylandSupport "-wayland";
+    pname = prevName + lib.optionalString supportFlags.waylandSupport "-wayland"
+      ;
 
-    # Fixes "Compiler cannot create executables" building wineWow with mingwSupport
+      # Fixes "Compiler cannot create executables" building wineWow with mingwSupport
     strictDeps = true;
 
     nativeBuildInputs = [
@@ -178,9 +178,9 @@ stdenv.mkDerivation
       ++ lib.optionals
       (stdenv.isDarwin && !supportFlags.xineramaSupport) [ "--without-x" ];
 
-    # Wine locates a lot of libraries dynamically through dlopen().  Add
-    # them to the RPATH so that the user doesn't have to set them in
-    # LD_LIBRARY_PATH.
+      # Wine locates a lot of libraries dynamically through dlopen().  Add
+      # them to the RPATH so that the user doesn't have to set them in
+      # LD_LIBRARY_PATH.
     NIX_LDFLAGS = toString (map (path: "-rpath " + path)
       (map (x: "${lib.getLib x}/lib") ([ stdenv.cc.cc ] ++ buildInputs)
       # libpulsecommon.so is linked but not found otherwise
@@ -191,53 +191,54 @@ stdenv.mkDerivation
         (map (x: "${lib.getLib x}/share/wayland-protocols")
           (toBuildInputs pkgArches (pkgs: [ pkgs.wayland-protocols ])))));
 
-    # Don't shrink the ELF RPATHs in order to keep the extra RPATH
-    # elements specified above.
+      # Don't shrink the ELF RPATHs in order to keep the extra RPATH
+      # elements specified above.
     dontPatchELF = true;
 
-    ## FIXME
-    # Add capability to ignore known failing tests
-    # and enable doCheck
+      ## FIXME
+      # Add capability to ignore known failing tests
+      # and enable doCheck
     doCheck = false;
 
-    postInstall = let
-      links = prefix: pkg: "ln -s ${pkg} $out/${prefix}/${pkg.name}";
-    in
-    lib.optionalString supportFlags.embedInstallers ''
-      mkdir -p $out/share/wine/gecko $out/share/wine/mono/
-      ${lib.strings.concatStringsSep "\n"
-      ((map (links "share/wine/gecko") geckos)
-        ++ (map (links "share/wine/mono") monos))}
-    '' + lib.optionalString supportFlags.gstreamerSupport ''
-      # Wrapping Wine is tricky.
-      # https://github.com/NixOS/nixpkgs/issues/63170
-      # https://github.com/NixOS/nixpkgs/issues/28486
-      # The main problem is that wine-preloader opens and loads the wine(64) binary, and
-      # breakage occurs if it finds a shell script instead of the real binary. We solve this
-      # by setting WINELOADER to point to the original binary. Additionally, the locations
-      # of the 32-bit and 64-bit binaries must differ only by the presence of "64" at the
-      # end, due to the logic Wine uses to find the other binary (see get_alternate_loader
-      # in dlls/kernel32/process.c). Therefore we do not use wrapProgram which would move
-      # the binaries to ".wine-wrapped" and ".wine64-wrapped", but use makeWrapper directly,
-      # and move the binaries to ".wine" and ".wine64".
-      for i in wine wine64 ; do
-        prog="$out/bin/$i"
-        if [ -e "$prog" ]; then
-          hidden="$(dirname "$prog")/.$(basename "$prog")"
-          mv "$prog" "$hidden"
-          makeWrapper "$hidden" "$prog" \
-            --argv0 "" \
-            --set WINELOADER "$hidden" \
-            --prefix GST_PLUGIN_SYSTEM_PATH_1_0 ":" "$GST_PLUGIN_SYSTEM_PATH_1_0"
-        fi
-      done
-    ''
-    ;
+    postInstall =
+      let
+        links = prefix: pkg: "ln -s ${pkg} $out/${prefix}/${pkg.name}";
+      in
+      lib.optionalString supportFlags.embedInstallers ''
+        mkdir -p $out/share/wine/gecko $out/share/wine/mono/
+        ${lib.strings.concatStringsSep "\n"
+        ((map (links "share/wine/gecko") geckos)
+          ++ (map (links "share/wine/mono") monos))}
+      '' + lib.optionalString supportFlags.gstreamerSupport ''
+        # Wrapping Wine is tricky.
+        # https://github.com/NixOS/nixpkgs/issues/63170
+        # https://github.com/NixOS/nixpkgs/issues/28486
+        # The main problem is that wine-preloader opens and loads the wine(64) binary, and
+        # breakage occurs if it finds a shell script instead of the real binary. We solve this
+        # by setting WINELOADER to point to the original binary. Additionally, the locations
+        # of the 32-bit and 64-bit binaries must differ only by the presence of "64" at the
+        # end, due to the logic Wine uses to find the other binary (see get_alternate_loader
+        # in dlls/kernel32/process.c). Therefore we do not use wrapProgram which would move
+        # the binaries to ".wine-wrapped" and ".wine64-wrapped", but use makeWrapper directly,
+        # and move the binaries to ".wine" and ".wine64".
+        for i in wine wine64 ; do
+          prog="$out/bin/$i"
+          if [ -e "$prog" ]; then
+            hidden="$(dirname "$prog")/.$(basename "$prog")"
+            mv "$prog" "$hidden"
+            makeWrapper "$hidden" "$prog" \
+              --argv0 "" \
+              --set WINELOADER "$hidden" \
+              --prefix GST_PLUGIN_SYSTEM_PATH_1_0 ":" "$GST_PLUGIN_SYSTEM_PATH_1_0"
+          fi
+        done
+      ''
+      ;
 
     enableParallelBuilding = true;
 
-    # https://bugs.winehq.org/show_bug.cgi?id=43530
-    # https://github.com/NixOS/nixpkgs/issues/31989
+      # https://bugs.winehq.org/show_bug.cgi?id=43530
+      # https://github.com/NixOS/nixpkgs/issues/31989
     hardeningDisable = [ "bindnow" ]
       ++ lib.optional (stdenv.hostPlatform.isDarwin) "fortify"
       ++ lib.optional (supportFlags.mingwSupport) "format";
@@ -255,14 +256,18 @@ stdenv.mkDerivation
         fromSource
         binaryNativeCode # mono, gecko
       ];
-      description = if supportFlags.waylandSupport then
-        "An Open Source implementation of the Windows API on top of OpenGL and Unix (with experimental Wayland support)"
-      else
-        "An Open Source implementation of the Windows API on top of X, OpenGL, and Unix";
-      platforms = if supportFlags.waylandSupport then
-        (lib.remove "x86_64-darwin" prevPlatforms)
-      else
-        prevPlatforms;
+      description =
+        if supportFlags.waylandSupport then
+          "An Open Source implementation of the Windows API on top of OpenGL and Unix (with experimental Wayland support)"
+        else
+          "An Open Source implementation of the Windows API on top of X, OpenGL, and Unix"
+        ;
+      platforms =
+        if supportFlags.waylandSupport then
+          (lib.remove "x86_64-darwin" prevPlatforms)
+        else
+          prevPlatforms
+        ;
       maintainers = with lib.maintainers; [
         avnik
         raskin

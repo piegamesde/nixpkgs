@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ MayNiklas ]; };
 
     nodes = {
-      client = {
+      client =
+        {
           pkgs,
           ...
         }:
@@ -22,8 +23,10 @@ import ./make-test-python.nix ({
               prefixLength = 24;
             } ];
           };
-        };
-      server = {
+        }
+        ;
+      server =
+        {
           pkgs,
           ...
         }:
@@ -48,7 +51,8 @@ import ./make-test-python.nix ({
             enable = true;
             listen = "0.0.0.0";
           };
-        };
+        }
+        ;
     };
 
     testScript = ''

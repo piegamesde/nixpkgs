@@ -11,7 +11,8 @@ import ./make-test-python.nix ({
     };
 
     nodes = {
-      webserver = {
+      webserver =
+        {
           pkgs,
           lib,
           ...
@@ -59,10 +60,12 @@ import ./make-test-python.nix ({
               "http://localhost:8081" = { };
             };
           };
-        };
+        }
+        ;
     };
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }:
@@ -70,9 +73,11 @@ import ./make-test-python.nix ({
         etagSystem =
           "${nodes.webserver.config.system.build.toplevel}/specialisation/etag";
         justReloadSystem =
-          "${nodes.webserver.config.system.build.toplevel}/specialisation/config-reload";
+          "${nodes.webserver.config.system.build.toplevel}/specialisation/config-reload"
+          ;
         multipleConfigs =
-          "${nodes.webserver.config.system.build.toplevel}/specialisation/multiple-configs";
+          "${nodes.webserver.config.system.build.toplevel}/specialisation/multiple-configs"
+          ;
       in ''
         url = "http://localhost/example.html"
         webserver.wait_for_unit("caddy")
@@ -118,5 +123,6 @@ import ./make-test-python.nix ({
             )
             webserver.wait_for_open_port(8080)
             webserver.wait_for_open_port(8081)
-      '' ;
+      ''
+      ;
   })

@@ -20,16 +20,18 @@ let
   version = "${mklVersion}.${rel}";
 
   mklVersion = "2023.1.0";
-  rel = if stdenvNoCC.isDarwin then
-    "43558"
-  else
-    "46342";
+  rel =
+    if stdenvNoCC.isDarwin then
+      "43558"
+    else
+      "46342"
+    ;
 
-  # Intel openmp uses its own versioning.
+    # Intel openmp uses its own versioning.
   openmpVersion = "2023.1.0";
   openmpRel = "46305";
 
-  # Thread Building Blocks release.
+    # Thread Building Blocks release.
   tbbVersion = "2021.9.0";
   tbbRel = "43484";
 
@@ -37,37 +39,43 @@ let
 
   oneapi-mkl = fetchurl {
     url =
-      "https://yum.repos.intel.com/oneapi/intel-oneapi-mkl-${mklVersion}-${mklVersion}-${rel}.x86_64.rpm";
+      "https://yum.repos.intel.com/oneapi/intel-oneapi-mkl-${mklVersion}-${mklVersion}-${rel}.x86_64.rpm"
+      ;
     hash = "sha256-BeI5zB0rrE6C21dezNc7/WSKmTWpjsZbpg0/y0Y87VQ=";
   };
 
   oneapi-mkl-common = fetchurl {
     url =
-      "https://yum.repos.intel.com/oneapi/intel-oneapi-mkl-common-${mklVersion}-${mklVersion}-${rel}.noarch.rpm";
+      "https://yum.repos.intel.com/oneapi/intel-oneapi-mkl-common-${mklVersion}-${mklVersion}-${rel}.noarch.rpm"
+      ;
     hash = "sha256-NjIqTeFppwjXFlPYHPHfZa/bWBiHJru3atC4fIMXN0w=";
   };
 
   oneapi-mkl-common-devel = fetchurl {
     url =
-      "https://yum.repos.intel.com/oneapi/intel-oneapi-mkl-common-devel-${mklVersion}-${mklVersion}-${rel}.noarch.rpm";
+      "https://yum.repos.intel.com/oneapi/intel-oneapi-mkl-common-devel-${mklVersion}-${mklVersion}-${rel}.noarch.rpm"
+      ;
     hash = "sha256-GX19dlvBWRgwSOCmWcEOrnbmp4S2j0448fWpx+iPVWw=";
   };
 
   oneapi-mkl-devel = fetchurl {
     url =
-      "https://yum.repos.intel.com/oneapi/intel-oneapi-mkl-devel-${mklVersion}-${mklVersion}-${rel}.x86_64.rpm";
+      "https://yum.repos.intel.com/oneapi/intel-oneapi-mkl-devel-${mklVersion}-${mklVersion}-${rel}.x86_64.rpm"
+      ;
     hash = "sha256-F4XxtSPAjNaShEL/l44jJK+JdOOkYI19X/njRB6FkNw=";
   };
 
   oneapi-openmp = fetchurl {
     url =
-      "https://yum.repos.intel.com/oneapi/intel-oneapi-openmp-${mklVersion}-${mklVersion}-${openmpRel}.x86_64.rpm";
+      "https://yum.repos.intel.com/oneapi/intel-oneapi-openmp-${mklVersion}-${mklVersion}-${openmpRel}.x86_64.rpm"
+      ;
     hash = "sha256-1SlkI01DxFvwGPBJ73phs86ka0SmCrniwiXQ9DJwIXw=";
   };
 
   oneapi-tbb = fetchurl {
     url =
-      "https://yum.repos.intel.com/oneapi/intel-oneapi-tbb-${tbbVersion}-${tbbVersion}-${tbbRel}.x86_64.rpm";
+      "https://yum.repos.intel.com/oneapi/intel-oneapi-tbb-${tbbVersion}-${tbbVersion}-${tbbRel}.x86_64.rpm"
+      ;
     hash = "sha256-wIktdf1p1SS1KrnUlc8LPkm0r9dhZE6cQNr4ZKTWI6A=";
   };
 
@@ -78,12 +86,14 @@ stdenvNoCC.mkDerivation ({
 
   dontUnpack = stdenvNoCC.isLinux;
 
-  unpackPhase = if stdenvNoCC.isDarwin then
-    ''
-      7zz x $src
-    ''
-  else
-    null;
+  unpackPhase =
+    if stdenvNoCC.isDarwin then
+      ''
+        7zz x $src
+      ''
+    else
+      null
+    ;
 
   nativeBuildInputs = [ validatePkgConfig ] ++ (if stdenvNoCC.isDarwin then
     [
@@ -93,23 +103,25 @@ stdenvNoCC.mkDerivation ({
   else
     [ rpmextract ]);
 
-  buildPhase = if stdenvNoCC.isDarwin then
-    ''
-      for f in bootstrapper.app/Contents/Resources/packages/*/cupPayload.cup; do
-        tar -xf $f
-      done
-      mkdir -p opt/intel
-      mv _installdir opt/intel/oneapi
-    ''
-  else
-    ''
-      rpmextract ${oneapi-mkl}
-      rpmextract ${oneapi-mkl-common}
-      rpmextract ${oneapi-mkl-common-devel}
-      rpmextract ${oneapi-mkl-devel}
-      rpmextract ${oneapi-openmp}
-      rpmextract ${oneapi-tbb}
-    '';
+  buildPhase =
+    if stdenvNoCC.isDarwin then
+      ''
+        for f in bootstrapper.app/Contents/Resources/packages/*/cupPayload.cup; do
+          tar -xf $f
+        done
+        mkdir -p opt/intel
+        mv _installdir opt/intel/oneapi
+      ''
+    else
+      ''
+        rpmextract ${oneapi-mkl}
+        rpmextract ${oneapi-mkl-common}
+        rpmextract ${oneapi-mkl-common-devel}
+        rpmextract ${oneapi-mkl-devel}
+        rpmextract ${oneapi-openmp}
+        rpmextract ${oneapi-tbb}
+      ''
+    ;
 
   installPhase = ''
     for f in $(find . -name 'mkl*.pc') ; do
@@ -176,9 +188,9 @@ stdenvNoCC.mkDerivation ({
       ln -s $out/lib/libmkl_rt${shlibExt} $out/lib/liblapacke${shlibExt}".3"
     '';
 
-  # fixDarwinDylibName fails for libmkl_cdft_core.dylib because the
-  # larger updated load commands do not fit. Use install_name_tool
-  # explicitly and ignore the error.
+    # fixDarwinDylibName fails for libmkl_cdft_core.dylib because the
+    # larger updated load commands do not fit. Use install_name_tool
+    # explicitly and ignore the error.
   postFixup = lib.optionalString stdenvNoCC.isDarwin ''
     for f in $out/lib/*.dylib; do
       install_name_tool -id $out/lib/$(basename $f) $f || true
@@ -188,7 +200,7 @@ stdenvNoCC.mkDerivation ({
     install_name_tool -change @rpath/libtbbmalloc.2.dylib $out/lib/libtbbmalloc.2.dylib $out/lib/libtbbmalloc_proxy.dylib
   '';
 
-  # Per license agreement, do not modify the binary
+    # Per license agreement, do not modify the binary
   dontStrip = true;
   dontPatchELF = true;
 
@@ -231,7 +243,8 @@ stdenvNoCC.mkDerivation ({
 } // lib.optionalAttrs stdenvNoCC.isDarwin {
   src = fetchurl {
     url =
-      "https://registrationcenter-download.intel.com/akdlm/IRC_NAS/087a9190-9d96-4b8c-bd2f-79159572ed89/m_onemkl_p_${mklVersion}.${rel}_offline.dmg";
+      "https://registrationcenter-download.intel.com/akdlm/IRC_NAS/087a9190-9d96-4b8c-bd2f-79159572ed89/m_onemkl_p_${mklVersion}.${rel}_offline.dmg"
+      ;
     hash = "sha256-bUaaJPSaLr60fw0DzDCjPvY/UucHlLbCSLyQxyiAi04=";
   };
 })

@@ -16,15 +16,16 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/mpc123/version%20${version}/${pname}-${version}.tar.gz";
+      "mirror://sourceforge/mpc123/version%20${version}/${pname}-${version}.tar.gz"
+      ;
     sha256 = "0sf4pns0245009z6mbxpx7kqy4kwl69bc95wz9v23wgappsvxgy1";
   };
 
   patches = [ ./use-gcc.patch ];
 
-  # Workaround build failure on -fno-common toolchains like upstream
-  # gcc-10. Otherwise build fails as:
-  #   ld: /build/cc566Cj9.o:(.bss+0x0): multiple definition of `mpc123_file_reader'; ao.o:(.bss+0x40): first defined here
+    # Workaround build failure on -fno-common toolchains like upstream
+    # gcc-10. Otherwise build fails as:
+    #   ld: /build/cc566Cj9.o:(.bss+0x0): multiple definition of `mpc123_file_reader'; ao.o:(.bss+0x40): first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   buildInputs = [

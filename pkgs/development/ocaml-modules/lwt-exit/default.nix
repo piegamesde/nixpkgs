@@ -25,7 +25,7 @@ buildDunePackage rec {
     ptime
   ];
 
-  # for some reason this never exits
+    # for some reason this never exits
   doCheck = false;
 
   meta = {

@@ -26,7 +26,7 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  # test fails with the injected version
+    # test fails with the injected version
   postPatch = ''
     substituteInPlace internal/cmd/cmds_test.go \
       --replace "version (development)" ${version}

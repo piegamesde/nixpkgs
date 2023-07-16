@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
 
     meta = with pkgs.lib.maintainers; { maintainers = [ romildo ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         imports = [ ./common/user-account.nix ];
@@ -19,17 +20,19 @@ import ./make-test-python.nix ({
             user = "alice";
           };
         };
-        hardware.pulseaudio.enable =
-          true; # needed for the factl test, /dev/snd/* exists without them but udev doesn't care then
+        hardware.pulseaudio.enable = true
+          ; # needed for the factl test, /dev/snd/* exists without them but udev doesn't care then
         environment.systemPackages = [ pkgs.xdotool ];
         services.acpid.enable = true;
         services.connman.enable = true;
         services.connman.package = pkgs.connmanMinimal;
-      };
+      }
+      ;
 
     enableOCR = true;
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }:
@@ -98,5 +101,6 @@ import ./make-test-python.nix ({
             machine.send_chars("ls --color -alF\n")
             machine.sleep(2)
             machine.screenshot("terminology")
-      '' ;
+      ''
+      ;
   })

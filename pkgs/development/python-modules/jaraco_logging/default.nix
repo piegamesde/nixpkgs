@@ -31,7 +31,7 @@ buildPythonPackage rec {
     six
   ];
 
-  # test no longer packaged with pypi
+    # test no longer packaged with pypi
   doCheck = false;
 
   pythonImportsCheck = [ "jaraco.logging" ];

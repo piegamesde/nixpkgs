@@ -38,7 +38,8 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/skogler/mapbox_earcut_python";
     changelog =
-      "https://github.com/skogler/mapbox_earcut_python/releases/tag/v${version}";
+      "https://github.com/skogler/mapbox_earcut_python/releases/tag/v${version}"
+      ;
     license = licenses.isc;
     description = "Mapbox-earcut fast triangulation of 2D-polygons";
     longDescription = ''

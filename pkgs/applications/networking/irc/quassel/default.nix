@@ -48,10 +48,12 @@ assert client || enableDaemon -> !monolithic;
 assert !buildClient -> !withKDE; # KDE is used by the client only
 
 let
-  edf = flag: feature: [ ("-D" + feature + (if flag then
-    "=ON"
-  else
-    "=OFF")) ];
+  edf =
+    flag: feature: [ ("-D" + feature + (if flag then
+      "=ON"
+    else
+      "=OFF")) ]
+    ;
 
 in
 (if !buildClient then
@@ -68,7 +70,7 @@ else
       sha256 = "sha256-eulhNcyCmy9ryietOhT2yVJeJH+MMZRbTUo2XuTy9qU=";
     };
 
-    # Prevent ``undefined reference to `qt_version_tag''' in SSL check
+      # Prevent ``undefined reference to `qt_version_tag''' in SSL check
     env.NIX_CFLAGS_COMPILE = "-DQT_NO_VERSION_TAGGING=1";
 
     nativeBuildInputs = [

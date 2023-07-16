@@ -15,7 +15,7 @@ buildPythonPackage rec {
     sha256 = "0a0qpk7d2b1cld58qcdn6bxrkil6ascs51af01dy4p83062h1hi6";
   };
 
-  # Project has no tests
+    # Project has no tests
   doCheck = false;
   pythonImportsCheck = [ "gps3" ];
 

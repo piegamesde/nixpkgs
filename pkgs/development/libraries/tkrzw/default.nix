@@ -8,7 +8,7 @@
 stdenv.mkDerivation rec {
   pname = "tkrzw";
   version = "1.0.27";
-  # TODO: defeat multi-output reference cycles
+    # TODO: defeat multi-output reference cycles
 
   src = fetchurl {
     url = "https://dbmx.net/tkrzw/pkg/tkrzw-${version}.tar.gz";

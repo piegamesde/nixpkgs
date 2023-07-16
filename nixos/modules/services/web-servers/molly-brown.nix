@@ -78,17 +78,19 @@ in {
 
   config = mkIf cfg.enable {
 
-    services.molly-brown.settings = let
-      logDir = "/var/log/molly-brown";
-    in {
-      Port = cfg.port;
-      Hostname = cfg.hostName;
-      CertPath = cfg.certPath;
-      KeyPath = cfg.keyPath;
-      DocBase = cfg.docBase;
-      AccessLog = "${logDir}/access.log";
-      ErrorLog = "${logDir}/error.log";
-    } ;
+    services.molly-brown.settings =
+      let
+        logDir = "/var/log/molly-brown";
+      in {
+        Port = cfg.port;
+        Hostname = cfg.hostName;
+        CertPath = cfg.certPath;
+        KeyPath = cfg.keyPath;
+        DocBase = cfg.docBase;
+        AccessLog = "${logDir}/access.log";
+        ErrorLog = "${logDir}/error.log";
+      }
+      ;
 
     systemd.services.molly-brown = {
       description = "Molly Brown gemini server";

@@ -59,7 +59,8 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "djb's redo, a system for building files from source files. Written in Go";
+      "djb's redo, a system for building files from source files. Written in Go"
+      ;
     homepage = "https://www.goredo.cypherpunks.ru";
     license = licenses.gpl3;
     maintainers = [ maintainers.spacefrogg ];

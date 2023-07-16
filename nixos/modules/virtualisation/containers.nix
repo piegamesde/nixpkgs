@@ -140,10 +140,12 @@ in {
         registries = lib.mapAttrs (n: v: { registries = v; }) cfg.registries;
       };
 
-    environment.etc."containers/policy.json".source = if cfg.policy != { } then
-      pkgs.writeText "policy.json" (builtins.toJSON cfg.policy)
-    else
-      "${pkgs.skopeo.policy}/default-policy.json";
+    environment.etc."containers/policy.json".source =
+      if cfg.policy != { } then
+        pkgs.writeText "policy.json" (builtins.toJSON cfg.policy)
+      else
+        "${pkgs.skopeo.policy}/default-policy.json"
+      ;
   };
 
 }

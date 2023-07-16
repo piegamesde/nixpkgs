@@ -34,7 +34,7 @@
 stdenv.mkDerivation rec {
   pname = "pcsx2";
   version = "1.7.3331";
-  # nixpkgs-update: no auto update
+    # nixpkgs-update: no auto update
 
   src = fetchFromGitHub {
     owner = "PCSX2";
@@ -107,10 +107,10 @@ stdenv.mkDerivation rec {
       govanify
     ];
 
-    # PCSX2's source code is released under LGPLv3+. It However ships
-    # additional data files and code that are licensed differently.
-    # This might be solved in future, for now we should stick with
-    # license.free
+      # PCSX2's source code is released under LGPLv3+. It However ships
+      # additional data files and code that are licensed differently.
+      # This might be solved in future, for now we should stick with
+      # license.free
     license = licenses.free;
     platforms = platforms.x86_64;
   };

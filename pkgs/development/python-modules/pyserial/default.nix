@@ -13,7 +13,7 @@ buildPythonPackage rec {
   version = "3.5";
   format = "setuptools";
 
-  # Supports Python 2.7 and 3.4+
+    # Supports Python 2.7 and 3.4+
   disabled = isPy3k && pythonOlder "3.4";
 
   src = fetchPypi {

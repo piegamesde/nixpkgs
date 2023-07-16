@@ -14,7 +14,8 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://github.com/vassalengine/vassal/releases/download/${version}/${pname}-${version}-linux.tar.bz2";
+      "https://github.com/vassalengine/vassal/releases/download/${version}/${pname}-${version}-linux.tar.bz2"
+      ;
     sha256 = "sha256-hm1tgkF/SYRnoq1+ZxlgriLMQm3IX+UBR2bPYpBVp5k=";
   };
 
@@ -41,7 +42,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  # Don't move doc to share/, VASSAL expects it to be in the root
+    # Don't move doc to share/, VASSAL expects it to be in the root
   forceShare = [
     "man"
     "info"

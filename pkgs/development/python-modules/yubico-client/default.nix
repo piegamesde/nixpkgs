@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  # pypi package missing test_utils and github releases is behind
+    # pypi package missing test_utils and github releases is behind
   doCheck = false;
 
   meta = with lib; {

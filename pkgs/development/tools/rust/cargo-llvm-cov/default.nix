@@ -15,7 +15,7 @@ rustPlatform.buildRustPackage rec {
   };
   cargoSha256 = "sha256-0fj5GJ/gjVBAdfYPHnT33kbnXBIE5+VRONcNBgBSoPc=";
 
-  # skip tests which require llvm-tools-preview
+    # skip tests which require llvm-tools-preview
   checkFlags = [
     "--skip bin_crate"
     "--skip cargo_config"

@@ -42,7 +42,7 @@ buildPythonPackage rec {
     cd ..
   '';
 
-  # There are no tests
+    # There are no tests
   doCheck = false;
 
   pythonImportsCheck = [ "laszip" ];

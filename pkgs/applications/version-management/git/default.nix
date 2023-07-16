@@ -147,7 +147,7 @@ stdenv.mkDerivation (finalAttrs: {
       libsecret
     ];
 
-  # required to support pthread_cancel()
+    # required to support pthread_cancel()
   NIX_LDFLAGS =
     lib.optionalString (stdenv.cc.isGNU && stdenv.hostPlatform.libc == "glibc")
     "-lgcc_s" + lib.optionalString (stdenv.isFreeBSD) "-lthr";
@@ -208,10 +208,10 @@ stdenv.mkDerivation (finalAttrs: {
     make -C contrib/credential/libsecret
   '');
 
-  ## Install
+    ## Install
 
-  # WARNING: Do not `rm` or `mv` files from the source tree; use `cp` instead.
-  #          We need many of these files during the installCheckPhase.
+    # WARNING: Do not `rm` or `mv` files from the source tree; use `cp` instead.
+    #          We need many of these files during the installCheckPhase.
 
   installFlags = [ "NO_INSTALL_HARDLINKS=1" ];
 
@@ -374,14 +374,14 @@ stdenv.mkDerivation (finalAttrs: {
         EOF
       '';
 
-  ## InstallCheck
+    ## InstallCheck
 
   doCheck = false;
   inherit doInstallCheck;
 
   installCheckTarget = "test";
 
-  # see also installCheckFlagsArray
+    # see also installCheckFlagsArray
   installCheckFlags = [
     "DEFAULT_TEST_TARGET=prove"
     "PERL_PATH=${buildPackages.perl}/bin/perl"
@@ -486,7 +486,8 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Distributed version control system";
     license = lib.licenses.gpl2;
     changelog =
-      "https://github.com/git/git/blob/v${version}/Documentation/RelNotes/${version}.txt";
+      "https://github.com/git/git/blob/v${version}/Documentation/RelNotes/${version}.txt"
+      ;
 
     longDescription = ''
       Git, a popular distributed version control system designed to

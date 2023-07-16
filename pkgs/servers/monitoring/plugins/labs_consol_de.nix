@@ -19,7 +19,8 @@ let
     sha256 = "047fwrycsl2vmpi4wl46fs6f8y191d6qc9ms5rvmrj1dm2r828ws";
   };
 
-  generic = {
+  generic =
+    {
       pname,
       version,
       sha256,
@@ -32,7 +33,8 @@ let
 
       src = fetchurl {
         url =
-          "https://labs.consol.de/assets/downloads/nagios/${pname}-${version}.tar.gz";
+          "https://labs.consol.de/assets/downloads/nagios/${pname}-${version}.tar.gz"
+          ;
         inherit sha256;
       };
 
@@ -69,7 +71,8 @@ let
         maintainers = with maintainers; [ peterhoeg ];
         inherit description;
       };
-    };
+    }
+    ;
 
 in {
   check-mssql-health = generic {

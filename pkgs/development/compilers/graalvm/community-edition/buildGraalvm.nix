@@ -51,8 +51,10 @@ let
       glib
       gtk3
     ]);
-  mapProducts = key: default:
-    (map (p: p.graalvmPhases.${key} or default) products);
+  mapProducts =
+    key: default:
+    (map (p: p.graalvmPhases.${key} or default) products)
+    ;
   concatProducts = key: lib.concatStringsSep "\n" (mapProducts key "");
 
   graalvmXXX-ce = stdenv.mkDerivation ({

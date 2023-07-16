@@ -32,7 +32,7 @@ buildPythonPackage rec {
     xmltodict
   ];
 
-  # Project has no tests. test_cam_rtsp.py is more a sample for using the module
+    # Project has no tests. test_cam_rtsp.py is more a sample for using the module
   doCheck = false;
 
   pythonImportsCheck = [ "pyezviz" ];

@@ -11,12 +11,14 @@
   substituteAll,
 }:
 let
-  arch = if stdenv.hostPlatform.system == "x86_64-linux" then
-    "x64"
-  else if stdenv.hostPlatform.system == "i686-linux" then
-    "x86"
-  else
-    throw "Unsupported architecture";
+  arch =
+    if stdenv.hostPlatform.system == "x86_64-linux" then
+      "x64"
+    else if stdenv.hostPlatform.system == "i686-linux" then
+      "x86"
+    else
+      throw "Unsupported architecture"
+    ;
   bins = "${arch}-ubuntu-1604";
   libPath = lib.makeLibraryPath [
     stdenv.cc.cc

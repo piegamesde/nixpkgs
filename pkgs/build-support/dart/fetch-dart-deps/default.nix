@@ -70,7 +70,7 @@ let
       git
     ];
 
-    # avoid pub phase
+      # avoid pub phase
     dontBuild = true;
 
     configurePhase = ''
@@ -142,24 +142,26 @@ let
       "SOCKS_SERVER"
     ];
 
-    # Patching shebangs introduces input references to this fixed-output derivation.
-    # This triggers a bug in Nix, causing the output path to change unexpectedly.
-    # https://github.com/NixOS/nix/issues/6660
+      # Patching shebangs introduces input references to this fixed-output derivation.
+      # This triggers a bug in Nix, causing the output path to change unexpectedly.
+      # https://github.com/NixOS/nix/issues/6660
     dontPatchShebangs = true;
 
-    # The following operations are not generally useful for this derivation.
-    # If a package does contain some native components used at build time,
-    # please file an issue.
+      # The following operations are not generally useful for this derivation.
+      # If a package does contain some native components used at build time,
+      # please file an issue.
     dontStrip = true;
     dontMoveSbin = true;
     dontPatchELF = true;
 
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
-    outputHash = if vendorHash != "" then
-      vendorHash
-    else
-      lib.fakeSha256;
+    outputHash =
+      if vendorHash != "" then
+        vendorHash
+      else
+        lib.fakeSha256
+      ;
   } // (removeAttrs drvArgs [
     "name"
     "pname"

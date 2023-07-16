@@ -33,7 +33,8 @@ rustPlatform.buildRustPackage rec {
     (fetchpatch {
       name = "update-dirs.patch";
       url =
-        "https://github.com/Rigellute/spotify-tui/commit/3881defc1ed0bcf79df1aef4836b857f64be657c.patch";
+        "https://github.com/Rigellute/spotify-tui/commit/3881defc1ed0bcf79df1aef4836b857f64be657c.patch"
+        ;
       hash = "sha256-OGqiYLFojMwR3RgKbddXxPDiAdzPySnscVVsVmTT7t4=";
     })
 
@@ -41,7 +42,8 @@ rustPlatform.buildRustPackage rec {
     (fetchpatch {
       name = "update-socket2-for-rust-1.64.patch";
       url =
-        "https://github.com/Rigellute/spotify-tui/commit/14df9419cf72da13f3b55654686a95647ea9dfea.patch";
+        "https://github.com/Rigellute/spotify-tui/commit/14df9419cf72da13f3b55654686a95647ea9dfea.patch"
+        ;
       hash = "sha256-craY6UwmHDdxih3nZBdPkNJtQ6wvVgf09Ovqdxi0JZo=";
     })
   ];
@@ -51,30 +53,32 @@ rustPlatform.buildRustPackage rec {
     ./Cargo.toml.patch
   ];
 
-  preBuild = let
-    rspotify = stdenv.mkDerivation rec {
-      pname = "rspotify";
-      version = "0.10.0";
+  preBuild =
+    let
+      rspotify = stdenv.mkDerivation rec {
+        pname = "rspotify";
+        version = "0.10.0";
 
-      src = fetchCrate {
-        inherit pname version;
-        sha256 = "sha256-KDtqjVQlMHlhL1xXP3W1YG/YuX9pdCjwW/7g18469Ts=";
+        src = fetchCrate {
+          inherit pname version;
+          sha256 = "sha256-KDtqjVQlMHlhL1xXP3W1YG/YuX9pdCjwW/7g18469Ts=";
+        };
+
+        dontBuild = true;
+        installPhase = ''
+          mkdir $out
+          cp -R . $out
+        '';
+
+        patches = [
+          # add `collection` variant
+          ./0001-Add-Collection-SearchType.patch
+        ];
       };
-
-      dontBuild = true;
-      installPhase = ''
-        mkdir $out
-        cp -R . $out
-      '';
-
-      patches = [
-        # add `collection` variant
-        ./0001-Add-Collection-SearchType.patch
-      ];
-    };
-  in ''
-    ln -s ${rspotify} ./rspotify-${rspotify.version}
-  '' ;
+    in ''
+      ln -s ${rspotify} ./rspotify-${rspotify.version}
+    ''
+    ;
 
   cargoHash = "sha256-aZJ6Q/rvqrv+wvQw2eKFPnSROhI5vXPvr5pu1hwtZKA=";
 

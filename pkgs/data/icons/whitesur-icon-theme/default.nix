@@ -45,7 +45,7 @@ stdenvNoCC.mkDerivation rec {
 
   buildInputs = [ hicolor-icon-theme ];
 
-  # These fixup steps are slow and unnecessary
+    # These fixup steps are slow and unnecessary
   dontPatchELF = true;
   dontRewriteSymlinks = true;
   dontDropIconThemeCache = true;

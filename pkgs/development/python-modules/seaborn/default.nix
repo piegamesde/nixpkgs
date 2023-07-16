@@ -51,8 +51,8 @@ buildPythonPackage rec {
     "TestDendrogram"
   ];
 
-  # All platforms should use Agg. Let's set it explicitly to avoid probing GUI
-  # backends (leads to crashes on macOS).
+    # All platforms should use Agg. Let's set it explicitly to avoid probing GUI
+    # backends (leads to crashes on macOS).
   MPLBACKEND = "Agg";
 
   pythonImportsCheck = [ "seaborn" ];

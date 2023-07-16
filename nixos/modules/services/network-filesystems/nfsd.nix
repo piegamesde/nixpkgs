@@ -37,7 +37,7 @@ in {
     ])
   ];
 
-  ###### interface
+    ###### interface
 
   options = {
 
@@ -91,7 +91,8 @@ in {
           type = types.bool;
           default = false;
           description = lib.mdDoc
-            "Whether to create the mount points in the exports file at startup time.";
+            "Whether to create the mount points in the exports file at startup time."
+            ;
         };
 
         mountdPort = mkOption {
@@ -130,7 +131,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 

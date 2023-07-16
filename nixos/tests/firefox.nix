@@ -21,7 +21,8 @@ import ./make-test-python.nix ({
       ];
     };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }:
@@ -33,8 +34,8 @@ import ./make-test-python.nix ({
           pkgs.xdotool
         ];
 
-        # Create a virtual sound device, with mixing
-        # and all, for recording audio.
+          # Create a virtual sound device, with mixing
+          # and all, for recording audio.
         boot.kernelModules = [ "snd-aloop" ];
         sound.enable = true;
         sound.extraConfig = ''
@@ -65,10 +66,12 @@ import ./make-test-python.nix ({
         systemd.services.audio-recorder = {
           description = "Record NixOS test audio to /tmp/record.wav";
           script =
-            "${pkgs.alsa-utils}/bin/arecord -D recorder -f S16_LE -r48000 /tmp/record.wav";
+            "${pkgs.alsa-utils}/bin/arecord -D recorder -f S16_LE -r48000 /tmp/record.wav"
+            ;
         };
 
-      };
+      }
+      ;
 
     testScript = ''
       from contextlib import contextmanager

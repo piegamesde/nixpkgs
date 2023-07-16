@@ -7,10 +7,12 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ mguentner ]; };
 
     nodes = {
-      server = args: {
-        services.mxisd.enable = true;
-        services.mxisd.matrix.domain = "example.org";
-      };
+      server =
+        args: {
+          services.mxisd.enable = true;
+          services.mxisd.matrix.domain = "example.org";
+        }
+        ;
     };
 
     testScript = ''

@@ -19,8 +19,8 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ flake8 ];
 
-  propagatedBuildInputs = [ six ]
-    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs =
+    [ six ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   meta = with lib; {
     description = "Ordered Multivalue Dictionary.";

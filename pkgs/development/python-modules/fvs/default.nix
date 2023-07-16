@@ -18,14 +18,15 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ orjson ];
 
-  # no tests in src
+    # no tests in src
   doCheck = false;
 
   pythonImportsCheck = [ "fvs" ];
 
   meta = with lib; {
     description =
-      "File Versioning System with hash comparison and data storage to create unlinked states that can be deleted";
+      "File Versioning System with hash comparison and data storage to create unlinked states that can be deleted"
+      ;
     homepage = "https://github.com/mirkobrombin/FVS";
     license = licenses.mit;
     maintainers = with maintainers; [ bryanasdev000 ];

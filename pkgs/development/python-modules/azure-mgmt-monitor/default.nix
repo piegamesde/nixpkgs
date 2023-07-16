@@ -31,7 +31,7 @@ buildPythonPackage rec {
 
   pythonNamespaces = [ "azure.mgmt" ];
 
-  # Module has no tests
+    # Module has no tests
   doCheck = false;
 
   meta = with lib; {

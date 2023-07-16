@@ -192,13 +192,13 @@ in {
         Type = "simple";
         ExecStart = "${chronyPkg}/bin/chronyd ${builtins.toString chronyFlags}";
 
-        # Proc filesystem
+          # Proc filesystem
         ProcSubset = "pid";
         ProtectProc = "invisible";
-        # Access write directories
+          # Access write directories
         ReadWritePaths = [ "${stateDir}" ];
         UMask = "0027";
-        # Capabilities
+          # Capabilities
         CapabilityBoundingSet = [
           "CAP_CHOWN"
           "CAP_DAC_OVERRIDE"
@@ -208,16 +208,16 @@ in {
           "CAP_SYS_RESOURCE"
           "CAP_SYS_TIME"
         ];
-        # Device Access
+          # Device Access
         DeviceAllow = [
           "char-pps rw"
           "char-ptp rw"
           "char-rtc rw"
         ];
         DevicePolicy = "closed";
-        # Security
+          # Security
         NoNewPrivileges = true;
-        # Sandboxing
+          # Sandboxing
         ProtectSystem = "full";
         ProtectHome = true;
         PrivateTmp = true;
@@ -241,7 +241,7 @@ in {
         RestrictSUIDSGID = true;
         RemoveIPC = true;
         PrivateMounts = true;
-        # System Call Filtering
+          # System Call Filtering
         SystemCallArchitectures = "native";
         SystemCallFilter = [
           "~@cpu-emulation @debug @keyring @mount @obsolete @privileged @resources"

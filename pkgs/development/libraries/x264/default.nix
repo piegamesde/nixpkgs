@@ -19,15 +19,16 @@ stdenv.mkDerivation rec {
     sha256 = "0swyrkz6nvajivxvrr08py0jrfcsjvpxw78xm1k5gd9xbdrxvknh";
   };
 
-  # Upstream ./configure greps for (-mcpu|-march|-mfpu) in CFLAGS, which in nix
-  # is put in the cc wrapper anyway.
+    # Upstream ./configure greps for (-mcpu|-march|-mfpu) in CFLAGS, which in nix
+    # is put in the cc wrapper anyway.
   patches = [
     ./disable-arm-neon-default.patch
     (fetchpatch {
       # https://code.videolan.org/videolan/x264/-/merge_requests/114
       name = "fix-parallelism.patch";
       url =
-        "https://code.videolan.org/videolan/x264/-/commit/e067ab0b530395f90b578f6d05ab0a225e2efdf9.patch";
+        "https://code.videolan.org/videolan/x264/-/commit/e067ab0b530395f90b578f6d05ab0a225e2efdf9.patch"
+        ;
       hash = "sha256-16h2IUCRjYlKI2RXYq8QyXukAdfoQxyBKsK/nI6vhRI=";
     })
   ];

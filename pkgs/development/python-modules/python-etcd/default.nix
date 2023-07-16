@@ -33,7 +33,7 @@ buildPythonPackage rec {
     sed -i '19s/dns/"dnspython"/' setup.py
   '';
 
-  # Some issues with etcd not in path even though most tests passed
+    # Some issues with etcd not in path even though most tests passed
   doCheck = false;
 
   meta = with lib; {

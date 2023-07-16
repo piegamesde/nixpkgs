@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
     name = "pict-rs";
     meta.maintainers = with lib.maintainers; [ happysalada ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         environment.systemPackages = with pkgs; [
@@ -14,7 +15,8 @@ import ./make-test-python.nix ({
           jq
         ];
         services.pict-rs.enable = true;
-      };
+      }
+      ;
 
     testScript = ''
       start_all()

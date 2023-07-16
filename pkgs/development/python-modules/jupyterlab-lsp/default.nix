@@ -19,7 +19,7 @@ buildPythonPackage rec {
     jupyterlab
     jupyter-lsp
   ];
-  # No tests
+    # No tests
   doCheck = false;
   pythonImportsCheck = [ "jupyterlab_lsp" ];
 

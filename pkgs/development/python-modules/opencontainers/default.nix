@@ -24,8 +24,8 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "opencontainers" ];
 
-  nativeCheckInputs = [ pytestCheckHook ]
-    ++ passthru.optional-dependencies.reggie;
+  nativeCheckInputs =
+    [ pytestCheckHook ] ++ passthru.optional-dependencies.reggie;
 
   __darwinAllowLocalNetworking = true;
 

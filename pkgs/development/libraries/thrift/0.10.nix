@@ -18,14 +18,15 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://archive.apache.org/dist/thrift/${version}/${pname}-${version}.tar.gz";
+      "https://archive.apache.org/dist/thrift/${version}/${pname}-${version}.tar.gz"
+      ;
     sha256 = "02x1xw0l669idkn6xww39j60kqxzcbmim4mvpb5h9nz8wqnx1292";
   };
 
-  #enableParallelBuilding = true; problems on hydra
+    #enableParallelBuilding = true; problems on hydra
 
-  # Workaround to make the python wrapper not drop this package:
-  # pythonFull.buildEnv.override { extraLibs = [ thrift ]; }
+    # Workaround to make the python wrapper not drop this package:
+    # pythonFull.buildEnv.override { extraLibs = [ thrift ]; }
   pythonPath = [ ];
 
   nativeBuildInputs = [ pkg-config ];
@@ -41,8 +42,8 @@ stdenv.mkDerivation rec {
 
   preConfigure = "export PY_PREFIX=$out";
 
-  # TODO: package boost-test, so we can run the test suite. (Currently it fails
-  # to find libboost_unit_test_framework.a.)
+    # TODO: package boost-test, so we can run the test suite. (Currently it fails
+    # to find libboost_unit_test_framework.a.)
   configureFlags = [ "--enable-tests=no" ];
   doCheck = false;
 

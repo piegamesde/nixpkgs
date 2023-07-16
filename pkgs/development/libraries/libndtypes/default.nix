@@ -15,8 +15,8 @@ stdenv.mkDerivation {
     sha256 = "18303q0jfar1lmi4krp94plczb455zcgw772f9lb8xa5p0bkhx01";
   };
 
-  # Override linker with cc (symlink to either gcc or clang)
-  # Library expects to use cc for linking
+    # Override linker with cc (symlink to either gcc or clang)
+    # Library expects to use cc for linking
   configureFlags = [ "LD=${stdenv.cc.targetPrefix}cc" ];
 
   doCheck = true;

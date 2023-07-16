@@ -43,10 +43,10 @@ python3.pkgs.buildPythonApplication rec {
     yte
   ];
 
-  # See
-  # https://github.com/snakemake/snakemake/blob/main/.github/workflows/main.yml#L99
-  # for the current basic test suite. Tibanna and Tes require extra
-  # setup.
+    # See
+    # https://github.com/snakemake/snakemake/blob/main/.github/workflows/main.yml#L99
+    # for the current basic test suite. Tibanna and Tes require extra
+    # setup.
 
   nativeCheckInputs = with python3.pkgs; [
     pandas

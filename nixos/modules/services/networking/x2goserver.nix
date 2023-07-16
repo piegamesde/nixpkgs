@@ -192,7 +192,7 @@ in {
       '';
     };
 
-    # https://bugs.x2go.org/cgi-bin/bugreport.cgi?bug=276
+      # https://bugs.x2go.org/cgi-bin/bugreport.cgi?bug=276
     security.sudo.extraConfig = ''
       Defaults  env_keep+=QT_GRAPHICSSYSTEM
     '';

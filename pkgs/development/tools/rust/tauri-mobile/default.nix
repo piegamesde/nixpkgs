@@ -24,9 +24,9 @@ rustPlatform.buildRustPackage {
     sha256 = "sha256-WHyiswe64tkNhhgmHquv9YPLQAU1yTJ/KglTqEPBcOM=";
   };
 
-  # Manually specify the sourceRoot since this crate depends on other crates in the workspace. Relevant info at
-  # https://discourse.nixos.org/t/difficulty-using-buildrustpackage-with-a-src-containing-multiple-cargo-workspaces/10202
-  # sourceRoot = "source/tooling/cli";
+    # Manually specify the sourceRoot since this crate depends on other crates in the workspace. Relevant info at
+    # https://discourse.nixos.org/t/difficulty-using-buildrustpackage-with-a-src-containing-multiple-cargo-workspaces/10202
+    # sourceRoot = "source/tooling/cli";
 
   cargoHash = "sha256-Kc1BikwUYSpPShRtAPbHCdfVzo6zwjiO3QeqRkO+WhY=";
 

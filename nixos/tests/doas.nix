@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
     name = "doas";
     meta = with lib.maintainers; { maintainers = [ cole-h ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         users.groups = {
@@ -80,7 +81,8 @@ import ./make-test-python.nix ({
             }
           ];
         };
-      };
+      }
+      ;
 
     testScript = ''
       with subtest("users in wheel group should have passwordless doas"):

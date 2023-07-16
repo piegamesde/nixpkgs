@@ -52,16 +52,16 @@ buildPythonPackage rec {
       pydantic
       webauthn
     ];
-    # yubikey = [
-    #   django-otp-yubikey
-    # ];
+      # yubikey = [
+      #   django-otp-yubikey
+      # ];
     phonenumbers = [ phonenumbers ];
-    # phonenumberslite = [
-    #   phonenumberslite
-    # ];
+      # phonenumberslite = [
+      #   phonenumberslite
+      # ];
   };
 
-  # Tests require internet connection
+    # Tests require internet connection
   doCheck = false;
 
   pythonImportsCheck = [ "two_factor" ];
@@ -70,7 +70,8 @@ buildPythonPackage rec {
     description = "Complete Two-Factor Authentication for Django";
     homepage = "https://github.com/jazzband/django-two-factor-auth";
     changelog =
-      "https://github.com/jazzband/django-two-factor-auth/releases/tag/${version}";
+      "https://github.com/jazzband/django-two-factor-auth/releases/tag/${version}"
+      ;
     license = licenses.mit;
     maintainers = with maintainers; [ derdennisop ];
   };

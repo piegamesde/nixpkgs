@@ -74,7 +74,8 @@ tcl.mkTclDerivation {
 
   meta = with lib; {
     description =
-      "A widget toolkit that provides a library of basic elements for building a GUI in many different programming languages";
+      "A widget toolkit that provides a library of basic elements for building a GUI in many different programming languages"
+      ;
     homepage = "https://www.tcl.tk/";
     license = licenses.tcltk;
     platforms = platforms.all;

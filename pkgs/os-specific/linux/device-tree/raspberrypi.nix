@@ -9,7 +9,7 @@ stdenvNoCC.mkDerivation {
   version = raspberrypifw.version;
   nativeBuildInputs = [ raspberrypifw ];
 
-  # Rename DTBs so u-boot finds them, like linux-rpi.nix
+    # Rename DTBs so u-boot finds them, like linux-rpi.nix
   buildCommand = ''
     mkdir -p $out/broadcom/
     cd $out/broadcom/

@@ -33,16 +33,17 @@ python3.pkgs.buildPythonApplication rec {
       --replace "rdflib==6.0.0" "rdflib"
   '';
 
-  # Path issues with the tests
+    # Path issues with the tests
   doCheck = false;
 
   pythonImportsCheck = [ "pylode" ];
 
   meta = with lib; {
     description =
-      "OWL ontology documentation tool using Python and templating, based on LODE";
+      "OWL ontology documentation tool using Python and templating, based on LODE"
+      ;
     homepage = "https://github.com/RDFLib/pyLODE";
-    # Next release will move to BSD3
+      # Next release will move to BSD3
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ koslambrou ];
   };

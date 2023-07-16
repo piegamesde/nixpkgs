@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  # Package does not include tests
+    # Package does not include tests
   doCheck = false;
 
   pythonImportsCheck = [ "bravia_tv" ];

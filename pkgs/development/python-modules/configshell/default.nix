@@ -29,7 +29,7 @@ buildPythonPackage rec {
       --replace "pyparsing >=2.0.2,<3.0" "pyparsing >=2.0.2"
   '';
 
-  # Module has no tests
+    # Module has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "configshell" ];

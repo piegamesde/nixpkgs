@@ -4,7 +4,8 @@ import ./make-test-python.nix ({
   }: {
     name = "nomad";
     nodes = {
-      default_server = {
+      default_server =
+        {
           pkgs,
           lib,
           ...
@@ -35,9 +36,11 @@ import ./make-test-python.nix ({
             extraSettingsPaths = [ "/etc/nomad.custom.json" ];
             enableDocker = false;
           };
-        };
+        }
+        ;
 
-      custom_state_dir_server = {
+      custom_state_dir_server =
+        {
           pkgs,
           lib,
           ...
@@ -77,7 +80,8 @@ import ./make-test-python.nix ({
 
               ${pkgs.coreutils}/bin/mkdir -p /nomad/data/dir
             ''}";
-        };
+        }
+        ;
     };
 
     testScript = ''

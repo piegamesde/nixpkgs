@@ -41,7 +41,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "ftp://ftp.freeradius.org/pub/freeradius/freeradius-server-${version}.tar.gz";
+      "ftp://ftp.freeradius.org/pub/freeradius/freeradius-server-${version}.tar.gz"
+      ;
     hash = "sha256-FEv37X7fIcrL0HUdQWAI+s4VZwI7ODKxGm2wejsH2cA=";
   };
 
@@ -69,13 +70,13 @@ stdenv.mkDerivation rec {
       --replace "/usr/bin/finger" "${bsd-finger}/bin/finger"
   '';
 
-  # By default, freeradius will generate Diffie-Hellman parameters and
-  # self-signed TLS certificates during installation. We don't want
-  # this, for several reasons:
-  # - reproducibility (random generation)
-  # - we don't want _anybody_ to use a cert where the private key is on our public binary cache!
-  # - we don't want the certs to change each time the package is rebuilt
-  # So let's avoid anything getting into our output.
+    # By default, freeradius will generate Diffie-Hellman parameters and
+    # self-signed TLS certificates during installation. We don't want
+    # this, for several reasons:
+    # - reproducibility (random generation)
+    # - we don't want _anybody_ to use a cert where the private key is on our public binary cache!
+    # - we don't want the certs to change each time the package is rebuilt
+    # So let's avoid anything getting into our output.
   makeFlags = [ "LOCAL_CERT_FILES=" ];
 
   installFlags = [

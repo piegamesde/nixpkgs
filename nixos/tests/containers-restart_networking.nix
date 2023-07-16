@@ -25,7 +25,8 @@ import ./make-test-python.nix ({
     meta = { maintainers = with lib.maintainers; [ kampfschlaefer ]; };
 
     nodes = {
-      client = {
+      client =
+        {
           lib,
           ...
         }:
@@ -44,8 +45,10 @@ import ./make-test-python.nix ({
             } ];
           };
 
-        };
-      client_eth1 = {
+        }
+        ;
+      client_eth1 =
+        {
           lib,
           ...
         }:
@@ -61,8 +64,10 @@ import ./make-test-python.nix ({
               prefixLength = 24;
             } ];
           };
-        };
-      client_eth1_rstp = {
+        }
+        ;
+      client_eth1_rstp =
+        {
           lib,
           ...
         }:
@@ -78,10 +83,12 @@ import ./make-test-python.nix ({
               prefixLength = 24;
             } ];
           };
-        };
+        }
+        ;
     };
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }:
@@ -136,6 +143,7 @@ import ./make-test-python.nix ({
 
             client.fail("ip l show eth1 |grep 'master br0' >&2")
             client.fail("grep eth1 /run/br0.interfaces >&2")
-      '' ;
+      ''
+      ;
 
   })

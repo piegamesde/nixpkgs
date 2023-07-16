@@ -21,7 +21,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "mjj4791";
     repo = "python-buienradar";
-    # https://github.com/mjj4791/python-buienradar/issues/14
+      # https://github.com/mjj4791/python-buienradar/issues/14
     rev = "caa66ea855dbcc7cf6ee13291d9b2ed7ac01ef98";
     hash = "sha256:0xz03xj5qjayriaah20adh0ycvlvb8jdvgh7w5gm236n64g6krj0";
   };

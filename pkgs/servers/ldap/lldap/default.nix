@@ -13,7 +13,8 @@ let
   # Tracking issue: https://github.com/NixOS/nixpkgs/issues/89426
   frontend = fetchzip {
     url =
-      "https://github.com/lldap/lldap/releases/download/v${lldap.version}/amd64-lldap.tar.gz";
+      "https://github.com/lldap/lldap/releases/download/v${lldap.version}/amd64-lldap.tar.gz"
+      ;
     hash = "sha256-/Ml4L5Gxpnmt1pLSiLNuxtzQYjTCatsVe/hE+Btl8BI=";
     name = "lldap-frontend-${lldap.version}";
     postFetch = ''
@@ -33,7 +34,7 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-FAUTykFh2eGVpx6LrCjV9xWbBPH8pCgAJv3vOXFMFZ4=";
   };
 
-  # `Cargo.lock` has git dependencies, meaning can't use `cargoHash`
+    # `Cargo.lock` has git dependencies, meaning can't use `cargoHash`
   cargoLock = {
     # 0.4.3 has been tagged before the actual Cargo.lock bump, resulting in an inconsitent lock file.
     # To work around this, the Cargo.lock below is from the commit right after the tag:
@@ -57,7 +58,8 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "A lightweight authentication server that provides an opinionated, simplified LDAP interface for authentication";
+      "A lightweight authentication server that provides an opinionated, simplified LDAP interface for authentication"
+      ;
     homepage = "https://github.com/lldap/lldap";
     changelog = "https://github.com/lldap/lldap/blob/v${version}/CHANGELOG.md";
     license = licenses.gpl3Only;

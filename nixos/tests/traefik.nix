@@ -8,14 +8,17 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ joko ]; };
 
     nodes = {
-      client = {
+      client =
+        {
           config,
           pkgs,
           ...
         }: {
           environment.systemPackages = [ pkgs.curl ];
-        };
-      traefik = {
+        }
+        ;
+      traefik =
+        {
           config,
           pkgs,
           ...
@@ -72,7 +75,8 @@ import ./make-test-python.nix ({
           };
 
           users.users.traefik.extraGroups = [ "docker" ];
-        };
+        }
+        ;
     };
 
     testScript = ''

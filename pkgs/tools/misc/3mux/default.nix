@@ -22,7 +22,8 @@ buildGoModule rec {
     (fetchpatch {
       name = "use-shorter-uuids.patch";
       url =
-        "https://github.com/aaronjanse/3mux/commit/6dd36694586f96e3c82ef7db1a0e7917ceb05794.patch";
+        "https://github.com/aaronjanse/3mux/commit/6dd36694586f96e3c82ef7db1a0e7917ceb05794.patch"
+        ;
       hash = "sha256-FnFupOIIQi66mvjshn3EQ6XRzC4cLx3vGTeTUM1HOwM=";
     })
     # Fix the build for Darwin when building with Go 1.18.
@@ -30,7 +31,8 @@ buildGoModule rec {
     (fetchpatch {
       name = "darwin-go-1.18-fix.patch";
       url =
-        "https://github.com/aaronjanse/3mux/commit/f2c26c1037927896d6e9a17ea038f8260620fbd4.patch";
+        "https://github.com/aaronjanse/3mux/commit/f2c26c1037927896d6e9a17ea038f8260620fbd4.patch"
+        ;
       hash = "sha256-RC3p30r0PGUKrxo8uOLL02oyfLqLfhNjBYy6E+OQ2f0=";
     })
   ];
@@ -39,15 +41,15 @@ buildGoModule rec {
 
   vendorHash = "sha256-KMcl6mj+cEgvdZMzBxUtGJsgwPdFuXrY3yjmkB3CS4o=";
 
-  # This is a package used for internally testing 3mux. It's meant for
-  # use by 3mux maintainers/contributors only.
+    # This is a package used for internally testing 3mux. It's meant for
+    # use by 3mux maintainers/contributors only.
   excludedPackages = [ "fuzz" ];
 
-  # 3mux needs to have itself in the path so users can run `3mux detach`.
-  # This ensures that, while inside 3mux, the binary in the path is the
-  # same version as the 3mux hosting the session. This also allows users
-  # to use 3mux via `nix run nixpkgs#_3mux` (otherwise they'd get "command
-  # not found").
+    # 3mux needs to have itself in the path so users can run `3mux detach`.
+    # This ensures that, while inside 3mux, the binary in the path is the
+    # same version as the 3mux hosting the session. This also allows users
+    # to use 3mux via `nix run nixpkgs#_3mux` (otherwise they'd get "command
+    # not found").
   postInstall = ''
     wrapProgram $out/bin/3mux --prefix PATH : $out/bin
   '';

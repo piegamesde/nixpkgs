@@ -19,7 +19,8 @@ else
     version = "1.11.4";
     src = fetchurl {
       url =
-        "https://github.com/ocaml/dune/releases/download/${version}/dune-build-info-${version}.tbz";
+        "https://github.com/ocaml/dune/releases/download/${version}/dune-build-info-${version}.tbz"
+        ;
       sha256 = "1rkc8lqw30ifjaz8d81la6i8j05ffd0whpxqsbg6dci16945zjvp";
     };
 

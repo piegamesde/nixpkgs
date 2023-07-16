@@ -23,7 +23,8 @@ import ./make-test-python.nix ({
     externalTrackerAddress = "80.100.100.3";
 
     download-dir = "/var/lib/transmission/Downloads";
-    transmissionConfig = {
+    transmissionConfig =
+      {
         ...
       }: {
         environment.systemPackages = [ pkgs.transmission ];
@@ -35,7 +36,8 @@ import ./make-test-python.nix ({
             inherit download-dir;
           };
         };
-      };
+      }
+      ;
 
   in {
     name = "bittorrent";
@@ -49,7 +51,8 @@ import ./make-test-python.nix ({
     };
 
     nodes = {
-      tracker = {
+      tracker =
+        {
           pkgs,
           ...
         }: {
@@ -62,7 +65,7 @@ import ./make-test-python.nix ({
             prefixLength = 24;
           } ];
 
-          # We need Apache on the tracker to serve the torrents.
+            # We need Apache on the tracker to serve the torrents.
           services.httpd = {
             enable = true;
             virtualHosts = {
@@ -73,9 +76,11 @@ import ./make-test-python.nix ({
             };
           };
           services.opentracker.enable = true;
-        };
+        }
+        ;
 
-      router = {
+      router =
+        {
           pkgs,
           nodes,
           ...
@@ -106,9 +111,11 @@ import ./make-test-python.nix ({
               ext_ip=${externalRouterAddress}
             '';
           };
-        };
+        }
+        ;
 
-      client1 = {
+      client1 =
+        {
           pkgs,
           nodes,
           ...
@@ -124,9 +131,11 @@ import ./make-test-python.nix ({
           } ];
           networking.defaultGateway = internalRouterAddress;
           networking.firewall.enable = false;
-        };
+        }
+        ;
 
-      client2 = {
+      client2 =
+        {
           pkgs,
           ...
         }: {
@@ -139,10 +148,12 @@ import ./make-test-python.nix ({
             prefixLength = 24;
           } ];
           networking.firewall.enable = false;
-        };
+        }
+        ;
     };
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }: ''
@@ -194,5 +205,6 @@ import ./make-test-python.nix ({
         client2.succeed(
             "cmp ${download-dir}/test.tar.bz2 ${file}"
         )
-      '';
+      ''
+      ;
   } )

@@ -10,11 +10,13 @@ let
   cfg = config.services.dnscrypt-wrapper;
   dataDir = "/var/lib/dnscrypt-wrapper";
 
-  mkPath = path: default:
+  mkPath =
+    path: default:
     if path != null then
       toString path
     else
-      default;
+      default
+    ;
 
   publicKey = mkPath cfg.providerKey.public "${dataDir}/public.key";
   secretKey = mkPath cfg.providerKey.secret "${dataDir}/secret.key";
@@ -84,9 +86,9 @@ let
     fi
   '';
 
-  # This is the fork of the original dnscrypt-proxy maintained by Dyne.org.
-  # dnscrypt-proxy2 doesn't provide the `--test` feature that is needed to
-  # correctly implement key rotation of dnscrypt-wrapper ephemeral keys.
+    # This is the fork of the original dnscrypt-proxy maintained by Dyne.org.
+    # dnscrypt-proxy2 doesn't provide the `--test` feature that is needed to
+    # correctly implement key rotation of dnscrypt-wrapper ephemeral keys.
   dnscrypt-proxy1 = pkgs.callPackage ({
       stdenv,
       fetchFromGitHub,
@@ -116,7 +118,7 @@ let
         pkg-config
       ];
 
-      # <ldns/ldns.h> depends on <openssl/ssl.h>
+        # <ldns/ldns.h> depends on <openssl/ssl.h>
       buildInputs = [
         libsodium
         openssl.dev
@@ -131,7 +133,8 @@ let
 
       meta = {
         description =
-          "A tool for securing communications between a client and a DNS resolver";
+          "A tool for securing communications between a client and a DNS resolver"
+          ;
         homepage = "https://github.com/dyne/dnscrypt-proxy";
         license = licenses.isc;
         maintainers = with maintainers; [ rnhmjoj ];
@@ -229,7 +232,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -263,9 +266,9 @@ in {
         User = "dnscrypt-wrapper";
         WorkingDirectory = dataDir;
         Restart = "on-failure";
-        ExecStart = "${pkgs.dnscrypt-wrapper}/bin/dnscrypt-wrapper ${
-            toString daemonArgs
-          }";
+        ExecStart =
+          "${pkgs.dnscrypt-wrapper}/bin/dnscrypt-wrapper ${toString daemonArgs}"
+          ;
       };
 
       preStart = genKeys;

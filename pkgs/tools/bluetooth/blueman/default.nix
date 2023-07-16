@@ -33,7 +33,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/blueman-project/blueman/releases/download/${version}/${pname}-${version}.tar.xz";
+      "https://github.com/blueman-project/blueman/releases/download/${version}/${pname}-${version}.tar.xz"
+      ;
     sha256 = "sha256-wgYzghQ38yydPRkOzXDR4vclXXSn1pefInEb3C5WAVI=";
   };
 

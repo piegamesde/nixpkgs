@@ -61,8 +61,8 @@ buildPythonPackage rec {
     netcdf4
   ];
 
-  # The complete extra is for usage with conda, which we
-  # don't care about
+    # The complete extra is for usage with conda, which we
+    # don't care about
   postPatch = ''
     substituteInPlace setup.py \
       --replace "dask[complete]" "dask" \

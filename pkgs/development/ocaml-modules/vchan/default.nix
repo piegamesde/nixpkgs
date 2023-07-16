@@ -24,7 +24,8 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/mirage/ocaml-vchan/releases/download/v${version}/vchan-${version}.tbz";
+      "https://github.com/mirage/ocaml-vchan/releases/download/v${version}/vchan-${version}.tbz"
+      ;
     hash = "sha256-5E7dITMVirYoxUkp8ZamRAolyhA6avXGJNAioxeBuV0=";
   };
 

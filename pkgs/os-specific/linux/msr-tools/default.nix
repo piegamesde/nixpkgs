@@ -11,7 +11,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://01.org/sites/default/files/downloads/msr-tools/${pname}-${version}.zip";
+      "https://01.org/sites/default/files/downloads/msr-tools/${pname}-${version}.zip"
+      ;
     sha256 = "07hxmddg0l31kjfmaq84ni142lbbvgq6391r8bd79wpm819pnigr";
   };
 

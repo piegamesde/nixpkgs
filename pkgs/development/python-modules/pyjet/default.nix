@@ -13,7 +13,7 @@ buildPythonPackage rec {
   pname = "pyjet";
   version = "1.9.0";
 
-  # tests not included in pypi tarball
+    # tests not included in pypi tarball
   src = fetchFromGitHub {
     owner = "scikit-hep";
     repo = pname;
@@ -22,8 +22,8 @@ buildPythonPackage rec {
   };
 
   nativeBuildInputs = [ cython ];
-  propagatedBuildInputs = [ numpy ]
-    ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
+  propagatedBuildInputs =
+    [ numpy ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
 
   nativeCheckInputs = [ pytest ];
   checkPhase = ''

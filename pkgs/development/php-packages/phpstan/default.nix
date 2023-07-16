@@ -15,7 +15,8 @@ mkDerivation {
 
   src = fetchurl {
     url =
-      "https://github.com/phpstan/phpstan/releases/download/${version}/phpstan.phar";
+      "https://github.com/phpstan/phpstan/releases/download/${version}/phpstan.phar"
+      ;
     sha256 = "sha256-A+F/ZoL6dLYx4MWN0eWXtQnmWJPYBqEcSgY4A1oR3mo=";
   };
 

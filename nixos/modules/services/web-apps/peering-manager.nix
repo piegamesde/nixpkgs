@@ -171,78 +171,80 @@ in {
       ];
     };
 
-    systemd.services = let
-      defaultServiceConfig = {
-        WorkingDirectory = "/var/lib/peering-manager";
-        User = "peering-manager";
-        Group = "peering-manager";
-        StateDirectory = "peering-manager";
-        StateDirectoryMode = "0750";
-        Restart = "on-failure";
-      };
-    in {
-      peering-manager-migration = {
-        description = "Peering Manager migrations";
-        wantedBy = [ "peering-manager.target" ];
-
-        environment = { PYTHONPATH = pkg.pythonPath; };
-
-        serviceConfig = defaultServiceConfig // {
-          Type = "oneshot";
-          ExecStart = ''
-            ${pkg}/bin/peering-manager migrate
-          '';
+    systemd.services =
+      let
+        defaultServiceConfig = {
+          WorkingDirectory = "/var/lib/peering-manager";
+          User = "peering-manager";
+          Group = "peering-manager";
+          StateDirectory = "peering-manager";
+          StateDirectoryMode = "0750";
+          Restart = "on-failure";
         };
-      };
+      in {
+        peering-manager-migration = {
+          description = "Peering Manager migrations";
+          wantedBy = [ "peering-manager.target" ];
 
-      peering-manager = {
-        description = "Peering Manager WSGI Service";
-        wantedBy = [ "peering-manager.target" ];
-        after = [ "peering-manager-migration.service" ];
+          environment = { PYTHONPATH = pkg.pythonPath; };
 
-        preStart = ''
-          ${pkg}/bin/peering-manager remove_stale_contenttypes --no-input
-        '';
-
-        environment = { PYTHONPATH = pkg.pythonPath; };
-
-        serviceConfig = defaultServiceConfig // {
-          ExecStart = ''
-            ${pkg.python.pkgs.gunicorn}/bin/gunicorn peering_manager.wsgi \
-              --bind ${cfg.listenAddress}:${toString cfg.port} \
-              --pythonpath ${pkg}/opt/peering-manager
-          '';
+          serviceConfig = defaultServiceConfig // {
+            Type = "oneshot";
+            ExecStart = ''
+              ${pkg}/bin/peering-manager migrate
+            '';
+          };
         };
-      };
 
-      peering-manager-rq = {
-        description = "Peering Manager Request Queue Worker";
-        wantedBy = [ "peering-manager.target" ];
-        after = [ "peering-manager.service" ];
+        peering-manager = {
+          description = "Peering Manager WSGI Service";
+          wantedBy = [ "peering-manager.target" ];
+          after = [ "peering-manager-migration.service" ];
 
-        environment = { PYTHONPATH = pkg.pythonPath; };
-
-        serviceConfig = defaultServiceConfig // {
-          ExecStart = ''
-            ${pkg}/bin/peering-manager rqworker high default low
+          preStart = ''
+            ${pkg}/bin/peering-manager remove_stale_contenttypes --no-input
           '';
+
+          environment = { PYTHONPATH = pkg.pythonPath; };
+
+          serviceConfig = defaultServiceConfig // {
+            ExecStart = ''
+              ${pkg.python.pkgs.gunicorn}/bin/gunicorn peering_manager.wsgi \
+                --bind ${cfg.listenAddress}:${toString cfg.port} \
+                --pythonpath ${pkg}/opt/peering-manager
+            '';
+          };
         };
-      };
 
-      peering-manager-housekeeping = {
-        description = "Peering Manager housekeeping job";
-        after = [ "peering-manager.service" ];
+        peering-manager-rq = {
+          description = "Peering Manager Request Queue Worker";
+          wantedBy = [ "peering-manager.target" ];
+          after = [ "peering-manager.service" ];
 
-        environment = { PYTHONPATH = pkg.pythonPath; };
+          environment = { PYTHONPATH = pkg.pythonPath; };
 
-        serviceConfig = defaultServiceConfig // {
-          Type = "oneshot";
-          ExecStart = ''
-            ${pkg}/bin/peering-manager housekeeping
-          '';
+          serviceConfig = defaultServiceConfig // {
+            ExecStart = ''
+              ${pkg}/bin/peering-manager rqworker high default low
+            '';
+          };
         };
-      };
-    } ;
+
+        peering-manager-housekeeping = {
+          description = "Peering Manager housekeeping job";
+          after = [ "peering-manager.service" ];
+
+          environment = { PYTHONPATH = pkg.pythonPath; };
+
+          serviceConfig = defaultServiceConfig // {
+            Type = "oneshot";
+            ExecStart = ''
+              ${pkg}/bin/peering-manager housekeeping
+            '';
+          };
+        };
+      }
+      ;
 
     systemd.timers.peering-manager-housekeeping = {
       description = "Run Peering Manager housekeeping job";
@@ -257,7 +259,7 @@ in {
       group = "peering-manager";
     };
     users.groups.peering-manager = { };
-    users.groups."${config.services.redis.servers.peering-manager.user}".members =
-      [ "peering-manager" ];
+    users.groups."${config.services.redis.servers.peering-manager.user}".members = [ "peering-manager" ]
+      ;
   };
 }

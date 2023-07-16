@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-WY77F4culQ1y8UDIhI117AHBL5mEk40s8HpP3+5muZI=";
   };
 
-  # Fix 'NameError: name 'ssl' is not defined'
+    # Fix 'NameError: name 'ssl' is not defined'
   patches = [ ./import-ssl-module.patch ];
 
   nativeBuildInputs = [ makeWrapper ];
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  # Important runtime dependencies
+    # Important runtime dependencies
   postFixup = ''
     wrapProgram $out/bin/repo --prefix PATH ":" \
       "${

@@ -18,13 +18,13 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace '"cocotb>=1.5.0.dev,<2.0"' ""
   '';
 
-  # tests require cocotb, disable for now to avoid circular dependency
+    # tests require cocotb, disable for now to avoid circular dependency
   doCheck = false;
 
-  # checkPhase = ''
-  #   export PATH=$out/bin:$PATH
-  #   make test
-  # '';
+    # checkPhase = ''
+    #   export PATH=$out/bin:$PATH
+    #   make test
+    # '';
 
   meta = with lib; {
     description =

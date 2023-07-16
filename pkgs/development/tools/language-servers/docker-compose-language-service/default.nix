@@ -24,7 +24,8 @@ buildNpmPackage' rec {
     description = "Language service for Docker Compose documents";
     homepage = "https://github.com/microsoft/compose-language-service";
     changelog =
-      "https://github.com/microsoft/compose-language-service/releases/tag/v${version}";
+      "https://github.com/microsoft/compose-language-service/releases/tag/v${version}"
+      ;
     license = licenses.mit;
     maintainers = with maintainers; [ natsukium ];
     mainProgram = "docker-compose-langserver";

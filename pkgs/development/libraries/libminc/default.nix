@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
   ];
 
   doCheck = !stdenv.isDarwin;
-  # -j1: see https://github.com/BIC-MNI/libminc/issues/110
+    # -j1: see https://github.com/BIC-MNI/libminc/issues/110
   checkPhase = ''
     ctest -j1 --output-on-failure
   '';

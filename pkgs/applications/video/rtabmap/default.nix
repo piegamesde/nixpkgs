@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
     vtkWithQt5
   ];
 
-  # Disable warnings that are irrelevant to us as packagers
+    # Disable warnings that are irrelevant to us as packagers
   cmakeFlags = [ "-Wno-dev" ];
 
   meta = with lib; {

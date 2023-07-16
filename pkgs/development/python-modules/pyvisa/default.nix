@@ -31,7 +31,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  # Test can't find cli tool bin path correctly
+    # Test can't find cli tool bin path correctly
   disabledTests = [ "test_visa_info" ];
 
   postConfigure = ''
@@ -40,7 +40,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Python package for support of the Virtual Instrument Software Architecture (VISA)";
+      "Python package for support of the Virtual Instrument Software Architecture (VISA)"
+      ;
     homepage = "https://github.com/pyvisa/pyvisa";
     license = licenses.mit;
     maintainers = with maintainers; [ mvnetbiz ];

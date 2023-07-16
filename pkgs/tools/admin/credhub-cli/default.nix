@@ -16,7 +16,7 @@ buildGoModule rec {
     sha256 = "sha256-3RVVbZ3UvtM9JSGbjzC6bLq2DwQAOzF/lMaE74Cft2g=";
   };
 
-  # these tests require network access that we're not going to give them
+    # these tests require network access that we're not going to give them
   postPatch = ''
     rm commands/api_test.go
     rm commands/socks5_test.go

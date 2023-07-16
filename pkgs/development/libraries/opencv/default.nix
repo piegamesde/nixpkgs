@@ -31,13 +31,15 @@
 }:
 
 let
-  opencvFlag = name: enabled:
+  opencvFlag =
+    name: enabled:
     "-DWITH_${name}=${
       if enabled then
         "ON"
       else
         "OFF"
-    }";
+    }"
+    ;
 
 in
 stdenv.mkDerivation rec {
@@ -56,7 +58,7 @@ stdenv.mkDerivation rec {
     ./no-build-info.patch
   ];
 
-  # This prevents cmake from using libraries in impure paths (which causes build failure on non NixOS)
+    # This prevents cmake from using libraries in impure paths (which causes build failure on non NixOS)
   postPatch = ''
     sed -i '/Add these standard paths to the search paths for FIND_LIBRARY/,/^\s*$/{d}' CMakeLists.txt
   '';
@@ -104,7 +106,7 @@ stdenv.mkDerivation rec {
     "relro"
   ];
 
-  # Fix pkg-config file that gets broken with multiple outputs
+    # Fix pkg-config file that gets broken with multiple outputs
   postFixup = ''
     sed -i $dev/lib/pkgconfig/opencv.pc -e "s|includedir_old=.*|includedir_old=$dev/include/opencv|"
     sed -i $dev/lib/pkgconfig/opencv.pc -e "s|includedir_new=.*|includedir_new=$dev/include|"
@@ -113,10 +115,12 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Open Computer Vision Library with more than 500 algorithms";
     homepage = "https://opencv.org/";
-    license = if enableUnfree then
-      licenses.unfree
-    else
-      licenses.bsd3;
+    license =
+      if enableUnfree then
+        licenses.unfree
+      else
+        licenses.bsd3
+      ;
     maintainers = with maintainers; [ ];
     platforms = platforms.unix;
   };

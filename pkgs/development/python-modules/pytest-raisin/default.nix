@@ -22,12 +22,13 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pytest ];
 
-  # tests cause circular pytest-raisin already registered with pytest error
+    # tests cause circular pytest-raisin already registered with pytest error
   doCheck = false;
 
   meta = with lib; {
     description =
-      "Plugin enabling the use of exception instances with pytest.raises context";
+      "Plugin enabling the use of exception instances with pytest.raises context"
+      ;
     homepage = "https://github.com/wimglenn/pytest-raisin";
     license = licenses.mit;
     maintainers = with maintainers; [ aadibajpai ];

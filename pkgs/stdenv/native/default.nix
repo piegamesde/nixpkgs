@@ -12,10 +12,12 @@ assert crossSystem == localSystem;
 let
   inherit (localSystem) system;
 
-  shell = if system == "i686-freebsd" || system == "x86_64-freebsd" then
-    "/usr/local/bin/bash"
-  else
-    "/bin/bash";
+  shell =
+    if system == "i686-freebsd" || system == "x86_64-freebsd" then
+      "/usr/local/bin/bash"
+    else
+      "/bin/bash"
+    ;
 
   path = (lib.optionals (system == "i686-solaris") [ "/usr/gnu" ])
     ++ (lib.optionals (system == "i686-netbsd") [ "/usr/pkg" ])
@@ -66,7 +68,7 @@ let
     shopt -s expand_aliases
   '';
 
-  # prevent libtool from failing to find dynamic libraries
+    # prevent libtool from failing to find dynamic libraries
   prehookCygwin = ''
     ${prehookBase}
 
@@ -84,9 +86,10 @@ let
   else
     [ ]);
 
-  # A function that builds a "native" stdenv (one that uses tools in
-  # /usr etc.).
-  makeStdenv = {
+    # A function that builds a "native" stdenv (one that uses tools in
+    # /usr etc.).
+  makeStdenv =
+    {
       cc,
       fetchurl,
       extraPath ? [ ],
@@ -99,20 +102,22 @@ let
       hostPlatform = localSystem;
       targetPlatform = localSystem;
 
-      preHook = if system == "i686-freebsd" then
-        prehookFreeBSD
-      else if system == "x86_64-freebsd" then
-        prehookFreeBSD
-      else if system == "i686-openbsd" then
-        prehookOpenBSD
-      else if system == "i686-netbsd" then
-        prehookNetBSD
-      else if system == "i686-cygwin" then
-        prehookCygwin
-      else if system == "x86_64-cygwin" then
-        prehookCygwin
-      else
-        prehookBase;
+      preHook =
+        if system == "i686-freebsd" then
+          prehookFreeBSD
+        else if system == "x86_64-freebsd" then
+          prehookFreeBSD
+        else if system == "i686-openbsd" then
+          prehookOpenBSD
+        else if system == "i686-netbsd" then
+          prehookNetBSD
+        else if system == "i686-cygwin" then
+          prehookCygwin
+        else if system == "x86_64-cygwin" then
+          prehookCygwin
+        else
+          prehookBase
+        ;
 
       extraNativeBuildInputs = extraNativeBuildInputs
         ++ (if system == "i686-cygwin" then
@@ -127,7 +132,8 @@ let
       fetchurlBoot = fetchurl;
 
       inherit shell cc overrides config;
-    };
+    }
+    ;
 
 in [
 
@@ -140,26 +146,27 @@ in [
     };
     stdenvNoCC = stdenv;
 
-    cc = let
-      nativePrefix = { # switch
-        i686-solaris = "/usr/gnu";
-        x86_64-solaris = "/opt/local/gcc47";
-      }.${system} or "/usr";
-    in
-    import ../../build-support/cc-wrapper {
-      name = "cc-native";
-      nativeTools = true;
-      nativeLibc = true;
-      inherit lib nativePrefix;
-      bintools = import ../../build-support/bintools-wrapper {
-        name = "bintools";
-        inherit lib stdenvNoCC nativePrefix;
+    cc =
+      let
+        nativePrefix = { # switch
+          i686-solaris = "/usr/gnu";
+          x86_64-solaris = "/opt/local/gcc47";
+        }.${system} or "/usr";
+      in
+      import ../../build-support/cc-wrapper {
+        name = "cc-native";
         nativeTools = true;
         nativeLibc = true;
-      };
-      inherit stdenvNoCC;
-    }
-    ;
+        inherit lib nativePrefix;
+        bintools = import ../../build-support/bintools-wrapper {
+          name = "bintools";
+          inherit lib stdenvNoCC nativePrefix;
+          nativeTools = true;
+          nativeLibc = true;
+        };
+        inherit stdenvNoCC;
+      }
+      ;
 
     fetchurl = import ../../build-support/fetchurl {
       inherit
@@ -188,10 +195,12 @@ in [
       inherit (prevStage.stdenv) cc fetchurl;
       extraPath = [ prevStage.xz ];
       overrides = self: super: { inherit (prevStage) xz; };
-      extraNativeBuildInputs = if localSystem.isLinux then
-        [ prevStage.patchelf ]
-      else
-        [ ];
+      extraNativeBuildInputs =
+        if localSystem.isLinux then
+          [ prevStage.patchelf ]
+        else
+          [ ]
+        ;
     };
   })
 

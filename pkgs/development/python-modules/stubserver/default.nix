@@ -17,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-j9R7wpvb07FuN5EhIpE7xTSf26AniQZN4iLpxMjNYKA=";
   };
 
-  # Tests are not shipped and the source not tagged
+    # Tests are not shipped and the source not tagged
   doCheck = false;
 
   pythonImportsCheck = [ "stubserver" ];

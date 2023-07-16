@@ -26,7 +26,7 @@ buildPythonPackage rec {
     pyopenssl
   ];
 
-  # Project has no tests
+    # Project has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "requests_pkcs12" ];

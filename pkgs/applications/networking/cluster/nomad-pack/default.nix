@@ -18,7 +18,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-dUPDwKdkBXBfyfbFxrpgHwZ0Q5jB7aamClNmv+tLCGA=";
 
-  # skip running go tests as they require network access
+    # skip running go tests as they require network access
   doCheck = false;
 
   doInstallCheck = true;
@@ -33,7 +33,8 @@ buildGoModule rec {
     changelog =
       "https://github.com/hashicorp/nomad-pack/blob/main/CHANGELOG.md";
     description =
-      "Nomad Pack is a templating and packaging tool used with HashiCorp Nomad.";
+      "Nomad Pack is a templating and packaging tool used with HashiCorp Nomad."
+      ;
     license = licenses.mpl20;
     maintainers = with maintainers; [ techknowlogick ];
   };

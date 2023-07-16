@@ -10,19 +10,23 @@ with lib;
 let
   cfg = config.services.redis;
 
-  mkValueString = value:
+  mkValueString =
+    value:
     if value == true then
       "yes"
     else if value == false then
       "no"
     else
-      generators.mkValueStringDefault { } value;
+      generators.mkValueStringDefault { } value
+    ;
 
-  redisConfig = settings:
+  redisConfig =
+    settings:
     pkgs.writeText "redis.conf" (generators.toKeyValue {
       listsAsDuplicateKeys = true;
       mkKeyValue = generators.mkKeyValueDefault { inherit mkValueString; } " ";
-    } settings);
+    } settings)
+    ;
 
   redisName = name: "redis" + optionalString (name != "") ("-" + name);
   enabledServers =
@@ -294,7 +298,7 @@ in {
     ])
   ];
 
-  ###### interface
+    ###### interface
 
   options = {
 
@@ -340,10 +344,12 @@ in {
 
                 port = mkOption {
                   type = types.port;
-                  default = if name == "" then
-                    6379
-                  else
-                    0;
+                  default =
+                    if name == "" then
+                      6379
+                    else
+                      0
+                    ;
                   defaultText =
                     literalExpression ''if name == "" then 6379 else 0'';
                   description = lib.mdDoc ''
@@ -399,14 +405,16 @@ in {
                   default = "notice"; # debug, verbose, notice, warning
                   example = "debug";
                   description = lib.mdDoc
-                    "Specify the server verbosity level, options: debug, verbose, notice, warning.";
+                    "Specify the server verbosity level, options: debug, verbose, notice, warning."
+                    ;
                 };
 
                 logfile = mkOption {
                   type = types.str;
                   default = "/dev/null";
                   description = lib.mdDoc
-                    "Specify the log file name. Also 'stdout' can be used to force Redis to log on the standard output.";
+                    "Specify the log file name. Also 'stdout' can be used to force Redis to log on the standard output."
+                    ;
                   example = "/var/log/redis.log";
                 };
 
@@ -489,7 +497,8 @@ in {
                     If the master is password protected (using the requirePass configuration)
                                   it is possible to tell the slave to authenticate before starting the replication synchronization
                                   process, otherwise the master will refuse the slave request.
-                                  (STORED PLAIN TEXT, WORLD-READABLE IN NIX STORE)'';
+                                  (STORED PLAIN TEXT, WORLD-READABLE IN NIX STORE)''
+                    ;
                 };
 
                 requirePass = mkOption {
@@ -514,21 +523,24 @@ in {
                   type = types.bool;
                   default = false;
                   description = lib.mdDoc
-                    "By default data is only periodically persisted to disk, enable this option to use an append-only file for improved persistence.";
+                    "By default data is only periodically persisted to disk, enable this option to use an append-only file for improved persistence."
+                    ;
                 };
 
                 appendFsync = mkOption {
                   type = types.str;
                   default = "everysec"; # no, always, everysec
                   description = lib.mdDoc
-                    "How often to fsync the append-only log, options: no, always, everysec.";
+                    "How often to fsync the append-only log, options: no, always, everysec."
+                    ;
                 };
 
                 slowLogLogSlowerThan = mkOption {
                   type = types.int;
                   default = 10000;
                   description = lib.mdDoc
-                    "Log queries whose execution take longer than X in milliseconds.";
+                    "Log queries whose execution take longer than X in milliseconds."
+                    ;
                   example = 1000;
                 };
 
@@ -568,13 +580,15 @@ in {
                   supervised = "systemd";
                   loglevel = config.logLevel;
                   syslog-enabled = config.syslog;
-                  save = if config.save == [ ] then
-                    ''""'' # Disable saving with `save = ""`
-                  else
-                    map (d:
-                      "${toString (builtins.elemAt d 0)} ${
-                        toString (builtins.elemAt d 1)
-                      }") config.save;
+                  save =
+                    if config.save == [ ] then
+                      ''""'' # Disable saving with `save = ""`
+                    else
+                      map (d:
+                        "${toString (builtins.elemAt d 0)} ${
+                          toString (builtins.elemAt d 1)
+                        }") config.save
+                    ;
                   dbfilename = "dump.rdb";
                   dir = "/var/lib/${redisName name}";
                   appendfsync = config.appendFsync;
@@ -606,7 +620,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf (enabledServers != { }) {
 
@@ -670,24 +684,24 @@ in {
               ''}
             '' );
           Type = "notify";
-          # User and group
+            # User and group
           User = conf.user;
           Group = conf.user;
-          # Runtime directory and mode
+            # Runtime directory and mode
           RuntimeDirectory = redisName name;
           RuntimeDirectoryMode = "0750";
-          # State directory and mode
+            # State directory and mode
           StateDirectory = redisName name;
           StateDirectoryMode = "0700";
-          # Access write directories
+            # Access write directories
           UMask = "0077";
-          # Capabilities
+            # Capabilities
           CapabilityBoundingSet = "";
-          # Security
+            # Security
           NoNewPrivileges = true;
-          # Process Properties
+            # Process Properties
           LimitNOFILE = mkDefault "${toString (conf.maxclients + 32)}";
-          # Sandboxing
+            # Sandboxing
           ProtectSystem = "strict";
           ProtectHome = true;
           PrivateTmp = true;
@@ -709,10 +723,11 @@ in {
           RestrictRealtime = true;
           RestrictSUIDSGID = true;
           PrivateMounts = true;
-          # System Call Filtering
+            # System Call Filtering
           SystemCallArchitectures = "native";
           SystemCallFilter =
-            "~@cpu-emulation @debug @keyring @memlock @mount @obsolete @privileged @resources @setuid";
+            "~@cpu-emulation @debug @keyring @memlock @mount @obsolete @privileged @resources @setuid"
+            ;
         };
       }) enabledServers;
 

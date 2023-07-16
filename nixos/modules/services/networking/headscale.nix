@@ -112,8 +112,8 @@ in {
             derp = {
               urls = mkOption {
                 type = types.listOf types.str;
-                default =
-                  [ "https://controlplane.tailscale.com/derpmap/default" ];
+                default = [ "https://controlplane.tailscale.com/derpmap/default" ]
+                  ;
                 description = lib.mdDoc ''
                   List of urls containing DERP maps.
                   See [How Tailscale works](https://tailscale.com/blog/how-tailscale-works/) for more information on DERP maps.
@@ -748,8 +748,8 @@ in {
     services.headscale.settings = {
       listen_addr = mkDefault "${cfg.address}:${toString cfg.port}";
 
-      # Turn off update checks since the origin of our package
-      # is nixpkgs and not Github.
+        # Turn off update checks since the origin of our package
+        # is nixpkgs and not Github.
       disable_check_updates = true;
 
       unix_socket = "${runDir}/headscale.sock";
@@ -757,9 +757,9 @@ in {
       tls_letsencrypt_cache_dir = "${dataDir}/.cache";
     };
 
-    # Setup the headscale configuration in a known path in /etc to
-    # allow both the Server and the Client use it to find the socket
-    # for communication.
+      # Setup the headscale configuration in a known path in /etc to
+      # allow both the Server and the Client use it to find the socket
+      # for communication.
     environment.etc."headscale/config.yaml".source = configFile;
 
     users.groups.headscale = mkIf (cfg.group == "headscale") { };
@@ -789,54 +789,56 @@ in {
         exec ${cfg.package}/bin/headscale serve
       '';
 
-      serviceConfig = let
-        capabilityBoundingSet = [ "CAP_CHOWN" ]
-          ++ optional (cfg.port < 1024) "CAP_NET_BIND_SERVICE";
-      in {
-        Restart = "always";
-        Type = "simple";
-        User = cfg.user;
-        Group = cfg.group;
+      serviceConfig =
+        let
+          capabilityBoundingSet = [ "CAP_CHOWN" ]
+            ++ optional (cfg.port < 1024) "CAP_NET_BIND_SERVICE";
+        in {
+          Restart = "always";
+          Type = "simple";
+          User = cfg.user;
+          Group = cfg.group;
 
-        # Hardening options
-        RuntimeDirectory = "headscale";
-        # Allow headscale group access so users can be added and use the CLI.
-        RuntimeDirectoryMode = "0750";
+            # Hardening options
+          RuntimeDirectory = "headscale";
+            # Allow headscale group access so users can be added and use the CLI.
+          RuntimeDirectoryMode = "0750";
 
-        StateDirectory = "headscale";
-        StateDirectoryMode = "0750";
+          StateDirectory = "headscale";
+          StateDirectoryMode = "0750";
 
-        ProtectSystem = "strict";
-        ProtectHome = true;
-        PrivateTmp = true;
-        PrivateDevices = true;
-        ProtectKernelTunables = true;
-        ProtectControlGroups = true;
-        RestrictSUIDSGID = true;
-        PrivateMounts = true;
-        ProtectKernelModules = true;
-        ProtectKernelLogs = true;
-        ProtectHostname = true;
-        ProtectClock = true;
-        ProtectProc = "invisible";
-        ProcSubset = "pid";
-        RestrictNamespaces = true;
-        RemoveIPC = true;
-        UMask = "0077";
+          ProtectSystem = "strict";
+          ProtectHome = true;
+          PrivateTmp = true;
+          PrivateDevices = true;
+          ProtectKernelTunables = true;
+          ProtectControlGroups = true;
+          RestrictSUIDSGID = true;
+          PrivateMounts = true;
+          ProtectKernelModules = true;
+          ProtectKernelLogs = true;
+          ProtectHostname = true;
+          ProtectClock = true;
+          ProtectProc = "invisible";
+          ProcSubset = "pid";
+          RestrictNamespaces = true;
+          RemoveIPC = true;
+          UMask = "0077";
 
-        CapabilityBoundingSet = capabilityBoundingSet;
-        AmbientCapabilities = capabilityBoundingSet;
-        NoNewPrivileges = true;
-        LockPersonality = true;
-        RestrictRealtime = true;
-        SystemCallFilter = [
-          "@system-service"
-          "~@privileged"
-          "@chown"
-        ];
-        SystemCallArchitectures = "native";
-        RestrictAddressFamilies = "AF_INET AF_INET6 AF_UNIX";
-      } ;
+          CapabilityBoundingSet = capabilityBoundingSet;
+          AmbientCapabilities = capabilityBoundingSet;
+          NoNewPrivileges = true;
+          LockPersonality = true;
+          RestrictRealtime = true;
+          SystemCallFilter = [
+            "@system-service"
+            "~@privileged"
+            "@chown"
+          ];
+          SystemCallArchitectures = "native";
+          RestrictAddressFamilies = "AF_INET AF_INET6 AF_UNIX";
+        }
+        ;
     };
   };
 

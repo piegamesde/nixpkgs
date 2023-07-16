@@ -182,13 +182,13 @@ stdenv.mkDerivation rec {
 
   passthru = {
     updateScript = gitUpdater { rev-prefix = "v"; };
-    # More of an example than a fully functioning shell, some notes for the adventurous:
-    # - ~/.config/miral-shell.config is one possible user config location,
-    #   accepted options=value are according to `mir-shell --help`
-    # - default icon theme setting is DMZ-White, needs vanilla-dmz installed & on XCURSOR_PATH
-    #   or setting to be changed to an available theme
-    # - terminal emulator setting may need to be changed if miral-terminal script
-    #   does not know about preferred terminal
+      # More of an example than a fully functioning shell, some notes for the adventurous:
+      # - ~/.config/miral-shell.config is one possible user config location,
+      #   accepted options=value are according to `mir-shell --help`
+      # - default icon theme setting is DMZ-White, needs vanilla-dmz installed & on XCURSOR_PATH
+      #   or setting to be changed to an available theme
+      # - terminal emulator setting may need to be changed if miral-terminal script
+      #   does not know about preferred terminal
     providedSessions = [ "mir-shell" ];
   };
 

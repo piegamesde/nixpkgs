@@ -60,6 +60,6 @@ justStaticExecutables (overrideCabal (oldAttrs: {
       --output "$out/share/man/man1/ldgallery.1"
   '';
 
-  # other package metadata (maintainer, description, license, ...)
-  # are inherited from the compiler package
+    # other package metadata (maintainer, description, license, ...)
+    # are inherited from the compiler package
 }) ldgallery-compiler)

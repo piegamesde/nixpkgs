@@ -58,7 +58,7 @@ in {
           chown -R gateone:gateone ${cfg.pidDir}
         fi
       '';
-      #unitConfig.RequiresMountsFor = "${cfg.settingsDir}";
+        #unitConfig.RequiresMountsFor = "${cfg.settingsDir}";
       serviceConfig = {
         ExecStart =
           "${pythonPackages.gateone}/bin/gateone --settings_dir=${cfg.settingsDir} --pid_file=${cfg.pidDir}/gateone.pid --gid=${

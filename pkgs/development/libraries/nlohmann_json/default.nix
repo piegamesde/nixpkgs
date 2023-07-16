@@ -38,7 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = stdenv.hostPlatform == stdenv.buildPlatform;
 
-  # skip tests that require git or modify “installed files”
+    # skip tests that require git or modify “installed files”
   preCheck = ''
     checkFlagsArray+=("ARGS=-LE 'not_reproducible|git_required'")
   '';

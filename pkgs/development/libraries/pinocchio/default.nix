@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-HkNCZpdGi2hJc2+/8XwLrrJcibpyA7fQN1vNuZ9jyhw=";
   };
 
-  # error: use of undeclared identifier '__sincos'
+    # error: use of undeclared identifier '__sincos'
   postPatch = lib.optionalString (stdenv.isDarwin && stdenv.isx86_64) ''
     substituteInPlace src/math/sincos.hpp \
       --replace "__APPLE__" "0"
@@ -45,7 +45,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A fast and flexible implementation of Rigid Body Dynamics algorithms and their analytical derivatives";
+      "A fast and flexible implementation of Rigid Body Dynamics algorithms and their analytical derivatives"
+      ;
     homepage = "https://github.com/stack-of-tasks/pinocchio";
     license = licenses.bsd2;
     maintainers = with maintainers; [ wegank ];

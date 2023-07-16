@@ -235,10 +235,12 @@ let
   format' = format;
 in let
 
-  format = if format' == "qcow2-compressed" then
-    "qcow2"
-  else
-    format';
+  format =
+    if format' == "qcow2-compressed" then
+      "qcow2"
+    else
+      format'
+    ;
 
   compress = optionalString (format' == "qcow2-compressed") "-c";
 
@@ -318,7 +320,7 @@ in let
 
   nixpkgs = cleanSource pkgs.path;
 
-  # FIXME: merge with channel.nix / make-channel.nix.
+    # FIXME: merge with channel.nix / make-channel.nix.
   channelSources = pkgs.runCommand "nixos-${config.system.nixos.version}" { } ''
     mkdir -p $out
     cp -prd ${nixpkgs.outPath} $out/nixos
@@ -344,17 +346,17 @@ in let
       systemdMinimal
     ] ++ lib.optional deterministic gptfdisk ++ stdenv.initialPath);
 
-  # I'm preserving the line below because I'm going to search for it across nixpkgs to consolidate
-  # image building logic. The comment right below this now appears in 4 different places in nixpkgs :)
-  # !!! should use XML.
+    # I'm preserving the line below because I'm going to search for it across nixpkgs to consolidate
+    # image building logic. The comment right below this now appears in 4 different places in nixpkgs :)
+    # !!! should use XML.
   sources = map (x: x.source) contents;
   targets = map (x: x.target) contents;
   modes = map (x: x.mode or "''") contents;
   users = map (x: x.user or "''") contents;
   groups = map (x: x.group or "''") contents;
 
-  basePaths = [ config.system.build.toplevel ]
-    ++ lib.optional copyChannel channelSources;
+  basePaths =
+    [ config.system.build.toplevel ] ++ lib.optional copyChannel channelSources;
 
   additionalPaths' = subtractLists basePaths additionalPaths;
 

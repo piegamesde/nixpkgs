@@ -32,16 +32,18 @@ stdenv.mkDerivation {
       zlib
       stdenv.cc.cc
     ];
-  src = let
-    asset = assets."${stdenv.hostPlatform.system}" or (throw
-      "Unsupported platform ${stdenv.hostPlatform.system}");
-  in
-  fetchurl {
-    url =
-      "https://github.com/Virtuslab/scala-cli/releases/download/v${version}/${asset.asset}";
-    sha256 = asset.sha256;
-  }
-  ;
+  src =
+    let
+      asset = assets."${stdenv.hostPlatform.system}" or (throw
+        "Unsupported platform ${stdenv.hostPlatform.system}");
+    in
+    fetchurl {
+      url =
+        "https://github.com/Virtuslab/scala-cli/releases/download/v${version}/${asset.asset}"
+        ;
+      sha256 = asset.sha256;
+    }
+    ;
   unpackPhase = ''
     runHook preUnpack
     gzip -d < $src > scala-cli
@@ -57,7 +59,7 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  # We need to call autopatchelf before generating completions
+    # We need to call autopatchelf before generating completions
   dontAutoPatchelf = true;
 
   postFixup = lib.optionalString stdenv.isLinux ''

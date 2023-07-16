@@ -15,10 +15,12 @@
 }:
 
 let
-  os = if stdenv.isDarwin then
-    "osx"
-  else
-    "linux";
+  os =
+    if stdenv.isDarwin then
+      "osx"
+    else
+      "linux"
+    ;
   arch = {
     x86_64-linux = "x64";
     aarch64-linux = "arm64";
@@ -37,7 +39,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/lidarr/Lidarr/releases/download/v${version}/Lidarr.master.${version}.${os}-core-${arch}.tar.gz";
+      "https://github.com/lidarr/Lidarr/releases/download/v${version}/Lidarr.master.${version}.${os}-core-${arch}.tar.gz"
+      ;
     sha256 = hash;
   };
 

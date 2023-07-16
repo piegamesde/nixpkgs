@@ -17,8 +17,10 @@
 let
   pythonPackages = python3.pkgs;
   inherit (lib.versions) majorMinor splitVersion;
-  majorMinorPatch = v:
-    builtins.concatStringsSep "." (lib.take 3 (splitVersion v));
+  majorMinorPatch =
+    v:
+    builtins.concatStringsSep "." (lib.take 3 (splitVersion v))
+    ;
 in
 pythonPackages.buildPythonApplication rec {
   pname = "duplicity";
@@ -127,9 +129,9 @@ pythonPackages.buildPythonApplication rec {
     ulimit -n 1024
   '';
 
-  # TODO: Fix test failures on macOS 10.13:
-  #
-  # > OSError: out of pty devices
+    # TODO: Fix test failures on macOS 10.13:
+    #
+    # > OSError: out of pty devices
   doCheck = !stdenv.isDarwin;
 
   meta = with lib; {

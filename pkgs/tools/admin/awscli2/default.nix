@@ -20,8 +20,8 @@ let
 in with py.pkgs;
 buildPythonApplication rec {
   pname = "awscli2";
-  version =
-    "2.11.15"; # N.B: if you change this, check if overrides are still up-to-date
+  version = "2.11.15"
+    ; # N.B: if you change this, check if overrides are still up-to-date
   format = "pyproject";
 
   src = fetchFromGitHub {

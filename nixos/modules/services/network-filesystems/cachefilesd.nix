@@ -38,13 +38,14 @@ in {
         default = "";
         example = "brun 10%";
         description = lib.mdDoc
-          "Additional configuration file entries. See cachefilesd.conf(5) for more information.";
+          "Additional configuration file entries. See cachefilesd.conf(5) for more information."
+          ;
       };
 
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 

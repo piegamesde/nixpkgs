@@ -31,8 +31,8 @@ buildPythonApplication rec {
     sha256 = "sha256-3fVo+B71SsJs+XF4+FWH2nz0ouTnpC/02fXYr1C9Jrk=";
   };
 
-  # Relax requirements from "==" to ">="
-  # https://github.com/tabatkins/bikeshed/issues/2178
+    # Relax requirements from "==" to ">="
+    # https://github.com/tabatkins/bikeshed/issues/2178
   postPatch = ''
     substituteInPlace requirements.txt \
       --replace "==" ">="
@@ -65,7 +65,8 @@ buildPythonApplication rec {
 
   meta = with lib; {
     description =
-      "Preprocessor for anyone writing specifications that converts source files into actual specs";
+      "Preprocessor for anyone writing specifications that converts source files into actual specs"
+      ;
     longDescription = ''
       Bikeshed is a pre-processor for spec documents, turning a source document
       (containing only the actual spec content, plus several shorthands for linking

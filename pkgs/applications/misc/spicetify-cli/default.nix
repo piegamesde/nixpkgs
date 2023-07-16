@@ -24,7 +24,7 @@ buildGoModule rec {
     "-X 'main.version=${version}'"
   ];
 
-  # used at runtime, but not installed by default
+    # used at runtime, but not installed by default
   postInstall = ''
     cp -r ${src}/jsHelper $out/bin/jsHelper
   '';

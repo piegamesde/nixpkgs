@@ -95,7 +95,8 @@ mkDerivation rec {
     description = "Modern C++ Terminal Emulator";
     homepage = "https://github.com/contour-terminal/contour";
     changelog =
-      "https://github.com/contour-terminal/contour/raw/v${version}/Changelog.md";
+      "https://github.com/contour-terminal/contour/raw/v${version}/Changelog.md"
+      ;
     license = licenses.asl20;
     maintainers = with maintainers; [ fortuneteller2k ];
     platforms = platforms.unix;

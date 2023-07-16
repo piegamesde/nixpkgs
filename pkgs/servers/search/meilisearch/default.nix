@@ -37,7 +37,7 @@ rustPlatform.buildRustPackage {
     };
   };
 
-  # Default features include mini dashboard which downloads something from the internet.
+    # Default features include mini dashboard which downloads something from the internet.
   buildNoDefaultFeatures = true;
 
   buildInputs = lib.optionals stdenv.isDarwin [
@@ -48,7 +48,7 @@ rustPlatform.buildRustPackage {
 
   passthru.tests = { meilisearch = nixosTests.meilisearch; };
 
-  # Tests will try to compile with mini-dashboard features which downloads something from the internet.
+    # Tests will try to compile with mini-dashboard features which downloads something from the internet.
   doCheck = false;
 
   meta = with lib; {

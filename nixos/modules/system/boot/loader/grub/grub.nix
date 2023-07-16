@@ -18,19 +18,22 @@ let
     if cfg.forcei686 then
       pkgs.pkgsi686Linux
     else
-      pkgs;
+      pkgs
+    ;
 
-  realGrub = if cfg.version == 1 then
-    grubPkgs.grub
-  else if cfg.zfsSupport then
-    grubPkgs.grub2.override { zfsSupport = true; }
-  else if cfg.trustedBoot.enable then
-    if cfg.trustedBoot.isHPLaptop then
-      grubPkgs.trustedGrub-for-HP
+  realGrub =
+    if cfg.version == 1 then
+      grubPkgs.grub
+    else if cfg.zfsSupport then
+      grubPkgs.grub2.override { zfsSupport = true; }
+    else if cfg.trustedBoot.enable then
+      if cfg.trustedBoot.isHPLaptop then
+        grubPkgs.trustedGrub-for-HP
+      else
+        grubPkgs.trustedGrub
     else
-      grubPkgs.trustedGrub
-  else
-    grubPkgs.grub2;
+      grubPkgs.grub2
+    ;
 
   grub =
     # Don't include GRUB if we're only generating a GRUB menu (e.g.,
@@ -38,23 +41,28 @@ let
     if cfg.devices == [ "nodev" ] then
       null
     else
-      realGrub;
+      realGrub
+    ;
 
   grubEfi =
     # EFI version of Grub v2
     if cfg.efiSupport && (cfg.version == 2) then
       realGrub.override { efiSupport = cfg.efiSupport; }
     else
-      null;
+      null
+    ;
 
   f = x: optionalString (x != null) ("" + x);
 
-  grubConfig = args:
+  grubConfig =
+    args:
     let
-      efiSysMountPoint = if args.efiSysMountPoint == null then
-        args.path
-      else
-        args.efiSysMountPoint;
+      efiSysMountPoint =
+        if args.efiSysMountPoint == null then
+          args.path
+        else
+          args.efiSysMountPoint
+        ;
       efiSysMountPoint' = replaceStrings [ "/" ] [ "-" ] efiSysMountPoint;
     in
     pkgs.writeText "grub-config.xml" (builtins.toXML {
@@ -73,18 +81,24 @@ let
         (f (grubEfi.grubTarget or ""));
       bootPath = args.path;
       storePath = config.boot.loader.grub.storePath;
-      bootloaderId = if args.efiBootloaderId == null then
-        "${config.system.nixos.distroName}${efiSysMountPoint'}"
-      else
-        args.efiBootloaderId;
-      timeout = if config.boot.loader.timeout == null then
-        -1
-      else
-        config.boot.loader.timeout;
-      users = if cfg.users == { } || cfg.version != 1 then
-        cfg.users
-      else
-        throw "GRUB version 1 does not support user accounts.";
+      bootloaderId =
+        if args.efiBootloaderId == null then
+          "${config.system.nixos.distroName}${efiSysMountPoint'}"
+        else
+          args.efiBootloaderId
+        ;
+      timeout =
+        if config.boot.loader.timeout == null then
+          -1
+        else
+          config.boot.loader.timeout
+        ;
+      users =
+        if cfg.users == { } || cfg.version != 1 then
+          cfg.users
+        else
+          throw "GRUB version 1 does not support user accounts."
+        ;
       theme = f cfg.theme;
       inherit efiSysMountPoint;
       inherit (args) devices;
@@ -125,15 +139,17 @@ let
             busybox
             os-prober
           ]);
-      font = if cfg.font == null then
-        ""
-      else
-        (if lib.last (lib.splitString "." cfg.font) == "pf2" then
-          cfg.font
+      font =
+        if cfg.font == null then
+          ""
         else
-          "${convertedFont}");
+          (if lib.last (lib.splitString "." cfg.font) == "pf2" then
+            cfg.font
+          else
+            "${convertedFont}")
+        ;
     })
-  ;
+    ;
 
   bootDeviceCounters =
     foldr (device: attr: attr // { ${device} = (attr.${device} or 0) + 1; }) { }
@@ -230,7 +246,8 @@ in {
               };
               hashedPassword = mkOption {
                 example =
-                  "grub.pbkdf2.sha512.10000.674DFFDEF76E13EA...2CC972B102CF4355";
+                  "grub.pbkdf2.sha512.10000.674DFFDEF76E13EA...2CC972B102CF4355"
+                  ;
                 default = null;
                 type = with types; uniq (nullOr str);
                 description = lib.mdDoc ''
@@ -374,8 +391,8 @@ in {
 
       extraGrubInstallArgs = mkOption {
         default = [ ];
-        example =
-          [ "--modules=nativedisk ahci pata part_gpt part_msdos diskfilter mdraid1x lvm ext2" ];
+        example = [ "--modules=nativedisk ahci pata part_gpt part_msdos diskfilter mdraid1x lvm ext2" ]
+          ;
         type = types.listOf types.str;
         description = lib.mdDoc ''
           Additional arguments passed to `grub-install`.
@@ -797,7 +814,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkMerge [
 
@@ -805,7 +822,8 @@ in {
       boot.loader.grub.splashImage = mkDefault (if cfg.version == 1 then
         pkgs.fetchurl {
           url =
-            "http://www.gnome-look.org/CONTENT/content-files/36909-soft-tux.xpm.gz";
+            "http://www.gnome-look.org/CONTENT/content-files/36909-soft-tux.xpm.gz"
+            ;
           sha256 = "14kqdx2lfqvh40h6fjjzqgff1mwk74dmbjvmqphi6azzra7z8d59";
         }
         # GRUB 1.97 doesn't support gzipped XPMs.
@@ -835,37 +853,39 @@ in {
         echo -n "$configurationName" > $out/configuration-name
       '';
 
-      system.build.installBootLoader = let
-        install-grub-pl = pkgs.substituteAll {
-          src = ./install-grub.pl;
-          utillinux = pkgs.util-linux;
-          btrfsprogs = pkgs.btrfs-progs;
-          inherit (config.system.nixos) distroName;
-        };
-        perl = pkgs.perl.withPackages (p:
-          with p; [
-            FileSlurp
-            FileCopyRecursive
-            XMLLibXML
-            XMLSAX
-            XMLSAXBase
-            ListCompare
-            JSON
-          ]);
-      in
-      pkgs.writeScript "install-grub.sh" (''
-        #!${pkgs.runtimeShell}
-        set -e
-        ${optionalString cfg.enableCryptodisk "export GRUB_ENABLE_CRYPTODISK=y"}
-      '' + flip concatMapStrings cfg.mirroredBoots (args: ''
-        ${perl}/bin/perl ${install-grub-pl} ${grubConfig args} $@
-      '') + cfg.extraInstallCommands)
-      ;
+      system.build.installBootLoader =
+        let
+          install-grub-pl = pkgs.substituteAll {
+            src = ./install-grub.pl;
+            utillinux = pkgs.util-linux;
+            btrfsprogs = pkgs.btrfs-progs;
+            inherit (config.system.nixos) distroName;
+          };
+          perl = pkgs.perl.withPackages (p:
+            with p; [
+              FileSlurp
+              FileCopyRecursive
+              XMLLibXML
+              XMLSAX
+              XMLSAXBase
+              ListCompare
+              JSON
+            ]);
+        in
+        pkgs.writeScript "install-grub.sh" (''
+          #!${pkgs.runtimeShell}
+          set -e
+          ${optionalString cfg.enableCryptodisk
+          "export GRUB_ENABLE_CRYPTODISK=y"}
+        '' + flip concatMapStrings cfg.mirroredBoots (args: ''
+          ${perl}/bin/perl ${install-grub-pl} ${grubConfig args} $@
+        '') + cfg.extraInstallCommands)
+        ;
 
       system.build.grub = grub;
 
-      # Common attribute for boot loaders so only one of them can be
-      # set at once.
+        # Common attribute for boot loaders so only one of them can be
+        # set at once.
       system.boot.loader.id = "grub";
 
       environment.systemPackages = optional (grub != null) grub;
@@ -909,18 +929,21 @@ in {
           assertion = !cfg.trustedBoot.enable || cfg.trustedBoot.systemHasTPM
             == "YES_TPM_is_activated";
           message =
-            "Trusted GRUB can break the system! Confirm that the system has an activated TPM by setting 'systemHasTPM'.";
+            "Trusted GRUB can break the system! Confirm that the system has an activated TPM by setting 'systemHasTPM'."
+            ;
         }
         {
           assertion = cfg.efiInstallAsRemovable -> cfg.efiSupport;
           message =
-            "If you wish to to use boot.loader.grub.efiInstallAsRemovable, then turn on boot.loader.grub.efiSupport";
+            "If you wish to to use boot.loader.grub.efiInstallAsRemovable, then turn on boot.loader.grub.efiSupport"
+            ;
         }
         {
           assertion = cfg.efiInstallAsRemovable
             -> !config.boot.loader.efi.canTouchEfiVariables;
           message =
-            "If you wish to to use boot.loader.grub.efiInstallAsRemovable, then turn off boot.loader.efi.canTouchEfiVariables";
+            "If you wish to to use boot.loader.grub.efiInstallAsRemovable, then turn off boot.loader.efi.canTouchEfiVariables"
+            ;
         }
       ] ++ flip concatMap cfg.mirroredBoots (args:
         [
@@ -934,17 +957,20 @@ in {
             message = "Boot paths must be absolute, not ${args.path}";
           }
           {
-            assertion = if args.efiSysMountPoint == null then
-              true
-            else
-              hasPrefix "/" args.efiSysMountPoint;
+            assertion =
+              if args.efiSysMountPoint == null then
+                true
+              else
+                hasPrefix "/" args.efiSysMountPoint
+              ;
             message =
               "EFI paths must be absolute, not ${args.efiSysMountPoint}";
           }
         ] ++ forEach args.devices (device: {
           assertion = device == "nodev" || hasPrefix "/" device;
           message =
-            "GRUB devices must be absolute paths, not ${device} in ${args.path}";
+            "GRUB devices must be absolute paths, not ${device} in ${args.path}"
+            ;
         }));
     })
 

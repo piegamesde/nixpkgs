@@ -11,7 +11,7 @@ buildPythonPackage rec {
   pname = "etcd";
   version = "2.0.8";
 
-  # PyPI package is incomplete
+    # PyPI package is incomplete
   src = fetchFromGitHub {
     owner = "dsoprea";
     repo = "PythonEtcdClient";
@@ -29,7 +29,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  # No proper tests are available
+    # No proper tests are available
   doCheck = false;
 
   meta = with lib; {

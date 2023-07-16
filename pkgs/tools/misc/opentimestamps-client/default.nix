@@ -32,7 +32,8 @@ python3.pkgs.buildPythonApplication rec {
       "Command-line tool to create and verify OpenTimestamps proofs";
     homepage = "https://github.com/opentimestamps/opentimestamps-client";
     changelog =
-      "https://github.com/opentimestamps/opentimestamps-client/releases/tag/opentimestamps-client-v${version}";
+      "https://github.com/opentimestamps/opentimestamps-client/releases/tag/opentimestamps-client-v${version}"
+      ;
     license = licenses.lgpl3Only;
     maintainers = with maintainers; [ erikarvstedt ];
   };

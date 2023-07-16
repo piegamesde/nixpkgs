@@ -13,22 +13,24 @@ let
   wrappedBins = pkgs.runCommand "firejail-wrapped-binaries" {
     preferLocalBuild = true;
     allowSubstitutes = false;
-    # take precedence over non-firejailed versions
+      # take precedence over non-firejailed versions
     meta.priority = -1;
   } ''
     mkdir -p $out/bin
     mkdir -p $out/share/applications
     ${lib.concatStringsSep "\n" (lib.mapAttrsToList (command: value:
       let
-        opts = if builtins.isAttrs value then
-          value
-        else
-          {
-            executable = value;
-            desktop = null;
-            profile = null;
-            extraArgs = [ ];
-          };
+        opts =
+          if builtins.isAttrs value then
+            value
+          else
+            {
+              executable = value;
+              desktop = null;
+              profile = null;
+              extraArgs = [ ];
+            }
+          ;
         args = lib.escapeShellArgs (opts.extraArgs
           ++ (optional (opts.profile != null)
             "--profile=${toString opts.profile}"));
@@ -65,7 +67,8 @@ in {
             type = types.nullOr types.path;
             default = null;
             description = lib.mkDoc
-              ".desktop file to modify. Only necessary if it uses the absolute path to the executable.";
+              ".desktop file to modify. Only necessary if it uses the absolute path to the executable."
+              ;
             example = literalExpression
               ''"''${pkgs.firefox}/share/applications/firefox.desktop"'';
           };

@@ -25,8 +25,9 @@ in {
     security.pki.certificateFiles = mkOption {
       type = types.listOf types.path;
       default = [ ];
-      example = literalExpression
-        ''[ "''${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt" ]'';
+      example =
+        literalExpression ''[ "''${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt" ]''
+        ;
       description = lib.mdDoc ''
         A list of files containing trusted root certificates in PEM
         format. These are concatenated to form
@@ -80,13 +81,13 @@ in {
     # NixOS canonical location + Debian/Ubuntu/Arch/Gentoo compatibility.
     environment.etc."ssl/certs/ca-certificates.crt".source = caBundle;
 
-    # Old NixOS compatibility.
+      # Old NixOS compatibility.
     environment.etc."ssl/certs/ca-bundle.crt".source = caBundle;
 
-    # CentOS/Fedora compatibility.
+      # CentOS/Fedora compatibility.
     environment.etc."pki/tls/certs/ca-bundle.crt".source = caBundle;
 
-    # P11-Kit trust source.
+      # P11-Kit trust source.
     environment.etc."ssl/trust-source".source =
       "${cacertPackage.p11kit}/etc/ssl/trust-source";
 

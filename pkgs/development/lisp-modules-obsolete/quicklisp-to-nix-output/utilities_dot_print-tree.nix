@@ -19,7 +19,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/utilities.print-tree/2020-03-25/utilities.print-tree-20200325-git.tgz";
+      "http://beta.quicklisp.org/archive/utilities.print-tree/2020-03-25/utilities.print-tree-20200325-git.tgz"
+      ;
     sha256 = "1nam8g2ppzkzpkwwhmil9y68is43ljpvc7hd64zxp4zsaqab5dww";
   };
 

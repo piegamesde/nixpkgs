@@ -7,18 +7,20 @@
 }:
 let
   py = python3.override {
-    packageOverrides = self: super: {
-      google-auth-oauthlib = super.google-auth-oauthlib.overridePythonAttrs
-        (oldAttrs: rec {
-          version = "0.5.2b1";
-          src = fetchFromGitHub {
-            owner = "gilesknap";
-            repo = "google-auth-library-python-oauthlib";
-            rev = "v${version}";
-            hash = "sha256-o4Jakm/JgLszumrSoTTnU+nc79Ei70abjpmn614qGyc=";
-          };
-        });
-    };
+    packageOverrides =
+      self: super: {
+        google-auth-oauthlib = super.google-auth-oauthlib.overridePythonAttrs
+          (oldAttrs: rec {
+            version = "0.5.2b1";
+            src = fetchFromGitHub {
+              owner = "gilesknap";
+              repo = "google-auth-library-python-oauthlib";
+              rev = "v${version}";
+              hash = "sha256-o4Jakm/JgLszumrSoTTnU+nc79Ei70abjpmn614qGyc=";
+            };
+          });
+      }
+      ;
   };
 in
 py.pkgs.buildPythonApplication rec {

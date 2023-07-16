@@ -53,8 +53,8 @@ stdenv.mkDerivation rec {
 
   ] ++ lib.optionals stdenv.isDarwin [ ./fix-darwin.patch ];
 
-  # fails with "Unable to find executable:
-  # /build/clucene-core-2.3.3.4/build/bin/cl_test"
+    # fails with "Unable to find executable:
+    # /build/clucene-core-2.3.3.4/build/bin/cl_test"
   doCheck = false;
 
   env.NIX_CFLAGS_COMPILE =

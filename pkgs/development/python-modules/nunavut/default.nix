@@ -31,13 +31,13 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-  # allow for writable directory for darwin
+    # allow for writable directory for darwin
   preBuild = ''
     export HOME=$TMPDIR
   '';
 
-  # No tests in pypy package and no git tags yet for release versions, see
-  # https://github.com/UAVCAN/nunavut/issues/182
+    # No tests in pypy package and no git tags yet for release versions, see
+    # https://github.com/UAVCAN/nunavut/issues/182
   doCheck = false;
 
   pythonImportsCheck = [ "nunavut" ];

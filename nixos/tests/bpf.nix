@@ -5,13 +5,15 @@ import ./make-test-python.nix ({
     name = "bpf";
     meta.maintainers = with pkgs.lib.maintainers; [ martinetd ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
         programs.bcc.enable = true;
         environment.systemPackages = with pkgs; [ bpftrace ];
-      };
+      }
+      ;
 
     testScript = ''
       ## bcc

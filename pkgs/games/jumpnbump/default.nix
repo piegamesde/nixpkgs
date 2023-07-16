@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
   pname = "jumpnbump";
   version = "1.70-dev";
 
-  # By targeting the development version, we can omit the patches Arch uses
+    # By targeting the development version, we can omit the patches Arch uses
   src = fetchFromGitLab {
     domain = "gitlab.com";
     owner = "LibreGames";

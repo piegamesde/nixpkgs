@@ -89,9 +89,9 @@
   ghcFlavour ? let
     # TODO(@sternenseemann): does using the static flavour make sense?
     baseFlavour = "release";
-    # Note: in case hadrian's flavour transformers cease being expressive
-    # enough for us, we'll need to resort to defining a "nixpkgs" flavour
-    # in hadrianUserSettings and using that instead.
+      # Note: in case hadrian's flavour transformers cease being expressive
+      # enough for us, we'll need to resort to defining a "nixpkgs" flavour
+      # in hadrianUserSettings and using that instead.
     transformers = lib.optionals useLLVM [ "llvm" ]
       ++ lib.optionals (!enableShared) [
         "no_dynamic_libs"
@@ -189,16 +189,17 @@ let
     ++ lib.optionals
     targetPlatform.useAndroidPrebuilt [ "*.*.ghc.c.opts += -optc-std=gnu99" ];
 
-  # GHC's build system hadrian built from the GHC-to-build's source tree
-  # using our bootstrap GHC.
+    # GHC's build system hadrian built from the GHC-to-build's source tree
+    # using our bootstrap GHC.
   hadrian = bootPkgs.callPackage ../../tools/haskell/hadrian {
     ghcSrc = src;
     ghcVersion = version;
     userSettings = hadrianUserSettings;
   };
 
-  # Splicer will pull out correct variations
-  libDeps = platform:
+    # Splicer will pull out correct variations
+  libDeps =
+    platform:
     lib.optional enableTerminfo ncurses
     ++ lib.optionals (!targetPlatform.isGhcjs) [ libffi ]
     # Bindist configure script fails w/o elfutils in linker search path
@@ -206,10 +207,11 @@ let
     ++ lib.optional enableDwarf elfutils
     ++ lib.optional (!enableNativeBignum) gmp ++ lib.optional (platform.libc
       != "glibc" && !targetPlatform.isWindows && !targetPlatform.isGhcjs)
-    libiconv;
+    libiconv
+    ;
 
-  # TODO(@sternenseemann): is buildTarget LLVM unnecessary?
-  # GHC doesn't seem to have {LLC,OPT}_HOST
+    # TODO(@sternenseemann): is buildTarget LLVM unnecessary?
+    # GHC doesn't seem to have {LLC,OPT}_HOST
   toolsForTarget = [ (if targetPlatform.isGhcjs then
     pkgsBuildTarget.emscripten
   else
@@ -218,32 +220,35 @@ let
 
   targetCC = builtins.head toolsForTarget;
 
-  # Sometimes we have to dispatch between the bintools wrapper and the unwrapped
-  # derivation for certain tools depending on the platform.
+    # Sometimes we have to dispatch between the bintools wrapper and the unwrapped
+    # derivation for certain tools depending on the platform.
   bintoolsFor = {
     # GHC needs install_name_tool on all darwin platforms. On aarch64-darwin it is
     # part of the bintools wrapper (due to codesigning requirements), but not on
     # x86_64-darwin.
-    install_name_tool = if stdenv.targetPlatform.isAarch64 then
-      targetCC.bintools
-    else
-      targetCC.bintools.bintools;
-    # Same goes for strip.
+    install_name_tool =
+      if stdenv.targetPlatform.isAarch64 then
+        targetCC.bintools
+      else
+        targetCC.bintools.bintools
+      ;
+      # Same goes for strip.
     strip =
       # TODO(@sternenseemann): also use wrapper if linker == "bfd" or "gold"
       if stdenv.targetPlatform.isAarch64 && stdenv.targetPlatform.isDarwin then
         targetCC.bintools
       else
-        targetCC.bintools.bintools;
+        targetCC.bintools.bintools
+      ;
   };
 
-  # Use gold either following the default, or to avoid the BFD linker due to some bugs / perf issues.
-  # But we cannot avoid BFD when using musl libc due to https://sourceware.org/bugzilla/show_bug.cgi?id=23856
-  # see #84670 and #49071 for more background.
+    # Use gold either following the default, or to avoid the BFD linker due to some bugs / perf issues.
+    # But we cannot avoid BFD when using musl libc due to https://sourceware.org/bugzilla/show_bug.cgi?id=23856
+    # see #84670 and #49071 for more background.
   useLdGold = targetPlatform.linker == "gold" || (targetPlatform.linker == "bfd"
     && (targetCC.bintools.bintools.hasGold or false) && !targetPlatform.isMusl);
 
-  # Makes debugging easier to see which variant is at play in `nix-store -q --tree`.
+    # Makes debugging easier to see which variant is at play in `nix-store -q --tree`.
   variantSuffix = lib.concatStrings [
     (lib.optionalString stdenv.hostPlatform.isMusl "-musl")
     (lib.optionalString enableNativeBignum "-native-bignum")
@@ -271,11 +276,11 @@ stdenv.mkDerivation ({
     patchShebangs --build .
   '';
 
-  # GHC needs the locale configured during the Haddock phase.
+    # GHC needs the locale configured during the Haddock phase.
   LANG = "en_US.UTF-8";
 
-  # GHC is a bit confused on its cross terminology.
-  # TODO(@sternenseemann): investigate coreutils dependencies and pass absolute paths
+    # GHC is a bit confused on its cross terminology.
+    # TODO(@sternenseemann): investigate coreutils dependencies and pass absolute paths
   preConfigure = ''
     for env in $(env | grep '^TARGET_' | sed -E 's|\+?=.*||'); do
       export "''${env#TARGET_}=''${!env}"
@@ -364,7 +369,7 @@ stdenv.mkDerivation ({
     else
       null
   } = "emconfigure ./configure";
-  # GHC currently ships an edited config.sub so ghcjs is accepted which we can not rollback
+    # GHC currently ships an edited config.sub so ghcjs is accepted which we can not rollback
   ${
     if targetPlatform.isGhcjs then
       "dontUpdateAutotoolsGnuConfigScripts"
@@ -372,13 +377,13 @@ stdenv.mkDerivation ({
       null
   } = true;
 
-  # TODO(@Ericson2314): Always pass "--target" and always prefix.
+    # TODO(@Ericson2314): Always pass "--target" and always prefix.
   configurePlatforms = [
     "build"
     "host"
   ] ++ lib.optional (targetPlatform != hostPlatform) "target";
 
-  # `--with` flags for libraries needed for RTS linker
+    # `--with` flags for libraries needed for RTS linker
   configureFlags = [
     "--datadir=$doc/share/doc/ghc"
     "--with-curses-includes=${ncurses.dev}/include"
@@ -408,10 +413,10 @@ stdenv.mkDerivation ({
       "--with-libdw-libraries=${lib.getLib elfutils}/lib"
     ];
 
-  # Make sure we never relax`$PATH` and hooks support for compatibility.
+    # Make sure we never relax`$PATH` and hooks support for compatibility.
   strictDeps = true;
 
-  # Don’t add -liconv to LDFLAGS automatically so that GHC will add it itself.
+    # Don’t add -liconv to LDFLAGS automatically so that GHC will add it itself.
   dontAddExtraLibs = true;
 
   nativeBuildInputs = [
@@ -431,7 +436,7 @@ stdenv.mkDerivation ({
     (stdenv.isDarwin && stdenv.isAarch64) [ autoSignDarwinBinariesHook ]
     ++ lib.optionals enableDocs [ sphinx ];
 
-  # For building runtime libs
+    # For building runtime libs
   depsBuildTarget = toolsForTarget;
 
   buildInputs = [
@@ -471,10 +476,10 @@ stdenv.mkDerivation ({
     runHook postBuild
   '';
 
-  # required, because otherwise all symbols from HSffi.o are stripped, and
-  # that in turn causes GHCi to abort
-  stripDebugFlags = [ "-S" ]
-    ++ lib.optional (!targetPlatform.isDarwin) "--keep-file-symbols";
+    # required, because otherwise all symbols from HSffi.o are stripped, and
+    # that in turn causes GHCi to abort
+  stripDebugFlags =
+    [ "-S" ] ++ lib.optional (!targetPlatform.isDarwin) "--keep-file-symbols";
 
   checkTarget = "test";
 
@@ -488,8 +493,8 @@ stdenv.mkDerivation ({
     # * https://gitlab.haskell.org/ghc/ghc/-/issues/19580
     ++ lib.optional stdenv.targetPlatform.isMusl "pie";
 
-  # big-parallel allows us to build with more than 2 cores on
-  # Hydra which already warrants a significant speedup
+    # big-parallel allows us to build with more than 2 cores on
+    # Hydra which already warrants a significant speedup
   requiredSystemFeatures = [ "big-parallel" ];
 
   outputs = [
@@ -497,10 +502,10 @@ stdenv.mkDerivation ({
     "doc"
   ];
 
-  # We need to configure the bindist *again* before installing
-  # https://gitlab.haskell.org/ghc/ghc/-/issues/22058
-  # TODO(@sternenseemann): it would be nice if the bindist could be an intermediate
-  # derivation, but since it is > 2GB even on x86_64-linux, not a good idea?
+    # We need to configure the bindist *again* before installing
+    # https://gitlab.haskell.org/ghc/ghc/-/issues/22058
+    # TODO(@sternenseemann): it would be nice if the bindist could be an intermediate
+    # derivation, but since it is > 2GB even on x86_64-linux, not a good idea?
   preInstall = ''
     pushd _build/bindist/*
 
@@ -526,7 +531,7 @@ stdenv.mkDerivation ({
       # Our Cabal compiler name
     haskellCompilerName = "ghc-${version}";
 
-    # Expose hadrian used for bootstrapping, for debugging purposes
+      # Expose hadrian used for bootstrapping, for debugging purposes
     inherit hadrian;
   };
 

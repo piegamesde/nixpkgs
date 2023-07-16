@@ -48,8 +48,8 @@ stdenv.mkDerivation rec {
     cupsSupport [ "--disable-static-genppd" # should be harmless on NixOS
     ];
 
-  # FIXME: hacky because we modify generated configure, but I haven't found a better way.
-  # makeFlags doesn't change this everywhere (e.g. in cups-genppdupdate).
+    # FIXME: hacky because we modify generated configure, but I haven't found a better way.
+    # makeFlags doesn't change this everywhere (e.g. in cups-genppdupdate).
   preConfigure = lib.optionalString cupsSupport ''
     sed -i \
       -e "s,cups_conf_datadir=.*,cups_conf_datadir=\"$out/share/cups\",g" \
@@ -64,8 +64,8 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  # Testing is very, very long.
-  # doCheck = true;
+    # Testing is very, very long.
+    # doCheck = true;
 
   meta = with lib; {
     description = "Ghostscript and cups printer drivers";

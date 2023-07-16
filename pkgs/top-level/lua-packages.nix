@@ -18,26 +18,30 @@ self:
 let
   inherit (self) callPackage;
 
-  buildLuaApplication = args:
-    buildLuarocksPackage ({ namePrefix = ""; } // args);
+  buildLuaApplication =
+    args:
+    buildLuarocksPackage ({ namePrefix = ""; } // args)
+    ;
 
   buildLuarocksPackage = lib.makeOverridable
     (callPackage ../development/interpreters/lua-5/build-lua-package.nix { });
 
   luaLib = callPackage ../development/lua-modules/lib.nix { };
 
-  #define build lua package function
+    #define build lua package function
   buildLuaPackage = callPackage ../development/lua-modules/generic { };
 
-  getPath = drv: pathListForVersion:
-    lib.concatMapStringsSep ";" (path: "${drv}/${path}") pathListForVersion;
+  getPath =
+    drv: pathListForVersion:
+    lib.concatMapStringsSep ";" (path: "${drv}/${path}") pathListForVersion
+    ;
 
 in rec {
 
   # Dont take luaPackages from "global" pkgs scope to avoid mixing lua versions
   luaPackages = self;
 
-  # helper functions for dealing with LUA_PATH and LUA_CPATH
+    # helper functions for dealing with LUA_PATH and LUA_CPATH
   inherit luaLib;
 
   getLuaPath = drv: getPath drv luaLib.luaPathList;
@@ -70,7 +74,7 @@ in rec {
 
   luarocks = callPackage ../development/tools/misc/luarocks/default.nix { };
 
-  # a fork of luarocks used to generate nix lua derivations from rockspecs
+    # a fork of luarocks used to generate nix lua derivations from rockspecs
   luarocks-nix =
     callPackage ../development/tools/misc/luarocks/luarocks-nix.nix { };
 
@@ -131,7 +135,8 @@ in rec {
 
       src = fetchurl {
         url =
-          "https://git.gitano.org.uk/luxio.git/snapshot/luxio-luxio-${version}.tar.bz2";
+          "https://git.gitano.org.uk/luxio.git/snapshot/luxio-luxio-${version}.tar.bz2"
+          ;
         sha256 = "1hvwslc25q7k82rxk461zr1a2041nxg7sn3sw3w0y5jxf0giz2pz";
       };
 

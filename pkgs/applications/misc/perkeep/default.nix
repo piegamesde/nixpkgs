@@ -50,16 +50,17 @@ buildGoModule rec {
     go run make.go -offline=true -targets=${lib.concatStringsSep "," packages}
   '';
 
-  # genfileembed gets built regardless of -targets, to embed static
-  # content into the Perkeep binaries. Remove it in post-install to
-  # avoid polluting paths.
+    # genfileembed gets built regardless of -targets, to embed static
+    # content into the Perkeep binaries. Remove it in post-install to
+    # avoid polluting paths.
   postInstall = ''
     rm -f $out/bin/genfileembed
   '';
 
   meta = with lib; {
     description =
-      "A way of storing, syncing, sharing, modelling and backing up content (née Camlistore)";
+      "A way of storing, syncing, sharing, modelling and backing up content (née Camlistore)"
+      ;
     homepage = "https://perkeep.org";
     license = licenses.asl20;
     maintainers = with maintainers; [

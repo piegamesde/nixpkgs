@@ -16,7 +16,7 @@ in {
 
   meta = { maintainers = with maintainers; [ danbst ]; };
 
-  ###### interface
+    ###### interface
 
   options = {
 
@@ -100,21 +100,24 @@ in {
         type = types.either (types.listOf types.str) types.str;
         default = "";
         description = lib.mdDoc
-          "Parameters to pass to the Java Virtual Machine which spawns Apache Tomcat";
+          "Parameters to pass to the Java Virtual Machine which spawns Apache Tomcat"
+          ;
       };
 
       catalinaOpts = mkOption {
         type = types.either (types.listOf types.str) types.str;
         default = "";
         description = lib.mdDoc
-          "Parameters to pass to the Java Virtual Machine which spawns the Catalina servlet container";
+          "Parameters to pass to the Java Virtual Machine which spawns the Catalina servlet container"
+          ;
       };
 
       sharedLibs = mkOption {
         type = types.listOf types.str;
         default = [ ];
         description = lib.mdDoc
-          "List containing JAR files or directories with JAR files which are libraries shared by the web applications";
+          "List containing JAR files or directories with JAR files which are libraries shared by the web applications"
+          ;
       };
 
       serverXml = mkOption {
@@ -130,7 +133,8 @@ in {
         type = types.listOf types.str;
         default = [ ];
         description = lib.mdDoc
-          "List containing JAR files or directories with JAR files which are libraries shared by the web applications and the servlet container";
+          "List containing JAR files or directories with JAR files which are libraries shared by the web applications and the servlet container"
+          ;
       };
 
       webapps = mkOption {
@@ -139,7 +143,8 @@ in {
         defaultText =
           literalExpression "[ config.services.tomcat.package.webapps ]";
         description = lib.mdDoc
-          "List containing WAR files or directories with WAR files which are web applications to be deployed on Tomcat";
+          "List containing WAR files or directories with WAR files which are web applications to be deployed on Tomcat"
+          ;
       };
 
       virtualHosts = mkOption {
@@ -166,7 +171,8 @@ in {
         });
         default = [ ];
         description = lib.mdDoc
-          "List consisting of a virtual host name and a list of web applications to deploy on each virtual host";
+          "List consisting of a virtual host name and a list of web applications to deploy on each virtual host"
+          ;
       };
 
       logPerVirtualHost = mkOption {
@@ -194,7 +200,8 @@ in {
           default = [ ];
           type = types.listOf types.str;
           description = lib.mdDoc
-            "List containing AAR files or directories with AAR files which are web services to be deployed on Axis2";
+            "List containing AAR files or directories with AAR files which are web services to be deployed on Axis2"
+            ;
         };
 
       };
@@ -203,7 +210,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf config.services.tomcat.enable {
 
@@ -266,20 +273,24 @@ in {
           ''
         else
           let
-            hostElementForVirtualHost = virtualHost:
+            hostElementForVirtualHost =
+              virtualHost:
               ''
                 <Host name="${virtualHost.name}" appBase="virtualhosts/${virtualHost.name}/webapps"
                       unpackWARs="true" autoDeploy="true" xmlValidation="false" xmlNamespaceAware="false">
               '' + concatStrings (innerElementsForVirtualHost virtualHost) + ''
                 </Host>
-              '';
-            innerElementsForVirtualHost = virtualHost:
+              ''
+              ;
+            innerElementsForVirtualHost =
+              virtualHost:
               (map (alias: ''
                 <Alias>${alias}</Alias>
               '') virtualHost.aliases) ++ (optional cfg.logPerVirtualHost ''
                 <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs/${virtualHost.name}"
                        prefix="${virtualHost.name}_access_log." pattern="combined" resolveHosts="false"/>
-              '');
+              '')
+              ;
             hostElementsString =
               concatMapStringsSep "\n" hostElementForVirtualHost
               cfg.virtualHosts;

@@ -63,7 +63,8 @@ stdenv.mkDerivation rec {
   '';
   meta = with lib; {
     description =
-      "A simple screen locker like slock, enhanced version with extra configuration options";
+      "A simple screen locker like slock, enhanced version with extra configuration options"
+      ;
     longDescription = ''
       Simple screen locker. After locking, a colored background (default: white) or
       a configurable image is shown, and a ring-shaped unlock-indicator gives feedback

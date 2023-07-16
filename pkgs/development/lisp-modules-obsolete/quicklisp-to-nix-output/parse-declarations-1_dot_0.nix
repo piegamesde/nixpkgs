@@ -12,7 +12,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/parse-declarations/2010-10-06/parse-declarations-20101006-darcs.tgz";
+      "http://beta.quicklisp.org/archive/parse-declarations/2010-10-06/parse-declarations-20101006-darcs.tgz"
+      ;
     sha256 = "0r85b0jfacd28kr65kw9c13dx4i6id1dpmby68zjy63mqbnyawrd";
   };
 

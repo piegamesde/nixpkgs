@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ cmake ];
 
-  # no test data
+    # no test data
   doCheck = false;
 
   postConfigure = ''

@@ -48,9 +48,9 @@ let
       touch $out
     '';
 
-    # TODO, consider optionals:
-    # - Enable tcmalloc unless darwin?
-    # - Enable python bindings?
+      # TODO, consider optionals:
+      # - Enable tcmalloc unless darwin?
+      # - Enable python bindings?
 
     meta = with lib; {
       homepage = "https://github.com/GrammarSoft/cg3";

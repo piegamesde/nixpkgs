@@ -27,7 +27,8 @@ buildGoModule rec {
   meta = with lib; {
     homepage = "https://github.com/rootless-containers/rootlesskit";
     description = ''
-      Kind of Linux-native "fake root" utility, made for mainly running Docker and Kubernetes as an unprivileged user'';
+      Kind of Linux-native "fake root" utility, made for mainly running Docker and Kubernetes as an unprivileged user''
+      ;
     license = licenses.asl20;
     maintainers = with maintainers; [ offline ];
     platforms = platforms.linux;

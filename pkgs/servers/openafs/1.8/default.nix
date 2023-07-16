@@ -70,7 +70,7 @@ stdenv.mkDerivation {
 
   setOutputFlags = false;
 
-  # Makefiles don't include install targets for all new shared libs, yet.
+    # Makefiles don't include install targets for all new shared libs, yet.
   dontDisableStatic = true;
 
   preConfigure = ''
@@ -131,8 +131,8 @@ stdenv.mkDerivation {
     cp -r doc/doxygen/output/html $devdoc/share/devhelp/openafs/doxygen
   '';
 
-  # Avoid references to $TMPDIR by removing it and let patchelf cleanup the
-  # binaries.
+    # Avoid references to $TMPDIR by removing it and let patchelf cleanup the
+    # binaries.
   preFixup = ''
     rm -rf "$(pwd)" && mkdir "$(pwd)"
   '';

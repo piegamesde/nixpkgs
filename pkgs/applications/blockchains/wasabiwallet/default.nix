@@ -17,8 +17,8 @@
 
 let
   dotnet-runtime = dotnetCorePackages.runtime_6_0;
-  # These libraries are dynamically loaded by the application,
-  # and need to be present in LD_LIBRARY_PATH
+    # These libraries are dynamically loaded by the application,
+    # and need to be present in LD_LIBRARY_PATH
   runtimeLibs = [
     curl
     fontconfig.lib
@@ -37,7 +37,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/zkSNACKs/WalletWasabi/releases/download/v${version}/Wasabi-${version}.tar.gz";
+      "https://github.com/zkSNACKs/WalletWasabi/releases/download/v${version}/Wasabi-${version}.tar.gz"
+      ;
     sha256 = "sha256-RlWaeOK6XqxyCIQQp1/X6iG9t7f3ER5K+S3ZvPg6wBg=";
   };
 

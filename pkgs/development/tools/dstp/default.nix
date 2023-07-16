@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-qNH71MPKOC0ld7xxppjZrHSTJ6t8E0LljM1OzT7pM9g=";
 
-  # Tests require network connection, but is not allowed by nix
+    # Tests require network connection, but is not allowed by nix
   doCheck = false;
 
   meta = with lib; {

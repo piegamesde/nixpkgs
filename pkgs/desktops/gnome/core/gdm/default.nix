@@ -39,7 +39,8 @@ let
   override = substituteAll {
     src = ./org.gnome.login-screen.gschema.override;
     icon =
-      "${nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake-white.svg";
+      "${nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake-white.svg"
+      ;
   };
 
 in
@@ -103,7 +104,8 @@ stdenv.mkDerivation rec {
     # https://gitlab.gnome.org/GNOME/gdm/-/merge_requests/92
     (fetchpatch {
       url =
-        "https://gitlab.gnome.org/GNOME/gdm/-/commit/ccecd9c975d04da80db4cd547b67a1a94fa83292.patch";
+        "https://gitlab.gnome.org/GNOME/gdm/-/commit/ccecd9c975d04da80db4cd547b67a1a94fa83292.patch"
+        ;
       sha256 = "5hKS9wjjhuSAYwXct5vS0dPbmPRIINJoLC0Zm1naz6Q=";
       revert = true;
     })
@@ -161,12 +163,12 @@ stdenv.mkDerivation rec {
     glib-compile-schemas "$out/share/glib-2.0/schemas"
   '';
 
-  # HACK: We want to install configuration files to $out/etc
-  # but GDM should read them from /etc on a NixOS system.
-  # With autotools, it was possible to override Make variables
-  # at install time but Meson does not support this
-  # so we need to convince it to install all files to a temporary
-  # location using DESTDIR and then move it to proper one in postInstall.
+    # HACK: We want to install configuration files to $out/etc
+    # but GDM should read them from /etc on a NixOS system.
+    # With autotools, it was possible to override Make variables
+    # at install time but Meson does not support this
+    # so we need to convince it to install all files to a temporary
+    # location using DESTDIR and then move it to proper one in postInstall.
   DESTDIR = "${placeholder "out"}/dest";
 
   separateDebugInfo = true;
@@ -177,14 +179,15 @@ stdenv.mkDerivation rec {
       attrPath = "gnome.gdm";
     };
 
-    # Used in GDM NixOS module
-    # Don't remove.
+      # Used in GDM NixOS module
+      # Don't remove.
     initialVT = "7";
   };
 
   meta = with lib; {
     description =
-      "A program that manages graphical display servers and handles graphical user logins";
+      "A program that manages graphical display servers and handles graphical user logins"
+      ;
     homepage = "https://wiki.gnome.org/Projects/GDM";
     license = licenses.gpl2Plus;
     maintainers = teams.gnome.members;

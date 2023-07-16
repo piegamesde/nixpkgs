@@ -89,11 +89,11 @@ let
 
       stdenv = (stdenv-overridable argsStdenv);
 
-      # The stdenv that we are producing.
+        # The stdenv that we are producing.
     in
     derivation (lib.optionalAttrs (allowedRequisites != null) {
-      allowedRequisites = allowedRequisites ++ defaultNativeBuildInputs
-        ++ defaultBuildInputs;
+      allowedRequisites =
+        allowedRequisites ++ defaultNativeBuildInputs ++ defaultBuildInputs;
     } // lib.optionalAttrs config.contentAddressedByDefault {
       __contentAddressed = true;
       outputHashAlgo = "sha256";
@@ -117,10 +117,10 @@ let
 
       setup = setupScript;
 
-      # We pretty much never need rpaths on Darwin, since all library path references
-      # are absolute unless we go out of our way to make them relative (like with CF)
-      # TODO: This really wants to be in stdenv/darwin but we don't have hostPlatform
-      # there (yet?) so it goes here until then.
+        # We pretty much never need rpaths on Darwin, since all library path references
+        # are absolute unless we go out of our way to make them relative (like with CF)
+        # TODO: This really wants to be in stdenv/darwin but we don't have hostPlatform
+        # there (yet?) so it goes here until then.
       preHook = preHook + lib.optionalString buildPlatform.isDarwin ''
         export NIX_DONT_SET_RPATH_FOR_BUILD=1
       '' + lib.optionalString (hostPlatform.isDarwin
@@ -140,7 +140,7 @@ let
         # + lib.optionalString targetPlatform.isDarwin ''
         #   export NIX_DONT_SET_RPATH_FOR_TARGET=1
         # ''
-      ;
+        ;
 
       inherit initialPath shell defaultNativeBuildInputs defaultBuildInputs;
     } // lib.optionalAttrs buildPlatform.isDarwin {

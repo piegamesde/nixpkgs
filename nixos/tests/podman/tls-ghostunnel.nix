@@ -44,7 +44,8 @@ import ../make-test-python.nix ({
     };
 
     nodes = {
-      podman = {
+      podman =
+        {
           pkgs,
           ...
         }: {
@@ -68,9 +69,11 @@ import ../make-test-python.nix ({
             extraGroups = [ "podman" ];
           };
 
-        };
+        }
+        ;
 
-      client = {
+      client =
+        {
           ...
         }: {
           environment.systemPackages = [
@@ -80,7 +83,8 @@ import ../make-test-python.nix ({
           ];
           environment.variables.DOCKER_HOST = "podman:2376";
           environment.variables.DOCKER_TLS_VERIFY = "1";
-        };
+        }
+        ;
     };
 
     testScript = ''

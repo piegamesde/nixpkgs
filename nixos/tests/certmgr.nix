@@ -6,7 +6,8 @@
 
 with import ../lib/testing-python.nix { inherit system pkgs; };
 let
-  mkSpec = {
+  mkSpec =
+    {
       host,
       service ? null,
       action,
@@ -51,9 +52,11 @@ let
         } ];
       };
       inherit service;
-    };
+    }
+    ;
 
-  mkCertmgrTest = {
+  mkCertmgrTest =
+    {
       svcManager,
       specs,
       testScript,
@@ -61,7 +64,8 @@ let
     makeTest {
       name = "certmgr-" + svcManager;
       nodes = {
-        machine = {
+        machine =
+          {
             config,
             lib,
             pkgs,
@@ -138,10 +142,12 @@ let
               inherit specs;
             };
 
-          };
+          }
+          ;
       };
       inherit testScript;
-    };
+    }
+    ;
 in {
   systemd = mkCertmgrTest {
     svcManager = "systemd";

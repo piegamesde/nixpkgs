@@ -25,7 +25,8 @@ buildPythonPackage rec {
     # Fixes compatibility with scikit-learn 0.24.1
     (fetchpatch {
       url =
-        "https://github.com/gkhayes/mlrose/pull/55/commits/19caf8616fc194402678aa67917db334ad02852a.patch";
+        "https://github.com/gkhayes/mlrose/pull/55/commits/19caf8616fc194402678aa67917db334ad02852a.patch"
+        ;
       sha256 = "1nivz3bn21nd21bxbcl16a6jmy7y5j8ilz90cjmd0xq4v7flsahf";
     })
   ];
@@ -42,7 +43,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "mlrose" ];
 
-  # Fix random seed during tests
+    # Fix random seed during tests
   pytestFlagsArray = [ "--randomly-seed 0" ];
 
   meta = with lib; {

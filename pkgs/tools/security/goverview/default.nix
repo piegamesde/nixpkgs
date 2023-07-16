@@ -22,7 +22,7 @@ buildGoModule rec {
     "-s"
   ];
 
-  # Tests require network access
+    # Tests require network access
   doCheck = false;
 
   meta = with lib; {

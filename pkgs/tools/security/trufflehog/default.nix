@@ -25,7 +25,7 @@ buildGoModule rec {
     "-X=github.com/trufflesecurity/trufflehog/v3/pkg/version.BuildVersion=${version}"
   ];
 
-  # Test cases run git clone and require network access
+    # Test cases run git clone and require network access
   doCheck = false;
 
   postInstall = ''

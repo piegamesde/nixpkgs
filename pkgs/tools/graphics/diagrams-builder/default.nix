@@ -25,12 +25,14 @@ let
     ghcWithPackages (self: [ diagrams-builder ] ++ extraPackages self);
   ghcVersion = wrappedGhc.version;
 
-  exeWrapper = backend: ''
-    makeWrapper \
-    "${diagrams-builder}/bin/diagrams-builder-${backend}" "$out/bin/diagrams-builder-${backend}" \
-      --set NIX_GHC ${wrappedGhc}/bin/ghc \
-      --set NIX_GHC_LIBDIR ${wrappedGhc}/lib/ghc-${ghcVersion}
-  '';
+  exeWrapper =
+    backend: ''
+      makeWrapper \
+      "${diagrams-builder}/bin/diagrams-builder-${backend}" "$out/bin/diagrams-builder-${backend}" \
+        --set NIX_GHC ${wrappedGhc}/bin/ghc \
+        --set NIX_GHC_LIBDIR ${wrappedGhc}/lib/ghc-${ghcVersion}
+    ''
+    ;
 
   backends = [
     "svg"
@@ -44,9 +46,10 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  buildCommand = with lib; concatStringsSep "\n" (map exeWrapper backends);
+  buildCommand = with lib;
+    concatStringsSep "\n" (map exeWrapper backends);
 
-  # Will be faster to build the wrapper locally then to fetch it from a binary cache.
+    # Will be faster to build the wrapper locally then to fetch it from a binary cache.
   preferLocalBuild = true;
   meta = diagrams-builder.meta;
 }

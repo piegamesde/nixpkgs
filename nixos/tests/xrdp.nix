@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ ]; };
 
     nodes = {
-      server = {
+      server =
+        {
           pkgs,
           ...
         }: {
@@ -14,9 +15,11 @@ import ./make-test-python.nix ({
           services.xrdp.enable = true;
           services.xrdp.defaultWindowManager = "${pkgs.xterm}/bin/xterm";
           networking.firewall.allowedTCPPorts = [ 3389 ];
-        };
+        }
+        ;
 
-      client = {
+      client =
+        {
           pkgs,
           ...
         }: {
@@ -28,10 +31,12 @@ import ./make-test-python.nix ({
           environment.systemPackages = [ pkgs.freerdp ];
           services.xrdp.enable = true;
           services.xrdp.defaultWindowManager = "${pkgs.icewm}/bin/icewm";
-        };
+        }
+        ;
     };
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }:
@@ -57,5 +62,6 @@ import ./make-test-python.nix ({
         client.send_chars("xfreerdp /cert-tofu /w:640 /h:480 /v:server /u:${user.name} /p:${user.password}\n")
         client.sleep(5)
         client.screenshot("remoterdp")
-      '' ;
+      ''
+      ;
   })

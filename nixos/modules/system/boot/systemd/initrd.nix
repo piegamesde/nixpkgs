@@ -25,7 +25,7 @@ let
 
   cfg = config.boot.initrd.systemd;
 
-  # Copied from fedora
+    # Copied from fedora
   upstreamUnits = [
     "basic.target"
     "ctrl-alt-del.target"
@@ -105,7 +105,7 @@ let
   modulesTree =
     config.system.modulesTree.override { name = kernel-name + "-modules"; };
   firmware = config.hardware.firmware;
-  # Determine the set of modules that we need to mount the root FS.
+    # Determine the set of modules that we need to mount the root FS.
   modulesClosure = pkgs.makeModulesClosure {
     rootModules = config.boot.initrd.availableKernelModules
       ++ config.boot.initrd.kernelModules;
@@ -420,9 +420,9 @@ in {
         "/etc/modules-load.d/nixos.conf".text =
           concatStringsSep "\n" config.boot.initrd.kernelModules;
 
-        # We can use either ! or * to lock the root account in the
-        # console, but some software like OpenSSH won't even allow you
-        # to log in with an SSH key if you use ! so we use * instead
+          # We can use either ! or * to lock the root account in the
+          # console, but some software like OpenSSH won't even allow you
+          # to log in with an SSH key if you use ! so we use * instead
         "/etc/shadow".text = "root:${
             if isBool cfg.emergencyAccess then
               optionalString (!cfg.emergencyAccess) "*"
@@ -511,7 +511,7 @@ in {
           nameValuePair "${n}.automount" (automountToUnit n v)
         ) cfg.automounts);
 
-      # make sure all the /dev nodes are set up
+        # make sure all the /dev nodes are set up
       services.systemd-tmpfiles-setup-dev.wantedBy = [ "sysinit.target" ];
 
       services.initrd-nixos-activation = {
@@ -564,10 +564,10 @@ in {
           '';
       };
 
-      # This will either call systemctl with the new init as the last parameter (which
-      # is the case when not booting a NixOS system) or with an empty string, causing
-      # systemd to bypass its verification code that checks whether the next file is a systemd
-      # and using its compiled-in value
+        # This will either call systemctl with the new init as the last parameter (which
+        # is the case when not booting a NixOS system) or with an empty string, causing
+        # systemd to bypass its verification code that checks whether the next file is a systemd
+        # and using its compiled-in value
       services.initrd-switch-root.serviceConfig = {
         EnvironmentFile = "-/etc/switch-root.conf";
         ExecStart = [

@@ -34,10 +34,10 @@ let
     };
   };
 
-  # map: name -> fixed-output hash
+    # map: name -> fixed-output hash
   fixedHashes = lib.optionalAttrs useFixedHashes (import ./fixedHashes.nix);
 
-  # function for creating a working environment from a set of TL packages
+    # function for creating a working environment from a set of TL packages
   combine = import ./combine.nix {
     inherit
       bin
@@ -63,67 +63,70 @@ let
 
   tlpdbVersion = tlpdb."00texlive.config";
 
-  # the set of TeX Live packages, collections, and schemes; using upstream naming
-  tl = let
-    orig = removeAttrs tlpdb [ "00texlive.config" ];
+    # the set of TeX Live packages, collections, and schemes; using upstream naming
+  tl =
+    let
+      orig = removeAttrs tlpdb [ "00texlive.config" ];
 
-    overridden = orig // {
-      # overrides of texlive.tlpdb
+      overridden = orig // {
+        # overrides of texlive.tlpdb
 
-      texlive-msg-translations = orig.texlive-msg-translations // {
-        hasRunfiles = false; # only *.po for tlmgr
-      };
+        texlive-msg-translations = orig.texlive-msg-translations // {
+          hasRunfiles = false; # only *.po for tlmgr
+        };
 
-      xdvi = orig.xdvi // { # it seems to need it to transform fonts
-        deps = (orig.xdvi.deps or [ ]) ++ [ "metafont" ];
-      };
+        xdvi = orig.xdvi // { # it seems to need it to transform fonts
+          deps = (orig.xdvi.deps or [ ]) ++ [ "metafont" ];
+        };
 
-      # remove dependency-heavy packages from the basic collections
-      collection-basic = orig.collection-basic // {
-        deps = lib.filter (n: n != "metafont" && n != "xdvi")
-          orig.collection-basic.deps;
-      };
-      # add them elsewhere so that collections cover all packages
-      collection-metapost = orig.collection-metapost // {
-        deps = orig.collection-metapost.deps ++ [ "metafont" ];
-      };
-      collection-plaingeneric = orig.collection-plaingeneric // {
-        deps = orig.collection-plaingeneric.deps ++ [ "xdvi" ];
-      };
+          # remove dependency-heavy packages from the basic collections
+        collection-basic = orig.collection-basic // {
+          deps = lib.filter (n: n != "metafont" && n != "xdvi")
+            orig.collection-basic.deps;
+        };
+          # add them elsewhere so that collections cover all packages
+        collection-metapost = orig.collection-metapost // {
+          deps = orig.collection-metapost.deps ++ [ "metafont" ];
+        };
+        collection-plaingeneric = orig.collection-plaingeneric // {
+          deps = orig.collection-plaingeneric.deps ++ [ "xdvi" ];
+        };
 
-      texdoc = orig.texdoc // {
-        version = orig.texdoc.version + "-tlpdb-"
-          + (toString tlpdbVersion.revision);
+        texdoc = orig.texdoc // {
+          version = orig.texdoc.version + "-tlpdb-"
+            + (toString tlpdbVersion.revision);
 
-        # build Data.tlpdb.lua (part of the 'tlType == "run"' package)
-        postUnpack = ''
-          if [[ -f "$out"/scripts/texdoc/texdoc.tlu ]]; then
-            unxz --stdout "${tlpdbxz}" > texlive.tlpdb
+            # build Data.tlpdb.lua (part of the 'tlType == "run"' package)
+          postUnpack = ''
+            if [[ -f "$out"/scripts/texdoc/texdoc.tlu ]]; then
+              unxz --stdout "${tlpdbxz}" > texlive.tlpdb
 
-            # create dummy doc file to ensure that texdoc does not return an error
-            mkdir -p support/texdoc
-            touch support/texdoc/NEWS
+              # create dummy doc file to ensure that texdoc does not return an error
+              mkdir -p support/texdoc
+              touch support/texdoc/NEWS
 
-            TEXMFCNF="${bin.core}"/share/texmf-dist/web2c TEXMF="$out" TEXDOCS=. TEXMFVAR=. \
-              "${bin.luatex}"/bin/texlua "$out"/scripts/texdoc/texdoc.tlu \
-              -c texlive_tlpdb=texlive.tlpdb -lM texdoc
+              TEXMFCNF="${bin.core}"/share/texmf-dist/web2c TEXMF="$out" TEXDOCS=. TEXMFVAR=. \
+                "${bin.luatex}"/bin/texlua "$out"/scripts/texdoc/texdoc.tlu \
+                -c texlive_tlpdb=texlive.tlpdb -lM texdoc
 
-            cp texdoc/cache-tlpdb.lua "$out"/scripts/texdoc/Data.tlpdb.lua
-          fi
-        '';
-      };
-    }; # overrides
+              cp texdoc/cache-tlpdb.lua "$out"/scripts/texdoc/Data.tlpdb.lua
+            fi
+          '';
+        };
+      }; # overrides
 
-  in
-  lib.mapAttrs mkTLPkg overridden
-  ;
-  # TODO: texlive.infra for web2c config?
+    in
+    lib.mapAttrs mkTLPkg overridden
+    ;
+    # TODO: texlive.infra for web2c config?
 
-  # create a TeX package: an attribute set { pkgs = [ ... ]; ... } where pkgs is a list of derivations
-  mkTLPkg = pname: attrs:
+    # create a TeX package: an attribute set { pkgs = [ ... ]; ... } where pkgs is a list of derivations
+  mkTLPkg =
+    pname: attrs:
     let
       version = attrs.version or (toString attrs.revision);
-      mkPkgV = tlType:
+      mkPkgV =
+        tlType:
         let
           pkg = attrs // {
             sha512 = attrs.sha512.${tlType};
@@ -131,7 +134,7 @@ let
           };
         in
         mkPkg pkg
-      ;
+        ;
     in {
       # TL pkg contains lists of packages: runtime files, docs, sources, binaries
       pkgs =
@@ -149,24 +152,25 @@ let
           }) ] ++ lib.optional (attrs.sha512 ? doc) (mkPkgV "doc")
         ++ lib.optional (attrs.sha512 ? source) (mkPkgV "source")
         ++ lib.optional (bin ? ${pname}) (bin.${pname} // { tlType = "bin"; });
-    } ;
+    }
+    ;
 
   version = {
     # day of the snapshot being taken
     year = "2023";
     month = "03";
     day = "19";
-    # TeX Live version
+      # TeX Live version
     texliveYear = 2022;
-    # final (historic) release or snapshot
+      # final (historic) release or snapshot
     final = true;
   };
 
-  # The tarballs on CTAN mirrors for the current release are constantly
-  # receiving updates, so we can't use those directly. Stable snapshots
-  # need to be used instead. Ideally, for the release branches of NixOS we
-  # should be switching to the tlnet-final versions
-  # (https://tug.org/historic/).
+    # The tarballs on CTAN mirrors for the current release are constantly
+    # receiving updates, so we can't use those directly. Stable snapshots
+    # need to be used instead. Ideally, for the release branches of NixOS we
+    # should be switching to the tlnet-final versions
+    # (https://tug.org/historic/).
   urlPrefixes = with version;
     lib.optionals final [
       # tlnet-final snapshot; used when texlive.tlpdb is frozen
@@ -195,8 +199,9 @@ let
     xzcat "$tlpdbxz" | sed -rn -f "$tl2nix" | uniq > "$out"
   '';
 
-  # create a derivation that contains an unpacked upstream TL package
-  mkPkg = {
+    # create a derivation that contains an unpacked upstream TL package
+  mkPkg =
+    {
       pname,
       tlType,
       revision,
@@ -244,14 +249,16 @@ let
       --strip-components="$stripPrefix" \
       -C "$out" --anchored --exclude=tlpkg --keep-old-files
     '' + postUnpack)
-  ;
+    ;
 
-  # combine a set of TL packages into a single TL meta-package
-  combinePkgs = pkgList:
+    # combine a set of TL packages into a single TL meta-package
+  combinePkgs =
+    pkgList:
     lib.catAttrs "pkg" (let
       # a TeX package is an attribute set { pkgs = [ ... ]; ... } where pkgs is a list of derivations
       # the derivations make up the TeX package and optionally (for backward compatibility) its dependencies
-      tlPkgToSets = {
+      tlPkgToSets =
+        {
           pkgs,
           ...
         }:
@@ -264,23 +271,28 @@ let
             # outputName required to distinguish among bin.core-big outputs
             key = "${pkg.pname or pkg.name}.${tlType}-${version}-${outputName}";
             inherit pkg;
-          }) pkgs;
+          }) pkgs
+        ;
       pkgListToSets = lib.concatMap tlPkgToSets;
     in
     builtins.genericClosure {
       startSet = pkgListToSets pkgList;
-      operator = {
+      operator =
+        {
           pkg,
           ...
         }:
-        pkgListToSets (pkg.tlDeps or [ ]);
+        pkgListToSets (pkg.tlDeps or [ ])
+        ;
     }
-    );
+    )
+    ;
 
   assertions = lib.assertMsg (tlpdbVersion.year == version.texliveYear)
     "TeX Live year in texlive does not match tlpdb.nix, refusing to evaluate"
     && lib.assertMsg (tlpdbVersion.frozen == version.final)
-    "TeX Live final status in texlive does not match tlpdb.nix, refusing to evaluate";
+    "TeX Live final status in texlive does not match tlpdb.nix, refusing to evaluate"
+    ;
 
 in
 tl // {
@@ -292,10 +304,11 @@ tl // {
   };
 
   bin = assert assertions; bin;
-  combine = assert assertions; combine;
+  combine = assert assertions;
+    combine;
 
-  # Pre-defined combined packages for TeX Live schemes,
-  # to make nix-env usage more comfortable and build selected on Hydra.
+    # Pre-defined combined packages for TeX Live schemes,
+    # to make nix-env usage more comfortable and build selected on Hydra.
   combined = with lib;
     recurseIntoAttrs (mapAttrs (pname: attrs:
       addMetaAttrs rec {

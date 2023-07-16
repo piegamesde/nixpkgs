@@ -16,9 +16,9 @@ buildPythonPackage rec {
   version = "0.5.2";
   format = "setuptools";
 
-  # https://github.com/Martiusweb/asynctest/issues/152
-  # broken by upstream python bug with asynctest and
-  # is used exclusively by home-assistant with python 3.8
+    # https://github.com/Martiusweb/asynctest/issues/152
+    # broken by upstream python bug with asynctest and
+    # is used exclusively by home-assistant with python 3.8
   disabled = pythonOlder "3.8";
 
   src = fetchFromGitHub {
@@ -51,7 +51,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Library which communicates with Texas Instruments CC2531 radios for zigpy";
+      "Library which communicates with Texas Instruments CC2531 radios for zigpy"
+      ;
     homepage = "https://github.com/zigpy/zigpy-cc";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ mvnetbiz ];

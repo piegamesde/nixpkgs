@@ -16,8 +16,8 @@ buildPythonPackage rec {
     hash = "sha256-V7N7p5RxLKYLmJeojikYJ/tT/IpVGzG3ZPVvUisDAVs=";
   };
 
-  # Package does not have a conventional test suite that can be run with either
-  # `pytestCheckHook` or the standard setuptools testing situation.
+    # Package does not have a conventional test suite that can be run with either
+    # `pytestCheckHook` or the standard setuptools testing situation.
   doCheck = false;
 
   pythonImportsCheck = [ "plotext" ];

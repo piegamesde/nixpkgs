@@ -16,7 +16,8 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/aantron/luv/releases/download/${version}/luv-${version}.tar.gz";
+      "https://github.com/aantron/luv/releases/download/${version}/luv-${version}.tar.gz"
+      ;
     sha256 = "sha256-zOz0cxGzhLi3Q36qyStNCz8JGXHtECQfZysMKiyKOkM=";
   };
 
@@ -37,7 +38,7 @@ buildDunePackage rec {
   meta = with lib; {
     homepage = "https://github.com/aantron/luv";
     description = "Binding to libuv: cross-platform asynchronous I/O";
-    # MIT-licensed, extra licenses apply partially to libuv vendor
+      # MIT-licensed, extra licenses apply partially to libuv vendor
     license = with licenses; [
       mit
       bsd2

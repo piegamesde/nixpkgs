@@ -32,14 +32,15 @@ stdenv.mkDerivation rec {
   pname = "kmod";
   version = "30";
 
-  # autogen.sh is missing from the release tarball,
-  # and we need to run it to regenerate gtk_doc.make,
-  # because the version in the release tarball is broken.
-  # Possibly this will be fixed in kmod 30?
-  # https://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git/commit/.gitignore?id=61a93a043aa52ad62a11ba940d4ba93cb3254e78
+    # autogen.sh is missing from the release tarball,
+    # and we need to run it to regenerate gtk_doc.make,
+    # because the version in the release tarball is broken.
+    # Possibly this will be fixed in kmod 30?
+    # https://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git/commit/.gitignore?id=61a93a043aa52ad62a11ba940d4ba93cb3254e78
   src = fetchzip {
     url =
-      "https://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git/snapshot/kmod-${version}.tar.gz";
+      "https://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git/snapshot/kmod-${version}.tar.gz"
+      ;
     sha256 = "sha256-/dih2LoqgRrAsVdHRwld28T8pXgqnzapnQhqkXnxbbc=";
   };
 
@@ -82,8 +83,8 @@ stdenv.mkDerivation rec {
     (lib.enableFeature withDevdoc "gtk-doc")
   ] ++ lib.optional withStatic "--enable-static";
 
-  patches = [ ./module-dir.patch ]
-    ++ lib.optional withStatic ./enable-static.patch;
+  patches =
+    [ ./module-dir.patch ] ++ lib.optional withStatic ./enable-static.patch;
 
   postInstall = ''
     for prog in rmmod insmod lsmod modinfo modprobe depmod; do
@@ -111,7 +112,8 @@ stdenv.mkDerivation rec {
     homepage = "https://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git/";
     downloadPage = "https://www.kernel.org/pub/linux/utils/kernel/kmod/";
     changelog =
-      "https://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git/plain/NEWS?h=v${version}";
+      "https://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git/plain/NEWS?h=v${version}"
+      ;
     license = with licenses; [
       lgpl21Plus
       gpl2Plus

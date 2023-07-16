@@ -88,7 +88,8 @@ in {
         type = types.nullOr types.str;
         default = null;
         description = lib.mdDoc
-          "Path to the file containing the application password for OpenID server.";
+          "Path to the file containing the application password for OpenID server."
+          ;
       };
 
       catalinaOptions = mkOption {

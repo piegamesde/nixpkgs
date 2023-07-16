@@ -20,8 +20,8 @@ let
     src = fetchFromGitHub {
       owner = "TES3MP";
       repo = "CrabNet";
-      # usually fixed:
-      # https://github.com/GrimKriegor/TES3MP-deploy/blob/d2a4a5d3acb64b16d9b8ca85906780aeea8d311b/tes3mp-deploy.sh#L589
+        # usually fixed:
+        # https://github.com/GrimKriegor/TES3MP-deploy/blob/d2a4a5d3acb64b16d9b8ca85906780aeea8d311b/tes3mp-deploy.sh#L589
       rev = "19e66190e83f53bcdcbcd6513238ed2e54878a21";
       sha256 = "WIaJkSQnoOm9T7GoAwmWl7fNg79coIo/ILUsWcbH+lA=";
     };
@@ -45,7 +45,7 @@ let
     src = fetchFromGitHub {
       owner = "TES3MP";
       repo = "CoreScripts";
-      # usually latest in stable branch (e.g. 0.7.1)
+        # usually latest in stable branch (e.g. 0.7.1)
       rev = "6ae0a2a5d16171de3764817a7f8b1067ecde3def";
       sha256 = "8j/Sr9IRMNFPEVfFzdb42PckHS3KW7FH7x7rRxIh5gY=";
     };
@@ -57,8 +57,8 @@ let
     '';
   };
 
-  # build an unwrapped version so we don't have to rebuild it all over again in
-  # case the scripts or wrapper scripts change.
+    # build an unwrapped version so we don't have to rebuild it all over again in
+    # case the scripts or wrapper scripts change.
   unwrapped = openmw.overrideAttrs (oldAttrs: rec {
     pname = "openmw-tes3mp-unwrapped";
     version = "0.8.1";
@@ -66,7 +66,7 @@ let
     src = fetchFromGitHub {
       owner = "TES3MP";
       repo = "TES3MP";
-      # usually latest in stable branch (e.g. 0.7.1)
+        # usually latest in stable branch (e.g. 0.7.1)
       rev = "68954091c54d0596037c4fb54d2812313b7582a1";
       sha256 = "8/bV4sw7Q8l8bDTHGQ0t4owf6J6h9q468JFx4KegY5o=";
     };
@@ -87,7 +87,7 @@ let
         --replace "\"./\"" "\"$out/bin/\""
     '';
 
-    # https://github.com/TES3MP/openmw-tes3mp/issues/552
+      # https://github.com/TES3MP/openmw-tes3mp/issues/552
     patches = oldAttrs.patches ++ [ ./tes3mp.patch ];
 
     env.NIX_CFLAGS_COMPILE = "-fpermissive";
@@ -97,7 +97,7 @@ let
         --subst-var-by OPENMW_VERSION_COMMITHASH ${src.rev}
     '';
 
-    # move everything that we wrap out of the way
+      # move everything that we wrap out of the way
     postInstall = ''
       mkdir -p $out/libexec
       mv $out/bin/tes3mp-* $out/libexec

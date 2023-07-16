@@ -37,7 +37,8 @@ mkDerivation {
   version = "unstable-2023-04-11";
   src = fetchzip {
     url =
-      "https://github.com/NixOS/cabal2nix/archive/010ff5c3b75d976d0f3a25b7caa0bc5bf2fdae9f.tar.gz";
+      "https://github.com/NixOS/cabal2nix/archive/010ff5c3b75d976d0f3a25b7caa0bc5bf2fdae9f.tar.gz"
+      ;
     sha256 = "1n38kmavdv6s1czqbiq6f6nagpv27s8xg0g0rvyh4l0x2my8wj4y";
   };
   postUnpack = "sourceRoot+=/cabal2nix; echo source root reset to $sourceRoot";

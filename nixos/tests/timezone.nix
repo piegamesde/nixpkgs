@@ -6,22 +6,27 @@ import ./make-test-python.nix ({
     meta.maintainers = with pkgs.lib.maintainers; [ lheckemann ];
 
     nodes = {
-      node_eutz = {
+      node_eutz =
+        {
           pkgs,
           ...
         }: {
           time.timeZone = "Europe/Amsterdam";
-        };
+        }
+        ;
 
-      node_nulltz = {
+      node_nulltz =
+        {
           pkgs,
           ...
         }: {
           time.timeZone = null;
-        };
+        }
+        ;
     };
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }: ''
@@ -58,5 +63,6 @@ import ./make-test-python.nix ({
             assert (
                 date_result == "1970-01-01 09:00:00\n"
             ), "Timezone adjustment was not persisted"
-      '';
+      ''
+      ;
   })

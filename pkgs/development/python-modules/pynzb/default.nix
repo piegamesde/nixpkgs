@@ -18,7 +18,7 @@ buildPythonPackage rec {
     ${python.interpreter} -m unittest -s pynzb -t .
   '';
 
-  # Can't get them working
+    # Can't get them working
   doCheck = false;
 
   meta = with lib; {

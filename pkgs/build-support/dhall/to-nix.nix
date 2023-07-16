@@ -22,7 +22,8 @@
 }:
 
 let
-  dhallToNix = code:
+  dhallToNix =
+    code:
     let
       file = writeText "dhall-expression" code;
 
@@ -38,6 +39,6 @@ let
 
     in
     import drv
-  ;
+    ;
 in
 dhallToNix

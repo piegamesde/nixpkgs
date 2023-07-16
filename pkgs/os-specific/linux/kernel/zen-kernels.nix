@@ -14,14 +14,15 @@ let
     sha256 = "1m3jvgvqycig8ls4dgqglz8f0hphc0dmvi0v98xdcxqclkhz87nj"; # zen
     isLqx = false;
   };
-  # ./update-zen.py lqx
+    # ./update-zen.py lqx
   lqxVariant = {
     version = "6.2.14"; # lqx
     suffix = "lqx1"; # lqx
     sha256 = "18c95lal9f2hak49rw888sc454pj7bmh1wnphlwb7sp8j944g8cf"; # lqx
     isLqx = true;
   };
-  zenKernelsFor = {
+  zenKernelsFor =
+    {
       version,
       suffix,
       sha256,
@@ -56,7 +57,8 @@ let
           " (Same as linux_zen but less aggressive release schedule)";
       };
 
-    } // (args.argsOverride or { }));
+    } // (args.argsOverride or { }))
+    ;
 in {
   zen = zenKernelsFor zenVariant;
   lqx = zenKernelsFor lqxVariant;

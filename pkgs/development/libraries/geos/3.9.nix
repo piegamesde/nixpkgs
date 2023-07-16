@@ -11,13 +11,14 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchurl {
     url =
-      "https://download.osgeo.org/geos/${finalAttrs.pname}-${finalAttrs.version}.tar.bz2";
+      "https://download.osgeo.org/geos/${finalAttrs.pname}-${finalAttrs.version}.tar.bz2"
+      ;
     sha256 = "sha256-RKWpviHX1HNDa/Yhwt3MPPWou+PHhuEyKWGKO52GEpc=";
   };
 
   enableParallelBuilding = true;
 
-  # https://trac.osgeo.org/geos/ticket/993
+    # https://trac.osgeo.org/geos/ticket/993
   configureFlags = lib.optional stdenv.isAarch32 "--disable-inline";
 
   passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;

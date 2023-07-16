@@ -26,14 +26,16 @@ buildPythonPackage rec {
       # test_Class_params fails in 0.10.0
       # https://github.com/pdoc3/pdoc/issues/355
       url =
-        "https://github.com/pdoc3/pdoc/commit/4aa70de2221a34a3003a7e5f52a9b91965f0e359.patch";
+        "https://github.com/pdoc3/pdoc/commit/4aa70de2221a34a3003a7e5f52a9b91965f0e359.patch"
+        ;
       hash = "sha256-W7Dy516cA+Oj0ZCTQBB6MJ+fCTBeLRp+aW8nANdxSx8=";
     })
     # https://github.com/pdoc3/pdoc/issues/400
     (fetchpatch {
       name = "fix-test-for-python310.patch";
       url =
-        "https://github.com/pdoc3/pdoc/commit/80af5d40d3ca39e2701c44941c1003ae6a280799.patch";
+        "https://github.com/pdoc3/pdoc/commit/80af5d40d3ca39e2701c44941c1003ae6a280799.patch"
+        ;
       hash = "sha256-69Cn+BY7feisSHugONIF/PRgEDEfnvnS/RBHWv1P8/w=";
       excludes = [ ".github/workflows/ci.yml" ];
     })

@@ -18,7 +18,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://downloads.xiph.org/releases/vorbis/vorbis-tools-${version}.tar.gz";
+      "http://downloads.xiph.org/releases/vorbis/vorbis-tools-${version}.tar.gz"
+      ;
     sha256 = "1c7h4ivgfdyygz2hyh6nfibxlkz8kdk868a576qkkjgj5gn78xyv";
   };
 

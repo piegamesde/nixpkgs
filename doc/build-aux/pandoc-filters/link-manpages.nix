@@ -3,8 +3,9 @@
 }:
 let
   inherit (pkgs) lib;
-  manpageURLs = builtins.fromJSON
-    (builtins.readFile (pkgs.path + "/doc/manpage-urls.json"));
+  manpageURLs =
+    builtins.fromJSON (builtins.readFile (pkgs.path + "/doc/manpage-urls.json"))
+    ;
 in
 pkgs.writeText "link-manpages.lua" ''
   --[[

@@ -10,8 +10,8 @@ let
   xcfg = config.services.xserver;
   cfg = xcfg.desktopManager.plasma5;
 
-  # Use only for **internal** options.
-  # This is not exactly user-friendly.
+    # Use only for **internal** options.
+    # This is not exactly user-friendly.
   kdeConfigurationType = with types;
     let
       valueTypes = (oneOf [
@@ -32,7 +32,7 @@ let
       description = "KDE Configuration file";
       emptyValue.value = { };
     }
-  ;
+    ;
 
   libsForQt5 = pkgs.plasma5Packages;
   inherit (libsForQt5) kdeGear kdeFrameworks plasma5;
@@ -134,14 +134,14 @@ in {
         example = "noto-fonts-lgc-plus";
       };
 
-      # Internally allows configuring kdeglobals globally
+        # Internally allows configuring kdeglobals globally
       kdeglobals = mkOption {
         internal = true;
         default = { };
         type = kdeConfigurationType;
       };
 
-      # Internally allows configuring kwin globally
+        # Internally allows configuring kwin globally
       kwinrc = mkOption {
         internal = true;
         default = { };
@@ -368,9 +368,9 @@ in {
           pkgs.samba
         ] ++ lib.optional config.services.xserver.wacom.enable pkgs.wacomtablet
         ++ lib.optional config.services.flatpak.enable flatpak-kcm
-      ;
+        ;
 
-      # Extra services for D-Bus activation
+        # Extra services for D-Bus activation
       services.dbus.packages = [ plasma5.kactivitymanagerd ];
 
       environment.pathsToLink = [
@@ -383,18 +383,19 @@ in {
       environment.sessionVariables = {
         PLASMA_USE_QT_SCALING = mkIf cfg.useQtScaling "1";
 
-        # Needed for things that depend on other store.kde.org packages to install correctly,
-        # notably Plasma look-and-feel packages (a.k.a. Global Themes)
-        #
-        # FIXME: this is annoyingly impure and should really be fixed at source level somehow,
-        # but kpackage is a library so we can't just wrap the one thing invoking it and be done.
-        # This also means things won't work for people not on Plasma, but at least this way it
-        # works for SOME people.
+          # Needed for things that depend on other store.kde.org packages to install correctly,
+          # notably Plasma look-and-feel packages (a.k.a. Global Themes)
+          #
+          # FIXME: this is annoyingly impure and should really be fixed at source level somehow,
+          # but kpackage is a library so we can't just wrap the one thing invoking it and be done.
+          # This also means things won't work for people not on Plasma, but at least this way it
+          # works for SOME people.
         KPACKAGE_DEP_RESOLVERS_PATH =
-          "${pkgs.plasma5Packages.frameworkintegration.out}/libexec/kf5/kpackagehandlers";
+          "${pkgs.plasma5Packages.frameworkintegration.out}/libexec/kf5/kpackagehandlers"
+          ;
       };
 
-      # Enable GTK applications to load SVG icons
+        # Enable GTK applications to load SVG icons
       services.xserver.gdk-pixbuf.modulePackages = [ pkgs.librsvg ];
 
       fonts.fonts = with pkgs; [
@@ -413,9 +414,9 @@ in {
       programs.ssh.askPassword =
         mkDefault "${plasma5.ksshaskpass.out}/bin/ksshaskpass";
 
-      # Enable helpful DBus services.
+        # Enable helpful DBus services.
       services.accounts-daemon.enable = true;
-      # when changing an account picture the accounts-daemon reads a temporary file containing the image which systemsettings5 may place under /tmp
+        # when changing an account picture the accounts-daemon reads a temporary file containing the image which systemsettings5 may place under /tmp
       systemd.services.accounts-daemon.serviceConfig.PrivateTmp = false;
       services.power-profiles-daemon.enable = mkDefault true;
       services.system-config-printer.enable =
@@ -424,7 +425,7 @@ in {
       services.upower.enable = config.powerManagement.enable;
       services.xserver.libinput.enable = mkDefault true;
 
-      # Extra UDEV rules used by Solid
+        # Extra UDEV rules used by Solid
       services.udev.packages = [
         # libmtp has "bin", "dev", "out" outputs. UDEV rules file is in "out".
         pkgs.libmtp.out
@@ -448,11 +449,11 @@ in {
 
       xdg.portal.enable = true;
       xdg.portal.extraPortals = [ plasma5.xdg-desktop-portal-kde ];
-      # xdg-desktop-portal-kde expects PipeWire to be running.
-      # This does not, by default, replace PulseAudio.
+        # xdg-desktop-portal-kde expects PipeWire to be running.
+        # This does not, by default, replace PulseAudio.
       services.pipewire.enable = mkDefault true;
 
-      # Update the start menu for each user that is currently logged in
+        # Update the start menu for each user that is currently logged in
       system.userActivationScripts.plasmaSetup = activationScript;
 
       nixpkgs.config.firefox.enablePlasmaBrowserIntegration = true;
@@ -477,11 +478,11 @@ in {
         services.xserver.desktopManager.plasma5.enable = true;
       '' ];
 
-      services.xserver.displayManager.sessionPackages =
-        [ pkgs.libsForQt5.plasma5.plasma-workspace ];
-      # Default to be `plasma` (X11) instead of `plasmawayland`, since plasma wayland currently has
-      # many tiny bugs.
-      # See: https://github.com/NixOS/nixpkgs/issues/143272
+      services.xserver.displayManager.sessionPackages = [ pkgs.libsForQt5.plasma5.plasma-workspace ]
+        ;
+        # Default to be `plasma` (X11) instead of `plasmawayland`, since plasma wayland currently has
+        # many tiny bugs.
+        # See: https://github.com/NixOS/nixpkgs/issues/143272
       services.xserver.displayManager.defaultSession = mkDefault "plasma";
 
       environment.systemPackages = with libsForQt5;
@@ -516,7 +517,7 @@ in {
         in
         requiredPackages ++ utils.removePackagesByName optionalPackages
         config.environment.plasma5.excludePackages
-      ;
+        ;
 
       systemd.user.services = {
         plasma-run-with-systemd = {
@@ -588,16 +589,16 @@ in {
           spacebar
         ]);
 
-      # The following services are needed or the UI is broken.
+        # The following services are needed or the UI is broken.
       hardware.bluetooth.enable = true;
       hardware.pulseaudio.enable = true;
       networking.networkmanager.enable = true;
-      # Required for autorotate
+        # Required for autorotate
       hardware.sensor.iio.enable = lib.mkDefault true;
 
-      # Recommendations can be found here:
-      #  - https://invent.kde.org/plasma-mobile/plasma-phone-settings/-/tree/master/etc/xdg
-      # This configuration is the minimum required for Plasma Mobile to *work*.
+        # Recommendations can be found here:
+        #  - https://invent.kde.org/plasma-mobile/plasma-phone-settings/-/tree/master/etc/xdg
+        # This configuration is the minimum required for Plasma Mobile to *work*.
       services.xserver.desktopManager.plasma5 = {
         kdeglobals = {
           KDE = {
@@ -609,7 +610,8 @@ in {
         kwinrc = {
           "Wayland" = {
             "InputMethod[$e]" =
-              "/run/current-system/sw/share/applications/com.github.maliit.keyboard.desktop";
+              "/run/current-system/sw/share/applications/com.github.maliit.keyboard.desktop"
+              ;
             "VirtualKeyboardEnabled" = "true";
           };
           "org.kde.kdecoration2" = {
@@ -619,8 +621,8 @@ in {
         };
       };
 
-      services.xserver.displayManager.sessionPackages =
-        [ pkgs.libsForQt5.plasma5.plasma-mobile ];
+      services.xserver.displayManager.sessionPackages = [ pkgs.libsForQt5.plasma5.plasma-mobile ]
+        ;
     })
 
     # Plasma Bigscreen
@@ -639,10 +641,10 @@ in {
         kdeconnect-kde
       ];
 
-      services.xserver.displayManager.sessionPackages =
-        [ pkgs.plasma5Packages.plasma-bigscreen ];
+      services.xserver.displayManager.sessionPackages = [ pkgs.plasma5Packages.plasma-bigscreen ]
+        ;
 
-      # required for plasma-remotecontrollers to work correctly
+        # required for plasma-remotecontrollers to work correctly
       hardware.uinput.enable = true;
     })
   ];

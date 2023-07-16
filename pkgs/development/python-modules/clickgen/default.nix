@@ -49,8 +49,8 @@ buildPythonPackage rec {
     '';
     license = licenses.mit;
     maintainers = with maintainers; [ AdsonCicilioti ];
-    # fails with:
-    # ld: unknown option: -zdefs
+      # fails with:
+      # ld: unknown option: -zdefs
     broken = stdenv.isDarwin;
   };
 }

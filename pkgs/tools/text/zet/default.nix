@@ -17,13 +17,14 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-kHIOsSR7ZxBzp4dtm2hbi8ddtlQ86x5EASk5HFmnhFo=";
 
-  # tests fail with `--release`
-  # https://github.com/yarrow/zet/pull/7
+    # tests fail with `--release`
+    # https://github.com/yarrow/zet/pull/7
   checkType = "debug";
 
   meta = with lib; {
     description =
-      "CLI utility to find the union, intersection, set difference, etc of files considered as sets of lines";
+      "CLI utility to find the union, intersection, set difference, etc of files considered as sets of lines"
+      ;
     homepage = "https://github.com/yarrow/zet";
     changelog = "https://github.com/yarrow/zet/blob/${src.rev}/CHANGELOG.md";
     license = with licenses; [

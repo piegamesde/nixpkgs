@@ -33,7 +33,7 @@ rustPlatform.buildRustPackage rec {
     Security
   ];
 
-  # build script tries to get information from git
+    # build script tries to get information from git
   postPatch = ''
     echo "fn main() {}" > build.rs
   '';

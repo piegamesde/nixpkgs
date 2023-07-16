@@ -20,10 +20,12 @@
 
 let
   # Do either a coverage analysis build or a standard build.
-  builder = if coverageAnalysis != null then
-    coverageAnalysis
-  else
-    stdenv.mkDerivation;
+  builder =
+    if coverageAnalysis != null then
+      coverageAnalysis
+    else
+      stdenv.mkDerivation
+    ;
 in
 builder rec {
   pname = "guile";
@@ -66,24 +68,25 @@ builder rec {
     libunistring
   ];
 
-  # According to
-  # https://git.savannah.gnu.org/cgit/guix.git/tree/gnu/packages/guile.scm?h=a39207f7afd977e4e4299c6f0bb34bcb6d153818#n405
-  # starting with Guile 3.0.8, parallel builds can be done
-  # bit-reproducibly as long as we're not cross-compiling
+    # According to
+    # https://git.savannah.gnu.org/cgit/guix.git/tree/gnu/packages/guile.scm?h=a39207f7afd977e4e4299c6f0bb34bcb6d153818#n405
+    # starting with Guile 3.0.8, parallel builds can be done
+    # bit-reproducibly as long as we're not cross-compiling
   enableParallelBuilding = stdenv.buildPlatform == stdenv.hostPlatform;
 
   patches = [ ./eai_system.patch ]
     ++ lib.optional (coverageAnalysis != null) ./gcov-file-name.patch
     ++ lib.optional stdenv.isDarwin (fetchpatch {
       url =
-        "https://gitlab.gnome.org/GNOME/gtk-osx/raw/52898977f165777ad9ef169f7d4818f2d4c9b731/patches/guile-clocktime.patch";
+        "https://gitlab.gnome.org/GNOME/gtk-osx/raw/52898977f165777ad9ef169f7d4818f2d4c9b731/patches/guile-clocktime.patch"
+        ;
       sha256 = "12wvwdna9j8795x59ldryv9d84c1j3qdk2iskw09306idfsis207";
     });
 
-  # Explicitly link against libgcc_s, to work around the infamous
-  # "libgcc_s.so.1 must be installed for pthread_cancel to work".
+    # Explicitly link against libgcc_s, to work around the infamous
+    # "libgcc_s.so.1 must be installed for pthread_cancel to work".
 
-  # don't have "libgcc_s.so.1" on clang
+    # don't have "libgcc_s.so.1" on clang
   LDFLAGS =
     lib.optionalString (stdenv.cc.isGNU && !stdenv.hostPlatform.isStatic)
     "-lgcc_s";
@@ -124,8 +127,8 @@ builder rec {
               "
     '';
 
-  # make check doesn't work on darwin
-  # On Linuxes+Hydra the tests are flaky; feel free to investigate deeper.
+    # make check doesn't work on darwin
+    # On Linuxes+Hydra the tests are flaky; feel free to investigate deeper.
   doCheck = false;
   doInstallCheck = doCheck;
 

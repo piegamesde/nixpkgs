@@ -37,8 +37,10 @@ let
   ];
   primaryBinary = "sublime_merge";
   primaryBinaryAliases = [ "smerge" ];
-  downloadUrl = arch:
-    "https://download.sublimetext.com/sublime_merge_build_${buildVersion}_${arch}.tar.xz";
+  downloadUrl =
+    arch:
+    "https://download.sublimetext.com/sublime_merge_build_${buildVersion}_${arch}.tar.xz"
+    ;
   versionUrl = "https://www.sublimemerge.com/${
       if dev then
         "dev"
@@ -161,36 +163,38 @@ stdenv.mkDerivation (rec {
   '';
 
   passthru = {
-    updateScript = let
-      script = writeShellScript "${pnameBase}-update-script" ''
-        set -o errexit
-        PATH=${
-          lib.makeBinPath [
-            common-updater-scripts
-            curl
-            gnugrep
-          ]
-        }
+    updateScript =
+      let
+        script = writeShellScript "${pnameBase}-update-script" ''
+          set -o errexit
+          PATH=${
+            lib.makeBinPath [
+              common-updater-scripts
+              curl
+              gnugrep
+            ]
+          }
 
-        versionFile=$1
-        latestVersion=$(curl -s ${versionUrl} | grep -Po '(?<=<p class="latest"><i>Version:</i> Build )([0-9]+)')
+          versionFile=$1
+          latestVersion=$(curl -s ${versionUrl} | grep -Po '(?<=<p class="latest"><i>Version:</i> Build )([0-9]+)')
 
-        if [[ "${buildVersion}" = "$latestVersion" ]]; then
-            echo "The new version same as the old version."
-            exit 0
-        fi
+          if [[ "${buildVersion}" = "$latestVersion" ]]; then
+              echo "The new version same as the old version."
+              exit 0
+          fi
 
-        for platform in ${lib.escapeShellArgs meta.platforms}; do
-            # The script will not perform an update when the version attribute is up to date from previous platform run
-            # We need to clear it before each run
-            update-source-version "${packageAttribute}.${primaryBinary}" 0 "${lib.fakeSha256}" --file="$versionFile" --version-key=buildVersion --source-key="sources.$platform"
-            update-source-version "${packageAttribute}.${primaryBinary}" "$latestVersion" --file="$versionFile" --version-key=buildVersion --source-key="sources.$platform"
-        done
-      '';
-    in [
-      script
-      versionFile
-    ] ;
+          for platform in ${lib.escapeShellArgs meta.platforms}; do
+              # The script will not perform an update when the version attribute is up to date from previous platform run
+              # We need to clear it before each run
+              update-source-version "${packageAttribute}.${primaryBinary}" 0 "${lib.fakeSha256}" --file="$versionFile" --version-key=buildVersion --source-key="sources.$platform"
+              update-source-version "${packageAttribute}.${primaryBinary}" "$latestVersion" --file="$versionFile" --version-key=buildVersion --source-key="sources.$platform"
+          done
+        '';
+      in [
+        script
+        versionFile
+      ]
+      ;
   };
 
   meta = with lib; {

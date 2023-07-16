@@ -14,7 +14,8 @@ let
   opt = options.services.rspamd;
   postfixCfg = config.services.postfix;
 
-  bindSocketOpts = {
+  bindSocketOpts =
+    {
       options,
       config,
       ...
@@ -47,21 +48,27 @@ let
           internal = true;
         };
       };
-      config.rawEntry = let
-        maybeOption = option:
-          optionalString options.${option}.isDefined
-          " ${option}=${config.${option}}";
-      in if (!(hasPrefix "/" config.socket)) then
-        "${config.socket}"
-      else
-        "${config.socket}${maybeOption "mode"}${maybeOption "owner"}${
-          maybeOption "group"
-        }";
-    };
+      config.rawEntry =
+        let
+          maybeOption =
+            option:
+            optionalString options.${option}.isDefined
+            " ${option}=${config.${option}}"
+            ;
+        in if (!(hasPrefix "/" config.socket)) then
+          "${config.socket}"
+        else
+          "${config.socket}${maybeOption "mode"}${maybeOption "owner"}${
+            maybeOption "group"
+          }"
+        ;
+    }
+    ;
 
   traceWarning = w: x: builtins.trace "[1;31mwarning: ${w}[0m" x;
 
-  workerOpts = {
+  workerOpts =
+    {
       name,
       options,
       ...
@@ -91,19 +98,21 @@ let
             deprecated and only kept for backwards compatibility and should be
             replaced with `rspamd_proxy`.
           '';
-          apply = let
-            from = ''services.rspamd.workers."${name}".type'';
-            files = options.type.files;
-            warning = "The option `${from}` defined in ${
-                showFiles files
-              } has enum value `proxy` which has been renamed to `rspamd_proxy`";
-          in
-          x:
-          if x == "proxy" then
-            traceWarning warning "rspamd_proxy"
-          else
-            x
-          ;
+          apply =
+            let
+              from = ''services.rspamd.workers."${name}".type'';
+              files = options.type.files;
+              warning = "The option `${from}` defined in ${
+                  showFiles files
+                } has enum value `proxy` which has been renamed to `rspamd_proxy`"
+                ;
+            in
+            x:
+            if x == "proxy" then
+              traceWarning warning "rspamd_proxy"
+            else
+              x
+            ;
         };
         bindSockets = mkOption {
           type = types.listOf
@@ -120,7 +129,8 @@ let
             }
             "*:11333"
           ];
-          apply = value:
+          apply =
+            value:
             map (each:
               if (isString each) then
                 if (isUnixSocket each) then
@@ -137,7 +147,8 @@ let
                     rawEntry = "${each}";
                   }
               else
-                each) value;
+                each) value
+            ;
         };
         count = mkOption {
           type = types.nullOr types.int;
@@ -157,7 +168,8 @@ let
           type = types.lines;
           default = "";
           description = lib.mdDoc
-            "Additional entries to put verbatim into worker section of rspamd config file.";
+            "Additional entries to put verbatim into worker section of rspamd config file."
+            ;
         };
       };
       config = mkIf (name == "normal" || name == "controller" || name == "fuzzy"
@@ -169,35 +181,43 @@ let
               else
                 name
             }.inc" ];
-          bindSockets = let
-            unixSocket = name: {
-              mode = "0660";
-              socket = "/run/rspamd/${name}.sock";
-              owner = cfg.user;
-              group = cfg.group;
-            };
-          in
-          mkDefault (if name == "normal" then
-            [ (unixSocket "rspamd") ]
-          else if name == "controller" then
-            [ "localhost:11334" ]
-          else if name == "rspamd_proxy" then
-            [ (unixSocket "proxy") ]
-          else
-            [ ])
-          ;
+          bindSockets =
+            let
+              unixSocket =
+                name: {
+                  mode = "0660";
+                  socket = "/run/rspamd/${name}.sock";
+                  owner = cfg.user;
+                  group = cfg.group;
+                }
+                ;
+            in
+            mkDefault (if name == "normal" then
+              [ (unixSocket "rspamd") ]
+            else if name == "controller" then
+              [ "localhost:11334" ]
+            else if name == "rspamd_proxy" then
+              [ (unixSocket "proxy") ]
+            else
+              [ ])
+            ;
         };
-    };
+    }
+    ;
 
-  isUnixSocket = socket:
+  isUnixSocket =
+    socket:
     hasPrefix "/" (if (isString socket) then
       socket
     else
-      socket.socket);
+      socket.socket)
+    ;
 
-  mkBindSockets = enabled: socks:
+  mkBindSockets =
+    enabled: socks:
     concatStringsSep "\n  "
-    (flatten (map (each: ''bind_socket = "${each.rawEntry}";'') socks));
+    (flatten (map (each: ''bind_socket = "${each.rawEntry}";'') socks))
+    ;
 
   rspamdConfFile = pkgs.writeText "rspamd.conf" ''
     .include "$CONFDIR/common.conf"
@@ -218,10 +238,12 @@ let
 
     ${concatStringsSep "\n" (mapAttrsToList (name: value:
       let
-        includeName = if name == "rspamd_proxy" then
-          "proxy"
-        else
-          name;
+        includeName =
+          if name == "rspamd_proxy" then
+            "proxy"
+          else
+            name
+          ;
         tryOverride = boolToString (value.extraConfig == "");
       in ''
         worker "${value.type}" {
@@ -268,7 +290,8 @@ let
     path = rspamdConfFile;
   } ]);
 
-  configFileModule = prefix:
+  configFileModule =
+    prefix:
     {
       name,
       config,
@@ -302,7 +325,8 @@ let
         mkDefault (pkgs.writeText name' config.text)
         );
       };
-    };
+    }
+    ;
 
   configOverrides = (mapAttrs' (n: v:
     nameValuePair "worker-${
@@ -448,7 +472,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
     services.rspamd.overrides = configOverrides;
@@ -475,7 +499,7 @@ in {
       serviceConfig.SupplementaryGroups = [ postfixCfg.group ];
     };
 
-    # Allow users to run 'rspamc' and 'rspamadm'.
+      # Allow users to run 'rspamc' and 'rspamadm'.
     environment.systemPackages = [ pkgs.rspamd ];
 
     users.users.${cfg.user} = {
@@ -518,7 +542,7 @@ in {
         PrivateDevices = true;
         PrivateMounts = true;
         PrivateTmp = true;
-        # we need to chown socket to rspamd-milter
+          # we need to chown socket to rspamd-milter
         PrivateUsers = !cfg.postfix.enable;
         ProtectClock = true;
         ProtectControlGroups = true;

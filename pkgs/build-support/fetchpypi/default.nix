@@ -5,12 +5,14 @@
 }:
 
 let
-  computeUrl = {
+  computeUrl =
+    {
       format ? "setuptools",
       ...
     }@attrs:
     let
-      computeWheelUrl = {
+      computeWheelUrl =
+        {
           pname,
           version,
           dist ? "py2.py3",
@@ -22,9 +24,11 @@ let
         # See https://www.python.org/dev/peps/pep-0427/#file-name-convention for details regarding the optional arguments.
         "https://files.pythonhosted.org/packages/${dist}/${
           builtins.substring 0 1 pname
-        }/${pname}/${pname}-${version}-${python}-${abi}-${platform}.whl";
+        }/${pname}/${pname}-${version}-${python}-${abi}-${platform}.whl"
+        ;
 
-      computeSourceUrl = {
+      computeSourceUrl =
+        {
           pname,
           version,
           extension ? "tar.gz"
@@ -32,7 +36,8 @@ let
         # Fetch a source tarball.
         "mirror://pypi/${
           builtins.substring 0 1 pname
-        }/${pname}/${pname}-${version}.${extension}";
+        }/${pname}/${pname}-${version}.${extension}"
+        ;
 
       compute = (if format == "wheel" then
         computeWheelUrl
@@ -43,7 +48,7 @@ let
 
     in
     compute (builtins.removeAttrs attrs [ "format" ])
-  ;
+    ;
 
 in
 makeOverridable ({

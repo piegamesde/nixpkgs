@@ -29,7 +29,7 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ CoreServices ];
 
-  # tests flaky on darwin on hydra
+    # tests flaky on darwin on hydra
   doCheck = !stdenv.isDarwin;
 
   meta = with lib; {

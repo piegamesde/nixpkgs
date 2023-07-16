@@ -14,7 +14,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/unix-opts/2021-01-24/unix-opts-20210124-git.tgz";
+      "http://beta.quicklisp.org/archive/unix-opts/2021-01-24/unix-opts-20210124-git.tgz"
+      ;
     sha256 = "1gjjav035n6297vgc4wi3i64516b8sdyi0d02q0nwicciwg6mwsn";
   };
 

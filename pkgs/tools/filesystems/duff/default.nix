@@ -8,8 +8,8 @@
 
 stdenv.mkDerivation {
   pname = "duff";
-  # The last release (0.5.2) is more than 2 years old and lacks features like -D,
-  # limiting its usefulness. Upstream appears comatose if not dead.
+    # The last release (0.5.2) is more than 2 years old and lacks features like -D,
+    # limiting its usefulness. Upstream appears comatose if not dead.
   version = "2014-07-03";
 
   src = fetchFromGitHub {

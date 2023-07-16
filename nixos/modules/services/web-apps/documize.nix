@@ -10,14 +10,16 @@ with lib;
 let
   cfg = config.services.documize;
 
-  mkParams = optional:
+  mkParams =
+    optional:
     concatMapStrings (name:
       let
         predicate = optional -> cfg.${name} != null;
         template = " -${name} '${toString cfg.${name}}'";
       in
       optionalString predicate template
-    );
+    )
+    ;
 
 in {
   options.services.documize = {
@@ -88,11 +90,13 @@ in {
       description = lib.mdDoc ''
         Set `true` for offline mode.
       '';
-      apply = v:
+      apply =
+        v:
         if true == v then
           1
         else
-          0;
+          0
+        ;
     };
 
     dbtype = mkOption {

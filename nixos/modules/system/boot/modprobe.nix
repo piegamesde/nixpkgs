@@ -47,7 +47,7 @@ with lib;
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf config.boot.modprobeConfig.enable {
 

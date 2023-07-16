@@ -31,8 +31,8 @@ buildPythonPackage rec {
     tqdm
   ];
 
-  # Tests have additional requirements, e.g., angr binaries
-  # cle is executing the tests with the angr binaries already and is a requirement of angr
+    # Tests have additional requirements, e.g., angr binaries
+    # cle is executing the tests with the angr binaries already and is a requirement of angr
   doCheck = false;
 
   pythonImportsCheck = [ "angrop" ];

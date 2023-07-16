@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
     installManPage cppcheck.1
   '';
 
-  # test/testcondition.cpp:4949(TestCondition::alwaysTrueContainer): Assertion failed.
+    # test/testcondition.cpp:4949(TestCondition::alwaysTrueContainer): Assertion failed.
   doCheck = !(stdenv.isLinux && stdenv.isAarch64);
 
   doInstallCheck = true;

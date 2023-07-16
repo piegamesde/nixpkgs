@@ -56,7 +56,8 @@ let
       } does not have a `name` attribute. This prevents duplicate module detection and is no longer supported."))
     modules;
 
-  mapModules = attrPath:
+  mapModules =
+    attrPath:
     lib.flip lib.concatMap modules (mod:
       let
         supports = mod.supports or (_: true);
@@ -65,7 +66,8 @@ let
       else
         throw "Module at ${
           toString mod.src
-        } does not support nginx version ${nginxVersion}!");
+        } does not support nginx version ${nginxVersion}!")
+    ;
 
 in
 assert lib.assertMsg (lib.unique moduleNames == moduleNames)
@@ -81,13 +83,15 @@ stdenv.mkDerivation {
     "doc"
   ];
 
-  src = if src != null then
-    src
-  else
-    fetchurl {
-      url = "https://nginx.org/download/nginx-${version}.tar.gz";
-      inherit hash;
-    };
+  src =
+    if src != null then
+      src
+    else
+      fetchurl {
+        url = "https://nginx.org/download/nginx-${version}.tar.gz";
+        inherit hash;
+      }
+    ;
 
   nativeBuildInputs = [ removeReferencesTo ] ++ nativeBuildInputs;
 
@@ -162,8 +166,8 @@ stdenv.mkDerivation {
 
   configurePlatforms = [ ];
 
-  # Disable _multioutConfig hook which adds --bindir=$out/bin into configureFlags,
-  # which breaks build, since nginx does not actually use autoconf.
+    # Disable _multioutConfig hook which adds --bindir=$out/bin into configureFlags,
+    # which breaks build, since nginx does not actually use autoconf.
   preConfigure = ''
     setOutputFlags=
   '' + preConfigure
@@ -180,17 +184,20 @@ stdenv.mkDerivation {
   ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
     (fetchpatch {
       url =
-        "https://raw.githubusercontent.com/openwrt/packages/c057dfb09c7027287c7862afab965a4cd95293a3/net/nginx/patches/102-sizeof_test_fix.patch";
+        "https://raw.githubusercontent.com/openwrt/packages/c057dfb09c7027287c7862afab965a4cd95293a3/net/nginx/patches/102-sizeof_test_fix.patch"
+        ;
       sha256 = "0i2k30ac8d7inj9l6bl0684kjglam2f68z8lf3xggcc2i5wzhh8a";
     })
     (fetchpatch {
       url =
-        "https://raw.githubusercontent.com/openwrt/packages/c057dfb09c7027287c7862afab965a4cd95293a3/net/nginx/patches/101-feature_test_fix.patch";
+        "https://raw.githubusercontent.com/openwrt/packages/c057dfb09c7027287c7862afab965a4cd95293a3/net/nginx/patches/101-feature_test_fix.patch"
+        ;
       sha256 = "0v6890a85aqmw60pgj3mm7g8nkaphgq65dj4v9c6h58wdsrc6f0y";
     })
     (fetchpatch {
       url =
-        "https://raw.githubusercontent.com/openwrt/packages/c057dfb09c7027287c7862afab965a4cd95293a3/net/nginx/patches/103-sys_nerr.patch";
+        "https://raw.githubusercontent.com/openwrt/packages/c057dfb09c7027287c7862afab965a4cd95293a3/net/nginx/patches/103-sys_nerr.patch"
+        ;
       sha256 = "0s497x6mkz947aw29wdy073k8dyjq8j99lax1a1mzpikzr4rxlmd";
     })
   ] ++ mapModules "patches") ++ extraPatches;
@@ -208,13 +215,14 @@ stdenv.mkDerivation {
 
   disallowedReferences = map (m: m.src) modules;
 
-  postInstall = let
-    noSourceRefs = lib.concatMapStrings (m: ''
-      remove-references-to -t ${m.src} $out/sbin/nginx
-    '') modules;
-  in
-  noSourceRefs + postInstall
-  ;
+  postInstall =
+    let
+      noSourceRefs = lib.concatMapStrings (m: ''
+        remove-references-to -t ${m.src} $out/sbin/nginx
+      '') modules;
+    in
+    noSourceRefs + postInstall
+    ;
 
   passthru = {
     inherit modules;
@@ -234,20 +242,22 @@ stdenv.mkDerivation {
     } // passthru.tests;
   };
 
-  meta = if meta != null then
-    meta
-  else
-    with lib; {
-      description = "A reverse proxy and lightweight webserver";
-      homepage = "http://nginx.org";
-      license = [ licenses.bsd2 ] ++ concatMap (m: m.meta.license) modules;
-      platforms = platforms.all;
-      maintainers = with maintainers; [
-        thoughtpolice
-        raskin
-        fpletz
-        globin
-        ajs124
-      ];
-    };
+  meta =
+    if meta != null then
+      meta
+    else
+      with lib; {
+        description = "A reverse proxy and lightweight webserver";
+        homepage = "http://nginx.org";
+        license = [ licenses.bsd2 ] ++ concatMap (m: m.meta.license) modules;
+        platforms = platforms.all;
+        maintainers = with maintainers; [
+          thoughtpolice
+          raskin
+          fpletz
+          globin
+          ajs124
+        ];
+      }
+    ;
 }

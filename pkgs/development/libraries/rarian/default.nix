@@ -31,12 +31,13 @@ stdenv.mkDerivation rec {
     perl
     XMLParser
   ]);
-  configureFlags =
-    [ "--with-xml-catalog=${docbook_xml_dtd_42}/xml/dtd/docbook/docbook.cat" ];
+  configureFlags = [ "--with-xml-catalog=${docbook_xml_dtd_42}/xml/dtd/docbook/docbook.cat" ]
+    ;
 
   meta = with lib; {
     description =
-      "Documentation metadata library based on the proposed Freedesktop.org spec";
+      "Documentation metadata library based on the proposed Freedesktop.org spec"
+      ;
     homepage = "https://rarian.freedesktop.org/";
     license = licenses.lgpl21Plus;
     maintainers = teams.gnome.members;

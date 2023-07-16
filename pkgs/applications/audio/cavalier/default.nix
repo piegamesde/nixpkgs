@@ -47,7 +47,7 @@ python3.pkgs.buildPythonApplication rec {
 
   propagatedBuildInputs = with python3.pkgs; [ pygobject3 ];
 
-  # Prevent double wrapping
+    # Prevent double wrapping
   dontWrapGApps = true;
 
   preFixup = ''

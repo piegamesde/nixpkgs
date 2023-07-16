@@ -43,7 +43,7 @@ buildPythonApplication rec {
     gnureadline
   ];
 
-  # No tests
+    # No tests
   doCheck = false;
 
   meta = with lib; {

@@ -14,7 +14,7 @@ let
     crossSystem = localSystem;
     crossOverlays = [ ];
 
-    # Ignore custom stdenvs when cross compiling for compatability
+      # Ignore custom stdenvs when cross compiling for compatability
     config = builtins.removeAttrs config [ "replaceStdenv" ];
   };
 
@@ -36,17 +36,19 @@ lib.init bootStages ++ [
       assert vanillaPackages.stdenv.hostPlatform == localSystem;
       assert vanillaPackages.stdenv.targetPlatform == localSystem;
       vanillaPackages.stdenv.override { targetPlatform = crossSystem; };
-    # It's OK to change the built-time dependencies
+      # It's OK to change the built-time dependencies
     allowCustomOverrides = true;
   })
 
   # Run Packages
   (buildPackages:
     let
-      adaptStdenv = if crossSystem.isStatic then
-        buildPackages.stdenvAdapters.makeStatic
-      else
-        lib.id;
+      adaptStdenv =
+        if crossSystem.isStatic then
+          buildPackages.stdenvAdapters.makeStatic
+        else
+          lib.id
+        ;
     in {
       inherit config;
       overlays = overlays ++ crossOverlays;
@@ -56,45 +58,50 @@ lib.init bootStages ++ [
         hostPlatform = crossSystem;
         targetPlatform = crossSystem;
 
-        # Prior overrides are surely not valid as packages built with this run on
-        # a different platform, and so are disabled.
+          # Prior overrides are surely not valid as packages built with this run on
+          # a different platform, and so are disabled.
         overrides = _: _: { };
         extraBuildInputs = [ ] # Old ones run on wrong platform
           ++ lib.optionals
-          hostPlatform.isDarwin [ buildPackages.targetPackages.darwin.apple_sdk.frameworks.CoreFoundation ];
+          hostPlatform.isDarwin [ buildPackages.targetPackages.darwin.apple_sdk.frameworks.CoreFoundation ]
+          ;
         allowedRequisites = null;
 
         hasCC = !targetPlatform.isGhcjs;
 
-        cc = if crossSystem.useiOSPrebuilt or false then
-          buildPackages.darwin.iosSdkPkgs.clang
-        else if crossSystem.useAndroidPrebuilt or false then
-          buildPackages."androidndkPkgs_${crossSystem.ndkVer}".clang
-        else if
-          targetPlatform.isGhcjs
-          # Need to use `throw` so tryEval for splicing works, ugh.  Using
-          # `null` or skipping the attribute would cause an eval failure
-          # `tryEval` wouldn't catch, wrecking accessing previous stages
-          # when there is a C compiler and everything should be fine.
-        then
-          throw "no C compiler provided for this platform"
-        else if crossSystem.isDarwin then
-          buildPackages.llvmPackages.libcxxClang
-        else if crossSystem.useLLVM or false then
-          buildPackages.llvmPackages.clangUseLLVM
-        else
-          buildPackages.gcc;
+        cc =
+          if crossSystem.useiOSPrebuilt or false then
+            buildPackages.darwin.iosSdkPkgs.clang
+          else if crossSystem.useAndroidPrebuilt or false then
+            buildPackages."androidndkPkgs_${crossSystem.ndkVer}".clang
+          else if
+            targetPlatform.isGhcjs
+            # Need to use `throw` so tryEval for splicing works, ugh.  Using
+            # `null` or skipping the attribute would cause an eval failure
+            # `tryEval` wouldn't catch, wrecking accessing previous stages
+            # when there is a C compiler and everything should be fine.
+          then
+            throw "no C compiler provided for this platform"
+          else if crossSystem.isDarwin then
+            buildPackages.llvmPackages.libcxxClang
+          else if crossSystem.useLLVM or false then
+            buildPackages.llvmPackages.clangUseLLVM
+          else
+            buildPackages.gcc
+          ;
 
         extraNativeBuildInputs = old.extraNativeBuildInputs ++ lib.optionals
           (hostPlatform.isLinux
             && !buildPlatform.isLinux) [ buildPackages.patchelf ]
           ++ lib.optional (let
-            f = p:
+            f =
+              p:
               !p.isx86 || builtins.elem p.libc [
                 "musl"
                 "wasilibc"
                 "relibc"
-              ] || p.isiOS || p.isGenode;
+              ] || p.isiOS || p.isGenode
+              ;
           in
           f hostPlatform && !(f buildPlatform)
           ) buildPackages.updateAutotoolsGnuConfigScriptsHook;

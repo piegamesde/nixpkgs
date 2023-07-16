@@ -65,8 +65,8 @@ buildPythonPackage rec {
     twisted
   ];
 
-  # Make /etc/protocols accessible to allow socket.getprotobyname('tcp') in sandbox,
-  # also /etc/resolv.conf is referenced by some tests
+    # Make /etc/protocols accessible to allow socket.getprotobyname('tcp') in sandbox,
+    # also /etc/resolv.conf is referenced by some tests
   preCheck = (lib.optionalString stdenv.isLinux ''
     echo "nameserver 127.0.0.1" > resolv.conf
     export NIX_REDIRECTS=/etc/protocols=${iana-etc}/etc/protocols:/etc/resolv.conf=$(realpath resolv.conf)

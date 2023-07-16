@@ -4,7 +4,8 @@ import ./make-test-python.nix ({
   }: {
     name = "ghostunnel";
     nodes = {
-      backend = {
+      backend =
+        {
           pkgs,
           ...
         }: {
@@ -15,8 +16,10 @@ import ./make-test-python.nix ({
               echo hi >$out/hi.txt
             '';
           networking.firewall.allowedTCPPorts = [ 80 ];
-        };
-      service = {
+        }
+        ;
+      service =
+        {
           ...
         }: {
           services.ghostunnel.enable = true;
@@ -41,13 +44,16 @@ import ./make-test-python.nix ({
             443
             1443
           ];
-        };
-      client = {
+        }
+        ;
+      client =
+        {
           pkgs,
           ...
         }: {
           environment.systemPackages = [ pkgs.curl ];
-        };
+        }
+        ;
     };
 
     testScript = ''

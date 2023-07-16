@@ -41,20 +41,24 @@ let
     + (lib.replaceStrings [ "." ] [ "_" ] artifactId);
   suffix = lib.optionalString (classifier != null) "-${classifier}";
   filename = "${artifactId}-${version}${suffix}.jar";
-  mkJarUrl = repoUrl:
+  mkJarUrl =
+    repoUrl:
     lib.concatStringsSep "/" [
       (lib.removeSuffix "/" repoUrl)
       (lib.replaceStrings [ "." ] [ "/" ] groupId)
       artifactId
       version
       filename
-    ];
-  urls_ = if url != "" then
-    [ url ]
-  else if urls != [ ] then
-    urls
-  else
-    map mkJarUrl repos;
+    ]
+    ;
+  urls_ =
+    if url != "" then
+      [ url ]
+    else if urls != [ ] then
+      urls
+    else
+      map mkJarUrl repos
+    ;
   jar = fetchurl (builtins.removeAttrs args [
     "groupId"
     "artifactId"
@@ -70,13 +74,13 @@ in
 stdenv.mkDerivation {
   inherit pname version;
   dontUnpack = true;
-  # By moving the jar to $out/share/java we make it discoverable by java
-  # packages packages that mention this derivation in their buildInputs.
+    # By moving the jar to $out/share/java we make it discoverable by java
+    # packages packages that mention this derivation in their buildInputs.
   installPhase = ''
     mkdir -p $out/share/java
     ln -s ${jar} $out/share/java/${filename}
   '';
-  # We also add a `jar` attribute that can be used to easily obtain the path
-  # to the downloaded jar file.
+    # We also add a `jar` attribute that can be used to easily obtain the path
+    # to the downloaded jar file.
   passthru.jar = jar;
 }

@@ -18,24 +18,26 @@
 
 let
   opensslStatic = openssl.override { static = true; };
-  androidZlibContrib = let
-    src = fetchzip {
-      url =
-        "https://android.googlesource.com/platform/external/zlib/+archive/61174f4fd262c6075f88768465f308aae95a2f04.tar.gz";
-      sha256 = "sha256-EMzKAHcEWOUugcHKH2Fj3ZaIHC9UlgO4ULKe3RvgxvI=";
-      stripRoot = false;
-    };
-  in
-  linkFarm "android-zlib-contrib" [
-    # We only want to keep the contrib directory as the other files conflict
-    # with p4's own zlib files. (For the same reason, we can't use the
-    # cone-based Git sparse checkout, either.)
-    {
-      name = "contrib";
-      path = "${src}/contrib";
-    }
-  ]
-  ;
+  androidZlibContrib =
+    let
+      src = fetchzip {
+        url =
+          "https://android.googlesource.com/platform/external/zlib/+archive/61174f4fd262c6075f88768465f308aae95a2f04.tar.gz"
+          ;
+        sha256 = "sha256-EMzKAHcEWOUugcHKH2Fj3ZaIHC9UlgO4ULKe3RvgxvI=";
+        stripRoot = false;
+      };
+    in
+    linkFarm "android-zlib-contrib" [
+      # We only want to keep the contrib directory as the other files conflict
+      # with p4's own zlib files. (For the same reason, we can't use the
+      # cone-based Git sparse checkout, either.)
+      {
+        name = "contrib";
+        path = "${src}/contrib";
+      }
+    ]
+    ;
   libcxxUnified = symlinkJoin {
     inherit (libcxx) name;
     paths = [
@@ -51,7 +53,8 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     # Upstream replaces minor versions, so use archived URL.
     url =
-      "https://web.archive.org/web/20220901184735id_/https://ftp.perforce.com/perforce/r22.1/bin.tools/p4source.tgz";
+      "https://web.archive.org/web/20220901184735id_/https://ftp.perforce.com/perforce/r22.1/bin.tools/p4source.tgz"
+      ;
     sha256 = "27ab3ddd7b178b05cf0b710e941650dac0688d294110ebafda9027732c0944c6";
   };
 

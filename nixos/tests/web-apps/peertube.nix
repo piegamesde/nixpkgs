@@ -44,7 +44,8 @@ import ../make-test-python.nix ({
         };
       };
 
-      server = {
+      server =
+        {
           pkgs,
           ...
         }: {
@@ -100,7 +101,8 @@ import ../make-test-python.nix ({
               instance = { name = "PeerTube Test Server"; };
             };
           };
-        };
+        }
+        ;
 
       client = {
         environment.systemPackages = [ pkgs.jq ];

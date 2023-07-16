@@ -57,14 +57,14 @@ stdenv.mkDerivation rec {
     "DEFAULT_SEMANAGE_CONF_LOCATION=$(out)/etc/selinux/semanage.conf"
   ];
 
-  # The following turns the 'clobbered' error into a warning
-  # which should fix the following error:
-  #
-  # semanage_store.c: In function 'semanage_exec_prog':
-  # semanage_store.c:1278:6: error: variable 'i' might be clobbered by 'longjmp' or 'vfork' [8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wclobbered-Werror=clobbered8;;]
-  #  1278 |  int i;
-  #       |      ^
-  # cc1: all warnings being treated as errors
+    # The following turns the 'clobbered' error into a warning
+    # which should fix the following error:
+    #
+    # semanage_store.c: In function 'semanage_exec_prog':
+    # semanage_store.c:1278:6: error: variable 'i' might be clobbered by 'longjmp' or 'vfork' [8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wclobbered-Werror=clobbered8;;]
+    #  1278 |  int i;
+    #       |      ^
+    # cc1: all warnings being treated as errors
   env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=clobbered" ];
 
   installTargets = [ "install" ] ++ optionals enablePython [ "install-pywrap" ];

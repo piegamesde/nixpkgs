@@ -34,7 +34,7 @@ buildPythonPackage rec {
     pygithub
   ];
 
-  # Module has no tests
+    # Module has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "ghrepo_stats" ];
@@ -43,7 +43,8 @@ buildPythonPackage rec {
     description = "Python module and CLI tool for GitHub repo statistics";
     homepage = "https://github.com/mrbean-bremen/ghrepo-stats";
     changelog =
-      "https://github.com/mrbean-bremen/ghrepo-stats/blob/v${version}/CHANGES.md";
+      "https://github.com/mrbean-bremen/ghrepo-stats/blob/v${version}/CHANGES.md"
+      ;
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

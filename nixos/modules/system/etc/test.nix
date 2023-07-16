@@ -47,7 +47,7 @@ lib.recurseIntoAttrs {
     touch $out
   '');
 
-  # fakeroot is behaving weird
+    # fakeroot is behaving weird
   test-etc-fakeroot = runCommand "test-etc" {
     nativeBuildInputs = [
       fakeroot

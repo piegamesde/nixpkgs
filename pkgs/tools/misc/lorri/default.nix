@@ -50,7 +50,7 @@ in
     Security
   ];
 
-  # copy the docs to the $man and $doc outputs
+    # copy the docs to the $man and $doc outputs
   postInstall = ''
     install -Dm644 lorri.1 $man/share/man/man1/lorri.1
     install -Dm644 -t $doc/share/doc/lorri/ \

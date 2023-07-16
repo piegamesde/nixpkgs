@@ -6,21 +6,23 @@
 let
   python = python3.override {
     self = python;
-    packageOverrides = self: super: {
-      xstatic-bootstrap = super.xstatic-bootstrap.overridePythonAttrs
-        (oldAttrs: rec {
-          version = "3.3.7.1";
-          src = oldAttrs.src.override {
-            inherit version;
-            sha256 = "0cgihyjb9rg6r2ddpzbjm31y0901vyc8m9h3v0zrhxydx1w9x50c";
-          };
-        });
-    };
+    packageOverrides =
+      self: super: {
+        xstatic-bootstrap = super.xstatic-bootstrap.overridePythonAttrs
+          (oldAttrs: rec {
+            version = "3.3.7.1";
+            src = oldAttrs.src.override {
+              inherit version;
+              sha256 = "0cgihyjb9rg6r2ddpzbjm31y0901vyc8m9h3v0zrhxydx1w9x50c";
+            };
+          });
+      }
+      ;
   };
 
-  #We need to use buildPythonPackage here to get the PYTHONPATH build correctly.
-  #This is needed for services.bepasty
-  #https://github.com/NixOS/nixpkgs/pull/38300
+    #We need to use buildPythonPackage here to get the PYTHONPATH build correctly.
+    #This is needed for services.bepasty
+    #https://github.com/NixOS/nixpkgs/pull/38300
 in with python.pkgs;
 buildPythonPackage rec {
   pname = "bepasty";
@@ -51,7 +53,7 @@ buildPythonPackage rec {
     selenium
   ];
 
-  # No tests in sdist
+    # No tests in sdist
   doCheck = false;
 
   meta = {

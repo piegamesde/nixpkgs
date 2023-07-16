@@ -47,7 +47,8 @@ mkDerivation rec {
     '';
     homepage = "https://texstudio.org";
     changelog =
-      "https://github.com/texstudio-org/texstudio/blob/${version}/utilities/manual/CHANGELOG.txt";
+      "https://github.com/texstudio-org/texstudio/blob/${version}/utilities/manual/CHANGELOG.txt"
+      ;
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
     maintainers = with maintainers; [

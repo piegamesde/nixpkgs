@@ -26,11 +26,11 @@ let
     hash = "sha256-KNkmhvpKTby85P88+DqCOOGxIKpzbw5KF9ymqy40pfw=";
   };
 
-  # Supported symbiflow plugins.
-  #
-  # The following are disabled:
-  #
-  # "ql-qlf" builds but fails to load the plugin, so is not currently supported.
+    # Supported symbiflow plugins.
+    #
+    # The following are disabled:
+    #
+    # "ql-qlf" builds but fails to load the plugin, so is not currently supported.
   plugins = [
     "design_introspection"
     "fasm"
@@ -70,18 +70,18 @@ lib.genAttrs plugins (plugin:
       antlr4.runtime.cpp
     ];
 
-    # xdc has an incorrect path to a test which has yet to be patched
+      # xdc has an incorrect path to a test which has yet to be patched
     doCheck = plugin != "xdc";
     nativeCheckInputs = [ static_gtest ];
 
-    # A Makefile rule tries to wget-fetch a yosys script from github.
-    # Link the script from our yosys sources in preBuild instead, so that
-    # the Makefile rule is a no-op.
+      # A Makefile rule tries to wget-fetch a yosys script from github.
+      # Link the script from our yosys sources in preBuild instead, so that
+      # the Makefile rule is a no-op.
     preBuild = ''
       ln -s ${yosys.src}/passes/pmgen/pmgen.py pmgen.py
     '';
 
-    # Providing a symlink avoids the need for patching the test makefile
+      # Providing a symlink avoids the need for patching the test makefile
     postUnpack = ''
       mkdir -p source/third_party/googletest/build/
       ln -s ${static_gtest}/lib source/third_party/googletest/build/lib
@@ -95,11 +95,10 @@ lib.genAttrs plugins (plugin:
     ];
 
     checkTarget = "test";
-    checkFlags =
-      [ ("NIX_YOSYS_PLUGIN_DIRS=\${NIX_BUILD_TOP}/source/${plugin}-plugin/build"
-        # sdc and xdc plugins use design introspection for their tests
-        + (lib.optionalString (plugin == "sdc" || plugin == "xdc")
-          ":${yosys-symbiflow.design_introspection}/share/yosys/plugins/")) ];
+    checkFlags = [ ("NIX_YOSYS_PLUGIN_DIRS=\${NIX_BUILD_TOP}/source/${plugin}-plugin/build"
+      # sdc and xdc plugins use design introspection for their tests
+      + (lib.optionalString (plugin == "sdc" || plugin == "xdc")
+        ":${yosys-symbiflow.design_introspection}/share/yosys/plugins/")) ];
 
     installFlags = buildFlags;
 

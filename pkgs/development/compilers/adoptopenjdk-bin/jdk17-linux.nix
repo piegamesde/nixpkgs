@@ -4,10 +4,12 @@
 }:
 
 let
-  variant = if stdenv.hostPlatform.isMusl then
-    "alpine_linux"
-  else
-    "linux";
+  variant =
+    if stdenv.hostPlatform.isMusl then
+      "alpine_linux"
+    else
+      "linux"
+    ;
   sources = lib.importJSON ./sources.json;
 in {
   jdk-hotspot = import ./jdk-linux-base.nix {

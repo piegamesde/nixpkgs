@@ -21,8 +21,8 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  # Lots of tests hang during teardown with:
-  #   ssl.SSLEOFError: EOF occurred in violation of protocol (_ssl.c:2396)
+    # Lots of tests hang during teardown with:
+    #   ssl.SSLEOFError: EOF occurred in violation of protocol (_ssl.c:2396)
   doCheck = pythonOlder "3.10";
 
   pythonImportsCheck = [ "dugong" ];

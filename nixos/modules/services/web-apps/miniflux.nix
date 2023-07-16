@@ -112,7 +112,7 @@ in {
         RuntimeDirectory = "miniflux";
         RuntimeDirectoryMode = "0700";
         EnvironmentFile = cfg.adminCredentialsFile;
-        # Hardening
+          # Hardening
         CapabilityBoundingSet = [ "" ];
         DeviceAllow = [ "" ];
         LockPersonality = true;

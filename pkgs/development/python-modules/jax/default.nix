@@ -21,13 +21,15 @@
 
 let
   usingMKL = blas.implementation == "mkl" || lapack.implementation == "mkl";
-  # jaxlib is broken on aarch64-* as of 2023-03-05, but the binary wheels work
-  # fine. jaxlib is only used in the checkPhase, so switching backends does not
-  # impact package behavior. Get rid of this once jaxlib is fixed on aarch64-*.
-  jaxlib' = if jaxlib.meta.broken then
-    jaxlib-bin
-  else
-    jaxlib;
+    # jaxlib is broken on aarch64-* as of 2023-03-05, but the binary wheels work
+    # fine. jaxlib is only used in the checkPhase, so switching backends does not
+    # impact package behavior. Get rid of this once jaxlib is fixed on aarch64-*.
+  jaxlib' =
+    if jaxlib.meta.broken then
+      jaxlib-bin
+    else
+      jaxlib
+    ;
 in
 buildPythonPackage rec {
   pname = "jax";
@@ -39,14 +41,14 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "google";
     repo = pname;
-    # google/jax contains tags for jax and jaxlib. Only use jax tags!
+      # google/jax contains tags for jax and jaxlib. Only use jax tags!
     rev = "refs/tags/${pname}-v${version}";
     hash = "sha256-UJzX8zP3qaEUIV5hPJhiGiLJO7k8p962MHWxIHDY1ZA=";
   };
 
-  # jaxlib is _not_ included in propagatedBuildInputs because there are
-  # different versions of jaxlib depending on the desired target hardware. The
-  # JAX project ships separate wheels for CPU, GPU, and TPU.
+    # jaxlib is _not_ included in propagatedBuildInputs because there are
+    # different versions of jaxlib depending on the desired target hardware. The
+    # JAX project ships separate wheels for CPU, GPU, and TPU.
   propagatedBuildInputs = [
     absl-py
     etils
@@ -63,13 +65,13 @@ buildPythonPackage rec {
     pytest-xdist
   ];
 
-  # high parallelism will result in the tests getting stuck
+    # high parallelism will result in the tests getting stuck
   dontUsePytestXdist = true;
 
-  # NOTE: Don't run the tests in the expiremental directory as they require flax
-  # which creates a circular dependency. See https://discourse.nixos.org/t/how-to-nix-ify-python-packages-with-circular-dependencies/14648/2.
-  # Not a big deal, this is how the JAX docs suggest running the test suite
-  # anyhow.
+    # NOTE: Don't run the tests in the expiremental directory as they require flax
+    # which creates a circular dependency. See https://discourse.nixos.org/t/how-to-nix-ify-python-packages-with-circular-dependencies/14648/2.
+    # Not a big deal, this is how the JAX docs suggest running the test suite
+    # anyhow.
   pytestFlagsArray = [
     "--numprocesses=4"
     "-W ignore::DeprecationWarning"
@@ -100,9 +102,9 @@ buildPythonPackage rec {
     "testScanGrad_jit_scan"
   ];
 
-  # See https://github.com/google/jax/issues/11722. This is a temporary fix in
-  # order to unblock etils, and upgrading jax/jaxlib to the latest version. See
-  # https://github.com/NixOS/nixpkgs/issues/183173#issuecomment-1204074993.
+    # See https://github.com/google/jax/issues/11722. This is a temporary fix in
+    # order to unblock etils, and upgrading jax/jaxlib to the latest version. See
+    # https://github.com/NixOS/nixpkgs/issues/183173#issuecomment-1204074993.
   disabledTestPaths = [
     "tests/api_test.py"
     "tests/core_test.py"
@@ -113,7 +115,7 @@ buildPythonPackage rec {
     "tests/sparse_test.py"
   ];
 
-  # As of 0.3.22, `import jax` does not work without jaxlib being installed.
+    # As of 0.3.22, `import jax` does not work without jaxlib being installed.
   pythonImportsCheck = [ ];
 
   meta = with lib; {

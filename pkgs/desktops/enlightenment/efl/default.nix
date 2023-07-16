@@ -63,7 +63,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://download.enlightenment.org/rel/libs/${pname}/${pname}-${version}.tar.xz";
+      "http://download.enlightenment.org/rel/libs/${pname}/${pname}-${version}.tar.xz"
+      ;
     sha256 = "sha256-2fg6oP2TNPRN7rTklS3A5RRGg6+seG/uvOYDCVFhfRU=";
   };
 
@@ -171,7 +172,7 @@ stdenv.mkDerivation rec {
     substituteInPlace dbus-services/meson.build --replace "dep.get_pkgconfig_variable('session_bus_services_dir')" "'$out/share/dbus-1/services'"
   '';
 
-  # bin/edje_cc creates $HOME/.run, which would break build of reverse dependencies.
+    # bin/edje_cc creates $HOME/.run, which would break build of reverse dependencies.
   setupHook = writeText "setupHook.sh" ''
     export HOME="$TEMPDIR"
   '';

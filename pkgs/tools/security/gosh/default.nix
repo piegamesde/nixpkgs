@@ -6,7 +6,7 @@
 
 buildGoModule rec {
   pname = "gosh";
-  # https://github.com/redcode-labs/GoSH/issues/4
+    # https://github.com/redcode-labs/GoSH/issues/4
   version = "2020523-${lib.strings.substring 0 7 rev}";
   rev = "7ccb068279cded1121eacc5a962c14b2064a1859";
 

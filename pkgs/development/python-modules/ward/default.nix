@@ -47,7 +47,7 @@ buildPythonPackage rec {
     pluggy
   ];
 
-  # Fixture is missing. Looks like an issue with the import of the sample file
+    # Fixture is missing. Looks like an issue with the import of the sample file
   doCheck = false;
 
   pythonImportsCheck = [ "ward" ];

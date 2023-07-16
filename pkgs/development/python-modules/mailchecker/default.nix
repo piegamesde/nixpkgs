@@ -17,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-iwg5B9pC2qRI2T6xnwyXjd4uhWVhel52Jxs1pfcoXM0=";
   };
 
-  # Module has no tests
+    # Module has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "MailChecker" ];

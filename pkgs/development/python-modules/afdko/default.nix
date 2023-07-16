@@ -64,7 +64,7 @@ buildPythonPackage rec {
     ./use-dynamic-system-antlr4-runtime.patch
   ];
 
-  # setup.py will always (re-)execute cmake in buildPhase
+    # setup.py will always (re-)execute cmake in buildPhase
   dontConfigure = true;
 
   propagatedBuildInputs = [
@@ -86,7 +86,7 @@ buildPythonPackage rec {
     tqdm
   ];
 
-  # Use system libxml2
+    # Use system libxml2
   FORCE_SYSTEM_LIBXML2 = true;
 
   nativeCheckInputs = [ pytestCheckHook ];

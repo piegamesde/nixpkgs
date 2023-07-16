@@ -41,8 +41,9 @@ in {
     kubeconfig = top.lib.mkKubeConfigOptions "Kubernetes scheduler";
 
     leaderElect = mkOption {
-      description = lib.mdDoc
-        "Whether to start leader election before executing main loop.";
+      description =
+        lib.mdDoc "Whether to start leader election before executing main loop."
+        ;
       type = bool;
       default = true;
     };
@@ -64,7 +65,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
   config = mkIf cfg.enable {
     systemd.services.kube-scheduler = {
       description = "Kubernetes Scheduler Service";

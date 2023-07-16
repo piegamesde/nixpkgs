@@ -17,7 +17,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://support.hdfgroup.org/ftp/HDF5/releases/HDF-JAVA/${pname}-${version}/src/${pname}-${version}.tar.gz";
+      "https://support.hdfgroup.org/ftp/HDF5/releases/HDF-JAVA/${pname}-${version}/src/${pname}-${version}.tar.gz"
+      ;
     sha256 = "sha256-08De/yy9lZUIxNqccS2nL7IE/2gYo0NPAKcHH46M8rg=";
   };
 
@@ -35,18 +36,22 @@ stdenv.mkDerivation rec {
   HDFLIBS = (hdf4.override { javaSupport = true; }).out;
   HDF5LIBS = (hdf5.override { javaSupport = true; }).out;
 
-  buildPhase = let
-    arch = if stdenv.isx86_64 then
-      "x86_64"
-    else
-      "aarch64";
-  in ''
-    runHook preBuild
+  buildPhase =
+    let
+      arch =
+        if stdenv.isx86_64 then
+          "x86_64"
+        else
+          "aarch64"
+        ;
+    in ''
+      runHook preBuild
 
-    ant createJPackage -Dmachine.arch=${arch}
+      ant createJPackage -Dmachine.arch=${arch}
 
-    runHook postBuild
-  '' ;
+      runHook postBuild
+    ''
+    ;
 
   desktopItem = makeDesktopItem rec {
     name = "HDFView";

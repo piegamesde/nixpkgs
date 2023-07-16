@@ -15,21 +15,22 @@ let
 
     matomo-beta = {
       version = "4.11.0";
-      # `beta` examples: "b1", "rc1", null
-      # when updating: use null if stable version is >= latest beta or release candidate
+        # `beta` examples: "b1", "rc1", null
+        # when updating: use null if stable version is >= latest beta or release candidate
       beta = "rc2";
       sha256 = "sha256-PYzv4OJYI4Zf7LMXQvX7fhvXryS6XPbmA0pTesF1vQ8=";
     };
   };
-  common = pname:
+  common =
+    pname:
     {
       version,
       sha256,
       beta ? null
     }:
     let
-      fullVersion = version
-        + lib.optionalString (beta != null) "-${toString beta}";
+      fullVersion =
+        version + lib.optionalString (beta != null) "-${toString beta}";
       name = "${pname}-${fullVersion}";
 
     in
@@ -58,17 +59,17 @@ let
         ./change-path-geoip2.patch
       ];
 
-      # this bootstrap.php adds support for getting PIWIK_USER_PATH
-      # from an environment variable. Point it to a mutable location
-      # to be able to use matomo read-only from the nix store
+        # this bootstrap.php adds support for getting PIWIK_USER_PATH
+        # from an environment variable. Point it to a mutable location
+        # to be able to use matomo read-only from the nix store
       postPatch = ''
         cp ${./bootstrap.php} bootstrap.php
       '';
 
-      # TODO: future versions might rename the PIWIK_… variables to MATOMO_…
-      # TODO: Move more unnecessary files from share/, especially using PIWIK_INCLUDE_PATH.
-      #       See https://forum.matomo.org/t/bootstrap-php/5926/10 and
-      #       https://github.com/matomo-org/matomo/issues/11654#issuecomment-297730843
+        # TODO: future versions might rename the PIWIK_… variables to MATOMO_…
+        # TODO: Move more unnecessary files from share/, especially using PIWIK_INCLUDE_PATH.
+        #       See https://forum.matomo.org/t/bootstrap-php/5926/10 and
+        #       https://github.com/matomo-org/matomo/issues/11654#issuecomment-297730843
       installPhase = ''
         runHook preInstall
 
@@ -98,10 +99,10 @@ let
         "vendor/twig/twig/drupal_test.sh"
       ];
 
-      # This fixes the consistency check in the admin interface
-      #
-      # The filesToFix list may contain files that are exclusive to only one of the versions we build
-      # make sure to test for existence to avoid erroring on an incompatible version and failing
+        # This fixes the consistency check in the admin interface
+        #
+        # The filesToFix list may contain files that are exclusive to only one of the versions we build
+        # make sure to test for existence to avoid erroring on an incompatible version and failing
       postFixup = ''
         pushd $out/share > /dev/null
         for f in $filesToFix; do
@@ -128,6 +129,6 @@ let
         ];
       };
     }
-  ;
+    ;
 in
 lib.mapAttrs common versions

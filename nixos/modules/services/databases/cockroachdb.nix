@@ -38,19 +38,21 @@ let
     ++ lib.optional (cfg.locality != null) "--locality=${cfg.locality}"
     ++ cfg.extraArgs);
 
-  addressOption = descr: defaultPort: {
-    address = mkOption {
-      type = types.str;
-      default = "localhost";
-      description = lib.mdDoc "Address to bind to for ${descr}";
-    };
+  addressOption =
+    descr: defaultPort: {
+      address = mkOption {
+        type = types.str;
+        default = "localhost";
+        description = lib.mdDoc "Address to bind to for ${descr}";
+      };
 
-    port = mkOption {
-      type = types.port;
-      default = defaultPort;
-      description = lib.mdDoc "Port to bind to for ${descr}";
-    };
-  };
+      port = mkOption {
+        type = types.port;
+        default = defaultPort;
+        description = lib.mdDoc "Port to bind to for ${descr}";
+      };
+    }
+    ;
 
 in {
   options = {
@@ -185,7 +187,8 @@ in {
     assertions = [ {
       assertion = !cfg.insecure -> cfg.certsDir != null;
       message =
-        "CockroachDB must have a set of SSL certificates (.certsDir), or run in Insecure Mode (.insecure = true)";
+        "CockroachDB must have a set of SSL certificates (.certsDir), or run in Insecure Mode (.insecure = true)"
+        ;
     } ];
 
     environment.systemPackages = [ crdb ];
@@ -232,8 +235,8 @@ in {
 
         Restart = "always";
 
-        # A conservative-ish timeout is alright here, because for Type=notify
-        # cockroach will send systemd pings during startup to keep it alive
+          # A conservative-ish timeout is alright here, because for Type=notify
+          # cockroach will send systemd pings during startup to keep it alive
         TimeoutStopSec = 60;
         RestartSec = 10;
       };

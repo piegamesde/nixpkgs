@@ -14,7 +14,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://maven/io/prometheus/jmx/jmx_prometheus_httpserver/${version}/${jarName}";
+      "mirror://maven/io/prometheus/jmx/jmx_prometheus_httpserver/${version}/${jarName}"
+      ;
     sha256 = "0fr3svn8kjp7bq1wzbkvv5awylwn8b01bngj04zvk7fpzqpgs7mz";
   };
 

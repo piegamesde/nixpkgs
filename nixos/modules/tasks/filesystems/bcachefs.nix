@@ -33,7 +33,8 @@ let
     }
   '';
 
-  openCommand = name: fs:
+  openCommand =
+    name: fs:
     let
       # we need only unlock one device manually, and cannot pass multiple at once
       # remove this adaptation when bcachefs implements mounting by filesystem uuid
@@ -42,7 +43,8 @@ let
       firstDevice = head (splitString ":" fs.device);
     in ''
       tryUnlock ${name} ${firstDevice}
-    '' ;
+    ''
+    ;
 
 in {
   config = mkIf (elem "bcachefs" config.boot.supportedFilesystems) (mkMerge [
@@ -55,7 +57,7 @@ in {
       environment.systemPackages =
         lib.optional (config.boot.initrd.systemd.enable) pkgs.bcachefs-tools;
 
-      # use kernel package with bcachefs support until it's in mainline
+        # use kernel package with bcachefs support until it's in mainline
       boot.kernelPackages = pkgs.linuxPackages_testing_bcachefs;
     }
 
@@ -84,8 +86,8 @@ in {
           $out/bin/bcachefs version
         '';
 
-        boot.initrd.postDeviceCommands = commonFunctions
-          + concatStrings (mapAttrsToList openCommand bootFs);
+        boot.initrd.postDeviceCommands =
+          commonFunctions + concatStrings (mapAttrsToList openCommand bootFs);
       })
   ]);
 }

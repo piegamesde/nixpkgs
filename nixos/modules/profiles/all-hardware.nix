@@ -164,7 +164,7 @@ in {
       "analogix-anx6345" # For DP or eDP (e.g. integrated display)
     ];
 
-  # Include lots of firmware.
+    # Include lots of firmware.
   hardware.enableRedistributableFirmware = true;
 
   imports = [ ../hardware/network/zydas-zd1211.nix ];

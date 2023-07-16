@@ -25,7 +25,7 @@ buildPythonPackage rec {
     twofish
   ];
 
-  # Tests assume network connectivity
+    # Tests assume network connectivity
   doCheck = false;
 
   meta = {

@@ -30,7 +30,7 @@ buildPythonPackage rec {
     retry
   ];
 
-  # RuntimeError: Unable to find a free server number to start Xvfb
+    # RuntimeError: Unable to find a free server number to start Xvfb
   doCheck = false;
 
   meta = with lib; {

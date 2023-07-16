@@ -27,8 +27,8 @@ buildPythonPackage rec {
 
   buildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ django ]
-    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs =
+    [ django ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   nativeCheckInputs = [
     mock
@@ -45,7 +45,7 @@ buildPythonPackage rec {
     ${django}/bin/django-admin.py test
   '';
 
-  # django.core.exceptions.ImproperlyConfigured: django-configurations settings importer wasn't correctly installed
+    # django.core.exceptions.ImproperlyConfigured: django-configurations settings importer wasn't correctly installed
   doCheck = false;
 
   pythonImportsCheck = [ "configurations" ];

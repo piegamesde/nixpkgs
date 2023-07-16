@@ -103,7 +103,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -122,16 +122,18 @@ in {
       after = [ "network.target" ];
       serviceConfig = {
         Type = "forking";
-        ExecStart = let
-          devices = utils.escapeSystemdExecArgs cfg.devices;
-        in ''
-          ${pkgs.gpsd}/sbin/gpsd -D "${toString cfg.debugLevel}"  \
-            -S "${toString cfg.port}"                             \
-            ${optionalString cfg.readonly "-b"}                   \
-            ${optionalString cfg.nowait "-n"}                     \
-            ${optionalString cfg.listenany "-G"}                  \
-            ${devices}
-        '' ;
+        ExecStart =
+          let
+            devices = utils.escapeSystemdExecArgs cfg.devices;
+          in ''
+            ${pkgs.gpsd}/sbin/gpsd -D "${toString cfg.debugLevel}"  \
+              -S "${toString cfg.port}"                             \
+              ${optionalString cfg.readonly "-b"}                   \
+              ${optionalString cfg.nowait "-n"}                     \
+              ${optionalString cfg.listenany "-G"}                  \
+              ${devices}
+          ''
+          ;
       };
     };
 

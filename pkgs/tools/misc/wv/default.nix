@@ -20,7 +20,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://www.abisource.com/downloads/${pname}/${version}/${pname}-${version}.tar.gz";
+      "http://www.abisource.com/downloads/${pname}/${version}/${pname}-${version}.tar.gz"
+      ;
     sha256 = "17f16lkdv1c3amaz2hagiicih59ynpp4786k1m2qa1sw68xhswsc";
   };
 
@@ -38,14 +39,14 @@ stdenv.mkDerivation rec {
     bzip2
   ];
 
-  configureFlags =
-    [ "PKG_CONFIG=${buildPackages.pkg-config}/bin/${buildPackages.pkg-config.targetPrefix}pkg-config" ];
+  configureFlags = [ "PKG_CONFIG=${buildPackages.pkg-config}/bin/${buildPackages.pkg-config.targetPrefix}pkg-config" ]
+    ;
 
   hardeningDisable = [ "format" ];
 
   enableParallelBuilding = true;
 
-  # autoreconfHook fails hard if these two files do not exist
+    # autoreconfHook fails hard if these two files do not exist
   postPatch = ''
     touch AUTHORS ChangeLog
   '';

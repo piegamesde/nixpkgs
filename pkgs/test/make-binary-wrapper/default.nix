@@ -13,7 +13,8 @@ let
   envCheck = runCommandCC "envcheck" env ''
     cc -Wall -Werror -Wpedantic -o $out ${./envcheck.c}
   '';
-  makeGoldenTest = testname:
+  makeGoldenTest =
+    testname:
     runCommand "make-binary-wrapper-test-${testname}" env ''
       mkdir -p tmp/foo # for the chdir test
 
@@ -40,7 +41,8 @@ let
       fi
 
       cp wrapper.c $out
-    '';
+    ''
+    ;
   tests = lib.genAttrs [
     "add-flags"
     "argv0"

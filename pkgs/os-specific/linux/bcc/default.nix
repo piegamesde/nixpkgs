@@ -70,8 +70,8 @@ python.pkgs.buildPythonApplication rec {
     "-DENABLE_LIBDEBUGINFOD=OFF"
   ];
 
-  # to replace this executable path:
-  # https://github.com/iovisor/bcc/blob/master/src/python/bcc/syscall.py#L384
+    # to replace this executable path:
+    # https://github.com/iovisor/bcc/blob/master/src/python/bcc/syscall.py#L384
   ausyscall = "${audit}/bin/ausyscall";
 
   postPatch = ''

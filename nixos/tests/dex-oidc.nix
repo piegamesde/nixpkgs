@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
     name = "dex-oidc";
     meta.maintainers = with lib.maintainers; [ Flakebi ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -38,7 +39,7 @@ import ./make-test-python.nix ({
           };
         };
 
-        # This should not be set from nix but through other means to not leak the secret.
+          # This should not be set from nix but through other means to not leak the secret.
         environment.etc."dex/oidcclient" = {
           mode = "0400";
           user = "dex";
@@ -53,7 +54,8 @@ import ./make-test-python.nix ({
             ensurePermissions = { "DATABASE dex" = "ALL PRIVILEGES"; };
           } ];
         };
-      };
+      }
+      ;
 
     testScript = ''
       with subtest("Web server gets ready"):

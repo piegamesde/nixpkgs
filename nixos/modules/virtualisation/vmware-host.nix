@@ -11,14 +11,17 @@ let
   parentWrapperDir = dirOf wrapperDir;
   vmwareWrappers = # Needed as hardcoded paths workaround
     let
-      mkVmwareSymlink = program: ''
-        ln -s "${config.security.wrapperDir}/${program}" $wrapperDir/${program}
-      '';
+      mkVmwareSymlink =
+        program: ''
+          ln -s "${config.security.wrapperDir}/${program}" $wrapperDir/${program}
+        ''
+        ;
     in [
       (mkVmwareSymlink "pkexec")
       (mkVmwareSymlink "mount")
       (mkVmwareSymlink "umount")
-    ] ;
+    ]
+    ;
 in {
   options = with lib; {
     virtualisation.vmware.host = {
@@ -89,7 +92,7 @@ in {
     environment.etc."vmware-installer".source =
       "${cfg.package}/etc/vmware-installer";
 
-    # SUID wrappers
+      # SUID wrappers
 
     security.wrappers = {
       vmware-vmx = {
@@ -100,7 +103,7 @@ in {
       };
     };
 
-    ###### wrappers activation script
+      ###### wrappers activation script
 
     system.activationScripts.vmwareWrappers = lib.stringAfter [
       "specialfs"
@@ -128,7 +131,7 @@ in {
       fi
     '';
 
-    # Services
+      # Services
 
     systemd.services."vmware-authdlauncher" = {
       description = "VMware Authentication Daemon";
@@ -144,8 +147,8 @@ in {
       unitConfig.ConditionPathExists = "!/etc/vmware/networking";
       serviceConfig = {
         UMask = "0077";
-        ExecStart =
-          [ "${cfg.package}/bin/vmware-networks --postinstall vmware-player,0,1" ];
+        ExecStart = [ "${cfg.package}/bin/vmware-networks --postinstall vmware-player,0,1" ]
+          ;
         Type = "oneshot";
         RemainAfterExit = "yes";
       };

@@ -9,10 +9,10 @@ lib.makeScope pkgs.newScope (self:
     #### CORE EFL
     efl = callPackage ./efl { };
 
-    #### WINDOW MANAGER
+      #### WINDOW MANAGER
     enlightenment = callPackage ./enlightenment { };
 
-    #### APPLICATIONS
+      #### APPLICATIONS
     econnman = callPackage ./econnman { };
     ecrire = callPackage ./ecrire { };
     ephoto = callPackage ./ephoto { };

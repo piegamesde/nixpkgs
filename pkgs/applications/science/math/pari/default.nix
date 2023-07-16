@@ -34,7 +34,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "fix-find_isogenous_from_Atkin.patch";
       url =
-        "https://git.sagemath.org/sage.git/plain/build/pkgs/pari/patches/bug2441.patch?id=9.8.rc0";
+        "https://git.sagemath.org/sage.git/plain/build/pkgs/pari/patches/bug2441.patch?id=9.8.rc0"
+        ;
       hash = "sha256-DvOUFlFDnopN+MJY6GYRPNabuoHPFch/nNn+49ygznc=";
     })
   ];

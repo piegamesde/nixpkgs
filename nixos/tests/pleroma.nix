@@ -63,11 +63,11 @@ import ./make-test-python.nix ({
     test-db-passwd =
       "SccZOvTGM//BMrpoQj68JJkjDkMGb4pHv2cECWiI+XhVe3uGJTLI0vFV/gDlZ5jJ";
 
-    /* For this NixOS test, we *had* to store this secret to the store.
-       Keep in mind the store is world-readable, it's the worst place
-       possible to store *any* secret. **DO NOT DO THIS IN A REAL WORLD
-       DEPLOYMENT**.
-    */
+      /* For this NixOS test, we *had* to store this secret to the store.
+         Keep in mind the store is world-readable, it's the worst place
+         possible to store *any* secret. **DO NOT DO THIS IN A REAL WORLD
+         DEPLOYMENT**.
+      */
     db-seed = pkgs.writeText "provision.psql" ''
       CREATE USER pleroma WITH ENCRYPTED PASSWORD '${test-db-passwd}';
       CREATE DATABASE pleroma OWNER pleroma;
@@ -115,14 +115,14 @@ import ./make-test-python.nix ({
       config :pleroma, configurable_from_database: false
     '';
 
-    /* For this NixOS test, we *had* to store this secret to the store.
-       Keep in mind the store is world-readable, it's the worst place
-       possible to store *any* secret. **DO NOT DO THIS IN A REAL WORLD
-       DEPLOYMENT**.
-       In a real-word deployment, you'd handle this either by:
-       - manually upload your pleroma secrets to /var/lib/pleroma/secrets.exs
-       - use a deployment tool such as morph or NixOps to deploy your secrets.
-    */
+      /* For this NixOS test, we *had* to store this secret to the store.
+         Keep in mind the store is world-readable, it's the worst place
+         possible to store *any* secret. **DO NOT DO THIS IN A REAL WORLD
+         DEPLOYMENT**.
+         In a real-word deployment, you'd handle this either by:
+         - manually upload your pleroma secrets to /var/lib/pleroma/secrets.exs
+         - use a deployment tool such as morph or NixOps to deploy your secrets.
+      */
     pleroma-conf-secret = pkgs.writeText "secrets.exs" ''
       import Config
 
@@ -138,25 +138,25 @@ import ./make-test-python.nix ({
         private_key: "k7o9onKMQrgMjMb6l4fsxSaXO0BTNAer5MVSje3q60k"
     '';
 
-    /* For this NixOS test, we *had* to store this secret to the store.
-       Keep in mind the store is world-readable, it's the worst place
-       possible to store *any* secret. **DO NOT DO THIS IN A REAL WORLD
-       DEPLOYMENT**.
-       In a real-word deployment, you'd handle this either by:
-       - manually upload your pleroma secrets to /var/lib/pleroma/secrets.exs
-       - use a deployment tool such as morph or NixOps to deploy your secrets.
-    */
+      /* For this NixOS test, we *had* to store this secret to the store.
+         Keep in mind the store is world-readable, it's the worst place
+         possible to store *any* secret. **DO NOT DO THIS IN A REAL WORLD
+         DEPLOYMENT**.
+         In a real-word deployment, you'd handle this either by:
+         - manually upload your pleroma secrets to /var/lib/pleroma/secrets.exs
+         - use a deployment tool such as morph or NixOps to deploy your secrets.
+      */
     provision-secrets = pkgs.writeScriptBin "provision-secrets" ''
       set -eux
       cp "${pleroma-conf-secret}" "/var/lib/pleroma/secrets.exs"
       chown pleroma:pleroma /var/lib/pleroma/secrets.exs
     '';
 
-    /* For this NixOS test, we *had* to store this secret to the store.
-       Keep in mind the store is world-readable, it's the worst place
-       possible to store *any* secret. **DO NOT DO THIS IN A REAL WORLD
-       DEPLOYMENT**.
-    */
+      /* For this NixOS test, we *had* to store this secret to the store.
+         Keep in mind the store is world-readable, it's the worst place
+         possible to store *any* secret. **DO NOT DO THIS IN A REAL WORLD
+         DEPLOYMENT**.
+      */
     provision-user = pkgs.writeScriptBin "provision-user" ''
       set -eux
 
@@ -174,14 +174,17 @@ import ./make-test-python.nix ({
         cp key.pem cert.pem $out
       '';
 
-    hosts = nodes: ''
-      ${nodes.pleroma.networking.primaryIPAddress} pleroma.nixos.test
-      ${nodes.client.networking.primaryIPAddress} client.nixos.test
-    '';
+    hosts =
+      nodes: ''
+        ${nodes.pleroma.networking.primaryIPAddress} pleroma.nixos.test
+        ${nodes.client.networking.primaryIPAddress} client.nixos.test
+      ''
+      ;
   in {
     name = "pleroma";
     nodes = {
-      client = {
+      client =
+        {
           nodes,
           pkgs,
           config,
@@ -193,8 +196,10 @@ import ./make-test-python.nix ({
             toot
             send-toot
           ];
-        };
-      pleroma = {
+        }
+        ;
+      pleroma =
+        {
           nodes,
           pkgs,
           config,
@@ -249,10 +254,12 @@ import ./make-test-python.nix ({
               };
             };
           };
-        };
+        }
+        ;
     };
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }: ''
@@ -263,5 +270,6 @@ import ./make-test-python.nix ({
         pleroma.wait_for_unit("pleroma.service")
         pleroma.succeed("provision-user")
         client.succeed("send-toot")
-      '';
+      ''
+      ;
   } )

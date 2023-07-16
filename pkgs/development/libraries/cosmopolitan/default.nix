@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     "dist"
   ];
 
-  # slashes are significant because upstream uses o/$(MODE)/foo.o
+    # slashes are significant because upstream uses o/$(MODE)/foo.o
   buildFlags = [
     "o/cosmopolitan.h"
     "o//cosmopolitan.a"

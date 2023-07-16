@@ -73,8 +73,9 @@ let
     };
   };
 
-  # Deprecate top level options that are redundant.
-  deprecateTopLevelOption = config:
+    # Deprecate top level options that are redundant.
+  deprecateTopLevelOption =
+    config:
     lib.mkRenamedOptionModule ([
       "services"
       "epgstation"
@@ -82,13 +83,16 @@ let
       "services"
       "epgstation"
       "settings"
-    ] ++ config);
+    ] ++ config)
+    ;
 
-  removeOption = config: instruction:
+  removeOption =
+    config: instruction:
     lib.mkRemovedOptionModule ([
       "services"
       "epgstation"
-    ] ++ config) instruction;
+    ] ++ config) instruction
+    ;
 in {
   meta.maintainers = with lib.maintainers; [ midchildan ];
 
@@ -154,16 +158,16 @@ in {
       };
     };
 
-    # The defaults for some options come from the upstream template
-    # configuration, which is the one that users would get if they follow the
-    # upstream instructions. This is, in some cases, different from the
-    # application defaults. Some options like encodeProcessNum and
-    # concurrentEncodeNum doesn't have an optimal default value that works for
-    # all hardware setups and/or performance requirements. For those kind of
-    # options, the application default wouldn't always result in the expected
-    # out-of-the-box behavior because it's the responsibility of the user to
-    # configure them according to their needs. In these cases, the value in the
-    # upstream template configuration should serve as a "good enough" default.
+      # The defaults for some options come from the upstream template
+      # configuration, which is the one that users would get if they follow the
+      # upstream instructions. This is, in some cases, different from the
+      # application defaults. Some options like encodeProcessNum and
+      # concurrentEncodeNum doesn't have an optimal default value that works for
+      # all hardware setups and/or performance requirements. For those kind of
+      # options, the application default wouldn't always result in the expected
+      # out-of-the-box behavior because it's the responsibility of the user to
+      # configure them according to their needs. In these cases, the value in the
+      # upstream template configuration should serve as a "good enough" default.
     settings = lib.mkOption {
       description = lib.mdDoc ''
         Options to add to config.yml.
@@ -299,35 +303,36 @@ in {
       enable = lib.mkDefault true;
       package = lib.mkDefault pkgs.mariadb;
       ensureDatabases = [ cfg.database.name ];
-      # FIXME: enable once mysqljs supports auth_socket
-      # ensureUsers = [ {
-      #   name = username;
-      #   ensurePermissions = { "${cfg.database.name}.*" = "ALL PRIVILEGES"; };
-      # } ];
+        # FIXME: enable once mysqljs supports auth_socket
+        # ensureUsers = [ {
+        #   name = username;
+        #   ensurePermissions = { "${cfg.database.name}.*" = "ALL PRIVILEGES"; };
+        # } ];
     };
 
-    services.epgstation.settings = let
-      defaultSettings = {
-        dbtype = lib.mkDefault "mysql";
-        mysql = {
-          socketPath = lib.mkDefault "/run/mysqld/mysqld.sock";
-          user = username;
-          password = lib.mkDefault "@dbPassword@";
-          database = cfg.database.name;
+    services.epgstation.settings =
+      let
+        defaultSettings = {
+          dbtype = lib.mkDefault "mysql";
+          mysql = {
+            socketPath = lib.mkDefault "/run/mysqld/mysqld.sock";
+            user = username;
+            password = lib.mkDefault "@dbPassword@";
+            database = cfg.database.name;
+          };
+
+          ffmpeg = lib.mkDefault "${pkgs.ffmpeg-full}/bin/ffmpeg";
+          ffprobe = lib.mkDefault "${pkgs.ffmpeg-full}/bin/ffprobe";
+
+            # for disambiguation with TypeScript files
+          recordedFileExtension = lib.mkDefault ".m2ts";
         };
-
-        ffmpeg = lib.mkDefault "${pkgs.ffmpeg-full}/bin/ffmpeg";
-        ffprobe = lib.mkDefault "${pkgs.ffmpeg-full}/bin/ffprobe";
-
-        # for disambiguation with TypeScript files
-        recordedFileExtension = lib.mkDefault ".m2ts";
-      };
-    in
-    lib.mkMerge [
-      defaultSettings
-      (lib.mkIf cfg.usePreconfiguredStreaming streamingConfig)
-    ]
-    ;
+      in
+      lib.mkMerge [
+        defaultSettings
+        (lib.mkIf cfg.usePreconfiguredStreaming streamingConfig)
+      ]
+      ;
 
     systemd.tmpfiles.rules = [
       "d '/var/lib/epgstation/streamfiles' - ${username} ${groupname} - -"

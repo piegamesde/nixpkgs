@@ -6,7 +6,8 @@
 }:
 
 let
-  generic = ver: source:
+  generic =
+    ver: source:
     let
       pname = "descent${toString ver}";
     in
@@ -57,7 +58,7 @@ let
         hydraPlatforms = [ ];
       };
     }
-  ;
+    ;
 
 in {
   descent1-assets = generic 1 "descent";

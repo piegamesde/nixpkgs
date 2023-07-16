@@ -19,7 +19,8 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://github.com/keycloak/keycloak/releases/download/${version}/keycloak-${version}.zip";
+      "https://github.com/keycloak/keycloak/releases/download/${version}/keycloak-${version}.zip"
+      ;
     hash = "sha256-4h3q9J1+KufMaSuzbX9qaBwXPR8zhVpxQAXDBY3uPjM=";
   };
 

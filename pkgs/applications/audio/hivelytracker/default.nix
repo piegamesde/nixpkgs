@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     "PREFIX=$(out)"
   ];
 
-  # Also build the hvl2wav tool
+    # Also build the hvl2wav tool
   postBuild = ''
     make -C hvl2wav
   '';

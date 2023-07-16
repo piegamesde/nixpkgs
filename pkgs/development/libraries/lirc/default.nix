@@ -39,7 +39,8 @@ stdenv.mkDerivation rec {
     # Fix installation of Python bindings
     (fetchpatch {
       url =
-        "https://sourceforge.net/p/lirc/tickets/339/attachment/0001-Fix-Python-bindings.patch";
+        "https://sourceforge.net/p/lirc/tickets/339/attachment/0001-Fix-Python-bindings.patch"
+        ;
       sha256 = "088a39x8c1qd81qwvbiqd6crb2lk777wmrs8rdh1ga06lglyvbly";
     })
 

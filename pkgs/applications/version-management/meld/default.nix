@@ -62,8 +62,8 @@ python3.pkgs.buildPythonApplication rec {
   passthru = {
     updateScript = gnome.updateScript {
       packageName = pname;
-      versionPolicy =
-        "none"; # should be odd-unstable but we are tracking unstable versions for now
+      versionPolicy = "none"
+        ; # should be odd-unstable but we are tracking unstable versions for now
     };
   };
 

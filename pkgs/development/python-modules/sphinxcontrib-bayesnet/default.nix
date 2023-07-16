@@ -21,7 +21,7 @@ buildPythonPackage rec {
     sphinxcontrib-tikz
   ];
 
-  # No tests
+    # No tests
   doCheck = false;
   pythonImportsCheck = [ "sphinxcontrib.bayesnet" ];
 

@@ -36,7 +36,7 @@ beamPackages.mixRelease rec {
     mix phx.digest --no-deps-check
   '';
 
-  # cf. https://github.com/whitfin/cachex/issues/205
+    # cf. https://github.com/whitfin/cachex/issues/205
   stripDebug = false;
 
   mixNixDeps = import ./mix.nix {
@@ -145,7 +145,7 @@ beamPackages.mixRelease rec {
         ];
       };
 
-      # Some additional build inputs and build fixes
+        # Some additional build inputs and build fixes
       fast_html = prev.fast_html.override {
         nativeBuildInputs = [ cmake ];
         dontUseCmakeConfigure = true;
@@ -160,21 +160,23 @@ beamPackages.mixRelease rec {
         prev.syslog.override { buildPlugins = with beamPackages; [ pc ]; };
 
       mime = prev.mime.override {
-        patchPhase = let
-          cfgFile = writeText "config.exs" ''
-            use Mix.Config
-            config :mime, :types, %{
-              "application/activity+json" => ["activity+json"],
-              "application/jrd+json" => ["jrd+json"],
-              "application/ld+json" => ["activity+json"],
-              "application/xml" => ["xml"],
-              "application/xrd+xml" => ["xrd+xml"]
-            }
-          '';
-        in ''
-          mkdir config
-          cp ${cfgFile} config/config.exs
-        '' ;
+        patchPhase =
+          let
+            cfgFile = writeText "config.exs" ''
+              use Mix.Config
+              config :mime, :types, %{
+                "application/activity+json" => ["activity+json"],
+                "application/jrd+json" => ["jrd+json"],
+                "application/ld+json" => ["activity+json"],
+                "application/xml" => ["xml"],
+                "application/xrd+xml" => ["xrd+xml"]
+              }
+            '';
+          in ''
+            mkdir config
+            cp ${cfgFile} config/config.exs
+          ''
+          ;
       };
     });
   };

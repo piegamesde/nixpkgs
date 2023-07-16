@@ -28,7 +28,8 @@
 # files.
 
 let
-  common = {
+  common =
+    {
       version,
       sha256,
       patches ? [ ],
@@ -41,7 +42,8 @@ let
 
       src = fetchurl {
         url =
-          "https://www.openssl.org/source/${finalAttrs.pname}-${version}.tar.gz";
+          "https://www.openssl.org/source/${finalAttrs.pname}-${version}.tar.gz"
+          ;
         inherit sha256;
       };
 
@@ -95,7 +97,7 @@ let
       buildInputs = lib.optional withCryptodev cryptodev
         ++ lib.optional withZlib zlib;
 
-      # TODO(@Ericson2314): Improve with mass rebuild
+        # TODO(@Ericson2314): Improve with mass rebuild
       configurePlatforms = [ ];
       configureScript = {
         armv5tel-linux = "./Configure linux-armv4 -march=armv5te";
@@ -144,7 +146,7 @@ let
         throw
         "Not sure what configuration to use for ${stdenv.hostPlatform.config}");
 
-      # OpenSSL doesn't like the `--enable-static` / `--disable-shared` flags.
+        # OpenSSL doesn't like the `--enable-static` / `--disable-shared` flags.
       dontAddStaticConfigureFlags = true;
       configureFlags = [
         "shared" # "shared" builds both shared and static libraries
@@ -256,7 +258,8 @@ let
           ];
           platforms = platforms.all;
         } // extraMeta;
-    });
+    })
+    ;
 
 in {
 

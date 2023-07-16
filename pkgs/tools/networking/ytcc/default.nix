@@ -34,7 +34,7 @@ python3Packages.buildPythonApplication rec {
     pytestCheckHook
   ];
 
-  # Disable tests that touch network or shell out to commands
+    # Disable tests that touch network or shell out to commands
   disabledTests = [
     "get_channels"
     "play_video"
@@ -58,7 +58,8 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description =
-      "Command Line tool to keep track of your favourite YouTube channels without signing up for a Google account";
+      "Command Line tool to keep track of your favourite YouTube channels without signing up for a Google account"
+      ;
     homepage = "https://github.com/woefe/ytcc";
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [

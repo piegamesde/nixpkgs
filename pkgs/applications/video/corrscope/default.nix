@@ -60,15 +60,16 @@ mkDerivationWith python3Packages.buildPythonApplication rec {
 
   passthru.tests.version = testers.testVersion {
     package = corrscope;
-    # Tries writing to
-    # - $HOME/.local/share/corrscope on Linux
-    # - $HOME/Library/Application Support/corrscope on Darwin
+      # Tries writing to
+      # - $HOME/.local/share/corrscope on Linux
+      # - $HOME/Library/Application Support/corrscope on Darwin
     command = "env HOME=$TMPDIR ${lib.getExe corrscope} --version";
   };
 
   meta = with lib; {
     description =
-      "Render wave files into oscilloscope views, featuring advanced correlation-based triggering algorithm";
+      "Render wave files into oscilloscope views, featuring advanced correlation-based triggering algorithm"
+      ;
     longDescription = ''
       Corrscope renders oscilloscope views of WAV files recorded from chiptune (game music from
       retro sound chips).

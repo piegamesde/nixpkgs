@@ -34,7 +34,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "fno-common.patch";
       url =
-        "https://github.com/mrash/fwknop/commit/a8214fd58bc46d23b64b3a55db023c7f5a5ea6af.patch";
+        "https://github.com/mrash/fwknop/commit/a8214fd58bc46d23b64b3a55db023c7f5a5ea6af.patch"
+        ;
       sha256 = "0cp1350q66n455hpd3rdydb9anx66bcirza5gyyyy5232zgg58bi";
     })
   ];
@@ -61,9 +62,9 @@ stdenv.mkDerivation rec {
     "--with-gpg=${gnupg}"
   ];
 
-  # Temporary hack to copy the example configuration files into the nix-store,
-  # this'll probably be helpful until there's a NixOS module for that (feel free
-  # to ping me (@primeos) if you want to help).
+    # Temporary hack to copy the example configuration files into the nix-store,
+    # this'll probably be helpful until there's a NixOS module for that (feel free
+    # to ping me (@primeos) if you want to help).
   preInstall = ''
     substituteInPlace Makefile --replace\
       "sysconfdir = /etc"\

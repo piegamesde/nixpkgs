@@ -36,7 +36,7 @@ buildPythonApplication rec {
 
   disabled = pythonOlder "3.6";
 
-  # pypi tarball miss tests
+    # pypi tarball miss tests
   src = fetchFromGitHub {
     owner = "matrix-org";
     repo = pname;
@@ -72,7 +72,7 @@ buildPythonApplication rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  # darwin has difficulty communicating with server, fails some integration tests
+    # darwin has difficulty communicating with server, fails some integration tests
   doCheck = !stdenv.isDarwin;
 
   checkPhase = ''

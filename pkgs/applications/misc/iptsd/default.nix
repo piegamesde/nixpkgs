@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     systemd
   ];
 
-  # Original installs udev rules and service config into global paths
+    # Original installs udev rules and service config into global paths
   postPatch = ''
     substituteInPlace etc/meson.build \
       --replace "install_dir: unitdir" "install_dir: '$out/etc/systemd/system'" \

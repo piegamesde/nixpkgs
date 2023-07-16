@@ -8,8 +8,8 @@
 stdenv.mkDerivation {
   pname = "serpent";
 
-  # I can't find any version numbers, so we're just using the date
-  # of the last commit.
+    # I can't find any version numbers, so we're just using the date
+    # of the last commit.
   version = "2016-03-05";
 
   src = fetchFromGitHub {

@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     license = licenses.lgpl2Plus;
     maintainers = with maintainers; [ hjones2199 ];
     platforms = platforms.unix;
-    # error: use of undeclared identifier 'MSG_NOSIGNAL'
+      # error: use of undeclared identifier 'MSG_NOSIGNAL'
     broken = stdenv.isDarwin && stdenv.isx86_64;
   };
 }

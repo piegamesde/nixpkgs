@@ -34,7 +34,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  # Requires network connection
+    # Requires network connection
   disabledTests = [
     "test_build" # Requires internet
     "test_invalid_config"

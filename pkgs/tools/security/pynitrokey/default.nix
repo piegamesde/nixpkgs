@@ -48,12 +48,13 @@ buildPythonApplication rec {
     "typing_extensions"
   ];
 
-  # libnitrokey is not propagated to users of pynitrokey
-  # It is only usable from the wrapped bin/nitropy
-  makeWrapperArgs =
-    [ "--set LIBNK_PATH ${lib.makeLibraryPath [ libnitrokey ]}" ];
+    # libnitrokey is not propagated to users of pynitrokey
+    # It is only usable from the wrapped bin/nitropy
+  makeWrapperArgs = [ "--set LIBNK_PATH ${
+      lib.makeLibraryPath [ libnitrokey ]
+    }" ];
 
-  # no tests
+    # no tests
   doCheck = false;
 
   pythonImportsCheck = [ "pynitrokey" ];

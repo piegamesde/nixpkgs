@@ -86,21 +86,24 @@ in {
         type = types.bool;
         default = false;
         description = lib.mdDoc
-          "Set it to on to enable statistics report (https://plantuml.com/statistics-report).";
+          "Set it to on to enable statistics report (https://plantuml.com/statistics-report)."
+          ;
       };
 
       httpAuthorization = mkOption {
         type = types.nullOr types.str;
         default = null;
         description = lib.mdDoc
-          "When calling the proxy endpoint, the value of HTTP_AUTHORIZATION will be used to set the HTTP Authorization header.";
+          "When calling the proxy endpoint, the value of HTTP_AUTHORIZATION will be used to set the HTTP Authorization header."
+          ;
       };
 
       allowPlantumlInclude = mkOption {
         type = types.bool;
         default = false;
         description = lib.mdDoc
-          "Enables !include processing which can read files from the server into diagrams. Files are read relative to the current working directory.";
+          "Enables !include processing which can read files from the server into diagrams. Files are read relative to the current working directory."
+          ;
       };
     };
   };
@@ -122,15 +125,19 @@ in {
       environment = {
         PLANTUML_LIMIT_SIZE = builtins.toString cfg.plantumlLimitSize;
         GRAPHVIZ_DOT = "${cfg.graphvizPackage}/bin/dot";
-        PLANTUML_STATS = if cfg.plantumlStats then
-          "on"
-        else
-          "off";
+        PLANTUML_STATS =
+          if cfg.plantumlStats then
+            "on"
+          else
+            "off"
+          ;
         HTTP_AUTHORIZATION = cfg.httpAuthorization;
-        ALLOW_PLANTUML_INCLUDE = if cfg.allowPlantumlInclude then
-          "true"
-        else
-          "false";
+        ALLOW_PLANTUML_INCLUDE =
+          if cfg.allowPlantumlInclude then
+            "true"
+          else
+            "false"
+          ;
       };
       script = ''
         ${cfg.packages.jdk}/bin/java \

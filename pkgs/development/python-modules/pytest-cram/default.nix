@@ -25,8 +25,8 @@ buildPythonPackage rec {
       --replace "/bin/bash" "${bash}/bin/bash"
   '';
 
-  # Remove __init__.py from tests folder, otherwise pytest raises an error that
-  # the imported and collected modules are different.
+    # Remove __init__.py from tests folder, otherwise pytest raises an error that
+    # the imported and collected modules are different.
   checkPhase = ''
     rm pytest_cram/tests/__init__.py
     pytest pytest_cram/ --ignore=pytest_cram/tests/test_examples.py

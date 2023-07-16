@@ -91,7 +91,8 @@ let
 
   withXenfiles = f: concatStringsSep "\n" (mapAttrsToList f config.xenfiles);
 
-  withTools = a: f:
+  withTools =
+    a: f:
     withXenfiles (name: x:
       optionalString (hasAttr a x) ''
         echo "processing ${name}"
@@ -100,15 +101,16 @@ let
           ${f name x}
         }
         ( __do )
-      '');
+      '')
+    ;
 
-  # We don't want to use the wrapped version, because this version of ld is
-  # only used for linking the Xen EFI binary, and the build process really
-  # needs control over the LDFLAGS used
+    # We don't want to use the wrapped version, because this version of ld is
+    # only used for linking the Xen EFI binary, and the build process really
+    # needs control over the LDFLAGS used
   efiBinutils = binutils-unwrapped.overrideAttrs (oldAttrs: {
     name = "efi-binutils";
-    configureFlags = oldAttrs.configureFlags
-      ++ [ "--enable-targets=x86_64-pep" ];
+    configureFlags =
+      oldAttrs.configureFlags ++ [ "--enable-targets=x86_64-pep" ];
     doInstallCheck =
       false; # We get a spurious failure otherwise, due to host/target mis-match
   });
@@ -279,8 +281,8 @@ stdenv.mkDerivation (rec {
   EFI_LD = "${efiBinutils}/bin/ld";
   EFI_VENDOR = "nixos";
 
-  # TODO: Flask needs more testing before enabling it by default.
-  #makeFlags = [ "XSM_ENABLE=y" "FLASK_ENABLE=y" "PREFIX=$(out)" "CONFIG_DIR=/etc" "XEN_EXTFILES_URL=\\$(XEN_ROOT)/xen_ext_files" ];
+    # TODO: Flask needs more testing before enabling it by default.
+    #makeFlags = [ "XSM_ENABLE=y" "FLASK_ENABLE=y" "PREFIX=$(out)" "CONFIG_DIR=/etc" "XEN_EXTFILES_URL=\\$(XEN_ROOT)/xen_ext_files" ];
   makeFlags = [
     "PREFIX=$(out) CONFIG_DIR=/etc"
     "XEN_SCRIPT_DIR=/etc/xen/scripts"
@@ -326,7 +328,7 @@ stdenv.mkDerivation (rec {
 
   enableParallelBuilding = true;
 
-  # TODO(@oxij): Stop referencing args here
+    # TODO(@oxij): Stop referencing args here
   meta = {
     homepage = "http://www.xen.org/";
     description = "Xen hypervisor and related components"
@@ -353,7 +355,8 @@ stdenv.mkDerivation (rec {
       "CVE-2022-42331"
       # https://xenbits.xen.org/docs/unstable/support-matrix.html
     ] ++ lib.optionals (lib.versionOlder version
-      "4.15") [ "This version of Xen has reached its end of life. See https://xenbits.xen.org/docs/unstable/support-matrix.html" ];
+      "4.15") [ "This version of Xen has reached its end of life. See https://xenbits.xen.org/docs/unstable/support-matrix.html" ]
+      ;
   } // (config.meta or { });
 } // removeAttrs config [
   "xenfiles"

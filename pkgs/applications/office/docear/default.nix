@@ -42,7 +42,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "A unique solution to academic literature management";
     homepage = "http://www.docear.org/";
-    # Licenses at: http://www.docear.org/software/download/
+      # Licenses at: http://www.docear.org/software/download/
     license = with licenses; [
       gpl2 # for the main software and some dependencies
       bsd3 # for one of its dependencies

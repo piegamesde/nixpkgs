@@ -29,7 +29,7 @@ buildPythonPackage rec {
     aiohttp
   ];
 
-  # Tests require credentials
+    # Tests require credentials
   doCheck = false;
 
   pythonImportsCheck = [ "pyeconet" ];

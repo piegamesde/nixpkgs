@@ -58,7 +58,7 @@ buildPythonApplication rec {
     install -Dm644 ./packaging/icons/thonny-48x48.png $out/share/icons/hicolor/48x48/apps/thonny.png
   '';
 
-  # Tests need a DISPLAY
+    # Tests need a DISPLAY
   doCheck = false;
 
   meta = with lib; {

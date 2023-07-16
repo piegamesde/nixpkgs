@@ -19,7 +19,8 @@ stdenv.mkDerivation rec {
   version = "4.2.15";
   src = fetchurl {
     url =
-      "https://support.hdfgroup.org/ftp/HDF/releases/HDF${version}/src/hdf-${version}.tar.bz2";
+      "https://support.hdfgroup.org/ftp/HDF/releases/HDF${version}/src/hdf-${version}.tar.bz2"
+      ;
     sha256 = "04nbgfxyj5jg4d6sr28162cxbfwqgv0sa7vz1ayzvm8wbbpkbq5x";
   };
 
@@ -27,34 +28,39 @@ stdenv.mkDerivation rec {
     # Note that the PPC, SPARC and s390 patches are only needed so the aarch64 patch applies cleanly
     (fetchpatch {
       url =
-        "https://src.fedoraproject.org/rpms/hdf/raw/edbe5f49646b609f5bc9aeeee5a2be47e9556e8c/f/hdf-ppc.patch";
+        "https://src.fedoraproject.org/rpms/hdf/raw/edbe5f49646b609f5bc9aeeee5a2be47e9556e8c/f/hdf-ppc.patch"
+        ;
       sha256 = "0dbbfpsvvqzy9zyfv38gd81zzc44gxjib9sd8scxqnkkqprj6jq0";
     })
     (fetchpatch {
       url =
-        "https://src.fedoraproject.org/rpms/hdf/raw/edbe5f49646b609f5bc9aeeee5a2be47e9556e8c/f/hdf-4.2.4-sparc.patch";
+        "https://src.fedoraproject.org/rpms/hdf/raw/edbe5f49646b609f5bc9aeeee5a2be47e9556e8c/f/hdf-4.2.4-sparc.patch"
+        ;
       sha256 = "0ip4prcjpa404clm87ib7l71605mws54x9492n9pbz5yb51r9aqh";
     })
     (fetchpatch {
       url =
-        "https://src.fedoraproject.org/rpms/hdf/raw/edbe5f49646b609f5bc9aeeee5a2be47e9556e8c/f/hdf-s390.patch";
+        "https://src.fedoraproject.org/rpms/hdf/raw/edbe5f49646b609f5bc9aeeee5a2be47e9556e8c/f/hdf-s390.patch"
+        ;
       sha256 = "0aiqbr4s1l19y3r3y4wjd5fkv9cfc8rlr4apbh1p0d57wyvqa7i3";
     })
     (fetchpatch {
       url =
-        "https://src.fedoraproject.org/rpms/hdf/raw/edbe5f49646b609f5bc9aeeee5a2be47e9556e8c/f/hdf-arm.patch";
+        "https://src.fedoraproject.org/rpms/hdf/raw/edbe5f49646b609f5bc9aeeee5a2be47e9556e8c/f/hdf-arm.patch"
+        ;
       sha256 = "157k1avvkpf3x89m1fv4a1kgab6k3jv74rskazrmjivgzav4qaw3";
     })
     (fetchpatch {
       url =
-        "https://src.fedoraproject.org/rpms/hdf/raw/edbe5f49646b609f5bc9aeeee5a2be47e9556e8c/f/hdf-aarch64.patch";
+        "https://src.fedoraproject.org/rpms/hdf/raw/edbe5f49646b609f5bc9aeeee5a2be47e9556e8c/f/hdf-aarch64.patch"
+        ;
       sha256 = "112svcsilk16ybbsi8ywnxfl2p1v44zh3rfn4ijnl8z08vfqrvvs";
     })
     ./darwin-aarch64.patch
   ];
 
-  nativeBuildInputs = [ cmake ]
-    ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
+  nativeBuildInputs =
+    [ cmake ] ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
 
   buildInputs = [
     libjpeg
@@ -98,14 +104,16 @@ stdenv.mkDerivation rec {
     "NC_TEST-nctest"
   ];
 
-  checkPhase = let
-    excludedTestsRegex = lib.optionalString (excludedTests != [ ])
-      "(${lib.concatStringsSep "|" excludedTests})";
-  in ''
-    runHook preCheck
-    ctest -E "${excludedTestsRegex}" --output-on-failure
-    runHook postCheck
-  '' ;
+  checkPhase =
+    let
+      excludedTestsRegex = lib.optionalString (excludedTests != [ ])
+        "(${lib.concatStringsSep "|" excludedTests})";
+    in ''
+      runHook preCheck
+      ctest -E "${excludedTestsRegex}" --output-on-failure
+      runHook postCheck
+    ''
+    ;
 
   outputs = [
     "bin"

@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     which
   ];
 
-  # In earlier versions, parallel building was not supported but it's OK with 1.13
+    # In earlier versions, parallel building was not supported but it's OK with 1.13
   enableParallelBuilding = true;
 
   patchPhase = "patch -p0 < ${./buildfix.diff}";

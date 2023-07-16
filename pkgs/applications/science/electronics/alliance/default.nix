@@ -43,8 +43,8 @@ stdenv.mkDerivation rec {
     bison
   ];
 
-  # Disable parallel build, errors:
-  #  ./pat_decl_y.y:736:5: error: expected '=', ...
+    # Disable parallel build, errors:
+    #  ./pat_decl_y.y:736:5: error: expected '=', ...
   enableParallelBuilding = false;
 
   ALLIANCE_TOP = placeholder "out";
@@ -75,7 +75,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "(deprecated) Complete set of free CAD tools and portable libraries for VLSI design";
+      "(deprecated) Complete set of free CAD tools and portable libraries for VLSI design"
+      ;
     homepage = "http://coriolis.lip6.fr/";
     license = with licenses; gpl2Plus;
     maintainers = with maintainers; [ l-as ];

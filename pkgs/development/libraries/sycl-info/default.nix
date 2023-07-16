@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     "-DLYRA_INCLUDE_DIRS=${lib.getDev lyra}/include"
   ];
 
-  # Required for ronn to compile the manpage.
+    # Required for ronn to compile the manpage.
   RUBYOPT = "-KU -E utf-8:utf-8";
 
   meta = with lib; {

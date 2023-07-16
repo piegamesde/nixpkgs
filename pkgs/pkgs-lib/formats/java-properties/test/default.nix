@@ -43,7 +43,7 @@ let
     "all stuff" = "foo = bar";
     "unicode big brain" = "e = mc□";
     "ütf-8" = "dûh";
-    # NB: Some editors (vscode) show this _whole_ line in right-to-left order
+      # NB: Some editors (vscode) show this _whole_ line in right-to-left order
     "الجبر" = "أكثر من مجرد أرقام";
   };
 
@@ -55,11 +55,11 @@ stdenv.mkDerivation {
     glibcLocales
   ];
 
-  # technically should go through the type.merge first, but that's tested
-  # in tests/formats.nix.
+    # technically should go through the type.merge first, but that's tested
+    # in tests/formats.nix.
   properties = javaProperties.generate "example.properties" input;
 
-  # Expected output as printed by Main.java
+    # Expected output as printed by Main.java
   passAsFile = [ "expected" ];
   expected = concatStrings (attrValues (mapAttrs (key: value: ''
     KEY
@@ -70,7 +70,7 @@ stdenv.mkDerivation {
   '') input));
 
   src = lib.sourceByRegex ./. [ ".*.java" ];
-  # On Linux, this can be C.UTF-8, but darwin + zulu requires en_US.UTF-8
+    # On Linux, this can be C.UTF-8, but darwin + zulu requires en_US.UTF-8
   LANG = "en_US.UTF-8";
   buildPhase = ''
     javac Main.java

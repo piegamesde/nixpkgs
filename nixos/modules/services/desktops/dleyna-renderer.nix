@@ -23,7 +23,7 @@ with lib;
     };
   };
 
-  ###### implementation
+    ###### implementation
   config = mkIf config.services.dleyna-renderer.enable {
     environment.systemPackages = [ pkgs.dleyna-renderer ];
 

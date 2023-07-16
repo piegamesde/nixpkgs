@@ -17,12 +17,14 @@ let
       self = python;
       includeSiteCustomize = true;
     }).override {
-      packageOverrides = final: prev: {
-        markdown-it-py =
-          prev.markdown-it-py.overridePythonAttrs (_: { doCheck = false; });
-        mdit-py-plugins =
-          prev.mdit-py-plugins.overridePythonAttrs (_: { doCheck = false; });
-      };
+      packageOverrides =
+        final: prev: {
+          markdown-it-py =
+            prev.markdown-it-py.overridePythonAttrs (_: { doCheck = false; });
+          mdit-py-plugins =
+            prev.mdit-py-plugins.overridePythonAttrs (_: { doCheck = false; });
+        }
+        ;
     };
 
 in
@@ -32,13 +34,15 @@ python.pkgs.buildPythonApplication rec {
   format = "pyproject";
 
   src = lib.cleanSourceWith {
-    filter = name: type:
+    filter =
+      name: type:
       lib.cleanSourceFilter name type && !(type == "directory"
         && builtins.elem (baseNameOf name) [
           ".pytest_cache"
           ".mypy_cache"
           "__pycache__"
-        ]);
+        ])
+      ;
     src = ./src;
   };
 
@@ -57,8 +61,8 @@ python.pkgs.buildPythonApplication rec {
     "tests/"
   ];
 
-  # NOTE this is a CI test rather than a build-time test because we want to keep the
-  # build closures small. mypy has an unreasonably large build closure for docs builds.
+    # NOTE this is a CI test rather than a build-time test because we want to keep the
+    # build closures small. mypy has an unreasonably large build closure for docs builds.
   passthru.tests.typing = runCommand "${pname}-mypy" {
     nativeBuildInputs = [ (python3.withPackages (ps:
       with ps; [

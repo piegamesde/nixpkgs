@@ -23,7 +23,7 @@ let
     else
       python3) ];
 
-    # as of 4.9 compilation will fail due to -Werror=format-security
+      # as of 4.9 compilation will fail due to -Werror=format-security
     hardeningDisable = [ "format" ];
 
     postPatch = ''
@@ -32,9 +32,9 @@ let
         --replace /usr/libexec/hypervkvpd/ $out/${libexec}/
     '';
 
-    # We don't actually need the hv_get_{dhcp,dns}_info scripts on NixOS in
-    # their current incarnation but with them in place, we stop the spam of
-    # errors in the log.
+      # We don't actually need the hv_get_{dhcp,dns}_info scripts on NixOS in
+      # their current incarnation but with them in place, we stop the spam of
+      # errors in the log.
     installPhase = ''
       runHook preInstall
 
@@ -60,7 +60,8 @@ let
     '';
   };
 
-  service = bin: title: check:
+  service =
+    bin: title: check:
     writeText "hv-${bin}.service" ''
       [Unit]
       Description=Hyper-V ${title} daemon
@@ -76,7 +77,8 @@ let
 
       [Install]
       WantedBy=hyperv-daemons.target
-    '';
+    ''
+    ;
 
 in
 stdenv.mkDerivation {

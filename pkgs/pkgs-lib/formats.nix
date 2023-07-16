@@ -34,75 +34,84 @@
     javaProperties
     ;
 
-  json = { }: {
+  json =
+    { }: {
 
-    type = with lib.types;
-      let
-        valueType = nullOr (oneOf [
-          bool
-          int
-          float
-          str
-          path
-          (attrsOf valueType)
-          (listOf valueType)
-        ]) // {
-          description = "JSON value";
-        };
-      in
-      valueType
+      type = with lib.types;
+        let
+          valueType = nullOr (oneOf [
+            bool
+            int
+            float
+            str
+            path
+            (attrsOf valueType)
+            (listOf valueType)
+          ]) // {
+            description = "JSON value";
+          };
+        in
+        valueType
+        ;
+
+      generate =
+        name: value:
+        pkgs.callPackage ({
+            runCommand,
+            jq,
+          }:
+          runCommand name {
+            nativeBuildInputs = [ jq ];
+            value = builtins.toJSON value;
+            passAsFile = [ "value" ];
+          } ''
+            jq . "$valuePath"> $out
+          '') { }
+        ;
+
+    }
     ;
 
-    generate = name: value:
-      pkgs.callPackage ({
-          runCommand,
-          jq,
-        }:
-        runCommand name {
-          nativeBuildInputs = [ jq ];
-          value = builtins.toJSON value;
-          passAsFile = [ "value" ];
-        } ''
-          jq . "$valuePath"> $out
-        '') { };
+  yaml =
+    { }: {
 
-  };
+      generate =
+        name: value:
+        pkgs.callPackage ({
+            runCommand,
+            remarshal,
+          }:
+          runCommand name {
+            nativeBuildInputs = [ remarshal ];
+            value = builtins.toJSON value;
+            passAsFile = [ "value" ];
+          } ''
+            json2yaml "$valuePath" "$out"
+          '') { }
+        ;
 
-  yaml = { }: {
+      type = with lib.types;
+        let
+          valueType = nullOr (oneOf [
+            bool
+            int
+            float
+            str
+            path
+            (attrsOf valueType)
+            (listOf valueType)
+          ]) // {
+            description = "YAML value";
+          };
+        in
+        valueType
+        ;
 
-    generate = name: value:
-      pkgs.callPackage ({
-          runCommand,
-          remarshal,
-        }:
-        runCommand name {
-          nativeBuildInputs = [ remarshal ];
-          value = builtins.toJSON value;
-          passAsFile = [ "value" ];
-        } ''
-          json2yaml "$valuePath" "$out"
-        '') { };
-
-    type = with lib.types;
-      let
-        valueType = nullOr (oneOf [
-          bool
-          int
-          float
-          str
-          path
-          (attrsOf valueType)
-          (listOf valueType)
-        ]) // {
-          description = "YAML value";
-        };
-      in
-      valueType
+    }
     ;
 
-  };
-
-  ini = {
+  ini =
+    {
     # Represents lists as duplicate keys
       listsAsDuplicateKeys ? false,
       # Alternative to listsAsDuplicateKeys, converts list to non-list
@@ -124,44 +133,51 @@
             description = "INI atom (null, bool, int, float or string)";
           };
 
-          iniAtom = if listsAsDuplicateKeys then
-            coercedTo singleIniAtom lib.singleton (listOf singleIniAtom) // {
-              description = singleIniAtom.description
-                + " or a list of them for duplicate keys";
-            }
-          else if listToValue != null then
-            coercedTo singleIniAtom lib.singleton (nonEmptyListOf singleIniAtom)
-            // {
-              description = singleIniAtom.description
-                + " or a non-empty list of them";
-            }
-          else
-            singleIniAtom;
+          iniAtom =
+            if listsAsDuplicateKeys then
+              coercedTo singleIniAtom lib.singleton (listOf singleIniAtom) // {
+                description = singleIniAtom.description
+                  + " or a list of them for duplicate keys";
+              }
+            else if listToValue != null then
+              coercedTo singleIniAtom lib.singleton
+              (nonEmptyListOf singleIniAtom) // {
+                description =
+                  singleIniAtom.description + " or a non-empty list of them";
+              }
+            else
+              singleIniAtom
+            ;
 
         in
         attrsOf (attrsOf iniAtom)
-      ;
+        ;
 
-      generate = name: value:
+      generate =
+        name: value:
         let
-          transformedValue = if listToValue != null then
-            lib.mapAttrs (section:
-              lib.mapAttrs (key: val:
-                if lib.isList val then
-                  listToValue val
-                else
-                  val)) value
-          else
-            value;
+          transformedValue =
+            if listToValue != null then
+              lib.mapAttrs (section:
+                lib.mapAttrs (key: val:
+                  if lib.isList val then
+                    listToValue val
+                  else
+                    val)) value
+            else
+              value
+            ;
         in
         pkgs.writeText name
         (lib.generators.toINI (removeAttrs args [ "listToValue" ])
           transformedValue)
-      ;
+        ;
 
-    };
+    }
+    ;
 
-  keyValue = {
+  keyValue =
+    {
     # Represents lists as duplicate keys
       listsAsDuplicateKeys ? false,
       # Alternative to listsAsDuplicateKeys, converts list to non-list
@@ -183,42 +199,50 @@
             description = "atom (null, bool, int, float or string)";
           };
 
-          atom = if listsAsDuplicateKeys then
-            coercedTo singleAtom lib.singleton (listOf singleAtom) // {
-              description = singleAtom.description
-                + " or a list of them for duplicate keys";
-            }
-          else if listToValue != null then
-            coercedTo singleAtom lib.singleton (nonEmptyListOf singleAtom) // {
-              description = singleAtom.description
-                + " or a non-empty list of them";
-            }
-          else
-            singleAtom;
+          atom =
+            if listsAsDuplicateKeys then
+              coercedTo singleAtom lib.singleton (listOf singleAtom) // {
+                description = singleAtom.description
+                  + " or a list of them for duplicate keys";
+              }
+            else if listToValue != null then
+              coercedTo singleAtom lib.singleton (nonEmptyListOf singleAtom)
+              // {
+                description =
+                  singleAtom.description + " or a non-empty list of them";
+              }
+            else
+              singleAtom
+            ;
 
         in
         attrsOf atom
-      ;
+        ;
 
-      generate = name: value:
+      generate =
+        name: value:
         let
-          transformedValue = if listToValue != null then
-            lib.mapAttrs (key: val:
-              if lib.isList val then
-                listToValue val
-              else
-                val) value
-          else
-            value;
+          transformedValue =
+            if listToValue != null then
+              lib.mapAttrs (key: val:
+                if lib.isList val then
+                  listToValue val
+                else
+                  val) value
+            else
+              value
+            ;
         in
         pkgs.writeText name
         (lib.generators.toKeyValue (removeAttrs args [ "listToValue" ])
           transformedValue)
-      ;
+        ;
 
-    };
+    }
+    ;
 
-  gitIni = {
+  gitIni =
+    {
       listsAsDuplicateKeys ? false,
       ...
     }@args: {
@@ -232,13 +256,17 @@
 
         in
         attrsOf (attrsOf (either iniAtom (attrsOf iniAtom)))
-      ;
+        ;
 
-      generate = name: value:
-        pkgs.writeText name (lib.generators.toGitINI value);
-    };
+      generate =
+        name: value:
+        pkgs.writeText name (lib.generators.toGitINI value)
+        ;
+    }
+    ;
 
-  toml = { }:
+  toml =
+    { }:
     json { } // {
       type = with lib.types;
         let
@@ -255,9 +283,10 @@
           };
         in
         valueType
-      ;
+        ;
 
-      generate = name: value:
+      generate =
+        name: value:
         pkgs.callPackage ({
             runCommand,
             remarshal,
@@ -268,48 +297,52 @@
             passAsFile = [ "value" ];
           } ''
             json2toml "$valuePath" "$out"
-          '') { };
+          '') { }
+        ;
 
-    };
+    }
+    ;
 
-  /* For configurations of Elixir project, like config.exs or runtime.exs
+    /* For configurations of Elixir project, like config.exs or runtime.exs
 
-     Most Elixir project are configured using the [Config] Elixir DSL
+       Most Elixir project are configured using the [Config] Elixir DSL
 
-     Since Elixir has more types than Nix, we need a way to map Nix types to
-     more than 1 Elixir type. To that end, this format provides its own library,
-     and its own set of types.
+       Since Elixir has more types than Nix, we need a way to map Nix types to
+       more than 1 Elixir type. To that end, this format provides its own library,
+       and its own set of types.
 
-     To be more detailed, a Nix attribute set could correspond in Elixir to a
-     [Keyword list] (the more common type), or it could correspond to a [Map].
+       To be more detailed, a Nix attribute set could correspond in Elixir to a
+       [Keyword list] (the more common type), or it could correspond to a [Map].
 
-     A Nix string could correspond in Elixir to a [String] (also called
-     "binary"), an [Atom], or a list of chars (usually discouraged).
+       A Nix string could correspond in Elixir to a [String] (also called
+       "binary"), an [Atom], or a list of chars (usually discouraged).
 
-     A Nix array could correspond in Elixir to a [List] or a [Tuple].
+       A Nix array could correspond in Elixir to a [List] or a [Tuple].
 
-     Some more types exists, like records, regexes, but since they are less used,
-     we can leave the `mkRaw` function as an escape hatch.
+       Some more types exists, like records, regexes, but since they are less used,
+       we can leave the `mkRaw` function as an escape hatch.
 
-     For more information on how to use this format in modules, please refer to
-     the Elixir section of the Nixos documentation.
+       For more information on how to use this format in modules, please refer to
+       the Elixir section of the Nixos documentation.
 
-     TODO: special Elixir values doesn't show up nicely in the documentation
+       TODO: special Elixir values doesn't show up nicely in the documentation
 
-     [Config]: <https://hexdocs.pm/elixir/Config.html>
-     [Keyword list]: <https://hexdocs.pm/elixir/Keyword.html>
-     [Map]: <https://hexdocs.pm/elixir/Map.html>
-     [String]: <https://hexdocs.pm/elixir/String.html>
-     [Atom]: <https://hexdocs.pm/elixir/Atom.html>
-     [List]: <https://hexdocs.pm/elixir/List.html>
-     [Tuple]: <https://hexdocs.pm/elixir/Tuple.html>
-  */
-  elixirConf = {
+       [Config]: <https://hexdocs.pm/elixir/Config.html>
+       [Keyword list]: <https://hexdocs.pm/elixir/Keyword.html>
+       [Map]: <https://hexdocs.pm/elixir/Map.html>
+       [String]: <https://hexdocs.pm/elixir/String.html>
+       [Atom]: <https://hexdocs.pm/elixir/Atom.html>
+       [List]: <https://hexdocs.pm/elixir/List.html>
+       [Tuple]: <https://hexdocs.pm/elixir/Tuple.html>
+    */
+  elixirConf =
+    {
       elixir ? pkgs.elixir
     }:
     with lib;
     let
-      toElixir = value:
+      toElixir =
+        value:
         with builtins;
         if value == null then
           "nil"
@@ -326,7 +359,8 @@
         else if isList value then
           list value
         else
-          abort "formats.elixirConf: should never happen (value = ${value})";
+          abort "formats.elixirConf: should never happen (value = ${value})"
+        ;
 
       escapeElixir = escape [
         "\\"
@@ -335,7 +369,8 @@
       ];
       string = value: ''"${escapeElixir value}"'';
 
-      attrs = set:
+      attrs =
+        set:
         if set ? _elixirType then
           specialType set
         else
@@ -344,13 +379,14 @@
             keywordList = concatStringsSep ", " (mapAttrsToList toKeyword set);
           in
           "[" + keywordList + "]"
-      ;
+        ;
 
       listContent = values: concatStringsSep ", " (map toElixir values);
 
       list = values: "[" + (listContent values) + "]";
 
-      specialType = {
+      specialType =
+        {
           value,
           _elixirType,
         }:
@@ -364,30 +400,38 @@
           tuple value
         else
           abort
-          "formats.elixirConf: should never happen (_elixirType = ${_elixirType})";
+          "formats.elixirConf: should never happen (_elixirType = ${_elixirType})"
+        ;
 
-      elixirMap = set:
+      elixirMap =
+        set:
         let
           toEntry = name: value: "${toElixir name} => ${toElixir value}";
           entries = concatStringsSep ", " (mapAttrsToList toEntry set);
         in
         "%{${entries}}"
-      ;
+        ;
 
       tuple = values: "{${listContent values}}";
 
-      toConf = values:
+      toConf =
+        values:
         let
-          keyConfig = rootKey: key: value:
-            "config ${rootKey}, ${key}, ${toElixir value}";
-          keyConfigs = rootKey: values:
-            mapAttrsToList (keyConfig rootKey) values;
+          keyConfig =
+            rootKey: key: value:
+            "config ${rootKey}, ${key}, ${toElixir value}"
+            ;
+          keyConfigs =
+            rootKey: values:
+            mapAttrsToList (keyConfig rootKey) values
+            ;
           rootConfigs = flatten (mapAttrsToList keyConfigs values);
         in ''
           import Config
 
           ${concatStringsSep "\n" rootConfigs}
-        '' ;
+        ''
+        ;
     in {
       type = with lib.types;
         let
@@ -403,92 +447,106 @@
           };
         in
         attrsOf (attrsOf (valueType))
-      ;
-
-      lib = let
-        mkRaw = value: {
-          inherit value;
-          _elixirType = "raw";
-        };
-
-      in {
-        inherit
-          mkRaw
-          ;
-
-          # Fetch an environment variable at runtime, with optional fallback
-        mkGetEnv = {
-            envVariable,
-            fallback ? null
-          }:
-          mkRaw "System.get_env(${toElixir envVariable}, ${toElixir fallback})";
-
-        /* Make an Elixir atom.
-
-           Note: lowercase atoms still need to be prefixed by ':'
-        */
-        mkAtom = value: {
-          inherit value;
-          _elixirType = "atom";
-        };
-
-        # Make an Elixir tuple out of a list.
-        mkTuple = value: {
-          inherit value;
-          _elixirType = "tuple";
-        };
-
-        # Make an Elixir map out of an attribute set.
-        mkMap = value: {
-          inherit value;
-          _elixirType = "map";
-        };
-
-        /* Contains Elixir types. Every type it exports can also be replaced
-           by raw Elixir code (i.e. every type is `either type rawElixir`).
-
-           It also reexports standard types, wrapping them so that they can
-           also be raw Elixir.
-        */
-        types = with lib.types;
-          let
-            isElixirType = type: x: (x._elixirType or "") == type;
-
-            rawElixir = mkOptionType {
-              name = "rawElixir";
-              description = "raw elixir";
-              check = isElixirType "raw";
-            };
-
-            elixirOr = other: either other rawElixir;
-          in
-          {
-            inherit rawElixir elixirOr;
-
-            atom = elixirOr (mkOptionType {
-              name = "elixirAtom";
-              description = "elixir atom";
-              check = isElixirType "atom";
-            });
-
-            tuple = elixirOr (mkOptionType {
-              name = "elixirTuple";
-              description = "elixir tuple";
-              check = isElixirType "tuple";
-            });
-
-            map = elixirOr (mkOptionType {
-              name = "elixirMap";
-              description = "elixir map";
-              check = isElixirType "map";
-            });
-            # Wrap standard types, since anything in the Elixir configuration
-            # can be raw Elixir
-          } // lib.mapAttrs (_name: type: elixirOr type) lib.types
         ;
-      } ;
 
-      generate = name: value:
+      lib =
+        let
+          mkRaw =
+            value: {
+              inherit value;
+              _elixirType = "raw";
+            }
+            ;
+
+        in {
+          inherit
+            mkRaw
+            ;
+
+            # Fetch an environment variable at runtime, with optional fallback
+          mkGetEnv =
+            {
+              envVariable,
+              fallback ? null
+            }:
+            mkRaw
+            "System.get_env(${toElixir envVariable}, ${toElixir fallback})"
+            ;
+
+            /* Make an Elixir atom.
+
+               Note: lowercase atoms still need to be prefixed by ':'
+            */
+          mkAtom =
+            value: {
+              inherit value;
+              _elixirType = "atom";
+            }
+            ;
+
+            # Make an Elixir tuple out of a list.
+          mkTuple =
+            value: {
+              inherit value;
+              _elixirType = "tuple";
+            }
+            ;
+
+            # Make an Elixir map out of an attribute set.
+          mkMap =
+            value: {
+              inherit value;
+              _elixirType = "map";
+            }
+            ;
+
+            /* Contains Elixir types. Every type it exports can also be replaced
+               by raw Elixir code (i.e. every type is `either type rawElixir`).
+
+               It also reexports standard types, wrapping them so that they can
+               also be raw Elixir.
+            */
+          types = with lib.types;
+            let
+              isElixirType = type: x: (x._elixirType or "") == type;
+
+              rawElixir = mkOptionType {
+                name = "rawElixir";
+                description = "raw elixir";
+                check = isElixirType "raw";
+              };
+
+              elixirOr = other: either other rawElixir;
+            in
+            {
+              inherit rawElixir elixirOr;
+
+              atom = elixirOr (mkOptionType {
+                name = "elixirAtom";
+                description = "elixir atom";
+                check = isElixirType "atom";
+              });
+
+              tuple = elixirOr (mkOptionType {
+                name = "elixirTuple";
+                description = "elixir tuple";
+                check = isElixirType "tuple";
+              });
+
+              map = elixirOr (mkOptionType {
+                name = "elixirMap";
+                description = "elixir map";
+                check = isElixirType "map";
+              });
+                # Wrap standard types, since anything in the Elixir configuration
+                # can be raw Elixir
+            } // lib.mapAttrs (_name: type: elixirOr type) lib.types
+            ;
+        }
+        ;
+
+      generate =
+        name: value:
         pkgs.runCommand name {
           value = toConf value;
           passAsFile = [ "value" ];
@@ -496,57 +554,63 @@
         } ''
           cp "$valuePath" "$out"
           mix format "$out"
-        '';
-    } ;
-
-  # Outputs a succession of Python variable assignments
-  # Useful for many Django-based services
-  pythonVars = { }: {
-    type = with lib.types;
-      let
-        valueType = nullOr (oneOf [
-          bool
-          float
-          int
-          path
-          str
-          (attrsOf valueType)
-          (listOf valueType)
-        ]) // {
-          description = "Python value";
-        };
-      in
-      attrsOf valueType
+        ''
+        ;
+    }
     ;
-    generate = name: value:
-      pkgs.callPackage ({
-          runCommand,
-          python3,
-          black,
-        }:
-        runCommand name {
-          nativeBuildInputs = [
-            python3
-            black
-          ];
-          value = builtins.toJSON value;
-          pythonGen = ''
-            import json
-            import os
 
-            with open(os.environ["valuePath"], "r") as f:
-                for key, value in json.load(f).items():
-                    print(f"{key} = {repr(value)}")
-          '';
-          passAsFile = [
-            "value"
-            "pythonGen"
-          ];
-        } ''
-          cat "$valuePath"
-          python3 "$pythonGenPath" > $out
-          black $out
-        '') { };
-  };
+    # Outputs a succession of Python variable assignments
+    # Useful for many Django-based services
+  pythonVars =
+    { }: {
+      type = with lib.types;
+        let
+          valueType = nullOr (oneOf [
+            bool
+            float
+            int
+            path
+            str
+            (attrsOf valueType)
+            (listOf valueType)
+          ]) // {
+            description = "Python value";
+          };
+        in
+        attrsOf valueType
+        ;
+      generate =
+        name: value:
+        pkgs.callPackage ({
+            runCommand,
+            python3,
+            black,
+          }:
+          runCommand name {
+            nativeBuildInputs = [
+              python3
+              black
+            ];
+            value = builtins.toJSON value;
+            pythonGen = ''
+              import json
+              import os
+
+              with open(os.environ["valuePath"], "r") as f:
+                  for key, value in json.load(f).items():
+                      print(f"{key} = {repr(value)}")
+            '';
+            passAsFile = [
+              "value"
+              "pythonGen"
+            ];
+          } ''
+            cat "$valuePath"
+            python3 "$pythonGenPath" > $out
+            black $out
+          '') { }
+        ;
+    }
+    ;
 
 }

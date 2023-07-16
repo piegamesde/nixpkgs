@@ -26,7 +26,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Recursive descent parser with memoization based on PEG grammars (aka Packrat parser)";
+      "Recursive descent parser with memoization based on PEG grammars (aka Packrat parser)"
+      ;
     homepage = "https://github.com/textX/Arpeggio";
     license = licenses.mit;
     maintainers = with maintainers; [ SuperSandro2000 ];

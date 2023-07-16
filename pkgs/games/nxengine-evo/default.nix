@@ -21,19 +21,22 @@ stdenv.mkDerivation rec {
   };
   assets = fetchurl {
     url =
-      "https://github.com/nxengine/nxengine-evo/releases/download/v${version}/NXEngine-v${version}-Linux.tar.xz";
+      "https://github.com/nxengine/nxengine-evo/releases/download/v${version}/NXEngine-v${version}-Linux.tar.xz"
+      ;
     sha256 = "1b5hkmsrrhnjjf825ri6n62kb3fldwl7v5f1cqvqyv47zv15g5gy";
   };
 
   patches = [
     (fetchpatch {
       url =
-        "https://github.com/nxengine/nxengine-evo/commit/1890127ec4b4b5f8d6cb0fb30a41868e95659840.patch";
+        "https://github.com/nxengine/nxengine-evo/commit/1890127ec4b4b5f8d6cb0fb30a41868e95659840.patch"
+        ;
       sha256 = "18j22vzkikcwqd42vlhzd6rjp26dq0zslxw5yyl07flivms0hny2";
     })
     (fetchpatch {
       url =
-        "https://github.com/nxengine/nxengine-evo/commit/75b8b8e3b067fd354baa903332f2a3254d1cc017.patch";
+        "https://github.com/nxengine/nxengine-evo/commit/75b8b8e3b067fd354baa903332f2a3254d1cc017.patch"
+        ;
       sha256 = "0sjr7z63gp7nfxifxisvp2w664mxxk3xi4a3d86mm0470dj5m5bx";
     })
   ];
@@ -46,7 +49,7 @@ stdenv.mkDerivation rec {
     SDL2_mixer
   ];
 
-  # Allow finding game assets.
+    # Allow finding game assets.
   postPatch = ''
     sed -i -e "s,/usr/share/,$out/share/," src/ResourceManager.cpp
   '';
@@ -62,7 +65,8 @@ stdenv.mkDerivation rec {
 
   meta = {
     description =
-      "A complete open-source clone/rewrite of the masterpiece jump-and-run platformer Doukutsu Monogatari (also known as Cave Story)";
+      "A complete open-source clone/rewrite of the masterpiece jump-and-run platformer Doukutsu Monogatari (also known as Cave Story)"
+      ;
     license = with lib.licenses; [
       gpl3 # Game engine
       unfreeRedistributable # Game assets, freeware

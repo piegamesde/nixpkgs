@@ -15,7 +15,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://ruby.chemie.uni-freiburg.de/~martin/${pname}/${pname}-${version}.tar.gz";
+      "http://ruby.chemie.uni-freiburg.de/~martin/${pname}/${pname}-${version}.tar.gz"
+      ;
     sha256 = "hhYaBGE4azNKX/sXzfCUpJGUGIRngnL0V0mBNRTdr8s=";
   };
 
@@ -29,10 +30,10 @@ stdenv.mkDerivation rec {
     fig2dev
   ];
 
-  # Workaround build on -fno-common toolchains like upstream gcc-10.
-  # Otherwise built fails as:
-  #   ld: inout.o:/build/chemtool-1.6.14/ct1.h:279: multiple definition of
-  #     `outtype'; draw.o:/build/chemtool-1.6.14/ct1.h:279: first defined here
+    # Workaround build on -fno-common toolchains like upstream gcc-10.
+    # Otherwise built fails as:
+    #   ld: inout.o:/build/chemtool-1.6.14/ct1.h:279: multiple definition of
+    #     `outtype'; draw.o:/build/chemtool-1.6.14/ct1.h:279: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   preFixup = ''

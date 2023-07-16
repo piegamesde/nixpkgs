@@ -35,29 +35,33 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
 
     impure-cmds = pkgs.callPackage ../os-specific/darwin/impure-cmds { };
 
-    # macOS 10.12 SDK
+      # macOS 10.12 SDK
     apple_sdk_10_12 = pkgs.callPackage ../os-specific/darwin/apple-sdk {
       inherit (buildPackages.darwin) print-reexports;
       inherit (self) darwin-stubs;
     };
 
-    # macOS 11.0 SDK
+      # macOS 11.0 SDK
     apple_sdk_11_0 = pkgs.callPackage ../os-specific/darwin/apple-sdk-11.0 { };
 
-    # Pick an SDK
-    apple_sdk = if stdenv.hostPlatform.isAarch64 then
-      apple_sdk_11_0
-    else
-      apple_sdk_10_12;
+      # Pick an SDK
+    apple_sdk =
+      if stdenv.hostPlatform.isAarch64 then
+        apple_sdk_11_0
+      else
+        apple_sdk_10_12
+      ;
 
-    # Pick the source of libraries: either Apple's open source releases, or the
-    # SDK.
+      # Pick the source of libraries: either Apple's open source releases, or the
+      # SDK.
     useAppleSDKLibs = stdenv.hostPlatform.isAarch64;
 
-    selectAttrs = attrs: names:
+    selectAttrs =
+      attrs: names:
       lib.listToAttrs (lib.concatMap (n:
         lib.optionals (attrs ? "${n}") [ (lib.nameValuePair n attrs."${n}") ])
-        names);
+        names)
+      ;
 
     chooseLibs = (
       # There are differences in which libraries are exported. Avoid evaluation
@@ -95,10 +99,12 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
     };
 
     binutils = pkgs.wrapBintoolsWith {
-      libc = if stdenv.targetPlatform != stdenv.hostPlatform then
-        pkgs.libcCross
-      else
-        pkgs.stdenv.cc.libc;
+      libc =
+        if stdenv.targetPlatform != stdenv.hostPlatform then
+          pkgs.libcCross
+        else
+          pkgs.stdenv.cc.libc
+        ;
       bintools = self.binutils-unwrapped;
     };
 
@@ -109,10 +115,12 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
     };
 
     binutilsDualAs = pkgs.wrapBintoolsWith {
-      libc = if stdenv.targetPlatform != stdenv.hostPlatform then
-        pkgs.libcCross
-      else
-        pkgs.stdenv.cc.libc;
+      libc =
+        if stdenv.targetPlatform != stdenv.hostPlatform then
+          pkgs.libcCross
+        else
+          pkgs.stdenv.cc.libc
+        ;
       bintools = self.binutilsDualAs-unwrapped;
     };
 
@@ -122,20 +130,24 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
     };
 
     cctools = callPackage ../os-specific/darwin/cctools/port.nix {
-      stdenv = if stdenv.isDarwin then
-        stdenv
-      else
-        pkgs.libcxxStdenv;
+      stdenv =
+        if stdenv.isDarwin then
+          stdenv
+        else
+          pkgs.libcxxStdenv
+        ;
     };
 
     cctools-apple = callPackage ../os-specific/darwin/cctools/apple.nix {
-      stdenv = if stdenv.isDarwin then
-        stdenv
-      else
-        pkgs.libcxxStdenv;
+      stdenv =
+        if stdenv.isDarwin then
+          stdenv
+        else
+          pkgs.libcxxStdenv
+        ;
     };
 
-    # TODO(@connorbaker): See https://github.com/NixOS/nixpkgs/issues/229389.
+      # TODO(@connorbaker): See https://github.com/NixOS/nixpkgs/issues/229389.
     cf-private = self.apple_sdk.frameworks.CoreFoundation;
 
     DarwinTools = callPackage ../os-specific/darwin/DarwinTools { };
@@ -254,30 +266,32 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
 
     CoreSymbolication = callPackage ../os-specific/darwin/CoreSymbolication { };
 
-    # TODO: make swift-corefoundation build with apple_sdk_11_0.Libsystem
-    CF = if
-      useAppleSDKLibs
-    then
-    # This attribute (CF) is included in extraBuildInputs in the stdenv. This
-    # is typically the open source project. When a project refers to
-    # "CoreFoundation" it has an extra setup hook to force impure system
-    # CoreFoundation into the link step.
-    #
-    # In this branch, we only have a single "CoreFoundation" to choose from.
-    # To be compatible with the existing convention, we define
-    # CoreFoundation with the setup hook, and CF as the same package but
-    # with the setup hook removed.
-    #
-    # This may seem unimportant, but without it packages (e.g., bacula) will
-    # fail with linker errors referring ___CFConstantStringClassReference.
-    # It's not clear to me why some packages need this extra setup.
-      lib.overrideDerivation apple_sdk.frameworks.CoreFoundation
-      (drv: { setupHook = null; })
-    else
-      callPackage ../os-specific/darwin/swift-corelibs/corefoundation.nix { };
+      # TODO: make swift-corefoundation build with apple_sdk_11_0.Libsystem
+    CF =
+      if
+        useAppleSDKLibs
+      then
+      # This attribute (CF) is included in extraBuildInputs in the stdenv. This
+      # is typically the open source project. When a project refers to
+      # "CoreFoundation" it has an extra setup hook to force impure system
+      # CoreFoundation into the link step.
+      #
+      # In this branch, we only have a single "CoreFoundation" to choose from.
+      # To be compatible with the existing convention, we define
+      # CoreFoundation with the setup hook, and CF as the same package but
+      # with the setup hook removed.
+      #
+      # This may seem unimportant, but without it packages (e.g., bacula) will
+      # fail with linker errors referring ___CFConstantStringClassReference.
+      # It's not clear to me why some packages need this extra setup.
+        lib.overrideDerivation apple_sdk.frameworks.CoreFoundation
+        (drv: { setupHook = null; })
+      else
+        callPackage ../os-specific/darwin/swift-corelibs/corefoundation.nix { }
+      ;
 
-    # As the name says, this is broken, but I don't want to lose it since it's a direction we want to go in
-    # libdispatch-broken = callPackage ../os-specific/darwin/swift-corelibs/libdispatch.nix { };
+      # As the name says, this is broken, but I don't want to lose it since it's a direction we want to go in
+      # libdispatch-broken = callPackage ../os-specific/darwin/swift-corelibs/libdispatch.nix { };
 
     libtapi = callPackage ../os-specific/darwin/libtapi { };
 
@@ -285,22 +299,23 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
 
     discrete-scroll = callPackage ../os-specific/darwin/discrete-scroll { };
 
-    # See doc/builders/special/darwin-builder.section.md
-    builder = let
-      toGuest = builtins.replaceStrings [ "darwin" ] [ "linux" ];
+      # See doc/builders/special/darwin-builder.section.md
+    builder =
+      let
+        toGuest = builtins.replaceStrings [ "darwin" ] [ "linux" ];
 
-      nixos = import ../../nixos {
-        configuration = {
-          imports = [ ../../nixos/modules/profiles/macos-builder.nix ];
+        nixos = import ../../nixos {
+          configuration = {
+            imports = [ ../../nixos/modules/profiles/macos-builder.nix ];
 
-          virtualisation.host = { inherit pkgs; };
+            virtualisation.host = { inherit pkgs; };
+          };
+
+          system = toGuest stdenv.hostPlatform.system;
         };
 
-        system = toGuest stdenv.hostPlatform.system;
-      };
-
-    in
-    nixos.config.system.build.macos-builder-installer
-    ;
+      in
+      nixos.config.system.build.macos-builder-installer
+      ;
   }
 )

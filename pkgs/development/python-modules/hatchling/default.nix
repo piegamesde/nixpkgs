@@ -35,7 +35,7 @@ buildPythonPackage {
     hash = "sha256-+NJ1osxyBzUoa3wuK8NdoFdh5tNpXC+kFlUDlfEMU8c=";
   };
 
-  # listed in backend/src/hatchling/ouroboros.py
+    # listed in backend/src/hatchling/ouroboros.py
   propagatedBuildInputs = [
     editables
     packaging
@@ -49,10 +49,10 @@ buildPythonPackage {
     "hatchling.build"
   ];
 
-  # tries to fetch packages from the internet
+    # tries to fetch packages from the internet
   doCheck = false;
 
-  # listed in /backend/tests/downstream/requirements.txt
+    # listed in /backend/tests/downstream/requirements.txt
   nativeCheckInputs = [
     build
     packaging

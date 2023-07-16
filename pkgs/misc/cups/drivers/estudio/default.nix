@@ -11,7 +11,8 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url =
-      "http://business.toshiba.com/downloads/KB/f1Ulds/15178/TOSHIBA_ColorMFP_CUPS.tar";
+      "http://business.toshiba.com/downloads/KB/f1Ulds/15178/TOSHIBA_ColorMFP_CUPS.tar"
+      ;
     sha256 = "0qz4r7q55i0adf4fv3aqnfqgi2pz3jb1jixkqm9x6nk4vanyjf4r";
   };
 

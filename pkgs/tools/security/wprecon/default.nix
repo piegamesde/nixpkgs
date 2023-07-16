@@ -25,8 +25,8 @@ buildGoModule rec {
   meta = with lib; {
     description = "WordPress vulnerability recognition tool";
     homepage = "https://github.com/blackbinn/wprecon";
-    # License Zero Noncommercial Public License 2.0.1
-    # https://github.com/blackbinn/wprecon/blob/master/LICENSE
+      # License Zero Noncommercial Public License 2.0.1
+      # https://github.com/blackbinn/wprecon/blob/master/LICENSE
     license = with licenses; [ unfree ];
     maintainers = with maintainers; [ fab ];
   };

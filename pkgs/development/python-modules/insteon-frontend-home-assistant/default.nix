@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  # upstream has no tests
+    # upstream has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "insteon_frontend" ];

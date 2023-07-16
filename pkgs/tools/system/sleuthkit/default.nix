@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-NX7LNtor7UQJ6HCDz9wGpxbqrLQTTH9+543hOaQOAz4=";
   };
 
-  # Fetch libraries using a fixed output derivation
+    # Fetch libraries using a fixed output derivation
   rdeps = stdenv.mkDerivation rec {
 
     version = "1.0";
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
 
     src = sleuthsrc;
 
-    # unpack, build, install
+      # unpack, build, install
     dontConfigure = true;
 
     buildPhase = ''
@@ -86,7 +86,7 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  # Hack to fix the RPATH
+    # Hack to fix the RPATH
   preFixup = ''
     rm -rf */.libs
   '';
@@ -110,7 +110,8 @@ stdenv.mkDerivation rec {
     description = "A forensic/data recovery tool";
     homepage = "https://www.sleuthkit.org/";
     changelog =
-      "https://github.com/sleuthkit/sleuthkit/releases/tag/sleuthkit-${version}";
+      "https://github.com/sleuthkit/sleuthkit/releases/tag/sleuthkit-${version}"
+      ;
     maintainers = with maintainers; [
       raskin
       gfrascadorio

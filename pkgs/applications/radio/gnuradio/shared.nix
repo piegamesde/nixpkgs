@@ -22,22 +22,26 @@ rec {
     "minor"
     "patch"
   ] versionAttr);
-  src = if overrideSrc != { } then
-    overrideSrc
-  else
-    fetchFromGitHub {
-      repo = "gnuradio";
-      owner = "gnuradio";
-      rev = "v${version}";
-      sha256 = sourceSha256;
-    };
-  # Check if a feature is enabled, while defaulting to true if feat is not
-  # specified.
-  hasFeature = feat:
+  src =
+    if overrideSrc != { } then
+      overrideSrc
+    else
+      fetchFromGitHub {
+        repo = "gnuradio";
+        owner = "gnuradio";
+        rev = "v${version}";
+        sha256 = sourceSha256;
+      }
+    ;
+    # Check if a feature is enabled, while defaulting to true if feat is not
+    # specified.
+  hasFeature =
+    feat:
     (if builtins.hasAttr feat features then
       features.${feat}
     else
-      true);
+      true)
+    ;
   nativeBuildInputs = lib.flatten (lib.mapAttrsToList (feat: info:
     (lib.optionals (hasFeature feat)
       ((lib.optionals (builtins.hasAttr "native" info) info.native)
@@ -67,7 +71,7 @@ rec {
   ]
   # If python-support is disabled, we probably don't want it referenced
     ++ lib.optionals (!hasFeature "python-support") [ python ];
-  # Gcc references from examples
+    # Gcc references from examples
   stripDebugList = [
     "lib"
     "bin"
@@ -84,19 +88,19 @@ rec {
     + lib.optionalString (hasFeature "gnuradio-runtime" && stdenv.isDarwin) ''
       ${removeReferencesTo}/bin/remove-references-to -t ${stdenv.cc.cc} $(readlink -f $out/lib/libgnuradio-runtime${stdenv.hostPlatform.extensions.sharedLibrary})
     '';
-  # NOTE: Outputs are disabled due to upstream not using GNU InstallDIrs cmake
-  # module. It's not that bad since it's a development package for most
-  # purposes. If closure size needs to be reduced, features should be disabled
-  # via an override.
+    # NOTE: Outputs are disabled due to upstream not using GNU InstallDIrs cmake
+    # module. It's not that bad since it's a development package for most
+    # purposes. If closure size needs to be reduced, features should be disabled
+    # via an override.
   passthru = {
     inherit hasFeature versionAttr features featuresInfo python;
   } // lib.optionalAttrs (hasFeature "gr-qtgui") { inherit qt; }
     // lib.optionalAttrs (hasFeature "gnuradio-companion") { inherit gtk; };
-  # Wrapping is done with an external wrapper
+    # Wrapping is done with an external wrapper
   dontWrapPythonPrograms = true;
   dontWrapQtApps = true;
-  # Tests should succeed, but it's hard to get LD_LIBRARY_PATH right in order
-  # for it to happen.
+    # Tests should succeed, but it's hard to get LD_LIBRARY_PATH right in order
+    # for it to happen.
   doCheck = false;
 
   meta = with lib; {

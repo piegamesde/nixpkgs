@@ -25,17 +25,20 @@ in
 appimageTools.wrapType2 {
   inherit name src;
 
-  extraInstallCommands = let
-    appimageContents = appimageTools.extractType2 { inherit name src; };
-  in ''
-    mkdir -p $out/etc/udev/rules.d
-    cp ${appimageContents}/resources/linux/99-SaleaeLogic.rules $out/etc/udev/rules.d/
-    mkdir -p $out/share/pixmaps
-    ln -s ${desktopItem}/share/applications $out/share/
-    cp ${appimageContents}/usr/share/icons/hicolor/256x256/apps/Logic.png $out/share/pixmaps/Logic.png
-  '' ;
+  extraInstallCommands =
+    let
+      appimageContents = appimageTools.extractType2 { inherit name src; };
+    in ''
+      mkdir -p $out/etc/udev/rules.d
+      cp ${appimageContents}/resources/linux/99-SaleaeLogic.rules $out/etc/udev/rules.d/
+      mkdir -p $out/share/pixmaps
+      ln -s ${desktopItem}/share/applications $out/share/
+      cp ${appimageContents}/usr/share/icons/hicolor/256x256/apps/Logic.png $out/share/pixmaps/Logic.png
+    ''
+    ;
 
-  extraPkgs = pkgs:
+  extraPkgs =
+    pkgs:
     with pkgs; [
       wget
       unzip
@@ -65,7 +68,8 @@ appimageTools.wrapType2 {
       at-spi2-core
       cups
       libxcrypt-legacy
-    ];
+    ]
+    ;
 
   meta = with lib; {
     homepage = "https://www.saleae.com/";

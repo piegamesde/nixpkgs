@@ -33,7 +33,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "PyScreeze is a simple, cross-platform screenshot module for Python 2 and 3.";
+      "PyScreeze is a simple, cross-platform screenshot module for Python 2 and 3."
+      ;
     homepage = "https://github.com/asweigart/pyscreeze";
     license = licenses.bsd3;
     maintainers = with maintainers; [ lucasew ];

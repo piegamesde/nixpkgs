@@ -18,7 +18,7 @@
 
 buildPythonPackage rec {
   pname = "catboost";
-  # nixpkgs-update: no auto update
+    # nixpkgs-update: no auto update
   version = "1.0.5";
 
   disabled = pythonOlder "3.4";
@@ -56,7 +56,7 @@ buildPythonPackage rec {
   CUDA_ROOT = lib.optional withCuda cudatoolkit;
   enableParallelBuilding = true;
 
-  # Tests use custom "ya" tool, not yet supported.
+    # Tests use custom "ya" tool, not yet supported.
   dontUseSetuptoolsCheck = true;
   pythonImportsCheck = [ "catboost" ];
 
@@ -77,7 +77,7 @@ buildPythonPackage rec {
     platforms = [ "x86_64-linux" ];
     homepage = "https://catboost.ai";
     maintainers = with maintainers; [ PlushBeaver ];
-    # _catboost.pyx.cpp:226822:19: error: use of undeclared identifier '_PyGen_Send'
+      # _catboost.pyx.cpp:226822:19: error: use of undeclared identifier '_PyGen_Send'
     broken = withCuda;
   };
 }

@@ -75,42 +75,46 @@ assert xvSupport -> x11Support;
 
 let
 
-  codecs_src = let
-    dir = "http://www.mplayerhq.hu/MPlayer/releases/codecs/";
-    version = "20071007";
-  in if stdenv.hostPlatform.system == "i686-linux" then
-    fetchurl {
-      url = "${dir}/essential-${version}.tar.bz2";
-      sha256 = "18vls12n12rjw0mzw4pkp9vpcfmd1c21rzha19d7zil4hn7fs2ic";
-    }
-  else if stdenv.hostPlatform.system == "x86_64-linux" then
-    fetchurl {
-      url = "${dir}/essential-amd64-${version}.tar.bz2";
-      sha256 = "13xf5b92w1ra5hw00ck151lypbmnylrnznq9hhb0sj36z5wz290x";
-    }
-  else if stdenv.hostPlatform.system == "powerpc-linux" then
-    fetchurl {
-      url = "${dir}/essential-ppc-${version}.tar.bz2";
-      sha256 = "18mlj8dp4wnz42xbhdk1jlz2ygra6fbln9wyrcyvynxh96g1871z";
-    }
-  else
-    null;
+  codecs_src =
+    let
+      dir = "http://www.mplayerhq.hu/MPlayer/releases/codecs/";
+      version = "20071007";
+    in if stdenv.hostPlatform.system == "i686-linux" then
+      fetchurl {
+        url = "${dir}/essential-${version}.tar.bz2";
+        sha256 = "18vls12n12rjw0mzw4pkp9vpcfmd1c21rzha19d7zil4hn7fs2ic";
+      }
+    else if stdenv.hostPlatform.system == "x86_64-linux" then
+      fetchurl {
+        url = "${dir}/essential-amd64-${version}.tar.bz2";
+        sha256 = "13xf5b92w1ra5hw00ck151lypbmnylrnznq9hhb0sj36z5wz290x";
+      }
+    else if stdenv.hostPlatform.system == "powerpc-linux" then
+      fetchurl {
+        url = "${dir}/essential-ppc-${version}.tar.bz2";
+        sha256 = "18mlj8dp4wnz42xbhdk1jlz2ygra6fbln9wyrcyvynxh96g1871z";
+      }
+    else
+      null
+    ;
 
-  codecs = if codecs_src != null then
-    stdenv.mkDerivation {
-      pname = "MPlayer-codecs-essential";
+  codecs =
+    if codecs_src != null then
+      stdenv.mkDerivation {
+        pname = "MPlayer-codecs-essential";
 
-      src = codecs_src;
+        src = codecs_src;
 
-      installPhase = ''
-        mkdir $out
-        cp -prv * $out
-      '';
+        installPhase = ''
+          mkdir $out
+          cp -prv * $out
+        '';
 
-      meta.license = lib.licenses.unfree;
-    }
-  else
-    null;
+        meta.license = lib.licenses.unfree;
+      }
+    else
+      null
+    ;
 
   crossBuild = stdenv.hostPlatform != stdenv.buildPlatform;
 
@@ -291,7 +295,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  # Provide a reasonable standard font when not using fontconfig. Maybe we should symlink here.
+    # Provide a reasonable standard font when not using fontconfig. Maybe we should symlink here.
   postInstall = lib.optionalString (!fontconfigSupport) ''
     mkdir -p $out/share/mplayer
     cp ${freefont_ttf}/share/fonts/truetype/FreeSans.ttf $out/share/mplayer/subfont.ttf

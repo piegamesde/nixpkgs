@@ -35,8 +35,8 @@ python3Packages.buildPythonApplication rec {
     sox
   ];
 
-  # Testing downloads media files for testing, which requires the
-  # sandbox to be disabled.
+    # Testing downloads media files for testing, which requires the
+    # sandbox to be disabled.
   doCheck = false;
 
   passthru.updateScript = gitUpdater { };

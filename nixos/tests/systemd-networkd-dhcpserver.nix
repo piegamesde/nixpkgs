@@ -8,7 +8,8 @@ import ./make-test-python.nix ({
     name = "systemd-networkd-dhcpserver";
     meta = with pkgs.lib.maintainers; { maintainers = [ tomfitzhenry ]; };
     nodes = {
-      router = {
+      router =
+        {
           config,
           pkgs,
           ...
@@ -41,9 +42,11 @@ import ./make-test-python.nix ({
               };
             };
           };
-        };
+        }
+        ;
 
-      client = {
+      client =
+        {
           config,
           pkgs,
           ...
@@ -57,9 +60,11 @@ import ./make-test-python.nix ({
             firewall.enable = false;
             interfaces.eth1.useDHCP = true;
           };
-        };
+        }
+        ;
     };
-    testScript = {
+    testScript =
+      {
         ...
       }: ''
         start_all()
@@ -67,5 +72,6 @@ import ./make-test-python.nix ({
         client.wait_for_unit("systemd-networkd-wait-online.service")
         client.wait_until_succeeds("ping -c 5 10.0.0.1")
         router.wait_until_succeeds("ping -c 5 10.0.0.100")
-      '';
+      ''
+      ;
   })

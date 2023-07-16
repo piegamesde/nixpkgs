@@ -9,10 +9,12 @@ with lib;
 
 let
   cfg = config.virtualisation.vmware.guest;
-  open-vm-tools = if cfg.headless then
-    pkgs.open-vm-tools-headless
-  else
-    pkgs.open-vm-tools;
+  open-vm-tools =
+    if cfg.headless then
+      pkgs.open-vm-tools-headless
+    else
+      pkgs.open-vm-tools
+    ;
   xf86inputvmmouse = pkgs.xorg.xf86inputvmmouse;
 in {
   imports = [ (mkRenamedOptionModule [
@@ -38,7 +40,8 @@ in {
     assertions = [ {
       assertion = pkgs.stdenv.hostPlatform.isx86;
       message =
-        "VMWare guest is not currently supported on ${pkgs.stdenv.hostPlatform.system}";
+        "VMWare guest is not currently supported on ${pkgs.stdenv.hostPlatform.system}"
+        ;
     } ];
 
     boot.initrd.availableKernelModules = [ "mptspi" ];
@@ -54,11 +57,11 @@ in {
       serviceConfig.ExecStart = "${open-vm-tools}/bin/vmtoolsd";
     };
 
-    # Mount the vmblock for drag-and-drop and copy-and-paste.
+      # Mount the vmblock for drag-and-drop and copy-and-paste.
     systemd.mounts = mkIf (!cfg.headless) [ {
       description = "VMware vmblock fuse mount";
-      documentation =
-        [ "https://github.com/vmware/open-vm-tools/blob/master/open-vm-tools/vmblock-fuse/design.txt" ];
+      documentation = [ "https://github.com/vmware/open-vm-tools/blob/master/open-vm-tools/vmblock-fuse/design.txt" ]
+        ;
       unitConfig.ConditionVirtualization = "vmware";
       what = "${open-vm-tools}/bin/vmware-vmblock-fuse";
       where = "/run/vmblock-fuse";

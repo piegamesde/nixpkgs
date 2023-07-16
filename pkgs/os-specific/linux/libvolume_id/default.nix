@@ -14,11 +14,13 @@ stdenv.mkDerivation rec {
   };
 
   preBuild =
-    "\n    makeFlagsArray=(prefix=$out E=echo RANLIB=${stdenv.cc.targetPrefix}ranlib INSTALL='install -c')\n  ";
+    "\n    makeFlagsArray=(prefix=$out E=echo RANLIB=${stdenv.cc.targetPrefix}ranlib INSTALL='install -c')\n  "
+    ;
 
-  # Work around a broken Makefile.
+    # Work around a broken Makefile.
   postInstall =
-    "\n    rm $out/lib/libvolume_id.so.0\n    cp -f libvolume_id.so.0 $out/lib/\n  ";
+    "\n    rm $out/lib/libvolume_id.so.0\n    cp -f libvolume_id.so.0 $out/lib/\n  "
+    ;
 
   meta = with lib; {
     platforms = platforms.linux;

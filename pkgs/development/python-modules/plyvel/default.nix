@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   buildInputs = [ pkgs.leveldb ] ++ lib.optional isPy3k pytest;
 
-  # no tests for python2
+    # no tests for python2
   doCheck = isPy3k;
 
   meta = with lib; {

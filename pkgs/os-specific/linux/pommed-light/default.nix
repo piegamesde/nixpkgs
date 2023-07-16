@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "fno-common.patch";
       url =
-        "https://github.com/bytbox/pommed-light/commit/5848b49b45a9c3ab047ebd17deb2162daab1e0b8.patch";
+        "https://github.com/bytbox/pommed-light/commit/5848b49b45a9c3ab047ebd17deb2162daab1e0b8.patch"
+        ;
       sha256 = "15rsq2i4rqp4ssab20486a1wgxi2cp87b7nxyk9h23gdwld713vf";
     })
   ];

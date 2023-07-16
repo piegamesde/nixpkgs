@@ -29,14 +29,14 @@ stdenv.mkDerivation rec {
     openh264
   ];
 
-  # Do not build static libraries
+    # Do not build static libraries
   cmakeFlags = [
     "-DENABLE_STATIC=NO"
     "-DCMAKE_SKIP_INSTALL_RPATH=ON"
   ];
 
-  # CMAKE_INSTALL_PREFIX has no effect so let's install manually. See:
-  # https://gitlab.linphone.org/BC/public/msopenh264/issues/1
+    # CMAKE_INSTALL_PREFIX has no effect so let's install manually. See:
+    # https://gitlab.linphone.org/BC/public/msopenh264/issues/1
   installPhase = ''
     mkdir -p $out/lib/mediastreamer/plugins
     cp src/libmsopenh264.so $out/lib/mediastreamer/plugins/
@@ -44,7 +44,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "H.264 encoder/decoder plugin for mediastreamer2. Part of the Linphone project.";
+      "H.264 encoder/decoder plugin for mediastreamer2. Part of the Linphone project."
+      ;
     homepage = "https://www.linphone.org/technical-corner/mediastreamer2";
     license = licenses.gpl2;
     platforms = platforms.linux;

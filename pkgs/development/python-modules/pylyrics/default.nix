@@ -24,12 +24,13 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "PyLyrics" ];
 
-  # tries to connect to lyrics.wikia.com
+    # tries to connect to lyrics.wikia.com
   doCheck = false;
 
   meta = with lib; {
     description =
-      "A Pythonic Implementation of lyrics.wikia.com for getting lyrics of songs ";
+      "A Pythonic Implementation of lyrics.wikia.com for getting lyrics of songs "
+      ;
     homepage = "https://github.com/geekpradd/PyLyrics";
     license = licenses.mit;
     maintainers = with maintainers; [ SuperSandro2000 ];

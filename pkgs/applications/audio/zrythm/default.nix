@@ -171,7 +171,7 @@ stdenv.mkDerivation rec {
     zstd
   ];
 
-  # Zrythm uses meson to build, but requires cmake for dependency detection.
+    # Zrythm uses meson to build, but requires cmake for dependency detection.
   dontUseCmakeConfigure = true;
 
   mesonFlags = [

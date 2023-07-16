@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
     # when they make their next release
     (fetchpatch {
       url =
-        "https://github.com/pcb2gcode/pcb2gcode/commit/01cd18a6d859ab1aac6c532c99be9109f083448d.patch";
+        "https://github.com/pcb2gcode/pcb2gcode/commit/01cd18a6d859ab1aac6c532c99be9109f083448d.patch"
+        ;
       sha256 = "sha256-5hl8KsDxSWMzXS3oRG0fBfHFq0IpZ//sU8lfY9Yp8L0=";
     })
   ];

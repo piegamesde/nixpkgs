@@ -66,7 +66,7 @@ in {
     ] "Use services.zabbixServer.settings instead.")
   ];
 
-  # interface
+    # interface
 
   options = {
 
@@ -75,10 +75,12 @@ in {
 
       package = mkOption {
         type = types.package;
-        default = if cfg.database.type == "mysql" then
-          pkgs.zabbix.server-mysql
-        else
-          pkgs.zabbix.server-pgsql;
+        default =
+          if cfg.database.type == "mysql" then
+            pkgs.zabbix.server-mysql
+          else
+            pkgs.zabbix.server-pgsql
+          ;
         defaultText = literalExpression "pkgs.zabbix.server-pgsql";
         description = lib.mdDoc "The Zabbix package to use.";
       };
@@ -136,10 +138,12 @@ in {
 
         port = mkOption {
           type = types.port;
-          default = if cfg.database.type == "mysql" then
-            mysql.port
-          else
-            pgsql.port;
+          default =
+            if cfg.database.type == "mysql" then
+              mysql.port
+            else
+              pgsql.port
+            ;
           defaultText = literalExpression ''
             if config.${opt.database.type} == "mysql"
             then config.${options.services.mysql.port}
@@ -237,7 +241,7 @@ in {
 
   };
 
-  # implementation
+    # implementation
 
   config = mkIf cfg.enable {
 
@@ -245,13 +249,15 @@ in {
       {
         assertion = cfg.database.createLocally -> cfg.database.user == user;
         message =
-          "services.zabbixServer.database.user must be set to ${user} if services.zabbixServer.database.createLocally is set true";
+          "services.zabbixServer.database.user must be set to ${user} if services.zabbixServer.database.createLocally is set true"
+          ;
       }
       {
-        assertion = cfg.database.createLocally -> cfg.database.passwordFile
-          == null;
+        assertion =
+          cfg.database.createLocally -> cfg.database.passwordFile == null;
         message =
-          "a password cannot be specified if services.zabbixServer.database.createLocally is set to true";
+          "a password cannot be specified if services.zabbixServer.database.createLocally is set to true"
+          ;
       }
     ];
 
@@ -260,7 +266,7 @@ in {
         LogType = "console";
         ListenIP = cfg.listen.ip;
         ListenPort = cfg.listen.port;
-        # TODO: set to cfg.database.socket if database type is pgsql?
+          # TODO: set to cfg.database.socket if database type is pgsql?
         DBHost =
           optionalString (cfg.database.createLocally != true) cfg.database.host;
         DBName = cfg.database.name;
@@ -369,7 +375,8 @@ in {
 
       serviceConfig = {
         ExecStart =
-          "@${cfg.package}/sbin/zabbix_server zabbix_server -f --config ${configFile}";
+          "@${cfg.package}/sbin/zabbix_server zabbix_server -f --config ${configFile}"
+          ;
         Restart = "always";
         RestartSec = 2;
 

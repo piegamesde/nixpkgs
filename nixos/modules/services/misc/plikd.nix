@@ -58,7 +58,7 @@ in {
         LogsDirectory = "plikd";
         DynamicUser = true;
 
-        # Basic hardening
+          # Basic hardening
         NoNewPrivileges = "yes";
         PrivateTmp = "yes";
         PrivateDevices = "yes";

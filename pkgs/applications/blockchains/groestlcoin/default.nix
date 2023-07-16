@@ -28,15 +28,18 @@ let
   desktop = fetchurl {
     # de45048 is the last commit when the debian/groestlcoin-qt.desktop file was changed
     url =
-      "https://raw.githubusercontent.com/Groestlcoin/packaging/de4504844e47cf2c7604789650a5db4f3f7a48aa/debian/groestlcoin-qt.desktop";
+      "https://raw.githubusercontent.com/Groestlcoin/packaging/de4504844e47cf2c7604789650a5db4f3f7a48aa/debian/groestlcoin-qt.desktop"
+      ;
     sha256 = "0mxwq4jvcip44a796iwz7n1ljkhl3a4p47z7qlsxcfxw3zmm0k0k";
   };
 in
 stdenv.mkDerivation rec {
-  pname = if withGui then
-    "groestlcoin"
-  else
-    "groestlcoind";
+  pname =
+    if withGui then
+      "groestlcoin"
+    else
+      "groestlcoind"
+    ;
   version = "24.0.1";
 
   src = fetchFromGitHub {

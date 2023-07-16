@@ -14,7 +14,8 @@ stdenv.mkDerivation rec {
   inherit (zookeeper_mt) version src;
 
   sourceRoot =
-    "apache-${zookeeper.pname}-${version}/zookeeper-contrib/zookeeper-contrib-zkfuse";
+    "apache-${zookeeper.pname}-${version}/zookeeper-contrib/zookeeper-contrib-zkfuse"
+    ;
 
   nativeBuildInputs = [ autoreconfHook ];
   buildInputs = [
@@ -31,8 +32,8 @@ stdenv.mkDerivation rec {
         -e 's,"zookeeper\.h",<zookeeper/zookeeper.h>,'
   '';
 
-  # c++17 (gcc-11's default) breaks the build as:
-  #   zkadapter.h:616:33: error: ISO C++17 does not allow dynamic exception specifications
+    # c++17 (gcc-11's default) breaks the build as:
+    #   zkadapter.h:616:33: error: ISO C++17 does not allow dynamic exception specifications
   env.NIX_CFLAGS_COMPILE = toString [ "-std=c++14" ];
 
   installPhase = ''

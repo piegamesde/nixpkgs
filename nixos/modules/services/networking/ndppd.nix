@@ -11,11 +11,13 @@ let
   cfg = config.services.ndppd;
 
   render = s: f: concatStringsSep "\n" (mapAttrsToList f s);
-  prefer = a: b:
+  prefer =
+    a: b:
     if a != null then
       a
     else
-      b;
+      b
+    ;
 
   ndppdConf = prefer cfg.configFile (pkgs.writeText "ndppd.conf" ''
     route-ttl ${toString cfg.routeTTL}
@@ -121,7 +123,8 @@ let
 in {
   options.services.ndppd = {
     enable = mkEnableOption (lib.mdDoc
-      "daemon that proxies NDP (Neighbor Discovery Protocol) messages between interfaces");
+      "daemon that proxies NDP (Neighbor Discovery Protocol) messages between interfaces")
+      ;
     interface = mkOption {
       type = types.nullOr types.str;
       description = lib.mdDoc ''
@@ -190,7 +193,7 @@ in {
       serviceConfig = {
         ExecStart = "${pkgs.ndppd}/bin/ndppd -c ${ndppdConf}";
 
-        # Sandboxing
+          # Sandboxing
         CapabilityBoundingSet = "CAP_NET_RAW CAP_NET_ADMIN";
         ProtectSystem = "strict";
         ProtectHome = true;

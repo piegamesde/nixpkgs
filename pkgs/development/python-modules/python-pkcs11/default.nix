@@ -31,7 +31,7 @@ buildPythonPackage rec {
     asn1crypto
   ];
 
-  # Test require additional setup
+    # Test require additional setup
   doCheck = false;
 
   pythonImportsCheck = [ "pkcs11" ];

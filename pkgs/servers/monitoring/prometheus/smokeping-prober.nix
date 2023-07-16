@@ -9,21 +9,22 @@ buildGoModule rec {
   pname = "smokeping_prober";
   version = "0.6.1";
 
-  ldflags = let
-    setVars = rec {
-      Version = version;
-      Revision = "722200c4adbd6d1e5d847dfbbd9dec07aa4ca38d";
-      Branch = Revision;
-      BuildUser = "nix";
-    };
-    varFlags = lib.concatStringsSep " " (lib.mapAttrsToList
-      (name: value: "-X github.com/prometheus/common/version.${name}=${value}")
-      setVars);
-  in [
-    "${varFlags}"
-    "-s"
-    "-w"
-  ] ;
+  ldflags =
+    let
+      setVars = rec {
+        Version = version;
+        Revision = "722200c4adbd6d1e5d847dfbbd9dec07aa4ca38d";
+        Branch = Revision;
+        BuildUser = "nix";
+      };
+      varFlags = lib.concatStringsSep " " (lib.mapAttrsToList (name: value:
+        "-X github.com/prometheus/common/version.${name}=${value}") setVars);
+    in [
+      "${varFlags}"
+      "-s"
+      "-w"
+    ]
+    ;
 
   src = fetchFromGitHub {
     owner = "SuperQ";

@@ -33,7 +33,7 @@ buildPythonPackage rec {
     py
   ];
 
-  # There's no tests in repo
+    # There's no tests in repo
   doCheck = false;
 
   meta = with lib; {

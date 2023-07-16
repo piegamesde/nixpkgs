@@ -13,7 +13,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.labri.fr/perso/lsimon/downloads/softwares/glucose-${version}.zip";
+      "https://www.labri.fr/perso/lsimon/downloads/softwares/glucose-${version}.zip"
+      ;
     hash = "sha256-J0J9EKC/4cCiZr/y4lz+Hm7OcmJmMIIWzQ+4c+KhqXg=";
   };
 
@@ -53,10 +54,12 @@ stdenv.mkDerivation rec {
           "sequential"
       } version)";
     homepage = "https://www.labri.fr/perso/lsimon/research/glucose/";
-    license = if enableUnfree then
-      licenses.unfreeRedistributable
-    else
-      licenses.mit;
+    license =
+      if enableUnfree then
+        licenses.unfreeRedistributable
+      else
+        licenses.mit
+      ;
     platforms = platforms.unix;
     maintainers = with maintainers; [ gebner ];
   };

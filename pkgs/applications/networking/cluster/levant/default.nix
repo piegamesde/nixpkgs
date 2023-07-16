@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-MzKttGfuIg0Pp/iz68EpXuk4I+tFozhIabKlsWuvJ48=";
 
-  # The tests try to connect to a Nomad cluster.
+    # The tests try to connect to a Nomad cluster.
   doCheck = false;
 
   meta = with lib; {

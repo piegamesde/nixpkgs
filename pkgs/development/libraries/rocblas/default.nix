@@ -98,7 +98,7 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optionals (buildTests
       || buildBenchmarks) [ "-DCMAKE_CXX_FLAGS=-I${amd-blis}/include/blis" ];
 
-  # Tensile REALLY wants to write to the nix directory if we include it normally
+    # Tensile REALLY wants to write to the nix directory if we include it normally
   postPatch = lib.optionalString buildTensile ''
     cp -a ${tensile} tensile
     chmod +w -R tensile

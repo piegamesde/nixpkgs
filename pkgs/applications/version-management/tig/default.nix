@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     git
   ] ++ lib.optionals stdenv.isDarwin [ libiconv ];
 
-  # those files are inherently impure, we'll handle the corresponding dependencies.
+    # those files are inherently impure, we'll handle the corresponding dependencies.
   postPatch = ''
     rm contrib/config.make-*
   '';

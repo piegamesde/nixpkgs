@@ -20,6 +20,7 @@ buildOctavePackage rec {
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ KarlJoad ];
     description =
-      "Monte Carlo simulation, options pricing routines, financial manipulation, plotting functions and additional date manipulation tools";
+      "Monte Carlo simulation, options pricing routines, financial manipulation, plotting functions and additional date manipulation tools"
+      ;
   };
 }

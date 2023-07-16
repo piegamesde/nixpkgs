@@ -10,17 +10,20 @@
   ,
   bootstrapFiles ? if localSystem.isAarch64 then
     let
-      fetch = {
+      fetch =
+        {
           file,
           sha256,
           executable ? true
         }:
         import <nix/fetchurl.nix> {
           url =
-            "http://tarballs.nixos.org/stdenv-darwin/aarch64/20acd4c4f14040485f40e55c0a76c186aa8ca4f3/${file}";
+            "http://tarballs.nixos.org/stdenv-darwin/aarch64/20acd4c4f14040485f40e55c0a76c186aa8ca4f3/${file}"
+            ;
           inherit (localSystem) system;
           inherit sha256 executable;
-        };
+        }
+        ;
     in {
       sh = fetch {
         file = "sh";
@@ -46,17 +49,20 @@
     }
   else
     let
-      fetch = {
+      fetch =
+        {
           file,
           sha256,
           executable ? true
         }:
         import <nix/fetchurl.nix> {
           url =
-            "http://tarballs.nixos.org/stdenv-darwin/x86_64/c253216595572930316f2be737dc288a1da22558/${file}";
+            "http://tarballs.nixos.org/stdenv-darwin/x86_64/c253216595572930316f2be737dc288a1da22558/${file}"
+            ;
           inherit (localSystem) system;
           inherit sha256 executable;
-        };
+        }
+        ;
     in {
       sh = fetch {
         file = "sh";
@@ -90,7 +96,7 @@ let
   useAppleSDKLibs = localSystem.isAarch64;
   haveKRB5 = localSystem.isx86_64;
 
-  # final toolchain is injected into llvmPackages_${finalLlvmVersion}
+    # final toolchain is injected into llvmPackages_${finalLlvmVersion}
   finalLlvmVersion = lib.versions.major bootstrapLlvmVersion;
   finalLlvmPackages = "llvmPackages_${finalLlvmVersion}";
 
@@ -117,10 +123,12 @@ in rec {
     name = "bootstrap-tools";
     builder =
       bootstrapFiles.sh; # Not a filename! Attribute 'sh' on bootstrapFiles
-    args = if localSystem.isAarch64 then
-      [ ./unpack-bootstrap-tools-aarch64.sh ]
-    else
-      [ ./unpack-bootstrap-tools.sh ];
+    args =
+      if localSystem.isAarch64 then
+        [ ./unpack-bootstrap-tools-aarch64.sh ]
+      else
+        [ ./unpack-bootstrap-tools.sh ]
+      ;
 
     inherit (bootstrapFiles) mkdir bzip2 cpio tarball;
 
@@ -131,7 +139,8 @@ in rec {
     outputHashMode = "recursive";
   });
 
-  stageFun = step: last:
+  stageFun =
+    step: last:
     {
       shell ? "${bootstrapTools}/bin/bash",
       overrides ? (self: super: { }),
@@ -150,17 +159,20 @@ in rec {
       doSign = localSystem.isAarch64 && last != null;
       doUpdateAutoTools = localSystem.isAarch64 && last != null;
 
-      mkExtraBuildCommands = cc: ''
-        rsrc="$out/resource-root"
-        mkdir "$rsrc"
-        ln -s "${cc.lib or cc}/lib/clang/${cc.version}/include" "$rsrc"
-        ln -s "${
-          last.pkgs."${finalLlvmPackages}".compiler-rt.out
-        }/lib" "$rsrc/lib"
-        echo "-resource-dir=$rsrc" >> $out/nix-support/cc-cflags
-      '';
+      mkExtraBuildCommands =
+        cc: ''
+          rsrc="$out/resource-root"
+          mkdir "$rsrc"
+          ln -s "${cc.lib or cc}/lib/clang/${cc.version}/include" "$rsrc"
+          ln -s "${
+            last.pkgs."${finalLlvmPackages}".compiler-rt.out
+          }/lib" "$rsrc/lib"
+          echo "-resource-dir=$rsrc" >> $out/nix-support/cc-cflags
+        ''
+        ;
 
-      mkCC = overrides:
+      mkCC =
+        overrides:
         import ../../build-support/cc-wrapper (let
           args = {
             inherit lib shell;
@@ -177,39 +189,44 @@ in rec {
           };
         in
         args // (overrides args)
-        );
+        )
+        ;
 
-      cc = if last == null then
-        "/dev/null"
-      else
-        mkCC ({
-            cc,
-            ...
-          }: {
-            extraPackages = [
-              last.pkgs."${finalLlvmPackages}".libcxxabi
-              last.pkgs."${finalLlvmPackages}".compiler-rt
-            ];
-            extraBuildCommands = mkExtraBuildCommands cc;
-          });
-
-      ccNoLibcxx = if last == null then
-        "/dev/null"
-      else
-        mkCC ({
-            cc,
-            ...
-          }: {
-            libcxx = null;
-            extraPackages = [ last.pkgs."${finalLlvmPackages}".compiler-rt ];
-            extraBuildCommands = ''
-              echo "-rtlib=compiler-rt" >> $out/nix-support/cc-cflags
-              echo "-B${
+      cc =
+        if last == null then
+          "/dev/null"
+        else
+          mkCC ({
+              cc,
+              ...
+            }: {
+              extraPackages = [
+                last.pkgs."${finalLlvmPackages}".libcxxabi
                 last.pkgs."${finalLlvmPackages}".compiler-rt
-              }/lib" >> $out/nix-support/cc-cflags
-              echo "-nostdlib++" >> $out/nix-support/cc-cflags
-            '' + mkExtraBuildCommands cc;
-          });
+              ];
+              extraBuildCommands = mkExtraBuildCommands cc;
+            })
+        ;
+
+      ccNoLibcxx =
+        if last == null then
+          "/dev/null"
+        else
+          mkCC ({
+              cc,
+              ...
+            }: {
+              libcxx = null;
+              extraPackages = [ last.pkgs."${finalLlvmPackages}".compiler-rt ];
+              extraBuildCommands = ''
+                echo "-rtlib=compiler-rt" >> $out/nix-support/cc-cflags
+                echo "-B${
+                  last.pkgs."${finalLlvmPackages}".compiler-rt
+                }/lib" >> $out/nix-support/cc-cflags
+                echo "-nostdlib++" >> $out/nix-support/cc-cflags
+              '' + mkExtraBuildCommands cc;
+            })
+        ;
 
       thisStdenv = import ../generic {
         name = "${name}-stdenv-darwin";
@@ -222,20 +239,22 @@ in rec {
             last.pkgs.gnu-config
           ];
 
-        allowedRequisites = if allowedRequisites == null then
-          null
-        else
-          allowedRequisites ++ [
-            cc.expand-response-params
-            cc.bintools
-          ] ++ lib.optionals doUpdateAutoTools [
-            last.pkgs.updateAutotoolsGnuConfigScriptsHook
-            last.pkgs.gnu-config
-          ] ++ lib.optionals doSign [
-            last.pkgs.darwin.postLinkSignHook
-            last.pkgs.darwin.sigtool
-            last.pkgs.darwin.signingUtils
-          ];
+        allowedRequisites =
+          if allowedRequisites == null then
+            null
+          else
+            allowedRequisites ++ [
+              cc.expand-response-params
+              cc.bintools
+            ] ++ lib.optionals doUpdateAutoTools [
+              last.pkgs.updateAutotoolsGnuConfigScriptsHook
+              last.pkgs.gnu-config
+            ] ++ lib.optionals doSign [
+              last.pkgs.darwin.postLinkSignHook
+              last.pkgs.darwin.sigtool
+              last.pkgs.darwin.signingUtils
+            ]
+          ;
 
         buildPlatform = localSystem;
         hostPlatform = localSystem;
@@ -259,24 +278,28 @@ in rec {
           curl = bootstrapTools;
         };
 
-        # The stdenvs themselves don't use mkDerivation, so I need to specify this here
+          # The stdenvs themselves don't use mkDerivation, so I need to specify this here
         __stdenvImpureHostDeps = commonImpureHostDeps;
         __extraImpureHostDeps = commonImpureHostDeps;
 
-        overrides = self: super:
+        overrides =
+          self: super:
           (overrides self super) // {
             inherit ccNoLibcxx;
             fetchurl = thisStdenv.fetchurlBoot;
-          };
+          }
+          ;
       };
 
     in {
       inherit config overlays;
       stdenv = thisStdenv;
-    } ;
+    }
+    ;
 
   stage0 = stageFun 0 null {
-    overrides = self: super:
+    overrides =
+      self: super:
       with stage0; {
         coreutils = stdenv.mkDerivation {
           name = "bootstrap-stage0-coreutils";
@@ -337,9 +360,8 @@ in rec {
                 ln -s ${bootstrapTools}/bin/rewrite-tbd $out/bin
               '';
 
-            binutils-unwrapped = bootstrapTools // {
-              name = "bootstrap-stage0-binutils";
-            };
+            binutils-unwrapped =
+              bootstrapTools // { name = "bootstrap-stage0-binutils"; };
 
             cctools = bootstrapTools // {
               name = "bootstrap-stage0-cctools";
@@ -437,16 +459,19 @@ in rec {
             '';
           };
         };
-      };
+      }
+      ;
 
     extraNativeBuildInputs = [ ];
     extraBuildInputs = [ ];
     libcxx = null;
   };
 
-  stage1 = prevStage:
+  stage1 =
+    prevStage:
     let
-      persistent = self: super:
+      persistent =
+        self: super:
         with prevStage; {
           cmake = super.cmakeMinimal;
 
@@ -459,9 +484,9 @@ in rec {
           ninja = super.ninja.override { buildDocs = false; };
 
           "${finalLlvmPackages}" = super."${finalLlvmPackages}" // (let
-            tools = super."${finalLlvmPackages}".tools.extend (_: _: {
-              inherit (pkgs."${finalLlvmPackages}") clang-unwrapped;
-            });
+            tools = super."${finalLlvmPackages}".tools.extend
+              (_: _: { inherit (pkgs."${finalLlvmPackages}") clang-unwrapped; })
+              ;
             libraries = super."${finalLlvmPackages}".libraries.extend (_: _: {
               inherit (pkgs."${finalLlvmPackages}")
                 compiler-rt
@@ -485,11 +510,13 @@ in rec {
               inherit (selfDarwin) postLinkSignHook signingUtils;
             };
           });
-        };
+        }
+        ;
     in with prevStage;
     stageFun 1 prevStage {
-      extraPreHook = ''
-        export NIX_CFLAGS_COMPILE+=" -F${bootstrapTools}/Library/Frameworks"'';
+      extraPreHook =
+        ''export NIX_CFLAGS_COMPILE+=" -F${bootstrapTools}/Library/Frameworks"''
+        ;
       extraNativeBuildInputs = [ ];
       extraBuildInputs = [ pkgs.darwin.CF ];
       libcxx = pkgs."${finalLlvmPackages}".libcxx;
@@ -509,11 +536,14 @@ in rec {
         ] ++ lib.optional useAppleSDKLibs objc4);
 
       overrides = persistent;
-    };
+    }
+    ;
 
-  stage2 = prevStage:
+  stage2 =
+    prevStage:
     let
-      persistent = self: super:
+      persistent =
+        self: super:
         with prevStage; {
           inherit
             zlib
@@ -566,9 +596,9 @@ in rec {
             ;
 
           "${finalLlvmPackages}" = super."${finalLlvmPackages}" // (let
-            tools = super."${finalLlvmPackages}".tools.extend (_: _: {
-              inherit (pkgs."${finalLlvmPackages}") clang-unwrapped;
-            });
+            tools = super."${finalLlvmPackages}".tools.extend
+              (_: _: { inherit (pkgs."${finalLlvmPackages}") clang-unwrapped; })
+              ;
             libraries = super."${finalLlvmPackages}".libraries.extend
               (_: libSuper: {
                 inherit (pkgs."${finalLlvmPackages}") compiler-rt;
@@ -613,7 +643,8 @@ in rec {
               signingUtils
               ;
           });
-        };
+        }
+        ;
     in with prevStage;
     stageFun 2 prevStage {
       extraPreHook = ''
@@ -657,11 +688,14 @@ in rec {
           ] ++ lib.optional useAppleSDKLibs objc4);
 
       overrides = persistent;
-    };
+    }
+    ;
 
-  stage3 = prevStage:
+  stage3 =
+    prevStage:
     let
-      persistent = self: super:
+      persistent =
+        self: super:
         with prevStage; {
           inherit
             patchutils
@@ -730,15 +764,16 @@ in rec {
               sigtool
               ;
           });
-        };
+        }
+        ;
     in with prevStage;
     stageFun 3 prevStage {
       shell = "${pkgs.bash}/bin/bash";
 
-      # We have a valid shell here (this one has no bootstrap-tools runtime deps) so stageFun
-      # enables patchShebangs above. Unfortunately, patchShebangs ignores our $SHELL setting
-      # and instead goes by $PATH, which happens to contain bootstrapTools. So it goes and
-      # patches our shebangs back to point at bootstrapTools. This makes sure bash comes first.
+        # We have a valid shell here (this one has no bootstrap-tools runtime deps) so stageFun
+        # enables patchShebangs above. Unfortunately, patchShebangs ignores our $SHELL setting
+        # and instead goes by $PATH, which happens to contain bootstrapTools. So it goes and
+        # patches our shebangs back to point at bootstrapTools. This makes sure bash comes first.
       extraNativeBuildInputs = with pkgs; [ xz ];
       extraBuildInputs = [
         pkgs.darwin.CF
@@ -786,11 +821,14 @@ in rec {
           ] ++ lib.optional useAppleSDKLibs objc4);
 
       overrides = persistent;
-    };
+    }
+    ;
 
-  stage4 = prevStage:
+  stage4 =
+    prevStage:
     let
-      persistent = self: super:
+      persistent =
+        self: super:
         with prevStage; {
           inherit
             gnumake
@@ -856,15 +894,18 @@ in rec {
               ;
 
               # See useAppleSDKLibs in darwin-packages.nix
-            CF = if useAppleSDKLibs then
-              super.darwin.CF
-            else
-              superDarwin.CF.override {
-                inherit libxml2;
-                python3 = prevStage.python3;
-              };
+            CF =
+              if useAppleSDKLibs then
+                super.darwin.CF
+              else
+                superDarwin.CF.override {
+                  inherit libxml2;
+                  python3 = prevStage.python3;
+                }
+              ;
           });
-        };
+        }
+        ;
     in with prevStage;
     stageFun 4 prevStage {
       shell = "${pkgs.bash}/bin/bash";
@@ -879,13 +920,16 @@ in rec {
         export PATH_LOCALE=${pkgs.darwin.locale}/share/locale
       '';
       overrides = persistent;
-    };
+    }
+    ;
 
-  stdenvDarwin = prevStage:
+  stdenvDarwin =
+    prevStage:
     let
       doSign = localSystem.isAarch64;
       pkgs = prevStage;
-      persistent = self: super:
+      persistent =
+        self: super:
         with prevStage;
         {
           inherit
@@ -940,7 +984,8 @@ in rec {
           );
 
           inherit binutils binutils-unwrapped;
-        };
+        }
+        ;
     in
     import ../generic rec {
       name = "stdenv-darwin";
@@ -1067,7 +1112,7 @@ in rec {
           inherit cc;
         });
     }
-  ;
+    ;
 
   stagesDarwin = [
     ({ }: stage0)

@@ -13,7 +13,7 @@ buildPythonPackage rec {
 
   buildInputs = [ libmysqlclient ];
 
-  # Tests need a MySQL database
+    # Tests need a MySQL database
   doCheck = false;
 
   src = fetchPypi {

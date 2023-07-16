@@ -19,11 +19,12 @@ buildGoPackage rec {
   meta = with lib; {
     homepage = "https://github.com/cloudflare/utahfs";
     description =
-      "Encrypted storage system that provides a user-friendly FUSE drive backed by cloud storage";
+      "Encrypted storage system that provides a user-friendly FUSE drive backed by cloud storage"
+      ;
     license = licenses.bsd3;
     maintainers = [ maintainers.snglth ];
     platforms = platforms.unix;
-    # does not build with go 1.17: https://github.com/cloudflare/utahfs/issues/46
+      # does not build with go 1.17: https://github.com/cloudflare/utahfs/issues/46
     broken = true;
   };
 }

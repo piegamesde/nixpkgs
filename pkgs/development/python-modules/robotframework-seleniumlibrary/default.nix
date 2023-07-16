@@ -17,7 +17,7 @@ buildPythonPackage rec {
   version = "6.0.0";
   pname = "robotframework-seleniumlibrary";
 
-  # no tests included in PyPI tarball
+    # no tests included in PyPI tarball
   src = fetchFromGitHub {
     owner = "robotframework";
     repo = "SeleniumLibrary";
@@ -59,7 +59,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     changelog =
-      "https://github.com/robotframework/SeleniumLibrary/blob/${src.rev}/docs/SeleniumLibrary-${version}.rst";
+      "https://github.com/robotframework/SeleniumLibrary/blob/${src.rev}/docs/SeleniumLibrary-${version}.rst"
+      ;
     description = "Web testing library for Robot Framework";
     homepage = "https://github.com/robotframework/SeleniumLibrary";
     license = licenses.asl20;

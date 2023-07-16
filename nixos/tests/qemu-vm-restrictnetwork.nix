@@ -2,21 +2,25 @@ import ./make-test-python.nix ({
   name = "qemu-vm-restrictnetwork";
 
   nodes = {
-    unrestricted = {
+    unrestricted =
+      {
         config,
         pkgs,
         ...
       }: {
         virtualisation.restrictNetwork = false;
-      };
+      }
+      ;
 
-    restricted = {
+    restricted =
+      {
         config,
         pkgs,
         ...
       }: {
         virtualisation.restrictNetwork = true;
-      };
+      }
+      ;
   };
 
   testScript = ''

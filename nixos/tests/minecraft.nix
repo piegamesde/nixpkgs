@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
     name = "minecraft";
     meta = with lib.maintainers; { maintainers = [ nequissimus ]; };
 
-    nodes.client = {
+    nodes.client =
+      {
         nodes,
         ...
       }:
@@ -23,11 +24,13 @@ import ./make-test-python.nix ({
         nixpkgs.config.allowUnfree = true;
 
         test-support.displayManager.auto.user = user.name;
-      } ;
+      }
+      ;
 
     enableOCR = true;
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }:
@@ -39,5 +42,6 @@ import ./make-test-python.nix ({
         client.wait_for_text("Create a new Microsoft account")
         client.sleep(10)
         client.screenshot("launcher")
-      '' ;
+      ''
+      ;
   })

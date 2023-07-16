@@ -21,7 +21,7 @@ buildPythonPackage rec {
       --replace "universal=3" "universal=1"
   '';
 
-  # Tests requires sudo and performs scans
+    # Tests requires sudo and performs scans
   doCheck = false;
 
   pythonImportsCheck = [ "nmap" ];

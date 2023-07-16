@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "0l2kj1fzhxwsklwmn5yj2vp9rmw4jg0b18bzwqz72bfi8i39736k";
   };
 
-  # this is necessary because atxt files usually include some .hats files
+    # this is necessary because atxt files usually include some .hats files
   patches = [ ./install-atsdoc-hats-files.patch ];
   buildInputs = [ gmp ];
 
@@ -22,8 +22,8 @@ stdenv.mkDerivation rec {
     description = "Functional programming language with dependent types";
     homepage = "http://www.ats-lang.org";
     license = lib.licenses.gpl3Plus;
-    # TODO: it looks like ATS requires gcc specifically. Someone with more knowledge
-    # will need to experiment.
+      # TODO: it looks like ATS requires gcc specifically. Someone with more knowledge
+      # will need to experiment.
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.thoughtpolice ];
   };

@@ -14,8 +14,8 @@ in {
     "services"
     "plex"
     "managePlugins"
-  ]
-    "Please omit or define the option: `services.plex.extraPlugins' instead.") ];
+  ] "Please omit or define the option: `services.plex.extraPlugins' instead.") ]
+    ;
 
   options = {
     services.plex = {
@@ -124,21 +124,22 @@ in {
         User = cfg.user;
         Group = cfg.group;
 
-        # Run the pre-start script with full permissions (the "!" prefix) so it
-        # can create the data directory if necessary.
-        ExecStartPre = let
-          preStartScript = pkgs.writeScript "plex-run-prestart" ''
-            #!${pkgs.bash}/bin/bash
+          # Run the pre-start script with full permissions (the "!" prefix) so it
+          # can create the data directory if necessary.
+        ExecStartPre =
+          let
+            preStartScript = pkgs.writeScript "plex-run-prestart" ''
+              #!${pkgs.bash}/bin/bash
 
-            # Create data directory if it doesn't exist
-            if ! test -d "$PLEX_DATADIR"; then
-              echo "Creating initial Plex data directory in: $PLEX_DATADIR"
-              install -d -m 0755 -o "${cfg.user}" -g "${cfg.group}" "$PLEX_DATADIR"
-            fi
-          '';
-        in
-        "!${preStartScript}"
-        ;
+              # Create data directory if it doesn't exist
+              if ! test -d "$PLEX_DATADIR"; then
+                echo "Creating initial Plex data directory in: $PLEX_DATADIR"
+                install -d -m 0755 -o "${cfg.user}" -g "${cfg.group}" "$PLEX_DATADIR"
+              fi
+            '';
+          in
+          "!${preStartScript}"
+          ;
 
         ExecStart = "${cfg.package}/bin/plexmediaserver";
         KillSignal = "SIGQUIT";
@@ -154,12 +155,12 @@ in {
         PLEX_SCANNERS =
           concatMapStringsSep ":" builtins.toString cfg.extraScanners;
 
-        # The following variables should be set by the FHS userenv script:
-        #   PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR
-        #   PLEX_MEDIA_SERVER_HOME
+          # The following variables should be set by the FHS userenv script:
+          #   PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR
+          #   PLEX_MEDIA_SERVER_HOME
 
-        # Allow access to GPU acceleration; the Plex LD_LIBRARY_PATH is added
-        # by the FHS userenv script.
+          # Allow access to GPU acceleration; the Plex LD_LIBRARY_PATH is added
+          # by the FHS userenv script.
         LD_LIBRARY_PATH = "/run/opengl-driver/lib";
 
         PLEX_MEDIA_SERVER_MAX_PLUGIN_PROCS = "6";

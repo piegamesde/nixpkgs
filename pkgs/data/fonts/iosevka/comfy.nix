@@ -34,13 +34,15 @@ let
     sha256 = "sha256-gHDERf3eDsb59wz+kGa2wLY7RDRWs2woi5P2rZDYjL0=";
   };
   privateBuildPlan = src.outPath + "/private-build-plans.toml";
-  makeIosevkaFont = set:
+  makeIosevkaFont =
+    set:
     let
       superBuildNpmPackage = buildNpmPackage;
     in
     (iosevka.override rec {
       inherit set privateBuildPlan;
-      buildNpmPackage = args:
+      buildNpmPackage =
+        args:
         superBuildNpmPackage (args // {
           inherit version;
 
@@ -64,9 +66,10 @@ let
             platforms = iosevka.meta.platforms;
             maintainers = [ maintainers.DamienCassou ];
           };
-        });
+        })
+        ;
     })
-  ;
+    ;
 in
 builtins.listToAttrs (builtins.map (set: {
   name = set;

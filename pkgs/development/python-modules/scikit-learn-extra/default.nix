@@ -52,7 +52,7 @@ buildPythonPackage rec {
     "test_all_estimators" # sklearn.exceptions.NotFittedError: Estimator fails to pass `check_is_fitted` even though it has been fit.
   ];
 
-  # Check packages with cythonized modules
+    # Check packages with cythonized modules
   pythonImportsCheck = [
     "sklearn_extra"
     "sklearn_extra.cluster"

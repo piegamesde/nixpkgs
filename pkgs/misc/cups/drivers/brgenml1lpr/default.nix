@@ -36,14 +36,16 @@
 */
 
 let
-  myPatchElf = file:
+  myPatchElf =
+    file:
     with lib; ''
       patchelf --set-interpreter \
         ${stdenv.cc.libc}/lib/ld-linux${
           optionalString stdenv.is64bit "-x86-64"
         }.so.2 \
         ${file}
-    '';
+    ''
+    ;
 in
 stdenv.mkDerivation rec {
   pname = "brgenml1lpr";
@@ -51,7 +53,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://download.brother.com/welcome/dlf101123/brgenml1lpr-${version}.i386.deb";
+      "https://download.brother.com/welcome/dlf101123/brgenml1lpr-${version}.i386.deb"
+      ;
     sha256 = "0zdvjnrjrz9sba0k525linxp55lr4cyivfhqbkq1c11br2nvy09f";
   };
 

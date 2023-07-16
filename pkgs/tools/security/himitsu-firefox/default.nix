@@ -32,10 +32,10 @@ stdenv.mkDerivation rec {
 
   buildFlags = [ "LIBEXECDIR=$(out)/libexec" ];
 
-  # Only install the native component; per the docs:
-  # > To install the add-on for Firefox ESR, run make install-xpi. Be advised
-  # > that this will probably not work. The recommended installation procedure
-  # > for the native extension is to install it from addons.mozilla.org instead.
+    # Only install the native component; per the docs:
+    # > To install the add-on for Firefox ESR, run make install-xpi. Be advised
+    # > that this will probably not work. The recommended installation procedure
+    # > for the native extension is to install it from addons.mozilla.org instead.
   installTargets = [ "install-native" ];
   installFlags = [
     "PREFIX="

@@ -45,7 +45,7 @@ buildPythonPackage rec {
     "--numprocesses=$NIX_BUILD_CORES"
   ];
 
-  # access file system
+    # access file system
   disabledTests = [
     "test_distribution_rsyncdirs_example"
     "test_rsync_popen_with_path"
@@ -61,7 +61,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     changelog =
-      "https://github.com/pytest-dev/pytest-xdist/blob/v${version}/CHANGELOG.rst";
+      "https://github.com/pytest-dev/pytest-xdist/blob/v${version}/CHANGELOG.rst"
+      ;
     description =
       "Pytest xdist plugin for distributed testing and loop-on-failing modes";
     homepage = "https://github.com/pytest-dev/pytest-xdist";

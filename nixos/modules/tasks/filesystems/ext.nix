@@ -18,7 +18,7 @@ in {
     system.fsPackages = lib.mkIf (config.boot.initrd.systemd.enable
       -> (inInitrd || inSystem)) [ pkgs.e2fsprogs ];
 
-    # As of kernel 4.3, there is no separate ext3 driver (they're also handled by ext4.ko)
+      # As of kernel 4.3, there is no separate ext3 driver (they're also handled by ext4.ko)
     boot.initrd.availableKernelModules =
       lib.mkIf (config.boot.initrd.systemd.enable -> inInitrd) [
         "ext2"

@@ -64,7 +64,8 @@ stdenv.mkDerivation (finalAttrs:
       (fetchpatch {
         name = "CVE-2018-19876.patch";
         url =
-          "https://gitlab.freedesktop.org/cairo/cairo/commit/6edf572ebb27b00d3c371ba5ae267e39d27d5b6d.patch";
+          "https://gitlab.freedesktop.org/cairo/cairo/commit/6edf572ebb27b00d3c371ba5ae267e39d27d5b6d.patch"
+          ;
         sha256 = "112hgrrsmcwxh1r52brhi5lksq4pvrz4xhkzcf2iqp55jl2pb7n1";
       })
 
@@ -72,7 +73,8 @@ stdenv.mkDerivation (finalAttrs:
       # https://gitlab.freedesktop.org/cairo/cairo/issues/342
       (fetchpatch {
         url =
-          "https://gitlab.freedesktop.org/cairo/cairo/commit/5e34c5a9640e49dcc29e6b954c4187cfc838dbd1.patch";
+          "https://gitlab.freedesktop.org/cairo/cairo/commit/5e34c5a9640e49dcc29e6b954c4187cfc838dbd1.patch"
+          ;
         sha256 = "yCwsDUY7efVvOZkA6a0bPS+RrVc8Yk9bfPwWHeOjq5o=";
       })
 
@@ -83,7 +85,8 @@ stdenv.mkDerivation (finalAttrs:
         name = "CVE-2020-35492.patch";
         includes = [ "src/cairo-image-compositor.c" ];
         url =
-          "https://github.com/freedesktop/cairo/commit/78266cc8c0f7a595cfe8f3b694bfb9bcc3700b38.patch";
+          "https://github.com/freedesktop/cairo/commit/78266cc8c0f7a595cfe8f3b694bfb9bcc3700b38.patch"
+          ;
         sha256 = "048nzfz7rkgqb9xs0dfs56qdw7ckkxr87nbj3p0qziqdq4nb6wki";
       })
 
@@ -94,7 +97,8 @@ stdenv.mkDerivation (finalAttrs:
       # Upstream PR: https://gitlab.freedesktop.org/cairo/cairo/-/issues/420
       (fetchpatch {
         url =
-          "https://gitlab.freedesktop.org/cairo/cairo/-/commit/e22d7212acb454daccc088619ee147af03883974.diff";
+          "https://gitlab.freedesktop.org/cairo/cairo/-/commit/e22d7212acb454daccc088619ee147af03883974.diff"
+          ;
         sha256 = "sha256-8G98nsPz3MLEWPDX9F0jKgXC4hC4NNdFQLSpmW3ay2s=";
       })
 
@@ -104,7 +108,8 @@ stdenv.mkDerivation (finalAttrs:
       (fetchpatch {
         name = "fix-grayscale-anialias.patch";
         url =
-          "https://gitlab.freedesktop.org/cairo/cairo/-/commit/4f4d89506f58a64b4829b1bb239bab9e46d63727.diff";
+          "https://gitlab.freedesktop.org/cairo/cairo/-/commit/4f4d89506f58a64b4829b1bb239bab9e46d63727.diff"
+          ;
         sha256 = "sha256-mbTg67e7APfdELsuMAgXdY3xokWbGtHF7VDD5UyYqKM=";
       })
     ];
@@ -142,8 +147,8 @@ stdenv.mkDerivation (finalAttrs:
     ] ++ optionals xcbSupport [
       libxcb
       xcbutil
-    ] ++ optional gobjectSupport glib ++ optional glSupport
-      libGL; # TODO: maybe liblzo but what would it be for here?
+    ] ++ optional gobjectSupport glib ++ optional glSupport libGL
+      ; # TODO: maybe liblzo but what would it be for here?
 
     configureFlags = [ "--enable-tee" ] ++ (if stdenv.isDarwin then
       [

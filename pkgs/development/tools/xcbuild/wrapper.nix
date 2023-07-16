@@ -21,7 +21,7 @@ let
   sdkName = "${xcodePlatform}${sdkVer}";
   xcrunSdkName = lib.toLower xcodePlatform;
 
-  # TODO: expose MACOSX_DEPLOYMENT_TARGET in nix so we can use it here.
+    # TODO: expose MACOSX_DEPLOYMENT_TARGET in nix so we can use it here.
   sdkBuildVersion = "17E189";
   xcodeSelectVersion = "2349";
 

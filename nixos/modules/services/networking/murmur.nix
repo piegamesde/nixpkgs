@@ -143,7 +143,8 @@ in {
         default = null;
         example = "/var/log/murmur/murmurd.log";
         description = lib.mdDoc
-          "Path to the log file for Murmur daemon. Empty means log to journald.";
+          "Path to the log file for Murmur daemon. Empty means log to journald."
+          ;
       };
 
       welcometext = mkOption {
@@ -344,7 +345,8 @@ in {
         ];
         default = null;
         description = lib.mdDoc
-          "Enable D-Bus remote control. Set to the bus you want Murmur to connect to.";
+          "Enable D-Bus remote control. Set to the bus you want Murmur to connect to."
+          ;
       };
     };
   };
@@ -376,10 +378,12 @@ in {
 
       serviceConfig = {
         # murmurd doesn't fork when logging to the console.
-        Type = if forking then
-          "forking"
-        else
-          "simple";
+        Type =
+          if forking then
+            "forking"
+          else
+            "simple"
+          ;
         PIDFile = mkIf forking "/run/murmur/murmurd.pid";
         EnvironmentFile =
           mkIf (cfg.environmentFile != null) cfg.environmentFile;
@@ -393,8 +397,8 @@ in {
       };
     };
 
-    # currently not included in upstream package, addition requested at
-    # https://github.com/mumble-voip/mumble/issues/6078
+      # currently not included in upstream package, addition requested at
+      # https://github.com/mumble-voip/mumble/issues/6078
     services.dbus.packages = mkIf (cfg.dbus == "system") [ (pkgs.writeTextFile {
       name = "murmur-dbus-policy";
       text = ''

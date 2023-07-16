@@ -38,7 +38,8 @@ mkDerivation rec {
   patches = [ (fetchpatch {
     name = "support_native_browser.patch";
     url =
-      "https://patch-diff.githubusercontent.com/raw/sieren/QSyncthingTray/pull/225.patch";
+      "https://patch-diff.githubusercontent.com/raw/sieren/QSyncthingTray/pull/225.patch"
+      ;
     sha256 = "0w665xdlsbjxs977pdpzaclxpswf7xys1q3rxriz181lhk2y66yy";
   }) ] ++ lib.optional (!preferQWebView && !preferNative)
     ./qsyncthingtray-0.5.8-qt-5.6.3.patch;
@@ -56,17 +57,19 @@ mkDerivation rec {
     ''}
   '';
 
-  installPhase = let
-    qst = "qsyncthingtray";
-  in ''
-    runHook preInstall
+  installPhase =
+    let
+      qst = "qsyncthingtray";
+    in ''
+      runHook preInstall
 
-    mkdir -p $out/bin
-    install -m755 QSyncthingTray $out/bin/${qst}
-    ln -s $out/bin/${qst} $out/bin/QSyncthingTray
+      mkdir -p $out/bin
+      install -m755 QSyncthingTray $out/bin/${qst}
+      ln -s $out/bin/${qst} $out/bin/QSyncthingTray
 
-    runHook postInstall
-  '' ;
+      runHook postInstall
+    ''
+    ;
 
   meta = with lib; {
     homepage = "https://github.com/sieren/QSyncthingTray/";

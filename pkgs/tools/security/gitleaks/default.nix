@@ -30,7 +30,7 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  # With v8 the config tests are are blocking
+    # With v8 the config tests are are blocking
   doCheck = false;
 
   postInstall = ''

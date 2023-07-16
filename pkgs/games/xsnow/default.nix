@@ -32,7 +32,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "An X-windows application that will let it snow on the root, in between and on windows";
+      "An X-windows application that will let it snow on the root, in between and on windows"
+      ;
     homepage = "https://ratrabbit.nl/ratrabbit/xsnow/";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ robberer ];

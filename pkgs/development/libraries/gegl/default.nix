@@ -88,7 +88,7 @@ stdenv.mkDerivation rec {
   ] ++ lib.optionals stdenv.isDarwin [ OpenCL ]
     ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ];
 
-  # for gegl-4.0.pc
+    # for gegl-4.0.pc
   propagatedBuildInputs = [
     glib
     json-glib
@@ -108,8 +108,8 @@ stdenv.mkDerivation rec {
     "-Djasper=disabled"
   ];
 
-  # TODO: Fix missing math symbols in gegl seamless clone.
-  # It only appears when we use packaged poly2tri-c instead of vendored one.
+    # TODO: Fix missing math symbols in gegl seamless clone.
+    # It only appears when we use packaged poly2tri-c instead of vendored one.
   env.NIX_CFLAGS_COMPILE = "-lm";
 
   postPatch = ''
@@ -117,7 +117,7 @@ stdenv.mkDerivation rec {
     patchShebangs tests/ff-load-save/tests_ff_load_save.sh tests/opencl/opencl_test.sh tools/xml_insert.sh
   '';
 
-  # tests fail to connect to the com.apple.fonts daemon in sandboxed mode
+    # tests fail to connect to the com.apple.fonts daemon in sandboxed mode
   doCheck = !stdenv.isDarwin;
 
   meta = with lib; {

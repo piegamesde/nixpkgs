@@ -22,7 +22,7 @@ buildPythonPackage {
       notmuch/globals.py
   '';
 
-  # no tests
+    # no tests
   doCheck = false;
   pythonImportsCheck = [ "notmuch" ];
 

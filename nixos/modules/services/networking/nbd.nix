@@ -16,10 +16,10 @@ let
       float
       str
     ]);
-  # The `[generic]` section must come before all the others in the
-  # config file.  This means we can't just dump an attrset to INI
-  # because that sorts the sections by name.  Instead, we serialize it
-  # on its own first.
+    # The `[generic]` section must come before all the others in the
+    # config file.  This means we can't just dump an attrset to INI
+    # because that sorts the sections by name.  Instead, we serialize it
+    # on its own first.
   genericSection = {
     generic = (cfg.server.extraOptions // {
       user = "root";
@@ -64,7 +64,8 @@ in {
           type = types.port;
           default = 10809;
           description = lib.mdDoc
-            "Port to listen on. The port is NOT automatically opened in the firewall.";
+            "Port to listen on. The port is NOT automatically opened in the firewall."
+            ;
         };
 
         extraOptions = mkOption {
@@ -97,7 +98,8 @@ in {
                     "127.0.0.1"
                   ];
                   description = lib.mdDoc
-                    "IPs and subnets that are authorized to connect for this device. If not specified, the server will allow all connections.";
+                    "IPs and subnets that are authorized to connect for this device. If not specified, the server will allow all connections."
+                    ;
                 };
 
                 extraOptions = mkOption {
@@ -118,7 +120,8 @@ in {
         listenAddress = mkOption {
           type = with types; nullOr str;
           description = lib.mdDoc
-            "Address to listen on. If not specified, the server will listen on all interfaces.";
+            "Address to listen on. If not specified, the server will listen on all interfaces."
+            ;
           default = null;
           example = "10.10.0.1";
         };

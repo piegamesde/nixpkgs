@@ -18,7 +18,8 @@ buildPythonPackage rec {
 
   src = fetchurl {
     url =
-      "http://download.enlightenment.org/rel/bindings/python/${pname}-${version}.tar.xz";
+      "http://download.enlightenment.org/rel/bindings/python/${pname}-${version}.tar.xz"
+      ;
     sha256 = "0dj6f24n33hkpy0bkdclnzpxhvs8vpaxqaf7hkw0di19pjwrq25h";
   };
 

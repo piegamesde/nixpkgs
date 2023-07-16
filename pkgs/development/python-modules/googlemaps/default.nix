@@ -43,7 +43,8 @@ buildPythonPackage rec {
     description = "Python client library for Google Maps API Web Services";
     homepage = "https://github.com/googlemaps/google-maps-services-python";
     changelog =
-      "https://github.com/googlemaps/google-maps-services-python/releases/tag/v${version}";
+      "https://github.com/googlemaps/google-maps-services-python/releases/tag/v${version}"
+      ;
     license = licenses.asl20;
     maintainers = with maintainers; [ Scriptkiddi ];
   };

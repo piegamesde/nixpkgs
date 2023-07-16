@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
     name = "restart-by-activation-script";
     meta = with pkgs.lib.maintainers; { maintainers = [ das_j ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -45,7 +46,8 @@ import ./make-test-python.nix ({
             fi
           '';
         };
-      };
+      }
+      ;
 
     testScript = # python
       ''

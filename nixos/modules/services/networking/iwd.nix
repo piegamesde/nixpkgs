@@ -61,7 +61,7 @@ in {
 
     environment.etc."iwd/${configFile.name}".source = configFile;
 
-    # for iwctl
+      # for iwctl
     environment.systemPackages = [ cfg.package ];
 
     services.dbus.packages = [ cfg.package ];

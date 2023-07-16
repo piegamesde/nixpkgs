@@ -10,10 +10,12 @@ with lib;
 let
 
   cfg = config.services.fprintd;
-  fprintdPkg = if cfg.tod.enable then
-    pkgs.fprintd-tod
-  else
-    pkgs.fprintd;
+  fprintdPkg =
+    if cfg.tod.enable then
+      pkgs.fprintd-tod
+    else
+      pkgs.fprintd
+    ;
 
 in {
 
@@ -30,7 +32,8 @@ in {
         type = types.package;
         default = fprintdPkg;
         defaultText = literalExpression
-          "if config.services.fprintd.tod.enable then pkgs.fprintd-tod else pkgs.fprintd";
+          "if config.services.fprintd.tod.enable then pkgs.fprintd-tod else pkgs.fprintd"
+          ;
         description = lib.mdDoc ''
           fprintd package to use.
         '';
@@ -51,7 +54,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 

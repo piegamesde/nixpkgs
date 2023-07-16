@@ -49,15 +49,18 @@ let
   }.${stdenv.hostPlatform.system} or (throw
     "unsupported system ${stdenv.hostPlatform.system}");
 
-  jce = if installjce then
-    requireFile {
-      name = jceName;
-      url =
-        "http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html";
-      sha256 = sha256JCE;
-    }
-  else
-    "";
+  jce =
+    if installjce then
+      requireFile {
+        name = jceName;
+        url =
+          "http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html"
+          ;
+        sha256 = sha256JCE;
+      }
+    else
+      ""
+    ;
 
   rSubPaths = [
     "lib/${architecture}/jli"
@@ -68,35 +71,39 @@ let
 
 in let
   result = stdenv.mkDerivation rec {
-    pname = if installjdk then
-      "oraclejdk"
-    else
-      "oraclejre" + lib.optionalString pluginSupport "-with-plugin";
+    pname =
+      if installjdk then
+        "oraclejdk"
+      else
+        "oraclejre" + lib.optionalString pluginSupport "-with-plugin"
+      ;
     version = "${productVersion}u${patchVersion}";
 
-    src = let
-      platformName = {
-        i686-linux = "linux-i586";
-        x86_64-linux = "linux-x64";
-        armv7l-linux = "linux-arm32-vfp-hflt";
-        aarch64-linux = "linux-aarch64";
-      }.${stdenv.hostPlatform.system} or (throw
-        "unsupported system ${stdenv.hostPlatform.system}");
-    in
-    requireFile {
-      name = "jdk-${productVersion}u${patchVersion}-${platformName}.tar.gz";
-      url =
-        "http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html";
-      sha256 = sha256.${stdenv.hostPlatform.system};
-    }
-    ;
+    src =
+      let
+        platformName = {
+          i686-linux = "linux-i586";
+          x86_64-linux = "linux-x64";
+          armv7l-linux = "linux-arm32-vfp-hflt";
+          aarch64-linux = "linux-aarch64";
+        }.${stdenv.hostPlatform.system} or (throw
+          "unsupported system ${stdenv.hostPlatform.system}");
+      in
+      requireFile {
+        name = "jdk-${productVersion}u${patchVersion}-${platformName}.tar.gz";
+        url =
+          "http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html"
+          ;
+        sha256 = sha256.${stdenv.hostPlatform.system};
+      }
+      ;
 
     nativeBuildInputs = [
       file
       makeWrapper
     ] ++ lib.optional installjce unzip;
 
-    # See: https://github.com/NixOS/patchelf/issues/10
+      # See: https://github.com/NixOS/patchelf/issues/10
     dontStrip = 1;
 
     installPhase = ''
@@ -210,10 +217,12 @@ in let
 
     rpath = lib.strings.makeLibraryPath libraries;
 
-    passthru.mozillaPlugin = if installjdk then
-      "/jre/lib/${architecture}/plugins"
-    else
-      "/lib/${architecture}/plugins";
+    passthru.mozillaPlugin =
+      if installjdk then
+        "/jre/lib/${architecture}/plugins"
+      else
+        "/lib/${architecture}/plugins"
+      ;
 
     passthru.jre =
       result; # FIXME: use multiple outputs or return actual JRE package

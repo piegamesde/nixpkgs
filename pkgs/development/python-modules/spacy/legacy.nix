@@ -13,7 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-s31uDJtuHXyhz1vHFSq2SkxGcfWcha2vej/LhwNXp3Q=";
   };
 
-  # nativeCheckInputs = [ pytestCheckHook spacy ];
+    # nativeCheckInputs = [ pytestCheckHook spacy ];
   doCheck = false;
 
   pythonImportsCheck = [ "spacy_legacy" ];

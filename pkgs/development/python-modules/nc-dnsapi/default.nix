@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "nc_dnsapi" ];
 
-  # no tests
+    # no tests
   doCheck = false;
 
   meta = with lib; {

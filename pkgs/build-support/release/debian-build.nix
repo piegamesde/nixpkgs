@@ -34,7 +34,7 @@ vmTools.runInLinuxImage (stdenv.mkDerivation (
     name = name + "-" + diskImage.name
       + (lib.optionalString (src ? version) "-${src.version}");
 
-    # !!! cut&paste from rpm-build.nix
+      # !!! cut&paste from rpm-build.nix
     postHook = ''
       . ${./functions.sh}
       propagateImageName

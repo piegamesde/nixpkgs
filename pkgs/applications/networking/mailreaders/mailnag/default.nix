@@ -65,7 +65,8 @@ python3Packages.buildPythonApplication rec {
 
   passthru = {
     inherit availablePlugins;
-    withPlugins = plugs:
+    withPlugins =
+      plugs:
       let
         # goa plugin requires gio's gnome-online-accounts which requires making sure
         # mailnag runs with GI_TYPELIB_PATH containing the path to Goa-1.0.typelib.
@@ -78,10 +79,10 @@ python3Packages.buildPythonApplication rec {
         userPlugins = plugs;
         inherit pluginsDeps;
       }
-    ;
+      ;
   };
 
-  # See https://nixos.org/nixpkgs/manual/#ssec-gnome-common-issues-double-wrapped
+    # See https://nixos.org/nixpkgs/manual/#ssec-gnome-common-issues-double-wrapped
   dontWrapGApps = true;
 
   preFixup = ''
@@ -94,7 +95,7 @@ python3Packages.buildPythonApplication rec {
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';
 
-  # Actually install plugins
+    # Actually install plugins
   postInstall = ''
     for plug in ${builtins.toString userPlugins}; do
       lndir $plug/${python3Packages.python.sitePackages} $out/${python3Packages.python.sitePackages}

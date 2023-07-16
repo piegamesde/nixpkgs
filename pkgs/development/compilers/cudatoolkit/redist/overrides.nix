@@ -14,7 +14,7 @@ in
       pkgs.numactl
       pkgs.rdma-core
     ];
-    # libcuda needs to be resolved during runtime
+      # libcuda needs to be resolved during runtime
     autoPatchelfIgnoreMissingDeps = true;
   });
 
@@ -58,7 +58,7 @@ in
   cuda_nvprof = prev.cuda_nvprof.overrideAttrs (oldAttrs: {
     nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ pkgs.addOpenGLRunpath ];
     buildInputs = oldAttrs.buildInputs ++ [ prev.cuda_cupti ];
-    # libcuda needs to be resolved during runtime
+      # libcuda needs to be resolved during runtime
     autoPatchelfIgnoreMissingDeps = true;
   });
 
@@ -101,15 +101,15 @@ in
       pkgs.xorg.libXrandr
       pkgs.xorg.libXtst
     ];
-    # libcuda needs to be resolved during runtime
+      # libcuda needs to be resolved during runtime
     autoPatchelfIgnoreMissingDeps = true;
   });
 
   nvidia_driver = prev.nvidia_driver.overrideAttrs (oldAttrs: {
     # libcuda needs to be resolved during runtime
     autoPatchelfIgnoreMissingDeps = true;
-    # No need to support this package as we have drivers already
-    # in linuxPackages.
+      # No need to support this package as we have drivers already
+      # in linuxPackages.
     meta.broken = true;
   });
 })

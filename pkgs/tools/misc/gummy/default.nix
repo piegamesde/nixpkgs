@@ -34,8 +34,8 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [ "-DUDEV_DIR=${placeholder "out"}/lib/udev" ];
 
-  # Fixes the "gummy start" command, without this it cannot find the binary.
-  # Setting this through cmake does not seem to work.
+    # Fixes the "gummy start" command, without this it cannot find the binary.
+    # Setting this through cmake does not seem to work.
   postPatch = ''
     substituteInPlace src/gummy/gummy.cpp \
       --replace "CMAKE_INSTALL_DAEMON_PATH" "\"${

@@ -109,13 +109,14 @@ let
     ${dir_cfg.extraConfig}
   '';
 
-  directorOptions = {
+  directorOptions =
+    {
       ...
     }: {
       options = {
         password = mkOption {
           type = types.str;
-          # TODO: required?
+            # TODO: required?
           description = lib.mdDoc ''
             Specifies the password that must be supplied for the default Bacula
             Console to be authorized. The same password must appear in the
@@ -152,9 +153,11 @@ let
           '';
         };
       };
-    };
+    }
+    ;
 
-  autochangerOptions = {
+  autochangerOptions =
+    {
       ...
     }: {
       options = {
@@ -214,9 +217,11 @@ let
           example = "\n";
         };
       };
-    };
+    }
+    ;
 
-  deviceOptions = {
+  deviceOptions =
+    {
       ...
     }: {
       options = {
@@ -291,7 +296,8 @@ let
           '';
         };
       };
-    };
+    }
+    ;
 
 in {
   options = {
@@ -554,7 +560,8 @@ in {
       path = [ pkgs.bacula ];
       serviceConfig = {
         ExecStart =
-          "${pkgs.bacula}/sbin/bacula-dir -f -u bacula -g bacula -c ${dir_conf}";
+          "${pkgs.bacula}/sbin/bacula-dir -f -u bacula -g bacula -c ${dir_conf}"
+          ;
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         LogsDirectory = "bacula";
         StateDirectory = "bacula";

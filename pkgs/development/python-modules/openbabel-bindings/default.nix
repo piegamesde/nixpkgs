@@ -10,14 +10,15 @@ buildPythonPackage rec {
   version = "3.1.1";
 
   src =
-    "${openbabel}/lib/python${python.sourceVersion.major}.${python.sourceVersion.minor}/site-packages";
+    "${openbabel}/lib/python${python.sourceVersion.major}.${python.sourceVersion.minor}/site-packages"
+    ;
 
   nativeBuildInputs = [ openbabel ];
 
-  # these env variables are used by the bindings to find libraries
-  # they need to be included explicitly in your nix-shell for
-  # some functionality to work (inparticular, pybel).
-  # see https://openbabel.org/docs/dev/Installation/install.html
+    # these env variables are used by the bindings to find libraries
+    # they need to be included explicitly in your nix-shell for
+    # some functionality to work (inparticular, pybel).
+    # see https://openbabel.org/docs/dev/Installation/install.html
   BABEL_LIBDIR = "${openbabel}/lib/openbabel/3.1.0";
   LD_LIBRARY_PATH = "${openbabel}/lib";
 

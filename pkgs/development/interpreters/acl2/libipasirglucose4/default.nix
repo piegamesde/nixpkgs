@@ -8,16 +8,17 @@
 
 stdenv.mkDerivation rec {
   pname = "libipasirglucose4";
-  # This library has no version number AFAICT (beyond generally being based on
-  # Glucose 4.x), but it was submitted to the 2017 SAT competition so let's use
-  # that as the version number, I guess.
+    # This library has no version number AFAICT (beyond generally being based on
+    # Glucose 4.x), but it was submitted to the 2017 SAT competition so let's use
+    # that as the version number, I guess.
   version = "2017";
 
   libname = pname + stdenv.targetPlatform.extensions.sharedLibrary;
 
   src = fetchurl {
     url =
-      "https://baldur.iti.kit.edu/sat-competition-2017/solvers/incremental/glucose-ipasir.zip";
+      "https://baldur.iti.kit.edu/sat-competition-2017/solvers/incremental/glucose-ipasir.zip"
+      ;
     sha256 = "0xchgady9vwdh8frmc8swz6va53igp2wj1y9sshd0g7549n87wdj";
   };
   nativeBuildInputs = [ unzip ];

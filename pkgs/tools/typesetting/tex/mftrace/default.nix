@@ -24,9 +24,9 @@ stdenv.mkDerivation (finalAttrs: rec {
   pname = "mftrace";
   version = "1.2.20";
 
-  # https://lilypond.org/download/sources/mftrace/mftrace-1.2.20.tar.gz
-  # is incomplete, fetch repo and use autoconf instead
-  # see https://github.com/hanwen/mftrace/issues/13
+    # https://lilypond.org/download/sources/mftrace/mftrace-1.2.20.tar.gz
+    # is incomplete, fetch repo and use autoconf instead
+    # see https://github.com/hanwen/mftrace/issues/13
   src = fetchFromGitHub {
     owner = "hanwen";
     repo = "mftrace";
@@ -52,8 +52,8 @@ stdenv.mkDerivation (finalAttrs: rec {
     }
   '';
 
-  # experimental texlive.combine support
-  # (note that only the bin/ folder will be combined into texlive)
+    # experimental texlive.combine support
+    # (note that only the bin/ folder will be combined into texlive)
   passthru = {
     tlType = "bin";
     tlDeps = with texlive; [

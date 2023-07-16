@@ -27,12 +27,13 @@ buildPythonPackage rec {
     azure-mgmt-core
   ];
 
-  # Module has no tests
+    # Module has no tests
   doCheck = false;
 
   meta = with lib; {
     description =
-      "This is the Microsoft Azure Cognitive Services Management Client Library";
+      "This is the Microsoft Azure Cognitive Services Management Client Library"
+      ;
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
     maintainers = with maintainers; [ maxwilson ];

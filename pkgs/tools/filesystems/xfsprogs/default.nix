@@ -51,11 +51,11 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs = [ libuuid ]; # Dev headers include <uuid/uuid.h>
 
   enableParallelBuilding = true;
-  # Install fails as:
-  #   make[1]: *** No rule to make target '\', needed by 'kmem.lo'.  Stop.
+    # Install fails as:
+    #   make[1]: *** No rule to make target '\', needed by 'kmem.lo'.  Stop.
   enableParallelInstalling = false;
 
-  # @sbindir@ is replaced with /run/current-system/sw/bin to fix dependency cycles
+    # @sbindir@ is replaced with /run/current-system/sw/bin to fix dependency cycles
   preConfigure = ''
     for file in scrub/{xfs_scrub_all.cron.in,xfs_scrub@.service.in,xfs_scrub_all.service.in}; do
       substituteInPlace "$file" \
@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
 
   installFlags = [ "install-dev" ];
 
-  # FIXME: forbidden rpath
+    # FIXME: forbidden rpath
   postInstall = ''
     find . -type d -name .libs | xargs rm -rf
   '';
@@ -86,7 +86,8 @@ stdenv.mkDerivation rec {
       gpl2Only
       lgpl21
       gpl3Plus
-    ]; # see https://git.kernel.org/pub/scm/fs/xfs/xfsprogs-dev.git/tree/debian/copyright
+    ]
+      ; # see https://git.kernel.org/pub/scm/fs/xfs/xfsprogs-dev.git/tree/debian/copyright
     platforms = platforms.linux;
     maintainers = with maintainers; [
       dezgeg

@@ -15,7 +15,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-MvtMgdlMVMp2qWN+EbAKZwBwW0TA8aivlJY8KZm+7jM=";
   };
 
-  # no such file or directory errors
+    # no such file or directory errors
   doCheck = false;
 
   cargoHash = "sha256-vxfoJnyG0wWgkcZpQYiKkQaHl01VDuQ0kA26MXVCgY8=";

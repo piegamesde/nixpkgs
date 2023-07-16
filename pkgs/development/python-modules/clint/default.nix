@@ -28,9 +28,9 @@ buildPythonPackage rec {
     args
   ];
 
-  # nose-progressive and clint are not actively maintained
-  # no longer compatible as behavior demand 2to3, which was removed
-  # in setuptools>=58
+    # nose-progressive and clint are not actively maintained
+    # no longer compatible as behavior demand 2to3, which was removed
+    # in setuptools>=58
   doCheck = false;
   nativeCheckInputs = [
     mock

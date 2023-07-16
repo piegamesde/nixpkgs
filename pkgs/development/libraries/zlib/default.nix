@@ -29,19 +29,20 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "zlib";
   version = "1.2.13";
 
-  src = let
-    inherit (finalAttrs) version;
-  in
-  fetchurl {
-    urls = [
-      # This URL works for 1.2.13 only; hopefully also for future releases.
-      "https://github.com/madler/zlib/releases/download/v${version}/zlib-${version}.tar.gz"
-      # Stable archive path, but captcha can be encountered, causing hash mismatch.
-      "https://www.zlib.net/fossils/zlib-${version}.tar.gz"
-    ];
-    hash = "sha256-s6JN6XqP28g1uYMxaVAQMLiXcDG8tUs7OsE3QPhGqzA=";
-  }
-  ;
+  src =
+    let
+      inherit (finalAttrs) version;
+    in
+    fetchurl {
+      urls = [
+        # This URL works for 1.2.13 only; hopefully also for future releases.
+        "https://github.com/madler/zlib/releases/download/v${version}/zlib-${version}.tar.gz"
+        # Stable archive path, but captcha can be encountered, causing hash mismatch.
+        "https://www.zlib.net/fossils/zlib-${version}.tar.gz"
+      ];
+      hash = "sha256-s6JN6XqP28g1uYMxaVAQMLiXcDG8tUs7OsE3QPhGqzA=";
+    }
+    ;
 
   postPatch = lib.optionalString stdenv.hostPlatform.isDarwin ''
     substituteInPlace configure \
@@ -65,31 +66,31 @@ stdenv.mkDerivation (finalAttrs: {
       export CHOST=${stdenv.hostPlatform.config}
     '';
 
-  # For zlib's ./configure (as of verion 1.2.11), the order
-  # of --static/--shared flags matters!
-  # `--shared --static` builds only static libs, while
-  # `--static --shared` builds both.
-  # So we use the latter order to be able to build both.
-  # Also, giving just `--shared` builds both,
-  # giving just `--static` builds only static,
-  # and giving nothing builds both.
-  # So we have 3 possible ways to build both:
-  # `--static --shared`, `--shared` and giving nothing.
-  # Of these, we choose `--static --shared`, for clarity and simpler
-  # conditions.
+    # For zlib's ./configure (as of verion 1.2.11), the order
+    # of --static/--shared flags matters!
+    # `--shared --static` builds only static libs, while
+    # `--static --shared` builds both.
+    # So we use the latter order to be able to build both.
+    # Also, giving just `--shared` builds both,
+    # giving just `--static` builds only static,
+    # and giving nothing builds both.
+    # So we have 3 possible ways to build both:
+    # `--static --shared`, `--shared` and giving nothing.
+    # Of these, we choose `--static --shared`, for clarity and simpler
+    # conditions.
   configureFlags = lib.optional static "--static"
     ++ lib.optional shared "--shared";
-  # We do the right thing manually, above, so don't need these.
+    # We do the right thing manually, above, so don't need these.
   dontDisableStatic = true;
   dontAddStaticConfigureFlags = true;
 
-  # Note we don't need to set `dontDisableStatic`, because static-disabling
-  # works by grepping for `enable-static` in the `./configure` script
-  # (see `pkgs/stdenv/generic/setup.sh`), and zlib's handwritten one does
-  # not have such.
-  # It wouldn't hurt setting `dontDisableStatic = static && !splitStaticOutput`
-  # here (in case zlib ever switches to autoconf in the future),
-  # but we don't do it simply to avoid mass rebuilds.
+    # Note we don't need to set `dontDisableStatic`, because static-disabling
+    # works by grepping for `enable-static` in the `./configure` script
+    # (see `pkgs/stdenv/generic/setup.sh`), and zlib's handwritten one does
+    # not have such.
+    # It wouldn't hurt setting `dontDisableStatic = static && !splitStaticOutput`
+    # here (in case zlib ever switches to autoconf in the future),
+    # but we don't do it simply to avoid mass rebuilds.
 
   postInstall = lib.optionalString splitStaticOutput ''
     moveToOutput lib/libz.a "$static"
@@ -108,13 +109,13 @@ stdenv.mkDerivation (finalAttrs: {
       ln -s zlib1.dll $out/bin/libz.dll
     '';
 
-  # As zlib takes part in the stdenv building, we don't want references
-  # to the bootstrap-tools libgcc (as uses to happen on arm/mips)
+    # As zlib takes part in the stdenv building, we don't want references
+    # to the bootstrap-tools libgcc (as uses to happen on arm/mips)
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString (!stdenv.hostPlatform.isDarwin) "-static-libgcc";
 
-  # We don't strip on static cross-compilation because of reports that native
-  # stripping corrupted the target library; see commit 12e960f5 for the report.
+    # We don't strip on static cross-compilation because of reports that native
+    # stripping corrupted the target library; see commit 12e960f5 for the report.
   dontStrip = stdenv.hostPlatform != stdenv.buildPlatform && static;
   configurePlatforms = [ ];
 

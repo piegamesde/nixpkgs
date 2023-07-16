@@ -32,20 +32,24 @@ stdenv.mkDerivation rec {
     libXrender
   ];
 
-  postPatch = let
-    configFile = if lib.isDerivation conf || builtins.isPath conf then
-      conf
-    else
-      writeText "config.h" conf;
-  in
-  lib.optionalString (conf != null) "cp ${configFile} config.h"
-  ;
+  postPatch =
+    let
+      configFile =
+        if lib.isDerivation conf || builtins.isPath conf then
+          conf
+        else
+          writeText "config.h" conf
+        ;
+    in
+    lib.optionalString (conf != null) "cp ${configFile} config.h"
+    ;
 
   makeFlags = [ "PREFIX=$(out)" ];
 
   meta = with lib; {
     description =
-      "A mouse-based window manager that can tile windows inside floating containers";
+      "A mouse-based window manager that can tile windows inside floating containers"
+      ;
     longDescription = ''
       shod is a multi-monitor floating reparenting X11 window manager that
       supports tiled and tabbed containers. shod sets no keybindings, reads no

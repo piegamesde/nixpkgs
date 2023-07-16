@@ -40,17 +40,19 @@ stdenv.mkDerivation rec {
     cp -r tunes/* $out/share/cheesecutter/example_tunes
   '';
 
-  postFixup = let
-    rpathSDL = lib.makeLibraryPath [ SDL ];
-  in if stdenv.hostPlatform.isDarwin then
-    ''
-      install_name_tool -add_rpath ${rpathSDL} $out/bin/ccutter
-    ''
-  else
-    ''
-      rpath=$(patchelf --print-rpath $out/bin/ccutter)
-      patchelf --set-rpath "$rpath:${rpathSDL}" $out/bin/ccutter
-    '';
+  postFixup =
+    let
+      rpathSDL = lib.makeLibraryPath [ SDL ];
+    in if stdenv.hostPlatform.isDarwin then
+      ''
+        install_name_tool -add_rpath ${rpathSDL} $out/bin/ccutter
+      ''
+    else
+      ''
+        rpath=$(patchelf --print-rpath $out/bin/ccutter)
+        patchelf --set-rpath "$rpath:${rpathSDL}" $out/bin/ccutter
+      ''
+    ;
 
   meta = with lib; {
     description = "A tracker program for composing music for the SID chip";

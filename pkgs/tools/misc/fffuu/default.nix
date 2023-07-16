@@ -30,7 +30,7 @@ mkDerivation {
 
   isExecutable = true;
 
-  # fails with sandbox
+    # fails with sandbox
   doCheck = false;
 
   libraryHaskellDepends = with haskellPackages; [

@@ -37,7 +37,8 @@ stdenv.mkDerivation rec {
     # replace use of a non-standard symbol to fix build with musl libc (pkgsMusl.bluez)
     (fetchpatch {
       url =
-        "https://git.alpinelinux.org/aports/plain/main/bluez/max-input.patch?id=32b31b484cb13009bd8081c4106e4cf064ec2f1f";
+        "https://git.alpinelinux.org/aports/plain/main/bluez/max-input.patch?id=32b31b484cb13009bd8081c4106e4cf064ec2f1f"
+        ;
       sha256 = "sha256-SczbXtsxBkCO+izH8XOBcrJEO2f7MdtYVT3+2fCV8wU=";
     })
   ];
@@ -104,7 +105,7 @@ stdenv.mkDerivation rec {
     "--enable-deprecated"
   ] ++ lib.optional withExperimental "--enable-experimental";
 
-  # Work around `make install' trying to create /var/lib/bluetooth.
+    # Work around `make install' trying to create /var/lib/bluetooth.
   installFlags = [ "statedir=$(TMPDIR)/var/lib/bluetooth" ];
 
   makeFlags = [ "rulesdir=${placeholder "out"}/lib/udev/rules.d" ];

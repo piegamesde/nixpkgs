@@ -9,7 +9,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/downloads/sodabrew/libsieve/libsieve-${version}.tar.gz";
+      "https://github.com/downloads/sodabrew/libsieve/libsieve-${version}.tar.gz"
+      ;
     sha256 = "1gllhl9hbmc86dq3k98d4kjs5bwk0p2rlk7ywqj3fjn7jw6mbhcj";
   };
 

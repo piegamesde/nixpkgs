@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     substituteInPlace ./configure.ac --replace 'AC_PREREQ(2.61)' 'AC_PREREQ(2.64)'
   '';
 
-  # autoreconfHook required for the splashimage patch.
+    # autoreconfHook required for the splashimage patch.
   nativeBuildInputs = [ autoreconfHook ];
   buildInputs = [ texinfo ];
 

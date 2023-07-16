@@ -15,7 +15,7 @@ buildGoModule rec {
     sha256 = "sha256-fi+vj1vHhgw2OPQqQ0827P6Axy/cio0UVFLeD/nhFvw=";
   };
 
-  # not including web ui
+    # not including web ui
   excludedPackages = [
     "gae"
     "pack"

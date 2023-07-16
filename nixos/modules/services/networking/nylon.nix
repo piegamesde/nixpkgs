@@ -13,7 +13,8 @@ let
 
   homeDir = "/var/lib/nylon";
 
-  configFile = cfg:
+  configFile =
+    cfg:
     pkgs.writeText "nylon-${cfg.name}.conf" ''
       [General]
       No-Simultaneous-Conn=${toString cfg.nrConnections}
@@ -36,9 +37,11 @@ let
       Port=${toString cfg.port}
       Allow-IP=${concatStringsSep " " cfg.allowedIPRanges}
       Deny-IP=${concatStringsSep " " cfg.deniedIPRanges}
-    '';
+    ''
+    ;
 
-  nylonOpts = {
+  nylonOpts =
+    {
       name,
       ...
     }: {
@@ -132,21 +135,24 @@ let
         };
       };
       config = { name = mkDefault name; };
-    };
+    }
+    ;
 
-  mkNamedNylon = cfg: {
-    "nylon-${cfg.name}" = {
-      description = "Nylon, a lightweight SOCKS proxy server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
-      serviceConfig = {
-        User = "nylon";
-        Group = "nylon";
-        WorkingDirectory = homeDir;
-        ExecStart = "${pkgs.nylon}/bin/nylon -f -c ${configFile cfg}";
+  mkNamedNylon =
+    cfg: {
+      "nylon-${cfg.name}" = {
+        description = "Nylon, a lightweight SOCKS proxy server";
+        after = [ "network.target" ];
+        wantedBy = [ "multi-user.target" ];
+        serviceConfig = {
+          User = "nylon";
+          Group = "nylon";
+          WorkingDirectory = homeDir;
+          ExecStart = "${pkgs.nylon}/bin/nylon -f -c ${configFile cfg}";
+        };
       };
-    };
-  };
+    }
+    ;
 
   anyNylons = collect (p: p ? enable) cfg;
   enabledNylons = filter (p: p.enable == true) anyNylons;
@@ -167,7 +173,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf (length (enabledNylons) > 0) {
 

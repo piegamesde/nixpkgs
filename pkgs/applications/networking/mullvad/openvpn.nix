@@ -10,21 +10,24 @@
 
 openvpn.overrideAttrs (oldAttrs:
   let
-    fetchMullvadPatch = {
+    fetchMullvadPatch =
+      {
         commit,
         sha256,
       }:
       fetchpatch {
         url = "https://github.com/mullvad/openvpn/commit/${commit}.patch";
         inherit sha256;
-      };
+      }
+      ;
   in rec {
     pname = "openvpn-mullvad";
     version = "2.5.3";
 
     src = fetchurl {
       url =
-        "https://swupdate.openvpn.net/community/releases/openvpn-${version}.tar.gz";
+        "https://swupdate.openvpn.net/community/releases/openvpn-${version}.tar.gz"
+        ;
       sha256 = "sha256-dfAETfRJQwVVynuZWit3qyTylG/cNmgwG47cI5hqX34=";
     };
 

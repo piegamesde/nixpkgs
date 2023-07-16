@@ -13,19 +13,22 @@
 }:
 
 let
-  platformLdLibraryPath = if stdenv.isDarwin then
-    "DYLD_FALLBACK_LIBRARY_PATH"
-  else if (stdenv.isLinux or stdenv.isBSD) then
-    "LD_LIBRARY_PATH"
-  else
-    throw "unsupported platform";
+  platformLdLibraryPath =
+    if stdenv.isDarwin then
+      "DYLD_FALLBACK_LIBRARY_PATH"
+    else if (stdenv.isLinux or stdenv.isBSD) then
+      "LD_LIBRARY_PATH"
+    else
+      throw "unsupported platform"
+    ;
 in
 stdenv.mkDerivation rec {
   pname = "sagittarius-scheme";
   version = "0.9.9";
   src = fetchurl {
     url =
-      "https://bitbucket.org/ktakashi/${pname}/downloads/sagittarius-${version}.tar.gz";
+      "https://bitbucket.org/ktakashi/${pname}/downloads/sagittarius-${version}.tar.gz"
+      ;
     sha256 = "sha256-UB7Lfyc2afTIVW5SIiHxXi2wyoVC2Q2ClTkSOQ6UmPg=";
   };
   preBuild = ''

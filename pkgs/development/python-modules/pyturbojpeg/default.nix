@@ -23,12 +23,13 @@ buildPythonPackage rec {
   patches = [ (substituteAll {
     src = ./lib-path.patch;
     libturbojpeg =
-      "${libjpeg_turbo.out}/lib/libturbojpeg${stdenv.hostPlatform.extensions.sharedLibrary}";
+      "${libjpeg_turbo.out}/lib/libturbojpeg${stdenv.hostPlatform.extensions.sharedLibrary}"
+      ;
   }) ];
 
   propagatedBuildInputs = [ numpy ];
 
-  # upstream has no tests, but we want to test whether the library is found
+    # upstream has no tests, but we want to test whether the library is found
   checkPhase = ''
     ${python.interpreter} -c 'from turbojpeg import TurboJPEG; TurboJPEG()'
   '';

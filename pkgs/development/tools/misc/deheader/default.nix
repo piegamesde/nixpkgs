@@ -31,11 +31,11 @@ stdenv.mkDerivation rec {
     installShellFiles
   ];
 
-  # With upstream Makefile, xmlto is called without "--skip-validation". It
-  # makes it require a lot of dependencies, yet ultimately it fails
-  # nevertheless in attempt to fetch something from SourceForge.
-  #
-  # Need to set "foundMakefile" so "make check" tests are run.
+    # With upstream Makefile, xmlto is called without "--skip-validation". It
+    # makes it require a lot of dependencies, yet ultimately it fails
+    # nevertheless in attempt to fetch something from SourceForge.
+    #
+    # Need to set "foundMakefile" so "make check" tests are run.
   buildPhase = ''
     runHook preBuild
 
@@ -59,7 +59,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Tool to find and optionally remove unneeded includes in C or C++ source files";
+      "Tool to find and optionally remove unneeded includes in C or C++ source files"
+      ;
     longDescription = ''
       This tool takes a list of C or C++ sourcefiles and generates a report
       on which #includes can be omitted from them -- the test, for each foo.c

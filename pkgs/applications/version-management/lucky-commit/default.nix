@@ -28,7 +28,7 @@ rustPlatform.buildRustPackage rec {
 
   buildNoDefaultFeatures = !withOpenCL;
 
-  # disable tests that require gpu
+    # disable tests that require gpu
   checkNoDefaultFeatures = true;
 
   meta = with lib; {

@@ -24,8 +24,9 @@ lib.fix (self:
       sha256 = "sha256-Us7UlD81vX0IGKOCmMFSjKSsilRED9cRNKB9LRNwomI=";
     };
 
-    patches = [ ./lt_dladdsearchdir.patch ] ++ lib.optionals
-      stdenv.isDarwin [ ./remove_bsd_base64_decode_flag.patch ];
+    patches = [ ./lt_dladdsearchdir.patch ]
+      ++ lib.optionals stdenv.isDarwin [ ./remove_bsd_base64_decode_flag.patch ]
+      ;
     postPatch = ''
       substituteAllInPlace src/dl.c
     '';
@@ -60,11 +61,11 @@ lib.fix (self:
         --replace 'TMPFOLDER=/tmp' '$(mktemp -d)'
     '';
 
-    # enable deprecated soap headers required by lasso
-    # https://dev.entrouvert.org/issues/18771
+      # enable deprecated soap headers required by lasso
+      # https://dev.entrouvert.org/issues/18771
     configureFlags = [ "--enable-soap" ];
 
-    # otherwise libxmlsec1-gnutls.so won't find libgcrypt.so, after #909
+      # otherwise libxmlsec1-gnutls.so won't find libgcrypt.so, after #909
     NIX_LDFLAGS = "-lgcrypt";
 
     postInstall = ''

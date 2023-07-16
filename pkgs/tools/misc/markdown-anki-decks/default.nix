@@ -29,7 +29,7 @@ python3.pkgs.buildPythonApplication rec {
       --replace 'typer = "^0.4.0"' 'typer = "*"'
   '';
 
-  # No tests available on Pypi and there is only a failing version assertion test in the repo.
+    # No tests available on Pypi and there is only a failing version assertion test in the repo.
   doCheck = false;
 
   pythonImportsCheck = [ "markdown_anki_decks" ];

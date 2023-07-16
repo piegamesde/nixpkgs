@@ -24,7 +24,8 @@ stdenv.mkDerivation rec {
   '';
   meta = with lib; {
     description =
-      "Simple imperative language, statically typed with type inference and genericity";
+      "Simple imperative language, statically typed with type inference and genericity"
+      ;
     homepage = "https://tibleiz.net/copper/";
     license = licenses.bsd2;
     platforms = platforms.x86_64;

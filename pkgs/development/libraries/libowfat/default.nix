@@ -13,8 +13,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-MR7Is/S3K7RC4yP7ATqY+Vb6dFVH8ryUVih7INAnzX0=";
   };
 
-  # Fix for glibc 2.34 from Gentoo
-  # https://gitweb.gentoo.org/repo/gentoo.git/commit/?id=914a4aa87415dabfe77181a2365766417a5919a4
+    # Fix for glibc 2.34 from Gentoo
+    # https://gitweb.gentoo.org/repo/gentoo.git/commit/?id=914a4aa87415dabfe77181a2365766417a5919a4
   postPatch = ''
     # do not define "__pure__", this the gcc builtin (bug #806505)
     sed 's#__pure__;#__attribute__((__pure__));#' -i fmt.h scan.h byte.h stralloc.h str.h critbit.h || die

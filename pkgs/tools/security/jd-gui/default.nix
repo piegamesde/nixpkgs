@@ -29,7 +29,8 @@ let
     (fetchpatch {
       name = "nebula-plugin-gradle-6-compatibility.patch";
       url =
-        "https://github.com/java-decompiler/jd-gui/commit/91f805f9dc8ce0097460e63c8095ccea870687e6.patch";
+        "https://github.com/java-decompiler/jd-gui/commit/91f805f9dc8ce0097460e63c8095ccea870687e6.patch"
+        ;
       hash = "sha256-9eaM9Mx2FaKIhGSOHjATKN/CrtvJeXyrH8Mdx8LNtpE=";
     })
   ];
@@ -49,8 +50,8 @@ let
       gradle --no-daemon jar
     '';
 
-    # Mavenize dependency paths
-    # e.g. org.codehaus.groovy/groovy/2.4.0/{hash}/groovy-2.4.0.jar -> org/codehaus/groovy/groovy/2.4.0/groovy-2.4.0.jar
+      # Mavenize dependency paths
+      # e.g. org.codehaus.groovy/groovy/2.4.0/{hash}/groovy-2.4.0.jar -> org/codehaus/groovy/groovy/2.4.0/groovy-2.4.0.jar
     installPhase = ''
       find $GRADLE_USER_HOME/caches/modules-2 -type f -regex '.*\.\(jar\|pom\)' \
         | perl -pe 's#(.*/([^/]+)/([^/]+)/([^/]+)/[0-9a-f]{30,40}/([^/\s]+))$# ($x = $2) =~ tr|\.|/|; "install -Dm444 $1 \$out/$x/$3/$4/$5" #e' \
@@ -62,7 +63,7 @@ let
     outputHash = "sha256-gqUyZE+MoZRYCcJx95Qc4dZIC3DZvxee6UQhpfveDI4=";
   };
 
-  # Point to our local deps repo
+    # Point to our local deps repo
   gradleInit = writeText "init.gradle" ''
     logger.lifecycle 'Replacing Maven repositories with ${deps}...'
 
@@ -117,24 +118,26 @@ stdenv.mkDerivation rec {
     gradle --offline --no-daemon --info --init-script ${gradleInit} jar
   '';
 
-  installPhase = let
-    jar = "$out/share/jd-gui/${name}.jar";
-  in ''
-    runHook preInstall
+  installPhase =
+    let
+      jar = "$out/share/jd-gui/${name}.jar";
+    in ''
+      runHook preInstall
 
-    mkdir -p $out/bin $out/share/{jd-gui,icons/hicolor/128x128/apps}
-    cp build/libs/${name}.jar ${jar}
-    cp src/linux/resources/jd_icon_128.png $out/share/icons/hicolor/128x128/apps/jd-gui.png
+      mkdir -p $out/bin $out/share/{jd-gui,icons/hicolor/128x128/apps}
+      cp build/libs/${name}.jar ${jar}
+      cp src/linux/resources/jd_icon_128.png $out/share/icons/hicolor/128x128/apps/jd-gui.png
 
-    cat > $out/bin/jd-gui <<EOF
-    #!${runtimeShell}
-    export JAVA_HOME=${jre}
-    exec ${jre}/bin/java -jar ${jar} "\$@"
-    EOF
-    chmod +x $out/bin/jd-gui
+      cat > $out/bin/jd-gui <<EOF
+      #!${runtimeShell}
+      export JAVA_HOME=${jre}
+      exec ${jre}/bin/java -jar ${jar} "\$@"
+      EOF
+      chmod +x $out/bin/jd-gui
 
-    runHook postInstall
-  '' ;
+      runHook postInstall
+    ''
+    ;
 
   desktopItems = [ desktopItem ];
 

@@ -12,15 +12,17 @@ let
   ids = config.ids;
   cfg = config.users;
 
-  # Check whether a password hash will allow login.
-  allowsLogin = hash:
+    # Check whether a password hash will allow login.
+  allowsLogin =
+    hash:
     hash == "" # login without password
     || !(lib.elem hash [
       null # password login disabled
       "!" # password login disabled
       "!!" # a variant of "!"
       "*" # password unset
-    ]);
+    ])
+    ;
 
   passwordDescription = ''
     The options {option}`hashedPassword`,
@@ -55,7 +57,8 @@ let
     command).
   '';
 
-  userOpts = {
+  userOpts =
+    {
       name,
       config,
       ...
@@ -65,10 +68,12 @@ let
 
         name = mkOption {
           type = types.passwdEntry types.str;
-          apply = x:
+          apply =
+            x:
             assert (builtins.stringLength x < 32 || abort
               "Username '${x}' is longer than 31 characters which is not allowed!");
-            x;
+            x
+            ;
           description = lib.mdDoc ''
             The name of the user account. If undefined, the name of the
             attribute set will be used.
@@ -126,10 +131,12 @@ let
 
         group = mkOption {
           type = types.str;
-          apply = x:
+          apply =
+            x:
             assert (builtins.stringLength x < 32 || abort
               "Group name '${x}' is longer than 31 characters which is not allowed!");
-            x;
+            x
+            ;
           default = "";
           description = lib.mdDoc "The user's primary group.";
         };
@@ -150,7 +157,8 @@ let
           type = types.strMatching "[0-7]{1,5}";
           default = "700";
           description = lib.mdDoc
-            "The user's home directory mode in numeric format. See chmod(1). The mode is only applied if {option}`users.users.<name>.createHome` is true.";
+            "The user's home directory mode in numeric format. See chmod(1). The mode is only applied if {option}`users.users.<name>.createHome` is true."
+            ;
         };
 
         cryptHomeLuks = mkOption {
@@ -369,9 +377,11 @@ let
           == [ ]) { autoSubUidGidRange = mkDefault true; })
       ];
 
-    };
+    }
+    ;
 
-  groupOpts = {
+  groupOpts =
+    {
       name,
       config,
       ...
@@ -414,7 +424,8 @@ let
           (filterAttrs (n: u: elem config.name u.extraGroups) cfg.users);
       };
 
-    };
+    }
+    ;
 
   subordinateUidRange = {
     options = {
@@ -450,7 +461,8 @@ let
     };
   };
 
-  idsAreUnique = set: idAttr:
+  idsAreUnique =
+    set: idAttr:
     !(foldr (name:
       args@{
         dup,
@@ -478,7 +490,8 @@ let
         }) {
           dup = false;
           acc = { };
-        } (builtins.attrNames set)).dup;
+        } (builtins.attrNames set)).dup
+    ;
 
   uidsAreUnique =
     idsAreUnique (filterAttrs (n: u: u.uid != null) cfg.users) "uid";
@@ -515,11 +528,12 @@ let
     groups = attrValues cfg.groups;
   });
 
-  systemShells = let
-    shells = mapAttrsToList (_: u: u.shell) cfg.users;
-  in
-  filter types.shellPackage.check shells
-  ;
+  systemShells =
+    let
+      shells = mapAttrsToList (_: u: u.shell) cfg.users;
+    in
+    filter types.shellPackage.check shells
+    ;
 
 in {
   imports = [
@@ -548,7 +562,7 @@ in {
     ])
   ];
 
-  ###### interface
+    ###### interface
   options = {
 
     users.mutableUsers = mkOption {
@@ -627,7 +641,7 @@ in {
       '';
     };
 
-    # systemd initrd
+      # systemd initrd
     boot.initrd.systemd.users = mkOption {
       visible = false;
       description = ''
@@ -682,284 +696,288 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
-  config = let
-    cryptSchemeIdPatternGroup =
-      "(${lib.concatStringsSep "|" pkgs.libxcrypt.enabledCryptSchemeIds})";
-  in {
+  config =
+    let
+      cryptSchemeIdPatternGroup =
+        "(${lib.concatStringsSep "|" pkgs.libxcrypt.enabledCryptSchemeIds})";
+    in {
 
-    users.users = {
-      root = {
-        uid = ids.uids.root;
-        description = "System administrator";
-        home = "/root";
-        shell = mkDefault cfg.defaultUserShell;
-        group = "root";
-        initialHashedPassword = mkDefault "!";
-      };
-      nobody = {
-        uid = ids.uids.nobody;
-        isSystemUser = true;
-        description = "Unprivileged account (don't use!)";
-        group = "nogroup";
-      };
-    };
-
-    users.groups = {
-      root.gid = ids.gids.root;
-      wheel.gid = ids.gids.wheel;
-      disk.gid = ids.gids.disk;
-      kmem.gid = ids.gids.kmem;
-      tty.gid = ids.gids.tty;
-      floppy.gid = ids.gids.floppy;
-      uucp.gid = ids.gids.uucp;
-      lp.gid = ids.gids.lp;
-      cdrom.gid = ids.gids.cdrom;
-      tape.gid = ids.gids.tape;
-      audio.gid = ids.gids.audio;
-      video.gid = ids.gids.video;
-      dialout.gid = ids.gids.dialout;
-      nogroup.gid = ids.gids.nogroup;
-      users.gid = ids.gids.users;
-      nixbld.gid = ids.gids.nixbld;
-      utmp.gid = ids.gids.utmp;
-      adm.gid = ids.gids.adm;
-      input.gid = ids.gids.input;
-      kvm.gid = ids.gids.kvm;
-      render.gid = ids.gids.render;
-      sgx.gid = ids.gids.sgx;
-      shadow.gid = ids.gids.shadow;
-    };
-
-    system.activationScripts.users = {
-      supportsDryActivation = true;
-      text = ''
-        install -m 0700 -d /root
-        install -m 0755 -d /home
-
-        ${
-          pkgs.perl.withPackages (p: [
-            p.FileSlurp
-            p.JSON
-          ])
-        }/bin/perl \
-        -w ${./update-users-groups.pl} ${spec}
-      '';
-    };
-
-    # Warn about user accounts with deprecated password hashing schemes
-    system.activationScripts.hashes = {
-      deps = [ "users" ];
-      text = ''
-        users=()
-        while IFS=: read -r user hash tail; do
-          if [[ "$hash" = "$"* && ! "$hash" =~ ^\''$${cryptSchemeIdPatternGroup}\$ ]]; then
-            users+=("$user")
-          fi
-        done </etc/shadow
-
-        if (( "''${#users[@]}" )); then
-          echo "
-        WARNING: The following user accounts rely on password hashing algorithms
-        that have been removed. They need to be renewed as soon as possible, as
-        they do prevent their users from logging in."
-          printf ' - %s\n' "''${users[@]}"
-        fi
-      '';
-    };
-
-    # for backwards compatibility
-    system.activationScripts.groups = stringAfter [ "users" ] "";
-
-    # Install all the user shells
-    environment.systemPackages = systemShells;
-
-    environment.etc = mapAttrs' (_:
-      {
-        packages,
-        name,
-        ...
-      }: {
-        name = "profiles/per-user/${name}";
-        value.source = pkgs.buildEnv {
-          name = "user-environment";
-          paths = packages;
-          inherit (config.environment) pathsToLink extraOutputsToInstall;
-          inherit (config.system.path) ignoreCollisions postBuild;
+      users.users = {
+        root = {
+          uid = ids.uids.root;
+          description = "System administrator";
+          home = "/root";
+          shell = mkDefault cfg.defaultUserShell;
+          group = "root";
+          initialHashedPassword = mkDefault "!";
         };
-      }) (filterAttrs (_: u: u.packages != [ ]) cfg.users);
+        nobody = {
+          uid = ids.uids.nobody;
+          isSystemUser = true;
+          description = "Unprivileged account (don't use!)";
+          group = "nogroup";
+        };
+      };
 
-    environment.profiles = [
-      "$HOME/.nix-profile"
-      "/etc/profiles/per-user/$USER"
-    ];
+      users.groups = {
+        root.gid = ids.gids.root;
+        wheel.gid = ids.gids.wheel;
+        disk.gid = ids.gids.disk;
+        kmem.gid = ids.gids.kmem;
+        tty.gid = ids.gids.tty;
+        floppy.gid = ids.gids.floppy;
+        uucp.gid = ids.gids.uucp;
+        lp.gid = ids.gids.lp;
+        cdrom.gid = ids.gids.cdrom;
+        tape.gid = ids.gids.tape;
+        audio.gid = ids.gids.audio;
+        video.gid = ids.gids.video;
+        dialout.gid = ids.gids.dialout;
+        nogroup.gid = ids.gids.nogroup;
+        users.gid = ids.gids.users;
+        nixbld.gid = ids.gids.nixbld;
+        utmp.gid = ids.gids.utmp;
+        adm.gid = ids.gids.adm;
+        input.gid = ids.gids.input;
+        kvm.gid = ids.gids.kvm;
+        render.gid = ids.gids.render;
+        sgx.gid = ids.gids.sgx;
+        shadow.gid = ids.gids.shadow;
+      };
 
-    # systemd initrd
-    boot.initrd.systemd = lib.mkIf config.boot.initrd.systemd.enable {
-      contents = {
-        "/etc/passwd".text = ''
-          ${lib.concatStringsSep "\n" (lib.mapAttrsToList (n:
-            {
-              uid,
-              group,
-            }:
-            let
-              g = config.boot.initrd.systemd.groups.${group};
-            in
-            "${n}:x:${toString uid}:${toString g.gid}::/var/empty:"
-          ) config.boot.initrd.systemd.users)}
-        '';
-        "/etc/group".text = ''
-          ${lib.concatStringsSep "\n" (lib.mapAttrsToList (n:
-            {
-              gid,
-            }:
-            "${n}:x:${toString gid}:") config.boot.initrd.systemd.groups)}
+      system.activationScripts.users = {
+        supportsDryActivation = true;
+        text = ''
+          install -m 0700 -d /root
+          install -m 0755 -d /home
+
+          ${
+            pkgs.perl.withPackages (p: [
+              p.FileSlurp
+              p.JSON
+            ])
+          }/bin/perl \
+          -w ${./update-users-groups.pl} ${spec}
         '';
       };
 
-      users = {
-        root = { };
-        nobody = { };
-      };
+        # Warn about user accounts with deprecated password hashing schemes
+      system.activationScripts.hashes = {
+        deps = [ "users" ];
+        text = ''
+          users=()
+          while IFS=: read -r user hash tail; do
+            if [[ "$hash" = "$"* && ! "$hash" =~ ^\''$${cryptSchemeIdPatternGroup}\$ ]]; then
+              users+=("$user")
+            fi
+          done </etc/shadow
 
-      groups = {
-        root = { };
-        nogroup = { };
-        systemd-journal = { };
-        tty = { };
-        dialout = { };
-        kmem = { };
-        input = { };
-        video = { };
-        render = { };
-        sgx = { };
-        audio = { };
-        video = { };
-        lp = { };
-        disk = { };
-        cdrom = { };
-        tape = { };
-        kvm = { };
-      };
-    };
-
-    assertions = [
-      {
-        assertion = !cfg.enforceIdUniqueness
-          || (uidsAreUnique && gidsAreUnique);
-        message = "UIDs and GIDs must be unique!";
-      }
-      {
-        assertion = !cfg.enforceIdUniqueness
-          || (sdInitrdUidsAreUnique && sdInitrdGidsAreUnique);
-        message = "systemd initrd UIDs and GIDs must be unique!";
-      }
-      { # If mutableUsers is false, to prevent users creating a
-        # configuration that locks them out of the system, ensure that
-        # there is at least one "privileged" account that has a
-        # password or an SSH authorized key. Privileged accounts are
-        # root and users in the wheel group.
-        # The check does not apply when users.disableLoginPossibilityAssertion
-        # The check does not apply when users.mutableUsers
-        assertion = !cfg.mutableUsers -> !cfg.allowNoPasswordLogin -> any id
-          (mapAttrsToList (name: cfg:
-            (name == "root" || cfg.group == "wheel"
-              || elem "wheel" cfg.extraGroups)
-            && (allowsLogin cfg.hashedPassword || cfg.password != null
-              || cfg.passwordFile != null || cfg.openssh.authorizedKeys.keys
-              != [ ] || cfg.openssh.authorizedKeys.keyFiles != [ ])) cfg.users
-            ++ [ config.security.googleOsLogin.enable ]);
-        message = ''
-          Neither the root account nor any wheel user has a password or SSH authorized key.
-          You must set one to prevent being locked out of your system.
-          If you really want to be locked out of your system, set users.allowNoPasswordLogin = true;
-          However you are most probably better off by setting users.mutableUsers = true; and
-          manually running passwd root to set the root password.
+          if (( "''${#users[@]}" )); then
+            echo "
+          WARNING: The following user accounts rely on password hashing algorithms
+          that have been removed. They need to be renewed as soon as possible, as
+          they do prevent their users from logging in."
+            printf ' - %s\n' "''${users[@]}"
+          fi
         '';
-      }
-    ] ++ flatten (flip mapAttrsToList cfg.users (name: user:
-      [
+      };
+
+        # for backwards compatibility
+      system.activationScripts.groups = stringAfter [ "users" ] "";
+
+        # Install all the user shells
+      environment.systemPackages = systemShells;
+
+      environment.etc = mapAttrs' (_:
         {
-          assertion = (user.hashedPassword != null)
-            -> (builtins.match ".*:.*" user.hashedPassword == null);
-          message = ''
-            The password hash of user "${user.name}" contains a ":" character.
-            This is invalid and would break the login system because the fields
-            of /etc/shadow (file where hashes are stored) are colon-separated.
-            Please check the value of option `users.users."${user.name}".hashedPassword`.'';
+          packages,
+          name,
+          ...
+        }: {
+          name = "profiles/per-user/${name}";
+          value.source = pkgs.buildEnv {
+            name = "user-environment";
+            paths = packages;
+            inherit (config.environment) pathsToLink extraOutputsToInstall;
+            inherit (config.system.path) ignoreCollisions postBuild;
+          };
+        }) (filterAttrs (_: u: u.packages != [ ]) cfg.users);
+
+      environment.profiles = [
+        "$HOME/.nix-profile"
+        "/etc/profiles/per-user/$USER"
+      ];
+
+        # systemd initrd
+      boot.initrd.systemd = lib.mkIf config.boot.initrd.systemd.enable {
+        contents = {
+          "/etc/passwd".text = ''
+            ${lib.concatStringsSep "\n" (lib.mapAttrsToList (n:
+              {
+                uid,
+                group,
+              }:
+              let
+                g = config.boot.initrd.systemd.groups.${group};
+              in
+              "${n}:x:${toString uid}:${toString g.gid}::/var/empty:"
+            ) config.boot.initrd.systemd.users)}
+          '';
+          "/etc/group".text = ''
+            ${lib.concatStringsSep "\n" (lib.mapAttrsToList (n:
+              {
+                gid,
+              }:
+              "${n}:x:${toString gid}:") config.boot.initrd.systemd.groups)}
+          '';
+        };
+
+        users = {
+          root = { };
+          nobody = { };
+        };
+
+        groups = {
+          root = { };
+          nogroup = { };
+          systemd-journal = { };
+          tty = { };
+          dialout = { };
+          kmem = { };
+          input = { };
+          video = { };
+          render = { };
+          sgx = { };
+          audio = { };
+          video = { };
+          lp = { };
+          disk = { };
+          cdrom = { };
+          tape = { };
+          kvm = { };
+        };
+      };
+
+      assertions = [
+        {
+          assertion =
+            !cfg.enforceIdUniqueness || (uidsAreUnique && gidsAreUnique);
+          message = "UIDs and GIDs must be unique!";
         }
         {
-          assertion = let
-            xor = a: b: a && !b || b && !a;
-            isEffectivelySystemUser = user.isSystemUser
-              || (user.uid != null && user.uid < 1000);
-          in
-          xor isEffectivelySystemUser user.isNormalUser
-          ;
+          assertion = !cfg.enforceIdUniqueness
+            || (sdInitrdUidsAreUnique && sdInitrdGidsAreUnique);
+          message = "systemd initrd UIDs and GIDs must be unique!";
+        }
+        { # If mutableUsers is false, to prevent users creating a
+          # configuration that locks them out of the system, ensure that
+          # there is at least one "privileged" account that has a
+          # password or an SSH authorized key. Privileged accounts are
+          # root and users in the wheel group.
+          # The check does not apply when users.disableLoginPossibilityAssertion
+          # The check does not apply when users.mutableUsers
+          assertion = !cfg.mutableUsers -> !cfg.allowNoPasswordLogin -> any id
+            (mapAttrsToList (name: cfg:
+              (name == "root" || cfg.group == "wheel"
+                || elem "wheel" cfg.extraGroups)
+              && (allowsLogin cfg.hashedPassword || cfg.password != null
+                || cfg.passwordFile != null || cfg.openssh.authorizedKeys.keys
+                != [ ] || cfg.openssh.authorizedKeys.keyFiles != [ ])) cfg.users
+              ++ [ config.security.googleOsLogin.enable ]);
           message = ''
-            Exactly one of users.users.${user.name}.isSystemUser and users.users.${user.name}.isNormalUser must be set.
+            Neither the root account nor any wheel user has a password or SSH authorized key.
+            You must set one to prevent being locked out of your system.
+            If you really want to be locked out of your system, set users.allowNoPasswordLogin = true;
+            However you are most probably better off by setting users.mutableUsers = true; and
+            manually running passwd root to set the root password.
           '';
         }
-        {
-          assertion = user.group != "";
+      ] ++ flatten (flip mapAttrsToList cfg.users (name: user:
+        [
+          {
+            assertion = (user.hashedPassword != null)
+              -> (builtins.match ".*:.*" user.hashedPassword == null);
+            message = ''
+              The password hash of user "${user.name}" contains a ":" character.
+              This is invalid and would break the login system because the fields
+              of /etc/shadow (file where hashes are stored) are colon-separated.
+              Please check the value of option `users.users."${user.name}".hashedPassword`.''
+              ;
+          }
+          {
+            assertion =
+              let
+                xor = a: b: a && !b || b && !a;
+                isEffectivelySystemUser =
+                  user.isSystemUser || (user.uid != null && user.uid < 1000);
+              in
+              xor isEffectivelySystemUser user.isNormalUser
+              ;
+            message = ''
+              Exactly one of users.users.${user.name}.isSystemUser and users.users.${user.name}.isNormalUser must be set.
+            '';
+          }
+          {
+            assertion = user.group != "";
+            message = ''
+              users.users.${user.name}.group is unset. This used to default to
+              nogroup, but this is unsafe. For example you can create a group
+              for this user with:
+              users.users.${user.name}.group = "${user.name}";
+              users.groups.${user.name} = {};
+            '';
+          }
+        ] ++ (map (shell: {
+          assertion = (user.shell == pkgs.${shell})
+            -> (config.programs.${shell}.enable == true);
           message = ''
-            users.users.${user.name}.group is unset. This used to default to
-            nogroup, but this is unsafe. For example you can create a group
-            for this user with:
-            users.users.${user.name}.group = "${user.name}";
-            users.groups.${user.name} = {};
+            users.users.${user.name}.shell is set to ${shell}, but
+            programs.${shell}.enable is not true. This will cause the ${shell}
+            shell to lack the basic nix directories in its PATH and might make
+            logging in as that user impossible. You can fix it with:
+            programs.${shell}.enable = true;
           '';
-        }
-      ] ++ (map (shell: {
-        assertion = (user.shell == pkgs.${shell})
-          -> (config.programs.${shell}.enable == true);
-        message = ''
-          users.users.${user.name}.shell is set to ${shell}, but
-          programs.${shell}.enable is not true. This will cause the ${shell}
-          shell to lack the basic nix directories in its PATH and might make
-          logging in as that user impossible. You can fix it with:
-          programs.${shell}.enable = true;
-        '';
-      }) [
-        "fish"
-        "xonsh"
-        "zsh"
-      ])));
+        }) [
+          "fish"
+          "xonsh"
+          "zsh"
+        ])));
 
-    warnings = builtins.filter (x: x != null) (flip mapAttrsToList cfg.users
-      (_: user:
-        # This regex matches a subset of the Modular Crypto Format (MCF)[1]
-        # informal standard. Since this depends largely on the OS or the
-        # specific implementation of crypt(3) we only support the (sane)
-        # schemes implemented by glibc and BSDs. In particular the original
-        # DES hash is excluded since, having no structure, it would validate
-        # common mistakes like typing the plaintext password.
-        #
-        # [1]: https://en.wikipedia.org/wiki/Crypt_(C)
-        let
-          sep = "\\$";
-          base64 = "[a-zA-Z0-9./]+";
-          id = cryptSchemeIdPatternGroup;
-          name = "[a-z0-9-]+";
-          value = "[a-zA-Z0-9/+.-]+";
-          options = "${name}(=${value})?(,${name}=${value})*";
-          scheme = "${id}(${sep}${options})?";
-          content = "${base64}${sep}${base64}(${sep}${base64})?";
-          mcf = "^${sep}${scheme}${sep}${content}$";
-        in if
-          (allowsLogin user.hashedPassword && user.hashedPassword
-            != "" # login without password
-            && builtins.match mcf user.hashedPassword == null)
-        then
-          ''
-            The password hash of user "${user.name}" may be invalid. You must set a
-            valid hash or the user will be locked out of their account. Please
-            check the value of option `users.users."${user.name}".hashedPassword`.''
-        else
-          null));
+      warnings = builtins.filter (x: x != null) (flip mapAttrsToList cfg.users
+        (_: user:
+          # This regex matches a subset of the Modular Crypto Format (MCF)[1]
+          # informal standard. Since this depends largely on the OS or the
+          # specific implementation of crypt(3) we only support the (sane)
+          # schemes implemented by glibc and BSDs. In particular the original
+          # DES hash is excluded since, having no structure, it would validate
+          # common mistakes like typing the plaintext password.
+          #
+          # [1]: https://en.wikipedia.org/wiki/Crypt_(C)
+          let
+            sep = "\\$";
+            base64 = "[a-zA-Z0-9./]+";
+            id = cryptSchemeIdPatternGroup;
+            name = "[a-z0-9-]+";
+            value = "[a-zA-Z0-9/+.-]+";
+            options = "${name}(=${value})?(,${name}=${value})*";
+            scheme = "${id}(${sep}${options})?";
+            content = "${base64}${sep}${base64}(${sep}${base64})?";
+            mcf = "^${sep}${scheme}${sep}${content}$";
+          in if
+            (allowsLogin user.hashedPassword && user.hashedPassword
+              != "" # login without password
+              && builtins.match mcf user.hashedPassword == null)
+          then
+            ''
+              The password hash of user "${user.name}" may be invalid. You must set a
+              valid hash or the user will be locked out of their account. Please
+              check the value of option `users.users."${user.name}".hashedPassword`.''
+          else
+            null));
 
-  } ;
+    }
+    ;
 
 }

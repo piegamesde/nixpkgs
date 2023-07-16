@@ -29,7 +29,8 @@ mkDerivation rec {
     (fetchpatch {
       name = "fno-common.patch";
       url =
-        "https://github.com/openambitproject/openambit/commit/b6d97eab417977b6dbe355e0b071d0a56cc3df6b.patch";
+        "https://github.com/openambitproject/openambit/commit/b6d97eab417977b6dbe355e0b071d0a56cc3df6b.patch"
+        ;
       sha256 = "1p0dg902mlcfjvs01dxl9wv2b50ayp4330p38d14q87mn0c2xl5d";
     })
   ];
@@ -46,8 +47,9 @@ mkDerivation rec {
     zlib
   ];
 
-  cmakeFlags =
-    [ "-DCMAKE_INSTALL_UDEVRULESDIR=${placeholder "out"}/lib/udev/rules.d" ];
+  cmakeFlags = [ "-DCMAKE_INSTALL_UDEVRULESDIR=${
+      placeholder "out"
+    }/lib/udev/rules.d" ];
 
   doInstallCheck = true;
   installCheckPhase = ''

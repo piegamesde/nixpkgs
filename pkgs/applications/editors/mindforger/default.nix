@@ -17,7 +17,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/dvorka/mindforger/releases/download/${version}/mindforger_${version}.tgz";
+      "https://github.com/dvorka/mindforger/releases/download/${version}/mindforger_${version}.tgz"
+      ;
     sha256 = "1pghsw8kwvjhg3jpmjs0n892h2l0pm0cs6ymi8b23fwk0kfj67rd";
   };
 
@@ -40,7 +41,8 @@ stdenv.mkDerivation rec {
     #  this fixes compilation with QtWebEngine - referencing a commit trying to upstream the change - see https://github.com/dvorka/mindforger/pull/1357
     (fetchpatch {
       url =
-        "https://github.com/dvorka/mindforger/commit/d28e2bade0278af1b5249953202810540969026a.diff";
+        "https://github.com/dvorka/mindforger/commit/d28e2bade0278af1b5249953202810540969026a.diff"
+        ;
       sha256 = "sha256-qHKQQNGSc3F9seaOHV0gzBQFFqcTXk91LpKrojjpAUw=";
     })
   ];

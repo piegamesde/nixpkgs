@@ -10,82 +10,101 @@ with lib;
 let
   cfg = config.services.thanos;
 
-  nullOpt = type: description:
+  nullOpt =
+    type: description:
     mkOption {
       type = types.nullOr type;
       default = null;
       description = lib.mdDoc description;
-    };
+    }
+    ;
 
   optionToArgs = opt: v: optional (v != null) ''--${opt}="${toString v}"'';
   flagToArgs = opt: v: optional v "--${opt}";
   listToArgs = opt: vs: map (v: ''--${opt}="${v}"'') vs;
   attrsToArgs = opt: kvs: mapAttrsToList (k: v: ''--${opt}=${k}=\"${v}\"'') kvs;
 
-  mkParamDef = type: default: description:
+  mkParamDef =
+    type: default: description:
     mkParam type (description + ''
 
       Defaults to `${toString default}` in Thanos
       when set to `null`.
-    '');
+    '')
+    ;
 
-  mkParam = type: description: {
-    toArgs = optionToArgs;
-    option = nullOpt type description;
-  };
+  mkParam =
+    type: description: {
+      toArgs = optionToArgs;
+      option = nullOpt type description;
+    }
+    ;
 
-  mkFlagParam = description: {
-    toArgs = flagToArgs;
-    option = mkOption {
-      type = types.bool;
-      default = false;
-      description = lib.mdDoc description;
-    };
-  };
+  mkFlagParam =
+    description: {
+      toArgs = flagToArgs;
+      option = mkOption {
+        type = types.bool;
+        default = false;
+        description = lib.mdDoc description;
+      };
+    }
+    ;
 
-  mkListParam = opt: description: {
-    toArgs = _opt: listToArgs opt;
-    option = mkOption {
-      type = types.listOf types.str;
-      default = [ ];
-      description = lib.mdDoc description;
-    };
-  };
+  mkListParam =
+    opt: description: {
+      toArgs = _opt: listToArgs opt;
+      option = mkOption {
+        type = types.listOf types.str;
+        default = [ ];
+        description = lib.mdDoc description;
+      };
+    }
+    ;
 
-  mkAttrsParam = opt: description: {
-    toArgs = _opt: attrsToArgs opt;
-    option = mkOption {
-      type = types.attrsOf types.str;
-      default = { };
-      description = lib.mdDoc description;
-    };
-  };
+  mkAttrsParam =
+    opt: description: {
+      toArgs = _opt: attrsToArgs opt;
+      option = mkOption {
+        type = types.attrsOf types.str;
+        default = { };
+        description = lib.mdDoc description;
+      };
+    }
+    ;
 
-  mkStateDirParam = opt: default: description: {
-    toArgs = _opt: stateDir: optionToArgs opt "/var/lib/${stateDir}";
-    option = mkOption {
-      type = types.str;
-      inherit default;
-      description = lib.mdDoc description;
-    };
-  };
+  mkStateDirParam =
+    opt: default: description: {
+      toArgs = _opt: stateDir: optionToArgs opt "/var/lib/${stateDir}";
+      option = mkOption {
+        type = types.str;
+        inherit default;
+        description = lib.mdDoc description;
+      };
+    }
+    ;
 
-  toYAML = name: attrs:
+  toYAML =
+    name: attrs:
     pkgs.runCommand name {
       preferLocalBuild = true;
       json = builtins.toFile "${name}.json" (builtins.toJSON attrs);
       nativeBuildInputs = [ pkgs.remarshal ];
-    } "json2yaml -i $json -o $out";
+    } "json2yaml -i $json -o $out"
+    ;
 
-  thanos = cmd:
+  thanos =
+    cmd:
     "${cfg.package}/bin/thanos ${cmd}" + (let
       args = cfg.${cmd}.arguments;
     in
     optionalString (length args != 0)
     (" \\\n  " + concatStringsSep " \\\n  " args)
-    );
+    )
+    ;
 
-  argumentsOf = cmd:
+  argumentsOf =
+    cmd:
     concatLists (collect isList (flip mapParamsRecursive params.${cmd}
       (path: param:
         let
@@ -93,9 +112,11 @@ let
           v = getAttrFromPath path cfg.${cmd};
         in
         param.toArgs opt v
-      )));
+      )))
+    ;
 
-  mkArgumentsOption = cmd:
+  mkArgumentsOption =
+    cmd:
     mkOption {
       type = types.listOf types.str;
       default = argumentsOf cmd;
@@ -111,13 +132,15 @@ let
         Overriding this option will cause none of the structured options to have
         any effect. So only set this if you know what you're doing!
       '';
-    };
+    }
+    ;
 
-  mapParamsRecursive = let
-    noParam = attr: !(attr ? toArgs && attr ? option);
-  in
-  mapAttrsRecursiveCond noParam
-  ;
+  mapParamsRecursive =
+    let
+      noParam = attr: !(attr ? toArgs && attr ? option);
+    in
+    mapAttrsRecursiveCond noParam
+    ;
 
   paramsToOptions = mapParamsRecursive (_path: param: param.option);
 
@@ -140,44 +163,49 @@ let
       '';
     };
 
-    tracing = cfg: {
-      tracing.config-file = {
-        toArgs = _opt: path: optionToArgs "tracing.config-file" path;
-        option = mkOption {
-          type = with types; nullOr str;
-          default = if cfg.tracing.config == null then
-            null
-          else
-            toString (toYAML "tracing.yaml" cfg.tracing.config);
-          defaultText = literalExpression ''
-            if config.services.thanos.<cmd>.tracing.config == null then null
-            else toString (toYAML "tracing.yaml" config.services.thanos.<cmd>.tracing.config);
-          '';
-          description = lib.mdDoc ''
-            Path to YAML file that contains tracing configuration.
+    tracing =
+      cfg: {
+        tracing.config-file = {
+          toArgs = _opt: path: optionToArgs "tracing.config-file" path;
+          option = mkOption {
+            type = with types; nullOr str;
+            default =
+              if cfg.tracing.config == null then
+                null
+              else
+                toString (toYAML "tracing.yaml" cfg.tracing.config)
+              ;
+            defaultText = literalExpression ''
+              if config.services.thanos.<cmd>.tracing.config == null then null
+              else toString (toYAML "tracing.yaml" config.services.thanos.<cmd>.tracing.config);
+            '';
+            description = lib.mdDoc ''
+              Path to YAML file that contains tracing configuration.
+
+              See format details: <https://thanos.io/tracing.md/#configuration>
+            '';
+          };
+        };
+
+        tracing.config = {
+          toArgs = _opt: _attrs: [ ];
+          option = nullOpt types.attrs ''
+            Tracing configuration.
+
+            When not `null` the attribute set gets converted to
+            a YAML file and stored in the Nix store. The option
+            {option}`tracing.config-file` will default to its path.
+
+            If {option}`tracing.config-file` is set this option has no effect.
 
             See format details: <https://thanos.io/tracing.md/#configuration>
           '';
         };
-      };
+      }
+      ;
 
-      tracing.config = {
-        toArgs = _opt: _attrs: [ ];
-        option = nullOpt types.attrs ''
-          Tracing configuration.
-
-          When not `null` the attribute set gets converted to
-          a YAML file and stored in the Nix store. The option
-          {option}`tracing.config-file` will default to its path.
-
-          If {option}`tracing.config-file` is set this option has no effect.
-
-          See format details: <https://thanos.io/tracing.md/#configuration>
-        '';
-      };
-    };
-
-    common = cfg:
+    common =
+      cfg:
       params.log // params.tracing cfg // {
 
         http-address = mkParamDef types.str "0.0.0.0:10902" ''
@@ -204,45 +232,50 @@ let
           If no client CA is specified, there is no client verification on server side.
           (tls.NoClientCert)
         '';
-      };
+      }
+      ;
 
-    objstore = cfg: {
+    objstore =
+      cfg: {
 
-      objstore.config-file = {
-        toArgs = _opt: path: optionToArgs "objstore.config-file" path;
-        option = mkOption {
-          type = with types; nullOr str;
-          default = if cfg.objstore.config == null then
-            null
-          else
-            toString (toYAML "objstore.yaml" cfg.objstore.config);
-          defaultText = literalExpression ''
-            if config.services.thanos.<cmd>.objstore.config == null then null
-            else toString (toYAML "objstore.yaml" config.services.thanos.<cmd>.objstore.config);
-          '';
-          description = lib.mdDoc ''
-            Path to YAML file that contains object store configuration.
+        objstore.config-file = {
+          toArgs = _opt: path: optionToArgs "objstore.config-file" path;
+          option = mkOption {
+            type = with types; nullOr str;
+            default =
+              if cfg.objstore.config == null then
+                null
+              else
+                toString (toYAML "objstore.yaml" cfg.objstore.config)
+              ;
+            defaultText = literalExpression ''
+              if config.services.thanos.<cmd>.objstore.config == null then null
+              else toString (toYAML "objstore.yaml" config.services.thanos.<cmd>.objstore.config);
+            '';
+            description = lib.mdDoc ''
+              Path to YAML file that contains object store configuration.
+
+              See format details: <https://thanos.io/storage.md/#configuration>
+            '';
+          };
+        };
+
+        objstore.config = {
+          toArgs = _opt: _attrs: [ ];
+          option = nullOpt types.attrs ''
+            Object store configuration.
+
+            When not `null` the attribute set gets converted to
+            a YAML file and stored in the Nix store. The option
+            {option}`objstore.config-file` will default to its path.
+
+            If {option}`objstore.config-file` is set this option has no effect.
 
             See format details: <https://thanos.io/storage.md/#configuration>
           '';
         };
-      };
-
-      objstore.config = {
-        toArgs = _opt: _attrs: [ ];
-        option = nullOpt types.attrs ''
-          Object store configuration.
-
-          When not `null` the attribute set gets converted to
-          a YAML file and stored in the Nix store. The option
-          {option}`objstore.config-file` will default to its path.
-
-          If {option}`objstore.config-file` is set this option has no effect.
-
-          See format details: <https://thanos.io/storage.md/#configuration>
-        '';
-      };
-    };
+      }
+      ;
 
     sidecar = params.common cfg.sidecar // params.objstore cfg.sidecar // {
 
@@ -671,14 +704,16 @@ let
 
   };
 
-  assertRelativeStateDir = cmd: {
-    assertions = [ {
-      assertion = !hasPrefix "/" cfg.${cmd}.stateDir;
-      message =
-        "The option services.thanos.${cmd}.stateDir should not be an absolute directory."
-        + " It should be a directory relative to /var/lib.";
-    } ];
-  };
+  assertRelativeStateDir =
+    cmd: {
+      assertions = [ {
+        assertion = !hasPrefix "/" cfg.${cmd}.stateDir;
+        message =
+          "The option services.thanos.${cmd}.stateDir should not be an absolute directory."
+          + " It should be a directory relative to /var/lib.";
+      } ];
+    }
+    ;
 
 in {
 
@@ -715,26 +750,30 @@ in {
     rule = paramsToOptions params.rule // {
       enable = mkEnableOption (lib.mdDoc
         ("the Thanos ruler service which evaluates Prometheus rules against"
-          + " given Query nodes, exposing Store API and storing old blocks in bucket"));
+          + " given Query nodes, exposing Store API and storing old blocks in bucket"))
+        ;
       arguments = mkArgumentsOption "rule";
     };
 
     compact = paramsToOptions params.compact // {
       enable = mkEnableOption (lib.mdDoc
-        "the Thanos compactor which continuously compacts blocks in an object store bucket");
+        "the Thanos compactor which continuously compacts blocks in an object store bucket")
+        ;
       arguments = mkArgumentsOption "compact";
     };
 
     downsample = paramsToOptions params.downsample // {
       enable = mkEnableOption (lib.mdDoc
-        "the Thanos downsampler which continuously downsamples blocks in an object store bucket");
+        "the Thanos downsampler which continuously downsamples blocks in an object store bucket")
+        ;
       arguments = mkArgumentsOption "downsample";
     };
 
     receive = paramsToOptions params.receive // {
       enable = mkEnableOption (lib.mdDoc
         ("the Thanos receiver which accept Prometheus remote write API requests "
-          + "and write to local tsdb (EXPERIMENTAL, this may change drastically without notice)"));
+          + "and write to local tsdb (EXPERIMENTAL, this may change drastically without notice)"))
+        ;
       arguments = mkArgumentsOption "receive";
     };
   };
@@ -746,7 +785,8 @@ in {
         {
           assertion = config.services.prometheus.enable;
           message =
-            "Please enable services.prometheus when enabling services.thanos.sidecar.";
+            "Please enable services.prometheus when enabling services.thanos.sidecar."
+            ;
         }
         {
           assertion = !(config.services.prometheus.globalConfig.external_labels
@@ -819,27 +859,32 @@ in {
     (mkIf cfg.compact.enable (mkMerge [
       (assertRelativeStateDir "compact")
       {
-        systemd.services.thanos-compact = let
-          wait = cfg.compact.startAt == null;
-        in
-        {
-          wantedBy = [ "multi-user.target" ];
-          after = [ "network.target" ];
-          serviceConfig = {
-            Type = if wait then
-              "simple"
-            else
-              "oneshot";
-            Restart = if wait then
-              "always"
-            else
-              "no";
-            DynamicUser = true;
-            StateDirectory = cfg.compact.stateDir;
-            ExecStart = thanos "compact";
-          };
-        } // optionalAttrs (!wait) { inherit (cfg.compact) startAt; }
-        ;
+        systemd.services.thanos-compact =
+          let
+            wait = cfg.compact.startAt == null;
+          in
+          {
+            wantedBy = [ "multi-user.target" ];
+            after = [ "network.target" ];
+            serviceConfig = {
+              Type =
+                if wait then
+                  "simple"
+                else
+                  "oneshot"
+                ;
+              Restart =
+                if wait then
+                  "always"
+                else
+                  "no"
+                ;
+              DynamicUser = true;
+              StateDirectory = cfg.compact.stateDir;
+              ExecStart = thanos "compact";
+            };
+          } // optionalAttrs (!wait) { inherit (cfg.compact) startAt; }
+          ;
       }
     ]))
 

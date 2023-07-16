@@ -61,14 +61,14 @@ buildPythonPackage rec {
     xlsxwriter
   ];
 
-  # Doesn't work with -Werror,-Wunused-command-line-argument
-  # https://github.com/NixOS/nixpkgs/issues/39687
+    # Doesn't work with -Werror,-Wunused-command-line-argument
+    # https://github.com/NixOS/nixpkgs/issues/39687
   hardeningDisable = lib.optional stdenv.cc.isClang "strictoverflow";
 
-  doCheck = !stdenv.isAarch32
-    && !stdenv.isAarch64; # upstream doesn't test this architecture
+  doCheck = !stdenv.isAarch32 && !stdenv.isAarch64
+    ; # upstream doesn't test this architecture
 
-  # don't max out build cores, it breaks tests
+    # don't max out build cores, it breaks tests
   dontUsePytestXdist = true;
 
   pytestFlagsArray = [
@@ -116,8 +116,8 @@ buildPythonPackage rec {
     "test_reindex_timestamp_with_fold"
   ];
 
-  # Tests have relative paths, and need to reference compiled C extensions
-  # so change directory where `import .test` is able to be resolved
+    # Tests have relative paths, and need to reference compiled C extensions
+    # so change directory where `import .test` is able to be resolved
   preCheck = ''
     cd $out/${python.sitePackages}/pandas
     export LC_ALL="en_US.UTF-8"

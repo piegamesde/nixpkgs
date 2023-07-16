@@ -141,7 +141,8 @@ in {
         type = types.attrsOf types.attrs;
         default = { };
         description = lib.mdDoc
-          "netdata.conf configuration as nix attributes. cannot be combined with configText.";
+          "netdata.conf configuration as nix attributes. cannot be combined with configText."
+          ;
         example = literalExpression ''
           global = {
             "debug log" = "syslog";
@@ -219,7 +220,8 @@ in {
       ];
       serviceConfig = {
         ExecStart =
-          "${cfg.package}/bin/netdata -P /run/netdata/netdata.pid -D -c /etc/netdata/netdata.conf";
+          "${cfg.package}/bin/netdata -P /run/netdata/netdata.pid -D -c /etc/netdata/netdata.conf"
+          ;
         ExecReload =
           "${pkgs.util-linux}/bin/kill -s HUP -s USR1 -s USR2 $MAINPID";
         ExecStartPost = pkgs.writeShellScript "wait-for-netdata-up" ''
@@ -228,27 +230,27 @@ in {
 
         TimeoutStopSec = 60;
         Restart = "on-failure";
-        # User and group
+          # User and group
         User = cfg.user;
         Group = cfg.group;
-        # Performance
+          # Performance
         LimitNOFILE = "30000";
-        # Runtime directory and mode
+          # Runtime directory and mode
         RuntimeDirectory = "netdata";
         RuntimeDirectoryMode = "0750";
-        # State directory and mode
+          # State directory and mode
         StateDirectory = "netdata";
         StateDirectoryMode = "0750";
-        # Cache directory and mode
+          # Cache directory and mode
         CacheDirectory = "netdata";
         CacheDirectoryMode = "0750";
-        # Logs directory and mode
+          # Logs directory and mode
         LogsDirectory = "netdata";
         LogsDirectoryMode = "0750";
-        # Configuration directory and mode
+          # Configuration directory and mode
         ConfigurationDirectory = "netdata";
         ConfigurationDirectoryMode = "0755";
-        # Capabilities
+          # Capabilities
         CapabilityBoundingSet = [
           "CAP_DAC_OVERRIDE" # is required for freeipmi and slabinfo plugins
           "CAP_DAC_READ_SEARCH" # is required for apps plugin
@@ -261,7 +263,7 @@ in {
           "CAP_SYS_CHROOT" # is required for cgroups plugin
           "CAP_SETUID" # is required for cgroups and cgroups-network plugins
         ];
-        # Sandboxing
+          # Sandboxing
         ProtectSystem = "full";
         ProtectHome = "read-only";
         PrivateTmp = true;

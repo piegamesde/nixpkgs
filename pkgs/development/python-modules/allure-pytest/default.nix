@@ -61,7 +61,7 @@ buildPythonPackage rec {
     "pytester"
   ];
 
-  # we are skipping some of the integration tests for now
+    # we are skipping some of the integration tests for now
   disabledTests = [
     "test_pytest_check"
     "test_pytest_check_example"
@@ -70,7 +70,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Allure pytest integration. It's developed as pytest plugin and distributed via pypi";
+      "Allure pytest integration. It's developed as pytest plugin and distributed via pypi"
+      ;
     homepage = "https://github.com/allure-framework/allure-python";
     license = licenses.asl20;
     maintainers = with maintainers; [ evanjs ];

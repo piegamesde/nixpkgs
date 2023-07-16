@@ -22,7 +22,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  # Project has no tests
+    # Project has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "prayer_times_calculator" ];
@@ -31,7 +31,8 @@ buildPythonPackage rec {
     description = "Python client for the Prayer Times API";
     homepage = "https://github.com/uchagani/prayer-times-calculator";
     changelog =
-      "https://github.com/uchagani/prayer-times-calculator/releases/tag/${version}";
+      "https://github.com/uchagani/prayer-times-calculator/releases/tag/${version}"
+      ;
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

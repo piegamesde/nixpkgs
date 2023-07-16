@@ -12,7 +12,8 @@ mpv:
 
 let
   # arguments to the function (exposed as `wrapMpv` in all-packages.nix)
-  wrapper = {
+  wrapper =
+    {
       extraMakeWrapperArgs ? [ ],
       youtubeSupport ? true,
       # a set of derivations (probably from `mpvScripts`) where each is
@@ -27,9 +28,9 @@ let
       binPath = lib.makeBinPath ([ mpv.luaEnv ]
         ++ lib.optionals youtubeSupport [ yt-dlp ]
         ++ lib.optionals mpv.vapoursynthSupport [ mpv.vapoursynth.python3 ]);
-      # All arguments besides the input and output binaries (${mpv}/bin/mpv and
-      # $out/bin/mpv). These are used by the darwin specific makeWrapper call
-      # used to wrap $out/Applications/mpv.app/Contents/MacOS/mpv as well.
+        # All arguments besides the input and output binaries (${mpv}/bin/mpv and
+        # $out/bin/mpv). These are used by the darwin specific makeWrapper call
+        # used to wrap $out/Applications/mpv.app/Contents/MacOS/mpv as well.
       mostMakeWrapperArgs = lib.strings.escapeShellArgs ([
         "--inherit-argv0"
         # These are always needed (TODO: Explain why)
@@ -73,7 +74,7 @@ let
     symlinkJoin {
       name = "mpv-with-scripts-${mpv.version}";
 
-      # TODO: don't link all mpv outputs and convert package to mpv-unwrapped?
+        # TODO: don't link all mpv outputs and convert package to mpv-unwrapped?
       paths = [ mpv.all ];
 
       nativeBuildInputs = [ makeWrapper ];
@@ -97,6 +98,6 @@ let
         mainProgram = "mpv";
       };
     }
-  ;
+    ;
 in
 lib.makeOverridable wrapper

@@ -12,10 +12,13 @@ let
     platform.isLinux || platform.isWindows
   ) lib.systems.examples;
 
-  getExecutable = pkgs: pkgFun: exec:
-    "${pkgFun pkgs}${exec}${pkgs.stdenv.hostPlatform.extensions.executable}";
+  getExecutable =
+    pkgs: pkgFun: exec:
+    "${pkgFun pkgs}${exec}${pkgs.stdenv.hostPlatform.extensions.executable}"
+    ;
 
-  compareTest = {
+  compareTest =
+    {
       emulator,
       pkgFun,
       hostPkgs,
@@ -66,9 +69,10 @@ let
         cat $out/actual
       fi
     ''
-  ;
+    ;
 
-  mapMultiPlatformTest = crossSystemFun: test:
+  mapMultiPlatformTest =
+    crossSystemFun: test:
     lib.mapAttrs (name: system:
       test rec {
         crossPkgs = import pkgs.path {
@@ -78,22 +82,26 @@ let
 
         emulator = crossPkgs.hostPlatform.emulator pkgs;
 
-        # Apply some transformation on windows to get dlls in the right
-        # place. Unfortunately mingw doesn’t seem to be able to do linking
-        # properly.
-        platformFun = pkg:
+          # Apply some transformation on windows to get dlls in the right
+          # place. Unfortunately mingw doesn’t seem to be able to do linking
+          # properly.
+        platformFun =
+          pkg:
           if crossPkgs.hostPlatform.isWindows then
             pkgs.buildEnv {
               name = "${pkg.name}-winlinks";
               paths = [ pkg ] ++ pkg.buildInputs;
             }
           else
-            pkg;
-      }) testedSystems;
+            pkg
+          ;
+      }) testedSystems
+    ;
 
   tests = {
 
-    file = {
+    file =
+      {
         platformFun,
         crossPkgs,
         emulator,
@@ -107,9 +115,11 @@ let
           "${pkgs.dejavu_fonts}/share/fonts/truetype/DejaVuMathTeXGyre.ttf"
         ];
         pkgFun = pkgs: platformFun pkgs.file;
-      };
+      }
+      ;
 
-    hello = {
+    hello =
+      {
         platformFun,
         crossPkgs,
         emulator,
@@ -119,9 +129,11 @@ let
         hostPkgs = pkgs;
         exec = "/bin/hello";
         pkgFun = pkgs: pkgs.hello;
-      };
+      }
+      ;
 
-    pkg-config = {
+    pkg-config =
+      {
         platformFun,
         crossPkgs,
         emulator,
@@ -140,7 +152,8 @@ let
         ${crossPkgs.pkgsBuildBuild.pkg-config.targetPrefix}pkg-config --cflags zlib > "$out/for-build"
         ${crossPkgs.pkgsBuildHost.pkg-config.targetPrefix}pkg-config --cflags zlib > "$out/for-host"
         ! diff "$out/for-build" "$out/for-host"
-      '';
+      ''
+      ;
   };
 
 in {

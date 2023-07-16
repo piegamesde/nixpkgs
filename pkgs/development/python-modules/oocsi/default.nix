@@ -17,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-AgDBsPoi0aQ6uglc7Zl4gxVmeyDCysoef5vZpxgwE/Q=";
   };
 
-  # Tests are not shipped
+    # Tests are not shipped
   doCheck = false;
 
   pythonImportsCheck = [ "oocsi" ];

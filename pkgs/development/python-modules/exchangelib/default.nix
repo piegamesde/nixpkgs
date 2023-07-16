@@ -43,7 +43,8 @@ buildPythonPackage rec {
   patches = [ (fetchpatch {
     name = "tests-timezones-2.patch";
     url =
-      "https://github.com/ecederstrand/exchangelib/commit/419eafcd9261bfd0617823ee437204d5556a8271.diff";
+      "https://github.com/ecederstrand/exchangelib/commit/419eafcd9261bfd0617823ee437204d5556a8271.diff"
+      ;
     excludes = [ "tests/test_ewsdatetime.py" ];
     hash = "sha256-dSp6NkNT5dHOg8XgDi8sR3t3hq46sNtPjUXva2YfFSU=";
   }) ];
@@ -79,7 +80,8 @@ buildPythonPackage rec {
     description = "Client for Microsoft Exchange Web Services (EWS)";
     homepage = "https://github.com/ecederstrand/exchangelib";
     changelog =
-      "https://github.com/ecederstrand/exchangelib/blob/v${version}/CHANGELOG.md";
+      "https://github.com/ecederstrand/exchangelib/blob/v${version}/CHANGELOG.md"
+      ;
     license = licenses.bsd2;
     maintainers = with maintainers; [ catern ];
   };

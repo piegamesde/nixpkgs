@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
     name = "sympa";
     meta.maintainers = with lib.maintainers; [ mmilata ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
 
@@ -21,7 +22,8 @@ import ./make-test-python.nix ({
             createLocally = true;
           };
         };
-      };
+      }
+      ;
 
     testScript = ''
       start_all()

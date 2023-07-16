@@ -80,7 +80,7 @@ with prev; {
         rev = last (splitString "-" (last rel));
       in
       "${date}-${rev}"
-    ;
+      ;
 
     meta.broken = luaOlder "5.1" || luaAtLeast "5.4";
 
@@ -97,21 +97,23 @@ with prev; {
       }
     ];
 
-    # Upstream rockspec is pointlessly broken into separate rockspecs, per Lua
-    # version, which doesn't work well for us, so modify it
-    postConfigure = let
-      inherit (prev.cqueues) pname;
-    in ''
-      # 'all' target auto-detects correct Lua version, which is fine for us as
-      # we only have the right one available :)
-      sed -Ei ''${rockspecFilename} \
-        -e 's|lua == 5.[[:digit:]]|lua >= 5.1, <= 5.3|' \
-        -e 's|build_target = "[^"]+"|build_target = "all"|' \
-        -e 's|version = "[^"]+"|version = "${version}"|'
-      specDir=$(dirname ''${rockspecFilename})
-      cp ''${rockspecFilename} "$specDir/${pname}-${version}.rockspec"
-      rockspecFilename="$specDir/${pname}-${version}.rockspec"
-    '' ;
+      # Upstream rockspec is pointlessly broken into separate rockspecs, per Lua
+      # version, which doesn't work well for us, so modify it
+    postConfigure =
+      let
+        inherit (prev.cqueues) pname;
+      in ''
+        # 'all' target auto-detects correct Lua version, which is fine for us as
+        # we only have the right one available :)
+        sed -Ei ''${rockspecFilename} \
+          -e 's|lua == 5.[[:digit:]]|lua >= 5.1, <= 5.3|' \
+          -e 's|build_target = "[^"]+"|build_target = "all"|' \
+          -e 's|version = "[^"]+"|version = "${version}"|'
+        specDir=$(dirname ''${rockspecFilename})
+        cp ''${rockspecFilename} "$specDir/${pname}-${version}.rockspec"
+        rockspecFilename="$specDir/${pname}-${version}.rockspec"
+      ''
+      ;
   });
 
   cyrussasl = prev.cyrussasl.overrideAttrs (drv: {
@@ -134,10 +136,10 @@ with prev; {
       url = "https://github.com/daurnimator/lua-http/commit/cb7b59474a.diff";
       sha256 = "1vmx039n3nqfx50faqhs3wgiw28ws416rhw6vh6srmh9i826dac7";
     }) ];
-    /* TODO: separate docs derivation? (pandoc is heavy)
-       nativeBuildInputs = [ pandoc ];
-       makeFlags = [ "-C doc" "lua-http.html" "lua-http.3" ];
-    */
+      /* TODO: separate docs derivation? (pandoc is heavy)
+         nativeBuildInputs = [ pandoc ];
+         makeFlags = [ "-C doc" "lua-http.html" "lua-http.3" ];
+      */
   });
 
   lpty = prev.lpty.overrideAttrs
@@ -154,7 +156,7 @@ with prev; {
 
   ljsyscall = prev.ljsyscall.overrideAttrs (oa: rec {
     version = "unstable-20180515";
-    # package hasn't seen any release for a long time
+      # package hasn't seen any release for a long time
     src = fetchFromGitHub {
       owner = "justincormack";
       repo = "ljsyscall";
@@ -162,14 +164,14 @@ with prev; {
       sha256 = "06v52agqyziwnbp2my3r7liv245ddmb217zmyqakh0ldjdsr8lz4";
     };
     knownRockspec = "rockspec/ljsyscall-scm-1.rockspec";
-    # actually library works fine with lua 5.2
+      # actually library works fine with lua 5.2
     preConfigure = ''
       sed -i 's/lua == 5.1/lua >= 5.1, < 5.3/' ${knownRockspec}
     '';
     meta.broken = luaOlder "5.1" || luaAtLeast "5.3";
 
-    propagatedBuildInputs = with lib;
-      oa.propagatedBuildInputs ++ optional (!isLuaJIT) luaffi;
+    propagatedBuildInputs =
+      with lib; oa.propagatedBuildInputs ++ optional (!isLuaJIT) luaffi;
   });
 
   lgi = prev.lgi.overrideAttrs (oa: {
@@ -181,17 +183,18 @@ with prev; {
     patches = [ (fetchpatch {
       name = "lgi-find-cairo-through-typelib.patch";
       url =
-        "https://github.com/psychon/lgi/commit/46a163d9925e7877faf8a4f73996a20d7cf9202a.patch";
+        "https://github.com/psychon/lgi/commit/46a163d9925e7877faf8a4f73996a20d7cf9202a.patch"
+        ;
       sha256 = "0gfvvbri9kyzhvq3bvdbj2l6mwvlz040dk4mrd5m9gz79f7w109c";
     }) ];
 
-    # https://github.com/lgi-devs/lgi/pull/300
+      # https://github.com/lgi-devs/lgi/pull/300
     postPatch = ''
       substituteInPlace lgi/Makefile tests/Makefile \
         --replace 'PKG_CONFIG =' 'PKG_CONFIG ?='
     '';
 
-    # there is only a rockspec.in in the repo, the actual rockspec must be generated
+      # there is only a rockspec.in in the repo, the actual rockspec must be generated
     preConfigure = ''
       make rock
     '';
@@ -225,7 +228,7 @@ with prev; {
     else
       {
         disabled = luaOlder "5.1" || luaAtLeast "5.5";
-        # works fine with 5.4 as well
+          # works fine with 5.4 as well
         postConfigure = ''
           substituteInPlace ''${rockspecFilename} \
             --replace 'lua ~> 5.3' 'lua >= 5.3, < 5.5'
@@ -318,8 +321,8 @@ with prev; {
     } ];
   });
 
-  # TODO Somehow automatically amend buildInputs for things that need luaffi
-  # but are in luajitPackages?
+    # TODO Somehow automatically amend buildInputs for things that need luaffi
+    # but are in luajitPackages?
   luaffi = prev.luaffi.overrideAttrs (oa: {
     # The packaged .src.rock version is pretty old, and doesn't work with Lua 5.3
     src = fetchFromGitHub {
@@ -399,11 +402,11 @@ with prev; {
       name = "LIBUUID";
       dep = libuuid;
     } ];
-    # Trivial patch to make it work in both 5.1 and 5.2.  Basically just the
-    # tiny diff between the two upstream versions placed behind an #if.
-    # Upstreams:
-    # 5.1: http://webserver2.tecgraf.puc-rio.br/~lhf/ftp/lua/5.1/luuid.tar.gz
-    # 5.2: http://webserver2.tecgraf.puc-rio.br/~lhf/ftp/lua/5.2/luuid.tar.gz
+      # Trivial patch to make it work in both 5.1 and 5.2.  Basically just the
+      # tiny diff between the two upstream versions placed behind an #if.
+      # Upstreams:
+      # 5.1: http://webserver2.tecgraf.puc-rio.br/~lhf/ftp/lua/5.1/luuid.tar.gz
+      # 5.2: http://webserver2.tecgraf.puc-rio.br/~lhf/ftp/lua/5.2/luuid.tar.gz
     patchFlags = [ "-p2" ];
     patches = [ ./luuid.patch ];
     postConfigure = ''
@@ -415,8 +418,8 @@ with prev; {
     };
   });
 
-  # as advised in https://github.com/luarocks/luarocks/issues/1402#issuecomment-1080616570
-  # we shouldn't use luarocks machinery to build complex cmake components
+    # as advised in https://github.com/luarocks/luarocks/issues/1402#issuecomment-1080616570
+    # we shouldn't use luarocks machinery to build complex cmake components
   libluv = stdenv.mkDerivation {
 
     pname = "libluv";
@@ -435,7 +438,7 @@ with prev; {
       }"
     ];
 
-    # to make sure we dont use bundled deps
+      # to make sure we dont use bundled deps
     postUnpack = ''
       rm -rf deps/lua deps/libuv
     '';
@@ -456,11 +459,11 @@ with prev; {
     nativeBuildInputs = oa.nativeBuildInputs ++ [ pkg-config ];
     buildInputs = [ libuv ];
 
-    # Use system libuv instead of building local and statically linking
+      # Use system libuv instead of building local and statically linking
     extraVariables = { WITH_SHARED_LIBUV = "ON"; };
 
-    # we unset the LUA_PATH since the hook erases the interpreter defaults (To fix)
-    # tests is not run since they are not part of the tarball anymore
+      # we unset the LUA_PATH since the hook erases the interpreter defaults (To fix)
+      # tests is not run since they are not part of the tarball anymore
     preCheck = ''
       unset LUA_PATH
       rm tests/test-{dns,thread}.lua
@@ -495,7 +498,7 @@ with prev; {
       unzip "$curSrc"
       tar xf *.tar.gz
     '';
-    # Without this, source root is wrongly set to ./readline-2.6/doc
+      # Without this, source root is wrongly set to ./readline-2.6/doc
     setSourceRoot = ''
       sourceRoot=./readline-${lib.versions.majorMinor oa.version}
     '';
@@ -509,7 +512,7 @@ with prev; {
       neovim-unwrapped
     ];
 
-    # we override 'luarocks test' because otherwise neovim doesn't find/load the plenary plugin
+      # we override 'luarocks test' because otherwise neovim doesn't find/load the plenary plugin
     checkPhase = ''
       export LIBSQLITE="${sqlite.out}/lib/libsqlite3${stdenv.hostPlatform.extensions.sharedLibrary}"
       export HOME="$TMPDIR";
@@ -545,6 +548,6 @@ with prev; {
     '';
   });
 
-  # aliases
+    # aliases
   cjson = prev.lua-cjson;
 }

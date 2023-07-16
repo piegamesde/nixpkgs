@@ -7,7 +7,8 @@
 }:
 
 let
-  generic = {
+  generic =
+    {
       version,
       hash,
     }:
@@ -50,7 +51,8 @@ let
           marsam
         ];
       };
-    };
+    }
+    ;
 in {
   h3_3 = generic {
     version = "3.7.2";

@@ -51,46 +51,47 @@ let
   filterNull = lib.filterAttrs (_: v: v != null);
   envFileGenerator = lib.generators.toKeyValue { };
 
-  rootFsScaffold = let
-    os-release-params = {
-      PORTABLE_ID = pname;
-      PORTABLE_PRETTY_NAME = description;
-      HOME_URL = homepage;
-      ID = "nixos";
-      PRETTY_NAME = "NixOS";
-      BUILD_ID = "rolling";
-    };
-    os-release = pkgs.writeText "os-release"
-      (envFileGenerator (filterNull os-release-params));
+  rootFsScaffold =
+    let
+      os-release-params = {
+        PORTABLE_ID = pname;
+        PORTABLE_PRETTY_NAME = description;
+        HOME_URL = homepage;
+        ID = "nixos";
+        PRETTY_NAME = "NixOS";
+        BUILD_ID = "rolling";
+      };
+      os-release = pkgs.writeText "os-release"
+        (envFileGenerator (filterNull os-release-params));
 
-  in
-  stdenv.mkDerivation {
-    pname = "root-fs-scaffold";
-    inherit version;
+    in
+    stdenv.mkDerivation {
+      pname = "root-fs-scaffold";
+      inherit version;
 
-    buildCommand = ''
-      # scaffold a file system layout
-      mkdir -p $out/etc/systemd/system $out/proc $out/sys $out/dev $out/run \
-               $out/tmp $out/var/tmp $out/var/lib $out/var/cache $out/var/log
+      buildCommand = ''
+        # scaffold a file system layout
+        mkdir -p $out/etc/systemd/system $out/proc $out/sys $out/dev $out/run \
+                 $out/tmp $out/var/tmp $out/var/lib $out/var/cache $out/var/log
 
-      # empty files to mount over with host's version
-      touch $out/etc/resolv.conf $out/etc/machine-id
+        # empty files to mount over with host's version
+        touch $out/etc/resolv.conf $out/etc/machine-id
 
-      # required for portable services
-      cp ${os-release} $out/etc/os-release
-    ''
-      # units **must** be copied to /etc/systemd/system/
-      + (lib.concatMapStringsSep "\n"
-        (u: "cp ${u} $out/etc/systemd/system/${u.name};") units)
-      + (lib.concatMapStringsSep "\n" ({
-          object,
-          symlink,
-        }: ''
-          mkdir -p $(dirname $out/${symlink});
-          ln -s ${object} $out/${symlink};
-        '') symlinks);
-  }
-  ;
+        # required for portable services
+        cp ${os-release} $out/etc/os-release
+      ''
+        # units **must** be copied to /etc/systemd/system/
+        + (lib.concatMapStringsSep "\n"
+          (u: "cp ${u} $out/etc/systemd/system/${u.name};") units)
+        + (lib.concatMapStringsSep "\n" ({
+            object,
+            symlink,
+          }: ''
+            mkdir -p $(dirname $out/${symlink});
+            ln -s ${object} $out/${symlink};
+          '') symlinks);
+    }
+    ;
 
 in
 assert lib.assertMsg (lib.all (u: lib.hasPrefix pname u.name) units)

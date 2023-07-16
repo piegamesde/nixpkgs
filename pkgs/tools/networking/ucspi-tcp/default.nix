@@ -13,17 +13,18 @@ stdenv.mkDerivation rec {
     sha256 = "171yl9kfm8w7l17dfxild99mbf877a9k5zg8yysgb1j8nz51a1ja";
   };
 
-  # Plain upstream tarball doesn't build, get patches from Debian
+    # Plain upstream tarball doesn't build, get patches from Debian
   patches = [
     (fetchurl {
       url =
-        "http://ftp.de.debian.org/debian/pool/main/u/ucspi-tcp/ucspi-tcp_0.88-3.diff.gz";
+        "http://ftp.de.debian.org/debian/pool/main/u/ucspi-tcp/ucspi-tcp_0.88-3.diff.gz"
+        ;
       sha256 = "0mzmhz8hjkrs0khmkzs5i0s1kgmgaqz07h493bd5jj5fm5njxln6";
     })
     ./remove-setuid.patch
   ];
 
-  # Apply Debian patches
+    # Apply Debian patches
   postPatch = ''
     for fname in debian/diff/*.diff; do
         echo "Applying patch $fname"
@@ -31,13 +32,13 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  # The build system is weird; 'make install' doesn't install anything, instead
-  # it builds an executable called ./install (from C code) which installs
-  # binaries to the directory given on line 1 in ./conf-home.
-  #
-  # Also, assume getgroups and setgroups work, instead of doing a build time
-  # test that breaks on NixOS (I think because nixbld users lack CAP_SETGID
-  # capability).
+    # The build system is weird; 'make install' doesn't install anything, instead
+    # it builds an executable called ./install (from C code) which installs
+    # binaries to the directory given on line 1 in ./conf-home.
+    #
+    # Also, assume getgroups and setgroups work, instead of doing a build time
+    # test that breaks on NixOS (I think because nixbld users lack CAP_SETGID
+    # capability).
   preBuild = ''
     echo "$out" > conf-home
 

@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-3yqgicdnD56rQOVZjl0stqWC3FGCkm6lC01pDk438xY=";
   };
 
-  # fix test script
+    # fix test script
   postPatch = ''
     patchShebangs .
   '';
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     ps
   ];
 
-  # Expects pre-GCC5 inline semantics
+    # Expects pre-GCC5 inline semantics
   env.NIX_CFLAGS_COMPILE = "-std=gnu89";
 
   doCheck = true;

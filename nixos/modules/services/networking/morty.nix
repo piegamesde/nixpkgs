@@ -68,7 +68,7 @@ in {
 
   };
 
-  ###### Service definition
+    ###### Service definition
 
   config = mkIf config.services.morty.enable {
 

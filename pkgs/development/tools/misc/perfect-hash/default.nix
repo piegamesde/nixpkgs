@@ -7,8 +7,8 @@ python3.pkgs.buildPythonApplication rec {
   pname = "perfect-hash";
   version = "0.4.1";
 
-  # Archive on pypi does not contain examples, which are very helpful to
-  # understand how to use this program, so we use git source.
+    # Archive on pypi does not contain examples, which are very helpful to
+    # understand how to use this program, so we use git source.
   src = fetchFromGitHub {
     owner = "ilanschnell";
     repo = "perfect-hash";

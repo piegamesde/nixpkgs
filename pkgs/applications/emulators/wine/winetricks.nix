@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     which
   ];
 
-  # coreutils is for sha1sum
+    # coreutils is for sha1sum
   pathAdd = lib.makeBinPath [
     perl
     which

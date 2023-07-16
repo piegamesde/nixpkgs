@@ -23,7 +23,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/Enigma-Game/Enigma/releases/download/${version}/Enigma-${version}-src.tar.gz";
+      "https://github.com/Enigma-Game/Enigma/releases/download/${version}/Enigma-${version}-src.tar.gz"
+      ;
     sha256 = "rmS5H7wrEJcAcdDXjtW07enuOGjeLm6VaVRvxYQ3+K8=";
   };
 
@@ -31,7 +32,8 @@ stdenv.mkDerivation rec {
     # fix format string security warning (turned into error)
     (fetchpatch {
       url =
-        "https://github.com/Enigma-Game/Enigma/pull/70/commits/d25051eb6228c885e779a9674f8ee3979da30663.patch";
+        "https://github.com/Enigma-Game/Enigma/pull/70/commits/d25051eb6228c885e779a9674f8ee3979da30663.patch"
+        ;
       sha256 = "L5C4NCZDDUKji9Tg4geKaiw3CkSY6rCoawqGKqR4dFM=";
     })
   ];
@@ -53,12 +55,12 @@ stdenv.mkDerivation rec {
     xdg-utils
   ];
 
-  # The configure script of enigma uses pkg-config to determine the header
-  # directories of SDL2. However, pkg-config only returns the path to the core
-  # SDL2 library, not to the additional libraries SDL2_ttf, SDL2_image and
-  # SDL2_mixer. In contrast, sdl2-config does return the correct list of paths.
-  # We don't use configureFlags here so that the shell can correctly carry
-  # out the interpolation.
+    # The configure script of enigma uses pkg-config to determine the header
+    # directories of SDL2. However, pkg-config only returns the path to the core
+    # SDL2 library, not to the additional libraries SDL2_ttf, SDL2_image and
+    # SDL2_mixer. In contrast, sdl2-config does return the correct list of paths.
+    # We don't use configureFlags here so that the shell can correctly carry
+    # out the interpolation.
   preConfigure = ''
     export SDL_CFLAGS=$(sdl2-config --cflags)
   '';
@@ -73,7 +75,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Puzzle game inspired by Oxyd on the Atari ST and Rock'n'Roll on the Amiga";
+      "Puzzle game inspired by Oxyd on the Atari ST and Rock'n'Roll on the Amiga"
+      ;
     license = with licenses; [
       gpl2
       free

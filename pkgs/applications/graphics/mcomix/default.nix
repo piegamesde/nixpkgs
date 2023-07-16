@@ -41,10 +41,10 @@ python3.pkgs.buildPythonApplication rec {
     pycairo
   ]);
 
-  # Tests are broken
+    # Tests are broken
   doCheck = false;
 
-  # prevent double wrapping
+    # prevent double wrapping
   dontWrapGApps = true;
 
   preFixup = ''

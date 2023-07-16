@@ -39,56 +39,60 @@ crystal.buildCrystalPackage rec {
     inherit (versions.invidious) rev sha256;
   };
 
-  postPatch = let
-    # Replacing by the value (templates) of the variables ensures that building
-    # fails if upstream changes the way the metadata is formatted.
-    branchTemplate = ''{{ "#{`git branch | sed -n '/* /s///p'`.strip}" }}'';
-    commitTemplate =
-      ''{{ "#{`git rev-list HEAD --max-count=1 --abbrev-commit`.strip}" }}'';
-    versionTemplate = ''
-      {{ "#{`git log -1 --format=%ci | awk '{print $1}' | sed s/-/./g`.strip}" }}'';
-    # This always uses the latest commit which invalidates the cache even if
-    # the assets were not changed
-    assetCommitTemplate = ''
-      {{ "#{`git rev-list HEAD --max-count=1 --abbrev-commit -- assets`.strip}" }}'';
-  in ''
-    for d in ${videojs}/*; do ln -s "$d" assets/videojs; done
+  postPatch =
+    let
+      # Replacing by the value (templates) of the variables ensures that building
+      # fails if upstream changes the way the metadata is formatted.
+      branchTemplate = ''{{ "#{`git branch | sed -n '/* /s///p'`.strip}" }}'';
+      commitTemplate =
+        ''{{ "#{`git rev-list HEAD --max-count=1 --abbrev-commit`.strip}" }}'';
+      versionTemplate = ''
+        {{ "#{`git log -1 --format=%ci | awk '{print $1}' | sed s/-/./g`.strip}" }}''
+        ;
+        # This always uses the latest commit which invalidates the cache even if
+        # the assets were not changed
+      assetCommitTemplate = ''
+        {{ "#{`git rev-list HEAD --max-count=1 --abbrev-commit -- assets`.strip}" }}''
+        ;
+    in ''
+      for d in ${videojs}/*; do ln -s "$d" assets/videojs; done
 
-    # Use the version metadata from the derivation instead of using git at
-    # build-time
-    substituteInPlace src/invidious.cr \
-        --replace ${lib.escapeShellArg branchTemplate} '"master"' \
-        --replace ${lib.escapeShellArg commitTemplate} '"${
-          lib.substring 0 7 versions.invidious.rev
-        }"' \
-        --replace ${lib.escapeShellArg versionTemplate} '"${
-          lib.replaceStrings [ "-" ] [ "." ] (lib.substring 9 10 version)
-        }"' \
-        --replace ${lib.escapeShellArg assetCommitTemplate} '"${
-          lib.substring 0 7 versions.invidious.rev
-        }"'
+      # Use the version metadata from the derivation instead of using git at
+      # build-time
+      substituteInPlace src/invidious.cr \
+          --replace ${lib.escapeShellArg branchTemplate} '"master"' \
+          --replace ${lib.escapeShellArg commitTemplate} '"${
+            lib.substring 0 7 versions.invidious.rev
+          }"' \
+          --replace ${lib.escapeShellArg versionTemplate} '"${
+            lib.replaceStrings [ "-" ] [ "." ] (lib.substring 9 10 version)
+          }"' \
+          --replace ${lib.escapeShellArg assetCommitTemplate} '"${
+            lib.substring 0 7 versions.invidious.rev
+          }"'
 
-    # Patch the assets and locales paths to be absolute
-    substituteInPlace src/invidious.cr \
-        --replace 'public_folder "assets"' 'public_folder "${
-          placeholder "out"
-        }/share/invidious/assets"'
-    substituteInPlace src/invidious/helpers/i18n.cr \
-        --replace 'File.read("locales/' 'File.read("${
-          placeholder "out"
-        }/share/invidious/locales/'
-
-    # Reference sql initialisation/migration scripts by absolute path
-    substituteInPlace src/invidious/database/base.cr \
-          --replace 'config/sql' '${
+      # Patch the assets and locales paths to be absolute
+      substituteInPlace src/invidious.cr \
+          --replace 'public_folder "assets"' 'public_folder "${
             placeholder "out"
-          }/share/invidious/config/sql'
+          }/share/invidious/assets"'
+      substituteInPlace src/invidious/helpers/i18n.cr \
+          --replace 'File.read("locales/' 'File.read("${
+            placeholder "out"
+          }/share/invidious/locales/'
 
-    substituteInPlace src/invidious/user/captcha.cr \
-        --replace 'Process.run(%(rsvg-convert' 'Process.run(%(${
-          lib.getBin librsvg
-        }/bin/rsvg-convert'
-  '' ;
+      # Reference sql initialisation/migration scripts by absolute path
+      substituteInPlace src/invidious/database/base.cr \
+            --replace 'config/sql' '${
+              placeholder "out"
+            }/share/invidious/config/sql'
+
+      substituteInPlace src/invidious/user/captcha.cr \
+          --replace 'Process.run(%(rsvg-convert' 'Process.run(%(${
+            lib.getBin librsvg
+          }/bin/rsvg-convert'
+    ''
+    ;
 
   nativeBuildInputs = [
     pkg-config
@@ -132,10 +136,10 @@ crystal.buildCrystalPackage rec {
     cp -r config/sql $out/share/invidious/config
   '';
 
-  # Invidious tries to open config/config.yml and connect to the database, even
-  # when running --help. This specifies a minimal configuration in an
-  # environment variable. Even though the database is bogus, --help still
-  # works.
+    # Invidious tries to open config/config.yml and connect to the database, even
+    # when running --help. This specifies a minimal configuration in an
+    # environment variable. Even though the database is bogus, --help still
+    # works.
   installCheckPhase = ''
     INVIDIOUS_CONFIG="database_url: sqlite3:///dev/null" $out/bin/invidious --help
   '';

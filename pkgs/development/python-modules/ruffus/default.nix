@@ -26,9 +26,9 @@ buildPythonPackage rec {
     pytest
   ];
 
-  # tests very flaky & hang often on darwin
+    # tests very flaky & hang often on darwin
   doCheck = !stdenv.isDarwin;
-  # test files do indeed need to be executed separately
+    # test files do indeed need to be executed separately
   checkPhase = ''
     pushd ruffus/test
     rm test_with_logger.py  # spawns 500 processes

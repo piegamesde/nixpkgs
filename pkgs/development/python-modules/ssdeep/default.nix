@@ -43,7 +43,8 @@ buildPythonPackage rec {
     description = "Python wrapper for the ssdeep library";
     homepage = "https://github.com/DinoTools/python-ssdeep";
     changelog =
-      "https://github.com/DinoTools/python-ssdeep/blob/${version}/CHANGELOG.rst";
+      "https://github.com/DinoTools/python-ssdeep/blob/${version}/CHANGELOG.rst"
+      ;
     license = licenses.lgpl3Plus;
     maintainers = with maintainers; [ fab ];
   };

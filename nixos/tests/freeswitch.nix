@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
     name = "freeswitch";
     meta = with pkgs.lib.maintainers; { maintainers = [ misuzu ]; };
     nodes = {
-      node0 = {
+      node0 =
+        {
           config,
           lib,
           ...
@@ -21,9 +22,11 @@ import ./make-test-python.nix ({
             enable = true;
             enableReload = true;
             configTemplate =
-              "${config.services.freeswitch.package}/share/freeswitch/conf/minimal";
+              "${config.services.freeswitch.package}/share/freeswitch/conf/minimal"
+              ;
           };
-        };
+        }
+        ;
     };
     testScript = ''
       node0.wait_for_unit("freeswitch.service")

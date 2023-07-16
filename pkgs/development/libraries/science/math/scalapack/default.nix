@@ -25,16 +25,17 @@ stdenv.mkDerivation rec {
 
   passthru = { inherit (blas) isILP64; };
 
-  # upstream patch, remove with next release
+    # upstream patch, remove with next release
   patches = [ (fetchpatch {
     name = "gcc-10";
     url =
-      "https://github.com/Reference-ScaLAPACK/scalapack/commit/a0f76fc0c1c16646875b454b7d6f8d9d17726b5a.patch";
+      "https://github.com/Reference-ScaLAPACK/scalapack/commit/a0f76fc0c1c16646875b454b7d6f8d9d17726b5a.patch"
+      ;
     sha256 = "0civn149ikghakic30bynqg1bal097hr7i12cm4kq3ssrhq073bp";
   }) ];
 
-  # Required to activate ILP64.
-  # See https://github.com/Reference-ScaLAPACK/scalapack/pull/19
+    # Required to activate ILP64.
+    # See https://github.com/Reference-ScaLAPACK/scalapack/pull/19
   postPatch = lib.optionalString passthru.isILP64 ''
     sed -i 's/INTSZ = 4/INTSZ = 8/g'   TESTING/EIG/* TESTING/LIN/*
     sed -i 's/INTGSZ = 4/INTGSZ = 8/g' TESTING/EIG/* TESTING/LIN/*
@@ -53,8 +54,8 @@ stdenv.mkDerivation rec {
   hardeningDisable =
     lib.optionals (stdenv.isAarch64 && stdenv.isDarwin) [ "stackprotector" ];
 
-  # xslu and xsllt tests seem to time out on x86_64-darwin.
-  # this line is left so those who force installation on x86_64-darwin can still build
+    # xslu and xsllt tests seem to time out on x86_64-darwin.
+    # this line is left so those who force installation on x86_64-darwin can still build
   doCheck = !(stdenv.isx86_64 && stdenv.isDarwin);
 
   preConfigure = ''
@@ -72,8 +73,8 @@ stdenv.mkDerivation rec {
       )
   '';
 
-  # Increase individual test timeout from 1500s to 10000s because hydra's builds
-  # sometimes fail due to this
+    # Increase individual test timeout from 1500s to 10000s because hydra's builds
+    # sometimes fail due to this
   checkFlagsArray = [ "ARGS=--timeout 10000" ];
 
   preCheck = ''
@@ -90,7 +91,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "http://www.netlib.org/scalapack/";
     description =
-      "Library of high-performance linear algebra routines for parallel distributed memory machines";
+      "Library of high-performance linear algebra routines for parallel distributed memory machines"
+      ;
     license = licenses.bsd3;
     platforms = platforms.unix;
     maintainers = with maintainers; [
@@ -98,7 +100,7 @@ stdenv.mkDerivation rec {
       markuskowa
       gdinh
     ];
-    # xslu and xsllt tests fail on x86 darwin
+      # xslu and xsllt tests fail on x86 darwin
     broken = stdenv.isDarwin && stdenv.isx86_64;
   };
 }

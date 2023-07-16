@@ -8,21 +8,24 @@ import ./make-test-python.nix ({
 
     meta = with pkgs.lib.maintainers; { maintainers = [ sorki ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         lib,
         ...
       }:
       let
-        makeNested = subConf: {
-          containers.nested = {
-            autoStart = true;
-            privateNetwork = true;
-            config = subConf;
-          };
-        };
+        makeNested =
+          subConf: {
+            containers.nested = {
+              autoStart = true;
+              privateNetwork = true;
+              config = subConf;
+            };
+          }
+          ;
       in
       makeNested (makeNested { })
-    ;
+      ;
 
     testScript = ''
       machine.start()

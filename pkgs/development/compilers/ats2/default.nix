@@ -44,8 +44,8 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ gmp ];
 
-  # Disable parallel build, errors:
-  #  *** No rule to make target 'patscc.dats', needed by 'patscc_dats.c'.  Stop.
+    # Disable parallel build, errors:
+    #  *** No rule to make target 'patscc.dats', needed by 'patscc_dats.c'.  Stop.
   enableParallelBuilding = false;
 
   makeFlags = [
@@ -55,12 +55,12 @@ stdenv.mkDerivation rec {
 
   setupHook = with lib;
     let
-      hookFiles = [ ./setup-hook.sh ]
-        ++ optional withContrib ./setup-contrib-hook.sh;
+      hookFiles =
+        [ ./setup-hook.sh ] ++ optional withContrib ./setup-contrib-hook.sh;
     in
     builtins.toFile "setupHook.sh"
     (concatMapStringsSep "\n" builtins.readFile hookFiles)
-  ;
+    ;
 
   postInstall = postInstallContrib + postInstallEmacs;
 

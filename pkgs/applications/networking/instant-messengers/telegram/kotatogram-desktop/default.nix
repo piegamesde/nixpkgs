@@ -74,7 +74,7 @@ let
       cxxStandard = "20";
     };
 
-    # tg_owt should use the same compiler
+      # tg_owt should use the same compiler
     inherit stdenv;
 
     inherit
@@ -237,9 +237,10 @@ stdenv.mkDerivation rec {
     platforms = platforms.all;
     homepage = "https://kotatogram.github.io";
     changelog =
-      "https://github.com/kotatogram/kotatogram-desktop/releases/tag/k{version}";
+      "https://github.com/kotatogram/kotatogram-desktop/releases/tag/k{version}"
+      ;
     maintainers = with maintainers; [ ilya-fedin ];
-    # never built on aarch64-darwin since first introduction in nixpkgs
+      # never built on aarch64-darwin since first introduction in nixpkgs
     broken = stdenv.isDarwin && stdenv.isAarch64;
   };
 }

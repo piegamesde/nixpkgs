@@ -12,7 +12,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/dissect/2021-05-31/dissect-20210531-git.tgz";
+      "http://beta.quicklisp.org/archive/dissect/2021-05-31/dissect-20210531-git.tgz"
+      ;
     sha256 = "07f5sk2nvhj5jjrw5k561dfnwbjcaniqi2z7wgdrw8qb9h8kkkzk";
   };
 

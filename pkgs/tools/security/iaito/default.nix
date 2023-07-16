@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
     radare2
   ];
 
-  # the radare2 binary package seems to not install all necessary headers.
+    # the radare2 binary package seems to not install all necessary headers.
   env.NIX_CFLAGS_COMPILE = toString [
     "-I"
     "${radare2.src}/shlr/sdb/include/sdb"

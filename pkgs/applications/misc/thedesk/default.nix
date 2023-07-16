@@ -19,7 +19,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/cutls/TheDesk/releases/download/v${version}/${pname}_${version}_amd64.deb";
+      "https://github.com/cutls/TheDesk/releases/download/v${version}/${pname}_${version}_amd64.deb"
+      ;
     sha256 = "sha256-0EvJ60yTRi3R0glgI8l3r7mxR76McDA1x5aF6WQDbdU=";
   };
 

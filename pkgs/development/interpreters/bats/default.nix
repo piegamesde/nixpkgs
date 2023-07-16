@@ -115,7 +115,8 @@ resholve.mkDerivation rec {
 
   passthru.libraries = callPackages ./libraries.nix { };
 
-  passthru.withLibraries = selector:
+  passthru.withLibraries =
+    selector:
     symlinkJoin {
       name = "bats-with-libraries-${bats.version}";
 
@@ -127,7 +128,8 @@ resholve.mkDerivation rec {
         wrapProgram "$out/bin/bats" \
           --suffix BATS_LIB_PATH : "$out/share/bats"
       '';
-    };
+    }
+    ;
 
   passthru.tests.libraries = runCommand "${bats.name}-with-libraries-test" {
     testScript = ''

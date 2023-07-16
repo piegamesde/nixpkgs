@@ -34,7 +34,7 @@ appleDerivation {
       --replace "-o root -g wheel -m 0644" ""
   '';
 
-  # temporary install phase until xcodebuild has "install" support
+    # temporary install phase until xcodebuild has "install" support
   installPhase = ''
     for f in Products/Release/*; do
       if [ -f $f ]; then

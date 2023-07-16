@@ -15,9 +15,9 @@
 
 let
   version = "2.5.1";
-  # Despite the name, this is not a rolling release. This is the
-  # version of the UI assets for 2.5.1, as specified in
-  # scripts/fetch-ui-assets.sh in the 2.5.1 tag of influxdb.
+    # Despite the name, this is not a rolling release. This is the
+    # version of the UI assets for 2.5.1, as specified in
+    # scripts/fetch-ui-assets.sh in the 2.5.1 tag of influxdb.
   ui_version = "OSS-2022-09-16";
   libflux_version = "0.188.1";
 
@@ -30,7 +30,8 @@ let
 
   ui = fetchurl {
     url =
-      "https://github.com/influxdata/ui/releases/download/${ui_version}/build.tar.gz";
+      "https://github.com/influxdata/ui/releases/download/${ui_version}/build.tar.gz"
+      ;
     sha256 = "sha256-YKDp1jLyo4n+YTeMaWl8dhN4Lr3H8FXV7stJ3p3zFe8=";
   };
 
@@ -92,8 +93,8 @@ buildGoModule {
       --replace 'go run github.com/kevinburke/go-bindata/' ""
   '';
 
-  # Check that libflux and the UI are at the right version, and embed
-  # the UI assets into the Go source tree.
+    # Check that libflux and the UI are at the right version, and embed
+    # the UI assets into the Go source tree.
   preBuild = ''
     (
       flux_ver=$(grep github.com/influxdata/flux go.mod | awk '{print $2}')

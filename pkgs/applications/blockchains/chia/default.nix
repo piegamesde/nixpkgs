@@ -27,7 +27,7 @@ let
 
     nativeBuildInputs = [ python3Packages.setuptools-scm ];
 
-    # give a hint to setuptools-scm on package version
+      # give a hint to setuptools-scm on package version
     SETUPTOOLS_SCM_PRETEND_VERSION = "v${version}";
 
     propagatedBuildInputs = with python3Packages; [
@@ -66,8 +66,8 @@ let
 
     nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
-    # Testsuite is expensive and non-deterministic, so it is available in
-    # passthru.tests instead.
+      # Testsuite is expensive and non-deterministic, so it is available in
+      # passthru.tests instead.
     doCheck = false;
 
     disabledTests = [
@@ -88,7 +88,8 @@ let
     meta = with lib; {
       homepage = "https://www.chia.net/";
       description =
-        "Chia is a modern cryptocurrency built from scratch, designed to be efficient, decentralized, and secure.";
+        "Chia is a modern cryptocurrency built from scratch, designed to be efficient, decentralized, and secure."
+        ;
       license = with licenses; [ asl20 ];
       maintainers = teams.chia.members;
       platforms = platforms.all;

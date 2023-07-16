@@ -35,8 +35,9 @@ in {
 
       extraEnvironment = mkOption {
         type = types.attrsOf types.str;
-        description = lib.mdDoc
-          "Additional environment variables to passed to code-server.";
+        description =
+          lib.mdDoc "Additional environment variables to passed to code-server."
+          ;
         default = { };
         example = { PKG_CONFIG_PATH = "/run/current-system/sw/lib/pkgconfig"; };
       };
@@ -73,7 +74,8 @@ in {
       hashedPassword = mkOption {
         default = "";
         description = lib.mdDoc
-          "Create the password with: `echo -n 'thisismypassword' | npx argon2-cli -e`.";
+          "Create the password with: `echo -n 'thisismypassword' | npx argon2-cli -e`."
+          ;
         type = types.str;
       };
 
@@ -108,16 +110,15 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
   config = mkIf cfg.enable {
     systemd.services.code-server = {
       description = "VSCode server";
       wantedBy = [ "multi-user.target" ];
       after = [ "network-online.target" ];
       path = cfg.extraPackages;
-      environment = {
-        HASHED_PASSWORD = cfg.hashedPassword;
-      } // cfg.extraEnvironment;
+      environment =
+        { HASHED_PASSWORD = cfg.hashedPassword; } // cfg.extraEnvironment;
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/code-server --bind-addr ${cfg.host}:${
             toString cfg.port

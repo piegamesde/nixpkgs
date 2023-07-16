@@ -6,7 +6,8 @@ import ../make-test-python.nix ({
     name = "hadoop-yarn";
 
     nodes = {
-      resourcemanager = {
+      resourcemanager =
+        {
           ...
         }: {
           services.hadoop = {
@@ -16,8 +17,10 @@ import ../make-test-python.nix ({
               openFirewall = true;
             };
           };
-        };
-      nodemanager = {
+        }
+        ;
+      nodemanager =
+        {
           options,
           lib,
           ...
@@ -33,7 +36,8 @@ import ../make-test-python.nix ({
               "yarn.nodemanager.log-dirs" = "/tmp/userlogs";
             };
           };
-        };
+        }
+        ;
     };
 
     testScript = ''

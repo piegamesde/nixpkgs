@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
     name = "etesync-dav";
     meta = with pkgs.lib.maintainers; { maintainers = [ _3699n ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         config,
         pkgs,
         ...
@@ -15,7 +16,8 @@ import ./make-test-python.nix ({
           pkgs.curl
           pkgs.etesync-dav
         ];
-      };
+      }
+      ;
 
     testScript = ''
       machine.wait_for_unit("multi-user.target")

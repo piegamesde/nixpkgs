@@ -42,7 +42,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Dissect module implementing a parsers for the SQLite database file format";
+      "Dissect module implementing a parsers for the SQLite database file format"
+      ;
     homepage = "https://github.com/fox-it/dissect.sql";
     changelog = "https://github.com/fox-it/dissect.sql/releases/tag/${version}";
     license = licenses.agpl3Only;

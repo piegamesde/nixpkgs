@@ -25,7 +25,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ kaa-base ];
 
-  # Same as in buildPythonPackage except that it does not pass --old-and-unmanageable
+    # Same as in buildPythonPackage except that it does not pass --old-and-unmanageable
   installPhase = ''
     runHook preInstall
 
@@ -49,7 +49,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Python library for parsing media metadata, which can extract metadata (e.g., such as id3 tags) from a wide range of media files";
+      "Python library for parsing media metadata, which can extract metadata (e.g., such as id3 tags) from a wide range of media files"
+      ;
     homepage = "https://github.com/freevo/kaa-metadata";
     license = licenses.gpl2;
     maintainers = with maintainers; [ ];

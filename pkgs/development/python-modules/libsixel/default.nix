@@ -17,7 +17,7 @@ buildPythonPackage rec {
       'find_library = lambda _x: "${lib.getLib libsixel}/lib/libsixel.so"'
   '';
 
-  # no tests
+    # no tests
   doCheck = false;
 
   pythonImportsCheck = [ "libsixel" ];

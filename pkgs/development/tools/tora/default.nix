@@ -69,7 +69,7 @@ mkDerivation {
     "-Wno-dev"
   ];
 
-  # these libraries are only searched for at runtime so we need to force-link them
+    # these libraries are only searched for at runtime so we need to force-link them
   NIX_LDFLAGS = "-lgvc -lmysqlclient -lecpg -lssl";
 
   env.NIX_CFLAGS_COMPILE =

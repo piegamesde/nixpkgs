@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
     patchShebangs meson/post_install.py
   '';
 
-  # These programs are expected in PATH from the source code and scripts
+    # These programs are expected in PATH from the source code and scripts
   preFixup = ''
     gappsWrapperArgs+=(
       --prefix PATH : "${

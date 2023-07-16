@@ -11,11 +11,12 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://www.gerd-neugebauer.de/software/TeX/BibTool/BibTool-${version}.tar.gz";
+      "http://www.gerd-neugebauer.de/software/TeX/BibTool/BibTool-${version}.tar.gz"
+      ;
     sha256 = "1ymq901ckaysq2n1bplk1064rb2njq9n30pii15w157y0lxcwd3i";
   };
 
-  # Perl for running test suite.
+    # Perl for running test suite.
   buildInputs = [ perl ];
 
   installTargets = [

@@ -22,20 +22,24 @@ let
         "davmail config type (str, int, bool or attribute set thereof)";
     };
 
-  toStr = val:
+  toStr =
+    val:
     if isBool val then
       boolToString val
     else
-      toString val;
+      toString val
+    ;
 
-  linesForAttrs = attrs:
+  linesForAttrs =
+    attrs:
     concatMap (name:
       let
         value = attrs.${name};
       in if isAttrs value then
         map (line: name + "." + line) (linesForAttrs value)
       else
-        [ "${name}=${toStr value}" ]) (attrNames attrs);
+        [ "${name}=${toStr value}" ]) (attrNames attrs)
+    ;
 
   configFile = pkgs.writeText "davmail.properties"
     (concatStringsSep "\n" (linesForAttrs cfg.config));
@@ -47,7 +51,8 @@ in {
     url = mkOption {
       type = types.str;
       description = lib.mdDoc
-        "Outlook Web Access URL to access the exchange server, i.e. the base webmail URL.";
+        "Outlook Web Access URL to access the exchange server, i.e. the base webmail URL."
+        ;
       example = "https://outlook.office365.com/EWS/Exchange.asmx";
     };
 

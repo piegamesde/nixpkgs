@@ -40,7 +40,8 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "A general purpose application launcher for X and wayland inspired by rofi/wofi and alfred";
+      "A general purpose application launcher for X and wayland inspired by rofi/wofi and alfred"
+      ;
     homepage = "https://github.com/oknozor/onagre";
     license = licenses.mit;
     maintainers = [ maintainers.jfvillablanca ];

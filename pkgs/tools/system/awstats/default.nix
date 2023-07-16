@@ -34,7 +34,7 @@ perlPackages.buildPerlPackage rec {
     patchShebangs .
   '';
 
-  # build our own JAR
+    # build our own JAR
   preBuild = ''
     (
       cd wwwroot/classes/src

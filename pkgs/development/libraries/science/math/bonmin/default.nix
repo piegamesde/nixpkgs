@@ -44,12 +44,13 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "An open-source code for solving general MINLP (Mixed Integer NonLinear Programming) problems";
+      "An open-source code for solving general MINLP (Mixed Integer NonLinear Programming) problems"
+      ;
     homepage = "https://github.com/coin-or/Bonmin";
     license = licenses.epl10;
     platforms = platforms.unix;
     maintainers = with maintainers; [ aanderse ];
-    # never built on aarch64-darwin, x86_64-darwin since first introduction in nixpkgs
+      # never built on aarch64-darwin, x86_64-darwin since first introduction in nixpkgs
     broken = stdenv.isDarwin;
   };
 }

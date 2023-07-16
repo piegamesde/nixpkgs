@@ -8,12 +8,14 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ offline ]; };
 
     nodes = {
-      one = {
+      one =
+        {
           ...
         }: {
           services.influxdb.enable = true;
           environment.systemPackages = [ pkgs.httpie ];
-        };
+        }
+        ;
     };
 
     testScript = ''

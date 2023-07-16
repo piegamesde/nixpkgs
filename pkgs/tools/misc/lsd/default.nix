@@ -32,7 +32,7 @@ rustPlatform.buildRustPackage rec {
     installShellCompletion $releaseDir/build/lsd-*/out/{_lsd,lsd.{bash,fish}}
   '';
 
-  # Found argument '--test-threads' which wasn't expected, or isn't valid in this context
+    # Found argument '--test-threads' which wasn't expected, or isn't valid in this context
   doCheck = false;
 
   passthru.tests.version = testers.testVersion { package = lsd; };

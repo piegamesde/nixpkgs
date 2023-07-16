@@ -31,9 +31,9 @@ stdenvNoCC.mkDerivation rec {
     description = "An open Paratype font";
 
     license = "Open Paratype license";
-    # no commercial distribution of the font on its own
-    # must rename on modification
-    # http://www.paratype.ru/public/pt_openlicense.asp
+      # no commercial distribution of the font on its own
+      # must rename on modification
+      # http://www.paratype.ru/public/pt_openlicense.asp
 
     platforms = platforms.all;
     maintainers = with maintainers; [ raskin ];

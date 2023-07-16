@@ -23,13 +23,14 @@ python3Packages.buildPythonApplication rec {
     setuptools
   ];
 
-  # no tests
+    # no tests
   doCheck = false;
   pythonImportsCheck = [ "lieer" ];
 
   meta = with lib; {
     description =
-      "Fast email-fetching and two-way tag synchronization between notmuch and GMail";
+      "Fast email-fetching and two-way tag synchronization between notmuch and GMail"
+      ;
     longDescription = ''
       This program can pull email and labels (and changes to labels)
       from your GMail account and store them locally in a maildir with

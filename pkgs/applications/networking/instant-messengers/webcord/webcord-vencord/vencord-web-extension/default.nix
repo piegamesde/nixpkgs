@@ -18,7 +18,8 @@ buildNpmPackage rec {
   };
 
   ESBUILD_BINARY_PATH = lib.getExe (esbuild.override {
-    buildGoModule = args:
+    buildGoModule =
+      args:
       buildGoModule (args // rec {
         version = "0.15.18";
         src = fetchFromGitHub {
@@ -28,10 +29,11 @@ buildNpmPackage rec {
           hash = "sha256-b9R1ML+pgRg9j2yrkQmBulPuLHYLUQvW+WTyR/Cq6zE=";
         };
         vendorHash = "sha256-+BfxCyg0KkDQpHt/wycy/8CTG6YBA/VJvJFhhzUnSiQ=";
-      });
+      })
+      ;
   });
 
-  # Supresses an error about esbuild's version.
+    # Supresses an error about esbuild's version.
   npmRebuildFlags = [ "|| true" ];
 
   npmDepsHash = "sha256-jKSdeyQ8oHw7ZGby0XzDg4O8mtH276ykVuBcw7dU/Ls=";

@@ -19,9 +19,9 @@ let
     ipfs --offline config show > "$out"
   '');
 
-  # Remove the PeerID (an attribute of "Identity") of the temporary Kubo repo.
-  # The "Pinning" section contains the "RemoteServices" section, which would prevent
-  # the daemon from starting as that setting can't be changed via ipfs config replace.
+    # Remove the PeerID (an attribute of "Identity") of the temporary Kubo repo.
+    # The "Pinning" section contains the "RemoteServices" section, which would prevent
+    # the daemon from starting as that setting can't be changed via ipfs config replace.
   defaultConfig = builtins.removeAttrs rawDefaultConfig [
     "Identity"
     "Pinning"
@@ -31,14 +31,14 @@ let
 
   configFile = settingsFormat.generate "kubo-config.json" customizedConfig;
 
-  # Create a fake repo containing only the file "api".
-  # $IPFS_PATH will point to this directory instead of the real one.
-  # For some reason the Kubo CLI tools insist on reading the
-  # config file when it exists. But the Kubo daemon sets the file
-  # permissions such that only the ipfs user is allowed to read
-  # this file. This prevents normal users from talking to the daemon.
-  # To work around this terrible design, create a fake repo with no
-  # config file, only an api file and everything should work as expected.
+    # Create a fake repo containing only the file "api".
+    # $IPFS_PATH will point to this directory instead of the real one.
+    # For some reason the Kubo CLI tools insist on reading the
+    # config file when it exists. But the Kubo daemon sets the file
+    # permissions such that only the ipfs user is allowed to read
+    # this file. This prevents normal users from talking to the daemon.
+    # To work around this terrible design, create a fake repo with no
+    # config file, only an api file and everything should work as expected.
   fakeKuboRepo = pkgs.writeTextDir "api" ''
     /unix/run/ipfs.sock
   '';
@@ -50,36 +50,45 @@ let
     ++ optional (cfg.defaultMode == "norouting") "--routing=none"
     ++ cfg.extraFlags);
 
-  profile = if cfg.localDiscovery then
-    "local-discovery"
-  else
-    "server";
+  profile =
+    if cfg.localDiscovery then
+      "local-discovery"
+    else
+      "server"
+    ;
 
   splitMulitaddr = addrRaw: lib.tail (lib.splitString "/" addrRaw);
 
-  multiaddrsToListenStreams = addrIn:
+  multiaddrsToListenStreams =
+    addrIn:
     let
-      addrs = if builtins.typeOf addrIn == "list" then
-        addrIn
-      else
-        [ addrIn ];
+      addrs =
+        if builtins.typeOf addrIn == "list" then
+          addrIn
+        else
+          [ addrIn ]
+        ;
       unfilteredResult = map multiaddrToListenStream addrs;
     in
     builtins.filter (addr: addr != null) unfilteredResult
-  ;
+    ;
 
-  multiaddrsToListenDatagrams = addrIn:
+  multiaddrsToListenDatagrams =
+    addrIn:
     let
-      addrs = if builtins.typeOf addrIn == "list" then
-        addrIn
-      else
-        [ addrIn ];
+      addrs =
+        if builtins.typeOf addrIn == "list" then
+          addrIn
+        else
+          [ addrIn ]
+        ;
       unfilteredResult = map multiaddrToListenDatagram addrs;
     in
     builtins.filter (addr: addr != null) unfilteredResult
-  ;
+    ;
 
-  multiaddrToListenStream = addrRaw:
+  multiaddrToListenStream =
+    addrRaw:
     let
       addr = splitMulitaddr addrRaw;
       s = builtins.elemAt addr;
@@ -90,9 +99,11 @@ let
     else if s 0 == "unix" then
       "/${lib.concatStringsSep "/" (lib.tail addr)}"
     else
-      null; # not valid for listen stream, skip
+      null
+    ; # not valid for listen stream, skip
 
-  multiaddrToListenDatagram = addrRaw:
+  multiaddrToListenDatagram =
+    addrRaw:
     let
       addr = splitMulitaddr addrRaw;
       s = builtins.elemAt addr;
@@ -101,7 +112,8 @@ let
     else if s 0 == "ip6" && s 2 == "udp" then
       "[${s 1}]:${s 3}"
     else
-      null; # not valid for listen datagram, skip
+      null
+    ; # not valid for listen datagram, skip
 
 in {
 
@@ -112,7 +124,8 @@ in {
     services.kubo = {
 
       enable = mkEnableOption (lib.mdDoc
-        "Interplanetary File System (WARNING: may cause severe network degradation)");
+        "Interplanetary File System (WARNING: may cause severe network degradation)")
+        ;
 
       package = mkOption {
         type = types.package;
@@ -135,10 +148,12 @@ in {
 
       dataDir = mkOption {
         type = types.str;
-        default = if versionAtLeast config.system.stateVersion "17.09" then
-          "/var/lib/ipfs"
-        else
-          "/var/lib/ipfs/.ipfs";
+        default =
+          if versionAtLeast config.system.stateVersion "17.09" then
+            "/var/lib/ipfs"
+          else
+            "/var/lib/ipfs/.ipfs"
+          ;
         defaultText = literalExpression ''
           if versionAtLeast config.system.stateVersion "17.09"
           then "/var/lib/ipfs"
@@ -279,7 +294,8 @@ in {
         type = types.nullOr types.int;
         default = null;
         description = lib.mdDoc
-          "The fdlimit for the Kubo systemd unit or `null` to have the daemon attempt to manage it";
+          "The fdlimit for the Kubo systemd unit or `null` to have the daemon attempt to manage it"
+          ;
         example = 64 * 1024;
       };
 
@@ -293,7 +309,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
     assertions = [
@@ -315,7 +331,7 @@ in {
     environment.systemPackages = [ cfg.package ];
     environment.variables.IPFS_PATH = fakeKuboRepo;
 
-    # https://github.com/lucas-clemente/quic-go/wiki/UDP-Receive-Buffer-Size
+      # https://github.com/lucas-clemente/quic-go/wiki/UDP-Receive-Buffer-Size
     boot.kernel.sysctl."net.core.rmem_max" = mkDefault 2500000;
 
     programs.fuse = mkIf cfg.autoMount { userAllowOther = true; };
@@ -341,11 +357,13 @@ in {
         "d '${cfg.ipnsMountDir}' - ${cfg.user} ${cfg.group} - -"
       ];
 
-    # The hardened systemd unit breaks the fuse-mount function according to documentation in the unit file itself
-    systemd.packages = if cfg.autoMount then
-      [ cfg.package.systemd_unit ]
-    else
-      [ cfg.package.systemd_unit_hardened ];
+      # The hardened systemd unit breaks the fuse-mount function according to documentation in the unit file itself
+    systemd.packages =
+      if cfg.autoMount then
+        [ cfg.package.systemd_unit ]
+      else
+        [ cfg.package.systemd_unit_hardened ]
+      ;
 
     services.kubo.settings = mkIf cfg.autoMount {
       Mounts.FuseAllowOther = lib.mkDefault true;
@@ -409,8 +427,8 @@ in {
     systemd.sockets.ipfs-gateway = {
       wantedBy = [ "sockets.target" ];
       socketConfig = {
-        ListenStream = [ "" ]
-          ++ (multiaddrsToListenStreams cfg.settings.Addresses.Gateway);
+        ListenStream =
+          [ "" ] ++ (multiaddrsToListenStreams cfg.settings.Addresses.Gateway);
         ListenDatagram = [ "" ]
           ++ (multiaddrsToListenDatagrams cfg.settings.Addresses.Gateway);
       };

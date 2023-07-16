@@ -43,11 +43,13 @@ assert enableTools -> enableAudio && enableEmulation && enableLibplayer;
 
 let
   inherit (lib) optional optionals;
-  onOff = val:
+  onOff =
+    val:
     if val then
       "ON"
     else
-      "OFF";
+      "OFF"
+    ;
 in
 stdenv.mkDerivation rec {
   pname = "libvgm";
@@ -116,13 +118,15 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/ValleyBell/libvgm";
     description = "More modular rewrite of most components from VGMPlay";
-    license = if
-      (enableEmulation && (withAllEmulators
-        || (lib.lists.any (core: core == "WSWAN_ALL") emulators)))
-    then
-      licenses.unfree # https://github.com/ValleyBell/libvgm/issues/43
-    else
-      licenses.gpl2Only;
+    license =
+      if
+        (enableEmulation && (withAllEmulators
+          || (lib.lists.any (core: core == "WSWAN_ALL") emulators)))
+      then
+        licenses.unfree # https://github.com/ValleyBell/libvgm/issues/43
+      else
+        licenses.gpl2Only
+      ;
     maintainers = with maintainers; [ OPNA2608 ];
     platforms = platforms.all;
   };

@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   buildInputs = [ nose ];
 
-  # No tests included
+    # No tests included
   doCheck = false;
 
   meta = with lib; {

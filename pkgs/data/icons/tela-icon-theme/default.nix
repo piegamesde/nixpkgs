@@ -27,7 +27,7 @@ stdenvNoCC.mkDerivation rec {
 
   dontDropIconThemeCache = true;
 
-  # These fixup steps are slow and unnecessary.
+    # These fixup steps are slow and unnecessary.
   dontPatchELF = true;
   dontRewriteSymlinks = true;
 
@@ -46,7 +46,7 @@ stdenvNoCC.mkDerivation rec {
     description = "A flat colorful Design icon theme";
     homepage = "https://github.com/vinceliuice/tela-icon-theme";
     license = licenses.gpl3Only;
-    # darwin systems use case-insensitive filesystems that cause hash mismatches
+      # darwin systems use case-insensitive filesystems that cause hash mismatches
     platforms = subtractLists platforms.darwin platforms.unix;
     maintainers = with maintainers; [ figsoda ];
   };

@@ -17,7 +17,7 @@ let
     SCRIPTDIR ${toString scriptDir}
   '';
 
-  # List of events from "man apccontrol"
+    # List of events from "man apccontrol"
   eventList = [
     "annoyme"
     "battattach"
@@ -42,17 +42,21 @@ let
     "endselftest"
   ];
 
-  shellCmdsForEventScript = eventname: commands: ''
-    echo "#!${pkgs.runtimeShell}" > "$out/${eventname}"
-    echo '${commands}' >> "$out/${eventname}"
-    chmod a+x "$out/${eventname}"
-  '';
+  shellCmdsForEventScript =
+    eventname: commands: ''
+      echo "#!${pkgs.runtimeShell}" > "$out/${eventname}"
+      echo '${commands}' >> "$out/${eventname}"
+      chmod a+x "$out/${eventname}"
+    ''
+    ;
 
-  eventToShellCmds = event:
+  eventToShellCmds =
+    event:
     if builtins.hasAttr event cfg.hooks then
       (shellCmdsForEventScript event (builtins.getAttr event cfg.hooks))
     else
-      "";
+      ""
+    ;
 
   scriptDir = pkgs.runCommand "apcupsd-scriptdir" { preferLocalBuild = true; }
     (''
@@ -72,7 +76,7 @@ let
 
     );
 
-  # Ensure the CLI uses our generated configFile
+    # Ensure the CLI uses our generated configFile
   wrappedBinaries = pkgs.runCommandLocal "apcupsd-wrapped-binaries" {
     nativeBuildInputs = [ pkgs.makeWrapper ];
   } ''
@@ -84,7 +88,7 @@ let
 
   apcupsdWrapped = pkgs.symlinkJoin {
     name = "apcupsd-wrapped";
-    # Put wrappers first so they "win"
+      # Put wrappers first so they "win"
     paths = [
       wrappedBinaries
       pkgs.apcupsd
@@ -151,16 +155,17 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 
     assertions = [ {
-      assertion = let
-        hooknames = builtins.attrNames cfg.hooks;
-      in
-      all (x: elem x eventList) hooknames
-      ;
+      assertion =
+        let
+          hooknames = builtins.attrNames cfg.hooks;
+        in
+        all (x: elem x eventList) hooknames
+        ;
       message = ''
         One (or more) attribute names in services.apcupsd.hooks are invalid.
         Current attribute names: ${toString (builtins.attrNames cfg.hooks)}
@@ -168,37 +173,37 @@ in {
       '';
     } ];
 
-    # Give users access to the "apcaccess" tool
+      # Give users access to the "apcaccess" tool
     environment.systemPackages = [ apcupsdWrapped ];
 
-    # NOTE 1: apcupsd runs as root because it needs permission to run
-    # "shutdown"
-    #
-    # NOTE 2: When apcupsd calls "wall", it prints an error because stdout is
-    # not connected to a tty (it is connected to the journal):
-    #   wall: cannot get tty name: Inappropriate ioctl for device
-    # The message still gets through.
+      # NOTE 1: apcupsd runs as root because it needs permission to run
+      # "shutdown"
+      #
+      # NOTE 2: When apcupsd calls "wall", it prints an error because stdout is
+      # not connected to a tty (it is connected to the journal):
+      #   wall: cannot get tty name: Inappropriate ioctl for device
+      # The message still gets through.
     systemd.services.apcupsd = {
       description = "APC UPS Daemon";
       wantedBy = [ "multi-user.target" ];
       preStart = "mkdir -p /run/apcupsd/";
       serviceConfig = {
         ExecStart = "${pkgs.apcupsd}/bin/apcupsd -b -f ${configFile} -d1";
-        # TODO: When apcupsd has initiated a shutdown, systemd always ends up
-        # waiting for it to stop ("A stop job is running for UPS daemon"). This
-        # is weird, because in the journal one can clearly see that apcupsd has
-        # received the SIGTERM signal and has already quit (or so it seems).
-        # This reduces the wait time from 90 seconds (default) to just 5. Then
-        # systemd kills it with SIGKILL.
+          # TODO: When apcupsd has initiated a shutdown, systemd always ends up
+          # waiting for it to stop ("A stop job is running for UPS daemon"). This
+          # is weird, because in the journal one can clearly see that apcupsd has
+          # received the SIGTERM signal and has already quit (or so it seems).
+          # This reduces the wait time from 90 seconds (default) to just 5. Then
+          # systemd kills it with SIGKILL.
         TimeoutStopSec = 5;
       };
       unitConfig.Documentation = "man:apcupsd(8)";
     };
 
-    # A special service to tell the UPS to power down/hibernate just before the
-    # computer shuts down. (The UPS has a built in delay before it actually
-    # shuts off power.) Copied from here:
-    # http://forums.opensuse.org/english/get-technical-help-here/applications/479499-apcupsd-systemd-killpower-issues.html
+      # A special service to tell the UPS to power down/hibernate just before the
+      # computer shuts down. (The UPS has a built in delay before it actually
+      # shuts off power.) Copied from here:
+      # http://forums.opensuse.org/english/get-technical-help-here/applications/479499-apcupsd-systemd-killpower-issues.html
     systemd.services.apcupsd-killpower = {
       description = "APC UPS Kill Power";
       after = [ "shutdown.target" ]; # append umount.target?

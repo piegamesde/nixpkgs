@@ -48,14 +48,16 @@ buildGoModule rec {
   meta = with lib; {
     homepage = "https://victoriametrics.com/";
     description =
-      "fast, cost-effective and scalable time series database, long-term remote storage for Prometheus";
+      "fast, cost-effective and scalable time series database, long-term remote storage for Prometheus"
+      ;
     license = licenses.asl20;
     maintainers = with maintainers; [
       yorickvp
       ivan
     ];
     changelog =
-      "https://github.com/VictoriaMetrics/VictoriaMetrics/releases/tag/v${version}";
+      "https://github.com/VictoriaMetrics/VictoriaMetrics/releases/tag/v${version}"
+      ;
     mainProgram = "victoria-metrics";
   };
 }

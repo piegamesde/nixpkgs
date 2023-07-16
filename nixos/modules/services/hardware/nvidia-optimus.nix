@@ -24,7 +24,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = lib.mkIf config.hardware.nvidiaOptimus.disable {
     boot.blacklistedKernelModules = [

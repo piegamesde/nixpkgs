@@ -16,7 +16,7 @@ buildPythonPackage rec {
   version = "1.2.0";
   format = "setuptools";
 
-  # According to their docs, this library is for Python 3+.
+    # According to their docs, this library is for Python 3+.
   disabled = isPy27;
 
   src = fetchPypi {

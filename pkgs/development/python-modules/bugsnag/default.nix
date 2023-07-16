@@ -31,7 +31,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "bugsnag" ];
 
-  # Module ha no tests
+    # Module ha no tests
   doCheck = false;
 
   meta = with lib; {

@@ -25,9 +25,9 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ numpy ];
 
-  # The cythonized extensions are required to exist in the pygeos/ directory
-  # for the package to function. Therefore override of buildPhase was
-  # necessary.
+    # The cythonized extensions are required to exist in the pygeos/ directory
+    # for the package to function. Therefore override of buildPhase was
+    # necessary.
   buildPhase = ''
     ${python.pythonForBuild.interpreter} setup.py build_ext --inplace
     ${python.pythonForBuild.interpreter} setup.py bdist_wheel

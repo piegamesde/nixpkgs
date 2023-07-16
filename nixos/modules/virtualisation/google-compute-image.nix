@@ -50,7 +50,7 @@ in {
     };
   };
 
-  #### implementation
+    #### implementation
   config = {
 
     system.build.googleComputeImage = import ../../lib/make-disk-image.nix {
@@ -71,10 +71,12 @@ in {
         popd
       '';
       format = "raw";
-      configFile = if cfg.configFile == null then
-        defaultConfigFile
-      else
-        cfg.configFile;
+      configFile =
+        if cfg.configFile == null then
+          defaultConfigFile
+        else
+          cfg.configFile
+        ;
       inherit (cfg) diskSize;
       inherit config lib pkgs;
     };

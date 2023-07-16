@@ -12,7 +12,7 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "sha256-ok/yttRSkCaEdV4aM2670qERjgDBll6Oi3L5TV5YEEA=";
   };
 
-  # This package does not have any tests
+    # This package does not have any tests
   doCheck = false;
 
   propagatedBuildInputs = with python3.pkgs; [ impacket ];

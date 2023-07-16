@@ -32,9 +32,10 @@ let
     ] ++ lib.optional (with-gce) google-compute-engine);
 
   data = import ./data.nix { };
-  sources = system:
-    data.googleCloudSdkPkgs.${system} or (throw
-      "Unsupported system: ${system}");
+  sources =
+    system:
+    data.googleCloudSdkPkgs.${system} or (throw "Unsupported system: ${system}")
+    ;
 
   components =
     callPackage ./components.nix { snapshotPath = ./components.json; };
@@ -136,12 +137,13 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Tools for the google cloud platform";
     longDescription =
-      "The Google Cloud SDK. This package has the programs: gcloud, gsutil, and bq";
+      "The Google Cloud SDK. This package has the programs: gcloud, gsutil, and bq"
+      ;
     sourceProvenance = with sourceTypes; [
       fromSource
       binaryNativeCode # anthoscli and possibly more
     ];
-    # This package contains vendored dependencies. All have free licenses.
+      # This package contains vendored dependencies. All have free licenses.
     license = licenses.free;
     homepage = "https://cloud.google.com/sdk/";
     changelog = "https://cloud.google.com/sdk/docs/release-notes";

@@ -15,7 +15,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-PyGLbbsh9lFXhzB1Xn8VQ9zilivycGFEIc7i8KXOxj8=";
   };
 
-  # fixes the install path in the Makefile
+    # fixes the install path in the Makefile
   patches = [ ./fix_install.patch ];
 
   meta = with lib; {

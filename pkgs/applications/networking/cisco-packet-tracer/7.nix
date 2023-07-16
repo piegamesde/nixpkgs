@@ -55,7 +55,8 @@ let
     name = "packettracer7";
     runScript = "${ptFiles}/bin/packettracer7";
 
-    targetPkgs = pkgs:
+    targetPkgs =
+      pkgs:
       with pkgs; [
         alsa-lib
         dbus
@@ -74,7 +75,8 @@ let
         xorg.libSM
         xorg.libX11
         xorg.libXScrnSaver
-      ];
+      ]
+      ;
   };
 in
 stdenv.mkDerivation {

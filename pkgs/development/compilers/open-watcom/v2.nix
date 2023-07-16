@@ -14,7 +14,7 @@
 
 stdenv.mkDerivation rec {
   pname = "${passthru.prettyName}-unwrapped";
-  # nixpkgs-update: no auto update
+    # nixpkgs-update: no auto update
   version = "unstable-2023-03-20";
 
   src = fetchFromGitHub {
@@ -95,7 +95,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  # Stripping breaks many tools
+    # Stripping breaks many tools
   dontStrip = true;
 
   passthru = {

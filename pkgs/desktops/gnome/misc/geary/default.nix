@@ -63,12 +63,14 @@ stdenv.mkDerivation rec {
     # https://hydra.nixos.org/build/217892787
     (fetchpatch2 {
       url =
-        "https://gitlab.gnome.org/GNOME/geary/-/commit/4a7ca820b1d3d6130fedf254dc5b4cd7efb58f2c.patch";
+        "https://gitlab.gnome.org/GNOME/geary/-/commit/4a7ca820b1d3d6130fedf254dc5b4cd7efb58f2c.patch"
+        ;
       sha256 = "L63TMOkxTYu8jxX+IIc9owoa1TBmaeGXgW+8gfMtFw4=";
     })
     (fetchpatch2 {
       url =
-        "https://gitlab.gnome.org/GNOME/geary/-/commit/10f9c133a2ad515127d65f3bba13a0d91b75f4af.patch";
+        "https://gitlab.gnome.org/GNOME/geary/-/commit/10f9c133a2ad515127d65f3bba13a0d91b75f4af.patch"
+        ;
       sha256 = "0yohy+FZyHW4MkImLQYNlcZyMekH7mXvO2yEuAm3fXw=";
     })
   ];
@@ -127,8 +129,8 @@ stdenv.mkDerivation rec {
     "-Dcontractor=enabled" # install the contractor file (Pantheon specific)
   ];
 
-  # NOTE: Remove `build-auxyaml_to_json.py` when no longer needed, see:
-  # https://gitlab.gnome.org/GNOME/geary/commit/f7f72143e0f00ca5e0e6a798691805c53976ae31#0cc1139e3347f573ae1feee5b73dbc8a8a21fcfa
+    # NOTE: Remove `build-auxyaml_to_json.py` when no longer needed, see:
+    # https://gitlab.gnome.org/GNOME/geary/commit/f7f72143e0f00ca5e0e6a798691805c53976ae31#0cc1139e3347f573ae1feee5b73dbc8a8a21fcfa
   postPatch = ''
     chmod +x build-aux/git_version.py
 
@@ -137,7 +139,7 @@ stdenv.mkDerivation rec {
     chmod +x desktop/geary-attach
   '';
 
-  # Some tests time out.
+    # Some tests time out.
   doCheck = false;
 
   checkPhase = ''

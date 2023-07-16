@@ -18,7 +18,8 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     sha256 = "1j30dpzy6wh8fv1j2750hzc6wb0nhk83knl9fapccxgxw9n5lrbc";
     url =
-      "mirror://sourceforge/project/golly/golly/golly-${version}/golly-${version}-src.tar.gz";
+      "mirror://sourceforge/project/golly/golly/golly-${version}/golly-${version}-src.tar.gz"
+      ;
   };
 
   buildInputs = [

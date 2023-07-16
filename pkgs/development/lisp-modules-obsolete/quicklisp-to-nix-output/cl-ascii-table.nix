@@ -13,7 +13,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/cl-ascii-table/2020-06-10/cl-ascii-table-20200610-git.tgz";
+      "http://beta.quicklisp.org/archive/cl-ascii-table/2020-06-10/cl-ascii-table-20200610-git.tgz"
+      ;
     sha256 = "00395cbmjwlywyks3zd4mqp0w7yyms61ywp06knv1gbf847vy7yi";
   };
 

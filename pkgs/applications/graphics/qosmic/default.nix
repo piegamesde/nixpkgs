@@ -32,7 +32,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "allow-overriding-PREFIX.patch";
       url =
-        "https://github.com/bitsed/qosmic/commit/77fb3a577b0710efae2a1d9ed97c26ae16f3a5ba.patch";
+        "https://github.com/bitsed/qosmic/commit/77fb3a577b0710efae2a1d9ed97c26ae16f3a5ba.patch"
+        ;
       sha256 = "0v9hj9s78cb6bg8ca0wjkbr3c7ml1n51n8h4a70zpzzgzz7rli5b";
     })
     # Fix QButtonGroup include errors with Qt 5.11:
@@ -40,7 +41,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "fix-class-QButtonGroup-include-errors-with-Qt-5.11.patch";
       url =
-        "https://github.com/bitsed/qosmic/commit/3f6e1ea8d384a124dbc2d568171a4da798480752.patch";
+        "https://github.com/bitsed/qosmic/commit/3f6e1ea8d384a124dbc2d568171a4da798480752.patch"
+        ;
       sha256 = "0bp6b759plkqs32nvfpkfvf3qqzc9716k3ycwnjvwabbvpg1xwbl";
     })
   ];

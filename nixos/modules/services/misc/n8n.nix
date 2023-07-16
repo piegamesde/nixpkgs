@@ -50,7 +50,7 @@ in {
         HOME = "/var/lib/n8n";
         N8N_CONFIG_FILES = "${configFile}";
 
-        # Don't phone home
+          # Don't phone home
         N8N_DIAGNOSTICS_ENABLED = "false";
         N8N_VERSION_NOTIFICATIONS_ENABLED = "false";
       };
@@ -60,7 +60,7 @@ in {
         Restart = "on-failure";
         StateDirectory = "n8n";
 
-        # Basic Hardening
+          # Basic Hardening
         NoNewPrivileges = "yes";
         PrivateTmp = "yes";
         PrivateDevices = "yes";

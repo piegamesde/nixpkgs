@@ -12,7 +12,7 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.8";
 
-  # PyPI distribution does not include tests
+    # PyPI distribution does not include tests
   src = fetchFromGitHub {
     owner = "csingley";
     repo = pname;
@@ -21,8 +21,8 @@ buildPythonPackage rec {
   };
 
   nativeCheckInputs = [ nose ];
-  # override $HOME directory:
-  #   error: [Errno 13] Permission denied: '/homeless-shelter'
+    # override $HOME directory:
+    #   error: [Errno 13] Permission denied: '/homeless-shelter'
   checkPhase = ''
     HOME=$TMPDIR nosetests tests/*.py
   '';
@@ -30,7 +30,8 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/csingley/ofxtools";
     description =
-      "Library for working with Open Financial Exchange (OFX) formatted data used by financial institutions";
+      "Library for working with Open Financial Exchange (OFX) formatted data used by financial institutions"
+      ;
     license = licenses.mit;
   };
 }

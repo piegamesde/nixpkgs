@@ -33,13 +33,14 @@ buildPythonPackage rec {
 
   disabled = !isPy3k;
 
-  # Tests need a display to run.
+    # Tests need a display to run.
   doCheck = false;
 
   meta = with lib; {
     homepage = "https://github.com/moderngl/moderngl_window";
     description =
-      "Cross platform helper library for ModernGL making window creation and resource loading simple";
+      "Cross platform helper library for ModernGL making window creation and resource loading simple"
+      ;
     license = licenses.mit;
     platforms = platforms.linux; # should be mesaPlatforms, darwin build breaks.
     maintainers = with maintainers; [ c0deaddict ];

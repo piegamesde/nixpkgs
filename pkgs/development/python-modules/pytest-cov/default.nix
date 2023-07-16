@@ -25,8 +25,8 @@ buildPythonPackage rec {
     tomli
   ];
 
-  # xdist related tests fail with the following error
-  # OSError: [Errno 13] Permission denied: 'py/_code'
+    # xdist related tests fail with the following error
+    # OSError: [Errno 13] Permission denied: 'py/_code'
   doCheck = false;
   checkPhase = ''
     # allow to find the module helper during the test run
@@ -38,7 +38,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Plugin for coverage reporting with support for both centralised and distributed testing, including subprocesses and multiprocessing";
+      "Plugin for coverage reporting with support for both centralised and distributed testing, including subprocesses and multiprocessing"
+      ;
     homepage = "https://github.com/pytest-dev/pytest-cov";
     license = licenses.mit;
   };

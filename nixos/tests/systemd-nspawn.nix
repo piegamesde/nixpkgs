@@ -52,7 +52,8 @@ import ./make-test-python.nix ({
     name = "systemd-nspawn";
 
     nodes = {
-      server = {
+      server =
+        {
           pkgs,
           ...
         }: {
@@ -61,14 +62,17 @@ import ./make-test-python.nix ({
             enable = true;
             virtualHosts."server".root = nspawnImages;
           };
-        };
-      client = {
+        }
+        ;
+      client =
+        {
           pkgs,
           ...
         }: {
           environment.etc."systemd/import-pubring.gpg".source =
             "${gpgKeyring}/pubkey.gpg";
-        };
+        }
+        ;
     };
 
     testScript = ''

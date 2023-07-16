@@ -9,7 +9,8 @@ import ./make-test-python.nix ({
         mic92
       ];
     };
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         config,
         ...
@@ -23,7 +24,8 @@ import ./make-test-python.nix ({
           dev = true;
           devRootTokenID = config.environment.variables.VAULT_TOKEN;
         };
-      };
+      }
+      ;
 
     testScript = ''
       import json

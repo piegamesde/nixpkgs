@@ -29,8 +29,8 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  # prints an explanation about PYTHONPATH first
-  # and therefore fails the assertion
+    # prints an explanation about PYTHONPATH first
+    # and therefore fails the assertion
   disabledTests = [ "test_success_messages_are_printed_on_stderr" ];
 
   meta = with lib; {

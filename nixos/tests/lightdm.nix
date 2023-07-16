@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
     name = "lightdm";
     meta = with pkgs.lib.maintainers; { maintainers = [ aszlig ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         imports = [ ./common/user-account.nix ];
@@ -13,11 +14,13 @@ import ./make-test-python.nix ({
         services.xserver.displayManager.lightdm.enable = true;
         services.xserver.displayManager.defaultSession = "none+icewm";
         services.xserver.windowManager.icewm.enable = true;
-      };
+      }
+      ;
 
     enableOCR = true;
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }:
@@ -31,5 +34,6 @@ import ./make-test-python.nix ({
         machine.wait_for_file("${user.home}/.Xauthority")
         machine.succeed("xauth merge ${user.home}/.Xauthority")
         machine.wait_for_window("^IceWM ")
-      '' ;
+      ''
+      ;
   })

@@ -17,14 +17,15 @@ let
       makePkgConfigTestMaybe k v)
     (builtins.removeAttrs defaultPkgConfigPackages [ "recurseForDerivations" ]);
 
-  # nix-build rejects attribute names with periods
-  # This will build those regardless.
+    # nix-build rejects attribute names with periods
+    # This will build those regardless.
   tests-combined =
     runCommand "pkg-config-checks" { allTests = lib.attrValues allTests; } ''
       touch $out
     '';
 
-  makePkgConfigTestMaybe = moduleName: pkg:
+  makePkgConfigTestMaybe =
+    moduleName: pkg:
     if !lib.isDerivation pkg then
       throw "pkg-config module `${
         escapeNixIdentifier moduleName
@@ -63,7 +64,8 @@ let
       testers.hasPkgConfigModule {
         inherit moduleName;
         package = pkg;
-      };
+      }
+    ;
 
 in
 lib.recurseIntoAttrs allTests // { inherit tests-combined; }

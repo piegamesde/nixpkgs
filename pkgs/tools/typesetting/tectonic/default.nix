@@ -43,8 +43,8 @@ rustPlatform.buildRustPackage rec {
     Foundation
   ]);
 
-  # Tectonic runs biber when it detects it needs to run it, see:
-  # https://github.com/tectonic-typesetting/tectonic/releases/tag/tectonic%400.7.0
+    # Tectonic runs biber when it detects it needs to run it, see:
+    # https://github.com/tectonic-typesetting/tectonic/releases/tag/tectonic%400.7.0
   postInstall = ''
     wrapProgram $out/bin/tectonic \
       --prefix PATH : "${lib.getBin biber}/bin"
@@ -61,10 +61,12 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "Modernized, complete, self-contained TeX/LaTeX engine, powered by XeTeX and TeXLive";
+      "Modernized, complete, self-contained TeX/LaTeX engine, powered by XeTeX and TeXLive"
+      ;
     homepage = "https://tectonic-typesetting.github.io/";
     changelog =
-      "https://github.com/tectonic-typesetting/tectonic/blob/tectonic@${version}/CHANGELOG.md";
+      "https://github.com/tectonic-typesetting/tectonic/blob/tectonic@${version}/CHANGELOG.md"
+      ;
     license = with licenses; [ mit ];
     maintainers = with maintainers; [
       lluchs

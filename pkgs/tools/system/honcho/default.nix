@@ -29,7 +29,7 @@ python3Packages.buildPythonApplication rec {
     coverage
   ];
 
-  # missing plugins
+    # missing plugins
   doCheck = false;
 
   checkPhase = ''
@@ -40,7 +40,8 @@ python3Packages.buildPythonApplication rec {
 
   meta = with lib; {
     description =
-      "A Python clone of Foreman, a tool for managing Procfile-based applications";
+      "A Python clone of Foreman, a tool for managing Procfile-based applications"
+      ;
     license = licenses.mit;
     homepage = "https://github.com/nickstenning/honcho";
     maintainers = with maintainers; [ benley ];

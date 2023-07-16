@@ -54,10 +54,10 @@ in {
     # expose cockpit-bridge system-wide
     environment.systemPackages = [ cfg.package ];
 
-    # allow cockpit to find its plugins
+      # allow cockpit to find its plugins
     environment.pathsToLink = [ "/share/cockpit" ];
 
-    # generate cockpit settings
+      # generate cockpit settings
     environment.etc."cockpit/cockpit.conf".source =
       settingsFormat.generate "cockpit.conf" cfg.settings;
 
@@ -65,10 +65,10 @@ in {
 
     networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.port ];
 
-    # units are in reverse sort order if you ls $out/lib/systemd/system
-    # all these units are basically verbatim translated from upstream
+      # units are in reverse sort order if you ls $out/lib/systemd/system
+      # all these units are basically verbatim translated from upstream
 
-    # Translation from $out/lib/systemd/system/systemd-cockpithttps.slice
+      # Translation from $out/lib/systemd/system/systemd-cockpithttps.slice
     systemd.slices.system-cockpithttps = {
       description =
         "Resource limits for all cockpit-ws-https@.service instances";
@@ -79,7 +79,7 @@ in {
       };
     };
 
-    # Translation from $out/lib/systemd/system/cockpit-wsinstance-https@.socket
+      # Translation from $out/lib/systemd/system/cockpit-wsinstance-https@.socket
     systemd.sockets."cockpit-wsinstance-https@" = {
       unitConfig = {
         Description = "Socket for Cockpit Web Service https instance %I";
@@ -87,9 +87,9 @@ in {
           "cockpit.service"
           "cockpit-wsinstance-https@%i.service"
         ];
-        # clean up the socket after the service exits, to prevent fd leak
-        # this also effectively prevents a DoS by starting arbitrarily many sockets, as
-        # the services are resource-limited by system-cockpithttps.slice
+          # clean up the socket after the service exits, to prevent fd leak
+          # this also effectively prevents a DoS by starting arbitrarily many sockets, as
+          # the services are resource-limited by system-cockpithttps.slice
         Documentation = "man:cockpit-ws(8)";
       };
       socketConfig = {
@@ -99,7 +99,7 @@ in {
       };
     };
 
-    # Translation from $out/lib/systemd/system/cockpit-wsinstance-https@.service
+      # Translation from $out/lib/systemd/system/cockpit-wsinstance-https@.service
     systemd.services."cockpit-wsinstance-https@" = {
       description = "Cockpit Web Service https instance %I";
       bindsTo = [ "cockpit.service" ];
@@ -114,7 +114,7 @@ in {
       };
     };
 
-    # Translation from $out/lib/systemd/system/cockpit-wsinstance-http.socket
+      # Translation from $out/lib/systemd/system/cockpit-wsinstance-http.socket
     systemd.sockets.cockpit-wsinstance-http = {
       unitConfig = {
         Description = "Socket for Cockpit Web Service http instance";
@@ -128,7 +128,7 @@ in {
       };
     };
 
-    # Translation from $out/lib/systemd/system/cockpit-wsinstance-https-factory.socket
+      # Translation from $out/lib/systemd/system/cockpit-wsinstance-https-factory.socket
     systemd.sockets.cockpit-wsinstance-https-factory = {
       unitConfig = {
         Description = "Socket for Cockpit Web Service https instance factory";
@@ -143,7 +143,7 @@ in {
       };
     };
 
-    # Translation from $out/lib/systemd/system/cockpit-wsinstance-https-factory@.service
+      # Translation from $out/lib/systemd/system/cockpit-wsinstance-https-factory@.service
     systemd.services."cockpit-wsinstance-https-factory@" = {
       description = "Cockpit Web Service https instance factory";
       documentation = [ "man:cockpit-ws(8)" ];
@@ -154,7 +154,7 @@ in {
       };
     };
 
-    # Translation from $out/lib/systemd/system/cockpit-wsinstance-http.service
+      # Translation from $out/lib/systemd/system/cockpit-wsinstance-http.service
     systemd.services."cockpit-wsinstance-http" = {
       description = "Cockpit Web Service http instance";
       bindsTo = [ "cockpit.service" ];
@@ -167,7 +167,7 @@ in {
       };
     };
 
-    # Translation from $out/lib/systemd/system/cockpit.socket
+      # Translation from $out/lib/systemd/system/cockpit.socket
     systemd.sockets."cockpit" = {
       unitConfig = {
         Description = "Cockpit Web Service Socket";
@@ -186,7 +186,7 @@ in {
       wantedBy = [ "sockets.target" ];
     };
 
-    # Translation from $out/lib/systemd/system/cockpit.service
+      # Translation from $out/lib/systemd/system/cockpit.service
     systemd.services."cockpit" = {
       description = "Cockpit Web Service";
       documentation = [ "man:cockpit-ws(8)" ];
@@ -231,12 +231,12 @@ in {
       };
     };
 
-    # Translation from $out/lib/systemd/system/cockpit-motd.service
-    # This part basically implements a motd state machine:
-    # - If cockpit.socket is enabled then /run/cockpit/motd points to /run/cockpit/active.motd
-    # - If cockpit.socket is disabled then /run/cockpit/motd points to /run/cockpit/inactive.motd
-    # - As cockpit.socket is disabled by default, /run/cockpit/motd points to /run/cockpit/inactive.motd
-    # /run/cockpit/active.motd is generated dynamically by cockpit-motd.service
+      # Translation from $out/lib/systemd/system/cockpit-motd.service
+      # This part basically implements a motd state machine:
+      # - If cockpit.socket is enabled then /run/cockpit/motd points to /run/cockpit/active.motd
+      # - If cockpit.socket is disabled then /run/cockpit/motd points to /run/cockpit/inactive.motd
+      # - As cockpit.socket is disabled by default, /run/cockpit/motd points to /run/cockpit/inactive.motd
+      # /run/cockpit/active.motd is generated dynamically by cockpit-motd.service
     systemd.services."cockpit-motd" = {
       path = with pkgs; [ nettools ];
       serviceConfig = {

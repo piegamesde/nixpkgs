@@ -14,7 +14,7 @@ buildPythonPackage rec {
   version = "2.0.2";
   format = "pyproject";
 
-  # https://github.com/mlenzen/collections-extended/issues/198
+    # https://github.com/mlenzen/collections-extended/issues/198
   disabled = pythonOlder "3.6" || pythonAtLeast "3.11";
 
   src = fetchFromGitHub {
@@ -35,7 +35,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Extra Python Collections - bags (multisets), setlists (unique list/indexed set), RangeMap and IndexedDict";
+      "Extra Python Collections - bags (multisets), setlists (unique list/indexed set), RangeMap and IndexedDict"
+      ;
     homepage = "https://github.com/mlenzen/collections-extended";
     license = licenses.asl20;
     maintainers = with maintainers; [ exarkun ];

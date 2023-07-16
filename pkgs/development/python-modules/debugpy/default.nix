@@ -23,8 +23,8 @@ buildPythonPackage rec {
   version = "1.6.7";
   format = "setuptools";
 
-  # Currently doesn't support 3.11:
-  # https://github.com/microsoft/debugpy/issues/1107
+    # Currently doesn't support 3.11:
+    # https://github.com/microsoft/debugpy/issues/1107
   disabled = pythonOlder "3.7" || pythonAtLeast "3.11";
 
   src = fetchFromGitHub {
@@ -64,8 +64,8 @@ buildPythonPackage rec {
     })
   ];
 
-  # Remove pre-compiled "attach" libraries and recompile for host platform
-  # Compile flags taken from linux_and_mac/compile_linux.sh & linux_and_mac/compile_mac.sh
+    # Remove pre-compiled "attach" libraries and recompile for host platform
+    # Compile flags taken from linux_and_mac/compile_linux.sh & linux_and_mac/compile_mac.sh
   preBuild = ''
     (
         set -x
@@ -107,10 +107,10 @@ buildPythonPackage rec {
     unset no_proxy
   '';
 
-  # Override default arguments in pytest.ini
+    # Override default arguments in pytest.ini
   pytestFlagsArray = [ "--timeout=0" ];
 
-  # Fixes hanging tests on Darwin
+    # Fixes hanging tests on Darwin
   __darwinAllowLocalNetworking = true;
 
   disabledTests = [

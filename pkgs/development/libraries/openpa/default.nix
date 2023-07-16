@@ -11,7 +11,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://trac.mpich.org/projects/${pname}/raw-attachment/wiki/Downloads/${pname}-${version}.tar.gz";
+      "https://trac.mpich.org/projects/${pname}/raw-attachment/wiki/Downloads/${pname}-${version}.tar.gz"
+      ;
     sha256 = "0flyi596hm6fv7xyw2iykx3s65p748s62bf15624xcnwpfrh8ncy";
   };
 

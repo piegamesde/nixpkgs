@@ -7,7 +7,8 @@ import ./make-test-python.nix ({
 
     meta = with lib; { maintainers = teams.deepin.members; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         imports = [ ./common/user-account.nix ];
@@ -23,9 +24,11 @@ import ./make-test-python.nix ({
         };
 
         services.xserver.desktopManager.deepin.enable = true;
-      };
+      }
+      ;
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }:
@@ -57,5 +60,6 @@ import ./make-test-python.nix ({
             machine.wait_for_window("deepin-terminal")
             machine.sleep(20)
             machine.screenshot("screen")
-      '' ;
+      ''
+      ;
   })

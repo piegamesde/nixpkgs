@@ -24,7 +24,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  # Broken tests. Seem to be fixed upstream according to Travis.
+    # Broken tests. Seem to be fixed upstream according to Travis.
   doCheck = false;
 
   meta = with lib; {

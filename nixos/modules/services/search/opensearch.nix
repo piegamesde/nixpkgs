@@ -15,8 +15,8 @@ let
   configDir = cfg.dataDir + "/config";
 
   usingDefaultDataDir = cfg.dataDir == "/var/lib/opensearch";
-  usingDefaultUserAndGroup = cfg.user == "opensearch" && cfg.group
-    == "opensearch";
+  usingDefaultUserAndGroup =
+    cfg.user == "opensearch" && cfg.group == "opensearch";
 
   opensearchYml = settingsFormat.generate "opensearch.yml" cfg.settings;
 
@@ -174,60 +174,62 @@ in {
         OPENSEARCH_PATH_CONF = configDir;
       };
       serviceConfig = {
-        ExecStartPre = let
-          startPreFullPrivileges = ''
-            set -o errexit -o pipefail -o nounset -o errtrace
-            shopt -s inherit_errexit
-          '' + (optionalString (!config.boot.isContainer) ''
-            # Only set vm.max_map_count if lower than ES required minimum
-            # This avoids conflict if configured via boot.kernel.sysctl
-            if [ $(${pkgs.procps}/bin/sysctl -n vm.max_map_count) -lt 262144 ]; then
-              ${pkgs.procps}/bin/sysctl -w vm.max_map_count=262144
-            fi
-          '');
-          startPreUnprivileged = ''
-            set -o errexit -o pipefail -o nounset -o errtrace
-            shopt -s inherit_errexit
+        ExecStartPre =
+          let
+            startPreFullPrivileges = ''
+              set -o errexit -o pipefail -o nounset -o errtrace
+              shopt -s inherit_errexit
+            '' + (optionalString (!config.boot.isContainer) ''
+              # Only set vm.max_map_count if lower than ES required minimum
+              # This avoids conflict if configured via boot.kernel.sysctl
+              if [ $(${pkgs.procps}/bin/sysctl -n vm.max_map_count) -lt 262144 ]; then
+                ${pkgs.procps}/bin/sysctl -w vm.max_map_count=262144
+              fi
+            '');
+            startPreUnprivileged = ''
+              set -o errexit -o pipefail -o nounset -o errtrace
+              shopt -s inherit_errexit
 
-            # Install plugins
-            ln -sfT ${cfg.package}/lib ${cfg.dataDir}/lib
-            ln -sfT ${cfg.package}/modules ${cfg.dataDir}/modules
+              # Install plugins
+              ln -sfT ${cfg.package}/lib ${cfg.dataDir}/lib
+              ln -sfT ${cfg.package}/modules ${cfg.dataDir}/modules
 
-            # opensearch needs to create the opensearch.keystore in the config directory
-            # so this directory needs to be writable.
-            mkdir -p ${configDir}
-            chmod 0700 ${configDir}
+              # opensearch needs to create the opensearch.keystore in the config directory
+              # so this directory needs to be writable.
+              mkdir -p ${configDir}
+              chmod 0700 ${configDir}
 
-            # Note that we copy config files from the nix store instead of symbolically linking them
-            # because otherwise X-Pack Security will raise the following exception:
-            # java.security.AccessControlException:
-            # access denied ("java.io.FilePermission" "/var/lib/opensearch/config/opensearch.yml" "read")
+              # Note that we copy config files from the nix store instead of symbolically linking them
+              # because otherwise X-Pack Security will raise the following exception:
+              # java.security.AccessControlException:
+              # access denied ("java.io.FilePermission" "/var/lib/opensearch/config/opensearch.yml" "read")
 
-            rm -f ${configDir}/opensearch.yml
-            cp ${opensearchYml} ${configDir}/opensearch.yml
+              rm -f ${configDir}/opensearch.yml
+              cp ${opensearchYml} ${configDir}/opensearch.yml
 
-            # Make sure the logging configuration for old OpenSearch versions is removed:
-            rm -f "${configDir}/logging.yml"
-            rm -f ${configDir}/${loggingConfigFilename}
-            cp ${loggingConfigFile} ${configDir}/${loggingConfigFilename}
-            mkdir -p ${configDir}/scripts
+              # Make sure the logging configuration for old OpenSearch versions is removed:
+              rm -f "${configDir}/logging.yml"
+              rm -f ${configDir}/${loggingConfigFilename}
+              cp ${loggingConfigFile} ${configDir}/${loggingConfigFilename}
+              mkdir -p ${configDir}/scripts
 
-            rm -f ${configDir}/jvm.options
-            cp ${cfg.package}/config/jvm.options ${configDir}/jvm.options
+              rm -f ${configDir}/jvm.options
+              cp ${cfg.package}/config/jvm.options ${configDir}/jvm.options
 
-            # redirect jvm logs to the data directory
-            mkdir -p ${cfg.dataDir}/logs
-            chmod 0700 ${cfg.dataDir}/logs
-            sed -e '#logs/gc.log#${cfg.dataDir}/logs/gc.log#' -i ${configDir}/jvm.options
-          '';
-        in [
-          "+${
-            pkgs.writeShellScript "opensearch-start-pre-full-privileges"
-            startPreFullPrivileges
-          }"
-          "${pkgs.writeShellScript "opensearch-start-pre-unprivileged"
-          startPreUnprivileged}"
-        ] ;
+              # redirect jvm logs to the data directory
+              mkdir -p ${cfg.dataDir}/logs
+              chmod 0700 ${cfg.dataDir}/logs
+              sed -e '#logs/gc.log#${cfg.dataDir}/logs/gc.log#' -i ${configDir}/jvm.options
+            '';
+          in [
+            "+${
+              pkgs.writeShellScript "opensearch-start-pre-full-privileges"
+              startPreFullPrivileges
+            }"
+            "${pkgs.writeShellScript "opensearch-start-pre-unprivileged"
+            startPreUnprivileged}"
+          ]
+          ;
         ExecStartPost = pkgs.writeShellScript "opensearch-start-post" ''
           set -o errexit -o pipefail -o nounset -o errtrace
           shopt -s inherit_errexit

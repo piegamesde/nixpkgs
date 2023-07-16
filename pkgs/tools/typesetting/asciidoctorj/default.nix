@@ -12,7 +12,8 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "mirror://maven/org/asciidoctor/${pname}/${version}/${pname}-${version}-bin.zip";
+      "mirror://maven/org/asciidoctor/${pname}/${version}/${pname}-${version}-bin.zip"
+      ;
     sha256 = "sha256-LUbzS2XYSsSPyJmyvitS5or0S4o9SB2ycMkuAWyVB8w=";
   };
 

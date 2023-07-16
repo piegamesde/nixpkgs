@@ -71,7 +71,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/pydicom/pynetdicom";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
-    # Tests are not passing on Darwin/Aarch64, thus it's assumed that it doesn't work
+      # Tests are not passing on Darwin/Aarch64, thus it's assumed that it doesn't work
     broken = stdenv.isDarwin || stdenv.isAarch64;
   };
 }

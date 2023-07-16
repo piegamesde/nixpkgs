@@ -8,7 +8,7 @@ buildPythonPackage rec {
   pname = "Chameleon";
   version = "3.8.1";
 
-  # tests not included in pypi tarball
+    # tests not included in pypi tarball
   src = fetchFromGitHub {
     owner = "malthe";
     repo = "chameleon";

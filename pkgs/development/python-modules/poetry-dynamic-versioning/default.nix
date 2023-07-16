@@ -40,7 +40,7 @@ buildPythonPackage rec {
     poetry
   ];
 
-  # virtualenv: error: argument dest: the destination . is not write-able at /
+    # virtualenv: error: argument dest: the destination . is not write-able at /
   doCheck = false;
 
   disabledTests = [
@@ -58,7 +58,8 @@ buildPythonPackage rec {
       "Plugin for Poetry to enable dynamic versioning based on VCS tags";
     homepage = "https://github.com/mtkennerly/poetry-dynamic-versioning";
     changelog =
-      "https://github.com/mtkennerly/poetry-dynamic-versioning/blob/v${version}/CHANGELOG.md";
+      "https://github.com/mtkennerly/poetry-dynamic-versioning/blob/v${version}/CHANGELOG.md"
+      ;
     license = licenses.mit;
     maintainers = with maintainers; [ cpcloud ];
   };

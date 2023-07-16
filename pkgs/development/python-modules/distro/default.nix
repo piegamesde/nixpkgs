@@ -17,7 +17,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  # tests are very targeted at individual linux distributions
+    # tests are very targeted at individual linux distributions
   doCheck = false;
 
   pythonImportsCheck = [ "distro" ];

@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
     ];
     platforms = with platforms; unix;
     maintainers = with maintainers; [ AndersonTorres ];
-    # fatal error: 'sys/epoll.h' file not found
+      # fatal error: 'sys/epoll.h' file not found
     broken = stdenv.isDarwin;
   };
 }

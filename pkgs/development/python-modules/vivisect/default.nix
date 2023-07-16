@@ -59,14 +59,15 @@ buildPythonPackage rec {
     wrapQtApp $out/bin/vivbin
   '';
 
-  # requires another repo for test files
+    # requires another repo for test files
   doCheck = false;
 
   pythonImportsCheck = [ "vivisect" ];
 
   meta = with lib; {
     description =
-      "Pure python disassembler, debugger, emulator, and static analysis framework";
+      "Pure python disassembler, debugger, emulator, and static analysis framework"
+      ;
     homepage = "https://github.com/vivisect/vivisect";
     changelog =
       "https://github.com/vivisect/vivisect/blob/v${version}/CHANGELOG.rst";

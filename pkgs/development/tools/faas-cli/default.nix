@@ -10,7 +10,8 @@
   faas-cli,
 }:
 let
-  faasPlatform = platform:
+  faasPlatform =
+    platform:
     let
       cpuName = platform.parsed.cpu.name;
     in
@@ -19,7 +20,7 @@ let
       "armv7l" = "armhf";
       "armv6l" = "armhf";
     }.${cpuName} or cpuName
-  ;
+    ;
 in
 buildGoModule rec {
   pname = "faas-cli";

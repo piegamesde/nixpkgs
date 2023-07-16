@@ -35,7 +35,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "fno-common.patch";
       url =
-        "https://github.com/kenorb-contrib/tg/commit/aad2e644fffa16066b227741d54de31bddb04ff8.patch";
+        "https://github.com/kenorb-contrib/tg/commit/aad2e644fffa16066b227741d54de31bddb04ff8.patch"
+        ;
       sha256 = "sha256-LAa5J4BVj3QCiDSs+p2bynDroMSIqCeexQvrgaDl6OE=";
     })
   ];
@@ -68,7 +69,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Command-line interface for Telegram, that uses readline interface, it's a client implementation of TGL library";
+      "Command-line interface for Telegram, that uses readline interface, it's a client implementation of TGL library"
+      ;
     downloadPage = "https://github.com/kenorb-contrib/tg";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ ];

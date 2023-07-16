@@ -41,7 +41,8 @@ stdenv.mkDerivation rec {
     description = "Modern, C++-native, test framework for unit-tests";
     homepage = "https://github.com/catchorg/Catch2";
     changelog =
-      "https://github.com/catchorg/Catch2/blob/${src.rev}/docs/release-notes.md";
+      "https://github.com/catchorg/Catch2/blob/${src.rev}/docs/release-notes.md"
+      ;
     license = lib.licenses.boost;
     maintainers = with lib.maintainers; [ dotlambda ];
     platforms = lib.platforms.unix;

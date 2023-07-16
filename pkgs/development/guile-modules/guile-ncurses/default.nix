@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  # XXX: 1 of 65 tests failed.
+    # XXX: 1 of 65 tests failed.
   doCheck = false;
 
   meta = with lib; {

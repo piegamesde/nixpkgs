@@ -90,12 +90,13 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Plays old Amiga tunes through UAE emulation and cloned m68k-assembler Eagleplayer API";
+      "Plays old Amiga tunes through UAE emulation and cloned m68k-assembler Eagleplayer API"
+      ;
     homepage = "https://zakalwe.fi/uade/";
-    # It's a mix of licenses. "GPL", Public Domain, "LGPL", GPL2+, BSD, LGPL21+ and source code with unknown licenses. E.g.
-    # - hippel-coso player is "[not] under any Open Source certified license"
-    # - infogrames player is disassembled from Andi Silvas player, unknown license
-    # Let's make it easy and flag the whole package as unfree.
+      # It's a mix of licenses. "GPL", Public Domain, "LGPL", GPL2+, BSD, LGPL21+ and source code with unknown licenses. E.g.
+      # - hippel-coso player is "[not] under any Open Source certified license"
+      # - infogrames player is disassembled from Andi Silvas player, unknown license
+      # Let's make it easy and flag the whole package as unfree.
     license = licenses.unfree;
     maintainers = with maintainers; [ OPNA2608 ];
     mainProgram = "uade123";

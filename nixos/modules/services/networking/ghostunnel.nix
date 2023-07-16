@@ -23,7 +23,8 @@ let
 
   mainCfg = config.services.ghostunnel;
 
-  module = {
+  module =
+    {
       config,
       name,
       ...
@@ -149,13 +150,13 @@ let
           default = false;
         };
 
-        # Definitions to apply at the root of the NixOS configuration.
+          # Definitions to apply at the root of the NixOS configuration.
         atRoot = mkOption { internal = true; };
       };
 
-      # Clients should not be authenticated with the public root certificates
-      # (afaict, it doesn't make sense), so we only provide that default when
-      # client cert auth is disabled.
+        # Clients should not be authenticated with the public root certificates
+        # (afaict, it doesn't make sense), so we only provide that default when
+        # client cert auth is disabled.
       config.cacert = mkIf config.disableAuthentication (mkDefault null);
 
       config.atRoot = {
@@ -210,7 +211,8 @@ let
             ++ [ config.extraArguments ]);
         };
       };
-    };
+    }
+    ;
 
 in {
 

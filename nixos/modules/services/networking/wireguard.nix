@@ -15,9 +15,10 @@ let
 
   kernel = config.boot.kernelPackages;
 
-  # interface options
+    # interface options
 
-  interfaceOpts = {
+  interfaceOpts =
+    {
       ...
     }: {
 
@@ -74,8 +75,8 @@ let
           example =
             literalExpression ''"''${pkgs.iproute2}/bin/ip netns add foo"'';
           default = "";
-          type = with types;
-            coercedTo (listOf str) (concatStringsSep "\n") lines;
+          type =
+            with types; coercedTo (listOf str) (concatStringsSep "\n") lines;
           description = lib.mdDoc ''
             Commands called at the start of the interface setup.
           '';
@@ -86,8 +87,8 @@ let
             '''printf "nameserver 10.200.100.1" | ''${pkgs.openresolv}/bin/resolvconf -a wg0 -m 0'''
           '';
           default = "";
-          type = with types;
-            coercedTo (listOf str) (concatStringsSep "\n") lines;
+          type =
+            with types; coercedTo (listOf str) (concatStringsSep "\n") lines;
           description =
             lib.mdDoc "Commands called at the end of the interface setup.";
         };
@@ -96,8 +97,8 @@ let
           example =
             literalExpression ''"''${pkgs.openresolv}/bin/resolvconf -d wg0"'';
           default = "";
-          type = with types;
-            coercedTo (listOf str) (concatStringsSep "\n") lines;
+          type =
+            with types; coercedTo (listOf str) (concatStringsSep "\n") lines;
           description =
             lib.mdDoc "Commands called after shutting down the interface.";
         };
@@ -183,9 +184,10 @@ let
         };
       };
 
-    };
+    }
+    ;
 
-  # peer options
+    # peer options
 
   peerOpts = {
 
@@ -299,14 +301,16 @@ let
                   persistently. For example, if the interface very rarely sends traffic,
                   but it might at anytime receive traffic from a peer, and it is behind
                   NAT, the interface might benefit from having a persistent keepalive
-                  interval of 25 seconds; however, most users will not need this.'';
+                  interval of 25 seconds; however, most users will not need this.''
+          ;
       };
 
     };
 
   };
 
-  generateKeyServiceUnit = name: values:
+  generateKeyServiceUnit =
+    name: values:
     assert values.generatePrivateKeyFile;
     nameValuePair "wireguard-${name}-key" {
       description = "WireGuard Tunnel - ${name} - Key Generator";
@@ -332,9 +336,11 @@ let
           (set -e; umask 077; wg genkey > "${values.privateKeyFile}")
         fi
       '';
-    };
+    }
+    ;
 
-  peerUnitServiceName = interfaceName: publicKey: dynamicRefreshEnabled:
+  peerUnitServiceName =
+    interfaceName: publicKey: dynamicRefreshEnabled:
     let
       keyToUnitName = replaceStrings [
         "/"
@@ -353,26 +359,29 @@ let
       refreshSuffix = optionalString dynamicRefreshEnabled "-refresh";
     in
     "wireguard-${interfaceName}-peer-${unitName}${refreshSuffix}"
-  ;
+    ;
 
-  generatePeerUnit = {
+  generatePeerUnit =
+    {
       interfaceName,
       interfaceCfg,
       peer,
     }:
     let
-      psk = if peer.presharedKey != null then
-        pkgs.writeText "wg-psk" peer.presharedKey
-      else
-        peer.presharedKeyFile;
+      psk =
+        if peer.presharedKey != null then
+          pkgs.writeText "wg-psk" peer.presharedKey
+        else
+          peer.presharedKeyFile
+        ;
       src = interfaceCfg.socketNamespace;
       dst = interfaceCfg.interfaceNamespace;
       ip = nsWrap "ip" src dst;
       wg = nsWrap "wg" src dst;
       dynamicRefreshEnabled = peer.dynamicEndpointRefreshSeconds != 0;
-      # We generate a different name (a `-refresh` suffix) when `dynamicEndpointRefreshSeconds`
-      # to avoid that the same service switches `Type` (`oneshot` vs `simple`),
-      # with the intent to make scripting more obvious.
+        # We generate a different name (a `-refresh` suffix) when `dynamicEndpointRefreshSeconds`
+        # to avoid that the same service switches `Type` (`oneshot` vs `simple`),
+        # with the intent to make scripting more obvious.
       serviceName =
         peerUnitServiceName interfaceName peer.publicKey dynamicRefreshEnabled;
     in
@@ -392,77 +401,89 @@ let
         wireguard-tools
       ];
 
-      serviceConfig = if !dynamicRefreshEnabled then
-        {
-          Type = "oneshot";
-          RemainAfterExit = true;
-        }
-      else
-        {
-          Type = "simple"; # re-executes 'wg' indefinitely
-          # Note that `Type = "oneshot"` services with `RemainAfterExit = true`
-          # cannot be used with systemd timers (see `man systemd.timer`),
-          # which is why `simple` with a loop is the best choice here.
-          # It also makes starting and stopping easiest.
-          #
-          # Restart if the service exits (e.g. when wireguard gives up after "Name or service not known" dns failures):
-          Restart = "always";
-          RestartSec = if null != peer.dynamicEndpointRefreshRestartSeconds then
-            peer.dynamicEndpointRefreshRestartSeconds
-          else
-            peer.dynamicEndpointRefreshSeconds;
-        };
+      serviceConfig =
+        if !dynamicRefreshEnabled then
+          {
+            Type = "oneshot";
+            RemainAfterExit = true;
+          }
+        else
+          {
+            Type = "simple"; # re-executes 'wg' indefinitely
+              # Note that `Type = "oneshot"` services with `RemainAfterExit = true`
+              # cannot be used with systemd timers (see `man systemd.timer`),
+              # which is why `simple` with a loop is the best choice here.
+              # It also makes starting and stopping easiest.
+              #
+              # Restart if the service exits (e.g. when wireguard gives up after "Name or service not known" dns failures):
+            Restart = "always";
+            RestartSec =
+              if null != peer.dynamicEndpointRefreshRestartSeconds then
+                peer.dynamicEndpointRefreshRestartSeconds
+              else
+                peer.dynamicEndpointRefreshSeconds
+              ;
+          }
+        ;
       unitConfig =
         lib.optionalAttrs dynamicRefreshEnabled { StartLimitIntervalSec = 0; };
 
-      script = let
-        wg_setup = concatStringsSep " "
-          ([ ''${wg} set ${interfaceName} peer "${peer.publicKey}"'' ]
-            ++ optional (psk != null) ''preshared-key "${psk}"''
-            ++ optional (peer.endpoint != null) ''endpoint "${peer.endpoint}"''
-            ++ optional (peer.persistentKeepalive != null)
-            ''persistent-keepalive "${toString peer.persistentKeepalive}"''
-            ++ optional (peer.allowedIPs != [ ])
-            ''allowed-ips "${concatStringsSep "," peer.allowedIPs}"'');
-        route_setup = optionalString interfaceCfg.allowedIPsAsRoutes
-          (concatMapStringsSep "\n" (allowedIP:
-            ''
-              ${ip} route replace "${allowedIP}" dev "${interfaceName}" table "${interfaceCfg.table}"'')
-            peer.allowedIPs);
-      in ''
-        ${wg_setup}
-        ${route_setup}
+      script =
+        let
+          wg_setup = concatStringsSep " "
+            ([ ''${wg} set ${interfaceName} peer "${peer.publicKey}"'' ]
+              ++ optional (psk != null) ''preshared-key "${psk}"''
+              ++ optional (peer.endpoint != null)
+              ''endpoint "${peer.endpoint}"''
+              ++ optional (peer.persistentKeepalive != null)
+              ''persistent-keepalive "${toString peer.persistentKeepalive}"''
+              ++ optional (peer.allowedIPs != [ ])
+              ''allowed-ips "${concatStringsSep "," peer.allowedIPs}"'');
+          route_setup = optionalString interfaceCfg.allowedIPsAsRoutes
+            (concatMapStringsSep "\n" (allowedIP:
+              ''
+                ${ip} route replace "${allowedIP}" dev "${interfaceName}" table "${interfaceCfg.table}"'')
+              peer.allowedIPs);
+        in ''
+          ${wg_setup}
+          ${route_setup}
 
-        ${optionalString (peer.dynamicEndpointRefreshSeconds != 0) ''
-          # Re-execute 'wg' periodically to notice DNS / hostname changes.
-          # Note this will not time out on transient DNS failures such as DNS names
-          # because we have set 'WG_ENDPOINT_RESOLUTION_RETRIES=infinity'.
-          # Also note that 'wg' limits its maximum retry delay to 20 seconds as of writing.
-          while ${wg_setup}; do
-            sleep "${toString peer.dynamicEndpointRefreshSeconds}";
-          done
-        ''}
-      '' ;
+          ${optionalString (peer.dynamicEndpointRefreshSeconds != 0) ''
+            # Re-execute 'wg' periodically to notice DNS / hostname changes.
+            # Note this will not time out on transient DNS failures such as DNS names
+            # because we have set 'WG_ENDPOINT_RESOLUTION_RETRIES=infinity'.
+            # Also note that 'wg' limits its maximum retry delay to 20 seconds as of writing.
+            while ${wg_setup}; do
+              sleep "${toString peer.dynamicEndpointRefreshSeconds}";
+            done
+          ''}
+        ''
+        ;
 
-      postStop = let
-        route_destroy = optionalString interfaceCfg.allowedIPsAsRoutes
-          (concatMapStringsSep "\n" (allowedIP:
-            ''
-              ${ip} route delete "${allowedIP}" dev "${interfaceName}" table "${interfaceCfg.table}"'')
-            peer.allowedIPs);
-      in ''
-        ${wg} set "${interfaceName}" peer "${peer.publicKey}" remove
-        ${route_destroy}
-      '' ;
+      postStop =
+        let
+          route_destroy = optionalString interfaceCfg.allowedIPsAsRoutes
+            (concatMapStringsSep "\n" (allowedIP:
+              ''
+                ${ip} route delete "${allowedIP}" dev "${interfaceName}" table "${interfaceCfg.table}"'')
+              peer.allowedIPs);
+        in ''
+          ${wg} set "${interfaceName}" peer "${peer.publicKey}" remove
+          ${route_destroy}
+        ''
+        ;
     }
-  ;
+    ;
 
-  # the target is required to start new peer units when they are added
-  generateInterfaceTarget = name: values:
+    # the target is required to start new peer units when they are added
+  generateInterfaceTarget =
+    name: values:
     let
-      mkPeerUnit = peer:
+      mkPeerUnit =
+        peer:
         (peerUnitServiceName name peer.publicKey
-          (peer.dynamicEndpointRefreshSeconds != 0)) + ".service";
+          (peer.dynamicEndpointRefreshSeconds != 0)) + ".service"
+        ;
     in
     nameValuePair "wireguard-${name}" rec {
       description = "WireGuard Tunnel - ${name}";
@@ -470,25 +491,30 @@ let
       wants = [ "wireguard-${name}.service" ] ++ map mkPeerUnit values.peers;
       after = wants;
     }
-  ;
+    ;
 
-  generateInterfaceUnit = name: values:
+  generateInterfaceUnit =
+    name: values:
     # exactly one way to specify the private key must be set
     #assert (values.privateKey != null) != (values.privateKeyFile != null);
     let
-      privKey = if values.privateKeyFile != null then
-        values.privateKeyFile
-      else
-        pkgs.writeText "wg-key" values.privateKey;
+      privKey =
+        if values.privateKeyFile != null then
+          values.privateKeyFile
+        else
+          pkgs.writeText "wg-key" values.privateKey
+        ;
       src = values.socketNamespace;
       dst = values.interfaceNamespace;
       ipPreMove = nsWrap "ip" src null;
       ipPostMove = nsWrap "ip" src dst;
       wg = nsWrap "wg" src dst;
-      ns = if dst == "init" then
-        "1"
-      else
-        dst;
+      ns =
+        if dst == "init" then
+          "1"
+        else
+          dst
+        ;
 
     in
     nameValuePair "wireguard-${name}" {
@@ -540,9 +566,10 @@ let
         ${values.postShutdown}
       '';
     }
-  ;
+    ;
 
-  nsWrap = cmd: src: dst:
+  nsWrap =
+    cmd: src: dst:
     let
       nsList = filter (ns: ns != null) [
         src
@@ -552,7 +579,8 @@ let
     in if (length nsList > 0 && ns != "init") then
       ''ip netns exec "${ns}" "${cmd}"''
     else
-      cmd;
+      cmd
+    ;
 
 in {
 
@@ -571,7 +599,7 @@ in {
           use that instead.
         '';
         type = types.bool;
-        # 2019-05-25: Backwards compatibility.
+          # 2019-05-25: Backwards compatibility.
         default = cfg.interfaces != { };
         defaultText = literalExpression "config.${opt.interfaces} != { }";
         example = true;
@@ -604,7 +632,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable (let
     all_peers = flatten (mapAttrsToList (interfaceName: interfaceCfg:
@@ -615,20 +643,23 @@ in {
     assertions = (attrValues (mapAttrs (name: value: {
       assertion = (value.privateKey != null) != (value.privateKeyFile != null);
       message =
-        "Either networking.wireguard.interfaces.${name}.privateKey or networking.wireguard.interfaces.${name}.privateKeyFile must be set.";
+        "Either networking.wireguard.interfaces.${name}.privateKey or networking.wireguard.interfaces.${name}.privateKeyFile must be set."
+        ;
     }) cfg.interfaces)) ++ (attrValues (mapAttrs (name: value: {
       assertion = value.generatePrivateKeyFile -> (value.privateKey == null);
       message =
-        "networking.wireguard.interfaces.${name}.generatePrivateKeyFile must not be set if networking.wireguard.interfaces.${name}.privateKey is set.";
+        "networking.wireguard.interfaces.${name}.generatePrivateKeyFile must not be set if networking.wireguard.interfaces.${name}.privateKey is set."
+        ;
     }) cfg.interfaces)) ++ map ({
         interfaceName,
         peer,
         ...
       }: {
-        assertion = (peer.presharedKey == null)
-          || (peer.presharedKeyFile == null);
+        assertion =
+          (peer.presharedKey == null) || (peer.presharedKeyFile == null);
         message =
-          "networking.wireguard.interfaces.${interfaceName} peer «${peer.publicKey}» has both presharedKey and presharedKeyFile set, but only one can be used.";
+          "networking.wireguard.interfaces.${interfaceName} peer «${peer.publicKey}» has both presharedKey and presharedKeyFile set, but only one can be used."
+          ;
       }) all_peers;
 
     boot.extraModulePackages =

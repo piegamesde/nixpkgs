@@ -21,8 +21,8 @@ rustPlatform.buildRustPackage rec {
     sha256 = "0jzm7pn38hlr96n0z8gqfsfdbw48y0nnbsgjdq7hpgwmcgvgqdam";
   };
 
-  # lexical-core is outdated and incompatible with newer versions of rust
-  # patches Cargo.lock to include a more up-to-date version of lexical-core
+    # lexical-core is outdated and incompatible with newer versions of rust
+    # patches Cargo.lock to include a more up-to-date version of lexical-core
   cargoPatches = [ ./cargo-lock-update-lexical-core.patch ];
 
   cargoSha256 = "sha256-W5Emkbe1jI9Z+irMckD/3gJO47rACa9E5k5dqAFC1yQ=";
@@ -39,7 +39,7 @@ rustPlatform.buildRustPackage rec {
     sqlite
   ];
 
-  # The test are requiring extended permissions.
+    # The test are requiring extended permissions.
   doCheck = false;
 
   meta = with lib; {

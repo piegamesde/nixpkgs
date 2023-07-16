@@ -148,7 +148,8 @@ let
       metricProvider = {
         services.bitcoind.default.enable = true;
         services.bitcoind.default.rpc.users.bitcoinrpc.passwordHMAC =
-          "e8fe33f797e698ac258c16c8d7aadfbe$872bdb8f4d787367c26bcfd75e6c23c4f19d44a69f5d1ad329e5adf3f82710f7";
+          "e8fe33f797e698ac258c16c8d7aadfbe$872bdb8f4d787367c26bcfd75e6c23c4f19d44a69f5d1ad329e5adf3f82710f7"
+          ;
       };
       exporterTest = ''
         wait_for_unit("prometheus-bitcoin-exporter.service")
@@ -182,32 +183,34 @@ let
         enable = true;
         extraFlags = [ "--web.collectd-push-path /collectd" ];
       };
-      exporterTest = let
-        postData = replaceStrings [ "\n" ] [ "" ] ''
-          [{
-            "values":[23],
-            "dstypes":["gauge"],
-            "type":"gauge",
-            "interval":1000,
-            "host":"testhost",
-            "plugin":"testplugin",
-            "time":DATE
-          }]
-        '';
-      in ''
-        wait_for_unit("prometheus-collectd-exporter.service")
-        wait_for_open_port(9103)
-        succeed(
-            'echo \'${postData}\'> /tmp/data.json'
-        )
-        succeed('sed -ie "s DATE $(date +%s) " /tmp/data.json')
-        succeed(
-            "curl -sSfH 'Content-Type: application/json' -X POST --data @/tmp/data.json localhost:9103/collectd"
-        )
-        succeed(
-            "curl -sSf localhost:9103/metrics | grep 'collectd_testplugin_gauge{instance=\"testhost\"} 23'"
-        )
-      '' ;
+      exporterTest =
+        let
+          postData = replaceStrings [ "\n" ] [ "" ] ''
+            [{
+              "values":[23],
+              "dstypes":["gauge"],
+              "type":"gauge",
+              "interval":1000,
+              "host":"testhost",
+              "plugin":"testplugin",
+              "time":DATE
+            }]
+          '';
+        in ''
+          wait_for_unit("prometheus-collectd-exporter.service")
+          wait_for_open_port(9103)
+          succeed(
+              'echo \'${postData}\'> /tmp/data.json'
+          )
+          succeed('sed -ie "s DATE $(date +%s) " /tmp/data.json')
+          succeed(
+              "curl -sSfH 'Content-Type: application/json' -X POST --data @/tmp/data.json localhost:9103/collectd"
+          )
+          succeed(
+              "curl -sSf localhost:9103/metrics | grep 'collectd_testplugin_gauge{instance=\"testhost\"} 23'"
+          )
+        ''
+        ;
     };
 
     dnsmasq = {
@@ -223,9 +226,9 @@ let
       '';
     };
 
-    # Access to WHOIS server is required to properly test this exporter, so
-    # just perform basic sanity check that the exporter is running and returns
-    # a failure.
+      # Access to WHOIS server is required to properly test this exporter, so
+      # just perform basic sanity check that the exporter is running and returns
+      # a failure.
     domain = {
       exporterConfig = { enable = true; };
       exporterTest = ''
@@ -260,8 +263,8 @@ let
         tokenPath = pkgs.writeText "token" "abc123";
       };
 
-      # noop: fastly's exporter can't start without first talking to fastly
-      # see: https://github.com/peterbourgon/fastly-exporter/issues/87
+        # noop: fastly's exporter can't start without first talking to fastly
+        # see: https://github.com/peterbourgon/fastly-exporter/issues/87
       exporterTest = ''
         succeed("true");
       '';
@@ -314,8 +317,8 @@ let
     jitsi = {
       exporterConfig = { enable = true; };
       metricProvider = {
-        systemd.services.prometheus-jitsi-exporter.after =
-          [ "jitsi-videobridge2.service" ];
+        systemd.services.prometheus-jitsi-exporter.after = [ "jitsi-videobridge2.service" ]
+          ;
         services.jitsi-videobridge = {
           enable = true;
           apis = [
@@ -367,52 +370,54 @@ let
       '';
     };
 
-    kea = let
-      controlSocketPathV4 = "/run/kea/dhcp4.sock";
-      controlSocketPathV6 = "/run/kea/dhcp6.sock";
-    in {
-      exporterConfig = {
-        enable = true;
-        controlSocketPaths = [
-          controlSocketPathV4
-          controlSocketPathV6
-        ];
-      };
-      metricProvider = {
-        services.kea = {
-          dhcp4 = {
-            enable = true;
-            settings = {
-              control-socket = {
-                socket-type = "unix";
-                socket-name = controlSocketPathV4;
+    kea =
+      let
+        controlSocketPathV4 = "/run/kea/dhcp4.sock";
+        controlSocketPathV6 = "/run/kea/dhcp6.sock";
+      in {
+        exporterConfig = {
+          enable = true;
+          controlSocketPaths = [
+            controlSocketPathV4
+            controlSocketPathV6
+          ];
+        };
+        metricProvider = {
+          services.kea = {
+            dhcp4 = {
+              enable = true;
+              settings = {
+                control-socket = {
+                  socket-type = "unix";
+                  socket-name = controlSocketPathV4;
+                };
               };
             };
-          };
-          dhcp6 = {
-            enable = true;
-            settings = {
-              control-socket = {
-                socket-type = "unix";
-                socket-name = controlSocketPathV6;
+            dhcp6 = {
+              enable = true;
+              settings = {
+                control-socket = {
+                  socket-type = "unix";
+                  socket-name = controlSocketPathV6;
+                };
               };
             };
           };
         };
-      };
 
-      exporterTest = ''
-        wait_for_unit("kea-dhcp4-server.service")
-        wait_for_unit("kea-dhcp6-server.service")
-        wait_for_file("${controlSocketPathV4}")
-        wait_for_file("${controlSocketPathV6}")
-        wait_for_unit("prometheus-kea-exporter.service")
-        wait_for_open_port(9547)
-        succeed(
-            "curl --fail localhost:9547/metrics | grep 'packets_received_total'"
-        )
-      '';
-    } ;
+        exporterTest = ''
+          wait_for_unit("kea-dhcp4-server.service")
+          wait_for_unit("kea-dhcp6-server.service")
+          wait_for_file("${controlSocketPathV4}")
+          wait_for_file("${controlSocketPathV6}")
+          wait_for_unit("prometheus-kea-exporter.service")
+          wait_for_open_port(9547)
+          succeed(
+              "curl --fail localhost:9547/metrics | grep 'packets_received_total'"
+          )
+        '';
+      }
+      ;
 
     knot = {
       exporterConfig = { enable = true; };
@@ -521,7 +526,7 @@ let
           wantedBy = [ "multi-user.target" ];
           after = [ "network.target" ];
         };
-        # initialize wallet, creates macaroon needed by exporter
+          # initialize wallet, creates macaroon needed by exporter
         systemd.services.lnd.postStart = ''
           ${pkgs.curl}/bin/curl \
             --retry 20 \
@@ -669,15 +674,17 @@ let
         url = "http://localhost";
       };
       metricProvider = {
-        systemd.services.nc-pwfile = let
-          passfile = (pkgs.writeText "pwfile" "snakeoilpw");
-        in {
-          requiredBy = [ "prometheus-nextcloud-exporter.service" ];
-          before = [ "prometheus-nextcloud-exporter.service" ];
-          serviceConfig.ExecStart = ''
-            ${pkgs.coreutils}/bin/install -o nextcloud-exporter -m 0400 ${passfile} /var/nextcloud-pwfile
-          '';
-        } ;
+        systemd.services.nc-pwfile =
+          let
+            passfile = (pkgs.writeText "pwfile" "snakeoilpw");
+          in {
+            requiredBy = [ "prometheus-nextcloud-exporter.service" ];
+            before = [ "prometheus-nextcloud-exporter.service" ];
+            serviceConfig.ExecStart = ''
+              ${pkgs.coreutils}/bin/install -o nextcloud-exporter -m 0400 ${passfile} /var/nextcloud-pwfile
+            '';
+          }
+          ;
         services.nginx = {
           enable = true;
           virtualHosts."localhost" = {
@@ -940,26 +947,28 @@ let
       '';
     };
 
-    pve = let
-      pveExporterEnvFile = pkgs.writeTextFile {
-        name = "pve.env";
-        text = ''
-          PVE_USER="test_user@pam"
-          PVE_PASSWORD="hunter3"
-          PVE_VERIFY_SSL="false"
+    pve =
+      let
+        pveExporterEnvFile = pkgs.writeTextFile {
+          name = "pve.env";
+          text = ''
+            PVE_USER="test_user@pam"
+            PVE_PASSWORD="hunter3"
+            PVE_VERIFY_SSL="false"
+          '';
+        };
+      in {
+        exporterConfig = {
+          enable = true;
+          environmentFile = pveExporterEnvFile;
+        };
+        exporterTest = ''
+          wait_for_unit("prometheus-pve-exporter.service")
+          wait_for_open_port(9221)
+          wait_until_succeeds("curl localhost:9221")
         '';
-      };
-    in {
-      exporterConfig = {
-        enable = true;
-        environmentFile = pveExporterEnvFile;
-      };
-      exporterTest = ''
-        wait_for_unit("prometheus-pve-exporter.service")
-        wait_for_open_port(9221)
-        wait_until_succeeds("curl localhost:9221")
-      '';
-    } ;
+      }
+      ;
 
     py-air-control = {
       nodeName = "py_air_control";
@@ -1116,8 +1125,8 @@ let
       exporterConfig = {
         configuration.jobs.points = {
           interval = "1m";
-          connections =
-            [ "postgres://prometheus-sql-exporter@/data?host=/run/postgresql&sslmode=disable" ];
+          connections = [ "postgres://prometheus-sql-exporter@/data?host=/run/postgresql&sslmode=disable" ]
+            ;
           queries = {
             points = {
               labels = [ "name" ];
@@ -1147,8 +1156,8 @@ let
             GRANT SELECT ON points TO "prometheus-sql-exporter";
           '';
         };
-        systemd.services.prometheus-sql-exporter.after =
-          [ "postgresql.service" ];
+        systemd.services.prometheus-sql-exporter.after = [ "postgresql.service" ]
+          ;
       };
       exporterTest = ''
         wait_for_unit("prometheus-sql-exporter.service")
@@ -1180,8 +1189,8 @@ let
         modemAddress = "localhost";
       };
       metricProvider = {
-        systemd.services.prometheus-surfboard-exporter.after =
-          [ "nginx.service" ];
+        systemd.services.prometheus-surfboard-exporter.after = [ "nginx.service" ]
+          ;
         services.nginx = {
           enable = true;
           virtualHosts.localhost.locations."/cgi-bin/status".extraConfig = ''
@@ -1334,8 +1343,8 @@ let
         group = "varnish";
       };
       metricProvider = {
-        systemd.services.prometheus-varnish-exporter.after =
-          [ "varnish.service" ];
+        systemd.services.prometheus-varnish-exporter.after = [ "varnish.service" ]
+          ;
         services.varnish = {
           enable = true;
           config = ''
@@ -1355,40 +1364,42 @@ let
       '';
     };
 
-    wireguard = let
-      snakeoil = import ./wireguard/snakeoil-keys.nix;
-    in {
-      exporterConfig.enable = true;
-      metricProvider = {
-        networking.wireguard.interfaces.wg0 = {
-          ips = [
-            "10.23.42.1/32"
-            "fc00::1/128"
-          ];
-          listenPort = 23542;
-
-          inherit (snakeoil.peer0) privateKey;
-
-          peers = singleton {
-            allowedIPs = [
-              "10.23.42.2/32"
-              "fc00::2/128"
+    wireguard =
+      let
+        snakeoil = import ./wireguard/snakeoil-keys.nix;
+      in {
+        exporterConfig.enable = true;
+        metricProvider = {
+          networking.wireguard.interfaces.wg0 = {
+            ips = [
+              "10.23.42.1/32"
+              "fc00::1/128"
             ];
+            listenPort = 23542;
 
-            inherit (snakeoil.peer1) publicKey;
+            inherit (snakeoil.peer0) privateKey;
+
+            peers = singleton {
+              allowedIPs = [
+                "10.23.42.2/32"
+                "fc00::2/128"
+              ];
+
+              inherit (snakeoil.peer1) publicKey;
+            };
           };
+          systemd.services.prometheus-wireguard-exporter.after = [ "wireguard-wg0.service" ]
+            ;
         };
-        systemd.services.prometheus-wireguard-exporter.after =
-          [ "wireguard-wg0.service" ];
-      };
-      exporterTest = ''
-        wait_for_unit("prometheus-wireguard-exporter.service")
-        wait_for_open_port(9586)
-        wait_until_succeeds(
-            "curl -sSf http://localhost:9586/metrics | grep '${snakeoil.peer1.publicKey}'"
-        )
-      '';
-    } ;
+        exporterTest = ''
+          wait_for_unit("prometheus-wireguard-exporter.service")
+          wait_for_open_port(9586)
+          wait_until_succeeds(
+              "curl -sSf http://localhost:9586/metrics | grep '${snakeoil.peer1.publicKey}'"
+          )
+        '';
+      }
+      ;
 
     zfs = {
       exporterConfig = { enable = true; };

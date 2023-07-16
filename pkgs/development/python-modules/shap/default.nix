@@ -57,42 +57,44 @@ buildPythonPackage rec {
     others = [ lime ];
   };
 
-  preCheck = let
-    # This pytest hook mocks and catches attempts at accessing the network
-    # tests that try to access the network will raise, get caught, be marked as skipped and tagged as xfailed.
-    conftestSkipNetworkErrors = writeText "conftest.py" ''
-      from _pytest.runner import pytest_runtest_makereport as orig_pytest_runtest_makereport
-      import urllib, requests
+  preCheck =
+    let
+      # This pytest hook mocks and catches attempts at accessing the network
+      # tests that try to access the network will raise, get caught, be marked as skipped and tagged as xfailed.
+      conftestSkipNetworkErrors = writeText "conftest.py" ''
+        from _pytest.runner import pytest_runtest_makereport as orig_pytest_runtest_makereport
+        import urllib, requests
 
-      class NetworkAccessDeniedError(RuntimeError): pass
-      def deny_network_access(*a, **kw):
-        raise NetworkAccessDeniedError
+        class NetworkAccessDeniedError(RuntimeError): pass
+        def deny_network_access(*a, **kw):
+          raise NetworkAccessDeniedError
 
-      requests.head = deny_network_access
-      requests.get  = deny_network_access
-      urllib.request.urlopen = deny_network_access
-      urllib.request.Request = deny_network_access
+        requests.head = deny_network_access
+        requests.get  = deny_network_access
+        urllib.request.urlopen = deny_network_access
+        urllib.request.Request = deny_network_access
 
-      def pytest_runtest_makereport(item, call):
-        tr = orig_pytest_runtest_makereport(item, call)
-        if call.excinfo is not None and call.excinfo.type is NetworkAccessDeniedError:
-            tr.outcome = 'skipped'
-            tr.wasxfail = "reason: Requires network access."
-        return tr
-    '';
-  in ''
-    export HOME=$TMPDIR
-    # when importing the local copy the extension is not found
-    rm -r shap
+        def pytest_runtest_makereport(item, call):
+          tr = orig_pytest_runtest_makereport(item, call)
+          if call.excinfo is not None and call.excinfo.type is NetworkAccessDeniedError:
+              tr.outcome = 'skipped'
+              tr.wasxfail = "reason: Requires network access."
+          return tr
+      '';
+    in ''
+      export HOME=$TMPDIR
+      # when importing the local copy the extension is not found
+      rm -r shap
 
-    # coverage testing is a waste considering how much we have to skip
-    substituteInPlace pytest.ini \
-      --replace "--cov=shap --cov-report=term-missing" ""
+      # coverage testing is a waste considering how much we have to skip
+      substituteInPlace pytest.ini \
+        --replace "--cov=shap --cov-report=term-missing" ""
 
-    # Add pytest hook skipping tests that access network.
-    # These tests are marked as "Expected fail" (xfail)
-    cat ${conftestSkipNetworkErrors} >> tests/conftest.py
-  '' ;
+      # Add pytest hook skipping tests that access network.
+      # These tests are marked as "Expected fail" (xfail)
+      cat ${conftestSkipNetworkErrors} >> tests/conftest.py
+    ''
+    ;
   nativeCheckInputs = [
     pytestCheckHook
     pytest-mpl
@@ -132,7 +134,7 @@ buildPythonPackage rec {
     "test_provided_background_tree_path_dependent"
   ];
 
-  #pytestFlagsArray = ["-x" "-W" "ignore"]; # uncomment this to debug
+    #pytestFlagsArray = ["-x" "-W" "ignore"]; # uncomment this to debug
 
   pythonImportsCheck = [
     "shap"
@@ -155,8 +157,8 @@ buildPythonPackage rec {
     license = licenses.mit;
     maintainers = with maintainers; [ evax ];
     platforms = platforms.unix;
-    # No support for scikit-learn > 1.2
-    # https://github.com/slundberg/shap/issues/2866
+      # No support for scikit-learn > 1.2
+      # https://github.com/slundberg/shap/issues/2866
     broken = true;
   };
 }

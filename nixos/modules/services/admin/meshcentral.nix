@@ -14,7 +14,8 @@ in with lib; {
       mkEnableOption (lib.mdDoc "MeshCentral computer management server");
     package = mkOption {
       description = lib.mdDoc
-        "MeshCentral package to use. Replacing this may be necessary to add dependencies for extra functionality.";
+        "MeshCentral package to use. Replacing this may be necessary to add dependencies for extra functionality."
+        ;
       type = types.package;
       default = pkgs.meshcentral;
       defaultText = literalExpression "pkgs.meshcentral";
@@ -47,7 +48,8 @@ in with lib; {
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         ExecStart =
-          "${cfg.package}/bin/meshcentral --datapath /var/lib/meshcentral --configfile ${configFile}";
+          "${cfg.package}/bin/meshcentral --datapath /var/lib/meshcentral --configfile ${configFile}"
+          ;
         DynamicUser = true;
         StateDirectory = "meshcentral";
         CacheDirectory = "meshcentral";

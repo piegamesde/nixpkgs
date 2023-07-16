@@ -52,13 +52,14 @@ stdenv.mkDerivation rec {
     # similarly here
     "-DCMAKE_INSTALL_LOCALSTATEDIR=/var/lib/mympd"
   ];
-  # See https://github.com/jcorporation/myMPD/issues/315
+    # See https://github.com/jcorporation/myMPD/issues/315
   hardeningDisable = [ "strictoverflow" ];
 
   meta = {
     homepage = "https://jcorporation.github.io/myMPD";
     description =
-      "A standalone and mobile friendly web mpd client with a tiny footprint and advanced features";
+      "A standalone and mobile friendly web mpd client with a tiny footprint and advanced features"
+      ;
     maintainers = [ lib.maintainers.doronbehar ];
     platforms = lib.platforms.linux;
     license = lib.licenses.gpl2Plus;

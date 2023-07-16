@@ -76,11 +76,15 @@ let
 
   arch = mozillaPlatforms.${stdenv.hostPlatform.system};
 
-  isPrefixOf = prefix: string:
-    builtins.substring 0 (builtins.stringLength prefix) string == prefix;
+  isPrefixOf =
+    prefix: string:
+    builtins.substring 0 (builtins.stringLength prefix) string == prefix
+    ;
 
-  sourceMatches = locale: source:
-    (isPrefixOf source.locale locale) && source.arch == arch;
+  sourceMatches =
+    locale: source:
+    (isPrefixOf source.locale locale) && source.arch == arch
+    ;
 
   policies = { DisableAppUpdate = true; } // config.thunderbird.policies or { };
   policiesJson = writeText "thunderbird-policies.json"
@@ -88,10 +92,12 @@ let
 
   defaultSource = lib.findFirst (sourceMatches "en-US") { } sources;
 
-  mozLocale = if systemLocale == "ca_ES@valencia" then
-    "ca-valencia"
-  else
-    lib.replaceStrings [ "_" ] [ "-" ] systemLocale;
+  mozLocale =
+    if systemLocale == "ca_ES@valencia" then
+      "ca-valencia"
+    else
+      lib.replaceStrings [ "_" ] [ "-" ] systemLocale
+    ;
 
   source = lib.findFirst (sourceMatches mozLocale) defaultSource sources;
 
@@ -102,7 +108,8 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url =
-      "https://download-installer.cdn.mozilla.net/pub/thunderbird/releases/${version}/${source.arch}/${source.locale}/thunderbird-${version}.tar.bz2";
+      "https://download-installer.cdn.mozilla.net/pub/thunderbird/releases/${version}/${source.arch}/${source.locale}/thunderbird-${version}.tar.bz2"
+      ;
     inherit (source) sha256;
   };
 
@@ -162,8 +169,8 @@ stdenv.mkDerivation {
     adwaita-icon-theme
   ];
 
-  # "strip" after "patchelf" may break binaries.
-  # See: https://github.com/NixOS/patchelf/issues/10
+    # "strip" after "patchelf" may break binaries.
+    # See: https://github.com/NixOS/patchelf/issues/10
   dontStrip = true;
   dontPatchELF = true;
 
@@ -172,8 +179,8 @@ stdenv.mkDerivation {
     echo 'pref("app.update.auto", "false");' >> defaults/pref/channel-prefs.js
   '';
 
-  # See "Note on GPG support" in `../thunderbird/default.nix` for explanations
-  # on adding `gnupg` and `gpgme` into PATH/LD_LIBRARY_PATH.
+    # See "Note on GPG support" in `../thunderbird/default.nix` for explanations
+    # on adding `gnupg` and `gpgme` into PATH/LD_LIBRARY_PATH.
   installPhase = ''
     mkdir -p "$prefix/usr/lib/thunderbird-bin-${version}"
     cp -r * "$prefix/usr/lib/thunderbird-bin-${version}"

@@ -42,6 +42,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/ageitgey/face_recognition";
     maintainers = with maintainers; [ ];
     description =
-      "The world's simplest facial recognition api for Python and the command line";
+      "The world's simplest facial recognition api for Python and the command line"
+      ;
   };
 }

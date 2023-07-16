@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-S/oVRD72dtpnvfGV6YfN5/syrmWA44H/1BbmAe0xjAY=";
   };
 
-  # This patch should be removed after upgrading to 6.0.0
+    # This patch should be removed after upgrading to 6.0.0
   postPatch = ''
     substituteInPlace libUnionImage/CMakeLists.txt \
       --replace "/usr" "$out"

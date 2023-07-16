@@ -143,7 +143,7 @@ stdenv.mkDerivation (finalAttrs: {
     ln -sf ${kdbs.gfx90a6e} src/kernels/gfx90a6e.kdb
   '';
 
-  # Unfortunately, it seems like we have to call make on these manually
+    # Unfortunately, it seems like we have to call make on these manually
   postBuild = lib.optionalString buildDocs ''
     export HOME=$(mktemp -d)
     make -j$NIX_BUILD_CORES doc

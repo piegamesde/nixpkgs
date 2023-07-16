@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
     name = "telegraf";
     meta = with pkgs.lib.maintainers; { maintainers = [ mic92 ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         services.telegraf.enable = true;
@@ -23,7 +24,8 @@ import ./make-test-python.nix ({
           outputs.file.files = [ "/tmp/metrics.out" ];
           outputs.file.data_format = "influx";
         };
-      };
+      }
+      ;
 
     testScript = ''
       start_all()

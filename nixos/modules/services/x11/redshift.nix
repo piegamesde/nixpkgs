@@ -150,29 +150,35 @@ in {
       isSystem = true;
     };
 
-    systemd.user.services.redshift = let
-      providerString = if lcfg.provider == "manual" then
-        "${toString lcfg.latitude}:${toString lcfg.longitude}"
-      else
-        lcfg.provider;
-    in {
-      description = "Redshift colour temperature adjuster";
-      wantedBy = [ "graphical-session.target" ];
-      partOf = [ "graphical-session.target" ];
-      serviceConfig = {
-        ExecStart = ''
-          ${cfg.package}${cfg.executable} \
-            -l ${providerString} \
-            -t ${toString cfg.temperature.day}:${
-              toString cfg.temperature.night
-            } \
-            -b ${toString cfg.brightness.day}:${toString cfg.brightness.night} \
-            ${lib.strings.concatStringsSep " " cfg.extraOptions}
-        '';
-        RestartSec = 3;
-        Restart = "always";
-      };
-    } ;
+    systemd.user.services.redshift =
+      let
+        providerString =
+          if lcfg.provider == "manual" then
+            "${toString lcfg.latitude}:${toString lcfg.longitude}"
+          else
+            lcfg.provider
+          ;
+      in {
+        description = "Redshift colour temperature adjuster";
+        wantedBy = [ "graphical-session.target" ];
+        partOf = [ "graphical-session.target" ];
+        serviceConfig = {
+          ExecStart = ''
+            ${cfg.package}${cfg.executable} \
+              -l ${providerString} \
+              -t ${toString cfg.temperature.day}:${
+                toString cfg.temperature.night
+              } \
+              -b ${toString cfg.brightness.day}:${
+                toString cfg.brightness.night
+              } \
+              ${lib.strings.concatStringsSep " " cfg.extraOptions}
+          '';
+          RestartSec = 3;
+          Restart = "always";
+        };
+      }
+      ;
   };
 
 }

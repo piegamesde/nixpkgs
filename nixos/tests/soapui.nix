@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
     name = "soapui";
     meta = with pkgs.lib.maintainers; { maintainers = [ ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         config,
         pkgs,
         ...
@@ -15,7 +16,8 @@ import ./make-test-python.nix ({
         services.xserver.enable = true;
 
         environment.systemPackages = [ pkgs.soapui ];
-      };
+      }
+      ;
 
     testScript = ''
       machine.wait_for_x()

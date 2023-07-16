@@ -31,10 +31,10 @@ buildGoModule rec {
 
   subPackages = [ "cmd/photoprism" ];
 
-  # https://github.com/mattn/go-sqlite3/issues/822
+    # https://github.com/mattn/go-sqlite3/issues/822
   CGO_CFLAGS = "-Wno-return-local-addr";
 
-  # https://github.com/tensorflow/tensorflow/issues/43847
+    # https://github.com/tensorflow/tensorflow/issues/43847
   CGO_LDFLAGS = "-fuse-ld=gold";
 
   meta = with lib; {

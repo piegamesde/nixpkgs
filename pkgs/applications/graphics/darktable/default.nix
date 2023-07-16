@@ -64,7 +64,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/darktable-org/darktable/releases/download/release-${version}/darktable-${version}.tar.xz";
+      "https://github.com/darktable-org/darktable/releases/download/release-${version}/darktable-${version}.tar.xz"
+      ;
     sha256 = "18b0917fdfe9b09f66c279a681cc3bd52894a566852bbf04b2e179ecfdb11af9";
   };
 
@@ -132,26 +133,30 @@ stdenv.mkDerivation rec {
     "-DUSE_KWALLET=OFF"
   ];
 
-  # darktable changed its rpath handling in commit
-  # 83c70b876af6484506901e6b381304ae0d073d3c and as a result the
-  # binaries can't find libdarktable.so, so change LD_LIBRARY_PATH in
-  # the wrappers:
-  preFixup = let
-    libPathEnvVar = if stdenv.isDarwin then
-      "DYLD_LIBRARY_PATH"
-    else
-      "LD_LIBRARY_PATH";
-    libPathPrefix = "$out/lib/darktable"
-      + lib.optionalString stdenv.isLinux ":${ocl-icd}/lib";
-  in ''
-    for f in $out/share/darktable/kernels/*.cl; do
-      sed -r "s|#include \"(.*)\"|#include \"$out/share/darktable/kernels/\1\"|g" -i "$f"
-    done
+    # darktable changed its rpath handling in commit
+    # 83c70b876af6484506901e6b381304ae0d073d3c and as a result the
+    # binaries can't find libdarktable.so, so change LD_LIBRARY_PATH in
+    # the wrappers:
+  preFixup =
+    let
+      libPathEnvVar =
+        if stdenv.isDarwin then
+          "DYLD_LIBRARY_PATH"
+        else
+          "LD_LIBRARY_PATH"
+        ;
+      libPathPrefix = "$out/lib/darktable"
+        + lib.optionalString stdenv.isLinux ":${ocl-icd}/lib";
+    in ''
+      for f in $out/share/darktable/kernels/*.cl; do
+        sed -r "s|#include \"(.*)\"|#include \"$out/share/darktable/kernels/\1\"|g" -i "$f"
+      done
 
-    gappsWrapperArgs+=(
-      --prefix ${libPathEnvVar} ":" "${libPathPrefix}"
-    )
-  '' ;
+      gappsWrapperArgs+=(
+        --prefix ${libPathEnvVar} ":" "${libPathPrefix}"
+      )
+    ''
+    ;
 
   meta = with lib; {
     description = "Virtual lighttable and darkroom for photographers";

@@ -31,7 +31,7 @@ buildPythonPackage rec {
 
   propagatedNativeBuildInputs = [ cffi ];
 
-  # Requires network access
+    # Requires network access
   doCheck = false;
 
   passthru.tests = { inherit aiodns tornado; };

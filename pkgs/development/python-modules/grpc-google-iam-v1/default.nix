@@ -20,7 +20,7 @@ buildPythonPackage rec {
     googleapis-common-protos
   ];
 
-  # no tests run
+    # no tests run
   doCheck = false;
 
   pythonImportsCheck = [

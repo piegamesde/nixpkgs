@@ -103,8 +103,8 @@ let
     mqtt.buildInputs = [ mosquitto ];
     mysql.buildInputs =
       lib.optionals (libmysqlclient != null) [ libmysqlclient ];
-    netlink.buildInputs = [ libpcap ]
-      ++ lib.optionals stdenv.isLinux [ libmnl ];
+    netlink.buildInputs =
+      [ libpcap ] ++ lib.optionals stdenv.isLinux [ libmnl ];
     network.buildInputs = [ libgcrypt ];
     nginx.buildInputs = [ curl ];
     notify_desktop.buildInputs = [
@@ -178,15 +178,19 @@ let
     ([ "--disable-all-plugins" ]
       ++ (map (plugin: "--enable-${plugin}") enabledPlugins));
 
-  pluginBuildInputs = plugin:
+  pluginBuildInputs =
+    plugin:
     lib.optionals (plugins ? ${plugin} && plugins.${plugin} ? buildInputs)
-    plugins.${plugin}.buildInputs;
+    plugins.${plugin}.buildInputs
+    ;
 
-  buildInputs = if enabledPlugins == null then
-    builtins.concatMap pluginBuildInputs
-    (builtins.attrNames (builtins.removeAttrs plugins [ "xencpu" ]))
-  else
-    builtins.concatMap pluginBuildInputs enabledPlugins;
+  buildInputs =
+    if enabledPlugins == null then
+      builtins.concatMap pluginBuildInputs
+      (builtins.attrNames (builtins.removeAttrs plugins [ "xencpu" ]))
+    else
+      builtins.concatMap pluginBuildInputs enabledPlugins
+    ;
 in {
   inherit configureFlags buildInputs;
 }

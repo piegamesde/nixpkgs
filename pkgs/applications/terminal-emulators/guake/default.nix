@@ -43,8 +43,8 @@ python3.pkgs.buildPythonApplication rec {
     vte
   ];
 
-  makeWrapperArgs =
-    [ "--set LOCALE_ARCHIVE ${glibcLocales}/lib/locale/locale-archive" ];
+  makeWrapperArgs = [ "--set LOCALE_ARCHIVE ${glibcLocales}/lib/locale/locale-archive" ]
+    ;
 
   propagatedBuildInputs = with python3.pkgs; [
     dbus-python

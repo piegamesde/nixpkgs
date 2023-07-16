@@ -43,15 +43,16 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "fix-bison.patch";
       url =
-        "https://github.com/UnNetHack/UnNetHack/commit/04f0a3a850a94eb8837ddcef31303968240d1c31.patch";
+        "https://github.com/UnNetHack/UnNetHack/commit/04f0a3a850a94eb8837ddcef31303968240d1c31.patch"
+        ;
       sha256 = "1zblbwqqz9nx16k6n31wi2hdvz775lvzmkjblmrx18nbm4ylj0n9";
     })
   ];
 
-  # Fails the build occasionally due to missing buid depends:
-  #   ./../sys/unix/unixmain.c:9:10: fatal error: date.h: No such file or directory
-  # TODO: remove once upstream issue is fixed:
-  #   https://github.com/UnNetHack/UnNetHack/issues/56
+    # Fails the build occasionally due to missing buid depends:
+    #   ./../sys/unix/unixmain.c:9:10: fatal error: date.h: No such file or directory
+    # TODO: remove once upstream issue is fixed:
+    #   https://github.com/UnNetHack/UnNetHack/issues/56
   enableParallelBuilding = false;
 
   postInstall = ''

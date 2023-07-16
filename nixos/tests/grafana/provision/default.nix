@@ -172,21 +172,23 @@ import ../../make-test-python.nix ({
         };
       };
 
-      provisionYamlDirs = let
-        mkdir = p: pkgs.writeTextDir (baseNameOf p) (builtins.readFile p);
-      in {
-        services.grafana.provision = {
-          datasources.path = mkdir ./datasources.yaml;
-          dashboards.path = mkdir ./dashboards.yaml;
-          alerting = {
-            rules.path = mkdir ./rules.yaml;
-            contactPoints.path = mkdir ./contact-points.yaml;
-            policies.path = mkdir ./policies.yaml;
-            templates.path = mkdir ./templates.yaml;
-            muteTimings.path = mkdir ./mute-timings.yaml;
+      provisionYamlDirs =
+        let
+          mkdir = p: pkgs.writeTextDir (baseNameOf p) (builtins.readFile p);
+        in {
+          services.grafana.provision = {
+            datasources.path = mkdir ./datasources.yaml;
+            dashboards.path = mkdir ./dashboards.yaml;
+            alerting = {
+              rules.path = mkdir ./rules.yaml;
+              contactPoints.path = mkdir ./contact-points.yaml;
+              policies.path = mkdir ./policies.yaml;
+              templates.path = mkdir ./templates.yaml;
+              muteTimings.path = mkdir ./mute-timings.yaml;
+            };
           };
-        };
-      } ;
+        }
+        ;
     };
 
     nodes = builtins.mapAttrs (_: val:

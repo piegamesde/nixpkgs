@@ -18,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-iAU62/0MjzxwuMvIobhIZEqDJUpRqwEabnazH7jBRTE=";
 
-  # Some tests require internet access, broken in sandbox
+    # Some tests require internet access, broken in sandbox
   doCheck = false;
 
   ldflags = [
@@ -31,7 +31,8 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "A dynamic DNS client tool supports AliDNS, Cloudflare, Google Domains, DNSPod, HE.net & DuckDNS & DreamHost, etc";
+      "A dynamic DNS client tool supports AliDNS, Cloudflare, Google Domains, DNSPod, HE.net & DuckDNS & DreamHost, etc"
+      ;
     homepage = "https://github.com/TimothyYe/godns";
     changelog = "https://github.com/TimothyYe/godns/releases/tag/v${version}";
     license = licenses.asl20;

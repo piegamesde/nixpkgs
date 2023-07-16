@@ -32,7 +32,8 @@ let
     apxs2Support = false;
   };
 
-  pythonPlugin = pkg:
+  pythonPlugin =
+    pkg:
     lib.nameValuePair "python${
       if pkg.isPy2 then
         "2"
@@ -50,7 +51,8 @@ let
         ${pkg.pythonForBuild.executable} -m compileall $out/${pkg.sitePackages}/
         ${pkg.pythonForBuild.executable} -O -m compileall $out/${pkg.sitePackages}/
       '';
-    };
+    }
+    ;
 
   available = lib.listToAttrs [
     (pythonPlugin python2)
@@ -76,13 +78,15 @@ let
     })
   ];
 
-  getPlugin = name:
+  getPlugin =
+    name:
     let
       all = lib.concatStringsSep ", " (lib.attrNames available);
     in if lib.hasAttr name available then
       lib.getAttr name available // { inherit name; }
     else
-      throw "Unknown UWSGI plugin ${name}, available : ${all}";
+      throw "Unknown UWSGI plugin ${name}, available : ${all}"
+    ;
 
   needed = builtins.map getPlugin plugins;
 
@@ -139,8 +143,8 @@ stdenv.mkDerivation rec {
     substituteAll ${./nixos.ini} buildconf/nixos.ini
   '';
 
-  # this is a hack to make the php plugin link with session.so (which on nixos is a separate package)
-  # the hack works in coordination with ./additional-php-ldflags.patch
+    # this is a hack to make the php plugin link with session.so (which on nixos is a separate package)
+    # the hack works in coordination with ./additional-php-ldflags.patch
   UWSGICONFIG_PHP_LDFLAGS =
     lib.optionalString (builtins.any (x: x.name == "php") needed)
     (lib.concatStringsSep "," [
@@ -172,7 +176,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://uwsgi-docs.readthedocs.org/en/latest/";
     description =
-      "A fast, self-healing and developer/sysadmin-friendly application container server coded in pure C";
+      "A fast, self-healing and developer/sysadmin-friendly application container server coded in pure C"
+      ;
     license = licenses.gpl2;
     maintainers = with maintainers; [
       abbradar

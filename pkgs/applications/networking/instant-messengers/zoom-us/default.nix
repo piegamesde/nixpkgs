@@ -47,10 +47,10 @@ let
   inherit (stdenv.hostPlatform) system;
   throwSystem = throw "Unsupported system: ${system}";
 
-  # Zoom versions are released at different times for each platform
-  # and often with different versions.  We write them on three lines
-  # like this (rather than using {}) so that the updater script can
-  # find where to edit them.
+    # Zoom versions are released at different times for each platform
+    # and often with different versions.  We write them on three lines
+    # like this (rather than using {}) so that the updater script can
+    # find where to edit them.
   versions.aarch64-darwin = "5.14.5.17687";
   versions.x86_64-darwin = "5.14.5.17687";
   versions.x86_64-linux = "5.14.5.2430";
@@ -58,18 +58,21 @@ let
   srcs = {
     aarch64-darwin = fetchurl {
       url =
-        "https://zoom.us/client/${versions.aarch64-darwin}/zoomusInstallerFull.pkg?archType=arm64";
+        "https://zoom.us/client/${versions.aarch64-darwin}/zoomusInstallerFull.pkg?archType=arm64"
+        ;
       name = "zoomusInstallerFull.pkg";
       hash = "sha256-cklNvp6q/4yGWpLhDbruGiBHgaQrY5wHwhtsVapRxx4=";
     };
     x86_64-darwin = fetchurl {
       url =
-        "https://zoom.us/client/${versions.x86_64-darwin}/zoomusInstallerFull.pkg";
+        "https://zoom.us/client/${versions.x86_64-darwin}/zoomusInstallerFull.pkg"
+        ;
       hash = "sha256-1w41TGBqUl8lnl08PglQImSV7JM71khlshacxh1oTJo=";
     };
     x86_64-linux = fetchurl {
       url =
-        "https://zoom.us/client/${versions.x86_64-linux}/zoom_x86_64.pkg.tar.xz";
+        "https://zoom.us/client/${versions.x86_64-linux}/zoom_x86_64.pkg.tar.xz"
+        ;
       hash = "sha256-sf7w9P6Gajm8/D7DHo/u5d4kZwjxeJjAE96BUW/e4KE=";
     };
   };
@@ -143,7 +146,7 @@ stdenv.mkDerivation rec {
         mkdir -p $out/Applications
         cp -R zoom.us.app $out/Applications/
       '';
-      # darwin steps same on both architectures
+        # darwin steps same on both architectures
       x86_64-darwin = aarch64-darwin;
       x86_64-linux = ''
         mkdir $out
@@ -194,7 +197,7 @@ stdenv.mkDerivation rec {
     ln -s $out/bin/{zoom,zoom-us}
   '';
 
-  # already done
+    # already done
   dontPatchELF = true;
 
   passthru.updateScript = ./update.sh;

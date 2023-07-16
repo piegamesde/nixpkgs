@@ -11,11 +11,13 @@
 with lib;
 
 let
-  makeProg = args:
+  makeProg =
+    args:
     pkgs.substituteAll (args // {
       dir = "bin";
       isExecutable = true;
-    });
+    })
+    ;
 
   nixos-build-vms = makeProg {
     name = "nixos-build-vms";
@@ -54,7 +56,8 @@ let
     if lib.versionAtLeast (lib.getVersion config.nix.package) "2.4pre" then
       null
     else
-      pkgs.nixos-option;
+      pkgs.nixos-option
+    ;
 
   nixos-version = makeProg {
     name = "nixos-version";

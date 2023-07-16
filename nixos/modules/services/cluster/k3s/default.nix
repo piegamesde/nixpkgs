@@ -8,16 +8,18 @@
 with lib;
 let
   cfg = config.services.k3s;
-  removeOption = config: instruction:
+  removeOption =
+    config: instruction:
     lib.mkRemovedOptionModule ([
       "services"
       "k3s"
-    ] ++ config) instruction;
+    ] ++ config) instruction
+    ;
 in {
-  imports =
-    [ (removeOption [ "docker" ] "k3s docker option is no longer supported.") ];
+  imports = [ (removeOption [ "docker" ]
+    "k3s docker option is no longer supported.") ];
 
-  # interface
+    # interface
   options.services.k3s = {
     enable = mkEnableOption (lib.mdDoc "k3s");
 
@@ -129,11 +131,12 @@ in {
       type = types.nullOr types.path;
       default = null;
       description = lib.mdDoc
-        "File path containing the k3s YAML config. This is useful when the config is generated (for example on boot).";
+        "File path containing the k3s YAML config. This is useful when the config is generated (for example on boot)."
+        ;
     };
   };
 
-  # implementation
+    # implementation
 
   config = mkIf cfg.enable {
     assertions = [
@@ -141,13 +144,15 @@ in {
         assertion = cfg.role == "agent"
           -> (cfg.configPath != null || cfg.serverAddr != "");
         message =
-          "serverAddr or configPath (with 'server' key) should be set if role is 'agent'";
+          "serverAddr or configPath (with 'server' key) should be set if role is 'agent'"
+          ;
       }
       {
         assertion = cfg.role == "agent" -> cfg.configPath != null
           || cfg.tokenFile != null || cfg.token != "";
         message =
-          "token or tokenFile or configPath (with 'token' or 'token-file' keys) should be set if role is 'agent'";
+          "token or tokenFile or configPath (with 'token' or 'token-file' keys) should be set if role is 'agent'"
+          ;
       }
       {
         assertion = cfg.role == "agent" -> !cfg.disableAgent;
@@ -175,10 +180,12 @@ in {
       path = optional config.boot.zfs.enabled config.boot.zfs.package;
       serviceConfig = {
         # See: https://github.com/rancher/k3s/blob/dddbd16305284ae4bd14c0aade892412310d7edc/install.sh#L197
-        Type = if cfg.role == "agent" then
-          "exec"
-        else
-          "notify";
+        Type =
+          if cfg.role == "agent" then
+            "exec"
+          else
+            "notify"
+          ;
         KillMode = "process";
         Delegate = "yes";
         Restart = "always";

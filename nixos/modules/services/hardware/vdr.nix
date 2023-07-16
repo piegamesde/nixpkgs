@@ -25,7 +25,8 @@ in {
         default = pkgs.vdr;
         defaultText = literalExpression "pkgs.vdr";
         example = literalExpression
-          "pkgs.wrapVdr.override { plugins = with pkgs.vdrPlugins; [ hello ]; }";
+          "pkgs.wrapVdr.override { plugins = with pkgs.vdrPlugins; [ hello ]; }"
+          ;
         description = lib.mdDoc "Package to use.";
       };
 
@@ -46,7 +47,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable (mkMerge [
     {

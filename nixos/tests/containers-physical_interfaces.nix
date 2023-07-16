@@ -7,7 +7,8 @@ import ./make-test-python.nix ({
     meta = { maintainers = with lib.maintainers; [ kampfschlaefer ]; };
 
     nodes = {
-      server = {
+      server =
+        {
           ...
         }: {
           virtualisation.vlans = [ 1 ];
@@ -24,8 +25,10 @@ import ./make-test-python.nix ({
               networking.firewall.enable = false;
             };
           };
-        };
-      bridged = {
+        }
+        ;
+      bridged =
+        {
           ...
         }: {
           virtualisation.vlans = [ 1 ];
@@ -43,9 +46,11 @@ import ./make-test-python.nix ({
               networking.firewall.enable = false;
             };
           };
-        };
+        }
+        ;
 
-      bonded = {
+      bonded =
+        {
           ...
         }: {
           virtualisation.vlans = [ 1 ];
@@ -66,9 +71,11 @@ import ./make-test-python.nix ({
               networking.firewall.enable = false;
             };
           };
-        };
+        }
+        ;
 
-      bridgedbond = {
+      bridgedbond =
+        {
           ...
         }: {
           virtualisation.vlans = [ 1 ];
@@ -90,7 +97,8 @@ import ./make-test-python.nix ({
               networking.firewall.enable = false;
             };
           };
-        };
+        }
+        ;
     };
 
     testScript = ''

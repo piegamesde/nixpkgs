@@ -44,7 +44,8 @@ in {
               type = types.str;
               example = "users";
               description = lib.mdDoc
-                "The name of table that maps unique login names to the passwords.";
+                "The name of table that maps unique login names to the passwords."
+                ;
             };
             updateTable = mkOption {
               type = types.nullOr types.str;
@@ -65,7 +66,8 @@ in {
               type = types.str;
               example = "password";
               description = lib.mdDoc
-                "The name of the column that contains a (encrypted) password string.";
+                "The name of the column that contains a (encrypted) password string."
+                ;
             };
             statusColumn = mkOption {
               type = types.nullOr types.str;
@@ -180,7 +182,8 @@ in {
                 type = types.bool;
                 default = false;
                 description = lib.mdDoc
-                  "Enables logging of authentication attempts in the MySQL database.";
+                  "Enables logging of authentication attempts in the MySQL database."
+                  ;
               };
               table = mkOption {
                 type = types.str;
@@ -386,7 +389,7 @@ in {
       user = "root";
       group = "root";
       mode = "0600";
-      # password will be added from password file in activation script
+        # password will be added from password file in activation script
       text = ''
         users.host=${cfg.host}
         users.db_user=${cfg.user}
@@ -461,16 +464,16 @@ in {
       mode = "0600";
       user = config.services.nscd.user;
       group = config.services.nscd.group;
-      # password will be added from password file in activation script
+        # password will be added from password file in activation script
       text = ''
         username ${cfg.user}
       '';
     };
 
-    # Activation script to append the password from the password file
-    # to the configuration files. It also fixes the owner of the
-    # libnss-mysql-root.cfg because it is changed to root after the
-    # password is appended.
+      # Activation script to append the password from the password file
+      # to the configuration files. It also fixes the owner of the
+      # libnss-mysql-root.cfg because it is changed to root after the
+      # password is appended.
     system.activationScripts.mysql-auth-passwords = ''
       if [[ -r ${cfg.passwordFile} ]]; then
         org_umask=$(umask)

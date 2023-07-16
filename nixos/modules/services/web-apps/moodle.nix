@@ -85,7 +85,8 @@ let
   pgsqlLocal = cfg.database.createLocally && cfg.database.type == "pgsql";
 
   phpExt = pkgs.php81.buildEnv {
-    extensions = {
+    extensions =
+      {
         all,
         ...
       }:
@@ -118,7 +119,8 @@ let
         opcache
         exif
         sodium
-      ];
+      ]
+      ;
     extraConfig = "max_input_vars = 5000";
   };
 in {
@@ -192,12 +194,14 @@ in {
 
       socket = mkOption {
         type = types.nullOr types.path;
-        default = if mysqlLocal then
-          "/run/mysqld/mysqld.sock"
-        else if pgsqlLocal then
-          "/run/postgresql"
-        else
-          null;
+        default =
+          if mysqlLocal then
+            "/run/mysqld/mysqld.sock"
+          else if pgsqlLocal then
+            "/run/postgresql"
+          else
+            null
+          ;
         defaultText = literalExpression "/run/mysqld/mysqld.sock";
         description =
           lib.mdDoc "Path to the unix socket file to use for authentication.";
@@ -263,20 +267,22 @@ in {
     };
   };
 
-  # implementation
+    # implementation
   config = mkIf cfg.enable {
 
     assertions = [
       {
         assertion = cfg.database.createLocally -> cfg.database.user == user;
         message =
-          "services.moodle.database.user must be set to ${user} if services.moodle.database.createLocally is set true";
+          "services.moodle.database.user must be set to ${user} if services.moodle.database.createLocally is set true"
+          ;
       }
       {
-        assertion = cfg.database.createLocally -> cfg.database.passwordFile
-          == null;
+        assertion =
+          cfg.database.createLocally -> cfg.database.passwordFile == null;
         message =
-          "a password cannot be specified if services.moodle.database.createLocally is set to true";
+          "a password cannot be specified if services.moodle.database.createLocally is set to true"
+          ;
       }
     ];
 
@@ -288,7 +294,8 @@ in {
         name = cfg.database.user;
         ensurePermissions = {
           "${cfg.database.name}.*" =
-            "SELECT, INSERT, UPDATE, DELETE, CREATE, CREATE TEMPORARY TABLES, DROP, INDEX, ALTER";
+            "SELECT, INSERT, UPDATE, DELETE, CREATE, CREATE TEMPORARY TABLES, DROP, INDEX, ALTER"
+            ;
         };
       } ];
     };

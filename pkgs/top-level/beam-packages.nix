@@ -14,13 +14,15 @@
 let
   self = beam;
 
-  # Aliases added 2023-03-21
-  versionLoop = f:
+    # Aliases added 2023-03-21
+  versionLoop =
+    f:
     lib.lists.foldr (version: acc: (f version) // acc) { } [
       "25"
       "24"
       "23"
-    ];
+    ]
+    ;
 
   interpretersAliases = versionLoop (version: {
     "erlangR${version}" = self.interpreters."erlang_${version}";
@@ -38,7 +40,7 @@ in {
 
   latestVersion = "erlang_25";
 
-  # Each
+    # Each
   interpreters = {
 
     erlang = self.interpreters.${self.latestVersion};
@@ -46,7 +48,7 @@ in {
     erlang_javac = self.interpreters."${self.latestVersion}_javac";
     erlang_odbc_javac = self.interpreters."${self.latestVersion}_odbc_javac";
 
-    # Standard Erlang versions, using the generic builder.
+      # Standard Erlang versions, using the generic builder.
 
     erlang_25 =
       self.beamLib.callErlang ../development/interpreters/erlang/25.nix {
@@ -67,7 +69,7 @@ in {
     erlang_24 =
       self.beamLib.callErlang ../development/interpreters/erlang/24.nix {
         wxGTK = wxGTK32;
-        # Can be enabled since the bug has been fixed in https://github.com/erlang/otp/pull/2508
+          # Can be enabled since the bug has been fixed in https://github.com/erlang/otp/pull/2508
         parallelBuild = true;
         autoconf = buildPackages.autoconf269;
         inherit wxSupport systemdSupport;
@@ -85,7 +87,7 @@ in {
       self.beamLib.callErlang ../development/interpreters/erlang/23.nix {
         openssl = openssl_1_1;
         wxGTK = wxGTK32;
-        # Can be enabled since the bug has been fixed in https://github.com/erlang/otp/pull/2508
+          # Can be enabled since the bug has been fixed in https://github.com/erlang/otp/pull/2508
         parallelBuild = true;
         autoconf = buildPackages.autoconf269;
         inherit wxSupport systemdSupport;
@@ -99,9 +101,9 @@ in {
       odbcSupport = true;
     };
 
-    # Other Beam languages. These are built with `beam.interpreters.erlang`. To
-    # access for example elixir built with different version of Erlang, use
-    # `beam.packages.erlang_24.elixir`.
+      # Other Beam languages. These are built with `beam.interpreters.erlang`. To
+      # access for example elixir built with different version of Erlang, use
+      # `beam.packages.erlang_24.elixir`.
     inherit (self.packages.erlang)
       elixir
       elixir_1_14
@@ -115,12 +117,14 @@ in {
       ;
   } // interpretersAliases;
 
-  # Helper function to generate package set with a specific Erlang version.
-  packagesWith = erlang:
-    callPackage ../development/beam-modules { inherit erlang; };
+    # Helper function to generate package set with a specific Erlang version.
+  packagesWith =
+    erlang:
+    callPackage ../development/beam-modules { inherit erlang; }
+    ;
 
-  # Each field in this tuple represents all Beam packages in nixpkgs built with
-  # appropriate Erlang/OTP version.
+    # Each field in this tuple represents all Beam packages in nixpkgs built with
+    # appropriate Erlang/OTP version.
   packages = {
     erlang = self.packages.${self.latestVersion};
 

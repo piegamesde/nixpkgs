@@ -12,7 +12,8 @@ import ./make-test-python.nix ({
     meta.maintainers = with pkgs.lib.maintainers; [ pborzenkov ];
 
     nodes = {
-      customized = {
+      customized =
+        {
           pkgs,
           ...
         }: {
@@ -28,7 +29,8 @@ import ./make-test-python.nix ({
             };
           };
           environment.systemPackages = [ pkgs.calibre ];
-        };
+        }
+        ;
     };
     testScript = ''
       start_all()

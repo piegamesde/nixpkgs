@@ -38,17 +38,17 @@ buildPythonPackage rec {
     }/lib/libuuid.so"'
   '';
 
-  # We do not want any wrappers here.
+    # We do not want any wrappers here.
   postFixup = "";
 
   checkPhase = ''
     tests/run-tests
   '';
 
-  # Problem with a subprocess (parts)
+    # Problem with a subprocess (parts)
   doCheck = false;
 
-  # Requires CPython
+    # Requires CPython
   disabled = isPyPy;
 
   meta = with lib; {

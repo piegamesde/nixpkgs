@@ -31,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
     license = licenses.mit;
     maintainers = teams.rocm.members;
     platforms = platforms.unix;
-    broken = versions.minor finalAttrs.version
-      != versions.minor stdenv.cc.version;
+    broken =
+      versions.minor finalAttrs.version != versions.minor stdenv.cc.version;
   };
 })

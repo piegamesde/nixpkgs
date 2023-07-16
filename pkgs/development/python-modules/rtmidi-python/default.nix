@@ -33,7 +33,7 @@ buildPythonPackage rec {
 
   setupPyBuildFlags = [ "--from-cython" ];
 
-  # package has no tests
+    # package has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "rtmidi_python" ];

@@ -24,7 +24,7 @@ buildPythonPackage rec {
     rope
   ];
 
-  # tests require network ..
+    # tests require network ..
   doCheck = false;
 
   meta = with lib; {

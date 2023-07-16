@@ -63,10 +63,12 @@ in {
 
       listenHost = lib.mkOption {
         type = lib.types.str;
-        default = if cfg.enableHTTPS then
-          "0.0.0.0"
-        else
-          "127.0.0.1";
+        default =
+          if cfg.enableHTTPS then
+            "0.0.0.0"
+          else
+            "127.0.0.1"
+          ;
         defaultText = lib.literalExpression ''
           if config.${opt.enableHTTPS}
           then "0.0.0.0"
@@ -77,10 +79,12 @@ in {
 
       listenPort = lib.mkOption {
         type = lib.types.int;
-        default = if cfg.enableHTTPS then
-          8443
-        else
-          8080;
+        default =
+          if cfg.enableHTTPS then
+            8443
+          else
+            8080
+          ;
         defaultText = lib.literalExpression ''
           if config.${opt.enableHTTPS}
           then "8443"
@@ -91,10 +95,12 @@ in {
 
       proxyHost = lib.mkOption {
         type = lib.types.nullOr lib.types.str;
-        default = if cfg.enableHTTPS then
-          "0.0.0.0"
-        else
-          null;
+        default =
+          if cfg.enableHTTPS then
+            "0.0.0.0"
+          else
+            null
+          ;
         defaultText = lib.literalExpression ''
           if config.${opt.enableHTTPS}
           then "0.0.0.0"
@@ -105,10 +111,12 @@ in {
 
       proxyPort = lib.mkOption {
         type = lib.types.nullOr lib.types.int;
-        default = if cfg.enableHTTPS then
-          8443
-        else
-          null;
+        default =
+          if cfg.enableHTTPS then
+            8443
+          else
+            null
+          ;
         defaultText = lib.literalExpression ''
           if config.${opt.enableHTTPS}
           then "8443"
@@ -121,7 +129,8 @@ in {
         type = lib.types.nullOr lib.types.str;
         default = null;
         description = lib.mdDoc
-          "Initial user account for Apache NiFi. Username must be at least 4 characters.";
+          "Initial user account for Apache NiFi. Username must be at least 4 characters."
+          ;
       };
 
       initPasswordFile = lib.mkOption {
@@ -129,7 +138,8 @@ in {
         default = null;
         example = "/run/keys/nifi/password-nifi";
         description = lib.mdDoc
-          "nitial password for Apache NiFi. Password must be at least 12 characters.";
+          "nitial password for Apache NiFi. Password must be at least 12 characters."
+          ;
       };
 
       initJavaHeapSize = lib.mkOption {
@@ -292,29 +302,29 @@ in {
         '';
         ExecStart = "${cfg.package}/bin/nifi.sh start";
         ExecStop = "${cfg.package}/bin/nifi.sh stop";
-        # User and group
+          # User and group
         User = cfg.user;
         Group = cfg.group;
-        # Runtime directory and mode
+          # Runtime directory and mode
         RuntimeDirectory = "nifi";
         RuntimeDirectoryMode = "0750";
-        # State directory and mode
+          # State directory and mode
         StateDirectory = "nifi";
         StateDirectoryMode = "0750";
-        # Logs directory and mode
+          # Logs directory and mode
         LogsDirectory = "nifi";
         LogsDirectoryMode = "0750";
-        # Proc filesystem
+          # Proc filesystem
         ProcSubset = "pid";
         ProtectProc = "invisible";
-        # Access write directories
+          # Access write directories
         ReadWritePaths = [ cfg.initPasswordFile ];
         UMask = "0027";
-        # Capabilities
+          # Capabilities
         CapabilityBoundingSet = "";
-        # Security
+          # Security
         NoNewPrivileges = true;
-        # Sandboxing
+          # Sandboxing
         ProtectSystem = "strict";
         ProtectHome = true;
         PrivateTmp = true;
@@ -335,7 +345,7 @@ in {
         RestrictSUIDSGID = true;
         RemoveIPC = true;
         PrivateMounts = true;
-        # System Call Filtering
+          # System Call Filtering
         SystemCallArchitectures = "native";
         SystemCallFilter = [
           "~@cpu-emulation @debug @keyring @memlock @mount @obsolete @resources @privileged @setuid"

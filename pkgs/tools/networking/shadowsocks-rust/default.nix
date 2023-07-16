@@ -43,7 +43,7 @@ rustPlatform.buildRustPackage rec {
     "aead-cipher-2022-extra"
   ];
 
-  # all of these rely on connecting to www.example.com:80
+    # all of these rely on connecting to www.example.com:80
   checkFlags = [
     "--skip=http_proxy"
     "--skip=tcp_tunnel"
@@ -58,7 +58,8 @@ rustPlatform.buildRustPackage rec {
     description = "A Rust port of Shadowsocks";
     homepage = "https://github.com/shadowsocks/shadowsocks-rust";
     changelog =
-      "https://github.com/shadowsocks/shadowsocks-rust/raw/v${version}/debian/changelog";
+      "https://github.com/shadowsocks/shadowsocks-rust/raw/v${version}/debian/changelog"
+      ;
     license = licenses.mit;
     maintainers = [ maintainers.marsam ];
   };

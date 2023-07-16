@@ -28,7 +28,7 @@ buildPythonPackage rec {
     websocket-client
   ];
 
-  # Module has no test
+    # Module has no test
   doCheck = false;
 
   pythonImportsCheck = [ "jellyfin_apiclient_python" ];

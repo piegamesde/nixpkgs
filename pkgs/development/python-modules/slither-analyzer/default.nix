@@ -41,7 +41,7 @@ buildPythonPackage rec {
       --prefix PATH : "${lib.makeBinPath [ solc ]}"
   '';
 
-  # No Python tests
+    # No Python tests
   doCheck = false;
 
   meta = with lib; {

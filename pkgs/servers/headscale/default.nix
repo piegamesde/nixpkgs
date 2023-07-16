@@ -38,7 +38,8 @@ buildGoModule rec {
   meta = with lib; {
     homepage = "https://github.com/juanfont/headscale";
     description =
-      "An open source, self-hosted implementation of the Tailscale control server";
+      "An open source, self-hosted implementation of the Tailscale control server"
+      ;
     longDescription = ''
       Tailscale is a modern VPN built on top of Wireguard. It works like an
       overlay network between the computers of your networks - using all kinds

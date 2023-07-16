@@ -13,13 +13,15 @@ let
 
   cfg = config.programs.xfs_quota;
 
-  limitOptions = opts:
+  limitOptions =
+    opts:
     concatStringsSep " " [
       (optionalString (opts.sizeSoftLimit != null)
         "bsoft=${opts.sizeSoftLimit}")
       (optionalString (opts.sizeHardLimit != null)
         "bhard=${opts.sizeHardLimit}")
-    ];
+    ]
+    ;
 
 in {
 
@@ -66,7 +68,8 @@ in {
         });
 
         description = lib.mdDoc
-          "Setup of xfs_quota projects. Make sure the filesystem is mounted with the pquota option.";
+          "Setup of xfs_quota projects. Make sure the filesystem is mounted with the pquota option."
+          ;
 
         example = {
           projname = {
@@ -80,7 +83,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf (cfg.projects != { }) {
 
@@ -105,8 +108,8 @@ in {
         '';
 
         wantedBy = [ "multi-user.target" ];
-        after =
-          [ ((replaceStrings [ "/" ] [ "-" ] opts.fileSystem) + ".mount") ];
+        after = [ ((replaceStrings [ "/" ] [ "-" ] opts.fileSystem)
+          + ".mount") ];
 
         restartTriggers = [ config.environment.etc.projects.source ];
 

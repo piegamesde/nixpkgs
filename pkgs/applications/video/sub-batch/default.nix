@@ -30,7 +30,8 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "Match and rename subtitle files to video files and perform other batch operations on subtitle files";
+      "Match and rename subtitle files to video files and perform other batch operations on subtitle files"
+      ;
     homepage = "https://github.com/kl/sub-batch";
     license = licenses.mit;
     maintainers = with maintainers; [ erictapen ];

@@ -8,13 +8,13 @@ buildGoModule rec {
   pname = "gotools";
   version = "0.7.0";
 
-  # using GitHub instead of https://go.googlesource.com/tools because Gitiles UI is to basic to browse
+    # using GitHub instead of https://go.googlesource.com/tools because Gitiles UI is to basic to browse
   src = fetchFromGitHub {
     owner = "golang";
     repo = "tools";
     rev = "v${version}";
-    # The gopls folder contains a Go submodule which causes a build failure
-    # and lives in its own package named gopls.
+      # The gopls folder contains a Go submodule which causes a build failure
+      # and lives in its own package named gopls.
     postFetch = ''
       rm -r $out/gopls
     '';
@@ -25,7 +25,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  # Set GOTOOLDIR for derivations adding this to buildInputs
+    # Set GOTOOLDIR for derivations adding this to buildInputs
   postInstall = ''
     mkdir -p $out/nix-support
     substitute ${./setup-hook.sh} $out/nix-support/setup-hook \

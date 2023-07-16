@@ -24,7 +24,7 @@ buildGoModule rec {
     "-X main.prerelease="
   ];
 
-  # There's a mixture of tests that use networking and several that fail on aarch64
+    # There's a mixture of tests that use networking and several that fail on aarch64
   doCheck = false;
 
   doInstallCheck = true;

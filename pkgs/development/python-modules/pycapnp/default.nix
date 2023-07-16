@@ -28,7 +28,7 @@ buildPythonPackage rec {
 
   buildInputs = [ capnproto ];
 
-  # Tests depend on schema_capnp which fails to generate
+    # Tests depend on schema_capnp which fails to generate
   doCheck = false;
 
   pythonImportsCheck = [ "capnp" ];

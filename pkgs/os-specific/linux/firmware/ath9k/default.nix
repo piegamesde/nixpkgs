@@ -12,10 +12,12 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "ath9k-htc-blobless-firmware";
-  version = if enableUnstable then
-    "unstable-2022-05-22"
-  else
-    "1.4.0";
+  version =
+    if enableUnstable then
+      "unstable-2022-05-22"
+    else
+      "1.4.0"
+    ;
 
   src = fetchFromGitHub ({
     owner = "qca";
@@ -46,33 +48,35 @@ stdenv.mkDerivation (finalAttrs: {
   dontUseCmakeConfigure = true;
   enableParallelBuilding = true;
 
-  # The firmware repository builds its own toolchain, with patches
-  # applied to the xtensa support in both gcc and binutils.
-  preBuild = let
-    inherit (lib) toUpper splitString last listToAttrs pipe;
-    inherit (builtins) map;
-    urls-and-hashes =
-      import (./. + "/urls-and-hashes-${finalAttrs.version}.nix");
-    make-links = pipe [
-      "gcc"
-      "binutils"
-      "gmp"
-      "mpfr"
-      "mpc"
-    ] [
-      (map (vname:
-        fetchurl rec {
-          url = urls-and-hashes."${(toUpper vname) + "_URL"}";
-          sha256 = urls-and-hashes."${(toUpper vname) + "_SUM"}" or "";
-          name = last (splitString "/" url);
-        }))
-      (map (v: "ln -sT ${v} toolchain/dl/${v.name}"))
-      (lib.concatStringsSep "\n")
-    ];
-  in ''
-    mkdir -p toolchain/dl
-    ${make-links}
-  '' ;
+    # The firmware repository builds its own toolchain, with patches
+    # applied to the xtensa support in both gcc and binutils.
+  preBuild =
+    let
+      inherit (lib) toUpper splitString last listToAttrs pipe;
+      inherit (builtins) map;
+      urls-and-hashes =
+        import (./. + "/urls-and-hashes-${finalAttrs.version}.nix");
+      make-links = pipe [
+        "gcc"
+        "binutils"
+        "gmp"
+        "mpfr"
+        "mpc"
+      ] [
+        (map (vname:
+          fetchurl rec {
+            url = urls-and-hashes."${(toUpper vname) + "_URL"}";
+            sha256 = urls-and-hashes."${(toUpper vname) + "_SUM"}" or "";
+            name = last (splitString "/" url);
+          }))
+        (map (v: "ln -sT ${v} toolchain/dl/${v.name}"))
+        (lib.concatStringsSep "\n")
+      ];
+    in ''
+      mkdir -p toolchain/dl
+      ${make-links}
+    ''
+    ;
 
   makeTargets = [
     "toolchain"
@@ -149,17 +153,17 @@ stdenv.mkDerivation (finalAttrs: {
       mit # **/xtos, **/xtensa
     ];
 
-    # release 1.4.0 vendors a GMP which uses an ancient version of
-    # autotools that does not work on aarch64 or powerpc.
-    # However, enableUnstable (unreleased upstream) works.
-    /* # disabled until #195294 is merged
-       badPlatforms =
-         with lib.systems.inspect.patterns;
-         lib.optionals (!enableUnstable && lib.versionOlder finalAttrs.version "1.4.1") [
-           isAarch64
-           isPower64
-         ];
-    */
+      # release 1.4.0 vendors a GMP which uses an ancient version of
+      # autotools that does not work on aarch64 or powerpc.
+      # However, enableUnstable (unreleased upstream) works.
+      /* # disabled until #195294 is merged
+         badPlatforms =
+           with lib.systems.inspect.patterns;
+           lib.optionals (!enableUnstable && lib.versionOlder finalAttrs.version "1.4.1") [
+             isAarch64
+             isPower64
+           ];
+      */
 
     sourceProvenance = [ lib.sourceTypes.fromSource ];
     homepage = "http://lists.infradead.org/mailman/listinfo/ath9k_htc_fw";

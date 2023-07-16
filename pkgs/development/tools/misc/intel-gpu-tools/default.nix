@@ -44,7 +44,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://xorg.freedesktop.org/archive/individual/app/igt-gpu-tools-${version}.tar.xz";
+      "https://xorg.freedesktop.org/archive/individual/app/igt-gpu-tools-${version}.tar.xz"
+      ;
     sha256 = "1dwvxh1yplsh1a7h3gpp40g91v12cfxy6yy99s1v9yr2kwxikm1n";
   };
 
@@ -52,7 +53,8 @@ stdenv.mkDerivation rec {
     # fix build with meson 0.60
     (fetchpatch {
       url =
-        "https://github.com/freedesktop/xorg-intel-gpu-tools/commit/963917a3565466832a3b2fc22e9285d34a0bf944.patch";
+        "https://github.com/freedesktop/xorg-intel-gpu-tools/commit/963917a3565466832a3b2fc22e9285d34a0bf944.patch"
+        ;
       sha256 = "sha256-goO2N7aK2dJYMhFGS1DlvjEYMSijN6stV6Q5z/RP8Ko=";
     })
   ];

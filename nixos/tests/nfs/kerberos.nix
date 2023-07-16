@@ -34,7 +34,8 @@ import ../make-test-python.nix ({
     name = "nfsv4-with-kerberos";
 
     nodes = {
-      client = {
+      client =
+        {
           lib,
           ...
         }: {
@@ -55,9 +56,11 @@ import ../make-test-python.nix ({
               ];
             };
           };
-        };
+        }
+        ;
 
-      server = {
+      server =
+        {
           lib,
           ...
         }: {
@@ -87,7 +90,8 @@ import ../make-test-python.nix ({
           services.nfs.server.exports = ''
             /data *(rw,no_root_squash,fsid=0,sec=krb5p)
           '';
-        };
+        }
+        ;
     };
 
     testScript = ''

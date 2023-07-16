@@ -8,16 +8,18 @@
 
 let
   python = python3.override {
-    packageOverrides = self: super: {
-      sqlalchemy = super.sqlalchemy.overridePythonAttrs (old: rec {
-        version = "1.4.46";
-        src = self.fetchPypi {
-          pname = "SQLAlchemy";
-          inherit version;
-          hash = "sha256-aRO4JH2KKS74MVFipRkx4rQM6RaB8bbxj2lwRSAMSjA=";
-        };
-      });
-    };
+    packageOverrides =
+      self: super: {
+        sqlalchemy = super.sqlalchemy.overridePythonAttrs (old: rec {
+          version = "1.4.46";
+          src = self.fetchPypi {
+            pname = "SQLAlchemy";
+            inherit version;
+            hash = "sha256-aRO4JH2KKS74MVFipRkx4rQM6RaB8bbxj2lwRSAMSjA=";
+          };
+        });
+      }
+      ;
   };
 in
 python.pkgs.buildPythonApplication rec {
@@ -62,9 +64,9 @@ python.pkgs.buildPythonApplication rec {
     ./db-migrations.patch
   ];
 
-  # calibre-web doesn't follow setuptools directory structure. The following is taken from the script
-  # that calibre-web's maintainer is using to package it:
-  # https://github.com/OzzieIsaacs/calibre-web-test/blob/master/build/make_release.py
+    # calibre-web doesn't follow setuptools directory structure. The following is taken from the script
+    # that calibre-web's maintainer is using to package it:
+    # https://github.com/OzzieIsaacs/calibre-web-test/blob/master/build/make_release.py
   postPatch = ''
     mkdir -p src/calibreweb
     mv cps.py src/calibreweb/__init__.py
@@ -88,14 +90,15 @@ python.pkgs.buildPythonApplication rec {
       --replace "werkzeug<2.1.0" ""
   '';
 
-  # Upstream repo doesn't provide any tests.
+    # Upstream repo doesn't provide any tests.
   doCheck = false;
 
   passthru.tests.calibre-web = nixosTests.calibre-web;
 
   meta = with lib; {
     description =
-      "Web app for browsing, reading and downloading eBooks stored in a Calibre database";
+      "Web app for browsing, reading and downloading eBooks stored in a Calibre database"
+      ;
     homepage = "https://github.com/janeczku/calibre-web";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ pborzenkov ];

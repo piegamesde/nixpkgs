@@ -27,7 +27,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Print all known information about all available OpenCL platforms and devices in the system";
+      "Print all known information about all available OpenCL platforms and devices in the system"
+      ;
     homepage = "https://github.com/Oblomov/clinfo";
     license = licenses.cc0;
     maintainers = with maintainers; [

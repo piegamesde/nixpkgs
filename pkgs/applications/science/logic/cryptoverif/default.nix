@@ -11,7 +11,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://prosecco.gforge.inria.fr/personal/bblanche/cryptoverif/cryptoverif${version}.tar.gz";
+      "http://prosecco.gforge.inria.fr/personal/bblanche/cryptoverif/cryptoverif${version}.tar.gz"
+      ;
     sha256 = "sha256-F5eVN5ATYo9Ivpi2eYh96ktuTWUeoqgWMR4BqHu8EFs=";
   };
 
@@ -19,9 +20,9 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ ocaml ];
 
-  # Fix up the frontend to load the 'default' cryptoverif library
-  #* from under $out/libexec. By default, it expects to find the files
-  #* in $CWD which doesn't work.
+    # Fix up the frontend to load the 'default' cryptoverif library
+    #* from under $out/libexec. By default, it expects to find the files
+    #* in $CWD which doesn't work.
   patchPhase = ''
     substituteInPlace ./src/syntax.ml \
       --replace \"default\" \"$out/libexec/default\"

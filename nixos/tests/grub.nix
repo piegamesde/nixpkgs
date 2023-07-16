@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
 
     meta = with lib.maintainers; { maintainers = [ rnhmjoj ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         virtualisation.useBootLoader = true;
@@ -16,10 +17,11 @@ import ./make-test-python.nix ({
           enable = true;
           users.alice.password = "supersecret";
 
-          # OCR is not accurate enough
+            # OCR is not accurate enough
           extraConfig = "serial; terminal_output serial";
         };
-      };
+      }
+      ;
 
     testScript = ''
       def grub_login_as(user, password):

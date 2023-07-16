@@ -30,7 +30,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://git.exherbo.org/${pname}.git/snapshot/${pname}-${version}.tar.xz";
+      "https://git.exherbo.org/${pname}.git/snapshot/${pname}-${version}.tar.xz"
+      ;
     sha256 = "0664myrrzbvsw73q5b7cqwgv4hl9a7vkm642s1r96gaxm16jk0z7";
   };
 
@@ -67,15 +68,17 @@ stdenv.mkDerivation rec {
     make -C syd check
   '';
 
-  postInstall = if installTests then
-    ''
-      moveToOutput bin/syd-test $installedTests
-    ''
-  else
-    ''
-      # Tests are installed despite --disable-installed-tests
-      rm -r $out/bin/syd-test $out/libexec
-    '';
+  postInstall =
+    if installTests then
+      ''
+        moveToOutput bin/syd-test $installedTests
+      ''
+    else
+      ''
+        # Tests are installed despite --disable-installed-tests
+        rm -r $out/bin/syd-test $out/libexec
+      ''
+    ;
 
   meta = with lib; {
     homepage = "https://sydbox.exherbo.org/";

@@ -11,21 +11,22 @@
 
 let
   # parse the version from package.json
-  version = let
-    packageJson = lib.importJSON ./package.json;
-    splits = builtins.split "^.*#v(.*)$"
-      (builtins.getAttr "onlykey" (builtins.head packageJson));
-    matches = builtins.elemAt splits 1;
-    elem = builtins.head matches;
-  in
-  elem
-  ;
+  version =
+    let
+      packageJson = lib.importJSON ./package.json;
+      splits = builtins.split "^.*#v(.*)$"
+        (builtins.getAttr "onlykey" (builtins.head packageJson));
+      matches = builtins.elemAt splits 1;
+      elem = builtins.head matches;
+    in
+    elem
+    ;
 
-  # this must be updated anytime this package is updated.
+    # this must be updated anytime this package is updated.
   onlykeyPkg =
     "onlykey-git+https://github.com/trustcrypto/OnlyKey-App.git#v${version}";
 
-  # define a shortcut to get to onlykey.
+    # define a shortcut to get to onlykey.
   onlykey = self."${onlykeyPkg}";
 
   super = (import ./onlykey.nix {
@@ -40,7 +41,7 @@ let
       # should not break other things.
       npmFlags = attrs.npmFlags or "" + " --ignore-scripts";
 
-      # this package requires to be built in order to become runnable.
+        # this package requires to be built in order to become runnable.
       postInstall = ''
         cd $out/lib/node_modules/${attrs.packageName}
         npm run build
@@ -57,7 +58,8 @@ let
     name = onlykey.packageName;
     exec = script;
     icon =
-      "${onlykey}/lib/node_modules/${onlykey.packageName}/resources/onlykey_logo_128.png";
+      "${onlykey}/lib/node_modules/${onlykey.packageName}/resources/onlykey_logo_128.png"
+      ;
     desktopName = onlykey.packageName;
     genericName = onlykey.packageName;
   };

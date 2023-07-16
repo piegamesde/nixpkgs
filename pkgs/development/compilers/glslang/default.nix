@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-U45/7G02o82EP4zh7i2Go0VCnsO1B7vxDwIokjyo5Rk=";
   };
 
-  # These get set at all-packages, keep onto them for child drvs
+    # These get set at all-packages, keep onto them for child drvs
   passthru = {
     spirv-tools = spirv-tools;
     spirv-headers = spirv-headers;
@@ -42,7 +42,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "Fix-Darwin-linker-error.patch";
       url =
-        "https://github.com/KhronosGroup/glslang/commit/586baa35a47b3aa6ad3fa829a27f0f4206400668.patch";
+        "https://github.com/KhronosGroup/glslang/commit/586baa35a47b3aa6ad3fa829a27f0f4206400668.patch"
+        ;
       hash = "sha256-paAl4E8GzogcxDEzn/XuhNH6XObp+i7WfArqAiuH4Mk=";
       revert = true;
     })
@@ -53,12 +54,12 @@ stdenv.mkDerivation rec {
     ln -s "${spirv-headers.src}" External/spirv-tools/external/spirv-headers
   '';
 
-  # This is a dirty fix for lib/cmake/SPIRVTargets.cmake:51 which includes this directory
+    # This is a dirty fix for lib/cmake/SPIRVTargets.cmake:51 which includes this directory
   postInstall = ''
     mkdir $out/include/External
   '';
 
-  # Fix the paths in .pc, even though it's unclear if these .pc are really useful.
+    # Fix the paths in .pc, even though it's unclear if these .pc are really useful.
   postFixup = ''
     substituteInPlace "$out"/lib/pkgconfig/SPIRV-Tools{,-shared}.pc \
       --replace '=''${prefix}//' '=/'

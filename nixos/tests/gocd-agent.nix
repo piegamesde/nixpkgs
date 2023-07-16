@@ -20,19 +20,21 @@ import ./make-test-python.nix ({
         swarren83
       ];
 
-      # gocd agent needs to register with the autoregister key created on first server startup,
-      # but NixOS module doesn't seem to allow to pass during runtime currently
+        # gocd agent needs to register with the autoregister key created on first server startup,
+        # but NixOS module doesn't seem to allow to pass during runtime currently
       broken = true;
     };
 
     nodes = {
-      agent = {
+      agent =
+        {
           ...
         }: {
           virtualisation.memorySize = 2046;
           services.gocd-agent = { enable = true; };
           services.gocd-server = { enable = true; };
-        };
+        }
+        ;
     };
 
     testScript = ''

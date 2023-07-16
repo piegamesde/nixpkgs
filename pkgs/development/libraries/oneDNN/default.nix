@@ -27,10 +27,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  # Tests fail on some Hydra builders, because they do not support SSE4.2.
+    # Tests fail on some Hydra builders, because they do not support SSE4.2.
   doCheck = false;
 
-  # Fixup bad cmake paths
+    # Fixup bad cmake paths
   postInstall = ''
     substituteInPlace $out/lib/cmake/dnnl/dnnl-config.cmake \
       --replace "\''${PACKAGE_PREFIX_DIR}/" ""

@@ -145,7 +145,7 @@ in {
   cygwin = filterDoubles predicates.isCygwin;
   darwin = filterDoubles predicates.isDarwin;
   freebsd = filterDoubles predicates.isFreeBSD;
-  # Should be better, but MinGW is unclear.
+    # Should be better, but MinGW is unclear.
   gnu = filterDoubles (matchAttrs {
     kernel = parse.kernels.linux;
     abi = parse.abis.gnu;

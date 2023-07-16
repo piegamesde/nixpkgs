@@ -41,7 +41,8 @@ buildPythonPackage rec {
     description = "Python wrapper for zwave-js-server";
     homepage = "https://github.com/home-assistant-libs/zwave-js-server-python";
     changelog =
-      "https://github.com/home-assistant-libs/zwave-js-server-python/releases/tag/${version}";
+      "https://github.com/home-assistant-libs/zwave-js-server-python/releases/tag/${version}"
+      ;
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];
   };

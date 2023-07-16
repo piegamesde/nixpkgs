@@ -10,7 +10,8 @@ let
 
   src = fetchurl {
     url =
-      "https://github.com/imolorhe/altair/releases/download/v${version}/altair_${version}_x86_64_linux.AppImage";
+      "https://github.com/imolorhe/altair/releases/download/v${version}/altair_${version}_x86_64_linux.AppImage"
+      ;
     sha256 = "sha256-sjM5KztkFqsZT153b181OLrus5YS09Dp/w4LD6Q6Ros=";
   };
 

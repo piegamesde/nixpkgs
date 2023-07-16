@@ -6,14 +6,16 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ pamplemousse ]; };
 
     nodes = {
-      machine = {
+      machine =
+        {
           ...
         }: {
           services.jenkins = {
             enable = true;
             withCLI = true;
           };
-        };
+        }
+        ;
     };
 
     testScript = ''

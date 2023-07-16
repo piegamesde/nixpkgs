@@ -15,9 +15,9 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "communi";
     repo = "communi-desktop";
-    # Without https://github.com/communi/communi-desktop/pull/146 fetching fails with
-    #     fatal: unable to connect to github.com:
-    #     github.com[0: 140.82.112.3]: errno=Connection timed out
+      # Without https://github.com/communi/communi-desktop/pull/146 fetching fails with
+      #     fatal: unable to connect to github.com:
+      #     github.com[0: 140.82.112.3]: errno=Connection timed out
     rev = "5d813dc6e64a623cd5d78f024c8a0720a5155a28";
     hash = "sha256-ci91Bf0EkhlPDO+NcpnMmT/vE41i5RD2mXbRAnMB++M=";
     fetchSubmodules = true;
@@ -33,9 +33,9 @@ stdenv.mkDerivation rec {
     qtbase
   ];
 
-  # libCommuni.dylib is installed in $out/Applications/Communi.app/Contents/Frameworks/ on Darwin
-  # Wrapper hook thinks it's a binary because it's in $out/Applications, wraps it with a shell script
-  # So we manually call the wrapper script on just the binary
+    # libCommuni.dylib is installed in $out/Applications/Communi.app/Contents/Frameworks/ on Darwin
+    # Wrapper hook thinks it's a binary because it's in $out/Applications, wraps it with a shell script
+    # So we manually call the wrapper script on just the binary
   dontWrapQtApps = stdenv.isDarwin;
 
   preConfigure = ''
@@ -56,21 +56,23 @@ stdenv.mkDerivation rec {
     }"
   ];
 
-  postInstall = if stdenv.isDarwin then
-    ''
-      # Nix qmake does not add the bundle rpath by default.
-      install_name_tool \
-        -add_rpath @executable_path/../Frameworks \
-        $out/Applications/Communi.app/Contents/MacOS/Communi
+  postInstall =
+    if stdenv.isDarwin then
+      ''
+        # Nix qmake does not add the bundle rpath by default.
+        install_name_tool \
+          -add_rpath @executable_path/../Frameworks \
+          $out/Applications/Communi.app/Contents/MacOS/Communi
 
-      # Do not remove until wrapQtAppsHook doesn't wrap dylibs in app bundles anymore
-      wrapQtApp $out/Applications/Communi.app/Contents/MacOS/Communi
-    ''
-  else
-    ''
-      substituteInPlace "$out/share/applications/communi.desktop" \
-        --replace "/usr/bin" "$out/bin"
-    '';
+        # Do not remove until wrapQtAppsHook doesn't wrap dylibs in app bundles anymore
+        wrapQtApp $out/Applications/Communi.app/Contents/MacOS/Communi
+      ''
+    else
+      ''
+        substituteInPlace "$out/share/applications/communi.desktop" \
+          --replace "/usr/bin" "$out/bin"
+      ''
+    ;
 
   preFixup = ''
     rm -rf lib

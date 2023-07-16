@@ -16,9 +16,9 @@ let
       sha256 = "0x8prpqi9amfcmi7r4zrza609ai9529pjaq0h4aw51i867064qck";
     };
 
-    #outputs TODO: split $cxx due to libstdc++ dependency
-    # maybe let ghc use a version with *.so shared with rest of nixpkgs and *.a added
-    # - see #5855 for related discussion
+      #outputs TODO: split $cxx due to libstdc++ dependency
+      # maybe let ghc use a version with *.so shared with rest of nixpkgs and *.a added
+      # - see #5855 for related discussion
     outputs = [
       "out"
       "dev"
@@ -28,16 +28,18 @@ let
 
     nativeBuildInputs = [ m4 ];
 
-    # Prevent the build system from using sub-architecture-specific
-    # instructions (e.g., SSE2 on i686).
-    #
-    # This is not a problem for Apple machines, which are all alike.  In
-    # addition, `configfsf.guess' would return `i386-apple-darwin10.2.0' on
-    # `x86_64-darwin', leading to a 32-bit ABI build, which is undesirable.
-    preConfigure = if !stdenv.isDarwin then
-      "ln -sf configfsf.guess config.guess"
-    else
-      ''echo "Darwin host is `./config.guess`."'';
+      # Prevent the build system from using sub-architecture-specific
+      # instructions (e.g., SSE2 on i686).
+      #
+      # This is not a problem for Apple machines, which are all alike.  In
+      # addition, `configfsf.guess' would return `i386-apple-darwin10.2.0' on
+      # `x86_64-darwin', leading to a 32-bit ABI build, which is undesirable.
+    preConfigure =
+      if !stdenv.isDarwin then
+        "ln -sf configfsf.guess config.guess"
+      else
+        ''echo "Darwin host is `./config.guess`."''
+      ;
 
     configureFlags = [ (lib.enableFeature cxx "cxx") ]
       ++ lib.optionals stdenv.isDarwin [
@@ -45,8 +47,8 @@ let
         "ac_cv_host=x86_64-apple-darwin13.4.0"
       ];
 
-    # The test t-lucnum_ui fails (on Linux/x86_64) when built with GCC 4.8.
-    # Newer versions of GMP don't have that issue anymore.
+      # The test t-lucnum_ui fails (on Linux/x86_64) when built with GCC 4.8.
+      # Newer versions of GMP don't have that issue anymore.
     doCheck = false;
 
     meta = {
@@ -81,7 +83,7 @@ let
       maintainers = [ ];
       platforms = lib.platforms.all;
       badPlatforms = [ "x86_64-darwin" ];
-      # never built on aarch64-darwin, aarch64-linux since first introduction in nixpkgs
+        # never built on aarch64-darwin, aarch64-linux since first introduction in nixpkgs
       broken = (stdenv.isDarwin && stdenv.isAarch64)
         || (stdenv.isLinux && stdenv.isAarch64);
     };

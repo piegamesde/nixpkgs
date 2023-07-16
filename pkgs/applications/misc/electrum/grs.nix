@@ -12,19 +12,23 @@
 let
   version = "4.3.1";
 
-  libsecp256k1_name = if stdenv.isLinux then
-    "libsecp256k1.so.0"
-  else if stdenv.isDarwin then
-    "libsecp256k1.0.dylib"
-  else
-    "libsecp256k1${stdenv.hostPlatform.extensions.sharedLibrary}";
+  libsecp256k1_name =
+    if stdenv.isLinux then
+      "libsecp256k1.so.0"
+    else if stdenv.isDarwin then
+      "libsecp256k1.0.dylib"
+    else
+      "libsecp256k1${stdenv.hostPlatform.extensions.sharedLibrary}"
+    ;
 
-  libzbar_name = if stdenv.isLinux then
-    "libzbar.so.0"
-  else if stdenv.isDarwin then
-    "libzbar.0.dylib"
-  else
-    "libzbar${stdenv.hostPlatform.extensions.sharedLibrary}";
+  libzbar_name =
+    if stdenv.isLinux then
+      "libzbar.so.0"
+    else if stdenv.isDarwin then
+      "libzbar.0.dylib"
+    else
+      "libzbar${stdenv.hostPlatform.extensions.sharedLibrary}"
+    ;
 
 in
 python3.pkgs.buildPythonApplication {
@@ -99,7 +103,7 @@ python3.pkgs.buildPythonApplication {
     wrapQtApp $out/bin/electrum-grs
   '';
 
-  # the tests are currently broken
+    # the tests are currently broken
   doCheck = false;
 
   postCheck = ''

@@ -37,11 +37,11 @@ stdenv.mkDerivation rec {
     ./x11-only.patch
   ];
 
-  # Workaround build failure on -fno-common toolchains:
-  #   ld: spacefm-item-prop.o:src/settings.h:123: multiple definition of
-  #     `xsets'; vfs/spacefm-vfs-file-info.o:src/settings.h:123: first defined here
-  # TODO: can be removed once https://github.com/IgnorantGuru/spacefm/pull/772
-  # or equivalent is merged upstream.
+    # Workaround build failure on -fno-common toolchains:
+    #   ld: spacefm-item-prop.o:src/settings.h:123: multiple definition of
+    #     `xsets'; vfs/spacefm-vfs-file-info.o:src/settings.h:123: first defined here
+    # TODO: can be removed once https://github.com/IgnorantGuru/spacefm/pull/772
+    # or equivalent is merged upstream.
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   configureFlags = [ "--with-bash-path=${pkgs.bash}/bin/bash" ];
@@ -74,8 +74,8 @@ stdenv.mkDerivation rec {
     lsof
     udisks2
   ] ++ (lib.optionals ifuseSupport [ ifuse ]);
-  # Introduced because ifuse doesn't build due to CVEs in libplist
-  # Revert when libplist builds again…
+    # Introduced because ifuse doesn't build due to CVEs in libplist
+    # Revert when libplist builds again…
 
   meta = with lib; {
     description = "A multi-panel tabbed file manager";

@@ -21,7 +21,7 @@ buildNpmPackage rec {
     hash = "sha256-mM81u1irVfFFJUddOXKcs46tcGwVAcir+daKdkxFLsE=";
   };
 
-  # Remove some Electron stuff from package.json
+    # Remove some Electron stuff from package.json
   postPatch = ''
     sed -i -e '/"electron"\|"electron-installer-debian"/d' package.json
   '';
@@ -41,7 +41,7 @@ buildNpmPackage rec {
   makeCacheWritable = true;
   npmFlags = [ "--legacy-peer-deps" ];
 
-  # Override installPhase so we can copy the only directory that matters (app)
+    # Override installPhase so we can copy the only directory that matters (app)
   installPhase = ''
     runHook preInstall
 

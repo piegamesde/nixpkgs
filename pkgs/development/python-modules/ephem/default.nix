@@ -21,7 +21,7 @@ buildPythonPackage rec {
     pytest
   ];
 
-  # JPLTest uses assets not distributed in package
+    # JPLTest uses assets not distributed in package
   checkPhase = ''
     LC_ALL="en_US.UTF-8" pytest --pyargs ephem.tests -k "not JPLTest"
   '';

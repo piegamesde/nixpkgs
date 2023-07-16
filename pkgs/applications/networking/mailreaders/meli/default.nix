@@ -60,7 +60,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     broken = (stdenv.isLinux && stdenv.isAarch64);
     description =
-      "Experimental terminal mail client aiming for configurability and extensibility with sane defaults";
+      "Experimental terminal mail client aiming for configurability and extensibility with sane defaults"
+      ;
     homepage = "https://meli.delivery";
     license = licenses.gpl3;
     maintainers = with maintainers; [

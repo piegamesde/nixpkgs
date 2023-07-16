@@ -33,7 +33,7 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = [ openssl ] ++ lib.optional stdenv.isDarwin Security;
 
-  # needed for nix-prefetch-url
+    # needed for nix-prefetch-url
   postInstall = ''
     wrapProgram $out/bin/nix-template \
       --prefix PATH : ${lib.makeBinPath [ nix ]}

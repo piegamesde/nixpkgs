@@ -17,7 +17,8 @@
 let
   lib = import ../build-support/coq/extra-lib.nix { inherit (args) lib; };
 in let
-  mkCoqPackages' = self: coq:
+  mkCoqPackages' =
+    self: coq:
     let
       callPackage = self.callPackage;
     in {
@@ -37,10 +38,12 @@ in let
       addition-chains =
         callPackage ../development/coq-modules/addition-chains { };
       autosubst = callPackage ../development/coq-modules/autosubst { };
-      bignums = if lib.versionAtLeast coq.coq-version "8.6" then
-        callPackage ../development/coq-modules/bignums { }
-      else
-        null;
+      bignums =
+        if lib.versionAtLeast coq.coq-version "8.6" then
+          callPackage ../development/coq-modules/bignums { }
+        else
+          null
+        ;
       category-theory =
         callPackage ../development/coq-modules/category-theory { };
       ceres = callPackage ../development/coq-modules/ceres { };
@@ -150,14 +153,18 @@ in let
             ITree = self.ITree.override { version = "4.0.0"; };
           }));
       zorns-lemma = callPackage ../development/coq-modules/zorns-lemma { };
-      filterPackages = doesFilter:
+      filterPackages =
+        doesFilter:
         if doesFilter then
           filterCoqPackages self
         else
-          self;
-    } ;
+          self
+        ;
+    }
+    ;
 
-  filterCoqPackages = set:
+  filterCoqPackages =
+    set:
     lib.listToAttrs (lib.concatMap (name:
       let
         v = set.${name} or null;
@@ -167,8 +174,10 @@ in let
           filterCoqPackages v
         else
           v))
-    ) (lib.attrNames set));
-  mkCoq = version:
+    ) (lib.attrNames set))
+    ;
+  mkCoq =
+    version:
     callPackage ../applications/science/logic/coq {
       inherit
         version
@@ -178,7 +187,8 @@ in let
         ocamlPackages_4_12
         ocamlPackages_4_14
         ;
-    };
+    }
+    ;
 in rec {
 
   # The function `mkCoqPackages` takes as input a derivation for Coq and produces
@@ -188,12 +198,13 @@ in rec {
   # the resulting set. For meta-programming purposes (inpecting the derivations
   # rather than building the libraries) this filtering can be disabled by setting
   # a `dontFilter` attribute into the Coq derivation.
-  mkCoqPackages = coq:
+  mkCoqPackages =
+    coq:
     let
       self = lib.makeScope newScope (lib.flip mkCoqPackages' coq);
     in
     self.filterPackages (!coq.dontFilter or false)
-  ;
+    ;
 
   coq_8_5 = mkCoq "8.5";
   coq_8_6 = mkCoq "8.6";

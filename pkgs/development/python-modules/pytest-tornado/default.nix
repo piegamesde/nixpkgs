@@ -15,7 +15,7 @@ buildPythonPackage rec {
     sha256 = "1cgisd7lb9q2hf55558cbn5jfhv65vsgk46ykgidzf9kqcq1kymr";
   };
 
-  # package has no tests
+    # package has no tests
   doCheck = false;
 
   buildInputs = [ pytest ];
@@ -24,7 +24,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "A py.test plugin providing fixtures and markers to simplify testing of asynchronous tornado applications.";
+      "A py.test plugin providing fixtures and markers to simplify testing of asynchronous tornado applications."
+      ;
     homepage = "https://github.com/eugeniy/pytest-tornado";
     license = licenses.asl20;
     maintainers = with maintainers; [ ixxie ];

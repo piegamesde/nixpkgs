@@ -25,7 +25,7 @@ with lib;
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf config.services.oidentd.enable {
     systemd.services.oidentd = {

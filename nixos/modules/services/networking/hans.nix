@@ -102,7 +102,7 @@ in {
     };
   };
 
-  ### implementation
+    ### implementation
 
   config = mkIf (cfg.server.enable || cfg.clients != { }) {
     boot.kernel.sysctl = optionalAttrs cfg.server.respondToSystemPings {
@@ -111,39 +111,42 @@ in {
 
     boot.kernelModules = [ "tun" ];
 
-    systemd.services = let
-      createHansClientService = name: cfg: {
-        description = "hans client - ${name}";
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
-        script =
-          "${pkgs.hans}/bin/hans -f -u ${hansUser} ${cfg.extraConfig} -c ${cfg.server} ${
-            optionalString (cfg.passwordFile != "")
-            ''-p $(cat "${cfg.passwordFile}")''
-          }";
-        serviceConfig = {
-          RestartSec = "30s";
-          Restart = "always";
-        };
-      };
-    in
-    listToAttrs (mapAttrsToList (name: value:
-      nameValuePair "hans-${name}" (createHansClientService name value))
-      cfg.clients) // {
-        hans = mkIf (cfg.server.enable) {
-          description = "hans, ip over icmp server daemon";
-          after = [ "network.target" ];
-          wantedBy = [ "multi-user.target" ];
-          script =
-            "${pkgs.hans}/bin/hans -f -u ${hansUser} ${cfg.server.extraConfig} -s ${cfg.server.ip} ${
-              optionalString cfg.server.respondToSystemPings "-r"
-            } ${
-              optionalString (cfg.server.passwordFile != "")
-              ''-p $(cat "${cfg.server.passwordFile}")''
-            }";
-        };
-      }
-    ;
+    systemd.services =
+      let
+        createHansClientService =
+          name: cfg: {
+            description = "hans client - ${name}";
+            after = [ "network.target" ];
+            wantedBy = [ "multi-user.target" ];
+            script =
+              "${pkgs.hans}/bin/hans -f -u ${hansUser} ${cfg.extraConfig} -c ${cfg.server} ${
+                optionalString (cfg.passwordFile != "")
+                ''-p $(cat "${cfg.passwordFile}")''
+              }";
+            serviceConfig = {
+              RestartSec = "30s";
+              Restart = "always";
+            };
+          }
+          ;
+      in
+      listToAttrs (mapAttrsToList (name: value:
+        nameValuePair "hans-${name}" (createHansClientService name value))
+        cfg.clients) // {
+          hans = mkIf (cfg.server.enable) {
+            description = "hans, ip over icmp server daemon";
+            after = [ "network.target" ];
+            wantedBy = [ "multi-user.target" ];
+            script =
+              "${pkgs.hans}/bin/hans -f -u ${hansUser} ${cfg.server.extraConfig} -s ${cfg.server.ip} ${
+                optionalString cfg.server.respondToSystemPings "-r"
+              } ${
+                optionalString (cfg.server.passwordFile != "")
+                ''-p $(cat "${cfg.server.passwordFile}")''
+              }";
+          };
+        }
+      ;
 
     users.users.${hansUser} = {
       description = "Hans daemon user";

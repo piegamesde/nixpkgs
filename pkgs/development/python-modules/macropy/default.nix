@@ -24,7 +24,7 @@ buildPythonPackage rec {
     sha256 = "1bd2fzpa30ddva3f8lw2sbixxf069idwib8srd64s5v46ricm2cf";
   };
 
-  # js_snippets extra only works with python2
+    # js_snippets extra only works with python2
   propagatedBuildInputs = [ ] ++ lib.optional pinqSupport sqlalchemy
     ++ lib.optional pyxlSupport pyxl3;
 

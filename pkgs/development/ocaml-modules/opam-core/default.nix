@@ -24,13 +24,14 @@ buildDunePackage rec {
     re
   ];
 
-  # get rid of check for curl at configure time
-  # opam-core does not call curl at run time
+    # get rid of check for curl at configure time
+    # opam-core does not call curl at run time
   configureFlags = [ "--disable-checks" ];
 
   meta = opam.meta // {
     description =
-      "Small standard library extensions, and generic system interaction modules used by opam";
+      "Small standard library extensions, and generic system interaction modules used by opam"
+      ;
     maintainers = with lib.maintainers; [ sternenseemann ];
   };
 }

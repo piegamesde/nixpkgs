@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
   pname = "rygel";
   version = "0.40.4";
 
-  # TODO: split out lib
+    # TODO: split out lib
   outputs = [
     "out"
     "dev"
@@ -105,7 +105,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A home media solution (UPnP AV MediaServer) that allows you to easily share audio, video and pictures to other devices";
+      "A home media solution (UPnP AV MediaServer) that allows you to easily share audio, video and pictures to other devices"
+      ;
     homepage = "https://wiki.gnome.org/Projects/Rygel";
     license = licenses.lgpl21Plus;
     maintainers = teams.gnome.members;

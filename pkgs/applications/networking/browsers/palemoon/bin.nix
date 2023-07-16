@@ -37,10 +37,12 @@ stdenv.mkDerivation rec {
           "2"
       }.tar.xz"
     ];
-    hash = if withGTK3 then
-      "sha256-Kre+F1AE4bC5hAODYjo+S6TUCpKk8KMnYumQWHz+epY="
-    else
-      "sha256-LIsep7KsNhsw3zlmgltu6/4qZEWjGQbUmLqHCabSTfg=";
+    hash =
+      if withGTK3 then
+        "sha256-Kre+F1AE4bC5hAODYjo+S6TUCpKk8KMnYumQWHz+epY="
+      else
+        "sha256-LIsep7KsNhsw3zlmgltu6/4qZEWjGQbUmLqHCabSTfg="
+      ;
   };
 
   preferLocalBuild = true;
@@ -170,7 +172,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.palemoon.org/";
     description =
-      "An Open Source, Goanna-based web browser focusing on efficiency and customization";
+      "An Open Source, Goanna-based web browser focusing on efficiency and customization"
+      ;
     longDescription = ''
       Pale Moon is an Open Source, Goanna-based web browser focusing on
       efficiency and customization.
@@ -182,13 +185,14 @@ stdenv.mkDerivation rec {
       extensions and themes to make the browser truly your own.
     '';
     changelog =
-      "https://repo.palemoon.org/MoonchildProductions/Pale-Moon/releases/tag/${version}_Release";
+      "https://repo.palemoon.org/MoonchildProductions/Pale-Moon/releases/tag/${version}_Release"
+      ;
     license = [
       licenses.mpl20
       {
         fullName = "Pale Moon Redistribution License";
         url = "https://www.palemoon.org/redist.shtml";
-        # TODO free, redistributable? Has strict limitations on what modifications may be done & shipped by packagers
+          # TODO free, redistributable? Has strict limitations on what modifications may be done & shipped by packagers
       }
     ];
     maintainers = with maintainers; [

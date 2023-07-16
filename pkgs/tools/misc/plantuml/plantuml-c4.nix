@@ -22,36 +22,39 @@
 let
   c4-lib = fetchzip {
     url =
-      "https://github.com/plantuml-stdlib/C4-PlantUML/archive/88a3f99150c6ff7953c4a99b184d03412ffdedb1.zip";
+      "https://github.com/plantuml-stdlib/C4-PlantUML/archive/88a3f99150c6ff7953c4a99b184d03412ffdedb1.zip"
+      ;
     sha256 = "sha256-vk4YWdGb47OsI9mApGTQ7OfELRZdBouzKfUZq3kchcM=";
   };
 
   sprites = fetchzip {
     url =
-      "https://github.com/tupadr3/plantuml-icon-font-sprites/archive/fa3f885dbd45c9cd0cdf6c0e5e4fb51ec8b76582.zip";
+      "https://github.com/tupadr3/plantuml-icon-font-sprites/archive/fa3f885dbd45c9cd0cdf6c0e5e4fb51ec8b76582.zip"
+      ;
     sha256 = "sha256-lt9+NNMIaZSkKNsGyHoqXUCTlKmZFGfNYYGjer6X0Xc=";
   };
 
-  # In order to pre-fix the plantuml.jar parameter with the argument
-  # -Dplantuml.include.path=..., we post-fix the java command using a wrapper.
-  # This way the plantuml derivation can remain unchanged.
-  plantumlWithExtraPath = let
-    plantumlIncludePath = lib.concatStringsSep ":" [
-      c4-lib
-      sprites
-    ];
-    includeFlag =
-      "-Dplantuml.include.path=${lib.escapeShellArg plantumlIncludePath}";
-    postFixedJre =
-      runCommand "jre-postfixed" { nativeBuildInputs = [ makeWrapper ]; } ''
-        mkdir -p $out/bin
+    # In order to pre-fix the plantuml.jar parameter with the argument
+    # -Dplantuml.include.path=..., we post-fix the java command using a wrapper.
+    # This way the plantuml derivation can remain unchanged.
+  plantumlWithExtraPath =
+    let
+      plantumlIncludePath = lib.concatStringsSep ":" [
+        c4-lib
+        sprites
+      ];
+      includeFlag =
+        "-Dplantuml.include.path=${lib.escapeShellArg plantumlIncludePath}";
+      postFixedJre =
+        runCommand "jre-postfixed" { nativeBuildInputs = [ makeWrapper ]; } ''
+          mkdir -p $out/bin
 
-        makeWrapper ${jre}/bin/java $out/bin/java \
-          --add-flags ${lib.escapeShellArg includeFlag}
-      '';
-  in
-  plantuml.override { jre = postFixedJre; }
-  ;
+          makeWrapper ${jre}/bin/java $out/bin/java \
+            --add-flags ${lib.escapeShellArg includeFlag}
+        '';
+    in
+    plantuml.override { jre = postFixedJre; }
+    ;
 
 in
 stdenv.mkDerivation rec {

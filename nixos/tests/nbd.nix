@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
   let
     listenPort = 30123;
     testString = "It works!";
-    mkCreateSmallFileService = {
+    mkCreateSmallFileService =
+      {
         path,
         loop ? false
       }: {
@@ -17,12 +18,14 @@ import ./make-test-python.nix ({
         serviceConfig = { Type = "oneshot"; };
         wantedBy = [ "multi-user.target" ];
         before = [ "nbd-server.service" ];
-      };
+      }
+      ;
   in {
     name = "nbd";
 
     nodes = {
-      server = {
+      server =
+        {
           config,
           pkgs,
           ...
@@ -31,25 +34,25 @@ import ./make-test-python.nix ({
           ## `vault-pub.disk` is accessible from any IP
           systemd.services.create-pub-file =
             mkCreateSmallFileService { path = "/vault-pub.disk"; };
-          ## `vault-priv.disk` is accessible only from localhost.
-          ## It's also a loopback device to test exporting /dev/...
+            ## `vault-priv.disk` is accessible only from localhost.
+            ## It's also a loopback device to test exporting /dev/...
           systemd.services.create-priv-file = mkCreateSmallFileService {
             path = "/vault-priv.disk";
             loop = true;
           };
-          ## `aaa.disk` is just here because "[aaa]" sorts before
-          ## "[generic]" lexicographically, and nbd-server breaks if
-          ## "[generic]" isn't the first section.
+            ## `aaa.disk` is just here because "[aaa]" sorts before
+            ## "[generic]" lexicographically, and nbd-server breaks if
+            ## "[generic]" isn't the first section.
           systemd.services.create-aaa-file =
             mkCreateSmallFileService { path = "/aaa.disk"; };
 
-          # Needed only for nbd-client used in the tests.
+            # Needed only for nbd-client used in the tests.
           environment.systemPackages = [ pkgs.nbd ];
 
-          # Open the nbd port in the firewall
+            # Open the nbd port in the firewall
           networking.firewall.allowedTCPPorts = [ listenPort ];
 
-          # Run the nbd server and expose the small file created above
+            # Run the nbd server and expose the small file created above
           services.nbd.server = {
             enable = true;
             exports = {
@@ -66,15 +69,18 @@ import ./make-test-python.nix ({
             listenAddress = "0.0.0.0";
             listenPort = listenPort;
           };
-        };
+        }
+        ;
 
-      client = {
+      client =
+        {
           config,
           pkgs,
           ...
         }: {
           programs.nbd.enable = true;
-        };
+        }
+        ;
     };
 
     testScript = ''

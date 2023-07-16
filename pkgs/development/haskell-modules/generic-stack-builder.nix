@@ -23,8 +23,8 @@ let
 
   stackCmd = "stack --internal-re-exec-version=${stack.version}";
 
-  # Add all dependencies in buildInputs including propagated ones to
-  # STACK_IN_NIX_EXTRA_ARGS.
+    # Add all dependencies in buildInputs including propagated ones to
+    # STACK_IN_NIX_EXTRA_ARGS.
   stackHook = makeSetupHook { name = "stack-hook"; } ./stack-hook.sh;
 
 in
@@ -48,14 +48,14 @@ stdenv.mkDerivation (args // {
   STACK_IN_NIX_SHELL = 1;
   STACK_IN_NIX_EXTRA_ARGS = extraArgs;
 
-  # XXX: workaround for https://ghc.haskell.org/trac/ghc/ticket/11042.
+    # XXX: workaround for https://ghc.haskell.org/trac/ghc/ticket/11042.
   LD_LIBRARY_PATH = lib.makeLibraryPath (LD_LIBRARY_PATH ++ buildInputs);
-  # ^^^ Internally uses `getOutput "lib"` (equiv. to getLib)
+    # ^^^ Internally uses `getOutput "lib"` (equiv. to getLib)
 
-  # Non-NixOS git needs cert
+    # Non-NixOS git needs cert
   GIT_SSL_CAINFO = "${cacert}/etc/ssl/certs/ca-bundle.crt";
 
-  # Fixes https://github.com/commercialhaskell/stack/issues/2358
+    # Fixes https://github.com/commercialhaskell/stack/issues/2358
   LANG = "en_US.UTF-8";
 
   preferLocalBuild = true;

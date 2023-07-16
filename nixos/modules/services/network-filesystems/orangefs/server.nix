@@ -12,10 +12,10 @@ let
 
   aliases = mapAttrsToList (alias: url: alias) cfg.servers;
 
-  # Maximum handle number is 2^63
+    # Maximum handle number is 2^63
   maxHandle = 9223372036854775806;
 
-  # One range of handles for each meta/data instance
+    # One range of handles for each meta/data instance
   handleStep = maxHandle / (length aliases) / 2;
 
   fileSystems = mapAttrsToList (name: fs: ''
@@ -150,7 +150,8 @@ in {
           node2 = "tcp://node2:3334";
         };
         description = lib.mdDoc
-          "URLs for storage server including port. The attribute names define the server alias.";
+          "URLs for storage server including port. The attribute names define the server alias."
+          ;
       };
 
       fileSystems = mkOption {
@@ -218,19 +219,19 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
     environment.systemPackages = [ pkgs.orangefs ];
 
-    # orangefs daemon will run as user
+      # orangefs daemon will run as user
     users.users.orangefs = {
       isSystemUser = true;
       group = "orangfs";
     };
     users.groups.orangefs = { };
 
-    # To format the file system the config file is needed.
+      # To format the file system the config file is needed.
     environment.etc."orangefs/server.conf" = {
       text = configFile;
       user = "orangefs";

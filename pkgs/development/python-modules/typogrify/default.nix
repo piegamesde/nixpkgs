@@ -18,14 +18,15 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ smartypants ];
 
-  # Wants to set up Django
+    # Wants to set up Django
   doCheck = false;
 
   pythonImportsCheck = [ "typogrify.filters" ];
 
   meta = with lib; {
     description =
-      "Filters to enhance web typography, including support for Django & Jinja templates";
+      "Filters to enhance web typography, including support for Django & Jinja templates"
+      ;
     homepage = "https://github.com/mintchaos/typogrify";
     license = licenses.bsd3;
     maintainers = with maintainers; [ dotlambda ];

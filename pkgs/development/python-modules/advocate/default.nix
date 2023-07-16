@@ -32,7 +32,7 @@ buildPythonPackage rec {
     urllib3
   ];
 
-  # The tests do network requests, so disabled
+    # The tests do network requests, so disabled
   doCheck = false;
 
   pythonImportsCheck = [ "advocate" ];

@@ -18,13 +18,14 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "ratelim" ];
 
-  # package has no tests
+    # package has no tests
   doCheck = false;
 
   meta = with lib; {
     homepage = "https://github.com/themiurgo/ratelim";
     description =
-      "Simple Python library that limits the number of times a function can be called during a time interval";
+      "Simple Python library that limits the number of times a function can be called during a time interval"
+      ;
     license = licenses.mit;
     maintainers = with maintainers; [ dgliwka ];
   };

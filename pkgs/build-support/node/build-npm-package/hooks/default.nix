@@ -13,8 +13,8 @@
     substitutions = {
       nodeSrc = srcOnly nodejs;
 
-      # Specify `diff`, `jq`, and `prefetch-npm-deps` by abspath to ensure that the user's build
-      # inputs do not cause us to find the wrong binaries.
+        # Specify `diff`, `jq`, and `prefetch-npm-deps` by abspath to ensure that the user's build
+        # inputs do not cause us to find the wrong binaries.
       diff = "${buildPackages.diffutils}/bin/diff";
       jq = "${buildPackages.jq}/bin/jq";
       prefetchNpmDeps =

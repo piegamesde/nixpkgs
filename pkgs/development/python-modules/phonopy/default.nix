@@ -35,7 +35,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  # prevent pytest from importing local directory
+    # prevent pytest from importing local directory
   preCheck = ''
     rm -r phonopy
   '';

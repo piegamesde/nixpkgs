@@ -85,7 +85,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Headless chrome/chromium automation library (unofficial port of puppeteer)";
+      "Headless chrome/chromium automation library (unofficial port of puppeteer)"
+      ;
     homepage = "https://github.com/pyppeteer/pyppeteer";
     license = licenses.mit;
     maintainers = with maintainers; [ kmein ];

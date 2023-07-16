@@ -7,21 +7,25 @@
 let
 
   default = {
-    python3 = let
-      env = (python3.withPackages (ps: with ps; [ ipykernel ]));
-    in {
-      displayName = "Python 3";
-      argv = [
-        env.interpreter
-        "-m"
-        "ipykernel_launcher"
-        "-f"
-        "{connection_file}"
-      ];
-      language = "python";
-      logo32 = "${env}/${env.sitePackages}/ipykernel/resources/logo-32x32.png";
-      logo64 = "${env}/${env.sitePackages}/ipykernel/resources/logo-64x64.png";
-    } ;
+    python3 =
+      let
+        env = (python3.withPackages (ps: with ps; [ ipykernel ]));
+      in {
+        displayName = "Python 3";
+        argv = [
+          env.interpreter
+          "-m"
+          "ipykernel_launcher"
+          "-f"
+          "{connection_file}"
+        ];
+        language = "python";
+        logo32 =
+          "${env}/${env.sitePackages}/ipykernel/resources/logo-32x32.png";
+        logo64 =
+          "${env}/${env.sitePackages}/ipykernel/resources/logo-64x64.png";
+      }
+      ;
   };
 
 in {
@@ -31,7 +35,8 @@ in {
 
     # Definitions is an attribute set.
 
-  create = {
+  create =
+    {
       definitions ? default
     }:
     with lib;
@@ -62,10 +67,12 @@ in {
             kernel = filterAttrs (n: v: (any (x: x == n) allowedKernelKeys))
               unfilteredKernel;
             config = builtins.toJSON (kernel // {
-              display_name = if (kernel.displayName != "") then
-                kernel.displayName
-              else
-                kernelName;
+              display_name =
+                if (kernel.displayName != "") then
+                  kernel.displayName
+                else
+                  kernelName
+                ;
             } // (optionalAttrs (kernel ? interruptMode) {
               interrupt_mode = kernel.interruptMode;
             }));
@@ -93,5 +100,6 @@ in {
         homepage = "https://jupyter.org/";
         maintainers = with maintainers; [ aborsu ];
       };
-    };
+    }
+    ;
 }

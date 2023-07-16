@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
   }: {
     name = "karma";
     nodes = {
-      server = {
+      server =
+        {
           ...
         }: {
           services.prometheus.alertmanager = {
@@ -54,7 +55,8 @@ import ./make-test-python.nix ({
               log.timestamp = true;
             };
           };
-        };
+        }
+        ;
     };
 
     testScript = ''

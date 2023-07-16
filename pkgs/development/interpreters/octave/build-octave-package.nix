@@ -66,11 +66,11 @@
 }@attrs:
 
 let
-  requiredOctavePackages' =
-    computeRequiredOctavePackages requiredOctavePackages;
+  requiredOctavePackages' = computeRequiredOctavePackages requiredOctavePackages
+    ;
 
-  # Must use attrs.nativeBuildInputs before they are removed by the removeAttrs
-  # below, or everything fails.
+    # Must use attrs.nativeBuildInputs before they are removed by the removeAttrs
+    # below, or everything fails.
   nativeBuildInputs' = [
     octave
     writeRequiredOctavePackagesHook
@@ -83,12 +83,12 @@ let
     ];
   } // passthru;
 
-  # This step is required because when
-  # a = { test = [ "a" "b" ]; }; b = { test = [ "c" "d" ]; };
-  # (a // b).test = [ "c" "d" ];
-  # This used to mean that if a package defined extra nativeBuildInputs, it
-  # would override the ones for building an Octave package (the hook and Octave
-  # itself, causing everything to fail.
+    # This step is required because when
+    # a = { test = [ "a" "b" ]; }; b = { test = [ "c" "d" ]; };
+    # (a // b).test = [ "c" "d" ];
+    # This used to mean that if a package defined extra nativeBuildInputs, it
+    # would override the ones for building an Octave package (the hook and Octave
+    # itself, causing everything to fail.
   attrs' = builtins.removeAttrs attrs [
     "nativeBuildInputs"
     "passthru"
@@ -97,13 +97,13 @@ let
 in
 stdenv.mkDerivation ({
   packageName = "${fullLibName}";
-  # The name of the octave package ends up being
-  # "octave-version-package-version"
+    # The name of the octave package ends up being
+    # "octave-version-package-version"
   name = "${octave.pname}-${octave.version}-${fullLibName}";
 
-  # This states that any package built with the function that this returns
-  # will be an octave package. This is used for ensuring other octave
-  # packages are installed into octave during the environment building phase.
+    # This states that any package built with the function that this returns
+    # will be an octave package. This is used for ensuring other octave
+    # packages are installed into octave during the environment building phase.
   isOctavePackage = true;
 
   OCTAVE_HISTFILE = "/dev/null";
@@ -124,14 +124,16 @@ stdenv.mkDerivation ({
 
   propagatedBuildInputs = propagatedBuildInputs ++ [ texinfo ];
 
-  preBuild = if preBuild == "" then
-    ''
-      # This trickery is needed because Octave expects a single directory inside
-      # at the top-most level of the tarball.
-      tar --transform 's,^,${fullLibName}/,' -cz * -f ${fullLibName}.tar.gz
-    ''
-  else
-    preBuild;
+  preBuild =
+    if preBuild == "" then
+      ''
+        # This trickery is needed because Octave expects a single directory inside
+        # at the top-most level of the tarball.
+        tar --transform 's,^,${fullLibName}/,' -cz * -f ${fullLibName}.tar.gz
+      ''
+    else
+      preBuild
+    ;
 
   buildPhase = ''
     runHook preBuild
@@ -142,8 +144,8 @@ stdenv.mkDerivation ({
     runHook postBuild
   '';
 
-  # We don't install here, because that's handled when we build the environment
-  # together with Octave.
+    # We don't install here, because that's handled when we build the environment
+    # together with Octave.
   dontInstall = true;
 
   passthru = passthru';

@@ -24,13 +24,13 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-vChsy/FrJEzTO5O+XFycPMP3jqOeea/hfsC0jJbqUVI=";
   };
 
-  # Cargo.lock is outdated
+    # Cargo.lock is outdated
   cargoPatches = [ ./update-cargo-lock.diff ];
 
   cargoSha256 = "sha256-ah8IjShmivS6IWL3ku/4/j+WNr/LdUnh1YJnPdaFdcM=";
 
-  # FIXME: LTO is broken with rustc 1.61, see https://github.com/rust-lang/rust/issues/97255
-  # remove this with rustc 1.61.1+
+    # FIXME: LTO is broken with rustc 1.61, see https://github.com/rust-lang/rust/issues/97255
+    # remove this with rustc 1.61.1+
   CARGO_PROFILE_RELEASE_LTO = "false";
 
   nativeBuildInputs = [
@@ -62,7 +62,7 @@ rustPlatform.buildRustPackage rec {
       --name _exa completions/completions.zsh
   '';
 
-  # Some tests fail, but Travis ensures a proper build
+    # Some tests fail, but Travis ensures a proper build
   doCheck = false;
 
   meta = with lib; {

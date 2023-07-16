@@ -21,10 +21,10 @@ stdenv.mkDerivation rec {
     sed -ie 's|nuweb -r|./nuweb -r|' Makefile
   '';
 
-  # Workaround build failure on -fno-common toolchains like upstream
-  # gcc-10. Otherwise build fails as:
-  #   ld: global.o:/build/nuweb-1.62/global.h:91: multiple definition of
-  #     `current_sector'; main.o:/build/nuweb-1.62/global.h:91: first defined here
+    # Workaround build failure on -fno-common toolchains like upstream
+    # gcc-10. Otherwise build fails as:
+    #   ld: global.o:/build/nuweb-1.62/global.h:91: multiple definition of
+    #     `current_sector'; main.o:/build/nuweb-1.62/global.h:91: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   buildPhase = ''

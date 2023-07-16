@@ -11,7 +11,7 @@
 
 stdenv.mkDerivation rec {
   pname = "yices";
-  # We never want X.Y.${odd} versions as they are moving development tags.
+    # We never want X.Y.${odd} versions as they are moving development tags.
   version = "2.6.4";
 
   src = fetchFromGitHub {

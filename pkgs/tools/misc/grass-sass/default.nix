@@ -15,7 +15,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-v2ikP+zujj6GWN1ZwPIKK0jtF8Na5PaR1ZNelGdLzMM=";
 
-  # tests require rust nightly
+    # tests require rust nightly
   doCheck = false;
 
   meta = with lib; {

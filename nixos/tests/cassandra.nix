@@ -19,9 +19,9 @@ import ./make-test-python.nix ({
     jmxPort = 7200; # Non-standard port so it doesn't accidentally work
     jmxPortStr = toString jmxPort;
 
-    # Would usually be assigned to 512M.
-    # Set it to a different value, so that we can check whether our config
-    # actually changes it.
+      # Would usually be assigned to 512M.
+      # Set it to a different value, so that we can check whether our config
+      # actually changes it.
     numMaxHeapSize = "400";
     getHeapLimitCommand = ''
       nodetool info -p ${jmxPortStr} | grep "^Heap Memory" | awk '{print $NF}'
@@ -30,18 +30,21 @@ import ./make-test-python.nix ({
       [ 1 -eq "$(echo "$(${getHeapLimitCommand}) < ${numMaxHeapSize}" | ${pkgs.bc}/bin/bc)" ]
     '';
 
-    cassandraCfg = ipAddress: {
-      enable = true;
-      inherit clusterName;
-      listenAddress = ipAddress;
-      rpcAddress = ipAddress;
-      seedAddresses = [ "192.168.1.1" ];
-      package = testPackage;
-      maxHeapSize = "${numMaxHeapSize}M";
-      heapNewSize = "100M";
-      inherit jmxPort;
-    };
-    nodeCfg = ipAddress: extra:
+    cassandraCfg =
+      ipAddress: {
+        enable = true;
+        inherit clusterName;
+        listenAddress = ipAddress;
+        rpcAddress = ipAddress;
+        seedAddresses = [ "192.168.1.1" ];
+        package = testPackage;
+        maxHeapSize = "${numMaxHeapSize}M";
+        heapNewSize = "100M";
+        inherit jmxPort;
+      }
+      ;
+    nodeCfg =
+      ipAddress: extra:
       {
         pkgs,
         config,
@@ -61,7 +64,8 @@ import ./make-test-python.nix ({
           } ];
         };
         services.cassandra = cassandraCfg ipAddress // extra;
-      };
+      }
+      ;
   in {
     name = "cassandra-${testPackage.version}";
     meta = { maintainers = with lib.maintainers; [ johnazoidberg ]; };

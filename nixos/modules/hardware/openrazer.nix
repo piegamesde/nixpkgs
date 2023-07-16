@@ -11,11 +11,13 @@ let
   cfg = config.hardware.openrazer;
   kernelPackages = config.boot.kernelPackages;
 
-  toPyBoolStr = b:
+  toPyBoolStr =
+    b:
     if b then
       "True"
     else
-      "False";
+      "False"
+    ;
 
   daemonExe =
     "${pkgs.openrazer-daemon}/bin/openrazer-daemon --config ${daemonConfFile}";
@@ -119,23 +121,23 @@ in {
     boot.extraModulePackages = [ kernelPackages.openrazer ];
     boot.kernelModules = drivers;
 
-    # Makes the man pages available so you can successfully run
-    # > systemctl --user help openrazer-daemon
+      # Makes the man pages available so you can successfully run
+      # > systemctl --user help openrazer-daemon
     environment.systemPackages = [ pkgs.python3Packages.openrazer-daemon.man ];
 
     services.udev.packages = [ kernelPackages.openrazer ];
     services.dbus.packages = [ dbusServiceFile ];
 
-    # A user must be a member of the openrazer group in order to start
-    # the openrazer-daemon. Therefore we make sure that the group
-    # exists.
+      # A user must be a member of the openrazer group in order to start
+      # the openrazer-daemon. Therefore we make sure that the group
+      # exists.
     users.groups.openrazer = { members = cfg.users; };
 
     systemd.user.services.openrazer-daemon = {
       description = "Daemon to manage razer devices in userspace";
       unitConfig.Documentation = "man:openrazer-daemon(8)";
-      # Requires a graphical session so the daemon knows when the screensaver
-      # starts. See the 'devicesOffOnScreensaver' option.
+        # Requires a graphical session so the daemon knows when the screensaver
+        # starts. See the 'devicesOffOnScreensaver' option.
       wantedBy = [ "graphical-session.target" ];
       partOf = [ "graphical-session.target" ];
       serviceConfig = {

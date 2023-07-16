@@ -10,7 +10,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://archive.debian.org/debian/pool/main/d/dog/dog_${version}.orig.tar.gz";
+      "http://archive.debian.org/debian/pool/main/d/dog/dog_${version}.orig.tar.gz"
+      ;
     sha256 = "3ef25907ec5d1dfb0df94c9388c020b593fbe162d7aaa9bd08f35d2a125af056";
   };
 

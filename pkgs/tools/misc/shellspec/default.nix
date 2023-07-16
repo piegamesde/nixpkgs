@@ -25,12 +25,13 @@ stdenv.mkDerivation rec {
     ./shellspec --no-banner spec --jobs "$(nproc)"
   '';
 
-  # "Building" the script happens in Docker
+    # "Building" the script happens in Docker
   dontBuild = true;
 
   meta = with lib; {
     description =
-      "A full-featured BDD unit testing framework for bash, ksh, zsh, dash and all POSIX shells";
+      "A full-featured BDD unit testing framework for bash, ksh, zsh, dash and all POSIX shells"
+      ;
     homepage = "https://shellspec.info/";
     changelog =
       "https://github.com/shellspec/shellspec/releases/tag/${version}";

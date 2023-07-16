@@ -32,7 +32,8 @@ buildPythonPackage rec {
       "https://github.com/pypa/installer/blob/${src.rev}/docs/changelog.md";
     homepage = "https://github.com/pradyunsg/installer";
     description =
-      "A low-level library for installing a Python package from a wheel distribution";
+      "A low-level library for installing a Python package from a wheel distribution"
+      ;
     license = licenses.mit;
     maintainers = with maintainers; [
       cpcloud

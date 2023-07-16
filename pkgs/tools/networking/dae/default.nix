@@ -35,7 +35,7 @@ buildGoModule rec {
     ebpf
   '';
 
-  # network required
+    # network required
   doCheck = false;
 
   meta = with lib; {

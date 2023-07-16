@@ -37,8 +37,9 @@ stdenv.mkDerivation rec {
 
   propagatedUserEnvPkgs = [ gtk-engine-murrine ];
 
-  mesonFlags =
-    [ "-D gnome_version=${lib.versions.majorMinor gnome.gnome-shell.version}" ];
+  mesonFlags = [ "-D gnome_version=${
+      lib.versions.majorMinor gnome.gnome-shell.version
+    }" ];
 
   postFixup = ''
     gtk-update-icon-cache "$out"/share/icons/Lounge-aux;
@@ -46,7 +47,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Simple and clean GTK theme with vintage scrollbars, inspired by Absolute, based on Adwaita";
+      "Simple and clean GTK theme with vintage scrollbars, inspired by Absolute, based on Adwaita"
+      ;
     homepage = "https://github.com/monday15/lounge-gtk-theme";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;

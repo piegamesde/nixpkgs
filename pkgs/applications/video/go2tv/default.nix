@@ -50,7 +50,7 @@ buildGoModule rec {
     "-linkmode=external"
   ];
 
-  # conditionally build with GUI or not (go2tv or go2tv-lite sub-packages)
+    # conditionally build with GUI or not (go2tv or go2tv-lite sub-packages)
   subPackages = [ "cmd/${pname}" ];
 
   doCheck = false;

@@ -11,7 +11,8 @@ alephone.makeWrapper rec {
 
   zip = fetchurl {
     url =
-      "https://github.com/Aleph-One-Marathon/alephone/releases/download/release-${version}/Marathon2-${version}-Data.zip";
+      "https://github.com/Aleph-One-Marathon/alephone/releases/download/release-${version}/Marathon2-${version}-Data.zip"
+      ;
     sha256 = "1gpg0dk3z8irvdkm4nj71v14lqx77109chqr2ly594jqf6j9wwqv";
   };
 

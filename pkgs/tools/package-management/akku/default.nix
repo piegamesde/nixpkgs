@@ -25,7 +25,8 @@ stdenv.mkDerivation rec {
     (substituteAll {
       src = ./hardcode-libcurl.patch;
       libcurl =
-        "${curl.out}/lib/libcurl${stdenv.hostPlatform.extensions.sharedLibrary}";
+        "${curl.out}/lib/libcurl${stdenv.hostPlatform.extensions.sharedLibrary}"
+        ;
     })
   ];
 
@@ -36,7 +37,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ guile ];
 
-  # Use a dummy package index to boostrap Akku
+    # Use a dummy package index to boostrap Akku
   preBuild = ''
     touch bootstrap.db
   '';

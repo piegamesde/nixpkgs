@@ -17,13 +17,15 @@ let
   # on Linux, wrap perl in the bash completion scripts with the glibc locales,
   # so that using the shell completion (ctrl+r, etc) doesn't result in ugly
   # warnings on non-nixos machines
-  ourPerl = if !stdenv.isLinux then
-    perl
-  else
-    (writeShellScriptBin "perl" ''
-      export LOCALE_ARCHIVE="${glibcLocales}/lib/locale/locale-archive"
-      exec ${perl}/bin/perl "$@"
-    '');
+  ourPerl =
+    if !stdenv.isLinux then
+      perl
+    else
+      (writeShellScriptBin "perl" ''
+        export LOCALE_ARCHIVE="${glibcLocales}/lib/locale/locale-archive"
+        exec ${perl}/bin/perl "$@"
+      '')
+    ;
 in
 buildGoModule rec {
   pname = "fzf";
@@ -53,7 +55,7 @@ buildGoModule rec {
     "-X main.version=${version} -X main.revision=${src.rev}"
   ];
 
-  # The vim plugin expects a relative path to the binary; patch it to abspath.
+    # The vim plugin expects a relative path to the binary; patch it to abspath.
   postPatch = ''
     sed -i -e "s|expand('<sfile>:h:h')|'$out'|" plugin/fzf.vim
 

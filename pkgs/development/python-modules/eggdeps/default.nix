@@ -21,7 +21,7 @@ buildPythonPackage rec {
     zope_testing
   ];
 
-  # tests fail, see https://hydra.nixos.org/build/4316603/log/raw
+    # tests fail, see https://hydra.nixos.org/build/4316603/log/raw
   doCheck = false;
 
   meta = with lib; {

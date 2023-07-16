@@ -5,12 +5,14 @@ import ../make-test-python.nix ({
     name = "hub";
     meta = with pkgs.lib.maintainers; { maintainers = [ nequissimus ]; };
 
-    nodes.hub = {
+    nodes.hub =
+      {
         pkgs,
         ...
       }: {
         environment.systemPackages = [ pkgs.hub ];
-      };
+      }
+      ;
 
     testScript = ''
       assert "git version ${pkgs.git.version}\nhub version ${pkgs.hub.version}\n" in hub.succeed("hub version")

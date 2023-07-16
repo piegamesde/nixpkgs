@@ -3,7 +3,8 @@ import ./make-test-python.nix ({
   }: {
     name = "consul-template";
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         services.consul-template.instances.example.settings = {
@@ -24,7 +25,8 @@ import ./make-test-python.nix ({
             bind_addr = "127.0.0.1";
           };
         };
-      };
+      }
+      ;
 
     testScript = ''
       machine.wait_for_unit("consul.service")

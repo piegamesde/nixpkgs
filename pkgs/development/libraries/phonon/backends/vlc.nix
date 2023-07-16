@@ -19,7 +19,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://kde/stable/phonon/${pname}/${version}/${pname}-${version}.tar.xz";
+      "mirror://kde/stable/phonon/${pname}/${version}/${pname}-${version}.tar.xz"
+      ;
     sha256 = "sha256-Xmn97MsGDH5rWSTO8uZb7loIrOQScAW5U0TtMHfcY5c=";
   };
 
@@ -48,7 +49,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://community.kde.org/Phonon";
-    # Dev repo is at https://invent.kde.org/libraries/phonon-vlc
+      # Dev repo is at https://invent.kde.org/libraries/phonon-vlc
     description = "GStreamer backend for Phonon";
     platforms = platforms.linux;
     license = with licenses; [

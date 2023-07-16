@@ -26,7 +26,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  # skip flaky tests
+    # skip flaky tests
   checkFlags = [ "--skip=tests::native_ext" ];
 
   postInstall = ''
@@ -42,7 +42,8 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "Purely-functional configuration language that helps you define JSON data";
+      "Purely-functional configuration language that helps you define JSON data"
+      ;
     homepage = "https://github.com/CertainLach/jrsonnet";
     license = licenses.mit;
     maintainers = with maintainers; [

@@ -50,7 +50,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "python3.10";
       url =
-        "https://github.com/nwchemgit/nwchem/commit/638401361c6f294164a4f820ff867a62ac836fd5.patch";
+        "https://github.com/nwchemgit/nwchem/commit/638401361c6f294164a4f820ff867a62ac836fd5.patch"
+        ;
       sha256 = "sha256-yUZb3wWYZm1dX0HwvffksFwhVdb7ix1p8ooJnqiSgEg=";
     })
   ];
@@ -92,8 +93,8 @@ stdenv.mkDerivation rec {
     patchShebangs ./
   '';
 
-  # There is no configure script. Instead the build is controlled via
-  # environment variables passed to the Makefile
+    # There is no configure script. Instead the build is controlled via
+    # environment variables passed to the Makefile
   configurePhase = ''
     runHook preConfigure
 

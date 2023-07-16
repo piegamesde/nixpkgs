@@ -29,7 +29,7 @@ buildPythonPackage rec {
     pyspark
   ];
 
-  # these integration tests assume a running Spark instance
+    # these integration tests assume a running Spark instance
   disabledTestPaths = [ "tests/dataframe/integration" ];
 
   pythonImportsCheck = [ "sqlglot" ];

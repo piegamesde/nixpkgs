@@ -49,8 +49,8 @@ buildPythonApplication rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  # From 1.6.0 release notes (https://github.com/Matoking/protontricks/releases/tag/1.6.0):
-  # In most cases the script is unnecessary and should be removed as part of the packaging process.
+    # From 1.6.0 release notes (https://github.com/Matoking/protontricks/releases/tag/1.6.0):
+    # In most cases the script is unnecessary and should be removed as part of the packaging process.
   postInstall = ''
     rm "$out/bin/protontricks-desktop-install"
   '';
@@ -61,7 +61,8 @@ buildPythonApplication rec {
 
   meta = with lib; {
     description =
-      "A simple wrapper for running Winetricks commands for Proton-enabled games";
+      "A simple wrapper for running Winetricks commands for Proton-enabled games"
+      ;
     homepage = "https://github.com/Matoking/protontricks";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ kira-bruneau ];

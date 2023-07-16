@@ -23,13 +23,15 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchpatch {
       url =
-        "https://src.fedoraproject.org/rpms/rapidjson/raw/48402da9f19d060ffcd40bf2b2e6987212c58b0c/f/rapidjson-1.1.0-c++20.patch";
+        "https://src.fedoraproject.org/rpms/rapidjson/raw/48402da9f19d060ffcd40bf2b2e6987212c58b0c/f/rapidjson-1.1.0-c++20.patch"
+        ;
       sha256 = "1qm62iad1xfsixv1li7qy475xc7gc04hmi2q21qdk6l69gk7mf82";
     })
     (fetchpatch {
       name = "do-not-include-gtest-src-dir.patch";
       url =
-        "https://git.alpinelinux.org/aports/plain/community/rapidjson/do-not-include-gtest-src-dir.patch?id=9e5eefc7a5fcf5938a8dc8a3be8c75e9e6809909";
+        "https://git.alpinelinux.org/aports/plain/community/rapidjson/do-not-include-gtest-src-dir.patch?id=9e5eefc7a5fcf5938a8dc8a3be8c75e9e6809909"
+        ;
       hash = "sha256-BjSZEwfCXA/9V+kxQ/2JPWbc26jQn35CfN8+8NW24s4=";
     })
   ];
@@ -44,8 +46,8 @@ stdenv.mkDerivation rec {
     cmake
   ];
 
-  # for tests, adding gtest to checkInputs does not work
-  # https://github.com/NixOS/nixpkgs/pull/212200
+    # for tests, adding gtest to checkInputs does not work
+    # https://github.com/NixOS/nixpkgs/pull/212200
   buildInputs = [ gtest ];
   cmakeFlags = [ "-DGTEST_SOURCE_DIR=${gtest.dev}/include" ];
 

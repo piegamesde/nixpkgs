@@ -23,8 +23,8 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  # cirq's importlib hook doesn't work here
-  #pythonImportsCheck = [ "cirq_aqt" ];
+    # cirq's importlib hook doesn't work here
+    #pythonImportsCheck = [ "cirq_aqt" ];
 
   disabledTestPaths = [
     # No need to test the version number

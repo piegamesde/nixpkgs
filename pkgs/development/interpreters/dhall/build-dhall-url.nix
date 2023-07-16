@@ -59,9 +59,9 @@ let
   # using Nix instead of using Dhall's support for HTTP imports.
   dhallNoHTTP = haskell.lib.appendConfigureFlag dhall "-f-with-http";
 
-  # This uses Dhall's remote importing capabilities for downloading a Dhall file.
-  # The output Dhall file has all imports resolved, and then is
-  # alpha-normalized and binary-encoded.
+    # This uses Dhall's remote importing capabilities for downloading a Dhall file.
+    # The output Dhall file has all imports resolved, and then is
+    # alpha-normalized and binary-encoded.
   downloadedEncodedFile = runCommand (baseNameOf url) {
     outputHashAlgo = null;
     outputHash = hash;

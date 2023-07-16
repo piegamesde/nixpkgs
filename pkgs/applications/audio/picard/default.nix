@@ -12,10 +12,12 @@
 
 let
   pythonPackages = python3Packages;
-  pyqt5 = if enablePlayback then
-    pythonPackages.pyqt5_with_qtmultimedia
-  else
-    pythonPackages.pyqt5;
+  pyqt5 =
+    if enablePlayback then
+      pythonPackages.pyqt5_with_qtmultimedia
+    else
+      pythonPackages.pyqt5
+    ;
 in
 pythonPackages.buildPythonApplication rec {
   pname = "picard";
@@ -53,7 +55,7 @@ pythonPackages.buildPythonApplication rec {
     pyyaml
   ];
 
-  # In order to spare double wrapping, we use:
+    # In order to spare double wrapping, we use:
   preFixup = ''
     makeWrapperArgs+=("''${qtWrapperArgs[@]}")
   '' + lib.optionalString (pyqt5.multimediaEnabled) ''

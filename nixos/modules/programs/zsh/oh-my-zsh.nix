@@ -11,7 +11,8 @@ let
 
   cfg = config.programs.zsh.ohMyZsh;
 
-  mkLinkFarmEntry = name: dir:
+  mkLinkFarmEntry =
+    name: dir:
     let
       env = pkgs.buildEnv {
         name = "zsh-${name}-env";
@@ -21,20 +22,23 @@ let
     in {
       inherit name;
       path = "${env}/share/zsh/${dir}";
-    } ;
+    }
+    ;
 
   mkLinkFarmEntry' = name: mkLinkFarmEntry name name;
 
-  custom = if cfg.custom != null then
-    cfg.custom
-  else if length cfg.customPkgs == 0 then
-    null
-  else
-    pkgs.linkFarm "oh-my-zsh-custom" [
-      (mkLinkFarmEntry' "themes")
-      (mkLinkFarmEntry "completions" "site-functions")
-      (mkLinkFarmEntry' "plugins")
-    ];
+  custom =
+    if cfg.custom != null then
+      cfg.custom
+    else if length cfg.customPkgs == 0 then
+      null
+    else
+      pkgs.linkFarm "oh-my-zsh-custom" [
+        (mkLinkFarmEntry' "themes")
+        (mkLinkFarmEntry "completions" "site-functions")
+        (mkLinkFarmEntry' "plugins")
+      ]
+    ;
 
 in {
   imports = [

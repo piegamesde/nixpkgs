@@ -43,7 +43,8 @@ stdenv.mkDerivation rec {
 
   meta = {
     description =
-      "Bitmap paint program inspired by the Amiga programs Deluxe Paint and Brilliance";
+      "Bitmap paint program inspired by the Amiga programs Deluxe Paint and Brilliance"
+      ;
     homepage = "http://pulkomandy.tk/projects/GrafX2";
     license = lib.licenses.gpl2;
     platforms = [

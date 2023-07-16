@@ -46,7 +46,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "system-dnnl.patch";
       url =
-        "https://aur.archlinux.org/cgit/aur.git/plain/system-dnnl.diff?h=python-onnxruntime&id=9c392fb542979981fe0026e0fe3cc361a5f00a36";
+        "https://aur.archlinux.org/cgit/aur.git/plain/system-dnnl.diff?h=python-onnxruntime&id=9c392fb542979981fe0026e0fe3cc361a5f00a36"
+        ;
       sha256 = "sha256-+kedzJHLFU1vMbKO9cn8fr+9A5+IxIuiqzOfR2AfJ0k=";
     })
   ];
@@ -78,8 +79,8 @@ stdenv.mkDerivation rec {
     python3Packages.packaging
   ];
 
-  # TODO: build server, and move .so's to lib output
-  # Python's wheel is stored in a separate dist output
+    # TODO: build server, and move .so's to lib output
+    # Python's wheel is stored in a separate dist output
   outputs = [
     "out"
     "dev"
@@ -141,7 +142,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/microsoft/onnxruntime";
     changelog =
       "https://github.com/microsoft/onnxruntime/releases/tag/v${version}";
-    # https://github.com/microsoft/onnxruntime/blob/master/BUILD.md#architectures
+      # https://github.com/microsoft/onnxruntime/blob/master/BUILD.md#architectures
     platforms = platforms.unix;
     license = licenses.mit;
     maintainers = with maintainers; [

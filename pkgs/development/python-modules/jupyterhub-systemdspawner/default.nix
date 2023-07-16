@@ -33,7 +33,7 @@ buildPythonPackage rec {
       --replace "/bin/bash" "${bash}/bin/bash"
   '';
 
-  # no tests
+    # no tests
   doCheck = false;
 
   postInstall = ''

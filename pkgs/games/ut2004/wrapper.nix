@@ -40,7 +40,8 @@ let
     name = "ut2004";
     desktopName = "Unreal Tournament 2004";
     comment =
-      "A first-person shooter video game developed by Epic Games and Digital Extreme";
+      "A first-person shooter video game developed by Epic Games and Digital Extreme"
+      ;
     genericName = "First-person shooter";
     categories = [ "Game" ];
     exec = "ut2004";

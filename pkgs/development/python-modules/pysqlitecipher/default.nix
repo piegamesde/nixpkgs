@@ -25,14 +25,15 @@ buildPythonPackage rec {
     onetimepad
   ];
 
-  # upstream has no tests
+    # upstream has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "pysqlitecipher" ];
 
   meta = {
     description =
-      "Lightweight and easy to use sqlite wrapper with built-in encryption system";
+      "Lightweight and easy to use sqlite wrapper with built-in encryption system"
+      ;
     homepage = "Ghttps://github.com/harshnative/pysqlitecipher";
     license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ dotlambda ];

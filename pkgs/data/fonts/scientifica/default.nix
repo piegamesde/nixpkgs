@@ -10,7 +10,8 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/NerdyPepper/scientifica/releases/download/v${version}/scientifica.tar";
+      "https://github.com/NerdyPepper/scientifica/releases/download/v${version}/scientifica.tar"
+      ;
     hash = "sha256-8IV4aaDoRsbxddy4U90fEZ6henUhjmO38HNtWo4ein8=";
   };
 

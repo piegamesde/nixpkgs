@@ -42,7 +42,8 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib; { maintainers = with maintainers; [ dotlambda ]; };
 
     nodes = {
-      client = {
+      client =
+        {
           ...
         }: {
           services.borgbackup.jobs = {
@@ -108,7 +109,7 @@ import ./make-test-python.nix ({
 
             sleepInhibited = {
               inhibitsSleep = true;
-              # Blocks indefinitely while "backing up" so that we can try to suspend the local system while it's hung
+                # Blocks indefinitely while "backing up" so that we can try to suspend the local system while it's hung
               dumpCommand = pkgs.writeScript "sleepInhibited" ''
                 cat /dev/zero
               '';
@@ -120,9 +121,11 @@ import ./make-test-python.nix ({
             };
 
           };
-        };
+        }
+        ;
 
-      server = {
+      server =
+        {
           ...
         }: {
           services.openssh = {
@@ -138,13 +141,14 @@ import ./make-test-python.nix ({
             path = "/data/borgbackup";
           };
 
-          # Second repo to make sure the authorizedKeys options are merged correctly
+            # Second repo to make sure the authorizedKeys options are merged correctly
           services.borgbackup.repos.repo2 = {
             authorizedKeysAppendOnly = [ publicKeyAppendOnly ];
             path = "/data/borgbackup";
             quota = ".5G";
           };
-        };
+        }
+        ;
     };
 
     testScript = ''

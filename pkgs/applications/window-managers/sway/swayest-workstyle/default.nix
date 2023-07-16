@@ -21,7 +21,8 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "Map sway workspace names to icons defined depending on the windows inside of the workspace";
+      "Map sway workspace names to icons defined depending on the windows inside of the workspace"
+      ;
     homepage = "https://github.com/Lyr-7D1h/swayest_workstyle";
     license = licenses.mit;
     platforms = platforms.linux;

@@ -25,9 +25,9 @@ appleDerivation {
     apple_sdk.frameworks.IOKit
     openbsm
   ];
-  # env.NIX_CFLAGS_COMPILE = lib.optionalString hostPlatform.isi686 "-D__i386__"
-  #                    + lib.optionalString hostPlatform.isx86_64 "-D__x86_64__"
-  #                    + lib.optionalString hostPlatform.isAarch32 "-D__arm__";
+    # env.NIX_CFLAGS_COMPILE = lib.optionalString hostPlatform.isi686 "-D__i386__"
+    #                    + lib.optionalString hostPlatform.isx86_64 "-D__x86_64__"
+    #                    + lib.optionalString hostPlatform.isAarch32 "-D__arm__";
   env.NIX_CFLAGS_COMPILE = toString ([
     "-DDAEMON_UID=1"
     "-DDAEMON_GID=1"

@@ -103,7 +103,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf config.services.aerospike.enable {
 

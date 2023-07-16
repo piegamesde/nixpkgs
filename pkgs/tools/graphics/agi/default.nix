@@ -19,7 +19,8 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://github.com/google/agi/releases/download/v${version}/agi-${version}-linux.zip";
+      "https://github.com/google/agi/releases/download/v${version}/agi-${version}-linux.zip"
+      ;
     sha256 = "sha256-vKq1pe4Z0blSvNgez+/MP2rA0+QfCyr3RsCGX4GMR08=";
   };
 

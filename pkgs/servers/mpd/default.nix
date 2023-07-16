@@ -88,16 +88,16 @@ let
       curl
       expat
     ];
-    # Input plugins
+      # Input plugins
     curl = [ curl ];
     io_uring = [ liburing ];
     mms = [ libmms ];
     nfs = [ libnfs ];
     smbclient = [ samba ];
-    # Archive support
+      # Archive support
     bzip2 = [ bzip2 ];
     zzip = [ zziplib ];
-    # Decoder plugins
+      # Decoder plugins
     audiofile = [ audiofile ];
     faad = [ faad2 ];
     ffmpeg = [ ffmpeg ];
@@ -109,18 +109,18 @@ let
     mpg123 = [ mpg123 ];
     opus = [ libopus ];
     vorbis = [ libvorbis ];
-    # Encoder plugins
+      # Encoder plugins
     vorbisenc = [ libvorbis ];
     lame = [ lame ];
-    # Filter plugins
+      # Filter plugins
     libsamplerate = [ libsamplerate ];
-    # Output plugins
+      # Output plugins
     alsa = [ alsa-lib ];
     jack = [ libjack2 ];
     pipewire = [ pipewire ];
     pulse = [ libpulseaudio ];
     shout = [ libshout ];
-    # Commercial services
+      # Commercial services
     qobuz = [
       curl
       libgcrypt
@@ -130,11 +130,11 @@ let
       curl
       yajl
     ];
-    # Client support
+      # Client support
     libmpdclient = [ libmpdclient ];
-    # Tag support
+      # Tag support
     id3tag = [ libid3tag ];
-    # Misc
+      # Misc
     dbus = [ dbus ];
     expat = [ expat ];
     icu = [ icu ];
@@ -156,7 +156,8 @@ let
     ];
   };
 
-  run = {
+  run =
+    {
       features ? null
     }:
     let
@@ -180,22 +181,24 @@ let
         ++ builtins.attrNames nativeFeatureDependencies;
       platformFeatures = lib.subtractLists platformMask knownFeatures;
 
-      features_ = if (features == null) then
-        platformFeatures
-      else
-        let
-          unknown = lib.subtractLists knownFeatures features;
-        in if (unknown != [ ]) then
-          throw "Unknown feature(s): ${lib.concatStringsSep " " unknown}"
+      features_ =
+        if (features == null) then
+          platformFeatures
         else
           let
-            unsupported = lib.subtractLists platformFeatures features;
-          in if (unsupported != [ ]) then
-            throw "Feature(s) ${
-              lib.concatStringsSep " " unsupported
-            } are not supported on ${stdenv.hostPlatform.system}"
+            unknown = lib.subtractLists knownFeatures features;
+          in if (unknown != [ ]) then
+            throw "Unknown feature(s): ${lib.concatStringsSep " " unknown}"
           else
-            features;
+            let
+              unsupported = lib.subtractLists platformFeatures features;
+            in if (unsupported != [ ]) then
+              throw "Feature(s) ${
+                lib.concatStringsSep " " unsupported
+              } are not supported on ${stdenv.hostPlatform.system}"
+            else
+              features
+        ;
 
     in
     stdenv.mkDerivation rec {
@@ -239,9 +242,9 @@ let
             --replace kAudioHardwareServiceDeviceProperty_Virtual{Main,Master}Volume
         '';
 
-      # Otherwise, the meson log says:
-      #
-      #    Program zip found: NO
+        # Otherwise, the meson log says:
+        #
+        #    Program zip found: NO
       nativeCheckInputs = [ zip ];
 
       doCheck = true;
@@ -254,7 +257,8 @@ let
       ] ++ lib.optional (builtins.elem "documentation" features_) "man";
 
       CXXFLAGS = lib.optionals
-        stdenv.isDarwin [ "-D__ASSERT_MACROS_DEFINE_VERSIONS_WITHOUT_UNDERSCORES=0" ];
+        stdenv.isDarwin [ "-D__ASSERT_MACROS_DEFINE_VERSIONS_WITHOUT_UNDERSCORES=0" ]
+        ;
 
       mesonFlags = [
         "-Dtest=true"
@@ -286,7 +290,7 @@ let
         '';
       };
     }
-  ;
+    ;
 in {
   mpd = run { };
   mpd-small = run {

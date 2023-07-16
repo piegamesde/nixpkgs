@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
     name = "i3wm";
     meta = with pkgs.lib.maintainers; { maintainers = [ aszlig ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         lib,
         ...
       }: {
@@ -16,9 +17,11 @@ import ./make-test-python.nix ({
         test-support.displayManager.auto.user = "alice";
         services.xserver.displayManager.defaultSession = lib.mkForce "none+i3";
         services.xserver.windowManager.i3.enable = true;
-      };
+      }
+      ;
 
-    testScript = {
+    testScript =
+      {
         ...
       }: ''
         with subtest("ensure x starts"):
@@ -51,5 +54,6 @@ import ./make-test-python.nix ({
             machine.wait_for_window(r"alice.*?machine")
             machine.sleep(2)
             machine.screenshot("terminal")
-      '';
+      ''
+      ;
   })

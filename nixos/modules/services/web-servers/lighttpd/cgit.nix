@@ -9,10 +9,12 @@ with lib;
 
 let
   cfg = config.services.lighttpd.cgit;
-  pathPrefix = if stringLength cfg.subdir == 0 then
-    ""
-  else
-    "/" + cfg.subdir;
+  pathPrefix =
+    if stringLength cfg.subdir == 0 then
+      ""
+    else
+      "/" + cfg.subdir
+    ;
   configFile = pkgs.writeText "cgitrc" ''
     # default paths to static assets
     css=${pathPrefix}/cgit.css
@@ -70,7 +72,7 @@ in {
     # make the cgitrc manpage available
     environment.systemPackages = [ pkgs.cgit ];
 
-    # declare module dependencies
+      # declare module dependencies
     services.lighttpd.enableModules = [
       "mod_cgi"
       "mod_alias"

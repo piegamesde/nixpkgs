@@ -11,7 +11,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/Requarks/wiki/releases/download/v${version}/${pname}.tar.gz";
+      "https://github.com/Requarks/wiki/releases/download/v${version}/${pname}.tar.gz"
+      ;
     sha256 = "sha256-O7KQ134zh9ullYyQZimmxfdRwXeHkD8aAhy/pRzIjxo=";
   };
 

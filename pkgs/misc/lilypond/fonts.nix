@@ -7,7 +7,8 @@
 
 let
 
-  olpFont = {
+  olpFont =
+    {
       fontName,
       rev,
       sha256,
@@ -44,7 +45,8 @@ let
         license = licenses.ofl;
         maintainers = with maintainers; [ yurrriq ];
       };
-    };
+    }
+    ;
 
 in rec {
   beethoven = olpFont {

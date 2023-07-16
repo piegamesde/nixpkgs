@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ chardet ];
 
-  # No tests in archive
+    # No tests in archive
   doCheck = false;
 
   pythonImportsCheck = [ "debian" ];
@@ -29,7 +29,8 @@ buildPythonPackage rec {
     description = "Debian package related modules";
     homepage = "https://salsa.debian.org/python-debian-team/python-debian";
     changelog =
-      "https://salsa.debian.org/python-debian-team/python-debian/-/blob/master/debian/changelog";
+      "https://salsa.debian.org/python-debian-team/python-debian/-/blob/master/debian/changelog"
+      ;
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

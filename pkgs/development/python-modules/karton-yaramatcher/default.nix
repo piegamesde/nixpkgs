@@ -36,7 +36,8 @@ buildPythonPackage rec {
       "File and analysis artifacts yara matcher for the Karton framework";
     homepage = "https://github.com/CERT-Polska/karton-yaramatcher";
     changelog =
-      "https://github.com/CERT-Polska/karton-yaramatcher/releases/tag/v${version}";
+      "https://github.com/CERT-Polska/karton-yaramatcher/releases/tag/v${version}"
+      ;
     license = with licenses; [ bsd3 ];
     maintainers = with maintainers; [ fab ];
   };

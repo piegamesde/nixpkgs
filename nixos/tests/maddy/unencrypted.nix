@@ -6,7 +6,8 @@ import ../make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ onny ]; };
 
     nodes = {
-      server = {
+      server =
+        {
           ...
         }: {
           services.maddy = {
@@ -22,9 +23,11 @@ import ../make-test-python.nix ({
                 "${pkgs.writeText "postmaster" "test"}";
             };
           };
-        };
+        }
+        ;
 
-      client = {
+      client =
+        {
           ...
         }: {
           environment.systemPackages = [
@@ -54,7 +57,8 @@ import ../make-test-python.nix ({
                   assert msg[0][1].strip() == b"Hello World"
             '')
           ];
-        };
+        }
+        ;
     };
 
     testScript = ''

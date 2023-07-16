@@ -77,10 +77,10 @@ stdenv.mkDerivation {
   sources = map (x: x.source) contents;
   targets = map (x: x.target) contents;
 
-  # !!! should use XML.
+    # !!! should use XML.
   objects = map (x: x.object) storeContents;
   symlinks = map (x: x.symlink) storeContents;
 
-  # For obtaining the closure of `storeContents'.
+    # For obtaining the closure of `storeContents'.
   closureInfo = closureInfo { rootPaths = map (x: x.object) storeContents; };
 }

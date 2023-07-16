@@ -36,25 +36,27 @@
 
 let
 
-  http_proxy_connect_module_generic = patchName: rec {
-    name = "http_proxy_connect";
-    src = fetchFromGitHub {
-      name = "http_proxy_connect_module_generic";
-      owner = "chobits";
-      repo = "ngx_http_proxy_connect_module";
-      rev = "96ae4e06381f821218f368ad0ba964f87cbe0266";
-      sha256 = "1nc7z31i7x9dzp67kzgvs34hs6ps749y26wcpi3wf5mm63i803rh";
-    };
+  http_proxy_connect_module_generic =
+    patchName: rec {
+      name = "http_proxy_connect";
+      src = fetchFromGitHub {
+        name = "http_proxy_connect_module_generic";
+        owner = "chobits";
+        repo = "ngx_http_proxy_connect_module";
+        rev = "96ae4e06381f821218f368ad0ba964f87cbe0266";
+        sha256 = "1nc7z31i7x9dzp67kzgvs34hs6ps749y26wcpi3wf5mm63i803rh";
+      };
 
-    patches = [ "${src}/patch/${patchName}.patch" ];
+      patches = [ "${src}/patch/${patchName}.patch" ];
 
-    meta = with lib; {
-      description = "Forward proxy module for CONNECT request handling";
-      homepage = "https://github.com/chobits/ngx_http_proxy_connect_module";
-      license = with licenses; [ bsd2 ];
-      maintainers = with maintainers; [ ];
-    };
-  };
+      meta = with lib; {
+        description = "Forward proxy module for CONNECT request handling";
+        homepage = "https://github.com/chobits/ngx_http_proxy_connect_module";
+        license = with licenses; [ bsd2 ];
+        maintainers = with maintainers; [ ];
+      };
+    }
+    ;
 
 in let
   self = {
@@ -128,21 +130,22 @@ in let
 
     brotli = {
       name = "brotli";
-      src = let
-        src' = fetchFromGitHub {
-          name = "brotli";
-          owner = "google";
-          repo = "ngx_brotli";
-          rev = "6e975bcb015f62e1f303054897783355e2a877dc";
-          sha256 = "sha256-G0IDYlvaQzzJ6cNTSGbfuOuSXFp3RsEwIJLGapTbDgo=";
-        };
-      in
-      runCommand "brotli" { } ''
-        cp -a ${src'} $out
-        substituteInPlace $out/filter/config \
-          --replace '$ngx_addon_dir/deps/brotli/c' ${lib.getDev brotli}
-      ''
-      ;
+      src =
+        let
+          src' = fetchFromGitHub {
+            name = "brotli";
+            owner = "google";
+            repo = "ngx_brotli";
+            rev = "6e975bcb015f62e1f303054897783355e2a877dc";
+            sha256 = "sha256-G0IDYlvaQzzJ6cNTSGbfuOuSXFp3RsEwIJLGapTbDgo=";
+          };
+        in
+        runCommand "brotli" { } ''
+          cp -a ${src'} $out
+          substituteInPlace $out/filter/config \
+            --replace '$ngx_addon_dir/deps/brotli/c' ${lib.getDev brotli}
+        ''
+        ;
 
       inputs = [ brotli ];
 
@@ -166,7 +169,8 @@ in let
 
       meta = with lib; {
         description =
-          "Adds ability to purge content from FastCGI, proxy, SCGI and uWSGI caches";
+          "Adds ability to purge content from FastCGI, proxy, SCGI and uWSGI caches"
+          ;
         homepage = "https://github.com/nginx-modules/ngx_cache_purge";
         license = with licenses; [ bsd2 ];
         maintainers = with maintainers; [ ];
@@ -223,7 +227,8 @@ in let
 
       meta = with lib; {
         description =
-          "Adds additional generic tools that module developers can use in their own modules";
+          "Adds additional generic tools that module developers can use in their own modules"
+          ;
         homepage = "https://github.com/vision5/ngx_devel_kit";
         license = with licenses; [ bsd3 ];
         maintainers = with maintainers; [ ];
@@ -242,7 +247,8 @@ in let
 
       meta = with lib; {
         description =
-          "Brings echo, sleep, time, exec and more shell-style goodies to Nginx";
+          "Brings echo, sleep, time, exec and more shell-style goodies to Nginx"
+          ;
         homepage = "https://github.com/openresty/echo-nginx-module";
         license = with licenses; [ bsd2 ];
         maintainers = with maintainers; [ ];
@@ -388,25 +394,28 @@ in let
 
       inputs = [ luajit ];
 
-      preConfigure = let
-        # fix compilation against nginx 1.23.0
-        nginx-1-23-patch = fetchpatch {
-          url =
-            "https://github.com/openresty/lua-nginx-module/commit/b6d167cf1a93c0c885c28db5a439f2404874cb26.patch";
-          sha256 = "sha256-l7GHFNZXg+RG2SIBjYJO1JHdGUtthWnzLIqEORJUNr4=";
-        };
-      in ''
-        export LUAJIT_LIB="${luajit}/lib"
-        export LUAJIT_INC="$(realpath ${luajit}/include/luajit-*)"
+      preConfigure =
+        let
+          # fix compilation against nginx 1.23.0
+          nginx-1-23-patch = fetchpatch {
+            url =
+              "https://github.com/openresty/lua-nginx-module/commit/b6d167cf1a93c0c885c28db5a439f2404874cb26.patch"
+              ;
+            sha256 = "sha256-l7GHFNZXg+RG2SIBjYJO1JHdGUtthWnzLIqEORJUNr4=";
+          };
+        in ''
+          export LUAJIT_LIB="${luajit}/lib"
+          export LUAJIT_INC="$(realpath ${luajit}/include/luajit-*)"
 
-        # make source directory writable to allow generating src/ngx_http_lua_autoconf.h
-        lua_src=$TMPDIR/lua-src
-        cp -r "${src}/" "$lua_src"
-        chmod -R +w "$lua_src"
-        patch -p1 -d $lua_src -i ${nginx-1-23-patch}
-        export configureFlags="''${configureFlags//"${src}"/"$lua_src"}"
-        unset lua_src
-      '' ;
+          # make source directory writable to allow generating src/ngx_http_lua_autoconf.h
+          lua_src=$TMPDIR/lua-src
+          cp -r "${src}/" "$lua_src"
+          chmod -R +w "$lua_src"
+          patch -p1 -d $lua_src -i ${nginx-1-23-patch}
+          export configureFlags="''${configureFlags//"${src}"/"$lua_src"}"
+          unset lua_src
+        ''
+        ;
 
       allowMemoryWriteExecute = true;
 
@@ -532,8 +541,8 @@ in let
         name = "nginx-njs";
       };
 
-      # njs module sources have to be writable during nginx build, so we copy them
-      # to a temporary directory and change the module path in the configureFlags
+        # njs module sources have to be writable during nginx build, so we copy them
+        # to a temporary directory and change the module path in the configureFlags
       preConfigure = ''
         NJS_SOURCE_DIR=$(readlink -m "$TMPDIR/${src}")
         mkdir -p "$(dirname "$NJS_SOURCE_DIR")"
@@ -547,7 +556,8 @@ in let
 
       meta = with lib; {
         description =
-          "Subset of the JavaScript language that allows extending nginx functionality";
+          "Subset of the JavaScript language that allows extending nginx functionality"
+          ;
         homepage = "https://nginx.org/en/docs/njs/";
         license = with licenses; [ bsd2 ];
         maintainers = with maintainers; [ ];
@@ -556,23 +566,25 @@ in let
 
     opentracing = {
       name = "opentracing";
-      src = let
-        src' = fetchFromGitHub {
-          name = "opentracing";
-          owner = "opentracing-contrib";
-          repo = "nginx-opentracing";
-          rev = "v0.10.0";
-          sha256 = "1q234s3p55xv820207dnh4fcxkqikjcq5rs02ai31ylpmfsf0kkb";
-        };
-      in
-      "${src'}/opentracing"
-      ;
+      src =
+        let
+          src' = fetchFromGitHub {
+            name = "opentracing";
+            owner = "opentracing-contrib";
+            repo = "nginx-opentracing";
+            rev = "v0.10.0";
+            sha256 = "1q234s3p55xv820207dnh4fcxkqikjcq5rs02ai31ylpmfsf0kkb";
+          };
+        in
+        "${src'}/opentracing"
+        ;
 
       inputs = [ opentracing-cpp ];
 
       meta = with lib; {
         description =
-          "Enable requests served by nginx for distributed tracing via The OpenTracing Project";
+          "Enable requests served by nginx for distributed tracing via The OpenTracing Project"
+          ;
         homepage = "https://github.com/opentracing-contrib/nginx-opentracing";
         license = with licenses; [ asl20 ];
         maintainers = with maintainers; [ ];
@@ -581,27 +593,28 @@ in let
 
     pagespeed = {
       name = "pagespeed";
-      src = let
-        moduleSrc = fetchFromGitHub {
-          name = "pagespeed";
-          owner = "apache";
-          repo = "incubator-pagespeed-ngx";
-          rev = "v${psol.version}-stable";
-          sha256 = "0ry7vmkb2bx0sspl1kgjlrzzz6lbz07313ks2lr80rrdm2zb16wp";
-        };
-      in
-      runCommand "ngx_pagespeed" {
-        meta = {
-          description = "PageSpeed module for Nginx";
-          homepage = "https://developers.google.com/speed/pagespeed/module/";
-          license = lib.licenses.asl20;
-        };
-      } ''
-        cp -r "${moduleSrc}" "$out"
-        chmod -R +w "$out"
-        ln -s "${psol}" "$out/psol"
-      ''
-      ;
+      src =
+        let
+          moduleSrc = fetchFromGitHub {
+            name = "pagespeed";
+            owner = "apache";
+            repo = "incubator-pagespeed-ngx";
+            rev = "v${psol.version}-stable";
+            sha256 = "0ry7vmkb2bx0sspl1kgjlrzzz6lbz07313ks2lr80rrdm2zb16wp";
+          };
+        in
+        runCommand "ngx_pagespeed" {
+          meta = {
+            description = "PageSpeed module for Nginx";
+            homepage = "https://developers.google.com/speed/pagespeed/module/";
+            license = lib.licenses.asl20;
+          };
+        } ''
+          cp -r "${moduleSrc}" "$out"
+          chmod -R +w "$out"
+          ln -s "${psol}" "$out/psol"
+        ''
+        ;
 
       inputs = [
         zlib
@@ -705,7 +718,8 @@ in let
 
       meta = with lib; {
         description =
-          "Generates CDN tokens, either as a cookie or as a query string parameter";
+          "Generates CDN tokens, either as a cookie or as a query string parameter"
+          ;
         homepage = "https://github.com/kaltura/nginx-secure-token-module";
         license = with licenses; [ agpl3 ];
         maintainers = with maintainers; [ ];
@@ -724,7 +738,8 @@ in let
 
       meta = with lib; {
         description =
-          "Various set_xxx directives added to the rewrite module (md5/sha1, sql/json quoting and many more)";
+          "Various set_xxx directives added to the rewrite module (md5/sha1, sql/json quoting and many more)"
+          ;
         homepage = "https://github.com/openresty/set-misc-nginx-module";
         license = with licenses; [ bsd2 ];
         maintainers = with maintainers; [ ];
@@ -761,7 +776,8 @@ in let
 
       meta = with lib; {
         description =
-          "Implements a collection of augmented statistics based on HTTP-codes and upstreams response time";
+          "Implements a collection of augmented statistics based on HTTP-codes and upstreams response time"
+          ;
         homepage = "https://github.com/goldenclone/nginx-sla";
         license = with licenses; [ unfree ]; # no license in repo
         maintainers = with maintainers; [ ];
@@ -889,7 +905,8 @@ in let
 
       meta = with lib; {
         description =
-          "Filter module which can do both regular expression and fixed string substitutions";
+          "Filter module which can do both regular expression and fixed string substitutions"
+          ;
         homepage =
           "https://github.com/yaoweibin/ngx_http_substitutions_filter_module";
         license = with licenses; [ bsd2 ];
@@ -927,7 +944,8 @@ in let
 
       meta = with lib; {
         description =
-          "Handle file uploads using multipart/form-data encoding and resumable uploads";
+          "Handle file uploads using multipart/form-data encoding and resumable uploads"
+          ;
         homepage = "https://github.com/fdintino/nginx-upload-module";
         license = with licenses; [ bsd3 ];
         maintainers = with maintainers; [ ];
@@ -969,7 +987,8 @@ in let
 
       meta = with lib; {
         description =
-          "Tarantool NginX upstream module (REST, JSON API, websockets, load balancing)";
+          "Tarantool NginX upstream module (REST, JSON API, websockets, load balancing)"
+          ;
         homepage = "https://github.com/tarantool/nginx_upstream_module";
         license = with licenses; [ bsd2 ];
         maintainers = with maintainers; [ ];

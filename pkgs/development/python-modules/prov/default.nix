@@ -27,7 +27,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pydot ];
 
-  # Multiple tests are out-dated and failing
+    # Multiple tests are out-dated and failing
   doCheck = false;
 
   pythonImportsCheck = [ "prov" ];

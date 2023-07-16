@@ -7,19 +7,20 @@
 
 let
   modDestDir =
-    "$out/lib/modules/${kernel.modDirVersion}/kernel/drivers/net/wireless/realtek/r8168";
+    "$out/lib/modules/${kernel.modDirVersion}/kernel/drivers/net/wireless/realtek/r8168"
+    ;
 
 in
 stdenv.mkDerivation rec {
   name = "r8168-${kernel.version}-${version}";
-  # on update please verify that the source matches the realtek version
+    # on update please verify that the source matches the realtek version
   version = "8.048.03";
 
-  # This is a mirror. The original website[1] doesn't allow non-interactive
-  # downloads, instead emailing you a download link.
-  # [1] https://www.realtek.com/en/component/zoo/category/network-interface-controllers-10-100-1000m-gigabit-ethernet-pci-express-software
-  # I've verified manually (`diff -r`) that the source code for version 8.046.00
-  # is the same as the one available on the realtek website.
+    # This is a mirror. The original website[1] doesn't allow non-interactive
+    # downloads, instead emailing you a download link.
+    # [1] https://www.realtek.com/en/component/zoo/category/network-interface-controllers-10-100-1000m-gigabit-ethernet-pci-express-software
+    # I've verified manually (`diff -r`) that the source code for version 8.046.00
+    # is the same as the one available on the realtek website.
   src = fetchFromGitHub {
     owner = "mtorromeo";
     repo = "r8168";
@@ -31,9 +32,9 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
-  # avoid using the Makefile directly -- it doesn't understand
-  # any kernel but the current.
-  # based on the ArchLinux pkgbuild: https://git.archlinux.org/svntogit/community.git/tree/trunk/PKGBUILD?h=packages/r8168
+    # avoid using the Makefile directly -- it doesn't understand
+    # any kernel but the current.
+    # based on the ArchLinux pkgbuild: https://git.archlinux.org/svntogit/community.git/tree/trunk/PKGBUILD?h=packages/r8168
   makeFlags = kernel.makeFlags ++ [
     "-C ${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
     "M=$(PWD)/src"

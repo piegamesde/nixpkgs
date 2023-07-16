@@ -6,27 +6,30 @@
 
 let
   py = python3.override {
-    packageOverrides = self: super: {
-      self = py;
+    packageOverrides =
+      self: super: {
+        self = py;
 
-      # not compatible with prompt_toolkit >=2.0
-      prompt-toolkit = super.prompt-toolkit.overridePythonAttrs (oldAttrs: rec {
-        name = "${oldAttrs.pname}-${version}";
-        version = "1.0.18";
-        src = oldAttrs.src.override {
-          inherit version;
-          hash = "sha256-3U/KAsgGlJetkxotCZFMaw0bUBUc6Ha8Fb3kx0cJASY=";
-        };
-      });
-      # Use click 7
-      click = super.click.overridePythonAttrs (old: rec {
-        version = "7.1.2";
-        src = old.src.override {
-          inherit version;
-          hash = "sha256-0rUlXHxjSbwb0eWeCM0SrLvWPOZJ8liHVXg6qU37axo=";
-        };
-      });
-    };
+          # not compatible with prompt_toolkit >=2.0
+        prompt-toolkit = super.prompt-toolkit.overridePythonAttrs
+          (oldAttrs: rec {
+            name = "${oldAttrs.pname}-${version}";
+            version = "1.0.18";
+            src = oldAttrs.src.override {
+              inherit version;
+              hash = "sha256-3U/KAsgGlJetkxotCZFMaw0bUBUc6Ha8Fb3kx0cJASY=";
+            };
+          });
+          # Use click 7
+        click = super.click.overridePythonAttrs (old: rec {
+          version = "7.1.2";
+          src = old.src.override {
+            inherit version;
+            hash = "sha256-0rUlXHxjSbwb0eWeCM0SrLvWPOZJ8liHVXg6qU37axo=";
+          };
+        });
+      }
+      ;
   };
 in with py.pkgs;
 
@@ -34,7 +37,7 @@ buildPythonApplication rec {
   pname = "haxor-news";
   version = "unstable-2020-10-20";
 
-  # haven't done a stable release in 3+ years, but actively developed
+    # haven't done a stable release in 3+ years, but actively developed
   src = fetchFromGitHub {
     owner = "donnemartin";
     repo = pname;
@@ -51,7 +54,7 @@ buildPythonApplication rec {
     six
   ];
 
-  # will fail without pre-seeded config files
+    # will fail without pre-seeded config files
   doCheck = false;
 
   nativeCheckInputs = [

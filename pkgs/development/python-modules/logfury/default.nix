@@ -36,7 +36,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Python module that allows for responsible, low-boilerplate logging of method calls";
+      "Python module that allows for responsible, low-boilerplate logging of method calls"
+      ;
     homepage = "https://github.com/ppolewicz/logfury";
     license = licenses.bsd3;
     maintainers = with maintainers; [ jwiegley ];

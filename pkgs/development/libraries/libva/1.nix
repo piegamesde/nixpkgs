@@ -19,7 +19,7 @@
 
 stdenv.mkDerivation rec {
   pname = "libva" + lib.optionalString minimal "-minimal";
-  # nixpkgs-update: no auto update
+    # nixpkgs-update: no auto update
   version = "1.8.3";
 
   src = fetchFromGitHub {
@@ -49,9 +49,9 @@ stdenv.mkDerivation rec {
     libffi
     libGL
   ];
-  # TODO: share libs between minimal and !minimal - perhaps just symlink them
+    # TODO: share libs between minimal and !minimal - perhaps just symlink them
 
-  # Add FHS paths for non-NixOS applications.
+    # Add FHS paths for non-NixOS applications.
   configureFlags =
     [ "--with-drivers-path=${mesa.drivers.driverLink}/lib/dri:/usr/lib/dri:/usr/lib32/dri" ]
     ++ lib.optionals (!minimal) [ "--enable-glx" ];

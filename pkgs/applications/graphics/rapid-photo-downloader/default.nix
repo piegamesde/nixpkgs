@@ -43,18 +43,18 @@ mkDerivationWith python3Packages.buildPythonApplication rec {
     intltool
   ];
 
-  # Package has no generally usable unit tests.
-  # The included doctests expect specific, hardcoded hardware to be present.
-  # Instead, we just make sure the program runs enough to report its version.
+    # Package has no generally usable unit tests.
+    # The included doctests expect specific, hardcoded hardware to be present.
+    # Instead, we just make sure the program runs enough to report its version.
   checkPhase = ''
     export XDG_DATA_HOME=$(mktemp -d)
     export QT_QPA_PLATFORM=offscreen
     $out/bin/rapid-photo-downloader --detailed-version
   '';
 
-  # NOTE: Without gobject-introspection in buildInputs and strictDeps = false,
-  #       launching fails with:
-  #       "Namespace [Notify / GExiv2 / GUdev] not available"
+    # NOTE: Without gobject-introspection in buildInputs and strictDeps = false,
+    #       launching fails with:
+    #       "Namespace [Notify / GExiv2 / GUdev] not available"
   buildInputs = [
     gdk-pixbuf
     gexiv2

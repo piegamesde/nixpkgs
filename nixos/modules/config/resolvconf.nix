@@ -161,17 +161,19 @@ in {
 
   config = mkMerge [
     {
-      environment.etc."resolvconf.conf".text = if
-        !cfg.enable
-      then
-      # Force-stop any attempts to use resolvconf
-        ''
-          echo "resolvconf is disabled on this system but was used anyway:" >&2
-          echo "$0 $*" >&2
-          exit 1
-        ''
-      else
-        configText;
+      environment.etc."resolvconf.conf".text =
+        if
+          !cfg.enable
+        then
+        # Force-stop any attempts to use resolvconf
+          ''
+            echo "resolvconf is disabled on this system but was used anyway:" >&2
+            echo "$0 $*" >&2
+            exit 1
+          ''
+        else
+          configText
+        ;
     }
 
     (mkIf cfg.enable {

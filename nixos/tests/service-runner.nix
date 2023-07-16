@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ roberth ]; };
 
     nodes = {
-      machine = {
+      machine =
+        {
           pkgs,
           lib,
           ...
@@ -18,11 +19,13 @@ import ./make-test-python.nix ({
               echo 'yay' >$out/index.html
             '';
           systemd.services.nginx.enable = false;
-        };
+        }
+        ;
 
     };
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }: ''
@@ -41,5 +44,6 @@ import ./make-test-python.nix ({
             machine.succeed(f"curl -f {url}")
             machine.succeed("kill -INT $(cat my-nginx.pid)")
             machine.wait_for_closed_port(80)
-      '';
+      ''
+      ;
   })

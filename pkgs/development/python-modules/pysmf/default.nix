@@ -35,7 +35,8 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://das.nasophon.de/pysmf/";
     description =
-      "Python extension module for reading and writing Standard MIDI Files, based on libsmf.";
+      "Python extension module for reading and writing Standard MIDI Files, based on libsmf."
+      ;
     license = licenses.bsd2;
     maintainers = [ ];
   };

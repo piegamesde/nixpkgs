@@ -38,7 +38,8 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "A linter and formatter for help you improve copywriting, to correct spaces, punctuations between CJK (Chinese, Japanese, Korean)";
+      "A linter and formatter for help you improve copywriting, to correct spaces, punctuations between CJK (Chinese, Japanese, Korean)"
+      ;
     homepage = "https://huacnlee.github.io/autocorrect";
     changelog =
       "https://github.com/huacnlee/autocorrect/releases/tag/v${version}";

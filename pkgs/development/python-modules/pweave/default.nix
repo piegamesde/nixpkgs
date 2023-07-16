@@ -34,12 +34,13 @@ buildPythonPackage rec {
     markdown
   ];
 
-  # fails due to trying to run CSS as test
+    # fails due to trying to run CSS as test
   doCheck = false;
 
   meta = with lib; {
     description =
-      "Scientific reports with embedded python computations with reST, LaTeX or markdown";
+      "Scientific reports with embedded python computations with reST, LaTeX or markdown"
+      ;
     homepage = "https://mpastell.com/pweave/";
     license = licenses.bsd3;
   };

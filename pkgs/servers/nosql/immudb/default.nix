@@ -10,7 +10,8 @@ let
   webconsoleVersion = "1.0.18";
   webconsoleDist = fetchzip {
     url =
-      "https://github.com/codenotary/immudb-webconsole/releases/download/v${webconsoleVersion}/immudb-webconsole.tar.gz";
+      "https://github.com/codenotary/immudb-webconsole/releases/download/v${webconsoleVersion}/immudb-webconsole.tar.gz"
+      ;
     sha256 = "sha256-4BhTK+gKO8HW1CelGa30THpfkqfqFthK+b7p9QWl4Pw=";
   };
 in
@@ -37,8 +38,8 @@ buildGoModule rec {
 
   tags = [ "webconsole" ];
 
-  ldflags =
-    [ "-X github.com/codenotary/immudb/cmd/version.Version=${version}" ];
+  ldflags = [ "-X github.com/codenotary/immudb/cmd/version.Version=${version}" ]
+    ;
 
   subPackages = [
     "cmd/immudb"
@@ -58,7 +59,8 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "Immutable database based on zero trust, SQL and Key-Value, tamperproof, data change history";
+      "Immutable database based on zero trust, SQL and Key-Value, tamperproof, data change history"
+      ;
     homepage = "https://github.com/codenotary/immudb";
     license = licenses.asl20;
     maintainers = with maintainers; [ dit7ya ];

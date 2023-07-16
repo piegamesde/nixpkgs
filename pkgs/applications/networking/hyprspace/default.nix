@@ -23,7 +23,8 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "A Lightweight VPN Built on top of Libp2p for Truly Distributed Networks.";
+      "A Lightweight VPN Built on top of Libp2p for Truly Distributed Networks."
+      ;
     homepage = "https://github.com/hyprspace/hyprspace";
     license = licenses.asl20;
     maintainers = with maintainers; [ yusdacra ];

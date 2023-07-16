@@ -19,7 +19,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/ibus/ibus-anthy/releases/download/${version}/${pname}-${version}.tar.gz";
+      "https://github.com/ibus/ibus-anthy/releases/download/${version}/${pname}-${version}.tar.gz"
+      ;
     sha256 = "sha256-yGlNoY0LiRpI9NdaDezjfsvKbRsay2QQGnqEytEEbZs=";
   };
 

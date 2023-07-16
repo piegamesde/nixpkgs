@@ -9,7 +9,8 @@ let
   self = with lib; {
     inherit callPackage;
 
-    fetchegg = {
+    fetchegg =
+      {
         pname,
         version,
         sha256,
@@ -18,8 +19,10 @@ let
       fetchurl {
         inherit sha256;
         url =
-          "https://code.call-cc.org/egg-tarballs/5/${pname}/${pname}-${version}.tar.gz";
-      };
+          "https://code.call-cc.org/egg-tarballs/5/${pname}/${pname}-${version}.tar.gz"
+          ;
+      }
+      ;
 
     eggDerivation = callPackage ./eggDerivation.nix { };
 
@@ -40,7 +43,8 @@ let
         src = self.fetchegg (eggData // { inherit pname; });
         buildInputs = map (x: self.chickenEggs.${x}) dependencies;
         meta.homepage =
-          "https://code.call-cc.org/cgi-bin/gitweb.cgi?p=eggs-5-latest.git;a=tree;f=${pname}/${version}";
+          "https://code.call-cc.org/cgi-bin/gitweb.cgi?p=eggs-5-latest.git;a=tree;f=${pname}/${version}"
+          ;
         meta.description = synopsis;
         meta.license = (licenses // {
           "bsd-2-clause" = licenses.bsd2;

@@ -9,7 +9,7 @@
 
 ocamlPackages.buildDunePackage rec {
   pname = "flitter";
-  # request to tag releases: https://github.com/alexozer/flitter/issues/34
+    # request to tag releases: https://github.com/alexozer/flitter/issues/34
   version = "unstable-2020-10-05";
 
   duneVersion = "3";
@@ -21,10 +21,10 @@ ocamlPackages.buildDunePackage rec {
     sha256 = "1k3m7bjq5yrrq7vhnbdykni65dsqhq6knnv9wvwq3svb3n07z4w3";
   };
 
-  # compatibility with core >= 0.15
+    # compatibility with core >= 0.15
   patches = [ ./flitter.patch ];
 
-  # https://github.com/alexozer/flitter/issues/28
+    # https://github.com/alexozer/flitter/issues/28
   postPatch = ''
     for f in src/*.ml; do
       substituteInPlace "$f" \

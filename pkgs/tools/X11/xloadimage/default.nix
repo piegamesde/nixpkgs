@@ -29,13 +29,15 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://debian/pool/main/x/xloadimage/xloadimage_${version}.orig.tar.gz";
+      "mirror://debian/pool/main/x/xloadimage/xloadimage_${version}.orig.tar.gz"
+      ;
     sha256 = "1i7miyvk5ydhi6yi8593vapavhwxcwciir8wg9d2dcyg9pccf2s0";
   };
 
   patches = fetchurl {
     url =
-      "mirror://debian/pool/main/x/xloadimage/xloadimage_${version}-${deb_patch}.debian.tar.xz";
+      "mirror://debian/pool/main/x/xloadimage/xloadimage_${version}-${deb_patch}.debian.tar.xz"
+      ;
     sha256 = "17k518vrdrya5c9dqhpmm4g0h2vlkq1iy87sg2ngzygypbli1xvn";
   };
 
@@ -46,9 +48,9 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withPngSupport [ libpng ]
     ++ lib.optionals withTiffSupport [ libtiff ];
 
-  # NOTE: we patch the build-info script so that it never detects the utilities
-  # it's trying to find; one of the Debian patches adds support for
-  # $SOURCE_DATE_EPOCH, but we want to make sure we don't even call these.
+    # NOTE: we patch the build-info script so that it never detects the utilities
+    # it's trying to find; one of the Debian patches adds support for
+    # $SOURCE_DATE_EPOCH, but we want to make sure we don't even call these.
   preConfigure = ''
     substituteInPlace build-info \
       --replace '[ -x /bin/date ]' 'false' \
@@ -61,8 +63,8 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  # NOTE: we're not installing the `uufilter` binary; if needed, the standard
-  # `uudecode` tool should work just fine.
+    # NOTE: we're not installing the `uufilter` binary; if needed, the standard
+    # `uudecode` tool should work just fine.
   installPhase = ''
     install -Dm755 xloadimage $out/bin/xloadimage
     ln -sv $out/bin/{xloadimage,xsetbg}

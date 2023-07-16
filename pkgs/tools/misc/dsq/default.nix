@@ -62,7 +62,8 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "Commandline tool for running SQL queries against JSON, CSV, Excel, Parquet, and more";
+      "Commandline tool for running SQL queries against JSON, CSV, Excel, Parquet, and more"
+      ;
     homepage = "https://github.com/multiprocessio/dsq";
     license = licenses.asl20;
     maintainers = with maintainers; [ liff ];

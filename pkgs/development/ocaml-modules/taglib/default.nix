@@ -32,7 +32,8 @@ buildDunePackage rec {
   meta = with lib; {
     homepage = "https://github.com/savonet/ocaml-taglib";
     description =
-      "Bindings for the taglib library which provides functions for reading tags in headers of audio files";
+      "Bindings for the taglib library which provides functions for reading tags in headers of audio files"
+      ;
     license = with licenses; [
       lgpl21Plus
       "link-exception"

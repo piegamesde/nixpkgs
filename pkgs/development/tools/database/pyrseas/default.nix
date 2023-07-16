@@ -16,7 +16,7 @@ let
       sha256 = "09r4idk5kmqi3yig7ip61r6js8blnmac5n4q32cdcbp1rcwzdn6z";
     };
 
-    # The tests are impure (they try to access a PostgreSQL server)
+      # The tests are impure (they try to access a PostgreSQL server)
     doCheck = false;
 
     propagatedBuildInputs = with python3Packages; [
@@ -44,7 +44,7 @@ python3Packages.buildPythonApplication rec {
     pgdbconn
   ];
 
-  # The tests are impure (they try to access a PostgreSQL server)
+    # The tests are impure (they try to access a PostgreSQL server)
   doCheck = false;
 
   meta = {

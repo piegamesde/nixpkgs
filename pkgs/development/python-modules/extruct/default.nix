@@ -28,7 +28,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pythonRelaxDepsHook ];
 
-  # rdflib-jsonld functionality is part of rdblib from version 6 onwards
+    # rdflib-jsonld functionality is part of rdblib from version 6 onwards
   pythonRemoveDeps = [ "rdflib-jsonld" ];
 
   propagatedBuildInputs = [

@@ -13,17 +13,19 @@ let
 
   xserverCfg = config.services.xserver;
 
-  defaultPinentryFlavor = if
-    xserverCfg.desktopManager.lxqt.enable
-    || xserverCfg.desktopManager.plasma5.enable
-  then
-    "qt"
-  else if xserverCfg.desktopManager.xfce.enable then
-    "gtk2"
-  else if xserverCfg.enable || config.programs.sway.enable then
-    "gnome3"
-  else
-    "curses";
+  defaultPinentryFlavor =
+    if
+      xserverCfg.desktopManager.lxqt.enable
+      || xserverCfg.desktopManager.plasma5.enable
+    then
+      "qt"
+    else if xserverCfg.desktopManager.xfce.enable then
+      "gtk2"
+    else if xserverCfg.enable || config.programs.sway.enable then
+      "gnome3"
+    else
+      "curses"
+    ;
 
 in {
 
@@ -151,10 +153,11 @@ in {
     assertions = [ {
       assertion = cfg.agent.enableSSHSupport -> !config.programs.ssh.startAgent;
       message =
-        "You can't use ssh-agent and GnuPG agent with SSH support enabled at the same time!";
+        "You can't use ssh-agent and GnuPG agent with SSH support enabled at the same time!"
+        ;
     } ];
   };
 
-  # uses attributes of the linked package
+    # uses attributes of the linked package
   meta.buildDocsInSandbox = false;
 }

@@ -12,23 +12,27 @@ let
   cfg = config.services.rippled;
   opt = options.services.rippled;
 
-  b2i = val:
+  b2i =
+    val:
     if val then
       "1"
     else
-      "0";
+      "0"
+    ;
 
-  dbCfg = db: ''
-    type=${db.type}
-    path=${db.path}
-    ${optionalString (db.compression != null)
-    ("compression=${b2i db.compression}")}
-    ${optionalString (db.onlineDelete != null)
-    ("online_delete=${toString db.onlineDelete}")}
-    ${optionalString (db.advisoryDelete != null)
-    ("advisory_delete=${b2i db.advisoryDelete}")}
-    ${db.extraOpts}
-  '';
+  dbCfg =
+    db: ''
+      type=${db.type}
+      path=${db.path}
+      ${optionalString (db.compression != null)
+      ("compression=${b2i db.compression}")}
+      ${optionalString (db.onlineDelete != null)
+      ("online_delete=${toString db.onlineDelete}")}
+      ${optionalString (db.advisoryDelete != null)
+      ("advisory_delete=${b2i db.advisoryDelete}")}
+      ${db.extraOpts}
+    ''
+    ;
 
   rippledCfg = ''
     [server]
@@ -96,7 +100,8 @@ let
     { "command": "log_level", "severity": "${cfg.logLevel}" }
   '' + cfg.extraConfig;
 
-  portOptions = {
+  portOptions =
+    {
       name,
       ...
     }: {
@@ -177,7 +182,8 @@ let
           };
         };
       };
-    };
+    }
+    ;
 
   dbOptions = {
     options = {
@@ -418,8 +424,9 @@ in {
         enable = mkEnableOption (lib.mdDoc "statsd monitoring for rippled");
 
         address = mkOption {
-          description = lib.mdDoc
-            "The UDP address and port of the listening StatsD server.";
+          description =
+            lib.mdDoc "The UDP address and port of the listening StatsD server."
+            ;
           default = "127.0.0.1:8125";
           type = types.str;
         };
@@ -448,7 +455,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 

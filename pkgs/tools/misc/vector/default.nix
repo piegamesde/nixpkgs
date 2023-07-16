@@ -91,7 +91,7 @@ rustPlatform.buildRustPackage {
     CoreServices
   ];
 
-  # needed for internal protobuf c wrapper library
+    # needed for internal protobuf c wrapper library
   PROTOC = "${protobuf}/bin/protoc";
   PROTOC_INCLUDE = "${protobuf}/include";
   RUSTONIG_SYSTEM_LIBONIG = true;
@@ -99,14 +99,14 @@ rustPlatform.buildRustPackage {
 
   TZDIR = "${tzdata}/share/zoneinfo";
 
-  # needed to dynamically link rdkafka
+    # needed to dynamically link rdkafka
   CARGO_FEATURE_DYNAMIC_LINKING = 1;
 
   buildNoDefaultFeatures = true;
   buildFeatures = features;
 
-  # TODO investigate compilation failure for tests
-  # there are about 100 tests failing (out of 1100) for version 0.22.0
+    # TODO investigate compilation failure for tests
+    # there are about 100 tests failing (out of 1100) for version 0.22.0
   doCheck = false;
 
   checkFlags = [
@@ -124,17 +124,17 @@ rustPlatform.buildRustPackage {
     "--skip=sources::aws_kinesis_firehose::tests::handles_acknowledgement_failure"
   ];
 
-  # recent overhauls of DNS support in 0.9 mean that we try to resolve
-  # vector.dev during the checkPhase, which obviously isn't going to work.
-  # these tests in the DNS module are trivial though, so stubbing them out is
-  # fine IMO.
-  #
-  # the geoip transform yields maxmindb.so which contains references to rustc.
-  # neither figured out why the shared object is included in the output
-  # (it doesn't seem to be a runtime dependencies of the geoip transform),
-  # nor do I know why it depends on rustc.
-  # However, in order for the closure size to stay at a reasonable level,
-  # transforms-geoip is patched out of Cargo.toml for now - unless explicitly asked for.
+    # recent overhauls of DNS support in 0.9 mean that we try to resolve
+    # vector.dev during the checkPhase, which obviously isn't going to work.
+    # these tests in the DNS module are trivial though, so stubbing them out is
+    # fine IMO.
+    #
+    # the geoip transform yields maxmindb.so which contains references to rustc.
+    # neither figured out why the shared object is included in the output
+    # (it doesn't seem to be a runtime dependencies of the geoip transform),
+    # nor do I know why it depends on rustc.
+    # However, in order for the closure size to stay at a reasonable level,
+    # transforms-geoip is patched out of Cargo.toml for now - unless explicitly asked for.
   postPatch = ''
     substituteInPlace ./src/dns.rs \
       --replace "#[tokio::test]" ""

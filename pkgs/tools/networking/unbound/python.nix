@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
     "lib"
   ];
 
-  # All we want is the Unbound Python module
+    # All we want is the Unbound Python module
   postInstall = ''
     # Generate the built in root anchor and root key and store these in a logical place
     # to be used by tools depending only on the Python module
@@ -77,7 +77,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Python library for Unbound, the validating, recursive, and caching DNS resolver";
+      "Python library for Unbound, the validating, recursive, and caching DNS resolver"
+      ;
     license = licenses.bsd3;
     homepage = "https://www.unbound.net";
     maintainers = with maintainers; [ leenaars ];

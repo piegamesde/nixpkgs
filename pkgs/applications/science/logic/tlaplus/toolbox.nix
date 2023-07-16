@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
   version = "1.7.1";
   src = fetchzip {
     url =
-      "https://tla.msr-inria.inria.fr/tlatoolbox/products/TLAToolbox-${version}-linux.gtk.x86_64.zip";
+      "https://tla.msr-inria.inria.fr/tlatoolbox/products/TLAToolbox-${version}-linux.gtk.x86_64.zip"
+      ;
     sha256 = "02a2y2mkfab5cczw8g604m61h4xr0apir49zbd1aq6mmgcgngw80";
   };
 
@@ -106,7 +107,7 @@ stdenv.mkDerivation rec {
       to create and edit your specs, run the PlusCal translator, view the pretty-printed
       versions of your modules, run the TLC model checker, and run TLAPS, the TLA+ proof system.
     '';
-    # http://lamport.azurewebsites.net/tla/license.html
+      # http://lamport.azurewebsites.net/tla/license.html
     license = with lib.licenses; [ mit ];
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     platforms = [ "x86_64-linux" ];

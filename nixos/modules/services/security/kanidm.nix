@@ -8,7 +8,7 @@
 let
   cfg = config.services.kanidm;
   settingsFormat = pkgs.formats.toml { };
-  # Remove null values, so we can document optional values that don't end up in the generated TOML file.
+    # Remove null values, so we can document optional values that don't end up in the generated TOML file.
   filterConfig = lib.converge (lib.filterAttrsRecursive (_: v: v != null));
   serverConfigFile =
     settingsFormat.generate "server.toml" (filterConfig cfg.serverSettings);
@@ -21,24 +21,28 @@ let
     cfg.serverSettings.tls_key
   ];
 
-  # Merge bind mount paths and remove paths where a prefix is already mounted.
-  # This makes sure that if e.g. the tls_chain is in the nix store and /nix/store is alread in the mount
-  # paths, no new bind mount is added. Adding subpaths caused problems on ofborg.
-  hasPrefixInList = list: newPath:
+    # Merge bind mount paths and remove paths where a prefix is already mounted.
+    # This makes sure that if e.g. the tls_chain is in the nix store and /nix/store is alread in the mount
+    # paths, no new bind mount is added. Adding subpaths caused problems on ofborg.
+  hasPrefixInList =
+    list: newPath:
     lib.any
     (path: lib.hasPrefix (builtins.toString path) (builtins.toString newPath))
-    list;
+    list
+    ;
   mergePaths = lib.foldl' (merged: newPath:
     let
       # If the new path is a prefix to some existing path, we need to filter it out
       filteredPaths = lib.filter
         (p: !lib.hasPrefix (builtins.toString newPath) (builtins.toString p))
         merged;
-      # If a prefix of the new path is already in the list, do not add it
-      filteredNew = if hasPrefixInList filteredPaths newPath then
-        [ ]
-      else
-        [ newPath ];
+        # If a prefix of the new path is already in the list, do not add it
+      filteredNew =
+        if hasPrefixInList filteredPaths newPath then
+          [ ]
+        else
+          [ newPath ]
+        ;
     in
     filteredPaths ++ filteredNew
   ) [ ];
@@ -52,10 +56,10 @@ let
       "-/etc/localtime"
     ];
     CapabilityBoundingSet = [ ];
-    # ProtectClock= adds DeviceAllow=char-rtc r
+      # ProtectClock= adds DeviceAllow=char-rtc r
     DeviceAllow = "";
-    # Implies ProtectSystem=strict, which re-mounts all paths
-    # DynamicUser = true;
+      # Implies ProtectSystem=strict, which re-mounts all paths
+      # DynamicUser = true;
     LockPersonality = true;
     MemoryDenyWriteExecute = true;
     NoNewPrivileges = true;
@@ -68,8 +72,8 @@ let
     ProtectClock = true;
     ProtectHome = true;
     ProtectHostname = true;
-    # Would re-mount paths ignored by temporary root
-    #ProtectSystem = "strict";
+      # Would re-mount paths ignored by temporary root
+      #ProtectSystem = "strict";
     ProtectControlGroups = true;
     ProtectKernelLogs = true;
     ProtectKernelModules = true;
@@ -84,8 +88,8 @@ let
       "@system-service"
       "~@privileged @resources @setuid @keyring"
     ];
-    # Does not work well with the temporary root
-    #UMask = "0066";
+      # Does not work well with the temporary root
+      #UMask = "0066";
   };
 
 in {
@@ -106,7 +110,7 @@ in {
             example = "[::1]:8443";
             type = lib.types.str;
           };
-          # Should be optional but toml does not accept null
+            # Should be optional but toml does not accept null
           ldapbindaddress = lib.mkOption {
             description = lib.mdDoc ''
               Address and port the LDAP server is bound to. Setting this to `null` disables the LDAP interface.
@@ -117,7 +121,8 @@ in {
           };
           origin = lib.mkOption {
             description = lib.mdDoc
-              "The origin of your Kanidm instance. Must have https as protocol.";
+              "The origin of your Kanidm instance. Must have https as protocol."
+              ;
             example = "https://idm.example.org";
             type = lib.types.strMatching "^https://.*";
           };
@@ -160,7 +165,8 @@ in {
           };
           role = lib.mkOption {
             description = lib.mdDoc
-              "The role of this server. This affects the replication relationship and thereby available features.";
+              "The role of this server. This affects the replication relationship and thereby available features."
+              ;
             default = "WriteReplica";
             type = lib.types.enum [
               "WriteReplica"
@@ -240,16 +246,16 @@ in {
         '';
       }
       {
-        assertion = !cfg.enableClient
-          || options.services.kanidm.clientSettings.isDefined;
+        assertion =
+          !cfg.enableClient || options.services.kanidm.clientSettings.isDefined;
         message = ''
           <option>services.kanidm.clientSettings</option> needs to be configured
           if the client is enabled.
         '';
       }
       {
-        assertion = !cfg.enablePam
-          || options.services.kanidm.clientSettings.isDefined;
+        assertion =
+          !cfg.enablePam || options.services.kanidm.clientSettings.isDefined;
         message = ''
           <option>services.kanidm.clientSettings</option> needs to be configured
           for the PAM daemon to connect to the Kanidm server.
@@ -289,9 +295,9 @@ in {
 
           AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
           CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
-          # This would otherwise override the CAP_NET_BIND_SERVICE capability.
+            # This would otherwise override the CAP_NET_BIND_SERVICE capability.
           PrivateUsers = lib.mkForce false;
-          # Port needs to be exposed to the host network
+            # Port needs to be exposed to the host network
           PrivateNetwork = lib.mkForce false;
           RestrictAddressFamilies = [
             "AF_INET"
@@ -331,7 +337,7 @@ in {
             # To create the socket
             "/run/kanidm-unixd:/var/run/kanidm-unixd"
           ];
-          # Needs to connect to kanidmd
+            # Needs to connect to kanidmd
           PrivateNetwork = lib.mkForce false;
           RestrictAddressFamilies = [
             "AF_INET"
@@ -374,7 +380,7 @@ in {
           # To connect to kanidm-unixd
           "/run/kanidm-unixd:/var/run/kanidm-unixd"
         ];
-        # CAP_DAC_OVERRIDE is needed to ignore ownership of unixd socket
+          # CAP_DAC_OVERRIDE is needed to ignore ownership of unixd socket
         CapabilityBoundingSet = [
           "CAP_CHOWN"
           "CAP_FOWNER"
@@ -382,9 +388,9 @@ in {
           "CAP_DAC_READ_SEARCH"
         ];
         IPAddressDeny = "any";
-        # Need access to users
+          # Need access to users
         PrivateUsers = false;
-        # Need access to home directories
+          # Need access to home directories
         ProtectHome = false;
         RestrictAddressFamilies = [ "AF_UNIX" ];
         TemporaryFileSystem = "/:ro";
@@ -392,7 +398,7 @@ in {
       environment.RUST_LOG = "info";
     };
 
-    # These paths are hardcoded
+      # These paths are hardcoded
     environment.etc = lib.mkMerge [
       (lib.mkIf options.services.kanidm.clientSettings.isDefined {
         "kanidm/config".source = clientConfigFile;

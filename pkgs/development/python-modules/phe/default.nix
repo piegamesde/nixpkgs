@@ -34,7 +34,7 @@ buildPythonPackage {
     numpy
   ];
 
-  # 29/233 tests fail
+    # 29/233 tests fail
   doCheck = false;
 
   meta = with lib; {

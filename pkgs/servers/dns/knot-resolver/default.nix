@@ -30,10 +30,12 @@
 }:
 let # un-indented, over the whole file
 
-  result = if extraFeatures then
-    wrapped-full
-  else
-    unwrapped;
+  result =
+    if extraFeatures then
+      wrapped-full
+    else
+      unwrapped
+    ;
 
   inherit (lib) optional optionals optionalString;
   lua = luajitPackages;
@@ -54,7 +56,7 @@ let # un-indented, over the whole file
       "dev"
     ];
 
-    # Path fixups for the NixOS service.
+      # Path fixups for the NixOS service.
     postPatch = ''
       patch meson.build <<EOF
       @@ -50,2 +50,2 @@
@@ -92,7 +94,7 @@ let # un-indented, over the whole file
       ninja
     ];
 
-    # http://knot-resolver.readthedocs.io/en/latest/build.html#requirements
+      # http://knot-resolver.readthedocs.io/en/latest/build.html#requirements
     buildInputs = [
       knot-dns
       lua.lua
@@ -107,7 +109,7 @@ let # un-indented, over the whole file
       nghttp2
     ]
     ## optional dependencies; TODO: dnstap
-    ;
+      ;
 
     mesonFlags = [
       "-Dkeyfile_default=${dns-root-data}/root.ds"
@@ -120,7 +122,7 @@ let # un-indented, over the whole file
       ++ optional stdenv.isLinux
       "-Dsystemd_files=enabled" # used by NixOS service
       #"-Dextra_tests=enabled" # not suitable as in-distro tests; many deps, too.
-    ;
+      ;
 
     postInstall = ''
       rm "$out"/lib/libkres.a

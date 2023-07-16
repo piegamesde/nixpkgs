@@ -26,7 +26,7 @@ buildPythonPackage rec {
     jmespath
   ];
 
-  # pypi does not contain tests and GitHub archive not available
+    # pypi does not contain tests and GitHub archive not available
   doCheck = false;
 
   pythonImportsCheck = [ "pysma" ];

@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     homepage = "https://scottmcpeak.com/elkhound/";
     license = licenses.bsd3;
     maintainers = with maintainers; [ peterhoeg ];
-    # possibly works on Darwin
+      # possibly works on Darwin
     platforms = platforms.linux;
   };
 }

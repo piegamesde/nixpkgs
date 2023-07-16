@@ -55,29 +55,35 @@ let
   isGhcjs = ghc.isGhcjs or false;
   isHaLVM = ghc.isHaLVM or false;
   ghc761OrLater = isGhcjs || isHaLVM || lib.versionOlder "7.6.1" ghc.version;
-  packageDBFlag = if ghc761OrLater then
-    "--global-package-db"
-  else
-    "--global-conf";
-  ghcCommand' = if isGhcjs then
-    "ghcjs"
-  else
-    "ghc";
+  packageDBFlag =
+    if ghc761OrLater then
+      "--global-package-db"
+    else
+      "--global-conf"
+    ;
+  ghcCommand' =
+    if isGhcjs then
+      "ghcjs"
+    else
+      "ghc"
+    ;
   ghcCommand = "${ghc.targetPrefix}${ghcCommand'}";
   ghcCommandCaps = lib.toUpper ghcCommand';
-  libDir = if isHaLVM then
-    "$out/lib/HaLVM-${ghc.version}"
-  else
-    "$out/lib/${ghc.targetPrefix}${ghc.haskellCompilerName}"
-    + lib.optionalString (ghc ? hadrian) "/lib";
+  libDir =
+    if isHaLVM then
+      "$out/lib/HaLVM-${ghc.version}"
+    else
+      "$out/lib/${ghc.targetPrefix}${ghc.haskellCompilerName}"
+      + lib.optionalString (ghc ? hadrian) "/lib"
+    ;
   docDir = "$out/share/doc/ghc/html";
   packageCfgDir = "${libDir}/package.conf.d";
   paths = lib.concatLists (builtins.map (pkg:
     [ pkg ] ++ lib.optionals installDocumentation [ (lib.getOutput "doc" pkg) ])
     (lib.filter (x: x ? isHaskellLibrary) (lib.closePropagation packages)));
   hasLibraries = lib.any (x: x.isHaskellLibrary) paths;
-  # CLang is needed on Darwin for -fllvm to work:
-  # https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/codegens.html#llvm-code-generator-fllvm
+    # CLang is needed on Darwin for -fllvm to work:
+    # https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/codegens.html#llvm-code-generator-fllvm
   llvm = lib.makeBinPath ([ llvmPackages.llvm ]
     ++ lib.optional stdenv.targetPlatform.isDarwin llvmPackages.clang);
 
@@ -193,7 +199,8 @@ else
         ;
 
         # Inform users about backwards incompatibilities with <= 21.05
-      override = _:
+      override =
+        _:
         throw ''
           The ghc.withPackages wrapper itself can now be overridden, but no longer
           the result of calling it (as before). Consequently overrides need to be
@@ -206,6 +213,7 @@ else
             (ghc.withPackages.override { useLLVM = true; }) (p: [ p.my-package ])
 
           Also note that withLLVM has been renamed to useLLVM for consistency with
-          the GHC Nix expressions.'';
+          the GHC Nix expressions.''
+        ;
     };
   }

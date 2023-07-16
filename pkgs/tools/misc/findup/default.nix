@@ -20,11 +20,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ zig ];
 
-  # Builds and installs (at the same time) with Zig.
+    # Builds and installs (at the same time) with Zig.
   dontConfigure = true;
   dontBuild = true;
 
-  # Give Zig a directory for intermediate work.
+    # Give Zig a directory for intermediate work.
   preInstall = ''
     export HOME=$TMPDIR
   '';

@@ -59,7 +59,7 @@ buildPythonPackage rec {
     installManPage doc/build/man/python-manilaclient.1
   '';
 
-  # Checks moved to 'passthru.tests' to workaround infinite recursion
+    # Checks moved to 'passthru.tests' to workaround infinite recursion
   doCheck = false;
 
   passthru.tests = { tests = callPackage ./tests.nix { }; };

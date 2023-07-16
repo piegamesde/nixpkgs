@@ -49,11 +49,12 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/mirage/ocaml-git/releases/download/${version}/git-${version}.tbz";
+      "https://github.com/mirage/ocaml-git/releases/download/${version}/git-${version}.tbz"
+      ;
     hash = "sha256-98w2Amze/B+YN/ENfSb0V8I2yyFUf8rSEOcUg1YbVdM=";
   };
 
-  # remove changelog for the carton package
+    # remove changelog for the carton package
   postPatch = ''
     rm CHANGES.carton.md
   '';

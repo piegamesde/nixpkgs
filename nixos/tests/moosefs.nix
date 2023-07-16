@@ -4,7 +4,8 @@ import ./make-test-python.nix ({
   }:
 
   let
-    master = {
+    master =
+      {
         pkgs,
         ...
       }: {
@@ -20,9 +21,11 @@ import ./make-test-python.nix ({
             "* . rw"
           ];
         };
-      };
+      }
+      ;
 
-    chunkserver = {
+    chunkserver =
+      {
         pkgs,
         ...
       }: {
@@ -46,9 +49,11 @@ import ./make-test-python.nix ({
             hdds = [ "~/data" ];
           };
         };
-      };
+      }
+      ;
 
-    metalogger = {
+    metalogger =
+      {
         pkgs,
         ...
       }: {
@@ -56,14 +61,17 @@ import ./make-test-python.nix ({
           masterHost = "master";
           metalogger.enable = true;
         };
-      };
+      }
+      ;
 
-    client = {
+    client =
+      {
         pkgs,
         ...
       }: {
         services.moosefs.client.enable = true;
-      };
+      }
+      ;
 
   in {
     name = "moosefs";

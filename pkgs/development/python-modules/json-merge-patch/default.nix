@@ -20,7 +20,8 @@ buildPythonPackage rec {
     (fetchpatch {
       name = "fully-qualified-json-merge-patch-import-on-tests";
       url =
-        "https://patch-diff.githubusercontent.com/raw/OpenDataServices/json-merge-patch/pull/1.patch";
+        "https://patch-diff.githubusercontent.com/raw/OpenDataServices/json-merge-patch/pull/1.patch"
+        ;
       sha256 = "1k6xsrxsmz03nwcqsf4gf0zsfnl2r20n83npic8z6bqlpl4lidl4";
     })
   ];

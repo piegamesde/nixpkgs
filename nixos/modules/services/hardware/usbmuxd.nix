@@ -70,7 +70,7 @@ in {
     users.groups =
       optionalAttrs (cfg.group == defaultUserGroup) { ${cfg.group} = { }; };
 
-    # Give usbmuxd permission for Apple devices
+      # Give usbmuxd permission for Apple devices
     services.udev.extraRules = ''
       SUBSYSTEM=="usb", ATTR{idVendor}=="${apple}", GROUP="${cfg.group}"
     '';

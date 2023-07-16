@@ -35,7 +35,7 @@ rustPlatform.buildRustPackage rec {
       "https://github.com/parcel-bundler/lightningcss/releases/tag/v${version}";
     license = licenses.mpl20;
     maintainers = with maintainers; [ toastal ];
-    # never built on aarch64-linux since first introduction in nixpkgs
+      # never built on aarch64-linux since first introduction in nixpkgs
     broken = stdenv.isLinux && stdenv.isAarch64;
   };
 }

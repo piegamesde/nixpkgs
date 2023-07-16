@@ -14,7 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-pzPoR55nU8ObPv1iIE52qpqD5xGdYLm1uG3nCD6I46Y=";
   };
 
-  # no tests in tarball
+    # no tests in tarball
   doCheck = false;
 
   pythonImportsCheck = [ "python_codon_tables" ];

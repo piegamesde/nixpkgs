@@ -60,7 +60,7 @@ buildPythonApplication rec {
     desktopName = "Gaphor";
   };
 
-  # We need to wrap it manually to resolve all icons
+    # We need to wrap it manually to resolve all icons
   dontWrapGApps = true;
 
   postInstall = ''

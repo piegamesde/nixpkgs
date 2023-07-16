@@ -45,8 +45,9 @@ let
     SUBSYSTEM=="block", KERNEL=="dm-[0-9]*", ACTION=="add|change", OPTIONS+="db_persist"
   '';
 
-  # Perform substitutions in all udev rules files.
-  udevRulesFor = {
+    # Perform substitutions in all udev rules files.
+  udevRulesFor =
+    {
       name,
       udevPackages,
       udevPath,
@@ -156,7 +157,8 @@ let
       ${optionalString (!config.boot.hardwareScan) ''
         ln -s /dev/null $out/80-drivers.rules
       ''}
-    '';
+    ''
+    ;
 
   hwdbBin = pkgs.runCommand "hwdb.bin" {
     preferLocalBuild = true;
@@ -179,17 +181,19 @@ let
     mv etc/udev/hwdb.bin $out
   '';
 
-  compressFirmware = firmware:
+  compressFirmware =
+    firmware:
     if
       (config.boot.kernelPackages.kernelAtLeast "5.3"
         && (firmware.compressFirmware or true))
     then
       pkgs.compressFirmwareXz firmware
     else
-      id firmware;
+      id firmware
+    ;
 
-  # Udev has a 512-character limit for ENV{PATH}, so create a symlink
-  # tree to work around this.
+    # Udev has a 512-character limit for ENV{PATH}, so create a symlink
+    # tree to work around this.
   udevPath = pkgs.buildEnv {
     name = "udev-path";
     paths = cfg.path;
@@ -283,13 +287,15 @@ in {
         precedence.  Note that you must rebuild your system if you add
         files to any of these directories.
       '';
-      apply = list:
+      apply =
+        list:
         pkgs.buildEnv {
           name = "firmware";
           paths = map compressFirmware list;
           pathsToLink = [ "/lib/firmware" ];
           ignoreCollisions = true;
-        };
+        }
+        ;
     };
 
     networking.usePredictableInterfaceNames = mkOption {
@@ -356,7 +362,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 
@@ -375,8 +381,9 @@ in {
       udev
     ];
 
-    boot.kernelParams = mkIf
-      (!config.networking.usePredictableInterfaceNames) [ "net.ifnames=0" ];
+    boot.kernelParams =
+      mkIf (!config.networking.usePredictableInterfaceNames) [ "net.ifnames=0" ]
+      ;
 
     boot.initrd.extraUdevRulesCommands = optionalString
       (!config.boot.initrd.systemd.enable
@@ -404,7 +411,7 @@ in {
       "${config.boot.initrd.systemd.package}/lib/udev/rules.d"
     ] ++ map (x: "${x}/bin") config.boot.initrd.services.udev.binPackages;
 
-    # Generate the udev rules for the initrd
+      # Generate the udev rules for the initrd
     boot.initrd.systemd.contents = {
       "/etc/udev/rules.d".source = udevRulesFor {
         name = "initrd-udev-rules";
@@ -417,7 +424,7 @@ in {
           ++ [ config.boot.initrd.systemd.contents."/bin".source ];
       };
     };
-    # Insert initrd rules
+      # Insert initrd rules
     boot.initrd.services.udev.packages = [
       initrdUdevRules
       (mkIf (config.boot.initrd.services.udev.rules != "") (pkgs.writeTextFile {
@@ -444,7 +451,7 @@ in {
       (isYes "NET")
     ];
 
-    # We don't place this into `extraModprobeConfig` so that stage-1 ramdisk doesn't bloat.
+      # We don't place this into `extraModprobeConfig` so that stage-1 ramdisk doesn't bloat.
     environment.etc."modprobe.d/firmware.conf".text =
       "options firmware_class path=${config.hardware.firmware}/lib/firmware";
 

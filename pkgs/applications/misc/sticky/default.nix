@@ -48,11 +48,11 @@ python3.pkgs.buildPythonApplication rec {
     glib-compile-schemas usr/share/glib-2.0/schemas
   '';
 
-  # hook for gobject-introspection doesn't like strictDeps
-  # https://github.com/NixOS/nixpkgs/issues/56943
+    # hook for gobject-introspection doesn't like strictDeps
+    # https://github.com/NixOS/nixpkgs/issues/56943
   strictDeps = false;
 
-  # no tests
+    # no tests
   doCheck = false;
 
   dontWrapGApps = true;
@@ -70,7 +70,7 @@ python3.pkgs.buildPythonApplication rec {
     runHook postInstall
   '';
 
-  # Arguments to be passed to `makeWrapper`, only used by buildPython*
+    # Arguments to be passed to `makeWrapper`, only used by buildPython*
   preFixup = ''
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';

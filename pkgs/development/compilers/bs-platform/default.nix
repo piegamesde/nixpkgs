@@ -28,7 +28,8 @@ in
 }).overrideAttrs (attrs: {
   meta = with lib; {
     description =
-      "A JavaScript backend for OCaml focused on smooth integration and clean generated code";
+      "A JavaScript backend for OCaml focused on smooth integration and clean generated code"
+      ;
     homepage = "https://bucklescript.github.io";
     license = licenses.lgpl3;
     maintainers = with maintainers; [

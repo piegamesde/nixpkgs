@@ -20,7 +20,7 @@ buildPythonApplication rec {
     sha256 = "11dc95cefe90ebf0cef3749c8c7d85b9d389c05bd0e3389bf117685df562bd5c";
   };
 
-  # https://github.com/transifex/transifex-client/issues/323
+    # https://github.com/transifex/transifex-client/issues/323
   nativeBuildInputs = [ pythonRelaxDepsHook ];
 
   pythonRelaxDeps = [ "python-slugify" ];
@@ -34,7 +34,7 @@ buildPythonApplication rec {
     urllib3
   ];
 
-  # Requires external resources
+    # Requires external resources
   doCheck = false;
 
   meta = with lib; {

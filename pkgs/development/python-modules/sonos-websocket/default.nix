@@ -29,7 +29,7 @@ buildPythonPackage rec {
     async-timeout
   ];
 
-  # Module has no tests
+    # Module has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "sonos_websocket" ];

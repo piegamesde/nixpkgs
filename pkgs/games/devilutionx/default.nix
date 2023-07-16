@@ -23,25 +23,28 @@ let
   # fork with patches, far behind upstream
   asio = fetchurl {
     url =
-      "https://github.com/diasurgical/asio/archive/ebeff99f539da23d27c2e8d4bdbc1ee011968644.tar.gz";
+      "https://github.com/diasurgical/asio/archive/ebeff99f539da23d27c2e8d4bdbc1ee011968644.tar.gz"
+      ;
     sha256 = "0vhb4cig40mm0a98i74grpmfkcmby8zxg6vqa38dpryxpgvp5fw8";
   };
 
-  # fork with patches, upstream seems to be dead
+    # fork with patches, upstream seems to be dead
   libmpq = fetchurl {
     url =
-      "https://github.com/diasurgical/libmpq/archive/0f10bd1600f406b13932bf5351ba713361262184.tar.gz";
+      "https://github.com/diasurgical/libmpq/archive/0f10bd1600f406b13932bf5351ba713361262184.tar.gz"
+      ;
     sha256 = "sha256-7hc/Xtsg8WJIJljLydS7hLZA9lEEHWhsCteyrxK68qE=";
   };
 
-  # not "real" package with pkg-config or cmake file, just collection of source files
+    # not "real" package with pkg-config or cmake file, just collection of source files
   libsmackerdec = fetchurl {
     url =
-      "https://github.com/diasurgical/libsmackerdec/archive/2997ee0e41e91bb723003bc09234be553b190e38.tar.gz";
+      "https://github.com/diasurgical/libsmackerdec/archive/2997ee0e41e91bb723003bc09234be553b190e38.tar.gz"
+      ;
     sha256 = "sha256-QMDcIZQ94i4VPVanmSxiGkKgxWx82DP4uE+Q5I2nU+o=";
   };
 
-  # fork with patches, far behind upstream
+    # fork with patches, far behind upstream
   libzt = fetchFromGitHub {
     owner = "diasurgical";
     repo = "libzt";
@@ -50,10 +53,11 @@ let
     sha256 = "sha256-+o4ZTVqh4MDZES9m7mkfkMRlRDMBytDBuA0QIlnp73U=";
   };
 
-  # missing pkg-config and/or cmake file
+    # missing pkg-config and/or cmake file
   simpleini = fetchurl {
     url =
-      "https://github.com/brofield/simpleini/archive/9b3ed7ec815997bc8c5b9edf140d6bde653e1458.tar.gz";
+      "https://github.com/brofield/simpleini/archive/9b3ed7ec815997bc8c5b9edf140d6bde653e1458.tar.gz"
+      ;
     sha256 = "sha256-93kuyp8/ew7okW/6ThJMtLMZsR1YSeFcXu9Y65ELBFE==";
   };
 
@@ -132,7 +136,8 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/diasurgical/devilutionX";
     description = "Diablo build for modern operating systems";
     longDescription =
-      "In order to play this game a copy of diabdat.mpq is required. Place a copy of diabdat.mpq in ~/.local/share/diasurgical/devilution before executing the game.";
+      "In order to play this game a copy of diabdat.mpq is required. Place a copy of diabdat.mpq in ~/.local/share/diasurgical/devilution before executing the game."
+      ;
     license = licenses.unlicense;
     maintainers = with maintainers; [
       karolchmist

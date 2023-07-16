@@ -136,7 +136,7 @@ rustPlatform.buildRustPackage rec {
     gobject-introspection
   ];
 
-  # Get openssl-sys to use pkg-config
+    # Get openssl-sys to use pkg-config
   OPENSSL_NO_VENDOR = 1;
 
   buildInputs = [

@@ -57,9 +57,9 @@ stdenv.mkDerivation rec {
     ++ lib.optional pythonSupport python310
     ++ lib.optionals stdenv.isDarwin [ libiconv ];
 
-  # To support systems without autoconf LD puts its configure.ac in a non-default
-  # location and uses a helper script. We skip that script and symlink the .ac
-  # file to where the autoreconfHook find it.
+    # To support systems without autoconf LD puts its configure.ac in a non-default
+    # location and uses a helper script. We skip that script and symlink the .ac
+    # file to where the autoreconfHook find it.
   preAutoreconf = ''
     ln -fs ./autoconf/configure.ac ./
   '';
@@ -96,7 +96,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A gamedriver for LPMuds including a LPC compiler, interpreter and runtime";
+      "A gamedriver for LPMuds including a LPC compiler, interpreter and runtime"
+      ;
     homepage = "https://ldmud.eu";
     changelog = "https://github.com/ldmud/ldmud/blob/${version}/HISTORY";
     longDescription = ''
@@ -108,7 +109,7 @@ stdenv.mkDerivation rec {
       more than originally expected, and definitely enough to make LDMud
       a driver in its own right.
     '';
-    # See https://github.com/ldmud/ldmud/blob/master/COPYRIGHT
+      # See https://github.com/ldmud/ldmud/blob/master/COPYRIGHT
     license = licenses.unfreeRedistributable;
     platforms = with platforms; linux ++ darwin;
     maintainers = with maintainers; [ cpu ];

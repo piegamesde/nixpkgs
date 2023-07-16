@@ -53,21 +53,25 @@ stdenv.mkDerivation {
       patch -p1 -d gnulib < ${gnulib.passthru.longdouble-redirect-patch}
     '';
 
-  # ncurses is required to build `makedoc'
-  # this feature is introduced by the ./cross-tools-flags.patch
-  NATIVE_TOOLS_CFLAGS = if crossBuildTools then
-    "-I${getDev buildPackages.ncurses}/include"
-  else
-    null;
-  NATIVE_TOOLS_LDFLAGS = if crossBuildTools then
-    "-L${getLib buildPackages.ncurses}/lib"
-  else
-    null;
+    # ncurses is required to build `makedoc'
+    # this feature is introduced by the ./cross-tools-flags.patch
+  NATIVE_TOOLS_CFLAGS =
+    if crossBuildTools then
+      "-I${getDev buildPackages.ncurses}/include"
+    else
+      null
+    ;
+  NATIVE_TOOLS_LDFLAGS =
+    if crossBuildTools then
+      "-L${getLib buildPackages.ncurses}/lib"
+    else
+      null
+    ;
 
   strictDeps = true;
   enableParallelBuilding = true;
 
-  # A native compiler is needed to build tools needed at build time
+    # A native compiler is needed to build tools needed at build time
   depsBuildBuild = [
     buildPackages.stdenv.cc
     perl
@@ -123,9 +127,9 @@ stdenv.mkDerivation {
       vrthra
       oxij
     ];
-    # see comment above in patches section
-    broken = stdenv.hostPlatform.isPower64
-      && lib.strings.versionOlder version "6.0";
+      # see comment above in patches section
+    broken =
+      stdenv.hostPlatform.isPower64 && lib.strings.versionOlder version "6.0";
 
     longDescription = ''
       Texinfo is the official documentation format of the GNU project.

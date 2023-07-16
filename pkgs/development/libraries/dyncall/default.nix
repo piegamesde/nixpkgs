@@ -10,14 +10,14 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://www.dyncall.org/r${version}/dyncall-${version}.tar.gz";
-    # https://www.dyncall.org/r1.4/SHA256
+      # https://www.dyncall.org/r1.4/SHA256
     sha256 = "sha256-FEN9u+87bckkg/ZQfq+CWrl5ZKie7K6Ms0emvsnDKq4=";
   };
 
-  # XXX: broken tests, failures masked, lets avoid crashing a bunch for now :)
+    # XXX: broken tests, failures masked, lets avoid crashing a bunch for now :)
   doCheck = false;
 
-  # install bits not automatically installed
+    # install bits not automatically installed
   postInstall = ''
     # install cmake modules to make using dyncall easier
     # This is essentially what -DINSTALL_CMAKE_MODULES=ON if using cmake build

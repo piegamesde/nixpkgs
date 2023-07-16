@@ -20,10 +20,12 @@ buildPythonPackage {
     ;
 
     # protobuf 3.21 coresponds with its python library 4.21
-  version = if lib.versionAtLeast protobuf.version "3.21" then
-    "${toString (lib.toInt versionMajor + 1)}.${versionMinor}.${versionPatch}"
-  else
-    protobuf.version;
+  version =
+    if lib.versionAtLeast protobuf.version "3.21" then
+      "${toString (lib.toInt versionMajor + 1)}.${versionMinor}.${versionPatch}"
+    else
+      protobuf.version
+    ;
 
   disabled = isPyPy;
 
@@ -31,7 +33,8 @@ buildPythonPackage {
 
   patches = lib.optionals (pythonAtLeast "3.11") [ (fetchpatch {
     url =
-      "https://github.com/protocolbuffers/protobuf/commit/da973aff2adab60a9e516d3202c111dbdde1a50f.patch";
+      "https://github.com/protocolbuffers/protobuf/commit/da973aff2adab60a9e516d3202c111dbdde1a50f.patch"
+      ;
     stripLen = 2;
     extraPrefix = "";
     hash = "sha256-a/12C6yIe1tEKjsMxcfDAQ4JHolA8CzkN7sNG8ZspPs=";

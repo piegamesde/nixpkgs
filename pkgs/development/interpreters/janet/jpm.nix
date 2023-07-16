@@ -27,8 +27,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-lPB4jew6RkJlDp8xOQ4YA9MkgLBImaBHcvv4WF/sLRc=";
   };
 
-  # `auto-shebangs true` gives us a shebang line that points to janet inside the
-  # jpm bin folder
+    # `auto-shebangs true` gives us a shebang line that points to janet inside the
+    # jpm bin folder
   postPatch = ''
     substituteInPlace configs/${platformFile} \
       --replace 'auto-shebang true' 'auto-shebang false' \

@@ -14,13 +14,14 @@ stdenv.mkDerivation rec {
   pname = "wayland-protocols";
   version = "1.31";
 
-  # https://gitlab.freedesktop.org/wayland/wayland-protocols/-/issues/48
+    # https://gitlab.freedesktop.org/wayland/wayland-protocols/-/issues/48
   doCheck = stdenv.hostPlatform == stdenv.buildPlatform
     && stdenv.targetPlatform.linker == "bfd" && wayland.withLibraries;
 
   src = fetchurl {
     url =
-      "https://gitlab.freedesktop.org/wayland/${pname}/-/releases/${version}/downloads/${pname}-${version}.tar.xz";
+      "https://gitlab.freedesktop.org/wayland/${pname}/-/releases/${version}/downloads/${pname}-${version}.tar.xz"
+      ;
     hash = "sha256-oH+nIu2HZ27AINhncUvJovJMRk2nORLzlwbu71IZ4jg=";
   };
 

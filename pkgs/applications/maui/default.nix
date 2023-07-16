@@ -29,7 +29,8 @@ let
   mirror = "mirror://kde";
   srcs = import ./srcs.nix { inherit fetchurl mirror; };
 
-  mkDerivation = args:
+  mkDerivation =
+    args:
     let
       inherit (args) pname;
       inherit (srcs.${pname}) src version;
@@ -43,18 +44,20 @@ let
 
       outputs = args.outputs or [ "out" ];
 
-      meta = let
-        meta = args.meta or { };
-      in
-      meta // {
-        homepage = meta.homepage or "https://mauikit.org/";
-        platforms = meta.platforms or lib.platforms.linux;
-      }
-      ;
+      meta =
+        let
+          meta = args.meta or { };
+        in
+        meta // {
+          homepage = meta.homepage or "https://mauikit.org/";
+          platforms = meta.platforms or lib.platforms.linux;
+        }
+        ;
     })
-  ;
+    ;
 
-  packages = self:
+  packages =
+    self:
     let
       callPackage = self.newScope { inherit mkDerivation; };
     in {
@@ -67,7 +70,7 @@ let
       mauikit-texteditor = callPackage ./mauikit-texteditor.nix { };
       mauiman = callPackage ./mauiman.nix { };
 
-      # applications
+        # applications
       booth = callPackage ./booth.nix { };
       buho = callPackage ./buho.nix { };
       clip = callPackage ./clip.nix { };
@@ -78,7 +81,8 @@ let
       shelf = callPackage ./shelf.nix { };
       station = callPackage ./station.nix { };
       vvave = callPackage ./vvave.nix { };
-    } ;
+    }
+    ;
 
 in
 lib.makeScope libsForQt5.newScope packages

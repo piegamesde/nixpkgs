@@ -70,7 +70,7 @@ mkDerivation rec {
     "-DQTROOT=${qtbase}"
   ];
 
-  # plexmediaplayer currently segfaults under wayland
+    # plexmediaplayer currently segfaults under wayland
   qtWrapperArgs = [
     "--set"
     "QT_QPA_PLATFORM"

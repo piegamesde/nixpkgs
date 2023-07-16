@@ -24,8 +24,8 @@ buildPythonPackage rec {
     sha256 = "01jid5s09lr3kayr2h1z9n8h9nhyw3jxv9c4b5hrlxijknkqzvfy";
   };
 
-  # test uses timeout mechanism unsafe for use with the "spawn"
-  # multiprocessing backend used on macos
+    # test uses timeout mechanism unsafe for use with the "spawn"
+    # multiprocessing backend used on macos
   postPatch = lib.optionalString stdenv.isDarwin ''
     substituteInPlace tests/test_jenkins_sockets.py \
       --replace test_jenkins_open_no_timeout dont_test_jenkins_open_no_timeout

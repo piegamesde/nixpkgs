@@ -7,7 +7,8 @@
 let
   version = "1.3.3";
 
-  mkPretendard = {
+  mkPretendard =
+    {
       pname,
       typeface,
       hash,
@@ -17,7 +18,8 @@ let
 
       src = fetchzip {
         url =
-          "https://github.com/orioncactus/pretendard/releases/download/v${version}/${typeface}-${version}.zip";
+          "https://github.com/orioncactus/pretendard/releases/download/v${version}/${typeface}-${version}.zip"
+          ;
         stripRoot = false;
         inherit hash;
       };
@@ -37,7 +39,8 @@ let
         platforms = platforms.all;
         maintainers = with maintainers; [ sudosubin ];
       };
-    };
+    }
+    ;
 
 in {
   pretendard = mkPretendard {

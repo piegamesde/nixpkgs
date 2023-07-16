@@ -28,10 +28,11 @@ stdenv.mkDerivation (finalAttrs:
 
     patches = [ (fetchurl {
       url =
-        "https://ftp.suse.com/pub/people/sbrabec/bzip2/for_downstream/bzip2-1.0.6.2-autoconfiscated.patch";
+        "https://ftp.suse.com/pub/people/sbrabec/bzip2/for_downstream/bzip2-1.0.6.2-autoconfiscated.patch"
+        ;
       sha256 = "sha256-QMufl6ffJVVVVZespvkCbFpB6++R1lnq1687jEsUjr0=";
     }) ];
-    # Fix up hardcoded version from the above patch, e.g. seen in bzip2.pc or libbz2.so.1.0.N
+      # Fix up hardcoded version from the above patch, e.g. seen in bzip2.pc or libbz2.so.1.0.N
     postPatch = ''
       patch <<-EOF
         --- configure.ac

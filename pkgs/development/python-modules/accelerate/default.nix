@@ -61,14 +61,15 @@ buildPythonPackage rec {
     # usual aarch64-linux RuntimeError: DataLoader worker (pid(s) <...>) exited unexpectedly
     "CheckpointTest"
   ];
-  # numerous instances of torch.multiprocessing.spawn.ProcessRaisedException:
+    # numerous instances of torch.multiprocessing.spawn.ProcessRaisedException:
   doCheck = !stdenv.isDarwin;
   pythonImportsCheck = [ "accelerate" ];
 
   meta = with lib; {
     homepage = "https://huggingface.co/docs/accelerate";
     description =
-      "A simple way to train and use PyTorch models with multi-GPU, TPU, mixed-precision";
+      "A simple way to train and use PyTorch models with multi-GPU, TPU, mixed-precision"
+      ;
     changelog =
       "https://github.com/huggingface/accelerate/releases/tag/v${version}";
     license = licenses.asl20;

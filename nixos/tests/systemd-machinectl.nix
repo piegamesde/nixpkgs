@@ -7,14 +7,14 @@ import ./make-test-python.nix ({
     container = {
       # We re-use the NixOS container option ...
       boot.isContainer = true;
-      # ... and revert unwanted defaults
+        # ... and revert unwanted defaults
       networking.useHostResolvConf = false;
 
-      # use networkd to obtain systemd network setup
+        # use networkd to obtain systemd network setup
       networking.useNetworkd = true;
       networking.useDHCP = false;
 
-      # systemd-nspawn expects /sbin/init
+        # systemd-nspawn expects /sbin/init
       boot.loader.initScript.enable = true;
 
       imports = [ ../modules/profiles/minimal.nix ];
@@ -31,7 +31,8 @@ import ./make-test-python.nix ({
   in {
     name = "systemd-machinectl";
 
-    nodes.machine = {
+    nodes.machine =
+      {
         lib,
         ...
       }: {
@@ -39,16 +40,16 @@ import ./make-test-python.nix ({
         networking.useNetworkd = true;
         networking.useDHCP = false;
 
-        # do not try to access cache.nixos.org
+          # do not try to access cache.nixos.org
         nix.settings.substituters = lib.mkForce [ ];
 
-        # auto-start container
-        systemd.targets.machines.wants =
-          [ "systemd-nspawn@${containerName}.service" ];
+          # auto-start container
+        systemd.targets.machines.wants = [ "systemd-nspawn@${containerName}.service" ]
+          ;
 
         virtualisation.additionalPaths = [ containerSystem ];
 
-        # not needed, but we want to test the nspawn file generation
+          # not needed, but we want to test the nspawn file generation
         systemd.nspawn.${containerName} = { };
 
         systemd.services."systemd-nspawn@${containerName}" = {
@@ -58,7 +59,8 @@ import ./make-test-python.nix ({
           ];
           overrideStrategy = "asDropin";
         };
-      };
+      }
+      ;
 
     testScript = ''
       start_all()

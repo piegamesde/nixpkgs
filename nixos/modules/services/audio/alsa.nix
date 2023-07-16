@@ -24,7 +24,7 @@ in {
     "enable"
   ]) ];
 
-  ###### interface
+    ###### interface
 
   options = {
 
@@ -91,7 +91,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf config.sound.enable {
 
@@ -102,7 +102,7 @@ in {
         "asound.conf".text = config.sound.extraConfig;
       };
 
-    # ALSA provides a udev rule for restoring volume settings.
+      # ALSA provides a udev rule for restoring volume settings.
     services.udev.packages = [ alsa-utils ];
 
     boot.kernelModules = optional config.sound.enableOSSEmulation "snd_pcm_oss";
@@ -138,7 +138,8 @@ in {
             "rep"
           ];
           command =
-            "${alsa-utils}/bin/amixer -q set Master ${config.sound.mediaKeys.volumeStep}- unmute";
+            "${alsa-utils}/bin/amixer -q set Master ${config.sound.mediaKeys.volumeStep}- unmute"
+            ;
         }
 
         # "Raise Volume" media key
@@ -149,7 +150,8 @@ in {
             "rep"
           ];
           command =
-            "${alsa-utils}/bin/amixer -q set Master ${config.sound.mediaKeys.volumeStep}+ unmute";
+            "${alsa-utils}/bin/amixer -q set Master ${config.sound.mediaKeys.volumeStep}+ unmute"
+            ;
         }
 
         # "Mic Mute" media key

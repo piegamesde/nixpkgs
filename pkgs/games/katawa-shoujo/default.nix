@@ -50,11 +50,12 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://dl.katawa-shoujo.com/gold_${version}/%5b4ls%5d_katawa_shoujo_${version}-${srcDetails.urlSuffix}";
+      "https://dl.katawa-shoujo.com/gold_${version}/%5b4ls%5d_katawa_shoujo_${version}-${srcDetails.urlSuffix}"
+      ;
     inherit (srcDetails) hash;
   };
 
-  # fetchzip requires a custom unpackPhase to handle dmg, fetchurl cannot handle undmg producing >1 directory without this
+    # fetchzip requires a custom unpackPhase to handle dmg, fetchurl cannot handle undmg producing >1 directory without this
   sourceRoot = ".";
 
   nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [
@@ -94,79 +95,81 @@ stdenv.mkDerivation rec {
   dontConfigure = true;
   dontBuild = true;
 
-  installPhase = let
-    platformDetails = with stdenv.hostPlatform;
-      if isDarwin then
-        rec {
-          arch = "darwin-x86_64";
-          sourceDir = "'Katawa Shoujo'.app";
-          installDir = "$out/Applications/'Katawa Shoujo'.app";
-          dataDir = "${installDir}/Contents/Resources/autorun";
-          bin = "${installDir}/Contents/MacOS/'Katawa Shoujo'";
-        }
-      else
-        rec {
-          arch = "linux-${
-              if isx86_64 then
-                "x86_64"
-              else
-                "i686"
-            }";
-          sourceDir = "'Katawa Shoujo'-${version}-linux";
-          installDir = "$out/share/katawa-shoujo";
-          dataDir = installDir;
-          bin = "${installDir}/'Katawa Shoujo'.sh";
-        };
-    libDir = with platformDetails; "${dataDir}/lib/${arch}";
-  in with platformDetails;
-  ''
-    runHook preInstall
-
-    mkdir -p "$(dirname ${installDir})"
-    cp -R ${sourceDir} ${installDir}
-
-    # Simplify launcher script
-    cat <<EOF >${bin}
-    #!${runtimeShell}
-    exec \$RENPY_GDB ${libDir}/'Katawa Shoujo' \$RENPY_PYARGS -EO ${dataDir}/'Katawa Shoujo'.py "\$@"
-    EOF
-
-  '' + (if stdenv.hostPlatform.isDarwin then
+  installPhase =
+    let
+      platformDetails = with stdenv.hostPlatform;
+        if isDarwin then
+          rec {
+            arch = "darwin-x86_64";
+            sourceDir = "'Katawa Shoujo'.app";
+            installDir = "$out/Applications/'Katawa Shoujo'.app";
+            dataDir = "${installDir}/Contents/Resources/autorun";
+            bin = "${installDir}/Contents/MacOS/'Katawa Shoujo'";
+          }
+        else
+          rec {
+            arch = "linux-${
+                if isx86_64 then
+                  "x86_64"
+                else
+                  "i686"
+              }";
+            sourceDir = "'Katawa Shoujo'-${version}-linux";
+            installDir = "$out/share/katawa-shoujo";
+            dataDir = installDir;
+            bin = "${installDir}/'Katawa Shoujo'.sh";
+          };
+      libDir = with platformDetails; "${dataDir}/lib/${arch}";
+    in with platformDetails;
     ''
-      # No autoPatchelfHook on Darwin
-      wrapProgram ${bin} \
-        --prefix DYLD_LIBRARY_PATH : ${lib.makeLibraryPath buildInputs}
-    ''
-  else
-    ''
-      # Extract icon for xdg desktop file
-      unrpa ${dataDir}/game/data.rpa
-      install -Dm644 ui/icon.png $out/share/icons/hicolor/512x512/apps/katawa-shoujo.png
-    '') + ''
+      runHook preInstall
 
-      # Delete binaries for wrong arch, autoPatchelfHook gets confused by them & less to keep in the store
-      find "$(dirname ${libDir})" -mindepth 1 -maxdepth 1 \
-        -not -name 'python*' -not -name ${arch} \
-        -exec rm -r {} \;
+      mkdir -p "$(dirname ${installDir})"
+      cp -R ${sourceDir} ${installDir}
 
-      # Replace some bundled libs so Nixpkgs' versions are used
-      rm ${libDir}/libz*
-      rm ${libDir}/libfreetype*
-      rm ${libDir}/libSDL-1.2*
-    '' + lib.optionalString devendorImageLibs ''
-      rm ${libDir}/libjpeg*
-      rm ${libDir}/libpng12*
-    '' + ''
+      # Simplify launcher script
+      cat <<EOF >${bin}
+      #!${runtimeShell}
+      exec \$RENPY_GDB ${libDir}/'Katawa Shoujo' \$RENPY_PYARGS -EO ${dataDir}/'Katawa Shoujo'.py "\$@"
+      EOF
 
-      mkdir -p $out/share/{doc,licenses}/katawa-shoujo
-      mv ${dataDir}/'Game Manual'.pdf $out/share/doc/katawa-shoujo/
-      mv ${dataDir}/LICENSE.txt $out/share/licenses/katawa-shoujo/
+    '' + (if stdenv.hostPlatform.isDarwin then
+      ''
+        # No autoPatchelfHook on Darwin
+        wrapProgram ${bin} \
+          --prefix DYLD_LIBRARY_PATH : ${lib.makeLibraryPath buildInputs}
+      ''
+    else
+      ''
+        # Extract icon for xdg desktop file
+        unrpa ${dataDir}/game/data.rpa
+        install -Dm644 ui/icon.png $out/share/icons/hicolor/512x512/apps/katawa-shoujo.png
+      '') + ''
 
-      mkdir -p $out/bin
-      ln -s ${bin} $out/bin/katawa-shoujo
+        # Delete binaries for wrong arch, autoPatchelfHook gets confused by them & less to keep in the store
+        find "$(dirname ${libDir})" -mindepth 1 -maxdepth 1 \
+          -not -name 'python*' -not -name ${arch} \
+          -exec rm -r {} \;
 
-      runHook postInstall
-    '';
+        # Replace some bundled libs so Nixpkgs' versions are used
+        rm ${libDir}/libz*
+        rm ${libDir}/libfreetype*
+        rm ${libDir}/libSDL-1.2*
+      '' + lib.optionalString devendorImageLibs ''
+        rm ${libDir}/libjpeg*
+        rm ${libDir}/libpng12*
+      '' + ''
+
+        mkdir -p $out/share/{doc,licenses}/katawa-shoujo
+        mv ${dataDir}/'Game Manual'.pdf $out/share/doc/katawa-shoujo/
+        mv ${dataDir}/LICENSE.txt $out/share/licenses/katawa-shoujo/
+
+        mkdir -p $out/bin
+        ln -s ${bin} $out/bin/katawa-shoujo
+
+        runHook postInstall
+      ''
+    ;
 
   meta = with lib; {
     description =
@@ -185,15 +188,15 @@ stdenv.mkDerivation rec {
       international team of amateur developers, and is available free of charge under the Creative Commons BY-NC-ND License.
     '';
     homepage = "https://www.katawa-shoujo.com/";
-    # https://www.katawa-shoujo.com/about.php
-    # November 2022: Update, is it still ND?
-    # https://ks.renai.us/viewtopic.php?f=13&p=248149#p248149
+      # https://www.katawa-shoujo.com/about.php
+      # November 2022: Update, is it still ND?
+      # https://ks.renai.us/viewtopic.php?f=13&p=248149#p248149
     license = with licenses; [ cc-by-nc-nd-30 ];
     maintainers = with maintainers; [ OPNA2608 ];
-    # Building Ren'Py6 from source would allow more, but too much of a hassle
+      # Building Ren'Py6 from source would allow more, but too much of a hassle
     platforms = platforms.x86;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    # Needs different srcDetails & installPhase
+      # Needs different srcDetails & installPhase
     broken = stdenv.hostPlatform.isWindows;
   };
 }

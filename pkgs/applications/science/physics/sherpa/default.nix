@@ -48,12 +48,13 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Simulation of High-Energy Reactions of PArticles in lepton-lepton, lepton-photon, photon-photon, lepton-hadron and hadron-hadron collisions";
+      "Simulation of High-Energy Reactions of PArticles in lepton-lepton, lepton-photon, photon-photon, lepton-hadron and hadron-hadron collisions"
+      ;
     license = licenses.gpl2;
     homepage = "https://gitlab.com/sherpa-team/sherpa";
     platforms = platforms.unix;
     maintainers = with maintainers; [ veprbl ];
-    # never built on aarch64-darwin since first introduction in nixpkgs
+      # never built on aarch64-darwin since first introduction in nixpkgs
     broken = stdenv.isDarwin && stdenv.isAarch64;
   };
 }

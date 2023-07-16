@@ -36,12 +36,13 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/cppit/jucipp";
     description =
-      "A lightweight, platform independent C++-IDE with support for C++11, C++14, and experimental C++17 features depending on libclang version";
+      "A lightweight, platform independent C++-IDE with support for C++11, C++14, and experimental C++17 features depending on libclang version"
+      ;
     license = licenses.mit;
     platforms = platforms.linux;
     maintainers = with maintainers; [ xnwdd ];
-    # error: token ""1.1"" is not valid in preprocessor expression
-    # TODO: fix pname being different from the attribute name
+      # error: token ""1.1"" is not valid in preprocessor expression
+      # TODO: fix pname being different from the attribute name
     broken = true;
   };
 
@@ -78,15 +79,16 @@ stdenv.mkDerivation rec {
     dconf
   ];
 
-  lintIncludes = let
-    p = ''arguments.emplace_back("-I'';
-    e = ''");'';
-    v = lib.getVersion llvmPackages.clang;
-  in
-  p + llvmPackages.libcxx.dev + "/include/c++/v1" + e + p
-  + llvmPackages.clang-unwrapped.lib + "/lib/clang/" + v + "/include/" + e + p
-  + glibc.dev + "/include" + e
-  ;
+  lintIncludes =
+    let
+      p = ''arguments.emplace_back("-I'';
+      e = ''");'';
+      v = lib.getVersion llvmPackages.clang;
+    in
+    p + llvmPackages.libcxx.dev + "/include/c++/v1" + e + p
+    + llvmPackages.clang-unwrapped.lib + "/lib/clang/" + v + "/include/" + e + p
+    + glibc.dev + "/include" + e
+    ;
 
   preConfigure = ''
     sed -i 's|liblldb LIBLLDB_LIBRARIES|liblldb LIBNOTHING|g' CMakeLists.txt

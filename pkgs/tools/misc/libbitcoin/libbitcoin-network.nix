@@ -47,7 +47,7 @@ stdenv.mkDerivation {
     platforms = platforms.linux ++ platforms.darwin;
     maintainers = with maintainers; [ asymmetric ];
 
-    # AGPL with a lesser clause
+      # AGPL with a lesser clause
     license = licenses.agpl3;
   };
 }

@@ -25,7 +25,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  # FIXME: RuntimeError: Model class source.crispy_forms.tests.forms.CrispyTestModel doesn't declare an explicit app_label and isn't in an application in INSTALLED_APPS.
+    # FIXME: RuntimeError: Model class source.crispy_forms.tests.forms.CrispyTestModel doesn't declare an explicit app_label and isn't in an application in INSTALLED_APPS.
   doCheck = false;
 
   nativeCheckInputs = [

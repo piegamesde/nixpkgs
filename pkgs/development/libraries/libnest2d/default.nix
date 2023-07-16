@@ -13,9 +13,9 @@ stdenv.mkDerivation rec {
   version = "4.12.0";
   pname = "libnest2d";
 
-  # This revision is waiting to be merged upstream
-  # Once it has been merged, this should be switched to it
-  # Upstream PR: https://github.com/tamasmeszaros/libnest2d/pull/18
+    # This revision is waiting to be merged upstream
+    # Once it has been merged, this should be switched to it
+    # Upstream PR: https://github.com/tamasmeszaros/libnest2d/pull/18
   src = fetchFromGitHub {
     owner = "Ultimaker";
     repo = "libnest2d";

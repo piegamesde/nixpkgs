@@ -27,7 +27,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   cargoHash = "sha256-WnvMLi0GeeLsmHDxH0tGAQfX//x9GD2cd/m7Tp/GLGA=";
-  #checkFlags = [ "--test-threads" "1" ];
+    #checkFlags = [ "--test-threads" "1" ];
   doCheck = false;
 
   meta = with lib; {

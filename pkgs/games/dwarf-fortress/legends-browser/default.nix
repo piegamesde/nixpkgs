@@ -12,7 +12,8 @@ let
 
   jar = fetchurl {
     url =
-      "https://github.com/robertjanetzko/LegendsBrowser/releases/download/${version}/legendsbrowser-${version}.jar";
+      "https://github.com/robertjanetzko/LegendsBrowser/releases/download/${version}/legendsbrowser-${version}.jar"
+      ;
     sha256 = "05b4ksbl4481rh3ykfirbp6wvxhppcd5mvclhn9995gsrcaj8gx9";
   };
 
@@ -35,7 +36,8 @@ buildEnv {
 
   meta = with lib; {
     description =
-      "A multi-platform, open source, java-based legends viewer for dwarf fortress";
+      "A multi-platform, open source, java-based legends viewer for dwarf fortress"
+      ;
     maintainers = with maintainers; [ Baughn ];
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.mit;

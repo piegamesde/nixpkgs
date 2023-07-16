@@ -44,8 +44,8 @@ stdenv.mkDerivation {
     lua5_2
     curl
     readline
-  ] ++ lib.optional stdenv.isDarwin PCSC
-    ++ lib.optional stdenv.isLinux pcsclite;
+  ] ++ lib.optional stdenv.isDarwin PCSC ++ lib.optional stdenv.isLinux pcsclite
+    ;
 
   enableParallelBuilding = true;
 

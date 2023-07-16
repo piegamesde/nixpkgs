@@ -40,7 +40,7 @@ buildPythonPackage rec {
     export TEST_DTYPES=float32,float64  # half-precision tests fail on CPU
   '';
 
-  # package only requires `unittest`, but use `pytest` to exclude tests
+    # package only requires `unittest`, but use `pytest` to exclude tests
   nativeCheckInputs = [
     faiss
     pytestCheckHook
@@ -68,7 +68,8 @@ buildPythonPackage rec {
     description = "Metric learning library for PyTorch";
     homepage = "https://github.com/KevinMusgrave/pytorch-metric-learning";
     changelog =
-      "https://github.com/KevinMusgrave/pytorch-metric-learning/releases/tag/v${version}";
+      "https://github.com/KevinMusgrave/pytorch-metric-learning/releases/tag/v${version}"
+      ;
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ bcdarwin ];
   };

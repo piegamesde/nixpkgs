@@ -7,7 +7,8 @@ import ../make-test-python.nix ({
   }: {
     name = "pam-file-contents";
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         imports = [ ../../modules/profiles/minimal.nix ];
@@ -18,7 +19,8 @@ import ../make-test-python.nix ({
           mutableUsers = false;
           users = { user = { isNormalUser = true; }; };
         };
-      };
+      }
+      ;
 
     testScript = builtins.replaceStrings [
       "@@pam_ccreds@@"

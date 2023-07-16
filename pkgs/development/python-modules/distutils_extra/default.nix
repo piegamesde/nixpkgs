@@ -11,11 +11,12 @@ buildPythonPackage rec {
 
   src = fetchurl {
     url =
-      "https://salsa.debian.org/python-team/modules/python-distutils-extra/-/archive/${version}/python-${pname}-${version}.tar.bz2";
+      "https://salsa.debian.org/python-team/modules/python-distutils-extra/-/archive/${version}/python-${pname}-${version}.tar.bz2"
+      ;
     hash = "sha256-vIl50yDVt5AW5lteWYqhAPlu8ErroOOJ1N/sfE2fbBU=";
   };
 
-  # Tests are out-dated as the last upstream release is from 2016
+    # Tests are out-dated as the last upstream release is from 2016
   doCheck = false;
 
   pythonImportsCheck = [ "DistUtilsExtra" ];

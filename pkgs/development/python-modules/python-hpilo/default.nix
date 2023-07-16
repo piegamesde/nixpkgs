@@ -15,7 +15,7 @@ buildPythonPackage rec {
     sha256 = "1dk5xswydw7nmn9hlna1xca1mzcas9qv2kmid5yx8kvk3hjqci9v";
   };
 
-  # Most tests requires an actual iLO to run
+    # Most tests requires an actual iLO to run
   doCheck = false;
   pythonImportsCheck = [ "hpilo" ];
 

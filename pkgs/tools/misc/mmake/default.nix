@@ -22,7 +22,7 @@ buildGoModule rec {
     "-w"
   ];
 
-  # Almost all tests require non-local networking, trying to resolve githubusercontent.com.
+    # Almost all tests require non-local networking, trying to resolve githubusercontent.com.
   doCheck = false;
 
   meta = with lib; {

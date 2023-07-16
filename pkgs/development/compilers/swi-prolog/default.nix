@@ -69,9 +69,11 @@
 
 let
   version = "8.3.29";
-  packInstall = swiplPath: pack: ''
-    ${swiplPath}/bin/swipl -g "pack_install(${pack}, [package_directory(\"${swiplPath}/lib/swipl/pack\"), silent(true), interactive(false)])." -t "halt."
-  '';
+  packInstall =
+    swiplPath: pack: ''
+      ${swiplPath}/bin/swipl -g "pack_install(${pack}, [package_directory(\"${swiplPath}/lib/swipl/pack\"), silent(true), interactive(false)])." -t "halt."
+    ''
+    ;
 in
 stdenv.mkDerivation {
   pname = "swi-prolog";
@@ -85,7 +87,7 @@ stdenv.mkDerivation {
     fetchSubmodules = true;
   };
 
-  # Add the packInstall path to the swipl pack search path
+    # Add the packInstall path to the swipl pack search path
   postPatch = ''
     echo "user:file_search_path(pack, '$out/lib/swipl/pack')." >> boot/init.pl
   '';
@@ -132,8 +134,8 @@ stdenv.mkDerivation {
     description = "A Prolog compiler and interpreter";
     license = lib.licenses.bsd2;
     mainProgram = "swipl";
-    platforms = lib.platforms.linux
-      ++ lib.optionals (!withGui) lib.platforms.darwin;
+    platforms =
+      lib.platforms.linux ++ lib.optionals (!withGui) lib.platforms.darwin;
     maintainers = [ lib.maintainers.meditans ];
   };
 }

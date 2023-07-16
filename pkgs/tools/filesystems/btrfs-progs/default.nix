@@ -24,7 +24,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://kernel/linux/kernel/people/kdave/btrfs-progs/btrfs-progs-v${version}.tar.xz";
+      "mirror://kernel/linux/kernel/people/kdave/btrfs-progs/btrfs-progs-v${version}.tar.xz"
+      ;
     sha256 = "sha256-5IiNuGN9kuZnRIOGmS0IVrlUzyUVuY05tmfaQ8SC1pM=";
   };
 
@@ -42,8 +43,8 @@ stdenv.mkDerivation rec {
     zstd
   ];
 
-  # gcc bug with -O1 on ARM with gcc 4.8
-  # This should be fine on all platforms so apply universally
+    # gcc bug with -O1 on ARM with gcc 4.8
+    # This should be fine on all platforms so apply universally
   postPatch = "sed -i s/-O1/-O2/ configure";
 
   postInstall = ''

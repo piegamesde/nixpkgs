@@ -98,7 +98,8 @@ let
     (fetchpatch {
       name = "avoid-ustat-glibc-2.28.patch";
       url =
-        "https://gitweb.gentoo.org/proj/gcc-patches.git/plain/4.9.4/gentoo/100_all_avoid-ustat-glibc-2.28.patch?id=55fcb515620a8f7d3bb77eba938aa0fcf0d67c96";
+        "https://gitweb.gentoo.org/proj/gcc-patches.git/plain/4.9.4/gentoo/100_all_avoid-ustat-glibc-2.28.patch?id=55fcb515620a8f7d3bb77eba938aa0fcf0d67c96"
+        ;
       sha256 = "0b32sb4psv5lq0ij9fwhi1b4pjbwdjnv24nqprsk14dsc6xmi1g0";
     })
   ] ++ optional (targetPlatform != hostPlatform) ../libstdc++-target.patch
@@ -176,7 +177,8 @@ let
       (fetchpatch {
         name = "gcc4-char-reload.patch";
         url =
-          "https://gcc.gnu.org/git/?p=gcc.git;a=commitdiff_plain;h=d57c99458933a21fdf94f508191f145ad8d5ec58";
+          "https://gcc.gnu.org/git/?p=gcc.git;a=commitdiff_plain;h=d57c99458933a21fdf94f508191f145ad8d5ec58"
+          ;
         includes = [ "gcc/reload.h" ];
         sha256 = "sha256-66AMP7/ajunGKAN5WJz/yPn42URZ2KN51yPrFdsxEuM=";
       })
@@ -191,8 +193,8 @@ let
     sha256 = "0jz7hvc0s6iydmhgh5h2m15yza7p2rlss2vkif30vm9y77m97qcx";
   };
 
-  # Antlr (optional) allows the Java `gjdoc' tool to be built.  We want a
-  # binary distribution here to allow the whole chain to be bootstrapped.
+    # Antlr (optional) allows the Java `gjdoc' tool to be built.  We want a
+    # binary distribution here to allow the whole chain to be bootstrapped.
   javaAntlr = fetchurl {
     url = "https://www.antlr.org/download/antlr-4.4-complete.jar";
     sha256 = "02lda2imivsvsis8rnzmbrbp8rh1kb8vmq4i67pqhkwz7lf8y6dz";
@@ -212,13 +214,15 @@ let
 
   javaAwtGtk = langJava && x11Support;
 
-  # Cross-gcc settings (build == host != target)
-  crossMingw = targetPlatform != hostPlatform && targetPlatform.libc
-    == "msvcrt";
-  stageNameAddon = if crossStageStatic then
-    "stage-static"
-  else
-    "stage-final";
+    # Cross-gcc settings (build == host != target)
+  crossMingw =
+    targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt";
+  stageNameAddon =
+    if crossStageStatic then
+      "stage-static"
+    else
+      "stage-final"
+    ;
   crossNameAddon = optionalString (targetPlatform != hostPlatform)
     "${targetPlatform.config}-${stageNameAddon}-";
 
@@ -324,49 +328,55 @@ stdenv.mkDerivation ({
     "pie"
   ];
 
-  # When targeting darwin, libgcc_ext.10.{4,5}.dylib are created as
-  # MH_DYLIB_STUB files, which install_name_tool can't change, so we
-  # get a cycle between $out and $lib.
-  outputs = if langJava || langGo || targetPlatform.isDarwin then
-    [
-      "out"
-      "man"
-      "info"
-    ]
-  else
-    [
-      "out"
-      "lib"
-      "man"
-      "info"
-    ];
+    # When targeting darwin, libgcc_ext.10.{4,5}.dylib are created as
+    # MH_DYLIB_STUB files, which install_name_tool can't change, so we
+    # get a cycle between $out and $lib.
+  outputs =
+    if langJava || langGo || targetPlatform.isDarwin then
+      [
+        "out"
+        "man"
+        "info"
+      ]
+    else
+      [
+        "out"
+        "lib"
+        "man"
+        "info"
+      ]
+    ;
   setOutputFlags = false;
   NIX_NO_SELF_RPATH = true;
 
   libc_dev = stdenv.cc.libc_dev;
 
-  postPatch = if
-    targetPlatform != hostPlatform || stdenv.cc.libc != null
-  then
-  # On NixOS, use the right path to the dynamic linker instead of
-  # `/lib/ld*.so'.
-    let
-      libc = if libcCross != null then
-        libcCross
-      else
-        stdenv.cc.libc;
-    in ''
-      echo "fixing the \`GLIBC_DYNAMIC_LINKER' and \`UCLIBC_DYNAMIC_LINKER' macros..."
-                for header in "gcc/config/"*-gnu.h "gcc/config/"*"/"*.h
-                do
-                  grep -q LIBC_DYNAMIC_LINKER "$header" || continue
-                  echo "  fixing \`$header'..."
-                  sed -i "$header" \
-                      -e 's|define[[:blank:]]*\([UCG]\+\)LIBC_DYNAMIC_LINKER\([0-9]*\)[[:blank:]]"\([^\"]\+\)"$|define \1LIBC_DYNAMIC_LINKER\2 "${libc.out}\3"|g'
-                done
-    ''
-  else
-    null;
+  postPatch =
+    if
+      targetPlatform != hostPlatform || stdenv.cc.libc != null
+    then
+    # On NixOS, use the right path to the dynamic linker instead of
+    # `/lib/ld*.so'.
+      let
+        libc =
+          if libcCross != null then
+            libcCross
+          else
+            stdenv.cc.libc
+          ;
+      in ''
+        echo "fixing the \`GLIBC_DYNAMIC_LINKER' and \`UCLIBC_DYNAMIC_LINKER' macros..."
+                  for header in "gcc/config/"*-gnu.h "gcc/config/"*"/"*.h
+                  do
+                    grep -q LIBC_DYNAMIC_LINKER "$header" || continue
+                    echo "  fixing \`$header'..."
+                    sed -i "$header" \
+                        -e 's|define[[:blank:]]*\([UCG]\+\)LIBC_DYNAMIC_LINKER\([0-9]*\)[[:blank:]]"\([^\"]\+\)"$|define \1LIBC_DYNAMIC_LINKER\2 "${libc.out}\3"|g'
+                  done
+      ''
+    else
+      null
+    ;
 
   inherit
     noSysDirs
@@ -397,10 +407,12 @@ stdenv.mkDerivation ({
 
   configureFlags = callFile ../common/configure-flags.nix { };
 
-  targetConfig = if targetPlatform != hostPlatform then
-    targetPlatform.config
-  else
-    null;
+  targetConfig =
+    if targetPlatform != hostPlatform then
+      targetPlatform.config
+    else
+      null
+    ;
 
   buildFlags =
     optional (targetPlatform == hostPlatform && hostPlatform == buildPlatform)
@@ -415,10 +427,10 @@ stdenv.mkDerivation ({
     preFixup
     ;
 
-  doCheck =
-    false; # requires a lot of tools, causes a dependency cycle for stdenv
+  doCheck = false
+    ; # requires a lot of tools, causes a dependency cycle for stdenv
 
-  # https://gcc.gnu.org/install/specific.html#x86-64-x-solaris210
+    # https://gcc.gnu.org/install/specific.html#x86-64-x-solaris210
   ${
     if hostPlatform.system == "x86_64-solaris" then
       "CC"
@@ -426,19 +438,19 @@ stdenv.mkDerivation ({
       null
   } = "gcc -m64";
 
-  # Setting $CPATH and $LIBRARY_PATH to make sure both `gcc' and `xgcc' find the
-  # library headers and binaries, regarless of the language being compiled.
-  #
-  # Note: When building the Java AWT GTK peer, the build system doesn't honor
-  # `--with-gmp' et al., e.g., when building
-  # `libjava/classpath/native/jni/java-math/gnu_java_math_GMP.c', so we just add
-  # them to $CPATH and $LIBRARY_PATH in this case.
-  #
-  # Likewise, the LTO code doesn't find zlib.
-  #
-  # Cross-compiling, we need gcc not to read ./specs in order to build the g++
-  # compiler (after the specs for the cross-gcc are created). Having
-  # LIBRARY_PATH= makes gcc read the specs from ., and the build breaks.
+    # Setting $CPATH and $LIBRARY_PATH to make sure both `gcc' and `xgcc' find the
+    # library headers and binaries, regarless of the language being compiled.
+    #
+    # Note: When building the Java AWT GTK peer, the build system doesn't honor
+    # `--with-gmp' et al., e.g., when building
+    # `libjava/classpath/native/jni/java-math/gnu_java_math_GMP.c', so we just add
+    # them to $CPATH and $LIBRARY_PATH in this case.
+    #
+    # Likewise, the LTO code doesn't find zlib.
+    #
+    # Cross-compiling, we need gcc not to read ./specs in order to build the g++
+    # compiler (after the specs for the cross-gcc are created). Having
+    # LIBRARY_PATH= makes gcc read the specs from ., and the build breaks.
 
   CPATH = optionals (targetPlatform == hostPlatform)
     (makeSearchPathOutput "dev" "include" ([ ] ++ optional (zlib != null) zlib

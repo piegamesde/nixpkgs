@@ -11,19 +11,25 @@ let
   cfg = config.services.foundationdb;
   pkg = cfg.package;
 
-  # used for initial cluster configuration
-  initialIpAddr = if (cfg.publicAddress != "auto") then
-    cfg.publicAddress
-  else
-    "127.0.0.1";
+    # used for initial cluster configuration
+  initialIpAddr =
+    if (cfg.publicAddress != "auto") then
+      cfg.publicAddress
+    else
+      "127.0.0.1"
+    ;
 
-  fdbServers = n:
+  fdbServers =
+    n:
     concatStringsSep "\n"
     (map (x: "[fdbserver.${toString (x + cfg.listenPortStart)}]")
-      (range 0 (n - 1)));
+      (range 0 (n - 1)))
+    ;
 
-  backupAgents = n:
-    concatStringsSep "\n" (map (x: "[backup_agent.${toString x}]") (range 1 n));
+  backupAgents =
+    n:
+    concatStringsSep "\n" (map (x: "[backup_agent.${toString x}]") (range 1 n))
+    ;
 
   configFile = pkgs.writeText "foundationdb.conf" ''
     [general]
@@ -89,14 +95,16 @@ in {
       type = types.str;
       default = "auto";
       description = lib.mdDoc
-        "Publicly visible IP address of the process. Port is determined by process ID";
+        "Publicly visible IP address of the process. Port is determined by process ID"
+        ;
     };
 
     listenAddress = mkOption {
       type = types.str;
       default = "public";
       description = lib.mdDoc
-        "Publicly visible IP address of the process. Port is determined by process ID";
+        "Publicly visible IP address of the process. Port is determined by process ID"
+        ;
     };
 
     listenPortStart = mkOption {
@@ -356,8 +364,8 @@ in {
 
   config = mkIf cfg.enable {
     assertions = [ {
-      assertion = lib.versionOlder cfg.package.version "6.1" -> cfg.traceFormat
-        == "xml";
+      assertion =
+        lib.versionOlder cfg.package.version "6.1" -> cfg.traceFormat == "xml";
       message = ''
         Versions of FoundationDB before 6.1 do not support configurable trace formats (only XML is supported).
         This option has no effect for version '' + cfg.package.version + ''
@@ -398,34 +406,36 @@ in {
       wantedBy = [ "multi-user.target" ];
       unitConfig = { RequiresMountsFor = "${cfg.dataDir} ${cfg.logDir}"; };
 
-      serviceConfig = let
-        rwpaths = [
-          cfg.dataDir
-          cfg.logDir
-          cfg.pidfile
-          "/etc/foundationdb"
-        ] ++ cfg.extraReadWritePaths;
-      in {
-        Type = "simple";
-        Restart = "always";
-        RestartSec = 5;
-        User = cfg.user;
-        Group = cfg.group;
-        PIDFile = "${cfg.pidfile}";
+      serviceConfig =
+        let
+          rwpaths = [
+            cfg.dataDir
+            cfg.logDir
+            cfg.pidfile
+            "/etc/foundationdb"
+          ] ++ cfg.extraReadWritePaths;
+        in {
+          Type = "simple";
+          Restart = "always";
+          RestartSec = 5;
+          User = cfg.user;
+          Group = cfg.group;
+          PIDFile = "${cfg.pidfile}";
 
-        PermissionsStartOnly = true; # setup needs root perms
-        TimeoutSec = 120; # give reasonable time to shut down
+          PermissionsStartOnly = true; # setup needs root perms
+          TimeoutSec = 120; # give reasonable time to shut down
 
-        # Security options
-        NoNewPrivileges = true;
-        ProtectHome = true;
-        ProtectSystem = "strict";
-        ProtectKernelTunables = true;
-        ProtectControlGroups = true;
-        PrivateTmp = true;
-        PrivateDevices = true;
-        ReadWritePaths = lib.concatStringsSep " " (map (x: "-" + x) rwpaths);
-      } ;
+            # Security options
+          NoNewPrivileges = true;
+          ProtectHome = true;
+          ProtectSystem = "strict";
+          ProtectKernelTunables = true;
+          ProtectControlGroups = true;
+          PrivateTmp = true;
+          PrivateDevices = true;
+          ReadWritePaths = lib.concatStringsSep " " (map (x: "-" + x) rwpaths);
+        }
+        ;
 
       path = [
         pkg

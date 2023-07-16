@@ -17,8 +17,9 @@ in {
   options = {
     services.xmr-stak = {
       enable = mkEnableOption (lib.mdDoc "xmr-stak miner");
-      openclSupport = mkEnableOption
-        (lib.mdDoc "support for OpenCL (AMD/ATI graphics cards)");
+      openclSupport =
+        mkEnableOption (lib.mdDoc "support for OpenCL (AMD/ATI graphics cards)")
+        ;
       cudaSupport =
         mkEnableOption (lib.mdDoc "support for CUDA (NVidia graphics cards)");
 
@@ -79,16 +80,19 @@ in {
           ln -sf '${pkgs.writeText "xmr-stak-${fn}" content}' '${fn}'
         ''));
 
-      serviceConfig = let
-        rootRequired = cfg.openclSupport || cfg.cudaSupport;
-      in {
-        ExecStart = "${pkg}/bin/xmr-stak ${concatStringsSep " " cfg.extraArgs}";
-        # xmr-stak generates cpu and/or gpu configuration files
-        WorkingDirectory = "/tmp";
-        PrivateTmp = true;
-        DynamicUser = !rootRequired;
-        LimitMEMLOCK = toString (1024 * 1024);
-      } ;
+      serviceConfig =
+        let
+          rootRequired = cfg.openclSupport || cfg.cudaSupport;
+        in {
+          ExecStart =
+            "${pkg}/bin/xmr-stak ${concatStringsSep " " cfg.extraArgs}";
+            # xmr-stak generates cpu and/or gpu configuration files
+          WorkingDirectory = "/tmp";
+          PrivateTmp = true;
+          DynamicUser = !rootRequired;
+          LimitMEMLOCK = toString (1024 * 1024);
+        }
+        ;
     };
   };
 

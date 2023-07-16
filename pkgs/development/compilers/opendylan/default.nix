@@ -40,16 +40,18 @@ stdenv.mkDerivation {
       perl
     ];
 
-  preConfigure = if stdenv.hostPlatform.system == "i686-linux" then
-    ''
-      mkdir -p $TMPDIR/mps
-      tar --strip-components=1 -xf ${mps.src} -C $TMPDIR/mps
-      ./autogen.sh
-    ''
-  else
-    ''
-      ./autogen.sh
-    '';
+  preConfigure =
+    if stdenv.hostPlatform.system == "i686-linux" then
+      ''
+        mkdir -p $TMPDIR/mps
+        tar --strip-components=1 -xf ${mps.src} -C $TMPDIR/mps
+        ./autogen.sh
+      ''
+    else
+      ''
+        ./autogen.sh
+      ''
+    ;
 
   configureFlags = [ (if stdenv.hostPlatform.system == "i686-linux" then
     "--with-mps=$(TMPDIR)/mps"

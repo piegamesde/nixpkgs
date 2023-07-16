@@ -12,7 +12,8 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/mirage/mirage-stack/releases/download/v${version}/mirage-stack-v${version}.tbz";
+      "https://github.com/mirage/mirage-stack/releases/download/v${version}/mirage-stack-v${version}.tbz"
+      ;
     hash = "sha256-q70zGQvT5KTqvL37bZjSD8Su0P72KCUesyfWJcI8zPw=";
   };
 

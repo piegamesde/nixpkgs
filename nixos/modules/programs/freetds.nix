@@ -42,7 +42,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf (length (attrNames cfg) > 0) {
 

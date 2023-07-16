@@ -33,12 +33,13 @@ stdenv.mkDerivation rec {
   pname = "monkeysphere";
   version = "0.44";
 
-  # The patched OpenSSH binary MUST NOT be used (except in the check phase):
+    # The patched OpenSSH binary MUST NOT be used (except in the check phase):
   disallowedRequisites = [ opensshUnsafe ];
 
   src = fetchurl {
     url =
-      "http://archive.monkeysphere.info/debian/pool/monkeysphere/m/monkeysphere/monkeysphere_${version}.orig.tar.gz";
+      "http://archive.monkeysphere.info/debian/pool/monkeysphere/m/monkeysphere/monkeysphere_${version}.orig.tar.gz"
+      ;
     sha256 = "1ah7hy8r9gj96pni8azzjb85454qky5l17m3pqn37854l6grgika";
   };
 
@@ -72,9 +73,9 @@ stdenv.mkDerivation rec {
     "DESTDIR=$(out)"
   ];
 
-  # The tests should be run (and succeed) when making changes to this package
-  # but they aren't enabled by default because they "drain" entropy (GnuPG
-  # still uses /dev/random).
+    # The tests should be run (and succeed) when making changes to this package
+    # but they aren't enabled by default because they "drain" entropy (GnuPG
+    # still uses /dev/random).
   doCheck = false;
   preCheck = lib.optionalString doCheck ''
     patchShebangs tests/
@@ -88,36 +89,43 @@ stdenv.mkDerivation rec {
     sed -i "s/<(hd/<(hexdump/" tests/keytrans
   '';
 
-  postFixup = let
-    wrapperArgs = runtimeDeps:
-      "--prefix PERL5LIB : " + (with perlPackages;
-        makePerlPath [ # Optional (only required for keytrans)
-          CryptOpenSSLRSA
-          CryptOpenSSLBignum
-        ]) + lib.optionalString (builtins.length runtimeDeps > 0)
-      " --prefix PATH : ${lib.makeBinPath runtimeDeps}";
-    wrapMonkeysphere = runtimeDeps: program: ''
-      wrapProgram $out/bin/${program} ${wrapperArgs runtimeDeps}
-    '';
-    wrapPrograms = runtimeDeps: programs:
-      lib.concatMapStrings (wrapMonkeysphere runtimeDeps) programs;
-  in
-  wrapPrograms [ gnupg ] [
-    "monkeysphere-authentication"
-    "monkeysphere-host"
-  ] + wrapPrograms [
-    gnupg
-    lockfileProgs
-  ] [ "monkeysphere" ] + ''
-    # These 4 programs depend on the program name ($0):
-    for program in openpgp2pem openpgp2spki openpgp2ssh pem2openpgp; do
-      rm $out/bin/$program
-      ln -sf keytrans $out/share/monkeysphere/$program
-      makeWrapper $out/share/monkeysphere/$program $out/bin/$program \
-        ${wrapperArgs [ ]}
-    done
-  ''
-  ;
+  postFixup =
+    let
+      wrapperArgs =
+        runtimeDeps:
+        "--prefix PERL5LIB : " + (with perlPackages;
+          makePerlPath [ # Optional (only required for keytrans)
+            CryptOpenSSLRSA
+            CryptOpenSSLBignum
+          ]) + lib.optionalString (builtins.length runtimeDeps > 0)
+        " --prefix PATH : ${lib.makeBinPath runtimeDeps}"
+        ;
+      wrapMonkeysphere =
+        runtimeDeps: program: ''
+          wrapProgram $out/bin/${program} ${wrapperArgs runtimeDeps}
+        ''
+        ;
+      wrapPrograms =
+        runtimeDeps: programs:
+        lib.concatMapStrings (wrapMonkeysphere runtimeDeps) programs
+        ;
+    in
+    wrapPrograms [ gnupg ] [
+      "monkeysphere-authentication"
+      "monkeysphere-host"
+    ] + wrapPrograms [
+      gnupg
+      lockfileProgs
+    ] [ "monkeysphere" ] + ''
+      # These 4 programs depend on the program name ($0):
+      for program in openpgp2pem openpgp2spki openpgp2ssh pem2openpgp; do
+        rm $out/bin/$program
+        ln -sf keytrans $out/share/monkeysphere/$program
+        makeWrapper $out/share/monkeysphere/$program $out/bin/$program \
+          ${wrapperArgs [ ]}
+      done
+    ''
+    ;
 
   meta = with lib; {
     homepage = "http://web.monkeysphere.info/";

@@ -17,7 +17,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-MgbK39xAr8g9F+1MXZiw5rE/PsgQPcLZ2ZV6LiQbA24=";
 
-  # error: Found argument '--test-threads' which wasn't expected, or isn't valid in this context
+    # error: Found argument '--test-threads' which wasn't expected, or isn't valid in this context
   doCheck = false;
 
   meta = with lib; {

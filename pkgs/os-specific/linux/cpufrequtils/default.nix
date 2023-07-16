@@ -12,7 +12,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://ftp.be.debian.org/pub/linux/utils/kernel/cpufreq/cpufrequtils-${version}.tar.gz";
+      "http://ftp.be.debian.org/pub/linux/utils/kernel/cpufreq/cpufrequtils-${version}.tar.gz"
+      ;
     sha256 = "127i38d4w1hv2dzdy756gmbhq25q3k34nqb2s0xlhsfhhdqs0lq0";
   };
 
@@ -36,7 +37,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Tools to display or change the CPU governor settings";
     homepage =
-      "http://ftp.be.debian.org/pub/linux/utils/kernel/cpufreq/cpufrequtils.html";
+      "http://ftp.be.debian.org/pub/linux/utils/kernel/cpufreq/cpufrequtils.html"
+      ;
     license = licenses.gpl2Only;
     platforms = [ "x86_64-linux" ];
   };

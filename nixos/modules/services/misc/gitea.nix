@@ -187,7 +187,8 @@ in {
         default = false;
         type = types.bool;
         description = lib.mdDoc
-          "Do not generate a configuration and use gitea' installation wizard instead. The first registered user will be administrator.";
+          "Do not generate a configuration and use gitea' installation wizard instead. The first registered user will be administrator."
+          ;
       };
 
       stateDir = mkOption {
@@ -202,7 +203,8 @@ in {
           literalExpression ''"''${config.${opt.stateDir}}/custom"'';
         type = types.str;
         description = lib.mdDoc
-          "Gitea custom directory. Used for config, custom templates and other options.";
+          "Gitea custom directory. Used for config, custom templates and other options."
+          ;
       };
 
       user = mkOption {
@@ -237,10 +239,12 @@ in {
 
         port = mkOption {
           type = types.port;
-          default = if !usePostgresql then
-            3306
-          else
-            pg.port;
+          default =
+            if !usePostgresql then
+              3306
+            else
+              pg.port
+            ;
           defaultText = literalExpression ''
             if config.${opt.database.type} != "postgresql"
             then 3306
@@ -283,12 +287,14 @@ in {
 
         socket = mkOption {
           type = types.nullOr types.path;
-          default = if (cfg.database.createDatabase && usePostgresql) then
-            "/run/postgresql"
-          else if (cfg.database.createDatabase && useMysql) then
-            "/run/mysqld/mysqld.sock"
-          else
-            null;
+          default =
+            if (cfg.database.createDatabase && usePostgresql) then
+              "/run/postgresql"
+            else if (cfg.database.createDatabase && useMysql) then
+              "/run/mysqld/mysqld.sock"
+            else
+              null
+            ;
           defaultText = literalExpression "null";
           example = "/run/mysqld/mysqld.sock";
           description =
@@ -362,7 +368,8 @@ in {
           type = types.nullOr types.str;
           default = null;
           description = lib.mdDoc
-            "Filename to be used for the dump. If `null` a default name is chosen by gitea.";
+            "Filename to be used for the dump. If `null` a default name is chosen by gitea."
+            ;
           example = "gitea-dump";
         };
       };
@@ -464,7 +471,8 @@ in {
                 ];
                 default = "http";
                 description = lib.mdDoc ''
-                  Listen protocol. `+unix` means "over unix", not "in addition to."'';
+                  Listen protocol. `+unix` means "over unix", not "in addition to."''
+                  ;
               };
 
               HTTP_ADDR = mkOption {
@@ -473,9 +481,11 @@ in {
                   if lib.hasSuffix "+unix" cfg.settings.server.PROTOCOL then
                     "/run/gitea/gitea.sock"
                   else
-                    "0.0.0.0";
+                    "0.0.0.0"
+                  ;
                 defaultText = literalExpression ''
-                  if lib.hasSuffix "+unix" cfg.settings.server.PROTOCOL then "/run/gitea/gitea.sock" else "0.0.0.0"'';
+                  if lib.hasSuffix "+unix" cfg.settings.server.PROTOCOL then "/run/gitea/gitea.sock" else "0.0.0.0"''
+                  ;
                 description = lib.mdDoc
                   "Listen address. Must be a path when using a unix socket.";
               };
@@ -499,7 +509,8 @@ in {
                     toString cfg.settings.server.HTTP_PORT
                   }/";
                 defaultText = literalExpression ''
-                  "http://''${config.services.gitea.settings.server.DOMAIN}:''${toString config.services.gitea.settings.server.HTTP_PORT}/"'';
+                  "http://''${config.services.gitea.settings.server.DOMAIN}:''${toString config.services.gitea.settings.server.HTTP_PORT}/"''
+                  ;
                 description = lib.mdDoc "Full public URL of gitea server.";
               };
 
@@ -563,7 +574,8 @@ in {
         type = with types; nullOr str;
         default = null;
         description = lib.mdDoc
-          "Configuration lines appended to the generated gitea configuration file.";
+          "Configuration lines appended to the generated gitea configuration file."
+          ;
       };
     };
   };
@@ -573,7 +585,8 @@ in {
       assertion = cfg.database.createDatabase -> useSqlite || cfg.database.user
         == cfg.user;
       message =
-        "services.gitea.database.user must match services.gitea.user if the database is to be automatically provisioned";
+        "services.gitea.database.user must match services.gitea.user if the database is to be automatically provisioned"
+        ;
     } ];
 
     services.gitea.settings = {
@@ -582,10 +595,12 @@ in {
       database = mkMerge [
         { DB_TYPE = cfg.database.type; }
         (mkIf (useMysql || usePostgresql) {
-          HOST = if cfg.database.socket != null then
-            cfg.database.socket
-          else
-            cfg.database.host + ":" + toString cfg.database.port;
+          HOST =
+            if cfg.database.socket != null then
+              cfg.database.socket
+            else
+              cfg.database.host + ":" + toString cfg.database.port
+            ;
           NAME = cfg.database.name;
           USER = cfg.database.user;
           PASSWD = "#dbpass#";
@@ -685,88 +700,90 @@ in {
         pkgs.gnupg
       ];
 
-      # In older versions the secret naming for JWT was kind of confusing.
-      # The file jwt_secret hold the value for LFS_JWT_SECRET and JWT_SECRET
-      # wasn't persistent at all.
-      # To fix that, there is now the file oauth2_jwt_secret containing the
-      # values for JWT_SECRET and the file jwt_secret gets renamed to
-      # lfs_jwt_secret.
-      # We have to consider this to stay compatible with older installations.
-      preStart = let
-        runConfig = "${cfg.customDir}/conf/app.ini";
-        secretKey = "${cfg.customDir}/conf/secret_key";
-        oauth2JwtSecret = "${cfg.customDir}/conf/oauth2_jwt_secret";
-        oldLfsJwtSecret =
-          "${cfg.customDir}/conf/jwt_secret"; # old file for LFS_JWT_SECRET
-        lfsJwtSecret =
-          "${cfg.customDir}/conf/lfs_jwt_secret"; # new file for LFS_JWT_SECRET
-        internalToken = "${cfg.customDir}/conf/internal_token";
-        replaceSecretBin = "${pkgs.replace-secret}/bin/replace-secret";
-      in ''
-        # copy custom configuration and generate random secrets if needed
-        ${optionalString (!cfg.useWizard) ''
-          function gitea_setup {
-            cp -f '${configFile}' '${runConfig}'
+        # In older versions the secret naming for JWT was kind of confusing.
+        # The file jwt_secret hold the value for LFS_JWT_SECRET and JWT_SECRET
+        # wasn't persistent at all.
+        # To fix that, there is now the file oauth2_jwt_secret containing the
+        # values for JWT_SECRET and the file jwt_secret gets renamed to
+        # lfs_jwt_secret.
+        # We have to consider this to stay compatible with older installations.
+      preStart =
+        let
+          runConfig = "${cfg.customDir}/conf/app.ini";
+          secretKey = "${cfg.customDir}/conf/secret_key";
+          oauth2JwtSecret = "${cfg.customDir}/conf/oauth2_jwt_secret";
+          oldLfsJwtSecret =
+            "${cfg.customDir}/conf/jwt_secret"; # old file for LFS_JWT_SECRET
+          lfsJwtSecret = "${cfg.customDir}/conf/lfs_jwt_secret"
+            ; # new file for LFS_JWT_SECRET
+          internalToken = "${cfg.customDir}/conf/internal_token";
+          replaceSecretBin = "${pkgs.replace-secret}/bin/replace-secret";
+        in ''
+          # copy custom configuration and generate random secrets if needed
+          ${optionalString (!cfg.useWizard) ''
+            function gitea_setup {
+              cp -f '${configFile}' '${runConfig}'
 
-            if [ ! -s '${secretKey}' ]; then
-                ${exe} generate secret SECRET_KEY > '${secretKey}'
-            fi
+              if [ ! -s '${secretKey}' ]; then
+                  ${exe} generate secret SECRET_KEY > '${secretKey}'
+              fi
 
-            # Migrate LFS_JWT_SECRET filename
-            if [[ -s '${oldLfsJwtSecret}' && ! -s '${lfsJwtSecret}' ]]; then
-                mv '${oldLfsJwtSecret}' '${lfsJwtSecret}'
-            fi
+              # Migrate LFS_JWT_SECRET filename
+              if [[ -s '${oldLfsJwtSecret}' && ! -s '${lfsJwtSecret}' ]]; then
+                  mv '${oldLfsJwtSecret}' '${lfsJwtSecret}'
+              fi
 
-            if [ ! -s '${oauth2JwtSecret}' ]; then
-                ${exe} generate secret JWT_SECRET > '${oauth2JwtSecret}'
-            fi
+              if [ ! -s '${oauth2JwtSecret}' ]; then
+                  ${exe} generate secret JWT_SECRET > '${oauth2JwtSecret}'
+              fi
 
-            ${
-              lib.optionalString cfg.lfs.enable ''
-                if [ ! -s '${lfsJwtSecret}' ]; then
-                    ${exe} generate secret LFS_JWT_SECRET > '${lfsJwtSecret}'
-                fi
-              ''
+              ${
+                lib.optionalString cfg.lfs.enable ''
+                  if [ ! -s '${lfsJwtSecret}' ]; then
+                      ${exe} generate secret LFS_JWT_SECRET > '${lfsJwtSecret}'
+                  fi
+                ''
+              }
+
+              if [ ! -s '${internalToken}' ]; then
+                  ${exe} generate secret INTERNAL_TOKEN > '${internalToken}'
+              fi
+
+              chmod u+w '${runConfig}'
+              ${replaceSecretBin} '#secretkey#' '${secretKey}' '${runConfig}'
+              ${replaceSecretBin} '#dbpass#' '${cfg.database.passwordFile}' '${runConfig}'
+              ${replaceSecretBin} '#oauth2jwtsecret#' '${oauth2JwtSecret}' '${runConfig}'
+              ${replaceSecretBin} '#internaltoken#' '${internalToken}' '${runConfig}'
+
+              ${
+                lib.optionalString cfg.lfs.enable ''
+                  ${replaceSecretBin} '#lfsjwtsecret#' '${lfsJwtSecret}' '${runConfig}'
+                ''
+              }
+
+              ${
+                lib.optionalString (cfg.mailerPasswordFile != null) ''
+                  ${replaceSecretBin} '#mailerpass#' '${cfg.mailerPasswordFile}' '${runConfig}'
+                ''
+              }
+              chmod u-w '${runConfig}'
             }
+            (umask 027; gitea_setup)
+          ''}
 
-            if [ ! -s '${internalToken}' ]; then
-                ${exe} generate secret INTERNAL_TOKEN > '${internalToken}'
-            fi
+          # run migrations/init the database
+          ${exe} migrate
 
-            chmod u+w '${runConfig}'
-            ${replaceSecretBin} '#secretkey#' '${secretKey}' '${runConfig}'
-            ${replaceSecretBin} '#dbpass#' '${cfg.database.passwordFile}' '${runConfig}'
-            ${replaceSecretBin} '#oauth2jwtsecret#' '${oauth2JwtSecret}' '${runConfig}'
-            ${replaceSecretBin} '#internaltoken#' '${internalToken}' '${runConfig}'
+          # update all hooks' binary paths
+          ${exe} admin regenerate hooks
 
-            ${
-              lib.optionalString cfg.lfs.enable ''
-                ${replaceSecretBin} '#lfsjwtsecret#' '${lfsJwtSecret}' '${runConfig}'
-              ''
-            }
-
-            ${
-              lib.optionalString (cfg.mailerPasswordFile != null) ''
-                ${replaceSecretBin} '#mailerpass#' '${cfg.mailerPasswordFile}' '${runConfig}'
-              ''
-            }
-            chmod u-w '${runConfig}'
-          }
-          (umask 027; gitea_setup)
-        ''}
-
-        # run migrations/init the database
-        ${exe} migrate
-
-        # update all hooks' binary paths
-        ${exe} admin regenerate hooks
-
-        # update command option in authorized_keys
-        if [ -r ${cfg.stateDir}/.ssh/authorized_keys ]
-        then
-          ${exe} admin regenerate keys
-        fi
-      '' ;
+          # update command option in authorized_keys
+          if [ -r ${cfg.stateDir}/.ssh/authorized_keys ]
+          then
+            ${exe} admin regenerate keys
+          fi
+        ''
+        ;
 
       serviceConfig = {
         Type = "simple";
@@ -775,10 +792,10 @@ in {
         WorkingDirectory = cfg.stateDir;
         ExecStart = "${exe} web --pid /run/gitea/gitea.pid";
         Restart = "always";
-        # Runtime directory and mode
+          # Runtime directory and mode
         RuntimeDirectory = "gitea";
         RuntimeDirectoryMode = "0755";
-        # Access write directories
+          # Access write directories
         ReadWritePaths = [
           cfg.customDir
           cfg.dump.backupDir
@@ -787,11 +804,11 @@ in {
           cfg.lfs.contentDir
         ];
         UMask = "0027";
-        # Capabilities
+          # Capabilities
         CapabilityBoundingSet = "";
-        # Security
+          # Security
         NoNewPrivileges = true;
-        # Sandboxing
+          # Sandboxing
         ProtectSystem = "strict";
         ProtectHome = true;
         PrivateTmp = true;
@@ -809,10 +826,11 @@ in {
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         PrivateMounts = true;
-        # System Call Filtering
+          # System Call Filtering
         SystemCallArchitectures = "native";
         SystemCallFilter =
-          "~@clock @cpu-emulation @debug @keyring @module @mount @obsolete @raw-io @reboot @setuid @swap";
+          "~@clock @cpu-emulation @debug @keyring @module @mount @obsolete @raw-io @reboot @setuid @swap"
+          ;
       };
 
       environment = {
@@ -841,7 +859,7 @@ in {
         services.gitea.`extraConfig` is deprecated, please use services.gitea.`settings`.
       '';
 
-    # Create database passwordFile default when password is configured.
+      # Create database passwordFile default when password is configured.
     services.gitea.database.passwordFile = mkDefault (toString
       (pkgs.writeTextFile {
         name = "gitea-database-password";

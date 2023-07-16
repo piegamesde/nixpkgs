@@ -10,7 +10,8 @@ let
 
   src = fetchurl {
     url =
-      "https://github.com/yang991178/fluent-reader/releases/download/v${version}/Fluent.Reader.${version}.AppImage";
+      "https://github.com/yang991178/fluent-reader/releases/download/v${version}/Fluent.Reader.${version}.AppImage"
+      ;
     hash = "sha256-CzvhOaWfZ4rt2HmL/yv6P7IxEPLoyuBhftOxcjdMInU=";
   };
 

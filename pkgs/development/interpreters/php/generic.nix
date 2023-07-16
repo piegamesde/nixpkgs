@@ -2,7 +2,8 @@
 # both in the same attribute named nixosTests.php
 
 let
-  generic = {
+  generic =
+    {
       callPackage,
       lib,
       stdenv,
@@ -64,23 +65,25 @@ let
     let
       # Compose two functions of the type expected by 'overrideAttrs'
       # into one where changes made in the first are available to the second.
-      composeOverrides = f: g: attrs:
+      composeOverrides =
+        f: g: attrs:
         let
           fApplied = f attrs;
           attrs' = attrs // fApplied;
         in
         fApplied // g attrs'
-      ;
+        ;
 
-      # buildEnv wraps php to provide additional extensions and
-      # configuration. Its usage is documented in
-      # doc/languages-frameworks/php.section.md.
-      #
-      # Create a buildEnv with earlier overridden values and
-      # extensions functions in its closure. This is necessary for
-      # consecutive calls to buildEnv and overrides to work as
-      # expected.
-      mkBuildEnv = prevArgs: prevExtensionFunctions:
+        # buildEnv wraps php to provide additional extensions and
+        # configuration. Its usage is documented in
+        # doc/languages-frameworks/php.section.md.
+        #
+        # Create a buildEnv with earlier overridden values and
+        # extensions functions in its closure. This is necessary for
+        # consecutive calls to buildEnv and overrides to work as
+        # expected.
+      mkBuildEnv =
+        prevArgs: prevExtensionFunctions:
         lib.makeOverridable ({
             extensions ? ({
                 enabled,
@@ -109,11 +112,15 @@ let
                 all = php-packages.extensions;
               }) [ ] allExtensionFunctions;
 
-            getExtName = ext: ext.extensionName;
+            getExtName =
+              ext:
+              ext.extensionName
+              ;
 
-            # Recursively get a list of all internal dependencies
-            # for a list of extensions.
-            getDepsRecursively = extensions:
+              # Recursively get a list of all internal dependencies
+              # for a list of extensions.
+            getDepsRecursively =
+              extensions:
               let
                 deps = lib.concatMap
                   (ext: (ext.internalDeps or [ ]) ++ (ext.peclDeps or [ ]))
@@ -121,14 +128,15 @@ let
               in if !(deps == [ ]) then
                 deps ++ (getDepsRecursively deps)
               else
-                deps;
+                deps
+              ;
 
-            # Generate extension load configuration snippets from the
-            # extension parameter. This is an attrset suitable for use
-            # with textClosureList, which is used to put the strings in
-            # the right order - if a plugin which is dependent on
-            # another plugin is placed before its dependency, it will
-            # fail to load.
+              # Generate extension load configuration snippets from the
+              # extension parameter. This is an attrset suitable for use
+              # with textClosureList, which is used to put the strings in
+              # the right order - if a plugin which is dependent on
+              # another plugin is placed before its dependency, it will
+              # fail to load.
             extensionTexts = lib.listToAttrs (map (ext:
               let
                 extName = getExtName ext;
@@ -157,7 +165,8 @@ let
               passthru = php.passthru // {
                 buildEnv = mkBuildEnv allArgs allExtensionFunctions;
                 withExtensions = mkWithExtensions allArgs allExtensionFunctions;
-                overrideAttrs = f:
+                overrideAttrs =
+                  f:
                   let
                     newPhpAttrsOverrides = composeOverrides
                       (filteredArgs.phpAttrsOverrides or (attrs: { })) f;
@@ -166,10 +175,10 @@ let
                     });
                   in
                   php.buildEnv { inherit extensions extraConfig; }
-                ;
+                  ;
                 phpIni = "${phpWithExtensions}/lib/php.ini";
                 unwrapped = php;
-                # Select the right php tests for the php version
+                  # Select the right php tests for the php version
                 tests = {
                   nixos = lib.recurseIntoAttrs nixosTests."php${
                       lib.strings.replaceStrings [ "." ] [ "" ]
@@ -204,10 +213,13 @@ let
             };
           in
           phpWithExtensions
-        );
+        )
+        ;
 
-      mkWithExtensions = prevArgs: prevExtensionFunctions: extensions:
-        mkBuildEnv prevArgs prevExtensionFunctions { inherit extensions; };
+      mkWithExtensions =
+        prevArgs: prevExtensionFunctions: extensions:
+        mkBuildEnv prevArgs prevExtensionFunctions { inherit extensions; }
+        ;
     in
     stdenv.mkDerivation (let
       attrs = {
@@ -330,38 +342,41 @@ let
         ];
 
         passthru = {
-          updateScript = let
-            script = writeShellScript "php${lib.versions.major version}${
-                lib.versions.minor version
-              }-update-script" ''
-                set -o errexit
-                PATH=${
-                  lib.makeBinPath [
-                    common-updater-scripts
-                    curl
-                    jq
-                  ]
-                }
-                new_version=$(curl --silent "https://www.php.net/releases/active" | jq --raw-output '."${
-                  lib.versions.major version
-                }"."${lib.versions.majorMinor version}".version')
-                update-source-version "$UPDATE_NIX_ATTR_PATH.unwrapped" "$new_version" "--file=$1"
-              '';
-          in [
-            script
-            # Passed as an argument so that update.nix can ensure it does not become a store path.
-            (./. + "/${lib.versions.majorMinor version}.nix")
-          ] ;
+          updateScript =
+            let
+              script = writeShellScript "php${lib.versions.major version}${
+                  lib.versions.minor version
+                }-update-script" ''
+                  set -o errexit
+                  PATH=${
+                    lib.makeBinPath [
+                      common-updater-scripts
+                      curl
+                      jq
+                    ]
+                  }
+                  new_version=$(curl --silent "https://www.php.net/releases/active" | jq --raw-output '."${
+                    lib.versions.major version
+                  }"."${lib.versions.majorMinor version}".version')
+                  update-source-version "$UPDATE_NIX_ATTR_PATH.unwrapped" "$new_version" "--file=$1"
+                '';
+            in [
+              script
+              # Passed as an argument so that update.nix can ensure it does not become a store path.
+              (./. + "/${lib.versions.majorMinor version}.nix")
+            ]
+            ;
           buildEnv = mkBuildEnv { } [ ];
           withExtensions = mkWithExtensions { } [ ];
-          overrideAttrs = f:
+          overrideAttrs =
+            f:
             let
               newPhpAttrsOverrides = composeOverrides phpAttrsOverrides f;
               php =
                 generic (args // { phpAttrsOverrides = newPhpAttrsOverrides; });
             in
             php
-          ;
+            ;
           inherit ztsSupport;
         };
 
@@ -381,6 +396,6 @@ let
     in
     attrs // phpAttrsOverrides attrs
     )
-  ;
+    ;
 in
 generic

@@ -35,7 +35,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchurl {
     url =
-      "https://www.jwz.org/xscreensaver/xscreensaver-${finalAttrs.version}.tar.gz";
+      "https://www.jwz.org/xscreensaver/xscreensaver-${finalAttrs.version}.tar.gz"
+      ;
     hash = "sha256-9TT6uFqDbeW4vo6R/CG4DKfWpO2ThuviB9S+ek50mac=";
   };
 
@@ -78,7 +79,7 @@ stdenv.mkDerivation (finalAttrs: {
       placeholder "out"
     }/share/xscreensaver/app-defaults" ];
 
-  # "marbling" has NEON code that mixes signed and unsigned vector types
+    # "marbling" has NEON code that mixes signed and unsigned vector types
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.hostPlatform.isAarch "-flax-vector-conversions";
 

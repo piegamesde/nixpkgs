@@ -8,17 +8,21 @@
 let
   inherit (lib) composeManyExtensions extends makeExtensible mapAttrs;
 
-  nodePackages = final:
+  nodePackages =
+    final:
     import ./composition.nix {
       inherit pkgs nodejs;
       inherit (stdenv.hostPlatform) system;
-    };
+    }
+    ;
 
-  mainProgramOverrides = final: prev:
+  mainProgramOverrides =
+    final: prev:
     mapAttrs (pkgName: mainProgram:
       prev.${pkgName}.override
       (oldAttrs: { meta = oldAttrs.meta // { inherit mainProgram; }; }))
-    (import ./main-programs.nix);
+    (import ./main-programs.nix)
+    ;
 
   extensions = composeManyExtensions [
     mainProgramOverrides

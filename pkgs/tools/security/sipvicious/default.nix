@@ -15,7 +15,7 @@ buildPythonApplication rec {
     sha256 = "sha256-O8/9Vz/u8BoF1dfGceOJdzPPYLfkdBp2DkwA5WQ3dgo=";
   };
 
-  # Project has no tests
+    # Project has no tests
   doCheck = false;
   pythonImportsCheck = [ "sipvicious" ];
 

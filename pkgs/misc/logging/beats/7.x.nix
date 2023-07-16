@@ -10,7 +10,8 @@
 }:
 
 let
-  beat = package: extraArgs:
+  beat =
+    package: extraArgs:
     buildGoModule (rec {
       pname = package;
       version = elk7Version;
@@ -36,7 +37,8 @@ let
         ];
         platforms = platforms.linux;
       };
-    } // extraArgs);
+    } // extraArgs)
+    ;
 in rec {
   filebeat7 = beat "filebeat" {
     meta.description = "Lightweight shipper for logfiles";

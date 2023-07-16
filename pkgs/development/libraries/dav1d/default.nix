@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     nasm
     pkg-config
   ];
-  # TODO: doxygen (currently only HTML and not build by default).
+    # TODO: doxygen (currently only HTML and not build by default).
   buildInputs = [ xxHash ] ++ lib.optional withExamples SDL2
     ++ lib.optionals useVulkan [
       libplacebo
@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
     '';
     inherit (src.meta) homepage;
     changelog = "https://code.videolan.org/videolan/dav1d/-/tags/${version}";
-    # More technical: https://code.videolan.org/videolan/dav1d/blob/${version}/NEWS
+      # More technical: https://code.videolan.org/videolan/dav1d/blob/${version}/NEWS
     license = licenses.bsd2;
     platforms = platforms.unix;
     maintainers = with maintainers; [ primeos ];

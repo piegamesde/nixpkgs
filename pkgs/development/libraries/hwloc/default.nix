@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     "--enable-netloc"
   ];
 
-  # XXX: libX11 is not directly needed, but needed as a propagated dep of Cairo.
+    # XXX: libX11 is not directly needed, but needed as a propagated dep of Cairo.
   nativeBuildInputs = [ pkg-config ];
 
   buildInputs = [
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
   ] ++ lib.optionals stdenv.isLinux [ numactl ]
     ++ lib.optional enableCuda cudaPackages.cudatoolkit;
 
-  # Since `libpci' appears in `hwloc.pc', it must be propagated.
+    # Since `libpci' appears in `hwloc.pc', it must be propagated.
   propagatedBuildInputs = lib.optional stdenv.isLinux pciutils;
 
   enableParallelBuilding = true;
@@ -59,8 +59,8 @@ stdenv.mkDerivation rec {
       -e "s|-lnuma|-L$numalibdir -lnuma|g"
   '';
 
-  # Checks disabled because they're impure (hardware dependent) and
-  # fail on some build machines.
+    # Checks disabled because they're impure (hardware dependent) and
+    # fail on some build machines.
   doCheck = false;
 
   outputs = [
@@ -73,7 +73,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Portable abstraction of hierarchical architectures for high-performance computing";
+      "Portable abstraction of hierarchical architectures for high-performance computing"
+      ;
     longDescription = ''
       hwloc provides a portable abstraction (across OS,
       versions, architectures, ...) of the hierarchical topology of
@@ -89,7 +90,7 @@ stdenv.mkDerivation rec {
       gather information about the hardware, bind processes, and much
       more.
     '';
-    # https://www.open-mpi.org/projects/hwloc/license.php
+      # https://www.open-mpi.org/projects/hwloc/license.php
     license = licenses.bsd3;
     homepage = "https://www.open-mpi.org/projects/hwloc/";
     maintainers = with maintainers; [

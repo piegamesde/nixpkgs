@@ -15,7 +15,8 @@ let
 
   pkgs' = lib.mapAttrs (_: mods: lib.filterAttrs isAvailable mods) pkgs;
 
-  isAvailable = _: mod:
+  isAvailable =
+    _: mod:
     if (build == null) then
       true
     else if build.isTiles then
@@ -23,7 +24,8 @@ let
     else if build.isCurses then
       mod.forCurses or false
     else
-      false;
+      false
+    ;
 
 in
 lib.makeExtensible (_: pkgs')

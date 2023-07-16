@@ -24,7 +24,8 @@ stdenv.mkDerivation rec {
   patches = [ (fetchpatch {
     name = "fix-openssl-3-build.patch";
     url =
-      "https://github.com/droe/sslsplit/commit/e17de8454a65d2b9ba432856971405dfcf1e7522.patch";
+      "https://github.com/droe/sslsplit/commit/e17de8454a65d2b9ba432856971405dfcf1e7522.patch"
+      ;
     hash = "sha256-sEwP7f2PSqXdMqLub9zrfQgH8I4oe9klVPzNpJjrPJ8=";
   }) ];
 

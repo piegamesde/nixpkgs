@@ -13,7 +13,8 @@ let
   user = "invoiceplane";
   webserver = config.services.${cfg.webserver};
 
-  invoiceplane-config = hostName: cfg:
+  invoiceplane-config =
+    hostName: cfg:
     pkgs.writeText "ipconfig.php" ''
       IP_URL=http://${hostName}
       ENABLE_DEBUG=false
@@ -37,14 +38,18 @@ let
       ENCRYPTION_CIPHER=AES-256
       SETUP_COMPLETED=false
       REMOVE_INDEXPHP=true
-    '';
+    ''
+    ;
 
-  extraConfig = hostName: cfg:
+  extraConfig =
+    hostName: cfg:
     pkgs.writeText "extraConfig.php" ''
       ${toString cfg.extraConfig}
-    '';
+    ''
+    ;
 
-  pkg = hostName: cfg:
+  pkg =
+    hostName: cfg:
     pkgs.stdenv.mkDerivation rec {
       pname = "invoiceplane-${hostName}";
       version = src.version;
@@ -77,9 +82,11 @@ let
           "cp -r ${template}/. $out/application/views/invoice_templates/pdf/")
         cfg.invoiceTemplates}
       '';
-    };
+    }
+    ;
 
-  siteOpts = {
+  siteOpts =
+    {
       lib,
       name,
       ...
@@ -232,7 +239,8 @@ let
 
       };
 
-    };
+    }
+    ;
 in {
   # interface
   options = {
@@ -261,7 +269,7 @@ in {
 
   };
 
-  # implementation
+    # implementation
   config = mkIf (eachSite != { }) (mkMerge [
     {
 
@@ -269,18 +277,21 @@ in {
         {
           assertion = cfg.database.createLocally -> cfg.database.user == user;
           message = ''
-            services.invoiceplane.sites."${hostName}".database.user must be ${user} if the database is to be automatically provisioned'';
+            services.invoiceplane.sites."${hostName}".database.user must be ${user} if the database is to be automatically provisioned''
+            ;
         }
         {
-          assertion = cfg.database.createLocally -> cfg.database.passwordFile
-            == null;
+          assertion =
+            cfg.database.createLocally -> cfg.database.passwordFile == null;
           message = ''
-            services.invoiceplane.sites."${hostName}".database.passwordFile cannot be specified if services.invoiceplane.sites."${hostName}".database.createLocally is set to true.'';
+            services.invoiceplane.sites."${hostName}".database.passwordFile cannot be specified if services.invoiceplane.sites."${hostName}".database.createLocally is set to true.''
+            ;
         }
         {
           assertion = cfg.cron.enable -> cfg.cron.key != null;
           message = ''
-            services.invoiceplane.sites."${hostName}".cron.key must be set in order to use cron service.'';
+            services.invoiceplane.sites."${hostName}".cron.key must be set in order to use cron service.''
+            ;
         }
       ]) eachSite);
 
@@ -292,9 +303,8 @@ in {
             mapAttrsToList (hostName: cfg: cfg.database.name) eachSite;
           ensureUsers = mapAttrsToList (hostName: cfg: {
             name = cfg.database.user;
-            ensurePermissions = {
-              "${cfg.database.name}.*" = "ALL PRIVILEGES";
-            };
+            ensurePermissions = { "${cfg.database.name}.*" = "ALL PRIVILEGES"; }
+              ;
           }) eachSite;
         };
 
@@ -367,7 +377,8 @@ in {
             Type = "oneshot";
             User = user;
             ExecStart =
-              "${pkgs.curl}/bin/curl --header 'Host: ${hostName}' http://localhost/invoices/cron/recur/${cfg.cron.key}";
+              "${pkgs.curl}/bin/curl --header 'Host: ${hostName}' http://localhost/invoices/cron/recur/${cfg.cron.key}"
+              ;
           };
         }))) eachSite;
 

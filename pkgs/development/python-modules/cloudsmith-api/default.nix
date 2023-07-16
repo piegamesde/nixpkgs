@@ -29,7 +29,7 @@ buildPythonPackage rec {
     urllib3
   ];
 
-  # Wheels have no tests
+    # Wheels have no tests
   doCheck = false;
 
   pythonImportsCheck = [ "cloudsmith_api" ];

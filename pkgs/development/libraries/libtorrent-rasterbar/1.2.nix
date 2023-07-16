@@ -18,8 +18,8 @@
 let
   version = "1.2.11";
 
-  # Make sure we override python, so the correct version is chosen
-  # for the bindings, if overridden
+    # Make sure we override python, so the correct version is chosen
+    # for the bindings, if overridden
   boostPython = boost.override {
     enablePython = true;
     inherit python;

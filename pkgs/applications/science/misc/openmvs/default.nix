@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  # SSE is enabled by default
+    # SSE is enabled by default
   cmakeFlags = lib.optional (!stdenv.isx86_64) "-DOpenMVS_USE_SSE=OFF";
 
   buildInputs = [

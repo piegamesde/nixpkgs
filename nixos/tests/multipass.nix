@@ -17,7 +17,8 @@ import ./make-test-python.nix ({
 
     meta.maintainers = [ lib.maintainers.jnsgruk ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         lib,
         ...
       }: {
@@ -28,7 +29,8 @@ import ./make-test-python.nix ({
 
           multipass.enable = true;
         };
-      };
+      }
+      ;
 
     testScript = ''
       machine.wait_for_unit("sockets.target")

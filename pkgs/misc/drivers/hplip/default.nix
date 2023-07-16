@@ -43,7 +43,8 @@ let
 
   plugin = fetchurl {
     url =
-      "https://developers.hp.com/sites/default/files/${pname}-${version}-plugin.run";
+      "https://developers.hp.com/sites/default/files/${pname}-${version}-plugin.run"
+      ;
     sha256 = "sha256-AyZBiF1B42dGnJeoJLFSCGNK83c86ZAM2uFciuv2H4A=";
   };
 
@@ -132,7 +133,8 @@ python3Packages.buildPythonApplication {
     # Remove all ImageProcessor functionality since that is closed source
     (fetchurl {
       url =
-        "https://web.archive.org/web/20230226174550/https://sources.debian.org/data/main/h/hplip/3.22.10+dfsg0-1/debian/patches/0028-Remove-ImageProcessor-binary-installs.patch";
+        "https://web.archive.org/web/20230226174550/https://sources.debian.org/data/main/h/hplip/3.22.10+dfsg0-1/debian/patches/0028-Remove-ImageProcessor-binary-installs.patch"
+        ;
       sha256 = "sha256:18njrq5wrf3fi4lnpd1jqmaqr7ph5d7jxm7f15b1wwrbxir1rmml";
     })
 
@@ -167,44 +169,47 @@ python3Packages.buildPythonApplication {
     echo 'AUTOMAKE_OPTIONS = foreign' >> Makefile.am
   '';
 
-  configureFlags = let
-    out = placeholder "out";
-  in
-  [
-    "--with-hpppddir=${out}/share/cups/model/HP"
-    "--with-cupsfilterdir=${out}/lib/cups/filter"
-    "--with-cupsbackenddir=${out}/lib/cups/backend"
-    "--with-icondir=${out}/share/applications"
-    "--with-systraydir=${out}/xdg/autostart"
-    "--with-mimedir=${out}/etc/cups"
-    "--enable-policykit"
-    "--disable-qt4"
+  configureFlags =
+    let
+      out = placeholder "out";
+    in
+    [
+      "--with-hpppddir=${out}/share/cups/model/HP"
+      "--with-cupsfilterdir=${out}/lib/cups/filter"
+      "--with-cupsbackenddir=${out}/lib/cups/backend"
+      "--with-icondir=${out}/share/applications"
+      "--with-systraydir=${out}/xdg/autostart"
+      "--with-mimedir=${out}/etc/cups"
+      "--enable-policykit"
+      "--disable-qt4"
 
-    # remove ImageProcessor usage, it causes segfaults, see
-    # https://bugs.launchpad.net/hplip/+bug/1788706
-    # https://bugs.launchpad.net/hplip/+bug/1787289
-    "--disable-imageProcessor-build"
-  ] ++ lib.optional withStaticPPDInstall "--enable-cups-ppd-install"
-  ++ lib.optional withQt5 "--enable-qt5"
-  ;
+      # remove ImageProcessor usage, it causes segfaults, see
+      # https://bugs.launchpad.net/hplip/+bug/1788706
+      # https://bugs.launchpad.net/hplip/+bug/1787289
+      "--disable-imageProcessor-build"
+    ] ++ lib.optional withStaticPPDInstall "--enable-cups-ppd-install"
+    ++ lib.optional withQt5 "--enable-qt5"
+    ;
 
-  # Prevent 'ppdc: Unable to find include file "<font.defs>"' which prevent
-  # generation of '*.ppd' files.
-  # This seems to be a 'ppdc' issue when the tool is run in a hermetic sandbox.
-  # Could not find how to fix the problem in 'ppdc' so this is a workaround.
+    # Prevent 'ppdc: Unable to find include file "<font.defs>"' which prevent
+    # generation of '*.ppd' files.
+    # This seems to be a 'ppdc' issue when the tool is run in a hermetic sandbox.
+    # Could not find how to fix the problem in 'ppdc' so this is a workaround.
   CUPS_DATADIR = "${cups}/share/cups";
 
-  makeFlags = let
-    out = placeholder "out";
-  in [
-    "halpredir=${out}/share/hal/fdi/preprobe/10osvendor"
-    "rulesdir=${out}/etc/udev/rules.d"
-    "policykit_dir=${out}/share/polkit-1/actions"
-    "policykit_dbus_etcdir=${out}/etc/dbus-1/system.d"
-    "policykit_dbus_sharedir=${out}/share/dbus-1/system-services"
-    "hplip_confdir=${out}/etc/hp"
-    "hplip_statedir=${out}/var/lib/hp"
-  ] ;
+  makeFlags =
+    let
+      out = placeholder "out";
+    in [
+      "halpredir=${out}/share/hal/fdi/preprobe/10osvendor"
+      "rulesdir=${out}/etc/udev/rules.d"
+      "policykit_dir=${out}/share/polkit-1/actions"
+      "policykit_dbus_etcdir=${out}/etc/dbus-1/system.d"
+      "policykit_dbus_sharedir=${out}/share/dbus-1/system-services"
+      "hplip_confdir=${out}/etc/hp"
+      "hplip_statedir=${out}/var/lib/hp"
+    ]
+    ;
 
   postConfigure = ''
     # don't save timestamp, in order to improve reproducibility
@@ -215,10 +220,10 @@ python3Packages.buildPythonApplication {
   enableParallelBuilding = true;
   enableParallelInstalling = false;
 
-  #
-  # Running `hp-diagnose_plugin -g` can be used to diagnose
-  # issues with plugins.
-  #
+    #
+    # Running `hp-diagnose_plugin -g` can be used to diagnose
+    # issues with plugins.
+    #
   postInstall = ''
     for resolution in 16x16 32x32 64x64 128x128 256x256; do
       mkdir -p $out/share/icons/hicolor/$resolution/apps
@@ -265,12 +270,12 @@ python3Packages.buildPythonApplication {
     cp ${hplipState} $out/var/lib/hp/hplip.state
   '';
 
-  # The installed executables are just symlinks into $out/share/hplip,
-  # but wrapPythonPrograms ignores symlinks. We cannot replace the Python
-  # modules in $out/share/hplip with wrapper scripts because they import
-  # each other as libraries. Instead, we emulate wrapPythonPrograms by
-  # 1. Calling patchPythonProgram on the original script in $out/share/hplip
-  # 2. Making our own wrapper pointing directly to the original script.
+    # The installed executables are just symlinks into $out/share/hplip,
+    # but wrapPythonPrograms ignores symlinks. We cannot replace the Python
+    # modules in $out/share/hplip with wrapper scripts because they import
+    # each other as libraries. Instead, we emulate wrapPythonPrograms by
+    # 1. Calling patchPythonProgram on the original script in $out/share/hplip
+    # 2. Making our own wrapper pointing directly to the original script.
   dontWrapPythonPrograms = true;
   preFixup = ''
     buildPythonPath "$out $pythonPath"
@@ -305,7 +310,7 @@ python3Packages.buildPythonApplication {
     done
   '';
 
-  # There are some binaries there, which reference gcc-unwrapped otherwise.
+    # There are some binaries there, which reference gcc-unwrapped otherwise.
   stripDebugList = [
     "share/hplip"
     "lib/cups/backend"
@@ -318,14 +323,16 @@ python3Packages.buildPythonApplication {
     description = "Print, scan and fax HP drivers for Linux";
     homepage = "https://developers.hp.com/hp-linux-imaging-and-printing";
     downloadPage = "https://sourceforge.net/projects/hplip/files/hplip/";
-    license = if withPlugin then
-      licenses.unfree
-    else
-      with licenses; [
-        mit
-        bsd2
-        gpl2Plus
-      ];
+    license =
+      if withPlugin then
+        licenses.unfree
+      else
+        with licenses; [
+          mit
+          bsd2
+          gpl2Plus
+        ]
+      ;
     platforms = [
       "i686-linux"
       "x86_64-linux"

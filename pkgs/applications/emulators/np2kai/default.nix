@@ -63,20 +63,26 @@ let
     SDL2_ttf
     SDL2_mixer
   ];
-  sdlDepsBuildonly = if isSDL2 then
-    sdlDeps1
-  else
-    sdlDeps2;
-  sdlDepsTarget = if isSDL2 then
-    sdlDeps2
-  else
-    sdlDeps1;
-  sdlMakefileSuffix = if stdenv.hostPlatform.isWindows then
-    "win"
-  else if stdenv.hostPlatform.isDarwin then
-    "mac"
-  else
-    "unix";
+  sdlDepsBuildonly =
+    if isSDL2 then
+      sdlDeps1
+    else
+      sdlDeps2
+    ;
+  sdlDepsTarget =
+    if isSDL2 then
+      sdlDeps2
+    else
+      sdlDeps1
+    ;
+  sdlMakefileSuffix =
+    if stdenv.hostPlatform.isWindows then
+      "win"
+    else if stdenv.hostPlatform.isDarwin then
+      "mac"
+    else
+      "unix"
+    ;
   sdlMakefiles = concatMapStringsSep " " (x: x + "." + sdlMakefileSuffix)
     (optionals enable16Bit [ "Makefile" ]
       ++ optionals enable32Bit [ "Makefile21" ]);
@@ -157,7 +163,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  # TODO Remove when bumping past rev22
+    # TODO Remove when bumping past rev22
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.hostPlatform.isDarwin "-D_DARWIN_C_SOURCE";
 

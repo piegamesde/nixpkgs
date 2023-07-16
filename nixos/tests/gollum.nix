@@ -5,16 +5,19 @@ import ./make-test-python.nix ({
     name = "gollum";
 
     nodes = {
-      webserver = {
+      webserver =
+        {
           pkgs,
           lib,
           ...
         }: {
           services.gollum.enable = true;
-        };
+        }
+        ;
     };
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }: ''
@@ -22,5 +25,6 @@ import ./make-test-python.nix ({
         webserver.wait_for_open_port(${
           toString nodes.webserver.services.gollum.port
         })
-      '';
+      ''
+      ;
   })

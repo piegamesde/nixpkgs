@@ -38,11 +38,11 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "xdis" ];
 
-  # import file mismatch:
-  # imported module 'test_disasm' has this __file__ attribute:
-  #   /build/source/pytest/test_disasm.py
-  # which is not the same as the test file we want to collect:
-  #   /build/source/test_unit/test_disasm.py
+    # import file mismatch:
+    # imported module 'test_disasm' has this __file__ attribute:
+    #   /build/source/pytest/test_disasm.py
+    # which is not the same as the test file we want to collect:
+    #   /build/source/test_unit/test_disasm.py
   disabledTestPaths = [ "test_unit/test_disasm.py" ];
 
   disabledTests = [

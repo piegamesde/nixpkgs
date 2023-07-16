@@ -107,7 +107,7 @@ stdenv.mkDerivation rec {
       larger LLVM Project, such as the Clang expression parser and LLVM
       disassembler.
     '';
-    # never built on aarch64-darwin since first introduction in nixpkgs
+      # never built on aarch64-darwin since first introduction in nixpkgs
     broken = stdenv.isDarwin && stdenv.isAarch64;
   };
 }

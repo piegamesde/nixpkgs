@@ -27,7 +27,7 @@ buildPythonPackage rec {
     scipy
   ];
 
-  # Tests requires algopy and other modules which are optional and/or not available
+    # Tests requires algopy and other modules which are optional and/or not available
   doCheck = false;
 
   postPatch = ''
@@ -43,7 +43,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Library to solve automatic numerical differentiation problems in one or more variables";
+      "Library to solve automatic numerical differentiation problems in one or more variables"
+      ;
     homepage = "https://github.com/pbrod/numdifftools";
     license = licenses.bsd3;
     maintainers = with maintainers; [ fab ];

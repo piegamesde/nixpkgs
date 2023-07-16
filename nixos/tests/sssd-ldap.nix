@@ -15,7 +15,8 @@ import ./make-test-python.nix ({
 
     meta = with pkgs.lib.maintainers; { maintainers = [ bbigras ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -75,7 +76,7 @@ import ./make-test-python.nix ({
 
         services.sssd = {
           enable = true;
-          # just for testing purposes, don't put this into the Nix store in production!
+            # just for testing purposes, don't put this into the Nix store in production!
           environmentFile =
             "${pkgs.writeText "ldap-root" "LDAP_BIND_PW=${ldapRootPassword}"}";
           config = ''
@@ -94,7 +95,8 @@ import ./make-test-python.nix ({
             ldap_default_authtok = $LDAP_BIND_PW
           '';
         };
-      };
+      }
+      ;
 
     testScript = ''
       machine.start()

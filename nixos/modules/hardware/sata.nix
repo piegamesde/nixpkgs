@@ -9,19 +9,23 @@ let
 
   cfg = config.hardware.sata.timeout;
 
-  buildRule = d:
+  buildRule =
+    d:
     lib.concatStringsSep ", " [
       ''ACTION=="add"''
       ''SUBSYSTEM=="block"''
       ''ENV{ID_${lib.toUpper d.idBy}}=="${d.name}"''
       ''TAG+="systemd"''
       ''ENV{SYSTEMD_WANTS}="${unitName d}"''
-    ];
+    ]
+    ;
 
   devicePath = device: "/dev/disk/by-${device.idBy}/${device.name}";
 
-  unitName = device:
-    "sata-timeout-${lib.strings.sanitizeDerivationName device.name}";
+  unitName =
+    device:
+    "sata-timeout-${lib.strings.sanitizeDerivationName device.name}"
+    ;
 
   startScript = pkgs.writeShellScript "sata-timeout.sh" ''
     set -eEuo pipefail

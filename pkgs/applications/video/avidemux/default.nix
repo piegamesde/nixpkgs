@@ -57,7 +57,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/avidemux/avidemux/${version}/avidemux_${version}.tar.gz";
+      "mirror://sourceforge/avidemux/avidemux/${version}/avidemux_${version}.tar.gz"
+      ;
     sha256 = "sha256-d9m9yoaDzlfBkradIHz6t8+Sp3Wc4PY/o3tcjkKtPaI=";
   };
 
@@ -94,57 +95,61 @@ stdenv.mkDerivation rec {
       qtbase
     ] ++ lib.optional withVPX libvpx;
 
-  buildCommand = let
-    wrapWith = makeWrapper: filename:
-      "${makeWrapper} ${filename} --set ADM_ROOT_DIR $out --prefix LD_LIBRARY_PATH : ${libXext}/lib";
-    wrapQtApp = wrapWith "wrapQtApp";
-    wrapProgram = wrapWith "wrapProgram";
-  in ''
-    unpackPhase
-    cd "$sourceRoot"
-    patchPhase
+  buildCommand =
+    let
+      wrapWith =
+        makeWrapper: filename:
+        "${makeWrapper} ${filename} --set ADM_ROOT_DIR $out --prefix LD_LIBRARY_PATH : ${libXext}/lib"
+        ;
+      wrapQtApp = wrapWith "wrapQtApp";
+      wrapProgram = wrapWith "wrapProgram";
+    in ''
+      unpackPhase
+      cd "$sourceRoot"
+      patchPhase
 
-    ${stdenv.shell} bootStrap.bash \
-      --with-core \
-      ${
-        if withQT then
-          "--with-qt"
-        else
-          "--without-qt"
-      } \
-      ${
-        if withCLI then
-          "--with-cli"
-        else
-          "--without-cli"
-      } \
-      ${
-        if withPlugins then
-          "--with-plugins"
-        else
-          "--without-plugins"
-      }
+      ${stdenv.shell} bootStrap.bash \
+        --with-core \
+        ${
+          if withQT then
+            "--with-qt"
+          else
+            "--without-qt"
+        } \
+        ${
+          if withCLI then
+            "--with-cli"
+          else
+            "--without-cli"
+        } \
+        ${
+          if withPlugins then
+            "--with-plugins"
+          else
+            "--without-plugins"
+        }
 
-    mkdir $out
-    cp -R install/usr/* $out
+      mkdir $out
+      cp -R install/usr/* $out
 
-    ${wrapProgram "$out/bin/avidemux3_cli"}
+      ${wrapProgram "$out/bin/avidemux3_cli"}
 
-    ${lib.optionalString withQT ''
-      ${wrapQtApp "$out/bin/avidemux3_qt5"}
-      ${wrapQtApp "$out/bin/avidemux3_jobs_qt5"}
-    ''}
+      ${lib.optionalString withQT ''
+        ${wrapQtApp "$out/bin/avidemux3_qt5"}
+        ${wrapQtApp "$out/bin/avidemux3_jobs_qt5"}
+      ''}
 
-    ln -s "$out/bin/avidemux3_${default}" "$out/bin/avidemux"
+      ln -s "$out/bin/avidemux3_${default}" "$out/bin/avidemux"
 
-    fixupPhase
-  '' ;
+      fixupPhase
+    ''
+    ;
 
   meta = with lib; {
     homepage = "http://fixounet.free.fr/avidemux/";
     description = "Free video editor designed for simple video editing tasks";
     maintainers = with maintainers; [ abbradar ];
-    # "CPU not supported" errors on AArch64
+      # "CPU not supported" errors on AArch64
     platforms = [
       "i686-linux"
       "x86_64-linux"

@@ -17,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-d3WEhfsKwQcw1LExNj431ly42yRQv+x6V8PzJx9KSKk=";
   };
 
-  # Infinite recursion with Scrapy
+    # Infinite recursion with Scrapy
   doCheck = false;
 
   pythonImportsCheck = [ "itemadapter" ];

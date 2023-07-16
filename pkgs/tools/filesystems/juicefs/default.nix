@@ -25,7 +25,7 @@ buildGoModule rec {
 
   doCheck = false; # requires network access
 
-  # we dont need the libjfs binary
+    # we dont need the libjfs binary
   postFixup = ''
     rm $out/bin/libjfs
   '';

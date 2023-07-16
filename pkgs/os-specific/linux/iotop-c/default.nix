@@ -32,7 +32,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "iotop identifies processes that use high amount of input/output requests on your machine";
+      "iotop identifies processes that use high amount of input/output requests on your machine"
+      ;
     homepage = "https://github.com/Tomas-M/iotop";
     maintainers = [ maintainers.arezvov ];
     license = licenses.gpl2Plus;

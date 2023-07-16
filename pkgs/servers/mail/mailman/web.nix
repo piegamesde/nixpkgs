@@ -39,7 +39,7 @@ buildPythonPackage rec {
     whoosh
   ];
 
-  # Tries to check runtime configuration.
+    # Tries to check runtime configuration.
   doCheck = false;
 
   makeWrapperArgs = [ "--suffix PATH : ${lib.makeBinPath [ sassc ]}" ];

@@ -20,7 +20,6 @@ buildDunePackage {
 
   doCheck = true;
 
-  meta = csv.meta // {
-    description = "Command line tool for handling CSV files";
-  };
+  meta =
+    csv.meta // { description = "Command line tool for handling CSV files"; };
 }

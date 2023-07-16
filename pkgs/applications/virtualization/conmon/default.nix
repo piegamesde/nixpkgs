@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     glibc.static
   ];
 
-  # manpage requires building the vendored go-md2man
+    # manpage requires building the vendored go-md2man
   makeFlags = [ "bin/conmon" ];
 
   installPhase = ''

@@ -18,7 +18,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://apache/couchdb/source/${version}/apache-${pname}-${version}.tar.gz";
+      "mirror://apache/couchdb/source/${version}/apache-${pname}-${version}.tar.gz"
+      ;
     sha256 = "sha256-m4nXtU9+9StCvVGmoKLTsbBszjld8smdjx9H+TVeK+4=";
   };
 
@@ -47,7 +48,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A database that uses JSON for documents, JavaScript for MapReduce queries, and regular HTTP for an API";
+      "A database that uses JSON for documents, JavaScript for MapReduce queries, and regular HTTP for an API"
+      ;
     homepage = "https://couchdb.apache.org";
     license = licenses.asl20;
     platforms = platforms.all;

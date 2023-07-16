@@ -19,7 +19,8 @@ in {
         default = config.services.pipewire.enable;
         defaultText = lib.literalExpression "config.services.pipewire.enable";
         description = lib.mdDoc
-          "Whether to enable Wireplumber, a modular session / policy manager for PipeWire";
+          "Whether to enable Wireplumber, a modular session / policy manager for PipeWire"
+          ;
       };
 
       package = lib.mkOption {
@@ -35,7 +36,8 @@ in {
     assertions = [ {
       assertion = !config.hardware.bluetooth.hsphfpd.enable;
       message =
-        "Using Wireplumber conflicts with hsphfpd, as it provides the same functionality. `hardware.bluetooth.hsphfpd.enable` needs be set to false";
+        "Using Wireplumber conflicts with hsphfpd, as it provides the same functionality. `hardware.bluetooth.hsphfpd.enable` needs be set to false"
+        ;
     } ];
 
     environment.systemPackages = [ cfg.package ];

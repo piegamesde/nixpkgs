@@ -14,7 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-qUIesk2c/FhIgNwdM7f9QGoUInwfmfUMWrkmXgTQdjg=";
   };
 
-  # Module has no tests
+    # Module has no tests
   doCheck = false;
 
   meta = with lib; {

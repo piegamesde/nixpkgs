@@ -38,7 +38,7 @@ buildPythonPackage rec {
 
   pythonNamespaces = [ "azure.keyvault" ];
 
-  # requires relative paths to utilities in the mono-repo
+    # requires relative paths to utilities in the mono-repo
   doCheck = false;
 
   pythonImportsCheck = [

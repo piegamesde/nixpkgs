@@ -6,14 +6,16 @@ let
 
   homeDir = builtins.getEnv "HOME";
 
-  # Return ‘x’ if it evaluates, or ‘def’ if it throws an exception.
-  try = x: def:
+    # Return ‘x’ if it evaluates, or ‘def’ if it throws an exception.
+  try =
+    x: def:
     let
       res = builtins.tryEval x;
     in if res.success then
       res.value
     else
-      def;
+      def
+    ;
 
 in
 { # We put legacy `system` into `localSystem`, if `localSystem` was not passed.
@@ -52,7 +54,8 @@ in
     pathOverlays = try (toString <nixpkgs-overlays>) "";
     homeOverlaysFile = homeDir + "/.config/nixpkgs/overlays.nix";
     homeOverlaysDir = homeDir + "/.config/nixpkgs/overlays";
-    overlays = path:
+    overlays =
+      path:
       # check if the path is a directory or a file
       if
         isDir path
@@ -69,7 +72,8 @@ in
           (builtins.attrNames content))
       else
       # it's a file, so the result is the contents of the file itself
-        import path;
+        import path
+      ;
   in if pathOverlays != "" && builtins.pathExists pathOverlays then
     overlays pathOverlays
   else if

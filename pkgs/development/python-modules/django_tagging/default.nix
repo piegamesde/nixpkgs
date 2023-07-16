@@ -13,7 +13,7 @@ buildPythonPackage rec {
     sha256 = "28d68fa4831705e51ad7d1e845ed6dd9e354f9b6f8a5f63b655a430646ef4e8d";
   };
 
-  # error: invalid command 'test'
+    # error: invalid command 'test'
   doCheck = false;
 
   propagatedBuildInputs = [ django ];

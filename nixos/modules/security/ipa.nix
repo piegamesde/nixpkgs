@@ -7,11 +7,13 @@
 with lib;
 let
   cfg = config.security.ipa;
-  pyBool = x:
+  pyBool =
+    x:
     if x then
       "True"
     else
-      "False";
+      "False"
+    ;
 
   ldapConf = pkgs.writeText "ldap.conf" ''
     # Turning this off breaks GSSAPI used with krb5 when rdns = false
@@ -124,12 +126,14 @@ in {
       {
         assertion = !config.krb5.enable;
         message =
-          "krb5 must be disabled through `krb5.enable` for FreeIPA integration to work.";
+          "krb5 must be disabled through `krb5.enable` for FreeIPA integration to work."
+          ;
       }
       {
         assertion = !config.users.ldap.enable;
         message =
-          "ldap must be disabled through `users.ldap.enable` for FreeIPA integration to work.";
+          "ldap must be disabled through `users.ldap.enable` for FreeIPA integration to work."
+          ;
       }
     ];
 

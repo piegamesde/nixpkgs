@@ -148,7 +148,8 @@
     bin = false;
     src = fetchurl {
       url =
-        "http://registry.npmjs.org/are-we-there-yet/-/are-we-there-yet-1.0.4.tgz";
+        "http://registry.npmjs.org/are-we-there-yet/-/are-we-there-yet-1.0.4.tgz"
+        ;
       name = "are-we-there-yet-1.0.4.tgz";
       sha1 = "527fe389f7bcba90806106b99244eaa07e886f85";
     };
@@ -864,7 +865,8 @@
     bin = false;
     src = fetchurl {
       url =
-        "http://registry.npmjs.org/component-emitter/-/component-emitter-1.1.2.tgz";
+        "http://registry.npmjs.org/component-emitter/-/component-emitter-1.1.2.tgz"
+        ;
       name = "component-emitter-1.1.2.tgz";
       sha1 = "296594f2753daa63996d2af08d15a95116c9aec3";
     };
@@ -938,7 +940,8 @@
     bin = false;
     src = fetchurl {
       url =
-        "http://registry.npmjs.org/content-disposition/-/content-disposition-0.5.0.tgz";
+        "http://registry.npmjs.org/content-disposition/-/content-disposition-0.5.0.tgz"
+        ;
       name = "content-disposition-0.5.0.tgz";
       sha1 = "4284fe6ae0630874639e44e80a418c2934135e9e";
     };
@@ -988,7 +991,8 @@
     bin = false;
     src = fetchurl {
       url =
-        "http://registry.npmjs.org/cookie-signature/-/cookie-signature-1.0.6.tgz";
+        "http://registry.npmjs.org/cookie-signature/-/cookie-signature-1.0.6.tgz"
+        ;
       name = "cookie-signature-1.0.6.tgz";
       sha1 = "e303a882b342cc3ee8ca513a79999734dab3ae2c";
     };
@@ -1398,7 +1402,8 @@
     bin = false;
     src = fetchurl {
       url =
-        "http://registry.npmjs.org/escape-string-regexp/-/escape-string-regexp-1.0.2.tgz";
+        "http://registry.npmjs.org/escape-string-regexp/-/escape-string-regexp-1.0.2.tgz"
+        ;
       name = "escape-string-regexp-1.0.2.tgz";
       sha1 = "4dbc2fe674e71949caf3fb2695ce7f2dc1d9a8d1";
     };
@@ -1416,7 +1421,8 @@
     bin = false;
     src = fetchurl {
       url =
-        "http://registry.npmjs.org/escape-string-regexp/-/escape-string-regexp-1.0.3.tgz";
+        "http://registry.npmjs.org/escape-string-regexp/-/escape-string-regexp-1.0.3.tgz"
+        ;
       name = "escape-string-regexp-1.0.3.tgz";
       sha1 = "9e2d8b25bc2555c3336723750e03f099c2735bb5";
     };
@@ -1996,7 +2002,8 @@
     bin = false;
     src = fetchurl {
       url =
-        "http://registry.npmjs.org/generate-function/-/generate-function-2.0.0.tgz";
+        "http://registry.npmjs.org/generate-function/-/generate-function-2.0.0.tgz"
+        ;
       name = "generate-function-2.0.0.tgz";
       sha1 = "6858fe7c0969b7d4e9093337647ac79f60dfbe74";
     };
@@ -2014,7 +2021,8 @@
     bin = false;
     src = fetchurl {
       url =
-        "http://registry.npmjs.org/generate-object-property/-/generate-object-property-1.1.1.tgz";
+        "http://registry.npmjs.org/generate-object-property/-/generate-object-property-1.1.1.tgz"
+        ;
       name = "generate-object-property-1.1.1.tgz";
       sha1 = "8fda6b4cb69b34a189a6cebee7c4c268af47cc93";
     };
@@ -2032,7 +2040,8 @@
     bin = false;
     src = fetchurl {
       url =
-        "http://registry.npmjs.org/generic-pool-redux/-/generic-pool-redux-0.1.0.tgz";
+        "http://registry.npmjs.org/generic-pool-redux/-/generic-pool-redux-0.1.0.tgz"
+        ;
       name = "generic-pool-redux-0.1.0.tgz";
       sha1 = "326c2594e17fba4d4f0622cfe09acc3c84cb3a82";
     };
@@ -2176,7 +2185,8 @@
     bin = false;
     src = fetchurl {
       url =
-        "http://registry.npmjs.org/graceful-readlink/-/graceful-readlink-1.0.1.tgz";
+        "http://registry.npmjs.org/graceful-readlink/-/graceful-readlink-1.0.1.tgz"
+        ;
       name = "graceful-readlink-1.0.1.tgz";
       sha1 = "4cafad76bc62f02fa039b2f94e9a3dd3a391a725";
     };
@@ -2515,7 +2525,8 @@
     bin = false;
     src = fetchurl {
       url =
-        "http://registry.npmjs.org/is-my-json-valid/-/is-my-json-valid-2.11.0.tgz";
+        "http://registry.npmjs.org/is-my-json-valid/-/is-my-json-valid-2.11.0.tgz"
+        ;
       name = "is-my-json-valid-2.11.0.tgz";
       sha1 = "11f130d52c6c0b2ee132a72feb8e3e4c61a2c54f";
     };
@@ -2654,7 +2665,8 @@
     bin = false;
     src = fetchurl {
       url =
-        "http://registry.npmjs.org/jayschema-error-messages/-/jayschema-error-messages-1.0.3.tgz";
+        "http://registry.npmjs.org/jayschema-error-messages/-/jayschema-error-messages-1.0.3.tgz"
+        ;
       name = "jayschema-error-messages-1.0.3.tgz";
       sha1 = "8bac6e52ae89d406fbe1a7db4ae44debfd289066";
     };
@@ -2732,7 +2744,8 @@
     bin = false;
     src = fetchurl {
       url =
-        "http://registry.npmjs.org/json-stringify-safe/-/json-stringify-safe-5.0.0.tgz";
+        "http://registry.npmjs.org/json-stringify-safe/-/json-stringify-safe-5.0.0.tgz"
+        ;
       name = "json-stringify-safe-5.0.0.tgz";
       sha1 = "4c1f228b5050837eba9d21f50c2e6e320624566e";
     };
@@ -2871,7 +2884,8 @@
     bin = false;
     src = fetchurl {
       url =
-        "http://registry.npmjs.org/lodash._basetostring/-/lodash._basetostring-3.0.0.tgz";
+        "http://registry.npmjs.org/lodash._basetostring/-/lodash._basetostring-3.0.0.tgz"
+        ;
       name = "lodash._basetostring-3.0.0.tgz";
       sha1 = "75a9a4aaaa2b2a8761111ff5431e7d83c1daf0e2";
     };
@@ -2889,7 +2903,8 @@
     bin = false;
     src = fetchurl {
       url =
-        "http://registry.npmjs.org/lodash._createpadding/-/lodash._createpadding-3.6.0.tgz";
+        "http://registry.npmjs.org/lodash._createpadding/-/lodash._createpadding-3.6.0.tgz"
+        ;
       name = "lodash._createpadding-3.6.0.tgz";
       sha1 = "c466850dd1a05e6bfec54fd0cf0db28b68332d5e";
     };
@@ -3072,7 +3087,8 @@
     bin = false;
     src = fetchurl {
       url =
-        "http://registry.npmjs.org/merge-descriptors/-/merge-descriptors-1.0.0.tgz";
+        "http://registry.npmjs.org/merge-descriptors/-/merge-descriptors-1.0.0.tgz"
+        ;
       name = "merge-descriptors-1.0.0.tgz";
       sha1 = "2169cf7538e1b0cc87fb88e1502d8474bbf79864";
     };
@@ -4017,7 +4033,8 @@
     bin = false;
     src = fetchurl {
       url =
-        "http://registry.npmjs.org/readable-stream/-/readable-stream-1.0.27-1.tgz";
+        "http://registry.npmjs.org/readable-stream/-/readable-stream-1.0.27-1.tgz"
+        ;
       name = "readable-stream-1.0.27-1.tgz";
       sha1 = "6b67983c20357cefd07f0165001a16d710d91078";
     };
@@ -4040,7 +4057,8 @@
     bin = false;
     src = fetchurl {
       url =
-        "http://registry.npmjs.org/readable-stream/-/readable-stream-1.1.13.tgz";
+        "http://registry.npmjs.org/readable-stream/-/readable-stream-1.1.13.tgz"
+        ;
       name = "readable-stream-1.1.13.tgz";
       sha1 = "f6eef764f514c89e2b9e23146a75ba106756d23e";
     };
@@ -4065,7 +4083,8 @@
     bin = false;
     src = fetchurl {
       url =
-        "http://registry.npmjs.org/readable-stream/-/readable-stream-1.0.33.tgz";
+        "http://registry.npmjs.org/readable-stream/-/readable-stream-1.0.33.tgz"
+        ;
       name = "readable-stream-1.0.33.tgz";
       sha1 = "3a360dd66c1b1d7fd4705389860eda1d0f61126c";
     };
@@ -4090,7 +4109,8 @@
     bin = false;
     src = fetchurl {
       url =
-        "http://registry.npmjs.org/reduce-component/-/reduce-component-1.0.1.tgz";
+        "http://registry.npmjs.org/reduce-component/-/reduce-component-1.0.1.tgz"
+        ;
       name = "reduce-component-1.0.1.tgz";
       sha1 = "e0c93542c574521bea13df0f9488ed82ab77c5da";
     };
@@ -4176,7 +4196,8 @@
     bin = true;
     src = fetchurl {
       url =
-        "http://registry.npmjs.org/require-directory/-/require-directory-1.2.0.tgz";
+        "http://registry.npmjs.org/require-directory/-/require-directory-1.2.0.tgz"
+        ;
       name = "require-directory-1.2.0.tgz";
       sha1 = "35ff45a82ab73ca6ca35c746c0a17014371e1afd";
     };
@@ -4286,7 +4307,8 @@
     bin = false;
     src = fetchurl {
       url =
-        "http://registry.npmjs.org/ripple-lib-transactionparser/-/ripple-lib-transactionparser-0.3.2.tgz";
+        "http://registry.npmjs.org/ripple-lib-transactionparser/-/ripple-lib-transactionparser-0.3.2.tgz"
+        ;
       name = "ripple-lib-transactionparser-0.3.2.tgz";
       sha1 = "cf85e44f9f623798b68f664244e026956092f874";
     };
@@ -4309,7 +4331,8 @@
     bin = false;
     src = fetchurl {
       url =
-        "http://registry.npmjs.org/ripple-wallet-generator/-/ripple-wallet-generator-1.0.3.tgz";
+        "http://registry.npmjs.org/ripple-wallet-generator/-/ripple-wallet-generator-1.0.3.tgz"
+        ;
       name = "ripple-wallet-generator-1.0.3.tgz";
       sha1 = "2a1f0f6e2a39998fcf8fa89a55cb5c999cdb86ca";
     };
@@ -4650,7 +4673,8 @@
     bin = true;
     src = fetchurl {
       url =
-        "http://registry.npmjs.org/strip-json-comments/-/strip-json-comments-0.1.3.tgz";
+        "http://registry.npmjs.org/strip-json-comments/-/strip-json-comments-0.1.3.tgz"
+        ;
       name = "strip-json-comments-0.1.3.tgz";
       sha1 = "164c64e370a8a3cc00c9e01b539e569823f0ee54";
     };
@@ -5002,7 +5026,8 @@
     bin = false;
     src = fetchurl {
       url =
-        "http://registry.npmjs.org/underscore.string/-/underscore.string-2.4.0.tgz";
+        "http://registry.npmjs.org/underscore.string/-/underscore.string-2.4.0.tgz"
+        ;
       name = "underscore.string-2.4.0.tgz";
       sha1 = "8cdd8fbac4e2d2ea1e7e2e8097c42f442280f85b";
     };

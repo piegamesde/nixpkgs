@@ -18,7 +18,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-3Lv1jwvFjeKxtBmY1ZwgPBjz8xjbqDH5EcwsIb9Vy7g=";
   };
 
-  # In the post patch phase we should first make sure to patch shebangs.
+    # In the post patch phase we should first make sure to patch shebangs.
   postPatch = ''
     patchShebangs install.sh
   '';
@@ -50,7 +50,8 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Icon theme using the Nord color palette, based on WhiteSur and Numix icon themes";
+      "Icon theme using the Nord color palette, based on WhiteSur and Numix icon themes"
+      ;
     homepage = "https://github.com/alvatip/Nordzy-icon";
     license = licenses.gpl3Only;
     platforms = platforms.linux;

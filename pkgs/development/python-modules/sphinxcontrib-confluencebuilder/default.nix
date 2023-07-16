@@ -24,7 +24,7 @@ buildPythonPackage rec {
     jinja2
   ];
 
-  # Tests are disabled due to a circular dependency on Sphinx
+    # Tests are disabled due to a circular dependency on Sphinx
   doCheck = false;
 
   pythonImportsCheck = [ "sphinxcontrib.confluencebuilder" ];

@@ -20,6 +20,6 @@ in {
 
     boot.initrd.kernelModules = mkIf inInitrd [ "apfs" ];
 
-    # Don't copy apfsck into the initramfs since it does not support repairing the filesystem
+      # Don't copy apfsck into the initramfs since it does not support repairing the filesystem
   };
 }

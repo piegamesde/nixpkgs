@@ -18,7 +18,7 @@ buildPythonPackage rec {
   src = cudaPackages.tensorrt.src;
 
   format = "wheel";
-  # We unpack the wheel ourselves because of the odd packaging.
+    # We unpack the wheel ourselves because of the odd packaging.
   dontUseWheelUnpack = true;
 
   nativeBuildInputs = [
@@ -44,7 +44,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Python bindings for TensorRT, a high-performance deep learning interface";
+      "Python bindings for TensorRT, a high-performance deep learning interface"
+      ;
     homepage = "https://developer.nvidia.com/tensorrt";
     license = licenses.unfree;
     platforms = [ "x86_64-linux" ];

@@ -23,9 +23,10 @@ stdenv.mkDerivation rec {
   cmakeFlags = [ "-DLLVM_CONFIG_PATH=${libllvm.dev}/bin/llvm-config${
       lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) "-native"
     }" ] ++ lib.optionals (stdenv.hostPlatform
-      != stdenv.buildPlatform) [ "-DLLVM_TABLEGEN_EXE=${buildLlvmTools.llvm}/bin/llvm-tblgen" ];
+      != stdenv.buildPlatform) [ "-DLLVM_TABLEGEN_EXE=${buildLlvmTools.llvm}/bin/llvm-tblgen" ]
+    ;
 
-  # Musl's default stack size is too small for lld to be able to link Firefox.
+    # Musl's default stack size is too small for lld to be able to link Firefox.
   LDFLAGS =
     lib.optionalString stdenv.hostPlatform.isMusl "-Wl,-z,stack-size=2097152";
 

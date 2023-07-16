@@ -23,7 +23,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-cU/X+oNTMjUSODkdm+P+vVLmBJlkeQ9WTJGvQmUOQKw=";
 
-  # The tests need a GitHub API token.
+    # The tests need a GitHub API token.
   doCheck = false;
 
   nativeBuildInputs = [ pkg-config ];

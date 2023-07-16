@@ -16,14 +16,18 @@
 
 let
   rev = 3390;
-  jre' = if preferZulu then
-    zulu
-  else
-    jre;
-  gtk' = if preferGtk3 then
-    gtk3
-  else
-    gtk2;
+  jre' =
+    if preferZulu then
+      zulu
+    else
+      jre
+    ;
+  gtk' =
+    if preferGtk3 then
+      gtk3
+    else
+      gtk2
+    ;
 
   inherit (lib) makeLibraryPath versions;
 
@@ -73,7 +77,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A Java application which presents a Microsoft Exchange server as local CALDAV, IMAP and SMTP servers";
+      "A Java application which presents a Microsoft Exchange server as local CALDAV, IMAP and SMTP servers"
+      ;
     homepage = "https://davmail.sourceforge.net/";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ peterhoeg ];

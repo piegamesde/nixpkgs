@@ -48,9 +48,9 @@ in
     export NIX_COREFOUNDATION_RPATH=
   '';
 
-  # The pie, stackprotector and fortify hardening flags are autodetected by
-  # glibc and enabled by default if supported. Setting it for every gcc
-  # invocation does not work.
+    # The pie, stackprotector and fortify hardening flags are autodetected by
+    # glibc and enabled by default if supported. Setting it for every gcc
+    # invocation does not work.
   hardeningDisable = [
     "fortify"
     "pie"
@@ -81,21 +81,21 @@ in
       ]);
   };
 
-  # glibc needs to `dlopen()` `libgcc_s.so` but does not link
-  # against it.  Furthermore, glibc doesn't use the ordinary
-  # `dlopen()` call to do this; instead it uses one which ignores
-  # most paths:
-  #
-  #   https://sourceware.org/legacy-ml/libc-help/2013-11/msg00026.html
-  #
-  # In order to get it to not ignore `libgcc_s.so`, we have to add its path to
-  # `user-defined-trusted-dirs`:
-  #
-  #   https://sourceware.org/git/?p=glibc.git;a=blob;f=elf/Makefile;h=b509b3eada1fb77bf81e2a0ca5740b94ad185764#l1355
-  #
-  # Conveniently, this will also inform Nix of the fact that glibc depends on
-  # gcc.libgcc, since the path will be embedded in the resulting binary.
-  #
+    # glibc needs to `dlopen()` `libgcc_s.so` but does not link
+    # against it.  Furthermore, glibc doesn't use the ordinary
+    # `dlopen()` call to do this; instead it uses one which ignores
+    # most paths:
+    #
+    #   https://sourceware.org/legacy-ml/libc-help/2013-11/msg00026.html
+    #
+    # In order to get it to not ignore `libgcc_s.so`, we have to add its path to
+    # `user-defined-trusted-dirs`:
+    #
+    #   https://sourceware.org/git/?p=glibc.git;a=blob;f=elf/Makefile;h=b509b3eada1fb77bf81e2a0ca5740b94ad185764#l1355
+    #
+    # Conveniently, this will also inform Nix of the fact that glibc depends on
+    # gcc.libgcc, since the path will be embedded in the resulting binary.
+    #
   makeFlags = (previousAttrs.makeFlags or [ ]) ++ lib.optionals (stdenv.cc.cc
     ? libgcc) [ "user-defined-trusted-dirs=${stdenv.cc.cc.libgcc}/lib" ];
 

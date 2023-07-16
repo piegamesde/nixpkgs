@@ -19,7 +19,7 @@ buildPythonPackage rec {
     python -m unittest pypeg2.test.test_pyPEG2 pypeg2.test.test_xmlast
   '';
 
-  #https://bitbucket.org/fdik/pypeg/issues/36/test-failures-on-py35
+    #https://bitbucket.org/fdik/pypeg/issues/36/test-failures-on-py35
   doCheck = !isPy3k;
 
   meta = with lib; {

@@ -10,7 +10,8 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://software.sil.org/downloads/r/abyssinica/AbyssinicaSIL-${version}.zip";
+      "https://software.sil.org/downloads/r/abyssinica/AbyssinicaSIL-${version}.zip"
+      ;
     hash = "sha256-IdWMZHm9VoLVDO0//ISujxlXUxe0O6+aEcdP63YRmPg=";
   };
 

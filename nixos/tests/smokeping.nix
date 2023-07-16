@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ cransom ]; };
 
     nodes = {
-      sm = {
+      sm =
+        {
           ...
         }: {
           networking.domain = "example.com"; # FQDN: sm.example.com
@@ -20,7 +21,8 @@ import ./make-test-python.nix ({
               offset = 0%
             '';
           };
-        };
+        }
+        ;
     };
 
     testScript = ''

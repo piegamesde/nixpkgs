@@ -23,11 +23,13 @@ let
     let
 
       imported = import generated {
-        callPackage = pkgs: args:
+        callPackage =
+          pkgs: args:
           self.callPackage pkgs (args // {
             # Use custom elpa url fetcher with fallback/uncompress
             fetchurl = buildPackages.callPackage ./fetchelpa.nix { };
-          });
+          })
+          ;
       };
 
       super = imported;

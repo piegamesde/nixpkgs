@@ -8,7 +8,8 @@ import ../make-test-python.nix ({
     name = "krb5-with-deprecated-config";
     meta = with pkgs.lib.maintainers; { maintainers = [ eqyiel ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         krb5 = {
@@ -18,35 +19,38 @@ import ../make-test-python.nix ({
           kdc = "kerberos.mit.edu";
           kerberosAdminServer = "kerberos.mit.edu";
         };
-      };
+      }
+      ;
 
-    testScript = let
-      snapshot = pkgs.writeText "krb5-with-deprecated-config.conf" ''
-        [libdefaults]
-          default_realm = ATHENA.MIT.EDU
+    testScript =
+      let
+        snapshot = pkgs.writeText "krb5-with-deprecated-config.conf" ''
+          [libdefaults]
+            default_realm = ATHENA.MIT.EDU
 
-        [realms]
-          ATHENA.MIT.EDU = {
-            admin_server = kerberos.mit.edu
-            kdc = kerberos.mit.edu
-          }
+          [realms]
+            ATHENA.MIT.EDU = {
+              admin_server = kerberos.mit.edu
+              kdc = kerberos.mit.edu
+            }
 
-        [domain_realm]
-          .athena.mit.edu = ATHENA.MIT.EDU
-          athena.mit.edu = ATHENA.MIT.EDU
+          [domain_realm]
+            .athena.mit.edu = ATHENA.MIT.EDU
+            athena.mit.edu = ATHENA.MIT.EDU
 
-        [capaths]
-
-
-        [appdefaults]
+          [capaths]
 
 
-        [plugins]
+          [appdefaults]
 
-      '';
-    in ''
-      machine.succeed(
-          "diff /etc/krb5.conf ${snapshot}"
-      )
-    '' ;
+
+          [plugins]
+
+        '';
+      in ''
+        machine.succeed(
+            "diff /etc/krb5.conf ${snapshot}"
+        )
+      ''
+      ;
   })

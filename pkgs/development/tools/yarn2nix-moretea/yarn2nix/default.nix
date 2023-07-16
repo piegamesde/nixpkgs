@@ -12,13 +12,15 @@ let
   id = x: x;
   composeAll = builtins.foldl' compose id;
 
-  # https://docs.npmjs.com/files/package.json#license
-  # TODO: support expression syntax (OR, AND, etc)
-  getLicenseFromSpdxId = licstr:
+    # https://docs.npmjs.com/files/package.json#license
+    # TODO: support expression syntax (OR, AND, etc)
+  getLicenseFromSpdxId =
+    licstr:
     if licstr == "UNLICENSED" then
       lib.licenses.unfree
     else
-      lib.getLicenseFromSpdxId licstr;
+      lib.getLicenseFromSpdxId licstr
+    ;
 in
 rec {
   # Export yarn again to make it easier to find out which yarn was used.
@@ -29,47 +31,53 @@ rec {
     # Re-export pkgs
   inherit pkgs;
 
-  unlessNull = item: alt:
+  unlessNull =
+    item: alt:
     if item == null then
       alt
     else
-      item;
+      item
+    ;
 
-  reformatPackageName = pname:
+  reformatPackageName =
+    pname:
     let
       # regex adapted from `validate-npm-package-name`
       # will produce 3 parts e.g.
       # "@someorg/somepackage" -> [ "@someorg/" "someorg" "somepackage" ]
       # "somepackage" -> [ null null "somepackage" ]
       parts = builtins.tail (builtins.match "^(@([^/]+)/)?([^/]+)$" pname);
-      # if there is no organisation we need to filter out null values.
+        # if there is no organisation we need to filter out null values.
       non-null = builtins.filter (x: x != null) parts;
     in
     builtins.concatStringsSep "-" non-null
-  ;
+    ;
 
   inherit
     getLicenseFromSpdxId
     ;
 
     # Generates the yarn.nix from the yarn.lock file
-  mkYarnNix = {
+  mkYarnNix =
+    {
       yarnLock,
       flags ? [ ]
     }:
     pkgs.runCommand "yarn.nix" { }
     "${yarn2nix}/bin/yarn2nix --lockfile ${yarnLock} --no-patch --builtin-fetchgit ${
       lib.escapeShellArgs flags
-    } > $out";
+    } > $out"
+    ;
 
-  # Loads the generated offline cache. This will be used by yarn as
-  # the package source.
-  importOfflineCache = yarnNix:
+    # Loads the generated offline cache. This will be used by yarn as
+    # the package source.
+  importOfflineCache =
+    yarnNix:
     let
       pkg = callPackage yarnNix { };
     in
     pkg.offline_cache
-  ;
+    ;
 
   defaultYarnFlags = [
     "--offline"
@@ -77,7 +85,8 @@ rec {
     "--ignore-engines"
   ];
 
-  mkYarnModules = {
+  mkYarnModules =
+    {
       name ?
         "${pname}-${version}", # safe name and version, e.g. testcompany-one-modules-1.0.0
       pname, # original name, e.g @testcompany/one
@@ -114,8 +123,8 @@ rec {
         else
           "") (builtins.attrNames pkgConfig));
 
-      # build-time JSON generation to avoid IFD
-      # see https://nixos.wiki/wiki/Import_From_Derivation
+        # build-time JSON generation to avoid IFD
+        # see https://nixos.wiki/wiki/Import_From_Derivation
       workspaceJSON = pkgs.runCommand "${name}-workspace-package.json" {
         nativeBuildInputs = [ pkgs.jq ];
         inherit packageJSON;
@@ -187,10 +196,10 @@ rec {
         runHook postBuild
       '';
     }
-  ;
+    ;
 
-  # This can be used as a shellHook in mkYarnPackage. It brings the built node_modules into
-  # the shell-hook environment.
+    # This can be used as a shellHook in mkYarnPackage. It brings the built node_modules into
+    # the shell-hook environment.
   linkNodeModulesHook = ''
     if [[ -d node_modules || -L node_modules ]]; then
       echo "./node_modules is present. Replacing."
@@ -200,7 +209,8 @@ rec {
     ln -s "$node_modules" node_modules
   '';
 
-  mkYarnWorkspace = {
+  mkYarnWorkspace =
+    {
       src,
       packageJSON ? src + "/package.json",
       yarnLock ? src + "/yarn.lock",
@@ -212,21 +222,24 @@ rec {
     let
       package = lib.importJSON packageJSON;
 
-      packageGlobs = if lib.isList package.workspaces then
-        package.workspaces
-      else
-        package.workspaces.packages;
+      packageGlobs =
+        if lib.isList package.workspaces then
+          package.workspaces
+        else
+          package.workspaces.packages
+        ;
 
       packageResolutions = package.resolutions or { };
 
       globElemToRegex = lib.replaceStrings [ "*" ] [ ".*" ];
 
-      # PathGlob -> [PathGlobElem]
+        # PathGlob -> [PathGlobElem]
       splitGlob = lib.splitString "/";
 
-      # Path -> [PathGlobElem] -> [Path]
-      # Note: Only directories are included, everything else is filtered out
-      expandGlobList = base: globElems:
+        # Path -> [PathGlobElem] -> [Path]
+        # Note: Only directories are included, everything else is filtered out
+      expandGlobList =
+        base: globElems:
         let
           elemRegex = globElemToRegex (lib.head globElems);
           rest = lib.tail globElems;
@@ -239,9 +252,10 @@ rec {
           [ base ]
         else
           lib.concatMap (child: expandGlobList (base + ("/" + child)) rest)
-          matchingChildren;
+          matchingChildren
+        ;
 
-      # Path -> PathGlob -> [Path]
+        # Path -> PathGlob -> [Path]
       expandGlob = base: glob: expandGlobList base (splitGlob glob);
 
       packagePaths = lib.concatMap (expandGlob src) packageGlobs;
@@ -258,8 +272,9 @@ rec {
               "devDependencies"
             ]);
 
-          # { [name: String] : { pname : String, packageJSON : String, ... } } -> { [pname: String] : version } -> [{ pname : String, packageJSON : String, ... }]
-          getWorkspaceDependencies = packages: allDependencies:
+            # { [name: String] : { pname : String, packageJSON : String, ... } } -> { [pname: String] : version } -> [{ pname : String, packageJSON : String, ... }]
+          getWorkspaceDependencies =
+            packages: allDependencies:
             let
               packageList = lib.attrValues packages;
             in
@@ -269,7 +284,7 @@ rec {
                 lib.findFirst (package: package.pname == pname) null
                 packageList))
             ] allDependencies
-          ;
+            ;
 
           workspaceDependencies =
             getWorkspaceDependencies packages allDependencies;
@@ -292,9 +307,10 @@ rec {
         } ) packagePaths);
     in
     packages
-  ;
+    ;
 
-  mkYarnPackage = {
+  mkYarnPackage =
+    {
       name ? null,
       src,
       packageJSON ? src + "/package.json",
@@ -425,8 +441,8 @@ rec {
         runHook postConfigure
       '';
 
-      # Replace this phase on frontend packages where only the generated
-      # files are an interesting output.
+        # Replace this phase on frontend packages where only the generated
+        # files are an interesting output.
       installPhase = attrs.installPhase or ''
         runHook preInstall
 
@@ -468,56 +484,58 @@ rec {
         license = getLicenseFromSpdxId package.license;
       } // (attrs.meta or { });
     })
-  ;
-
-  yarn2nix = mkYarnPackage {
-    src = let
-      src = ./.;
-
-      mkFilter = {
-          dirsToInclude,
-          filesToInclude,
-          root,
-        }:
-        path: type:
-        let
-          inherit (pkgs.lib)
-            any
-            flip
-            elem
-            hasSuffix
-            hasPrefix
-            elemAt
-            splitString
-            ;
-
-          subpath = elemAt (splitString "${toString root}/" path) 1;
-          spdir = elemAt (splitString "/" subpath) 0;
-        in
-        elem spdir dirsToInclude
-        || (type == "regular" && elem subpath filesToInclude)
-      ;
-    in
-    builtins.filterSource (mkFilter {
-      dirsToInclude = [
-        "bin"
-        "lib"
-      ];
-      filesToInclude = [
-        "package.json"
-        "yarn.lock"
-      ];
-      root = src;
-    }) src
     ;
 
-    # yarn2nix is the only package that requires the yarnNix option.
-    # All the other projects can auto-generate that file.
+  yarn2nix = mkYarnPackage {
+    src =
+      let
+        src = ./.;
+
+        mkFilter =
+          {
+            dirsToInclude,
+            filesToInclude,
+            root,
+          }:
+          path: type:
+          let
+            inherit (pkgs.lib)
+              any
+              flip
+              elem
+              hasSuffix
+              hasPrefix
+              elemAt
+              splitString
+              ;
+
+            subpath = elemAt (splitString "${toString root}/" path) 1;
+            spdir = elemAt (splitString "/" subpath) 0;
+          in
+          elem spdir dirsToInclude
+          || (type == "regular" && elem subpath filesToInclude)
+          ;
+      in
+      builtins.filterSource (mkFilter {
+        dirsToInclude = [
+          "bin"
+          "lib"
+        ];
+        filesToInclude = [
+          "package.json"
+          "yarn.lock"
+        ];
+        root = src;
+      }) src
+      ;
+
+      # yarn2nix is the only package that requires the yarnNix option.
+      # All the other projects can auto-generate that file.
     yarnNix = ./yarn.nix;
 
-    # Using the filter above and importing package.json from the filtered
-    # source results in an error in restricted mode. To circumvent this,
-    # we import package.json from the unfiltered source
+      # Using the filter above and importing package.json from the filtered
+      # source results in an error in restricted mode. To circumvent this,
+      # we import package.json from the unfiltered source
     packageJSON = ./package.json;
 
     yarnFlags = defaultYarnFlags ++ [

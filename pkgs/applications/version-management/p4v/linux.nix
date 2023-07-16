@@ -66,7 +66,7 @@ let
 
     dontBuild = true;
 
-    # Don't wrap the Qt apps; upstream has its own wrapper scripts.
+      # Don't wrap the Qt apps; upstream has its own wrapper scripts.
     dontWrapQtApps = true;
 
     installPhase = ''

@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     sha256 = "1xwib612ahv4rg9yl5injck89dlpyp5475xqgag0ydfd0r4sfld7";
   };
 
-  # Allow users set their own list of patches
+    # Allow users set their own list of patches
   inherit patches;
 
   buildInputs = [

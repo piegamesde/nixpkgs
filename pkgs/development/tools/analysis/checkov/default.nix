@@ -6,18 +6,20 @@
 
 let
   py = python3.override {
-    packageOverrides = self: super: {
-      cyclonedx-python-lib = super.cyclonedx-python-lib.overridePythonAttrs
-        (oldAttrs: rec {
-          version = "2.7.1";
-          src = fetchFromGitHub {
-            owner = "CycloneDX";
-            repo = "cyclonedx-python-lib";
-            rev = "v${version}";
-            hash = "sha256-c/KhoJOa121/h0n0GUazjUFChnUo05ThD+fuZXc5/Pk=";
-          };
-        });
-    };
+    packageOverrides =
+      self: super: {
+        cyclonedx-python-lib = super.cyclonedx-python-lib.overridePythonAttrs
+          (oldAttrs: rec {
+            version = "2.7.1";
+            src = fetchFromGitHub {
+              owner = "CycloneDX";
+              repo = "cyclonedx-python-lib";
+              rev = "v${version}";
+              hash = "sha256-c/KhoJOa121/h0n0GUazjUFChnUo05ThD+fuZXc5/Pk=";
+            };
+          });
+      }
+      ;
   };
 in with py.pkgs;
 

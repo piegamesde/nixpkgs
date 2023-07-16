@@ -8,11 +8,13 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ misuzu ]; };
 
     nodes = {
-      node = {
+      node =
+        {
           ...
         }: {
           services.netbird.enable = true;
-        };
+        }
+        ;
     };
 
     testScript = ''

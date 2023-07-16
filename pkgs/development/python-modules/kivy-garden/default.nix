@@ -21,12 +21,13 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "garden" ];
 
-  # There are no tests
+    # There are no tests
   doCheck = false;
 
   meta = with lib; {
     description =
-      "The kivy garden installation script, split into its own package for convenient use in buildozer.";
+      "The kivy garden installation script, split into its own package for convenient use in buildozer."
+      ;
     homepage = "https://github.com/kivy-garden/garden";
     license = licenses.mit;
     maintainers = with maintainers; [ risson ];

@@ -15,7 +15,7 @@ buildPythonPackage rec {
     sha256 = "6cf41cbe97c398ab5a81168ce0dbb8ad95862d3caf23c21e4430627b90844089";
   };
 
-  # No tests included in Pypi archive
+    # No tests included in Pypi archive
   doCheck = false;
 
   meta = with lib; {

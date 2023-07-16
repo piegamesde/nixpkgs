@@ -28,7 +28,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "The easy, open source way for everyone in your company to ask questions and learn from data";
+      "The easy, open source way for everyone in your company to ask questions and learn from data"
+      ;
     homepage = "https://metabase.com";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.agpl3Only;

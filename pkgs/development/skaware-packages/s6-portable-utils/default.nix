@@ -10,7 +10,8 @@ buildPackage {
   sha256 = "hxQmkTTwEmUNqsBA5WRjct6lZYucDYmnygO7Kr7E0eg=";
 
   description =
-    "A set of tiny general Unix utilities optimized for simplicity and small size";
+    "A set of tiny general Unix utilities optimized for simplicity and small size"
+    ;
 
   outputs = [
     "bin"

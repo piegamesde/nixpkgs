@@ -27,7 +27,7 @@ buildPythonPackage rec {
   ];
 
   nativeCheckInputs = [ nose ];
-  # TODO: retry running all tests after v2.6.1
+    # TODO: retry running all tests after v2.6.1
   checkPhase = "NOSE_EXCLUDE=test_watch_multiple_dirs nosetests -s";
 
   meta = {

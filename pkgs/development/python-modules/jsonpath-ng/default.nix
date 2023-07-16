@@ -15,7 +15,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "h2non";
     repo = pname;
-    # missing tag https://github.com/h2non/jsonpath-ng/issues/114
+      # missing tag https://github.com/h2non/jsonpath-ng/issues/114
     rev = "cce4a3d4063ac8af928795acc53beb27a2bfd101";
     hash = "sha256-+9iQHQs5TQhZFeIqMlsa3FFPfZEktAWy1lSdJU7kZrc=";
   };

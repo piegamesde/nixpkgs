@@ -10,14 +10,16 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/openpam/openpam/Resedacea/${pname}-${version}.tar.gz";
+      "mirror://sourceforge/openpam/openpam/Resedacea/${pname}-${version}.tar.gz"
+      ;
     sha256 = "0pz8kf9mxj0k8yp8jgmhahddz58zv2b7gnyjwng75xgsx4i55xi2";
   };
 
   meta = with lib; {
     homepage = "https://www.openpam.org";
     description =
-      "An open source PAM library that focuses on simplicity, correctness, and cleanliness";
+      "An open source PAM library that focuses on simplicity, correctness, and cleanliness"
+      ;
     platforms = platforms.unix;
     maintainers = with maintainers; [ matthewbauer ];
     license = licenses.bsd3;

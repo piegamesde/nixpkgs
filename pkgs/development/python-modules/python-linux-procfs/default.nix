@@ -17,7 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-  # contains no tests
+    # contains no tests
   doCheck = false;
   pythonImportsCheck = [ "procfs" ];
 
@@ -25,7 +25,8 @@ buildPythonPackage rec {
     description =
       "Python classes to extract information from the Linux kernel /proc files";
     homepage =
-      "https://git.kernel.org/pub/scm/libs/python/python-linux-procfs/python-linux-procfs.git/";
+      "https://git.kernel.org/pub/scm/libs/python/python-linux-procfs/python-linux-procfs.git/"
+      ;
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ elohmeier ];
   };

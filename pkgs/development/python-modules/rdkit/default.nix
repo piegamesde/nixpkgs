@@ -44,16 +44,17 @@ buildPythonPackage rec {
   version = "2023.03.1";
   format = "other";
 
-  src = let
-    versionTag = lib.replaceStrings [ "." ] [ "_" ] version;
-  in
-  fetchFromGitHub {
-    owner = pname;
-    repo = pname;
-    rev = "Release_${versionTag}";
-    hash = "sha256-hiDaPWDAWzALRf3+SAfzghu2K706rcajeZ69tMFplhU=";
-  }
-  ;
+  src =
+    let
+      versionTag = lib.replaceStrings [ "." ] [ "_" ] version;
+    in
+    fetchFromGitHub {
+      owner = pname;
+      repo = pname;
+      rev = "Release_${versionTag}";
+      hash = "sha256-hiDaPWDAWzALRf3+SAfzghu2K706rcajeZ69tMFplhU=";
+    }
+    ;
 
   unpackPhase = ''
     cp -r $src/* .

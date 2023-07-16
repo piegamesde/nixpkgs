@@ -5,9 +5,11 @@ import ../make-test-python.nix ({
   let
     pantalaimonInstanceName = "testing";
 
-    # Set up SSL certs for Synapse to be happy.
-    runWithOpenSSL = file: cmd:
-      pkgs.runCommand file { buildInputs = [ pkgs.openssl ]; } cmd;
+      # Set up SSL certs for Synapse to be happy.
+    runWithOpenSSL =
+      file: cmd:
+      pkgs.runCommand file { buildInputs = [ pkgs.openssl ]; } cmd
+      ;
 
     ca_key = runWithOpenSSL "ca-key.pem" "openssl genrsa -out $out 2048";
     ca_pem = runWithOpenSSL "ca.pem" ''
@@ -32,7 +34,8 @@ import ../make-test-python.nix ({
     name = "pantalaimon";
     meta = with pkgs.lib; { maintainers = teams.matrix.members; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -72,7 +75,8 @@ import ../make-test-python.nix ({
             tls_private_key_path = "${key}";
           };
         };
-      };
+      }
+      ;
 
     testScript = ''
       start_all()

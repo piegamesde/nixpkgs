@@ -399,8 +399,8 @@ mkDerivation {
   license = lib.licenses.asl20;
   maintainers = with lib.maintainers; [ lassulus ];
 
-  # Needs to be updated for aeson-2.0
-  # https://github.com/hasura/graphql-engine/issues/8369
+    # Needs to be updated for aeson-2.0
+    # https://github.com/hasura/graphql-engine/issues/8369
   hydraPlatforms = lib.platforms.none;
   broken = true;
 }

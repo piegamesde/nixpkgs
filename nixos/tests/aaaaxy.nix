@@ -8,9 +8,9 @@
 
   nodes.machine = { hardware.opengl.enable = true; };
 
-  # This starts the game from a known state, feeds it a prerecorded set of button presses
-  # and then checks if the final game state is identical to the expected state.
-  # This is also what AAAAXY's CI system does and serves as a good sanity check.
+    # This starts the game from a known state, feeds it a prerecorded set of button presses
+    # and then checks if the final game state is identical to the expected state.
+    # This is also what AAAAXY's CI system does and serves as a good sanity check.
   testScript = ''
     machine.wait_for_unit("basic.target")
 

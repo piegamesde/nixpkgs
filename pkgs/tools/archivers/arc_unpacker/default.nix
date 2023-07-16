@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  # A few tests fail on aarch64-linux
+    # A few tests fail on aarch64-linux
   doCheck = !(stdenv.isLinux && stdenv.isAarch64);
 
   meta = with lib; {

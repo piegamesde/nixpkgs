@@ -7,7 +7,7 @@
 
 stdenv.mkDerivation rec {
   pname = "hg-commitsigs";
-  # Latest tag is 11 years old.
+    # Latest tag is 11 years old.
   version = "unstable-2021-01-08";
 
   src = fetchhg {
@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-PS1OhC9MiVFD7WYlIn6FavD5TyhM50WoV6YagI2pLxU=";
   };
 
-  # Not sure how the tests are supposed to be run, and they 10 years old...
+    # Not sure how the tests are supposed to be run, and they 10 years old...
   doCheck = false;
   dontBuild = true;
 

@@ -21,7 +21,8 @@ let
   #
   # FIXME:
   # There's some dragons here. Build host and target concepts are being mixed up.
-  ndkInfoFun = {
+  ndkInfoFun =
+    {
       config,
       ...
     }:
@@ -45,7 +46,8 @@ let
         triple = "aarch64-linux-android";
       };
     }.${config} or (throw
-      "Android NDK doesn't support ${config}, as far as we know");
+      "Android NDK doesn't support ${config}, as far as we know")
+    ;
 
   buildInfo = ndkInfoFun stdenv.buildPlatform;
   hostInfo = ndkInfoFun stdenv.hostPlatform;
@@ -60,9 +62,9 @@ let
     "_"
   ] stdenv.targetPlatform.config;
 
-  # targetInfo.triple is what Google thinks the toolchain should be, this is a little
-  # different from what we use. We make it four parts to conform with the existing
-  # standard more properly.
+    # targetInfo.triple is what Google thinks the toolchain should be, this is a little
+    # different from what we use. We make it four parts to conform with the existing
+    # standard more properly.
   targetPrefix =
     lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform)
     (stdenv.targetPlatform.config + "-");
@@ -161,11 +163,11 @@ in rec {
     '';
   };
 
-  # Bionic lib C and other libraries.
-  #
-  # We use androidndk from the previous stage, else we waste time or get cycles
-  # cross-compiling packages to wrap incorrectly wrap binaries we don't include
-  # anyways.
+    # Bionic lib C and other libraries.
+    #
+    # We use androidndk from the previous stage, else we waste time or get cycles
+    # cross-compiling packages to wrap incorrectly wrap binaries we don't include
+    # anyways.
   libraries = runCommand "bionic-prebuilt" { } ''
     lpath=${buildAndroidndk}/libexec/android-sdk/ndk-bundle/toolchains/llvm/prebuilt/${buildInfo.double}/sysroot/usr/lib/${targetInfo.triple}/${sdkVer}
     if [ ! -d $lpath ]; then

@@ -25,7 +25,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "mattermostdriver" ];
 
-  # no tests
+    # no tests
   doCheck = false;
 
   meta = with lib; {

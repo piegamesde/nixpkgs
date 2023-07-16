@@ -15,15 +15,16 @@ let
     PHOTOPRISM_HTTP_PORT = toString cfg.port;
   } // (lib.mapAttrs (_: toString) cfg.settings);
 
-  manage = let
-    setupEnv = lib.concatStringsSep "\n" (lib.mapAttrsToList
-      (name: val: "export ${name}=${lib.escapeShellArg val}") env);
-  in
-  pkgs.writeShellScript "manage" ''
-    ${setupEnv}
-    exec ${cfg.package}/bin/photoprism "$@"
-  ''
-  ;
+  manage =
+    let
+      setupEnv = lib.concatStringsSep "\n" (lib.mapAttrsToList
+        (name: val: "export ${name}=${lib.escapeShellArg val}") env);
+    in
+    pkgs.writeShellScript "manage" ''
+      ${setupEnv}
+      exec ${cfg.package}/bin/photoprism "$@"
+    ''
+    ;
 in {
   meta.maintainers = with lib.maintainers; [ stunkymonkey ];
 
@@ -143,7 +144,7 @@ in {
       wantedBy = [ "multi-user.target" ];
       environment = env;
 
-      # reminder: easier password configuration will come in https://github.com/photoprism/photoprism/pull/2302
+        # reminder: easier password configuration will come in https://github.com/photoprism/photoprism/pull/2302
       preStart = ''
         ln -sf ${manage} photoprism-manage
 

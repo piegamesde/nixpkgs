@@ -26,7 +26,7 @@ buildPythonPackage rec {
     pyserial-asyncio
   ];
 
-  # Test setup try to create a serial port
+    # Test setup try to create a serial port
   doCheck = false;
 
   pythonImportsCheck = [ "pyblackbird" ];

@@ -11,7 +11,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://download.savannah.gnu.org/releases/fastjar/fastjar-${version}.tar.gz";
+      "https://download.savannah.gnu.org/releases/fastjar/fastjar-${version}.tar.gz"
+      ;
     sha256 = "0iginbz2m15hcsa3x4y7v3mhk54gr1r7m3ghx0pg4n46vv2snmpi";
   };
 

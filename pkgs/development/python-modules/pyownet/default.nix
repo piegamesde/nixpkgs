@@ -19,7 +19,7 @@ buildPythonPackage rec {
     sed -i '/use_2to3/d' setup.py
   '';
 
-  # tests access network
+    # tests access network
   doCheck = false;
 
   pythonImportsCheck = [ "pyownet.protocol" ];

@@ -8,13 +8,15 @@
 
 let
   hasVPrefix = ver: (builtins.elemAt (lib.stringToCharacters ver) 0) == "v";
-  k3sVersionSet = if k3sVersion != null then
-    if hasVPrefix k3sVersion then
-      throw "k3sVersion should not have a v prefix"
+  k3sVersionSet =
+    if k3sVersion != null then
+      if hasVPrefix k3sVersion then
+        throw "k3sVersion should not have a v prefix"
+      else
+        true
     else
-      true
-  else
-    false;
+      false
+    ;
 in
 buildGoModule rec {
   pname = "kube3d";
@@ -35,15 +37,16 @@ buildGoModule rec {
     "docgen"
   ];
 
-  ldflags = let
-    t = "github.com/k3d-io/k3d/v5/version";
-  in
-  [
-    "-s"
-    "-w"
-    "-X ${t}.Version=v${version}"
-  ] ++ lib.optionals k3sVersionSet [ "-X ${t}.K3sVersion=v${k3sVersion}" ]
-  ;
+  ldflags =
+    let
+      t = "github.com/k3d-io/k3d/v5/version";
+    in
+    [
+      "-s"
+      "-w"
+      "-X ${t}.Version=v${version}"
+    ] ++ lib.optionals k3sVersionSet [ "-X ${t}.K3sVersion=v${k3sVersion}" ]
+    ;
 
   preCheck = ''
     # skip test that uses networking
@@ -72,7 +75,8 @@ buildGoModule rec {
     homepage = "https://github.com/k3d-io/k3d/";
     changelog = "https://github.com/k3d-io/k3d/blob/v${version}/CHANGELOG.md";
     description =
-      "A helper to run k3s (Lightweight Kubernetes. 5 less than k8s) in a docker container - k3d";
+      "A helper to run k3s (Lightweight Kubernetes. 5 less than k8s) in a docker container - k3d"
+      ;
     longDescription = ''
       k3s is the lightweight Kubernetes distribution by Rancher: rancher/k3s
 

@@ -57,26 +57,28 @@ rustPlatform.buildRustPackage rec {
     install -Dm644 LICENSE -t "$out/share/licenses/${pname}/"
   '';
 
-  postFixup = let
-    libPath = lib.makeLibraryPath [
-      libGL
-      bzip2
-      fontconfig
-      freetype
-      libX11
-      libXcursor
-      libXrandr
-      libXi
-    ];
-  in ''
-    patchelf --set-rpath "${libPath}" "$out/bin/$pname"
-    wrapProgram $out/bin/$pname --prefix PATH : ${
-      lib.makeBinPath [
-        gnome.zenity
-        libsForQt5.kdialog
-      ]
-    }
-  '' ;
+  postFixup =
+    let
+      libPath = lib.makeLibraryPath [
+        libGL
+        bzip2
+        fontconfig
+        freetype
+        libX11
+        libXcursor
+        libXrandr
+        libXi
+      ];
+    in ''
+      patchelf --set-rpath "${libPath}" "$out/bin/$pname"
+      wrapProgram $out/bin/$pname --prefix PATH : ${
+        lib.makeBinPath [
+          gnome.zenity
+          libsForQt5.kdialog
+        ]
+      }
+    ''
+    ;
 
   meta = with lib; {
     description = "Backup tool for PC game saves";

@@ -53,10 +53,10 @@ buildPythonPackage rec {
     tzlocal
   ] ++ bleach.optional-dependencies.css;
 
-  # Tests Fail Due to Syntax Warning, Fixed for v3.1.11+
+    # Tests Fail Due to Syntax Warning, Fixed for v3.1.11+
   doCheck = false;
 
-  # sed calls will be unnecessary in v3.1.11+
+    # sed calls will be unnecessary in v3.1.11+
   preConfigure = ''
     sed -i 's/==/>=/' setup.py
   '';

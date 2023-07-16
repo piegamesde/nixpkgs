@@ -21,10 +21,12 @@ let
   cfg = config.services.mediawiki;
   fpm = config.services.phpfpm.pools.mediawiki;
   user = "mediawiki";
-  group = if cfg.webserver == "apache" then
-    "apache"
-  else
-    "mediawiki";
+  group =
+    if cfg.webserver == "apache" then
+      "apache"
+    else
+      "mediawiki"
+    ;
 
   cacheDir = "/var/cache/mediawiki";
   stateDir = "/var/lib/mediawiki";
@@ -68,15 +70,17 @@ let
     done
   '';
 
-  dbAddr = if cfg.database.socket == null then
-    "${cfg.database.host}:${toString cfg.database.port}"
-  else if cfg.database.type == "mysql" then
-    "${cfg.database.host}:${cfg.database.socket}"
-  else if cfg.database.type == "postgres" then
-    "${cfg.database.socket}"
-  else
-    throw
-    "Unsupported database type: ${cfg.database.type} for socket: ${cfg.database.socket}";
+  dbAddr =
+    if cfg.database.socket == null then
+      "${cfg.database.host}:${toString cfg.database.port}"
+    else if cfg.database.type == "mysql" then
+      "${cfg.database.host}:${cfg.database.socket}"
+    else if cfg.database.type == "postgres" then
+      "${cfg.database.socket}"
+    else
+      throw
+      "Unsupported database type: ${cfg.database.type} for socket: ${cfg.database.socket}"
+    ;
 
   mediawikiConfig = pkgs.writeText "LocalSettings.php" ''
     <?php
@@ -246,18 +250,20 @@ in {
 
       url = mkOption {
         type = types.str;
-        default = if cfg.webserver == "apache" then
-          "${
-            if
-              cfg.httpd.virtualHost.addSSL || cfg.httpd.virtualHost.forceSSL
-              || cfg.httpd.virtualHost.onlySSL
-            then
-              "https"
-            else
-              "http"
-          }://${cfg.httpd.virtualHost.hostName}"
-        else
-          "http://localhost";
+        default =
+          if cfg.webserver == "apache" then
+            "${
+              if
+                cfg.httpd.virtualHost.addSSL || cfg.httpd.virtualHost.forceSSL
+                || cfg.httpd.virtualHost.onlySSL
+              then
+                "https"
+              else
+                "http"
+            }://${cfg.httpd.virtualHost.hostName}"
+          else
+            "http://localhost"
+          ;
         defaultText = literalExpression ''
           if cfg.webserver == "apache" then
             "''${if cfg.httpd.virtualHost.addSSL || cfg.httpd.virtualHost.forceSSL || cfg.httpd.virtualHost.onlySSL then "https" else "http"}://''${cfg.httpd.virtualHost.hostName}"
@@ -279,20 +285,23 @@ in {
 
       passwordFile = mkOption {
         type = types.path;
-        description = lib.mdDoc
-          "A file containing the initial password for the admin user.";
+        description =
+          lib.mdDoc "A file containing the initial password for the admin user."
+          ;
         example = "/run/keys/mediawiki-password";
       };
 
       passwordSender = mkOption {
         type = types.str;
-        default = if cfg.webserver == "apache" then
-          if cfg.httpd.virtualHost.adminAddr != null then
-            cfg.httpd.virtualHost.adminAddr
+        default =
+          if cfg.webserver == "apache" then
+            if cfg.httpd.virtualHost.adminAddr != null then
+              cfg.httpd.virtualHost.adminAddr
+            else
+              config.services.httpd.adminAddr
           else
-            config.services.httpd.adminAddr
-        else
-          "root@localhost";
+            "root@localhost"
+          ;
         defaultText = literalExpression ''
           if cfg.webserver == "apache" then
             if cfg.httpd.virtualHost.adminAddr != null then
@@ -352,7 +361,8 @@ in {
           ];
           default = "mysql";
           description = lib.mdDoc
-            "Database engine to use. MySQL/MariaDB is the database of choice by MediaWiki developers.";
+            "Database engine to use. MySQL/MariaDB is the database of choice by MediaWiki developers."
+            ;
         };
 
         host = mkOption {
@@ -363,10 +373,12 @@ in {
 
         port = mkOption {
           type = types.port;
-          default = if cfg.database.type == "mysql" then
-            3306
-          else
-            5432;
+          default =
+            if cfg.database.type == "mysql" then
+              3306
+            else
+              5432
+            ;
           defaultText = literalExpression "3306";
           description = lib.mdDoc "Database host port.";
         };
@@ -415,7 +427,8 @@ in {
             then
               "/run/postgresql"
             else
-              null;
+              null
+            ;
           defaultText = literalExpression "/run/mysqld/mysqld.sock";
           description =
             lib.mdDoc "Path to the unix socket file to use for authentication.";
@@ -423,8 +436,8 @@ in {
 
         createLocally = mkOption {
           type = types.bool;
-          default = cfg.database.type == "mysql" || cfg.database.type
-            == "postgres";
+          default =
+            cfg.database.type == "mysql" || cfg.database.type == "postgres";
           defaultText = literalExpression "true";
           description = lib.mdDoc ''
             Create the database and database user locally.
@@ -434,8 +447,9 @@ in {
       };
 
       httpd.virtualHost = mkOption {
-        type = types.submodule
-          (import ../web-servers/apache-httpd/vhost-options.nix);
+        type =
+          types.submodule (import ../web-servers/apache-httpd/vhost-options.nix)
+          ;
         example = literalExpression ''
           {
             hostName = "mediawiki.example.org";
@@ -498,7 +512,7 @@ in {
     "virtualHost"
   ]) ];
 
-  # implementation
+    # implementation
   config = mkIf cfg.enable {
 
     assertions = [
@@ -506,23 +520,27 @@ in {
         assertion = cfg.database.createLocally
           -> (cfg.database.type == "mysql" || cfg.database.type == "postgres");
         message =
-          "services.mediawiki.createLocally is currently only supported for database type 'mysql' and 'postgres'";
+          "services.mediawiki.createLocally is currently only supported for database type 'mysql' and 'postgres'"
+          ;
       }
       {
         assertion = cfg.database.createLocally -> cfg.database.user == user;
         message =
-          "services.mediawiki.database.user must be set to ${user} if services.mediawiki.database.createLocally is set true";
+          "services.mediawiki.database.user must be set to ${user} if services.mediawiki.database.createLocally is set true"
+          ;
       }
       {
         assertion = cfg.database.createLocally -> cfg.database.socket != null;
         message =
-          "services.mediawiki.database.socket must be set if services.mediawiki.database.createLocally is set to true";
+          "services.mediawiki.database.socket must be set if services.mediawiki.database.createLocally is set to true"
+          ;
       }
       {
-        assertion = cfg.database.createLocally -> cfg.database.passwordFile
-          == null;
+        assertion =
+          cfg.database.createLocally -> cfg.database.passwordFile == null;
         message =
-          "a password cannot be specified if services.mediawiki.database.createLocally is set to true";
+          "a password cannot be specified if services.mediawiki.database.createLocally is set to true"
+          ;
       }
     ];
 

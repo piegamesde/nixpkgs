@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     zchunk
   ];
 
-  # librepo/fastestmirror.h includes curl/curl.h, and pkg-config specfile refers to others in here
+    # librepo/fastestmirror.h includes curl/curl.h, and pkg-config specfile refers to others in here
   propagatedBuildInputs = [
     curl
     gpgme
@@ -62,7 +62,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Library providing C and Python (libcURL like) API for downloading linux repository metadata and packages";
+      "Library providing C and Python (libcURL like) API for downloading linux repository metadata and packages"
+      ;
     homepage = "https://rpm-software-management.github.io/librepo/";
     license = licenses.lgpl2Plus;
     platforms = platforms.linux;

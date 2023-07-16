@@ -16303,7 +16303,7 @@
   };
   vcunat = {
     name = "Vladimír Čunát";
-    # vcunat@gmail.com predominated in commits before 2019/03
+      # vcunat@gmail.com predominated in commits before 2019/03
     email = "v@cunat.cz";
     matrix = "@vcunat:matrix.org";
     github = "vcunat";

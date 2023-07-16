@@ -10,7 +10,8 @@
 let
   man-pages = fetchurl {
     url =
-      "https://salsa.debian.org/debian/daemontools/-/archive/debian/1%250.76-8/daemontools-debian-1%250.76-8.tar.gz?path=debian/daemontools-man";
+      "https://salsa.debian.org/debian/daemontools/-/archive/debian/1%250.76-8/daemontools-debian-1%250.76-8.tar.gz?path=debian/daemontools-man"
+      ;
     sha256 = "sha256-om5r1ddUx1uObp9LR+SwCLLtm+rRuLoq28OLbhWhdzU=";
   };
 in
@@ -63,7 +64,7 @@ stdenv.mkDerivation rec {
     sed -i "s_^PATH=.*_PATH=$out/bin:\$PATH_" "$out/bin/svscanboot"
   '';
 
-  # Keep README.man in the man output (see _multioutDocs())
+    # Keep README.man in the man output (see _multioutDocs())
   outputDoc = "man";
 
   meta = {

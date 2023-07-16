@@ -10,7 +10,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sageupstream/combinatorial_designs/combinatorial_designs-${version}.tar.bz2";
+      "mirror://sageupstream/combinatorial_designs/combinatorial_designs-${version}.tar.bz2"
+      ;
     sha256 = "0bj8ngiq59hipa6izi6g5ph5akmy4cbk0vlsb0wa67f7grnnqj69";
   };
 

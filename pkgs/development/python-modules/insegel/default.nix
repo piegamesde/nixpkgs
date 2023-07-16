@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pygments ];
 
-  # No tests included
+    # No tests included
   doCheck = false;
 
   pythonImportsCheck = [ "insegel" ];

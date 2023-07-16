@@ -26,7 +26,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/shiftkey/desktop/releases/download/release-${version}-linux1/GitHubDesktop-linux-${version}-linux1.deb";
+      "https://github.com/shiftkey/desktop/releases/download/release-${version}-linux1/GitHubDesktop-linux-${version}-linux1.deb"
+      ;
     hash = "sha256-OdvebRvOTyadgNjzrv6CGDPkljfpo4RVvVAc+X9hjSo=";
   };
 

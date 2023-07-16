@@ -28,7 +28,8 @@ stdenv.mkDerivation rec {
     # should be included in next release
     (fetchpatch {
       url =
-        "https://github.com/collectd/collectd/commit/3f575419e7ccb37a3b10ecc82adb2e83ff2826e1.patch";
+        "https://github.com/collectd/collectd/commit/3f575419e7ccb37a3b10ecc82adb2e83ff2826e1.patch"
+        ;
       sha256 = "0jwjdlfl0dp7mlbwygp6h0rsbaqfbgfm5z07lr5l26z6hhng2h2y";
     })
   ];
@@ -44,10 +45,11 @@ stdenv.mkDerivation rec {
   configureFlags = [
     "--localstatedir=/var"
     "--disable-werror"
-  ] ++ plugins.configureFlags ++ lib.optionals (stdenv.buildPlatform
-    != stdenv.hostPlatform) [ "--with-fp-layout=nothing" ];
+  ] ++ plugins.configureFlags ++ lib.optionals
+    (stdenv.buildPlatform != stdenv.hostPlatform) [ "--with-fp-layout=nothing" ]
+    ;
 
-  # do not create directories in /var during installPhase
+    # do not create directories in /var during installPhase
   postConfigure = ''
     substituteInPlace Makefile --replace '$(mkinstalldirs) $(DESTDIR)$(localstatedir)/' '#'
   '';

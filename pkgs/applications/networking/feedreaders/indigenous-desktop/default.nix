@@ -15,7 +15,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/marksuth/indigenous-desktop/releases/download/v${version}/indigenous-linux-x64-${version}.zip";
+      "https://github.com/marksuth/indigenous-desktop/releases/download/v${version}/indigenous-linux-x64-${version}.zip"
+      ;
     sha256 = "sha256-1nqj9N5RQE0PogJSULu75CTVLHeQsHIimtFXSCP6SPA=";
   };
 
@@ -53,7 +54,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "IndieWeb app with extensions for sharing to/reading from micropub endpoints";
+      "IndieWeb app with extensions for sharing to/reading from micropub endpoints"
+      ;
     homepage = "https://indigenous.realize.be/indigenous-desktop";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.gpl3Only;

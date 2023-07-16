@@ -14,7 +14,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/kmrcl/2020-10-16/kmrcl-20201016-git.tgz";
+      "http://beta.quicklisp.org/archive/kmrcl/2020-10-16/kmrcl-20201016-git.tgz"
+      ;
     sha256 = "0i0k61385hrzbg15qs1wprz6sis7mx2abxv1hqcc2f53rqm9b2hf";
   };
 

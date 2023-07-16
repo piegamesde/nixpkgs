@@ -45,14 +45,14 @@ gccStdenv.mkDerivation rec {
     git
     autoconf
   ];
-  # TODO: if/when we can get all the library packages we depend on to have static versions,
-  # we could use something like (makeStaticLibraries openssl) to enable creation
-  # of statically linked binaries by gsc.
+    # TODO: if/when we can get all the library packages we depend on to have static versions,
+    # we could use something like (makeStaticLibraries openssl) to enable creation
+    # of statically linked binaries by gsc.
   buildInputs = [ openssl ];
 
-  # TODO: patch gambit's source so it has the full path to sed, grep, fgrep? Is there more?
-  # Or wrap relevant programs to add a suitable PATH ?
-  #runtimeDeps = [ gnused gnugrep ];
+    # TODO: patch gambit's source so it has the full path to sed, grep, fgrep? Is there more?
+    # Or wrap relevant programs to add a suitable PATH ?
+    #runtimeDeps = [ gnused gnugrep ];
 
   configureFlags = [
     "--enable-targets=${gambit-params.targets}"

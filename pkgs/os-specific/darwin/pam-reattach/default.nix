@@ -29,15 +29,16 @@ stdenv.mkDerivation rec {
   ] ++ lib.optional (!stdenv.isAarch64)
     "-DCMAKE_LIBRARY_PATH=${darwin.apple_sdk.sdk}/usr/lib";
 
-  buildInputs = [ openpam ]
-    ++ lib.optional (!stdenv.isAarch64) darwin.apple_sdk.sdk;
+  buildInputs =
+    [ openpam ] ++ lib.optional (!stdenv.isAarch64) darwin.apple_sdk.sdk;
 
   nativeBuildInputs = [ cmake ];
 
   meta = with lib; {
     homepage = "https://github.com/fabianishere/pam_reattach";
     description =
-      "Reattach to the user's GUI session on macOS during authentication (for Touch ID support in tmux)";
+      "Reattach to the user's GUI session on macOS during authentication (for Touch ID support in tmux)"
+      ;
     license = licenses.mit;
     maintainers = with maintainers; [ lockejan ];
     platforms = platforms.darwin;

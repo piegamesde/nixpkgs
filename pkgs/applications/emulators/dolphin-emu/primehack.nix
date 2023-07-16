@@ -120,7 +120,7 @@ stdenv.mkDerivation rec {
     "--set QT_QPA_PLATFORM xcb"
   ];
 
-  # - Allow Dolphin to use nix-provided libraries instead of building them
+    # - Allow Dolphin to use nix-provided libraries instead of building them
   postPatch = ''
     substituteInPlace CMakeLists.txt --replace 'DISTRIBUTOR "None"' 'DISTRIBUTOR "NixOS"'
   '' + lib.optionalString stdenv.isDarwin ''

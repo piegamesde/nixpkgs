@@ -117,12 +117,12 @@ lib.listToAttrs (map (component:
       ++ home-assistant.getPackages component home-assistant.python.pkgs
       ++ extraCheckInputs.${component} or [ ];
 
-    disabledTests = old.disabledTests or [ ]
-      ++ extraDisabledTests.${component} or [ ];
+    disabledTests =
+      old.disabledTests or [ ] ++ extraDisabledTests.${component} or [ ];
     disabledTestPaths = old.disabledTestPaths or [ ]
       ++ extraDisabledTestPaths.${component} or [ ];
 
-    # components are more often racy than the core
+      # components are more often racy than the core
     dontUsePytestXdist = true;
 
     pytestFlagsArray = lib.remove "tests" old.pytestFlagsArray
@@ -139,7 +139,7 @@ lib.listToAttrs (map (component:
 
     meta = old.meta // {
       broken = lib.elem component [ ];
-      # upstream only tests on Linux, so do we.
+        # upstream only tests on Linux, so do we.
       platforms = lib.platforms.linux;
     };
   }))) home-assistant.supportedComponentsWithTests)

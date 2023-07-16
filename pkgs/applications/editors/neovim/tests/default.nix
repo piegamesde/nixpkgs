@@ -50,8 +50,10 @@ let
 
   nvimAutoDisableWrap = makeNeovimConfig { };
 
-  wrapNeovim2 = suffix: config:
-    wrapNeovimUnstable neovim-unwrapped (config // { extraName = suffix; });
+  wrapNeovim2 =
+    suffix: config:
+    wrapNeovimUnstable neovim-unwrapped (config // { extraName = suffix; })
+    ;
 
   nmt = fetchFromGitLab {
     owner = "rycee";
@@ -60,9 +62,9 @@ let
     sha256 = "1ykcvyx82nhdq167kbnpgwkgjib8ii7c92y3427v986n2s5lsskc";
   };
 
-  # this plugin checks that it's ftplugin/vim.tex is loaded before $VIMRUNTIME/ftplugin/vim.tex
-  # $VIMRUNTIME/ftplugin/vim.tex sources $VIMRUNTIME/ftplugin/initex.vim which sets b:did_ftplugin
-  # we save b:did_ftplugin's value in a `plugin_was_loaded_too_late` file
+    # this plugin checks that it's ftplugin/vim.tex is loaded before $VIMRUNTIME/ftplugin/vim.tex
+    # $VIMRUNTIME/ftplugin/vim.tex sources $VIMRUNTIME/ftplugin/initex.vim which sets b:did_ftplugin
+    # we save b:did_ftplugin's value in a `plugin_was_loaded_too_late` file
   texFtplugin = (pkgs.runCommandLocal "tex-ftplugin" { } ''
     mkdir -p $out/ftplugin
     echo 'call system("echo ". exists("b:did_ftplugin") . " > plugin_was_loaded_too_late")' >> $out/ftplugin/tex.vim
@@ -71,8 +73,9 @@ let
     pname = "test-ftplugin";
   };
 
-  # neovim-drv must be a wrapped neovim
-  runTest = neovim-drv: buildCommand:
+    # neovim-drv must be a wrapped neovim
+  runTest =
+    neovim-drv: buildCommand:
     runCommandLocal "test-${neovim-drv.name}" ({
       nativeBuildInputs = [ ];
       meta.platforms = neovim-drv.meta.platforms;
@@ -82,7 +85,8 @@ let
       vimrcGeneric="$out/patched.vim"
       mkdir $out
       ${pkgs.perl}/bin/perl -pe "s|\Q$NIX_STORE\E/[a-z0-9]{32}-|$NIX_STORE/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-|g" < "$vimrc" > "$vimrcGeneric"
-    '' + buildCommand);
+    '' + buildCommand)
+    ;
 
 in
 pkgs.recurseIntoAttrs (rec {
@@ -91,8 +95,8 @@ pkgs.recurseIntoAttrs (rec {
     customRC = "";
   };
 
-  ### neovim tests
-  ##################
+    ### neovim tests
+    ##################
   nvim_with_plugins = wrapNeovim2 "-with-plugins" nvimConfNix;
 
   singlelinesconfig =
@@ -140,8 +144,8 @@ pkgs.recurseIntoAttrs (rec {
     configure.packages.plugins = { start = [ texFtplugin ]; };
   };
 
-  # regression test that ftplugin files from plugins are loaded before the ftplugin
-  # files from $VIMRUNTIME
+    # regression test that ftplugin files from plugins are loaded before the ftplugin
+    # files from $VIMRUNTIME
   run_nvim_with_ftplugin = runTest nvim_with_ftplugin ''
     export HOME=$TMPDIR
     echo '\documentclass{article}' > main.tex
@@ -152,8 +156,8 @@ pkgs.recurseIntoAttrs (rec {
     [ ! -f plugin_was_loaded_too_late ]
   '';
 
-  # check that the vim-doc hook correctly generates the tag
-  # we know for a fact packer has a doc folder
+    # check that the vim-doc hook correctly generates the tag
+    # we know for a fact packer has a doc folder
   checkForTags = vimPlugins.packer-nvim.overrideAttrs (oldAttrs: {
     doInstallCheck = true;
     installCheckPhase = ''
@@ -161,9 +165,9 @@ pkgs.recurseIntoAttrs (rec {
     '';
   });
 
-  # check that the vim-doc hook correctly generates the tag
-  # for neovim packages from luaPackages
-  # we know for a fact gitsigns-nvim has a doc folder and comes from luaPackages
+    # check that the vim-doc hook correctly generates the tag
+    # for neovim packages from luaPackages
+    # we know for a fact gitsigns-nvim has a doc folder and comes from luaPackages
   checkForTagsLuaPackages = vimPlugins.gitsigns-nvim.overrideAttrs (oldAttrs: {
     doInstallCheck = true;
     installCheckPhase = ''
@@ -180,10 +184,10 @@ pkgs.recurseIntoAttrs (rec {
     ${nvim_with_gitsigns_plugin}/bin/nvim -i NONE -c 'help gitsigns' +quitall! -e
   '';
 
-  # nixpkgs should detect that no wrapping is necessary
+    # nixpkgs should detect that no wrapping is necessary
   nvimShouldntWrap = wrapNeovim2 "-should-not-wrap" nvimAutoDisableWrap;
 
-  # this will generate a neovimRc content but we disable wrapping
+    # this will generate a neovimRc content but we disable wrapping
   nvimDontWrap = wrapNeovim2 "-forced-nowrap" (makeNeovimConfig {
     wrapRc = false;
     customRC = ''
@@ -207,15 +211,15 @@ pkgs.recurseIntoAttrs (rec {
     assertFileExists "$folder/vim"
   '';
 
-  # having no RC generated should autodisable init.vim wrapping
+    # having no RC generated should autodisable init.vim wrapping
   nvim_autowrap = runTest nvim_via_override ''
     ! grep "-u" ${nvimShouldntWrap}/bin/nvim
   '';
 
-  # system remote plugin manifest should be generated, deoplete should be usable
-  # without the user having to do `UpdateRemotePlugins`. To test, launch neovim
-  # and do `:call deoplete#enable()`. It will print an error if the remote
-  # plugin is not registered.
+    # system remote plugin manifest should be generated, deoplete should be usable
+    # without the user having to do `UpdateRemotePlugins`. To test, launch neovim
+    # and do `:call deoplete#enable()`. It will print an error if the remote
+    # plugin is not registered.
   test_nvim_with_remote_plugin = neovim.override {
     extraName = "-remote";
     configure.packages.foo.start = with vimPlugins; [ deoplete-nvim ];
@@ -233,7 +237,7 @@ pkgs.recurseIntoAttrs (rec {
     ${nvimWithLuaPackages}/bin/nvim -i NONE --noplugin -es
   '';
 
-  # nixpkgs should install optional packages in the opt folder
+    # nixpkgs should install optional packages in the opt folder
   nvim_with_opt_plugin = neovim.override {
     extraName = "-with-opt-plugin";
     configure.packages.opt-plugins = with pkgs.vimPlugins; {

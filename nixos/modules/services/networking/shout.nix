@@ -16,18 +16,20 @@ let
     mv config.js $out
   '';
 
-  finalConfigFile = if (cfg.configFile != null) then
-    cfg.configFile
-  else
-    ''
-      var _ = require('${pkgs.shout}/lib/node_modules/shout/node_modules/lodash')
+  finalConfigFile =
+    if (cfg.configFile != null) then
+      cfg.configFile
+    else
+      ''
+        var _ = require('${pkgs.shout}/lib/node_modules/shout/node_modules/lodash')
 
-      module.exports = _.merge(
-        {},
-        require('${defaultConfig}'),
-        ${builtins.toJSON cfg.config}
-      )
-    '';
+        module.exports = _.merge(
+          {},
+          require('${defaultConfig}'),
+          ${builtins.toJSON cfg.config}
+        )
+      ''
+    ;
 
 in {
   options.services.shout = {

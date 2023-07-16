@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
     name = "warzone2100";
     meta = with pkgs.lib.maintainers; { maintainers = [ fgaz ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         config,
         pkgs,
         ...
@@ -14,7 +15,8 @@ import ./make-test-python.nix ({
 
         services.xserver.enable = true;
         environment.systemPackages = [ pkgs.warzone2100 ];
-      };
+      }
+      ;
 
     enableOCR = true;
 

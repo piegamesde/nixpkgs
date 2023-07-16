@@ -31,12 +31,12 @@ in {
       EndSection
     '';
 
-    # make the device available
+      # make the device available
     services.xserver.displayManager.sessionCommands = ''
       ${lib.getBin pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource 1 0
     '';
 
-    # Those are taken from displaylink-installer.sh and from Arch Linux AUR package.
+      # Those are taken from displaylink-installer.sh and from Arch Linux AUR package.
 
     services.udev.packages = [ displaylink ];
 

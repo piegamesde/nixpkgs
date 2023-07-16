@@ -7,7 +7,8 @@ import ./make-test-python.nix ({
 
     meta = with lib.maintainers; { maintainers = [ nukaduka ]; };
 
-    nodes.server = {
+    nodes.server =
+      {
         ...
       }: {
         environment.systemPackages = with pkgs; [ prometheus-alertmanager ];
@@ -39,8 +40,9 @@ import ./make-test-python.nix ({
                       summary: node is fine
           '' ];
 
-          alertmanagers =
-            [ { static_configs = [ { targets = [ "localhost:9093" ]; } ]; } ];
+          alertmanagers = [ {
+            static_configs = [ { targets = [ "localhost:9093" ]; } ];
+          } ];
 
           alertmanager = {
             enable = true;
@@ -66,7 +68,8 @@ import ./make-test-python.nix ({
           maxDuration = "15m";
           interval = "5s";
         };
-      };
+      }
+      ;
 
     testScript = ''
       with subtest("start the server"):

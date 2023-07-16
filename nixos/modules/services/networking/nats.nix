@@ -88,7 +88,7 @@ in {
     };
   };
 
-  ### Implementation
+    ### Implementation
 
   config = mkIf cfg.enable {
     services.nats.settings = {
@@ -117,7 +117,7 @@ in {
           User = cfg.user;
           Group = cfg.group;
 
-          # Hardening
+            # Hardening
           CapabilityBoundingSet = "";
           LimitNOFILE = 800000; # JetStream requires 2 FDs open per stream.
           LockPersonality = true;

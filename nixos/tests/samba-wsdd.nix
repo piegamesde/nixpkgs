@@ -8,7 +8,8 @@ import ./make-test-python.nix ({
     meta.maintainers = with pkgs.lib.maintainers; [ izorkin ];
 
     nodes = {
-      client_wsdd = {
+      client_wsdd =
+        {
           pkgs,
           ...
         }: {
@@ -22,9 +23,11 @@ import ./make-test-python.nix ({
           };
           networking.firewall.allowedTCPPorts = [ 5357 ];
           networking.firewall.allowedUDPPorts = [ 3702 ];
-        };
+        }
+        ;
 
-      server_wsdd = {
+      server_wsdd =
+        {
           ...
         }: {
           services.samba-wsdd = {
@@ -35,7 +38,8 @@ import ./make-test-python.nix ({
           };
           networking.firewall.allowedTCPPorts = [ 5357 ];
           networking.firewall.allowedUDPPorts = [ 3702 ];
-        };
+        }
+        ;
     };
 
     testScript = ''

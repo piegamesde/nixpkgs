@@ -157,7 +157,8 @@ in {
     assertions = [ {
       assertion = cfg.database.createLocally -> cfg.database.username == name;
       message =
-        "services.coder.database.username must be set to ${user} if services.coder.database.createLocally is set true";
+        "services.coder.database.username must be set to ${user} if services.coder.database.createLocally is set true"
+        ;
     } ];
 
     systemd.services.coder = {

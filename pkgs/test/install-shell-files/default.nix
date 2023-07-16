@@ -6,11 +6,13 @@
 }:
 
 let
-  runTest = name: env: buildCommand:
+  runTest =
+    name: env: buildCommand:
     runCommandLocal "install-shell-files--${name}" ({
       nativeBuildInputs = [ installShellFiles ];
       meta.platforms = lib.platforms.all;
-    } // env) buildCommand;
+    } // env) buildCommand
+    ;
 
 in
 recurseIntoAttrs {
@@ -55,7 +57,7 @@ recurseIntoAttrs {
     touch $out
   '';
 
-  # installShellCompletion
+    # installShellCompletion
 
   install-completion = runTest "install-completion" { } ''
     echo foo > foo

@@ -18,7 +18,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchurl {
     url =
-      "http://www.five-ten-sg.com/libpst/packages/${finalAttrs.pname}-${finalAttrs.version}.tar.gz";
+      "http://www.five-ten-sg.com/libpst/packages/${finalAttrs.pname}-${finalAttrs.version}.tar.gz"
+      ;
     hash = "sha256-PSkb7rvbSNK5NGCLwGGVtkHaY9Ko9eDThvLp1tBaC0I=";
   };
 

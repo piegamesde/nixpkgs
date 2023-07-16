@@ -37,7 +37,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "missing-override.patch";
       url =
-        "https://github.com/souffle-lang/souffle/commit/da2d778f0cca94f206686546fa56b9ffc738ad75.patch";
+        "https://github.com/souffle-lang/souffle/commit/da2d778f0cca94f206686546fa56b9ffc738ad75.patch"
+        ;
       sha256 = "Oefm3vRRwOyom94oGSOK2w9m23gkbJ++9gcWrdLlkyk=";
     })
   ];
@@ -61,9 +62,9 @@ stdenv.mkDerivation rec {
     sqlite
     libffi
   ];
-  # these propagated inputs are needed for the compiled Souffle mode to work,
-  # since generated compiler code uses them. TODO: maybe write a g++ wrapper
-  # that adds these so we can keep the propagated inputs clean?
+    # these propagated inputs are needed for the compiled Souffle mode to work,
+    # since generated compiler code uses them. TODO: maybe write a g++ wrapper
+    # that adds these so we can keep the propagated inputs clean?
   propagatedBuildInputs = [
     ncurses
     zlib

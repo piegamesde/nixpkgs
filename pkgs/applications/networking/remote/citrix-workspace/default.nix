@@ -10,8 +10,10 @@ let
   inherit (callPackage ./sources.nix { }) supportedVersions unsupportedVersions;
   mkCitrix = callPackage ./generic.nix { };
 
-  toAttrName = x:
-    "citrix_workspace_${builtins.replaceStrings [ "." ] [ "_" ] x}";
+  toAttrName =
+    x:
+    "citrix_workspace_${builtins.replaceStrings [ "." ] [ "_" ] x}"
+    ;
 
   unsupported = lib.listToAttrs (map (x:
     lib.nameValuePair (toAttrName x) (throw ''

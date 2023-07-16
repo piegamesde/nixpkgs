@@ -28,9 +28,9 @@ stdenv.mkDerivation rec {
     substituteInPlace $out/lib/cmake/${pname}/${pname}-targets.cmake  \
       --replace 'set(_IMPORT_PREFIX' '#set(_IMPORT_PREFIX'
   '';
-  # prevents cmake from exporting incorrect INTERFACE_INCLUDE_DIRECTORIES
-  # of form /nix/store/.../nix/store/.../include,
-  # probably due to relative vs absolute path issue
+    # prevents cmake from exporting incorrect INTERFACE_INCLUDE_DIRECTORIES
+    # of form /nix/store/.../nix/store/.../include,
+    # probably due to relative vs absolute path issue
 
   doCheck = !stdenv.isDarwin;
 

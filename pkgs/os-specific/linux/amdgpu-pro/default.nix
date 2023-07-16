@@ -21,17 +21,21 @@ with lib;
 
 let
 
-  bitness = if stdenv.is64bit then
-    "64"
-  else
-    "32";
+  bitness =
+    if stdenv.is64bit then
+      "64"
+    else
+      "32"
+    ;
 
-  libArch = if stdenv.hostPlatform.system == "i686-linux" then
-    "i386-linux-gnu"
-  else if stdenv.hostPlatform.system == "x86_64-linux" then
-    "x86_64-linux-gnu"
-  else
-    throw "amdgpu-pro is Linux only. Sorry.";
+  libArch =
+    if stdenv.hostPlatform.system == "i686-linux" then
+      "i386-linux-gnu"
+    else if stdenv.hostPlatform.system == "x86_64-linux" then
+      "x86_64-linux-gnu"
+    else
+      throw "amdgpu-pro is Linux only. Sorry."
+    ;
 
 in
 stdenv.mkDerivation rec {
@@ -42,10 +46,12 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://drivers.amd.com/drivers/linux/amdgpu-pro-${build}-ubuntu-20.04.tar.xz";
+      "https://drivers.amd.com/drivers/linux/amdgpu-pro-${build}-ubuntu-20.04.tar.xz"
+      ;
     sha256 = "sha256-WECqxjo2WLP3kMWeVyJgYufkvHTzwGaj57yeMGXiQ4I=";
     curlOpts =
-      "--referer https://www.amd.com/en/support/kb/release-notes/rn-amdgpu-unified-linux-21-30";
+      "--referer https://www.amd.com/en/support/kb/release-notes/rn-amdgpu-unified-linux-21-30"
+      ;
   };
 
   postUnpack = ''
@@ -104,7 +110,7 @@ stdenv.mkDerivation rec {
         runHook postInstall
       '';
 
-      # without this we get a collision with the ttm module from linux
+        # without this we get a collision with the ttm module from linux
       meta.priority = 4;
     };
 
@@ -217,7 +223,7 @@ stdenv.mkDerivation rec {
       substituteInPlace $vulkan/share/vulkan/icd.d/*.json --replace /opt/amdgpu-pro/lib/${libArch} "$out/opt/amdgpu-pro/lib"
     '';
 
-  # doing this in post because shrinking breaks things that dynamically load
+    # doing this in post because shrinking breaks things that dynamically load
   postFixup = ''
     libPath="$out/opt/amdgpu/lib:$out/opt/amdgpu-pro/lib:$depLibPath"
     find "$out" -name '*.so*' -type f -exec patchelf --set-rpath "$libPath" {} \;

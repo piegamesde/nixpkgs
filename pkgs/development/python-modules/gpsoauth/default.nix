@@ -23,7 +23,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  # upstream tests are not very comprehensive
+    # upstream tests are not very comprehensive
   doCheck = false;
 
   pythonImportsCheck = [ "gpsoauth" ];

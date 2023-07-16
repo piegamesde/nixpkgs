@@ -80,8 +80,8 @@ in {
         type = types.listOf types.str;
         description = lib.mdDoc "List of Change Sources.";
         default = [ ];
-        example =
-          [ "changes.GitPoller('https://github.com/buildbot/pyflakes.git', workdir='gitpoller-workdir', branch='master', pollinterval=300)" ];
+        example = [ "changes.GitPoller('https://github.com/buildbot/pyflakes.git', workdir='gitpoller-workdir', branch='master', pollinterval=300)" ]
+          ;
       };
 
       enable = mkOption {
@@ -100,7 +100,8 @@ in {
       masterCfg = mkOption {
         type = types.path;
         description = lib.mdDoc
-          "Optionally pass master.cfg path. Other options in this configuration will be ignored.";
+          "Optionally pass master.cfg path. Other options in this configuration will be ignored."
+          ;
         default = defaultMasterCfg;
         defaultText = literalMD "generated configuration file";
         example = "/etc/nixos/buildbot/master.cfg";
@@ -118,8 +119,8 @@ in {
       builders = mkOption {
         type = types.listOf types.str;
         description = lib.mdDoc "List of Builders.";
-        default =
-          [ "util.BuilderConfig(name='runtests',workernames=['example-worker'],factory=factory)" ];
+        default = [ "util.BuilderConfig(name='runtests',workernames=['example-worker'],factory=factory)" ]
+          ;
       };
 
       workers = mkOption {
@@ -132,7 +133,8 @@ in {
         default = [ ];
         type = types.listOf types.str;
         description = lib.mdDoc
-          "List of reporter objects used to present build status to various users.";
+          "List of reporter objects used to present build status to various users."
+          ;
       };
 
       user = mkOption {
@@ -188,7 +190,8 @@ in {
         default = "0.0.0.0";
         type = types.str;
         description = lib.mdDoc
-          "Specifies the bind address on which the buildbot HTTP interface listens.";
+          "Specifies the bind address on which the buildbot HTTP interface listens."
+          ;
       };
 
       buildbotUrl = mkOption {
@@ -286,9 +289,10 @@ in {
         User = cfg.user;
         Group = cfg.group;
         WorkingDirectory = cfg.home;
-        # NOTE: call twistd directly with stdout logging for systemd
+          # NOTE: call twistd directly with stdout logging for systemd
         ExecStart =
-          "${python.pkgs.twisted}/bin/twistd -o --nodaemon --pidfile= --logfile - --python ${tacFile}";
+          "${python.pkgs.twisted}/bin/twistd -o --nodaemon --pidfile= --logfile - --python ${tacFile}"
+          ;
       };
     };
   };

@@ -32,7 +32,8 @@ let
     platforms = platforms.linux;
   };
 
-  generic = {
+  generic =
+    {
       pname,
       path ? "util/${pname}",
       ...
@@ -58,7 +59,8 @@ let
       ];
 
       meta = commonMeta // args.meta;
-    } // (removeAttrs args [ "meta" ]));
+    } // (removeAttrs args [ "meta" ]))
+    ;
 
   utils = {
     msrtool = generic {
@@ -102,12 +104,14 @@ let
     nvramtool = generic {
       pname = "nvramtool";
       meta.description =
-        "Read and write coreboot parameters and display information from the coreboot table in CMOS/NVRAM";
+        "Read and write coreboot parameters and display information from the coreboot table in CMOS/NVRAM"
+        ;
     };
     superiotool = generic {
       pname = "superiotool";
       meta.description =
-        "User-space utility to detect Super I/O of a mainboard and provide detailed information about the register contents of the Super I/O";
+        "User-space utility to detect Super I/O of a mainboard and provide detailed information about the register contents of the Super I/O"
+        ;
       buildInputs = [
         pciutils
         zlib
@@ -126,7 +130,8 @@ let
     inteltool = generic {
       pname = "inteltool";
       meta.description =
-        "Provides information about Intel CPU/chipset hardware configuration (register contents, MSRs, etc)";
+        "Provides information about Intel CPU/chipset hardware configuration (register contents, MSRs, etc)"
+        ;
       buildInputs = [
         pciutils
         zlib

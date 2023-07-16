@@ -51,8 +51,8 @@ stdenv.mkDerivation rec {
     make -C contrib/lease-tools
   '';
 
-  # XXX: Does the systemd service definition really belong here when our NixOS
-  # module can create it in Nix-land?
+    # XXX: Does the systemd service definition really belong here when our NixOS
+    # module can create it in Nix-land?
   postInstall = ''
     install -Dm644 trust-anchors.conf $out/share/dnsmasq/trust-anchors.conf
   '' + lib.optionalString stdenv.isDarwin ''
@@ -87,7 +87,7 @@ stdenv.mkDerivation rec {
   passthru.tests = {
     prometheus-exporter = nixosTests.prometheus-exporters.dnsmasq;
 
-    # these tests use dnsmasq incidentally
+      # these tests use dnsmasq incidentally
     inherit (nixosTests) dnscrypt-proxy2;
     kubernetes-dns-single = nixosTests.kubernetes.dns-single-node;
     kubernetes-dns-multi = nixosTests.kubernetes.dns-multi-node;

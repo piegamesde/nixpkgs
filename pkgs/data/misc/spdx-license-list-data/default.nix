@@ -15,7 +15,7 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-qMVUP1EpeeO+i5RfnAt/Idz+pR9dVyCT4Ss9lEJgj6k=";
   };
 
-  # List of file formats to package.
+    # List of file formats to package.
   _types = [
     "html"
     "json"

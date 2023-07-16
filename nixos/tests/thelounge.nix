@@ -2,7 +2,8 @@ import ./make-test-python.nix {
   name = "thelounge";
 
   nodes = {
-    private = {
+    private =
+      {
         config,
         pkgs,
         ...
@@ -11,9 +12,11 @@ import ./make-test-python.nix {
           enable = true;
           plugins = [ pkgs.theLoungePlugins.themes.solarized ];
         };
-      };
+      }
+      ;
 
-    public = {
+    public =
+      {
         config,
         pkgs,
         ...
@@ -22,7 +25,8 @@ import ./make-test-python.nix {
           enable = true;
           public = true;
         };
-      };
+      }
+      ;
   };
 
   testScript = ''

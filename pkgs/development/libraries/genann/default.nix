@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
   dontBuild = true;
   doCheck = true;
 
-  # Nix doesn't seem to recognize this by default.
+    # Nix doesn't seem to recognize this by default.
   checkPhase = ''
     make check
   '';

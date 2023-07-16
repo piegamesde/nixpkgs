@@ -14,7 +14,7 @@ build-idris-package {
     sha256 = "14y51vn18v23k56gi3b33rjjwpf02qfb00w8cfy8qycrl8rbgsmb";
   };
 
-  # tests need file permissions
+    # tests need file permissions
   doCheck = false;
 
   meta = {

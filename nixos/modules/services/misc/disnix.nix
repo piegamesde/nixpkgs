@@ -26,7 +26,8 @@ in {
         type = types.bool;
         default = true;
         description = lib.mdDoc
-          "Whether to support multi-user mode by enabling the Disnix D-Bus service";
+          "Whether to support multi-user mode by enabling the Disnix D-Bus service"
+          ;
       };
 
       useWebServiceInterface = mkEnableOption
@@ -52,7 +53,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
     dysnomia.enable = true;

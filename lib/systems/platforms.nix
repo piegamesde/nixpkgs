@@ -13,7 +13,7 @@
       name = "pc";
 
       baseConfig = "defconfig";
-      # Build whatever possible as a module, if not stated in the extra config.
+        # Build whatever possible as a module, if not stated in the extra config.
       autoModules = true;
       target = "bzImage";
     };
@@ -29,7 +29,7 @@
       baseConfig = "powernv_defconfig";
       target = "vmlinux";
       autoModules = true;
-      # avoid driver/FS trouble arising from unusual page size
+        # avoid driver/FS trouble arising from unusual page size
       extraConfig = ''
         PPC_64K_PAGES n
         PPC_4K_PAGES y
@@ -42,9 +42,9 @@
     };
   };
 
-  ##
-  ## ARM
-  ##
+    ##
+    ## ARM
+    ##
 
   pogoplug4 = {
     linux-kernel = {
@@ -64,8 +64,8 @@
       '';
       makeFlags = [ "LOADADDR=0x8000" ];
       target = "uImage";
-      # TODO reenable once manual-config's config actually builds a .dtb and this is checked to be working
-      #DTB = true;
+        # TODO reenable once manual-config's config actually builds a .dtb and this is checked to be working
+        #DTB = true;
     };
     gcc = { arch = "armv5te"; };
   };
@@ -202,7 +202,7 @@
     };
   };
 
-  # Legacy attribute, for compatibility with existing configs only.
+    # Legacy attribute, for compatibility with existing configs only.
   raspberrypi2 = armv7l-hf-multiplatform;
 
   zero-gravitas = {
@@ -210,7 +210,7 @@
       name = "zero-gravitas";
 
       baseConfig = "zero-gravitas_defconfig";
-      # Target verified by checking /boot on reMarkable 1 device
+        # Target verified by checking /boot on reMarkable 1 device
       target = "zImage";
       autoModules = false;
       DTB = true;
@@ -281,7 +281,7 @@
     };
   };
 
-  # https://developer.android.com/ndk/guides/abis#v7a
+    # https://developer.android.com/ndk/guides/abis#v7a
   armv7a-android = {
     linux-kernel.name = "armeabi-v7a";
     gcc = {
@@ -338,9 +338,9 @@
       arch = "armv7-a";
       fpu = "vfpv3-d16";
 
-      # For Raspberry Pi the 2 the best would be:
-      #   cpu = "cortex-a7";
-      #   fpu = "neon-vfpv4";
+        # For Raspberry Pi the 2 the best would be:
+        #   cpu = "cortex-a7";
+        #   fpu = "neon-vfpv4";
     };
   };
 
@@ -384,9 +384,9 @@
     };
   };
 
-  ##
-  ## MIPS
-  ##
+    ##
+    ## MIPS
+    ##
 
   ben_nanonote = {
     linux-kernel = { name = "ben_nanonote"; };
@@ -474,7 +474,7 @@
     };
   };
 
-  # can execute on 32bit chip
+    # can execute on 32bit chip
   gcc_mips32r2_o32 = {
     gcc = {
       arch = "mips32r2";
@@ -512,9 +512,9 @@
     };
   };
 
-  # based on:
-  #   https://www.mail-archive.com/qemu-discuss@nongnu.org/msg05179.html
-  #   https://gmplib.org/~tege/qemu.html#mips64-debian
+    # based on:
+    #   https://www.mail-archive.com/qemu-discuss@nongnu.org/msg05179.html
+    #   https://gmplib.org/~tege/qemu.html#mips64-debian
   mips64el-qemu-linux-gnuabi64 = {
     linux-kernel = {
       name = "mips64el";
@@ -522,7 +522,7 @@
       target = "vmlinuz";
       autoModules = false;
       DTB = true;
-      # for qemu 9p passthrough filesystem
+        # for qemu 9p passthrough filesystem
       extraConfig = ''
         MIPS_MALTA y
         PAGE_SIZE_4KB y
@@ -541,9 +541,9 @@
     };
   };
 
-  ##
-  ## Other
-  ##
+    ##
+    ## Other
+    ##
 
   riscv-multiplatform = {
     linux-kernel = {
@@ -558,10 +558,11 @@
     };
   };
 
-  # This function takes a minimally-valid "platform" and returns an
-  # attrset containing zero or more additional attrs which should be
-  # included in the platform in order to further elaborate it.
-  select = platform:
+    # This function takes a minimally-valid "platform" and returns an
+    # attrset containing zero or more additional attrs which should be
+    # included in the platform in order to further elaborate it.
+  select =
+    platform:
     # x86
     if platform.isx86 then
       pc
@@ -595,5 +596,6 @@
       powernv
 
     else
-      { };
+      { }
+    ;
 }

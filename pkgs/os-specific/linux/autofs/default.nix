@@ -34,7 +34,8 @@ stdenv.mkDerivation rec {
     # glibc 2.34 compat
     (fetchpatch {
       url =
-        "https://src.fedoraproject.org/rpms/autofs/raw/cc745af5e42396d540d5b3b92fae486e232bf6bd/f/autofs-5.1.7-use-default-stack-size-for-threads.patch";
+        "https://src.fedoraproject.org/rpms/autofs/raw/cc745af5e42396d540d5b3b92fae486e232bf6bd/f/autofs-5.1.7-use-default-stack-size-for-threads.patch"
+        ;
       sha256 = "sha256-6ETDFbW7EhHR03xFWF+6OJBgn9NX3WW3bGhTNGodaOc=";
       excludes = [ "CHANGELOG" ];
     })
@@ -56,7 +57,7 @@ stdenv.mkDerivation rec {
     unset STRIP # Makefile.rules defines a usable STRIP only without the env var.
   '';
 
-  # configure script is not finding the right path
+    # configure script is not finding the right path
   env.NIX_CFLAGS_COMPILE = toString [ "-I${libtirpc.dev}/include/tirpc" ];
 
   installPhase = ''

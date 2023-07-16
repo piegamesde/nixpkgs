@@ -39,7 +39,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "A readline library based on prompt_toolkit which supports multiple modes";
+      "A readline library based on prompt_toolkit which supports multiple modes"
+      ;
     homepage = "https://github.com/randy3k/lineedit";
     license = licenses.mit;
     maintainers = with maintainers; [ savyajha ];

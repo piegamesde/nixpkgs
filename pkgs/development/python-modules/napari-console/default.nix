@@ -37,7 +37,7 @@ buildPythonPackage rec {
     qtconsole
   ];
 
-  # Circular dependency: napari
+    # Circular dependency: napari
   doCheck = false;
 
   pythonImportsCheck = [ "napari_console" ];

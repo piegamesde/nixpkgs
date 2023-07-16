@@ -38,7 +38,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "General-purpose neural model for efficient learning of entity embeddings";
+      "General-purpose neural model for efficient learning of entity embeddings"
+      ;
     homepage = "https://ai.facebook.com/tools/starspace/";
     license = licenses.mit;
     platforms = platforms.unix;

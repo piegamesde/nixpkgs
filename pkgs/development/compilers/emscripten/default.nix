@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
 
     dontBuild = true;
 
-    # Copy node_modules directly.
+      # Copy node_modules directly.
     installPhase = ''
       cp -r node_modules $out/
     '';
@@ -65,13 +65,15 @@ stdenv.mkDerivation rec {
     # https://github.com/emscripten-core/emscripten/pull/18219
     (fetchpatch {
       url =
-        "https://github.com/emscripten-core/emscripten/commit/afbc14950f021513c59cbeaced8807ef8253530a.patch";
+        "https://github.com/emscripten-core/emscripten/commit/afbc14950f021513c59cbeaced8807ef8253530a.patch"
+        ;
       sha256 = "sha256-+gJNTQJng9rWcGN3GAcMBB0YopKPnRp/r8CN9RSTClU=";
     })
     # https://github.com/emscripten-core/emscripten/pull/18220
     (fetchpatch {
       url =
-        "https://github.com/emscripten-core/emscripten/commit/852982318f9fb692ba1dd1173f62e1eb21ae61ca.patch";
+        "https://github.com/emscripten-core/emscripten/commit/852982318f9fb692ba1dd1173f62e1eb21ae61ca.patch"
+        ;
       sha256 = "sha256-hmIOtpRx3PD3sDAahUcreSydydqcdSqArYvyLGgUgd8=";
     })
   ];

@@ -7,7 +7,8 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ fpletz ]; };
 
     nodes = {
-      upstream = {
+      upstream =
+        {
           pkgs,
           ...
         }: {
@@ -25,8 +26,10 @@ import ./make-test-python.nix ({
               } ];
             };
           };
-        };
-      server = {
+        }
+        ;
+      server =
+        {
           pkgs,
           ...
         }: {
@@ -57,7 +60,8 @@ import ./make-test-python.nix ({
             localAddress6 = "fd42::2";
             config = { };
           };
-        };
+        }
+        ;
     };
 
     testScript = ''

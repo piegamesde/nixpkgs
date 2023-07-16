@@ -11,9 +11,10 @@ let
 
   kernel = config.boot.kernelPackages;
 
-  # interface options
+    # interface options
 
-  interfaceOpts = {
+  interfaceOpts =
+    {
       ...
     }: {
       options = {
@@ -87,8 +88,8 @@ let
           example =
             literalExpression ''"''${pkgs.iproute2}/bin/ip netns add foo"'';
           default = "";
-          type = with types;
-            coercedTo (listOf str) (concatStringsSep "\n") lines;
+          type =
+            with types; coercedTo (listOf str) (concatStringsSep "\n") lines;
           description = lib.mdDoc ''
             Commands called at the start of the interface setup.
           '';
@@ -98,8 +99,8 @@ let
           example =
             literalExpression ''"''${pkgs.iproute2}/bin/ip netns del foo"'';
           default = "";
-          type = with types;
-            coercedTo (listOf str) (concatStringsSep "\n") lines;
+          type =
+            with types; coercedTo (listOf str) (concatStringsSep "\n") lines;
           description = lib.mdDoc ''
             Command called before the interface is taken down.
           '';
@@ -109,8 +110,8 @@ let
           example =
             literalExpression ''"''${pkgs.iproute2}/bin/ip netns add foo"'';
           default = "";
-          type = with types;
-            coercedTo (listOf str) (concatStringsSep "\n") lines;
+          type =
+            with types; coercedTo (listOf str) (concatStringsSep "\n") lines;
           description = lib.mdDoc ''
             Commands called after the interface setup.
           '';
@@ -120,8 +121,8 @@ let
           example =
             literalExpression ''"''${pkgs.iproute2}/bin/ip netns del foo"'';
           default = "";
-          type = with types;
-            coercedTo (listOf str) (concatStringsSep "\n") lines;
+          type =
+            with types; coercedTo (listOf str) (concatStringsSep "\n") lines;
           description = lib.mdDoc ''
             Command called after the interface is taken down.
           '';
@@ -158,9 +159,10 @@ let
           type = with types; listOf (submodule peerOpts);
         };
       };
-    };
+    }
+    ;
 
-  # peer options
+    # peer options
 
   peerOpts = {
     options = {
@@ -232,42 +234,54 @@ let
                   persistently. For example, if the interface very rarely sends traffic,
                   but it might at anytime receive traffic from a peer, and it is behind
                   NAT, the interface might benefit from having a persistent keepalive
-                  interval of 25 seconds; however, most users will not need this.'';
+                  interval of 25 seconds; however, most users will not need this.''
+          ;
       };
     };
   };
 
-  writeScriptFile = name: text:
-    ((pkgs.writeShellScriptBin name text) + "/bin/${name}");
+  writeScriptFile =
+    name: text:
+    ((pkgs.writeShellScriptBin name text) + "/bin/${name}")
+    ;
 
-  generateUnit = name: values:
+  generateUnit =
+    name: values:
     assert assertMsg (values.configFile != null
       || ((values.privateKey != null) != (values.privateKeyFile != null)))
       "Only one of privateKey, configFile or privateKeyFile may be set";
     let
-      preUpFile = if values.preUp != "" then
-        writeScriptFile "preUp.sh" values.preUp
-      else
-        null;
+      preUpFile =
+        if values.preUp != "" then
+          writeScriptFile "preUp.sh" values.preUp
+        else
+          null
+        ;
       postUp = optional (values.privateKeyFile != null)
         "wg set ${name} private-key <(cat ${values.privateKeyFile})"
         ++ (concatMap (peer:
           optional (peer.presharedKeyFile != null)
           "wg set ${name} peer ${peer.publicKey} preshared-key <(cat ${peer.presharedKeyFile})")
           values.peers) ++ optional (values.postUp != "") values.postUp;
-      postUpFile = if postUp != [ ] then
-        writeScriptFile "postUp.sh"
-        (concatMapStringsSep "\n" (line: line) postUp)
-      else
-        null;
-      preDownFile = if values.preDown != "" then
-        writeScriptFile "preDown.sh" values.preDown
-      else
-        null;
-      postDownFile = if values.postDown != "" then
-        writeScriptFile "postDown.sh" values.postDown
-      else
-        null;
+      postUpFile =
+        if postUp != [ ] then
+          writeScriptFile "postUp.sh"
+          (concatMapStringsSep "\n" (line: line) postUp)
+        else
+          null
+        ;
+      preDownFile =
+        if values.preDown != "" then
+          writeScriptFile "preDown.sh" values.preDown
+        else
+          null
+        ;
+      postDownFile =
+        if values.postDown != "" then
+          writeScriptFile "postDown.sh" values.postDown
+        else
+          null
+        ;
       configDir = pkgs.writeTextFile {
         name = "config-${name}";
         executable = false;
@@ -311,13 +325,15 @@ let
             AllowedIPs = ${concatStringsSep "," peer.allowedIPs}
           '') values.peers;
       };
-      configPath = if
-        values.configFile != null
-      then
-      # This uses bind-mounted private tmp folder (/tmp/systemd-private-***)
-        "/tmp/${name}.conf"
-      else
-        "${configDir}/${name}.conf";
+      configPath =
+        if
+          values.configFile != null
+        then
+        # This uses bind-mounted private tmp folder (/tmp/systemd-private-***)
+          "/tmp/${name}.conf"
+        else
+          "${configDir}/${name}.conf"
+        ;
     in
     nameValuePair "wg-quick-${name}" {
       description = "wg-quick WireGuard Tunnel - ${name}";
@@ -357,7 +373,7 @@ let
         wg-quick down ${configPath}
       '';
     }
-  ;
+    ;
 in {
 
   ###### interface
@@ -383,7 +399,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf (cfg.interfaces != { }) {
     boot.extraModulePackages =
@@ -391,11 +407,11 @@ in {
     environment.systemPackages = [ pkgs.wireguard-tools ];
     systemd.services = mapAttrs' generateUnit cfg.interfaces;
 
-    # Prevent networkd from clearing the rules set by wg-quick when restarted (e.g. when waking up from suspend).
+      # Prevent networkd from clearing the rules set by wg-quick when restarted (e.g. when waking up from suspend).
     systemd.network.config.networkConfig.ManageForeignRoutingPolicyRules =
       mkDefault false;
 
-    # WireGuard interfaces should be ignored in determining whether the network is online.
+      # WireGuard interfaces should be ignored in determining whether the network is online.
     systemd.network.wait-online.ignoredInterfaces =
       builtins.attrNames cfg.interfaces;
   };

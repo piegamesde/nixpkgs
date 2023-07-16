@@ -16,8 +16,8 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "pypemicro" ];
 
-  # tests are neither pytest nor unittest compatible and require a device
-  # connected via USB
+    # tests are neither pytest nor unittest compatible and require a device
+    # connected via USB
   doCheck = false;
 
   meta = with lib; {
@@ -26,7 +26,8 @@ buildPythonPackage rec {
     license = with licenses; [
       bsd3
       unfree
-    ]; # it includes shared libraries for which no license is available (https://github.com/NXPmicro/pypemicro/issues/10)
+    ]
+      ; # it includes shared libraries for which no license is available (https://github.com/NXPmicro/pypemicro/issues/10)
     maintainers = with maintainers; [
       frogamic
       sbruder

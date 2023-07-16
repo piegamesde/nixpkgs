@@ -31,13 +31,15 @@ stdenv.mkDerivation rec {
 
   postPatch = with lib;
     let
-      configFile = if isDerivation conf || builtins.isPath conf then
-        conf
-      else
-        writeText "config.h" conf;
+      configFile =
+        if isDerivation conf || builtins.isPath conf then
+          conf
+        else
+          writeText "config.h" conf
+        ;
     in
     optionalString (conf != null) "cp ${configFile} config.h"
-  ;
+    ;
 
   makeFlags = [
     "CC:=$(CC)"

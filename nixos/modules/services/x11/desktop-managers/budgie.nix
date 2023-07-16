@@ -61,7 +61,8 @@ in {
 
       sessionPath = mkOption {
         description = mdDoc
-          "Additional list of packages to be added to the session search path. Useful for GSettings-conditional autostart.";
+          "Additional list of packages to be added to the session search path. Useful for GSettings-conditional autostart."
+          ;
         type = with types; listOf package;
         example = literalExpression "[ pkgs.budgie.budgie-desktop-view ]";
         default = [ ];
@@ -116,8 +117,8 @@ in {
       };
     };
 
-    services.xserver.desktopManager.budgie.sessionPath =
-      [ pkgs.budgie.budgie-desktop-view ];
+    services.xserver.desktopManager.budgie.sessionPath = [ pkgs.budgie.budgie-desktop-view ]
+      ;
 
     environment.extraInit = ''
       ${concatMapStrings (p: ''
@@ -176,7 +177,7 @@ in {
         nixos-gsettings-overrides
       ] config.environment.budgie.excludePackages) ++ cfg.sessionPath;
 
-    # Fonts.
+      # Fonts.
     fonts.fonts = mkDefault [
       pkgs.noto-fonts
       pkgs.hack-font
@@ -186,32 +187,32 @@ in {
       monospace = mkDefault [ "Hack" ];
     };
 
-    # Qt application style.
+      # Qt application style.
     qt = {
       enable = mkDefault true;
       style = mkDefault "gtk2";
       platformTheme = mkDefault "gtk2";
     };
 
-    environment.pathsToLink =
-      [ "/share" # TODO: https://github.com/NixOS/nixpkgs/issues/47173
+    environment.pathsToLink = [ "/share" # TODO: https://github.com/NixOS/nixpkgs/issues/47173
       ];
 
-    # GSettings overrides.
+      # GSettings overrides.
     environment.sessionVariables.NIX_GSETTINGS_OVERRIDES_DIR =
-      "${nixos-gsettings-overrides}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas";
+      "${nixos-gsettings-overrides}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas"
+      ;
 
-    # Required by Budgie Desktop.
+      # Required by Budgie Desktop.
     services.xserver.updateDbusEnvironment = true;
     programs.dconf.enable = true;
 
-    # Required by Budgie Screensaver.
+      # Required by Budgie Screensaver.
     security.pam.services.budgie-screensaver = { };
 
-    # Required by Budgie's Polkit Dialog.
+      # Required by Budgie's Polkit Dialog.
     security.polkit.enable = mkDefault true;
 
-    # Required by Budgie Panel plugins and/or Budgie Control Center panels.
+      # Required by Budgie Panel plugins and/or Budgie Control Center panels.
     networking.networkmanager.enable =
       mkDefault true; # for BCC's Network panel.
     programs.nm-applet.enable =
@@ -231,8 +232,8 @@ in {
 
     services.geoclue2.enable =
       mkDefault true; # for BCC's Privacy > Location Services panel.
-    services.upower.enable =
-      config.powerManagement.enable; # for Budgie's Status Indicator and BCC's Power panel.
+    services.upower.enable = config.powerManagement.enable
+      ; # for Budgie's Status Indicator and BCC's Power panel.
     services.xserver.libinput.enable = mkDefault true; # for BCC's Mouse panel.
     services.colord.enable = mkDefault true; # for BCC's Color panel.
     services.gnome.at-spi2-core.enable = mkDefault true; # for BCC's A11y panel.
@@ -240,31 +241,31 @@ in {
     services.fprintd.enable = mkDefault true; # for BCC's Users panel.
     services.udisks2.enable = mkDefault true; # for BCC's Details panel.
 
-    # For BCC's Online Accounts panel.
+      # For BCC's Online Accounts panel.
     services.gnome.gnome-online-accounts.enable = mkDefault true;
     services.gnome.gnome-online-miners.enable = true;
 
-    # For BCC's Printers panel.
+      # For BCC's Printers panel.
     services.printing.enable = mkDefault true;
     services.system-config-printer.enable = config.services.printing.enable;
 
-    # For BCC's Sharing panel.
+      # For BCC's Sharing panel.
     services.dleyna-renderer.enable = mkDefault true;
     services.dleyna-server.enable = mkDefault true;
     services.gnome.gnome-user-share.enable = mkDefault true;
     services.gnome.rygel.enable = mkDefault true;
 
-    # Other default services.
+      # Other default services.
     services.gnome.evolution-data-server.enable = mkDefault true;
     services.gnome.glib-networking.enable = mkDefault true;
     services.gnome.gnome-keyring.enable = mkDefault true;
     services.gnome.gnome-settings-daemon.enable = mkDefault true;
     services.gvfs.enable = mkDefault true;
 
-    # Register packages for DBus.
+      # Register packages for DBus.
     services.dbus.packages = with pkgs; [ budgie.budgie-control-center ];
 
-    # Shell integration for MATE Terminal.
+      # Shell integration for MATE Terminal.
     programs.bash.vteIntegration = true;
     programs.zsh.vteIntegration = true;
   };

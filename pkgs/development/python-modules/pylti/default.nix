@@ -27,7 +27,7 @@ buildPythonPackage rec {
 
   disabled = !isPy27;
 
-  # There is no need to fix mock. https://github.com/mitodl/pylti/pull/48
+    # There is no need to fix mock. https://github.com/mitodl/pylti/pull/48
   postPatch = ''
     substituteInPlace setup.py --replace "mock==1.0.1" "mock"
   '';

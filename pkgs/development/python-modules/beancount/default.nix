@@ -28,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-FONWJaLpy9Q8rmF42gjLPxIk9iYeVBymcm3zXZjpw2o=";
   };
 
-  # Tests require files not included in the PyPI archive.
+    # Tests require files not included in the PyPI archive.
   doCheck = false;
 
   propagatedBuildInputs = [

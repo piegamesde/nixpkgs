@@ -21,13 +21,14 @@ buildPythonPackage rec {
     enum34
   ];
 
-  # PyPI archive does not ship with tests
+    # PyPI archive does not ship with tests
   doCheck = false;
 
   meta = with lib; {
     homepage = "https://github.com/google/gin-config";
     description =
-      "Gin provides a lightweight configuration framework for Python, based on dependency injection.";
+      "Gin provides a lightweight configuration framework for Python, based on dependency injection."
+      ;
     license = licenses.asl20;
     maintainers = with maintainers; [ jethro ];
   };

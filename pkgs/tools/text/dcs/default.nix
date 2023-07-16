@@ -19,7 +19,7 @@ buildGoModule {
 
   vendorSha256 = "l2mziuisx0HzuP88rS5M+Wha6lu8P036wJYZlmzjWfs=";
 
-  # Depends on dcs binaries
+    # Depends on dcs binaries
   doCheck = false;
 
   nativeBuildInputs = [
@@ -42,7 +42,7 @@ buildGoModule {
     homepage = "https://github.com/Debian/dcs";
     license = licenses.bsd3;
     maintainers = [ ];
-    broken = stdenv.isAarch64
-      || stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/dcs.x86_64-darwin
+    broken = stdenv.isAarch64 || stdenv.isDarwin
+      ; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/dcs.x86_64-darwin
   };
 }

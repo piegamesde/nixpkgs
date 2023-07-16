@@ -54,7 +54,7 @@ buildPythonPackage rec {
     jira
   ];
 
-  # for the moment oauth2client <4.0.0 and megaplan>=1.4 are missing for running the test suite.
+    # for the moment oauth2client <4.0.0 and megaplan>=1.4 are missing for running the test suite.
   doCheck = false;
 
   meta = with lib; {

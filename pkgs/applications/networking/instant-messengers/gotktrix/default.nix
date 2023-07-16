@@ -29,7 +29,7 @@ buildGoModule rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  # Checking requires a working display
+    # Checking requires a working display
   doCheck = false;
 
   postPatch = ''

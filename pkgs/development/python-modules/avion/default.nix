@@ -24,10 +24,10 @@ buildPythonPackage rec {
     requests
   ];
 
-  # Project has no test
+    # Project has no test
   doCheck = false;
-  # bluepy/uuids.json is not found
-  # pythonImportsCheck = [ "avion" ];
+    # bluepy/uuids.json is not found
+    # pythonImportsCheck = [ "avion" ];
 
   meta = with lib; {
     description = "Python API for controlling Avi-on Bluetooth dimmers";

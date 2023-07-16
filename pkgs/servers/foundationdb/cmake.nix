@@ -20,24 +20,28 @@
 }:
 
 let
-  stdenv = if useClang then
-    llvmPackages.libcxxStdenv
-  else
-    gccStdenv;
+  stdenv =
+    if useClang then
+      llvmPackages.libcxxStdenv
+    else
+      gccStdenv
+    ;
 
   tests =
     builtins.replaceStrings [ "\n" ] [ " " ] (lib.fileContents ./test-list.txt);
 
-  # Only even numbered versions compile on aarch64; odd numbered versions have avx enabled.
-  avxEnabled = version:
+    # Only even numbered versions compile on aarch64; odd numbered versions have avx enabled.
+  avxEnabled =
+    version:
     let
       isOdd = n: lib.trivial.mod n 2 != 0;
       patch = lib.toInt (lib.versions.patch version);
     in
     isOdd patch
-  ;
+    ;
 
-  makeFdb = {
+  makeFdb =
+    {
       version,
       sha256,
       rev ? "refs/tags/${version}",
@@ -187,6 +191,7 @@ let
           lostnet
         ];
       };
-    };
+    }
+    ;
 in
 makeFdb

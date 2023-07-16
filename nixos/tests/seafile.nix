@@ -3,7 +3,8 @@ import ./make-test-python.nix ({
     ...
   }:
   let
-    client = {
+    client =
+      {
         config,
         pkgs,
         ...
@@ -12,7 +13,8 @@ import ./make-test-python.nix ({
           pkgs.seafile-shared
           pkgs.curl
         ];
-      };
+      }
+      ;
   in {
     name = "seafile";
     meta = with pkgs.lib.maintainers; {
@@ -23,7 +25,8 @@ import ./make-test-python.nix ({
     };
 
     nodes = {
-      server = {
+      server =
+        {
           config,
           pkgs,
           ...
@@ -53,7 +56,8 @@ import ./make-test-python.nix ({
             };
           };
           networking.firewall = { allowedTCPPorts = [ 80 ]; };
-        };
+        }
+        ;
       client1 = client pkgs;
       client2 = client pkgs;
     };

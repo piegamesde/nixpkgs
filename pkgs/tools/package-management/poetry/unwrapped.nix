@@ -142,7 +142,7 @@ buildPythonPackage rec {
     "test_info_setup_complex_pep517_error"
   ];
 
-  # Allow for package to use pep420's native namespaces
+    # Allow for package to use pep420's native namespaces
   pythonNamespaces = [ "poetry" ];
 
   meta = with lib; {

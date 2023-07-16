@@ -11,13 +11,16 @@
 let
   version = "0.23a";
   debianRevision = "12";
-  debianPatch = patchname: hash:
+  debianPatch =
+    patchname: hash:
     fetchpatch {
       name = "${patchname}.patch";
       url =
-        "https://sources.debian.org/data/main/r/rrootage/${version}-${debianRevision}/debian/patches/${patchname}.patch";
+        "https://sources.debian.org/data/main/r/rrootage/${version}-${debianRevision}/debian/patches/${patchname}.patch"
+        ;
       sha256 = hash;
-    };
+    }
+    ;
 
 in
 stdenv.mkDerivation {

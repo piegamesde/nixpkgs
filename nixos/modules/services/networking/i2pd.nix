@@ -22,44 +22,51 @@ let
   optionalNullInt = o: i: optional (i != null) (intOpt o i);
   optionalEmptyList = o: l: optional ([ ] != l) (lstOpt o l);
 
-  mkEnableTrueOption = name:
+  mkEnableTrueOption =
+    name:
     mkEnableOption (lib.mdDoc name) // {
       default = true;
-    };
+    }
+    ;
 
-  mkEndpointOpt = name: addr: port: {
-    enable = mkEnableOption (lib.mdDoc name);
-    name = mkOption {
-      type = types.str;
-      default = name;
-      description = lib.mdDoc "The endpoint name.";
-    };
-    address = mkOption {
-      type = types.str;
-      default = addr;
-      description = lib.mdDoc "Bind address for ${name} endpoint.";
-    };
-    port = mkOption {
-      type = types.port;
-      default = port;
-      description = lib.mdDoc "Bind port for ${name} endpoint.";
-    };
-  };
+  mkEndpointOpt =
+    name: addr: port: {
+      enable = mkEnableOption (lib.mdDoc name);
+      name = mkOption {
+        type = types.str;
+        default = name;
+        description = lib.mdDoc "The endpoint name.";
+      };
+      address = mkOption {
+        type = types.str;
+        default = addr;
+        description = lib.mdDoc "Bind address for ${name} endpoint.";
+      };
+      port = mkOption {
+        type = types.port;
+        default = port;
+        description = lib.mdDoc "Bind port for ${name} endpoint.";
+      };
+    }
+    ;
 
-  i2cpOpts = name: {
-    length = mkOption {
-      type = types.int;
-      description = lib.mdDoc "Guaranteed minimum hops for ${name} tunnels.";
-      default = 3;
-    };
-    quantity = mkOption {
-      type = types.int;
-      description = lib.mdDoc "Number of simultaneous ${name} tunnels.";
-      default = 5;
-    };
-  };
+  i2cpOpts =
+    name: {
+      length = mkOption {
+        type = types.int;
+        description = lib.mdDoc "Guaranteed minimum hops for ${name} tunnels.";
+        default = 3;
+      };
+      quantity = mkOption {
+        type = types.int;
+        description = lib.mdDoc "Number of simultaneous ${name} tunnels.";
+        default = 5;
+      };
+    }
+    ;
 
-  mkKeyedEndpointOpt = name: addr: port: keyloc:
+  mkKeyedEndpointOpt =
+    name: addr: port: keyloc:
     (mkEndpointOpt name addr port) // {
       keys = mkOption {
         type = with types; nullOr str;
@@ -80,9 +87,11 @@ let
         description = lib.mdDoc "Max latency for tunnels.";
         default = null;
       };
-    };
+    }
+    ;
 
-  commonTunOpts = name:
+  commonTunOpts =
+    name:
     {
       outbound = i2cpOpts name;
       inbound = i2cpOpts name;
@@ -101,188 +110,195 @@ let
         default = name + "-keys.dat";
         description = lib.mdDoc "Keyset used for tunnel identity.";
       };
-    } // mkEndpointOpt name "127.0.0.1" 0;
+    } // mkEndpointOpt name "127.0.0.1" 0
+    ;
 
-  sec = name:
+  sec =
+    name:
     ''
 
-      ['' + name + "]";
+      ['' + name + "]"
+    ;
   notice = "# DO NOT EDIT -- this file has been generated automatically.";
-  i2pdConf = let
-    opts = [
-      notice
-      (strOpt "loglevel" cfg.logLevel)
-      (boolOpt "logclftime" cfg.logCLFTime)
-      (boolOpt "ipv4" cfg.enableIPv4)
-      (boolOpt "ipv6" cfg.enableIPv6)
-      (boolOpt "notransit" cfg.notransit)
-      (boolOpt "floodfill" cfg.floodfill)
-      (intOpt "netid" cfg.netid)
-    ] ++ (optionalNullInt "bandwidth" cfg.bandwidth)
-      ++ (optionalNullInt "port" cfg.port)
-      ++ (optionalNullString "family" cfg.family)
-      ++ (optionalNullString "datadir" cfg.dataDir)
-      ++ (optionalNullInt "share" cfg.share) ++ (optionalNullBool "ssu" cfg.ssu)
-      ++ (optionalNullBool "ntcp" cfg.ntcp)
-      ++ (optionalNullString "ntcpproxy" cfg.ntcpProxy)
-      ++ (optionalNullString "ifname" cfg.ifname)
-      ++ (optionalNullString "ifname4" cfg.ifname4)
-      ++ (optionalNullString "ifname6" cfg.ifname6) ++ [
-        (sec "limits")
-        (intOpt "transittunnels" cfg.limits.transittunnels)
-        (intOpt "coresize" cfg.limits.coreSize)
-        (intOpt "openfiles" cfg.limits.openFiles)
-        (intOpt "ntcphard" cfg.limits.ntcpHard)
-        (intOpt "ntcpsoft" cfg.limits.ntcpSoft)
-        (intOpt "ntcpthreads" cfg.limits.ntcpThreads)
-        (sec "upnp")
-        (boolOpt "enabled" cfg.upnp.enable)
-        (sec "precomputation")
-        (boolOpt "elgamal" cfg.precomputation.elgamal)
-        (sec "reseed")
-        (boolOpt "verify" cfg.reseed.verify)
-      ] ++ (optionalNullString "file" cfg.reseed.file)
-      ++ (optionalEmptyList "urls" cfg.reseed.urls)
-      ++ (optionalNullString "floodfill" cfg.reseed.floodfill)
-      ++ (optionalNullString "zipfile" cfg.reseed.zipfile)
-      ++ (optionalNullString "proxy" cfg.reseed.proxy) ++ [
-        (sec "trust")
-        (boolOpt "enabled" cfg.trust.enable)
-        (boolOpt "hidden" cfg.trust.hidden)
-      ] ++ (optionalEmptyList "routers" cfg.trust.routers)
-      ++ (optionalNullString "family" cfg.trust.family) ++ [
-        (sec "websockets")
-        (boolOpt "enabled" cfg.websocket.enable)
-        (strOpt "address" cfg.websocket.address)
-        (intOpt "port" cfg.websocket.port)
-        (sec "exploratory")
-        (intOpt "inbound.length" cfg.exploratory.inbound.length)
-        (intOpt "inbound.quantity" cfg.exploratory.inbound.quantity)
-        (intOpt "outbound.length" cfg.exploratory.outbound.length)
-        (intOpt "outbound.quantity" cfg.exploratory.outbound.quantity)
-        (sec "ntcp2")
-        (boolOpt "enabled" cfg.ntcp2.enable)
-        (boolOpt "published" cfg.ntcp2.published)
-        (intOpt "port" cfg.ntcp2.port)
-        (sec "addressbook")
-        (strOpt "defaulturl" cfg.addressbook.defaulturl)
-      ] ++ (optionalEmptyList "subscriptions" cfg.addressbook.subscriptions)
-      ++ [
-        (sec "meshnets")
-        (boolOpt "yggdrasil" cfg.yggdrasil.enable)
-      ] ++ (optionalNullString "yggaddress" cfg.yggdrasil.address)
-      ++ (flip map (collect (proto: proto ? port && proto ? address) cfg.proto)
-        (proto:
-          let
-            protoOpts = [
-              (sec proto.name)
-              (boolOpt "enabled" proto.enable)
-              (strOpt "address" proto.address)
-              (intOpt "port" proto.port)
-            ] ++ (if proto ? keys then
-              optionalNullString "keys" proto.keys
-            else
-              [ ]) ++ (if proto ? auth then
-                optionalNullBool "auth" proto.auth
+  i2pdConf =
+    let
+      opts = [
+        notice
+        (strOpt "loglevel" cfg.logLevel)
+        (boolOpt "logclftime" cfg.logCLFTime)
+        (boolOpt "ipv4" cfg.enableIPv4)
+        (boolOpt "ipv6" cfg.enableIPv6)
+        (boolOpt "notransit" cfg.notransit)
+        (boolOpt "floodfill" cfg.floodfill)
+        (intOpt "netid" cfg.netid)
+      ] ++ (optionalNullInt "bandwidth" cfg.bandwidth)
+        ++ (optionalNullInt "port" cfg.port)
+        ++ (optionalNullString "family" cfg.family)
+        ++ (optionalNullString "datadir" cfg.dataDir)
+        ++ (optionalNullInt "share" cfg.share)
+        ++ (optionalNullBool "ssu" cfg.ssu)
+        ++ (optionalNullBool "ntcp" cfg.ntcp)
+        ++ (optionalNullString "ntcpproxy" cfg.ntcpProxy)
+        ++ (optionalNullString "ifname" cfg.ifname)
+        ++ (optionalNullString "ifname4" cfg.ifname4)
+        ++ (optionalNullString "ifname6" cfg.ifname6) ++ [
+          (sec "limits")
+          (intOpt "transittunnels" cfg.limits.transittunnels)
+          (intOpt "coresize" cfg.limits.coreSize)
+          (intOpt "openfiles" cfg.limits.openFiles)
+          (intOpt "ntcphard" cfg.limits.ntcpHard)
+          (intOpt "ntcpsoft" cfg.limits.ntcpSoft)
+          (intOpt "ntcpthreads" cfg.limits.ntcpThreads)
+          (sec "upnp")
+          (boolOpt "enabled" cfg.upnp.enable)
+          (sec "precomputation")
+          (boolOpt "elgamal" cfg.precomputation.elgamal)
+          (sec "reseed")
+          (boolOpt "verify" cfg.reseed.verify)
+        ] ++ (optionalNullString "file" cfg.reseed.file)
+        ++ (optionalEmptyList "urls" cfg.reseed.urls)
+        ++ (optionalNullString "floodfill" cfg.reseed.floodfill)
+        ++ (optionalNullString "zipfile" cfg.reseed.zipfile)
+        ++ (optionalNullString "proxy" cfg.reseed.proxy) ++ [
+          (sec "trust")
+          (boolOpt "enabled" cfg.trust.enable)
+          (boolOpt "hidden" cfg.trust.hidden)
+        ] ++ (optionalEmptyList "routers" cfg.trust.routers)
+        ++ (optionalNullString "family" cfg.trust.family) ++ [
+          (sec "websockets")
+          (boolOpt "enabled" cfg.websocket.enable)
+          (strOpt "address" cfg.websocket.address)
+          (intOpt "port" cfg.websocket.port)
+          (sec "exploratory")
+          (intOpt "inbound.length" cfg.exploratory.inbound.length)
+          (intOpt "inbound.quantity" cfg.exploratory.inbound.quantity)
+          (intOpt "outbound.length" cfg.exploratory.outbound.length)
+          (intOpt "outbound.quantity" cfg.exploratory.outbound.quantity)
+          (sec "ntcp2")
+          (boolOpt "enabled" cfg.ntcp2.enable)
+          (boolOpt "published" cfg.ntcp2.published)
+          (intOpt "port" cfg.ntcp2.port)
+          (sec "addressbook")
+          (strOpt "defaulturl" cfg.addressbook.defaulturl)
+        ] ++ (optionalEmptyList "subscriptions" cfg.addressbook.subscriptions)
+        ++ [
+          (sec "meshnets")
+          (boolOpt "yggdrasil" cfg.yggdrasil.enable)
+        ] ++ (optionalNullString "yggaddress" cfg.yggdrasil.address)
+        ++ (flip map
+          (collect (proto: proto ? port && proto ? address) cfg.proto) (proto:
+            let
+              protoOpts = [
+                (sec proto.name)
+                (boolOpt "enabled" proto.enable)
+                (strOpt "address" proto.address)
+                (intOpt "port" proto.port)
+              ] ++ (if proto ? keys then
+                optionalNullString "keys" proto.keys
               else
-                [ ]) ++ (if proto ? user then
-                  optionalNullString "user" proto.user
+                [ ]) ++ (if proto ? auth then
+                  optionalNullBool "auth" proto.auth
                 else
-                  [ ]) ++ (if proto ? pass then
-                    optionalNullString "pass" proto.pass
+                  [ ]) ++ (if proto ? user then
+                    optionalNullString "user" proto.user
                   else
-                    [ ]) ++ (if proto ? strictHeaders then
-                      optionalNullBool "strictheaders" proto.strictHeaders
+                    [ ]) ++ (if proto ? pass then
+                      optionalNullString "pass" proto.pass
                     else
-                      [ ]) ++ (if proto ? hostname then
-                        optionalNullString "hostname" proto.hostname
+                      [ ]) ++ (if proto ? strictHeaders then
+                        optionalNullBool "strictheaders" proto.strictHeaders
                       else
-                        [ ]) ++ (if proto ? outproxy then
-                          optionalNullString "outproxy" proto.outproxy
+                        [ ]) ++ (if proto ? hostname then
+                          optionalNullString "hostname" proto.hostname
                         else
-                          [ ]) ++ (if proto ? outproxyPort then
-                            optionalNullInt "outproxyport" proto.outproxyPort
+                          [ ]) ++ (if proto ? outproxy then
+                            optionalNullString "outproxy" proto.outproxy
                           else
-                            [ ]) ++ (if proto ? outproxyEnable then
-                              optionalNullBool "outproxy.enabled"
-                              proto.outproxyEnable
+                            [ ]) ++ (if proto ? outproxyPort then
+                              optionalNullInt "outproxyport" proto.outproxyPort
+                            else
+                              [ ]) ++ (if proto ? outproxyEnable then
+                                optionalNullBool "outproxy.enabled"
+                                proto.outproxyEnable
+                              else
+                                [ ]);
+            in
+            (concatStringsSep "\n" protoOpts)
+          ));
+    in
+    pkgs.writeText "i2pd.conf" (concatStringsSep "\n" opts)
+    ;
+
+  tunnelConf =
+    let
+      opts = [
+        notice
+        (flip map
+          (collect (tun: tun ? port && tun ? destination) cfg.outTunnels) (tun:
+            let
+              outTunOpts = [
+                (sec tun.name)
+                "type = client"
+                (intOpt "port" tun.port)
+                (strOpt "destination" tun.destination)
+              ] ++ (if tun ? destinationPort then
+                optionalNullInt "destinationport" tun.destinationPort
+              else
+                [ ]) ++ (if tun ? keys then
+                  optionalNullString "keys" tun.keys
+                else
+                  [ ]) ++ (if tun ? address then
+                    optionalNullString "address" tun.address
+                  else
+                    [ ]) ++ (if tun ? inbound.length then
+                      optionalNullInt "inbound.length" tun.inbound.length
+                    else
+                      [ ]) ++ (if tun ? inbound.quantity then
+                        optionalNullInt "inbound.quantity" tun.inbound.quantity
+                      else
+                        [ ]) ++ (if tun ? outbound.length then
+                          optionalNullInt "outbound.length" tun.outbound.length
+                        else
+                          [ ]) ++ (if tun ? outbound.quantity then
+                            optionalNullInt "outbound.quantity"
+                            tun.outbound.quantity
+                          else
+                            [ ]) ++ (if tun ? crypto.tagsToSend then
+                              optionalNullInt "crypto.tagstosend"
+                              tun.crypto.tagsToSend
                             else
                               [ ]);
-          in
-          (concatStringsSep "\n" protoOpts)
-        ));
-  in
-  pkgs.writeText "i2pd.conf" (concatStringsSep "\n" opts)
-  ;
-
-  tunnelConf = let
-    opts = [
-      notice
-      (flip map (collect (tun: tun ? port && tun ? destination) cfg.outTunnels)
-        (tun:
-          let
-            outTunOpts = [
-              (sec tun.name)
-              "type = client"
-              (intOpt "port" tun.port)
-              (strOpt "destination" tun.destination)
-            ] ++ (if tun ? destinationPort then
-              optionalNullInt "destinationport" tun.destinationPort
-            else
-              [ ]) ++ (if tun ? keys then
-                optionalNullString "keys" tun.keys
+            in
+            concatStringsSep "\n" outTunOpts
+          ))
+        (flip map (collect (tun: tun ? port && tun ? address) cfg.inTunnels)
+          (tun:
+            let
+              inTunOpts = [
+                (sec tun.name)
+                "type = server"
+                (intOpt "port" tun.port)
+                (strOpt "host" tun.address)
+              ] ++ (if tun ? destination then
+                optionalNullString "destination" tun.destination
               else
-                [ ]) ++ (if tun ? address then
-                  optionalNullString "address" tun.address
+                [ ]) ++ (if tun ? keys then
+                  optionalNullString "keys" tun.keys
                 else
-                  [ ]) ++ (if tun ? inbound.length then
-                    optionalNullInt "inbound.length" tun.inbound.length
+                  [ ]) ++ (if tun ? inPort then
+                    optionalNullInt "inport" tun.inPort
                   else
-                    [ ]) ++ (if tun ? inbound.quantity then
-                      optionalNullInt "inbound.quantity" tun.inbound.quantity
+                    [ ]) ++ (if tun ? accessList then
+                      optionalEmptyList "accesslist" tun.accessList
                     else
-                      [ ]) ++ (if tun ? outbound.length then
-                        optionalNullInt "outbound.length" tun.outbound.length
-                      else
-                        [ ]) ++ (if tun ? outbound.quantity then
-                          optionalNullInt "outbound.quantity"
-                          tun.outbound.quantity
-                        else
-                          [ ]) ++ (if tun ? crypto.tagsToSend then
-                            optionalNullInt "crypto.tagstosend"
-                            tun.crypto.tagsToSend
-                          else
-                            [ ]);
-          in
-          concatStringsSep "\n" outTunOpts
-        ))
-      (flip map (collect (tun: tun ? port && tun ? address) cfg.inTunnels) (tun:
-        let
-          inTunOpts = [
-            (sec tun.name)
-            "type = server"
-            (intOpt "port" tun.port)
-            (strOpt "host" tun.address)
-          ] ++ (if tun ? destination then
-            optionalNullString "destination" tun.destination
-          else
-            [ ]) ++ (if tun ? keys then
-              optionalNullString "keys" tun.keys
-            else
-              [ ]) ++ (if tun ? inPort then
-                optionalNullInt "inport" tun.inPort
-              else
-                [ ]) ++ (if tun ? accessList then
-                  optionalEmptyList "accesslist" tun.accessList
-                else
-                  [ ]);
-        in
-        concatStringsSep "\n" inTunOpts
-      ))
-    ];
-  in
-  pkgs.writeText "i2pd-tunnels.conf" opts
-  ;
+                      [ ]);
+            in
+            concatStringsSep "\n" inTunOpts
+          ))
+      ];
+    in
+    pkgs.writeText "i2pd-tunnels.conf" opts
+    ;
 
   i2pdFlags = concatStringsSep " "
     (optional (cfg.address != null) ("--host=" + cfg.address) ++ [
@@ -303,7 +319,7 @@ in {
     "address"
   ]) ];
 
-  ###### interface
+    ###### interface
 
   options = {
 
@@ -520,7 +536,8 @@ in {
       addressbook.defaulturl = mkOption {
         type = types.str;
         default =
-          "http://joajgazyztfssty4w2on5oaqksz6tqoxbduy553y34mf4byv6gpq.b32.i2p/export/alive-hosts.txt";
+          "http://joajgazyztfssty4w2on5oaqksz6tqoxbduy553y34mf4byv6gpq.b32.i2p/export/alive-hosts.txt"
+          ;
         description = lib.mdDoc ''
           AddressBook subscription URL for initial setup
         '';
@@ -750,7 +767,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 

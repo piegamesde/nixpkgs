@@ -17,7 +17,7 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "https-dns-proxy";
-  # there are no stable releases (yet?)
+    # there are no stable releases (yet?)
   version = "unstable-2022-05-05";
 
   src = fetchFromGitHub {
@@ -53,8 +53,8 @@ stdenv.mkDerivation rec {
     rmdir $out/lib
   '';
 
-  # upstream wants to add tests and the gtest framework is in place, so be ready
-  # for when that happens despite there being none as of right now
+    # upstream wants to add tests and the gtest framework is in place, so be ready
+    # for when that happens despite there being none as of right now
   doCheck = true;
 
   meta = with lib; {

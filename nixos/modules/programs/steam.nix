@@ -11,17 +11,18 @@ let
   cfg = config.programs.steam;
   gamescopeCfg = config.programs.gamescope;
 
-  steam-gamescope = let
-    exports = builtins.attrValues
-      (builtins.mapAttrs (n: v: "export ${n}=${v}") cfg.gamescopeSession.env);
-  in
-  pkgs.writeShellScriptBin "steam-gamescope" ''
-    ${builtins.concatStringsSep "\n" exports}
-    gamescope --steam ${
-      toString cfg.gamescopeSession.args
-    } -- steam -tenfoot -pipewire-dmabuf
-  ''
-  ;
+  steam-gamescope =
+    let
+      exports = builtins.attrValues
+        (builtins.mapAttrs (n: v: "export ${n}=${v}") cfg.gamescopeSession.env);
+    in
+    pkgs.writeShellScriptBin "steam-gamescope" ''
+      ${builtins.concatStringsSep "\n" exports}
+      gamescope --steam ${
+        toString cfg.gamescopeSession.args
+      } -- steam -tenfoot -pipewire-dmabuf
+    ''
+    ;
 
   gamescopeSessionFile =
     (pkgs.writeTextDir "share/wayland-sessions/steam.desktop" ''
@@ -51,15 +52,19 @@ in {
           ];
         }
       '';
-      apply = steam:
+      apply =
+        steam:
         steam.override (prev:
           {
-            extraLibraries = pkgs:
+            extraLibraries =
+              pkgs:
               let
-                prevLibs = if prev ? extraLibraries then
-                  prev.extraLibraries pkgs
-                else
-                  [ ];
+                prevLibs =
+                  if prev ? extraLibraries then
+                    prev.extraLibraries pkgs
+                  else
+                    [ ]
+                  ;
                 additionalLibs = with config.hardware.opengl;
                   if pkgs.stdenv.hostPlatform.is64bit then
                     [ package ] ++ extraPackages
@@ -67,14 +72,15 @@ in {
                     [ package32 ] ++ extraPackages32;
               in
               prevLibs ++ additionalLibs
-            ;
+              ;
           } // optionalAttrs
           (cfg.gamescopeSession.enable && gamescopeCfg.capSysNice) {
             buildFHSEnv = pkgs.buildFHSEnv.override {
               # use the setuid wrapped bubblewrap
               bubblewrap = "${config.security.wrapperDir}/..";
             };
-          });
+          })
+        ;
       description = lib.mdDoc ''
         The Steam package to use. Additional libraries are added from the system
         configuration to ensure graphics work properly.
@@ -128,12 +134,11 @@ in {
   };
 
   config = mkIf cfg.enable {
-    hardware.opengl =
-      { # this fixes the "glXChooseVisual failed" bug, context: https://github.com/NixOS/nixpkgs/issues/47932
-        enable = true;
-        driSupport = true;
-        driSupport32Bit = true;
-      };
+    hardware.opengl = { # this fixes the "glXChooseVisual failed" bug, context: https://github.com/NixOS/nixpkgs/issues/47932
+      enable = true;
+      driSupport = true;
+      driSupport32Bit = true;
+    };
 
     security.wrappers =
       mkIf (cfg.gamescopeSession.enable && gamescopeCfg.capSysNice) {
@@ -150,7 +155,7 @@ in {
     services.xserver.displayManager.sessionPackages =
       mkIf cfg.gamescopeSession.enable [ gamescopeSessionFile ];
 
-    # optionally enable 32bit pulseaudio support if pulseaudio is enabled
+      # optionally enable 32bit pulseaudio support if pulseaudio is enabled
     hardware.pulseaudio.support32Bit = config.hardware.pulseaudio.enable;
 
     hardware.steam-hardware.enable = true;

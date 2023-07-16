@@ -20,14 +20,14 @@ buildPythonPackage rec {
     hash = "sha256-M5laZ1PDC39Xf+v8LFBBH+xqrH9//rfEz+WZEHLc+eY=";
   };
 
-  # Only Darwin needs LANG, but we could set it in general.
-  # It's done here conditionally to prevent mass-rebuilds.
+    # Only Darwin needs LANG, but we could set it in general.
+    # It's done here conditionally to prevent mass-rebuilds.
   checkPhase = lib.optionalString stdenv.isDarwin
     ''LANG="en_US.UTF-8" LC_ALL="en_US.UTF-8" '' + ''
       ${python.interpreter} test/alltests.py
     '';
 
-  # Create symlinks lacking a ".py" suffix, many programs depend on these names
+    # Create symlinks lacking a ".py" suffix, many programs depend on these names
   postFixup = ''
     for f in $out/bin/*.py; do
       ln -s $(basename $f) $out/bin/$(basename $f .py)

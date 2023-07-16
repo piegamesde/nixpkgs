@@ -32,13 +32,13 @@ buildPythonApplication rec {
 
   nativeBuildInputs = [ pyqtwebengine.wrapQtAppsHook ];
 
-  # Needed because source is fetched from git
+    # Needed because source is fetched from git
   preBuild = ''
     make -C i18n
     make -C linux
   '';
 
-  # no tests in shipped with upstream
+    # no tests in shipped with upstream
   doCheck = false;
 
   dontWrapQtApps = true;
@@ -62,7 +62,7 @@ buildPythonApplication rec {
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ sepi ];
     platforms = platforms.all;
-    broken =
-      stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/frescobaldi.x86_64-darwin
+    broken = stdenv.isDarwin
+      ; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/frescobaldi.x86_64-darwin
   };
 }

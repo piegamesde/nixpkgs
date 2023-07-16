@@ -11,7 +11,8 @@ with import ../lib/testing-python.nix { inherit system pkgs; };
 with pkgs.lib;
 
 let
-  testVMConfig = vmName: attrs:
+  testVMConfig =
+    vmName: attrs:
     {
       config,
       pkgs,
@@ -107,9 +108,11 @@ let
       ];
 
       networking.usePredictableInterfaceNames = false;
-    } ;
+    }
+    ;
 
-  mkLog = logfile: tag:
+  mkLog =
+    logfile: tag:
     let
       rotated = map (i: "${logfile}.${toString i}") (range 1 9);
       all = concatMapStringsSep " " (f: ''"${f}"'') ([ logfile ] ++ rotated);
@@ -117,15 +120,19 @@ let
     in if debug then
       "machine.execute(ru('${logcmd} & disown'))"
     else
-      "pass";
+      "pass"
+    ;
 
-  testVM = vmName: vmScript:
+  testVM =
+    vmName: vmScript:
     let
       cfg = (import ../lib/eval-config.nix {
-        system = if use64bitGuest then
-          "x86_64-linux"
-        else
-          "i686-linux";
+        system =
+          if use64bitGuest then
+            "x86_64-linux"
+          else
+            "i686-linux"
+          ;
         modules = [
           ../modules/profiles/minimal.nix
           (testVMConfig vmName vmScript)
@@ -169,9 +176,10 @@ let
       GRUB
       umount /mnt
     '')
-  ;
+    ;
 
-  createVM = name: attrs:
+  createVM =
+    name: attrs:
     let
       mkFlags = concatStringsSep " ";
 
@@ -336,7 +344,8 @@ let
             )
             wait_for_shutdown_${name}()
       '';
-    } ;
+    }
+    ;
 
   hostonlyVMFlags = [
     "--nictype1 virtio"
@@ -345,20 +354,24 @@ let
     "--hostonlyadapter2 vboxnet0"
   ];
 
-  # The VirtualBox Oracle Extension Pack lets you use USB 3.0 (xHCI).
+    # The VirtualBox Oracle Extension Pack lets you use USB 3.0 (xHCI).
   enableExtensionPackVMFlags = [ "--usbxhci on" ];
 
-  dhcpScript = pkgs: ''
-    ${pkgs.dhcpcd}/bin/dhcpcd eth0 eth1
+  dhcpScript =
+    pkgs: ''
+      ${pkgs.dhcpcd}/bin/dhcpcd eth0 eth1
 
-    otherIP="$(${pkgs.netcat}/bin/nc -l 1234 || :)"
-    ${pkgs.iputils}/bin/ping -I eth1 -c1 "$otherIP"
-    echo "$otherIP reachable" | ${pkgs.netcat}/bin/nc -l 5678 || :
-  '';
+      otherIP="$(${pkgs.netcat}/bin/nc -l 1234 || :)"
+      ${pkgs.iputils}/bin/ping -I eth1 -c1 "$otherIP"
+      echo "$otherIP reachable" | ${pkgs.netcat}/bin/nc -l 5678 || :
+    ''
+    ;
 
-  sysdDetectVirt = pkgs: ''
-    ${pkgs.systemd}/bin/systemd-detect-virt > /mnt-root/result
-  '';
+  sysdDetectVirt =
+    pkgs: ''
+      ${pkgs.systemd}/bin/systemd-detect-virt > /mnt-root/result
+    ''
+    ;
 
   vboxVMs = mapAttrs createVM {
     simple = { };
@@ -379,24 +392,27 @@ let
     testExtensionPack.vmFlags = enableExtensionPackVMFlags;
   };
 
-  mkVBoxTest = useExtensionPack: vms: name: testScript:
+  mkVBoxTest =
+    useExtensionPack: vms: name: testScript:
     makeTest {
       name = "virtualbox-${name}";
 
-      nodes.machine = {
+      nodes.machine =
+        {
           lib,
           config,
           ...
         }: {
-          imports = let
-            mkVMConf = name: val: val.machine // { key = "${name}-config"; };
-            vmConfigs = mapAttrsToList mkVMConf vms;
-          in
-          [
-            ./common/user-account.nix
-            ./common/x11.nix
-          ] ++ vmConfigs
-          ;
+          imports =
+            let
+              mkVMConf = name: val: val.machine // { key = "${name}-config"; };
+              vmConfigs = mapAttrsToList mkVMConf vms;
+            in
+            [
+              ./common/user-account.nix
+              ./common/x11.nix
+            ] ++ vmConfigs
+            ;
           virtualisation.memorySize = 2048;
           virtualisation.qemu.options = [
             "-cpu"
@@ -404,14 +420,16 @@ let
           ];
           virtualisation.virtualbox.host.enable = true;
           test-support.displayManager.auto.user = "alice";
-          users.users.alice.extraGroups = let
-            inherit (config.virtualisation.virtualbox.host) enableHardening;
-          in
-          lib.mkIf enableHardening (lib.singleton "vboxusers")
-          ;
+          users.users.alice.extraGroups =
+            let
+              inherit (config.virtualisation.virtualbox.host) enableHardening;
+            in
+            lib.mkIf enableHardening (lib.singleton "vboxusers")
+            ;
           virtualisation.virtualbox.host.enableExtensionPack = useExtensionPack;
           nixpkgs.config.allowUnfree = useExtensionPack;
-        };
+        }
+        ;
 
       testScript = ''
         from shlex import quote
@@ -445,7 +463,8 @@ let
           cdepillabout
         ];
       };
-    };
+    }
+    ;
 
   unfreeTests = mapAttrs (mkVBoxTest true vboxVMsWithExtpack) {
     enable-extension-pack = ''

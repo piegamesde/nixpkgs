@@ -33,7 +33,7 @@ mkDerivation rec {
     zlib
   ];
 
-  # RCC: Error in 'resources.qrc': Cannot find file 'i18n/chessx_da.qm'
+    # RCC: Error in 'resources.qrc': Cannot find file 'i18n/chessx_da.qm'
   enableParallelBuilding = false;
 
   installPhase = ''

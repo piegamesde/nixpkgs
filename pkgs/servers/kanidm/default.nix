@@ -14,10 +14,12 @@
 }:
 
 let
-  arch = if stdenv.isx86_64 then
-    "x86_64"
-  else
-    "generic";
+  arch =
+    if stdenv.isx86_64 then
+      "x86_64"
+    else
+      "generic"
+    ;
 in
 rustPlatform.buildRustPackage rec {
   pname = "kanidm";
@@ -40,20 +42,24 @@ rustPlatform.buildRustPackage rec {
 
   KANIDM_BUILD_PROFILE = "release_nixos_${arch}";
 
-  postPatch = let
-    format = (formats.toml { }).generate "${KANIDM_BUILD_PROFILE}.toml";
-    profile = {
-      web_ui_pkg_path = "@web_ui_pkg_path@";
-      cpu_flags = if stdenv.isx86_64 then
-        "x86_64_v1"
-      else
-        "none";
-    };
-  in ''
-    cp ${format profile} profiles/${KANIDM_BUILD_PROFILE}.toml
-    substituteInPlace profiles/${KANIDM_BUILD_PROFILE}.toml \
-      --replace '@web_ui_pkg_path@' "$out/ui"
-  '' ;
+  postPatch =
+    let
+      format = (formats.toml { }).generate "${KANIDM_BUILD_PROFILE}.toml";
+      profile = {
+        web_ui_pkg_path = "@web_ui_pkg_path@";
+        cpu_flags =
+          if stdenv.isx86_64 then
+            "x86_64_v1"
+          else
+            "none"
+          ;
+      };
+    in ''
+      cp ${format profile} profiles/${KANIDM_BUILD_PROFILE}.toml
+      substituteInPlace profiles/${KANIDM_BUILD_PROFILE}.toml \
+        --replace '@web_ui_pkg_path@' "$out/ui"
+    ''
+    ;
 
   nativeBuildInputs = [
     pkg-config
@@ -67,7 +73,7 @@ rustPlatform.buildRustPackage rec {
     pam
   ];
 
-  # The UI needs to be in place before the tests are run.
+    # The UI needs to be in place before the tests are run.
   postBuild = ''
     # We don't compile the wasm-part form source, as there isn't a rustc for
     # wasm32-unknown-unknown in nixpkgs yet.

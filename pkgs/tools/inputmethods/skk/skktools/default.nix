@@ -24,15 +24,15 @@ stdenv.mkDerivation rec {
     rev = "skktools-${lib.replaceStrings [ "." ] [ "_" ] version}";
     sha256 = "1zway8jsm18279xq8zlpr84iqiw373x3v0ysay74n9bjqxbl234a";
   };
-  # # See "12.2. Package naming"
-  # name = "skktools-unstable-${version}";
-  # version = "2017-03-05";
-  # src = fetchFromGitHub {
-  #   owner = "skk-dev";
-  #   repo = "skktools";
-  #   rev = "e14d98e734d2fdff611385c7df65826e94d929db";
-  #   sha256 = "1k9zxqybl1l5h0a8px2awc920qrdyp1qls50h3kfrj3g65d08aq2";
-  # };
+    # # See "12.2. Package naming"
+    # name = "skktools-unstable-${version}";
+    # version = "2017-03-05";
+    # src = fetchFromGitHub {
+    #   owner = "skk-dev";
+    #   repo = "skktools";
+    #   rev = "e14d98e734d2fdff611385c7df65826e94d929db";
+    #   sha256 = "1k9zxqybl1l5h0a8px2awc920qrdyp1qls50h3kfrj3g65d08aq2";
+    # };
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [

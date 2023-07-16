@@ -45,7 +45,8 @@ buildPythonPackage rec {
     description = "Collection of custom storage backends for Django";
     homepage = "https://django-storages.readthedocs.io";
     changelog =
-      "https://github.com/jschneier/django-storages/blob/${version}/CHANGELOG.rst";
+      "https://github.com/jschneier/django-storages/blob/${version}/CHANGELOG.rst"
+      ;
     license = licenses.bsd3;
     maintainers = with maintainers; [ mmai ];
   };

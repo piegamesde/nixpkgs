@@ -8,16 +8,19 @@ import ./make-test-python.nix ({
       cfhammill
     ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         config,
         lib,
         pkgs,
         ...
       }: {
         services.rstudio-server.enable = true;
-      };
+      }
+      ;
 
-    nodes.customPackageMachine = {
+    nodes.customPackageMachine =
+      {
         config,
         lib,
         pkgs,
@@ -29,7 +32,8 @@ import ./make-test-python.nix ({
             packages = [ pkgs.rPackages.ggplot2 ];
           };
         };
-      };
+      }
+      ;
 
     testScript = ''
       machine.wait_for_unit("rstudio-server.service")

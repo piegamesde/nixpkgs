@@ -109,37 +109,38 @@ stdenv.mkDerivation (finalAttrs: {
     ];
   }) ];
 
-  installPhase = let
-    vulkanPath = lib.makeLibraryPath [ vulkan-loader ];
-  in
-  ''
-    runHook preInstall
+  installPhase =
+    let
+      vulkanPath = lib.makeLibraryPath [ vulkan-loader ];
+    in
+    ''
+      runHook preInstall
 
-    mkdir -p $out/share/{applications,ppsspp}
-  '' + (if enableQt then
-    ''
-      install -Dm555 PPSSPPQt $out/bin/ppsspp
-      wrapProgram $out/bin/ppsspp \
-    ''
-  else
-    ''
-      install -Dm555 PPSSPPHeadless $out/bin/ppsspp-headless
-      install -Dm555 PPSSPPSDL $out/share/ppsspp/
-      makeWrapper $out/share/ppsspp/PPSSPPSDL $out/bin/ppsspp \
-        --set SDL_VIDEODRIVER ${
-          if forceWayland then
-            "wayland"
-          else
-            "x11"
-        } \
-    '') + lib.optionalString enableVulkan ''
-      --prefix LD_LIBRARY_PATH : ${vulkanPath} \
-    '' + "\n" + ''
-      mv assets $out/share/ppsspp
+      mkdir -p $out/share/{applications,ppsspp}
+    '' + (if enableQt then
+      ''
+        install -Dm555 PPSSPPQt $out/bin/ppsspp
+        wrapProgram $out/bin/ppsspp \
+      ''
+    else
+      ''
+        install -Dm555 PPSSPPHeadless $out/bin/ppsspp-headless
+        install -Dm555 PPSSPPSDL $out/share/ppsspp/
+        makeWrapper $out/share/ppsspp/PPSSPPSDL $out/bin/ppsspp \
+          --set SDL_VIDEODRIVER ${
+            if forceWayland then
+              "wayland"
+            else
+              "x11"
+          } \
+      '') + lib.optionalString enableVulkan ''
+        --prefix LD_LIBRARY_PATH : ${vulkanPath} \
+      '' + "\n" + ''
+        mv assets $out/share/ppsspp
 
-      runHook postInstall
-    ''
-  ;
+        runHook postInstall
+      ''
+    ;
 
   meta = {
     homepage = "https://www.ppsspp.org/";

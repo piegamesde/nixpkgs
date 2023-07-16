@@ -39,8 +39,8 @@ let
     buildInputs = old.buildInputs ++ [ suitesparse ];
     cmakeFlags = old.cmakeFlags ++ [ "-DIGRAPH_USE_INTERNAL_CXSPARSE=OFF" ];
   });
-  # no stable hal release yet with recent spdlog/fmt support, remove
-  # once 4.0.0 is released - see https://github.com/emsec/hal/issues/452
+    # no stable hal release yet with recent spdlog/fmt support, remove
+    # once 4.0.0 is released - see https://github.com/emsec/hal/issues/452
   spdlog' = spdlog.override {
     fmt = fmt_8.overrideAttrs (_: rec {
       version = "8.0.1";
@@ -69,13 +69,14 @@ stdenv.mkDerivation rec {
     # https://github.com/emsec/hal/pull/463
     name = "hal-fix-python-3.10.patch";
     url =
-      "https://github.com/emsec/hal/commit/f695f55cb2209676ef76366185b7c419417fbbc9.patch";
+      "https://github.com/emsec/hal/commit/f695f55cb2209676ef76366185b7c419417fbbc9.patch"
+      ;
     sha256 = "sha256-HsCdG3tPllUsLw6kQtGaaEGkEHqZPSC2v9k6ycO2I/8=";
     includes = [ "plugins/gui/src/python/python_context.cpp" ];
   }) ];
 
-  # make sure bundled dependencies don't get in the way - install also otherwise
-  # copies them in full to the output, bloating the package
+    # make sure bundled dependencies don't get in the way - install also otherwise
+    # copies them in full to the output, bloating the package
   postPatch = ''
     shopt -s extglob
     rm -rf deps/!(sanitizers-cmake)/*
@@ -114,13 +115,14 @@ stdenv.mkDerivation rec {
     "-DENABLE_INSTALL_LDCONFIG=off"
     "-DBUILD_ALL_PLUGINS=on"
   ];
-  # needed for macos build - this is why we use wrapQtAppsHook instead of
-  # the qt mkDerivation - the latter forcibly overrides this.
+    # needed for macos build - this is why we use wrapQtAppsHook instead of
+    # the qt mkDerivation - the latter forcibly overrides this.
   cmakeBuildType = "MinSizeRel";
 
   meta = with lib; {
     description =
-      "A comprehensive reverse engineering and manipulation framework for gate-level netlists";
+      "A comprehensive reverse engineering and manipulation framework for gate-level netlists"
+      ;
     homepage = "https://github.com/emsec/hal";
     license = licenses.mit;
     platforms = platforms.unix;

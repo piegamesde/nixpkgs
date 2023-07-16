@@ -14,7 +14,8 @@ in {
   options.programs.xwayland = {
 
     enable = mkEnableOption (lib.mdDoc
-      "Xwayland (an X server for interfacing X11 apps with the Wayland protocol)");
+      "Xwayland (an X server for interfacing X11 apps with the Wayland protocol)")
+      ;
 
     defaultFontPath = mkOption {
       type = types.str;

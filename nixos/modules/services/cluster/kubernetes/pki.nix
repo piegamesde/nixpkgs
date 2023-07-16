@@ -94,7 +94,8 @@ in {
 
     pkiTrustOnBootstrap = mkOption {
       description = lib.mdDoc
-        "Whether to always trust remote cfssl server upon initial PKI bootstrap.";
+        "Whether to always trust remote cfssl server upon initial PKI bootstrap."
+        ;
       default = true;
       type = bool;
     };
@@ -134,7 +135,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
   config = mkIf cfg.enable (let
     cfsslCertPathPrefix = "${config.services.cfssl.dataDir}/cfssl";
     cfsslCert = "${cfsslCertPathPrefix}.pem";
@@ -228,38 +229,41 @@ in {
       enable = true;
       package = pkgs.certmgr-selfsigned;
       svcManager = "command";
-      specs = let
-        mkSpec = _: cert: {
-          inherit (cert) action;
-          authority = {
-            inherit remote;
-            file.path = cert.caCert;
-            root_ca = cert.caCert;
-            profile = "default";
-            auth_key_file = certmgrAPITokenPath;
-          };
-          certificate = { path = cert.cert; };
-          private_key = cert.privateKeyOptions;
-          request = {
-            hosts = [ cert.CN ] ++ cert.hosts;
-            inherit (cert) CN;
-            key = {
-              algo = "rsa";
-              size = 2048;
-            };
-            names = [ cert.fields ];
-          };
-        };
-      in
-      mapAttrs mkSpec cfg.certs
-      ;
+      specs =
+        let
+          mkSpec =
+            _: cert: {
+              inherit (cert) action;
+              authority = {
+                inherit remote;
+                file.path = cert.caCert;
+                root_ca = cert.caCert;
+                profile = "default";
+                auth_key_file = certmgrAPITokenPath;
+              };
+              certificate = { path = cert.cert; };
+              private_key = cert.privateKeyOptions;
+              request = {
+                hosts = [ cert.CN ] ++ cert.hosts;
+                inherit (cert) CN;
+                key = {
+                  algo = "rsa";
+                  size = 2048;
+                };
+                names = [ cert.fields ];
+              };
+            }
+            ;
+        in
+        mapAttrs mkSpec cfg.certs
+        ;
     };
 
-    #TODO: Get rid of kube-addon-manager in the future for the following reasons
-    # - it is basically just a shell script wrapped around kubectl
-    # - it assumes that it is clusterAdmin or can gain clusterAdmin rights through serviceAccount
-    # - it is designed to be used with k8s system components only
-    # - it would be better with a more Nix-oriented way of managing addons
+      #TODO: Get rid of kube-addon-manager in the future for the following reasons
+      # - it is basically just a shell script wrapped around kubectl
+      # - it assumes that it is clusterAdmin or can gain clusterAdmin rights through serviceAccount
+      # - it is designed to be used with k8s system components only
+      # - it would be better with a more Nix-oriented way of managing addons
     systemd.services.kube-addon-manager = mkIf top.addonManager.enable
       (mkMerge [
         {
@@ -344,8 +348,8 @@ in {
           echo "Node joined successfully"
         '') ];
 
-    # isolate etcd on loopback at the master node
-    # easyCerts doesn't support multimaster clusters anyway atm.
+      # isolate etcd on loopback at the master node
+      # easyCerts doesn't support multimaster clusters anyway atm.
     services.etcd = with cfg.certs.etcd; {
       listenClientUrls = [ "https://127.0.0.1:2379" ];
       listenPeerUrls = [ "https://127.0.0.1:2380" ];

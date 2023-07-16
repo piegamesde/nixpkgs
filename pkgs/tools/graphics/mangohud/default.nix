@@ -47,7 +47,7 @@ let
     };
   };
 
-  # Derived from subprojects/imgui.wrap
+    # Derived from subprojects/imgui.wrap
   imgui = rec {
     version = "1.81";
     src = fetchFromGitHub {
@@ -62,7 +62,7 @@ let
     };
   };
 
-  # Derived from subprojects/vulkan-headers.wrap
+    # Derived from subprojects/vulkan-headers.wrap
   vulkan-headers = rec {
     version = "1.2.158";
     src = fetchFromGitHub {
@@ -73,7 +73,8 @@ let
     };
     patch = fetchurl {
       url =
-        "https://wrapdb.mesonbuild.com/v2/vulkan-headers_${version}-2/get_patch";
+        "https://wrapdb.mesonbuild.com/v2/vulkan-headers_${version}-2/get_patch"
+        ;
       hash = "sha256-hgNYz15z9FjNHoj4w4EW0SOrQh1c4uQSnsOOrt2CDhc=";
     };
   };
@@ -96,7 +97,7 @@ stdenv.mkDerivation (finalAttrs: {
     "man"
   ];
 
-  # Unpack subproject sources
+    # Unpack subproject sources
   postUnpack = ''
     (
         cd "$sourceRoot/subprojects"
@@ -195,8 +196,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeCheckInputs = [ appstream ];
 
-  # Support 32bit Vulkan applications by linking in 32bit Vulkan layers
-  # This is needed for the same reason the 32bit preload workaround is needed.
+    # Support 32bit Vulkan applications by linking in 32bit Vulkan layers
+    # This is needed for the same reason the 32bit preload workaround is needed.
   postInstall =
     lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux") ''
       ln -s ${mangohud32}/share/vulkan/implicit_layer.d/MangoHud.x86.json \
@@ -224,7 +225,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = with lib; {
     description =
-      "A Vulkan and OpenGL overlay for monitoring FPS, temperatures, CPU/GPU load and more";
+      "A Vulkan and OpenGL overlay for monitoring FPS, temperatures, CPU/GPU load and more"
+      ;
     homepage = "https://github.com/flightlessmango/MangoHud";
     platforms = platforms.linux;
     license = licenses.mit;

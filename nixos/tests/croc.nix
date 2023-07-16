@@ -3,12 +3,14 @@ import ./make-test-python.nix ({
     ...
   }:
   let
-    client = {
+    client =
+      {
         pkgs,
         ...
       }: {
         environment.systemPackages = [ pkgs.croc ];
-      };
+      }
+      ;
     pass = pkgs.writeText "pass" "PassRelay";
   in {
     name = "croc";

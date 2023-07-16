@@ -25,12 +25,12 @@ buildPythonPackage rec {
     codecserver
     pycsdr
   ];
-  # make pycsdr header files available
+    # make pycsdr header files available
   preBuild = ''
     ln -s ${pycsdr}/include/${python.libPrefix}/pycsdr src/pycsdr
   '';
 
-  # has no tests
+    # has no tests
   doCheck = false;
   pythonImportsCheck = [ "digiham" ];
 

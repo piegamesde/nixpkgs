@@ -75,7 +75,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://wiki.gnome.org/Apps/SystemMonitor";
     description =
-      "System Monitor shows you what programs are running and how much processor time, memory, and disk space are being used";
+      "System Monitor shows you what programs are running and how much processor time, memory, and disk space are being used"
+      ;
     maintainers = teams.gnome.members;
     license = licenses.gpl2;
     platforms = platforms.linux;

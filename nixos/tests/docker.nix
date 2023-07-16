@@ -13,7 +13,8 @@ import ./make-test-python.nix ({
     };
 
     nodes = {
-      docker = {
+      docker =
+        {
           pkgs,
           ...
         }: {
@@ -35,7 +36,8 @@ import ./make-test-python.nix ({
               extraGroups = [ "docker" ];
             };
           };
-        };
+        }
+        ;
     };
 
     testScript = ''

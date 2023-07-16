@@ -16,8 +16,8 @@ buildPythonPackage {
     sha256 = "1g81l9arqdy09ijswn3sp4d6i3z18d44lzyb78bwnvdb14q22k19";
   };
 
-  # Removes some setup.py hacks intended to install udev rules.
-  # We do the job ourselves in postInstall below.
+    # Removes some setup.py hacks intended to install udev rules.
+    # We do the job ourselves in postInstall below.
   postPatch = ''
     sed -i -e '/cmdclass=.*/d' setup.py
   '';

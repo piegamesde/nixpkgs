@@ -31,10 +31,12 @@
 }:
 let
   version_ = lib.splitString "-" crateVersion;
-  versionPre = if lib.tail version_ == [ ] then
-    ""
-  else
-    lib.elemAt version_ 1;
+  versionPre =
+    if lib.tail version_ == [ ] then
+      ""
+    else
+      lib.elemAt version_ 1
+    ;
   version = lib.splitVersion (lib.head version_);
   rustcOpts = lib.foldl' (opts: opt: opts + " " + opt) (if release then
     "-C opt-level=3"
@@ -43,10 +45,12 @@ let
       ++ extraRustcOptsForBuildRs);
   buildDeps = mkRustcDepArgs buildDependencies crateRenames;
   authors = lib.concatStringsSep ":" crateAuthors;
-  optLevel = if release then
-    3
-  else
-    0;
+  optLevel =
+    if release then
+      3
+    else
+      0
+    ;
   completeDepsDir = lib.concatStringsSep " " completeDeps;
   completeBuildDepsDir = lib.concatStringsSep " " completeBuildDeps;
   envFeatures = lib.concatStringsSep " "

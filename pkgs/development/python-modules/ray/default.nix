@@ -66,19 +66,20 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.9" || pythonAtLeast "3.12";
 
-  src = let
-    pyShortVersion =
-      "cp${builtins.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
-    binary-hash = (import ./binary-hashes.nix)."${pyShortVersion}" or { };
-  in
-  fetchPypi ({
-    inherit pname version format;
-    dist = pyShortVersion;
-    python = pyShortVersion;
-    abi = pyShortVersion;
-    platform = "manylinux2014_x86_64";
-  } // binary-hash)
-  ;
+  src =
+    let
+      pyShortVersion =
+        "cp${builtins.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
+      binary-hash = (import ./binary-hashes.nix)."${pyShortVersion}" or { };
+    in
+    fetchPypi ({
+      inherit pname version format;
+      dist = pyShortVersion;
+      python = pyShortVersion;
+      abi = pyShortVersion;
+      platform = "manylinux2014_x86_64";
+    } // binary-hash)
+    ;
 
   passthru.optional-dependencies = rec {
     data-deps = [

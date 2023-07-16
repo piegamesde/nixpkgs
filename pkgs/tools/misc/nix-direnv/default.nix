@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Y9Yf/RJvfoFKS4ptVhPc9X0tQUPWSSxkS11r7wGge+8=";
   };
 
-  # Substitute instead of wrapping because the resulting file is
-  # getting sourced, not executed:
+    # Substitute instead of wrapping because the resulting file is
+    # getting sourced, not executed:
   postPatch = ''
     sed -i "1a NIX_BIN_PREFIX=${nix}/bin/" direnvrc
     substituteInPlace direnvrc --replace "grep" "${gnugrep}/bin/grep"

@@ -32,8 +32,8 @@ stdenv.mkDerivation rec {
 
   patches = [ ./fix-paths.patch ];
 
-  # TODO: switch to substituteAll with placeholder
-  # https://github.com/NixOS/nix/issues/1846
+    # TODO: switch to substituteAll with placeholder
+    # https://github.com/NixOS/nix/issues/1846
   postPatch = ''
     substituteInPlace src/gnome-shell/extension.js \
       --subst-var-by typelibPath "${placeholder "out"}/lib/girepository-1.0"

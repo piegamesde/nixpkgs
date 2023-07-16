@@ -51,7 +51,7 @@ let
   helpersBin = symlinkJoin {
     name = "podman-helper-binary-wrapper";
 
-    # this only works for some binaries, others may need to be be added to `binPath` or in the modules
+      # this only works for some binaries, others may need to be be added to `binPath` or in the modules
     paths = [ gvproxy ] ++ lib.optionals stdenv.isLinux [
       aardvark-dns
       catatonit # added here for the pause image and also set in `containersConf` for `init_path`

@@ -36,7 +36,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "expect-double-eq-in-choose-test.patch";
       url =
-        "https://gitlab.com/inkscape/lib2geom/-/commit/5b7c75dd3841cb415f163f0a81f556c57d3e0a83.patch";
+        "https://gitlab.com/inkscape/lib2geom/-/commit/5b7c75dd3841cb415f163f0a81f556c57d3e0a83.patch"
+        ;
       sha256 = "RMgwJkylrGFTTrqBzqs5j2LMSLsHhcE/UT1pKBZnU50=";
     })
   ];

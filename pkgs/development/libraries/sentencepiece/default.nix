@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     "out"
   ];
 
-  # https://github.com/google/sentencepiece/issues/754
+    # https://github.com/google/sentencepiece/issues/754
   postPatch = ''
     substituteInPlace CMakeLists.txt \
       --replace '\$'{exec_prefix}/'$'{CMAKE_INSTALL_LIBDIR} '$'{CMAKE_INSTALL_FULL_LIBDIR} \

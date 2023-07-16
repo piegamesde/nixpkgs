@@ -63,9 +63,9 @@ stdenv.mkDerivation (finalAttrs:
       runHook postConfigure
     '';
 
-    # Only affects unused scripts in $out/share/element/electron/scripts. Also
-    # breaks because there are some `node`-scripts with a `npx`-shebang and
-    # this shouldn't be in the closure just for unused scripts.
+      # Only affects unused scripts in $out/share/element/electron/scripts. Also
+      # breaks because there are some `node`-scripts with a `npx`-shebang and
+      # this shouldn't be in the closure just for unused scripts.
     dontPatchShebangs = true;
 
     buildPhase = ''
@@ -115,8 +115,8 @@ stdenv.mkDerivation (finalAttrs:
       runHook postInstall
     '';
 
-    # The desktop item properties should be kept in sync with data from upstream:
-    # https://github.com/vector-im/element-desktop/blob/develop/package.json
+      # The desktop item properties should be kept in sync with data from upstream:
+      # https://github.com/vector-im/element-desktop/blob/develop/package.json
     desktopItem = makeDesktopItem {
       name = "element-desktop";
       exec = "${executableName} %u";
@@ -136,15 +136,15 @@ stdenv.mkDerivation (finalAttrs:
     passthru = {
       updateScript = ./update.sh;
 
-      # TL;DR: keytar is optional while seshat isn't.
-      #
-      # This prevents building keytar when `useKeytar` is set to `false`, because
-      # if libsecret is unavailable (e.g. set to `null` or fails to build), then
-      # this package wouldn't even considered for building because
-      # "one of the dependencies failed to build",
-      # although the dependency wouldn't even be used.
-      #
-      # It needs to be `passthru` anyways because other packages do depend on it.
+        # TL;DR: keytar is optional while seshat isn't.
+        #
+        # This prevents building keytar when `useKeytar` is set to `false`, because
+        # if libsecret is unavailable (e.g. set to `null` or fails to build), then
+        # this package wouldn't even considered for building because
+        # "one of the dependencies failed to build",
+        # although the dependency wouldn't even be used.
+        #
+        # It needs to be `passthru` anyways because other packages do depend on it.
       inherit keytar;
     };
 
@@ -152,7 +152,8 @@ stdenv.mkDerivation (finalAttrs:
       description = "A feature-rich client for Matrix.org";
       homepage = "https://element.io/";
       changelog =
-        "https://github.com/vector-im/element-desktop/blob/v${finalAttrs.version}/CHANGELOG.md";
+        "https://github.com/vector-im/element-desktop/blob/v${finalAttrs.version}/CHANGELOG.md"
+        ;
       license = licenses.asl20;
       maintainers = teams.matrix.members;
       inherit (electron.meta) platforms;

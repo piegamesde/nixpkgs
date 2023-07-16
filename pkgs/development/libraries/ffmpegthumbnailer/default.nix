@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
   ];
   cmakeFlags = [ "-DENABLE_THUMBNAILER=ON" ];
 
-  # https://github.com/dirkvdb/ffmpegthumbnailer/issues/215
+    # https://github.com/dirkvdb/ffmpegthumbnailer/issues/215
   postPatch = ''
     substituteInPlace libffmpegthumbnailer.pc.in \
       --replace '$'{exec_prefix}/@CMAKE_INSTALL_LIBDIR@ @CMAKE_INSTALL_FULL_LIBDIR@
@@ -41,7 +41,8 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/dirkvdb/ffmpegthumbnailer";
     description = "A lightweight video thumbnailer";
     longDescription =
-      "FFmpegthumbnailer is a lightweight video\n        thumbnailer that can be used by file managers to create thumbnails\n        for your video files. The thumbnailer uses ffmpeg o decode frames\n        from the video files, so supported videoformats depend on the\n        configuration flags of ffmpeg.\n        This thumbnailer was designed to be as fast and lightweight as possible.\n        The only dependencies are ffmpeg and libpng.\n    ";
+      "FFmpegthumbnailer is a lightweight video\n        thumbnailer that can be used by file managers to create thumbnails\n        for your video files. The thumbnailer uses ffmpeg o decode frames\n        from the video files, so supported videoformats depend on the\n        configuration flags of ffmpeg.\n        This thumbnailer was designed to be as fast and lightweight as possible.\n        The only dependencies are ffmpeg and libpng.\n    "
+      ;
     platforms = platforms.unix;
     license = licenses.gpl2Plus;
     maintainers = [ maintainers.jagajaga ];

@@ -8,13 +8,14 @@
 let
   pname = "MyCrypto";
   version = "1.7.17";
-  sha256 =
-    "20eb48989b5ae5e60e438eff6830ac79a0d89ac26dff058097260e747e866444"; # Taken from release's checksums.txt.gpg
+  sha256 = "20eb48989b5ae5e60e438eff6830ac79a0d89ac26dff058097260e747e866444"
+    ; # Taken from release's checksums.txt.gpg
   name = "${pname}-${version}";
 
   src = fetchurl {
     url =
-      "https://github.com/mycryptohq/mycrypto/releases/download/${version}/linux-x86-64_${version}_MyCrypto.AppImage";
+      "https://github.com/mycryptohq/mycrypto/releases/download/${version}/linux-x86-64_${version}_MyCrypto.AppImage"
+      ;
     inherit sha256;
   };
 
@@ -24,7 +25,8 @@ let
     name = pname;
     desktopName = pname;
     comment =
-      "MyCrypto is a free, open-source interface for interacting with the blockchain";
+      "MyCrypto is a free, open-source interface for interacting with the blockchain"
+      ;
     exec = pname;
     icon = "mycrypto";
     categories = [ "Finance" ];

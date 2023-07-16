@@ -17,16 +17,16 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  # use C++14 Standard until error handling code gets updated upstream
+    # use C++14 Standard until error handling code gets updated upstream
   CXXFLAGS = [ "-std=c++14" ];
 
-  # disable flaky networking test
+    # disable flaky networking test
   postPatch = ''
     substituteInPlace test/stream.cpp \
       --replace 'ifndef UCOMMON_SYSRUNTIME' 'if 0'
   '';
 
-  # ucommon.pc has link time depdendencies on -lusecure -lucommon -lgnutls
+    # ucommon.pc has link time depdendencies on -lusecure -lucommon -lgnutls
   propagatedBuildInputs = [ gnutls ];
 
   doCheck = true;

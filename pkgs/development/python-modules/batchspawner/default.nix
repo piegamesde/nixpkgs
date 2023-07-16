@@ -22,14 +22,15 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ jupyterhub ];
 
-  # Tests require a job scheduler e.g. slurm, pbs, etc.
+    # Tests require a job scheduler e.g. slurm, pbs, etc.
   doCheck = false;
 
   pythonImportsCheck = [ "batchspawner" ];
 
   meta = with lib; {
     description =
-      "A spawner for Jupyterhub to spawn notebooks using batch resource managers";
+      "A spawner for Jupyterhub to spawn notebooks using batch resource managers"
+      ;
     homepage = "https://jupyter.org";
     license = licenses.bsd3;
     maintainers = [ maintainers.costrouc ];

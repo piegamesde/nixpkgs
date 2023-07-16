@@ -10,7 +10,7 @@ import ./make-test-python.nix ({
         # Building documentation makes the test unnecessarily take a longer time:
         documentation.enable = lib.mkForce false;
 
-        # Our tests require `grep` & friends:
+          # Our tests require `grep` & friends:
         environment.systemPackages = with pkgs; [ busybox ];
       };
     };
@@ -23,24 +23,26 @@ import ./make-test-python.nix ({
 
     meta = with pkgs.lib.maintainers; { maintainers = [ patryk27 ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         lib,
         ...
       }: {
         virtualisation = {
           diskSize = 4096;
 
-          # Since we're testing `limits.cpu`, we've gotta have a known number of
-          # cores to lean on
+            # Since we're testing `limits.cpu`, we've gotta have a known number of
+            # cores to lean on
           cores = 2;
 
-          # Ditto, for `limits.memory`
+            # Ditto, for `limits.memory`
           memorySize = 512;
 
           lxc.lxcfs.enable = true;
           lxd.enable = true;
         };
-      };
+      }
+      ;
 
     testScript = ''
       machine.wait_for_unit("sockets.target")

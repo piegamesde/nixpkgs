@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
     IOKit
   ];
 
-  # Help CMake find SDL_mixer.h
+    # Help CMake find SDL_mixer.h
   env.NIX_CFLAGS_COMPILE = "-I${lib.getDev SDL2_mixer}/include/SDL2";
 
   cmakeFlags = [ "-DBUNDLE_DEPENDENCIES=OFF" ]

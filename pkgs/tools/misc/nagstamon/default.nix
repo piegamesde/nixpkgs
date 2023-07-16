@@ -10,11 +10,12 @@ pythonPackages.buildPythonApplication rec {
 
   src = fetchurl {
     url =
-      "https://nagstamon.ifw-dresden.de/files/stable/Nagstamon-${version}.tar.gz";
+      "https://nagstamon.ifw-dresden.de/files/stable/Nagstamon-${version}.tar.gz"
+      ;
     sha256 = "1048x55g3nlyyggn6a36xmj24w4hv08llg58f4hzc0fwg074cd58";
   };
 
-  # Test assumes darwin
+    # Test assumes darwin
   doCheck = false;
 
   propagatedBuildInputs = with pythonPackages; [
@@ -34,8 +35,8 @@ pythonPackages.buildPythonApplication rec {
     homepage = "https://nagstamon.ifw-dresden.de/";
     license = licenses.gpl2;
     maintainers = with maintainers; [ pSub ];
-    # fails to install with:
-    # TypeError: cannot unpack non-iterable bool object
+      # fails to install with:
+      # TypeError: cannot unpack non-iterable bool object
     broken = true;
   };
 }

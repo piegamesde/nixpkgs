@@ -40,7 +40,8 @@ assert (lockFile == null) != (lockFileContents == null);
 
 let
   # Parse a git source into different components.
-  parseGit = src:
+  parseGit =
+    src:
     let
       parts =
         builtins.match "git\\+([^?]+)(\\?(rev|tag|branch)=(.*))?#(.*)" src;
@@ -52,67 +53,75 @@ let
       {
         url = builtins.elemAt parts 0;
         sha = builtins.elemAt parts 4;
-      } // lib.optionalAttrs (type != null) { inherit type value; };
+      } // lib.optionalAttrs (type != null) { inherit type value; }
+    ;
 
-  # shadows args.lockFileContents
-  lockFileContents = if lockFile != null then
-    builtins.readFile lockFile
-  else
-    args.lockFileContents;
+    # shadows args.lockFileContents
+  lockFileContents =
+    if lockFile != null then
+      builtins.readFile lockFile
+    else
+      args.lockFileContents
+    ;
 
   parsedLockFile = builtins.fromTOML lockFileContents;
 
   packages = parsedLockFile.package;
 
-  # There is no source attribute for the source package itself. But
-  # since we do not want to vendor the source package anyway, we can
-  # safely skip it.
+    # There is no source attribute for the source package itself. But
+    # since we do not want to vendor the source package anyway, we can
+    # safely skip it.
   depPackages = builtins.filter (p: p ? "source") packages;
 
-  # Create dependent crates from packages.
-  #
-  # Force evaluation of the git SHA -> hash mapping, so that an error is
-  # thrown if there are stale hashes. We cannot rely on gitShaOutputHash
-  # being evaluated otherwise, since there could be no git dependencies.
+    # Create dependent crates from packages.
+    #
+    # Force evaluation of the git SHA -> hash mapping, so that an error is
+    # thrown if there are stale hashes. We cannot rely on gitShaOutputHash
+    # being evaluated otherwise, since there could be no git dependencies.
   depCrates =
     builtins.deepSeq gitShaOutputHash (builtins.map mkCrate depPackages);
 
-  # Map package name + version to git commit SHA for packages with a git source.
+    # Map package name + version to git commit SHA for packages with a git source.
   namesGitShas = builtins.listToAttrs (builtins.map nameGitSha
     (builtins.filter (pkg: lib.hasPrefix "git+" pkg.source) depPackages));
 
-  nameGitSha = pkg:
+  nameGitSha =
+    pkg:
     let
       gitParts = parseGit pkg.source;
     in {
       name = "${pkg.name}-${pkg.version}";
       value = gitParts.sha;
-    } ;
+    }
+    ;
 
-  # Convert the attrset provided through the `outputHashes` argument to a
-  # a mapping from git commit SHA -> output hash.
-  #
-  # There may be multiple different packages with different names
-  # originating from the same git repository (typically a Cargo
-  # workspace). By using the git commit SHA as a universal identifier,
-  # the user does not have to specify the output hash for every package
-  # individually.
+    # Convert the attrset provided through the `outputHashes` argument to a
+    # a mapping from git commit SHA -> output hash.
+    #
+    # There may be multiple different packages with different names
+    # originating from the same git repository (typically a Cargo
+    # workspace). By using the git commit SHA as a universal identifier,
+    # the user does not have to specify the output hash for every package
+    # individually.
   gitShaOutputHash = lib.mapAttrs' (nameVer: hash:
     let
       unusedHash = throw
-        "A hash was specified for ${nameVer}, but there is no corresponding git dependency.";
+        "A hash was specified for ${nameVer}, but there is no corresponding git dependency."
+        ;
       rev = namesGitShas.${nameVer} or unusedHash;
     in {
       name = rev;
       value = hash;
     } ) outputHashes;
 
-  # We can't use the existing fetchCrate function, since it uses a
-  # recursive hash of the unpacked crate.
-  fetchCrate = pkg: downloadUrl:
+    # We can't use the existing fetchCrate function, since it uses a
+    # recursive hash of the unpacked crate.
+  fetchCrate =
+    pkg: downloadUrl:
     let
       checksum =
-        pkg.checksum or parsedLockFile.metadata."checksum ${pkg.name} ${pkg.version} (${pkg.source})";
+        pkg.checksum or parsedLockFile.metadata."checksum ${pkg.name} ${pkg.version} (${pkg.source})"
+        ;
     in
     assert lib.assertMsg (checksum != null) ''
       Package ${pkg.name} does not have a checksum.
@@ -122,14 +131,14 @@ let
       url = "${downloadUrl}/${pkg.name}/${pkg.version}/download";
       sha256 = checksum;
     }
-  ;
+    ;
 
   registries = {
     "https://github.com/rust-lang/crates.io-index" =
       "https://crates.io/api/v1/crates";
   } // extraRegistries;
 
-  # Replaces values inherited by workspace members.
+    # Replaces values inherited by workspace members.
   replaceWorkspaceValues = writers.writePython3 "replace-workspace-values" {
     libraries = with python3Packages; [
       tomli
@@ -138,8 +147,9 @@ let
     flakeIgnore = [ "E501" ];
   } (builtins.readFile ./replace-workspace-values.py);
 
-  # Fetch and unpack a crate.
-  mkCrate = pkg:
+    # Fetch and unpack a crate.
+  mkCrate =
+    pkg:
     let
       gitParts = parseGit pkg.source;
       registryIndexUrl = lib.removePrefix "registry+" pkg.source;
@@ -170,21 +180,23 @@ let
           If you use `buildRustPackage`, you can add this attribute to the `cargoLock`
           attribute set.
         '';
-        tree = if gitShaOutputHash ? ${gitParts.sha} then
-          fetchgit {
-            inherit (gitParts) url;
-            rev = gitParts.sha; # The commit SHA is always available.
-            sha256 = gitShaOutputHash.${gitParts.sha};
-          }
-        else if allowBuiltinFetchGit then
-          builtins.fetchGit {
-            inherit (gitParts) url;
-            rev = gitParts.sha;
-            allRefs = true;
-            submodules = true;
-          }
-        else
-          missingHash;
+        tree =
+          if gitShaOutputHash ? ${gitParts.sha} then
+            fetchgit {
+              inherit (gitParts) url;
+              rev = gitParts.sha; # The commit SHA is always available.
+              sha256 = gitShaOutputHash.${gitParts.sha};
+            }
+          else if allowBuiltinFetchGit then
+            builtins.fetchGit {
+              inherit (gitParts) url;
+              rev = gitParts.sha;
+              allRefs = true;
+              submodules = true;
+            }
+          else
+            missingHash
+          ;
       in
       runCommand "${pkg.name}-${pkg.version}" { } ''
         tree=${tree}
@@ -239,7 +251,8 @@ let
         EOF
       ''
     else
-      throw "Cannot handle crate source: ${pkg.source}";
+      throw "Cannot handle crate source: ${pkg.source}"
+    ;
 
   vendorDir = runCommand "cargo-vendor-dir" (if lockFile == null then
     {

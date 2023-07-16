@@ -30,7 +30,8 @@ stdenv.mkDerivation rec {
     description = "HyperLogLog for PostgreSQL";
     homepage = "https://github.com/citusdata/postgresql-hll";
     changelog =
-      "https://github.com/citusdata/postgresql-hll/raw/v${version}/CHANGELOG.md";
+      "https://github.com/citusdata/postgresql-hll/raw/v${version}/CHANGELOG.md"
+      ;
     maintainers = with maintainers; [ thoughtpolice ];
     platforms = postgresql.meta.platforms;
     license = licenses.asl20;

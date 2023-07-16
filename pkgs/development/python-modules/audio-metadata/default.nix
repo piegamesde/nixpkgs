@@ -33,7 +33,8 @@ buildPythonPackage rec {
     (fetchpatch {
       name = "switch-to-poetry-core.patch";
       url =
-        "https://github.com/thebigmunch/audio-metadata/commit/dfe91a69ee37e9dcefb692165eb0f9cd36a7e5b8.patch";
+        "https://github.com/thebigmunch/audio-metadata/commit/dfe91a69ee37e9dcefb692165eb0f9cd36a7e5b8.patch"
+        ;
       hash = "sha256-ut3mqgZQu0YFbsTEA13Ch0+aSNl17ndMV0fuIu3n5tc=";
     })
   ];
@@ -57,7 +58,7 @@ buildPythonPackage rec {
     tbm-utils
   ];
 
-  # Tests require ward which is not ready to be used
+    # Tests require ward which is not ready to be used
   doCheck = false;
 
   pythonImportsCheck = [ "audio_metadata" ];
@@ -65,9 +66,11 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/thebigmunch/audio-metadata";
     description =
-      "A library for reading and, in the future, writing metadata from audio files";
+      "A library for reading and, in the future, writing metadata from audio files"
+      ;
     changelog =
-      "https://github.com/thebigmunch/audio-metadata/blob/${version}/CHANGELOG.md";
+      "https://github.com/thebigmunch/audio-metadata/blob/${version}/CHANGELOG.md"
+      ;
     license = licenses.mit;
     maintainers = with maintainers; [ jakewaksbaum ];
   };

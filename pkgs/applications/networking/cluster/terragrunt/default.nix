@@ -39,7 +39,8 @@ buildGoModule rec {
     changelog =
       "https://github.com/gruntwork-io/terragrunt/releases/tag/v${version}";
     description =
-      "A thin wrapper for Terraform that supports locking for Terraform state and enforces best practices";
+      "A thin wrapper for Terraform that supports locking for Terraform state and enforces best practices"
+      ;
     license = licenses.mit;
     maintainers = with maintainers; [ jk ];
   };

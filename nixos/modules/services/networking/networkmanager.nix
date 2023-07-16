@@ -10,12 +10,13 @@ with lib;
 let
   cfg = config.networking.networkmanager;
 
-  delegateWireless = config.networking.wireless.enable == true && cfg.unmanaged
-    != [ ];
+  delegateWireless =
+    config.networking.wireless.enable == true && cfg.unmanaged != [ ];
 
   enableIwd = cfg.wifi.backend == "iwd";
 
-  mkValue = v:
+  mkValue =
+    v:
     if v == true then
       "yes"
     else if v == false then
@@ -23,31 +24,39 @@ let
     else if lib.isInt v then
       toString v
     else
-      v;
+      v
+    ;
 
-  mkSection = name: attrs: ''
-    [${name}]
-    ${lib.concatStringsSep "\n" (lib.mapAttrsToList (k: v: "${k}=${mkValue v}")
-      (lib.filterAttrs (k: v: v != null) attrs))}
-  '';
+  mkSection =
+    name: attrs: ''
+      [${name}]
+      ${lib.concatStringsSep "\n"
+      (lib.mapAttrsToList (k: v: "${k}=${mkValue v}")
+        (lib.filterAttrs (k: v: v != null) attrs))}
+    ''
+    ;
 
   configFile = pkgs.writeText "NetworkManager.conf" (lib.concatStringsSep "\n" [
     (mkSection "main" {
       plugins = "keyfile";
       dhcp = cfg.dhcp;
       dns = cfg.dns;
-      # If resolvconf is disabled that means that resolv.conf is managed by some other module.
-      rc-manager = if config.networking.resolvconf.enable then
-        "resolvconf"
-      else
-        "unmanaged";
+        # If resolvconf is disabled that means that resolv.conf is managed by some other module.
+      rc-manager =
+        if config.networking.resolvconf.enable then
+          "resolvconf"
+        else
+          "unmanaged"
+        ;
       firewall-backend = cfg.firewallBackend;
     })
     (mkSection "keyfile" {
-      unmanaged-devices = if cfg.unmanaged == [ ] then
-        null
-      else
-        lib.concatStringsSep ";" cfg.unmanaged;
+      unmanaged-devices =
+        if cfg.unmanaged == [ ] then
+          null
+        else
+          lib.concatStringsSep ";" cfg.unmanaged
+        ;
     })
     (mkSection "logging" {
       audit = config.security.audit.enable;
@@ -61,20 +70,20 @@ let
     cfg.extraConfig
   ]);
 
-  /* [network-manager]
-     Identity=unix-group:networkmanager
-     Action=org.freedesktop.NetworkManager.*
-     ResultAny=yes
-     ResultInactive=no
-     ResultActive=yes
+    /* [network-manager]
+       Identity=unix-group:networkmanager
+       Action=org.freedesktop.NetworkManager.*
+       ResultAny=yes
+       ResultInactive=no
+       ResultActive=yes
 
-     [modem-manager]
-     Identity=unix-group:networkmanager
-     Action=org.freedesktop.ModemManager*
-     ResultAny=yes
-     ResultInactive=no
-     ResultActive=yes
-  */
+       [modem-manager]
+       Identity=unix-group:networkmanager
+       Action=org.freedesktop.ModemManager*
+       ResultAny=yes
+       ResultInactive=no
+       ResultActive=yes
+    */
   polkitConf = ''
     polkit.addRule(function(action, subject) {
       if (
@@ -86,10 +95,12 @@ let
     });
   '';
 
-  ns = xs:
+  ns =
+    xs:
     pkgs.writeText "nameservers" (concatStrings (map (s: ''
       nameserver ${s}
-    '') xs));
+    '') xs))
+    ;
 
   overrideNameserversScript = pkgs.writeScript "02overridedns" ''
     #!/bin/sh
@@ -147,7 +158,7 @@ in {
 
   meta = { maintainers = teams.freedesktop.members; };
 
-  ###### interface
+    ###### interface
 
   options = {
 
@@ -216,19 +227,22 @@ in {
       };
 
       plugins = mkOption {
-        type = let
-          networkManagerPluginPackage = types.package // {
-            description = "NetworkManager plug-in";
-            check = p:
-              lib.assertMsg (types.package.check p && p ? networkManagerPlugin
-                && lib.isString p.networkManagerPlugin) ''
-                  Package ‘${p.name}’, is not a NetworkManager plug-in.
-                  Those need to have a ‘networkManagerPlugin’ attribute.
-                '';
-          };
-        in
-        types.listOf networkManagerPluginPackage
-        ;
+        type =
+          let
+            networkManagerPluginPackage = types.package // {
+              description = "NetworkManager plug-in";
+              check =
+                p:
+                lib.assertMsg (types.package.check p && p ? networkManagerPlugin
+                  && lib.isString p.networkManagerPlugin) ''
+                    Package ‘${p.name}’, is not a NetworkManager plug-in.
+                    Those need to have a ‘networkManagerPlugin’ attribute.
+                  ''
+                ;
+            };
+          in
+          types.listOf networkManagerPluginPackage
+          ;
         default = [ ];
         description = lib.mdDoc ''
           List of NetworkManager plug-ins to enable.
@@ -450,13 +464,13 @@ in {
     '')
   ];
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 
     assertions = [ {
-      assertion = config.networking.wireless.enable == true -> cfg.unmanaged
-        != [ ];
+      assertion =
+        config.networking.wireless.enable == true -> cfg.unmanaged != [ ];
       message = ''
         You can not use networking.networkmanager with networking.wireless.
         Except if you mark some interfaces as <literal>unmanaged</literal> by NetworkManager.
@@ -532,8 +546,8 @@ in {
       wantedBy = [ "network-online.target" ];
     };
 
-    systemd.services.ModemManager.aliases =
-      [ "dbus-org.freedesktop.ModemManager1.service" ];
+    systemd.services.ModemManager.aliases = [ "dbus-org.freedesktop.ModemManager1.service" ]
+      ;
 
     systemd.services.NetworkManager-dispatcher = {
       wantedBy = [ "network.target" ];
@@ -542,7 +556,7 @@ in {
         overrideNameserversScript
       ];
 
-      # useful binaries for user-specified hooks
+        # useful binaries for user-specified hooks
       path = [
         pkgs.iproute2
         pkgs.util-linux
@@ -551,7 +565,7 @@ in {
       aliases = [ "dbus-org.freedesktop.nm-dispatcher.service" ];
     };
 
-    # Turn off NixOS' network management when networking is managed entirely by NetworkManager
+      # Turn off NixOS' network management when networking is managed entirely by NetworkManager
     networking = mkMerge [
       (mkIf (!delegateWireless) { useDHCP = false; })
 
@@ -577,12 +591,14 @@ in {
         networkmanager.connectionConfig = {
           "ethernet.cloned-mac-address" = cfg.ethernet.macAddress;
           "wifi.cloned-mac-address" = cfg.wifi.macAddress;
-          "wifi.powersave" = if cfg.wifi.powersave == null then
-            null
-          else if cfg.wifi.powersave then
-            3
-          else
-            2;
+          "wifi.powersave" =
+            if cfg.wifi.powersave == null then
+              null
+            else if cfg.wifi.powersave then
+              3
+            else
+              2
+            ;
         };
       }
     ];

@@ -12,7 +12,8 @@ stdenv.mkDerivation rec {
   pname = "leafpad";
   src = fetchurl {
     url =
-      "https://download.savannah.gnu.org/releases/leafpad/${pname}-${version}.tar.gz";
+      "https://download.savannah.gnu.org/releases/leafpad/${pname}-${version}.tar.gz"
+      ;
     sha256 = "sha256-B9P3EvTb0KMyUf0d7hTiGv3J+SCQ/HaMEasKxVatvpc=";
   };
 

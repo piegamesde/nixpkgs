@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = ''-D GIT_DESCRIBE=""'';
 
-  # tenacity only looks for ffmpeg at runtime, so we need to link it in manually
+    # tenacity only looks for ffmpeg at runtime, so we need to link it in manually
   NIX_LDFLAGS = toString [
     "-lavcodec"
     "-lavdevice"

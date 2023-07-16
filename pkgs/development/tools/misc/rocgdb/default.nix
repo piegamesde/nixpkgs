@@ -40,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
     expat
   ];
 
-  # `-Wno-format-nonliteral` doesn't work
+    # `-Wno-format-nonliteral` doesn't work
   env.NIX_CFLAGS_COMPILE = "-Wno-error=format-security";
 
   passthru.updateScript = rocmUpdateScript {

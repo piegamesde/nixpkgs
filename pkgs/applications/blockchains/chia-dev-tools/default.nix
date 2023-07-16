@@ -28,7 +28,7 @@ python3Packages.buildPythonApplication rec {
 
   nativeBuildInputs = [ python3Packages.setuptools-scm ];
 
-  # give a hint to setuptools-scm on package version
+    # give a hint to setuptools-scm on package version
   SETUPTOOLS_SCM_PRETEND_VERSION = "v${version}";
 
   propagatedBuildInputs = with python3Packages; [
@@ -51,7 +51,8 @@ python3Packages.buildPythonApplication rec {
   meta = with lib; {
     homepage = "https://www.chia.net/";
     description =
-      "Utility for developing in the Chia ecosystem: Chialisp functions, object inspection, RPC client and more";
+      "Utility for developing in the Chia ecosystem: Chialisp functions, object inspection, RPC client and more"
+      ;
     license = with licenses; [ asl20 ];
     maintainers = teams.chia.members;
   };

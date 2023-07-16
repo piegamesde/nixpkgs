@@ -42,7 +42,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-wQH8V9jRgh45JGs4IfYS1GtmCIYdo93JG1UjJ0BGxXk=";
 
-  # Only needed to build the man-pages
+    # Only needed to build the man-pages
   excludedPackages = [ "github.com/github/hub/md2roff-bin" ];
 
   nativeBuildInputs = [

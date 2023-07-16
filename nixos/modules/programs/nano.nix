@@ -37,7 +37,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = lib.mkIf (cfg.nanorc != "" || cfg.syntaxHighlight) {
     environment.etc.nanorc.text = lib.concatStrings [

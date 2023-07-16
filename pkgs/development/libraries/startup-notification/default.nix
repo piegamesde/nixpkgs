@@ -13,12 +13,14 @@ stdenv.mkDerivation rec {
   version = "0.12";
   src = fetchurl {
     url =
-      "https://www.freedesktop.org/software/startup-notification/releases/startup-notification-${version}.tar.gz";
+      "https://www.freedesktop.org/software/startup-notification/releases/startup-notification-${version}.tar.gz"
+      ;
     sha256 = "3c391f7e930c583095045cd2d10eb73a64f085c7fde9d260f2652c7cb3cfbe4a";
   };
 
-  configureFlags = lib.optionals (stdenv.buildPlatform
-    != stdenv.targetPlatform) [ "lf_cv_sane_realloc=yes" ];
+  configureFlags = lib.optionals
+    (stdenv.buildPlatform != stdenv.targetPlatform) [ "lf_cv_sane_realloc=yes" ]
+    ;
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [

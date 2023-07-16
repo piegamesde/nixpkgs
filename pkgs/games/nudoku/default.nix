@@ -25,12 +25,13 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "ncurses-6.3.patch";
       url =
-        "https://github.com/jubalh/nudoku/commit/93899a0fd72e04b9f257e5f54af53466106b5959.patch";
+        "https://github.com/jubalh/nudoku/commit/93899a0fd72e04b9f257e5f54af53466106b5959.patch"
+        ;
       sha256 = "1h3za0dnx8fk3vshql5mhcici8aw8j0vr7ra81p3r1rii4c479lm";
     })
   ];
 
-  # Allow gettext 0.20
+    # Allow gettext 0.20
   postPatch = ''
     substituteInPlace configure.ac --replace 0.19 0.20
   '';

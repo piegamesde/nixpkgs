@@ -42,23 +42,26 @@ in {
     withoutTestScriptReferences.includeTestScriptReferences = false;
     withoutTestScriptReferences.testScript = lib.mkForce "testscript omitted";
 
-    testScriptString = if lib.isFunction config.testScript then
-      config.testScript {
-        nodes = lib.mapAttrs (k: v:
-          if
-            v.virtualisation.useNixStoreImage
-          then
-          # prevent infinite recursion when testScript would
-          # reference v's toplevel
-            config.withoutTestScriptReferences.nodesCompat.${k}
-          else
-          # reuse memoized config
-            v) config.nodesCompat;
-      }
-    else
-      config.testScript;
+    testScriptString =
+      if lib.isFunction config.testScript then
+        config.testScript {
+          nodes = lib.mapAttrs (k: v:
+            if
+              v.virtualisation.useNixStoreImage
+            then
+            # prevent infinite recursion when testScript would
+            # reference v's toplevel
+              config.withoutTestScriptReferences.nodesCompat.${k}
+            else
+            # reuse memoized config
+              v) config.nodesCompat;
+        }
+      else
+        config.testScript
+      ;
 
-    defaults = {
+    defaults =
+      {
         config,
         name,
         ...
@@ -86,6 +89,7 @@ in {
             && testModuleArgs.config.includeTestScriptReferences)
           (hostPkgs.writeStringReferencesToFile
             testModuleArgs.config.testScriptString);
-      };
+      }
+      ;
   };
 }

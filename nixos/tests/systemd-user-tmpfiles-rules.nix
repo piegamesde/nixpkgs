@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
 
     meta = with lib.maintainers; { maintainers = [ schnusch ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         users.users = {
@@ -18,9 +19,11 @@ import ./make-test-python.nix ({
           rules = [ "d %h/user_tmpfiles_created" ];
           users.alice.rules = [ "d %h/only_alice" ];
         };
-      };
+      }
+      ;
 
-    testScript = {
+    testScript =
+      {
         ...
       }: ''
         machine.succeed("loginctl enable-linger alice bob")
@@ -32,5 +35,6 @@ import ./make-test-python.nix ({
         machine.wait_until_succeeds("systemctl --user --machine=bob@ is-active systemd-tmpfiles-setup.service")
         machine.succeed("[ -d ~bob/user_tmpfiles_created ]")
         machine.succeed("[ ! -e ~bob/only_alice ]")
-      '';
+      ''
+      ;
   })

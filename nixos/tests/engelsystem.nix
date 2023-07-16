@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
     name = "engelsystem";
     meta = with pkgs.lib.maintainers; { maintainers = [ talyz ]; };
 
-    nodes.engelsystem = {
+    nodes.engelsystem =
+      {
         ...
       }: {
         services.engelsystem = {
@@ -22,7 +23,8 @@ import ./make-test-python.nix ({
           xmlstarlet
           libxml2
         ];
-      };
+      }
+      ;
 
     testScript = ''
       engelsystem.start()

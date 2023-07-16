@@ -25,8 +25,8 @@ buildPythonPackage rec {
     msrestazure
   ];
 
-  # tests require azure-devtools which are not published (since 2020)
-  # https://github.com/Azure/azure-sdk-for-python/blob/main/sdk/containerregistry/azure-containerregistry/dev_requirements.txt
+    # tests require azure-devtools which are not published (since 2020)
+    # https://github.com/Azure/azure-sdk-for-python/blob/main/sdk/containerregistry/azure-containerregistry/dev_requirements.txt
   doCheck = false;
 
   pythonImportsCheck = [
@@ -38,7 +38,8 @@ buildPythonPackage rec {
     description =
       "Microsoft Azure Container Registry client library for Python";
     homepage =
-      "https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/containerregistry/azure-containerregistry";
+      "https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/containerregistry/azure-containerregistry"
+      ;
     license = licenses.mit;
     maintainers = with maintainers; [ peterromfeldhk ];
   };

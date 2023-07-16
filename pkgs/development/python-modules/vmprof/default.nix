@@ -27,15 +27,15 @@ buildPythonPackage rec {
     pytz
   ];
 
-  # No tests included
+    # No tests included
   doCheck = false;
   pythonImportsCheck = [ "vmprof" ];
 
-  # Workaround build failure on -fno-common toolchains:
-  #   ld: src/vmprof_unix.o:src/vmprof_common.h:92: multiple definition of
-  #     `_PyThreadState_Current'; src/_vmprof.o:src/vmprof_common.h:92: first defined here
-  # TODO: can be removed once next release contains:
-  #   https://github.com/vmprof/vmprof-python/pull/203
+    # Workaround build failure on -fno-common toolchains:
+    #   ld: src/vmprof_unix.o:src/vmprof_common.h:92: multiple definition of
+    #     `_PyThreadState_Current'; src/_vmprof.o:src/vmprof_common.h:92: first defined here
+    # TODO: can be removed once next release contains:
+    #   https://github.com/vmprof/vmprof-python/pull/203
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   meta = with lib; {

@@ -112,7 +112,7 @@ stdenv.mkDerivation (finalAttrs: {
   passthru = {
     tests = {
       gimp-plugin = gimpPlugins.gmic;
-      # Needs to update them all in lockstep.
+        # Needs to update them all in lockstep.
       inherit cimg gmic;
     };
 

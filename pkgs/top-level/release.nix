@@ -62,56 +62,58 @@ let
     lib-tests = import ../../lib/tests/release.nix { inherit pkgs; };
     pkgs-lib-tests = import ../pkgs-lib/tests { inherit pkgs; };
 
-    darwin-tested = if supportDarwin.x86_64 then
-      pkgs.releaseTools.aggregate {
-        name = "nixpkgs-darwin-${jobs.tarball.version}";
-        meta.description =
-          "Release-critical builds for the Nixpkgs darwin channel";
-        constituents = [
-          jobs.tarball
-          jobs.cabal2nix.x86_64-darwin
-          jobs.ghc.x86_64-darwin
-          jobs.git.x86_64-darwin
-          jobs.go.x86_64-darwin
-          jobs.mariadb.x86_64-darwin
-          jobs.nix.x86_64-darwin
-          jobs.nixpkgs-review.x86_64-darwin
-          jobs.nix-info.x86_64-darwin
-          jobs.nix-info-tested.x86_64-darwin
-          jobs.openssh.x86_64-darwin
-          jobs.openssl.x86_64-darwin
-          jobs.pandoc.x86_64-darwin
-          jobs.postgresql.x86_64-darwin
-          jobs.python3.x86_64-darwin
-          jobs.ruby.x86_64-darwin
-          jobs.rustc.x86_64-darwin
-          # blocking ofBorg CI 2020-02-28
-          # jobs.stack.x86_64-darwin
-          jobs.stdenv.x86_64-darwin
-          jobs.vim.x86_64-darwin
-          jobs.cachix.x86_64-darwin
+    darwin-tested =
+      if supportDarwin.x86_64 then
+        pkgs.releaseTools.aggregate {
+          name = "nixpkgs-darwin-${jobs.tarball.version}";
+          meta.description =
+            "Release-critical builds for the Nixpkgs darwin channel";
+          constituents = [
+            jobs.tarball
+            jobs.cabal2nix.x86_64-darwin
+            jobs.ghc.x86_64-darwin
+            jobs.git.x86_64-darwin
+            jobs.go.x86_64-darwin
+            jobs.mariadb.x86_64-darwin
+            jobs.nix.x86_64-darwin
+            jobs.nixpkgs-review.x86_64-darwin
+            jobs.nix-info.x86_64-darwin
+            jobs.nix-info-tested.x86_64-darwin
+            jobs.openssh.x86_64-darwin
+            jobs.openssl.x86_64-darwin
+            jobs.pandoc.x86_64-darwin
+            jobs.postgresql.x86_64-darwin
+            jobs.python3.x86_64-darwin
+            jobs.ruby.x86_64-darwin
+            jobs.rustc.x86_64-darwin
+            # blocking ofBorg CI 2020-02-28
+            # jobs.stack.x86_64-darwin
+            jobs.stdenv.x86_64-darwin
+            jobs.vim.x86_64-darwin
+            jobs.cachix.x86_64-darwin
 
-          # UI apps
-          # jobs.firefox-unwrapped.x86_64-darwin
-          jobs.qt5.qtmultimedia.x86_64-darwin
-          jobs.inkscape.x86_64-darwin
-          jobs.gimp.x86_64-darwin
-          jobs.emacs.x86_64-darwin
-          jobs.wireshark.x86_64-darwin
-          jobs.transmission-gtk.x86_64-darwin
+            # UI apps
+            # jobs.firefox-unwrapped.x86_64-darwin
+            jobs.qt5.qtmultimedia.x86_64-darwin
+            jobs.inkscape.x86_64-darwin
+            jobs.gimp.x86_64-darwin
+            jobs.emacs.x86_64-darwin
+            jobs.wireshark.x86_64-darwin
+            jobs.transmission-gtk.x86_64-darwin
 
-          # Tests
-          /* jobs.tests.cc-wrapper.x86_64-darwin
-             jobs.tests.cc-wrapper-clang.x86_64-darwin
-             jobs.tests.cc-wrapper-libcxx.x86_64-darwin
-             jobs.tests.stdenv-inputs.x86_64-darwin
-             jobs.tests.macOSSierraShared.x86_64-darwin
-             jobs.tests.stdenv.hooks.patch-shebangs.x86_64-darwin
-          */
-        ];
-      }
-    else
-      null;
+            # Tests
+            /* jobs.tests.cc-wrapper.x86_64-darwin
+               jobs.tests.cc-wrapper-clang.x86_64-darwin
+               jobs.tests.cc-wrapper-libcxx.x86_64-darwin
+               jobs.tests.stdenv-inputs.x86_64-darwin
+               jobs.tests.macOSSierraShared.x86_64-darwin
+               jobs.tests.stdenv.hooks.patch-shebangs.x86_64-darwin
+            */
+          ];
+        }
+      else
+        null
+      ;
 
     unstable = pkgs.releaseTools.aggregate {
       name = "nixpkgs-${jobs.tarball.version}";
@@ -215,10 +217,10 @@ let
           abort "No bootstrap implementation for system: ${system}");
   };
 
-  # Do not allow attribute collision between jobs inserted in
-  # 'nonPackageAttrs' and jobs pulled in from 'pkgs'.
-  # Conflicts usually cause silent job drops like in
-  #   https://github.com/NixOS/nixpkgs/pull/182058
+    # Do not allow attribute collision between jobs inserted in
+    # 'nonPackageAttrs' and jobs pulled in from 'pkgs'.
+    # Conflicts usually cause silent job drops like in
+    #   https://github.com/NixOS/nixpkgs/pull/182058
   jobs = lib.attrsets.unionOfDisjoint nonPackageJobs (mapTestOn
     ((packagePlatforms pkgs) // {
       haskell.compiler = packagePlatforms pkgs.haskell.compiler;
@@ -241,10 +243,10 @@ let
 
       tests = packagePlatforms pkgs.tests;
 
-      # Language packages disabled in https://github.com/NixOS/nixpkgs/commit/ccd1029f58a3bb9eca32d81bf3f33cb4be25cc66
+        # Language packages disabled in https://github.com/NixOS/nixpkgs/commit/ccd1029f58a3bb9eca32d81bf3f33cb4be25cc66
 
-      #emacsPackages = packagePlatforms pkgs.emacsPackages;
-      #rPackages = packagePlatforms pkgs.rPackages;
+        #emacsPackages = packagePlatforms pkgs.emacsPackages;
+        #rPackages = packagePlatforms pkgs.rPackages;
       ocamlPackages = { };
       perlPackages = { };
 

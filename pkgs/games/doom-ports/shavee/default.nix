@@ -31,7 +31,7 @@ rustPlatform.buildRustPackage rec {
     pam
   ];
 
-  # these tests require network access
+    # these tests require network access
   checkFlags = [
     "--skip=filehash::tests::remote_file_hash"
     "--skip=filehash::tests::get_filehash_unit_test"
@@ -39,7 +39,8 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "A Program to automatically decrypt and mount ZFS datasets using Yubikey HMAC as 2FA or any File on USB/SFTP/HTTPS.";
+      "A Program to automatically decrypt and mount ZFS datasets using Yubikey HMAC as 2FA or any File on USB/SFTP/HTTPS."
+      ;
     homepage = "https://github.com/ashuio/shavee";
     license = licenses.mit;
     maintainers = with maintainers; [ jasonodoom ];

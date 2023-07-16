@@ -37,10 +37,10 @@ stdenv.mkDerivation {
     sed -i 's|#include <exiv2/exif.hpp>|#include <exiv2/exiv2.hpp>|' src/jpeg-utils.cpp
   '';
 
-  # Add workaround for -fno-common toolchains like upstream gcc-10 to
-  # avoid build failures like:
-  #   ld: stats.o:/build/cataract-675e647/src/stats.h:24: multiple definition of
-  #     `stats_images'; cgg.o:/build/cataract-675e647/src/stats.h:24: first defined here
+    # Add workaround for -fno-common toolchains like upstream gcc-10 to
+    # avoid build failures like:
+    #   ld: stats.o:/build/cataract-675e647/src/stats.h:24: multiple definition of
+    #     `stats_images'; cgg.o:/build/cataract-675e647/src/stats.h:24: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   installPhase = ''
@@ -51,7 +51,8 @@ stdenv.mkDerivation {
   meta = with lib; {
     homepage = "http://cgg.bzatek.net/";
     description =
-      "A simple static web photo gallery, designed to be clean and easily usable";
+      "A simple static web photo gallery, designed to be clean and easily usable"
+      ;
     license = licenses.gpl2;
     maintainers = [ maintainers.matthiasbeyer ];
     platforms = with platforms; linux ++ darwin;

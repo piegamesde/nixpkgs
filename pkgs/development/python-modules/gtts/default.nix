@@ -42,7 +42,7 @@ buildPythonPackage rec {
     testfixtures
   ];
 
-  # majority of tests just try to call out to Google's Translate API endpoint
+    # majority of tests just try to call out to Google's Translate API endpoint
   doCheck = false;
   checkPhase = ''
     pytest
@@ -52,7 +52,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "A Python library and CLI tool to interface with Google Translate text-to-speech API";
+      "A Python library and CLI tool to interface with Google Translate text-to-speech API"
+      ;
     homepage = "https://gtts.readthedocs.io";
     changelog = "https://gtts.readthedocs.io/en/latest/changelog.html";
     license = licenses.mit;

@@ -68,13 +68,15 @@ let
 in
 buildFHSEnv {
   name = pname;
-  targetPkgs = pkgs: [
-    cups
-    thisPackage
-  ];
+  targetPkgs =
+    pkgs: [
+      cups
+      thisPackage
+    ]
+    ;
   runScript = "${program}${year}";
 
-  # link desktop item and icon into FHS user environment
+    # link desktop item and icon into FHS user environment
   extraInstallCommands = ''
     mkdir -p "$out/share/applications"
     mkdir -p "$out/share/pixmaps"

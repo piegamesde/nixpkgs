@@ -52,9 +52,9 @@ rustPlatform.buildRustPackage rec {
     patchShebangs third_party/minijail/tools/*.py
   '';
 
-  # crosvm mistakenly expects the stable protocols to be in the root
-  # of the pkgdatadir path, rather than under the "stable"
-  # subdirectory.
+    # crosvm mistakenly expects the stable protocols to be in the root
+    # of the pkgdatadir path, rather than under the "stable"
+    # subdirectory.
   PKG_CONFIG_WAYLAND_PROTOCOLS_PKGDATADIR =
     "${wayland-protocols}/share/wayland-protocols/stable";
 

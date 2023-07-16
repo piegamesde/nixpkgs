@@ -21,27 +21,28 @@ with lib;
     ../../profiles/installation-device.nix
   ];
 
-  # Adds terminus_font for people with HiDPI displays
+    # Adds terminus_font for people with HiDPI displays
   console.packages = options.console.packages.default ++ [ pkgs.terminus_font ];
 
-  # ISO naming.
+    # ISO naming.
   isoImage.isoName =
-    "${config.isoImage.isoBaseName}-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.iso";
+    "${config.isoImage.isoBaseName}-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.iso"
+    ;
 
-  # BIOS booting
+    # BIOS booting
   isoImage.makeBiosBootable = true;
 
-  # EFI booting
+    # EFI booting
   isoImage.makeEfiBootable = true;
 
-  # USB booting
+    # USB booting
   isoImage.makeUsbBootable = true;
 
-  # Add Memtest86+ to the CD.
+    # Add Memtest86+ to the CD.
   boot.loader.grub.memtest86.enable = true;
 
-  # An installation media cannot tolerate a host config defined file
-  # system layout on a fresh machine, before it has been formatted.
+    # An installation media cannot tolerate a host config defined file
+    # system layout on a fresh machine, before it has been formatted.
   swapDevices = mkImageMediaOverride [ ];
   fileSystems = mkImageMediaOverride config.lib.isoFileSystems;
 

@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ perl ];
 
-  # plugins uses the same build environment as vdr
+    # plugins uses the same build environment as vdr
   propagatedNativeBuildInputs = [
     pkg-config
     gettext

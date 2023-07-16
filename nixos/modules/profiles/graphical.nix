@@ -14,7 +14,7 @@
     libinput.enable = true; # for touchpad support on many laptops
   };
 
-  # Enable sound in virtualbox appliances.
+    # Enable sound in virtualbox appliances.
   hardware.pulseaudio.enable = true;
 
   environment.systemPackages = [

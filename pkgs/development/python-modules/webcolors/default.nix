@@ -29,7 +29,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Library for working with color names/values defined by the HTML and CSS specifications";
+      "Library for working with color names/values defined by the HTML and CSS specifications"
+      ;
     homepage = "https://github.com/ubernostrum/webcolors";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ];

@@ -9,12 +9,14 @@ import ./make-test-python.nix ({
     name = "prowlarr";
     meta.maintainers = with maintainers; [ jdreaver ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
         services.prowlarr.enable = true;
-      };
+      }
+      ;
 
     testScript = ''
       machine.wait_for_unit("prowlarr.service")

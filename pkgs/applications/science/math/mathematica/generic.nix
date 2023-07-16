@@ -203,12 +203,12 @@ stdenv.mkDerivation {
   dontConfigure = true;
   dontBuild = true;
 
-  # This is primarily an IO bound build; there's little benefit to building remotely
+    # This is primarily an IO bound build; there's little benefit to building remotely
   preferLocalBuild = true;
 
-  # All binaries are already stripped
+    # All binaries are already stripped
   dontStrip = true;
 
-  # NOTE: Some deps are still not found; ignore for now
+    # NOTE: Some deps are still not found; ignore for now
   autoPatchelfIgnoreMissingDeps = true;
 }

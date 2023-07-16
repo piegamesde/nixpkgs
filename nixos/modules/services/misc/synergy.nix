@@ -23,7 +23,8 @@ in {
 
       client = {
         enable = mkEnableOption (lib.mdDoc
-          "the Synergy client (receive keyboard and mouse events from a Synergy server)");
+          "the Synergy client (receive keyboard and mouse events from a Synergy server)")
+          ;
 
         screenName = mkOption {
           default = "";
@@ -103,7 +104,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkMerge [
     (mkIf cfgC.enable {

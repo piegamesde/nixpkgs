@@ -140,22 +140,24 @@ stdenv.mkDerivation rec {
     # such as when cross-compiling.
     ++ optional stdenv.hostPlatform.isLinux "gl_cv_have_proc_uptime=yes";
 
-  # The tests are known broken on Cygwin
-  # (http://article.gmane.org/gmane.comp.gnu.core-utils.bugs/19025),
-  # Darwin (http://article.gmane.org/gmane.comp.gnu.core-utils.bugs/19351),
-  # and {Open,Free}BSD.
-  # With non-standard storeDir: https://github.com/NixOS/nix/issues/512
-  # On aarch64+musl, test-init.sh fails due to a segfault in diff.
+    # The tests are known broken on Cygwin
+    # (http://article.gmane.org/gmane.comp.gnu.core-utils.bugs/19025),
+    # Darwin (http://article.gmane.org/gmane.comp.gnu.core-utils.bugs/19351),
+    # and {Open,Free}BSD.
+    # With non-standard storeDir: https://github.com/NixOS/nix/issues/512
+    # On aarch64+musl, test-init.sh fails due to a segfault in diff.
   doCheck = (!isCross) && (stdenv.hostPlatform.libc == "glibc"
     || stdenv.hostPlatform.libc == "musl")
     && !(stdenv.hostPlatform.libc == "musl" && stdenv.hostPlatform.isAarch64)
     && !stdenv.isAarch32;
 
-  # Prevents attempts of running 'help2man' on cross-built binaries.
-  PERL = if isCross then
-    "missing"
-  else
-    null;
+    # Prevents attempts of running 'help2man' on cross-built binaries.
+  PERL =
+    if isCross then
+      "missing"
+    else
+      null
+    ;
 
   enableParallelBuilding = true;
 
@@ -166,8 +168,8 @@ stdenv.mkDerivation rec {
     ++ optional stdenv.hostPlatform.isMusl "-Wno-error"
     ++ optional stdenv.hostPlatform.isAndroid "-D__USE_FORTIFY_LEVEL=0");
 
-  # Works around a bug with 8.26:
-  # Makefile:3440: *** Recursive variable 'INSTALL' references itself (eventually).  Stop.
+    # Works around a bug with 8.26:
+    # Makefile:3440: *** Recursive variable 'INSTALL' references itself (eventually).  Stop.
   preInstall = optionalString isCross ''
     sed -i Makefile -e 's|^INSTALL =.*|INSTALL = ${buildPackages.coreutils}/bin/install -c|'
   '';

@@ -18,7 +18,8 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "Fantastic (maybe) CLI for translating between bottom and human-readable text";
+      "Fantastic (maybe) CLI for translating between bottom and human-readable text"
+      ;
     homepage = "https://github.com/bottom-software-foundation/bottom-rs";
     license = licenses.mit;
     maintainers = with maintainers; [ winter ];

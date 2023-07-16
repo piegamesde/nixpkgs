@@ -65,40 +65,42 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  # Change magnus-opus version to upstream so that it does not use
-  # vcpkg for libopus since it does not work.
+    # Change magnus-opus version to upstream so that it does not use
+    # vcpkg for libopus since it does not work.
   cargoPatches = [ ./cargo.patch ];
 
-  # Manually simulate a vcpkg installation so that it can link the libaries
-  # properly.
-  postUnpack = let
-    vcpkg_target = "x64-linux";
+    # Manually simulate a vcpkg installation so that it can link the libaries
+    # properly.
+  postUnpack =
+    let
+      vcpkg_target = "x64-linux";
 
-    updates_vcpkg_file = writeText "update_vcpkg_rustdesk" ''
-      Package : libyuv
-      Architecture : ${vcpkg_target}
-      Version : 1.0
-      Status : is installed
+      updates_vcpkg_file = writeText "update_vcpkg_rustdesk" ''
+        Package : libyuv
+        Architecture : ${vcpkg_target}
+        Version : 1.0
+        Status : is installed
 
-      Package : libvpx
-      Architecture : ${vcpkg_target}
-      Version : 1.0
-      Status : is installed
-    '';
-  in ''
-    export VCPKG_ROOT="$TMP/vcpkg";
+        Package : libvpx
+        Architecture : ${vcpkg_target}
+        Version : 1.0
+        Status : is installed
+      '';
+    in ''
+      export VCPKG_ROOT="$TMP/vcpkg";
 
-    mkdir -p $VCPKG_ROOT/.vcpkg-root
-    mkdir -p $VCPKG_ROOT/installed/${vcpkg_target}/lib
-    mkdir -p $VCPKG_ROOT/installed/vcpkg/updates
-    ln -s ${updates_vcpkg_file} $VCPKG_ROOT/installed/vcpkg/status
-    mkdir -p $VCPKG_ROOT/installed/vcpkg/info
-    touch $VCPKG_ROOT/installed/vcpkg/info/libyuv_1.0_${vcpkg_target}.list
-    touch $VCPKG_ROOT/installed/vcpkg/info/libvpx_1.0_${vcpkg_target}.list
+      mkdir -p $VCPKG_ROOT/.vcpkg-root
+      mkdir -p $VCPKG_ROOT/installed/${vcpkg_target}/lib
+      mkdir -p $VCPKG_ROOT/installed/vcpkg/updates
+      ln -s ${updates_vcpkg_file} $VCPKG_ROOT/installed/vcpkg/status
+      mkdir -p $VCPKG_ROOT/installed/vcpkg/info
+      touch $VCPKG_ROOT/installed/vcpkg/info/libyuv_1.0_${vcpkg_target}.list
+      touch $VCPKG_ROOT/installed/vcpkg/info/libvpx_1.0_${vcpkg_target}.list
 
-    ln -s ${libvpx.out}/lib/* $VCPKG_ROOT/installed/${vcpkg_target}/lib/
-    ln -s ${libyuv.out}/lib/* $VCPKG_ROOT/installed/${vcpkg_target}/lib/
-  '' ;
+      ln -s ${libvpx.out}/lib/* $VCPKG_ROOT/installed/${vcpkg_target}/lib/
+      ln -s ${libyuv.out}/lib/* $VCPKG_ROOT/installed/${vcpkg_target}/lib/
+    ''
+    ;
 
   nativeBuildInputs = [
     pkg-config
@@ -123,7 +125,7 @@ rustPlatform.buildRustPackage rec {
     libyuv
   ];
 
-  # Checks require an active X display.
+    # Checks require an active X display.
   doCheck = false;
 
   desktopItems = [ (makeDesktopItem {
@@ -141,8 +143,8 @@ rustPlatform.buildRustPackage rec {
     ln -s ${./Cargo.lock} Cargo.lock
   '';
 
-  # Add static ui resources and libsciter to same folder as binary so that it
-  # can find them.
+    # Add static ui resources and libsciter to same folder as binary so that it
+    # can find them.
   postInstall = ''
     mkdir -p $out/{share/src,lib/rustdesk}
 

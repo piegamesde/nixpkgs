@@ -104,9 +104,9 @@ let
     sha256 = "sha256-0MJ1inMNA6s8l2S0wnpM2c7FxOoOHxs9u4E/rgKfjJo=";
   };
 
-  # Handbrake maintains a set of ffmpeg patches. In particular, these
-  # patches are required for subtitle timing to work correctly. See:
-  # https://github.com/HandBrake/HandBrake/issues/4029
+    # Handbrake maintains a set of ffmpeg patches. In particular, these
+    # patches are required for subtitle timing to work correctly. See:
+    # https://github.com/HandBrake/HandBrake/issues/4029
   ffmpeg-version = "5.1.1";
   ffmpeg-hb = ffmpeg_5-full.overrideAttrs (old: {
     version = ffmpeg-version;
@@ -265,31 +265,33 @@ in let
       ++ optional stdenv.isDarwin "--disable-xcode"
       ++ optional stdenv.hostPlatform.isx86 "--harden";
 
-    # NOTE: 2018-12-27: Check NixOS HandBrake test if changing
+      # NOTE: 2018-12-27: Check NixOS HandBrake test if changing
     NIX_LDFLAGS = [ "-lx265" ];
 
     makeFlags = [ "--directory=build" ];
 
     passthru.tests = {
-      basic-conversion = let
-        # Big Buck Bunny example, licensed under CC Attribution 3.0.
-        testMkv = fetchurl {
-          url =
-            "https://github.com/Matroska-Org/matroska-test-files/blob/cf0792be144ac470c4b8052cfe19bb691993e3a2/test_files/test1.mkv?raw=true";
-          sha256 = "1hfxbbgxwfkzv85pvpvx55a72qsd0hxjbm9hkl5r3590zw4s75h9";
-        };
-      in
-      runCommand "${pname}-${version}-basic-conversion" {
-        nativeBuildInputs = [ self ];
-      } ''
-        mkdir -p $out
-        cd $out
-        HandBrakeCLI -i ${testMkv} -o test.mp4 -e x264 -q 20 -B 160
-        test -e test.mp4
-        HandBrakeCLI -i ${testMkv} -o test.mkv -e x264 -q 20 -B 160
-        test -e test.mkv
-      ''
-      ;
+      basic-conversion =
+        let
+          # Big Buck Bunny example, licensed under CC Attribution 3.0.
+          testMkv = fetchurl {
+            url =
+              "https://github.com/Matroska-Org/matroska-test-files/blob/cf0792be144ac470c4b8052cfe19bb691993e3a2/test_files/test1.mkv?raw=true"
+              ;
+            sha256 = "1hfxbbgxwfkzv85pvpvx55a72qsd0hxjbm9hkl5r3590zw4s75h9";
+          };
+        in
+        runCommand "${pname}-${version}-basic-conversion" {
+          nativeBuildInputs = [ self ];
+        } ''
+          mkdir -p $out
+          cd $out
+          HandBrakeCLI -i ${testMkv} -o test.mp4 -e x264 -q 20 -B 160
+          test -e test.mp4
+          HandBrakeCLI -i ${testMkv} -o test.mkv -e x264 -q 20 -B 160
+          test -e test.mkv
+        ''
+        ;
       version = testers.testVersion {
         package = self;
         command = "HandBrakeCLI --version";

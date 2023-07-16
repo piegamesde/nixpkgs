@@ -38,8 +38,8 @@ stdenv.mkDerivation rec {
     vte
   ];
 
-  # Set path to gsettings-schemata so sakura knows where to find colorchooser,
-  # fontchooser etc.
+    # Set path to gsettings-schemata so sakura knows where to find colorchooser,
+    # fontchooser etc.
   postFixup = ''
     wrapProgram $out/bin/sakura \
       --suffix XDG_DATA_DIRS : ${gtk3}/share/gsettings-schemas/${gtk3.name}/

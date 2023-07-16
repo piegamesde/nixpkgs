@@ -33,7 +33,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Reference library for reading, displaying, writing and examining Multiple-Image Network Graphics";
+      "Reference library for reading, displaying, writing and examining Multiple-Image Network Graphics"
+      ;
     homepage = "http://www.libmng.com";
     license = licenses.zlib;
     maintainers = with maintainers; [ marcweber ];

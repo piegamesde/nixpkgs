@@ -59,7 +59,7 @@ mkDerivation rec {
   license = lib.licenses.bsd3;
   maintainers = [ lib.maintainers.marsam ];
 
-  # doesn't build on ghc92
+    # doesn't build on ghc92
   hydraPlatforms = lib.platforms.none;
   broken = true;
 }

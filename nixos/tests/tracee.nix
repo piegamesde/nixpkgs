@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
     meta.maintainers = pkgs.tracee.meta.maintainers;
 
     nodes = {
-      machine = {
+      machine =
+        {
           config,
           pkgs,
           ...
@@ -33,8 +34,8 @@ import ./make-test-python.nix ({
                   --replace "/usr/bin/dockerd" "dockerd" \
                   --replace "/usr/bin" "/run/current-system/sw/bin"
               '';
-              nativeBuildInputs = oa.nativeBuildInputs or [ ]
-                ++ [ makeWrapper ];
+              nativeBuildInputs =
+                oa.nativeBuildInputs or [ ] ++ [ makeWrapper ];
               buildPhase = ''
                 runHook preBuild
                 # just build the static lib we need for the go test binary
@@ -53,7 +54,8 @@ import ./make-test-python.nix ({
               doInstallCheck = false;
             }))
           ];
-        };
+        }
+        ;
     };
 
     testScript = ''

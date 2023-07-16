@@ -16,7 +16,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.chiark.greenend.org.uk/~sgtatham/spigot/${pname}-${srcVersion}.tar.gz";
+      "https://www.chiark.greenend.org.uk/~sgtatham/spigot/${pname}-${srcVersion}.tar.gz"
+      ;
     hash = "sha256-EBS3lgfLtsyBQ8mzoJPyZhRBJNmkVSeF5XecGgcvqtw=";
   };
 

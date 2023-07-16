@@ -13,8 +13,9 @@ let
 in {
   options = {
     services.devmon = {
-      enable = mkEnableOption
-        (lib.mdDoc "devmon, an automatic device mounting daemon");
+      enable =
+        mkEnableOption (lib.mdDoc "devmon, an automatic device mounting daemon")
+        ;
     };
   };
 

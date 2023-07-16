@@ -12,8 +12,8 @@
 
 deployAndroidPackage {
   inherit package os;
-  nativeBuildInputs = [ makeWrapper ]
-    ++ lib.optionals (os == "linux") [ autoPatchelfHook ];
+  nativeBuildInputs =
+    [ makeWrapper ] ++ lib.optionals (os == "linux") [ autoPatchelfHook ];
   buildInputs = lib.optionals (os == "linux") [
     pkgs.glibc
     pkgs.zlib
@@ -41,6 +41,6 @@ deployAndroidPackage {
 
     cd $out/libexec/android-sdk
   '' + postInstall;
-  noAuditTmpdir =
-    true; # The checker script gets confused by the build-tools path that is incorrectly identified as a reference to /build
+  noAuditTmpdir = true
+    ; # The checker script gets confused by the build-tools path that is incorrectly identified as a reference to /build
 }

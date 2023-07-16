@@ -10,16 +10,17 @@ rustPlatform.buildRustPackage rec {
   pname = "helix";
   version = "23.03";
 
-  # This release tarball includes source code for the tree-sitter grammars,
-  # which is not ordinarily part of the repository.
+    # This release tarball includes source code for the tree-sitter grammars,
+    # which is not ordinarily part of the repository.
   src = fetchzip {
     url =
-      "https://github.com/helix-editor/helix/releases/download/${version}/helix-${version}-source.tar.xz";
+      "https://github.com/helix-editor/helix/releases/download/${version}/helix-${version}-source.tar.xz"
+      ;
     hash = "sha256-FtY2V7za3WGeUaC2t2f63CcDUEg9zAS2cGUWI0YeGwk=";
     stripRoot = false;
   };
 
-  # should be removed, when tree-sitter is not used as a git checkout anymore
+    # should be removed, when tree-sitter is not used as a git checkout anymore
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {

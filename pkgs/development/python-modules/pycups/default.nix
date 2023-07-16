@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   buildInputs = [ cups ] ++ lib.optional stdenv.isDarwin libiconv;
 
-  # Wants to connect to CUPS
+    # Wants to connect to CUPS
   doCheck = false;
 
   meta = with lib; {

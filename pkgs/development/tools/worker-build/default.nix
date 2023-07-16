@@ -23,12 +23,13 @@ rustPlatform.buildRustPackage rec {
 
   buildAndTestSubdir = "worker-build";
 
-  # missing some module upstream to run the tests
+    # missing some module upstream to run the tests
   doCheck = false;
 
   meta = with lib; {
     description =
-      "This is a tool to be used as a custom build command for a Cloudflare Workers `workers-rs` project.";
+      "This is a tool to be used as a custom build command for a Cloudflare Workers `workers-rs` project."
+      ;
     homepage = "https://github.com/cloudflare/worker-rs";
     license = with licenses; [
       asl20 # or

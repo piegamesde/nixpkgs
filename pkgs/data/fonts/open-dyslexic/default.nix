@@ -10,7 +10,8 @@ stdenvNoCC.mkDerivation {
 
   src = fetchzip {
     url =
-      "https://github.com/antijingoist/open-dyslexic/archive/20160623-Stable.zip";
+      "https://github.com/antijingoist/open-dyslexic/archive/20160623-Stable.zip"
+      ;
     hash = "sha256-f/uavR3n0qHyqumZDw7r8Zy0om2RlJAKyWuGaUXSJ1s=";
   };
 
@@ -28,7 +29,8 @@ stdenvNoCC.mkDerivation {
     description =
       "Font created to increase readability for readers with dyslexia";
     license =
-      "Bitstream Vera License (https://www.gnome.org/fonts/#Final_Bitstream_Vera_Fonts)";
+      "Bitstream Vera License (https://www.gnome.org/fonts/#Final_Bitstream_Vera_Fonts)"
+      ;
     platforms = platforms.all;
     maintainers = [ maintainers.rycee ];
   };

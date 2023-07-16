@@ -25,7 +25,7 @@ let
     "sympa-task.service"
   ];
 
-  # common for all services including wwsympa
+    # common for all services including wwsympa
   commonServiceConfig = {
     StateDirectory = "sympa";
     ProtectHome = true;
@@ -33,8 +33,9 @@ let
     ProtectControlGroups = true;
   };
 
-  # wwsympa has its own service config
-  sympaServiceConfig = srv:
+    # wwsympa has its own service config
+  sympaServiceConfig =
+    srv:
     {
       Type = "simple";
       Restart = "always";
@@ -43,26 +44,33 @@ let
       User = user;
       Group = group;
 
-      # avoid duplicating log messageges in journal
+        # avoid duplicating log messageges in journal
       StandardError = "null";
-    } // commonServiceConfig;
+    } // commonServiceConfig
+    ;
 
-  configVal = value:
+  configVal =
+    value:
     if isBool value then
       if value then
         "on"
       else
         "off"
     else
-      toString value;
-  configGenerator = c:
+      toString value
+    ;
+  configGenerator =
+    c:
     concatStrings (flip mapAttrsToList c (key: val: ''
       ${key}	${configVal val}
-    ''));
+    ''))
+    ;
 
   mainConfig = pkgs.writeText "sympa.conf" (configGenerator cfg.settings);
-  robotConfig = fqdn: domain:
-    pkgs.writeText "${fqdn}-robot.conf" (configGenerator domain.settings);
+  robotConfig =
+    fqdn: domain:
+    pkgs.writeText "${fqdn}-robot.conf" (configGenerator domain.settings)
+    ;
 
   transport = pkgs.writeText "transport.sympa" (concatStringsSep "\n"
     (flip map fqdns (domain: ''
@@ -226,12 +234,15 @@ in {
 
       name = mkOption {
         type = str;
-        default = if cfg.database.type == "SQLite" then
-          "${dataDir}/sympa.sqlite"
-        else
-          "sympa";
+        default =
+          if cfg.database.type == "SQLite" then
+            "${dataDir}/sympa.sqlite"
+          else
+            "sympa"
+          ;
         defaultText = literalExpression ''
-          if database.type == "SQLite" then "${dataDir}/sympa.sqlite" else "sympa"'';
+          if database.type == "SQLite" then "${dataDir}/sympa.sqlite" else "sympa"''
+          ;
         description = lib.mdDoc ''
           Database name. When using SQLite this must be an absolute
           path to the database file.
@@ -346,7 +357,8 @@ in {
               type = bool;
               default = true;
               description = lib.mdDoc
-                "Whether this file should be generated. This option allows specific files to be disabled.";
+                "Whether this file should be generated. This option allows specific files to be disabled."
+                ;
             };
             text = mkOption {
               default = null;
@@ -375,15 +387,17 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf cfg.enable {
 
     services.sympa.settings = (mapAttrs (_: v: mkDefault v) {
-      domain = if cfg.mainDomain != null then
-        cfg.mainDomain
-      else
-        head fqdns;
+      domain =
+        if cfg.mainDomain != null then
+          cfg.mainDomain
+        else
+          head fqdns
+        ;
       listmaster = concatStringsSep "," cfg.listMasters;
       lang = cfg.lang;
 
@@ -440,13 +454,15 @@ in {
       {
         assertion = cfg.database.createLocally -> cfg.database.user == user;
         message =
-          "services.sympa.database.user must be set to ${user} if services.sympa.database.createLocally is set to true";
+          "services.sympa.database.user must be set to ${user} if services.sympa.database.createLocally is set to true"
+          ;
       }
       {
-        assertion = cfg.database.createLocally -> cfg.database.passwordFile
-          == null;
+        assertion =
+          cfg.database.createLocally -> cfg.database.passwordFile == null;
         message =
-          "a password cannot be specified if services.sympa.database.createLocally is set to true";
+          "a password cannot be specified if services.sympa.database.createLocally is set to true"
+          ;
       }
     ];
 
@@ -554,9 +570,11 @@ in {
     services.nginx.virtualHosts = mkIf usingNginx (let
       vHosts =
         unique (remove null (mapAttrsToList (_k: v: v.webHost) cfg.domains));
-      hostLocations = host:
+      hostLocations =
+        host:
         map (v: v.webLocation)
-        (filter (v: v.webHost == host) (attrValues cfg.domains));
+        (filter (v: v.webHost == host) (attrValues cfg.domains))
+        ;
       httpsOpts = optionalAttrs cfg.web.https {
         forceSSL = mkDefault true;
         enableACME = mkDefault true;

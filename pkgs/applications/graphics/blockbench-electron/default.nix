@@ -13,7 +13,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/JannisX11/blockbench/releases/download/v${version}/Blockbench_${version}.AppImage";
+      "https://github.com/JannisX11/blockbench/releases/download/v${version}/Blockbench_${version}.AppImage"
+      ;
     sha256 = "sha256-uUgVBdYMCF31+L/FV4ADIpUdEAmnW59KfscQxUStPWM=";
     name = "${pname}-${version}.AppImage";
   };

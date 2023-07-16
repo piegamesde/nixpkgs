@@ -16,7 +16,7 @@ in {
     primeos
   ];
 
-  ###### interface
+    ###### interface
   options = {
     services.monetdb = {
 
@@ -62,7 +62,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
   config = mkIf cfg.enable {
 
     users.users.monetdb = mkIf (cfg.user == "monetdb") {

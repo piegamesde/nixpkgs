@@ -48,7 +48,8 @@ buildPythonPackage rec {
     description = "Common library to send usage telemetry";
     homepage = "https://github.com/iterative/iterative-telemetry";
     changelog =
-      "https://github.com/iterative/iterative-telemetry/releases/tag/${version}";
+      "https://github.com/iterative/iterative-telemetry/releases/tag/${version}"
+      ;
     license = licenses.asl20;
     maintainers = with maintainers; [ melling ];
   };

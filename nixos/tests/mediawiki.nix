@@ -14,7 +14,8 @@ let
     services.mediawiki.extensions = {
       Matomo = pkgs.fetchzip {
         url =
-          "https://github.com/DaSchTour/matomo-mediawiki-extension/archive/v4.0.1.tar.gz";
+          "https://github.com/DaSchTour/matomo-mediawiki-extension/archive/v4.0.1.tar.gz"
+          ;
         sha256 = "0g5rd3zp0avwlmqagc59cg9bbkn3r7wx7p6yr80s644mj6dlvs1b";
       };
       ParserFunctions = null;
@@ -55,7 +56,8 @@ in {
   nohttpd = testLib.makeTest {
     name = "mediawiki-nohttpd";
     nodes.machine = { services.mediawiki.webserver = "none"; };
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }: ''
@@ -70,6 +72,7 @@ in {
         );
         page = machine.succeed(f"{' '.join(env)} ${pkgs.fcgi}/bin/cgi-fcgi -bind -connect ${nodes.machine.services.phpfpm.pools.mediawiki.socket}")
         assert "MediaWiki has been installed" in page, f"no 'MediaWiki has been installed' in:\n{page}"
-      '';
+      ''
+      ;
   };
 }

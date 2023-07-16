@@ -49,19 +49,22 @@ in {
         default = "";
         example = "ln -s $''{pkgs.bash}/bin/bash $out/bash";
         description = lib.mdDoc
-          "Extra commands to run in the package that contains fallback executables in case not other executable is found";
+          "Extra commands to run in the package that contains fallback executables in case not other executable is found"
+          ;
       };
     };
   };
   config = lib.mkIf (cfg.enable) {
     environment.systemPackages = [ cfg.package ];
-    # we also want these mounts in virtual machines.
-    fileSystems = if config.virtualisation ? qemu then
-      lib.mkVMOverride mounts
-    else
-      mounts;
+      # we also want these mounts in virtual machines.
+    fileSystems =
+      if config.virtualisation ? qemu then
+        lib.mkVMOverride mounts
+      else
+        mounts
+      ;
 
-    # We no longer need those when using envfs
+      # We no longer need those when using envfs
     system.activationScripts.usrbinenv = lib.mkForce "";
     system.activationScripts.binsh = lib.mkForce "";
   };

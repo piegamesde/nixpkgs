@@ -3,7 +3,8 @@
 {
   description = "A collection of packages for the Nix package manager";
 
-  outputs = {
+  outputs =
+    {
       self,
     }:
     let
@@ -17,7 +18,8 @@
 
         nixos = import ./nixos/lib { lib = final; };
 
-        nixosSystem = args:
+        nixosSystem =
+          args:
           import ./nixos/lib/eval-config.nix (args // {
             modules = args.modules ++ [ {
               system.nixos.versionSuffix = ".${
@@ -31,7 +33,8 @@
             # We set it to null, to remove the "legacy" entrypoint's
             # non-hermetic default.
             system = null;
-          });
+          })
+          ;
       });
 
       checks.x86_64-linux.tarball = jobs.tarball;
@@ -43,19 +46,20 @@
         }).nixos.manual.x86_64-linux;
       };
 
-      # The "legacy" in `legacyPackages` doesn't imply that the packages exposed
-      # through this attribute are "legacy" packages. Instead, `legacyPackages`
-      # is used here as a substitute attribute name for `packages`. The problem
-      # with `packages` is that it makes operations like `nix flake show
-      # nixpkgs` unusably slow due to the sheer number of packages the Nix CLI
-      # needs to evaluate. But when the Nix CLI sees a `legacyPackages`
-      # attribute it displays `omitted` instead of evaluating all packages,
-      # which keeps `nix flake show` on Nixpkgs reasonably fast, though less
-      # information rich.
+        # The "legacy" in `legacyPackages` doesn't imply that the packages exposed
+        # through this attribute are "legacy" packages. Instead, `legacyPackages`
+        # is used here as a substitute attribute name for `packages`. The problem
+        # with `packages` is that it makes operations like `nix flake show
+        # nixpkgs` unusably slow due to the sheer number of packages the Nix CLI
+        # needs to evaluate. But when the Nix CLI sees a `legacyPackages`
+        # attribute it displays `omitted` instead of evaluating all packages,
+        # which keeps `nix flake show` on Nixpkgs reasonably fast, though less
+        # information rich.
       legacyPackages = forAllSystems (system: import ./. { inherit system; });
 
       nixosModules = {
         notDetected = ./nixos/modules/installer/scan/not-detected.nix;
       };
-    } ;
+    }
+    ;
 }

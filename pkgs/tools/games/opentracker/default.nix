@@ -22,7 +22,8 @@ buildDotnetModule rec {
     repo = pname;
     rev = "refs/tags/${version}";
     hash =
-      "sha512-nWkPgVYdnBJibyJRdLPe3O3RioDPbzumSritRejmr4CeiPb7aUTON7HjivcV/GKor1guEYu+TJ+QxYrqO/eppg==";
+      "sha512-nWkPgVYdnBJibyJRdLPe3O3RioDPbzumSritRejmr4CeiPb7aUTON7HjivcV/GKor1guEYu+TJ+QxYrqO/eppg=="
+      ;
   };
 
   patches = [ ./remove-project.patch ];
@@ -63,7 +64,7 @@ buildDotnetModule rec {
     libXi
   ]);
 
-  # Attempts to patchelf unneeded SOs
+    # Attempts to patchelf unneeded SOs
   autoPatchelfIgnoreMissingDeps = [
     "libc.musl-x86_64.so.1"
     "libintl.so.8"

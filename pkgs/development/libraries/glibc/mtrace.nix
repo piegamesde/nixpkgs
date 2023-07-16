@@ -28,17 +28,18 @@ glibc.overrideAttrs (oldAttrs: {
     mv malloc/mtrace $out/bin/
   '';
 
-  # Perl checked during configure
+    # Perl checked during configure
   nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ perl ];
-  # Perl shebang used for `mtrace`.
+    # Perl shebang used for `mtrace`.
   buildInputs = oldAttrs.buildInputs ++ [ perl ];
 
-  # Reset a few things declared by `pkgs.glibc`.
+    # Reset a few things declared by `pkgs.glibc`.
   outputs = [ "out" ];
   separateDebugInfo = false;
 
   meta = oldAttrs.meta // {
     description =
-      "Perl script used to interpret and provide human readable output of the trace log contained in the file mtracedata, whose contents were produced by mtrace(3).";
+      "Perl script used to interpret and provide human readable output of the trace log contained in the file mtracedata, whose contents were produced by mtrace(3)."
+      ;
   };
 })

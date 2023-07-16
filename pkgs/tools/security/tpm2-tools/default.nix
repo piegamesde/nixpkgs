@@ -19,7 +19,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/tpm2-software/${pname}/releases/download/${version}/${pname}-${version}.tar.gz";
+      "https://github.com/tpm2-software/${pname}/releases/download/${version}/${pname}-${version}.tar.gz"
+      ;
     sha256 = "sha256-H9tJxzBTe/2u0IiISIGmHjv9Eh6VfsC9zu7AJhI2wSM=";
   };
 
@@ -35,16 +36,18 @@ stdenv.mkDerivation rec {
     libuuid
   ];
 
-  preFixup = let
-    ldLibraryPath = lib.makeLibraryPath
-      ([ tpm2-tss ] ++ (lib.optional abrmdSupport tpm2-abrmd));
-  in ''
-    wrapProgram $out/bin/tpm2 --suffix LD_LIBRARY_PATH : "${ldLibraryPath}"
-    wrapProgram $out/bin/tss2 --suffix LD_LIBRARY_PATH : "${ldLibraryPath}"
-  '' ;
+  preFixup =
+    let
+      ldLibraryPath = lib.makeLibraryPath
+        ([ tpm2-tss ] ++ (lib.optional abrmdSupport tpm2-abrmd));
+    in ''
+      wrapProgram $out/bin/tpm2 --suffix LD_LIBRARY_PATH : "${ldLibraryPath}"
+      wrapProgram $out/bin/tss2 --suffix LD_LIBRARY_PATH : "${ldLibraryPath}"
+    ''
+    ;
 
-  # Unit tests disabled, as they rely on a dbus session
-  #configureFlags = [ "--enable-unit" ];
+    # Unit tests disabled, as they rely on a dbus session
+    #configureFlags = [ "--enable-unit" ];
   doCheck = false;
 
   meta = with lib; {

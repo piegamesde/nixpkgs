@@ -11,7 +11,8 @@ import ./make-test-python.nix ({
     name = "mpv";
     meta.maintainers = with maintainers; [ zopieux ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -21,7 +22,8 @@ import ./make-test-python.nix ({
             scripts = [ pkgs.mpvScripts.simple-mpv-webui ];
           })
         ];
-      };
+      }
+      ;
 
     testScript = ''
       machine.execute("set -m; mpv --script-opts=webui-port=${port} --idle=yes >&2 &")

@@ -17,7 +17,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://git.open-music-kontrollers.ch/lv2/${pname}/snapshot/${pname}-${version}.tar.xz";
+      "https://git.open-music-kontrollers.ch/lv2/${pname}/snapshot/${pname}-${version}.tar.xz"
+      ;
     sha256 = "sha256-sjgQVx8uGNPWcUwKzGUhChpfzXj/8D8cggVTpcHEXPQ=";
   };
 

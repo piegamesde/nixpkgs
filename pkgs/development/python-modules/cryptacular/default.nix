@@ -24,11 +24,11 @@ buildPythonPackage rec {
   ];
   propagatedBuildInputs = [ pbkdf2 ];
 
-  # TODO: tests fail: TypeError: object of type 'NoneType' has no len()
+    # TODO: tests fail: TypeError: object of type 'NoneType' has no len()
   doCheck = false;
 
-  # Python >=2.7.15, >=3.6.5 are incompatible:
-  # https://bitbucket.org/dholth/cryptacular/issues/11
+    # Python >=2.7.15, >=3.6.5 are incompatible:
+    # https://bitbucket.org/dholth/cryptacular/issues/11
   disabled = isPy27 || pythonAtLeast "3.6";
 
   meta = with lib; { maintainers = with maintainers; [ domenkozar ]; };

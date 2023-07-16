@@ -35,8 +35,9 @@ stdenv.mkDerivation rec {
     ddccontrol-db
   ];
 
-  configureFlags =
-    [ "--with-systemdsystemunitdir=${placeholder "out"}/etc/systemd/system" ];
+  configureFlags = [ "--with-systemdsystemunitdir=${
+      placeholder "out"
+    }/etc/systemd/system" ];
 
   prePatch = ''
     substituteInPlace configure.ac              \

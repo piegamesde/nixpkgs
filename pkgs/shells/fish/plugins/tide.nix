@@ -17,7 +17,7 @@ buildFishPlugin rec {
     sha256 = "sha256-vi4sYoI366FkIonXDlf/eE2Pyjq7E/kOKBrQS+LtE+M=";
   };
 
-  #buildFishplugin will only move the .fish files, but tide has a tide configure function
+    #buildFishplugin will only move the .fish files, but tide has a tide configure function
   postInstall = ''
     cp -R functions/tide $out/share/fish/vendor_functions.d/
   '';

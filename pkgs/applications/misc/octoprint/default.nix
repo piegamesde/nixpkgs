@@ -43,7 +43,7 @@ let
             outputs = [ "out" ];
             patches = [ ];
           });
-          # downgrade needed for flask-babel 2.0.0
+            # downgrade needed for flask-babel 2.0.0
           babel = super.babel.overridePythonAttrs (oldAttrs: rec {
             version = "2.11.0";
             src = super.fetchPypi {
@@ -99,7 +99,7 @@ let
             hash = "sha256-3z5Btl287W3j+L+MQG8FOWt21smML0vpmu9BP48B9A0=";
           };
 
-          # requires octoprint itself during tests
+            # requires octoprint itself during tests
           doCheck = false;
           postPatch = ''
             substituteInPlace octoprint_pi_support/__init__.py \
@@ -192,32 +192,34 @@ let
             })
           ];
 
-          postPatch = let
-            ignoreVersionConstraints = [
-              "cachelib"
-              "colorlog"
-              "emoji"
-              "immutabledict"
-              "PyYAML"
-              "sarge"
-              "sentry-sdk"
-              "watchdog"
-              "wrapt"
-              "zeroconf"
-              "Flask-Login"
-              "werkzeug"
-              "flask"
-              "Flask-Limiter"
-            ];
-          in ''
-            sed -r -i \
-              ${
-                lib.concatStringsSep "\n"
-                (map (e: ''-e 's@${e}[<>=]+.*@${e}",@g' \'')
-                  ignoreVersionConstraints)
-              }
-              setup.py
-          '' ;
+          postPatch =
+            let
+              ignoreVersionConstraints = [
+                "cachelib"
+                "colorlog"
+                "emoji"
+                "immutabledict"
+                "PyYAML"
+                "sarge"
+                "sentry-sdk"
+                "watchdog"
+                "wrapt"
+                "zeroconf"
+                "Flask-Login"
+                "werkzeug"
+                "flask"
+                "Flask-Limiter"
+              ];
+            in ''
+              sed -r -i \
+                ${
+                  lib.concatStringsSep "\n"
+                  (map (e: ''-e 's@${e}[<>=]+.*@${e}",@g' \'')
+                    ignoreVersionConstraints)
+                }
+                setup.py
+            ''
+            ;
 
           dontUseSetuptoolsCheck = true;
 

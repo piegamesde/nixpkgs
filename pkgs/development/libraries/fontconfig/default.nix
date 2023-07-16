@@ -26,7 +26,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.freedesktop.org/software/fontconfig/release/${pname}-${version}.tar.xz";
+      "https://www.freedesktop.org/software/fontconfig/release/${pname}-${version}.tar.xz"
+      ;
     sha256 = "3L64TJx0u/2xM9U1/hx77cnyIhqNrzkUuYTETFIOm6w=";
   };
 
@@ -54,7 +55,8 @@ stdenv.mkDerivation rec {
     # just <1MB; this is what you get when loading config fails for some reason
     "--with-default-fonts=${dejavu_fonts.minimal}"
   ] ++ lib.optionals (stdenv.hostPlatform
-    != stdenv.buildPlatform) [ "--with-arch=${stdenv.hostPlatform.parsed.cpu.name}" ];
+    != stdenv.buildPlatform) [ "--with-arch=${stdenv.hostPlatform.parsed.cpu.name}" ]
+    ;
 
   enableParallelBuilding = true;
 

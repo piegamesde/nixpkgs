@@ -19,11 +19,11 @@ let
 
   boehmgc-nix = boehmgc-nix_2_3.overrideAttrs (drv: {
     # Part of the GC solution in https://github.com/NixOS/nix/pull/4944
-    patches = (drv.patches or [ ])
-      ++ [ ./patches/boehmgc-coroutine-sp-fallback.patch ];
+    patches =
+      (drv.patches or [ ]) ++ [ ./patches/boehmgc-coroutine-sp-fallback.patch ];
   });
 
-  # old nix fails to build with newer aws-sdk-cpp and the patch doesn't apply
+    # old nix fails to build with newer aws-sdk-cpp and the patch doesn't apply
   aws-sdk-cpp-old-nix = (aws-sdk-cpp.override {
     apis = [
       "s3"
@@ -75,7 +75,7 @@ let
     patches = (args.patches or [ ])
       ++ [ ./patches/aws-sdk-cpp-TransferManager-ContentEncoding.patch ];
 
-    # only a stripped down version is build which takes a lot less resources to build
+      # only a stripped down version is build which takes a lot less resources to build
     requiredSystemFeatures = [ ];
   });
 
@@ -90,30 +90,36 @@ let
     requiredSystemFeatures = [ ];
   });
 
-  common = args:
+  common =
+    args:
     callPackage
     (import ./common.nix ({ inherit lib fetchFromGitHub; } // args)) {
       inherit Security storeDir stateDir confDir;
       boehmgc = boehmgc-nix;
-      aws-sdk-cpp = if lib.versionAtLeast args.version "2.12pre" then
-        aws-sdk-cpp-nix
-      else
-        aws-sdk-cpp-old-nix;
-    };
+      aws-sdk-cpp =
+        if lib.versionAtLeast args.version "2.12pre" then
+          aws-sdk-cpp-nix
+        else
+          aws-sdk-cpp-old-nix
+        ;
+    }
+    ;
 
-  # https://github.com/NixOS/nix/pull/7585
+    # https://github.com/NixOS/nix/pull/7585
   patch-monitorfdhup = fetchpatch2 {
     name = "nix-7585-monitor-fd-hup.patch";
     url =
-      "https://github.com/NixOS/nix/commit/1df3d62c769dc68c279e89f68fdd3723ed3bcb5a.patch";
+      "https://github.com/NixOS/nix/commit/1df3d62c769dc68c279e89f68fdd3723ed3bcb5a.patch"
+      ;
     sha256 = "sha256-f+F0fUO+bqyPXjt+IXJtISVr589hdc3y+Cdrxznb+Nk=";
   };
 
-  # https://github.com/NixOS/nix/pull/7473
+    # https://github.com/NixOS/nix/pull/7473
   patch-sqlite-exception = fetchpatch2 {
     name = "nix-7473-sqlite-exception-add-message.patch";
     url =
-      "https://github.com/hercules-ci/nix/commit/c965f35de71cc9d88f912f6b90fd7213601e6eb8.patch";
+      "https://github.com/hercules-ci/nix/commit/c965f35de71cc9d88f912f6b90fd7213601e6eb8.patch"
+      ;
     sha256 = "sha256-tI5nKU7SZgsJrxiskJ5nHZyfrWf5aZyKYExM0792N80=";
   };
 
@@ -121,7 +127,8 @@ let
     # https://github.com/NixOS/nix/pull/7283
     name = "fix-requires-non-existing-output.patch";
     url =
-      "https://github.com/NixOS/nix/commit/3ade5f5d6026b825a80bdcc221058c4f14e10a27.patch";
+      "https://github.com/NixOS/nix/commit/3ade5f5d6026b825a80bdcc221058c4f14e10a27.patch"
+      ;
     sha256 = "sha256-s1ybRFCjQaSGj7LKu0Z5g7UiHqdJGeD+iPoQL0vaiS0=";
   };
 

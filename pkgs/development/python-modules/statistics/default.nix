@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ docutils ];
 
-  # statistics package does not have any tests
+    # statistics package does not have any tests
   doCheck = false;
 
   meta = {

@@ -25,10 +25,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ setuptools ];
 
-  # Tests require a spark installation
+    # Tests require a spark installation
   doCheck = false;
 
-  # pythonImportsCheck needs spark installation
+    # pythonImportsCheck needs spark installation
 
   meta = with lib; {
     description = "PySpark test helper methods with beautiful error messages";

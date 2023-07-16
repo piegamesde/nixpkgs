@@ -31,7 +31,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  # Test suite makes REST calls against github.com
+    # Test suite makes REST calls against github.com
   doCheck = false;
   pythonImportsCheck = [ "github" ];
 

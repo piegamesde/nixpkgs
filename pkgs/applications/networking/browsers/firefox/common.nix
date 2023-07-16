@@ -178,7 +178,7 @@ let
   llvmPackages0 = rustc.llvmPackages;
   llvmPackagesBuildBuild0 = pkgsBuildBuild.rustc.llvmPackages;
 
-  # Force the use of lld and other llvm tools for LTO
+    # Force the use of lld and other llvm tools for LTO
   llvmPackages = llvmPackages0.override {
     bootBintoolsNoLibc = null;
     bootBintools = null;
@@ -188,18 +188,20 @@ let
     bootBintools = null;
   };
 
-  # LTO requires LLVM bintools including ld.lld and llvm-ar.
+    # LTO requires LLVM bintools including ld.lld and llvm-ar.
   buildStdenv = overrideCC llvmPackages.stdenv
     (llvmPackages.stdenv.cc.override {
-      bintools = if ltoSupport then
-        buildPackages.rustc.llvmPackages.bintools
-      else
-        stdenv.cc.bintools;
+      bintools =
+        if ltoSupport then
+          buildPackages.rustc.llvmPackages.bintools
+        else
+          stdenv.cc.bintools
+        ;
     });
 
-  # Compile the wasm32 sysroot to build the RLBox Sandbox
-  # https://hacks.mozilla.org/2021/12/webassembly-and-back-again-fine-grained-sandboxing-in-firefox-95/
-  # We only link c++ libs here, our compiler wrapper can find wasi libc and crt itself.
+    # Compile the wasm32 sysroot to build the RLBox Sandbox
+    # https://hacks.mozilla.org/2021/12/webassembly-and-back-again-fine-grained-sandboxing-in-firefox-95/
+    # We only link c++ libs here, our compiler wrapper can find wasi libc and crt itself.
   wasiSysRoot = runCommand "wasi-sysroot" { } ''
     mkdir -p $out/lib/wasm32-wasi
     for lib in ${pkgsCross.wasi32.llvmPackages.libcxx}/lib/* ${pkgsCross.wasi32.llvmPackages.libcxxabi}/lib/*; do
@@ -226,9 +228,11 @@ let
   defaultPrefs = {
     "geo.provider.network.url" = {
       value =
-        "https://location.services.mozilla.com/v1/geolocate?key=%MOZILLA_API_KEY%";
+        "https://location.services.mozilla.com/v1/geolocate?key=%MOZILLA_API_KEY%"
+        ;
       reason =
-        "Use MLS by default for geolocation, since our Google API Keys are not working";
+        "Use MLS by default for geolocation, since our Google API Keys are not working"
+        ;
     };
   };
 
@@ -247,7 +251,7 @@ buildStdenv.mkDerivation ({
 
   outputs = [ "out" ] ++ lib.optionals crashreporterSupport [ "symbols" ];
 
-  # Add another configure-build-profiling run before the final configure phase if we build with pgo
+    # Add another configure-build-profiling run before the final configure phase if we build with pgo
   preConfigurePhases = lib.optionals pgoSupport [
     "configurePhase"
     "buildPhase"
@@ -266,7 +270,8 @@ buildStdenv.mkDerivation ({
       # https://hg.mozilla.org/mozilla-central/rev/cddb250a28d8
       (fetchpatch {
         url =
-          "https://git.alpinelinux.org/aports/plain/community/firefox/avoid-redefinition.patch?id=2f620d205ed0f9072bbd7714b5ec1b7bf6911c12";
+          "https://git.alpinelinux.org/aports/plain/community/firefox/avoid-redefinition.patch?id=2f620d205ed0f9072bbd7714b5ec1b7bf6911c12"
+          ;
         hash = "sha256-fLUYaJwhrC/wF24HkuWn2PHqz7LlAaIZ1HYjRDB2w9A=";
       })
     ] ++ lib.optional (lib.versionOlder version "111")
@@ -281,15 +286,15 @@ buildStdenv.mkDerivation ({
     patchShebangs mach build
   '' + extraPostPatch;
 
-  # Ignore trivial whitespace changes in patches, this fixes compatibility of
-  # ./env_var_for_system_dir.patch with Firefox >=65 without having to track
-  # two patches.
+    # Ignore trivial whitespace changes in patches, this fixes compatibility of
+    # ./env_var_for_system_dir.patch with Firefox >=65 without having to track
+    # two patches.
   patchFlags = [
     "-p1"
     "-l"
   ];
 
-  # if not explicitly set, wrong cc from buildStdenv would be used
+    # if not explicitly set, wrong cc from buildStdenv would be used
   HOST_CC = "${llvmPackagesBuildBuild.stdenv.cc}/bin/cc";
   HOST_CXX = "${llvmPackagesBuildBuild.stdenv.cc}/bin/c++";
 
@@ -400,7 +405,7 @@ buildStdenv.mkDerivation ({
     export LD_PRELOAD=${mimalloc}/lib/libmimalloc.so
   '';
 
-  # firefox has a different definition of configurePlatforms from nixpkgs, see configureFlags
+    # firefox has a different definition of configurePlatforms from nixpkgs, see configureFlags
   configurePlatforms = [ ];
 
   configureFlags = [
@@ -551,11 +556,11 @@ buildStdenv.mkDerivation ({
     LDFLAGS = "-Wl,-rpath,${placeholder "out"}/lib/${binaryName}";
   };
 
-  # tests were disabled in configureFlags
+    # tests were disabled in configureFlags
   doCheck = false;
 
-  # Generate build symbols once after the final build
-  # https://firefox-source-docs.mozilla.org/crash-reporting/uploading_symbol.html
+    # Generate build symbols once after the final build
+    # https://firefox-source-docs.mozilla.org/crash-reporting/uploading_symbol.html
   preInstall = lib.optionalString crashreporterSupport ''
     ./mach buildsymbols
     mkdir -p $symbols/
@@ -608,17 +613,17 @@ buildStdenv.mkDerivation ({
 
   hardeningDisable = [ "format" ]; # -Werror=format-security
 
-  # the build system verifies checksums of the bundled rust sources
-  # ./third_party/rust is be patched by our libtool fixup code in stdenv
-  # unfortunately we can't just set this to `false` when we do not want it.
-  # See https://github.com/NixOS/nixpkgs/issues/77289 for more details
-  # Ideally we would figure out how to tell the build system to not
-  # care about changed hashes as we are already doing that when we
-  # fetch the sources. Any further modifications of the source tree
-  # is on purpose by some of our tool (or by accident and a bug?).
+    # the build system verifies checksums of the bundled rust sources
+    # ./third_party/rust is be patched by our libtool fixup code in stdenv
+    # unfortunately we can't just set this to `false` when we do not want it.
+    # See https://github.com/NixOS/nixpkgs/issues/77289 for more details
+    # Ideally we would figure out how to tell the build system to not
+    # care about changed hashes as we are already doing that when we
+    # fetch the sources. Any further modifications of the source tree
+    # is on purpose by some of our tool (or by accident and a bug?).
   dontFixLibtool = true;
 
-  # on aarch64 this is also required
+    # on aarch64 this is also required
   dontUpdateAutotoolsGnuConfigScripts = true;
 
   requiredSystemFeatures = [ "big-parallel" ];

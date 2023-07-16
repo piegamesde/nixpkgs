@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ aliyun-python-sdk-core ];
 
-  # All components are stored in a mono repo
+    # All components are stored in a mono repo
   doCheck = false;
 
   pythonImportsCheck = [ "aliyunsdkiot" ];
@@ -29,7 +29,8 @@ buildPythonPackage rec {
     description = "IoT module of Aliyun Python SDK";
     homepage = "https://github.com/aliyun/aliyun-openapi-python-sdk";
     changelog =
-      "https://github.com/aliyun/aliyun-openapi-python-sdk/blob/master/aliyun-python-sdk-iot/ChangeLog.txt";
+      "https://github.com/aliyun/aliyun-openapi-python-sdk/blob/master/aliyun-python-sdk-iot/ChangeLog.txt"
+      ;
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
   };

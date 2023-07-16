@@ -9,13 +9,15 @@ with lib;
 
 let
   cfg = config.services.dex;
-  fixClient = client:
+  fixClient =
+    client:
     if client ? secretFile then
       ((builtins.removeAttrs client [ "secretFile" ]) // {
         secret = client.secretFile;
       })
     else
-      client;
+      client
+    ;
   filteredSettings = mapAttrs (n: v:
     if n == "staticClients" then
       (builtins.map fixClient v)
@@ -113,7 +115,7 @@ in {
         BindPaths = optional (cfg.settings.storage.type == "postgres")
           "/var/run/postgresql";
         CapabilityBoundingSet = "CAP_NET_BIND_SERVICE";
-        # ProtectClock= adds DeviceAllow=char-rtc r
+          # ProtectClock= adds DeviceAllow=char-rtc r
         DeviceAllow = "";
         DynamicUser = true;
         LockPersonality = true;
@@ -121,16 +123,16 @@ in {
         NoNewPrivileges = true;
         PrivateDevices = true;
         PrivateMounts = true;
-        # Port needs to be exposed to the host network
-        #PrivateNetwork = true;
+          # Port needs to be exposed to the host network
+          #PrivateNetwork = true;
         PrivateTmp = true;
         PrivateUsers = true;
         ProcSubset = "pid";
         ProtectClock = true;
         ProtectHome = true;
         ProtectHostname = true;
-        # Would re-mount paths ignored by temporary root
-        #ProtectSystem = "strict";
+          # Would re-mount paths ignored by temporary root
+          #ProtectSystem = "strict";
         ProtectControlGroups = true;
         ProtectKernelLogs = true;
         ProtectKernelModules = true;
@@ -150,14 +152,14 @@ in {
           "~@privileged @setuid @keyring"
         ];
         TemporaryFileSystem = "/:ro";
-        # Does not work well with the temporary root
-        #UMask = "0066";
+          # Does not work well with the temporary root
+          #UMask = "0066";
       } // optionalAttrs (cfg.environmentFile != null) {
         EnvironmentFile = cfg.environmentFile;
       };
     };
   };
 
-  # uses attributes of the linked package
+    # uses attributes of the linked package
   meta.buildDocsInSandbox = false;
 }

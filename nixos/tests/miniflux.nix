@@ -25,16 +25,19 @@ import ./make-test-python.nix ({
     meta.maintainers = with pkgs.lib.maintainers; [ ];
 
     nodes = {
-      default = {
+      default =
+        {
           ...
         }: {
           services.miniflux = {
             enable = true;
             inherit adminCredentialsFile;
           };
-        };
+        }
+        ;
 
-      withoutSudo = {
+      withoutSudo =
+        {
           ...
         }: {
           services.miniflux = {
@@ -42,9 +45,11 @@ import ./make-test-python.nix ({
             inherit adminCredentialsFile;
           };
           security.sudo.enable = false;
-        };
+        }
+        ;
 
-      customized = {
+      customized =
+        {
           ...
         }: {
           services.miniflux = {
@@ -55,7 +60,8 @@ import ./make-test-python.nix ({
             };
             adminCredentialsFile = customAdminCredentialsFile;
           };
-        };
+        }
+        ;
     };
     testScript = ''
       start_all()

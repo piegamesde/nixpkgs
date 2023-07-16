@@ -11,7 +11,8 @@
 }:
 
 let
-  generic = {
+  generic =
+    {
       pname,
       version,
       rev,
@@ -64,7 +65,8 @@ let
         license = licenses.gpl2Plus;
         maintainers = with maintainers; [ fpletz ];
       };
-    };
+    }
+    ;
 
 in {
   proxmark3 = generic rec {

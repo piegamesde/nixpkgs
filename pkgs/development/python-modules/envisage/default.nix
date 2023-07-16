@@ -29,13 +29,14 @@ buildPythonPackage rec {
     (fetchpatch {
       name = "fix-mistake-in-menu-group-specification.patch";
       url =
-        "https://github.com/enthought/envisage/commit/f23ea3864a5f6ffca665d47dec755992e062029b.patch";
+        "https://github.com/enthought/envisage/commit/f23ea3864a5f6ffca665d47dec755992e062029b.patch"
+        ;
       hash = "sha256-l4CWB4jRkSmoTDoV8CtP2w87Io2cLINKfOSaSPy7cXE=";
     })
   ];
 
-  # for the optional dependency ipykernel, only versions < 6 are
-  # supported, so it's not included in the tests, and not propagated
+    # for the optional dependency ipykernel, only versions < 6 are
+    # supported, so it's not included in the tests, and not propagated
   propagatedBuildInputs = [
     traits
     apptools
@@ -61,7 +62,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Framework for building applications whose functionalities can be extended by adding plug-ins";
+      "Framework for building applications whose functionalities can be extended by adding plug-ins"
+      ;
     homepage = "https://github.com/enthought/envisage";
     license = licenses.bsdOriginal;
     maintainers = with lib.maintainers; [ knedlsepp ];

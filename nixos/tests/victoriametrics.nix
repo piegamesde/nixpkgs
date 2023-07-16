@@ -8,11 +8,13 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ yorickvp ]; };
 
     nodes = {
-      one = {
+      one =
+        {
           ...
         }: {
           services.victoriametrics.enable = true;
-        };
+        }
+        ;
     };
 
     testScript = ''

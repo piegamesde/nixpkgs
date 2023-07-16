@@ -36,7 +36,7 @@ buildGoModule rec {
     patch -p1 < ./fix-paths.patch
   '';
 
-  # We don't add `shadow` here; it's added to PATH if `mutableUsers` is enabled.
+    # We don't add `shadow` here; it's added to PATH if `mutableUsers` is enabled.
   binPath = lib.makeBinPath [
     google-guest-configs
     google-guest-oslogin
@@ -45,7 +45,7 @@ buildGoModule rec {
     procps
   ];
 
-  # Skip tests which require networking.
+    # Skip tests which require networking.
   preCheck = ''
     rm google_guest_agent/wsfc_test.go
   '';

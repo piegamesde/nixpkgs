@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
     libffi
     libGL
   ];
-  # TODO: share libs between minimal and !minimal - perhaps just symlink them
+    # TODO: share libs between minimal and !minimal - perhaps just symlink them
 
   mesonFlags = [
     # Add FHS and Debian paths for non-NixOS applications

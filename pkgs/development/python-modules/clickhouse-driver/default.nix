@@ -19,7 +19,7 @@ buildPythonPackage rec {
   pname = "clickhouse-driver";
   version = "0.2.5";
 
-  # pypi source doesn't contain tests
+    # pypi source doesn't contain tests
   src = fetchFromGitHub {
     owner = "mymarilyn";
     repo = "clickhouse-driver";
@@ -49,17 +49,17 @@ buildPythonPackage rec {
       --replace "lz4<=3.0.1" "lz4<=4"
   '';
 
-  # remove source to prevent pytest testing source instead of the build artifacts
-  # (the source doesn't contain the extension modules)
+    # remove source to prevent pytest testing source instead of the build artifacts
+    # (the source doesn't contain the extension modules)
   preCheck = ''
     rm -rf clickhouse_driver
   '';
 
-  # some test in test_buffered_reader.py doesn't seem to return
+    # some test in test_buffered_reader.py doesn't seem to return
   disabledTestPaths = [ "tests/test_buffered_reader.py" ];
 
-  # most tests require `clickhouse`
-  # TODO: enable tests after `clickhouse` unbroken
+    # most tests require `clickhouse`
+    # TODO: enable tests after `clickhouse` unbroken
   doCheck = false;
 
   pythonImportsCheck = [ "clickhouse_driver" ];

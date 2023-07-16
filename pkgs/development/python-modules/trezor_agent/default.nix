@@ -36,7 +36,7 @@ buildPythonPackage rec {
     pinentry
   ];
 
-  # relax dependency constraint
+    # relax dependency constraint
   postPatch = ''
     substituteInPlace setup.py \
       --replace "trezor[hidapi]>=0.12.0,<0.13" "trezor[hidapi]>=0.12.0,<0.14"

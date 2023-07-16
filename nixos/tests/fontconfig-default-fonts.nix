@@ -6,7 +6,8 @@ import ./make-test-python.nix ({
 
     meta.maintainers = with lib.maintainers; [ jtojnar ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         config,
         pkgs,
         ...
@@ -25,7 +26,8 @@ import ./make-test-python.nix ({
           monospace = [ "Source Code Pro" ];
           emoji = [ "Twitter Color Emoji" ];
         };
-      };
+      }
+      ;
 
     testScript = ''
       machine.succeed("fc-match serif | grep '\"Gentium Plus\"'")

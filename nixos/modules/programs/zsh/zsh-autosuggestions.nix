@@ -27,8 +27,8 @@ in {
 
     highlightStyle = mkOption {
       type = types.str;
-      default =
-        "fg=8"; # https://github.com/zsh-users/zsh-autosuggestions/tree/v0.4.3#suggestion-highlight-style
+      default = "fg=8"
+        ; # https://github.com/zsh-users/zsh-autosuggestions/tree/v0.4.3#suggestion-highlight-style
       description =
         lib.mdDoc "Highlight style for suggestions ({fore,back}ground color)";
       example = "fg=cyan";

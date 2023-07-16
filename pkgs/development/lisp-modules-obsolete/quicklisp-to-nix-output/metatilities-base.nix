@@ -12,7 +12,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/metatilities-base/2019-12-27/metatilities-base-20191227-git.tgz";
+      "http://beta.quicklisp.org/archive/metatilities-base/2019-12-27/metatilities-base-20191227-git.tgz"
+      ;
     sha256 = "1mal51p7mknya2ljcwl3wdjvnirw5vvzic6qcnci7qhmfrb1awil";
   };
 

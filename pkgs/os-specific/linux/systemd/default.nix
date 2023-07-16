@@ -162,10 +162,10 @@ let
   wantGcrypt = withResolved || withImportd;
   version = "253.3";
 
-  # Bump this variable on every (major) version change. See below (in the meson options list) for why.
-  # command:
-  #  $ curl -s https://api.github.com/repos/systemd/systemd/releases/latest | \
-  #     jq '.created_at|strptime("%Y-%m-%dT%H:%M:%SZ")|mktime'
+    # Bump this variable on every (major) version change. See below (in the meson options list) for why.
+    # command:
+    #  $ curl -s https://api.github.com/repos/systemd/systemd/releases/latest | \
+    #     jq '.created_at|strptime("%Y-%m-%dT%H:%M:%SZ")|mktime'
   releaseTimestamp = "1676488940";
 in
 stdenv.mkDerivation (finalAttrs: {
@@ -183,11 +183,11 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-iy1kyqiVeXIhFJAQ+nYorrXm/xb2gfakyrEfMyNR5l8=";
   };
 
-  # On major changes, or when otherwise required, you *must* reformat the patches,
-  # `git am path/to/00*.patch` them into a systemd worktree, rebase to the more recent
-  # systemd version, and export the patches again via
-  # `git -c format.signoff=false format-patch v${version} --no-numbered --zero-commit --no-signature`.
-  # Use `find . -name "*.patch" | sort` to get an up-to-date listing of all patches
+    # On major changes, or when otherwise required, you *must* reformat the patches,
+    # `git am path/to/00*.patch` them into a systemd worktree, rebase to the more recent
+    # systemd version, and export the patches again via
+    # `git -c format.signoff=false format-patch v${version} --no-numbered --zero-commit --no-signature`.
+    # Use `find . -name "*.patch" | sort` to get an up-to-date listing of all patches
   patches = [
     ./0001-Start-device-units-for-uninitialised-encrypted-devic.patch
     ./0002-Don-t-try-to-unmount-nix-or-nix-store.patch
@@ -211,7 +211,8 @@ stdenv.mkDerivation (finalAttrs: {
   ] ++ lib.optional stdenv.hostPlatform.isMusl (let
     oe-core = fetchzip {
       url =
-        "https://git.openembedded.org/openembedded-core/snapshot/openembedded-core-f34f6ab04b443608497b73668365819343d0c2fe.tar.gz";
+        "https://git.openembedded.org/openembedded-core/snapshot/openembedded-core-f34f6ab04b443608497b73668365819343d0c2fe.tar.gz"
+        ;
       sha256 = "DFcLPvjQIxGEDADpP232ZRd7cOEKt6B48Ah29nIGTt4=";
     };
     musl-patches = oe-core + "/meta/recipes-core/systemd/systemd";
@@ -292,115 +293,120 @@ stdenv.mkDerivation (finalAttrs: {
     #
     # To get a list of dynamically loaded libraries issue something like
     # `grep -ri '"lib[a-zA-Z0-9-]*\.so[\.0-9a-zA-z]*"'' $src` and update the below list.
-    dlopenLibs = let
-      opt = condition: pkg:
-        if condition then
-          pkg
-        else
-          null;
-    in [
-      # bpf compilation support. We use libbpf 1 now.
-      {
-        name = "libbpf.so.1";
-        pkg = opt withLibBPF libbpf;
-      }
-      {
-        name = "libbpf.so.0";
-        pkg = null;
-      }
+    dlopenLibs =
+      let
+        opt =
+          condition: pkg:
+          if condition then
+            pkg
+          else
+            null
+          ;
+      in [
+        # bpf compilation support. We use libbpf 1 now.
+        {
+          name = "libbpf.so.1";
+          pkg = opt withLibBPF libbpf;
+        }
+        {
+          name = "libbpf.so.0";
+          pkg = null;
+        }
 
-      # We did never provide support for libxkbcommon & qrencode
-      {
-        name = "libxkbcommon.so.0";
-        pkg = null;
-      }
-      {
-        name = "libqrencode.so.4";
-        pkg = null;
-      }
-      {
-        name = "libqrencode.so.3";
-        pkg = null;
-      }
+        # We did never provide support for libxkbcommon & qrencode
+        {
+          name = "libxkbcommon.so.0";
+          pkg = null;
+        }
+        {
+          name = "libqrencode.so.4";
+          pkg = null;
+        }
+        {
+          name = "libqrencode.so.3";
+          pkg = null;
+        }
 
-      # We did not provide libpwquality before so it is safe to disable it for
-      # now.
-      {
-        name = "libpwquality.so.1";
-        pkg = null;
-      }
+        # We did not provide libpwquality before so it is safe to disable it for
+        # now.
+        {
+          name = "libpwquality.so.1";
+          pkg = null;
+        }
 
-      # Only include cryptsetup if it is enabled. We might not be able to
-      # provide it during "bootstrap" in e.g. the minimal systemd build as
-      # cryptsetup has udev (aka systemd) in it's dependencies.
-      {
-        name = "libcryptsetup.so.12";
-        pkg = opt withCryptsetup cryptsetup;
-      }
+        # Only include cryptsetup if it is enabled. We might not be able to
+        # provide it during "bootstrap" in e.g. the minimal systemd build as
+        # cryptsetup has udev (aka systemd) in it's dependencies.
+        {
+          name = "libcryptsetup.so.12";
+          pkg = opt withCryptsetup cryptsetup;
+        }
 
-      # We are using libidn2 so we only provide that and ignore the others.
-      # Systemd does this decision during configure time and uses ifdef's to
-      # enable specific branches. We can safely ignore (nuke) the libidn "v1"
-      # libraries.
-      {
-        name = "libidn2.so.0";
-        pkg = opt withLibidn2 libidn2;
-      }
-      {
-        name = "libidn.so.12";
-        pkg = null;
-      }
-      {
-        name = "libidn.so.11";
-        pkg = null;
-      }
+        # We are using libidn2 so we only provide that and ignore the others.
+        # Systemd does this decision during configure time and uses ifdef's to
+        # enable specific branches. We can safely ignore (nuke) the libidn "v1"
+        # libraries.
+        {
+          name = "libidn2.so.0";
+          pkg = opt withLibidn2 libidn2;
+        }
+        {
+          name = "libidn.so.12";
+          pkg = null;
+        }
+        {
+          name = "libidn.so.11";
+          pkg = null;
+        }
 
-      # journalctl --grep requires libpcre so let's provide it
-      {
-        name = "libpcre2-8.so.0";
-        pkg = pcre2;
-      }
+        # journalctl --grep requires libpcre so let's provide it
+        {
+          name = "libpcre2-8.so.0";
+          pkg = pcre2;
+        }
 
-      # Support for TPM2 in systemd-cryptsetup, systemd-repart and systemd-cryptenroll
-      {
-        name = "libtss2-esys.so.0";
-        pkg = opt withTpm2Tss tpm2-tss;
-      }
-      {
-        name = "libtss2-rc.so.0";
-        pkg = opt withTpm2Tss tpm2-tss;
-      }
-      {
-        name = "libtss2-mu.so.0";
-        pkg = opt withTpm2Tss tpm2-tss;
-      }
-      {
-        name = "libtss2-tcti-";
-        pkg = opt withTpm2Tss tpm2-tss;
-      }
-      {
-        name = "libfido2.so.1";
-        pkg = opt withFido2 libfido2;
-      }
+        # Support for TPM2 in systemd-cryptsetup, systemd-repart and systemd-cryptenroll
+        {
+          name = "libtss2-esys.so.0";
+          pkg = opt withTpm2Tss tpm2-tss;
+        }
+        {
+          name = "libtss2-rc.so.0";
+          pkg = opt withTpm2Tss tpm2-tss;
+        }
+        {
+          name = "libtss2-mu.so.0";
+          pkg = opt withTpm2Tss tpm2-tss;
+        }
+        {
+          name = "libtss2-tcti-";
+          pkg = opt withTpm2Tss tpm2-tss;
+        }
+        {
+          name = "libfido2.so.1";
+          pkg = opt withFido2 libfido2;
+        }
 
-      # inspect-elf support
-      {
-        name = "libelf.so.1";
-        pkg = opt withCoredump elfutils;
-      }
-      {
-        name = "libdw.so.1";
-        pkg = opt withCoredump elfutils;
-      }
+        # inspect-elf support
+        {
+          name = "libelf.so.1";
+          pkg = opt withCoredump elfutils;
+        }
+        {
+          name = "libdw.so.1";
+          pkg = opt withCoredump elfutils;
+        }
 
-      # Support for PKCS#11 in systemd-cryptsetup, systemd-cryptenroll and systemd-homed
-      {
-        name = "libp11-kit.so.0";
-        pkg = opt (withHomed || withCryptsetup) p11-kit;
-      }
-    ] ;
+        # Support for PKCS#11 in systemd-cryptsetup, systemd-cryptenroll and systemd-homed
+        {
+          name = "libp11-kit.so.0";
+          pkg = opt (withHomed || withCryptsetup) p11-kit;
+        }
+      ]
+      ;
 
-    patchDlOpen = dl:
+    patchDlOpen =
+      dl:
       let
         library = "${lib.makeLibraryPath [ dl.pkg ]}/${dl.name}";
       in if dl.pkg == null then
@@ -428,7 +434,8 @@ stdenv.mkDerivation (finalAttrs: {
             substituteInPlace "$file" --replace '"${dl.name}"' '"${library}"'
           done
 
-        '';
+        ''
+      ;
     # patch all the dlopen calls to contain absolute paths to the libraries
   in
   lib.concatMapStringsSep "\n" patchDlOpen dlopenLibs
@@ -517,7 +524,7 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optional withUkify
     (python3Packages.python.withPackages (ps: with ps; [ pefile ]));
 
-  #dontAddPrefix = true;
+    #dontAddPrefix = true;
 
   mesonFlags = [
     "-Dversion-tag=${version}"
@@ -635,140 +642,146 @@ stdenv.mkDerivation (finalAttrs: {
       "-Dkmod=true"
       "-Dkmod-path=${kmod}/bin/kmod"
     ];
-  preConfigure = let
-    # A list of all the runtime binaries that the systemd executables, tests and libraries are referencing in their source code, scripts and unit files.
-    # As soon as a dependency isn't required anymore we should remove it from the list. The `where` attribute for each of the replacement patterns must be exhaustive. If another (unhandled) case is found in the source code the build fails with an error message.
-    binaryReplacements = [
-      {
-        search = "/usr/bin/getent";
-        replacement = "${getent}/bin/getent";
-        where = [ "src/nspawn/nspawn-setuid.c" ];
-      }
+  preConfigure =
+    let
+      # A list of all the runtime binaries that the systemd executables, tests and libraries are referencing in their source code, scripts and unit files.
+      # As soon as a dependency isn't required anymore we should remove it from the list. The `where` attribute for each of the replacement patterns must be exhaustive. If another (unhandled) case is found in the source code the build fails with an error message.
+      binaryReplacements = [
+        {
+          search = "/usr/bin/getent";
+          replacement = "${getent}/bin/getent";
+          where = [ "src/nspawn/nspawn-setuid.c" ];
+        }
 
-      {
-        search = "/sbin/mkswap";
-        replacement = "${lib.getBin util-linux}/sbin/mkswap";
-        where = [ "man/systemd-makefs@.service.xml" ];
-      }
-      {
-        search = "/sbin/swapon";
-        replacement = "${lib.getBin util-linux}/sbin/swapon";
-        where = [
-          "src/core/swap.c"
-          "src/basic/unit-def.h"
-        ];
-      }
-      {
-        search = "/sbin/swapoff";
-        replacement = "${lib.getBin util-linux}/sbin/swapoff";
-        where = [ "src/core/swap.c" ];
-      }
-      {
-        search = "/bin/echo";
-        replacement = "${coreutils}/bin/echo";
-        where = [
-          "man/systemd-analyze.xml"
-          "man/systemd.service.xml"
-          "src/analyze/test-verify.c"
-          "src/test/test-env-file.c"
-          "src/test/test-fileio.c"
-          "src/test/test-load-fragment.c"
-        ];
-      }
-      {
-        search = "/bin/cat";
-        replacement = "${coreutils}/bin/cat";
-        where = [
-          "test/create-busybox-container"
-          "test/test-execute/exec-noexecpaths-simple.service"
-          "src/journal/cat.c"
-        ];
-      }
-      {
-        search = "/usr/lib/systemd/systemd-fsck";
-        replacement = "$out/lib/systemd/systemd-fsck";
-        where = [ "man/systemd-fsck@.service.xml" ];
-      }
-    ] ++ lib.optionals withImportd [
-      {
-        search = ''"gpg"'';
-        replacement = ''\"${gnupg}/bin/gpg\"'';
-        where = [ "src/import/pull-common.c" ];
-      }
-      {
-        search = ''"tar"'';
-        replacement = ''\"${gnutar}/bin/tar\"'';
-        where = [
-          "src/import/export-tar.c"
-          "src/import/import-common.c"
-          "src/import/import-tar.c"
-        ];
-        ignore = [
-          # occurrences here refer to the tar sub command
-          "src/sysupdate/sysupdate-resource.c"
-          "src/sysupdate/sysupdate-transfer.c"
-          "src/import/pull.c"
-          "src/import/export.c"
-          "src/import/import.c"
-          "src/import/importd.c"
-          # runs `tar` but also also creates a temporary directory with the string
-          "src/import/pull-tar.c"
-        ];
-      }
-    ] ++ lib.optionals withKmod [ {
-      search = "/sbin/modprobe";
-      replacement = "${lib.getBin kmod}/sbin/modprobe";
-      where = [ "units/modprobe@.service" ];
-    } ];
+        {
+          search = "/sbin/mkswap";
+          replacement = "${lib.getBin util-linux}/sbin/mkswap";
+          where = [ "man/systemd-makefs@.service.xml" ];
+        }
+        {
+          search = "/sbin/swapon";
+          replacement = "${lib.getBin util-linux}/sbin/swapon";
+          where = [
+            "src/core/swap.c"
+            "src/basic/unit-def.h"
+          ];
+        }
+        {
+          search = "/sbin/swapoff";
+          replacement = "${lib.getBin util-linux}/sbin/swapoff";
+          where = [ "src/core/swap.c" ];
+        }
+        {
+          search = "/bin/echo";
+          replacement = "${coreutils}/bin/echo";
+          where = [
+            "man/systemd-analyze.xml"
+            "man/systemd.service.xml"
+            "src/analyze/test-verify.c"
+            "src/test/test-env-file.c"
+            "src/test/test-fileio.c"
+            "src/test/test-load-fragment.c"
+          ];
+        }
+        {
+          search = "/bin/cat";
+          replacement = "${coreutils}/bin/cat";
+          where = [
+            "test/create-busybox-container"
+            "test/test-execute/exec-noexecpaths-simple.service"
+            "src/journal/cat.c"
+          ];
+        }
+        {
+          search = "/usr/lib/systemd/systemd-fsck";
+          replacement = "$out/lib/systemd/systemd-fsck";
+          where = [ "man/systemd-fsck@.service.xml" ];
+        }
+      ] ++ lib.optionals withImportd [
+        {
+          search = ''"gpg"'';
+          replacement = ''\"${gnupg}/bin/gpg\"'';
+          where = [ "src/import/pull-common.c" ];
+        }
+        {
+          search = ''"tar"'';
+          replacement = ''\"${gnutar}/bin/tar\"'';
+          where = [
+            "src/import/export-tar.c"
+            "src/import/import-common.c"
+            "src/import/import-tar.c"
+          ];
+          ignore = [
+            # occurrences here refer to the tar sub command
+            "src/sysupdate/sysupdate-resource.c"
+            "src/sysupdate/sysupdate-transfer.c"
+            "src/import/pull.c"
+            "src/import/export.c"
+            "src/import/import.c"
+            "src/import/importd.c"
+            # runs `tar` but also also creates a temporary directory with the string
+            "src/import/pull-tar.c"
+          ];
+        }
+      ] ++ lib.optionals withKmod [ {
+        search = "/sbin/modprobe";
+        replacement = "${lib.getBin kmod}/sbin/modprobe";
+        where = [ "units/modprobe@.service" ];
+      } ];
 
-    # { replacement, search, where } -> List[str]
-    mkSubstitute = {
-        replacement,
-        search,
-        where,
-        ignore ? [ ]
-      }:
-      map (path:
-        ''substituteInPlace ${path} --replace '${search}' "${replacement}"'')
-      where;
-    mkEnsureSubstituted = {
-        replacement,
-        search,
-        where,
-        ignore ? [ ]
-      }:
-      let
-        ignore' = lib.concatStringsSep "|" (ignore ++ [
-          "^test"
-          "NEWS"
-        ]);
-      in ''
-        set +e
-        search=$(grep '${search}' -r | grep -v "${replacement}" | grep -Ev "${ignore'}")
-        set -e
-        if [[ -n "$search" ]]; then
-          echo "Not all references to '${search}' have been replaced. Found the following matches:"
-          echo "$search"
-          exit 1
-        fi
-      '' ;
-  in ''
-    mesonFlagsArray+=(-Dntp-servers="0.nixos.pool.ntp.org 1.nixos.pool.ntp.org 2.nixos.pool.ntp.org 3.nixos.pool.ntp.org")
-    export LC_ALL="en_US.UTF-8";
+        # { replacement, search, where } -> List[str]
+      mkSubstitute =
+        {
+          replacement,
+          search,
+          where,
+          ignore ? [ ]
+        }:
+        map (path:
+          ''substituteInPlace ${path} --replace '${search}' "${replacement}"'')
+        where
+        ;
+      mkEnsureSubstituted =
+        {
+          replacement,
+          search,
+          where,
+          ignore ? [ ]
+        }:
+        let
+          ignore' = lib.concatStringsSep "|" (ignore ++ [
+            "^test"
+            "NEWS"
+          ]);
+        in ''
+          set +e
+          search=$(grep '${search}' -r | grep -v "${replacement}" | grep -Ev "${ignore'}")
+          set -e
+          if [[ -n "$search" ]]; then
+            echo "Not all references to '${search}' have been replaced. Found the following matches:"
+            echo "$search"
+            exit 1
+          fi
+        ''
+        ;
+    in ''
+      mesonFlagsArray+=(-Dntp-servers="0.nixos.pool.ntp.org 1.nixos.pool.ntp.org 2.nixos.pool.ntp.org 3.nixos.pool.ntp.org")
+      export LC_ALL="en_US.UTF-8";
 
-    ${lib.concatStringsSep "\n"
-    (lib.flatten (map mkSubstitute binaryReplacements))}
-    ${lib.concatMapStringsSep "\n" mkEnsureSubstituted binaryReplacements}
+      ${lib.concatStringsSep "\n"
+      (lib.flatten (map mkSubstitute binaryReplacements))}
+      ${lib.concatMapStringsSep "\n" mkEnsureSubstituted binaryReplacements}
 
-    substituteInPlace src/libsystemd/sd-journal/catalog.c \
-      --replace /usr/lib/systemd/catalog/ $out/lib/systemd/catalog/
+      substituteInPlace src/libsystemd/sd-journal/catalog.c \
+        --replace /usr/lib/systemd/catalog/ $out/lib/systemd/catalog/
 
-    substituteInPlace src/import/pull-tar.c \
-      --replace 'wait_for_terminate_and_check("tar"' 'wait_for_terminate_and_check("${gnutar}/bin/tar"'
-  '' ;
+      substituteInPlace src/import/pull-tar.c \
+        --replace 'wait_for_terminate_and_check("tar"' 'wait_for_terminate_and_check("${gnutar}/bin/tar"'
+    ''
+    ;
 
-  # These defines are overridden by CFLAGS and would trigger annoying
-  # warning messages
+    # These defines are overridden by CFLAGS and would trigger annoying
+    # warning messages
   postConfigure = ''
     substituteInPlace config.h \
       --replace "POLKIT_AGENT_BINARY_PATH" "_POLKIT_AGENT_BINARY_PATH" \
@@ -796,7 +809,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = false; # fails a bunch of tests
 
-  # trigger the test -n "$DESTDIR" || mutate in upstreams build system
+    # trigger the test -n "$DESTDIR" || mutate in upstreams build system
   preInstall = ''
     export DESTDIR=/
   '';
@@ -823,16 +836,16 @@ stdenv.mkDerivation (finalAttrs: {
     mv $out/lib/modules-load.d $out/example
   '';
 
-  # Avoid *.EFI binary stripping. At least on aarch64-linux strip
-  # removes too much from PE32+ files:
-  #   https://github.com/NixOS/nixpkgs/issues/169693
-  # The hack is to move EFI file out of lib/ before doStrip
-  # run and return it after doStrip run.
+    # Avoid *.EFI binary stripping. At least on aarch64-linux strip
+    # removes too much from PE32+ files:
+    #   https://github.com/NixOS/nixpkgs/issues/169693
+    # The hack is to move EFI file out of lib/ before doStrip
+    # run and return it after doStrip run.
   preFixup = lib.optionalString withEfi ''
     mv $out/lib/systemd/boot/efi $out/dont-strip-me
   '';
 
-  # Wrap in the correct path for LUKS2 tokens.
+    # Wrap in the correct path for LUKS2 tokens.
   postFixup = lib.optionalString withCryptsetup ''
     for f in lib/systemd/systemd-cryptsetup bin/systemd-cryptenroll; do
       # This needs to be in LD_LIBRARY_PATH because rpath on a binary is not propagated to libraries using dlopen, in this case `libcryptsetup.so`
@@ -890,7 +903,7 @@ stdenv.mkDerivation (finalAttrs: {
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
     badPlatforms = [ lib.systems.inspect.platformPatterns.isStatic ];
-    # https://github.com/systemd/systemd/issues/20600#issuecomment-912338965
+      # https://github.com/systemd/systemd/issues/20600#issuecomment-912338965
     broken = stdenv.hostPlatform.isStatic;
     priority = 10;
     maintainers = with maintainers; [

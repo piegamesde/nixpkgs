@@ -40,7 +40,7 @@ stdenvNoCC.mkDerivation rec {
     yarnLock = ./yarn.lock;
     packageJSON = ./package.json;
 
-    # workaround for https://github.com/webpack/webpack/issues/14532
+      # workaround for https://github.com/webpack/webpack/issues/14532
     NODE_OPTIONS = "--openssl-legacy-provider";
 
     patches = [
@@ -56,28 +56,30 @@ stdenvNoCC.mkDerivation rec {
     distPhase = "true";
   };
 
-  installPhase = let
-    runtimeDeps = [
-      bash
-      which
-      v4l-utils
-    ];
-  in ''
-    mkdir -p $out/bin
+  installPhase =
+    let
+      runtimeDeps = [
+        bash
+        which
+        v4l-utils
+      ];
+    in ''
+      mkdir -p $out/bin
 
-    makeWrapper ${mirakurun}/bin/mirakurun-epgdump $out/bin/mirakurun-epgdump \
-      --chdir "${mirakurun}/libexec/mirakurun/node_modules/mirakurun" \
-      --prefix PATH : ${lib.makeBinPath runtimeDeps}
+      makeWrapper ${mirakurun}/bin/mirakurun-epgdump $out/bin/mirakurun-epgdump \
+        --chdir "${mirakurun}/libexec/mirakurun/node_modules/mirakurun" \
+        --prefix PATH : ${lib.makeBinPath runtimeDeps}
 
-    # XXX: The original mirakurun command uses PM2 to manage the Mirakurun
-    # server.  However, we invoke the server directly and let systemd
-    # manage it to avoid complication. This is okay since no features
-    # unique to PM2 is currently being used.
-    makeWrapper ${yarn}/bin/yarn $out/bin/mirakurun-start \
-      --add-flags "start" \
-      --chdir "${mirakurun}/libexec/mirakurun/node_modules/mirakurun" \
-      --prefix PATH : ${lib.makeBinPath runtimeDeps}
-  '' ;
+      # XXX: The original mirakurun command uses PM2 to manage the Mirakurun
+      # server.  However, we invoke the server directly and let systemd
+      # manage it to avoid complication. This is okay since no features
+      # unique to PM2 is currently being used.
+      makeWrapper ${yarn}/bin/yarn $out/bin/mirakurun-start \
+        --add-flags "start" \
+        --chdir "${mirakurun}/libexec/mirakurun/node_modules/mirakurun" \
+        --prefix PATH : ${lib.makeBinPath runtimeDeps}
+    ''
+    ;
 
   passthru.updateScript = import ./update.nix {
     inherit lib;

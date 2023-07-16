@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  # Tests require nomad agent
+    # Tests require nomad agent
   doCheck = false;
 
   pythonImportsCheck = [ "nomad" ];

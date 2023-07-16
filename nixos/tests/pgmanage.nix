@@ -10,7 +10,8 @@ import ./make-test-python.nix ({
     name = "pgmanage";
     meta = with pkgs.lib.maintainers; { maintainers = [ basvandijk ]; };
     nodes = {
-      one = {
+      one =
+        {
           config,
           pkgs,
           ...
@@ -31,7 +32,8 @@ import ./make-test-python.nix ({
               };
             };
           };
-        };
+        }
+        ;
     };
 
     testScript = ''

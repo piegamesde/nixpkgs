@@ -22,7 +22,7 @@ buildPythonPackage rec {
     pandas
   ];
 
-  # Tests require InfluxDB server
+    # Tests require InfluxDB server
   doCheck = false;
 
   pythonImportsCheck = [ "aioinflux" ];

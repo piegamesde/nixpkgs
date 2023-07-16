@@ -50,8 +50,8 @@ buildPythonPackage rec {
     mock
   ];
 
-  # test_monitor and test_dlad require 'inotify' and 'datalad' respectively,
-  # and these aren't in Nixpkgs
+    # test_monitor and test_dlad require 'inotify' and 'datalad' respectively,
+    # and these aren't in Nixpkgs
   checkPhase = "pytest -k 'not test_dlad and not test_monitor' heudiconv/tests";
 
   meta = with lib; {

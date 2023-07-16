@@ -29,7 +29,8 @@ let
 
   consoles = lib.concatMapStringsSep " " (c: "console=${c}") cfg.qemu.consoles;
 
-  driveOpts = {
+  driveOpts =
+    {
       ...
     }: {
 
@@ -56,14 +57,17 @@ let
           type = types.nullOr types.str;
           default = null;
           description = lib.mdDoc
-            "A name for the drive. Must be unique in the drives list. Not passed to qemu.";
+            "A name for the drive. Must be unique in the drives list. Not passed to qemu."
+            ;
         };
 
       };
 
-    };
+    }
+    ;
 
-  selectPartitionTableLayout = {
+  selectPartitionTableLayout =
+    {
       useEFIBoot,
       useDefaultFilesystems,
     }:
@@ -73,9 +77,11 @@ let
       else
         "legacy"
     else
-      "none";
+      "none"
+    ;
 
-  driveCmdline = idx:
+  driveCmdline =
+    idx:
     {
       file,
       driveExtraOpts,
@@ -93,37 +99,45 @@ let
         inherit file;
       });
       deviceOpts = mkOpts (deviceExtraOpts // { drive = drvId; });
-      device = if cfg.qemu.diskInterface == "scsi" then
-        "-device lsi53c895a -device scsi-hd,${deviceOpts}"
-      else
-        "-device virtio-blk-pci,${deviceOpts}";
+      device =
+        if cfg.qemu.diskInterface == "scsi" then
+          "-device lsi53c895a -device scsi-hd,${deviceOpts}"
+        else
+          "-device virtio-blk-pci,${deviceOpts}"
+        ;
     in
     "-drive ${driveOpts} ${device}"
-  ;
+    ;
 
-  drivesCmdLine = drives:
-    concatStringsSep "\\\n    " (imap1 driveCmdline drives);
+  drivesCmdLine =
+    drives:
+    concatStringsSep "\\\n    " (imap1 driveCmdline drives)
+    ;
 
-  # Creates a device name from a 1-based a numerical index, e.g.
-  # * `driveDeviceName 1` -> `/dev/vda`
-  # * `driveDeviceName 2` -> `/dev/vdb`
-  driveDeviceName = idx:
+    # Creates a device name from a 1-based a numerical index, e.g.
+    # * `driveDeviceName 1` -> `/dev/vda`
+    # * `driveDeviceName 2` -> `/dev/vdb`
+  driveDeviceName =
+    idx:
     let
       letter = elemAt lowerChars (idx - 1);
     in if cfg.qemu.diskInterface == "scsi" then
       "/dev/sd${letter}"
     else
-      "/dev/vd${letter}";
+      "/dev/vd${letter}"
+    ;
 
-  lookupDriveDeviceName = driveName: driveList:
+  lookupDriveDeviceName =
+    driveName: driveList:
     (findSingle (drive: drive.name == driveName)
       (throw "Drive ${driveName} not found")
-      (throw "Multiple drives named ${driveName}") driveList).device;
+      (throw "Multiple drives named ${driveName}") driveList).device
+    ;
 
   addDeviceNames =
     imap1 (idx: drive: drive // { device = driveDeviceName idx; });
 
-  # Shell script to start the VM.
+    # Shell script to start the VM.
   startVM = ''
     #! ${cfg.host.pkgs.runtimeShell}
 
@@ -254,8 +268,8 @@ let
   regInfo =
     pkgs.closureInfo { rootPaths = config.virtualisation.additionalPaths; };
 
-  # System image is akin to a complete NixOS install with
-  # a boot partition and root partition.
+    # System image is akin to a complete NixOS install with
+    # a boot partition and root partition.
   systemImage = import ../../lib/make-disk-image.nix {
     inherit pkgs config lib;
     additionalPaths = [ regInfo ];
@@ -264,14 +278,14 @@ let
     partitionTableType = selectPartitionTableLayout {
       inherit (cfg) useDefaultFilesystems useEFIBoot;
     };
-    # Bootloader should be installed on the system image only if we are booting through bootloaders.
-    # Though, if a user is not using our default filesystems, it is possible to not have any ESP
-    # or a strange partition table that's incompatible with GRUB configuration.
-    # As a consequence, this may lead to disk image creation failures.
-    # To avoid this, we prefer to let the user find out about how to install the bootloader on its ESP/disk.
-    # Usually, this can be through building your own disk image.
-    # TODO: If a user is interested into a more fine grained heuristic for `installBootLoader`
-    # by examining the actual contents of `cfg.fileSystems`, please send a PR.
+      # Bootloader should be installed on the system image only if we are booting through bootloaders.
+      # Though, if a user is not using our default filesystems, it is possible to not have any ESP
+      # or a strange partition table that's incompatible with GRUB configuration.
+      # As a consequence, this may lead to disk image creation failures.
+      # To avoid this, we prefer to let the user find out about how to install the bootloader on its ESP/disk.
+      # Usually, this can be through building your own disk image.
+      # TODO: If a user is interested into a more fine grained heuristic for `installBootLoader`
+      # by examining the actual contents of `cfg.fileSystems`, please send a PR.
     installBootLoader = cfg.useBootLoader && cfg.useDefaultFilesystems;
     touchEFIVars = cfg.useEFIBoot;
     diskSize = "auto";
@@ -293,24 +307,26 @@ let
     copyChannel = false;
   };
 
-  bootConfiguration = if cfg.useDefaultFilesystems then
-    if cfg.useBootLoader then
-      if cfg.useEFIBoot then
-        "efi_bootloading_with_default_fs"
+  bootConfiguration =
+    if cfg.useDefaultFilesystems then
+      if cfg.useBootLoader then
+        if cfg.useEFIBoot then
+          "efi_bootloading_with_default_fs"
+        else
+          "legacy_bootloading_with_default_fs"
       else
-        "legacy_bootloading_with_default_fs"
+        "direct_boot_with_default_fs"
     else
-      "direct_boot_with_default_fs"
-  else
-    "custom";
+      "custom"
+    ;
   suggestedRootDevice = {
     "efi_bootloading_with_default_fs" = "${cfg.bootLoaderDevice}2";
     "legacy_bootloading_with_default_fs" = "${cfg.bootLoaderDevice}1";
     "direct_boot_with_default_fs" = cfg.bootLoaderDevice;
-    # This will enforce a NixOS module type checking error
-    # to ask explicitly the user to set a rootDevice.
-    # As it will look like `rootDevice = lib.mkDefault null;` after
-    # all "computations".
+      # This will enforce a NixOS module type checking error
+      # to ask explicitly the user to set a rootDevice.
+      # As it will look like `rootDevice = lib.mkDefault null;` after
+      # all "computations".
     "custom" = null;
   }.${bootConfiguration};
 
@@ -399,10 +415,12 @@ in {
 
     virtualisation.bootPartition = mkOption {
       type = types.nullOr types.path;
-      default = if cfg.useEFIBoot then
-        "${cfg.bootLoaderDevice}1"
-      else
-        null;
+      default =
+        if cfg.useEFIBoot then
+          "${cfg.bootLoaderDevice}1"
+        else
+          null
+        ;
       defaultText = literalExpression
         ''if cfg.useEFIBoot then "''${cfg.bootLoaderDevice}1" else null'';
       example = "/dev/vda1";
@@ -678,15 +696,17 @@ in {
 
       consoles = mkOption {
         type = types.listOf types.str;
-        default = let
-          consoles = [
-            "${qemu-common.qemuSerialDevice},115200n8"
-            "tty0"
-          ];
-        in if cfg.graphics then
-          consoles
-        else
-          reverseList consoles;
+        default =
+          let
+            consoles = [
+              "${qemu-common.qemuSerialDevice},115200n8"
+              "tty0"
+            ];
+          in if cfg.graphics then
+            consoles
+          else
+            reverseList consoles
+          ;
         example = [ "console=tty1" ];
         description = lib.mdDoc ''
           The output console devices to pass to the kernel command line via the
@@ -811,7 +831,8 @@ in {
                     secureBoot = cfg.useSecureBoot;
                   }).fd'';
         description = lib.mdDoc
-          "OVMF firmware package, defaults to OVMF configured with secure boot if needed.";
+          "OVMF firmware package, defaults to OVMF configured with secure boot if needed."
+          ;
       };
 
       firmware = mkOption {
@@ -878,8 +899,8 @@ in {
         '';
       }
       {
-        assertion = rule.from == "guest"
-          -> lib.hasPrefix "10.0.2." rule.guest.address;
+        assertion =
+          rule.from == "guest" -> lib.hasPrefix "10.0.2." rule.guest.address;
         message = ''
           Invalid virtualisation.forwardPorts.<entry ${
             toString i
@@ -905,16 +926,16 @@ in {
           ${opt.writableStore} = false;
       '';
 
-    # In UEFI boot, we use a EFI-only partition table layout, thus GRUB will fail when trying to install
-    # legacy and UEFI. In order to avoid this, we have to put "nodev" to force UEFI-only installs.
-    # Otherwise, we set the proper bootloader device for this.
-    # FIXME: make a sense of this mess wrt to multiple ESP present in the system, probably use boot.efiSysMountpoint?
+      # In UEFI boot, we use a EFI-only partition table layout, thus GRUB will fail when trying to install
+      # legacy and UEFI. In order to avoid this, we have to put "nodev" to force UEFI-only installs.
+      # Otherwise, we set the proper bootloader device for this.
+      # FIXME: make a sense of this mess wrt to multiple ESP present in the system, probably use boot.efiSysMountpoint?
     boot.loader.grub.device = mkVMOverride (if cfg.useEFIBoot then
       "nodev"
     else
       cfg.bootLoaderDevice);
-    boot.loader.grub.gfxmodeBios = with cfg.resolution;
-      "${toString x}x${toString y}";
+    boot.loader.grub.gfxmodeBios =
+      with cfg.resolution; "${toString x}x${toString y}";
     virtualisation.rootDevice = mkDefault suggestedRootDevice;
 
     boot.initrd.kernelModules =
@@ -964,13 +985,13 @@ in {
       "d /boot 0644 root root -"
     ];
 
-    # After booting, register the closure of the paths in
-    # `virtualisation.additionalPaths' in the Nix database in the VM.  This
-    # allows Nix operations to work in the VM.  The path to the
-    # registration file is passed through the kernel command line to
-    # allow `system.build.toplevel' to be included.  (If we had a direct
-    # reference to ${regInfo} here, then we would get a cyclic
-    # dependency.)
+      # After booting, register the closure of the paths in
+      # `virtualisation.additionalPaths' in the Nix database in the VM.  This
+      # allows Nix operations to work in the VM.  The path to the
+      # registration file is passed through the kernel command line to
+      # allow `system.build.toplevel' to be included.  (If we had a direct
+      # reference to ${regInfo} here, then we would get a cyclic
+      # dependency.)
     boot.postBootCommands = lib.mkIf config.nix.enable ''
       if [[ "$(cat /proc/cmdline)" =~ regInfo=([^ ]*) ]]; then
         ${config.nix.package.out}/bin/nix-store --load-db < ''${BASH_REMATCH[1]}
@@ -997,30 +1018,32 @@ in {
       };
     };
 
-    virtualisation.qemu.networkingOptions = let
-      forwardingOptions = flip concatMapStrings cfg.forwardPorts ({
-          proto,
-          from,
-          host,
-          guest,
-        }:
-        if from == "host" then
-          "hostfwd=${proto}:${host.address}:${toString host.port}-"
-          + "${guest.address}:${toString guest.port},"
-        else
-          "'guestfwd=${proto}:${guest.address}:${toString guest.port}-"
-          + "cmd:${pkgs.netcat}/bin/nc ${host.address} ${
-            toString host.port
-          }',");
-      restrictNetworkOption =
-        lib.optionalString cfg.restrictNetwork "restrict=on,";
-    in [
-      "-net nic,netdev=user.0,model=virtio"
-      ''
-        -netdev user,id=user.0,${forwardingOptions}${restrictNetworkOption}"$QEMU_NET_OPTS"''
-    ] ;
+    virtualisation.qemu.networkingOptions =
+      let
+        forwardingOptions = flip concatMapStrings cfg.forwardPorts ({
+            proto,
+            from,
+            host,
+            guest,
+          }:
+          if from == "host" then
+            "hostfwd=${proto}:${host.address}:${toString host.port}-"
+            + "${guest.address}:${toString guest.port},"
+          else
+            "'guestfwd=${proto}:${guest.address}:${toString guest.port}-"
+            + "cmd:${pkgs.netcat}/bin/nc ${host.address} ${
+              toString host.port
+            }',");
+        restrictNetworkOption =
+          lib.optionalString cfg.restrictNetwork "restrict=on,";
+      in [
+        "-net nic,netdev=user.0,model=virtio"
+        ''
+          -netdev user,id=user.0,${forwardingOptions}${restrictNetworkOption}"$QEMU_NET_OPTS"''
+      ]
+      ;
 
-    # FIXME: Consolidate this one day.
+      # FIXME: Consolidate this one day.
     virtualisation.qemu.options = mkMerge [
       (mkIf cfg.qemu.virtioKeyboard [ "-device virtio-keyboard" ])
       (mkIf pkgs.stdenv.hostPlatform.isx86 [
@@ -1036,13 +1059,15 @@ in {
       (let
         alphaNumericChars = lowerChars ++ upperChars
           ++ (map toString (range 0 9));
-        # Replace all non-alphanumeric characters with underscores
-        sanitizeShellIdent = s:
+          # Replace all non-alphanumeric characters with underscores
+        sanitizeShellIdent =
+          s:
           concatMapStrings (c:
             if builtins.elem c alphaNumericChars then
               c
             else
-              "_") (stringToCharacters s);
+              "_") (stringToCharacters s)
+          ;
       in
       mkIf (!cfg.useBootLoader) [
         "-kernel \${NIXPKGS_QEMU_KERNEL_${
@@ -1073,10 +1098,12 @@ in {
         name = "nix-store";
         file = ''"$TMPDIR"/store.img'';
         deviceExtraOpts.bootindex = "2";
-        driveExtraOpts.format = if cfg.writableStore then
-          "qcow2"
-        else
-          "raw";
+        driveExtraOpts.format =
+          if cfg.writableStore then
+            "qcow2"
+          else
+            "raw"
+          ;
       } ])
       (imap0 (idx: _: {
         file = "$(pwd)/empty${toString idx}.qcow2";
@@ -1086,80 +1113,86 @@ in {
 
     fileSystems = mkVMOverride cfg.fileSystems;
 
-    # Mount the host filesystem via 9P, and bind-mount the Nix store
-    # of the host into our own filesystem.  We use mkVMOverride to
-    # allow this module to be applied to "normal" NixOS system
-    # configuration, where the regular value for the `fileSystems'
-    # attribute should be disregarded for the purpose of building a VM
-    # test image (since those filesystems don't exist in the VM).
-    virtualisation.fileSystems = let
-      mkSharedDir = tag: share: {
-        name = if tag == "nix-store" && cfg.writableStore then
-          "/nix/.ro-store"
-        else
-          share.target;
-        value.device = tag;
-        value.fsType = "9p";
-        value.neededForBoot = true;
-        value.options = [
-          "trans=virtio"
-          "version=9p2000.L"
-          "msize=${toString cfg.msize}"
-        ] ++ lib.optional (tag == "nix-store") "cache=loose";
-      };
-    in
-    lib.mkMerge [
-      (lib.mapAttrs' mkSharedDir cfg.sharedDirectories)
-      {
-        "/" = lib.mkIf cfg.useDefaultFilesystems (if cfg.diskImage == null then
-          {
+      # Mount the host filesystem via 9P, and bind-mount the Nix store
+      # of the host into our own filesystem.  We use mkVMOverride to
+      # allow this module to be applied to "normal" NixOS system
+      # configuration, where the regular value for the `fileSystems'
+      # attribute should be disregarded for the purpose of building a VM
+      # test image (since those filesystems don't exist in the VM).
+    virtualisation.fileSystems =
+      let
+        mkSharedDir =
+          tag: share: {
+            name =
+              if tag == "nix-store" && cfg.writableStore then
+                "/nix/.ro-store"
+              else
+                share.target
+              ;
+            value.device = tag;
+            value.fsType = "9p";
+            value.neededForBoot = true;
+            value.options = [
+              "trans=virtio"
+              "version=9p2000.L"
+              "msize=${toString cfg.msize}"
+            ] ++ lib.optional (tag == "nix-store") "cache=loose";
+          }
+          ;
+      in
+      lib.mkMerge [
+        (lib.mapAttrs' mkSharedDir cfg.sharedDirectories)
+        {
+          "/" = lib.mkIf cfg.useDefaultFilesystems
+            (if cfg.diskImage == null then
+              {
+                device = "tmpfs";
+                fsType = "tmpfs";
+              }
+            else
+              {
+                device = cfg.rootDevice;
+                fsType = "ext4";
+                autoFormat = true;
+              });
+          "/tmp" = lib.mkIf config.boot.tmp.useTmpfs {
             device = "tmpfs";
             fsType = "tmpfs";
-          }
-        else
-          {
-            device = cfg.rootDevice;
-            fsType = "ext4";
-            autoFormat = true;
-          });
-        "/tmp" = lib.mkIf config.boot.tmp.useTmpfs {
-          device = "tmpfs";
-          fsType = "tmpfs";
-          neededForBoot = true;
-          # Sync with systemd's tmp.mount;
-          options = [
-            "mode=1777"
-            "strictatime"
-            "nosuid"
-            "nodev"
-            "size=${toString config.boot.tmp.tmpfsSize}"
-          ];
-        };
-        "/nix/${
-          if cfg.writableStore then
-            ".ro-store"
-          else
-            "store"
-        }" = lib.mkIf cfg.useNixStoreImage {
-          device = "${lookupDriveDeviceName "nix-store" cfg.qemu.drives}";
-          neededForBoot = true;
-          options = [ "ro" ];
-        };
-        "/nix/.rw-store" =
-          lib.mkIf (cfg.writableStore && cfg.writableStoreUseTmpfs) {
-            fsType = "tmpfs";
-            options = [ "mode=0755" ];
             neededForBoot = true;
+              # Sync with systemd's tmp.mount;
+            options = [
+              "mode=1777"
+              "strictatime"
+              "nosuid"
+              "nodev"
+              "size=${toString config.boot.tmp.tmpfsSize}"
+            ];
           };
-        "/boot" = lib.mkIf (cfg.useBootLoader && cfg.bootPartition != null) {
-          device =
-            cfg.bootPartition; # 1 for e.g. `vda1`, as created in `systemImage`
-          fsType = "vfat";
-          noCheck = true; # fsck fails on a r/o filesystem
-        };
-      }
-    ]
-    ;
+          "/nix/${
+            if cfg.writableStore then
+              ".ro-store"
+            else
+              "store"
+          }" = lib.mkIf cfg.useNixStoreImage {
+            device = "${lookupDriveDeviceName "nix-store" cfg.qemu.drives}";
+            neededForBoot = true;
+            options = [ "ro" ];
+          };
+          "/nix/.rw-store" =
+            lib.mkIf (cfg.writableStore && cfg.writableStoreUseTmpfs) {
+              fsType = "tmpfs";
+              options = [ "mode=0755" ];
+              neededForBoot = true;
+            };
+          "/boot" = lib.mkIf (cfg.useBootLoader && cfg.bootPartition != null) {
+            device = cfg.bootPartition
+              ; # 1 for e.g. `vda1`, as created in `systemImage`
+            fsType = "vfat";
+            noCheck = true; # fsck fails on a r/o filesystem
+          };
+        }
+      ]
+      ;
 
     boot.initrd.systemd =
       lib.mkIf (config.boot.initrd.systemd.enable && cfg.writableStore) {
@@ -1168,7 +1201,8 @@ in {
           what = "overlay";
           type = "overlay";
           options =
-            "lowerdir=/sysroot/nix/.ro-store,upperdir=/sysroot/nix/.rw-store/store,workdir=/sysroot/nix/.rw-store/work";
+            "lowerdir=/sysroot/nix/.ro-store,upperdir=/sysroot/nix/.rw-store/store,workdir=/sysroot/nix/.rw-store/work"
+            ;
           wantedBy = [ "initrd-fs.target" ];
           before = [ "initrd-fs.target" ];
           requires = [ "rw-store.service" ];
@@ -1183,7 +1217,8 @@ in {
           serviceConfig = {
             Type = "oneshot";
             ExecStart =
-              "/bin/mkdir -p -m 0755 /sysroot/nix/.rw-store/store /sysroot/nix/.rw-store/work /sysroot/nix/store";
+              "/bin/mkdir -p -m 0755 /sysroot/nix/.rw-store/store /sysroot/nix/.rw-store/work /sysroot/nix/store"
+              ;
           };
         };
       };
@@ -1197,7 +1232,7 @@ in {
     else
       mkDefault) { };
 
-    # Don't run ntpd in the guest.  It should get the correct time from KVM.
+      # Don't run ntpd in the guest.  It should get the correct time from KVM.
     services.timesyncd.enable = false;
 
     services.qemuGuest.enable = cfg.qemu.guestAgent.enable;
@@ -1213,8 +1248,8 @@ in {
       } $out/bin/run-${config.system.name}-vm
     '';
 
-    # When building a regular system configuration, override whatever
-    # video driver the host uses.
+      # When building a regular system configuration, override whatever
+      # video driver the host uses.
     services.xserver.videoDrivers = mkVMOverride [ "modesetting" ];
     services.xserver.defaultDepth = mkVMOverride 0;
     services.xserver.resolutions = mkVMOverride [ cfg.resolution ];
@@ -1224,11 +1259,11 @@ in {
       VertRefresh 50-160
     '';
 
-    # Wireless won't work in the VM.
+      # Wireless won't work in the VM.
     networking.wireless.enable = mkVMOverride false;
     services.connman.enable = mkVMOverride false;
 
-    # Speed up booting by not waiting for ARP.
+      # Speed up booting by not waiting for ARP.
     networking.dhcpcd.extraConfig = "noarp";
 
     networking.usePredictableInterfaceNames = false;
@@ -1254,6 +1289,6 @@ in {
 
   };
 
-  # uses types of services/x11/xserver.nix
+    # uses types of services/x11/xserver.nix
   meta.buildDocsInSandbox = false;
 }

@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
     name = "plotinus";
     meta = { maintainers = pkgs.plotinus.meta.maintainers; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }:
@@ -17,7 +18,8 @@ import ./make-test-python.nix ({
           pkgs.gnome.gnome-calculator
           pkgs.xdotool
         ];
-      };
+      }
+      ;
 
     testScript = ''
       machine.wait_for_x()

@@ -17,7 +17,8 @@ import ./make-test-python.nix ({
 
     meta = { maintainers = with pkgs.lib.maintainers; [ tmarkus ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -32,7 +33,8 @@ import ./make-test-python.nix ({
         boot.initrd.availableKernelModules = [ "tpm_tis" ];
 
         environment.systemPackages = with pkgs; [ diffutils ];
-      };
+      }
+      ;
 
     testScript = ''
       import subprocess

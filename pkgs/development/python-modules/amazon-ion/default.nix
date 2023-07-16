@@ -15,7 +15,7 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.7";
 
-  # test vectors require git submodule
+    # test vectors require git submodule
   src = fetchFromGitHub {
     owner = "amzn";
     repo = "ion-python";

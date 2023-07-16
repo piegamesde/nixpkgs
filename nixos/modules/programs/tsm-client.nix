@@ -37,17 +37,19 @@ let
     # elements when compared without considering case.
     # Type: checkIUnique :: [string] -> bool
     # Example: checkIUnique ["foo" "Foo"] => false
-  checkIUnique = lst:
+  checkIUnique =
+    lst:
     let
       lenUniq = l: length (lib.lists.unique l);
     in
     lenUniq lst == lenUniq (map toLower lst)
-  ;
+    ;
 
-  # TSM rejects servername strings longer than 64 chars.
+    # TSM rejects servername strings longer than 64 chars.
   servernameType = strMatching ".{1,64}";
 
-  serverOptions = {
+  serverOptions =
+    {
       name,
       config,
       ...
@@ -171,34 +173,38 @@ let
           lib.mdDoc "Server stanza text generated from the options.";
       };
       config.name = mkDefault name;
-      # Client system-options file directives are explained here:
-      # https://www.ibm.com/docs/en/spectrum-protect/8.1.13?topic=commands-processing-options
+        # Client system-options file directives are explained here:
+        # https://www.ibm.com/docs/en/spectrum-protect/8.1.13?topic=commands-processing-options
       config.extraConfig = mapAttrs (lib.trivial.const mkDefault) ({
         commmethod = "v6tcpip"; # uses v4 or v6, based on dns lookup result
         tcpserveraddress = config.server;
         tcpport = builtins.toString config.port;
         nodename = config.node;
-        passwordaccess = if config.genPasswd then
-          "generate"
-        else
-          "prompt";
+        passwordaccess =
+          if config.genPasswd then
+            "generate"
+          else
+            "prompt"
+          ;
         passworddir = ''"${config.passwdDir}"'';
       } // optionalAttrs (config.includeExclude != "") {
         inclexcl =
           ''"${pkgs.writeText "inclexcl.dsm.sys" config.includeExclude}"'';
       });
-      config.text = let
-        attrset = filterAttrs (k: v: v != null) config.extraConfig;
-        mkLine = k: v: k + optionalString (v != "") "  ${v}";
-        lines = mapAttrsToList mkLine attrset;
-      in
-      concatLines lines
-      ;
+      config.text =
+        let
+          attrset = filterAttrs (k: v: v != null) config.extraConfig;
+          mkLine = k: v: k + optionalString (v != "") "  ${v}";
+          lines = mapAttrsToList mkLine attrset;
+        in
+        concatLines lines
+        ;
       config.stanza = ''
         server  ${config.name}
         ${config.text}
       '';
-    };
+    }
+    ;
 
   options.programs.tsmClient = {
     enable = mkEnableOption (lib.mdDoc ''

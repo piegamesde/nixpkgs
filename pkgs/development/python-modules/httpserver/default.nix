@@ -12,11 +12,11 @@ buildPythonPackage rec {
 
   buildInputs = [ docopt ];
 
-  # Tests pull in lots of other dependencies to emulate different web
-  # drivers.
+    # Tests pull in lots of other dependencies to emulate different web
+    # drivers.
   doCheck = false;
 
-  # Because it uses asyncio
+    # Because it uses asyncio
   disabled = pythonOlder "3.4";
 
   src = fetchPypi {

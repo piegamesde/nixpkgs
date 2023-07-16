@@ -13,7 +13,8 @@ import ./make-test-python.nix ({
     };
 
     nodes = {
-      netdata = {
+      netdata =
+        {
           pkgs,
           ...
         }: {
@@ -22,7 +23,8 @@ import ./make-test-python.nix ({
             jq
           ];
           services.netdata.enable = true;
-        };
+        }
+        ;
     };
 
     testScript = ''

@@ -24,7 +24,7 @@ buildDunePackage rec {
 
   nativeCheckInputs = [ mdx.bin ];
 
-  # mdx is not available for OCaml < 4.08
+    # mdx is not available for OCaml < 4.08
   doCheck = lib.versionAtLeast ocaml.version "4.08";
 
   passthru.updateScript = gitUpdater { rev-prefix = "v"; };

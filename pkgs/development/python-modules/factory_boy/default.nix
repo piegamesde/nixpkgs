@@ -33,7 +33,7 @@ buildPythonPackage rec {
     sqlalchemy
   ];
 
-  # Checks for MongoDB requires an a running DB
+    # Checks for MongoDB requires an a running DB
   disabledTests = [ "MongoEngineTestCase" ];
 
   disabledTestPaths = [

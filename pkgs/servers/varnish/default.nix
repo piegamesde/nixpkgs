@@ -20,7 +20,8 @@
 }:
 
 let
-  common = {
+  common =
+    {
       version,
       hash,
       extraNativeBuildInputs ? [ ]
@@ -64,7 +65,7 @@ let
         }"
       '';
 
-      # https://github.com/varnishcache/varnish-cache/issues/1875
+        # https://github.com/varnishcache/varnish-cache/issues/1875
       env.NIX_CFLAGS_COMPILE =
         lib.optionalString stdenv.isi686 "-fexcess-precision=standard";
 
@@ -84,20 +85,22 @@ let
 
       meta = with lib; {
         description =
-          "Web application accelerator also known as a caching HTTP reverse proxy";
+          "Web application accelerator also known as a caching HTTP reverse proxy"
+          ;
         homepage = "https://www.varnish-cache.org";
         license = licenses.bsd2;
         maintainers = with maintainers; [ ajs124 ];
         platforms = platforms.unix;
       };
-    };
+    }
+    ;
 in {
   # EOL TBA
   varnish60 = common {
     version = "6.0.11";
     hash = "sha256-UVkA2+tH/9MOs5BlyuAzFnmD7Pm9A6lDWic2B+HRKNs=";
   };
-  # EOL 2023-09-15
+    # EOL 2023-09-15
   varnish72 = common {
     version = "7.2.1";
     hash = "sha256-TZN9FyCo7BnFM/ly2TA6HJiJt7/KdDeJOuXCfPIEqUA=";

@@ -36,13 +36,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-wDDE43UC6FBgPYLS+WWExeheURCH/3fCKu5oJg7GM+A=";
   };
 
-  # TODO: remove on 0.7
+    # TODO: remove on 0.7
   patches = [
     # https://github.com/flatpak/libportal/pull/107
     (fetchpatch {
       name = "check-presence-of-sys-vfs-h.patch";
       url =
-        "https://github.com/flatpak/libportal/commit/e91a5d2ceb494ca0dd67295736e671b0142c7540.patch";
+        "https://github.com/flatpak/libportal/commit/e91a5d2ceb494ca0dd67295736e671b0142c7540.patch"
+        ;
       sha256 = "sha256-uFyhlU2fJgW4z0I31fABdc+pimLFYkqM4lggSIFs1tw=";
     })
   ];

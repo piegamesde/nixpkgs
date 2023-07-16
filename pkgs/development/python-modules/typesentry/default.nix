@@ -11,7 +11,7 @@ buildPythonPackage {
   pname = "typesentry";
   version = "0.2.7";
 
-  # Only wheel distribution is available on PyPi.
+    # Only wheel distribution is available on PyPi.
   src = fetchFromGitHub {
     owner = "h2oai";
     repo = "typesentry";

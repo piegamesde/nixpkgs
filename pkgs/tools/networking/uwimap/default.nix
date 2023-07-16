@@ -24,8 +24,8 @@ stdenv.mkDerivation rec {
       "osx"
     else
       "lnp") # Linux with PAM modules;
-  ] ++ lib.optional stdenv.isx86_64
-    "EXTRACFLAGS=-fPIC"; # -fPIC is required to compile php with imap on x86_64 systems
+  ] ++ lib.optional stdenv.isx86_64 "EXTRACFLAGS=-fPIC"
+    ; # -fPIC is required to compile php with imap on x86_64 systems
 
   hardeningDisable = [ "format" ];
 
@@ -39,7 +39,8 @@ stdenv.mkDerivation rec {
 
   patches = [ (fetchpatch {
     url =
-      "https://salsa.debian.org/holmgren/uw-imap/raw/dcb42981201ea14c2d71c01ebb4a61691b6f68b3/debian/patches/1006_openssl1.1_autoverify.patch";
+      "https://salsa.debian.org/holmgren/uw-imap/raw/dcb42981201ea14c2d71c01ebb4a61691b6f68b3/debian/patches/1006_openssl1.1_autoverify.patch"
+      ;
     sha256 = "09xb58awvkhzmmjhrkqgijzgv7ia381ablf0y7i1rvhcqkb5wga7";
   }) ];
 

@@ -19,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-Z0MC4SbZS82beMA7UunEfs4KvrmhW5xAhFeb7WXA7DM=";
   };
 
-  # argparse is just required for python2.6
+    # argparse is just required for python2.6
   prePatch = ''
     substituteInPlace setup.py \
       --replace "'argparse'," ""

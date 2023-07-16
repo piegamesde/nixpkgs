@@ -27,13 +27,16 @@ let
     ];
   }).config.system.build.sdImage;
 
-  pythonDict = params:
+  pythonDict =
+    params:
     "\n    {\n        ${
               concatStringsSep ",\n        "
               (mapAttrsToList (name: param: ''"${name}": "${param}"'') params)
-            },\n    }\n";
+            },\n    }\n"
+    ;
 
-  makeBootTest = name: extraConfig:
+  makeBootTest =
+    name: extraConfig:
     let
       machineConfig = pythonDict ({
         qemuBinary = qemu-common.qemuBinary pkgs.qemu_test;
@@ -56,9 +59,10 @@ let
         machine.shutdown()
       '';
     }
-  ;
+    ;
 
-  makeNetbootTest = name: extraConfig:
+  makeNetbootTest =
+    name: extraConfig:
     let
       config = (import ../lib/eval-config.nix {
         inherit system;
@@ -92,7 +96,7 @@ let
         machine.shutdown()
       '';
     }
-  ;
+    ;
   uefiBinary = {
     x86_64-linux = "${pkgs.OVMF.fd}/FV/OVMF.fd";
     aarch64-linux = "${pkgs.OVMF.fd}/FV/QEMU_EFI.fd";
@@ -111,7 +115,7 @@ in
 
   uefiNetboot = makeNetbootTest "uefi" {
     bios = uefiBinary;
-    # Custom ROM is needed for EFI PXE boot. I failed to understand exactly why, because QEMU should still use iPXE for EFI.
+      # Custom ROM is needed for EFI PXE boot. I failed to understand exactly why, because QEMU should still use iPXE for EFI.
     netFrontendArgs = "romfile=${pkgs.ipxe}/ipxe.efirom";
   };
 } // optionalAttrs (pkgs.stdenv.hostPlatform.system == "x86_64-linux") {
@@ -122,32 +126,34 @@ in
 
   biosNetboot = makeNetbootTest "bios" { };
 
-  ubootExtlinux = let
-    sdImage = "${sd}/sd-image/${sd.imageName}";
-    mutableImage = "/tmp/linked-image.qcow2";
+  ubootExtlinux =
+    let
+      sdImage = "${sd}/sd-image/${sd.imageName}";
+      mutableImage = "/tmp/linked-image.qcow2";
 
-    machineConfig = pythonDict {
-      bios = "${pkgs.ubootQemuX86}/u-boot.rom";
-      qemuFlags =
-        "-m 768 -machine type=pc,accel=tcg -drive file=${mutableImage},if=ide,format=qcow2";
-    };
-  in
-  makeTest {
-    name = "boot-uboot-extlinux";
-    nodes = { };
-    testScript = ''
-      import os
+      machineConfig = pythonDict {
+        bios = "${pkgs.ubootQemuX86}/u-boot.rom";
+        qemuFlags =
+          "-m 768 -machine type=pc,accel=tcg -drive file=${mutableImage},if=ide,format=qcow2"
+          ;
+      };
+    in
+    makeTest {
+      name = "boot-uboot-extlinux";
+      nodes = { };
+      testScript = ''
+        import os
 
-      # Create a mutable linked image backed by the read-only SD image
-      if os.system("qemu-img create -f qcow2 -F raw -b ${sdImage} ${mutableImage}") != 0:
-          raise RuntimeError("Could not create mutable linked image")
+        # Create a mutable linked image backed by the read-only SD image
+        if os.system("qemu-img create -f qcow2 -F raw -b ${sdImage} ${mutableImage}") != 0:
+            raise RuntimeError("Could not create mutable linked image")
 
-      machine = create_machine(${machineConfig})
-      machine.start()
-      machine.wait_for_unit("multi-user.target")
-      machine.succeed("nix store verify -r --no-trust --option experimental-features nix-command /run/current-system")
-      machine.shutdown()
-    '';
-  }
-  ;
+        machine = create_machine(${machineConfig})
+        machine.start()
+        machine.wait_for_unit("multi-user.target")
+        machine.succeed("nix store verify -r --no-trust --option experimental-features nix-command /run/current-system")
+        machine.shutdown()
+      '';
+    }
+    ;
 }

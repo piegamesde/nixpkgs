@@ -38,7 +38,8 @@ buildDotnetModule rec {
     homepage = "https://github.com/Tyrrrz/DiscordChatExporter";
     license = licenses.gpl3Plus;
     changelog =
-      "https://github.com/Tyrrrz/DiscordChatExporter/blob/${version}/Changelog.md";
+      "https://github.com/Tyrrrz/DiscordChatExporter/blob/${version}/Changelog.md"
+      ;
     maintainers = [ maintainers.ivar ];
     platforms = [ "x86_64-linux" ];
   };

@@ -10,11 +10,13 @@ let
   inherit (pkgs) lib;
   packages = builtins.attrNames (import ../../pkgs/servers/sql/postgresql pkgs);
 
-  mkJitTest = packageName:
+  mkJitTest =
+    packageName:
     makeTest {
       name = "${packageName}";
       meta.maintainers = with lib.maintainers; [ ma27 ];
-      nodes.machine = {
+      nodes.machine =
+        {
           pkgs,
           lib,
           ...
@@ -28,7 +30,8 @@ let
               insert into demo (id) select generate_series(1, 5);
             '';
           };
-        };
+        }
+        ;
       testScript = ''
         machine.start()
         machine.wait_for_unit("postgresql.service")
@@ -51,6 +54,7 @@ let
 
         machine.shutdown()
       '';
-    };
+    }
+    ;
 in
 lib.genAttrs packages mkJitTest

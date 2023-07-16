@@ -10,7 +10,8 @@
 with import ../lib/testing-python.nix { inherit system pkgs; };
 
 let
-  expectArgv0 = xpkgs:
+  expectArgv0 =
+    xpkgs:
     xpkgs.runCommandCC "expect-argv0" {
       src = pkgs.writeText "expect-argv0.c" ''
         #include <stdio.h>
@@ -29,7 +30,8 @@ let
       '';
     } ''
       $CC -o $out $src
-    '';
+    ''
+    ;
 in {
   basic = makeTest {
     name = "systemd-binfmt";
@@ -40,45 +42,51 @@ in {
       ];
     };
 
-    testScript = let
-      helloArmv7l = pkgs.pkgsCross.armv7l-hf-multiplatform.hello;
-      helloAarch64 = pkgs.pkgsCross.aarch64-multiplatform.hello;
-    in ''
-      machine.start()
+    testScript =
+      let
+        helloArmv7l = pkgs.pkgsCross.armv7l-hf-multiplatform.hello;
+        helloAarch64 = pkgs.pkgsCross.aarch64-multiplatform.hello;
+      in ''
+        machine.start()
 
-      assert "world" in machine.succeed(
-          "${helloArmv7l}/bin/hello"
-      )
+        assert "world" in machine.succeed(
+            "${helloArmv7l}/bin/hello"
+        )
 
-      assert "world" in machine.succeed(
-          "${helloAarch64}/bin/hello"
-      )
-    '' ;
+        assert "world" in machine.succeed(
+            "${helloAarch64}/bin/hello"
+        )
+      ''
+      ;
   };
 
   preserveArgvZero = makeTest {
     name = "systemd-binfmt-preserve-argv0";
     nodes.machine = { boot.binfmt.emulatedSystems = [ "aarch64-linux" ]; };
-    testScript = let
-      testAarch64 = expectArgv0 pkgs.pkgsCross.aarch64-multiplatform;
-    in ''
-      machine.start()
-      machine.succeed("exec -a meow ${testAarch64} meow")
-    '' ;
+    testScript =
+      let
+        testAarch64 = expectArgv0 pkgs.pkgsCross.aarch64-multiplatform;
+      in ''
+        machine.start()
+        machine.succeed("exec -a meow ${testAarch64} meow")
+      ''
+      ;
   };
 
   ldPreload = makeTest {
     name = "systemd-binfmt-ld-preload";
     nodes.machine = { boot.binfmt.emulatedSystems = [ "aarch64-linux" ]; };
-    testScript = let
-      helloAarch64 = pkgs.pkgsCross.aarch64-multiplatform.hello;
-      libredirectAarch64 = pkgs.pkgsCross.aarch64-multiplatform.libredirect;
-    in ''
-      machine.start()
+    testScript =
+      let
+        helloAarch64 = pkgs.pkgsCross.aarch64-multiplatform.hello;
+        libredirectAarch64 = pkgs.pkgsCross.aarch64-multiplatform.libredirect;
+      in ''
+        machine.start()
 
-      assert "error" not in machine.succeed(
-          "LD_PRELOAD='${libredirectAarch64}/lib/libredirect.so' ${helloAarch64}/bin/hello 2>&1"
-      ).lower()
-    '' ;
+        assert "error" not in machine.succeed(
+            "LD_PRELOAD='${libredirectAarch64}/lib/libredirect.so' ${helloAarch64}/bin/hello 2>&1"
+        ).lower()
+      ''
+      ;
   };
 }

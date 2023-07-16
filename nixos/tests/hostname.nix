@@ -8,16 +8,19 @@ with import ../lib/testing-python.nix { inherit system pkgs; };
 with pkgs.lib;
 
 let
-  makeHostNameTest = hostName: domain: fqdnOrNull:
+  makeHostNameTest =
+    hostName: domain: fqdnOrNull:
     let
       fqdn = hostName + (optionalString (domain != null) ".${domain}");
-      getStr = str: # maybeString2String
+      getStr =
+        str: # maybeString2String
         let
           res = builtins.tryEval str;
         in if (res.success && res.value != null) then
           res.value
         else
-          "null";
+          "null"
+        ;
     in
     makeTest {
       name = "hostname-${fqdn}";
@@ -28,7 +31,8 @@ let
         ];
       };
 
-      nodes.machine = {
+      nodes.machine =
+        {
           lib,
           ...
         }: {
@@ -36,9 +40,11 @@ let
           networking.domain = domain;
 
           environment.systemPackages = with pkgs; [ inetutils ];
-        };
+        }
+        ;
 
-      testScript = {
+      testScript =
+        {
           nodes,
           ...
         }: ''
@@ -79,9 +85,10 @@ let
               fqdn_and_host_name
               == machine.succeed("getent hosts 127.0.0.2 | awk '{print $2,$3}'").strip()
           )
-        '';
+        ''
+        ;
     }
-  ;
+    ;
 
 in {
   noExplicitDomain = makeHostNameTest "ahost" null null;

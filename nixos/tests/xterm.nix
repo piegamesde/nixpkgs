@@ -5,13 +5,15 @@ import ./make-test-python.nix ({
     name = "xterm";
     meta = with pkgs.lib.maintainers; { maintainers = [ nequissimus ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
         imports = [ ./common/x11.nix ];
         services.xserver.desktopManager.xterm.enable = false;
-      };
+      }
+      ;
 
     testScript = ''
       machine.wait_for_x()

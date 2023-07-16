@@ -81,22 +81,24 @@ mkDerivation {
     shared-mime-info
   ];
   propagatedUserEnvPkgs = [ (lib.getBin kinit) ];
-  postFixup = let
-    binPath = lib.makeBinPath [
-      cdrdao
-      cdrtools
-      dvdplusrwtools
-      libburn
-      normalize
-      sox
-      transcode
-      vcdimager
-      flac
-    ];
-    libraryPath = lib.makeLibraryPath [ cdparanoia ];
-  in ''
-    wrapProgram "$out/bin/k3b"     \
-      --prefix PATH : "${binPath}" \
-      --prefix LD_LIBRARY_PATH : ${libraryPath}
-  '' ;
+  postFixup =
+    let
+      binPath = lib.makeBinPath [
+        cdrdao
+        cdrtools
+        dvdplusrwtools
+        libburn
+        normalize
+        sox
+        transcode
+        vcdimager
+        flac
+      ];
+      libraryPath = lib.makeLibraryPath [ cdparanoia ];
+    in ''
+      wrapProgram "$out/bin/k3b"     \
+        --prefix PATH : "${binPath}" \
+        --prefix LD_LIBRARY_PATH : ${libraryPath}
+    ''
+    ;
 }

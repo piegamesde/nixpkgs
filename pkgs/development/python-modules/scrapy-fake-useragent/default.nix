@@ -14,7 +14,7 @@ buildPythonPackage rec {
   pname = "scrapy-fake-useragent";
   version = "1.4.4";
 
-  # PyPi tarball is corrupted
+    # PyPi tarball is corrupted
   src = fetchFromGitHub {
     owner = "alecxe";
     repo = pname;

@@ -18,8 +18,8 @@ stdenv.mkDerivation rec {
     sha256 = "0nl88y57a7gawfragj3viiigfkh5sgivfb4n0k89wzcjw278pj5g";
   };
 
-  # Workaround build failure on -fno-common toolchains:
-  #   ld: dns_resolv.o:(.bss+0x20): multiple definition of `system_info'; webalizer.o:(.bss+0x76e0): first defined here
+    # Workaround build failure on -fno-common toolchains:
+    #   ld: dns_resolv.o:(.bss+0x20): multiple definition of `system_info'; webalizer.o:(.bss+0x76e0): first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   preConfigure = ''

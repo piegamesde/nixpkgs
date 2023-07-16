@@ -11,7 +11,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.muppetlabs.com/~breadbox/pub/software/${pname}-${version}.tar.gz";
+      "https://www.muppetlabs.com/~breadbox/pub/software/${pname}-${version}.tar.gz"
+      ;
     sha256 = "1cgwspy08q05rhxbp7m1yrrix252i9jzfcfbzmhdvlgf5bfpl25g";
   };
 

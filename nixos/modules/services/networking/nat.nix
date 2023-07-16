@@ -110,14 +110,16 @@ in {
                 (types.strMatching "[[:digit:]]+:[[:digit:]]+");
               example = 8080;
               description = lib.mdDoc ''
-                Source port of the external interface; to specify a port range, use a string with a colon (e.g. "60000:61000")'';
+                Source port of the external interface; to specify a port range, use a string with a colon (e.g. "60000:61000")''
+                ;
             };
 
             destination = mkOption {
               type = types.str;
               example = "10.0.0.1:80";
               description = lib.mdDoc
-                "Forward connection to destination ip:port (or [ipv6]:port); to specify a port range, use ip:start-end";
+                "Forward connection to destination ip:port (or [ipv6]:port); to specify a port range, use ip:start-end"
+                ;
             };
 
             proto = mkOption {
@@ -132,7 +134,8 @@ in {
               default = [ ];
               example = literalExpression ''[ "55.1.2.3" ]'';
               description = lib.mdDoc
-                "Public IPs for NAT reflection; for connections to `loopbackip:sourcePort` from the host itself and from other hosts behind NAT";
+                "Public IPs for NAT reflection; for connections to `loopbackip:sourcePort` from the host itself and from other hosts behind NAT"
+                ;
             };
           };
         });
@@ -181,16 +184,17 @@ in {
           "networking.nat.dmzHost requires networking.nat.externalInterface";
       }
       {
-        assertion = (cfg.forwardPorts != [ ])
-          -> (cfg.externalInterface != null);
+        assertion =
+          (cfg.forwardPorts != [ ]) -> (cfg.externalInterface != null);
         message =
-          "networking.nat.forwardPorts requires networking.nat.externalInterface";
+          "networking.nat.forwardPorts requires networking.nat.externalInterface"
+          ;
       }
     ];
 
-    # Use the same iptables package as in config.networking.firewall.
-    # When the firewall is enabled, this should be deduplicated without any
-    # error.
+      # Use the same iptables package as in config.networking.firewall.
+      # When the firewall is enabled, this should be deduplicated without any
+      # error.
     environment.systemPackages = [ config.networking.firewall.package ];
 
     boot = {
@@ -204,7 +208,7 @@ in {
         "net.ipv6.conf.all.accept_ra" = mkOverride 99 2;
         "net.ipv6.conf.default.accept_ra" = mkOverride 99 2;
 
-        # Forward IPv6 packets.
+          # Forward IPv6 packets.
         "net.ipv6.conf.all.forwarding" = mkOverride 99 true;
         "net.ipv6.conf.default.forwarding" = mkOverride 99 true;
       };

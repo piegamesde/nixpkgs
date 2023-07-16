@@ -10,7 +10,7 @@ buildPythonPackage rec {
   pname = "django-hijack-admin";
   version = "2.1.10";
 
-  # the pypi packages don't include everything required for the tests
+    # the pypi packages don't include everything required for the tests
   src = fetchFromGitHub {
     owner = "arteria";
     repo = "django-hijack-admin";
@@ -40,8 +40,8 @@ buildPythonPackage rec {
     homepage = "https://github.com/arteria/django-hijack-admin";
     license = licenses.mit;
     maintainers = with maintainers; [ lsix ];
-    # may be unmaintained, doesn't work with recent django-hijack:
-    # https://github.com/django-hijack/django-hijack-admin/issues/46
+      # may be unmaintained, doesn't work with recent django-hijack:
+      # https://github.com/django-hijack/django-hijack-admin/issues/46
     broken = true;
   };
 }

@@ -22,7 +22,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ wheel ];
 
-  # Using pytes instead of setuptools check hook allows disabling specific tests
+    # Using pytes instead of setuptools check hook allows disabling specific tests
   nativeCheckInputs = [
     pytestCheckHook
     pytest-runner
@@ -36,7 +36,8 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/JoelBender/bacpypes";
     description =
-      "BACpypes provides a BACnet application layer and network layer written in Python for daemons, scripting, and graphical interfaces.";
+      "BACpypes provides a BACnet application layer and network layer written in Python for daemons, scripting, and graphical interfaces."
+      ;
     license = licenses.mit;
     maintainers = with maintainers; [ bachp ];
   };

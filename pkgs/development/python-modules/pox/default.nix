@@ -17,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-6CUiUpdjjW49SUFfjPtlQHpdFeVvL7f+nZueMFDGXuE=";
   };
 
-  # Test sare failing the sandbox
+    # Test sare failing the sandbox
   doCheck = false;
 
   pythonImportsCheck = [ "pox" ];

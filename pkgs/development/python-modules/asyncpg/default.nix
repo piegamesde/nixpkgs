@@ -21,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-cgmG2aRwXdikD98XIDb1rnhyJQNqfrRucExFqo9iwFQ=";
   };
 
-  # sandboxing issues on aarch64-darwin, see https://github.com/NixOS/nixpkgs/issues/198495
+    # sandboxing issues on aarch64-darwin, see https://github.com/NixOS/nixpkgs/issues/198495
   doCheck = postgresql.doCheck;
 
   nativeCheckInputs = [

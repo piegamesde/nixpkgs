@@ -17,7 +17,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/ajbura/cinny/releases/download/v${version}/cinny-v${version}.tar.gz";
+      "https://github.com/ajbura/cinny/releases/download/v${version}/cinny-v${version}.tar.gz"
+      ;
     hash = "sha256-AvYM8++PqKmm7CJN5hmg9GSC72IoHX+rRxuT3GflvjU=";
   };
 

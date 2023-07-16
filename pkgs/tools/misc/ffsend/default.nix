@@ -35,15 +35,17 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-zNLU9QnBGna5qb+iu2imOUvCIw3ZWRFsQlpFo5ECtKo=";
 
-  nativeBuildInputs = [ installShellFiles ]
-    ++ lib.optionals stdenv.isLinux [ pkg-config ];
-  buildInputs = if stdenv.isDarwin then
-    [
-      Security
-      AppKit
-    ]
-  else
-    [ openssl ];
+  nativeBuildInputs =
+    [ installShellFiles ] ++ lib.optionals stdenv.isLinux [ pkg-config ];
+  buildInputs =
+    if stdenv.isDarwin then
+      [
+        Security
+        AppKit
+      ]
+    else
+      [ openssl ]
+    ;
 
   preBuild = lib.optionalString (x11Support && usesX11)
     (if preferXsel && xsel != null then
@@ -58,11 +60,12 @@ rustPlatform.buildRustPackage rec {
   postInstall = ''
     installShellCompletion contrib/completions/ffsend.{bash,fish} --zsh contrib/completions/_ffsend
   '';
-  # There's also .elv and .ps1 completion files but I don't know where to install those
+    # There's also .elv and .ps1 completion files but I don't know where to install those
 
   meta = with lib; {
     description =
-      "Easily and securely share files from the command line. A fully featured Firefox Send client";
+      "Easily and securely share files from the command line. A fully featured Firefox Send client"
+      ;
     longDescription = ''
       Easily and securely share files and directories from the command line through a safe, private
       and encrypted link using a single simple command. Files are shared using the Send service and

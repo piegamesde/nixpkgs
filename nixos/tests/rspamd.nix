@@ -13,15 +13,18 @@ let
     machine.wait_for_unit("rspamd.service")
     machine.succeed("id rspamd >/dev/null")
   '';
-  checkSocket = socket: user: group: mode: ''
-    machine.succeed(
-        "ls ${socket} >/dev/null",
-        '[[ "$(stat -c %U ${socket})" == "${user}" ]]',
-        '[[ "$(stat -c %G ${socket})" == "${group}" ]]',
-        '[[ "$(stat -c %a ${socket})" == "${mode}" ]]',
-    )
-  '';
-  simple = name: enableIPv6:
+  checkSocket =
+    socket: user: group: mode: ''
+      machine.succeed(
+          "ls ${socket} >/dev/null",
+          '[[ "$(stat -c %U ${socket})" == "${user}" ]]',
+          '[[ "$(stat -c %G ${socket})" == "${group}" ]]',
+          '[[ "$(stat -c %a ${socket})" == "${mode}" ]]',
+      )
+    ''
+    ;
+  simple =
+    name: enableIPv6:
     makeTest {
       name = "rspamd-${name}";
       nodes.machine = {
@@ -48,7 +51,8 @@ let
         ''machine.log(machine.succeed("curl http://[::1]:11334/auth"))''}
         # would not reformat
       '';
-    };
+    }
+    ;
 in {
   simple = simple "simple" true;
   ipv4only = simple "ipv4only" false;

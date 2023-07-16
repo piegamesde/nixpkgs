@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
     name = "bcachefs";
     meta.maintainers = with pkgs.lib.maintainers; [ Madouura ];
 
-    nodes.machine = {
+    nodes.machine =
+      {
         pkgs,
         ...
       }: {
@@ -16,7 +17,8 @@ import ./make-test-python.nix ({
           parted
           keyutils
         ];
-      };
+      }
+      ;
 
     testScript = ''
       machine.succeed("modprobe bcachefs")

@@ -49,14 +49,15 @@ buildPythonPackage rec {
     yabadaba
   ];
 
-  # Project has no tests
+    # Project has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "potentials" ];
 
   meta = with lib; {
     description =
-      "Python API database tools for accessing the NIST Interatomic Potentials Repository";
+      "Python API database tools for accessing the NIST Interatomic Potentials Repository"
+      ;
     homepage = "https://github.com/usnistgov/potentials";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];

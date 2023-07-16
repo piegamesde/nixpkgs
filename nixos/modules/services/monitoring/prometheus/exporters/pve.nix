@@ -9,16 +9,18 @@ with lib;
 let
   cfg = config.services.prometheus.exporters.pve;
 
-  # pve exporter requires a config file so create an empty one if configFile is not provided
+    # pve exporter requires a config file so create an empty one if configFile is not provided
   emptyConfigFile = pkgs.writeTextFile {
     name = "pve.yml";
     text = "default:";
   };
 
-  computedConfigFile = if cfg.configFile == null then
-    emptyConfigFile
-  else
-    cfg.configFile;
+  computedConfigFile =
+    if cfg.configFile == null then
+      emptyConfigFile
+    else
+      cfg.configFile
+    ;
 in {
   port = 9221;
   extraOpts = {

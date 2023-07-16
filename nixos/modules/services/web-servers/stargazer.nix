@@ -39,8 +39,8 @@ in {
 
     listen = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ "0.0.0.0" ]
-        ++ lib.optional config.networking.enableIPv6 "[::0]";
+      default =
+        [ "0.0.0.0" ] ++ lib.optional config.networking.enableIPv6 "[::0]";
       defaultText = lib.literalExpression
         ''[ "0.0.0.0" ] ++ lib.optional config.networking.enableIPv6 "[::0]"'';
       example = lib.literalExpression ''[ "10.0.0.12" "[2002:a00:1::]" ]'';
@@ -200,13 +200,13 @@ in {
       serviceConfig = {
         ExecStart = "${pkgs.stargazer}/bin/stargazer ${configFile}";
         Restart = "always";
-        # User and group
+          # User and group
         User = cfg.user;
         Group = cfg.group;
       };
     };
 
-    # Create default cert store
+      # Create default cert store
     system.activationScripts.makeStargazerCertDir =
       lib.optionalAttrs (cfg.store == /var/lib/gemini/certs) ''
         mkdir -p /var/lib/gemini/certs

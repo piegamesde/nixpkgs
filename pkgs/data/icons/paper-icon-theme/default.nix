@@ -37,7 +37,7 @@ stdenvNoCC.mkDerivation rec {
 
   dontDropIconThemeCache = true;
 
-  # These fixup steps are slow and unnecessary for this package
+    # These fixup steps are slow and unnecessary for this package
   dontPatchELF = true;
   dontRewriteSymlinks = true;
 
@@ -51,13 +51,14 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Modern icon theme designed around bold colours and simple geometric shapes";
+      "Modern icon theme designed around bold colours and simple geometric shapes"
+      ;
     homepage = "https://snwh.org/paper";
     license = with licenses; [
       cc-by-sa-40
       lgpl3
     ];
-    # darwin cannot deal with file names differing only in case
+      # darwin cannot deal with file names differing only in case
     platforms = platforms.linux;
     maintainers = with maintainers; [ romildo ];
   };

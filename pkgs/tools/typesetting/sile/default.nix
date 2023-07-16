@@ -50,7 +50,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/sile-typesetter/sile/releases/download/v${version}/${pname}-${version}.tar.xz";
+      "https://github.com/sile-typesetter/sile/releases/download/v${version}/${pname}-${version}.tar.xz"
+      ;
     sha256 = "0528835iir2ws14fwb7w4dqs3wlzzcv5arjxs8v13drb194rlwcs";
   };
 
@@ -108,7 +109,7 @@ stdenv.mkDerivation rec {
       --replace "ASSERT(ht && ht->table && iter);" "ASSERT(ht && iter);"
   '';
 
-  # Hack to avoid TMPDIR in RPATHs.
+    # Hack to avoid TMPDIR in RPATHs.
   preFixup = ''rm -rf "$(pwd)" && mkdir "$(pwd)" '';
 
   outputs = [

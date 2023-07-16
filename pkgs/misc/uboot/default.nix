@@ -45,15 +45,19 @@ let
     stdenv.mkDerivation ({
       pname = "uboot-${defconfig}";
 
-      version = if src == null then
-        defaultVersion
-      else
-        version;
+      version =
+        if src == null then
+          defaultVersion
+        else
+          version
+        ;
 
-      src = if src == null then
-        defaultSrc
-      else
-        src;
+      src =
+        if src == null then
+          defaultSrc
+        else
+          src
+        ;
 
       patches = [
         ./0001-configs-rpi-allow-for-bigger-kernels.patch
@@ -207,7 +211,7 @@ in {
     filesToInstall = [ "u-boot-sunxi-with-spl.bin" ];
   };
 
-  # http://git.denx.de/?p=u-boot.git;a=blob;f=board/solidrun/clearfog/README;hb=refs/heads/master
+    # http://git.denx.de/?p=u-boot.git;a=blob;f=board/solidrun/clearfog/README;hb=refs/heads/master
   ubootClearfog = buildUBoot {
     defconfig = "clearfog_defconfig";
     extraMeta.platforms = [ "armv7l-linux" ];
@@ -235,55 +239,56 @@ in {
       "u-boot-dtb-tegra.bin"
       "u-boot-nodtb-tegra.bin"
     ];
-    # tegra-uboot-flasher expects this exact directory layout, sigh...
+      # tegra-uboot-flasher expects this exact directory layout, sigh...
     postInstall = ''
       mkdir -p $out/spl
       cp spl/u-boot-spl $out/spl/
     '';
   };
 
-  # Flashing instructions:
-  # dd if=u-boot.gxl.sd.bin of=<sdcard> conv=fsync,notrunc bs=512 skip=1 seek=1
-  # dd if=u-boot.gxl.sd.bin of=<sdcard> conv=fsync,notrunc bs=1 count=444
-  ubootLibreTechCC = let
-    firmwareImagePkg = fetchFromGitHub {
-      owner = "LibreELEC";
-      repo = "amlogic-boot-fip";
-      rev = "4369a138ca24c5ab932b8cbd1af4504570b709df";
-      sha256 = "sha256-mGRUwdh3nW4gBwWIYHJGjzkezHxABwcwk/1gVRis7Tc=";
-      meta.license = lib.licenses.unfreeRedistributableFirmware;
-    };
-  in
-  assert stdenv.buildPlatform.system
-    == "x86_64-linux"; # aml_encrypt_gxl is a x86_64 binary
-  buildUBoot {
-    defconfig = "libretech-cc_defconfig";
-    extraMeta.platforms = [ "aarch64-linux" ];
-    filesToInstall = [ "u-boot.bin" ];
-    postBuild = ''
-      # Copy binary files & tools from LibreELEC/amlogic-boot-fip, and u-boot build to working dir
-      mkdir $out tmp
-      cp ${firmwareImagePkg}/lepotato/{acs.bin,bl2.bin,bl21.bin,bl30.bin,bl301.bin,bl31.img} \
-         ${firmwareImagePkg}/lepotato/{acs_tool.py,aml_encrypt_gxl,blx_fix.sh} \
-         u-boot.bin tmp/
-      cd tmp
-      python3 acs_tool.py bl2.bin bl2_acs.bin acs.bin 0
+    # Flashing instructions:
+    # dd if=u-boot.gxl.sd.bin of=<sdcard> conv=fsync,notrunc bs=512 skip=1 seek=1
+    # dd if=u-boot.gxl.sd.bin of=<sdcard> conv=fsync,notrunc bs=1 count=444
+  ubootLibreTechCC =
+    let
+      firmwareImagePkg = fetchFromGitHub {
+        owner = "LibreELEC";
+        repo = "amlogic-boot-fip";
+        rev = "4369a138ca24c5ab932b8cbd1af4504570b709df";
+        sha256 = "sha256-mGRUwdh3nW4gBwWIYHJGjzkezHxABwcwk/1gVRis7Tc=";
+        meta.license = lib.licenses.unfreeRedistributableFirmware;
+      };
+    in
+    assert stdenv.buildPlatform.system
+      == "x86_64-linux"; # aml_encrypt_gxl is a x86_64 binary
+    buildUBoot {
+      defconfig = "libretech-cc_defconfig";
+      extraMeta.platforms = [ "aarch64-linux" ];
+      filesToInstall = [ "u-boot.bin" ];
+      postBuild = ''
+        # Copy binary files & tools from LibreELEC/amlogic-boot-fip, and u-boot build to working dir
+        mkdir $out tmp
+        cp ${firmwareImagePkg}/lepotato/{acs.bin,bl2.bin,bl21.bin,bl30.bin,bl301.bin,bl31.img} \
+           ${firmwareImagePkg}/lepotato/{acs_tool.py,aml_encrypt_gxl,blx_fix.sh} \
+           u-boot.bin tmp/
+        cd tmp
+        python3 acs_tool.py bl2.bin bl2_acs.bin acs.bin 0
 
-      bash -e blx_fix.sh bl2_acs.bin zero bl2_zero.bin bl21.bin bl21_zero.bin bl2_new.bin bl2
-      [ -f zero ] && rm zero
+        bash -e blx_fix.sh bl2_acs.bin zero bl2_zero.bin bl21.bin bl21_zero.bin bl2_new.bin bl2
+        [ -f zero ] && rm zero
 
-      bash -e blx_fix.sh bl30.bin zero bl30_zero.bin bl301.bin bl301_zero.bin bl30_new.bin bl30
-      [ -f zero ] && rm zero
+        bash -e blx_fix.sh bl30.bin zero bl30_zero.bin bl301.bin bl301_zero.bin bl30_new.bin bl30
+        [ -f zero ] && rm zero
 
-      ./aml_encrypt_gxl --bl2sig --input bl2_new.bin --output bl2.n.bin.sig
-      ./aml_encrypt_gxl --bl3enc --input bl30_new.bin --output bl30_new.bin.enc
-      ./aml_encrypt_gxl --bl3enc --input bl31.img --output bl31.img.enc
-      ./aml_encrypt_gxl --bl3enc --input u-boot.bin --output bl33.bin.enc
-      ./aml_encrypt_gxl --bootmk --output $out/u-boot.gxl \
-        --bl2 bl2.n.bin.sig --bl30 bl30_new.bin.enc --bl31 bl31.img.enc --bl33 bl33.bin.enc
-    '';
-  }
-  ;
+        ./aml_encrypt_gxl --bl2sig --input bl2_new.bin --output bl2.n.bin.sig
+        ./aml_encrypt_gxl --bl3enc --input bl30_new.bin --output bl30_new.bin.enc
+        ./aml_encrypt_gxl --bl3enc --input bl31.img --output bl31.img.enc
+        ./aml_encrypt_gxl --bl3enc --input u-boot.bin --output bl33.bin.enc
+        ./aml_encrypt_gxl --bootmk --output $out/u-boot.gxl \
+          --bl2 bl2.n.bin.sig --bl30 bl30_new.bin.enc --bl31 bl31.img.enc --bl33 bl33.bin.enc
+      '';
+    }
+    ;
 
   ubootNanoPCT4 = buildUBoot rec {
     rkbin = fetchFromGitHub {
@@ -319,57 +324,58 @@ in {
     ];
   };
 
-  # Flashing instructions:
-  # dd if=bl1.bin.hardkernel of=<device> conv=fsync bs=1 count=442
-  # dd if=bl1.bin.hardkernel of=<device> conv=fsync bs=512 skip=1 seek=1
-  # dd if=u-boot.gxbb of=<device> conv=fsync bs=512 seek=97
-  ubootOdroidC2 = let
-    firmwareBlobs = fetchFromGitHub {
-      owner = "armbian";
-      repo = "odroidc2-blobs";
-      rev = "47c5aac4bcac6f067cebe76e41fb9924d45b429c";
-      sha256 = "1ns0a130yxnxysia8c3q2fgyjp9k0nkr689dxk88qh2vnibgchnp";
-      meta.license = lib.licenses.unfreeRedistributableFirmware;
-    };
-  in
-  buildUBoot {
-    defconfig = "odroid-c2_defconfig";
-    extraMeta.platforms = [ "aarch64-linux" ];
-    filesToInstall = [
-      "u-boot.bin"
-      "u-boot.gxbb"
-      "${firmwareBlobs}/bl1.bin.hardkernel"
-    ];
-    postBuild = ''
-      # BL301 image needs at least 64 bytes of padding after it to place
-      # signing headers (with amlbootsig)
-      truncate -s 64 bl301.padding.bin
-      cat '${firmwareBlobs}/gxb/bl301.bin' bl301.padding.bin > bl301.padded.bin
-      # The downstream fip_create tool adds a custom TOC entry with UUID
-      # AABBCCDD-ABCD-EFEF-ABCD-12345678ABCD for the BL301 image. It turns out
-      # that the firmware blob does not actually care about UUIDs, only the
-      # order the images appear in the file. Because fiptool does not know
-      # about the BL301 UUID, we would have to use the --blob option, which adds
-      # the image to the end of the file, causing the boot to fail. Instead, we
-      # take advantage of the fact that UUIDs are ignored and just put the
-      # images in the right order with the wrong UUIDs. In the command below,
-      # --tb-fw is really --scp-fw and --scp-fw is the BL301 image.
-      #
-      # See https://github.com/afaerber/meson-tools/issues/3 for more
-      # information.
-      '${buildPackages.armTrustedFirmwareTools}/bin/fiptool' create \
-        --align 0x4000 \
-        --tb-fw '${firmwareBlobs}/gxb/bl30.bin' \
-        --scp-fw bl301.padded.bin \
-        --soc-fw '${armTrustedFirmwareS905}/bl31.bin' \
-        --nt-fw u-boot.bin \
-        fip.bin
-      cat '${firmwareBlobs}/gxb/bl2.package' fip.bin > boot_new.bin
-      '${buildPackages.meson-tools}/bin/amlbootsig' boot_new.bin u-boot.img
-      dd if=u-boot.img of=u-boot.gxbb bs=512 skip=96
-    '';
-  }
-  ;
+    # Flashing instructions:
+    # dd if=bl1.bin.hardkernel of=<device> conv=fsync bs=1 count=442
+    # dd if=bl1.bin.hardkernel of=<device> conv=fsync bs=512 skip=1 seek=1
+    # dd if=u-boot.gxbb of=<device> conv=fsync bs=512 seek=97
+  ubootOdroidC2 =
+    let
+      firmwareBlobs = fetchFromGitHub {
+        owner = "armbian";
+        repo = "odroidc2-blobs";
+        rev = "47c5aac4bcac6f067cebe76e41fb9924d45b429c";
+        sha256 = "1ns0a130yxnxysia8c3q2fgyjp9k0nkr689dxk88qh2vnibgchnp";
+        meta.license = lib.licenses.unfreeRedistributableFirmware;
+      };
+    in
+    buildUBoot {
+      defconfig = "odroid-c2_defconfig";
+      extraMeta.platforms = [ "aarch64-linux" ];
+      filesToInstall = [
+        "u-boot.bin"
+        "u-boot.gxbb"
+        "${firmwareBlobs}/bl1.bin.hardkernel"
+      ];
+      postBuild = ''
+        # BL301 image needs at least 64 bytes of padding after it to place
+        # signing headers (with amlbootsig)
+        truncate -s 64 bl301.padding.bin
+        cat '${firmwareBlobs}/gxb/bl301.bin' bl301.padding.bin > bl301.padded.bin
+        # The downstream fip_create tool adds a custom TOC entry with UUID
+        # AABBCCDD-ABCD-EFEF-ABCD-12345678ABCD for the BL301 image. It turns out
+        # that the firmware blob does not actually care about UUIDs, only the
+        # order the images appear in the file. Because fiptool does not know
+        # about the BL301 UUID, we would have to use the --blob option, which adds
+        # the image to the end of the file, causing the boot to fail. Instead, we
+        # take advantage of the fact that UUIDs are ignored and just put the
+        # images in the right order with the wrong UUIDs. In the command below,
+        # --tb-fw is really --scp-fw and --scp-fw is the BL301 image.
+        #
+        # See https://github.com/afaerber/meson-tools/issues/3 for more
+        # information.
+        '${buildPackages.armTrustedFirmwareTools}/bin/fiptool' create \
+          --align 0x4000 \
+          --tb-fw '${firmwareBlobs}/gxb/bl30.bin' \
+          --scp-fw bl301.padded.bin \
+          --soc-fw '${armTrustedFirmwareS905}/bl31.bin' \
+          --nt-fw u-boot.bin \
+          fip.bin
+        cat '${firmwareBlobs}/gxb/bl2.package' fip.bin > boot_new.bin
+        '${buildPackages.meson-tools}/bin/amlbootsig' boot_new.bin u-boot.img
+        dd if=u-boot.img of=u-boot.gxbb bs=512 skip=96
+      '';
+    }
+    ;
 
   ubootOdroidXU3 = buildUBoot {
     defconfig = "odroid-xu3_defconfig";
@@ -529,42 +535,43 @@ in {
     filesToInstall = [ "u-boot.bin" ];
   };
 
-  ubootRock64 = let
-    rkbin = fetchFromGitHub {
-      owner = "ayufan-rock64";
-      repo = "rkbin";
-      rev = "f79a708978232a2b6b06c2e4173c5314559e0d3a";
-      sha256 = "0h7xm4ck3p3380c6bqm5ixrkxwcx6z5vysqdwvfa7gcqx5d6x5zz";
-    };
-  in
-  buildUBoot {
-    extraMakeFlags = [
-      "all"
-      "u-boot.itb"
-    ];
-    defconfig = "rock64-rk3328_defconfig";
-    extraMeta = {
-      platforms = [ "aarch64-linux" ];
-      license = lib.licenses.unfreeRedistributableFirmware;
-    };
-    BL31 = "${armTrustedFirmwareRK3328}/bl31.elf";
-    filesToInstall = [
-      "u-boot.itb"
-      "idbloader.img"
-    ];
-    # Derive MAC address from cpuid
-    # Submitted upstream: https://patchwork.ozlabs.org/patch/1203686/
-    extraConfig = ''
-      CONFIG_MISC_INIT_R=y
-    '';
-    # Close to being blob free, but the U-Boot TPL causes random memory
-    # corruption
-    postBuild = ''
-      ./tools/mkimage -n rk3328 -T rksd -d ${rkbin}/rk33/rk3328_ddr_786MHz_v1.13.bin idbloader.img
-      cat spl/u-boot-spl.bin >> idbloader.img
-    '';
-  }
-  ;
+  ubootRock64 =
+    let
+      rkbin = fetchFromGitHub {
+        owner = "ayufan-rock64";
+        repo = "rkbin";
+        rev = "f79a708978232a2b6b06c2e4173c5314559e0d3a";
+        sha256 = "0h7xm4ck3p3380c6bqm5ixrkxwcx6z5vysqdwvfa7gcqx5d6x5zz";
+      };
+    in
+    buildUBoot {
+      extraMakeFlags = [
+        "all"
+        "u-boot.itb"
+      ];
+      defconfig = "rock64-rk3328_defconfig";
+      extraMeta = {
+        platforms = [ "aarch64-linux" ];
+        license = lib.licenses.unfreeRedistributableFirmware;
+      };
+      BL31 = "${armTrustedFirmwareRK3328}/bl31.elf";
+      filesToInstall = [
+        "u-boot.itb"
+        "idbloader.img"
+      ];
+        # Derive MAC address from cpuid
+        # Submitted upstream: https://patchwork.ozlabs.org/patch/1203686/
+      extraConfig = ''
+        CONFIG_MISC_INIT_R=y
+      '';
+        # Close to being blob free, but the U-Boot TPL causes random memory
+        # corruption
+      postBuild = ''
+        ./tools/mkimage -n rk3328 -T rksd -d ${rkbin}/rk33/rk3328_ddr_786MHz_v1.13.bin idbloader.img
+        cat spl/u-boot-spl.bin >> idbloader.img
+      '';
+    }
+    ;
 
   ubootRockPro64 = buildUBoot {
     extraMakeFlags = [
@@ -619,8 +626,8 @@ in {
     extraConfig = ''
       CONFIG_CMD_SETEXPR=y
     '';
-    # sata init; load sata 0 $loadaddr u-boot-with-nand-spl.imx
-    # sf probe; sf update $loadaddr 0 80000
+      # sata init; load sata 0 $loadaddr u-boot-with-nand-spl.imx
+      # sf probe; sf update $loadaddr 0 80000
   };
 
   ubootWandboard = buildUBoot {

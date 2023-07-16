@@ -37,7 +37,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     homepage = "https://codeberg.org/elomatreb/listenbrainz-mpd";
     changelog =
-      "https://codeberg.org/elomatreb/listenbrainz-mpd/src/tag/v${version}/CHANGELOG.md";
+      "https://codeberg.org/elomatreb/listenbrainz-mpd/src/tag/v${version}/CHANGELOG.md"
+      ;
     description = "ListenBrainz submission client for MPD";
     license = licenses.agpl3Only;
     maintainers = with maintainers; [ DeeUnderscore ];

@@ -23,7 +23,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "fno-common.patch";
       url =
-        "https://github.com/google/packetdrill/commit/c08292838de81a71ee477d5bf9d95b1130a1292b.patch";
+        "https://github.com/google/packetdrill/commit/c08292838de81a71ee477d5bf9d95b1130a1292b.patch"
+        ;
       sha256 = "1irbar1zkydmgqb12r3xd80dwj2jfxnxayxpb4nmbma8xm7knb10";
       stripLen = 3;
     })

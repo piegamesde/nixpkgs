@@ -16,7 +16,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/project/bashdb/remake/${version}/remake-${remakeVersion}+dbg-${dbgVersion}.tar.gz";
+      "mirror://sourceforge/project/bashdb/remake/${version}/remake-${remakeVersion}+dbg-${dbgVersion}.tar.gz"
+      ;
     sha256 = "11vvch8bi0yhjfz7gn92b3xmmm0cgi3qfiyhbnnj89frkhbwd87n";
   };
 
@@ -25,7 +26,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ readline ] ++ lib.optionals guileSupport [ guile ];
 
-  # make check fails, see https://github.com/rocky/remake/issues/117
+    # make check fails, see https://github.com/rocky/remake/issues/117
 
   meta = {
     homepage = "https://bashdb.sourceforge.net/remake/";

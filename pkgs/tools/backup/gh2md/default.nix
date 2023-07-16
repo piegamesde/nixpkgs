@@ -18,7 +18,7 @@ python3Packages.buildPythonApplication rec {
     python-dateutil
   ];
 
-  # uses network
+    # uses network
   doCheck = false;
 
   pythonImportsCheck = [ "gh2md" ];

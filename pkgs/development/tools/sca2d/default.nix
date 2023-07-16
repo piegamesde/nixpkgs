@@ -6,20 +6,22 @@
 }:
 let
   python = python3.override {
-    packageOverrides = self: super: {
-      lark010 = super.lark.overridePythonAttrs (old: rec {
-        version = "0.10.0";
+    packageOverrides =
+      self: super: {
+        lark010 = super.lark.overridePythonAttrs (old: rec {
+          version = "0.10.0";
 
-        src = fetchFromGitHub {
-          owner = "lark-parser";
-          repo = "lark";
-          rev = "refs/tags/${version}";
-          sha256 = "sha256-ctdPPKPSD4weidyhyj7RCV89baIhmuxucF3/Ojx1Efo=";
-        };
+          src = fetchFromGitHub {
+            owner = "lark-parser";
+            repo = "lark";
+            rev = "refs/tags/${version}";
+            sha256 = "sha256-ctdPPKPSD4weidyhyj7RCV89baIhmuxucF3/Ojx1Efo=";
+          };
 
-        disabledTestPaths = [ "tests/test_nearley/test_nearley.py" ];
-      });
-    };
+          disabledTestPaths = [ "tests/test_nearley/test_nearley.py" ];
+        });
+      }
+      ;
     self = python;
   };
 in
@@ -46,7 +48,8 @@ python.pkgs.buildPythonApplication rec {
     description = "An experimental static code analyser for OpenSCAD";
     homepage = "https://gitlab.com/bath_open_instrumentation_group/sca2d";
     changelog =
-      "https://gitlab.com/bath_open_instrumentation_group/sca2d/-/blob/${src.rev}/CHANGELOG.md";
+      "https://gitlab.com/bath_open_instrumentation_group/sca2d/-/blob/${src.rev}/CHANGELOG.md"
+      ;
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ traxys ];
   };

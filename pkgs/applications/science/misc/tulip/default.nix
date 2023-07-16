@@ -40,13 +40,14 @@ stdenv.mkDerivation rec {
 
   qtWrapperArgs = [ "--prefix PATH : ${lib.makeBinPath [ python3 ]}" ];
 
-  # FIXME: "make check" needs Docbook's DTD 4.4, among other things.
+    # FIXME: "make check" needs Docbook's DTD 4.4, among other things.
   doCheck = false;
 
   meta = {
     broken = (stdenv.isLinux && stdenv.isAarch64);
     description =
-      "A visualization framework for the analysis and visualization of relational data";
+      "A visualization framework for the analysis and visualization of relational data"
+      ;
 
     longDescription = ''
       Tulip is an information visualization framework dedicated to the

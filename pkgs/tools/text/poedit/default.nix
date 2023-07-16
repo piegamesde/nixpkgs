@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     platforms = platforms.unix;
     maintainers = with maintainers; [ dasj19 ];
-    # configure: error: GTK+ build of wxWidgets is required
+      # configure: error: GTK+ build of wxWidgets is required
     broken = stdenv.isDarwin;
   };
 }

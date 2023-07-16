@@ -8,11 +8,13 @@ import ./make-test-python.nix ({
     meta = with pkgs.lib.maintainers; { maintainers = [ offline ]; };
 
     nodes = {
-      peerflix = {
+      peerflix =
+        {
           ...
         }: {
           services.peerflix.enable = true;
-        };
+        }
+        ;
     };
 
     testScript = ''

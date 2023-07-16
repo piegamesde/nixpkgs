@@ -23,7 +23,7 @@ python3Packages.buildPythonApplication rec {
     soundcloud-v2
   ];
 
-  # No tests in repository
+    # No tests in repository
   doCheck = false;
 
   pythonImportsCheck = [ "scdl" ];

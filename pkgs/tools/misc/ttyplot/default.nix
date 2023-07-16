@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A simple general purpose plotting utility for tty with data input from stdin";
+      "A simple general purpose plotting utility for tty with data input from stdin"
+      ;
     homepage = "https://github.com/tenox7/ttyplot";
     license = licenses.unlicense;
     maintainers = with maintainers; [ lassulus ];

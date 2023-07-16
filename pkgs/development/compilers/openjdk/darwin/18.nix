@@ -36,7 +36,8 @@ let
 
     src = fetchurl {
       url =
-        "https://cdn.azul.com/zulu/bin/zulu${dist.zuluVersion}-ca-jdk${dist.jdkVersion}-macosx_${dist.arch}.tar.gz";
+        "https://cdn.azul.com/zulu/bin/zulu${dist.zuluVersion}-ca-jdk${dist.jdkVersion}-macosx_${dist.arch}.tar.gz"
+        ;
       inherit (dist) sha256;
       curlOpts = "-H Referer:https://www.azul.com/downloads/zulu/";
     };
@@ -72,8 +73,8 @@ let
       EOF
     '';
 
-    # fixupPhase is moving the man to share/man which breaks it because it's a
-    # relative symlink.
+      # fixupPhase is moving the man to share/man which breaks it because it's a
+      # relative symlink.
     postFixup = ''
       ln -nsf ../zulu-${
         lib.versions.major version

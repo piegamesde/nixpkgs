@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
     name = "hardened";
     meta = with pkgs.lib.maintainers; { maintainers = [ joachifm ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         lib,
         pkgs,
         config,
@@ -41,73 +42,76 @@ import ./make-test-python.nix ({
           (versionOlder config.boot.kernelPackages.kernel.version "5.6")
           config.boot.kernelPackages.wireguard;
         boot.kernelModules = [ "wireguard" ];
-      };
+      }
+      ;
 
-    testScript = let
-      hardened-malloc-tests = pkgs.graphene-hardened-malloc.ld-preload-tests;
-    in ''
-      machine.wait_for_unit("multi-user.target")
-
-
-      with subtest("AppArmor profiles are loaded"):
-          machine.succeed("systemctl status apparmor.service")
+    testScript =
+      let
+        hardened-malloc-tests = pkgs.graphene-hardened-malloc.ld-preload-tests;
+      in ''
+        machine.wait_for_unit("multi-user.target")
 
 
-      # AppArmor securityfs
-      with subtest("AppArmor securityfs is mounted"):
-          machine.succeed("mountpoint -q /sys/kernel/security")
-          machine.succeed("cat /sys/kernel/security/apparmor/profiles")
+        with subtest("AppArmor profiles are loaded"):
+            machine.succeed("systemctl status apparmor.service")
 
 
-      # Test loading out-of-tree modules
-      with subtest("Out-of-tree modules can be loaded"):
-          machine.succeed("grep -Fq wireguard /proc/modules")
+        # AppArmor securityfs
+        with subtest("AppArmor securityfs is mounted"):
+            machine.succeed("mountpoint -q /sys/kernel/security")
+            machine.succeed("cat /sys/kernel/security/apparmor/profiles")
 
 
-      # Test kernel module hardening
-      with subtest("No more kernel modules can be loaded"):
-          # note: this better a be module we normally wouldn't load ...
-          machine.wait_for_unit("disable-kernel-module-loading.service")
-          machine.fail("modprobe dccp")
+        # Test loading out-of-tree modules
+        with subtest("Out-of-tree modules can be loaded"):
+            machine.succeed("grep -Fq wireguard /proc/modules")
 
 
-      # Test userns
-      with subtest("User namespaces are restricted"):
-          machine.succeed("unshare --user true")
-          machine.fail("su -l alice -c 'unshare --user true'")
+        # Test kernel module hardening
+        with subtest("No more kernel modules can be loaded"):
+            # note: this better a be module we normally wouldn't load ...
+            machine.wait_for_unit("disable-kernel-module-loading.service")
+            machine.fail("modprobe dccp")
 
 
-      # Test dmesg restriction
-      with subtest("Regular users cannot access dmesg"):
-          machine.fail("su -l alice -c dmesg")
+        # Test userns
+        with subtest("User namespaces are restricted"):
+            machine.succeed("unshare --user true")
+            machine.fail("su -l alice -c 'unshare --user true'")
 
 
-      # Test access to kcore
-      with subtest("Kcore is inaccessible as root"):
-          machine.fail("cat /proc/kcore")
+        # Test dmesg restriction
+        with subtest("Regular users cannot access dmesg"):
+            machine.fail("su -l alice -c dmesg")
 
 
-      # Test deferred mount
-      with subtest("Deferred mounts work"):
-          machine.fail("mountpoint -q /efi")  # was deferred
-          machine.execute("mkdir -p /efi")
-          machine.succeed("mount /dev/disk/by-label/EFISYS /efi")
-          machine.succeed("mountpoint -q /efi")  # now mounted
+        # Test access to kcore
+        with subtest("Kcore is inaccessible as root"):
+            machine.fail("cat /proc/kcore")
 
 
-      # Test Nix dæmon usage
-      with subtest("nix-daemon cannot be used by all users"):
-          machine.fail("su -l nobody -s /bin/sh -c 'nix --extra-experimental-features nix-command ping-store'")
-          machine.succeed("su -l alice -c 'nix --extra-experimental-features nix-command ping-store'")
+        # Test deferred mount
+        with subtest("Deferred mounts work"):
+            machine.fail("mountpoint -q /efi")  # was deferred
+            machine.execute("mkdir -p /efi")
+            machine.succeed("mount /dev/disk/by-label/EFISYS /efi")
+            machine.succeed("mountpoint -q /efi")  # now mounted
 
 
-      # Test kernel image protection
-      with subtest("The kernel image is protected"):
-          machine.fail("systemctl hibernate")
-          machine.fail("systemctl kexec")
+        # Test Nix dæmon usage
+        with subtest("nix-daemon cannot be used by all users"):
+            machine.fail("su -l nobody -s /bin/sh -c 'nix --extra-experimental-features nix-command ping-store'")
+            machine.succeed("su -l alice -c 'nix --extra-experimental-features nix-command ping-store'")
 
 
-      with subtest("The hardened memory allocator works"):
-          machine.succeed("${hardened-malloc-tests}/bin/run-tests")
-    '' ;
+        # Test kernel image protection
+        with subtest("The kernel image is protected"):
+            machine.fail("systemctl hibernate")
+            machine.fail("systemctl kexec")
+
+
+        with subtest("The hardened memory allocator works"):
+            machine.succeed("${hardened-malloc-tests}/bin/run-tests")
+      ''
+      ;
   })

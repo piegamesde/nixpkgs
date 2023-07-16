@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
   patches = [ (fetchpatch {
     name = "fix-flexible-array-member.patch";
     url =
-      "https://github.com/rr-debugger/rr/commit/2979c60ef8bbf7c940afd90172ddc5d8863f766e.diff";
+      "https://github.com/rr-debugger/rr/commit/2979c60ef8bbf7c940afd90172ddc5d8863f766e.diff"
+      ;
     sha256 = "cmdCJetQr3ELPOyWl37h1fGfG/xvaiJpywxIAnqb5YY=";
   }) ];
 
@@ -40,14 +41,14 @@ stdenv.mkDerivation rec {
     patchShebangs .
   '';
 
-  # With LTO enabled, linking fails with the following message:
-  #
-  # src/AddressSpace.cc:1666: undefined reference to `rr_syscall_addr'
-  # ld.bfd: bin/rr: hidden symbol `rr_syscall_addr' isn't defined
-  # ld.bfd: final link failed: bad value
-  # collect2: error: ld returned 1 exit status
-  #
-  # See also https://github.com/NixOS/nixpkgs/pull/110846
+    # With LTO enabled, linking fails with the following message:
+    #
+    # src/AddressSpace.cc:1666: undefined reference to `rr_syscall_addr'
+    # ld.bfd: bin/rr: hidden symbol `rr_syscall_addr' isn't defined
+    # ld.bfd: final link failed: bad value
+    # collect2: error: ld returned 1 exit status
+    #
+    # See also https://github.com/NixOS/nixpkgs/pull/110846
   preConfigure = ''substituteInPlace CMakeLists.txt --replace "-flto" ""'';
 
   nativeBuildInputs = [
@@ -73,17 +74,17 @@ stdenv.mkDerivation rec {
   ];
   cmakeFlags = [ "-Ddisable32bit=ON" ];
 
-  # we turn on additional warnings due to hardening
+    # we turn on additional warnings due to hardening
   env.NIX_CFLAGS_COMPILE = "-Wno-error";
 
   hardeningDisable = [ "fortify" ];
 
-  # FIXME
-  #doCheck = true;
+    # FIXME
+    #doCheck = true;
 
   preCheck = "export HOME=$TMPDIR";
 
-  # needs GDB to replay programs at runtime
+    # needs GDB to replay programs at runtime
   preFixup = ''
     wrapProgram "$out/bin/rr" \
       --prefix PATH ":" "${lib.makeBinPath [ gdb ]}";

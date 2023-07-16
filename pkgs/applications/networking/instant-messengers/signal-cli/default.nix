@@ -13,10 +13,11 @@ stdenv.mkDerivation rec {
   pname = "signal-cli";
   version = "0.11.9.1";
 
-  # Building from source would be preferred, but is much more involved.
+    # Building from source would be preferred, but is much more involved.
   src = fetchurl {
     url =
-      "https://github.com/AsamK/signal-cli/releases/download/v${version}/signal-cli-${version}-Linux.tar.gz";
+      "https://github.com/AsamK/signal-cli/releases/download/v${version}/signal-cli-${version}-Linux.tar.gz"
+      ;
     hash = "sha256-LhTv3ycJXr2vt0vyXfCd1ABro4q7CfBma63Zd1osBhA=";
   };
 
@@ -46,13 +47,13 @@ stdenv.mkDerivation rec {
         --set JAVA_HOME ${openjdk17_headless}
     '');
 
-  # Execution in the macOS (10.13) sandbox fails with
-  # dyld: Library not loaded: /System/Library/Frameworks/Cocoa.framework/Versions/A/Cocoa
-  #   Referenced from: /nix/store/5ghc2l65p8jcjh0bsmhahd5m9k5p8kx0-zulu1.8.0_121-8.20.0.5/bin/java
-  #   Reason: no suitable image found.  Did find:
-  #         /System/Library/Frameworks/Cocoa.framework/Versions/A/Cocoa: file system sandbox blocked stat()
-  #         /System/Library/Frameworks/Cocoa.framework/Versions/A/Cocoa: file system sandbox blocked stat()
-  # /nix/store/in41dz8byyyz4c0w132l7mqi43liv4yr-stdenv-darwin/setup: line 1310:  2231 Abort trap: 6           signal-cli --version
+    # Execution in the macOS (10.13) sandbox fails with
+    # dyld: Library not loaded: /System/Library/Frameworks/Cocoa.framework/Versions/A/Cocoa
+    #   Referenced from: /nix/store/5ghc2l65p8jcjh0bsmhahd5m9k5p8kx0-zulu1.8.0_121-8.20.0.5/bin/java
+    #   Reason: no suitable image found.  Did find:
+    #         /System/Library/Frameworks/Cocoa.framework/Versions/A/Cocoa: file system sandbox blocked stat()
+    #         /System/Library/Frameworks/Cocoa.framework/Versions/A/Cocoa: file system sandbox blocked stat()
+    # /nix/store/in41dz8byyyz4c0w132l7mqi43liv4yr-stdenv-darwin/setup: line 1310:  2231 Abort trap: 6           signal-cli --version
   doInstallCheck = stdenv.isLinux;
 
   installCheckPhase = ''
@@ -64,7 +65,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/AsamK/signal-cli";
     description =
-      "Command-line and dbus interface for communicating with the Signal messaging service";
+      "Command-line and dbus interface for communicating with the Signal messaging service"
+      ;
     license = licenses.gpl3;
     maintainers = with maintainers; [ ivan ];
     platforms = platforms.all;

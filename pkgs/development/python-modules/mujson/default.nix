@@ -13,14 +13,14 @@ buildPythonPackage rec {
     hash = "sha256-J9nPGxDkLQje6AkL9cewNqmQ7Z+00TXBEr3p71E2cnE=";
   };
 
-  # LICENSE file missing from src
-  # https://github.com/mattgiles/mujson/issues/8
+    # LICENSE file missing from src
+    # https://github.com/mattgiles/mujson/issues/8
   postPatch = ''
     substituteInPlace setup.cfg \
       --replace "license_file = LICENSE" ""
   '';
 
-  # No tests
+    # No tests
   doCheck = false;
   pythonImportsCheck = [ "mujson" ];
 

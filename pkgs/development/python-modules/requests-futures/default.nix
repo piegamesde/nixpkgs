@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  # tests are disabled because they require being online
+    # tests are disabled because they require being online
   doCheck = false;
 
   pythonImportsCheck = [ "requests_futures" ];

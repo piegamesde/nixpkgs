@@ -16,14 +16,16 @@ let
     medium = 2;
     large = 3;
   };
-  valFlag = name: val:
+  valFlag =
+    name: val:
     optionalString (val != null) ''
       -${name} "${
         escape [
           "\\"
           ''"''
         ] (toString val)
-      }"'';
+      }"''
+    ;
   boolFlag = name: val: optionalString val "-${name}";
   flags = [
     (valFlag "port" cfg.port)

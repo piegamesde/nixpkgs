@@ -26,7 +26,7 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = [ xorg.libxcb ];
 
-  # tries to access /sys/
+    # tries to access /sys/
   doCheck = false;
 
   meta = with lib; {

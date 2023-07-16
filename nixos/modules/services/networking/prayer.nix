@@ -65,7 +65,7 @@ in {
 
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkIf config.services.prayer.enable {
     environment.systemPackages = [ prayer ];

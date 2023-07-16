@@ -26,7 +26,7 @@ buildPythonPackage rec {
     python-mimeparse
   ];
 
-  # Tests requires a Django instance
+    # Tests requires a Django instance
   doCheck = false;
 
   pythonImportsCheck = [ "tastypie" ];
@@ -35,7 +35,8 @@ buildPythonPackage rec {
     description = "Utilities and helpers for writing Pylint plugins";
     homepage = "https://github.com/django-tastypie/django-tastypie";
     changelog =
-      "https://github.com/django-tastypie/django-tastypie/releases/tag/v${version}";
+      "https://github.com/django-tastypie/django-tastypie/releases/tag/v${version}"
+      ;
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ fab ];
   };

@@ -28,8 +28,8 @@ stdenv.mkDerivation rec {
   ];
   makeFlags = [ "PREFIX=$(out)" ];
 
-  # make install will back up this file, it will fail if the file doesn't exist.
-  # https://github.com/daniruiz/flat-remix-gnome/blob/20221107/Makefile#L56
+    # make install will back up this file, it will fail if the file doesn't exist.
+    # https://github.com/daniruiz/flat-remix-gnome/blob/20221107/Makefile#L56
   preInstall = ''
     mkdir -p $out/share/gnome-shell/
     touch $out/share/gnome-shell/gnome-shell-theme.gresource

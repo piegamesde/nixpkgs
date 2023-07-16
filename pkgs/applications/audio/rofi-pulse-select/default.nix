@@ -38,7 +38,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Rofi-based interface to select source/sink (aka input/output) with PulseAudio";
+      "Rofi-based interface to select source/sink (aka input/output) with PulseAudio"
+      ;
     homepage = "https://gitlab.com/DamienCassou/rofi-pulse-select";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ DamienCassou ];

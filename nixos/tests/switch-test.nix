@@ -55,16 +55,17 @@ import ./make-test-python.nix ({
     };
 
     nodes = {
-      machine = {
+      machine =
+        {
           pkgs,
           lib,
           ...
         }: {
-          environment.systemPackages =
-            [ pkgs.socat ]; # for the socket activation stuff
+          environment.systemPackages = [ pkgs.socat ]
+            ; # for the socket activation stuff
           users.mutableUsers = false;
 
-          # For boot/switch testing
+            # For boot/switch testing
           system.build.installBootLoader = lib.mkForce
             (pkgs.writeShellScript "install-dummy-loader" ''
               echo "installing dummy bootloader"
@@ -293,21 +294,17 @@ import ./make-test-python.nix ({
                   };
                 };
 
-                simple-restart-service = simple-service // {
-                  stopIfChanged = false;
-                };
+                simple-restart-service =
+                  simple-service // { stopIfChanged = false; };
 
-                simple-reload-service = simple-service // {
-                  reloadIfChanged = true;
-                };
+                simple-reload-service =
+                  simple-service // { reloadIfChanged = true; };
 
-                no-restart-service = simple-service // {
-                  restartIfChanged = false;
-                };
+                no-restart-service =
+                  simple-service // { restartIfChanged = false; };
 
-                reload-triggers = simple-service // {
-                  wantedBy = [ "multi-user.target" ];
-                };
+                reload-triggers =
+                  simple-service // { wantedBy = [ "multi-user.target" ]; };
 
                 reload-triggers-and-restart-by-as = simple-service;
 
@@ -346,8 +343,8 @@ import ./make-test-python.nix ({
             };
 
             restart-and-reload-by-activation-script-modified.configuration = {
-              imports =
-                [ restart-and-reload-by-activation-script.configuration ];
+              imports = [ restart-and-reload-by-activation-script.configuration ]
+                ;
               systemd.services.reload-triggers-and-restart.serviceConfig.X-Modified =
                 "test";
             };
@@ -434,9 +431,9 @@ import ./make-test-python.nix ({
 
             target.configuration = {
               systemd.targets.test-target.wantedBy = [ "multi-user.target" ];
-              # We use this service to figure out whether the target was modified.
-              # This is the only way because targets are filtered and therefore not
-              # printed when they are started/stopped.
+                # We use this service to figure out whether the target was modified.
+                # This is the only way because targets are filtered and therefore not
+                # printed when they are started/stopped.
               systemd.services.test-service = {
                 bindsTo = [ "test-target.target" ];
                 serviceConfig.ExecStart =
@@ -493,12 +490,14 @@ import ./make-test-python.nix ({
               systemd.slices.testslice.sliceConfig.MemoryMax = lib.mkForce null;
             };
           };
-        };
+        }
+        ;
 
       other = { users.mutableUsers = true; };
     };
 
-    testScript = {
+    testScript =
+      {
         nodes,
         ...
       }:
@@ -507,8 +506,8 @@ import ./make-test-python.nix ({
         otherSystem = nodes.other.config.system.build.toplevel;
         machine = nodes.machine.config.system.build.toplevel;
 
-        # Ensures failures pass through using pipefail, otherwise failing to
-        # switch-to-configuration is hidden by the success of `tee`.
+          # Ensures failures pass through using pipefail, otherwise failing to
+          # switch-to-configuration is hidden by the success of `tee`.
         stderrRunner = pkgs.writeScript "stderr-runner" ''
           #! ${pkgs.runtimeShell}
           set -e
@@ -1103,5 +1102,6 @@ import ./make-test-python.nix ({
             assert_lacks(out, "the following new units were started:")
             machine.succeed("systemctl start testservice.service")
             machine.succeed("echo 1 > /proc/sys/vm/panic_on_oom")  # disallow OOMing
-      '' ;
+      ''
+      ;
   } )

@@ -109,12 +109,14 @@ in let
   # clang 7 fails to emit a symbol for
   # __ZN4llvm11SmallPtrSetIPKNS_10AllocaInstELj8EED1Ev in any of the
   # translation units, so the build fails at link time
-  stdenv = if cudaSupport then
-    cudaPackages.backendStdenv
-  else if originalStdenv.isDarwin then
-    llvmPackages_11.stdenv
-  else
-    originalStdenv;
+  stdenv =
+    if cudaSupport then
+      cudaPackages.backendStdenv
+    else if originalStdenv.isDarwin then
+      llvmPackages_11.stdenv
+    else
+      originalStdenv
+    ;
   inherit (cudaPackages) cudatoolkit cudnn nccl;
 
 in
@@ -126,7 +128,7 @@ assert !(stdenv.isDarwin && cudaSupport);
 let
   withTensorboard = (pythonOlder "3.6") || tensorboardSupport;
 
-  # FIXME: migrate to redist cudaPackages
+    # FIXME: migrate to redist cudaPackages
   cudatoolkit_joined = symlinkJoin {
     name = "${cudatoolkit.name}-merged";
     paths = [
@@ -139,9 +141,9 @@ let
     ];
   };
 
-  # Tensorflow expects bintools at hard-coded paths, e.g. /usr/bin/ar
-  # The only way to overcome that is to set GCC_HOST_COMPILER_PREFIX,
-  # but that path must contain cc as well, so we merge them
+    # Tensorflow expects bintools at hard-coded paths, e.g. /usr/bin/ar
+    # The only way to overcome that is to set GCC_HOST_COMPILER_PREFIX,
+    # but that path must contain cc as well, so we merge them
   cudatoolkit_cc_joined = symlinkJoin {
     name = "${stdenv.cc.name}-merged";
     paths = [
@@ -150,17 +152,19 @@ let
     ];
   };
 
-  # Needed for _some_ system libraries, grep INCLUDEDIR.
+    # Needed for _some_ system libraries, grep INCLUDEDIR.
   includes_joined = symlinkJoin {
     name = "tensorflow-deps-merged";
     paths = [ jsoncpp ];
   };
 
-  tfFeature = x:
+  tfFeature =
+    x:
     if x then
       "1"
     else
-      "0";
+      "0"
+    ;
 
   version = "2.11.1";
   variant = lib.optionalString cudaSupport "-gpu";
@@ -204,7 +208,8 @@ let
       (fetchpatch {
         name = "tensorflow-rules_cc-libtool-path.patch";
         url =
-          "https://github.com/bazelbuild/rules_cc/commit/8c427ab30bf213630dc3bce9d2e9a0e29d1787db.diff";
+          "https://github.com/bazelbuild/rules_cc/commit/8c427ab30bf213630dc3bce9d2e9a0e29d1787db.diff"
+          ;
         hash = "sha256-C4v6HY5+jm0ACUZ58gBPVejCYCZfuzYKlHZ0m2qDHCk=";
       })
 
@@ -212,7 +217,8 @@ let
       (fetchpatch {
         name = "tensorflow-rules_cc-install_name_tool-path.patch";
         url =
-          "https://github.com/bazelbuild/rules_cc/commit/156497dc89100db8a3f57b23c63724759d431d05.diff";
+          "https://github.com/bazelbuild/rules_cc/commit/156497dc89100db8a3f57b23c63724759d431d05.diff"
+          ;
         hash = "sha256-NES1KeQmMiUJQVoV6dS4YGRxxkZEjOpFSCyOq9HZYO0=";
       })
     ];
@@ -255,18 +261,20 @@ let
       runHook postInstall
     '';
   };
-  bazel-build = if stdenv.isDarwin then
-    _bazel-build.overrideAttrs (prev: {
-      bazelFlags = prev.bazelFlags ++ [
-        "--override_repository=rules_cc=${rules_cc_darwin_patched}"
-        "--override_repository=llvm-raw=${llvm-raw_darwin_patched}"
-      ];
-      preBuild = ''
-        export AR="${cctools}/bin/libtool"
-      '';
-    })
-  else
-    _bazel-build;
+  bazel-build =
+    if stdenv.isDarwin then
+      _bazel-build.overrideAttrs (prev: {
+        bazelFlags = prev.bazelFlags ++ [
+          "--override_repository=rules_cc=${rules_cc_darwin_patched}"
+          "--override_repository=llvm-raw=${llvm-raw_darwin_patched}"
+        ];
+        preBuild = ''
+          export AR="${cctools}/bin/libtool"
+        '';
+      })
+    else
+      _bazel-build
+    ;
 
   _bazel-build = buildBazelPackage.override { inherit stdenv; } {
     name = "${pname}-${version}";
@@ -279,8 +287,8 @@ let
       hash = "sha256-q59cUW6613byHk4LGl+sefO5czLSWxOrSyLbJ1pkNEY=";
     };
 
-    # On update, it can be useful to steal the changes from gentoo
-    # https://gitweb.gentoo.org/repo/gentoo.git/tree/sci-libs/tensorflow
+      # On update, it can be useful to steal the changes from gentoo
+      # https://gitweb.gentoo.org/repo/gentoo.git/tree/sci-libs/tensorflow
 
     nativeBuildInputs = [
       which
@@ -320,14 +328,14 @@ let
       Security
     ] ++ lib.optionals (!stdenv.isDarwin) [ nsync ];
 
-    # arbitrarily set to the current latest bazel version, overly careful
+      # arbitrarily set to the current latest bazel version, overly careful
     TF_IGNORE_MAX_BAZEL_VERSION = true;
 
     LIBTOOL = lib.optionalString stdenv.isDarwin "${cctools}/bin/libtool";
 
-    # Take as many libraries from the system as possible. Keep in sync with
-    # list of valid syslibs in
-    # https://github.com/tensorflow/tensorflow/blob/master/third_party/systemlibs/syslibs_configure.bzl
+      # Take as many libraries from the system as possible. Keep in sync with
+      # list of valid syslibs in
+      # https://github.com/tensorflow/tensorflow/blob/master/third_party/systemlibs/syslibs_configure.bzl
     TF_SYSTEM_LIBS = lib.concatStringsSep "," ([
       "absl_py"
       "astor_archive"
@@ -371,9 +379,9 @@ let
 
     INCLUDEDIR = "${includes_joined}/include";
 
-    # This is needed for the Nix-provided protobuf dependency to work,
-    # as otherwise the rule `link_proto_files` tries to create the links
-    # to `/usr/include/...` which results in build failures.
+      # This is needed for the Nix-provided protobuf dependency to work,
+      # as otherwise the rule `link_proto_files` tries to create the links
+      # to `/usr/include/...` which results in build failures.
     PROTOBUF_INCLUDE_PATH = "${protobuf-core}/include";
 
     PYTHON_BIN_PATH = pythonEnv.interpreter;
@@ -384,7 +392,7 @@ let
 
     CC_OPT_FLAGS = " ";
 
-    # https://github.com/tensorflow/tensorflow/issues/14454
+      # https://github.com/tensorflow/tensorflow/issues/14454
     TF_NEED_MPI = tfFeature cudaSupport;
 
     TF_NEED_CUDA = tfFeature cudaSupport;
@@ -392,7 +400,7 @@ let
       lib.optionalString cudaSupport "${cudatoolkit_joined},${cudnn},${nccl}";
     TF_CUDA_COMPUTE_CAPABILITIES = lib.concatStringsSep "," cudaCapabilities;
 
-    # Needed even when we override stdenv: e.g. for ar
+      # Needed even when we override stdenv: e.g. for ar
     GCC_HOST_COMPILER_PREFIX =
       lib.optionalString cudaSupport "${cudatoolkit_cc_joined}/bin";
     GCC_HOST_COMPILER_PATH =
@@ -413,29 +421,31 @@ let
       sed -i '/tensorboard ~=/d' tensorflow/tools/pip_package/setup.py
     '';
 
-    # https://github.com/tensorflow/tensorflow/pull/39470
+      # https://github.com/tensorflow/tensorflow/pull/39470
     env.NIX_CFLAGS_COMPILE = toString [ "-Wno-stringop-truncation" ];
 
-    preConfigure = let
-      opt_flags = [ ] ++ lib.optionals sse42Support [ "-msse4.2" ]
-        ++ lib.optionals avx2Support [ "-mavx2" ]
-        ++ lib.optionals fmaSupport [ "-mfma" ];
-    in ''
-      patchShebangs configure
+    preConfigure =
+      let
+        opt_flags = [ ] ++ lib.optionals sse42Support [ "-msse4.2" ]
+          ++ lib.optionals avx2Support [ "-mavx2" ]
+          ++ lib.optionals fmaSupport [ "-mfma" ];
+      in ''
+        patchShebangs configure
 
-      # dummy ldconfig
-      mkdir dummy-ldconfig
-      echo "#!${stdenv.shell}" > dummy-ldconfig/ldconfig
-      chmod +x dummy-ldconfig/ldconfig
-      export PATH="$PWD/dummy-ldconfig:$PATH"
+        # dummy ldconfig
+        mkdir dummy-ldconfig
+        echo "#!${stdenv.shell}" > dummy-ldconfig/ldconfig
+        chmod +x dummy-ldconfig/ldconfig
+        export PATH="$PWD/dummy-ldconfig:$PATH"
 
-      export PYTHON_LIB_PATH="$NIX_BUILD_TOP/site-packages"
-      export CC_OPT_FLAGS="${lib.concatStringsSep " " opt_flags}"
-      mkdir -p "$PYTHON_LIB_PATH"
+        export PYTHON_LIB_PATH="$NIX_BUILD_TOP/site-packages"
+        export CC_OPT_FLAGS="${lib.concatStringsSep " " opt_flags}"
+        mkdir -p "$PYTHON_LIB_PATH"
 
-      # To avoid mixing Python 2 and Python 3
-      unset PYTHONPATH
-    '' ;
+        # To avoid mixing Python 2 and Python 3
+        unset PYTHONPATH
+      ''
+      ;
 
     configurePhase = ''
       runHook preConfigure
@@ -457,19 +467,21 @@ let
         "--spawn_strategy=sandboxed"
       ] ++ lib.optionals (mklSupport) [ "--config=mkl" ];
 
-    bazelTargets =
-      [ "//tensorflow/tools/pip_package:build_pip_package //tensorflow/tools/lib_package:libtensorflow" ];
+    bazelTargets = [ "//tensorflow/tools/pip_package:build_pip_package //tensorflow/tools/lib_package:libtensorflow" ]
+      ;
 
     removeRulesCC = false;
-    # Without this Bazel complaints about sandbox violations.
+      # Without this Bazel complaints about sandbox violations.
     dontAddBazelOpts = true;
 
     fetchAttrs = {
       sha256 = {
-        x86_64-linux = if cudaSupport then
-          "sha256-rcTPOMoBfmKFuuCanMlhmtFtOQzOICfEXTZey/rQEdM="
-        else
-          "sha256-JGLH64F81xwSUl9RCWJhBLNRBQandImsVafEF5s+ap0=";
+        x86_64-linux =
+          if cudaSupport then
+            "sha256-rcTPOMoBfmKFuuCanMlhmtFtOQzOICfEXTZey/rQEdM="
+          else
+            "sha256-JGLH64F81xwSUl9RCWJhBLNRBQandImsVafEF5s+ap0="
+          ;
         aarch64-linux = "sha256-g6JUZQQalCTSjvAarkI7+gq13cPhFg/O9LPQDGNvrII=";
         x86_64-darwin = "sha256-7O0zPs+damAjWXZn5C5SSWBp35C8QX3y4kCM7tYkM7s=";
         aarch64-darwin = "sha256-US7uunEBDo2NKI9UHvgThbQ7rA05HjQlUthw0gIINaI=";
@@ -540,11 +552,11 @@ buildPythonPackage {
 
   src = bazel-build.python;
 
-  # Adjust dependency requirements:
-  # - Drop tensorflow-io dependency until we get it to build
-  # - Relax flatbuffers and gast version requirements
-  # - The purpose of python3Packages.libclang is not clear at the moment and we don't have it packaged yet
-  # - keras and tensorlow-io-gcs-filesystem will be considered as optional for now.
+    # Adjust dependency requirements:
+    # - Drop tensorflow-io dependency until we get it to build
+    # - Relax flatbuffers and gast version requirements
+    # - The purpose of python3Packages.libclang is not clear at the moment and we don't have it packaged yet
+    # - keras and tensorlow-io-gcs-filesystem will be considered as optional for now.
   postPatch = ''
     sed -i setup.py \
       -e '/tensorflow-io-gcs-filesystem/,+1d' \
@@ -556,17 +568,17 @@ buildPythonPackage {
       -e "s/'protobuf[^']*',/'protobuf',/" \
   '';
 
-  # Upstream has a pip hack that results in bin/tensorboard being in both tensorflow
-  # and the propagated input tensorboard, which causes environment collisions.
-  # Another possibility would be to have tensorboard only in the buildInputs
-  # https://github.com/tensorflow/tensorflow/blob/v1.7.1/tensorflow/tools/pip_package/setup.py#L79
+    # Upstream has a pip hack that results in bin/tensorboard being in both tensorflow
+    # and the propagated input tensorboard, which causes environment collisions.
+    # Another possibility would be to have tensorboard only in the buildInputs
+    # https://github.com/tensorflow/tensorflow/blob/v1.7.1/tensorflow/tools/pip_package/setup.py#L79
   postInstall = ''
     rm $out/bin/tensorboard
   '';
 
   setupPyGlobalFlags = [ "--project_name ${pname}" ];
 
-  # tensorflow/tools/pip_package/setup.py
+    # tensorflow/tools/pip_package/setup.py
   propagatedBuildInputs = [
     absl-py
     astunparse
@@ -597,10 +609,10 @@ buildPythonPackage {
     done
   '';
 
-  # Actual tests are slow and impure.
-  # TODO try to run them anyway
-  # TODO better test (files in tensorflow/tools/ci_build/builds/*test)
-  # TEST_PACKAGES in tensorflow/tools/pip_package/setup.py
+    # Actual tests are slow and impure.
+    # TODO try to run them anyway
+    # TODO better test (files in tensorflow/tools/ci_build/builds/*test)
+    # TEST_PACKAGES in tensorflow/tools/pip_package/setup.py
   nativeCheckInputs = [
     dill
     keras
@@ -628,7 +640,7 @@ buildPythonPackage {
     model.fit(x, y, epochs=1)
     EOF
   '';
-  # Regression test for #77626 removed because not more `tensorflow.contrib`.
+    # Regression test for #77626 removed because not more `tensorflow.contrib`.
 
   passthru = {
     inherit cudaPackages;

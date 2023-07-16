@@ -5,7 +5,8 @@ import ./make-test-python.nix ({
     name = "isso";
     meta = with pkgs.lib.maintainers; { maintainers = [ ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         config,
         pkgs,
         ...
@@ -19,18 +20,21 @@ import ./make-test-python.nix ({
             };
           };
         };
-      };
+      }
+      ;
 
-    testScript = let
-      port = 8080;
-    in ''
-      machine.wait_for_unit("isso.service")
+    testScript =
+      let
+        port = 8080;
+      in ''
+        machine.wait_for_unit("isso.service")
 
-      machine.wait_for_open_port(${toString port})
+        machine.wait_for_open_port(${toString port})
 
-      machine.succeed("curl --fail http://localhost:${toString port}/?uri")
-      machine.succeed("curl --fail http://localhost:${
-        toString port
-      }/js/embed.min.js")
-    '' ;
+        machine.succeed("curl --fail http://localhost:${toString port}/?uri")
+        machine.succeed("curl --fail http://localhost:${
+          toString port
+        }/js/embed.min.js")
+      ''
+      ;
   })

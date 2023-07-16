@@ -64,17 +64,17 @@ buildPythonApplication rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  # CMake is used to build CMARK, but the build system is still python
+    # CMake is used to build CMARK, but the build system is still python
   dontUseCmakeConfigure = true;
 
-  # Ensure C+GI+GST extensions are built and can be imported
+    # Ensure C+GI+GST extensions are built and can be imported
   pythonImportsCheck = [
     "hotdoc.extensions.c.c_extension"
     "hotdoc.extensions.gi.gi_extension"
     "hotdoc.extensions.gst.gst_extension"
   ];
 
-  # Run the tests by package instead of current dir
+    # Run the tests by package instead of current dir
   pytestFlagsArray = [
     "--pyargs"
     "hotdoc"
@@ -88,7 +88,7 @@ buildPythonApplication rec {
     "test_index"
   ];
 
-  # Hardcode libclang paths
+    # Hardcode libclang paths
   postPatch = ''
     substituteInPlace hotdoc/extensions/c/c_extension.py \
       --replace "shutil.which('llvm-config')" 'True' \
@@ -97,7 +97,7 @@ buildPythonApplication rec {
       --replace "subprocess.check_output(['llvm-config', '--libdir']).strip().decode()" '"${libclang.lib}/lib"'
   '';
 
-  # Make pytest run from a temp dir to have it pick up installed package for cmark
+    # Make pytest run from a temp dir to have it pick up installed package for cmark
   preCheck = ''
     pushd $TMPDIR
   '';

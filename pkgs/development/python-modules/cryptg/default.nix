@@ -37,14 +37,15 @@ buildPythonPackage rec {
 
   buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
 
-  # has no tests
+    # has no tests
   doCheck = false;
 
   pythonImportsCheck = [ "cryptg" ];
 
   meta = with lib; {
     description =
-      "Official Telethon extension to provide much faster cryptography for Telegram API requests";
+      "Official Telethon extension to provide much faster cryptography for Telegram API requests"
+      ;
     homepage = "https://github.com/cher-nov/cryptg";
     license = licenses.cc0;
     maintainers = with maintainers; [ nickcao ];

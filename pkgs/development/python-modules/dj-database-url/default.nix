@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ django ];
 
-  # Tests access a DB via network
+    # Tests access a DB via network
   doCheck = false;
 
   pythonImportsCheck = [ "dj_database_url" ];
@@ -29,7 +29,8 @@ buildPythonPackage rec {
     description = "Use Database URLs in your Django Application";
     homepage = "https://github.com/jazzband/dj-database-url";
     changelog =
-      "https://github.com/jazzband/dj-database-url/blob/v${version}/CHANGELOG.md";
+      "https://github.com/jazzband/dj-database-url/blob/v${version}/CHANGELOG.md"
+      ;
     license = licenses.bsd2;
     maintainers = with maintainers; [ ];
   };

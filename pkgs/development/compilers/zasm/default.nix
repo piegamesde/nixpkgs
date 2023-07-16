@@ -8,7 +8,7 @@ let
   libs-src = fetchFromGitHub {
     owner = "megatokio";
     repo = "Libraries";
-    # 2021-02-02
+      # 2021-02-02
     rev = "c5cb3ed512c677db6f33e2d3539dfbb6e547030b";
     sha256 = "sha256-GiplhZf640uScVdKL6E/fegOgtC9SE1xgBqcX86XADk=";
   };

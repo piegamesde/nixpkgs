@@ -46,9 +46,9 @@ stdenv.mkDerivation rec {
     "perl"
   ];
 
-  # Parallel build is failing for missing depends. Known upstream as:
-  #   https://savannah.gnu.org/bugs/?62084
-  #   fixed, planned release: 1.23.0
+    # Parallel build is failing for missing depends. Known upstream as:
+    #   https://savannah.gnu.org/bugs/?62084
+    #   fixed, planned release: 1.23.0
   enableParallelBuilding = false;
 
   patches = [ ./0001-Fix-cross-compilation-by-looking-for-ar.patch ]
@@ -57,7 +57,8 @@ stdenv.mkDerivation rec {
       # https://trac.macports.org/ticket/59783
       (fetchpatch {
         url =
-          "https://raw.githubusercontent.com/openembedded/openembedded-core/ce265cf467f1c3e5ba2edbfbef2170df1a727a52/meta/recipes-extended/groff/files/0001-Include-config.h.patch";
+          "https://raw.githubusercontent.com/openembedded/openembedded-core/ce265cf467f1c3e5ba2edbfbef2170df1a727a52/meta/recipes-extended/groff/files/0001-Include-config.h.patch"
+          ;
         sha256 = "1b0mg31xkpxkzlx696nr08rcc7ndpaxdplvysy0hw5099c4n1wyf";
       })
     ];
@@ -112,9 +113,9 @@ stdenv.mkDerivation rec {
   ] ++ lib.optionals enableIconv [ iconv ]
     ++ lib.optionals enableLibuchardet [ libuchardet ];
 
-  # Builds running without a chroot environment may detect the presence
-  # of /usr/X11 in the host system, leading to an impure build of the
-  # package. To avoid this issue, X11 support is explicitly disabled.
+    # Builds running without a chroot environment may detect the presence
+    # of /usr/X11 in the host system, leading to an impure build of the
+    # package. To avoid this issue, X11 support is explicitly disabled.
   configureFlags = lib.optionals (!enableGhostscript) [ "--without-x" ]
     ++ [ "ac_cv_path_PERL=${buildPackages.perl}/bin/perl" ]
     ++ lib.optionals enableGhostscript [
@@ -174,7 +175,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.gnu.org/software/groff/";
     description =
-      "GNU Troff, a typesetting package that reads plain text and produces formatted output";
+      "GNU Troff, a typesetting package that reads plain text and produces formatted output"
+      ;
     license = licenses.gpl3Plus;
     platforms = platforms.all;
     maintainers = with maintainers; [ pSub ];

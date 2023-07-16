@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     fribidi
   ];
 
-  # Do not run meson-postinstall.sh
+    # Do not run meson-postinstall.sh
   preConfigure = "sed -i '2,$ d'  meson-postinstall.sh";
 
   passthru = {

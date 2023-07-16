@@ -40,10 +40,12 @@ let
     inherit rev;
     url = baseUrl;
   };
-  fetcher = if fetchSubmodules then
-    vc
-  else
-    "zip";
+  fetcher =
+    if fetchSubmodules then
+      vc
+    else
+      "zip"
+    ;
   cases = {
     git = {
       fetch = fetchgit;

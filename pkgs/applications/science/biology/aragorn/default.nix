@@ -10,7 +10,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://mbio-serv2.mbioekol.lu.se/ARAGORN/Downloads/${pname}${version}.tgz";
+      "http://mbio-serv2.mbioekol.lu.se/ARAGORN/Downloads/${pname}${version}.tgz"
+      ;
     sha256 = "09i1rg716smlbnixfm7q1ml2mfpaa2fpn3hwjg625ysmfwwy712b";
   };
 

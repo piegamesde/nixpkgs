@@ -6,9 +6,11 @@ let
   hashed_bcrypt =
     "$2b$05$8xIEflrk2RxQtcVXbGIxs.Vl0x7dF1/JSv3cyX6JJt0npzkTCWvxK"; # fnord
   hashed_yeshash =
-    "$y$j9T$d8Z4EAf8P1SvM/aDFbxMS0$VnTXMp/Hnc7QdCBEaLTq5ZFOAFo2/PM0/xEAFuOE88."; # fnord
+    "$y$j9T$d8Z4EAf8P1SvM/aDFbxMS0$VnTXMp/Hnc7QdCBEaLTq5ZFOAFo2/PM0/xEAFuOE88."
+    ; # fnord
   hashed_sha512crypt =
-    "$6$ymzs8WINZ5wGwQcV$VC2S0cQiX8NVukOLymysTPn4v1zJoJp3NGyhnqyv/dAf4NWZsBWYveQcj6gEJr4ZUjRBRjM0Pj1L8TCQ8hUUp0"; # meow
+    "$6$ymzs8WINZ5wGwQcV$VC2S0cQiX8NVukOLymysTPn4v1zJoJp3NGyhnqyv/dAf4NWZsBWYveQcj6gEJr4ZUjRBRjM0Pj1L8TCQ8hUUp0"
+    ; # meow
 in
 import ./make-test-python.nix ({
     pkgs,
@@ -17,7 +19,8 @@ import ./make-test-python.nix ({
     name = "shadow";
     meta = with pkgs.lib.maintainers; { maintainers = [ nequissimus ]; };
 
-    nodes.shadow = {
+    nodes.shadow =
+      {
         pkgs,
         ...
       }: {
@@ -53,12 +56,13 @@ import ./make-test-python.nix ({
           users.leo = {
             isNormalUser = true;
             initialHashedPassword = "!";
-            hashedPassword =
-              hashed_sha512crypt; # should take precedence over initialHashedPassword
+            hashedPassword = hashed_sha512crypt
+              ; # should take precedence over initialHashedPassword
             shell = pkgs.bash;
           };
         };
-      };
+      }
+      ;
 
     testScript = ''
       shadow.wait_for_unit("multi-user.target")

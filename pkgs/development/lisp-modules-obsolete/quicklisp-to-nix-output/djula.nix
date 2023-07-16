@@ -42,7 +42,8 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/djula/2021-12-09/djula-20211209-git.tgz";
+      "http://beta.quicklisp.org/archive/djula/2021-12-09/djula-20211209-git.tgz"
+      ;
     sha256 = "0csr3c12wf1qcwwfabgz9rvkramj74l15cwj8c01pmcraly8cya7";
   };
 

@@ -20,8 +20,8 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ azure-nspkg ];
 
-  # Just a namespace package, no tests exist:
-  #   https://github.com/Azure/azure-sdk-for-python/blob/master/sdk/keyvault/tests.yml
+    # Just a namespace package, no tests exist:
+    #   https://github.com/Azure/azure-sdk-for-python/blob/master/sdk/keyvault/tests.yml
   doCheck = false;
 
   meta = with lib; {

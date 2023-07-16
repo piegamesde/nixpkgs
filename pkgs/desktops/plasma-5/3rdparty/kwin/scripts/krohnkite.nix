@@ -28,8 +28,8 @@ mkDerivation rec {
 
   dontBuild = true;
 
-  # 1. --global still installs to $HOME/.local/share so we use --packageroot
-  # 2. plasmapkg2 doesn't copy metadata.desktop into place, so we do that manually
+    # 1. --global still installs to $HOME/.local/share so we use --packageroot
+    # 2. plasmapkg2 doesn't copy metadata.desktop into place, so we do that manually
   installPhase = ''
     runHook preInstall
 

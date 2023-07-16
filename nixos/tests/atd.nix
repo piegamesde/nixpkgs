@@ -7,14 +7,16 @@ import ./make-test-python.nix ({
     name = "atd";
     meta = with pkgs.lib.maintainers; { maintainers = [ bjornfor ]; };
 
-    nodes.machine = {
+    nodes.machine =
+      {
         ...
       }: {
         services.atd.enable = true;
         users.users.alice = { isNormalUser = true; };
-      };
+      }
+      ;
 
-    # "at" has a resolution of 1 minute
+      # "at" has a resolution of 1 minute
     testScript = ''
       start_all()
 

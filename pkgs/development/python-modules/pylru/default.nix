@@ -20,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-dTYiD+/zt0ZSP+sefYyeD87To1nRXyoFodlBg8pm1YE=";
   };
 
-  # Check with the next release if tests are ready
+    # Check with the next release if tests are ready
   doCheck = false;
 
   pythonImportsCheck = [ "pylru" ];

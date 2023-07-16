@@ -35,7 +35,8 @@ let
     };
   };
 
-  mkKubeConfig = name: conf:
+  mkKubeConfig =
+    name: conf:
     pkgs.writeText "${name}-kubeconfig" (builtins.toJSON {
       apiVersion = "v1";
       kind = "Config";
@@ -59,13 +60,15 @@ let
         name = "local";
       } ];
       current-context = "local";
-    });
+    })
+    ;
 
   caCert = secret "ca";
 
   etcdEndpoints = [ "https://${cfg.masterAddress}:2379" ];
 
-  mkCert = {
+  mkCert =
+    {
       name,
       CN,
       hosts ? [ ],
@@ -82,38 +85,43 @@ let
         mode = "0600";
         path = key;
       };
-    };
+    }
+    ;
 
   secret = name: "${cfg.secretsPath}/${name}.pem";
 
-  mkKubeConfigOptions = prefix: {
-    server = mkOption {
-      description = lib.mdDoc "${prefix} kube-apiserver server address.";
-      type = types.str;
-    };
+  mkKubeConfigOptions =
+    prefix: {
+      server = mkOption {
+        description = lib.mdDoc "${prefix} kube-apiserver server address.";
+        type = types.str;
+      };
 
-    caFile = mkOption {
-      description = lib.mdDoc
-        "${prefix} certificate authority file used to connect to kube-apiserver.";
-      type = types.nullOr types.path;
-      default = cfg.caFile;
-      defaultText = literalExpression "config.${opt.caFile}";
-    };
+      caFile = mkOption {
+        description = lib.mdDoc
+          "${prefix} certificate authority file used to connect to kube-apiserver."
+          ;
+        type = types.nullOr types.path;
+        default = cfg.caFile;
+        defaultText = literalExpression "config.${opt.caFile}";
+      };
 
-    certFile = mkOption {
-      description = lib.mdDoc
-        "${prefix} client certificate file used to connect to kube-apiserver.";
-      type = types.nullOr types.path;
-      default = null;
-    };
+      certFile = mkOption {
+        description = lib.mdDoc
+          "${prefix} client certificate file used to connect to kube-apiserver."
+          ;
+        type = types.nullOr types.path;
+        default = null;
+      };
 
-    keyFile = mkOption {
-      description = lib.mdDoc
-        "${prefix} client key file used to connect to kube-apiserver.";
-      type = types.nullOr types.path;
-      default = null;
-    };
-  };
+      keyFile = mkOption {
+        description = lib.mdDoc
+          "${prefix} client key file used to connect to kube-apiserver.";
+        type = types.nullOr types.path;
+        default = null;
+      };
+    }
+    ;
 in {
 
   imports = [
@@ -130,7 +138,7 @@ in {
     ] "")
   ];
 
-  ###### interface
+    ###### interface
 
   options.services.kubernetes = {
     roles = mkOption {
@@ -181,7 +189,8 @@ in {
 
     easyCerts = mkOption {
       description = lib.mdDoc
-        "Automatically setup x509 certificates and keys for the entire cluster.";
+        "Automatically setup x509 certificates and keys for the entire cluster."
+        ;
       default = false;
       type = types.bool;
     };
@@ -194,21 +203,24 @@ in {
 
     masterAddress = mkOption {
       description = lib.mdDoc
-        "Clusterwide available network address or hostname for the kubernetes master server.";
+        "Clusterwide available network address or hostname for the kubernetes master server."
+        ;
       example = "master.example.com";
       type = types.str;
     };
 
     path = mkOption {
       description = lib.mdDoc
-        "Packages added to the services' PATH environment variable. Both the bin and sbin subdirectories of each package are added.";
+        "Packages added to the services' PATH environment variable. Both the bin and sbin subdirectories of each package are added."
+        ;
       type = types.listOf types.package;
       default = [ ];
     };
 
     clusterCidr = mkOption {
       description = lib.mdDoc
-        "Kubernetes controller manager and proxy CIDR Range for Pods in cluster.";
+        "Kubernetes controller manager and proxy CIDR Range for Pods in cluster."
+        ;
       default = "10.1.0.0/16";
       type = types.nullOr types.str;
     };
@@ -234,7 +246,7 @@ in {
     };
   };
 
-  ###### implementation
+    ###### implementation
 
   config = mkMerge [
 
@@ -331,7 +343,7 @@ in {
         };
         users.groups.kubernetes.gid = config.ids.gids.kubernetes;
 
-        # dns addon is enabled by default
+          # dns addon is enabled by default
         services.kubernetes.addons.dns.enable = mkDefault true;
 
         services.kubernetes.apiserverAddress = mkDefault ("https://${

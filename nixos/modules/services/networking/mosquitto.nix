@@ -10,9 +10,9 @@ with lib;
 let
   cfg = config.services.mosquitto;
 
-  # note that mosquitto config parsing is very simplistic as of may 2021.
-  # often times they'll e.g. strtok() a line, check the first two tokens, and ignore the rest.
-  # there's no escaping available either, so we have to prevent any being necessary.
+    # note that mosquitto config parsing is very simplistic as of may 2021.
+    # often times they'll e.g. strtok() a line, check the first two tokens, and ignore the rest.
+    # there's no escaping available either, so we have to prevent any being necessary.
   str = types.strMatching ''
     [^
     ]*'' // {
@@ -31,24 +31,30 @@ let
     ] // {
       description = "string, path, bool, or integer";
     };
-  optionToString = v:
+  optionToString =
+    v:
     if isBool v then
       boolToString v
     else if path.check v then
       "${v}"
     else
-      toString v;
+      toString v
+    ;
 
-  assertKeysValid = prefix: valid: config:
+  assertKeysValid =
+    prefix: valid: config:
     mapAttrsToList (n: _: {
       assertion = valid ? ${n};
       message = "Invalid config key ${prefix}.${n}.";
-    }) config;
+    }) config
+    ;
 
-  formatFreeform = {
+  formatFreeform =
+    {
       prefix ? ""
     }:
-    mapAttrsToList (n: v: "${prefix}${n} ${optionToString v}");
+    mapAttrsToList (n: v: "${prefix}${n} ${optionToString v}")
+    ;
 
   userOptions = with types;
     submodule {
@@ -110,7 +116,8 @@ let
       };
     };
 
-  userAsserts = prefix: users:
+  userAsserts =
+    prefix: users:
     mapAttrsToList (n: _: {
       assertion = builtins.match ''
         [^:
@@ -125,16 +132,20 @@ let
       ] <= 1;
       message =
         "Cannot set more than one password option for user ${n} in ${prefix}";
-    }) users;
+    }) users
+    ;
 
-  makePasswordFile = users: path:
+  makePasswordFile =
+    users: path:
     let
-      makeLines = store: file:
+      makeLines =
+        store: file:
         mapAttrsToList
         (n: u: "addLine ${escapeShellArg n} ${escapeShellArg u.${store}}")
         (filterAttrs (_: u: u.${store} != null) users) ++ mapAttrsToList
         (n: u: "addFile ${escapeShellArg n} ${escapeShellArg "${u.${file}}"}")
-        (filterAttrs (_: u: u.${file} != null) users);
+        (filterAttrs (_: u: u.${file} != null) users)
+        ;
       plainLines = makeLines "password" "passwordFile";
       hashedLines = makeLines "hashedPassword" "hashedPasswordFile";
     in
@@ -161,15 +172,17 @@ let
     '' + concatStringsSep "\n" (plainLines ++ optional (plainLines != [ ]) ''
       ${cfg.package}/bin/mosquitto_passwd -U "$file"
     '' ++ hashedLines))
-  ;
+    ;
 
-  makeACLFile = idx: users: supplement:
+  makeACLFile =
+    idx: users: supplement:
     pkgs.writeText "mosquitto-acl-${toString idx}.conf" (concatStringsSep "\n"
       (flatten [
         supplement
         (mapAttrsToList (n: u: [ "user ${n}" ] ++ map (t: "topic ${t}") u.acl)
           users)
-      ]));
+      ]))
+    ;
 
   authPluginOptions = with types;
     submodule {
@@ -201,17 +214,21 @@ let
       };
     };
 
-  authAsserts = prefix: auth:
+  authAsserts =
+    prefix: auth:
     mapAttrsToList (n: _: {
       assertion = configKey.check n;
       message = "Invalid auth plugin key ${prefix}.${n}";
-    }) auth;
+    }) auth
+    ;
 
-  formatAuthPlugin = plugin:
+  formatAuthPlugin =
+    plugin:
     [
       "auth_plugin ${plugin.plugin}"
       "auth_plugin_deny_special_chars ${optionToString plugin.denySpecialChars}"
-    ] ++ formatFreeform { prefix = "auth_opt_"; } plugin.options;
+    ] ++ formatFreeform { prefix = "auth_opt_"; } plugin.options
+    ;
 
   freeformListenerKeys = {
     allow_anonymous = 1;
@@ -320,20 +337,24 @@ let
       };
     };
 
-  listenerAsserts = prefix: listener:
+  listenerAsserts =
+    prefix: listener:
     assertKeysValid "${prefix}.settings" freeformListenerKeys listener.settings
     ++ userAsserts prefix listener.users
     ++ imap0 (i: v: authAsserts "${prefix}.authPlugins.${toString i}" v)
-    listener.authPlugins;
+    listener.authPlugins
+    ;
 
-  formatListener = idx: listener:
+  formatListener =
+    idx: listener:
     [
       "listener ${toString listener.port} ${toString listener.address}"
       "acl_file ${makeACLFile idx listener.users listener.acl}"
     ] ++ optional (!listener.omitPasswordAuth)
     "password_file ${cfg.dataDir}/passwd-${toString idx}"
     ++ formatFreeform { } listener.settings
-    ++ concatMap formatAuthPlugin listener.authPlugins;
+    ++ concatMap formatAuthPlugin listener.authPlugins
+    ;
 
   freeformBridgeKeys = {
     bridge_alpn = 1;
@@ -420,14 +441,17 @@ let
       };
     };
 
-  bridgeAsserts = prefix: bridge:
+  bridgeAsserts =
+    prefix: bridge:
     assertKeysValid "${prefix}.settings" freeformBridgeKeys bridge.settings
     ++ [ {
       assertion = length bridge.addresses > 0;
       message = "Bridge ${prefix} needs remote broker addresses";
-    } ];
+    } ]
+    ;
 
-  formatBridge = name: bridge:
+  formatBridge =
+    name: bridge:
     [
       "connection ${name}"
       "addresses ${
@@ -435,7 +459,8 @@ let
         bridge.addresses
       }"
     ] ++ map (t: "topic ${t}") bridge.topics
-    ++ formatFreeform { } bridge.settings;
+    ++ formatFreeform { } bridge.settings
+    ;
 
   freeformGlobalKeys = {
     allow_duplicate_messages = 1;
@@ -564,16 +589,19 @@ let
     };
   };
 
-  globalAsserts = prefix: cfg:
+  globalAsserts =
+    prefix: cfg:
     flatten [
       (assertKeysValid "${prefix}.settings" freeformGlobalKeys cfg.settings)
       (imap0 (n: l: listenerAsserts "${prefix}.listener.${toString n}" l)
         cfg.listeners)
       (mapAttrsToList (n: b: bridgeAsserts "${prefix}.bridge.${n}" b)
         cfg.bridges)
-    ];
+    ]
+    ;
 
-  formatGlobal = cfg:
+  formatGlobal =
+    cfg:
     [
       "per_listener_settings true"
       "persistence ${optionToString cfg.persistence}"
@@ -585,7 +613,8 @@ let
     ++ formatFreeform { } cfg.settings
     ++ concatLists (imap0 formatListener cfg.listeners)
     ++ concatLists (mapAttrsToList formatBridge cfg.bridges)
-    ++ map (d: "include_dir ${d}") cfg.includeDirs;
+    ++ map (d: "include_dir ${d}") cfg.includeDirs
+    ;
 
   configFile =
     pkgs.writeText "mosquitto.conf" (concatStringsSep "\n" (formatGlobal cfg));
@@ -596,7 +625,7 @@ in {
 
   options.services.mosquitto = globalOptions;
 
-  ###### Implementation
+    ###### Implementation
 
   config = mkIf cfg.enable {
 
@@ -617,7 +646,7 @@ in {
         ExecStart = "${cfg.package}/bin/mosquitto -c ${configFile}";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
 
-        # Hardening
+          # Hardening
         CapabilityBoundingSet = "";
         DevicePolicy = "closed";
         LockPersonality = true;

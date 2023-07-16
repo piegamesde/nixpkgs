@@ -10,9 +10,9 @@ buildPythonPackage rec {
 
   src = "${libusbsio.src}/python";
 
-  # The source includes both the python module directly and also a source tarball for it.
-  # The direct files lack setup information, the tarball includes unwanted binaries.
-  # This takes only the setup files from the tarball.
+    # The source includes both the python module directly and also a source tarball for it.
+    # The direct files lack setup information, the tarball includes unwanted binaries.
+    # This takes only the setup files from the tarball.
   postUnpack = ''
     tar -C python --strip-components=1 -xf python/dist/libusbsio-${version}.tar.gz libusbsio-${version}/{setup.py,setup.cfg,pyproject.toml}
     rm -r python/dist

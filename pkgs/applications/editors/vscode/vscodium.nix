@@ -19,10 +19,12 @@ let
     armv7l-linux = "linux-armhf";
   }.${system} or throwSystem;
 
-  archive_fmt = if stdenv.isDarwin then
-    "zip"
-  else
-    "tar.gz";
+  archive_fmt =
+    if stdenv.isDarwin then
+      "zip"
+    else
+      "tar.gz"
+    ;
 
   sha256 = {
     x86_64-linux = "049vn3gwwl0sxf8hvd8raaamy9f0x2z9p3sz8xzafa1h129iiybr";
@@ -32,10 +34,12 @@ let
     armv7l-linux = "0xliai5c3dd6qbgb9agvmn18n230zh4qxx3jjmaqn2851d6sx5xz";
   }.${system} or throwSystem;
 
-  sourceRoot = if stdenv.isDarwin then
-    ""
-  else
-    ".";
+  sourceRoot =
+    if stdenv.isDarwin then
+      ""
+    else
+      "."
+    ;
 in
 callPackage ./generic.nix rec {
   inherit
@@ -54,7 +58,8 @@ callPackage ./generic.nix rec {
 
   src = fetchurl {
     url =
-      "https://github.com/VSCodium/vscodium/releases/download/${version}/VSCodium-${plat}-${version}.${archive_fmt}";
+      "https://github.com/VSCodium/vscodium/releases/download/${version}/VSCodium-${plat}-${version}.${archive_fmt}"
+      ;
     inherit sha256;
   };
 
