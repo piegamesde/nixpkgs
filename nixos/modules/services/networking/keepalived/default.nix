@@ -48,73 +48,72 @@ let
 
   vrrpScriptStr = concatStringsSep "\n" (
     map
-    (s: ''
-      vrrp_script ${s.name} {
-        script "${s.script}"
-        interval ${toString s.interval}
-        fall ${toString s.fall}
-        rise ${toString s.rise}
-        timeout ${toString s.timeout}
-        weight ${toString s.weight}
-        user ${s.user} ${optionalString (s.group != null) s.group}
+      (s: ''
+        vrrp_script ${s.name} {
+          script "${s.script}"
+          interval ${toString s.interval}
+          fall ${toString s.fall}
+          rise ${toString s.rise}
+          timeout ${toString s.timeout}
+          weight ${toString s.weight}
+          user ${s.user} ${optionalString (s.group != null) s.group}
 
-        ${s.extraConfig}
-      }
-    '')
-    vrrpScripts
+          ${s.extraConfig}
+        }
+      '')
+      vrrpScripts
   );
 
   vrrpInstancesStr = concatStringsSep "\n" (
     map
-    (i: ''
-      vrrp_instance ${i.name} {
-        interface ${i.interface}
-        state ${i.state}
-        virtual_router_id ${toString i.virtualRouterId}
-        priority ${toString i.priority}
-        ${optionalString i.noPreempt "nopreempt"}
+      (i: ''
+        vrrp_instance ${i.name} {
+          interface ${i.interface}
+          state ${i.state}
+          virtual_router_id ${toString i.virtualRouterId}
+          priority ${toString i.priority}
+          ${optionalString i.noPreempt "nopreempt"}
 
-        ${
-          optionalString i.useVmac (
-            "use_vmac"
-            + optionalString (i.vmacInterface != null) " ${i.vmacInterface}"
-          )
-        }
-        ${optionalString i.vmacXmitBase "vmac_xmit_base"}
+          ${
+            optionalString i.useVmac (
+              "use_vmac"
+              + optionalString (i.vmacInterface != null) " ${i.vmacInterface}"
+            )
+          }
+          ${optionalString i.vmacXmitBase "vmac_xmit_base"}
 
-        ${
-          optionalString
-          (i.unicastSrcIp != null)
-          "unicast_src_ip ${i.unicastSrcIp}"
-        }
-        unicast_peer {
-          ${concatStringsSep "\n" i.unicastPeers}
-        }
+          ${
+            optionalString (i.unicastSrcIp != null)
+              "unicast_src_ip ${i.unicastSrcIp}"
+          }
+          unicast_peer {
+            ${concatStringsSep "\n" i.unicastPeers}
+          }
 
-        virtual_ipaddress {
-          ${concatMapStringsSep "\n" virtualIpLine i.virtualIps}
-        }
+          virtual_ipaddress {
+            ${concatMapStringsSep "\n" virtualIpLine i.virtualIps}
+          }
 
-        ${
-          optionalString (builtins.length i.trackScripts > 0) ''
-            track_script {
-              ${concatStringsSep "\n" i.trackScripts}
-            }
-          ''
-        }
+          ${
+            optionalString (builtins.length i.trackScripts > 0) ''
+              track_script {
+                ${concatStringsSep "\n" i.trackScripts}
+              }
+            ''
+          }
 
-        ${
-          optionalString (builtins.length i.trackInterfaces > 0) ''
-            track_interface {
-              ${concatStringsSep "\n" i.trackInterfaces}
-            }
-          ''
-        }
+          ${
+            optionalString (builtins.length i.trackInterfaces > 0) ''
+              track_interface {
+                ${concatStringsSep "\n" i.trackInterfaces}
+              }
+            ''
+          }
 
-        ${i.extraConfig}
-      }
-    '')
-    vrrpInstances
+          ${i.extraConfig}
+        }
+      '')
+      vrrpInstances
   );
 
   virtualIpLine =
@@ -129,11 +128,14 @@ let
   notNullOrEmpty = s: !(s == null || s == "");
 
   vrrpScripts =
-    mapAttrsToList (name: config: { inherit name; } // config) cfg.vrrpScripts;
+    mapAttrsToList (name: config: { inherit name; } // config)
+      cfg.vrrpScripts
+    ;
 
-  vrrpInstances = mapAttrsToList
-    (iName: iConfig: { name = iName; } // iConfig)
-    cfg.vrrpInstances;
+  vrrpInstances =
+    mapAttrsToList (iName: iConfig: { name = iName; } // iConfig)
+      cfg.vrrpInstances
+    ;
 
   vrrpInstanceAssertions =
     i:
@@ -368,7 +370,9 @@ in
           KillMode = "process";
           RuntimeDirectory = "keepalived";
           EnvironmentFile =
-            lib.optional (cfg.secretFile != null) cfg.secretFile;
+            lib.optional (cfg.secretFile != null)
+              cfg.secretFile
+            ;
           ExecStartPre = lib.optional (cfg.secretFile != null) (
             pkgs.writeShellScript "keepalived-pre-start" ''
               umask 077

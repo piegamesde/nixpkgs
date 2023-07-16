@@ -90,7 +90,9 @@ in
         type = types.str;
         default = "";
         description =
-          lib.mdDoc "Extra configuration options to be passed to Git daemon.";
+          lib.mdDoc
+            "Extra configuration options to be passed to Git daemon."
+          ;
       };
 
       user = mkOption {
@@ -103,7 +105,9 @@ in
         type = types.str;
         default = "git";
         description =
-          lib.mdDoc "Group under which Git daemon would be running.";
+          lib.mdDoc
+            "Group under which Git daemon would be running."
+          ;
       };
     };
   };
@@ -120,8 +124,9 @@ in
       };
     };
 
-    users.groups =
-      optionalAttrs (cfg.group == "git") { git.gid = config.ids.gids.git; };
+    users.groups = optionalAttrs (cfg.group == "git") {
+      git.gid = config.ids.gids.git;
+    };
 
     systemd.services.git-daemon = {
       after = [ "network.target" ];
@@ -129,9 +134,10 @@ in
       script =
         "${pkgs.git}/bin/git daemon --reuseaddr "
         + (optionalString (cfg.basePath != "") "--base-path=${cfg.basePath} ")
-        + (optionalString
-          (cfg.listenAddress != "")
-          "--listen=${cfg.listenAddress} ")
+        + (
+          optionalString (cfg.listenAddress != "")
+            "--listen=${cfg.listenAddress} "
+        )
         + "--port=${
             toString cfg.port
           } --user=${cfg.user} --group=${cfg.group} ${cfg.options} "

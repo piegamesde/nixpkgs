@@ -35,7 +35,7 @@ in
     services.zammad = {
       enable = mkEnableOption (
         lib.mdDoc
-        "Zammad, a web-based, open source user support/ticketing solution"
+          "Zammad, a web-based, open source user support/ticketing solution"
       );
 
       package = mkOption {
@@ -141,7 +141,9 @@ in
           type = types.bool;
           default = true;
           description =
-            lib.mdDoc "Whether to create a local database automatically.";
+            lib.mdDoc
+              "Whether to create a local database automatically."
+            ;
         };
 
         settings = mkOption {
@@ -235,30 +237,35 @@ in
       }
     ];
 
-    services.mysql = optionalAttrs
-      (cfg.database.createLocally && cfg.database.type == "MySQL")
-      {
-        enable = true;
-        package = mkDefault pkgs.mariadb;
-        ensureDatabases = [ cfg.database.name ];
-        ensureUsers = [ {
-          name = cfg.database.user;
-          ensurePermissions = { "${cfg.database.name}.*" = "ALL PRIVILEGES"; };
-        } ];
-      };
+    services.mysql =
+      optionalAttrs (cfg.database.createLocally && cfg.database.type == "MySQL")
+        {
+          enable = true;
+          package = mkDefault pkgs.mariadb;
+          ensureDatabases = [ cfg.database.name ];
+          ensureUsers = [ {
+            name = cfg.database.user;
+            ensurePermissions = {
+              "${cfg.database.name}.*" = "ALL PRIVILEGES";
+            };
+          } ];
+        }
+      ;
 
-    services.postgresql = optionalAttrs
-      (cfg.database.createLocally && cfg.database.type == "PostgreSQL")
-      {
-        enable = true;
-        ensureDatabases = [ cfg.database.name ];
-        ensureUsers = [ {
-          name = cfg.database.user;
-          ensurePermissions = {
-            "DATABASE ${cfg.database.name}" = "ALL PRIVILEGES";
-          };
-        } ];
-      };
+    services.postgresql =
+      optionalAttrs
+        (cfg.database.createLocally && cfg.database.type == "PostgreSQL")
+        {
+          enable = true;
+          ensureDatabases = [ cfg.database.name ];
+          ensureUsers = [ {
+            name = cfg.database.user;
+            ensurePermissions = {
+              "DATABASE ${cfg.database.name}" = "ALL PRIVILEGES";
+            };
+          } ];
+        }
+      ;
 
     systemd.services.zammad-web = {
       inherit environment;
@@ -302,8 +309,8 @@ in
                   --host ${cfg.database.host} \
                   ${
                     optionalString (cfg.database.port != null) "--port ${
-                      toString cfg.database.port
-                    }"
+                        toString cfg.database.port
+                      }"
                   } \
                   --username ${cfg.database.user} \
                   --dbname ${cfg.database.name} \

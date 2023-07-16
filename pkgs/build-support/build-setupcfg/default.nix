@@ -32,6 +32,7 @@ build {
     ++ (lib.optionals doCheck (info.tests_require or [ ]))
   );
 
-  propagatedBuildInputs =
-    map (p: pythonPackages.${p}) (info.install_requires or [ ]);
+  propagatedBuildInputs = map (p: pythonPackages.${p}) (
+    info.install_requires or [ ]
+  );
 }

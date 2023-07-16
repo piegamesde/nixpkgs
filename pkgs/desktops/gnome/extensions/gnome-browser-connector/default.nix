@@ -53,8 +53,9 @@ buildPythonApplication rec {
   '';
 
   passthru = {
-    updateScript =
-      gnome.updateScript { packageName = "gnome-browser-connector"; };
+    updateScript = gnome.updateScript {
+      packageName = "gnome-browser-connector";
+    };
   };
 
   meta = with lib; {

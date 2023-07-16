@@ -12,8 +12,9 @@ let
 
   netDeviceList = attrValues cfg.netDevices;
 
-  etcFiles =
-    pkgs.callPackage ./brscan4_etc_files.nix { netDevices = netDeviceList; };
+  etcFiles = pkgs.callPackage ./brscan4_etc_files.nix {
+    netDevices = netDeviceList;
+  };
 
   netDeviceOpts =
     {

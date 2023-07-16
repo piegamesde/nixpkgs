@@ -45,7 +45,8 @@ in
         type = types.bool;
         default = false;
         description =
-          lib.mdDoc "Open ports in the firewall for the libreddit web interface"
+          lib.mdDoc
+            "Open ports in the firewall for the libreddit web interface"
           ;
       };
     };
@@ -59,8 +60,9 @@ in
       serviceConfig = {
         DynamicUser = true;
         ExecStart = "${cfg.package}/bin/libreddit ${args}";
-        AmbientCapabilities =
-          lib.mkIf (cfg.port < 1024) [ "CAP_NET_BIND_SERVICE" ];
+        AmbientCapabilities = lib.mkIf (cfg.port < 1024) [
+          "CAP_NET_BIND_SERVICE"
+        ];
         Restart = "on-failure";
         RestartSec = "2s";
         # Hardening
@@ -99,7 +101,8 @@ in
       };
     };
 
-    networking.firewall =
-      mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
+    networking.firewall = mkIf cfg.openFirewall {
+      allowedTCPPorts = [ cfg.port ];
+    };
   };
 }

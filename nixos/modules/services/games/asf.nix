@@ -55,8 +55,9 @@ in
       type = types.submodule {
         options = {
           enable = mkEnableOption "" // {
-            description = lib.mdDoc
-              "Whether to start the web-ui. This is the preferred way of configuring things such as the steam guard token."
+            description =
+              lib.mdDoc
+                "Whether to start the web-ui. This is the preferred way of configuring things such as the steam guard token."
               ;
           };
 
@@ -65,7 +66,9 @@ in
             default = pkgs.ArchiSteamFarm.ui;
             defaultText = lib.literalExpression "pkgs.ArchiSteamFarm.ui";
             description =
-              lib.mdDoc "Web-UI package to use. Contents must be in lib/dist.";
+              lib.mdDoc
+                "Web-UI package to use. Contents must be in lib/dist."
+              ;
           };
         };
       };
@@ -78,8 +81,9 @@ in
       type = types.package;
       default = pkgs.ArchiSteamFarm;
       defaultText = lib.literalExpression "pkgs.ArchiSteamFarm";
-      description = lib.mdDoc
-        "Package to use. Should always be the latest version, for security reasons, since this module uses very new features and to not get out of sync with the Steam API."
+      description =
+        lib.mdDoc
+          "Package to use. Should always be the latest version, for security reasons, since this module uses very new features and to not get out of sync with the Steam API."
         ;
     };
 
@@ -107,8 +111,9 @@ in
     ipcPasswordFile = mkOption {
       type = types.nullOr types.path;
       default = null;
-      description = lib.mdDoc
-        "Path to a file containing the password. The file must be readable by the `asf` user/group."
+      description =
+        lib.mdDoc
+          "Path to a file containing the password. The file must be readable by the `asf` user/group."
         ;
     };
 
@@ -130,14 +135,17 @@ in
           options = {
             username = mkOption {
               type = types.str;
-              description = lib.mdDoc
-                "Name of the user to log in. Default is attribute name.";
+              description =
+                lib.mdDoc
+                  "Name of the user to log in. Default is attribute name."
+                ;
               default = "";
             };
             passwordFile = mkOption {
               type = types.path;
-              description = lib.mdDoc
-                "Path to a file containing the password. The file must be readable by the `asf` user/group."
+              description =
+                lib.mdDoc
+                  "Path to a file containing the password. The file must be readable by the `asf` user/group."
                 ;
             };
             enabled = mkOption {

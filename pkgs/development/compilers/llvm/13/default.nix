@@ -210,14 +210,15 @@ let
           + lib.optionalString (!stdenv.targetPlatform.isWasm) ''
             echo "--unwindlib=libunwind" >> $out/nix-support/cc-cflags
           ''
-          + lib.optionalString
-            (
-              !stdenv.targetPlatform.isWasm
-              && stdenv.targetPlatform.useLLVM or false
-            )
-            ''
-              echo "-lunwind" >> $out/nix-support/cc-ldflags
-            ''
+          +
+            lib.optionalString
+              (
+                !stdenv.targetPlatform.isWasm
+                && stdenv.targetPlatform.useLLVM or false
+              )
+              ''
+                echo "-lunwind" >> $out/nix-support/cc-ldflags
+              ''
           + lib.optionalString stdenv.targetPlatform.isWasm ''
             echo "-fno-exceptions" >> $out/nix-support/cc-cflags
           ''

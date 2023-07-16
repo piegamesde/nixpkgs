@@ -45,8 +45,9 @@ in
     ca = mkOption {
       defaultText = literalExpression ''"''${cfg.dataDir}/ca.pem"'';
       type = types.str;
-      description = lib.mdDoc
-        "CA used to sign the new certificate -- accepts '[file:]fname' or 'env:varname'."
+      description =
+        lib.mdDoc
+          "CA used to sign the new certificate -- accepts '[file:]fname' or 'env:varname'."
         ;
     };
 
@@ -54,7 +55,9 @@ in
       defaultText = literalExpression ''"file:''${cfg.dataDir}/ca-key.pem"'';
       type = types.str;
       description =
-        lib.mdDoc "CA private key -- accepts '[file:]fname' or 'env:varname'.";
+        lib.mdDoc
+          "CA private key -- accepts '[file:]fname' or 'env:varname'."
+        ;
     };
 
     caBundle = mkOption {
@@ -95,8 +98,9 @@ in
     configFile = mkOption {
       default = null;
       type = types.nullOr types.str;
-      description = lib.mdDoc
-        "Path to configuration file. Do not put this in nix-store as it might contain secrets."
+      description =
+        lib.mdDoc
+          "Path to configuration file. Do not put this in nix-store as it might contain secrets."
         ;
     };
 
@@ -109,16 +113,19 @@ in
     responderKey = mkOption {
       default = null;
       type = types.nullOr types.str;
-      description = lib.mdDoc
-        "Private key for OCSP responder certificate. Do not put this in nix-store."
+      description =
+        lib.mdDoc
+          "Private key for OCSP responder certificate. Do not put this in nix-store."
         ;
     };
 
     tlsKey = mkOption {
       default = null;
       type = types.nullOr types.str;
-      description = lib.mdDoc
-        "Other endpoint's CA private key. Do not put this in nix-store.";
+      description =
+        lib.mdDoc
+          "Other endpoint's CA private key. Do not put this in nix-store."
+        ;
     };
 
     tlsCert = mkOption {
@@ -131,14 +138,18 @@ in
       default = null;
       type = types.nullOr types.path;
       description =
-        lib.mdDoc "Mutual TLS - require clients be signed by this CA.";
+        lib.mdDoc
+          "Mutual TLS - require clients be signed by this CA."
+        ;
     };
 
     mutualTlsCn = mkOption {
       default = null;
       type = types.nullOr types.str;
       description =
-        lib.mdDoc "Mutual TLS - regex for whitelist of allowed client CNs.";
+        lib.mdDoc
+          "Mutual TLS - regex for whitelist of allowed client CNs."
+        ;
     };
 
     tlsRemoteCa = mkOption {
@@ -150,16 +161,18 @@ in
     mutualTlsClientCert = mkOption {
       default = null;
       type = types.nullOr types.path;
-      description = lib.mdDoc
-        "Mutual TLS - client certificate to call remote instance requiring client certs."
+      description =
+        lib.mdDoc
+          "Mutual TLS - client certificate to call remote instance requiring client certs."
         ;
     };
 
     mutualTlsClientKey = mkOption {
       default = null;
       type = types.nullOr types.path;
-      description = lib.mdDoc
-        "Mutual TLS - client key to call remote instance requiring client certs. Do not put this in nix-store."
+      description =
+        lib.mdDoc
+          "Mutual TLS - client key to call remote instance requiring client certs. Do not put this in nix-store."
         ;
     };
 
@@ -167,7 +180,9 @@ in
       default = null;
       type = types.nullOr types.path;
       description =
-        lib.mdDoc "Certificate db configuration file. Path must be writeable.";
+        lib.mdDoc
+          "Certificate db configuration file. Path must be writeable."
+        ;
     };
 
     logLevel = mkOption {

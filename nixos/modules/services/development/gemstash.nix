@@ -16,16 +16,16 @@ let
     s:
     listToAttrs (
       map
-      (attrName: {
-        name = ":${attrName}";
-        value =
-          if isAttrs s.${attrName} then
-            prefixColon s."${attrName}"
-          else
-            s."${attrName}"
-          ;
-      })
-      (attrNames s)
+        (attrName: {
+          name = ":${attrName}";
+          value =
+            if isAttrs s.${attrName} then
+              prefixColon s."${attrName}"
+            else
+              s."${attrName}"
+            ;
+        })
+        (attrNames s)
     )
     ;
 
@@ -59,15 +59,17 @@ in
           base_path = mkOption {
             type = types.path;
             default = "/var/lib/gemstash";
-            description = lib.mdDoc
-              "Path to store the gem files and the sqlite database. If left unchanged, the directory will be created."
+            description =
+              lib.mdDoc
+                "Path to store the gem files and the sqlite database. If left unchanged, the directory will be created."
               ;
           };
           bind = mkOption {
             type = types.str;
             default = "tcp://0.0.0.0:9292";
             description =
-              lib.mdDoc "Host and port combination for the server to listen on."
+              lib.mdDoc
+                "Host and port combination for the server to listen on."
               ;
           };
           db_adapter = mkOption {
@@ -80,15 +82,17 @@ in
               ]
             );
             default = null;
-            description = lib.mdDoc
-              "Which database type to use. For choices other than sqlite3, the dbUrl has to be specified as well."
+            description =
+              lib.mdDoc
+                "Which database type to use. For choices other than sqlite3, the dbUrl has to be specified as well."
               ;
           };
           db_url = mkOption {
             type = types.nullOr types.str;
             default = null;
-            description = lib.mdDoc
-              "The database to connect to when using postgres, mysql, or mysql2."
+            description =
+              lib.mdDoc
+                "The database to connect to when using postgres, mysql, or mysql2."
               ;
           };
         };
@@ -105,8 +109,9 @@ in
       groups.gemstash = { };
     };
 
-    networking.firewall.allowedTCPPorts =
-      mkIf cfg.openFirewall [ (parseBindPort cfg.settings.bind) ];
+    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [
+      (parseBindPort cfg.settings.bind)
+    ];
 
     systemd.services.gemstash = {
       wantedBy = [ "multi-user.target" ];

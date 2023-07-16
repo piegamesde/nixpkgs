@@ -73,7 +73,9 @@ in
         type = types.attrs;
         default = { };
         description =
-          lib.mdDoc "Extra options merged into the mxisd/ma1sd configuration";
+          lib.mdDoc
+            "Extra options merged into the mxisd/ma1sd configuration"
+          ;
       };
 
       matrix = {
@@ -131,8 +133,9 @@ in
           Type = "simple";
           User = "mxisd";
           Group = "mxisd";
-          EnvironmentFile =
-            mkIf (cfg.environmentFile != null) [ cfg.environmentFile ];
+          EnvironmentFile = mkIf (cfg.environmentFile != null) [
+            cfg.environmentFile
+          ];
           ExecStart =
             "${cfg.package}/bin/${executable} -c ${cfg.dataDir}/mxisd-config.yaml";
           ExecStartPre =

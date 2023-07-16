@@ -14,15 +14,17 @@ let
 
   isConfined = config.systemd.services.akkoma.confinement.enable;
   hasSmtp =
-    (attrByPath
-      [
-        ":pleroma"
-        "Pleroma.Emails.Mailer"
-        "adapter"
-        "value"
-      ]
-      null
-      ex) == "Swoosh.Adapters.SMTP"
+    (
+      attrByPath
+        [
+          ":pleroma"
+          "Pleroma.Emails.Mailer"
+          "adapter"
+          "value"
+        ]
+        null
+        ex
+    ) == "Swoosh.Adapters.SMTP"
     ;
 
   isAbsolutePath = v: isString v && substring 0 1 v == "/";
@@ -124,17 +126,17 @@ let
     addr:
     fileContents (
       pkgs.runCommand addr
-      {
-        nativeBuildInputs = with pkgs; [ elixir ];
-        code = ''
-          case :inet.parse_address('${addr}') do
-            {:ok, addr} -> IO.inspect addr
-            {:error, _} -> System.halt(65)
-          end
-        '';
-        passAsFile = [ "code" ];
-      }
-      ''elixir "$codePath" >"$out"''
+        {
+          nativeBuildInputs = with pkgs; [ elixir ];
+          code = ''
+            case :inet.parse_address('${addr}') do
+              {:ok, addr} -> IO.inspect addr
+              {:error, _} -> System.halt(65)
+            end
+          '';
+          passAsFile = [ "code" ];
+        }
+        ''elixir "$codePath" >"$out"''
     )
     ;
 
@@ -142,25 +144,25 @@ let
   configFile = format.generate "config.exs" (
     replaceSec (
       attrsets.updateManyAttrsByPath
-      [ {
-        path = [
-          ":pleroma"
-          "Pleroma.Web.Endpoint"
-          "http"
-          "ip"
-        ];
-        update =
-          addr:
-          if isAbsolutePath addr then
-            format.lib.mkTuple [
-              (format.lib.mkAtom ":local")
-              addr
-            ]
-          else
-            format.lib.mkRaw (erlAddr addr)
-          ;
-      } ]
-      cfg.config
+        [ {
+          path = [
+            ":pleroma"
+            "Pleroma.Web.Endpoint"
+            "http"
+            "ip"
+          ];
+          update =
+            addr:
+            if isAbsolutePath addr then
+              format.lib.mkTuple [
+                (format.lib.mkAtom ":local")
+                addr
+              ]
+            else
+              format.lib.mkRaw (erlAddr addr)
+            ;
+        } ]
+        cfg.config
     )
   );
 
@@ -268,15 +270,15 @@ let
 
       cat ${escapeShellArg configFile} >"$tmp"
       ${concatMapStrings
-      (file: ''
-        replace-secret ${
-          escapeShellArgs [
-            (sha256 file)
-            file
-          ]
-        } "$tmp"
-      '')
-      secretPaths}
+        (file: ''
+          replace-secret ${
+            escapeShellArgs [
+              (sha256 file)
+              file
+            ]
+          } "$tmp"
+        '')
+        secretPaths}
 
       chown ${escapeShellArg cfg.user}:${escapeShellArg cfg.group} "$tmp"
       chmod 0400 "$tmp"
@@ -471,23 +473,23 @@ let
   staticFiles = pkgs.runCommandLocal "akkoma-static" { } ''
     ${concatStringsSep "\n" (
       mapAttrsToList
-      (key: val: ''
-        mkdir -p $out/frontends/${escapeShellArg val.name}/
-        ln -s ${escapeShellArg val.package} $out/frontends/${
-          escapeShellArg val.name
-        }/${escapeShellArg val.ref}
-      '')
-      cfg.frontends
+        (key: val: ''
+          mkdir -p $out/frontends/${escapeShellArg val.name}/
+          ln -s ${escapeShellArg val.package} $out/frontends/${
+            escapeShellArg val.name
+          }/${escapeShellArg val.ref}
+        '')
+        cfg.frontends
     )}
 
     ${optionalString (cfg.extraStatic != null) (
       concatStringsSep "\n" (
         mapAttrsToList
-        (key: val: ''
-          mkdir -p "$out/$(dirname ${escapeShellArg key})"
-          ln -s ${escapeShellArg val} $out/${escapeShellArg key}
-        '')
-        cfg.extraStatic
+          (key: val: ''
+            mkdir -p "$out/$(dirname ${escapeShellArg key})"
+            ln -s ${escapeShellArg val} $out/${escapeShellArg key}
+          '')
+          cfg.extraStatic
       )
     )}
   '';
@@ -553,7 +555,9 @@ in
           type = types.nonEmptyStr;
           default = config.services.postgresql.superUser;
           defaultText =
-            literalExpression "config.services.postgresql.superUser";
+            literalExpression
+              "config.services.postgresql.superUser"
+            ;
           description = mdDoc ''
             Name of the database user to initialise the database with.
 
@@ -608,11 +612,14 @@ in
           ffmpeg_5-headless
           graphicsmagick-imagemagick-compat
         ];
-        defaultText = literalExpression
-          "with pkgs; [ exiftool graphicsmagick-imagemagick-compat ffmpeg_5-headless ]"
+        defaultText =
+          literalExpression
+            "with pkgs; [ exiftool graphicsmagick-imagemagick-compat ffmpeg_5-headless ]"
           ;
         example =
-          literalExpression "with pkgs; [ exiftool imagemagick ffmpeg_5-full ]";
+          literalExpression
+            "with pkgs; [ exiftool imagemagick ffmpeg_5-full ]"
+          ;
         description = mdDoc ''
           List of extra packages to include in the executable search path of the service unit.
           These are needed by various configurable components such as:
@@ -710,14 +717,18 @@ in
           type = types.port;
           default = 49152;
           description =
-            mdDoc "Lower bound for Erlang distribution protocol TCP port.";
+            mdDoc
+              "Lower bound for Erlang distribution protocol TCP port."
+            ;
         };
 
         portMax = mkOption {
           type = types.port;
           default = 65535;
           description =
-            mdDoc "Upper bound for Erlang distribution protocol TCP port.";
+            mdDoc
+              "Upper bound for Erlang distribution protocol TCP port."
+            ;
         };
 
         cookie = mkOption {
@@ -923,15 +934,17 @@ in
 
               ":frontends" = mkOption {
                 type = elixirValue;
-                default = mapAttrs
-                  (
-                    key: val:
-                    format.lib.mkMap {
-                      name = val.name;
-                      ref = val.ref;
-                    }
-                  )
-                  cfg.frontends;
+                default =
+                  mapAttrs
+                    (
+                      key: val:
+                      format.lib.mkMap {
+                        name = val.name;
+                        ref = val.ref;
+                      }
+                    )
+                    cfg.frontends
+                  ;
                 defaultText = literalExpression ''
                   lib.mapAttrs (key: val:
                     (pkgs.formats.elixirConf { }).lib.mkMap { name = val.name; ref = val.ref; })
@@ -968,7 +981,9 @@ in
                         "mailto:''${config.services.akkoma.config.":pleroma".":instance".email}"
                       '';
                       description =
-                        mdDoc "mailto URI for administrative contact.";
+                        mdDoc
+                          "mailto URI for administrative contact."
+                        ;
                     };
 
                     public_key = mkOption {
@@ -1218,9 +1233,10 @@ in
           ExecStart = "${envWrapper}/bin/pleroma start";
           ExecStartPost = socketScript;
           ExecStop = "${envWrapper}/bin/pleroma stop";
-          ExecStopPost = mkIf
-            (isAbsolutePath web.http.ip)
-            "${pkgs.coreutils}/bin/rm -f '${web.http.ip}'";
+          ExecStopPost =
+            mkIf (isAbsolutePath web.http.ip)
+              "${pkgs.coreutils}/bin/rm -f '${web.http.ip}'"
+            ;
 
           ProtectProc = "noaccess";
           ProcSubset = "pid";
@@ -1247,15 +1263,15 @@ in
           RestrictSUIDSGID = true;
           RemoveIPC = true;
 
-          CapabilityBoundingSet = mkIf
-            (any (port: port > 0 && port < 1024) [
-              web.http.port
-              cfg.dist.epmdPort
-              cfg.dist.portMin
-            ])
-            [
-              "CAP_NET_BIND_SERVICE"
-            ];
+          CapabilityBoundingSet =
+            mkIf
+              (any (port: port > 0 && port < 1024) [
+                web.http.port
+                cfg.dist.epmdPort
+                cfg.dist.portMin
+              ])
+              [ "CAP_NET_BIND_SERVICE" ]
+            ;
 
           NoNewPrivileges = true;
           SystemCallFilter = [

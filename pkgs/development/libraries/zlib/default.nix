@@ -65,9 +65,11 @@ stdenv.mkDerivation (
     dontConfigure = stdenv.hostPlatform.libc == "msvcrt";
 
     preConfigure =
-      lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
-        export CHOST=${stdenv.hostPlatform.config}
-      '';
+      lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform)
+        ''
+          export CHOST=${stdenv.hostPlatform.config}
+        ''
+      ;
 
     # For zlib's ./configure (as of verion 1.2.11), the order
     # of --static/--shared flags matters!
@@ -117,7 +119,9 @@ stdenv.mkDerivation (
     # As zlib takes part in the stdenv building, we don't want references
     # to the bootstrap-tools libgcc (as uses to happen on arm/mips)
     env.NIX_CFLAGS_COMPILE =
-      lib.optionalString (!stdenv.hostPlatform.isDarwin) "-static-libgcc";
+      lib.optionalString (!stdenv.hostPlatform.isDarwin)
+        "-static-libgcc"
+      ;
 
     # We don't strip on static cross-compilation because of reports that native
     # stripping corrupted the target library; see commit 12e960f5 for the report.
@@ -147,7 +151,9 @@ stdenv.mkDerivation (
       ;
 
     passthru.tests.pkg-config =
-      testers.testMetaPkgConfig finalAttrs.finalPackage;
+      testers.testMetaPkgConfig
+        finalAttrs.finalPackage
+      ;
 
     meta = with lib; {
       homepage = "https://zlib.net";

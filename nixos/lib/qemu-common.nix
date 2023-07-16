@@ -39,7 +39,7 @@ rec {
       "ttyAMA0"
     else
       throw
-      "Unknown QEMU serial device for system '${pkgs.stdenv.hostPlatform.system}'"
+        "Unknown QEMU serial device for system '${pkgs.stdenv.hostPlatform.system}'"
     ;
 
   qemuBinary =
@@ -76,15 +76,15 @@ rec {
             [ "linux" ] ++ (lib.attrNames otherHostGuestMatrix);
         in
         throw "Unsupported host system ${hostSystem}, supported: ${
-          lib.concatStringsSep ", " supportedSystems
-        }"
+            lib.concatStringsSep ", " supportedSystems
+          }"
         ;
       throwUnsupportedGuestSystem =
         guestMap:
         throw
-        "Unsupported guest system ${guestSystem} for host ${hostSystem}, supported: ${
-          lib.concatStringsSep ", " (lib.attrNames guestMap)
-        }"
+          "Unsupported guest system ${guestSystem} for host ${hostSystem}, supported: ${
+            lib.concatStringsSep ", " (lib.attrNames guestMap)
+          }"
         ;
     in
     if hostStdenv.isLinux then

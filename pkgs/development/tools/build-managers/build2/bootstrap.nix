@@ -27,8 +27,9 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  propagatedBuildInputs =
-    lib.optionals stdenv.targetPlatform.isDarwin [ fixDarwinDylibNames ];
+  propagatedBuildInputs = lib.optionals stdenv.targetPlatform.isDarwin [
+    fixDarwinDylibNames
+  ];
 
   doCheck = true;
   checkPhase = ''

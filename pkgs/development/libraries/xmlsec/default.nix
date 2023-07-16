@@ -76,35 +76,37 @@ lib.fix (
       moveToOutput "lib/xmlsec1Conf.sh" "$dev"
     '';
 
-    passthru.tests.libxmlsec1-crypto = runCommandCC "libxmlsec1-crypto-test"
-      {
-        nativeBuildInputs = [ pkg-config ];
-        buildInputs = [
-          self
-          libxml2
-          libxslt
-          libtool
-        ];
-      }
-      ''
-        $CC $(pkg-config --cflags --libs xmlsec1) -o crypto-test ${
-          writeText "crypto-test.c" ''
-            #include <xmlsec/xmlsec.h>
-            #include <xmlsec/crypto.h>
-
-            int main(int argc, char **argv) {
-              return xmlSecInit() ||
-                xmlSecCryptoDLLoadLibrary(argc > 1 ? argv[1] : 0) ||
-                xmlSecCryptoInit();
-            }
-          ''
+    passthru.tests.libxmlsec1-crypto =
+      runCommandCC "libxmlsec1-crypto-test"
+        {
+          nativeBuildInputs = [ pkg-config ];
+          buildInputs = [
+            self
+            libxml2
+            libxslt
+            libtool
+          ];
         }
+        ''
+          $CC $(pkg-config --cflags --libs xmlsec1) -o crypto-test ${
+            writeText "crypto-test.c" ''
+              #include <xmlsec/xmlsec.h>
+              #include <xmlsec/crypto.h>
 
-        for crypto in "" gcrypt gnutls nss openssl; do
-          ./crypto-test $crypto
-        done
-        touch $out
-      '';
+              int main(int argc, char **argv) {
+                return xmlSecInit() ||
+                  xmlSecCryptoDLLoadLibrary(argc > 1 ? argv[1] : 0) ||
+                  xmlSecCryptoInit();
+              }
+            ''
+          }
+
+          for crypto in "" gcrypt gnutls nss openssl; do
+            ./crypto-test $crypto
+          done
+          touch $out
+        ''
+      ;
 
     meta = with lib; {
       description = "XML Security Library in C based on libxml2";

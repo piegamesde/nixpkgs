@@ -98,10 +98,12 @@ stdenv.mkDerivation rec {
   doCheck = false; # stdenv.hostPlatform.system == "x86_64-linux";
 
   checkPhase =
-    lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux") ''
-      (cd testcases && xvfb-run ./complete-run.pl -p 1 --keep-xserver-output)
-      ! grep -q '^not ok' testcases/latest/complete-run.log
-    '';
+    lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux")
+      ''
+        (cd testcases && xvfb-run ./complete-run.pl -p 1 --keep-xserver-output)
+        ! grep -q '^not ok' testcases/latest/complete-run.log
+      ''
+    ;
 
   postInstall = ''
     wrapProgram "$out/bin/i3-save-tree" --prefix PERL5LIB ":" "$PERL5LIB"

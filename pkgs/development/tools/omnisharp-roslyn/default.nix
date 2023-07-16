@@ -77,33 +77,33 @@ let
         with-sdk =
           sdk:
           runCommand "with-${if sdk ? version then sdk.version else "no"}-sdk"
-          {
-            nativeBuildInputs = [
-              finalPackage
-              sdk
-              expect
-            ];
-            meta.timeout = 60;
-          }
-          ''
-            HOME=$TMPDIR
-            expect <<"EOF"
-              spawn OmniSharp
-              expect_before timeout {
-                send_error "timeout!\n"
-                exit 1
-              }
-              expect ".NET Core SDK ${
-                if sdk ? version then sdk.version else sdk_6_0.version
-              }"
-              expect "{\"Event\":\"started\","
-              send \x03
-              expect eof
-              catch wait result
-              exit [lindex $result 3]
-            EOF
-            touch $out
-          ''
+            {
+              nativeBuildInputs = [
+                finalPackage
+                sdk
+                expect
+              ];
+              meta.timeout = 60;
+            }
+            ''
+              HOME=$TMPDIR
+              expect <<"EOF"
+                spawn OmniSharp
+                expect_before timeout {
+                  send_error "timeout!\n"
+                  exit 1
+                }
+                expect ".NET Core SDK ${
+                  if sdk ? version then sdk.version else sdk_6_0.version
+                }"
+                expect "{\"Event\":\"started\","
+                send \x03
+                expect eof
+                catch wait result
+                exit [lindex $result 3]
+              EOF
+              touch $out
+            ''
           ;
       in
       {

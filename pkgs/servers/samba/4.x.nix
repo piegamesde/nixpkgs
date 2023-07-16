@@ -103,9 +103,9 @@ stdenv.mkDerivation rec {
       rpcsvc-proto
     ]
     ++ optionals stdenv.isLinux [ buildPackages.stdenv.cc ]
-    ++ optional
-      (stdenv.buildPlatform != stdenv.hostPlatform)
-      samba # asn1_compile/compile_et
+    ++
+      optional (stdenv.buildPlatform != stdenv.hostPlatform)
+        samba # asn1_compile/compile_et
     ++ optionals stdenv.isDarwin [ fixDarwinDylibNames ]
     ;
 
@@ -267,11 +267,11 @@ stdenv.mkDerivation rec {
     ''
     ;
 
-  disallowedReferences = lib.optionals
-    (buildPackages.python3Packages.python != python3Packages.python)
-    [
-      buildPackages.python3Packages.python
-    ];
+  disallowedReferences =
+    lib.optionals
+      (buildPackages.python3Packages.python != python3Packages.python)
+      [ buildPackages.python3Packages.python ]
+    ;
 
   passthru = { tests.samba = nixosTests.samba; };
 

@@ -51,7 +51,9 @@ let
 
   # Networks attrset as a list
   networkList =
-    mapAttrsToList (ssid: opts: opts // { inherit ssid; }) cfg.networks;
+    mapAttrsToList (ssid: opts: opts // { inherit ssid; })
+      cfg.networks
+    ;
 
   # List of all networks (normal + generated fallbacks)
   allNetworks =
@@ -130,8 +132,8 @@ let
     iface:
     let
       deviceUnit = optional (iface != null) "sys-subsystem-net-devices-${
-          utils.escapeSystemdPath iface
-        }.device";
+            utils.escapeSystemdPath iface
+          }.device";
       configStr =
         if cfg.allowAuxiliaryImperativeNetworks then
           "-c /etc/wpa_supplicant.conf -I ${finalConfig}"
@@ -161,12 +163,12 @@ let
 
       script = ''
         ${optionalString
-        (configIsGenerated && !cfg.allowAuxiliaryImperativeNetworks)
-        ''
-          if [ -f /etc/wpa_supplicant.conf ]; then
-            echo >&2 "<3>/etc/wpa_supplicant.conf present but ignored. Generated ${configFile} is used instead."
-          fi
-        ''}
+          (configIsGenerated && !cfg.allowAuxiliaryImperativeNetworks)
+          ''
+            if [ -f /etc/wpa_supplicant.conf ]; then
+              echo >&2 "<3>/etc/wpa_supplicant.conf present but ignored. Generated ${configFile} is used instead."
+            fi
+          ''}
 
         # substitute environment variables
         if [ -f "${configFile}" ]; then
@@ -521,7 +523,9 @@ in
           default = "wheel";
           example = "network";
           description =
-            lib.mdDoc "Members of this group can control wpa_supplicant.";
+            lib.mdDoc
+              "Members of this group can control wpa_supplicant."
+            ;
         };
       };
 

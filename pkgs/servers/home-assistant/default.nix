@@ -119,25 +119,27 @@ let
       moto = super.moto.overridePythonAttrs (_: { doCheck = false; });
 
       notifications-android-tv =
-        super.notifications-android-tv.overridePythonAttrs (
-          oldAttrs: rec {
-            version = "0.1.5";
-            format = "setuptools";
+        super.notifications-android-tv.overridePythonAttrs
+          (
+            oldAttrs: rec {
+              version = "0.1.5";
+              format = "setuptools";
 
-            src = fetchFromGitHub {
-              owner = "engrbm87";
-              repo = "notifications_android_tv";
-              rev = "refs/tags/${version}";
-              hash = "sha256-adkcUuPl0jdJjkBINCTW4Kmc16C/HzL+jaRZB/Qr09A=";
-            };
+              src = fetchFromGitHub {
+                owner = "engrbm87";
+                repo = "notifications_android_tv";
+                rev = "refs/tags/${version}";
+                hash = "sha256-adkcUuPl0jdJjkBINCTW4Kmc16C/HzL+jaRZB/Qr09A=";
+              };
 
-            nativeBuildInputs = with super; [ setuptools ];
+              nativeBuildInputs = with super; [ setuptools ];
 
-            propagatedBuildInputs = with super; [ requests ];
+              propagatedBuildInputs = with super; [ requests ];
 
-            doCheck = false; # no tests
-          }
-        );
+              doCheck = false; # no tests
+            }
+          )
+        ;
 
       # Pinned due to API changes in 1.3.0
       ovoenergy = super.ovoenergy.overridePythonAttrs (
@@ -346,8 +348,9 @@ let
   ];
 
   python = python3.override {
-    packageOverrides =
-      lib.composeManyExtensions (defaultOverrides ++ [ packageOverrides ]);
+    packageOverrides = lib.composeManyExtensions (
+      defaultOverrides ++ [ packageOverrides ]
+    );
   };
 
   componentPackages = import ./component-packages.nix;
@@ -359,7 +362,8 @@ let
   getPackages = component: componentPackages.components.${component};
 
   componentBuildInputs =
-    lib.concatMap (component: getPackages component python.pkgs) extraComponents
+    lib.concatMap (component: getPackages component python.pkgs)
+      extraComponents
     ;
 
   # Ensure that we are using a consistent package set
@@ -435,9 +439,8 @@ python.pkgs.buildPythonApplication rec {
       sed -r -i \
         ${
           lib.concatStringsSep "\n" (
-            map
-            (package: ''-e 's/${package}[<>=]+.*/${package}",/g' \'')
-            relaxedConstraints
+            map (package: ''-e 's/${package}[<>=]+.*/${package}",/g' \'')
+              relaxedConstraints
           )
         }
         pyproject.toml
@@ -557,8 +560,9 @@ python.pkgs.buildPythonApplication rec {
       python
       supportedComponentsWithTests
       ;
-    pythonPath =
-      python3.pkgs.makePythonPath (componentBuildInputs ++ extraBuildInputs);
+    pythonPath = python3.pkgs.makePythonPath (
+      componentBuildInputs ++ extraBuildInputs
+    );
     frontend = python.pkgs.home-assistant-frontend;
     intents = python.pkgs.home-assistant-intents;
     tests = {

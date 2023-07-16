@@ -36,7 +36,9 @@ in
     netrc = mkOption {
       type = types.nullOr types.path;
       description =
-        lib.mdDoc "The netrc file to use when fetching data from Hydra.";
+        lib.mdDoc
+          "The netrc file to use when fetching data from Hydra."
+        ;
       default = null;
     };
     package = mkOption {

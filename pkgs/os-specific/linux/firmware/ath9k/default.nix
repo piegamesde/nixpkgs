@@ -54,28 +54,31 @@ stdenv.mkDerivation (
       let
         inherit (lib) toUpper splitString last listToAttrs pipe;
         inherit (builtins) map;
-        urls-and-hashes =
-          import (./. + "/urls-and-hashes-${finalAttrs.version}.nix");
-        make-links = pipe
-          [
-            "gcc"
-            "binutils"
-            "gmp"
-            "mpfr"
-            "mpc"
-          ]
-          [
-            (map (
-              vname:
-              fetchurl rec {
-                url = urls-and-hashes."${(toUpper vname) + "_URL"}";
-                sha256 = urls-and-hashes."${(toUpper vname) + "_SUM"}" or "";
-                name = last (splitString "/" url);
-              }
-            ))
-            (map (v: "ln -sT ${v} toolchain/dl/${v.name}"))
-            (lib.concatStringsSep "\n")
-          ];
+        urls-and-hashes = import (
+          ./. + "/urls-and-hashes-${finalAttrs.version}.nix"
+        );
+        make-links =
+          pipe
+            [
+              "gcc"
+              "binutils"
+              "gmp"
+              "mpfr"
+              "mpc"
+            ]
+            [
+              (map (
+                vname:
+                fetchurl rec {
+                  url = urls-and-hashes."${(toUpper vname) + "_URL"}";
+                  sha256 = urls-and-hashes."${(toUpper vname) + "_SUM"}" or "";
+                  name = last (splitString "/" url);
+                }
+              ))
+              (map (v: "ln -sT ${v} toolchain/dl/${v.name}"))
+              (lib.concatStringsSep "\n")
+            ]
+          ;
       in
       ''
         mkdir -p toolchain/dl
@@ -97,12 +100,14 @@ stdenv.mkDerivation (
     passthru = {
       inherit (finalAttrs) src;
       updateScript =
-        writeScript "${finalAttrs.pname}-${finalAttrs.version}-updateScript" ''
-          nix-shell '<nixpkgs>' -A ${finalAttrs.pname}${
-            lib.optionalString enableUnstable "-unstable"
-          }.passthru.update \
-          > pkgs/os-specific/linux/firmware/ath9k/urls-and-hashes-${finalAttrs.version}.nix
-        '';
+        writeScript "${finalAttrs.pname}-${finalAttrs.version}-updateScript"
+          ''
+            nix-shell '<nixpkgs>' -A ${finalAttrs.pname}${
+              lib.optionalString enableUnstable "-unstable"
+            }.passthru.update \
+            > pkgs/os-specific/linux/firmware/ath9k/urls-and-hashes-${finalAttrs.version}.nix
+          ''
+        ;
       update = stdenv.mkDerivation {
         name = "${finalAttrs.pname}-${finalAttrs.version}-update";
         shellHook =

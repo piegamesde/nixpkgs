@@ -27,12 +27,14 @@ in
 
 {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "networking"
-        "hostConf"
-      ]
-      ''Use environment.etc."host.conf" instead.'')
+    (
+      mkRemovedOptionModule
+        [
+          "networking"
+          "hostConf"
+        ]
+        ''Use environment.etc."host.conf" instead.''
+    )
   ];
 
   options = {
@@ -52,8 +54,9 @@ in
 
     networking.hostFiles = lib.mkOption {
       type = types.listOf types.path;
-      defaultText = literalMD
-        "Hosts from {option}`networking.hosts` and {option}`networking.extraHosts`"
+      defaultText =
+        literalMD
+          "Hosts from {option}`networking.hosts` and {option}`networking.extraHosts`"
         ;
       example = literalExpression ''
         [ "''${pkgs.my-blocklist-package}/share/my-blocklist/hosts" ]'';
@@ -184,9 +187,8 @@ in
     networking.hosts =
       let
         hostnames = # Note: The FQDN (canonical hostname) has to come first:
-          optional
-          (cfg.hostName != "" && cfg.domain != null)
-          "${cfg.hostName}.${cfg.domain}"
+          optional (cfg.hostName != "" && cfg.domain != null)
+            "${cfg.hostName}.${cfg.domain}"
           ++ optional (cfg.hostName != "") cfg.hostName
           ; # Then the hostname (without the domain)
       in

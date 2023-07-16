@@ -31,15 +31,15 @@ stdenv.mkDerivation {
     EOF
 
     ${lib.concatMapStrings
-    (
-      {
-        name,
-        description,
-      }: ''
-        docgen ${name} ${lib.escapeShellArg description}
-      ''
-    )
-    libsets}
+      (
+        {
+          name,
+          description,
+        }: ''
+          docgen ${name} ${lib.escapeShellArg description}
+        ''
+      )
+      libsets}
 
     echo "</root>" >> "$out/index.xml"
 

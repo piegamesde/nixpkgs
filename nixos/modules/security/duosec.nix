@@ -34,35 +34,41 @@ let
 in
 {
   imports = [
-    (mkRenamedOptionModule
-      [
-        "security"
-        "duosec"
-        "group"
-      ]
-      [
-        "security"
-        "duosec"
-        "groups"
-      ])
-    (mkRenamedOptionModule
-      [
-        "security"
-        "duosec"
-        "ikey"
-      ]
-      [
-        "security"
-        "duosec"
-        "integrationKey"
-      ])
-    (mkRemovedOptionModule
-      [
-        "security"
-        "duosec"
-        "skey"
-      ]
-      "The insecure security.duosec.skey option has been replaced by a new security.duosec.secretKeyFile option. Use this new option to store a secure copy of your key instead.")
+    (
+      mkRenamedOptionModule
+        [
+          "security"
+          "duosec"
+          "group"
+        ]
+        [
+          "security"
+          "duosec"
+          "groups"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "security"
+          "duosec"
+          "ikey"
+        ]
+        [
+          "security"
+          "duosec"
+          "integrationKey"
+        ]
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "security"
+          "duosec"
+          "skey"
+        ]
+        "The insecure security.duosec.skey option has been replaced by a new security.duosec.secretKeyFile option. Use this new option to store a secure copy of your key instead."
+    )
   ];
 
   options = {
@@ -71,14 +77,18 @@ in
         type = types.bool;
         default = false;
         description =
-          lib.mdDoc "If enabled, protect SSH logins with Duo Security.";
+          lib.mdDoc
+            "If enabled, protect SSH logins with Duo Security."
+          ;
       };
 
       pam.enable = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc
-          "If enabled, protect logins with Duo Security using PAM support.";
+        description =
+          lib.mdDoc
+            "If enabled, protect logins with Duo Security using PAM support."
+          ;
       };
 
       integrationKey = mkOption {

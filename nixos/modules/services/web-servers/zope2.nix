@@ -21,16 +21,18 @@ let
         name = mkOption {
           default = "${name}";
           type = types.str;
-          description = lib.mdDoc
-            "The name of the zope2 instance. If undefined, the name of the attribute set will be used."
+          description =
+            lib.mdDoc
+              "The name of the zope2 instance. If undefined, the name of the attribute set will be used."
             ;
         };
 
         threads = mkOption {
           default = 2;
           type = types.int;
-          description = lib.mdDoc
-            "Specify the number of threads that Zope's ZServer web server will use to service requests. "
+          description =
+            lib.mdDoc
+              "Specify the number of threads that Zope's ZServer web server will use to service requests. "
             ;
         };
 
@@ -38,14 +40,18 @@ let
           default = "localhost:8080";
           type = types.str;
           description =
-            lib.mdDoc "Give a port and address for the HTTP server.";
+            lib.mdDoc
+              "Give a port and address for the HTTP server."
+            ;
         };
 
         user = mkOption {
           default = "zope2";
           type = types.str;
           description =
-            lib.mdDoc "The name of the effective user for the Zope process.";
+            lib.mdDoc
+              "The name of the effective user for the Zope process."
+            ;
         };
 
         clientHome = mkOption {
@@ -72,8 +78,9 @@ let
 
         packages = mkOption {
           type = types.listOf types.package;
-          description = lib.mdDoc
-            "The list of packages you want to make available to the zope2 instance."
+          description =
+            lib.mdDoc
+              "The list of packages you want to make available to the zope2 instance."
             ;
         };
       };
@@ -111,7 +118,9 @@ in
         }
       '';
       description =
-        lib.mdDoc "zope2 instances to be created automatically by the system.";
+        lib.mdDoc
+          "zope2 instances to be created automatically by the system."
+        ;
     };
   };
 
@@ -275,12 +284,14 @@ in
       in
       listToAttrs (
         map
-        (name: {
-          name = "zope2-${name}";
-          value =
-            createZope2Instance (builtins.getAttr name cfg.instances) name;
-        })
-        (builtins.attrNames cfg.instances)
+          (name: {
+            name = "zope2-${name}";
+            value =
+              createZope2Instance (builtins.getAttr name cfg.instances)
+                name
+              ;
+          })
+          (builtins.attrNames cfg.instances)
       )
       ;
   };

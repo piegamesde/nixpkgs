@@ -59,9 +59,9 @@ let
 
   serviceOptions =
     service: {
-      enable =
-        mkEnableOption (lib.mdDoc "the FRR ${toUpper service} routing protocol")
-        ;
+      enable = mkEnableOption (
+        lib.mdDoc "the FRR ${toUpper service} routing protocol"
+      );
 
       configFile = mkOption {
         type = types.nullOr types.path;
@@ -229,12 +229,12 @@ in
               PIDFile = "frr/${daemon}.pid";
               ExecStart =
                 "${pkgs.frr}/libexec/frr/${daemon} -f /etc/frr/${service}.conf"
-                + optionalString
-                  (scfg.vtyListenAddress != "")
-                  " -A ${scfg.vtyListenAddress}"
+                +
+                  optionalString (scfg.vtyListenAddress != "")
+                    " -A ${scfg.vtyListenAddress}"
                 + optionalString (scfg.vtyListenPort != null) " -P ${
-                     toString scfg.vtyListenPort
-                   }"
+                       toString scfg.vtyListenPort
+                     }"
                 + " "
                 + (concatStringsSep " " scfg.extraOptions)
                 ;

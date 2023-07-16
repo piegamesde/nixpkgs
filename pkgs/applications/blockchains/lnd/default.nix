@@ -42,8 +42,8 @@ buildGoModule rec {
       };
       buildVarsFlags = lib.concatStringsSep " " (
         lib.mapAttrsToList
-        (k: v: "-X github.com/lightningnetwork/lnd/build.${k}=${v}")
-        buildVars
+          (k: v: "-X github.com/lightningnetwork/lnd/build.${k}=${v}")
+          buildVars
       );
     in
     lib.optionalString (tags != [ ]) ''

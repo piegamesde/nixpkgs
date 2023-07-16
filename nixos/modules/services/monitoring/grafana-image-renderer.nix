@@ -13,7 +13,9 @@ let
   format = pkgs.formats.json { };
 
   configFile =
-    format.generate "grafana-image-renderer-config.json" cfg.settings;
+    format.generate "grafana-image-renderer-config.json"
+      cfg.settings
+    ;
 in
 {
   options.services.grafana-image-renderer = {

@@ -52,18 +52,19 @@ lib.optionalString (hostPlatform.isSunOS && hostPlatform.is64bit) ''
 # gnat-bootstrap, the former is provided as `as`, while the latter is provided as
 # `gas`.
 #
-+ lib.optionalString
-  (
-    langAda
-    && buildPlatform == hostPlatform
-    && hostPlatform == targetPlatform
-    && targetPlatform.isx86_64
-    && targetPlatform.isDarwin
-  )
-  ''
-    export AS_FOR_BUILD=${gnat-bootstrap}/bin/as
-    export AS_FOR_TARGET=${gnat-bootstrap}/bin/gas
-  ''
++
+  lib.optionalString
+    (
+      langAda
+      && buildPlatform == hostPlatform
+      && hostPlatform == targetPlatform
+      && targetPlatform.isx86_64
+      && targetPlatform.isDarwin
+    )
+    ''
+      export AS_FOR_BUILD=${gnat-bootstrap}/bin/as
+      export AS_FOR_TARGET=${gnat-bootstrap}/bin/gas
+    ''
 
 # NOTE 2020/3/18: This environment variable prevents configure scripts from
 # detecting the presence of aligned_alloc on Darwin.  There are many facts that
@@ -108,14 +109,15 @@ lib.optionalString (hostPlatform.isSunOS && hostPlatform.is64bit) ''
 # HACK: if host and target config are the same, but the platforms are
 # actually different we need to convince the configure script that it
 # is in fact building a cross compiler although it doesn't believe it.
-+ lib.optionalString
-  (
-    targetPlatform.config == hostPlatform.config
-    && targetPlatform != hostPlatform
-  )
-  ''
-    substituteInPlace configure --replace is_cross_compiler=no is_cross_compiler=yes
-  ''
++
+  lib.optionalString
+    (
+      targetPlatform.config == hostPlatform.config
+      && targetPlatform != hostPlatform
+    )
+    ''
+      substituteInPlace configure --replace is_cross_compiler=no is_cross_compiler=yes
+    ''
 
 # Normally (for host != target case) --without-headers automatically
 # enables 'inhibit_libc=true' in gcc's gcc/configure.ac. But case of
@@ -126,11 +128,12 @@ lib.optionalString (hostPlatform.isSunOS && hostPlatform.is64bit) ''
   export inhibit_libc=true
 ''
 
-+ lib.optionalString
-  (!enableMultilib && hostPlatform.is64bit && !hostPlatform.isMips64n32)
-  ''
-    export linkLib64toLib=1
-  ''
++
+  lib.optionalString
+    (!enableMultilib && hostPlatform.is64bit && !hostPlatform.isMips64n32)
+    ''
+      export linkLib64toLib=1
+    ''
 
 # On mips platforms, gcc follows the IRIX naming convention:
 #

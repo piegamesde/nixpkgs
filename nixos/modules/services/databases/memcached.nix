@@ -48,22 +48,27 @@ in
       maxMemory = mkOption {
         type = types.ints.unsigned;
         default = 64;
-        description = lib.mdDoc
-          "The maximum amount of memory to use for storage, in megabytes.";
+        description =
+          lib.mdDoc
+            "The maximum amount of memory to use for storage, in megabytes."
+          ;
       };
 
       maxConnections = mkOption {
         type = types.ints.unsigned;
         default = 1024;
         description =
-          lib.mdDoc "The maximum number of simultaneous connections.";
+          lib.mdDoc
+            "The maximum number of simultaneous connections."
+          ;
       };
 
       extraOptions = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        description = lib.mdDoc
-          "A list of extra options that will be added as a suffix when running memcached."
+        description =
+          lib.mdDoc
+            "A list of extra options that will be added as a suffix when running memcached."
           ;
       };
     };
@@ -128,14 +133,16 @@ in
     };
   };
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "memcached"
-        "socket"
-      ]
-      ''
-        This option was replaced by a fixed unix socket path at /run/memcached/memcached.sock enabled using services.memcached.enableUnixSocket.
-      '')
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "memcached"
+          "socket"
+        ]
+        ''
+          This option was replaced by a fixed unix socket path at /run/memcached/memcached.sock enabled using services.memcached.enableUnixSocket.
+        ''
+    )
   ];
 }

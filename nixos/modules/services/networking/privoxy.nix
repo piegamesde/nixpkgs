@@ -155,14 +155,18 @@ in
           type = types.str;
           default = "127.0.0.1:8118";
           description =
-            lib.mdDoc "Pair of address:port the proxy server is listening to.";
+            lib.mdDoc
+              "Pair of address:port the proxy server is listening to."
+            ;
         };
 
         options.enable-edit-actions = mkOption {
           type = types.bool;
           default = false;
           description =
-            lib.mdDoc "Whether the web-based actions file editor may be used.";
+            lib.mdDoc
+              "Whether the web-based actions file editor may be used."
+            ;
         };
 
         options.actionsfile = mkOption {
@@ -243,9 +247,9 @@ in
 
     users.groups.privoxy = { };
 
-    systemd.tmpfiles.rules = optional
-      cfg.inspectHttps
-      "d ${cfg.settings.certificate-directory} 0770 privoxy privoxy ${cfg.certsLifetime}"
+    systemd.tmpfiles.rules =
+      optional cfg.inspectHttps
+        "d ${cfg.settings.certificate-directory} 0770 privoxy privoxy ${cfg.certsLifetime}"
       ;
 
     systemd.services.privoxy = {

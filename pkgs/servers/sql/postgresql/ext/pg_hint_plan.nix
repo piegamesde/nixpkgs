@@ -15,15 +15,15 @@ stdenv.mkDerivation rec {
     rev =
       "REL${
         builtins.replaceStrings
-        [
-          "-"
-          "."
-        ]
-        [
-          "_"
-          "_"
-        ]
-        version
+          [
+            "-"
+            "."
+          ]
+          [
+            "_"
+            "_"
+          ]
+          version
       }";
     sha256 = "sha256-2hYDn/69264x2lMRVIp/I5chjocL6UqIw5ry1qdRcDM=";
   };

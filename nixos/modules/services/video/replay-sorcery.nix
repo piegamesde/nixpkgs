@@ -28,8 +28,9 @@ in
       autoStart = mkOption {
         type = bool;
         default = false;
-        description = lib.mdDoc
-          "Automatically start ReplaySorcery when graphical-session.target starts."
+        description =
+          lib.mdDoc
+            "Automatically start ReplaySorcery when graphical-session.target starts."
           ;
       };
 
@@ -41,8 +42,9 @@ in
           ]
         );
         default = { };
-        description = lib.mdDoc
-          "System-wide configuration for ReplaySorcery (/etc/replay-sorcery.conf)."
+        description =
+          lib.mdDoc
+            "System-wide configuration for ReplaySorcery (/etc/replay-sorcery.conf)."
           ;
         example = literalExpression ''
           {

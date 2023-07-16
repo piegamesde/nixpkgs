@@ -39,13 +39,13 @@ stdenv.mkDerivation (
         };
       in
       runCommand "rocm-core-${finalAttrs.version}-source"
-      { preferLocalBuild = true; }
-      ''
-        mkdir -p $out/rocm-core
-        ln -s ${cmake_lists} $out/CMakeLists.txt
-        ln -s ${version_c} $out/rocm_version.c
-        ln -s ${version_h} $out/rocm-core/rocm_version.h
-      ''
+        { preferLocalBuild = true; }
+        ''
+          mkdir -p $out/rocm-core
+          ln -s ${cmake_lists} $out/CMakeLists.txt
+          ln -s ${version_c} $out/rocm_version.c
+          ln -s ${version_h} $out/rocm-core/rocm_version.h
+        ''
       ;
 
     nativeBuildInputs = [ cmake ];

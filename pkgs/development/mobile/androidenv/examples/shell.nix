@@ -171,56 +171,58 @@ pkgs.mkShell rec {
 
     shell-sdkmanager-licenses-test =
       pkgs.runCommand "shell-sdkmanager-licenses-test"
-      {
-        nativeBuildInputs = [
-          androidSdk
-          jdk
-        ];
-      }
-      ''
-        if [[ ! "$(sdkmanager --licenses)" =~ "All SDK package licenses accepted." ]]; then
-          echo "At least one of SDK package licenses are not accepted."
-          exit 1
-        fi
-        touch $out
-      '';
+        {
+          nativeBuildInputs = [
+            androidSdk
+            jdk
+          ];
+        }
+        ''
+          if [[ ! "$(sdkmanager --licenses)" =~ "All SDK package licenses accepted." ]]; then
+            echo "At least one of SDK package licenses are not accepted."
+            exit 1
+          fi
+          touch $out
+        ''
+      ;
 
     shell-sdkmanager-packages-test =
       pkgs.runCommand "shell-sdkmanager-packages-test"
-      {
-        nativeBuildInputs = [
-          androidSdk
-          jdk
-        ];
-      }
-      ''
-        output="$(sdkmanager --list)"
-        installed_packages_section=$(echo "''${output%%Available Packages*}" | awk 'NR>4 {print $1}')
+        {
+          nativeBuildInputs = [
+            androidSdk
+            jdk
+          ];
+        }
+        ''
+          output="$(sdkmanager --list)"
+          installed_packages_section=$(echo "''${output%%Available Packages*}" | awk 'NR>4 {print $1}')
 
-        packages=(
-          "build-tools;30.0.3" "platform-tools" \
-          "platforms;android-23" "platforms;android-24" "platforms;android-25" "platforms;android-26" \
-          "platforms;android-27" "platforms;android-28" "platforms;android-29" "platforms;android-30" \
-          "platforms;android-31" "platforms;android-32" "platforms;android-33" \
-          "sources;android-23" "sources;android-24" "sources;android-25" "sources;android-26" \
-          "sources;android-27" "sources;android-28" "sources;android-29" "sources;android-30" \
-          "sources;android-31" "sources;android-32" "sources;android-33" \
-          "system-images;android-28;google_apis_playstore;arm64-v8a" \
-          "system-images;android-29;google_apis_playstore;arm64-v8a" \
-          "system-images;android-30;google_apis_playstore;arm64-v8a" \
-          "system-images;android-31;google_apis_playstore;arm64-v8a" \
-          "system-images;android-32;google_apis_playstore;arm64-v8a" \
-          "system-images;android-33;google_apis_playstore;arm64-v8a"
-        )
+          packages=(
+            "build-tools;30.0.3" "platform-tools" \
+            "platforms;android-23" "platforms;android-24" "platforms;android-25" "platforms;android-26" \
+            "platforms;android-27" "platforms;android-28" "platforms;android-29" "platforms;android-30" \
+            "platforms;android-31" "platforms;android-32" "platforms;android-33" \
+            "sources;android-23" "sources;android-24" "sources;android-25" "sources;android-26" \
+            "sources;android-27" "sources;android-28" "sources;android-29" "sources;android-30" \
+            "sources;android-31" "sources;android-32" "sources;android-33" \
+            "system-images;android-28;google_apis_playstore;arm64-v8a" \
+            "system-images;android-29;google_apis_playstore;arm64-v8a" \
+            "system-images;android-30;google_apis_playstore;arm64-v8a" \
+            "system-images;android-31;google_apis_playstore;arm64-v8a" \
+            "system-images;android-32;google_apis_playstore;arm64-v8a" \
+            "system-images;android-33;google_apis_playstore;arm64-v8a"
+          )
 
-        for package in "''${packages[@]}"; do
-          if [[ ! $installed_packages_section =~ "$package" ]]; then
-            echo "$package package was not installed."
-            exit 1
-          fi
-        done
+          for package in "''${packages[@]}"; do
+            if [[ ! $installed_packages_section =~ "$package" ]]; then
+              echo "$package package was not installed."
+              exit 1
+            fi
+          done
 
-        touch "$out"
-      '';
+          touch "$out"
+        ''
+      ;
   };
 }

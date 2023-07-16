@@ -28,7 +28,9 @@ in
       extraPackages = mkOption {
         default = [ ];
         description =
-          lib.mdDoc "Packages that are available in the PATH of code-server.";
+          lib.mdDoc
+            "Packages that are available in the PATH of code-server."
+          ;
         example = "[ pkgs.go ]";
         type = types.listOf types.package;
       };
@@ -36,7 +38,8 @@ in
       extraEnvironment = mkOption {
         type = types.attrsOf types.str;
         description =
-          lib.mdDoc "Additional environment variables to passed to code-server."
+          lib.mdDoc
+            "Additional environment variables to passed to code-server."
           ;
         default = { };
         example = { PKG_CONFIG_PATH = "/run/current-system/sw/lib/pkgconfig"; };
@@ -45,7 +48,9 @@ in
       extraArguments = mkOption {
         default = [ "--disable-telemetry" ];
         description =
-          lib.mdDoc "Additional arguments that passed to code-server";
+          lib.mdDoc
+            "Additional arguments that passed to code-server"
+          ;
         example = ''[ "--verbose" ]'';
         type = types.listOf types.str;
       };
@@ -73,8 +78,9 @@ in
 
       hashedPassword = mkOption {
         default = "";
-        description = lib.mdDoc
-          "Create the password with: `echo -n 'thisismypassword' | npx argon2-cli -e`."
+        description =
+          lib.mdDoc
+            "Create the password with: `echo -n 'thisismypassword' | npx argon2-cli -e`."
           ;
         type = types.str;
       };
@@ -101,8 +107,10 @@ in
 
       extraGroups = mkOption {
         default = [ ];
-        description = lib.mdDoc
-          "An array of additional groups for the `${defaultUser}` user.";
+        description =
+          lib.mdDoc
+            "An array of additional groups for the `${defaultUser}` user."
+          ;
         example = [ "docker" ];
         type = types.listOf types.str;
       };

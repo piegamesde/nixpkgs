@@ -97,7 +97,9 @@ in
         User = cfg.user;
         Group = cfg.group;
         LoadCredential =
-          lib.mkIf (cfg.passwordFile != null) "password:${cfg.passwordFile}";
+          lib.mkIf (cfg.passwordFile != null)
+            "password:${cfg.passwordFile}"
+          ;
       };
 
       script = ''

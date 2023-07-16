@@ -171,20 +171,21 @@ in
     pidFile = mkOption {
       type = types.path;
       default = "${cfg.dataDir}/unifi-video.pid";
-      defaultText =
-        literalExpression ''"''${config.${opt.dataDir}}/unifi-video.pid"'';
+      defaultText = literalExpression ''
+        "''${config.${opt.dataDir}}/unifi-video.pid"'';
       description = lib.mdDoc "Location of unifi-video pid file.";
     };
   };
 
   config = mkIf cfg.enable {
 
-    warnings = optional
-      (
-        options.services.unifi-video.openFirewall.highestPrio
-        >= (mkOptionDefault null).priority
-      )
-      "The current services.unifi-video.openFirewall = true default is deprecated and will change to false in 22.11. Set it explicitly to silence this warning."
+    warnings =
+      optional
+        (
+          options.services.unifi-video.openFirewall.highestPrio
+          >= (mkOptionDefault null).priority
+        )
+        "The current services.unifi-video.openFirewall = true default is deprecated and will change to false in 22.11. Set it explicitly to silence this warning."
       ;
 
     users.users.unifi-video = {
@@ -285,17 +286,19 @@ in
   };
 
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "unifi-video"
-        "openPorts"
-      ]
-      [
-        "services"
-        "unifi-video"
-        "openFirewall"
-      ])
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "unifi-video"
+          "openPorts"
+        ]
+        [
+          "services"
+          "unifi-video"
+          "openFirewall"
+        ]
+    )
   ];
 
   meta.maintainers = with lib.maintainers; [ rsynnest ];

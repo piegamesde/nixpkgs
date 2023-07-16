@@ -40,9 +40,10 @@ let
     }
     ;
 
-  clang-tools-extra_src = fetch
-    "clang-tools-extra"
-    "01vgzd4k1q93nfs8gyl83mjlc4x0qsgfqw32lacbjzdxg0mdfvxj";
+  clang-tools-extra_src =
+    fetch "clang-tools-extra"
+      "01vgzd4k1q93nfs8gyl83mjlc4x0qsgfqw32lacbjzdxg0mdfvxj"
+    ;
 
   llvm_meta = {
     license = lib.licenses.ncsa;
@@ -119,8 +120,9 @@ let
 
       llvm-polly = tools.libllvm-polly.lib // { outputSpecified = false; };
 
-      libclang =
-        callPackage ./clang { inherit clang-tools-extra_src llvm_meta; };
+      libclang = callPackage ./clang {
+        inherit clang-tools-extra_src llvm_meta;
+      };
 
       clang-unwrapped = tools.libclang;
 
@@ -213,14 +215,15 @@ let
           + lib.optionalString (!stdenv.targetPlatform.isWasm) ''
             echo "--unwindlib=libunwind" >> $out/nix-support/cc-cflags
           ''
-          + lib.optionalString
-            (
-              !stdenv.targetPlatform.isWasm
-              && stdenv.targetPlatform.useLLVM or false
-            )
-            ''
-              echo "-lunwind" >> $out/nix-support/cc-ldflags
-            ''
+          +
+            lib.optionalString
+              (
+                !stdenv.targetPlatform.isWasm
+                && stdenv.targetPlatform.useLLVM or false
+              )
+              ''
+                echo "-lunwind" >> $out/nix-support/cc-ldflags
+              ''
           + lib.optionalString stdenv.targetPlatform.isWasm ''
             echo "-fno-exceptions" >> $out/nix-support/cc-cflags
           ''

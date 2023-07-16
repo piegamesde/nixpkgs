@@ -24,7 +24,9 @@ stdenv.mkDerivation (
       ;
 
     passthru.tests.pkg-config =
-      testers.testMetaPkgConfig finalAttrs.finalPackage;
+      testers.testMetaPkgConfig
+        finalAttrs.finalPackage
+      ;
 
     meta = {
       homepage = "http://openal.org/";

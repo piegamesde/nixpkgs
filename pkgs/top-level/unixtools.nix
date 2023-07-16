@@ -30,31 +30,31 @@ let
       manpage = "${getOutput "man" provider}/share/man/man1/${cmd}.1.gz";
     in
     runCommand "${cmd}-${provider.name}"
-    {
-      meta = {
-        mainProgram = cmd;
-        priority = 10;
-        platforms =
-          lib.platforms.${stdenv.hostPlatform.parsed.kernel.name}
-            or lib.platforms.all;
-      };
-      passthru = { inherit provider; };
-      preferLocalBuild = true;
-    }
-    ''
-      if ! [ -x ${bin} ]; then
-        echo Cannot find command ${cmd}
-        exit 1
-      fi
+      {
+        meta = {
+          mainProgram = cmd;
+          priority = 10;
+          platforms =
+            lib.platforms.${stdenv.hostPlatform.parsed.kernel.name}
+              or lib.platforms.all;
+        };
+        passthru = { inherit provider; };
+        preferLocalBuild = true;
+      }
+      ''
+        if ! [ -x ${bin} ]; then
+          echo Cannot find command ${cmd}
+          exit 1
+        fi
 
-      mkdir -p $out/bin
-      ln -s ${bin} $out/bin/${cmd}
+        mkdir -p $out/bin
+        ln -s ${bin} $out/bin/${cmd}
 
-      if [ -f ${manpage} ]; then
-        mkdir -p $out/share/man/man1
-        ln -s ${manpage} $out/share/man/man1/${cmd}.1.gz
-      fi
-    ''
+        if [ -f ${manpage} ]; then
+          mkdir -p $out/share/man/man1
+          ln -s ${manpage} $out/share/man/man1/${cmd}.1.gz
+        fi
+      ''
     ;
 
   # more is unavailable in darwin

@@ -26,11 +26,11 @@ bundlerApp rec {
 
   postBuild = lib.optionalString (path != "") (
     lib.concatMapStrings
-    (exe: ''
-      wrapProgram $out/bin/${exe} \
-        --prefix PATH : ${path}
-    '')
-    exes
+      (exe: ''
+        wrapProgram $out/bin/${exe} \
+          --prefix PATH : ${path}
+      '')
+      exes
   );
 
   passthru = {

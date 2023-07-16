@@ -15,7 +15,9 @@ in
     enable = mkEnableOption (lib.mdDoc "OnlyOffice DocumentServer");
 
     enableExampleServer =
-      mkEnableOption (lib.mdDoc "OnlyOffice example server");
+      mkEnableOption
+        (lib.mdDoc "OnlyOffice example server")
+      ;
 
     hostname = mkOption {
       type = types.str;
@@ -37,28 +39,36 @@ in
       default = pkgs.onlyoffice-documentserver;
       defaultText = lib.literalExpression "pkgs.onlyoffice-documentserver";
       description =
-        lib.mdDoc "Which package to use for the OnlyOffice instance.";
+        lib.mdDoc
+          "Which package to use for the OnlyOffice instance."
+        ;
     };
 
     port = mkOption {
       type = types.port;
       default = 8000;
       description =
-        lib.mdDoc "Port the OnlyOffice DocumentServer should listens on.";
+        lib.mdDoc
+          "Port the OnlyOffice DocumentServer should listens on."
+        ;
     };
 
     examplePort = mkOption {
       type = types.port;
       default = null;
       description =
-        lib.mdDoc "Port the OnlyOffice Example server should listens on.";
+        lib.mdDoc
+          "Port the OnlyOffice Example server should listens on."
+        ;
     };
 
     postgresHost = mkOption {
       type = types.str;
       default = "/run/postgresql";
-      description = lib.mdDoc
-        "The Postgresql hostname or socket path OnlyOffice should connect to.";
+      description =
+        lib.mdDoc
+          "The Postgresql hostname or socket path OnlyOffice should connect to."
+        ;
     };
 
     postgresName = mkOption {
@@ -89,7 +99,8 @@ in
       type = types.str;
       default = "amqp://guest:guest@localhost:5672";
       description =
-        lib.mdDoc "The Rabbitmq in amqp URI style OnlyOffice should connect to."
+        lib.mdDoc
+          "The Rabbitmq in amqp URI style OnlyOffice should connect to."
         ;
     };
   };

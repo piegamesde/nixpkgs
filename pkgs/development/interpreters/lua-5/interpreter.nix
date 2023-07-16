@@ -122,9 +122,8 @@ stdenv.mkDerivation rec {
       if lib.versionAtLeast luaversion "5.2" then "SYSCFLAGS" else "MYCFLAGS"
     })' )
     makeFlagsArray+=(${lib.optionalString stdenv.isDarwin ''CC="$CC"''}${
-      lib.optionalString
-      (stdenv.buildPlatform != stdenv.hostPlatform)
-      " 'AR=${stdenv.cc.targetPrefix}ar rcu'"
+      lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform)
+        " 'AR=${stdenv.cc.targetPrefix}ar rcu'"
     })
 
     installFlagsArray=( TO_BIN="lua luac" INSTALL_DATA='cp -d' \
@@ -134,9 +133,9 @@ stdenv.mkDerivation rec {
         else
           (
             "liblua.a"
-            + lib.optionalString
-              (!staticOnly)
-              " liblua.so liblua.so.${luaversion} liblua.so.${version}"
+            +
+              lib.optionalString (!staticOnly)
+                " liblua.so liblua.so.${luaversion} liblua.so.${version}"
           )
       }" )
 
@@ -180,7 +179,8 @@ stdenv.mkDerivation rec {
     let
       # When we override the interpreter we also need to override the spliced versions of the interpreter
       inputs' =
-        lib.filterAttrs (n: v: !lib.isDerivation v && n != "passthruFun") inputs
+        lib.filterAttrs (n: v: !lib.isDerivation v && n != "passthruFun")
+          inputs
         ;
       override =
         attr:

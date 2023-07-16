@@ -22,21 +22,23 @@ stdenv.mkDerivation rec {
   buildPhase =
     let
       nodeDependencies =
-        ((import ./node-composition.nix {
-          inherit pkgs nodejs;
-          inherit (stdenv.hostPlatform) system;
-        }).nodeDependencies.override
-          (
-            old: {
-              # access to path '/nix/store/...-source' is forbidden in restricted mode
-              src = src;
+        (
+          (import ./node-composition.nix {
+            inherit pkgs nodejs;
+            inherit (stdenv.hostPlatform) system;
+          }).nodeDependencies.override
+            (
+              old: {
+                # access to path '/nix/store/...-source' is forbidden in restricted mode
+                src = src;
 
-              # dont run the prepare script:
-              # Error: Cannot find module '/nix/store/...-node-dependencies-jellyfin-web-.../jellyfin-web/scripts/prepare.js
-              # npm run build:production runs the same command
-              dontNpmInstall = true;
-            }
-          ));
+                # dont run the prepare script:
+                # Error: Cannot find module '/nix/store/...-node-dependencies-jellyfin-web-.../jellyfin-web/scripts/prepare.js
+                # npm run build:production runs the same command
+                dontNpmInstall = true;
+              }
+            )
+        );
     in
     ''
       runHook preBuild

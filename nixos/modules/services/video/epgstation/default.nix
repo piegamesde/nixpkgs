@@ -77,34 +77,34 @@ let
   deprecateTopLevelOption =
     config:
     lib.mkRenamedOptionModule
-    (
-      [
-        "services"
-        "epgstation"
-      ]
-      ++ config
-    )
-    (
-      [
-        "services"
-        "epgstation"
-        "settings"
-      ]
-      ++ config
-    )
+      (
+        [
+          "services"
+          "epgstation"
+        ]
+        ++ config
+      )
+      (
+        [
+          "services"
+          "epgstation"
+          "settings"
+        ]
+        ++ config
+      )
     ;
 
   removeOption =
     config: instruction:
     lib.mkRemovedOptionModule
-    (
-      [
-        "services"
-        "epgstation"
-      ]
-      ++ config
-    )
-    instruction
+      (
+        [
+          "services"
+          "epgstation"
+        ]
+        ++ config
+      )
+      instruction
     ;
 in
 {
@@ -114,9 +114,10 @@ in
     (deprecateTopLevelOption [ "port" ])
     (deprecateTopLevelOption [ "socketioPort" ])
     (deprecateTopLevelOption [ "clientSocketioPort" ])
-    (removeOption
-      [ "basicAuth" ]
-      "Use a TLS-terminated reverse proxy with authentication instead.")
+    (
+      removeOption [ "basicAuth" ]
+        "Use a TLS-terminated reverse proxy with authentication instead."
+    )
   ];
 
   options.services.epgstation = {
@@ -222,7 +223,9 @@ in
           type = lib.types.port;
           default = cfg.settings.socketioPort;
           defaultText =
-            lib.literalExpression "config.${opt.settings}.socketioPort";
+            lib.literalExpression
+              "config.${opt.settings}.socketioPort"
+            ;
           description = lib.mdDoc ''
             Socket.io port that the web client is going to connect to. This may
             be different from {option}`${opt.settings}.socketioPort` if

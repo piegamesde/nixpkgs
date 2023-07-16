@@ -13,26 +13,26 @@ let
   expectArgv0 =
     xpkgs:
     xpkgs.runCommandCC "expect-argv0"
-    {
-      src = pkgs.writeText "expect-argv0.c" ''
-        #include <stdio.h>
-        #include <string.h>
+      {
+        src = pkgs.writeText "expect-argv0.c" ''
+          #include <stdio.h>
+          #include <string.h>
 
-        int main(int argc, char **argv) {
-          fprintf(stderr, "Our argv[0] is %s\n", argv[0]);
+          int main(int argc, char **argv) {
+            fprintf(stderr, "Our argv[0] is %s\n", argv[0]);
 
-          if (strcmp(argv[0], argv[1])) {
-            fprintf(stderr, "ERROR: argv[0] is %s, should be %s\n", argv[0], argv[1]);
-            return 1;
+            if (strcmp(argv[0], argv[1])) {
+              fprintf(stderr, "ERROR: argv[0] is %s, should be %s\n", argv[0], argv[1]);
+              return 1;
+            }
+
+            return 0;
           }
-
-          return 0;
-        }
-      '';
-    }
-    ''
-      $CC -o $out $src
-    ''
+        '';
+      }
+      ''
+        $CC -o $out $src
+      ''
     ;
 in
 {

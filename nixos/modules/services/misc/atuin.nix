@@ -13,36 +13,44 @@ in
 {
   options = {
     services.atuin = {
-      enable =
-        mkEnableOption (mdDoc "Enable server for shell history sync with atuin")
-        ;
+      enable = mkEnableOption (
+        mdDoc "Enable server for shell history sync with atuin"
+      );
 
       openRegistration = mkOption {
         type = types.bool;
         default = false;
         description =
-          mdDoc "Allow new user registrations with the atuin server.";
+          mdDoc
+            "Allow new user registrations with the atuin server."
+          ;
       };
 
       path = mkOption {
         type = types.str;
         default = "";
         description =
-          mdDoc "A path to prepend to all the routes of the server.";
+          mdDoc
+            "A path to prepend to all the routes of the server."
+          ;
       };
 
       host = mkOption {
         type = types.str;
         default = "127.0.0.1";
         description =
-          mdDoc "The host address the atuin server should listen on.";
+          mdDoc
+            "The host address the atuin server should listen on."
+          ;
       };
 
       maxHistoryLength = mkOption {
         type = types.int;
         default = 8192;
-        description = mdDoc
-          "The max length of each history item the atuin server should store.";
+        description =
+          mdDoc
+            "The max length of each history item the atuin server should store."
+          ;
       };
 
       port = mkOption {

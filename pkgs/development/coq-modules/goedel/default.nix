@@ -21,11 +21,11 @@ mkCoqDerivation {
   inherit version;
   defaultVersion = with lib.versions;
     lib.switch coq.coq-version
-    [ {
-      case = range "8.11" "8.16";
-      out = "8.13.0";
-    } ]
-    null;
+      [ {
+        case = range "8.11" "8.16";
+        out = "8.13.0";
+      } ]
+      null;
 
   propagatedBuildInputs = [
     hydra-battles

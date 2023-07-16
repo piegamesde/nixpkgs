@@ -11,17 +11,17 @@ mkCoqDerivation {
   inherit version;
   defaultVersion = with lib.versions;
     lib.switch coq.coq-version
-    [
-      {
-        case = range "8.14" "8.17";
-        out = "8.15";
-      }
-      {
-        case = range "8.10" "8.13";
-        out = "8.10";
-      }
-    ]
-    null;
+      [
+        {
+          case = range "8.14" "8.17";
+          out = "8.15";
+        }
+        {
+          case = range "8.10" "8.13";
+          out = "8.10";
+        }
+      ]
+      null;
   releaseRev = v: "coq${v}";
   release."8.15".sha256 =
     "0wbp058zwa4bkdjj38aysy2g1avf9nrh8q23a3dil0q00qczi616";

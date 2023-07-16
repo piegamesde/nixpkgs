@@ -178,10 +178,10 @@ stdenv.mkDerivation rec {
 
     # set default yarn opts
     ${lib.concatMapStrings
-    (option: ''
-      yarn --offline config set ${option}
-    '')
-    defaultYarnOpts}
+      (option: ''
+        yarn --offline config set ${option}
+      '')
+      defaultYarnOpts}
 
     # set offline mirror to yarn cache we created in previous steps
     yarn --offline config set yarn-offline-mirror "${yarnCache}"
@@ -303,8 +303,9 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    prefetchYarnCache =
-      lib.overrideDerivation yarnCache (d: { outputHash = lib.fakeSha256; });
+    prefetchYarnCache = lib.overrideDerivation yarnCache (
+      d: { outputHash = lib.fakeSha256; }
+    );
   };
 
   meta = with lib; {

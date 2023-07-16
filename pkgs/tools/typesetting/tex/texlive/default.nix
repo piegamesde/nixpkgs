@@ -81,9 +81,10 @@ let
 
         # remove dependency-heavy packages from the basic collections
         collection-basic = orig.collection-basic // {
-          deps = lib.filter
-            (n: n != "metafont" && n != "xdvi")
-            orig.collection-basic.deps;
+          deps =
+            lib.filter (n: n != "metafont" && n != "xdvi")
+              orig.collection-basic.deps
+            ;
         };
         # add them elsewhere so that collections cover all packages
         collection-metapost = orig.collection-metapost // {
@@ -200,14 +201,16 @@ let
     hash = "sha256-vm7DmkH/h183pN+qt1p1wZ6peT2TcMk/ae0nCXsCoMw=";
   };
 
-  tlpdbNix = runCommand "tlpdb.nix"
-    {
-      inherit tlpdbxz;
-      tl2nix = ./tl2nix.sed;
-    }
-    ''
-      xzcat "$tlpdbxz" | sed -rn -f "$tl2nix" | uniq > "$out"
-    '';
+  tlpdbNix =
+    runCommand "tlpdb.nix"
+      {
+        inherit tlpdbxz;
+        tl2nix = ./tl2nix.sed;
+      }
+      ''
+        xzcat "$tlpdbxz" | sed -rn -f "$tl2nix" | uniq > "$out"
+      ''
+    ;
 
   # create a derivation that contains an unpacked upstream TL package
   mkPkg =
@@ -239,34 +242,34 @@ let
         );
     in
     runCommand "texlive-${tlName}"
-    (
-      {
-        src = fetchurl { inherit urls sha512; };
-        inherit stripPrefix;
-        # metadata for texlive.combine
-        passthru = {
-          inherit pname tlType version;
-        } // lib.optionalAttrs (tlType == "run" && args ? deps) {
-          tlDeps = map (n: tl.${n}) args.deps;
-        } // lib.optionalAttrs (tlType == "run") {
-          hasFormats = args.hasFormats or false;
-          hasHyphens = args.hasHyphens or false;
-        };
-      } // lib.optionalAttrs (fixedHash != null) {
-        outputHash = fixedHash;
-        outputHashAlgo = "sha256";
-        outputHashMode = "recursive";
-      }
-    )
-    (
-      ''
-        mkdir "$out"
-        tar -xf "$src" \
-        --strip-components="$stripPrefix" \
-        -C "$out" --anchored --exclude=tlpkg --keep-old-files
-      ''
-      + postUnpack
-    )
+      (
+        {
+          src = fetchurl { inherit urls sha512; };
+          inherit stripPrefix;
+          # metadata for texlive.combine
+          passthru = {
+            inherit pname tlType version;
+          } // lib.optionalAttrs (tlType == "run" && args ? deps) {
+            tlDeps = map (n: tl.${n}) args.deps;
+          } // lib.optionalAttrs (tlType == "run") {
+            hasFormats = args.hasFormats or false;
+            hasHyphens = args.hasHyphens or false;
+          };
+        } // lib.optionalAttrs (fixedHash != null) {
+          outputHash = fixedHash;
+          outputHashAlgo = "sha256";
+          outputHashMode = "recursive";
+        }
+      )
+      (
+        ''
+          mkdir "$out"
+          tar -xf "$src" \
+          --strip-components="$stripPrefix" \
+          -C "$out" --anchored --exclude=tlpkg --keep-old-files
+        ''
+        + postUnpack
+      )
     ;
 
   # combine a set of TL packages into a single TL meta-package
@@ -282,20 +285,20 @@ let
             ...
           }:
           map
-          (
-            {
-              tlType,
-              version ? "",
-              outputName ? "",
-              ...
-            }@pkg: {
-              # outputName required to distinguish among bin.core-big outputs
-              key =
-                "${pkg.pname or pkg.name}.${tlType}-${version}-${outputName}";
-              inherit pkg;
-            }
-          )
-          pkgs
+            (
+              {
+                tlType,
+                version ? "",
+                outputName ? "",
+                ...
+              }@pkg: {
+                # outputName required to distinguish among bin.core-big outputs
+                key =
+                  "${pkg.pname or pkg.name}.${tlType}-${version}-${outputName}";
+                inherit pkg;
+              }
+            )
+            pkgs
           ;
         pkgListToSets = lib.concatMap tlPkgToSets;
       in
@@ -313,12 +316,11 @@ let
     ;
 
   assertions =
-    lib.assertMsg
-    (tlpdbVersion.year == version.texliveYear)
-    "TeX Live year in texlive does not match tlpdb.nix, refusing to evaluate"
-    && lib.assertMsg
-      (tlpdbVersion.frozen == version.final)
-      "TeX Live final status in texlive does not match tlpdb.nix, refusing to evaluate"
+    lib.assertMsg (tlpdbVersion.year == version.texliveYear)
+      "TeX Live year in texlive does not match tlpdb.nix, refusing to evaluate"
+    &&
+      lib.assertMsg (tlpdbVersion.frozen == version.final)
+        "TeX Live final status in texlive does not match tlpdb.nix, refusing to evaluate"
     ;
 in
 tl // {
@@ -337,35 +339,35 @@ tl // {
   combined = with lib;
     recurseIntoAttrs (
       mapAttrs
-      (
-        pname: attrs:
-        addMetaAttrs
-        rec {
-          description = "TeX Live environment for ${pname}";
-          platforms = lib.platforms.all;
-          maintainers = with lib.maintainers; [ veprbl ];
-        }
         (
-          combine {
-            ${pname} = attrs;
-            extraName = "combined" + lib.removePrefix "scheme" pname;
-            extraVersion = with version;
-              if final then "-final" else ".${year}${month}${day}";
-          }
+          pname: attrs:
+          addMetaAttrs
+            rec {
+              description = "TeX Live environment for ${pname}";
+              platforms = lib.platforms.all;
+              maintainers = with lib.maintainers; [ veprbl ];
+            }
+            (
+              combine {
+                ${pname} = attrs;
+                extraName = "combined" + lib.removePrefix "scheme" pname;
+                extraVersion = with version;
+                  if final then "-final" else ".${year}${month}${day}";
+              }
+            )
         )
-      )
-      {
-        inherit (tl)
-          scheme-basic
-          scheme-context
-          scheme-full
-          scheme-gust
-          scheme-infraonly
-          scheme-medium
-          scheme-minimal
-          scheme-small
-          scheme-tetex
-          ;
-      }
+        {
+          inherit (tl)
+            scheme-basic
+            scheme-context
+            scheme-full
+            scheme-gust
+            scheme-infraonly
+            scheme-medium
+            scheme-minimal
+            scheme-small
+            scheme-tetex
+            ;
+        }
     );
 }

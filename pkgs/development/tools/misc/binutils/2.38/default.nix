@@ -51,9 +51,10 @@ let
 
   #INFO: The targetPrefix prepended to binary names to allow multiple binuntils
   # on the PATH to both be usable.
-  targetPrefix = lib.optionalString
-    (targetPlatform != hostPlatform)
-    "${targetPlatform.config}-";
+  targetPrefix =
+    lib.optionalString (targetPlatform != hostPlatform)
+      "${targetPlatform.config}-"
+    ;
 in
 
 stdenv.mkDerivation {
@@ -95,22 +96,23 @@ stdenv.mkDerivation {
     ]
     ++ lib.optional targetPlatform.isiOS ./support-ios.patch
     ++ lib.optional stdenv.targetPlatform.isWindows ./windres-locate-gcc.patch
-    ++ lib.optional stdenv.targetPlatform.isMips64n64
-      # this patch is from debian:
-      # https://sources.debian.org/data/main/b/binutils/2.38-3/debian/patches/mips64-default-n64.diff
-      (
-        if stdenv.targetPlatform.isMusl then
-          substitute {
-            src = ./mips64-default-n64.patch;
-            replacements = [
-              "--replace"
-              "gnuabi64"
-              "muslabi64"
-            ];
-          }
-        else
-          ./mips64-default-n64.patch
-      )
+    ++
+      lib.optional stdenv.targetPlatform.isMips64n64
+        # this patch is from debian:
+        # https://sources.debian.org/data/main/b/binutils/2.38-3/debian/patches/mips64-default-n64.diff
+        (
+          if stdenv.targetPlatform.isMusl then
+            substitute {
+              src = ./mips64-default-n64.patch;
+              replacements = [
+                "--replace"
+                "gnuabi64"
+                "muslabi64"
+              ];
+            }
+          else
+            ./mips64-default-n64.patch
+        )
     # On PowerPC, when generating assembly code, GCC generates a `.machine`
     # custom instruction which instructs the assembler to generate code for this
     # machine. However, some GCC versions generate the wrong one, or make it
@@ -121,9 +123,9 @@ stdenv.mkDerivation {
     #
     # Upstream commit:
     # https://sourceware.org/git/?p=binutils-gdb.git;a=commit;h=cebc89b9328eab994f6b0314c263f94e7949a553
-    ++ lib.optional
-      stdenv.targetPlatform.isPower
-      ./ppc-make-machine-less-strict.patch
+    ++
+      lib.optional stdenv.targetPlatform.isPower
+        ./ppc-make-machine-less-strict.patch
     ;
 
   outputs = [

@@ -25,15 +25,19 @@ import ./make-test-python.nix (
           && builtins.elem "terminfo" o.value.outputs
           ;
         terminfos = lib.filterAttrs infoFilter pkgs;
-        excludedTerminfos = lib.filterAttrs
-          (
-            _: drv:
-            !(builtins.elem drv.terminfo config.environment.systemPackages)
-          )
-          terminfos;
-        includedOuts = lib.filterAttrs
-          (_: drv: builtins.elem drv.out config.environment.systemPackages)
-          terminfos;
+        excludedTerminfos =
+          lib.filterAttrs
+            (
+              _: drv:
+              !(builtins.elem drv.terminfo config.environment.systemPackages)
+            )
+            terminfos
+          ;
+        includedOuts =
+          lib.filterAttrs
+            (_: drv: builtins.elem drv.out config.environment.systemPackages)
+            terminfos
+          ;
       in
       {
         environment = {
@@ -41,8 +45,9 @@ import ./make-test-python.nix (
           etc."terminfo-missing".text = builtins.concatStringsSep "\n" (
             builtins.attrNames excludedTerminfos
           );
-          etc."terminfo-extra-outs".text =
-            builtins.concatStringsSep "\n" (builtins.attrNames includedOuts);
+          etc."terminfo-extra-outs".text = builtins.concatStringsSep "\n" (
+            builtins.attrNames includedOuts
+          );
         };
       }
       ;

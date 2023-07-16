@@ -13,7 +13,9 @@
 
 let
   startFPC =
-    import ./binary.nix { inherit stdenv fetchurl undmg cpio xar lib; };
+    import ./binary.nix
+      { inherit stdenv fetchurl undmg cpio xar lib; }
+    ;
 in
 
 stdenv.mkDerivation rec {

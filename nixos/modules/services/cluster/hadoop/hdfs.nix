@@ -34,7 +34,9 @@ let
         type = with types; listOf str;
         default = [ ];
         description =
-          lib.mdDoc "Extra command line flags to pass to ${serviceName}";
+          lib.mdDoc
+            "Extra command line flags to pass to ${serviceName}"
+          ;
         example = [
           "-Dcom.sun.management.jmxremote"
           "-Dcom.sun.management.jmxremote.port=8010"
@@ -44,7 +46,9 @@ let
         type = with types; attrsOf str;
         default = { };
         description =
-          lib.mdDoc "Extra environment variables for ${serviceName}";
+          lib.mdDoc
+            "Extra environment variables for ${serviceName}"
+          ;
       };
     } // (optionalAttrs firewallOption {
       openFirewall = mkOption {
@@ -90,12 +94,14 @@ let
 
             services.hadoop.gatewayRole.enable = true;
 
-            networking.firewall.allowedTCPPorts = mkIf
-              (
-                (builtins.hasAttr "openFirewall" serviceOptions)
-                && serviceOptions.openFirewall
-              )
-              allowedTCPPorts;
+            networking.firewall.allowedTCPPorts =
+              mkIf
+                (
+                  (builtins.hasAttr "openFirewall" serviceOptions)
+                  && serviceOptions.openFirewall
+                )
+                allowedTCPPorts
+              ;
           }
           extraConfig
         ]
@@ -123,7 +129,9 @@ in
       dataDirs = mkOption {
         default = null;
         description =
-          lib.mdDoc "Tier and path definitions for datanode storage.";
+          lib.mdDoc
+            "Tier and path definitions for datanode storage."
+          ;
         type = with types;
           nullOr (
             listOf (
@@ -143,8 +151,9 @@ in
                   path = mkOption {
                     type = path;
                     example = [ "/var/lib/hadoop/hdfs/dn" ];
-                    description = lib.mdDoc
-                      "Determines where on the local filesystem a data node should store its blocks."
+                    description =
+                      lib.mdDoc
+                        "Determines where on the local filesystem a data node should store its blocks."
                       ;
                   };
                 };
@@ -180,9 +189,10 @@ in
         8019 # dfs.ha.zkfc.port
       ];
       preStart =
-        (mkIf
-          cfg.hdfs.namenode.formatOnInit
-          "${cfg.package}/bin/hdfs --config ${hadoopConf} namenode -format -nonInteractive || true");
+        (
+          mkIf cfg.hdfs.namenode.formatOnInit
+            "${cfg.package}/bin/hdfs --config ${hadoopConf} namenode -format -nonInteractive || true"
+        );
     })
 
     (hadoopServiceConfig {
@@ -203,11 +213,12 @@ in
           ]
         ;
       extraConfig.services.hadoop.hdfsSiteInternal."dfs.datanode.data.dir" =
-        mkIf (cfg.hdfs.datanode.dataDirs != null) (
-          concatMapStringsSep ","
-          (x: "[" + x.type + "]file://" + x.path)
-          cfg.hdfs.datanode.dataDirs
-        );
+        mkIf (cfg.hdfs.datanode.dataDirs != null)
+          (
+            concatMapStringsSep "," (x: "[" + x.type + "]file://" + x.path)
+              cfg.hdfs.datanode.dataDirs
+          )
+        ;
     })
 
     (hadoopServiceConfig {

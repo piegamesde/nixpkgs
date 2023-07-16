@@ -17,11 +17,11 @@ mkCoqDerivation {
   inherit version;
   defaultVersion = with lib.versions;
     lib.switch coq.coq-version
-    [ {
-      case = range "8.10" "8.16";
-      out = "1.1.2";
-    } ]
-    null;
+      [ {
+        case = range "8.10" "8.16";
+        out = "1.1.2";
+      } ]
+      null;
 
   propagatedBuildInputs = [ ssreflect ];
 

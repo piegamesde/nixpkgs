@@ -55,9 +55,10 @@ let
 
   #INFO: The targetPrefix prepended to binary names to allow multiple binuntils
   # on the PATH to both be usable.
-  targetPrefix = lib.optionalString
-    (targetPlatform != hostPlatform)
-    "${targetPlatform.config}-";
+  targetPrefix =
+    lib.optionalString (targetPlatform != hostPlatform)
+      "${targetPlatform.config}-"
+    ;
 in
 
 stdenv.mkDerivation (
@@ -105,22 +106,23 @@ stdenv.mkDerivation (
       # https://github.com/archlinux/svntogit-community/blob/c8d53dd1734df7ab15931f7fad0c9acb8386904c/trunk/avr-size.patch
       ++ lib.optional targetPlatform.isAvr ./avr-size.patch
       ++ lib.optional stdenv.targetPlatform.isWindows ./windres-locate-gcc.patch
-      ++ lib.optional stdenv.targetPlatform.isMips64n64
-        # this patch is from debian:
-        # https://sources.debian.org/data/main/b/binutils/2.38-3/debian/patches/mips64-default-n64.diff
-        (
-          if stdenv.targetPlatform.isMusl then
-            substitute {
-              src = ./mips64-default-n64.patch;
-              replacements = [
-                "--replace"
-                "gnuabi64"
-                "muslabi64"
-              ];
-            }
-          else
-            ./mips64-default-n64.patch
-        )
+      ++
+        lib.optional stdenv.targetPlatform.isMips64n64
+          # this patch is from debian:
+          # https://sources.debian.org/data/main/b/binutils/2.38-3/debian/patches/mips64-default-n64.diff
+          (
+            if stdenv.targetPlatform.isMusl then
+              substitute {
+                src = ./mips64-default-n64.patch;
+                replacements = [
+                  "--replace"
+                  "gnuabi64"
+                  "muslabi64"
+                ];
+              }
+            else
+              ./mips64-default-n64.patch
+          )
       # This patch fixes a bug in 2.40 on MinGW, which breaks DXVK when cross-building from Darwin.
       # See https://sourceware.org/bugzilla/show_bug.cgi?id=30079
       ++ lib.optional stdenv.targetPlatform.isMinGW ./mingw-abort-fix.patch
@@ -305,10 +307,12 @@ stdenv.mkDerivation (
     # TODO(trofi): fix installation paths upstream so we could remove this
     # code and have "lib" output unconditionally.
     postInstall =
-      lib.optionalString (hostPlatform.config != targetPlatform.config) ''
-        ln -s $out/${hostPlatform.config}/${targetPlatform.config}/lib/*     $out/lib/
-        ln -s $out/${hostPlatform.config}/${targetPlatform.config}/include/* $dev/include/
-      '';
+      lib.optionalString (hostPlatform.config != targetPlatform.config)
+        ''
+          ln -s $out/${hostPlatform.config}/${targetPlatform.config}/lib/*     $out/lib/
+          ln -s $out/${hostPlatform.config}/${targetPlatform.config}/include/* $dev/include/
+        ''
+      ;
 
     passthru = {
       inherit targetPrefix;

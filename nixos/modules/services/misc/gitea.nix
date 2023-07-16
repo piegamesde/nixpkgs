@@ -30,166 +30,190 @@ in
 
 {
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "gitea"
-        "cookieSecure"
-      ]
-      [
-        "services"
-        "gitea"
-        "settings"
-        "session"
-        "COOKIE_SECURE"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "gitea"
-        "disableRegistration"
-      ]
-      [
-        "services"
-        "gitea"
-        "settings"
-        "service"
-        "DISABLE_REGISTRATION"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "gitea"
-        "domain"
-      ]
-      [
-        "services"
-        "gitea"
-        "settings"
-        "server"
-        "DOMAIN"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "gitea"
-        "httpAddress"
-      ]
-      [
-        "services"
-        "gitea"
-        "settings"
-        "server"
-        "HTTP_ADDR"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "gitea"
-        "httpPort"
-      ]
-      [
-        "services"
-        "gitea"
-        "settings"
-        "server"
-        "HTTP_PORT"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "gitea"
-        "log"
-        "level"
-      ]
-      [
-        "services"
-        "gitea"
-        "settings"
-        "log"
-        "LEVEL"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "gitea"
-        "log"
-        "rootPath"
-      ]
-      [
-        "services"
-        "gitea"
-        "settings"
-        "log"
-        "ROOT_PATH"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "gitea"
-        "rootUrl"
-      ]
-      [
-        "services"
-        "gitea"
-        "settings"
-        "server"
-        "ROOT_URL"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "gitea"
-        "ssh"
-        "clonePort"
-      ]
-      [
-        "services"
-        "gitea"
-        "settings"
-        "server"
-        "SSH_PORT"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "gitea"
-        "staticRootPath"
-      ]
-      [
-        "services"
-        "gitea"
-        "settings"
-        "server"
-        "STATIC_ROOT_PATH"
-      ])
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "gitea"
+          "cookieSecure"
+        ]
+        [
+          "services"
+          "gitea"
+          "settings"
+          "session"
+          "COOKIE_SECURE"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "gitea"
+          "disableRegistration"
+        ]
+        [
+          "services"
+          "gitea"
+          "settings"
+          "service"
+          "DISABLE_REGISTRATION"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "gitea"
+          "domain"
+        ]
+        [
+          "services"
+          "gitea"
+          "settings"
+          "server"
+          "DOMAIN"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "gitea"
+          "httpAddress"
+        ]
+        [
+          "services"
+          "gitea"
+          "settings"
+          "server"
+          "HTTP_ADDR"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "gitea"
+          "httpPort"
+        ]
+        [
+          "services"
+          "gitea"
+          "settings"
+          "server"
+          "HTTP_PORT"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "gitea"
+          "log"
+          "level"
+        ]
+        [
+          "services"
+          "gitea"
+          "settings"
+          "log"
+          "LEVEL"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "gitea"
+          "log"
+          "rootPath"
+        ]
+        [
+          "services"
+          "gitea"
+          "settings"
+          "log"
+          "ROOT_PATH"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "gitea"
+          "rootUrl"
+        ]
+        [
+          "services"
+          "gitea"
+          "settings"
+          "server"
+          "ROOT_URL"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "gitea"
+          "ssh"
+          "clonePort"
+        ]
+        [
+          "services"
+          "gitea"
+          "settings"
+          "server"
+          "SSH_PORT"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "gitea"
+          "staticRootPath"
+        ]
+        [
+          "services"
+          "gitea"
+          "settings"
+          "server"
+          "STATIC_ROOT_PATH"
+        ]
+    )
 
-    (mkChangedOptionModule
-      [
-        "services"
-        "gitea"
-        "enableUnixSocket"
-      ]
-      [
-        "services"
-        "gitea"
-        "settings"
-        "server"
-        "PROTOCOL"
-      ]
-      (
-        config:
-        if config.services.gitea.enableUnixSocket then "http+unix" else "http"
-      ))
+    (
+      mkChangedOptionModule
+        [
+          "services"
+          "gitea"
+          "enableUnixSocket"
+        ]
+        [
+          "services"
+          "gitea"
+          "settings"
+          "server"
+          "PROTOCOL"
+        ]
+        (
+          config:
+          if config.services.gitea.enableUnixSocket then "http+unix" else "http"
+        )
+    )
 
-    (mkRemovedOptionModule
-      [
-        "services"
-        "gitea"
-        "ssh"
-        "enable"
-      ]
-      "services.gitea.ssh.enable has been migrated into freeform setting services.gitea.settings.server.DISABLE_SSH. Keep in mind that the setting is inverted")
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "gitea"
+          "ssh"
+          "enable"
+        ]
+        "services.gitea.ssh.enable has been migrated into freeform setting services.gitea.settings.server.DISABLE_SSH. Keep in mind that the setting is inverted"
+    )
   ];
 
   options = {
@@ -210,8 +234,9 @@ in
       useWizard = mkOption {
         default = false;
         type = types.bool;
-        description = lib.mdDoc
-          "Do not generate a configuration and use gitea' installation wizard instead. The first registered user will be administrator."
+        description =
+          lib.mdDoc
+            "Do not generate a configuration and use gitea' installation wizard instead. The first registered user will be administrator."
           ;
       };
 
@@ -224,10 +249,13 @@ in
       customDir = mkOption {
         default = "${cfg.stateDir}/custom";
         defaultText =
-          literalExpression ''"''${config.${opt.stateDir}}/custom"'';
+          literalExpression
+            ''"''${config.${opt.stateDir}}/custom"''
+          ;
         type = types.str;
-        description = lib.mdDoc
-          "Gitea custom directory. Used for config, custom templates and other options."
+        description =
+          lib.mdDoc
+            "Gitea custom directory. Used for config, custom templates and other options."
           ;
       };
 
@@ -317,14 +345,16 @@ in
           defaultText = literalExpression "null";
           example = "/run/mysqld/mysqld.sock";
           description =
-            lib.mdDoc "Path to the unix socket file to use for authentication.";
+            lib.mdDoc
+              "Path to the unix socket file to use for authentication."
+            ;
         };
 
         path = mkOption {
           type = types.str;
           default = "${cfg.stateDir}/data/gitea.db";
-          defaultText =
-            literalExpression ''"''${config.${opt.stateDir}}/data/gitea.db"'';
+          defaultText = literalExpression ''
+            "''${config.${opt.stateDir}}/data/gitea.db"'';
           description = lib.mdDoc "Path to the sqlite3 database file.";
         };
 
@@ -332,7 +362,9 @@ in
           type = types.bool;
           default = true;
           description =
-            lib.mdDoc "Whether to create a local database automatically.";
+            lib.mdDoc
+              "Whether to create a local database automatically."
+            ;
         };
       };
 
@@ -362,7 +394,9 @@ in
           type = types.str;
           default = "${cfg.stateDir}/dump";
           defaultText =
-            literalExpression ''"''${config.${opt.stateDir}}/dump"'';
+            literalExpression
+              ''"''${config.${opt.stateDir}}/dump"''
+            ;
           description = lib.mdDoc "Path to the dump files.";
         };
 
@@ -386,8 +420,9 @@ in
         file = mkOption {
           type = types.nullOr types.str;
           default = null;
-          description = lib.mdDoc
-            "Filename to be used for the dump. If `null` a default name is chosen by gitea."
+          description =
+            lib.mdDoc
+              "Filename to be used for the dump. If `null` a default name is chosen by gitea."
             ;
           example = "gitea-dump";
         };
@@ -403,8 +438,8 @@ in
         contentDir = mkOption {
           type = types.str;
           default = "${cfg.stateDir}/data/lfs";
-          defaultText =
-            literalExpression ''"''${config.${opt.stateDir}}/data/lfs"'';
+          defaultText = literalExpression ''
+            "''${config.${opt.stateDir}}/data/lfs"'';
           description = lib.mdDoc "Where to store LFS files.";
         };
       };
@@ -418,8 +453,8 @@ in
       repositoryRoot = mkOption {
         type = types.str;
         default = "${cfg.stateDir}/repositories";
-        defaultText =
-          literalExpression ''"''${config.${opt.stateDir}}/repositories"'';
+        defaultText = literalExpression ''
+          "''${config.${opt.stateDir}}/repositories"'';
         description = lib.mdDoc "Path to the git repositories.";
       };
 
@@ -460,8 +495,8 @@ in
             log = {
               ROOT_PATH = mkOption {
                 default = "${cfg.stateDir}/log";
-                defaultText =
-                  literalExpression ''"''${config.${opt.stateDir}}/log"'';
+                defaultText = literalExpression ''
+                  "''${config.${opt.stateDir}}/log"'';
                 type = types.str;
                 description = lib.mdDoc "Root path for log files.";
               };
@@ -505,15 +540,19 @@ in
                 defaultText = literalExpression ''
                   if lib.hasSuffix "+unix" cfg.settings.server.PROTOCOL then "/run/gitea/gitea.sock" else "0.0.0.0"''
                   ;
-                description = lib.mdDoc
-                  "Listen address. Must be a path when using a unix socket.";
+                description =
+                  lib.mdDoc
+                    "Listen address. Must be a path when using a unix socket."
+                  ;
               };
 
               HTTP_PORT = mkOption {
                 type = types.port;
                 default = 3000;
                 description =
-                  lib.mdDoc "Listen port. Ignored when using a unix socket.";
+                  lib.mdDoc
+                    "Listen port. Ignored when using a unix socket."
+                  ;
               };
 
               DOMAIN = mkOption {
@@ -540,7 +579,9 @@ in
                 defaultText = literalExpression "config.${opt.package}.data";
                 example = "/var/lib/gitea/data";
                 description =
-                  lib.mdDoc "Upper level of template and static files path.";
+                  lib.mdDoc
+                    "Upper level of template and static files path."
+                  ;
               };
 
               DISABLE_SSH = mkOption {
@@ -593,8 +634,9 @@ in
       extraConfig = mkOption {
         type = with types; nullOr str;
         default = null;
-        description = lib.mdDoc
-          "Configuration lines appended to the generated gitea configuration file."
+        description =
+          lib.mdDoc
+            "Configuration lines appended to the generated gitea configuration file."
           ;
       };
     };
@@ -645,8 +687,9 @@ in
         INSTALL_LOCK = true;
       };
 
-      mailer =
-        mkIf (cfg.mailerPasswordFile != null) { PASSWD = "#mailerpass#"; };
+      mailer = mkIf (cfg.mailerPasswordFile != null) {
+        PASSWD = "#mailerpass#";
+      };
 
       oauth2 = { JWT_SECRET = "#oauth2jwtsecret#"; };
 
@@ -654,17 +697,19 @@ in
     };
 
     services.postgresql =
-      optionalAttrs (usePostgresql && cfg.database.createDatabase) {
-        enable = mkDefault true;
+      optionalAttrs (usePostgresql && cfg.database.createDatabase)
+        {
+          enable = mkDefault true;
 
-        ensureDatabases = [ cfg.database.name ];
-        ensureUsers = [ {
-          name = cfg.database.user;
-          ensurePermissions = {
-            "DATABASE ${cfg.database.name}" = "ALL PRIVILEGES";
-          };
-        } ];
-      };
+          ensureDatabases = [ cfg.database.name ];
+          ensureUsers = [ {
+            name = cfg.database.user;
+            ensurePermissions = {
+              "DATABASE ${cfg.database.name}" = "ALL PRIVILEGES";
+            };
+          } ];
+        }
+      ;
 
     services.mysql = optionalAttrs (useMysql && cfg.database.createDatabase) {
       enable = mkDefault true;
@@ -879,9 +924,8 @@ in
     users.groups = mkIf (cfg.group == "gitea") { gitea = { }; };
 
     warnings =
-      optional
-      (cfg.database.password != "")
-      "config.services.gitea.database.password will be stored as plaintext in the Nix store. Use database.passwordFile instead."
+      optional (cfg.database.password != "")
+        "config.services.gitea.database.password will be stored as plaintext in the Nix store. Use database.passwordFile instead."
       ++ optional (cfg.extraConfig != null) ''
         services.gitea.`extraConfig` is deprecated, please use services.gitea.`settings`.
       ''

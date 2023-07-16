@@ -55,8 +55,9 @@
 }:
 
 let
-  pythonForDocs =
-    python3.pythonForBuild.withPackages (pkgs: with pkgs; [ pygobject3 ]);
+  pythonForDocs = python3.pythonForBuild.withPackages (
+    pkgs: with pkgs; [ pygobject3 ]
+  );
 in
 stdenv.mkDerivation rec {
   pname = "networkmanager";
@@ -220,10 +221,12 @@ stdenv.mkDerivation rec {
   '';
 
   postFixup =
-    lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
-      cp -r ${buildPackages.networkmanager.devdoc} $devdoc
-      cp -r ${buildPackages.networkmanager.man} $man
-    '';
+    lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform)
+      ''
+        cp -r ${buildPackages.networkmanager.devdoc} $devdoc
+        cp -r ${buildPackages.networkmanager.man} $man
+      ''
+    ;
 
   passthru = {
     updateScript = gnome.updateScript {

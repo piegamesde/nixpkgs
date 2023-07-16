@@ -33,7 +33,8 @@ let
       Exec=${steam-gamescope}/bin/steam-gamescope
       Type=Application
     '').overrideAttrs
-    (_: { passthru.providedSessions = [ "steam" ]; });
+      (_: { passthru.providedSessions = [ "steam" ]; })
+    ;
 in
 {
   options.programs.steam = {
@@ -78,13 +79,13 @@ in
               prevLibs ++ additionalLibs
               ;
           } // optionalAttrs
-          (cfg.gamescopeSession.enable && gamescopeCfg.capSysNice)
-          {
-            buildFHSEnv = pkgs.buildFHSEnv.override {
-              # use the setuid wrapped bubblewrap
-              bubblewrap = "${config.security.wrapperDir}/..";
-            };
-          }
+            (cfg.gamescopeSession.enable && gamescopeCfg.capSysNice)
+            {
+              buildFHSEnv = pkgs.buildFHSEnv.override {
+                # use the setuid wrapped bubblewrap
+                bubblewrap = "${config.security.wrapperDir}/..";
+              };
+            }
         )
         ;
       description = lib.mdDoc ''
@@ -114,7 +115,9 @@ in
 
     gamescopeSession = mkOption {
       description =
-        mdDoc "Run a GameScope driven Steam session from your display-manager";
+        mdDoc
+          "Run a GameScope driven Steam session from your display-manager"
+        ;
       default = { };
       type = types.submodule {
         options = {
@@ -147,19 +150,23 @@ in
     };
 
     security.wrappers =
-      mkIf (cfg.gamescopeSession.enable && gamescopeCfg.capSysNice) {
-        # needed or steam fails
-        bwrap = {
-          owner = "root";
-          group = "root";
-          source = "${pkgs.bubblewrap}/bin/bwrap";
-          setuid = true;
-        };
-      };
+      mkIf (cfg.gamescopeSession.enable && gamescopeCfg.capSysNice)
+        {
+          # needed or steam fails
+          bwrap = {
+            owner = "root";
+            group = "root";
+            source = "${pkgs.bubblewrap}/bin/bwrap";
+            setuid = true;
+          };
+        }
+      ;
 
     programs.gamescope.enable = mkDefault cfg.gamescopeSession.enable;
     services.xserver.displayManager.sessionPackages =
-      mkIf cfg.gamescopeSession.enable [ gamescopeSessionFile ];
+      mkIf cfg.gamescopeSession.enable
+        [ gamescopeSessionFile ]
+      ;
 
     # optionally enable 32bit pulseaudio support if pulseaudio is enabled
     hardware.pulseaudio.support32Bit = config.hardware.pulseaudio.enable;

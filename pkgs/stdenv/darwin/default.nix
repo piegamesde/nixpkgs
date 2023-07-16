@@ -155,8 +155,9 @@ rec {
     let
       name = "bootstrap-stage${toString step}";
 
-      buildPackages =
-        lib.optionalAttrs (last ? stdenv) { inherit (last) stdenv; };
+      buildPackages = lib.optionalAttrs (last ? stdenv) {
+        inherit (last) stdenv;
+      };
 
       doSign = localSystem.isAarch64 && last != null;
       doUpdateAutoTools = localSystem.isAarch64 && last != null;
@@ -368,16 +369,20 @@ rec {
             '';
 
             print-reexports =
-              self.runCommandLocal "bootstrap-stage0-print-reexports" { } ''
-                mkdir -p $out/bin
-                ln -s ${bootstrapTools}/bin/print-reexports $out/bin
-              '';
+              self.runCommandLocal "bootstrap-stage0-print-reexports" { }
+                ''
+                  mkdir -p $out/bin
+                  ln -s ${bootstrapTools}/bin/print-reexports $out/bin
+                ''
+              ;
 
             rewrite-tbd =
-              self.runCommandLocal "bootstrap-stage0-rewrite-tbd" { } ''
-                mkdir -p $out/bin
-                ln -s ${bootstrapTools}/bin/rewrite-tbd $out/bin
-              '';
+              self.runCommandLocal "bootstrap-stage0-rewrite-tbd" { }
+                ''
+                  mkdir -p $out/bin
+                  ln -s ${bootstrapTools}/bin/rewrite-tbd $out/bin
+                ''
+              ;
 
             binutils-unwrapped =
               bootstrapTools // { name = "bootstrap-stage0-binutils"; };
@@ -387,20 +392,21 @@ rec {
               targetPrefix = "";
             };
 
-            binutils = lib.makeOverridable
-              (import ../../build-support/bintools-wrapper)
-              {
-                shell = "${bootstrapTools}/bin/bash";
-                inherit lib;
-                inherit (self) stdenvNoCC;
+            binutils =
+              lib.makeOverridable (import ../../build-support/bintools-wrapper)
+                {
+                  shell = "${bootstrapTools}/bin/bash";
+                  inherit lib;
+                  inherit (self) stdenvNoCC;
 
-                nativeTools = false;
-                nativeLibc = false;
-                inherit (self) buildPackages coreutils gnugrep;
-                libc = selfDarwin.Libsystem;
-                bintools = selfDarwin.binutils-unwrapped;
-                inherit (selfDarwin) postLinkSignHook signingUtils;
-              };
+                  nativeTools = false;
+                  nativeLibc = false;
+                  inherit (self) buildPackages coreutils gnugrep;
+                  libc = selfDarwin.Libsystem;
+                  bintools = selfDarwin.binutils-unwrapped;
+                  inherit (selfDarwin) postLinkSignHook signingUtils;
+                }
+              ;
           } // lib.optionalAttrs (!useAppleSDKLibs) {
             CF = stdenv.mkDerivation {
               name = "bootstrap-stage0-CF";
@@ -528,8 +534,9 @@ rec {
             selfDarwin: _: {
               inherit (darwin) rewrite-tbd binutils-unwrapped;
 
-              signingUtils =
-                darwin.signingUtils.override { inherit (selfDarwin) sigtool; };
+              signingUtils = darwin.signingUtils.override {
+                inherit (selfDarwin) sigtool;
+              };
 
               binutils = darwin.binutils.override {
                 coreutils = self.coreutils;
@@ -651,18 +658,18 @@ rec {
                     {
                       stdenv = overrideCC self.stdenv self.ccNoLibcxx;
                     } // lib.optionalAttrs
-                    (builtins.any (v: finalLlvmVersion == v) [
-                      7
-                      11
-                      12
-                      13
-                    ])
-                    {
-                      # TODO: the bootstrapping of llvm packages isn't consistent.
-                      # `standalone` may be redundant if darwin behaves like useLLVM (or
-                      # has useLLVM = true).
-                      standalone = true;
-                    }
+                      (builtins.any (v: finalLlvmVersion == v) [
+                        7
+                        11
+                        12
+                        13
+                      ])
+                      {
+                        # TODO: the bootstrapping of llvm packages isn't consistent.
+                        # `standalone` may be redundant if darwin behaves like useLLVM (or
+                        # has useLLVM = true).
+                        standalone = true;
+                      }
                   );
                 }
               );
@@ -953,9 +960,8 @@ rec {
                 llvmSelf: _: {
                   clang-unwrapped-all-outputs =
                     pkgs."${finalLlvmPackages}".clang-unwrapped-all-outputs.override
-                    {
-                      llvm = llvmSelf.llvm;
-                    };
+                      { llvm = llvmSelf.llvm; }
+                    ;
                   libllvm = pkgs."${finalLlvmPackages}".libllvm.override {
                     inherit libxml2;
                   };
@@ -1048,10 +1054,8 @@ rec {
             _: _:
             {
               inherit (darwin) dyld ICU Libsystem Csu libiconv rewrite-tbd;
-            }
-            // lib.optionalAttrs (super.stdenv.targetPlatform == localSystem) {
-              inherit (darwin) binutils binutils-unwrapped cctools;
-            }
+            } // lib.optionalAttrs (super.stdenv.targetPlatform == localSystem)
+              { inherit (darwin) binutils binutils-unwrapped cctools; }
           );
         } // lib.optionalAttrs (super.stdenv.targetPlatform == localSystem) {
           inherit llvm;

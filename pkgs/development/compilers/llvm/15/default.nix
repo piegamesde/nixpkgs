@@ -276,15 +276,16 @@ let
             "-Wno-unused-command-line-argument"
             "-B${targetLlvmLibraries.compiler-rt}/lib"
           ]
-          ++ lib.optional
-            (!stdenv.targetPlatform.isWasm)
-            "--unwindlib=libunwind"
-          ++ lib.optional
-            (
-              !stdenv.targetPlatform.isWasm
-              && stdenv.targetPlatform.useLLVM or false
-            )
-            "-lunwind"
+          ++
+            lib.optional (!stdenv.targetPlatform.isWasm)
+              "--unwindlib=libunwind"
+          ++
+            lib.optional
+              (
+                !stdenv.targetPlatform.isWasm
+                && stdenv.targetPlatform.useLLVM or false
+              )
+              "-lunwind"
           ++ lib.optional stdenv.targetPlatform.isWasm "-fno-exceptions"
           ;
       };

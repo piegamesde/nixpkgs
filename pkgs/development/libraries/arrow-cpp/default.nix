@@ -49,21 +49,22 @@
       || lib.versionAtLeast boost.version "1.70"
     ),
   enableGcs ? (!stdenv.isDarwin)
-    && (lib.versionAtLeast
-      grpc.cxxStandard
-      "17") # google-cloud-cpp is not supported on darwin, needs to support C++17
+    && (
+      lib.versionAtLeast grpc.cxxStandard
+        "17"
+    ) # google-cloud-cpp is not supported on darwin, needs to support C++17
   ,
 }:
 
 assert lib.asserts.assertMsg
-  (
-    (enableS3 && stdenv.isDarwin)
-    -> (
-      lib.versionOlder boost.version "1.69"
-      || lib.versionAtLeast boost.version "1.70"
+    (
+      (enableS3 && stdenv.isDarwin)
+      -> (
+        lib.versionOlder boost.version "1.69"
+        || lib.versionAtLeast boost.version "1.70"
+      )
     )
-  )
-  "S3 on Darwin requires Boost != 1.69";
+    "S3 on Darwin requires Boost != 1.69";
 
 let
   arrow-testing = fetchFromGitHub {
@@ -252,7 +253,9 @@ stdenv.mkDerivation rec {
   doInstallCheck = true;
   ARROW_TEST_DATA = lib.optionalString doInstallCheck "${arrow-testing}/data";
   PARQUET_TEST_DATA =
-    lib.optionalString doInstallCheck "${parquet-testing}/data";
+    lib.optionalString doInstallCheck
+      "${parquet-testing}/data"
+    ;
   GTEST_FILTER =
     let
       # Upstream Issue: https://issues.apache.org/jira/browse/ARROW-11398
@@ -281,8 +284,8 @@ stdenv.mkDerivation rec {
         ;
     in
     lib.optionalString doInstallCheck "-${
-      lib.concatStringsSep ":" filteredTests
-    }"
+        lib.concatStringsSep ":" filteredTests
+      }"
     ;
 
   __darwinAllowLocalNetworking = true;

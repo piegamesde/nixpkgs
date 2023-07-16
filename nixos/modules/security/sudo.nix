@@ -28,14 +28,14 @@ let
     commands:
     concatStringsSep ", " (
       map
-      (
-        command:
-        if (isString command) then
-          command
-        else
-          "${toCommandOptionsString command.options}${command.command}"
-      )
-      commands
+        (
+          command:
+          if (isString command) then
+            command
+          else
+            "${toCommandOptionsString command.options}${command.command}"
+        )
+        commands
     )
     ;
 in
@@ -257,31 +257,35 @@ in
       ${concatStringsSep "\n" (
         lists.flatten (
           map
-          (
-            rule:
-            if (length rule.commands != 0) then
-              [
-                (map
+            (
+              rule:
+              if (length rule.commands != 0) then
+                [
                   (
-                    user:
-                    "${toUserString user}	${rule.host}=(${rule.runAs})	${
-                      toCommandsString rule.commands
-                    }"
+                    map
+                      (
+                        user:
+                        "${toUserString user}	${rule.host}=(${rule.runAs})	${
+                          toCommandsString rule.commands
+                        }"
+                      )
+                      rule.users
                   )
-                  rule.users)
-                (map
                   (
-                    group:
-                    "${toGroupString group}	${rule.host}=(${rule.runAs})	${
-                      toCommandsString rule.commands
-                    }"
+                    map
+                      (
+                        group:
+                        "${toGroupString group}	${rule.host}=(${rule.runAs})	${
+                          toCommandsString rule.commands
+                        }"
+                      )
+                      rule.groups
                   )
-                  rule.groups)
-              ]
-            else
-              [ ]
-          )
-          cfg.extraRules
+                ]
+              else
+                [ ]
+            )
+            cfg.extraRules
         )
       )}
 
@@ -315,14 +319,16 @@ in
     };
 
     environment.etc.sudoers = {
-      source = pkgs.runCommand "sudoers"
-        {
-          src = pkgs.writeText "sudoers-in" cfg.configFile;
-          preferLocalBuild = true;
-        }
-        # Make sure that the sudoers file is syntactically valid.
-        # (currently disabled - NIXOS-66)
-        "${pkgs.buildPackages.sudo}/sbin/visudo -f $src -c && cp $src $out";
+      source =
+        pkgs.runCommand "sudoers"
+          {
+            src = pkgs.writeText "sudoers-in" cfg.configFile;
+            preferLocalBuild = true;
+          }
+          # Make sure that the sudoers file is syntactically valid.
+          # (currently disabled - NIXOS-66)
+          "${pkgs.buildPackages.sudo}/sbin/visudo -f $src -c && cp $src $out"
+        ;
       mode = "0440";
     };
   };

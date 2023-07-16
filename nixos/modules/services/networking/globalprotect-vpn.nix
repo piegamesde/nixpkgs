@@ -52,7 +52,9 @@ in
     services.dbus.packages = [ pkgs.globalprotect-openconnect ];
 
     environment.etc."gpservice/gp.conf".text =
-      lib.generators.toINI { } cfg.settings;
+      lib.generators.toINI { }
+        cfg.settings
+      ;
 
     systemd.services.gpservice = {
       description = "GlobalProtect openconnect DBus service";

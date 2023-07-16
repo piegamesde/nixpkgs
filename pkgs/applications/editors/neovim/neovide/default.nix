@@ -57,11 +57,11 @@ rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } rec {
       # The externals for skia are taken from skia/DEPS
       externals = linkFarm "skia-externals" (
         lib.mapAttrsToList
-        (name: value: {
-          inherit name;
-          path = fetchgit value;
-        })
-        (lib.importJSON ./skia-externals.json)
+          (name: value: {
+            inherit name;
+            path = fetchgit value;
+          })
+          (lib.importJSON ./skia-externals.json)
       );
     in
     runCommand "source" { } ''

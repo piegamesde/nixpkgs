@@ -15,19 +15,21 @@ with lib;
 
   # Added 2021-05-07
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "gnome3"
-        "glib-networking"
-        "enable"
-      ]
-      [
-        "services"
-        "gnome"
-        "glib-networking"
-        "enable"
-      ])
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "gnome3"
+          "glib-networking"
+          "enable"
+        ]
+        [
+          "services"
+          "gnome"
+          "glib-networking"
+          "enable"
+        ]
+    )
   ];
 
   ###### interface

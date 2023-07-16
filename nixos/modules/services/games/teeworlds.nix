@@ -17,9 +17,8 @@ let
     ${optionalString (cfg.name != null) "sv_name ${cfg.name}"}
     ${optionalString (cfg.motd != null) "sv_motd ${cfg.motd}"}
     ${optionalString (cfg.password != null) "password ${cfg.password}"}
-    ${optionalString
-    (cfg.rconPassword != null)
-    "sv_rcon_password ${cfg.rconPassword}"}
+    ${optionalString (cfg.rconPassword != null)
+      "sv_rcon_password ${cfg.rconPassword}"}
     ${concatStringsSep "\n" cfg.extraOptions}
   '';
 in
@@ -99,7 +98,9 @@ in
 
   config = mkIf cfg.enable {
     networking.firewall =
-      mkIf cfg.openPorts { allowedUDPPorts = [ cfg.port ]; };
+      mkIf cfg.openPorts
+        { allowedUDPPorts = [ cfg.port ]; }
+      ;
 
     systemd.services.teeworlds = {
       description = "Teeworlds Server";

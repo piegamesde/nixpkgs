@@ -17,7 +17,7 @@ with lib;
 
       enable = mkEnableOption (
         lib.mdDoc
-        "system-config-printer, a Graphical user interface for CUPS administration"
+          "system-config-printer, a Graphical user interface for CUPS administration"
       );
     };
   };

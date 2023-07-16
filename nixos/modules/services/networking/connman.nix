@@ -23,15 +23,17 @@ in
 {
 
   imports = [
-    (mkRenamedOptionModule
-      [
-        "networking"
-        "connman"
-      ]
-      [
-        "services"
-        "connman"
-      ])
+    (
+      mkRenamedOptionModule
+        [
+          "networking"
+          "connman"
+        ]
+        [
+          "services"
+          "connman"
+        ]
+    )
   ];
 
   ###### interface

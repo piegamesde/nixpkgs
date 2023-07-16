@@ -16,8 +16,9 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs =
-    lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.IOKit ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    darwin.apple_sdk.frameworks.IOKit
+  ];
 
   src = fetchurl {
     url =
@@ -25,9 +26,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-3V6PHJrq1ELiO3SanMkzY3LmLoitcHmitiiVsDkMsoI=";
   };
 
-  NIX_LDFLAGS = lib.optionalString
-    stdenv.isDarwin
-    "-framework CoreFoundation -framework IOKit";
+  NIX_LDFLAGS =
+    lib.optionalString stdenv.isDarwin
+      "-framework CoreFoundation -framework IOKit"
+    ;
 
   meta = with lib; {
     description = "A C library for creating MusicBrainz DiscIDs from audio CDs";

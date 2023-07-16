@@ -49,8 +49,9 @@ let
             pinConfig ? defaults.pinConfig,
           }:
           let
-            impl =
-              import "${self}/share/nix/api.nix" { inherit pkgs pinConfig; };
+            impl = import "${self}/share/nix/api.nix" {
+              inherit pkgs pinConfig;
+            };
           in
           {
             inherit (impl) augmentedPkgs pins callPackage;

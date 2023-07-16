@@ -13,16 +13,18 @@ let
   finalPackage =
     if cfg.withNpmAndGcc then node-red_withNpmAndGcc else cfg.package;
   node-red_withNpmAndGcc =
-    pkgs.runCommand "node-red" { nativeBuildInputs = [ pkgs.makeWrapper ]; } ''
-      mkdir -p $out/bin
-      makeWrapper ${pkgs.nodePackages.node-red}/bin/node-red $out/bin/node-red \
-        --set PATH '${
-          lib.makeBinPath [
-            pkgs.nodePackages.npm
-            pkgs.gcc
-          ]
-        }:$PATH' \
-    '';
+    pkgs.runCommand "node-red" { nativeBuildInputs = [ pkgs.makeWrapper ]; }
+      ''
+        mkdir -p $out/bin
+        makeWrapper ${pkgs.nodePackages.node-red}/bin/node-red $out/bin/node-red \
+          --set PATH '${
+            lib.makeBinPath [
+              pkgs.nodePackages.npm
+              pkgs.gcc
+            ]
+          }:$PATH' \
+      ''
+    ;
 in
 {
   options.services.node-red = {
@@ -111,7 +113,9 @@ in
       type = types.attrs;
       default = { };
       description =
-        lib.mdDoc "List of settings.js overrides to pass via -D to Node-RED.";
+        lib.mdDoc
+          "List of settings.js overrides to pass via -D to Node-RED."
+        ;
       example = literalExpression ''
         {
           "logging.console.level" = "trace";
@@ -128,11 +132,13 @@ in
       };
     };
 
-    users.groups =
-      optionalAttrs (cfg.group == defaultUser) { ${defaultUser} = { }; };
+    users.groups = optionalAttrs (cfg.group == defaultUser) {
+      ${defaultUser} = { };
+    };
 
-    networking.firewall =
-      mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
+    networking.firewall = mkIf cfg.openFirewall {
+      allowedTCPPorts = [ cfg.port ];
+    };
 
     systemd.services.node-red = {
       description = "Node-RED Service";

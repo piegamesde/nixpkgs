@@ -15,7 +15,9 @@ let
   proxy_env = config.networking.proxy.envVars;
   settingsFormat = pkgs.formats.json { };
   daemonSettingsFile =
-    settingsFormat.generate "daemon.json" cfg.daemon.settings;
+    settingsFormat.generate "daemon.json"
+      cfg.daemon.settings
+    ;
 in
 
 {
@@ -261,8 +263,9 @@ in
         group = "docker";
         hosts = [ "fd://" ];
         log-driver = mkDefault cfg.logDriver;
-        storage-driver =
-          mkIf (cfg.storageDriver != null) (mkDefault cfg.storageDriver);
+        storage-driver = mkIf (cfg.storageDriver != null) (
+          mkDefault cfg.storageDriver
+        );
         live-restore = mkDefault cfg.liveRestore;
         runtimes = mkIf cfg.enableNvidia {
           nvidia = {
@@ -274,12 +277,14 @@ in
   );
 
   imports = [
-    (mkRemovedOptionModule
-      [
-        "virtualisation"
-        "docker"
-        "socketActivation"
-      ]
-      "This option was removed and socket activation is now always active")
+    (
+      mkRemovedOptionModule
+        [
+          "virtualisation"
+          "docker"
+          "socketActivation"
+        ]
+        "This option was removed and socket activation is now always active"
+    )
   ];
 }

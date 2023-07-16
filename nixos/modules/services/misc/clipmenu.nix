@@ -13,8 +13,9 @@ in
 {
 
   options.services.clipmenu = {
-    enable =
-      mkEnableOption (lib.mdDoc "clipmenu, the clipboard management daemon");
+    enable = mkEnableOption (
+      lib.mdDoc "clipmenu, the clipboard management daemon"
+    );
 
     package = mkOption {
       type = types.package;

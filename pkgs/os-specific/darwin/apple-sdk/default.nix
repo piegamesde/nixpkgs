@@ -78,13 +78,15 @@ let
     name: deps:
     let
       deps' = deps // { "${name}" = placeholder "out"; };
-      substArgs = lib.concatMap
-        (x: [
-          "--subst-var-by"
-          x
-          deps'."${x}"
-        ])
-        (lib.attrNames deps');
+      substArgs =
+        lib.concatMap
+          (x: [
+            "--subst-var-by"
+            x
+            deps'."${x}"
+          ])
+          (lib.attrNames deps')
+        ;
     in
     lib.escapeShellArgs substArgs
     ;
@@ -406,17 +408,17 @@ rec {
         }
       );
     } // lib.genAttrs
-    [
-      "ContactsPersistence"
-      "CoreSymbolication"
-      "DebugSymbols"
-      "DisplayServices"
-      "GameCenter"
-      "MultitouchSupport"
-      "SkyLight"
-      "UIFoundation"
-    ]
-    (x: tbdOnlyFramework x { })
+      [
+        "ContactsPersistence"
+        "CoreSymbolication"
+        "DebugSymbols"
+        "DisplayServices"
+        "GameCenter"
+        "MultitouchSupport"
+        "SkyLight"
+        "UIFoundation"
+      ]
+      (x: tbdOnlyFramework x { })
     ;
 
   bareFrameworks = lib.mapAttrs framework (

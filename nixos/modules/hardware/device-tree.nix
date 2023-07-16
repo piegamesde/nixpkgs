@@ -90,25 +90,25 @@ let
   compileDTS =
     name: f:
     pkgs.callPackage
-    (
-      {
-        stdenv,
-        dtc,
-      }:
-      stdenv.mkDerivation {
-        name = "${name}-dtbo";
+      (
+        {
+          stdenv,
+          dtc,
+        }:
+        stdenv.mkDerivation {
+          name = "${name}-dtbo";
 
-        nativeBuildInputs = [ dtc ];
+          nativeBuildInputs = [ dtc ];
 
-        buildCommand = ''
-          $CC -E -nostdinc -I${
-            getDev cfg.kernelPackage
-          }/lib/modules/${cfg.kernelPackage.modDirVersion}/source/scripts/dtc/include-prefixes -undef -D__DTS__ -x assembler-with-cpp ${f} | \
-            dtc -I dts -O dtb -@ -o $out
-        '';
-      }
-    )
-    { }
+          buildCommand = ''
+            $CC -E -nostdinc -I${
+              getDev cfg.kernelPackage
+            }/lib/modules/${cfg.kernelPackage.modDirVersion}/source/scripts/dtc/include-prefixes -undef -D__DTS__ -x assembler-with-cpp ${f} | \
+              dtc -I dts -O dtb -@ -o $out
+          '';
+        }
+      )
+      { }
     ;
 
   # Fill in `dtboFile` for each overlay if not set already.
@@ -133,13 +133,15 @@ let
 in
 {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "hardware"
-        "deviceTree"
-        "base"
-      ]
-      "Use hardware.deviceTree.kernelPackage instead")
+    (
+      mkRemovedOptionModule
+        [
+          "hardware"
+          "deviceTree"
+          "base"
+        ]
+        "Use hardware.deviceTree.kernelPackage instead"
+    )
   ];
 
   options = {
@@ -197,12 +199,12 @@ in
         '';
         type = types.listOf (
           types.coercedTo types.path
-          (path: {
-            name = baseNameOf path;
-            filter = null;
-            dtboFile = path;
-          })
-          overlayType
+            (path: {
+              name = baseNameOf path;
+              filter = null;
+              dtboFile = path;
+            })
+            overlayType
         );
         description = lib.mdDoc ''
           List of overlays to apply to base device-tree (.dtb) files.

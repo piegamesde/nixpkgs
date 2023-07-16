@@ -224,10 +224,10 @@ in
     ''}
     ${lib.optionalString enableSuid (
       lib.warnIf (starterSuidPath == null)
-      "${projectName}: Null starterSuidPath when enableSuid produces non-SUID-ed starter-suid and run-time permission denial."
-      ''
-        chmod +x $out/libexec/${projectName}/bin/starter-suid
-      ''
+        "${projectName}: Null starterSuidPath when enableSuid produces non-SUID-ed starter-suid and run-time permission denial."
+        ''
+          chmod +x $out/libexec/${projectName}/bin/starter-suid
+        ''
     )}
     ${lib.optionalString (enableSuid && (starterSuidPath != null)) ''
       mv "$out"/libexec/${projectName}/bin/starter-suid{,.orig}
@@ -256,19 +256,19 @@ in
       mainProgram = projectName;
     } // extraMeta;
 }).overrideAttrs
-(
-  finalAttrs: prevAttrs: {
-    passthru = prevAttrs.passthru or { } // {
-      tests = {
-        image-hello-cowsay = singularity-tools.buildImage {
-          name = "hello-cowsay";
-          contents = [
-            hello
-            cowsay
-          ];
-          singularity = finalAttrs.finalPackage;
+  (
+    finalAttrs: prevAttrs: {
+      passthru = prevAttrs.passthru or { } // {
+        tests = {
+          image-hello-cowsay = singularity-tools.buildImage {
+            name = "hello-cowsay";
+            contents = [
+              hello
+              cowsay
+            ];
+            singularity = finalAttrs.finalPackage;
+          };
         };
       };
-    };
-  }
-)
+    }
+  )

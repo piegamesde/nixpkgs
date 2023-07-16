@@ -124,7 +124,7 @@ let
         }
       else
         throw
-        "nvidia-x11 does not support platform ${stdenv.hostPlatform.system}"
+          "nvidia-x11 does not support platform ${stdenv.hostPlatform.system}"
       ;
 
     patches = if libsOnly then null else patches;
@@ -178,26 +178,31 @@ let
     disallowedReferences = optionals (!libsOnly) [ kernel.dev ];
 
     passthru = {
-      open = mapNullable
-        (
-          hash:
-          callPackage ./open.nix {
-            inherit hash;
-            nvidia_x11 = self;
-            broken = brokenOpen;
-          }
-        )
-        openSha256;
+      open =
+        mapNullable
+          (
+            hash:
+            callPackage ./open.nix {
+              inherit hash;
+              nvidia_x11 = self;
+              broken = brokenOpen;
+            }
+          )
+          openSha256
+        ;
       settings =
         (if settings32Bit then pkgsi686Linux.callPackage else callPackage)
-        (import ./settings.nix self settingsSha256)
-        {
-          withGtk2 = preferGtk2;
-          withGtk3 = !preferGtk2;
-        };
-      persistenced = mapNullable
-        (hash: callPackage (import ./persistenced.nix self hash) { })
-        persistencedSha256;
+          (import ./settings.nix self settingsSha256)
+          {
+            withGtk2 = preferGtk2;
+            withGtk3 = !preferGtk2;
+          }
+        ;
+      persistenced =
+        mapNullable
+          (hash: callPackage (import ./persistenced.nix self hash) { })
+          persistencedSha256
+        ;
       inherit persistencedVersion settingsVersion;
       compressFirmware = false;
       ibtSupport = ibtSupport || (lib.versionAtLeast version "530");

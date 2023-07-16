@@ -26,36 +26,40 @@ let
   prettyJSON =
     conf:
     pkgs.runCommandLocal "hedgedoc-config.json"
-    { nativeBuildInputs = [ pkgs.jq ]; }
-    ''
-      jq '{production:del(.[]|nulls)|del(.[][]?|nulls)}' \
-        < ${settingsFormat.generate "hedgedoc-ugly.json" cfg.settings} \
-        > $out
-    ''
+      { nativeBuildInputs = [ pkgs.jq ]; }
+      ''
+        jq '{production:del(.[]|nulls)|del(.[][]?|nulls)}' \
+          < ${settingsFormat.generate "hedgedoc-ugly.json" cfg.settings} \
+          > $out
+      ''
     ;
 in
 {
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "codimd"
-      ]
-      [
-        "services"
-        "hedgedoc"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "hedgedoc"
-        "configuration"
-      ]
-      [
-        "services"
-        "hedgedoc"
-        "settings"
-      ])
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "codimd"
+        ]
+        [
+          "services"
+          "hedgedoc"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "hedgedoc"
+          "configuration"
+        ]
+        [
+          "services"
+          "hedgedoc"
+          "settings"
+        ]
+    )
   ];
 
   options.services.hedgedoc = {
@@ -330,8 +334,8 @@ in
           defaultNotePath = mkOption {
             type = types.nullOr types.str;
             default = "${cfg.package}/public/default.md";
-            defaultText =
-              literalExpression ''"''${cfg.package}/public/default.md"'';
+            defaultText = literalExpression ''
+              "''${cfg.package}/public/default.md"'';
             description = lib.mdDoc ''
               Path to the default Note file.
               (Non-canonical paths are relative to HedgeDoc's base directory)
@@ -349,8 +353,8 @@ in
           indexPath = mkOption {
             type = types.nullOr types.str;
             default = "${cfg.package}/public/views/index.ejs";
-            defaultText =
-              literalExpression ''"''${cfg.package}/public/views/index.ejs"'';
+            defaultText = literalExpression ''
+              "''${cfg.package}/public/views/index.ejs"'';
             description = lib.mdDoc ''
               Path to the index template file.
               (Non-canonical paths are relative to HedgeDoc's base directory)
@@ -359,8 +363,8 @@ in
           hackmdPath = mkOption {
             type = types.nullOr types.str;
             default = "${cfg.package}/public/views/hackmd.ejs";
-            defaultText =
-              literalExpression ''"''${cfg.package}/public/views/hackmd.ejs"'';
+            defaultText = literalExpression ''
+              "''${cfg.package}/public/views/hackmd.ejs"'';
             description = lib.mdDoc ''
               Path to the hackmd template file.
               (Non-canonical paths are relative to HedgeDoc's base directory)
@@ -369,8 +373,8 @@ in
           errorPath = mkOption {
             type = types.nullOr types.str;
             default = "${cfg.package}/public/views/error.ejs";
-            defaultText =
-              literalExpression ''"''${cfg.package}/public/views/error.ejs"'';
+            defaultText = literalExpression ''
+              "''${cfg.package}/public/views/error.ejs"'';
             description = lib.mdDoc ''
               Path to the error template file.
               (Non-canonical paths are relative to HedgeDoc's base directory)
@@ -379,8 +383,8 @@ in
           prettyPath = mkOption {
             type = types.nullOr types.str;
             default = "${cfg.package}/public/views/pretty.ejs";
-            defaultText =
-              literalExpression ''"''${cfg.package}/public/views/pretty.ejs"'';
+            defaultText = literalExpression ''
+              "''${cfg.package}/public/views/pretty.ejs"'';
             description = lib.mdDoc ''
               Path to the pretty template file.
               (Non-canonical paths are relative to HedgeDoc's base directory)
@@ -389,8 +393,8 @@ in
           slidePath = mkOption {
             type = types.nullOr types.str;
             default = "${cfg.package}/public/views/slide.hbs";
-            defaultText =
-              literalExpression ''"''${cfg.package}/public/views/slide.hbs"'';
+            defaultText = literalExpression ''
+              "''${cfg.package}/public/views/slide.hbs"'';
             description = lib.mdDoc ''
               Path to the slide template file.
               (Non-canonical paths are relative to HedgeDoc's base directory)
@@ -521,7 +525,9 @@ in
             );
             default = null;
             description =
-              lib.mdDoc "Configure the minio third-party integration.";
+              lib.mdDoc
+                "Configure the minio third-party integration."
+              ;
           };
           s3 = mkOption {
             type = types.nullOr (
@@ -594,7 +600,9 @@ in
             );
             default = null;
             description =
-              lib.mdDoc "Configure the azure third-party integration.";
+              lib.mdDoc
+                "Configure the azure third-party integration."
+              ;
           };
           oauth2 = mkOption {
             type = types.nullOr (
@@ -714,7 +722,9 @@ in
             );
             default = null;
             description =
-              lib.mdDoc "Configure the facebook third-party integration";
+              lib.mdDoc
+                "Configure the facebook third-party integration"
+              ;
           };
           twitter = mkOption {
             type = types.nullOr (
@@ -737,7 +747,9 @@ in
             );
             default = null;
             description =
-              lib.mdDoc "Configure the Twitter third-party integration.";
+              lib.mdDoc
+                "Configure the Twitter third-party integration."
+              ;
           };
           github = mkOption {
             type = types.nullOr (
@@ -760,7 +772,9 @@ in
             );
             default = null;
             description =
-              lib.mdDoc "Configure the GitHub third-party integration.";
+              lib.mdDoc
+                "Configure the GitHub third-party integration."
+              ;
           };
           gitlab = mkOption {
             type = types.nullOr (
@@ -802,7 +816,9 @@ in
             );
             default = null;
             description =
-              lib.mdDoc "Configure the GitLab third-party integration.";
+              lib.mdDoc
+                "Configure the GitLab third-party integration."
+              ;
           };
           mattermost = mkOption {
             type = types.nullOr (
@@ -831,7 +847,9 @@ in
             );
             default = null;
             description =
-              lib.mdDoc "Configure the Mattermost third-party integration.";
+              lib.mdDoc
+                "Configure the Mattermost third-party integration."
+              ;
           };
           dropbox = mkOption {
             type = types.nullOr (
@@ -860,7 +878,9 @@ in
             );
             default = null;
             description =
-              lib.mdDoc "Configure the Dropbox third-party integration.";
+              lib.mdDoc
+                "Configure the Dropbox third-party integration."
+              ;
           };
           google = mkOption {
             type = types.nullOr (
@@ -883,7 +903,9 @@ in
             );
             default = null;
             description =
-              lib.mdDoc "Configure the Google third-party integration.";
+              lib.mdDoc
+                "Configure the Google third-party integration."
+              ;
           };
           ldap = mkOption {
             type = types.nullOr (
@@ -1160,8 +1182,9 @@ in
           cfg.settings.uploadsPath
         ];
         ExecStart = "${cfg.package}/bin/hedgedoc";
-        EnvironmentFile =
-          mkIf (cfg.environmentFile != null) [ cfg.environmentFile ];
+        EnvironmentFile = mkIf (cfg.environmentFile != null) [
+          cfg.environmentFile
+        ];
         Environment = [
           "CMD_CONFIG_FILE=${cfg.workDir}/config.json"
           "NODE_ENV=production"

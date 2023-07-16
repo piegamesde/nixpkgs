@@ -68,11 +68,13 @@ stdenv.mkDerivation rec {
   ];
 
   postPatch =
-    lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
-      ln -s ${mktable}/bin/mktable mktable
-      # stop make from recompiling mktable
-      sed -ie 's!mktable.*:.*!mktable:!' Makefile.in
-    '';
+    lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform)
+      ''
+        ln -s ${mktable}/bin/mktable mktable
+        # stop make from recompiling mktable
+        sed -ie 's!mktable.*:.*!mktable:!' Makefile.in
+      ''
+    ;
 
   nativeBuildInputs = [
     pkg-config
@@ -105,8 +107,8 @@ stdenv.mkDerivation rec {
       "ac_cv_func_setpgrp_void=yes"
     ]
     ++ lib.optional graphicsSupport "--enable-image=${
-        lib.optionalString x11Support "x11,"
-      }fb"
+          lib.optionalString x11Support "x11,"
+        }fb"
     ++ lib.optional (graphicsSupport && !x11Support) "--without-x"
     ;
 

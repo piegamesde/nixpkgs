@@ -34,10 +34,13 @@ let
 
   electronDummyMirror = "https://electron.invalid/";
   electronDummyDir = "nix";
-  electronDummyFilename =
-    builtins.baseNameOf (builtins.head (electron.src.urls));
+  electronDummyFilename = builtins.baseNameOf (
+    builtins.head (electron.src.urls)
+  );
   electronDummyHash =
-    builtins.hashString "sha256" "${electronDummyMirror}${electronDummyDir}";
+    builtins.hashString "sha256"
+      "${electronDummyMirror}${electronDummyDir}"
+    ;
 
   unwrapped = stdenvNoCC.mkDerivation {
     pname = "${pname}-unwrapped";

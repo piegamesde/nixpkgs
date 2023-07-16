@@ -30,7 +30,7 @@ let
       flags =
         if !(matchCredentials -> openBinary) then
           throw
-          "boot.binfmt.registrations.${name}: you can't specify openBinary = false when matchCredentials = true."
+            "boot.binfmt.registrations.${name}: you can't specify openBinary = false when matchCredentials = true."
         else
           optionalString preserveArgvZero "P"
           + optionalString (openBinary && !matchCredentials) "O"
@@ -226,16 +226,18 @@ let
 in
 {
   imports = [
-    (lib.mkRenamedOptionModule
-      [
-        "boot"
-        "binfmtMiscRegistrations"
-      ]
-      [
-        "boot"
-        "binfmt"
-        "registrations"
-      ])
+    (
+      lib.mkRenamedOptionModule
+        [
+          "boot"
+          "binfmtMiscRegistrations"
+        ]
+        [
+          "boot"
+          "binfmt"
+          "registrations"
+        ]
+    )
   ];
 
   options = {
@@ -257,8 +259,9 @@ in
               options = {
                 recognitionType = mkOption {
                   default = "magic";
-                  description = lib.mdDoc
-                    "Whether to recognize executables by magic number or extension."
+                  description =
+                    lib.mdDoc
+                      "Whether to recognize executables by magic number or extension."
                     ;
                   type = types.enum [
                     "magic"
@@ -268,21 +271,26 @@ in
 
                 offset = mkOption {
                   default = null;
-                  description = lib.mdDoc
-                    "The byte offset of the magic number used for recognition.";
+                  description =
+                    lib.mdDoc
+                      "The byte offset of the magic number used for recognition."
+                    ;
                   type = types.nullOr types.int;
                 };
 
                 magicOrExtension = mkOption {
                   description =
-                    lib.mdDoc "The magic number or extension to match on.";
+                    lib.mdDoc
+                      "The magic number or extension to match on."
+                    ;
                   type = types.str;
                 };
 
                 mask = mkOption {
                   default = null;
-                  description = lib.mdDoc
-                    "A mask to be ANDed with the byte sequence of the file before matching"
+                  description =
+                    lib.mdDoc
+                      "A mask to be ANDed with the byte sequence of the file before matching"
                     ;
                   type = types.nullOr types.str;
                 };
@@ -390,45 +398,47 @@ in
   config = {
     boot.binfmt.registrations = builtins.listToAttrs (
       map
-      (system: {
-        name = system;
-        value =
-          {
-            config,
-            ...
-          }:
-          let
-            interpreter = getEmulator system;
-            qemuArch = getQemuArch system;
-
-            preserveArgvZero = "qemu-${qemuArch}" == baseNameOf interpreter;
-            interpreterReg =
-              let
-                wrapperName = "qemu-${qemuArch}-binfmt-P";
-                wrapper = pkgs.wrapQemuBinfmtP wrapperName interpreter;
-              in
-              if preserveArgvZero then
-                "${wrapper}/bin/${wrapperName}"
-              else
-                interpreter
-              ;
-          in
-          (
+        (system: {
+          name = system;
+          value =
             {
-              preserveArgvZero = mkDefault preserveArgvZero;
+              config,
+              ...
+            }:
+            let
+              interpreter = getEmulator system;
+              qemuArch = getQemuArch system;
 
-              interpreter = mkDefault interpreterReg;
-              wrapInterpreterInShell = mkDefault (!config.preserveArgvZero);
-              interpreterSandboxPath =
-                mkDefault (dirOf (dirOf config.interpreter));
-            } // (magics.${system}
-              or (throw
-                "Cannot create binfmt registration for system ${system}")
+              preserveArgvZero = "qemu-${qemuArch}" == baseNameOf interpreter;
+              interpreterReg =
+                let
+                  wrapperName = "qemu-${qemuArch}-binfmt-P";
+                  wrapper = pkgs.wrapQemuBinfmtP wrapperName interpreter;
+                in
+                if preserveArgvZero then
+                  "${wrapper}/bin/${wrapperName}"
+                else
+                  interpreter
+                ;
+            in
+            (
+              {
+                preserveArgvZero = mkDefault preserveArgvZero;
+
+                interpreter = mkDefault interpreterReg;
+                wrapInterpreterInShell = mkDefault (!config.preserveArgvZero);
+                interpreterSandboxPath = mkDefault (
+                  dirOf (dirOf config.interpreter)
+                );
+              } // (magics.${system} or (
+                throw
+                  "Cannot create binfmt registration for system ${system}"
+              )
+              )
             )
-          )
-          ;
-      })
-      cfg.emulatedSystems
+            ;
+        })
+        cfg.emulatedSystems
     );
     nix.settings = lib.mkIf (cfg.emulatedSystems != [ ]) {
       extra-platforms =
@@ -438,24 +448,28 @@ in
       extra-sandbox-paths =
         let
           ruleFor = system: cfg.registrations.${system};
-          hasWrappedRule = lib.any
-            (system: (ruleFor system).wrapInterpreterInShell)
-            cfg.emulatedSystems;
+          hasWrappedRule =
+            lib.any (system: (ruleFor system).wrapInterpreterInShell)
+              cfg.emulatedSystems
+            ;
         in
         [ "/run/binfmt" ]
         ++ lib.optional hasWrappedRule "${pkgs.bash}"
-        ++ (map
-          (system: (ruleFor system).interpreterSandboxPath)
-          cfg.emulatedSystems)
+        ++ (
+          map (system: (ruleFor system).interpreterSandboxPath)
+            cfg.emulatedSystems
+        )
         ;
     };
 
     environment.etc."binfmt.d/nixos.conf".source =
-      builtins.toFile "binfmt_nixos.conf" (
-        lib.concatStringsSep "\n" (
-          lib.mapAttrsToList makeBinfmtLine config.boot.binfmt.registrations
+      builtins.toFile "binfmt_nixos.conf"
+        (
+          lib.concatStringsSep "\n" (
+            lib.mapAttrsToList makeBinfmtLine config.boot.binfmt.registrations
+          )
         )
-      );
+      ;
     system.activationScripts.binfmt = stringAfter [ "specialfs" ] ''
       mkdir -p -m 0755 /run/binfmt
       ${lib.concatStringsSep "\n" (

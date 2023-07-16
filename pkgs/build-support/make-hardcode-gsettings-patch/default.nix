@@ -38,25 +38,25 @@
 }:
 
 runCommand "hardcode-gsettings.patch"
-{
-  inherit src;
-  nativeBuildInputs = [
-    git
-    coccinelle
-    python3 # For patch script
-  ];
-}
-''
-  unpackPhase
-  cd "''${sourceRoot:-.}"
-  set -x
-  cp ${
-    builtins.toFile "glib-schema-to-var.json" (
-      builtins.toJSON schemaIdToVariableMapping
-    )
-  } ./glib-schema-to-var.json
-  git init
-  git add -A
-  spatch --sp-file "${./hardcode-gsettings.cocci}" --dir . --in-place
-  git diff > "$out"
-''
+  {
+    inherit src;
+    nativeBuildInputs = [
+      git
+      coccinelle
+      python3 # For patch script
+    ];
+  }
+  ''
+    unpackPhase
+    cd "''${sourceRoot:-.}"
+    set -x
+    cp ${
+      builtins.toFile "glib-schema-to-var.json" (
+        builtins.toJSON schemaIdToVariableMapping
+      )
+    } ./glib-schema-to-var.json
+    git init
+    git add -A
+    spatch --sp-file "${./hardcode-gsettings.cocci}" --dir . --in-place
+    git diff > "$out"
+  ''

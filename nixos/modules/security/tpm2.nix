@@ -145,8 +145,9 @@ in
           (lib.getLib cfg.pkcs11.package)
         ];
 
-        services.udev.extraRules =
-          lib.mkIf cfg.applyUdevRules (udevRules cfg.tssUser cfg.tssGroup);
+        services.udev.extraRules = lib.mkIf cfg.applyUdevRules (
+          udevRules cfg.tssUser cfg.tssGroup
+        );
 
         # Create the tss user and group only if the default value is used
         users.users.${cfg.tssUser} = lib.mkIf (cfg.tssUser == "tss") {
@@ -157,19 +158,19 @@ in
 
         environment.variables = lib.mkIf cfg.tctiEnvironment.enable (
           lib.attrsets.genAttrs
-          [
-            "TPM2TOOLS_TCTI"
-            "TPM2_PKCS11_TCTI"
-          ]
-          (
-            _:
-            "${cfg.tctiEnvironment.interface}:${
-              if cfg.tctiEnvironment.interface == "tabrmd" then
-                cfg.tctiEnvironment.tabrmdConf
-              else
-                cfg.tctiEnvironment.deviceConf
-            }"
-          )
+            [
+              "TPM2TOOLS_TCTI"
+              "TPM2_PKCS11_TCTI"
+            ]
+            (
+              _:
+              "${cfg.tctiEnvironment.interface}:${
+                if cfg.tctiEnvironment.interface == "tabrmd" then
+                  cfg.tctiEnvironment.tabrmdConf
+                else
+                  cfg.tctiEnvironment.deviceConf
+              }"
+            )
         );
       }
 

@@ -23,18 +23,19 @@ let
     defaults: options:
     lib.concatStrings (
       map
-      (option: ''
-        menuentry '${defaults.name} ${
-          # Name appended to menuentry defaults to params if no specific name given.
-          option.name or (optionalString (option ? params) "(${option.params})")
-        }' ${optionalString (option ? class) " --class ${option.class}"} {
-          linux ${defaults.image} \''${isoboot} ${defaults.params} ${
-            option.params or ""
+        (option: ''
+          menuentry '${defaults.name} ${
+            # Name appended to menuentry defaults to params if no specific name given.
+            option.name
+              or (optionalString (option ? params) "(${option.params})")
+          }' ${optionalString (option ? class) " --class ${option.class}"} {
+            linux ${defaults.image} \''${isoboot} ${defaults.params} ${
+              option.params or ""
+            }
+            initrd ${defaults.initrd}
           }
-          initrd ${defaults.initrd}
-        }
-      '')
-      options
+        '')
+        options
     )
     ;
 
@@ -282,220 +283,224 @@ let
   # Notes about grub:
   #  * Yes, the grubMenuCfg has to be repeated in all submenus. Otherwise you
   #    will get white-on-black console-like text on sub-menus. *sigh*
-  efiDir = pkgs.runCommand "efi-directory"
-    {
-      nativeBuildInputs = [ pkgs.buildPackages.grub2_efi ];
-      strictDeps = true;
-    }
-    ''
-      mkdir -p $out/EFI/boot/
+  efiDir =
+    pkgs.runCommand "efi-directory"
+      {
+        nativeBuildInputs = [ pkgs.buildPackages.grub2_efi ];
+        strictDeps = true;
+      }
+      ''
+        mkdir -p $out/EFI/boot/
 
-      # Add a marker so GRUB can find the filesystem.
-      touch $out/EFI/nixos-installer-image
+        # Add a marker so GRUB can find the filesystem.
+        touch $out/EFI/nixos-installer-image
 
-      # ALWAYS required modules.
-      MODULES="fat iso9660 part_gpt part_msdos \
-               normal boot linux configfile loopback chain halt \
-               efifwsetup efi_gop \
-               ls search search_label search_fs_uuid search_fs_file \
-               gfxmenu gfxterm gfxterm_background gfxterm_menu test all_video loadenv \
-               exfat ext2 ntfs btrfs hfsplus udf \
-               videoinfo png \
-               echo serial \
-              "
+        # ALWAYS required modules.
+        MODULES="fat iso9660 part_gpt part_msdos \
+                 normal boot linux configfile loopback chain halt \
+                 efifwsetup efi_gop \
+                 ls search search_label search_fs_uuid search_fs_file \
+                 gfxmenu gfxterm gfxterm_background gfxterm_menu test all_video loadenv \
+                 exfat ext2 ntfs btrfs hfsplus udf \
+                 videoinfo png \
+                 echo serial \
+                "
 
-      echo "Building GRUB with modules:"
-      for mod in $MODULES; do
-        echo " - $mod"
-      done
-
-      # Modules that may or may not be available per-platform.
-      echo "Adding additional modules:"
-      for mod in efi_uga; do
-        if [ -f ${grubPkgs.grub2_efi}/lib/grub/${grubPkgs.grub2_efi.grubTarget}/$mod.mod ]; then
+        echo "Building GRUB with modules:"
+        for mod in $MODULES; do
           echo " - $mod"
-          MODULES+=" $mod"
-        fi
-      done
+        done
 
-      # Make our own efi program, we can't rely on "grub-install" since it seems to
-      # probe for devices, even with --skip-fs-probe.
-      grub-mkimage --directory=${grubPkgs.grub2_efi}/lib/grub/${grubPkgs.grub2_efi.grubTarget} -o $out/EFI/boot/boot${targetArch}.efi -p /EFI/boot -O ${grubPkgs.grub2_efi.grubTarget} \
-        $MODULES
-      cp ${grubPkgs.grub2_efi}/share/grub/unicode.pf2 $out/EFI/boot/
+        # Modules that may or may not be available per-platform.
+        echo "Adding additional modules:"
+        for mod in efi_uga; do
+          if [ -f ${grubPkgs.grub2_efi}/lib/grub/${grubPkgs.grub2_efi.grubTarget}/$mod.mod ]; then
+            echo " - $mod"
+            MODULES+=" $mod"
+          fi
+        done
 
-      cat <<EOF > $out/EFI/boot/grub.cfg
+        # Make our own efi program, we can't rely on "grub-install" since it seems to
+        # probe for devices, even with --skip-fs-probe.
+        grub-mkimage --directory=${grubPkgs.grub2_efi}/lib/grub/${grubPkgs.grub2_efi.grubTarget} -o $out/EFI/boot/boot${targetArch}.efi -p /EFI/boot -O ${grubPkgs.grub2_efi.grubTarget} \
+          $MODULES
+        cp ${grubPkgs.grub2_efi}/share/grub/unicode.pf2 $out/EFI/boot/
 
-      set with_fonts=false
-      set textmode=false
-      # If you want to use serial for "terminal_*" commands, you need to set one up:
-      #   Example manual configuration:
-      #    → serial --unit=0 --speed=115200 --word=8 --parity=no --stop=1
-      # This uses the defaults, and makes the serial terminal available.
-      set with_serial=no
-      if serial; then set with_serial=yes ;fi
-      export with_serial
-      clear
-      set timeout=${toString grubEfiTimeout}
+        cat <<EOF > $out/EFI/boot/grub.cfg
 
-      # This message will only be viewable when "gfxterm" is not used.
-      echo ""
-      echo "Loading graphical boot menu..."
-      echo ""
-      echo "Press 't' to use the text boot menu on this console..."
-      echo ""
-
-      ${grubMenuCfg}
-
-      hiddenentry 'Text mode' --hotkey 't' {
-        loadfont (\$root)/EFI/boot/unicode.pf2
-        set textmode=true
-        terminal_output gfxterm console
-      }
-      hiddenentry 'GUI mode' --hotkey 'g' {
-        $(find ${config.isoImage.grubTheme} -iname '*.pf2' -printf "loadfont (\$root)/EFI/boot/grub-theme/%P\n")
+        set with_fonts=false
         set textmode=false
-        terminal_output gfxterm
-      }
-
-
-      # If the parameter iso_path is set, append the findiso parameter to the kernel
-      # line. We need this to allow the nixos iso to be booted from grub directly.
-      if [ \''${iso_path} ] ; then
-        set isoboot="findiso=\''${iso_path}"
-      fi
-
-      #
-      # Menu entries
-      #
-
-      ${buildMenuGrub2}
-      submenu "HiDPI, Quirks and Accessibility" --class hidpi --class submenu {
-        ${grubMenuCfg}
-        submenu "Suggests resolution @720p" --class hidpi-720p {
-          ${grubMenuCfg}
-          ${buildMenuAdditionalParamsGrub2 "video=1280x720@60"}
-        }
-        submenu "Suggests resolution @1080p" --class hidpi-1080p {
-          ${grubMenuCfg}
-          ${buildMenuAdditionalParamsGrub2 "video=1920x1080@60"}
-        }
-
-        # If we boot into a graphical environment where X is autoran
-        # and always crashes, it makes the media unusable. Allow the user
-        # to disable this.
-        submenu "Disable display-manager" --class quirk-disable-displaymanager {
-          ${grubMenuCfg}
-          ${
-            buildMenuAdditionalParamsGrub2
-            "systemd.mask=display-manager.service"
-          }
-        }
-
-        # Some laptop and convertibles have the panel installed in an
-        # inconvenient way, rotated away from the keyboard.
-        # Those entries makes it easier to use the installer.
-        submenu "" {return}
-        submenu "Rotate framebuffer Clockwise" --class rotate-90cw {
-          ${grubMenuCfg}
-          ${buildMenuAdditionalParamsGrub2 "fbcon=rotate:1"}
-        }
-        submenu "Rotate framebuffer Upside-Down" --class rotate-180 {
-          ${grubMenuCfg}
-          ${buildMenuAdditionalParamsGrub2 "fbcon=rotate:2"}
-        }
-        submenu "Rotate framebuffer Counter-Clockwise" --class rotate-90ccw {
-          ${grubMenuCfg}
-          ${buildMenuAdditionalParamsGrub2 "fbcon=rotate:3"}
-        }
-
-        # As a proof of concept, mainly. (Not sure it has accessibility merits.)
-        submenu "" {return}
-        submenu "Use black on white" --class accessibility-blakconwhite {
-          ${grubMenuCfg}
-          ${
-            buildMenuAdditionalParamsGrub2
-            "vt.default_red=0xFF,0xBC,0x4F,0xB4,0x56,0xBC,0x4F,0x00,0xA1,0xCF,0x84,0xCA,0x8D,0xB4,0x84,0x68 vt.default_grn=0xFF,0x55,0xBA,0xBA,0x4D,0x4D,0xB3,0x00,0xA0,0x8F,0xB3,0xCA,0x88,0x93,0xA4,0x68 vt.default_blu=0xFF,0x58,0x5F,0x58,0xC5,0xBD,0xC5,0x00,0xA8,0xBB,0xAB,0x97,0xBD,0xC7,0xC5,0x68"
-          }
-        }
-
-        # Serial access is a must!
-        submenu "" {return}
-        submenu "Serial console=ttyS0,115200n8" --class serial {
-          ${grubMenuCfg}
-          ${buildMenuAdditionalParamsGrub2 "console=ttyS0,115200n8"}
-        }
-      }
-
-      ${lib.optionalString (refindBinary != null) ''
-        # GRUB apparently cannot do "chainloader" operations on "CD".
-        if [ "\$root" != "cd0" ]; then
-          menuentry 'rEFInd' --class refind {
-            # Force root to be the FAT partition
-            # Otherwise it breaks rEFInd's boot
-            search --set=root --no-floppy --fs-uuid 1234-5678
-            chainloader (\$root)/EFI/boot/${refindBinary}
-          }
-        fi
-      ''}
-      menuentry 'Firmware Setup' --class settings {
-        fwsetup
+        # If you want to use serial for "terminal_*" commands, you need to set one up:
+        #   Example manual configuration:
+        #    → serial --unit=0 --speed=115200 --word=8 --parity=no --stop=1
+        # This uses the defaults, and makes the serial terminal available.
+        set with_serial=no
+        if serial; then set with_serial=yes ;fi
+        export with_serial
         clear
+        set timeout=${toString grubEfiTimeout}
+
+        # This message will only be viewable when "gfxterm" is not used.
         echo ""
-        echo "If you see this message, your EFI system doesn't support this feature."
+        echo "Loading graphical boot menu..."
         echo ""
+        echo "Press 't' to use the text boot menu on this console..."
+        echo ""
+
+        ${grubMenuCfg}
+
+        hiddenentry 'Text mode' --hotkey 't' {
+          loadfont (\$root)/EFI/boot/unicode.pf2
+          set textmode=true
+          terminal_output gfxterm console
+        }
+        hiddenentry 'GUI mode' --hotkey 'g' {
+          $(find ${config.isoImage.grubTheme} -iname '*.pf2' -printf "loadfont (\$root)/EFI/boot/grub-theme/%P\n")
+          set textmode=false
+          terminal_output gfxterm
+        }
+
+
+        # If the parameter iso_path is set, append the findiso parameter to the kernel
+        # line. We need this to allow the nixos iso to be booted from grub directly.
+        if [ \''${iso_path} ] ; then
+          set isoboot="findiso=\''${iso_path}"
+        fi
+
+        #
+        # Menu entries
+        #
+
+        ${buildMenuGrub2}
+        submenu "HiDPI, Quirks and Accessibility" --class hidpi --class submenu {
+          ${grubMenuCfg}
+          submenu "Suggests resolution @720p" --class hidpi-720p {
+            ${grubMenuCfg}
+            ${buildMenuAdditionalParamsGrub2 "video=1280x720@60"}
+          }
+          submenu "Suggests resolution @1080p" --class hidpi-1080p {
+            ${grubMenuCfg}
+            ${buildMenuAdditionalParamsGrub2 "video=1920x1080@60"}
+          }
+
+          # If we boot into a graphical environment where X is autoran
+          # and always crashes, it makes the media unusable. Allow the user
+          # to disable this.
+          submenu "Disable display-manager" --class quirk-disable-displaymanager {
+            ${grubMenuCfg}
+            ${
+              buildMenuAdditionalParamsGrub2
+                "systemd.mask=display-manager.service"
+            }
+          }
+
+          # Some laptop and convertibles have the panel installed in an
+          # inconvenient way, rotated away from the keyboard.
+          # Those entries makes it easier to use the installer.
+          submenu "" {return}
+          submenu "Rotate framebuffer Clockwise" --class rotate-90cw {
+            ${grubMenuCfg}
+            ${buildMenuAdditionalParamsGrub2 "fbcon=rotate:1"}
+          }
+          submenu "Rotate framebuffer Upside-Down" --class rotate-180 {
+            ${grubMenuCfg}
+            ${buildMenuAdditionalParamsGrub2 "fbcon=rotate:2"}
+          }
+          submenu "Rotate framebuffer Counter-Clockwise" --class rotate-90ccw {
+            ${grubMenuCfg}
+            ${buildMenuAdditionalParamsGrub2 "fbcon=rotate:3"}
+          }
+
+          # As a proof of concept, mainly. (Not sure it has accessibility merits.)
+          submenu "" {return}
+          submenu "Use black on white" --class accessibility-blakconwhite {
+            ${grubMenuCfg}
+            ${
+              buildMenuAdditionalParamsGrub2
+                "vt.default_red=0xFF,0xBC,0x4F,0xB4,0x56,0xBC,0x4F,0x00,0xA1,0xCF,0x84,0xCA,0x8D,0xB4,0x84,0x68 vt.default_grn=0xFF,0x55,0xBA,0xBA,0x4D,0x4D,0xB3,0x00,0xA0,0x8F,0xB3,0xCA,0x88,0x93,0xA4,0x68 vt.default_blu=0xFF,0x58,0x5F,0x58,0xC5,0xBD,0xC5,0x00,0xA8,0xBB,0xAB,0x97,0xBD,0xC7,0xC5,0x68"
+            }
+          }
+
+          # Serial access is a must!
+          submenu "" {return}
+          submenu "Serial console=ttyS0,115200n8" --class serial {
+            ${grubMenuCfg}
+            ${buildMenuAdditionalParamsGrub2 "console=ttyS0,115200n8"}
+          }
+        }
+
+        ${lib.optionalString (refindBinary != null) ''
+          # GRUB apparently cannot do "chainloader" operations on "CD".
+          if [ "\$root" != "cd0" ]; then
+            menuentry 'rEFInd' --class refind {
+              # Force root to be the FAT partition
+              # Otherwise it breaks rEFInd's boot
+              search --set=root --no-floppy --fs-uuid 1234-5678
+              chainloader (\$root)/EFI/boot/${refindBinary}
+            }
+          fi
+        ''}
+        menuentry 'Firmware Setup' --class settings {
+          fwsetup
+          clear
+          echo ""
+          echo "If you see this message, your EFI system doesn't support this feature."
+          echo ""
+        }
+        menuentry 'Shutdown' --class shutdown {
+          halt
+        }
+        EOF
+
+        ${refind}
+      ''
+    ;
+
+  efiImg =
+    pkgs.runCommand "efi-image_eltorito"
+      {
+        nativeBuildInputs = [
+          pkgs.buildPackages.mtools
+          pkgs.buildPackages.libfaketime
+          pkgs.buildPackages.dosfstools
+        ];
+        strictDeps = true;
       }
-      menuentry 'Shutdown' --class shutdown {
-        halt
-      }
-      EOF
+      # Be careful about determinism: du --apparent-size,
+      #   dates (cp -p, touch, mcopy -m, faketime for label), IDs (mkfs.vfat -i)
+      ''
+        mkdir ./contents && cd ./contents
+        mkdir -p ./EFI/boot
+        cp -rp "${efiDir}"/EFI/boot/{grub.cfg,*.efi} ./EFI/boot
 
-      ${refind}
-    '';
+        # Rewrite dates for everything in the FS
+        find . -exec touch --date=2000-01-01 {} +
 
-  efiImg = pkgs.runCommand "efi-image_eltorito"
-    {
-      nativeBuildInputs = [
-        pkgs.buildPackages.mtools
-        pkgs.buildPackages.libfaketime
-        pkgs.buildPackages.dosfstools
-      ];
-      strictDeps = true;
-    }
-    # Be careful about determinism: du --apparent-size,
-    #   dates (cp -p, touch, mcopy -m, faketime for label), IDs (mkfs.vfat -i)
-    ''
-      mkdir ./contents && cd ./contents
-      mkdir -p ./EFI/boot
-      cp -rp "${efiDir}"/EFI/boot/{grub.cfg,*.efi} ./EFI/boot
+        # Round up to the nearest multiple of 1MB, for more deterministic du output
+        usage_size=$(( $(du -s --block-size=1M --apparent-size . | tr -cd '[:digit:]') * 1024 * 1024 ))
+        # Make the image 110% as big as the files need to make up for FAT overhead
+        image_size=$(( ($usage_size * 110) / 100 ))
+        # Make the image fit blocks of 1M
+        block_size=$((1024*1024))
+        image_size=$(( ($image_size / $block_size + 1) * $block_size ))
+        echo "Usage size: $usage_size"
+        echo "Image size: $image_size"
+        truncate --size=$image_size "$out"
+        mkfs.vfat --invariant -i 12345678 -n EFIBOOT "$out"
 
-      # Rewrite dates for everything in the FS
-      find . -exec touch --date=2000-01-01 {} +
+        # Force a fixed order in mcopy for better determinism, and avoid file globbing
+        for d in $(find EFI -type d | sort); do
+          faketime "2000-01-01 00:00:00" mmd -i "$out" "::/$d"
+        done
 
-      # Round up to the nearest multiple of 1MB, for more deterministic du output
-      usage_size=$(( $(du -s --block-size=1M --apparent-size . | tr -cd '[:digit:]') * 1024 * 1024 ))
-      # Make the image 110% as big as the files need to make up for FAT overhead
-      image_size=$(( ($usage_size * 110) / 100 ))
-      # Make the image fit blocks of 1M
-      block_size=$((1024*1024))
-      image_size=$(( ($image_size / $block_size + 1) * $block_size ))
-      echo "Usage size: $usage_size"
-      echo "Image size: $image_size"
-      truncate --size=$image_size "$out"
-      mkfs.vfat --invariant -i 12345678 -n EFIBOOT "$out"
+        for f in $(find EFI -type f | sort); do
+          mcopy -pvm -i "$out" "$f" "::/$f"
+        done
 
-      # Force a fixed order in mcopy for better determinism, and avoid file globbing
-      for d in $(find EFI -type d | sort); do
-        faketime "2000-01-01 00:00:00" mmd -i "$out" "::/$d"
-      done
-
-      for f in $(find EFI -type f | sort); do
-        mcopy -pvm -i "$out" "$f" "::/$f"
-      done
-
-      # Verify the FAT partition.
-      fsck.vfat -vn "$out"
-    ''; # */
+        # Verify the FAT partition.
+        fsck.vfat -vn "$out"
+      ''
+    ; # */
 
   # Syslinux (and isolinux) only supports x86-based architectures.
   canx86BiosBoot = pkgs.stdenv.hostPlatform.isx86;
@@ -552,9 +557,8 @@ in
       # nixos-$EDITION-$RELEASE-$ARCH
       default =
         "nixos${
-          optionalString
-          (config.isoImage.edition != "")
-          "-${config.isoImage.edition}"
+          optionalString (config.isoImage.edition != "")
+            "-${config.isoImage.edition}"
         }-${config.system.nixos.release}-${pkgs.stdenv.hostPlatform.uname.processor}";
       description = lib.mdDoc ''
         Specifies the label or volume ID of the generated ISO image.
@@ -764,9 +768,9 @@ in
         grubPkgs.grub2
         grubPkgs.grub2_efi
       ]
-      ++ optional
-        (config.isoImage.makeBiosBootable && canx86BiosBoot)
-        pkgs.syslinux
+      ++
+        optional (config.isoImage.makeBiosBootable && canx86BiosBoot)
+          pkgs.syslinux
       ;
 
     # In stage 1 of the boot, mount the CD as the root FS by label so
@@ -800,17 +804,19 @@ in
     # script and the top-level system configuration directory.
     isoImage.storeContents =
       [ config.system.build.toplevel ]
-      ++ optional
-        config.isoImage.includeSystemBuildDependencies
-        config.system.build.toplevel.drvPath
+      ++
+        optional config.isoImage.includeSystemBuildDependencies
+          config.system.build.toplevel.drvPath
       ;
 
     # Create the squashfs image that contains the Nix store.
     system.build.squashfsStore =
-      pkgs.callPackage ../../../lib/make-squashfs.nix {
-        storeContents = config.isoImage.storeContents;
-        comp = config.isoImage.squashfsCompression;
-      };
+      pkgs.callPackage ../../../lib/make-squashfs.nix
+        {
+          storeContents = config.isoImage.storeContents;
+          comp = config.isoImage.squashfsCompression;
+        }
+      ;
 
     # Individual files to be included on the CD, outside of the Nix
     # store on the CD.
@@ -880,16 +886,17 @@ in
           target = "/EFI/boot/efi-background.png";
         }
       ]
-      ++ optionals
-        (
-          config.boot.loader.grub.memtest86.enable
-          && config.isoImage.makeBiosBootable
-          && canx86BiosBoot
-        )
-        [ {
-          source = "${pkgs.memtest86plus}/memtest.bin";
-          target = "/boot/memtest.bin";
-        } ]
+      ++
+        optionals
+          (
+            config.boot.loader.grub.memtest86.enable
+            && config.isoImage.makeBiosBootable
+            && canx86BiosBoot
+          )
+          [ {
+            source = "${pkgs.memtest86plus}/memtest.bin";
+            target = "/boot/memtest.bin";
+          } ]
       ++ optionals (config.isoImage.grubTheme != null) [ {
         source = config.isoImage.grubTheme;
         target = "/EFI/boot/grub-theme";
@@ -900,31 +907,34 @@ in
 
     # Create the ISO image.
     system.build.isoImage =
-      pkgs.callPackage ../../../lib/make-iso9660-image.nix (
-        {
-          inherit (config.isoImage) isoName compressImage volumeID contents;
-          bootable = config.isoImage.makeBiosBootable && canx86BiosBoot;
-          bootImage = "/isolinux/isolinux.bin";
-          syslinux =
-            if config.isoImage.makeBiosBootable && canx86BiosBoot then
-              pkgs.syslinux
-            else
-              null
-            ;
-        } // optionalAttrs
+      pkgs.callPackage ../../../lib/make-iso9660-image.nix
         (
-          config.isoImage.makeUsbBootable
-          && config.isoImage.makeBiosBootable
-          && canx86BiosBoot
+          {
+            inherit (config.isoImage) isoName compressImage volumeID contents;
+            bootable = config.isoImage.makeBiosBootable && canx86BiosBoot;
+            bootImage = "/isolinux/isolinux.bin";
+            syslinux =
+              if config.isoImage.makeBiosBootable && canx86BiosBoot then
+                pkgs.syslinux
+              else
+                null
+              ;
+          } // optionalAttrs
+            (
+              config.isoImage.makeUsbBootable
+              && config.isoImage.makeBiosBootable
+              && canx86BiosBoot
+            )
+            {
+              usbBootable = true;
+              isohybridMbrImage =
+                "${pkgs.syslinux}/share/syslinux/isohdpfx.bin";
+            } // optionalAttrs config.isoImage.makeEfiBootable {
+              efiBootable = true;
+              efiBootImage = "boot/efi.img";
+            }
         )
-        {
-          usbBootable = true;
-          isohybridMbrImage = "${pkgs.syslinux}/share/syslinux/isohdpfx.bin";
-        } // optionalAttrs config.isoImage.makeEfiBootable {
-          efiBootable = true;
-          efiBootImage = "boot/efi.img";
-        }
-      );
+      ;
 
     boot.postBootCommands = ''
       # After booting, register the contents of the Nix store on the

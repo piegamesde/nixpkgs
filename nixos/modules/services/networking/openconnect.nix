@@ -17,8 +17,10 @@ let
     options = {
       autoStart = mkOption {
         default = true;
-        description = lib.mdDoc
-          "Whether this VPN connection should be started automatically.";
+        description =
+          lib.mdDoc
+            "Whether this VPN connection should be started automatically."
+          ;
         type = types.bool;
       };
 
@@ -101,8 +103,8 @@ let
     extra_cfg:
     strings.concatStringsSep "\n" (
       attrsets.mapAttrsToList
-      (name: value: if (value == true) then name else "${name}=${value}")
-      (attrsets.filterAttrs (_: value: value != false) extra_cfg)
+        (name: value: if (value == true) then name else "${name}=${value}")
+        (attrsets.filterAttrs (_: value: value != false) extra_cfg)
     )
     ;
   generateConfig =
@@ -112,9 +114,8 @@ let
       ${optionalString (icfg.protocol != null) "protocol=${icfg.protocol}"}
       ${optionalString (icfg.user != null) "user=${icfg.user}"}
       ${optionalString (icfg.passwordFile != null) "passwd-on-stdin"}
-      ${optionalString
-      (icfg.certificate != null)
-      "certificate=${icfg.certificate}"}
+      ${optionalString (icfg.certificate != null)
+        "certificate=${icfg.certificate}"}
       ${optionalString (icfg.privateKey != null) "sslkey=${icfg.privateKey}"}
 
       ${generateExtraConfig icfg.extraOptions}
@@ -137,7 +138,9 @@ let
             generateConfig name icfg
           } ${icfg.gateway}";
         StandardInput =
-          lib.mkIf (icfg.passwordFile != null) "file:${icfg.passwordFile}";
+          lib.mkIf (icfg.passwordFile != null)
+            "file:${icfg.passwordFile}"
+          ;
 
         ProtectHome = true;
       };
@@ -164,12 +167,14 @@ in
   };
 
   config = {
-    systemd.services = mapAttrs'
-      (name: value: {
-        name = "openconnect-${name}";
-        value = generateUnit name value;
-      })
-      cfg.interfaces;
+    systemd.services =
+      mapAttrs'
+        (name: value: {
+          name = "openconnect-${name}";
+          value = generateUnit name value;
+        })
+        cfg.interfaces
+      ;
   };
 
   meta.maintainers = with maintainers; [ alyaeanyx ];

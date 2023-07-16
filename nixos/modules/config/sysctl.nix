@@ -33,13 +33,14 @@ in
             merge =
               loc: defs:
               foldl (a: b: if b.value == null then null else lib.max a b.value)
-              0
-              (filterOverrides defs)
+                0
+                (filterOverrides defs)
               ;
           };
           default = null;
-          description = lib.mdDoc
-            "The maximum socket receive buffer size. In case of conflicting values, the highest will be used."
+          description =
+            lib.mdDoc
+              "The maximum socket receive buffer size. In case of conflicting values, the highest will be used."
             ;
         };
       };
@@ -63,13 +64,13 @@ in
 
     environment.etc."sysctl.d/60-nixos.conf".text = concatStrings (
       mapAttrsToList
-      (
-        n: v:
-        optionalString (v != null) ''
-          ${n}=${if v == false then "0" else toString v}
-        ''
-      )
-      config.boot.kernel.sysctl
+        (
+          n: v:
+          optionalString (v != null) ''
+            ${n}=${if v == false then "0" else toString v}
+          ''
+        )
+        config.boot.kernel.sysctl
     );
 
     systemd.services.systemd-sysctl = {

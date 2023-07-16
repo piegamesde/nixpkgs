@@ -24,16 +24,14 @@ let
 
         #line-edit
         ${concatStringsSep "\n" (
-          mapAttrsToList
-          (command: action: "${command} ${action}")
-          cfg.lineEditingKeys
+          mapAttrsToList (command: action: "${command} ${action}")
+            cfg.lineEditingKeys
         )}
 
         #env
         ${concatStringsSep "\n" (
-          mapAttrsToList
-          (variable: values: "${variable}=${values}")
-          cfg.envVariables
+          mapAttrsToList (variable: values: "${variable}=${values}")
+            cfg.envVariables
         )}
       ''
     ;
@@ -100,8 +98,8 @@ in
       lessopen = mkOption {
         type = types.nullOr types.str;
         default = "|${pkgs.lesspipe}/bin/lesspipe.sh %s";
-        defaultText =
-          literalExpression ''"|''${pkgs.lesspipe}/bin/lesspipe.sh %s"'';
+        defaultText = literalExpression ''
+          "|''${pkgs.lesspipe}/bin/lesspipe.sh %s"'';
         description = lib.mdDoc ''
           Before less opens a file, it first gives your input preprocessor a chance to modify the way the contents of the file are displayed.
         '';
@@ -127,15 +125,17 @@ in
     } // optionalAttrs (cfg.lessopen != null) { LESSOPEN = cfg.lessopen; }
       // optionalAttrs (cfg.lessclose != null) { LESSCLOSE = cfg.lessclose; };
 
-    warnings = optional
-      (
-        cfg.clearDefaultCommands
-        && (all (x: x != "quit") (attrValues cfg.commands))
-      )
-      ''
-        config.programs.less.clearDefaultCommands clears all default commands of less but there is no alternative binding for exiting.
-        Consider adding a binding for 'quit'.
-      '';
+    warnings =
+      optional
+        (
+          cfg.clearDefaultCommands
+          && (all (x: x != "quit") (attrValues cfg.commands))
+        )
+        ''
+          config.programs.less.clearDefaultCommands clears all default commands of less but there is no alternative binding for exiting.
+          Consider adding a binding for 'quit'.
+        ''
+      ;
   };
 
   meta.maintainers = with maintainers; [ johnazoidberg ];

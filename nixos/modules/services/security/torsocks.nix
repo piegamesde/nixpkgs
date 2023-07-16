@@ -18,12 +18,10 @@ let
 
       OnionAddrRange ${cfg.onionAddrRange}
 
-      ${optionalNullStr
-      cfg.socks5Username
-      "SOCKS5Username ${cfg.socks5Username}"}
-      ${optionalNullStr
-      cfg.socks5Password
-      "SOCKS5Password ${cfg.socks5Password}"}
+      ${optionalNullStr cfg.socks5Username
+        "SOCKS5Username ${cfg.socks5Username}"}
+      ${optionalNullStr cfg.socks5Password
+        "SOCKS5Password ${cfg.socks5Password}"}
 
       AllowInbound ${if cfg.allowInbound then "1" else "0"}
     ''
@@ -51,8 +49,10 @@ in
         type = types.bool;
         default =
           config.services.tor.enable && config.services.tor.client.enable;
-        defaultText = literalExpression
-          "config.services.tor.enable && config.services.tor.client.enable";
+        defaultText =
+          literalExpression
+            "config.services.tor.enable && config.services.tor.client.enable"
+          ;
         description = lib.mdDoc ''
           Whether to build `/etc/tor/torsocks.conf`
           containing the specified global torsocks configuration.

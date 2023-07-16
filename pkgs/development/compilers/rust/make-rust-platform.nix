@@ -18,33 +18,36 @@ rec {
   rust = { inherit rustc cargo; };
 
   fetchCargoTarball =
-    buildPackages.callPackage ../../../build-support/rust/fetch-cargo-tarball {
-      git = buildPackages.gitMinimal;
-      inherit cargo;
-    };
+    buildPackages.callPackage ../../../build-support/rust/fetch-cargo-tarball
+      {
+        git = buildPackages.gitMinimal;
+        inherit cargo;
+      }
+    ;
 
   buildRustPackage =
-    callPackage ../../../build-support/rust/build-rust-package {
-      inherit
-        stdenv
-        cargoBuildHook
-        cargoCheckHook
-        cargoInstallHook
-        cargoNextestHook
-        cargoSetupHook
-        fetchCargoTarball
-        importCargoLock
-        rustc
-        cargo
-        cargo-auditable
-        ;
-    };
+    callPackage ../../../build-support/rust/build-rust-package
+      {
+        inherit
+          stdenv
+          cargoBuildHook
+          cargoCheckHook
+          cargoInstallHook
+          cargoNextestHook
+          cargoSetupHook
+          fetchCargoTarball
+          importCargoLock
+          rustc
+          cargo
+          cargo-auditable
+          ;
+      }
+    ;
 
-  importCargoLock = buildPackages.callPackage
-    ../../../build-support/rust/import-cargo-lock.nix
-    {
-      inherit cargo;
-    };
+  importCargoLock =
+    buildPackages.callPackage ../../../build-support/rust/import-cargo-lock.nix
+      { inherit cargo; }
+    ;
 
   rustcSrc = callPackage ./rust-src.nix { inherit runCommand rustc; };
 

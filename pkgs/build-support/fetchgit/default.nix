@@ -16,9 +16,10 @@ let
 
       short = builtins.substring 0 7 rev;
 
-      appendShort = lib.optionalString
-        ((builtins.match "[a-f0-9]*" rev) != null)
-        "-${short}";
+      appendShort =
+        lib.optionalString ((builtins.match "[a-f0-9]*" rev) != null)
+          "-${short}"
+        ;
     in
     "${if matched == null then base else builtins.head matched}${appendShort}"
     ;
@@ -81,73 +82,73 @@ else if hash != "" && sha256 != "" then
 else
   # Added 2022-11-12
   lib.warnIf (builtins.isString sparseCheckout)
-  "Please provide directories/patterns for sparse checkout as a list of strings. Support for passing a (multi-line) string is deprecated and will be removed in the next release."
-  stdenvNoCC.mkDerivation
-  {
-    inherit name;
-    builder = ./builder.sh;
-    fetcher = ./nix-prefetch-git;
+    "Please provide directories/patterns for sparse checkout as a list of strings. Support for passing a (multi-line) string is deprecated and will be removed in the next release."
+    stdenvNoCC.mkDerivation
+    {
+      inherit name;
+      builder = ./builder.sh;
+      fetcher = ./nix-prefetch-git;
 
-    nativeBuildInputs = [ git ] ++ lib.optionals fetchLFS [ git-lfs ];
+      nativeBuildInputs = [ git ] ++ lib.optionals fetchLFS [ git-lfs ];
 
-    outputHashAlgo = if hash != "" then null else "sha256";
-    outputHashMode = "recursive";
-    outputHash =
-      if hash != "" then
-        hash
-      else if sha256 != "" then
-        sha256
-      else
-        lib.fakeSha256
-      ;
+      outputHashAlgo = if hash != "" then null else "sha256";
+      outputHashMode = "recursive";
+      outputHash =
+        if hash != "" then
+          hash
+        else if sha256 != "" then
+          sha256
+        else
+          lib.fakeSha256
+        ;
 
-    # git-sparse-checkout(1) says:
-    # > When the --stdin option is provided, the directories or patterns are read
-    # > from standard in as a newline-delimited list instead of from the arguments.
-    sparseCheckout =
-      if builtins.isString sparseCheckout then
-        sparseCheckout
-      else
-        builtins.concatStringsSep "\n" sparseCheckout
-      ;
+      # git-sparse-checkout(1) says:
+      # > When the --stdin option is provided, the directories or patterns are read
+      # > from standard in as a newline-delimited list instead of from the arguments.
+      sparseCheckout =
+        if builtins.isString sparseCheckout then
+          sparseCheckout
+        else
+          builtins.concatStringsSep "\n" sparseCheckout
+        ;
 
-    inherit
-      url
-      rev
-      leaveDotGit
-      fetchLFS
-      fetchSubmodules
-      deepClone
-      branchName
-      nonConeMode
-      postFetch
-      ;
+      inherit
+        url
+        rev
+        leaveDotGit
+        fetchLFS
+        fetchSubmodules
+        deepClone
+        branchName
+        nonConeMode
+        postFetch
+        ;
 
-    postHook =
-      if netrcPhase == null then
-        null
-      else
-        ''
-          ${netrcPhase}
-          # required that git uses the netrc file
-          mv {,.}netrc
-          export HOME=$PWD
-        ''
-      ;
+      postHook =
+        if netrcPhase == null then
+          null
+        else
+          ''
+            ${netrcPhase}
+            # required that git uses the netrc file
+            mv {,.}netrc
+            export HOME=$PWD
+          ''
+        ;
 
-    GIT_SSL_CAINFO = "${cacert}/etc/ssl/certs/ca-bundle.crt";
+      GIT_SSL_CAINFO = "${cacert}/etc/ssl/certs/ca-bundle.crt";
 
-    impureEnvVars =
-      lib.fetchers.proxyImpureEnvVars
-      ++ netrcImpureEnvVars
-      ++ [
-        "GIT_PROXY_COMMAND"
-        "NIX_GIT_SSL_CAINFO"
-        "SOCKS_SERVER"
-      ]
-      ;
+      impureEnvVars =
+        lib.fetchers.proxyImpureEnvVars
+        ++ netrcImpureEnvVars
+        ++ [
+          "GIT_PROXY_COMMAND"
+          "NIX_GIT_SSL_CAINFO"
+          "SOCKS_SERVER"
+        ]
+        ;
 
-    inherit preferLocalBuild meta allowedRequisites;
+      inherit preferLocalBuild meta allowedRequisites;
 
-    passthru = { gitRepoUrl = url; };
-  }
+      passthru = { gitRepoUrl = url; };
+    }

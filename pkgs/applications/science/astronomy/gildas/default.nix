@@ -70,7 +70,9 @@ stdenv.mkDerivation rec {
   ];
 
   env.NIX_CFLAGS_COMPILE =
-    lib.optionalString stdenv.cc.isClang "-Wno-unused-command-line-argument";
+    lib.optionalString stdenv.cc.isClang
+      "-Wno-unused-command-line-argument"
+    ;
 
   NIX_LDFLAGS = lib.optionalString stdenv.isDarwin (
     with darwin.apple_sdk.frameworks; "-F${CoreFoundation}/Library/Frameworks"

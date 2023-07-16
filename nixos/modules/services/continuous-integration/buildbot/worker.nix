@@ -63,7 +63,9 @@ in
         default = "bbworker";
         type = types.str;
         description =
-          lib.mdDoc "User the buildbot Worker should execute under.";
+          lib.mdDoc
+            "User the buildbot Worker should execute under."
+          ;
       };
 
       group = mkOption {
@@ -75,8 +77,9 @@ in
       extraGroups = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        description = lib.mdDoc
-          "List of extra groups that the Buildbot Worker user should be a part of."
+        description =
+          lib.mdDoc
+            "List of extra groups that the Buildbot Worker user should be a part of."
           ;
       };
 
@@ -108,7 +111,9 @@ in
       workerPassFile = mkOption {
         type = types.path;
         description =
-          lib.mdDoc "File used to store the Buildbot Worker password";
+          lib.mdDoc
+            "File used to store the Buildbot Worker password"
+          ;
       };
 
       hostMessage = mkOption {
@@ -127,7 +132,9 @@ in
         default = "localhost:9989";
         type = types.str;
         description =
-          lib.mdDoc "Specifies the Buildbot Worker connection string.";
+          lib.mdDoc
+            "Specifies the Buildbot Worker connection string."
+          ;
       };
 
       keepalive = mkOption {
@@ -152,14 +159,17 @@ in
         defaultText = literalExpression "[ pkgs.git ]";
         type = types.listOf types.package;
         description =
-          lib.mdDoc "Packages to add to PATH for the buildbot process.";
+          lib.mdDoc
+            "Packages to add to PATH for the buildbot process."
+          ;
       };
     };
   };
 
   config = mkIf cfg.enable {
-    services.buildbot-worker.workerPassFile =
-      mkDefault (pkgs.writeText "buildbot-worker-password" cfg.workerPass);
+    services.buildbot-worker.workerPassFile = mkDefault (
+      pkgs.writeText "buildbot-worker-password" cfg.workerPass
+    );
 
     users.groups = optionalAttrs (cfg.group == "bbworker") { bbworker = { }; };
 

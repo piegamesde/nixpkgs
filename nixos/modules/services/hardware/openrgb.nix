@@ -29,8 +29,9 @@ in
         ]
       );
       default = null;
-      description = lib.mdDoc
-        "CPU family of motherboard. Allows for addition motherboard i2c support."
+      description =
+        lib.mdDoc
+          "CPU family of motherboard. Allows for addition motherboard i2c support."
         ;
     };
 

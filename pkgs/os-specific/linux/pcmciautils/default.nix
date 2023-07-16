@@ -47,9 +47,10 @@ stdenv.mkDerivation rec {
     ''
     + (lib.optionalString (firmware == [ ]) ''
       sed -i "s,STARTUP = true,STARTUP = false," Makefile'')
-    + (lib.optionalString
-      (configOpts != null)
-      "ln -sf ${configOpts} ./config/config.opts")
+    + (
+      lib.optionalString (configOpts != null)
+        "ln -sf ${configOpts} ./config/config.opts"
+    )
     ;
 
   makeFlags = [ "LEX=flex" ];
@@ -57,15 +58,17 @@ stdenv.mkDerivation rec {
     "INSTALL=install"
     "DESTDIR=${placeholder "out"}"
   ];
-  postInstall = lib.concatMapStrings
-    (path: ''
-      for f in : $(find ${path} -type f); do
-        test "$f" == ":" && continue;
-        mkdir -p $(dirname $out/lib/firmware/$\{f#${path}});
-        ln -s $f $out/lib/firmware/$\{f#${path}};
-      done;
-    '')
-    firmware;
+  postInstall =
+    lib.concatMapStrings
+      (path: ''
+        for f in : $(find ${path} -type f); do
+          test "$f" == ":" && continue;
+          mkdir -p $(dirname $out/lib/firmware/$\{f#${path}});
+          ln -s $f $out/lib/firmware/$\{f#${path}};
+        done;
+      '')
+      firmware
+    ;
 
   meta = {
     homepage = "https://www.kernel.org/pub/linux/utils/kernel/pcmcia/";

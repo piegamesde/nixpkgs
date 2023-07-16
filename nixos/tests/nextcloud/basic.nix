@@ -40,9 +40,10 @@ args@{
               options =
                 let
                   davfs2Conf =
-                    (pkgs.writeText
-                      "davfs2.conf"
-                      "secrets /tmp/davfs2-secrets");
+                    (
+                      pkgs.writeText "davfs2.conf"
+                        "secrets /tmp/davfs2-secrets"
+                    );
                 in
                 [
                   "conf=${davfs2Conf}"
@@ -81,9 +82,8 @@ args@{
             config = {
               # Don't inherit adminuser since "root" is supposed to be the default
               adminpassFile =
-                "${pkgs.writeText
-                "adminpass"
-                adminpass}"; # Don't try this at home!
+                "${pkgs.writeText "adminpass"
+                  adminpass}"; # Don't try this at home!
               dbtableprefix = "nixos_";
             };
             package = pkgs.${"nextcloud" + (toString nextcloudVersion)};
@@ -140,23 +140,26 @@ args@{
         findInClosure =
           what: drv:
           pkgs.runCommand "find-in-closure"
-          {
-            exportReferencesGraph = [
-              "graph"
-              drv
-            ];
-            inherit what;
-          }
-          ''
-            test -e graph
-            grep "$what" graph >$out || true
-          ''
+            {
+              exportReferencesGraph = [
+                "graph"
+                drv
+              ];
+              inherit what;
+            }
+            ''
+              test -e graph
+              grep "$what" graph >$out || true
+            ''
           ;
         nextcloudUsesImagick =
-          findInClosure "imagick" nodes.nextcloud.config.system.build.vm;
-        nextcloudWithoutDoesntUseIt = findInClosure
-          "imagick"
-          nodes.nextcloudWithoutMagick.config.system.build.vm;
+          findInClosure "imagick"
+            nodes.nextcloud.config.system.build.vm
+          ;
+        nextcloudWithoutDoesntUseIt =
+          findInClosure "imagick"
+            nodes.nextcloudWithoutMagick.config.system.build.vm
+          ;
       in
       ''
         assert open("${nextcloudUsesImagick}").read() != ""
@@ -186,4 +189,4 @@ args@{
       ;
   }
 ))
-args
+  args

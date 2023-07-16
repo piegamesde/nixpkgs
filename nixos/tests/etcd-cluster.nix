@@ -33,7 +33,9 @@ import ./make-test-python.nix (
     '';
 
     etcd_client_key =
-      runWithOpenSSL "etcd-client-key.pem" "openssl genrsa -out $out 2048";
+      runWithOpenSSL "etcd-client-key.pem"
+        "openssl genrsa -out $out 2048"
+      ;
 
     etcd_client_csr = runWithOpenSSL "etcd-client-key.pem" ''
       openssl req \

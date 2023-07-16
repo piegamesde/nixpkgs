@@ -15,10 +15,10 @@ let
     enable_upnp=${if cfg.upnp then "yes" else "no"}
 
     ${concatMapStrings
-    (range: ''
-      listening_ip=${range}
-    '')
-    cfg.internalIPs}
+      (range: ''
+        listening_ip=${range}
+      '')
+      cfg.internalIPs}
 
     ${cfg.appendConfig}
   '';

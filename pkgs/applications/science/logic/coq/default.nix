@@ -79,25 +79,27 @@ let
     "8.17.0".sha256 = "sha256-TGwm7S6+vkeZ8cidvp8pkiAd9tk008jvvPvYgfEOXhM=";
   };
   releaseRev = v: "V${v}";
-  fetched = import ../../../../build-support/coq/meta-fetch/default.nix
-    { inherit lib stdenv fetchzip; }
-    {
-      inherit release releaseRev;
-      location = {
-        owner = "coq";
-        repo = "coq";
-      };
-    }
-    args.version;
+  fetched =
+    import ../../../../build-support/coq/meta-fetch/default.nix
+      { inherit lib stdenv fetchzip; }
+      {
+        inherit release releaseRev;
+        location = {
+          owner = "coq";
+          repo = "coq";
+        };
+      }
+      args.version
+    ;
   version = fetched.version;
   coq-version =
     args.coq-version
       or (if version != "dev" then versions.majorMinor version else "dev");
   coqAtLeast = v: coq-version == "dev" || versionAtLeast coq-version v;
   buildIde = args.buildIde or (!coqAtLeast "8.14");
-  ideFlags = optionalString
-    (buildIde && !coqAtLeast "8.10")
-    "-lablgtkdir ${ocamlPackages.lablgtk}/lib/ocaml/*/site-lib/lablgtk2 -coqide opt"
+  ideFlags =
+    optionalString (buildIde && !coqAtLeast "8.10")
+      "-lablgtkdir ${ocamlPackages.lablgtk}/lib/ocaml/*/site-lib/lablgtk2 -coqide opt"
     ;
   csdpPatch = lib.optionalString (csdp != null) ''
     substituteInPlace plugins/micromega/sos.ml --replace "; csdp" "; ${csdp}/bin/csdp"
@@ -109,29 +111,29 @@ let
     else
       with versions;
       switch coq-version
-      [
-        {
-          case = range "8.16" "8.17";
-          out = ocamlPackages_4_14;
-        }
-        {
-          case = range "8.14" "8.15";
-          out = ocamlPackages_4_12;
-        }
-        {
-          case = range "8.11" "8.13";
-          out = ocamlPackages_4_10;
-        }
-        {
-          case = range "8.7" "8.10";
-          out = ocamlPackages_4_09;
-        }
-        {
-          case = range "8.5" "8.6";
-          out = ocamlPackages_4_05;
-        }
-      ]
-      ocamlPackages_4_14
+        [
+          {
+            case = range "8.16" "8.17";
+            out = ocamlPackages_4_14;
+          }
+          {
+            case = range "8.14" "8.15";
+            out = ocamlPackages_4_12;
+          }
+          {
+            case = range "8.11" "8.13";
+            out = ocamlPackages_4_10;
+          }
+          {
+            case = range "8.7" "8.10";
+            out = ocamlPackages_4_09;
+          }
+          {
+            case = range "8.5" "8.6";
+            out = ocamlPackages_4_05;
+          }
+        ]
+        ocamlPackages_4_14
     ;
   ocamlNativeBuildInputs = with ocamlPackages;
     [

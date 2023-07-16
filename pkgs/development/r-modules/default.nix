@@ -159,13 +159,13 @@ let
   overrideNativeBuildInputs =
     overrides: old:
     lib.mapAttrs
-    (
-      name: value:
-      (builtins.getAttr name old).overrideAttrs (
-        attrs: { nativeBuildInputs = attrs.nativeBuildInputs ++ value; }
+      (
+        name: value:
+        (builtins.getAttr name old).overrideAttrs (
+          attrs: { nativeBuildInputs = attrs.nativeBuildInputs ++ value; }
+        )
       )
-    )
-    overrides
+      overrides
     ;
 
   # Overrides package definitions with buildInputs.
@@ -185,13 +185,13 @@ let
   overrideBuildInputs =
     overrides: old:
     lib.mapAttrs
-    (
-      name: value:
-      (builtins.getAttr name old).overrideAttrs (
-        attrs: { buildInputs = attrs.buildInputs ++ value; }
+      (
+        name: value:
+        (builtins.getAttr name old).overrideAttrs (
+          attrs: { buildInputs = attrs.buildInputs ++ value; }
+        )
       )
-    )
-    overrides
+      overrides
     ;
 
   # Overrides package definitions with maintainers.
@@ -211,8 +211,11 @@ let
   overrideMaintainers =
     overrides: old:
     lib.mapAttrs
-    (name: value: (builtins.getAttr name old).override { maintainers = value; })
-    overrides
+      (
+        name: value:
+        (builtins.getAttr name old).override { maintainers = value; }
+      )
+      overrides
     ;
 
   # Overrides package definitions with new R dependencies.
@@ -233,17 +236,17 @@ let
   overrideRDepends =
     overrides: old:
     lib.mapAttrs
-    (
-      name: value:
-      (builtins.getAttr name old).overrideAttrs (
-        attrs: {
-          nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ value;
-          propagatedNativeBuildInputs =
-            (attrs.propagatedNativeBuildInputs or [ ]) ++ value;
-        }
+      (
+        name: value:
+        (builtins.getAttr name old).overrideAttrs (
+          attrs: {
+            nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ value;
+            propagatedNativeBuildInputs =
+              (attrs.propagatedNativeBuildInputs or [ ]) ++ value;
+          }
+        )
       )
-    )
-    overrides
+      overrides
     ;
 
   # Overrides package definition requiring X running to install.
@@ -263,12 +266,14 @@ let
   overrideRequireX =
     packageNames: old:
     let
-      nameValuePairs = map
-        (name: {
-          inherit name;
-          value = (builtins.getAttr name old).override { requireX = true; };
-        })
-        packageNames;
+      nameValuePairs =
+        map
+          (name: {
+            inherit name;
+            value = (builtins.getAttr name old).override { requireX = true; };
+          })
+          packageNames
+        ;
     in
     builtins.listToAttrs nameValuePairs
     ;
@@ -294,19 +299,21 @@ let
   overrideRequireHome =
     packageNames: old:
     let
-      nameValuePairs = map
-        (name: {
-          inherit name;
-          value = (builtins.getAttr name old).overrideAttrs (
-            oldAttrs: {
-              preInstall = ''
-                ${oldAttrs.preInstall or ""}
-                export HOME=$(mktemp -d)
-              '';
-            }
-          );
-        })
-        packageNames;
+      nameValuePairs =
+        map
+          (name: {
+            inherit name;
+            value = (builtins.getAttr name old).overrideAttrs (
+              oldAttrs: {
+                preInstall = ''
+                  ${oldAttrs.preInstall or ""}
+                  export HOME=$(mktemp -d)
+                '';
+              }
+            );
+          })
+          packageNames
+        ;
     in
     builtins.listToAttrs nameValuePairs
     ;
@@ -328,12 +335,14 @@ let
   overrideSkipCheck =
     packageNames: old:
     let
-      nameValuePairs = map
-        (name: {
-          inherit name;
-          value = (builtins.getAttr name old).override { doCheck = false; };
-        })
-        packageNames;
+      nameValuePairs =
+        map
+          (name: {
+            inherit name;
+            value = (builtins.getAttr name old).override { doCheck = false; };
+          })
+          packageNames
+        ;
     in
     builtins.listToAttrs nameValuePairs
     ;
@@ -355,12 +364,14 @@ let
   overrideBroken =
     packageNames: old:
     let
-      nameValuePairs = map
-        (name: {
-          inherit name;
-          value = (builtins.getAttr name old).override { broken = true; };
-        })
-        packageNames;
+      nameValuePairs =
+        map
+          (name: {
+            inherit name;
+            value = (builtins.getAttr name old).override { broken = true; };
+          })
+          packageNames
+        ;
     in
     builtins.listToAttrs nameValuePairs
     ;
@@ -1331,7 +1342,9 @@ let
       );
 
       Cairo =
-        old.Cairo.overrideAttrs (attrs: { NIX_LDFLAGS = "-lfontconfig"; });
+        old.Cairo.overrideAttrs
+          (attrs: { NIX_LDFLAGS = "-lfontconfig"; })
+        ;
 
       curl = old.curl.overrideAttrs (
         attrs: { preConfigure = "patchShebangs configure"; }
@@ -1486,8 +1499,9 @@ let
         }
       );
 
-      spMC =
-        old.spMC.overrideAttrs (attrs: { patches = [ ./patches/spMC.patch ]; });
+      spMC = old.spMC.overrideAttrs (
+        attrs: { patches = [ ./patches/spMC.patch ]; }
+      );
 
       openssl = old.openssl.overrideAttrs (
         attrs: {
@@ -1536,11 +1550,13 @@ let
           '';
 
           R_MAKEVARS_SITE =
-            lib.optionalString (pkgs.stdenv.system == "aarch64-linux") (
-              pkgs.writeText "Makevars" ''
-                CXX14PICFLAGS = -fPIC
-              ''
-            );
+            lib.optionalString (pkgs.stdenv.system == "aarch64-linux")
+              (
+                pkgs.writeText "Makevars" ''
+                  CXX14PICFLAGS = -fPIC
+                ''
+              )
+            ;
         }
       );
 

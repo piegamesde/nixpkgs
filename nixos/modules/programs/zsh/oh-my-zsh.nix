@@ -43,58 +43,66 @@ let
 in
 {
   imports = [
-    (mkRenamedOptionModule
-      [
-        "programs"
-        "zsh"
-        "oh-my-zsh"
-        "enable"
-      ]
-      [
-        "programs"
-        "zsh"
-        "ohMyZsh"
-        "enable"
-      ])
-    (mkRenamedOptionModule
-      [
-        "programs"
-        "zsh"
-        "oh-my-zsh"
-        "theme"
-      ]
-      [
-        "programs"
-        "zsh"
-        "ohMyZsh"
-        "theme"
-      ])
-    (mkRenamedOptionModule
-      [
-        "programs"
-        "zsh"
-        "oh-my-zsh"
-        "custom"
-      ]
-      [
-        "programs"
-        "zsh"
-        "ohMyZsh"
-        "custom"
-      ])
-    (mkRenamedOptionModule
-      [
-        "programs"
-        "zsh"
-        "oh-my-zsh"
-        "plugins"
-      ]
-      [
-        "programs"
-        "zsh"
-        "ohMyZsh"
-        "plugins"
-      ])
+    (
+      mkRenamedOptionModule
+        [
+          "programs"
+          "zsh"
+          "oh-my-zsh"
+          "enable"
+        ]
+        [
+          "programs"
+          "zsh"
+          "ohMyZsh"
+          "enable"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "programs"
+          "zsh"
+          "oh-my-zsh"
+          "theme"
+        ]
+        [
+          "programs"
+          "zsh"
+          "ohMyZsh"
+          "theme"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "programs"
+          "zsh"
+          "oh-my-zsh"
+          "custom"
+        ]
+        [
+          "programs"
+          "zsh"
+          "ohMyZsh"
+          "custom"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "programs"
+          "zsh"
+          "oh-my-zsh"
+          "plugins"
+        ]
+        [
+          "programs"
+          "zsh"
+          "ohMyZsh"
+          "plugins"
+        ]
+    )
   ];
 
   options = {
@@ -173,8 +181,8 @@ in
       export ZSH=${cfg.package}/share/oh-my-zsh
 
       ${optionalString (length (cfg.plugins) > 0) "plugins=(${
-        concatStringsSep " " cfg.plugins
-      })"}
+          concatStringsSep " " cfg.plugins
+        })"}
 
       ${optionalString (custom != null) ''ZSH_CUSTOM="${custom}"''}
 

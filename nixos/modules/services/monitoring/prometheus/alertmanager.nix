@@ -9,8 +9,9 @@ with lib;
 
 let
   cfg = config.services.prometheus.alertmanager;
-  mkConfigFile =
-    pkgs.writeText "alertmanager.yml" (builtins.toJSON cfg.configuration);
+  mkConfigFile = pkgs.writeText "alertmanager.yml" (
+    builtins.toJSON cfg.configuration
+  );
 
   checkedConfig =
     file:
@@ -41,40 +42,47 @@ let
       "--storage.path /var/lib/alertmanager"
       (toString (map (peer: "--cluster.peer ${peer}:9094") cfg.clusterPeers))
     ]
-    ++ (optional
-      (cfg.webExternalUrl != null)
-      "--web.external-url ${cfg.webExternalUrl}")
+    ++ (
+      optional (cfg.webExternalUrl != null)
+        "--web.external-url ${cfg.webExternalUrl}"
+    )
     ++ (optional (cfg.logFormat != null) "--log.format ${cfg.logFormat}")
     ;
 in
 {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "prometheus"
-        "alertmanager"
-        "user"
-      ]
-      "The alertmanager service is now using systemd's DynamicUser mechanism which obviates a user setting.")
-    (mkRemovedOptionModule
-      [
-        "services"
-        "prometheus"
-        "alertmanager"
-        "group"
-      ]
-      "The alertmanager service is now using systemd's DynamicUser mechanism which obviates a group setting.")
-    (mkRemovedOptionModule
-      [
-        "services"
-        "prometheus"
-        "alertmanagerURL"
-      ]
-      ''
-        Due to incompatibility, the alertmanagerURL option has been removed,
-        please use 'services.prometheus.alertmanagers' instead.
-      '')
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "prometheus"
+          "alertmanager"
+          "user"
+        ]
+        "The alertmanager service is now using systemd's DynamicUser mechanism which obviates a user setting."
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "prometheus"
+          "alertmanager"
+          "group"
+        ]
+        "The alertmanager service is now using systemd's DynamicUser mechanism which obviates a group setting."
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "prometheus"
+          "alertmanagerURL"
+        ]
+        ''
+          Due to incompatibility, the alertmanagerURL option has been removed,
+          please use 'services.prometheus.alertmanagers' instead.
+        ''
+    )
   ];
 
   options = {
@@ -224,7 +232,9 @@ in
           StateDirectory = "alertmanager";
           DynamicUser = true; # implies PrivateTmp
           EnvironmentFile =
-            lib.mkIf (cfg.environmentFile != null) cfg.environmentFile;
+            lib.mkIf (cfg.environmentFile != null)
+              cfg.environmentFile
+            ;
           WorkingDirectory = "/tmp";
           ExecStart =
             "${cfg.package}/bin/alertmanager"

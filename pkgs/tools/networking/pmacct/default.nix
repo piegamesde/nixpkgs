@@ -59,9 +59,9 @@ stdenv.mkDerivation rec {
     ++ lib.optional gnutlsSupport gnutls
     ;
 
-  MYSQL_CONFIG =
-    lib.optionalString withMysql "${lib.getDev libmysqlclient}/bin/mysql_config"
-    ;
+  MYSQL_CONFIG = lib.optionalString withMysql "${
+        lib.getDev libmysqlclient
+      }/bin/mysql_config";
 
   configureFlags =
     [ "--with-pcap-includes=${libpcap}/include" ]

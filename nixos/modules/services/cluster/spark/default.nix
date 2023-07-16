@@ -30,8 +30,9 @@ with lib; {
         };
         extraEnvironment = mkOption {
           type = types.attrsOf types.str;
-          description = lib.mdDoc
-            "Extra environment variables to pass to spark master. See spark-standalone documentation."
+          description =
+            lib.mdDoc
+              "Extra environment variables to pass to spark master. See spark-standalone documentation."
             ;
           default = { };
           example = {
@@ -65,7 +66,9 @@ with lib; {
         extraEnvironment = mkOption {
           type = types.attrsOf types.str;
           description =
-            lib.mdDoc "Extra environment variables to pass to spark worker.";
+            lib.mdDoc
+              "Extra environment variables to pass to spark worker."
+            ;
           default = { };
           example = {
             SPARK_WORKER_CORES = 5;
@@ -75,12 +78,13 @@ with lib; {
       };
       confDir = mkOption {
         type = types.path;
-        description = lib.mdDoc
-          "Spark configuration directory. Spark will use the configuration files (spark-defaults.conf, spark-env.sh, log4j.properties, etc) from this directory."
+        description =
+          lib.mdDoc
+            "Spark configuration directory. Spark will use the configuration files (spark-defaults.conf, spark-env.sh, log4j.properties, etc) from this directory."
           ;
         default = "${cfg.package}/lib/${cfg.package.untarDir}/conf";
-        defaultText =
-          literalExpression ''"''${package}/lib/''${package.untarDir}/conf"'';
+        defaultText = literalExpression ''
+          "''${package}/lib/''${package.untarDir}/conf"'';
       };
       logDir = mkOption {
         type = types.path;

@@ -41,14 +41,14 @@ let
       mgmt_port: "${toString cfg.mgmt_port}",
       backends: [${
         concatMapStringsSep ","
-        (
-          name:
-          if (isBuiltinBackend name) then
-            ''"./backends/${name}"''
-          else
-            ''"${name}"''
-        )
-        cfg.backends
+          (
+            name:
+            if (isBuiltinBackend name) then
+              ''"./backends/${name}"''
+            else
+              ''"${name}"''
+          )
+          cfg.backends
       }],
       ${
         optionalString (cfg.graphiteHost != null) ''
@@ -96,7 +96,9 @@ in
 
     port = mkOption {
       description =
-        lib.mdDoc "Port that stats listens for messages on over UDP";
+        lib.mdDoc
+          "Port that stats listens for messages on over UDP"
+        ;
       default = 8125;
       type = types.int;
     };
@@ -115,7 +117,9 @@ in
 
     backends = mkOption {
       description =
-        lib.mdDoc "List of backends statsd will use for data persistence";
+        lib.mdDoc
+          "List of backends statsd will use for data persistence"
+        ;
       default = [ ];
       example = [
         "graphite"
@@ -151,16 +155,18 @@ in
 
   config = mkIf cfg.enable {
 
-    assertions = map
-      (backend: {
-        assertion =
-          !isBuiltinBackend backend
-          -> hasAttrByPath [ backend ] pkgs.nodePackages
-          ;
-        message =
-          "Only builtin backends (graphite, console, repeater) or backends enumerated in `pkgs.nodePackages` are allowed!";
-      })
-      cfg.backends;
+    assertions =
+      map
+        (backend: {
+          assertion =
+            !isBuiltinBackend backend
+            -> hasAttrByPath [ backend ] pkgs.nodePackages
+            ;
+          message =
+            "Only builtin backends (graphite, console, repeater) or backends enumerated in `pkgs.nodePackages` are allowed!";
+        })
+        cfg.backends
+      ;
 
     users.users.statsd = {
       uid = config.ids.uids.statsd;

@@ -106,8 +106,9 @@
   #
   # composeManyExtensions : [packageSet -> packageSet -> packageSet] -> packageSet -> packageSet -> packageSet
   #                          ^final        ^prev         ^overrides     ^final        ^prev         ^overrides
-  composeManyExtensions =
-    lib.foldr (x: y: composeExtensions x y) (final: prev: { });
+  composeManyExtensions = lib.foldr (x: y: composeExtensions x y) (
+    final: prev: { }
+  );
 
   # Create an overridable, recursive attribute set. For example:
   #

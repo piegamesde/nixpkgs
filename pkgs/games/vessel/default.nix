@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
       }
     else
       throw
-      "unsupported platform ${stdenv.hostPlatform.system} only i686-linux supported for now."
+        "unsupported platform ${stdenv.hostPlatform.system} only i686-linux supported for now."
     ;
 
   phases = "installPhase";

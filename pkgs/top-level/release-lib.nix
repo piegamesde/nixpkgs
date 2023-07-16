@@ -20,11 +20,11 @@ rec {
 
   pkgs = packageSet (
     lib.recursiveUpdate
-    {
-      system = "x86_64-linux";
-      config.allowUnsupportedSystem = true;
-    }
-    nixpkgsArgs
+      {
+        system = "x86_64-linux";
+        config.allowUnsupportedSystem = true;
+      }
+      nixpkgsArgs
   );
   inherit lib;
 
@@ -118,7 +118,8 @@ rec {
   supportedMatches =
     let
       supportedPlatforms =
-        map (system: lib.systems.elaborate { inherit system; }) supportedSystems
+        map (system: lib.systems.elaborate { inherit system; })
+          supportedSystems
         ;
     in
     metaPatterns:
@@ -128,14 +129,14 @@ rec {
       matchingPlatforms = lib.filter anyMatch supportedPlatforms;
     in
     map
-    (
-      {
-        system,
-        ...
-      }:
-      system
-    )
-    matchingPlatforms
+      (
+        {
+          system,
+          ...
+        }:
+        system
+      )
+      matchingPlatforms
     ;
 
   assertTrue =
@@ -195,8 +196,9 @@ rec {
   # Similar to the testOn function, but with an additional 'crossSystem'
   # parameter for packageSet', defining the target platform for cross builds,
   # and triggering the build of the host derivation.
-  mapTestOnCross =
-    _mapTestOnHelper (addMetaAttrs { maintainers = crossMaintainers; });
+  mapTestOnCross = _mapTestOnHelper (
+    addMetaAttrs { maintainers = crossMaintainers; }
+  );
 
   /* Recursively map a (nested) set of derivations to an isomorphic
      set of meta.platforms values.
@@ -204,10 +206,10 @@ rec {
   packagePlatforms = mapAttrs (
     name: value:
     if isDerivation value then
-      value.meta.hydraPlatforms
-        or (lib.subtractLists (value.meta.badPlatforms or [ ]) (
-          value.meta.platforms or [ "x86_64-linux" ]
-        ))
+      value.meta.hydraPlatforms or (
+        lib.subtractLists (value.meta.badPlatforms or [ ])
+          (value.meta.platforms or [ "x86_64-linux" ])
+      )
     else if
       value.recurseForDerivations or false || value.recurseForRelease or false
     then

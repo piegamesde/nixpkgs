@@ -75,20 +75,19 @@ let
   hasPlatform = hasHostPlatform || hasBuildPlatform;
 
   # Context for messages
-  hostPlatformLine =
-    optionalString hasHostPlatform "${showOptionWithDefLocs opt.hostPlatform}";
-  buildPlatformLine =
-    optionalString hasBuildPlatform "${showOptionWithDefLocs opt.buildPlatform}"
-    ;
+  hostPlatformLine = optionalString hasHostPlatform "${showOptionWithDefLocs
+        opt.hostPlatform}";
+  buildPlatformLine = optionalString hasBuildPlatform "${showOptionWithDefLocs
+        opt.buildPlatform}";
 
   legacyOptionsDefined =
     optional (opt.localSystem.highestPrio < (mkDefault { }).priority) opt.system
-    ++ optional
-      (opt.localSystem.highestPrio < (mkOptionDefault { }).priority)
-      opt.localSystem
-    ++ optional
-      (opt.crossSystem.highestPrio < (mkOptionDefault { }).priority)
-      opt.crossSystem
+    ++
+      optional (opt.localSystem.highestPrio < (mkOptionDefault { }).priority)
+        opt.localSystem
+    ++
+      optional (opt.crossSystem.highestPrio < (mkOptionDefault { }).priority)
+        opt.crossSystem
     ;
 
   defaultPkgs =
@@ -122,12 +121,14 @@ in
   imports = [
     ./assertions.nix
     ./meta.nix
-    (mkRemovedOptionModule
-      [
-        "nixpkgs"
-        "initialSystem"
-      ]
-      "The NixOS options `nesting.clone` and `nesting.children` have been deleted, and replaced with named specialisation. Therefore `nixpgks.initialSystem` has no effect anymore.")
+    (
+      mkRemovedOptionModule
+        [
+          "nixpkgs"
+          "initialSystem"
+        ]
+        "The NixOS options `nesting.clone` and `nesting.children` have been deleted, and replaced with named specialisation. Therefore `nixpgks.initialSystem` has no effect anymore."
+    )
   ];
 
   options.nixpkgs = {
@@ -216,7 +217,9 @@ in
     };
 
     hostPlatform = mkOption {
-      type = types.either types.str types.attrs
+      type =
+        types.either types.str
+          types.attrs
         ; # TODO utilize lib.systems.parsedPlatform
       example = {
         system = "aarch64-linux";
@@ -238,7 +241,9 @@ in
     };
 
     buildPlatform = mkOption {
-      type = types.either types.str types.attrs
+      type =
+        types.either types.str
+          types.attrs
         ; # TODO utilize lib.systems.parsedPlatform
       default = cfg.hostPlatform;
       example = {
@@ -379,17 +384,21 @@ in
         let
           nixosExpectedSystem =
             if config.nixpkgs.crossSystem != null then
-              config.nixpkgs.crossSystem.system
-                or (lib.systems.parse.doubleFromSystem (
-                  lib.systems.parse.mkSystemFromString
-                  config.nixpkgs.crossSystem.config
-                ))
+              config.nixpkgs.crossSystem.system or (
+                lib.systems.parse.doubleFromSystem
+                  (
+                    lib.systems.parse.mkSystemFromString
+                      config.nixpkgs.crossSystem.config
+                  )
+              )
             else
-              config.nixpkgs.localSystem.system
-                or (lib.systems.parse.doubleFromSystem (
-                  lib.systems.parse.mkSystemFromString
-                  config.nixpkgs.localSystem.config
-                ))
+              config.nixpkgs.localSystem.system or (
+                lib.systems.parse.doubleFromSystem
+                  (
+                    lib.systems.parse.mkSystemFromString
+                      config.nixpkgs.localSystem.config
+                  )
+              )
             ;
           nixosOption =
             if config.nixpkgs.crossSystem != null then

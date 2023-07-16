@@ -61,7 +61,9 @@ in
       interface = mkOption {
         type = types.str;
         description =
-          lib.mdDoc "your public network interface (wlp3s0, wlan0, eth0, ...)";
+          lib.mdDoc
+            "your public network interface (wlp3s0, wlan0, eth0, ...)"
+          ;
       };
 
       # the options below are the same as in "captive-browser.toml"
@@ -96,7 +98,9 @@ in
         type = types.str;
         default = "localhost:1666";
         description =
-          lib.mdDoc "the listen address for the SOCKS5 proxy server";
+          lib.mdDoc
+            "the listen address for the SOCKS5 proxy server"
+          ;
       };
 
       bindInterface = mkOption {

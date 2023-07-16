@@ -14,9 +14,8 @@ let
       if builtins.length l == 1 then
         generators.mkValueStringDefault { } (head l)
       else
-        lib.concatMapStrings
-        (s: "\n  ${generators.mkValueStringDefault { } s}")
-        l
+        lib.concatMapStrings (s: "\n  ${generators.mkValueStringDefault { } s}")
+          l
       ;
     mkKeyValue = generators.mkKeyValueDefault { } ":";
   };
@@ -38,7 +37,9 @@ in
         type = types.path;
         default = "/run/klipper/tty";
         description =
-          lib.mdDoc "Path of the virtual printer symlink to create.";
+          lib.mdDoc
+            "Path of the virtual printer symlink to create."
+          ;
       };
 
       apiSocket = mkOption {
@@ -121,14 +122,16 @@ in
                 );
                 serial = mkOption {
                   type = types.nullOr path;
-                  description = lib.mdDoc
-                    "Path to serial port this printer is connected to. Leave `null` to derive it from `service.klipper.settings`."
+                  description =
+                    lib.mdDoc
+                      "Path to serial port this printer is connected to. Leave `null` to derive it from `service.klipper.settings`."
                     ;
                 };
                 configFile = mkOption {
                   type = path;
-                  description = lib.mdDoc
-                    "Path to firmware config which is generated using `klipper-genconf`"
+                  description =
+                    lib.mdDoc
+                      "Path to firmware config which is generated using `klipper-genconf`"
                     ;
                 };
               };
@@ -157,17 +160,19 @@ in
           cfg.settings != null
           -> foldl (a: b: a && b) true (
             mapAttrsToList
-            (
-              mcu: _:
-              mcu != null
-              -> (hasAttrByPath
-                [
-                  "${mcu}"
-                  "serial"
-                ]
-                cfg.settings)
-            )
-            cfg.firmwares
+              (
+                mcu: _:
+                mcu != null
+                -> (
+                  hasAttrByPath
+                    [
+                      "${mcu}"
+                      "serial"
+                    ]
+                    cfg.settings
+                )
+              )
+              cfg.firmwares
           )
           ;
         message =
@@ -198,9 +203,9 @@ in
       let
         klippyArgs =
           "--input-tty=${cfg.inputTTY}"
-          + optionalString
-            (cfg.apiSocket != null)
-            " --api-server=${cfg.apiSocket}"
+          +
+            optionalString (cfg.apiSocket != null)
+              " --api-server=${cfg.apiSocket}"
           ;
         printerConfigPath =
           if cfg.mutableConfig then
@@ -263,36 +268,39 @@ in
         default = a: b: if a != null then a else b;
         firmwares = filterAttrs (n: v: v != null) (
           mapAttrs
-          (
-            mcu:
-            {
-              enable,
-              configFile,
-              serial,
-            }:
-            if enable then
-              pkgs.klipper-firmware.override {
-                mcu = lib.strings.sanitizeDerivationName mcu;
-                firmwareConfig = configFile;
-              }
-            else
-              null
-          )
-          cfg.firmwares
+            (
+              mcu:
+              {
+                enable,
+                configFile,
+                serial,
+              }:
+              if enable then
+                pkgs.klipper-firmware.override {
+                  mcu = lib.strings.sanitizeDerivationName mcu;
+                  firmwareConfig = configFile;
+                }
+              else
+                null
+            )
+            cfg.firmwares
         );
-        firmwareFlasher = mapAttrsToList
-          (
-            mcu: firmware:
-            pkgs.klipper-flash.override {
-              mcu = lib.strings.sanitizeDerivationName mcu;
-              klipper-firmware = firmware;
-              flashDevice = default
-                cfg.firmwares."${mcu}".serial
-                cfg.settings."${mcu}".serial;
-              firmwareConfig = cfg.firmwares."${mcu}".configFile;
-            }
-          )
-          firmwares;
+        firmwareFlasher =
+          mapAttrsToList
+            (
+              mcu: firmware:
+              pkgs.klipper-flash.override {
+                mcu = lib.strings.sanitizeDerivationName mcu;
+                klipper-firmware = firmware;
+                flashDevice =
+                  default cfg.firmwares."${mcu}".serial
+                    cfg.settings."${mcu}".serial
+                  ;
+                firmwareConfig = cfg.firmwares."${mcu}".configFile;
+              }
+            )
+            firmwares
+          ;
       in
       [ klipper-genconf ] ++ firmwareFlasher ++ attrValues firmwares
       ;

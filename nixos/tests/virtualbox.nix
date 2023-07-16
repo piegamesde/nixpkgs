@@ -136,44 +136,44 @@ let
     in
     pkgs.vmTools.runInLinuxVM (
       pkgs.runCommand "virtualbox-image"
-      {
-        preVM = ''
-          mkdir -p "$out"
-          diskImage="$(pwd)/qimage"
-          ${pkgs.vmTools.qemu}/bin/qemu-img create -f raw "$diskImage" 100M
-        '';
+        {
+          preVM = ''
+            mkdir -p "$out"
+            diskImage="$(pwd)/qimage"
+            ${pkgs.vmTools.qemu}/bin/qemu-img create -f raw "$diskImage" 100M
+          '';
 
-        postVM = ''
-          echo "creating VirtualBox disk image..."
-          ${pkgs.vmTools.qemu}/bin/qemu-img convert -f raw -O vdi \
-            "$diskImage" "$out/disk.vdi"
-        '';
+          postVM = ''
+            echo "creating VirtualBox disk image..."
+            ${pkgs.vmTools.qemu}/bin/qemu-img convert -f raw -O vdi \
+              "$diskImage" "$out/disk.vdi"
+          '';
 
-        buildInputs = [
-          pkgs.util-linux
-          pkgs.perl
-        ];
-      }
-      ''
-        ${pkgs.parted}/sbin/parted --script /dev/vda mklabel msdos
-        ${pkgs.parted}/sbin/parted --script /dev/vda -- mkpart primary ext2 1M -1s
-        ${pkgs.e2fsprogs}/sbin/mkfs.ext4 /dev/vda1
-        ${pkgs.e2fsprogs}/sbin/tune2fs -c 0 -i 0 /dev/vda1
-        mkdir /mnt
-        mount /dev/vda1 /mnt
-        cp "${cfg.system.build.kernel}/bzImage" /mnt/linux
-        cp "${cfg.system.build.initialRamdisk}/initrd" /mnt/initrd
+          buildInputs = [
+            pkgs.util-linux
+            pkgs.perl
+          ];
+        }
+        ''
+          ${pkgs.parted}/sbin/parted --script /dev/vda mklabel msdos
+          ${pkgs.parted}/sbin/parted --script /dev/vda -- mkpart primary ext2 1M -1s
+          ${pkgs.e2fsprogs}/sbin/mkfs.ext4 /dev/vda1
+          ${pkgs.e2fsprogs}/sbin/tune2fs -c 0 -i 0 /dev/vda1
+          mkdir /mnt
+          mount /dev/vda1 /mnt
+          cp "${cfg.system.build.kernel}/bzImage" /mnt/linux
+          cp "${cfg.system.build.initialRamdisk}/initrd" /mnt/initrd
 
-        ${pkgs.grub2}/bin/grub-install --boot-directory=/mnt /dev/vda
+          ${pkgs.grub2}/bin/grub-install --boot-directory=/mnt /dev/vda
 
-        cat > /mnt/grub/grub.cfg <<GRUB
-        set root=hd0,1
-        linux /linux ${concatStringsSep " " cfg.boot.kernelParams}
-        initrd /initrd
-        boot
-        GRUB
-        umount /mnt
-      ''
+          cat > /mnt/grub/grub.cfg <<GRUB
+          set root=hd0,1
+          linux /linux ${concatStringsSep " " cfg.boot.kernelParams}
+          initrd /initrd
+          boot
+          GRUB
+          umount /mnt
+        ''
     )
     ;
 

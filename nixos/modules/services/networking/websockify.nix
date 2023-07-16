@@ -14,8 +14,9 @@ in
   options = {
     services.networking.websockify = {
       enable = mkOption {
-        description = lib.mdDoc
-          "Whether to enable websockify to forward websocket connections to TCP connections."
+        description =
+          lib.mdDoc
+            "Whether to enable websockify to forward websocket connections to TCP connections."
           ;
 
         default = false;
@@ -32,7 +33,9 @@ in
         description = lib.mdDoc "Path to the SSL key.";
         default = cfg.sslCert;
         defaultText =
-          literalExpression "config.services.networking.websockify.sslCert";
+          literalExpression
+            "config.services.networking.websockify.sslCert"
+          ;
         type = types.path;
       };
 
@@ -59,9 +62,11 @@ in
     systemd.targets.default-websockify = {
       description = "Target to start all default websockify@ services";
       unitConfig.X-StopOnReconfiguration = true;
-      wants = mapAttrsToList
-        (name: value: "websockify@${name}:${toString value}.service")
-        cfg.portMap;
+      wants =
+        mapAttrsToList
+          (name: value: "websockify@${name}:${toString value}.service")
+          cfg.portMap
+        ;
       wantedBy = [ "multi-user.target" ];
     };
   };

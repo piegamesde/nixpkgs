@@ -69,23 +69,23 @@ rec {
       meta ? { },
     }:
     pkgs.runCommand name
-    {
-      inherit constituents meta;
-      preferLocalBuild = true;
-      _hydraAggregate = true;
-    }
-    ''
-      mkdir -p $out/nix-support
-      touch $out/nix-support/hydra-build-products
-      echo $constituents > $out/nix-support/hydra-aggregate-constituents
+      {
+        inherit constituents meta;
+        preferLocalBuild = true;
+        _hydraAggregate = true;
+      }
+      ''
+        mkdir -p $out/nix-support
+        touch $out/nix-support/hydra-build-products
+        echo $constituents > $out/nix-support/hydra-aggregate-constituents
 
-      # Propagate build failures.
-      for i in $constituents; do
-        if [ -e $i/nix-support/failed ]; then
-          touch $out/nix-support/failed
-        fi
-      done
-    ''
+        # Propagate build failures.
+        for i in $constituents; do
+          if [ -e $i/nix-support/failed ]; then
+            touch $out/nix-support/failed
+          fi
+        done
+      ''
     ;
 
   /* Create a channel job which success depends on the success of all of

@@ -48,48 +48,54 @@ in
 
 {
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "xserver"
-        "displayManager"
-        "gdm"
-        "autoLogin"
-        "enable"
-      ]
-      [
-        "services"
-        "xserver"
-        "displayManager"
-        "autoLogin"
-        "enable"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "xserver"
-        "displayManager"
-        "gdm"
-        "autoLogin"
-        "user"
-      ]
-      [
-        "services"
-        "xserver"
-        "displayManager"
-        "autoLogin"
-        "user"
-      ])
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "xserver"
+          "displayManager"
+          "gdm"
+          "autoLogin"
+          "enable"
+        ]
+        [
+          "services"
+          "xserver"
+          "displayManager"
+          "autoLogin"
+          "enable"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "xserver"
+          "displayManager"
+          "gdm"
+          "autoLogin"
+          "user"
+        ]
+        [
+          "services"
+          "xserver"
+          "displayManager"
+          "autoLogin"
+          "user"
+        ]
+    )
 
-    (mkRemovedOptionModule
-      [
-        "services"
-        "xserver"
-        "displayManager"
-        "gdm"
-        "nvidiaWayland"
-      ]
-      "We defer to GDM whether Wayland should be enabled.")
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "xserver"
+          "displayManager"
+          "gdm"
+          "nvidiaWayland"
+        ]
+        "We defer to GDM whether Wayland should be enabled."
+    )
   ];
 
   meta = { maintainers = teams.gnome.members; };
@@ -165,8 +171,9 @@ in
 
     services.xserver.displayManager.job = {
       environment = {
-        GDM_X_SERVER_EXTRA_ARGS =
-          toString (filter (arg: arg != "-terminate") cfg.xserverArgs);
+        GDM_X_SERVER_EXTRA_ARGS = toString (
+          filter (arg: arg != "-terminate") cfg.xserverArgs
+        );
         XDG_DATA_DIRS = lib.makeSearchPath "share" [
           gdm # for gnome-login.session
           cfg.sessionData.desktops

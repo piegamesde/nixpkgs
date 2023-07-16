@@ -37,7 +37,9 @@ import ./make-test-python.nix (
               services.envoy = {
                 requireValidConfig = false;
                 settings.admin.access_log_path =
-                  lib.mkForce "/var/log/envoy/access.log";
+                  lib.mkForce
+                    "/var/log/envoy/access.log"
+                  ;
               };
             }
             ;

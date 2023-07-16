@@ -35,7 +35,8 @@ in
         default = pkgs.buildEnv {
           name = "man-paths";
           paths =
-            lib.subtractLists cfg.skipPackages config.environment.systemPackages
+            lib.subtractLists cfg.skipPackages
+              config.environment.systemPackages
             ;
           pathsToLink = [ "/share/man" ];
           extraOutputsToInstall =
@@ -44,8 +45,10 @@ in
             ;
           ignoreCollisions = true;
         };
-        defaultText = lib.literalMD
-          "all man pages in {option}`config.environment.systemPackages`";
+        defaultText =
+          lib.literalMD
+            "all man pages in {option}`config.environment.systemPackages`"
+          ;
         description = lib.mdDoc ''
           The manual pages to generate caches for if {option}`documentation.man.generateCaches`
           is enabled. Must be a path to a directory with man pages under
@@ -67,30 +70,33 @@ in
   };
 
   imports = [
-    (lib.mkRenamedOptionModule
-      [
-        "documentation"
-        "man"
-        "manualPages"
-      ]
-      [
-        "documentation"
-        "man"
-        "man-db"
-        "manualPages"
-      ])
+    (
+      lib.mkRenamedOptionModule
+        [
+          "documentation"
+          "man"
+          "manualPages"
+        ]
+        [
+          "documentation"
+          "man"
+          "man-db"
+          "manualPages"
+        ]
+    )
   ];
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = [ cfg.package ];
     environment.etc."man_db.conf".text =
       let
-        manualCache = pkgs.runCommand "man-cache"
-          { nativeBuildInputs = [ cfg.package ]; }
-          ''
-            echo "MANDB_MAP ${cfg.manualPages}/share/man $out" > man.conf
-            mandb -C man.conf -psc >/dev/null 2>&1
-          '';
+        manualCache =
+          pkgs.runCommand "man-cache" { nativeBuildInputs = [ cfg.package ]; }
+            ''
+              echo "MANDB_MAP ${cfg.manualPages}/share/man $out" > man.conf
+              mandb -C man.conf -psc >/dev/null 2>&1
+            ''
+          ;
       in
       ''
         # Manual pages paths for NixOS

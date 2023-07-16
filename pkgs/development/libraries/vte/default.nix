@@ -107,9 +107,10 @@ stdenv.mkDerivation rec {
     ;
 
   # error: argument unused during compilation: '-pie' [-Werror,-Wunused-command-line-argument]
-  env.NIX_CFLAGS_COMPILE = lib.optionalString
-    stdenv.hostPlatform.isMusl
-    "-Wno-unused-command-line-argument";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString stdenv.hostPlatform.isMusl
+      "-Wno-unused-command-line-argument"
+    ;
 
   postPatch = ''
     patchShebangs perf/*

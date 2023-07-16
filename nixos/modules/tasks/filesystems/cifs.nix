@@ -16,9 +16,9 @@ in
   config = {
 
     system.fsPackages =
-      mkIf (any (fs: fs == "cifs") config.boot.supportedFilesystems) [
-        pkgs.cifs-utils
-      ];
+      mkIf (any (fs: fs == "cifs") config.boot.supportedFilesystems)
+        [ pkgs.cifs-utils ]
+      ;
 
     boot.initrd.availableKernelModules = mkIf inInitrd [
       "cifs"
@@ -31,8 +31,10 @@ in
     ];
 
     boot.initrd.extraUtilsCommands =
-      mkIf (inInitrd && !config.boot.initrd.systemd.enable) ''
-        copy_bin_and_libs ${pkgs.cifs-utils}/sbin/mount.cifs
-      '';
+      mkIf (inInitrd && !config.boot.initrd.systemd.enable)
+        ''
+          copy_bin_and_libs ${pkgs.cifs-utils}/sbin/mount.cifs
+        ''
+      ;
   };
 }

@@ -63,28 +63,30 @@ let
 
   # Only run test when all languages are available
   test = lib.optionalAttrs (enableLanguages == null) {
-    tests.default = runCommand "tesseract-test-ocr"
-      {
-        buildInputs = [
-          tesseractWithData
-          imagemagick
-        ];
-      }
-      ''
-        text="hello nix"
+    tests.default =
+      runCommand "tesseract-test-ocr"
+        {
+          buildInputs = [
+            tesseractWithData
+            imagemagick
+          ];
+        }
+        ''
+          text="hello nix"
 
-        convert -size 400x40 xc:white -font 'DejaVu-Sans' -pointsize 20 \
-          -fill black -annotate +5+20 "$text" /tmp/test-img.png 2>/dev/null
-        ocrResult=$(tesseract /tmp/test-img.png - | tr -d "\f")
+          convert -size 400x40 xc:white -font 'DejaVu-Sans' -pointsize 20 \
+            -fill black -annotate +5+20 "$text" /tmp/test-img.png 2>/dev/null
+          ocrResult=$(tesseract /tmp/test-img.png - | tr -d "\f")
 
-        if [[ $ocrResult != $text ]]; then
-          echo "OCR test failed"
-          echo "expected: '$text'"
-          echo "actual: '$ocrResult'"
-          exit 1
-        fi
-        touch $out
-      '';
+          if [[ $ocrResult != $text ]]; then
+            echo "OCR test failed"
+            echo "expected: '$text'"
+            echo "actual: '$ocrResult'"
+            exit 1
+          fi
+          touch $out
+        ''
+      ;
   };
 
   tesseract =
@@ -94,6 +96,5 @@ in
 if enableLanguagesHash == null then
   tesseract
 else
-  lib.warn
-  "Argument `enableLanguagesHash` is obsolete and can be removed."
-  tesseract
+  lib.warn "Argument `enableLanguagesHash` is obsolete and can be removed."
+    tesseract

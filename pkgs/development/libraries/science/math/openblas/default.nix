@@ -150,8 +150,9 @@ let
     else
       "0"
     ;
-  mkMakeFlagsFromConfig =
-    lib.mapAttrsToList (var: val: "${var}=${mkMakeFlagValue val}");
+  mkMakeFlagsFromConfig = lib.mapAttrsToList (
+    var: val: "${var}=${mkMakeFlagValue val}"
+  );
 
   shlibExt = stdenv.hostPlatform.extensions.sharedLibrary;
 in

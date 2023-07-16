@@ -28,12 +28,12 @@ let
 
     (concatStringsSep "\n" (
       mapAttrsToList
-      (protocol: plugins: ''
-        protocol ${protocol} {
-          mail_plugins = $mail_plugins ${concatStringsSep " " plugins.enable}
-        }
-      '')
-      cfg.mailPlugins.perProtocol
+        (protocol: plugins: ''
+          protocol ${protocol} {
+            mail_plugins = $mail_plugins ${concatStringsSep " " plugins.enable}
+          }
+        '')
+        cfg.mailPlugins.perProtocol
     ))
 
     (
@@ -49,9 +49,8 @@ let
           ${optionalString (cfg.sslCACert != null) (
             "ssl_ca = <" + cfg.sslCACert
           )}
-          ${optionalString
-          cfg.enableDHE
-          "ssl_dh = <${config.security.dhparams.params.dovecot2.path}"}
+          ${optionalString cfg.enableDHE
+            "ssl_dh = <${config.security.dhparams.params.dovecot2.path}"}
           disable_plaintext_auth = yes
         ''
     )
@@ -91,9 +90,8 @@ let
       plugin {
         ${
           concatStringsSep "\n" (
-            mapAttrsToList
-            (to: from: "sieve_${to} = ${stateDir}/sieve/${to}")
-            cfg.sieveScripts
+            mapAttrsToList (to: from: "sieve_${to} = ${stateDir}/sieve/${to}")
+              cfg.sieveScripts
           )
         }
       }
@@ -173,8 +171,9 @@ let
           ];
           default = "no";
           example = "subscribe";
-          description = lib.mdDoc
-            "Whether to automatically create or create and subscribe to the mailbox or not."
+          description =
+            lib.mdDoc
+              "Whether to automatically create or create and subscribe to the mailbox or not."
             ;
         };
         specialUse = mkOption {
@@ -191,8 +190,9 @@ let
           );
           default = null;
           example = "Junk";
-          description = lib.mdDoc
-            "Null if no special use flag is set. Other than that every use flag mentioned in the RFC is valid."
+          description =
+            lib.mdDoc
+              "Null if no special use flag is set. Other than that every use flag mentioned in the RFC is valid."
             ;
         };
         autoexpunge = mkOption {
@@ -210,13 +210,15 @@ let
 in
 {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "dovecot2"
-        "package"
-      ]
-      "")
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "dovecot2"
+          "package"
+        ]
+        ""
+    )
   ];
 
   options.services.dovecot2 = {
@@ -240,7 +242,9 @@ in
       type = types.listOf types.str;
       default = [ ];
       description =
-        lib.mdDoc "Additional listeners to start when Dovecot is enabled.";
+        lib.mdDoc
+          "Additional listeners to start when Dovecot is enabled."
+        ;
     };
 
     user = mkOption {
@@ -259,8 +263,10 @@ in
       type = types.lines;
       default = "";
       example = "mail_debug = yes";
-      description = lib.mdDoc
-        "Additional entries to put verbatim into Dovecot's config file.";
+      description =
+        lib.mdDoc
+          "Additional entries to put verbatim into Dovecot's config file."
+        ;
     };
 
     mailPlugins =
@@ -272,8 +278,9 @@ in
               enable = mkOption {
                 type = types.listOf types.str;
                 default = [ ];
-                description = lib.mdDoc
-                  "mail plugins to enable as a list of strings to append to the ${hint} `$mail_plugins` configuration variable"
+                description =
+                  lib.mdDoc
+                    "mail plugins to enable as a list of strings to append to the ${hint} `$mail_plugins` configuration variable"
                   ;
               };
             };
@@ -285,16 +292,18 @@ in
           submodule {
             options = {
               globally = mkOption {
-                description = lib.mdDoc
-                  "Additional entries to add to the mail_plugins variable for all protocols"
+                description =
+                  lib.mdDoc
+                    "Additional entries to add to the mail_plugins variable for all protocols"
                   ;
                 type = plugins "top-level";
                 example = { enable = [ "virtual" ]; };
                 default = { enable = [ ]; };
               };
               perProtocol = mkOption {
-                description = lib.mdDoc
-                  "Additional entries to add to the mail_plugins variable, per protocol"
+                description =
+                  lib.mdDoc
+                    "Additional entries to add to the mail_plugins variable, per protocol"
                   ;
                 type = attrsOf (plugins "corresponding per-protocol");
                 default = { };
@@ -302,8 +311,9 @@ in
               };
             };
           };
-        description = lib.mdDoc
-          "Additional entries to add to the mail_plugins variable, globally and per protocol"
+        description =
+          lib.mdDoc
+            "Additional entries to add to the mail_plugins variable, globally and per protocol"
           ;
         example = {
           globally.enable = [ "acl" ];
@@ -320,7 +330,9 @@ in
       type = types.nullOr types.path;
       default = null;
       description =
-        lib.mdDoc "Config file used for the whole dovecot configuration.";
+        lib.mdDoc
+          "Config file used for the whole dovecot configuration."
+        ;
       apply =
         v: if v != null then v else pkgs.writeText "dovecot.conf" dovecotConf;
     };
@@ -386,7 +398,7 @@ in
 
     enablePAM = mkEnableOption (
       lib.mdDoc
-      "creating a own Dovecot PAM service and configure PAM user logins"
+        "creating a own Dovecot PAM service and configure PAM user logins"
     ) // {
       default = true;
     };
@@ -400,31 +412,32 @@ in
     sieveScripts = mkOption {
       type = types.attrsOf types.path;
       default = { };
-      description = lib.mdDoc
-        "Sieve scripts to be executed. Key is a sequence, e.g. 'before2', 'after' etc."
+      description =
+        lib.mdDoc
+          "Sieve scripts to be executed. Key is a sequence, e.g. 'before2', 'after' etc."
         ;
     };
 
     showPAMFailure = mkEnableOption (
       lib.mdDoc
-      "showing the PAM failure message on authentication error (useful for OTPW)"
+        "showing the PAM failure message on authentication error (useful for OTPW)"
     );
 
     mailboxes = mkOption {
       type = with types;
         coercedTo (listOf unspecified)
-        (
-          list:
-          listToAttrs (
-            map
-            (entry: {
-              name = entry.name;
-              value = removeAttrs entry [ "name" ];
-            })
-            list
+          (
+            list:
+            listToAttrs (
+              map
+                (entry: {
+                  name = entry.name;
+                  value = removeAttrs entry [ "name" ];
+                })
+                list
+            )
           )
-        )
-        (attrsOf (submodule mailboxes));
+          (attrsOf (submodule mailboxes));
       default = { };
       example = literalExpression ''
         {
@@ -432,7 +445,9 @@ in
         }
       '';
       description =
-        lib.mdDoc "Configure mailboxes and auto create or subscribe them.";
+        lib.mdDoc
+          "Configure mailboxes and auto create or subscribe them."
+        ;
     };
 
     enableQuota = mkEnableOption (lib.mdDoc "the dovecot quota service");
@@ -449,8 +464,9 @@ in
       type = types.str;
       default = "100G";
       example = "10G";
-      description = lib.mdDoc
-        "Quota limit for the user in bytes. Supports suffixes b, k, M, G, T and %."
+      description =
+        lib.mdDoc
+          "Quota limit for the user in bytes. Supports suffixes b, k, M, G, T and %."
         ;
     };
   };
@@ -534,16 +550,16 @@ in
           mkdir -p ${stateDir}/sieve
           ${concatStringsSep "\n" (
             mapAttrsToList
-            (to: from: ''
-              if [ -d '${from}' ]; then
-                mkdir '${stateDir}/sieve/${to}'
-                cp -p "${from}/"*.sieve '${stateDir}/sieve/${to}'
-              else
-                cp -p '${from}' '${stateDir}/sieve/${to}'
-              fi
-              ${pkgs.dovecot_pigeonhole}/bin/sievec '${stateDir}/sieve/${to}'
-            '')
-            cfg.sieveScripts
+              (to: from: ''
+                if [ -d '${from}' ]; then
+                  mkdir '${stateDir}/sieve/${to}'
+                  cp -p "${from}/"*.sieve '${stateDir}/sieve/${to}'
+                else
+                  cp -p '${from}' '${stateDir}/sieve/${to}'
+                fi
+                ${pkgs.dovecot_pigeonhole}/bin/sievec '${stateDir}/sieve/${to}'
+              '')
+              cfg.sieveScripts
           )}
           chown -R '${cfg.mailUser}:${cfg.mailGroup}' '${stateDir}/sieve'
         ''
@@ -553,9 +569,11 @@ in
     environment.systemPackages = [ dovecotPkg ];
 
     warnings =
-      mkIf (any isList options.services.dovecot2.mailboxes.definitions) [
-        "Declaring `services.dovecot2.mailboxes' as a list is deprecated and will break eval in 21.05! See the release notes for more info for migration."
-      ];
+      mkIf (any isList options.services.dovecot2.mailboxes.definitions)
+        [
+          "Declaring `services.dovecot2.mailboxes' as a list is deprecated and will break eval in 21.05! See the release notes for more info for migration."
+        ]
+      ;
 
     assertions = [
       {

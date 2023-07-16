@@ -19,7 +19,9 @@ import ./make-test-python.nix (
         ...
       }:
       let
-        ip = builtins.elemAt nodesIps index
+        ip =
+          builtins.elemAt nodesIps
+            index
           ; # since we already use IPs to identify servers
       in
       {
@@ -40,8 +42,9 @@ import ./make-test-python.nix (
 
           enable = true;
 
-          postgresqlPackage =
-            pkgs.postgresql_14.withPackages (p: [ p.pg_safeupdate ]);
+          postgresqlPackage = pkgs.postgresql_14.withPackages (
+            p: [ p.pg_safeupdate ]
+          );
 
           scope = "cluster1";
           name = "node${toString (index + 1)}";
@@ -89,11 +92,17 @@ import ./make-test-python.nix (
 
           environmentFiles = {
             PATRONI_REPLICATION_PASSWORD =
-              pkgs.writeText "replication-password" "postgres";
+              pkgs.writeText "replication-password"
+                "postgres"
+              ;
             PATRONI_SUPERUSER_PASSWORD =
-              pkgs.writeText "superuser-password" "postgres";
+              pkgs.writeText "superuser-password"
+                "postgres"
+              ;
             PATRONI_REWIND_PASSWORD =
-              pkgs.writeText "rewind-password" "postgres";
+              pkgs.writeText "rewind-password"
+                "postgres"
+              ;
           };
         };
 
@@ -165,11 +174,11 @@ import ./make-test-python.nix (
                   ${
                     builtins.concatStringsSep "\n" (
                       map
-                      (
-                        ip:
-                        "server postgresql_${ip}_5432 ${ip}:5432 maxconn 100 check port 8008"
-                      )
-                      nodesIps
+                        (
+                          ip:
+                          "server postgresql_${ip}_5432 ${ip}:5432 maxconn 100 check port 8008"
+                        )
+                        nodesIps
                     )
                   }
             '';

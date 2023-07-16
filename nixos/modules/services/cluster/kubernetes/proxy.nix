@@ -15,19 +15,21 @@ let
 in
 {
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "kubernetes"
-        "proxy"
-        "address"
-      ]
-      [
-        "services"
-        "kubernetes"
-        "proxy"
-        "bindAddress"
-      ])
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "kubernetes"
+          "proxy"
+          "address"
+        ]
+        [
+          "services"
+          "kubernetes"
+          "proxy"
+          "bindAddress"
+        ]
+    )
   ];
 
   ###### interface
@@ -89,18 +91,15 @@ in
           ${top.package}/bin/kube-proxy \
                     --bind-address=${cfg.bindAddress} \
                     ${
-                      optionalString
-                      (top.clusterCidr != null)
-                      "--cluster-cidr=${top.clusterCidr}"
+                      optionalString (top.clusterCidr != null)
+                        "--cluster-cidr=${top.clusterCidr}"
                     } \
                     ${
-                      optionalString
-                      (cfg.featureGates != [ ])
-                      "--feature-gates=${
-                        concatMapStringsSep ","
-                        (feature: "${feature}=true")
-                        cfg.featureGates
-                      }"
+                      optionalString (cfg.featureGates != [ ])
+                        "--feature-gates=${
+                          concatMapStringsSep "," (feature: "${feature}=true")
+                            cfg.featureGates
+                        }"
                     } \
                     --hostname-override=${cfg.hostname} \
                     --kubeconfig=${
@@ -108,8 +107,8 @@ in
                     } \
                     ${
                       optionalString (cfg.verbosity != null) "--v=${
-                        toString cfg.verbosity
-                      }"
+                          toString cfg.verbosity
+                        }"
                     } \
                     ${cfg.extraOpts}
         '';
@@ -132,7 +131,9 @@ in
     };
 
     services.kubernetes.proxy.kubeconfig.server =
-      mkDefault top.apiserverAddress;
+      mkDefault
+        top.apiserverAddress
+      ;
   };
 
   meta.buildDocsInSandbox = false;

@@ -54,9 +54,11 @@ let
   };
 
   script =
-    writeShellScript "${onlykey.packageName}-starter-${onlykey.version}" ''
-      ${node_webkit}/bin/nw ${onlykey}/lib/node_modules/${onlykey.packageName}/build
-    '';
+    writeShellScript "${onlykey.packageName}-starter-${onlykey.version}"
+      ''
+        ${node_webkit}/bin/nw ${onlykey}/lib/node_modules/${onlykey.packageName}/build
+      ''
+    ;
 
   desktop = makeDesktopItem {
     name = onlykey.packageName;

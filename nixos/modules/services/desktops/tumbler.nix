@@ -17,13 +17,15 @@ in
 {
 
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "tumbler"
-        "package"
-      ]
-      "")
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "tumbler"
+          "package"
+        ]
+        ""
+    )
   ];
 
   meta = with lib; {
@@ -37,7 +39,9 @@ in
     services.tumbler = {
 
       enable =
-        mkEnableOption (lib.mdDoc "Tumbler, A D-Bus thumbnailer service");
+        mkEnableOption
+          (lib.mdDoc "Tumbler, A D-Bus thumbnailer service")
+        ;
     };
   };
 

@@ -166,8 +166,8 @@ stdenv.mkDerivation rec {
         --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}" \
         ${
           lib.optionalString (commandLineArgs != "") "--add-flags ${
-            lib.escapeShellArg commandLineArgs
-          }"
+              lib.escapeShellArg commandLineArgs
+            }"
         }
     done
 

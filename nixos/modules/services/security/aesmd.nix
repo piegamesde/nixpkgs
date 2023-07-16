@@ -18,9 +18,9 @@ let
         optional (whitelistUrl != null) "whitelist url = ${whitelistUrl}"
         ++ optional (proxy != null) "aesm proxy = ${proxy}"
         ++ optional (proxyType != null) "proxy type = ${proxyType}"
-        ++ optional
-          (defaultQuotingType != null)
-          "default quoting type = ${defaultQuotingType}"
+        ++
+          optional (defaultQuotingType != null)
+            "default quoting type = ${defaultQuotingType}"
         ++
           # Newline at end of file
           [
@@ -33,7 +33,7 @@ in
   options.services.aesmd = {
     enable = mkEnableOption (
       lib.mdDoc
-      "Intel's Architectural Enclave Service Manager (AESM) for Intel SGX"
+        "Intel's Architectural Enclave Service Manager (AESM) for Intel SGX"
     );
     debug = mkOption {
       type = types.bool;
@@ -44,7 +44,9 @@ in
       type = with types; attrsOf str;
       default = { };
       description =
-        mdDoc "Additional environment variables to pass to the AESM service.";
+        mdDoc
+          "Additional environment variables to pass to the AESM service."
+        ;
       # Example environment variable for `sgx-azure-dcap-client` provider library
       example = {
         AZDCAP_COLLATERAL_VERSION = "v2";
@@ -67,7 +69,9 @@ in
           example =
             "http://whitelist.trustedservices.intel.com/SGX/LCWL/Linux/sgx_white_list_cert.bin";
           description =
-            lib.mdDoc "URL to retrieve authorized Intel SGX enclave signers.";
+            lib.mdDoc
+              "URL to retrieve authorized Intel SGX enclave signers."
+            ;
         };
         options.proxy = mkOption {
           type = with types; nullOr str;

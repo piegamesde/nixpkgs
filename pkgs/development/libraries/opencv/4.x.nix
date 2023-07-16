@@ -137,7 +137,7 @@ let
         { ${name "mac_intel64"} = "fe6b2bb75ae0e3f19ad3ae1a31dfa4a2"; }
       else
         throw
-        "ICV is not available for this platform (or not yet supported by this package)"
+          "ICV is not available for this platform (or not yet supported by this package)"
       ;
     dst = ".cache/ippicv";
   };
@@ -411,7 +411,9 @@ stdenv.mkDerivation {
     ;
 
   env.NIX_CFLAGS_COMPILE =
-    lib.optionalString enableEXR "-I${ilmbase.dev}/include/OpenEXR";
+    lib.optionalString enableEXR
+      "-I${ilmbase.dev}/include/OpenEXR"
+    ;
 
   # Configure can't find the library without this.
   OpenBLAS_HOME = lib.optionalString withOpenblas openblas_.dev;

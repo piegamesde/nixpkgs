@@ -59,12 +59,13 @@ stdenv.mkDerivation rec {
 
       # delete unnecessary files for the current architecture
     ''
-    + lib.concatMapStrings
-      (arch: ''
-        echo Deleting files for ${arch}
-        rm -r "$out/opt/brother/Printers/MFCL2750DW/lpd/${arch}"
-      '')
-      (builtins.filter (arch: arch != stdenv.hostPlatform.linuxArch) arches)
+    +
+      lib.concatMapStrings
+        (arch: ''
+          echo Deleting files for ${arch}
+          rm -r "$out/opt/brother/Printers/MFCL2750DW/lpd/${arch}"
+        '')
+        (builtins.filter (arch: arch != stdenv.hostPlatform.linuxArch) arches)
     + ''
 
       # bundled scripts don't understand the arch subdirectories for some reason

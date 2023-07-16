@@ -48,7 +48,7 @@ rec {
         isCompatible =
           _:
           throw
-          "2022-05-23: isCompatible has been removed in favor of canExecute, refer to the 22.11 changelog for details"
+            "2022-05-23: isCompatible has been removed in favor of canExecute, refer to the 22.11 changelog for details"
           ;
         # Derived meta-data
         libc =
@@ -305,22 +305,22 @@ rec {
               throw "Don't know how to run ${final.config} executables."
             ;
         }
-      ) // mapAttrs (n: v: v final.parsed) inspect.predicates // mapAttrs
-        (n: v: v final.gcc.arch or "default")
-        architectures.predicates // args;
+      ) // mapAttrs (n: v: v final.parsed) inspect.predicates
+        // mapAttrs (n: v: v final.gcc.arch or "default")
+          architectures.predicates // args;
     in
     assert final.useAndroidPrebuilt -> final.isAndroid;
     assert lib.foldl
-      (
-        pass:
-        {
-          assertion,
-          message,
-        }:
-        if assertion final then pass else throw message
-      )
-      true
-      (final.parsed.abi.assertions or [ ]);
+        (
+          pass:
+          {
+            assertion,
+            message,
+          }:
+          if assertion final then pass else throw message
+        )
+        true
+        (final.parsed.abi.assertions or [ ]);
     final
     ;
 }

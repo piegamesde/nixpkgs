@@ -42,9 +42,10 @@ stdenv.mkDerivation rec {
     cp "${language_subtag_registry}" data/language-subtag-registry
   '';
 
-  configureFlags = lib.optional
-    (stdenv.hostPlatform.libc == "glibc")
-    "--with-locale-alias=${stdenv.cc.libc}/share/locale/locale.alias";
+  configureFlags =
+    lib.optional (stdenv.hostPlatform.libc == "glibc")
+      "--with-locale-alias=${stdenv.cc.libc}/share/locale/locale.alias"
+    ;
 
   buildInputs = [
     gettext

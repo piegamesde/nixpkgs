@@ -194,9 +194,13 @@ let
     removeRulesCC = false;
 
     GCC_HOST_COMPILER_PREFIX =
-      lib.optionalString cudaSupport "${cudatoolkit_cc_joined}/bin";
+      lib.optionalString cudaSupport
+        "${cudatoolkit_cc_joined}/bin"
+      ;
     GCC_HOST_COMPILER_PATH =
-      lib.optionalString cudaSupport "${cudatoolkit_cc_joined}/bin/gcc";
+      lib.optionalString cudaSupport
+        "${cudatoolkit_cc_joined}/bin/gcc"
+      ;
 
     preConfigure =
       ''
@@ -285,11 +289,10 @@ let
 
       bazelFlags =
         bazelFlags
-        ++ lib.optionals
-          (stdenv.targetPlatform.isx86_64 && stdenv.targetPlatform.isUnix)
-          [
-            "--config=avx_posix"
-          ]
+        ++
+          lib.optionals
+            (stdenv.targetPlatform.isx86_64 && stdenv.targetPlatform.isUnix)
+            [ "--config=avx_posix" ]
         ++ lib.optionals cudaSupport [ "--config=cuda" ]
         ++ lib.optionals mklSupport [ "--config=mkl_open_source_only" ]
         ;

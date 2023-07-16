@@ -24,7 +24,9 @@ let
       inherit version;
 
       src =
-        fetch "clang" "12sm91qx2m79cvj75a9aazf2x8xybjbd593dv6v7rxficpq8i0ha";
+        fetch "clang"
+          "12sm91qx2m79cvj75a9aazf2x8xybjbd593dv6v7rxficpq8i0ha"
+        ;
       inherit clang-tools-extra_src;
 
       unpackPhase = ''

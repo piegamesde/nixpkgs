@@ -89,7 +89,9 @@
                 str:
                 let
                   result =
-                    builtins.match "[ 	]*(${reIp})[ 	]+(${reHost})(.*)" str;
+                    builtins.match "[ 	]*(${reIp})[ 	]+(${reHost})(.*)"
+                      str
+                    ;
                 in
                 if result == null then
                   null
@@ -106,12 +108,14 @@
               skipLine =
                 str:
                 let
-                  rest = builtins.match
-                    ''
-                      [^
-                      ]*
-                      (.*)''
-                    str;
+                  rest =
+                    builtins.match
+                      ''
+                        [^
+                        ]*
+                        (.*)''
+                      str
+                    ;
                 in
                 if rest == null then "" else lib.head rest
                 ;
@@ -134,18 +138,20 @@
               ];
               filterLoopback = lib.filter (e: !lib.elem e.ipAddr loopbackIps);
 
-              allEntries = lib.concatMap
-                (
-                  entry:
-                  map
-                  (host: {
-                    inherit host;
-                    ${if isIPv6 entry.ipAddr then "ipv6" else "ipv4"} =
-                      entry.ipAddr;
-                  })
-                  entry.hosts
-                )
-                (filterLoopback (getEntries (allHosts + "\n") [ ]));
+              allEntries =
+                lib.concatMap
+                  (
+                    entry:
+                    map
+                      (host: {
+                        inherit host;
+                        ${if isIPv6 entry.ipAddr then "ipv6" else "ipv4"} =
+                          entry.ipAddr;
+                      })
+                      entry.hosts
+                  )
+                  (filterLoopback (getEntries (allHosts + "\n") [ ]))
+                ;
 
               mkRecords =
                 entry:
@@ -183,14 +189,16 @@
             ;
 
           # All the zones without 'subZones'.
-          filteredZoneInfo = map
-            (
-              zi:
-              zi // {
-                zones = lib.filter (x: !lib.elem x subZones) zi.zones;
-              }
-            )
-            zoneInfo;
+          filteredZoneInfo =
+            map
+              (
+                zi:
+                zi // {
+                  zones = lib.filter (x: !lib.elem x subZones) zi.zones;
+                }
+              )
+              zoneInfo
+            ;
         in
         pkgs.writeText "fake-root.zone" ''
           $TTL 3600
@@ -198,21 +206,21 @@
           ns.fakedns. IN A ${config.networking.primaryIPAddress}
           . IN NS ns.fakedns.
           ${lib.concatImapStrings
-          (
-            num:
-            {
-              ip,
-              zones,
-            }: ''
-              ns${toString num}.fakedns. IN A ${ip}
-              ${lib.concatMapStrings
-              (zone: ''
-                ${zone} IN NS ns${toString num}.fakedns.
-              '')
-              zones}
-            ''
-          )
-          (lib.filter (zi: zi.zones != [ ]) filteredZoneInfo)}
+            (
+              num:
+              {
+                ip,
+                zones,
+              }: ''
+                ns${toString num}.fakedns. IN A ${ip}
+                ${lib.concatMapStrings
+                  (zone: ''
+                    ${zone} IN NS ns${toString num}.fakedns.
+                  '')
+                  zones}
+              ''
+            )
+            (lib.filter (zi: zi.zones != [ ]) filteredZoneInfo)}
           ${recordsFromExtraHosts}
         ''
         ;

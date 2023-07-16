@@ -78,12 +78,12 @@ let
     ${concatStringsSep "\n" (
       attrValues (
         mapAttrs
-        (k: v: ''
-          [[storage]]
-          name = "${lib.escape [ ''"'' ] k}"
-          path = "${lib.escape [ ''"'' ] v.path}"
-        '')
-        gitlabConfig.production.repositories.storages
+          (k: v: ''
+            [[storage]]
+            name = "${lib.escape [ ''"'' ] k}"
+            path = "${lib.escape [ ''"'' ] v.path}"
+          '')
+          gitlabConfig.production.repositories.storages
       )
     )}
   '';
@@ -196,8 +196,9 @@ let
     SCHEMA = "${cfg.statePath}/db/structure.sql";
     GITLAB_UPLOADS_PATH = "${cfg.statePath}/uploads";
     GITLAB_LOG_PATH = "${cfg.statePath}/log";
-    GITLAB_REDIS_CONFIG_FILE =
-      pkgs.writeText "redis.yml" (builtins.toJSON redisConfig);
+    GITLAB_REDIS_CONFIG_FILE = pkgs.writeText "redis.yml" (
+      builtins.toJSON redisConfig
+    );
     prometheus_multiproc_dir = "/run/gitlab";
     RAILS_ENV = "production";
     MALLOC_ARENA_MAX = "2";
@@ -224,9 +225,8 @@ let
       makeWrapper ${cfg.packages.gitlab.rubyEnv}/bin/rake $out/bin/gitlab-rake \
           ${
             concatStrings (
-              mapAttrsToList
-              (name: value: "--set ${name} '${value}' ")
-              gitlabEnv
+              mapAttrsToList (name: value: "--set ${name} '${value}' ")
+                gitlabEnv
             )
           } \
           --set PATH '${lib.makeBinPath runtimeDeps}:$PATH' \
@@ -245,9 +245,8 @@ let
       makeWrapper ${cfg.packages.gitlab.rubyEnv}/bin/rails $out/bin/gitlab-rails \
           ${
             concatStrings (
-              mapAttrsToList
-              (name: value: "--set ${name} '${value}' ")
-              gitlabEnv
+              mapAttrsToList (name: value: "--set ${name} '${value}' ")
+                gitlabEnv
             )
           } \
           --set PATH '${lib.makeBinPath runtimeDeps}:$PATH' \
@@ -275,9 +274,8 @@ let
         }
         domain: "${cfg.smtp.domain}",
         ${
-          optionalString
-          (cfg.smtp.authentication != null)
-          "authentication: :${cfg.smtp.authentication},"
+          optionalString (cfg.smtp.authentication != null)
+            "authentication: :${cfg.smtp.authentication},"
         }
         enable_starttls_auto: ${boolToString cfg.smtp.enableStartTLSAuto},
         tls: ${boolToString cfg.smtp.tls},
@@ -290,51 +288,61 @@ in
 {
 
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "gitlab"
-        "stateDir"
-      ]
-      [
-        "services"
-        "gitlab"
-        "statePath"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "gitlab"
-        "backupPath"
-      ]
-      [
-        "services"
-        "gitlab"
-        "backup"
-        "path"
-      ])
-    (mkRemovedOptionModule
-      [
-        "services"
-        "gitlab"
-        "satelliteDir"
-      ]
-      "")
-    (mkRemovedOptionModule
-      [
-        "services"
-        "gitlab"
-        "logrotate"
-        "extraConfig"
-      ]
-      "Modify services.logrotate.settings.gitlab directly instead")
-    (mkRemovedOptionModule
-      [
-        "services"
-        "gitlab"
-        "pagesExtraArgs"
-      ]
-      "Use services.gitlab.pages.settings instead")
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "gitlab"
+          "stateDir"
+        ]
+        [
+          "services"
+          "gitlab"
+          "statePath"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "gitlab"
+          "backupPath"
+        ]
+        [
+          "services"
+          "gitlab"
+          "backup"
+          "path"
+        ]
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "gitlab"
+          "satelliteDir"
+        ]
+        ""
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "gitlab"
+          "logrotate"
+          "extraConfig"
+        ]
+        "Modify services.logrotate.settings.gitlab directly instead"
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "gitlab"
+          "pagesExtraArgs"
+        ]
+        "Use services.gitlab.pages.settings instead"
+    )
   ];
 
   options = {
@@ -593,7 +601,9 @@ in
         default = config.networking.hostName;
         defaultText = literalExpression "config.networking.hostName";
         description =
-          lib.mdDoc "GitLab host name. Used e.g. for copy-paste URLs.";
+          lib.mdDoc
+            "GitLab host name. Used e.g. for copy-paste URLs."
+          ;
       };
 
       port = mkOption {
@@ -609,7 +619,9 @@ in
         type = types.bool;
         default = false;
         description =
-          lib.mdDoc "Whether gitlab prints URLs with https as scheme.";
+          lib.mdDoc
+            "Whether gitlab prints URLs with https as scheme."
+          ;
       };
 
       user = mkOption {
@@ -664,19 +676,24 @@ in
         certFile = mkOption {
           type = types.path;
           description =
-            lib.mdDoc "Path to GitLab container registry certificate.";
+            lib.mdDoc
+              "Path to GitLab container registry certificate."
+            ;
         };
         keyFile = mkOption {
           type = types.path;
           description =
-            lib.mdDoc "Path to GitLab container registry certificate-key.";
+            lib.mdDoc
+              "Path to GitLab container registry certificate-key."
+            ;
         };
         defaultForProjects = mkOption {
           type = types.bool;
           default = cfg.registry.enable;
           defaultText = literalExpression "config.${opt.registry.enable}";
-          description = lib.mdDoc
-            "If GitLab container registry should be enabled by default for projects."
+          description =
+            lib.mdDoc
+              "If GitLab container registry should be enabled by default for projects."
             ;
         };
         issuer = mkOption {
@@ -692,13 +709,17 @@ in
         externalAddress = mkOption {
           type = types.str;
           default = "";
-          description = lib.mdDoc
-            "External address used to access registry from the internet";
+          description =
+            lib.mdDoc
+              "External address used to access registry from the internet"
+            ;
         };
         externalPort = mkOption {
           type = types.int;
           description =
-            lib.mdDoc "External port used to access registry from the internet";
+            lib.mdDoc
+              "External port used to access registry from the internet"
+            ;
         };
       };
 
@@ -747,8 +768,9 @@ in
         authentication = mkOption {
           type = with types; nullOr str;
           default = null;
-          description = lib.mdDoc
-            "Authentication type to use, see http://api.rubyonrails.org/classes/ActionMailer/Base.html"
+          description =
+            lib.mdDoc
+              "Authentication type to use, see http://api.rubyonrails.org/classes/ActionMailer/Base.html"
             ;
         };
 
@@ -767,8 +789,9 @@ in
         opensslVerifyMode = mkOption {
           type = types.str;
           default = "peer";
-          description = lib.mdDoc
-            "How OpenSSL checks the certificate, see http://api.rubyonrails.org/classes/ActionMailer/Base.html"
+          description =
+            lib.mdDoc
+              "How OpenSSL checks the certificate, see http://api.rubyonrails.org/classes/ActionMailer/Base.html"
             ;
         };
       };
@@ -978,7 +1001,9 @@ in
         type = types.attrs;
         default = { };
         description =
-          lib.mdDoc "Extra configuration to merge into shell-config.yml";
+          lib.mdDoc
+            "Extra configuration to merge into shell-config.yml"
+          ;
       };
 
       puma.workers = mkOption {
@@ -1359,8 +1384,9 @@ in
     };
 
     # Use postfix to send out mails.
-    services.postfix.enable =
-      mkDefault (cfg.smtp.enable && cfg.smtp.address == "localhost");
+    services.postfix.enable = mkDefault (
+      cfg.smtp.enable && cfg.smtp.address == "localhost"
+    );
 
     users.users.${cfg.user} = {
       group = cfg.group;
@@ -1439,9 +1465,8 @@ in
             '';
           in
           "+${
-            pkgs.writeShellScript
-            "gitlab-pre-start-full-privileges"
-            preStartFullPrivileges
+            pkgs.writeShellScript "gitlab-pre-start-full-privileges"
+              preStartFullPrivileges
           }"
           ;
 
@@ -1499,9 +1524,8 @@ in
                   } \
                      '.${
                        if
-                         lib.versionAtLeast
-                         (lib.getVersion cfg.packages.gitlab)
-                         "15.0"
+                         lib.versionAtLeast (lib.getVersion cfg.packages.gitlab)
+                           "15.0"
                        then
                          "production.main"
                        else
@@ -1521,9 +1545,8 @@ in
             }
 
             ${
-              utils.genJqSecretsReplacementSnippet
-              gitlabConfig
-              "${cfg.statePath}/config/gitlab.yml"
+              utils.genJqSecretsReplacementSnippet gitlabConfig
+                "${cfg.statePath}/config/gitlab.yml"
             }
 
             rm -f '${cfg.statePath}/config/secrets.yml'
@@ -1600,13 +1623,16 @@ in
         ;
       wantedBy = [ "gitlab.target" ];
       partOf = [ "gitlab.target" ];
-      environment = gitlabEnv
-        // (optionalAttrs cfg.sidekiq.memoryKiller.enable {
-          SIDEKIQ_MEMORY_KILLER_MAX_RSS = cfg.sidekiq.memoryKiller.maxMemory;
-          SIDEKIQ_MEMORY_KILLER_GRACE_TIME = cfg.sidekiq.memoryKiller.graceTime;
-          SIDEKIQ_MEMORY_KILLER_SHUTDOWN_WAIT =
-            cfg.sidekiq.memoryKiller.shutdownWait;
-        });
+      environment = gitlabEnv // (
+        optionalAttrs cfg.sidekiq.memoryKiller.enable
+          {
+            SIDEKIQ_MEMORY_KILLER_MAX_RSS = cfg.sidekiq.memoryKiller.maxMemory;
+            SIDEKIQ_MEMORY_KILLER_GRACE_TIME =
+              cfg.sidekiq.memoryKiller.graceTime;
+            SIDEKIQ_MEMORY_KILLER_SHUTDOWN_WAIT =
+              cfg.sidekiq.memoryKiller.shutdownWait;
+          }
+      );
       path = with pkgs; [
         postgresqlPackage
         git
@@ -1687,13 +1713,14 @@ in
                 builtins.hashString "sha256" v._secret
               else
                 throw "unsupported type ${builtins.typeOf v}: ${
-                  (lib.generators.toPretty { }) v
-                }"
+                    (lib.generators.toPretty { }) v
+                  }"
               ;
           };
         };
-        secretPaths =
-          lib.catAttrs "_secret" (lib.collect isSecret filteredConfig);
+        secretPaths = lib.catAttrs "_secret" (
+          lib.collect isSecret filteredConfig
+        );
         mkSecretReplacement =
           file: ''
             replace-secret ${
@@ -1706,9 +1733,12 @@ in
           ''
           ;
         secretReplacements =
-          lib.concatMapStrings mkSecretReplacement secretPaths;
-        configFile =
-          pkgs.writeText "gitlab-pages.conf" (mkPagesKeyValue filteredConfig);
+          lib.concatMapStrings mkSecretReplacement
+            secretPaths
+          ;
+        configFile = pkgs.writeText "gitlab-pages.conf" (
+          mkPagesKeyValue filteredConfig
+        );
       in
       mkIf cfg.pages.enable {
         description = "GitLab static pages daemon";
@@ -1777,9 +1807,8 @@ in
           set -o errexit -o pipefail -o nounset
           shopt -s dotglob nullglob inherit_errexit
 
-          ${utils.genJqSecretsReplacementSnippet
-          cfg.workhorse.config
-          "${cfg.statePath}/config/gitlab-workhorse.json"}
+          ${utils.genJqSecretsReplacementSnippet cfg.workhorse.config
+            "${cfg.statePath}/config/gitlab-workhorse.json"}
 
           json2toml "${cfg.statePath}/config/gitlab-workhorse.json" "${cfg.statePath}/config/gitlab-workhorse.toml"
           rm "${cfg.statePath}/config/gitlab-workhorse.json"
@@ -1798,29 +1827,31 @@ in
     };
 
     systemd.services.gitlab-mailroom =
-      mkIf (gitlabConfig.production.incoming_email.enabled or false) {
-        description = "GitLab incoming mail daemon";
-        after = [
-          "network.target"
-          "redis-gitlab.service"
-          "gitlab-config.service"
-        ];
-        bindsTo = [ "gitlab-config.service" ];
-        wantedBy = [ "gitlab.target" ];
-        partOf = [ "gitlab.target" ];
-        environment = gitlabEnv;
-        serviceConfig = {
-          Type = "simple";
-          TimeoutSec = "infinity";
-          Restart = "on-failure";
+      mkIf (gitlabConfig.production.incoming_email.enabled or false)
+        {
+          description = "GitLab incoming mail daemon";
+          after = [
+            "network.target"
+            "redis-gitlab.service"
+            "gitlab-config.service"
+          ];
+          bindsTo = [ "gitlab-config.service" ];
+          wantedBy = [ "gitlab.target" ];
+          partOf = [ "gitlab.target" ];
+          environment = gitlabEnv;
+          serviceConfig = {
+            Type = "simple";
+            TimeoutSec = "infinity";
+            Restart = "on-failure";
 
-          User = cfg.user;
-          Group = cfg.group;
-          ExecStart =
-            "${cfg.packages.gitlab.rubyEnv}/bin/bundle exec mail_room -c ${cfg.statePath}/config/mail_room.yml";
-          WorkingDirectory = gitlabEnv.HOME;
-        };
-      };
+            User = cfg.user;
+            Group = cfg.group;
+            ExecStart =
+              "${cfg.packages.gitlab.rubyEnv}/bin/bundle exec mail_room -c ${cfg.statePath}/config/mail_room.yml";
+            WorkingDirectory = gitlabEnv.HOME;
+          };
+        }
+      ;
 
     systemd.services.gitlab = {
       after = [

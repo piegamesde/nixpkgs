@@ -12,8 +12,9 @@ let
 in
 {
   options.services.oxidized = {
-    enable =
-      mkEnableOption (lib.mdDoc "the oxidized configuration backup service");
+    enable = mkEnableOption (
+      lib.mdDoc "the oxidized configuration backup service"
+    );
 
     user = mkOption {
       type = types.str;

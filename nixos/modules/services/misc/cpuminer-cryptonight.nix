@@ -48,7 +48,9 @@ in
         type = types.int;
         default = 0;
         description =
-          lib.mdDoc "Number of miner threads, defaults to available processors";
+          lib.mdDoc
+            "Number of miner threads, defaults to available processors"
+          ;
       };
     };
   };

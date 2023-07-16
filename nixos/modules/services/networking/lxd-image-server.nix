@@ -21,7 +21,9 @@ in
       group = mkOption {
         type = types.str;
         description =
-          lib.mdDoc "Group assigned to the user and the webroot directory.";
+          lib.mdDoc
+            "Group assigned to the user and the webroot directory."
+          ;
         default = "nginx";
         example = "www-data";
       };
@@ -56,7 +58,9 @@ in
       users.groups.${cfg.group} = { };
 
       environment.etc."lxd-image-server/config.toml".source =
-        format.generate "config.toml" cfg.settings;
+        format.generate "config.toml"
+          cfg.settings
+        ;
 
       services.logrotate.settings.lxd-image-server = {
         files = "/var/log/lxd-image-server/lxd-image-server.log";

@@ -78,7 +78,9 @@ stdenv.mkDerivation rec {
   hardeningDisable = [ "format" ];
 
   env.NIX_CFLAGS_COMPILE =
-    lib.optionalString stdenv.cc.isClang "-I${libxml2.dev}/include/libxml2";
+    lib.optionalString stdenv.cc.isClang
+      "-I${libxml2.dev}/include/libxml2"
+    ;
 
   cmakeFlags =
     [

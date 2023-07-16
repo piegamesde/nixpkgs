@@ -22,10 +22,12 @@ with lib;
   };
 
   config =
-    mkIf (config.hardware.sane.enable && config.hardware.sane.dsseries.enable) {
+    mkIf (config.hardware.sane.enable && config.hardware.sane.dsseries.enable)
+      {
 
-      hardware.sane.extraBackends = [ pkgs.dsseries ];
-      services.udev.packages = [ pkgs.dsseries ];
-      boot.kernelModules = [ "sg" ];
-    };
+        hardware.sane.extraBackends = [ pkgs.dsseries ];
+        services.udev.packages = [ pkgs.dsseries ];
+        boot.kernelModules = [ "sg" ];
+      }
+    ;
 }

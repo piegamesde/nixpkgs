@@ -130,7 +130,9 @@ in
   };
 } // optionalAttrs (pkgs.stdenv.hostPlatform.system == "x86_64-linux") {
   biosCdrom =
-    makeBootTest "bios-cdrom" { cdrom = "${iso}/iso/${iso.isoName}"; };
+    makeBootTest "bios-cdrom"
+      { cdrom = "${iso}/iso/${iso.isoName}"; }
+    ;
 
   biosUsb = makeBootTest "bios-usb" { usb = "${iso}/iso/${iso.isoName}"; };
 

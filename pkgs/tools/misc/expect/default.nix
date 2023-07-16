@@ -46,9 +46,8 @@ tcl.mkTclDerivation rec {
 
   postInstall = ''
     tclWrapperArgs+=(--prefix PATH : ${lib.makeBinPath [ tcl ]})
-    ${lib.optionalString
-    stdenv.isDarwin
-    "tclWrapperArgs+=(--prefix DYLD_LIBRARY_PATH : $out/lib/expect${version})"}
+    ${lib.optionalString stdenv.isDarwin
+      "tclWrapperArgs+=(--prefix DYLD_LIBRARY_PATH : $out/lib/expect${version})"}
   '';
 
   outputs = [

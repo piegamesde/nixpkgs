@@ -16,17 +16,17 @@ let
       command,
     }:
     pkgs.runCommandLocal "test-${lua.name}"
-    ({
-      nativeBuildInputs = [ lua ];
-      meta.platforms = lua.meta.platforms;
-    })
-    (
-      ''
-        source ${./assert.sh}
-      ''
-      + command
-      + "touch $out"
-    )
+      ({
+        nativeBuildInputs = [ lua ];
+        meta.platforms = lua.meta.platforms;
+      })
+      (
+        ''
+          source ${./assert.sh}
+        ''
+        + command
+        + "touch $out"
+      )
     ;
 
   wrappedHello = hello.overrideAttrs (

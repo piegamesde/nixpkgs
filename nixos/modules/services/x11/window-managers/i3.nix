@@ -74,19 +74,22 @@ in
       '';
     } ];
     environment.systemPackages = [ cfg.package ] ++ cfg.extraPackages;
-    environment.etc."i3/config" =
-      mkIf (cfg.configFile != null) { source = cfg.configFile; };
+    environment.etc."i3/config" = mkIf (cfg.configFile != null) {
+      source = cfg.configFile;
+    };
   };
 
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "xserver"
-        "windowManager"
-        "i3-gaps"
-        "enable"
-      ]
-      "i3-gaps was merged into i3. Use services.xserver.windowManager.i3.enable instead.")
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "xserver"
+          "windowManager"
+          "i3-gaps"
+          "enable"
+        ]
+        "i3-gaps was merged into i3. Use services.xserver.windowManager.i3.enable instead."
+    )
   ];
 }

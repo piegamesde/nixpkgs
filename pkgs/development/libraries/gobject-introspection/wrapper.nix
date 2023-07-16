@@ -51,13 +51,13 @@ then
         ''
           eval fixupPhase
           ${lib.concatMapStrings
-          (output: ''
-            mkdir -p ${"$" + "${output}"}
-            ${lib.getExe buildPackages.xorg.lndir} ${
-              overriddenUnwrappedGir.${output}
-            } ${"$" + "${output}"}
-          '')
-          overriddenUnwrappedGir.outputs}
+            (output: ''
+              mkdir -p ${"$" + "${output}"}
+              ${lib.getExe buildPackages.xorg.lndir} ${
+                overriddenUnwrappedGir.${output}
+              } ${"$" + "${output}"}
+            '')
+            overriddenUnwrappedGir.outputs}
 
           cp $dev/bin/g-ir-compiler $dev/bin/.g-ir-compiler-wrapped
           cp $dev/bin/g-ir-scanner $dev/bin/.g-ir-scanner-wrapped
@@ -121,13 +121,13 @@ else
       buildCommand = ''
         eval fixupPhase
         ${lib.concatMapStrings
-        (output: ''
-          mkdir -p ${"$" + "${output}"}
-          ${lib.getExe buildPackages.xorg.lndir} ${
-            overriddenUnwrappedGir.${output}
-          } ${"$" + "${output}"}
-        '')
-        overriddenUnwrappedGir.outputs}
+          (output: ''
+            mkdir -p ${"$" + "${output}"}
+            ${lib.getExe buildPackages.xorg.lndir} ${
+              overriddenUnwrappedGir.${output}
+            } ${"$" + "${output}"}
+          '')
+          overriddenUnwrappedGir.outputs}
       '';
     }
   )

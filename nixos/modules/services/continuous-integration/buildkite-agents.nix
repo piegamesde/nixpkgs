@@ -82,10 +82,14 @@ let
             pkgs.git
             pkgs.nix
           ];
-          defaultText = literalExpression
-            "[ pkgs.bash pkgs.gnutar pkgs.gzip pkgs.git pkgs.nix ]";
+          defaultText =
+            literalExpression
+              "[ pkgs.bash pkgs.gnutar pkgs.gzip pkgs.git pkgs.nix ]"
+            ;
           description =
-            lib.mdDoc "Add programs to the buildkite-agent environment";
+            lib.mdDoc
+              "Add programs to the buildkite-agent environment"
+            ;
           type = types.listOf types.package;
         };
 
@@ -109,7 +113,9 @@ let
 
         tags = mkOption {
           type =
-            types.attrsOf (types.either types.str (types.listOf types.str));
+            types.attrsOf
+              (types.either types.str (types.listOf types.str))
+            ;
           default = { };
           example = {
             queue = "default";
@@ -225,8 +231,10 @@ let
         hooksPath = mkOption {
           type = types.path;
           default = hooksDir config;
-          defaultText = literalMD
-            "generated from {option}`services.buildkite-agents.<name>.hooks`";
+          defaultText =
+            literalMD
+              "generated from {option}`services.buildkite-agents.<name>.hooks`"
+            ;
           description = lib.mdDoc ''
             Path to the directory storing the hooks.
             Consider using {option}`services.buildkite-agents.<name>.hooks.<name>`
@@ -273,8 +281,9 @@ in
       };
     }
   );
-  config.users.groups =
-    mapAgents (name: cfg: { "buildkite-agent-${name}" = { }; });
+  config.users.groups = mapAgents (
+    name: cfg: { "buildkite-agent-${name}" = { }; }
+  );
 
   config.systemd.services = mapAgents (
     name: cfg: {
@@ -308,8 +317,9 @@ in
               else
                 "${name}=${value}"
               ;
-            tagsStr =
-              lib.concatStringsSep "," (lib.mapAttrsToList tagStr cfg.tags);
+            tagsStr = lib.concatStringsSep "," (
+              lib.mapAttrsToList tagStr cfg.tags
+            );
           in
           optionalString (cfg.privateSshKeyPath != null) ''
             mkdir -m 0700 -p "${sshDir}"
@@ -357,11 +367,13 @@ in
   );
 
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "buildkite-agent"
-      ]
-      "services.buildkite-agent has been upgraded from version 2 to version 3 and moved to an attribute set at services.buildkite-agents. Please consult the 20.03 release notes for more information.")
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "buildkite-agent"
+        ]
+        "services.buildkite-agent has been upgraded from version 2 to version 3 and moved to an attribute set at services.buildkite-agents. Please consult the 20.03 release notes for more information."
+    )
   ];
 }

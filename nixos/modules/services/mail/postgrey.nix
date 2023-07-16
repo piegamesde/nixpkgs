@@ -52,47 +52,49 @@ let
 in
 {
   imports = [
-    (mkMergedOptionModule
-      [
+    (
+      mkMergedOptionModule
         [
-          "services"
-          "postgrey"
-          "inetAddr"
-        ]
-        [
-          "services"
-          "postgrey"
-          "inetPort"
-        ]
-      ]
-      [
-        "services"
-        "postgrey"
-        "socket"
-      ]
-      (
-        config:
-        let
-          value = p: getAttrFromPath p config;
-          inetAddr = [
+          [
             "services"
             "postgrey"
             "inetAddr"
-          ];
-          inetPort = [
+          ]
+          [
             "services"
             "postgrey"
             "inetPort"
-          ];
-        in
-        if value inetAddr == null then
-          { path = "/run/postgrey.sock"; }
-        else
-          {
-            addr = value inetAddr;
-            port = value inetPort;
-          }
-      ))
+          ]
+        ]
+        [
+          "services"
+          "postgrey"
+          "socket"
+        ]
+        (
+          config:
+          let
+            value = p: getAttrFromPath p config;
+            inetAddr = [
+              "services"
+              "postgrey"
+              "inetAddr"
+            ];
+            inetPort = [
+              "services"
+              "postgrey"
+              "inetPort"
+            ];
+          in
+          if value inetAddr == null then
+            { path = "/run/postgrey.sock"; }
+          else
+            {
+              addr = value inetAddr;
+              port = value inetPort;
+            }
+        )
+    )
   ];
 
   options = {
@@ -117,21 +119,25 @@ in
       greylistText = mkOption {
         type = str;
         default = "Greylisted for %%s seconds";
-        description = lib.mdDoc
-          "Response status text for greylisted messages; use %%s for seconds left until greylisting is over and %%r for mail domain of recipient"
+        description =
+          lib.mdDoc
+            "Response status text for greylisted messages; use %%s for seconds left until greylisting is over and %%r for mail domain of recipient"
           ;
       };
       greylistAction = mkOption {
         type = str;
         default = "DEFER_IF_PERMIT";
         description =
-          lib.mdDoc "Response status for greylisted messages (see access(5))";
+          lib.mdDoc
+            "Response status for greylisted messages (see access(5))"
+          ;
       };
       greylistHeader = mkOption {
         type = str;
         default = "X-Greylist: delayed %%t seconds by postgrey-%%v at %%h; %%d";
-        description = lib.mdDoc
-          "Prepend header to greylisted mails; use %%t for seconds delayed due to greylisting, %%v for the version of postgrey, %%d for the date, and %%h for the host"
+        description =
+          lib.mdDoc
+            "Prepend header to greylisted mails; use %%t for seconds delayed due to greylisting, %%v for the version of postgrey, %%d for the date, and %%h for the host"
           ;
       };
       delay = mkOption {
@@ -142,61 +148,75 @@ in
       maxAge = mkOption {
         type = natural;
         default = 35;
-        description = lib.mdDoc
-          "Delete entries from whitelist if they haven't been seen for N days";
+        description =
+          lib.mdDoc
+            "Delete entries from whitelist if they haven't been seen for N days"
+          ;
       };
       retryWindow = mkOption {
         type = either str natural;
         default = 2;
         example = "12h";
-        description = lib.mdDoc
-          "Allow N days for the first retry. Use string with appended 'h' to specify time in hours"
+        description =
+          lib.mdDoc
+            "Allow N days for the first retry. Use string with appended 'h' to specify time in hours"
           ;
       };
       lookupBySubnet = mkOption {
         type = bool;
         default = true;
-        description = lib.mdDoc
-          "Strip the last N bits from IP addresses, determined by IPv4CIDR and IPv6CIDR"
+        description =
+          lib.mdDoc
+            "Strip the last N bits from IP addresses, determined by IPv4CIDR and IPv6CIDR"
           ;
       };
       IPv4CIDR = mkOption {
         type = natural;
         default = 24;
         description =
-          lib.mdDoc "Strip N bits from IPv4 addresses if lookupBySubnet is true"
+          lib.mdDoc
+            "Strip N bits from IPv4 addresses if lookupBySubnet is true"
           ;
       };
       IPv6CIDR = mkOption {
         type = natural;
         default = 64;
         description =
-          lib.mdDoc "Strip N bits from IPv6 addresses if lookupBySubnet is true"
+          lib.mdDoc
+            "Strip N bits from IPv6 addresses if lookupBySubnet is true"
           ;
       };
       privacy = mkOption {
         type = bool;
         default = true;
         description =
-          lib.mdDoc "Store data using one-way hash functions (SHA1)";
+          lib.mdDoc
+            "Store data using one-way hash functions (SHA1)"
+          ;
       };
       autoWhitelist = mkOption {
         type = nullOr natural';
         default = 5;
         description =
-          lib.mdDoc "Whitelist clients after successful delivery of N messages";
+          lib.mdDoc
+            "Whitelist clients after successful delivery of N messages"
+          ;
       };
       whitelistClients = mkOption {
         type = listOf path;
         default = [ ];
         description =
-          lib.mdDoc "Client address whitelist files (see postgrey(8))";
+          lib.mdDoc
+            "Client address whitelist files (see postgrey(8))"
+          ;
       };
       whitelistRecipients = mkOption {
         type = listOf path;
         default = [ ];
         description =
-          lib.mdDoc "Recipient address whitelist files (see postgrey(8))";
+          lib.mdDoc
+            "Recipient address whitelist files (see postgrey(8))"
+          ;
       };
     };
   };
@@ -268,14 +288,13 @@ in
                       --greylist-text="${cfg.greylistText}" \
                       --x-greylist-header="${cfg.greylistHeader}" \
                       ${
-                        concatMapStringsSep " "
-                        (x: "--whitelist-clients=" + x)
-                        cfg.whitelistClients
+                        concatMapStringsSep " " (x: "--whitelist-clients=" + x)
+                          cfg.whitelistClients
                       } \
                       ${
                         concatMapStringsSep " "
-                        (x: "--whitelist-recipients=" + x)
-                        cfg.whitelistRecipients
+                          (x: "--whitelist-recipients=" + x)
+                          cfg.whitelistRecipients
                       }
           '';
           Restart = "always";

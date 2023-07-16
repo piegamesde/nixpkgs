@@ -14,13 +14,15 @@ in
   meta.maintainers = with lib.maintainers; [ peterhoeg ];
 
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "pykms"
-        "verbose"
-      ]
-      "Use services.pykms.logLevel instead")
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "pykms"
+          "verbose"
+        ]
+        "Use services.pykms.logLevel instead"
+    )
   ];
 
   options = {
@@ -47,7 +49,8 @@ in
         type = types.bool;
         default = false;
         description =
-          lib.mdDoc "Whether the listening port should be opened automatically."
+          lib.mdDoc
+            "Whether the listening port should be opened automatically."
           ;
       };
 
@@ -79,8 +82,9 @@ in
   };
 
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts =
-      lib.mkIf cfg.openFirewallPort [ cfg.port ];
+    networking.firewall.allowedTCPPorts = lib.mkIf cfg.openFirewallPort [
+      cfg.port
+    ];
 
     systemd.services.pykms = {
       description = "Python KMS";

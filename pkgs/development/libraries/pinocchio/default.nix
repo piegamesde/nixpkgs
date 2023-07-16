@@ -45,7 +45,9 @@ stdenv.mkDerivation rec {
     ;
 
   cmakeFlags =
-    lib.optionals (!pythonSupport) [ "-DBUILD_PYTHON_INTERFACE=OFF" ];
+    lib.optionals (!pythonSupport)
+      [ "-DBUILD_PYTHON_INTERFACE=OFF" ]
+    ;
 
   meta = with lib; {
     description =

@@ -82,7 +82,9 @@ in
       after = [ "networking.target" ];
 
       environment.FLASK_CONF =
-        builtins.toFile "powerdns-admin-config.py" configText;
+        builtins.toFile "powerdns-admin-config.py"
+          configText
+        ;
       environment.PYTHONPATH = pkgs.powerdns-admin.pythonPath;
       serviceConfig = {
         ExecStart =

@@ -76,15 +76,16 @@ stdenv.mkDerivation (
         ./always-check-for-pkg-config.patch
         ./allow-system-s-nspr-and-icu-on-bootstrapped-sysroot.patch
       ]
-      ++ lib.optionals
-        (
-          lib.versionAtLeast version "91"
-          && stdenv.hostPlatform.system == "i686-linux"
-        )
-        [
-          # Fixes i686 build, https://bugzilla.mozilla.org/show_bug.cgi?id=1729459
-          ./fix-float-i686.patch
-        ]
+      ++
+        lib.optionals
+          (
+            lib.versionAtLeast version "91"
+            && stdenv.hostPlatform.system == "i686-linux"
+          )
+          [
+            # Fixes i686 build, https://bugzilla.mozilla.org/show_bug.cgi?id=1729459
+            ./fix-float-i686.patch
+          ]
       ;
 
     nativeBuildInputs =
@@ -160,12 +161,14 @@ stdenv.mkDerivation (
 
     # cc-rs insists on using -mabi=lp64 (soft-float) for riscv64,
     # while we have a double-float toolchain
-    env.NIX_CFLAGS_COMPILE = lib.optionalString
-      (
-        with stdenv.hostPlatform;
-        isRiscV && is64bit && lib.versionOlder version "91"
-      )
-      "-mabi=lp64d";
+    env.NIX_CFLAGS_COMPILE =
+      lib.optionalString
+        (
+          with stdenv.hostPlatform;
+          isRiscV && is64bit && lib.versionOlder version "91"
+        )
+        "-mabi=lp64d"
+      ;
 
     postPatch = lib.optionalString (lib.versionOlder version "102") ''
       # This patch is a manually applied fix of
@@ -211,8 +214,9 @@ stdenv.mkDerivation (
       ln -s $out/bin/js${lib.versions.major version} $out/bin/js
     '';
 
-    passthru.tests.run =
-      callPackage ./test.nix { spidermonkey = finalAttrs.finalPackage; };
+    passthru.tests.run = callPackage ./test.nix {
+      spidermonkey = finalAttrs.finalPackage;
+    };
 
     meta = with lib; {
       description = "Mozilla's JavaScript engine written in C/C++";

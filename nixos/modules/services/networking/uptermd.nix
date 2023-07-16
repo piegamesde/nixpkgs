@@ -61,8 +61,9 @@ in
   };
 
   config = mkIf cfg.enable {
-    networking.firewall =
-      mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
+    networking.firewall = mkIf cfg.openFirewall {
+      allowedTCPPorts = [ cfg.port ];
+    };
 
     systemd.services.uptermd = {
       description = "Upterm Daemon";
@@ -92,8 +93,9 @@ in
 
         # Hardening
         AmbientCapabilities = mkIf (cfg.port < 1024) [ "CAP_NET_BIND_SERVICE" ];
-        CapabilityBoundingSet =
-          mkIf (cfg.port < 1024) [ "CAP_NET_BIND_SERVICE" ];
+        CapabilityBoundingSet = mkIf (cfg.port < 1024) [
+          "CAP_NET_BIND_SERVICE"
+        ];
         PrivateUsers = cfg.port >= 1024;
         DynamicUser = true;
         LockPersonality = true;

@@ -51,7 +51,9 @@ stdenv.mkDerivation rec {
   buildInputs = [ cracklib ] ++ lib.optionals enablePAM [ pam ];
 
   configureFlags =
-    lib.optionals (!enablePython) [ "--disable-python-bindings" ];
+    lib.optionals (!enablePython)
+      [ "--disable-python-bindings" ]
+    ;
 
   meta = with lib; {
     homepage = "https://github.com/libpwquality/libpwquality";

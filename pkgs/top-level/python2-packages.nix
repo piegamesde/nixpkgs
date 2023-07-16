@@ -29,7 +29,9 @@ with super; {
   hypothesis = callPackage ../development/python2-modules/hypothesis { };
 
   importlib-metadata =
-    callPackage ../development/python2-modules/importlib-metadata { };
+    callPackage ../development/python2-modules/importlib-metadata
+      { }
+    ;
 
   jinja2 = callPackage ../development/python2-modules/jinja2 { };
 
@@ -38,7 +40,9 @@ with super; {
   mock = callPackage ../development/python2-modules/mock { };
 
   more-itertools =
-    callPackage ../development/python2-modules/more-itertools { };
+    callPackage ../development/python2-modules/more-itertools
+      { }
+    ;
 
   packaging = callPackage ../development/python2-modules/packaging { };
 
@@ -78,7 +82,9 @@ with super; {
   setuptools = callPackage ../development/python2-modules/setuptools { };
 
   setuptools-scm =
-    callPackage ../development/python2-modules/setuptools-scm { };
+    callPackage ../development/python2-modules/setuptools-scm
+      { }
+    ;
 
   typing = callPackage ../development/python2-modules/typing { };
 

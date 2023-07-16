@@ -39,18 +39,22 @@ let
           const ? { },
         }:
         lib.concatLists (
-          (lib.mapAttrsToList
-            (from: to: [
-              "-p"
-              "${from}:${to}"
-            ])
-            prefix)
-          ++ (lib.mapAttrsToList
-            (from: to: [
-              "-c"
-              "${from}:${to}"
-            ])
-            const)
+          (
+            lib.mapAttrsToList
+              (from: to: [
+                "-p"
+                "${from}:${to}"
+              ])
+              prefix
+          )
+          ++ (
+            lib.mapAttrsToList
+              (from: to: [
+                "-c"
+                "${from}:${to}"
+              ])
+              const
+          )
         )
         ;
 
@@ -359,13 +363,15 @@ rec {
         // (lib.mapAttrs (name: deps: generatedDeps.${name} // deps) extraDeps);
 
       # Create derivations, and add private frameworks.
-      bareFrameworks = (lib.mapAttrs framework deps)
-        // (lib.mapAttrs privateFramework (
-          import ./private-frameworks.nix {
-            inherit frameworks;
-            libobjc = pkgs.darwin.apple_sdk_11_0.objc4;
-          }
-        ));
+      bareFrameworks = (lib.mapAttrs framework deps) // (
+        lib.mapAttrs privateFramework
+          (
+            import ./private-frameworks.nix {
+              inherit frameworks;
+              libobjc = pkgs.darwin.apple_sdk_11_0.objc4;
+            }
+          )
+      );
     in
     # Apply derivation overrides.
     bareFrameworks // overrides bareFrameworks

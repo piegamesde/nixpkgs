@@ -147,18 +147,22 @@ in
           cfg.settings != null
           ->
             cfg.mutableSettings
-            || (hasAttrByPath
-              [
-                "dns"
-                "bind_host"
-              ]
-              cfg.settings)
-            || (hasAttrByPath
-              [
-                "dns"
-                "bind_hosts"
-              ]
-              cfg.settings)
+            || (
+              hasAttrByPath
+                [
+                  "dns"
+                  "bind_host"
+                ]
+                cfg.settings
+            )
+            || (
+              hasAttrByPath
+                [
+                  "dns"
+                  "bind_hosts"
+                ]
+                cfg.settings
+            )
           ;
         message =
           "AdGuard setting dns.bind_host or dns.bind_hosts needs to be configured for a minimal working configuration";
@@ -168,12 +172,13 @@ in
           cfg.settings != null
           ->
             cfg.mutableSettings
-            || hasAttrByPath
-              [
-                "dns"
-                "bootstrap_dns"
-              ]
-              cfg.settings
+            ||
+              hasAttrByPath
+                [
+                  "dns"
+                  "bootstrap_dns"
+                ]
+                cfg.settings
           ;
         message =
           "AdGuard setting dns.bootstrap_dns needs to be configured for a minimal working configuration";
@@ -212,7 +217,8 @@ in
       };
     };
 
-    networking.firewall.allowedTCPPorts =
-      mkIf cfg.openFirewall [ cfg.settings.bind_port ];
+    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [
+      cfg.settings.bind_port
+    ];
   };
 }

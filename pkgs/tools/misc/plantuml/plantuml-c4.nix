@@ -44,12 +44,14 @@ let
       includeFlag =
         "-Dplantuml.include.path=${lib.escapeShellArg plantumlIncludePath}";
       postFixedJre =
-        runCommand "jre-postfixed" { nativeBuildInputs = [ makeWrapper ]; } ''
-          mkdir -p $out/bin
+        runCommand "jre-postfixed" { nativeBuildInputs = [ makeWrapper ]; }
+          ''
+            mkdir -p $out/bin
 
-          makeWrapper ${jre}/bin/java $out/bin/java \
-            --add-flags ${lib.escapeShellArg includeFlag}
-        '';
+            makeWrapper ${jre}/bin/java $out/bin/java \
+              --add-flags ${lib.escapeShellArg includeFlag}
+          ''
+        ;
     in
     plantuml.override { jre = postFixedJre; }
     ;
@@ -70,15 +72,16 @@ stdenv.mkDerivation rec {
     $out/bin/plantuml -help
   '';
 
-  passthru.tests.example-c4-diagram = runCommand "c4-plantuml-sample.png"
-    { nativeBuildInputs = [ plantuml-c4 ]; }
-    ''
-      sed 's/https:.*\///' "${c4-lib}/samples/C4_Context Diagram Sample - enterprise.puml" > sample.puml
-      plantuml sample.puml -o $out
+  passthru.tests.example-c4-diagram =
+    runCommand "c4-plantuml-sample.png" { nativeBuildInputs = [ plantuml-c4 ]; }
+      ''
+        sed 's/https:.*\///' "${c4-lib}/samples/C4_Context Diagram Sample - enterprise.puml" > sample.puml
+        plantuml sample.puml -o $out
 
-      sed 's/!include ..\//!include /' ${sprites}/examples/complex-example.puml > sprites.puml
-      plantuml sprites.puml -o $out
-    '';
+        sed 's/!include ..\//!include /' ${sprites}/examples/complex-example.puml > sprites.puml
+        plantuml sprites.puml -o $out
+      ''
+    ;
 
   meta = with lib; {
     description =

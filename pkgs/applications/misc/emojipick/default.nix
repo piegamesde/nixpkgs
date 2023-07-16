@@ -49,9 +49,8 @@ stdenvNoCC.mkDerivation {
       --replace "font_family='\"Noto Color Emoji\"'" "font_family='\"${emojipick-font-family}\"'" \
       --replace 'font_size="18"' 'font_size="${emojipick-font-size}"' \
       ${
-        lib.optionalString
-        emojipick-use-rofi
-        "--replace 'rofi ' '${rofi}/bin/rofi '"
+        lib.optionalString emojipick-use-rofi
+          "--replace 'rofi ' '${rofi}/bin/rofi '"
       } \
       --replace notify-send ${libnotify}/bin/notify-send
   '';

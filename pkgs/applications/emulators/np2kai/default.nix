@@ -35,20 +35,19 @@
   enableHAXM ? false,
 }:
 
-assert lib.assertMsg
-  (enable16Bit || enable32Bit)
-  "Must enable 16-Bit and/or 32-Bit system variant.";
-assert lib.assertMsg
-  (enableSDL || enableX11)
-  "Must enable SDL and/or X11 graphics interfaces.";
+assert lib.assertMsg (enable16Bit || enable32Bit)
+    "Must enable 16-Bit and/or 32-Bit system variant.";
+assert lib.assertMsg (enableSDL || enableX11)
+    "Must enable SDL and/or X11 graphics interfaces.";
 assert lib.assertOneOf "withSDLVersion" withSDLVersion [
   "1"
   "2"
 ];
 assert enableHAXM
-  -> (lib.assertMsg
-    enableX11
-    "Must enable X11 graphics interface for HAXM build.");
+  -> (
+    lib.assertMsg enableX11
+      "Must enable X11 graphics interface for HAXM build."
+  );
 let
   inherit (lib) optional optionals optionalString;
   inherit (lib.strings) concatStringsSep concatMapStringsSep;
@@ -177,7 +176,9 @@ stdenv.mkDerivation rec {
 
   # TODO Remove when bumping past rev22
   env.NIX_CFLAGS_COMPILE =
-    lib.optionalString stdenv.hostPlatform.isDarwin "-D_DARWIN_C_SOURCE";
+    lib.optionalString stdenv.hostPlatform.isDarwin
+      "-D_DARWIN_C_SOURCE"
+    ;
 
   buildPhase =
     optionalString enableSDL ''

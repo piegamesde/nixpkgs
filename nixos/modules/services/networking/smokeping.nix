@@ -25,9 +25,8 @@ let
         owner = ${cfg.owner}
         pagedir = ${smokepingHome}/cache
         piddir  = ${smokepingPidDir}
-        ${lib.optionalString
-        (cfg.sendmail != null)
-        "sendmail = ${cfg.sendmail}"}
+        ${lib.optionalString (cfg.sendmail != null)
+          "sendmail = ${cfg.sendmail}"}
         smokemail = ${cfg.smokeMailTemplate}
         *** Presentation ***
         template = ${cfg.presentationTemplate}
@@ -129,7 +128,9 @@ in
         type = types.lines;
         default = "";
         description =
-          lib.mdDoc "Any additional customization not already included.";
+          lib.mdDoc
+            "Any additional customization not already included."
+          ;
       };
       hostName = mkOption {
         type = types.str;
@@ -245,8 +246,8 @@ in
       presentationTemplate = mkOption {
         type = types.str;
         default = "${pkgs.smokeping}/etc/basepage.html.dist";
-        defaultText =
-          literalExpression ''"''${pkgs.smokeping}/etc/basepage.html.dist"'';
+        defaultText = literalExpression ''
+          "''${pkgs.smokeping}/etc/basepage.html.dist"'';
         description = lib.mdDoc "Default page layout for the web UI.";
       };
       probeConfig = mkOption {
@@ -268,7 +269,9 @@ in
         default = null;
         example = "/run/wrappers/bin/sendmail";
         description =
-          lib.mdDoc "Use this sendmail compatible script to deliver alerts";
+          lib.mdDoc
+            "Use this sendmail compatible script to deliver alerts"
+          ;
       };
       smokeMailTemplate = mkOption {
         type = types.str;
@@ -297,8 +300,9 @@ in
       user = mkOption {
         type = types.str;
         default = "smokeping";
-        description = lib.mdDoc
-          "User that runs smokeping and (optionally) thttpd. A group of the same name will be created as well."
+        description =
+          lib.mdDoc
+            "User that runs smokeping and (optionally) thttpd. A group of the same name will be created as well."
           ;
       };
       webService = mkOption {

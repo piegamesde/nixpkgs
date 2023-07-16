@@ -33,15 +33,15 @@ let
   '';
 in
 runCommand "nano-test-expect"
-{
-  nativeBuildInputs = [
-    nano
-    expect
-  ];
-  passthru = { inherit expect-script; };
-}
-''
-  expect -f ${expect-script}/bin/expect-script
-  grep "Hello world!" file.txt
-  touch $out
-''
+  {
+    nativeBuildInputs = [
+      nano
+      expect
+    ];
+    passthru = { inherit expect-script; };
+  }
+  ''
+    expect -f ${expect-script}/bin/expect-script
+    grep "Hello world!" file.txt
+    touch $out
+  ''

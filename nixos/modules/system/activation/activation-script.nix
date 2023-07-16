@@ -28,15 +28,17 @@ let
   systemActivationScript =
     set: onlyDry:
     let
-      set' = mapAttrs
-        (
-          _: v:
-          if isString v then
-            (noDepEntry v) // { supportsDryActivation = false; }
-          else
-            v
-        )
-        set;
+      set' =
+        mapAttrs
+          (
+            _: v:
+            if isString v then
+              (noDepEntry v) // { supportsDryActivation = false; }
+            else
+              v
+          )
+          set
+        ;
       withHeadlines = addAttributeName set';
       # When building a dry activation script, this replaces all activation scripts
       # that do not support dry mode with a comment that does nothing. Filtering these
@@ -44,18 +46,20 @@ let
       # does not work because when an activation script that supports dry mode depends on
       # an activation script that does not, the dependency cannot be resolved and the eval
       # fails.
-      withDrySnippets = mapAttrs
-        (
-          a: v:
-          if onlyDry && !v.supportsDryActivation then
-            v // {
-              text =
-                "#### Activation script snippet ${a} does not support dry activation.";
-            }
-          else
-            v
-        )
-        withHeadlines;
+      withDrySnippets =
+        mapAttrs
+          (
+            a: v:
+            if onlyDry && !v.supportsDryActivation then
+              v // {
+                text =
+                  "#### Activation script snippet ${a} does not support dry activation.";
+              }
+            else
+              v
+          )
+          withHeadlines
+        ;
     in
     ''
       #!${pkgs.runtimeShell}
@@ -112,7 +116,9 @@ let
           type = types.listOf types.str;
           default = [ ];
           description =
-            lib.mdDoc "List of dependencies. The script will run after these.";
+            lib.mdDoc
+              "List of dependencies. The script will run after these."
+            ;
         };
         text = mkOption {
           type = types.lines;
@@ -172,13 +178,17 @@ in
     };
 
     system.dryActivationScript = mkOption {
-      description = lib.mdDoc
-        "The shell script that is to be run when dry-activating a system.";
+      description =
+        lib.mdDoc
+          "The shell script that is to be run when dry-activating a system."
+        ;
       readOnly = true;
       internal = true;
-      default = systemActivationScript
-        (removeAttrs config.system.activationScripts [ "script" ])
-        true;
+      default =
+        systemActivationScript
+          (removeAttrs config.system.activationScripts [ "script" ])
+          true
+        ;
       defaultText = literalMD "generated activation script";
     };
 
@@ -219,7 +229,9 @@ in
 
             ${let
               set' =
-                mapAttrs (n: v: if isString v then noDepEntry v else v) set;
+                mapAttrs (n: v: if isString v then noDepEntry v else v)
+                  set
+                ;
               withHeadlines = addAttributeName set';
             in
             textClosureMap id (withHeadlines) (attrNames withHeadlines)

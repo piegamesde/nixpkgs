@@ -23,9 +23,8 @@ let
     moduleData:
     moduleData ? supportedWhenPlatformAttrsEqual
     -> all (x: x) (
-      mapAttrsToList
-      (k: v: platform ? ${k} && platform.${k} == v)
-      moduleData.supportedWhenPlatformAttrsEqual
+      mapAttrsToList (k: v: platform ? ${k} && platform.${k} == v)
+        moduleData.supportedWhenPlatformAttrsEqual
     )
     ;
 

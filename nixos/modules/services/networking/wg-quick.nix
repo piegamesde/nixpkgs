@@ -38,8 +38,10 @@ let
         };
 
         autostart = mkOption {
-          description = lib.mdDoc
-            "Whether to bring up this interface automatically during boot.";
+          description =
+            lib.mdDoc
+              "Whether to bring up this interface automatically during boot."
+            ;
           default = true;
           example = false;
           type = types.bool;
@@ -50,7 +52,9 @@ let
           default = [ ];
           type = with types; listOf str;
           description =
-            lib.mdDoc "The IP addresses of DNS servers to configure.";
+            lib.mdDoc
+              "The IP addresses of DNS servers to configure."
+            ;
         };
 
         privateKey = mkOption {
@@ -85,8 +89,8 @@ let
         };
 
         preUp = mkOption {
-          example =
-            literalExpression ''"''${pkgs.iproute2}/bin/ip netns add foo"'';
+          example = literalExpression ''
+            "''${pkgs.iproute2}/bin/ip netns add foo"'';
           default = "";
           type =
             with types; coercedTo (listOf str) (concatStringsSep "\n") lines;
@@ -96,8 +100,8 @@ let
         };
 
         preDown = mkOption {
-          example =
-            literalExpression ''"''${pkgs.iproute2}/bin/ip netns del foo"'';
+          example = literalExpression ''
+            "''${pkgs.iproute2}/bin/ip netns del foo"'';
           default = "";
           type =
             with types; coercedTo (listOf str) (concatStringsSep "\n") lines;
@@ -107,8 +111,8 @@ let
         };
 
         postUp = mkOption {
-          example =
-            literalExpression ''"''${pkgs.iproute2}/bin/ip netns add foo"'';
+          example = literalExpression ''
+            "''${pkgs.iproute2}/bin/ip netns add foo"'';
           default = "";
           type =
             with types; coercedTo (listOf str) (concatStringsSep "\n") lines;
@@ -118,8 +122,8 @@ let
         };
 
         postDown = mkOption {
-          example =
-            literalExpression ''"''${pkgs.iproute2}/bin/ip netns del foo"'';
+          example = literalExpression ''
+            "''${pkgs.iproute2}/bin/ip netns del foo"'';
           default = "";
           type =
             with types; coercedTo (listOf str) (concatStringsSep "\n") lines;
@@ -246,11 +250,11 @@ let
   generateUnit =
     name: values:
     assert assertMsg
-      (
-        values.configFile != null
-        || ((values.privateKey != null) != (values.privateKeyFile != null))
-      )
-      "Only one of privateKey, configFile or privateKeyFile may be set";
+        (
+          values.configFile != null
+          || ((values.privateKey != null) != (values.privateKeyFile != null))
+        )
+        "Only one of privateKey, configFile or privateKeyFile may be set";
     let
       preUpFile =
         if values.preUp != "" then
@@ -259,17 +263,17 @@ let
           null
         ;
       postUp =
-        optional
-        (values.privateKeyFile != null)
-        "wg set ${name} private-key <(cat ${values.privateKeyFile})"
-        ++ (concatMap
-          (
-            peer:
-            optional
-            (peer.presharedKeyFile != null)
-            "wg set ${name} peer ${peer.publicKey} preshared-key <(cat ${peer.presharedKeyFile})"
-          )
-          values.peers)
+        optional (values.privateKeyFile != null)
+          "wg set ${name} private-key <(cat ${values.privateKeyFile})"
+        ++ (
+          concatMap
+            (
+              peer:
+              optional (peer.presharedKeyFile != null)
+                "wg set ${name} peer ${peer.publicKey} preshared-key <(cat ${peer.presharedKeyFile})"
+            )
+            values.peers
+        )
         ++ optional (values.postUp != "") values.postUp
         ;
       postUpFile =
@@ -299,9 +303,8 @@ let
         text =
           ''
             [interface]
-            ${concatMapStringsSep "\n"
-            (address: "Address = ${address}")
-            values.address}
+            ${concatMapStringsSep "\n" (address: "Address = ${address}")
+              values.address}
             ${concatMapStringsSep "\n" (dns: "DNS = ${dns}") values.dns}
           ''
           + optionalString (values.table != null) ''
@@ -328,37 +331,38 @@ let
           + optionalString (postDownFile != null) ''
             PostDown = ${postDownFile}
           ''
-          + concatMapStringsSep "\n"
-            (
-              peer:
-              assert assertMsg
-                (
-                  !(
-                    (peer.presharedKeyFile != null)
-                    && (peer.presharedKey != null)
-                  )
-                )
-                "Only one of presharedKey or presharedKeyFile may be set";
-              ''
-                [Peer]
-              ''
-              + ''
-                PublicKey = ${peer.publicKey}
-              ''
-              + optionalString (peer.presharedKey != null) ''
-                PresharedKey = ${peer.presharedKey}
-              ''
-              + optionalString (peer.endpoint != null) ''
-                Endpoint = ${peer.endpoint}
-              ''
-              + optionalString (peer.persistentKeepalive != null) ''
-                PersistentKeepalive = ${toString peer.persistentKeepalive}
-              ''
-              + optionalString (peer.allowedIPs != [ ]) ''
-                AllowedIPs = ${concatStringsSep "," peer.allowedIPs}
-              ''
-            )
-            values.peers
+          +
+            concatMapStringsSep "\n"
+              (
+                peer:
+                assert assertMsg
+                    (
+                      !(
+                        (peer.presharedKeyFile != null)
+                        && (peer.presharedKey != null)
+                      )
+                    )
+                    "Only one of presharedKey or presharedKeyFile may be set";
+                ''
+                  [Peer]
+                ''
+                + ''
+                  PublicKey = ${peer.publicKey}
+                ''
+                + optionalString (peer.presharedKey != null) ''
+                  PresharedKey = ${peer.presharedKey}
+                ''
+                + optionalString (peer.endpoint != null) ''
+                  Endpoint = ${peer.endpoint}
+                ''
+                + optionalString (peer.persistentKeepalive != null) ''
+                  PersistentKeepalive = ${toString peer.persistentKeepalive}
+                ''
+                + optionalString (peer.allowedIPs != [ ]) ''
+                  AllowedIPs = ${concatStringsSep "," peer.allowedIPs}
+                ''
+              )
+              values.peers
           ;
       };
       configPath =
@@ -390,9 +394,8 @@ let
       };
 
       script = ''
-        ${optionalString
-        (!config.boot.isContainer)
-        "${pkgs.kmod}/bin/modprobe wireguard"}
+        ${optionalString (!config.boot.isContainer)
+          "${pkgs.kmod}/bin/modprobe wireguard"}
         ${optionalString (values.configFile != null) ''
           cp ${values.configFile} ${configPath}
         ''}
@@ -439,16 +442,22 @@ in
 
   config = mkIf (cfg.interfaces != { }) {
     boot.extraModulePackages =
-      optional (versionOlder kernel.kernel.version "5.6") kernel.wireguard;
+      optional (versionOlder kernel.kernel.version "5.6")
+        kernel.wireguard
+      ;
     environment.systemPackages = [ pkgs.wireguard-tools ];
     systemd.services = mapAttrs' generateUnit cfg.interfaces;
 
     # Prevent networkd from clearing the rules set by wg-quick when restarted (e.g. when waking up from suspend).
     systemd.network.config.networkConfig.ManageForeignRoutingPolicyRules =
-      mkDefault false;
+      mkDefault
+        false
+      ;
 
     # WireGuard interfaces should be ignored in determining whether the network is online.
     systemd.network.wait-online.ignoredInterfaces =
-      builtins.attrNames cfg.interfaces;
+      builtins.attrNames
+        cfg.interfaces
+      ;
   };
 }

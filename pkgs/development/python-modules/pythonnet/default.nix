@@ -85,8 +85,11 @@ buildPythonPackage rec {
 
     ${builtins.concatStringsSep "\n" (
       builtins.map
-      (x: "ln -s ${x}/lib/dotnet/${x.pname} ./packages/${x.pname}.${x.version}")
-      dotnetPkgs
+        (
+          x:
+          "ln -s ${x}/lib/dotnet/${x.pname} ./packages/${x.pname}.${x.version}"
+        )
+        dotnetPkgs
     )}
 
     # Setting TERM=xterm fixes an issue with terminfo in mono: System.Exception: Magic number is wrong: 542

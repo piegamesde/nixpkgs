@@ -18,15 +18,15 @@ if drvA == drvB then
   emptyFile
 else
   runCommand name
-  {
-    inherit assertion drvA drvB;
-    nativeBuildInputs = [ nix-diff ];
-  }
-  ''
-    echo "$assertion"
-    echo "However, the derivations differ:"
-    echo
-    echo nix-diff $drvA $drvB
-    nix-diff $drvA $drvB
-    exit 1
-  ''
+    {
+      inherit assertion drvA drvB;
+      nativeBuildInputs = [ nix-diff ];
+    }
+    ''
+      echo "$assertion"
+      echo "However, the derivations differ:"
+      echo
+      echo nix-diff $drvA $drvB
+      nix-diff $drvA $drvB
+      exit 1
+    ''

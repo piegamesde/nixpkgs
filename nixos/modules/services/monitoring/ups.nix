@@ -96,12 +96,13 @@ let
             "sdorder = ${toString config.shutdownOrder}"
           ]
           ++ (optional (config.maxStartDelay != null) "maxstartdelay = ${
-              toString config.maxStartDelay
-            }")
+                toString config.maxStartDelay
+              }")
         );
 
-        summary =
-          concatStringsSep "\n      " ([ "[${name}]" ] ++ config.directives);
+        summary = concatStringsSep "\n      " (
+          [ "[${name}]" ] ++ config.directives
+        );
       };
     }
     ;
@@ -232,8 +233,8 @@ in
         maxstartdelay = ${toString cfg.maxStartDelay}
 
         ${flip concatStringsSep
-        (forEach (attrValues cfg.ups) (ups: ups.summary))
-        "\n\n          "}
+          (forEach (attrValues cfg.ups) (ups: ups.summary))
+          "\n\n          "}
       '';
       "nut/upssched.conf".source = cfg.schedulerRules;
       # These file are containing private information and thus should not
@@ -246,15 +247,17 @@ in
 
     power.ups.schedulerRules = mkDefault "${pkgs.nut}/etc/upssched.conf.sample";
 
-    system.activationScripts.upsSetup = stringAfter
-      [
-        "users"
-        "groups"
-      ]
-      ''
-        # Used to store pid files of drivers.
-        mkdir -p /var/state/ups
-      '';
+    system.activationScripts.upsSetup =
+      stringAfter
+        [
+          "users"
+          "groups"
+        ]
+        ''
+          # Used to store pid files of drivers.
+          mkdir -p /var/state/ups
+        ''
+      ;
 
     /* users.users.nut =
           { uid = 84;

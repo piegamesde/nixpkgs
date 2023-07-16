@@ -39,9 +39,10 @@ stdenv.mkDerivation rec {
   # --enable-debug-info (default) requires the configure script to run host
   # executables to determine the elfutils library version, which cannot be done
   # while cross compiling.
-  configureFlags = lib.optional
-    (stdenv.hostPlatform != stdenv.buildPlatform)
-    "--disable-debug-info";
+  configureFlags =
+    lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
+      "--disable-debug-info"
+    ;
 
   meta = with lib; {
     description =

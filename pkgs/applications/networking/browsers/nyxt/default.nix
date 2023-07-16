@@ -54,7 +54,9 @@ stdenv.mkDerivation rec {
     ;
 
   GST_PLUGIN_SYSTEM_PATH_1_0 =
-    lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" gstBuildInputs;
+    lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0"
+      gstBuildInputs
+    ;
 
   dontWrapGApps = true;
   installPhase = ''

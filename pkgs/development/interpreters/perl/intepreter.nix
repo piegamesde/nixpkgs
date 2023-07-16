@@ -72,7 +72,9 @@ stdenv.mkDerivation (
     #
     # Without libxcrypt, Perl will still find FreeBSD's crypt functions.
     propagatedBuildInputs =
-      lib.optional (enableCrypt && !stdenv.isFreeBSD) libxcrypt;
+      lib.optional (enableCrypt && !stdenv.isFreeBSD)
+        libxcrypt
+      ;
 
     disallowedReferences = [ stdenv.cc ];
 
@@ -144,12 +146,13 @@ stdenv.mkDerivation (
         "-Dlocincpth=${libcInc}/include"
         "-Dloclibpth=${libcLib}/lib"
       ]
-      ++ lib.optionals
-        ((builtins.match "5\\.[0-9]*[13579]\\..+" version) != null)
-        [
-          "-Dusedevel"
-          "-Uversiononly"
-        ]
+      ++
+        lib.optionals
+          ((builtins.match "5\\.[0-9]*[13579]\\..+" version) != null)
+          [
+            "-Dusedevel"
+            "-Uversiononly"
+          ]
       ++ lib.optional stdenv.isSunOS "-Dcc=gcc"
       ++ lib.optional enableThreading "-Dusethreads"
       ++ lib.optional (!enableCrypt) "-A clear:d_crypt_r"
@@ -162,7 +165,9 @@ stdenv.mkDerivation (
       ;
 
     configureScript =
-      lib.optionalString (!crossCompiling) "${stdenv.shell} ./Configure";
+      lib.optionalString (!crossCompiling)
+        "${stdenv.shell} ./Configure"
+      ;
 
     dontAddStaticConfigureFlags = true;
 
@@ -182,8 +187,8 @@ stdenv.mkDerivation (
       ''
         cat > config.over <<EOF
         ${lib.optionalString
-        (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isGnu)
-        ''osvers="gnulinux"''}
+          (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isGnu)
+          ''osvers="gnulinux"''}
         myuname="nixpkgs"
         myhostname="nixpkgs"
         cf_by="nixpkgs"
@@ -218,9 +223,10 @@ stdenv.mkDerivation (
     passthru =
       let
         # When we override the interpreter we also need to override the spliced versions of the interpreter
-        inputs' = lib.filterAttrs
-          (n: v: !lib.isDerivation v && n != "passthruFun")
-          inputs;
+        inputs' =
+          lib.filterAttrs (n: v: !lib.isDerivation v && n != "passthruFun")
+            inputs
+          ;
         override =
           attr:
           let

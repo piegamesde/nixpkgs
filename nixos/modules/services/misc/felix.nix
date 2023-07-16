@@ -28,7 +28,9 @@ in
         default = [ pkgs.felix_remoteshell ];
         defaultText = literalExpression "[ pkgs.felix_remoteshell ]";
         description =
-          lib.mdDoc "List of bundles that should be activated on startup";
+          lib.mdDoc
+            "List of bundles that should be activated on startup"
+          ;
       };
 
       user = mkOption {

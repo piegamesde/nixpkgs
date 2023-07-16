@@ -40,7 +40,9 @@ in
       type = types.str;
       default = "0.0.0.0";
       description =
-        lib.mdDoc "Address to bind to. The default is to bind to all addresses";
+        lib.mdDoc
+          "Address to bind to. The default is to bind to all addresses"
+        ;
     };
 
     logDir = mkOption {
@@ -52,7 +54,9 @@ in
     databaseUrl = mkOption {
       type = types.str;
       description =
-        lib.mdDoc "URL of the MongoDB or PostgreSQL database to connect to";
+        lib.mdDoc
+          "URL of the MongoDB or PostgreSQL database to connect to"
+        ;
       default = "mongodb://localhost";
     };
 
@@ -64,8 +68,9 @@ in
 
     corsOrigins = mkOption {
       type = types.listOf types.str;
-      description = lib.mdDoc
-        "List of URLs that can access the API for Cross-Origin Resource Sharing (CORS)"
+      description =
+        lib.mdDoc
+          "List of URLs that can access the API for Cross-Origin Resource Sharing (CORS)"
         ;
       default = [
         "http://localhost"
@@ -75,8 +80,9 @@ in
 
     authenticationRequired = mkOption {
       type = types.bool;
-      description = lib.mdDoc
-        "Whether users must authenticate when using the web UI or command-line tool"
+      description =
+        lib.mdDoc
+          "Whether users must authenticate when using the web UI or command-line tool"
         ;
       default = false;
     };
@@ -84,7 +90,9 @@ in
     signupEnabled = mkOption {
       type = types.bool;
       description =
-        lib.mdDoc "Whether to prevent sign-up of new users via the web UI";
+        lib.mdDoc
+          "Whether to prevent sign-up of new users via the web UI"
+        ;
       default = true;
     };
 

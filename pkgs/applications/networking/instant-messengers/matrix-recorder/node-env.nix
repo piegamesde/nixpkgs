@@ -58,20 +58,20 @@ let
     }:
     lib.optionalString (dependencies != [ ]) (
       lib.concatMapStrings
-      (dependency: ''
-        # Bundle the dependencies of the package
-        mkdir -p node_modules
-        cd node_modules
+        (dependency: ''
+          # Bundle the dependencies of the package
+          mkdir -p node_modules
+          cd node_modules
 
-        # Only include dependencies if they don't exist. They may also be bundled in the package.
-        if [ ! -e "${dependency.name}" ]
-        then
-            ${composePackage dependency}
-        fi
+          # Only include dependencies if they don't exist. They may also be bundled in the package.
+          if [ ! -e "${dependency.name}" ]
+          then
+              ${composePackage dependency}
+          fi
 
-        cd ..
-      '')
-      dependencies
+          cd ..
+        '')
+        dependencies
     )
     ;
 
@@ -200,8 +200,8 @@ let
             cd node_modules
             ${
               lib.concatMapStrings
-              (dependency: pinpointDependenciesOfPackage dependency)
-              dependencies
+                (dependency: pinpointDependenciesOfPackage dependency)
+                dependencies
             }
             cd ..
         fi
@@ -226,9 +226,8 @@ let
           ${pinpointDependencies { inherit dependencies production; }}
           cd ..
           ${
-            lib.optionalString
-            (builtins.substring 0 1 packageName == "@")
-            "cd .."
+            lib.optionalString (builtins.substring 0 1 packageName == "@")
+              "cd .."
           }
       fi
     ''
@@ -604,9 +603,8 @@ let
 
             # Go to the parent folder to make sure that all packages are pinpointed
             cd ..
-            ${lib.optionalString
-            (builtins.substring 0 1 packageName == "@")
-            "cd .."}
+            ${lib.optionalString (builtins.substring 0 1 packageName == "@")
+              "cd .."}
 
             ${prepareAndInvokeNPM {
               inherit
@@ -620,9 +618,8 @@ let
 
             # Expose the executables that were installed
             cd ..
-            ${lib.optionalString
-            (builtins.substring 0 1 packageName == "@")
-            "cd .."}
+            ${lib.optionalString (builtins.substring 0 1 packageName == "@")
+              "cd .."}
 
             mv ${packageName} lib
             ln -s $out/lib/node_modules/.bin $out/bin

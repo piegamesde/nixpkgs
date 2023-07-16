@@ -39,15 +39,15 @@ mkDerivation rec {
     # crude fix for https://github.com/organicmaps/organicmaps/issues/1862
     echo "echo ${
       lib.replaceStrings
-      [
-        "."
-        "-"
-      ]
-      [
-        ""
-        ""
-      ]
-      version
+        [
+          "."
+          "-"
+        ]
+        [
+          ""
+          ""
+        ]
+        version
     }" > tools/unix/version.sh
   '';
 

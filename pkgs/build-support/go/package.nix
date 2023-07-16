@@ -198,9 +198,8 @@ let
               ;
             renames =
               p:
-              lib.concatMapStringsSep "\n"
-              (rename p.goPackagePath)
-              p.goPackageAliases
+              lib.concatMapStringsSep "\n" (rename p.goPackagePath)
+                p.goPackageAliases
               ;
           in
           lib.concatMapStringsSep "\n" renames inputsWithAliases
@@ -330,11 +329,11 @@ let
         ''
         + toString (
           map
-          (dep: ''
-            mkdir -p "$d/src/$(dirname "${dep.goPackagePath}")"
-            ln -s "${dep.src}" "$d/src/${dep.goPackagePath}"
-          '')
-          goPath
+            (dep: ''
+              mkdir -p "$d/src/$(dirname "${dep.goPackagePath}")"
+              ln -s "${dep.src}" "$d/src/${dep.goPackagePath}"
+            '')
+            goPath
         )
         + ''
           export GOPATH=${
@@ -366,5 +365,5 @@ let
   );
 in
 lib.warnIf (buildFlags != "" || buildFlagsArray != "")
-"Use the `ldflags` and/or `tags` attributes instead of `buildFlags`/`buildFlagsArray`"
-package
+  "Use the `ldflags` and/or `tags` attributes instead of `buildFlags`/`buildFlagsArray`"
+  package

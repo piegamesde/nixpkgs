@@ -103,10 +103,10 @@ stdenv.mkDerivation rec {
 
     ${lib.concatStringsSep "\n" (
       map
-      (e: ''
-        cp ${e.src} ${e.path}
-      '')
-      addons
+        (e: ''
+          cp ${e.src} ${e.path}
+        '')
+        addons
     )}
 
     for d in scripts/ZoneMinder onvif/{modules,proxy} ; do

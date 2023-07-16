@@ -24,8 +24,9 @@ import ./make-test-python.nix (
 
           specialisation.encrypted-root.configuration = {
             virtualisation.bootDevice = "/dev/mapper/root";
-            boot.initrd.luks.devices =
-              lib.mkVMOverride { root.device = "/dev/vdc"; };
+            boot.initrd.luks.devices = lib.mkVMOverride {
+              root.device = "/dev/vdc";
+            };
             boot.initrd.systemd.enable = true;
             boot.initrd.network = {
               enable = true;
@@ -59,9 +60,8 @@ import ./make-test-python.nix (
                     head (
                       splitString " " (
                         toString (
-                          elemAt
-                          (splitString "\n" config.networking.extraHosts)
-                          2
+                          elemAt (splitString "\n" config.networking.extraHosts)
+                            2
                         )
                       )
                     )

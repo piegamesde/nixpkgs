@@ -10,41 +10,43 @@ import ./make-test-python.nix (
     # Simple service that can either be socket-activated or that will
     # listen on port 1234 if not socket-activated.
     # A connection to the socket causes 'hello' to be written to the client.
-    socketTest = pkgs.writeScript "socket-test.py" # python
-      ''
-        #!${pkgs.python3}/bin/python3
+    socketTest =
+      pkgs.writeScript "socket-test.py" # python
+        ''
+          #!${pkgs.python3}/bin/python3
 
-        from socketserver import TCPServer, StreamRequestHandler
-        import socket
-        import os
-
-
-        class Handler(StreamRequestHandler):
-            def handle(self):
-                self.wfile.write("hello".encode("utf-8"))
+          from socketserver import TCPServer, StreamRequestHandler
+          import socket
+          import os
 
 
-        class Server(TCPServer):
-            def __init__(self, server_address, handler_cls):
-                listenFds = os.getenv('LISTEN_FDS')
-                if listenFds is None or int(listenFds) < 1:
-                    print(f'Binding to {server_address}')
-                    TCPServer.__init__(
-                            self, server_address, handler_cls, bind_and_activate=True)
-                else:
-                    TCPServer.__init__(
-                            self, server_address, handler_cls, bind_and_activate=False)
-                    # Override socket
-                    print(f'Got activated by {os.getenv("LISTEN_FDNAMES")} '
-                          f'with {listenFds} FDs')
-                    self.socket = socket.fromfd(3, self.address_family,
-                                                self.socket_type)
+          class Handler(StreamRequestHandler):
+              def handle(self):
+                  self.wfile.write("hello".encode("utf-8"))
 
 
-        if __name__ == "__main__":
-            server = Server(("localhost", 1234), Handler)
-            server.serve_forever()
-      '';
+          class Server(TCPServer):
+              def __init__(self, server_address, handler_cls):
+                  listenFds = os.getenv('LISTEN_FDS')
+                  if listenFds is None or int(listenFds) < 1:
+                      print(f'Binding to {server_address}')
+                      TCPServer.__init__(
+                              self, server_address, handler_cls, bind_and_activate=True)
+                  else:
+                      TCPServer.__init__(
+                              self, server_address, handler_cls, bind_and_activate=False)
+                      # Override socket
+                      print(f'Got activated by {os.getenv("LISTEN_FDNAMES")} '
+                            f'with {listenFds} FDs')
+                      self.socket = socket.fromfd(3, self.address_family,
+                                                  self.socket_type)
+
+
+          if __name__ == "__main__":
+              server = Server(("localhost", 1234), Handler)
+              server.serve_forever()
+        ''
+      ;
   in
   {
     name = "switch-test";
@@ -119,7 +121,9 @@ import ./make-test-python.nix (
             simpleServiceFailing.configuration = {
               imports = [ simpleServiceModified.configuration ];
               systemd.services.test.serviceConfig.ExecStart =
-                lib.mkForce "${pkgs.coreutils}/bin/false";
+                lib.mkForce
+                  "${pkgs.coreutils}/bin/false"
+                ;
             };
 
             autorestartService.configuration = {
@@ -432,7 +436,9 @@ import ./make-test-python.nix (
             timerModified.configuration = {
               imports = [ timer.configuration ];
               systemd.timers.test-timer.timerConfig.OnCalendar =
-                lib.mkForce "Fri 2012-11-23 16:00:00";
+                lib.mkForce
+                  "Fri 2012-11-23 16:00:00"
+                ;
             };
 
             hybridSleepModified.configuration = {
@@ -479,7 +485,9 @@ import ./make-test-python.nix (
             pathModified.configuration = {
               imports = [ path.configuration ];
               systemd.paths.test-watch.pathConfig.PathExists =
-                lib.mkForce "/testpath2";
+                lib.mkForce
+                  "/testpath2"
+                ;
             };
 
             slice.configuration = {

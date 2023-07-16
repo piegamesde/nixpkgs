@@ -126,9 +126,9 @@ stdenv.mkDerivation {
       python3
     ]
     ++ optional javaBindings jdk
-    ++ optional
-      pythonBindings
-      python3 # Python is needed even when not building bindings
+    ++
+      optional pythonBindings
+        python3 # Python is needed even when not building bindings
     ++ optional pulseSupport libpulseaudio
     ++ optionals headless [
       libXrandr
@@ -266,9 +266,8 @@ stdenv.mkDerivation {
       ${optionalString (!enable32bitGuests) "--disable-vmmraw"} \
       ${optionalString enableWebService "--enable-webservice"} \
       ${
-        optionalString
-        (open-watcom-bin != null)
-        "--with-ow-dir=${open-watcom-bin}"
+        optionalString (open-watcom-bin != null)
+          "--with-ow-dir=${open-watcom-bin}"
       } \
       --disable-kmods
     sed -e 's@PKG_CONFIG_PATH=.*@PKG_CONFIG_PATH=${libIDL}/lib/pkgconfig:${glib.dev}/lib/pkgconfig ${libIDL}/bin/libIDL-config-2@' \

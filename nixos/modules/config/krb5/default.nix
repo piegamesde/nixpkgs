@@ -18,28 +18,32 @@ let
       default_realm = cfg.defaultRealm;
     };
 
-    realms = optionalAttrs
-      (lib.all (value: value != null) [
-        cfg.defaultRealm
-        cfg.kdc
-        cfg.kerberosAdminServer
-      ])
-      {
-        ${cfg.defaultRealm} = {
-          kdc = cfg.kdc;
-          admin_server = cfg.kerberosAdminServer;
-        };
-      };
+    realms =
+      optionalAttrs
+        (lib.all (value: value != null) [
+          cfg.defaultRealm
+          cfg.kdc
+          cfg.kerberosAdminServer
+        ])
+        {
+          ${cfg.defaultRealm} = {
+            kdc = cfg.kdc;
+            admin_server = cfg.kerberosAdminServer;
+          };
+        }
+      ;
 
-    domain_realm = optionalAttrs
-      (lib.all (value: value != null) [
-        cfg.domainRealm
-        cfg.defaultRealm
-      ])
-      {
-        ".${cfg.domainRealm}" = cfg.defaultRealm;
-        ${cfg.domainRealm} = cfg.defaultRealm;
-      };
+    domain_realm =
+      optionalAttrs
+        (lib.all (value: value != null) [
+          cfg.domainRealm
+          cfg.defaultRealm
+        ])
+        {
+          ".${cfg.domainRealm}" = cfg.defaultRealm;
+          ${cfg.domainRealm} = cfg.defaultRealm;
+        }
+      ;
   };
 
   mergedConfig =
@@ -60,9 +64,11 @@ let
   filterEmbeddedMetadata =
     value:
     if isAttrs value then
-      (filterAttrs
-        (attrName: attrValue: attrName != "_module" && attrValue != null)
-        value)
+      (
+        filterAttrs
+          (attrName: attrValue: attrName != "_module" && attrValue != null)
+          value
+      )
     else
       value
     ;
@@ -87,15 +93,17 @@ let
       (toString value)
     else if (isAttrs value) then
       let
-        configLines =
-          concatLists (map (splitString "\n") (mapAttrsToList mkRelation value))
-          ;
+        configLines = concatLists (
+          map (splitString "\n") (mapAttrsToList mkRelation value)
+        );
       in
-      (concatStringsSep
-        ''
+      (
+        concatStringsSep
+          ''
 
-          ${indent}''
-        ([ "{" ] ++ configLines))
+            ${indent}''
+          ([ "{" ] ++ configLines)
+      )
       + ''
 
         }''
@@ -106,15 +114,18 @@ let
   mkMappedAttrsOrString =
     value:
     concatMapStringsSep "\n"
-    (line: if builtins.stringLength line > 0 then "${indent}${line}" else line)
-    (
-      splitString "\n" (
-        if isAttrs value then
-          concatStringsSep "\n" (mapAttrsToList mkRelation value)
-        else
-          value
+      (
+        line:
+        if builtins.stringLength line > 0 then "${indent}${line}" else line
       )
-    )
+      (
+        splitString "\n" (
+          if isAttrs value then
+            concatStringsSep "\n" (mapAttrsToList mkRelation value)
+          else
+            value
+        )
+      )
     ;
 in
 {
@@ -169,7 +180,9 @@ in
         '';
         apply = attrs: filterEmbeddedMetadata attrs;
         description =
-          lib.mdDoc "Realm-specific contact information and settings.";
+          lib.mdDoc
+            "Realm-specific contact information and settings."
+          ;
       };
 
       domain_realm = mkOption {

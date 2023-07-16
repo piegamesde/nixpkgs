@@ -95,11 +95,11 @@ stdenv.mkDerivation rec {
   postUnpack = ''
     ${lib.concatStringsSep "\n" (
       lib.mapAttrsToList
-      (n: v: ''
-        mkdir -p $sourceRoot/${n}
-        cp -r ${v}/* $sourceRoot/${n}
-      '')
-      deps
+        (n: v: ''
+          mkdir -p $sourceRoot/${n}
+          cp -r ${v}/* $sourceRoot/${n}
+        '')
+        deps
     )}
     chmod u+w -R .
   '';

@@ -27,15 +27,18 @@ let
       };
       connections = mkOption {
         type = listOf str;
-        description = lib.mdDoc
-          "A list of connection strings of the SQL servers to scrape metrics from"
+        description =
+          lib.mdDoc
+            "A list of connection strings of the SQL servers to scrape metrics from"
           ;
       };
       startupSql = mkOption {
         type = listOf str;
         default = [ ];
-        description = lib.mdDoc
-          "A list of SQL statements to execute once after making a connection.";
+        description =
+          lib.mdDoc
+            "A list of SQL statements to execute once after making a connection."
+          ;
       };
       queries = mkOption {
         type = attrsOf (submodule queryOptions);
@@ -54,7 +57,9 @@ let
         type = listOf str;
         default = [ ];
         description =
-          lib.mdDoc "A set of columns that will be used as Prometheus labels.";
+          lib.mdDoc
+            "A set of columns that will be used as Prometheus labels."
+          ;
       };
       query = mkOption {
         type = str;
@@ -62,8 +67,10 @@ let
       };
       values = mkOption {
         type = listOf str;
-        description = lib.mdDoc
-          "A set of columns that will be used as values of this metric.";
+        description =
+          lib.mdDoc
+            "A set of columns that will be used as values of this metric."
+          ;
       };
     };
   };
@@ -81,9 +88,8 @@ let
         configuration = {
           jobs = map renameStartupSql (
             nameInline (
-              mapAttrs
-              (k: v: (v // { queries = nameInline v.queries; }))
-              cfg.configuration.jobs
+              mapAttrs (k: v: (v // { queries = nameInline v.queries; }))
+                cfg.configuration.jobs
             )
           );
         };

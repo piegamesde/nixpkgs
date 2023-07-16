@@ -61,14 +61,14 @@ stdenv.mkDerivation rec {
     "--buildtype=release"
     (lib.mesonOption "systemdunitdir" "${placeholder "out"}/lib/systemd/system")
     (lib.mesonOption "dbusinterfacesdir" "${
-        placeholder "out"
-      }/share/dbus-1/interfaces")
+          placeholder "out"
+        }/share/dbus-1/interfaces")
     (lib.mesonOption "dbuspolicydir" "${
-        placeholder "out"
-      }/share/dbus-1/system.d")
+          placeholder "out"
+        }/share/dbus-1/system.d")
     (lib.mesonOption "dbussystemservicedir" "${
-        placeholder "out"
-      }/share/dbus-1/system-services")
+          placeholder "out"
+        }/share/dbus-1/system-services")
   ];
 
   meta = with lib; {

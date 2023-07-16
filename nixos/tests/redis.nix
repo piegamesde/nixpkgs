@@ -21,19 +21,19 @@ import ./make-test-python.nix (
 
           users.users = listToAttrs (
             map
-            (
-              suffix:
-              nameValuePair "member${suffix}" {
-                createHome = false;
-                description = "A member of the redis${suffix} group";
-                isNormalUser = true;
-                extraGroups = [ "redis${suffix}" ];
-              }
-            )
-            [
-              ""
-              "-test"
-            ]
+              (
+                suffix:
+                nameValuePair "member${suffix}" {
+                  createHome = false;
+                  description = "A member of the redis${suffix} group";
+                  isNormalUser = true;
+                  extraGroups = [ "redis${suffix}" ];
+                }
+              )
+              [
+                ""
+                "-test"
+              ]
           );
         }
         ;

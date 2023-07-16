@@ -84,7 +84,9 @@ stdenv.mkDerivation (
 
     # "marbling" has NEON code that mixes signed and unsigned vector types
     env.NIX_CFLAGS_COMPILE =
-      lib.optionalString stdenv.hostPlatform.isAarch "-flax-vector-conversions";
+      lib.optionalString stdenv.hostPlatform.isAarch
+        "-flax-vector-conversions"
+      ;
 
     postInstall =
       ''

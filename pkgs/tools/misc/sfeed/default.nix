@@ -30,7 +30,9 @@ stdenv.mkDerivation rec {
 
   # otherwise does not find SIGWINCH
   env.NIX_CFLAGS_COMPILE =
-    lib.optionalString stdenv.isDarwin "-D_DARWIN_C_SOURCE";
+    lib.optionalString stdenv.isDarwin
+      "-D_DARWIN_C_SOURCE"
+    ;
 
   meta = with lib; {
     homepage = "https://codemadness.org/sfeed-simple-feed-parser.html";

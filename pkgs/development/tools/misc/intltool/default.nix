@@ -45,11 +45,13 @@ stdenv.mkDerivation rec {
     ;
 
   postInstall =
-    lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
-      for f in $out/bin/*; do
-        substituteInPlace $f --replace "${buildPackages.perl}" "${perlPackages.perl}"
-      done
-    '';
+    lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform)
+      ''
+        for f in $out/bin/*; do
+          substituteInPlace $f --replace "${buildPackages.perl}" "${perlPackages.perl}"
+        done
+      ''
+    ;
   meta = with lib; {
     description = "Translation helper tool";
     homepage = "https://launchpad.net/intltool/";

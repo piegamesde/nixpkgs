@@ -47,23 +47,25 @@ rustPlatform.buildRustPackage rec {
   patches = lib.optionals stdenv.isLinux [
     # Run patchelf on the downloaded binaries.
     # This is necessary because Lean 4 is now dynamically linked.
-    (runCommand "0001-dynamically-patchelf-binaries.patch"
-      {
-        CC = stdenv.cc;
-        cc = "${stdenv.cc}/bin/cc";
-        ar = "${stdenv.cc}/bin/ar";
-        patchelf = patchelf;
-        shell = runtimeShell;
-      }
-      ''
-        export dynamicLinker=$(cat $CC/nix-support/dynamic-linker)
-        substitute ${./0001-dynamically-patchelf-binaries.patch} $out \
-          --subst-var patchelf \
-          --subst-var dynamicLinker \
-          --subst-var cc \
-          --subst-var ar \
-          --subst-var shell
-      '')
+    (
+      runCommand "0001-dynamically-patchelf-binaries.patch"
+        {
+          CC = stdenv.cc;
+          cc = "${stdenv.cc}/bin/cc";
+          ar = "${stdenv.cc}/bin/ar";
+          patchelf = patchelf;
+          shell = runtimeShell;
+        }
+        ''
+          export dynamicLinker=$(cat $CC/nix-support/dynamic-linker)
+          substitute ${./0001-dynamically-patchelf-binaries.patch} $out \
+            --subst-var patchelf \
+            --subst-var dynamicLinker \
+            --subst-var cc \
+            --subst-var ar \
+            --subst-var shell
+        ''
+    )
   ];
 
   postInstall = ''

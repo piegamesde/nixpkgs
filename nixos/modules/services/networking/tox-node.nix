@@ -68,7 +68,9 @@ in
       type = types.int;
       default = 8192;
       description =
-        lib.mdDoc "Maximum number of active TCP connections relay can hold";
+        lib.mdDoc
+          "Maximum number of active TCP connections relay can hold"
+        ;
     };
     lanDiscovery = mkOption {
       type = types.bool;

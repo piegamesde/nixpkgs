@@ -182,17 +182,17 @@ stdenv.mkDerivation rec {
     ''
     + lib.concatStrings (
       lib.mapAttrsToList
-      (language: src: ''
-        ln -s \
-          ${
-            tree-sitter.buildGrammar {
-              inherit language src;
-              version = "neovim-${version}";
-            }
-          }/parser \
-          $out/lib/nvim/parser/${language}.so
-      '')
-      treesitter-parsers
+        (language: src: ''
+          ln -s \
+            ${
+              tree-sitter.buildGrammar {
+                inherit language src;
+                version = "neovim-${version}";
+              }
+            }/parser \
+            $out/lib/nvim/parser/${language}.so
+        '')
+        treesitter-parsers
     )
     ;
 

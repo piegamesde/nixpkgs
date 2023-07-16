@@ -20,14 +20,17 @@ in
       type = types.bool;
       default = true;
       description =
-        lib.mdDoc "record events via sqlite3, required for ras-mc-ctl";
+        lib.mdDoc
+          "record events via sqlite3, required for ras-mc-ctl"
+        ;
     };
 
     mainboard = mkOption {
       type = types.lines;
       default = "";
-      description = lib.mdDoc
-        "Custom mainboard description, see {manpage}`ras-mc-ctl(8)` for more details."
+      description =
+        lib.mdDoc
+          "Custom mainboard description, see {manpage}`ras-mc-ctl(8)` for more details."
         ;
       example = ''
         vendor = ASRock
@@ -47,8 +50,9 @@ in
     labels = mkOption {
       type = types.lines;
       default = "";
-      description = lib.mdDoc
-        "Additional memory module label descriptions to be placed in /etc/ras/dimm_labels.d/labels"
+      description =
+        lib.mdDoc
+          "Additional memory module label descriptions to be placed in /etc/ras/dimm_labels.d/labels"
         ;
       example = ''
         # vendor and model may be shown by 'ras-mc-ctl --mainboard'

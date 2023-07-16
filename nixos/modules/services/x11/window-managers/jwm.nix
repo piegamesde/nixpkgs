@@ -14,7 +14,9 @@ in
   ###### interface
   options = {
     services.xserver.windowManager.jwm.enable =
-      mkEnableOption (lib.mdDoc "jwm");
+      mkEnableOption
+        (lib.mdDoc "jwm")
+      ;
   };
 
   ###### implementation

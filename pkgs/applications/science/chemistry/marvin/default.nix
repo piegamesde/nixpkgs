@@ -59,16 +59,16 @@ stdenv.mkDerivation rec {
     done
     ${concatStrings (
       map
-      (name: ''
-        substitute ${
-          ./. + "/${name}.desktop"
-        } $out/share/applications/${name}.desktop --subst-var out
-      '')
-      [
-        "LicenseManager"
-        "MarvinSketch"
-        "MarvinView"
-      ]
+        (name: ''
+          substitute ${
+            ./. + "/${name}.desktop"
+          } $out/share/applications/${name}.desktop --subst-var out
+        '')
+        [
+          "LicenseManager"
+          "MarvinSketch"
+          "MarvinView"
+        ]
     )}
   '';
 

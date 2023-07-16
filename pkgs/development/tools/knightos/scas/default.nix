@@ -30,8 +30,9 @@ stdenv.mkDerivation rec {
   '';
   strictDeps = true;
 
-  depsBuildBuild =
-    lib.optionals isCrossCompiling [ buildPackages.knightos-scas ];
+  depsBuildBuild = lib.optionals isCrossCompiling [
+    buildPackages.knightos-scas
+  ];
   nativeBuildInputs = [
     asciidoc
     libxslt.bin

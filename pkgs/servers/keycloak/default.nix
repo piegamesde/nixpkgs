@@ -50,8 +50,8 @@ stdenv.mkDerivation rec {
         fi
       }
       ${lib.concatMapStringsSep "\n"
-      (pl: "install_plugin ${lib.escapeShellArg pl}")
-      plugins}
+        (pl: "install_plugin ${lib.escapeShellArg pl}")
+        plugins}
     ''
     + ''
       patchShebangs bin/kc.sh

@@ -70,8 +70,8 @@ let
           set -o pipefail
           ${
             optionalString (cfg.dumpCommand != null) "${
-              escapeShellArg cfg.dumpCommand
-            } | \\"
+                escapeShellArg cfg.dumpCommand
+              } | \\"
           }
           borg create $extraArgs \
             --compression ${cfg.compression} \
@@ -94,8 +94,8 @@ let
           ${mkKeepArgs cfg} \
           ${
             optionalString (cfg.prune.prefix != null) "--glob-archives ${
-              escapeShellArg "${cfg.prune.prefix}*"
-            }"
+                escapeShellArg "${cfg.prune.prefix}*"
+              }"
           } \
           $extraPruneArgs
         borg compact $extraArgs $extraCompactArgs
@@ -174,9 +174,10 @@ let
         OnCalendar = cfg.startAt;
       };
       # if remote-backup wait for network
-      after = optional
-        (cfg.persistentTimer && !isLocalPath cfg.repo)
-        "network-online.target";
+      after =
+        optional (cfg.persistentTimer && !isLocalPath cfg.repo)
+          "network-online.target"
+        ;
     }
     ;
 
@@ -188,17 +189,17 @@ let
       set ? { },
     }:
     pkgs.runCommand "${name}-wrapper"
-    { nativeBuildInputs = [ pkgs.makeWrapper ]; }
-    (
-      with lib; ''
-        makeWrapper "${original}" "$out/bin/${name}" \
-          ${
-            concatStringsSep " \\\n " (
-              mapAttrsToList (name: value: ''--set ${name} "${value}"'') set
-            )
-          }
-      ''
-    )
+      { nativeBuildInputs = [ pkgs.makeWrapper ]; }
+      (
+        with lib; ''
+          makeWrapper "${original}" "$out/bin/${name}" \
+            ${
+              concatStringsSep " \\\n " (
+                mapAttrsToList (name: value: ''--set ${name} "${value}"'') set
+              )
+            }
+        ''
+      )
     ;
 
   mkBorgWrapper =
@@ -269,7 +270,9 @@ let
         "--restrict-to-${if cfg.allowSubRepos then "path" else "repository"} .";
       appendOnlyArg = optionalString appendOnly "--append-only";
       quotaArg =
-        optionalString (cfg.quota != null) "--storage-quota ${cfg.quota}";
+        optionalString (cfg.quota != null)
+          "--storage-quota ${cfg.quota}"
+        ;
       serveCommand = "borg serve ${restrictedArg} ${appendOnlyArg} ${quotaArg}";
     in
     ''command="${cdCommand} && ${serveCommand}",restrict ${key}''
@@ -408,22 +411,26 @@ in
             repo = mkOption {
               type = types.str;
               description =
-                lib.mdDoc "Remote or local repository to back up to.";
+                lib.mdDoc
+                  "Remote or local repository to back up to."
+                ;
               example = "user@machine:/path/to/repo";
             };
 
             removableDevice = mkOption {
               type = types.bool;
               default = false;
-              description = lib.mdDoc
-                "Whether the repo (which must be local) is a removable device.";
+              description =
+                lib.mdDoc
+                  "Whether the repo (which must be local) is a removable device."
+                ;
             };
 
             archiveBaseName = mkOption {
               type = types.nullOr (types.strMatching "[^/{}]+");
               default = "${globalConfig.networking.hostName}-${name}";
-              defaultText =
-                literalExpression ''"''${config.networking.hostName}-<name>"'';
+              defaultText = literalExpression ''
+                "''${config.networking.hostName}-<name>"'';
               description = lib.mdDoc ''
                 How to name the created archives. A timestamp, whose format is
                 determined by {option}`dateFormat`, will be appended. The full
@@ -541,8 +548,10 @@ in
               # "auto" is optional,
               # compression mode must be given,
               # compression level is optional
-              type = types.strMatching
-                "none|(auto,)?(lz4|zstd|zlib|lzma)(,[[:digit:]]{1,2})?";
+              type =
+                types.strMatching
+                  "none|(auto,)?(lz4|zstd|zlib|lzma)(,[[:digit:]]{1,2})?"
+                ;
               description = lib.mdDoc ''
                 Compression method to use. Refer to
                 {command}`borg help compression`
@@ -886,9 +895,9 @@ in
 
       # A job named "foo" is mapped to systemd.timers.borgbackup-job-foo
       # only generate the timer if interval (startAt) is set
-      systemd.timers =
-        mapAttrs' mkBackupTimers (filterAttrs (_: cfg: cfg.startAt != [ ]) jobs)
-        ;
+      systemd.timers = mapAttrs' mkBackupTimers (
+        filterAttrs (_: cfg: cfg.startAt != [ ]) jobs
+      );
 
       users = mkMerge (mapAttrsToList mkUsersConfig repos);
 

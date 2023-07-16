@@ -9,11 +9,13 @@ import ./make-test-python.nix (
     domain = "${orga}.localdomain";
 
     tls-cert =
-      pkgs.runCommand "selfSignedCert" { buildInputs = [ pkgs.openssl ]; } ''
-        openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes -days 36500 \
-          -subj '/CN=machine.${domain}'
-        install -D -t $out key.pem cert.pem
-      '';
+      pkgs.runCommand "selfSignedCert" { buildInputs = [ pkgs.openssl ]; }
+        ''
+          openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes -days 36500 \
+            -subj '/CN=machine.${domain}'
+          install -D -t $out key.pem cert.pem
+        ''
+      ;
   in
   {
     name = "public-inbox";
@@ -81,42 +83,44 @@ import ./make-test-python.nix (
             cert = "${tls-cert}/cert.pem";
             key = "${tls-cert}/key.pem";
           };
-          inboxes = lib.recursiveUpdate
-            (lib.genAttrs (map baseNameOf repositories) (
-              repo: {
-                address =
-                  [
-                    # Routed to the "public-inbox:" transport in services.postfix.transport
-                    "${repo}@${domain}"
+          inboxes =
+            lib.recursiveUpdate
+              (lib.genAttrs (map baseNameOf repositories) (
+                repo: {
+                  address =
+                    [
+                      # Routed to the "public-inbox:" transport in services.postfix.transport
+                      "${repo}@${domain}"
+                    ];
+                  description = ''
+                    ${repo}@${domain} :
+                    discussions about ${repo}.
+                  '';
+                  url = "https://machine.${domain}/inbox/${repo}";
+                  newsgroup = "inbox.comp.${orga}.${repo}";
+                  coderepo = [ repo ];
+                }
+              ))
+              {
+                repo2 = {
+                  hide = [
+                    "imap" # FIXME: doesn't work for IMAP as of public-inbox 1.6.1
+                    "manifest"
+                    "www"
                   ];
-                description = ''
-                  ${repo}@${domain} :
-                  discussions about ${repo}.
-                '';
-                url = "https://machine.${domain}/inbox/${repo}";
-                newsgroup = "inbox.comp.${orga}.${repo}";
-                coderepo = [ repo ];
+                };
               }
-            ))
-            {
-              repo2 = {
-                hide = [
-                  "imap" # FIXME: doesn't work for IMAP as of public-inbox 1.6.1
-                  "manifest"
-                  "www"
-                ];
-              };
-            };
+            ;
           settings.coderepo = lib.listToAttrs (
             map
-            (
-              path:
-              lib.nameValuePair (baseNameOf path) {
-                dir = "/var/lib/gitolite/repositories/${path}.git";
-                cgitUrl = "https://git.${domain}/${path}.git";
-              }
-            )
-            repositories
+              (
+                path:
+                lib.nameValuePair (baseNameOf path) {
+                  dir = "/var/lib/gitolite/repositories/${path}.git";
+                  cgitUrl = "https://git.${domain}/${path}.git";
+                }
+              )
+              repositories
           );
         };
 

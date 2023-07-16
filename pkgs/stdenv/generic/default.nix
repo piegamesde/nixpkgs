@@ -125,26 +125,27 @@ let
           + lib.optionalString buildPlatform.isDarwin ''
             export NIX_DONT_SET_RPATH_FOR_BUILD=1
           ''
-          + lib.optionalString
-            (
-              hostPlatform.isDarwin
-              || (
-                hostPlatform.parsed.kernel.execFormat
-                != lib.systems.parse.execFormats.elf
-                &&
+          +
+            lib.optionalString
+              (
+                hostPlatform.isDarwin
+                || (
                   hostPlatform.parsed.kernel.execFormat
-                  != lib.systems.parse.execFormats.macho
+                  != lib.systems.parse.execFormats.elf
+                  &&
+                    hostPlatform.parsed.kernel.execFormat
+                    != lib.systems.parse.execFormats.macho
+                )
               )
-            )
-            ''
-              export NIX_DONT_SET_RPATH=1
-              export NIX_NO_SELF_RPATH=1
-            ''
-          + lib.optionalString
-            (hostPlatform.isDarwin && hostPlatform.isMacOS)
-            ''
-              export MACOSX_DEPLOYMENT_TARGET=${hostPlatform.darwinMinVersion}
-            ''
+              ''
+                export NIX_DONT_SET_RPATH=1
+                export NIX_NO_SELF_RPATH=1
+              ''
+          +
+            lib.optionalString (hostPlatform.isDarwin && hostPlatform.isMacOS)
+              ''
+                export MACOSX_DEPLOYMENT_TARGET=${hostPlatform.darwinMinVersion}
+              ''
           # TODO this should be uncommented, but it causes stupid mass rebuilds. I
           # think the best solution would just be to fixup linux RPATHs so we don't
           # need to set `-rpath` anywhere.
@@ -217,12 +218,15 @@ let
       shellDryRun = "${stdenv.shell} -n -O extglob";
 
       tests = {
-        succeedOnFailure =
-          import ../tests/succeedOnFailure.nix { inherit stdenv; };
+        succeedOnFailure = import ../tests/succeedOnFailure.nix {
+          inherit stdenv;
+        };
       };
-      passthru.tests = lib.warn
-        "Use `stdenv.tests` instead. `passthru` is a `mkDerivation` detail."
-        stdenv.tests;
+      passthru.tests =
+        lib.warn
+          "Use `stdenv.tests` instead. `passthru` is a `mkDerivation` detail."
+          stdenv.tests
+        ;
     }
 
     # Propagate any extra attributes.  For instance, we use this to

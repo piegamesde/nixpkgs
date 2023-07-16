@@ -24,8 +24,9 @@ let
     mdDoc
     ;
 
-  nodeNumbers =
-    listToAttrs (zipListsWith nameValuePair (attrNames nodes) (range 1 254));
+  nodeNumbers = listToAttrs (
+    zipListsWith nameValuePair (attrNames nodes) (range 1 254)
+  );
 
   networkModule =
     {
@@ -57,9 +58,10 @@ let
 
         networking.interfaces = listToAttrs interfaces;
 
-        networking.primaryIPAddress =
-          optionalString (interfaces != [ ]) (head (head interfaces)
-            .value.ipv4.addresses).address;
+        networking.primaryIPAddress = optionalString (interfaces != [ ]) (head (
+          head
+            interfaces
+        ).value.ipv4.addresses).address;
 
         # Put the IP addresses of all VMs in this machine's
         # /etc/hosts file.  If a machine has multiple
@@ -73,9 +75,9 @@ let
           in
           optionalString (config.networking.primaryIPAddress != "") (
             "${config.networking.primaryIPAddress} "
-            + optionalString
-              (config.networking.domain != null)
-              "${config.networking.hostName}.${config.networking.domain} "
+            +
+              optionalString (config.networking.domain != null)
+                "${config.networking.hostName}.${config.networking.domain} "
             + ''
               ${config.networking.hostName}
             ''
@@ -91,9 +93,8 @@ let
               fst,
               snd,
             }:
-            qemu-common.qemuNICFlags snd
-            fst
-            config.virtualisation.test.nodeNumber
+            qemu-common.qemuNICFlags snd fst
+              config.virtualisation.test.nodeNumber
           )
           ;
       };

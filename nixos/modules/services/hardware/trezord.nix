@@ -60,8 +60,8 @@ in
         ExecStart =
           "${pkgs.trezord}/bin/trezord-go ${
             optionalString cfg.emulator.enable "-e ${
-              builtins.toString cfg.emulator.port
-            }"
+                builtins.toString cfg.emulator.port
+              }"
           }";
         User = "trezord";
       };

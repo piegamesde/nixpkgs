@@ -140,18 +140,20 @@ rec {
   getLicenseFromSpdxId =
     let
       spdxLicenses =
-        lib.mapAttrs (id: ls: assert lib.length ls == 1; builtins.head ls) (
-          lib.groupBy (l: lib.toLower l.spdxId) (
-            lib.filter (l: l ? spdxId) (lib.attrValues lib.licenses)
+        lib.mapAttrs (id: ls: assert lib.length ls == 1; builtins.head ls)
+          (
+            lib.groupBy (l: lib.toLower l.spdxId) (
+              lib.filter (l: l ? spdxId) (lib.attrValues lib.licenses)
+            )
           )
-        );
+        ;
     in
     licstr:
-    spdxLicenses.${lib.toLower licstr} or (lib.warn
-      "getLicenseFromSpdxId: No license matches the given SPDX ID: ${licstr}"
-      {
-        shortName = licstr;
-      })
+    spdxLicenses.${lib.toLower licstr} or (
+      lib.warn
+        "getLicenseFromSpdxId: No license matches the given SPDX ID: ${licstr}"
+        { shortName = licstr; }
+    )
     ;
 
   /* Get the path to the main program of a derivation with either

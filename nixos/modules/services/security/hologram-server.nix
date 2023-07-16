@@ -41,8 +41,10 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc
-          "Whether to enable the Hologram server for AWS instance credentials";
+        description =
+          lib.mdDoc
+            "Whether to enable the Hologram server for AWS instance credentials"
+          ;
       };
 
       listenAddress = mkOption {
@@ -81,30 +83,36 @@ in
       ldapBindPassword = mkOption {
         type = types.str;
         description =
-          lib.mdDoc "Password of account to use to query the LDAP server";
+          lib.mdDoc
+            "Password of account to use to query the LDAP server"
+          ;
       };
 
       enableLdapRoles = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc
-          "Whether to assign user roles based on the user's LDAP group memberships"
+        description =
+          lib.mdDoc
+            "Whether to assign user roles based on the user's LDAP group memberships"
           ;
       };
 
       groupClassAttr = mkOption {
         type = types.str;
         default = "groupOfNames";
-        description = lib.mdDoc
-          "The objectclass attribute to search for groups when enableLdapRoles is true"
+        description =
+          lib.mdDoc
+            "The objectclass attribute to search for groups when enableLdapRoles is true"
           ;
       };
 
       roleAttr = mkOption {
         type = types.str;
         default = "businessCategory";
-        description = lib.mdDoc
-          "Which LDAP group attribute to search for authorized role ARNs";
+        description =
+          lib.mdDoc
+            "Which LDAP group attribute to search for authorized role ARNs"
+          ;
       };
 
       awsAccount = mkOption {
@@ -127,7 +135,9 @@ in
         type = types.int;
         default = 3600;
         description =
-          lib.mdDoc "How often (in seconds) to refresh the LDAP cache";
+          lib.mdDoc
+            "How often (in seconds) to refresh the LDAP cache"
+          ;
       };
     };
   };

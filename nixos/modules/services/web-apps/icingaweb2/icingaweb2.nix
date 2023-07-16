@@ -54,12 +54,14 @@ in
 
     modules = {
       doc.enable = mkEnableOption (lib.mdDoc "the icingaweb2 doc module");
-      migrate.enable =
-        mkEnableOption (lib.mdDoc "the icingaweb2 migrate module");
+      migrate.enable = mkEnableOption (
+        lib.mdDoc "the icingaweb2 migrate module"
+      );
       setup.enable = mkEnableOption (lib.mdDoc "the icingaweb2 setup module");
       test.enable = mkEnableOption (lib.mdDoc "the icingaweb2 test module");
-      translation.enable =
-        mkEnableOption (lib.mdDoc "the icingaweb2 translation module");
+      translation.enable = mkEnableOption (
+        lib.mdDoc "the icingaweb2 translation module"
+      );
     };
 
     modulePackages = mkOption {
@@ -186,9 +188,8 @@ in
         phpEnv = {
           ICINGAWEB_LIBDIR = toString (
             pkgs.linkFarm "icingaweb2-libdir" (
-              mapAttrsToList
-              (name: path: { inherit name path; })
-              cfg.libraryPaths
+              mapAttrsToList (name: path: { inherit name path; })
+                cfg.libraryPaths
             )
           );
         };
@@ -265,21 +266,26 @@ in
       in
       { }
       # Module packages
-      // (mapAttrs'
-        (k: v: nameValuePair "icingaweb2/enabledModules/${k}" { source = v; })
-        cfg.modulePackages)
+      // (
+        mapAttrs'
+          (k: v: nameValuePair "icingaweb2/enabledModules/${k}" { source = v; })
+          cfg.modulePackages
+      )
       # Built-in modules
       // doModule "doc" // doModule "migrate" // doModule "setup"
       // doModule "test" // doModule "translation"
       # Configs
       // optionalAttrs (cfg.generalConfig != null) {
-        "icingaweb2/config.ini".text =
-          generators.toINI { } (defaultConfig // cfg.generalConfig);
+        "icingaweb2/config.ini".text = generators.toINI { } (
+          defaultConfig // cfg.generalConfig
+        );
       } // optionalAttrs (cfg.resources != null) {
         "icingaweb2/resources.ini".text = generators.toINI { } cfg.resources;
       } // optionalAttrs (cfg.authentications != null) {
         "icingaweb2/authentication.ini".text =
-          generators.toINI { } cfg.authentications;
+          generators.toINI { }
+            cfg.authentications
+          ;
       } // optionalAttrs (cfg.groupBackends != null) {
         "icingaweb2/groups.ini".text = generators.toINI { } cfg.groupBackends;
       } // optionalAttrs (cfg.roles != null) {

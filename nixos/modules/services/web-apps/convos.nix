@@ -24,7 +24,9 @@ in
       default = "*";
       example = "127.0.0.1";
       description =
-        lib.mdDoc "Address or host the web interface should listen on";
+        lib.mdDoc
+          "Address or host the web interface should listen on"
+        ;
     };
     reverseProxy = mkOption {
       type = types.bool;

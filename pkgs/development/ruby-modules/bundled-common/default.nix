@@ -69,8 +69,9 @@ let
       defs.bundler.override (attrs: { inherit ruby; })
     ;
 
-  gems =
-    lib.flip lib.mapAttrs configuredGemset (name: attrs: buildGem name attrs);
+  gems = lib.flip lib.mapAttrs configuredGemset (
+    name: attrs: buildGem name attrs
+  );
 
   name' =
     if name != null then
@@ -117,9 +118,8 @@ let
     cp ${gemFiles.gemfile} $out/Gemfile || ls -l $out/Gemfile
     cp ${gemFiles.lockfile} $out/Gemfile.lock || ls -l $out/Gemfile.lock
 
-    ${lib.concatMapStringsSep "\n"
-    (path: "cp -r ${path} $out/")
-    extraConfigPaths}
+    ${lib.concatMapStringsSep "\n" (path: "cp -r ${path} $out/")
+      extraConfigPaths}
   '';
 
   buildGem =

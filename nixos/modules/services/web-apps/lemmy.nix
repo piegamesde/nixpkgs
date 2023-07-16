@@ -14,13 +14,15 @@ in
   meta.doc = ./lemmy.md;
 
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "lemmy"
-        "jwtSecretPath"
-      ]
-      "As of v0.13.0, Lemmy auto-generates the JWT secret.")
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "lemmy"
+          "jwtSecretPath"
+        ]
+        "As of v0.13.0, Lemmy auto-generates the JWT secret."
+    )
   ];
 
   options.services.lemmy = {
@@ -34,15 +36,19 @@ in
         type = types.port;
         default = 1234;
         description =
-          lib.mdDoc "Port where lemmy-ui should listen for incoming requests.";
+          lib.mdDoc
+            "Port where lemmy-ui should listen for incoming requests."
+          ;
       };
     };
 
-    caddy.enable =
-      mkEnableOption (lib.mdDoc "exposing lemmy with the caddy reverse proxy");
+    caddy.enable = mkEnableOption (
+      lib.mdDoc "exposing lemmy with the caddy reverse proxy"
+    );
 
-    database.createLocally =
-      mkEnableOption (lib.mdDoc "creation of database on the instance");
+    database.createLocally = mkEnableOption (
+      lib.mdDoc "creation of database on the instance"
+    );
 
     settings = mkOption {
       default = { };
@@ -55,14 +61,18 @@ in
           type = types.str;
           default = null;
           description =
-            lib.mdDoc "The domain name of your instance (eg 'lemmy.ml').";
+            lib.mdDoc
+              "The domain name of your instance (eg 'lemmy.ml')."
+            ;
         };
 
         options.port = mkOption {
           type = types.port;
           default = 8536;
           description =
-            lib.mdDoc "Port where lemmy should listen for incoming requests.";
+            lib.mdDoc
+              "Port where lemmy should listen for incoming requests."
+            ;
         };
 
         options.federation = {
@@ -198,8 +208,9 @@ in
         ++ lib.optionals cfg.database.createLocally [ "postgresql.service" ]
         ;
 
-      requires =
-        lib.optionals cfg.database.createLocally [ "postgresql.service" ];
+      requires = lib.optionals cfg.database.createLocally [
+        "postgresql.service"
+      ];
 
       serviceConfig = {
         DynamicUser = true;

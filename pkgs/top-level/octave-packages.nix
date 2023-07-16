@@ -28,11 +28,13 @@ makeScope newScope (
     callPackage = self.callPackage;
 
     buildOctavePackage =
-      callPackage ../development/interpreters/octave/build-octave-package.nix {
-        inherit lib stdenv;
-        inherit octave;
-        inherit computeRequiredOctavePackages;
-      };
+      callPackage ../development/interpreters/octave/build-octave-package.nix
+        {
+          inherit lib stdenv;
+          inherit octave;
+          inherit computeRequiredOctavePackages;
+        }
+      ;
 
     # Given a list of required Octave package derivations, get a list of
     # ALL required Octave packages needed for the ones specified to run.
@@ -69,12 +71,16 @@ makeScope newScope (
     cgi = callPackage ../development/octave-modules/cgi { };
 
     communications =
-      callPackage ../development/octave-modules/communications { };
+      callPackage ../development/octave-modules/communications
+        { }
+      ;
 
     control = callPackage ../development/octave-modules/control { };
 
     data-smoothing =
-      callPackage ../development/octave-modules/data-smoothing { };
+      callPackage ../development/octave-modules/data-smoothing
+        { }
+      ;
 
     database = callPackage ../development/octave-modules/database { };
 
@@ -101,7 +107,9 @@ makeScope newScope (
     fpl = callPackage ../development/octave-modules/fpl { };
 
     fuzzy-logic-toolkit =
-      callPackage ../development/octave-modules/fuzzy-logic-toolkit { };
+      callPackage ../development/octave-modules/fuzzy-logic-toolkit
+        { }
+      ;
 
     ga = callPackage ../development/octave-modules/ga { };
 
@@ -118,10 +126,14 @@ makeScope newScope (
     image = callPackage ../development/octave-modules/image { };
 
     image-acquisition =
-      callPackage ../development/octave-modules/image-acquisition { };
+      callPackage ../development/octave-modules/image-acquisition
+        { }
+      ;
 
     instrument-control =
-      callPackage ../development/octave-modules/instrument-control { };
+      callPackage ../development/octave-modules/instrument-control
+        { }
+      ;
 
     io = callPackage ../development/octave-modules/io {
       inherit (octave) enableJava;
@@ -132,7 +144,9 @@ makeScope newScope (
     level-set = callPackage ../development/octave-modules/level-set { };
 
     linear-algebra =
-      callPackage ../development/octave-modules/linear-algebra { };
+      callPackage ../development/octave-modules/linear-algebra
+        { }
+      ;
 
     lssa = callPackage ../development/octave-modules/lssa { };
 

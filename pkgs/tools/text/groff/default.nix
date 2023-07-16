@@ -50,16 +50,17 @@ stdenv.mkDerivation rec {
 
   patches =
     [ ./0001-Fix-cross-compilation-by-looking-for-ar.patch ]
-    ++ lib.optionals
-      (stdenv.cc.isClang && lib.versionAtLeast stdenv.cc.version "9")
-      [
-        # https://trac.macports.org/ticket/59783
-        (fetchpatch {
-          url =
-            "https://raw.githubusercontent.com/openembedded/openembedded-core/ce265cf467f1c3e5ba2edbfbef2170df1a727a52/meta/recipes-extended/groff/files/0001-Include-config.h.patch";
-          sha256 = "1b0mg31xkpxkzlx696nr08rcc7ndpaxdplvysy0hw5099c4n1wyf";
-        })
-      ]
+    ++
+      lib.optionals
+        (stdenv.cc.isClang && lib.versionAtLeast stdenv.cc.version "9")
+        [
+          # https://trac.macports.org/ticket/59783
+          (fetchpatch {
+            url =
+              "https://raw.githubusercontent.com/openembedded/openembedded-core/ce265cf467f1c3e5ba2edbfbef2170df1a727a52/meta/recipes-extended/groff/files/0001-Include-config.h.patch";
+            sha256 = "1b0mg31xkpxkzlx696nr08rcc7ndpaxdplvysy0hw5099c4n1wyf";
+          })
+        ]
     ;
 
   postPatch =
@@ -98,9 +99,10 @@ stdenv.mkDerivation rec {
       texinfo
     ]
     # Required due to the patch that changes .ypp files.
-    ++ lib.optional
-      (stdenv.cc.isClang && lib.versionAtLeast stdenv.cc.version "9")
-      bison
+    ++
+      lib.optional
+        (stdenv.cc.isClang && lib.versionAtLeast stdenv.cc.version "9")
+        bison
     ;
   buildInputs =
     [

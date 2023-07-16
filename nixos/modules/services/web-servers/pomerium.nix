@@ -12,14 +12,16 @@ let
 in
 {
   options.services.pomerium = {
-    enable =
-      mkEnableOption (lib.mdDoc "the Pomerium authenticating reverse proxy");
+    enable = mkEnableOption (
+      lib.mdDoc "the Pomerium authenticating reverse proxy"
+    );
 
     configFile = mkOption {
       type = with types; nullOr path;
       default = null;
-      description = lib.mdDoc
-        "Path to Pomerium config YAML. If set, overrides services.pomerium.settings."
+      description =
+        lib.mdDoc
+          "Path to Pomerium config YAML. If set, overrides services.pomerium.settings."
         ;
     };
 
@@ -78,15 +80,17 @@ in
         description = "Pomerium authenticating reverse proxy";
         wants =
           [ "network.target" ]
-          ++ (optional
-            (cfg.useACMEHost != null)
-            "acme-finished-${cfg.useACMEHost}.target")
+          ++ (
+            optional (cfg.useACMEHost != null)
+              "acme-finished-${cfg.useACMEHost}.target"
+          )
           ;
         after =
           [ "network.target" ]
-          ++ (optional
-            (cfg.useACMEHost != null)
-            "acme-finished-${cfg.useACMEHost}.target")
+          ++ (
+            optional (cfg.useACMEHost != null)
+              "acme-finished-${cfg.useACMEHost}.target"
+          )
           ;
         wantedBy = [ "multi-user.target" ];
         environment = optionalAttrs (cfg.useACMEHost != null) {

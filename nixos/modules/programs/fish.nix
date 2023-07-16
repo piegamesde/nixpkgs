@@ -28,7 +28,9 @@ let
   envLoginShellInit = pkgs.writeText "loginShellInit" cfge.loginShellInit;
 
   envInteractiveShellInit =
-    pkgs.writeText "interactiveShellInit" cfge.interactiveShellInit;
+    pkgs.writeText "interactiveShellInit"
+      cfge.interactiveShellInit
+    ;
 
   sourceEnv =
     file:
@@ -45,8 +47,8 @@ let
   babelfishTranslate =
     path: name:
     pkgs.runCommandLocal "${name}.fish"
-    { nativeBuildInputs = [ pkgs.babelfish ]; }
-    "${pkgs.babelfish}/bin/babelfish < ${path} > $out;"
+      { nativeBuildInputs = [ pkgs.babelfish ]; }
+      "${pkgs.babelfish}/bin/babelfish < ${path} > $out;"
     ;
 in
 
@@ -162,14 +164,21 @@ in
     environment = mkMerge [
       (mkIf cfg.useBabelfish {
         etc."fish/setEnvironment.fish".source =
-          babelfishTranslate config.system.build.setEnvironment "setEnvironment"
+          babelfishTranslate config.system.build.setEnvironment
+            "setEnvironment"
           ;
         etc."fish/shellInit.fish".source =
-          babelfishTranslate envShellInit "shellInit";
+          babelfishTranslate envShellInit
+            "shellInit"
+          ;
         etc."fish/loginShellInit.fish".source =
-          babelfishTranslate envLoginShellInit "loginShellInit";
+          babelfishTranslate envLoginShellInit
+            "loginShellInit"
+          ;
         etc."fish/interactiveShellInit.fish".source =
-          babelfishTranslate envInteractiveShellInit "interactiveShellInit";
+          babelfishTranslate envInteractiveShellInit
+            "interactiveShellInit"
+          ;
       })
 
       (mkIf (!cfg.useBabelfish) {
@@ -276,21 +285,21 @@ in
             generateCompletions =
               package:
               pkgs.runCommand "${package.name}_fish-completions"
-              (
-                {
-                  inherit package;
-                  preferLocalBuild = true;
-                  allowSubstitutes = false;
-                } // optionalAttrs (package ? meta.priority) {
-                  meta.priority = package.meta.priority;
-                }
-              )
-              ''
-                mkdir -p $out
-                if [ -d $package/share/man ]; then
-                  find $package/share/man -type f | xargs ${pkgs.python3.interpreter} ${patchedGenerator}/create_manpage_completions.py --directory $out >/dev/null
-                fi
-              ''
+                (
+                  {
+                    inherit package;
+                    preferLocalBuild = true;
+                    allowSubstitutes = false;
+                  } // optionalAttrs (package ? meta.priority) {
+                    meta.priority = package.meta.priority;
+                  }
+                )
+                ''
+                  mkdir -p $out
+                  if [ -d $package/share/man ]; then
+                    find $package/share/man -type f | xargs ${pkgs.python3.interpreter} ${patchedGenerator}/create_manpage_completions.py --directory $out >/dev/null
+                  fi
+                ''
               ;
           in
           pkgs.buildEnv {
@@ -306,12 +315,12 @@ in
         pathsToLink =
           [ ]
           ++ optional cfg.vendor.config.enable "/share/fish/vendor_conf.d"
-          ++ optional
-            cfg.vendor.completions.enable
-            "/share/fish/vendor_completions.d"
-          ++ optional
-            cfg.vendor.functions.enable
-            "/share/fish/vendor_functions.d"
+          ++
+            optional cfg.vendor.completions.enable
+              "/share/fish/vendor_completions.d"
+          ++
+            optional cfg.vendor.functions.enable
+              "/share/fish/vendor_functions.d"
           ;
       }
 

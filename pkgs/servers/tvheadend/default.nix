@@ -84,12 +84,13 @@ stdenv.mkDerivation {
       "-Wno-error=format-truncation"
       "-Wno-error=stringop-truncation"
     ]
-    ++ lib.optionals
-      (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12")
-      [
-        # Needed with GCC 12 but unrecognized with GCC 9
-        "-Wno-error=use-after-free"
-      ]
+    ++
+      lib.optionals
+        (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12")
+        [
+          # Needed with GCC 12 but unrecognized with GCC 9
+          "-Wno-error=use-after-free"
+        ]
   );
 
   configureFlags = [

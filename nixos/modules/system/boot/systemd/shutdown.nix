@@ -11,16 +11,20 @@ let
 
   ramfsContents =
     let
-      storePaths = map
-        (p: ''
-          ${p}
-        '')
-        cfg.storePaths;
-      contents = lib.mapAttrsToList
-        (_: v: ''
-          ${v.source}
-          ${v.target}'')
-        (lib.filterAttrs (_: v: v.enable) cfg.contents);
+      storePaths =
+        map
+          (p: ''
+            ${p}
+          '')
+          cfg.storePaths
+        ;
+      contents =
+        lib.mapAttrsToList
+          (_: v: ''
+            ${v.source}
+            ${v.target}'')
+          (lib.filterAttrs (_: v: v.enable) cfg.contents)
+        ;
     in
     pkgs.writeText "shutdown-ramfs-contents" (
       lib.concatStringsSep "\n" (storePaths ++ contents)
@@ -36,7 +40,9 @@ in
     };
     contents = lib.mkOption {
       description =
-        lib.mdDoc "Set of files that have to be linked into the shutdown ramfs";
+        lib.mdDoc
+          "Set of files that have to be linked into the shutdown ramfs"
+        ;
       example = lib.literalExpression ''
         {
           "/lib/systemd/system-shutdown/zpool-sync-shutdown".source = writeShellScript "zpool" "exec ''${zfs}/bin/zpool sync"

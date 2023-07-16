@@ -186,22 +186,24 @@ let
   distSetName = if stdenv.hostPlatform.isMusl then "musl" else "defaultLibc";
 
   binDistUsed =
-    ghcBinDists.${distSetName}.${stdenv.hostPlatform.system} or (throw
-      "cannot bootstrap GHC on this platform ('${stdenv.hostPlatform.system}' with libc '${distSetName}')");
+    ghcBinDists.${distSetName}.${stdenv.hostPlatform.system} or (
+      throw
+        "cannot bootstrap GHC on this platform ('${stdenv.hostPlatform.system}' with libc '${distSetName}')"
+    );
 
   useLLVM = !stdenv.targetPlatform.isx86;
 
   libPath = lib.makeLibraryPath (
     # Add arch-specific libraries.
     map
-    (
-      {
-        nixPackage,
-        ...
-      }:
-      nixPackage
-    )
-    binDistUsed.archSpecificLibraries
+      (
+        {
+          nixPackage,
+          ...
+        }:
+        nixPackage
+      )
+      binDistUsed.archSpecificLibraries
   );
 
   libEnvVar =
@@ -268,44 +270,46 @@ stdenv.mkDerivation rec {
     # so that we know when ghc bindists upgrade that and we need to update the
     # version used in `libPath`.
     lib.optionalString (binDistUsed.exePathForLibraryCheck != null)
-    # Note the `*` glob because some GHCs have a suffix when unpacked, e.g.
-    # the musl bindist has dir `ghc-VERSION-x86_64-unknown-linux/`.
-    # As a result, don't shell-quote this glob when splicing the string.
-    (
-      let
-        buildExeGlob =
-          ''ghc-${version}*/"${binDistUsed.exePathForLibraryCheck}"'';
-      in
-      lib.concatStringsSep "\n" [
-        (''
-          echo "Checking that ghc binary exists in bindist at ${buildExeGlob}"
-          if ! test -e ${buildExeGlob}; then
-            echo >&2 "GHC binary ${binDistUsed.exePathForLibraryCheck} could not be found in the bindist build directory (at ${buildExeGlob}) for arch ${stdenv.hostPlatform.system}, please check that ghcBinDists correctly reflect the bindist dependencies!"; exit 1;
-          fi
-        '')
-        (lib.concatMapStringsSep "\n"
+      # Note the `*` glob because some GHCs have a suffix when unpacked, e.g.
+      # the musl bindist has dir `ghc-VERSION-x86_64-unknown-linux/`.
+      # As a result, don't shell-quote this glob when splicing the string.
+      (
+        let
+          buildExeGlob =
+            ''ghc-${version}*/"${binDistUsed.exePathForLibraryCheck}"'';
+        in
+        lib.concatStringsSep "\n" [
+          (''
+            echo "Checking that ghc binary exists in bindist at ${buildExeGlob}"
+            if ! test -e ${buildExeGlob}; then
+              echo >&2 "GHC binary ${binDistUsed.exePathForLibraryCheck} could not be found in the bindist build directory (at ${buildExeGlob}) for arch ${stdenv.hostPlatform.system}, please check that ghcBinDists correctly reflect the bindist dependencies!"; exit 1;
+            fi
+          '')
           (
-            {
-              fileToCheckFor,
-              nixPackage,
-            }:
-            lib.optionalString (fileToCheckFor != null) ''
-              echo "Checking bindist for ${fileToCheckFor} to ensure that is still used"
-              if ! readelf -d ${buildExeGlob} | grep "${fileToCheckFor}"; then
-                echo >&2 "File ${fileToCheckFor} could not be found in ${binDistUsed.exePathForLibraryCheck} for arch ${stdenv.hostPlatform.system}, please check that ghcBinDists correctly reflect the bindist dependencies!"; exit 1;
-              fi
+            lib.concatMapStringsSep "\n"
+              (
+                {
+                  fileToCheckFor,
+                  nixPackage,
+                }:
+                lib.optionalString (fileToCheckFor != null) ''
+                  echo "Checking bindist for ${fileToCheckFor} to ensure that is still used"
+                  if ! readelf -d ${buildExeGlob} | grep "${fileToCheckFor}"; then
+                    echo >&2 "File ${fileToCheckFor} could not be found in ${binDistUsed.exePathForLibraryCheck} for arch ${stdenv.hostPlatform.system}, please check that ghcBinDists correctly reflect the bindist dependencies!"; exit 1;
+                  fi
 
-              echo "Checking that the nix package ${nixPackage} contains ${fileToCheckFor}"
-              if ! test -e "${
-                lib.getLib nixPackage
-              }/lib/${fileToCheckFor}"; then
-                echo >&2 "Nix package ${nixPackage} did not contain ${fileToCheckFor} for arch ${stdenv.hostPlatform.system}, please check that ghcBinDists correctly reflect the bindist dependencies!"; exit 1;
-              fi
-            ''
+                  echo "Checking that the nix package ${nixPackage} contains ${fileToCheckFor}"
+                  if ! test -e "${
+                    lib.getLib nixPackage
+                  }/lib/${fileToCheckFor}"; then
+                    echo >&2 "Nix package ${nixPackage} did not contain ${fileToCheckFor} for arch ${stdenv.hostPlatform.system}, please check that ghcBinDists correctly reflect the bindist dependencies!"; exit 1;
+                  fi
+                ''
+              )
+              binDistUsed.archSpecificLibraries
           )
-          binDistUsed.archSpecificLibraries)
-      ]
-    )
+        ]
+      )
     # GHC has dtrace probes, which causes ld to try to open /usr/lib/libdtrace.dylib
     # during linking
     + lib.optionalString stdenv.isDarwin ''
@@ -369,7 +373,9 @@ stdenv.mkDerivation rec {
 
   # fix for `configure: error: Your linker is affected by binutils #16177`
   preConfigure =
-    lib.optionalString stdenv.targetPlatform.isAarch32 "LD=ld.gold";
+    lib.optionalString stdenv.targetPlatform.isAarch32
+      "LD=ld.gold"
+    ;
 
   configurePlatforms = [ ];
   configureFlags =
@@ -530,7 +536,9 @@ stdenv.mkDerivation rec {
     # `pkgsMusl`.
     platforms = builtins.attrNames ghcBinDists.${distSetName};
     hydraPlatforms =
-      builtins.filter (p: minimal || p != "aarch64-linux") platforms;
+      builtins.filter (p: minimal || p != "aarch64-linux")
+        platforms
+      ;
     maintainers = with lib.maintainers; [ guibou ] ++ lib.teams.haskell.members;
   };
 }

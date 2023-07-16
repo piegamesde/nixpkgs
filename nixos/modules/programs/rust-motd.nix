@@ -97,9 +97,11 @@ in
       )
     );
     services.openssh.extraConfig =
-      mkIf (cfg.settings ? last_login && cfg.settings.last_login != { }) ''
-        PrintLastLog no
-      '';
+      mkIf (cfg.settings ? last_login && cfg.settings.last_login != { })
+        ''
+          PrintLastLog no
+        ''
+      ;
   };
   meta.maintainers = with maintainers; [ ma27 ];
 }

@@ -12,7 +12,9 @@ let
 
   loggerSettingsFormat = pkgs.formats.yaml { };
   loggerConfigFile =
-    loggerSettingsFormat.generate "logger.yaml" cfg.loggerSettings;
+    loggerSettingsFormat.generate "logger.yaml"
+      cfg.loggerSettings
+    ;
 in
 {
 
@@ -31,8 +33,10 @@ in
       tremorLibDir = mkOption {
         type = types.path;
         default = "";
-        description = lib.mdDoc
-          "Directory where to find /lib containing tremor script files";
+        description =
+          lib.mdDoc
+            "Directory where to find /lib containing tremor script files"
+          ;
       };
 
       host = mkOption {

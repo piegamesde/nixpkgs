@@ -31,9 +31,8 @@ let
 
   concatAttrLists =
     attrsets:
-    zipAttrsWithNames (filterAttrNames isList (head attrsets))
-    (_: concatLists)
-    attrsets
+    zipAttrsWithNames (filterAttrNames isList (head attrsets)) (_: concatLists)
+      attrsets
     ;
 
   template = rec {
@@ -62,8 +61,9 @@ let
 
     pos = builtins.unsafeGetAttrPos "pname" args;
 
-    passthru.updateScript =
-      gitUpdater { inherit rev-prefix odd-unstable patchlevel-unstable; };
+    passthru.updateScript = gitUpdater {
+      inherit rev-prefix odd-unstable patchlevel-unstable;
+    };
 
     meta = with lib; {
       homepage = "https://gitlab.xfce.org/${category}/${pname}";

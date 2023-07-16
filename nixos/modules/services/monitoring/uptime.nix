@@ -63,16 +63,19 @@ in
     };
 
     usesRemoteMongo = mkOption {
-      description = lib.mdDoc
-        "Whether the configuration file specifies a remote mongo instance";
+      description =
+        lib.mdDoc
+          "Whether the configuration file specifies a remote mongo instance"
+        ;
 
       default = false;
 
       type = types.bool;
     };
 
-    enableWebService =
-      mkEnableOption (lib.mdDoc "the uptime monitoring program web service");
+    enableWebService = mkEnableOption (
+      lib.mdDoc "the uptime monitoring program web service"
+    );
 
     enableSeparateMonitoringService =
       mkEnableOption (lib.mdDoc "the uptime monitoring service") // {
@@ -81,8 +84,10 @@ in
       };
 
     nodeEnv = mkOption {
-      description = lib.mdDoc
-        "The node environment to run in (development, production, etc.)";
+      description =
+        lib.mdDoc
+          "The node environment to run in (development, production, etc.)"
+        ;
 
       type = types.str;
 

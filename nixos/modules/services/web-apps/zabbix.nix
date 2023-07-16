@@ -70,14 +70,18 @@ in
         port = mkOption {
           type = types.port;
           description =
-            lib.mdDoc "The port of the Zabbix server to connect to.";
+            lib.mdDoc
+              "The port of the Zabbix server to connect to."
+            ;
           default = 10051;
         };
 
         address = mkOption {
           type = types.str;
-          description = lib.mdDoc
-            "The IP address or hostname of the Zabbix server to connect to.";
+          description =
+            lib.mdDoc
+              "The IP address or hostname of the Zabbix server to connect to."
+            ;
           default = "localhost";
         };
       };
@@ -145,14 +149,16 @@ in
           default = null;
           example = "/run/postgresql";
           description =
-            lib.mdDoc "Path to the unix socket file to use for authentication.";
+            lib.mdDoc
+              "Path to the unix socket file to use for authentication."
+            ;
         };
       };
 
       virtualHost = mkOption {
-        type =
-          types.submodule (import ../web-servers/apache-httpd/vhost-options.nix)
-          ;
+        type = types.submodule (
+          import ../web-servers/apache-httpd/vhost-options.nix
+        );
         example = literalExpression ''
           {
             hostName = "zabbix.example.org";
@@ -203,14 +209,16 @@ in
 
   config = mkIf cfg.enable {
 
-    services.zabbixWeb.extraConfig = optionalString
-      (
-        (versionAtLeast config.system.stateVersion "20.09")
-        && (versionAtLeast cfg.package.version "5.0.0")
-      )
-      ''
-        $DB['DOUBLE_IEEE754'] = 'true';
-      '';
+    services.zabbixWeb.extraConfig =
+      optionalString
+        (
+          (versionAtLeast config.system.stateVersion "20.09")
+          && (versionAtLeast cfg.package.version "5.0.0")
+        )
+        ''
+          $DB['DOUBLE_IEEE754'] = 'true';
+        ''
+      ;
 
     systemd.tmpfiles.rules = [
       "d '${stateDir}' 0750 ${user} ${group} - -"
@@ -278,7 +286,8 @@ in
       inherit group;
     };
 
-    users.groups.${group} =
-      mapAttrs (name: mkDefault) { gid = config.ids.gids.zabbix; };
+    users.groups.${group} = mapAttrs (name: mkDefault) {
+      gid = config.ids.gids.zabbix;
+    };
   };
 }

@@ -68,16 +68,17 @@
       "microsoft-experimental" # WSL virtualized GPU (aka DZN/Dozen)
       "swrast" # software renderer (aka Lavapipe)
     ]
-    ++ lib.optionals
-      (
-        stdenv.hostPlatform.isAarch
-        -> lib.versionAtLeast stdenv.hostPlatform.parsed.cpu.version "6"
-      )
-      [
-        # QEMU virtualized GPU (aka VirGL)
-        # Requires ATOMIC_INT_LOCK_FREE == 2.
-        "virtio-experimental"
-      ]
+    ++
+      lib.optionals
+        (
+          stdenv.hostPlatform.isAarch
+          -> lib.versionAtLeast stdenv.hostPlatform.parsed.cpu.version "6"
+        )
+        [
+          # QEMU virtualized GPU (aka VirGL)
+          # Requires ATOMIC_INT_LOCK_FREE == 2.
+          "virtio-experimental"
+        ]
     ++ lib.optionals stdenv.isAarch64 [
       "broadcom" # Broadcom VC5 (Raspberry Pi 4, aka V3D)
       "freedreno" # Qualcomm Adreno (all Qualcomm SoCs)
@@ -139,11 +140,13 @@ let
   # two different LLVMs are loaded in the same process.
   # FIXME: these should really go into some sort of versioned LLVM package set
   rust-bindgen' = rust-bindgen.override {
-    rust-bindgen-unwrapped =
-      rust-bindgen.unwrapped.override { clang = llvmPackages.clang; };
+    rust-bindgen-unwrapped = rust-bindgen.unwrapped.override {
+      clang = llvmPackages.clang;
+    };
   };
-  spirv-llvm-translator' =
-    spirv-llvm-translator.override { inherit (llvmPackages) llvm; };
+  spirv-llvm-translator' = spirv-llvm-translator.override {
+    inherit (llvmPackages) llvm;
+  };
 
   haveWayland = lib.elem "wayland" eglPlatforms;
   haveZink = lib.elem "zink" galliumDrivers;
@@ -269,12 +272,12 @@ let
         "-Drust_std=2021"
         "-Dclang-libdir=${llvmPackages.clang-unwrapped.lib}/lib"
       ]
-      ++ lib.optional
-        enablePatentEncumberedCodecs
-        "-Dvideo-codecs=h264dec,h264enc,h265dec,h265enc,vc1dec"
+      ++
+        lib.optional enablePatentEncumberedCodecs
+          "-Dvideo-codecs=h264dec,h264enc,h265dec,h265enc,vc1dec"
       ++ lib.optional (vulkanLayers != [ ]) "-D vulkan-layers=${
-          builtins.concatStringsSep "," vulkanLayers
-        }"
+            builtins.concatStringsSep "," vulkanLayers
+          }"
       ;
 
     buildInputs = with xorg;

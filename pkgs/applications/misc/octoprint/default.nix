@@ -221,9 +221,8 @@ let
               sed -r -i \
                 ${
                   lib.concatStringsSep "\n" (
-                    map
-                    (e: ''-e 's@${e}[<>=]+.*@${e}",@g' \'')
-                    ignoreVersionConstraints
+                    map (e: ''-e 's@${e}[<>=]+.*@${e}",@g' \'')
+                      ignoreVersionConstraints
                   )
                 }
                 setup.py

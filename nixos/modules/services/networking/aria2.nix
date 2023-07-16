@@ -16,8 +16,9 @@ let
   sessionFile = "${homeDir}/aria2.session";
   downloadDir = "${homeDir}/Downloads";
 
-  rangesToStringList =
-    map (x: builtins.toString x.from + "-" + builtins.toString x.to);
+  rangesToStringList = map (
+    x: builtins.toString x.from + "-" + builtins.toString x.to
+  );
 
   settingsFile = pkgs.writeText "aria2.conf" ''
     dir=${cfg.downloadDir}
@@ -70,8 +71,9 @@ in
       rpcListenPort = mkOption {
         type = types.int;
         default = 6800;
-        description = lib.mdDoc
-          "Specify a port number for JSON-RPC/XML-RPC server to listen to. Possible Values: 1024-65535"
+        description =
+          lib.mdDoc
+            "Specify a port number for JSON-RPC/XML-RPC server to listen to. Possible Values: 1024-65535"
           ;
       };
       rpcSecret = mkOption {

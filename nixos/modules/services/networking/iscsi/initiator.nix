@@ -52,13 +52,15 @@ in
 
   config = mkIf cfg.enable {
     environment.etc."iscsi/iscsid.conf.fragment".source =
-      pkgs.runCommand "iscsid.conf" { } ''
-        cat "${cfg.package}/etc/iscsi/iscsid.conf" > $out
-        cat << 'EOF' >> $out
-        ${cfg.extraConfig}
-        ${optionalString cfg.enableAutoLoginOut "node.startup = automatic"}
-        EOF
-      '';
+      pkgs.runCommand "iscsid.conf" { }
+        ''
+          cat "${cfg.package}/etc/iscsi/iscsid.conf" > $out
+          cat << 'EOF' >> $out
+          ${cfg.extraConfig}
+          ${optionalString cfg.enableAutoLoginOut "node.startup = automatic"}
+          EOF
+        ''
+      ;
     environment.etc."iscsi/initiatorname.iscsi".text =
       "InitiatorName=${cfg.name}";
 
@@ -88,11 +90,12 @@ in
 
     systemd.services."iscsi" = mkIf cfg.enableAutoLoginOut {
       wantedBy = [ "remote-fs.target" ];
-      serviceConfig.ExecStartPre = mkIf
-        (cfg.discoverPortal != null)
-        "${cfg.package}/bin/iscsiadm --mode discoverydb --type sendtargets --portal ${
-          escapeShellArg cfg.discoverPortal
-        } --discover";
+      serviceConfig.ExecStartPre =
+        mkIf (cfg.discoverPortal != null)
+          "${cfg.package}/bin/iscsiadm --mode discoverydb --type sendtargets --portal ${
+            escapeShellArg cfg.discoverPortal
+          } --discover"
+        ;
     };
 
     environment.systemPackages = [ cfg.package ];

@@ -64,13 +64,12 @@ let
           ++ optional (with cfg.hbase.master; enable && initHDFS) package;
         preStart = mkIf (with cfg.hbase.master; enable && initHDFS) (
           concatStringsSep "\n" (
-            map
-            (x: "HADOOP_USER_NAME=hdfs hdfs --config /etc/hadoop-conf ${x}")
-            [
-              "dfsadmin -safemode wait"
-              "dfs -mkdir -p ${cfg.hbase.rootdir}"
-              "dfs -chown hbase ${cfg.hbase.rootdir}"
-            ]
+            map (x: "HADOOP_USER_NAME=hdfs hdfs --config /etc/hadoop-conf ${x}")
+              [
+                "dfsadmin -safemode wait"
+                "dfs -mkdir -p ${cfg.hbase.rootdir}"
+                "dfs -chown hbase ${cfg.hbase.rootdir}"
+              ]
           )
         );
 
@@ -200,9 +199,9 @@ in
           ;
       in
       mapAttrs hbaseRoleOption {
-        master.initHDFS =
-          mkEnableOption (mdDoc "initialization of the hbase directory on HDFS")
-          ;
+        master.initHDFS = mkEnableOption (
+          mdDoc "initialization of the hbase directory on HDFS"
+        );
         regionServer.overrideHosts = mkOption {
           type = types.bool;
           default = true;
@@ -223,8 +222,9 @@ in
 
       (mkIf cfg.gatewayRole.enable {
 
-        environment.systemPackages =
-          mkIf cfg.gatewayRole.enableHbaseCli [ cfg.hbase.package ];
+        environment.systemPackages = mkIf cfg.gatewayRole.enableHbaseCli [
+          cfg.hbase.package
+        ];
 
         services.hadoop.hbaseSiteInternal = with cfg.hbase; {
           "hbase.zookeeper.quorum" = mkIfNotNull zookeeperQuorum;

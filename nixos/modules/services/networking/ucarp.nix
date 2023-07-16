@@ -34,8 +34,9 @@ let
 in
 {
   options.networking.ucarp = {
-    enable =
-      mkEnableOption (lib.mdDoc "ucarp, userspace implementation of CARP");
+    enable = mkEnableOption (
+      lib.mdDoc "ucarp, userspace implementation of CARP"
+    );
 
     interface = mkOption {
       type = types.str;
@@ -51,14 +52,18 @@ in
     vhId = mkOption {
       type = types.ints.between 1 255;
       description =
-        lib.mdDoc "Virtual IP identifier shared between CARP hosts.";
+        lib.mdDoc
+          "Virtual IP identifier shared between CARP hosts."
+        ;
       example = 1;
     };
 
     passwordFile = mkOption {
       type = types.str;
       description =
-        lib.mdDoc "File containing shared password between CARP hosts.";
+        lib.mdDoc
+          "File containing shared password between CARP hosts."
+        ;
       example = "/run/keys/ucarp-password";
     };
 
@@ -74,7 +79,9 @@ in
     neutral = mkOption {
       type = types.bool;
       description =
-        lib.mdDoc "Do not run downscript at start if the host is the backup.";
+        lib.mdDoc
+          "Do not run downscript at start if the host is the backup."
+        ;
       default = false;
     };
 
@@ -138,14 +145,18 @@ in
     ignoreIfState = mkOption {
       type = types.bool;
       description =
-        lib.mdDoc "Ignore interface state, e.g., down or no carrier.";
+        lib.mdDoc
+          "Ignore interface state, e.g., down or no carrier."
+        ;
       default = false;
     };
 
     noMcast = mkOption {
       type = types.bool;
       description =
-        lib.mdDoc "Use broadcast instead of multicast advertisements.";
+        lib.mdDoc
+          "Use broadcast instead of multicast advertisements."
+        ;
       default = false;
     };
 

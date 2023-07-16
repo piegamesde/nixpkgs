@@ -42,14 +42,17 @@ in
                 type = types.str;
                 default = "*";
                 description =
-                  lib.mdDoc "IP to listen on. 0.0.0.0 for IPv4 only, * for all."
+                  lib.mdDoc
+                    "IP to listen on. 0.0.0.0 for IPv4 only, * for all."
                   ;
               };
               ssl = mkOption {
                 type = types.bool;
                 default = false;
                 description =
-                  lib.mdDoc "Whether to enable SSL (https) support.";
+                  lib.mdDoc
+                    "Whether to enable SSL (https) support."
+                  ;
               };
             };
           })
@@ -308,9 +311,8 @@ in
   config = {
 
     locations = builtins.listToAttrs (
-      map
-      (elem: nameValuePair elem.urlPath { alias = elem.file; })
-      config.servedFiles
+      map (elem: nameValuePair elem.urlPath { alias = elem.file; })
+        config.servedFiles
     );
   };
 }

@@ -13,51 +13,61 @@ in
 {
 
   imports = [
-    (mkRenamedOptionModule
-      [
-        "networking"
-        "enableRT73Firmware"
-      ]
-      [
-        "hardware"
-        "enableRedistributableFirmware"
-      ])
-    (mkRenamedOptionModule
-      [
-        "networking"
-        "enableIntel3945ABGFirmware"
-      ]
-      [
-        "hardware"
-        "enableRedistributableFirmware"
-      ])
-    (mkRenamedOptionModule
-      [
-        "networking"
-        "enableIntel2100BGFirmware"
-      ]
-      [
-        "hardware"
-        "enableRedistributableFirmware"
-      ])
-    (mkRenamedOptionModule
-      [
-        "networking"
-        "enableRalinkFirmware"
-      ]
-      [
-        "hardware"
-        "enableRedistributableFirmware"
-      ])
-    (mkRenamedOptionModule
-      [
-        "networking"
-        "enableRTL8192cFirmware"
-      ]
-      [
-        "hardware"
-        "enableRedistributableFirmware"
-      ])
+    (
+      mkRenamedOptionModule
+        [
+          "networking"
+          "enableRT73Firmware"
+        ]
+        [
+          "hardware"
+          "enableRedistributableFirmware"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "networking"
+          "enableIntel3945ABGFirmware"
+        ]
+        [
+          "hardware"
+          "enableRedistributableFirmware"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "networking"
+          "enableIntel2100BGFirmware"
+        ]
+        [
+          "hardware"
+          "enableRedistributableFirmware"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "networking"
+          "enableRalinkFirmware"
+        ]
+        [
+          "hardware"
+          "enableRedistributableFirmware"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "networking"
+          "enableRTL8192cFirmware"
+        ]
+        [
+          "hardware"
+          "enableRedistributableFirmware"
+        ]
+    )
   ];
 
   ###### interface
@@ -109,11 +119,10 @@ in
           libreelec-dvb-firmware
         ]
         ++ optional pkgs.stdenv.hostPlatform.isAarch raspberrypiWirelessFirmware
-        ++ optionals
-          (versionOlder config.boot.kernelPackages.kernel.version "4.13")
-          [
-            rtl8723bs-firmware
-          ];
+        ++
+          optionals
+            (versionOlder config.boot.kernelPackages.kernel.version "4.13")
+            [ rtl8723bs-firmware ];
       hardware.wirelessRegulatoryDatabase = true;
     })
     (mkIf cfg.enableAllFirmware {

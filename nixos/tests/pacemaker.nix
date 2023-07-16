@@ -19,22 +19,26 @@ import ./make-test-python.nix (
             services.corosync = {
               enable = true;
               clusterName = "zentralwerk-network";
-              nodelist = lib.imap
-                (i: name: {
-                  nodeid = i;
-                  inherit name;
-                  ring_addrs = [
-                    (builtins.head
-                      nodes.${name}.networking.interfaces.eth1.ipv4.addresses)
-                    .address
-                  ];
-                })
-                (builtins.attrNames nodes);
+              nodelist =
+                lib.imap
+                  (i: name: {
+                    nodeid = i;
+                    inherit name;
+                    ring_addrs = [
+                      (
+                        builtins.head
+                          nodes.${name}.networking.interfaces.eth1.ipv4.addresses
+                      ).address
+                    ];
+                  })
+                  (builtins.attrNames nodes)
+                ;
             };
             environment.etc."corosync/authkey" = {
-              source = builtins.toFile "authkey"
-                # minimum length: 128 bytes
-                "testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest"
+              source =
+                builtins.toFile "authkey"
+                  # minimum length: 128 bytes
+                  "testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest"
                 ;
               mode = "0400";
             };
@@ -79,11 +83,11 @@ import ./make-test-python.nix (
         start_all()
 
         ${lib.concatMapStrings
-        (node: ''
-          ${node}.wait_until_succeeds("corosync-quorumtool")
-          ${node}.wait_for_unit("pacemaker.service")
-        '')
-        (builtins.attrNames nodes)}
+          (node: ''
+            ${node}.wait_until_succeeds("corosync-quorumtool")
+            ${node}.wait_for_unit("pacemaker.service")
+          '')
+          (builtins.attrNames nodes)}
 
         # No STONITH device
         node1.succeed("crm_attribute -t crm_config -n stonith-enabled -v false")

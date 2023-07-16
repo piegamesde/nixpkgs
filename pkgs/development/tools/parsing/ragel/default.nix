@@ -39,7 +39,9 @@ let
       configureFlags = [ "--with-colm=${colm}" ];
 
       env.NIX_CFLAGS_COMPILE =
-        lib.optionalString stdenv.cc.isGNU "-std=gnu++98";
+        lib.optionalString stdenv.cc.isGNU
+          "-std=gnu++98"
+        ;
 
       doCheck = true;
 

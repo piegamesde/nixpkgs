@@ -20,9 +20,11 @@ let
       p.libversion
     ]
   );
-  package = lib.attrByPath (lib.splitString "." attrPath)
-    (throw "Cannot find attribute ‘${attrPath}’.")
-    pkgs;
+  package =
+    lib.attrByPath (lib.splitString "." attrPath)
+      (throw "Cannot find attribute ‘${attrPath}’.")
+      pkgs
+    ;
   packageVersion = lib.getVersion package;
   upperBound =
     let
@@ -42,7 +44,7 @@ let
       [ freeze ]
     else
       throw
-      "“freeze” argument needs to be either a boolean, or a version string."
+        "“freeze” argument needs to be either a boolean, or a version string."
     ;
   updateScript = writeScript "gnome-update-script" ''
     #!${python}/bin/python

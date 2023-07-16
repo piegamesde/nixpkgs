@@ -193,25 +193,27 @@ let
 
   srcs = {
     primary = primary-src;
-    third_party = map
-      (
-        x:
+    third_party =
+      map
         (
-          (fetchurl { inherit (x) url sha256 name; }) // {
-            inherit (x) md5name md5;
-          }
+          x:
+          (
+            (fetchurl { inherit (x) url sha256 name; }) // {
+              inherit (x) md5name md5;
+            }
+          )
         )
-      )
-      (
-        importVariant "download.nix"
-        ++ [ (rec {
-          name = "unowinreg.dll";
-          url = "https://dev-www.libreoffice.org/extern/${md5name}";
-          sha256 = "1infwvv1p6i21scywrldsxs22f62x85mns4iq8h6vr6vlx3fdzga";
-          md5 = "185d60944ea767075d27247c3162b3bc";
-          md5name = "${md5}-${name}";
-        }) ]
-      );
+        (
+          importVariant "download.nix"
+          ++ [ (rec {
+            name = "unowinreg.dll";
+            url = "https://dev-www.libreoffice.org/extern/${md5name}";
+            sha256 = "1infwvv1p6i21scywrldsxs22f62x85mns4iq8h6vr6vlx3fdzga";
+            md5 = "185d60944ea767075d27247c3162b3bc";
+            md5name = "${md5}-${name}";
+          }) ]
+        )
+      ;
 
     translations = primary-src.translations;
     help = primary-src.help;
@@ -222,19 +224,19 @@ let
     name = "libreoffice-kde-dependencies-${version}";
     paths = flatten (
       map
-      (e: [
-        (getDev e)
-        (getLib e)
-      ])
-      [
-        qtbase
-        qtx11extras
-        kconfig
-        kcoreaddons
-        ki18n
-        kio
-        kwindowsystem
-      ]
+        (e: [
+          (getDev e)
+          (getLib e)
+        ])
+        [
+          qtbase
+          qtx11extras
+          kconfig
+          kcoreaddons
+          ki18n
+          kio
+          kwindowsystem
+        ]
     );
   };
 in
@@ -737,4 +739,4 @@ in
     platforms = platforms.linux;
   };
 }).overrideAttrs
-((importVariant "override.nix") (args // { inherit kdeIntegration; }))
+  ((importVariant "override.nix") (args // { inherit kdeIntegration; }))

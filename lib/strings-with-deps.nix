@@ -79,13 +79,13 @@ rec {
             f done (tail todo)
           else
             f
-            (
-              done // listToAttrs [ {
-                name = entry;
-                value = 1;
-              } ]
-            )
-            ([ predefined.${entry} ] ++ tail todo)
+              (
+                done // listToAttrs [ {
+                  name = entry;
+                  value = 1;
+                } ]
+              )
+              ([ predefined.${entry} ] ++ tail todo)
         ;
     in
     (f { } arg).result

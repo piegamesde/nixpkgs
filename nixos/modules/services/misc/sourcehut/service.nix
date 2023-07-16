@@ -97,9 +97,8 @@ let
                 set -x
                 # Replace values beginning with a '<' by the content of the file whose name is after.
                 gawk '{ if (match($0,/^([^=]+=)<(.+)/,m)) { getline f < m[2]; print m[1] f } else print $0 }' ${configIni} |
-                ${optionalString
-                (!allowStripe)
-                "gawk '!/^stripe-secret-key=/' |"}
+                ${optionalString (!allowStripe)
+                  "gawk '!/^stripe-secret-key=/' |"}
                 install -o ${srvCfg.user} -g root -m 400 /dev/stdin ${runDir}/config.ini
               ''
             )
@@ -230,14 +229,17 @@ in
           "--pool eventlet"
           "--without-heartbeat"
         ];
-        description = lib.mdDoc
-          "Extra arguments passed to the Celery responsible for webhooks.";
+        description =
+          lib.mdDoc
+            "Extra arguments passed to the Celery responsible for webhooks."
+          ;
       };
       celeryConfig = mkOption {
         type = types.lines;
         default = "";
-        description = lib.mdDoc
-          "Content of the `celeryconfig.py` used by the Celery responsible for webhooks."
+        description =
+          lib.mdDoc
+            "Content of the `celeryconfig.py` used by the Celery responsible for webhooks."
           ;
       };
     };
@@ -258,43 +260,41 @@ in
           groups = {
             "${srvCfg.group}" = { };
           } // optionalAttrs
-            (
-              cfg.postgresql.enable
-              && hasSuffix "0" (
-                postgresql.settings.unix_socket_permissions or ""
+              (
+                cfg.postgresql.enable
+                && hasSuffix "0" (
+                  postgresql.settings.unix_socket_permissions or ""
+                )
               )
-            )
-            {
-              "postgres".members = [ srvCfg.user ];
-            } // optionalAttrs
-            (
-              cfg.redis.enable
-              && hasSuffix "0" (redis.settings.unixsocketperm or "")
-            )
-            {
-              "redis-sourcehut-${srvsrht}".members = [ srvCfg.user ];
-            };
+              { "postgres".members = [ srvCfg.user ]; } // optionalAttrs
+              (
+                cfg.redis.enable
+                && hasSuffix "0" (redis.settings.unixsocketperm or "")
+              )
+              { "redis-sourcehut-${srvsrht}".members = [ srvCfg.user ]; };
         };
 
         services.nginx = mkIf cfg.nginx.enable {
           virtualHosts."${srv}.${cfg.settings."sr.ht".global-domain}" =
-            mkMerge [
-              {
-                forceSSL = mkDefault true;
-                locations."/".proxyPass =
-                  "http://${cfg.listenAddress}:${toString srvCfg.port}";
-                locations."/static" = {
-                  root =
-                    "${
-                      pkgs.sourcehut.${srvsrht}
-                    }/${pkgs.sourcehut.python.sitePackages}/${srvsrht}";
-                  extraConfig = mkDefault ''
-                    expires 30d;
-                  '';
-                };
-              }
-              cfg.nginx.virtualHost
-            ];
+            mkMerge
+              [
+                {
+                  forceSSL = mkDefault true;
+                  locations."/".proxyPass =
+                    "http://${cfg.listenAddress}:${toString srvCfg.port}";
+                  locations."/static" = {
+                    root =
+                      "${
+                        pkgs.sourcehut.${srvsrht}
+                      }/${pkgs.sourcehut.python.sitePackages}/${srvsrht}";
+                    extraConfig = mkDefault ''
+                      expires 30d;
+                    '';
+                  };
+                }
+                cfg.nginx.virtualHost
+              ]
+            ;
         };
 
         services.postgresql = mkIf cfg.postgresql.enable {
@@ -302,16 +302,17 @@ in
             local ${srvCfg.postgresql.database} ${srvCfg.user} trust
           '';
           ensureDatabases = [ srvCfg.postgresql.database ];
-          ensureUsers = map
-            (name: {
-              inherit name;
-              ensurePermissions = {
-                "DATABASE \"${srvCfg.postgresql.database}\"" = "ALL PRIVILEGES";
-              };
-            })
-            [
-              srvCfg.user
-            ];
+          ensureUsers =
+            map
+              (name: {
+                inherit name;
+                ensurePermissions = {
+                  "DATABASE \"${srvCfg.postgresql.database}\"" =
+                    "ALL PRIVILEGES";
+                };
+              })
+              [ srvCfg.user ]
+            ;
         };
 
         services.sourcehut.services = mkDefault (
@@ -332,13 +333,15 @@ in
 
         services.sourcehut.settings = mkMerge [
           {
-            "${srv}.sr.ht".origin =
-              mkDefault "https://${srv}.${cfg.settings."sr.ht".global-domain}";
+            "${srv}.sr.ht".origin = mkDefault "https://${srv}.${
+                  cfg.settings."sr.ht".global-domain
+                }";
           }
 
           (mkIf cfg.postgresql.enable {
-            "${srv}.sr.ht".connection-string = mkDefault
-              "postgresql:///${srvCfg.postgresql.database}?user=${srvCfg.user}&host=/run/postgresql"
+            "${srv}.sr.ht".connection-string =
+              mkDefault
+                "postgresql:///${srvCfg.postgresql.database}?user=${srvCfg.user}&host=/run/postgresql"
               ;
           })
         ];
@@ -368,70 +371,72 @@ in
         systemd.services = mkMerge [
           {
             "${srvsrht}" =
-              baseService srvsrht { allowStripe = srv == "meta"; } (
-                mkMerge [
-                  {
-                    description = "sourcehut ${srv}.sr.ht website service";
-                    before = optional cfg.nginx.enable "nginx.service";
-                    wants = optional cfg.nginx.enable "nginx.service";
-                    wantedBy = [ "multi-user.target" ];
-                    path = optional cfg.postgresql.enable postgresql.package;
-                    # Beware: change in credentials' content will not trigger restart.
-                    restartTriggers = [ configIni ];
-                    serviceConfig = {
-                      Type = "simple";
-                      Restart = mkDefault "always";
-                      #RestartSec = mkDefault "2min";
-                      StateDirectory = [ "sourcehut/${srvsrht}" ];
-                      StateDirectoryMode = "2750";
-                      ExecStart =
-                        "${cfg.python}/bin/gunicorn ${srvsrht}.app:app --name ${srvsrht} --bind ${cfg.listenAddress}:${
-                          toString srvCfg.port
-                        } "
-                        + concatStringsSep " " srvCfg.gunicorn.extraArgs
-                        ;
-                    };
-                    preStart =
-                      let
-                        version = pkgs.sourcehut.${srvsrht}.version;
-                        stateDir = "/var/lib/sourcehut/${srvsrht}";
-                      in
-                      mkBefore ''
-                        set -x
-                        # Use the /run/sourcehut/${srvsrht}/config.ini
-                        # installed by a previous ExecStartPre= in baseService
-                        cd /run/sourcehut/${srvsrht}
+              baseService srvsrht { allowStripe = srv == "meta"; }
+                (
+                  mkMerge [
+                    {
+                      description = "sourcehut ${srv}.sr.ht website service";
+                      before = optional cfg.nginx.enable "nginx.service";
+                      wants = optional cfg.nginx.enable "nginx.service";
+                      wantedBy = [ "multi-user.target" ];
+                      path = optional cfg.postgresql.enable postgresql.package;
+                      # Beware: change in credentials' content will not trigger restart.
+                      restartTriggers = [ configIni ];
+                      serviceConfig = {
+                        Type = "simple";
+                        Restart = mkDefault "always";
+                        #RestartSec = mkDefault "2min";
+                        StateDirectory = [ "sourcehut/${srvsrht}" ];
+                        StateDirectoryMode = "2750";
+                        ExecStart =
+                          "${cfg.python}/bin/gunicorn ${srvsrht}.app:app --name ${srvsrht} --bind ${cfg.listenAddress}:${
+                            toString srvCfg.port
+                          } "
+                          + concatStringsSep " " srvCfg.gunicorn.extraArgs
+                          ;
+                      };
+                      preStart =
+                        let
+                          version = pkgs.sourcehut.${srvsrht}.version;
+                          stateDir = "/var/lib/sourcehut/${srvsrht}";
+                        in
+                        mkBefore ''
+                          set -x
+                          # Use the /run/sourcehut/${srvsrht}/config.ini
+                          # installed by a previous ExecStartPre= in baseService
+                          cd /run/sourcehut/${srvsrht}
 
-                        if test ! -e ${stateDir}/db; then
-                          # Setup the initial database.
-                          # Note that it stamps the alembic head afterward
-                          ${cfg.python}/bin/${srvsrht}-initdb
-                          echo ${version} >${stateDir}/db
-                        fi
-
-                        ${optionalString
-                        cfg.settings.${iniKey}.migrate-on-upgrade
-                        ''
-                          if [ "$(cat ${stateDir}/db)" != "${version}" ]; then
-                            # Manage schema migrations using alembic
-                            ${cfg.python}/bin/${srvsrht}-migrate -a upgrade head
+                          if test ! -e ${stateDir}/db; then
+                            # Setup the initial database.
+                            # Note that it stamps the alembic head afterward
+                            ${cfg.python}/bin/${srvsrht}-initdb
                             echo ${version} >${stateDir}/db
                           fi
-                        ''}
 
-                        # Update copy of each users' profile to the latest
-                        # See https://lists.sr.ht/~sircmpwn/sr.ht-admins/<20190302181207.GA13778%40cirno.my.domain>
-                        if test ! -e ${stateDir}/webhook; then
-                          # Update ${iniKey}'s users' profile copy to the latest
-                          ${cfg.python}/bin/srht-update-profiles ${iniKey}
-                          touch ${stateDir}/webhook
-                        fi
-                      ''
-                      ;
-                  }
-                  mainService
-                ]
-              );
+                          ${optionalString
+                            cfg.settings.${iniKey}.migrate-on-upgrade
+                            ''
+                              if [ "$(cat ${stateDir}/db)" != "${version}" ]; then
+                                # Manage schema migrations using alembic
+                                ${cfg.python}/bin/${srvsrht}-migrate -a upgrade head
+                                echo ${version} >${stateDir}/db
+                              fi
+                            ''}
+
+                          # Update copy of each users' profile to the latest
+                          # See https://lists.sr.ht/~sircmpwn/sr.ht-admins/<20190302181207.GA13778%40cirno.my.domain>
+                          if test ! -e ${stateDir}/webhook; then
+                            # Update ${iniKey}'s users' profile copy to the latest
+                            ${cfg.python}/bin/srht-update-profiles ${iniKey}
+                            touch ${stateDir}/webhook
+                          fi
+                        ''
+                        ;
+                    }
+                    mainService
+                  ]
+                )
+              ;
           }
 
           (mkIf webhooks {
@@ -442,9 +447,8 @@ in
               partOf = [ "${srvsrht}.service" ];
               preStart = ''
                 cp ${
-                  pkgs.writeText
-                  "${srvsrht}-webhooks-celeryconfig.py"
-                  srvCfg.webhooks.celeryConfig
+                  pkgs.writeText "${srvsrht}-webhooks-celeryconfig.py"
+                    srvCfg.webhooks.celeryConfig
                 } \
                    /run/sourcehut/${srvsrht}-webhooks/celeryconfig.py
               '';
@@ -461,58 +465,64 @@ in
             };
           })
 
-          (mapAttrs
-            (
-              timerName: timer:
-              (baseService timerName { } (
-                mkMerge [
-                  {
-                    description = "sourcehut ${timerName} service";
-                    after = [
-                      "network.target"
-                      "${srvsrht}.service"
-                    ];
-                    serviceConfig = {
-                      Type = "oneshot";
-                      ExecStart = "${cfg.python}/bin/${timerName}";
-                    };
-                  }
-                  (timer.service or { })
-                ]
-              ))
-            )
-            extraTimers)
-
-          (mapAttrs
-            (
-              serviceName: extraService:
-              baseService serviceName { } (
-                mkMerge [
-                  {
-                    description = "sourcehut ${serviceName} service";
-                    # So that extraServices have the PostgreSQL database initialized.
-                    after = [ "${srvsrht}.service" ];
-                    wantedBy = [ "${srvsrht}.service" ];
-                    partOf = [ "${srvsrht}.service" ];
-                    serviceConfig = {
-                      Type = "simple";
-                      Restart = mkDefault "always";
-                    };
-                  }
-                  extraService
-                ]
+          (
+            mapAttrs
+              (
+                timerName: timer:
+                (baseService timerName { } (
+                  mkMerge [
+                    {
+                      description = "sourcehut ${timerName} service";
+                      after = [
+                        "network.target"
+                        "${srvsrht}.service"
+                      ];
+                      serviceConfig = {
+                        Type = "oneshot";
+                        ExecStart = "${cfg.python}/bin/${timerName}";
+                      };
+                    }
+                    (timer.service or { })
+                  ]
+                ))
               )
-            )
-            extraServices)
+              extraTimers
+          )
+
+          (
+            mapAttrs
+              (
+                serviceName: extraService:
+                baseService serviceName { } (
+                  mkMerge [
+                    {
+                      description = "sourcehut ${serviceName} service";
+                      # So that extraServices have the PostgreSQL database initialized.
+                      after = [ "${srvsrht}.service" ];
+                      wantedBy = [ "${srvsrht}.service" ];
+                      partOf = [ "${srvsrht}.service" ];
+                      serviceConfig = {
+                        Type = "simple";
+                        Restart = mkDefault "always";
+                      };
+                    }
+                    extraService
+                  ]
+                )
+              )
+              extraServices
+          )
         ];
 
-        systemd.timers = mapAttrs
-          (timerName: timer: {
-            description = "sourcehut timer for ${timerName}";
-            wantedBy = [ "timers.target" ];
-            inherit (timer) timerConfig;
-          })
-          extraTimers;
+        systemd.timers =
+          mapAttrs
+            (timerName: timer: {
+              description = "sourcehut timer for ${timerName}";
+              wantedBy = [ "timers.target" ];
+              inherit (timer) timerConfig;
+            })
+            extraTimers
+          ;
       }
     ]
   );

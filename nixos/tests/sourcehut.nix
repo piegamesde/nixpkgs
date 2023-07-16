@@ -10,12 +10,14 @@ import ./make-test-python.nix (
     # Note that wildcard certificates just under the TLD (eg. *.com)
     # would be rejected by clients like curl.
     tls-cert =
-      pkgs.runCommand "selfSignedCerts" { buildInputs = [ pkgs.openssl ]; } ''
-        openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes -days 36500 \
-          -subj '/CN=${domain}' -extensions v3_req \
-          -addext 'subjectAltName = DNS:*.${domain}'
-        install -D -t $out key.pem cert.pem
-      '';
+      pkgs.runCommand "selfSignedCerts" { buildInputs = [ pkgs.openssl ]; }
+        ''
+          openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes -days 36500 \
+            -subj '/CN=${domain}' -extensions v3_req \
+            -addext 'subjectAltName = DNS:*.${domain}'
+          install -D -t $out key.pem cert.pem
+        ''
+      ;
 
     images = {
       nixos.unstable.x86_64 =
@@ -185,29 +187,33 @@ import ./make-test-python.nix (
 
           settings."sr.ht" = {
             global-domain = config.networking.domain;
-            service-key = pkgs.writeText
-              "service-key"
-              "8b327279b77e32a3620e2fc9aabce491cc46e7d821fd6713b2a2e650ce114d01"
+            service-key =
+              pkgs.writeText "service-key"
+                "8b327279b77e32a3620e2fc9aabce491cc46e7d821fd6713b2a2e650ce114d01"
               ;
-            network-key = pkgs.writeText
-              "network-key"
-              "cEEmc30BRBGkgQZcHFksiG7hjc6_dK1XR2Oo5Jb9_nQ=";
+            network-key =
+              pkgs.writeText "network-key"
+                "cEEmc30BRBGkgQZcHFksiG7hjc6_dK1XR2Oo5Jb9_nQ="
+              ;
           };
           settings."builds.sr.ht" = {
-            oauth-client-secret = pkgs.writeText
-              "buildsrht-oauth-client-secret"
-              "2260e9c4d9b8dcedcef642860e0504bc";
+            oauth-client-secret =
+              pkgs.writeText "buildsrht-oauth-client-secret"
+                "2260e9c4d9b8dcedcef642860e0504bc"
+              ;
             oauth-client-id = "299db9f9c2013170";
           };
           settings."git.sr.ht" = {
-            oauth-client-secret = pkgs.writeText
-              "gitsrht-oauth-client-secret"
-              "3597288dc2c716e567db5384f493b09d";
+            oauth-client-secret =
+              pkgs.writeText "gitsrht-oauth-client-secret"
+                "3597288dc2c716e567db5384f493b09d"
+              ;
             oauth-client-id = "d07cb713d920702e";
           };
-          settings.webhooks.private-key = pkgs.writeText
-            "webhook-key"
-            "Ra3IjxgFiwG9jxgp4WALQIZw/BMYt30xWiOsqD0J7EA=";
+          settings.webhooks.private-key =
+            pkgs.writeText "webhook-key"
+              "Ra3IjxgFiwG9jxgp4WALQIZw/BMYt30xWiOsqD0J7EA="
+            ;
           settings.mail = {
             smtp-from = "root+hut@${domain}";
             # WARNING: take care to keep pgp-privkey outside the Nix store in production,

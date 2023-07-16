@@ -14,26 +14,32 @@ let
   defaultUser = "syncthing";
   defaultGroup = defaultUser;
 
-  devices = mapAttrsToList
-    (name: device: {
-      deviceID = device.id;
-      inherit (device) name addresses introducer autoAcceptFolders;
-    })
-    cfg.devices;
+  devices =
+    mapAttrsToList
+      (name: device: {
+        deviceID = device.id;
+        inherit (device) name addresses introducer autoAcceptFolders;
+      })
+      cfg.devices
+    ;
 
-  folders = mapAttrsToList
-    (_: folder: {
-      inherit (folder) path id label type;
-      devices =
-        map (device: { deviceId = cfg.devices.${device}.id; }) folder.devices;
-      rescanIntervalS = folder.rescanInterval;
-      fsWatcherEnabled = folder.watch;
-      fsWatcherDelayS = folder.watchDelay;
-      ignorePerms = folder.ignorePerms;
-      ignoreDelete = folder.ignoreDelete;
-      versioning = folder.versioning;
-    })
-    (filterAttrs (_: folder: folder.enable) cfg.folders);
+  folders =
+    mapAttrsToList
+      (_: folder: {
+        inherit (folder) path id label type;
+        devices =
+          map (device: { deviceId = cfg.devices.${device}.id; })
+            folder.devices
+          ;
+        rescanIntervalS = folder.rescanInterval;
+        fsWatcherEnabled = folder.watch;
+        fsWatcherDelayS = folder.watchDelay;
+        ignorePerms = folder.ignorePerms;
+        ignoreDelete = folder.ignoreDelete;
+        versioning = folder.versioning;
+      })
+      (filterAttrs (_: folder: folder.enable) cfg.folders)
+    ;
 
   updateConfig = pkgs.writers.writeDash "merge-syncthing-config" ''
     set -efu
@@ -64,14 +70,12 @@ let
     # generate the new config by merging with the NixOS config options
     new_cfg=$(printf '%s\n' "$old_cfg" | ${pkgs.jq}/bin/jq -c '. * {
         "devices": (${builtins.toJSON devices}${
-          optionalString
-          (cfg.devices == { } || !cfg.overrideDevices)
-          " + .devices"
+          optionalString (cfg.devices == { } || !cfg.overrideDevices)
+            " + .devices"
         }),
         "folders": (${builtins.toJSON folders}${
-          optionalString
-          (cfg.folders == { } || !cfg.overrideFolders)
-          " + .folders"
+          optionalString (cfg.folders == { } || !cfg.overrideFolders)
+            " + .folders"
         })
     } * ${builtins.toJSON cfg.extraOptions}')
 
@@ -92,7 +96,7 @@ in
 
       enable = mkEnableOption (
         lib.mdDoc
-        "Syncthing, a self-hosted open-source alternative to Dropbox and Bittorrent Sync"
+          "Syncthing, a self-hosted open-source alternative to Dropbox and Bittorrent Sync"
       );
 
       cert = mkOption {
@@ -581,42 +585,45 @@ in
 
   imports =
     [
-      (mkRemovedOptionModule
-        [
-          "services"
-          "syncthing"
-          "useInotify"
-        ]
-        ''
-          This option was removed because Syncthing now has the inotify functionality included under the name "fswatcher".
-          It can be enabled on a per-folder basis through the web interface.
-        '')
-    ]
-    ++ map
       (
-        o:
-        mkRenamedOptionModule
-        [
-          "services"
-          "syncthing"
-          "declarative"
-          o
-        ]
-        [
-          "services"
-          "syncthing"
-          o
-        ]
+        mkRemovedOptionModule
+          [
+            "services"
+            "syncthing"
+            "useInotify"
+          ]
+          ''
+            This option was removed because Syncthing now has the inotify functionality included under the name "fswatcher".
+            It can be enabled on a per-folder basis through the web interface.
+          ''
       )
-      [
-        "cert"
-        "key"
-        "devices"
-        "folders"
-        "overrideDevices"
-        "overrideFolders"
-        "extraOptions"
-      ]
+    ]
+    ++
+      map
+        (
+          o:
+          mkRenamedOptionModule
+            [
+              "services"
+              "syncthing"
+              "declarative"
+              o
+            ]
+            [
+              "services"
+              "syncthing"
+              o
+            ]
+        )
+        [
+          "cert"
+          "key"
+          "devices"
+          "folders"
+          "overrideDevices"
+          "overrideFolders"
+          "extraOptions"
+        ]
     ;
 
   ###### implementation
@@ -666,20 +673,20 @@ in
           User = cfg.user;
           Group = cfg.group;
           ExecStartPre = mkIf (cfg.cert != null || cfg.key != null) "+${
-              pkgs.writers.writeBash "syncthing-copy-keys" ''
-                install -dm700 -o ${cfg.user} -g ${cfg.group} ${cfg.configDir}
-                ${optionalString (cfg.cert != null) ''
-                  install -Dm400 -o ${cfg.user} -g ${cfg.group} ${
-                    toString cfg.cert
-                  } ${cfg.configDir}/cert.pem
-                ''}
-                ${optionalString (cfg.key != null) ''
-                  install -Dm400 -o ${cfg.user} -g ${cfg.group} ${
-                    toString cfg.key
-                  } ${cfg.configDir}/key.pem
-                ''}
-              ''
-            }";
+                pkgs.writers.writeBash "syncthing-copy-keys" ''
+                  install -dm700 -o ${cfg.user} -g ${cfg.group} ${cfg.configDir}
+                  ${optionalString (cfg.cert != null) ''
+                    install -Dm400 -o ${cfg.user} -g ${cfg.group} ${
+                      toString cfg.cert
+                    } ${cfg.configDir}/cert.pem
+                  ''}
+                  ${optionalString (cfg.key != null) ''
+                    install -Dm400 -o ${cfg.user} -g ${cfg.group} ${
+                      toString cfg.key
+                    } ${cfg.configDir}/key.pem
+                  ''}
+                ''
+              }";
           ExecStart = ''
             ${cfg.package}/bin/syncthing \
               -no-browser \
@@ -710,22 +717,24 @@ in
           ];
         };
       };
-      syncthing-init = mkIf
-        (cfg.devices != { } || cfg.folders != { } || cfg.extraOptions != { })
-        {
-          description = "Syncthing configuration updater";
-          requisite = [ "syncthing.service" ];
-          after = [ "syncthing.service" ];
-          wantedBy = [ "multi-user.target" ];
+      syncthing-init =
+        mkIf
+          (cfg.devices != { } || cfg.folders != { } || cfg.extraOptions != { })
+          {
+            description = "Syncthing configuration updater";
+            requisite = [ "syncthing.service" ];
+            after = [ "syncthing.service" ];
+            wantedBy = [ "multi-user.target" ];
 
-          serviceConfig = {
-            User = cfg.user;
-            RemainAfterExit = true;
-            RuntimeDirectory = "syncthing-init";
-            Type = "oneshot";
-            ExecStart = updateConfig;
-          };
-        };
+            serviceConfig = {
+              User = cfg.user;
+              RemainAfterExit = true;
+              RuntimeDirectory = "syncthing-init";
+              Type = "oneshot";
+              ExecStart = updateConfig;
+            };
+          }
+        ;
 
       syncthing-resume = { wantedBy = [ "suspend.target" ]; };
     };

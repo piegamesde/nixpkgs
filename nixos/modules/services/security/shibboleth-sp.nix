@@ -28,8 +28,9 @@ in
       fastcgi.enable = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc
-          "Whether to include the shibauthorizer and shibresponder FastCGI processes"
+        description =
+          lib.mdDoc
+            "Whether to include the shibauthorizer and shibresponder FastCGI processes"
           ;
       };
 
@@ -37,14 +38,18 @@ in
         type = types.int;
         default = 9100;
         description =
-          lib.mdDoc "Port for shibauthorizer FastCGI process to bind to";
+          lib.mdDoc
+            "Port for shibauthorizer FastCGI process to bind to"
+          ;
       };
 
       fastcgi.shibResponderPort = mkOption {
         type = types.int;
         default = 9101;
         description =
-          lib.mdDoc "Port for shibauthorizer FastCGI process to bind to";
+          lib.mdDoc
+            "Port for shibauthorizer FastCGI process to bind to"
+          ;
       };
     };
   };

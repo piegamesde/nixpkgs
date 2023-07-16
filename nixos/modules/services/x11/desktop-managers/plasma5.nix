@@ -105,7 +105,9 @@ in
         type = types.bool;
         default = false;
         description =
-          lib.mdDoc "Enable the Plasma 5 (KDE 5) desktop environment.";
+          lib.mdDoc
+            "Enable the Plasma 5 (KDE 5) desktop environment."
+          ;
       };
 
       phononBackend = mkOption {
@@ -176,7 +178,9 @@ in
     };
     environment.plasma5.excludePackages = mkOption {
       description =
-        lib.mdDoc "List of default packages to exclude from the configuration";
+        lib.mdDoc
+          "List of default packages to exclude from the configuration"
+        ;
       type = types.listOf types.package;
       default = [ ];
       example = literalExpression "[ pkgs.plasma5Packages.oxygen ]";
@@ -184,50 +188,58 @@ in
   };
 
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "xserver"
-        "desktopManager"
-        "plasma5"
-        "enableQt4Support"
-      ]
-      "Phonon no longer supports Qt 4.")
-    (mkRemovedOptionModule
-      [
-        "services"
-        "xserver"
-        "desktopManager"
-        "plasma5"
-        "supportDDC"
-      ]
-      "DDC/CI is no longer supported upstream.")
-    (mkRenamedOptionModule
-      [
-        "services"
-        "xserver"
-        "desktopManager"
-        "kde5"
-      ]
-      [
-        "services"
-        "xserver"
-        "desktopManager"
-        "plasma5"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "xserver"
-        "desktopManager"
-        "plasma5"
-        "excludePackages"
-      ]
-      [
-        "environment"
-        "plasma5"
-        "excludePackages"
-      ])
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "xserver"
+          "desktopManager"
+          "plasma5"
+          "enableQt4Support"
+        ]
+        "Phonon no longer supports Qt 4."
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "xserver"
+          "desktopManager"
+          "plasma5"
+          "supportDDC"
+        ]
+        "DDC/CI is no longer supported upstream."
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "xserver"
+          "desktopManager"
+          "kde5"
+        ]
+        [
+          "services"
+          "xserver"
+          "desktopManager"
+          "plasma5"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "xserver"
+          "desktopManager"
+          "plasma5"
+          "excludePackages"
+        ]
+        [
+          "environment"
+          "plasma5"
+          "excludePackages"
+        ]
+    )
   ];
 
   config = mkMerge [
@@ -351,17 +363,17 @@ in
           ];
         in
         requiredPackages
-        ++ utils.removePackagesByName
-          optionalPackages
-          config.environment.plasma5.excludePackages
+        ++
+          utils.removePackagesByName optionalPackages
+            config.environment.plasma5.excludePackages
 
         # Phonon audio backend
-        ++ lib.optional
-          (cfg.phononBackend == "gstreamer")
-          libsForQt5.phonon-backend-gstreamer
-        ++ lib.optional
-          (cfg.phononBackend == "vlc")
-          libsForQt5.phonon-backend-vlc
+        ++
+          lib.optional (cfg.phononBackend == "gstreamer")
+            libsForQt5.phonon-backend-gstreamer
+        ++
+          lib.optional (cfg.phononBackend == "vlc")
+            libsForQt5.phonon-backend-vlc
 
         # Optional hardware support features
         ++ lib.optionals config.hardware.bluetooth.enable [
@@ -375,9 +387,9 @@ in
         ++ lib.optional config.services.pipewire.pulse.enable plasma-pa
         ++ lib.optional config.powerManagement.enable powerdevil
         ++ lib.optional config.services.colord.enable pkgs.colord-kde
-        ++ lib.optional
-          config.services.hardware.bolt.enable
-          pkgs.plasma5Packages.plasma-thunderbolt
+        ++
+          lib.optional config.services.hardware.bolt.enable
+            pkgs.plasma5Packages.plasma-thunderbolt
         ++ lib.optionals config.services.samba.enable [
           kdenetwork-filesharing
           pkgs.samba
@@ -428,7 +440,9 @@ in
       };
 
       programs.ssh.askPassword =
-        mkDefault "${plasma5.ksshaskpass.out}/bin/ksshaskpass";
+        mkDefault
+          "${plasma5.ksshaskpass.out}/bin/ksshaskpass"
+        ;
 
       # Enable helpful DBus services.
       services.accounts-daemon.enable = true;
@@ -436,7 +450,9 @@ in
       systemd.services.accounts-daemon.serviceConfig.PrivateTmp = false;
       services.power-profiles-daemon.enable = mkDefault true;
       services.system-config-printer.enable =
-        mkIf config.services.printing.enable (mkDefault true);
+        mkIf config.services.printing.enable
+          (mkDefault true)
+        ;
       services.udisks2.enable = true;
       services.upower.enable = config.powerManagement.enable;
       services.xserver.libinput.enable = mkDefault true;
@@ -481,7 +497,9 @@ in
 
     (mkIf (cfg.kdeglobals != { }) {
       environment.etc."xdg/kdeglobals".text =
-        lib.generators.toINI { } cfg.kdeglobals;
+        lib.generators.toINI { }
+          cfg.kdeglobals
+        ;
     })
 
     # Plasma Desktop
@@ -533,9 +551,9 @@ in
           ];
         in
         requiredPackages
-        ++ utils.removePackagesByName
-          optionalPackages
-          config.environment.plasma5.excludePackages
+        ++
+          utils.removePackagesByName optionalPackages
+            config.environment.plasma5.excludePackages
         ;
 
       systemd.user.services = {

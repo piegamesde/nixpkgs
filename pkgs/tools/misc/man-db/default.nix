@@ -99,9 +99,9 @@ stdenv.mkDerivation rec {
   '';
 
   disallowedReferences =
-    lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-      buildPackages.groff
-    ];
+    lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
+      [ buildPackages.groff ]
+    ;
 
   enableParallelBuilding = true;
 

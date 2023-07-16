@@ -37,8 +37,9 @@ in
         type = types.str;
         default = "/var/lib/pleroma";
         readOnly = true;
-        description = lib.mdDoc
-          "Directory where the pleroma service will save the uploads and static files."
+        description =
+          lib.mdDoc
+            "Directory where the pleroma service will save the uploads and static files."
           ;
       };
 

@@ -53,16 +53,16 @@ rec {
   packageSourceOverrides =
     overrides: self: super:
     pkgs.lib.mapAttrs
-    (
-      name: src:
-      let
-        isPath = x: builtins.substring 0 1 (toString x) == "/";
-        generateExprs =
-          if isPath src then self.callCabal2nix else self.callHackage;
-      in
-      generateExprs name src { }
-    )
-    overrides
+      (
+        name: src:
+        let
+          isPath = x: builtins.substring 0 1 (toString x) == "/";
+          generateExprs =
+            if isPath src then self.callCabal2nix else self.callHackage;
+        in
+        generateExprs name src { }
+      )
+      overrides
     ;
 
   /* doCoverage modifies a haskell package to enable the generation
@@ -233,38 +233,53 @@ rec {
     version: drv: assert drv.version == version; markBroken drv;
   markUnbroken = overrideCabal (drv: { broken = false; });
 
-  enableLibraryProfiling =
-    overrideCabal (drv: { enableLibraryProfiling = true; });
-  disableLibraryProfiling =
-    overrideCabal (drv: { enableLibraryProfiling = false; });
+  enableLibraryProfiling = overrideCabal (
+    drv: { enableLibraryProfiling = true; }
+  );
+  disableLibraryProfiling = overrideCabal (
+    drv: { enableLibraryProfiling = false; }
+  );
 
-  enableExecutableProfiling =
-    overrideCabal (drv: { enableExecutableProfiling = true; });
-  disableExecutableProfiling =
-    overrideCabal (drv: { enableExecutableProfiling = false; });
+  enableExecutableProfiling = overrideCabal (
+    drv: { enableExecutableProfiling = true; }
+  );
+  disableExecutableProfiling = overrideCabal (
+    drv: { enableExecutableProfiling = false; }
+  );
 
-  enableSharedExecutables =
-    overrideCabal (drv: { enableSharedExecutables = true; });
-  disableSharedExecutables =
-    overrideCabal (drv: { enableSharedExecutables = false; });
+  enableSharedExecutables = overrideCabal (
+    drv: { enableSharedExecutables = true; }
+  );
+  disableSharedExecutables = overrideCabal (
+    drv: { enableSharedExecutables = false; }
+  );
 
   enableSharedLibraries =
-    overrideCabal (drv: { enableSharedLibraries = true; });
-  disableSharedLibraries =
-    overrideCabal (drv: { enableSharedLibraries = false; });
+    overrideCabal
+      (drv: { enableSharedLibraries = true; })
+    ;
+  disableSharedLibraries = overrideCabal (
+    drv: { enableSharedLibraries = false; }
+  );
 
-  enableDeadCodeElimination =
-    overrideCabal (drv: { enableDeadCodeElimination = true; });
-  disableDeadCodeElimination =
-    overrideCabal (drv: { enableDeadCodeElimination = false; });
+  enableDeadCodeElimination = overrideCabal (
+    drv: { enableDeadCodeElimination = true; }
+  );
+  disableDeadCodeElimination = overrideCabal (
+    drv: { enableDeadCodeElimination = false; }
+  );
 
   enableStaticLibraries =
-    overrideCabal (drv: { enableStaticLibraries = true; });
-  disableStaticLibraries =
-    overrideCabal (drv: { enableStaticLibraries = false; });
+    overrideCabal
+      (drv: { enableStaticLibraries = true; })
+    ;
+  disableStaticLibraries = overrideCabal (
+    drv: { enableStaticLibraries = false; }
+  );
 
-  enableSeparateBinOutput =
-    overrideCabal (drv: { enableSeparateBinOutput = true; });
+  enableSeparateBinOutput = overrideCabal (
+    drv: { enableSeparateBinOutput = true; }
+  );
 
   appendPatch = x: appendPatches [ x ];
   appendPatches =
@@ -301,8 +316,8 @@ rec {
     # --disable-*-stripping: tell GHC not to strip resulting binaries
     # dontStrip: see above
     appendConfigureFlag
-    "--ghc-options=-g --disable-executable-stripping --disable-library-stripping"
-    (dontStrip drv)
+      "--ghc-options=-g --disable-executable-stripping --disable-library-stripping"
+      (dontStrip drv)
     ;
 
   /* Create a source distribution tarball like those found on hackage,
@@ -358,8 +373,9 @@ rec {
   /* Use the gold linker. It is a linker for ELF that is designed
      "to run as fast as possible on modern systems"
   */
-  linkWithGold = appendConfigureFlag
-    "--ghc-option=-optl-fuse-ld=gold --ld-option=-fuse-ld=gold --with-ld=ld.gold"
+  linkWithGold =
+    appendConfigureFlag
+      "--ghc-option=-optl-fuse-ld=gold --ld-option=-fuse-ld=gold --with-ld=ld.gold"
     ;
 
   /* link executables statically against haskell libs to reduce
@@ -393,15 +409,15 @@ rec {
   buildFromSdist =
     pkg:
     overrideCabal
-    (drv: {
-      src = "${sdistTarball pkg}/${pkg.pname}-${pkg.version}.tar.gz";
+      (drv: {
+        src = "${sdistTarball pkg}/${pkg.pname}-${pkg.version}.tar.gz";
 
-      # Revising and jailbreaking the cabal file has been handled in sdistTarball
-      revision = null;
-      editedCabalFile = null;
-      jailbreak = false;
-    })
-    pkg
+        # Revising and jailbreaking the cabal file has been handled in sdistTarball
+        revision = null;
+        editedCabalFile = null;
+        jailbreak = false;
+      })
+      pkg
     ;
 
   /* Build the package in a strict way to uncover potential problems.
@@ -416,7 +432,9 @@ rec {
      of them occur.
   */
   failOnAllWarnings =
-    appendConfigureFlag "--ghc-option=-Wall --ghc-option=-Werror";
+    appendConfigureFlag
+      "--ghc-option=-Wall --ghc-option=-Werror"
+    ;
 
   /* Add a post-build check to verify that dependencies declared in
      the cabal file are actually used.
@@ -433,20 +451,20 @@ rec {
     }:
     drv:
     overrideCabal
-    (_drv: {
-      postBuild = with lib;
-        let
-          args = concatStringsSep " " (
-            optional ignoreEmptyImports "--ignore-empty-imports"
-            ++ optional ignoreMainModule "--ignore-main-module"
-            ++ map (pkg: "--ignore-package ${pkg}") ignorePackages
-          );
-        in
-        "${pkgs.haskellPackages.packunused}/bin/packunused"
-        + optionalString (args != "") " ${args}"
-        ;
-    })
-    (appendConfigureFlag "--ghc-option=-ddump-minimal-imports" drv)
+      (_drv: {
+        postBuild = with lib;
+          let
+            args = concatStringsSep " " (
+              optional ignoreEmptyImports "--ignore-empty-imports"
+              ++ optional ignoreMainModule "--ignore-main-module"
+              ++ map (pkg: "--ignore-package ${pkg}") ignorePackages
+            );
+          in
+          "${pkgs.haskellPackages.packunused}/bin/packunused"
+          + optionalString (args != "") " ${args}"
+          ;
+      })
+      (appendConfigureFlag "--ghc-option=-ddump-minimal-imports" drv)
     ;
 
   buildStackProject = pkgs.callPackage ../generic-stack-builder.nix { };
@@ -467,12 +485,12 @@ rec {
     }:
     drv:
     overrideCabal
-    (_: {
-      inherit src;
-      version = if version == null then drv.version else version;
-      editedCabalFile = null;
-    })
-    drv
+      (_: {
+        inherit src;
+        version = if version == null then drv.version else version;
+        editedCabalFile = null;
+      })
+      drv
     ;
 
   # Get all of the build inputs of a haskell package, divided by category.
@@ -580,8 +598,8 @@ rec {
   generateOptparseApplicativeCompletions =
     commands: pkg:
     lib.warnIf (lib.isInOldestRelease 2211)
-    "haskellLib.generateOptparseApplicativeCompletions is deprecated in favor of haskellPackages.generateOptparseApplicativeCompletions. Please change ${pkg.name} to use the latter and make sure it uses its matching haskell.packages set!"
-    (pkgs.lib.foldr __generateOptparseApplicativeCompletion pkg commands)
+      "haskellLib.generateOptparseApplicativeCompletions is deprecated in favor of haskellPackages.generateOptparseApplicativeCompletions. Please change ${pkg.name} to use the latter and make sure it uses its matching haskell.packages set!"
+      (pkgs.lib.foldr __generateOptparseApplicativeCompletion pkg commands)
     ;
 
   /* Retained for backwards compatibility.
@@ -591,15 +609,16 @@ rec {
   generateOptparseApplicativeCompletion =
     command: pkg:
     lib.warnIf (lib.isInOldestRelease 2211)
-    "haskellLib.generateOptparseApplicativeCompletion is deprecated in favor of haskellPackages.generateOptparseApplicativeCompletions (plural!). Please change ${pkg.name} to use the latter and make sure it uses its matching haskell.packages set!"
-    (__generateOptparseApplicativeCompletion command pkg)
+      "haskellLib.generateOptparseApplicativeCompletion is deprecated in favor of haskellPackages.generateOptparseApplicativeCompletions (plural!). Please change ${pkg.name} to use the latter and make sure it uses its matching haskell.packages set!"
+      (__generateOptparseApplicativeCompletion command pkg)
     ;
 
   # Don't fail at configure time if there are multiple versions of the
   # same package in the (recursive) dependencies of the package being
   # built. Will delay failures, if any, to compile time.
-  allowInconsistentDependencies =
-    overrideCabal (drv: { allowInconsistentDependencies = true; });
+  allowInconsistentDependencies = overrideCabal (
+    drv: { allowInconsistentDependencies = true; }
+  );
 
   # Work around a Cabal bug requiring pkg-config --static --libs to work even
   # when linking dynamically, affecting Cabal 3.8 and 3.9.
@@ -620,12 +639,14 @@ rec {
         drvs:
         builtins.map (i: i.val) (
           builtins.genericClosure {
-            startSet = builtins.map
-              (drv: {
-                key = drv.outPath;
-                val = drv;
-              })
-              drvs;
+            startSet =
+              builtins.map
+                (drv: {
+                  key = drv.outPath;
+                  val = drv;
+                })
+                drvs
+              ;
             operator =
               {
                 val,
@@ -635,17 +656,17 @@ rec {
                 [ ]
               else
                 builtins.concatMap
-                (
-                  drv:
-                  if !lib.isDerivation drv then
-                    [ ]
-                  else
-                    [ {
-                      key = drv.outPath;
-                      val = drv;
-                    } ]
-                )
-                (val.buildInputs or [ ] ++ val.propagatedBuildInputs or [ ])
+                  (
+                    drv:
+                    if !lib.isDerivation drv then
+                      [ ]
+                    else
+                      [ {
+                        key = drv.outPath;
+                        val = drv;
+                      } ]
+                  )
+                  (val.buildInputs or [ ] ++ val.propagatedBuildInputs or [ ])
               ;
           }
         )
@@ -654,13 +675,21 @@ rec {
     overrideCabal (
       old: {
         benchmarkPkgconfigDepends =
-          propagatedPlainBuildInputs old.benchmarkPkgconfigDepends or [ ];
+          propagatedPlainBuildInputs
+            old.benchmarkPkgconfigDepends or [ ]
+          ;
         executablePkgconfigDepends =
-          propagatedPlainBuildInputs old.executablePkgconfigDepends or [ ];
+          propagatedPlainBuildInputs
+            old.executablePkgconfigDepends or [ ]
+          ;
         libraryPkgconfigDepends =
-          propagatedPlainBuildInputs old.libraryPkgconfigDepends or [ ];
+          propagatedPlainBuildInputs
+            old.libraryPkgconfigDepends or [ ]
+          ;
         testPkgconfigDepends =
-          propagatedPlainBuildInputs old.testPkgconfigDepends or [ ];
+          propagatedPlainBuildInputs
+            old.testPkgconfigDepends or [ ]
+          ;
       }
     )
     ;

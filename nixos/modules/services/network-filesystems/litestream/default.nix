@@ -79,7 +79,9 @@ in
       after = [ "networking.target" ];
       serviceConfig = {
         EnvironmentFile =
-          mkIf (cfg.environmentFile != null) cfg.environmentFile;
+          mkIf (cfg.environmentFile != null)
+            cfg.environmentFile
+          ;
         ExecStart = "${cfg.package}/bin/litestream replicate";
         Restart = "always";
         User = "litestream";

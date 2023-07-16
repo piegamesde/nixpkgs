@@ -16,27 +16,29 @@ let
 in
 
 rec {
-  launcher = runCommand "octave-kernel-launcher"
-    {
-      inherit octave;
-      python = python3.withPackages (
-        ps: [
-          ps.traitlets
-          ps.jupyter-core
-          ps.ipykernel
-          ps.metakernel
-          kernel
-        ]
-      );
-      nativeBuildInputs = [ makeWrapper ];
-    }
-    ''
-      mkdir -p $out/bin
+  launcher =
+    runCommand "octave-kernel-launcher"
+      {
+        inherit octave;
+        python = python3.withPackages (
+          ps: [
+            ps.traitlets
+            ps.jupyter-core
+            ps.ipykernel
+            ps.metakernel
+            kernel
+          ]
+        );
+        nativeBuildInputs = [ makeWrapper ];
+      }
+      ''
+        mkdir -p $out/bin
 
-      makeWrapper $python/bin/python $out/bin/octave-kernel \
-        --add-flags "-m octave_kernel" \
-        --suffix PATH : $octave/bin
-    '';
+        makeWrapper $python/bin/python $out/bin/octave-kernel \
+          --add-flags "-m octave_kernel" \
+          --suffix PATH : $octave/bin
+      ''
+    ;
 
   sizedLogo =
     size:

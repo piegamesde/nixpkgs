@@ -34,7 +34,9 @@ stdenv.mkDerivation {
   pname = "libtorch";
 
   src =
-    fetchzip srcs."${stdenv.targetPlatform.system}-${device}" or unavailable;
+    fetchzip
+      srcs."${stdenv.targetPlatform.system}-${device}" or unavailable
+    ;
 
   nativeBuildInputs =
     if stdenv.isDarwin then

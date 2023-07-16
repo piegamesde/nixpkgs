@@ -37,19 +37,19 @@ let
       ${concatMapStringsSep "\n" (n: "port_${n}") (attrNames cfg.ports)}
 
       ${concatMapStrings
-      (p: ''
-        [port_${p.name}]
-        ip=${p.ip}
-        port=${toString p.port}
-        protocol=${concatStringsSep "," p.protocol}
-        ${optionalString (p.user != "") "user=${p.user}"}
-        ${optionalString (p.password != "") "user=${p.password}"}
-        admin=${concatStringsSep "," p.admin}
-        ${optionalString (p.ssl.key != null) "ssl_key=${p.ssl.key}"}
-        ${optionalString (p.ssl.cert != null) "ssl_cert=${p.ssl.cert}"}
-        ${optionalString (p.ssl.chain != null) "ssl_chain=${p.ssl.chain}"}
-      '')
-      (attrValues cfg.ports)}
+        (p: ''
+          [port_${p.name}]
+          ip=${p.ip}
+          port=${toString p.port}
+          protocol=${concatStringsSep "," p.protocol}
+          ${optionalString (p.user != "") "user=${p.user}"}
+          ${optionalString (p.password != "") "user=${p.password}"}
+          admin=${concatStringsSep "," p.admin}
+          ${optionalString (p.ssl.key != null) "ssl_key=${p.ssl.key}"}
+          ${optionalString (p.ssl.cert != null) "ssl_cert=${p.ssl.cert}"}
+          ${optionalString (p.ssl.chain != null) "ssl_chain=${p.ssl.chain}"}
+        '')
+        (attrValues cfg.ports)}
 
       [database_path]
       ${cfg.databasePath}
@@ -138,22 +138,28 @@ let
         };
 
         user = mkOption {
-          description = lib.mdDoc
-            "When set, these credentials will be required on HTTP/S requests.";
+          description =
+            lib.mdDoc
+              "When set, these credentials will be required on HTTP/S requests."
+            ;
           type = types.str;
           default = "";
         };
 
         password = mkOption {
-          description = lib.mdDoc
-            "When set, these credentials will be required on HTTP/S requests.";
+          description =
+            lib.mdDoc
+              "When set, these credentials will be required on HTTP/S requests."
+            ;
           type = types.str;
           default = "";
         };
 
         admin = mkOption {
           description =
-            lib.mdDoc "A comma-separated list of admin IP addresses.";
+            lib.mdDoc
+              "A comma-separated list of admin IP addresses."
+            ;
           type = types.listOf types.str;
           default = [ "127.0.0.1" ];
         };
@@ -215,7 +221,9 @@ let
 
       onlineDelete = mkOption {
         description =
-          lib.mdDoc "Enable automatic purging of older ledger information.";
+          lib.mdDoc
+            "Enable automatic purging of older ledger information."
+          ;
         type = types.nullOr (types.addCheck types.int (v: v > 256));
         default = cfg.ledgerHistory;
         defaultText = literalExpression "config.${opt.ledgerHistory}";
@@ -430,7 +438,8 @@ in
 
         address = mkOption {
           description =
-            lib.mdDoc "The UDP address and port of the listening StatsD server."
+            lib.mdDoc
+              "The UDP address and port of the listening StatsD server."
             ;
           default = "127.0.0.1:8125";
           type = types.str;
@@ -438,7 +447,9 @@ in
 
         prefix = mkOption {
           description =
-            lib.mdDoc "A string prepended to each collected metric.";
+            lib.mdDoc
+              "A string prepended to each collected metric."
+            ;
           default = "";
           type = types.str;
         };

@@ -56,30 +56,32 @@ let
   nameAndVersion = name + versionStr;
 in
 runCommandLocal nameAndVersion
-{
-  inherit meta;
+  {
+    inherit meta;
 
-  passthru = passthru // {
-    env = runCommandLocal "${name}-shell-env"
-      {
-        shellHook = ''
-          exec ${chrootenv}/bin/chrootenv ${init runScript} "$(pwd)"
-        '';
-      }
-      ''
-        echo >&2 ""
-        echo >&2 "*** User chroot 'env' attributes are intended for interactive nix-shell sessions, not for building! ***"
-        echo >&2 ""
-        exit 1
-      '';
-  };
-}
-''
-  mkdir -p $out/bin
-  cat <<EOF >$out/bin/${name}
-  #! ${stdenv.shell}
-  exec ${chrootenv}/bin/chrootenv ${init runScript} "\$(pwd)" "\$@"
-  EOF
-  chmod +x $out/bin/${name}
-  ${extraInstallCommands}
-''
+    passthru = passthru // {
+      env =
+        runCommandLocal "${name}-shell-env"
+          {
+            shellHook = ''
+              exec ${chrootenv}/bin/chrootenv ${init runScript} "$(pwd)"
+            '';
+          }
+          ''
+            echo >&2 ""
+            echo >&2 "*** User chroot 'env' attributes are intended for interactive nix-shell sessions, not for building! ***"
+            echo >&2 ""
+            exit 1
+          ''
+        ;
+    };
+  }
+  ''
+    mkdir -p $out/bin
+    cat <<EOF >$out/bin/${name}
+    #! ${stdenv.shell}
+    exec ${chrootenv}/bin/chrootenv ${init runScript} "\$(pwd)" "\$@"
+    EOF
+    chmod +x $out/bin/${name}
+    ${extraInstallCommands}
+  ''

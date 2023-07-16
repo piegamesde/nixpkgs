@@ -63,7 +63,9 @@ in
           type = types.str;
           default = "0.0.0.0";
           description =
-            lib.mdDoc "IP address on which the Ergo node should listen.";
+            lib.mdDoc
+              "IP address on which the Ergo node should listen."
+            ;
         };
 
         port = mkOption {
@@ -79,8 +81,9 @@ in
           default = null;
           example =
             "324dcf027dd4a30a932c441f365a25e86b173defa4b8e58948253471b81b72cf";
-          description = lib.mdDoc
-            "Hex-encoded Blake2b256 hash of an API key as a 64-chars long Base16 string."
+          description =
+            lib.mdDoc
+              "Hex-encoded Blake2b256 hash of an API key as a 64-chars long Base16 string."
             ;
         };
 
@@ -88,16 +91,18 @@ in
           ip = mkOption {
             type = types.str;
             default = "0.0.0.0";
-            description = lib.mdDoc
-              "IP address that the Ergo node API should listen on if {option}`api.keyHash` is defined."
+            description =
+              lib.mdDoc
+                "IP address that the Ergo node API should listen on if {option}`api.keyHash` is defined."
               ;
           };
 
           port = mkOption {
             type = types.port;
             default = 9052;
-            description = lib.mdDoc
-              "Listen port for the API endpoint if {option}`api.keyHash` is defined."
+            description =
+              lib.mdDoc
+                "Listen port for the API endpoint if {option}`api.keyHash` is defined."
               ;
           };
         };
@@ -107,7 +112,8 @@ in
         type = types.bool;
         default = false;
         description =
-          lib.mdDoc "Connect to testnet network instead of the default mainnet."
+          lib.mdDoc
+            "Connect to testnet network instead of the default mainnet."
           ;
       };
 
@@ -127,8 +133,10 @@ in
       openFirewall = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc
-          "Open ports in the firewall for the Ergo node as well as the API.";
+        description =
+          lib.mdDoc
+            "Open ports in the firewall for the Ergo node as well as the API."
+          ;
       };
     };
   };

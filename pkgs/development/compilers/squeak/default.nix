@@ -63,9 +63,10 @@ let
       url =
         "https://api.github.com/repos/OpenSmalltalk/opensmalltalk-vm/commits/${squeakVmVersionRelease}";
       curlOpts = "--header Accept:application/vnd.github.v3.sha";
-      hash = nullableOr
-        args.squeakVmCommitHashHash or null
-        "sha256-quwmhpJlb2fp0fI9b03fBxSR44j1xmHPW20wkSqTOhQ=";
+      hash =
+        nullableOr args.squeakVmCommitHashHash or null
+          "sha256-quwmhpJlb2fp0fI9b03fBxSR44j1xmHPW20wkSqTOhQ="
+        ;
     }
   );
 in
@@ -81,9 +82,10 @@ stdenv.mkDerivation {
     owner = "OpenSmalltalk";
     repo = "opensmalltalk-vm";
     rev = squeakVmVersionRelease;
-    hash = nullableOr
-      args.squeakVmHash or null
-      "sha256-rNJn5ya+7ggC21MpwSrl2ByJDjVycONKHADboH7dQLM=";
+    hash =
+      nullableOr args.squeakVmHash or null
+        "sha256-rNJn5ya+7ggC21MpwSrl2ByJDjVycONKHADboH7dQLM="
+      ;
   };
   imageSrc =
     let
@@ -95,17 +97,19 @@ stdenv.mkDerivation {
         "https://files.squeak.org/${squeakVersionBase}/${squeakImageName}/${squeakImageName}.zip";
       name = "source";
       stripRoot = false;
-      hash = nullableOr
-        args.squeakImageHash or null
-        "sha256-wDuRyc/DNqG1D4DzyBkUvrzFkBlXBtbpnANZlRV/Fas=";
+      hash =
+        nullableOr args.squeakImageHash or null
+          "sha256-wDuRyc/DNqG1D4DzyBkUvrzFkBlXBtbpnANZlRV/Fas="
+        ;
     }
     ;
   sourcesSrc = fetchurl {
     url =
       "https://files.squeak.org/sources_files/SqueakV${squeakSourcesVersion}.sources.gz";
-    hash = nullableOr
-      args.squeakSourcesHash or null
-      "sha256-ZViZ1VgI32LwLTEyw7utp8oaAK3UmCNJnHqsGm1IKYE=";
+    hash =
+      nullableOr args.squeakSourcesHash or null
+        "sha256-ZViZ1VgI32LwLTEyw7utp8oaAK3UmCNJnHqsGm1IKYE="
+      ;
   };
 
   vmBuild = "linux64x64";

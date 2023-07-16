@@ -14,7 +14,7 @@ with lib;
   options = {
     programs.pantheon-tweaks.enable = mkEnableOption (
       lib.mdDoc
-      "Pantheon Tweaks, an unofficial system settings panel for Pantheon"
+        "Pantheon Tweaks, an unofficial system settings panel for Pantheon"
     );
   };
 

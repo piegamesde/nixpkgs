@@ -17,12 +17,14 @@ let
     ''
     ;
   scriptSh = exec: pkgs.writeScript ("kodi-" + exec.name) (script exec.path);
-  execs = map
-    (core: rec {
-      name = core.core;
-      path = core + "/bin/retroarch-" + name;
-    })
-    cores;
+  execs =
+    map
+      (core: rec {
+        name = core.core;
+        path = core + "/bin/retroarch-" + name;
+      })
+      cores
+    ;
 in
 
 stdenv.mkDerivation {
@@ -34,8 +36,8 @@ stdenv.mkDerivation {
   buildCommand = ''
     mkdir -p $out/bin
     ${lib.concatMapStrings
-    (exec: "ln -s ${scriptSh exec} $out/bin/kodi-${exec.name};")
-    execs}
+      (exec: "ln -s ${scriptSh exec} $out/bin/kodi-${exec.name};")
+      execs}
   '';
 
   meta = {

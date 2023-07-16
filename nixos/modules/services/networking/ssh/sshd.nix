@@ -35,28 +35,31 @@ let
       concatStringsSep "," v
     else
       throw "unsupported type ${builtins.typeOf v}: ${
-        (lib.generators.toPretty { }) v
-      }";
+          (lib.generators.toPretty { }) v
+        }";
 
   # dont use the "=" operator
   settingsFormat =
     (pkgs.formats.keyValue {
-      mkKeyValue = lib.generators.mkKeyValueDefault
-        { mkValueString = mkValueStringSshd; }
-        " ";
+      mkKeyValue =
+        lib.generators.mkKeyValueDefault { mkValueString = mkValueStringSshd; }
+          " "
+        ;
     });
 
   configFile = settingsFormat.generate "config" cfg.settings;
-  sshconf = pkgs.runCommand "sshd.conf-validated"
-    { nativeBuildInputs = [ validationPackage ]; }
-    ''
-      cat ${configFile} - >$out <<EOL
-      ${cfg.extraConfig}
-      EOL
+  sshconf =
+    pkgs.runCommand "sshd.conf-validated"
+      { nativeBuildInputs = [ validationPackage ]; }
+      ''
+        cat ${configFile} - >$out <<EOL
+        ${cfg.extraConfig}
+        EOL
 
-      ssh-keygen -q -f mock-hostkey -N ""
-      sshd -t -f $out -h mock-hostkey
-    '';
+        ssh-keygen -q -f mock-hostkey -N ""
+        sshd -t -f $out -h mock-hostkey
+      ''
+    ;
 
   cfg = config.services.openssh;
   cfgc = config.programs.ssh;
@@ -106,9 +109,8 @@ let
           mode = "0444";
           source = pkgs.writeText "${u.name}-authorized_keys" ''
             ${concatStringsSep "\n" u.openssh.authorizedKeys.keys}
-            ${concatMapStrings
-            (f: readFile f + "\n")
-            u.openssh.authorizedKeys.keyFiles}
+            ${concatMapStrings (f: readFile f + "\n")
+              u.openssh.authorizedKeys.keyFiles}
           '';
         }
         ;
@@ -126,160 +128,186 @@ in
 
 {
   imports = [
-    (mkAliasOptionModuleMD
-      [
-        "services"
-        "sshd"
-        "enable"
-      ]
-      [
-        "services"
-        "openssh"
-        "enable"
-      ])
-    (mkAliasOptionModuleMD
-      [
-        "services"
-        "openssh"
-        "knownHosts"
-      ]
-      [
-        "programs"
-        "ssh"
-        "knownHosts"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "openssh"
-        "challengeResponseAuthentication"
-      ]
-      [
-        "services"
-        "openssh"
-        "kbdInteractiveAuthentication"
-      ])
+    (
+      mkAliasOptionModuleMD
+        [
+          "services"
+          "sshd"
+          "enable"
+        ]
+        [
+          "services"
+          "openssh"
+          "enable"
+        ]
+    )
+    (
+      mkAliasOptionModuleMD
+        [
+          "services"
+          "openssh"
+          "knownHosts"
+        ]
+        [
+          "programs"
+          "ssh"
+          "knownHosts"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "openssh"
+          "challengeResponseAuthentication"
+        ]
+        [
+          "services"
+          "openssh"
+          "kbdInteractiveAuthentication"
+        ]
+    )
 
-    (mkRenamedOptionModule
-      [
-        "services"
-        "openssh"
-        "kbdInteractiveAuthentication"
-      ]
-      [
-        "services"
-        "openssh"
-        "settings"
-        "KbdInteractiveAuthentication"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "openssh"
-        "passwordAuthentication"
-      ]
-      [
-        "services"
-        "openssh"
-        "settings"
-        "PasswordAuthentication"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "openssh"
-        "useDns"
-      ]
-      [
-        "services"
-        "openssh"
-        "settings"
-        "UseDns"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "openssh"
-        "permitRootLogin"
-      ]
-      [
-        "services"
-        "openssh"
-        "settings"
-        "PermitRootLogin"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "openssh"
-        "logLevel"
-      ]
-      [
-        "services"
-        "openssh"
-        "settings"
-        "LogLevel"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "openssh"
-        "macs"
-      ]
-      [
-        "services"
-        "openssh"
-        "settings"
-        "Macs"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "openssh"
-        "ciphers"
-      ]
-      [
-        "services"
-        "openssh"
-        "settings"
-        "Ciphers"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "openssh"
-        "kexAlgorithms"
-      ]
-      [
-        "services"
-        "openssh"
-        "settings"
-        "KexAlgorithms"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "openssh"
-        "gatewayPorts"
-      ]
-      [
-        "services"
-        "openssh"
-        "settings"
-        "GatewayPorts"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "openssh"
-        "forwardX11"
-      ]
-      [
-        "services"
-        "openssh"
-        "settings"
-        "X11Forwarding"
-      ])
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "openssh"
+          "kbdInteractiveAuthentication"
+        ]
+        [
+          "services"
+          "openssh"
+          "settings"
+          "KbdInteractiveAuthentication"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "openssh"
+          "passwordAuthentication"
+        ]
+        [
+          "services"
+          "openssh"
+          "settings"
+          "PasswordAuthentication"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "openssh"
+          "useDns"
+        ]
+        [
+          "services"
+          "openssh"
+          "settings"
+          "UseDns"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "openssh"
+          "permitRootLogin"
+        ]
+        [
+          "services"
+          "openssh"
+          "settings"
+          "PermitRootLogin"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "openssh"
+          "logLevel"
+        ]
+        [
+          "services"
+          "openssh"
+          "settings"
+          "LogLevel"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "openssh"
+          "macs"
+        ]
+        [
+          "services"
+          "openssh"
+          "settings"
+          "Macs"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "openssh"
+          "ciphers"
+        ]
+        [
+          "services"
+          "openssh"
+          "settings"
+          "Ciphers"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "openssh"
+          "kexAlgorithms"
+        ]
+        [
+          "services"
+          "openssh"
+          "settings"
+          "KexAlgorithms"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "openssh"
+          "gatewayPorts"
+        ]
+        [
+          "services"
+          "openssh"
+          "settings"
+          "GatewayPorts"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "openssh"
+          "forwardX11"
+        ]
+        [
+          "services"
+          "openssh"
+          "settings"
+          "X11Forwarding"
+        ]
+    )
   ];
 
   ###### interface
@@ -641,8 +669,9 @@ in
       };
     };
 
-    users.users =
-      mkOption { type = with types; attrsOf (submodule userOptions); };
+    users.users = mkOption {
+      type = with types; attrsOf (submodule userOptions);
+    };
   };
 
   ###### implementation
@@ -658,7 +687,9 @@ in
 
     services.openssh.moduliFile = mkDefault "${cfgc.package}/etc/ssh/moduli";
     services.openssh.sftpServerExecutable =
-      mkDefault "${cfgc.package}/libexec/sftp-server";
+      mkDefault
+        "${cfgc.package}/libexec/sftp-server"
+      ;
 
     environment.etc = authKeysFiles // {
       "ssh/moduli".source = cfg.moduliFile;
@@ -700,9 +731,8 @@ in
                       ${optionalString (k ? rounds) "-a ${toString k.rounds}"} \
                       ${optionalString (k ? comment) "-C '${k.comment}'"} \
                       ${
-                        optionalString
-                        (k ? openSSHFormat && k.openSSHFormat)
-                        "-o"
+                        optionalString (k ? openSSHFormat && k.openSSHFormat)
+                          "-o"
                       } \
                       -f "${k.path}" \
                       -N ""
@@ -745,13 +775,13 @@ in
             socketConfig.ListenStream =
               if cfg.listenAddresses != [ ] then
                 map
-                (
-                  l:
-                  "${l.addr}:${
-                    toString (if l.port != null then l.port else 22)
-                  }"
-                )
-                cfg.listenAddresses
+                  (
+                    l:
+                    "${l.addr}:${
+                      toString (if l.port != null then l.port else 22)
+                    }"
+                  )
+                  cfg.listenAddresses
               else
                 cfg.ports
               ;
@@ -798,24 +828,24 @@ in
 
       AddressFamily ${if config.networking.enableIPv6 then "any" else "inet"}
       ${concatMapStrings
-      (port: ''
-        Port ${toString port}
-      '')
-      cfg.ports}
+        (port: ''
+          Port ${toString port}
+        '')
+        cfg.ports}
 
       ${concatMapStrings
-      (
-        {
-          port,
-          addr,
-          ...
-        }: ''
-          ListenAddress ${addr}${
-            optionalString (port != null) (":" + toString port)
-          }
-        ''
-      )
-      cfg.listenAddresses}
+        (
+          {
+            port,
+            addr,
+            ...
+          }: ''
+            ListenAddress ${addr}${
+              optionalString (port != null) (":" + toString port)
+            }
+          ''
+        )
+        cfg.listenAddresses}
 
       ${optionalString cfgc.setXAuthLocation ''
         XAuthLocation ${pkgs.xorg.xauth}/bin/xauth

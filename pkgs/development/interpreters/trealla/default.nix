@@ -42,8 +42,9 @@ stdenv.mkDerivation rec {
     openssl
     libffi
   ];
-  checkInputs =
-    lib.optionals (!(stdenv.isDarwin && stdenv.isAarch64)) [ valgrind ];
+  checkInputs = lib.optionals (!(stdenv.isDarwin && stdenv.isAarch64)) [
+    valgrind
+  ];
   enableParallelBuilding = true;
 
   installPhase = ''

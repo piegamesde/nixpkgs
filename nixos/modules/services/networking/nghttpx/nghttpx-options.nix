@@ -6,9 +6,9 @@
     enable = lib.mkEnableOption (lib.mdDoc "nghttpx");
 
     frontends = lib.mkOption {
-      type =
-        lib.types.listOf (lib.types.submodule (import ./frontend-submodule.nix))
-        ;
+      type = lib.types.listOf (
+        lib.types.submodule (import ./frontend-submodule.nix)
+      );
       description = lib.mdDoc ''
         A list of frontend listener specifications.
       '';
@@ -23,8 +23,9 @@
     };
 
     backends = lib.mkOption {
-      type =
-        lib.types.listOf (lib.types.submodule (import ./backend-submodule.nix));
+      type = lib.types.listOf (
+        lib.types.submodule (import ./backend-submodule.nix)
+      );
       description = lib.mdDoc ''
         A list of backend specifications.
       '';
@@ -43,7 +44,9 @@
 
     tls = lib.mkOption {
       type =
-        lib.types.nullOr (lib.types.submodule (import ./tls-submodule.nix));
+        lib.types.nullOr
+          (lib.types.submodule (import ./tls-submodule.nix))
+        ;
       default = null;
       description = lib.mdDoc ''
         TLS certificate and key paths. Note that this does not enable

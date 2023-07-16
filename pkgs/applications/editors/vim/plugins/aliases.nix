@@ -33,20 +33,22 @@ let
   mapAliases =
     aliases:
     lib.mapAttrs
-    (
-      n: alias:
-      removeDistribute (removeRecurseForDerivations (checkInPkgs n alias))
-    )
-    aliases
+      (
+        n: alias:
+        removeDistribute (removeRecurseForDerivations (checkInPkgs n alias))
+      )
+      aliases
     ;
 
-  deprecations = lib.mapAttrs
-    (
-      old: info:
-      throw
-      "${old} was renamed to ${info.new} on ${info.date}. Please update to ${info.new}."
-    )
-    (lib.importJSON ./deprecated.json);
+  deprecations =
+    lib.mapAttrs
+      (
+        old: info:
+        throw
+          "${old} was renamed to ${info.new} on ${info.date}. Please update to ${info.new}."
+      )
+      (lib.importJSON ./deprecated.json)
+    ;
 in
 mapAliases (
   with prev;
@@ -147,7 +149,8 @@ mapAliases (
     UltiSnips = ultisnips;
     vim-addon-vim2nix = vim2nix;
     vim-sourcetrail =
-      throw "vim-sourcetrail has been removed: abandoned by upstream"
+      throw
+        "vim-sourcetrail has been removed: abandoned by upstream"
       ; # Added 2022-08-14
     vimproc = vimproc-vim;
     vimshell = vimshell-vim;

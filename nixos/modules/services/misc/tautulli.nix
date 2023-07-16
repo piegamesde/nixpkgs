@@ -12,15 +12,17 @@ let
 in
 {
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "plexpy"
-      ]
-      [
-        "services"
-        "tautulli"
-      ])
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "plexpy"
+        ]
+        [
+          "services"
+          "tautulli"
+        ]
+    )
   ];
 
   options = {
@@ -31,7 +33,9 @@ in
         type = types.str;
         default = "/var/lib/plexpy";
         description =
-          lib.mdDoc "The directory where Tautulli stores its data files.";
+          lib.mdDoc
+            "The directory where Tautulli stores its data files."
+          ;
       };
 
       configFile = mkOption {

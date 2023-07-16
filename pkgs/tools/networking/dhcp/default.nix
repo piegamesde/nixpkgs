@@ -62,9 +62,9 @@ stdenv.mkDerivation rec {
       "--with-ldap"
       "--with-ldapcrypto"
     ]
-    ++ lib.optional
-      (stdenv.hostPlatform != stdenv.buildPlatform)
-      "BUILD_CC=$(CC_FOR_BUILD)"
+    ++
+      lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
+        "BUILD_CC=$(CC_FOR_BUILD)"
     ;
 
   env.NIX_CFLAGS_COMPILE = builtins.toString [
@@ -122,9 +122,9 @@ stdenv.mkDerivation rec {
     homepage = "https://www.isc.org/dhcp/";
     license = licenses.mpl20;
     platforms = platforms.unix;
-    knownVulnerabilities = lib.optional
-      (withClient || withRelay)
-      "The client and relay component of the dhcp package have reached their end of life"
+    knownVulnerabilities =
+      lib.optional (withClient || withRelay)
+        "The client and relay component of the dhcp package have reached their end of life"
       ;
   };
 }

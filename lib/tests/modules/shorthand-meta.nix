@@ -14,8 +14,9 @@ in
       }: {
         options = {
           meta.foo = mkOption { type = types.listOf types.str; };
-          result =
-            mkOption { default = lib.concatStringsSep " " config.meta.foo; };
+          result = mkOption {
+            default = lib.concatStringsSep " " config.meta.foo;
+          };
         };
       }
     )

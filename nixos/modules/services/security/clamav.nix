@@ -19,36 +19,45 @@ let
   };
 
   clamdConfigFile =
-    pkgs.writeText "clamd.conf" (toKeyValue cfg.daemon.settings);
-  freshclamConfigFile =
-    pkgs.writeText "freshclam.conf" (toKeyValue cfg.updater.settings);
+    pkgs.writeText "clamd.conf"
+      (toKeyValue cfg.daemon.settings)
+    ;
+  freshclamConfigFile = pkgs.writeText "freshclam.conf" (
+    toKeyValue cfg.updater.settings
+  );
 in
 {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "clamav"
-        "updater"
-        "config"
-      ]
-      "Use services.clamav.updater.settings instead.")
-    (mkRemovedOptionModule
-      [
-        "services"
-        "clamav"
-        "updater"
-        "extraConfig"
-      ]
-      "Use services.clamav.updater.settings instead.")
-    (mkRemovedOptionModule
-      [
-        "services"
-        "clamav"
-        "daemon"
-        "extraConfig"
-      ]
-      "Use services.clamav.daemon.settings instead.")
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "clamav"
+          "updater"
+          "config"
+        ]
+        "Use services.clamav.updater.settings instead."
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "clamav"
+          "updater"
+          "extraConfig"
+        ]
+        "Use services.clamav.updater.settings instead."
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "clamav"
+          "daemon"
+          "extraConfig"
+        ]
+        "Use services.clamav.daemon.settings instead."
+    )
   ];
 
   options = {

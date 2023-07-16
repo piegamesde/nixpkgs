@@ -112,8 +112,8 @@ stdenv.mkDerivation rec {
   checkPhase =
     let
       excludedTestsRegex = lib.optionalString (excludedTests != [ ]) "(${
-          lib.concatStringsSep "|" excludedTests
-        })";
+            lib.concatStringsSep "|" excludedTests
+          })";
     in
     ''
       runHook preCheck

@@ -16,17 +16,20 @@ let
   # you can provide an easy way to boot the same configuration
   # as you use, but with another kernel
   # !!! fix this
-  children = mapAttrs
-    (childName: childConfig: childConfig.configuration.system.build.toplevel)
-    config.specialisation;
+  children =
+    mapAttrs
+      (childName: childConfig: childConfig.configuration.system.build.toplevel)
+      config.specialisation
+    ;
 in
 {
   options = {
 
     specialisation = mkOption {
       default = { };
-      example = lib.literalExpression
-        "{ fewJobsManyCores.configuration = { nix.settings = { core = 0; max-jobs = 1; }; }; }"
+      example =
+        lib.literalExpression
+          "{ fewJobsManyCores.configuration = { nix.settings = { core = 0; max-jobs = 1; }; }; }"
         ;
       description = lib.mdDoc ''
         Additional configurations to build. If
@@ -57,8 +60,9 @@ in
             options.inheritParentConfig = mkOption {
               type = types.bool;
               default = true;
-              description = lib.mdDoc
-                "Include the entire system's configuration. Set to false to make a completely differently configured system."
+              description =
+                lib.mdDoc
+                  "Include the entire system's configuration. Set to false to make a completely differently configured system."
                 ;
             };
 
@@ -84,9 +88,8 @@ in
     system.systemBuilderCommands = ''
       mkdir $out/specialisation
       ${concatStringsSep "\n" (
-        mapAttrsToList
-        (name: path: "ln -s ${path} $out/specialisation/${name}")
-        children
+        mapAttrsToList (name: path: "ln -s ${path} $out/specialisation/${name}")
+          children
       )}
     '';
   };

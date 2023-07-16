@@ -20,5 +20,7 @@ let
 in
 lib.recurseIntoAttrs {
   defaultPkgConfigPackages =
-    allPkgs.callPackage ./test-defaultPkgConfigPackages.nix { };
+    allPkgs.callPackage ./test-defaultPkgConfigPackages.nix
+      { }
+    ;
 }

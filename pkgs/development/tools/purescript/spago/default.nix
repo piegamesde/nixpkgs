@@ -37,28 +37,30 @@ spago.overrideAttrs (
       #
       # $ sudo nix-build -A spago.passthru.tests --option sandbox relaxed
       #
-      tests = runCommand "spago-tests"
-        {
-          __noChroot = true;
-          nativeBuildInputs = [
-            cacert
-            git
-            nodejs
-            purescript
-            spago
-          ];
-        }
-        ''
-          # spago expects HOME to be set because it creates a cache file under
-          # home.
-          HOME=$(pwd)
+      tests =
+        runCommand "spago-tests"
+          {
+            __noChroot = true;
+            nativeBuildInputs = [
+              cacert
+              git
+              nodejs
+              purescript
+              spago
+            ];
+          }
+          ''
+            # spago expects HOME to be set because it creates a cache file under
+            # home.
+            HOME=$(pwd)
 
-          spago --verbose init
-          spago --verbose build
-          spago --verbose test
+            spago --verbose init
+            spago --verbose build
+            spago --verbose test
 
-          touch $out
-        '';
+            touch $out
+          ''
+        ;
     };
   }
 )

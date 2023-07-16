@@ -22,9 +22,8 @@ writeShellScriptBin "vscodeExts2nix" ''
     ${
       lib.optionalString (extensionsToIgnore != [ ]) ''
         | grep -v -i '^\(${
-          lib.concatMapStringsSep "\\|"
-          (e: "${e.publisher}.${e.name}")
-          extensionsToIgnore
+          lib.concatMapStringsSep "\\|" (e: "${e.publisher}.${e.name}")
+            extensionsToIgnore
         }\)'
       ''
     }
@@ -35,9 +34,8 @@ writeShellScriptBin "vscodeExts2nix" ''
     version=''${BASH_REMATCH[3]}
 
     extensions="${
-      lib.concatMapStringsSep "."
-      (e: "${e.publisher}${e.name}@${e.sha256}")
-      extensions
+      lib.concatMapStringsSep "." (e: "${e.publisher}${e.name}@${e.sha256}")
+        extensions
     }"
     reCurrentExt=$publisher$name"@([^.]*)"
     if [[ $extensions =~ $reCurrentExt ]]; then

@@ -52,12 +52,12 @@ let
     ''
     + (lib.concatStrings (
       lib.mapAttrsToList
-      (name: grammar: ''
-        ln -s ${
-          if grammar ? src then grammar.src else fetchGrammar grammar
-        } $out/${name}
-      '')
-      (import ./grammars { inherit lib; })
+        (name: grammar: ''
+          ln -s ${
+            if grammar ? src then grammar.src else fetchGrammar grammar
+          } $out/${name}
+        '')
+        (import ./grammars { inherit lib; })
     ))
   );
 
@@ -118,24 +118,24 @@ let
     in
     linkFarm "grammars" (
       map
-      (
-        drv:
-        let
-          name = lib.strings.getName drv;
-        in
-        {
-          name =
-            (lib.strings.replaceStrings [ "-" ] [ "_" ] (
-              lib.strings.removePrefix "tree-sitter-" (
-                lib.strings.removeSuffix "-grammar" name
-              )
-            ))
-            + ".so"
-            ;
-          path = "${drv}/parser";
-        }
-      )
-      grammars
+        (
+          drv:
+          let
+            name = lib.strings.getName drv;
+          in
+          {
+            name =
+              (lib.strings.replaceStrings [ "-" ] [ "_" ] (
+                lib.strings.removePrefix "tree-sitter-" (
+                  lib.strings.removeSuffix "-grammar" name
+                )
+              ))
+              + ".so"
+              ;
+            path = "${drv}/parser";
+          }
+        )
+        grammars
     )
     ;
 

@@ -51,7 +51,9 @@ rustPlatform.buildRustPackage rec {
     ;
 
   env.NIX_CFLAGS_COMPILE =
-    lib.optionalString stdenv.isDarwin "-DNCURSES_UNCTRL_H_incl";
+    lib.optionalString stdenv.isDarwin
+      "-DNCURSES_UNCTRL_H_incl"
+    ;
 
   buildNoDefaultFeatures = true;
 

@@ -7,15 +7,17 @@
   writeText,
 }:
 let
-  stripScheme = builtins.replaceStrings
-    [
-      "https://"
-      "http://"
-    ]
-    [
-      ""
-      ""
-    ];
+  stripScheme =
+    builtins.replaceStrings
+      [
+        "https://"
+        "http://"
+      ]
+      [
+        ""
+        ""
+      ]
+    ;
   stripNixStore = s: lib.removePrefix "${builtins.storeDir}/" s;
 in
 {

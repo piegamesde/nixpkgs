@@ -108,8 +108,9 @@ let
   needGrowfs = lib.any (fs: fs.autoResize) fileSystems;
 
   kernel-name = config.boot.kernelPackages.kernel.name or "kernel";
-  modulesTree =
-    config.system.modulesTree.override { name = kernel-name + "-modules"; };
+  modulesTree = config.system.modulesTree.override {
+    name = kernel-name + "-modules";
+  };
   firmware = config.hardware.firmware;
   # Determine the set of modules that we need to mount the root FS.
   modulesClosure = pkgs.makeModulesClosure {
@@ -141,17 +142,18 @@ let
 
     contents =
       map
-      (path: {
-        object = path;
-        symlink = "";
-      })
-      (subtractLists cfg.suppressedStorePaths cfg.storePaths)
-      ++ mapAttrsToList
-        (_: v: {
-          object = v.source;
-          symlink = v.target;
+        (path: {
+          object = path;
+          symlink = "";
         })
-        (filterAttrs (_: v: v.enable) cfg.contents)
+        (subtractLists cfg.suppressedStorePaths cfg.storePaths)
+      ++
+        mapAttrsToList
+          (_: v: {
+            object = v.source;
+            symlink = v.target;
+          })
+          (filterAttrs (_: v: v.enable) cfg.contents)
       ;
   };
 in
@@ -204,7 +206,9 @@ in
 
     contents = mkOption {
       description =
-        lib.mdDoc "Set of files that have to be linked into the initrd";
+        lib.mdDoc
+          "Set of files that have to be linked into the initrd"
+        ;
       example = literalExpression ''
         {
           "/etc/hostname".text = "mymachine";
@@ -401,9 +405,9 @@ in
         # systemd-cryptenroll
         "tpm-tis"
       ]
-      ++ lib.optional
-        (pkgs.stdenv.hostPlatform.system != "riscv64-linux")
-        "tpm-crb"
+      ++
+        lib.optional (pkgs.stdenv.hostPlatform.system != "riscv64-linux")
+          "tpm-crb"
       ;
 
     boot.initrd.systemd = {
@@ -437,9 +441,8 @@ in
           ${cfg.extraConfig}
           ManagerEnvironment=${
             lib.concatStringsSep " " (
-              lib.mapAttrsToList
-              (n: v: "${n}=${lib.escapeShellArg v}")
-              cfg.managerEnvironment
+              lib.mapAttrsToList (n: v: "${n}=${lib.escapeShellArg v}")
+                cfg.managerEnvironment
             )
           }
         '';
@@ -448,7 +451,9 @@ in
         "/lib/firmware".source = "${modulesClosure}/lib/firmware";
 
         "/etc/modules-load.d/nixos.conf".text =
-          concatStringsSep "\n" config.boot.initrd.kernelModules;
+          concatStringsSep "\n"
+            config.boot.initrd.kernelModules
+          ;
 
         # We can use either ! or * to lock the root account in the
         # console, but some software like OpenSSH won't even allow you
@@ -468,9 +473,11 @@ in
         "/etc/modprobe.d/systemd.conf".source =
           "${cfg.package}/lib/modprobe.d/systemd.conf";
         "/etc/modprobe.d/ubuntu.conf".source =
-          pkgs.runCommand "initrd-kmod-blacklist-ubuntu" { } ''
-            ${pkgs.buildPackages.perl}/bin/perl -0pe 's/## file: iwlwifi.conf(.+?)##/##/s;' $src > $out
-          '';
+          pkgs.runCommand "initrd-kmod-blacklist-ubuntu" { }
+            ''
+              ${pkgs.buildPackages.perl}/bin/perl -0pe 's/## file: iwlwifi.conf(.+?)##/##/s;' $src > $out
+            ''
+          ;
         "/etc/modprobe.d/debian.conf".source = pkgs.kmod-debian-aliases;
 
         "/etc/os-release".source = config.boot.initrd.osRelease;
@@ -524,36 +531,35 @@ in
       targets.initrd.aliases = [ "default.target" ];
       units =
         mapAttrs' (n: v: nameValuePair "${n}.path" (pathToUnit n v)) cfg.paths
-        // mapAttrs'
-        (n: v: nameValuePair "${n}.service" (serviceToUnit n v))
-        cfg.services // mapAttrs'
-        (n: v: nameValuePair "${n}.slice" (sliceToUnit n v))
-        cfg.slices // mapAttrs'
-        (n: v: nameValuePair "${n}.socket" (socketToUnit n v))
-        cfg.sockets // mapAttrs'
-        (n: v: nameValuePair "${n}.target" (targetToUnit n v))
-        cfg.targets // mapAttrs'
-        (n: v: nameValuePair "${n}.timer" (timerToUnit n v))
-        cfg.timers // listToAttrs (
+        // mapAttrs' (n: v: nameValuePair "${n}.service" (serviceToUnit n v))
+          cfg.services
+        // mapAttrs' (n: v: nameValuePair "${n}.slice" (sliceToUnit n v))
+          cfg.slices
+        // mapAttrs' (n: v: nameValuePair "${n}.socket" (socketToUnit n v))
+          cfg.sockets
+        // mapAttrs' (n: v: nameValuePair "${n}.target" (targetToUnit n v))
+          cfg.targets
+        // mapAttrs' (n: v: nameValuePair "${n}.timer" (timerToUnit n v))
+          cfg.timers // listToAttrs (
           map
-          (
-            v:
-            let
-              n = escapeSystemdPath v.where;
-            in
-            nameValuePair "${n}.mount" (mountToUnit n v)
-          )
-          cfg.mounts
+            (
+              v:
+              let
+                n = escapeSystemdPath v.where;
+              in
+              nameValuePair "${n}.mount" (mountToUnit n v)
+            )
+            cfg.mounts
         ) // listToAttrs (
           map
-          (
-            v:
-            let
-              n = escapeSystemdPath v.where;
-            in
-            nameValuePair "${n}.automount" (automountToUnit n v)
-          )
-          cfg.automounts
+            (
+              v:
+              let
+                n = escapeSystemdPath v.where;
+              in
+              nameValuePair "${n}.automount" (automountToUnit n v)
+            )
+            cfg.automounts
         );
 
       # make sure all the /dev nodes are set up

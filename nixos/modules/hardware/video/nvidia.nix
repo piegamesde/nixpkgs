@@ -37,80 +37,92 @@ let
   nvidiaPersistencedEnabled = cfg.nvidiaPersistenced;
   nvidiaSettings = cfg.nvidiaSettings;
   busIDType =
-    types.strMatching "([[:print:]]+[:@][0-9]{1,3}:[0-9]{1,2}:[0-9])?";
+    types.strMatching
+      "([[:print:]]+[:@][0-9]{1,3}:[0-9]{1,2}:[0-9])?"
+    ;
 
   ibtSupport = cfg.open || (nvidia_x11.ibtSupport or false);
 in
 
 {
   imports = [
-    (mkRenamedOptionModule
-      [
-        "hardware"
-        "nvidia"
-        "optimus_prime"
-        "enable"
-      ]
-      [
-        "hardware"
-        "nvidia"
-        "prime"
-        "sync"
-        "enable"
-      ])
-    (mkRenamedOptionModule
-      [
-        "hardware"
-        "nvidia"
-        "optimus_prime"
-        "allowExternalGpu"
-      ]
-      [
-        "hardware"
-        "nvidia"
-        "prime"
-        "allowExternalGpu"
-      ])
-    (mkRenamedOptionModule
-      [
-        "hardware"
-        "nvidia"
-        "prime"
-        "sync"
-        "allowExternalGpu"
-      ]
-      [
-        "hardware"
-        "nvidia"
-        "prime"
-        "allowExternalGpu"
-      ])
-    (mkRenamedOptionModule
-      [
-        "hardware"
-        "nvidia"
-        "optimus_prime"
-        "nvidiaBusId"
-      ]
-      [
-        "hardware"
-        "nvidia"
-        "prime"
-        "nvidiaBusId"
-      ])
-    (mkRenamedOptionModule
-      [
-        "hardware"
-        "nvidia"
-        "optimus_prime"
-        "intelBusId"
-      ]
-      [
-        "hardware"
-        "nvidia"
-        "prime"
-        "intelBusId"
-      ])
+    (
+      mkRenamedOptionModule
+        [
+          "hardware"
+          "nvidia"
+          "optimus_prime"
+          "enable"
+        ]
+        [
+          "hardware"
+          "nvidia"
+          "prime"
+          "sync"
+          "enable"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "hardware"
+          "nvidia"
+          "optimus_prime"
+          "allowExternalGpu"
+        ]
+        [
+          "hardware"
+          "nvidia"
+          "prime"
+          "allowExternalGpu"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "hardware"
+          "nvidia"
+          "prime"
+          "sync"
+          "allowExternalGpu"
+        ]
+        [
+          "hardware"
+          "nvidia"
+          "prime"
+          "allowExternalGpu"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "hardware"
+          "nvidia"
+          "optimus_prime"
+          "nvidiaBusId"
+        ]
+        [
+          "hardware"
+          "nvidia"
+          "prime"
+          "nvidiaBusId"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "hardware"
+          "nvidia"
+          "optimus_prime"
+          "intelBusId"
+        ]
+        [
+          "hardware"
+          "nvidia"
+          "prime"
+          "intelBusId"
+        ]
+    )
   ];
 
   options = {
@@ -301,12 +313,15 @@ in
       type = types.package;
       default = config.boot.kernelPackages.nvidiaPackages.stable;
       defaultText =
-        literalExpression "config.boot.kernelPackages.nvidiaPackages.stable";
+        literalExpression
+          "config.boot.kernelPackages.nvidiaPackages.stable"
+        ;
       description = lib.mdDoc ''
         The NVIDIA X11 derivation to use.
       '';
       example =
-        literalExpression "config.boot.kernelPackages.nvidiaPackages.legacy_340"
+        literalExpression
+          "config.boot.kernelPackages.nvidiaPackages.legacy_340"
         ;
     };
 
@@ -432,8 +447,9 @@ in
         optional primeEnabled {
           name = igpuDriver;
           display = offloadCfg.enable;
-          modules =
-            optionals (igpuDriver == "amdgpu") [ pkgs.xorg.xf86videoamdgpu ];
+          modules = optionals (igpuDriver == "amdgpu") [
+            pkgs.xorg.xf86videoamdgpu
+          ];
           deviceSection = ''
             BusID "${igpuBusId}"
             ${optionalString (syncCfg.enable && igpuDriver != "amdgpu") ''
@@ -501,10 +517,12 @@ in
         ;
 
       environment.etc."nvidia/nvidia-application-profiles-rc" =
-        mkIf nvidia_x11.useProfiles {
-          source =
-            "${nvidia_x11.bin}/share/nvidia/nvidia-application-profiles-rc";
-        };
+        mkIf nvidia_x11.useProfiles
+          {
+            source =
+              "${nvidia_x11.bin}/share/nvidia/nvidia-application-profiles-rc";
+          }
+        ;
 
       # 'nvidia_x11' installs it's files to /run/opengl-driver/...
       environment.etc."egl/egl_external_platform.d".source =
@@ -595,15 +613,15 @@ in
         ;
 
       systemd.tmpfiles.rules =
-        optional
-        config.virtualisation.docker.enableNvidia
-        "L+ /run/nvidia-docker/bin - - - - ${nvidia_x11.bin}/origBin"
-        ++ optional
-          (
-            nvidia_x11.persistenced != null
-            && config.virtualisation.docker.enableNvidia
-          )
-          "L+ /run/nvidia-docker/extras/bin/nvidia-persistenced - - - - ${nvidia_x11.persistenced}/origBin/nvidia-persistenced"
+        optional config.virtualisation.docker.enableNvidia
+          "L+ /run/nvidia-docker/bin - - - - ${nvidia_x11.bin}/origBin"
+        ++
+          optional
+            (
+              nvidia_x11.persistenced != null
+              && config.virtualisation.docker.enableNvidia
+            )
+            "L+ /run/nvidia-docker/extras/bin/nvidia-persistenced - - - - ${nvidia_x11.persistenced}/origBin/nvidia-persistenced"
         ;
 
       boot.extraModulePackages =
@@ -622,16 +640,19 @@ in
 
       # If requested enable modesetting via kernel parameter.
       boot.kernelParams =
-        optional
-        (offloadCfg.enable || cfg.modesetting.enable)
-        "nvidia-drm.modeset=1"
-        ++ optional
-          cfg.powerManagement.enable
-          "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
+        optional (offloadCfg.enable || cfg.modesetting.enable)
+          "nvidia-drm.modeset=1"
+        ++
+          optional cfg.powerManagement.enable
+            "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
         ++ optional cfg.open "nvidia.NVreg_OpenRmEnableUnsupportedGpus=1"
-        ++ optional
-          (config.boot.kernelPackages.kernel.kernelAtLeast "6.2" && !ibtSupport)
-          "ibt=off"
+        ++
+          optional
+            (
+              config.boot.kernelPackages.kernel.kernelAtLeast "6.2"
+              && !ibtSupport
+            )
+            "ibt=off"
         ;
 
       services.udev.extraRules =
@@ -645,17 +666,17 @@ in
         ''
         + optionalString cfg.powerManagement.finegrained (
           optionalString
-          (versionOlder config.boot.kernelPackages.kernel.version "5.5")
-          ''
-            # Remove NVIDIA USB xHCI Host Controller devices, if present
-            ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c0330", ATTR{remove}="1"
+            (versionOlder config.boot.kernelPackages.kernel.version "5.5")
+            ''
+              # Remove NVIDIA USB xHCI Host Controller devices, if present
+              ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c0330", ATTR{remove}="1"
 
-            # Remove NVIDIA USB Type-C UCSI devices, if present
-            ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c8000", ATTR{remove}="1"
+              # Remove NVIDIA USB Type-C UCSI devices, if present
+              ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c8000", ATTR{remove}="1"
 
-            # Remove NVIDIA Audio devices, if present
-            ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x040300", ATTR{remove}="1"
-          ''
+              # Remove NVIDIA Audio devices, if present
+              ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x040300", ATTR{remove}="1"
+            ''
           + ''
             # Enable runtime PM for NVIDIA VGA/3D controller devices on driver bind
             ACTION=="bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030000", TEST=="power/control", ATTR{power/control}="auto"

@@ -44,8 +44,10 @@ in
         "MLD"
       ];
       default = "MLD";
-      description = lib.mdDoc
-        "Algorithm to use for the data. Must be one of CH, CoreCH, MLD";
+      description =
+        lib.mdDoc
+          "Algorithm to use for the data. Must be one of CH, CoreCH, MLD"
+        ;
     };
 
     extraFlags = mkOption {
@@ -56,7 +58,9 @@ in
         "--max-matching-size 1000"
       ];
       description =
-        lib.mdDoc "Extra command line arguments passed to osrm-routed";
+        lib.mdDoc
+          "Extra command line arguments passed to osrm-routed"
+        ;
     };
 
     dataFile = mkOption {

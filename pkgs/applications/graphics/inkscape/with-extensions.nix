@@ -9,9 +9,9 @@
 
 let
   allExtensions =
-    lib.filter (pkg: lib.isDerivation pkg && !pkg.meta.broken or false) (
-      lib.attrValues inkscape-extensions
-    );
+    lib.filter (pkg: lib.isDerivation pkg && !pkg.meta.broken or false)
+      (lib.attrValues inkscape-extensions)
+    ;
   selectedExtensions =
     if inkscapeExtensions == null then allExtensions else inkscapeExtensions;
 in

@@ -68,7 +68,9 @@ in
     mkIf enable {
 
       boot.kernelModules =
-        optional governorEnable "cpufreq_${cfg.cpuFreqGovernor}";
+        optional governorEnable
+          "cpufreq_${cfg.cpuFreqGovernor}"
+        ;
 
       environment.systemPackages = [ cpupower ];
 

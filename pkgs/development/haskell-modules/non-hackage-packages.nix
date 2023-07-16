@@ -10,7 +10,9 @@ self: super: {
   dconf2nix = self.callPackage ../tools/haskell/dconf2nix/dconf2nix.nix { };
 
   ldgallery-compiler =
-    self.callPackage ../../tools/graphics/ldgallery/compiler { };
+    self.callPackage ../../tools/graphics/ldgallery/compiler
+      { }
+    ;
 
   # Used by maintainers/scripts/regenerate-hackage-packages.sh, and generated
   # from the latest master instead of the current version on Hackage.
@@ -30,9 +32,13 @@ self: super: {
   ci-info = self.callPackage ../misc/haskell/hasura/ci-info.nix { };
   pg-client = self.callPackage ../misc/haskell/hasura/pg-client.nix { };
   graphql-parser =
-    self.callPackage ../misc/haskell/hasura/graphql-parser.nix { };
+    self.callPackage ../misc/haskell/hasura/graphql-parser.nix
+      { }
+    ;
   graphql-engine =
-    self.callPackage ../misc/haskell/hasura/graphql-engine.nix { };
+    self.callPackage ../misc/haskell/hasura/graphql-engine.nix
+      { }
+    ;
   kriti-lang = self.callPackage ../misc/haskell/hasura/kriti-lang.nix { };
   hasura-resource-pool = self.callPackage ../misc/haskell/hasura/pool.nix { };
   hasura-ekg-core = self.callPackage ../misc/haskell/hasura/ekg-core.nix { };
@@ -41,5 +47,7 @@ self: super: {
   # Unofficial fork until PRs are merged https://github.com/pcapriotti/optparse-applicative/pulls/roberth
   # cabal2nix --maintainer roberth https://github.com/hercules-ci/optparse-applicative.git > pkgs/development/misc/haskell/hercules-ci-optparse-applicative.nix
   hercules-ci-optparse-applicative =
-    self.callPackage ../misc/haskell/hercules-ci-optparse-applicative.nix { };
+    self.callPackage ../misc/haskell/hercules-ci-optparse-applicative.nix
+      { }
+    ;
 }

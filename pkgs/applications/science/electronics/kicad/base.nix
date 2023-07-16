@@ -55,9 +55,8 @@
   sanitizeThreads,
 }:
 
-assert lib.assertMsg
-  (!(sanitizeAddress && sanitizeThreads))
-  "'sanitizeAddress' and 'sanitizeThreads' are mutually exclusive, use one.";
+assert lib.assertMsg (!(sanitizeAddress && sanitizeThreads))
+    "'sanitizeAddress' and 'sanitizeThreads' are mutually exclusive, use one.";
 
 let
   inherit (lib) optional optionals optionalString;

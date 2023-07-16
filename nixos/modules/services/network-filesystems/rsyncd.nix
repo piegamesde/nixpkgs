@@ -57,32 +57,35 @@ in
       socketActivated = mkOption {
         default = false;
         type = types.bool;
-        description = lib.mdDoc
-          "If enabled Rsync will be socket-activated rather than run persistently."
+        description =
+          lib.mdDoc
+            "If enabled Rsync will be socket-activated rather than run persistently."
           ;
       };
     };
   };
 
   imports =
-    (map
-      (
-        option:
-        mkRemovedOptionModule
+    (
+      map
+        (
+          option:
+          mkRemovedOptionModule
+            [
+              "services"
+              "rsyncd"
+              option
+            ]
+            "This option was removed in favor of `services.rsyncd.settings`."
+        )
         [
-          "services"
-          "rsyncd"
-          option
+          "address"
+          "extraConfig"
+          "motd"
+          "user"
+          "group"
         ]
-        "This option was removed in favor of `services.rsyncd.settings`."
-      )
-      [
-        "address"
-        "extraConfig"
-        "motd"
-        "user"
-        "group"
-      ]);
+    );
 
   config = mkIf cfg.enable {
 

@@ -76,10 +76,10 @@ let
         # when cross compiling, we must use himktables from PATH
         # (i.e. from buildPackages.texlive.bin.core.dev)
         lib.optionalString
-        (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
-        ''
-          sed -i 's|\./himktables|himktables|' texk/web2c/Makefile.in
-        ''
+          (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+          ''
+            sed -i 's|\./himktables|himktables|' texk/web2c/Makefile.in
+          ''
       ;
 
     configureFlags =
@@ -332,25 +332,26 @@ rec { # un-indented
         "icu"
         "graphite2"
       ]
-      ++ map (prog: "--disable-${prog}") # don't build things we already have
-        (
-          [
-            "tex"
-            "ptex"
-            "eptex"
-            "uptex"
-            "euptex"
-            "aleph"
-            "pdftex"
-            "web-progs"
-            "synctex"
-          ]
-          ++ lib.optionals (!withLuaJIT) [
-            "luajittex"
-            "luajithbtex"
-            "mfluajit"
-          ]
-        )
+      ++
+        map (prog: "--disable-${prog}") # don't build things we already have
+          (
+            [
+              "tex"
+              "ptex"
+              "eptex"
+              "uptex"
+              "euptex"
+              "aleph"
+              "pdftex"
+              "web-progs"
+              "synctex"
+            ]
+            ++ lib.optionals (!withLuaJIT) [
+              "luajittex"
+              "luajithbtex"
+              "mfluajit"
+            ]
+          )
       ;
 
     configureScript = ":";
@@ -361,11 +362,11 @@ rec { # un-indented
         luajit = lib.optionalString withLuaJIT ",luajit";
       in
       lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform)
-      # without this, the native builds attempt to use the binary
-      # ${target-triple}-gcc, but we need to use the wrapper script.
-      ''
-        export BUILDCC=${buildPackages.stdenv.cc}/bin/cc
-      ''
+        # without this, the native builds attempt to use the binary
+        # ${target-triple}-gcc, but we need to use the wrapper script.
+        ''
+          export BUILDCC=${buildPackages.stdenv.cc}/bin/cc
+        ''
       + ''
         mkdir ./WorkDir && cd ./WorkDir
         for path in libs/{pplib,teckit,lua53${luajit}} texk/web2c; do
@@ -376,17 +377,18 @@ rec { # un-indented
               extraConfig=""
             fi
       ''
-      + lib.optionalString
-        (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
-        # results of the tests performed by the configure scripts are
-        # toolchain-dependent, so native components and cross components cannot use
-        # the same cached test results.
-        # Disable the caching for components with native subcomponents.
-        ''
-          if [[ "$path" =~ "libs/luajit" ]] || [[ "$path" =~ "texk/web2c" ]]; then
-            extraConfig="$extraConfig --cache-file=/dev/null"
-          fi
-        ''
+      +
+        lib.optionalString
+          (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+          # results of the tests performed by the configure scripts are
+          # toolchain-dependent, so native components and cross components cannot use
+          # the same cached test results.
+          # Disable the caching for components with native subcomponents.
+          ''
+            if [[ "$path" =~ "libs/luajit" ]] || [[ "$path" =~ "texk/web2c" ]]; then
+              extraConfig="$extraConfig --cache-file=/dev/null"
+            fi
+          ''
       + ''
             mkdir -p "$path" && cd "$path"
             "../../../$path/configure" $configureFlags $extraConfig
@@ -524,9 +526,9 @@ rec { # un-indented
     pname = "latexindent";
     inherit (src) version;
 
-    src =
-      lib.head (builtins.filter (p: p.tlType == "run") texlive.latexindent.pkgs)
-      ;
+    src = lib.head (
+      builtins.filter (p: p.tlType == "run") texlive.latexindent.pkgs
+    );
 
     outputs = [ "out" ];
 
@@ -566,8 +568,9 @@ rec { # un-indented
     inherit (src) version;
     format = "other";
 
-    src =
-      lib.head (builtins.filter (p: p.tlType == "run") texlive.pygmentex.pkgs);
+    src = lib.head (
+      builtins.filter (p: p.tlType == "run") texlive.pygmentex.pkgs
+    );
 
     propagatedBuildInputs = with python3Packages; [
       pygments
@@ -702,48 +705,48 @@ rec { # un-indented
 } # un-indented
 
 // lib.optionalAttrs
-(!clisp.meta.broken) # broken on aarch64 and darwin (#20062)
-{
+  (!clisp.meta.broken) # broken on aarch64 and darwin (#20062)
+  {
 
-  xindy = stdenv.mkDerivation {
-    pname = "texlive-xindy.bin";
-    inherit version;
+    xindy = stdenv.mkDerivation {
+      pname = "texlive-xindy.bin";
+      inherit version;
 
-    inherit (common) src;
+      inherit (common) src;
 
-    # If unset, xindy will try to mkdir /homeless-shelter
-    HOME = ".";
+      # If unset, xindy will try to mkdir /homeless-shelter
+      HOME = ".";
 
-    prePatch = "cd utils/xindy";
-    # hardcode clisp location
-    postPatch = ''
-      substituteInPlace xindy-*/user-commands/xindy.in \
-        --replace "our \$clisp = ( \$is_windows ? 'clisp.exe' : 'clisp' ) ;" \
-                  "our \$clisp = '$(type -P clisp)';"
-    '';
+      prePatch = "cd utils/xindy";
+      # hardcode clisp location
+      postPatch = ''
+        substituteInPlace xindy-*/user-commands/xindy.in \
+          --replace "our \$clisp = ( \$is_windows ? 'clisp.exe' : 'clisp' ) ;" \
+                    "our \$clisp = '$(type -P clisp)';"
+      '';
 
-    nativeBuildInputs = [
-      pkg-config
-      perl
-      (texlive.combine { inherit (texlive) scheme-basic cyrillic ec; })
-    ];
-    buildInputs = [
-      clisp
-      libiconv
-      perl
-    ];
+      nativeBuildInputs = [
+        pkg-config
+        perl
+        (texlive.combine { inherit (texlive) scheme-basic cyrillic ec; })
+      ];
+      buildInputs = [
+        clisp
+        libiconv
+        perl
+      ];
 
-    configureFlags = [
-      "--with-clisp-runtime=system"
-      "--disable-xindy-docs"
-    ];
+      configureFlags = [
+        "--with-clisp-runtime=system"
+        "--disable-xindy-docs"
+      ];
 
-    preInstall = ''mkdir -p "$out/bin" '';
-    # fixup various file-location errors of: lib/xindy/{xindy.mem,modules/}
-    postInstall = ''
-      mkdir -p "$out/lib/xindy"
-      mv "$out"/{bin/xindy.mem,lib/xindy/}
-      ln -s ../../share/texmf-dist/xindy/modules "$out/lib/xindy/"
-    '';
-  };
-}
+      preInstall = ''mkdir -p "$out/bin" '';
+      # fixup various file-location errors of: lib/xindy/{xindy.mem,modules/}
+      postInstall = ''
+        mkdir -p "$out/lib/xindy"
+        mv "$out"/{bin/xindy.mem,lib/xindy/}
+        ln -s ../../share/texmf-dist/xindy/modules "$out/lib/xindy/"
+      '';
+    };
+  }

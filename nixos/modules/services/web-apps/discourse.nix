@@ -349,8 +349,8 @@ in
         useSSL = lib.mkOption {
           type = lib.types.bool;
           default = cfg.redis.host != "localhost";
-          defaultText =
-            lib.literalExpression ''config.${opt.redis.host} != "localhost"'';
+          defaultText = lib.literalExpression ''
+            config.${opt.redis.host} != "localhost"'';
           description = lib.mdDoc ''
             Connect to Redis with SSL.
           '';
@@ -708,16 +708,18 @@ in
       allow_impersonation = true;
     };
 
-    services.redis.servers.discourse = lib.mkIf
-      (lib.elem cfg.redis.host [
-        "localhost"
-        "127.0.0.1"
-      ])
-      {
-        enable = true;
-        bind = cfg.redis.host;
-        port = cfg.backendSettings.redis_port;
-      };
+    services.redis.servers.discourse =
+      lib.mkIf
+        (lib.elem cfg.redis.host [
+          "localhost"
+          "127.0.0.1"
+        ])
+        {
+          enable = true;
+          bind = cfg.redis.host;
+          port = cfg.backendSettings.redis_port;
+        }
+      ;
 
     services.postgresql = lib.mkIf databaseActuallyCreateLocally {
       enable = true;
@@ -803,8 +805,8 @@ in
                   lib.strings.floatToString v
                 else
                   throw "unsupported type ${typeOf v}: ${
-                    (lib.generators.toPretty { }) v
-                  }"
+                      (lib.generators.toPretty { }) v
+                    }"
                 ;
             };
           };
@@ -846,9 +848,8 @@ in
               umask u=rwx,g=,o=
 
               ${
-                utils.genJqSecretsReplacementSnippet
-                cfg.siteSettings
-                "/run/discourse/config/nixos_site_settings.json"
+                utils.genJqSecretsReplacementSnippet cfg.siteSettings
+                  "/run/discourse/config/nixos_site_settings.json"
               }
               install -T -m 0600 -o discourse ${discourseConf} /run/discourse/config/discourse.conf
               ${mkSecretReplacement cfg.database.passwordFile}
@@ -1025,21 +1026,23 @@ in
               '';
             };
             "~ ^/(svg-sprite/|letter_avatar/|letter_avatar_proxy/|user_avatar|highlight-js|stylesheets|theme-javascripts|favicon/proxied|service-worker)" =
-              proxy {
-                extraConfig = ''
-                  # if Set-Cookie is in the response nothing gets cached
-                  # this is double bad cause we are not passing last modified in
-                  proxy_ignore_headers "Set-Cookie";
-                  proxy_hide_header "Set-Cookie";
-                  proxy_hide_header "X-Discourse-Username";
-                  proxy_hide_header "X-Runtime";
+              proxy
+                {
+                  extraConfig = ''
+                    # if Set-Cookie is in the response nothing gets cached
+                    # this is double bad cause we are not passing last modified in
+                    proxy_ignore_headers "Set-Cookie";
+                    proxy_hide_header "Set-Cookie";
+                    proxy_hide_header "X-Discourse-Username";
+                    proxy_hide_header "X-Runtime";
 
-                  # note x-accel-redirect can not be used with proxy_cache
-                  proxy_cache discourse;
-                  proxy_cache_key "$scheme,$host,$request_uri";
-                  proxy_cache_valid 200 301 302 7d;
-                '';
-              };
+                    # note x-accel-redirect can not be used with proxy_cache
+                    proxy_cache discourse;
+                    proxy_cache_key "$scheme,$host,$request_uri";
+                    proxy_cache_valid 200 301 302 7d;
+                  '';
+                }
+              ;
             "/message-bus/" = proxy {
               extraConfig = ''
                 proxy_http_version 1.1;
@@ -1056,69 +1059,75 @@ in
     };
 
     systemd.services.discourse-mail-receiver-setup =
-      lib.mkIf cfg.mail.incoming.enable (
-        let
-          mail-receiver-environment = {
-            MAIL_DOMAIN = cfg.hostname;
-            DISCOURSE_BASE_URL =
-              "http${lib.optionalString tlsEnabled "s"}://${cfg.hostname}";
-            DISCOURSE_API_KEY = "@api-key@";
-            DISCOURSE_API_USERNAME = "system";
-          };
-          mail-receiver-json =
-            json.generate "mail-receiver.json" mail-receiver-environment;
-        in
-        {
-          before = [ "postfix.service" ];
-          after = [ "discourse.service" ];
-          wantedBy = [ "discourse.service" ];
-          partOf = [ "discourse.service" ];
-          path = [
-            cfg.package.rake
-            pkgs.jq
-          ];
-          preStart =
-            lib.optionalString (cfg.mail.incoming.apiKeyFile == null) ''
-              set -o errexit -o pipefail -o nounset -o errtrace
-              shopt -s inherit_errexit
+      lib.mkIf cfg.mail.incoming.enable
+        (
+          let
+            mail-receiver-environment = {
+              MAIL_DOMAIN = cfg.hostname;
+              DISCOURSE_BASE_URL =
+                "http${lib.optionalString tlsEnabled "s"}://${cfg.hostname}";
+              DISCOURSE_API_KEY = "@api-key@";
+              DISCOURSE_API_USERNAME = "system";
+            };
+            mail-receiver-json =
+              json.generate "mail-receiver.json"
+                mail-receiver-environment
+              ;
+          in
+          {
+            before = [ "postfix.service" ];
+            after = [ "discourse.service" ];
+            wantedBy = [ "discourse.service" ];
+            partOf = [ "discourse.service" ];
+            path = [
+              cfg.package.rake
+              pkgs.jq
+            ];
+            preStart =
+              lib.optionalString (cfg.mail.incoming.apiKeyFile == null)
+                ''
+                  set -o errexit -o pipefail -o nounset -o errtrace
+                  shopt -s inherit_errexit
 
-              if [[ ! -e /var/lib/discourse-mail-receiver/api_key ]]; then
-                  discourse-rake api_key:create_master[email-receiver] >/var/lib/discourse-mail-receiver/api_key
-              fi
-            '';
-          script =
-            let
-              apiKeyPath =
-                if cfg.mail.incoming.apiKeyFile == null then
-                  "/var/lib/discourse-mail-receiver/api_key"
-                else
-                  cfg.mail.incoming.apiKeyFile
-                ;
-            in
-            ''
-              set -o errexit -o pipefail -o nounset -o errtrace
-              shopt -s inherit_errexit
+                  if [[ ! -e /var/lib/discourse-mail-receiver/api_key ]]; then
+                      discourse-rake api_key:create_master[email-receiver] >/var/lib/discourse-mail-receiver/api_key
+                  fi
+                ''
+              ;
+            script =
+              let
+                apiKeyPath =
+                  if cfg.mail.incoming.apiKeyFile == null then
+                    "/var/lib/discourse-mail-receiver/api_key"
+                  else
+                    cfg.mail.incoming.apiKeyFile
+                  ;
+              in
+              ''
+                set -o errexit -o pipefail -o nounset -o errtrace
+                shopt -s inherit_errexit
 
-              api_key=$(<'${apiKeyPath}')
-              export api_key
+                api_key=$(<'${apiKeyPath}')
+                export api_key
 
-              jq <${mail-receiver-json} \
-                 '.DISCOURSE_API_KEY = $ENV.api_key' \
-                 >'/run/discourse-mail-receiver/mail-receiver-environment.json'
-            ''
-            ;
+                jq <${mail-receiver-json} \
+                   '.DISCOURSE_API_KEY = $ENV.api_key' \
+                   >'/run/discourse-mail-receiver/mail-receiver-environment.json'
+              ''
+              ;
 
-          serviceConfig = {
-            Type = "oneshot";
-            RemainAfterExit = true;
-            RuntimeDirectory = "discourse-mail-receiver";
-            RuntimeDirectoryMode = "0700";
-            StateDirectory = "discourse-mail-receiver";
-            User = "discourse";
-            Group = "discourse";
-          };
-        }
-      );
+            serviceConfig = {
+              Type = "oneshot";
+              RemainAfterExit = true;
+              RuntimeDirectory = "discourse-mail-receiver";
+              RuntimeDirectoryMode = "0700";
+              StateDirectory = "discourse-mail-receiver";
+              User = "discourse";
+              Group = "discourse";
+            };
+          }
+        )
+      ;
 
     services.discourse.siteSettings = {
       required = {
@@ -1136,9 +1145,12 @@ in
     services.postfix = lib.mkIf cfg.mail.incoming.enable {
       enable = true;
       sslCert =
-        lib.optionalString (cfg.sslCertificate != null) cfg.sslCertificate;
+        lib.optionalString (cfg.sslCertificate != null)
+          cfg.sslCertificate
+        ;
       sslKey =
-        lib.optionalString (cfg.sslCertificateKey != null) cfg.sslCertificateKey
+        lib.optionalString (cfg.sslCertificateKey != null)
+          cfg.sslCertificateKey
         ;
 
       origin = cfg.hostname;

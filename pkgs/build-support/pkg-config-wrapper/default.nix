@@ -27,16 +27,18 @@ let
   );
 
   # See description in cc-wrapper.
-  suffixSalt = replaceStrings
-    [
-      "-"
-      "."
-    ]
-    [
-      "_"
-      "_"
-    ]
-    targetPlatform.config;
+  suffixSalt =
+    replaceStrings
+      [
+        "-"
+        "."
+      ]
+      [
+        "_"
+        "_"
+      ]
+      targetPlatform.config
+    ;
 in
 
 stdenv.mkDerivation {
@@ -151,12 +153,12 @@ stdenv.mkDerivation {
     ) // {
       description =
         lib.attrByPath
-        [
-          "meta"
-          "description"
-        ]
-        "pkg-config"
-        pkg-config_
+          [
+            "meta"
+            "description"
+          ]
+          "pkg-config"
+          pkg-config_
         + " (wrapper script)"
         ;
       priority = 10;

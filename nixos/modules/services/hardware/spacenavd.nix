@@ -14,8 +14,9 @@ in
 
   options = {
     hardware.spacenavd = {
-      enable =
-        mkEnableOption (lib.mdDoc "spacenavd to support 3DConnexion devices");
+      enable = mkEnableOption (
+        lib.mdDoc "spacenavd to support 3DConnexion devices"
+      );
     };
   };
 

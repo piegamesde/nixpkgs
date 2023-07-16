@@ -57,9 +57,8 @@ let
         inherit version;
         pname =
           "subversion${
-            lib.optionalString
-            (!bdbSupport && perlBindings && pythonBindings)
-            "-client"
+            lib.optionalString (!bdbSupport && perlBindings && pythonBindings)
+              "-client"
           }";
 
         src = fetchurl {

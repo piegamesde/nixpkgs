@@ -117,55 +117,57 @@ pkgs.mkShell rec {
 
     shell-with-emulator-sdkmanager-packages-test =
       pkgs.runCommand "shell-with-emulator-sdkmanager-packages-test"
-      {
-        nativeBuildInputs = [
-          androidSdk
-          jdk
-        ];
-      }
-      ''
-        output="$(sdkmanager --list)"
-        installed_packages_section=$(echo "''${output%%Available Packages*}" | awk 'NR>4 {print $1}')
-        echo "installed_packages_section: ''${installed_packages_section}"
+        {
+          nativeBuildInputs = [
+            androidSdk
+            jdk
+          ];
+        }
+        ''
+          output="$(sdkmanager --list)"
+          installed_packages_section=$(echo "''${output%%Available Packages*}" | awk 'NR>4 {print $1}')
+          echo "installed_packages_section: ''${installed_packages_section}"
 
-        packages=(
-          "build-tools;33.0.1" "cmdline-tools;8.0" \
-          "emulator" "patcher;v4" "platform-tools" "platforms;android-33" \
-          "system-images;android-33;google_apis;arm64-v8a" \
-          "system-images;android-33;google_apis;x86_64"
-        )
+          packages=(
+            "build-tools;33.0.1" "cmdline-tools;8.0" \
+            "emulator" "patcher;v4" "platform-tools" "platforms;android-33" \
+            "system-images;android-33;google_apis;arm64-v8a" \
+            "system-images;android-33;google_apis;x86_64"
+          )
 
-        for package in "''${packages[@]}"; do
-          if [[ ! $installed_packages_section =~ "$package" ]]; then
-            echo "$package package was not installed."
-            exit 1
-          fi
-        done
+          for package in "''${packages[@]}"; do
+            if [[ ! $installed_packages_section =~ "$package" ]]; then
+              echo "$package package was not installed."
+              exit 1
+            fi
+          done
 
-        touch "$out"
-      '';
+          touch "$out"
+        ''
+      ;
 
     shell-with-emulator-avdmanager-create-avd-test =
       pkgs.runCommand "shell-with-emulator-avdmanager-create-avd-test"
-      {
-        nativeBuildInputs = [
-          androidSdk
-          androidEmulator
-          jdk
-        ];
-      }
-      ''
-        avdmanager delete avd -n testAVD || true
-        echo "" | avdmanager create avd --force --name testAVD --package 'system-images;android-33;google_apis;x86_64'
-        result=$(avdmanager list avd)
+        {
+          nativeBuildInputs = [
+            androidSdk
+            androidEmulator
+            jdk
+          ];
+        }
+        ''
+          avdmanager delete avd -n testAVD || true
+          echo "" | avdmanager create avd --force --name testAVD --package 'system-images;android-33;google_apis;x86_64'
+          result=$(avdmanager list avd)
 
-        if [[ ! $result =~ "Name: testAVD" ]]; then
-          echo "avdmanager couldn't create the avd! The output is :''${result}"
-          exit 1
-        fi
+          if [[ ! $result =~ "Name: testAVD" ]]; then
+            echo "avdmanager couldn't create the avd! The output is :''${result}"
+            exit 1
+          fi
 
-        avdmanager delete avd -n testAVD || true
-        touch "$out"
-      '';
+          avdmanager delete avd -n testAVD || true
+          touch "$out"
+        ''
+      ;
   };
 }

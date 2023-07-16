@@ -113,34 +113,36 @@ let
     fi
   '';
 
-  installedSessions = pkgs.runCommand "desktops"
-    { # trivial derivation
-      preferLocalBuild = true;
-      allowSubstitutes = false;
-    }
-    ''
-      mkdir -p "$out/share/"{xsessions,wayland-sessions}
+  installedSessions =
+    pkgs.runCommand "desktops"
+      { # trivial derivation
+        preferLocalBuild = true;
+        allowSubstitutes = false;
+      }
+      ''
+        mkdir -p "$out/share/"{xsessions,wayland-sessions}
 
-      ${concatMapStrings
-      (pkg: ''
-        for n in ${concatStringsSep " " pkg.providedSessions}; do
-          if ! test -f ${pkg}/share/wayland-sessions/$n.desktop -o \
-                    -f ${pkg}/share/xsessions/$n.desktop; then
-            echo "Couldn't find provided session name, $n.desktop, in session package ${pkg.name}:"
-            echo "  ${pkg}"
-            return 1
-          fi
-        done
+        ${concatMapStrings
+          (pkg: ''
+            for n in ${concatStringsSep " " pkg.providedSessions}; do
+              if ! test -f ${pkg}/share/wayland-sessions/$n.desktop -o \
+                        -f ${pkg}/share/xsessions/$n.desktop; then
+                echo "Couldn't find provided session name, $n.desktop, in session package ${pkg.name}:"
+                echo "  ${pkg}"
+                return 1
+              fi
+            done
 
-        if test -d ${pkg}/share/xsessions; then
-          ${pkgs.buildPackages.xorg.lndir}/bin/lndir ${pkg}/share/xsessions $out/share/xsessions
-        fi
-        if test -d ${pkg}/share/wayland-sessions; then
-          ${pkgs.buildPackages.xorg.lndir}/bin/lndir ${pkg}/share/wayland-sessions $out/share/wayland-sessions
-        fi
-      '')
-      cfg.displayManager.sessionPackages}
-    '';
+            if test -d ${pkg}/share/xsessions; then
+              ${pkgs.buildPackages.xorg.lndir}/bin/lndir ${pkg}/share/xsessions $out/share/xsessions
+            fi
+            if test -d ${pkg}/share/wayland-sessions; then
+              ${pkgs.buildPackages.xorg.lndir}/bin/lndir ${pkg}/share/wayland-sessions $out/share/wayland-sessions
+            fi
+          '')
+          cfg.displayManager.sessionPackages}
+      ''
+    ;
 
   dmDefault = cfg.desktopManager.default;
   # fallback default for cases when only default wm is set
@@ -162,14 +164,18 @@ in
         internal = true;
         default = "${xorg.xauth}/bin/xauth";
         defaultText = literalExpression ''"''${pkgs.xorg.xauth}/bin/xauth"'';
-        description = lib.mdDoc
-          "Path to the {command}`xauth` program used by display managers.";
+        description =
+          lib.mdDoc
+            "Path to the {command}`xauth` program used by display managers."
+          ;
       };
 
       xserverBin = mkOption {
         type = types.path;
         description =
-          lib.mdDoc "Path to the X server used by display managers.";
+          lib.mdDoc
+            "Path to the X server used by display managers."
+          ;
       };
 
       xserverArgs = mkOption {
@@ -223,20 +229,20 @@ in
               check =
                 p:
                 assertMsg
-                (
-                  package.check p
-                  && p ? providedSessions
-                  && p.providedSessions != [ ]
-                  && all isString p.providedSessions
-                )
-                ''
-                  Package, '${p.name}', did not specify any session names, as strings, in
-                  'passthru.providedSessions'. This is required when used as a session package.
+                  (
+                    package.check p
+                    && p ? providedSessions
+                    && p.providedSessions != [ ]
+                    && all isString p.providedSessions
+                  )
+                  ''
+                    Package, '${p.name}', did not specify any session names, as strings, in
+                    'passthru.providedSessions'. This is required when used as a session package.
 
-                  The session names can be looked up in:
-                    ${p}/share/xsessions
-                    ${p}/share/wayland-sessions
-                ''
+                    The session names can be looked up in:
+                      ${p}/share/xsessions
+                      ${p}/share/wayland-sessions
+                  ''
                 ;
             }
           );
@@ -277,16 +283,19 @@ in
 
       sessionData = mkOption {
         description =
-          lib.mdDoc "Data exported for display managers’ convenience";
+          lib.mdDoc
+            "Data exported for display managers’ convenience"
+          ;
         internal = true;
         default = { };
         apply =
           val: {
             wrapper = xsessionWrapper;
             desktops = installedSessions;
-            sessionNames = concatMap
-              (p: p.providedSessions)
-              cfg.displayManager.sessionPackages;
+            sessionNames =
+              concatMap (p: p.providedSessions)
+                cfg.displayManager.sessionPackages
+              ;
             # We do not want to force users to set defaultSession when they have only single DE.
             autologinSession =
               if cfg.displayManager.defaultSession != null then
@@ -307,22 +316,21 @@ in
             check =
               d:
               assertMsg
-              (
-                d != null
-                -> (
-                  str.check d
-                  && elem d cfg.displayManager.sessionData.sessionNames
+                (
+                  d != null
+                  -> (
+                    str.check d
+                    && elem d cfg.displayManager.sessionData.sessionNames
+                  )
                 )
-              )
-              ''
-                Default graphical session, '${d}', not found.
-                Valid names for 'services.xserver.displayManager.defaultSession' are:
-                  ${
-                    concatStringsSep
-                    "\n  "
-                    cfg.displayManager.sessionData.sessionNames
-                  }
-              ''
+                ''
+                  Default graphical session, '${d}', not found.
+                  Valid names for 'services.xserver.displayManager.defaultSession' are:
+                    ${
+                      concatStringsSep "\n  "
+                        cfg.displayManager.sessionData.sessionNames
+                    }
+                ''
               ;
           };
         default =
@@ -357,7 +365,9 @@ in
           default = "";
           example = "rm -f /var/log/my-display-manager.log";
           description =
-            lib.mdDoc "Script executed before the display manager is started.";
+            lib.mdDoc
+              "Script executed before the display manager is started."
+            ;
         };
 
         execCmd = mkOption {
@@ -369,8 +379,10 @@ in
         environment = mkOption {
           type = types.attrsOf types.unspecified;
           default = { };
-          description = lib.mdDoc
-            "Additional environment variables needed by the display manager.";
+          description =
+            lib.mdDoc
+              "Additional environment variables needed by the display manager."
+            ;
         };
 
         logToFile = mkOption {
@@ -405,7 +417,9 @@ in
                 type = types.bool;
                 default = config.user != null;
                 defaultText =
-                  literalExpression "config.${options.user} != null";
+                  literalExpression
+                    "config.${options.user} != null"
+                  ;
                 description = lib.mdDoc ''
                   Automatically log in as {option}`autoLogin.user`.
                 '';
@@ -458,33 +472,33 @@ in
         ${
           concatStringsSep "\n  " (
             map
-            (
-              {
-                c,
-                t,
-              }:
-              t
-            )
-            (
-              filter
               (
                 {
                   c,
                   t,
                 }:
-                c != null
+                t
               )
-              [
-                {
-                  c = dmDefault;
-                  t = "- services.xserver.desktopManager.default";
-                }
-                {
-                  c = wmDefault;
-                  t = "- services.xserver.windowManager.default";
-                }
-              ]
-            )
+              (
+                filter
+                  (
+                    {
+                      c,
+                      t,
+                    }:
+                    c != null
+                  )
+                  [
+                    {
+                      c = dmDefault;
+                      t = "- services.xserver.desktopManager.default";
+                    }
+                    {
+                      c = wmDefault;
+                      t = "- services.xserver.windowManager.default";
+                    }
+                  ]
+              )
           )
         }
       Please use
@@ -551,49 +565,51 @@ in
       # We will generate every possible pair of WM and DM.
       concatLists (
         builtins.map
-        (
-          {
-            dm,
-            wm,
-          }:
-          let
-            sessionName =
-              "${dm.name}${optionalString (wm.name != "none") ("+" + wm.name)}";
-            script = xsession dm wm;
-            desktopNames =
-              if dm ? desktopNames then
-                concatStringsSep ";" dm.desktopNames
-              else
-                sessionName
-              ;
-          in
-          optional (dm.name != "none" || wm.name != "none") (
-            pkgs.writeTextFile {
-              name = "${sessionName}-xsession";
-              destination = "/share/xsessions/${sessionName}.desktop";
-              # Desktop Entry Specification:
-              # - https://standards.freedesktop.org/desktop-entry-spec/latest/
-              # - https://standards.freedesktop.org/desktop-entry-spec/latest/ar01s06.html
-              text = ''
-                [Desktop Entry]
-                Version=1.0
-                Type=XSession
-                TryExec=${script}
-                Exec=${script}
-                Name=${sessionName}
-                DesktopNames=${desktopNames}
-              '';
-            } // {
-              providedSessions = [ sessionName ];
+          (
+            {
+              dm,
+              wm,
+            }:
+            let
+              sessionName =
+                "${dm.name}${
+                  optionalString (wm.name != "none") ("+" + wm.name)
+                }";
+              script = xsession dm wm;
+              desktopNames =
+                if dm ? desktopNames then
+                  concatStringsSep ";" dm.desktopNames
+                else
+                  sessionName
+                ;
+            in
+            optional (dm.name != "none" || wm.name != "none") (
+              pkgs.writeTextFile {
+                name = "${sessionName}-xsession";
+                destination = "/share/xsessions/${sessionName}.desktop";
+                # Desktop Entry Specification:
+                # - https://standards.freedesktop.org/desktop-entry-spec/latest/
+                # - https://standards.freedesktop.org/desktop-entry-spec/latest/ar01s06.html
+                text = ''
+                  [Desktop Entry]
+                  Version=1.0
+                  Type=XSession
+                  TryExec=${script}
+                  Exec=${script}
+                  Name=${sessionName}
+                  DesktopNames=${desktopNames}
+                '';
+              } // {
+                providedSessions = [ sessionName ];
+              }
+            )
+          )
+          (
+            cartesianProductOfSets {
+              dm = dms;
+              wm = wms;
             }
           )
-        )
-        (
-          cartesianProductOfSets {
-            dm = dms;
-            wm = wms;
-          }
-        )
       )
       ;
 
@@ -605,55 +621,63 @@ in
   };
 
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "xserver"
-        "displayManager"
-        "desktopManagerHandlesLidAndPower"
-      ]
-      "The option is no longer necessary because all display managers have already delegated lid management to systemd.")
-    (mkRenamedOptionModule
-      [
-        "services"
-        "xserver"
-        "displayManager"
-        "job"
-        "logsXsession"
-      ]
-      [
-        "services"
-        "xserver"
-        "displayManager"
-        "job"
-        "logToFile"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "xserver"
-        "displayManager"
-        "logToJournal"
-      ]
-      [
-        "services"
-        "xserver"
-        "displayManager"
-        "job"
-        "logToJournal"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "xserver"
-        "displayManager"
-        "extraSessionFilesPackages"
-      ]
-      [
-        "services"
-        "xserver"
-        "displayManager"
-        "sessionPackages"
-      ])
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "xserver"
+          "displayManager"
+          "desktopManagerHandlesLidAndPower"
+        ]
+        "The option is no longer necessary because all display managers have already delegated lid management to systemd."
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "xserver"
+          "displayManager"
+          "job"
+          "logsXsession"
+        ]
+        [
+          "services"
+          "xserver"
+          "displayManager"
+          "job"
+          "logToFile"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "xserver"
+          "displayManager"
+          "logToJournal"
+        ]
+        [
+          "services"
+          "xserver"
+          "displayManager"
+          "job"
+          "logToJournal"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "xserver"
+          "displayManager"
+          "extraSessionFilesPackages"
+        ]
+        [
+          "services"
+          "xserver"
+          "displayManager"
+          "sessionPackages"
+        ]
+    )
   ];
 }

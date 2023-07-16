@@ -190,9 +190,10 @@ let
         [
           "--with-config=${configFile}"
           "--with-tirpc=1"
-          (lib.withFeatureAs (buildUser && enablePython)
-            "python"
-            python3.interpreter)
+          (
+            lib.withFeatureAs (buildUser && enablePython) "python"
+              python3.interpreter
+          )
         ]
         ++ optionals buildUser [
           "--with-dracutdir=$(out)/lib/dracut"

@@ -11,14 +11,16 @@ let
   cfg = config.services.netdata;
 
   wrappedPlugins =
-    pkgs.runCommand "wrapped-plugins" { preferLocalBuild = true; } ''
-      mkdir -p $out/libexec/netdata/plugins.d
-      ln -s /run/wrappers/bin/apps.plugin $out/libexec/netdata/plugins.d/apps.plugin
-      ln -s /run/wrappers/bin/cgroup-network $out/libexec/netdata/plugins.d/cgroup-network
-      ln -s /run/wrappers/bin/perf.plugin $out/libexec/netdata/plugins.d/perf.plugin
-      ln -s /run/wrappers/bin/slabinfo.plugin $out/libexec/netdata/plugins.d/slabinfo.plugin
-      ln -s /run/wrappers/bin/freeipmi.plugin $out/libexec/netdata/plugins.d/freeipmi.plugin
-    '';
+    pkgs.runCommand "wrapped-plugins" { preferLocalBuild = true; }
+      ''
+        mkdir -p $out/libexec/netdata/plugins.d
+        ln -s /run/wrappers/bin/apps.plugin $out/libexec/netdata/plugins.d/apps.plugin
+        ln -s /run/wrappers/bin/cgroup-network $out/libexec/netdata/plugins.d/cgroup-network
+        ln -s /run/wrappers/bin/perf.plugin $out/libexec/netdata/plugins.d/perf.plugin
+        ln -s /run/wrappers/bin/slabinfo.plugin $out/libexec/netdata/plugins.d/slabinfo.plugin
+        ln -s /run/wrappers/bin/freeipmi.plugin $out/libexec/netdata/plugins.d/freeipmi.plugin
+      ''
+    ;
 
   plugins =
     [
@@ -32,11 +34,11 @@ let
     mkdir $out
     ${concatStringsSep "\n" (
       mapAttrsToList
-      (path: file: ''
-        mkdir -p "$out/$(dirname ${path})"
-        ln -s "${file}" "$out/${path}"
-      '')
-      cfg.configDir
+        (path: file: ''
+          mkdir -p "$out/$(dirname ${path})"
+          ln -s "${file}" "$out/${path}"
+        '')
+        cfg.configDir
     )}
   '';
 
@@ -89,7 +91,9 @@ in
       configText = mkOption {
         type = types.nullOr types.lines;
         description =
-          lib.mdDoc "Verbatim netdata.conf, cannot be combined with config.";
+          lib.mdDoc
+            "Verbatim netdata.conf, cannot be combined with config."
+          ;
         default = null;
         example = ''
           [global]
@@ -146,8 +150,9 @@ in
       config = mkOption {
         type = types.attrsOf types.attrs;
         default = { };
-        description = lib.mdDoc
-          "netdata.conf configuration as nix attributes. cannot be combined with configText."
+        description =
+          lib.mdDoc
+            "netdata.conf configuration as nix attributes. cannot be combined with configText."
           ;
         example = literalExpression ''
           global = {
@@ -350,7 +355,8 @@ in
       };
     };
 
-    users.groups =
-      optionalAttrs (cfg.group == defaultUser) { ${defaultUser} = { }; };
+    users.groups = optionalAttrs (cfg.group == defaultUser) {
+      ${defaultUser} = { };
+    };
   };
 }

@@ -13,18 +13,20 @@ with lib;
 
   # Added 2019-08-27
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "gnome3"
-        "seahorse"
-        "enable"
-      ]
-      [
-        "programs"
-        "seahorse"
-        "enable"
-      ])
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "gnome3"
+          "seahorse"
+          "enable"
+        ]
+        [
+          "programs"
+          "seahorse"
+          "enable"
+        ]
+    )
   ];
 
   ###### interface
@@ -35,7 +37,7 @@ with lib;
 
       enable = mkEnableOption (
         lib.mdDoc
-        "Seahorse, a GNOME application for managing encryption keys and passwords in the GNOME Keyring"
+          "Seahorse, a GNOME application for managing encryption keys and passwords in the GNOME Keyring"
       );
     };
   };
@@ -45,7 +47,9 @@ with lib;
   config = mkIf config.programs.seahorse.enable {
 
     programs.ssh.askPassword =
-      mkDefault "${pkgs.gnome.seahorse}/libexec/seahorse/ssh-askpass";
+      mkDefault
+        "${pkgs.gnome.seahorse}/libexec/seahorse/ssh-askpass"
+      ;
 
     environment.systemPackages = [ pkgs.gnome.seahorse ];
 

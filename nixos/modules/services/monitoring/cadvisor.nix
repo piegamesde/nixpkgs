@@ -84,7 +84,9 @@ in
         default = false;
         type = types.bool;
         description =
-          lib.mdDoc "Cadvisor storage driver, enable secure communication.";
+          lib.mdDoc
+            "Cadvisor storage driver, enable secure communication."
+          ;
       };
 
       extraOptions = mkOption {
@@ -102,16 +104,18 @@ in
   config = mkMerge [
     {
       services.cadvisor.storageDriverPasswordFile =
-        mkIf (cfg.storageDriverPassword != "") (
-          mkDefault (
-            toString (
-              pkgs.writeTextFile {
-                name = "cadvisor-storage-driver-password";
-                text = cfg.storageDriverPassword;
-              }
+        mkIf (cfg.storageDriverPassword != "")
+          (
+            mkDefault (
+              toString (
+                pkgs.writeTextFile {
+                  name = "cadvisor-storage-driver-password";
+                  text = cfg.storageDriverPassword;
+                }
+              )
             )
           )
-        );
+        ;
     }
 
     (mkIf cfg.enable {
@@ -146,9 +150,8 @@ in
                 -storage_driver_db "${cfg.storageDriverDb}" \
                 -storage_driver_user "${cfg.storageDriverUser}" \
                 -storage_driver_password "$(cat "${cfg.storageDriverPasswordFile}")" \
-                ${optionalString
-                cfg.storageDriverSecure
-                "-storage_driver_secure"}
+                ${optionalString cfg.storageDriverSecure
+                  "-storage_driver_secure"}
               ''
             }
         '';

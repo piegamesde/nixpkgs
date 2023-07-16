@@ -53,7 +53,9 @@ let
   } // cfg.webSettings;
 
   webSettingsJSON =
-    pkgs.writeText "settings.json" (builtins.toJSON webSettings);
+    pkgs.writeText "settings.json"
+      (builtins.toJSON webSettings)
+    ;
 
   # TODO: Should this be RFC42-ised so that users can set additional options without modifying the module?
   postfixMtaConfig = pkgs.writeText "mailman-postfix.cfg" ''
@@ -90,39 +92,45 @@ in
   ###### interface
 
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "mailman"
-        "hyperkittyBaseUrl"
-      ]
-      [
-        "services"
-        "mailman"
-        "hyperkitty"
-        "baseUrl"
-      ])
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "mailman"
+          "hyperkittyBaseUrl"
+        ]
+        [
+          "services"
+          "mailman"
+          "hyperkitty"
+          "baseUrl"
+        ]
+    )
 
-    (mkRemovedOptionModule
-      [
-        "services"
-        "mailman"
-        "hyperkittyApiKey"
-      ]
-      ''
-        The Hyperkitty API key is now generated on first run, and not
-        stored in the world-readable Nix store.  To continue using
-        Hyperkitty, you must set services.mailman.hyperkitty.enable = true.
-      '')
-    (mkRemovedOptionModule
-      [
-        "services"
-        "mailman"
-        "package"
-      ]
-      ''
-        Didn't have an effect for several years.
-      '')
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "mailman"
+          "hyperkittyApiKey"
+        ]
+        ''
+          The Hyperkitty API key is now generated on first run, and not
+          stored in the world-readable Nix store.  To continue using
+          Hyperkitty, you must set services.mailman.hyperkitty.enable = true.
+        ''
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "mailman"
+          "package"
+        ]
+        ''
+          Didn't have an effect for several years.
+        ''
+    )
   ];
 
   options = {
@@ -132,8 +140,9 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc
-          "Enable Mailman on this host. Requires an active MTA on the host (e.g. Postfix)."
+        description =
+          lib.mdDoc
+            "Enable Mailman on this host. Requires an active MTA on the host (e.g. Postfix)."
           ;
       };
 
@@ -335,8 +344,9 @@ in
       };
 
       extraPythonPackages = mkOption {
-        description = lib.mdDoc
-          "Packages to add to the python environment used by mailman and mailman-web"
+        description =
+          lib.mdDoc
+            "Packages to add to the python environment used by mailman and mailman-web"
           ;
         type = types.listOf types.package;
         default = [ ];
@@ -349,8 +359,9 @@ in
       };
 
       hyperkitty = {
-        enable =
-          mkEnableOption (lib.mdDoc "the Hyperkitty archiver for Mailman");
+        enable = mkEnableOption (
+          lib.mdDoc "the Hyperkitty archiver for Mailman"
+        );
 
         baseUrl = mkOption {
           type = types.str;
@@ -388,7 +399,7 @@ in
           "${postfixMtaConfig}"
         else
           throw
-          "When Mailman Postfix integration is disabled, set `services.mailman.settings.mta.configuration` to the path of the config file required to integrate with your MTA."
+            "When Mailman Postfix integration is disabled, set `services.mailman.settings.mta.configuration` to the path of the config file required to integrate with your MTA."
       );
 
       "archiver.hyperkitty" = lib.mkIf cfg.hyperkitty.enable {
@@ -461,18 +472,22 @@ in
           '';
         }
         (requirePostfixHash [ "relayDomains" ] "postfix_domains")
-        (requirePostfixHash
-          [
-            "config"
-            "transport_maps"
-          ]
-          "postfix_lmtp")
-        (requirePostfixHash
-          [
-            "config"
-            "local_recipient_maps"
-          ]
-          "postfix_lmtp")
+        (
+          requirePostfixHash
+            [
+              "config"
+              "transport_maps"
+            ]
+            "postfix_lmtp"
+        )
+        (
+          requirePostfixHash
+            [
+              "config"
+              "local_recipient_maps"
+            ]
+            "postfix_lmtp"
+        )
       ])
       ;
 
@@ -714,8 +729,9 @@ in
                 manage-script-name = true;
               }
           );
-          uwsgiConfigFile =
-            pkgs.writeText "uwsgi-mailman.json" (builtins.toJSON uwsgiConfig);
+          uwsgiConfigFile = pkgs.writeText "uwsgi-mailman.json" (
+            builtins.toJSON uwsgiConfig
+          );
         in
         {
           wantedBy = [ "multi-user.target" ];
@@ -774,32 +790,32 @@ in
         };
       };
     } // flip lib.mapAttrs'
-      {
-        "minutely" = "minutely";
-        "quarter_hourly" = "*:00/15";
-        "hourly" = "hourly";
-        "daily" = "daily";
-        "weekly" = "weekly";
-        "yearly" = "yearly";
-      }
-      (
-        name: startAt:
-        lib.nameValuePair "hyperkitty-${name}" (
-          lib.mkIf cfg.hyperkitty.enable {
-            description = "Trigger ${name} Hyperkitty events";
-            inherit startAt;
-            restartTriggers = [
-              config.environment.etc."mailman3/settings.py".source
-            ];
-            serviceConfig = {
-              ExecStart = "${webEnv}/bin/mailman-web runjobs ${name}";
-              User = cfg.webUser;
-              Group = "mailman";
-              WorkingDirectory = "/var/lib/mailman-web";
-            };
-          }
-        )
-      );
+        {
+          "minutely" = "minutely";
+          "quarter_hourly" = "*:00/15";
+          "hourly" = "hourly";
+          "daily" = "daily";
+          "weekly" = "weekly";
+          "yearly" = "yearly";
+        }
+        (
+          name: startAt:
+          lib.nameValuePair "hyperkitty-${name}" (
+            lib.mkIf cfg.hyperkitty.enable {
+              description = "Trigger ${name} Hyperkitty events";
+              inherit startAt;
+              restartTriggers = [
+                config.environment.etc."mailman3/settings.py".source
+              ];
+              serviceConfig = {
+                ExecStart = "${webEnv}/bin/mailman-web runjobs ${name}";
+                User = cfg.webUser;
+                Group = "mailman";
+                WorkingDirectory = "/var/lib/mailman-web";
+              };
+            }
+          )
+        );
   };
 
   meta = {

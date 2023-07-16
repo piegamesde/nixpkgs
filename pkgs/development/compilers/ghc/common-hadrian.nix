@@ -180,9 +180,10 @@ let
   inherit (bootPkgs) ghc;
 
   # TODO(@Ericson2314) Make unconditional
-  targetPrefix = lib.optionalString
-    (targetPlatform != hostPlatform)
-    "${targetPlatform.config}-";
+  targetPrefix =
+    lib.optionalString (targetPlatform != hostPlatform)
+      "${targetPlatform.config}-"
+    ;
 
   hadrianSettings =
     # -fexternal-dynamic-refs apparently (because it's not clear from the
@@ -214,13 +215,14 @@ let
     # https://gitlab.haskell.org/ghc/ghc/-/issues/22081
     ++ lib.optional enableDwarf elfutils
     ++ lib.optional (!enableNativeBignum) gmp
-    ++ lib.optional
-      (
-        platform.libc != "glibc"
-        && !targetPlatform.isWindows
-        && !targetPlatform.isGhcjs
-      )
-      libiconv
+    ++
+      lib.optional
+        (
+          platform.libc != "glibc"
+          && !targetPlatform.isWindows
+          && !targetPlatform.isGhcjs
+        )
+        libiconv
     ;
 
   # TODO(@sternenseemann): is buildTarget LLVM unnecessary?
@@ -434,16 +436,17 @@ stdenv.mkDerivation (
         "--with-gmp-includes=${targetPackages.gmp.dev}/include"
         "--with-gmp-libraries=${targetPackages.gmp.out}/lib"
       ]
-      ++ lib.optionals
-        (
-          targetPlatform == hostPlatform
-          && hostPlatform.libc != "glibc"
-          && !targetPlatform.isWindows
-        )
-        [
-          "--with-iconv-includes=${libiconv}/include"
-          "--with-iconv-libraries=${libiconv}/lib"
-        ]
+      ++
+        lib.optionals
+          (
+            targetPlatform == hostPlatform
+            && hostPlatform.libc != "glibc"
+            && !targetPlatform.isWindows
+          )
+          [
+            "--with-iconv-includes=${libiconv}/include"
+            "--with-iconv-libraries=${libiconv}/lib"
+          ]
       ++ lib.optionals (targetPlatform != hostPlatform) [
         "--enable-bootstrap-with-devel-snapshot"
       ]
@@ -501,8 +504,9 @@ stdenv.mkDerivation (
       ;
 
     depsTargetTarget = map lib.getDev (libDeps targetPlatform);
-    depsTargetTargetPropagated =
-      map (lib.getOutput "out") (libDeps targetPlatform);
+    depsTargetTargetPropagated = map (lib.getOutput "out") (
+      libDeps targetPlatform
+    );
 
     hadrianFlags = [
       "--flavour=${ghcFlavour}"

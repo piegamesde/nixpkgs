@@ -13,12 +13,14 @@
 }:
 
 let
-  assets = (fetchzip {
-    url = "https://archive.org/download/SpaceCadet_Plus95/Space_Cadet.rar";
-    sha256 = "sha256-fC+zsR8BY6vXpUkVd6i1jF0IZZxVKVvNi6VWCKT+pA4=";
-    stripRoot = false;
-  }).overrideAttrs
-    (old: { nativeBuildInputs = old.nativeBuildInputs ++ [ unrar-wrapper ]; });
+  assets =
+    (fetchzip {
+      url = "https://archive.org/download/SpaceCadet_Plus95/Space_Cadet.rar";
+      sha256 = "sha256-fC+zsR8BY6vXpUkVd6i1jF0IZZxVKVvNi6VWCKT+pA4=";
+      stripRoot = false;
+    }).overrideAttrs
+      (old: { nativeBuildInputs = old.nativeBuildInputs ++ [ unrar-wrapper ]; })
+    ;
 in
 stdenv.mkDerivation rec {
   pname = "SpaceCadetPinball";

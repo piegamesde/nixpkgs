@@ -73,7 +73,9 @@ stdenv.mkDerivation (
 
     src = fetch pname "199yq3a214avcbi4kk2q0ajriifkvsr0l2dkx3a666m033ihi1ff";
     polly_src =
-      fetch "polly" "031r23ijhx7v93a5n33m2nc0x9xyqmx0d8xg80z7q971p6qd63sq";
+      fetch "polly"
+        "031r23ijhx7v93a5n33m2nc0x9xyqmx0d8xg80z7q971p6qd63sq"
+      ;
 
     unpackPhase =
       ''
@@ -242,9 +244,10 @@ stdenv.mkDerivation (
     '';
 
     # E.g. mesa.drivers use the build-id as a cache key (see #93946):
-    LDFLAGS = optionalString
-      (enableSharedLibraries && !stdenv.isDarwin)
-      "-Wl,--build-id=sha1";
+    LDFLAGS =
+      optionalString (enableSharedLibraries && !stdenv.isDarwin)
+        "-Wl,--build-id=sha1"
+      ;
 
     cmakeFlags = with stdenv;
       let

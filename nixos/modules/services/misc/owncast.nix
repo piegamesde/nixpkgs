@@ -47,7 +47,9 @@ in
       default = "127.0.0.1";
       example = "0.0.0.0";
       description =
-        lib.mdDoc "The IP address to bind the owncast web server to.";
+        lib.mdDoc
+          "The IP address to bind the owncast web server to."
+        ;
     };
 
     port = mkOption {

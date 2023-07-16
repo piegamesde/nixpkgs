@@ -143,11 +143,11 @@ rec {
       mkSectionName ? (
         name:
         libStr.escape
-        [
-          "["
-          "]"
-        ]
-        name
+          [
+            "["
+            "]"
+          ]
+          name
       ),
       # format a setting line from key and value
       mkKeyValue ? mkKeyValueDefault { } "=",
@@ -209,11 +209,11 @@ rec {
       mkSectionName ? (
         name:
         libStr.escape
-        [
-          "["
-          "]"
-        ]
-        name
+          [
+            "["
+            "]"
+          ]
+          name
       ),
       # format a setting line from key and value
       mkKeyValue ? mkKeyValueDefault { } "=",
@@ -231,9 +231,10 @@ rec {
         (toKeyValue { inherit mkKeyValue listsAsDuplicateKeys; } globalSection)
         + "\n"
     )
-    + (toINI
-      { inherit mkSectionName mkKeyValue listsAsDuplicateKeys; }
-      sections)
+    + (
+      toINI { inherit mkSectionName mkKeyValue listsAsDuplicateKeys; }
+        sections
+    )
     ;
 
   # Generate a git-config file from an attrset.
@@ -287,9 +288,8 @@ rec {
           recurse =
             path: value:
             if isAttrs value && !lib.isDerivation value then
-              lib.mapAttrsToList
-              (name: value: recurse ([ name ] ++ path) value)
-              value
+              lib.mapAttrsToList (name: value: recurse ([ name ] ++ path) value)
+                value
             else if length path > 1 then
               {
                 ${concatStringsSep "." (lib.reverseList (tail path))}.${
@@ -343,8 +343,8 @@ rec {
         if depthLimit != null && depth > depthLimit then
           if throwOnDepthLimit then
             throw "Exceeded maximum eval-depth limit of ${
-              toString depthLimit
-            } while trying to evaluate with `generators.withRecursion'!"
+                toString depthLimit
+              } while trying to evaluate with `generators.withRecursion'!"
           else
             const "<unevaluated>"
         else
@@ -421,15 +421,17 @@ rec {
               ''"''
               "\${"
             ];
-            escapeMultiline = libStr.replaceStrings
-              [
-                "\${"
-                "''"
-              ]
-              [
-                "''\${"
-                "'''"
-              ];
+            escapeMultiline =
+              libStr.replaceStrings
+                [
+                  "\${"
+                  "''"
+                ]
+                [
+                  "''\${"
+                  "'''"
+                ]
+              ;
             singlelineResult =
               ''"''
               + concatStringsSep "\\n" (map escapeSingleline lines)
@@ -475,8 +477,8 @@ rec {
             fna = lib.functionArgs v;
             showFnas = concatStringsSep ", " (
               libAttr.mapAttrsToList
-              (name: hasDefVal: if hasDefVal then name + "?" else name)
-              fna
+                (name: hasDefVal: if hasDefVal then name + "?" else name)
+                fna
             );
           in
           if fna == { } then "<function>" else "<function, args: {${showFnas}}>"
@@ -493,15 +495,15 @@ rec {
             + introSpace
             + libStr.concatStringsSep introSpace (
               libAttr.mapAttrsToList
-              (
-                name: value:
-                "${libStr.escapeNixIdentifier name} = ${
-                  builtins.addErrorContext
-                  "while evaluating an attribute `${name}`"
-                  (go (indent + "  ") value)
-                };"
-              )
-              v
+                (
+                  name: value:
+                  "${libStr.escapeNixIdentifier name} = ${
+                    builtins.addErrorContext
+                      "while evaluating an attribute `${name}`"
+                      (go (indent + "  ") value)
+                  };"
+                )
+                v
             )
             + outroSpace
             + "}"
@@ -577,14 +579,14 @@ rec {
         libStr.concatStringsSep "\n" (
           lib.flatten (
             lib.mapAttrsToList
-            (
-              name: value:
-              lib.optionals (attrFilter name value) [
-                (key "	${ind}" name)
-                (expr "	${ind}" value)
-              ]
-            )
-            x
+              (
+                name: value:
+                lib.optionals (attrFilter name value) [
+                  (key "	${ind}" name)
+                  (expr "	${ind}" value)
+                ]
+              )
+              x
           )
         )
         ;
@@ -611,8 +613,8 @@ rec {
       "{ ${
         concatItems (
           lib.attrsets.mapAttrsToList
-          (key: value: "${key} = ${toDhall args value}")
-          v
+            (key: value: "${key} = ${toDhall args value}")
+            v
         )
       } }"
     else if isList v then
@@ -706,20 +708,22 @@ rec {
 
       generatedBindings =
         assert lib.assertMsg (badVarNames == [ ]) "Bad Lua var names: ${
-            toPretty { } badVarNames
-          }";
+              toPretty { } badVarNames
+            }";
         libStr.concatStrings (
           lib.attrsets.mapAttrsToList
-          (key: value: ''
-            ${indent}${key} = ${toLua innerArgs value}
-          '')
-          v
+            (key: value: ''
+              ${indent}${key} = ${toLua innerArgs value}
+            '')
+            v
         )
         ;
 
       # https://en.wikibooks.org/wiki/Lua_Programming/variable#Variable_names
       matchVarName =
-        match "[[:alpha:]_][[:alnum:]_]*(\\.[[:alpha:]_][[:alnum:]_]*)*";
+        match
+          "[[:alpha:]_][[:alnum:]_]*(\\.[[:alpha:]_][[:alnum:]_]*)*"
+        ;
       badVarNames = filter (name: matchVarName name == null) (attrNames v);
     in
     if asBindings then
@@ -747,11 +751,11 @@ rec {
           "{${introSpace}${
             concatItems (
               lib.attrsets.mapAttrsToList
-              (
-                key: value:
-                "[${builtins.toJSON key}] = ${toLua innerArgs value}"
-              )
-              v
+                (
+                  key: value:
+                  "[${builtins.toJSON key}] = ${toLua innerArgs value}"
+                )
+                v
             )
           }${outroSpace}}"
       )

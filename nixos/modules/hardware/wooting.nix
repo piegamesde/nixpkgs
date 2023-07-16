@@ -6,8 +6,9 @@
 }:
 
 with lib; {
-  options.hardware.wooting.enable =
-    mkEnableOption (lib.mdDoc "support for Wooting keyboards");
+  options.hardware.wooting.enable = mkEnableOption (
+    lib.mdDoc "support for Wooting keyboards"
+  );
 
   config = mkIf config.hardware.wooting.enable {
     environment.systemPackages = [ pkgs.wootility ];

@@ -35,7 +35,9 @@ let
   fsToPool = fs: datasetToPool fs.device;
 
   zfsFilesystems =
-    filter (x: x.fsType == "zfs") config.system.build.fileSystems;
+    filter (x: x.fsType == "zfs")
+      config.system.build.fileSystems
+    ;
 
   allPools = unique ((map fsToPool zfsFilesystems) ++ cfgZfs.extraPools);
 
@@ -105,9 +107,8 @@ let
 
   getPoolFilesystems =
     pool:
-    filter
-    (x: x.fsType == "zfs" && (fsToPool x) == pool)
-    config.system.build.fileSystems
+    filter (x: x.fsType == "zfs" && (fsToPool x) == pool)
+      config.system.build.fileSystems
     ;
 
   getPoolMounts =
@@ -132,9 +133,10 @@ let
       }
     else
       let
-        keys = filter
-          (x: datasetToPool x == pool)
-          cfgZfs.requestEncryptionCredentials;
+        keys =
+          filter (x: datasetToPool x == pool)
+            cfgZfs.requestEncryptionCredentials
+          ;
       in
       {
         hasKeys = keys != [ ];
@@ -228,41 +230,47 @@ let
     }
     ;
 
-  zedConf = generators.toKeyValue
-    {
-      mkKeyValue = generators.mkKeyValueDefault
-        {
-          mkValueString =
-            v:
-            if isInt v then
-              toString v
-            else if isString v then
-              ''"${v}"''
-            else if true == v then
-              "1"
-            else if false == v then
-              "0"
-            else if isList v then
-              ''"'' + (concatStringsSep " " v) + ''"''
-            else
-              err "this value is" (toString v)
-            ;
-        }
-        "=";
-    }
-    cfgZED.settings;
+  zedConf =
+    generators.toKeyValue
+      {
+        mkKeyValue =
+          generators.mkKeyValueDefault
+            {
+              mkValueString =
+                v:
+                if isInt v then
+                  toString v
+                else if isString v then
+                  ''"${v}"''
+                else if true == v then
+                  "1"
+                else if false == v then
+                  "0"
+                else if isList v then
+                  ''"'' + (concatStringsSep " " v) + ''"''
+                else
+                  err "this value is" (toString v)
+                ;
+            }
+            "="
+          ;
+      }
+      cfgZED.settings
+    ;
 in
 
 {
 
   imports = [
-    (mkRemovedOptionModule
-      [
-        "boot"
-        "zfs"
-        "enableLegacyCrypto"
-      ]
-      "The corresponding package was removed from nixpkgs.")
+    (
+      mkRemovedOptionModule
+        [
+          "boot"
+          "zfs"
+          "enableLegacyCrypto"
+        ]
+        "The corresponding package was removed from nixpkgs."
+    )
   ];
 
   ###### interface
@@ -274,8 +282,9 @@ in
         type = types.package;
         default =
           if config.boot.zfs.enableUnstable then pkgs.zfsUnstable else pkgs.zfs;
-        defaultText = literalExpression
-          "if config.boot.zfs.enableUnstable then pkgs.zfsUnstable else pkgs.zfs"
+        defaultText =
+          literalExpression
+            "if config.boot.zfs.enableUnstable then pkgs.zfsUnstable else pkgs.zfs"
           ;
         description = lib.mdDoc "Configured ZFS userland tools package.";
       };
@@ -469,7 +478,9 @@ in
     services.zfs.trim = {
       enable = mkOption {
         description =
-          lib.mdDoc "Whether to enable periodic TRIM on all ZFS pools.";
+          lib.mdDoc
+            "Whether to enable periodic TRIM on all ZFS pools."
+          ;
         default = true;
         example = false;
         type = types.bool;
@@ -514,12 +525,14 @@ in
     };
 
     services.zfs.expandOnBoot = mkOption {
-      type = types.either
-        (types.enum [
-          "disabled"
-          "all"
-        ])
-        (types.listOf types.str);
+      type =
+        types.either
+          (types.enum [
+            "disabled"
+            "all"
+          ])
+          (types.listOf types.str)
+        ;
       default = "disabled";
       example = [
         "tank"
@@ -618,8 +631,9 @@ in
         # https://github.com/openzfs/zfs/issues/260
         # https://github.com/openzfs/zfs/issues/12842
         # https://github.com/NixOS/nixpkgs/issues/106093
-        kernelParams =
-          lib.optionals (!config.boot.zfs.allowHibernation) [ "nohibernate" ];
+        kernelParams = lib.optionals (!config.boot.zfs.allowHibernation) [
+          "nohibernate"
+        ];
 
         extraModulePackages = [
           (
@@ -654,38 +668,39 @@ in
               inherit cfgZfs;
             })
           ]
-          ++ (map
-            (pool: ''
-              echo -n "importing root ZFS pool \"${pool}\"..."
-              # Loop across the import until it succeeds, because the devices needed may not be discovered yet.
-              if ! poolImported "${pool}"; then
-                for trial in `seq 1 60`; do
-                  poolReady "${pool}" > /dev/null && msg="$(poolImport "${pool}" 2>&1)" && break
-                  sleep 1
-                  echo -n .
-                done
-                echo
-                if [[ -n "$msg" ]]; then
-                  echo "$msg";
+          ++ (
+            map
+              (pool: ''
+                echo -n "importing root ZFS pool \"${pool}\"..."
+                # Loop across the import until it succeeds, because the devices needed may not be discovered yet.
+                if ! poolImported "${pool}"; then
+                  for trial in `seq 1 60`; do
+                    poolReady "${pool}" > /dev/null && msg="$(poolImport "${pool}" 2>&1)" && break
+                    sleep 1
+                    echo -n .
+                  done
+                  echo
+                  if [[ -n "$msg" ]]; then
+                    echo "$msg";
+                  fi
+                  poolImported "${pool}" || poolImport "${pool}"  # Try one last time, e.g. to import a degraded pool.
                 fi
-                poolImported "${pool}" || poolImport "${pool}"  # Try one last time, e.g. to import a degraded pool.
-              fi
-              ${if isBool cfgZfs.requestEncryptionCredentials then
-                optionalString cfgZfs.requestEncryptionCredentials ''
-                  zfs load-key -a
-                ''
-              else
-                concatMapStrings
-                (fs: ''
-                  zfs load-key -- ${escapeShellArg fs}
-                '')
-                (
-                  filter
-                  (x: datasetToPool x == pool)
-                  cfgZfs.requestEncryptionCredentials
-                )}
-            '')
-            rootPools)
+                ${if isBool cfgZfs.requestEncryptionCredentials then
+                  optionalString cfgZfs.requestEncryptionCredentials ''
+                    zfs load-key -a
+                  ''
+                else
+                  concatMapStrings
+                    (fs: ''
+                      zfs load-key -- ${escapeShellArg fs}
+                    '')
+                    (
+                      filter (x: datasetToPool x == pool)
+                        cfgZfs.requestEncryptionCredentials
+                    )}
+              '')
+              rootPools
+          )
         );
 
         # Systemd in stage 1
@@ -693,16 +708,16 @@ in
           packages = [ cfgZfs.package ];
           services = listToAttrs (
             map
-            (
-              pool:
-              createImportService {
-                inherit pool;
-                systemd = config.boot.initrd.systemd.package;
-                force = cfgZfs.forceImportRoot;
-                prefix = "/sysroot";
-              }
-            )
-            rootPools
+              (
+                pool:
+                createImportService {
+                  inherit pool;
+                  systemd = config.boot.initrd.systemd.package;
+                  force = cfgZfs.forceImportRoot;
+                  prefix = "/sysroot";
+                }
+              )
+              rootPools
           );
           extraBin = {
             # zpool and zfs are already in thanks to fsPackages
@@ -712,17 +727,20 @@ in
       };
 
       systemd.shutdownRamfs.contents."/etc/systemd/system-shutdown/zpool".source =
-        pkgs.writeShellScript "zpool-sync-shutdown" ''
-          exec ${cfgZfs.package}/bin/zpool sync
-        '';
+        pkgs.writeShellScript "zpool-sync-shutdown"
+          ''
+            exec ${cfgZfs.package}/bin/zpool sync
+          ''
+        ;
       systemd.shutdownRamfs.storePaths = [ "${cfgZfs.package}/bin/zpool" ];
 
       # TODO FIXME See https://github.com/NixOS/nixpkgs/pull/99386#issuecomment-798813567. To not break people's bootloader and as probably not everybody would read release notes that thoroughly add inSystem.
       boot.loader.grub = mkIf (inInitrd || inSystem) { zfsSupport = true; };
 
       services.zfs.zed.settings = {
-        ZED_EMAIL_PROG =
-          mkIf cfgZED.enableMail (mkDefault "${pkgs.mailutils}/bin/mail");
+        ZED_EMAIL_PROG = mkIf cfgZED.enableMail (
+          mkDefault "${pkgs.mailutils}/bin/mail"
+        );
         PATH = lib.makeBinPath [
           cfgZfs.package
           pkgs.coreutils
@@ -736,20 +754,20 @@ in
       };
 
       environment.etc = genAttrs
-        (map (file: "zfs/zed.d/${file}") [
-          "all-syslog.sh"
-          "pool_import-led.sh"
-          "resilver_finish-start-scrub.sh"
-          "statechange-led.sh"
-          "vdev_attach-led.sh"
-          "zed-functions.sh"
-          "data-notify.sh"
-          "resilver_finish-notify.sh"
-          "scrub_finish-notify.sh"
-          "statechange-notify.sh"
-          "vdev_clear-led.sh"
-        ])
-        (file: { source = "${cfgZfs.package}/etc/${file}"; }) // {
+          (map (file: "zfs/zed.d/${file}") [
+            "all-syslog.sh"
+            "pool_import-led.sh"
+            "resilver_finish-start-scrub.sh"
+            "statechange-led.sh"
+            "vdev_attach-led.sh"
+            "zed-functions.sh"
+            "data-notify.sh"
+            "resilver_finish-notify.sh"
+            "scrub_finish-notify.sh"
+            "statechange-notify.sh"
+            "vdev_clear-led.sh"
+          ])
+          (file: { source = "${cfgZfs.package}/etc/${file}"; }) // {
           "zfs/zed.d/zed.rc".text = zedConf;
           "zfs/zpool.d".source = "${cfgZfs.package}/etc/zfs/zpool.d/";
         };
@@ -905,22 +923,22 @@ in
         in
         builtins.listToAttrs (
           map
-          (snapName: {
-            name = "zfs-snapshot-${snapName}";
-            value = {
-              description = "ZFS auto-snapshotting every ${descr snapName}";
-              after = [ "zfs-import.target" ];
-              serviceConfig = {
-                Type = "oneshot";
-                ExecStart =
-                  "${zfsAutoSnap} ${cfgSnapFlags} ${snapName} ${
-                    toString (numSnapshots snapName)
-                  }";
+            (snapName: {
+              name = "zfs-snapshot-${snapName}";
+              value = {
+                description = "ZFS auto-snapshotting every ${descr snapName}";
+                after = [ "zfs-import.target" ];
+                serviceConfig = {
+                  Type = "oneshot";
+                  ExecStart =
+                    "${zfsAutoSnap} ${cfgSnapFlags} ${snapName} ${
+                      toString (numSnapshots snapName)
+                    }";
+                };
+                restartIfChanged = false;
               };
-              restartIfChanged = false;
-            };
-          })
-          snapshotNames
+            })
+            snapshotNames
         )
         ;
 
@@ -930,17 +948,17 @@ in
         in
         builtins.listToAttrs (
           map
-          (snapName: {
-            name = "zfs-snapshot-${snapName}";
-            value = {
-              wantedBy = [ "timers.target" ];
-              timerConfig = {
-                OnCalendar = timer snapName;
-                Persistent = "yes";
+            (snapName: {
+              name = "zfs-snapshot-${snapName}";
+              value = {
+                wantedBy = [ "timers.target" ];
+                timerConfig = {
+                  OnCalendar = timer snapName;
+                  Persistent = "yes";
+                };
               };
-            };
-          })
-          snapshotNames
+            })
+            snapshotNames
         )
         ;
     })

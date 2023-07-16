@@ -38,8 +38,9 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc
-          "Whether to enable touchpad support. Deprecated: Consider services.xserver.libinput.enable."
+        description =
+          lib.mdDoc
+            "Whether to enable touchpad support. Deprecated: Consider services.xserver.libinput.enable."
           ;
       };
 
@@ -56,8 +57,9 @@ in
       accelFactor = mkOption {
         type = types.nullOr types.str;
         default = "0.001";
-        description = lib.mdDoc
-          "Cursor acceleration (how fast speed increases from minSpeed to maxSpeed)."
+        description =
+          lib.mdDoc
+            "Cursor acceleration (how fast speed increases from minSpeed to maxSpeed)."
           ;
       };
 
@@ -65,14 +67,18 @@ in
         type = types.nullOr types.str;
         default = "0.6";
         description =
-          lib.mdDoc "Cursor speed factor for precision finger motion.";
+          lib.mdDoc
+            "Cursor speed factor for precision finger motion."
+          ;
       };
 
       maxSpeed = mkOption {
         type = types.nullOr types.str;
         default = "1.0";
         description =
-          lib.mdDoc "Cursor speed factor for highest-speed finger motion.";
+          lib.mdDoc
+            "Cursor speed factor for highest-speed finger motion."
+          ;
       };
 
       scrollDelta = mkOption {
@@ -80,14 +86,17 @@ in
         default = null;
         example = 75;
         description =
-          lib.mdDoc "Move distance of the finger for a scroll event.";
+          lib.mdDoc
+            "Move distance of the finger for a scroll event."
+          ;
       };
 
       twoFingerScroll = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc
-          "Whether to enable two-finger drag-scrolling. Overridden by horizTwoFingerScroll and vertTwoFingerScroll."
+        description =
+          lib.mdDoc
+            "Whether to enable two-finger drag-scrolling. Overridden by horizTwoFingerScroll and vertTwoFingerScroll."
           ;
       };
 
@@ -96,7 +105,9 @@ in
         default = cfg.twoFingerScroll;
         defaultText = literalExpression "config.${opt.twoFingerScroll}";
         description =
-          lib.mdDoc "Whether to enable horizontal two-finger drag-scrolling.";
+          lib.mdDoc
+            "Whether to enable horizontal two-finger drag-scrolling."
+          ;
       };
 
       vertTwoFingerScroll = mkOption {
@@ -104,7 +115,9 @@ in
         default = cfg.twoFingerScroll;
         defaultText = literalExpression "config.${opt.twoFingerScroll}";
         description =
-          lib.mdDoc "Whether to enable vertical two-finger drag-scrolling.";
+          lib.mdDoc
+            "Whether to enable vertical two-finger drag-scrolling."
+          ;
       };
 
       horizEdgeScroll = mkOption {
@@ -112,7 +125,9 @@ in
         default = !cfg.horizTwoFingerScroll;
         defaultText = literalExpression "! config.${opt.horizTwoFingerScroll}";
         description =
-          lib.mdDoc "Whether to enable horizontal edge drag-scrolling.";
+          lib.mdDoc
+            "Whether to enable horizontal edge drag-scrolling."
+          ;
       };
 
       vertEdgeScroll = mkOption {
@@ -120,7 +135,9 @@ in
         default = !cfg.vertTwoFingerScroll;
         defaultText = literalExpression "! config.${opt.vertTwoFingerScroll}";
         description =
-          lib.mdDoc "Whether to enable vertical edge drag-scrolling.";
+          lib.mdDoc
+            "Whether to enable vertical edge drag-scrolling."
+          ;
       };
 
       tapButtons = mkOption {
@@ -164,8 +181,10 @@ in
       palmDetect = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc
-          "Whether to enable palm detection (hardware support required)";
+        description =
+          lib.mdDoc
+            "Whether to enable palm detection (hardware support required)"
+          ;
       };
 
       palmMinWidth = mkOption {
@@ -173,22 +192,28 @@ in
         default = null;
         example = 5;
         description =
-          lib.mdDoc "Minimum finger width at which touch is considered a palm";
+          lib.mdDoc
+            "Minimum finger width at which touch is considered a palm"
+          ;
       };
 
       palmMinZ = mkOption {
         type = types.nullOr types.int;
         default = null;
         example = 20;
-        description = lib.mdDoc
-          "Minimum finger pressure at which touch is considered a palm";
+        description =
+          lib.mdDoc
+            "Minimum finger pressure at which touch is considered a palm"
+          ;
       };
 
       horizontalScroll = mkOption {
         type = types.bool;
         default = true;
         description =
-          lib.mdDoc "Whether to enable horizontal scrolling (on touchpad)";
+          lib.mdDoc
+            "Whether to enable horizontal scrolling (on touchpad)"
+          ;
       };
 
       additionalOptions = mkOption {

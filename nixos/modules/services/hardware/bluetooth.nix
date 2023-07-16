@@ -36,30 +36,34 @@ let
 in
 {
   imports = [
-    (mkRenamedOptionModule
-      [
-        "hardware"
-        "bluetooth"
-        "config"
-      ]
-      [
-        "hardware"
-        "bluetooth"
-        "settings"
-      ])
-    (mkRemovedOptionModule
-      [
-        "hardware"
-        "bluetooth"
-        "extraConfig"
-      ]
-      ''
-        Use hardware.bluetooth.settings instead.
+    (
+      mkRenamedOptionModule
+        [
+          "hardware"
+          "bluetooth"
+          "config"
+        ]
+        [
+          "hardware"
+          "bluetooth"
+          "settings"
+        ]
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "hardware"
+          "bluetooth"
+          "extraConfig"
+        ]
+        ''
+          Use hardware.bluetooth.settings instead.
 
-        This is part of the general move to use structured settings instead of raw
-        text for config as introduced by RFC0042:
-        https://github.com/NixOS/rfcs/blob/master/rfcs/0042-config-option.md
-      '')
+          This is part of the general move to use structured settings instead of raw
+          text for config as introduced by RFC0042:
+          https://github.com/NixOS/rfcs/blob/master/rfcs/0042-config-option.md
+        ''
+    )
   ];
 
   ###### interface
@@ -76,8 +80,10 @@ in
       powerOnBoot = mkOption {
         type = types.bool;
         default = true;
-        description = lib.mdDoc
-          "Whether to power up the default Bluetooth controller on boot.";
+        description =
+          lib.mdDoc
+            "Whether to power up the default Bluetooth controller on boot."
+          ;
       };
 
       package = mkOption {
@@ -99,8 +105,9 @@ in
         type = cfgFmt.type;
         default = { };
         example = { General = { ControllerMode = "bredr"; }; };
-        description = lib.mdDoc
-          "Set configuration for system-wide bluetooth (/etc/bluetooth/main.conf)."
+        description =
+          lib.mdDoc
+            "Set configuration for system-wide bluetooth (/etc/bluetooth/main.conf)."
           ;
       };
 
@@ -113,8 +120,9 @@ in
             ClassicBondedOnly = true;
           };
         };
-        description = lib.mdDoc
-          "Set configuration for the input service (/etc/bluetooth/input.conf)."
+        description =
+          lib.mdDoc
+            "Set configuration for the input service (/etc/bluetooth/input.conf)."
           ;
       };
 
@@ -122,8 +130,9 @@ in
         type = cfgFmt.type;
         default = { };
         example = { General = { DisableSecurity = true; }; };
-        description = lib.mdDoc
-          "Set configuration for the network service (/etc/bluetooth/network.conf)."
+        description =
+          lib.mdDoc
+            "Set configuration for the network service (/etc/bluetooth/network.conf)."
           ;
       };
     };
@@ -136,11 +145,16 @@ in
       [ package ] ++ optional cfg.hsphfpd.enable pkgs.hsphfpd;
 
     environment.etc."bluetooth/input.conf".source =
-      cfgFmt.generate "input.conf" cfg.input;
+      cfgFmt.generate "input.conf"
+        cfg.input
+      ;
     environment.etc."bluetooth/network.conf".source =
-      cfgFmt.generate "network.conf" cfg.network;
-    environment.etc."bluetooth/main.conf".source =
-      cfgFmt.generate "main.conf" (recursiveUpdate defaults cfg.settings);
+      cfgFmt.generate "network.conf"
+        cfg.network
+      ;
+    environment.etc."bluetooth/main.conf".source = cfgFmt.generate "main.conf" (
+      recursiveUpdate defaults cfg.settings
+    );
     services.udev.packages = [ package ];
     services.dbus.packages =
       [ package ] ++ optional cfg.hsphfpd.enable pkgs.hsphfpd;
@@ -159,8 +173,8 @@ in
               "/etc/bluetooth/main.conf"
             ]
             ++ optional hasDisabledPlugins "--noplugin=${
-                concatStringsSep "," cfg.disabledPlugins
-              }"
+                  concatStringsSep "," cfg.disabledPlugins
+                }"
             ;
         in
         {

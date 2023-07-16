@@ -817,8 +817,10 @@ rec {
       };
     }
     .${toString (length l)}
-      or (throw
-        "system string has invalid number of hyphen-separated components")
+      or (
+        throw
+          "system string has invalid number of hyphen-separated components"
+      )
     ;
 
   # This should revert the job done by config.guess from the gcc compiler.
@@ -909,12 +911,14 @@ rec {
     }@sys:
     assert isSystem sys;
     let
-      optExecFormat = lib.optionalString
-        (
-          kernel.name == "netbsd"
-          && gnuNetBSDDefaultExecFormat cpu != kernel.execFormat
-        )
-        kernel.execFormat.name;
+      optExecFormat =
+        lib.optionalString
+          (
+            kernel.name == "netbsd"
+            && gnuNetBSDDefaultExecFormat cpu != kernel.execFormat
+          )
+          kernel.execFormat.name
+        ;
       optAbi = lib.optionalString (abi != abis.unknown) "-${abi.name}";
     in
     "${cpu.name}-${vendor.name}-${kernelName kernel}${optExecFormat}${optAbi}"

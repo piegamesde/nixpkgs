@@ -76,9 +76,10 @@ let
       python3
     ;
 in
-assert (lib.assertMsg
-  (!enableGoldPlugin)
-  "Gold plugin cannot be enabled on LLVM16 due to a upstream issue: https://github.com/llvm/llvm-project/issues/61350");
+assert (
+  lib.assertMsg (!enableGoldPlugin)
+    "Gold plugin cannot be enabled on LLVM16 due to a upstream issue: https://github.com/llvm/llvm-project/issues/61350"
+);
 stdenv.mkDerivation (
   rec {
     pname = "llvm";
@@ -333,9 +334,10 @@ stdenv.mkDerivation (
       ;
 
     # E.g. mesa.drivers use the build-id as a cache key (see #93946):
-    LDFLAGS = optionalString
-      (enableSharedLibraries && !stdenv.isDarwin)
-      "-Wl,--build-id=sha1";
+    LDFLAGS =
+      optionalString (enableSharedLibraries && !stdenv.isDarwin)
+        "-Wl,--build-id=sha1"
+      ;
 
     cmakeFlags = with stdenv;
       let

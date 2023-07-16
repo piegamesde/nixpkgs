@@ -97,13 +97,13 @@ let
         ++ lib.optional (cfg.enableBukubrow or false) bukubrow
         ++ lib.optional (cfg.enableEUWebID or false) web-eid-app
         ++ lib.optional (cfg.enableTridactylNative or false) tridactyl-native
-        ++ lib.optional
-          (cfg.enableGnomeExtensions or false)
-          gnome-browser-connector
+        ++
+          lib.optional (cfg.enableGnomeExtensions or false)
+            gnome-browser-connector
         ++ lib.optional (cfg.enableUgetIntegrator or false) uget-integrator
-        ++ lib.optional
-          (cfg.enablePlasmaBrowserIntegration or false)
-          plasma5Packages.plasma-browser-integration
+        ++
+          lib.optional (cfg.enablePlasmaBrowserIntegration or false)
+            plasma5Packages.plasma-browser-integration
         ++ lib.optional (cfg.enableFXCastBridge or false) fx_cast_bridge
         ++ extraNativeMessagingHosts
         ;
@@ -150,14 +150,15 @@ let
       #   EXTRA PREF CHANGES  #
       #                       #
       #########################
-      policiesJson =
-        writeText "policies.json" (builtins.toJSON enterprisePolicies);
+      policiesJson = writeText "policies.json" (
+        builtins.toJSON enterprisePolicies
+      );
 
       usesNixExtensions = nixExtensions != null;
 
-      nameArray =
-        builtins.map (a: a.name) (lib.optionals usesNixExtensions nixExtensions)
-        ;
+      nameArray = builtins.map (a: a.name) (
+        lib.optionals usesNixExtensions nixExtensions
+      );
 
       requiresSigning =
         browser ? MOZ_REQUIRE_SIGNING
@@ -171,18 +172,18 @@ let
           throw "Firefox addon name needs to be unique"
         else if requiresSigning && !lib.hasSuffix "esr" browser.name then
           throw
-          "Nix addons are only supported without signature enforcement (eg. Firefox ESR)"
+            "Nix addons are only supported without signature enforcement (eg. Firefox ESR)"
         else
           builtins.map
-          (
-            a:
-            if !(builtins.hasAttr "extid" a) then
-              throw
-              "nixExtensions has an invalid entry. Missing extid attribute. Please use fetchfirefoxaddon"
-            else
-              a
-          )
-          (lib.optionals usesNixExtensions nixExtensions)
+            (
+              a:
+              if !(builtins.hasAttr "extid" a) then
+                throw
+                  "nixExtensions has an invalid entry. Missing extid attribute. Please use fetchfirefoxaddon"
+              else
+                a
+            )
+            (lib.optionals usesNixExtensions nixExtensions)
         ;
 
       enterprisePolicies = {
@@ -196,20 +197,20 @@ let
               installation_mode = "blocked";
             };
           } // lib.foldr
-            (
-              e: ret:
-              ret // {
-                "${e.extid}" = { installation_mode = "allowed"; };
-              }
-            )
-            { }
-            extensions;
+              (
+                e: ret:
+                ret // {
+                  "${e.extid}" = { installation_mode = "allowed"; };
+                }
+              )
+              { }
+              extensions;
 
           Extensions = {
             Install =
-              lib.foldr (e: ret: ret ++ [ "${e.outPath}/${e.extid}.xpi" ])
-              [ ]
-              extensions;
+              lib.foldr (e: ret: ret ++ [ "${e.outPath}/${e.extid}.xpi" ]) [ ]
+                extensions
+              ;
           };
         } // lib.optionalAttrs smartcardSupport {
           SecurityDevices = { "OpenSC PKCS#11 Module" = "opensc-pkcs11.so"; };

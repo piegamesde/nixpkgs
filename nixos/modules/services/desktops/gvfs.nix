@@ -20,18 +20,20 @@ in
 
   # Added 2019-08-19
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "gnome3"
-        "gvfs"
-        "enable"
-      ]
-      [
-        "services"
-        "gvfs"
-        "enable"
-      ])
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "gnome3"
+          "gvfs"
+          "enable"
+        ]
+        [
+          "services"
+          "gvfs"
+          "enable"
+        ]
+    )
   ];
 
   ###### interface
@@ -41,7 +43,9 @@ in
     services.gvfs = {
 
       enable =
-        mkEnableOption (lib.mdDoc "GVfs, a userspace virtual filesystem");
+        mkEnableOption
+          (lib.mdDoc "GVfs, a userspace virtual filesystem")
+        ;
 
       # gvfs can be built with multiple configurations
       package = mkOption {

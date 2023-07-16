@@ -13,8 +13,9 @@ with lib;
   #
   options = {
     services.gdomap = {
-      enable =
-        mkEnableOption (lib.mdDoc "GNUstep Distributed Objects name server");
+      enable = mkEnableOption (
+        lib.mdDoc "GNUstep Distributed Objects name server"
+      );
     };
   };
 

@@ -15,8 +15,9 @@ import ./make-test-python.nix (
 
         users.users.test-user-nss = { isNormalUser = true; };
 
-        environment.etc."userdb/test-user-dropin.user".text =
-          builtins.toJSON { userName = "test-user-dropin"; };
+        environment.etc."userdb/test-user-dropin.user".text = builtins.toJSON {
+          userName = "test-user-dropin";
+        };
 
         environment.systemPackages = with pkgs; [ libvarlink ];
       }

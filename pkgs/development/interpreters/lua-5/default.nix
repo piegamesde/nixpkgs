@@ -27,61 +27,66 @@ let
       self, # is luaOnHostForTarget
     }:
     let
-      luaPackages = callPackage
-        # Function that when called
-        # - imports lua-packages.nix
-        # - adds spliced package sets to the package set
-        # - applies overrides from `packageOverrides`
-        (
-          {
-            lua,
-            overrides,
-            callPackage,
-            makeScopeWithSplicing,
-          }:
-          let
-            luaPackagesFun =
-              callPackage ../../../top-level/lua-packages.nix { lua = self; };
-            generatedPackages =
-              if
-                (builtins.pathExists ../../lua-modules/generated-packages.nix)
-              then
-                (
-                  final: prev:
-                  callPackage ../../lua-modules/generated-packages.nix
-                  { inherit (final) callPackage; }
-                  final
-                  prev
-                )
-              else
-                (final: prev: { })
-              ;
-            overriddenPackages =
-              callPackage ../../lua-modules/overrides.nix { };
+      luaPackages =
+        callPackage
+          # Function that when called
+          # - imports lua-packages.nix
+          # - adds spliced package sets to the package set
+          # - applies overrides from `packageOverrides`
+          (
+            {
+              lua,
+              overrides,
+              callPackage,
+              makeScopeWithSplicing,
+            }:
+            let
+              luaPackagesFun = callPackage ../../../top-level/lua-packages.nix {
+                lua = self;
+              };
+              generatedPackages =
+                if
+                  (builtins.pathExists ../../lua-modules/generated-packages.nix)
+                then
+                  (
+                    final: prev:
+                    callPackage ../../lua-modules/generated-packages.nix
+                      { inherit (final) callPackage; }
+                      final
+                      prev
+                  )
+                else
+                  (final: prev: { })
+                ;
+              overriddenPackages =
+                callPackage ../../lua-modules/overrides.nix
+                  { }
+                ;
 
-            otherSplices = {
-              selfBuildBuild = luaOnBuildForBuild.pkgs;
-              selfBuildHost = luaOnBuildForHost.pkgs;
-              selfBuildTarget = luaOnBuildForTarget.pkgs;
-              selfHostHost = luaOnHostForHost.pkgs;
-              selfTargetTarget = luaOnTargetForTarget.pkgs or { };
-            };
-            keep = self: { };
-            extra = spliced0: { };
-            extensions = lib.composeManyExtensions [
-              generatedPackages
-              overriddenPackages
-              overrides
-            ];
-          in
-          makeScopeWithSplicing otherSplices keep extra (
-            lib.extends extensions luaPackagesFun
+              otherSplices = {
+                selfBuildBuild = luaOnBuildForBuild.pkgs;
+                selfBuildHost = luaOnBuildForHost.pkgs;
+                selfBuildTarget = luaOnBuildForTarget.pkgs;
+                selfHostHost = luaOnHostForHost.pkgs;
+                selfTargetTarget = luaOnTargetForTarget.pkgs or { };
+              };
+              keep = self: { };
+              extra = spliced0: { };
+              extensions = lib.composeManyExtensions [
+                generatedPackages
+                overriddenPackages
+                overrides
+              ];
+            in
+            makeScopeWithSplicing otherSplices keep extra (
+              lib.extends extensions luaPackagesFun
+            )
           )
-        )
-        {
-          overrides = packageOverrides;
-          lua = self;
-        };
+          {
+            overrides = packageOverrides;
+            lua = self;
+          }
+        ;
     in
     rec {
       buildEnv = callPackage ./wrapper.nix {
@@ -89,8 +94,9 @@ let
         makeWrapper = makeBinaryWrapper;
         inherit (luaPackages) requiredLuaModules;
       };
-      withPackages =
-        import ./with-packages.nix { inherit buildEnv luaPackages; };
+      withPackages = import ./with-packages.nix {
+        inherit buildEnv luaPackages;
+      };
       pkgs = luaPackages;
       interpreter = "${self}/bin/${executable}";
       inherit executable luaversion;

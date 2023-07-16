@@ -77,8 +77,9 @@ stdenv.mkDerivation (
       )
       ;
 
-    propagatedBuildInputs =
-      lib.optionals pythonSupport (with python3Packages; [ torch ]);
+    propagatedBuildInputs = lib.optionals pythonSupport (
+      with python3Packages; [ torch ]
+    );
 
     # NOTE: We cannot use pythonImportsCheck for this module because it uses torch to immediately
     #   initailize CUDA and GPU access is not allowed in the nix build environment.

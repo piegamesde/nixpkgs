@@ -41,9 +41,10 @@ let
     }
     ;
 
-  clang-tools-extra_src = fetch
-    "clang-tools-extra"
-    "06n1yp638rh24xdxv9v2df0qajxbjz4w59b7dd4ky36drwmpi4yh";
+  clang-tools-extra_src =
+    fetch "clang-tools-extra"
+      "06n1yp638rh24xdxv9v2df0qajxbjz4w59b7dd4ky36drwmpi4yh"
+    ;
 
   llvm_meta = {
     license = lib.licenses.ncsa;
@@ -113,8 +114,9 @@ let
       # we need to reintroduce `outputSpecified` to get the expected behavior e.g. of lib.get*
       llvm = tools.libllvm;
 
-      libclang =
-        callPackage ./clang { inherit clang-tools-extra_src llvm_meta; };
+      libclang = callPackage ./clang {
+        inherit clang-tools-extra_src llvm_meta;
+      };
 
       clang-unwrapped = tools.libclang;
 
@@ -206,14 +208,15 @@ let
           + lib.optionalString (!stdenv.targetPlatform.isWasm) ''
             echo "--unwindlib=libunwind" >> $out/nix-support/cc-cflags
           ''
-          + lib.optionalString
-            (
-              !stdenv.targetPlatform.isWasm
-              && stdenv.targetPlatform.useLLVM or false
-            )
-            ''
-              echo "-lunwind" >> $out/nix-support/cc-ldflags
-            ''
+          +
+            lib.optionalString
+              (
+                !stdenv.targetPlatform.isWasm
+                && stdenv.targetPlatform.useLLVM or false
+              )
+              ''
+                echo "-lunwind" >> $out/nix-support/cc-ldflags
+              ''
           + lib.optionalString stdenv.targetPlatform.isWasm ''
             echo "-fno-exceptions" >> $out/nix-support/cc-cflags
           ''

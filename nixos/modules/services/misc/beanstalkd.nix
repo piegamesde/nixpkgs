@@ -23,7 +23,8 @@ in
         port = mkOption {
           type = types.port;
           description =
-            lib.mdDoc "TCP port that will be used to accept client connections."
+            lib.mdDoc
+              "TCP port that will be used to accept client connections."
             ;
           default = 11300;
         };
@@ -40,7 +41,9 @@ in
         type = types.bool;
         default = false;
         description =
-          lib.mdDoc "Whether to open ports in the firewall for the server.";
+          lib.mdDoc
+            "Whether to open ports in the firewall for the server."
+          ;
       };
     };
   };
@@ -49,8 +52,9 @@ in
 
   config = mkIf cfg.enable {
 
-    networking.firewall =
-      mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.listen.port ]; };
+    networking.firewall = mkIf cfg.openFirewall {
+      allowedTCPPorts = [ cfg.listen.port ];
+    };
 
     environment.systemPackages = [ pkg ];
 

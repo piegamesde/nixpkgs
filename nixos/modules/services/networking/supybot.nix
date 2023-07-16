@@ -12,7 +12,9 @@ let
   isStateDirHome = hasPrefix "/home/" cfg.stateDir;
   isStateDirVar = cfg.stateDir == "/var/lib/supybot";
   pyEnv =
-    pkgs.python3.withPackages (p: [ p.limnoria ] ++ (cfg.extraPackages p));
+    pkgs.python3.withPackages
+      (p: [ p.limnoria ] ++ (cfg.extraPackages p))
+    ;
 in
 {
   options = {
@@ -23,7 +25,9 @@ in
         type = types.bool;
         default = false;
         description =
-          lib.mdDoc "Enable Supybot, an IRC bot (also known as Limnoria).";
+          lib.mdDoc
+            "Enable Supybot, an IRC bot (also known as Limnoria)."
+          ;
       };
 
       stateDir = mkOption {
@@ -36,7 +40,9 @@ in
           ;
         defaultText = literalExpression "/var/lib/supybot";
         description =
-          lib.mdDoc "The root directory, logs and plugins are stored here";
+          lib.mdDoc
+            "The root directory, logs and plugins are stored here"
+          ;
       };
 
       configFile = mkOption {

@@ -29,19 +29,20 @@ let
       sortedAttrs =
         set:
         sort
-        (
-          l: r:
-          if l == "extraConfig" then
-            false # Always put extraConfig last
-          else if isAttrs set.${l} == isAttrs set.${r} then
-            l < r
-          else
-            isAttrs set.${r} # Attrsets should be last, makes for a nice config
-        # This last case occurs when any side (but not both) is an attrset
-        # The order of these is correct when the attrset is on the right
-        # which we're just returning
-        )
-        (attrNames set)
+          (
+            l: r:
+            if l == "extraConfig" then
+              false # Always put extraConfig last
+            else if isAttrs set.${l} == isAttrs set.${r} then
+              l < r
+            else
+              isAttrs
+                set.${r} # Attrsets should be last, makes for a nice config
+          # This last case occurs when any side (but not both) is an attrset
+          # The order of these is correct when the attrset is on the right
+          # which we're just returning
+          )
+          (attrNames set)
         ;
 
       # Specifies an attrset that encodes the value according to its type
@@ -67,16 +68,18 @@ let
           #     Baz=baz
           #     Qux=qux
           #   </Foo>
-          set = concatMap
-            (
-              subname:
-              optionals (value.${subname} != null) (
-                [ "<${name} ${subname}>" ]
-                ++ map (line: "	${line}") (toLines value.${subname})
-                ++ [ "</${name}>" ]
+          set =
+            concatMap
+              (
+                subname:
+                optionals (value.${subname} != null) (
+                  [ "<${name} ${subname}>" ]
+                  ++ map (line: "	${line}") (toLines value.${subname})
+                  ++ [ "</${name}>" ]
+                )
               )
-            )
-            (filter (v: v != null) (attrNames value));
+              (filter (v: v != null) (attrNames value))
+            ;
         }
         .${builtins.typeOf value}
         ;
@@ -230,7 +233,9 @@ in
         type = types.listOf types.package;
         default = [ ];
         example =
-          literalExpression "[ pkgs.zncModules.fish pkgs.zncModules.push ]";
+          literalExpression
+            "[ pkgs.zncModules.fish pkgs.zncModules.push ]"
+          ;
         description = lib.mdDoc ''
           A list of global znc module packages to add to znc.
         '';
@@ -270,8 +275,9 @@ in
   config = mkIf cfg.enable {
 
     services.znc = {
-      configFile =
-        mkDefault (pkgs.writeText "znc-generated.conf" semanticString);
+      configFile = mkDefault (
+        pkgs.writeText "znc-generated.conf" semanticString
+      );
       config = {
         Version = lib.getVersion pkgs.znc;
         Listener.l.Port = mkDefault 5000;

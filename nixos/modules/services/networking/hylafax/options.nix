@@ -126,12 +126,14 @@ let
     let
       c.hfaxdConfig.UserAccessFile = cfg.userAccessFile;
       c.faxqConfig =
-        lib.attrsets.mapAttrs (lib.trivial.const (v: mkIf (v != null) v)) {
-          AreaCode = cfg.areaCode;
-          CountryCode = cfg.countryCode;
-          LongDistancePrefix = cfg.longDistancePrefix;
-          InternationalPrefix = cfg.internationalPrefix;
-        };
+        lib.attrsets.mapAttrs (lib.trivial.const (v: mkIf (v != null) v))
+          {
+            AreaCode = cfg.areaCode;
+            CountryCode = cfg.countryCode;
+            LongDistancePrefix = cfg.longDistancePrefix;
+            InternationalPrefix = cfg.internationalPrefix;
+          }
+        ;
       c.commonModemConfig = c.faxqConfig;
     in
     c

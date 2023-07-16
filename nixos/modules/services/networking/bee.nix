@@ -29,7 +29,9 @@ in
         defaultText = literalExpression "pkgs.bee";
         example = literalExpression "pkgs.bee-unstable";
         description =
-          lib.mdDoc "The package providing the bee binary for the service.";
+          lib.mdDoc
+            "The package providing the bee binary for the service."
+          ;
       };
 
       settings = mkOption {
@@ -89,9 +91,9 @@ in
       }
     ];
 
-    warnings = optional
-      (!config.services.bee-clef.enable)
-      "The bee service requires an external signer. Consider setting `config.services.bee-clef.enable` = true"
+    warnings =
+      optional (!config.services.bee-clef.enable)
+        "The bee service requires an external signer. Consider setting `config.services.bee-clef.enable` = true"
       ;
 
     services.bee.settings = {
@@ -151,9 +153,10 @@ in
         home = cfg.settings.data-dir;
         isSystemUser = true;
         description = "Daemon user for Ethereum Swarm Bee";
-        extraGroups = optional
-          config.services.bee-clef.enable
-          config.services.bee-clef.group;
+        extraGroups =
+          optional config.services.bee-clef.enable
+            config.services.bee-clef.group
+          ;
       };
     };
 

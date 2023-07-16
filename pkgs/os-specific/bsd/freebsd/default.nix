@@ -42,7 +42,9 @@ let
   };
 
   freebsdSetupHook =
-    makeSetupHook { name = "freebsd-setup-hook"; } ./setup-hook.sh;
+    makeSetupHook { name = "freebsd-setup-hook"; }
+      ./setup-hook.sh
+    ;
 
   mkBsdArch =
     stdenv':
@@ -108,7 +110,9 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
     # See note in ../netbsd/default.nix.
 
     compatIfNeeded =
-      lib.optional (!stdenvNoCC.hostPlatform.isFreeBSD) self.compat;
+      lib.optional (!stdenvNoCC.hostPlatform.isFreeBSD)
+        self.compat
+      ;
 
     mkDerivation = lib.makeOverridable (
       attrs:
@@ -119,23 +123,25 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
         rec {
           pname = "${attrs.pname or (baseNameOf attrs.path)}-freebsd";
           inherit version;
-          src = runCommand "${pname}-filtered-src"
-            { nativeBuildInputs = [ rsync ]; }
-            ''
-              for p in ${
-                lib.concatStringsSep " " (
-                  [ attrs.path ] ++ attrs.extraPaths or [ ]
-                )
-              }; do
-                set -x
-                path="$out/$p"
-                mkdir -p "$(dirname "$path")"
-                src_path="${freebsdSrc}/$p"
-                if [[ -d "$src_path" ]]; then src_path+=/; fi
-                rsync --chmod="+w" -r "$src_path" "$path"
-                set +x
-              done
-            '';
+          src =
+            runCommand "${pname}-filtered-src"
+              { nativeBuildInputs = [ rsync ]; }
+              ''
+                for p in ${
+                  lib.concatStringsSep " " (
+                    [ attrs.path ] ++ attrs.extraPaths or [ ]
+                  )
+                }; do
+                  set -x
+                  path="$out/$p"
+                  mkdir -p "$(dirname "$path")"
+                  src_path="${freebsdSrc}/$p"
+                  if [[ -d "$src_path" ]]; then src_path+=/; fi
+                  rsync --chmod="+w" -r "$src_path" "$path"
+                  set +x
+                done
+              ''
+            ;
 
           extraPaths = [ ];
 
@@ -430,9 +436,9 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
           "STRIP=-s" # flag to install, not command
           "MK_WERROR=no"
         ]
-        ++ lib.optional
-          (stdenv.hostPlatform == stdenv.buildPlatform)
-          "INSTALL=boot-install"
+        ++
+          lib.optional (stdenv.hostPlatform == stdenv.buildPlatform)
+            "INSTALL=boot-install"
         ;
       buildInputs = with self; compatIfNeeded;
     };
@@ -478,9 +484,9 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
             "MK_WERROR=no"
             "TESTSDIR=${builtins.placeholder "test"}"
           ]
-          ++ lib.optional
-            (stdenv.hostPlatform == stdenv.buildPlatform)
-            "INSTALL=boot-install"
+          ++
+            lib.optional (stdenv.hostPlatform == stdenv.buildPlatform)
+              "INSTALL=boot-install"
           ;
         postInstall = ''
           install -D -m 0550 ${binstall} $out/bin/binstall

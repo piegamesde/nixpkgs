@@ -22,9 +22,8 @@ let
       ${hostOpts.hostName} ${concatStringsSep " " hostOpts.serverAliases} {
         bind ${concatStringsSep " " hostOpts.listenAddresses}
         ${
-          optionalString
-          (hostOpts.useACMEHost != null)
-          "tls ${sslCertDir}/cert.pem ${sslCertDir}/key.pem"
+          optionalString (hostOpts.useACMEHost != null)
+            "tls ${sslCertDir}/cert.pem ${sslCertDir}/key.pem"
         }
         log {
           ${hostOpts.logFormat}
@@ -44,13 +43,15 @@ let
         ${cfg.extraConfig}
       '';
 
-      Caddyfile-formatted = pkgs.runCommand "Caddyfile-formatted"
-        { nativeBuildInputs = [ cfg.package ]; }
-        ''
-          mkdir -p $out
-          cp --no-preserve=mode ${Caddyfile}/Caddyfile $out/Caddyfile
-          caddy fmt --overwrite $out/Caddyfile
-        '';
+      Caddyfile-formatted =
+        pkgs.runCommand "Caddyfile-formatted"
+          { nativeBuildInputs = [ cfg.package ]; }
+          ''
+            mkdir -p $out
+            cp --no-preserve=mode ${Caddyfile}/Caddyfile $out/Caddyfile
+            caddy fmt --overwrite $out/Caddyfile
+          ''
+        ;
     in
     "${
       if pkgs.stdenv.buildPlatform == pkgs.stdenv.hostPlatform then
@@ -63,39 +64,47 @@ let
   acmeHosts = unique (catAttrs "useACMEHost" acmeVHosts);
 
   mkCertOwnershipAssertion =
-    import ../../../security/acme/mk-cert-ownership-assertion.nix;
+    import
+      ../../../security/acme/mk-cert-ownership-assertion.nix
+    ;
 in
 {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "caddy"
-        "agree"
-      ]
-      "this option is no longer necessary for Caddy 2")
-    (mkRenamedOptionModule
-      [
-        "services"
-        "caddy"
-        "ca"
-      ]
-      [
-        "services"
-        "caddy"
-        "acmeCA"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "caddy"
-        "config"
-      ]
-      [
-        "services"
-        "caddy"
-        "extraConfig"
-      ])
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "caddy"
+          "agree"
+        ]
+        "this option is no longer necessary for Caddy 2"
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "caddy"
+          "ca"
+        ]
+        [
+          "services"
+          "caddy"
+          "acmeCA"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "caddy"
+          "config"
+        ]
+        [
+          "services"
+          "caddy"
+          "extraConfig"
+        ]
+    )
   ];
 
   # interface
@@ -328,20 +337,23 @@ in
         message =
           "To specify an adapter other than 'caddyfile' please provide your own configuration via `services.caddy.configFile`";
       } ]
-      ++ map
-        (
-          name:
-          mkCertOwnershipAssertion {
-            inherit (cfg) group user;
-            cert = config.security.acme.certs.${name};
-            groups = config.users.groups;
-          }
-        )
-        acmeHosts
+      ++
+        map
+          (
+            name:
+            mkCertOwnershipAssertion {
+              inherit (cfg) group user;
+              cert = config.security.acme.certs.${name};
+              groups = config.users.groups;
+            }
+          )
+          acmeHosts
       ;
 
     services.caddy.extraConfig =
-      concatMapStringsSep "\n" mkVHostConf virtualHosts;
+      concatMapStringsSep "\n" mkVHostConf
+        virtualHosts
+      ;
     services.caddy.globalConfig = ''
       ${optionalString (cfg.email != null) "email ${cfg.email}"}
       ${optionalString (cfg.acmeCA != null) "acme_ca ${cfg.acmeCA}"}
@@ -355,14 +367,18 @@ in
 
     systemd.packages = [ cfg.package ];
     systemd.services.caddy = {
-      wants = map
-        (hostOpts: "acme-finished-${hostOpts.useACMEHost}.target")
-        acmeVHosts;
-      after = map
-        (hostOpts: "acme-selfsigned-${hostOpts.useACMEHost}.service")
-        acmeVHosts;
+      wants =
+        map (hostOpts: "acme-finished-${hostOpts.useACMEHost}.target")
+          acmeVHosts
+        ;
+      after =
+        map (hostOpts: "acme-selfsigned-${hostOpts.useACMEHost}.service")
+          acmeVHosts
+        ;
       before =
-        map (hostOpts: "acme-${hostOpts.useACMEHost}.service") acmeVHosts;
+        map (hostOpts: "acme-${hostOpts.useACMEHost}.service")
+          acmeVHosts
+        ;
 
       wantedBy = [ "multi-user.target" ];
       startLimitIntervalSec = 14400;
@@ -415,15 +431,17 @@ in
 
     security.acme.certs =
       let
-        certCfg = map
-          (
-            useACMEHost:
-            nameValuePair useACMEHost {
-              group = mkDefault cfg.group;
-              reloadServices = [ "caddy.service" ];
-            }
-          )
-          acmeHosts;
+        certCfg =
+          map
+            (
+              useACMEHost:
+              nameValuePair useACMEHost {
+                group = mkDefault cfg.group;
+                reloadServices = [ "caddy.service" ];
+              }
+            )
+            acmeHosts
+          ;
       in
       listToAttrs certCfg
       ;

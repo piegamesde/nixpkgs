@@ -28,8 +28,9 @@ stdenv.mkDerivation (
     ];
 
     # Configure stage fails on aarch64-darwin otherwise, due to either clang 11 or gfortran 10.
-    hardeningDisable =
-      lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ "stackprotector" ];
+    hardeningDisable = lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
+      "stackprotector"
+    ];
 
     cmakeFlags =
       [
@@ -43,9 +44,9 @@ stdenv.mkDerivation (
       # Tries to run host platform binaries during the build
       # Will likely be disabled by default in 3.12, see:
       # https://github.com/Reference-LAPACK/lapack/issues/757
-      ++ lib.optional
-        (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
-        "-DTEST_FORTRAN_COMPILER=OFF"
+      ++
+        lib.optional (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+          "-DTEST_FORTRAN_COMPILER=OFF"
       ;
 
     passthru = { inherit blas64; };
@@ -82,7 +83,9 @@ stdenv.mkDerivation (
     # Upstream issue to track:
     # * https://github.com/Reference-LAPACK/lapack/issues/440
     ctestArgs =
-      lib.optionalString stdenv.isDarwin "-E '^(CBLAS-(x[sdcz]cblat[23]))$'";
+      lib.optionalString stdenv.isDarwin
+        "-E '^(CBLAS-(x[sdcz]cblat[23]))$'"
+      ;
 
     checkPhase = ''
       runHook preCheck
@@ -91,7 +94,9 @@ stdenv.mkDerivation (
     '';
 
     passthru.tests.pkg-config =
-      testers.testMetaPkgConfig finalAttrs.finalPackage;
+      testers.testMetaPkgConfig
+        finalAttrs.finalPackage
+      ;
 
     meta = with lib; {
       description = "Linear Algebra PACKage";

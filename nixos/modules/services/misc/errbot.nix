@@ -84,7 +84,9 @@ in
               type = types.lines;
               default = "";
               description =
-                lib.mdDoc "String to be appended to the config verbatim";
+                lib.mdDoc
+                  "String to be appended to the config verbatim"
+                ;
             };
           };
         }
@@ -99,37 +101,39 @@ in
     };
     users.groups.errbot = { };
 
-    systemd.services = mapAttrs'
-      (
-        name: instanceCfg:
-        nameValuePair "errbot-${name}" (
-          let
-            dataDir =
-              if instanceCfg.dataDir != null then
-                instanceCfg.dataDir
-              else
-                "/var/lib/errbot/${name}"
-              ;
-          in
-          {
-            after = [ "network-online.target" ];
-            wantedBy = [ "multi-user.target" ];
-            preStart = ''
-              mkdir -p ${dataDir}
-              chown -R errbot:errbot ${dataDir}
-            '';
-            serviceConfig = {
-              User = "errbot";
-              Restart = "on-failure";
-              ExecStart =
-                "${pkgs.errbot}/bin/errbot -c ${
-                  mkConfigDir instanceCfg dataDir
-                }/config.py";
-              PermissionsStartOnly = true;
-            };
-          }
+    systemd.services =
+      mapAttrs'
+        (
+          name: instanceCfg:
+          nameValuePair "errbot-${name}" (
+            let
+              dataDir =
+                if instanceCfg.dataDir != null then
+                  instanceCfg.dataDir
+                else
+                  "/var/lib/errbot/${name}"
+                ;
+            in
+            {
+              after = [ "network-online.target" ];
+              wantedBy = [ "multi-user.target" ];
+              preStart = ''
+                mkdir -p ${dataDir}
+                chown -R errbot:errbot ${dataDir}
+              '';
+              serviceConfig = {
+                User = "errbot";
+                Restart = "on-failure";
+                ExecStart =
+                  "${pkgs.errbot}/bin/errbot -c ${
+                    mkConfigDir instanceCfg dataDir
+                  }/config.py";
+                PermissionsStartOnly = true;
+              };
+            }
+          )
         )
-      )
-      cfg.instances;
+        cfg.instances
+      ;
   };
 }

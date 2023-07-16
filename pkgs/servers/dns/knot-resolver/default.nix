@@ -119,9 +119,9 @@ let # un-indented, over the whole file
       ]
       ++ optional doInstallCheck "-Dunit_tests=enabled"
       ++ optional doInstallCheck "-Dconfig_tests=enabled"
-      ++ optional
-        stdenv.isLinux
-        "-Dsystemd_files=enabled" # used by NixOS service
+      ++
+        optional stdenv.isLinux
+          "-Dsystemd_files=enabled" # used by NixOS service
       #"-Dextra_tests=enabled" # not suitable as in-distro tests; many deps, too.
       ;
 
@@ -160,32 +160,34 @@ let # un-indented, over the whole file
     };
   };
 
-  wrapped-full = runCommand unwrapped.name
-    {
-      nativeBuildInputs = [ makeWrapper ];
-      buildInputs = with luajitPackages; [
-        # For http module, prefill module, trust anchor bootstrap.
-        # It brings lots of deps; some are useful elsewhere (e.g. cqueues).
-        http
-        # psl isn't in nixpkgs yet, but policy.slice_randomize_psl() seems not important.
-      ];
-      preferLocalBuild = true;
-      allowSubstitutes = false;
-      inherit (unwrapped) meta;
-    }
-    ''
-      mkdir -p "$out"/bin
-      makeWrapper '${unwrapped}/bin/kresd' "$out"/bin/kresd \
-        --set LUA_PATH  "$LUA_PATH" \
-        --set LUA_CPATH "$LUA_CPATH"
+  wrapped-full =
+    runCommand unwrapped.name
+      {
+        nativeBuildInputs = [ makeWrapper ];
+        buildInputs = with luajitPackages; [
+          # For http module, prefill module, trust anchor bootstrap.
+          # It brings lots of deps; some are useful elsewhere (e.g. cqueues).
+          http
+          # psl isn't in nixpkgs yet, but policy.slice_randomize_psl() seems not important.
+        ];
+        preferLocalBuild = true;
+        allowSubstitutes = false;
+        inherit (unwrapped) meta;
+      }
+      ''
+        mkdir -p "$out"/bin
+        makeWrapper '${unwrapped}/bin/kresd' "$out"/bin/kresd \
+          --set LUA_PATH  "$LUA_PATH" \
+          --set LUA_CPATH "$LUA_CPATH"
 
-      ln -sr '${unwrapped}/share' "$out"/
-      ln -sr '${unwrapped}/lib'   "$out"/ # useful in NixOS service
-      ln -sr "$out"/{bin,sbin}
+        ln -sr '${unwrapped}/share' "$out"/
+        ln -sr '${unwrapped}/lib'   "$out"/ # useful in NixOS service
+        ln -sr "$out"/{bin,sbin}
 
-      echo "Checking that 'http' module loads, i.e. lua search paths work:"
-      echo "modules.load('http')" > test-http.lua
-      echo -e 'quit()' | env -i "$out"/bin/kresd -a 127.0.0.1#53535 -c test-http.lua
-    '';
+        echo "Checking that 'http' module loads, i.e. lua search paths work:"
+        echo "modules.load('http')" > test-http.lua
+        echo -e 'quit()' | env -i "$out"/bin/kresd -a 127.0.0.1#53535 -c test-http.lua
+      ''
+    ;
 in
 result

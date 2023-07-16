@@ -53,8 +53,8 @@ let
         (lib.importJSON ./upstream-info.json).ungoogled-chromium.version;
     in
     lib.warnIf (lib.versionAtLeast ungoogled-version min-version)
-    "chromium: ungoogled version ${ungoogled-version} is newer than a conditional bounded at ${min-version}. You can safely delete it."
-    result
+      "chromium: ungoogled version ${ungoogled-version} is newer than a conditional bounded at ${min-version}. You can safely delete it."
+      result
     ;
   chromiumVersionAtLeast =
     min-version:
@@ -128,12 +128,14 @@ let
     in
     fetchurl {
       urls =
-        map (repo: "${repo}/${pkgName}/${pkgName}_${version}-1_amd64.deb") [
-          "https://dl.google.com/linux/chrome/deb/pool/main/g"
-          "http://95.31.35.30/chrome/pool/main/g"
-          "http://mirror.pcbeta.com/google/chrome/deb/pool/main/g"
-          "http://repo.fdzh.org/chrome/deb/pool/main/g"
-        ];
+        map (repo: "${repo}/${pkgName}/${pkgName}_${version}-1_amd64.deb")
+          [
+            "https://dl.google.com/linux/chrome/deb/pool/main/g"
+            "http://95.31.35.30/chrome/pool/main/g"
+            "http://mirror.pcbeta.com/google/chrome/deb/pool/main/g"
+            "http://repo.fdzh.org/chrome/deb/pool/main/g"
+          ]
+        ;
       inherit sha256;
     }
     ;

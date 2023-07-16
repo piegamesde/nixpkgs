@@ -295,19 +295,20 @@ stdenv.mkDerivation (
       shared-mime-info
     ];
 
-    preCheck = lib.optionalString
-      finalAttrs.doCheck or config.doCheckByDefault or false
-      ''
-        export LD_LIBRARY_PATH="$NIX_BUILD_TOP/glib-${finalAttrs.version}/glib/.libs''${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH"
-        export TZDIR="${tzdata}/share/zoneinfo"
-        export XDG_CACHE_HOME="$TMP"
-        export XDG_RUNTIME_HOME="$TMP"
-        export HOME="$TMP"
-        export XDG_DATA_DIRS="${desktop-file-utils}/share:${shared-mime-info}/share"
-        export G_TEST_DBUS_DAEMON="${dbus}/bin/dbus-daemon"
-        export PATH="$PATH:$(pwd)/gobject"
-        echo "PATH=$PATH"
-      '';
+    preCheck =
+      lib.optionalString finalAttrs.doCheck or config.doCheckByDefault or false
+        ''
+          export LD_LIBRARY_PATH="$NIX_BUILD_TOP/glib-${finalAttrs.version}/glib/.libs''${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH"
+          export TZDIR="${tzdata}/share/zoneinfo"
+          export XDG_CACHE_HOME="$TMP"
+          export XDG_RUNTIME_HOME="$TMP"
+          export HOME="$TMP"
+          export XDG_DATA_DIRS="${desktop-file-utils}/share:${shared-mime-info}/share"
+          export G_TEST_DBUS_DAEMON="${dbus}/bin/dbus-daemon"
+          export PATH="$PATH:$(pwd)/gobject"
+          echo "PATH=$PATH"
+        ''
+      ;
 
     separateDebugInfo = stdenv.isLinux;
 
@@ -322,8 +323,9 @@ stdenv.mkDerivation (
       getSchemaDataDirPath = pkg: makeSchemaDataDirPath pkg pkg.name;
 
       tests = {
-        withChecks =
-          finalAttrs.finalPackage.overrideAttrs (_: { doCheck = true; });
+        withChecks = finalAttrs.finalPackage.overrideAttrs (
+          _: { doCheck = true; }
+        );
         pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
       };
 
@@ -339,13 +341,13 @@ stdenv.mkDerivation (
           glib-schema-to-var,
         }:
         builtins.trace
-        "glib.mkHardcodeGsettingsPatch is deprecated, please use makeHardcodeGsettingsPatch instead"
-        (
-          makeHardcodeGsettingsPatch {
-            inherit src;
-            schemaIdToVariableMapping = glib-schema-to-var;
-          }
-        )
+          "glib.mkHardcodeGsettingsPatch is deprecated, please use makeHardcodeGsettingsPatch instead"
+          (
+            makeHardcodeGsettingsPatch {
+              inherit src;
+              schemaIdToVariableMapping = glib-schema-to-var;
+            }
+          )
         ;
     };
 

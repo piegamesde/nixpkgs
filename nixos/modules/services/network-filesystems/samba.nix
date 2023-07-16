@@ -24,10 +24,10 @@ let
     "[${name}]\n "
     + (smbToString (
       map
-      (key: ''
-        ${key} = ${smbToString (getAttr key share)}
-      '')
-      (attrNames share)
+        (key: ''
+          ${key} = ${smbToString (getAttr key share)}
+        '')
+        (attrNames share)
     ))
     ;
 
@@ -83,20 +83,24 @@ in
 
 {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "samba"
-        "defaultShare"
-      ]
-      "")
-    (mkRemovedOptionModule
-      [
-        "services"
-        "samba"
-        "syncPasswordsByPam"
-      ]
-      "This option has been removed by upstream, see https://bugzilla.samba.org/show_bug.cgi?id=10669#c10")
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "samba"
+          "defaultShare"
+        ]
+        ""
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "samba"
+          "syncPasswordsByPam"
+        ]
+        "This option has been removed by upstream, see https://bugzilla.samba.org/show_bug.cgi?id=10669#c10"
+    )
   ];
 
   ###### interface
@@ -262,7 +266,9 @@ in
           samba-smbd = daemonService "smbd" "";
           samba-nmbd = mkIf cfg.enableNmbd (daemonService "nmbd" "");
           samba-winbindd =
-            mkIf cfg.enableWinbindd (daemonService "winbindd" "");
+            mkIf cfg.enableWinbindd
+              (daemonService "winbindd" "")
+            ;
         };
         tmpfiles.rules = [
           "d /var/lock/samba - - - - -"

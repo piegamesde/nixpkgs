@@ -55,7 +55,9 @@ import ./make-test-python.nix (
 
           systemd.services.gitlab.serviceConfig.Restart = mkForce "no";
           systemd.services.gitlab-workhorse.serviceConfig.Restart =
-            mkForce "no";
+            mkForce
+              "no"
+            ;
           systemd.services.gitaly.serviceConfig.Restart = mkForce "no";
           systemd.services.gitlab-sidekiq.serviceConfig.Restart = mkForce "no";
 
@@ -83,7 +85,9 @@ import ./make-test-python.nix (
             enable = true;
             databasePasswordFile = pkgs.writeText "dbPassword" "xo0daiF4";
             initialRootPasswordFile =
-              pkgs.writeText "rootPassword" initialRootPassword;
+              pkgs.writeText "rootPassword"
+                initialRootPassword
+              ;
             smtp.enable = true;
             pages = {
               enable = true;
@@ -104,9 +108,10 @@ import ./make-test-python.nix (
               secretFile = pkgs.writeText "secret" "Aig5zaic";
               otpFile = pkgs.writeText "otpsecret" "Riew9mue";
               dbFile = pkgs.writeText "dbsecret" "we2quaeZ";
-              jwsFile = pkgs.runCommand "oidcKeyBase"
-                { }
-                "${pkgs.openssl}/bin/openssl genrsa 2048 > $out";
+              jwsFile =
+                pkgs.runCommand "oidcKeyBase" { }
+                  "${pkgs.openssl}/bin/openssl genrsa 2048 > $out"
+                ;
             };
           };
         }

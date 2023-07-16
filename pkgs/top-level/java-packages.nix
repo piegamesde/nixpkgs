@@ -6,7 +6,9 @@ with pkgs;
 
 let
   mavenbuild =
-    callPackage ../development/java-modules/build-maven-package.nix { };
+    callPackage ../development/java-modules/build-maven-package.nix
+      { }
+    ;
   fetchMaven = callPackage ../development/java-modules/m2install.nix { };
 
   openjfx11 = callPackage ../development/compilers/openjdk/openjfx/11.nix { };
@@ -92,89 +94,100 @@ in
         ;
     in
     rec {
-      adoptopenjdk-8 = mkAdoptopenjdk
-        ../development/compilers/adoptopenjdk-bin/jdk8-linux.nix
-        ../development/compilers/adoptopenjdk-bin/jdk8-darwin.nix;
+      adoptopenjdk-8 =
+        mkAdoptopenjdk ../development/compilers/adoptopenjdk-bin/jdk8-linux.nix
+          ../development/compilers/adoptopenjdk-bin/jdk8-darwin.nix
+        ;
 
-      adoptopenjdk-11 = mkAdoptopenjdk
-        ../development/compilers/adoptopenjdk-bin/jdk11-linux.nix
-        ../development/compilers/adoptopenjdk-bin/jdk11-darwin.nix;
+      adoptopenjdk-11 =
+        mkAdoptopenjdk ../development/compilers/adoptopenjdk-bin/jdk11-linux.nix
+          ../development/compilers/adoptopenjdk-bin/jdk11-darwin.nix
+        ;
 
-      adoptopenjdk-13 = mkAdoptopenjdk
-        ../development/compilers/adoptopenjdk-bin/jdk13-linux.nix
-        ../development/compilers/adoptopenjdk-bin/jdk13-darwin.nix;
+      adoptopenjdk-13 =
+        mkAdoptopenjdk ../development/compilers/adoptopenjdk-bin/jdk13-linux.nix
+          ../development/compilers/adoptopenjdk-bin/jdk13-darwin.nix
+        ;
 
-      adoptopenjdk-14 = mkAdoptopenjdk
-        ../development/compilers/adoptopenjdk-bin/jdk14-linux.nix
-        ../development/compilers/adoptopenjdk-bin/jdk14-darwin.nix;
+      adoptopenjdk-14 =
+        mkAdoptopenjdk ../development/compilers/adoptopenjdk-bin/jdk14-linux.nix
+          ../development/compilers/adoptopenjdk-bin/jdk14-darwin.nix
+        ;
 
-      adoptopenjdk-15 = mkAdoptopenjdk
-        ../development/compilers/adoptopenjdk-bin/jdk15-linux.nix
-        ../development/compilers/adoptopenjdk-bin/jdk15-darwin.nix;
+      adoptopenjdk-15 =
+        mkAdoptopenjdk ../development/compilers/adoptopenjdk-bin/jdk15-linux.nix
+          ../development/compilers/adoptopenjdk-bin/jdk15-darwin.nix
+        ;
 
-      adoptopenjdk-16 = mkAdoptopenjdk
-        ../development/compilers/adoptopenjdk-bin/jdk16-linux.nix
-        ../development/compilers/adoptopenjdk-bin/jdk16-darwin.nix;
+      adoptopenjdk-16 =
+        mkAdoptopenjdk ../development/compilers/adoptopenjdk-bin/jdk16-linux.nix
+          ../development/compilers/adoptopenjdk-bin/jdk16-darwin.nix
+        ;
 
-      adoptopenjdk-17 = mkAdoptopenjdk
-        ../development/compilers/adoptopenjdk-bin/jdk17-linux.nix
-        ../development/compilers/adoptopenjdk-bin/jdk17-darwin.nix;
+      adoptopenjdk-17 =
+        mkAdoptopenjdk ../development/compilers/adoptopenjdk-bin/jdk17-linux.nix
+          ../development/compilers/adoptopenjdk-bin/jdk17-darwin.nix
+        ;
 
-      openjdk8-bootstrap = mkBootstrap adoptopenjdk-8
-        ../development/compilers/openjdk/bootstrap.nix
-        {
-          version = "8";
-        };
+      openjdk8-bootstrap =
+        mkBootstrap adoptopenjdk-8
+          ../development/compilers/openjdk/bootstrap.nix
+          { version = "8"; }
+        ;
 
-      openjdk11-bootstrap = mkBootstrap adoptopenjdk-11
-        ../development/compilers/openjdk/bootstrap.nix
-        {
-          version = "10";
-        };
+      openjdk11-bootstrap =
+        mkBootstrap adoptopenjdk-11
+          ../development/compilers/openjdk/bootstrap.nix
+          { version = "10"; }
+        ;
 
       openjdk13-bootstrap =
-        mkBootstrap adoptopenjdk-13 ../development/compilers/openjdk/12.nix (
-          bootstrapArgs // {
-            inherit openjdk11-bootstrap;
-            # build segfaults with gcc9 or newer, so use gcc8 like Debian does
-            stdenv = gcc8Stdenv;
-          }
-        );
+        mkBootstrap adoptopenjdk-13 ../development/compilers/openjdk/12.nix
+          (
+            bootstrapArgs // {
+              inherit openjdk11-bootstrap;
+              # build segfaults with gcc9 or newer, so use gcc8 like Debian does
+              stdenv = gcc8Stdenv;
+            }
+          )
+        ;
 
       openjdk14-bootstrap =
-        mkBootstrap adoptopenjdk-14 ../development/compilers/openjdk/13.nix (
-          bootstrapArgs // { inherit openjdk13-bootstrap; }
-        );
+        mkBootstrap adoptopenjdk-14 ../development/compilers/openjdk/13.nix
+          (bootstrapArgs // { inherit openjdk13-bootstrap; })
+        ;
 
       openjdk15-bootstrap =
-        mkBootstrap adoptopenjdk-15 ../development/compilers/openjdk/14.nix (
-          bootstrapArgs // { inherit openjdk14-bootstrap; }
-        );
+        mkBootstrap adoptopenjdk-15 ../development/compilers/openjdk/14.nix
+          (bootstrapArgs // { inherit openjdk14-bootstrap; })
+        ;
 
       openjdk16-bootstrap =
-        mkBootstrap adoptopenjdk-16 ../development/compilers/openjdk/15.nix (
-          bootstrapArgs // { inherit openjdk15-bootstrap; }
-        );
+        mkBootstrap adoptopenjdk-16 ../development/compilers/openjdk/15.nix
+          (bootstrapArgs // { inherit openjdk15-bootstrap; })
+        ;
 
       openjdk17-bootstrap =
-        mkBootstrap adoptopenjdk-17 ../development/compilers/openjdk/16.nix (
-          bootstrapArgs // { inherit openjdk16-bootstrap; }
-        );
+        mkBootstrap adoptopenjdk-17 ../development/compilers/openjdk/16.nix
+          (bootstrapArgs // { inherit openjdk16-bootstrap; })
+        ;
 
       openjdk18-bootstrap =
-        mkBootstrap adoptopenjdk-17 ../development/compilers/openjdk/17.nix (
-          bootstrapArgs // { inherit openjdk17-bootstrap; }
-        );
+        mkBootstrap adoptopenjdk-17 ../development/compilers/openjdk/17.nix
+          (bootstrapArgs // { inherit openjdk17-bootstrap; })
+        ;
 
-      openjdk8 = mkOpenjdk ../development/compilers/openjdk/8.nix
-        ../development/compilers/openjdk/darwin/8.nix
-        { };
+      openjdk8 =
+        mkOpenjdk ../development/compilers/openjdk/8.nix
+          ../development/compilers/openjdk/darwin/8.nix
+          { }
+        ;
 
-      openjdk11 = mkOpenjdk ../development/compilers/openjdk/11.nix
-        ../development/compilers/openjdk/darwin/11.nix
-        {
-          openjfx = openjfx11;
-        };
+      openjdk11 =
+        mkOpenjdk ../development/compilers/openjdk/11.nix
+          ../development/compilers/openjdk/darwin/11.nix
+          { openjfx = openjfx11; }
+        ;
 
       openjdk12 = mkOpenjdkLinuxOnly ../development/compilers/openjdk/12.nix {
         # build segfaults with gcc9 or newer, so use gcc8 like Debian does
@@ -197,54 +210,62 @@ in
         openjfx = openjfx15;
       };
 
-      openjdk16 = mkOpenjdk ../development/compilers/openjdk/16.nix
-        ../development/compilers/openjdk/darwin/16.nix
-        {
-          inherit openjdk16-bootstrap;
-          openjfx = openjfx15;
-        };
+      openjdk16 =
+        mkOpenjdk ../development/compilers/openjdk/16.nix
+          ../development/compilers/openjdk/darwin/16.nix
+          {
+            inherit openjdk16-bootstrap;
+            openjfx = openjfx15;
+          }
+        ;
 
-      openjdk17 = mkOpenjdk ../development/compilers/openjdk/17.nix
-        ../development/compilers/openjdk/darwin/17.nix
-        {
-          inherit openjdk17-bootstrap;
-          openjfx = openjfx17;
-        };
+      openjdk17 =
+        mkOpenjdk ../development/compilers/openjdk/17.nix
+          ../development/compilers/openjdk/darwin/17.nix
+          {
+            inherit openjdk17-bootstrap;
+            openjfx = openjfx17;
+          }
+        ;
 
-      openjdk18 = mkOpenjdk ../development/compilers/openjdk/18.nix
-        ../development/compilers/openjdk/darwin/18.nix
-        {
-          inherit openjdk18-bootstrap;
-          openjfx = openjfx17;
-        };
+      openjdk18 =
+        mkOpenjdk ../development/compilers/openjdk/18.nix
+          ../development/compilers/openjdk/darwin/18.nix
+          {
+            inherit openjdk18-bootstrap;
+            openjfx = openjfx17;
+          }
+        ;
 
-      openjdk19 = mkOpenjdk ../development/compilers/openjdk/19.nix
-        ../development/compilers/openjdk/darwin/19.nix
-        {
-          openjdk19-bootstrap = temurin-bin.jdk-19;
-          openjfx = openjfx19;
-        };
+      openjdk19 =
+        mkOpenjdk ../development/compilers/openjdk/19.nix
+          ../development/compilers/openjdk/darwin/19.nix
+          {
+            openjdk19-bootstrap = temurin-bin.jdk-19;
+            openjfx = openjfx19;
+          }
+        ;
 
       temurin-bin = recurseIntoAttrs (
         callPackage
-        (
-          if stdenv.isLinux then
-            ../development/compilers/temurin-bin/jdk-linux.nix
-          else
-            ../development/compilers/temurin-bin/jdk-darwin.nix
-        )
-        { }
+          (
+            if stdenv.isLinux then
+              ../development/compilers/temurin-bin/jdk-linux.nix
+            else
+              ../development/compilers/temurin-bin/jdk-darwin.nix
+          )
+          { }
       );
 
       semeru-bin = recurseIntoAttrs (
         callPackage
-        (
-          if stdenv.isLinux then
-            ../development/compilers/semeru-bin/jdk-linux.nix
-          else
-            ../development/compilers/semeru-bin/jdk-darwin.nix
-        )
-        { }
+          (
+            if stdenv.isLinux then
+              ../development/compilers/semeru-bin/jdk-linux.nix
+            else
+              ../development/compilers/semeru-bin/jdk-darwin.nix
+          )
+          { }
       );
     }
     ;
@@ -468,9 +489,10 @@ in
     ;
 
   inherit
-    (callPackage ../development/java-modules/maven-hello {
-      inherit mavenbuild;
-    })
+    (
+      callPackage ../development/java-modules/maven-hello
+        { inherit mavenbuild; }
+    )
     mavenHello_1_0
     mavenHello_1_1
     ;
@@ -526,11 +548,11 @@ in
     ;
 
   inherit
-    (callPackage
-      ../development/java-modules/maven/plugin-parameter-documenter.nix
-      {
-        inherit fetchMaven;
-      })
+    (
+      callPackage
+        ../development/java-modules/maven/plugin-parameter-documenter.nix
+        { inherit fetchMaven; }
+    )
     mavenPluginParameterDocumenter_2_0_1
     mavenPluginParameterDocumenter_2_0_6
     mavenPluginParameterDocumenter_2_0_9
@@ -667,11 +689,11 @@ in
     ;
 
   inherit
-    (callPackage
-      ../development/java-modules/mojo/java-boot-classpath-detector.nix
-      {
-        inherit fetchMaven;
-      })
+    (
+      callPackage
+        ../development/java-modules/mojo/java-boot-classpath-detector.nix
+        { inherit fetchMaven; }
+    )
     mojoJavaBootClasspathDetector_1_11
     ;
 

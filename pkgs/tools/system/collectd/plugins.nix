@@ -105,8 +105,9 @@ let
     ];
     modbus.buildInputs = lib.optionals stdenv.isLinux [ libmodbus ];
     mqtt.buildInputs = [ mosquitto ];
-    mysql.buildInputs =
-      lib.optionals (libmysqlclient != null) [ libmysqlclient ];
+    mysql.buildInputs = lib.optionals (libmysqlclient != null) [
+      libmysqlclient
+    ];
     netlink.buildInputs =
       [ libpcap ] ++ lib.optionals stdenv.isLinux [ libmnl ];
     network.buildInputs = [ libgcrypt ];
@@ -188,9 +189,8 @@ let
 
   pluginBuildInputs =
     plugin:
-    lib.optionals
-    (plugins ? ${plugin} && plugins.${plugin} ? buildInputs)
-    plugins.${plugin}.buildInputs
+    lib.optionals (plugins ? ${plugin} && plugins.${plugin} ? buildInputs)
+      plugins.${plugin}.buildInputs
     ;
 
   buildInputs =

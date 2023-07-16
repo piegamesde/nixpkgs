@@ -406,14 +406,20 @@ let
 
     TF_NEED_CUDA = tfFeature cudaSupport;
     TF_CUDA_PATHS =
-      lib.optionalString cudaSupport "${cudatoolkit_joined},${cudnn},${nccl}";
+      lib.optionalString cudaSupport
+        "${cudatoolkit_joined},${cudnn},${nccl}"
+      ;
     TF_CUDA_COMPUTE_CAPABILITIES = lib.concatStringsSep "," cudaCapabilities;
 
     # Needed even when we override stdenv: e.g. for ar
     GCC_HOST_COMPILER_PREFIX =
-      lib.optionalString cudaSupport "${cudatoolkit_cc_joined}/bin";
+      lib.optionalString cudaSupport
+        "${cudatoolkit_cc_joined}/bin"
+      ;
     GCC_HOST_COMPILER_PATH =
-      lib.optionalString cudaSupport "${cudatoolkit_cc_joined}/bin/cc";
+      lib.optionalString cudaSupport
+        "${cudatoolkit_cc_joined}/bin/cc"
+      ;
 
     postPatch =
       ''

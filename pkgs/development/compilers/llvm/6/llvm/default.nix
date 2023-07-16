@@ -71,7 +71,9 @@ stdenv.mkDerivation (
 
     src = fetch "llvm" "1qpls3vk85lydi5b4axl0809fv932qgsqgdgrk098567z4jc7mmn";
     polly_src =
-      fetch "polly" "1k2frwg5mkqh0raia8xf69h3jhdw7a5nxd6vjscjn44cdkgmyxp7";
+      fetch "polly"
+        "1k2frwg5mkqh0raia8xf69h3jhdw7a5nxd6vjscjn44cdkgmyxp7"
+      ;
 
     unpackPhase =
       ''
@@ -303,10 +305,10 @@ stdenv.mkDerivation (
       ''
       + optionalString (stdenv.isDarwin && enableSharedLibraries) ''
         ${lib.concatMapStringsSep "\n"
-        (v: ''
-          ln -s $lib/lib/libLLVM.dylib $lib/lib/libLLVM-${v}.dylib
-        '')
-        versionSuffixes}
+          (v: ''
+            ln -s $lib/lib/libLLVM.dylib $lib/lib/libLLVM-${v}.dylib
+          '')
+          versionSuffixes}
       ''
       + optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
         cp NATIVE/bin/llvm-config $dev/bin/llvm-config-native

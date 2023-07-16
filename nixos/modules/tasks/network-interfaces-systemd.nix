@@ -29,14 +29,15 @@ let
     ++ map (vlan: vlan.interface) (attrValues cfg.vlans)
     # add dependency to physical or independently created vswitch member interface
     # TODO: warn the user that any address configured on those interfaces will be useless
-    ++ concatMap
-      (
-        i:
-        attrNames (
-          filterAttrs (_: config: config.type != "internal") i.interfaces
+    ++
+      concatMap
+        (
+          i:
+          attrNames (
+            filterAttrs (_: config: config.type != "internal") i.interfaces
+          )
         )
-      )
-      (attrValues cfg.vswitches)
+        (attrValues cfg.vswitches)
     ;
 
   domains = cfg.search ++ (optional (cfg.domain != null) cfg.domain);
@@ -45,14 +46,18 @@ let
     let
       gateway =
         optional
-        (cfg.defaultGateway != null && (cfg.defaultGateway.address or "") != "")
-        cfg.defaultGateway.address
-        ++ optional
           (
-            cfg.defaultGateway6 != null
-            && (cfg.defaultGateway6.address or "") != ""
+            cfg.defaultGateway != null
+            && (cfg.defaultGateway.address or "") != ""
           )
-          cfg.defaultGateway6.address
+          cfg.defaultGateway.address
+        ++
+          optional
+            (
+              cfg.defaultGateway6 != null
+              && (cfg.defaultGateway6.address or "") != ""
+            )
+            cfg.defaultGateway6.address
         ;
       makeGateway =
         gateway: {
@@ -106,7 +111,9 @@ let
         matchConfig.WLANInterfaceType = "station";
         DHCP = "yes";
         linkConfig.RequiredForOnline =
-          lib.mkDefault config.systemd.network.wait-online.anyInterface;
+          lib.mkDefault
+            config.systemd.network.wait-online.anyInterface
+          ;
         networkConfig.IPv6PrivacyExtensions = "kernel";
         # We also set the route metric to one more than the default
         # of 1024, so that Ethernet is preferred if both are
@@ -126,17 +133,18 @@ let
               Name = i.name;
               Kind = i.virtualType;
             };
-            "${i.virtualType}Config" =
-              optionalAttrs (i.virtualOwner != null) { User = i.virtualOwner; };
+            "${i.virtualType}Config" = optionalAttrs (i.virtualOwner != null) {
+              User = i.virtualOwner;
+            };
           };
         });
         networks."40-${i.name}" = mkMerge [
           (genericNetwork id)
           {
             name = mkDefault i.name;
-            DHCP =
-              mkForce (dhcpStr (if i.useDHCP != null then i.useDHCP else false))
-              ;
+            DHCP = mkForce (
+              dhcpStr (if i.useDHCP != null then i.useDHCP else false)
+            );
             address = forEach (interfaceIps i) (
               ip: "${ip.address}/${toString ip.prefixLength}"
             );
@@ -145,13 +153,13 @@ let
                 # Most of these route options have not been tested.
                 # Please fix or report any mistakes you may find.
                 routeConfig = optionalAttrs
-                  (route.address != null && route.prefixLength != null)
-                  {
-                    Destination =
-                      "${route.address}/${toString route.prefixLength}";
-                  } // optionalAttrs (route.options ? fastopen_no_cookie) {
-                    FastOpenNoCookie = route.options.fastopen_no_cookie;
-                  }
+                    (route.address != null && route.prefixLength != null)
+                    {
+                      Destination =
+                        "${route.address}/${toString route.prefixLength}";
+                    } // optionalAttrs (route.options ? fastopen_no_cookie) {
+                      FastOpenNoCookie = route.options.fastopen_no_cookie;
+                    }
                   // optionalAttrs (route.via != null) { Gateway = route.via; }
                   // optionalAttrs (route.type != null) { Type = route.type; }
                   // optionalAttrs (route.options ? onlink) {
@@ -349,9 +357,8 @@ in
                     assertNoUnknownOption =
                       let
                         knownOptions = flatten (
-                          mapAttrsToList
-                          (_: kOpts: kOpts.optNames)
-                          driverOptionMapping
+                          mapAttrsToList (_: kOpts: kOpts.optNames)
+                            driverOptionMapping
                         );
                         # options that apparently don’t exist in the networkd config
                         unknownOptions = [ "primary" ];
@@ -361,13 +368,13 @@ in
                           ;
                       in
                       assert all
-                        (
-                          driverOpt:
-                          assertTrace
-                          (elem driverOpt (knownOptions ++ unknownOptions))
-                          "The bond.driverOption `${driverOpt}` cannot be mapped to the list of known networkd bond options. Please add it to the mapping above the assert or to `unknownOptions` should it not exist in networkd."
-                        )
-                        (mapAttrsToList (k: _: k) do);
+                          (
+                            driverOpt:
+                            assertTrace
+                              (elem driverOpt (knownOptions ++ unknownOptions))
+                              "The bond.driverOption `${driverOpt}` cannot be mapped to the list of known networkd bond options. Please add it to the mapping above the assert or to `unknownOptions` should it not exist in networkd."
+                          )
+                          (mapAttrsToList (k: _: k) do);
                       ""
                       ;
                     # get those driverOptions that have been set
@@ -382,10 +389,10 @@ in
                       # (one option has multiple names, which is silly)
                       head (
                         map (optN: valTransform (do.${optN}))
-                        # only map those that exist
-                        (
-                          filter (o: do ? ${o}) optNames
-                        )
+                          # only map those that exist
+                          (
+                            filter (o: do ? ${o}) optNames
+                          )
                       )
                     );
                   in
@@ -420,8 +427,9 @@ in
                   Name = name;
                   Kind = "macvlan";
                 };
-                macvlanConfig =
-                  optionalAttrs (macvlan.mode != null) { Mode = macvlan.mode; };
+                macvlanConfig = optionalAttrs (macvlan.mode != null) {
+                  Mode = macvlan.mode;
+                };
               };
               networks."40-${macvlan.interface}" =
                 (mkMerge [
@@ -468,21 +476,24 @@ in
                 tunnelConfig =
                   (optionalAttrs (sit.remote != null) { Remote = sit.remote; })
                   // (optionalAttrs (sit.local != null) { Local = sit.local; })
-                  // (optionalAttrs (sit.ttl != null) { TTL = sit.ttl; })
-                  // (optionalAttrs (sit.encapsulation != null) (
-                    {
-                      FooOverUDP = true;
-                      Encapsulation =
-                        if sit.encapsulation.type == "fou" then
-                          "FooOverUDP"
-                        else
-                          "GenericUDPEncapsulation"
-                        ;
-                      FOUDestinationPort = sit.encapsulation.port;
-                    } // (optionalAttrs (sit.encapsulation.sourcePort != null) {
-                      FOUSourcePort = sit.encapsulation.sourcePort;
-                    })
-                  ));
+                  // (optionalAttrs (sit.ttl != null) { TTL = sit.ttl; }) // (
+                    optionalAttrs (sit.encapsulation != null)
+                      (
+                        {
+                          FooOverUDP = true;
+                          Encapsulation =
+                            if sit.encapsulation.type == "fou" then
+                              "FooOverUDP"
+                            else
+                              "GenericUDPEncapsulation"
+                            ;
+                          FOUDestinationPort = sit.encapsulation.port;
+                        } // (
+                          optionalAttrs (sit.encapsulation.sourcePort != null)
+                            { FOUSourcePort = sit.encapsulation.sourcePort; }
+                        )
+                      )
+                  );
               };
               networks = mkIf (sit.dev != null) {
                 "40-${sit.dev}" =
@@ -555,13 +566,14 @@ in
               let
                 deps = map subsystemDevice (
                   attrNames (
-                    filterAttrs
-                    (_: config: config.type != "internal")
-                    v.interfaces
+                    filterAttrs (_: config: config.type != "internal")
+                      v.interfaces
                   )
                 );
                 ofRules =
-                  pkgs.writeText "vswitch-${n}-openFlowRules" v.openFlowRules;
+                  pkgs.writeText "vswitch-${n}-openFlowRules"
+                    v.openFlowRules
+                  ;
               in
               {
                 description = "Open vSwitch Interface ${n}";
@@ -603,32 +615,30 @@ in
                   ovs-vsctl ${
                     concatStrings (
                       mapAttrsToList
-                      (
-                        name: config:
-                        " -- add-port ${n} ${name}"
-                        + optionalString (config.vlan != null) " tag=${
-                             toString config.vlan
-                           }"
-                      )
-                      v.interfaces
+                        (
+                          name: config:
+                          " -- add-port ${n} ${name}"
+                          + optionalString (config.vlan != null) " tag=${
+                                 toString config.vlan
+                               }"
+                        )
+                        v.interfaces
                     )
                   } \
                     ${
                       concatStrings (
                         mapAttrsToList
-                        (
-                          name: config:
-                          optionalString
-                          (config.type != null)
-                          " -- set interface ${name} type=${config.type}"
-                        )
-                        v.interfaces
+                          (
+                            name: config:
+                            optionalString (config.type != null)
+                              " -- set interface ${name} type=${config.type}"
+                          )
+                          v.interfaces
                       )
                     } \
                     ${
-                      concatMapStrings
-                      (x: " -- set-controller ${n} " + x)
-                      v.controllers
+                      concatMapStrings (x: " -- set-controller ${n} " + x)
+                        v.controllers
                     } \
                     ${
                       concatMapStrings (x: " -- " + x) (

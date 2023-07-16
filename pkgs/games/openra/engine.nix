@@ -57,10 +57,10 @@ stdenv.mkDerivation (
 
       ${concatStrings (
         map
-        (mod: ''
-          makeWrapper $out/bin/openra $out/bin/openra-${mod} --add-flags Game.Mod=${mod}
-        '')
-        engine.mods
+          (mod: ''
+            makeWrapper $out/bin/openra $out/bin/openra-${mod} --add-flags Game.Mod=${mod}
+          '')
+          engine.mods
       )}
     '';
 

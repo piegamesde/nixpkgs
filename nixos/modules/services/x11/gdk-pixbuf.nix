@@ -19,7 +19,8 @@ in
       type = lib.types.listOf lib.types.package;
       default = [ ];
       description =
-        lib.mdDoc "Packages providing GDK-Pixbuf modules, for cache generation."
+        lib.mdDoc
+          "Packages providing GDK-Pixbuf modules, for cache generation."
         ;
     };
   };

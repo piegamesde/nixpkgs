@@ -80,8 +80,9 @@ in
       default = { };
     };
     extraSettingsFile = lib.mkOption {
-      description = lib.mdDoc
-        "YAML file to merge into the schleuder config at runtime. This can be used for secrets such as API keys."
+      description =
+        lib.mdDoc
+          "YAML file to merge into the schleuder config at runtime. This can be used for secrets such as API keys."
         ;
       type = lib.types.nullOr lib.types.path;
       default = null;
@@ -148,8 +149,9 @@ in
       {
         schleuder-init = {
           serviceConfig = commonServiceConfig // {
-            ExecStartPre =
-              lib.mkIf (cfg.extraSettingsFile != null) [ "+${configScript}" ];
+            ExecStartPre = lib.mkIf (cfg.extraSettingsFile != null) [
+              "+${configScript}"
+            ];
             ExecStart = [ "${pkgs.schleuder}/bin/schleuder install" ];
             Type = "oneshot";
           };
@@ -183,17 +185,21 @@ in
       ;
 
     environment.etc."schleuder/schleuder.yml" =
-      lib.mkIf (cfg.extraSettingsFile == null) {
-        source = settingsFormat.generate "schleuder.yml" cfg.settings;
-      };
+      lib.mkIf (cfg.extraSettingsFile == null)
+        { source = settingsFormat.generate "schleuder.yml" cfg.settings; }
+      ;
     environment.etc."schleuder/list-defaults.yml".source =
-      settingsFormat.generate "list-defaults.yml" cfg.listDefaults;
+      settingsFormat.generate "list-defaults.yml"
+        cfg.listDefaults
+      ;
 
     services.schleuder = {
       #lists_dir = "/var/lib/schleuder.lists";
       settings.filters_dir = lib.mkDefault "/var/lib/schleuder/filters";
       settings.keyword_handlers_dir =
-        lib.mkDefault "/var/lib/schleuder/keyword_handlers";
+        lib.mkDefault
+          "/var/lib/schleuder/keyword_handlers"
+        ;
     };
   };
 }

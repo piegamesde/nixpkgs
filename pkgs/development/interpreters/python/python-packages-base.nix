@@ -31,13 +31,13 @@ let
     let
       args = lib.fix (
         lib.extends
-        (_: previousAttrs: {
-          passthru = (previousAttrs.passthru or { }) // {
-            overridePythonAttrs =
-              newArgs: makeOverridablePythonPackage f (overrideWith newArgs);
-          };
-        })
-        (_: origArgs)
+          (_: previousAttrs: {
+            passthru = (previousAttrs.passthru or { }) // {
+              overridePythonAttrs =
+                newArgs: makeOverridablePythonPackage f (overrideWith newArgs);
+            };
+          })
+          (_: origArgs)
       );
       result = f args;
       overrideWith =
@@ -113,7 +113,9 @@ let
           pythonModule = python;
           pythonPath = [ ]; # Deprecated, for compatibility.
           requiredPythonModules =
-            requiredPythonModules drv.propagatedBuildInputs;
+            requiredPythonModules
+              drv.propagatedBuildInputs
+            ;
         };
       }
     )
@@ -138,8 +140,8 @@ let
   disabled =
     drv:
     throw "${
-      removePythonPrefix (drv.pname or drv.name)
-    } not supported for interpreter ${python.executable}"
+        removePythonPrefix (drv.pname or drv.name)
+      } not supported for interpreter ${python.executable}"
     ;
 
   disabledIf = x: drv: if x then disabled drv else drv;

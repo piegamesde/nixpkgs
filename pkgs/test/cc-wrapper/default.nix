@@ -20,9 +20,10 @@ let
       || (stdenv.cc.isGNU && stdenv.isLinux)
     )
     ;
-  staticLibc = lib.optionalString
-    (stdenv.hostPlatform.libc == "glibc")
-    "-L ${glibc.static}/lib";
+  staticLibc =
+    lib.optionalString (stdenv.hostPlatform.libc == "glibc")
+      "-L ${glibc.static}/lib"
+    ;
   emulator = stdenv.hostPlatform.emulator buildPackages;
 in
 stdenv.mkDerivation {
@@ -55,15 +56,15 @@ stdenv.mkDerivation {
       $CC ${staticLibc} -static -o cc-static ${./cc-main.c}
       ${emulator} ./cc-static
       ${lib.optionalString
-      (
-        stdenv.cc.isGNU
-        && lib.versionAtLeast (lib.getVersion stdenv.cc.name) "8.0.0"
-      )
-      ''
-        printf "checking whether compiler builds valid static pie C binaries... " >&2
-        $CC ${staticLibc} -static-pie -o cc-static-pie ${./cc-main.c}
-        ${emulator} ./cc-static-pie
-      ''}
+        (
+          stdenv.cc.isGNU
+          && lib.versionAtLeast (lib.getVersion stdenv.cc.name) "8.0.0"
+        )
+        ''
+          printf "checking whether compiler builds valid static pie C binaries... " >&2
+          $CC ${staticLibc} -static-pie -o cc-static-pie ${./cc-main.c}
+          ${emulator} ./cc-static-pie
+        ''}
     ''}
 
     printf "checking whether compiler uses NIX_CFLAGS_COMPILE... " >&2
@@ -78,9 +79,8 @@ stdenv.mkDerivation {
     mkdir -p foo/lib
     $CC -shared \
       ${
-        lib.optionalString
-        stdenv.isDarwin
-        "-Wl,-install_name,@rpath/libfoo.dylib"
+        lib.optionalString stdenv.isDarwin
+          "-Wl,-install_name,@rpath/libfoo.dylib"
       } \
       -DVALUE=42 \
       -o foo/lib/libfoo${stdenv.hostPlatform.extensions.sharedLibrary} \

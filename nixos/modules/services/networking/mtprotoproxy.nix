@@ -30,8 +30,8 @@ let
       "{"
       + concatStringsSep "," (
         mapAttrsToList
-        (name: opt: "${builtins.toJSON name}: ${convertOption opt}")
-        opt
+          (name: opt: "${builtins.toJSON name}: ${convertOption opt}")
+          opt
       )
       + "}"
     else

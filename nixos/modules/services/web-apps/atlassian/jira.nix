@@ -103,8 +103,10 @@ in
         secure = mkOption {
           type = types.bool;
           default = true;
-          description = lib.mdDoc
-            "Whether the connections to the proxy should be considered secure.";
+          description =
+            lib.mdDoc
+              "Whether the connections to the proxy should be considered secure."
+            ;
         };
       };
 
@@ -125,8 +127,9 @@ in
 
         applicationPasswordFile = mkOption {
           type = types.str;
-          description = lib.mdDoc
-            "Path to the file containing the application password of this JIRA instance in Crowd"
+          description =
+            lib.mdDoc
+              "Path to the file containing the application password of this JIRA instance in Crowd"
             ;
         };
 
@@ -155,8 +158,10 @@ in
         type = types.package;
         default = pkgs.oraclejre8;
         defaultText = literalExpression "pkgs.oraclejre8";
-        description = lib.mdDoc
-          "Note that Atlassian only support the Oracle JRE (JRASERVER-46152).";
+        description =
+          lib.mdDoc
+            "Note that Atlassian only support the Oracle JRE (JRASERVER-46152)."
+          ;
       };
     };
   };
@@ -199,7 +204,9 @@ in
         JAVA_HOME = "${cfg.jrePackage}";
         CATALINA_OPTS = concatStringsSep " " cfg.catalinaOptions;
         JAVA_OPTS =
-          mkIf cfg.sso.enable "-Dcrowd.properties=${cfg.home}/crowd.properties";
+          mkIf cfg.sso.enable
+            "-Dcrowd.properties=${cfg.home}/crowd.properties"
+          ;
       };
 
       preStart =
@@ -243,15 +250,17 @@ in
   };
 
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "jira"
-        "sso"
-        "applicationPassword"
-      ]
-      ''
-        Use `applicationPasswordFile` instead!
-      '')
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "jira"
+          "sso"
+          "applicationPassword"
+        ]
+        ''
+          Use `applicationPasswordFile` instead!
+        ''
+    )
   ];
 }

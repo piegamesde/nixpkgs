@@ -86,9 +86,9 @@ mkDerivation rec {
       sclang-sc3-plugins =
         let
           supercollider-with-test-plugins =
-            supercollider-with-plugins.override {
-              plugins = with supercolliderPlugins; [ sc3-plugins ];
-            };
+            supercollider-with-plugins.override
+              { plugins = with supercolliderPlugins; [ sc3-plugins ]; }
+            ;
           testsc = writeText "test.sc" ''
             var err = 0;
             try {

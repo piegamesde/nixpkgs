@@ -13,7 +13,7 @@ let
   warnConfig =
     if cfg.config != "" then
       lib.trace
-      "Using the stringly typed .config attribute is discouraged. Use the TOML typed .settings attribute instead."
+        "Using the stringly typed .config attribute is discouraged. Use the TOML typed .settings attribute instead."
     else
       id
     ;

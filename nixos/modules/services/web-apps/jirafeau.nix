@@ -103,7 +103,9 @@ in
         }
       '';
       description =
-        lib.mdDoc "Extra configuration for the nginx virtual host of Jirafeau.";
+        lib.mdDoc
+          "Extra configuration for the nginx virtual host of Jirafeau."
+        ;
     };
 
     package = mkOption {

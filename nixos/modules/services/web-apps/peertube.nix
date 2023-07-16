@@ -70,11 +70,11 @@ let
     lib.concatMapStrings (s: s + "\n") (
       (lib.concatLists (
         lib.mapAttrsToList
-        (
-          name: value:
-          if value != null then [ ''${name}="${toString value}"'' ] else [ ]
-        )
-        env
+          (
+            name: value:
+            if value != null then [ ''${name}="${toString value}"'' ] else [ ]
+          )
+          env
       ))
     )
   );
@@ -93,11 +93,12 @@ let
     lib.optionalString cfg.enableWebHttps ''
       add_header Strict-Transport-Security      'max-age=63072000; includeSubDomains';
     ''
-    + lib.optionalString
-      config.services.nginx.virtualHosts.${cfg.localDomain}.http3
-      ''
-        add_header Alt-Svc                        'h3=":443"; ma=86400';
-      ''
+    +
+      lib.optionalString
+        config.services.nginx.virtualHosts.${cfg.localDomain}.http3
+        ''
+          add_header Alt-Svc                        'h3=":443"; ma=86400';
+        ''
     + ''
       add_header Access-Control-Allow-Origin    '*';
       add_header Access-Control-Allow-Methods   'GET, OPTIONS';
@@ -190,7 +191,9 @@ in
       type = lib.types.bool;
       default = false;
       description =
-        lib.mdDoc "Configure nginx as a reverse proxy for peertube.";
+        lib.mdDoc
+          "Configure nginx as a reverse proxy for peertube."
+        ;
     };
 
     secrets = {
@@ -210,7 +213,9 @@ in
         type = lib.types.bool;
         default = false;
         description =
-          lib.mdDoc "Configure local PostgreSQL database server for PeerTube.";
+          lib.mdDoc
+            "Configure local PostgreSQL database server for PeerTube."
+          ;
       };
 
       host = lib.mkOption {
@@ -311,7 +316,9 @@ in
         type = lib.types.bool;
         default = false;
         description =
-          lib.mdDoc "Configure local Postfix SMTP server for PeerTube.";
+          lib.mdDoc
+            "Configure local Postfix SMTP server for PeerTube."
+          ;
       };
 
       passwordFile = lib.mkOption {
@@ -428,7 +435,9 @@ in
           avatars = lib.mkDefault "/var/lib/peertube/storage/avatars/";
           videos = lib.mkDefault "/var/lib/peertube/storage/videos/";
           streaming_playlists =
-            lib.mkDefault "/var/lib/peertube/storage/streaming-playlists/";
+            lib.mkDefault
+              "/var/lib/peertube/storage/streaming-playlists/"
+            ;
           redundancy = lib.mkDefault "/var/lib/peertube/storage/redundancy/";
           logs = lib.mkDefault "/var/lib/peertube/storage/logs/";
           previews = lib.mkDefault "/var/lib/peertube/storage/previews/";
@@ -439,7 +448,9 @@ in
           plugins = lib.mkDefault "/var/lib/peertube/storage/plugins/";
           well_known = lib.mkDefault "/var/lib/peertube/storage/well_known/";
           client_overrides =
-            lib.mkDefault "/var/lib/peertube/storage/client-overrides/";
+            lib.mkDefault
+              "/var/lib/peertube/storage/client-overrides/"
+            ;
         };
         import = {
           videos = {
@@ -538,11 +549,11 @@ in
             peertube: '$(cat ${cfg.secrets.secretsFile})'
         ''}
         ${lib.optionalString
-        ((!cfg.database.createLocally) && (cfg.database.passwordFile != null))
-        ''
-          database:
-            password: '$(cat ${cfg.database.passwordFile})'
-        ''}
+          ((!cfg.database.createLocally) && (cfg.database.passwordFile != null))
+          ''
+            database:
+              password: '$(cat ${cfg.database.passwordFile})'
+          ''}
         ${lib.optionalString (cfg.redis.passwordFile != null) ''
           redis:
             auth: '$(cat ${cfg.redis.passwordFile})'
@@ -630,11 +641,12 @@ in
             + lib.optionalString cfg.enableWebHttps ''
               add_header Strict-Transport-Security        'max-age=63072000; includeSubDomains';
             ''
-            + lib.optionalString
-              config.services.nginx.virtualHosts.${cfg.localDomain}.http3
-              ''
-                add_header Alt-Svc                          'h3=":443"; ma=86400';
-              ''
+            +
+              lib.optionalString
+                config.services.nginx.virtualHosts.${cfg.localDomain}.http3
+                ''
+                  add_header Alt-Svc                          'h3=":443"; ma=86400';
+                ''
             ;
         };
 
@@ -650,11 +662,12 @@ in
             + lib.optionalString cfg.enableWebHttps ''
               add_header Strict-Transport-Security        'max-age=63072000; includeSubDomains';
             ''
-            + lib.optionalString
-              config.services.nginx.virtualHosts.${cfg.localDomain}.http3
-              ''
-                add_header Alt-Svc                          'h3=":443"; ma=86400';
-              ''
+            +
+              lib.optionalString
+                config.services.nginx.virtualHosts.${cfg.localDomain}.http3
+                ''
+                  add_header Alt-Svc                          'h3=":443"; ma=86400';
+                ''
             ;
         };
 
@@ -728,11 +741,12 @@ in
             + lib.optionalString cfg.enableWebHttps ''
               add_header Strict-Transport-Security        'max-age=63072000; includeSubDomains';
             ''
-            + lib.optionalString
-              config.services.nginx.virtualHosts.${cfg.localDomain}.http3
-              ''
-                add_header Alt-Svc                          'h3=":443"; ma=86400';
-              ''
+            +
+              lib.optionalString
+                config.services.nginx.virtualHosts.${cfg.localDomain}.http3
+                ''
+                  add_header Alt-Svc                          'h3=":443"; ma=86400';
+                ''
             ;
         };
 
@@ -956,7 +970,9 @@ in
     };
 
     services.postgresql =
-      lib.mkIf cfg.database.createLocally { enable = true; };
+      lib.mkIf cfg.database.createLocally
+        { enable = true; }
+      ;
 
     services.redis.servers.peertube = lib.mkMerge [
       (lib.mkIf cfg.redis.createLocally { enable = true; })
@@ -983,19 +999,21 @@ in
           home = cfg.package;
         };
       })
-      (lib.attrsets.setAttrByPath
-        [
-          cfg.user
-          "packages"
-        ]
-        [
-          cfg.package
-          peertubeEnv
-          peertubeCli
-          pkgs.ffmpeg
-          pkgs.nodejs_16
-          pkgs.yarn
-        ])
+      (
+        lib.attrsets.setAttrByPath
+          [
+            cfg.user
+            "packages"
+          ]
+          [
+            cfg.package
+            peertubeEnv
+            peertubeCli
+            pkgs.ffmpeg
+            pkgs.nodejs_16
+            pkgs.yarn
+          ]
+      )
       (lib.mkIf cfg.redis.enableUnixSocket {
         ${config.services.peertube.user}.extraGroups = [ "redis-peertube" ];
       })

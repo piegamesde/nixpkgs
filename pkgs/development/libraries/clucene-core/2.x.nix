@@ -63,7 +63,9 @@ stdenv.mkDerivation rec {
   doCheck = false;
 
   env.NIX_CFLAGS_COMPILE =
-    lib.optionalString stdenv.cc.isClang "-Wno-error=c++11-narrowing";
+    lib.optionalString stdenv.cc.isClang
+      "-Wno-error=c++11-narrowing"
+    ;
 
   meta = with lib; {
     description = "Core library for full-featured text search engine";

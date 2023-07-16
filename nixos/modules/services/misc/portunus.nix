@@ -14,14 +14,16 @@ in
   options.services.portunus = {
     enable = mkEnableOption (
       lib.mdDoc
-      "Portunus, a self-contained user/group management and authentication service for LDAP"
+        "Portunus, a self-contained user/group management and authentication service for LDAP"
     );
 
     domain = mkOption {
       type = types.str;
       example = "sso.example.com";
       description =
-        lib.mdDoc "Subdomain which gets reverse proxied to Portunus webserver.";
+        lib.mdDoc
+          "Subdomain which gets reverse proxied to Portunus webserver."
+        ;
     };
 
     port = mkOption {
@@ -60,14 +62,18 @@ in
       type = types.str;
       default = "portunus";
       description =
-        lib.mdDoc "User account under which Portunus runs its webserver.";
+        lib.mdDoc
+          "User account under which Portunus runs its webserver."
+        ;
     };
 
     group = mkOption {
       type = types.str;
       default = "portunus";
       description =
-        lib.mdDoc "Group account under which Portunus runs its webserver.";
+        lib.mdDoc
+          "Group account under which Portunus runs its webserver."
+        ;
     };
 
     dex = {
@@ -88,7 +94,9 @@ in
               callbackURL = mkOption {
                 type = types.str;
                 description =
-                  lib.mdDoc "URL where the OIDC client should redirect";
+                  lib.mdDoc
+                    "URL where the OIDC client should redirect"
+                  ;
               };
               id = mkOption {
                 type = types.str;
@@ -160,14 +168,18 @@ in
         type = types.str;
         default = "openldap";
         description =
-          lib.mdDoc "User account under which Portunus runs its LDAP server.";
+          lib.mdDoc
+            "User account under which Portunus runs its LDAP server."
+          ;
       };
 
       group = mkOption {
         type = types.str;
         default = "openldap";
         description =
-          lib.mdDoc "Group account under which Portunus runs its LDAP server.";
+          lib.mdDoc
+            "Group account under which Portunus runs its LDAP server."
+          ;
       };
     };
   };

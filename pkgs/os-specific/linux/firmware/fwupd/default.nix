@@ -86,13 +86,13 @@ let
     name: buildCommandPython:
 
     runCommand name
-    {
-      nativeBuildInputs = [ python3 ];
-      inherit buildCommandPython;
-    }
-    ''
-      exec python3 -c "$buildCommandPython"
-    ''
+      {
+        nativeBuildInputs = [ python3 ];
+        inherit buildCommandPython;
+      }
+      ''
+        exec python3 -c "$buildCommandPython"
+      ''
     ;
 
   test-firmware =
@@ -106,8 +106,9 @@ let
         hash = "sha256-d4qG3fKyxkfN91AplRYqARFz+aRr+R37BpE450bPxi0=";
         passthru = {
           inherit src version; # For update script
-          updateScript =
-            unstableGitUpdater { url = "${test-firmware.meta.homepage}.git"; };
+          updateScript = unstableGitUpdater {
+            url = "${test-firmware.meta.homepage}.git";
+          };
         };
       };
     in

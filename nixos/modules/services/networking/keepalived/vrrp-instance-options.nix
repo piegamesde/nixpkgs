@@ -118,7 +118,9 @@ with lib; {
         "chk_cmd2"
       ];
       description =
-        lib.mdDoc "List of script names to invoke for health tracking.";
+        lib.mdDoc
+          "List of script names to invoke for health tracking."
+        ;
     };
 
     trackInterfaces = mkOption {
@@ -129,7 +131,9 @@ with lib; {
         "eth1"
       ];
       description =
-        lib.mdDoc "List of network interfaces to monitor for health tracking.";
+        lib.mdDoc
+          "List of network interfaces to monitor for health tracking."
+        ;
     };
 
     extraConfig = mkOption {

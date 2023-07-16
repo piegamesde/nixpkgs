@@ -78,7 +78,8 @@ in
       };
     };
 
-    networking.firewall =
-      mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.settings.ListenPort ]; };
+    networking.firewall = mkIf cfg.openFirewall {
+      allowedTCPPorts = [ cfg.settings.ListenPort ];
+    };
   };
 }

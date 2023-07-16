@@ -106,7 +106,8 @@ let
     buildVscodeMarketplaceExtension (
       removeAttrs ext mktplcRefAttrList // {
         mktplcRef =
-          builtins.intersectAttrs (lib.genAttrs mktplcRefAttrList (_: null)) ext
+          builtins.intersectAttrs (lib.genAttrs mktplcRefAttrList (_: null))
+            ext
           ;
       }
     )

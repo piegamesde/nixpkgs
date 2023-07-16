@@ -11,15 +11,17 @@ let
     packageOverrides =
       self: super: {
         django-webpack-loader =
-          super.django-webpack-loader.overridePythonAttrs (
-            old: rec {
-              version = "0.7.0";
-              src = old.src.override {
-                inherit version;
-                hash = "sha256-ejyIIBqlRIH5OZRlYVy+e5rs6AgUlqbQKHt8uOIy9Ec=";
-              };
-            }
-          );
+          super.django-webpack-loader.overridePythonAttrs
+            (
+              old: rec {
+                version = "0.7.0";
+                src = old.src.override {
+                  inherit version;
+                  hash = "sha256-ejyIIBqlRIH5OZRlYVy+e5rs6AgUlqbQKHt8uOIy9Ec=";
+                };
+              }
+            )
+          ;
       }
       ;
   };

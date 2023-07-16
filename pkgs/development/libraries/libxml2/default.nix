@@ -95,11 +95,10 @@ let
       ++ lib.optionals (pythonSupport && python ? isPy3 && python.isPy3) [
         ncurses
       ]
-      ++ lib.optionals
-        (stdenv.isDarwin && pythonSupport && python ? isPy2 && python.isPy2)
-        [
-          libintl
-        ]
+      ++
+        lib.optionals
+          (stdenv.isDarwin && pythonSupport && python ? isPy2 && python.isPy2)
+          [ libintl ]
       ++ lib.optionals stdenv.isFreeBSD [
         # Libxml2 has an optional dependency on liblzma.  However, on impure
         # platforms, it may end up using that from /usr/lib, and thus lack a
@@ -123,9 +122,10 @@ let
       (lib.enableFeature enableShared "shared")
       (lib.withFeature icuSupport "icu")
       (lib.withFeature pythonSupport "python")
-      (lib.optionalString
-        pythonSupport
-        "PYTHON=${python.pythonForBuild.interpreter}")
+      (
+        lib.optionalString pythonSupport
+          "PYTHON=${python.pythonForBuild.interpreter}"
+      )
     ];
 
     installFlags = lib.optionals pythonSupport [
@@ -143,11 +143,13 @@ let
       export DYLD_LIBRARY_PATH="$PWD/.libs:$DYLD_LIBRARY_PATH"
     '';
 
-    preConfigure = lib.optionalString
-      (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11")
-      ''
-        MACOSX_DEPLOYMENT_TARGET=10.16
-      '';
+    preConfigure =
+      lib.optionalString
+        (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11")
+        ''
+          MACOSX_DEPLOYMENT_TARGET=10.16
+        ''
+      ;
 
     preInstall = lib.optionalString pythonSupport ''
       substituteInPlace python/libxml2mod.la --replace "$dev/${python.sitePackages}" "$py/${python.sitePackages}"

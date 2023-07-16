@@ -13,21 +13,22 @@ let
       formatSet = format args;
       config = formatSet.type.merge [ ] (
         imap1
-        (n: def: {
-          # We check the input values, so that
-          #  - we don't write nonsensical tests that will impede progress
-          #  - the test author has a slightly more realistic view of the
-          #    final format during development.
-          value = lib.throwIfNot (formatSet.type.check def)
-            (builtins.trace
-              def
-              "definition does not pass the type's check function")
-            def;
-          file = "def${toString n}";
-        })
-        [
-          def
-        ]
+          (n: def: {
+            # We check the input values, so that
+            #  - we don't write nonsensical tests that will impede progress
+            #  - the test author has a slightly more realistic view of the
+            #    final format during development.
+            value =
+              lib.throwIfNot (formatSet.type.check def)
+                (
+                  builtins.trace def
+                    "definition does not pass the type's check function"
+                )
+                def
+              ;
+            file = "def${toString n}";
+          })
+          [ def ]
       );
     in
     formatSet.generate "test-format-file" config
@@ -40,30 +41,30 @@ let
       expected,
     }:
     pkgs.runCommand name
-    {
-      passAsFile = [ "expected" ];
-      inherit expected drv;
-    }
-    ''
-      if diff -u "$expectedPath" "$drv"; then
-        touch "$out"
-      else
-        echo
-        echo "Got different values than expected; diff above."
-        exit 1
-      fi
-    ''
+      {
+        passAsFile = [ "expected" ];
+        inherit expected drv;
+      }
+      ''
+        if diff -u "$expectedPath" "$drv"; then
+          touch "$out"
+        else
+          echo
+          echo "Got different values than expected; diff above."
+          exit 1
+        fi
+      ''
     ;
 
   runBuildTests =
     tests:
     pkgs.linkFarm "nixpkgs-pkgs-lib-format-tests" (
       mapAttrsToList
-      (name: value: {
-        inherit name;
-        path = runBuildTest name value;
-      })
-      (filterAttrs (name: value: value != null) tests)
+        (name: value: {
+          inherit name;
+          path = runBuildTest name value;
+        })
+        (filterAttrs (name: value: value != null) tests)
     )
     ;
 in
@@ -178,24 +179,27 @@ runBuildTests {
   };
 
   testIniListToValue = {
-    drv = evalFormat formats.ini
-      {
-        listToValue =
-          concatMapStringsSep ", " (generators.mkValueStringDefault { });
-      }
-      {
-        foo = {
-          bar = [
-            null
-            true
-            "test"
-            1.2
-            10
-          ];
-          baz = false;
-          qux = "qux";
-        };
-      };
+    drv =
+      evalFormat formats.ini
+        {
+          listToValue = concatMapStringsSep ", " (
+            generators.mkValueStringDefault { }
+          );
+        }
+        {
+          foo = {
+            bar = [
+              null
+              true
+              "test"
+              1.2
+              10
+            ];
+            baz = false;
+            qux = "qux";
+          };
+        }
+      ;
     expected = ''
       [foo]
       bar=null, true, test, 1.200000, 10
@@ -243,22 +247,25 @@ runBuildTests {
   };
 
   testKeyValueListToValue = {
-    drv = evalFormat formats.keyValue
-      {
-        listToValue =
-          concatMapStringsSep ", " (generators.mkValueStringDefault { });
-      }
-      {
-        bar = [
-          null
-          true
-          "test"
-          1.2
-          10
-        ];
-        baz = false;
-        qux = "qux";
-      };
+    drv =
+      evalFormat formats.keyValue
+        {
+          listToValue = concatMapStringsSep ", " (
+            generators.mkValueStringDefault { }
+          );
+        }
+        {
+          bar = [
+            null
+            true
+            "test"
+            1.2
+            10
+          ];
+          baz = false;
+          qux = "qux";
+        }
+      ;
     expected = ''
       bar=null, true, test, 1.200000, 10
       baz=false

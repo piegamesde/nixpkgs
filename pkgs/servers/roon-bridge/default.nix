@@ -12,16 +12,18 @@
 }:
 let
   version = "1.8-1125";
-  urlVersion = builtins.replaceStrings
-    [
-      "."
-      "-"
-    ]
-    [
-      "00"
-      "0"
-    ]
-    version;
+  urlVersion =
+    builtins.replaceStrings
+      [
+        "."
+        "-"
+      ]
+      [
+        "00"
+        "0"
+      ]
+      version
+    ;
   host = stdenv.hostPlatform.system;
   system =
     if host == "x86_64-linux" then

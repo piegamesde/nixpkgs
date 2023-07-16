@@ -29,9 +29,9 @@ let
           inherit sage-src;
         };
 
-        sage-setup =
-          self.callPackage ./python-modules/sage-setup.nix { inherit sage-src; }
-          ;
+        sage-setup = self.callPackage ./python-modules/sage-setup.nix {
+          inherit sage-src;
+        };
       }
       ;
   };
@@ -81,8 +81,9 @@ let
   };
 
   # The documentation for sage, building it takes a lot of ram.
-  sagedoc =
-    callPackage ./sagedoc.nix { inherit sage-with-env jupyter-kernel-specs; };
+  sagedoc = callPackage ./sagedoc.nix {
+    inherit sage-with-env jupyter-kernel-specs;
+  };
 
   # sagelib with added wrappers and a dependency on sage-tests to make sure thet tests were run.
   sage-with-env = callPackage ./sage-with-env.nix {

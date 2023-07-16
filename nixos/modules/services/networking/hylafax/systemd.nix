@@ -221,7 +221,9 @@ let
     requires = [ "hylafax-spool.service" ];
     wantedBy = mkIf cfg.faxcron.enable.spoolInit requires;
     startAt =
-      mkIf (cfg.faxcron.enable.frequency != null) cfg.faxcron.enable.frequency;
+      mkIf (cfg.faxcron.enable.frequency != null)
+        cfg.faxcron.enable.frequency
+      ;
     serviceConfig.ExecStart = concatStringsSep " " [
       "${pkgs.hylafaxplus}/spool/bin/faxcron"
       ''-q "${cfg.spoolAreaPath}"''
@@ -237,9 +239,10 @@ let
     after = [ "hylafax-spool.service" ];
     requires = [ "hylafax-spool.service" ];
     wantedBy = mkIf cfg.faxqclean.enable.spoolInit requires;
-    startAt = mkIf
-      (cfg.faxqclean.enable.frequency != null)
-      cfg.faxqclean.enable.frequency;
+    startAt =
+      mkIf (cfg.faxqclean.enable.frequency != null)
+        cfg.faxqclean.enable.frequency
+      ;
     serviceConfig.ExecStart = concatStringsSep " " [
       "${pkgs.hylafaxplus}/spool/bin/faxqclean"
       ''-q "${cfg.spoolAreaPath}"''
@@ -292,7 +295,8 @@ in
 {
   config.systemd = mkIf cfg.enable {
     inherit sockets timers paths;
-    services =
-      lib.mapAttrs (lib.const hardenService) (services // modemServices);
+    services = lib.mapAttrs (lib.const hardenService) (
+      services // modemServices
+    );
   };
 }

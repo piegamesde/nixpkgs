@@ -68,12 +68,12 @@ let
   extractPaths =
     maxArgIndex: command:
     builtins.foldl' processArg
-    {
-      inherit maxArgIndex;
-      args = [ ];
-      paths = [ ];
-    }
-    command
+      {
+        inherit maxArgIndex;
+        args = [ ];
+        paths = [ ];
+      }
+      command
     ;
   /* processCommand : { maxArgIndex : Int, commands : [[ShellArg]], paths : [FilePath] } → [ (String|FilePath) ] → { maxArgIndex : Int, commands : [[ShellArg]], paths : [FilePath] }
      Helper reducer function for extracting file paths from individual commands.
@@ -100,12 +100,12 @@ let
   extractCommands =
     maxArgIndex: commands:
     builtins.foldl' processCommand
-    {
-      inherit maxArgIndex;
-      commands = [ ];
-      paths = [ ];
-    }
-    commands
+      {
+        inherit maxArgIndex;
+        commands = [ ];
+        paths = [ ];
+      }
+      commands
     ;
 
   /* commandsToShellInvocation : [[ (String|FilePath) ]] → [ (String|FilePath) ]
@@ -153,16 +153,16 @@ rec {
       scripts = scriptsNormalized;
       hasCommitSupport =
         lib.findSingle
-        (
-          {
-            supportedFeatures,
-            ...
-          }:
-          supportedFeatures == [ "commit" ]
-        )
-        null
-        null
-        scripts != null
+          (
+            {
+              supportedFeatures,
+              ...
+            }:
+            supportedFeatures == [ "commit" ]
+          )
+          null
+          null
+          scripts != null
         ;
       validateFeatures =
         if hasCommitSupport then
@@ -185,38 +185,37 @@ rec {
         ;
     in
 
+    assert lib.assertMsg (lib.all validateFeatures scripts)
+        "Combining update scripts with features enabled (other than a single script with “commit” and all other with “silent”) is currently unsupported.";
     assert lib.assertMsg
-      (lib.all validateFeatures scripts)
-      "Combining update scripts with features enabled (other than a single script with “commit” and all other with “silent”) is currently unsupported.";
-    assert lib.assertMsg
-      (
-        builtins.length (
-          lib.unique (
-            builtins.map
-            (
-              {
-                attrPath ? null,
-                ...
-              }:
-              attrPath
+        (
+          builtins.length (
+            lib.unique (
+              builtins.map
+                (
+                  {
+                    attrPath ? null,
+                    ...
+                  }:
+                  attrPath
+                )
+                scripts
             )
-            scripts
-          )
-        ) == 1
-      )
-      "Combining update scripts with different attr paths is currently unsupported.";
+          ) == 1
+        )
+        "Combining update scripts with different attr paths is currently unsupported.";
 
     {
       command = commandsToShellInvocation (
         builtins.map
-        (
-          {
-            command,
-            ...
-          }:
-          command
-        )
-        scripts
+          (
+            {
+              command,
+              ...
+            }:
+            command
+          )
+          scripts
       );
       supportedFeatures = lib.optionals hasCommitSupport [ "commit" ];
     }

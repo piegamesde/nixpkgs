@@ -13,13 +13,13 @@ let
   stateDir = "/var/lib/biboumi";
   settingsFile = pkgs.writeText "biboumi.cfg" (
     generators.toKeyValue
-    {
-      mkKeyValue =
-        k: v:
-        if v == null then "" else generators.mkKeyValueDefault { } "=" k v
-        ;
-    }
-    cfg.settings
+      {
+        mkKeyValue =
+          k: v:
+          if v == null then "" else generators.mkKeyValueDefault { } "=" k v
+          ;
+      }
+      cfg.settings
   );
   need_CAP_NET_BIND_SERVICE =
     cfg.settings.identd_port != 0 && cfg.settings.identd_port < 1024;
@@ -185,16 +185,17 @@ in
         example = "/run/keys/biboumi.cfg";
       };
 
-      openFirewall =
-        mkEnableOption (lib.mdDoc "opening of the identd port in the firewall");
+      openFirewall = mkEnableOption (
+        lib.mdDoc "opening of the identd port in the firewall"
+      );
     };
   };
 
   config = mkIf cfg.enable {
     networking.firewall =
-      mkIf (cfg.openFirewall && cfg.settings.identd_port != 0) {
-        allowedTCPPorts = [ cfg.settings.identd_port ];
-      };
+      mkIf (cfg.openFirewall && cfg.settings.identd_port != 0)
+        { allowedTCPPorts = [ cfg.settings.identd_port ]; }
+      ;
 
     systemd.services.biboumi = {
       description = "Biboumi, XMPP to IRC gateway";

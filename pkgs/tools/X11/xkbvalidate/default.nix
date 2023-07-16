@@ -5,17 +5,17 @@
 }:
 
 runCommandCC "xkbvalidate"
-{
-  buildInputs = [ libxkbcommon ];
-  meta = {
-    description = "NixOS tool to validate X keyboard configuration";
-    license = lib.licenses.mit;
-    platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.aszlig ];
-  };
-}
-''
-  mkdir -p "$out/bin"
-  $CC -std=c11 -Wall -pedantic -lxkbcommon ${./xkbvalidate.c} \
-    -o "$out/bin/xkbvalidate"
-''
+  {
+    buildInputs = [ libxkbcommon ];
+    meta = {
+      description = "NixOS tool to validate X keyboard configuration";
+      license = lib.licenses.mit;
+      platforms = lib.platforms.unix;
+      maintainers = [ lib.maintainers.aszlig ];
+    };
+  }
+  ''
+    mkdir -p "$out/bin"
+    $CC -std=c11 -Wall -pedantic -lxkbcommon ${./xkbvalidate.c} \
+      -o "$out/bin/xkbvalidate"
+  ''

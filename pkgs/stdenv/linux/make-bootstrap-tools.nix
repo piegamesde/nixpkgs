@@ -266,9 +266,10 @@ with pkgs; rec {
   bootstrapFiles = {
     # Make them their own store paths to test that busybox still works when the binary is named /nix/store/HASH-busybox
     busybox = runCommand "busybox" { } "cp ${build}/on-server/busybox $out";
-    bootstrapTools = runCommand "bootstrap-tools.tar.xz"
-      { }
-      "cp ${build}/on-server/bootstrap-tools.tar.xz $out";
+    bootstrapTools =
+      runCommand "bootstrap-tools.tar.xz" { }
+        "cp ${build}/on-server/bootstrap-tools.tar.xz $out"
+      ;
   };
 
   bootstrapTools =
@@ -328,7 +329,7 @@ with pkgs; rec {
       + lib.optionalString (stdenv.hostPlatform.libc == "glibc") ''
         rtld=$(echo ${bootstrapTools}/lib/${
           builtins.unsafeDiscardStringContext # only basename
-          (builtins.baseNameOf binutils.dynamicLinker)
+            (builtins.baseNameOf binutils.dynamicLinker)
         })
         libc_includes=${bootstrapTools}/include-glibc
       ''

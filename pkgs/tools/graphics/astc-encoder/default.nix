@@ -30,24 +30,26 @@ with rec {
   isaFlags = map (isa: "-DISA_${isa}=ON") isas;
 
   # The suffix of the binary to link as 'astcenc'
-  mainBinary = builtins.replaceStrings
-    [
-      "AVX2"
-      "SSE41"
-      "SSE2"
-      "NEON"
-      "NONE"
-      "NATIVE"
-    ]
-    [
-      "avx2"
-      "sse4.1"
-      "sse2"
-      "neon"
-      "none"
-      "native"
-    ]
-    (builtins.head isas);
+  mainBinary =
+    builtins.replaceStrings
+      [
+        "AVX2"
+        "SSE41"
+        "SSE2"
+        "NEON"
+        "NONE"
+        "NATIVE"
+      ]
+      [
+        "avx2"
+        "sse4.1"
+        "sse2"
+        "neon"
+        "none"
+        "native"
+      ]
+      (builtins.head isas)
+    ;
 };
 
 stdenv.mkDerivation rec {

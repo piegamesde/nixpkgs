@@ -42,8 +42,9 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript =
-      gnome.updateScript { packageName = "gnome-epub-thumbnailer"; };
+    updateScript = gnome.updateScript {
+      packageName = "gnome-epub-thumbnailer";
+    };
   };
 
   meta = with lib; {

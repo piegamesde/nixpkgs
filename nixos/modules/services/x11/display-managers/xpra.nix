@@ -35,7 +35,9 @@ in
         default = null;
         example = "gnome-shell";
         description =
-          lib.mdDoc "Start a desktop environment instead of seamless mode";
+          lib.mdDoc
+            "Start a desktop environment instead of seamless mode"
+          ;
       };
 
       auth = mkOption {
@@ -301,9 +303,8 @@ in
     '';
 
     services.xserver.displayManager.job.execCmd = ''
-      ${optionalString
-      (cfg.pulseaudio)
-      "export PULSE_COOKIE=/run/pulse/.config/pulse/cookie"}
+      ${optionalString (cfg.pulseaudio)
+        "export PULSE_COOKIE=/run/pulse/.config/pulse/cookie"}
       exec ${pkgs.xpra}/bin/xpra ${
         if cfg.desktop == null then
           "start"

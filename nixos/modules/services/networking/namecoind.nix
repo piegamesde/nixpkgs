@@ -16,10 +16,10 @@ let
   listToConf =
     option: list:
     concatMapStrings
-    (value: ''
-      ${option}=${value}
-    '')
-    list
+      (value: ''
+        ${option}=${value}
+      '')
+      list
     ;
 
   configFile = pkgs.writeText "namecoin.conf" (

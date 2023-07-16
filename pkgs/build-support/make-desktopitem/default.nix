@@ -67,7 +67,7 @@ lib.makeOverridable (
         throw "makeDesktopItem: value for ${key} must be a list!"
       else if builtins.any (item: lib.hasInfix ";" item) value then
         throw
-        "makeDesktopItem: values in ${key} list must not contain semicolons!"
+          "makeDesktopItem: values in ${key} list must not contain semicolons!"
       else if value == [ ] then
         null
       else

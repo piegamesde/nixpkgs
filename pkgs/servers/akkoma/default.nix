@@ -157,8 +157,9 @@ beamPackages.mixRelease rec {
           '';
         };
         majic = prev.majic.override { buildInputs = [ file ]; };
-        syslog =
-          prev.syslog.override { buildPlugins = with beamPackages; [ pc ]; };
+        syslog = prev.syslog.override {
+          buildPlugins = with beamPackages; [ pc ];
+        };
 
         mime = prev.mime.override {
           patchPhase =

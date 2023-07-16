@@ -18,7 +18,7 @@ evalConfigArgs@{ # !!! system can be set modularly, would be nice to remove,
   #     we can add modules that are included in specialisations, regardless
   #     of inheritParentConfig.
   baseModules ? import
-    ../modules/module-list.nix, # !!! See comment about args in lib/modules.nix
+      ../modules/module-list.nix, # !!! See comment about args in lib/modules.nix
   extraArgs ? { }, # !!! See comment about args in lib/modules.nix
   specialArgs ? { },
   modules,
@@ -63,11 +63,11 @@ let
   withWarnings =
     x:
     lib.warnIf (evalConfigArgs ? extraArgs)
-    "The extraArgs argument to eval-config.nix is deprecated. Please set config._module.args instead."
-    lib.warnIf
-    (evalConfigArgs ? check)
-    "The check argument to eval-config.nix is deprecated. Please set config._module.check instead."
-    x
+      "The extraArgs argument to eval-config.nix is deprecated. Please set config._module.args instead."
+      lib.warnIf
+      (evalConfigArgs ? check)
+      "The check argument to eval-config.nix is deprecated. Please set config._module.check instead."
+      x
     ;
 
   legacyModules =
@@ -114,8 +114,9 @@ let
     };
   };
 
-  nixosWithUserModules =
-    noUserModules.extendModules { modules = allUserModules; };
+  nixosWithUserModules = noUserModules.extendModules {
+    modules = allUserModules;
+  };
 in
 withWarnings nixosWithUserModules // {
   inherit extraArgs;

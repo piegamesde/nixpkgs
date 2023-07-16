@@ -77,28 +77,31 @@ let
           cp ${os-release} $out/etc/os-release
         ''
         # units **must** be copied to /etc/systemd/system/
-        + (lib.concatMapStringsSep "\n"
-          (u: "cp ${u} $out/etc/systemd/system/${u.name};")
-          units)
-        + (lib.concatMapStringsSep "\n"
-          (
-            {
-              object,
-              symlink,
-            }: ''
-              mkdir -p $(dirname $out/${symlink});
-              ln -s ${object} $out/${symlink};
-            ''
-          )
-          symlinks)
+        + (
+          lib.concatMapStringsSep "\n"
+            (u: "cp ${u} $out/etc/systemd/system/${u.name};")
+            units
+        )
+        + (
+          lib.concatMapStringsSep "\n"
+            (
+              {
+                object,
+                symlink,
+              }: ''
+                mkdir -p $(dirname $out/${symlink});
+                ln -s ${object} $out/${symlink};
+              ''
+            )
+            symlinks
+        )
         ;
     }
     ;
 in
 
-assert lib.assertMsg
-  (lib.all (u: lib.hasPrefix pname u.name) units)
-  "Unit names must be prefixed with the service name";
+assert lib.assertMsg (lib.all (u: lib.hasPrefix pname u.name) units)
+    "Unit names must be prefixed with the service name";
 
 stdenv.mkDerivation {
   pname = "${pname}-img";
@@ -106,7 +109,9 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ squashfsTools ];
   closureInfo =
-    pkgs.closureInfo { rootPaths = [ rootFsScaffold ] ++ contents; };
+    pkgs.closureInfo
+      { rootPaths = [ rootFsScaffold ] ++ contents; }
+    ;
 
   buildCommand = ''
     mkdir -p nix/store

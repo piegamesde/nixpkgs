@@ -78,8 +78,10 @@ let
 
           label = mkOption {
             type = str;
-            description = lib.mdDoc
-              "Label for this destination. Defaults to the attribute name.";
+            description =
+              lib.mdDoc
+                "Label for this destination. Defaults to the attribute name."
+              ;
           };
 
           plan = mkOption {
@@ -326,18 +328,20 @@ let
     )
     ;
 
-  files = mapAttrs'
-    (
-      n: srcCfg:
-      let
-        fileText = attrsToFile (mkSrcAttrs srcCfg);
-      in
-      {
-        name = srcCfg.dataset;
-        value = pkgs.writeText (stripSlashes srcCfg.dataset) fileText;
-      }
-    )
-    cfg.zetup;
+  files =
+    mapAttrs'
+      (
+        n: srcCfg:
+        let
+          fileText = attrsToFile (mkSrcAttrs srcCfg);
+        in
+        {
+          name = srcCfg.dataset;
+          value = pkgs.writeText (stripSlashes srcCfg.dataset) fileText;
+        }
+      )
+      cfg.zetup
+    ;
 in
 {
   options = {
@@ -373,14 +377,18 @@ in
         type = bool;
         default = false;
         description =
-          lib.mdDoc "Does all changes to the filesystem except destroy.";
+          lib.mdDoc
+            "Does all changes to the filesystem except destroy."
+          ;
       };
 
       autoCreation = mkOption {
         type = bool;
         default = false;
-        description = lib.mdDoc
-          "Automatically create the destination dataset if it does not exist.";
+        description =
+          lib.mdDoc
+            "Automatically create the destination dataset if it does not exist."
+          ;
       };
 
       zetup = mkOption {
@@ -511,11 +519,11 @@ in
           ''
           + concatStringsSep "\n" (
             mapAttrsToList
-            (dataset: config: ''
-              echo Importing znapzend zetup ${config} for dataset ${dataset}
-              ${pkgs.znapzend}/bin/znapzendzetup import --write ${dataset} ${config} &
-            '')
-            files
+              (dataset: config: ''
+                echo Importing znapzend zetup ${config} for dataset ${dataset}
+                ${pkgs.znapzend}/bin/znapzendzetup import --write ${dataset} ${config} &
+              '')
+              files
           )
           + ''
             wait
@@ -539,8 +547,8 @@ in
                 (optionalString cfg.noDestroy "--nodestroy")
                 (optionalString cfg.autoCreation "--autoCreation")
                 (optionalString (enabledFeatures != [ ]) "--features=${
-                    concatStringsSep "," enabledFeatures
-                  }")
+                      concatStringsSep "," enabledFeatures
+                    }")
               ];
             in
             "${pkgs.znapzend}/bin/znapzend ${args}"

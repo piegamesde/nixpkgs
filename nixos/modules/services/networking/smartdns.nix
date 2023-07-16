@@ -14,22 +14,24 @@ let
   confFile = pkgs.writeText "smartdns.conf" (
     with generators;
     toKeyValue
-    {
-      mkKeyValue = mkKeyValueDefault
-        {
-          mkValueString =
-            v:
-            if isBool v then
-              if v then "yes" else "no"
-            else
-              mkValueStringDefault { } v
-            ;
-        }
-        " ";
-      listsAsDuplicateKeys =
-        true; # Allowing duplications because we need to deal with multiple entries with the same key.
-    }
-    cfg.settings
+      {
+        mkKeyValue =
+          mkKeyValueDefault
+            {
+              mkValueString =
+                v:
+                if isBool v then
+                  if v then "yes" else "no"
+                else
+                  mkValueStringDefault { } v
+                ;
+            }
+            " "
+          ;
+        listsAsDuplicateKeys =
+          true; # Allowing duplications because we need to deal with multiple entries with the same key.
+      }
+      cfg.settings
   );
 in
 {

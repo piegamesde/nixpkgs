@@ -18,8 +18,8 @@ let
     # since we are mounting the addons to the addon manager, they need to be copied
     ${concatMapStringsSep ";" (a: "cp -v ${a}/* $out/") (
       mapAttrsToList
-      (name: addon: pkgs.writeTextDir "${name}.json" (builtins.toJSON addon))
-      (cfg.addons)
+        (name: addon: pkgs.writeTextDir "${name}.json" (builtins.toJSON addon))
+        (cfg.addons)
     )}
   '';
 in
@@ -50,8 +50,10 @@ in
     };
 
     addons = mkOption {
-      description = lib.mdDoc
-        "Kubernetes addons (any kind of Kubernetes resource can be an addon).";
+      description =
+        lib.mdDoc
+          "Kubernetes addons (any kind of Kubernetes resource can be an addon)."
+        ;
       default = { };
       type = attrsOf (either attrs (listOf attrs));
       example = literalExpression ''

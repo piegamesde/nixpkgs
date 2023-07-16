@@ -48,9 +48,8 @@ args@{
               dbtype = "mysql";
               # Don't inherit adminuser since "root" is supposed to be the default
               adminpassFile =
-                "${pkgs.writeText
-                "adminpass"
-                adminpass}"; # Don't try this at home!
+                "${pkgs.writeText "adminpass"
+                  adminpass}"; # Don't try this at home!
             };
           };
 
@@ -102,4 +101,4 @@ args@{
       ;
   }
 ))
-args
+  args

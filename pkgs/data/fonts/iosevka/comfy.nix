@@ -75,9 +75,9 @@ let
 in
 builtins.listToAttrs (
   builtins.map
-  (set: {
-    name = set;
-    value = makeIosevkaFont set;
-  })
-  sets
+    (set: {
+      name = set;
+      value = makeIosevkaFont set;
+    })
+    sets
 )

@@ -223,8 +223,9 @@ let
         inherit octavePackages wrapOctave;
         inherit (octavePackages) computeRequiredOctavePackages;
       };
-      withPackages =
-        import ./with-packages.nix { inherit buildEnv octavePackages; };
+      withPackages = import ./with-packages.nix {
+        inherit buildEnv octavePackages;
+      };
       pkgs = octavePackages;
       interpreter = "${self}/bin/octave";
     };

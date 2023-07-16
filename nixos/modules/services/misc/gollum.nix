@@ -82,8 +82,9 @@ in
     local-time = mkOption {
       type = types.bool;
       default = false;
-      description = lib.mdDoc
-        "Use the browser's local timezone instead of the server's for displaying dates."
+      description =
+        lib.mdDoc
+          "Use the browser's local timezone instead of the server's for displaying dates."
         ;
     };
 
@@ -97,8 +98,9 @@ in
     stateDir = mkOption {
       type = types.path;
       default = "/var/lib/gollum";
-      description = lib.mdDoc
-        "Specifies the path of the repository directory. If it does not exist, Gollum will create it on startup."
+      description =
+        lib.mdDoc
+          "Specifies the path of the repository directory. If it does not exist, Gollum will create it on startup."
         ;
     };
 
@@ -154,14 +156,12 @@ in
             ${optionalString cfg.no-edit "--no-edit"} \
             ${optionalString cfg.local-time "--local-time"} \
             ${
-              optionalString
-              (cfg.allowUploads != null)
-              "--allow-uploads ${cfg.allowUploads}"
+              optionalString (cfg.allowUploads != null)
+                "--allow-uploads ${cfg.allowUploads}"
             } \
             ${
-              optionalString
-              (cfg.user-icons != null)
-              "--user-icons ${cfg.user-icons}"
+              optionalString (cfg.user-icons != null)
+                "--user-icons ${cfg.user-icons}"
             } \
             ${cfg.stateDir}
         '';

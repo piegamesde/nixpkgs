@@ -65,11 +65,10 @@ rustPlatform.buildRustPackage rec {
       "-Wno-error=stringop-overflow"
       "-Wno-error=stringop-truncation"
     ]
-    ++ lib.optionals
-      (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "11")
-      [
-        "-Wno-error=stringop-overread"
-      ]
+    ++
+      lib.optionals
+        (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "11")
+        [ "-Wno-error=stringop-overread" ]
   );
 
   passthru.tests.basic = nixosTests.cjdns;

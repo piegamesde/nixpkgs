@@ -43,8 +43,9 @@ in
     enableUnixSocket = mkOption {
       type = types.bool;
       default = false;
-      description = lib.mdDoc
-        "Listen on a unix socket `/run/esphome/esphome.sock` instead of the TCP port."
+      description =
+        lib.mdDoc
+          "Listen on a unix socket `/run/esphome/esphome.sock` instead of the TCP port."
         ;
     };
 
@@ -64,7 +65,9 @@ in
       default = false;
       type = types.bool;
       description =
-        mdDoc "Whether to open the firewall for the specified port.";
+        mdDoc
+          "Whether to open the firewall for the specified port."
+        ;
     };
 
     allowedDevices = mkOption {
@@ -87,7 +90,9 @@ in
 
   config = mkIf cfg.enable {
     networking.firewall.allowedTCPPorts =
-      mkIf (cfg.openFirewall && !cfg.enableUnixSocket) [ cfg.port ];
+      mkIf (cfg.openFirewall && !cfg.enableUnixSocket)
+        [ cfg.port ]
+      ;
 
     systemd.services.esphome = {
       description = "ESPHome dashboard";

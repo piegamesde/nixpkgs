@@ -147,8 +147,9 @@ let
 in
 {
   options = {
-    services.consul-template.instances =
-      commonOptions { pkgName = "consul-template"; };
+    services.consul-template.instances = commonOptions {
+      pkgName = "consul-template";
+    };
     services.vault-agent.instances = commonOptions {
       pkgName = "vault";
       flavour = "vault-agent";
@@ -157,26 +158,28 @@ in
 
   config = mkMerge (
     map
-    (
-      flavour:
-      let
-        cfg = config.services.${flavour};
-      in
-      mkIf (cfg.instances != { }) {
-        systemd.services = mapAttrs'
-          (
-            name: instance:
-            nameValuePair "${flavour}-${name}" (
-              createAgentInstance { inherit name instance flavour; }
-            )
-          )
-          cfg.instances;
-      }
-    )
-    [
-      "consul-template"
-      "vault-agent"
-    ]
+      (
+        flavour:
+        let
+          cfg = config.services.${flavour};
+        in
+        mkIf (cfg.instances != { }) {
+          systemd.services =
+            mapAttrs'
+              (
+                name: instance:
+                nameValuePair "${flavour}-${name}" (
+                  createAgentInstance { inherit name instance flavour; }
+                )
+              )
+              cfg.instances
+            ;
+        }
+      )
+      [
+        "consul-template"
+        "vault-agent"
+      ]
   );
 
   meta.maintainers = with maintainers; [

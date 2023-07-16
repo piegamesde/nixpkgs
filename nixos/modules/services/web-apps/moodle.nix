@@ -40,17 +40,15 @@ let
     $CFG->dbhost    = '${cfg.database.host}';
     $CFG->dbname    = '${cfg.database.name}';
     $CFG->dbuser    = '${cfg.database.user}';
-    ${optionalString
-    (cfg.database.passwordFile != null)
-    "$CFG->dbpass = file_get_contents('${cfg.database.passwordFile}');"}
+    ${optionalString (cfg.database.passwordFile != null)
+      "$CFG->dbpass = file_get_contents('${cfg.database.passwordFile}');"}
     $CFG->prefix    = 'mdl_';
     $CFG->dboptions = array (
       'dbpersist' => 0,
       'dbport' => '${toString cfg.database.port}',
       ${
-        optionalString
-        (cfg.database.socket != null)
-        "'dbsocket' => '${cfg.database.socket}',"
+        optionalString (cfg.database.socket != null)
+          "'dbsocket' => '${cfg.database.socket}',"
       }
       'dbcollation' => 'utf8mb4_unicode_ci',
     );
@@ -211,20 +209,25 @@ in
           ;
         defaultText = literalExpression "/run/mysqld/mysqld.sock";
         description =
-          lib.mdDoc "Path to the unix socket file to use for authentication.";
+          lib.mdDoc
+            "Path to the unix socket file to use for authentication."
+          ;
       };
 
       createLocally = mkOption {
         type = types.bool;
         default = true;
         description =
-          lib.mdDoc "Create the database and database user locally.";
+          lib.mdDoc
+            "Create the database and database user locally."
+          ;
       };
     };
 
     virtualHost = mkOption {
-      type =
-        types.submodule (import ../web-servers/apache-httpd/vhost-options.nix);
+      type = types.submodule (
+        import ../web-servers/apache-httpd/vhost-options.nix
+      );
       example = literalExpression ''
         {
           hostName = "moodle.example.org";

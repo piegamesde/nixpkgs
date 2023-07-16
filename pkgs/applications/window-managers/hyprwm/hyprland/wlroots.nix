@@ -105,16 +105,16 @@ assert (lib.assertMsg (hidpiXWayland -> enableXWayland) ''
       ;
   }
 )).override
-{
-  xwayland = xwayland.overrideAttrs (
-    old: {
-      patches =
-        (old.patches or [ ])
-        ++ (lib.optionals hidpiXWayland [
-          "${hyprland.src}/nix/xwayland-vsync.patch"
-          "${hyprland.src}/nix/xwayland-hidpi.patch"
-        ])
-        ;
-    }
-  );
-}
+  {
+    xwayland = xwayland.overrideAttrs (
+      old: {
+        patches =
+          (old.patches or [ ])
+          ++ (lib.optionals hidpiXWayland [
+            "${hyprland.src}/nix/xwayland-vsync.patch"
+            "${hyprland.src}/nix/xwayland-hidpi.patch"
+          ])
+          ;
+      }
+    );
+  }

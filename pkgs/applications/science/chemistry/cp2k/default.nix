@@ -106,9 +106,8 @@ stdenv.mkDerivation rec {
                  -fopenmp -ftree-vectorize -funroll-loops \
                  -I${libxc}/include -I${libxsmm}/include \
                  -I${libint}/include ${
-                   lib.optionalString
-                   enableElpa
-                   "$(pkg-config --variable=fcflags elpa)"
+                   lib.optionalString enableElpa
+                     "$(pkg-config --variable=fcflags elpa)"
                  }
     LIBS       = -lfftw3 -lfftw3_threads \
                  -lscalapack -lblas -llapack \
@@ -119,9 +118,8 @@ stdenv.mkDerivation rec {
                    lib.optionalString enableElpa "$(pkg-config --libs elpa)"
                  } \
                  -lz -ldl -lstdc++ ${
-                   lib.optionalString
-                   (mpi.pname == "openmpi")
-                   "$(mpicxx --showme:link)"
+                   lib.optionalString (mpi.pname == "openmpi")
+                     "$(mpicxx --showme:link)"
                  } \
                  -lplumed
     LDFLAGS    = \$(FCFLAGS) \$(LIBS)

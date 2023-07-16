@@ -18,10 +18,10 @@ let
 
   xserverWrapper = pkgs.writeShellScript "xserver-wrapper" ''
     ${concatMapStrings
-    (n: ''
-      export ${n}="${getAttr n xEnv}"
-    '')
-    (attrNames xEnv)}
+      (n: ''
+        export ${n}="${getAttr n xEnv}"
+      '')
+      (attrNames xEnv)}
     exec systemd-cat -t xserver-wrapper ${dmcfg.xserverBin} ${
       toString dmcfg.xserverArgs
     } "$@"
@@ -43,9 +43,10 @@ let
       Numlock = if cfg.autoNumlock then "on" else "none"; # on, off none
 
       # Implementation is done via pkgs/applications/display-managers/sddm/sddm-default-session.patch
-      DefaultSession = optionalString
-        (dmcfg.defaultSession != null)
-        "${dmcfg.defaultSession}.desktop";
+      DefaultSession =
+        optionalString (dmcfg.defaultSession != null)
+          "${dmcfg.defaultSession}.desktop"
+        ;
     };
 
     Theme = {
@@ -84,64 +85,72 @@ let
     };
   };
 
-  cfgFile =
-    iniFmt.generate "sddm.conf" (lib.recursiveUpdate defaultConfig cfg.settings)
-    ;
+  cfgFile = iniFmt.generate "sddm.conf" (
+    lib.recursiveUpdate defaultConfig cfg.settings
+  );
 
   autoLoginSessionName = "${dmcfg.sessionData.autologinSession}.desktop";
 in
 {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "xserver"
-        "displayManager"
-        "sddm"
-        "themes"
-      ]
-      "Set the option `services.xserver.displayManager.sddm.package' instead.")
-    (mkRenamedOptionModule
-      [
-        "services"
-        "xserver"
-        "displayManager"
-        "sddm"
-        "autoLogin"
-        "enable"
-      ]
-      [
-        "services"
-        "xserver"
-        "displayManager"
-        "autoLogin"
-        "enable"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "xserver"
-        "displayManager"
-        "sddm"
-        "autoLogin"
-        "user"
-      ]
-      [
-        "services"
-        "xserver"
-        "displayManager"
-        "autoLogin"
-        "user"
-      ])
-    (mkRemovedOptionModule
-      [
-        "services"
-        "xserver"
-        "displayManager"
-        "sddm"
-        "extraConfig"
-      ]
-      "Set the option `services.xserver.displayManager.sddm.settings' instead.")
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "xserver"
+          "displayManager"
+          "sddm"
+          "themes"
+        ]
+        "Set the option `services.xserver.displayManager.sddm.package' instead."
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "xserver"
+          "displayManager"
+          "sddm"
+          "autoLogin"
+          "enable"
+        ]
+        [
+          "services"
+          "xserver"
+          "displayManager"
+          "autoLogin"
+          "enable"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "xserver"
+          "displayManager"
+          "sddm"
+          "autoLogin"
+          "user"
+        ]
+        [
+          "services"
+          "xserver"
+          "displayManager"
+          "autoLogin"
+          "user"
+        ]
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "xserver"
+          "displayManager"
+          "sddm"
+          "extraConfig"
+        ]
+        "Set the option `services.xserver.displayManager.sddm.settings' instead."
+    )
   ];
 
   options = {

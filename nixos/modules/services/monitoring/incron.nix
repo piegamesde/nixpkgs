@@ -61,16 +61,18 @@ in
         default = [ ];
         example = literalExpression "[ pkgs.rsync ]";
         description =
-          lib.mdDoc "Extra packages available to the system incrontab.";
+          lib.mdDoc
+            "Extra packages available to the system incrontab."
+          ;
       };
     };
   };
 
   config = mkIf cfg.enable {
 
-    warnings = optional
-      (cfg.allow != null && cfg.deny != null)
-      "If `services.incron.allow` is set then `services.incron.deny` will be ignored."
+    warnings =
+      optional (cfg.allow != null && cfg.deny != null)
+        "If `services.incron.allow` is set then `services.incron.deny` will be ignored."
       ;
 
     environment.systemPackages = [ pkgs.incron ];
@@ -87,10 +89,12 @@ in
       mode = "0444";
       text = cfg.systab;
     };
-    environment.etc."incron.allow" =
-      mkIf (cfg.allow != null) { text = concatStringsSep "\n" cfg.allow; };
-    environment.etc."incron.deny" =
-      mkIf (cfg.deny != null) { text = concatStringsSep "\n" cfg.deny; };
+    environment.etc."incron.allow" = mkIf (cfg.allow != null) {
+      text = concatStringsSep "\n" cfg.allow;
+    };
+    environment.etc."incron.deny" = mkIf (cfg.deny != null) {
+      text = concatStringsSep "\n" cfg.deny;
+    };
 
     systemd.services.incron = {
       description = "File System Events Scheduler";

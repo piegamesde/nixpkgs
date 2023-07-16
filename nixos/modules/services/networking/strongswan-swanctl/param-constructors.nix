@@ -164,7 +164,9 @@ rec {
         prefix: attrs:
         let
           prefixedAttrs =
-            mapAttrs' (name: nameValuePair "${prefix}-${name}") attrs;
+            mapAttrs' (name: nameValuePair "${prefix}-${name}")
+              attrs
+            ;
         in
         paramsToRenderedStrings prefixedAttrs (
           mapAttrs (_n: _v: p) prefixedAttrs
@@ -177,8 +179,9 @@ rec {
     params: description: {
       _type = "param";
       option = mkOption {
-        type =
-          types.attrsOf (types.submodule { options = paramsToOptions params; });
+        type = types.attrsOf (
+          types.submodule { options = paramsToOptions params; }
+        );
         default = { };
         description = lib.mdDoc description;
       };
@@ -186,7 +189,9 @@ rec {
         postfix: attrs:
         let
           postfixedAttrs =
-            mapAttrs' (name: nameValuePair "${name}-${postfix}") attrs;
+            mapAttrs' (name: nameValuePair "${name}-${postfix}")
+              attrs
+            ;
         in
         paramsToRenderedStrings postfixedAttrs (
           mapAttrs (_n: _v: params) postfixedAttrs

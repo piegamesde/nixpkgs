@@ -157,10 +157,10 @@ stdenv.mkDerivation rec {
   configurePhase = ''
     # set default yarn opts
     ${lib.concatMapStrings
-    (option: ''
-      yarn --offline config set ${option}
-    '')
-    defaultYarnOpts}
+      (option: ''
+        yarn --offline config set ${option}
+      '')
+      defaultYarnOpts}
 
     # set offline mirror to yarn cache we created in previous steps
     yarn --offline config set yarn-offline-mirror "${yarnCache}"

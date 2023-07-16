@@ -26,8 +26,8 @@ let
           hashString "sha256" v._secret
         else
           throw "unsupported type ${typeOf v}: ${
-            (lib.generators.toPretty { }) v
-          }"
+              (lib.generators.toPretty { }) v
+            }"
         ;
     };
   };
@@ -468,10 +468,12 @@ in
           ]
           ;
         dashboards.settings.providers =
-          lib.mkIf cfg.provision.grafana.dashboard [ {
-            name = "parsedmarc";
-            options.path = "${pkgs.python3Packages.parsedmarc.dashboard}";
-          } ];
+          lib.mkIf cfg.provision.grafana.dashboard
+            [ {
+              name = "parsedmarc";
+              options.path = "${pkgs.python3Packages.parsedmarc.dashboard}";
+            } ]
+          ;
       };
     };
 
@@ -500,22 +502,25 @@ in
         # lists, empty attrsets and null. This makes it possible to
         # list interesting options in `settings` without them always
         # ending up in the resulting config.
-        filteredConfig = lib.converge
-          (lib.filterAttrsRecursive (
-            _: v:
-            !elem v [
-              null
-              [ ]
-              { }
-            ]
-          ))
-          cfg.settings;
+        filteredConfig =
+          lib.converge
+            (lib.filterAttrsRecursive (
+              _: v:
+              !elem v [
+                null
+                [ ]
+                { }
+              ]
+            ))
+            cfg.settings
+          ;
 
         # Extract secrets (attributes set to an attrset with a
         # "_secret" key) from the settings and generate the commands
         # to run to perform the secret replacements.
-        secretPaths =
-          lib.catAttrs "_secret" (lib.collect isSecret filteredConfig);
+        secretPaths = lib.catAttrs "_secret" (
+          lib.collect isSecret filteredConfig
+        );
         parsedmarcConfig = ini.generate "parsedmarc.ini" filteredConfig;
         mkSecretReplacement =
           file: ''
@@ -529,7 +534,9 @@ in
           ''
           ;
         secretReplacements =
-          lib.concatMapStrings mkSecretReplacement secretPaths;
+          lib.concatMapStrings mkSecretReplacement
+            secretPaths
+          ;
       in
       {
         wantedBy = [ "multi-user.target" ];
@@ -565,9 +572,8 @@ in
                 ;
             in
             "+${
-              pkgs.writeShellScript
-              "parsedmarc-start-pre-full-privileges"
-              startPreFullPrivileges
+              pkgs.writeShellScript "parsedmarc-start-pre-full-privileges"
+                startPreFullPrivileges
             }"
             ;
           Type = "simple";
@@ -611,10 +617,12 @@ in
       ;
 
     users.users.${cfg.provision.localMail.recipientName} =
-      lib.mkIf cfg.provision.localMail.enable {
-        isNormalUser = true;
-        description = "DMARC mail recipient";
-      };
+      lib.mkIf cfg.provision.localMail.enable
+        {
+          isNormalUser = true;
+          description = "DMARC mail recipient";
+        }
+      ;
   };
 
   meta.doc = ./parsedmarc.md;

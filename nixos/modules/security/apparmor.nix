@@ -24,20 +24,24 @@ in
 
 {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "security"
-        "apparmor"
-        "confineSUIDApplications"
-      ]
-      "Please use the new options: `security.apparmor.policies.<policy>.enable'.")
-    (mkRemovedOptionModule
-      [
-        "security"
-        "apparmor"
-        "profiles"
-      ]
-      "Please use the new option: `security.apparmor.policies'.")
+    (
+      mkRemovedOptionModule
+        [
+          "security"
+          "apparmor"
+          "confineSUIDApplications"
+        ]
+        "Please use the new options: `security.apparmor.policies.<policy>.enable'."
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "security"
+          "apparmor"
+          "profiles"
+        ]
+        "Please use the new option: `security.apparmor.policies'."
+    )
     apparmor/includes.nix
     apparmor/profiles.nix
   ];
@@ -76,9 +80,13 @@ in
             }: {
               options = {
                 enable =
-                  mkDisableOption "loading of the profile into the kernel";
-                enforce = mkDisableOption
-                  "enforcing of the policy or only complain in the logs";
+                  mkDisableOption
+                    "loading of the profile into the kernel"
+                  ;
+                enforce =
+                  mkDisableOption
+                    "enforcing of the policy or only complain in the logs"
+                  ;
                 profile = mkOption {
                   description = lib.mdDoc "The policy of the profile.";
                   type = types.lines;
@@ -103,7 +111,9 @@ in
         type = types.listOf types.package;
         default = [ ];
         description =
-          lib.mdDoc "List of packages to be added to AppArmor's include path";
+          lib.mdDoc
+            "List of packages to be added to AppArmor's include path"
+          ;
       };
       enableCache = mkEnableOption (
         lib.mdDoc ''
@@ -130,16 +140,18 @@ in
   };
 
   config = mkIf cfg.enable {
-    assertions = map
-      (policy: {
-        assertion = match ".*/.*" policy == null;
-        message =
-          ''
-            `security.apparmor.policies."${policy}"' must not contain a slash.'';
-        # Because, for instance, aa-remove-unknown uses profiles_names_list() in rc.apparmor.functions
-        # which does not recurse into sub-directories.
-      })
-      (attrNames cfg.policies);
+    assertions =
+      map
+        (policy: {
+          assertion = match ".*/.*" policy == null;
+          message =
+            ''
+              `security.apparmor.policies."${policy}"' must not contain a slash.'';
+          # Because, for instance, aa-remove-unknown uses profiles_names_list() in rc.apparmor.functions
+          # which does not recurse into sub-directories.
+        })
+        (attrNames cfg.policies)
+      ;
 
     environment.systemPackages = [
       pkgs.apparmor-utils
@@ -149,11 +161,11 @@ in
       # It's important to put only enabledPolicies here and not all cfg.policies
       # because aa-remove-unknown reads profiles from all /etc/apparmor.d/*
       mapAttrsToList
-      (name: p: {
-        inherit name;
-        path = p.profile;
-      })
-      enabledPolicies
+        (name: p: {
+          inherit name;
+          path = p.profile;
+        })
+        enabledPolicies
       ++ mapAttrsToList (name: path: { inherit name path; }) cfg.includes
     );
     environment.etc."apparmor/parser.conf".text =
@@ -162,11 +174,12 @@ in
         cache-loc /var/cache/apparmor
         Include /etc/apparmor.d
       ''
-      + concatMapStrings
-        (p: ''
-          Include ${p}/etc/apparmor.d
-        '')
-        cfg.packages
+      +
+        concatMapStrings
+          (p: ''
+            Include ${p}/etc/apparmor.d
+          '')
+          cfg.packages
       ;
     # For aa-logprof
     environment.etc."apparmor/apparmor.conf".text = "";
@@ -175,43 +188,44 @@ in
       pkgs.apparmor-utils + "/etc/apparmor/severity.db";
     environment.etc."apparmor/logprof.conf".source =
       pkgs.runCommand "logprof.conf"
-      {
-        header = ''
-          [settings]
-            # /etc/apparmor.d/ is read-only on NixOS
-            profiledir = /var/cache/apparmor/logprof
-            inactive_profiledir = /etc/apparmor.d/disable
-            # Use: journalctl -b --since today --grep audit: | aa-logprof
-            logfiles = /dev/stdin
+        {
+          header = ''
+            [settings]
+              # /etc/apparmor.d/ is read-only on NixOS
+              profiledir = /var/cache/apparmor/logprof
+              inactive_profiledir = /etc/apparmor.d/disable
+              # Use: journalctl -b --since today --grep audit: | aa-logprof
+              logfiles = /dev/stdin
 
-            parser = ${pkgs.apparmor-parser}/bin/apparmor_parser
-            ldd = ${pkgs.glibc.bin}/bin/ldd
-            logger = ${pkgs.util-linux}/bin/logger
+              parser = ${pkgs.apparmor-parser}/bin/apparmor_parser
+              ldd = ${pkgs.glibc.bin}/bin/ldd
+              logger = ${pkgs.util-linux}/bin/logger
 
-            # customize how file ownership permissions are presented
-            # 0 - off
-            # 1 - default of what ever mode the log reported
-            # 2 - force the new permissions to be user
-            # 3 - force all perms on the rule to be user
-            default_owner_prompt = 1
+              # customize how file ownership permissions are presented
+              # 0 - off
+              # 1 - default of what ever mode the log reported
+              # 2 - force the new permissions to be user
+              # 3 - force all perms on the rule to be user
+              default_owner_prompt = 1
 
-            custom_includes = /etc/apparmor.d ${
-              concatMapStringsSep " " (p: "${p}/etc/apparmor.d") cfg.packages
-            }
+              custom_includes = /etc/apparmor.d ${
+                concatMapStringsSep " " (p: "${p}/etc/apparmor.d") cfg.packages
+              }
 
-          [qualifiers]
-            ${pkgs.runtimeShell} = icnu
-            ${pkgs.bashInteractive}/bin/sh = icnu
-            ${pkgs.bashInteractive}/bin/bash = icnu
-            ${config.users.defaultUserShell} = icnu
-        '';
-        footer = "${pkgs.apparmor-utils}/etc/apparmor/logprof.conf";
-        passAsFile = [ "header" ];
-      }
-      ''
-        cp $headerPath $out
-        sed '1,/\[qualifiers\]/d' $footer >> $out
-      '';
+            [qualifiers]
+              ${pkgs.runtimeShell} = icnu
+              ${pkgs.bashInteractive}/bin/sh = icnu
+              ${pkgs.bashInteractive}/bin/bash = icnu
+              ${config.users.defaultUserShell} = icnu
+          '';
+          footer = "${pkgs.apparmor-utils}/etc/apparmor/logprof.conf";
+          passAsFile = [ "header" ];
+        }
+        ''
+          cp $headerPath $out
+          sed '1,/\[qualifiers\]/d' $footer >> $out
+        ''
+      ;
 
     boot.kernelParams = [
       "apparmor=1"
@@ -257,27 +271,31 @@ in
           Type = "oneshot";
           RemainAfterExit = "yes";
           ExecStartPre = "${pkgs.apparmor-utils}/bin/aa-teardown";
-          ExecStart = mapAttrsToList
-            (
-              n: p:
-              "${pkgs.apparmor-parser}/bin/apparmor_parser --add ${
-                commonOpts p
-              }"
-            )
-            enabledPolicies;
+          ExecStart =
+            mapAttrsToList
+              (
+                n: p:
+                "${pkgs.apparmor-parser}/bin/apparmor_parser --add ${
+                  commonOpts p
+                }"
+              )
+              enabledPolicies
+            ;
           ExecStartPost =
-            optional cfg.killUnconfinedConfinables killUnconfinedConfinables;
+            optional cfg.killUnconfinedConfinables
+              killUnconfinedConfinables
+            ;
           ExecReload =
             # Add or replace into the kernel profiles in enabledPolicies
             # (because AppArmor can do that without stopping the processes already confined).
             mapAttrsToList
-            (
-              n: p:
-              "${pkgs.apparmor-parser}/bin/apparmor_parser --replace ${
-                commonOpts p
-              }"
-            )
-            enabledPolicies
+              (
+                n: p:
+                "${pkgs.apparmor-parser}/bin/apparmor_parser --replace ${
+                  commonOpts p
+                }"
+              )
+              enabledPolicies
             ++
               # Remove from the kernel any profile whose name is not
               # one of the names within the content of the profiles in enabledPolicies

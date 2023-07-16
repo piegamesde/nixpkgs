@@ -35,8 +35,9 @@ let
 in
 {
   options.networking.stevenblack = {
-    enable =
-      mkEnableOption (mdDoc "Enable the stevenblack hosts file blocklist");
+    enable = mkEnableOption (
+      mdDoc "Enable the stevenblack hosts file blocklist"
+    );
 
     block = mkOption {
       type = types.listOf (

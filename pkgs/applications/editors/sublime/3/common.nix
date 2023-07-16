@@ -172,10 +172,10 @@ stdenv.mkDerivation (rec {
     ''
     + builtins.concatStringsSep "" (
       map
-      (binaryAlias: ''
-        ln -s $out/bin/${primaryBinary} $out/bin/${binaryAlias}
-      '')
-      primaryBinaryAliases
+        (binaryAlias: ''
+          ln -s $out/bin/${primaryBinary} $out/bin/${binaryAlias}
+        '')
+        primaryBinaryAliases
     )
     + ''
       mkdir -p "$out/share/applications"

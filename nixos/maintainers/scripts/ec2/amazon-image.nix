@@ -22,9 +22,8 @@ in
     let
       timeout =
         if
-          pkgs.lib.versionAtLeast
-          config.boot.kernelPackages.kernel.version
-          "4.15"
+          pkgs.lib.versionAtLeast config.boot.kernelPackages.kernel.version
+            "4.15"
         then
           "4294967295"
         else
@@ -96,7 +95,9 @@ in
       zfsBuilder = import ../../../lib/make-multi-disk-zfs-image.nix {
         inherit lib config configFile;
         inherit (cfg) contents format name;
-        pkgs = import ../../../.. { inherit (pkgs) system; }
+        pkgs =
+          import ../../../..
+            { inherit (pkgs) system; }
           ; # ensure we use the regular qemu-kvm package
 
         includeChannel = true;
@@ -147,7 +148,9 @@ in
         inherit lib config configFile;
 
         inherit (cfg) contents format name;
-        pkgs = import ../../../.. { inherit (pkgs) system; }
+        pkgs =
+          import ../../../..
+            { inherit (pkgs) system; }
           ; # ensure we use the regular qemu-kvm package
 
         fsType = "ext4";

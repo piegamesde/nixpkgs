@@ -34,8 +34,9 @@ mkDerivation rec {
 
   src =
     let
-      majorMinorPatch =
-        lib.concatStringsSep "." (lib.take 3 (lib.splitVersion version));
+      majorMinorPatch = lib.concatStringsSep "." (
+        lib.take 3 (lib.splitVersion version)
+      );
     in
     fetchurl {
       url =

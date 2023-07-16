@@ -16,51 +16,57 @@ let
         cfg.extraPackages
         # setuid shadow
         ++ [ "/run/wrappers" ]
-        ++ lib.optional
-          (builtins.elem "zfs" config.boot.supportedFilesystems)
-          config.boot.zfs.package
+        ++
+          lib.optional (builtins.elem "zfs" config.boot.supportedFilesystems)
+            config.boot.zfs.package
         ;
     });
 
   # Provides a fake "docker" binary mapping to podman
-  dockerCompat = pkgs.runCommand
-    "${podmanPackage.pname}-docker-compat-${podmanPackage.version}"
-    {
-      outputs = [
-        "out"
-        "man"
-      ];
-      inherit (podmanPackage) meta;
-    }
-    ''
-      mkdir -p $out/bin
-      ln -s ${podmanPackage}/bin/podman $out/bin/docker
+  dockerCompat =
+    pkgs.runCommand
+      "${podmanPackage.pname}-docker-compat-${podmanPackage.version}"
+      {
+        outputs = [
+          "out"
+          "man"
+        ];
+        inherit (podmanPackage) meta;
+      }
+      ''
+        mkdir -p $out/bin
+        ln -s ${podmanPackage}/bin/podman $out/bin/docker
 
-      mkdir -p $man/share/man/man1
-      for f in ${podmanPackage.man}/share/man/man1/*; do
-        basename=$(basename $f | sed s/podman/docker/g)
-        ln -s $f $man/share/man/man1/$basename
-      done
-    '';
+        mkdir -p $man/share/man/man1
+        for f in ${podmanPackage.man}/share/man/man1/*; do
+          basename=$(basename $f | sed s/podman/docker/g)
+          ln -s $f $man/share/man/man1/$basename
+        done
+      ''
+    ;
 in
 {
   imports = [
-    (lib.mkRemovedOptionModule
-      [
-        "virtualisation"
-        "podman"
-        "defaultNetwork"
-        "dnsname"
-      ]
-      "Use virtualisation.podman.defaultNetwork.settings.dns_enabled instead.")
-    (lib.mkRemovedOptionModule
-      [
-        "virtualisation"
-        "podman"
-        "defaultNetwork"
-        "extraPlugins"
-      ]
-      "Netavark isn't compatible with CNI plugins.")
+    (
+      lib.mkRemovedOptionModule
+        [
+          "virtualisation"
+          "podman"
+          "defaultNetwork"
+          "dnsname"
+        ]
+        "Use virtualisation.podman.defaultNetwork.settings.dns_enabled instead."
+    )
+    (
+      lib.mkRemovedOptionModule
+        [
+          "virtualisation"
+          "podman"
+          "defaultNetwork"
+          "extraPlugins"
+        ]
+        "Netavark isn't compatible with CNI plugins."
+    )
     ./network-socket.nix
   ];
 
@@ -178,25 +184,27 @@ in
 
     # https://github.com/containers/podman/blob/097cc6eb6dd8e598c0e8676d21267b4edb11e144/docs/tutorials/basic_networking.md#default-network
     environment.etc."containers/networks/podman.json" =
-      lib.mkIf (cfg.defaultNetwork.settings != { }) {
-        source = json.generate "podman.json" (
-          {
-            dns_enabled = false;
-            driver = "bridge";
-            id =
-              "0000000000000000000000000000000000000000000000000000000000000000";
-            internal = false;
-            ipam_options = { driver = "host-local"; };
-            ipv6_enabled = false;
-            name = "podman";
-            network_interface = "podman0";
-            subnets = [ {
-              gateway = "10.88.0.1";
-              subnet = "10.88.0.0/16";
-            } ];
-          } // cfg.defaultNetwork.settings
-        );
-      };
+      lib.mkIf (cfg.defaultNetwork.settings != { })
+        {
+          source = json.generate "podman.json" (
+            {
+              dns_enabled = false;
+              driver = "bridge";
+              id =
+                "0000000000000000000000000000000000000000000000000000000000000000";
+              internal = false;
+              ipam_options = { driver = "host-local"; };
+              ipv6_enabled = false;
+              name = "podman";
+              network_interface = "podman0";
+              subnets = [ {
+                gateway = "10.88.0.1";
+                subnet = "10.88.0.0/16";
+              } ];
+            } // cfg.defaultNetwork.settings
+          );
+        }
+      ;
 
     virtualisation.containers = {
       enable = true; # Enable common /etc/containers configuration

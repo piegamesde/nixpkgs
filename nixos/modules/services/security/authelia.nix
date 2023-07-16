@@ -40,14 +40,18 @@ let
           default = "authelia-${name}";
           type = types.str;
           description =
-            mdDoc "The name of the user for this authelia instance.";
+            mdDoc
+              "The name of the user for this authelia instance."
+            ;
         };
 
         group = mkOption {
           default = "authelia-${name}";
           type = types.str;
           description =
-            mdDoc "The name of the group for this authelia instance.";
+            mdDoc
+              "The name of the group for this authelia instance."
+            ;
         };
 
         secrets = mkOption {
@@ -202,7 +206,9 @@ let
                   default = "debug";
                   example = "info";
                   description =
-                    mdDoc "Level of verbosity for logs: info, debug, trace.";
+                    mdDoc
+                      "Level of verbosity for logs: info, debug, trace."
+                    ;
                 };
 
                 format = mkOption {
@@ -219,8 +225,9 @@ let
                   type = types.nullOr types.path;
                   default = null;
                   example = "/var/log/authelia/authelia.log";
-                  description = mdDoc
-                    "File path where the logs will be written. If not set logs are written to stdout."
+                  description =
+                    mdDoc
+                      "File path where the logs will be written. If not set logs are written to stdout."
                     ;
                 };
 
@@ -228,8 +235,9 @@ let
                   type = types.bool;
                   default = false;
                   example = true;
-                  description = mdDoc
-                    "Whether to also log to stdout when a `file_path` is defined."
+                  description =
+                    mdDoc
+                      "Whether to also log to stdout when a `file_path` is defined."
                     ;
                 };
               };
@@ -247,8 +255,9 @@ let
                     type = types.str;
                     default = "tcp://127.0.0.1:9959";
                     example = "tcp://0.0.0.0:8888";
-                    description = mdDoc
-                      "The address to listen on for metrics. This should be on a different port to the main `server.port` value."
+                    description =
+                      mdDoc
+                        "The address to listen on for metrics. This should be on a different port to the main `server.port` value."
                       ;
                   };
                 };
@@ -409,15 +418,17 @@ in
       mkInstanceUsersConfig =
         instance: {
           groups."authelia-${instance.name}" =
-            lib.mkIf (instance.group == "authelia-${instance.name}") {
-              name = "authelia-${instance.name}";
-            };
+            lib.mkIf (instance.group == "authelia-${instance.name}")
+              { name = "authelia-${instance.name}"; }
+            ;
           users."authelia-${instance.name}" =
-            lib.mkIf (instance.user == "authelia-${instance.name}") {
-              name = "authelia-${instance.name}";
-              isSystemUser = true;
-              group = instance.group;
-            };
+            lib.mkIf (instance.user == "authelia-${instance.name}")
+              {
+                name = "authelia-${instance.name}";
+                isSystemUser = true;
+                group = instance.group;
+              }
+            ;
         }
         ;
       instances = lib.attrValues cfg.instances;
@@ -448,18 +459,18 @@ in
 
       systemd.services = lib.mkMerge (
         map
-        (
-          instance:
-          lib.mkIf instance.enable {
-            "authelia-${instance.name}" = mkInstanceServiceConfig instance;
-          }
-        )
-        instances
+          (
+            instance:
+            lib.mkIf instance.enable {
+              "authelia-${instance.name}" = mkInstanceServiceConfig instance;
+            }
+          )
+          instances
       );
       users = lib.mkMerge (
         map
-        (instance: lib.mkIf instance.enable (mkInstanceUsersConfig instance))
-        instances
+          (instance: lib.mkIf instance.enable (mkInstanceUsersConfig instance))
+          instances
       );
     }
     ;

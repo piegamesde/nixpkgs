@@ -53,13 +53,14 @@ stdenv.mkDerivation rec {
       # Without this OpenSSL from nixpkgs is not detected
       ./darwin-non-static-openssl.patch
     ]
-    ++ lib.optionals
-      (stdenv.isDarwin && !(darwin.apple_sdk.frameworks ? UserNotifications))
-      [
-        # We cannot include UserNotifications because of a build failure in the Apple SDK.
-        # The functions used from it are already implicitly included anyways.
-        ./darwin-no-UserNotifications-includes.patch
-      ]
+    ++
+      lib.optionals
+        (stdenv.isDarwin && !(darwin.apple_sdk.frameworks ? UserNotifications))
+        [
+          # We cannot include UserNotifications because of a build failure in the Apple SDK.
+          # The functions used from it are already implicitly included anyways.
+          ./darwin-no-UserNotifications-includes.patch
+        ]
     ;
 
   postPatch =
@@ -94,11 +95,10 @@ stdenv.mkDerivation rec {
       CoreServices
       ScreenSaver
     ]
-    ++ lib.optionals
-      (stdenv.isDarwin && darwin.apple_sdk.frameworks ? UserNotifications)
-      [
-        darwin.apple_sdk.frameworks.UserNotifications
-      ]
+    ++
+      lib.optionals
+        (stdenv.isDarwin && darwin.apple_sdk.frameworks ? UserNotifications)
+        [ darwin.apple_sdk.frameworks.UserNotifications ]
     ++ lib.optionals stdenv.isLinux [
       util-linux
       libselinux
@@ -120,17 +120,19 @@ stdenv.mkDerivation rec {
 
   # Silences many warnings
   env.NIX_CFLAGS_COMPILE =
-    lib.optionalString stdenv.isDarwin "-Wno-inconsistent-missing-override";
+    lib.optionalString stdenv.isDarwin
+      "-Wno-inconsistent-missing-override"
+    ;
 
   cmakeFlags =
     lib.optional (!withGUI) "-DSYNERGY_BUILD_LEGACY_GUI=OFF"
     # NSFilenamesPboardType is deprecated in 10.14+
     ++ lib.optional stdenv.isDarwin "-DCMAKE_OSX_DEPLOYMENT_TARGET=${
-        if stdenv.isAarch64 then
-          "10.13"
-        else
-          stdenv.targetPlatform.darwinSdkVersion
-      }"
+          if stdenv.isAarch64 then
+            "10.13"
+          else
+            stdenv.targetPlatform.darwinSdkVersion
+        }"
     ;
 
   doCheck = true;

@@ -18,8 +18,9 @@ stdenv.mkDerivation rec {
 
   buildInputs = lib.optional stdenv.isDarwin darwin.cctools;
 
-  configureFlags =
-    lib.optionals disablePosixThreads [ "--disable-posix-threads" ];
+  configureFlags = lib.optionals disablePosixThreads [
+    "--disable-posix-threads"
+  ];
 
   meta = {
     description =

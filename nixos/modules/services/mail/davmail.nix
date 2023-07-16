@@ -27,17 +27,17 @@ let
   linesForAttrs =
     attrs:
     concatMap
-    (
-      name:
-      let
-        value = attrs.${name};
-      in
-      if isAttrs value then
-        map (line: name + "." + line) (linesForAttrs value)
-      else
-        [ "${name}=${toStr value}" ]
-    )
-    (attrNames attrs)
+      (
+        name:
+        let
+          value = attrs.${name};
+        in
+        if isAttrs value then
+          map (line: name + "." + line) (linesForAttrs value)
+        else
+          [ "${name}=${toStr value}" ]
+      )
+      (attrNames attrs)
     ;
 
   configFile = pkgs.writeText "davmail.properties" (
@@ -51,8 +51,9 @@ in
 
     url = mkOption {
       type = types.str;
-      description = lib.mdDoc
-        "Outlook Web Access URL to access the exchange server, i.e. the base webmail URL."
+      description =
+        lib.mdDoc
+          "Outlook Web Access URL to access the exchange server, i.e. the base webmail URL."
         ;
       example = "https://outlook.office365.com/EWS/Exchange.asmx";
     };

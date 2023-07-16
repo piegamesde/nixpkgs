@@ -19,14 +19,17 @@ in
         type = types.port;
         default = 8080;
         description =
-          lib.mdDoc "A port where leaps listens for incoming http requests";
+          lib.mdDoc
+            "A port where leaps listens for incoming http requests"
+          ;
       };
       address = mkOption {
         default = "";
         type = types.str;
         example = "127.0.0.1";
-        description = lib.mdDoc
-          "Hostname or IP-address to listen to. By default it will listen on all interfaces."
+        description =
+          lib.mdDoc
+            "Hostname or IP-address to listen to. By default it will listen on all interfaces."
           ;
       };
       path = mkOption {

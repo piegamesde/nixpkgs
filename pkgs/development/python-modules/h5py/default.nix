@@ -45,9 +45,8 @@ buildPythonPackage rec {
   postConfigure = ''
     # Needed to run the tests reliably. See:
     # https://bitbucket.org/mpi4py/mpi4py/issues/87/multiple-test-errors-with-openmpi-30
-    ${lib.optionalString
-    mpiSupport
-    "export OMPI_MCA_rmaps_base_oversubscribe=yes"}
+    ${lib.optionalString mpiSupport
+      "export OMPI_MCA_rmaps_base_oversubscribe=yes"}
   '';
 
   preBuild = lib.optionalString mpiSupport "export CC=${mpi}/bin/mpicc";

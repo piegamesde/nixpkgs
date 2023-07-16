@@ -258,12 +258,12 @@ stdenv.mkDerivation (
                 -e "/^QMAKE_INCDIR_OPENGL/ s|$|${libGL.dev or libGL}/include|" \
                 -e "/^QMAKE_LIBDIR_OPENGL/ s|$|${libGL.out}/lib|"
           ''
-          + lib.optionalString
-            (stdenv.hostPlatform.isx86_32 && stdenv.cc.isGNU)
-            ''
-              sed -i mkspecs/common/gcc-base-unix.conf \
-                  -e "/^QMAKE_LFLAGS_SHLIB/ s/-shared/-shared -static-libgcc/"
-            ''
+          +
+            lib.optionalString (stdenv.hostPlatform.isx86_32 && stdenv.cc.isGNU)
+              ''
+                sed -i mkspecs/common/gcc-base-unix.conf \
+                    -e "/^QMAKE_LFLAGS_SHLIB/ s/-shared/-shared -static-libgcc/"
+              ''
       )
       ;
 
@@ -333,7 +333,9 @@ stdenv.mkDerivation (
     # if dependency paths contain the string "pq", which can occur in the hash.
     # To prevent these failures, we need to override PostgreSQL detection.
     PSQL_LIBS =
-      lib.optionalString (postgresql != null) "-L${postgresql.lib}/lib -lpq";
+      lib.optionalString (postgresql != null)
+        "-L${postgresql.lib}/lib -lpq"
+      ;
 
     # TODO Remove obsolete and useless flags once the build will be totally mastered
     configureFlags =
@@ -516,7 +518,9 @@ stdenv.mkDerivation (
     setupHook = ../hooks/qtbase-setup-hook.sh;
 
     passthru.tests.pkg-config =
-      testers.testMetaPkgConfig finalAttrs.finalPackage;
+      testers.testMetaPkgConfig
+        finalAttrs.finalPackage
+      ;
 
     meta = with lib; {
       homepage = "https://www.qt.io/";

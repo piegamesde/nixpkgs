@@ -120,7 +120,9 @@ in
         default = pkgs.gnunet;
         defaultText = literalExpression "pkgs.gnunet";
         description =
-          lib.mdDoc "Overridable attribute of the gnunet package to use.";
+          lib.mdDoc
+            "Overridable attribute of the gnunet package to use."
+          ;
         example = literalExpression "pkgs.gnunet_git";
       };
 

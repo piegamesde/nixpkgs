@@ -60,24 +60,28 @@ let
 in
 {
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "murmur"
-        "welcome"
-      ]
-      [
-        "services"
-        "murmur"
-        "welcometext"
-      ])
-    (mkRemovedOptionModule
-      [
-        "services"
-        "murmur"
-        "pidfile"
-      ]
-      "Hardcoded to /run/murmur/murmurd.pid now")
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "murmur"
+          "welcome"
+        ]
+        [
+          "services"
+          "murmur"
+          "welcometext"
+        ]
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "murmur"
+          "pidfile"
+        ]
+        "Hardcoded to /run/murmur/murmurd.pid now"
+    )
   ];
 
   options = {
@@ -119,15 +123,18 @@ in
         type = types.int;
         default = 300;
         description =
-          lib.mdDoc "The amount of time an IP ban lasts (in seconds).";
+          lib.mdDoc
+            "The amount of time an IP ban lasts (in seconds)."
+          ;
       };
 
       logFile = mkOption {
         type = types.nullOr types.path;
         default = null;
         example = "/var/log/murmur/murmurd.log";
-        description = lib.mdDoc
-          "Path to the log file for Murmur daemon. Empty means log to journald."
+        description =
+          lib.mdDoc
+            "Path to the log file for Murmur daemon. Empty means log to journald."
           ;
       };
 
@@ -147,7 +154,9 @@ in
         type = types.str;
         default = "";
         description =
-          lib.mdDoc "Host to bind to. Defaults binding on all addresses.";
+          lib.mdDoc
+            "Host to bind to. Defaults binding on all addresses."
+          ;
       };
 
       package = mkOption {
@@ -155,14 +164,18 @@ in
         default = pkgs.murmur;
         defaultText = literalExpression "pkgs.murmur";
         description =
-          lib.mdDoc "Overridable attribute of the murmur package to use.";
+          lib.mdDoc
+            "Overridable attribute of the murmur package to use."
+          ;
       };
 
       password = mkOption {
         type = types.str;
         default = "";
         description =
-          lib.mdDoc "Required password to join server, if specified.";
+          lib.mdDoc
+            "Required password to join server, if specified."
+          ;
       };
 
       bandwidth = mkOption {
@@ -184,14 +197,18 @@ in
         type = types.int;
         default = 5000;
         description =
-          lib.mdDoc "Max length of text messages. Set 0 for no limit.";
+          lib.mdDoc
+            "Max length of text messages. Set 0 for no limit."
+          ;
       };
 
       imgMsgLength = mkOption {
         type = types.int;
         default = 131072;
         description =
-          lib.mdDoc "Max length of image messages. Set 0 for no limit.";
+          lib.mdDoc
+            "Max length of image messages. Set 0 for no limit."
+          ;
       };
 
       allowHtml = mkOption {
@@ -268,7 +285,9 @@ in
         type = types.bool;
         default = false;
         description =
-          lib.mdDoc "Require clients to authenticate via certificates.";
+          lib.mdDoc
+            "Require clients to authenticate via certificates."
+          ;
       };
 
       sslCert = mkOption {
@@ -328,8 +347,9 @@ in
           "system"
         ];
         default = null;
-        description = lib.mdDoc
-          "Enable D-Bus remote control. Set to the bus you want Murmur to connect to."
+        description =
+          lib.mdDoc
+            "Enable D-Bus remote control. Set to the bus you want Murmur to connect to."
           ;
       };
     };
@@ -365,7 +385,9 @@ in
         Type = if forking then "forking" else "simple";
         PIDFile = mkIf forking "/run/murmur/murmurd.pid";
         EnvironmentFile =
-          mkIf (cfg.environmentFile != null) cfg.environmentFile;
+          mkIf (cfg.environmentFile != null)
+            cfg.environmentFile
+          ;
         ExecStart =
           "${cfg.package}/bin/mumble-server -ini /run/murmur/murmurd.ini";
         Restart = "always";

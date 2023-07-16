@@ -16,9 +16,8 @@ let
       cp ${./foo.c} $out/include/foo.h
       $CC -shared \
         ${
-          lib.optionalString
-          stdenv.isDarwin
-          "-Wl,-install_name,$out/lib/libfoo.dylib"
+          lib.optionalString stdenv.isDarwin
+            "-Wl,-install_name,$out/lib/libfoo.dylib"
         } \
         -o $out/lib/libfoo${stdenv.hostPlatform.extensions.sharedLibrary} \
         ${./foo.c}
@@ -41,9 +40,8 @@ let
       cp ${./bar.c} $dev/include/bar.h
       $CC -shared \
         ${
-          lib.optionalString
-          stdenv.isDarwin
-          "-Wl,-install_name,$dev/lib/libbar.dylib"
+          lib.optionalString stdenv.isDarwin
+            "-Wl,-install_name,$dev/lib/libbar.dylib"
         } \
         -o $dev/lib/libbar${stdenv.hostPlatform.extensions.sharedLibrary} \
         ${./bar.c}

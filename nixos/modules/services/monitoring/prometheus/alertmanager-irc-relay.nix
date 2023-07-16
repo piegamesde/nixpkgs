@@ -28,7 +28,9 @@ in
       type = types.listOf types.str;
       default = [ ];
       description =
-        mdDoc "Extra command line options to pass to alertmanager-irc-relay.";
+        mdDoc
+          "Extra command line options to pass to alertmanager-irc-relay."
+        ;
     };
 
     settings = mkOption {

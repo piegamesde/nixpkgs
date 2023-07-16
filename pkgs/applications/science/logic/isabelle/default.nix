@@ -297,11 +297,12 @@ stdenv.mkDerivation (
             bin/isabelle install $out/bin
             patchShebangs $out/bin
           ''
-          + lib.concatMapStringsSep "\n"
-            (c: ''
-              echo contrib/${c.pname}-${c.version} >> ${base}/etc/components
-            '')
-            components
+          +
+            lib.concatMapStringsSep "\n"
+              (c: ''
+                echo contrib/${c.pname}-${c.version} >> ${base}/etc/components
+              '')
+              components
           ;
       }
       ;

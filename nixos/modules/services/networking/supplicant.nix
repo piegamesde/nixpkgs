@@ -57,22 +57,25 @@ let
         ++ optional (suppl.bridge != "") (subsystemDevice suppl.bridge)
         ;
 
-      ifaceArg =
-        concatStringsSep " -N " (map (i: "-i${i}") (splitString " " iface));
+      ifaceArg = concatStringsSep " -N " (
+        map (i: "-i${i}") (splitString " " iface)
+      );
       driverArg = optionalString (suppl.driver != null) "-D${suppl.driver}";
       bridgeArg = optionalString (suppl.bridge != "") "-b${suppl.bridge}";
-      confFileArg = optionalString
-        (suppl.configFile.path != null)
-        "-c${suppl.configFile.path}";
-      extraConfFile = pkgs.writeText
-        "supplicant-extra-conf-${replaceStrings [ " " ] [ "-" ] iface}"
-        ''
-          ${optionalString
-          suppl.userControlled.enable
-          "ctrl_interface=DIR=${suppl.userControlled.socketDir} GROUP=${suppl.userControlled.group}"}
-          ${optionalString suppl.configFile.writable "update_config=1"}
-          ${suppl.extraConf}
-        '';
+      confFileArg =
+        optionalString (suppl.configFile.path != null)
+          "-c${suppl.configFile.path}"
+        ;
+      extraConfFile =
+        pkgs.writeText
+          "supplicant-extra-conf-${replaceStrings [ " " ] [ "-" ] iface}"
+          ''
+            ${optionalString suppl.userControlled.enable
+              "ctrl_interface=DIR=${suppl.userControlled.socketDir} GROUP=${suppl.userControlled.group}"}
+            ${optionalString suppl.configFile.writable "update_config=1"}
+            ${suppl.extraConf}
+          ''
+        ;
     in
     {
       description =
@@ -89,10 +92,10 @@ let
 
       preStart = ''
         ${optionalString
-        (suppl.configFile.path != null && suppl.configFile.writable)
-        ''
-          (umask 077 && touch -a "${suppl.configFile.path}")
-        ''}
+          (suppl.configFile.path != null && suppl.configFile.writable)
+          ''
+            (umask 077 && touch -a "${suppl.configFile.path}")
+          ''}
         ${optionalString suppl.userControlled.enable ''
           install -dm770 -g "${suppl.userControlled.group}" "${suppl.userControlled.socketDir}"
         ''}
@@ -174,8 +177,9 @@ in
                 type = types.str;
                 default = "";
                 example = "-e/run/wpa_supplicant/entropy.bin";
-                description = lib.mdDoc
-                  "Command line arguments to add when executing `wpa_supplicant`."
+                description =
+                  lib.mdDoc
+                    "Command line arguments to add when executing `wpa_supplicant`."
                   ;
               };
 
@@ -183,14 +187,17 @@ in
                 type = types.nullOr types.str;
                 default = "nl80211,wext";
                 description =
-                  lib.mdDoc "Force a specific wpa_supplicant driver.";
+                  lib.mdDoc
+                    "Force a specific wpa_supplicant driver."
+                  ;
               };
 
               bridge = mkOption {
                 type = types.str;
                 default = "";
-                description = lib.mdDoc
-                  "Name of the bridge interface that wpa_supplicant should listen at."
+                description =
+                  lib.mdDoc
+                    "Name of the bridge interface that wpa_supplicant should listen at."
                   ;
               };
 
@@ -210,16 +217,20 @@ in
                 socketDir = mkOption {
                   type = types.str;
                   default = "/run/wpa_supplicant";
-                  description = lib.mdDoc
-                    "Directory of sockets for controlling wpa_supplicant.";
+                  description =
+                    lib.mdDoc
+                      "Directory of sockets for controlling wpa_supplicant."
+                    ;
                 };
 
                 group = mkOption {
                   type = types.str;
                   default = "wheel";
                   example = "network";
-                  description = lib.mdDoc
-                    "Members of this group can control wpa_supplicant.";
+                  description =
+                    lib.mdDoc
+                      "Members of this group can control wpa_supplicant."
+                    ;
                 };
               };
             };
@@ -269,9 +280,10 @@ in
 
     services.dbus.packages = [ pkgs.wpa_supplicant ];
 
-    systemd.services = mapAttrs'
-      (n: v: nameValuePair (serviceName n) (supplicantService n v))
-      cfg;
+    systemd.services =
+      mapAttrs' (n: v: nameValuePair (serviceName n) (supplicantService n v))
+        cfg
+      ;
 
     services.udev.packages = [
       (pkgs.writeTextFile {
@@ -279,17 +291,19 @@ in
         destination = "/etc/udev/rules.d/99-zzz-60-supplicant.rules";
         text = ''
           ${flip (concatMapStringsSep "\n")
-          (filter (n: n != "WLAN" && n != "LAN" && n != "DBUS") (attrNames cfg))
-          (
-            iface:
-            flip (concatMapStringsSep "\n") (splitString " " iface) (
-              i:
-              ''
-                ACTION=="add", SUBSYSTEM=="net", ENV{INTERFACE}=="${i}", TAG+="systemd", ENV{SYSTEMD_WANTS}+="supplicant-${
-                  replaceStrings [ " " ] [ "-" ] iface
-                }.service", TAG+="SUPPLICANT_ASSIGNED"''
-            )
-          )}
+            (filter (n: n != "WLAN" && n != "LAN" && n != "DBUS") (
+              attrNames cfg
+            ))
+            (
+              iface:
+              flip (concatMapStringsSep "\n") (splitString " " iface) (
+                i:
+                ''
+                  ACTION=="add", SUBSYSTEM=="net", ENV{INTERFACE}=="${i}", TAG+="systemd", ENV{SYSTEMD_WANTS}+="supplicant-${
+                    replaceStrings [ " " ] [ "-" ] iface
+                  }.service", TAG+="SUPPLICANT_ASSIGNED"''
+              )
+            )}
 
           ${optionalString (hasAttr "WLAN" cfg) ''
             ACTION=="add", SUBSYSTEM=="net", ENV{DEVTYPE}=="wlan", TAG!="SUPPLICANT_ASSIGNED", TAG+="systemd", PROGRAM="/run/current-system/systemd/bin/systemd-escape -p %E{INTERFACE}", ENV{SYSTEMD_WANTS}+="supplicant-wlan@$result.service"

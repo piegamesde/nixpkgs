@@ -42,28 +42,32 @@ let
   };
   cfg =
     options.${stdenv.hostPlatform.system}
-      or (throw
-        "missing source url for platform ${stdenv.hostPlatform.system}");
+      or (
+        throw
+          "missing source url for platform ${stdenv.hostPlatform.system}"
+      );
 
   # The 1.12 github release of CCL seems to be missing the usual
   # ccl-1.12-linuxarm.tar.gz tarball, so we build it ourselves here
-  linuxarm-src = runCommand "ccl-1.12-linuxarm.tar.gz"
-    {
-      outer = fetchurl {
-        url = "https://github.com/Clozure/ccl/archive/v1.12.tar.gz";
-        sha256 = "0lmxhll6zgni0l41h4kcf3khbih9r0f8xni6zcfvbi3dzfs0cjkp";
-      };
-      inner = fetchurl {
-        url =
-          "https://github.com/Clozure/ccl/releases/download/v1.12/linuxarm.tar.gz";
-        sha256 = "0x4bjx6cxsjvxyagijhlvmc7jkyxifdvz5q5zvz37028va65243c";
-      };
-    }
-    ''
-      tar xf $outer
-      tar xf $inner -C ccl
-      tar czf $out ccl
-    '';
+  linuxarm-src =
+    runCommand "ccl-1.12-linuxarm.tar.gz"
+      {
+        outer = fetchurl {
+          url = "https://github.com/Clozure/ccl/archive/v1.12.tar.gz";
+          sha256 = "0lmxhll6zgni0l41h4kcf3khbih9r0f8xni6zcfvbi3dzfs0cjkp";
+        };
+        inner = fetchurl {
+          url =
+            "https://github.com/Clozure/ccl/releases/download/v1.12/linuxarm.tar.gz";
+          sha256 = "0x4bjx6cxsjvxyagijhlvmc7jkyxifdvz5q5zvz37028va65243c";
+        };
+      }
+      ''
+        tar xf $outer
+        tar xf $inner -C ccl
+        tar czf $out ccl
+      ''
+    ;
 in
 
 stdenv.mkDerivation rec {

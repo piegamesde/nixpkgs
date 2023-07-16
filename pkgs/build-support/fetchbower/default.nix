@@ -19,15 +19,15 @@ let
   cleanName =
     name:
     lib.replaceStrings
-    [
-      "/"
-      ":"
-    ]
-    [
-      "-"
-      "-"
-    ]
-    name
+      [
+        "/"
+        ":"
+      ]
+      [
+        "-"
+        "-"
+      ]
+      name
     ;
 
   fetchbower =

@@ -59,8 +59,9 @@ in
     touchBeforeSync = mkOption {
       default = true;
       example = false;
-      description = lib.mdDoc
-        "Whether {command}`snapraid touch` should be run before {command}`snapraid sync`."
+      description =
+        lib.mdDoc
+          "Whether {command}`snapraid touch` should be run before {command}`snapraid sync`."
         ;
       type = bool;
     };
@@ -80,16 +81,18 @@ in
       plan = mkOption {
         default = 8;
         example = 5;
-        description = lib.mdDoc
-          "Percent of the array that should be checked by {command}`snapraid scrub`."
+        description =
+          lib.mdDoc
+            "Percent of the array that should be checked by {command}`snapraid scrub`."
           ;
         type = int;
       };
       olderThan = mkOption {
         default = 10;
         example = 20;
-        description = lib.mdDoc
-          "Number of days since data was last scrubbed before it can be scrubbed again."
+        description =
+          lib.mdDoc
+            "Number of days since data was last scrubbed before it can be scrubbed again."
           ;
         type = int;
       };
@@ -140,9 +143,13 @@ in
               map prependData (
                 (mapAttrsToList (name: value: name + " " + value)) dataDisks
               )
-              ++ zipListsWith (a: b: a + b)
-                ([ "parity " ] ++ map (i: toString i + "-parity ") (range 2 6))
-                parityFiles
+              ++
+                zipListsWith (a: b: a + b)
+                  (
+                    [ "parity " ]
+                    ++ map (i: toString i + "-parity ") (range 2 6)
+                  )
+                  parityFiles
               ++ map prependContent contentFiles
               ++ map prependExclude exclude
             )

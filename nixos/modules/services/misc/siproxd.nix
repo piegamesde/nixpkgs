@@ -23,17 +23,16 @@ let
     rtp_dscp        = ${toString cfg.rtpDscp}
     sip_dscp        = ${toString cfg.sipDscp}
     ${optionalString (cfg.hostsAllowReg != [ ]) "hosts_allow_reg = ${
-      concatStringsSep "," cfg.hostsAllowReg
-    }"}
+        concatStringsSep "," cfg.hostsAllowReg
+      }"}
     ${optionalString (cfg.hostsAllowSip != [ ]) "hosts_allow_sip = ${
-      concatStringsSep "," cfg.hostsAllowSip
-    }"}
+        concatStringsSep "," cfg.hostsAllowSip
+      }"}
     ${optionalString (cfg.hostsDenySip != [ ]) "hosts_deny_sip  = ${
-      concatStringsSep "," cfg.hostsDenySip
-    }"}
-    ${optionalString
-    (cfg.passwordFile != "")
-    "proxy_auth_pwfile = ${cfg.passwordFile}"}
+        concatStringsSep "," cfg.hostsDenySip
+      }"}
+    ${optionalString (cfg.passwordFile != "")
+      "proxy_auth_pwfile = ${cfg.passwordFile}"}
     ${cfg.extraConfig}
   '';
 

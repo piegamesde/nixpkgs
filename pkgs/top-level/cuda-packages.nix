@@ -32,8 +32,10 @@ let
     let
       ### CuTensor
 
-      buildCuTensorPackage = final.callPackage
-        ../development/libraries/science/math/cutensor/generic.nix;
+      buildCuTensorPackage =
+        final.callPackage
+          ../development/libraries/science/math/cutensor/generic.nix
+        ;
 
       cuTensorVersions = {
         "1.2.2.5" = {
@@ -70,20 +72,22 @@ let
 
       nccl = final.callPackage ../development/libraries/science/math/nccl { };
 
-      autoAddOpenGLRunpathHook = final.callPackage
-        (
-          {
-            makeSetupHook,
-            addOpenGLRunpath,
-          }:
-          makeSetupHook
-          {
-            name = "auto-add-opengl-runpath-hook";
-            propagatedBuildInputs = [ addOpenGLRunpath ];
-          }
-          ../development/compilers/cudatoolkit/auto-add-opengl-runpath-hook.sh
-        )
-        { };
+      autoAddOpenGLRunpathHook =
+        final.callPackage
+          (
+            {
+              makeSetupHook,
+              addOpenGLRunpath,
+            }:
+            makeSetupHook
+              {
+                name = "auto-add-opengl-runpath-hook";
+                propagatedBuildInputs = [ addOpenGLRunpath ];
+              }
+              ../development/compilers/cudatoolkit/auto-add-opengl-runpath-hook.sh
+          )
+          { }
+        ;
     }
     ;
 

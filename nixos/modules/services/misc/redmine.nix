@@ -39,14 +39,16 @@ let
       password: #dbpass#
       ${
         optionalString
-        (cfg.database.type == "mysql2" && cfg.database.socket != null)
-        "socket: ${cfg.database.socket}"
+          (cfg.database.type == "mysql2" && cfg.database.socket != null)
+          "socket: ${cfg.database.socket}"
       }
   '';
 
   configurationYml = format.generate "configuration.yml" cfg.settings;
   additionalEnvironment =
-    pkgs.writeText "additional_environment.rb" cfg.extraEnv;
+    pkgs.writeText "additional_environment.rb"
+      cfg.extraEnv
+    ;
 
   unpackTheme = unpack "theme";
   unpackPlugin = unpack "plugin";
@@ -71,21 +73,25 @@ let
 in
 {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "redmine"
-        "extraConfig"
-      ]
-      "Use services.redmine.settings instead.")
-    (mkRemovedOptionModule
-      [
-        "services"
-        "redmine"
-        "database"
-        "password"
-      ]
-      "Use services.redmine.database.passwordFile instead.")
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "redmine"
+          "extraConfig"
+        ]
+        "Use services.redmine.settings instead."
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "redmine"
+          "database"
+          "password"
+        ]
+        "Use services.redmine.database.passwordFile instead."
+    )
   ];
 
   # interface
@@ -99,7 +105,9 @@ in
         defaultText = literalExpression "pkgs.redmine";
         description = lib.mdDoc "Which Redmine package to use.";
         example =
-          literalExpression "pkgs.redmine.override { ruby = pkgs.ruby_2_7; }";
+          literalExpression
+            "pkgs.redmine.override { ruby = pkgs.ruby_2_7; }"
+          ;
       };
 
       user = mkOption {
@@ -124,7 +132,9 @@ in
         type = types.str;
         default = "/var/lib/redmine";
         description =
-          lib.mdDoc "The state directory, logs and plugins are stored here.";
+          lib.mdDoc
+            "The state directory, logs and plugins are stored here."
+          ;
       };
 
       settings = mkOption {
@@ -249,14 +259,18 @@ in
           defaultText = literalExpression "/run/mysqld/mysqld.sock";
           example = "/run/mysqld/mysqld.sock";
           description =
-            lib.mdDoc "Path to the unix socket file to use for authentication.";
+            lib.mdDoc
+              "Path to the unix socket file to use for authentication."
+            ;
         };
 
         createLocally = mkOption {
           type = types.bool;
           default = true;
           description =
-            lib.mdDoc "Create the database and database user locally.";
+            lib.mdDoc
+              "Create the database and database user locally."
+            ;
         };
       };
 
@@ -353,20 +367,32 @@ in
     services.redmine.settings = {
       production = {
         scm_subversion_command =
-          optionalString cfg.components.subversion "${pkgs.subversion}/bin/svn";
+          optionalString cfg.components.subversion
+            "${pkgs.subversion}/bin/svn"
+          ;
         scm_mercurial_command =
-          optionalString cfg.components.mercurial "${pkgs.mercurial}/bin/hg";
+          optionalString cfg.components.mercurial
+            "${pkgs.mercurial}/bin/hg"
+          ;
         scm_git_command =
-          optionalString cfg.components.git "${pkgs.git}/bin/git";
+          optionalString cfg.components.git
+            "${pkgs.git}/bin/git"
+          ;
         scm_cvs_command =
-          optionalString cfg.components.cvs "${pkgs.cvs}/bin/cvs";
+          optionalString cfg.components.cvs
+            "${pkgs.cvs}/bin/cvs"
+          ;
         scm_bazaar_command =
-          optionalString cfg.components.breezy "${pkgs.breezy}/bin/bzr";
-        imagemagick_convert_command = optionalString
-          cfg.components.imagemagick
-          "${pkgs.imagemagick}/bin/convert";
+          optionalString cfg.components.breezy
+            "${pkgs.breezy}/bin/bzr"
+          ;
+        imagemagick_convert_command =
+          optionalString cfg.components.imagemagick
+            "${pkgs.imagemagick}/bin/convert"
+          ;
         gs_command =
-          optionalString cfg.components.ghostscript "${pkgs.ghostscript}/bin/gs"
+          optionalString cfg.components.ghostscript
+            "${pkgs.ghostscript}/bin/gs"
           ;
         minimagick_font_path = "${cfg.components.minimagick_font_path}";
       };
@@ -482,9 +508,8 @@ in
 
         # handle database.passwordFile & permissions
         DBPASS=${
-          optionalString
-          (cfg.database.passwordFile != null)
-          "$(head -n1 ${cfg.database.passwordFile})"
+          optionalString (cfg.database.passwordFile != null)
+            "$(head -n1 ${cfg.database.passwordFile})"
         }
         cp -f ${databaseYml} "${cfg.stateDir}/config/database.yml"
         sed -e "s,#dbpass#,$DBPASS,g" -i "${cfg.stateDir}/config/database.yml"

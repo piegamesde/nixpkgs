@@ -58,7 +58,7 @@ import ./make-test-python.nix (
             ${aliceDo "keepassxc-cli db-create -k foo.keyfile foo.kdbx"}
             ${
               aliceDo
-              "keepassxc-cli add --no-password -k foo.keyfile foo.kdbx bar"
+                "keepassxc-cli add --no-password -k foo.keyfile foo.kdbx bar"
             }
 
         with subtest("Ensure KeePassXC starts"):

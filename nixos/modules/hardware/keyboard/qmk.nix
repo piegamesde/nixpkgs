@@ -11,10 +11,13 @@ let
 in
 {
   options.hardware.keyboard.qmk = {
-    enable =
-      mkEnableOption (mdDoc "non-root access to the firmware of QMK keyboards");
+    enable = mkEnableOption (
+      mdDoc "non-root access to the firmware of QMK keyboards"
+    );
   };
 
   config =
-    mkIf cfg.enable { services.udev.packages = [ pkgs.qmk-udev-rules ]; };
+    mkIf cfg.enable
+      { services.udev.packages = [ pkgs.qmk-udev-rules ]; }
+    ;
 }

@@ -16,14 +16,14 @@ let
       text =
         (builtins.toJSON (
           lib.filterAttrs
-          (
-            n: v:
-            builtins.any (x: x == n) [
-              "name"
-              "system"
-            ]
-          )
-          argSet
+            (
+              n: v:
+              builtins.any (x: x == n) [
+                "name"
+                "system"
+              ]
+            )
+            argSet
         ));
       builder = stdenv.shell;
       args = [

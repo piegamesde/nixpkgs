@@ -12,8 +12,9 @@ in
 
 {
   options.services.kthxbye = {
-    enable =
-      mkEnableOption (mdDoc "kthxbye alert acknowledgement management daemon");
+    enable = mkEnableOption (
+      mdDoc "kthxbye alert acknowledgement management daemon"
+    );
 
     package = mkOption {
       type = types.package;
@@ -158,9 +159,8 @@ in
           -listen ${cfg.listenAddress}:${toString cfg.port} \
           ${optionalString cfg.logJSON "-log-json"} \
           ${
-            optionalString
-            (cfg.maxDuration != null)
-            "-max-duration ${cfg.maxDuration}"
+            optionalString (cfg.maxDuration != null)
+              "-max-duration ${cfg.maxDuration}"
           } \
           ${concatStringsSep " " cfg.extraOptions}
       '';

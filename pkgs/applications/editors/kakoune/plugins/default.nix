@@ -19,11 +19,13 @@ let
   #
   # If additional modifications to the build process are required,
   # add to ./overrides.nix.
-  overrides =
-    callPackage ./overrides.nix { inherit buildKakounePluginFrom2Nix; };
+  overrides = callPackage ./overrides.nix {
+    inherit buildKakounePluginFrom2Nix;
+  };
 
-  aliases =
-    lib.optionalAttrs config.allowAliases (import ./aliases.nix lib plugins);
+  aliases = lib.optionalAttrs config.allowAliases (
+    import ./aliases.nix lib plugins
+  );
 in
 
 plugins // aliases

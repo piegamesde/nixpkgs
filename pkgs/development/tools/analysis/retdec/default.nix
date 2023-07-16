@@ -69,7 +69,9 @@ let
     sha256 = "1jixgb8w97l9gdh3inihz7avz7i770gy2j2irvvlyrq3wi41f5ab";
   };
   yaracpp =
-    callPackage ./yaracpp.nix { }; # is its own package because it needs a patch
+    callPackage ./yaracpp.nix
+      { }
+    ; # is its own package because it needs a patch
   yaramod = fetchFromGitHub {
     owner = "avast-tl";
     repo = "yaramod";

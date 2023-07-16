@@ -49,7 +49,9 @@ in
 
   config = mkIf cfg.enable {
     services.promtail.configuration.positions.filename =
-      mkDefault "/var/cache/promtail/positions.yaml";
+      mkDefault
+        "/var/cache/promtail/positions.yaml"
+      ;
 
     systemd.services.promtail = {
       description = "Promtail log ingress";
@@ -74,8 +76,9 @@ in
         RestrictSUIDSGID = true;
         PrivateMounts = true;
         CacheDirectory = "promtail";
-        ReadWritePaths =
-          lib.optional allowPositionsFile (builtins.dirOf positionsFile);
+        ReadWritePaths = lib.optional allowPositionsFile (
+          builtins.dirOf positionsFile
+        );
 
         User = "promtail";
         Group = "promtail";
@@ -95,12 +98,15 @@ in
         PrivateUsers = true;
 
         SupplementaryGroups =
-          lib.optional (allowSystemdJournal) "systemd-journal";
-      } // (optionalAttrs
-        (!pkgs.stdenv.isAarch64)
-        { # FIXME: figure out why this breaks on aarch64
-          SystemCallFilter = "@system-service";
-        });
+          lib.optional (allowSystemdJournal)
+            "systemd-journal"
+          ;
+      } // (
+        optionalAttrs (!pkgs.stdenv.isAarch64)
+          { # FIXME: figure out why this breaks on aarch64
+            SystemCallFilter = "@system-service";
+          }
+      );
     };
 
     users.groups.promtail = { };

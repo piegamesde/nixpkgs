@@ -303,14 +303,14 @@ stdenv.mkDerivation rec {
           buildInputs = attrs.buildInputs or [ ];
         in
         runCommandCC name
-        (
-          {
-            inherit buildInputs;
-            preferLocalBuild = true;
-            meta.platforms = platforms;
-          } // attrs'
-        )
-        script
+          (
+            {
+              inherit buildInputs;
+              preferLocalBuild = true;
+              meta.platforms = platforms;
+            } // attrs'
+          )
+          script
         ;
 
       # bazel wants to extract itself into $install_dir/install every time it runs,
@@ -324,17 +324,17 @@ stdenv.mkDerivation rec {
             "$HOME/.cache/bazel/_bazel_nixbld";
         in
         runLocal "bazel-extracted-homedir"
-        { passthru.install_dir = install_dir; }
-        ''
-          export HOME=$(mktemp -d)
-          touch WORKSPACE # yeah, everything sucks
-          install_base="$(${bazelPkg}/bin/bazel info | grep install_base)"
-          # assert it’s actually below install_dir
-          [[ "$install_base" =~ ${install_dir} ]] \
-            || (echo "oh no! $install_base but we are \
-          trying to copy ${install_dir} to $out instead!"; exit 1)
-          cp -R ${install_dir} $out
-        ''
+          { passthru.install_dir = install_dir; }
+          ''
+            export HOME=$(mktemp -d)
+            touch WORKSPACE # yeah, everything sucks
+            install_base="$(${bazelPkg}/bin/bazel info | grep install_base)"
+            # assert it’s actually below install_dir
+            [[ "$install_base" =~ ${install_dir} ]] \
+              || (echo "oh no! $install_base but we are \
+            trying to copy ${install_dir} to $out instead!"; exit 1)
+            cp -R ${install_dir} $out
+          ''
         ;
 
       bazelTest =

@@ -54,8 +54,9 @@ in
 
       hostname = mkOption {
         type = types.nullOr types.str;
-        description = lib.mdDoc
-          "DNS name or IP address that will be used for the stream directory lookups or possibly the playlist generation if a Host header is not provided."
+        description =
+          lib.mdDoc
+            "DNS name or IP address that will be used for the stream directory lookups or possibly the playlist generation if a Host header is not provided."
           ;
         default = config.networking.domain;
         defaultText = literalExpression "config.networking.domain";
@@ -65,14 +66,18 @@ in
         user = mkOption {
           type = types.str;
           description =
-            lib.mdDoc "Username used for all administration functions.";
+            lib.mdDoc
+              "Username used for all administration functions."
+            ;
           default = "admin";
         };
 
         password = mkOption {
           type = types.str;
           description =
-            lib.mdDoc "Password used for all administration functions.";
+            lib.mdDoc
+              "Password used for all administration functions."
+            ;
         };
       };
 
@@ -86,7 +91,8 @@ in
         port = mkOption {
           type = types.port;
           description =
-            lib.mdDoc "TCP port that will be used to accept client connections."
+            lib.mdDoc
+              "TCP port that will be used to accept client connections."
             ;
           default = 8000;
         };

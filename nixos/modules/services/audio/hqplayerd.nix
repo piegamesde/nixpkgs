@@ -89,8 +89,9 @@ in
         "hqplayer/hqplayerd.xml" = mkIf (cfg.config != null) {
           source = pkgs.writeText "hqplayerd.xml" cfg.config;
         };
-        "hqplayer/hqplayerd4-key.xml" =
-          mkIf (cfg.licenseFile != null) { source = cfg.licenseFile; };
+        "hqplayer/hqplayerd4-key.xml" = mkIf (cfg.licenseFile != null) {
+          source = cfg.licenseFile;
+        };
       };
       systemPackages = [ pkg ];
     };
@@ -136,11 +137,12 @@ in
               install -m 0644 "${pkg}/etc/hqplayer/hqplayerd.xml" "${configDir}/hqplayerd.xml"
             fi
           ''
-          + optionalString
-            (cfg.auth.username != null && cfg.auth.password != null)
-            ''
-              ${pkg}/bin/hqplayerd -s ${cfg.auth.username} ${cfg.auth.password}
-            ''
+          +
+            optionalString
+              (cfg.auth.username != null && cfg.auth.password != null)
+              ''
+                ${pkg}/bin/hqplayerd -s ${cfg.auth.username} ${cfg.auth.password}
+              ''
           ;
       };
     };

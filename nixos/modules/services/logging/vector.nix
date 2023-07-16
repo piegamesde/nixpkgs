@@ -46,11 +46,11 @@ in
           validateConfig =
             file:
             pkgs.runCommand "validate-vector-conf"
-            { nativeBuildInputs = [ pkgs.vector ]; }
-            ''
-              vector validate --no-environment "${file}"
-              ln -s "${file}" "$out"
-            ''
+              { nativeBuildInputs = [ pkgs.vector ]; }
+              ''
+                vector validate --no-environment "${file}"
+                ln -s "${file}" "$out"
+              ''
             ;
         in
         {

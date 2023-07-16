@@ -11,32 +11,34 @@
 }:
 let
   cfg = config.boot.bootspec;
-  children = lib.mapAttrs
-    (childName: childConfig: childConfig.configuration.system.build.toplevel)
-    config.specialisation;
+  children =
+    lib.mapAttrs
+      (childName: childConfig: childConfig.configuration.system.build.toplevel)
+      config.specialisation
+    ;
   schemas = {
     v1 = rec {
       filename = "boot.json";
       json = pkgs.writeText filename (
         builtins.toJSON
-        # Merge extensions first to not let them shadow NixOS bootspec data.
-        (
-          cfg.extensions // {
-            "org.nixos.bootspec.v1" = {
-              system = config.boot.kernelPackages.stdenv.hostPlatform.system;
-              kernel =
-                "${config.boot.kernelPackages.kernel}/${config.system.boot.loader.kernelFile}";
-              kernelParams = config.boot.kernelParams;
-              label =
-                "${config.system.nixos.distroName} ${config.system.nixos.codeName} ${config.system.nixos.label} (Linux ${config.boot.kernelPackages.kernel.modDirVersion})";
-            } // lib.optionalAttrs config.boot.initrd.enable {
-              initrd =
-                "${config.system.build.initialRamdisk}/${config.system.boot.loader.initrdFile}";
-              initrdSecrets =
-                "${config.system.build.initialRamdiskSecretAppender}/bin/append-initrd-secrets";
-            };
-          }
-        )
+          # Merge extensions first to not let them shadow NixOS bootspec data.
+          (
+            cfg.extensions // {
+              "org.nixos.bootspec.v1" = {
+                system = config.boot.kernelPackages.stdenv.hostPlatform.system;
+                kernel =
+                  "${config.boot.kernelPackages.kernel}/${config.system.boot.loader.kernelFile}";
+                kernelParams = config.boot.kernelParams;
+                label =
+                  "${config.system.nixos.distroName} ${config.system.nixos.codeName} ${config.system.nixos.label} (Linux ${config.boot.kernelPackages.kernel.modDirVersion})";
+              } // lib.optionalAttrs config.boot.initrd.enable {
+                initrd =
+                  "${config.system.build.initialRamdisk}/${config.system.boot.loader.initrdFile}";
+                initrdSecrets =
+                  "${config.system.build.initialRamdiskSecretAppender}/bin/append-initrd-secrets";
+              };
+            }
+          )
       );
 
       generator =
@@ -71,16 +73,18 @@ let
           specialisationInjector =
             let
               specialisationLoader =
-                (lib.mapAttrsToList
-                  (
-                    childName: childToplevel:
-                    lib.escapeShellArgs [
-                      "--slurpfile"
-                      childName
-                      "${childToplevel}/${filename}"
-                    ]
-                  )
-                  children);
+                (
+                  lib.mapAttrsToList
+                    (
+                      childName: childToplevel:
+                      lib.escapeShellArgs [
+                        "--slurpfile"
+                        childName
+                        "${childToplevel}/${filename}"
+                      ]
+                    )
+                    children
+                );
             in
             lib.escapeShellArgs [
               "${pkgs.jq}/bin/jq"
@@ -105,7 +109,7 @@ in
   options.boot.bootspec = {
     enable = lib.mkEnableOption (
       lib.mdDoc
-      "the generation of RFC-0125 bootspec in $system/boot.json, e.g. /run/current-system/boot.json"
+        "the generation of RFC-0125 bootspec in $system/boot.json, e.g. /run/current-system/boot.json"
     ) // {
       default = true;
       internal = true;
@@ -120,7 +124,9 @@ in
 
     extensions = lib.mkOption {
       # NOTE(RaitoBezarius): this is not enough to validate: extensions."osRelease" = drv; those are picked up by cue validation.
-      type = lib.types.attrsOf lib.types.anything
+      type =
+        lib.types.attrsOf
+          lib.types.anything
         ; # <namespace>: { ...namespace-specific fields }
       default = { };
       description = lib.mdDoc ''

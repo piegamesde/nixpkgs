@@ -19,14 +19,16 @@ assert lib.getVersion wineUnstable == patch.version;
 
 (lib.overrideDerivation wineUnstable (
   self: {
-    buildInputs = build-inputs
-      [
-        "perl"
-        "util-linux"
-        "autoconf"
-        "gitMinimal"
-      ]
-      self.buildInputs;
+    buildInputs =
+      build-inputs
+        [
+          "perl"
+          "util-linux"
+          "autoconf"
+          "gitMinimal"
+        ]
+        self.buildInputs
+      ;
     nativeBuildInputs =
       [
         autoconf

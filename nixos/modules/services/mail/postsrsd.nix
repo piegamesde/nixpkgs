@@ -23,7 +23,9 @@ in
         type = types.bool;
         default = false;
         description =
-          lib.mdDoc "Whether to enable the postsrsd SRS server for Postfix.";
+          lib.mdDoc
+            "Whether to enable the postsrsd SRS server for Postfix."
+          ;
       };
 
       secretsFile = mkOption {
@@ -45,7 +47,9 @@ in
         ];
         default = "=";
         description =
-          lib.mdDoc "First separator character in generated addresses";
+          lib.mdDoc
+            "First separator character in generated addresses"
+          ;
       };
 
       # bindAddress = mkOption { # uncomment once 1.5 is released
@@ -70,14 +74,17 @@ in
         type = types.int;
         default = 1800;
         description =
-          lib.mdDoc "Timeout for idle client connections in seconds";
+          lib.mdDoc
+            "Timeout for idle client connections in seconds"
+          ;
       };
 
       excludeDomains = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        description = lib.mdDoc
-          "Origin domains to exclude from rewriting in addition to primary domain"
+        description =
+          lib.mdDoc
+            "Origin domains to exclude from rewriting in addition to primary domain"
           ;
       };
 

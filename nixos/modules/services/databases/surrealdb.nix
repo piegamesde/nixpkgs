@@ -16,7 +16,7 @@ in
     services.surrealdb = {
       enable = mkEnableOption (
         lib.mdDoc
-        "A scalable, distributed, collaborative, document-graph database, for the realtime web "
+          "A scalable, distributed, collaborative, document-graph database, for the realtime web "
       );
 
       package = mkOption {

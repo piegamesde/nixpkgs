@@ -104,8 +104,9 @@ let
           };
 
           specialisation.forcepool.configuration = {
-            systemd.services.zfs-import-forcepool.wantedBy =
-              lib.mkVMOverride [ "forcepool.mount" ];
+            systemd.services.zfs-import-forcepool.wantedBy = lib.mkVMOverride [
+              "forcepool.mount"
+            ];
             systemd.targets.zfs.wantedBy = lib.mkVMOverride [ ];
             boot.zfs.forceImportAll = true;
             virtualisation.fileSystems."/forcepool" = {

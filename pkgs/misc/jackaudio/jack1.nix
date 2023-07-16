@@ -52,7 +52,9 @@ stdenv.mkDerivation (
     propagatedBuildInputs = [ optLibuuid ];
 
     passthru.tests.pkg-config =
-      testers.testMetaPkgConfig finalAttrs.finalPackage;
+      testers.testMetaPkgConfig
+        finalAttrs.finalPackage
+      ;
 
     meta = with lib; {
       broken = stdenv.isDarwin;

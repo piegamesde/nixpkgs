@@ -16,17 +16,17 @@ let
     in
     linkFarm "grammars" (
       map
-      (
-        drv:
-        let
-          name = lib.strings.getName drv;
-        in
-        {
-          name = "lib" + (lib.strings.removeSuffix "-grammar" name) + ".so";
-          path = "${drv}/parser";
-        }
-      )
-      grammars
+        (
+          drv:
+          let
+            name = lib.strings.getName drv;
+          in
+          {
+            name = "lib" + (lib.strings.removeSuffix "-grammar" name) + ".so";
+            path = "${drv}/parser";
+          }
+        )
+        grammars
     )
     ;
 

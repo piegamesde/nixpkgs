@@ -30,22 +30,25 @@ let
   mutableExtensions = lib.optionals builtins.pathExists mutableExtensionsFile (
     import mutableExtensionsFilePath
   );
-  vscodeWithConfiguration = import ./vscodeWithConfiguration.nix
-    {
-      inherit lib writeShellScriptBin extensionsFromVscodeMarketplace;
-      vscodeDefault = vscode;
-    }
-    {
-      inherit
-        nixExtensions
-        mutableExtensions
-        vscodeExtsFolderName
-        user-data-dir
-        ;
-    };
+  vscodeWithConfiguration =
+    import ./vscodeWithConfiguration.nix
+      {
+        inherit lib writeShellScriptBin extensionsFromVscodeMarketplace;
+        vscodeDefault = vscode;
+      }
+      {
+        inherit
+          nixExtensions
+          mutableExtensions
+          vscodeExtsFolderName
+          user-data-dir
+          ;
+      }
+    ;
 
-  updateSettings =
-    import ./updateSettings.nix { inherit lib writeShellScriptBin jq; };
+  updateSettings = import ./updateSettings.nix {
+    inherit lib writeShellScriptBin jq;
+  };
   userSettingsFolder = "${user-data-dir}/User";
 
   updateSettingsCmd = updateSettings {
@@ -73,15 +76,17 @@ let
     symlinkFromUserSetting = (user-data-dir != "");
   };
 
-  vscodeExts2nix = import ./vscodeExts2nix.nix
-    {
-      inherit lib writeShellScriptBin;
-      vscodeDefault = vscodeWithConfiguration;
-    }
-    {
-      extensionsToIgnore = nixExtensions;
-      extensions = mutableExtensions;
-    };
+  vscodeExts2nix =
+    import ./vscodeExts2nix.nix
+      {
+        inherit lib writeShellScriptBin;
+        vscodeDefault = vscodeWithConfiguration;
+      }
+      {
+        extensionsToIgnore = nixExtensions;
+        extensions = mutableExtensions;
+      }
+    ;
   code = writeShellScriptBin "code" ''
     ${updateSettingsCmd}/bin/vscodeNixUpdate-settings
     ${updateLaunchCmd}/bin/vscodeNixUpdate-launch

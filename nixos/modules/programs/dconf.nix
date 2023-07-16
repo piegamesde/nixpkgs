@@ -19,10 +19,10 @@ let
       ''
       + (concatStringsSep "\n" (
         mapAttrsToList
-        (name: path: ''
-          ln -s ${path} $out/profile/${name}
-        '')
-        cfg.profiles
+          (name: path: ''
+            ln -s ${path} $out/profile/${name}
+          '')
+          cfg.profiles
       ))
       + ''
         ${pkgs.dconf}/bin/dconf update $out/db
@@ -40,8 +40,9 @@ in
       profiles = mkOption {
         type = types.attrsOf types.path;
         default = { };
-        description = lib.mdDoc
-          "Set of dconf profile files, installed at {file}`/etc/dconf/profiles/«name»`."
+        description =
+          lib.mdDoc
+            "Set of dconf profile files, installed at {file}`/etc/dconf/profiles/«name»`."
           ;
         internal = true;
       };
@@ -49,8 +50,9 @@ in
       packages = mkOption {
         type = types.listOf types.package;
         default = [ ];
-        description = lib.mdDoc
-          "A list of packages which provide dconf profiles and databases in {file}`/etc/dconf`."
+        description =
+          lib.mdDoc
+            "A list of packages which provide dconf profiles and databases in {file}`/etc/dconf`."
           ;
       };
     };
@@ -59,8 +61,9 @@ in
   ###### implementation
 
   config = mkIf (cfg.profiles != { } || cfg.enable) {
-    environment.etc.dconf =
-      mkIf (cfg.profiles != { } || cfg.packages != [ ]) { source = cfgDir; };
+    environment.etc.dconf = mkIf (cfg.profiles != { } || cfg.packages != [ ]) {
+      source = cfgDir;
+    };
 
     services.dbus.packages = [ pkgs.dconf ];
 
@@ -70,7 +73,8 @@ in
     environment.systemPackages = [ pkgs.dconf ];
 
     # Needed for unwrapped applications
-    environment.sessionVariables.GIO_EXTRA_MODULES =
-      mkIf cfg.enable [ "${pkgs.dconf.lib}/lib/gio/modules" ];
+    environment.sessionVariables.GIO_EXTRA_MODULES = mkIf cfg.enable [
+      "${pkgs.dconf.lib}/lib/gio/modules"
+    ];
   };
 }

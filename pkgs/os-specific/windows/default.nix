@@ -37,8 +37,9 @@ lib.makeScope newScope (
 
     mingw_w64_headers = callPackage ./mingw-w64/headers.nix { };
 
-    mingw_w64_pthreads =
-      callPackage ./mingw-w64/pthreads.nix { stdenv = crossThreadsStdenv; };
+    mingw_w64_pthreads = callPackage ./mingw-w64/pthreads.nix {
+      stdenv = crossThreadsStdenv;
+    };
 
     mcfgthreads = callPackage ./mcfgthreads { stdenv = crossThreadsStdenv; };
 

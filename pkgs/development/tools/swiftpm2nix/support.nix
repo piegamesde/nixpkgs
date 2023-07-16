@@ -15,13 +15,15 @@ rec {
     assert workspaceState.version == 5;
     json.generate "Package.resolved" {
       version = 1;
-      object.pins = map
-        (dep: {
-          package = dep.packageRef.name;
-          repositoryURL = dep.packageRef.location;
-          state = dep.state.checkoutState;
-        })
-        workspaceState.object.dependencies;
+      object.pins =
+        map
+          (dep: {
+            package = dep.packageRef.name;
+            repositoryURL = dep.packageRef.location;
+            state = dep.state.checkoutState;
+          })
+          workspaceState.object.dependencies
+        ;
     }
     ;
 
@@ -38,17 +40,17 @@ rec {
       # Create fetch expressions for dependencies.
       sources = listToAttrs (
         map
-        (
-          dep:
-          nameValuePair dep.subpath (
-            fetchgit {
-              url = dep.packageRef.location;
-              rev = dep.state.checkoutState.revision;
-              sha256 = hashes.${dep.subpath};
-            }
+          (
+            dep:
+            nameValuePair dep.subpath (
+              fetchgit {
+                url = dep.packageRef.location;
+                rev = dep.state.checkoutState.revision;
+                sha256 = hashes.${dep.subpath};
+              }
+            )
           )
-        )
-        workspaceState.object.dependencies
+          workspaceState.object.dependencies
       );
 
       # Configure phase snippet for use in packaging.
@@ -60,10 +62,10 @@ rec {
         ''
         + concatStrings (
           mapAttrsToList
-          (name: src: ''
-            ln -s '${src}' '.build/checkouts/${name}'
-          '')
-          sources
+            (name: src: ''
+              ln -s '${src}' '.build/checkouts/${name}'
+            '')
+            sources
         )
         + ''
           # Helper that makes a swiftpm dependency mutable by copying the source.

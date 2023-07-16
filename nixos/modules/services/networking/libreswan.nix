@@ -19,45 +19,47 @@ let
     let
       nonchars = filter (x: !(elem x.value chars)) (
         imap0
-        (i: v: {
-          ind = i;
-          value = v;
-        })
-        (stringToCharacters str)
+          (i: v: {
+            ind = i;
+            value = v;
+          })
+          (stringToCharacters str)
       );
     in
     if length nonchars == 0 then
       ""
     else
       substring (head nonchars).ind
-      (add 1 (sub (last nonchars).ind (head nonchars).ind))
-      str
+        (add 1 (sub (last nonchars).ind (head nonchars).ind))
+        str
     ;
   indent =
     str:
     concatStrings (
       concatMap
-      (s: [
-        "  "
-        (trim
-          [
-            " "
-            "	"
-          ]
-          s)
-        "\n"
-      ])
-      (splitString "\n" str)
+        (s: [
+          "  "
+          (
+            trim
+              [
+                " "
+                "	"
+              ]
+              s
+          )
+          "\n"
+        ])
+        (splitString "\n" str)
     )
     ;
   configText = indent (toString cfg.configSetup);
   connectionText = concatStrings (
     mapAttrsToList
-    (n: v: ''
-      conn ${n}
-      ${indent v}
-    '')
-    cfg.connections
+      (n: v: ''
+        conn ${n}
+        ${indent v}
+      '')
+      cfg.connections
   );
 
   configFile = pkgs.writeText "ipsec-nixos.conf" ''
@@ -67,12 +69,14 @@ let
     ${connectionText}
   '';
 
-  policyFiles = mapAttrs'
-    (name: text: {
-      name = "ipsec.d/policies/${name}";
-      value.source = pkgs.writeText "ipsec-policy-${name}" text;
-    })
-    cfg.policies;
+  policyFiles =
+    mapAttrs'
+      (name: text: {
+        name = "ipsec.d/policies/${name}";
+        value.source = pkgs.writeText "ipsec-policy-${name}" text;
+      })
+      cfg.policies
+    ;
 in
 
 {
@@ -96,8 +100,9 @@ in
           protostack=netkey
           virtual_private=%v4:10.0.0.0/8,%v4:192.168.0.0/16,%v4:172.16.0.0/12,%v4:25.0.0.0/8,%v4:100.64.0.0/10,%v6:fd00::/8,%v6:fe80::/10
         '';
-        description = lib.mdDoc
-          "Options to go in the 'config setup' section of the Libreswan IPsec configuration"
+        description =
+          lib.mdDoc
+            "Options to go in the 'config setup' section of the Libreswan IPsec configuration"
           ;
       };
 
@@ -117,8 +122,10 @@ in
             ''';
           }
         '';
-        description = lib.mdDoc
-          "A set of connections to define for the Libreswan IPsec service";
+        description =
+          lib.mdDoc
+            "A set of connections to define for the Libreswan IPsec service"
+          ;
       };
 
       policies = mkOption {

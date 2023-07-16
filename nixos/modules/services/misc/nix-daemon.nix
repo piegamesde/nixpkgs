@@ -93,9 +93,8 @@ let
                 optionalString (isNixAtLeast "2.3pre") "--no-net"
               } \
                 ${
-                  optionalString
-                  (isNixAtLeast "2.4pre")
-                  "--option experimental-features nix-command"
+                  optionalString (isNixAtLeast "2.4pre")
+                    "--option experimental-features nix-command"
                 } \
               |& sed -e 's/^warning:/error:/' \
               | (! grep '${
@@ -192,30 +191,33 @@ in
           "readOnlyNixStore"
         ];
       })
-      (mkRemovedOptionModule
-        [
-          "nix"
-          "daemonNiceLevel"
-        ]
-        "Consider nix.daemonCPUSchedPolicy instead.")
-    ]
-    ++ mapAttrsToList
       (
-        oldConf: newConf:
-        mkRenamedOptionModuleWith {
-          sinceRelease = 2205;
-          from = [
+        mkRemovedOptionModule
+          [
             "nix"
-            oldConf
-          ];
-          to = [
-            "nix"
-            "settings"
-            newConf
-          ];
-        }
+            "daemonNiceLevel"
+          ]
+          "Consider nix.daemonCPUSchedPolicy instead."
       )
-      legacyConfMappings
+    ]
+    ++
+      mapAttrsToList
+        (
+          oldConf: newConf:
+          mkRenamedOptionModuleWith {
+            sinceRelease = 2205;
+            from = [
+              "nix"
+              oldConf
+            ];
+            to = [
+              "nix"
+              "settings"
+              newConf
+            ];
+          }
+        )
+        legacyConfMappings
     ;
 
   ###### interface
@@ -543,7 +545,9 @@ in
                     id = "nixpkgs";
                   };
                   description =
-                    lib.mdDoc "The flake reference to be rewritten.";
+                    lib.mdDoc
+                      "The flake reference to be rewritten."
+                    ;
                 };
                 to = mkOption {
                   type = referenceAttrs;
@@ -552,8 +556,10 @@ in
                     owner = "my-org";
                     repo = "my-nixpkgs";
                   };
-                  description = lib.mdDoc
-                    "The flake reference {option}`from` is rewritten to.";
+                  description =
+                    lib.mdDoc
+                      "The flake reference {option}`from` is rewritten to."
+                    ;
                 };
                 flake = mkOption {
                   type = types.nullOr types.attrs;
@@ -584,14 +590,14 @@ in
                       type = "path";
                       path = config.flake.outPath;
                     } // filterAttrs
-                    (
-                      n: _:
-                      n == "lastModified"
-                      || n == "rev"
-                      || n == "revCount"
-                      || n == "narHash"
-                    )
-                    config.flake
+                      (
+                        n: _:
+                        n == "lastModified"
+                        || n == "rev"
+                        || n == "revCount"
+                        || n == "narHash"
+                      )
+                      config.flake
                   )
                 );
               };
@@ -828,9 +834,9 @@ in
         nixPackage
         pkgs.nix-info
       ]
-      ++ optional
-        (config.programs.bash.enableCompletion)
-        pkgs.nix-bash-completions
+      ++
+        optional (config.programs.bash.enableCompletion)
+          pkgs.nix-bash-completions
       ;
 
     environment.etc."nix/nix.conf".source = nixConf;
@@ -838,62 +844,65 @@ in
     environment.etc."nix/registry.json".text = builtins.toJSON {
       version = 2;
       flakes =
-        mapAttrsToList (n: v: { inherit (v) from to exact; }) cfg.registry;
+        mapAttrsToList (n: v: { inherit (v) from to exact; })
+          cfg.registry
+        ;
     };
 
     # List of machines for distributed Nix builds in the format
     # expected by build-remote.pl.
     environment.etc."nix/machines" = mkIf (cfg.buildMachines != [ ]) {
-      text = concatMapStrings
-        (
-          machine:
-          (concatStringsSep " " (
-            [
-              "${
-                optionalString
-                (machine.protocol != null)
-                "${machine.protocol}://"
-              }${
-                optionalString (machine.sshUser != null) "${machine.sshUser}@"
-              }${machine.hostName}"
-              (
-                if machine.system != null then
-                  machine.system
-                else if machine.systems != [ ] then
-                  concatStringsSep "," machine.systems
+      text =
+        concatMapStrings
+          (
+            machine:
+            (concatStringsSep " " (
+              [
+                "${
+                  optionalString (machine.protocol != null)
+                    "${machine.protocol}://"
+                }${
+                  optionalString (machine.sshUser != null) "${machine.sshUser}@"
+                }${machine.hostName}"
+                (
+                  if machine.system != null then
+                    machine.system
+                  else if machine.systems != [ ] then
+                    concatStringsSep "," machine.systems
+                  else
+                    "-"
+                )
+                (if machine.sshKey != null then machine.sshKey else "-")
+                (toString machine.maxJobs)
+                (toString machine.speedFactor)
+                (
+                  let
+                    res =
+                      (machine.supportedFeatures ++ machine.mandatoryFeatures);
+                  in
+                  if (res == [ ]) then "-" else (concatStringsSep "," res)
+                )
+                (
+                  let
+                    res = machine.mandatoryFeatures;
+                  in
+                  if (res == [ ]) then
+                    "-"
+                  else
+                    (concatStringsSep "," machine.mandatoryFeatures)
+                )
+              ]
+              ++ optional (isNixAtLeast "2.4pre") (
+                if machine.publicHostKey != null then
+                  machine.publicHostKey
                 else
                   "-"
               )
-              (if machine.sshKey != null then machine.sshKey else "-")
-              (toString machine.maxJobs)
-              (toString machine.speedFactor)
-              (
-                let
-                  res =
-                    (machine.supportedFeatures ++ machine.mandatoryFeatures);
-                in
-                if (res == [ ]) then "-" else (concatStringsSep "," res)
-              )
-              (
-                let
-                  res = machine.mandatoryFeatures;
-                in
-                if (res == [ ]) then
-                  "-"
-                else
-                  (concatStringsSep "," machine.mandatoryFeatures)
-              )
-            ]
-            ++ optional (isNixAtLeast "2.4pre") (
-              if machine.publicHostKey != null then
-                machine.publicHostKey
-              else
-                "-"
-            )
-          ))
-          + "\n"
-        )
-        cfg.buildMachines;
+            ))
+            + "\n"
+          )
+          cfg.buildMachines
+        ;
     };
 
     assertions =
@@ -1009,19 +1018,21 @@ in
 
     services.xserver.displayManager.hiddenUsers = attrNames nixbldUsers;
 
-    system.activationScripts.nix = stringAfter
-      [
-        "etc"
-        "users"
-      ]
-      ''
-        install -m 0755 -d /nix/var/nix/{gcroots,profiles}/per-user
+    system.activationScripts.nix =
+      stringAfter
+        [
+          "etc"
+          "users"
+        ]
+        ''
+          install -m 0755 -d /nix/var/nix/{gcroots,profiles}/per-user
 
-        # Subscribe the root user to the NixOS channel by default.
-        if [ ! -e "/root/.nix-channels" ]; then
-            echo "${config.system.defaultChannel} nixos" > "/root/.nix-channels"
-        fi
-      '';
+          # Subscribe the root user to the NixOS channel by default.
+          if [ ! -e "/root/.nix-channels" ]; then
+              echo "${config.system.defaultChannel} nixos" > "/root/.nix-channels"
+          fi
+        ''
+      ;
 
     # Legacy configuration conversion.
     nix.settings = mkMerge [

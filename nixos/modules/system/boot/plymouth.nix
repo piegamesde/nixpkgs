@@ -11,8 +11,9 @@ with lib;
 let
 
   inherit (pkgs) nixos-icons;
-  plymouth =
-    pkgs.plymouth.override { systemd = config.boot.initrd.systemd.package; };
+  plymouth = pkgs.plymouth.override {
+    systemd = config.boot.initrd.systemd.package;
+  };
 
   cfg = config.boot.plymouth;
   opt = options.boot.plymouth;
@@ -183,49 +184,55 @@ in
         "/etc/plymouth/logo.png".source = cfg.logo;
         # Directories
         "/etc/plymouth/plugins".source =
-          pkgs.runCommand "plymouth-initrd-plugins" { } ''
-            # Check if the actual requested theme is here
-            if [[ ! -d ${themesEnv}/share/plymouth/themes/${cfg.theme} ]]; then
-                echo "The requested theme: ${cfg.theme} is not provided by any of the packages in boot.plymouth.themePackages"
-                exit 1
-            fi
+          pkgs.runCommand "plymouth-initrd-plugins" { }
+            ''
+              # Check if the actual requested theme is here
+              if [[ ! -d ${themesEnv}/share/plymouth/themes/${cfg.theme} ]]; then
+                  echo "The requested theme: ${cfg.theme} is not provided by any of the packages in boot.plymouth.themePackages"
+                  exit 1
+              fi
 
-            moduleName="$(sed -n 's,ModuleName *= *,,p' ${themesEnv}/share/plymouth/themes/${cfg.theme}/${cfg.theme}.plymouth)"
+              moduleName="$(sed -n 's,ModuleName *= *,,p' ${themesEnv}/share/plymouth/themes/${cfg.theme}/${cfg.theme}.plymouth)"
 
-            mkdir -p $out/renderers
-            # module might come from a theme
-            cp ${themesEnv}/lib/plymouth/{text,details,label,$moduleName}.so $out
-            cp ${plymouth}/lib/plymouth/renderers/{drm,frame-buffer}.so $out/renderers
-          '';
+              mkdir -p $out/renderers
+              # module might come from a theme
+              cp ${themesEnv}/lib/plymouth/{text,details,label,$moduleName}.so $out
+              cp ${plymouth}/lib/plymouth/renderers/{drm,frame-buffer}.so $out/renderers
+            ''
+          ;
         "/etc/plymouth/themes".source =
-          pkgs.runCommand "plymouth-initrd-themes" { } ''
-            # Check if the actual requested theme is here
-            if [[ ! -d ${themesEnv}/share/plymouth/themes/${cfg.theme} ]]; then
-                echo "The requested theme: ${cfg.theme} is not provided by any of the packages in boot.plymouth.themePackages"
-                exit 1
-            fi
+          pkgs.runCommand "plymouth-initrd-themes" { }
+            ''
+              # Check if the actual requested theme is here
+              if [[ ! -d ${themesEnv}/share/plymouth/themes/${cfg.theme} ]]; then
+                  echo "The requested theme: ${cfg.theme} is not provided by any of the packages in boot.plymouth.themePackages"
+                  exit 1
+              fi
 
-            mkdir $out
-            cp -r ${themesEnv}/share/plymouth/themes/${cfg.theme} $out
-            # Copy more themes if the theme depends on others
-            for theme in $(grep -hRo '/etc/plymouth/themes/.*$' $out | xargs -n1 basename); do
-                if [[ -d "${themesEnv}/share/plymouth/themes/$theme" ]]; then
-                    if [[ ! -d "$out/$theme" ]]; then
-                      echo "Adding dependent theme: $theme"
-                      cp -r "${themesEnv}/share/plymouth/themes/$theme" $out
-                    fi
-                else
-                  echo "Missing theme dependency: $theme"
-                fi
-            done
-          '';
+              mkdir $out
+              cp -r ${themesEnv}/share/plymouth/themes/${cfg.theme} $out
+              # Copy more themes if the theme depends on others
+              for theme in $(grep -hRo '/etc/plymouth/themes/.*$' $out | xargs -n1 basename); do
+                  if [[ -d "${themesEnv}/share/plymouth/themes/$theme" ]]; then
+                      if [[ ! -d "$out/$theme" ]]; then
+                        echo "Adding dependent theme: $theme"
+                        cp -r "${themesEnv}/share/plymouth/themes/$theme" $out
+                      fi
+                  else
+                    echo "Missing theme dependency: $theme"
+                  fi
+              done
+            ''
+          ;
 
         # Fonts
         "/etc/plymouth/fonts".source =
-          pkgs.runCommand "plymouth-initrd-fonts" { } ''
-            mkdir -p $out
-            cp ${cfg.font} $out
-          '';
+          pkgs.runCommand "plymouth-initrd-fonts" { }
+            ''
+              mkdir -p $out
+              cp ${cfg.font} $out
+            ''
+          ;
         "/etc/fonts/fonts.conf".text = ''
           <?xml version="1.0"?>
           <!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">
@@ -269,72 +276,78 @@ in
     ];
 
     boot.initrd.extraUtilsCommands =
-      lib.mkIf (!config.boot.initrd.systemd.enable) ''
-        copy_bin_and_libs ${plymouth}/bin/plymouth
-        copy_bin_and_libs ${plymouth}/bin/plymouthd
+      lib.mkIf (!config.boot.initrd.systemd.enable)
+        ''
+          copy_bin_and_libs ${plymouth}/bin/plymouth
+          copy_bin_and_libs ${plymouth}/bin/plymouthd
 
-        # Check if the actual requested theme is here
-        if [[ ! -d ${themesEnv}/share/plymouth/themes/${cfg.theme} ]]; then
-            echo "The requested theme: ${cfg.theme} is not provided by any of the packages in boot.plymouth.themePackages"
-            exit 1
-        fi
+          # Check if the actual requested theme is here
+          if [[ ! -d ${themesEnv}/share/plymouth/themes/${cfg.theme} ]]; then
+              echo "The requested theme: ${cfg.theme} is not provided by any of the packages in boot.plymouth.themePackages"
+              exit 1
+          fi
 
-        moduleName="$(sed -n 's,ModuleName *= *,,p' ${themesEnv}/share/plymouth/themes/${cfg.theme}/${cfg.theme}.plymouth)"
+          moduleName="$(sed -n 's,ModuleName *= *,,p' ${themesEnv}/share/plymouth/themes/${cfg.theme}/${cfg.theme}.plymouth)"
 
-        mkdir -p $out/lib/plymouth/renderers
-        # module might come from a theme
-        cp ${themesEnv}/lib/plymouth/{text,details,label,$moduleName}.so $out/lib/plymouth
-        cp ${plymouth}/lib/plymouth/renderers/{drm,frame-buffer}.so $out/lib/plymouth/renderers
+          mkdir -p $out/lib/plymouth/renderers
+          # module might come from a theme
+          cp ${themesEnv}/lib/plymouth/{text,details,label,$moduleName}.so $out/lib/plymouth
+          cp ${plymouth}/lib/plymouth/renderers/{drm,frame-buffer}.so $out/lib/plymouth/renderers
 
-        mkdir -p $out/share/plymouth/themes
-        cp ${plymouth}/share/plymouth/plymouthd.defaults $out/share/plymouth
+          mkdir -p $out/share/plymouth/themes
+          cp ${plymouth}/share/plymouth/plymouthd.defaults $out/share/plymouth
 
-        # Copy themes into working directory for patching
-        mkdir themes
+          # Copy themes into working directory for patching
+          mkdir themes
 
-        # Use -L to copy the directories proper, not the symlinks to them.
-        # Copy all themes because they're not large assets, and bgrt depends on the ImageDir of
-        # the spinner theme.
-        cp -r -L ${themesEnv}/share/plymouth/themes/* themes
+          # Use -L to copy the directories proper, not the symlinks to them.
+          # Copy all themes because they're not large assets, and bgrt depends on the ImageDir of
+          # the spinner theme.
+          cp -r -L ${themesEnv}/share/plymouth/themes/* themes
 
-        # Patch out any attempted references to the theme or plymouth's themes directory
-        chmod -R +w themes
-        find themes -type f | while read file
-        do
-          sed -i "s,/nix/.*/share/plymouth/themes,$out/share/plymouth/themes,g" $file
-        done
+          # Patch out any attempted references to the theme or plymouth's themes directory
+          chmod -R +w themes
+          find themes -type f | while read file
+          do
+            sed -i "s,/nix/.*/share/plymouth/themes,$out/share/plymouth/themes,g" $file
+          done
 
-        # Install themes
-        cp -r themes/* $out/share/plymouth/themes
+          # Install themes
+          cp -r themes/* $out/share/plymouth/themes
 
-        # Install logo
-        mkdir -p $out/etc/plymouth
-        cp -r -L ${themesEnv}/etc/plymouth $out
+          # Install logo
+          mkdir -p $out/etc/plymouth
+          cp -r -L ${themesEnv}/etc/plymouth $out
 
-        # Setup font
-        mkdir -p $out/share/fonts
-        cp ${cfg.font} $out/share/fonts
-        mkdir -p $out/etc/fonts
-        cat > $out/etc/fonts/fonts.conf <<EOF
-        <?xml version="1.0"?>
-        <!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">
-        <fontconfig>
-            <dir>$out/share/fonts</dir>
-        </fontconfig>
-        EOF
-      '';
+          # Setup font
+          mkdir -p $out/share/fonts
+          cp ${cfg.font} $out/share/fonts
+          mkdir -p $out/etc/fonts
+          cat > $out/etc/fonts/fonts.conf <<EOF
+          <?xml version="1.0"?>
+          <!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">
+          <fontconfig>
+              <dir>$out/share/fonts</dir>
+          </fontconfig>
+          EOF
+        ''
+      ;
 
     boot.initrd.extraUtilsCommandsTest =
-      mkIf (!config.boot.initrd.systemd.enable) ''
-        $out/bin/plymouthd --help >/dev/null
-        $out/bin/plymouth --help >/dev/null
-      '';
+      mkIf (!config.boot.initrd.systemd.enable)
+        ''
+          $out/bin/plymouthd --help >/dev/null
+          $out/bin/plymouth --help >/dev/null
+        ''
+      ;
 
     boot.initrd.extraUdevRulesCommands =
-      mkIf (!config.boot.initrd.systemd.enable) ''
-        cp ${config.systemd.package}/lib/udev/rules.d/{70-uaccess,71-seat}.rules $out
-        sed -i '/loginctl/d' $out/71-seat.rules
-      '';
+      mkIf (!config.boot.initrd.systemd.enable)
+        ''
+          cp ${config.systemd.package}/lib/udev/rules.d/{70-uaccess,71-seat}.rules $out
+          sed -i '/loginctl/d' $out/71-seat.rules
+        ''
+      ;
 
     # We use `mkAfter` to ensure that LUKS password prompt would be shown earlier than the splash screen.
     boot.initrd.preLVMCommands = mkIf (!config.boot.initrd.systemd.enable) (

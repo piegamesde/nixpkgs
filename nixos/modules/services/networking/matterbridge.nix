@@ -95,9 +95,9 @@ in
   };
 
   config = mkIf cfg.enable {
-    warnings = optional
-      options.services.matterbridge.configFile.isDefined
-      "The option services.matterbridge.configFile is insecure and should be replaced with services.matterbridge.configPath"
+    warnings =
+      optional options.services.matterbridge.configFile.isDefined
+        "The option services.matterbridge.configFile is insecure and should be replaced with services.matterbridge.configPath"
       ;
 
     users.users = optionalAttrs (cfg.user == "matterbridge") {
@@ -107,8 +107,9 @@ in
       };
     };
 
-    users.groups =
-      optionalAttrs (cfg.group == "matterbridge") { matterbridge = { }; };
+    users.groups = optionalAttrs (cfg.group == "matterbridge") {
+      matterbridge = { };
+    };
 
     systemd.services.matterbridge = {
       description = "Matterbridge chat platform bridge";

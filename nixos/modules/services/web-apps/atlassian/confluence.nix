@@ -120,21 +120,27 @@ in
           type = types.str;
           example = "jira";
           description =
-            lib.mdDoc "Exact name of this Confluence instance in Crowd";
+            lib.mdDoc
+              "Exact name of this Confluence instance in Crowd"
+            ;
         };
 
         applicationPassword = mkOption {
           type = types.nullOr types.str;
           default = null;
-          description = lib.mdDoc
-            "Application password of this Confluence instance in Crowd";
+          description =
+            lib.mdDoc
+              "Application password of this Confluence instance in Crowd"
+            ;
         };
 
         applicationPasswordFile = mkOption {
           type = types.nullOr types.str;
           default = null;
-          description = lib.mdDoc
-            "Path to the application password for Crowd of Confluence.";
+          description =
+            lib.mdDoc
+              "Path to the application password for Crowd of Confluence."
+            ;
         };
 
         validationInterval = mkOption {
@@ -162,8 +168,10 @@ in
         type = types.package;
         default = pkgs.oraclejre8;
         defaultText = literalExpression "pkgs.oraclejre8";
-        description = lib.mdDoc
-          "Note that Atlassian only support the Oracle JRE (JRASERVER-46152).";
+        description =
+          lib.mdDoc
+            "Note that Atlassian only support the Oracle JRE (JRASERVER-46152)."
+          ;
       };
     };
   };
@@ -220,7 +228,9 @@ in
         JAVA_HOME = "${cfg.jrePackage}";
         CATALINA_OPTS = concatStringsSep " " cfg.catalinaOptions;
         JAVA_OPTS =
-          mkIf cfg.sso.enable "-Dcrowd.properties=${cfg.home}/crowd.properties";
+          mkIf cfg.sso.enable
+            "-Dcrowd.properties=${cfg.home}/crowd.properties"
+          ;
       };
 
       preStart =

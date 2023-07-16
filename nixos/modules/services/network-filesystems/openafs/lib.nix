@@ -16,13 +16,12 @@ in
     ''
     + (concatStringsSep "\n" (
       map
-      (
-        dbm:
-        optionalString
-        (dbm.ip != "" && dbm.dnsname != "")
-        "${dbm.ip} #${dbm.dnsname}"
-      )
-      db
+        (
+          dbm:
+          optionalString (dbm.ip != "" && dbm.dnsname != "")
+            "${dbm.ip} #${dbm.dnsname}"
+        )
+        db
     ))
     + "\n"
     ;
@@ -40,7 +39,9 @@ in
       default = "";
       example = "afs.example.org";
       description =
-        lib.mdDoc "DNS full-qualified domain name of a database server";
+        lib.mdDoc
+          "DNS full-qualified domain name of a database server"
+        ;
     };
   };
 

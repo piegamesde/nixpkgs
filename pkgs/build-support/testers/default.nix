@@ -46,36 +46,36 @@
       expected,
     }:
     runCommand "equal-contents-${lib.strings.toLower assertion}"
-    { inherit assertion actual expected; }
-    ''
-      echo "Checking:"
-      echo "$assertion"
-      if ! diff -U5 -r "$actual" "$expected" --color=always
-      then
-        echo
-        echo 'Contents must be equal, but were not!'
-        echo
-        echo "+: expected,   at $expected"
-        echo "-: unexpected, at $actual"
-        exit 1
-      else
-        find "$expected" -type f -executable > expected-executables | sort
-        find "$actual" -type f -executable > actual-executables | sort
-        if ! diff -U0 actual-executables expected-executables --color=always
+      { inherit assertion actual expected; }
+      ''
+        echo "Checking:"
+        echo "$assertion"
+        if ! diff -U5 -r "$actual" "$expected" --color=always
         then
           echo
-          echo "Contents must be equal, but some files' executable bits don't match"
+          echo 'Contents must be equal, but were not!'
           echo
-          echo "+: make this file executable in the actual contents"
-          echo "-: make this file non-executable in the actual contents"
+          echo "+: expected,   at $expected"
+          echo "-: unexpected, at $actual"
           exit 1
         else
-          echo "expected $expected and actual $actual match."
-          echo 'OK'
-          touch $out
+          find "$expected" -type f -executable > expected-executables | sort
+          find "$actual" -type f -executable > actual-executables | sort
+          if ! diff -U0 actual-executables expected-executables --color=always
+          then
+            echo
+            echo "Contents must be equal, but some files' executable bits don't match"
+            echo
+            echo "+: make this file executable in the actual contents"
+            echo "-: make this file non-executable in the actual contents"
+            exit 1
+          else
+            echo "expected $expected and actual $actual match."
+            echo 'OK'
+            touch $out
+          fi
         fi
-      fi
-    ''
+      ''
     ;
 
   # See https://nixos.org/manual/nixpkgs/unstable/#tester-testVersion
@@ -90,27 +90,27 @@
       version ? package.version,
     }:
     runCommand "${package.name}-test-version"
-    {
-      nativeBuildInputs = [ package ];
-      meta.timeout = 60;
-    }
-    ''
-      if output=$(${command} 2>&1); then
-        if grep -Fw "${version}" - <<< "$output"; then
-          touch $out
+      {
+        nativeBuildInputs = [ package ];
+        meta.timeout = 60;
+      }
+      ''
+        if output=$(${command} 2>&1); then
+          if grep -Fw "${version}" - <<< "$output"; then
+            touch $out
+          else
+            echo "Version string '${version}' not found!" >&2
+            echo "The output was:" >&2
+            echo "$output" >&2
+            exit 1
+          fi
         else
-          echo "Version string '${version}' not found!" >&2
-          echo "The output was:" >&2
+          echo -n ${lib.escapeShellArg command} >&2
+          echo " returned a non-zero exit code." >&2
           echo "$output" >&2
           exit 1
         fi
-      else
-        echo -n ${lib.escapeShellArg command} >&2
-        echo " returned a non-zero exit code." >&2
-        echo "$output" >&2
-        exit 1
-      fi
-    ''
+      ''
     ;
 
   # See doc/builders/testers.chapter.md or
@@ -125,13 +125,15 @@
       );
       # New derivation incorporating the original drv hash in the name
       salted =
-        f (args // { name = "${args.name or "source"}-salted-${salt}"; });
+        f
+          (args // { name = "${args.name or "source"}-salted-${salt}"; })
+        ;
       # Make sure we did change the derivation. If the fetcher ignores `name`,
       # `invalidateFetcherByDrvHash` doesn't work.
       checked =
         if salted.drvPath == drvPath then
           throw
-          "invalidateFetcherByDrvHash: Adding the derivation hash to the fixed-output derivation name had no effect. Make sure the fetcher's name argument ends up in the derivation name. Otherwise, the fetcher will not be re-run when its implementation changes. This is important for testing."
+            "invalidateFetcherByDrvHash: Adding the derivation hash to the fixed-output derivation name had no effect. Make sure the fetcher's name argument ends up in the derivation name. Otherwise, the fetcher will not be re-run when its implementation changes. This is important for testing."
         else
           salted
         ;

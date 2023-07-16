@@ -11,45 +11,54 @@ let
   cfg = config.services.nginx;
   inherit (config.security.acme) certs;
   vhostsConfigs =
-    mapAttrsToList (vhostName: vhostConfig: vhostConfig) virtualHosts;
-  acmeEnabledVhosts = filter
-    (vhostConfig: vhostConfig.enableACME || vhostConfig.useACMEHost != null)
-    vhostsConfigs;
-  dependentCertNames =
-    unique (map (hostOpts: hostOpts.certName) acmeEnabledVhosts);
-  virtualHosts = mapAttrs
-    (
-      vhostName: vhostConfig:
-      let
-        serverName =
-          if vhostConfig.serverName != null then
-            vhostConfig.serverName
-          else
-            vhostName
-          ;
-        certName =
-          if vhostConfig.useACMEHost != null then
-            vhostConfig.useACMEHost
-          else
-            serverName
-          ;
-      in
-      vhostConfig // {
-        inherit serverName certName;
-      } // (optionalAttrs
-        (vhostConfig.enableACME || vhostConfig.useACMEHost != null)
-        {
-          sslCertificate = "${certs.${certName}.directory}/fullchain.pem";
-          sslCertificateKey = "${certs.${certName}.directory}/key.pem";
-          sslTrustedCertificate =
-            if vhostConfig.sslTrustedCertificate != null then
-              vhostConfig.sslTrustedCertificate
+    mapAttrsToList (vhostName: vhostConfig: vhostConfig)
+      virtualHosts
+    ;
+  acmeEnabledVhosts =
+    filter
+      (vhostConfig: vhostConfig.enableACME || vhostConfig.useACMEHost != null)
+      vhostsConfigs
+    ;
+  dependentCertNames = unique (
+    map (hostOpts: hostOpts.certName) acmeEnabledVhosts
+  );
+  virtualHosts =
+    mapAttrs
+      (
+        vhostName: vhostConfig:
+        let
+          serverName =
+            if vhostConfig.serverName != null then
+              vhostConfig.serverName
             else
-              "${certs.${certName}.directory}/chain.pem"
+              vhostName
             ;
-        })
-    )
-    cfg.virtualHosts;
+          certName =
+            if vhostConfig.useACMEHost != null then
+              vhostConfig.useACMEHost
+            else
+              serverName
+            ;
+        in
+        vhostConfig // {
+          inherit serverName certName;
+        } // (
+          optionalAttrs
+            (vhostConfig.enableACME || vhostConfig.useACMEHost != null)
+            {
+              sslCertificate = "${certs.${certName}.directory}/fullchain.pem";
+              sslCertificateKey = "${certs.${certName}.directory}/key.pem";
+              sslTrustedCertificate =
+                if vhostConfig.sslTrustedCertificate != null then
+                  vhostConfig.sslTrustedCertificate
+                else
+                  "${certs.${certName}.directory}/chain.pem"
+                ;
+            }
+        )
+      )
+      cfg.virtualHosts
+    ;
   inherit (config.networking) enableIPv6;
 
   # Mime.types values are taken from brotli sample configuration - https://github.com/google/ngx_brotli
@@ -117,30 +126,34 @@ let
   };
 
   recommendedProxyConfig =
-    pkgs.writeText "nginx-recommended-proxy-headers.conf" ''
-      proxy_set_header        Host $host;
-      proxy_set_header        X-Real-IP $remote_addr;
-      proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header        X-Forwarded-Proto $scheme;
-      proxy_set_header        X-Forwarded-Host $host;
-      proxy_set_header        X-Forwarded-Server $host;
-    '';
+    pkgs.writeText "nginx-recommended-proxy-headers.conf"
+      ''
+        proxy_set_header        Host $host;
+        proxy_set_header        X-Real-IP $remote_addr;
+        proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header        X-Forwarded-Proto $scheme;
+        proxy_set_header        X-Forwarded-Host $host;
+        proxy_set_header        X-Forwarded-Server $host;
+      ''
+    ;
 
   proxyCachePathConfig = concatStringsSep "\n" (
     mapAttrsToList
-    (name: proxyCachePath: ''
-      proxy_cache_path ${
-        concatStringsSep " " [
-          "/var/cache/nginx/${name}"
-          "keys_zone=${proxyCachePath.keysZoneName}:${proxyCachePath.keysZoneSize}"
-          "levels=${proxyCachePath.levels}"
-          "use_temp_path=${if proxyCachePath.useTempPath then "on" else "off"}"
-          "inactive=${proxyCachePath.inactive}"
-          "max_size=${proxyCachePath.maxSize}"
-        ]
-      };
-    '')
-    (filterAttrs (name: conf: conf.enable) cfg.proxyCachePath)
+      (name: proxyCachePath: ''
+        proxy_cache_path ${
+          concatStringsSep " " [
+            "/var/cache/nginx/${name}"
+            "keys_zone=${proxyCachePath.keysZoneName}:${proxyCachePath.keysZoneSize}"
+            "levels=${proxyCachePath.levels}"
+            "use_temp_path=${
+              if proxyCachePath.useTempPath then "on" else "off"
+            }"
+            "inactive=${proxyCachePath.inactive}"
+            "max_size=${proxyCachePath.maxSize}"
+          ]
+        };
+      '')
+      (filterAttrs (name: conf: conf.enable) cfg.proxyCachePath)
   );
 
   upstreamConfig = toString (
@@ -196,9 +209,8 @@ let
         ${
           optionalString (cfg.resolver.addresses != [ ]) ''
             resolver ${toString cfg.resolver.addresses} ${
-              optionalString
-              (cfg.resolver.valid != "")
-              "valid=${cfg.resolver.valid}"
+              optionalString (cfg.resolver.valid != "")
+                "valid=${cfg.resolver.valid}"
             } ${optionalString (!cfg.resolver.ipv6) "ipv6=off"};
           ''
         }
@@ -216,14 +228,12 @@ let
 
         ssl_protocols ${cfg.sslProtocols};
         ${
-          optionalString
-          (cfg.sslCiphers != null)
-          "ssl_ciphers ${cfg.sslCiphers};"
+          optionalString (cfg.sslCiphers != null)
+            "ssl_ciphers ${cfg.sslCiphers};"
         }
         ${
-          optionalString
-          (cfg.sslDhparam != null)
-          "ssl_dhparam ${cfg.sslDhparam};"
+          optionalString (cfg.sslDhparam != null)
+            "ssl_dhparam ${cfg.sslDhparam};"
         }
 
         ${
@@ -257,16 +267,16 @@ let
 
         ${
           optionalString cfg.recommendedGzipSettings
-          # https://docs.nginx.com/nginx/admin-guide/web-server/compression/
-          ''
-            gzip on;
-            gzip_static on;
-            gzip_vary on;
-            gzip_comp_level 5;
-            gzip_min_length 256;
-            gzip_proxied expired no-cache no-store private auth;
-            gzip_types ${lib.concatStringsSep " " compressMimeTypes};
-          ''
+            # https://docs.nginx.com/nginx/admin-guide/web-server/compression/
+            ''
+              gzip on;
+              gzip_static on;
+              gzip_vary on;
+              gzip_comp_level 5;
+              gzip_min_length 256;
+              gzip_proxied expired no-cache no-store private auth;
+              gzip_types ${lib.concatStringsSep " " compressMimeTypes};
+            ''
         }
 
         ${
@@ -338,8 +348,8 @@ let
               listen ${toString cfg.defaultHTTPListenPort};
               ${
                 optionalString enableIPv6 "listen [::]:${
-                  toString cfg.defaultHTTPListenPort
-                };"
+                    toString cfg.defaultHTTPListenPort
+                  };"
               }
 
               server_name localhost;
@@ -381,250 +391,253 @@ let
 
   vhosts = concatStringsSep "\n" (
     mapAttrsToList
-    (
-      vhostName: vhost:
-      let
-        onlySSL = vhost.onlySSL || vhost.enableSSL;
-        hasSSL = onlySSL || vhost.addSSL || vhost.forceSSL;
+      (
+        vhostName: vhost:
+        let
+          onlySSL = vhost.onlySSL || vhost.enableSSL;
+          hasSSL = onlySSL || vhost.addSSL || vhost.forceSSL;
 
-        defaultListen =
-          if vhost.listen != [ ] then
-            vhost.listen
-          else
-            let
-              addrs =
-                if vhost.listenAddresses != [ ] then
-                  vhost.listenAddresses
-                else
-                  cfg.defaultListenAddresses
-                ;
-            in
-            optionals (hasSSL || vhost.rejectSSL) (
-              map
-              (addr: {
-                inherit addr;
-                port = cfg.defaultSSLListenPort;
-                ssl = true;
-              })
-              addrs
-            )
-            ++ optionals (!onlySSL) (
-              map
-              (addr: {
-                inherit addr;
-                port = cfg.defaultHTTPListenPort;
-                ssl = false;
-              })
-              addrs
-            )
-          ;
+          defaultListen =
+            if vhost.listen != [ ] then
+              vhost.listen
+            else
+              let
+                addrs =
+                  if vhost.listenAddresses != [ ] then
+                    vhost.listenAddresses
+                  else
+                    cfg.defaultListenAddresses
+                  ;
+              in
+              optionals (hasSSL || vhost.rejectSSL) (
+                map
+                  (addr: {
+                    inherit addr;
+                    port = cfg.defaultSSLListenPort;
+                    ssl = true;
+                  })
+                  addrs
+              )
+              ++ optionals (!onlySSL) (
+                map
+                  (addr: {
+                    inherit addr;
+                    port = cfg.defaultHTTPListenPort;
+                    ssl = false;
+                  })
+                  addrs
+              )
+            ;
 
-        hostListen =
-          if vhost.forceSSL then
-            filter (x: x.ssl) defaultListen
-          else
-            defaultListen
-          ;
+          hostListen =
+            if vhost.forceSSL then
+              filter (x: x.ssl) defaultListen
+            else
+              defaultListen
+            ;
 
-        listenString =
-          {
-            addr,
-            port,
-            ssl,
-            extraParameters ? [ ],
-            ...
-          }:
-          # UDP listener for QUIC transport protocol.
-          (optionalString (ssl && vhost.quic) (
-            "\n            listen ${addr}:${toString port} quic "
+          listenString =
+            {
+              addr,
+              port,
+              ssl,
+              extraParameters ? [ ],
+              ...
+            }:
+            # UDP listener for QUIC transport protocol.
+            (optionalString (ssl && vhost.quic) (
+              "\n            listen ${addr}:${toString port} quic "
+              + optionalString vhost.default "default_server "
+              + optionalString vhost.reuseport "reuseport "
+              + optionalString (extraParameters != [ ]) (
+                concatStringsSep " " (
+                  let
+                    inCompatibleParameters = [
+                      "ssl"
+                      "proxy_protocol"
+                      "http2"
+                    ];
+                    isCompatibleParameter =
+                      param: !(any (p: p == param) inCompatibleParameters);
+                  in
+                  filter isCompatibleParameter extraParameters
+                )
+              )
+              + ";"
+            ))
+            + "\n\n            listen ${addr}:${toString port} "
+            + optionalString (ssl && vhost.http2) "http2 "
+            + optionalString ssl "ssl "
             + optionalString vhost.default "default_server "
             + optionalString vhost.reuseport "reuseport "
             + optionalString (extraParameters != [ ]) (
-              concatStringsSep " " (
-                let
-                  inCompatibleParameters = [
-                    "ssl"
-                    "proxy_protocol"
-                    "http2"
-                  ];
-                  isCompatibleParameter =
-                    param: !(any (p: p == param) inCompatibleParameters);
-                in
-                filter isCompatibleParameter extraParameters
-              )
+              concatStringsSep " " extraParameters
             )
             + ";"
-          ))
-          + "\n\n            listen ${addr}:${toString port} "
-          + optionalString (ssl && vhost.http2) "http2 "
-          + optionalString ssl "ssl "
-          + optionalString vhost.default "default_server "
-          + optionalString vhost.reuseport "reuseport "
-          + optionalString (extraParameters != [ ]) (
-            concatStringsSep " " extraParameters
-          )
-          + ";"
-          ;
+            ;
 
-        redirectListen = filter (x: !x.ssl) defaultListen;
+          redirectListen = filter (x: !x.ssl) defaultListen;
 
-        acmeLocation =
-          optionalString (vhost.enableACME || vhost.useACMEHost != null) ''
-            # Rule for legitimate ACME Challenge requests (like /.well-known/acme-challenge/xxxxxxxxx)
-            # We use ^~ here, so that we don't check any regexes (which could
-            # otherwise easily override this intended match accidentally).
-            location ^~ /.well-known/acme-challenge/ {
-              ${
-                optionalString
-                (vhost.acmeFallbackHost != null)
-                "try_files $uri @acme-fallback;"
+          acmeLocation =
+            optionalString (vhost.enableACME || vhost.useACMEHost != null)
+              ''
+                # Rule for legitimate ACME Challenge requests (like /.well-known/acme-challenge/xxxxxxxxx)
+                # We use ^~ here, so that we don't check any regexes (which could
+                # otherwise easily override this intended match accidentally).
+                location ^~ /.well-known/acme-challenge/ {
+                  ${
+                    optionalString (vhost.acmeFallbackHost != null)
+                      "try_files $uri @acme-fallback;"
+                  }
+                  ${
+                    optionalString (vhost.acmeRoot != null)
+                      "root ${vhost.acmeRoot};"
+                  }
+                  auth_basic off;
+                }
+                ${optionalString (vhost.acmeFallbackHost != null) ''
+                  location @acme-fallback {
+                    auth_basic off;
+                    proxy_pass http://${vhost.acmeFallbackHost};
+                  }
+                ''}
+              ''
+            ;
+        in
+        ''
+          ${optionalString vhost.forceSSL ''
+            server {
+              ${concatMapStringsSep "\n" listenString redirectListen}
+
+              server_name ${vhost.serverName} ${
+                concatStringsSep " " vhost.serverAliases
+              };
+              ${acmeLocation}
+              location / {
+                return 301 https://$host$request_uri;
               }
-              ${
-                optionalString
-                (vhost.acmeRoot != null)
-                "root ${vhost.acmeRoot};"
-              }
-              auth_basic off;
             }
-            ${optionalString (vhost.acmeFallbackHost != null) ''
-              location @acme-fallback {
-                auth_basic off;
-                proxy_pass http://${vhost.acmeFallbackHost};
-              }
-            ''}
-          '';
-      in
-      ''
-        ${optionalString vhost.forceSSL ''
-          server {
-            ${concatMapStringsSep "\n" listenString redirectListen}
+          ''}
 
+          server {
+            ${concatMapStringsSep "\n" listenString hostListen}
             server_name ${vhost.serverName} ${
               concatStringsSep " " vhost.serverAliases
             };
-            ${acmeLocation}
-            location / {
-              return 301 https://$host$request_uri;
+            ${
+              optionalString (hasSSL && vhost.quic) ''
+                http3 ${if vhost.http3 then "on" else "off"};
+                http3_hq ${if vhost.http3_hq then "on" else "off"};
+              ''
             }
-          }
-        ''}
+            ${acmeLocation}
+            ${optionalString (vhost.root != null) "root ${vhost.root};"}
+            ${
+              optionalString (vhost.globalRedirect != null) ''
+                location / {
+                  return 301 http${
+                    optionalString hasSSL "s"
+                  }://${vhost.globalRedirect}$request_uri;
+                }
+              ''
+            }
+            ${
+              optionalString hasSSL ''
+                ssl_certificate ${vhost.sslCertificate};
+                ssl_certificate_key ${vhost.sslCertificateKey};
+              ''
+            }
+            ${
+              optionalString (hasSSL && vhost.sslTrustedCertificate != null) ''
+                ssl_trusted_certificate ${vhost.sslTrustedCertificate};
+              ''
+            }
+            ${
+              optionalString vhost.rejectSSL ''
+                ssl_reject_handshake on;
+              ''
+            }
+            ${
+              optionalString (hasSSL && vhost.kTLS) ''
+                ssl_conf_command Options KTLS;
+              ''
+            }
 
-        server {
-          ${concatMapStringsSep "\n" listenString hostListen}
-          server_name ${vhost.serverName} ${
-            concatStringsSep " " vhost.serverAliases
-          };
-          ${
-            optionalString (hasSSL && vhost.quic) ''
-              http3 ${if vhost.http3 then "on" else "off"};
-              http3_hq ${if vhost.http3_hq then "on" else "off"};
-            ''
-          }
-          ${acmeLocation}
-          ${optionalString (vhost.root != null) "root ${vhost.root};"}
-          ${
-            optionalString (vhost.globalRedirect != null) ''
-              location / {
-                return 301 http${
-                  optionalString hasSSL "s"
-                }://${vhost.globalRedirect}$request_uri;
-              }
-            ''
-          }
-          ${
-            optionalString hasSSL ''
-              ssl_certificate ${vhost.sslCertificate};
-              ssl_certificate_key ${vhost.sslCertificateKey};
-            ''
-          }
-          ${
-            optionalString (hasSSL && vhost.sslTrustedCertificate != null) ''
-              ssl_trusted_certificate ${vhost.sslTrustedCertificate};
-            ''
-          }
-          ${
-            optionalString vhost.rejectSSL ''
-              ssl_reject_handshake on;
-            ''
-          }
-          ${
-            optionalString (hasSSL && vhost.kTLS) ''
-              ssl_conf_command Options KTLS;
-            ''
-          }
+            ${
+              optionalString (hasSSL && vhost.quic && vhost.http3)
+                # Advertise that HTTP/3 is available
+                ''
+                  add_header Alt-Svc 'h3=":$server_port"; ma=86400';
+                ''
+            }
 
-          ${
-            optionalString (hasSSL && vhost.quic && vhost.http3)
-            # Advertise that HTTP/3 is available
-            ''
-              add_header Alt-Svc 'h3=":$server_port"; ma=86400';
-            ''
+            ${mkBasicAuth vhostName vhost}
+
+            ${mkLocations vhost.locations}
+
+            ${vhost.extraConfig}
           }
-
-          ${mkBasicAuth vhostName vhost}
-
-          ${mkLocations vhost.locations}
-
-          ${vhost.extraConfig}
-        }
-      ''
-    )
-    virtualHosts
+        ''
+      )
+      virtualHosts
   );
   mkLocations =
     locations:
     concatStringsSep "\n" (
       map
-      (config: ''
-        location ${config.location} {
-          ${
-            optionalString
-            (config.proxyPass != null && !cfg.proxyResolveWhileRunning)
-            "proxy_pass ${config.proxyPass};"
-          }
-          ${
-            optionalString
-            (config.proxyPass != null && cfg.proxyResolveWhileRunning)
-            ''
-              set $nix_proxy_target "${config.proxyPass}";
-              proxy_pass $nix_proxy_target;
-            ''
-          }
-          ${
-            optionalString config.proxyWebsockets ''
-              proxy_http_version 1.1;
-              proxy_set_header Upgrade $http_upgrade;
-              proxy_set_header Connection $connection_upgrade;
-            ''
-          }
-          ${
-            concatStringsSep "\n" (
-              mapAttrsToList (n: v: ''fastcgi_param ${n} "${v}";'') (
-                optionalAttrs (config.fastcgiParams != { }) (
-                  defaultFastcgiParams // config.fastcgiParams
+        (config: ''
+          location ${config.location} {
+            ${
+              optionalString
+                (config.proxyPass != null && !cfg.proxyResolveWhileRunning)
+                "proxy_pass ${config.proxyPass};"
+            }
+            ${
+              optionalString
+                (config.proxyPass != null && cfg.proxyResolveWhileRunning)
+                ''
+                  set $nix_proxy_target "${config.proxyPass}";
+                  proxy_pass $nix_proxy_target;
+                ''
+            }
+            ${
+              optionalString config.proxyWebsockets ''
+                proxy_http_version 1.1;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection $connection_upgrade;
+              ''
+            }
+            ${
+              concatStringsSep "\n" (
+                mapAttrsToList (n: v: ''fastcgi_param ${n} "${v}";'') (
+                  optionalAttrs (config.fastcgiParams != { }) (
+                    defaultFastcgiParams // config.fastcgiParams
+                  )
                 )
               )
-            )
+            }
+            ${optionalString (config.index != null) "index ${config.index};"}
+            ${
+              optionalString (config.tryFiles != null)
+                "try_files ${config.tryFiles};"
+            }
+            ${optionalString (config.root != null) "root ${config.root};"}
+            ${optionalString (config.alias != null) "alias ${config.alias};"}
+            ${optionalString (config.return != null) "return ${config.return};"}
+            ${config.extraConfig}
+            ${
+              optionalString
+                (config.proxyPass != null && config.recommendedProxySettings)
+                "include ${recommendedProxyConfig};"
+            }
+            ${mkBasicAuth "sublocation" config}
           }
-          ${optionalString (config.index != null) "index ${config.index};"}
-          ${
-            optionalString
-            (config.tryFiles != null)
-            "try_files ${config.tryFiles};"
-          }
-          ${optionalString (config.root != null) "root ${config.root};"}
-          ${optionalString (config.alias != null) "alias ${config.alias};"}
-          ${optionalString (config.return != null) "return ${config.return};"}
-          ${config.extraConfig}
-          ${
-            optionalString
-            (config.proxyPass != null && config.recommendedProxySettings)
-            "include ${recommendedProxyConfig};"
-          }
-          ${mkBasicAuth "sublocation" config}
-        }
-      '')
-      (sortProperties (mapAttrsToList (k: v: v // { location = k; }) locations))
+        '')
+        (
+          sortProperties (
+            mapAttrsToList (k: v: v // { location = k; }) locations
+          )
+        )
     )
     ;
 
@@ -650,16 +663,18 @@ let
     pkgs.writeText "${name}.htpasswd" (
       concatStringsSep "\n" (
         mapAttrsToList
-        (user: password: ''
-          ${user}:{PLAIN}${password}
-        '')
-        authDef
+          (user: password: ''
+            ${user}:{PLAIN}${password}
+          '')
+          authDef
       )
     )
     ;
 
   mkCertOwnershipAssertion =
-    import ../../../security/acme/mk-cert-ownership-assertion.nix;
+    import
+      ../../../security/acme/mk-cert-ownership-assertion.nix
+    ;
 in
 
 {
@@ -772,7 +787,9 @@ in
         type = types.path;
         default = "${pkgs.mailcap}/etc/nginx/mime.types";
         defaultText =
-          literalExpression "$''{pkgs.mailcap}/etc/nginx/mime.types";
+          literalExpression
+            "$''{pkgs.mailcap}/etc/nginx/mime.types"
+          ;
         example = literalExpression "$''{pkgs.nginx}/conf/mime.types";
         description = lib.mdDoc ''
           Default MIME types for NGINX, as MIME types definitions from NGINX are very incomplete,
@@ -950,7 +967,9 @@ in
         type = types.bool;
         default = false;
         description =
-          lib.mdDoc "Show nginx version in headers and error pages.";
+          lib.mdDoc
+            "Show nginx version in headers and error pages."
+          ;
       };
 
       clientMaxBodySize = mkOption {
@@ -965,7 +984,9 @@ in
         default =
           "ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384";
         description =
-          lib.mdDoc "Ciphers to choose from when negotiating TLS handshakes.";
+          lib.mdDoc
+            "Ciphers to choose from when negotiating TLS handshakes."
+          ;
       };
 
       sslProtocols = mkOption {
@@ -1039,8 +1060,9 @@ in
               ...
             }: {
               options = {
-                enable =
-                  mkEnableOption (lib.mdDoc "this proxy cache path entry");
+                enable = mkEnableOption (
+                  lib.mdDoc "this proxy cache path entry"
+                );
 
                 keysZoneName = mkOption {
                   type = types.str;
@@ -1214,100 +1236,114 @@ in
   };
 
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "nginx"
-        "stateDir"
-      ]
-      ''
-        The Nginx log directory has been moved to /var/log/nginx, the cache directory
-        to /var/cache/nginx. The option services.nginx.stateDir has been removed.
-      '')
-    (mkRenamedOptionModule
-      [
-        "services"
-        "nginx"
-        "proxyCache"
-        "inactive"
-      ]
-      [
-        "services"
-        "nginx"
-        "proxyCachePath"
-        ""
-        "inactive"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "nginx"
-        "proxyCache"
-        "useTempPath"
-      ]
-      [
-        "services"
-        "nginx"
-        "proxyCachePath"
-        ""
-        "useTempPath"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "nginx"
-        "proxyCache"
-        "levels"
-      ]
-      [
-        "services"
-        "nginx"
-        "proxyCachePath"
-        ""
-        "levels"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "nginx"
-        "proxyCache"
-        "keysZoneSize"
-      ]
-      [
-        "services"
-        "nginx"
-        "proxyCachePath"
-        ""
-        "keysZoneSize"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "nginx"
-        "proxyCache"
-        "keysZoneName"
-      ]
-      [
-        "services"
-        "nginx"
-        "proxyCachePath"
-        ""
-        "keysZoneName"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "nginx"
-        "proxyCache"
-        "enable"
-      ]
-      [
-        "services"
-        "nginx"
-        "proxyCachePath"
-        ""
-        "enable"
-      ])
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "nginx"
+          "stateDir"
+        ]
+        ''
+          The Nginx log directory has been moved to /var/log/nginx, the cache directory
+          to /var/cache/nginx. The option services.nginx.stateDir has been removed.
+        ''
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "nginx"
+          "proxyCache"
+          "inactive"
+        ]
+        [
+          "services"
+          "nginx"
+          "proxyCachePath"
+          ""
+          "inactive"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "nginx"
+          "proxyCache"
+          "useTempPath"
+        ]
+        [
+          "services"
+          "nginx"
+          "proxyCachePath"
+          ""
+          "useTempPath"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "nginx"
+          "proxyCache"
+          "levels"
+        ]
+        [
+          "services"
+          "nginx"
+          "proxyCachePath"
+          ""
+          "levels"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "nginx"
+          "proxyCache"
+          "keysZoneSize"
+        ]
+        [
+          "services"
+          "nginx"
+          "proxyCachePath"
+          ""
+          "keysZoneSize"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "nginx"
+          "proxyCache"
+          "keysZoneName"
+        ]
+        [
+          "services"
+          "nginx"
+          "proxyCachePath"
+          ""
+          "keysZoneName"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "nginx"
+          "proxyCache"
+          "enable"
+        ]
+        [
+          "services"
+          "nginx"
+          "proxyCachePath"
+          ""
+          "enable"
+        ]
+    )
   ];
 
   config = mkIf cfg.enable {
@@ -1331,26 +1367,28 @@ in
       [
         {
           assertion =
-            all (host: all hostOrAliasIsNull (attrValues host.locations)) (
-              attrValues virtualHosts
-            );
+            all (host: all hostOrAliasIsNull (attrValues host.locations))
+              (attrValues virtualHosts)
+            ;
           message =
             "Only one of nginx root or alias can be specified on a location.";
         }
 
         {
-          assertion = all
-            (
-              host:
-              with host;
-              count id [
-                addSSL
-                (onlySSL || enableSSL)
-                forceSSL
-                rejectSSL
-              ] <= 1
-            )
-            (attrValues virtualHosts);
+          assertion =
+            all
+              (
+                host:
+                with host;
+                count id [
+                  addSSL
+                  (onlySSL || enableSSL)
+                  forceSSL
+                  rejectSSL
+                ] <= 1
+              )
+              (attrValues virtualHosts)
+            ;
           message = ''
             Options services.nginx.service.virtualHosts.<name>.addSSL,
             services.nginx.virtualHosts.<name>.onlySSL,
@@ -1383,9 +1421,9 @@ in
 
         {
           assertion =
-            all (host: !(host.enableACME && host.useACMEHost != null)) (
-              attrValues virtualHosts
-            );
+            all (host: !(host.enableACME && host.useACMEHost != null))
+              (attrValues virtualHosts)
+            ;
           message = ''
             Options services.nginx.service.virtualHosts.<name>.enableACME and
             services.nginx.virtualHosts.<name>.useACMEHost are mutually exclusive.
@@ -1403,16 +1441,17 @@ in
           '';
         }
       ]
-      ++ map
-        (
-          name:
-          mkCertOwnershipAssertion {
-            inherit (cfg) group user;
-            cert = config.security.acme.certs.${name};
-            groups = config.users.groups;
-          }
-        )
-        dependentCertNames
+      ++
+        map
+          (
+            name:
+            mkCertOwnershipAssertion {
+              inherit (cfg) group user;
+              cert = config.security.acme.certs.${name};
+              groups = config.users.groups;
+            }
+          )
+          dependentCertNames
       ;
 
     services.nginx.additionalModules =
@@ -1424,15 +1463,14 @@ in
       description = "Nginx Web Server";
       wantedBy = [ "multi-user.target" ];
       wants = concatLists (
-        map
-        (certName: [ "acme-finished-${certName}.target" ])
-        dependentCertNames
+        map (certName: [ "acme-finished-${certName}.target" ])
+          dependentCertNames
       );
       after =
         [ "network.target" ]
-        ++ map
-          (certName: "acme-selfsigned-${certName}.service")
-          dependentCertNames
+        ++
+          map (certName: "acme-selfsigned-${certName}.service")
+            dependentCertNames
         ;
       # Nginx needs to be started in order to be able to request certificates
       # (it's hosting the acme challenge after all)
@@ -1501,9 +1539,10 @@ in
         LockPersonality = true;
         MemoryDenyWriteExecute =
           !(
-            (builtins.any
-              (mod: (mod.allowMemoryWriteExecute or false))
-              cfg.package.modules)
+            (
+              builtins.any (mod: (mod.allowMemoryWriteExecute or false))
+                cfg.package.modules
+            )
             || (cfg.package == pkgs.openresty)
           )
           ;
@@ -1517,21 +1556,23 @@ in
           [
             "~@cpu-emulation @debug @keyring @mount @obsolete @privileged @setuid"
           ]
-          ++ optionals
-            (
-              (cfg.package != pkgs.tengine)
-              && (cfg.package != pkgs.openresty)
-              && (!lib.any (mod: (mod.disableIPC or false)) cfg.package.modules)
-            )
-            [
-              "~@ipc"
-            ]
+          ++
+            optionals
+              (
+                (cfg.package != pkgs.tengine)
+                && (cfg.package != pkgs.openresty)
+                && (
+                  !lib.any (mod: (mod.disableIPC or false)) cfg.package.modules
+                )
+              )
+              [ "~@ipc" ]
           ;
       };
     };
 
-    environment.etc."nginx/nginx.conf" =
-      mkIf cfg.enableReload { source = configFile; };
+    environment.etc."nginx/nginx.conf" = mkIf cfg.enableReload {
+      source = configFile;
+    };
 
     # This service waits for all certificates to be available
     # before reloading nginx configuration.
@@ -1541,9 +1582,13 @@ in
     systemd.services.nginx-config-reload =
       let
         sslServices =
-          map (certName: "acme-${certName}.service") dependentCertNames;
+          map (certName: "acme-${certName}.service")
+            dependentCertNames
+          ;
         sslTargets =
-          map (certName: "acme-finished-${certName}.target") dependentCertNames;
+          map (certName: "acme-finished-${certName}.target")
+            dependentCertNames
+          ;
       in
       mkIf (cfg.enableReload || sslServices != [ ]) {
         wants = optionals cfg.enableReload [ "nginx.service" ];
@@ -1557,9 +1602,8 @@ in
         # Block reloading if not all certs exist yet.
         # Happens when config changes add new vhosts/certs.
         unitConfig.ConditionPathExists = optionals (sslServices != [ ]) (
-          map
-          (certName: certs.${certName}.directory + "/fullchain.pem")
-          dependentCertNames
+          map (certName: certs.${certName}.directory + "/fullchain.pem")
+            dependentCertNames
         );
         serviceConfig = {
           Type = "oneshot";
@@ -1574,31 +1618,33 @@ in
 
     security.acme.certs =
       let
-        acmePairs = map
-          (
-            vhostConfig:
-            let
-              hasRoot = vhostConfig.acmeRoot != null;
-            in
-            nameValuePair vhostConfig.serverName {
-              group = mkDefault cfg.group;
-              # if acmeRoot is null inherit config.security.acme
-              # Since config.security.acme.certs.<cert>.webroot's own default value
-              # should take precedence set priority higher than mkOptionDefault
-              webroot =
-                mkOverride (if hasRoot then 1000 else 2000) vhostConfig.acmeRoot
-                ;
-              # Also nudge dnsProvider to null in case it is inherited
-              dnsProvider = mkOverride (if hasRoot then 1000 else 2000) null;
-              extraDomainNames = vhostConfig.serverAliases;
-              # Filter for enableACME-only vhosts. Don't want to create dud certs
-            }
-          )
-          (
-            filter
-            (vhostConfig: vhostConfig.useACMEHost == null)
-            acmeEnabledVhosts
-          );
+        acmePairs =
+          map
+            (
+              vhostConfig:
+              let
+                hasRoot = vhostConfig.acmeRoot != null;
+              in
+              nameValuePair vhostConfig.serverName {
+                group = mkDefault cfg.group;
+                # if acmeRoot is null inherit config.security.acme
+                # Since config.security.acme.certs.<cert>.webroot's own default value
+                # should take precedence set priority higher than mkOptionDefault
+                webroot =
+                  mkOverride (if hasRoot then 1000 else 2000)
+                    vhostConfig.acmeRoot
+                  ;
+                # Also nudge dnsProvider to null in case it is inherited
+                dnsProvider = mkOverride (if hasRoot then 1000 else 2000) null;
+                extraDomainNames = vhostConfig.serverAliases;
+                # Filter for enableACME-only vhosts. Don't want to create dud certs
+              }
+            )
+            (
+              filter (vhostConfig: vhostConfig.useACMEHost == null)
+                acmeEnabledVhosts
+            )
+          ;
       in
       listToAttrs acmePairs
       ;

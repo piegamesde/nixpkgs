@@ -31,53 +31,53 @@ let
   withDoc = single && (args.withDoc or false);
   defaultVersion = with versions;
     lib.switch coq.coq-version
-    [
-      {
-        case = range "8.13" "8.17";
-        out = "1.16.0";
-      }
-      {
-        case = range "8.14" "8.16";
-        out = "1.15.0";
-      }
-      {
-        case = range "8.11" "8.15";
-        out = "1.14.0";
-      }
-      {
-        case = range "8.11" "8.15";
-        out = "1.13.0";
-      }
-      {
-        case = range "8.10" "8.13";
-        out = "1.12.0";
-      }
-      {
-        case = range "8.7" "8.12";
-        out = "1.11.0";
-      }
-      {
-        case = range "8.7" "8.11";
-        out = "1.10.0";
-      }
-      {
-        case = range "8.7" "8.11";
-        out = "1.9.0";
-      }
-      {
-        case = range "8.7" "8.9";
-        out = "1.8.0";
-      }
-      {
-        case = range "8.6" "8.9";
-        out = "1.7.0";
-      }
-      {
-        case = range "8.5" "8.7";
-        out = "1.6.4";
-      }
-    ]
-    null;
+      [
+        {
+          case = range "8.13" "8.17";
+          out = "1.16.0";
+        }
+        {
+          case = range "8.14" "8.16";
+          out = "1.15.0";
+        }
+        {
+          case = range "8.11" "8.15";
+          out = "1.14.0";
+        }
+        {
+          case = range "8.11" "8.15";
+          out = "1.13.0";
+        }
+        {
+          case = range "8.10" "8.13";
+          out = "1.12.0";
+        }
+        {
+          case = range "8.7" "8.12";
+          out = "1.11.0";
+        }
+        {
+          case = range "8.7" "8.11";
+          out = "1.10.0";
+        }
+        {
+          case = range "8.7" "8.11";
+          out = "1.9.0";
+        }
+        {
+          case = range "8.7" "8.9";
+          out = "1.8.0";
+        }
+        {
+          case = range "8.6" "8.9";
+          out = "1.7.0";
+        }
+        {
+          case = range "8.5" "8.7";
+          out = "1.6.4";
+        }
+      ]
+      null;
   release = {
     "1.16.0".sha256 = "sha256-gXTKhRgSGeRBUnwdDezMsMKbOvxdffT+kViZ9e1gEz0=";
     "1.15.0".sha256 = "1bp0jxl35ms54s0mdqky15w9af03f3i0n06qk12k4gw1xzvwqv21";
@@ -189,29 +189,27 @@ let
       patched-derivation1 = derivation.overrideAttrs (
         o:
         optionalAttrs
-        (
-          o.pname != null
-          && o.pname == "mathcomp-all"
-          && o.version != null
-          && o.version != "dev"
-          && versions.isLt "1.7" o.version
-        )
-        {
-          preBuild = "";
-          buildPhase = "";
-          installPhase = "echo doing nothing";
-        }
+          (
+            o.pname != null
+            && o.pname == "mathcomp-all"
+            && o.version != null
+            && o.version != "dev"
+            && versions.isLt "1.7" o.version
+          )
+          {
+            preBuild = "";
+            buildPhase = "";
+            installPhase = "echo doing nothing";
+          }
       );
       patched-derivation = patched-derivation1.overrideAttrs (
         o:
         optionalAttrs
-        (
-          versions.isLe "8.7" coq.coq-version
-          || (o.version != "dev" && versions.isLe "1.7" o.version)
-        )
-        {
-          installFlags = o.installFlags ++ [ "-f Makefile.coq" ];
-        }
+          (
+            versions.isLe "8.7" coq.coq-version
+            || (o.version != "dev" && versions.isLe "1.7" o.version)
+          )
+          { installFlags = o.installFlags ++ [ "-f Makefile.coq" ]; }
       );
     in
     patched-derivation

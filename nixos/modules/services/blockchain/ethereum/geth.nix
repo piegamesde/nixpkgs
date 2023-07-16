@@ -25,8 +25,10 @@ let
         port = mkOption {
           type = types.port;
           default = 30303;
-          description = lib.mdDoc
-            "Port number Go Ethereum will be listening on, both TCP and UDP.";
+          description =
+            lib.mdDoc
+              "Port number Go Ethereum will be listening on, both TCP and UDP."
+            ;
         };
 
         http = {
@@ -60,7 +62,9 @@ let
             type = types.str;
             default = "127.0.0.1";
             description =
-              lib.mdDoc "Listen address of Go Ethereum WebSocket API.";
+              lib.mdDoc
+                "Listen address of Go Ethereum WebSocket API."
+              ;
           };
 
           port = mkOption {
@@ -86,7 +90,9 @@ let
             type = types.str;
             default = "127.0.0.1";
             description =
-              lib.mdDoc "Listen address of Go Ethereum Auth RPC API.";
+              lib.mdDoc
+                "Listen address of Go Ethereum Auth RPC API."
+              ;
           };
 
           port = mkOption {
@@ -98,8 +104,10 @@ let
           vhosts = mkOption {
             type = types.nullOr (types.listOf types.str);
             default = [ "localhost" ];
-            description = lib.mdDoc
-              "List of virtual hostnames from which to accept requests.";
+            description =
+              lib.mdDoc
+                "List of virtual hostnames from which to accept requests."
+              ;
             example = [
               "localhost"
               "geth.example.org"
@@ -110,26 +118,33 @@ let
             type = types.str;
             default = "";
             description =
-              lib.mdDoc "Path to a JWT secret for authenticated RPC endpoint.";
+              lib.mdDoc
+                "Path to a JWT secret for authenticated RPC endpoint."
+              ;
             example = "/var/run/geth/jwtsecret";
           };
         };
 
         metrics = {
-          enable =
-            lib.mkEnableOption (lib.mdDoc "Go Ethereum prometheus metrics");
+          enable = lib.mkEnableOption (
+            lib.mdDoc "Go Ethereum prometheus metrics"
+          );
           address = mkOption {
             type = types.str;
             default = "127.0.0.1";
             description =
-              lib.mdDoc "Listen address of Go Ethereum metrics service.";
+              lib.mdDoc
+                "Listen address of Go Ethereum metrics service."
+              ;
           };
 
           port = mkOption {
             type = types.port;
             default = 6060;
             description =
-              lib.mdDoc "Port number of Go Ethereum metrics service.";
+              lib.mdDoc
+                "Port number of Go Ethereum metrics service."
+              ;
           };
         };
 
@@ -143,8 +158,9 @@ let
             ]
           );
           default = null;
-          description = lib.mdDoc
-            "The network to connect to. Mainnet (null) is the default ethereum network."
+          description =
+            lib.mdDoc
+              "The network to connect to. Mainnet (null) is the default ethereum network."
             ;
         };
 
@@ -207,95 +223,95 @@ in
 
   config = mkIf (eachGeth != { }) {
 
-    environment.systemPackages =
-      flatten (mapAttrsToList (gethName: cfg: [ cfg.package ]) eachGeth);
+    environment.systemPackages = flatten (
+      mapAttrsToList (gethName: cfg: [ cfg.package ]) eachGeth
+    );
 
-    systemd.services = mapAttrs'
-      (
-        gethName: cfg:
-        let
-          stateDir =
-            "goethereum/${gethName}/${
-              if (cfg.network == null) then "mainnet" else cfg.network
-            }";
-          dataDir = "/var/lib/${stateDir}";
-        in
-        (nameValuePair "geth-${gethName}" (
-          mkIf cfg.enable {
-            description = "Go Ethereum node (${gethName})";
-            wantedBy = [ "multi-user.target" ];
-            after = [ "network.target" ];
+    systemd.services =
+      mapAttrs'
+        (
+          gethName: cfg:
+          let
+            stateDir =
+              "goethereum/${gethName}/${
+                if (cfg.network == null) then "mainnet" else cfg.network
+              }";
+            dataDir = "/var/lib/${stateDir}";
+          in
+          (nameValuePair "geth-${gethName}" (
+            mkIf cfg.enable {
+              description = "Go Ethereum node (${gethName})";
+              wantedBy = [ "multi-user.target" ];
+              after = [ "network.target" ];
 
-            serviceConfig = {
-              DynamicUser = true;
-              Restart = "always";
-              StateDirectory = stateDir;
+              serviceConfig = {
+                DynamicUser = true;
+                Restart = "always";
+                StateDirectory = stateDir;
 
-              # Hardening measures
-              PrivateTmp = "true";
-              ProtectSystem = "full";
-              NoNewPrivileges = "true";
-              PrivateDevices = "true";
-              MemoryDenyWriteExecute = "true";
-            };
+                # Hardening measures
+                PrivateTmp = "true";
+                ProtectSystem = "full";
+                NoNewPrivileges = "true";
+                PrivateDevices = "true";
+                MemoryDenyWriteExecute = "true";
+              };
 
-            script = ''
-              ${cfg.package}/bin/geth \
-                --nousb \
-                --ipcdisable \
-                ${optionalString (cfg.network != null) "--${cfg.network}"} \
-                --syncmode ${cfg.syncmode} \
-                --gcmode ${cfg.gcmode} \
-                --port ${toString cfg.port} \
-                --maxpeers ${toString cfg.maxpeers} \
-                ${
-                  optionalString
-                  cfg.http.enable
-                  "--http --http.addr ${cfg.http.address} --http.port ${
-                    toString cfg.http.port
-                  }"
-                } \
-                ${
-                  optionalString (cfg.http.apis != null) "--http.api ${
-                    lib.concatStringsSep "," cfg.http.apis
-                  }"
-                } \
-                ${
-                  optionalString
-                  cfg.websocket.enable
-                  "--ws --ws.addr ${cfg.websocket.address} --ws.port ${
-                    toString cfg.websocket.port
-                  }"
-                } \
-                ${
-                  optionalString (cfg.websocket.apis != null) "--ws.api ${
-                    lib.concatStringsSep "," cfg.websocket.apis
-                  }"
-                } \
-                ${
-                  optionalString
-                  cfg.metrics.enable
-                  "--metrics --metrics.addr ${cfg.metrics.address} --metrics.port ${
-                    toString cfg.metrics.port
-                  }"
-                } \
-                --authrpc.addr ${cfg.authrpc.address} --authrpc.port ${
-                  toString cfg.authrpc.port
-                } --authrpc.vhosts ${
-                  lib.concatStringsSep "," cfg.authrpc.vhosts
-                } \
-                ${
-                  if (cfg.authrpc.jwtsecret != "") then
-                    "--authrpc.jwtsecret ${cfg.authrpc.jwtsecret}"
-                  else
-                    "--authrpc.jwtsecret ${dataDir}/geth/jwtsecret"
-                } \
-                ${lib.escapeShellArgs cfg.extraArgs} \
-                --datadir ${dataDir}
-            '';
-          }
-        ))
-      )
-      eachGeth;
+              script = ''
+                ${cfg.package}/bin/geth \
+                  --nousb \
+                  --ipcdisable \
+                  ${optionalString (cfg.network != null) "--${cfg.network}"} \
+                  --syncmode ${cfg.syncmode} \
+                  --gcmode ${cfg.gcmode} \
+                  --port ${toString cfg.port} \
+                  --maxpeers ${toString cfg.maxpeers} \
+                  ${
+                    optionalString cfg.http.enable
+                      "--http --http.addr ${cfg.http.address} --http.port ${
+                        toString cfg.http.port
+                      }"
+                  } \
+                  ${
+                    optionalString (cfg.http.apis != null) "--http.api ${
+                        lib.concatStringsSep "," cfg.http.apis
+                      }"
+                  } \
+                  ${
+                    optionalString cfg.websocket.enable
+                      "--ws --ws.addr ${cfg.websocket.address} --ws.port ${
+                        toString cfg.websocket.port
+                      }"
+                  } \
+                  ${
+                    optionalString (cfg.websocket.apis != null) "--ws.api ${
+                        lib.concatStringsSep "," cfg.websocket.apis
+                      }"
+                  } \
+                  ${
+                    optionalString cfg.metrics.enable
+                      "--metrics --metrics.addr ${cfg.metrics.address} --metrics.port ${
+                        toString cfg.metrics.port
+                      }"
+                  } \
+                  --authrpc.addr ${cfg.authrpc.address} --authrpc.port ${
+                    toString cfg.authrpc.port
+                  } --authrpc.vhosts ${
+                    lib.concatStringsSep "," cfg.authrpc.vhosts
+                  } \
+                  ${
+                    if (cfg.authrpc.jwtsecret != "") then
+                      "--authrpc.jwtsecret ${cfg.authrpc.jwtsecret}"
+                    else
+                      "--authrpc.jwtsecret ${dataDir}/geth/jwtsecret"
+                  } \
+                  ${lib.escapeShellArgs cfg.extraArgs} \
+                  --datadir ${dataDir}
+              '';
+            }
+          ))
+        )
+        eachGeth
+      ;
   };
 }

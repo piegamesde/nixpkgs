@@ -180,8 +180,9 @@ in
 
         enableTLS = lib.mkEnableOption (lib.mdDoc "automatic TLS setup");
 
-        enableNginx =
-          lib.mkEnableOption (lib.mdDoc "nginx virtualhost definitions");
+        enableNginx = lib.mkEnableOption (
+          lib.mdDoc "nginx virtualhost definitions"
+        );
 
         hostname = lib.mkOption {
           type = lib.types.str;

@@ -57,10 +57,12 @@ let
     }
   ];
 
-  locationsXml =
-    import ./lib-function-locations.nix { inherit pkgs nixpkgs libsets; };
-  functionDocs =
-    import ./lib-function-docs.nix { inherit locationsXml pkgs libsets; };
+  locationsXml = import ./lib-function-locations.nix {
+    inherit pkgs nixpkgs libsets;
+  };
+  functionDocs = import ./lib-function-docs.nix {
+    inherit locationsXml pkgs libsets;
+  };
   version = pkgs.lib.version;
 
   epub-xsl = pkgs.writeText "epub.xsl" ''
@@ -94,23 +96,26 @@ let
     transformOptions =
       opt:
       opt // {
-        declarations = map
-          (
-            decl:
-            if hasPrefix (toString ../..) (toString decl) then
-              let
-                subpath = removePrefix "/" (
-                  removePrefix (toString ../..) (toString decl)
-                );
-              in
-              {
-                url = "https://github.com/NixOS/nixpkgs/blob/master/${subpath}";
-                name = subpath;
-              }
-            else
-              decl
-          )
-          opt.declarations;
+        declarations =
+          map
+            (
+              decl:
+              if hasPrefix (toString ../..) (toString decl) then
+                let
+                  subpath = removePrefix "/" (
+                    removePrefix (toString ../..) (toString decl)
+                  );
+                in
+                {
+                  url =
+                    "https://github.com/NixOS/nixpkgs/blob/master/${subpath}";
+                  name = subpath;
+                }
+              else
+                decl
+            )
+            opt.declarations
+          ;
       }
       ;
   };

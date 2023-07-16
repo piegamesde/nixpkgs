@@ -48,11 +48,15 @@ stdenv.mkDerivation (
     patches =
       [
         # FIXME: do we need this? ./procfs.patch
-        (runCommand "resource-dir.patch"
-          { clangLibDir = "${libclang.lib}/lib"; }
-          ''
-            substitute '${./resource-dir.patch}' "$out" --subst-var clangLibDir
-          '')
+        (
+          runCommand "resource-dir.patch"
+            { clangLibDir = "${libclang.lib}/lib"; }
+            ''
+              substitute '${
+                ./resource-dir.patch
+              }' "$out" --subst-var clangLibDir
+            ''
+        )
         ./gnu-install-dirs.patch
       ]
       # This is a stopgap solution if/until the macOS SDK used for x86_64 is
@@ -64,13 +68,14 @@ stdenv.mkDerivation (
       #
       # See here for some context:
       # https://github.com/NixOS/nixpkgs/pull/194634#issuecomment-1272129132
-      ++ lib.optional
-        (
-          stdenv.targetPlatform.isDarwin
-          && !stdenv.targetPlatform.isAarch64
-          && (lib.versionOlder darwin.apple_sdk.sdk.version "11.0")
-        )
-        ./cpu_subtype_arm64e_replacement.patch
+      ++
+        lib.optional
+          (
+            stdenv.targetPlatform.isDarwin
+            && !stdenv.targetPlatform.isAarch64
+            && (lib.versionOlder darwin.apple_sdk.sdk.version "11.0")
+          )
+          ./cpu_subtype_arm64e_replacement.patch
       ;
 
     outputs = [
@@ -119,15 +124,18 @@ stdenv.mkDerivation (
       #
       # See here for context:
       # https://github.com/NixOS/nixpkgs/pull/194634#issuecomment-1272129132
-      ++ lib.optional
-        (stdenv.targetPlatform.isDarwin && !stdenv.targetPlatform.isAarch64)
-        (
-          runCommand "bsm-audit-session-header" { } ''
-            install -Dm444 \
-              "${lib.getDev darwin.apple_sdk.sdk}/include/bsm/audit_session.h" \
-              "$out/include/bsm/audit_session.h"
-          ''
-        )
+      ++
+        lib.optional
+          (stdenv.targetPlatform.isDarwin && !stdenv.targetPlatform.isAarch64)
+          (
+            runCommand "bsm-audit-session-header" { } ''
+              install -Dm444 \
+                "${
+                  lib.getDev darwin.apple_sdk.sdk
+                }/include/bsm/audit_session.h" \
+                "$out/include/bsm/audit_session.h"
+            ''
+          )
       ;
 
     hardeningDisable = [ "format" ];

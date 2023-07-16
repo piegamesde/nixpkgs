@@ -27,14 +27,18 @@ in
         type = types.str;
         default = "/var/lib/radarr/.config/Radarr";
         description =
-          lib.mdDoc "The directory where Radarr stores its data files.";
+          lib.mdDoc
+            "The directory where Radarr stores its data files."
+          ;
       };
 
       openFirewall = mkOption {
         type = types.bool;
         default = false;
         description =
-          lib.mdDoc "Open ports in the firewall for the Radarr web interface.";
+          lib.mdDoc
+            "Open ports in the firewall for the Radarr web interface."
+          ;
       };
 
       user = mkOption {
@@ -81,7 +85,8 @@ in
       };
     };
 
-    users.groups =
-      mkIf (cfg.group == "radarr") { radarr.gid = config.ids.gids.radarr; };
+    users.groups = mkIf (cfg.group == "radarr") {
+      radarr.gid = config.ids.gids.radarr;
+    };
   };
 }

@@ -28,12 +28,14 @@ let
       password =
         if (cfg.database.password != null) then
           "'${
-            (escape
-              [
-                "'"
-                "\\"
-              ]
-              cfg.database.password)
+            (
+              escape
+                [
+                  "'"
+                  "\\"
+                ]
+                cfg.database.password
+            )
           }'"
         else if (cfg.database.passwordFile != null) then
           "file_get_contents('${cfg.database.passwordFile}')"
@@ -69,11 +71,11 @@ let
 
         putenv('TTRSS_FEED_CRYPT_KEY=${
           escape
-          [
-            "'"
-            "\\"
-          ]
-          cfg.feedCryptKey
+            [
+              "'"
+              "\\"
+            ]
+            cfg.feedCryptKey
         }');
 
 
@@ -125,37 +127,37 @@ let
         putenv('TTRSS_SMTP_LOGIN=${cfg.email.login}');
         putenv('TTRSS_SMTP_PASSWORD=${
           escape
-          [
-            "'"
-            "\\"
-          ]
-          cfg.email.password
+            [
+              "'"
+              "\\"
+            ]
+            cfg.email.password
         }');
         putenv('TTRSS_SMTP_SECURE=${cfg.email.security}');
 
         putenv('TTRSS_SMTP_FROM_NAME=${
           escape
-          [
-            "'"
-            "\\"
-          ]
-          cfg.email.fromName
+            [
+              "'"
+              "\\"
+            ]
+            cfg.email.fromName
         }');
         putenv('TTRSS_SMTP_FROM_ADDRESS=${
           escape
-          [
-            "'"
-            "\\"
-          ]
-          cfg.email.fromAddress
+            [
+              "'"
+              "\\"
+            ]
+            cfg.email.fromAddress
         }');
         putenv('TTRSS_DIGEST_SUBJECT=${
           escape
-          [
-            "'"
-            "\\"
-          ]
-          cfg.email.digestSubject
+            [
+              "'"
+              "\\"
+            ]
+            cfg.email.digestSubject
         }');
 
         ${cfg.extraConfig}
@@ -288,7 +290,9 @@ in
           type = types.bool;
           default = true;
           description =
-            lib.mdDoc "Create the database and database user locally.";
+            lib.mdDoc
+              "Create the database and database user locally."
+            ;
         };
       };
 
@@ -595,18 +599,20 @@ in
   };
 
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "tt-rss"
-        "checkForUpdates"
-      ]
-      ''
-        This option was removed because setting this to true will cause TT-RSS
-        to be unable to start if an automatic update of the code in
-        services.tt-rss.root leads to a database schema upgrade that is not
-        supported by the code active in the Nix store.
-      '')
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "tt-rss"
+          "checkForUpdates"
+        ]
+        ''
+          This option was removed because setting this to true will cause TT-RSS
+          to be unable to start if an automatic update of the code in
+          services.tt-rss.root leads to a database schema upgrade that is not
+          supported by the code active in the Nix store.
+        ''
+    )
   ];
 
   ###### implementation
@@ -674,8 +680,9 @@ in
     ];
 
     systemd.services = {
-      phpfpm-tt-rss =
-        mkIf (cfg.pool == "${poolName}") { restartTriggers = [ servedRoot ]; };
+      phpfpm-tt-rss = mkIf (cfg.pool == "${poolName}") {
+        restartTriggers = [ servedRoot ];
+      };
 
       tt-rss = {
         description = "Tiny Tiny RSS feeds update daemon";
@@ -687,21 +694,18 @@ in
               if cfg.database.type == "pgsql" then
                 ''
                   ${
-                    optionalString
-                    (cfg.database.password != null)
-                    "PGPASSWORD=${cfg.database.password}"
+                    optionalString (cfg.database.password != null)
+                      "PGPASSWORD=${cfg.database.password}"
                   } \
                   ${
-                    optionalString
-                    (cfg.database.passwordFile != null)
-                    "PGPASSWORD=$(cat ${cfg.database.passwordFile})"
+                    optionalString (cfg.database.passwordFile != null)
+                      "PGPASSWORD=$(cat ${cfg.database.passwordFile})"
                   } \
                   ${config.services.postgresql.package}/bin/psql \
                     -U ${cfg.database.user} \
                     ${
-                      optionalString
-                      (cfg.database.host != null)
-                      "-h ${cfg.database.host} --port ${toString dbPort}"
+                      optionalString (cfg.database.host != null)
+                        "-h ${cfg.database.host} --port ${toString dbPort}"
                     } \
                     -c '${e}' \
                     ${cfg.database.name}''
@@ -711,14 +715,12 @@ in
                   echo '${e}' | ${config.services.mysql.package}/bin/mysql \
                     -u ${cfg.database.user} \
                     ${
-                      optionalString
-                      (cfg.database.password != null)
-                      "-p${cfg.database.password}"
+                      optionalString (cfg.database.password != null)
+                        "-p${cfg.database.password}"
                     } \
                     ${
-                      optionalString
-                      (cfg.database.host != null)
-                      "-h ${cfg.database.host} -P ${toString dbPort}"
+                      optionalString (cfg.database.host != null)
+                        "-h ${cfg.database.host} -P ${toString dbPort}"
                     } \
                     ${cfg.database.name}''
 
@@ -729,14 +731,14 @@ in
           (optionalString (cfg.database.type == "pgsql") ''
             exists=$(${
               callSql
-              "select count(*) > 0 from pg_tables where tableowner = user"
+                "select count(*) > 0 from pg_tables where tableowner = user"
             } \
             | tail -n+3 | head -n-2 | sed -e 's/[ \n\t]*//')
 
             if [ "$exists" == 'f' ]; then
               ${
                 callSql
-                "\\i ${pkgs.tt-rss}/schema/ttrss_schema_${cfg.database.type}.sql"
+                  "\\i ${pkgs.tt-rss}/schema/ttrss_schema_${cfg.database.type}.sql"
               }
             else
               echo 'The database contains some data. Leaving it as it is.'
@@ -746,14 +748,14 @@ in
           + (optionalString (cfg.database.type == "mysql") ''
             exists=$(${
               callSql
-              "select count(*) > 0 from information_schema.tables where table_schema = schema()"
+                "select count(*) > 0 from information_schema.tables where table_schema = schema()"
             } \
             | tail -n+2 | sed -e 's/[ \n\t]*//')
 
             if [ "$exists" == '0' ]; then
               ${
                 callSql
-                "\\. ${pkgs.tt-rss}/schema/ttrss_schema_${cfg.database.type}.sql"
+                  "\\. ${pkgs.tt-rss}/schema/ttrss_schema_${cfg.database.type}.sql"
               }
             else
               echo 'The database contains some data. Leaving it as it is.'

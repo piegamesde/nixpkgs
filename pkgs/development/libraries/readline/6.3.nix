@@ -27,9 +27,11 @@ stdenv.mkDerivation {
 
   patchFlags = [ "-p0" ];
 
-  configureFlags = lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
-    # This test requires running host code
-    "bash_cv_wcwidth_broken=no";
+  configureFlags =
+    lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
+      # This test requires running host code
+      "bash_cv_wcwidth_broken=no"
+    ;
 
   patches =
     [

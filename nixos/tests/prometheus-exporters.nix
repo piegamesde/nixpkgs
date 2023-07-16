@@ -1439,45 +1439,46 @@ let
   };
 in
 mapAttrs
-(
-  exporter: testConfig:
-  (makeTest (
-    let
-      nodeName = testConfig.nodeName or exporter;
-    in
-    {
-      name = "prometheus-${exporter}-exporter";
+  (
+    exporter: testConfig:
+    (makeTest (
+      let
+        nodeName = testConfig.nodeName or exporter;
+      in
+      {
+        name = "prometheus-${exporter}-exporter";
 
-      nodes.${nodeName} = mkMerge [
-        {
-          services.prometheus.exporters.${exporter} = testConfig.exporterConfig;
-        }
-        testConfig.metricProvider or { }
-      ];
+        nodes.${nodeName} = mkMerge [
+          {
+            services.prometheus.exporters.${exporter} =
+              testConfig.exporterConfig;
+          }
+          testConfig.metricProvider or { }
+        ];
 
-      testScript = ''
-        ${nodeName}.start()
-        ${concatStringsSep "\n" (
-          map
-          (
-            line:
-            if
+        testScript = ''
+          ${nodeName}.start()
+          ${concatStringsSep "\n" (
+            map
               (
-                builtins.substring 0 1 line == " "
-                || builtins.substring 0 1 line == ")"
+                line:
+                if
+                  (
+                    builtins.substring 0 1 line == " "
+                    || builtins.substring 0 1 line == ")"
+                  )
+                then
+                  line
+                else
+                  "${nodeName}.${line}"
               )
-            then
-              line
-            else
-              "${nodeName}.${line}"
-          )
-          (splitString "\n" (removeSuffix "\n" testConfig.exporterTest))
-        )}
-        ${nodeName}.shutdown()
-      '';
+              (splitString "\n" (removeSuffix "\n" testConfig.exporterTest))
+          )}
+          ${nodeName}.shutdown()
+        '';
 
-      meta = with maintainers; { maintainers = [ willibutz ]; };
-    }
-  ))
-)
-exporterTests
+        meta = with maintainers; { maintainers = [ willibutz ]; };
+      }
+    ))
+  )
+  exporterTests

@@ -33,8 +33,9 @@ let
           }
         );
         # fails with `no tests ran in 1.75s`
-        alembic =
-          super.alembic.overridePythonAttrs (lib.const { doCheck = false; });
+        alembic = super.alembic.overridePythonAttrs (
+          lib.const { doCheck = false; }
+        );
         flask_migrate = super.flask_migrate.overridePythonAttrs (
           oldAttrs: rec {
             version = "2.7.0";
@@ -151,54 +152,65 @@ let
         );
         # Requires pytest-httpserver as checkInput now which requires Werkzeug>=2 which is not
         # supported by current privacyIDEA.
-        responses =
-          super.responses.overridePythonAttrs (lib.const { doCheck = false; });
-        flask-babel = (super.flask-babel.override {
-          sphinxHook = null;
-          furo = null;
-        }).overridePythonAttrs
-          (
-            old:
-            (dropDevOutput old) // rec {
-              pname = "Flask-Babel";
-              version = "2.0.0";
-              format = "setuptools";
-              src = self.fetchPypi {
-                inherit pname;
-                inherit version;
-                hash =
-                  "sha256:f9faf45cdb2e1a32ea2ec14403587d4295108f35017a7821a2b1acb8cfd9257d";
-              };
-            }
-          );
-        psycopg2 = (super.psycopg2.override {
-          sphinxHook = null;
-          sphinx-better-theme = null;
-        }).overridePythonAttrs
-          dropDevOutput;
+        responses = super.responses.overridePythonAttrs (
+          lib.const { doCheck = false; }
+        );
+        flask-babel =
+          (super.flask-babel.override {
+            sphinxHook = null;
+            furo = null;
+          }).overridePythonAttrs
+            (
+              old:
+              (dropDevOutput old) // rec {
+                pname = "Flask-Babel";
+                version = "2.0.0";
+                format = "setuptools";
+                src = self.fetchPypi {
+                  inherit pname;
+                  inherit version;
+                  hash =
+                    "sha256:f9faf45cdb2e1a32ea2ec14403587d4295108f35017a7821a2b1acb8cfd9257d";
+                };
+              }
+            )
+          ;
+        psycopg2 =
+          (super.psycopg2.override {
+            sphinxHook = null;
+            sphinx-better-theme = null;
+          }).overridePythonAttrs
+            dropDevOutput
+          ;
         hypothesis = super.hypothesis.override { enableDocumentation = false; };
-        pyjwt = (super.pyjwt.override {
-          sphinxHook = null;
-          sphinx-rtd-theme = null;
-        }).overridePythonAttrs
-          (old: (dropDevOutput old) // { format = "setuptools"; });
-        beautifulsoup4 = (super.beautifulsoup4.override { sphinxHook = null; })
+        pyjwt =
+          (super.pyjwt.override {
+            sphinxHook = null;
+            sphinx-rtd-theme = null;
+          }).overridePythonAttrs
+            (old: (dropDevOutput old) // { format = "setuptools"; })
+          ;
+        beautifulsoup4 =
+          (super.beautifulsoup4.override { sphinxHook = null; })
           .overridePythonAttrs
-          dropDevOutput;
-        pydash = (super.pydash.override { sphinx-rtd-theme = null; })
+            dropDevOutput
+          ;
+        pydash =
+          (super.pydash.override { sphinx-rtd-theme = null; })
           .overridePythonAttrs
-          (
-            old: rec {
-              version = "5.1.0";
-              src = self.fetchPypi {
-                inherit (old) pname;
-                inherit version;
-                hash = "sha256-GysFCsG64EnNB/WSCxT6u+UmOPSF2a2h6xFanuv/aDU=";
-              };
-              format = "setuptools";
-              doCheck = false;
-            }
-          );
+            (
+              old: rec {
+                version = "5.1.0";
+                src = self.fetchPypi {
+                  inherit (old) pname;
+                  inherit version;
+                  hash = "sha256-GysFCsG64EnNB/WSCxT6u+UmOPSF2a2h6xFanuv/aDU=";
+                };
+                format = "setuptools";
+                doCheck = false;
+              }
+            )
+          ;
       }
       ;
   };

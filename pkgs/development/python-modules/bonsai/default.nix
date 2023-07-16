@@ -35,8 +35,9 @@ buildPythonPackage rec {
     openldap
   ];
 
-  propagatedBuildInputs =
-    lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  propagatedBuildInputs = lib.optionals (pythonOlder "3.8") [
+    typing-extensions
+  ];
 
   passthru.optional-dependencies = {
     gevent = [ gevent ];

@@ -18,8 +18,8 @@
 }:
 
 assert lib.assertMsg
-  (sqliteSupport == true || postgresqlSupport == true || mysqlSupport == true)
-  "support for at least one database must be enabled";
+    (sqliteSupport == true || postgresqlSupport == true || mysqlSupport == true)
+    "support for at least one database must be enabled";
 
 let
   inherit (lib) optional optionals optionalString;

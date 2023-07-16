@@ -88,8 +88,9 @@ in
       };
     };
 
-    users.groups =
-      mkIf (cfg.group == "webdav") { webdav.gid = config.ids.gids.webdav; };
+    users.groups = mkIf (cfg.group == "webdav") {
+      webdav.gid = config.ids.gids.webdav;
+    };
 
     systemd.services.webdav = {
       description = "WebDAV server";
@@ -100,8 +101,9 @@ in
         Restart = "on-failure";
         User = cfg.user;
         Group = cfg.group;
-        EnvironmentFile =
-          mkIf (cfg.environmentFile != null) [ cfg.environmentFile ];
+        EnvironmentFile = mkIf (cfg.environmentFile != null) [
+          cfg.environmentFile
+        ];
       };
     };
   };

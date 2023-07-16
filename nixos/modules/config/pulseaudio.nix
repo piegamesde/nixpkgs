@@ -22,9 +22,9 @@ let
     z.publish.enable || z.discovery.enable
     ;
 
-  overriddenPackage =
-    cfg.package.override (optionalAttrs hasZeroconf { zeroconfSupport = true; })
-    ;
+  overriddenPackage = cfg.package.override (
+    optionalAttrs hasZeroconf { zeroconfSupport = true; }
+  );
   binary = "${getBin overriddenPackage}/bin/pulseaudio";
   binaryNoDaemon = "${binary} --daemonize=no";
 
@@ -90,9 +90,8 @@ let
     pcm_type.pulse {
       libs.native = ${pkgs.alsa-plugins}/lib/alsa-lib/libasound_module_pcm_pulse.so ;
       ${
-        lib.optionalString
-        enable32BitAlsaPlugins
-        "libs.32Bit = ${pkgs.pkgsi686Linux.alsa-plugins}/lib/alsa-lib/libasound_module_pcm_pulse.so ;"
+        lib.optionalString enable32BitAlsaPlugins
+          "libs.32Bit = ${pkgs.pkgsi686Linux.alsa-plugins}/lib/alsa-lib/libasound_module_pcm_pulse.so ;"
       }
     }
     pcm.!default {
@@ -102,9 +101,8 @@ let
     ctl_type.pulse {
       libs.native = ${pkgs.alsa-plugins}/lib/alsa-lib/libasound_module_ctl_pulse.so ;
       ${
-        lib.optionalString
-        enable32BitAlsaPlugins
-        "libs.32Bit = ${pkgs.pkgsi686Linux.alsa-plugins}/lib/alsa-lib/libasound_module_ctl_pulse.so ;"
+        lib.optionalString enable32BitAlsaPlugins
+          "libs.32Bit = ${pkgs.pkgsi686Linux.alsa-plugins}/lib/alsa-lib/libasound_module_ctl_pulse.so ;"
       }
     }
     ctl.!default {
@@ -219,7 +217,8 @@ in
           type = types.attrsOf types.unspecified;
           default = { };
           description =
-            lib.mdDoc "Config of the pulse daemon. See `man pulse-daemon.conf`."
+            lib.mdDoc
+              "Config of the pulse daemon. See `man pulse-daemon.conf`."
             ;
           example = literalExpression ''{ realtime-scheduling = "yes"; }'';
         };
@@ -259,8 +258,9 @@ in
     {
       environment.etc = { "pulse/client.conf".source = clientConf; };
 
-      hardware.pulseaudio.configFile =
-        mkDefault "${getBin overriddenPackage}/etc/pulse/default.pa";
+      hardware.pulseaudio.configFile = mkDefault "${
+            getBin overriddenPackage
+          }/etc/pulse/default.pa";
     }
 
     (mkIf cfg.enable {
@@ -285,7 +285,9 @@ in
 
       # Upstream defaults to speex-float-1 which results in audible artifacts
       hardware.pulseaudio.daemon.config.resample-method =
-        mkDefault "speex-float-5";
+        mkDefault
+          "speex-float-5"
+        ;
 
       # Allow PulseAudio to get realtime priority using rtkit.
       security.rtkit.enable = true;
@@ -299,14 +301,17 @@ in
     (mkIf (cfg.extraModules != [ ]) {
       hardware.pulseaudio.daemon.config.dl-search-path =
         let
-          overriddenModules = builtins.map
-            (drv: drv.override { pulseaudio = overriddenPackage; })
-            cfg.extraModules;
-          modulePaths = builtins.map (drv: "${drv}/lib/pulseaudio/modules")
-            # User-provided extra modules take precedence
-            (
-              overriddenModules ++ [ overriddenPackage ]
-            );
+          overriddenModules =
+            builtins.map (drv: drv.override { pulseaudio = overriddenPackage; })
+              cfg.extraModules
+            ;
+          modulePaths =
+            builtins.map (drv: "${drv}/lib/pulseaudio/modules")
+              # User-provided extra modules take precedence
+              (
+                overriddenModules ++ [ overriddenPackage ]
+              )
+            ;
         in
         lib.concatStringsSep ":" modulePaths
         ;

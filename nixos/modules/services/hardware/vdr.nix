@@ -18,15 +18,17 @@ in
   options = {
 
     services.vdr = {
-      enable =
-        mkEnableOption (lib.mdDoc "VDR. Please put config into ${libDir}");
+      enable = mkEnableOption (
+        lib.mdDoc "VDR. Please put config into ${libDir}"
+      );
 
       package = mkOption {
         type = types.package;
         default = pkgs.vdr;
         defaultText = literalExpression "pkgs.vdr";
-        example = literalExpression
-          "pkgs.wrapVdr.override { plugins = with pkgs.vdrPlugins; [ hello ]; }"
+        example =
+          literalExpression
+            "pkgs.wrapVdr.override { plugins = with pkgs.vdrPlugins; [ hello ]; }"
           ;
         description = lib.mdDoc "Package to use.";
       };
@@ -41,7 +43,9 @@ in
         type = types.listOf types.str;
         default = [ ];
         description =
-          lib.mdDoc "Additional command line arguments to pass to VDR.";
+          lib.mdDoc
+            "Additional command line arguments to pass to VDR."
+          ;
       };
 
       enableLirc = mkEnableOption (lib.mdDoc "LIRC");

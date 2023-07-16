@@ -111,7 +111,9 @@ import ./make-test-python.nix (
         specialisation.differentName = {
           inheritParentConfig = true;
           configuration.services.home-assistant.config.homeassistant.name =
-            lib.mkForce "Test Home";
+            lib.mkForce
+              "Test Home"
+            ;
         };
 
         # Cause a configuration change that requires a service restart as we added a new runtime dependency

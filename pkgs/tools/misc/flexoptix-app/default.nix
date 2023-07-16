@@ -22,18 +22,20 @@ let
   };
 
   appimageContents =
-    (appimageTools.extract { inherit pname version src; }).overrideAttrs (
-      oA: {
-        buildCommand = ''
-          ${oA.buildCommand}
+    (appimageTools.extract { inherit pname version src; }).overrideAttrs
+      (
+        oA: {
+          buildCommand = ''
+            ${oA.buildCommand}
 
-          # Get rid of the autoupdater
-          ${nodePackages.asar}/bin/asar extract $out/resources/app.asar app
-          sed -i 's/async isUpdateAvailable.*/async isUpdateAvailable(updateInfo) { return false;/g' app/node_modules/electron-updater/out/AppUpdater.js
-          ${nodePackages.asar}/bin/asar pack app $out/resources/app.asar
-        '';
-      }
-    );
+            # Get rid of the autoupdater
+            ${nodePackages.asar}/bin/asar extract $out/resources/app.asar app
+            sed -i 's/async isUpdateAvailable.*/async isUpdateAvailable(updateInfo) { return false;/g' app/node_modules/electron-updater/out/AppUpdater.js
+            ${nodePackages.asar}/bin/asar pack app $out/resources/app.asar
+          '';
+        }
+      )
+    ;
 in
 appimageTools.wrapAppImage {
   inherit pname version;

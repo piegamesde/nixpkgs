@@ -28,9 +28,8 @@ in
       default =
         (concatStringsSep "." (
           take 3 (
-            splitString
-            "."
-            config.services.kubernetes.apiserver.serviceClusterIpRange
+            splitString "."
+              config.services.kubernetes.apiserver.serviceClusterIpRange
           )
         ))
         + ".254"
@@ -50,7 +49,9 @@ in
 
     replicas = mkOption {
       description =
-        lib.mdDoc "Number of DNS pod replicas to deploy in the cluster.";
+        lib.mdDoc
+          "Number of DNS pod replicas to deploy in the cluster."
+        ;
       default = 2;
       type = types.int;
     };
@@ -126,8 +127,9 @@ in
   };
 
   config = mkIf cfg.enable {
-    services.kubernetes.kubelet.seedDockerImages =
-      singleton (pkgs.dockerTools.pullImage cfg.coredns);
+    services.kubernetes.kubelet.seedDockerImages = singleton (
+      pkgs.dockerTools.pullImage cfg.coredns
+    );
 
     services.kubernetes.addonManager.bootstrapAddons = {
       coredns-cr = {

@@ -169,7 +169,9 @@ import ./make-test-python.nix (
           };
 
           boot.initrd.extraFiles."etc/multipath/wwids".source =
-            pkgs.writeText "wwids" "/3600140592b17c3f6b404168b082ceeb7/";
+            pkgs.writeText "wwids"
+              "/3600140592b17c3f6b404168b082ceeb7/"
+            ;
 
           boot.iscsi-initiator = {
             discoverPortal = "target";

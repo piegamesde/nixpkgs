@@ -77,20 +77,20 @@ let
   runTest =
     neovim-drv: buildCommand:
     runCommandLocal "test-${neovim-drv.name}"
-    ({
-      nativeBuildInputs = [ ];
-      meta.platforms = neovim-drv.meta.platforms;
-    })
-    (
-      ''
-        source ${nmt}/bash-lib/assertions.sh
-        vimrc="${writeText "init.vim" neovim-drv.initRc}"
-        vimrcGeneric="$out/patched.vim"
-        mkdir $out
-        ${pkgs.perl}/bin/perl -pe "s|\Q$NIX_STORE\E/[a-z0-9]{32}-|$NIX_STORE/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-|g" < "$vimrc" > "$vimrcGeneric"
-      ''
-      + buildCommand
-    )
+      ({
+        nativeBuildInputs = [ ];
+        meta.platforms = neovim-drv.meta.platforms;
+      })
+      (
+        ''
+          source ${nmt}/bash-lib/assertions.sh
+          vimrc="${writeText "init.vim" neovim-drv.initRc}"
+          vimrcGeneric="$out/patched.vim"
+          mkdir $out
+          ${pkgs.perl}/bin/perl -pe "s|\Q$NIX_STORE\E/[a-z0-9]{32}-|$NIX_STORE/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-|g" < "$vimrc" > "$vimrcGeneric"
+        ''
+        + buildCommand
+      )
     ;
 in
 pkgs.recurseIntoAttrs (rec {
@@ -104,11 +104,13 @@ pkgs.recurseIntoAttrs (rec {
   nvim_with_plugins = wrapNeovim2 "-with-plugins" nvimConfNix;
 
   singlelinesconfig =
-    runTest (wrapNeovim2 "-single-lines" nvimConfSingleLines) ''
-      assertFileContent \
-        "$vimrcGeneric" \
-        "${./init-single-lines.vim}"
-    '';
+    runTest (wrapNeovim2 "-single-lines" nvimConfSingleLines)
+      ''
+        assertFileContent \
+          "$vimrcGeneric" \
+          "${./init-single-lines.vim}"
+      ''
+    ;
 
   nvim_via_override = neovim.override {
     extraName = "-via-override";

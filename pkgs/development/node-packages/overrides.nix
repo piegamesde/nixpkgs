@@ -182,20 +182,26 @@ final: prev: {
   # ../../applications/video/epgstation/client
   epgstation-client =
     prev."epgstation-client-../../applications/video/epgstation/client".override
-    (oldAttrs: { meta = oldAttrs.meta // { platforms = lib.platforms.none; }; })
+      (
+        oldAttrs: {
+          meta = oldAttrs.meta // { platforms = lib.platforms.none; };
+        }
+      )
     ;
 
   expo-cli = prev."expo-cli".override (
     oldAttrs: {
       # The traveling-fastlane-darwin optional dependency aborts build on Linux.
-      dependencies = builtins.filter
-        (
-          d:
-          d.packageName != "@expo/traveling-fastlane-${
-            if stdenv.isLinux then "darwin" else "linux"
-          }"
-        )
-        oldAttrs.dependencies;
+      dependencies =
+        builtins.filter
+          (
+            d:
+            d.packageName != "@expo/traveling-fastlane-${
+              if stdenv.isLinux then "darwin" else "linux"
+            }"
+          )
+          oldAttrs.dependencies
+        ;
     }
   );
 
@@ -436,9 +442,8 @@ final: prev: {
       in
       ''
         ${lib.concatStringsSep "\n" (
-          map
-          (patch: "patch -d $out/lib/node_modules/node2nix -p1 < ${patch}")
-          patches
+          map (patch: "patch -d $out/lib/node_modules/node2nix -p1 < ${patch}")
+            patches
         )}
         wrapProgram "$out/bin/node2nix" --prefix PATH : ${
           lib.makeBinPath [ pkgs.nix ]
@@ -519,8 +524,9 @@ final: prev: {
     '';
 
     passthru.tests = {
-      simple-execution =
-        pkgs.callPackage ./package-tests/prisma.nix { inherit (final) prisma; };
+      simple-execution = pkgs.callPackage ./package-tests/prisma.nix {
+        inherit (final) prisma;
+      };
     };
   };
 
@@ -616,17 +622,18 @@ final: prev: {
 
   tedicross =
     prev."tedicross-git+https://github.com/TediCross/TediCross.git#v0.8.7".override
-    {
-      nativeBuildInputs = with pkgs; [
-        makeWrapper
-        libtool
-        autoconf
-      ];
-      postInstall = ''
-        makeWrapper '${nodejs}/bin/node' "$out/bin/tedicross" \
-          --add-flags "$out/lib/node_modules/tedicross/main.js"
-      '';
-    };
+      {
+        nativeBuildInputs = with pkgs; [
+          makeWrapper
+          libtool
+          autoconf
+        ];
+        postInstall = ''
+          makeWrapper '${nodejs}/bin/node' "$out/bin/tedicross" \
+            --add-flags "$out/lib/node_modules/tedicross/main.js"
+        '';
+      }
+    ;
 
   thelounge = prev.thelounge.override (
     oldAttrs: {
@@ -726,9 +733,9 @@ final: prev: {
       done
     '';
     passthru.tests = {
-      simple-execution =
-        callPackage ./package-tests/vega-lite.nix { inherit (final) vega-lite; }
-        ;
+      simple-execution = callPackage ./package-tests/vega-lite.nix {
+        inherit (final) vega-lite;
+      };
     };
   };
 
@@ -751,8 +758,9 @@ final: prev: {
       ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreText ];
   };
 
-  webtorrent-cli =
-    prev.webtorrent-cli.override { buildInputs = [ final.node-gyp-build ]; };
+  webtorrent-cli = prev.webtorrent-cli.override {
+    buildInputs = [ final.node-gyp-build ];
+  };
 
   wrangler = prev.wrangler.override (
     oldAttrs: { meta = oldAttrs.meta // { broken = before "16.13"; }; }

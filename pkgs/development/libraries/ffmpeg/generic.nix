@@ -469,14 +469,16 @@ stdenv.mkDerivation (
 
     patches = map (patch: fetchpatch patch) (
       extraPatches
-      ++ (lib.optional
-        (lib.versionAtLeast version "6" && lib.versionOlder version "6.1")
-        { # this can be removed post 6.1
-          name = "fix_aacps_tablegen";
-          url =
-            "https://git.ffmpeg.org/gitweb/ffmpeg.git/patch/814178f92647be2411516bbb82f48532373d2554";
-          hash = "sha256-FQV9/PiarPXCm45ldtCsxGHjlrriL8DKpn1LaKJ8owI=";
-        })
+      ++ (
+        lib.optional
+          (lib.versionAtLeast version "6" && lib.versionOlder version "6.1")
+          { # this can be removed post 6.1
+            name = "fix_aacps_tablegen";
+            url =
+              "https://git.ffmpeg.org/gitweb/ffmpeg.git/patch/814178f92647be2411516bbb82f48532373d2554";
+            hash = "sha256-FQV9/PiarPXCm45ldtCsxGHjlrriL8DKpn1LaKJ8owI=";
+          }
+      )
     );
 
     configurePlatforms = [ ];
@@ -509,12 +511,14 @@ stdenv.mkDerivation (
         (enableFeature withHardcodedTables "hardcoded-tables")
         (enableFeature withSafeBitstreamReader "safe-bitstream-reader")
 
-        (enableFeature
-          (withMultithread && stdenv.targetPlatform.isUnix)
-          "pthreads")
-        (enableFeature
-          (withMultithread && stdenv.targetPlatform.isWindows)
-          "w32threads")
+        (
+          enableFeature (withMultithread && stdenv.targetPlatform.isUnix)
+            "pthreads"
+        )
+        (
+          enableFeature (withMultithread && stdenv.targetPlatform.isWindows)
+            "w32threads"
+        )
         "--disable-os2threads" # We don't support OS/2
 
         (enableFeature withNetwork "network")
@@ -592,9 +596,10 @@ stdenv.mkDerivation (
         (enableFeature withModplug "libmodplug")
         (enableFeature withMysofa "libmysofa")
         (enableFeature withOpus "libopus")
-        (optionalString
-          (versionAtLeast version "5.0" && withLibplacebo)
-          "--enable-libplacebo")
+        (
+          optionalString (versionAtLeast version "5.0" && withLibplacebo)
+            "--enable-libplacebo"
+        )
         (enableFeature withSvg "librsvg")
         (enableFeature withSrt "libsrt")
         (enableFeature withSsh "libssh")
@@ -666,7 +671,9 @@ stdenv.mkDerivation (
     # such references except for data.
     postConfigure =
       let
-        toStrip = lib.remove "data" finalAttrs.outputs
+        toStrip =
+          lib.remove "data"
+            finalAttrs.outputs
           ; # We want to keep references to the data dir.
       in
       "remove-references-to ${
@@ -861,7 +868,9 @@ stdenv.mkDerivation (
     enableParallelBuilding = true;
 
     passthru.tests.pkg-config =
-      testers.testMetaPkgConfig finalAttrs.finalPackage;
+      testers.testMetaPkgConfig
+        finalAttrs.finalPackage
+      ;
 
     meta = with lib; {
       description =

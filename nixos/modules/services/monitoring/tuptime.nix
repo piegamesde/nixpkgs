@@ -22,7 +22,9 @@ in
         type = types.bool;
         default = true;
         description =
-          lib.mdDoc "Whether to regularly log uptime to detect bad shutdowns.";
+          lib.mdDoc
+            "Whether to regularly log uptime to detect bad shutdowns."
+          ;
       };
 
       period = mkOption {

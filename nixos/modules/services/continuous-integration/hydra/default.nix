@@ -206,13 +206,17 @@ in
         type = types.path;
         default = "/nix/var/nix/gcroots/hydra";
         description =
-          lib.mdDoc "Directory that holds Hydra garbage collector roots.";
+          lib.mdDoc
+            "Directory that holds Hydra garbage collector roots."
+          ;
       };
 
       buildMachinesFiles = mkOption {
         type = types.listOf types.path;
         default =
-          optional (config.nix.buildMachines != [ ]) "/etc/nix/machines";
+          optional (config.nix.buildMachines != [ ])
+            "/etc/nix/machines"
+          ;
         defaultText = literalExpression ''
           optional (config.nix.buildMachines != []) "/etc/nix/machines"'';
         example = [

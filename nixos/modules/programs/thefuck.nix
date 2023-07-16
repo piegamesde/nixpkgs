@@ -40,7 +40,9 @@ in
 
     programs.bash.interactiveShellInit = bashAndZshInitScript;
     programs.zsh.interactiveShellInit =
-      mkIf prg.zsh.enable bashAndZshInitScript;
+      mkIf prg.zsh.enable
+        bashAndZshInitScript
+      ;
     programs.fish.interactiveShellInit = mkIf prg.fish.enable fishInitScript;
   };
 }

@@ -60,19 +60,19 @@ let
         ]
         ++ (lib.lists.flatten (
           map
-          # For every script in the `scripts` argument, add the necessary flags to the wrapper
-          (
-            script:
-            [
-              "--add-flags"
-              # Here we rely on the existence of the `scriptName` passthru
-              # attribute of the script derivation from the `scripts`
-              "--script=${script}/share/mpv/scripts/${script.scriptName}"
-            ]
-            # scripts can also set the `extraWrapperArgs` passthru
-            ++ (script.extraWrapperArgs or [ ])
-          )
-          scripts
+            # For every script in the `scripts` argument, add the necessary flags to the wrapper
+            (
+              script:
+              [
+                "--add-flags"
+                # Here we rely on the existence of the `scriptName` passthru
+                # attribute of the script derivation from the `scripts`
+                "--script=${script}/share/mpv/scripts/${script.scriptName}"
+              ]
+              # scripts can also set the `extraWrapperArgs` passthru
+              ++ (script.extraWrapperArgs or [ ])
+            )
+            scripts
         ))
         ++ extraMakeWrapperArgs
       );

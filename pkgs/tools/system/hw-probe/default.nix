@@ -113,12 +113,15 @@ stdenv.mkDerivation rec {
           opensc
         ]
         # cpuid is only compatible with i686 and x86_64
-        ++ lib.optional
-          (lib.elem stdenv.hostPlatform.system cpuid.meta.platforms)
-          cpuid
+        ++
+          lib.optional
+            (lib.elem stdenv.hostPlatform.system cpuid.meta.platforms)
+            cpuid
         ;
       conditionallyRecommendedPrograms =
-        lib.optional systemdSupport systemd; # (systemd-analyze)
+        lib.optional systemdSupport
+          systemd
+        ; # (systemd-analyze)
       suggestedPrograms = [
         hplip # (hp-probe)
         sane-backends # (sane-find-scanner)

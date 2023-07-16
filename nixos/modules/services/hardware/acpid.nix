@@ -78,8 +78,10 @@ in
 
               action = mkOption {
                 type = types.lines;
-                description = lib.mdDoc
-                  "Shell commands to execute when the event is triggered.";
+                description =
+                  lib.mdDoc
+                    "Shell commands to execute when the event is triggered."
+                  ;
               };
             };
           }
@@ -118,21 +120,27 @@ in
         type = types.lines;
         default = "";
         description =
-          lib.mdDoc "Shell commands to execute on a button/power.* event.";
+          lib.mdDoc
+            "Shell commands to execute on a button/power.* event."
+          ;
       };
 
       lidEventCommands = mkOption {
         type = types.lines;
         default = "";
         description =
-          lib.mdDoc "Shell commands to execute on a button/lid.* event.";
+          lib.mdDoc
+            "Shell commands to execute on a button/lid.* event."
+          ;
       };
 
       acEventCommands = mkOption {
         type = types.lines;
         default = "";
         description =
-          lib.mdDoc "Shell commands to execute on an ac_adapter.* event.";
+          lib.mdDoc
+            "Shell commands to execute on an ac_adapter.* event."
+          ;
       };
     };
   };

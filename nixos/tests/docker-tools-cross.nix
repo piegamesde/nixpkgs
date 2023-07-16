@@ -16,16 +16,18 @@ import ./make-test-python.nix (
         "aarch64-linux"
       ;
 
-    remoteCrossPkgs = import ../.. # nixpkgs
-      {
-        # NOTE: This is the machine that runs the build -  local from the
-        #       'perspective' of the build script.
-        localSystem = remoteSystem;
+    remoteCrossPkgs =
+      import ../.. # nixpkgs
+        {
+          # NOTE: This is the machine that runs the build -  local from the
+          #       'perspective' of the build script.
+          localSystem = remoteSystem;
 
-        # NOTE: Since this file can't control where the test will be _run_ we don't
-        #       cross-compile _to_ a different system but _from_ a different system
-        crossSystem = pkgs.stdenv.hostPlatform.system;
-      };
+          # NOTE: Since this file can't control where the test will be _run_ we don't
+          #       cross-compile _to_ a different system but _from_ a different system
+          crossSystem = pkgs.stdenv.hostPlatform.system;
+        }
+      ;
 
     hello1 = remoteCrossPkgs.dockerTools.buildImage {
       name = "hello1";

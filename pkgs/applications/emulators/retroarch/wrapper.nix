@@ -14,11 +14,11 @@ let
   wrapperArgs = lib.strings.escapeShellArgs (
     lib.lists.flatten (
       map
-      (p: [
-        "--add-flags"
-        "-L ${placeholder "out" + p}"
-      ])
-      coresPath
+        (p: [
+          "--add-flags"
+          "-L ${placeholder "out" + p}"
+        ])
+        coresPath
     )
   );
 in

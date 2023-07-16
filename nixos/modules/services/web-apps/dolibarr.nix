@@ -24,9 +24,10 @@ let
   package = pkgs.dolibarr.override { inherit (cfg) stateDir; };
 
   cfg = config.services.dolibarr;
-  vhostCfg = lib.optionalAttrs
-    (cfg.nginx != null)
-    config.services.nginx.virtualHosts."${cfg.domain}";
+  vhostCfg =
+    lib.optionalAttrs (cfg.nginx != null)
+      config.services.nginx.virtualHosts."${cfg.domain}"
+    ;
 
   mkConfigFile =
     filename: settings:
@@ -161,7 +162,9 @@ in
         type = types.bool;
         default = true;
         description =
-          lib.mdDoc "Create the database and database user locally.";
+          lib.mdDoc
+            "Create the database and database user locally."
+          ;
       };
     };
 
@@ -175,8 +178,9 @@ in
           ]
         ));
       default = { };
-      description = lib.mdDoc
-        "Dolibarr settings, see <https://github.com/Dolibarr/dolibarr/blob/develop/htdocs/conf/conf.php.example> for details."
+      description =
+        lib.mdDoc
+          "Dolibarr settings, see <https://github.com/Dolibarr/dolibarr/blob/develop/htdocs/conf/conf.php.example> for details."
         ;
     };
 
@@ -184,15 +188,15 @@ in
       type = types.nullOr (
         types.submodule (
           lib.recursiveUpdate
-          (import ../web-servers/nginx/vhost-options.nix {
-            inherit config lib;
-          })
-          {
-            # enable encryption by default,
-            # as sensitive login and Dolibarr (ERP) data should not be transmitted in clear text.
-            options.forceSSL.default = true;
-            options.enableACME.default = true;
-          }
+            (import ../web-servers/nginx/vhost-options.nix {
+              inherit config lib;
+            })
+            {
+              # enable encryption by default,
+              # as sensitive login and Dolibarr (ERP) data should not be transmitted in clear text.
+              options.forceSSL.default = true;
+              options.enableACME.default = true;
+            }
         )
       );
       default = null;
@@ -323,7 +327,9 @@ in
         );
 
         systemd.services."phpfpm-dolibarr".after =
-          mkIf cfg.database.createLocally [ "mysql.service" ];
+          mkIf cfg.database.createLocally
+            [ "mysql.service" ]
+          ;
         services.phpfpm.pools.dolibarr = {
           inherit (cfg) user group;
           phpPackage = pkgs.php.buildEnv {
@@ -384,12 +390,15 @@ in
           group = cfg.group;
         };
 
-        users.groups =
-          optionalAttrs (cfg.group == "dolibarr") { dolibarr = { }; };
+        users.groups = optionalAttrs (cfg.group == "dolibarr") {
+          dolibarr = { };
+        };
       }
       (mkIf (cfg.nginx != null) {
         users.users."${config.services.nginx.group}".extraGroups =
-          mkIf (cfg.nginx != null) [ cfg.group ];
+          mkIf (cfg.nginx != null)
+            [ cfg.group ]
+          ;
       })
     ]
   );

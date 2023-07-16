@@ -217,18 +217,20 @@ in
         instances:
         listToAttrs (
           map
-          (
-            instance:
-            nameValuePair "v4l2-relayd-${escapeSystemdPath instance.name}" (
-              mkInstanceService instance
+            (
+              instance:
+              nameValuePair "v4l2-relayd-${escapeSystemdPath instance.name}" (
+                mkInstanceService instance
+              )
             )
-          )
-          instances
+            instances
         )
         ;
 
       enabledInstances =
-        attrValues (filterAttrs (n: v: v.enable) cfg.instances);
+        attrValues
+          (filterAttrs (n: v: v.enable) cfg.instances)
+        ;
     in
     {
 

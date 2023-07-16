@@ -25,7 +25,9 @@ in
       type = types.port;
       default = 41641;
       description =
-        lib.mdDoc "The port to listen on for tunnel traffic (0=autoselect).";
+        lib.mdDoc
+          "The port to listen on for tunnel traffic (0=autoselect)."
+        ;
     };
 
     interfaceName = mkOption {
@@ -39,8 +41,9 @@ in
     permitCertUid = mkOption {
       type = types.nullOr types.nonEmptyStr;
       default = null;
-      description = lib.mdDoc
-        "Username or user ID of the user allowed to to fetch Tailscale TLS certificates for the node."
+      description =
+        lib.mdDoc
+          "Username or user ID of the user allowed to to fetch Tailscale TLS certificates for the node."
         ;
     };
 
@@ -104,16 +107,20 @@ in
       stopIfChanged = false;
     };
 
-    boot.kernel.sysctl = mkIf
-      (cfg.useRoutingFeatures == "server" || cfg.useRoutingFeatures == "both")
-      {
-        "net.ipv4.conf.all.forwarding" = mkOverride 97 true;
-        "net.ipv6.conf.all.forwarding" = mkOverride 97 true;
-      };
+    boot.kernel.sysctl =
+      mkIf
+        (cfg.useRoutingFeatures == "server" || cfg.useRoutingFeatures == "both")
+        {
+          "net.ipv4.conf.all.forwarding" = mkOverride 97 true;
+          "net.ipv6.conf.all.forwarding" = mkOverride 97 true;
+        }
+      ;
 
-    networking.firewall.checkReversePath = mkIf
-      (cfg.useRoutingFeatures == "client" || cfg.useRoutingFeatures == "both")
-      "loose";
+    networking.firewall.checkReversePath =
+      mkIf
+        (cfg.useRoutingFeatures == "client" || cfg.useRoutingFeatures == "both")
+        "loose"
+      ;
 
     networking.dhcpcd.denyInterfaces = [ cfg.interfaceName ];
 

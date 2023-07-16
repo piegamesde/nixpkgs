@@ -23,39 +23,41 @@ let
   confFiles = [
     (iniFmt.generate "PackageKit.conf" (
       recursiveUpdate
-      {
-        Daemon = {
-          DefaultBackend = "nix";
-          KeepCache = false;
-        };
-      }
-      cfg.settings
+        {
+          Daemon = {
+            DefaultBackend = "nix";
+            KeepCache = false;
+          };
+        }
+        cfg.settings
     ))
 
     (iniFmt.generate "Vendor.conf" (
       recursiveUpdate
-      {
-        PackagesNotFound = rec {
-          DefaultUrl = "https://github.com/NixOS/nixpkgs";
-          CodecUrl = DefaultUrl;
-          HardwareUrl = DefaultUrl;
-          FontUrl = DefaultUrl;
-          MimeUrl = DefaultUrl;
-        };
-      }
-      cfg.vendorSettings
+        {
+          PackagesNotFound = rec {
+            DefaultUrl = "https://github.com/NixOS/nixpkgs";
+            CodecUrl = DefaultUrl;
+            HardwareUrl = DefaultUrl;
+            FontUrl = DefaultUrl;
+            MimeUrl = DefaultUrl;
+          };
+        }
+        cfg.vendorSettings
     ))
   ];
 in
 {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "packagekit"
-        "backend"
-      ]
-      "Always set to Nix.")
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "packagekit"
+          "backend"
+        ]
+        "Always set to Nix."
+    )
   ];
 
   options.services.packagekit = {
@@ -70,15 +72,19 @@ in
     settings = mkOption {
       type = iniFmt.type;
       default = { };
-      description = lib.mdDoc
-        "Additional settings passed straight through to PackageKit.conf";
+      description =
+        lib.mdDoc
+          "Additional settings passed straight through to PackageKit.conf"
+        ;
     };
 
     vendorSettings = mkOption {
       type = iniFmt.type;
       default = { };
       description =
-        lib.mdDoc "Additional settings passed straight through to Vendor.conf";
+        lib.mdDoc
+          "Additional settings passed straight through to Vendor.conf"
+        ;
     };
   };
 
@@ -91,9 +97,8 @@ in
     systemd.packages = with pkgs; [ packagekit ];
 
     environment.etc = listToAttrs (
-      map
-      (e: lib.nameValuePair "PackageKit/${e.name}" { source = e; })
-      confFiles
+      map (e: lib.nameValuePair "PackageKit/${e.name}" { source = e; })
+        confFiles
     );
   };
 }

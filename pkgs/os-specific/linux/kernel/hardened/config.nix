@@ -70,11 +70,17 @@ assert (versionAtLeast version "4.9");
 
   GCC_PLUGIN_STRUCTLEAK = option yes; # A port of the PaX structleak plugin
   GCC_PLUGIN_STRUCTLEAK_BYREF_ALL =
-    option yes; # Also cover structs passed by address
+    option
+      yes
+    ; # Also cover structs passed by address
   GCC_PLUGIN_STACKLEAK =
-    whenAtLeast "4.20" yes; # A port of the PaX stackleak plugin
+    whenAtLeast "4.20"
+      yes
+    ; # A port of the PaX stackleak plugin
   GCC_PLUGIN_RANDSTRUCT =
-    whenOlder "5.19" yes; # A port of the PaX randstruct plugin
+    whenOlder "5.19"
+      yes
+    ; # A port of the PaX randstruct plugin
   GCC_PLUGIN_RANDSTRUCT_PERFORMANCE = whenOlder "5.19" yes;
 
   # Same as GCC_PLUGIN_RANDSTRUCT*, but has been renamed to `RANDSTRUCT*` in 5.19.

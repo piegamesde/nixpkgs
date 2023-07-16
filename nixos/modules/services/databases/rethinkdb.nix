@@ -39,15 +39,18 @@ in
 
       dbpath = mkOption {
         default = "/var/db/rethinkdb";
-        description = lib.mdDoc
-          "Location where RethinkDB stores its data, 1 data directory per instance."
+        description =
+          lib.mdDoc
+            "Location where RethinkDB stores its data, 1 data directory per instance."
           ;
       };
 
       pidpath = mkOption {
         default = "/run/rethinkdb";
         description =
-          lib.mdDoc "Location where each instance's pid file is located.";
+          lib.mdDoc
+            "Location where each instance's pid file is located."
+          ;
       };
 
       #cfgpath = mkOption {

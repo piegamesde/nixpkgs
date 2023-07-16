@@ -40,7 +40,9 @@ in
       description = lib.mdDoc "Peerflix temporary download directory.";
       default = "${cfg.stateDir}/torrents";
       defaultText =
-        literalExpression ''"''${config.${opt.stateDir}}/torrents"'';
+        literalExpression
+          ''"''${config.${opt.stateDir}}/torrents"''
+        ;
       type = types.path;
     };
   };

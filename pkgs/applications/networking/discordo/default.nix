@@ -41,8 +41,9 @@ buildGoModule rec {
       }
   '';
 
-  passthru.updateScript =
-    nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--version=branch" ];
+  };
 
   meta = with lib; {
     description =

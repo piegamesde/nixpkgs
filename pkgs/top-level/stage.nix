@@ -162,8 +162,9 @@ let
     let
       res =
         import ./all-packages.nix { inherit lib noSysDirs config overlays; } res
-        self
-        super;
+          self
+          super
+        ;
     in
     res
     ;
@@ -207,9 +208,10 @@ let
       # that target system. For instance, pkgsCross.raspberryPi.hello,
       # will refer to the "hello" package built for the ARM6-based
       # Raspberry Pi.
-      pkgsCross = lib.mapAttrs
-        (n: crossSystem: nixpkgsFun { inherit crossSystem; })
-        lib.systems.examples;
+      pkgsCross =
+        lib.mapAttrs (n: crossSystem: nixpkgsFun { inherit crossSystem; })
+          lib.systems.examples
+        ;
 
       pkgsLLVM = nixpkgsFun {
         overlays = [ (self': super': { pkgsLLVM = super'; }) ] ++ overlays;
@@ -308,10 +310,8 @@ let
             isStatic = true;
             parsed = makeMuslParsedPlatform stdenv.hostPlatform.parsed;
           } // lib.optionalAttrs
-            (stdenv.hostPlatform.system == "powerpc64-linux")
-            {
-              gcc.abi = "elfv2";
-            };
+              (stdenv.hostPlatform.system == "powerpc64-linux")
+              { gcc.abi = "elfv2"; };
         }
       );
     }

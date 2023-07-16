@@ -32,12 +32,14 @@ buildGoModule rec {
   doCheck = false;
 
   postInstall =
-    lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
-      installShellCompletion --cmd fly \
-        --bash <($out/bin/fly completion --shell bash) \
-        --fish <($out/bin/fly completion --shell fish) \
-        --zsh <($out/bin/fly completion --shell zsh)
-    '';
+    lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+      ''
+        installShellCompletion --cmd fly \
+          --bash <($out/bin/fly completion --shell bash) \
+          --fish <($out/bin/fly completion --shell fish) \
+          --zsh <($out/bin/fly completion --shell zsh)
+      ''
+    ;
 
   meta = with lib; {
     description = "Command line interface to Concourse CI";

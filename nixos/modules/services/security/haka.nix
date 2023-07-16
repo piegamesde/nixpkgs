@@ -23,9 +23,8 @@ let
       else
         "${haka}/share/haka/sample/${cfg.configFile}"
     }
-    ${optionalString
-    (builtins.lessThan 0 cfg.threads)
-    "thread = ${cfg.threads}"}
+    ${optionalString (builtins.lessThan 0 cfg.threads)
+      "thread = ${cfg.threads}"}
 
     [packet]
     ${optionalString cfg.pcap ''module = "packet/pcap"''}
@@ -119,7 +118,9 @@ in
         example = "/path/to/file.pcap";
         type = types.path;
         description =
-          lib.mdDoc "Path to file where incoming packets are dumped";
+          lib.mdDoc
+            "Path to file where incoming packets are dumped"
+          ;
       };
 
       dump.output = mkOption {
@@ -127,7 +128,9 @@ in
         example = "/path/to/file.pcap";
         type = types.path;
         description =
-          lib.mdDoc "Path to file where outgoing packets are dumped";
+          lib.mdDoc
+            "Path to file where outgoing packets are dumped"
+          ;
       };
     };
   };

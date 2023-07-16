@@ -91,7 +91,9 @@ let
 in
 stdenv.mkDerivation (
   {
-    name = lib.replaceStrings [ " " ] [ "" ] name
+    name =
+      lib.replaceStrings [ " " ] [ "" ]
+        name
       ; # iOS app names can contain spaces, but in the Nix store this is not allowed
     buildPhase = ''
       # Be sure that the Xcode wrapper has priority over everything else.
@@ -161,11 +163,11 @@ stdenv.mkDerivation (
               <string>${signMethod}</string>
               ${
                 lib.optionalString
-                (signMethod == "enterprise" || signMethod == "ad-hoc")
-                ''
-                  <key>compileBitcode</key>
-                  <false/>
-                ''
+                  (signMethod == "enterprise" || signMethod == "ad-hoc")
+                  ''
+                    <key>compileBitcode</key>
+                    <false/>
+                  ''
               }
           </dict>
           </plist>

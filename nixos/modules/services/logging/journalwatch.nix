@@ -38,28 +38,30 @@ let
     filterBlocks:
     concatStringsSep "\n" (
       map
-      (block: ''
-        ${block.match}
-        ${block.filters}
+        (block: ''
+          ${block.match}
+          ${block.filters}
 
-      '')
-      filterBlocks
+        '')
+        filterBlocks
     )
     ;
 
   # can't use joinSymlinks directly, because when we point $XDG_CONFIG_HOME
   # to the /nix/store path, we still need the subdirectory "journalwatch" inside that
   # to match journalwatch's expectations
-  journalwatchConfigDir = pkgs.runCommand "journalwatch-config"
-    {
-      preferLocalBuild = true;
-      allowSubstitutes = false;
-    }
-    ''
-      mkdir -p $out/journalwatch
-      ln -sf ${journalwatchConfig} $out/journalwatch/config
-      ln -sf ${journalwatchPatterns} $out/journalwatch/patterns
-    '';
+  journalwatchConfigDir =
+    pkgs.runCommand "journalwatch-config"
+      {
+        preferLocalBuild = true;
+        allowSubstitutes = false;
+      }
+      ''
+        mkdir -p $out/journalwatch
+        ln -sf ${journalwatchConfig} $out/journalwatch/config
+        ln -sf ${journalwatchPatterns} $out/journalwatch/patterns
+      ''
+    ;
 in
 {
   options = {
@@ -90,8 +92,8 @@ in
       mailFrom = mkOption {
         type = types.str;
         default = "journalwatch@${config.networking.hostName}";
-        defaultText =
-          literalExpression ''"journalwatch@''${config.networking.hostName}"'';
+        defaultText = literalExpression ''
+          "journalwatch@''${config.networking.hostName}"'';
         description = lib.mdDoc ''
           Mail address to send journalwatch reports from.
         '';

@@ -63,8 +63,8 @@ stdenv.mkDerivation rec {
             ''
               install_name_tool ${
                 lib.strings.concatMapStrings
-                (x: " -add_rpath ${makeLibraryPath [ x ]} ")
-                propagatedBuildInputs
+                  (x: " -add_rpath ${makeLibraryPath [ x ]} ")
+                  propagatedBuildInputs
               } "$lib"
             ''
           else

@@ -189,8 +189,8 @@ let
             in
             if (unsupported != [ ]) then
               throw "Feature(s) ${
-                lib.concatStringsSep " " unsupported
-              } are not supported on ${stdenv.hostPlatform.system}"
+                  lib.concatStringsSep " " unsupported
+                } are not supported on ${stdenv.hostPlatform.system}"
             else
               features
         ;
@@ -235,16 +235,18 @@ let
 
       depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-      postPatch = lib.optionalString
-        (
-          stdenv.isDarwin
-          && lib.versionOlder stdenv.targetPlatform.darwinSdkVersion "12.0"
-        )
-        ''
-          substituteInPlace src/output/plugins/OSXOutputPlugin.cxx \
-            --replace kAudioObjectPropertyElement{Main,Master} \
-            --replace kAudioHardwareServiceDeviceProperty_Virtual{Main,Master}Volume
-        '';
+      postPatch =
+        lib.optionalString
+          (
+            stdenv.isDarwin
+            && lib.versionOlder stdenv.targetPlatform.darwinSdkVersion "12.0"
+          )
+          ''
+            substituteInPlace src/output/plugins/OSXOutputPlugin.cxx \
+              --replace kAudioObjectPropertyElement{Main,Master} \
+              --replace kAudioHardwareServiceDeviceProperty_Virtual{Main,Master}Volume
+          ''
+        ;
 
       # Otherwise, the meson log says:
       #
@@ -278,9 +280,9 @@ let
           lib.subtractLists features_ knownFeatures
         )
         ++ lib.optional (builtins.elem "zeroconf" features_) "-Dzeroconf=avahi"
-        ++ lib.optional
-          (builtins.elem "systemd" features_)
-          "-Dsystemd_system_unit_dir=etc/systemd/system"
+        ++
+          lib.optional (builtins.elem "systemd" features_)
+            "-Dsystemd_system_unit_dir=etc/systemd/system"
         ;
 
       passthru.tests.nixos = nixosTests.mpd;

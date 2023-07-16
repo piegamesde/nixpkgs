@@ -15,7 +15,7 @@ in
   options.services.offlineimap = {
     enable = mkEnableOption (
       lib.mdDoc
-      "OfflineIMAP, a software to dispose your mailbox(es) as a local Maildir(s)"
+        "OfflineIMAP, a software to dispose your mailbox(es) as a local Maildir(s)"
     );
 
     install = mkOption {
@@ -43,22 +43,26 @@ in
       default = [ ];
       example = literalExpression "[ pkgs.pass pkgs.bash pkgs.notmuch ]";
       description =
-        lib.mdDoc "List of derivations to put in Offlineimap's path.";
+        lib.mdDoc
+          "List of derivations to put in Offlineimap's path."
+        ;
     };
 
     onCalendar = mkOption {
       type = types.str;
       default = "*:0/3"; # every 3 minutes
-      description = lib.mdDoc
-        "How often is offlineimap started. Default is '*:0/3' meaning every 3 minutes. See systemd.time(7) for more information about the format."
+      description =
+        lib.mdDoc
+          "How often is offlineimap started. Default is '*:0/3' meaning every 3 minutes. See systemd.time(7) for more information about the format."
         ;
     };
 
     timeoutStartSec = mkOption {
       type = types.str;
       default = "120sec"; # Kill if still alive after 2 minutes
-      description = lib.mdDoc
-        "How long waiting for offlineimap before killing it. Default is '120sec' meaning every 2 minutes. See systemd.time(7) for more information about the format."
+      description =
+        lib.mdDoc
+          "How long waiting for offlineimap before killing it. Default is '120sec' meaning every 2 minutes. See systemd.time(7) for more information about the format."
         ;
     };
   };

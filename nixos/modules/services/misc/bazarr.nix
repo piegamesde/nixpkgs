@@ -21,14 +21,18 @@ in
         type = types.bool;
         default = false;
         description =
-          lib.mdDoc "Open ports in the firewall for the bazarr web interface.";
+          lib.mdDoc
+            "Open ports in the firewall for the bazarr web interface."
+          ;
       };
 
       listenPort = mkOption {
         type = types.port;
         default = 6767;
         description =
-          lib.mdDoc "Port on which the bazarr web interface should listen";
+          lib.mdDoc
+            "Port on which the bazarr web interface should listen"
+          ;
       };
 
       user = mkOption {
@@ -67,8 +71,9 @@ in
       };
     };
 
-    networking.firewall =
-      mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.listenPort ]; };
+    networking.firewall = mkIf cfg.openFirewall {
+      allowedTCPPorts = [ cfg.listenPort ];
+    };
 
     users.users = mkIf (cfg.user == "bazarr") {
       bazarr = {

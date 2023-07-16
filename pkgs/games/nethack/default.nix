@@ -133,14 +133,14 @@ stdenv.mkDerivation rec {
         -i sys/unix/hints/linux-qt4
     ''}
     ${lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform)
-    # If we're cross-compiling, replace the paths to the data generation tools
-    # with the ones from the build platform's nethack package, since we can't
-    # run the ones we've built here.
-    ''
-      ${buildPackages.perl}/bin/perl -p \
-        -e 's,[a-z./]+/(makedefs|dgn_comp|lev_comp|dlb)(?!\.),${buildPackages.nethack}/libexec/nethack/\1,g' \
-        -i sys/unix/Makefile.*
-    ''}
+      # If we're cross-compiling, replace the paths to the data generation tools
+      # with the ones from the build platform's nethack package, since we can't
+      # run the ones we've built here.
+      ''
+        ${buildPackages.perl}/bin/perl -p \
+          -e 's,[a-z./]+/(makedefs|dgn_comp|lev_comp|dlb)(?!\.),${buildPackages.nethack}/libexec/nethack/\1,g' \
+          -i sys/unix/Makefile.*
+      ''}
     sed -i -e '/rm -f $(MAKEDEFS)/d' sys/unix/Makefile.src
     # Fix building on darwin where otherwise __has_attribute fails with an empty parameter
     sed -e 's/define __warn_unused_result__ .*/define __warn_unused_result__ __unused__/' -i include/tradstdc.h
@@ -198,9 +198,8 @@ stdenv.mkDerivation rec {
     ${lib.optionalString x11Mode "mv $out/bin/nethack $out/bin/nethack-x11"}
     ${lib.optionalString qtMode "mv $out/bin/nethack $out/bin/nethack-qt"}
     install -Dm 555 util/{makedefs,dgn_comp,lev_comp} -t $out/libexec/nethack/
-    ${lib.optionalString
-    (!(x11Mode || qtMode))
-    "install -Dm 555 util/dlb -t $out/libexec/nethack/"}
+    ${lib.optionalString (!(x11Mode || qtMode))
+      "install -Dm 555 util/dlb -t $out/libexec/nethack/"}
   '';
 
   meta = with lib; {

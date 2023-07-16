@@ -79,12 +79,14 @@ let
   );
 
   privacyidea-token-janitor =
-    pkgs.writeShellScriptBin "privacyidea-token-janitor" ''
-      exec -a privacyidea-token-janitor \
-        /run/wrappers/bin/sudo -u ${cfg.user} \
-        env PRIVACYIDEA_CONFIGFILE=${cfg.stateDir}/privacyidea.cfg \
-        ${penv}/bin/privacyidea-token-janitor $@
-    '';
+    pkgs.writeShellScriptBin "privacyidea-token-janitor"
+      ''
+        exec -a privacyidea-token-janitor \
+          /run/wrappers/bin/sudo -u ${cfg.user} \
+          env PRIVACYIDEA_CONFIGFILE=${cfg.stateDir}/privacyidea.cfg \
+          ${penv}/bin/privacyidea-token-janitor $@
+      ''
+    ;
 in
 
 {
@@ -151,7 +153,9 @@ in
         type = types.str;
         default = "${cfg.stateDir}/enckey";
         defaultText =
-          literalExpression ''"''${config.${opt.stateDir}}/enckey"'';
+          literalExpression
+            ''"''${config.${opt.stateDir}}/enckey"''
+          ;
         description = lib.mdDoc ''
           This is used to encrypt the token data and token passwords
         '';
@@ -160,8 +164,8 @@ in
       auditKeyPrivate = mkOption {
         type = types.str;
         default = "${cfg.stateDir}/private.pem";
-        defaultText =
-          literalExpression ''"''${config.${opt.stateDir}}/private.pem"'';
+        defaultText = literalExpression ''
+          "''${config.${opt.stateDir}}/private.pem"'';
         description = lib.mdDoc ''
           Private Key for signing the audit log.
         '';
@@ -170,8 +174,8 @@ in
       auditKeyPublic = mkOption {
         type = types.str;
         default = "${cfg.stateDir}/public.pem";
-        defaultText =
-          literalExpression ''"''${config.${opt.stateDir}}/public.pem"'';
+        defaultText = literalExpression ''
+          "''${config.${opt.stateDir}}/public.pem"'';
         description = lib.mdDoc ''
           Public key for checking signatures of the audit log.
         '';
@@ -209,8 +213,9 @@ in
       };
 
       tokenjanitor = {
-        enable =
-          mkEnableOption (lib.mdDoc "automatic runs of the token janitor");
+        enable = mkEnableOption (
+          lib.mdDoc "automatic runs of the token janitor"
+        );
         interval = mkOption {
           default = "quarterly";
           type = types.str;
@@ -265,14 +270,18 @@ in
           type = types.str;
           default = "pi-ldap-proxy";
           description =
-            lib.mdDoc "User account under which PrivacyIDEA LDAP proxy runs.";
+            lib.mdDoc
+              "User account under which PrivacyIDEA LDAP proxy runs."
+            ;
         };
 
         group = mkOption {
           type = types.str;
           default = "pi-ldap-proxy";
           description =
-            lib.mdDoc "Group account under which PrivacyIDEA LDAP proxy runs.";
+            lib.mdDoc
+              "Group account under which PrivacyIDEA LDAP proxy runs."
+            ;
         };
 
         settings = mkOption {
@@ -441,7 +450,9 @@ in
             ExecStart = "${uwsgi}/bin/uwsgi --json ${piuwsgi}";
             ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
             EnvironmentFile =
-              lib.mkIf (cfg.environmentFile != null) cfg.environmentFile;
+              lib.mkIf (cfg.environmentFile != null)
+                cfg.environmentFile
+              ;
             ExecStop = "${pkgs.coreutils}/bin/kill -INT $MAINPID";
             NotifyAccess = "main";
             KillSignal = "SIGQUIT";
@@ -478,8 +489,9 @@ in
 
       systemd.services.privacyidea-ldap-proxy =
         let
-          ldap-proxy-env =
-            pkgs.python3.withPackages (ps: [ ps.privacyidea-ldap-proxy ]);
+          ldap-proxy-env = pkgs.python3.withPackages (
+            ps: [ ps.privacyidea-ldap-proxy ]
+          );
         in
         {
           description = "privacyIDEA LDAP proxy";
@@ -523,13 +535,17 @@ in
         ;
 
       users.users.pi-ldap-proxy =
-        mkIf (cfg.ldap-proxy.user == "pi-ldap-proxy") {
-          group = cfg.ldap-proxy.group;
-          isSystemUser = true;
-        };
+        mkIf (cfg.ldap-proxy.user == "pi-ldap-proxy")
+          {
+            group = cfg.ldap-proxy.group;
+            isSystemUser = true;
+          }
+        ;
 
       users.groups.pi-ldap-proxy =
-        mkIf (cfg.ldap-proxy.group == "pi-ldap-proxy") { };
+        mkIf (cfg.ldap-proxy.group == "pi-ldap-proxy")
+          { }
+        ;
     })
   ];
 }

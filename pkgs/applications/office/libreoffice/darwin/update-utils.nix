@@ -8,7 +8,9 @@ let
     let
       majorMinorPatchGroup = "([0-9]+\\.[0-9]+\\.[0-9]+)";
       splittedVersions =
-        builtins.split ''href="${majorMinorPatchGroup}'' htmlString;
+        builtins.split ''href="${majorMinorPatchGroup}''
+          htmlString
+        ;
       stableVersions = builtins.concatLists (
         builtins.filter (e: builtins.isList e) splittedVersions
       );

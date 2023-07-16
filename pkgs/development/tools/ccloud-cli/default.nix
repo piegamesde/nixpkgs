@@ -26,8 +26,9 @@ stdenv.mkDerivation rec {
       }
   );
 
-  nativeBuildInputs =
-    lib.optionals stdenv.hostPlatform.isLinux [ autoPatchelfHook ];
+  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [
+    autoPatchelfHook
+  ];
 
   dontStrip = stdenv.isDarwin;
 

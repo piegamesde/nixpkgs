@@ -188,8 +188,8 @@ in
 
             config.settings = mkIf (cfg.web.enable && config.webHost != null) {
               wwsympa_url = mkDefault "https://${config.webHost}${
-                  strings.removeSuffix "/" config.webLocation
-                }";
+                    strings.removeSuffix "/" config.webLocation
+                  }";
             };
           }
         )
@@ -268,7 +268,9 @@ in
         type = nullOr str;
         default = user;
         description =
-          lib.mdDoc "Database user. The system user name is used as a default.";
+          lib.mdDoc
+            "Database user. The system user name is used as a default."
+          ;
       };
 
       passwordFile = mkOption {
@@ -284,7 +286,9 @@ in
         type = bool;
         default = true;
         description =
-          lib.mdDoc "Whether to create a local database automatically.";
+          lib.mdDoc
+            "Whether to create a local database automatically."
+          ;
       };
     };
 
@@ -375,8 +379,9 @@ in
               enable = mkOption {
                 type = bool;
                 default = true;
-                description = lib.mdDoc
-                  "Whether this file should be generated. This option allows specific files to be disabled."
+                description =
+                  lib.mdDoc
+                    "Whether this file should be generated. This option allows specific files to be disabled."
                   ;
               };
               text = mkOption {
@@ -405,7 +410,9 @@ in
         }
       '';
       description =
-        lib.mdDoc "Set of files to be linked in {file}`${dataDir}`.";
+        lib.mdDoc
+          "Set of files to be linked in {file}`${dataDir}`."
+        ;
     };
   };
 
@@ -599,8 +606,9 @@ in
     services.nginx.enable = mkIf usingNginx true;
     services.nginx.virtualHosts = mkIf usingNginx (
       let
-        vHosts =
-          unique (remove null (mapAttrsToList (_k: v: v.webHost) cfg.domains));
+        vHosts = unique (
+          remove null (mapAttrsToList (_k: v: v.webHost) cfg.domains)
+        );
         hostLocations =
           host:
           map (v: v.webLocation) (

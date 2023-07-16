@@ -153,27 +153,29 @@ let
       name = "nixos-taskserver";
 
       src =
-        pkgs.runCommand "nixos-taskserver-src" { preferLocalBuild = true; } ''
-          mkdir -p "$out"
-          cat "${
-            pkgs.substituteAll {
-              src = ./helper-tool.py;
-              inherit taskd certtool;
-              inherit (cfg) dataDir user group fqdn;
-              certBits = cfg.pki.auto.bits;
-              clientExpiration = cfg.pki.auto.expiration.client;
-              crlExpiration = cfg.pki.auto.expiration.crl;
-              isAutoConfig = if needToCreateCA then "True" else "False";
-            }
-          }" > "$out/main.py"
-          cat > "$out/setup.py" <<EOF
-          from setuptools import setup
-          setup(name="nixos-taskserver",
-                py_modules=["main"],
-                install_requires=["Click"],
-                entry_points="[console_scripts]\\nnixos-taskserver=main:cli")
-          EOF
-        '';
+        pkgs.runCommand "nixos-taskserver-src" { preferLocalBuild = true; }
+          ''
+            mkdir -p "$out"
+            cat "${
+              pkgs.substituteAll {
+                src = ./helper-tool.py;
+                inherit taskd certtool;
+                inherit (cfg) dataDir user group fqdn;
+                certBits = cfg.pki.auto.bits;
+                clientExpiration = cfg.pki.auto.expiration.client;
+                crlExpiration = cfg.pki.auto.expiration.crl;
+                isAutoConfig = if needToCreateCA then "True" else "False";
+              }
+            }" > "$out/main.py"
+            cat > "$out/setup.py" <<EOF
+            from setuptools import setup
+            setup(name="nixos-taskserver",
+                  py_modules=["main"],
+                  install_requires=["Click"],
+                  entry_points="[console_scripts]\\nnixos-taskserver=main:cli")
+            EOF
+          ''
+        ;
 
       propagatedBuildInputs = [ click ];
     };
@@ -447,20 +449,22 @@ in
   };
 
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "taskserver"
-        "extraConfig"
-      ]
-      ''
-        This option was removed in favor of `services.taskserver.config` with
-        different semantics (it's now a list of attributes instead of lines).
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "taskserver"
+          "extraConfig"
+        ]
+        ''
+          This option was removed in favor of `services.taskserver.config` with
+          different semantics (it's now a list of attributes instead of lines).
 
-        Please look up the documentation of `services.taskserver.config' to get
-        more information about the new way to pass additional configuration
-        options.
-      '')
+          Please look up the documentation of `services.taskserver.config' to get
+          more information about the new way to pass additional configuration
+          options.
+        ''
+    )
   ];
 
   config = mkMerge [

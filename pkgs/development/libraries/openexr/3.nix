@@ -34,7 +34,9 @@ stdenv.mkDerivation rec {
   '';
 
   cmakeFlags =
-    lib.optional stdenv.hostPlatform.isStatic "-DCMAKE_SKIP_RPATH=ON";
+    lib.optional stdenv.hostPlatform.isStatic
+      "-DCMAKE_SKIP_RPATH=ON"
+    ;
 
   nativeBuildInputs = [ cmake ];
   propagatedBuildInputs = [
@@ -45,7 +47,9 @@ stdenv.mkDerivation rec {
   # Without 'sse' enforcement tests fail on i686 as due to excessive precision as:
   #   error reading back channel B pixel 21,-76 got -nan expected -nan
   env.NIX_CFLAGS_COMPILE =
-    lib.optionalString stdenv.isi686 "-msse2 -mfpmath=sse";
+    lib.optionalString stdenv.isi686
+      "-msse2 -mfpmath=sse"
+    ;
 
   doCheck = true;
 

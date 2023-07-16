@@ -46,22 +46,27 @@ import ../make-test-python.nix (
           services.tinc.networks.myNetwork = {
             inherit name;
             rsaPrivateKeyFile =
-              builtins.toFile "rsa.priv" snakeoil-keys.${name}.rsaPrivate;
-            ed25519PrivateKeyFile = builtins.toFile
-              "ed25519.priv"
-              snakeoil-keys.${name}.ed25519Private;
+              builtins.toFile "rsa.priv"
+                snakeoil-keys.${name}.rsaPrivate
+              ;
+            ed25519PrivateKeyFile =
+              builtins.toFile "ed25519.priv"
+                snakeoil-keys.${name}.ed25519Private
+              ;
 
             hostSettings = lib.mapAttrs makeTincHost {
               static = {
                 subnet = "10.0.0.11";
                 # Only specify the addresses in the node's vlans, Tinc does not
                 # seem to try each one, unlike the documentation suggests...
-                extraConfig.addresses = map
-                  (vlan: {
-                    address = "192.168.${toString vlan}.11";
-                    port = 655;
-                  })
-                  config.virtualisation.vlans;
+                extraConfig.addresses =
+                  map
+                    (vlan: {
+                      address = "192.168.${toString vlan}.11";
+                      port = 655;
+                    })
+                    config.virtualisation.vlans
+                  ;
               };
               dynamic1 = { subnet = "10.0.0.21"; };
               dynamic2 = { subnet = "10.0.0.22"; };

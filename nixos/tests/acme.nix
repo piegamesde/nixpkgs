@@ -157,7 +157,9 @@ let
             # append extraDomains, and thus we can validate the SAN is removed.
             services."${server}" = {
               virtualHosts."${server}-http.example.test".serverAliases =
-                lib.mkForce [ ];
+                lib.mkForce
+                  [ ]
+                ;
               virtualHosts."${server}-http-alias.example.test" = vhostBaseData
                 // {
                   useACMEHost = "${server}-http.example.test";

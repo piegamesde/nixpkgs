@@ -63,14 +63,14 @@ stdenv.mkDerivation {
   expected = concatStrings (
     attrValues (
       mapAttrs
-      (key: value: ''
-        KEY
-        ${key}
-        VALUE
-        ${value}
+        (key: value: ''
+          KEY
+          ${key}
+          VALUE
+          ${value}
 
-      '')
-      input
+        '')
+        input
     )
   );
 

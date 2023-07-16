@@ -13,17 +13,22 @@ let
   mkTlpConfig =
     tlpConfig:
     generators.toKeyValue
-    {
-      mkKeyValue = generators.mkKeyValueDefault
-        {
-          mkValueString =
-            val:
-            if isList val then ''"'' + (toString val) + ''"'' else toString val
-            ;
-        }
-        "=";
-    }
-    tlpConfig
+      {
+        mkKeyValue =
+          generators.mkKeyValueDefault
+            {
+              mkValueString =
+                val:
+                if isList val then
+                  ''"'' + (toString val) + ''"''
+                else
+                  toString val
+                ;
+            }
+            "="
+          ;
+      }
+      tlpConfig
     ;
 in
 {
@@ -34,7 +39,9 @@ in
         type = types.bool;
         default = false;
         description =
-          lib.mdDoc "Whether to enable the TLP power management daemon.";
+          lib.mdDoc
+            "Whether to enable the TLP power management daemon."
+          ;
       };
 
       settings = mkOption {

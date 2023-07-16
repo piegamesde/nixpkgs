@@ -19,7 +19,9 @@ let
 
   # Add filecontents from files of useTheseDefaultConfFiles to confFiles, do not override
   defaultConfFiles =
-    subtractLists (attrNames cfg.confFiles) cfg.useTheseDefaultConfFiles;
+    subtractLists (attrNames cfg.confFiles)
+      cfg.useTheseDefaultConfFiles
+    ;
   allConfFiles = {
     # Default asterisk.conf file
     "asterisk.conf".text = ''
@@ -54,9 +56,8 @@ let
       syslog.local0 => notice,warning,error
     '';
   } // mapAttrs (name: text: { inherit text; }) cfg.confFiles // listToAttrs (
-    map
-    (x: nameValuePair x { source = cfg.package + "/etc/asterisk/" + x; })
-    defaultConfFiles
+    map (x: nameValuePair x { source = cfg.package + "/etc/asterisk/" + x; })
+      defaultConfFiles
   );
 in
 
@@ -215,9 +216,10 @@ in
   config = mkIf cfg.enable {
     environment.systemPackages = [ cfg.package ];
 
-    environment.etc = mapAttrs'
-      (name: value: nameValuePair "asterisk/${name}" value)
-      allConfFiles;
+    environment.etc =
+      mapAttrs' (name: value: nameValuePair "asterisk/${name}" value)
+        allConfFiles
+      ;
 
     users.users.asterisk = {
       name = asteriskUser;

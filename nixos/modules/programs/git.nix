@@ -33,25 +33,27 @@ in
             merge =
               loc: defs:
               let
-                config = foldl'
-                  (
-                    acc:
-                    {
-                      value,
-                      ...
-                    }@x:
-                    acc // (
-                      if isList value then
-                        { ordered = acc.ordered ++ value; }
-                      else
-                        { unordered = acc.unordered ++ [ x ]; }
+                config =
+                  foldl'
+                    (
+                      acc:
+                      {
+                        value,
+                        ...
+                      }@x:
+                      acc // (
+                        if isList value then
+                          { ordered = acc.ordered ++ value; }
+                        else
+                          { unordered = acc.unordered ++ [ x ]; }
+                      )
                     )
-                  )
-                  {
-                    ordered = [ ];
-                    unordered = [ ];
-                  }
-                  defs;
+                    {
+                      ordered = [ ];
+                      unordered = [ ];
+                    }
+                    defs
+                  ;
               in
               [ (gitini.merge loc config.unordered) ] ++ config.ordered
               ;

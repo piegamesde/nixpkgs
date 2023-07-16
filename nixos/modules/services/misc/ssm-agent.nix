@@ -30,7 +30,9 @@ in
       description = lib.mdDoc "The SSM agent package to use";
       default = pkgs.ssm-agent.override { overrideEtc = false; };
       defaultText =
-        literalExpression "pkgs.ssm-agent.override { overrideEtc = false; }";
+        literalExpression
+          "pkgs.ssm-agent.override { overrideEtc = false; }"
+        ;
     };
   };
 

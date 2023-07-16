@@ -240,8 +240,9 @@ let
 
     let
 
-      runtimePath =
-        concatStringsSep ":" (map (p: "${p}/bin") ([ faust ] ++ runtimeInputs));
+      runtimePath = concatStringsSep ":" (
+        map (p: "${p}/bin") ([ faust ] ++ runtimeInputs)
+      );
     in
     stdenv.mkDerivation (
       (faust2ApplBase args) // {

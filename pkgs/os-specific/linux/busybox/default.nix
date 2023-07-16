@@ -91,9 +91,9 @@ stdenv.mkDerivation rec {
         sha256 = "sha256-vl1wPbsHtXY9naajjnTicQ7Uj3N+EQ8pRNnrdsiow+w=";
       })
     ]
-    ++ lib.optional
-      (stdenv.hostPlatform != stdenv.buildPlatform)
-      ./clang-cross.patch
+    ++
+      lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
+        ./clang-cross.patch
     ;
 
   separateDebugInfo = true;
@@ -154,9 +154,11 @@ stdenv.mkDerivation rec {
   '';
 
   postConfigure =
-    lib.optionalString (useMusl && stdenv.hostPlatform.libc != "musl") ''
-      makeFlagsArray+=("CC=${stdenv.cc.targetPrefix}cc -isystem ${musl.dev}/include -B${musl}/lib -L${musl}/lib")
-    '';
+    lib.optionalString (useMusl && stdenv.hostPlatform.libc != "musl")
+      ''
+        makeFlagsArray+=("CC=${stdenv.cc.targetPrefix}cc -isystem ${musl.dev}/include -B${musl}/lib -L${musl}/lib")
+      ''
+    ;
 
   makeFlags = [ "SKIP_STRIP=y" ];
 
@@ -174,10 +176,12 @@ stdenv.mkDerivation rec {
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
   buildInputs =
-    lib.optionals (enableStatic && !useMusl && stdenv.cc.libc ? static) [
-      stdenv.cc.libc
-      stdenv.cc.libc.static
-    ];
+    lib.optionals (enableStatic && !useMusl && stdenv.cc.libc ? static)
+      [
+        stdenv.cc.libc
+        stdenv.cc.libc.static
+      ]
+    ;
 
   enableParallelBuilding = true;
 

@@ -53,7 +53,9 @@ in
         type = types.nullOr types.str;
         default = null;
         description =
-          lib.mdDoc "Email address to which job output will be mailed.";
+          lib.mdDoc
+            "Email address to which job output will be mailed."
+          ;
       };
 
       systemCronJobs = mkOption {
@@ -105,17 +107,19 @@ in
       };
       environment.systemPackages = [ cronNixosPkg ];
       environment.etc.crontab = {
-        source = pkgs.runCommand "crontabs"
-          {
-            inherit allFiles;
-            preferLocalBuild = true;
-          }
-          ''
-            touch $out
-            for i in $allFiles; do
-              cat "$i" >> $out
-            done
-          '';
+        source =
+          pkgs.runCommand "crontabs"
+            {
+              inherit allFiles;
+              preferLocalBuild = true;
+            }
+            ''
+              touch $out
+              for i in $allFiles; do
+                cat "$i" >> $out
+              done
+            ''
+          ;
         mode = "0600"; # Cron requires this.
       };
 

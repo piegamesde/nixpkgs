@@ -15,34 +15,39 @@ in
 {
   imports =
     [
-      (mkRemovedOptionModule
-        [
-          "stubby"
-          "debugLogging"
-        ]
-        ''Use services.stubby.logLevel = "debug"; instead.'')
-    ]
-    ++ map
       (
-        x:
-        (mkRemovedOptionModule
+        mkRemovedOptionModule
           [
-            "services"
             "stubby"
-            x
+            "debugLogging"
           ]
-          "Stubby configuration moved to services.stubby.settings.")
+          ''Use services.stubby.logLevel = "debug"; instead.''
       )
-      [
-        "authenticationMode"
-        "fallbackProtocols"
-        "idleTimeout"
-        "listenAddresses"
-        "queryPaddingBlocksize"
-        "roundRobinUpstreams"
-        "subnetPrivate"
-        "upstreamServers"
-      ]
+    ]
+    ++
+      map
+        (
+          x:
+          (
+            mkRemovedOptionModule
+              [
+                "services"
+                "stubby"
+                x
+              ]
+              "Stubby configuration moved to services.stubby.settings."
+          )
+        )
+        [
+          "authenticationMode"
+          "fallbackProtocols"
+          "idleTimeout"
+          "listenAddresses"
+          "queryPaddingBlocksize"
+          "roundRobinUpstreams"
+          "subnetPrivate"
+          "upstreamServers"
+        ]
     ;
 
   options = {

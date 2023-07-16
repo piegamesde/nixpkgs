@@ -100,14 +100,17 @@ in
         type = types.bool;
         default = false;
         description =
-          lib.mdDoc "Open ports in the firewall for the TeamSpeak3 server.";
+          lib.mdDoc
+            "Open ports in the firewall for the TeamSpeak3 server."
+          ;
       };
 
       openFirewallServerQuery = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc
-          "Open ports in the firewall for the TeamSpeak3 serverquery (administration) system. Requires openFirewall."
+        description =
+          lib.mdDoc
+            "Open ports in the firewall for the TeamSpeak3 serverquery (administration) system. Requires openFirewall."
           ;
       };
     };
@@ -155,9 +158,8 @@ in
             ${optionalString (cfg.voiceIP != null) "voice_ip=${cfg.voiceIP}"} \
             default_voice_port=${toString cfg.defaultVoicePort} \
             ${
-              optionalString
-              (cfg.fileTransferIP != null)
-              "filetransfer_ip=${cfg.fileTransferIP}"
+              optionalString (cfg.fileTransferIP != null)
+                "filetransfer_ip=${cfg.fileTransferIP}"
             } \
             filetransfer_port=${toString cfg.fileTransferPort} \
             ${optionalString (cfg.queryIP != null) "query_ip=${cfg.queryIP}"} \

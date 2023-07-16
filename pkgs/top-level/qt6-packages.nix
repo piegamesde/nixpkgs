@@ -38,7 +38,9 @@
       inherit (kdeFrameworks) kcoreaddons;
 
       qtpbfimageplugin =
-        callPackage ../development/libraries/qtpbfimageplugin { };
+        callPackage ../development/libraries/qtpbfimageplugin
+          { }
+        ;
 
       quazip = callPackage ../development/libraries/quazip { };
 

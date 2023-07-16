@@ -105,10 +105,12 @@ in
     };
 
     environment.etc."engelsystem/config.php".source =
-      pkgs.writeText "config.php" ''
-        <?php
-        return json_decode(file_get_contents("/var/lib/engelsystem/config.json"), true);
-      '';
+      pkgs.writeText "config.php"
+        ''
+          <?php
+          return json_decode(file_get_contents("/var/lib/engelsystem/config.json"), true);
+        ''
+      ;
 
     services.phpfpm.pools.engelsystem = {
       user = "engelsystem";

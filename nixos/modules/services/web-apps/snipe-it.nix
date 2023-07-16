@@ -128,7 +128,9 @@ in
         type = types.bool;
         default = false;
         description =
-          lib.mdDoc "Create the database and database user locally.";
+          lib.mdDoc
+            "Create the database and database user locally."
+          ;
       };
     };
 
@@ -181,7 +183,9 @@ in
         type = types.str;
         default = "backup@example.com";
         description =
-          lib.mdDoc "Email Address to send Backup Notifications to.";
+          lib.mdDoc
+            "Email Address to send Backup Notifications to."
+          ;
       };
       from = {
         name = mkOption {
@@ -242,8 +246,11 @@ in
     nginx = mkOption {
       type = types.submodule (
         recursiveUpdate
-        (import ../web-servers/nginx/vhost-options.nix { inherit config lib; })
-        { }
+          (
+            import ../web-servers/nginx/vhost-options.nix
+              { inherit config lib; }
+          )
+          { }
       );
       default = { };
       example = literalExpression ''
@@ -266,32 +273,32 @@ in
         attrsOf (
           nullOr (
             either
-            (oneOf [
-              bool
-              int
-              port
-              path
-              str
-            ])
-            (
-              submodule {
-                options = {
-                  _secret = mkOption {
-                    type = nullOr (
-                      oneOf [
-                        str
-                        path
-                      ]
-                    );
-                    description = lib.mdDoc ''
-                      The path to a file containing the value the
-                      option should be set to in the final
-                      configuration file.
-                    '';
+              (oneOf [
+                bool
+                int
+                port
+                path
+                str
+              ])
+              (
+                submodule {
+                  options = {
+                    _secret = mkOption {
+                      type = nullOr (
+                        oneOf [
+                          str
+                          path
+                        ]
+                      );
+                      description = lib.mdDoc ''
+                        The path to a file containing the value the
+                        option should be set to in the final
+                        configuration file.
+                      '';
+                    };
                   };
-                };
-              }
-            )
+                }
+              )
           )
         );
       default = { };
@@ -401,14 +408,16 @@ in
         cfg.nginx
         {
           root = mkForce "${snipe-it}/public";
-          extraConfig = optionalString
-            (
-              cfg.nginx.addSSL
-              || cfg.nginx.forceSSL
-              || cfg.nginx.onlySSL
-              || cfg.nginx.enableACME
-            )
-            "fastcgi_param HTTPS on;";
+          extraConfig =
+            optionalString
+              (
+                cfg.nginx.addSSL
+                || cfg.nginx.forceSSL
+                || cfg.nginx.onlySSL
+                || cfg.nginx.enableACME
+              )
+              "fastcgi_param HTTPS on;"
+            ;
           locations = {
             "/" = {
               index = "index.php";
@@ -424,13 +433,13 @@ in
                   config.services.phpfpm.pools."snipe-it".socket
                 };
                 ${optionalString
-                (
-                  cfg.nginx.addSSL
-                  || cfg.nginx.forceSSL
-                  || cfg.nginx.onlySSL
-                  || cfg.nginx.enableACME
-                )
-                "fastcgi_param HTTPS on;"}
+                  (
+                    cfg.nginx.addSSL
+                    || cfg.nginx.forceSSL
+                    || cfg.nginx.onlySSL
+                    || cfg.nginx.enableACME
+                  )
+                  "fastcgi_param HTTPS on;"}
               '';
             };
             "~ .(js|css|gif|png|ico|jpg|jpeg)$" = {
@@ -483,8 +492,8 @@ in
                     hashString "sha256" (builtins.readFile v._secret)
                 else
                   throw "unsupported type ${typeOf v}: ${
-                    (lib.generators.toPretty { }) v
-                  }"
+                      (lib.generators.toPretty { }) v
+                    }"
                 ;
             };
           };
@@ -508,18 +517,23 @@ in
             ''
             ;
           secretReplacements =
-            lib.concatMapStrings mkSecretReplacement secretPaths;
-          filteredConfig = lib.converge
-            (lib.filterAttrsRecursive (
-              _: v:
-              !elem v [
-                { }
-                null
-              ]
-            ))
-            cfg.config;
-          snipeITEnv =
-            pkgs.writeText "snipeIT.env" (snipeITEnvVars filteredConfig);
+            lib.concatMapStrings mkSecretReplacement
+              secretPaths
+            ;
+          filteredConfig =
+            lib.converge
+              (lib.filterAttrsRecursive (
+                _: v:
+                !elem v [
+                  { }
+                  null
+                ]
+              ))
+              cfg.config
+            ;
+          snipeITEnv = pkgs.writeText "snipeIT.env" (
+            snipeITEnvVars filteredConfig
+          );
         in
         ''
           # error handling

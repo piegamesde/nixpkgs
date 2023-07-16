@@ -14,7 +14,9 @@ in
   ###### interface
   options = {
     services.xserver.windowManager.mwm.enable =
-      mkEnableOption (lib.mdDoc "mwm");
+      mkEnableOption
+        (lib.mdDoc "mwm")
+      ;
   };
 
   ###### implementation

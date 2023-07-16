@@ -609,18 +609,19 @@ let
           };
         in
         runCommand "ngx_pagespeed"
-        {
-          meta = {
-            description = "PageSpeed module for Nginx";
-            homepage = "https://developers.google.com/speed/pagespeed/module/";
-            license = lib.licenses.asl20;
-          };
-        }
-        ''
-          cp -r "${moduleSrc}" "$out"
-          chmod -R +w "$out"
-          ln -s "${psol}" "$out/psol"
-        ''
+          {
+            meta = {
+              description = "PageSpeed module for Nginx";
+              homepage =
+                "https://developers.google.com/speed/pagespeed/module/";
+              license = lib.licenses.asl20;
+            };
+          }
+          ''
+            cp -r "${moduleSrc}" "$out"
+            chmod -R +w "$out"
+            ln -s "${psol}" "$out/psol"
+          ''
         ;
 
       inputs = [

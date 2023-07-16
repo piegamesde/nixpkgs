@@ -93,7 +93,11 @@ in
   # by the mapped packages.
   manylinux1Package = createManyLinuxPackage "manylinux1" manylinux1Libs;
   manylinux2010Package =
-    createManyLinuxPackage "manylinux2010" manylinux2010Libs;
+    createManyLinuxPackage "manylinux2010"
+      manylinux2010Libs
+    ;
   manylinux2014Package =
-    createManyLinuxPackage "manylinux2014" manylinux2014Libs;
+    createManyLinuxPackage "manylinux2014"
+      manylinux2014Libs
+    ;
 }

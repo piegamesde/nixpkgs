@@ -64,9 +64,9 @@ let
     configureFlags =
       [ "--disable-debug" ]
       ++ lib.optional (stdenv.isFreeBSD || stdenv.isDarwin) "--enable-rpath"
-      ++ lib.optional
-        (stdenv.buildPlatform != stdenv.hostPlatform)
-        "--with-cross-build=${nativeBuildRoot}"
+      ++
+        lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
+          "--with-cross-build=${nativeBuildRoot}"
       ;
 
     enableParallelBuilding = true;
@@ -96,7 +96,9 @@ let
     # FIXME: This fixes dylib references in the dylibs themselves, but
     # not in the programs in $out/bin.
     nativeBuildInputs =
-      lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
+      lib.optional stdenv.hostPlatform.isDarwin
+        fixDarwinDylibNames
+      ;
 
     # remove dependency on bootstrap-tools in early stdenv build
     postInstall =
@@ -123,9 +125,8 @@ let
         ''
           substituteInPlace "$dev/bin/icu-config" \
             ${
-              lib.concatMapStringsSep " "
-              (r: "--replace '${r.from}' '${r.to}'")
-              replacements
+              lib.concatMapStringsSep " " (r: "--replace '${r.from}' '${r.to}'")
+                replacements
             }
         ''
       )
@@ -160,6 +161,8 @@ stdenv.mkDerivation (
   finalAttrs:
   attrs // {
     passthru.tests.pkg-config =
-      testers.testMetaPkgConfig finalAttrs.finalPackage;
+      testers.testMetaPkgConfig
+        finalAttrs.finalPackage
+      ;
   }
 )

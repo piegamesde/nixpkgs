@@ -91,8 +91,9 @@ in
       };
 
       frontend = {
-        enable =
-          mkEnableOption (lib.mdDoc "Bird Looking Glass Frontend Webserver");
+        enable = mkEnableOption (
+          lib.mdDoc "Bird Looking Glass Frontend Webserver"
+        );
 
         listenAddress = mkOption {
           type = types.str;
@@ -155,7 +156,9 @@ in
           default = "";
           example = "dn42";
           description =
-            lib.mdDoc "Apply network-specific changes for some networks.";
+            lib.mdDoc
+              "Apply network-specific changes for some networks."
+            ;
         };
 
         protocolFilter = mkOption {
@@ -170,7 +173,9 @@ in
           default = "";
           example = "^ospf";
           description =
-            lib.mdDoc "Protocol names to hide in summary tables (RE2 syntax),";
+            lib.mdDoc
+              "Protocol names to hide in summary tables (RE2 syntax),"
+            ;
         };
 
         timeout = mkOption {
@@ -190,14 +195,18 @@ in
             type = types.str;
             default = "/";
             description =
-              lib.mdDoc "URL of the brand to show in the navigation bar.";
+              lib.mdDoc
+                "URL of the brand to show in the navigation bar."
+              ;
           };
 
           allServers = mkOption {
             type = types.str;
             default = "ALL Servers";
             description =
-              lib.mdDoc "Text of 'All server' button in the navigation bar.";
+              lib.mdDoc
+                "Text of 'All server' button in the navigation bar."
+              ;
           };
 
           allServersURL = mkOption {
@@ -249,8 +258,8 @@ in
           binary = mkOption {
             type = types.str;
             default = "${pkgs.traceroute}/bin/traceroute";
-            defaultText =
-              literalExpression ''"''${pkgs.traceroute}/bin/traceroute"'';
+            defaultText = literalExpression ''
+              "''${pkgs.traceroute}/bin/traceroute"'';
             description = lib.mdDoc "Traceroute's binary path.";
           };
 
@@ -288,15 +297,15 @@ in
 
     warnings =
       lib.optional
-      (cfg.frontend.enable && builtins.isString cfg.frontend.extraArgs)
-      ''
-        Passing strings to `services.bird-lg.frontend.extraOptions' is deprecated. Please pass a list of strings instead.
-      ''
-      ++ lib.optional
-        (cfg.proxy.enable && builtins.isString cfg.proxy.extraArgs)
+        (cfg.frontend.enable && builtins.isString cfg.frontend.extraArgs)
         ''
-          Passing strings to `services.bird-lg.proxy.extraOptions' is deprecated. Please pass a list of strings instead.
+          Passing strings to `services.bird-lg.frontend.extraOptions' is deprecated. Please pass a list of strings instead.
         ''
+      ++
+        lib.optional (cfg.proxy.enable && builtins.isString cfg.proxy.extraArgs)
+          ''
+            Passing strings to `services.bird-lg.proxy.extraOptions' is deprecated. Please pass a list of strings instead.
+          ''
       ;
 
     systemd.services = {

@@ -19,11 +19,13 @@ rec {
     assert generatePDF -> !generatePS;
 
     let
-      tex = pkgs.texlive.combine
-        # always include basic stuff you need for LaTeX
-        (
-          { inherit (pkgs.texlive) scheme-basic; } // texPackages
-        );
+      tex =
+        pkgs.texlive.combine
+          # always include basic stuff you need for LaTeX
+          (
+            { inherit (pkgs.texlive) scheme-basic; } // texPackages
+          )
+        ;
     in
 
     pkgs.stdenv.mkDerivation {
@@ -41,12 +43,14 @@ rec {
         copySources
         ;
 
-      includes = map
-        (x: [
-          x.key
-          (baseNameOf (toString x.key))
-        ])
-        (findLaTeXIncludes { inherit rootFile; });
+      includes =
+        map
+          (x: [
+            x.key
+            (baseNameOf (toString x.key))
+          ])
+          (findLaTeXIncludes { inherit rootFile; })
+        ;
 
       buildInputs =
         [
@@ -85,11 +89,11 @@ rec {
           # what extensions we use to look for it.
           deps = import (
             pkgs.runCommand "latex-includes"
-            {
-              rootFile = baseNameOf (toString rootFile);
-              src = key;
-            }
-            "${pkgs.perl}/bin/perl ${./find-includes.pl}"
+              {
+                rootFile = baseNameOf (toString rootFile);
+                src = key;
+              }
+              "${pkgs.perl}/bin/perl ${./find-includes.pl}"
           );
 
           # Look for the dependencies of `key', trying various
@@ -144,14 +148,13 @@ rec {
         let
 
           deps = import (
-            pkgs.runCommand "lhs2tex-includes"
-            { src = key; }
-            "${pkgs.stdenv.bash}/bin/bash ${./find-lhs2tex-includes.sh}"
+            pkgs.runCommand "lhs2tex-includes" { src = key; }
+              "${pkgs.stdenv.bash}/bin/bash ${./find-lhs2tex-includes.sh}"
           );
         in
         pkgs.lib.concatMap
-        (x: lib.optionals (builtins.pathExists x) [ { key = x; } ])
-        (map (x: dirOf key + ("/" + x)) deps)
+          (x: lib.optionals (builtins.pathExists x) [ { key = x; } ])
+          (map (x: dirOf key + ("/" + x)) deps)
         ;
     }
     ;
@@ -203,12 +206,14 @@ rec {
         pkgs.perl
       ];
       copyIncludes = ./copy-includes.pl;
-      includes = map
-        (x: [
-          x.key
-          (baseNameOf (toString x.key))
-        ])
-        (findLhs2TeXIncludes { rootFile = source; });
+      includes =
+        map
+          (x: [
+            x.key
+            (baseNameOf (toString x.key))
+          ])
+          (findLhs2TeXIncludes { rootFile = source; })
+        ;
     }
     ;
 

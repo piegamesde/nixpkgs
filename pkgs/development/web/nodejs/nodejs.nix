@@ -55,14 +55,14 @@ let
 
   sharedConfigureFlags =
     lib.concatMap
-    (name: [
-      "--shared-${name}"
-      "--shared-${name}-libpath=${lib.getLib sharedLibDeps.${name}}/lib"
-      # Closure notes: we explicitly avoid specifying --shared-*-includes,
-      #  as that would put the paths into bin/nodejs.
-      #  Including pkg-config in build inputs would also have the same effect!
-    ])
-    (builtins.attrNames sharedLibDeps)
+      (name: [
+        "--shared-${name}"
+        "--shared-${name}-libpath=${lib.getLib sharedLibDeps.${name}}/lib"
+        # Closure notes: we explicitly avoid specifying --shared-*-includes,
+        #  as that would put the paths into bin/nodejs.
+        #  Including pkg-config in build inputs would also have the same effect!
+      ])
+      (builtins.attrNames sharedLibDeps)
     ++ [ "--with-intl=system-icu" ]
     ;
 
@@ -184,8 +184,9 @@ let
 
     passthru.interpreterName = "nodejs";
 
-    passthru.pkgs =
-      callPackage ../../node-packages/default.nix { nodejs = self; };
+    passthru.pkgs = callPackage ../../node-packages/default.nix {
+      nodejs = self;
+    };
 
     setupHook = ./setup-hook.sh;
 
@@ -220,17 +221,17 @@ let
       PATH=$out/bin:$PATH patchShebangs $out
 
       ${lib.optionalString
-      (enableNpm && stdenv.hostPlatform == stdenv.buildPlatform)
-      ''
-        mkdir -p $out/share/bash-completion/completions/
-        HOME=$TMPDIR $out/bin/npm completion > $out/share/bash-completion/completions/npm
-        for dir in "$out/lib/node_modules/npm/man/"*; do
-          mkdir -p $out/share/man/$(basename "$dir")
-          for page in "$dir"/*; do
-            ln -rs $page $out/share/man/$(basename "$dir")
+        (enableNpm && stdenv.hostPlatform == stdenv.buildPlatform)
+        ''
+          mkdir -p $out/share/bash-completion/completions/
+          HOME=$TMPDIR $out/bin/npm completion > $out/share/bash-completion/completions/npm
+          for dir in "$out/lib/node_modules/npm/man/"*; do
+            mkdir -p $out/share/man/$(basename "$dir")
+            for page in "$dir"/*; do
+              ln -rs $page $out/share/man/$(basename "$dir")
+            done
           done
-        done
-      ''}
+        ''}
 
       # install the missing headers for node-gyp
       cp -r ${lib.concatStringsSep " " copyLibHeaders} $out/include/node
@@ -297,9 +298,9 @@ let
       ];
       platforms = platforms.linux ++ platforms.darwin;
       mainProgram = "node";
-      knownVulnerabilities = optional
-        (versionOlder version "14")
-        "This NodeJS release has reached its end of life. See https://nodejs.org/en/about/releases/."
+      knownVulnerabilities =
+        optional (versionOlder version "14")
+          "This NodeJS release has reached its end of life. See https://nodejs.org/en/about/releases/."
         ;
     };
 

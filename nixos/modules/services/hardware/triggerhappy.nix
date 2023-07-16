@@ -15,23 +15,23 @@ let
 
   configFile = pkgs.writeText "triggerhappy.conf" ''
     ${concatMapStringsSep "\n"
-    (
-      {
-        keys,
-        event,
-        cmd,
-        ...
-      }:
-      "${concatMapStringsSep "+" (x: "KEY_" + x) keys} ${
-        toString {
-          press = 1;
-          hold = 2;
-          release = 0;
-        }
-        .${event}
-      } ${cmd}"
-    )
-    cfg.bindings}
+      (
+        {
+          keys,
+          event,
+          cmd,
+          ...
+        }:
+        "${concatMapStringsSep "+" (x: "KEY_" + x) keys} ${
+          toString {
+            press = 1;
+            hold = 2;
+            release = 0;
+          }
+            .${event}
+        } ${cmd}"
+      )
+      cfg.bindings}
     ${cfg.extraConfig}
   '';
 
@@ -43,8 +43,9 @@ let
 
         keys = mkOption {
           type = types.listOf types.str;
-          description = lib.mdDoc
-            "List of keys to match.  Key names as defined in linux/input-event-codes.h"
+          description =
+            lib.mdDoc
+              "List of keys to match.  Key names as defined in linux/input-event-codes.h"
             ;
         };
 

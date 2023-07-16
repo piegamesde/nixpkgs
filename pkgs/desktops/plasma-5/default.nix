@@ -50,14 +50,16 @@ let
     mirror = "mirror://kde";
   };
 
-  qtStdenv = libsForQt5.callPackage
-    (
-      {
-        stdenv,
-      }:
-      stdenv
-    )
-    { };
+  qtStdenv =
+    libsForQt5.callPackage
+      (
+        {
+          stdenv,
+        }:
+        stdenv
+      )
+      { }
+    ;
 
   packages =
     self:
@@ -154,8 +156,9 @@ let
       flatpak-kcm = callPackage ./flatpak-kcm.nix { };
       kactivitymanagerd = callPackage ./kactivitymanagerd.nix { };
       kde-cli-tools = callPackage ./kde-cli-tools.nix { };
-      kde-gtk-config =
-        callPackage ./kde-gtk-config { inherit gsettings-desktop-schemas; };
+      kde-gtk-config = callPackage ./kde-gtk-config {
+        inherit gsettings-desktop-schemas;
+      };
       kdecoration = callPackage ./kdecoration.nix { };
       kdeplasma-addons = callPackage ./kdeplasma-addons.nix { };
       kgamma5 = callPackage ./kgamma5.nix { };
@@ -180,7 +183,9 @@ let
       plank-player = callPackage ./plank-player.nix { };
       plasma-bigscreen = callPackage ./plasma-bigscreen.nix { };
       plasma-browser-integration =
-        callPackage ./plasma-browser-integration.nix { };
+        callPackage ./plasma-browser-integration.nix
+          { }
+        ;
       plasma-desktop = callPackage ./plasma-desktop { };
       plasma-disks = callPackage ./plasma-disks.nix { };
       plasma-integration = callPackage ./plasma-integration { };
@@ -196,7 +201,9 @@ let
       plasma-welcome = callPackage ./plasma-welcome.nix { };
       plasma-workspace = callPackage ./plasma-workspace { };
       plasma-workspace-wallpapers =
-        callPackage ./plasma-workspace-wallpapers.nix { };
+        callPackage ./plasma-workspace-wallpapers.nix
+          { }
+        ;
       polkit-kde-agent = callPackage ./polkit-kde-agent.nix { };
       powerdevil = callPackage ./powerdevil.nix { };
       qqc2-breeze-style = callPackage ./qqc2-breeze-style.nix { };
@@ -210,17 +217,25 @@ let
         in
         {
           plasma-applet-caffeine-plus =
-            callPackage ./3rdparty/addons/caffeine-plus.nix { };
+            callPackage ./3rdparty/addons/caffeine-plus.nix
+              { }
+            ;
           plasma-applet-virtual-desktop-bar =
-            callPackage ./3rdparty/addons/virtual-desktop-bar.nix { };
+            callPackage ./3rdparty/addons/virtual-desktop-bar.nix
+              { }
+            ;
           bismuth = callPackage ./3rdparty/addons/bismuth { };
           kwin-dynamic-workspaces =
-            callPackage ./3rdparty/kwin/scripts/dynamic-workspaces.nix { };
+            callPackage ./3rdparty/kwin/scripts/dynamic-workspaces.nix
+              { }
+            ;
           kwin-tiling = callPackage ./3rdparty/kwin/scripts/tiling.nix { };
           krohnkite = callPackage ./3rdparty/kwin/scripts/krohnkite.nix { };
           krunner-ssh = callPackage ./3rdparty/addons/krunner-ssh.nix { };
           krunner-symbols =
-            callPackage ./3rdparty/addons/krunner-symbols.nix { };
+            callPackage ./3rdparty/addons/krunner-symbols.nix
+              { }
+            ;
           kzones = callPackage ./3rdparty/kwin/scripts/kzones.nix { };
           lightly = callPackage ./3rdparty/lightly { };
           parachute = callPackage ./3rdparty/kwin/scripts/parachute.nix { };
@@ -228,8 +243,9 @@ let
         ;
     } // lib.optionalAttrs config.allowAliases {
       ksysguard = throw "ksysguard has been replaced with plasma-systemmonitor";
-      plasma-phone-components = throw
-        "'plasma-phone-components' has been renamed to/replaced by 'plasma-mobile'"
+      plasma-phone-components =
+        throw
+          "'plasma-phone-components' has been renamed to/replaced by 'plasma-mobile'"
         ;
     }
     ;

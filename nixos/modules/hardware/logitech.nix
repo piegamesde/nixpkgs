@@ -16,30 +16,34 @@ let
 in
 {
   imports = [
-    (mkRenamedOptionModule
-      [
-        "hardware"
-        "logitech"
-        "enable"
-      ]
-      [
-        "hardware"
-        "logitech"
-        "wireless"
-        "enable"
-      ])
-    (mkRenamedOptionModule
-      [
-        "hardware"
-        "logitech"
-        "enableGraphical"
-      ]
-      [
-        "hardware"
-        "logitech"
-        "wireless"
-        "enableGraphical"
-      ])
+    (
+      mkRenamedOptionModule
+        [
+          "hardware"
+          "logitech"
+          "enable"
+        ]
+        [
+          "hardware"
+          "logitech"
+          "wireless"
+          "enable"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "hardware"
+          "logitech"
+          "enableGraphical"
+        ]
+        [
+          "hardware"
+          "logitech"
+          "wireless"
+          "enableGraphical"
+        ]
+    )
   ];
 
   options.hardware.logitech = {
@@ -104,13 +108,14 @@ in
         ''
           # nixos: hardware.logitech.lcd
         ''
-        + lib.concatMapStringsSep "\n"
-          (
-            dev:
-            ''
-              ACTION=="add", SUBSYSTEMS=="usb", ATTRS{idVendor}=="${vendor}", ATTRS{idProduct}=="${dev}", TAG+="systemd", ENV{SYSTEMD_WANTS}+="${daemon}.service"''
-          )
-          cfg.lcd.devices
+        +
+          lib.concatMapStringsSep "\n"
+            (
+              dev:
+              ''
+                ACTION=="add", SUBSYSTEMS=="usb", ATTRS{idVendor}=="${vendor}", ATTRS{idProduct}=="${dev}", TAG+="systemd", ENV{SYSTEMD_WANTS}+="${daemon}.service"''
+            )
+            cfg.lcd.devices
         ;
     };
 

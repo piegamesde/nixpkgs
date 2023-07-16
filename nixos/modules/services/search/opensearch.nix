@@ -31,8 +31,9 @@ in
   options.services.opensearch = {
     enable = mkEnableOption (lib.mdDoc "OpenSearch");
 
-    package =
-      lib.mkPackageOptionMD pkgs "OpenSearch" { default = [ "opensearch" ]; };
+    package = lib.mkPackageOptionMD pkgs "OpenSearch" {
+      default = [ "opensearch" ];
+    };
 
     settings = lib.mkOption {
       type = lib.types.submodule {
@@ -138,7 +139,9 @@ in
 
     extraCmdLineOptions = lib.mkOption {
       description =
-        lib.mdDoc "Extra command line options for the OpenSearch launcher.";
+        lib.mdDoc
+          "Extra command line options for the OpenSearch launcher."
+        ;
       default = [ ];
       type = lib.types.listOf lib.types.str;
     };
@@ -228,13 +231,11 @@ in
           in
           [
             "+${
-              pkgs.writeShellScript
-              "opensearch-start-pre-full-privileges"
-              startPreFullPrivileges
+              pkgs.writeShellScript "opensearch-start-pre-full-privileges"
+                startPreFullPrivileges
             }"
-            "${pkgs.writeShellScript
-            "opensearch-start-pre-unprivileged"
-            startPreUnprivileged}"
+            "${pkgs.writeShellScript "opensearch-start-pre-unprivileged"
+              startPreUnprivileged}"
           ]
           ;
         ExecStartPost = pkgs.writeShellScript "opensearch-start-post" ''

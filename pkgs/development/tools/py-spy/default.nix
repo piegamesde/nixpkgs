@@ -41,9 +41,11 @@ rustPlatform.buildRustPackage rec {
 
   # error: linker `arm-linux-gnueabihf-gcc` not found
   preConfigure =
-    lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
-      export RUSTFLAGS="-Clinker=$CC"
-    '';
+    lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform)
+      ''
+        export RUSTFLAGS="-Clinker=$CC"
+      ''
+    ;
 
   checkFlags =
     [

@@ -47,15 +47,17 @@ let
     mirror = "mirror://kde";
   };
 
-  mkDerivation = libsForQt5.callPackage
-    (
-      {
-        stdenv,
-        mkDerivation ? stdenv.mkDerivation,
-      }:
-      mkDerivation
-    )
-    { };
+  mkDerivation =
+    libsForQt5.callPackage
+      (
+        {
+          stdenv,
+          mkDerivation ? stdenv.mkDerivation,
+        }:
+        mkDerivation
+      )
+      { }
+    ;
 
   packages =
     self:

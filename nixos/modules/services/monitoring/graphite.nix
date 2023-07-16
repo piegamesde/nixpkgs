@@ -16,15 +16,17 @@ let
   dataDir = cfg.dataDir;
   staticDir = cfg.dataDir + "/static";
 
-  graphiteLocalSettingsDir = pkgs.runCommand "graphite_local_settings"
-    {
-      inherit graphiteLocalSettings;
-      preferLocalBuild = true;
-    }
-    ''
-      mkdir -p $out
-      ln -s $graphiteLocalSettings $out/graphite_local_settings.py
-    '';
+  graphiteLocalSettingsDir =
+    pkgs.runCommand "graphite_local_settings"
+      {
+        inherit graphiteLocalSettings;
+        preferLocalBuild = true;
+      }
+      ''
+        mkdir -p $out
+        ln -s $graphiteLocalSettings $out/graphite_local_settings.py
+      ''
+    ;
 
   graphiteLocalSettings = pkgs.writeText "graphite_local_settings.py" (
     ''
@@ -80,27 +82,33 @@ in
 {
 
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "graphite"
-        "api"
-      ]
-      "")
-    (mkRemovedOptionModule
-      [
-        "services"
-        "graphite"
-        "beacon"
-      ]
-      "")
-    (mkRemovedOptionModule
-      [
-        "services"
-        "graphite"
-        "pager"
-      ]
-      "")
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "graphite"
+          "api"
+        ]
+        ""
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "graphite"
+          "beacon"
+        ]
+        ""
+    )
+    (
+      mkRemovedOptionModule
+        [
+          "services"
+          "graphite"
+          "pager"
+        ]
+        ""
+    )
   ];
 
   ###### interface
@@ -161,15 +169,19 @@ in
       };
 
       enableCache = mkOption {
-        description = lib.mdDoc
-          "Whether to enable carbon cache, the graphite storage daemon.";
+        description =
+          lib.mdDoc
+            "Whether to enable carbon cache, the graphite storage daemon."
+          ;
         default = false;
         type = types.bool;
       };
 
       storageAggregation = mkOption {
-        description = lib.mdDoc
-          "Defines how to aggregate data to lower-precision retentions.";
+        description =
+          lib.mdDoc
+            "Defines how to aggregate data to lower-precision retentions."
+          ;
         default = null;
         type = types.nullOr types.str;
         example = ''
@@ -192,8 +204,9 @@ in
       };
 
       blacklist = mkOption {
-        description = lib.mdDoc
-          "Any metrics received which match one of the expressions will be dropped."
+        description =
+          lib.mdDoc
+            "Any metrics received which match one of the expressions will be dropped."
           ;
         default = null;
         type = types.nullOr types.str;
@@ -201,8 +214,9 @@ in
       };
 
       whitelist = mkOption {
-        description = lib.mdDoc
-          "Only metrics received which match one of the expressions will be persisted."
+        description =
+          lib.mdDoc
+            "Only metrics received which match one of the expressions will be persisted."
           ;
         default = null;
         type = types.nullOr types.str;
@@ -224,16 +238,19 @@ in
       };
 
       enableRelay = mkOption {
-        description = lib.mdDoc
-          "Whether to enable carbon relay, the carbon replication and sharding service."
+        description =
+          lib.mdDoc
+            "Whether to enable carbon relay, the carbon replication and sharding service."
           ;
         default = false;
         type = types.bool;
       };
 
       relayRules = mkOption {
-        description = lib.mdDoc
-          "Relay rules are used to send certain metrics to a certain backend.";
+        description =
+          lib.mdDoc
+            "Relay rules are used to send certain metrics to a certain backend."
+          ;
         default = null;
         type = types.nullOr types.str;
         example = ''
@@ -244,15 +261,19 @@ in
       };
 
       enableAggregator = mkOption {
-        description = lib.mdDoc
-          "Whether to enable carbon aggregator, the carbon buffering service.";
+        description =
+          lib.mdDoc
+            "Whether to enable carbon aggregator, the carbon buffering service."
+          ;
         default = false;
         type = types.bool;
       };
 
       aggregationRules = mkOption {
         description =
-          lib.mdDoc "Defines if and how received metrics will be aggregated.";
+          lib.mdDoc
+            "Defines if and how received metrics will be aggregated."
+          ;
         default = null;
         type = types.nullOr types.str;
         example = ''
@@ -392,15 +413,15 @@ in
         ;
     })
 
-    (mkIf
-      (
-        cfg.carbon.enableCache
-        || cfg.carbon.enableAggregator
-        || cfg.carbon.enableRelay
-      )
-      {
-        environment.systemPackages = [ pkgs.python3Packages.carbon ];
-      })
+    (
+      mkIf
+        (
+          cfg.carbon.enableCache
+          || cfg.carbon.enableAggregator
+          || cfg.carbon.enableRelay
+        )
+        { environment.systemPackages = [ pkgs.python3Packages.carbon ]; }
+    )
 
     (mkIf cfg.web.enable ({
       systemd.services.graphiteWeb = {
@@ -490,22 +511,24 @@ in
       services.mongodb.enable = mkDefault true;
     })
 
-    (mkIf
-      (
-        cfg.carbon.enableCache
-        || cfg.carbon.enableAggregator
-        || cfg.carbon.enableRelay
-        || cfg.web.enable
-        || cfg.seyren.enable
-      )
-      {
-        users.users.graphite = {
-          uid = config.ids.uids.graphite;
-          group = "graphite";
-          description = "Graphite daemon user";
-          home = dataDir;
-        };
-        users.groups.graphite.gid = config.ids.gids.graphite;
-      })
+    (
+      mkIf
+        (
+          cfg.carbon.enableCache
+          || cfg.carbon.enableAggregator
+          || cfg.carbon.enableRelay
+          || cfg.web.enable
+          || cfg.seyren.enable
+        )
+        {
+          users.users.graphite = {
+            uid = config.ids.uids.graphite;
+            group = "graphite";
+            description = "Graphite daemon user";
+            home = dataDir;
+          };
+          users.groups.graphite.gid = config.ids.gids.graphite;
+        }
+    )
   ];
 }

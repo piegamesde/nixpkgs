@@ -14,10 +14,14 @@ in
       type = types.lazyAttrsOf (types.nonEmptyListOf types.int);
     };
     attrs =
-      lib.mkOption { type = types.lazyAttrsOf (types.attrsOf types.int); };
+      lib.mkOption
+        { type = types.lazyAttrsOf (types.attrsOf types.int); }
+      ;
     null = lib.mkOption { type = types.lazyAttrsOf (types.nullOr types.int); };
     submodule =
-      lib.mkOption { type = types.lazyAttrsOf (types.submodule { }); };
+      lib.mkOption
+        { type = types.lazyAttrsOf (types.submodule { }); }
+      ;
   };
 
   config = {

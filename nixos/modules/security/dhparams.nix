@@ -45,9 +45,11 @@ let
 
       config.path =
         let
-          generated = pkgs.runCommand "dhparams-${name}.pem"
-            { nativeBuildInputs = [ pkgs.openssl ]; }
-            ''openssl dhparam -out "$out" ${toString config.bits}'';
+          generated =
+            pkgs.runCommand "dhparams-${name}.pem"
+              { nativeBuildInputs = [ pkgs.openssl ]; }
+              ''openssl dhparam -out "$out" ${toString config.bits}''
+            ;
         in
         if cfg.stateful then "${cfg.path}/${name}.pem" else generated
         ;
@@ -171,23 +173,23 @@ in
             ${
               lib.concatStrings (
                 lib.mapAttrsToList
-                (
-                  name:
-                  {
-                    bits,
-                    path,
-                    ...
-                  }: ''
-                    if [ "$file" = ${lib.escapeShellArg path} ] && \
-                       ${pkgs.openssl}/bin/openssl dhparam -in "$file" -text \
-                       | head -n 1 | grep "(${
-                         toString bits
-                       } bit)" > /dev/null; then
-                      continue
-                    fi
-                  ''
-                )
-                cfg.params
+                  (
+                    name:
+                    {
+                      bits,
+                      path,
+                      ...
+                    }: ''
+                      if [ "$file" = ${lib.escapeShellArg path} ] && \
+                         ${pkgs.openssl}/bin/openssl dhparam -in "$file" -text \
+                         | head -n 1 | grep "(${
+                           toString bits
+                         } bit)" > /dev/null; then
+                        continue
+                      fi
+                    ''
+                  )
+                  cfg.params
               )
             }
             rm $file
@@ -200,30 +202,30 @@ in
         '';
       };
     } // lib.mapAttrs'
-      (
-        name:
-        {
-          bits,
-          path,
-          ...
-        }:
-        lib.nameValuePair "dhparams-gen-${name}" {
-          description = "Generate Diffie-Hellman Parameters for ${name}";
-          after = [ "dhparams-init.service" ];
-          before = [ "${name}.service" ];
-          wantedBy = [ "multi-user.target" ];
-          unitConfig.ConditionPathExists = "!${path}";
-          serviceConfig.Type = "oneshot";
-          script = ''
-            mkdir -p ${lib.escapeShellArg cfg.path}
-            ${pkgs.openssl}/bin/openssl dhparam -out ${
-              lib.escapeShellArg path
-            } \
-              ${toString bits}
-          '';
-        }
-      )
-      cfg.params;
+        (
+          name:
+          {
+            bits,
+            path,
+            ...
+          }:
+          lib.nameValuePair "dhparams-gen-${name}" {
+            description = "Generate Diffie-Hellman Parameters for ${name}";
+            after = [ "dhparams-init.service" ];
+            before = [ "${name}.service" ];
+            wantedBy = [ "multi-user.target" ];
+            unitConfig.ConditionPathExists = "!${path}";
+            serviceConfig.Type = "oneshot";
+            script = ''
+              mkdir -p ${lib.escapeShellArg cfg.path}
+              ${pkgs.openssl}/bin/openssl dhparam -out ${
+                lib.escapeShellArg path
+              } \
+                ${toString bits}
+            '';
+          }
+        )
+        cfg.params;
   };
 
   meta.maintainers = with lib.maintainers; [ ekleog ];

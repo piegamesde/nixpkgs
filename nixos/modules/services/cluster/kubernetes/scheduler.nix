@@ -27,7 +27,9 @@ in
 
     extraOpts = mkOption {
       description =
-        lib.mdDoc "Kubernetes scheduler extra command line options.";
+        lib.mdDoc
+          "Kubernetes scheduler extra command line options."
+        ;
       default = "";
       type = separatedString " ";
     };
@@ -43,7 +45,8 @@ in
 
     leaderElect = mkOption {
       description =
-        lib.mdDoc "Whether to start leader election before executing main loop."
+        lib.mdDoc
+          "Whether to start leader election before executing main loop."
         ;
       type = bool;
       default = true;
@@ -77,13 +80,11 @@ in
           ${top.package}/bin/kube-scheduler \
                     --bind-address=${cfg.address} \
                     ${
-                      optionalString
-                      (cfg.featureGates != [ ])
-                      "--feature-gates=${
-                        concatMapStringsSep ","
-                        (feature: "${feature}=true")
-                        cfg.featureGates
-                      }"
+                      optionalString (cfg.featureGates != [ ])
+                        "--feature-gates=${
+                          concatMapStringsSep "," (feature: "${feature}=true")
+                            cfg.featureGates
+                        }"
                     } \
                     --kubeconfig=${
                       top.lib.mkKubeConfig "kube-scheduler" cfg.kubeconfig
@@ -92,8 +93,8 @@ in
                     --secure-port=${toString cfg.port} \
                     ${
                       optionalString (cfg.verbosity != null) "--v=${
-                        toString cfg.verbosity
-                      }"
+                          toString cfg.verbosity
+                        }"
                     } \
                     ${cfg.extraOpts}
         '';
@@ -115,7 +116,9 @@ in
     };
 
     services.kubernetes.scheduler.kubeconfig.server =
-      mkDefault top.apiserverAddress;
+      mkDefault
+        top.apiserverAddress
+      ;
   };
 
   meta.buildDocsInSandbox = false;

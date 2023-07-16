@@ -20,7 +20,9 @@ in
       type = types.bool;
       default = false;
       description =
-        lib.mdDoc "Open ports in the firewall for the n8n web interface.";
+        lib.mdDoc
+          "Open ports in the firewall for the n8n web interface."
+        ;
     };
 
     settings = mkOption {
@@ -81,7 +83,8 @@ in
       };
     };
 
-    networking.firewall =
-      mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.settings.port ]; };
+    networking.firewall = mkIf cfg.openFirewall {
+      allowedTCPPorts = [ cfg.settings.port ];
+    };
   };
 }

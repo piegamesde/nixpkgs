@@ -12,18 +12,20 @@ let
 in
 {
   imports = [
-    (mkRenamedOptionModule
-      [
-        "programs"
-        "zsh"
-        "enableAutosuggestions"
-      ]
-      [
-        "programs"
-        "zsh"
-        "autosuggestions"
-        "enable"
-      ])
+    (
+      mkRenamedOptionModule
+        [
+          "programs"
+          "zsh"
+          "enableAutosuggestions"
+        ]
+        [
+          "programs"
+          "zsh"
+          "autosuggestions"
+          "enable"
+        ]
+    )
   ];
 
   options.programs.zsh.autosuggestions = {
@@ -35,7 +37,9 @@ in
       default =
         "fg=8"; # https://github.com/zsh-users/zsh-autosuggestions/tree/v0.4.3#suggestion-highlight-style
       description =
-        lib.mdDoc "Highlight style for suggestions ({fore,back}ground color)";
+        lib.mdDoc
+          "Highlight style for suggestions ({fore,back}ground color)"
+        ;
       example = "fg=cyan";
     };
 
@@ -72,7 +76,9 @@ in
       type = with types; attrsOf str;
       default = { };
       description =
-        lib.mdDoc "Attribute set with additional configuration values";
+        lib.mdDoc
+          "Attribute set with additional configuration values"
+        ;
       example = literalExpression ''
         {
           "ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE" = "20";
@@ -91,9 +97,8 @@ in
       ${optionalString (!cfg.async) "unset ZSH_AUTOSUGGEST_USE_ASYNC"}
 
       ${concatStringsSep "\n" (
-        mapAttrsToList
-        (key: value: ''export ${key}="${value}"'')
-        cfg.extraConfig
+        mapAttrsToList (key: value: ''export ${key}="${value}"'')
+          cfg.extraConfig
       )}
     '';
   };

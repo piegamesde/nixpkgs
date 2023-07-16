@@ -28,17 +28,19 @@ qt5.mkDerivation rec {
   '';
 
   passthru.updateScript =
-    writeScript "update-synology-cloud-sync-decryption-tool" ''
-      #!/usr/bin/env nix-shell
-      #!nix-shell -i bash -p curl common-updater-scripts
+    writeScript "update-synology-cloud-sync-decryption-tool"
+      ''
+        #!/usr/bin/env nix-shell
+        #!nix-shell -i bash -p curl common-updater-scripts
 
-      set -euo pipefail
+        set -euo pipefail
 
-      version="$(curl -s https://www.synology.com/en-uk/releaseNote/SynologyCloudSyncDecryptionTool \
-               | grep -oP '(?<=data-version=")\d+' \
-               | head -1)"
-      update-source-version synology-cloud-sync-decryption-tool "$version"
-    '';
+        version="$(curl -s https://www.synology.com/en-uk/releaseNote/SynologyCloudSyncDecryptionTool \
+                 | grep -oP '(?<=data-version=")\d+' \
+                 | head -1)"
+        update-source-version synology-cloud-sync-decryption-tool "$version"
+      ''
+    ;
 
   meta = with lib; {
     description = "A desktop tool to decrypt data encrypted by Cloud Sync.";

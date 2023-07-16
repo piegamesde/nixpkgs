@@ -41,12 +41,16 @@ let
       url = mkOption {
         type = types.str;
         description =
-          lib.mdDoc "URL of the endpoint you want to make discoverable";
+          lib.mdDoc
+            "URL of the endpoint you want to make discoverable"
+          ;
       };
       description = mkOption {
         type = types.str;
         description =
-          lib.mdDoc "A short description of the endpoint you want to advertise";
+          lib.mdDoc
+            "A short description of the endpoint you want to advertise"
+          ;
       };
     };
   };
@@ -62,8 +66,9 @@ let
     saslauth = mkOption {
       type = types.bool;
       default = true;
-      description = lib.mdDoc
-        "Authentication for clients and servers. Recommended if you want to log in."
+      description =
+        lib.mdDoc
+          "Authentication for clients and servers. Recommended if you want to log in."
         ;
     };
 
@@ -71,7 +76,9 @@ let
       type = types.bool;
       default = true;
       description =
-        lib.mdDoc "Add support for secure TLS on c2s/s2s connections";
+        lib.mdDoc
+          "Add support for secure TLS on c2s/s2s connections"
+        ;
     };
 
     dialback = mkOption {
@@ -96,24 +103,28 @@ let
     csi = mkOption {
       type = types.bool;
       default = true;
-      description = lib.mdDoc
-        "Implements the CSI protocol that allows clients to report their active/inactive state to the server"
+      description =
+        lib.mdDoc
+          "Implements the CSI protocol that allows clients to report their active/inactive state to the server"
         ;
     };
 
     cloud_notify = mkOption {
       type = types.bool;
       default = true;
-      description = lib.mdDoc
-        "Push notifications to inform users of new messages or other pertinent information even when they have no XMPP clients online"
+      description =
+        lib.mdDoc
+          "Push notifications to inform users of new messages or other pertinent information even when they have no XMPP clients online"
         ;
     };
 
     pep = mkOption {
       type = types.bool;
       default = true;
-      description = lib.mdDoc
-        "Enables users to publish their mood, activity, playing music and more";
+      description =
+        lib.mdDoc
+          "Enables users to publish their mood, activity, playing music and more"
+        ;
     };
 
     private = mkOption {
@@ -126,7 +137,9 @@ let
       type = types.bool;
       default = true;
       description =
-        lib.mdDoc "Allow users to block communications with other users";
+        lib.mdDoc
+          "Allow users to block communications with other users"
+        ;
     };
 
     vcard = mkOption {
@@ -138,15 +151,18 @@ let
     vcard_legacy = mkOption {
       type = types.bool;
       default = true;
-      description = lib.mdDoc
-        "Converts users profiles and Avatars between old and new formats";
+      description =
+        lib.mdDoc
+          "Converts users profiles and Avatars between old and new formats"
+        ;
     };
 
     bookmarks = mkOption {
       type = types.bool;
       default = true;
-      description = lib.mdDoc
-        "Allows interop between older clients that use XEP-0048: Bookmarks in its 1.0 version and recent clients which use it in PEP"
+      description =
+        lib.mdDoc
+          "Allows interop between older clients that use XEP-0048: Bookmarks in its 1.0 version and recent clients which use it in PEP"
         ;
     };
 
@@ -178,8 +194,9 @@ let
     register = mkOption {
       type = types.bool;
       default = true;
-      description = lib.mdDoc
-        "Allow users to register on this server using a client and change passwords"
+      description =
+        lib.mdDoc
+          "Allow users to register on this server using a client and change passwords"
         ;
     };
 
@@ -187,14 +204,17 @@ let
       type = types.bool;
       default = true;
       description =
-        lib.mdDoc "Store messages in an archive and allow users to access it";
+        lib.mdDoc
+          "Store messages in an archive and allow users to access it"
+        ;
     };
 
     smacks = mkOption {
       type = types.bool;
       default = true;
-      description = lib.mdDoc
-        "Allow a client to resume a disconnected session, and prevent message loss"
+      description =
+        lib.mdDoc
+          "Allow a client to resume a disconnected session, and prevent message loss"
         ;
     };
 
@@ -202,8 +222,9 @@ let
     admin_adhoc = mkOption {
       type = types.bool;
       default = true;
-      description = lib.mdDoc
-        "Allows administration via an XMPP client that supports ad-hoc commands"
+      description =
+        lib.mdDoc
+          "Allows administration via an XMPP client that supports ad-hoc commands"
         ;
     };
 
@@ -216,8 +237,9 @@ let
     proxy65 = mkOption {
       type = types.bool;
       default = true;
-      description = lib.mdDoc
-        "Enables a file transfer proxy service which clients behind NAT can use"
+      description =
+        lib.mdDoc
+          "Enables a file transfer proxy service which clients behind NAT can use"
         ;
     };
 
@@ -225,7 +247,9 @@ let
       type = types.bool;
       default = false;
       description =
-        lib.mdDoc "Opens telnet console interface on localhost port 5582";
+        lib.mdDoc
+          "Opens telnet console interface on localhost port 5582"
+        ;
     };
 
     # HTTP modules
@@ -287,8 +311,10 @@ let
     legacyauth = mkOption {
       type = types.bool;
       default = false;
-      description = lib.mdDoc
-        "Legacy authentication. Only used by some old clients and bots";
+      description =
+        lib.mdDoc
+          "Legacy authentication. Only used by some old clients and bots"
+        ;
     };
   };
 
@@ -314,9 +340,8 @@ let
         certificate = "${o.cert}";
         ${
           concatStringsSep "\n" (
-            mapAttrsToList
-            (name: value: "${name} = ${toLua value};")
-            o.extraOptions
+            mapAttrsToList (name: value: "${name} = ${toLua value};")
+              o.extraOptions
           )
         }
       };
@@ -334,8 +359,9 @@ let
         };
         name = mkOption {
           type = types.str;
-          description = lib.mdDoc
-            "The name to return in service discovery responses for the MUC service itself"
+          description =
+            lib.mdDoc
+              "The name to return in service discovery responses for the MUC service itself"
             ;
           default = "Prosody Chatrooms";
         };
@@ -352,8 +378,10 @@ let
         maxHistoryMessages = mkOption {
           type = types.int;
           default = 20;
-          description = lib.mdDoc
-            "Specifies a limit on what each room can be configured to keep";
+          description =
+            lib.mdDoc
+              "Specifies a limit on what each room can be configured to keep"
+            ;
         };
         roomLocking = mkOption {
           type = types.bool;
@@ -399,7 +427,9 @@ let
           type = types.bool;
           default = true;
           description =
-            lib.mdDoc "Adds the ability to set vCard for Multi User Chat rooms";
+            lib.mdDoc
+              "Adds the ability to set vCard for Multi User Chat rooms"
+            ;
         };
 
         # Extra parameters. Defaulting to prosody default values.
@@ -411,38 +441,49 @@ let
           type = types.bool;
           default = true;
           description =
-            lib.mdDoc "If set, the MUC rooms will be public by default.";
+            lib.mdDoc
+              "If set, the MUC rooms will be public by default."
+            ;
         };
         roomDefaultMembersOnly = mkOption {
           type = types.bool;
           default = false;
-          description = lib.mdDoc
-            "If set, the MUC rooms will only be accessible to the members by default."
+          description =
+            lib.mdDoc
+              "If set, the MUC rooms will only be accessible to the members by default."
             ;
         };
         roomDefaultModerated = mkOption {
           type = types.bool;
           default = false;
           description =
-            lib.mdDoc "If set, the MUC rooms will be moderated by default.";
+            lib.mdDoc
+              "If set, the MUC rooms will be moderated by default."
+            ;
         };
         roomDefaultPublicJids = mkOption {
           type = types.bool;
           default = false;
-          description = lib.mdDoc
-            "If set, the MUC rooms will display the public JIDs by default.";
+          description =
+            lib.mdDoc
+              "If set, the MUC rooms will display the public JIDs by default."
+            ;
         };
         roomDefaultChangeSubject = mkOption {
           type = types.bool;
           default = false;
-          description = lib.mdDoc
-            "If set, the rooms will display the public JIDs by default.";
+          description =
+            lib.mdDoc
+              "If set, the rooms will display the public JIDs by default."
+            ;
         };
         roomDefaultHistoryLength = mkOption {
           type = types.int;
           default = 20;
-          description = lib.mdDoc
-            "Number of history message sent to participants by default.";
+          description =
+            lib.mdDoc
+              "Number of history message sent to participants by default."
+            ;
         };
         roomDefaultLanguage = mkOption {
           type = types.str;
@@ -471,13 +512,17 @@ let
           type = types.str;
           default = "50 * 1024 * 1024";
           description =
-            lib.mdDoc "Maximum file size, in bytes. Defaults to 50MB.";
+            lib.mdDoc
+              "Maximum file size, in bytes. Defaults to 50MB."
+            ;
         };
         uploadExpireAfter = mkOption {
           type = types.str;
           default = "60 * 60 * 24 * 7";
           description =
-            lib.mdDoc "Max age of a file before it gets deleted, in seconds.";
+            lib.mdDoc
+              "Max age of a file before it gets deleted, in seconds."
+            ;
         };
         userQuota = mkOption {
           type = types.nullOr types.int;
@@ -530,7 +575,9 @@ let
           type = types.lines;
           default = "";
           description =
-            lib.mdDoc "Additional virtual host specific configuration";
+            lib.mdDoc
+              "Additional virtual host specific configuration"
+            ;
         };
       };
     }
@@ -600,7 +647,9 @@ in
         type = types.listOf (types.submodule discoOpts);
         default = [ ];
         description =
-          lib.mdDoc "List of discoverable items you want to advertise.";
+          lib.mdDoc
+            "List of discoverable items you want to advertise."
+          ;
       };
 
       user = mkOption {
@@ -651,7 +700,9 @@ in
           "::"
         ];
         description =
-          lib.mdDoc "Interfaces on which the HTTP server will listen on.";
+          lib.mdDoc
+            "Interfaces on which the HTTP server will listen on."
+          ;
       };
 
       httpsPorts = mkOption {
@@ -667,7 +718,9 @@ in
           "::"
         ];
         description =
-          lib.mdDoc "Interfaces on which the HTTPS server will listen on.";
+          lib.mdDoc
+            "Interfaces on which the HTTPS server will listen on."
+          ;
       };
 
       c2sRequireEncryption = mkOption {
@@ -734,7 +787,9 @@ in
         type = types.listOf types.path;
         default = [ ];
         description =
-          lib.mdDoc "Additional path in which to look find plugins/modules";
+          lib.mdDoc
+            "Additional path in which to look find plugins/modules"
+          ;
       };
 
       uploadHttp = mkOption {
@@ -866,17 +921,19 @@ in
           else
             [ ]
           ;
-        mucDiscoItems = builtins.foldl'
-          (
-            acc: muc:
-            [ {
-              url = muc.domain;
-              description = "${muc.domain} MUC endpoint";
-            } ]
-            ++ acc
-          )
-          [ ]
-          cfg.muc;
+        mucDiscoItems =
+          builtins.foldl'
+            (
+              acc: muc:
+              [ {
+                url = muc.domain;
+                description = "${muc.domain} MUC endpoint";
+              } ]
+              ++ acc
+            )
+            [ ]
+            cfg.muc
+          ;
         discoItems = cfg.disco_items ++ httpDiscoItems ++ mucDiscoItems;
       in
       ''
@@ -904,8 +961,8 @@ in
           ${
             lib.concatStringsSep "\n  " (
               lib.mapAttrsToList
-              (name: val: optionalString val "${toLua name};")
-              cfg.modules
+                (name: val: optionalString val "${toLua name};")
+                cfg.modules
             )
           }
           ${
@@ -947,34 +1004,36 @@ in
         ${cfg.extraConfig}
 
         ${lib.concatMapStrings
-        (muc: ''
-          Component ${toLua muc.domain} "muc"
-              modules_enabled = { "muc_mam"; ${
-                optionalString muc.vcard_muc ''"vcard_muc";''
-              } }
-              name = ${toLua muc.name}
-              restrict_room_creation = ${toLua muc.restrictRoomCreation}
-              max_history_messages = ${toLua muc.maxHistoryMessages}
-              muc_room_locking = ${toLua muc.roomLocking}
-              muc_room_lock_timeout = ${toLua muc.roomLockTimeout}
-              muc_tombstones = ${toLua muc.tombstones}
-              muc_tombstone_expiry = ${toLua muc.tombstoneExpiry}
-              muc_room_default_public = ${toLua muc.roomDefaultPublic}
-              muc_room_default_members_only = ${
-                toLua muc.roomDefaultMembersOnly
-              }
-              muc_room_default_moderated = ${toLua muc.roomDefaultModerated}
-              muc_room_default_public_jids = ${toLua muc.roomDefaultPublicJids}
-              muc_room_default_change_subject = ${
-                toLua muc.roomDefaultChangeSubject
-              }
-              muc_room_default_history_length = ${
-                toLua muc.roomDefaultHistoryLength
-              }
-              muc_room_default_language = ${toLua muc.roomDefaultLanguage}
-              ${muc.extraConfig}
-        '')
-        cfg.muc}
+          (muc: ''
+            Component ${toLua muc.domain} "muc"
+                modules_enabled = { "muc_mam"; ${
+                  optionalString muc.vcard_muc ''"vcard_muc";''
+                } }
+                name = ${toLua muc.name}
+                restrict_room_creation = ${toLua muc.restrictRoomCreation}
+                max_history_messages = ${toLua muc.maxHistoryMessages}
+                muc_room_locking = ${toLua muc.roomLocking}
+                muc_room_lock_timeout = ${toLua muc.roomLockTimeout}
+                muc_tombstones = ${toLua muc.tombstones}
+                muc_tombstone_expiry = ${toLua muc.tombstoneExpiry}
+                muc_room_default_public = ${toLua muc.roomDefaultPublic}
+                muc_room_default_members_only = ${
+                  toLua muc.roomDefaultMembersOnly
+                }
+                muc_room_default_moderated = ${toLua muc.roomDefaultModerated}
+                muc_room_default_public_jids = ${
+                  toLua muc.roomDefaultPublicJids
+                }
+                muc_room_default_change_subject = ${
+                  toLua muc.roomDefaultChangeSubject
+                }
+                muc_room_default_history_length = ${
+                  toLua muc.roomDefaultHistoryLength
+                }
+                muc_room_default_language = ${toLua muc.roomDefaultLanguage}
+                ${muc.extraConfig}
+          '')
+          cfg.muc}
 
         ${lib.optionalString (cfg.uploadHttp != null) ''
           -- TODO: think about migrating this to mod-http_file_share instead.
@@ -982,22 +1041,21 @@ in
               http_upload_file_size_limit = ${cfg.uploadHttp.uploadFileSizeLimit}
               http_upload_expire_after = ${cfg.uploadHttp.uploadExpireAfter}
               ${
-                lib.optionalString
-                (cfg.uploadHttp.userQuota != null)
-                "http_upload_quota = ${toLua cfg.uploadHttp.userQuota}"
+                lib.optionalString (cfg.uploadHttp.userQuota != null)
+                  "http_upload_quota = ${toLua cfg.uploadHttp.userQuota}"
               }
               http_upload_path = ${toLua cfg.uploadHttp.httpUploadPath}
         ''}
 
         ${lib.concatStringsSep "\n" (
           lib.mapAttrsToList
-          (n: v: ''
-            VirtualHost "${v.domain}"
-              enabled = ${boolToString v.enabled};
-              ${optionalString (v.ssl != null) (createSSLOptsStr v.ssl)}
-              ${v.extraConfig}
-          '')
-          cfg.virtualHosts
+            (n: v: ''
+              VirtualHost "${v.domain}"
+                enabled = ${boolToString v.enabled};
+                ${optionalString (v.ssl != null) (createSSLOptsStr v.ssl)}
+                ${v.extraConfig}
+            '')
+            cfg.virtualHosts
         )}
       ''
       ;
@@ -1009,8 +1067,9 @@ in
       home = cfg.dataDir;
     };
 
-    users.groups.prosody =
-      mkIf (cfg.group == "prosody") { gid = config.ids.gids.prosody; };
+    users.groups.prosody = mkIf (cfg.group == "prosody") {
+      gid = config.ids.gids.prosody;
+    };
 
     systemd.services.prosody = {
       description = "Prosody XMPP server";

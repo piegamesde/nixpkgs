@@ -19,7 +19,8 @@ in
         type = types.bool;
         default = false;
         description =
-          lib.mdDoc "Open ports in the firewall for the Prowlarr web interface."
+          lib.mdDoc
+            "Open ports in the firewall for the Prowlarr web interface."
           ;
       };
     };

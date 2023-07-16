@@ -28,7 +28,9 @@ stdenv.mkDerivation rec {
   '';
 
   preBuild =
-    lib.optionalString hdf5.mpiSupport "export CC=${hdf5.mpi}/bin/mpicc";
+    lib.optionalString hdf5.mpiSupport
+      "export CC=${hdf5.mpi}/bin/mpicc"
+    ;
 
   buildInputs = with lib;
     [

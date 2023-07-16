@@ -29,62 +29,62 @@ mkCoqDerivation {
 
   defaultVersion = with lib.versions;
     lib.switch
-    [
-      coq.version
-      mathcomp.version
-    ]
-    [
-      {
-        cases = [
-          (isGe "8.13")
-          (isGe "1.13.0")
-        ];
-        out = "1.1.4";
-      }
-      {
-        cases = [
-          (isGe "8.13")
-          (isGe "1.12.0")
-        ];
-        out = "1.1.3";
-      }
-      {
-        cases = [
-          (isGe "8.10")
-          (isGe "1.12.0")
-        ];
-        out = "1.1.2";
-      }
-      {
-        cases = [
-          (isGe "8.7")
-          "1.11.0"
-        ];
-        out = "1.1.1";
-      }
-      {
-        cases = [
-          (isGe "8.7")
-          (range "1.9.0" "1.10.0")
-        ];
-        out = "1.0.4";
-      }
-      {
-        cases = [
-          (isGe "8.7")
-          "1.8.0"
-        ];
-        out = "1.0.3";
-      }
-      {
-        cases = [
-          (isGe "8.7")
-          "1.7.0"
-        ];
-        out = "1.0.1";
-      }
-    ]
-    null;
+      [
+        coq.version
+        mathcomp.version
+      ]
+      [
+        {
+          cases = [
+            (isGe "8.13")
+            (isGe "1.13.0")
+          ];
+          out = "1.1.4";
+        }
+        {
+          cases = [
+            (isGe "8.13")
+            (isGe "1.12.0")
+          ];
+          out = "1.1.3";
+        }
+        {
+          cases = [
+            (isGe "8.10")
+            (isGe "1.12.0")
+          ];
+          out = "1.1.2";
+        }
+        {
+          cases = [
+            (isGe "8.7")
+            "1.11.0"
+          ];
+          out = "1.1.1";
+        }
+        {
+          cases = [
+            (isGe "8.7")
+            (range "1.9.0" "1.10.0")
+          ];
+          out = "1.0.4";
+        }
+        {
+          cases = [
+            (isGe "8.7")
+            "1.8.0"
+          ];
+          out = "1.0.3";
+        }
+        {
+          cases = [
+            (isGe "8.7")
+            "1.7.0"
+          ];
+          out = "1.0.1";
+        }
+      ]
+      null;
 
   propagatedBuildInputs = [
     mathcomp.ssreflect

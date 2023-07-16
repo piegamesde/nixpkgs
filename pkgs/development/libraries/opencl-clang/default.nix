@@ -30,8 +30,9 @@ let
     ;
 
   passthru = rec {
-    spirv-llvm-translator =
-      llvmPkgs.spirv-llvm-translator.override { llvm = llvmPackages_11.llvm; };
+    spirv-llvm-translator = llvmPkgs.spirv-llvm-translator.override {
+      llvm = llvmPackages_11.llvm;
+    };
     llvm = addPatches "llvm" llvmPkgs.llvm;
     libclang = addPatches "clang" llvmPkgs.libclang;
 

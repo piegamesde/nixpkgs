@@ -29,23 +29,25 @@ let
     sha256 = "0yxgvf8xpv1w2bjmny4a38pa3xcdgqckk9abj21ilkc5zqzqmm9b";
   };
 
-  data = runCommand "warcraft2"
-    {
-      buildInputs = [
-        unzip
-        bchunk
-        p7zip
-      ];
-      meta.license = lib.licenses.unfree;
-    }
-    ''
-      unzip ${dataDownload} "Warcraft.II.Tides.of.Darkness/Warcraft II - Tides of Darkness (1995)/games/WarcrafD/cd/"{WC2BTDP.img,WC2BTDP.cue}
-      bchunk "Warcraft.II.Tides.of.Darkness/Warcraft II - Tides of Darkness (1995)/games/WarcrafD/cd/"{WC2BTDP.img,WC2BTDP.cue} WC2BTDP
-      rm -r Warcraft.II.Tides.of.Darkness
-      7z x WC2BTDP01.iso
-      rm WC2BTDP*.{iso,cdr}
-      cp -r DATA $out
-    '';
+  data =
+    runCommand "warcraft2"
+      {
+        buildInputs = [
+          unzip
+          bchunk
+          p7zip
+        ];
+        meta.license = lib.licenses.unfree;
+      }
+      ''
+        unzip ${dataDownload} "Warcraft.II.Tides.of.Darkness/Warcraft II - Tides of Darkness (1995)/games/WarcrafD/cd/"{WC2BTDP.img,WC2BTDP.cue}
+        bchunk "Warcraft.II.Tides.of.Darkness/Warcraft II - Tides of Darkness (1995)/games/WarcrafD/cd/"{WC2BTDP.img,WC2BTDP.cue} WC2BTDP
+        rm -r Warcraft.II.Tides.of.Darkness
+        7z x WC2BTDP01.iso
+        rm WC2BTDP*.{iso,cdr}
+        cp -r DATA $out
+      ''
+    ;
 in
 stdenv.mkDerivation rec {
   pname = "wargus";

@@ -5,25 +5,27 @@
   docker-compose_1,
 }:
 let
-  docker_compose = changeVersion
-    (
-      with localPython.pkgs;
-      docker-compose_1.override {
-        inherit
-          colorama
-          pyyaml
-          six
-          dockerpty
-          docker
-          jsonschema
-          requests
-          websocket-client
-          paramiko
-          ;
-      }
-    ).overridePythonAttrs
-    "1.25.5"
-    "sha256-ei622Bc/30COUF5vfUl6wLd3OIcZVCvp5JoO/Ud6UMY=";
+  docker_compose =
+    changeVersion
+      (
+        with localPython.pkgs;
+        docker-compose_1.override {
+          inherit
+            colorama
+            pyyaml
+            six
+            dockerpty
+            docker
+            jsonschema
+            requests
+            websocket-client
+            paramiko
+            ;
+        }
+      ).overridePythonAttrs
+      "1.25.5"
+      "sha256-ei622Bc/30COUF5vfUl6wLd3OIcZVCvp5JoO/Ud6UMY="
+    ;
 
   changeVersion =
     overrideFunc: version: hash:
@@ -39,16 +41,18 @@ let
     self = localPython;
     packageOverrides =
       self: super: {
-        cement = changeVersion super.cement.overridePythonAttrs
-          "2.8.2"
-          "sha256-h2XtBSwGHXTk0Bia3cM9Jo3lRMohmyWdeXdB9yXkItI=";
-        wcwidth = changeVersion super.wcwidth.overridePythonAttrs
-          "0.1.9"
-          "sha256-7nOGKGKhVr93/5KwkDT8SCXdOvnPgbxbNgZo1CXzxfE=";
+        cement =
+          changeVersion super.cement.overridePythonAttrs "2.8.2"
+            "sha256-h2XtBSwGHXTk0Bia3cM9Jo3lRMohmyWdeXdB9yXkItI="
+          ;
+        wcwidth =
+          changeVersion super.wcwidth.overridePythonAttrs "0.1.9"
+            "sha256-7nOGKGKhVr93/5KwkDT8SCXdOvnPgbxbNgZo1CXzxfE="
+          ;
         semantic-version =
-          changeVersion super.semantic-version.overridePythonAttrs
-          "2.8.5"
-          "sha256-0sst4FWHYpNGebmhBOguynr0SMn0l00fPuzP9lHfilQ=";
+          changeVersion super.semantic-version.overridePythonAttrs "2.8.5"
+            "sha256-0sst4FWHYpNGebmhBOguynr0SMn0l00fPuzP9lHfilQ="
+          ;
         pyyaml = super.pyyaml.overridePythonAttrs (
           oldAttrs: rec {
             version = "5.4.1";

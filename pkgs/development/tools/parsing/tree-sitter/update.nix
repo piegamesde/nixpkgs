@@ -44,9 +44,10 @@ let
     "tree-sitter-tsq"
     "tree-sitter-toml"
   ];
-  knownTreeSitterOrgGrammarReposJson = jsonFile
-    "known-tree-sitter-org-grammar-repos"
-    knownTreeSitterOrgGrammarRepos;
+  knownTreeSitterOrgGrammarReposJson =
+    jsonFile "known-tree-sitter-org-grammar-repos"
+      knownTreeSitterOrgGrammarRepos
+    ;
 
   # repos of the tree-sitter github orga we want to ignore (not grammars)
   ignoredTreeSitterOrgRepos = [
@@ -80,7 +81,9 @@ let
     "tree-sitter-fluent"
   ];
   ignoredTreeSitterOrgReposJson =
-    jsonFile "ignored-tree-sitter-org-repos" ignoredTreeSitterOrgRepos;
+    jsonFile "ignored-tree-sitter-org-repos"
+      ignoredTreeSitterOrgRepos
+    ;
 
   # Additional grammars that are not in the official github orga.
   # If you need a grammar that already exists in the official orga,
@@ -376,14 +379,14 @@ let
     let
       treeSitterOrgaGrammars = lib.listToAttrs (
         map
-        (repo: {
-          name = repo;
-          value = {
-            orga = "tree-sitter";
-            inherit repo;
-          };
-        })
-        knownTreeSitterOrgGrammarRepos
+          (repo: {
+            name = repo;
+            value = {
+              orga = "tree-sitter";
+              inherit repo;
+            };
+          })
+          knownTreeSitterOrgGrammarRepos
       );
     in
     lib.attrsets.unionOfDisjoint otherGrammars treeSitterOrgaGrammars
@@ -392,20 +395,21 @@ let
   jsonFile = name: val: (formats.json { }).generate name val;
 
   # implementation of the updater
-  updateImpl = passArgs "updateImpl-with-args"
-    {
-      binaries = {
-        curl = "${curl}/bin/curl";
-        nix-prefetch-git = "${nix-prefetch-git}/bin/nix-prefetch-git";
-        printf = "${coreutils}/bin/printf";
-      };
-      inherit knownTreeSitterOrgGrammarRepos ignoredTreeSitterOrgRepos;
-    }
-    (
-      writers.writePython3 "updateImpl"
-      { flakeIgnore = [ "E501" ]; }
-      ./update_impl.py
-    );
+  updateImpl =
+    passArgs "updateImpl-with-args"
+      {
+        binaries = {
+          curl = "${curl}/bin/curl";
+          nix-prefetch-git = "${nix-prefetch-git}/bin/nix-prefetch-git";
+          printf = "${coreutils}/bin/printf";
+        };
+        inherit knownTreeSitterOrgGrammarRepos ignoredTreeSitterOrgRepos;
+      }
+      (
+        writers.writePython3 "updateImpl" { flakeIgnore = [ "E501" ]; }
+          ./update_impl.py
+      )
+    ;
 
   # Pass the given arguments to the command, in the ARGS environment variable.
   # The arguments are just a json object that should be available in the script.
@@ -447,26 +451,28 @@ let
      mkdir -p "${outputDir}"
      ${
        forEachParallel "repos-to-fetch"
-       (writeShellScript "fetch-repo" ''
-         ${updateImpl} fetch-repo "$1"
-       '')
-       (
-         lib.mapAttrsToList
+         (writeShellScript "fetch-repo" ''
+           ${updateImpl} fetch-repo "$1"
+         '')
          (
-           nixRepoAttrName: attrs:
-           attrs // {
-             inherit nixRepoAttrName outputDir;
-           }
+           lib.mapAttrsToList
+             (
+               nixRepoAttrName: attrs:
+               attrs // {
+                 inherit nixRepoAttrName outputDir;
+               }
+             )
+             allGrammars
          )
-         allGrammars
-       )
      }
      ${updateImpl} print-all-grammars-nix-file "$(< ${
        jsonFile "all-grammars.json" {
          allGrammars =
-           (lib.mapAttrsToList
-             (nixRepoAttrName: attrs: attrs // { inherit nixRepoAttrName; })
-             allGrammars);
+           (
+             lib.mapAttrsToList
+               (nixRepoAttrName: attrs: attrs // { inherit nixRepoAttrName; })
+               allGrammars
+           );
          inherit outputDir;
        }
      })"

@@ -69,24 +69,25 @@ let
         scrubDerivations =
           namePrefix: pkgSet:
           mapAttrs
-          (
-            name: value:
-            let
-              wholeName = "${namePrefix}.${name}";
-              guard = lib.warn
-                "Attempt to evaluate package ${wholeName} in option documentation; this is not supported and will eventually be an error. Use `mkPackageOption{,MD}` or `literalExpression` instead."
-                ;
-            in
-            if isAttrs value then
-              scrubDerivations wholeName value
-              // optionalAttrs (isDerivation value) {
-                outPath = guard "\${${wholeName}}";
-                drvPath = guard drvPath;
-              }
-            else
-              value
-          )
-          pkgSet
+            (
+              name: value:
+              let
+                wholeName = "${namePrefix}.${name}";
+                guard =
+                  lib.warn
+                    "Attempt to evaluate package ${wholeName} in option documentation; this is not supported and will eventually be an error. Use `mkPackageOption{,MD}` or `literalExpression` instead."
+                  ;
+              in
+              if isAttrs value then
+                scrubDerivations wholeName value
+                // optionalAttrs (isDerivation value) {
+                  outPath = guard "\${${wholeName}}";
+                  drvPath = guard drvPath;
+                }
+              else
+                value
+            )
+            pkgSet
           ;
       in
       scrubbedEval.options
@@ -102,42 +103,43 @@ let
         );
       in
       pkgs.runCommand "lazy-options.json"
-      {
-        libPath = filter (pkgs.path + "/lib");
-        pkgsLibPath = filter (pkgs.path + "/pkgs/pkgs-lib");
-        nixosPath = filter (pkgs.path + "/nixos");
-        modules = map
-          (p: ''"${removePrefix "${modulesPath}/" (toString p)}"'')
-          docModules.lazy;
-      }
-      ''
-        export NIX_STORE_DIR=$TMPDIR/store
-        export NIX_STATE_DIR=$TMPDIR/state
-        ${pkgs.buildPackages.nix}/bin/nix-instantiate \
-          --show-trace \
-          --eval --json --strict \
-          --argstr libPath "$libPath" \
-          --argstr pkgsLibPath "$pkgsLibPath" \
-          --argstr nixosPath "$nixosPath" \
-          --arg modules "[ $modules ]" \
-          --argstr stateVersion "${options.system.stateVersion.default}" \
-          --argstr release "${config.system.nixos.release}" \
-          $nixosPath/lib/eval-cacheable-options.nix > $out \
-          || {
-            echo -en "\e[1;31m"
-            echo 'Cacheable portion of option doc build failed.'
-            echo 'Usually this means that an option attribute that ends up in documentation (eg' \
-              '`default` or `description`) depends on the restricted module arguments' \
-              '`config` or `pkgs`.'
-            echo
-            echo 'Rebuild your configuration with `--show-trace` to find the offending' \
-              'location. Remove the references to restricted arguments (eg by escaping' \
-              'their antiquotations or adding a `defaultText`) or disable the sandboxed' \
-              'build for the failing module by setting `meta.buildDocsInSandbox = false`.'
-            echo -en "\e[0m"
-            exit 1
-          } >&2
-      ''
+        {
+          libPath = filter (pkgs.path + "/lib");
+          pkgsLibPath = filter (pkgs.path + "/pkgs/pkgs-lib");
+          nixosPath = filter (pkgs.path + "/nixos");
+          modules =
+            map (p: ''"${removePrefix "${modulesPath}/" (toString p)}"'')
+              docModules.lazy
+            ;
+        }
+        ''
+          export NIX_STORE_DIR=$TMPDIR/store
+          export NIX_STATE_DIR=$TMPDIR/state
+          ${pkgs.buildPackages.nix}/bin/nix-instantiate \
+            --show-trace \
+            --eval --json --strict \
+            --argstr libPath "$libPath" \
+            --argstr pkgsLibPath "$pkgsLibPath" \
+            --argstr nixosPath "$nixosPath" \
+            --arg modules "[ $modules ]" \
+            --argstr stateVersion "${options.system.stateVersion.default}" \
+            --argstr release "${config.system.nixos.release}" \
+            $nixosPath/lib/eval-cacheable-options.nix > $out \
+            || {
+              echo -en "\e[1;31m"
+              echo 'Cacheable portion of option doc build failed.'
+              echo 'Usually this means that an option attribute that ends up in documentation (eg' \
+                '`default` or `description`) depends on the restricted module arguments' \
+                '`config` or `pkgs`.'
+              echo
+              echo 'Rebuild your configuration with `--show-trace` to find the offending' \
+                'location. Remove the references to restricted arguments (eg by escaping' \
+                'their antiquotations or adding a `defaultText`) or disable the sandboxed' \
+                'build for the failing module by setting `meta.buildDocsInSandbox = false`.'
+              echo -en "\e[0m"
+              exit 1
+            } >&2
+        ''
       ;
 
     inherit (cfg.nixos.options) warningsAreErrors allowDocBook;
@@ -190,39 +192,45 @@ in
     ./meta.nix
     ../config/system-path.nix
     ../system/etc/etc.nix
-    (mkRenamedOptionModule
-      [
-        "programs"
-        "info"
-        "enable"
-      ]
-      [
-        "documentation"
-        "info"
-        "enable"
-      ])
-    (mkRenamedOptionModule
-      [
-        "programs"
-        "man"
-        "enable"
-      ]
-      [
-        "documentation"
-        "man"
-        "enable"
-      ])
-    (mkRenamedOptionModule
-      [
-        "services"
-        "nixosManual"
-        "enable"
-      ]
-      [
-        "documentation"
-        "nixos"
-        "enable"
-      ])
+    (
+      mkRenamedOptionModule
+        [
+          "programs"
+          "info"
+          "enable"
+        ]
+        [
+          "documentation"
+          "info"
+          "enable"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "programs"
+          "man"
+          "enable"
+        ]
+        [
+          "documentation"
+          "man"
+          "enable"
+        ]
+    )
+    (
+      mkRenamedOptionModule
+        [
+          "services"
+          "nixosManual"
+          "enable"
+        ]
+        [
+          "documentation"
+          "nixos"
+          "enable"
+        ]
+    )
   ];
 
   options = {
@@ -428,7 +436,7 @@ in
                     "Support for docbook is deprecated and will be removed after NixOS 23.05." \
                     "See nix-store --read-log ${
                       builtins.unsafeDiscardStringContext
-                      manual.optionsJSON.drvPath
+                        manual.optionsJSON.drvPath
                     }"
           fi
         '';

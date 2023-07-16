@@ -164,7 +164,9 @@ stdenv.mkDerivation rec {
     ;
 
   env.NIX_CFLAGS_COMPILE =
-    lib.optionalString stdenv.cc.isClang "-Wno-unused-command-line-argument";
+    lib.optionalString stdenv.cc.isClang
+      "-Wno-unused-command-line-argument"
+    ;
 
   sconsFlags =
     [
