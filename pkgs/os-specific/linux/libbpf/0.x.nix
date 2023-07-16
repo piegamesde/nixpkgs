@@ -13,8 +13,7 @@
 # is still present: just disable it for 0.x:
 # nixpkgs-update: no auto update
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "libbpf";
   version = "0.8.1";
 

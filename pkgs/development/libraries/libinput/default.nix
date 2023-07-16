@@ -41,10 +41,7 @@ let
     in
     # Expose only the sphinx-build binary to avoid contaminating
     # everything with Sphinx’s Python environment.
-    runCommand
-    "sphinx-build"
-    { }
-    ''
+    runCommand "sphinx-build" { } ''
       mkdir -p "$out/bin"
       ln -s "${env}/bin/sphinx-build" "$out/bin"
     ''

@@ -3,9 +3,7 @@
 # client on the inside network, a server on the outside network, and a
 # router connected to both that performs Network Address Translation
 # for the client.
-import
-./make-test-python.nix
-(
+import ./make-test-python.nix (
   {
     pkgs,
     lib,

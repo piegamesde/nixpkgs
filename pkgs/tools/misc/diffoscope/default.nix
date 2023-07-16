@@ -77,8 +77,7 @@
 }:
 
 # Note: when upgrading this package, please run the list-missing-tools.sh script as described below!
-python3Packages.buildPythonApplication
-rec {
+python3Packages.buildPythonApplication rec {
   pname = "diffoscope";
   version = "233";
 

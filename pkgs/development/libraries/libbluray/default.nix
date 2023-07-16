@@ -23,8 +23,7 @@
 # Info on how to use:
 # https://wiki.archlinux.org/index.php/BluRay
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "libbluray";
   version = "1.3.4";
 

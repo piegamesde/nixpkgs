@@ -94,9 +94,7 @@ let
         index:
         # To get to the element we need to add the number of parts we skip and
         # multiply by two due to the interleaved layout of `parts`
-        elemAt
-        parts
-        ((skipStart + index) * 2)
+        elemAt parts ((skipStart + index) * 2)
       )
       componentCount
     ;
@@ -115,7 +113,8 @@ let
         concatStringsSep "/" components
     )
     ;
-in # No rec! Add dependencies on this file at the top.
+in
+# No rec! Add dependencies on this file at the top.
 {
 
   /* Append a subpath string to a path.

@@ -64,10 +64,7 @@ in
 
 # This combines together OCF definitions from other derivations.
 # https://github.com/ClusterLabs/resource-agents/blob/master/doc/dev-guides/ra-dev-guide.asc
-runCommand
-"ocf-resource-agents"
-{ }
-''
+runCommand "ocf-resource-agents" { } ''
   mkdir -p $out/usr/lib/ocf
   ${lndir}/bin/lndir -silent "${resource-agentsForOCF}/lib/ocf/" $out/usr/lib/ocf
   ${lndir}/bin/lndir -silent "${drbdForOCF}/usr/lib/ocf/" $out/usr/lib/ocf

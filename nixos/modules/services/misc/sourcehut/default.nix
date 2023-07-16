@@ -941,9 +941,7 @@ in
                 # - access the PostgreSQL server in [*.sr.ht] connection-string,
                 # - query metasrht-api (through the HTTP API).
                 # Using this has the side effect of creating empty files in /usr/bin/
-                optionals
-                cfg.builds.enable
-                [
+                optionals cfg.builds.enable [
                   "${
                     pkgs.writeShellScript "buildsrht-keys-wrapper" ''
                       set -e

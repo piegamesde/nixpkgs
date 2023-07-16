@@ -293,8 +293,7 @@ rec {
     str:
     # Before 23.05, paths would be copied to the store before converting them
     # to strings and comparing. This was surprising and confusing.
-    warnIf
-    (isPath pref)
+    warnIf (isPath pref)
     ''
       lib.strings.hasPrefix: The first argument (${
         toString pref
@@ -326,8 +325,7 @@ rec {
     in
     # Before 23.05, paths would be copied to the store before converting them
     # to strings and comparing. This was surprising and confusing.
-    warnIf
-    (isPath suffix)
+    warnIf (isPath suffix)
     ''
       lib.strings.hasSuffix: The first argument (${
         toString suffix
@@ -359,8 +357,7 @@ rec {
     infix: content:
     # Before 23.05, paths would be copied to the store before converting them
     # to strings and comparing. This was surprising and confusing.
-    warnIf
-    (isPath infix)
+    warnIf (isPath infix)
     ''
       lib.strings.hasInfix: The first argument (${
         toString infix
@@ -771,8 +768,7 @@ rec {
     str:
     # Before 23.05, paths would be copied to the store before converting them
     # to strings and comparing. This was surprising and confusing.
-    warnIf
-    (isPath prefix)
+    warnIf (isPath prefix)
     ''
       lib.strings.removePrefix: The first argument (${
         toString prefix
@@ -809,8 +805,7 @@ rec {
     str:
     # Before 23.05, paths would be copied to the store before converting them
     # to strings and comparing. This was surprising and confusing.
-    warnIf
-    (isPath suffix)
+    warnIf (isPath suffix)
     ''
       lib.strings.removeSuffix: The first argument (${
         toString suffix

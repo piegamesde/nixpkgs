@@ -280,10 +280,7 @@ rec {
          can't readily set LOGLEVEL and such...
        - not sure how this affects multiple outputs
     */
-    lib.extendDerivation
-    true
-    passthru
-    (
+    lib.extendDerivation true passthru (
       stdenv.mkDerivation {
         src = unresholved;
         inherit version pname;

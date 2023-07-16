@@ -14,8 +14,7 @@
 # geoip.dataDir to a directory containing the data files This would typically be
 # /var/lib/geoip-databases pointing to geoip-legacy/share/GeoIP
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "ipcalc";
   version = "1.0.2";
 

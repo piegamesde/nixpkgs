@@ -49,17 +49,13 @@ let
       )
       ||
       # Filter out editor backup / swap files.
-        lib.hasSuffix
-        "~"
-        baseName
+        lib.hasSuffix "~" baseName
       || match "^\\.sw[a-z]$" baseName != null
       || match "^\\..*\\.sw[a-z]$" baseName != null
       ||
 
       # Filter out generates files.
-        lib.hasSuffix
-        ".o"
-        baseName
+        lib.hasSuffix ".o" baseName
       || lib.hasSuffix ".so" baseName
       ||
       # Filter out nix-build result symlinks

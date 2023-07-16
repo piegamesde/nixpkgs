@@ -14,8 +14,7 @@
 # A wrapper that makes sure sage finds its docs (if they were build) and the
 # jupyter kernel spec.
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   version = src.version;
   pname = "sage";
   src = sage-with-env.env.lib.src;

@@ -8,8 +8,7 @@
 # the `file`
 #
 # This function is used by `dhall-to-nixpkgs` when given a directory
-lib.makePackageOverridable
-(
+lib.makePackageOverridable (
   { # Arguments passed through to `buildDhallPackage`
     name,
     dependencies ? [ ],

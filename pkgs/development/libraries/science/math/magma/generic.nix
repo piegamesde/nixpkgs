@@ -70,9 +70,7 @@ let
   gpuTargetString = strings.concatStringsSep "," (
     if gpuTargets != [ ] then
       # If gpuTargets is specified, it always takes priority.
-      gpuArchWarner
-      supportedCustomGpuTargets
-      unsupportedCustomGpuTargets
+      gpuArchWarner supportedCustomGpuTargets unsupportedCustomGpuTargets
     else if rocmSupport then
       gpuArchWarner supportedRocmArches unsupportedRocmArches
     else if cudaSupport then

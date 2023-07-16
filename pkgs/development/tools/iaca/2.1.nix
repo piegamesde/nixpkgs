@@ -8,8 +8,7 @@
 }:
 
 # v2.1: last version with NHM/WSM arch support
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "iaca";
   version = "2.1";
   src = requireFile {

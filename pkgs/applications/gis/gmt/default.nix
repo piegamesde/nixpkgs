@@ -24,8 +24,7 @@
     - graphicsmagick for gif output
 */
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "gmt";
   version = "6.4.0";
   src = fetchurl {

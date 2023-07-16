@@ -70,9 +70,7 @@ in
       [ package.vulkan ]
       ++
       # this isn't really DRI, but we'll reuse this option for now
-        optional
-        config.hardware.opengl.driSupport32Bit
-        package32.vulkan
+        optional config.hardware.opengl.driSupport32Bit package32.vulkan
       ;
 
     environment.etc = {

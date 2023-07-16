@@ -15,8 +15,7 @@
 # because those are not available in Nixpkgs.
 # https://github.com/NixOS/nixpkgs/pull/74980
 
-buildPythonPackage
-rec {
+buildPythonPackage rec {
   pname = "nidaqmx";
   version = src.rev;
 

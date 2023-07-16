@@ -9,8 +9,7 @@
 # last version named "Pro". It is useful for backward compatibility
 # with older documents/templates/etc.
 
-stdenvNoCC.mkDerivation
-rec {
+stdenvNoCC.mkDerivation rec {
   pname = "source-serif-pro";
   version = "3.001";
 

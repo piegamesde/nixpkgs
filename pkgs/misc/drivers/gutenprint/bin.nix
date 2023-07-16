@@ -30,8 +30,7 @@
    TODO tidy this all up. Find source instead of binary. Fix paths ... Find out how to check ink levels etc
 */
 
-stdenv.mkDerivation
-{
+stdenv.mkDerivation {
   pname = "cups-gutenprint-binary";
   version = "5.0.1";
 

@@ -14,8 +14,7 @@
 # cgit) that are needed here should be included directly in Nixpkgs as
 # files.
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "libidn2";
   version = "2.3.4";
 

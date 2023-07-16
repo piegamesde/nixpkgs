@@ -19,8 +19,7 @@
 # originally extracted from dbeaver
 # created to allow using maven packages in the same style as rust
 
-stdenv.mkDerivation
-(
+stdenv.mkDerivation (
   rec {
     fetchedMavenDeps = stdenv.mkDerivation (
       {

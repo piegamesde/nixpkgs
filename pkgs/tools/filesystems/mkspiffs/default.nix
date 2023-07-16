@@ -8,8 +8,7 @@
 # Changing the variables CPPFLAGS and BUILD_CONFIG_NAME can be done by
 # overriding the same-named attributes. See ./presets.nix for examples.
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "mkspiffs";
   version = "0.2.3";
 

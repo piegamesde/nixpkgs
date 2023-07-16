@@ -127,12 +127,12 @@ let
             f:
             let
               newScope = mkScope (fix' (extends f scope.__unfix__));
-              # note that we have to be careful here: `allArgs` includes the auto-arguments that
-              # weren't manually specified. If we would just pass `allArgs` to the recursive call here,
-              # then we wouldn't look up any packages in the scope in the next interation, because it
-              # appears as if all arguments were already manually passed, so the scope change would do
-              # nothing.
             in
+            # note that we have to be careful here: `allArgs` includes the auto-arguments that
+            # weren't manually specified. If we would just pass `allArgs` to the recursive call here,
+            # then we wouldn't look up any packages in the scope in the next interation, because it
+            # appears as if all arguments were already manually passed, so the scope change would do
+            # nothing.
             callPackageWithScope newScope drv manualArgs
             ;
         }

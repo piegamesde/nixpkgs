@@ -8,8 +8,7 @@
 
 # assert !stdenv.hostPlatform.isLinux || stdenv.hostPlatform != stdenv.buildPlatform; # TODO: improve on cross
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "libiconv";
   version = "1.16";
 

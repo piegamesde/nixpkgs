@@ -7,9 +7,7 @@
 # - VLAN 1 is the connection between the ISP and the router
 # - VLAN 2 is the connection between the router and the client
 
-import
-./make-test-python.nix
-(
+import ./make-test-python.nix (
   {
     pkgs,
     lib,

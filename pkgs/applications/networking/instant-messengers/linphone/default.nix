@@ -32,8 +32,7 @@
 # the submodule chain and update the corresponding derivations here, in nixpkgs,
 # with the corresponding version number (or commit hash)
 
-mkDerivation
-rec {
+mkDerivation rec {
   pname = "linphone-desktop";
   version = "5.0.8";
 

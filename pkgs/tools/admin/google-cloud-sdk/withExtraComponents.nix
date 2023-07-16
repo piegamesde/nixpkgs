@@ -48,8 +48,7 @@ in
 # with `sed` to ensure the proper paths are used.
 # For some reason, this does not work properly with a `symlinkJoin`: the
 # `gcloud` binary doesn't seem able to find the installed components.
-runCommand
-"google-cloud-sdk-${google-cloud-sdk.version}"
+runCommand "google-cloud-sdk-${google-cloud-sdk.version}"
 {
   inherit (google-cloud-sdk) meta;
   inherit comps;

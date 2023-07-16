@@ -1,8 +1,6 @@
 # Test Traefik as a reverse proxy of a local web service
 # and a Docker container.
-import
-./make-test-python.nix
-(
+import ./make-test-python.nix (
   {
     pkgs,
     ...

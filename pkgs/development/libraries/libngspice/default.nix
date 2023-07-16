@@ -9,8 +9,7 @@
 
 # Note that this does not provide the ngspice command-line utility. For that see
 # the ngspice derivation.
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "libngspice";
   version = "37";
 

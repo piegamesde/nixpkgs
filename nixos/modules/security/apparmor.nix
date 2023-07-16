@@ -294,9 +294,7 @@ in
             ++
             # Optionally kill the processes which are unconfined but now have a profile loaded
               # (because AppArmor can only start to confine new processes).
-              optional
-              cfg.killUnconfinedConfinables
-              killUnconfinedConfinables
+              optional cfg.killUnconfinedConfinables killUnconfinedConfinables
             ;
           ExecStop = "${pkgs.apparmor-utils}/bin/aa-teardown";
           CacheDirectory = [

@@ -1,7 +1,5 @@
 # This test runs CRI-O and verifies via critest
-import
-./make-test-python.nix
-(
+import ./make-test-python.nix (
   {
     pkgs,
     ...

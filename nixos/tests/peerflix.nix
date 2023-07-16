@@ -1,8 +1,6 @@
 # This test runs peerflix and checks if peerflix starts
 
-import
-./make-test-python.nix
-(
+import ./make-test-python.nix (
   {
     pkgs,
     ...

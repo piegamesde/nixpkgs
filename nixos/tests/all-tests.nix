@@ -30,8 +30,7 @@ let
       # in that file, which are then forwarded to the test definition
       # following the `import make-test-python.nix` expression
       # (if it is a function).
-      discoverTests
-      (val { inherit system pkgs; })
+      discoverTests (val { inherit system pkgs; })
     else
       val
     ;

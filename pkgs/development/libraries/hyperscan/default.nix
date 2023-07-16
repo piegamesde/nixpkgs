@@ -18,8 +18,7 @@
 #         which is fixed 8.41 version requirement (nixpkgs have 8.42+, and
 #         I not see any reason (for now) to backport 8.41.
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "hyperscan";
   version = "5.4.0";
 

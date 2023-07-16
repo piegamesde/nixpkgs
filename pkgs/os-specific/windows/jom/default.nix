@@ -10,8 +10,7 @@
 # At the time of committing this, the expression fails for me to cross-build in
 # both mingw32 and mingw64.
 
-stdenv.mkDerivation
-{
+stdenv.mkDerivation {
   pname = "jom";
   version = "1.0.11";
 

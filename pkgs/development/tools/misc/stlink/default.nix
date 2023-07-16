@@ -19,10 +19,9 @@ let
     else
       libusb1
     ;
-
-  # IMPORTANT: You need permissions to access the stlink usb devices.
-  # Add services.udev.packages = [ pkgs.stlink ] to your configuration.nix
 in
+# IMPORTANT: You need permissions to access the stlink usb devices.
+# Add services.udev.packages = [ pkgs.stlink ] to your configuration.nix
 stdenv.mkDerivation rec {
   pname = "stlink";
   version = "1.7.0";

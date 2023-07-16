@@ -96,8 +96,7 @@ in
 # We can patch the "/bin/superposition", but "/bin/launcher" checks it for changes.
 # For that we need use a buildFHSEnv.
 
-buildFHSEnv
-{
+buildFHSEnv {
   name = "Superposition";
 
   targetPkgs =

@@ -20,8 +20,7 @@
 #   $jpegoptim = 0;
 # }
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "fgallery";
   version = "1.8.2";
 

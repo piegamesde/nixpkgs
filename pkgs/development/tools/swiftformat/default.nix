@@ -10,8 +10,7 @@
 # hydraPlatforms are copied pretty directly from the MacVim derivation, which
 # is also impure.
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "swiftformat";
   version = "0.47.10";
 

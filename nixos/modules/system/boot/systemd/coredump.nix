@@ -56,8 +56,7 @@ in
           # the path to `systemd` with a symlink that has a constant-length path.
           #
           # See: https://github.com/NixOS/nixpkgs/issues/213408
-          pkgs.substitute
-          {
+          pkgs.substitute {
             src = "${systemd}/example/sysctl.d/50-coredump.conf";
             replacements = [
               "--replace"

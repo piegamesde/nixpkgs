@@ -16,8 +16,7 @@
 # deprecated and upstream does not (yet ?) support KDE5.
 # See historical versions of this file for building ktikz with KDE4.
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   version = "0.12";
   pname = "qtikz";
 

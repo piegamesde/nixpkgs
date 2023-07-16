@@ -35,8 +35,7 @@
 # Overall, -Os seems like the best choice, but I care more about compile-time,
 # so I stick with -O1 (in the defaults above), which is also the default for Gambit.
 
-gccStdenv.mkDerivation
-rec {
+gccStdenv.mkDerivation rec {
 
   pname = "gambit";
   inherit src version git-version;
@@ -82,9 +81,7 @@ rec {
     ]
     ++
     # due not enable poll on darwin due to https://github.com/gambit/gambit/issues/498
-      lib.optional
-      (!gccStdenv.isDarwin)
-      "--enable-poll"
+      lib.optional (!gccStdenv.isDarwin) "--enable-poll"
     ;
 
   configurePhase = ''

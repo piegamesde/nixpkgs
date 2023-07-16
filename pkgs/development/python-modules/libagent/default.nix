@@ -21,8 +21,7 @@
 
 # XXX: when changing this package, please test the package onlykey-agent.
 
-buildPythonPackage
-rec {
+buildPythonPackage rec {
   pname = "libagent";
   version = "0.14.5";
 

@@ -146,11 +146,7 @@ stdenv.mkDerivation rec {
       disabledTests =
         # PortChecker test fails when lashSupport is enabled because
           # zynaddsubfx takes to long to start trying to connect to lash
-          lib.optionals
-          lashSupport
-          [
-            "PortChecker"
-          ]
+          lib.optionals lashSupport [ "PortChecker" ]
 
         # Tests fail on aarch64
         ++ lib.optionals stdenv.isAarch64 [

@@ -1133,9 +1133,9 @@ self: super:
           };
         }
         super.d-bus;
-      # Add now required extension on recent compilers.
-      # https://github.com/Philonous/d-bus/pull/23
     in
+    # Add now required extension on recent compilers.
+    # https://github.com/Philonous/d-bus/pull/23
     appendPatch
     (fetchpatch {
       url =

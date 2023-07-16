@@ -119,9 +119,7 @@ stdenv.mkDerivation rec {
   postUnpack =
     # GHC has dtrace probes, which causes ld to try to open /usr/lib/libdtrace.dylib
       # during linking
-      lib.optionalString
-      stdenv.isDarwin
-      ''
+      lib.optionalString stdenv.isDarwin ''
         export NIX_LDFLAGS+=" -no_dtrace_dof"
         # not enough room in the object files for the full path to libiconv :(
         for exe in $(find . -type f -executable); do
@@ -150,9 +148,7 @@ stdenv.mkDerivation rec {
     ''
     +
     # Rename needed libraries and binaries, fix interpreter
-      lib.optionalString
-      stdenv.isLinux
-      ''
+      lib.optionalString stdenv.isLinux ''
         find . -type f -perm -0100 \
             -exec patchelf \
             --replace-needed libncurses${
@@ -176,9 +172,7 @@ stdenv.mkDerivation rec {
       # (`__strdup` is defined to be an alias of `strdup` anyway[1]).
       # [1] http://refspecs.linuxbase.org/LSB_4.0.0/LSB-Core-generic/LSB-Core-generic/baselib---strdup-1.html
       # Use objcopy magic to make the change:
-      lib.optionalString
-      stdenv.hostPlatform.isMusl
-      ''
+      lib.optionalString stdenv.hostPlatform.isMusl ''
         find ./ghc-${version}/rts -name "libHSrts*.a" -exec ''${OBJCOPY:-objcopy} --redefine-sym __strdup=strdup {} \;
       ''
     ;

@@ -14,8 +14,7 @@
 # http://vlc-bluray.whoknowsmy.name/
 # https://wiki.archlinux.org/index.php/BluRay
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "libbdplus";
   version = "0.2.0";
 

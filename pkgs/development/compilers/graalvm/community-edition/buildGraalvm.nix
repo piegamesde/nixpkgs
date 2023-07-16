@@ -160,9 +160,7 @@ let
 
         ${
         # broken in darwin
-        lib.optionalString
-        stdenv.isLinux
-        ''
+        lib.optionalString stdenv.isLinux ''
           echo "Testing Jshell"
           echo '1 + 1' | $out/bin/jshell
         ''}

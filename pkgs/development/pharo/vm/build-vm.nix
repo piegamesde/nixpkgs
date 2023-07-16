@@ -30,8 +30,7 @@
 }:
 
 # Build the Pharo VM
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   inherit name src;
 
   # Command line invocation name.

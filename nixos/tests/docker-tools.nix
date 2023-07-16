@@ -1,8 +1,6 @@
 # this test creates a simple GNU image with docker tools and sees if it executes
 
-import
-./make-test-python.nix
-(
+import ./make-test-python.nix (
   {
     pkgs,
     ...

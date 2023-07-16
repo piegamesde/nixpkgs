@@ -55,9 +55,7 @@ let
 in
 
 # It has to be a link farm for inclusion in the hydra unstable jobset.
-pkgs.linkFarm
-"pkgs-lib-formats-tests"
-(
+pkgs.linkFarm "pkgs-lib-formats-tests" (
   mapAttrsToList
   (
     k: v: {

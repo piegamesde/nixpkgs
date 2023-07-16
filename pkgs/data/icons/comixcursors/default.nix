@@ -43,9 +43,7 @@ let
   variants =
     # (The order of this list is already good looking enough to show in the
     # meta.longDescription.)
-    map
-    variantName
-    product;
+    map variantName product;
 in
 stdenvNoCC.mkDerivation rec {
   pname = "comixcursors";

@@ -85,8 +85,7 @@ else if hash != "" && sha256 != "" then
   throw "Only one of sha256 or hash can be set"
 else
   # Added 2022-11-12
-  lib.warnIf
-  (builtins.isString sparseCheckout)
+  lib.warnIf (builtins.isString sparseCheckout)
   "Please provide directories/patterns for sparse checkout as a list of strings. Support for passing a (multi-line) string is deprecated and will be removed in the next release."
   stdenvNoCC.mkDerivation
   {

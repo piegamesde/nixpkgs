@@ -15,8 +15,7 @@
 # http://vlc-bluray.whoknowsmy.name/
 # https://wiki.archlinux.org/index.php/BluRay
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "libaacs";
   version = "0.11.1";
 

@@ -535,9 +535,7 @@ stdenv.mkDerivation {
       #
       # The Fedora wiki has a good article about their journey towards enabling this flag:
       # https://fedoraproject.org/wiki/Changes/PythonNoSemanticInterpositionSpeedup
-      optionalString
-      enableNoSemanticInterposition
-      ''
+      optionalString enableNoSemanticInterposition ''
         export CFLAGS_NODIST="-fno-semantic-interposition"
       ''
     ;

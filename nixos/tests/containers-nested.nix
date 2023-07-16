@@ -1,8 +1,6 @@
 # Test for NixOS' container nesting.
 
-import
-./make-test-python.nix
-(
+import ./make-test-python.nix (
   {
     pkgs,
     ...

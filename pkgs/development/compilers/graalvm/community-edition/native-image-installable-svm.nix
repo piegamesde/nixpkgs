@@ -52,9 +52,7 @@ graalvmCEPackages.buildGraalvmProduct rec {
 
     ${
     # --static is only available in Linux
-    lib.optionalString
-    (stdenv.isLinux && !useMusl)
-    ''
+    lib.optionalString (stdenv.isLinux && !useMusl) ''
       echo "Ahead-Of-Time compilation with -H:+StaticExecutableWithDynamicLibC"
       $out/bin/native-image -H:+StaticExecutableWithDynamicLibC HelloWorld
       ./helloworld | fgrep 'Hello World'
@@ -66,9 +64,7 @@ graalvmCEPackages.buildGraalvmProduct rec {
 
     ${
     # --static is only available in Linux
-    lib.optionalString
-    (stdenv.isLinux && useMusl)
-    ''
+    lib.optionalString (stdenv.isLinux && useMusl) ''
       echo "Ahead-Of-Time compilation with --static and --libc=musl"
       $out/bin/native-image --static HelloWorld --libc=musl
       ./helloworld | fgrep 'Hello World'

@@ -20,9 +20,8 @@
 
 let
   withQt = withUtils && withGUI;
-
-  # we need to use stdenv.mkDerivation in order not to pollute the libv4l’s closure with Qt
 in
+# we need to use stdenv.mkDerivation in order not to pollute the libv4l’s closure with Qt
 stdenv.mkDerivation rec {
   pname = "v4l-utils";
   version = "1.22.1";

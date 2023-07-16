@@ -106,9 +106,7 @@ stdenv.mkDerivation rec {
 
   postInstall =
     # get rid of the runtime dependency on python
-    lib.optionalString
-    (!withPython)
-    ''
+    lib.optionalString (!withPython) ''
       rm -r "$out/share/fontforge/python"
     '';
 

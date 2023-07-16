@@ -478,10 +478,7 @@ stdenv.mkDerivation (
             ;
         in
         # patch all the dlopen calls to contain absolute paths to the libraries
-        lib.concatMapStringsSep
-        "\n"
-        patchDlOpen
-        dlopenLibs
+        lib.concatMapStringsSep "\n" patchDlOpen dlopenLibs
       )
       # Finally, patch shebangs in scripts used at build time. This must not patch
       # scripts that will end up in the output, to avoid build platform references

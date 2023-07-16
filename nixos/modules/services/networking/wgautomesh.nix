@@ -11,9 +11,7 @@ let
   configFile =
     # Have to remove nulls manually as TOML generator will not just skip key
     # if value is null
-    settingsFormat.generate
-    "wgautomesh-config.toml"
-    (
+    settingsFormat.generate "wgautomesh-config.toml" (
       filterAttrs (k: v: v != null) (
         mapAttrs
         (

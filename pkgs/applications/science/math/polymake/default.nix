@@ -24,8 +24,7 @@
 # don't have those packages. other missing optional dependencies:
 # javaview, libnormaliz, scip, soplex, jreality.
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "polymake";
   version = "4.9";
 

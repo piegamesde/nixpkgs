@@ -24,8 +24,7 @@
 # protobuf, you can add it to your Python env, but be aware
 # the version likely mismatches with what is used here.
 
-buildPythonPackage
-{
+buildPythonPackage {
   inherit (onnxruntime) pname version;
   format = "wheel";
   src = onnxruntime.dist;

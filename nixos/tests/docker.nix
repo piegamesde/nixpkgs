@@ -1,8 +1,6 @@
 # This test runs docker and checks if simple container starts
 
-import
-./make-test-python.nix
-(
+import ./make-test-python.nix (
   {
     pkgs,
     ...

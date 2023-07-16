@@ -36,8 +36,7 @@ let
     #       Ideally we don't diverge, unless we learn that we should.
     #       In other words, only the public interface of nixos.evalModules
     #       is experimental.
-    lib.evalModules
-    {
+    lib.evalModules {
       inherit prefix modules;
       specialArgs =
         { modulesPath = builtins.toString ../modules; } // specialArgs;

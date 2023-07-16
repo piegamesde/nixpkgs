@@ -34,9 +34,7 @@ stdenv.mkDerivation rec {
 
   preConfigure =
     # For libuv on darwin
-      lib.optionalString
-      stdenv.isDarwin
-      ''
+      lib.optionalString stdenv.isDarwin ''
         export LIBTOOLIZE=libtoolize
       ''
     +

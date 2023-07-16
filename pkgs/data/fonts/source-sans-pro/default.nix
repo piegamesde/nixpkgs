@@ -9,8 +9,7 @@
 # last version named "Pro". It is useful for backward compatibility
 # with older documents/templates/etc.
 
-stdenvNoCC.mkDerivation
-rec {
+stdenvNoCC.mkDerivation rec {
   name = "source-sans-pro-${version}";
   version = "3.006";
 

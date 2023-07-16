@@ -25,8 +25,8 @@ let
     genericName = "Quartus Prime";
     categories = [ "Development" ];
   };
-  # I think modelsim_ase/linux/vlm checksums itself, so use FHSUserEnv instead of `patchelf`
 in
+# I think modelsim_ase/linux/vlm checksums itself, so use FHSUserEnv instead of `patchelf`
 buildFHSEnvChroot rec {
   name = "quartus-prime-lite"; # wrapped
 

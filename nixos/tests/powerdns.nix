@@ -2,9 +2,7 @@
 # generic MySQL backend (gmysql) to connect to a
 # MariaDB server using UNIX sockets authentication.
 
-import
-./make-test-python.nix
-(
+import ./make-test-python.nix (
   {
     pkgs,
     lib,

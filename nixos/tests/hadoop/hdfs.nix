@@ -1,7 +1,5 @@
 # Test a minimal HDFS cluster with no HA
-import
-../make-test-python.nix
-(
+import ../make-test-python.nix (
   {
     package,
     lib,

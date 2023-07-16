@@ -34,8 +34,7 @@
 # strongswan curl plugin may break.
 # See https://wiki.strongswan.org/projects/strongswan/wiki/Curl for more info.
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "strongswan";
   version =
     "5.9.10"; # Make sure to also update <nixpkgs/nixos/modules/services/networking/strongswan-swanctl/swanctl-params.nix> when upgrading!

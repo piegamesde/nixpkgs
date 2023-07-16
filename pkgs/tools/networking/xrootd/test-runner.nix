@@ -6,8 +6,7 @@
 
 # These tests are specified in the test procedure of the upstream CD:
 # https://github.com/xrootd/xrootd/blob/master/.github/workflows/build.yml#L90-L98
-runCommand
-"${xrootd.pname}-run-tests-${xrootd.version}"
+runCommand "${xrootd.pname}-run-tests-${xrootd.version}"
 {
   testRunnerPath = "${xrootd}/bin/test-runner";
   testLibraries = [ "XrdClTests" ];

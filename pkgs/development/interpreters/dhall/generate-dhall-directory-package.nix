@@ -12,8 +12,7 @@
 # Dhall imports protected with Dhall integrity checksinto fixed-output
 # derivations (with the `buildDhallUrl` function), so no unrestricted network
 # access is necessary.
-lib.makePackageOverridable
-(
+lib.makePackageOverridable (
   {
     src, # The file to import, relative to the root directory
     file ?

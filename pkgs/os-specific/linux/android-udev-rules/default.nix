@@ -8,8 +8,7 @@
 # In NixOS, simply add this package to services.udev.packages:
 #   services.udev.packages = [ pkgs.android-udev-rules ];
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "android-udev-rules";
   version = "20230303";
 

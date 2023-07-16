@@ -23,8 +23,7 @@
 # https://github.com/tensorflow/tensorboard/issues/719 blocks
 # buildBazelPackage.
 
-buildPythonPackage
-rec {
+buildPythonPackage rec {
   pname = "tensorboard";
   version = "2.11.0";
   format = "wheel";

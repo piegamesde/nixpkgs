@@ -1,8 +1,6 @@
 # This test runs rabbitmq and checks if rabbitmq is up and running.
 
-import
-./make-test-python.nix
-(
+import ./make-test-python.nix (
   {
     pkgs,
     ...

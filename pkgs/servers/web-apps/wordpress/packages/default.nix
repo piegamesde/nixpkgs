@@ -194,9 +194,8 @@ let
     )
     generatedJson
     ;
-
-  # This creates an extensible scope.
 in
+# This creates an extensible scope.
 lib.recursiveUpdate
 ((lib.makeExtensible (_: (lib.makeScope newScope packages))).extend (
   selfWP: superWP: { }

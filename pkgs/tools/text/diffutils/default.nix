@@ -11,8 +11,7 @@
 # cgit) that are needed here should be included directly in Nixpkgs as
 # files.
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "diffutils";
   version = "3.9";
 
@@ -46,9 +45,7 @@ rec {
   configureFlags =
     # "pr" need not be on the PATH as a run-time dep, so we need to tell
       # configure where it is. Covers the cross and native case alike.
-      lib.optional
-      (coreutils != null)
-      "PR_PROGRAM=${coreutils}/bin/pr"
+      lib.optional (coreutils != null) "PR_PROGRAM=${coreutils}/bin/pr"
     ++ lib.optional
       (stdenv.buildPlatform != stdenv.hostPlatform)
       "gl_cv_func_getopt_gnu=yes"

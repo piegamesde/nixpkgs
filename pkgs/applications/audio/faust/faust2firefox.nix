@@ -6,8 +6,7 @@
 # This just runs faust2svg, then attempts to open a browser using
 # 'xdg-open'.
 
-faust.wrap
-{
+faust.wrap {
 
   baseName = "faust2firefox";
 

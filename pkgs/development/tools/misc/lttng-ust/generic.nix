@@ -24,8 +24,7 @@
 #
 # Debian builds with std.h (systemtap).
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "lttng-ust";
   inherit version;
 

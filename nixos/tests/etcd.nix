@@ -1,8 +1,6 @@
 # This test runs simple etcd node
 
-import
-./make-test-python.nix
-(
+import ./make-test-python.nix (
   {
     pkgs,
     ...

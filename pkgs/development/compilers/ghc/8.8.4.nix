@@ -308,9 +308,7 @@ stdenv.mkDerivation (
     preConfigure =
       # Aarch64 allow backward bootstrapping since earlier versions are unstable.
         # Same for musl, as earlier versions do not provide a musl bindist for bootstrapping.
-        lib.optionalString
-        (stdenv.isAarch64 || stdenv.hostPlatform.isMusl)
-        ''
+        lib.optionalString (stdenv.isAarch64 || stdenv.hostPlatform.isMusl) ''
           find . -name \*\.cabal\* -exec sed -i -e 's/\(base.*\)4.14/\14.16/' {} \; \
             -exec sed -i -e 's/\(prim.*\)0.6/\10.8/' {} \;
         ''

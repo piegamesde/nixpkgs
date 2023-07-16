@@ -19,8 +19,7 @@
 # ignoring the pinned versions, it's just something we will have to accept
 # unless we want to vendor those versions.
 
-python3.pkgs.buildPythonApplication
-rec {
+python3.pkgs.buildPythonApplication rec {
   pname = "puddletag";
   version = "2.2.0";
   format = "setuptools";

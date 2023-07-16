@@ -283,8 +283,7 @@ in
           --set-default TEXMFCNF "$TEXMFCNF" \
           --set-default FONTCONFIG_FILE "${
             # neccessary for XeTeX to find the fonts distributed with texlive
-            makeFontsConf
-            {
+            makeFontsConf {
               fontDirectories = [ "${texmfroot}/texmf-dist/fonts" ];
             }
           }"

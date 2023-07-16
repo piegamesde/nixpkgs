@@ -1,9 +1,7 @@
 # This test runs basic munin setup with node and cron job running on the same
 # machine.
 
-import
-./make-test-python.nix
-(
+import ./make-test-python.nix (
   {
     pkgs,
     ...

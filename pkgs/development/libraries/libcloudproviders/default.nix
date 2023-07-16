@@ -15,8 +15,7 @@
 
 # TODO: Add installed tests once https://gitlab.gnome.org/World/libcloudproviders/issues/4 is fixed
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "libcloudproviders";
   version = "0.3.1";
 

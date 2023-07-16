@@ -12,8 +12,7 @@
 
 # Should be bumped along with EFL!
 
-buildPythonPackage
-rec {
+buildPythonPackage rec {
   pname = "python-efl";
   version = "1.26.0";
 

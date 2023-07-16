@@ -8,8 +8,7 @@
 # This cannot be built from source due to the problematic nature of XCode - so
 # this is what it's like when doves cry?
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "MonitorControl";
   version = "4.1.0";
 

@@ -84,8 +84,7 @@ buildPythonApplication {
       # comes from the master branch of upstream
       # https://github.com/qutebrowser/qutebrowser/issues/7202
       # https://github.com/qutebrowser/qutebrowser/discussions/7628
-      fetchFromGitHub
-      {
+      fetchFromGitHub {
         owner = "qutebrowser";
         repo = "qutebrowser";
         rev = "d4cafc0019a4a5574caa11966fc40ede89076d26";

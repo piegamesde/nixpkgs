@@ -210,9 +210,7 @@ runCommand "make-wrapper-test"
 }
 (
   # --argv0 works
-    mkTest
-    "test-argv0"
-    "argv0=foo"
+    mkTest "test-argv0" "argv0=foo"
   + mkTest "test-set" "VAR=abc"
   + mkTest "VAR=foo test-set" "VAR=abc"
   + mkTest "test-set-default" "VAR=abc"

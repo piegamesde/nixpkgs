@@ -79,9 +79,7 @@ rustPlatform.buildRustPackage rec {
     ''
     +
     # Files necessary for OpenVPN tunnels to work.
-      lib.optionalString
-      enableOpenvpn
-      ''
+      lib.optionalString enableOpenvpn ''
         mkdir -p $out/share/mullvad
         cp dist-assets/ca.crt $out/share/mullvad
         ln -s ${openvpn-mullvad}/bin/openvpn $out/share/mullvad

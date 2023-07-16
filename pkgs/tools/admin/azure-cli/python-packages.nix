@@ -12,8 +12,7 @@ let
   overrideAzureMgmtPackage =
     package: version: extension: hash:
     # check to make sure overriding is even necessary
-    package.overrideAttrs
-    (
+    package.overrideAttrs (
       oldAttrs: rec {
         inherit version;
 

@@ -6,8 +6,7 @@
 
 # cannot be built as pythonApplication because the library functions are
 # required for home-assistant
-buildPythonPackage
-rec {
+buildPythonPackage rec {
   pname = "speedtest-cli";
   version = "2.1.3";
 

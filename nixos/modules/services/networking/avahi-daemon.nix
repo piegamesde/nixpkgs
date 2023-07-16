@@ -26,9 +26,7 @@ let
       # a host name from DHCP.  In that case, let Avahi take whatever the
       # current host name is; setting `host-name' to the empty string in
       # `avahi-daemon.conf' would be invalid.
-      optionalString
-      (hostName != "")
-      "host-name=${hostName}"}
+      optionalString (hostName != "") "host-name=${hostName}"}
       browse-domains=${concatStringsSep ", " browseDomains}
       use-ipv4=${yesNo ipv4}
       use-ipv6=${yesNo ipv6}

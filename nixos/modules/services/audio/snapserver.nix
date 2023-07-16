@@ -325,9 +325,7 @@ in
 
     warnings =
       # https://github.com/badaix/snapcast/blob/98ac8b2fb7305084376607b59173ce4097c620d8/server/streamreader/stream_manager.cpp#L85
-      filter
-      (w: w != "")
-      (
+      filter (w: w != "") (
         mapAttrsToList
         (
           k: v:

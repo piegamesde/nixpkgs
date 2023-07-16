@@ -1,8 +1,6 @@
 # Test printing via CUPS.
 
-import
-./make-test-python.nix
-(
+import ./make-test-python.nix (
   {
     pkgs,
     socket ? true # whether to use socket activation

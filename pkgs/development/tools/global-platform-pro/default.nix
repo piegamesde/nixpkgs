@@ -14,8 +14,7 @@ let
   jre_headless = jre8_headless;
 in
 # TODO: This is quite a bit of duplicated logic with gephi. Factor it out?
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "global-platform-pro";
   version = "18.09.14";
   GPPRO_VERSION =

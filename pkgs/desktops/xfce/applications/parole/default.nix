@@ -14,8 +14,7 @@
 
 # Doesn't seem to find H.264 codec even though built with gst-plugins-bad.
 
-mkXfceDerivation
-{
+mkXfceDerivation {
   category = "apps";
   pname = "parole";
   version = "4.18.0";

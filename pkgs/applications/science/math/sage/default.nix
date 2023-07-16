@@ -190,9 +190,7 @@ let
   };
 in
 # A wrapper around sage that makes sure sage finds its docs (if they were build).
-callPackage
-./sage.nix
-{
+callPackage ./sage.nix {
   inherit
     sage-tests
     sage-with-env

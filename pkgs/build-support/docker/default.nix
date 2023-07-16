@@ -1284,9 +1284,9 @@ rec {
         drv.drvAttrs //
         # A mapping from output name to the nix store path where they should end up
         # https://github.com/NixOS/nix/blob/2.8.0/src/libexpr/primops.cc#L1253
-        lib.genAttrs
-        drv.outputs
-        (output: builtins.unsafeDiscardStringContext drv.${output}.outPath);
+        lib.genAttrs drv.outputs (
+          output: builtins.unsafeDiscardStringContext drv.${output}.outPath
+        );
 
       # Environment variables set in the image
       envVars = {

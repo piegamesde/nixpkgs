@@ -25,8 +25,7 @@
 }:
 
 # TODO: Look at the hardcoded paths to kernel, modules etc.
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "elfutils";
   version = "0.189";
 

@@ -19,9 +19,7 @@
 #   - bin/traffic_logcat
 #   - bin/traffic_logstats
 #   - bin/tspush
-import
-./make-test-python.nix
-(
+import ./make-test-python.nix (
   {
     pkgs,
     ...

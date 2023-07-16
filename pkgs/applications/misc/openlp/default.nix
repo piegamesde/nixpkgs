@@ -32,9 +32,9 @@
 
 let
   p = gstPlugins gst_all_1;
-  # If gstreamer is activated but no plugins are given, it will at runtime
-  # create the false illusion of being usable.
 in
+# If gstreamer is activated but no plugins are given, it will at runtime
+# create the false illusion of being usable.
 assert gstreamerSupport -> (builtins.isList p && builtins.length p > 0);
 
 let

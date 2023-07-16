@@ -14,8 +14,7 @@
 #  -  Included plugins depenencies: dot, ditaa, dia, any other?
 #  -  pyxdg: Need to make it work first (see setupPyInstallFlags).
 
-python3Packages.buildPythonApplication
-rec {
+python3Packages.buildPythonApplication rec {
   pname = "zim";
   version = "0.75.1";
 

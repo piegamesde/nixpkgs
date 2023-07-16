@@ -12,8 +12,7 @@
 # we now have libqmatrixclient so a future version of tensor that supports it
 # should use that
 
-mkDerivation
-rec {
+mkDerivation rec {
   pname = "tensor";
   version = "unstable-2017-02-21";
 

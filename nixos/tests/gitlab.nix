@@ -6,9 +6,7 @@
 # - Creating Merge Requests and merging them
 # - Opening and closing issues.
 # - Downloading repository archives as tar.gz and tar.bz2
-import
-./make-test-python.nix
-(
+import ./make-test-python.nix (
   {
     pkgs,
     lib,

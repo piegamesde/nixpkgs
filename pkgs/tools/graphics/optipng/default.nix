@@ -8,8 +8,7 @@
 
 # This package comes with its own copy of zlib, libpng and pngxtern
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "optipng";
   version = "0.7.7";
 

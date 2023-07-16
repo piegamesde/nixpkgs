@@ -34,8 +34,8 @@ let
           x: lib.isString x || (lib.isAttrs x && (x ? path || x ? base64));
         merge = lib.mergeEqualOption;
       };
-      # We don't coerce to lists of single values, as some values must be unique
     in
+    # We don't coerce to lists of single values, as some values must be unique
     types.either singleLdapValueType (types.listOf singleLdapValueType)
     ;
 

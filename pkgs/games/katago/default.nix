@@ -30,8 +30,7 @@ assert lib.assertOneOf "backend" backend [
 
 # N.b. older versions of cuda toolkit (e.g. 10) do not support newer versions
 # of gcc.  If you need to use cuda10, please override stdenv with gcc8Stdenv
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "katago";
   version = "1.12.4";
   githash = "75280bf26582090dd4985dca62bc7124116c856d";

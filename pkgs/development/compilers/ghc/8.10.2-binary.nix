@@ -259,11 +259,7 @@ stdenv.mkDerivation rec {
     # fixing the above-mentioned release issue,
     # and for GHC >= 9.* it is not clear as of writing whether that switch
     # will be made there too.
-    lib.optionals
-    stdenv.hostPlatform.isMusl
-    [
-      gmp
-    ]; # musl bindist needs this
+    lib.optionals stdenv.hostPlatform.isMusl [ gmp ]; # musl bindist needs this
 
   # Set LD_LIBRARY_PATH or equivalent so that the programs running as part
   # of the bindist installer can find the libraries they expect.
@@ -347,17 +343,13 @@ stdenv.mkDerivation rec {
     +
     # aarch64 does HAVE_NUMA so -lnuma requires it in library-dirs in rts/package.conf.in
       # FFI_LIB_DIR is a good indication of places it must be needed.
-      lib.optionalString
-      stdenv.hostPlatform.isAarch64
-      ''
+      lib.optionalString stdenv.hostPlatform.isAarch64 ''
         find . -name package.conf.in \
             -exec sed -i "s@FFI_LIB_DIR@FFI_LIB_DIR ${numactl.out}/lib@g" {} \;
       ''
     +
     # Rename needed libraries and binaries, fix interpreter
-      lib.optionalString
-      stdenv.isLinux
-      ''
+      lib.optionalString stdenv.isLinux ''
         find . -type f -executable -exec patchelf \
             --interpreter ${stdenv.cc.bintools.dynamicLinker} {} \;
       ''

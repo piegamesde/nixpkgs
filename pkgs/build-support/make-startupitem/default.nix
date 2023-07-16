@@ -20,8 +20,7 @@
 #   $package/share/applications/$name.desktop
 # exists as file.
 
-stdenv.mkDerivation
-{
+stdenv.mkDerivation {
   name = "autostart-${name}";
   priority = 5;
 

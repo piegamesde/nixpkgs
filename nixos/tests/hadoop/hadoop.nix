@@ -1,9 +1,7 @@
 # This test is very comprehensive. It tests whether all hadoop services work well with each other.
 # Run this when updating the Hadoop package or making significant changes to the hadoop module.
 # For a more basic test, see hdfs.nix and yarn.nix
-import
-../make-test-python.nix
-(
+import ../make-test-python.nix (
   {
     package,
     ...

@@ -123,9 +123,7 @@ rec {
       }
     else if lib.isFunction result then
       # Transform the result into a functor while propagating its arguments
-      lib.setFunctionArgs
-      result
-      (lib.functionArgs result) // {
+      lib.setFunctionArgs result (lib.functionArgs result) // {
         override = overrideArgs;
       }
     else
@@ -295,9 +293,7 @@ rec {
             # TODO: give the derivation control over the outputs.
             #       `overrideAttrs` may not be the only attribute that needs
             #       updating when switching outputs.
-            lib.optionalAttrs
-            (passthru ? overrideAttrs)
-            {
+            lib.optionalAttrs (passthru ? overrideAttrs) {
               # TODO: also add overrideAttrs when overrideAttrs is not custom, e.g. when not splicing.
               overrideAttrs = f: (passthru.overrideAttrs f).${outputName};
             };

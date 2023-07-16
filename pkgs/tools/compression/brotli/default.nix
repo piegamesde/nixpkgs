@@ -10,8 +10,7 @@
 
 # ?TODO: there's also python lib in there
 
-stdenv.mkDerivation
-(
+stdenv.mkDerivation (
   finalAttrs: {
     pname = "brotli";
     version = "1.0.9";

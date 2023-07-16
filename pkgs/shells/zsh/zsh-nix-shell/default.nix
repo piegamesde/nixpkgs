@@ -8,8 +8,7 @@
 # To make use of this derivation, use
 # `programs.zsh.interactiveShellInit = "source ${pkgs.zsh-nix-shell}/share/zsh-nix-shell/nix-shell.plugin.zsh";`
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "zsh-nix-shell";
   version = "0.6.0";
 

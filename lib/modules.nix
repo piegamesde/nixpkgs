@@ -618,8 +618,7 @@ rec {
         }
     else
       # shorthand syntax
-      lib.throwIfNot
-      (isAttrs m)
+      lib.throwIfNot (isAttrs m)
       "module ${file} (${key}) does not look like a module."
       {
         _file = toString m._file or file;
@@ -672,12 +671,11 @@ rec {
             )
           )
           (lib.functionArgs f);
-
-        # Note: we append in the opposite order such that we can add an error
-        # context on the explicit arguments of "args" too. This update
-        # operator is used to make the "args@{ ... }: with args.lib;" notation
-        # works.
       in
+      # Note: we append in the opposite order such that we can add an error
+      # context on the explicit arguments of "args" too. This update
+      # operator is used to make the "args@{ ... }: with args.lib;" notation
+      # works.
       f (args // extraArgs)
     else
       f
@@ -897,9 +895,7 @@ rec {
       # an attrset 'name' => list of unmatched definitions for 'name'
       unmatchedDefnsByName =
         # Propagate all unmatched definitions from nested option sets
-        mapAttrs
-        (n: v: v.unmatchedDefns)
-        resultsByName
+        mapAttrs (n: v: v.unmatchedDefns) resultsByName
         # Plus the definitions for the current prefix that don't have a matching option
         // removeAttrs defnsByName' (attrNames matchedOptions);
     in
@@ -1131,8 +1127,7 @@ rec {
         else
           # (nixos-option detects this specific error message and gives it special
           # handling.  If changed here, please change it there too.)
-          throw
-          "The option `${showOption loc}' is used but not defined."
+          throw "The option `${showOption loc}' is used but not defined."
         ;
 
       isDefined = defsFinal != [ ];

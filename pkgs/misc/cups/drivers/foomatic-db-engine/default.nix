@@ -43,9 +43,7 @@ perlPackages.buildPerlPackage rec {
   buildInputs =
     # provide some "cups-*" commands to `foomatic-{configure,printjob}`
       # so that they can manage a local cups server (add queues, add jobs...)
-      lib.optionals
-      withCupsAccess
-      [
+      lib.optionals withCupsAccess [
         cups
         cups-filters
         curl

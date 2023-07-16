@@ -229,9 +229,7 @@ in
               ''
               +
               # extra config
-                concatStringsSep
-                "\n"
-                (
+                concatStringsSep "\n" (
                   mapAttrsToList
                   (
                     n: v: ''

@@ -122,9 +122,9 @@ with lib;
 
     environment.systemPackages =
       # We increase the priority a little, so that plain glibc in systemPackages can't win.
-      optional
-      (config.i18n.supportedLocales != [ ])
-      (lib.setPrio (-1) config.i18n.glibcLocales);
+      optional (config.i18n.supportedLocales != [ ]) (
+        lib.setPrio (-1) config.i18n.glibcLocales
+      );
 
     environment.sessionVariables = {
       LANG = config.i18n.defaultLocale;

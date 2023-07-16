@@ -43,9 +43,7 @@ let
             if builtins.isFunction x then
               # Can't reuse `x`, because `self` comes first.
               # Looks inefficient, but `f0 super` was a cheap thunk.
-              f0
-              self
-              super
+              f0 self super
             else
               x
             ;
@@ -804,9 +802,7 @@ let
           # to be built eventually, we would still like to get the error early and without
           # having to wait while nix builds a derivation that might not be used.
           # See also https://github.com/NixOS/nix/issues/4629
-          lib.optionalAttrs
-          (attrs ? disallowedReferences)
-          {
+          lib.optionalAttrs (attrs ? disallowedReferences) {
             disallowedReferences =
               map unsafeDerivationToUntrackedOutpath attrs.disallowedReferences;
           } // lib.optionalAttrs (attrs ? disallowedRequisites) {

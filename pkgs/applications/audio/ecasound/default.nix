@@ -22,8 +22,7 @@
 # The error is
 # /nix/store/*-lilv-0.24.10/include/lilv-0/lilv/lilvmm.hpp:272:53: error: 'nullptr' was not declared in this scope
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "ecasound";
   version = "2.9.3";
 

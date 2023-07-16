@@ -61,8 +61,7 @@
 
 # TODO (ttuegel): investigate qmlplugindump failure
 
-mkDerivation
-{
+mkDerivation {
   pname = "kwin";
   nativeBuildInputs = [
     extra-cmake-modules

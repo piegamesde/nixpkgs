@@ -34,9 +34,7 @@ stdenv.mkDerivation rec {
 
   configureFlags =
     # see the comment on stripPrefix
-      lib.optional
-      stripPrefix
-      "--with-jemalloc-prefix="
+      lib.optional stripPrefix "--with-jemalloc-prefix="
     ++ lib.optional disableInitExecTls "--disable-initial-exec-tls"
     ++ lib.optionals (stdenv.isAarch32 && lib.versionOlder version "5") [
       "--disable-thp"

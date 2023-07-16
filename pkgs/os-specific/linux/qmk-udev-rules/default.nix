@@ -8,8 +8,7 @@
 # In NixOS, simply add this package to services.udev.packages:
 #   services.udev.packages = [ pkgs.qmk-udev-rules ];
 
-stdenv.mkDerivation
-rec {
+stdenv.mkDerivation rec {
   pname = "qmk-udev-rules";
   version = "0.19.11";
 

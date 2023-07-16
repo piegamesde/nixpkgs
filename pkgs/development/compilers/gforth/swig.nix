@@ -5,8 +5,7 @@
 
 ## for updating to swig4, see
 ## https://github.com/GeraldWodni/swig/pull/6
-swig3.overrideDerivation
-(
+swig3.overrideDerivation (
   old: {
     version = "3.0.9-forth";
     src = fetchFromGitHub {
