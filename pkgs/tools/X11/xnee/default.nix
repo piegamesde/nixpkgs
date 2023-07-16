@@ -59,7 +59,10 @@ stdenv.mkDerivation rec {
 
   configureFlags =
     # Do a static build because `libxnee' doesn't get installed anyway.
-    [ "--disable-gnome-applet" "--enable-static" ];
+    [
+      "--disable-gnome-applet"
+      "--enable-static"
+    ];
 
   # `cnee' is linked without `-lXi' and as a consequence has a RUNPATH that
   # lacks libXi.

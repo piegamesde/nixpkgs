@@ -32,8 +32,7 @@ import ./make-test-python.nix (
                 (builtins.attrNames nodes);
             };
             environment.etc."corosync/authkey" = {
-              source = builtins.toFile
-                "authkey"
+              source = builtins.toFile "authkey"
                 # minimum length: 128 bytes
                 "testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest"
                 ;

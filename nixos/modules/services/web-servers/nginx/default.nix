@@ -256,8 +256,7 @@ let
         }
 
         ${
-          optionalString
-          cfg.recommendedGzipSettings
+          optionalString cfg.recommendedGzipSettings
           # https://docs.nginx.com/nginx/admin-guide/web-server/compression/
           ''
             gzip on;
@@ -555,8 +554,7 @@ let
           }
 
           ${
-            optionalString
-            (hasSSL && vhost.quic && vhost.http3)
+            optionalString (hasSSL && vhost.quic && vhost.http3)
             # Advertise that HTTP/3 is available
             ''
               add_header Alt-Svc 'h3=":$server_port"; ma=86400';

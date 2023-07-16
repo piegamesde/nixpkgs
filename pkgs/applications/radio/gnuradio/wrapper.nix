@@ -131,8 +131,7 @@ let
       ":"
       "${lib.makeSearchPath "share/gnuradio/grc/blocks" extraPackages}"
     ]
-    ++ lib.optionals
-      (unwrapped.hasFeature "gr-qtgui")
+    ++ lib.optionals (unwrapped.hasFeature "gr-qtgui")
       # 3.7 builds with qt4
       (
         if lib.versionAtLeast unwrapped.versionAttr.major "3.8" then

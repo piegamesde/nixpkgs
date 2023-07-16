@@ -262,8 +262,7 @@ stdenv.mkDerivation rec {
     # Verify our assumptions of which `libtinfo.so` (ncurses) version is used,
     # so that we know when ghc bindists upgrade that and we need to update the
     # version used in `libPath`.
-    lib.optionalString
-    (binDistUsed.exePathForLibraryCheck != null)
+    lib.optionalString (binDistUsed.exePathForLibraryCheck != null)
     # Note the `*` glob because some GHCs have a suffix when unpacked, e.g.
     # the musl bindist has dir `ghc-VERSION-x86_64-unknown-linux/`.
     # As a result, don't shell-quote this glob when splicing the string.

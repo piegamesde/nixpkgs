@@ -29,9 +29,10 @@
   boehmgc,
   rsync,
   texlive,
-  tex ? texlive.combine {
-    inherit (texlive) scheme-small lh metafont epsf fontinst;
-  },
+  tex ?
+    texlive.combine {
+      inherit (texlive) scheme-small lh metafont epsf fontinst;
+    },
 }:
 
 stdenv.mkDerivation rec {

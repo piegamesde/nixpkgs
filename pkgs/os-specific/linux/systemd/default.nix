@@ -929,8 +929,8 @@ stdenv.mkDerivation (
       ''
       ;
 
-    disallowedReferences = lib.optionals
-      (stdenv.buildPlatform != stdenv.hostPlatform)
+    disallowedReferences =
+      lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform)
       # 'or p' is for manually specified buildPackages as they dont have __spliced
       (
         builtins.map

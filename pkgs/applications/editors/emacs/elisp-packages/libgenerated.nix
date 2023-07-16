@@ -132,8 +132,7 @@ in
             inherit pname ename commit;
             version = lib.optionalString (version != null) (
               lib.concatStringsSep "." (
-                map
-                toString
+                map toString
                 # Hack: Melpa archives contains versions with parse errors such as [ 4 4 -4 413 ] which should be 4.4-413
                 # This filter method is still technically wrong, but it's computationally cheap enough and tapers over the issue
                 (

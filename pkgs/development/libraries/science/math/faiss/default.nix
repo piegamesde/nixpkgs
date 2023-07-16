@@ -155,8 +155,8 @@ stdenv.mkDerivation {
     inherit cudaSupport cudaPackages pythonSupport;
 
     tests = {
-      runDemos = runCommand "${pname}-run-demos"
-        { buildInputs = [ faiss.demos ]; }
+      runDemos =
+        runCommand "${pname}-run-demos" { buildInputs = [ faiss.demos ]; }
         # There are more demos, we run just the one that documentation mentions
         ''
           demo_ivfpq_indexing && touch $out

@@ -335,8 +335,7 @@ in
     services.vsftpd.userlist = if cfg.userlistDeny then [ "root" ] else [ ];
 
     systemd = {
-      tmpfiles.rules = optional
-        cfg.anonymousUser
+      tmpfiles.rules = optional cfg.anonymousUser
         #Type Path                       Mode User   Gr    Age Arg
         "d    '${
           builtins.toString cfg.anonymousUserHome

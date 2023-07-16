@@ -405,8 +405,7 @@ rec {
             y.${a} # only y has attr)
         )
         (
-          removeAttrs
-          mergeAttrBy2
+          removeAttrs mergeAttrBy2
           # don't merge attrs which are neither in x nor y
           (
             filter (a: !x ? ${a} && !y ? ${a}) (attrNames mergeAttrBy2)

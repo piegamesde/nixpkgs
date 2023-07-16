@@ -95,8 +95,7 @@ stdenv.mkDerivation {
     ]
     ++ lib.optional targetPlatform.isiOS ./support-ios.patch
     ++ lib.optional stdenv.targetPlatform.isWindows ./windres-locate-gcc.patch
-    ++ lib.optional
-      stdenv.targetPlatform.isMips64n64
+    ++ lib.optional stdenv.targetPlatform.isMips64n64
       # this patch is from debian:
       # https://sources.debian.org/data/main/b/binutils/2.38-3/debian/patches/mips64-default-n64.diff
       (

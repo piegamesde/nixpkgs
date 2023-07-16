@@ -150,8 +150,7 @@ rec {
       missingArgs = lib.attrNames
         # Filter out arguments that have a default value
         (
-          lib.filterAttrs
-          (name: value: !value)
+          lib.filterAttrs (name: value: !value)
           # Filter out arguments that would be passed
           (
             removeAttrs fargs (lib.attrNames allArgs)
