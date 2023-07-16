@@ -47,7 +47,8 @@ let
         feat: info:
         (lib.optionals
           ((unwrapped.hasFeature feat)
-            && (builtins.hasAttr "pythonRuntime" info))
+            && (builtins.hasAttr "pythonRuntime" info)
+          )
           info.pythonRuntime)
       )
       unwrapped.featuresInfo
@@ -62,7 +63,8 @@ let
     # Emulating wrapGAppsHook & wrapQtAppsHook working together
     ++ lib.optionals
       ((unwrapped.hasFeature "gnuradio-companion")
-        || (unwrapped.hasFeature "gr-qtgui"))
+        || (unwrapped.hasFeature "gr-qtgui")
+      )
       [
         "--prefix"
         "XDG_DATA_DIRS"

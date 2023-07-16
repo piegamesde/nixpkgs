@@ -36,7 +36,8 @@ let
     postPatch =
       if
         (stdenv.hostPlatform.libc == "glibc"
-          || stdenv.hostPlatform.libc == "musl")
+          || stdenv.hostPlatform.libc == "musl"
+        )
         && lib.versionOlder version "62.1"
       then
         "substituteInPlace i18n/digitlst.cpp --replace '<xlocale.h>' '<locale.h>'"

@@ -68,9 +68,7 @@ self: super:
           ''
             export TRAVIS=true
           ''
-          + (
-            drv.preCheck or ""
-          )
+          + (drv.preCheck or "")
           ;
       })
       super.mockery;
@@ -91,9 +89,7 @@ self: super:
       (drv: {
         libraryFrameworkDepends =
           [ darwin.apple_sdk.frameworks.OpenAL ]
-          ++ (
-            drv.libraryFrameworkDepends or [ ]
-          )
+          ++ (drv.libraryFrameworkDepends or [ ])
           ;
       })
       super.al;
@@ -124,9 +120,7 @@ self: super:
             ''
               substituteInPlace System/X509/MacOS.hs --replace security /usr/bin/security
             ''
-            + (
-              drv.postPatch or ""
-            )
+            + (drv.postPatch or "")
             ;
         }
       )
@@ -147,9 +141,7 @@ self: super:
           ''
             substituteInPlace Setup.hs --replace "addToLdLibraryPath libDir" "pure ()"
           ''
-          + (
-            oldAttrs.preCompileBuildDriver or ""
-          )
+          + (oldAttrs.preCompileBuildDriver or "")
           ;
       })
       super.llvm-hs;
@@ -164,9 +156,7 @@ self: super:
       (drv: {
         libraryFrameworkDepends =
           [ darwin.apple_sdk.frameworks.Accelerate ]
-          ++ (
-            drv.libraryFrameworkDepends or [ ]
-          )
+          ++ (drv.libraryFrameworkDepends or [ ])
           ;
       })
       super.blas-hs;
@@ -183,9 +173,7 @@ self: super:
             frameworkPaths=$(IFS=, ; echo "''${frameworkPaths[@]}")
             configureFlags+=$(if [ -n "$frameworkPaths" ]; then echo -n "--ghc-options=-optl=$frameworkPaths"; fi)
           ''
-          + (
-            drv.preConfigure or ""
-          )
+          + (drv.preConfigure or "")
           ;
       })
       super.OpenGLRaw;
@@ -238,9 +226,7 @@ self: super:
             darwin.libobjc
             darwin.apple_sdk.frameworks.AppKit
           ]
-          ++ (
-            drv.librarySystemDepends or [ ]
-          )
+          ++ (drv.librarySystemDepends or [ ])
           ;
       })
       super.FractalArt;
@@ -253,9 +239,7 @@ self: super:
             darwin.apple_sdk.frameworks.Carbon
             darwin.apple_sdk.frameworks.IOKit
           ]
-          ++ (
-            drv.librarySystemDepends or [ ]
-          )
+          ++ (drv.librarySystemDepends or [ ])
           ;
       })
       super.arbtt;
@@ -267,9 +251,7 @@ self: super:
           ''
             substituteInPlace scripts/local-htfpp --replace "find=gfind" "find=find"
           ''
-          + (
-            drv.postPatch or ""
-          )
+          + (drv.postPatch or "")
           ;
       })
       super.HTF;
@@ -307,9 +289,7 @@ self: super:
           ''
             substituteInPlace GLHUI.cabal --replace " rt" ""
           ''
-          + (
-            drv.postPatch or ""
-          )
+          + (drv.postPatch or "")
           ;
       })
       super.GLHUI;
@@ -322,9 +302,7 @@ self: super:
           ''
             substituteInPlace configure --replace xDarwin noDarwinSpecialCasing
           ''
-          + (
-            drv.postPatch or ""
-          )
+          + (drv.postPatch or "")
           ;
         patches =
           [
@@ -342,9 +320,7 @@ self: super:
           ''
             substituteInPlace configure --replace xDarwin noDarwinSpecialCasing
           ''
-          + (
-            drv.postPatch or ""
-          )
+          + (drv.postPatch or "")
           ;
       })
       super.SDL-mixer;

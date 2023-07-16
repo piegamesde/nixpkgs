@@ -36,9 +36,7 @@ in
 
 # wrap both pkgsCrossX.buildPackages.gobject-introspection and {pkgs,pkgsSomethingExecutableOnBuildSystem).buildPackages.gobject-introspection
 if
-  (
-    !stdenv.hostPlatform.canExecute stdenv.targetPlatform
-  )
+  (!stdenv.hostPlatform.canExecute stdenv.targetPlatform)
   && stdenv.targetPlatform.emulatorAvailable buildPackages
 then
   overriddenUnwrappedGir.overrideAttrs (

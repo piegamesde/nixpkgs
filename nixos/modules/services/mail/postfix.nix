@@ -1124,9 +1124,7 @@ in
                   ]
                   ;
                 adjustSmtpTlsSecurityLevel =
-                  !(
-                    cfg.submissionsOptions ? smtpd_tls_security_level
-                  )
+                  !(cfg.submissionsOptions ? smtpd_tls_security_level)
                   || cfg.submissionsOptions.smtpd_tls_security_level == "none"
                   || cfg.submissionsOptions.smtpd_tls_security_level == "may"
                   ;

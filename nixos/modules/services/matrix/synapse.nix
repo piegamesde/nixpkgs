@@ -26,14 +26,13 @@ let
       args = cfg.settings.database.args;
     in
     usePostgresql
-    && (!(
-      args ? host
-    )
+    && (!(args ? host)
       || (elem args.host [
         "localhost"
         "127.0.0.1"
         "::1"
-      ]))
+      ])
+    )
     ;
 
   registerNewMatrixUser =
@@ -1174,7 +1173,8 @@ in
               + (pkgs.writeShellScript "matrix-synapse-fix-permissions" ''
                 chown matrix-synapse:matrix-synapse ${cfg.settings.signing_key_path}
                 chmod 0600 ${cfg.settings.signing_key_path}
-              ''))
+              '')
+            )
           ];
         ExecStart = ''
           ${cfg.package}/bin/synapse_homeserver \

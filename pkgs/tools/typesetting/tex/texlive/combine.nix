@@ -2,9 +2,8 @@ params:
 with params;
 # combine =
 args@{
-  pkgFilter ? (
-    pkg: pkg.tlType == "run" || pkg.tlType == "bin" || pkg.pname == "core"
-  ),
+  pkgFilter ?
+    (pkg: pkg.tlType == "run" || pkg.tlType == "bin" || pkg.pname == "core"),
   extraName ? "combined",
   extraVersion ? "",
   ...
@@ -17,14 +16,18 @@ let
   ] // {
     # include a fake "core" package
     core.pkgs = [
-      (bin.core.out // {
-        pname = "core";
-        tlType = "bin";
-      })
-      (bin.core.doc // {
-        pname = "core";
-        tlType = "doc";
-      })
+      (
+        bin.core.out // {
+          pname = "core";
+          tlType = "bin";
+        }
+      )
+      (
+        bin.core.doc // {
+          pname = "core";
+          tlType = "doc";
+        }
+      )
     ];
   };
   pkgList = rec {

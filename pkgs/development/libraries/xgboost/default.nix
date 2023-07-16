@@ -91,7 +91,8 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals
       (cudaSupport
-        && lib.versionAtLeast cudaPackages.cudatoolkit.version "11.4.0")
+        && lib.versionAtLeast cudaPackages.cudatoolkit.version "11.4.0"
+      )
       [
         "-DBUILD_WITH_CUDA_CUB=ON"
       ]

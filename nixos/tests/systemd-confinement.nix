@@ -40,9 +40,7 @@ import ./make-test-python.nix {
           systemd.services."${serviceName}@" = {
             description = "Confined Test Service ${toString num}";
             confinement = (config.confinement or { }) // { enable = true; };
-            serviceConfig = (
-              config.serviceConfig or { }
-            ) // {
+            serviceConfig = (config.serviceConfig or { }) // {
               ExecStart = testServer;
               StandardInput = "socket";
             };

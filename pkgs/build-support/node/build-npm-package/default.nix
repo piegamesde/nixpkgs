@@ -75,9 +75,7 @@ stdenv.mkDerivation (
 
     passthru = { inherit npmDeps; } // (args.passthru or { });
 
-    meta = (
-      args.meta or { }
-    ) // {
+    meta = (args.meta or { }) // {
       platforms = args.meta.platforms or nodejs.meta.platforms;
     };
   }

@@ -66,7 +66,8 @@ in
           pkgs.shared-mime-info
           pkgs.xdg-user-dirs # Update user dirs as described in https://freedesktop.org/wiki/Software/xdg-user-dirs/
           pkgs.yelp # for 'Contents' in 'Help' menus
-        ])
+        ]
+      )
       config.environment.mate.excludePackages;
 
     programs.dconf.enable = true;

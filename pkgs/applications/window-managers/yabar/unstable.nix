@@ -29,9 +29,7 @@ pkg.overrideAttrs (
     makeFlags = o.makeFlags ++ [ "PLAYERCTL=1" ];
 
     patches =
-      (
-        o.patches or [ ]
-      )
+      (o.patches or [ ])
       ++ [
         (fetchpatch {
           url =

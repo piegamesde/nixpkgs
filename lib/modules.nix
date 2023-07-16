@@ -881,8 +881,8 @@ rec {
                 The option `${showOption loc}' in module `${
                   (lib.head optionDecls)._file
                 }' would be a parent of the following options, but its type `${
-                  (lib.head optionDecls)
-                  .options.type.description or "<no description>"
+                  (lib.head optionDecls).options.type.description
+                    or "<no description>"
                 }' does not support nested options.
                 ${showRawDecls loc nonOptions}''
           else
@@ -1268,12 +1268,8 @@ rec {
       defs' = map strip defs;
       compare =
         a: b:
-        (
-          a.priority or defaultOrderPriority
-        )
-        < (
-          b.priority or defaultOrderPriority
-        )
+        (a.priority or defaultOrderPriority)
+        < (b.priority or defaultOrderPriority)
         ;
     in
     sort compare defs'

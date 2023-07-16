@@ -4058,304 +4058,394 @@ let
       ../../../../../../../../../nix/store/fgp5qgah5zc0x8fx5la4fvnnmp45avzw-source;
     dependencies = [
       sources."@babel/code-frame-7.16.7"
-      (sources."@babel/highlight-7.16.10" // {
-        dependencies = [ sources."@babel/helper-validator-identifier-7.16.7" ];
-      })
+      (
+        sources."@babel/highlight-7.16.10" // {
+          dependencies = [
+              sources."@babel/helper-validator-identifier-7.16.7"
+            ];
+        }
+      )
       sources."@babel/parser-7.17.8"
-      (sources."@cypress/listr-verbose-renderer-0.4.1" // {
-        dependencies = [
-          sources."ansi-styles-2.2.1"
-          sources."chalk-1.1.3"
-          sources."supports-color-2.0.0"
-        ];
-      })
-      (sources."@cypress/request-2.88.10" // {
-        dependencies = [
-          sources."http-signature-1.3.6"
-          sources."json-schema-0.4.0"
-          sources."jsprim-2.0.2"
-          sources."uuid-8.3.2"
-        ];
-      })
-      (sources."@cypress/xvfb-1.2.4" // {
-        dependencies = [ sources."debug-3.2.7" ];
-      })
-      (sources."@parcel/bundler-default-2.3.2" // {
-        dependencies = [
-          sources."@parcel/plugin-2.3.2"
-          sources."@parcel/types-2.3.2"
-        ];
-      })
+      (
+        sources."@cypress/listr-verbose-renderer-0.4.1" // {
+          dependencies = [
+            sources."ansi-styles-2.2.1"
+            sources."chalk-1.1.3"
+            sources."supports-color-2.0.0"
+          ];
+        }
+      )
+      (
+        sources."@cypress/request-2.88.10" // {
+          dependencies = [
+            sources."http-signature-1.3.6"
+            sources."json-schema-0.4.0"
+            sources."jsprim-2.0.2"
+            sources."uuid-8.3.2"
+          ];
+        }
+      )
+      (
+        sources."@cypress/xvfb-1.2.4" // {
+          dependencies = [ sources."debug-3.2.7" ];
+        }
+      )
+      (
+        sources."@parcel/bundler-default-2.3.2" // {
+          dependencies = [
+            sources."@parcel/plugin-2.3.2"
+            sources."@parcel/types-2.3.2"
+          ];
+        }
+      )
       sources."@parcel/cache-2.3.2"
-      (sources."@parcel/codeframe-2.3.2" // {
-        dependencies = [
-          sources."ansi-styles-4.3.0"
-          sources."chalk-4.1.2"
-          sources."color-convert-2.0.1"
-          sources."color-name-1.1.4"
-        ];
-      })
-      (sources."@parcel/compressor-raw-2.3.2" // {
-        dependencies = [
-          sources."@parcel/plugin-2.3.2"
-          sources."@parcel/types-2.3.2"
-        ];
-      })
+      (
+        sources."@parcel/codeframe-2.3.2" // {
+          dependencies = [
+            sources."ansi-styles-4.3.0"
+            sources."chalk-4.1.2"
+            sources."color-convert-2.0.1"
+            sources."color-name-1.1.4"
+          ];
+        }
+      )
+      (
+        sources."@parcel/compressor-raw-2.3.2" // {
+          dependencies = [
+            sources."@parcel/plugin-2.3.2"
+            sources."@parcel/types-2.3.2"
+          ];
+        }
+      )
       sources."@parcel/config-default-2.3.2"
-      (sources."@parcel/core-2.3.2" // {
-        dependencies = [
-          sources."@parcel/plugin-2.3.2"
-          sources."@parcel/types-2.3.2"
-        ];
-      })
+      (
+        sources."@parcel/core-2.3.2" // {
+          dependencies = [
+            sources."@parcel/plugin-2.3.2"
+            sources."@parcel/types-2.3.2"
+          ];
+        }
+      )
       sources."@parcel/diagnostic-2.3.2"
       sources."@parcel/events-2.3.2"
-      (sources."@parcel/fs-2.3.2" // {
-        dependencies = [ sources."@parcel/types-2.3.2" ];
-      })
+      (
+        sources."@parcel/fs-2.3.2" // {
+          dependencies = [ sources."@parcel/types-2.3.2" ];
+        }
+      )
       sources."@parcel/fs-search-2.3.2"
       sources."@parcel/graph-2.3.2"
       sources."@parcel/hash-2.3.2"
       sources."@parcel/logger-2.3.2"
-      (sources."@parcel/markdown-ansi-2.3.2" // {
-        dependencies = [
-          sources."ansi-styles-4.3.0"
-          sources."chalk-4.1.2"
-          sources."color-convert-2.0.1"
-          sources."color-name-1.1.4"
-        ];
-      })
-      (sources."@parcel/namer-default-2.3.2" // {
-        dependencies = [
-          sources."@parcel/plugin-2.3.2"
-          sources."@parcel/types-2.3.2"
-        ];
-      })
+      (
+        sources."@parcel/markdown-ansi-2.3.2" // {
+          dependencies = [
+            sources."ansi-styles-4.3.0"
+            sources."chalk-4.1.2"
+            sources."color-convert-2.0.1"
+            sources."color-name-1.1.4"
+          ];
+        }
+      )
+      (
+        sources."@parcel/namer-default-2.3.2" // {
+          dependencies = [
+            sources."@parcel/plugin-2.3.2"
+            sources."@parcel/types-2.3.2"
+          ];
+        }
+      )
       sources."@parcel/node-resolver-core-2.3.2"
-      (sources."@parcel/optimizer-cssnano-2.3.2" // {
-        dependencies = [
-          sources."@parcel/plugin-2.3.2"
-          sources."@parcel/types-2.3.2"
-          sources."nanoid-3.3.1"
-          sources."postcss-8.4.12"
-        ];
-      })
-      (sources."@parcel/optimizer-htmlnano-2.3.2" // {
-        dependencies = [
-          sources."@parcel/plugin-2.3.2"
-          sources."@parcel/types-2.3.2"
-        ];
-      })
-      (sources."@parcel/optimizer-image-2.3.2" // {
-        dependencies = [
-          sources."@parcel/plugin-2.3.2"
-          sources."@parcel/types-2.3.2"
-        ];
-      })
-      (sources."@parcel/optimizer-svgo-2.3.2" // {
-        dependencies = [
-          sources."@parcel/plugin-2.3.2"
-          sources."@parcel/types-2.3.2"
-        ];
-      })
-      (sources."@parcel/optimizer-terser-2.3.2" // {
-        dependencies = [
-          sources."@parcel/plugin-2.3.2"
-          sources."@parcel/types-2.3.2"
-        ];
-      })
-      (sources."@parcel/package-manager-2.3.2" // {
-        dependencies = [ sources."@parcel/types-2.3.2" ];
-      })
-      (sources."@parcel/packager-css-2.3.2" // {
-        dependencies = [
-          sources."@parcel/plugin-2.3.2"
-          sources."@parcel/types-2.3.2"
-        ];
-      })
-      (sources."@parcel/packager-html-2.3.2" // {
-        dependencies = [
-          sources."@parcel/plugin-2.3.2"
-          sources."@parcel/types-2.3.2"
-        ];
-      })
-      (sources."@parcel/packager-js-2.3.2" // {
-        dependencies = [
-          sources."@parcel/plugin-2.3.2"
-          sources."@parcel/types-2.3.2"
-        ];
-      })
-      (sources."@parcel/packager-raw-2.3.2" // {
-        dependencies = [
-          sources."@parcel/plugin-2.3.2"
-          sources."@parcel/types-2.3.2"
-        ];
-      })
-      (sources."@parcel/packager-svg-2.3.2" // {
-        dependencies = [
-          sources."@parcel/plugin-2.3.2"
-          sources."@parcel/types-2.3.2"
-        ];
-      })
+      (
+        sources."@parcel/optimizer-cssnano-2.3.2" // {
+          dependencies = [
+            sources."@parcel/plugin-2.3.2"
+            sources."@parcel/types-2.3.2"
+            sources."nanoid-3.3.1"
+            sources."postcss-8.4.12"
+          ];
+        }
+      )
+      (
+        sources."@parcel/optimizer-htmlnano-2.3.2" // {
+          dependencies = [
+            sources."@parcel/plugin-2.3.2"
+            sources."@parcel/types-2.3.2"
+          ];
+        }
+      )
+      (
+        sources."@parcel/optimizer-image-2.3.2" // {
+          dependencies = [
+            sources."@parcel/plugin-2.3.2"
+            sources."@parcel/types-2.3.2"
+          ];
+        }
+      )
+      (
+        sources."@parcel/optimizer-svgo-2.3.2" // {
+          dependencies = [
+            sources."@parcel/plugin-2.3.2"
+            sources."@parcel/types-2.3.2"
+          ];
+        }
+      )
+      (
+        sources."@parcel/optimizer-terser-2.3.2" // {
+          dependencies = [
+            sources."@parcel/plugin-2.3.2"
+            sources."@parcel/types-2.3.2"
+          ];
+        }
+      )
+      (
+        sources."@parcel/package-manager-2.3.2" // {
+          dependencies = [ sources."@parcel/types-2.3.2" ];
+        }
+      )
+      (
+        sources."@parcel/packager-css-2.3.2" // {
+          dependencies = [
+            sources."@parcel/plugin-2.3.2"
+            sources."@parcel/types-2.3.2"
+          ];
+        }
+      )
+      (
+        sources."@parcel/packager-html-2.3.2" // {
+          dependencies = [
+            sources."@parcel/plugin-2.3.2"
+            sources."@parcel/types-2.3.2"
+          ];
+        }
+      )
+      (
+        sources."@parcel/packager-js-2.3.2" // {
+          dependencies = [
+            sources."@parcel/plugin-2.3.2"
+            sources."@parcel/types-2.3.2"
+          ];
+        }
+      )
+      (
+        sources."@parcel/packager-raw-2.3.2" // {
+          dependencies = [
+            sources."@parcel/plugin-2.3.2"
+            sources."@parcel/types-2.3.2"
+          ];
+        }
+      )
+      (
+        sources."@parcel/packager-svg-2.3.2" // {
+          dependencies = [
+            sources."@parcel/plugin-2.3.2"
+            sources."@parcel/types-2.3.2"
+          ];
+        }
+      )
       sources."@parcel/plugin-2.0.0-beta.2"
-      (sources."@parcel/reporter-cli-2.3.2" // {
-        dependencies = [
-          sources."@parcel/plugin-2.3.2"
-          sources."@parcel/types-2.3.2"
-          sources."ansi-styles-4.3.0"
-          sources."chalk-4.1.2"
-          sources."color-convert-2.0.1"
-          sources."color-name-1.1.4"
-        ];
-      })
-      (sources."@parcel/reporter-dev-server-2.3.2" // {
-        dependencies = [
-          sources."@parcel/plugin-2.3.2"
-          sources."@parcel/types-2.3.2"
-        ];
-      })
-      (sources."@parcel/resolver-default-2.3.2" // {
-        dependencies = [
-          sources."@parcel/plugin-2.3.2"
-          sources."@parcel/types-2.3.2"
-        ];
-      })
-      (sources."@parcel/runtime-browser-hmr-2.3.2" // {
-        dependencies = [
-          sources."@parcel/plugin-2.3.2"
-          sources."@parcel/types-2.3.2"
-        ];
-      })
-      (sources."@parcel/runtime-js-2.3.2" // {
-        dependencies = [
-          sources."@parcel/plugin-2.3.2"
-          sources."@parcel/types-2.3.2"
-        ];
-      })
-      (sources."@parcel/runtime-react-refresh-2.3.2" // {
-        dependencies = [
-          sources."@parcel/plugin-2.3.2"
-          sources."@parcel/types-2.3.2"
-        ];
-      })
-      (sources."@parcel/runtime-service-worker-2.3.2" // {
-        dependencies = [
-          sources."@parcel/plugin-2.3.2"
-          sources."@parcel/types-2.3.2"
-        ];
-      })
+      (
+        sources."@parcel/reporter-cli-2.3.2" // {
+          dependencies = [
+            sources."@parcel/plugin-2.3.2"
+            sources."@parcel/types-2.3.2"
+            sources."ansi-styles-4.3.0"
+            sources."chalk-4.1.2"
+            sources."color-convert-2.0.1"
+            sources."color-name-1.1.4"
+          ];
+        }
+      )
+      (
+        sources."@parcel/reporter-dev-server-2.3.2" // {
+          dependencies = [
+            sources."@parcel/plugin-2.3.2"
+            sources."@parcel/types-2.3.2"
+          ];
+        }
+      )
+      (
+        sources."@parcel/resolver-default-2.3.2" // {
+          dependencies = [
+            sources."@parcel/plugin-2.3.2"
+            sources."@parcel/types-2.3.2"
+          ];
+        }
+      )
+      (
+        sources."@parcel/runtime-browser-hmr-2.3.2" // {
+          dependencies = [
+            sources."@parcel/plugin-2.3.2"
+            sources."@parcel/types-2.3.2"
+          ];
+        }
+      )
+      (
+        sources."@parcel/runtime-js-2.3.2" // {
+          dependencies = [
+            sources."@parcel/plugin-2.3.2"
+            sources."@parcel/types-2.3.2"
+          ];
+        }
+      )
+      (
+        sources."@parcel/runtime-react-refresh-2.3.2" // {
+          dependencies = [
+            sources."@parcel/plugin-2.3.2"
+            sources."@parcel/types-2.3.2"
+          ];
+        }
+      )
+      (
+        sources."@parcel/runtime-service-worker-2.3.2" // {
+          dependencies = [
+            sources."@parcel/plugin-2.3.2"
+            sources."@parcel/types-2.3.2"
+          ];
+        }
+      )
       sources."@parcel/source-map-2.0.2"
-      (sources."@parcel/transformer-babel-2.3.2" // {
-        dependencies = [
-          sources."@parcel/plugin-2.3.2"
-          sources."@parcel/types-2.3.2"
-        ];
-      })
-      (sources."@parcel/transformer-css-2.3.2" // {
-        dependencies = [
-          sources."@parcel/plugin-2.3.2"
-          sources."@parcel/types-2.3.2"
-          sources."nanoid-3.3.1"
-          sources."postcss-8.4.12"
-        ];
-      })
-      (sources."@parcel/transformer-html-2.3.2" // {
-        dependencies = [
-          sources."@parcel/plugin-2.3.2"
-          sources."@parcel/types-2.3.2"
-          sources."posthtml-parser-0.10.2"
-        ];
-      })
-      (sources."@parcel/transformer-image-2.3.2" // {
-        dependencies = [
-          sources."@parcel/plugin-2.3.2"
-          sources."@parcel/types-2.3.2"
-        ];
-      })
-      (sources."@parcel/transformer-js-2.3.2" // {
-        dependencies = [
-          sources."@parcel/plugin-2.3.2"
-          sources."@parcel/types-2.3.2"
-        ];
-      })
-      (sources."@parcel/transformer-json-2.3.2" // {
-        dependencies = [
-          sources."@parcel/plugin-2.3.2"
-          sources."@parcel/types-2.3.2"
-        ];
-      })
-      (sources."@parcel/transformer-postcss-2.3.2" // {
-        dependencies = [
-          sources."@parcel/plugin-2.3.2"
-          sources."@parcel/types-2.3.2"
-        ];
-      })
-      (sources."@parcel/transformer-posthtml-2.3.2" // {
-        dependencies = [
-          sources."@parcel/plugin-2.3.2"
-          sources."@parcel/types-2.3.2"
-          sources."posthtml-parser-0.10.2"
-        ];
-      })
-      (sources."@parcel/transformer-raw-2.3.2" // {
-        dependencies = [
-          sources."@parcel/plugin-2.3.2"
-          sources."@parcel/types-2.3.2"
-        ];
-      })
-      (sources."@parcel/transformer-react-refresh-wrap-2.3.2" // {
-        dependencies = [
-          sources."@parcel/plugin-2.3.2"
-          sources."@parcel/types-2.3.2"
-        ];
-      })
-      (sources."@parcel/transformer-svg-2.3.2" // {
-        dependencies = [
-          sources."@parcel/plugin-2.3.2"
-          sources."@parcel/types-2.3.2"
-          sources."posthtml-parser-0.10.2"
-        ];
-      })
-      (sources."@parcel/transformer-vue-2.3.2" // {
-        dependencies = [
-          sources."@parcel/cache-2.3.2"
-          sources."@parcel/codeframe-2.3.2"
-          sources."@parcel/diagnostic-2.3.2"
-          sources."@parcel/events-2.3.2"
-          sources."@parcel/fs-2.3.2"
-          sources."@parcel/fs-search-2.3.2"
-          sources."@parcel/logger-2.3.2"
-          sources."@parcel/markdown-ansi-2.3.2"
-          sources."@parcel/package-manager-2.3.2"
-          sources."@parcel/plugin-2.3.2"
-          sources."@parcel/source-map-2.0.2"
-          sources."@parcel/types-2.3.2"
-          sources."@parcel/utils-2.3.2"
-          sources."@parcel/watcher-2.0.5"
-          sources."@parcel/workers-2.3.2"
-          sources."ansi-styles-4.3.0"
-          sources."chalk-4.1.2"
-          sources."color-convert-2.0.1"
-          sources."color-name-1.1.4"
-          sources."node-addon-api-3.2.1"
-          sources."node-gyp-build-4.3.0"
-        ];
-      })
+      (
+        sources."@parcel/transformer-babel-2.3.2" // {
+          dependencies = [
+            sources."@parcel/plugin-2.3.2"
+            sources."@parcel/types-2.3.2"
+          ];
+        }
+      )
+      (
+        sources."@parcel/transformer-css-2.3.2" // {
+          dependencies = [
+            sources."@parcel/plugin-2.3.2"
+            sources."@parcel/types-2.3.2"
+            sources."nanoid-3.3.1"
+            sources."postcss-8.4.12"
+          ];
+        }
+      )
+      (
+        sources."@parcel/transformer-html-2.3.2" // {
+          dependencies = [
+            sources."@parcel/plugin-2.3.2"
+            sources."@parcel/types-2.3.2"
+            sources."posthtml-parser-0.10.2"
+          ];
+        }
+      )
+      (
+        sources."@parcel/transformer-image-2.3.2" // {
+          dependencies = [
+            sources."@parcel/plugin-2.3.2"
+            sources."@parcel/types-2.3.2"
+          ];
+        }
+      )
+      (
+        sources."@parcel/transformer-js-2.3.2" // {
+          dependencies = [
+            sources."@parcel/plugin-2.3.2"
+            sources."@parcel/types-2.3.2"
+          ];
+        }
+      )
+      (
+        sources."@parcel/transformer-json-2.3.2" // {
+          dependencies = [
+            sources."@parcel/plugin-2.3.2"
+            sources."@parcel/types-2.3.2"
+          ];
+        }
+      )
+      (
+        sources."@parcel/transformer-postcss-2.3.2" // {
+          dependencies = [
+            sources."@parcel/plugin-2.3.2"
+            sources."@parcel/types-2.3.2"
+          ];
+        }
+      )
+      (
+        sources."@parcel/transformer-posthtml-2.3.2" // {
+          dependencies = [
+            sources."@parcel/plugin-2.3.2"
+            sources."@parcel/types-2.3.2"
+            sources."posthtml-parser-0.10.2"
+          ];
+        }
+      )
+      (
+        sources."@parcel/transformer-raw-2.3.2" // {
+          dependencies = [
+            sources."@parcel/plugin-2.3.2"
+            sources."@parcel/types-2.3.2"
+          ];
+        }
+      )
+      (
+        sources."@parcel/transformer-react-refresh-wrap-2.3.2" // {
+          dependencies = [
+            sources."@parcel/plugin-2.3.2"
+            sources."@parcel/types-2.3.2"
+          ];
+        }
+      )
+      (
+        sources."@parcel/transformer-svg-2.3.2" // {
+          dependencies = [
+            sources."@parcel/plugin-2.3.2"
+            sources."@parcel/types-2.3.2"
+            sources."posthtml-parser-0.10.2"
+          ];
+        }
+      )
+      (
+        sources."@parcel/transformer-vue-2.3.2" // {
+          dependencies = [
+            sources."@parcel/cache-2.3.2"
+            sources."@parcel/codeframe-2.3.2"
+            sources."@parcel/diagnostic-2.3.2"
+            sources."@parcel/events-2.3.2"
+            sources."@parcel/fs-2.3.2"
+            sources."@parcel/fs-search-2.3.2"
+            sources."@parcel/logger-2.3.2"
+            sources."@parcel/markdown-ansi-2.3.2"
+            sources."@parcel/package-manager-2.3.2"
+            sources."@parcel/plugin-2.3.2"
+            sources."@parcel/source-map-2.0.2"
+            sources."@parcel/types-2.3.2"
+            sources."@parcel/utils-2.3.2"
+            sources."@parcel/watcher-2.0.5"
+            sources."@parcel/workers-2.3.2"
+            sources."ansi-styles-4.3.0"
+            sources."chalk-4.1.2"
+            sources."color-convert-2.0.1"
+            sources."color-name-1.1.4"
+            sources."node-addon-api-3.2.1"
+            sources."node-gyp-build-4.3.0"
+          ];
+        }
+      )
       sources."@parcel/types-2.0.0-beta.2"
-      (sources."@parcel/utils-2.3.2" // {
-        dependencies = [
-          sources."ansi-styles-4.3.0"
-          sources."chalk-4.1.2"
-          sources."color-convert-2.0.1"
-          sources."color-name-1.1.4"
-        ];
-      })
-      (sources."@parcel/watcher-2.0.5" // {
-        dependencies = [ sources."node-gyp-build-4.3.0" ];
-      })
-      (sources."@parcel/workers-2.3.2" // {
-        dependencies = [ sources."@parcel/types-2.3.2" ];
-      })
+      (
+        sources."@parcel/utils-2.3.2" // {
+          dependencies = [
+            sources."ansi-styles-4.3.0"
+            sources."chalk-4.1.2"
+            sources."color-convert-2.0.1"
+            sources."color-name-1.1.4"
+          ];
+        }
+      )
+      (
+        sources."@parcel/watcher-2.0.5" // {
+          dependencies = [ sources."node-gyp-build-4.3.0" ];
+        }
+      )
+      (
+        sources."@parcel/workers-2.3.2" // {
+          dependencies = [ sources."@parcel/types-2.3.2" ];
+        }
+      )
       sources."@samverschueren/stream-to-observable-0.3.1"
       sources."@swc/helpers-0.2.14"
       sources."@trysound/sax-0.2.0"
@@ -4364,31 +4454,37 @@ let
       sources."@types/sizzle-2.3.3"
       sources."@vue/compiler-core-3.2.31"
       sources."@vue/compiler-dom-3.2.31"
-      (sources."@vue/compiler-sfc-3.2.31" // {
-        dependencies = [
-          sources."@babel/parser-7.17.8"
-          sources."@vue/compiler-core-3.2.31"
-          sources."@vue/compiler-dom-3.2.31"
-          sources."@vue/shared-3.2.31"
-        ];
-      })
-      (sources."@vue/compiler-ssr-3.2.31" // {
-        dependencies = [
-          sources."@babel/parser-7.17.8"
-          sources."@vue/compiler-core-3.2.31"
-          sources."@vue/compiler-dom-3.2.31"
-          sources."@vue/shared-3.2.31"
-        ];
-      })
+      (
+        sources."@vue/compiler-sfc-3.2.31" // {
+          dependencies = [
+            sources."@babel/parser-7.17.8"
+            sources."@vue/compiler-core-3.2.31"
+            sources."@vue/compiler-dom-3.2.31"
+            sources."@vue/shared-3.2.31"
+          ];
+        }
+      )
+      (
+        sources."@vue/compiler-ssr-3.2.31" // {
+          dependencies = [
+            sources."@babel/parser-7.17.8"
+            sources."@vue/compiler-core-3.2.31"
+            sources."@vue/compiler-dom-3.2.31"
+            sources."@vue/shared-3.2.31"
+          ];
+        }
+      )
       sources."@vue/devtools-api-6.1.3"
       sources."@vue/reactivity-3.2.31"
-      (sources."@vue/reactivity-transform-3.2.31" // {
-        dependencies = [
-          sources."@babel/parser-7.17.8"
-          sources."@vue/compiler-core-3.2.31"
-          sources."@vue/shared-3.2.31"
-        ];
-      })
+      (
+        sources."@vue/reactivity-transform-3.2.31" // {
+          dependencies = [
+            sources."@babel/parser-7.17.8"
+            sources."@vue/compiler-core-3.2.31"
+            sources."@vue/shared-3.2.31"
+          ];
+        }
+      )
       sources."@vue/runtime-core-3.2.31"
       sources."@vue/runtime-dom-3.2.31"
       sources."@vue/server-renderer-3.2.31"
@@ -4420,20 +4516,24 @@ let
       sources."caniuse-api-3.0.0"
       sources."caniuse-lite-1.0.30001319"
       sources."caseless-0.12.0"
-      (sources."chalk-2.4.2" // {
-        dependencies = [ sources."supports-color-5.5.0" ];
-      })
+      (
+        sources."chalk-2.4.2" // {
+          dependencies = [ sources."supports-color-5.5.0" ];
+        }
+      )
       sources."check-more-types-2.24.0"
       sources."chrome-trace-event-1.0.2"
       sources."ci-info-2.0.0"
       sources."cli-cursor-1.0.2"
       sources."cli-table3-0.5.1"
-      (sources."cli-truncate-0.2.1" // {
-        dependencies = [
-          sources."is-fullwidth-code-point-1.0.0"
-          sources."string-width-1.0.2"
-        ];
-      })
+      (
+        sources."cli-truncate-0.2.1" // {
+          dependencies = [
+            sources."is-fullwidth-code-point-1.0.0"
+            sources."string-width-1.0.2"
+          ];
+        }
+      )
       sources."clone-2.1.2"
       sources."code-point-at-1.1.0"
       sources."color-convert-1.9.3"
@@ -4460,12 +4560,14 @@ let
       sources."cssnano-utils-3.1.0"
       sources."csso-4.2.0"
       sources."csstype-2.6.20"
-      (sources."cypress-4.12.1" // {
-        dependencies = [
-          sources."commander-4.1.1"
-          sources."log-symbols-3.0.0"
-        ];
-      })
+      (
+        sources."cypress-4.12.1" // {
+          dependencies = [
+            sources."commander-4.1.1"
+            sources."log-symbols-3.0.0"
+          ];
+        }
+      )
       sources."dashdash-1.14.1"
       sources."date-fns-1.30.1"
       sources."debug-4.1.1"
@@ -4491,12 +4593,14 @@ let
       sources."executable-4.1.1"
       sources."exit-hook-1.1.1"
       sources."extend-3.0.2"
-      (sources."extract-zip-1.7.0" // {
-        dependencies = [
-          sources."debug-2.6.9"
-          sources."ms-2.0.0"
-        ];
-      })
+      (
+        sources."extract-zip-1.7.0" // {
+          dependencies = [
+            sources."debug-2.6.9"
+            sources."ms-2.0.0"
+          ];
+        }
+      )
       sources."extsprintf-1.3.0"
       sources."fd-slicer-1.1.0"
       sources."figures-1.7.0"
@@ -4515,9 +4619,11 @@ let
       sources."has-ansi-2.0.0"
       sources."has-flag-3.0.0"
       sources."htmlnano-2.0.0"
-      (sources."htmlparser2-7.2.0" // {
-        dependencies = [ sources."entities-3.0.1" ];
-      })
+      (
+        sources."htmlparser2-7.2.0" // {
+          dependencies = [ sources."entities-3.0.1" ];
+        }
+      )
       sources."import-fresh-3.3.0"
       sources."indent-string-3.2.0"
       sources."inflight-1.0.6"
@@ -4548,34 +4654,40 @@ let
       sources."lines-and-columns-1.2.4"
       sources."listr-0.14.3"
       sources."listr-silent-renderer-1.1.1"
-      (sources."listr-update-renderer-0.5.0" // {
-        dependencies = [
-          sources."ansi-styles-2.2.1"
-          sources."chalk-1.1.3"
-          sources."log-symbols-1.0.2"
-          sources."supports-color-2.0.0"
-        ];
-      })
-      (sources."listr-verbose-renderer-0.5.0" // {
-        dependencies = [
-          sources."cli-cursor-2.1.0"
-          sources."figures-2.0.0"
-          sources."onetime-2.0.1"
-          sources."restore-cursor-2.0.0"
-        ];
-      })
+      (
+        sources."listr-update-renderer-0.5.0" // {
+          dependencies = [
+            sources."ansi-styles-2.2.1"
+            sources."chalk-1.1.3"
+            sources."log-symbols-1.0.2"
+            sources."supports-color-2.0.0"
+          ];
+        }
+      )
+      (
+        sources."listr-verbose-renderer-0.5.0" // {
+          dependencies = [
+            sources."cli-cursor-2.1.0"
+            sources."figures-2.0.0"
+            sources."onetime-2.0.1"
+            sources."restore-cursor-2.0.0"
+          ];
+        }
+      )
       sources."lmdb-2.2.6"
       sources."lodash-4.17.21"
       sources."lodash.memoize-4.1.2"
       sources."lodash.once-4.1.1"
       sources."lodash.uniq-4.5.0"
-      (sources."log-update-2.3.0" // {
-        dependencies = [
-          sources."cli-cursor-2.1.0"
-          sources."onetime-2.0.1"
-          sources."restore-cursor-2.0.0"
-        ];
-      })
+      (
+        sources."log-update-2.3.0" // {
+          dependencies = [
+            sources."cli-cursor-2.1.0"
+            sources."onetime-2.0.1"
+            sources."restore-cursor-2.0.0"
+          ];
+        }
+      )
       sources."magic-string-0.25.9"
       sources."mdn-data-2.0.14"
       sources."mime-db-1.43.0"
@@ -4606,14 +4718,16 @@ let
       sources."ospath-1.2.2"
       sources."p-finally-1.0.0"
       sources."p-map-2.1.0"
-      (sources."parcel-2.3.2" // {
-        dependencies = [
-          sources."ansi-styles-4.3.0"
-          sources."chalk-4.1.2"
-          sources."color-convert-2.0.1"
-          sources."color-name-1.1.4"
-        ];
-      })
+      (
+        sources."parcel-2.3.2" // {
+          dependencies = [
+            sources."ansi-styles-4.3.0"
+            sources."chalk-4.1.2"
+            sources."color-convert-2.0.1"
+            sources."color-name-1.1.4"
+          ];
+        }
+      )
       sources."parcel-reporter-static-files-copy-1.2.2"
       sources."parent-module-1.0.1"
       sources."parse-json-5.2.0"
@@ -4686,27 +4800,33 @@ let
       sources."sourcemap-codec-1.4.8"
       sources."sshpk-1.16.1"
       sources."stable-0.1.8"
-      (sources."string-width-2.1.1" // {
-        dependencies = [
-          sources."ansi-regex-3.0.0"
-          sources."strip-ansi-4.0.0"
-        ];
-      })
+      (
+        sources."string-width-2.1.1" // {
+          dependencies = [
+            sources."ansi-regex-3.0.0"
+            sources."strip-ansi-4.0.0"
+          ];
+        }
+      )
       sources."string_decoder-1.1.1"
       sources."strip-ansi-3.0.1"
       sources."strip-eof-1.0.0"
       sources."stylehacks-5.1.0"
-      (sources."supports-color-7.2.0" // {
-        dependencies = [ sources."has-flag-4.0.0" ];
-      })
+      (
+        sources."supports-color-7.2.0" // {
+          dependencies = [ sources."has-flag-4.0.0" ];
+        }
+      )
       sources."svgo-2.8.0"
       sources."symbol-observable-1.2.0"
-      (sources."terser-5.12.1" // {
-        dependencies = [
-          sources."commander-2.20.3"
-          sources."source-map-0.7.3"
-        ];
-      })
+      (
+        sources."terser-5.12.1" // {
+          dependencies = [
+            sources."commander-2.20.3"
+            sources."source-map-0.7.3"
+          ];
+        }
+      )
       sources."throttleit-1.0.0"
       sources."timsort-0.3.0"
       sources."tmp-0.1.0"
@@ -4728,12 +4848,14 @@ let
       sources."vuex-4.0.2"
       sources."weak-lru-cache-1.2.2"
       sources."which-1.3.1"
-      (sources."wrap-ansi-3.0.1" // {
-        dependencies = [
-          sources."ansi-regex-3.0.0"
-          sources."strip-ansi-4.0.0"
-        ];
-      })
+      (
+        sources."wrap-ansi-3.0.1" // {
+          dependencies = [
+            sources."ansi-regex-3.0.0"
+            sources."strip-ansi-4.0.0"
+          ];
+        }
+      )
       sources."wrappy-1.0.2"
       sources."xxhash-wasm-0.4.2"
       sources."yaml-1.10.2"

@@ -28,9 +28,7 @@ in
       # This is a separate phase because gcc assembles its phase scripts
       # in bash instead of nix (we should fix that).
       preFixupPhases =
-        (
-          previousAttrs.preFixupPhases or [ ]
-        )
+        (previousAttrs.preFixupPhases or [ ])
         ++ [ "postInstallSaveChecksumPhase" ]
         ;
       #

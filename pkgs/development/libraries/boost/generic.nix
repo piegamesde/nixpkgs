@@ -24,9 +24,8 @@
   enableDebug ? false,
   enableSingleThreaded ? false,
   enableMultiThreaded ? true,
-  enableShared ? !(
-    with stdenv.hostPlatform; isStatic || libc == "msvcrt"
-  ) # problems for now
+  enableShared ?
+    !(with stdenv.hostPlatform; isStatic || libc == "msvcrt") # problems for now
   ,
   enableStatic ? !enableShared,
   enablePython ? false,
@@ -34,7 +33,8 @@
   enableIcu ? stdenv.hostPlatform == stdenv.buildPlatform,
   taggedLayout ? ((enableRelease && enableDebug)
     || (enableSingleThreaded && enableMultiThreaded)
-    || (enableShared && enableStatic)),
+    || (enableShared && enableStatic)
+  ),
   patches ? [ ],
   boostBuildPatches ? [ ],
   useMpi ? false,
@@ -56,7 +56,8 @@ assert enableNumpy -> enablePython;
 assert with lib;
   (stdenv.isLinux
     && toolset == "clang"
-    && versionAtLeast stdenv.cc.version "8.0.0")
+    && versionAtLeast stdenv.cc.version "8.0.0"
+  )
   -> versionAtLeast version "1.69";
 
 let
@@ -128,7 +129,8 @@ let
       (stdenv.hostPlatform != stdenv.buildPlatform
         ||
           # required on mips; see 61d9f201baeef4c4bb91ad8a8f5f89b747e0dfe4
-          (stdenv.hostPlatform.isMips && lib.versionAtLeast version "1.79"))
+          (stdenv.hostPlatform.isMips && lib.versionAtLeast version "1.79")
+      )
       [
         "address-model=${toString stdenv.hostPlatform.parsed.cpu.bits}"
         "architecture=${

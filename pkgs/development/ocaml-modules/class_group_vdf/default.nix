@@ -58,7 +58,8 @@ buildDunePackage (
   // lib.optionalAttrs
   (lib.versionOlder stdenv.hostPlatform.darwinMinVersion "10.14"
     && stdenv.hostPlatform.isMacOS
-    && stdenv.hostPlatform.isx86_64)
+    && stdenv.hostPlatform.isx86_64
+  )
   {
     preHook = ''
       export MACOSX_DEPLOYMENT_TARGET=10.14

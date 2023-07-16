@@ -184,7 +184,8 @@ stdenv.mkDerivation rec {
           "--icaroot"
         else if
           (lib.versionAtLeast version "21.12"
-            && builtins.match "wfica(.*)" program != null)
+            && builtins.match "wfica(.*)" program != null
+          )
         then
           null
         else

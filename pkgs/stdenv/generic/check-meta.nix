@@ -405,7 +405,8 @@ let
           x:
           x == { }
           || ( # Accept {} for tests that are unsupported
-            isDerivation x && x ? meta.timeout)
+            isDerivation x && x ? meta.timeout
+          )
           ;
         merge = lib.options.mergeOneOption;
       }

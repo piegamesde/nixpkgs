@@ -58,7 +58,8 @@
                     lib.extendDerivation
                     (valid value
                       || throw
-                        "${name} should use `buildPythonPackage` or `toPythonModule` if it is to be part of the Python packages set.")
+                        "${name} should use `buildPythonPackage` or `toPythonModule` if it is to be part of the Python packages set."
+                    )
                     { }
                     value
                   else
@@ -92,7 +93,8 @@
                   selfBuildTarget = pythonOnBuildForTarget.pkgs;
                   selfHostHost = pythonOnHostForHost.pkgs;
                   selfTargetTarget =
-                    pythonOnTargetForTarget.pkgs or { }; # There is no Python TargetTarget.
+                    pythonOnTargetForTarget.pkgs
+                      or { }; # There is no Python TargetTarget.
                 };
                 hooks = import ./hooks/default.nix;
                 keep = lib.extends hooks pythonPackagesFun;

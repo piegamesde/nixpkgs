@@ -41,9 +41,7 @@ stdenv.mkDerivation rec {
       glibcLocales
       perl
     ]
-    ++ (
-      with perlPackages; [ ListMoreUtils ]
-    )
+    ++ (with perlPackages; [ ListMoreUtils ])
     ;
 
   checkPhase = ''

@@ -152,25 +152,18 @@ let
     targetPlatform.config;
 
   expand-response-params = lib.optionalString
-    ((
-      buildPackages.stdenv.hasCC or false
+    ((buildPackages.stdenv.hasCC or false)
+      && buildPackages.stdenv.cc != "/dev/null"
     )
-      && buildPackages.stdenv.cc != "/dev/null")
     (import ../expand-response-params { inherit (buildPackages) stdenv; });
 
   useGccForLibs =
     useCcForLibs
     && libcxx == null
     && !stdenv.targetPlatform.isDarwin
-    && !(
-      stdenv.targetPlatform.useLLVM or false
-    )
-    && !(
-      stdenv.targetPlatform.useAndroidPrebuilt or false
-    )
-    && !(
-      stdenv.targetPlatform.isiOS or false
-    )
+    && !(stdenv.targetPlatform.useLLVM or false)
+    && !(stdenv.targetPlatform.useAndroidPrebuilt or false)
+    && !(stdenv.targetPlatform.isiOS or false)
     && gccForLibs != null
     ;
 
@@ -479,13 +472,10 @@ stdenv.mkDerivation {
     + optionalString
       (isClang
         && targetPlatform.isLinux
-        && !(
-          stdenv.targetPlatform.useAndroidPrebuilt or false
-        )
-        && !(
-          stdenv.targetPlatform.useLLVM or false
-        )
-        && gccForLibs != null)
+        && !(stdenv.targetPlatform.useAndroidPrebuilt or false)
+        && !(stdenv.targetPlatform.useLLVM or false)
+        && gccForLibs != null
+      )
       (
         ''
           echo "--gcc-toolchain=${gccForLibs}" >> $out/nix-support/cc-cflags
@@ -555,7 +545,8 @@ stdenv.mkDerivation {
     + optionalString
       (libcxx != null
         || (useGccForLibs && gccForLibs.langCC or false)
-        || (isGNU && cc.langCC or false))
+        || (isGNU && cc.langCC or false)
+      )
       ''
         touch "$out/nix-support/libcxx-cxxflags"
         touch "$out/nix-support/libcxx-ldflags"
@@ -567,7 +558,8 @@ stdenv.mkDerivation {
     + optionalString
       (libcxx == null
         && isClang
-        && (useGccForLibs && gccForLibs.langCC or false))
+        && (useGccForLibs && gccForLibs.langCC or false)
+      )
       ''
         for dir in ${gccForLibs}${
           lib.optionalString
@@ -658,11 +650,10 @@ stdenv.mkDerivation {
     # that case.
     # TODO: aarch64-darwin has mcpu incompatible with gcc
     + optionalString
-      ((
-        targetPlatform ? gcc.arch
-      )
+      ((targetPlatform ? gcc.arch)
         && (isClang || !(stdenv.isDarwin && stdenv.isAarch64))
-        && isGccArchSupported targetPlatform.gcc.arch)
+        && isGccArchSupported targetPlatform.gcc.arch
+      )
       ''
         echo "-march=${targetPlatform.gcc.arch}" >> $out/nix-support/cc-cflags-before
       ''
@@ -672,10 +663,9 @@ stdenv.mkDerivation {
     # and march instead.
     # TODO: aarch64-darwin has mcpu incompatible with gcc
     + optionalString
-      ((
-        targetPlatform ? gcc.cpu
+      ((targetPlatform ? gcc.cpu)
+        && (isClang || !(stdenv.isDarwin && stdenv.isAarch64))
       )
-        && (isClang || !(stdenv.isDarwin && stdenv.isAarch64)))
       ''
         echo "-mcpu=${targetPlatform.gcc.cpu}" >> $out/nix-support/cc-cflags-before
       ''

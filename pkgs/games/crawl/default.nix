@@ -59,9 +59,7 @@ stdenv.mkDerivation rec {
       sqlite
       ncurses
     ]
-    ++ (
-      with python3.pkgs; [ pyyaml ]
-    )
+    ++ (with python3.pkgs; [ pyyaml ])
     ++ lib.optionals tileMode [
       libpng
       SDL2

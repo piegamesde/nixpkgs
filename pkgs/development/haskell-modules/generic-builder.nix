@@ -60,22 +60,19 @@ in
   doHaddockQuickjump ? doHoogle && lib.versionAtLeast ghc.version "8.6",
   editedCabalFile ? null,
   # aarch64 outputs otherwise exceed 2GB limit
-  enableLibraryProfiling ? !(
-    ghc.isGhcjs or stdenv.targetPlatform.isAarch64 or false
-  ),
+  enableLibraryProfiling ?
+    !(ghc.isGhcjs or stdenv.targetPlatform.isAarch64 or false),
   enableExecutableProfiling ? false,
   profilingDetail ? "exported-functions",
   # TODO enable shared libs for cross-compiling
   enableSharedExecutables ? false,
   enableSharedLibraries ?
     !stdenv.hostPlatform.isStatic && (ghc.enableShared or false),
-  enableDeadCodeElimination ? (
-    !stdenv.isDarwin
-  ) # TODO: use -dead_strip for darwin
+  enableDeadCodeElimination ?
+    (!stdenv.isDarwin) # TODO: use -dead_strip for darwin
   ,
-  enableStaticLibraries ? !(
-    stdenv.hostPlatform.isWindows or stdenv.hostPlatform.isWasm
-  ),
+  enableStaticLibraries ?
+    !(stdenv.hostPlatform.isWindows or stdenv.hostPlatform.isWasm),
   enableHsc2hsViaAsm ?
     stdenv.hostPlatform.isWindows && lib.versionAtLeast ghc.version "8.4",
   extraLibraries ? [ ],
@@ -302,7 +299,8 @@ let
       "--prefix=$out"
       # Note: This must be kept in sync manually with mkGhcLibdir
       ("--libdir=\\$prefix/lib/\\$compiler"
-        + lib.optionalString (ghc ? hadrian) "/lib")
+        + lib.optionalString (ghc ? hadrian) "/lib"
+      )
       "--libsubdir=\\$abi/\\$libname"
       (optionalString
         enableSeparateDataOutput
@@ -330,12 +328,14 @@ let
         (enableDeadCodeElimination
           && !stdenv.hostPlatform.isAarch32
           && !stdenv.hostPlatform.isAarch64
-          && (versionAtLeast "8.0.1" ghc.version))
+          && (versionAtLeast "8.0.1" ghc.version)
+        )
         "split-objs")
       (enableFeature enableLibraryProfiling "library-profiling")
       (optionalString
         ((enableExecutableProfiling || enableLibraryProfiling)
-          && versionOlder "8" ghc.version)
+          && versionOlder "8" ghc.version
+        )
         "--profiling-detail=${profilingDetail}")
       (enableFeature enableExecutableProfiling (
         if versionOlder ghc.version "8" then
@@ -601,7 +601,8 @@ lib.fix (
         # It is not clear why --extra-framework-dirs does work fine on Linux
         + optionalString
           (!stdenv.buildPlatform.isDarwin
-            || versionAtLeast nativeGhc.version "8.0")
+            || versionAtLeast nativeGhc.version "8.0"
+          )
           ''
             if [[ -d "$p/Library/Frameworks" ]]; then
               configureFlags+=" --extra-framework-dirs=$p/Library/Frameworks"
@@ -614,8 +615,8 @@ lib.fix (
         # "dynamic-library-dirs" point to nonexistent paths, and the ln command becomes
         # "ln -s $out/lib/links", which tries to recreate the links dir and fails
         + (optionalString
-          (stdenv.isDarwin
-            && (enableSharedLibraries || enableSharedExecutables))
+          (stdenv.isDarwin && (enableSharedLibraries || enableSharedExecutables)
+          )
           ''
             # Work around a limit in the macOS Sierra linker on the number of paths
             # referenced by any one dynamic library:
@@ -784,7 +785,8 @@ lib.fix (
           && isExecutable
           && !isGhcjs
           && stdenv.isDarwin
-          && lib.versionOlder ghc.version "7.10")
+          && lib.versionOlder ghc.version "7.10"
+        )
         ''
           for exe in "${binDir}/"* ; do
             install_name_tool -add_rpath "$out/${ghcLibdir}/${pname}-${version}" "$exe"

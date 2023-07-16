@@ -709,12 +709,14 @@ in
       optional
       (cfg.webserver == "apache"
         && cfg.database.createLocally
-        && cfg.database.type == "mysql")
+        && cfg.database.type == "mysql"
+      )
       "mysql.service"
       ++ optional
         (cfg.webserver == "apache"
           && cfg.database.createLocally
-          && cfg.database.type == "postgres")
+          && cfg.database.type == "postgres"
+        )
         "postgresql.service"
       ;
 

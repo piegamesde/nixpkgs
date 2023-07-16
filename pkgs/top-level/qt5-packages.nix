@@ -74,8 +74,9 @@
       (lib.makeOverridable mkMaui attrs)
       ;
   in
-  (kdeFrameworks // plasmaMobileGear // plasma5 // plasma5.thirdParty // kdeGear
-    // mauiPackages // qt5 // {
+  (
+    kdeFrameworks // plasmaMobileGear // plasma5 // plasma5.thirdParty
+    // kdeGear // mauiPackages // qt5 // {
 
       inherit kdeFrameworks plasmaMobileGear plasma5 kdeGear mauiPackages qt5;
 
@@ -288,5 +289,6 @@
         callPackage ../os-specific/linux/xp-pen-drivers/g430 { };
 
       yuview = callPackage ../applications/video/yuview { };
-    })
+    }
+  )
 ))

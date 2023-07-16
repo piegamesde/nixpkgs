@@ -56,9 +56,7 @@ stdenv.mkDerivation rec {
   '';
 
   doCheck =
-    !(
-      with stdenv.hostPlatform; isCygwin || isFreeBSD
-    )
+    !(with stdenv.hostPlatform; isCygwin || isFreeBSD)
     && stdenv.hostPlatform == stdenv.buildPlatform
     ;
   # XXX: test failure on Cygwin

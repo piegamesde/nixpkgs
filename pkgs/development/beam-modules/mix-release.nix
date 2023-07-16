@@ -98,9 +98,7 @@ stdenv.mkDerivation (
         ''}
 
       ''
-      + (
-        attrs.postUnpack or ""
-      )
+      + (attrs.postUnpack or "")
       ;
 
     configurePhase =

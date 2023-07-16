@@ -246,7 +246,8 @@ in
                 (package.check p
                   && p ? providedSessions
                   && p.providedSessions != [ ]
-                  && all isString p.providedSessions)
+                  && all isString p.providedSessions
+                )
                 ''
                   Package, '${p.name}', did not specify any session names, as strings, in
                   'passthru.providedSessions'. This is required when used as a session package.
@@ -327,7 +328,9 @@ in
               assertMsg
               (d != null
                 -> (str.check d
-                  && elem d cfg.displayManager.sessionData.sessionNames))
+                  && elem d cfg.displayManager.sessionData.sessionNames
+                )
+              )
               ''
                 Default graphical session, '${d}', not found.
                 Valid names for 'services.xserver.displayManager.defaultSession' are:

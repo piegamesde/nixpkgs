@@ -644,7 +644,9 @@ let
                   || cfg.googleAuthenticator.enable
                   || cfg.gnupg.enable
                   || cfg.failDelay.enable
-                  || cfg.duoSecurity.enable))
+                  || cfg.duoSecurity.enable
+                )
+              )
               (
                 optionalString config.services.homed.enable ''
                   auth optional ${config.systemd.package}/lib/security/pam_systemd_home.so
@@ -824,7 +826,8 @@ let
           ''
           + optionalString
             (cfg.showMotd
-              && (config.users.motd != null || config.users.motdFile != null))
+              && (config.users.motd != null || config.users.motdFile != null)
+            )
             ''
               session optional ${pkgs.pam}/lib/security/pam_motd.so motd=${motd}
             ''
@@ -1541,7 +1544,8 @@ in
       ''
       + optionalString
         (config.security.pam.enableSSHAgentAuth
-          && isEnabled (cfg: cfg.sshAgentAuth))
+          && isEnabled (cfg: cfg.sshAgentAuth)
+        )
         ''
           mr ${pkgs.pam_ssh_agent_auth}/libexec/pam_ssh_agent_auth.so,
         ''

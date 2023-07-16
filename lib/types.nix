@@ -136,9 +136,8 @@ let
         # https://github.com/NixOS/nixpkgs/issues/191124 and
         # https://github.com/NixOS/nixos-search/issues/391 for what happens if you ignore
         # this disclaimer.
-        check ? (
-          x: true
-        ), # Merge a list of definitions together into a single value.
+        check ?
+          (x: true), # Merge a list of definitions together into a single value.
         # This function is called with two arguments: the location of
         # the option in the configuration as a list of strings
         # (e.g. ["boot" "loader "grub" "enable"]), and a list of
@@ -633,7 +632,8 @@ let
                         (loc
                           ++ [
                             "[definition ${toString n}-entry ${toString m}]"
-                          ])
+                          ]
+                        )
                         elemType
                         [ {
                           inherit (def) file;
@@ -747,7 +747,8 @@ let
                 merged = mergeDefinitions (loc ++ [ name ]) elemType defs;
               in
               # mergedValue will trigger an appropriate error when accessed
-              merged.optionalValue.value or elemType.emptyValue.value or merged.mergedValue
+              merged.optionalValue.value or elemType.emptyValue.value
+                or merged.mergedValue
             )
             # Push down position info.
             (

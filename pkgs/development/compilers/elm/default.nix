@@ -230,9 +230,7 @@ lib.makeScope pkgs.newScope (
           old: {
             # Symlink Elm instrument binary
             preRebuild =
-              (
-                old.preRebuild or ""
-              )
+              (old.preRebuild or "")
               + ''
                 # Noop custom installation script
                 sed 's/\"install\".*/\"install\":\"echo no-op\"/g' --in-place package.json
@@ -244,9 +242,7 @@ lib.makeScope pkgs.newScope (
               ''
               ;
             postInstall =
-              (
-                old.postInstall or ""
-              )
+              (old.postInstall or "")
               + ''
                 mkdir -p unpacked_bin
                 ln -sf ${elm-instrument}/bin/elm-instrument unpacked_bin/elm-instrument
@@ -299,9 +295,7 @@ lib.makeScope pkgs.newScope (
       elm-spa = nodePkgs."elm-spa".overrideAttrs (
         old: {
           nativeBuildInputs =
-            (
-              old.nativeBuildInputs or [ ]
-            )
+            (old.nativeBuildInputs or [ ])
             ++ [
               makeWrapper
               old.nodejs.pkgs.node-gyp-build
@@ -332,9 +326,7 @@ lib.makeScope pkgs.newScope (
       elm-pages = nodePkgs."elm-pages".overrideAttrs (
         old: {
           nativeBuildInputs =
-            (
-              old.nativeBuildInputs or [ ]
-            )
+            (old.nativeBuildInputs or [ ])
             ++ [
               makeWrapper
               old.nodejs.pkgs.node-gyp-build

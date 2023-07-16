@@ -263,7 +263,8 @@ in
         force_ssl = mkIf
           (cfg.virtualHost.addSSL
             || cfg.virtualHost.forceSSL
-            || cfg.virtualHost.onlySSL)
+            || cfg.virtualHost.onlySSL
+          )
           "on";
         config.defaultlang = "en";
       };

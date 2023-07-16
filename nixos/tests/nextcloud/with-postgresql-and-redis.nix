@@ -61,8 +61,7 @@ args@{
             extraAppsEnable = true;
             extraApps = {
               inherit
-                (
-                  pkgs."nextcloud${
+                (pkgs."nextcloud${
                     lib.versions.major config.services.nextcloud.package.version
                   }Packages".apps
                 )

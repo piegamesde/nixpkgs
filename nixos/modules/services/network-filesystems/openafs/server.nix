@@ -52,9 +52,8 @@ let
     + (optionalString
       (cfg.roles.database.enable
         && cfg.roles.backup.enable
-        && (
-          !cfg.roles.backup.enableFabs
-        ))
+        && (!cfg.roles.backup.enableFabs)
+      )
       ''
         bnode simple buserver 1
         parm ${openafsSrv}/libexec/openafs/buserver ${cfg.roles.backup.buserverArgs} ${
@@ -65,7 +64,8 @@ let
     + (optionalString
       (cfg.roles.database.enable
         && cfg.roles.backup.enable
-        && cfg.roles.backup.enableFabs)
+        && cfg.roles.backup.enableFabs
+      )
       ''
         bnode simple buserver 1
         parm ${

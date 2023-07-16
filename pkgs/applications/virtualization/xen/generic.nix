@@ -176,9 +176,7 @@ stdenv.mkDerivation (
         # Others
       ]
       ++ (concatMap (x: x.buildInputs or [ ]) (attrValues config.xenfiles))
-      ++ (
-        config.buildInputs or [ ]
-      )
+      ++ (config.buildInputs or [ ])
       ;
 
     prePatch = ''
@@ -299,9 +297,7 @@ stdenv.mkDerivation (
         "PREFIX=$(out) CONFIG_DIR=/etc"
         "XEN_SCRIPT_DIR=/etc/xen/scripts"
       ]
-      ++ (
-        config.makeFlags or [ ]
-      )
+      ++ (config.makeFlags or [ ])
       ;
 
     preBuild = ''
@@ -354,9 +350,7 @@ stdenv.mkDerivation (
           " (${args.meta.description})"
         ;
       longDescription =
-        (
-          args.meta.longDescription or ""
-        )
+        (args.meta.longDescription or "")
         + ''
 
           Includes:
@@ -386,9 +380,7 @@ stdenv.mkDerivation (
             "This version of Xen has reached its end of life. See https://xenbits.xen.org/docs/unstable/support-matrix.html"
           ]
         ;
-    } // (
-      config.meta or { }
-    );
+    } // (config.meta or { });
   } // removeAttrs config [
     "xenfiles"
     "buildInputs"

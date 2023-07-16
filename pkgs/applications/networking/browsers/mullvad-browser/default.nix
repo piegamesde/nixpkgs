@@ -110,8 +110,8 @@ stdenv.mkDerivation rec {
   inherit version;
 
   src =
-    srcs.${stdenv.hostPlatform.system} or (throw
-      "unsupported system: ${stdenv.hostPlatform.system}");
+    srcs.${stdenv.hostPlatform.system}
+      or (throw "unsupported system: ${stdenv.hostPlatform.system}");
 
   nativeBuildInputs = [
     copyDesktopItems

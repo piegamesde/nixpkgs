@@ -45,7 +45,8 @@ let
   src =
     args.src or (fetchurl {
       url =
-        args.url or "http://caml.inria.fr/pub/distrib/ocaml-${versionNoPatch}/ocaml-${version}.tar.xz";
+        args.url
+          or "http://caml.inria.fr/pub/distrib/ocaml-${versionNoPatch}/ocaml-${version}.tar.xz";
       inherit (args) sha256;
     });
 in
@@ -130,7 +131,8 @@ stdenv.mkDerivation (
         "-no-shared-libs"
       ++ optionals
         (stdenv.hostPlatform != stdenv.buildPlatform
-          && lib.versionOlder version "4.08")
+          && lib.versionOlder version "4.08"
+        )
         [
           "-host ${stdenv.hostPlatform.config}"
           "-target ${stdenv.targetPlatform.config}"
@@ -144,7 +146,8 @@ stdenv.mkDerivation (
     # See #144785 for details.
     configurePlatforms = lib.optionals
       (lib.versionAtLeast version "4.08"
-        && !(stdenv.isDarwin && stdenv.isAarch64))
+        && !(stdenv.isDarwin && stdenv.isAarch64)
+      )
       [
         "host"
         "target"

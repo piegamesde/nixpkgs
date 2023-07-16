@@ -25,8 +25,8 @@ let
       "armv7l" = "armv6l";
       "powerpc64le" = "ppc64le";
     }
-    .${platform.parsed.cpu.name} or (throw
-      "Unsupported CPU ${platform.parsed.cpu.name}")
+    .${platform.parsed.cpu.name}
+      or (throw "Unsupported CPU ${platform.parsed.cpu.name}")
     ;
 
   toGoPlatform = platform: "${toGoKernel platform}-${toGoCPU platform}";
@@ -39,8 +39,8 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     url = "https://go.dev/dl/go${version}.${platform}.tar.gz";
     sha256 =
-      hashes.${platform} or (throw
-        "Missing Go bootstrap hash for platform ${platform}");
+      hashes.${platform}
+        or (throw "Missing Go bootstrap hash for platform ${platform}");
   };
 
   nativeBuildInputs = lib.optionals stdenv.isLinux [ autoPatchelfHook ];

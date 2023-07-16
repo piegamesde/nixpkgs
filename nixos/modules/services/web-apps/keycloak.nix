@@ -580,7 +580,8 @@ in
         {
           assertion =
             createLocalPostgreSQL
-            -> config.services.postgresql.settings.standard_conforming_strings or true
+            -> config.services.postgresql.settings.standard_conforming_strings
+              or true
             ;
           message =
             "Setting up a local PostgreSQL db for Keycloak requires `standard_conforming_strings` turned on to work reliably";

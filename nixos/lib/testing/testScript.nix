@@ -89,7 +89,8 @@ in
           # cycle by short-circuiting when useNixStoreImage is false.
           (config.virtualisation.useNixStoreImage
             && builtins.hasContext testModuleArgs.config.testScriptString
-            && testModuleArgs.config.includeTestScriptReferences)
+            && testModuleArgs.config.includeTestScriptReferences
+          )
           (
             hostPkgs.writeStringReferencesToFile
             testModuleArgs.config.testScriptString

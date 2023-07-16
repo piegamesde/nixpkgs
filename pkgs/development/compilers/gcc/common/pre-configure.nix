@@ -20,7 +20,8 @@ let
     (lib.versionOlder version "7" && (langJava || langGo))
     || (lib.versions.major version == "4"
       && lib.versions.minor version == "9"
-      && targetPlatform.isDarwin)
+      && targetPlatform.isDarwin
+    )
     ;
 in
 lib.optionalString (hostPlatform.isSunOS && hostPlatform.is64bit) ''
@@ -55,7 +56,8 @@ lib.optionalString (hostPlatform.isSunOS && hostPlatform.is64bit) ''
     && buildPlatform == hostPlatform
     && hostPlatform == targetPlatform
     && targetPlatform.isx86_64
-    && targetPlatform.isDarwin)
+    && targetPlatform.isDarwin
+  )
   ''
     export AS_FOR_BUILD=${gnat-bootstrap}/bin/as
     export AS_FOR_TARGET=${gnat-bootstrap}/bin/gas
@@ -106,7 +108,8 @@ lib.optionalString (hostPlatform.isSunOS && hostPlatform.is64bit) ''
 # is in fact building a cross compiler although it doesn't believe it.
 + lib.optionalString
   (targetPlatform.config == hostPlatform.config
-    && targetPlatform != hostPlatform)
+    && targetPlatform != hostPlatform
+  )
   ''
     substituteInPlace configure --replace is_cross_compiler=no is_cross_compiler=yes
   ''

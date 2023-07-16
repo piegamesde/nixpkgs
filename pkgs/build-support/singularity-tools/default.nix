@@ -27,9 +27,7 @@
       name,
       contents ? [ ],
       # May be "apptainer" instead of "singularity"
-      projectName ? (
-        singularity.projectName or "singularity"
-      ),
+      projectName ? (singularity.projectName or "singularity"),
     }:
     runCommand "${projectName}-layer-${name}" { inherit contents; } ''
       mkdir $out

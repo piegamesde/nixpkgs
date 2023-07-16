@@ -126,7 +126,8 @@ let
     ++ optional
       (!crossStageStatic
         && targetPlatform.isMinGW
-        && threadsCross.model == "mcf")
+        && threadsCross.model == "mcf"
+      )
       ./Added-mcf-thread-model-support-from-mcfgthread.patch
     ++ optional (targetPlatform.libc == "musl" && targetPlatform.isx86_32) (
       fetchpatch {
@@ -519,7 +520,8 @@ stdenv.mkDerivation (
   // optionalAttrs
   (targetPlatform != hostPlatform
     && targetPlatform.libc == "msvcrt"
-    && crossStageStatic)
+    && crossStageStatic
+  )
   {
     makeFlags = [
       "all-gcc"

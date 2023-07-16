@@ -293,7 +293,8 @@ let
             "--unwindlib=libunwind"
           ++ lib.optional
             (!stdenv.targetPlatform.isWasm
-              && stdenv.targetPlatform.useLLVM or false)
+              && stdenv.targetPlatform.useLLVM or false
+            )
             "-lunwind"
           ++ lib.optional stdenv.targetPlatform.isWasm "-fno-exceptions"
           ;

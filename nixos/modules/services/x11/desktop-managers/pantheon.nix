@@ -247,7 +247,8 @@ in
                 pantheon-agent-geoclue2
                 pantheon-agent-polkit
               ]
-            ))
+            )
+          )
           config.environment.pantheon.excludePackages
         ;
 

@@ -27,9 +27,7 @@ else
       # will not consider it a depenency worth mentioning and it will almost
       # always be needed
       buildInputs =
-        (
-          args.buildInputs or [ ]
-        )
+        (args.buildInputs or [ ])
         ++ [
           unwrapped
           unwrapped.volk

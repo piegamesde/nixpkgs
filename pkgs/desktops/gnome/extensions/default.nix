@@ -57,14 +57,16 @@ let
         extension:
         !((builtins.hasAttr extension.extensionUuid extensionRenames)
           && ((builtins.getAttr extension.extensionUuid extensionRenames)
-            == null))
+            == null
+          )
+        )
       ))
       # Map all extensions to their pname, with potential overwrites
       (map (
         extension:
         lib.nameValuePair
-        (
-          extensionRenames.${extension.extensionUuid} or extension.extensionPortalSlug
+        (extensionRenames.${extension.extensionUuid}
+          or extension.extensionPortalSlug
         )
         extension
       ))

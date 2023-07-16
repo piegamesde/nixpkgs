@@ -1504,7 +1504,8 @@ in
                 optionalString
                 (srvMatch != null
                   && cfg.${srv}.enable
-                  && ((s.oauth-client-id or null) != null))
+                  && ((s.oauth-client-id or null) != null)
+                )
                 ''
                   # Configure ${srv}'s OAuth client as "preauthorized"
                   ${postgresql.package}/bin/psql '${

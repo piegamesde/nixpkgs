@@ -57,7 +57,8 @@ stdenv.mkDerivation (
       ++ lib.optional
         (stdenv.targetPlatform.isDarwin
           && !stdenv.targetPlatform.isAarch64
-          && (lib.versionOlder darwin.apple_sdk.sdk.version "11.0"))
+          && (lib.versionOlder darwin.apple_sdk.sdk.version "11.0")
+        )
         ./cpu_subtype_arm64e_replacement.patch
       ;
 

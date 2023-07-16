@@ -23,9 +23,7 @@ stdenv.mkDerivation (
 
     buildInputs = args.buildInputs or [ ];
     nativeBuildInputs =
-      (
-        args.nativeBuildInputs or [ ]
-      )
+      (args.nativeBuildInputs or [ ])
       ++ [
         cmake
         ninja
@@ -61,8 +59,6 @@ stdenv.mkDerivation (
           nickcao
         ];
         platforms = platforms.unix;
-      } // (
-        args.meta or { }
-      );
+      } // (args.meta or { });
   }
 )

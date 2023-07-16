@@ -17,8 +17,8 @@ stdenvNoCC.mkDerivation rec {
   pname = "bun";
 
   src =
-    passthru.sources.${stdenvNoCC.hostPlatform.system} or (throw
-      "Unsupported system: ${stdenvNoCC.hostPlatform.system}");
+    passthru.sources.${stdenvNoCC.hostPlatform.system}
+      or (throw "Unsupported system: ${stdenvNoCC.hostPlatform.system}");
 
   strictDeps = true;
   nativeBuildInputs =

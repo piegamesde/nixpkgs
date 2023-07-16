@@ -106,7 +106,8 @@ recursiveUpdate lib (rec {
                 ++ [
                   v
                   hd
-                ])
+                ]
+              )
               [ ]
               tl
             else

@@ -34,7 +34,8 @@ let
     cfg.support32Bit
     && stdenv.isx86_64
     && (pkgs.pkgsi686Linux.alsa-lib != null
-      && pkgs.pkgsi686Linux.libpulseaudio != null)
+      && pkgs.pkgsi686Linux.libpulseaudio != null
+    )
     ;
 
   myConfigFile =

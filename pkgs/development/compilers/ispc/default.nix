@@ -89,14 +89,16 @@ stdenv.mkDerivation rec {
           "TRUE"
         else
           "FALSE"
-      ))
+      )
+    )
     ("-DX86_ENABLED="
       + (
         if stdenv.isx86_64 || stdenv.isx86_32 then
           "TRUE"
         else
           "FALSE"
-      ))
+      )
+    )
   ];
 
   meta = with lib; {

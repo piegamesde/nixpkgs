@@ -214,9 +214,7 @@ let
             nativeCheckInputs =
               oldAttrs.nativeCheckInputs ++ (with super; [ pytest-xdist ]);
             disabledTestPaths =
-              (
-                oldAttrs.disabledTestPaths or [ ]
-              )
+              (oldAttrs.disabledTestPaths or [ ])
               ++ [
                 "test/aaa_profiling"
                 "test/ext/mypy"

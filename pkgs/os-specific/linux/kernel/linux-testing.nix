@@ -25,7 +25,5 @@ buildLinux (
 
     # Should the testing kernels ever be built on Hydra?
     extraMeta.hydraPlatforms = [ ];
-  } // (
-    args.argsOverride or { }
-  )
+  } // (args.argsOverride or { })
 )

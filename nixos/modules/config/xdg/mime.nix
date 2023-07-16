@@ -89,7 +89,8 @@ in
     environment.etc."xdg/mimeapps.list" = mkIf
       (cfg.addedAssociations != { }
         || cfg.defaultApplications != { }
-        || cfg.removedAssociations != { })
+        || cfg.removedAssociations != { }
+      )
       {
         text = generators.toINI { } {
           "Added Associations" = cfg.addedAssociations;

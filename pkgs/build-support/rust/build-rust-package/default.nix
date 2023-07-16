@@ -185,9 +185,7 @@ stdenv.mkDerivation (
 
         export RUST_LOG=${logLevel}
       ''
-      + (
-        args.postUnpack or ""
-      )
+      + (args.postUnpack or "")
       ;
 
     configurePhase =

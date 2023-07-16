@@ -40,9 +40,7 @@ stdenv.mkDerivation rec {
     ''
       mkdir -p $out/bin
     ''
-    + (
-      pip.postPatch or ""
-    )
+    + (pip.postPatch or "")
     ; # `pip` does not necessarily have a `postPatch` field.
 
   nativeBuildInputs = [

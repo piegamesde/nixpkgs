@@ -175,9 +175,7 @@ self: super:
       depsBuildBuild =
         [ buildPackages.stdenv.cc ]
         ++ lib.optionals stdenv.hostPlatform.isStatic [
-            (
-              xorg.buildPackages.stdenv.cc.libc.static or null
-            )
+            (xorg.buildPackages.stdenv.cc.libc.static or null)
           ]
         ;
       preConfigure = ''

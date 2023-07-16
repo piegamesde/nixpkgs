@@ -50,9 +50,7 @@ in
       #   for us, as the default set of CUDA capabilities we build can regularly cause this to
       #   occur (for example, with Magma).
       postInstall =
-        (
-          oldAttrs.postInstall or ""
-        )
+        (oldAttrs.postInstall or "")
         + ''
           mkdir -p $out/nix-support
           cat <<EOF >> $out/nix-support/setup-hook

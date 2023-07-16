@@ -174,7 +174,8 @@ stdenv.mkDerivation rec {
       ("--with-contrib-plugins"
         + lib.optionalString
           stdenv.isDarwin
-          "=all,-FileManager,-NassiShneiderman")
+          "=all,-FileManager,-NassiShneiderman"
+      )
       "--with-boost-libdir=${boost}/lib"
     ]
     ;

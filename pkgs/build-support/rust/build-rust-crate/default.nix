@@ -312,16 +312,12 @@ lib.makeOverridable
           jq
         ]
         ++ lib.optionals stdenv.buildPlatform.isDarwin [ libiconv ]
-        ++ (
-          crate.nativeBuildInputs or [ ]
-        )
+        ++ (crate.nativeBuildInputs or [ ])
         ++ nativeBuildInputs_
         ;
       buildInputs =
         lib.optionals stdenv.isDarwin [ libiconv ]
-        ++ (
-          crate.buildInputs or [ ]
-        )
+        ++ (crate.buildInputs or [ ])
         ++ buildInputs_
         ;
       dependencies = map lib.getLib dependencies_;

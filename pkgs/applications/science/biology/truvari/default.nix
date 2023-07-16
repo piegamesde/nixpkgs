@@ -63,9 +63,7 @@ python3Packages.buildPythonApplication rec {
       bcftools
       htslib
     ]
-    ++ (
-      with python3Packages; [ coverage ]
-    )
+    ++ (with python3Packages; [ coverage ])
     ;
 
   checkPhase = ''

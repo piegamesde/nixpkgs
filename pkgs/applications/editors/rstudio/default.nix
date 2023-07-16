@@ -192,7 +192,8 @@ in
       (
         d:
         !(hasAttr "dictFileName" d
-          && elem d.dictFileName (map (d: d.dictFileName) largeDicts))
+          && elem d.dictFileName (map (d: d.dictFileName) largeDicts)
+        )
       )
       hunspellDictionaries;
     dictionaries = largeDicts ++ otherDicts;

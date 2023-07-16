@@ -53,7 +53,8 @@ let
       i586 = "i386";
       i686 = "i386";
     }
-    .${stdenv'.hostPlatform.parsed.cpu.name} or stdenv'.hostPlatform.parsed.cpu.name
+    .${stdenv'.hostPlatform.parsed.cpu.name}
+      or stdenv'.hostPlatform.parsed.cpu.name
     ;
 
   install-wrapper = ''

@@ -16,9 +16,9 @@ let
   # options shown in settings.
   # We post-process the result to add support for YAML functions, like secrets or includes, see e.g.
   # https://www.home-assistant.io/docs/configuration/secrets/
-  filteredConfig = lib.converge
-    (lib.filterAttrsRecursive (_: v: !elem v [ null ]))
-    cfg.config or { };
+  filteredConfig =
+    lib.converge (lib.filterAttrsRecursive (_: v: !elem v [ null ])) cfg.config
+      or { };
   configFile =
     pkgs.runCommand "configuration.yaml" { preferLocalBuild = true; } ''
       cp ${format.generate "configuration.yaml" filteredConfig} $out

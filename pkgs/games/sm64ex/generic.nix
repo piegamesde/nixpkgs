@@ -84,7 +84,8 @@ stdenv.mkDerivation rec {
   meta = with lib;
     {
       longDescription =
-        extraMeta.description or "Super Mario 64 port based off of decompilation"
+        extraMeta.description
+          or "Super Mario 64 port based off of decompilation"
         + "\n"
         + ''
           Note that you must supply a baserom yourself to extract assets from.

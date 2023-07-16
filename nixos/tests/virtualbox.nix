@@ -209,9 +209,7 @@ let
           "--memory 768"
           "--audio none"
         ]
-        ++ (
-          attrs.vmFlags or [ ]
-        )
+        ++ (attrs.vmFlags or [ ])
       );
 
       controllerFlags = mkFlags [

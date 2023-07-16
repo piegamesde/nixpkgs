@@ -220,7 +220,8 @@ assert (lib.assertMsg
   (touchEFIVars
     -> partitionTableType == "hybrid"
       || partitionTableType == "efi"
-      || partitionTableType == "legacy+gpt")
+      || partitionTableType == "legacy+gpt"
+  )
   "EFI variables can be used only with a partition table of type: hybrid, efi or legacy+gpt.");
 # If only Nix store image, then: contents must be empty, configFile must be unset, and we should no install bootloader.
 assert (lib.assertMsg

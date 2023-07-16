@@ -416,7 +416,9 @@ in
               || (builtins.any (value: value != null) [
                 cfg.config
                 cfg.extraConfig
-              ])))
+              ])
+            )
+          )
           ;
         message = ''
           Configuration of krb5.conf by deprecated options is mutually exclusive
@@ -441,7 +443,9 @@ in
                 cfg.domainRealm
                 cfg.kdc
                 cfg.kerberosAdminServer
-              ])))
+              ])
+            )
+          )
           ;
         message = ''
           Configuration of krb5.conf using krb.config is mutually exclusive with

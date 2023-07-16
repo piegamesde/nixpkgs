@@ -573,7 +573,8 @@ in
         assertion =
           cfg.database.ignorePostgresqlVersion
           || (databaseActuallyCreateLocally
-            -> upstreamPostgresqlVersion == postgresqlVersion)
+            -> upstreamPostgresqlVersion == postgresqlVersion
+          )
           ;
         message =
           "The PostgreSQL version recommended for use with Discourse is ${upstreamPostgresqlVersion}, you're using ${postgresqlVersion}. "

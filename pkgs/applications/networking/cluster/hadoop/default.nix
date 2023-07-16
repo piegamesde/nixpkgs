@@ -46,8 +46,8 @@ let
     stdenv.mkDerivation rec {
       inherit pname jdk libPatches untarDir openssl;
       version =
-        platformAttrs.${stdenv.system}.version or (throw
-          "Unsupported system: ${stdenv.system}");
+        platformAttrs.${stdenv.system}.version
+          or (throw "Unsupported system: ${stdenv.system}");
       src = fetchurl {
         url =
           "mirror://apache/hadoop/common/hadoop-${version}/hadoop-${version}"

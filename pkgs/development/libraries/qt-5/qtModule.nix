@@ -28,9 +28,7 @@ mkDerivation (
     patches = (args.patches or [ ]) ++ (patches.${pname} or [ ]);
 
     nativeBuildInputs =
-      (
-        args.nativeBuildInputs or [ ]
-      )
+      (args.nativeBuildInputs or [ ])
       ++ [
         perl
         self.qmake
@@ -111,8 +109,6 @@ mkDerivation (
         bkchr
       ];
       platforms = platforms.unix;
-    } // (
-      args.meta or { }
-    );
+    } // (args.meta or { });
   }
 )

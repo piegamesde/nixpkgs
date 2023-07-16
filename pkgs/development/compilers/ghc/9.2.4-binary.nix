@@ -214,7 +214,8 @@ let
   # we ship bindists for matter.
   useLLVM =
     !(stdenv.targetPlatform.isx86
-      || (stdenv.targetPlatform.isAarch64 && stdenv.targetPlatform.isDarwin))
+      || (stdenv.targetPlatform.isAarch64 && stdenv.targetPlatform.isDarwin)
+    )
     ;
 
   libPath = lib.makeLibraryPath (

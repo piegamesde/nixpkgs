@@ -64,7 +64,8 @@ in
         ++ optionals
           (collectorIsEnabled "network_route"
             || collectorIsEnabled "wifi"
-            || !collectorIsDisabled "netdev")
+            || !collectorIsDisabled "netdev"
+          )
           [
             # needs netlink sockets for wireless collector
             "AF_NETLINK"

@@ -132,7 +132,8 @@ let
         ''
         + lib.optionalString withSDL ''
           make -j $NIX_BUILD_CORES sdl-${target}
-        '')
+        ''
+      )
       + ''
         pushd ../d0_blind_id
         make -j $NIX_BUILD_CORES

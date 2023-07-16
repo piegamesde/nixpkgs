@@ -142,7 +142,8 @@ let
     ${optionalString
     (config.networking.enableIPv6
       && cfg.IPv6rs == null
-      && staticIPv6Addresses != [ ])
+      && staticIPv6Addresses != [ ]
+    )
     noIPv6rs}
     ${optionalString (config.networking.enableIPv6 && cfg.IPv6rs == false) ''
       noipv6rs
@@ -296,7 +297,9 @@ in
           (cfgN.defaultGateway != null && cfgN.defaultGateway.address != "")
           && (!cfgN.enableIPv6
             || (cfgN.defaultGateway6 != null
-              && cfgN.defaultGateway6.address != ""))
+              && cfgN.defaultGateway6.address != ""
+            )
+          )
           ;
       in
       {

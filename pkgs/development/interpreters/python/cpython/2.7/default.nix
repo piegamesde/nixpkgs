@@ -26,9 +26,7 @@
   # Some proprietary libs assume UCS2 unicode, especially on darwin :(
   ucsEncoding ? 4,
   # For the Python package set
-  packageOverrides ? (
-    self: super: { }
-  ),
+  packageOverrides ? (self: super: { }),
   pkgsBuildBuild,
   pkgsBuildHost,
   pkgsBuildTarget,

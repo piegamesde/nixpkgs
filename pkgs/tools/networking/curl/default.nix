@@ -23,7 +23,8 @@
         # the "mig" tool does not configure its compiler correctly. This could be
         # fixed in mig, but losing gss support on cross compilation to darwin is
         # not worth the effort.
-        !(isDarwin && (stdenv.buildPlatform != stdenv.hostPlatform))),
+        !(isDarwin && (stdenv.buildPlatform != stdenv.hostPlatform))
+    ),
   libkrb5,
   http2Support ? true,
   nghttp2,
@@ -74,7 +75,8 @@ assert !((lib.count (x: x) [
   wolfsslSupport
   rustlsSupport
 ])
-  > 1);
+  > 1
+);
 
 stdenv.mkDerivation (
   finalAttrs: {

@@ -42,7 +42,8 @@ let
       # Filter out version control software files/directories
       (baseName == ".git"
         || type == "directory"
-          && (baseName == ".svn" || baseName == "CVS" || baseName == ".hg"))
+          && (baseName == ".svn" || baseName == "CVS" || baseName == ".hg")
+      )
       ||
         # Filter out editor backup / swap files.
         lib.hasSuffix "~" baseName
@@ -58,7 +59,8 @@ let
         (type == "symlink" && lib.hasPrefix "result" baseName)
       ||
         # Filter out sockets and other types of files we can't have in the store.
-        (type == "unknown"))
+        (type == "unknown")
+    )
     ;
 
   /* Filters a source tree removing version control files and directories using cleanSourceFilter.

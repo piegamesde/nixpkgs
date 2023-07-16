@@ -572,9 +572,7 @@ rec {
     overrideCabal (
       drv: {
         postInstall =
-          (
-            drv.postInstall or ""
-          )
+          (drv.postInstall or "")
           + ''
             bashCompDir="''${!outputBin}/share/bash-completion/completions"
             zshCompDir="''${!outputBin}/share/zsh/vendor-completions"

@@ -129,9 +129,7 @@ perlPackages.buildPerlPackage rec {
       file
       tesseract # tests are expecting tesseract 3.x precisely
     ]
-    ++ (
-      with perlPackages; [ TestPod ]
-    )
+    ++ (with perlPackages; [ TestPod ])
     ;
 
   checkPhase = ''

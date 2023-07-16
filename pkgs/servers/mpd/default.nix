@@ -237,7 +237,8 @@ let
 
       postPatch = lib.optionalString
         (stdenv.isDarwin
-          && lib.versionOlder stdenv.targetPlatform.darwinSdkVersion "12.0")
+          && lib.versionOlder stdenv.targetPlatform.darwinSdkVersion "12.0"
+        )
         ''
           substituteInPlace src/output/plugins/OSXOutputPlugin.cxx \
             --replace kAudioObjectPropertyElement{Main,Master} \

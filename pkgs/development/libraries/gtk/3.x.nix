@@ -131,7 +131,8 @@ stdenv.mkDerivation (
       ]
       ++ lib.optionals
         (withIntrospection
-          && !stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+          && !stdenv.buildPlatform.canExecute stdenv.hostPlatform
+        )
         [
           mesonEmulatorHook
         ]

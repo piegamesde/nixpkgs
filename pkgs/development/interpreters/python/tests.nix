@@ -160,9 +160,7 @@ let
               pythonPackagesExtensions =
                 prev.pythonPackagesExtensions
                 ++ [
-                  (
-                    python-final: python-prev: { foo = python-prev.setuptools; }
-                  )
+                  (python-final: python-prev: { foo = python-prev.setuptools; })
                 ]
                 ;
             }

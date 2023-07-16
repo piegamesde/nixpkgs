@@ -74,9 +74,7 @@ let
   allPlugins = {
     bluespec = yosys-bluespec;
     ghdl = yosys-ghdl;
-  } // (
-    yosys-symbiflow
-  );
+  } // (yosys-symbiflow);
 in
 stdenv.mkDerivation rec {
   pname = "yosys";

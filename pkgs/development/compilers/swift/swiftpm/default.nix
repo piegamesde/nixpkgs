@@ -85,9 +85,7 @@ let
     stdenv.mkDerivation (
       attrs // {
         nativeBuildInputs =
-          (
-            attrs.nativeBuildInputs or [ ]
-          )
+          (attrs.nativeBuildInputs or [ ])
           ++ [
             cmake
             ninja
@@ -99,9 +97,7 @@ let
         buildInputs = (attrs.buildInputs or [ ]) ++ [ Foundation ];
 
         postPatch =
-          (
-            attrs.postPatch or ""
-          )
+          (attrs.postPatch or "")
           + lib.optionalString stdenv.isDarwin ''
             # On Darwin only, Swift uses arm64 as cpu arch.
             if [ -e cmake/modules/SwiftSupport.cmake ]; then
@@ -112,9 +108,7 @@ let
           ;
 
         preConfigure =
-          (
-            attrs.preConfigure or ""
-          )
+          (attrs.preConfigure or "")
           + ''
             # Builds often don't set a target, and our default minimum macOS deployment
             # target on x86_64-darwin is too low. Harmless on non-Darwin.
@@ -123,9 +117,7 @@ let
           ;
 
         postInstall =
-          (
-            attrs.postInstall or ""
-          )
+          (attrs.postInstall or "")
           + lib.optionalString stdenv.isDarwin ''
             # The install name of libraries is incorrectly set to lib/ (via our
             # CMake setup hook) instead of lib/swift/. This'd be easily fixed by
@@ -143,9 +135,7 @@ let
           ;
 
         cmakeFlags =
-          (
-            attrs.cmakeFlags or [ ]
-          )
+          (attrs.cmakeFlags or [ ])
           ++ [
             # Some builds link to libraries within the same build. Make sure these
             # create references to $out. None of our builds run their own products,

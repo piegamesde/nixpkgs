@@ -35,7 +35,9 @@ lib.concatLists [
               "power8"
               "power9"
               "power1" # 0, 11, etc
-            ])))
+            ])
+        )
+      )
       [
         "--with-long-double-128"
         "--with-long-double-format=${gcc.long-double-format or "ieee"}"

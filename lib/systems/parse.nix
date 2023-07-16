@@ -910,7 +910,8 @@ rec {
     let
       optExecFormat = lib.optionalString
         (kernel.name == "netbsd"
-          && gnuNetBSDDefaultExecFormat cpu != kernel.execFormat)
+          && gnuNetBSDDefaultExecFormat cpu != kernel.execFormat
+        )
         kernel.execFormat.name;
       optAbi = lib.optionalString (abi != abis.unknown) "-${abi.name}";
     in

@@ -295,8 +295,8 @@ let
     builtins.map
     (
       drvAttr:
-      pythonPackages.${drvAttr} or (throw
-        "unsupported build system requirement ${drvAttr}")
+      pythonPackages.${drvAttr}
+        or (throw "unsupported build system requirement ${drvAttr}")
     )
     requiredPkgs
     ;

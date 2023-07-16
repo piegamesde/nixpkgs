@@ -130,7 +130,9 @@ let
               || (hostPlatform.parsed.kernel.execFormat
                 != lib.systems.parse.execFormats.elf
                 && hostPlatform.parsed.kernel.execFormat
-                  != lib.systems.parse.execFormats.macho))
+                  != lib.systems.parse.execFormats.macho
+              )
+            )
             ''
               export NIX_DONT_SET_RPATH=1
               export NIX_NO_SELF_RPATH=1

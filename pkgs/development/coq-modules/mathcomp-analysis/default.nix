@@ -199,7 +199,8 @@ let
           && o.pname != "mathcomp-analysis"
           && o.version != null
           && o.version != "dev"
-          && versions.isLt "0.6" o.version)
+          && versions.isLt "0.6" o.version
+        )
         {
           preBuild = "";
           buildPhase = "echo doing nothing";
@@ -213,7 +214,8 @@ let
           && o.pname == "mathcomp-analysis"
           && o.version != null
           && o.version != "dev"
-          && versions.isLt "0.6" o.version)
+          && versions.isLt "0.6" o.version
+        )
         {
           preBuild = "";
         }
@@ -222,7 +224,8 @@ let
         o:
         optionalAttrs
         (o.version != null
-          && (o.version == "dev" || versions.isGe "0.3.4" o.version))
+          && (o.version == "dev" || versions.isGe "0.3.4" o.version)
+        )
         {
           propagatedBuildInputs =
             o.propagatedBuildInputs ++ [ hierarchy-builder ];

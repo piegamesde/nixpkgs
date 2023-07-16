@@ -1513,8 +1513,8 @@ in
     warnings =
       optional
       (cfg.settings.BridgeRelay
-        && flatten (mapAttrsToList (n: o: o.map) cfg.relay.onionServices)
-          != [ ])
+        && flatten (mapAttrsToList (n: o: o.map) cfg.relay.onionServices) != [ ]
+      )
       ''
         Running Tor hidden services on a public relay makes the
         presence of hidden services visible through simple statistical
@@ -1623,7 +1623,8 @@ in
         (flatten (
           mapAttrsToList (n: o: o.clientAuthorizations) cfg.client.onionServices
         )
-          != [ ])
+          != [ ]
+        )
         {
           ClientOnionAuthDir = runDir + "/ClientOnionAuthDir";
         }
@@ -1729,7 +1730,8 @@ in
                     cfg.client.onionServices
                 )
               )
-            ))
+            )
+          )
         ];
         ExecStart = "${cfg.package}/bin/tor -f ${torrc}";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";

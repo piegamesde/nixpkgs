@@ -19,9 +19,7 @@
   buildLlvmTools,
   debugVersion ? false,
   doCheck ? stdenv.isLinux
-    && (
-      !stdenv.isx86_32
-    )
+    && (!stdenv.isx86_32)
     && (stdenv.hostPlatform == stdenv.buildPlatform),
   enableManpages ? false,
   enableSharedLibraries ? !stdenv.hostPlatform.isStatic,

@@ -234,7 +234,8 @@ let
           ''
           + lib.optionalString
             (!stdenv.targetPlatform.isWasm
-              && stdenv.targetPlatform.useLLVM or false)
+              && stdenv.targetPlatform.useLLVM or false
+            )
             ''
               echo "-lunwind" >> $out/nix-support/cc-ldflags
             ''
@@ -321,9 +322,7 @@ let
         inherit llvm_meta;
         stdenv =
           if
-            (
-              stdenv.hostPlatform.useLLVM or false
-            )
+            (stdenv.hostPlatform.useLLVM or false)
             || (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
             || (stdenv.hostPlatform.isRiscV && stdenv.hostPlatform.is32bit)
           then
@@ -337,9 +336,7 @@ let
         inherit llvm_meta;
         stdenv =
           if
-            (
-              stdenv.hostPlatform.useLLVM or false
-            )
+            (stdenv.hostPlatform.useLLVM or false)
             || (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
           then
             overrideCC stdenv buildLlvmTools.clangNoCompilerRt
@@ -368,9 +365,7 @@ let
         inherit llvm_meta;
         stdenv =
           if
-            (
-              stdenv.hostPlatform.useLLVM or false
-            )
+            (stdenv.hostPlatform.useLLVM or false)
             || (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
           then
             overrideCC stdenv buildLlvmTools.clangNoLibcxx
@@ -383,9 +378,7 @@ let
         inherit llvm_meta;
         stdenv =
           if
-            (
-              stdenv.hostPlatform.useLLVM or false
-            )
+            (stdenv.hostPlatform.useLLVM or false)
             || (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
           then
             overrideCC stdenv buildLlvmTools.clangNoLibcxx
@@ -398,9 +391,7 @@ let
         inherit llvm_meta;
         stdenv =
           if
-            (
-              stdenv.hostPlatform.useLLVM or false
-            )
+            (stdenv.hostPlatform.useLLVM or false)
             || (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
           then
             overrideCC stdenv buildLlvmTools.clangNoLibcxx

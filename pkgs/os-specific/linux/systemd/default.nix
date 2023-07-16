@@ -102,9 +102,8 @@
   withLibBPF ?
     lib.versionAtLeast buildPackages.llvmPackages.clang.version "10.0"
     && (stdenv.hostPlatform.isAarch
-      -> lib.versionAtLeast
-        stdenv.hostPlatform.parsed.cpu.version
-        "6") # assumes hard floats
+      -> lib.versionAtLeast stdenv.hostPlatform.parsed.cpu.version "6"
+    ) # assumes hard floats
     && !stdenv.hostPlatform.isMips64 # see https://github.com/NixOS/nixpkgs/pull/194149#issuecomment-1266642211
     # buildPackages.targetPackages.llvmPackages is the same as llvmPackages,
     # but we do it this way to avoid taking llvmPackages as an input, and
@@ -215,36 +214,48 @@ stdenv.mkDerivation (
           (musl-patches + "/0001-Adjust-for-musl-headers.patch")
           (musl-patches + "/0005-pass-correct-parameters-to-getdents64.patch")
           (musl-patches
-            + "/0006-test-bus-error-strerror-is-assumed-to-be-GNU-specifi.patch")
+            + "/0006-test-bus-error-strerror-is-assumed-to-be-GNU-specifi.patch"
+          )
           (musl-patches + "/0007-Add-sys-stat.h-for-S_IFDIR.patch")
           (musl-patches + "/0009-missing_type.h-add-comparison_fn_t.patch")
           (musl-patches
-            + "/0010-add-fallback-parse_printf_format-implementation.patch")
+            + "/0010-add-fallback-parse_printf_format-implementation.patch"
+          )
           (musl-patches
-            + "/0011-src-basic-missing.h-check-for-missing-strndupa.patch")
+            + "/0011-src-basic-missing.h-check-for-missing-strndupa.patch"
+          )
           (musl-patches
-            + "/0012-don-t-fail-if-GLOB_BRACE-and-GLOB_ALTDIRFUNC-is-not-.patch")
+            + "/0012-don-t-fail-if-GLOB_BRACE-and-GLOB_ALTDIRFUNC-is-not-.patch"
+          )
           (musl-patches + "/0013-add-missing-FTW_-macros-for-musl.patch")
           (musl-patches + "/0014-Use-uintmax_t-for-handling-rlim_t.patch")
           (musl-patches
-            + "/0015-test-sizeof.c-Disable-tests-for-missing-typedefs-in-.patch")
+            + "/0015-test-sizeof.c-Disable-tests-for-missing-typedefs-in-.patch"
+          )
           (musl-patches
-            + "/0016-don-t-pass-AT_SYMLINK_NOFOLLOW-flag-to-faccessat.patch")
+            + "/0016-don-t-pass-AT_SYMLINK_NOFOLLOW-flag-to-faccessat.patch"
+          )
           (musl-patches
-            + "/0017-Define-glibc-compatible-basename-for-non-glibc-syste.patch")
+            + "/0017-Define-glibc-compatible-basename-for-non-glibc-syste.patch"
+          )
           (musl-patches
-            + "/0018-Do-not-disable-buffering-when-writing-to-oom_score_a.patch")
+            + "/0018-Do-not-disable-buffering-when-writing-to-oom_score_a.patch"
+          )
           (musl-patches
-            + "/0019-distinguish-XSI-compliant-strerror_r-from-GNU-specif.patch")
+            + "/0019-distinguish-XSI-compliant-strerror_r-from-GNU-specif.patch"
+          )
           (musl-patches
-            + "/0020-avoid-redefinition-of-prctl_mm_map-structure.patch")
+            + "/0020-avoid-redefinition-of-prctl_mm_map-structure.patch"
+          )
           (musl-patches + "/0021-do-not-disable-buffer-in-writing-files.patch")
           (musl-patches + "/0022-Handle-__cpu_mask-usage.patch")
           (musl-patches + "/0023-Handle-missing-gshadow.patch")
           (musl-patches
-            + "/0024-missing_syscall.h-Define-MIPS-ABI-defines-for-musl.patch")
+            + "/0024-missing_syscall.h-Define-MIPS-ABI-defines-for-musl.patch"
+          )
           (musl-patches
-            + "/0026-src-boot-efi-efi-string.c-define-wchar_t-from-__WCHA.patch")
+            + "/0026-src-boot-efi-efi-string.c-define-wchar_t-from-__WCHA.patch"
+          )
         ]
       )
       ;

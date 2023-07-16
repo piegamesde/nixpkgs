@@ -197,9 +197,7 @@ let
             platforms = platforms.darwin;
             license = licenses.apsl20;
           }
-        ) // (
-          attrs.meta or { }
-        );
+        ) // (attrs.meta or { });
       }
     )
     ;

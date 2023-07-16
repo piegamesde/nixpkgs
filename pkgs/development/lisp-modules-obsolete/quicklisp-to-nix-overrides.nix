@@ -15,9 +15,7 @@ let
       ((builtins.head l) x) // (multiOverride (builtins.tail l) x)
     ;
   lispName =
-    (
-      clwrapper.lisp.pname or (builtins.parseDrvName clwrapper.lisp.name).name
-    );
+    (clwrapper.lisp.pname or (builtins.parseDrvName clwrapper.lisp.name).name);
   ifLispIn =
     l: f:
     if (pkgs.lib.elem lispName l) then
@@ -87,9 +85,7 @@ in
   iolib =
     x: {
       propagatedBuildInputs =
-        (
-          x.propagatedBuildInputs or [ ]
-        )
+        (x.propagatedBuildInputs or [ ])
         ++ (
           with pkgs; [
             libfixposix
@@ -151,9 +147,7 @@ in
         y:
         (x.overrides y) // {
           preConfigure =
-            (
-              (x.overrides y).preConfigure or ""
-            )
+            ((x.overrides y).preConfigure or "")
             + ''
               export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -I${pkgs.libmysqlclient}/include/mysql"
               export NIX_LDFLAGS="$NIX_LDFLAGS -L${pkgs.libmysqlclient}/lib/mysql"
@@ -211,9 +205,7 @@ in
         (x.overrides y) // {
           linkedSystems = [ ];
           postInstall =
-            (
-              (x.overrides y).postInstall or ""
-            )
+            ((x.overrides y).postInstall or "")
             + ''
                       export NIX_LISP_ASDF_PATHS="$NIX_LISP_ASDF_PATHS
               $out/lib/common-lisp/query-fs"
@@ -236,9 +228,7 @@ in
         y:
         (x.overrides y) // {
           prePatch =
-            (
-              (x.overrides y).prePatch or ""
-            )
+            ((x.overrides y).prePatch or "")
             + ''
               sed -i 's,libmysqlclient_r,${pkgs.libmysqlclient}/lib/mysql/libmysqlclient_r,' system.lisp
             ''
@@ -266,9 +256,7 @@ in
         y:
         (x.overrides y) // {
           prePatch =
-            (
-              (x.overrides y).preConfigure or ""
-            )
+            ((x.overrides y).preConfigure or "")
             + ''
               sed 's|libsqlite3|${pkgs.sqlite.out}/lib/libsqlite3|' -i sqlite-ffi.lisp
             ''
@@ -321,9 +309,7 @@ in
         y:
         (x.overrides y) // {
           postInstall =
-            (
-              (x.overrides y).postInstall or ""
-            )
+            ((x.overrides y).postInstall or "")
             + ''
               cp -r "${pkgs.asdf}/lib/common-lisp/asdf/uiop/contrib" "$out/lib/common-lisp/uiop"
             ''
@@ -364,9 +350,7 @@ in
         (x: x.outPath != quicklisp-to-nix-packages.simple-date.outPath)
         x.deps;
       parasites =
-        (
-          x.parasites or [ ]
-        )
+        (x.parasites or [ ])
         ++ [
           "simple-date"
           "simple-date/postgres-glue"
@@ -386,9 +370,7 @@ in
   postmodern =
     x: {
       asdFilesToKeep =
-        (
-          x.asdFilesToKeep or [ ]
-        )
+        (x.asdFilesToKeep or [ ])
         ++ [
           "postmodern.asd"
           "simple-date.asd"
@@ -445,7 +427,8 @@ in
             && x.name != quicklisp-to-nix-packages.dbd-postgres.name
             && x.name != quicklisp-to-nix-packages.dbd-sqlite3.name
             && x.name != quicklisp-to-nix-packages.dbi-test.name
-            && true)
+            && true
+          )
         )
         x.deps;
     }

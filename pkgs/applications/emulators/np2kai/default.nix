@@ -98,7 +98,8 @@ let
     (
       if
         ((enableHAXM && (enable16Bit || enable32Bit))
-          || (enable16Bit && enable32Bit))
+          || (enable16Bit && enable32Bit)
+        )
       then
         [ "--enable-build-all" ]
       else if enableHAXM then

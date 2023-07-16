@@ -81,7 +81,8 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals
       (stdenv.isDarwin
-        && ((builtins.elem "text-to-speech" apis) || (builtins.elem "*" apis)))
+        && ((builtins.elem "text-to-speech" apis) || (builtins.elem "*" apis))
+      )
       [
         CoreAudio
         AudioToolbox

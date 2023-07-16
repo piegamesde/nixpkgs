@@ -101,9 +101,7 @@ in
     base.overrideAttrs (
       oldAttrs: {
         makeFlags =
-          (
-            oldAttrs.makeFlags or [ ]
-          )
+          (oldAttrs.makeFlags or [ ])
           ++ [ "CC=${buildPackages.stdenv.cc.targetPrefix}cc" ]
           ;
       }
@@ -137,9 +135,7 @@ in
     base.overrideAttrs (
       oldAttrs: {
         postPatch =
-          (
-            oldAttrs.postPatch or ""
-          )
+          (oldAttrs.postPatch or "")
           + ''
             substituteInPlace Jamfile --replace strip ${stdenv.cc.targetPrefix}strip
           ''
@@ -152,9 +148,7 @@ in
           "target"
         ];
         configureFlags =
-          (
-            oldAttrs.configureFlags or [ ]
-          )
+          (oldAttrs.configureFlags or [ ])
           ++ [
             "CC=${buildPackages.stdenv.cc.targetPrefix}cc"
             "--host=${stdenv.buildPlatform.config}"

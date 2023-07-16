@@ -54,7 +54,8 @@ stdenv.mkDerivation rec {
             "yes"
           else
             "no"
-        ))
+        )
+      )
     ]
     ++ (lib.optional
       (defaultAudio != null)

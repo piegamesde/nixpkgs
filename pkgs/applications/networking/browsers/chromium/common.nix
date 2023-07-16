@@ -431,9 +431,7 @@ let
         use_pulseaudio = true;
         link_pulseaudio = true;
       } // lib.optionalAttrs ungoogled (lib.importTOML ./ungoogled-flags.toml)
-      // (
-        extraAttrs.gnFlags or { }
-      )
+      // (extraAttrs.gnFlags or { })
     );
 
     configurePhase = ''

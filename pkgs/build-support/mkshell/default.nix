@@ -19,9 +19,7 @@
 let
   mergeInputs =
     name:
-    (
-      attrs.${name} or [ ]
-    )
+    (attrs.${name} or [ ])
     ++ (lib.subtractLists inputsFrom (
       lib.flatten (lib.catAttrs name inputsFrom)
     ))

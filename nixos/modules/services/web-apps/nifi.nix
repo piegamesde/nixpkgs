@@ -284,7 +284,8 @@ in
           ${lib.optionalString
           ((cfg.enableHTTPS == true)
             && (cfg.proxyHost != null)
-            && (cfg.proxyPort != null))
+            && (cfg.proxyPort != null)
+          )
           ''
             sed -i /var/lib/nifi/conf/nifi.properties \
               -e 's|nifi.web.proxy.host=.*|nifi.web.proxy.host=${cfg.proxyHost}:${
@@ -293,7 +294,8 @@ in
           ''}
           ${lib.optionalString
           ((cfg.enableHTTPS == false)
-            || (cfg.proxyHost == null) && (cfg.proxyPort == null))
+            || (cfg.proxyHost == null) && (cfg.proxyPort == null)
+          )
           ''
             sed -i /var/lib/nifi/conf/nifi.properties \
               -e 's|nifi.web.proxy.host=.*|nifi.web.proxy.host=|g'

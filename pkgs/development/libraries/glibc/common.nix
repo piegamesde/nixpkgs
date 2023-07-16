@@ -165,16 +165,16 @@ stdenv.mkDerivation (
         ]
       ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
         (lib.flip lib.withFeature "fp" (
-          stdenv.hostPlatform.gcc.float or (
-            stdenv.hostPlatform.parsed.abi.float or "hard"
-          )
+          stdenv.hostPlatform.gcc.float
+            or (stdenv.hostPlatform.parsed.abi.float or "hard")
           == "soft"
         ))
         "--with-__thread"
       ]
       ++ lib.optionals
         (stdenv.hostPlatform == stdenv.buildPlatform
-          && stdenv.hostPlatform.isAarch32)
+          && stdenv.hostPlatform.isAarch32
+        )
         [
           "--host=arm-linux-gnueabi"
           "--build=arm-linux-gnueabi"
@@ -322,8 +322,6 @@ stdenv.mkDerivation (
           ma27
         ];
         platforms = platforms.linux;
-      } // (
-        args.meta or { }
-      );
+      } // (args.meta or { });
   }
 )

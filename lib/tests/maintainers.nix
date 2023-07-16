@@ -44,7 +44,8 @@ let
         ++ lib.optional
           (checkedAttrs.email == null
             && checkedAttrs.github == null
-            && checkedAttrs.matrix == null)
+            && checkedAttrs.matrix == null
+          )
           ''
             echo ${
               lib.escapeShellArg (lib.showOption prefix)
@@ -52,7 +53,8 @@ let
           ''
         ++ lib.optional
           (checkedAttrs.email != null
-            && lib.hasSuffix "noreply.github.com" checkedAttrs.email)
+            && lib.hasSuffix "noreply.github.com" checkedAttrs.email
+          )
           ''
             echo ${
               lib.escapeShellArg (lib.showOption prefix)

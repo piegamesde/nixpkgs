@@ -56,7 +56,8 @@ let
             "=ON"
           else
             "=OFF"
-        ))
+        )
+      )
     ]
     ;
 in

@@ -214,7 +214,8 @@ stdenvNoCC.mkDerivation (
         (hash_.outputHash == ""
           || hash_.outputHash == lib.fakeSha256
           || hash_.outputHash == lib.fakeSha512
-          || hash_.outputHash == lib.fakeHash)
+          || hash_.outputHash == lib.fakeHash
+        )
       then
         "${cacert}/etc/ssl/certs/ca-bundle.crt"
       else

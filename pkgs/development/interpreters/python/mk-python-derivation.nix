@@ -123,13 +123,9 @@ let
       isPythonModule =
         drv:
         # all pythonModules have the pythonModule attribute
-        (
-          drv ? "pythonModule"
-        )
+        (drv ? "pythonModule")
         # Some pythonModules are turned in to a pythonApplication by setting the field to false
-        && (
-          !builtins.isBool drv.pythonModule
-        )
+        && (!builtins.isBool drv.pythonModule)
         ;
       isMismatchedPython = drv: drv.pythonModule != python;
 

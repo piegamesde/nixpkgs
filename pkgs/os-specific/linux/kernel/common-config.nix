@@ -361,7 +361,8 @@ let
       # Enable Sound Open Firmware support
     } // optionalAttrs
       (stdenv.hostPlatform.system == "x86_64-linux"
-        && versionAtLeast version "5.5")
+        && versionAtLeast version "5.5"
+      )
       {
         SND_SOC_INTEL_SOUNDWIRE_SOF_MACH = whenAtLeast "5.10" module;
         SND_SOC_INTEL_USER_FRIENDLY_LONG_NAMES =
@@ -1069,7 +1070,8 @@ let
         WERROR = whenAtLeast "5.15" no;
       } // optionalAttrs
       (stdenv.hostPlatform.system == "x86_64-linux"
-        || stdenv.hostPlatform.system == "aarch64-linux")
+        || stdenv.hostPlatform.system == "aarch64-linux"
+      )
       {
         # Enable CPU/memory hotplug support
         # Allows you to dynamically add & remove CPUs/memory to a VM client running NixOS without requiring a reboot
@@ -1086,7 +1088,8 @@ let
         NR_CPUS = freeform "384";
       } // optionalAttrs
       (stdenv.hostPlatform.system == "armv7l-linux"
-        || stdenv.hostPlatform.system == "aarch64-linux")
+        || stdenv.hostPlatform.system == "aarch64-linux"
+      )
       {
         # Enables support for the Allwinner Display Engine 2.0
         SUN8I_DE2_CCU = yes;
@@ -1107,7 +1110,9 @@ let
       } // optionalAttrs
       (versionAtLeast version "5.4"
         && (stdenv.hostPlatform.system == "x86_64-linux"
-          || stdenv.hostPlatform.system == "aarch64-linux"))
+          || stdenv.hostPlatform.system == "aarch64-linux"
+        )
+      )
       {
         # Required for various hardware features on Chrome OS devices
         CHROME_PLATFORMS = yes;
@@ -1123,7 +1128,8 @@ let
         CROS_KBD_LED_BACKLIGHT = module;
       } // optionalAttrs
       (versionAtLeast version "5.4"
-        && stdenv.hostPlatform.system == "x86_64-linux")
+        && stdenv.hostPlatform.system == "x86_64-linux"
+      )
       {
         CHROMEOS_LAPTOP = module;
         CHROMEOS_PSTORE = module;

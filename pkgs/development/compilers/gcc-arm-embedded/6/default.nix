@@ -16,8 +16,8 @@ stdenv.mkDerivation rec {
       x86_64-darwin = "mac";
       x86_64-linux = "linux";
     }
-    .${stdenv.hostPlatform.system} or (throw
-      "Unsupported system: ${stdenv.hostPlatform.system}");
+    .${stdenv.hostPlatform.system}
+      or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
   src = fetchurl {
     url =
@@ -27,8 +27,8 @@ stdenv.mkDerivation rec {
         x86_64-darwin = "0019ylpq4inq7p5gydpmc9m8ni72fz2csrjlqmgx1698998q0c3x";
         x86_64-linux = "1hvwi02mx34al525sngnl0cm7dkmzxfkb1brq9kvbv28wcplp3p6";
       }
-      .${stdenv.hostPlatform.system} or (throw
-        "Unsupported system: ${stdenv.hostPlatform.system}");
+      .${stdenv.hostPlatform.system}
+        or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
   };
 
   dontConfigure = true;

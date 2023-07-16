@@ -498,9 +498,7 @@ package-set { inherit pkgs lib callPackage; } self // {
       # (which will invalidate the binary cache), and then re-enable them
       # for the "shellFor" environment (ensuring that any test/benchmark
       # dependencies for "foo" will be available within the nix-shell).
-      genericBuilderArgsModifier ? (
-        args: args
-      ),
+      genericBuilderArgsModifier ? (args: args),
 
       # Extra dependencies, in the form of cabal2nix build attributes.
       #

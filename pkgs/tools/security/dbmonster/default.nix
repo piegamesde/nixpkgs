@@ -29,9 +29,7 @@ python3.pkgs.buildPythonApplication rec {
       tshark
       wirelesstools
     ]
-    ++ (
-      with python3.pkgs; [ matplotlib ]
-    )
+    ++ (with python3.pkgs; [ matplotlib ])
     ;
 
   dontBuild = true;

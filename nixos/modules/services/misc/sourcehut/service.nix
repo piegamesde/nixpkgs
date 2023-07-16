@@ -100,7 +100,8 @@ let
                   (!allowStripe)
                   "gawk '!/^stripe-secret-key=/' |"}
                   install -o ${srvCfg.user} -g root -m 400 /dev/stdin ${runDir}/config.ini
-                '')
+                ''
+              )
             ];
           # The following options are only for optimizing:
           # systemd-analyze security
@@ -259,12 +260,14 @@ in
             (cfg.postgresql.enable
               && hasSuffix "0" (
                 postgresql.settings.unix_socket_permissions or ""
-              ))
+              )
+            )
             {
               "postgres".members = [ srvCfg.user ];
             } // optionalAttrs
             (cfg.redis.enable
-              && hasSuffix "0" (redis.settings.unixsocketperm or ""))
+              && hasSuffix "0" (redis.settings.unixsocketperm or "")
+            )
             {
               "redis-sourcehut-${srvsrht}".members = [ srvCfg.user ];
             };

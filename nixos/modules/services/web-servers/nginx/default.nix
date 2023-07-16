@@ -1535,7 +1535,8 @@ in
           !((builtins.any
             (mod: (mod.allowMemoryWriteExecute or false))
             cfg.package.modules)
-            || (cfg.package == pkgs.openresty))
+            || (cfg.package == pkgs.openresty)
+          )
           ;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
@@ -1550,9 +1551,8 @@ in
           ++ optionals
             ((cfg.package != pkgs.tengine)
               && (cfg.package != pkgs.openresty)
-              && (
-                !lib.any (mod: (mod.disableIPC or false)) cfg.package.modules
-              ))
+              && (!lib.any (mod: (mod.disableIPC or false)) cfg.package.modules)
+            )
             [
               "~@ipc"
             ]

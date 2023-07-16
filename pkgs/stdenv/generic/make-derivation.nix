@@ -150,7 +150,8 @@ let
       # TODO(@Ericson2314): Make [ "build" "host" ] always the default / resolve #87909
       configurePlatforms ? lib.optionals
         (stdenv.hostPlatform != stdenv.buildPlatform
-          || config.configurePlatformsByDefault)
+          || config.configurePlatformsByDefault
+        )
         [
           "build"
           "host"
@@ -196,9 +197,8 @@ let
 
       patches ? [ ],
 
-      __contentAddressed ? (
-        !attrs ? outputHash
-      ) # Fixed-output drvs can't be content addressed too
+      __contentAddressed ?
+        (!attrs ? outputHash) # Fixed-output drvs can't be content addressed too
         && config.contentAddressedByDefault,
 
       # Experimental.  For simple packages mostly just works,
@@ -486,7 +486,8 @@ let
                 # hash can't be the same. See #32986.
                 hostSuffix = lib.optionalString
                   (stdenv.hostPlatform != stdenv.buildPlatform
-                    && !dontAddHostSuffix)
+                    && !dontAddHostSuffix
+                  )
                   "-${stdenv.hostPlatform.config}";
 
                 # Disambiguate statically built packages. This was originally
@@ -727,7 +728,8 @@ let
           } // lib.optionalAttrs
           (hardeningDisable != [ ]
             || hardeningEnable != [ ]
-            || stdenv.hostPlatform.isMusl)
+            || stdenv.hostPlatform.isMusl
+          )
           {
             NIX_HARDENING_ENABLE = enabledHardeningOptions;
           } // lib.optionalAttrs
@@ -833,7 +835,8 @@ let
               (lib.isString v
                 || lib.isBool v
                 || lib.isInt v
-                || lib.isDerivation v)
+                || lib.isDerivation v
+              )
               "The ‘env’ attribute set can only contain derivation, string, boolean or integer attributes. The ‘${n}’ attribute is of type ${
                 builtins.typeOf v
               }.";

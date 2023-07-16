@@ -100,7 +100,8 @@ stdenv.mkDerivation {
     ++ lib.optional
       (stdenv.hostPlatform.isDarwin
         && stdenv.hostPlatform.isAarch64
-        && stdenv.hostPlatform != stdenv.buildPlatform)
+        && stdenv.hostPlatform != stdenv.buildPlatform
+      )
       "-DCMAKE_SYSTEM_VERSION=20.1.0"
     ;
 

@@ -22,9 +22,7 @@ let
 
   useNcurses6 =
     stdenv.hostPlatform.system == "x86_64-linux"
-    || (
-      with stdenv.hostPlatform; isPower64 && isLittleEndian
-    )
+    || (with stdenv.hostPlatform; isPower64 && isLittleEndian)
     ;
 
   ourNcurses =
@@ -107,8 +105,8 @@ stdenv.mkDerivation rec {
         sha256 = "sha256-tWSsJdPVrCiqDyIKzpBt5DaXb3b6j951tCya584kWs4=";
       };
     }
-    .${stdenv.hostPlatform.system} or (throw
-      "cannot bootstrap GHC on this platform")
+    .${stdenv.hostPlatform.system}
+      or (throw "cannot bootstrap GHC on this platform")
   );
 
   nativeBuildInputs = [ perl ];

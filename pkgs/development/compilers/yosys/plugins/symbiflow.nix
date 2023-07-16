@@ -102,7 +102,8 @@ lib.genAttrs plugins (
           # sdc and xdc plugins use design introspection for their tests
           + (lib.optionalString
             (plugin == "sdc" || plugin == "xdc")
-            ":${yosys-symbiflow.design_introspection}/share/yosys/plugins/"))
+            ":${yosys-symbiflow.design_introspection}/share/yosys/plugins/")
+        )
       ];
 
     installFlags = buildFlags;

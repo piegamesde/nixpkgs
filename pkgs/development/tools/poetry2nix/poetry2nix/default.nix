@@ -312,15 +312,13 @@ lib.makeScope pkgs.newScope (
                       pythonPackages = self;
 
                       sourceSpec =
-                        (
-                          (normalizePackageSet
-                            pyProject.tool.poetry.dependencies or { })
-                          .${normalizedName} or (normalizePackageSet
+                        ((normalizePackageSet pyProject.tool.poetry.dependencies
+                          or { }).${normalizedName} or (normalizePackageSet
                             pyProject.tool.poetry.dev-dependencies or { })
-                          .${normalizedName} or (normalizePackageSet
-                            pyProject.tool.poetry.group.dev.dependencies or { })
-                          .${normalizedName} # Poetry 1.2.0+
-                          or { }
+                            .${normalizedName} or (normalizePackageSet
+                              pyProject.tool.poetry.group.dev.dependencies
+                                or { }).${normalizedName} # Poetry 1.2.0+
+                                  or { }
                         );
                     }
                   );
@@ -506,7 +504,8 @@ lib.makeScope pkgs.newScope (
           );
 
         allEditablePackageSources =
-          ((getEditableDeps (pyProject.tool.poetry."dependencies" or { }))
+          (
+            (getEditableDeps (pyProject.tool.poetry."dependencies" or { }))
             // (getEditableDeps (
               pyProject.tool.poetry."dev-dependencies" or { }
             )) // (
@@ -522,7 +521,8 @@ lib.makeScope pkgs.newScope (
                 groups
               else
                 { }
-            ) // editablePackageSources);
+            ) // editablePackageSources
+          );
 
         editablePackageSources' = builtins.removeAttrs
           allEditablePackageSources

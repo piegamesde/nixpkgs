@@ -177,15 +177,12 @@ stdenv.mkDerivation (
             coq.ocamlPackages.ocaml
             coq.ocamlPackages.findlib
           ]
-          ++ (
-            args.nativeBuildInputs or [ ]
-          )
+          ++ (args.nativeBuildInputs or [ ])
           ++ extraNativeBuildInputs
         );
       buildInputs =
-        args.overrideBuildInputs or (
-          [ coq ] ++ (args.buildInputs or [ ]) ++ extraBuildInputs
-        );
+        args.overrideBuildInputs
+          or ([ coq ] ++ (args.buildInputs or [ ]) ++ extraBuildInputs);
       inherit enableParallelBuilding;
 
       meta = (
@@ -200,9 +197,7 @@ stdenv.mkDerivation (
             coqFilter = true;
             broken = true;
           }
-      ) // (
-        args.meta or { }
-      );
+      ) // (args.meta or { });
     } // (optionalAttrs setCOQBIN { COQBIN = "${coq}/bin/"; })
     // (optionalAttrs (!args ? installPhase && !args ? useMelquiondRemake) {
       installFlags = coqlib-flags ++ docdir-flags ++ extraInstallFlags;

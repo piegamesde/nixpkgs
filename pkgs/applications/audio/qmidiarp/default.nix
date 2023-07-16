@@ -32,9 +32,7 @@ stdenv.mkDerivation rec {
       lv2
       libjack2
     ]
-    ++ (
-      with qt5; [ qttools ]
-    )
+    ++ (with qt5; [ qttools ])
     ;
 
   meta = with lib; {

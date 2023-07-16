@@ -231,7 +231,8 @@ in
     (cfg.client.enable
       || cfg.master.enable
       || cfg.metalogger.enable
-      || cfg.chunkserver.enable)
+      || cfg.chunkserver.enable
+    )
     {
 
       warnings = [
@@ -272,7 +273,9 @@ in
         (cfg.runAsUser
           && (cfg.master.enable
             || cfg.metalogger.enable
-            || cfg.chunkserver.enable))
+            || cfg.chunkserver.enable
+          )
+        )
         {
           users.moosefs = {
             isSystemUser = true;

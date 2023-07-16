@@ -28,7 +28,8 @@ stdenv.mkDerivation rec {
 
   patches = lib.optionals
     (stdenv.isDarwin
-      && !(lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11"))
+      && !(lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11")
+    )
     [
       ./0001-remove-unifiedtypeidentifiers-framework
     ];
@@ -52,7 +53,8 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals
       (stdenv.isDarwin
-        && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11")
+        && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11"
+      )
       [
         darwin.apple_sdk.frameworks.UniformTypeIdentifiers
       ]

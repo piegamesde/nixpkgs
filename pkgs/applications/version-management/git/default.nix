@@ -83,7 +83,8 @@ stdenv.mkDerivation (
           && !sendEmailSupport
           && !withManual
           && !pythonSupport
-          && !withpcre2)
+          && !withpcre2
+        )
         "-minimal"
       ;
     inherit version;

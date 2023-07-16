@@ -72,7 +72,8 @@ let
             x:
             assert (builtins.stringLength x < 32
               || abort
-                "Username '${x}' is longer than 31 characters which is not allowed!");
+                "Username '${x}' is longer than 31 characters which is not allowed!"
+            );
             x
             ;
           description = lib.mdDoc ''
@@ -136,7 +137,8 @@ let
             x:
             assert (builtins.stringLength x < 32
               || abort
-                "Group name '${x}' is longer than 31 characters which is not allowed!");
+                "Group name '${x}' is longer than 31 characters which is not allowed!"
+            );
             x
             ;
           default = "";
@@ -377,7 +379,8 @@ let
         (mkIf
           (config.isNormalUser
             && config.subUidRanges == [ ]
-            && config.subGidRanges == [ ])
+            && config.subGidRanges == [ ]
+          )
           {
             autoSubUidGidRange = mkDefault true;
           })
@@ -943,12 +946,14 @@ in
                   name: cfg:
                   (name == "root"
                     || cfg.group == "wheel"
-                    || elem "wheel" cfg.extraGroups)
+                    || elem "wheel" cfg.extraGroups
+                  )
                   && (allowsLogin cfg.hashedPassword
                     || cfg.password != null
                     || cfg.passwordFile != null
                     || cfg.openssh.authorizedKeys.keys != [ ]
-                    || cfg.openssh.authorizedKeys.keyFiles != [ ])
+                    || cfg.openssh.authorizedKeys.keyFiles != [ ]
+                  )
                 )
                 cfg.users
                 ++ [ config.security.googleOsLogin.enable ]
@@ -1051,7 +1056,8 @@ in
           if
             (allowsLogin user.hashedPassword
               && user.hashedPassword != "" # login without password
-              && builtins.match mcf user.hashedPassword == null)
+              && builtins.match mcf user.hashedPassword == null
+            )
           then
             ''
               The password hash of user "${user.name}" may be invalid. You must set a

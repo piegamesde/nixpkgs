@@ -22,7 +22,8 @@ deployAndroidPackage {
         freetype
         fontconfig
         fontconfig.lib
-        stdenv.cc.cc.libgcc or null # fix for https://github.com/NixOS/nixpkgs/issues/226357
+        stdenv.cc.cc.libgcc
+          or null # fix for https://github.com/NixOS/nixpkgs/issues/226357
       ]
     )
     ++ (
