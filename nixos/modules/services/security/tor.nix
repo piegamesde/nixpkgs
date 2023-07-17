@@ -712,9 +712,10 @@ in
 
       client = {
         enable = mkEnableOption (
-          lib.mdDoc ''
-            the routing of application connections.
-                      You might want to disable this if you plan running a dedicated Tor relay''
+          lib.mdDoc
+            ''
+              the routing of application connections.
+                        You might want to disable this if you plan running a dedicated Tor relay''
         );
 
         transparentProxy.enable = mkEnableOption (lib.mdDoc "transparent proxy");
