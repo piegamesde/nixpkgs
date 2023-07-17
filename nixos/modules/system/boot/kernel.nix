@@ -23,12 +23,15 @@ in
   ###### interface
 
   options = {
-    boot.kernel.enable = mkEnableOption (
-      lib.mdDoc
-        "the Linux kernel. This is useful for systemd-like containers which do not require a kernel"
-    ) // {
-      default = true;
-    };
+    boot.kernel.enable =
+      mkEnableOption (
+        lib.mdDoc
+          "the Linux kernel. This is useful for systemd-like containers which do not require a kernel"
+      )
+      // {
+        default = true;
+      }
+    ;
 
     boot.kernel.features = mkOption {
       default = { };
@@ -143,7 +146,8 @@ in
 
     boot.kernelParams = mkOption {
       type = types.listOf (
-        types.strMatching ''([^"[:space:]]|"[^"]*")+'' // {
+        types.strMatching ''([^"[:space:]]|"[^"]*")+''
+        // {
           name = "kernelParam";
           description = "string, with spaces inside double quotes";
         }

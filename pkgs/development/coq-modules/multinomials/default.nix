@@ -113,4 +113,5 @@ mkCoqDerivation {
     description = "A Coq/SSReflect Library for Monoidal Rings and Multinomials";
     license = lib.licenses.cecill-c;
   };
-} // lib.optionalAttrs (args ? useDune) { inherit useDune; }
+}
+// lib.optionalAttrs (args ? useDune) { inherit useDune; }

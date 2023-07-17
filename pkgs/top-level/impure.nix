@@ -117,7 +117,8 @@ assert args ? localSystem -> !(args ? system);
 assert args ? system -> !(args ? localSystem);
 
 import ./. (
-  builtins.removeAttrs args [ "system" ] // {
+  builtins.removeAttrs args [ "system" ]
+  // {
     inherit config overlays localSystem;
   }
 )

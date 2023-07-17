@@ -245,7 +245,11 @@ let
             };
           }
         );
-        self' = pkgs.dotnetPackages.override ({ pkgs = pkgs // { inherit z3; }; });
+        self' = pkgs.dotnetPackages.override ({
+          pkgs = pkgs // {
+            inherit z3;
+          };
+        });
         Boogie = assert self'.Boogie_2_4_1.version == "2.4.1"; self'.Boogie_2_4_1;
       in
       buildDotnetPackage rec {

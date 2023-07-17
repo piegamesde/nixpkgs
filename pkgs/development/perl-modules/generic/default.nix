@@ -51,7 +51,8 @@ lib.throwIf (attrs ? name)
       };
 
       package = stdenv.mkDerivation (
-        attrs // {
+        attrs
+        // {
           name = "perl${perl.version}-${attrs.pname}-${attrs.version}";
 
           builder = ./builder.sh;

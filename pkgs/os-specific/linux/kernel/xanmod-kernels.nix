@@ -28,7 +28,8 @@ let
       variant,
     }:
     buildLinux (
-      args // rec {
+      args
+      // rec {
         inherit version;
         modDirVersion = lib.versions.pad 3 "${version}-${suffix}";
 
@@ -75,7 +76,8 @@ let
           description = "Built with custom settings and new features built to provide a stable, responsive and smooth desktop experience";
           broken = stdenv.isAarch64;
         };
-      } // (args.argsOverride or { })
+      }
+      // (args.argsOverride or { })
     )
   ;
 in

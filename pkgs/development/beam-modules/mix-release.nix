@@ -46,7 +46,8 @@ assert mixNixDeps != { } -> mixFodDeps == null;
 assert stripDebug -> !enableDebugInfo;
 
 stdenv.mkDerivation (
-  overridable // {
+  overridable
+  // {
     # rg is used as a better grep to search for erlang references in the final release
     nativeBuildInputs =
       nativeBuildInputs

@@ -626,7 +626,8 @@ rec {
         execFormat = unknown;
         families = { };
       };
-    } // {
+    }
+    // {
       # aliases
       # 'darwin' is the kernel for all of them. We choose macOS by default.
       darwin = kernels.macos;

@@ -17,7 +17,8 @@ let
       ...
     }:
     stdenv.mkDerivation (
-      a // {
+      a
+      // {
         name = name;
 
         inherit pluginType;

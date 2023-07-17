@@ -109,7 +109,8 @@ in
           rate_limit.register_per_second = 3600;
           rate_limit.image = 6;
           rate_limit.image_per_second = 3600;
-        } // {
+        }
+        // {
           database = mapAttrs (name: mkDefault) {
             user = "lemmy";
             host = "/run/postgresql";

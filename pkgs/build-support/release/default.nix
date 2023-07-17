@@ -17,7 +17,8 @@ rec {
           automake
           libtool
         ;
-      } // args
+      }
+      // args
     )
   ;
 
@@ -36,7 +37,8 @@ rec {
       {
         inherit lcov enableGCOVInstrumentation makeGCOVReport;
         doCoverageAnalysis = true;
-      } // args
+      }
+      // args
     )
   ;
 
@@ -46,7 +48,8 @@ rec {
       {
         inherit clang-analyzer;
         doClangAnalysis = true;
-      } // args
+      }
+      // args
     )
   ;
 
@@ -56,7 +59,8 @@ rec {
       {
         inherit cov-build xz;
         doCoverityAnalysis = true;
-      } // args
+      }
+      // args
     )
   ;
 
@@ -72,7 +76,8 @@ rec {
           vmTools
           checkinstall
         ;
-      } // args
+      }
+      // args
     )
   ;
 
@@ -160,8 +165,11 @@ rec {
           done
         '';
 
-        meta = meta // { isHydraChannel = true; };
-      } // removeAttrs args [ "meta" ]
+        meta = meta // {
+          isHydraChannel = true;
+        };
+      }
+      // removeAttrs args [ "meta" ]
     )
   ;
 }

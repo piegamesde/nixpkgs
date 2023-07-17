@@ -76,7 +76,8 @@ let
   };
 
   fhsEnvAnki = buildFHSEnv (
-    appimageTools.defaultFhsEnvArgs // {
+    appimageTools.defaultFhsEnvArgs
+    // {
       inherit pname version;
       name = null; # Appimage sets it to "appimage-env"
 

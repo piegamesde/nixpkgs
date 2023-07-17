@@ -17,7 +17,8 @@ let
   pkg =
     self:
     builder (
-      attrs // {
+      attrs
+      // {
 
         src = fetchHex {
           pkg = hexPkg;

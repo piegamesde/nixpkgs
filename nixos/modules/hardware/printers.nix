@@ -29,10 +29,12 @@ let
 
   # "graph but not # or /" can't be implemented as regex alone due to missing lookahead support
   noInvalidChars = str: all (c: c != "#" && c != "/") (stringToCharacters str);
-  printerName = (types.addCheck (types.strMatching "[[:graph:]]+") noInvalidChars)
+  printerName =
+    (types.addCheck (types.strMatching "[[:graph:]]+") noInvalidChars)
     // {
       description = "printable string without spaces, # and /";
-    };
+    }
+  ;
 in
 {
   options = {

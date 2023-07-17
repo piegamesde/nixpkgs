@@ -131,5 +131,6 @@ stdenv.mkDerivation (
         --suffix PATH : ${xdg-utils}/bin \
         "''${gappsWrapperArgs[@]}"
     '';
-  } // cleanedArgs
+  }
+  // cleanedArgs
 )

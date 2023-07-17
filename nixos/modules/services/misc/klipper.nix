@@ -225,30 +225,33 @@ in
           mkdir -p ${cfg.mutableConfigFolder}/gcodes
         '';
 
-        serviceConfig = {
-          ExecStart = "${cfg.package}/lib/klipper/klippy.py ${klippyArgs} ${printerConfigPath}";
-          RuntimeDirectory = "klipper";
-          StateDirectory = "klipper";
-          SupplementaryGroups = [ "dialout" ];
-          WorkingDirectory = "${cfg.package}/lib";
-          OOMScoreAdjust = "-999";
-          CPUSchedulingPolicy = "rr";
-          CPUSchedulingPriority = 99;
-          IOSchedulingClass = "realtime";
-          IOSchedulingPriority = 0;
-          UMask = "0002";
-        } // (
-          if cfg.user != null then
-            {
-              Group = cfg.group;
-              User = cfg.user;
-            }
-          else
-            {
-              DynamicUser = true;
-              User = "klipper";
-            }
-        );
+        serviceConfig =
+          {
+            ExecStart = "${cfg.package}/lib/klipper/klippy.py ${klippyArgs} ${printerConfigPath}";
+            RuntimeDirectory = "klipper";
+            StateDirectory = "klipper";
+            SupplementaryGroups = [ "dialout" ];
+            WorkingDirectory = "${cfg.package}/lib";
+            OOMScoreAdjust = "-999";
+            CPUSchedulingPolicy = "rr";
+            CPUSchedulingPriority = 99;
+            IOSchedulingClass = "realtime";
+            IOSchedulingPriority = 0;
+            UMask = "0002";
+          }
+          // (
+            if cfg.user != null then
+              {
+                Group = cfg.group;
+                User = cfg.user;
+              }
+            else
+              {
+                DynamicUser = true;
+                User = "klipper";
+              }
+          )
+        ;
       }
     ;
 

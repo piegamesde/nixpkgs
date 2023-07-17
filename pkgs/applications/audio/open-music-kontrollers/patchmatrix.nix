@@ -5,7 +5,8 @@
 }@args:
 
 callPackage ./generic.nix (
-  args // rec {
+  args
+  // rec {
     pname = "patchmatrix";
     version = "0.26.0";
 

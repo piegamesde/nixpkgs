@@ -6,7 +6,8 @@
 }@args:
 
 import ./generic.nix (
-  args // {
+  args
+  // {
     version = "6.2.23";
     sha256 = "1isxx4jfmnh913jzhp8hhfngbk6dsg46f4kjpvvc56maj64jqqa7";
     license = lib.licenses.agpl3;

@@ -66,7 +66,8 @@ let
           else
             [ "https://git.sagemath.org/sage.git/patch?id2=${base}&id=${rev}" ]
         ;
-      } // builtins.removeAttrs args [
+      }
+      // builtins.removeAttrs args [
         "rev"
         "base"
         "sha256"

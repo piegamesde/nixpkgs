@@ -233,7 +233,11 @@ self.overridePythonAttrs (
           mercurialHighPrio =
             ps:
             (ps.toPythonModule self).overrideAttrs (
-              oldAttrs: { meta = oldAttrs.meta // { priority = 50; }; }
+              oldAttrs: {
+                meta = oldAttrs.meta // {
+                  priority = 50;
+                };
+              }
             )
           ;
           plugins = (f python.pkgs) ++ [ (mercurialHighPrio python.pkgs) ];

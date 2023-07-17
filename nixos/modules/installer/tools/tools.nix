@@ -14,7 +14,8 @@ let
   makeProg =
     args:
     pkgs.substituteAll (
-      args // {
+      args
+      // {
         dir = "bin";
         isExecutable = true;
       }
@@ -70,9 +71,11 @@ let
     json = builtins.toJSON (
       {
         nixosVersion = config.system.nixos.version;
-      } // optionalAttrs (config.system.nixos.revision != null) {
+      }
+      // optionalAttrs (config.system.nixos.revision != null) {
         nixpkgsRevision = config.system.nixos.revision;
-      } // optionalAttrs (config.system.configurationRevision != null) {
+      }
+      // optionalAttrs (config.system.configurationRevision != null) {
         configurationRevision = config.system.configurationRevision;
       }
     );

@@ -29,7 +29,8 @@ self: super:
     super.Cabal_3_8_1_0.override (
       {
         Cabal-syntax = self.Cabal-syntax_3_8_1_0;
-      } // lib.optionalAttrs (lib.versionOlder self.ghc.version "9.2.5") {
+      }
+      // lib.optionalAttrs (lib.versionOlder self.ghc.version "9.2.5") {
         # Use process core package when possible
         process = self.process_1_6_17_0;
       }
@@ -41,7 +42,8 @@ self: super:
     super.Cabal_3_10_1_0.override (
       {
         Cabal-syntax = self.Cabal-syntax_3_10_1_0;
-      } // lib.optionalAttrs (lib.versionOlder self.ghc.version "9.2.5") {
+      }
+      // lib.optionalAttrs (lib.versionOlder self.ghc.version "9.2.5") {
         # Use process core package when possible
         process = self.process_1_6_17_0;
       }
@@ -59,7 +61,8 @@ self: super:
           lib.optionalAttrs (lib.versionOlder self.ghc.version "9.6") {
             Cabal = cself.Cabal_3_10_1_0;
             Cabal-syntax = cself.Cabal-syntax_3_10_1_0;
-          } // lib.optionalAttrs (lib.versionOlder self.ghc.version "9.4") {
+          }
+          // lib.optionalAttrs (lib.versionOlder self.ghc.version "9.4") {
             # We need at least directory >= 1.3.7.0. Using the latest version
             # 1.3.8.* is not an option since it causes very annoying dependencies
             # on newer versions of unix and filepath than GHC 9.2 ships
@@ -103,7 +106,8 @@ self: super:
             # Needs cabal-install >= 3.8 /as well as/ matching Cabal
             (super.guardian.overrideScope (
               self: super:
-              cabalInstallOverlay self super // {
+              cabalInstallOverlay self super
+              // {
                 # Needs at least path-io 1.8.0 due to canonicalizePath changes
                 path-io = self.path-io_1_8_0;
               }

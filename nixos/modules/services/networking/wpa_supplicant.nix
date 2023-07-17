@@ -36,7 +36,8 @@ let
   # Gives a WPA3 network higher priority
   increaseWPA3Priority =
     opts:
-    opts // optionalAttrs (hasMixedWPA opts) {
+    opts
+    // optionalAttrs (hasMixedWPA opts) {
       priority = if opts.priority == null then 1 else opts.priority + 1;
     }
   ;
@@ -44,9 +45,7 @@ let
   # Creates a WPA2 fallback network
   mkWPA2Fallback =
     opts:
-    opts // {
-      authProtocols = subtractLists wpa3Protocols opts.authProtocols;
-    }
+    opts // { authProtocols = subtractLists wpa3Protocols opts.authProtocols; }
   ;
 
   # Networks attrset as a list
@@ -248,17 +247,18 @@ in
         description = lib.mdDoc "Force a specific wpa_supplicant driver.";
       };
 
-      allowAuxiliaryImperativeNetworks = mkEnableOption (
-        lib.mdDoc "support for imperative & declarative networks"
-      ) // {
-        description = lib.mdDoc ''
-          Whether to allow configuring networks "imperatively" (e.g. via
-          `wpa_supplicant_gui`) and declaratively via
-          [](#opt-networking.wireless.networks).
+      allowAuxiliaryImperativeNetworks =
+        mkEnableOption (lib.mdDoc "support for imperative & declarative networks")
+        // {
+          description = lib.mdDoc ''
+            Whether to allow configuring networks "imperatively" (e.g. via
+            `wpa_supplicant_gui`) and declaratively via
+            [](#opt-networking.wireless.networks).
 
-          Please note that this adds a custom patch to `wpa_supplicant`.
-        '';
-      };
+            Please note that this adds a custom patch to `wpa_supplicant`.
+          '';
+        }
+      ;
 
       scanOnLowSignal = mkOption {
         type = types.bool;

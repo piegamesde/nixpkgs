@@ -27,7 +27,8 @@ let
         callPackage =
           pkgs: args:
           self.callPackage pkgs (
-            args // {
+            args
+            // {
               # Use custom elpa url fetcher with fallback/uncompress
               fetchurl = buildPackages.callPackage ./fetchelpa.nix { };
             }

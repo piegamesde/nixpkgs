@@ -25,17 +25,20 @@ assert (lib.assertOneOf "vc" vc [
 
 let
   baseUrl = "https://${vc}.${domain}/${owner}/${repo}";
-  baseArgs = {
-    inherit name;
-  } // removeAttrs args [
-    "owner"
-    "repo"
-    "rev"
-    "domain"
-    "vc"
-    "name"
-    "fetchSubmodules"
-  ];
+  baseArgs =
+    {
+      inherit name;
+    }
+    // removeAttrs args [
+      "owner"
+      "repo"
+      "rev"
+      "domain"
+      "vc"
+      "name"
+      "fetchSubmodules"
+    ]
+  ;
   vcArgs = baseArgs // {
     inherit rev;
     url = baseUrl;
@@ -44,11 +47,15 @@ let
   cases = {
     git = {
       fetch = fetchgit;
-      arguments = vcArgs // { fetchSubmodules = true; };
+      arguments = vcArgs // {
+        fetchSubmodules = true;
+      };
     };
     hg = {
       fetch = fetchhg;
-      arguments = vcArgs // { fetchSubrepos = true; };
+      arguments = vcArgs // {
+        fetchSubrepos = true;
+      };
     };
     zip = {
       fetch = fetchzip;
@@ -61,7 +68,8 @@ let
     };
   };
 in
-cases.${fetcher}.fetch cases.${fetcher}.arguments // {
+cases.${fetcher}.fetch cases.${fetcher}.arguments
+// {
   inherit rev;
   meta.homepage = "${baseUrl}";
 }

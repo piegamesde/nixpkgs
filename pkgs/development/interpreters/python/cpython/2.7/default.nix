@@ -72,22 +72,25 @@ let
       pythonForBuild.interpreter
   ;
 
-  passthru = passthruFun rec {
-    inherit self sourceVersion packageOverrides;
-    implementation = "cpython";
-    libPrefix = "python${pythonVersion}";
-    executable = libPrefix;
-    pythonVersion = with sourceVersion; "${major}.${minor}";
-    sitePackages = "lib/${libPrefix}/site-packages";
-    inherit hasDistutilsCxxPatch pythonAttr;
-    pythonOnBuildForBuild = pkgsBuildBuild.${pythonAttr};
-    pythonOnBuildForHost = pkgsBuildHost.${pythonAttr};
-    pythonOnBuildForTarget = pkgsBuildTarget.${pythonAttr};
-    pythonOnHostForHost = pkgsHostHost.${pythonAttr};
-    pythonOnTargetForTarget = pkgsTargetTarget.${pythonAttr} or { };
-  } // {
-    inherit ucsEncoding;
-  };
+  passthru =
+    passthruFun rec {
+      inherit self sourceVersion packageOverrides;
+      implementation = "cpython";
+      libPrefix = "python${pythonVersion}";
+      executable = libPrefix;
+      pythonVersion = with sourceVersion; "${major}.${minor}";
+      sitePackages = "lib/${libPrefix}/site-packages";
+      inherit hasDistutilsCxxPatch pythonAttr;
+      pythonOnBuildForBuild = pkgsBuildBuild.${pythonAttr};
+      pythonOnBuildForHost = pkgsBuildHost.${pythonAttr};
+      pythonOnBuildForTarget = pkgsBuildTarget.${pythonAttr};
+      pythonOnHostForHost = pkgsHostHost.${pythonAttr};
+      pythonOnTargetForTarget = pkgsTargetTarget.${pythonAttr} or { };
+    }
+    // {
+      inherit ucsEncoding;
+    }
+  ;
 
   version = with sourceVersion; "${major}.${minor}.${patch}${suffix}";
 
@@ -414,5 +417,6 @@ stdenv.mkDerivation (
         # sunset till 2020.
       ];
     };
-  } // crossCompileEnv
+  }
+  // crossCompileEnv
 )

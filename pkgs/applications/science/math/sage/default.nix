@@ -50,8 +50,9 @@ let
   };
 
   jupyter-kernel-specs = pkgs.jupyter-kernel.create {
-    definitions =
-      pkgs.jupyter-kernel.default // { sagemath = jupyter-kernel-definition; };
+    definitions = pkgs.jupyter-kernel.default // {
+      sagemath = jupyter-kernel-definition;
+    };
   };
 
   three = callPackage ./threejs-sage.nix { };
@@ -128,12 +129,15 @@ let
     ++ extraPythonPackages python3.pkgs
   ;
 
-  pythonEnv = python3.buildEnv.override {
-    extraLibs = pythonRuntimeDeps;
-    ignoreCollisions = true;
-  } // {
-    extraLibs = pythonRuntimeDeps;
-  }; # make the libs accessible
+  pythonEnv =
+    python3.buildEnv.override {
+      extraLibs = pythonRuntimeDeps;
+      ignoreCollisions = true;
+    }
+    // {
+      extraLibs = pythonRuntimeDeps;
+    }
+  ; # make the libs accessible
 
   arb = pkgs.arb.override { inherit flint; };
 

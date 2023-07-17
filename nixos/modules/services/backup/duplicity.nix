@@ -208,13 +208,16 @@ in
             } ${extra}
           ''
         ;
-        serviceConfig = {
-          PrivateTmp = true;
-          ProtectSystem = "strict";
-          ProtectHome = "read-only";
-          StateDirectory = baseNameOf stateDirectory;
-        } // optionalAttrs (localTarget != null) { ReadWritePaths = localTarget; }
-          // optionalAttrs (cfg.secretFile != null) { EnvironmentFile = cfg.secretFile; };
+        serviceConfig =
+          {
+            PrivateTmp = true;
+            ProtectSystem = "strict";
+            ProtectHome = "read-only";
+            StateDirectory = baseNameOf stateDirectory;
+          }
+          // optionalAttrs (localTarget != null) { ReadWritePaths = localTarget; }
+          // optionalAttrs (cfg.secretFile != null) { EnvironmentFile = cfg.secretFile; }
+        ;
       } // optionalAttrs (cfg.frequency != null) { startAt = cfg.frequency; };
 
       tmpfiles.rules =

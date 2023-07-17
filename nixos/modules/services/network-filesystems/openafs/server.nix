@@ -117,7 +117,8 @@ let
           vos = cfg.package + "/bin/vos";
         };
         k5start.command = (lib.getBin pkgs.kstart) + "/bin/k5start";
-      } // cfg.roles.backup.fabsExtraConfig
+      }
+      // cfg.roles.backup.fabsExtraConfig
     )
   );
 in

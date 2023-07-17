@@ -392,7 +392,8 @@ in
           }
         }';" ext/pg_query/extconf.rb
       '';
-    } // lib.optionalAttrs (attrs.version == "1.3.0") {
+    }
+    // lib.optionalAttrs (attrs.version == "1.3.0") {
       # Needed for gitlab
       dontBuild = false;
       postPatch = ''
@@ -876,7 +877,8 @@ in
         substituteInPlace lib/sassc/native.rb \
           --replace 'gem_root = spec.gem_dir' 'gem_root = File.join(__dir__, "../../")'
       '';
-    } // (lib.optionalAttrs stdenv.isDarwin {
+    }
+    // (lib.optionalAttrs stdenv.isDarwin {
       # https://github.com/NixOS/nixpkgs/issues/19098
       buildFlags = [ "--disable-lto" ];
     })

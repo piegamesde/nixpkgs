@@ -21,22 +21,31 @@ let
     HYDRA_DATA = "${baseDir}";
   };
 
-  env = {
-    NIX_REMOTE = "daemon";
-    SSL_CERT_FILE = "/etc/ssl/certs/ca-certificates.crt"; # Remove in 16.03
-    PGPASSFILE = "${baseDir}/pgpass";
-    NIX_REMOTE_SYSTEMS = concatStringsSep ":" cfg.buildMachinesFiles;
-  } // optionalAttrs (cfg.smtpHost != null) {
-    EMAIL_SENDER_TRANSPORT = "SMTP";
-    EMAIL_SENDER_TRANSPORT_host = cfg.smtpHost;
-  } // hydraEnv // cfg.extraEnv;
+  env =
+    {
+      NIX_REMOTE = "daemon";
+      SSL_CERT_FILE = "/etc/ssl/certs/ca-certificates.crt"; # Remove in 16.03
+      PGPASSFILE = "${baseDir}/pgpass";
+      NIX_REMOTE_SYSTEMS = concatStringsSep ":" cfg.buildMachinesFiles;
+    }
+    // optionalAttrs (cfg.smtpHost != null) {
+      EMAIL_SENDER_TRANSPORT = "SMTP";
+      EMAIL_SENDER_TRANSPORT_host = cfg.smtpHost;
+    }
+    // hydraEnv
+    // cfg.extraEnv
+  ;
 
-  serverEnv = env // {
-    HYDRA_TRACKER = cfg.tracker;
-    XDG_CACHE_HOME = "${baseDir}/www/.cache";
-    COLUMNS = "80";
-    PGPASSFILE = "${baseDir}/pgpass-www"; # grrr
-  } // (optionalAttrs cfg.debugServer { DBIC_TRACE = "1"; });
+  serverEnv =
+    env
+    // {
+      HYDRA_TRACKER = cfg.tracker;
+      XDG_CACHE_HOME = "${baseDir}/www/.cache";
+      COLUMNS = "80";
+      PGPASSFILE = "${baseDir}/pgpass-www"; # grrr
+    }
+    // (optionalAttrs cfg.debugServer { DBIC_TRACE = "1"; })
+  ;
 
   localDB = "dbi:Pg:dbname=hydra;user=hydra;";
 
@@ -304,8 +313,9 @@ in
       wantedBy = [ "multi-user.target" ];
       requires = optional haveLocalDB "postgresql.service";
       after = optional haveLocalDB "postgresql.service";
-      environment =
-        env // { HYDRA_DBI = "${env.HYDRA_DBI};application_name=hydra-init"; };
+      environment = env // {
+        HYDRA_DBI = "${env.HYDRA_DBI};application_name=hydra-init";
+      };
       path = [ pkgs.util-linux ];
       preStart = ''
         mkdir -p ${baseDir}

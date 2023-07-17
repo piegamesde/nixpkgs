@@ -109,7 +109,8 @@ in
 
       # If things are expected to change often, put it in the bundle!
       bundle = pkgs.callPackage ./bundle.nix (
-        cfg.bundle // {
+        cfg.bundle
+        // {
           keterExecutable = executable;
           keterDomain = cfg.bundle.domain;
         }

@@ -664,7 +664,8 @@ rec {
 
             eval "$postInstall"
           ''; # */
-        } // attrs
+        }
+        // attrs
       )
     )
   ;
@@ -963,7 +964,8 @@ rec {
         memSize
       ;
       debs = import expr { inherit fetchurl; } ++ extraDebs;
-    }) // {
+    })
+    // {
       inherit expr;
     }
   ;
@@ -1510,19 +1512,22 @@ rec {
      size = 8192; }' builds an 8 GiB image containing Firefox in
      addition to the default packages.
   */
-  diskImageFuns = (lib.mapAttrs
-    (
-      name: as: as2:
-      makeImageFromRPMDist (as // as2)
+  diskImageFuns =
+    (lib.mapAttrs
+      (
+        name: as: as2:
+        makeImageFromRPMDist (as // as2)
+      )
+      rpmDistros
     )
-    rpmDistros
-  ) // (lib.mapAttrs
-    (
-      name: as: as2:
-      makeImageFromDebDist (as // as2)
+    // (lib.mapAttrs
+      (
+        name: as: as2:
+        makeImageFromDebDist (as // as2)
+      )
+      debDistros
     )
-    debDistros
-  );
+  ;
 
   # Shorthand for `diskImageFuns.<attr> { extraPackages = ... }'.
   diskImageExtraFuns =

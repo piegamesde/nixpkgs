@@ -75,7 +75,8 @@ let
                 ;
               in
               if isAttrs value then
-                scrubDerivations wholeName value // optionalAttrs (isDerivation value) {
+                scrubDerivations wholeName value
+                // optionalAttrs (isDerivation value) {
                   outPath = guard "\${${wholeName}}";
                   drvPath = guard drvPath;
                 }

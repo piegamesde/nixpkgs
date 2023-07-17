@@ -75,8 +75,14 @@
     ;
   in
   (
-    kdeFrameworks // plasmaMobileGear // plasma5 // plasma5.thirdParty // kdeGear
-    // mauiPackages // qt5 // {
+    kdeFrameworks
+    // plasmaMobileGear
+    // plasma5
+    // plasma5.thirdParty
+    // kdeGear
+    // mauiPackages
+    // qt5
+    // {
 
       inherit
         kdeFrameworks

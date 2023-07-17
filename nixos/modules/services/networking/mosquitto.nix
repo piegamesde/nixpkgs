@@ -13,11 +13,14 @@ let
   # note that mosquitto config parsing is very simplistic as of may 2021.
   # often times they'll e.g. strtok() a line, check the first two tokens, and ignore the rest.
   # there's no escaping available either, so we have to prevent any being necessary.
-  str = types.strMatching ''
-    [^
-    ]*'' // {
+  str =
+    types.strMatching ''
+      [^
+      ]*''
+    // {
       description = "single-line string";
-    };
+    }
+  ;
   path = types.addCheck types.path (p: str.check "${p}");
   configKey = types.strMatching ''
     [^
@@ -29,7 +32,8 @@ let
       path
       bool
       int
-    ] // {
+    ]
+    // {
       description = "string, path, bool, or integer";
     }
   ;

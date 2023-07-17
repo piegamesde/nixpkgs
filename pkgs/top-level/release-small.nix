@@ -29,7 +29,8 @@ with import ./release-lib.nix { inherit supportedSystems nixpkgsArgs; };
     inherit nixpkgs supportedSystems;
     officialRelease = false;
   };
-} // (mapTestOn ({
+}
+// (mapTestOn ({
 
   aspell = all;
   at = linux;

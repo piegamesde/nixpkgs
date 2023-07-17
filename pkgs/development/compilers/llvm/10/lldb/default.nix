@@ -128,7 +128,8 @@ stdenv.mkDerivation (
       # never built on aarch64-darwin since first introduction in nixpkgs
       broken = stdenv.isDarwin && stdenv.isAarch64;
     };
-  } // lib.optionalAttrs enableManpages {
+  }
+  // lib.optionalAttrs enableManpages {
     pname = "lldb-manpages";
 
     buildPhase = ''
@@ -150,6 +151,8 @@ stdenv.mkDerivation (
 
     doCheck = false;
 
-    meta = llvm_meta // { description = "man pages for LLDB ${version}"; };
+    meta = llvm_meta // {
+      description = "man pages for LLDB ${version}";
+    };
   }
 )

@@ -52,6 +52,7 @@ in
     platforms = [ "x86_64-linux" ];
     mainProgram = "losslesscut";
   };
-}) // {
+})
+// {
   inherit pname version;
 }

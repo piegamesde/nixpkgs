@@ -209,7 +209,9 @@ let
 
     common =
       cfg:
-      params.log // params.tracing cfg // {
+      params.log
+      // params.tracing cfg
+      // {
 
         http-address = mkParamDef types.str "0.0.0.0:10902" ''
           Listen `host:port` for HTTP endpoints.
@@ -278,97 +280,105 @@ let
       };
     };
 
-    sidecar = params.common cfg.sidecar // params.objstore cfg.sidecar // {
+    sidecar =
+      params.common cfg.sidecar
+      // params.objstore cfg.sidecar
+      // {
 
-      prometheus.url = mkParamDef types.str "http://localhost:9090" ''
-        URL at which to reach Prometheus's API.
+        prometheus.url = mkParamDef types.str "http://localhost:9090" ''
+          URL at which to reach Prometheus's API.
 
-        For better performance use local network.
-      '';
+          For better performance use local network.
+        '';
 
-      tsdb.path = {
-        toArgs = optionToArgs;
-        option = mkOption {
-          type = types.str;
-          default = "/var/lib/${config.services.prometheus.stateDir}/data";
-          defaultText =
-            literalExpression
-              ''"/var/lib/''${config.services.prometheus.stateDir}/data"''
-          ;
-          description = lib.mdDoc ''
-            Data directory of TSDB.
-          '';
+        tsdb.path = {
+          toArgs = optionToArgs;
+          option = mkOption {
+            type = types.str;
+            default = "/var/lib/${config.services.prometheus.stateDir}/data";
+            defaultText =
+              literalExpression
+                ''"/var/lib/''${config.services.prometheus.stateDir}/data"''
+            ;
+            description = lib.mdDoc ''
+              Data directory of TSDB.
+            '';
+          };
         };
-      };
 
-      reloader.config-file = mkParam types.str ''
-        Config file watched by the reloader.
-      '';
+        reloader.config-file = mkParam types.str ''
+          Config file watched by the reloader.
+        '';
 
-      reloader.config-envsubst-file = mkParam types.str ''
-        Output file for environment variable substituted config file.
-      '';
+        reloader.config-envsubst-file = mkParam types.str ''
+          Output file for environment variable substituted config file.
+        '';
 
-      reloader.rule-dirs = mkListParam "reloader.rule-dir" ''
-        Rule directories for the reloader to refresh.
-      '';
-    };
+        reloader.rule-dirs = mkListParam "reloader.rule-dir" ''
+          Rule directories for the reloader to refresh.
+        '';
+      }
+    ;
 
-    store = params.common cfg.store // params.objstore cfg.store // {
+    store =
+      params.common cfg.store
+      // params.objstore cfg.store
+      // {
 
-      stateDir = mkStateDirParam "data-dir" "thanos-store" ''
-        Data directory relative to `/var/lib`
-        in which to cache remote blocks.
-      '';
+        stateDir = mkStateDirParam "data-dir" "thanos-store" ''
+          Data directory relative to `/var/lib`
+          in which to cache remote blocks.
+        '';
 
-      index-cache-size = mkParamDef types.str "250MB" ''
-        Maximum size of items held in the index cache.
-      '';
+        index-cache-size = mkParamDef types.str "250MB" ''
+          Maximum size of items held in the index cache.
+        '';
 
-      chunk-pool-size = mkParamDef types.str "2GB" ''
-        Maximum size of concurrently allocatable bytes for chunks.
-      '';
+        chunk-pool-size = mkParamDef types.str "2GB" ''
+          Maximum size of concurrently allocatable bytes for chunks.
+        '';
 
-      store.grpc.series-sample-limit = mkParamDef types.int 0 ''
-        Maximum amount of samples returned via a single Series call.
+        store.grpc.series-sample-limit = mkParamDef types.int 0 ''
+          Maximum amount of samples returned via a single Series call.
 
-        `0` means no limit.
+          `0` means no limit.
 
-        NOTE: for efficiency we take 120 as the number of samples in chunk (it
-        cannot be bigger than that), so the actual number of samples might be
-        lower, even though the maximum could be hit.
-      '';
+          NOTE: for efficiency we take 120 as the number of samples in chunk (it
+          cannot be bigger than that), so the actual number of samples might be
+          lower, even though the maximum could be hit.
+        '';
 
-      store.grpc.series-max-concurrency = mkParamDef types.int 20 ''
-        Maximum number of concurrent Series calls.
-      '';
+        store.grpc.series-max-concurrency = mkParamDef types.int 20 ''
+          Maximum number of concurrent Series calls.
+        '';
 
-      sync-block-duration = mkParamDef types.str "3m" ''
-        Repeat interval for syncing the blocks between local and remote view.
-      '';
+        sync-block-duration = mkParamDef types.str "3m" ''
+          Repeat interval for syncing the blocks between local and remote view.
+        '';
 
-      block-sync-concurrency = mkParamDef types.int 20 ''
-        Number of goroutines to use when syncing blocks from object storage.
-      '';
+        block-sync-concurrency = mkParamDef types.int 20 ''
+          Number of goroutines to use when syncing blocks from object storage.
+        '';
 
-      min-time = mkParamDef types.str "0000-01-01T00:00:00Z" ''
-        Start of time range limit to serve.
+        min-time = mkParamDef types.str "0000-01-01T00:00:00Z" ''
+          Start of time range limit to serve.
 
-        Thanos Store serves only metrics, which happened later than this
-        value. Option can be a constant time in RFC3339 format or time duration
-        relative to current time, such as -1d or 2h45m. Valid duration units are
-        ms, s, m, h, d, w, y.
-      '';
+          Thanos Store serves only metrics, which happened later than this
+          value. Option can be a constant time in RFC3339 format or time duration
+          relative to current time, such as -1d or 2h45m. Valid duration units are
+          ms, s, m, h, d, w, y.
+        '';
 
-      max-time = mkParamDef types.str "9999-12-31T23:59:59Z" ''
-        End of time range limit to serve.
+        max-time = mkParamDef types.str "9999-12-31T23:59:59Z" ''
+          End of time range limit to serve.
 
-        Thanos Store serves only blocks, which happened earlier than this
-        value. Option can be a constant time in RFC3339 format or time duration
-        relative to current time, such as -1d or 2h45m. Valid duration units are
-        ms, s, m, h, d, w, y.
-      '';
-    };
+          Thanos Store serves only blocks, which happened earlier than this
+          value. Option can be a constant time in RFC3339 format or time duration
+          relative to current time, such as -1d or 2h45m. Valid duration units are
+          ms, s, m, h, d, w, y.
+        '';
+      }
+    ;
 
     query = params.common cfg.query // {
 
@@ -493,120 +503,127 @@ let
       '';
     };
 
-    rule = params.common cfg.rule // params.objstore cfg.rule // {
+    rule =
+      params.common cfg.rule
+      // params.objstore cfg.rule
+      // {
 
-      labels = mkAttrsParam "label" ''
-        Labels to be applied to all generated metrics.
+        labels = mkAttrsParam "label" ''
+          Labels to be applied to all generated metrics.
 
-        Similar to external labels for Prometheus,
-        used to identify ruler and its blocks as unique source.
-      '';
+          Similar to external labels for Prometheus,
+          used to identify ruler and its blocks as unique source.
+        '';
 
-      stateDir = mkStateDirParam "data-dir" "thanos-rule" ''
-        Data directory relative to `/var/lib`.
-      '';
+        stateDir = mkStateDirParam "data-dir" "thanos-rule" ''
+          Data directory relative to `/var/lib`.
+        '';
 
-      rule-files = mkListParam "rule-file" ''
-        Rule files that should be used by rule manager. Can be in glob format.
-      '';
+        rule-files = mkListParam "rule-file" ''
+          Rule files that should be used by rule manager. Can be in glob format.
+        '';
 
-      eval-interval = mkParamDef types.str "30s" ''
-        The default evaluation interval to use.
-      '';
+        eval-interval = mkParamDef types.str "30s" ''
+          The default evaluation interval to use.
+        '';
 
-      tsdb.block-duration = mkParamDef types.str "2h" ''
-        Block duration for TSDB block.
-      '';
+        tsdb.block-duration = mkParamDef types.str "2h" ''
+          Block duration for TSDB block.
+        '';
 
-      tsdb.retention = mkParamDef types.str "48h" ''
-        Block retention time on local disk.
-      '';
+        tsdb.retention = mkParamDef types.str "48h" ''
+          Block retention time on local disk.
+        '';
 
-      alertmanagers.urls = mkListParam "alertmanagers.url" ''
-        Alertmanager replica URLs to push firing alerts.
+        alertmanagers.urls = mkListParam "alertmanagers.url" ''
+          Alertmanager replica URLs to push firing alerts.
 
-        Ruler claims success if push to at least one alertmanager from
-        discovered succeeds. The scheme may be prefixed with
-        `dns+` or `dnssrv+` to detect
-        Alertmanager IPs through respective DNS lookups. The port defaults to
-        `9093` or the SRV record's value. The URL path is
-        used as a prefix for the regular Alertmanager API path.
-      '';
+          Ruler claims success if push to at least one alertmanager from
+          discovered succeeds. The scheme may be prefixed with
+          `dns+` or `dnssrv+` to detect
+          Alertmanager IPs through respective DNS lookups. The port defaults to
+          `9093` or the SRV record's value. The URL path is
+          used as a prefix for the regular Alertmanager API path.
+        '';
 
-      alertmanagers.send-timeout = mkParamDef types.str "10s" ''
-        Timeout for sending alerts to alertmanager.
-      '';
+        alertmanagers.send-timeout = mkParamDef types.str "10s" ''
+          Timeout for sending alerts to alertmanager.
+        '';
 
-      alert.query-url = mkParam types.str ''
-        The external Thanos Query URL that would be set in all alerts 'Source' field.
-      '';
+        alert.query-url = mkParam types.str ''
+          The external Thanos Query URL that would be set in all alerts 'Source' field.
+        '';
 
-      alert.label-drop = mkListParam "alert.label-drop" ''
-        Labels by name to drop before sending to alertmanager.
+        alert.label-drop = mkListParam "alert.label-drop" ''
+          Labels by name to drop before sending to alertmanager.
 
-        This allows alert to be deduplicated on replica label.
+          This allows alert to be deduplicated on replica label.
 
-        Similar Prometheus alert relabelling
-      '';
+          Similar Prometheus alert relabelling
+        '';
 
-      web.route-prefix = mkParam types.str ''
-        Prefix for API and UI endpoints.
+        web.route-prefix = mkParam types.str ''
+          Prefix for API and UI endpoints.
 
-        This allows thanos UI to be served on a sub-path.
+          This allows thanos UI to be served on a sub-path.
 
-        This option is analogous to `--web.route-prefix` of Promethus.
-      '';
+          This option is analogous to `--web.route-prefix` of Promethus.
+        '';
 
-      web.external-prefix = mkParam types.str ''
-        Static prefix for all HTML links and redirect URLs in the UI query web
-        interface.
+        web.external-prefix = mkParam types.str ''
+          Static prefix for all HTML links and redirect URLs in the UI query web
+          interface.
 
-        Actual endpoints are still served on / or the
-        {option}`web.route-prefix`. This allows thanos UI to be served
-        behind a reverse proxy that strips a URL sub-path.
-      '';
+          Actual endpoints are still served on / or the
+          {option}`web.route-prefix`. This allows thanos UI to be served
+          behind a reverse proxy that strips a URL sub-path.
+        '';
 
-      web.prefix-header = mkParam types.str ''
-        Name of HTTP request header used for dynamic prefixing of UI links and
-        redirects.
+        web.prefix-header = mkParam types.str ''
+          Name of HTTP request header used for dynamic prefixing of UI links and
+          redirects.
 
-        This option is ignored if the option
-        {option}`web.external-prefix` is set.
+          This option is ignored if the option
+          {option}`web.external-prefix` is set.
 
-        Security risk: enable this option only if a reverse proxy in front of
-        thanos is resetting the header.
+          Security risk: enable this option only if a reverse proxy in front of
+          thanos is resetting the header.
 
-        The header `X-Forwarded-Prefix` can be useful, for
-        example, if Thanos UI is served via Traefik reverse proxy with
-        `PathPrefixStrip` option enabled, which sends the
-        stripped prefix value in `X-Forwarded-Prefix`
-        header. This allows thanos UI to be served on a sub-path.
-      '';
+          The header `X-Forwarded-Prefix` can be useful, for
+          example, if Thanos UI is served via Traefik reverse proxy with
+          `PathPrefixStrip` option enabled, which sends the
+          stripped prefix value in `X-Forwarded-Prefix`
+          header. This allows thanos UI to be served on a sub-path.
+        '';
 
-      query.addresses = mkListParam "query" ''
-        Addresses of statically configured query API servers.
+        query.addresses = mkListParam "query" ''
+          Addresses of statically configured query API servers.
 
-        The scheme may be prefixed with `dns+` or
-        `dnssrv+` to detect query API servers through
-        respective DNS lookups.
-      '';
+          The scheme may be prefixed with `dns+` or
+          `dnssrv+` to detect query API servers through
+          respective DNS lookups.
+        '';
 
-      query.sd-files = mkListParam "query.sd-files" ''
-        Path to file that contain addresses of query peers.
-        The path can be a glob pattern.
-      '';
+        query.sd-files = mkListParam "query.sd-files" ''
+          Path to file that contain addresses of query peers.
+          The path can be a glob pattern.
+        '';
 
-      query.sd-interval = mkParamDef types.str "5m" ''
-        Refresh interval to re-read file SD files. (used as a fallback)
-      '';
+        query.sd-interval = mkParamDef types.str "5m" ''
+          Refresh interval to re-read file SD files. (used as a fallback)
+        '';
 
-      query.sd-dns-interval = mkParamDef types.str "30s" ''
-        Interval between DNS resolutions.
-      '';
-    };
+        query.sd-dns-interval = mkParamDef types.str "30s" ''
+          Interval between DNS resolutions.
+        '';
+      }
+    ;
 
-    compact = params.log // params.tracing cfg.compact
-      // params.objstore cfg.compact // {
+    compact =
+      params.log
+      // params.tracing cfg.compact
+      // params.objstore cfg.compact
+      // {
 
         http-address = mkParamDef types.str "0.0.0.0:10902" ''
           Listen `host:port` for HTTP endpoints.
@@ -668,40 +685,49 @@ let
         compact.concurrency = mkParamDef types.int 1 ''
           Number of goroutines to use when compacting groups.
         '';
-      };
+      }
+    ;
 
-    downsample = params.log // params.tracing cfg.downsample
-      // params.objstore cfg.downsample // {
+    downsample =
+      params.log
+      // params.tracing cfg.downsample
+      // params.objstore cfg.downsample
+      // {
 
         stateDir = mkStateDirParam "data-dir" "thanos-downsample" ''
           Data directory relative to `/var/lib`
           in which to cache blocks and process downsamplings.
         '';
-      };
+      }
+    ;
 
-    receive = params.common cfg.receive // params.objstore cfg.receive // {
+    receive =
+      params.common cfg.receive
+      // params.objstore cfg.receive
+      // {
 
-      remote-write.address = mkParamDef types.str "0.0.0.0:19291" ''
-        Address to listen on for remote write requests.
-      '';
+        remote-write.address = mkParamDef types.str "0.0.0.0:19291" ''
+          Address to listen on for remote write requests.
+        '';
 
-      stateDir = mkStateDirParam "tsdb.path" "thanos-receive" ''
-        Data directory relative to `/var/lib` of TSDB.
-      '';
+        stateDir = mkStateDirParam "tsdb.path" "thanos-receive" ''
+          Data directory relative to `/var/lib` of TSDB.
+        '';
 
-      labels = mkAttrsParam "labels" ''
-        External labels to announce.
+        labels = mkAttrsParam "labels" ''
+          External labels to announce.
 
-        This flag will be removed in the future when handling multiple tsdb
-        instances is added.
-      '';
+          This flag will be removed in the future when handling multiple tsdb
+          instances is added.
+        '';
 
-      tsdb.retention = mkParamDef types.str "15d" ''
-        How long to retain raw samples on local storage.
+        tsdb.retention = mkParamDef types.str "15d" ''
+          How long to retain raw samples on local storage.
 
-        `0d` - disables this retention
-      '';
-    };
+          `0d` - disables this retention
+        '';
+      }
+    ;
   };
 
   assertRelativeStateDir = cmd: {
@@ -888,7 +914,8 @@ in
                 StateDirectory = cfg.compact.stateDir;
                 ExecStart = thanos "compact";
               };
-            } // optionalAttrs (!wait) { inherit (cfg.compact) startAt; }
+            }
+            // optionalAttrs (!wait) { inherit (cfg.compact) startAt; }
           ;
         }
       ]

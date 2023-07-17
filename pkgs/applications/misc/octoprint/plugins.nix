@@ -12,7 +12,8 @@ let
   buildPlugin =
     args:
     self.buildPythonPackage (
-      args // {
+      args
+      // {
         pname = "octoprint-plugin-${args.pname}";
         inherit (args) version;
         propagatedBuildInputs =
@@ -498,6 +499,7 @@ in
       maintainers = with maintainers; [ j0hax ];
     };
   };
-} // lib.optionalAttrs config.allowAliases {
+}
+// lib.optionalAttrs config.allowAliases {
   octoprint-dashboard = self.dashboard;
 }

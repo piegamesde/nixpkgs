@@ -11,7 +11,8 @@
 }@args:
 
 buildLinux (
-  args // rec {
+  args
+  // rec {
     version = "4.14.180-176";
 
     # modDirVersion needs to be x.y.z.
@@ -54,5 +55,6 @@ buildLinux (
     ;
 
     extraMeta.platforms = [ "armv7l-linux" ];
-  } // (args.argsOverride or { })
+  }
+  // (args.argsOverride or { })
 )

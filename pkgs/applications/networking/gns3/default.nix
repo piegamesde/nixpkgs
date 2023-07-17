@@ -12,9 +12,7 @@ let
       version = if args.stable then stableVersion else previewVersion;
       branch = if args.stable then "stable" else "preview";
     in
-    args // {
-      inherit version branch;
-    }
+    args // { inherit version branch; }
   ;
   extraArgs = rec {
     mkOverride = attrname: version: sha256: self: super: {

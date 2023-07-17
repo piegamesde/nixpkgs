@@ -1173,14 +1173,17 @@ in
       };
     };
 
-    users.users = {
-      discourse = {
-        group = "discourse";
-        isSystemUser = true;
-      };
-    } // (lib.optionalAttrs cfg.nginx.enable {
-      ${config.services.nginx.user}.extraGroups = [ "discourse" ];
-    });
+    users.users =
+      {
+        discourse = {
+          group = "discourse";
+          isSystemUser = true;
+        };
+      }
+      // (lib.optionalAttrs cfg.nginx.enable {
+        ${config.services.nginx.user}.extraGroups = [ "discourse" ];
+      })
+    ;
 
     users.groups = {
       discourse = { };

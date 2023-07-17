@@ -70,7 +70,9 @@ final: prev: {
         nodejs
       ];
 
-      meta = oldAttrs.meta // { broken = since "16"; };
+      meta = oldAttrs.meta // {
+        broken = since "16";
+      };
     }
   );
   mdctl-cli = final."@medable/mdctl-cli";
@@ -98,7 +100,9 @@ final: prev: {
         wrapProgram $out/bin/aws-azure-login \
             --set PUPPETEER_EXECUTABLE_PATH ${pkgs.chromium}/bin/chromium
       '';
-      meta = oldAttrs.meta // { platforms = lib.platforms.linux; };
+      meta = oldAttrs.meta // {
+        platforms = lib.platforms.linux;
+      };
     }
   );
 
@@ -153,7 +157,11 @@ final: prev: {
   };
 
   coc-imselect = prev.coc-imselect.override (
-    oldAttrs: { meta = oldAttrs.meta // { broken = since "10"; }; }
+    oldAttrs: {
+      meta = oldAttrs.meta // {
+        broken = since "10";
+      };
+    }
   );
 
   dat = prev.dat.override (
@@ -164,7 +172,9 @@ final: prev: {
         pkgs.autoconf
         pkgs.automake
       ];
-      meta = oldAttrs.meta // { broken = since "12"; };
+      meta = oldAttrs.meta // {
+        broken = since "12";
+      };
     }
   );
 
@@ -180,7 +190,9 @@ final: prev: {
         final.node-gyp-build
         pkgs.which
       ];
-      meta = oldAttrs.meta // { platforms = lib.platforms.none; };
+      meta = oldAttrs.meta // {
+        platforms = lib.platforms.none;
+      };
     }
   );
 
@@ -188,7 +200,13 @@ final: prev: {
   # ../../applications/video/epgstation/client
   epgstation-client =
     prev."epgstation-client-../../applications/video/epgstation/client".override
-      (oldAttrs: { meta = oldAttrs.meta // { platforms = lib.platforms.none; }; })
+      (
+        oldAttrs: {
+          meta = oldAttrs.meta // {
+            platforms = lib.platforms.none;
+          };
+        }
+      )
   ;
 
   expo-cli = prev."expo-cli".override (
@@ -234,7 +252,9 @@ final: prev: {
   git-ssb = prev.git-ssb.override (
     oldAttrs: {
       buildInputs = [ final.node-gyp-build ];
-      meta = oldAttrs.meta // { broken = since "10"; };
+      meta = oldAttrs.meta // {
+        broken = since "10";
+      };
     }
   );
 
@@ -293,7 +313,11 @@ final: prev: {
   );
 
   intelephense = prev.intelephense.override (
-    oldAttrs: { meta = oldAttrs.meta // { license = lib.licenses.unfree; }; }
+    oldAttrs: {
+      meta = oldAttrs.meta // {
+        license = lib.licenses.unfree;
+      };
+    }
   );
 
   joplin = prev.joplin.override {
@@ -371,7 +395,9 @@ final: prev: {
           installShellCompletion --cmd $cmd --bash <(./bin/$cmd --completion)
         done
       '';
-      meta = oldAttrs.meta // { maintainers = with lib.maintainers; [ teutat3s ]; };
+      meta = oldAttrs.meta // {
+        maintainers = with lib.maintainers; [ teutat3s ];
+      };
     }
   );
 
@@ -413,7 +439,9 @@ final: prev: {
   node-inspector = prev.node-inspector.override (
     oldAttrs: {
       buildInputs = [ final.node-pre-gyp ];
-      meta = oldAttrs.meta // { broken = since "10"; };
+      meta = oldAttrs.meta // {
+        broken = since "10";
+      };
     }
   );
 
@@ -496,7 +524,9 @@ final: prev: {
           inherit (final) postcss-cli;
         };
       };
-      meta = oldAttrs.meta // { maintainers = with lib.maintainers; [ Luflosi ]; };
+      meta = oldAttrs.meta // {
+        maintainers = with lib.maintainers; [ Luflosi ];
+      };
     }
   );
 
@@ -585,12 +615,18 @@ final: prev: {
         pkgs.autoconf
         final.node-gyp-build
       ];
-      meta = oldAttrs.meta // { broken = since "10"; };
+      meta = oldAttrs.meta // {
+        broken = since "10";
+      };
     }
   );
 
   stf = prev.stf.override (
-    oldAttrs: { meta = oldAttrs.meta // { broken = since "10"; }; }
+    oldAttrs: {
+      meta = oldAttrs.meta // {
+        broken = since "10";
+      };
+    }
   );
 
   tailwindcss = prev.tailwindcss.override {
@@ -646,7 +682,9 @@ final: prev: {
       passthru.tests = {
         inherit (nixosTests) thelounge;
       };
-      meta = oldAttrs.meta // { maintainers = with lib.maintainers; [ winter ]; };
+      meta = oldAttrs.meta // {
+        maintainers = with lib.maintainers; [ winter ];
+      };
     }
   );
 
@@ -680,7 +718,9 @@ final: prev: {
       postInstall = ''
         installShellCompletion --cmd triton --bash <($out/bin/triton completion)
       '';
-      meta = oldAttrs.meta // { maintainers = with lib.maintainers; [ teutat3s ]; };
+      meta = oldAttrs.meta // {
+        maintainers = with lib.maintainers; [ teutat3s ];
+      };
     }
   );
 
@@ -766,7 +806,11 @@ final: prev: {
   };
 
   wrangler = prev.wrangler.override (
-    oldAttrs: { meta = oldAttrs.meta // { broken = before "16.13"; }; }
+    oldAttrs: {
+      meta = oldAttrs.meta // {
+        broken = before "16.13";
+      };
+    }
   );
 
   yaml-language-server = prev.yaml-language-server.override {

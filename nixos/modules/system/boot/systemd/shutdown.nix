@@ -33,11 +33,12 @@ let
 in
 {
   options.systemd.shutdownRamfs = {
-    enable = lib.mkEnableOption (
-      lib.mdDoc "pivoting back to an initramfs for shutdown"
-    ) // {
-      default = true;
-    };
+    enable =
+      lib.mkEnableOption (lib.mdDoc "pivoting back to an initramfs for shutdown")
+      // {
+        default = true;
+      }
+    ;
     contents = lib.mkOption {
       description =
         lib.mdDoc

@@ -51,7 +51,8 @@ rec {
       normalisePath = path: "${path}${optionalString (!(hasSuffix "/" path)) "/"}";
       normalise =
         mount:
-        mount // {
+        mount
+        // {
           device = normalisePath (toString mount.device);
           mountPoint = normalisePath mount.mountPoint;
           depends = map normalisePath mount.depends;

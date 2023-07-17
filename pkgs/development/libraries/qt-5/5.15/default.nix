@@ -357,7 +357,8 @@ let
           }
           ../hooks/wrap-qt-apps-hook.sh
       ;
-    } // lib.optionalAttrs config.allowAliases {
+    }
+    // lib.optionalAttrs config.allowAliases {
       # remove before 23.11
       overrideScope' =
         lib.warn

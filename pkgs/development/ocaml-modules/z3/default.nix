@@ -39,5 +39,7 @@ else
 
     strictDeps = true;
 
-    meta = z3.meta // { description = "Z3 Theorem Prover (OCaml API)"; };
+    meta = z3.meta // {
+      description = "Z3 Theorem Prover (OCaml API)";
+    };
   }

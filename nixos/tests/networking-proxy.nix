@@ -35,9 +35,7 @@ import ./make-test-python.nix (
           ...
         }:
 
-        default-config // {
-          networking.proxy.default = "http://user:pass@host:port";
-        }
+        default-config // { networking.proxy.default = "http://user:pass@host:port"; }
       ;
 
       # specific proxy options
@@ -46,7 +44,8 @@ import ./make-test-python.nix (
           ...
         }:
 
-        default-config // {
+        default-config
+        // {
           networking.proxy = {
             # useless because overridden by the next options
             default = "http://user:pass@host:port";
@@ -66,7 +65,8 @@ import ./make-test-python.nix (
           ...
         }:
 
-        default-config // {
+        default-config
+        // {
           networking.proxy = {
             # open for all *_proxy env var
             default = "000-http://user:pass@default-host:port";

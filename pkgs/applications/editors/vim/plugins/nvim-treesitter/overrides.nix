@@ -20,7 +20,9 @@ let
   #   ocaml-interface
   #   tree-sitter-ocaml-interface
   #   tree-sitter-ocaml_interface
-  builtGrammars = generatedGrammars // lib.concatMapAttrs
+  builtGrammars =
+    generatedGrammars
+    // lib.concatMapAttrs
       (
         k: v:
         let
@@ -28,12 +30,14 @@ let
         in
         {
           "tree-sitter-${k}" = v;
-        } // lib.optionalAttrs (k != replaced) {
+        }
+        // lib.optionalAttrs (k != replaced) {
           ${replaced} = v;
           "tree-sitter-${replaced}" = v;
         }
       )
-      generatedDerivations;
+      generatedDerivations
+  ;
 
   grammarToPlugin =
     grammar:
@@ -120,7 +124,8 @@ in
 
   meta =
     with lib;
-    (super.nvim-treesitter.meta or { }) // {
+    (super.nvim-treesitter.meta or { })
+    // {
       license = licenses.asl20;
       maintainers = with maintainers; [ figsoda ];
     }

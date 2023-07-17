@@ -63,8 +63,9 @@ let
   # Base specialisation config for testing general ACME features
   webserverBasicConfig = {
     services.nginx.enable = true;
-    services.nginx.virtualHosts."a.example.test" =
-      vhostBase // { enableACME = true; };
+    services.nginx.virtualHosts."a.example.test" = vhostBase // {
+      enableACME = true;
+    };
   };
 
   # Generate specialisations for testing a web server
@@ -256,181 +257,186 @@ in
         # Set log level to info so that we can see when the service is reloaded
         services.nginx.logError = "stderr info";
 
-        specialisation = {
-          # Tests HTTP-01 verification using Lego's built-in web server
-          http01lego.configuration = simpleConfig;
-
-          renew.configuration = lib.mkMerge [
-            simpleConfig
-            {
-              # Pebble provides 5 year long certs,
-              # needs to be higher than that to test renewal
-              security.acme.certs."http.example.test".validMinDays = 9999;
-            }
-          ];
-
-          # Tests that account creds can be safely changed.
-          accountchange.configuration = lib.mkMerge [
-            simpleConfig
-            { security.acme.certs."http.example.test".email = "admin@example.test"; }
-          ];
-
-          # First derivation used to test general ACME features
-          general.configuration =
-            {
-              ...
-            }:
-            let
-              caDomain = nodes.acme.test-support.acme.caDomain;
-              email = config.security.acme.defaults.email;
-              # Exit 99 to make it easier to track if this is the reason a renew failed
-              accountCreateTester = ''
-                test -e accounts/${caDomain}/${email}/account.json || exit 99
-              '';
-            in
-            lib.mkMerge [
-              webserverBasicConfig
-              {
-                # Used to test that account creation is collated into one service.
-                # These should not run until after acme-finished-a.example.test.target
-                systemd.services."b.example.test".preStart = accountCreateTester;
-                systemd.services."c.example.test".preStart = accountCreateTester;
-
-                services.nginx.virtualHosts."b.example.test" =
-                  vhostBase // { enableACME = true; };
-                services.nginx.virtualHosts."c.example.test" =
-                  vhostBase // { enableACME = true; };
-              }
-            ]
-          ;
-
-          # Test OCSP Stapling
-          ocsp-stapling.configuration =
-            {
-              ...
-            }:
-            lib.mkMerge [
-              webserverBasicConfig
-              {
-                security.acme.certs."a.example.test".ocspMustStaple = true;
-                services.nginx.virtualHosts."a.example.test" = {
-                  extraConfig = ''
-                    ssl_stapling on;
-                    ssl_stapling_verify on;
-                  '';
-                };
-              }
-            ]
-          ;
-
-          # Validate service relationships by adding a slow start service to nginx' wants.
-          # Reproducer for https://github.com/NixOS/nixpkgs/issues/81842
-          slow-startup.configuration =
-            {
-              ...
-            }:
-            lib.mkMerge [
-              webserverBasicConfig
-              {
-                systemd.services.my-slow-service = {
-                  wantedBy = [
-                    "multi-user.target"
-                    "nginx.service"
-                  ];
-                  before = [ "nginx.service" ];
-                  preStart = "sleep 5";
-                  script = "${pkgs.python3}/bin/python -m http.server";
-                };
-
-                services.nginx.virtualHosts."slow.example.test" = {
-                  forceSSL = true;
-                  enableACME = true;
-                  locations."/".proxyPass = "http://localhost:8000";
-                };
-              }
-            ]
-          ;
-
-          # Test lego internal server (listenHTTP option)
-          # Also tests useRoot option
-          lego-server.configuration =
-            {
-              ...
-            }:
-            {
-              security.acme.useRoot = true;
-              security.acme.certs."lego.example.test" = {
-                listenHTTP = ":80";
-                group = "nginx";
-              };
-              services.nginx.enable = true;
-              services.nginx.virtualHosts."lego.example.test" = {
-                useACMEHost = "lego.example.test";
-                onlySSL = true;
-              };
-            }
-          ;
-
-          # Test compatibility with Caddy
-          # It only supports useACMEHost, hence not using mkServerConfigs
-        } // (
-          let
-            baseCaddyConfig =
-              {
-                nodes,
-                config,
-                ...
-              }:
-              {
-                security.acme = {
-                  defaults = (dnsConfig nodes);
-                  # One manual wildcard cert
-                  certs."example.test" = {
-                    domain = "*.example.test";
-                  };
-                };
-
-                users.users."${config.services.caddy.user}".extraGroups = [ "acme" ];
-
-                services.caddy = {
-                  enable = true;
-                  virtualHosts."a.exmaple.test" = {
-                    useACMEHost = "example.test";
-                    extraConfig = ''
-                      root * ${documentRoot}
-                    '';
-                  };
-                };
-              }
-            ;
-          in
+        specialisation =
           {
-            caddy.configuration = baseCaddyConfig;
+            # Tests HTTP-01 verification using Lego's built-in web server
+            http01lego.configuration = simpleConfig;
 
-            # Test that the server reloads when only the acme configuration is changed.
-            "caddy-change-acme-conf".configuration =
+            renew.configuration = lib.mkMerge [
+              simpleConfig
               {
-                nodes,
-                config,
+                # Pebble provides 5 year long certs,
+                # needs to be higher than that to test renewal
+                security.acme.certs."http.example.test".validMinDays = 9999;
+              }
+            ];
+
+            # Tests that account creds can be safely changed.
+            accountchange.configuration = lib.mkMerge [
+              simpleConfig
+              { security.acme.certs."http.example.test".email = "admin@example.test"; }
+            ];
+
+            # First derivation used to test general ACME features
+            general.configuration =
+              {
                 ...
               }:
+              let
+                caDomain = nodes.acme.test-support.acme.caDomain;
+                email = config.security.acme.defaults.email;
+                # Exit 99 to make it easier to track if this is the reason a renew failed
+                accountCreateTester = ''
+                  test -e accounts/${caDomain}/${email}/account.json || exit 99
+                '';
+              in
               lib.mkMerge [
-                (baseCaddyConfig { inherit nodes config; })
+                webserverBasicConfig
                 {
-                  security.acme.certs."example.test" = {
-                    keyType = "ec384";
+                  # Used to test that account creation is collated into one service.
+                  # These should not run until after acme-finished-a.example.test.target
+                  systemd.services."b.example.test".preStart = accountCreateTester;
+                  systemd.services."c.example.test".preStart = accountCreateTester;
+
+                  services.nginx.virtualHosts."b.example.test" = vhostBase // {
+                    enableACME = true;
+                  };
+                  services.nginx.virtualHosts."c.example.test" = vhostBase // {
+                    enableACME = true;
                   };
                 }
               ]
             ;
 
-            # Test compatibility with Nginx
+            # Test OCSP Stapling
+            ocsp-stapling.configuration =
+              {
+                ...
+              }:
+              lib.mkMerge [
+                webserverBasicConfig
+                {
+                  security.acme.certs."a.example.test".ocspMustStaple = true;
+                  services.nginx.virtualHosts."a.example.test" = {
+                    extraConfig = ''
+                      ssl_stapling on;
+                      ssl_stapling_verify on;
+                    '';
+                  };
+                }
+              ]
+            ;
+
+            # Validate service relationships by adding a slow start service to nginx' wants.
+            # Reproducer for https://github.com/NixOS/nixpkgs/issues/81842
+            slow-startup.configuration =
+              {
+                ...
+              }:
+              lib.mkMerge [
+                webserverBasicConfig
+                {
+                  systemd.services.my-slow-service = {
+                    wantedBy = [
+                      "multi-user.target"
+                      "nginx.service"
+                    ];
+                    before = [ "nginx.service" ];
+                    preStart = "sleep 5";
+                    script = "${pkgs.python3}/bin/python -m http.server";
+                  };
+
+                  services.nginx.virtualHosts."slow.example.test" = {
+                    forceSSL = true;
+                    enableACME = true;
+                    locations."/".proxyPass = "http://localhost:8000";
+                  };
+                }
+              ]
+            ;
+
+            # Test lego internal server (listenHTTP option)
+            # Also tests useRoot option
+            lego-server.configuration =
+              {
+                ...
+              }:
+              {
+                security.acme.useRoot = true;
+                security.acme.certs."lego.example.test" = {
+                  listenHTTP = ":80";
+                  group = "nginx";
+                };
+                services.nginx.enable = true;
+                services.nginx.virtualHosts."lego.example.test" = {
+                  useACMEHost = "lego.example.test";
+                  onlySSL = true;
+                };
+              }
+            ;
+
+            # Test compatibility with Caddy
+            # It only supports useACMEHost, hence not using mkServerConfigs
           }
-        ) // (mkServerConfigs {
-          server = "nginx";
-          group = "nginx";
-          vhostBaseData = vhostBase;
-        })
+          // (
+            let
+              baseCaddyConfig =
+                {
+                  nodes,
+                  config,
+                  ...
+                }:
+                {
+                  security.acme = {
+                    defaults = (dnsConfig nodes);
+                    # One manual wildcard cert
+                    certs."example.test" = {
+                      domain = "*.example.test";
+                    };
+                  };
+
+                  users.users."${config.services.caddy.user}".extraGroups = [ "acme" ];
+
+                  services.caddy = {
+                    enable = true;
+                    virtualHosts."a.exmaple.test" = {
+                      useACMEHost = "example.test";
+                      extraConfig = ''
+                        root * ${documentRoot}
+                      '';
+                    };
+                  };
+                }
+              ;
+            in
+            {
+              caddy.configuration = baseCaddyConfig;
+
+              # Test that the server reloads when only the acme configuration is changed.
+              "caddy-change-acme-conf".configuration =
+                {
+                  nodes,
+                  config,
+                  ...
+                }:
+                lib.mkMerge [
+                  (baseCaddyConfig { inherit nodes config; })
+                  {
+                    security.acme.certs."example.test" = {
+                      keyType = "ec384";
+                    };
+                  }
+                ]
+              ;
+
+              # Test compatibility with Nginx
+            }
+          )
+          // (mkServerConfigs {
+            server = "nginx";
+            group = "nginx";
+            vhostBaseData = vhostBase;
+          })
 
           # Test compatibility with Apache HTTPD
           // (mkServerConfigs {
@@ -440,7 +446,8 @@ in
             extraConfig = {
               services.httpd.adminAddr = config.security.acme.defaults.email;
             };
-          });
+          })
+        ;
       }
     ;
 

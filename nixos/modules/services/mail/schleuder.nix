@@ -31,10 +31,12 @@ in
 {
   options.services.schleuder = {
     enable = lib.mkEnableOption (lib.mdDoc "Schleuder secure remailer");
-    enablePostfix = lib.mkEnableOption (lib.mdDoc "automatic postfix integration")
+    enablePostfix =
+      lib.mkEnableOption (lib.mdDoc "automatic postfix integration")
       // {
         default = true;
-      };
+      }
+    ;
     lists = lib.mkOption {
       description = lib.mdDoc ''
         List of list addresses that should be handled by Schleuder.

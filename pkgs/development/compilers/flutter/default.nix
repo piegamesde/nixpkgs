@@ -55,7 +55,8 @@ let
             # Package a minimal version of Flutter that only uses Linux desktop release artifacts.
             flutter = wrapFlutter (
               mkCustomFlutter (
-                args // {
+                args
+                // {
                   includedEngineArtifacts = {
                     common = [ "flutter_patched_sdk_product" ];
                     platform.linux = lib.optionals stdenv.hostPlatform.isLinux (

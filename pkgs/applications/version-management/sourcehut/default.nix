@@ -48,7 +48,8 @@ recurseIntoAttrs (
     passthru.tests = {
       nixos-sourcehut = nixosTests.sourcehut;
     };
-  } // lib.optionalAttrs config.allowAliases {
+  }
+  // lib.optionalAttrs config.allowAliases {
     # Added 2022-10-29
     dispatchsrht =
       throw

@@ -45,7 +45,8 @@ stdenv.mkDerivation (
         dontFixup = true;
         outputHashMode = "recursive";
         outputHash = mvnHash;
-      } // mvnFetchExtraArgs
+      }
+      // mvnFetchExtraArgs
     );
 
     buildPhase = ''
@@ -56,5 +57,6 @@ stdenv.mkDerivation (
 
       runHook postBuild
     '';
-  } // builtins.removeAttrs args [ "mvnFetchExtraArgs" ]
+  }
+  // builtins.removeAttrs args [ "mvnFetchExtraArgs" ]
 )

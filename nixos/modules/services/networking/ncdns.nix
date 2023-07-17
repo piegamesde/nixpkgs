@@ -21,14 +21,16 @@ let
       str
       bool
       path
-    ] // {
+    ]
+    // {
       description = "setting type (integer, string, bool or path)";
     }
   ;
 
   configType =
     with types;
-    attrsOf (nullOr (either valueType configType)) // {
+    attrsOf (nullOr (either valueType configType))
+    // {
       description = ''
         ncdns.conf configuration type. The format consists of an
         attribute set of settings. Each setting can be either `null`,
@@ -239,28 +241,31 @@ in
     };
 
     services.ncdns.settings = mkDefaultAttrs {
-      ncdns = {
-        # Namecoin RPC
-        namecoinrpcaddress = "${cfgs.namecoind.rpc.address}:${
-            toString cfgs.namecoind.rpc.port
-          }";
-        namecoinrpcusername = cfgs.namecoind.rpc.user;
-        namecoinrpcpassword = cfgs.namecoind.rpc.password;
+      ncdns =
+        {
+          # Namecoin RPC
+          namecoinrpcaddress = "${cfgs.namecoind.rpc.address}:${
+              toString cfgs.namecoind.rpc.port
+            }";
+          namecoinrpcusername = cfgs.namecoind.rpc.user;
+          namecoinrpcpassword = cfgs.namecoind.rpc.password;
 
-        # Identity
-        selfname = cfg.identity.hostname;
-        hostmaster = cfg.identity.hostmaster;
-        selfip = cfg.identity.address;
+          # Identity
+          selfname = cfg.identity.hostname;
+          hostmaster = cfg.identity.hostmaster;
+          selfip = cfg.identity.address;
 
-        # Other
-        bind = "${cfg.address}:${toString cfg.port}";
-      } // optionalAttrs cfg.dnssec.enable {
-        # DNSSEC
-        publickey = "../.." + cfg.dnssec.keys.public;
-        privatekey = "../.." + cfg.dnssec.keys.private;
-        zonepublickey = "../.." + cfg.dnssec.keys.zonePublic;
-        zoneprivatekey = "../.." + cfg.dnssec.keys.zonePrivate;
-      };
+          # Other
+          bind = "${cfg.address}:${toString cfg.port}";
+        }
+        // optionalAttrs cfg.dnssec.enable {
+          # DNSSEC
+          publickey = "../.." + cfg.dnssec.keys.public;
+          privatekey = "../.." + cfg.dnssec.keys.private;
+          zonepublickey = "../.." + cfg.dnssec.keys.zonePublic;
+          zoneprivatekey = "../.." + cfg.dnssec.keys.zonePrivate;
+        }
+      ;
 
       # Daemon
       service.daemon = true;

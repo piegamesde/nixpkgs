@@ -37,19 +37,25 @@ rec {
       base =
         (setAttrMerge "passthru" { } (f arg) (
           z:
-          z // {
+          z
+          // {
             function = foldArgs merger f arg;
-            args = (lib.attrByPath
-              [
-                "passthru"
-                "args"
-              ]
-              { }
-              z
-            ) // x;
+            args =
+              (lib.attrByPath
+                [
+                  "passthru"
+                  "args"
+                ]
+                { }
+                z
+              )
+              // x
+            ;
           }
         ));
-      withStdOverrides = base // { override = base.passthru.function; };
+      withStdOverrides = base // {
+        override = base.passthru.function;
+      };
     in
     withStdOverrides
   ;
@@ -439,14 +445,16 @@ rec {
         "postAll"
         "patches"
       ]
-    ) // listToAttrs (
+    )
+    // listToAttrs (
       map (n: nameValuePair n lib.mergeAttrs) [
         "passthru"
         "meta"
         "cfg"
         "flags"
       ]
-    ) // listToAttrs (
+    )
+    // listToAttrs (
       map
         (
           n:
@@ -460,7 +468,8 @@ rec {
           "preConfigure"
           "postInstall"
         ]
-    );
+    )
+  ;
 
   nixType =
     x:

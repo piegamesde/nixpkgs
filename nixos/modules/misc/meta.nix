@@ -77,7 +77,9 @@ in
       };
 
       buildDocsInSandbox = mkOption {
-        type = types.bool // { merge = loc: defs: defs; };
+        type = types.bool // {
+          merge = loc: defs: defs;
+        };
         internal = true;
         default = true;
         description = lib.mdDoc ''

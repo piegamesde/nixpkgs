@@ -43,7 +43,8 @@ let
   ;
 
   basicEnv = (callPackage ../bundled-common { inherit bundler; }) (
-    args // {
+    args
+    // {
       inherit pname name;
       mainGemName = pname;
     }
@@ -85,11 +86,17 @@ else
         + lib.optionalString (postBuild != null) postBuild
       ;
 
-      meta = { platforms = ruby.meta.platforms; } // meta;
-      passthru = basicEnv.passthru // {
-        inherit basicEnv;
-        inherit (basicEnv) env;
-      } // passthru;
+      meta = {
+        platforms = ruby.meta.platforms;
+      } // meta;
+      passthru =
+        basicEnv.passthru
+        // {
+          inherit basicEnv;
+          inherit (basicEnv) env;
+        }
+        // passthru
+      ;
     };
   in
   if copyGemFiles then

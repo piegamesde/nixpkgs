@@ -162,7 +162,8 @@ in
             rules = fileContents "${cfg.package}/etc/crossfire/rules";
             settings = "";
             stat_bonus = "";
-          } // cfg.configFiles
+          }
+          // cfg.configFiles
         )
     ;
 

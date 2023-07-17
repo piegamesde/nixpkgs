@@ -10,12 +10,14 @@ with lib;
 let
   cfg = config.services.datadog-agent;
 
-  ddConf = {
-    skip_ssl_validation = false;
-    confd_path = "/etc/datadog-agent/conf.d";
-    additional_checksd = "/etc/datadog-agent/checks.d";
-    use_dogstatsd = true;
-  } // optionalAttrs (cfg.logLevel != null) { log_level = cfg.logLevel; }
+  ddConf =
+    {
+      skip_ssl_validation = false;
+      confd_path = "/etc/datadog-agent/conf.d";
+      additional_checksd = "/etc/datadog-agent/checks.d";
+      use_dogstatsd = true;
+    }
+    // optionalAttrs (cfg.logLevel != null) { log_level = cfg.logLevel; }
     // optionalAttrs (cfg.hostname != null) { inherit (cfg) hostname; }
     // optionalAttrs (cfg.ddUrl != null) { dd_url = cfg.ddUrl; }
     // optionalAttrs (cfg.site != null) { site = cfg.site; }
@@ -24,11 +26,14 @@ let
       process_config = {
         enabled = "true";
       };
-    } // optionalAttrs (cfg.enableTraceAgent) {
+    }
+    // optionalAttrs (cfg.enableTraceAgent) {
       apm_config = {
         enabled = true;
       };
-    } // cfg.extraConfig;
+    }
+    // cfg.extraConfig
+  ;
 
   # Generate Datadog configuration files for each configured checks.
   # This works because check configurations have predictable paths,
@@ -57,7 +62,8 @@ let
       "datadog-agent/datadog.yaml" = {
         source = writeText "datadog.yaml" (toJSON ddConf);
       };
-    } // makeCheckConfigs (cfg.checks // defaultChecks)
+    }
+    // makeCheckConfigs (cfg.checks // defaultChecks)
   ;
 
   # Apply the configured extraIntegrations to the provided agent

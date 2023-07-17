@@ -13,7 +13,8 @@ let
         {
           nativeBuildInputs = [ installShellFiles ];
           meta.platforms = lib.platforms.all;
-        } // env
+        }
+        // env
       )
       buildCommand
   ;

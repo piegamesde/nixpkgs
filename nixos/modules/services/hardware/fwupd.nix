@@ -52,20 +52,22 @@ let
       '';
     };
   };
-  remotes = (foldl'
-    (configFiles: remote: configFiles // (enableRemote cfg.package remote))
-    { }
-    cfg.extraRemotes
-  ) // (
-    # We cannot include the file in $out and rely on filesInstalledToEtc
-    # to install it because it would create a cyclic dependency between
-    # the outputs. We also need to enable the remote,
-    # which should not be done by default.
-    if cfg.enableTestRemote then
-      (enableRemote cfg.package.installedTests "fwupd-tests")
-    else
+  remotes =
+    (foldl' (configFiles: remote: configFiles // (enableRemote cfg.package remote))
       { }
-  );
+      cfg.extraRemotes
+    )
+    // (
+      # We cannot include the file in $out and rely on filesInstalledToEtc
+      # to install it because it would create a cyclic dependency between
+      # the outputs. We also need to enable the remote,
+      # which should not be done by default.
+      if cfg.enableTestRemote then
+        (enableRemote cfg.package.installedTests "fwupd-tests")
+      else
+        { }
+    )
+  ;
 in
 {
 

@@ -206,10 +206,12 @@ let
             dontFixup = true;
           };
         in
-        modArgs // (
+        modArgs
+        // (
           {
             outputHashMode = "recursive";
-          } // (
+          }
+          // (
             if (vendorHashType == "sha256") then
               {
                 outputHashAlgo = "sha256";
@@ -217,17 +219,20 @@ let
               }
             else
               { outputHash = vendorHash; }
-          ) // (lib.optionalAttrs (vendorHashType == "sri" && vendorHash == "") {
+          )
+          // (lib.optionalAttrs (vendorHashType == "sri" && vendorHash == "") {
             outputHashAlgo = "sha256";
           })
-        ) // overrideModAttrs modArgs
+        )
+        // overrideModAttrs modArgs
       )
     else
       ""
   ;
 
   package = stdenv.mkDerivation (
-    args // {
+    args
+    // {
       nativeBuildInputs = [ go ] ++ nativeBuildInputs;
 
       inherit (go) GOOS GOARCH;

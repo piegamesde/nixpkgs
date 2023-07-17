@@ -131,7 +131,8 @@ let
     modules = allUserModules;
   };
 in
-withWarnings nixosWithUserModules // {
+withWarnings nixosWithUserModules
+// {
   inherit extraArgs;
   inherit (nixosWithUserModules._module.args) pkgs;
 }

@@ -10,9 +10,11 @@ let
 
   addRtp =
     path: rtpFilePath: attrs: derivation:
-    derivation // {
+    derivation
+    // {
       rtp = "${derivation}/${path}/${rtpFilePath}";
-    } // {
+    }
+    // {
       overrideAttrs = f: mkTmuxPlugin (attrs // f attrs);
     }
   ;
@@ -37,7 +39,8 @@ let
     else
       addRtp "${rtpPath}/${path}" rtpFilePath a (
         stdenv.mkDerivation (
-          a // {
+          a
+          // {
             pname = namePrefix + pluginName;
 
             inherit

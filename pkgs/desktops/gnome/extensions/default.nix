@@ -95,7 +95,8 @@ rec {
         # Add some aliases
         (
           extensions:
-          extensions // lib.optionalAttrs config.allowAliases {
+          extensions
+          // lib.optionalAttrs config.allowAliases {
             unite-shell = gnomeExtensions.unite; # added 2021-01-19
             arc-menu = gnomeExtensions.arcmenu; # added 2021-02-14
             disable-unredirect = gnomeExtensions.disable-unredirect-fullscreen-windows; # added 2021-11-20

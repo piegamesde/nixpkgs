@@ -24,7 +24,8 @@ buildNimPackage rec {
   doCheck = false;
   meta =
     with lib;
-    src.meta // {
+    src.meta
+    // {
       description = "Nim wrapper for RocksDB";
       maintainers = [ maintainers.ehmry ];
     }

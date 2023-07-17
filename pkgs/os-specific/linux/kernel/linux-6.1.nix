@@ -11,7 +11,8 @@
 with lib;
 
 buildLinux (
-  args // rec {
+  args
+  // rec {
     version = "6.1.27";
 
     # modDirVersion needs to be x.y.z, will automatically add .0 if needed
@@ -29,5 +30,6 @@ buildLinux (
       lib.optionalString (buildPackages.stdenv.system == "x86_64-linux")
         "\n"
     ;
-  } // (args.argsOverride or { })
+  }
+  // (args.argsOverride or { })
 )

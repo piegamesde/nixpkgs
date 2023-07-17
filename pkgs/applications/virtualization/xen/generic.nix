@@ -379,7 +379,8 @@ stdenv.mkDerivation (
         ]
       ;
     } // (config.meta or { });
-  } // removeAttrs config [
+  }
+  // removeAttrs config [
     "xenfiles"
     "buildInputs"
     "patches"

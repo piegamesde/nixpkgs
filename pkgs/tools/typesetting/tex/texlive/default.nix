@@ -248,15 +248,20 @@ let
           src = fetchurl { inherit urls sha512; };
           inherit stripPrefix;
           # metadata for texlive.combine
-          passthru = {
-            inherit pname tlType version;
-          } // lib.optionalAttrs (tlType == "run" && args ? deps) {
-            tlDeps = map (n: tl.${n}) args.deps;
-          } // lib.optionalAttrs (tlType == "run") {
-            hasFormats = args.hasFormats or false;
-            hasHyphens = args.hasHyphens or false;
-          };
-        } // lib.optionalAttrs (fixedHash != null) {
+          passthru =
+            {
+              inherit pname tlType version;
+            }
+            // lib.optionalAttrs (tlType == "run" && args ? deps) {
+              tlDeps = map (n: tl.${n}) args.deps;
+            }
+            // lib.optionalAttrs (tlType == "run") {
+              hasFormats = args.hasFormats or false;
+              hasHyphens = args.hasHyphens or false;
+            }
+          ;
+        }
+        // lib.optionalAttrs (fixedHash != null) {
           outputHash = fixedHash;
           outputHashAlgo = "sha256";
           outputHashMode = "recursive";
@@ -324,7 +329,8 @@ let
         "TeX Live final status in texlive does not match tlpdb.nix, refusing to evaluate"
   ;
 in
-tl // {
+tl
+// {
 
   tlpdb = {
     # nested in an attribute set to prevent them from appearing in search

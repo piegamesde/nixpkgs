@@ -123,21 +123,24 @@ let
           ...
         }:
         {
-          options = {
-            addr = optionAddress;
-            port = optionPort;
-            flags = optionFlags;
-            SessionGroup = mkOption {
-              type = nullOr int;
-              default = null;
-            };
-          } // genAttrs isolateFlags (
-            name:
-            mkOption {
-              type = types.bool;
-              default = false;
+          options =
+            {
+              addr = optionAddress;
+              port = optionPort;
+              flags = optionFlags;
+              SessionGroup = mkOption {
+                type = nullOr int;
+                default = null;
+              };
             }
-          );
+            // genAttrs isolateFlags (
+              name:
+              mkOption {
+                type = types.bool;
+                default = false;
+              }
+            )
+          ;
           config = {
             flags =
               filter (name: config.${name} == true) isolateFlags
@@ -200,22 +203,25 @@ let
           ...
         }:
         {
-          options = {
-            unix = optionUnix;
-            addr = optionAddress;
-            port = optionPort;
-            flags = optionFlags;
-            SessionGroup = mkOption {
-              type = nullOr int;
-              default = null;
-            };
-          } // genAttrs flags (
-            name:
-            mkOption {
-              type = types.bool;
-              default = false;
+          options =
+            {
+              unix = optionUnix;
+              addr = optionAddress;
+              port = optionPort;
+              flags = optionFlags;
+              SessionGroup = mkOption {
+                type = nullOr int;
+                default = null;
+              };
             }
-          );
+            // genAttrs flags (
+              name:
+              mkOption {
+                type = types.bool;
+                default = false;
+              }
+            )
+          ;
           config = mkIf doConfig {
             # Only add flags in SOCKSPort to avoid duplicates
             flags =
@@ -261,17 +267,20 @@ let
                   ];
                 in
                 {
-                  options = {
-                    addr = optionAddress;
-                    port = optionPort;
-                    flags = optionFlags;
-                  } // genAttrs flags (
-                    name:
-                    mkOption {
-                      type = types.bool;
-                      default = false;
+                  options =
+                    {
+                      addr = optionAddress;
+                      port = optionPort;
+                      flags = optionFlags;
                     }
-                  );
+                    // genAttrs flags (
+                      name:
+                      mkOption {
+                        type = types.bool;
+                        default = false;
+                      }
+                    )
+                  ;
                   config = {
                     flags = filter (name: config.${name} == true) flags;
                   };
@@ -695,14 +704,17 @@ in
         description = lib.mdDoc "Tor package to use.";
       };
 
-      enableGeoIP = mkEnableOption (
-        lib.mdDoc ''
-          use of GeoIP databases.
-                  Disabling this will disable by-country statistics for bridges and relays
-                  and some client and third-party software functionality''
-      ) // {
-        default = true;
-      };
+      enableGeoIP =
+        mkEnableOption (
+          lib.mdDoc ''
+            use of GeoIP databases.
+                    Disabling this will disable by-country statistics for bridges and relays
+                    and some client and third-party software functionality''
+        )
+        // {
+          default = true;
+        }
+      ;
 
       controlSocket.enable = mkEnableOption (
         lib.mdDoc ''
@@ -1050,7 +1062,8 @@ in
                             (listOf str)
                           ]
                         )
-                      )) // {
+                      ))
+                      // {
                         description = "settings option";
                       }
                     ;
@@ -1129,7 +1142,8 @@ in
                   (listOf str)
                 ]
               )
-            )) // {
+            ))
+            // {
               description = "settings option";
             }
           ;
@@ -1155,7 +1169,9 @@ in
           options.BandwidthRate = optionBandwidth "BandwidthRate";
           options.BridgeAuthoritativeDir = optionBool "BridgeAuthoritativeDir";
           options.BridgeRecordUsageByCountry = optionBool "BridgeRecordUsageByCountry";
-          options.BridgeRelay = optionBool "BridgeRelay" // { default = false; };
+          options.BridgeRelay = optionBool "BridgeRelay" // {
+            default = false;
+          };
           options.CacheDirectory = optionPath "CacheDirectory";
           options.CacheDirectoryGroupReadable = optionBool "CacheDirectoryGroupReadable"; # default is null and like "auto"
           options.CellStatistics = optionBool "CellStatistics";
@@ -1206,18 +1222,21 @@ in
                         ];
                       in
                       {
-                        options = {
-                          unix = optionUnix;
-                          flags = optionFlags;
-                          addr = optionAddress;
-                          port = optionPort;
-                        } // genAttrs flags (
-                          name:
-                          mkOption {
-                            type = types.bool;
-                            default = false;
+                        options =
+                          {
+                            unix = optionUnix;
+                            flags = optionFlags;
+                            addr = optionAddress;
+                            port = optionPort;
                           }
-                        );
+                          // genAttrs flags (
+                            name:
+                            mkOption {
+                              type = types.bool;
+                              default = false;
+                            }
+                          )
+                        ;
                         config = {
                           flags = filter (name: config.${name} == true) flags;
                         };
@@ -1238,7 +1257,9 @@ in
           options.CookieAuthFile = optionPath "CookieAuthFile";
           options.CookieAuthFileGroupReadable = optionBool "CookieAuthFileGroupReadable";
           options.CookieAuthentication = optionBool "CookieAuthentication";
-          options.DataDirectory = optionPath "DataDirectory" // { default = stateDir; };
+          options.DataDirectory = optionPath "DataDirectory" // {
+            default = stateDir;
+          };
           options.DataDirectoryGroupReadable = optionBool "DataDirectoryGroupReadable";
           options.DirPortFrontPage = optionPath "DirPortFrontPage";
           options.DirAllowPrivateAddresses = optionBool "DirAllowPrivateAddresses";
@@ -1455,8 +1476,9 @@ in
             default = 30;
             description = lib.mdDoc (descriptionGeneric "ShutdownWaitLength");
           };
-          options.SocksPolicy =
-            optionStrings "SocksPolicy" // { example = [ "accept *:*" ]; };
+          options.SocksPolicy = optionStrings "SocksPolicy" // {
+            example = [ "accept *:*" ];
+          };
           options.SOCKSPort = mkOption {
             description = lib.mdDoc (descriptionGeneric "SOCKSPort");
             default =
@@ -1576,20 +1598,23 @@ in
       (mkIf cfg.relay.enable (
         optionalAttrs (cfg.relay.role != "exit") {
           ExitPolicy = mkForce [ "reject *:*" ];
-        } // optionalAttrs
-          (elem cfg.relay.role [
-            "bridge"
-            "private-bridge"
-          ])
-          {
-            BridgeRelay = true;
-            ExtORPort.port = mkDefault "auto";
-            ServerTransportPlugin.transports = mkDefault [ "obfs4" ];
-            ServerTransportPlugin.exec = mkDefault "${pkgs.obfs4}/bin/obfs4proxy managed";
-          } // optionalAttrs (cfg.relay.role == "private-bridge") {
-            ExtraInfoStatistics = false;
-            PublishServerDescriptor = false;
-          }
+        }
+        //
+          optionalAttrs
+            (elem cfg.relay.role [
+              "bridge"
+              "private-bridge"
+            ])
+            {
+              BridgeRelay = true;
+              ExtORPort.port = mkDefault "auto";
+              ServerTransportPlugin.transports = mkDefault [ "obfs4" ];
+              ServerTransportPlugin.exec = mkDefault "${pkgs.obfs4}/bin/obfs4proxy managed";
+            }
+        // optionalAttrs (cfg.relay.role == "private-bridge") {
+          ExtraInfoStatistics = false;
+          PublishServerDescriptor = false;
+        }
       ))
       (mkIf (!cfg.relay.enable) {
         # Avoid surprises when leaving ORPort/DirPort configurations in cfg.settings,
@@ -1609,23 +1634,27 @@ in
       (mkIf cfg.client.enable (
         {
           SOCKSPort = [ cfg.client.socksListenAddress ];
-        } // optionalAttrs cfg.client.transparentProxy.enable {
+        }
+        // optionalAttrs cfg.client.transparentProxy.enable {
           TransPort = [ {
             addr = "127.0.0.1";
             port = 9040;
           } ];
-        } // optionalAttrs cfg.client.dns.enable {
+        }
+        // optionalAttrs cfg.client.dns.enable {
           DNSPort = [ {
             addr = "127.0.0.1";
             port = 9053;
           } ];
           AutomapHostsOnResolve = true;
-        } // optionalAttrs
-          (
-            flatten (mapAttrsToList (n: o: o.clientAuthorizations) cfg.client.onionServices)
-            != [ ]
-          )
-          { ClientOnionAuthDir = runDir + "/ClientOnionAuthDir"; }
+        }
+        //
+          optionalAttrs
+            (
+              flatten (mapAttrsToList (n: o: o.clientAuthorizations) cfg.client.onionServices)
+              != [ ]
+            )
+            { ClientOnionAuthDir = runDir + "/ClientOnionAuthDir"; }
       ))
     ];
 

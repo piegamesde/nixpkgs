@@ -60,6 +60,7 @@ toKodiAddon (
           runHook postInstall
         ''
       ;
-    } // attrs
+    }
+    // attrs
   )
 )

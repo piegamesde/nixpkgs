@@ -103,5 +103,6 @@ stdenv.mkDerivation (
         "aarch64-darwin"
       ];
     };
-  } // systemArgs
+  }
+  // systemArgs
 )

@@ -213,7 +213,8 @@ let
         "format"
         "disabledTestPaths"
         "outputs"
-      ]) // {
+      ])
+      // {
 
         name = namePrefix + name_;
 
@@ -306,11 +307,13 @@ let
           platforms = python.meta.platforms;
           isBuildPythonPackage = python.meta.platforms;
         } // meta;
-      } // lib.optionalAttrs (attrs ? checkPhase) {
+      }
+      // lib.optionalAttrs (attrs ? checkPhase) {
         # If given use the specified checkPhase, otherwise use the setup hook.
         # Longer-term we should get rid of `checkPhase` and use `installCheckPhase`.
         installCheckPhase = attrs.checkPhase;
-      } // lib.optionalAttrs (disabledTestPaths != [ ]) {
+      }
+      // lib.optionalAttrs (disabledTestPaths != [ ]) {
         disabledTestPaths = lib.escapeShellArgs disabledTestPaths;
       }
     )

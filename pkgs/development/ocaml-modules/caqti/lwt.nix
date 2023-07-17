@@ -18,5 +18,7 @@ buildDunePackage {
     lwt
   ];
 
-  meta = caqti.meta // { description = "Lwt support for Caqti"; };
+  meta = caqti.meta // {
+    description = "Lwt support for Caqti";
+  };
 }

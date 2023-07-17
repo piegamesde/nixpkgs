@@ -42,7 +42,8 @@ let
           install -m644 ${readmeFile} $out/share/doc/${pname}.txt
           runHook postInstall
         '';
-      } // args
+      }
+      // args
     )
   ;
 

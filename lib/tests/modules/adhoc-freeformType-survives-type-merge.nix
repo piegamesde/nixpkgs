@@ -14,9 +14,7 @@
     # modifying types like this breaks type merging.
     # This test makes sure that type merging is not performed when only a single declaration exists.
     # Don't modify types in practice!
-    a // {
-      merge = loc: defs: { freeformItems = a.merge loc defs; };
-    }
+    a // { merge = loc: defs: { freeformItems = a.merge loc defs; }; }
   ;
   config.foo.bar = "ok";
 }

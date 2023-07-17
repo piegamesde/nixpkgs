@@ -40,7 +40,9 @@ with stdenv;
 lib.makeOverridable mkDerivation (
   rec {
     inherit pname version src;
-    meta = args.meta // { mainProgram = pname; };
+    meta = args.meta // {
+      mainProgram = pname;
+    };
 
     desktopItem = makeDesktopItem {
       name = pname;
@@ -134,7 +136,6 @@ lib.makeOverridable mkDerivation (
 
       runHook postInstall
     '';
-  } // lib.optionalAttrs (!(meta.license.free or true)) {
-    preferLocalBuild = true;
   }
+  // lib.optionalAttrs (!(meta.license.free or true)) { preferLocalBuild = true; }
 )

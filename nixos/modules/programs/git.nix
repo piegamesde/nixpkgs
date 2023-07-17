@@ -30,7 +30,8 @@ in
           let
             gitini = attrsOf (attrsOf anything);
           in
-          either gitini (listOf gitini) // {
+          either gitini (listOf gitini)
+          // {
             merge =
               loc: defs:
               let
@@ -42,7 +43,8 @@ in
                         value,
                         ...
                       }@x:
-                      acc // (
+                      acc
+                      // (
                         if isList value then
                           { ordered = acc.ordered ++ value; }
                         else

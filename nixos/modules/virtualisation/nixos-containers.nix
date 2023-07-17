@@ -898,21 +898,24 @@ in
               name: cfg:
               nameValuePair "container@${name}" (
                 let
-                  containerConfig = cfg // (
-                    if cfg.enableTun then
-                      {
-                        allowedDevices =
-                          cfg.allowedDevices
-                          ++ [ {
-                            node = "/dev/net/tun";
-                            modifier = "rw";
-                          } ]
-                        ;
-                        additionalCapabilities = cfg.additionalCapabilities ++ [ "CAP_NET_ADMIN" ];
-                      }
-                    else
-                      { }
-                  );
+                  containerConfig =
+                    cfg
+                    // (
+                      if cfg.enableTun then
+                        {
+                          allowedDevices =
+                            cfg.allowedDevices
+                            ++ [ {
+                              node = "/dev/net/tun";
+                              modifier = "rw";
+                            } ]
+                          ;
+                          additionalCapabilities = cfg.additionalCapabilities ++ [ "CAP_NET_ADMIN" ];
+                        }
+                      else
+                        { }
+                    )
+                  ;
                 in
                 recursiveUpdate unit {
                   preStart = preStartScript containerConfig;
@@ -929,7 +932,8 @@ in
                     else
                       "${stateDirectory}/%i"
                   ;
-                } // (
+                }
+                // (
                   if containerConfig.autoStart then
                     {
                       wantedBy = [ "machines.target" ];

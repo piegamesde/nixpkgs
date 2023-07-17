@@ -20,7 +20,8 @@ let
   ;
 in
 stdenv.mkDerivation (
-  args // {
+  args
+  // {
     name = "${name}-source";
     installPhase = "cp -r . $out";
     outputs = [ "out" ];

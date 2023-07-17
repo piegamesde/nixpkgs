@@ -1365,7 +1365,8 @@ let
       sources."qs-6.5.2"
       (sources."rc-1.2.8" // { dependencies = [ sources."minimist-1.2.0" ]; })
       (
-        sources."readable-stream-2.3.6" // {
+        sources."readable-stream-2.3.6"
+        // {
           dependencies = [ sources."safe-buffer-5.1.2" ];
         }
       )
@@ -1382,7 +1383,8 @@ let
       sources."sshpk-1.16.1"
       sources."string-width-1.0.2"
       (
-        sources."string_decoder-1.1.1" // {
+        sources."string_decoder-1.1.1"
+        // {
           dependencies = [ sources."safe-buffer-5.1.2" ];
         }
       )

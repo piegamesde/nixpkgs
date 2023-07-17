@@ -5,7 +5,8 @@
 }@args:
 
 callPackage ./generic.nix (
-  args // rec {
+  args
+  // rec {
     version = "3.3.0";
 
     src = fetchFromGitHub {

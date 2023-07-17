@@ -19,7 +19,8 @@ buildNimPackage rec {
 
   meta =
     with lib;
-    src.meta // {
+    src.meta
+    // {
       description = "Console ascii line graphs in pure Nim";
       license = [ licenses.mit ];
       maintainers = with maintainers; [ sikmir ];

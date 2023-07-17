@@ -143,20 +143,23 @@ in
 
     environment.etc."moonraker.cfg".source =
       let
-        forcedConfig = {
-          server = {
-            host = cfg.address;
-            port = cfg.port;
-            klippy_uds_address = cfg.klipperSocket;
-          };
-          machine = {
-            validate_service = false;
-          };
-        } // (lib.optionalAttrs (cfg.configDir != null) {
-          file_manager = {
-            config_path = cfg.configDir;
-          };
-        });
+        forcedConfig =
+          {
+            server = {
+              host = cfg.address;
+              port = cfg.port;
+              klippy_uds_address = cfg.klipperSocket;
+            };
+            machine = {
+              validate_service = false;
+            };
+          }
+          // (lib.optionalAttrs (cfg.configDir != null) {
+            file_manager = {
+              config_path = cfg.configDir;
+            };
+          })
+        ;
         fullConfig = recursiveUpdate cfg.settings forcedConfig;
       in
       format.generate "moonraker.cfg" fullConfig

@@ -13,7 +13,8 @@ let
   mkMassRebuild =
     args:
     mkOption (
-      builtins.removeAttrs args [ "feature" ] // {
+      builtins.removeAttrs args [ "feature" ]
+      // {
         type = args.type or (types.uniq types.bool);
         default = args.default or false;
         description = lib.mdDoc (
@@ -168,15 +169,14 @@ in
     let
       t = lib.types.lazyAttrsOf lib.types.raw;
     in
-    t // {
+    t
+    // {
       merge =
         loc: defs:
         let
           r = t.merge loc defs;
         in
-        r // {
-          _undeclared = r;
-        }
+        r // { _undeclared = r; }
       ;
     }
   ;

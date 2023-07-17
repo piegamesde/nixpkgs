@@ -19,5 +19,7 @@ buildDunePackage {
     mirage-clock
   ];
 
-  meta = irmin.meta // { description = "MirageOS-compatible Irmin stores"; };
+  meta = irmin.meta // {
+    description = "MirageOS-compatible Irmin stores";
+  };
 }

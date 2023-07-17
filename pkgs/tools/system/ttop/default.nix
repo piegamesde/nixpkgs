@@ -25,7 +25,8 @@ nimPackages.buildNimPackage rec {
 
   meta =
     with lib;
-    src.meta // {
+    src.meta
+    // {
       description = "Top-like system monitoring tool";
       license = licenses.mit;
       platforms = platforms.linux;

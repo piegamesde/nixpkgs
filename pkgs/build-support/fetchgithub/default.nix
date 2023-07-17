@@ -80,31 +80,38 @@ let
 
   gitRepoUrl = "${baseUrl}.git";
 
-  fetcherArgs = (
-    if useFetchGit then
-      {
-        inherit
-          rev
-          deepClone
-          fetchSubmodules
-          sparseCheckout
-        ;
-        url = gitRepoUrl;
-      } // lib.optionalAttrs (leaveDotGit != null) { inherit leaveDotGit; }
-    else
-      {
-        url = "${baseUrl}/archive/${rev}.tar.gz";
+  fetcherArgs =
+    (
+      if useFetchGit then
+        {
+          inherit
+            rev
+            deepClone
+            fetchSubmodules
+            sparseCheckout
+          ;
+          url = gitRepoUrl;
+        }
+        // lib.optionalAttrs (leaveDotGit != null) { inherit leaveDotGit; }
+      else
+        {
+          url = "${baseUrl}/archive/${rev}.tar.gz";
 
-        passthru = {
-          inherit gitRepoUrl;
-        };
-      }
-  ) // privateAttrs // passthruAttrs // {
-    inherit name;
-  };
+          passthru = {
+            inherit gitRepoUrl;
+          };
+        }
+    )
+    // privateAttrs
+    // passthruAttrs
+    // {
+      inherit name;
+    }
+  ;
 in
 
-fetcher fetcherArgs // {
+fetcher fetcherArgs
+// {
   meta = newMeta;
   inherit rev owner repo;
 }

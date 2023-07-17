@@ -72,7 +72,8 @@ buildGoModule rec {
       homepage = "https://github.com/docker/docker-credential-helpers";
       license = licenses.mit;
       maintainers = with maintainers; [ marsam ];
-    } // lib.optionalAttrs stdenv.isDarwin {
+    }
+    // lib.optionalAttrs stdenv.isDarwin {
       mainProgram = "docker-credential-osxkeychain";
     }
   ;

@@ -106,9 +106,11 @@ let
               ++ lib.optionals (!deleteHDCPBlobBeforeBuild) [ licenses.unfreeRedistributable ]
             ;
             maintainers = with maintainers; [ lopsided98 ];
-          } // extraMeta
+          }
+          // extraMeta
         ;
-      } // builtins.removeAttrs args [ "extraMeta" ]
+      }
+      // builtins.removeAttrs args [ "extraMeta" ]
     )
   ;
 in

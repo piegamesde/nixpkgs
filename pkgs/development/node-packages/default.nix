@@ -27,7 +27,11 @@ let
       (
         pkgName: mainProgram:
         prev.${pkgName}.override (
-          oldAttrs: { meta = oldAttrs.meta // { inherit mainProgram; }; }
+          oldAttrs: {
+            meta = oldAttrs.meta // {
+              inherit mainProgram;
+            };
+          }
         )
       )
       (import ./main-programs.nix)

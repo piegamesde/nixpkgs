@@ -172,7 +172,9 @@ in
         mapAttrs
           (name: value: {
             name = "xdg/nvim/${name}";
-            value = value // { target = "xdg/nvim/${value.target}"; };
+            value = value // {
+              target = "xdg/nvim/${value.target}";
+            };
           })
           cfg.runtime
       )

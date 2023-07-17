@@ -177,7 +177,9 @@ in
 buildEnv {
   name = "tsm-client-${unwrapped.version}";
   meta = meta // lib.attrsets.optionalAttrs enableGui { mainProgram = "dsmj"; };
-  passthru = passthru // { inherit unwrapped; };
+  passthru = passthru // {
+    inherit unwrapped;
+  };
   paths = [ unwrapped ];
   nativeBuildInputs = [ makeWrapper ];
   pathsToLink = [

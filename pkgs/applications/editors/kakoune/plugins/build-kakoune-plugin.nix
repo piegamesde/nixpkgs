@@ -21,7 +21,8 @@ rec {
       (builtins.removeAttrs attrs [
         "namePrefix"
         "path"
-      ]) // {
+      ])
+      // {
         name = namePrefix + name;
 
         installPhase = ''
@@ -43,7 +44,8 @@ rec {
       {
         dontBuild = true;
         dontConfigure = true;
-      } // attrs
+      }
+      // attrs
     )
   ;
 }

@@ -246,7 +246,8 @@ let
       };
 
       client = stdenv.mkDerivation (
-        common // {
+        common
+        // {
           pname = "mariadb-client";
 
           patches = common.patches ++ [ ./patch/cmake-plugin-includedir.patch ];
@@ -275,7 +276,8 @@ let
       );
 
       server = stdenv.mkDerivation (
-        common // {
+        common
+        // {
           pname = "mariadb-server";
 
           nativeBuildInputs =
@@ -379,9 +381,7 @@ let
         }
       );
     in
-    server // {
-      inherit client server;
-    }
+    server // { inherit client server; }
   ;
 in
 self: {

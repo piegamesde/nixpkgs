@@ -165,7 +165,9 @@ rec {
     old: {
       nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkg-config ];
       # we need to reset this setting!
-      env = (old.env or { }) // { NIX_CFLAGS_COMPILE = ""; };
+      env = (old.env or { }) // {
+        NIX_CFLAGS_COMPILE = "";
+      };
       dontStrip = true;
       outputs = [ "out" ];
       buildPhase = ''

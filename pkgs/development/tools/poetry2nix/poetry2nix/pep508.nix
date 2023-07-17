@@ -28,7 +28,8 @@ let
             isOpen = acc.openP == 0;
             startPos = if isOpen then posNew else acc.startPos;
           in
-          acc // {
+          acc
+          // {
             inherit startPos;
             exprs = acc.exprs ++ [ (substr acc.exprPos (acc.pos - 1) acc.expr) ];
             pos = posNew;
@@ -41,7 +42,8 @@ let
             openP = acc.openP - 1;
             exprs = findSubExpressions (substr acc.startPos acc.pos acc.expr);
           in
-          acc // {
+          acc
+          // {
             inherit openP;
             pos = acc.pos + 1;
             exprs = if openP == 0 then acc.exprs ++ [ exprs ] else acc.exprs;
@@ -326,9 +328,7 @@ let
                     v
                 ;
               in
-              acc // {
-                value = cond."${acc.cond}" acc.value ret.value;
-              }
+              acc // { value = cond."${acc.cond}" acc.value ret.value; }
             )
           else
             throw "Unsupported type"

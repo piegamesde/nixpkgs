@@ -16,7 +16,8 @@ let
       ...
     }@args:
     stdenv.mkDerivation (
-      args // {
+      args
+      // {
         pname = "unifi-controller";
 
         src = fetchurl {

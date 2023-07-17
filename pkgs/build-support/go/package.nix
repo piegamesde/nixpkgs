@@ -105,7 +105,8 @@ let
       "goPackageAliases"
       "disabled"
       "extraSrcs"
-    ]) // {
+    ])
+    // {
 
       nativeBuildInputs =
         [ go ] ++ (lib.optional (!dontRenameImports) govers) ++ nativeBuildInputs;
@@ -346,9 +347,13 @@ let
       disallowedReferences =
         lib.optional (!allowGoReference) go ++ lib.optional (!dontRenameImports) govers;
 
-      passthru = passthru // {
-        inherit go;
-      } // lib.optionalAttrs (goPackageAliases != [ ]) { inherit goPackageAliases; };
+      passthru =
+        passthru
+        // {
+          inherit go;
+        }
+        // lib.optionalAttrs (goPackageAliases != [ ]) { inherit goPackageAliases; }
+      ;
 
       meta = {
         # Add default meta information

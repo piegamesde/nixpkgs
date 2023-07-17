@@ -156,7 +156,8 @@ stdenv.mkDerivation (
         disassembler.
       '';
     };
-  } // lib.optionalAttrs enableManpages {
+  }
+  // lib.optionalAttrs enableManpages {
     pname = "lldb-manpages";
 
     buildPhase = ''

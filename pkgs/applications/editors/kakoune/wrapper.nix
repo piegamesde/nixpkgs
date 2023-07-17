@@ -32,5 +32,7 @@ symlinkJoin {
     rm -Rf "$out/DELETE_ME"
   '';
 
-  meta = kakoune.meta // { priority = (kakoune.meta.priority or 0) - 1; };
+  meta = kakoune.meta // {
+    priority = (kakoune.meta.priority or 0) - 1;
+  };
 }

@@ -108,7 +108,8 @@ let
           inherit description;
           inherit (scummvm.meta) platforms;
         };
-      } // attrs'
+      }
+      // attrs'
     )
   ;
 in

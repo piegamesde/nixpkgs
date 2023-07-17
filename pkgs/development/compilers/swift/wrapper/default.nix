@@ -7,7 +7,8 @@
 }:
 
 stdenv.mkDerivation (
-  swift._wrapperParams // {
+  swift._wrapperParams
+  // {
     pname = "swift-wrapper";
     inherit (swift) version meta;
 

@@ -2873,7 +2873,8 @@ let
       sources."chownr-1.1.4"
       sources."chrome-trace-event-1.0.3"
       (
-        sources."cliui-7.0.4" // {
+        sources."cliui-7.0.4"
+        // {
           dependencies = [
             sources."ansi-regex-5.0.1"
             sources."is-fullwidth-code-point-3.0.0"
@@ -3018,7 +3019,8 @@ let
       sources."picocolors-1.0.0"
       sources."picomatch-2.3.1"
       (
-        sources."pkg-dir-4.2.0" // {
+        sources."pkg-dir-4.2.0"
+        // {
           dependencies = [
             sources."find-up-4.1.0"
             sources."locate-path-5.0.0"
@@ -3035,13 +3037,15 @@ let
       sources."qs-6.11.0"
       sources."randombytes-2.1.0"
       (
-        sources."rc-1.2.8" // {
+        sources."rc-1.2.8"
+        // {
           dependencies = [ sources."strip-json-comments-2.0.1" ];
         }
       )
       sources."read-1.0.7"
       (
-        sources."readable-stream-2.3.7" // {
+        sources."readable-stream-2.3.7"
+        // {
           dependencies = [ sources."safe-buffer-5.1.2" ];
         }
       )
@@ -3068,7 +3072,8 @@ let
       sources."string-argv-0.3.1"
       sources."string-width-2.1.1"
       (
-        sources."string_decoder-1.1.1" // {
+        sources."string_decoder-1.1.1"
+        // {
           dependencies = [ sources."safe-buffer-5.1.2" ];
         }
       )
@@ -3079,13 +3084,15 @@ let
       sources."tapable-1.1.3"
       sources."tar-fs-2.1.1"
       (
-        sources."tar-stream-2.2.0" // {
+        sources."tar-stream-2.2.0"
+        // {
           dependencies = [ sources."readable-stream-3.6.0" ];
         }
       )
       (sources."terser-5.14.2" // { dependencies = [ sources."commander-2.20.3" ]; })
       (
-        sources."terser-webpack-plugin-5.3.3" // {
+        sources."terser-webpack-plugin-5.3.3"
+        // {
           dependencies = [ sources."serialize-javascript-6.0.0" ];
         }
       )
@@ -3103,7 +3110,8 @@ let
       sources."url-join-4.0.1"
       sources."util-deprecate-1.0.2"
       (
-        sources."vsce-2.10.0" // {
+        sources."vsce-2.10.0"
+        // {
           dependencies = [
             sources."ansi-styles-3.2.1"
             sources."chalk-2.4.2"
@@ -3118,7 +3126,8 @@ let
       )
       sources."watchpack-2.4.0"
       (
-        sources."webpack-5.73.0" // {
+        sources."webpack-5.73.0"
+        // {
           dependencies = [
             sources."enhanced-resolve-5.10.0"
             sources."tapable-2.2.1"
@@ -3126,7 +3135,8 @@ let
         }
       )
       (
-        sources."webpack-cli-4.10.0" // {
+        sources."webpack-cli-4.10.0"
+        // {
           dependencies = [ sources."commander-7.2.0" ];
         }
       )
@@ -3137,7 +3147,8 @@ let
       sources."wildcard-2.0.0"
       sources."workerpool-6.1.0"
       (
-        sources."wrap-ansi-7.0.0" // {
+        sources."wrap-ansi-7.0.0"
+        // {
           dependencies = [
             sources."ansi-regex-5.0.1"
             sources."is-fullwidth-code-point-3.0.0"
@@ -3153,7 +3164,8 @@ let
       sources."yallist-4.0.0"
       sources."yaml-1.10.2"
       (
-        sources."yargs-16.2.0" // {
+        sources."yargs-16.2.0"
+        // {
           dependencies = [
             sources."ansi-regex-5.0.1"
             sources."is-fullwidth-code-point-3.0.0"

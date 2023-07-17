@@ -75,7 +75,8 @@ in
               in
               prevLibs ++ additionalLibs
             ;
-          } // optionalAttrs (cfg.gamescopeSession.enable && gamescopeCfg.capSysNice) {
+          }
+          // optionalAttrs (cfg.gamescopeSession.enable && gamescopeCfg.capSysNice) {
             buildFHSEnv = pkgs.buildFHSEnv.override {
               # use the setuid wrapped bubblewrap
               bubblewrap = "${config.security.wrapperDir}/..";

@@ -1274,7 +1274,8 @@ rec {
       ;
 
       # https://github.com/NixOS/nix/blob/2.8.0/src/libstore/build/local-derivation-goal.cc#L992-L1004
-      drvEnv = lib.mapAttrs'
+      drvEnv =
+        lib.mapAttrs'
           (
             name: value:
             let
@@ -1285,54 +1286,59 @@ rec {
             else
               lib.nameValuePair name str
           )
-          drv.drvAttrs //
+          drv.drvAttrs
         # A mapping from output name to the nix store path where they should end up
         # https://github.com/NixOS/nix/blob/2.8.0/src/libexpr/primops.cc#L1253
-        lib.genAttrs drv.outputs (
+        // lib.genAttrs drv.outputs (
           output: builtins.unsafeDiscardStringContext drv.${output}.outPath
-        );
+        )
+      ;
 
       # Environment variables set in the image
-      envVars = {
+      envVars =
+        {
 
-        # Root certificates for internet access
-        SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
+          # Root certificates for internet access
+          SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
 
-        # https://github.com/NixOS/nix/blob/2.8.0/src/libstore/build/local-derivation-goal.cc#L1027-L1030
-        # PATH = "/path-not-set";
-        # Allows calling bash and `buildDerivation` as the Cmd
-        PATH = staticPath;
+          # https://github.com/NixOS/nix/blob/2.8.0/src/libstore/build/local-derivation-goal.cc#L1027-L1030
+          # PATH = "/path-not-set";
+          # Allows calling bash and `buildDerivation` as the Cmd
+          PATH = staticPath;
 
-        # https://github.com/NixOS/nix/blob/2.8.0/src/libstore/build/local-derivation-goal.cc#L1032-L1038
-        HOME = homeDirectory;
+          # https://github.com/NixOS/nix/blob/2.8.0/src/libstore/build/local-derivation-goal.cc#L1032-L1038
+          HOME = homeDirectory;
 
-        # https://github.com/NixOS/nix/blob/2.8.0/src/libstore/build/local-derivation-goal.cc#L1040-L1044
-        NIX_STORE = storeDir;
+          # https://github.com/NixOS/nix/blob/2.8.0/src/libstore/build/local-derivation-goal.cc#L1040-L1044
+          NIX_STORE = storeDir;
 
-        # https://github.com/NixOS/nix/blob/2.8.0/src/libstore/build/local-derivation-goal.cc#L1046-L1047
-        # TODO: Make configurable?
-        NIX_BUILD_CORES = "1";
-      } // drvEnv // {
+          # https://github.com/NixOS/nix/blob/2.8.0/src/libstore/build/local-derivation-goal.cc#L1046-L1047
+          # TODO: Make configurable?
+          NIX_BUILD_CORES = "1";
+        }
+        // drvEnv
+        // {
 
-        # https://github.com/NixOS/nix/blob/2.8.0/src/libstore/build/local-derivation-goal.cc#L1008-L1010
-        NIX_BUILD_TOP = sandboxBuildDir;
+          # https://github.com/NixOS/nix/blob/2.8.0/src/libstore/build/local-derivation-goal.cc#L1008-L1010
+          NIX_BUILD_TOP = sandboxBuildDir;
 
-        # https://github.com/NixOS/nix/blob/2.8.0/src/libstore/build/local-derivation-goal.cc#L1012-L1013
-        TMPDIR = sandboxBuildDir;
-        TEMPDIR = sandboxBuildDir;
-        TMP = sandboxBuildDir;
-        TEMP = sandboxBuildDir;
+          # https://github.com/NixOS/nix/blob/2.8.0/src/libstore/build/local-derivation-goal.cc#L1012-L1013
+          TMPDIR = sandboxBuildDir;
+          TEMPDIR = sandboxBuildDir;
+          TMP = sandboxBuildDir;
+          TEMP = sandboxBuildDir;
 
-        # https://github.com/NixOS/nix/blob/2.8.0/src/libstore/build/local-derivation-goal.cc#L1015-L1019
-        PWD = sandboxBuildDir;
+          # https://github.com/NixOS/nix/blob/2.8.0/src/libstore/build/local-derivation-goal.cc#L1015-L1019
+          PWD = sandboxBuildDir;
 
-        # https://github.com/NixOS/nix/blob/2.8.0/src/libstore/build/local-derivation-goal.cc#L1071-L1074
-        # We don't set it here because the output here isn't handled in any special way
-        # NIX_LOG_FD = "2";
+          # https://github.com/NixOS/nix/blob/2.8.0/src/libstore/build/local-derivation-goal.cc#L1071-L1074
+          # We don't set it here because the output here isn't handled in any special way
+          # NIX_LOG_FD = "2";
 
-        # https://github.com/NixOS/nix/blob/2.8.0/src/libstore/build/local-derivation-goal.cc#L1076-L1077
-        TERM = "xterm-256color";
-      };
+          # https://github.com/NixOS/nix/blob/2.8.0/src/libstore/build/local-derivation-goal.cc#L1076-L1077
+          TERM = "xterm-256color";
+        }
+      ;
     in
     streamLayeredImage {
       inherit name tag;

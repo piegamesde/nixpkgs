@@ -54,7 +54,8 @@ in
 rec {
 
   firebird_2_5 = stdenv.mkDerivation (
-    base // rec {
+    base
+    // rec {
       version = "2.5.9";
 
       src = fetchFromGitHub {
@@ -73,12 +74,15 @@ rec {
         runHook postInstall
       '';
 
-      meta = base.meta // { platforms = [ "x86_64-linux" ]; };
+      meta = base.meta // {
+        platforms = [ "x86_64-linux" ];
+      };
     }
   );
 
   firebird_3 = stdenv.mkDerivation (
-    base // rec {
+    base
+    // rec {
       version = "3.0.10";
 
       src = fetchFromGitHub {
@@ -96,12 +100,15 @@ rec {
         ]
       ;
 
-      meta = base.meta // { platforms = [ "x86_64-linux" ]; };
+      meta = base.meta // {
+        platforms = [ "x86_64-linux" ];
+      };
     }
   );
 
   firebird_4 = stdenv.mkDerivation (
-    base // rec {
+    base
+    // rec {
       version = "4.0.2";
 
       src = fetchFromGitHub {

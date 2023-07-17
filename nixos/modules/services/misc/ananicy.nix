@@ -101,7 +101,8 @@ in
         apply_sched = mkOD true;
         apply_oom_score_adj = mkOD true;
         apply_cgroup = mkOD true;
-      } // (
+      }
+      // (
         if ((lib.getName cfg.package) == (lib.getName pkgs.ananicy-cpp)) then
           {
             # https://gitlab.com/ananicy-cpp/ananicy-cpp/-/blob/master/src/config.cpp#L12

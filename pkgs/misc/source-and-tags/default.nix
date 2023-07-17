@@ -77,7 +77,8 @@
   # creates annotated derivation (comments see above)
   addHasktagsTaggingInfo =
     deriv:
-    deriv // {
+    deriv
+    // {
       passthru = {
         sourceWithTags = {
           inherit (deriv) src;
@@ -101,7 +102,8 @@
 
   addCTaggingInfo =
     deriv:
-    deriv // {
+    deriv
+    // {
       passthru = {
         sourceWithTags = {
           inherit (deriv) src;

@@ -736,7 +736,8 @@ in
         ];
       };
 
-      environment.etc = genAttrs
+      environment.etc =
+        genAttrs
           (map (file: "zfs/zed.d/${file}") [
             "all-syslog.sh"
             "pool_import-led.sh"
@@ -750,10 +751,12 @@ in
             "statechange-notify.sh"
             "vdev_clear-led.sh"
           ])
-          (file: { source = "${cfgZfs.package}/etc/${file}"; }) // {
+          (file: { source = "${cfgZfs.package}/etc/${file}"; })
+        // {
           "zfs/zed.d/zed.rc".text = zedConf;
           "zfs/zpool.d".source = "${cfgZfs.package}/etc/zfs/zpool.d/";
-        };
+        }
+      ;
 
       system.fsPackages = [ cfgZfs.package ]; # XXX: needed? zfs doesn't have (need) a fsck
       environment.systemPackages =

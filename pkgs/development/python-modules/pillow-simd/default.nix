@@ -56,5 +56,6 @@ import ../pillow/generic.nix (
       license = "http://www.pythonware.com/products/pil/license.htm";
       maintainers = with maintainers; [ SuperSandro2000 ];
     };
-  } // args
+  }
+  // args
 )

@@ -18,14 +18,17 @@ in
       description = lib.mdDoc "Package providing the `nix-index` tool.";
     };
 
-    enableBashIntegration =
-      mkEnableOption (lib.mdDoc "Bash integration") // { default = true; };
+    enableBashIntegration = mkEnableOption (lib.mdDoc "Bash integration") // {
+      default = true;
+    };
 
-    enableZshIntegration =
-      mkEnableOption (lib.mdDoc "Zsh integration") // { default = true; };
+    enableZshIntegration = mkEnableOption (lib.mdDoc "Zsh integration") // {
+      default = true;
+    };
 
-    enableFishIntegration =
-      mkEnableOption (lib.mdDoc "Fish integration") // { default = true; };
+    enableFishIntegration = mkEnableOption (lib.mdDoc "Fish integration") // {
+      default = true;
+    };
   };
 
   config = lib.mkIf cfg.enable {

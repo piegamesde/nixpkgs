@@ -16,5 +16,7 @@ else
 
     propagatedBuildInputs = [ ocamlbuild ];
 
-    meta = cppo.meta // { description = "Plugin to use cppo with ocamlbuild"; };
+    meta = cppo.meta // {
+      description = "Plugin to use cppo with ocamlbuild";
+    };
   }

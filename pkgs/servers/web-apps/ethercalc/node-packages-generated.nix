@@ -1794,7 +1794,8 @@ in
           sources."better-assert-1.0.2"
           sources."blob-0.0.2"
           (
-            sources."body-parser-1.6.7" // {
+            sources."body-parser-1.6.7"
+            // {
               dependencies = [ sources."iconv-lite-0.4.4" ];
             }
           )
@@ -1804,7 +1805,8 @@ in
           sources."bytes-1.0.0"
           sources."callsite-1.0.0"
           (
-            sources."cfb-1.2.1" // {
+            sources."cfb-1.2.1"
+            // {
               dependencies = [
                 sources."adler-32-1.3.1"
                 sources."printj-1.3.1"
@@ -1847,7 +1849,8 @@ in
           sources."emitter-http://github.com/component/emitter/archive/1.0.1.tar.gz"
           (sources."engine.io-1.3.1" // { dependencies = [ sources."debug-0.6.0" ]; })
           (
-            sources."engine.io-client-1.3.1" // {
+            sources."engine.io-client-1.3.1"
+            // {
               dependencies = [ sources."debug-0.7.4" ];
             }
           )
@@ -1856,7 +1859,8 @@ in
           sources."escape-html-1.0.1"
           sources."exit-on-epipe-1.0.1"
           (
-            sources."express-3.16.9" // {
+            sources."express-3.16.9"
+            // {
               dependencies = [
                 sources."commander-1.3.2"
                 sources."vary-0.1.0"
@@ -1864,7 +1868,8 @@ in
             }
           )
           (
-            sources."express-session-1.7.6" // {
+            sources."express-session-1.7.6"
+            // {
               dependencies = [ sources."uid-safe-1.0.1" ];
             }
           )
@@ -1875,7 +1880,8 @@ in
           sources."global-https://github.com/component/global/archive/v2.0.1.tar.gz"
           sources."graceful-readlink-1.0.1"
           (
-            sources."harb-0.1.1" // {
+            sources."harb-0.1.1"
+            // {
               dependencies = [
                 sources."frac-0.3.1"
                 sources."ssf-0.8.2"
@@ -1890,7 +1896,8 @@ in
           sources."ipaddr.js-0.1.2"
           sources."isarray-0.0.1"
           (
-            sources."j-0.4.5" // {
+            sources."j-0.4.5"
+            // {
               dependencies = [
                 sources."adler-32-1.0.0"
                 sources."cfb-0.11.1"
@@ -1920,7 +1927,8 @@ in
           sources."morgan-1.2.3"
           sources."ms-0.6.2"
           (
-            sources."multiparty-3.3.2" // {
+            sources."multiparty-3.3.2"
+            // {
               dependencies = [
                 sources."readable-stream-1.1.14"
                 sources."string_decoder-0.10.31"
@@ -1965,7 +1973,8 @@ in
           sources."socialcalc-2.3.0"
           (sources."socket.io-1.0.6" // { dependencies = [ sources."debug-0.7.4" ]; })
           (
-            sources."socket.io-adapter-0.2.0" // {
+            sources."socket.io-adapter-0.2.0"
+            // {
               dependencies = [
                 sources."debug-0.7.4"
                 sources."emitter-http://github.com/component/emitter/archive/1.0.1.tar.gz"
@@ -1974,19 +1983,22 @@ in
             }
           )
           (
-            sources."socket.io-client-1.0.6" // {
+            sources."socket.io-client-1.0.6"
+            // {
               dependencies = [ sources."debug-0.7.4" ];
             }
           )
           (
-            sources."socket.io-parser-2.2.0" // {
+            sources."socket.io-parser-2.2.0"
+            // {
               dependencies = [ sources."debug-0.7.4" ];
             }
           )
           sources."source-map-0.5.7"
           sources."ssf-0.10.3"
           (
-            sources."stream-counter-0.2.0" // {
+            sources."stream-counter-0.2.0"
+            // {
               dependencies = [
                 sources."readable-stream-1.1.14"
                 sources."string_decoder-0.10.31"
@@ -2003,7 +2015,8 @@ in
           sources."type-is-1.3.2"
           sources."typedarray-0.0.6"
           (
-            sources."uglify-js-2.4.15" // {
+            sources."uglify-js-2.4.15"
+            // {
               dependencies = [
                 sources."optimist-0.3.7"
                 sources."source-map-0.1.34"
@@ -2024,7 +2037,8 @@ in
           sources."wordwrap-0.0.3"
           (sources."ws-0.4.31" // { dependencies = [ sources."commander-0.6.1" ]; })
           (
-            sources."xlsjs-0.7.6" // {
+            sources."xlsjs-0.7.6"
+            // {
               dependencies = [
                 sources."cfb-0.11.1"
                 sources."frac-0.3.1"

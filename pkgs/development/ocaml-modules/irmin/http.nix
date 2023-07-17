@@ -50,5 +50,7 @@ buildDunePackage rec {
 
   doCheck = true;
 
-  meta = irmin.meta // { description = "HTTP client and server for Irmin"; };
+  meta = irmin.meta // {
+    description = "HTTP client and server for Irmin";
+  };
 }

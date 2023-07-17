@@ -76,7 +76,9 @@ let
   mkFrameworkSubs =
     name: deps:
     let
-      deps' = deps // { "${name}" = placeholder "out"; };
+      deps' = deps // {
+        "${name}" = placeholder "out";
+      };
       substArgs =
         lib.concatMap
           (x: [
@@ -406,18 +408,20 @@ rec {
           ];
         }
       );
-    } // lib.genAttrs
-      [
-        "ContactsPersistence"
-        "CoreSymbolication"
-        "DebugSymbols"
-        "DisplayServices"
-        "GameCenter"
-        "MultitouchSupport"
-        "SkyLight"
-        "UIFoundation"
-      ]
-      (x: tbdOnlyFramework x { })
+    }
+    //
+      lib.genAttrs
+        [
+          "ContactsPersistence"
+          "CoreSymbolication"
+          "DebugSymbols"
+          "DisplayServices"
+          "GameCenter"
+          "MultitouchSupport"
+          "SkyLight"
+          "UIFoundation"
+        ]
+        (x: tbdOnlyFramework x { })
   ;
 
   bareFrameworks = lib.mapAttrs framework (

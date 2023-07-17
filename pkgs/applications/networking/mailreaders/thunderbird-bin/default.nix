@@ -83,7 +83,9 @@ let
   sourceMatches =
     locale: source: (isPrefixOf source.locale locale) && source.arch == arch;
 
-  policies = { DisableAppUpdate = true; } // config.thunderbird.policies or { };
+  policies = {
+    DisableAppUpdate = true;
+  } // config.thunderbird.policies or { };
   policiesJson = writeText "thunderbird-policies.json" (
     builtins.toJSON { inherit policies; }
   );

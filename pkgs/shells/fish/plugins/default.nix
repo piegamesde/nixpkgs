@@ -62,7 +62,8 @@ lib.makeScope newScope (
     wakatime-fish = callPackage ./wakatime-fish.nix { };
 
     z = callPackage ./z.nix { };
-  } // lib.optionalAttrs config.allowAliases {
+  }
+  // lib.optionalAttrs config.allowAliases {
     autopair-fish = self.autopair; # Added 2023-03-10
   }
 )

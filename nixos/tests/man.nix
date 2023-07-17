@@ -26,19 +26,22 @@ import ./make-test-python.nix (
         enable = true;
         nixos.enable = lib.mkForce true;
         dev.enable = true;
-        man = {
-          enable = true;
-          generateCaches = true;
-        } // lib.listToAttrs (
-          builtins.map
-            (impl: {
-              name = impl;
-              value = {
-                enable = useImpl == impl;
-              };
-            })
-            manImplementations
-        );
+        man =
+          {
+            enable = true;
+            generateCaches = true;
+          }
+          // lib.listToAttrs (
+            builtins.map
+              (impl: {
+                name = impl;
+                value = {
+                  enable = useImpl == impl;
+                };
+              })
+              manImplementations
+          )
+        ;
       };
     };
 

@@ -148,7 +148,8 @@ let
         '';
         mainProgram = "clang";
       };
-    } // lib.optionalAttrs enableManpages {
+    }
+    // lib.optionalAttrs enableManpages {
       pname = "clang-manpages";
 
       ninjaFlags = [ "docs-clang-man" ];
@@ -163,7 +164,9 @@ let
 
       doCheck = false;
 
-      meta = llvm_meta // { description = "man page for Clang ${version}"; };
+      meta = llvm_meta // {
+        description = "man page for Clang ${version}";
+      };
     }
   );
 in

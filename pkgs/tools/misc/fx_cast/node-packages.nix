@@ -1828,7 +1828,8 @@ let
       sources."chalk-4.1.2"
       sources."chownr-1.1.4"
       (
-        sources."cliui-7.0.4" // {
+        sources."cliui-7.0.4"
+        // {
           dependencies = [
             sources."ansi-regex-5.0.1"
             sources."is-fullwidth-code-point-3.0.0"
@@ -1907,7 +1908,8 @@ let
       sources."mkdirp-classic-0.5.3"
       sources."ms-2.1.2"
       (
-        sources."multistream-4.1.0" // {
+        sources."multistream-4.1.0"
+        // {
           dependencies = [ sources."readable-stream-3.6.0" ];
         }
       )
@@ -1928,7 +1930,8 @@ let
       sources."picomatch-2.3.1"
       (sources."pkg-5.6.0" // { dependencies = [ sources."fs-extra-9.1.0" ]; })
       (
-        sources."pkg-fetch-3.3.0" // {
+        sources."pkg-fetch-3.3.0"
+        // {
           dependencies = [
             sources."ansi-regex-5.0.1"
             sources."fs-extra-9.1.0"
@@ -1972,7 +1975,8 @@ let
       sources."supports-preserve-symlinks-flag-1.0.0"
       sources."tar-fs-2.1.1"
       (
-        sources."tar-stream-2.2.0" // {
+        sources."tar-stream-2.2.0"
+        // {
           dependencies = [ sources."readable-stream-3.6.0" ];
         }
       )
@@ -1993,7 +1997,8 @@ let
       sources."wide-align-1.1.5"
       sources."word-wrap-1.2.3"
       (
-        sources."wrap-ansi-7.0.0" // {
+        sources."wrap-ansi-7.0.0"
+        // {
           dependencies = [
             sources."ansi-regex-5.0.1"
             sources."is-fullwidth-code-point-3.0.0"
@@ -2007,7 +2012,8 @@ let
       sources."y18n-5.0.8"
       sources."yallist-4.0.0"
       (
-        sources."yargs-17.5.1" // {
+        sources."yargs-17.5.1"
+        // {
           dependencies = [
             sources."ansi-regex-5.0.1"
             sources."is-fullwidth-code-point-3.0.0"

@@ -48,29 +48,31 @@ let
     + "\n"
   ;
 
-  osReleaseContents = {
-    NAME = "${cfg.distroName}";
-    ID = "${cfg.distroId}";
-    VERSION = "${cfg.release} (${cfg.codeName})";
-    VERSION_CODENAME = toLower cfg.codeName;
-    VERSION_ID = cfg.release;
-    BUILD_ID = cfg.version;
-    PRETTY_NAME = "${cfg.distroName} ${cfg.release} (${cfg.codeName})";
-    LOGO = "nix-snowflake";
-    HOME_URL = lib.optionalString (cfg.distroId == "nixos") "https://nixos.org/";
-    DOCUMENTATION_URL =
-      lib.optionalString (cfg.distroId == "nixos")
-        "https://nixos.org/learn.html"
-    ;
-    SUPPORT_URL =
-      lib.optionalString (cfg.distroId == "nixos")
-        "https://nixos.org/community.html"
-    ;
-    BUG_REPORT_URL =
-      lib.optionalString (cfg.distroId == "nixos")
-        "https://github.com/NixOS/nixpkgs/issues"
-    ;
-  } // lib.optionalAttrs (cfg.variant_id != null) { VARIANT_ID = cfg.variant_id; }
+  osReleaseContents =
+    {
+      NAME = "${cfg.distroName}";
+      ID = "${cfg.distroId}";
+      VERSION = "${cfg.release} (${cfg.codeName})";
+      VERSION_CODENAME = toLower cfg.codeName;
+      VERSION_ID = cfg.release;
+      BUILD_ID = cfg.version;
+      PRETTY_NAME = "${cfg.distroName} ${cfg.release} (${cfg.codeName})";
+      LOGO = "nix-snowflake";
+      HOME_URL = lib.optionalString (cfg.distroId == "nixos") "https://nixos.org/";
+      DOCUMENTATION_URL =
+        lib.optionalString (cfg.distroId == "nixos")
+          "https://nixos.org/learn.html"
+      ;
+      SUPPORT_URL =
+        lib.optionalString (cfg.distroId == "nixos")
+          "https://nixos.org/community.html"
+      ;
+      BUG_REPORT_URL =
+        lib.optionalString (cfg.distroId == "nixos")
+          "https://github.com/NixOS/nixpkgs/issues"
+      ;
+    }
+    // lib.optionalAttrs (cfg.variant_id != null) { VARIANT_ID = cfg.variant_id; }
   ;
 
   initrdReleaseContents = osReleaseContents // {

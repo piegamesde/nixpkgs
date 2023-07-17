@@ -113,7 +113,8 @@ let
       postFetch = lib.optionalString (!withPEPatterns) ''
         rm -r "$out/generic/yara_patterns/static-code/pe"
       '';
-    } // {
+    }
+    // {
       inherit version; # necessary to check the version against the expected version
     }
   ;

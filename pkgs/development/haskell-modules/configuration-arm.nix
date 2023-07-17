@@ -56,7 +56,8 @@ self: super:
       )
       super.wiringPi
   ;
-} // lib.optionalAttrs pkgs.stdenv.hostPlatform.isAarch64 {
+}
+// lib.optionalAttrs pkgs.stdenv.hostPlatform.isAarch64 {
   # AARCH64-SPECIFIC OVERRIDES
 
   # Doctests fail on aarch64 due to a GHCi linking bug
@@ -134,7 +135,8 @@ self: super:
   hls-rename-plugin = dontCheck super.hls-rename-plugin;
   hls-fourmolu-plugin = dontCheck super.hls-fourmolu-plugin;
   hls-floskell-plugin = dontCheck super.hls-floskell-plugin;
-} // lib.optionalAttrs pkgs.stdenv.hostPlatform.isAarch32 {
+}
+// lib.optionalAttrs pkgs.stdenv.hostPlatform.isAarch32 {
   # AARCH32-SPECIFIC OVERRIDES
 
   # KAT/ECB/D2 test segfaults on armv7l

@@ -90,7 +90,8 @@ let
 in
 
 stdenv.mkDerivation (
-  recursiveUpdate template publicArgs // concatAttrLists [
+  recursiveUpdate template publicArgs
+  // concatAttrLists [
     template
     args
   ]

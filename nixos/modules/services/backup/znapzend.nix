@@ -50,7 +50,8 @@ let
     let
       matching = s: map (str: builtins.match ".*${str}.*" s) list;
     in
-    str // {
+    str
+    // {
       check = x: str.check x && all isList (matching x);
       description = "string containing all of the characters ${
           concatStringsSep ", " list
@@ -303,7 +304,8 @@ let
       {
         "" = optionalString (host != null) "${host}:" + dataset;
         _plan = plan;
-      } // optionalAttrs (presend != null) { _precmd = presend; }
+      }
+      // optionalAttrs (presend != null) { _precmd = presend; }
       // optionalAttrs (postsend != null) { _pstcmd = postsend; }
     )
   ;
@@ -329,9 +331,8 @@ let
       src_plan = plan;
       tsformat = timestampFormat;
       zend_delay = toString sendDelay;
-    } // foldr (a: b: a // b) { } (
-      map mkDestAttrs (builtins.attrValues destinations)
-    )
+    }
+    // foldr (a: b: a // b) { } (map mkDestAttrs (builtins.attrValues destinations))
   ;
 
   files =

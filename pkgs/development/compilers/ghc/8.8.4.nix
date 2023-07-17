@@ -477,7 +477,8 @@ stdenv.mkDerivation (
     };
 
     dontStrip = (targetPlatform.useAndroidPrebuilt || targetPlatform.isWasm);
-  } // lib.optionalAttrs targetPlatform.useAndroidPrebuilt {
+  }
+  // lib.optionalAttrs targetPlatform.useAndroidPrebuilt {
     dontPatchELF = true;
     noAuditTmpdir = true;
   }

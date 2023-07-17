@@ -53,7 +53,8 @@ let
   pkg =
     self:
     stdenv.mkDerivation (
-      attrs // {
+      attrs
+      // {
 
         name = "${name}-${version}";
         inherit version;
@@ -104,14 +105,17 @@ let
           runHook postInstall
         '';
 
-        meta = { inherit (erlang.meta) platforms; } // meta;
+        meta = {
+          inherit (erlang.meta) platforms;
+        } // meta;
 
         passthru = {
           packageName = name;
           env = shell self;
           inherit beamDeps;
         };
-      } // customPhases
+      }
+      // customPhases
     )
   ;
 in

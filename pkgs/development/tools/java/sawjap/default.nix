@@ -32,5 +32,7 @@ stdenv.mkDerivation {
 
   dontInstall = true;
 
-  meta = sawja.meta // { description = "Pretty-print .class files"; };
+  meta = sawja.meta // {
+    description = "Pretty-print .class files";
+  };
 }

@@ -81,9 +81,11 @@ let
           description = "The Swiss Army Knive for bare metal";
           license = licenses.gpl2;
           maintainers = with maintainers; [ emantor ];
-        } // extraMeta
+        }
+        // extraMeta
       ;
-    } // removeAttrs args [ "extraMeta" ]
+    }
+    // removeAttrs args [ "extraMeta" ]
   ;
 in
 {

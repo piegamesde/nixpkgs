@@ -99,7 +99,8 @@ rec {
               finalAttrs:
               {
                 NIX_CFLAGS_LINK = toString (finalAttrs.NIX_CFLAGS_LINK or "") + " -static";
-              } // lib.optionalAttrs (!(finalAttrs.dontAddStaticConfigureFlags or false)) {
+              }
+              // lib.optionalAttrs (!(finalAttrs.dontAddStaticConfigureFlags or false)) {
                 configureFlags =
                   (finalAttrs.configureFlags or [ ])
                   ++ [
@@ -109,7 +110,8 @@ rec {
               }
             )
         );
-      } // lib.optionalAttrs (stdenv0.hostPlatform.libc == "libc") {
+      }
+      // lib.optionalAttrs (stdenv0.hostPlatform.libc == "libc") {
         extraBuildInputs = (old.extraBuildInputs or [ ]) ++ [ pkgs.glibc.static ];
       }
     )
@@ -125,7 +127,8 @@ rec {
           args:
           {
             dontDisableStatic = true;
-          } // lib.optionalAttrs (!(args.dontAddStaticConfigureFlags or false)) {
+          }
+          // lib.optionalAttrs (!(args.dontAddStaticConfigureFlags or false)) {
             configureFlags =
               (args.configureFlags or [ ])
               ++ [
@@ -248,7 +251,8 @@ rec {
               builtins.trace "@:drv:${toString drvPath}:${builtins.toString license}:@" val
             ;
           in
-          pkg // {
+          pkg
+          // {
             outPath = printDrvPath pkg.outPath;
             drvPath = printDrvPath pkg.drvPath;
           }
@@ -327,18 +331,20 @@ rec {
         # gcc >12.1.0 supports '-fuse-ld=mold'
         # the wrap ld above in bintools supports gcc <12.1.0 and shouldn't harm >12.1.0
         # https://github.com/rui314/mold#how-to-use
-      } // lib.optionalAttrs
-        (
-          stdenv.cc.isClang
-          || (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12")
-        )
-        {
-          mkDerivationFromStdenv = extendMkDerivationArgs old (
-            args: {
-              NIX_CFLAGS_LINK = toString (args.NIX_CFLAGS_LINK or "") + " -fuse-ld=mold";
-            }
-          );
-        }
+      }
+      //
+        lib.optionalAttrs
+          (
+            stdenv.cc.isClang
+            || (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12")
+          )
+          {
+            mkDerivationFromStdenv = extendMkDerivationArgs old (
+              args: {
+                NIX_CFLAGS_LINK = toString (args.NIX_CFLAGS_LINK or "") + " -fuse-ld=mold";
+              }
+            );
+          }
     )
   ;
 

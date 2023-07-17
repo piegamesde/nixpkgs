@@ -37,7 +37,9 @@ let
       ;
       getSubModules = elemType.getSubModules;
       substSubModules = mod: matrixOf n m (elemType.substSubModules mod);
-      functor = (defaultFunctor name) // { wrapped = elemType; };
+      functor = (defaultFunctor name) // {
+        wrapped = elemType;
+      };
     }
   ;
 

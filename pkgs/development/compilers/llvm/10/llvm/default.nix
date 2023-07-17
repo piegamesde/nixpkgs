@@ -367,7 +367,8 @@ stdenv.mkDerivation (
         under the "Apache 2.0 License with LLVM exceptions".
       '';
     };
-  } // lib.optionalAttrs enableManpages {
+  }
+  // lib.optionalAttrs enableManpages {
     pname = "llvm-manpages";
 
     buildPhase = ''
@@ -387,6 +388,8 @@ stdenv.mkDerivation (
 
     doCheck = false;
 
-    meta = llvm_meta // { description = "man pages for LLVM ${version}"; };
+    meta = llvm_meta // {
+      description = "man pages for LLVM ${version}";
+    };
   }
 )

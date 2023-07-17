@@ -19,7 +19,8 @@ buildNimPackage rec {
 
   meta =
     with lib;
-    src.meta // {
+    src.meta
+    // {
       description = "Math vector library for graphical things";
       license = [ licenses.mit ];
       maintainers = [ maintainers.ehmry ];

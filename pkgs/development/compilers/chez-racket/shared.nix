@@ -13,7 +13,8 @@ args:
 }:
 
 stdenv.mkDerivation (
-  args // {
+  args
+  // {
     version = "unstable-2021-12-11";
 
     src = fetchFromGitHub {

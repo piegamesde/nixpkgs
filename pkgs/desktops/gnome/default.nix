@@ -264,7 +264,8 @@ lib.makeScope pkgs.newScope (
 
     gnome-packagekit = callPackage ./misc/gnome-packagekit { };
   }
-) // lib.optionalAttrs config.allowAliases {
+)
+// lib.optionalAttrs config.allowAliases {
   #### Legacy aliases. They need to be outside the scope or they will shadow the attributes from parent scope.
 
   empathy =

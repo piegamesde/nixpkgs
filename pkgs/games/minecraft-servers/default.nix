@@ -29,7 +29,8 @@ let
   ;
 in
 lib.recurseIntoAttrs (
-  packages // {
+  packages
+  // {
     vanilla = builtins.getAttr "vanilla-${escapeVersion latestVersion}" packages;
   }
 )

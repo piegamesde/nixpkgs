@@ -195,7 +195,8 @@ in
       in
       {
         "127.0.0.2" = hostnames;
-      } // optionalAttrs cfg.enableIPv6 { "::1" = hostnames; }
+      }
+      // optionalAttrs cfg.enableIPv6 { "::1" = hostnames; }
     ;
 
     networking.hostFiles =
@@ -226,42 +227,52 @@ in
       ]
     ;
 
-    environment.etc = {
-      # /etc/services: TCP/UDP port assignments.
-      services.source = pkgs.iana-etc + "/etc/services";
+    environment.etc =
+      {
+        # /etc/services: TCP/UDP port assignments.
+        services.source = pkgs.iana-etc + "/etc/services";
 
-      # /etc/protocols: IP protocol numbers.
-      protocols.source = pkgs.iana-etc + "/etc/protocols";
+        # /etc/protocols: IP protocol numbers.
+        protocols.source = pkgs.iana-etc + "/etc/protocols";
 
-      # /etc/hosts: Hostname-to-IP mappings.
-      hosts.source = pkgs.concatText "hosts" cfg.hostFiles;
+        # /etc/hosts: Hostname-to-IP mappings.
+        hosts.source = pkgs.concatText "hosts" cfg.hostFiles;
 
-      # /etc/netgroup: Network-wide groups.
-      netgroup.text = mkDefault "";
+        # /etc/netgroup: Network-wide groups.
+        netgroup.text = mkDefault "";
 
-      # /etc/host.conf: resolver configuration file
-      "host.conf".text = ''
-        multi on
-      '';
-    } // optionalAttrs (pkgs.stdenv.hostPlatform.libc == "glibc") {
-      # /etc/rpc: RPC program numbers.
-      rpc.source = pkgs.stdenv.cc.libc.out + "/etc/rpc";
-    };
+        # /etc/host.conf: resolver configuration file
+        "host.conf".text = ''
+          multi on
+        '';
+      }
+      // optionalAttrs (pkgs.stdenv.hostPlatform.libc == "glibc") {
+        # /etc/rpc: RPC program numbers.
+        rpc.source = pkgs.stdenv.cc.libc.out + "/etc/rpc";
+      }
+    ;
 
-    networking.proxy.envVars = optionalAttrs (cfg.proxy.default != null) {
-      # other options already fallback to proxy.default
-      no_proxy = "127.0.0.1,localhost";
-    } // optionalAttrs (cfg.proxy.httpProxy != null) {
-      http_proxy = cfg.proxy.httpProxy;
-    } // optionalAttrs (cfg.proxy.httpsProxy != null) {
-      https_proxy = cfg.proxy.httpsProxy;
-    } // optionalAttrs (cfg.proxy.rsyncProxy != null) {
-      rsync_proxy = cfg.proxy.rsyncProxy;
-    } // optionalAttrs (cfg.proxy.ftpProxy != null) {
-      ftp_proxy = cfg.proxy.ftpProxy;
-    } // optionalAttrs (cfg.proxy.allProxy != null) {
-      all_proxy = cfg.proxy.allProxy;
-    } // optionalAttrs (cfg.proxy.noProxy != null) { no_proxy = cfg.proxy.noProxy; }
+    networking.proxy.envVars =
+      optionalAttrs (cfg.proxy.default != null) {
+        # other options already fallback to proxy.default
+        no_proxy = "127.0.0.1,localhost";
+      }
+      // optionalAttrs (cfg.proxy.httpProxy != null) {
+        http_proxy = cfg.proxy.httpProxy;
+      }
+      // optionalAttrs (cfg.proxy.httpsProxy != null) {
+        https_proxy = cfg.proxy.httpsProxy;
+      }
+      // optionalAttrs (cfg.proxy.rsyncProxy != null) {
+        rsync_proxy = cfg.proxy.rsyncProxy;
+      }
+      // optionalAttrs (cfg.proxy.ftpProxy != null) {
+        ftp_proxy = cfg.proxy.ftpProxy;
+      }
+      // optionalAttrs (cfg.proxy.allProxy != null) {
+        all_proxy = cfg.proxy.allProxy;
+      }
+      // optionalAttrs (cfg.proxy.noProxy != null) { no_proxy = cfg.proxy.noProxy; }
     ;
 
     # Install the proxy environment variables

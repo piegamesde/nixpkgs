@@ -184,7 +184,8 @@ let
           nodename = config.node;
           passwordaccess = if config.genPasswd then "generate" else "prompt";
           passworddir = ''"${config.passwdDir}"'';
-        } // optionalAttrs (config.includeExclude != "") {
+        }
+        // optionalAttrs (config.includeExclude != "") {
           inclexcl = ''"${pkgs.writeText "inclexcl.dsm.sys" config.includeExclude}"'';
         }
       );

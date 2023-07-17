@@ -4325,7 +4325,9 @@ rec {
       pkgs.runCommand "${crate.name}-linked"
         {
           inherit (crate) outputs crateName;
-          passthru = (crate.passthru or { }) // { inherit test; };
+          passthru = (crate.passthru or { }) // {
+            inherit test;
+          };
         }
         ''
           echo tested by ${test}
@@ -4439,9 +4441,12 @@ rec {
       let
         rootPackageId = packageId;
         mergedFeatures = mergePackageFeatures (
-          args // {
+          args
+          // {
             inherit rootPackageId;
-            target = target // { test = runTests; };
+            target = target // {
+              test = runTests;
+            };
           }
         );
         # Memoize built packages so that reappearing packages are only built once.
@@ -4525,7 +4530,8 @@ rec {
             ;
           in
           buildRustCrateForPkgsFunc pkgs (
-            crateConfig // {
+            crateConfig
+            // {
               src =
                 crateConfig.src or (pkgs.fetchurl rec {
                   name = "${crateConfig.crateName}-${crateConfig.version}.tar.gz";
@@ -4762,9 +4768,7 @@ rec {
             cacheFeatures = featuresByPackageId.${packageId} or [ ];
             combinedFeatures = sortedUnique (cacheFeatures ++ enabledFeatures);
           in
-          featuresByPackageId // {
-            "${packageId}" = combinedFeatures;
-          }
+          featuresByPackageId // { "${packageId}" = combinedFeatures; }
         ;
         cacheWithDependencies = resolveDependencies cacheWithSelf "dep" (
           crateConfig.dependencies or [ ]

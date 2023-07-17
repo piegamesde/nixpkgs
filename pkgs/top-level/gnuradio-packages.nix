@@ -25,9 +25,8 @@ lib.makeScope newScope (
           logLib
         ;
         inherit mkDerivationWith mkDerivation;
-      } // lib.optionalAttrs (gnuradio.hasFeature "gr-uhd") {
-        inherit (gnuradio) uhd;
       }
+      // lib.optionalAttrs (gnuradio.hasFeature "gr-uhd") { inherit (gnuradio) uhd; }
     );
   in
   {

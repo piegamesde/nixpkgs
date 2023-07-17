@@ -77,29 +77,33 @@ let
         ;
         startLimitIntervalSec = 60 * 30; # 30 mins
 
-        serviceConfig = {
-          LimitNOFILE = 1048576;
-          LimitNPROC = 1048576;
-          Environment = "CLUSTER=${clusterName}";
-          ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
-          PrivateDevices = "yes";
-          PrivateTmp = "true";
-          ProtectHome = "true";
-          ProtectSystem = "full";
-          Restart = "on-failure";
-          StateDirectory = stateDirectory;
-          User = "ceph";
-          Group = if daemonType == "osd" then "disk" else "ceph";
-          ExecStart = ''
-            ${ceph.out}/bin/${
-              if daemonType == "rgw" then "radosgw" else "ceph-${daemonType}"
-            } \
-                                -f --cluster ${clusterName} --id ${daemonId}'';
-        } // optionalAttrs (daemonType == "osd") {
-          ExecStartPre = "${ceph.lib}/libexec/ceph/ceph-osd-prestart.sh --id ${daemonId} --cluster ${clusterName}";
-          RestartSec = "20s";
-          PrivateDevices = "no"; # osd needs disk access
-        } // optionalAttrs (daemonType == "mon") { RestartSec = "10"; };
+        serviceConfig =
+          {
+            LimitNOFILE = 1048576;
+            LimitNPROC = 1048576;
+            Environment = "CLUSTER=${clusterName}";
+            ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
+            PrivateDevices = "yes";
+            PrivateTmp = "true";
+            ProtectHome = "true";
+            ProtectSystem = "full";
+            Restart = "on-failure";
+            StateDirectory = stateDirectory;
+            User = "ceph";
+            Group = if daemonType == "osd" then "disk" else "ceph";
+            ExecStart = ''
+              ${ceph.out}/bin/${
+                if daemonType == "rgw" then "radosgw" else "ceph-${daemonType}"
+              } \
+                                  -f --cluster ${clusterName} --id ${daemonId}'';
+          }
+          // optionalAttrs (daemonType == "osd") {
+            ExecStartPre = "${ceph.lib}/libexec/ceph/ceph-osd-prestart.sh --id ${daemonId} --cluster ${clusterName}";
+            RestartSec = "20s";
+            PrivateDevices = "no"; # osd needs disk access
+          }
+          // optionalAttrs (daemonType == "mon") { RestartSec = "10"; }
+        ;
       }
     );
 
@@ -426,21 +430,29 @@ in
       let
         # Merge the extraConfig set for mgr daemons, as mgr don't have their own section
         globalSection = expandCamelCaseAttrs (
-          cfg.global // cfg.extraConfig
+          cfg.global
+          // cfg.extraConfig
           // optionalAttrs cfg.mgr.enable cfg.mgr.extraConfig
         );
         # Remove all name-value pairs with null values from the attribute set to avoid making empty sections in the ceph.conf
         globalSection' = filterAttrs (name: value: value != null) globalSection;
-        totalConfig = {
-          global = globalSection';
-        } // optionalAttrs (cfg.mon.enable && cfg.mon.extraConfig != { }) {
-          mon = cfg.mon.extraConfig;
-        } // optionalAttrs (cfg.mds.enable && cfg.mds.extraConfig != { }) {
-          mds = cfg.mds.extraConfig;
-        } // optionalAttrs (cfg.osd.enable && cfg.osd.extraConfig != { }) {
-          osd = cfg.osd.extraConfig;
-        } // optionalAttrs (cfg.client.enable && cfg.client.extraConfig != { })
-            cfg.client.extraConfig;
+        totalConfig =
+          {
+            global = globalSection';
+          }
+          // optionalAttrs (cfg.mon.enable && cfg.mon.extraConfig != { }) {
+            mon = cfg.mon.extraConfig;
+          }
+          // optionalAttrs (cfg.mds.enable && cfg.mds.extraConfig != { }) {
+            mds = cfg.mds.extraConfig;
+          }
+          // optionalAttrs (cfg.osd.enable && cfg.osd.extraConfig != { }) {
+            osd = cfg.osd.extraConfig;
+          }
+          //
+            optionalAttrs (cfg.client.enable && cfg.client.extraConfig != { })
+              cfg.client.extraConfig
+        ;
       in
       generators.toINI { } totalConfig
     ;

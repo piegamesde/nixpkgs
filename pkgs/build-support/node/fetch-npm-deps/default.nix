@@ -177,7 +177,8 @@
       forceGitDeps_ = lib.optionalAttrs forceGitDeps { FORCE_GIT_DEPS = true; };
     in
     stdenvNoCC.mkDerivation (
-      args // {
+      args
+      // {
         inherit name;
 
         nativeBuildInputs = [ prefetch-npm-deps ];
@@ -206,7 +207,9 @@
         dontInstall = true;
 
         outputHashMode = "recursive";
-      } // hash_ // forceGitDeps_
+      }
+      // hash_
+      // forceGitDeps_
     )
   ;
 }

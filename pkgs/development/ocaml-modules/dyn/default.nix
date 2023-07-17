@@ -14,5 +14,7 @@ buildDunePackage {
 
   propagatedBuildInputs = [ ordering ];
 
-  meta = dune_3.meta // { description = "Dynamic type"; };
+  meta = dune_3.meta // {
+    description = "Dynamic type";
+  };
 }

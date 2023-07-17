@@ -87,7 +87,8 @@ let
       mkKeyValue = generators.mkKeyValueDefault { } "=";
       mkOpts = opts: concatStringsSep "," (mapAttrsToList mkKeyValue opts);
       driveOpts = mkOpts (
-        driveExtraOpts // {
+        driveExtraOpts
+        // {
           index = idx;
           id = drvId;
           "if" = "none";

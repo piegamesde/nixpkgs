@@ -62,5 +62,7 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  meta = meta // { mainProgram = "nixpkgs-hammer"; };
+  meta = meta // {
+    mainProgram = "nixpkgs-hammer";
+  };
 }

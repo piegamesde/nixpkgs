@@ -17,7 +17,8 @@ let
   src = args.src or srcs.${pname}.src;
 in
 stdenv.mkDerivation (
-  args // {
+  args
+  // {
     inherit pname version src;
     patches = args.patches or patches.${pname} or [ ];
 
@@ -59,7 +60,8 @@ stdenv.mkDerivation (
           nickcao
         ];
         platforms = platforms.unix;
-      } // (args.meta or { })
+      }
+      // (args.meta or { })
     ;
   }
 )

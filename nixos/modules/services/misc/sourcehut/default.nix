@@ -110,9 +110,11 @@ let
       default = "postgresql:///localhost?user=${srv}srht&host=/run/postgresql";
     };
     migrate-on-upgrade =
-      mkEnableOption (lib.mdDoc "automatic migrations on package upgrade") // {
+      mkEnableOption (lib.mdDoc "automatic migrations on package upgrade")
+      // {
         default = true;
-      };
+      }
+    ;
     oauth-client-id = mkOption {
       description = lib.mdDoc "${srv}.sr.ht's OAuth client id for meta.sr.ht.";
       type = types.str;
@@ -587,29 +589,32 @@ in
 
         options."man.sr.ht" = commonServiceSettings "man" // { };
 
-        options."meta.sr.ht" = removeAttrs (commonServiceSettings "meta") [
-          "oauth-client-id"
-          "oauth-client-secret"
-        ] // {
-          api-origin = mkOption {
-            description = lib.mdDoc "Origin URL for API, 100 more than web.";
-            type = types.str;
-            default = "http://${cfg.listenAddress}:${toString (cfg.meta.port + 100)}";
-            defaultText =
-              lib.literalMD
-                ''
-                  `"http://''${`[](#opt-services.sourcehut.listenAddress)`}:''${toString (`[](#opt-services.sourcehut.meta.port)` + 100)}"`''
-            ;
-          };
-          webhooks = mkOption {
-            description = lib.mdDoc "The Redis connection used for the webhooks worker.";
-            type = types.str;
-            default = "redis+socket:///run/redis-sourcehut-metasrht/redis.sock?virtual_host=1";
-          };
-          welcome-emails = mkEnableOption (
-            lib.mdDoc "sending stock sourcehut welcome emails after signup"
-          );
-        };
+        options."meta.sr.ht" =
+          removeAttrs (commonServiceSettings "meta") [
+            "oauth-client-id"
+            "oauth-client-secret"
+          ]
+          // {
+            api-origin = mkOption {
+              description = lib.mdDoc "Origin URL for API, 100 more than web.";
+              type = types.str;
+              default = "http://${cfg.listenAddress}:${toString (cfg.meta.port + 100)}";
+              defaultText =
+                lib.literalMD
+                  ''
+                    `"http://''${`[](#opt-services.sourcehut.listenAddress)`}:''${toString (`[](#opt-services.sourcehut.meta.port)` + 100)}"`''
+              ;
+            };
+            webhooks = mkOption {
+              description = lib.mdDoc "The Redis connection used for the webhooks worker.";
+              type = types.str;
+              default = "redis+socket:///run/redis-sourcehut-metasrht/redis.sock?virtual_host=1";
+            };
+            welcome-emails = mkEnableOption (
+              lib.mdDoc "sending stock sourcehut welcome emails after signup"
+            );
+          }
+        ;
         options."meta.sr.ht::api" = {
           internal-ipnet = mkOption {
             description = lib.mdDoc ''
@@ -642,12 +647,15 @@ in
             mkOptionNullOrStr
               "Public key for Stripe. Get your keys at https://dashboard.stripe.com/account/apikeys"
           ;
-          stripe-secret-key = mkOptionNullOrStr ''
-            An absolute file path (which should be outside the Nix-store)
-            to a secret key for Stripe. Get your keys at https://dashboard.stripe.com/account/apikeys
-          '' // {
-            apply = mapNullable (s: "<" + toString s);
-          };
+          stripe-secret-key =
+            mkOptionNullOrStr ''
+              An absolute file path (which should be outside the Nix-store)
+              to a secret key for Stripe. Get your keys at https://dashboard.stripe.com/account/apikeys
+            ''
+            // {
+              apply = mapNullable (s: "<" + toString s);
+            }
+          ;
         };
         options."meta.sr.ht::settings" = {
           registration = mkEnableOption (lib.mdDoc "public registration");

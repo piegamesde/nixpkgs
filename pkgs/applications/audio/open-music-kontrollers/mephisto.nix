@@ -11,7 +11,8 @@
 }@args:
 
 callPackage ./generic.nix (
-  args // rec {
+  args
+  // rec {
     pname = "mephisto";
     version = "0.16.0";
 

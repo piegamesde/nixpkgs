@@ -29,5 +29,7 @@ buildEnv {
     done
   '';
 
-  meta = zeroad-unwrapped.meta // { hydraPlatforms = [ ]; };
+  meta = zeroad-unwrapped.meta // {
+    hydraPlatforms = [ ];
+  };
 }

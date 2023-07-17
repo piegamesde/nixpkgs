@@ -16,7 +16,8 @@ let
   mkSusDerivation =
     args:
     stdenvNoCC.mkDerivation (
-      args // {
+      args
+      // {
         dontBuild = true;
         darwinDontCodeSign = true;
 
@@ -87,21 +88,24 @@ let
       }
   ;
 
-  stdenvs = {
-    stdenv = mkStdenv stdenv;
-  } // builtins.listToAttrs (
-    map
-      (v: {
-        name = "clang${v}Stdenv";
-        value = mkStdenv pkgs."llvmPackages_${v}".stdenv;
-      })
-      [
-        "12"
-        "13"
-        "14"
-        "15"
-      ]
-  );
+  stdenvs =
+    {
+      stdenv = mkStdenv stdenv;
+    }
+    // builtins.listToAttrs (
+      map
+        (v: {
+          name = "clang${v}Stdenv";
+          value = mkStdenv pkgs."llvmPackages_${v}".stdenv;
+        })
+        [
+          "12"
+          "13"
+          "14"
+          "15"
+        ]
+    )
+  ;
 
   callPackage = newScope (packages // pkgs.darwin // { inherit MacOSX-SDK; });
 
@@ -142,7 +146,8 @@ let
 
     callPackage = newScope (
       lib.optionalAttrs stdenv.isDarwin (
-        stdenvs // rec {
+        stdenvs
+        // rec {
           inherit (pkgs.darwin.apple_sdk_11_0) xcodebuild rustPlatform;
           darwin = pkgs.darwin.overrideScope (
             _: prev: {

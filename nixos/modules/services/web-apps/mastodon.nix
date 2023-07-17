@@ -14,41 +14,44 @@ let
   databaseActuallyCreateLocally =
     cfg.database.createLocally && cfg.database.host == "/run/postgresql";
 
-  env = {
-    RAILS_ENV = "production";
-    NODE_ENV = "production";
+  env =
+    {
+      RAILS_ENV = "production";
+      NODE_ENV = "production";
 
-    LD_PRELOAD = "${pkgs.jemalloc}/lib/libjemalloc.so";
+      LD_PRELOAD = "${pkgs.jemalloc}/lib/libjemalloc.so";
 
-    # mastodon-web concurrency.
-    WEB_CONCURRENCY = toString cfg.webProcesses;
-    MAX_THREADS = toString cfg.webThreads;
+      # mastodon-web concurrency.
+      WEB_CONCURRENCY = toString cfg.webProcesses;
+      MAX_THREADS = toString cfg.webThreads;
 
-    # mastodon-streaming concurrency.
-    STREAMING_CLUSTER_NUM = toString cfg.streamingProcesses;
+      # mastodon-streaming concurrency.
+      STREAMING_CLUSTER_NUM = toString cfg.streamingProcesses;
 
-    DB_USER = cfg.database.user;
+      DB_USER = cfg.database.user;
 
-    REDIS_HOST = cfg.redis.host;
-    REDIS_PORT = toString (cfg.redis.port);
-    DB_HOST = cfg.database.host;
-    DB_NAME = cfg.database.name;
-    LOCAL_DOMAIN = cfg.localDomain;
-    SMTP_SERVER = cfg.smtp.host;
-    SMTP_PORT = toString (cfg.smtp.port);
-    SMTP_FROM_ADDRESS = cfg.smtp.fromAddress;
-    PAPERCLIP_ROOT_PATH = "/var/lib/mastodon/public-system";
-    PAPERCLIP_ROOT_URL = "/system";
-    ES_ENABLED = if (cfg.elasticsearch.host != null) then "true" else "false";
-    ES_HOST = cfg.elasticsearch.host;
-    ES_PORT = toString (cfg.elasticsearch.port);
+      REDIS_HOST = cfg.redis.host;
+      REDIS_PORT = toString (cfg.redis.port);
+      DB_HOST = cfg.database.host;
+      DB_NAME = cfg.database.name;
+      LOCAL_DOMAIN = cfg.localDomain;
+      SMTP_SERVER = cfg.smtp.host;
+      SMTP_PORT = toString (cfg.smtp.port);
+      SMTP_FROM_ADDRESS = cfg.smtp.fromAddress;
+      PAPERCLIP_ROOT_PATH = "/var/lib/mastodon/public-system";
+      PAPERCLIP_ROOT_URL = "/system";
+      ES_ENABLED = if (cfg.elasticsearch.host != null) then "true" else "false";
+      ES_HOST = cfg.elasticsearch.host;
+      ES_PORT = toString (cfg.elasticsearch.port);
 
-    TRUSTED_PROXY_IP = cfg.trustedProxy;
-  } // lib.optionalAttrs
+      TRUSTED_PROXY_IP = cfg.trustedProxy;
+    }
+    // lib.optionalAttrs
       (cfg.database.host != "/run/postgresql" && cfg.database.port != null)
       { DB_PORT = toString cfg.database.port; }
     // lib.optionalAttrs cfg.smtp.authenticate { SMTP_LOGIN = cfg.smtp.user; }
-    // cfg.extraConfig;
+    // cfg.extraConfig
+  ;
 
   systemCallsList = [
     "@cpu-emulation"
@@ -797,10 +800,12 @@ in
             cfg.package
             pkgs.postgresql
           ];
-          environment = env // lib.optionalAttrs (!databaseActuallyCreateLocally) {
-            PGHOST = cfg.database.host;
-            PGUSER = cfg.database.user;
-          };
+          environment =
+            env
+            // lib.optionalAttrs (!databaseActuallyCreateLocally) {
+              PGHOST = cfg.database.host;
+              PGUSER = cfg.database.user;
+            };
           serviceConfig = {
             Type = "oneshot";
             EnvironmentFile = [ "/var/lib/mastodon/.secrets_env" ] ++ cfg.extraEnvFiles;
@@ -842,12 +847,15 @@ in
           ;
           wantedBy = [ "mastodon.target" ];
           description = "Mastodon streaming";
-          environment = env // (
-            if cfg.enableUnixSocket then
-              { SOCKET = "/run/mastodon-streaming/streaming.socket"; }
-            else
-              { PORT = toString (cfg.streamingPort); }
-          );
+          environment =
+            env
+            // (
+              if cfg.enableUnixSocket then
+                { SOCKET = "/run/mastodon-streaming/streaming.socket"; }
+              else
+                { PORT = toString (cfg.streamingPort); }
+            )
+          ;
           serviceConfig = {
             ExecStart = "${cfg.package}/run-streaming.sh";
             Restart = "always";
@@ -891,12 +899,15 @@ in
           ;
           wantedBy = [ "mastodon.target" ];
           description = "Mastodon web";
-          environment = env // (
-            if cfg.enableUnixSocket then
-              { SOCKET = "/run/mastodon-web/web.socket"; }
-            else
-              { PORT = toString (cfg.webPort); }
-          );
+          environment =
+            env
+            // (
+              if cfg.enableUnixSocket then
+                { SOCKET = "/run/mastodon-web/web.socket"; }
+              else
+                { PORT = toString (cfg.webPort); }
+            )
+          ;
           serviceConfig = {
             ExecStart = "${cfg.package}/bin/puma -C config/puma.rb";
             Restart = "always";

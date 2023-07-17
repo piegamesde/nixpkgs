@@ -12,11 +12,12 @@ let
 in
 {
   options = {
-    programs.bash.enableCompletion = mkEnableOption (
-      lib.mdDoc "Bash completion for all interactive bash shells"
-    ) // {
-      default = true;
-    };
+    programs.bash.enableCompletion =
+      mkEnableOption (lib.mdDoc "Bash completion for all interactive bash shells")
+      // {
+        default = true;
+      }
+    ;
   };
 
   config = mkIf enable {

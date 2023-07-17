@@ -69,7 +69,8 @@ let
           license = licenses.free;
           mainProgram = "jam";
           platforms = platforms.unix;
-        } // meta
+        }
+        // meta
       ;
     }
   ;

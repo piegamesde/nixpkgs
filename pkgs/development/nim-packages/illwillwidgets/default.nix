@@ -17,7 +17,8 @@ buildNimPackage rec {
 
   meta =
     with lib;
-    src.meta // {
+    src.meta
+    // {
       description = "Mouse enabled widgets for illwill";
 
       license = [ licenses.mit ];

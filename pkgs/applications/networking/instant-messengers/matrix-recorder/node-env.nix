@@ -532,7 +532,8 @@ let
           # Run post install hook, if provided
           runHook postInstall
         '';
-      } // extraArgs
+      }
+      // extraArgs
     )
   ;
 
@@ -626,7 +627,8 @@ let
             mv ${packageName} lib
             ln -s $out/lib/node_modules/.bin $out/bin
           '';
-        } // extraArgs
+        }
+        // extraArgs
       );
     in
     stdenv.mkDerivation {

@@ -12,7 +12,8 @@ let
 
   makeCustomizable =
     macvim:
-    macvim // {
+    macvim
+    // {
       # configure expects the same args as vimUtils.vimrcFile.
       # This is the same as the value given to neovim.override { configure = … }
       # or the value of vim-full.customize { vimrcConfig = … }

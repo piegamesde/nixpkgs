@@ -33,10 +33,13 @@ stdenvNoCC.mkDerivation {
     ln -s "$out/Applications/LosslessCut.app/Contents/MacOS/LosslessCut" "$out/bin/losslesscut"
   '';
 
-  meta = metaCommon // (
-    with lib; {
-      platforms = singleton (if isAarch64 then "aarch64-darwin" else "x86_64-darwin");
-      mainProgram = "losslesscut";
-    }
-  );
+  meta =
+    metaCommon
+    // (
+      with lib; {
+        platforms = singleton (if isAarch64 then "aarch64-darwin" else "x86_64-darwin");
+        mainProgram = "losslesscut";
+      }
+    )
+  ;
 }

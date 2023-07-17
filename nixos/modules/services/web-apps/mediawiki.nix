@@ -590,18 +590,21 @@ in
     services.phpfpm.pools.mediawiki = {
       inherit user group;
       phpEnv.MEDIAWIKI_CONFIG = "${mediawikiConfig}";
-      settings = (
-        if (cfg.webserver == "apache") then
-          {
-            "listen.owner" = config.services.httpd.user;
-            "listen.group" = config.services.httpd.group;
-          }
-        else
-          {
-            "listen.owner" = user;
-            "listen.group" = group;
-          }
-      ) // cfg.poolConfig;
+      settings =
+        (
+          if (cfg.webserver == "apache") then
+            {
+              "listen.owner" = config.services.httpd.user;
+              "listen.group" = config.services.httpd.group;
+            }
+          else
+            {
+              "listen.owner" = user;
+              "listen.group" = group;
+            }
+        )
+        // cfg.poolConfig
+      ;
     };
 
     services.httpd = lib.mkIf (cfg.webserver == "apache") {

@@ -174,7 +174,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "xfce") keep extra (
       callPackage ./panel-plugins/xfce4-pulseaudio-plugin
         { }
     ;
-  } // lib.optionalAttrs config.allowAliases {
+  }
+  // lib.optionalAttrs config.allowAliases {
     #### ALIASES
 
     xinitrc = self.xfce4-session.xinitrc; # added 2019-11-04

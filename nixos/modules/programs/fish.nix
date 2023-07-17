@@ -283,7 +283,8 @@ in
                     inherit package;
                     preferLocalBuild = true;
                     allowSubstitutes = false;
-                  } // optionalAttrs (package ? meta.priority) {
+                  }
+                  // optionalAttrs (package ? meta.priority) {
                     meta.priority = package.meta.priority;
                   }
                 )

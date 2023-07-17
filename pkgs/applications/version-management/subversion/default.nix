@@ -181,7 +181,8 @@ let
           ];
           platforms = platforms.linux ++ platforms.darwin;
         };
-      } // lib.optionalAttrs stdenv.isDarwin {
+      }
+      // lib.optionalAttrs stdenv.isDarwin {
         CXX = "clang++";
         CC = "clang";
         CPP = "clang -E";

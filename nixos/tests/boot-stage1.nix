@@ -126,7 +126,8 @@ import ./make-test-python.nix (
               (daemonize name ''
                 char *argv[] = {"${cmdline}", NULL};
                 execvp("${name}-child", argv);
-              '') // {
+              '')
+              // {
                 child = compile "${name}-child" ''
                   #include <stdio.h>
                   #include <unistd.h>

@@ -21,5 +21,7 @@ buildDunePackage rec {
     sexplib
   ];
 
-  meta = yaml.meta // { description = "ocaml-yaml with sexp support"; };
+  meta = yaml.meta // {
+    description = "ocaml-yaml with sexp support";
+  };
 }

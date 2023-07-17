@@ -57,8 +57,11 @@ let
                   runHook postInstall
                 '';
 
-                passthru = { wpName = pname; } // (args.passthru or { });
-              } // lib.optionalAttrs (type == "language") {
+                passthru = {
+                  wpName = pname;
+                } // (args.passthru or { });
+              }
+              // lib.optionalAttrs (type == "language") {
                 nativeBuildInputs = [
                   gettext
                   wp-cli
@@ -75,7 +78,8 @@ let
 
                   runHook postBuild
                 '';
-              } // removeAttrs args [
+              }
+              // removeAttrs args [
                 "type"
                 "pname"
                 "version"
@@ -183,23 +187,25 @@ let
           )
           { }
       ;
-    } // lib.mapAttrs
-      (
-        type: pkgs:
-        lib.makeExtensible (
-          _:
-          lib.mapAttrs
-            (
-              pname: data:
-              self.mkOfficialWordpressDerivation {
-                type = lib.removeSuffix "s" type;
-                inherit pname data;
-              }
-            )
-            pkgs
+    }
+    //
+      lib.mapAttrs
+        (
+          type: pkgs:
+          lib.makeExtensible (
+            _:
+            lib.mapAttrs
+              (
+                pname: data:
+                self.mkOfficialWordpressDerivation {
+                  type = lib.removeSuffix "s" type;
+                  inherit pname data;
+                }
+              )
+              pkgs
+          )
         )
-      )
-      generatedJson
+        generatedJson
   ;
 in
 # This creates an extensible scope.

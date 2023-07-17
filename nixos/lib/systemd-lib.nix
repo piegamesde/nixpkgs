@@ -452,34 +452,44 @@ rec {
     }:
     {
       config = {
-        unitConfig = optionalAttrs (config.requires != [ ]) {
-          Requires = toString config.requires;
-        } // optionalAttrs (config.wants != [ ]) { Wants = toString config.wants; }
+        unitConfig =
+          optionalAttrs (config.requires != [ ]) { Requires = toString config.requires; }
+          // optionalAttrs (config.wants != [ ]) { Wants = toString config.wants; }
           // optionalAttrs (config.after != [ ]) { After = toString config.after; }
           // optionalAttrs (config.before != [ ]) { Before = toString config.before; }
           // optionalAttrs (config.bindsTo != [ ]) { BindsTo = toString config.bindsTo; }
           // optionalAttrs (config.partOf != [ ]) { PartOf = toString config.partOf; }
           // optionalAttrs (config.conflicts != [ ]) {
             Conflicts = toString config.conflicts;
-          } // optionalAttrs (config.requisite != [ ]) {
+          }
+          // optionalAttrs (config.requisite != [ ]) {
             Requisite = toString config.requisite;
-          } // optionalAttrs (config ? restartTriggers && config.restartTriggers != [ ]) {
+          }
+          // optionalAttrs (config ? restartTriggers && config.restartTriggers != [ ]) {
             X-Restart-Triggers = toString config.restartTriggers;
-          } // optionalAttrs (config ? reloadTriggers && config.reloadTriggers != [ ]) {
+          }
+          // optionalAttrs (config ? reloadTriggers && config.reloadTriggers != [ ]) {
             X-Reload-Triggers = toString config.reloadTriggers;
-          } // optionalAttrs (config.description != "") {
+          }
+          // optionalAttrs (config.description != "") {
             Description = config.description;
-          } // optionalAttrs (config.documentation != [ ]) {
+          }
+          // optionalAttrs (config.documentation != [ ]) {
             Documentation = toString config.documentation;
-          } // optionalAttrs (config.onFailure != [ ]) {
+          }
+          // optionalAttrs (config.onFailure != [ ]) {
             OnFailure = toString config.onFailure;
-          } // optionalAttrs (config.onSuccess != [ ]) {
+          }
+          // optionalAttrs (config.onSuccess != [ ]) {
             OnSuccess = toString config.onSuccess;
-          } // optionalAttrs (options.startLimitIntervalSec.isDefined) {
+          }
+          // optionalAttrs (options.startLimitIntervalSec.isDefined) {
             StartLimitIntervalSec = toString config.startLimitIntervalSec;
-          } // optionalAttrs (options.startLimitBurst.isDefined) {
+          }
+          // optionalAttrs (options.startLimitBurst.isDefined) {
             StartLimitBurst = toString config.startLimitBurst;
-          };
+          }
+        ;
       };
     }
   ;
@@ -518,11 +528,14 @@ rec {
     }:
     {
       config = {
-        mountConfig = {
-          What = config.what;
-          Where = config.where;
-        } // optionalAttrs (config.type != "") { Type = config.type; }
-          // optionalAttrs (config.options != "") { Options = config.options; };
+        mountConfig =
+          {
+            What = config.what;
+            Where = config.where;
+          }
+          // optionalAttrs (config.type != "") { Type = config.type; }
+          // optionalAttrs (config.options != "") { Options = config.options; }
+        ;
       };
     }
   ;

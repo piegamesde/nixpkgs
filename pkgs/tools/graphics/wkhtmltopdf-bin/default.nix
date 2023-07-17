@@ -110,6 +110,7 @@ stdenv.mkDerivation (
         "x86_64-linux"
       ];
     };
-  } // lib.optionalAttrs (stdenv.hostPlatform.isDarwin) darwinAttrs
+  }
+  // lib.optionalAttrs (stdenv.hostPlatform.isDarwin) darwinAttrs
   // lib.optionalAttrs (stdenv.hostPlatform.isLinux) linuxAttrs
 )

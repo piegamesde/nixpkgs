@@ -97,7 +97,8 @@ let
     };
   };
 in
-self // {
+self
+// {
   makeWrapper =
     {
       pname,
@@ -138,11 +139,17 @@ self // {
           makeWrapper ${alephone}/bin/alephone $out/bin/$pname \
             --add-flags $out/data/$pname
         '';
-      } // extraArgs // {
-        meta = alephone.meta // {
-          license = lib.licenses.free;
-          hydraPlatforms = [ ];
-        } // meta;
+      }
+      // extraArgs
+      // {
+        meta =
+          alephone.meta
+          // {
+            license = lib.licenses.free;
+            hydraPlatforms = [ ];
+          }
+          // meta
+        ;
       }
     )
   ;

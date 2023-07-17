@@ -163,56 +163,60 @@ let
 in
 
 {
-  blas = mapListToAttrs supportedSystems (
-    system':
-    let
-      system = lib.systems.elaborate { system = system'; };
-    in
-    mapListToAttrs (blasProviders system) (
-      provider:
+  blas =
+    mapListToAttrs supportedSystems (
+      system':
       let
-        isILP64 = builtins.elem provider (
-          [ "mkl64" ] ++ lib.optional system.is64bit "openblas"
-        );
-        pkgs = pkgsFun {
-          config = {
-            inherit allowUnfree;
-          };
-          system = system';
-          overlays = [
-            (self: super: {
-              lapack = super.lapack.override {
-                lapackProvider =
-                  if provider == "mkl64" then super.mkl else builtins.getAttr provider super;
-                inherit isILP64;
-              };
-              blas = super.blas.override {
-                blasProvider =
-                  if provider == "mkl64" then super.mkl else builtins.getAttr provider super;
-                inherit isILP64;
-              };
-            })
-          ];
-        };
+        system = lib.systems.elaborate { system = system'; };
       in
-      mapListToAttrs
-        (if builtins.elem provider blas64Providers then blas64Users else blasUsers)
-        (
-          attr:
-          if builtins.isList attr then
-            lib.getAttrFromPath attr pkgs
-          else
-            builtins.getAttr attr pkgs
-        )
+      mapListToAttrs (blasProviders system) (
+        provider:
+        let
+          isILP64 = builtins.elem provider (
+            [ "mkl64" ] ++ lib.optional system.is64bit "openblas"
+          );
+          pkgs = pkgsFun {
+            config = {
+              inherit allowUnfree;
+            };
+            system = system';
+            overlays = [
+              (self: super: {
+                lapack = super.lapack.override {
+                  lapackProvider =
+                    if provider == "mkl64" then super.mkl else builtins.getAttr provider super;
+                  inherit isILP64;
+                };
+                blas = super.blas.override {
+                  blasProvider =
+                    if provider == "mkl64" then super.mkl else builtins.getAttr provider super;
+                  inherit isILP64;
+                };
+              })
+            ];
+          };
+        in
+        mapListToAttrs
+          (if builtins.elem provider blas64Providers then blas64Users else blasUsers)
+          (
+            attr:
+            if builtins.isList attr then
+              lib.getAttrFromPath attr pkgs
+            else
+              builtins.getAttr attr pkgs
+          )
 
+        // {
+          recurseForDerivations = true;
+        }
+      )
       // {
         recurseForDerivations = true;
       }
-    ) // {
+    )
+    // {
       recurseForDerivations = true;
     }
-  ) // {
-    recurseForDerivations = true;
-  };
+  ;
   recurseForDerivations = true;
 }

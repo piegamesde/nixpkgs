@@ -9,7 +9,8 @@
 }@args:
 
 callPackage ./generic.nix (
-  args // {
+  args
+  // {
 
     src = fetchurl {
       url = "mirror://sourceforge/tcl/tk${tcl.version}-src.tar.gz";

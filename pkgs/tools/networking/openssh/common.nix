@@ -207,6 +207,7 @@ stdenv.mkDerivation rec {
         )
       ;
       mainProgram = "ssh";
-    } // extraMeta
+    }
+    // extraMeta
   ;
 }

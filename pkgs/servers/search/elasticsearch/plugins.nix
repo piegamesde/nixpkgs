@@ -22,7 +22,8 @@ let
       ...
     }:
     stdenv.mkDerivation (
-      a // {
+      a
+      // {
         inherit installPhase;
         pname = "elasticsearch-${pluginName}";
         dontUnpack = true;

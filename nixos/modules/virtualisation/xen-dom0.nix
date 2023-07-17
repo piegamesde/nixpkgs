@@ -269,18 +269,21 @@ in
       (isYes "XEN_SCRUB_PAGES")
     ];
 
-    environment.etc = {
-      "xen/xl.conf".source = "${cfg.package}/etc/xen/xl.conf";
-      "xen/scripts".source = "${cfg.package}/etc/xen/scripts";
-      "default/xendomains".text = ''
-        source ${cfg.package}/etc/default/xendomains
+    environment.etc =
+      {
+        "xen/xl.conf".source = "${cfg.package}/etc/xen/xl.conf";
+        "xen/scripts".source = "${cfg.package}/etc/xen/scripts";
+        "default/xendomains".text = ''
+          source ${cfg.package}/etc/default/xendomains
 
-        ${cfg.domains.extraConfig}
-      '';
-    } // optionalAttrs (builtins.compareVersions cfg.package.version "4.10" >= 0) {
-      # in V 4.10 oxenstored requires /etc/xen/oxenstored.conf to start
-      "xen/oxenstored.conf".source = "${cfg.package}/etc/xen/oxenstored.conf";
-    };
+          ${cfg.domains.extraConfig}
+        '';
+      }
+      // optionalAttrs (builtins.compareVersions cfg.package.version "4.10" >= 0) {
+        # in V 4.10 oxenstored requires /etc/xen/oxenstored.conf to start
+        "xen/oxenstored.conf".source = "${cfg.package}/etc/xen/oxenstored.conf";
+      }
+    ;
 
     # Xen provides udev rules.
     services.udev.packages = [ cfg.package ];

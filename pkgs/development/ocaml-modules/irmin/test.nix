@@ -47,5 +47,7 @@ buildDunePackage {
     vector
   ];
 
-  meta = irmin.meta // { description = "Irmin test suite"; };
+  meta = irmin.meta // {
+    description = "Irmin test suite";
+  };
 }

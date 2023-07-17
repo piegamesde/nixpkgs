@@ -19,7 +19,8 @@ buildNimPackage rec {
 
   meta =
     with lib;
-    src.meta // {
+    src.meta
+    // {
       description = "A loose, direct to object json parser with hooks";
       license = [ licenses.mit ];
       maintainers = [ maintainers.erdnaxe ];

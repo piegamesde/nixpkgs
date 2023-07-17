@@ -229,7 +229,9 @@ rec {
         desktopItems = [ desktopItem ];
         passthru = {
           inherit version;
-          meta = meta // { hydraPlatforms = [ ]; };
+          meta = meta // {
+            hydraPlatforms = [ ];
+          };
         };
       }
       (

@@ -19,7 +19,8 @@ buildNimPackage rec {
   doCheck = true;
   meta =
     with lib;
-    src.meta // {
+    src.meta
+    // {
       description = "Spry virtual machine";
       license = [ licenses.mit ];
       maintainers = [ maintainers.ehmry ];

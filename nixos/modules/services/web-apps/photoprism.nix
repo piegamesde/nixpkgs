@@ -102,48 +102,51 @@ in
     systemd.services.photoprism = {
       description = "Photoprism server";
 
-      serviceConfig = {
-        Restart = "on-failure";
-        User = "photoprism";
-        Group = "photoprism";
-        DynamicUser = true;
-        StateDirectory = "photoprism";
-        WorkingDirectory = "/var/lib/photoprism";
-        RuntimeDirectory = "photoprism";
+      serviceConfig =
+        {
+          Restart = "on-failure";
+          User = "photoprism";
+          Group = "photoprism";
+          DynamicUser = true;
+          StateDirectory = "photoprism";
+          WorkingDirectory = "/var/lib/photoprism";
+          RuntimeDirectory = "photoprism";
 
-        LoadCredential =
-          lib.optionalString (cfg.passwordFile != null)
-            "PHOTOPRISM_ADMIN_PASSWORD:${cfg.passwordFile}"
-        ;
+          LoadCredential =
+            lib.optionalString (cfg.passwordFile != null)
+              "PHOTOPRISM_ADMIN_PASSWORD:${cfg.passwordFile}"
+          ;
 
-        CapabilityBoundingSet = "";
-        LockPersonality = true;
-        PrivateDevices = true;
-        PrivateUsers = true;
-        ProtectClock = true;
-        ProtectControlGroups = true;
-        ProtectHome = true;
-        ProtectHostname = true;
-        ProtectKernelLogs = true;
-        ProtectKernelModules = true;
-        ProtectKernelTunables = true;
-        RestrictAddressFamilies = [
-          "AF_UNIX"
-          "AF_INET"
-          "AF_INET6"
-        ];
-        RestrictNamespaces = true;
-        RestrictRealtime = true;
-        SystemCallArchitectures = "native";
-        SystemCallFilter = [
-          "@system-service"
-          "~@privileged @setuid @keyring"
-        ];
-        UMask = "0066";
-      } // lib.optionalAttrs (cfg.port < 1024) {
-        AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
-        CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
-      };
+          CapabilityBoundingSet = "";
+          LockPersonality = true;
+          PrivateDevices = true;
+          PrivateUsers = true;
+          ProtectClock = true;
+          ProtectControlGroups = true;
+          ProtectHome = true;
+          ProtectHostname = true;
+          ProtectKernelLogs = true;
+          ProtectKernelModules = true;
+          ProtectKernelTunables = true;
+          RestrictAddressFamilies = [
+            "AF_UNIX"
+            "AF_INET"
+            "AF_INET6"
+          ];
+          RestrictNamespaces = true;
+          RestrictRealtime = true;
+          SystemCallArchitectures = "native";
+          SystemCallFilter = [
+            "@system-service"
+            "~@privileged @setuid @keyring"
+          ];
+          UMask = "0066";
+        }
+        // lib.optionalAttrs (cfg.port < 1024) {
+          AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
+          CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
+        }
+      ;
 
       wantedBy = [ "multi-user.target" ];
       environment = env;

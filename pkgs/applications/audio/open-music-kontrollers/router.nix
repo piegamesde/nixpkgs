@@ -4,7 +4,8 @@
 }@args:
 
 callPackage ./generic.nix (
-  args // rec {
+  args
+  // rec {
     pname = "router";
     version = "unstable-2021-04-13";
 

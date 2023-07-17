@@ -61,7 +61,13 @@ let
 
   brokenOnDarwin =
     pkg:
-    pkg.overrideAttrs (attrs: { meta = attrs.meta // { broken = isDarwin; }; })
+    pkg.overrideAttrs (
+      attrs: {
+        meta = attrs.meta // {
+          broken = isDarwin;
+        };
+      }
+    )
   ;
 in
 self: super:
@@ -118,7 +124,11 @@ self: super:
   );
 
   fonttosfnt = super.fonttosfnt.overrideAttrs (
-    attrs: { meta = attrs.meta // { license = lib.licenses.mit; }; }
+    attrs: {
+      meta = attrs.meta // {
+        license = lib.licenses.mit;
+      };
+    }
   );
 
   imake = super.imake.overrideAttrs (
@@ -692,7 +702,9 @@ self: super:
         "out"
         "dev"
       ];
-      meta = attrs.meta // { maintainers = [ lib.maintainers.lovek323 ]; };
+      meta = attrs.meta // {
+        maintainers = [ lib.maintainers.lovek323 ];
+      };
     }
   );
 
@@ -808,37 +820,81 @@ self: super:
 
   # Obsolete drivers that don't compile anymore.
   xf86videoark = super.xf86videoark.overrideAttrs (
-    attrs: { meta = attrs.meta // { broken = true; }; }
+    attrs: {
+      meta = attrs.meta // {
+        broken = true;
+      };
+    }
   );
   xf86videogeode = super.xf86videogeode.overrideAttrs (
-    attrs: { meta = attrs.meta // { broken = true; }; }
+    attrs: {
+      meta = attrs.meta // {
+        broken = true;
+      };
+    }
   );
   xf86videoglide = super.xf86videoglide.overrideAttrs (
-    attrs: { meta = attrs.meta // { broken = true; }; }
+    attrs: {
+      meta = attrs.meta // {
+        broken = true;
+      };
+    }
   );
   xf86videoi128 = super.xf86videoi128.overrideAttrs (
-    attrs: { meta = attrs.meta // { broken = true; }; }
+    attrs: {
+      meta = attrs.meta // {
+        broken = true;
+      };
+    }
   );
   xf86videonewport = super.xf86videonewport.overrideAttrs (
-    attrs: { meta = attrs.meta // { broken = true; }; }
+    attrs: {
+      meta = attrs.meta // {
+        broken = true;
+      };
+    }
   );
   xf86videos3virge = super.xf86videos3virge.overrideAttrs (
-    attrs: { meta = attrs.meta // { broken = true; }; }
+    attrs: {
+      meta = attrs.meta // {
+        broken = true;
+      };
+    }
   );
   xf86videosavage = super.xf86videosavage.overrideAttrs (
-    attrs: { meta = attrs.meta // { broken = true; }; }
+    attrs: {
+      meta = attrs.meta // {
+        broken = true;
+      };
+    }
   );
   xf86videotga = super.xf86videotga.overrideAttrs (
-    attrs: { meta = attrs.meta // { broken = true; }; }
+    attrs: {
+      meta = attrs.meta // {
+        broken = true;
+      };
+    }
   );
   xf86videov4l = super.xf86videov4l.overrideAttrs (
-    attrs: { meta = attrs.meta // { broken = true; }; }
+    attrs: {
+      meta = attrs.meta // {
+        broken = true;
+      };
+    }
   );
   xf86videovoodoo = super.xf86videovoodoo.overrideAttrs (
-    attrs: { meta = attrs.meta // { broken = true; }; }
+    attrs: {
+      meta = attrs.meta // {
+        broken = true;
+      };
+    }
   );
   xf86videowsfb = super.xf86videowsfb.overrideAttrs (
-    attrs: { meta = attrs.meta // { broken = true; }; }
+    attrs: {
+      meta = attrs.meta // {
+        broken = true;
+      };
+    }
   );
 
   xf86videoomap = super.xf86videoomap.overrideAttrs (
@@ -876,25 +932,33 @@ self: super:
       nativeBuildInputs = attrs.nativeBuildInputs ++ [ autoreconfHook ];
       buildInputs = attrs.buildInputs ++ [ xorg.utilmacros ];
       # https://gitlab.freedesktop.org/xorg/driver/xf86-video-glint/-/issues/1
-      meta = attrs.meta // { broken = true; };
+      meta = attrs.meta // {
+        broken = true;
+      };
     }
   );
 
   xf86videosuncg6 = super.xf86videosuncg6.overrideAttrs (
     attrs: {
-      meta = attrs.meta // { broken = isDarwin; }; # never worked: https://hydra.nixos.org/job/nixpkgs/trunk/xorg.xf86videosuncg6.x86_64-darwin
+      meta = attrs.meta // {
+        broken = isDarwin;
+      }; # never worked: https://hydra.nixos.org/job/nixpkgs/trunk/xorg.xf86videosuncg6.x86_64-darwin
     }
   );
 
   xf86videosunffb = super.xf86videosunffb.overrideAttrs (
     attrs: {
-      meta = attrs.meta // { broken = isDarwin; }; # never worked: https://hydra.nixos.org/job/nixpkgs/trunk/xorg.xf86videosunffb.x86_64-darwin
+      meta = attrs.meta // {
+        broken = isDarwin;
+      }; # never worked: https://hydra.nixos.org/job/nixpkgs/trunk/xorg.xf86videosunffb.x86_64-darwin
     }
   );
 
   xf86videosunleo = super.xf86videosunleo.overrideAttrs (
     attrs: {
-      meta = attrs.meta // { broken = isDarwin; }; # never worked: https://hydra.nixos.org/job/nixpkgs/trunk/xorg.xf86videosunleo.x86_64-darwin
+      meta = attrs.meta // {
+        broken = isDarwin;
+      }; # never worked: https://hydra.nixos.org/job/nixpkgs/trunk/xorg.xf86videosunleo.x86_64-darwin
     }
   );
 
@@ -1065,7 +1129,11 @@ self: super:
   ;
 
   xlsfonts = super.xlsfonts.overrideAttrs (
-    attrs: { meta = attrs.meta // { license = lib.licenses.mit; }; }
+    attrs: {
+      meta = attrs.meta // {
+        license = lib.licenses.mit;
+      };
+    }
   );
 
   xorgproto = super.xorgproto.overrideAttrs (
@@ -1093,7 +1161,8 @@ self: super:
         version = lib.getVersion attrs_passed;
         attrs =
           if (abiCompat == null || lib.hasPrefix abiCompat version) then
-            attrs_passed // {
+            attrs_passed
+            // {
               buildInputs =
                 attrs_passed.buildInputs ++ lib.optional (libdrm != null) libdrm.dev;
               postPatch = ''
@@ -1107,7 +1176,8 @@ self: super:
             throw "unsupported xorg abiCompat ${abiCompat} for ${attrs_passed.name}"
         ;
       in
-      attrs // (
+      attrs
+      // (
         let
           version = lib.getVersion attrs;
           commonBuildInputs =
@@ -1155,7 +1225,8 @@ self: super:
               {
                 url = "https://gitlab.freedesktop.org/xorg/xserver/-/commit/${commit}.diff";
                 inherit sha256;
-              } // lib.optionalAttrs (name != null) { name = name + ".patch"; }
+              }
+              // lib.optionalAttrs (name != null) { name = name + ".patch"; }
             )
           ;
         in
@@ -1588,7 +1659,11 @@ self: super:
     setLicense =
       license: name:
       super.${name}.overrideAttrs (
-        attrs: { meta = attrs.meta // { inherit license; }; }
+        attrs: {
+          meta = attrs.meta // {
+            inherit license;
+          };
+        }
       )
     ;
     mapNamesToAttrs =

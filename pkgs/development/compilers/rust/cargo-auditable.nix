@@ -49,7 +49,8 @@ let
 in
 
 rustPlatform.buildRustPackage.override { cargo-auditable = bootstrap; } (
-  args // {
+  args
+  // {
     nativeBuildInputs = [ installShellFiles ];
 
     postInstall = ''

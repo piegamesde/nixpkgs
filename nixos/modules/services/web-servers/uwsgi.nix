@@ -58,10 +58,12 @@ let
           if c.type == "normal" then
             {
               inherit plugins;
-            } // removeAttrs c [
+            }
+            // removeAttrs c [
               "type"
               "pythonPackages"
-            ] // optionalAttrs (python != null) {
+            ]
+            // optionalAttrs (python != null) {
               pyhome = "${pythonEnv}";
               env =
                 # Argh, uwsgi expects list of key-values there instead of a dictionary.
@@ -87,7 +89,8 @@ let
                     paths = mapAttrsToList buildCfg c.vassals;
                   }
               ;
-            } // removeAttrs c [
+            }
+            // removeAttrs c [
               "type"
               "vassals"
             ]
@@ -126,25 +129,28 @@ in
         type =
           with types;
           let
-            valueType = nullOr (
-              oneOf [
-                bool
-                int
-                float
-                str
-                (lazyAttrsOf valueType)
-                (listOf valueType)
-                (mkOptionType {
-                  name = "function";
-                  description = "function";
-                  check = x: isFunction x;
-                  merge = mergeOneOption;
-                })
-              ]
-            ) // {
-              description = "Json value or lambda";
-              emptyValue.value = { };
-            };
+            valueType =
+              nullOr (
+                oneOf [
+                  bool
+                  int
+                  float
+                  str
+                  (lazyAttrsOf valueType)
+                  (listOf valueType)
+                  (mkOptionType {
+                    name = "function";
+                    description = "function";
+                    check = x: isFunction x;
+                    merge = mergeOneOption;
+                  })
+                ]
+              )
+              // {
+                description = "Json value or lambda";
+                emptyValue.value = { };
+              }
+            ;
           in
           valueType
         ;

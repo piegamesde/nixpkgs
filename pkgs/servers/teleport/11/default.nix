@@ -14,5 +14,6 @@ callPackage ../generic.nix (
         "rdp-rs-0.1.0" = "sha256-GJfUyiYQwcDTMqt+iik3mFI0f6mu13RJ2XuoDzlg9sU=";
       };
     };
-  } // builtins.removeAttrs args [ "callPackage" ]
+  }
+  // builtins.removeAttrs args [ "callPackage" ]
 )

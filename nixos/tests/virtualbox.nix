@@ -591,4 +591,5 @@ mapAttrs (mkVBoxTest false vboxVMs) {
     destroy_vm_test1()
     destroy_vm_test2()
   '';
-} // (if enableUnfree then unfreeTests else { })
+}
+// (if enableUnfree then unfreeTests else { })

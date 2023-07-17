@@ -139,13 +139,16 @@ let
       omniauth.enabled = false;
       shared.path = "${cfg.statePath}/shared";
       gitaly.client_path = "${cfg.packages.gitaly}/bin";
-      backup = {
-        gitaly_backup_path = "${cfg.packages.gitaly}/bin/gitaly-backup";
-        path = cfg.backup.path;
-        keep_time = cfg.backup.keepTime;
-      } // (optionalAttrs (cfg.backup.uploadOptions != { }) {
-        upload = cfg.backup.uploadOptions;
-      });
+      backup =
+        {
+          gitaly_backup_path = "${cfg.packages.gitaly}/bin/gitaly-backup";
+          path = cfg.backup.path;
+          keep_time = cfg.backup.keepTime;
+        }
+        // (optionalAttrs (cfg.backup.uploadOptions != { }) {
+          upload = cfg.backup.uploadOptions;
+        })
+      ;
       gitlab_shell = {
         path = "${cfg.packages.gitlab-shell}";
         hooks_path = "${cfg.statePath}/shell/hooks";
@@ -188,20 +191,24 @@ let
     };
   };
 
-  gitlabEnv = cfg.packages.gitlab.gitlabEnv // {
-    HOME = "${cfg.statePath}/home";
-    PUMA_PATH = "${cfg.statePath}/";
-    GITLAB_PATH = "${cfg.packages.gitlab}/share/gitlab/";
-    SCHEMA = "${cfg.statePath}/db/structure.sql";
-    GITLAB_UPLOADS_PATH = "${cfg.statePath}/uploads";
-    GITLAB_LOG_PATH = "${cfg.statePath}/log";
-    GITLAB_REDIS_CONFIG_FILE = pkgs.writeText "redis.yml" (
-      builtins.toJSON redisConfig
-    );
-    prometheus_multiproc_dir = "/run/gitlab";
-    RAILS_ENV = "production";
-    MALLOC_ARENA_MAX = "2";
-  } // cfg.extraEnv;
+  gitlabEnv =
+    cfg.packages.gitlab.gitlabEnv
+    // {
+      HOME = "${cfg.statePath}/home";
+      PUMA_PATH = "${cfg.statePath}/";
+      GITLAB_PATH = "${cfg.packages.gitlab}/share/gitlab/";
+      SCHEMA = "${cfg.statePath}/db/structure.sql";
+      GITLAB_UPLOADS_PATH = "${cfg.statePath}/uploads";
+      GITLAB_LOG_PATH = "${cfg.statePath}/log";
+      GITLAB_REDIS_CONFIG_FILE = pkgs.writeText "redis.yml" (
+        builtins.toJSON redisConfig
+      );
+      prometheus_multiproc_dir = "/run/gitlab";
+      RAILS_ENV = "production";
+      MALLOC_ARENA_MAX = "2";
+    }
+    // cfg.extraEnv
+  ;
 
   runtimeDeps = with pkgs; [
     nodejs
@@ -1584,11 +1591,14 @@ in
       ;
       wantedBy = [ "gitlab.target" ];
       partOf = [ "gitlab.target" ];
-      environment = gitlabEnv // (optionalAttrs cfg.sidekiq.memoryKiller.enable {
-        SIDEKIQ_MEMORY_KILLER_MAX_RSS = cfg.sidekiq.memoryKiller.maxMemory;
-        SIDEKIQ_MEMORY_KILLER_GRACE_TIME = cfg.sidekiq.memoryKiller.graceTime;
-        SIDEKIQ_MEMORY_KILLER_SHUTDOWN_WAIT = cfg.sidekiq.memoryKiller.shutdownWait;
-      });
+      environment =
+        gitlabEnv
+        // (optionalAttrs cfg.sidekiq.memoryKiller.enable {
+          SIDEKIQ_MEMORY_KILLER_MAX_RSS = cfg.sidekiq.memoryKiller.maxMemory;
+          SIDEKIQ_MEMORY_KILLER_GRACE_TIME = cfg.sidekiq.memoryKiller.graceTime;
+          SIDEKIQ_MEMORY_KILLER_SHUTDOWN_WAIT = cfg.sidekiq.memoryKiller.shutdownWait;
+        })
+      ;
       path = with pkgs; [
         postgresqlPackage
         git
@@ -1846,12 +1856,13 @@ in
       after = [ "gitlab.service" ];
       bindsTo = [ "gitlab.service" ];
       startAt = cfg.backup.startAt;
-      environment = {
-        RAILS_ENV = "production";
-        CRON = "1";
-      } // optionalAttrs (stringLength cfg.backup.skip > 0) {
-        SKIP = cfg.backup.skip;
-      };
+      environment =
+        {
+          RAILS_ENV = "production";
+          CRON = "1";
+        }
+        // optionalAttrs (stringLength cfg.backup.skip > 0) { SKIP = cfg.backup.skip; }
+      ;
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;

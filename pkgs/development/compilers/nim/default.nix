@@ -375,7 +375,8 @@ in
         };
       };
     in
-    self // {
+    self
+    // {
       pkgs = callPackage ../../../top-level/nim-packages.nix { nim = self; };
     }
   ;

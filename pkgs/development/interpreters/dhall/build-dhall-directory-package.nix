@@ -27,6 +27,7 @@ lib.makePackageOverridable (
       inherit name dependencies source;
 
       code = "${src}/${file}";
-    } // lib.optionalAttrs document { documentationRoot = "${src}"; }
+    }
+    // lib.optionalAttrs document { documentationRoot = "${src}"; }
   )
 )

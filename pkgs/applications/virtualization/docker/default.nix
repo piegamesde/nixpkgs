@@ -252,7 +252,8 @@ rec {
           docker-tini
           moby
         ;
-      } // rec {
+      }
+      // rec {
         pname = "docker";
         inherit version;
 

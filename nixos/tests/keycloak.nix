@@ -85,7 +85,8 @@ let
             clients = [ client ];
             users = [
               (
-                user // {
+                user
+                // {
                   enabled = true;
                   credentials = [ {
                     type = "password";

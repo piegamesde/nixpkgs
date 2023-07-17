@@ -40,7 +40,9 @@ import ../make-test-python.nix (
           {
             services.hadoop = {
               hdfs = {
-                namenode = defOpts // { formatOnInit = true; };
+                namenode = defOpts // {
+                  formatOnInit = true;
+                };
               };
               inherit coreSite;
             };
@@ -68,7 +70,9 @@ import ../make-test-python.nix (
               inherit coreSite;
               hbase = {
                 inherit zookeeperQuorum;
-                master = defOpts // { initHDFS = true; };
+                master = defOpts // {
+                  initHDFS = true;
+                };
               };
             };
           }

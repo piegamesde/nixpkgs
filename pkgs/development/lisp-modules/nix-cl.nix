@@ -73,7 +73,8 @@ let
     in
     if builtins.isAttrs ff then
       (
-        ff // {
+        ff
+        // {
           overrideLispAttrs =
             newArgs: makeOverridableLispPackage f (overrideWith newArgs);
         }
@@ -268,8 +269,10 @@ let
         # Not sure if it's needed, but caused problems with SBCL
         # save-lisp-and-die binaries in the past
         dontStrip = true;
-      } // (
-        args // {
+      }
+      // (
+        args
+        // {
           src =
             if builtins.length (args.patches or [ ]) > 0 then
               pkgs.applyPatches { inherit (args) src patches; }
@@ -402,7 +405,8 @@ let
       ;
       buildASDFSystem = args: build-asdf-system (args // spec);
     in
-    pkg // {
+    pkg
+    // {
       inherit
         pkgs
         withPackages

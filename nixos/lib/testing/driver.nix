@@ -74,7 +74,9 @@ let
         testScript = config.testScriptString;
         preferLocalBuild = true;
         passthru = config.passthru;
-        meta = config.meta // { mainProgram = "nixos-test-driver"; };
+        meta = config.meta // {
+          mainProgram = "nixos-test-driver";
+        };
       }
       ''
         mkdir -p $out/bin

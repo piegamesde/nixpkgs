@@ -201,21 +201,25 @@ in
                 gateway = "10.88.0.1";
                 subnet = "10.88.0.0/16";
               } ];
-            } // cfg.defaultNetwork.settings
+            }
+            // cfg.defaultNetwork.settings
           );
         }
     ;
 
     virtualisation.containers = {
       enable = true; # Enable common /etc/containers configuration
-      containersConf.settings = {
-        network.network_backend = "netavark";
-      } // lib.optionalAttrs cfg.enableNvidia {
-        engine = {
-          conmon_env_vars = [ "PATH=${lib.makeBinPath [ pkgs.nvidia-podman ]}" ];
-          runtimes.nvidia = [ "${pkgs.nvidia-podman}/bin/nvidia-container-runtime" ];
-        };
-      };
+      containersConf.settings =
+        {
+          network.network_backend = "netavark";
+        }
+        // lib.optionalAttrs cfg.enableNvidia {
+          engine = {
+            conmon_env_vars = [ "PATH=${lib.makeBinPath [ pkgs.nvidia-podman ]}" ];
+            runtimes.nvidia = [ "${pkgs.nvidia-podman}/bin/nvidia-container-runtime" ];
+          };
+        }
+      ;
     };
 
     systemd.packages = [ cfg.package ];

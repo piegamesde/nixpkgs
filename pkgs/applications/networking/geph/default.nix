@@ -39,7 +39,9 @@ in
 
     nativeBuildInputs = [ perl ];
 
-    meta = geph-meta // { license = with lib.licenses; [ gpl3Only ]; };
+    meta = geph-meta // {
+      license = with lib.licenses; [ gpl3Only ];
+    };
   };
 
   gui = stdenvNoCC.mkDerivation rec {
@@ -114,6 +116,8 @@ in
       sed -i -e '/StartupWMClass/s/=.*/=gephgui-wry/' $out/share/applications/io.geph.GephGui.desktop
     '';
 
-    meta = geph-meta // { license = with lib.licenses; [ unfree ]; };
+    meta = geph-meta // {
+      license = with lib.licenses; [ unfree ];
+    };
   };
 }

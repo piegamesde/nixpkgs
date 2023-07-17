@@ -765,7 +765,8 @@ stdenv.mkDerivation {
     let
       cc_ = if cc != null then cc else { };
     in
-    (if cc_ ? meta then removeAttrs cc.meta [ "priority" ] else { }) // {
+    (if cc_ ? meta then removeAttrs cc.meta [ "priority" ] else { })
+    // {
       description =
         lib.attrByPath
           [

@@ -380,57 +380,62 @@ let
           openssl
         ];
 
-        serviceConfig = commonServiceConfig // {
-          Group = data.group;
+        serviceConfig =
+          commonServiceConfig
+          // {
+            Group = data.group;
 
-          # Keep in mind that these directories will be deleted if the user runs
-          # systemctl clean --what=state
-          # acme/.lego/${cert} is listed for this reason.
-          StateDirectory = [
-            "acme/${cert}"
-            "acme/.lego/${cert}"
-            "acme/.lego/${cert}/${certDir}"
-            "acme/.lego/accounts/${accountHash}"
-          ];
+            # Keep in mind that these directories will be deleted if the user runs
+            # systemctl clean --what=state
+            # acme/.lego/${cert} is listed for this reason.
+            StateDirectory = [
+              "acme/${cert}"
+              "acme/.lego/${cert}"
+              "acme/.lego/${cert}/${certDir}"
+              "acme/.lego/accounts/${accountHash}"
+            ];
 
-          ReadWritePaths = commonServiceConfig.ReadWritePaths ++ webroots;
+            ReadWritePaths = commonServiceConfig.ReadWritePaths ++ webroots;
 
-          # Needs to be space separated, but can't use a multiline string because that'll include newlines
-          BindPaths = [
-            "${accountDir}:/tmp/accounts"
-            "/var/lib/acme/${cert}:/tmp/out"
-            "/var/lib/acme/.lego/${cert}/${certDir}:/tmp/certificates"
-          ];
+            # Needs to be space separated, but can't use a multiline string because that'll include newlines
+            BindPaths = [
+              "${accountDir}:/tmp/accounts"
+              "/var/lib/acme/${cert}:/tmp/out"
+              "/var/lib/acme/.lego/${cert}/${certDir}:/tmp/certificates"
+            ];
 
-          # Only try loading the credentialsFile if the dns challenge is enabled
-          EnvironmentFile = mkIf useDns data.credentialsFile;
+            # Only try loading the credentialsFile if the dns challenge is enabled
+            EnvironmentFile = mkIf useDns data.credentialsFile;
 
-          # Run as root (Prefixed with +)
-          ExecStartPost =
-            "+"
-            + (pkgs.writeShellScript "acme-postrun" ''
-              cd /var/lib/acme/${escapeShellArg cert}
-              if [ -e renewed ]; then
-                rm renewed
-                ${data.postRun}
-                ${
-                  optionalString (data.reloadServices != [ ])
-                    "systemctl --no-block try-reload-or-restart ${
-                      escapeShellArgs data.reloadServices
-                    }"
-                }
-              fi
-            '')
-          ;
-        } // optionalAttrs
-            (
-              data.listenHTTP != null
-              && toInt (elemAt (splitString ":" data.listenHTTP) 1) < 1024
-            )
-            {
-              CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
-              AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
-            };
+            # Run as root (Prefixed with +)
+            ExecStartPost =
+              "+"
+              + (pkgs.writeShellScript "acme-postrun" ''
+                cd /var/lib/acme/${escapeShellArg cert}
+                if [ -e renewed ]; then
+                  rm renewed
+                  ${data.postRun}
+                  ${
+                    optionalString (data.reloadServices != [ ])
+                      "systemctl --no-block try-reload-or-restart ${
+                        escapeShellArgs data.reloadServices
+                      }"
+                  }
+                fi
+              '')
+            ;
+          }
+          //
+            optionalAttrs
+              (
+                data.listenHTTP != null
+                && toInt (elemAt (splitString ":" data.listenHTTP) 1) < 1024
+              )
+              {
+                CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
+                AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
+              }
+        ;
 
         # Working directory will be /tmp
         script = ''
@@ -583,9 +588,11 @@ let
         };
 
         enableDebugLogs =
-          mkEnableOption (lib.mdDoc "debug logging for this certificate") // {
+          mkEnableOption (lib.mdDoc "debug logging for this certificate")
+          // {
             inherit (defaultAndText "enableDebugLogs" true) default defaultText;
-          };
+          }
+        ;
 
         webroot = mkOption {
           type = types.nullOr types.str;
@@ -1146,18 +1153,23 @@ in
 
       users.groups.acme = { };
 
-      systemd.services = {
-        "acme-fixperms" = userMigrationService;
-      } // (mapAttrs' (cert: conf: nameValuePair "acme-${cert}" conf.renewService)
-        certConfigs
-      ) // (optionalAttrs (cfg.preliminarySelfsigned) (
+      systemd.services =
         {
-          "acme-selfsigned-ca" = selfsignCAService;
-        } // (mapAttrs'
-          (cert: conf: nameValuePair "acme-selfsigned-${cert}" conf.selfsignService)
+          "acme-fixperms" = userMigrationService;
+        }
+        // (mapAttrs' (cert: conf: nameValuePair "acme-${cert}" conf.renewService)
           certConfigs
         )
-      ));
+        // (optionalAttrs (cfg.preliminarySelfsigned) (
+          {
+            "acme-selfsigned-ca" = selfsignCAService;
+          }
+          // (mapAttrs'
+            (cert: conf: nameValuePair "acme-selfsigned-${cert}" conf.selfsignService)
+            certConfigs
+          )
+        ))
+      ;
 
       systemd.timers =
         mapAttrs' (cert: conf: nameValuePair "acme-${cert}" conf.renewTimer)

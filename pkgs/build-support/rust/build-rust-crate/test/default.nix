@@ -670,7 +670,8 @@ rec {
               "workspace_member"
             ];
           in
-          withoutCargoTomlSearch // {
+          withoutCargoTomlSearch
+          // {
             expectedTestOutputs = [ "test ignore_main ... ok" ];
           }
         ;
@@ -701,7 +702,8 @@ rec {
           cases
       ;
     in
-    tests // rec {
+    tests
+    // rec {
 
       crateBinWithPathOutputs = assertOutputs {
         name = "crateBinWithPath";

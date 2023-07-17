@@ -35,7 +35,9 @@ let
 
   cabalOverrides = o: {
     buildTools = (o.buildTools or [ ]) ++ [ buildPackages.makeWrapper ];
-    passthru = (o.passthru or { }) // { inherit eval build; };
+    passthru = (o.passthru or { }) // {
+      inherit eval build;
+    };
     src = arion-compose.src;
 
     # PYTHONPATH

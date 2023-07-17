@@ -169,9 +169,11 @@ let
               cohencyril
             ];
           };
-        } // optionalAttrs (package != "single") {
+        }
+        // optionalAttrs (package != "single") {
           passthru = genAttrs packages mathcomp_;
-        } // optionalAttrs withDoc {
+        }
+        // optionalAttrs withDoc {
           htmldoc_template = fetchzip {
             url = "https://github.com/math-comp/math-comp.github.io/archive/doc-1.12.0.zip";
             sha256 = "0y1352ha2yy6k2dl375sb1r68r1qi9dyyy7dyzj5lp9hxhhq69x8";

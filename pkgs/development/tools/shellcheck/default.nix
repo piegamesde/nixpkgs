@@ -21,9 +21,7 @@ let
         position = pos.file + ":" + toString pos.line;
       };
     in
-    drv' // {
-      meta = meta' // overrideFn meta';
-    }
+    drv' // { meta = meta' // overrideFn meta'; }
   ;
 
   bin = haskell.lib.compose.justStaticExecutables ShellCheck;

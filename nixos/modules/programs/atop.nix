@@ -158,7 +158,8 @@ in
             atop
             (lib.mkIf cfg.netatop.enable cfg.netatop.package)
           ];
-          services = mkService cfg.atopService.enable "atop" [ atop ]
+          services =
+            mkService cfg.atopService.enable "atop" [ atop ]
             // lib.mkIf cfg.atopService.enable {
               # always convert logs to newer version first
               # XXX might trigger TimeoutStart but restarting atop.service will
@@ -182,9 +183,11 @@ in
                     done
                   ''
               ;
-            } // mkService cfg.atopacctService.enable "atopacct" [ atop ]
+            }
+            // mkService cfg.atopacctService.enable "atopacct" [ atop ]
             // mkService cfg.netatop.enable "netatop" [ cfg.netatop.package ]
-            // mkService cfg.atopgpu.enable "atopgpu" [ atop ];
+            // mkService cfg.atopgpu.enable "atopgpu" [ atop ]
+          ;
           timers = mkTimer cfg.atopRotateTimer.enable "atop-rotate" [ atop ];
         }
       ;

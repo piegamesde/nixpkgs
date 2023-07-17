@@ -302,7 +302,8 @@ in
         linux_5_10_hardened = hardenedKernelFor kernels.linux_5_10 { };
         linux_5_15_hardened = hardenedKernelFor kernels.linux_5_15 { };
         linux_6_1_hardened = hardenedKernelFor kernels.linux_6_1 { };
-      } // lib.optionalAttrs config.allowAliases {
+      }
+      // lib.optionalAttrs config.allowAliases {
         linux_4_9 =
           throw
             "linux 4.9 was removed because it will reach its end of life within 22.11"
@@ -678,7 +679,8 @@ in
         qc71_laptop = callPackage ../os-specific/linux/qc71_laptop { };
 
         hid-ite8291r3 = callPackage ../os-specific/linux/hid-ite8291r3 { };
-      } // lib.optionalAttrs config.allowAliases {
+      }
+      // lib.optionalAttrs config.allowAliases {
         ati_drivers_x11 =
           throw
             "ati drivers are no longer supported by any kernel >=4.1"
@@ -694,34 +696,37 @@ in
   hardenedPackagesFor =
     kernel: overrides: packagesFor (hardenedKernelFor kernel overrides);
 
-  vanillaPackages = {
-    # recurse to build modules for the kernels
-    linux_4_14 = recurseIntoAttrs (packagesFor kernels.linux_4_14);
-    linux_4_19 = recurseIntoAttrs (packagesFor kernels.linux_4_19);
-    linux_5_4 = recurseIntoAttrs (packagesFor kernels.linux_5_4);
-    linux_5_10 = recurseIntoAttrs (packagesFor kernels.linux_5_10);
-    linux_5_15 = recurseIntoAttrs (packagesFor kernels.linux_5_15);
-    linux_6_1 = recurseIntoAttrs (packagesFor kernels.linux_6_1);
-    linux_6_2 = recurseIntoAttrs (packagesFor kernels.linux_6_2);
-    linux_6_3 = recurseIntoAttrs (packagesFor kernels.linux_6_3);
-  } // lib.optionalAttrs config.allowAliases {
-    linux_4_9 =
-      throw
-        "linux 4.9 was removed because it will reach its end of life within 22.11"
-    ; # Added 2022-11-08
-    linux_5_18 =
-      throw
-        "linux 5.18 was removed because it reached its end of life upstream"
-    ; # Added 2022-09-17
-    linux_5_19 =
-      throw
-        "linux 5.19 was removed because it reached its end of life upstream"
-    ; # Added 2022-11-01
-    linux_6_0 =
-      throw
-        "linux 6.0 was removed because it reached its end of life upstream"
-    ; # Added 2023-01-20
-  };
+  vanillaPackages =
+    {
+      # recurse to build modules for the kernels
+      linux_4_14 = recurseIntoAttrs (packagesFor kernels.linux_4_14);
+      linux_4_19 = recurseIntoAttrs (packagesFor kernels.linux_4_19);
+      linux_5_4 = recurseIntoAttrs (packagesFor kernels.linux_5_4);
+      linux_5_10 = recurseIntoAttrs (packagesFor kernels.linux_5_10);
+      linux_5_15 = recurseIntoAttrs (packagesFor kernels.linux_5_15);
+      linux_6_1 = recurseIntoAttrs (packagesFor kernels.linux_6_1);
+      linux_6_2 = recurseIntoAttrs (packagesFor kernels.linux_6_2);
+      linux_6_3 = recurseIntoAttrs (packagesFor kernels.linux_6_3);
+    }
+    // lib.optionalAttrs config.allowAliases {
+      linux_4_9 =
+        throw
+          "linux 4.9 was removed because it will reach its end of life within 22.11"
+      ; # Added 2022-11-08
+      linux_5_18 =
+        throw
+          "linux 5.18 was removed because it reached its end of life upstream"
+      ; # Added 2022-09-17
+      linux_5_19 =
+        throw
+          "linux 5.19 was removed because it reached its end of life upstream"
+      ; # Added 2022-11-01
+      linux_6_0 =
+        throw
+          "linux 6.0 was removed because it reached its end of life upstream"
+      ; # Added 2023-01-20
+    }
+  ;
 
   rtPackages = {
     # realtime kernel packages
@@ -739,7 +744,10 @@ in
   };
 
   packages = recurseIntoAttrs (
-    vanillaPackages // rtPackages // rpiPackages // {
+    vanillaPackages
+    // rtPackages
+    // rpiPackages
+    // {
 
       # Intentionally lacks recurseIntoAttrs, as -rc kernels will quite likely break out-of-tree modules and cause failed Hydra builds.
       linux_testing = packagesFor kernels.linux_testing;
@@ -754,19 +762,25 @@ in
       linux_4_14_hardened = recurseIntoAttrs (
         hardenedPackagesFor kernels.linux_4_14 {
           stdenv = gcc10Stdenv;
-          buildPackages = buildPackages // { stdenv = buildPackages.gcc10Stdenv; };
+          buildPackages = buildPackages // {
+            stdenv = buildPackages.gcc10Stdenv;
+          };
         }
       );
       linux_4_19_hardened = recurseIntoAttrs (
         hardenedPackagesFor kernels.linux_4_19 {
           stdenv = gcc10Stdenv;
-          buildPackages = buildPackages // { stdenv = buildPackages.gcc10Stdenv; };
+          buildPackages = buildPackages // {
+            stdenv = buildPackages.gcc10Stdenv;
+          };
         }
       );
       linux_5_4_hardened = recurseIntoAttrs (
         hardenedPackagesFor kernels.linux_5_4 {
           stdenv = gcc10Stdenv;
-          buildPackages = buildPackages // { stdenv = buildPackages.gcc10Stdenv; };
+          buildPackages = buildPackages // {
+            stdenv = buildPackages.gcc10Stdenv;
+          };
         }
       );
       linux_5_10_hardened = recurseIntoAttrs (
@@ -794,7 +808,8 @@ in
       linux_libre = recurseIntoAttrs (packagesFor kernels.linux_libre);
 
       linux_latest_libre = recurseIntoAttrs (packagesFor kernels.linux_latest_libre);
-    } // lib.optionalAttrs config.allowAliases {
+    }
+    // lib.optionalAttrs config.allowAliases {
       linux_5_18_hardened =
         throw
           "linux 5.18 was removed because it has reached its end of life upstream"

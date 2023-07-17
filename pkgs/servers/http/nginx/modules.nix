@@ -307,16 +307,20 @@ let
     };
 
     http_proxy_connect_module_v18 =
-      http_proxy_connect_module_generic "proxy_connect_rewrite_1018" // {
+      http_proxy_connect_module_generic "proxy_connect_rewrite_1018"
+      // {
         supports =
           with lib.versions; version: major version == "1" && minor version == "18";
-      };
+      }
+    ;
 
     http_proxy_connect_module_v19 =
-      http_proxy_connect_module_generic "proxy_connect_rewrite_1018" // {
+      http_proxy_connect_module_generic "proxy_connect_rewrite_1018"
+      // {
         supports =
           with lib.versions; version: major version == "1" && minor version == "19";
-      };
+      }
+    ;
 
     ipscrub = {
       name = "ipscrub";
@@ -1077,7 +1081,8 @@ let
     };
   };
 in
-self // lib.optionalAttrs config.allowAliases {
+self
+// lib.optionalAttrs config.allowAliases {
   # deprecated or renamed packages
   modsecurity-nginx = self.modsecurity;
   fastcgi-cache-purge = throw "fastcgi-cache-purge was renamed to cache-purge";

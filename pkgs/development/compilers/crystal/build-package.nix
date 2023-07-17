@@ -85,7 +85,8 @@ let
   ;
 in
 stdenv.mkDerivation (
-  mkDerivationArgs // {
+  mkDerivationArgs
+  // {
 
     configurePhase = args.configurePhase or lib.concatStringsSep "\n" (
       [ "runHook preConfigure" ]

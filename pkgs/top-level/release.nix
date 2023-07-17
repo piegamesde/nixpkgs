@@ -239,7 +239,8 @@ let
   #   https://github.com/NixOS/nixpkgs/pull/182058
   jobs = lib.attrsets.unionOfDisjoint nonPackageJobs (
     mapTestOn (
-      (packagePlatforms pkgs) // {
+      (packagePlatforms pkgs)
+      // {
         haskell.compiler = packagePlatforms pkgs.haskell.compiler;
         haskellPackages = packagePlatforms pkgs.haskellPackages;
         idrisPackages = packagePlatforms pkgs.idrisPackages;
@@ -267,7 +268,9 @@ let
         ocamlPackages = { };
         perlPackages = { };
 
-        darwin = packagePlatforms pkgs.darwin // { xcode = { }; };
+        darwin = packagePlatforms pkgs.darwin // {
+          xcode = { };
+        };
       }
     )
   );

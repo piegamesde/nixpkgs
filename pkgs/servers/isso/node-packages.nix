@@ -506,7 +506,8 @@ let
       sources."right-align-0.1.3"
       sources."source-map-0.4.4"
       (
-        sources."transformers-2.1.0" // {
+        sources."transformers-2.1.0"
+        // {
           dependencies = [
             sources."is-promise-1.0.1"
             sources."promise-2.0.0"

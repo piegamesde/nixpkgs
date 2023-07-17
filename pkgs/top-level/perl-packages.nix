@@ -86,7 +86,9 @@ with self;
           ./Build test
           runHook postCheck
         '';
-      } // args // {
+      }
+      // args
+      // {
         preConfigure = ''
           touch Makefile.PL
           ${args.preConfigure or ""}
@@ -37169,7 +37171,8 @@ with self;
       license = with lib.licenses; [ bsd3 ];
     };
   };
-} // lib.optionalAttrs config.allowAliases {
+}
+// lib.optionalAttrs config.allowAliases {
   autodie = null; # part of Perl
   AutoLoader = null; # part of Perl 5.22
   constant = null; # part of Perl 5.22

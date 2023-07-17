@@ -174,7 +174,8 @@ appleDerivation' (if headersOnly then stdenvNoCC else stdenv) (
     '';
 
     appleHeaders = builtins.readFile (./. + "/headers-${arch}.txt");
-  } // lib.optionalAttrs headersOnly {
+  }
+  // lib.optionalAttrs headersOnly {
     HOST_CODESIGN = "echo";
     HOST_CODESIGN_ALLOCATE = "echo";
     LIPO = "echo";

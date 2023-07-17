@@ -22,43 +22,47 @@ let
     subtractLists (attrNames cfg.confFiles)
       cfg.useTheseDefaultConfFiles
   ;
-  allConfFiles = {
-    # Default asterisk.conf file
-    "asterisk.conf".text = ''
-      [directories]
-      astetcdir => /etc/asterisk
-      astmoddir => ${cfg.package}/lib/asterisk/modules
-      astvarlibdir => /var/lib/asterisk
-      astdbdir => /var/lib/asterisk
-      astkeydir => /var/lib/asterisk
-      astdatadir => /var/lib/asterisk
-      astagidir => /var/lib/asterisk/agi-bin
-      astspooldir => /var/spool/asterisk
-      astrundir => /run/asterisk
-      astlogdir => /var/log/asterisk
-      astsbindir => ${cfg.package}/sbin
-      ${cfg.extraConfig}
-    '';
+  allConfFiles =
+    {
+      # Default asterisk.conf file
+      "asterisk.conf".text = ''
+        [directories]
+        astetcdir => /etc/asterisk
+        astmoddir => ${cfg.package}/lib/asterisk/modules
+        astvarlibdir => /var/lib/asterisk
+        astdbdir => /var/lib/asterisk
+        astkeydir => /var/lib/asterisk
+        astdatadir => /var/lib/asterisk
+        astagidir => /var/lib/asterisk/agi-bin
+        astspooldir => /var/spool/asterisk
+        astrundir => /run/asterisk
+        astlogdir => /var/log/asterisk
+        astsbindir => ${cfg.package}/sbin
+        ${cfg.extraConfig}
+      '';
 
-    # Loading all modules by default is considered sensible by the authors of
-    # "Asterisk: The Definitive Guide". Secure sites will likely want to
-    # specify their own "modules.conf" in the confFiles option.
-    "modules.conf".text = ''
-      [modules]
-      autoload=yes
-    '';
+      # Loading all modules by default is considered sensible by the authors of
+      # "Asterisk: The Definitive Guide". Secure sites will likely want to
+      # specify their own "modules.conf" in the confFiles option.
+      "modules.conf".text = ''
+        [modules]
+        autoload=yes
+      '';
 
-    # Use syslog for logging so logs can be viewed with journalctl
-    "logger.conf".text = ''
-      [general]
+      # Use syslog for logging so logs can be viewed with journalctl
+      "logger.conf".text = ''
+        [general]
 
-      [logfiles]
-      syslog.local0 => notice,warning,error
-    '';
-  } // mapAttrs (name: text: { inherit text; }) cfg.confFiles // listToAttrs (
-    map (x: nameValuePair x { source = cfg.package + "/etc/asterisk/" + x; })
-      defaultConfFiles
-  );
+        [logfiles]
+        syslog.local0 => notice,warning,error
+      '';
+    }
+    // mapAttrs (name: text: { inherit text; }) cfg.confFiles
+    // listToAttrs (
+      map (x: nameValuePair x { source = cfg.package + "/etc/asterisk/" + x; })
+        defaultConfFiles
+    )
+  ;
 in
 
 {

@@ -15,7 +15,9 @@ in
 stdenv.mkDerivation rec {
   pname = "trilium-server";
   inherit version;
-  meta = metaCommon // { platforms = [ "x86_64-linux" ]; };
+  meta = metaCommon // {
+    platforms = [ "x86_64-linux" ];
+  };
 
   src = fetchurl serverSource;
 

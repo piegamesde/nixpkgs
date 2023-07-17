@@ -52,7 +52,8 @@ lib.warnIf (extraPostFetch != "")
           }
         else
           { inherit name; }
-      ) // {
+      )
+      // {
         recursiveHash = true;
 
         downloadToTemp = true;
@@ -111,7 +112,8 @@ lib.warnIf (extraPostFetch != "")
             chmod 755 "$out"
           ''
         ;
-      } // removeAttrs args [
+      }
+      // removeAttrs args [
         "stripRoot"
         "extraPostFetch"
         "postFetch"

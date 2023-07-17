@@ -79,7 +79,8 @@ import ./make-test-python.nix (
         ...
       }:
       (
-        simpleConfig // {
+        simpleConfig
+        // {
           imports = [
             ../modules/profiles/installation-device.nix
             ../modules/profiles/base.nix

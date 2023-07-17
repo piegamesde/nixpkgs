@@ -58,8 +58,11 @@ in
     dontBuild = true;
     dontConfigure = true;
 
-    meta = { inherit (chicken.meta) platforms; } // args.meta or { };
-  } // builtins.removeAttrs args [
+    meta = {
+      inherit (chicken.meta) platforms;
+    } // args.meta or { };
+  }
+  // builtins.removeAttrs args [
     "name"
     "buildInputs"
     "meta"

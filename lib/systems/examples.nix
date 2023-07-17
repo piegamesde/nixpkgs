@@ -31,17 +31,21 @@ rec {
     };
   };
 
-  sheevaplug =
-    { config = "armv5tel-unknown-linux-gnueabi"; } // platforms.sheevaplug;
+  sheevaplug = {
+    config = "armv5tel-unknown-linux-gnueabi";
+  } // platforms.sheevaplug;
 
-  raspberryPi =
-    { config = "armv6l-unknown-linux-gnueabihf"; } // platforms.raspberrypi;
+  raspberryPi = {
+    config = "armv6l-unknown-linux-gnueabihf";
+  } // platforms.raspberrypi;
 
-  remarkable1 =
-    { config = "armv7l-unknown-linux-gnueabihf"; } // platforms.zero-gravitas;
+  remarkable1 = {
+    config = "armv7l-unknown-linux-gnueabihf";
+  } // platforms.zero-gravitas;
 
-  remarkable2 =
-    { config = "armv7l-unknown-linux-gnueabihf"; } // platforms.zero-sugar;
+  remarkable2 = {
+    config = "armv7l-unknown-linux-gnueabihf";
+  } // platforms.zero-sugar;
 
   armv7l-hf-multiplatform = {
     config = "armv7l-unknown-linux-gnueabihf";
@@ -76,22 +80,28 @@ rec {
     useLLVM = true;
   };
 
-  pogoplug4 =
-    { config = "armv5tel-unknown-linux-gnueabi"; } // platforms.pogoplug4;
+  pogoplug4 = {
+    config = "armv5tel-unknown-linux-gnueabi";
+  } // platforms.pogoplug4;
 
-  ben-nanonote =
-    { config = "mipsel-unknown-linux-uclibc"; } // platforms.ben_nanonote;
+  ben-nanonote = {
+    config = "mipsel-unknown-linux-uclibc";
+  } // platforms.ben_nanonote;
 
-  fuloongminipc =
-    { config = "mipsel-unknown-linux-gnu"; } // platforms.fuloong2f_n32;
+  fuloongminipc = {
+    config = "mipsel-unknown-linux-gnu";
+  } // platforms.fuloong2f_n32;
 
   # can execute on 32bit chip
-  mips-linux-gnu =
-    { config = "mips-unknown-linux-gnu"; } // platforms.gcc_mips32r2_o32;
-  mipsel-linux-gnu =
-    { config = "mipsel-unknown-linux-gnu"; } // platforms.gcc_mips32r2_o32;
-  mipsisa32r6-linux-gnu =
-    { config = "mipsisa32r6-unknown-linux-gnu"; } // platforms.gcc_mips32r6_o32;
+  mips-linux-gnu = {
+    config = "mips-unknown-linux-gnu";
+  } // platforms.gcc_mips32r2_o32;
+  mipsel-linux-gnu = {
+    config = "mipsel-unknown-linux-gnu";
+  } // platforms.gcc_mips32r2_o32;
+  mipsisa32r6-linux-gnu = {
+    config = "mipsisa32r6-unknown-linux-gnu";
+  } // platforms.gcc_mips32r6_o32;
   mipsisa32r6el-linux-gnu = {
     config = "mipsisa32r6el-unknown-linux-gnu";
   } // platforms.gcc_mips32r6_o32;
@@ -111,8 +121,9 @@ rec {
   } // platforms.gcc_mips64r6_n32;
 
   # 64bit pointers
-  mips64-linux-gnuabi64 =
-    { config = "mips64-unknown-linux-gnuabi64"; } // platforms.gcc_mips64r2_64;
+  mips64-linux-gnuabi64 = {
+    config = "mips64-unknown-linux-gnuabi64";
+  } // platforms.gcc_mips64r2_64;
   mips64el-linux-gnuabi64 = {
     config = "mips64el-unknown-linux-gnuabi64";
   } // platforms.gcc_mips64r2_64;
@@ -123,7 +134,9 @@ rec {
     config = "mipsisa64r6el-unknown-linux-gnuabi64";
   } // platforms.gcc_mips64r6_64;
 
-  muslpi = raspberryPi // { config = "armv6l-unknown-linux-musleabihf"; };
+  muslpi = raspberryPi // {
+    config = "armv6l-unknown-linux-musleabihf";
+  };
 
   aarch64-multiplatform-musl = {
     config = "aarch64-unknown-linux-musl";

@@ -300,12 +300,16 @@ let
               this.pkgs
           ;
 
-          tests = {
-            postgresql = nixosTests.postgresql-wal-receiver.${thisAttr};
-          } // lib.optionalAttrs jitSupport {
-            postgresql-jit = nixosTests.postgresql-jit.${thisAttr};
-          };
-        } // lib.optionalAttrs jitSupport { inherit (llvmPackages) llvm; }
+          tests =
+            {
+              postgresql = nixosTests.postgresql-wal-receiver.${thisAttr};
+            }
+            // lib.optionalAttrs jitSupport {
+              postgresql-jit = nixosTests.postgresql-jit.${thisAttr};
+            }
+          ;
+        }
+        // lib.optionalAttrs jitSupport { inherit (llvmPackages) llvm; }
       ;
 
       meta = with lib; {
@@ -430,15 +434,17 @@ self:
 let
   packages = mkPackages self;
 in
-packages // self.lib.mapAttrs'
-  (
-    attrName: postgres:
-    self.lib.nameValuePair "${attrName}_jit" (
-      postgres.override rec {
-        jitSupport = true;
-        thisAttr = "${attrName}_jit";
-        this = self.${thisAttr};
-      }
+packages
+//
+  self.lib.mapAttrs'
+    (
+      attrName: postgres:
+      self.lib.nameValuePair "${attrName}_jit" (
+        postgres.override rec {
+          jitSupport = true;
+          thisAttr = "${attrName}_jit";
+          this = self.${thisAttr};
+        }
+      )
     )
-  )
-  packages
+    packages

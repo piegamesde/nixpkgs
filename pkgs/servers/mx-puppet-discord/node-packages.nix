@@ -3271,7 +3271,8 @@ let
       sources."@babel/code-frame-7.18.6"
       sources."@babel/helper-validator-identifier-7.19.1"
       (
-        sources."@babel/highlight-7.18.6" // {
+        sources."@babel/highlight-7.18.6"
+        // {
           dependencies = [
             sources."ansi-styles-3.2.1"
             sources."chalk-2.4.2"
@@ -3317,7 +3318,8 @@ let
       sources."agent-base-6.0.2"
       sources."ansi-regex-5.0.1"
       (
-        sources."ansi-styles-4.3.0" // {
+        sources."ansi-styles-4.3.0"
+        // {
           dependencies = [
             sources."color-convert-2.0.1"
             sources."color-name-1.1.4"
@@ -3335,7 +3337,8 @@ let
       sources."balanced-match-1.0.2"
       sources."base64-js-1.5.1"
       (
-        sources."basic-auth-2.0.1" // {
+        sources."basic-auth-2.0.1"
+        // {
           dependencies = [ sources."safe-buffer-5.1.2" ];
         }
       )
@@ -3345,7 +3348,8 @@ let
       sources."bl-4.1.0"
       sources."blurhash-1.1.5"
       (
-        sources."body-parser-1.20.0" // {
+        sources."body-parser-1.20.0"
+        // {
           dependencies = [
             sources."debug-2.6.9"
             sources."ms-2.0.0"
@@ -3364,7 +3368,8 @@ let
       sources."chalk-4.1.2"
       sources."chownr-2.0.0"
       (
-        sources."clone-response-1.0.3" // {
+        sources."clone-response-1.0.3"
+        // {
           dependencies = [ sources."mimic-response-1.0.1" ];
         }
       )
@@ -3378,7 +3383,8 @@ let
       sources."combined-stream-1.0.8"
       sources."command-line-args-5.2.1"
       (
-        sources."command-line-usage-5.0.5" // {
+        sources."command-line-usage-5.0.5"
+        // {
           dependencies = [
             sources."ansi-styles-3.2.1"
             sources."array-back-2.0.0"
@@ -3411,7 +3417,8 @@ let
       sources."detect-libc-2.0.1"
       sources."diff-4.0.2"
       (
-        sources."dom-serializer-1.4.1" // {
+        sources."dom-serializer-1.4.1"
+        // {
           dependencies = [
             sources."domhandler-4.3.1"
             sources."entities-2.2.0"
@@ -3436,7 +3443,8 @@ let
       sources."expand-template-2.0.3"
       sources."expire-set-1.0.0"
       (
-        sources."express-4.18.1" // {
+        sources."express-4.18.1"
+        // {
           dependencies = [
             sources."debug-2.6.9"
             sources."ms-2.0.0"
@@ -3450,7 +3458,8 @@ let
       sources."file-type-12.4.2"
       sources."file-uri-to-path-1.0.0"
       (
-        sources."finalhandler-1.2.0" // {
+        sources."finalhandler-1.2.0"
+        // {
           dependencies = [
             sources."debug-2.6.9"
             sources."ms-2.0.0"
@@ -3472,7 +3481,8 @@ let
       sources."glob-7.2.3"
       sources."glob-to-regexp-0.4.1"
       (
-        sources."got-11.8.5" // {
+        sources."got-11.8.5"
+        // {
           dependencies = [
             sources."decompress-response-6.0.0"
             sources."mimic-response-3.1.0"
@@ -3542,7 +3552,8 @@ let
       sources."mkdirp-classic-0.5.3"
       sources."moment-2.29.4"
       (
-        sources."morgan-1.10.0" // {
+        sources."morgan-1.10.0"
+        // {
           dependencies = [
             sources."debug-2.6.9"
             sources."ms-2.0.0"
@@ -3596,7 +3607,8 @@ let
       sources."postgres-date-1.0.7"
       sources."postgres-interval-1.2.0"
       (
-        sources."prebuild-install-7.1.1" // {
+        sources."prebuild-install-7.1.1"
+        // {
           dependencies = [
             sources."decompress-response-6.0.0"
             sources."mimic-response-3.1.0"
@@ -3624,7 +3636,8 @@ let
       sources."safe-stable-stringify-2.4.0"
       sources."safer-buffer-2.1.2"
       (
-        sources."sanitize-html-2.7.2" // {
+        sources."sanitize-html-2.7.2"
+        // {
           dependencies = [
             sources."domhandler-4.3.1"
             sources."entities-2.2.0"
@@ -3637,7 +3650,8 @@ let
         sources."semver-closest-0.1.2" // { dependencies = [ sources."semver-5.7.1" ]; }
       )
       (
-        sources."send-0.18.0" // {
+        sources."send-0.18.0"
+        // {
           dependencies = [
             (sources."debug-2.6.9" // { dependencies = [ sources."ms-2.0.0" ]; })
             sources."mime-1.6.0"
@@ -3669,7 +3683,8 @@ let
       sources."supports-color-7.2.0"
       sources."supports-preserve-symlinks-flag-1.0.0"
       (
-        sources."table-layout-0.4.5" // {
+        sources."table-layout-0.4.5"
+        // {
           dependencies = [
             sources."array-back-2.0.0"
             sources."typical-2.6.1"
@@ -3686,7 +3701,8 @@ let
       sources."triple-beam-1.3.0"
       sources."tslib-1.14.1"
       (
-        sources."tslint-5.20.1" // {
+        sources."tslint-5.20.1"
+        // {
           dependencies = [
             sources."ansi-styles-3.2.1"
             sources."chalk-2.4.2"
@@ -3710,7 +3726,8 @@ let
       sources."unescape-html-1.1.0"
       sources."unpipe-1.0.0"
       (
-        sources."useragent-generator-1.1.1-amkt-22079-finish.1" // {
+        sources."useragent-generator-1.1.1-amkt-22079-finish.1"
+        // {
           dependencies = [ sources."semver-5.7.1" ];
         }
       )
@@ -3724,7 +3741,8 @@ let
       sources."wide-align-1.1.5"
       sources."winston-3.8.2"
       (
-        sources."winston-compat-0.1.5" // {
+        sources."winston-compat-0.1.5"
+        // {
           dependencies = [
             sources."fecha-2.3.3"
             sources."logform-1.10.0"
@@ -3732,7 +3750,8 @@ let
         }
       )
       (
-        sources."winston-daily-rotate-file-3.10.0" // {
+        sources."winston-daily-rotate-file-3.10.0"
+        // {
           dependencies = [ sources."semver-6.3.0" ];
         }
       )

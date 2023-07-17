@@ -284,7 +284,8 @@ in
           submission-url = cfg.submissionUrl;
           submission-nick = cfg.submissionNick;
         };
-      } // mapAttrs' appConfigToINICompatible cfg.appConfig
+      }
+      // mapAttrs' appConfigToINICompatible cfg.appConfig
     );
   };
 

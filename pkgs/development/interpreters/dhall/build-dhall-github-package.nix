@@ -39,7 +39,8 @@ lib.makePackageOverridable (
         name = "${versionedName}-source";
 
         inherit owner repo rev;
-      } // removeAttrs args [
+      }
+      // removeAttrs args [
         "name"
         "dependencies"
         "document"
@@ -61,7 +62,8 @@ lib.makePackageOverridable (
       name = versionedName;
 
       code = "${src}${prefix}/${file}";
-    } // lib.optionalAttrs document {
+    }
+    // lib.optionalAttrs document {
       documentationRoot = "${src}/${prefix}";
 
       baseImportUrl = "https://raw.githubusercontent.com/${owner}/${repo}/${rev}${prefix}";

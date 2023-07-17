@@ -81,7 +81,8 @@ let
         else
           ""
       ;
-    } // cfg.settings
+    }
+    // cfg.settings
   ;
 
   wpConfig =

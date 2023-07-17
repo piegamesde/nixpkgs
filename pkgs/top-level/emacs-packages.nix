@@ -106,22 +106,35 @@ makeScope pkgs'.newScope (
         manualPackages ? mkManualPackages { inherit pkgs lib; } self,
       }:
       (
-        { } // elpaPackages // {
+        { }
+        // elpaPackages
+        // {
           inherit elpaPackages;
-        } // nongnuPackages // {
+        }
+        // nongnuPackages
+        // {
           inherit nongnuPackages;
-        } // melpaStablePackages // {
+        }
+        // melpaStablePackages
+        // {
           inherit melpaStablePackages;
-        } // melpaPackages // {
+        }
+        // melpaPackages
+        // {
           inherit melpaPackages;
-        } // manualPackages // {
+        }
+        // manualPackages
+        // {
           inherit manualPackages;
-        } // {
+        }
+        // {
 
           # Propagate overridden scope
           emacs = emacs'.overrideAttrs (
             old: {
-              passthru = (old.passthru or { }) // { pkgs = dontRecurseIntoAttrs self; };
+              passthru = (old.passthru or { }) // {
+                pkgs = dontRecurseIntoAttrs self;
+              };
             }
           );
 
@@ -135,7 +148,8 @@ makeScope pkgs'.newScope (
 
           emacsWithPackages = emacsWithPackages { inherit pkgs lib; } self;
           withPackages = emacsWithPackages { inherit pkgs lib; } self;
-        } // {
+        }
+        // {
 
           # Package specific priority overrides goes here
 

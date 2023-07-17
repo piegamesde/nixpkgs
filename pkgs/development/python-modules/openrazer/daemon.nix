@@ -18,7 +18,8 @@ let
   common = import ./common.nix { inherit lib fetchFromGitHub; };
 in
 buildPythonPackage (
-  common // {
+  common
+  // {
     pname = "openrazer_daemon";
 
     disabled = !isPy3k;

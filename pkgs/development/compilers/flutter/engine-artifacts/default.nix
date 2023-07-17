@@ -25,36 +25,39 @@ let
       };
     };
     platform = {
-      android = (lib.genAttrs
-        [
-          "arm"
-          "arm64"
-          "x64"
-        ]
-        (
-          arch: {
-            base = [ { archive = "artifacts.zip"; } ];
-            variants =
-              lib.genAttrs
-                [
-                  "profile"
-                  "release"
-                ]
-                (
-                  variant: [
-                    { archive = "artifacts.zip"; }
-                    { archive = "${lib.toLower hostPlatform.uname.system}-x64.zip"; }
+      android =
+        (lib.genAttrs
+          [
+            "arm"
+            "arm64"
+            "x64"
+          ]
+          (
+            arch: {
+              base = [ { archive = "artifacts.zip"; } ];
+              variants =
+                lib.genAttrs
+                  [
+                    "profile"
+                    "release"
                   ]
-                )
-            ;
-          }
+                  (
+                    variant: [
+                      { archive = "artifacts.zip"; }
+                      { archive = "${lib.toLower hostPlatform.uname.system}-x64.zip"; }
+                    ]
+                  )
+              ;
+            }
+          )
         )
-      ) // {
-        "x86" = {
-          base = [ { archive = "artifacts.zip"; } ];
-          variants.jit-release = [ { archive = "artifacts.zip"; } ];
-        };
-      };
+        // {
+          "x86" = {
+            base = [ { archive = "artifacts.zip"; } ];
+            variants.jit-release = [ { archive = "artifacts.zip"; } ];
+          };
+        }
+      ;
 
       linux =
         lib.genAttrs
@@ -75,7 +78,8 @@ let
                 (
                   {
                     archive = "artifacts.zip";
-                  } // lib.optionalAttrs (arch == "arm64") {
+                  }
+                  // lib.optionalAttrs (arch == "arm64") {
                     # For some reason, the arm64 artifacts are missing shader code.
                     postPatch = ''
                       if [ -d shader_lib ]; then
@@ -148,7 +152,8 @@ let
         nativeBuildInputs = [ autoPatchelfHook ];
 
         installPhase = "cp -r . $out";
-      } // args
+      }
+      // args
     )
   ;
 
@@ -176,7 +181,8 @@ let
                           {
                             platform = "${os}-${architecture}";
                             inherit variant;
-                          } // args
+                          }
+                          // args
                         )
                       )
                       variantArtifacts

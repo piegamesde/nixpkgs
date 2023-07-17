@@ -166,54 +166,60 @@ in
       [ package ] ++ optional cfg.hsphfpd.enable pkgs.hsphfpd;
     systemd.packages = [ package ];
 
-    systemd.services = {
-      bluetooth =
-        let
-          # `man bluetoothd` will refer to main.conf in the nix store but bluez
-          # will in fact load the configuration file at /etc/bluetooth/main.conf
-          # so force it here to avoid any ambiguity and things suddenly breaking
-          # if/when the bluez derivation is changed.
-          args =
-            [
-              "-f"
-              "/etc/bluetooth/main.conf"
-            ]
-            ++
-              optional hasDisabledPlugins
-                "--noplugin=${concatStringsSep "," cfg.disabledPlugins}"
-          ;
-        in
-        {
+    systemd.services =
+      {
+        bluetooth =
+          let
+            # `man bluetoothd` will refer to main.conf in the nix store but bluez
+            # will in fact load the configuration file at /etc/bluetooth/main.conf
+            # so force it here to avoid any ambiguity and things suddenly breaking
+            # if/when the bluez derivation is changed.
+            args =
+              [
+                "-f"
+                "/etc/bluetooth/main.conf"
+              ]
+              ++
+                optional hasDisabledPlugins
+                  "--noplugin=${concatStringsSep "," cfg.disabledPlugins}"
+            ;
+          in
+          {
+            wantedBy = [ "bluetooth.target" ];
+            aliases = [ "dbus-org.bluez.service" ];
+            serviceConfig.ExecStart = [
+              ""
+              "${package}/libexec/bluetooth/bluetoothd ${escapeShellArgs args}"
+            ];
+            # restarting can leave people without a mouse/keyboard
+            unitConfig.X-RestartIfChanged = false;
+          }
+        ;
+      }
+      // (optionalAttrs cfg.hsphfpd.enable {
+        hsphfpd = {
+          after = [ "bluetooth.service" ];
+          requires = [ "bluetooth.service" ];
           wantedBy = [ "bluetooth.target" ];
-          aliases = [ "dbus-org.bluez.service" ];
-          serviceConfig.ExecStart = [
-            ""
-            "${package}/libexec/bluetooth/bluetoothd ${escapeShellArgs args}"
-          ];
-          # restarting can leave people without a mouse/keyboard
-          unitConfig.X-RestartIfChanged = false;
-        }
-      ;
-    } // (optionalAttrs cfg.hsphfpd.enable {
-      hsphfpd = {
-        after = [ "bluetooth.service" ];
-        requires = [ "bluetooth.service" ];
-        wantedBy = [ "bluetooth.target" ];
 
-        description = "A prototype implementation used for connecting HSP/HFP Bluetooth devices";
-        serviceConfig.ExecStart = "${pkgs.hsphfpd}/bin/hsphfpd.pl";
-      };
-    });
+          description = "A prototype implementation used for connecting HSP/HFP Bluetooth devices";
+          serviceConfig.ExecStart = "${pkgs.hsphfpd}/bin/hsphfpd.pl";
+        };
+      })
+    ;
 
-    systemd.user.services = {
-      obex.aliases = [ "dbus-org.bluez.obex.service" ];
-    } // optionalAttrs cfg.hsphfpd.enable {
-      telephony_client = {
-        wantedBy = [ "default.target" ];
+    systemd.user.services =
+      {
+        obex.aliases = [ "dbus-org.bluez.obex.service" ];
+      }
+      // optionalAttrs cfg.hsphfpd.enable {
+        telephony_client = {
+          wantedBy = [ "default.target" ];
 
-        description = "telephony_client for hsphfpd";
-        serviceConfig.ExecStart = "${pkgs.hsphfpd}/bin/telephony_client.pl";
-      };
-    };
+          description = "telephony_client for hsphfpd";
+          serviceConfig.ExecStart = "${pkgs.hsphfpd}/bin/telephony_client.pl";
+        };
+      }
+    ;
   };
 }

@@ -493,7 +493,8 @@ stdenv.mkDerivation (
       timeout = 24 * 3600;
       inherit (ghc.meta) license platforms;
     };
-  } // lib.optionalAttrs targetPlatform.useAndroidPrebuilt {
+  }
+  // lib.optionalAttrs targetPlatform.useAndroidPrebuilt {
     dontStrip = true;
     dontPatchELF = true;
     noAuditTmpdir = true;

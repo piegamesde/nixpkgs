@@ -306,13 +306,21 @@ import ./make-test-python.nix (
                   };
                 };
 
-                simple-restart-service = simple-service // { stopIfChanged = false; };
+                simple-restart-service = simple-service // {
+                  stopIfChanged = false;
+                };
 
-                simple-reload-service = simple-service // { reloadIfChanged = true; };
+                simple-reload-service = simple-service // {
+                  reloadIfChanged = true;
+                };
 
-                no-restart-service = simple-service // { restartIfChanged = false; };
+                no-restart-service = simple-service // {
+                  restartIfChanged = false;
+                };
 
-                reload-triggers = simple-service // { wantedBy = [ "multi-user.target" ]; };
+                reload-triggers = simple-service // {
+                  wantedBy = [ "multi-user.target" ];
+                };
 
                 reload-triggers-and-restart-by-as = simple-service;
 

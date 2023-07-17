@@ -263,7 +263,8 @@ rec {
       */
       unresholved =
         (stdenv.mkDerivation (
-          (removeAttrs attrs [ "solutions" ]) // {
+          (removeAttrs attrs [ "solutions" ])
+          // {
             inherit version src;
             pname = "${pname}-unresholved";
           }

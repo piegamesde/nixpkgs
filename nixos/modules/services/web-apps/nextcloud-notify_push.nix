@@ -10,51 +10,55 @@ let
   cfg = config.services.nextcloud.notify_push;
 in
 {
-  options.services.nextcloud.notify_push = {
-    enable = lib.mkEnableOption (lib.mdDoc "Notify push");
+  options.services.nextcloud.notify_push =
+    {
+      enable = lib.mkEnableOption (lib.mdDoc "Notify push");
 
-    package = lib.mkOption {
-      type = lib.types.package;
-      default = pkgs.nextcloud-notify_push;
-      defaultText = lib.literalMD "pkgs.nextcloud-notify_push";
-      description = lib.mdDoc "Which package to use for notify_push";
-    };
+      package = lib.mkOption {
+        type = lib.types.package;
+        default = pkgs.nextcloud-notify_push;
+        defaultText = lib.literalMD "pkgs.nextcloud-notify_push";
+        description = lib.mdDoc "Which package to use for notify_push";
+      };
 
-    socketPath = lib.mkOption {
-      type = lib.types.str;
-      default = "/run/nextcloud-notify_push/sock";
-      description = lib.mdDoc "Socket path to use for notify_push";
-    };
+      socketPath = lib.mkOption {
+        type = lib.types.str;
+        default = "/run/nextcloud-notify_push/sock";
+        description = lib.mdDoc "Socket path to use for notify_push";
+      };
 
-    logLevel = lib.mkOption {
-      type = lib.types.enum [
-        "error"
-        "warn"
-        "info"
-        "debug"
-        "trace"
-      ];
-      default = "error";
-      description = lib.mdDoc "Log level";
-    };
-  } // (lib.genAttrs
-    [
-      "dbtype"
-      "dbname"
-      "dbuser"
-      "dbpassFile"
-      "dbhost"
-      "dbport"
-      "dbtableprefix"
-    ]
-    (
-      opt:
-      options.services.nextcloud.config.${opt} // {
-        default = config.services.nextcloud.config.${opt};
-        defaultText = "config.services.nextcloud.config.${opt}";
-      }
+      logLevel = lib.mkOption {
+        type = lib.types.enum [
+          "error"
+          "warn"
+          "info"
+          "debug"
+          "trace"
+        ];
+        default = "error";
+        description = lib.mdDoc "Log level";
+      };
+    }
+    // (lib.genAttrs
+      [
+        "dbtype"
+        "dbname"
+        "dbuser"
+        "dbpassFile"
+        "dbhost"
+        "dbport"
+        "dbtableprefix"
+      ]
+      (
+        opt:
+        options.services.nextcloud.config.${opt}
+        // {
+          default = config.services.nextcloud.config.${opt};
+          defaultText = "config.services.nextcloud.config.${opt}";
+        }
+      )
     )
-  );
+  ;
 
   config = lib.mkIf cfg.enable {
     systemd.services.nextcloud-notify_push =

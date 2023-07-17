@@ -91,5 +91,6 @@ stdenv.mkDerivation (
         )
       ;
     } // meta;
-  } // extraArgs
+  }
+  // extraArgs
 )

@@ -54,7 +54,8 @@ let
   filteredOpts = lib.filter (opt: opt.visible && !opt.internal) transformedOpts;
   optionsList = lib.flip map filteredOpts (
     opt:
-    opt // lib.optionalAttrs (opt ? relatedPackages && opt.relatedPackages != [ ]) {
+    opt
+    // lib.optionalAttrs (opt ? relatedPackages && opt.relatedPackages != [ ]) {
       relatedPackages = genRelatedPackages opt.relatedPackages opt.name;
     }
   );

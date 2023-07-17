@@ -16,7 +16,8 @@ let
   pairOf =
     x:
     with types;
-    addCheck (listOf x) (y: length y == 2) // {
+    addCheck (listOf x) (y: length y == 2)
+    // {
       description = "pair of ${x.description}";
     }
   ;
@@ -312,22 +313,28 @@ in
     settings =
       with types;
       let
-        scalar = oneOf [
-          bool
-          int
-          float
-          str
-        ] // {
-          description = "scalar types";
-        };
+        scalar =
+          oneOf [
+            bool
+            int
+            float
+            str
+          ]
+          // {
+            description = "scalar types";
+          }
+        ;
 
-        libConfig = oneOf [
-          scalar
-          (listOf libConfig)
-          (attrsOf libConfig)
-        ] // {
-          description = "libconfig type";
-        };
+        libConfig =
+          oneOf [
+            scalar
+            (listOf libConfig)
+            (attrsOf libConfig)
+          ]
+          // {
+            description = "libconfig type";
+          }
+        ;
 
         topLevel = attrsOf libConfig // {
           description = ''

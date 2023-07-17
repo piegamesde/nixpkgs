@@ -1475,7 +1475,8 @@ in
           sources."any-promise-1.3.0"
           sources."archiver-4.0.2"
           (
-            sources."archiver-utils-2.1.0" // {
+            sources."archiver-utils-2.1.0"
+            // {
               dependencies = [ sources."readable-stream-2.3.7" ];
             }
           )
@@ -1490,7 +1491,8 @@ in
           sources."basic-auth-2.0.1"
           sources."bl-4.1.0"
           (
-            sources."body-parser-1.19.2" // {
+            sources."body-parser-1.19.2"
+            // {
               dependencies = [
                 sources."bytes-3.1.2"
                 sources."debug-2.6.9"
@@ -1505,7 +1507,8 @@ in
           sources."character-parser-2.2.0"
           sources."common-streams-1.4.0"
           (
-            sources."compress-commons-3.0.0" // {
+            sources."compress-commons-3.0.0"
+            // {
               dependencies = [ sources."readable-stream-2.3.7" ];
             }
           )
@@ -1514,7 +1517,8 @@ in
           sources."concat-map-0.0.1"
           sources."constantinople-4.0.1"
           (
-            sources."content-disposition-0.5.4" // {
+            sources."content-disposition-0.5.4"
+            // {
               dependencies = [ sources."safe-buffer-5.2.1" ];
             }
           )
@@ -1536,7 +1540,8 @@ in
           sources."escape-html-1.0.3"
           sources."etag-1.8.1"
           (
-            sources."express-4.17.3" // {
+            sources."express-4.17.3"
+            // {
               dependencies = [
                 sources."debug-2.6.9"
                 sources."safe-buffer-5.2.1"
@@ -1573,7 +1578,8 @@ in
           sources."jsonfile-2.4.0"
           sources."jstransformer-1.0.0"
           (
-            sources."lazystream-1.0.1" // {
+            sources."lazystream-1.0.1"
+            // {
               dependencies = [ sources."readable-stream-2.3.7" ];
             }
           )
@@ -1594,7 +1600,8 @@ in
           sources."mime-types-2.1.35"
           sources."minimatch-3.1.2"
           (
-            sources."morgan-1.10.0" // {
+            sources."morgan-1.10.0"
+            // {
               dependencies = [
                 sources."debug-2.6.9"
                 sources."depd-2.0.0"
@@ -1636,7 +1643,8 @@ in
           sources."safe-buffer-5.1.2"
           sources."safer-buffer-2.1.2"
           (
-            sources."send-0.17.2" // {
+            sources."send-0.17.2"
+            // {
               dependencies = [
                 (sources."debug-2.6.9" // { dependencies = [ sources."ms-2.0.0" ]; })
                 sources."ms-2.1.3"

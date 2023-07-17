@@ -12,12 +12,14 @@ in
 {
   options = {
     documentation.man.man-db = {
-      enable = lib.mkEnableOption (lib.mdDoc "man-db as the default man page viewer")
+      enable =
+        lib.mkEnableOption (lib.mdDoc "man-db as the default man page viewer")
         // {
           default = config.documentation.man.enable;
           defaultText = lib.literalExpression "config.documentation.man.enable";
           example = false;
-        };
+        }
+      ;
 
       skipPackages = lib.mkOption {
         type = lib.types.listOf lib.types.package;

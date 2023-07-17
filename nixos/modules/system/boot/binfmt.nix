@@ -383,7 +383,8 @@ in
                 interpreter = mkDefault interpreterReg;
                 wrapInterpreterInShell = mkDefault (!config.preserveArgvZero);
                 interpreterSandboxPath = mkDefault (dirOf (dirOf config.interpreter));
-              } // (magics.${system} or (throw
+              }
+              // (magics.${system} or (throw
                 "Cannot create binfmt registration for system ${system}"
               )
               )

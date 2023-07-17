@@ -46,7 +46,8 @@ let
       ;
     in
     mkDerivation (
-      args // {
+      args
+      // {
         inherit pname version src;
 
         outputs = args.outputs or [ "out" ];
@@ -55,7 +56,8 @@ let
           let
             meta = args.meta or { };
           in
-          meta // {
+          meta
+          // {
             homepage = meta.homepage or "https://mauikit.org/";
             platforms = meta.platforms or lib.platforms.linux;
           }

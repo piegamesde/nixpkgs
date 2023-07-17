@@ -44,7 +44,8 @@ let
       buildNpmPackage =
         args:
         superBuildNpmPackage (
-          args // {
+          args
+          // {
             inherit version;
 
             src = fetchFromGitHub {

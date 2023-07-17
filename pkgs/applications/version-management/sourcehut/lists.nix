@@ -30,7 +30,8 @@ buildPythonPackage rec {
       pname = "listssrht-api";
       modRoot = "api";
       vendorSha256 = "sha256-xnmMkRSokbhWD+kz0XQ9AinYdm6/50FRBISURPvlzD0=";
-    } // import ./fix-gqlgen-trimpath.nix { inherit unzip; }
+    }
+    // import ./fix-gqlgen-trimpath.nix { inherit unzip; }
   );
 
   postPatch = ''

@@ -211,7 +211,8 @@ in
 
 {
   curl = curlTest;
-} // pkgs.lib.mapAttrs mkBrowserTest {
+}
+// pkgs.lib.mapAttrs mkBrowserTest {
   firefox = {
     error = "Security Risk";
   };

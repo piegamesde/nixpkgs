@@ -36,7 +36,8 @@ let
           elasticsearch.ssl.key = cfg.elasticsearch.key;
           elasticsearch.ssl.certificateAuthorities =
             cfg.elasticsearch.certificateAuthorities;
-        } // cfg.extraConf
+        }
+        // cfg.extraConf
       ))
     )
   );

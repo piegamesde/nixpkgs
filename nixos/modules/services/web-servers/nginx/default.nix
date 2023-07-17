@@ -31,20 +31,20 @@ let
           certName =
             if vhostConfig.useACMEHost != null then vhostConfig.useACMEHost else serverName;
         in
-        vhostConfig // {
+        vhostConfig
+        // {
           inherit serverName certName;
-        } // (optionalAttrs (vhostConfig.enableACME || vhostConfig.useACMEHost != null)
-          {
-            sslCertificate = "${certs.${certName}.directory}/fullchain.pem";
-            sslCertificateKey = "${certs.${certName}.directory}/key.pem";
-            sslTrustedCertificate =
-              if vhostConfig.sslTrustedCertificate != null then
-                vhostConfig.sslTrustedCertificate
-              else
-                "${certs.${certName}.directory}/chain.pem"
-            ;
-          }
-        )
+        }
+        // (optionalAttrs (vhostConfig.enableACME || vhostConfig.useACMEHost != null) {
+          sslCertificate = "${certs.${certName}.directory}/fullchain.pem";
+          sslCertificateKey = "${certs.${certName}.directory}/key.pem";
+          sslTrustedCertificate =
+            if vhostConfig.sslTrustedCertificate != null then
+              vhostConfig.sslTrustedCertificate
+            else
+              "${certs.${certName}.directory}/chain.pem"
+          ;
+        })
       )
       cfg.virtualHosts
   ;

@@ -185,7 +185,8 @@ let
   };
 in
 recurseIntoAttrs (
-  libs // {
+  libs
+  // {
     inherit gawkextlib buildExtension;
     full = builtins.attrValues libs;
   }

@@ -82,7 +82,8 @@ let
 in
 
 stdenv.mkDerivation (
-  args // {
+  args
+  // {
 
     inherit pname version src;
 

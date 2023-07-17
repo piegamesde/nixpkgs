@@ -5,7 +5,8 @@
 }@args:
 
 callPackage ./generic.nix (
-  args // rec {
+  args
+  // rec {
     version = "0.11.3";
 
     src = fetchurl {

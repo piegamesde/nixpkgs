@@ -15,5 +15,7 @@ buildDunePackage rec {
     faraday-lwt
   ];
 
-  meta = faraday.meta // { description = "Lwt + Unix support for Faraday"; };
+  meta = faraday.meta // {
+    description = "Lwt + Unix support for Faraday";
+  };
 }

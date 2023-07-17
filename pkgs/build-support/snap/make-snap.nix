@@ -35,7 +35,8 @@ let
           name,
           ...
         }@args:
-        args // {
+        args
+        // {
           # Combine the provided arguments with the required options.
 
           # base: built from https://github.com/NixOS/snapd-nix-base

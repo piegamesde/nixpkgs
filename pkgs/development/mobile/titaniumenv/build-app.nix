@@ -50,7 +50,9 @@ assert (release && target == "iphone")
 assert enableWirelessDistribution -> installURL != null;
 
 let
-  realAndroidsdkArgs = { platformVersions = [ "28" ]; } // androidsdkArgs;
+  realAndroidsdkArgs = {
+    platformVersions = [ "28" ];
+  } // androidsdkArgs;
 
   androidsdk = (composeAndroidPackages realAndroidsdkArgs).androidsdk;
 
@@ -250,5 +252,6 @@ stdenv.mkDerivation (
     '';
 
     failureHook = lib.optionalString (release && target == "iphone") deleteKeychain;
-  } // extraArgs
+  }
+  // extraArgs
 )

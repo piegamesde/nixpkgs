@@ -180,6 +180,7 @@ stdenv.mkDerivation rec {
         vcunat
         lblasc
       ];
-    } // extraMeta
+    }
+    // extraMeta
   ;
 }

@@ -567,7 +567,8 @@ in
   config = mkIf cfg.enable {
     systemd.services =
       (mapAttrs' generateServerUnit (filterAttrs (n: v: v.enable) cfg.servers))
-      // (mapAttrs' generateClientUnit (filterAttrs (n: v: v.enable) cfg.clients));
+      // (mapAttrs' generateClientUnit (filterAttrs (n: v: v.enable) cfg.clients))
+    ;
 
     assertions =
       (mapAttrsToList

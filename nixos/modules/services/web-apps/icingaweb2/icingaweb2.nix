@@ -271,20 +271,27 @@ in
         cfg.modulePackages
       )
       # Built-in modules
-      // doModule "doc" // doModule "migrate" // doModule "setup" // doModule "test"
+      // doModule "doc"
+      // doModule "migrate"
+      // doModule "setup"
+      // doModule "test"
       // doModule "translation"
       # Configs
       // optionalAttrs (cfg.generalConfig != null) {
         "icingaweb2/config.ini".text = generators.toINI { } (
           defaultConfig // cfg.generalConfig
         );
-      } // optionalAttrs (cfg.resources != null) {
+      }
+      // optionalAttrs (cfg.resources != null) {
         "icingaweb2/resources.ini".text = generators.toINI { } cfg.resources;
-      } // optionalAttrs (cfg.authentications != null) {
+      }
+      // optionalAttrs (cfg.authentications != null) {
         "icingaweb2/authentication.ini".text = generators.toINI { } cfg.authentications;
-      } // optionalAttrs (cfg.groupBackends != null) {
+      }
+      // optionalAttrs (cfg.groupBackends != null) {
         "icingaweb2/groups.ini".text = generators.toINI { } cfg.groupBackends;
-      } // optionalAttrs (cfg.roles != null) {
+      }
+      // optionalAttrs (cfg.roles != null) {
         "icingaweb2/roles.ini".text = generators.toINI { } cfg.roles;
       }
     ;

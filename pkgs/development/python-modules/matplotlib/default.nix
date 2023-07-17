@@ -178,13 +178,16 @@ buildPythonPackage rec {
     directories = {
       basedirlist = ".";
     };
-    libs = {
-      system_freetype = true;
-      system_qhull = true;
-    } // lib.optionalAttrs stdenv.isDarwin {
-      # LTO not working in darwin stdenv, see #19312
-      enable_lto = false;
-    };
+    libs =
+      {
+        system_freetype = true;
+        system_qhull = true;
+      }
+      // lib.optionalAttrs stdenv.isDarwin {
+        # LTO not working in darwin stdenv, see #19312
+        enable_lto = false;
+      }
+    ;
   };
 
   env.MPLSETUPCFG = writeText "mplsetup.cfg" (

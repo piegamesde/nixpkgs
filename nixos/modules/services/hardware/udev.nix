@@ -230,7 +230,9 @@ in
     };
 
     services.udev = {
-      enable = mkEnableOption (lib.mdDoc "udev") // { default = true; };
+      enable = mkEnableOption (lib.mdDoc "udev") // {
+        default = true;
+      };
 
       packages = mkOption {
         type = types.listOf types.path;

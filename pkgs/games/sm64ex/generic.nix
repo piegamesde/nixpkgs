@@ -99,6 +99,7 @@ stdenv.mkDerivation rec {
       license = licenses.unfree;
       maintainers = with maintainers; [ ivar ];
       platforms = platforms.unix;
-    } // extraMeta
+    }
+    // extraMeta
   ;
 }

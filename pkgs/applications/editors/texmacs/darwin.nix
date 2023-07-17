@@ -84,5 +84,7 @@ stdenv.mkDerivation {
 
   enableParallelBuilding = true;
 
-  meta = common.meta // { platforms = lib.platforms.darwin; };
+  meta = common.meta // {
+    platforms = lib.platforms.darwin;
+  };
 }

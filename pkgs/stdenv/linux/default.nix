@@ -160,21 +160,24 @@ let
   # coreutils, GCC, etc.
 
   # Download and unpack the bootstrap tools (coreutils, GCC, Glibc, ...).
-  bootstrapTools = (import
-    (
-      if localSystem.libc == "musl" then ./bootstrap-tools-musl else ./bootstrap-tools
+  bootstrapTools =
+    (import
+      (
+        if localSystem.libc == "musl" then ./bootstrap-tools-musl else ./bootstrap-tools
+      )
+      {
+        inherit system bootstrapFiles;
+        extraAttrs = lib.optionalAttrs config.contentAddressedByDefault {
+          __contentAddressed = true;
+          outputHashAlgo = "sha256";
+          outputHashMode = "recursive";
+        };
+      }
     )
-    {
-      inherit system bootstrapFiles;
-      extraAttrs = lib.optionalAttrs config.contentAddressedByDefault {
-        __contentAddressed = true;
-        outputHashAlgo = "sha256";
-        outputHashMode = "recursive";
-      };
+    // {
+      passthru.isFromBootstrapFiles = true;
     }
-  ) // {
-    passthru.isFromBootstrapFiles = true;
-  };
+  ;
 
   getLibc = stage: stage.${localSystem.libc};
 
@@ -404,7 +407,8 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
         gmp = prev.gmp.override { cxx = false; };
         gcc-unwrapped =
           (prev.gcc-unwrapped.override (
-            commonGccOverrides // {
+            commonGccOverrides
+            // {
               # The most logical name for this package would be something like
               # "gcc-stage1".  Unfortunately "stage" is already reserved for the
               # layers of stdenv, so using "stage" in the name of this package
@@ -429,7 +433,9 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
 
                 # This signals to cc-wrapper (as overridden above in this file) to add `--sysroot`
                 # to `$out/nix-support/cc-cflags`.
-                passthru = a.passthru // { isXgcc = true; };
+                passthru = a.passthru // {
+                  isXgcc = true;
+                };
 
                 # Gcc will look for the C library headers in
                 #
@@ -523,7 +529,9 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
             # Apparently iconv won't work with bootstrap glibc, but it will be used
             # with glibc built later where we keep *this* build of libunistring,
             # so we need to trick it into supporting libiconv.
-            env = attrs.env or { } // { am_cv_func_iconv_works = "yes"; };
+            env = attrs.env or { } // {
+              am_cv_func_iconv_works = "yes";
+            };
           }
         );
         libidn2 = super.libidn2.overrideAttrs (
@@ -637,7 +645,8 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
           # xgcc++'s libstdc++ references the bootstrap-files (which is what
           # compiles xgcc++).
           gmp = super.gmp.override { cxx = false; };
-        } // {
+        }
+        // {
           ${localSystem.libc} = getLibc prevStage;
           gcc-unwrapped =
             (super.gcc-unwrapped.override (
@@ -907,7 +916,8 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
             ;
 
             gnumake = super.gnumake.override { inBootstrap = false; };
-          } // lib.optionalAttrs (super.stdenv.targetPlatform == localSystem) {
+          }
+          // lib.optionalAttrs (super.stdenv.targetPlatform == localSystem) {
             # Need to get rid of these when cross-compiling.
             inherit (prevStage) binutils binutils-unwrapped;
             gcc = cc;

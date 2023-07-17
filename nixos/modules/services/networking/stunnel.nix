@@ -162,13 +162,15 @@ in
                 CAFile = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
                 OCSPaia = true;
                 verifyChain = true;
-              } // c
+              }
+              // c
             ;
             setCheckHostFromVerifyHostname =
               c:
               # To preserve backward-compatibility with the old NixOS stunnel module
               # definition, allow "verifyHostname" as an alias for "checkHost".
-              c // {
+              c
+              // {
                 checkHost = c.checkHost or c.verifyHostname or null;
                 verifyHostname = null; # Not a real stunnel configuration setting
               }

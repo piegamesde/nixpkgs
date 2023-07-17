@@ -103,7 +103,8 @@ lib.makeOverridable (
   in
 
   stdenv.mkDerivation (
-    (builtins.removeAttrs attrs [ "source" ]) // {
+    (builtins.removeAttrs attrs [ "source" ])
+    // {
       inherit ruby;
       inherit dontBuild;
       inherit dontStrip;
@@ -273,7 +274,9 @@ lib.makeOverridable (
       propagatedBuildInputs = gemPath ++ propagatedBuildInputs;
       propagatedUserEnvPkgs = gemPath ++ propagatedUserEnvPkgs;
 
-      passthru = passthru // { isRubyGem = true; };
+      passthru = passthru // {
+        isRubyGem = true;
+      };
       meta = {
         # default to Ruby's platforms
         platforms = ruby.meta.platforms;

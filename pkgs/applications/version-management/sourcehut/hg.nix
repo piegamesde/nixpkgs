@@ -34,7 +34,8 @@ buildPythonPackage rec {
       pname = "hgsrht-api";
       modRoot = "api";
       vendorSha256 = "sha256-uIP3W7UJkP68HJUF33kz5xfg/KBiaSwMozFYmQJQkys=";
-    } // import ./fix-gqlgen-trimpath.nix { inherit unzip; }
+    }
+    // import ./fix-gqlgen-trimpath.nix { inherit unzip; }
   );
 
   hgsrht-keys = buildGoModule {

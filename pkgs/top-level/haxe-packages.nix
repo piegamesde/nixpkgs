@@ -42,7 +42,8 @@ let
       ...
     }@attrs:
     stdenv.mkDerivation (
-      attrs // {
+      attrs
+      // {
         name = "${libname}-${version}";
 
         buildInputs =

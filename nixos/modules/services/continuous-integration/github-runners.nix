@@ -19,7 +19,8 @@ in
       attrsOf (
         submodule {
           options = import ./github-runner/options.nix (
-            args // {
+            args
+            // {
               # services.github-runners.${name}.name doesn't have a default; it falls back to ${name} below.
               includeNameDefault = false;
             }
@@ -55,9 +56,12 @@ in
       in
       nameValuePair svcName (
         import ./github-runner/service.nix (
-          args // {
+          args
+          // {
             inherit svcName;
-            cfg = v // { name = if v.name != null then v.name else n; };
+            cfg = v // {
+              name = if v.name != null then v.name else n;
+            };
             systemdDir = "github-runner/${n}";
           }
         )

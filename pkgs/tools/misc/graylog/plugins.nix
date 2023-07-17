@@ -21,7 +21,8 @@ let
       ...
     }:
     stdenv.mkDerivation (
-      a // {
+      a
+      // {
         inherit installPhase;
         dontUnpack = true;
         nativeBuildInputs = [ unzip ];

@@ -295,7 +295,8 @@ in
       serviceConfig = lib.mkMerge [
         # Merge paths and ignore existing prefixes needs to sidestep mkMerge
         (
-          defaultServiceConfig // {
+          defaultServiceConfig
+          // {
             BindReadOnlyPaths = mergePaths (
               defaultServiceConfig.BindReadOnlyPaths ++ certPaths
             );

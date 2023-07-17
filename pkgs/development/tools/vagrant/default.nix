@@ -36,7 +36,8 @@ let
           };
           inherit version;
         };
-      } // lib.optionalAttrs withLibvirt (import ./gemset_libvirt.nix)
+      }
+      // lib.optionalAttrs withLibvirt (import ./gemset_libvirt.nix)
     );
 
     # This replaces the gem symlinks with directories, resolving this

@@ -56,7 +56,8 @@ let
       ;
     in
     build-asdf-system (
-      args // {
+      args
+      // {
         # Patches are already applied in `build`
         patches = [ ];
         src = build;

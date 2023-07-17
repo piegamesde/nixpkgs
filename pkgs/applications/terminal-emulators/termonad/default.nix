@@ -29,5 +29,7 @@ stdenv.mkDerivation {
 
   passthru.tests.test = nixosTests.terminal-emulators.termonad;
 
-  meta = haskellPackages.termonad.meta // { mainProgram = "termonad"; };
+  meta = haskellPackages.termonad.meta // {
+    mainProgram = "termonad";
+  };
 }

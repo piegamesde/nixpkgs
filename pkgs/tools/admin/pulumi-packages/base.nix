@@ -36,7 +36,8 @@ let
           ]
           ++ extraLdflags
         ;
-      } // args
+      }
+      // args
     )
   ;
 
@@ -170,5 +171,6 @@ mkBasePackage (
 
       pname = repo;
     };
-  } // args
+  }
+  // args
 )

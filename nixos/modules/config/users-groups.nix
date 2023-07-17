@@ -481,10 +481,13 @@ let
         let
           id = builtins.toString (builtins.getAttr idAttr (builtins.getAttr name set));
           exists = builtins.hasAttr id acc;
-          newAcc = acc // (builtins.listToAttrs [ {
-            name = id;
-            value = true;
-          } ]);
+          newAcc =
+            acc
+            // (builtins.listToAttrs [ {
+              name = id;
+              value = true;
+            } ])
+          ;
         in
         if dup then
           args

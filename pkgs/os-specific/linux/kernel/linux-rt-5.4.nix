@@ -15,7 +15,8 @@ let
   kversion = builtins.elemAt (lib.splitString "-" version) 0;
 in
 buildLinux (
-  args // {
+  args
+  // {
     inherit version;
 
     src = fetchurl {
@@ -46,9 +47,13 @@ buildLinux (
         PREEMPT_VOLUNTARY = lib.mkForce no; # PREEMPT_RT deselects it.
         # Fix error: unused option: RT_GROUP_SCHED.
         RT_GROUP_SCHED = lib.mkForce (option no); # Removed by sched-disable-rt-group-sched-on-rt.patch.
-      } // structuredExtraConfig
+      }
+      // structuredExtraConfig
     ;
 
-    extraMeta = extraMeta // { inherit branch; };
-  } // argsOverride
+    extraMeta = extraMeta // {
+      inherit branch;
+    };
+  }
+  // argsOverride
 )

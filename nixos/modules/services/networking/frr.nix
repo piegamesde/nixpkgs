@@ -179,7 +179,8 @@ in
           value.source = configFile service;
         };
       in
-      (builtins.listToAttrs (map mkEtcLink (filter isEnabled allServices))) // {
+      (builtins.listToAttrs (map mkEtcLink (filter isEnabled allServices)))
+      // {
         "frr/vtysh.conf".text = "";
       }
     ;

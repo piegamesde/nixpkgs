@@ -25,7 +25,8 @@ let
     }
   ;
 in
-lib.mapAttrs mk (lib.importJSON ./srcs-generated.json) // {
+lib.mapAttrs mk (lib.importJSON ./srcs-generated.json)
+// {
   # Has no kde/5.15 branch
   qtpositioning = rec {
     version = "5.15.2";

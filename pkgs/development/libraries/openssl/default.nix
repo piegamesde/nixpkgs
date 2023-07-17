@@ -281,7 +281,8 @@ let
               "openssl"
             ];
             platforms = platforms.all;
-          } // extraMeta
+          }
+          // extraMeta
         ;
       }
     )

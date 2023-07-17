@@ -22,7 +22,8 @@ import ./make-test-python.nix (
           let
             package = pkgs."wordpress${version}";
           in
-          a // {
+          a
+          // {
             "wp${version}_httpd" = _: {
               services.httpd.adminAddr = "webmaster@site.local";
               services.httpd.logPerVirtualHost = true;

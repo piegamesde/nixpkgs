@@ -7,8 +7,10 @@ let
 
   rubyVersions = with pkgs; [ ruby_2_7 ];
 
-  gemTests = (lib.mapAttrs (name: gem: [ name ]) pkgs.ruby.gems)
-    // (import ./require_exceptions.nix);
+  gemTests =
+    (lib.mapAttrs (name: gem: [ name ]) pkgs.ruby.gems)
+    // (import ./require_exceptions.nix)
+  ;
 
   testWrapper =
     ruby:

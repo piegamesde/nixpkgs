@@ -102,7 +102,8 @@ let
 
           runHook postBuild
         '';
-      } // args
+      }
+      // args
     )
   ;
 

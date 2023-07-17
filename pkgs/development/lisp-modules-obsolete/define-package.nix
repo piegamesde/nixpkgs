@@ -138,7 +138,9 @@ let
 
     noAuditTmpDir = true;
 
-    meta = { inherit description version; } // meta;
+    meta = {
+      inherit description version;
+    } // meta;
   };
   package = basePackage // (overrides basePackage);
 in

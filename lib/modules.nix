@@ -286,7 +286,8 @@ rec {
                     config
                     specialArgs
                   ;
-                } // specialArgs
+                }
+                // specialArgs
               )
           ;
         in
@@ -386,7 +387,8 @@ rec {
           prefix ? [ ],
         }:
         evalModules (
-          evalModulesArgs // {
+          evalModulesArgs
+          // {
             modules = regularModules ++ modules;
             specialArgs = evalModulesArgs.specialArgs or { } // specialArgs;
             prefix = extendArgs.prefix or evalModulesArgs.prefix or [ ];
@@ -830,7 +832,8 @@ rec {
         if isOption decl.options then
           decl
         else
-          decl // {
+          decl
+          // {
             options = mkOption {
               type = types.submoduleWith {
                 modules = [ { options = decl.options; } ];
@@ -906,7 +909,8 @@ rec {
         # Propagate all unmatched definitions from nested option sets
         mapAttrs (n: v: v.unmatchedDefns) resultsByName
         # Plus the definitions for the current prefix that don't have a matching option
-        // removeAttrs defnsByName' (attrNames matchedOptions);
+        // removeAttrs defnsByName' (attrNames matchedOptions)
+      ;
     in
     {
       inherit matchedOptions;
@@ -925,7 +929,8 @@ rec {
                 map
                   (
                     def:
-                    def // {
+                    def
+                    // {
                       # Set this so we know when the definition first left unmatched territory
                       prefix = [ name ] ++ (def.prefix or [ ]);
                     }
@@ -985,10 +990,13 @@ rec {
                 res.options
             ;
           in
-          opt.options // res // {
+          opt.options
+          // res
+          // {
             declarations = res.declarations ++ [ opt._file ];
             options = submodules;
-          } // typeSet
+          }
+          // typeSet
       )
       {
         inherit loc;
@@ -1046,7 +1054,8 @@ rec {
           } is deprecated. ${opt.type.deprecationMessage}"
       ;
     in
-    warnDeprecation opt // {
+    warnDeprecation opt
+    // {
       value =
         builtins.addErrorContext "while evaluating the option `${showOption loc}':"
           value
@@ -1240,7 +1249,8 @@ rec {
       strip =
         def:
         if def.value._type or "" == "order" then
-          def // {
+          def
+          // {
             value = def.value.content;
             inherit (def.value) priority;
           }
@@ -1264,7 +1274,8 @@ rec {
     if opt.type.getSubModules or null == null then
       opt // { type = opt.type or types.unspecified; }
     else
-      opt // {
+      opt
+      // {
         type = opt.type.substSubModules opt.options;
         options = [ ];
       }
@@ -1529,33 +1540,36 @@ rec {
           from
       );
 
-      config = {
-        warnings = filter (x: x != "") (
-          map
-            (
-              f:
-              let
-                val = getAttrFromPath f config;
-                opt = getAttrFromPath f options;
-              in
-              optionalString (val != "_mkMergedOptionModule")
-                "The option `${showOption f}' defined in ${
-                  showFiles opt.files
-                } has been changed to `${
-                  showOption to
-                }' that has a different type. Please read `${
-                  showOption to
-                }' documentation and update your configuration accordingly."
+      config =
+        {
+          warnings = filter (x: x != "") (
+            map
+              (
+                f:
+                let
+                  val = getAttrFromPath f config;
+                  opt = getAttrFromPath f options;
+                in
+                optionalString (val != "_mkMergedOptionModule")
+                  "The option `${showOption f}' defined in ${
+                    showFiles opt.files
+                  } has been changed to `${
+                    showOption to
+                  }' that has a different type. Please read `${
+                    showOption to
+                  }' documentation and update your configuration accordingly."
+              )
+              from
+          );
+        }
+        // setAttrByPath to (
+          mkMerge (
+            optional (any (f: (getAttrFromPath f config) != "_mkMergedOptionModule") from) (
+              mergeFn config
             )
-            from
-        );
-      } // setAttrByPath to (
-        mkMerge (
-          optional (any (f: (getAttrFromPath f config) != "_mkMergedOptionModule") from) (
-            mergeFn config
           )
         )
-      );
+      ;
     }
   ;
 
@@ -1666,7 +1680,8 @@ rec {
               "Alias of <option>${showOption to}</option>."
           ;
           apply = x: use (toOf config);
-        } // optionalAttrs (toType != null) { type = toType; }
+        }
+        // optionalAttrs (toType != null) { type = toType; }
       );
       config = mkMerge [
         (optionalAttrs (options ? warnings) {

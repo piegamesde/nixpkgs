@@ -66,27 +66,30 @@ let
     if !builtins.isList files then [ files ] else files
   );
 
-  packageSetsWithVersionedHead = pkgs.haskell.packages // (
-    let
-      headSet = pkgs.haskell.packages.ghcHEAD;
-      # Determine the next GHC release version following GHC HEAD.
-      # GHC HEAD always has an uneven, tentative version number, e.g. 9.7.
-      # GHC releases always have even numbers, i.e. GHC 9.8 is branched off from
-      # GHC HEAD 9.7. Since we use the to be release number for GHC HEAD's
-      # configuration file, we need to calculate this here.
-      headVersion = lib.pipe headSet.ghc.version [
-        lib.versions.splitVersion
-        (lib.take 2)
-        lib.concatStrings
-        lib.strings.toInt
-        (builtins.add 1)
-        toString
-      ];
-    in
-    {
-      "ghc${headVersion}" = headSet;
-    }
-  );
+  packageSetsWithVersionedHead =
+    pkgs.haskell.packages
+    // (
+      let
+        headSet = pkgs.haskell.packages.ghcHEAD;
+        # Determine the next GHC release version following GHC HEAD.
+        # GHC HEAD always has an uneven, tentative version number, e.g. 9.7.
+        # GHC releases always have even numbers, i.e. GHC 9.8 is branched off from
+        # GHC HEAD 9.7. Since we use the to be release number for GHC HEAD's
+        # configuration file, we need to calculate this here.
+        headVersion = lib.pipe headSet.ghc.version [
+          lib.versions.splitVersion
+          (lib.take 2)
+          lib.concatStrings
+          lib.strings.toInt
+          (builtins.add 1)
+          toString
+        ];
+      in
+      {
+        "ghc${headVersion}" = headSet;
+      }
+    )
+  ;
 
   setsForFile =
     fileName:

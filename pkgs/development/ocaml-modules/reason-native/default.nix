@@ -57,9 +57,11 @@ let
               homepage = "https://reason-native.com/";
               license = licenses.mit;
               maintainers = with maintainers; [ ];
-            } // (prepkg.meta or { })
+            }
+            // (prepkg.meta or { })
           ;
-        } // prepkg
+        }
+        // prepkg
       )
     );
   cli = generic ./cli.nix; # Used only by Rely.

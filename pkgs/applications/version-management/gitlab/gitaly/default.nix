@@ -68,7 +68,8 @@ let
         "cmd/gitaly-git2go"
         "cmd/gitaly-lfs-smudge"
       ];
-    } // commonOpts
+    }
+    // commonOpts
   );
 in
 buildGoModule (
@@ -111,5 +112,6 @@ buildGoModule (
       ];
       license = licenses.mit;
     };
-  } // commonOpts
+  }
+  // commonOpts
 )

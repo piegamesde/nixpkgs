@@ -337,14 +337,16 @@ let
             lowest: highest:
             assert lib.assertMsg (lowest <= highest)
                 "ints.between: lowest must be smaller than highest";
-            addCheck int (x: x >= lowest && x <= highest) // {
+            addCheck int (x: x >= lowest && x <= highest)
+            // {
               name = "intBetween";
               description = "integer between ${betweenDesc lowest highest}";
             }
           ;
           ign =
             lowest: highest: name: docStart:
-            between lowest highest // {
+            between lowest highest
+            // {
               inherit name;
               description = docStart + "; between ${betweenDesc lowest highest}";
             }
@@ -418,7 +420,8 @@ let
             lowest: highest:
             assert lib.assertMsg (lowest <= highest)
                 "numbers.between: lowest must be smaller than highest";
-            addCheck number (x: x >= lowest && x <= highest) // {
+            addCheck number (x: x >= lowest && x <= highest)
+            // {
               name = "numberBetween";
               description = "integer or floating point number between ${
                   betweenDesc lowest highest
@@ -529,7 +532,8 @@ let
 
       passwdEntry =
         entryType:
-        addCheck entryType (str: !(hasInfix ":" str || hasInfix "\n" str)) // {
+        addCheck entryType (str: !(hasInfix ":" str || hasInfix "\n" str))
+        // {
           name = "passwdEntry ${entryType.name}";
           description = "${
               optionDescriptionPhrase (class: class == "noun") entryType
@@ -572,8 +576,9 @@ let
         ;
       };
 
-      shellPackage =
-        package // { check = x: isDerivation x && hasAttr "shellPath" x; };
+      shellPackage = package // {
+        check = x: isDerivation x && hasAttr "shellPath" x;
+      };
 
       path = mkOptionType {
         name = "path";
@@ -624,7 +629,9 @@ let
           getSubOptions = prefix: elemType.getSubOptions (prefix ++ [ "*" ]);
           getSubModules = elemType.getSubModules;
           substSubModules = m: listOf (elemType.substSubModules m);
-          functor = (defaultFunctor name) // { wrapped = elemType; };
+          functor = (defaultFunctor name) // {
+            wrapped = elemType;
+          };
           nestedTypes.elemType = elemType;
         }
       ;
@@ -634,7 +641,8 @@ let
         let
           list = addCheck (types.listOf elemType) (l: l != [ ]);
         in
-        list // {
+        list
+        // {
           description = "non-empty ${
               optionDescriptionPhrase (class: class == "noun") list
             }";
@@ -681,7 +689,9 @@ let
           getSubOptions = prefix: elemType.getSubOptions (prefix ++ [ "<name>" ]);
           getSubModules = elemType.getSubModules;
           substSubModules = m: attrsOf (elemType.substSubModules m);
-          functor = (defaultFunctor name) // { wrapped = elemType; };
+          functor = (defaultFunctor name) // {
+            wrapped = elemType;
+          };
           nestedTypes.elemType = elemType;
         }
       ;
@@ -733,7 +743,9 @@ let
           getSubOptions = prefix: elemType.getSubOptions (prefix ++ [ "<name>" ]);
           getSubModules = elemType.getSubModules;
           substSubModules = m: lazyAttrsOf (elemType.substSubModules m);
-          functor = (defaultFunctor name) // { wrapped = elemType; };
+          functor = (defaultFunctor name) // {
+            wrapped = elemType;
+          };
           nestedTypes.elemType = elemType;
         }
       ;
@@ -741,7 +753,8 @@ let
       # TODO: deprecate this in the future:
       loaOf =
         elemType:
-        types.attrsOf elemType // {
+        types.attrsOf elemType
+        // {
           name = "loaOf";
           deprecationMessage =
             "Mixing lists with attribute values is no longer"
@@ -763,7 +776,9 @@ let
           getSubOptions = elemType.getSubOptions;
           getSubModules = elemType.getSubModules;
           substSubModules = m: uniq (elemType.substSubModules m);
-          functor = (defaultFunctor name) // { wrapped = elemType; };
+          functor = (defaultFunctor name) // {
+            wrapped = elemType;
+          };
           nestedTypes.elemType = elemType;
         }
       ;
@@ -781,7 +796,9 @@ let
           getSubOptions = type.getSubOptions;
           getSubModules = type.getSubModules;
           substSubModules = m: uniq (type.substSubModules m);
-          functor = (defaultFunctor name) // { wrapped = type; };
+          functor = (defaultFunctor name) // {
+            wrapped = type;
+          };
           nestedTypes.elemType = type;
         }
       ;
@@ -818,7 +835,9 @@ let
           getSubOptions = elemType.getSubOptions;
           getSubModules = elemType.getSubModules;
           substSubModules = m: nullOr (elemType.substSubModules m);
-          functor = (defaultFunctor name) // { wrapped = elemType; };
+          functor = (defaultFunctor name) // {
+            wrapped = elemType;
+          };
           nestedTypes.elemType = elemType;
         }
       ;
@@ -848,7 +867,9 @@ let
             prefix: elemType.getSubOptions (prefix ++ [ "<function body>" ]);
           getSubModules = elemType.getSubModules;
           substSubModules = m: functionTo (elemType.substSubModules m);
-          functor = (defaultFunctor "functionTo") // { wrapped = elemType; };
+          functor = (defaultFunctor "functionTo") // {
+            wrapped = elemType;
+          };
           nestedTypes.elemType = elemType;
         }
       ;
@@ -1218,7 +1239,9 @@ let
           substSubModules =
             m: coercedTo coercedType coerceFunc (finalType.substSubModules m);
           typeMerge = t1: t2: null;
-          functor = (defaultFunctor name) // { wrapped = finalType; };
+          functor = (defaultFunctor name) // {
+            wrapped = finalType;
+          };
           nestedTypes.coercedType = coercedType;
           nestedTypes.finalType = finalType;
         }

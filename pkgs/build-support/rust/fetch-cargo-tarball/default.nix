@@ -141,7 +141,8 @@ stdenv.mkDerivation (
     inherit (hash_) outputHashAlgo outputHash;
 
     impureEnvVars = lib.fetchers.proxyImpureEnvVars ++ [ "NIX_CRATES_INDEX" ];
-  } // (builtins.removeAttrs args [
+  }
+  // (builtins.removeAttrs args [
     "name"
     "sha256"
     "cargoUpdateHook"

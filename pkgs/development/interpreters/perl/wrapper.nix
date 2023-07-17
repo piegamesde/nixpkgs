@@ -51,7 +51,9 @@ let
         + postBuild
       ;
 
-      meta = perl.meta // { outputsToInstall = [ "out" ]; }; # remove "man" from meta.outputsToInstall. pkgs.buildEnv produces no "man", it puts everything to "out"
+      meta = perl.meta // {
+        outputsToInstall = [ "out" ];
+      }; # remove "man" from meta.outputsToInstall. pkgs.buildEnv produces no "man", it puts everything to "out"
 
       passthru = perl.passthru // {
         interpreter = "${env}/bin/perl";

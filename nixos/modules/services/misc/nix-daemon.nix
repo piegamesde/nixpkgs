@@ -122,18 +122,21 @@ let
   semanticConfType =
     with types;
     let
-      confAtom = nullOr (
-        oneOf [
-          bool
-          int
-          float
-          str
-          path
-          package
-        ]
-      ) // {
-        description = "Nix config atom (null, bool, int, float, str, path or package)";
-      };
+      confAtom =
+        nullOr (
+          oneOf [
+            bool
+            int
+            float
+            str
+            path
+            package
+          ]
+        )
+        // {
+          description = "Nix config atom (null, bool, int, float, str, path or package)";
+        }
+      ;
     in
     attrsOf (either confAtom (listOf confAtom))
   ;
@@ -580,9 +583,11 @@ in
                     {
                       type = "path";
                       path = config.flake.outPath;
-                    } // filterAttrs
-                      (n: _: n == "lastModified" || n == "rev" || n == "revCount" || n == "narHash")
-                      config.flake
+                    }
+                    //
+                      filterAttrs
+                        (n: _: n == "lastModified" || n == "rev" || n == "revCount" || n == "narHash")
+                        config.flake
                   )
                 );
               };
@@ -913,9 +918,13 @@ in
         ++ optionals cfg.distributedBuilds [ pkgs.gzip ]
       ;
 
-      environment = cfg.envVars // {
-        CURL_CA_BUNDLE = "/etc/ssl/certs/ca-certificates.crt";
-      } // config.networking.proxy.envVars;
+      environment =
+        cfg.envVars
+        // {
+          CURL_CA_BUNDLE = "/etc/ssl/certs/ca-certificates.crt";
+        }
+        // config.networking.proxy.envVars
+      ;
 
       unitConfig.RequiresMountsFor = "/nix/store";
 
@@ -963,7 +972,9 @@ in
     };
 
     # Set up the environment variables for running Nix.
-    environment.sessionVariables = cfg.envVars // { NIX_PATH = cfg.nixPath; };
+    environment.sessionVariables = cfg.envVars // {
+      NIX_PATH = cfg.nixPath;
+    };
 
     environment.extraInit = ''
       if [ -e "$HOME/.nix-defexpr/channels" ]; then

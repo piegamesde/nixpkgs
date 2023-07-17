@@ -13,6 +13,8 @@ in
 
 setupHook.overrideAttrs (
   oldAttrs: {
-    passthru = (oldAttrs.passthru or { }) // { tests = tests.install-shell-files; };
+    passthru = (oldAttrs.passthru or { }) // {
+      tests = tests.install-shell-files;
+    };
   }
 )

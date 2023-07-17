@@ -90,7 +90,9 @@ let
       runHook postInstall
     '';
 
-    meta = meta // { platforms = lib.platforms.linux; };
+    meta = meta // {
+      platforms = lib.platforms.linux;
+    };
   };
 
   darwin = stdenv.mkDerivation {
@@ -117,7 +119,9 @@ let
       runHook postInstall
     '';
 
-    meta = meta // { platforms = lib.platforms.darwin; };
+    meta = meta // {
+      platforms = lib.platforms.darwin;
+    };
   };
 in
 if stdenv.isDarwin then darwin else linux

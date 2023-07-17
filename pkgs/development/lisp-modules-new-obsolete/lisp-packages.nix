@@ -100,7 +100,8 @@ let
     in
     if builtins.isAttrs ff then
       (
-        ff // {
+        ff
+        // {
           overrideLispAttrs =
             newArgs: makeOverridableLispPackage f (overrideWith newArgs);
         }
@@ -305,8 +306,10 @@ let
           # save-lisp-and-die binaries in the past
           dontStrip = true;
           dontFixup = true;
-        } // (
-          args // {
+        }
+        // (
+          args
+          // {
             src =
               if builtins.length (args.patches or [ ]) > 0 then
                 pkgs.applyPatches { inherit (args) src patches; }
@@ -398,9 +401,7 @@ let
         pkg: if lib.hasAttr pkg.pname packages then packages.${pkg.pname} else pkg;
       pkg = substituteLib qlPkg;
     in
-    pkg // {
-      lispLibs = map substituteLib pkg.lispLibs;
-    }
+    pkg // { lispLibs = map substituteLib pkg.lispLibs; }
   ;
 
   makeAttrName =

@@ -139,7 +139,8 @@ let
           FileSlurp
         ]
       );
-    } // config.system.systemBuilderArgs
+    }
+    // config.system.systemBuilderArgs
   );
 
   # Handle assertions and warnings

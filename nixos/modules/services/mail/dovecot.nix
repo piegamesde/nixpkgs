@@ -224,11 +224,14 @@ in
       lib.mdDoc "starting the POP3 listener (when Dovecot is enabled)"
     );
 
-    enableImap = mkEnableOption (
-      lib.mdDoc "starting the IMAP listener (when Dovecot is enabled)"
-    ) // {
-      default = true;
-    };
+    enableImap =
+      mkEnableOption (
+        lib.mdDoc "starting the IMAP listener (when Dovecot is enabled)"
+      )
+      // {
+        default = true;
+      }
+    ;
 
     enableLmtp = mkEnableOption (
       lib.mdDoc "starting the LMTP listener (when Dovecot is enabled)"
@@ -358,14 +361,17 @@ in
       description = lib.mdDoc "Default group to store mail for virtual users.";
     };
 
-    createMailUser = mkEnableOption (
-      lib.mdDoc ''
-        automatically creating the user
-              given in {option}`services.dovecot.user` and the group
-              given in {option}`services.dovecot.group`.''
-    ) // {
-      default = true;
-    };
+    createMailUser =
+      mkEnableOption (
+        lib.mdDoc ''
+          automatically creating the user
+                given in {option}`services.dovecot.user` and the group
+                given in {option}`services.dovecot.group`.''
+      )
+      // {
+        default = true;
+      }
+    ;
 
     modules = mkOption {
       type = types.listOf types.package;
@@ -396,17 +402,23 @@ in
       description = lib.mdDoc "Path to the server's private key.";
     };
 
-    enablePAM = mkEnableOption (
-      lib.mdDoc "creating a own Dovecot PAM service and configure PAM user logins"
-    ) // {
-      default = true;
-    };
+    enablePAM =
+      mkEnableOption (
+        lib.mdDoc "creating a own Dovecot PAM service and configure PAM user logins"
+      )
+      // {
+        default = true;
+      }
+    ;
 
-    enableDHE = mkEnableOption (
-      lib.mdDoc "enable ssl_dh and generation of primes for the key exchange"
-    ) // {
-      default = true;
-    };
+    enableDHE =
+      mkEnableOption (
+        lib.mdDoc "enable ssl_dh and generation of primes for the key exchange"
+      )
+      // {
+        default = true;
+      }
+    ;
 
     sieveScripts = mkOption {
       type = types.attrsOf types.path;
@@ -490,32 +502,40 @@ in
       perProtocol.imap.enable = [ "imap_quota" ];
     };
 
-    users.users = {
-      dovenull = {
-        uid = config.ids.uids.dovenull2;
-        description = "Dovecot user for untrusted logins";
-        group = "dovenull";
-      };
-    } // optionalAttrs (cfg.user == "dovecot2") {
-      dovecot2 = {
-        uid = config.ids.uids.dovecot2;
-        description = "Dovecot user";
-        group = cfg.group;
-      };
-    } // optionalAttrs (cfg.createMailUser && cfg.mailUser != null) {
-      ${cfg.mailUser} = {
-        description = "Virtual Mail User";
-        isSystemUser = true;
-      } // optionalAttrs (cfg.mailGroup != null) { group = cfg.mailGroup; };
-    };
+    users.users =
+      {
+        dovenull = {
+          uid = config.ids.uids.dovenull2;
+          description = "Dovecot user for untrusted logins";
+          group = "dovenull";
+        };
+      }
+      // optionalAttrs (cfg.user == "dovecot2") {
+        dovecot2 = {
+          uid = config.ids.uids.dovecot2;
+          description = "Dovecot user";
+          group = cfg.group;
+        };
+      }
+      // optionalAttrs (cfg.createMailUser && cfg.mailUser != null) {
+        ${cfg.mailUser} = {
+          description = "Virtual Mail User";
+          isSystemUser = true;
+        } // optionalAttrs (cfg.mailGroup != null) { group = cfg.mailGroup; };
+      }
+    ;
 
-    users.groups = {
-      dovenull.gid = config.ids.gids.dovenull2;
-    } // optionalAttrs (cfg.group == "dovecot2") {
-      dovecot2.gid = config.ids.gids.dovecot2;
-    } // optionalAttrs (cfg.createMailUser && cfg.mailGroup != null) {
-      ${cfg.mailGroup} = { };
-    };
+    users.groups =
+      {
+        dovenull.gid = config.ids.gids.dovenull2;
+      }
+      // optionalAttrs (cfg.group == "dovecot2") {
+        dovecot2.gid = config.ids.gids.dovecot2;
+      }
+      // optionalAttrs (cfg.createMailUser && cfg.mailGroup != null) {
+        ${cfg.mailGroup} = { };
+      }
+    ;
 
     environment.etc."dovecot/modules".source = modulesDir;
     environment.etc."dovecot/dovecot.conf".source = cfg.configFile;

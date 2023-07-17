@@ -135,39 +135,47 @@ let
               route: {
                 # Most of these route options have not been tested.
                 # Please fix or report any mistakes you may find.
-                routeConfig = optionalAttrs
-                    (route.address != null && route.prefixLength != null)
-                    { Destination = "${route.address}/${toString route.prefixLength}"; }
+                routeConfig =
+                  optionalAttrs (route.address != null && route.prefixLength != null) {
+                    Destination = "${route.address}/${toString route.prefixLength}";
+                  }
                   // optionalAttrs (route.options ? fastopen_no_cookie) {
                     FastOpenNoCookie = route.options.fastopen_no_cookie;
-                  } // optionalAttrs (route.via != null) { Gateway = route.via; }
+                  }
+                  // optionalAttrs (route.via != null) { Gateway = route.via; }
                   // optionalAttrs (route.type != null) { Type = route.type; }
                   // optionalAttrs (route.options ? onlink) { GatewayOnLink = true; }
                   // optionalAttrs (route.options ? initrwnd) {
                     InitialAdvertisedReceiveWindow = route.options.initrwnd;
-                  } // optionalAttrs (route.options ? initcwnd) {
+                  }
+                  // optionalAttrs (route.options ? initcwnd) {
                     InitialCongestionWindow = route.options.initcwnd;
-                  } // optionalAttrs (route.options ? pref) {
-                    IPv6Preference = route.options.pref;
-                  } // optionalAttrs (route.options ? mtu) { MTUBytes = route.options.mtu; }
+                  }
+                  // optionalAttrs (route.options ? pref) { IPv6Preference = route.options.pref; }
+                  // optionalAttrs (route.options ? mtu) { MTUBytes = route.options.mtu; }
                   // optionalAttrs (route.options ? metric) { Metric = route.options.metric; }
                   // optionalAttrs (route.options ? src) { PreferredSource = route.options.src; }
                   // optionalAttrs (route.options ? protocol) {
                     Protocol = route.options.protocol;
-                  } // optionalAttrs (route.options ? quickack) {
+                  }
+                  // optionalAttrs (route.options ? quickack) {
                     QuickAck = route.options.quickack;
-                  } // optionalAttrs (route.options ? scope) { Scope = route.options.scope; }
+                  }
+                  // optionalAttrs (route.options ? scope) { Scope = route.options.scope; }
                   // optionalAttrs (route.options ? from) { Source = route.options.from; }
                   // optionalAttrs (route.options ? table) { Table = route.options.table; }
                   // optionalAttrs (route.options ? advmss) {
                     TCPAdvertisedMaximumSegmentSize = route.options.advmss;
-                  } // optionalAttrs (route.options ? ttl-propagate) {
+                  }
+                  // optionalAttrs (route.options ? ttl-propagate) {
                     TTLPropagate = route.options.ttl-propagate == "enabled";
-                  };
+                  }
+                ;
               }
             );
             networkConfig.IPv6PrivacyExtensions = "kernel";
-            linkConfig = optionalAttrs (i.macAddress != null) { MACAddress = i.macAddress; }
+            linkConfig =
+              optionalAttrs (i.macAddress != null) { MACAddress = i.macAddress; }
               // optionalAttrs (i.mtu != null) { MTUBytes = toString i.mtu; };
           }
         ];
@@ -423,7 +431,8 @@ in
                   Name = name;
                   Kind = "sit";
                 };
-                tunnelConfig = (optionalAttrs (sit.remote != null) { Remote = sit.remote; })
+                tunnelConfig =
+                  (optionalAttrs (sit.remote != null) { Remote = sit.remote; })
                   // (optionalAttrs (sit.local != null) { Local = sit.local; })
                   // (optionalAttrs (sit.ttl != null) { TTL = sit.ttl; })
                   // (optionalAttrs (sit.encapsulation != null) (
@@ -436,10 +445,12 @@ in
                           "GenericUDPEncapsulation"
                       ;
                       FOUDestinationPort = sit.encapsulation.port;
-                    } // (optionalAttrs (sit.encapsulation.sourcePort != null) {
+                    }
+                    // (optionalAttrs (sit.encapsulation.sourcePort != null) {
                       FOUSourcePort = sit.encapsulation.sourcePort;
                     })
-                  ));
+                  ))
+                ;
               };
               networks = mkIf (sit.dev != null) {
                 "40-${sit.dev}" =
@@ -459,9 +470,11 @@ in
                   Name = name;
                   Kind = gre.type;
                 };
-                tunnelConfig = (optionalAttrs (gre.remote != null) { Remote = gre.remote; })
+                tunnelConfig =
+                  (optionalAttrs (gre.remote != null) { Remote = gre.remote; })
                   // (optionalAttrs (gre.local != null) { Local = gre.local; })
-                  // (optionalAttrs (gre.ttl != null) { TTL = gre.ttl; });
+                  // (optionalAttrs (gre.ttl != null) { TTL = gre.ttl; })
+                ;
               };
               networks = mkIf (gre.dev != null) {
                 "40-${gre.dev}" =
@@ -590,7 +603,8 @@ in
             )
           ;
         in
-        mapAttrs' createVswitchDevice cfg.vswitches // {
+        mapAttrs' createVswitchDevice cfg.vswitches
+        // {
           "network-local-commands" = {
             after = [ "systemd-networkd.service" ];
             bindsTo = [ "systemd-networkd.service" ];

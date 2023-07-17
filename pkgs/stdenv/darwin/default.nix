@@ -136,7 +136,8 @@ rec {
       ;
 
       __impureHostDeps = commonImpureHostDeps;
-    } // lib.optionalAttrs config.contentAddressedByDefault {
+    }
+    // lib.optionalAttrs config.contentAddressedByDefault {
       __contentAddressed = true;
       outputHashAlgo = "sha256";
       outputHashMode = "recursive";
@@ -301,7 +302,8 @@ rec {
 
         overrides =
           self: super:
-          (overrides self super) // {
+          (overrides self super)
+          // {
             inherit ccNoLibcxx;
             fetchurl = thisStdenv.fetchurlBoot;
           }
@@ -376,7 +378,9 @@ rec {
               ln -s ${bootstrapTools}/bin/rewrite-tbd $out/bin
             '';
 
-            binutils-unwrapped = bootstrapTools // { name = "bootstrap-stage0-binutils"; };
+            binutils-unwrapped = bootstrapTools // {
+              name = "bootstrap-stage0-binutils";
+            };
 
             cctools = bootstrapTools // {
               name = "bootstrap-stage0-cctools";
@@ -395,7 +399,8 @@ rec {
               bintools = selfDarwin.binutils-unwrapped;
               inherit (selfDarwin) postLinkSignHook signingUtils;
             };
-          } // lib.optionalAttrs (!useAppleSDKLibs) {
+          }
+          // lib.optionalAttrs (!useAppleSDKLibs) {
             CF = stdenv.mkDerivation {
               name = "bootstrap-stage0-CF";
               buildCommand = ''
@@ -500,19 +505,20 @@ rec {
 
           ninja = super.ninja.override { buildDocs = false; };
 
-          "${finalLlvmPackages}" = super."${finalLlvmPackages}" // (
-            let
-              tools = super."${finalLlvmPackages}".tools.extend (
-                _: _: { inherit (pkgs."${finalLlvmPackages}") clang-unwrapped; }
-              );
-              libraries = super."${finalLlvmPackages}".libraries.extend (
-                _: _: { inherit (pkgs."${finalLlvmPackages}") compiler-rt libcxx libcxxabi; }
-              );
-            in
-            {
-              inherit tools libraries;
-            } // tools // libraries
-          );
+          "${finalLlvmPackages}" =
+            super."${finalLlvmPackages}"
+            // (
+              let
+                tools = super."${finalLlvmPackages}".tools.extend (
+                  _: _: { inherit (pkgs."${finalLlvmPackages}") clang-unwrapped; }
+                );
+                libraries = super."${finalLlvmPackages}".libraries.extend (
+                  _: _: { inherit (pkgs."${finalLlvmPackages}") compiler-rt libcxx libcxxabi; }
+                );
+              in
+              { inherit tools libraries; } // tools // libraries
+            )
+          ;
 
           darwin = super.darwin.overrideScope (
             selfDarwin: _: {
@@ -624,41 +630,44 @@ rec {
             libiconv
           ;
 
-          "${finalLlvmPackages}" = super."${finalLlvmPackages}" // (
-            let
-              tools = super."${finalLlvmPackages}".tools.extend (
-                _: _: { inherit (pkgs."${finalLlvmPackages}") clang-unwrapped; }
-              );
-              libraries = super."${finalLlvmPackages}".libraries.extend (
-                _: libSuper: {
-                  inherit (pkgs."${finalLlvmPackages}") compiler-rt;
-                  libcxx = libSuper.libcxx.override {
-                    stdenv = overrideCC self.stdenv self.ccNoLibcxx;
-                  };
-                  libcxxabi = libSuper.libcxxabi.override (
-                    {
+          "${finalLlvmPackages}" =
+            super."${finalLlvmPackages}"
+            // (
+              let
+                tools = super."${finalLlvmPackages}".tools.extend (
+                  _: _: { inherit (pkgs."${finalLlvmPackages}") clang-unwrapped; }
+                );
+                libraries = super."${finalLlvmPackages}".libraries.extend (
+                  _: libSuper: {
+                    inherit (pkgs."${finalLlvmPackages}") compiler-rt;
+                    libcxx = libSuper.libcxx.override {
                       stdenv = overrideCC self.stdenv self.ccNoLibcxx;
-                    } // lib.optionalAttrs
-                      (builtins.any (v: finalLlvmVersion == v) [
-                        7
-                        11
-                        12
-                        13
-                      ])
+                    };
+                    libcxxabi = libSuper.libcxxabi.override (
                       {
-                        # TODO: the bootstrapping of llvm packages isn't consistent.
-                        # `standalone` may be redundant if darwin behaves like useLLVM (or
-                        # has useLLVM = true).
-                        standalone = true;
+                        stdenv = overrideCC self.stdenv self.ccNoLibcxx;
                       }
-                  );
-                }
-              );
-            in
-            {
-              inherit tools libraries;
-            } // tools // libraries
-          );
+                      //
+                        lib.optionalAttrs
+                          (builtins.any (v: finalLlvmVersion == v) [
+                            7
+                            11
+                            12
+                            13
+                          ])
+                          {
+                            # TODO: the bootstrapping of llvm packages isn't consistent.
+                            # `standalone` may be redundant if darwin behaves like useLLVM (or
+                            # has useLLVM = true).
+                            standalone = true;
+                          }
+                    );
+                  }
+                );
+              in
+              { inherit tools libraries; } // tools // libraries
+            )
+          ;
 
           darwin = super.darwin.overrideScope (
             _: _: {
@@ -792,16 +801,17 @@ rec {
           # Avoid pulling in a full python and its extra dependencies for the llvm/clang builds.
           libxml2 = super.libxml2.override { pythonSupport = false; };
 
-          "${finalLlvmPackages}" = super."${finalLlvmPackages}" // (
-            let
-              libraries = super."${finalLlvmPackages}".libraries.extend (
-                _: _: { inherit (pkgs."${finalLlvmPackages}") libcxx libcxxabi; }
-              );
-            in
-            {
-              inherit libraries;
-            } // libraries
-          );
+          "${finalLlvmPackages}" =
+            super."${finalLlvmPackages}"
+            // (
+              let
+                libraries = super."${finalLlvmPackages}".libraries.extend (
+                  _: _: { inherit (pkgs."${finalLlvmPackages}") libcxx libcxxabi; }
+                );
+              in
+              { inherit libraries; } // libraries
+            )
+          ;
 
           darwin = super.darwin.overrideScope (
             _: _: {
@@ -931,27 +941,28 @@ rec {
             drv: { configureFlags = drv.configureFlags ++ [ "--disable-curses" ]; }
           );
 
-          "${finalLlvmPackages}" = super."${finalLlvmPackages}" // (
-            let
-              tools = super."${finalLlvmPackages}".tools.extend (
-                llvmSelf: _: {
-                  clang-unwrapped-all-outputs =
-                    pkgs."${finalLlvmPackages}".clang-unwrapped-all-outputs.override
-                      { llvm = llvmSelf.llvm; }
-                  ;
-                  libllvm = pkgs."${finalLlvmPackages}".libllvm.override { inherit libxml2; };
-                }
-              );
-              libraries = super."${finalLlvmPackages}".libraries.extend (
-                llvmSelf: _: {
-                  inherit (pkgs."${finalLlvmPackages}") libcxx libcxxabi compiler-rt;
-                }
-              );
-            in
-            {
-              inherit tools libraries;
-            } // tools // libraries
-          );
+          "${finalLlvmPackages}" =
+            super."${finalLlvmPackages}"
+            // (
+              let
+                tools = super."${finalLlvmPackages}".tools.extend (
+                  llvmSelf: _: {
+                    clang-unwrapped-all-outputs =
+                      pkgs."${finalLlvmPackages}".clang-unwrapped-all-outputs.override
+                        { llvm = llvmSelf.llvm; }
+                    ;
+                    libllvm = pkgs."${finalLlvmPackages}".libllvm.override { inherit libxml2; };
+                  }
+                );
+                libraries = super."${finalLlvmPackages}".libraries.extend (
+                  llvmSelf: _: {
+                    inherit (pkgs."${finalLlvmPackages}") libcxx libcxxabi compiler-rt;
+                  }
+                );
+              in
+              { inherit tools libraries; } // tools // libraries
+            )
+          ;
 
           darwin = super.darwin.overrideScope (
             _: superDarwin: {
@@ -1038,27 +1049,30 @@ rec {
                 libiconv
                 rewrite-tbd
               ;
-            } // lib.optionalAttrs (super.stdenv.targetPlatform == localSystem) {
+            }
+            // lib.optionalAttrs (super.stdenv.targetPlatform == localSystem) {
               inherit (darwin) binutils binutils-unwrapped cctools;
             }
           );
-        } // lib.optionalAttrs (super.stdenv.targetPlatform == localSystem) {
+        }
+        // lib.optionalAttrs (super.stdenv.targetPlatform == localSystem) {
           inherit llvm;
 
           # Need to get rid of these when cross-compiling.
-          "${finalLlvmPackages}" = super."${finalLlvmPackages}" // (
-            let
-              tools = super."${finalLlvmPackages}".tools.extend (
-                _: super: { inherit (pkgs."${finalLlvmPackages}") llvm clang-unwrapped; }
-              );
-              libraries = super."${finalLlvmPackages}".libraries.extend (
-                _: _: { inherit (pkgs."${finalLlvmPackages}") compiler-rt libcxx libcxxabi; }
-              );
-            in
-            {
-              inherit tools libraries;
-            } // tools // libraries
-          );
+          "${finalLlvmPackages}" =
+            super."${finalLlvmPackages}"
+            // (
+              let
+                tools = super."${finalLlvmPackages}".tools.extend (
+                  _: super: { inherit (pkgs."${finalLlvmPackages}") llvm clang-unwrapped; }
+                );
+                libraries = super."${finalLlvmPackages}".libraries.extend (
+                  _: _: { inherit (pkgs."${finalLlvmPackages}") compiler-rt libcxx libcxxabi; }
+                );
+              in
+              { inherit tools libraries; } // tools // libraries
+            )
+          ;
 
           inherit binutils binutils-unwrapped;
         }
@@ -1096,16 +1110,19 @@ rec {
 
       extraBuildInputs = [ pkgs.darwin.CF ];
 
-      extraAttrs = {
-        libc = pkgs.darwin.Libsystem;
-        shellPackage = pkgs.bash;
-        inherit bootstrapTools;
-      } // lib.optionalAttrs useAppleSDKLibs {
-        # This objc4 will be propagated to all builds using the final stdenv,
-        # and we shouldn't mix different builds, because they would be
-        # conflicting LLVM modules. Export it here so we can grab it later.
-        inherit (pkgs.darwin) objc4;
-      };
+      extraAttrs =
+        {
+          libc = pkgs.darwin.Libsystem;
+          shellPackage = pkgs.bash;
+          inherit bootstrapTools;
+        }
+        // lib.optionalAttrs useAppleSDKLibs {
+          # This objc4 will be propagated to all builds using the final stdenv,
+          # and we shouldn't mix different builds, because they would be
+          # conflicting LLVM modules. Export it here so we can grab it later.
+          inherit (pkgs.darwin) objc4;
+        }
+      ;
 
       allowedRequisites =
         (
@@ -1203,9 +1220,12 @@ rec {
               xnu = superDarwin.xnu.override { inherit (prevStage) python3; };
             }
           );
-        } // lib.optionalAttrs (super.stdenv.targetPlatform == localSystem) {
+        }
+        // lib.optionalAttrs (super.stdenv.targetPlatform == localSystem) {
           clang = cc;
-          llvmPackages = super.llvmPackages // { clang = cc; };
+          llvmPackages = super.llvmPackages // {
+            clang = cc;
+          };
           inherit cc;
         }
       );

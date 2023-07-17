@@ -334,7 +334,9 @@ in
 
     systemd.services.zammad-scheduler = {
       inherit environment;
-      serviceConfig = serviceConfig // { Type = "forking"; };
+      serviceConfig = serviceConfig // {
+        Type = "forking";
+      };
       after = [ "zammad-web.service" ];
       requires = [ "zammad-web.service" ];
       description = "Zammad scheduler";

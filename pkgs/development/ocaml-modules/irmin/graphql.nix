@@ -40,5 +40,7 @@ buildDunePackage rec {
     cacert
   ];
 
-  meta = irmin.meta // { description = "GraphQL server for Irmin"; };
+  meta = irmin.meta // {
+    description = "GraphQL server for Irmin";
+  };
 }

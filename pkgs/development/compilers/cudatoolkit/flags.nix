@@ -213,7 +213,8 @@ assert (formatCapabilities {
 
   # dropDot :: String -> String
   inherit dropDot;
-} // formatCapabilities {
+}
+// formatCapabilities {
   cudaCapabilities = config.cudaCapabilities or defaultCapabilities;
   enableForwardCompat = config.cudaForwardCompat or true;
 }

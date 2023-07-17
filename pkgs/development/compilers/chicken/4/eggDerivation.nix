@@ -55,10 +55,14 @@ stdenv.mkDerivation (
       runHook postInstall
     '';
 
-    meta = { inherit (chicken.meta) platforms; } // args.meta or { };
-  } // (builtins.removeAttrs args [
+    meta = {
+      inherit (chicken.meta) platforms;
+    } // args.meta or { };
+  }
+  // (builtins.removeAttrs args [
     "name"
     "buildInputs"
     "meta"
-  ]) // override
+  ])
+  // override
 )

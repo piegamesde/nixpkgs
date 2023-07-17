@@ -23,7 +23,8 @@ let
   resolvedExtraKleeuClibcConfig =
     lib.mapAttrsToList (name: value: "${name}=${value}")
       (
-        extraKleeuClibcConfig // {
+        extraKleeuClibcConfig
+        // {
           "UCLIBC_DOWNLOAD_PREGENERATED_LOCALE_DATA" = "n";
           "RUNTIME_PREFIX" = "/";
           "DEVEL_PREFIX" = "/";

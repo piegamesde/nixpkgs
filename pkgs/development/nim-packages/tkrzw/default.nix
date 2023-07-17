@@ -20,7 +20,8 @@ buildNimPackage rec {
   doCheck = true;
   meta =
     with lib;
-    src.meta // {
+    src.meta
+    // {
       description = "Nim wrappers over some of the Tkrzw C++ library";
       license = lib.licenses.apsl20;
       maintainers = with lib.maintainers; [ ehmry ];

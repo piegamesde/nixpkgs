@@ -4,7 +4,8 @@
 }@args:
 
 callPackage ./generic.nix (
-  args // rec {
+  args
+  // rec {
     brand = "Behringer";
     type = "X32";
     version = "4.1";

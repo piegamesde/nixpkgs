@@ -18,7 +18,8 @@ let
             inherit pname version;
             owner = "coq-contribs";
             mlPlugin = true;
-          } // lib.optionalAttrs (builtins.elem coq.coq-version coqs) (
+          }
+          // lib.optionalAttrs (builtins.elem coq.coq-version coqs) (
             {
               defaultVersion = param.version;
               release = {
@@ -26,7 +27,8 @@ let
                   inherit (param) rev sha256;
                 };
               };
-            } // (removeAttrs param [
+            }
+            // (removeAttrs param [
               "version"
               "rev"
               "sha256"

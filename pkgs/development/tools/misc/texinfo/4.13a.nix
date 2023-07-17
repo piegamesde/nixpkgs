@@ -21,5 +21,7 @@ stdenv.mkDerivation rec {
   # Disabled because we don't have zdiff in the stdenv bootstrap.
   #doCheck = true;
 
-  meta = texinfo.meta // { branch = version; };
+  meta = texinfo.meta // {
+    branch = version;
+  };
 }

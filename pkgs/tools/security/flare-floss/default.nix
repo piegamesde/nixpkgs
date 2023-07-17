@@ -9,7 +9,8 @@ let
       # required for networkx 2.5.1
       decorator = prev.decorator.overridePythonAttrs (
         o:
-        o // rec {
+        o
+        // rec {
           version = "4.4.2";
           src = o.src.override {
             inherit version;
@@ -21,7 +22,8 @@ let
       # flare-floss requires this exact version (newer versions are incompatible)
       networkx = prev.networkx.overridePythonAttrs (
         o:
-        o // rec {
+        o
+        // rec {
           version = "2.5.1";
           src = o.src.override {
             inherit version;

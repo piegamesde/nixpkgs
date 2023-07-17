@@ -16,13 +16,16 @@ let
       ...
     }:
     stdenv.mkDerivation (
-      a // {
+      a
+      // {
         inherit buildPhase;
         inherit installPhase;
 
         buildInputs = znc.buildInputs;
 
-        meta = a.meta // { platforms = lib.platforms.unix; };
+        meta = a.meta // {
+          platforms = lib.platforms.unix;
+        };
         passthru.module_name = module_name;
       }
     )

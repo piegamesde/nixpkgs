@@ -59,7 +59,8 @@ let
 
   mkKeyedEndpointOpt =
     name: addr: port: keyloc:
-    (mkEndpointOpt name addr port) // {
+    (mkEndpointOpt name addr port)
+    // {
       keys = mkOption {
         type = with types; nullOr str;
         default = keyloc;
@@ -101,7 +102,8 @@ let
         default = name + "-keys.dat";
         description = lib.mdDoc "Keyset used for tunnel identity.";
       };
-    } // mkEndpointOpt name "127.0.0.1" 0
+    }
+    // mkEndpointOpt name "127.0.0.1" 0
   ;
 
   sec =
@@ -712,15 +714,18 @@ in
       };
 
       proto.httpProxy =
-        (mkKeyedEndpointOpt "httpproxy" "127.0.0.1" 4444 "httpproxy-keys.dat") // {
+        (mkKeyedEndpointOpt "httpproxy" "127.0.0.1" 4444 "httpproxy-keys.dat")
+        // {
           outproxy = mkOption {
             type = with types; nullOr str;
             default = null;
             description = lib.mdDoc "Upstream outproxy bind address.";
           };
-        };
+        }
+      ;
       proto.socksProxy =
-        (mkKeyedEndpointOpt "socksproxy" "127.0.0.1" 4447 "socksproxy-keys.dat") // {
+        (mkKeyedEndpointOpt "socksproxy" "127.0.0.1" 4447 "socksproxy-keys.dat")
+        // {
           outproxyEnable = mkEnableOption (lib.mdDoc "SOCKS outproxy");
           outproxy = mkOption {
             type = types.str;
@@ -732,7 +737,8 @@ in
             default = 4444;
             description = lib.mdDoc "Upstream outproxy bind port.";
           };
-        };
+        }
+      ;
 
       proto.sam = mkEndpointOpt "sam" "127.0.0.1" 7656;
       proto.bob = mkEndpointOpt "bob" "127.0.0.1" 2827;

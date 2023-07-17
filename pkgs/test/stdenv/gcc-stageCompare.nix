@@ -30,4 +30,10 @@ in
 (runCommand "gcc-stageCompare" { } ''
   diff -sr ${pkgs.gcc-unwrapped.checksum}/checksums ${gcc-stageCompare.checksum}/checksums && touch $out
 '').overrideAttrs
-  (a: { meta = (a.meta or { }) // { platforms = lib.platforms.linux; }; })
+  (
+    a: {
+      meta = (a.meta or { }) // {
+        platforms = lib.platforms.linux;
+      };
+    }
+  )

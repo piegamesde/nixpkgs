@@ -40,7 +40,8 @@ let
     lib.genAttrs (attrNames optionSpecs) (
       name:
       mkOption (
-        optionSpecs.${name} // {
+        optionSpecs.${name}
+        // {
           default = optionSpecs.${name}.default or defaults.${name} or null;
         }
       )

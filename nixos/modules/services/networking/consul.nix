@@ -215,19 +215,22 @@ in
             )
           ;
 
-          serviceConfig = {
-            ExecStart =
-              "@${lib.getExe cfg.package} consul agent -config-dir /etc/consul.d"
-              + concatMapStrings (n: " -config-file ${n}") configFiles
-            ;
-            ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
-            PermissionsStartOnly = true;
-            User = if cfg.dropPrivileges then "consul" else null;
-            Restart = "on-failure";
-            TimeoutStartSec = "infinity";
-          } // (optionalAttrs (cfg.leaveOnStop) {
-            ExecStop = "${lib.getExe cfg.package} leave";
-          });
+          serviceConfig =
+            {
+              ExecStart =
+                "@${lib.getExe cfg.package} consul agent -config-dir /etc/consul.d"
+                + concatMapStrings (n: " -config-file ${n}") configFiles
+              ;
+              ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
+              PermissionsStartOnly = true;
+              User = if cfg.dropPrivileges then "consul" else null;
+              Restart = "on-failure";
+              TimeoutStartSec = "infinity";
+            }
+            // (optionalAttrs (cfg.leaveOnStop) {
+              ExecStop = "${lib.getExe cfg.package} leave";
+            })
+          ;
 
           path = with pkgs; [
             iproute2

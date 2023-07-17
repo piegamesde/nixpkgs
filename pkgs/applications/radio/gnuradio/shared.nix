@@ -114,16 +114,19 @@ rec {
   # module. It's not that bad since it's a development package for most
   # purposes. If closure size needs to be reduced, features should be disabled
   # via an override.
-  passthru = {
-    inherit
-      hasFeature
-      versionAttr
-      features
-      featuresInfo
-      python
-    ;
-  } // lib.optionalAttrs (hasFeature "gr-qtgui") { inherit qt; }
-    // lib.optionalAttrs (hasFeature "gnuradio-companion") { inherit gtk; };
+  passthru =
+    {
+      inherit
+        hasFeature
+        versionAttr
+        features
+        featuresInfo
+        python
+      ;
+    }
+    // lib.optionalAttrs (hasFeature "gr-qtgui") { inherit qt; }
+    // lib.optionalAttrs (hasFeature "gnuradio-companion") { inherit gtk; }
+  ;
   # Wrapping is done with an external wrapper
   dontWrapPythonPrograms = true;
   dontWrapQtApps = true;

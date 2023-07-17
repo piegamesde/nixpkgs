@@ -17,5 +17,7 @@ buildDunePackage {
     ocf
   ];
 
-  meta = ocf.meta // { description = "Preprocessor for Ocf library"; };
+  meta = ocf.meta // {
+    description = "Preprocessor for Ocf library";
+  };
 }

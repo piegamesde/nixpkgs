@@ -107,5 +107,6 @@ stdenv.mkDerivation (
         echo "report site $out/site" >> $out/nix-support/hydra-build-products
       fi
     '';
-  } // args
+  }
+  // args
 )

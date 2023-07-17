@@ -261,8 +261,8 @@ rec {
             else if isAttrs value then
               # If we do have a value and it's an attribute set, override it
               # with the nested modifications
-              value // mapAttrs (name: go (prefixLength + 1) (value ? ${name}) value.${name})
-                nested
+              value
+              // mapAttrs (name: go (prefixLength + 1) (value ? ${name}) value.${name}) nested
             else
               # However if it's not an attribute set, we can't apply the nested
               # modifications, throw an error
@@ -1113,9 +1113,7 @@ rec {
   recurseIntoAttrs =
     # An attribute set to scan for derivations.
     attrs:
-    attrs // {
-      recurseForDerivations = true;
-    }
+    attrs // { recurseForDerivations = true; }
   ;
 
   /* Undo the effect of recurseIntoAttrs.
@@ -1126,9 +1124,7 @@ rec {
   dontRecurseIntoAttrs =
     # An attribute set to not scan for derivations.
     attrs:
-    attrs // {
-      recurseForDerivations = false;
-    }
+    attrs // { recurseForDerivations = false; }
   ;
 
   /* `unionOfDisjoint x y` is equal to `x // y // z` where the

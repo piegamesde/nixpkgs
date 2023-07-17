@@ -10,7 +10,8 @@ let
   # Taken from haskell-modules/default.nix, should probably abstract this away
   callPackageWithScope =
     scope: drv: args:
-    (callPackageWith scope drv args) // {
+    (callPackageWith scope drv args)
+    // {
       overrideScope =
         f: callPackageWithScope (mkScope (fix' (extends f scope.__unfix__))) drv args;
     }
@@ -222,7 +223,9 @@ let
       yaml = callPackage ./yaml.nix { };
 
       yampa = callPackage ./yampa.nix { };
-    } // builtins_ // pkgs.lib.optionalAttrs config.allowAliases {
+    }
+    // builtins_
+    // pkgs.lib.optionalAttrs config.allowAliases {
       # removed packages
       protobuf =
         throw

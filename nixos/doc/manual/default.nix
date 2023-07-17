@@ -41,7 +41,8 @@ let
     ;
     transformOptions =
       opt:
-      opt // {
+      opt
+      // {
         # Clean up declaration sites to not refer to the NixOS source tree.
         declarations = map stripAnyPrefixes opt.declarations;
       }
@@ -63,7 +64,8 @@ let
       inherit revision;
       transformOptions =
         opt:
-        opt // {
+        opt
+        // {
           # Clean up declaration sites to not refer to the NixOS source tree.
           declarations =
             map

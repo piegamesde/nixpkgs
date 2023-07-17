@@ -124,7 +124,9 @@ let
           ...
         }:
         {
-          meta = meta // { broken = false; };
+          meta = meta // {
+            broken = false;
+          };
         }
       );
       click = super.click.overridePythonAttrs (
@@ -157,7 +159,8 @@ let
         }).overridePythonAttrs
           (
             old:
-            (dropDevOutput old) // rec {
+            (dropDevOutput old)
+            // rec {
               pname = "Flask-Babel";
               version = "2.0.0";
               format = "setuptools";

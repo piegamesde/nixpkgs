@@ -63,7 +63,8 @@ lib.listToAttrs (
               t.test (
                 {
                   kernelPackages = pkgs."linuxPackages_${v'}";
-                } // builtins.removeAttrs t [
+                }
+                // builtins.removeAttrs t [
                   "test"
                   "kernelFilter"
                 ]

@@ -6455,14 +6455,16 @@ let
     src = ./.;
     dependencies = [
       (
-        sources."@ampproject/remapping-2.2.0" // {
+        sources."@ampproject/remapping-2.2.0"
+        // {
           dependencies = [ sources."@jridgewell/gen-mapping-0.1.1" ];
         }
       )
       sources."@babel/code-frame-7.21.4"
       sources."@babel/compat-data-7.21.4"
       (
-        sources."@babel/core-7.21.4" // {
+        sources."@babel/core-7.21.4"
+        // {
           dependencies = [
             sources."debug-4.3.4"
             sources."json5-2.2.3"
@@ -6472,7 +6474,8 @@ let
         }
       )
       (
-        sources."@babel/eslint-parser-7.21.3" // {
+        sources."@babel/eslint-parser-7.21.3"
+        // {
           dependencies = [
             sources."eslint-visitor-keys-2.1.0"
             sources."semver-6.3.0"
@@ -6483,7 +6486,8 @@ let
       sources."@babel/helper-annotate-as-pure-7.18.6"
       sources."@babel/helper-builder-binary-assignment-operator-visitor-7.18.6"
       (
-        sources."@babel/helper-compilation-targets-7.21.4" // {
+        sources."@babel/helper-compilation-targets-7.21.4"
+        // {
           dependencies = [
             sources."lru-cache-5.1.1"
             sources."semver-6.3.0"
@@ -6494,7 +6498,8 @@ let
       sources."@babel/helper-create-class-features-plugin-7.21.4"
       sources."@babel/helper-create-regexp-features-plugin-7.21.4"
       (
-        sources."@babel/helper-define-polyfill-provider-0.3.3" // {
+        sources."@babel/helper-define-polyfill-provider-0.3.3"
+        // {
           dependencies = [
             sources."debug-4.3.4"
             sources."ms-2.1.2"
@@ -6588,7 +6593,8 @@ let
       sources."@babel/plugin-transform-unicode-escapes-7.18.10"
       sources."@babel/plugin-transform-unicode-regex-7.18.6"
       (
-        sources."@babel/preset-env-7.21.4" // {
+        sources."@babel/preset-env-7.21.4"
+        // {
           dependencies = [ sources."semver-6.3.0" ];
         }
       )
@@ -6597,7 +6603,8 @@ let
       sources."@babel/runtime-7.14.6"
       sources."@babel/template-7.20.7"
       (
-        sources."@babel/traverse-7.21.4" // {
+        sources."@babel/traverse-7.21.4"
+        // {
           dependencies = [
             sources."debug-4.3.3"
             sources."ms-2.1.2"
@@ -6609,7 +6616,8 @@ let
       sources."@eslint-community/eslint-utils-4.3.0"
       sources."@eslint-community/regexpp-4.4.0"
       (
-        sources."@eslint/eslintrc-2.0.2" // {
+        sources."@eslint/eslintrc-2.0.2"
+        // {
           dependencies = [
             sources."debug-4.3.3"
             sources."globals-13.19.0"
@@ -6624,7 +6632,8 @@ let
       sources."@fortawesome/free-solid-svg-icons-6.4.0"
       sources."@fortawesome/vue-fontawesome-2.0.10"
       (
-        sources."@humanwhocodes/config-array-0.11.8" // {
+        sources."@humanwhocodes/config-array-0.11.8"
+        // {
           dependencies = [
             sources."debug-4.3.3"
             sources."ms-2.1.2"
@@ -6670,7 +6679,8 @@ let
       sources."@types/ws-8.5.3"
       sources."@vue/compiler-sfc-2.7.14"
       (
-        sources."@vue/component-compiler-utils-3.2.2" // {
+        sources."@vue/component-compiler-utils-3.2.2"
+        // {
           dependencies = [
             sources."picocolors-0.2.1"
             sources."postcss-7.0.39"
@@ -6704,7 +6714,8 @@ let
       sources."acorn-walk-8.2.0"
       sources."ajv-6.12.6"
       (
-        sources."ajv-formats-2.1.1" // {
+        sources."ajv-formats-2.1.1"
+        // {
           dependencies = [
             sources."ajv-8.8.1"
             sources."json-schema-traverse-1.0.0"
@@ -6727,7 +6738,8 @@ let
       sources."available-typed-arrays-1.0.5"
       sources."axios-1.3.4"
       (
-        sources."babel-loader-9.1.2" // {
+        sources."babel-loader-9.1.2"
+        // {
           dependencies = [
             sources."ajv-8.12.0"
             sources."ajv-keywords-5.1.0"
@@ -6737,7 +6749,8 @@ let
         }
       )
       (
-        sources."babel-plugin-polyfill-corejs2-0.3.3" // {
+        sources."babel-plugin-polyfill-corejs2-0.3.3"
+        // {
           dependencies = [ sources."semver-6.3.0" ];
         }
       )
@@ -6751,7 +6764,8 @@ let
       sources."bluebird-3.7.2"
       (sources."body-parser-1.19.2" // { dependencies = [ sources."bytes-3.1.2" ]; })
       (
-        sources."bonjour-service-1.0.11" // {
+        sources."bonjour-service-1.0.11"
+        // {
           dependencies = [
             sources."dns-packet-5.3.1"
             sources."multicast-dns-7.2.4"
@@ -6787,7 +6801,8 @@ let
       sources."connect-history-api-fallback-2.0.0"
       sources."consolidate-0.15.1"
       (
-        sources."content-disposition-0.5.4" // {
+        sources."content-disposition-0.5.4"
+        // {
           dependencies = [ sources."safe-buffer-5.2.1" ];
         }
       )
@@ -6797,7 +6812,8 @@ let
       sources."cookie-signature-1.0.6"
       sources."copy-to-clipboard-3.3.3"
       (
-        sources."copy-webpack-plugin-11.0.0" // {
+        sources."copy-webpack-plugin-11.0.0"
+        // {
           dependencies = [
             sources."ajv-8.11.0"
             sources."ajv-keywords-5.1.0"
@@ -6824,7 +6840,8 @@ let
       sources."define-lazy-prop-2.0.0"
       sources."define-properties-1.1.4"
       (
-        sources."del-4.1.1" // {
+        sources."del-4.1.1"
+        // {
           dependencies = [
             sources."pify-4.0.1"
             sources."rimraf-2.7.1"
@@ -6861,7 +6878,8 @@ let
       sources."escape-html-1.0.3"
       sources."escape-string-regexp-1.0.5"
       (
-        sources."eslint-8.37.0" // {
+        sources."eslint-8.37.0"
+        // {
           dependencies = [
             sources."ansi-styles-4.3.0"
             sources."chalk-4.1.2"
@@ -6881,12 +6899,14 @@ let
         }
       )
       (
-        sources."eslint-config-airbnb-base-15.0.0" // {
+        sources."eslint-config-airbnb-base-15.0.0"
+        // {
           dependencies = [ sources."semver-6.3.0" ];
         }
       )
       (
-        sources."eslint-import-resolver-node-0.3.7" // {
+        sources."eslint-import-resolver-node-0.3.7"
+        // {
           dependencies = [
             sources."debug-3.2.7"
             sources."ms-2.1.3"
@@ -6894,7 +6914,8 @@ let
         }
       )
       (
-        sources."eslint-module-utils-2.7.4" // {
+        sources."eslint-module-utils-2.7.4"
+        // {
           dependencies = [
             sources."debug-3.2.7"
             sources."ms-2.1.3"
@@ -6902,7 +6923,8 @@ let
         }
       )
       (
-        sources."eslint-plugin-import-2.27.5" // {
+        sources."eslint-plugin-import-2.27.5"
+        // {
           dependencies = [
             sources."debug-3.2.7"
             sources."doctrine-2.1.0"
@@ -6912,7 +6934,8 @@ let
         }
       )
       (
-        sources."eslint-plugin-vue-9.10.0" // {
+        sources."eslint-plugin-vue-9.10.0"
+        // {
           dependencies = [
             sources."debug-4.3.4"
             sources."eslint-scope-7.1.1"
@@ -6936,7 +6959,8 @@ let
       sources."events-3.3.0"
       sources."execa-5.1.1"
       (
-        sources."express-4.17.3" // {
+        sources."express-4.17.3"
+        // {
           dependencies = [
             sources."array-flatten-1.1.1"
             sources."safe-buffer-5.2.1"
@@ -6952,7 +6976,8 @@ let
       sources."faye-websocket-0.11.4"
       sources."file-entry-cache-6.0.1"
       (
-        sources."file-loader-6.2.0" // {
+        sources."file-loader-6.2.0"
+        // {
           dependencies = [
             sources."ajv-6.12.6"
             sources."ajv-keywords-3.5.2"
@@ -6966,7 +6991,8 @@ let
       sources."fill-range-7.0.1"
       sources."finalhandler-1.1.2"
       (
-        sources."find-cache-dir-3.3.2" // {
+        sources."find-cache-dir-3.3.2"
+        // {
           dependencies = [
             sources."find-up-4.1.0"
             sources."locate-path-5.0.0"
@@ -7017,13 +7043,15 @@ let
       sources."hash-sum-1.0.2"
       sources."he-1.2.0"
       (
-        sources."hpack.js-2.1.6" // {
+        sources."hpack.js-2.1.6"
+        // {
           dependencies = [ sources."readable-stream-2.3.7" ];
         }
       )
       sources."html-entities-2.3.2"
       (
-        sources."html-minifier-terser-6.0.2" // {
+        sources."html-minifier-terser-6.0.2"
+        // {
           dependencies = [ sources."commander-8.3.0" ];
         }
       )
@@ -7043,12 +7071,14 @@ let
       sources."ignore-5.2.0"
       sources."immutable-4.0.0"
       (
-        sources."import-fresh-3.3.0" // {
+        sources."import-fresh-3.3.0"
+        // {
           dependencies = [ sources."resolve-from-4.0.0" ];
         }
       )
       (
-        sources."import-local-3.0.3" // {
+        sources."import-local-3.0.3"
+        // {
           dependencies = [
             sources."find-up-4.1.0"
             sources."locate-path-5.0.0"
@@ -7095,7 +7125,8 @@ let
       sources."isexe-2.0.0"
       sources."isobject-3.0.1"
       (
-        sources."jest-worker-27.4.6" // {
+        sources."jest-worker-27.4.6"
+        // {
           dependencies = [
             sources."has-flag-4.0.0"
             sources."supports-color-8.1.1"
@@ -7118,7 +7149,8 @@ let
       sources."linkifyjs-4.1.1"
       sources."loader-runner-4.2.0"
       (
-        sources."loader-utils-1.4.0" // {
+        sources."loader-utils-1.4.0"
+        // {
           dependencies = [ sources."emojis-list-3.0.0" ];
         }
       )
@@ -7244,7 +7276,8 @@ let
       sources."select-hose-2.0.0"
       sources."selfsigned-2.1.1"
       (
-        sources."semver-7.3.8" // {
+        sources."semver-7.3.8"
+        // {
           dependencies = [
             sources."lru-cache-6.0.0"
             sources."yallist-4.0.0"
@@ -7252,7 +7285,8 @@ let
         }
       )
       (
-        sources."send-0.17.2" // {
+        sources."send-0.17.2"
+        // {
           dependencies = [
             sources."mime-1.6.0"
             sources."ms-2.1.3"
@@ -7261,7 +7295,8 @@ let
       )
       sources."serialize-javascript-6.0.0"
       (
-        sources."serve-index-1.9.1" // {
+        sources."serve-index-1.9.1"
+        // {
           dependencies = [
             sources."http-errors-1.6.3"
             sources."setprototypeof-1.1.0"
@@ -7282,7 +7317,8 @@ let
       sources."source-map-0.6.1"
       sources."source-map-js-1.0.2"
       (
-        sources."spdy-4.0.2" // {
+        sources."spdy-4.0.2"
+        // {
           dependencies = [
             sources."debug-4.3.3"
             sources."ms-2.1.2"
@@ -7290,7 +7326,8 @@ let
         }
       )
       (
-        sources."spdy-transport-3.0.0" // {
+        sources."spdy-transport-3.0.0"
+        // {
           dependencies = [
             sources."debug-4.3.3"
             sources."ms-2.1.2"
@@ -7310,11 +7347,13 @@ let
       sources."svg-country-flags-1.2.10"
       sources."tapable-2.2.0"
       (
-        sources."terser-5.9.0" // {
+        sources."terser-5.9.0"
+        // {
           dependencies = [
             sources."source-map-0.7.3"
             (
-              sources."source-map-support-0.5.20" // {
+              sources."source-map-support-0.5.20"
+              // {
                 dependencies = [ sources."source-map-0.6.1" ];
               }
             )
@@ -7345,7 +7384,8 @@ let
       sources."update-browserslist-db-1.0.9"
       sources."uri-js-4.2.2"
       (
-        sources."url-loader-4.1.1" // {
+        sources."url-loader-4.1.1"
+        // {
           dependencies = [
             sources."ajv-6.12.5"
             sources."ajv-keywords-3.5.2"
@@ -7364,7 +7404,8 @@ let
       sources."vary-1.1.2"
       sources."vue-2.7.14"
       (
-        sources."vue-eslint-parser-8.3.0" // {
+        sources."vue-eslint-parser-8.3.0"
+        // {
           dependencies = [
             sources."debug-4.3.3"
             sources."eslint-scope-7.1.1"
@@ -7388,7 +7429,8 @@ let
       sources."wbuf-1.7.3"
       sources."webpack-5.77.0"
       (
-        sources."webpack-bundle-analyzer-4.8.0" // {
+        sources."webpack-bundle-analyzer-4.8.0"
+        // {
           dependencies = [
             sources."ansi-styles-4.3.0"
             sources."chalk-4.1.2"
@@ -7402,12 +7444,14 @@ let
         }
       )
       (
-        sources."webpack-cli-4.10.0" // {
+        sources."webpack-cli-4.10.0"
+        // {
           dependencies = [ sources."commander-7.2.0" ];
         }
       )
       (
-        sources."webpack-dev-middleware-5.3.1" // {
+        sources."webpack-dev-middleware-5.3.1"
+        // {
           dependencies = [
             sources."ajv-8.8.2"
             sources."ajv-keywords-5.1.0"
@@ -7417,7 +7461,8 @@ let
         }
       )
       (
-        sources."webpack-dev-server-4.13.2" // {
+        sources."webpack-dev-server-4.13.2"
+        // {
           dependencies = [
             sources."ajv-8.12.0"
             sources."ajv-keywords-5.1.0"

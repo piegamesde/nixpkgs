@@ -33,9 +33,7 @@ let
           throw "Unknown source type ${spec.type}"
       ;
     in
-    spec // {
-      outPath = path;
-    }
+    spec // { outPath = path; }
   ;
 
   mkGitSource =

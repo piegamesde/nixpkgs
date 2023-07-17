@@ -132,7 +132,8 @@ let
       });
     in
 
-    builtins.removeAttrs args [ "plugins" ] // {
+    builtins.removeAttrs args [ "plugins" ]
+    // {
       wrapperArgs = makeWrapperArgs;
       inherit packpathDirs;
       inherit neovimRcContent;
@@ -140,7 +141,8 @@ let
       inherit python3Env;
       inherit luaEnv;
       inherit withNodeJs;
-    } // lib.optionalAttrs withRuby { inherit rubyEnv; }
+    }
+    // lib.optionalAttrs withRuby { inherit rubyEnv; }
   ;
 
   # to keep backwards compatibility for people using neovim.override
@@ -204,7 +206,8 @@ let
       };
     in
     wrapNeovimUnstable neovim (
-      res // {
+      res
+      // {
         wrapperArgs = lib.escapeShellArgs res.wrapperArgs + " " + extraMakeWrapperArgs;
         wrapRc = (configure != { });
       }

@@ -506,6 +506,7 @@ stdenv.mkDerivation {
         + " (wrapper script)"
       ;
       priority = 10;
-    } // optionalAttrs useMacosReexportHack { platforms = lib.platforms.darwin; }
+    }
+    // optionalAttrs useMacosReexportHack { platforms = lib.platforms.darwin; }
   ;
 }

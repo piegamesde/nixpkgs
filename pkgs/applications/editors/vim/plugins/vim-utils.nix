@@ -152,7 +152,8 @@ let
       ;
     in
     # make sure all the dependencies of the plugin are also derivations
-    drv // {
+    drv
+    // {
       dependencies = map (pluginToDrv knownPlugins) (drv.dependencies or [ ]);
     }
   ;
@@ -338,7 +339,8 @@ rec {
       mkVimrcFile = vimrcFile; # avoid conflict with argument name
     in
     vim:
-    vim // {
+    vim
+    // {
       # Returns a customized vim that uses the specified vimrc configuration.
       customize =
         {
@@ -555,7 +557,9 @@ rec {
           ]
         ;
 
-        passthru = (oldAttrs.passthru or { }) // { vimPlugin = true; };
+        passthru = (oldAttrs.passthru or { }) // {
+          vimPlugin = true;
+        };
       }
     )
   ;

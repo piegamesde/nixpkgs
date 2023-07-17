@@ -726,28 +726,31 @@ in
             )}
           '';
 
-          serviceConfig = {
-            ExecStart =
-              (optionalString cfg.startWhenNeeded "-")
-              + "${cfgc.package}/bin/sshd "
-              + (optionalString cfg.startWhenNeeded "-i ")
-              + "-D "
-              # don't detach into a daemon process
-              + "-f /etc/ssh/sshd_config"
-            ;
-            KillMode = "process";
-          } // (
-            if cfg.startWhenNeeded then
-              {
-                StandardInput = "socket";
-                StandardError = "journal";
-              }
-            else
-              {
-                Restart = "always";
-                Type = "simple";
-              }
-          );
+          serviceConfig =
+            {
+              ExecStart =
+                (optionalString cfg.startWhenNeeded "-")
+                + "${cfgc.package}/bin/sshd "
+                + (optionalString cfg.startWhenNeeded "-i ")
+                + "-D "
+                # don't detach into a daemon process
+                + "-f /etc/ssh/sshd_config"
+              ;
+              KillMode = "process";
+            }
+            // (
+              if cfg.startWhenNeeded then
+                {
+                  StandardInput = "socket";
+                  StandardError = "journal";
+                }
+              else
+                {
+                  Restart = "always";
+                  Type = "simple";
+                }
+            )
+          ;
         };
       in
 

@@ -53,7 +53,8 @@ let
   configuredGemset = lib.flip lib.mapAttrs filteredGemset (
     name: attrs:
     applyGemConfigs (
-      attrs // {
+      attrs
+      // {
         inherit ruby document;
         gemName = name;
       }
@@ -145,7 +146,9 @@ let
 
     postBuild =
       genStubsScript (
-        defs // args // {
+        defs
+        // args
+        // {
           inherit confFiles bundler groups;
           binPaths = envPaths;
         }
@@ -153,7 +156,9 @@ let
       + lib.optionalString (postBuild != null) postBuild
     ;
 
-    meta = { platforms = ruby.meta.platforms; } // meta;
+    meta = {
+      platforms = ruby.meta.platforms;
+    } // meta;
 
     passthru = rec {
       inherit

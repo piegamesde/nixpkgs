@@ -172,7 +172,8 @@ let
   };
 in
 stdenvNoCC.mkDerivation (
-  args // {
+  args
+  // {
     nativeBuildInputs =
       args.nativeBuildInputs or [ ]
       ++ [
@@ -338,7 +339,9 @@ stdenvNoCC.mkDerivation (
       ;
     } // args.passthru or { };
 
-    meta = (args.meta or { }) // { inherit platforms; };
+    meta = (args.meta or { }) // {
+      inherit platforms;
+    };
   }
   # ICU tries to unconditionally load files from /usr/share/icu on Darwin, which makes builds fail
   # in the sandbox, so disable ICU on Darwin. This, as far as I know, shouldn't cause any built packages

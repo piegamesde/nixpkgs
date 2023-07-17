@@ -28,7 +28,8 @@ let
       pname = "buildsrht-api";
       modRoot = "api";
       vendorHash = "sha256-DfVWr/4J4ZrhHpy9CXPaAQcbag/9FmDgiexcNo0lEsk=";
-    } // import ./fix-gqlgen-trimpath.nix {
+    }
+    // import ./fix-gqlgen-trimpath.nix {
       inherit unzip;
       gqlgenVersion = "0.17.20";
     }

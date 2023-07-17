@@ -253,7 +253,8 @@ pythonPackages.callPackage
                 sourceSpec.branch or (
                   if sourceSpec ? tag then "refs/tags/${sourceSpec.tag}" else "HEAD"
                 );
-            } // (lib.optionalAttrs
+            }
+            // (lib.optionalAttrs
               ((sourceSpec ? rev) && (lib.versionAtLeast builtins.nixVersion "2.4"))
               { allRefs = true; }
             )

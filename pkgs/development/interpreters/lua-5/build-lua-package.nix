@@ -81,13 +81,16 @@ let
   luarocksDrv = luaLib.toLuaModule (
     lua.stdenv.mkDerivation (
       self:
-      attrs // {
+      attrs
+      // {
 
         name = namePrefix + pname + "-" + self.version;
         inherit rockspecVersion;
 
         __structuredAttrs = true;
-        env = { LUAROCKS_CONFIG = "$PWD/${luarocks_config}"; } // attrs.env or { };
+        env = {
+          LUAROCKS_CONFIG = "$PWD/${luarocks_config}";
+        } // attrs.env or { };
 
         generatedRockspecFilename = "${rockspecDir}/${pname}-${rockspecVersion}.rockspec";
 
@@ -223,7 +226,9 @@ let
           runHook postShell
         '';
 
-        passthru = { inherit lua; } // attrs.passthru or { };
+        passthru = {
+          inherit lua;
+        } // attrs.passthru or { };
 
         meta = {
           platforms = lua.meta.platforms;

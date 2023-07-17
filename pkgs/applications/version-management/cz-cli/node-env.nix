@@ -558,7 +558,8 @@ let
           # default to Node.js' platforms
           platforms = nodejs.meta.platforms;
         } // meta;
-      } // extraArgs
+      }
+      // extraArgs
     )
   ;
 
@@ -654,7 +655,8 @@ let
           mv ${packageName} lib
           ln -s $out/lib/node_modules/.bin $out/bin
         '';
-      } // extraArgs
+      }
+      // extraArgs
     )
   ;
 

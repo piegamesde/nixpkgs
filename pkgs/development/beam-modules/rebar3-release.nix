@@ -53,7 +53,8 @@ let
     assert beamDeps != [ ] -> checkouts == null;
     self:
     stdenv.mkDerivation (
-      attrs // {
+      attrs
+      // {
 
         name = "${pname}-${version}";
         inherit version pname;
@@ -109,16 +110,20 @@ let
           done
         '';
 
-        meta = { inherit (erlang.meta) platforms; } // meta;
+        meta = {
+          inherit (erlang.meta) platforms;
+        } // meta;
 
         passthru =
           (
             {
               packageName = pname;
               env = shell self;
-            } // (if attrs ? passthru then attrs.passthru else { })
+            }
+            // (if attrs ? passthru then attrs.passthru else { })
           );
-      } // customPhases
+      }
+      // customPhases
     )
   ;
 in

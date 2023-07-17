@@ -414,7 +414,8 @@ self: super:
         })
         super.foldl
     ;
-  } // lib.optionalAttrs pkgs.stdenv.isAarch64 {
+  }
+  // lib.optionalAttrs pkgs.stdenv.isAarch64 {
     # aarch64-darwin
 
     # https://github.com/fpco/unliftio/issues/87
@@ -459,7 +460,8 @@ self: super:
 
     # https://github.com/NixOS/nixpkgs/issues/149692
     Agda = removeConfigureFlag "-foptimise-heavily" super.Agda;
-  } // lib.optionalAttrs pkgs.stdenv.isx86_64 {
+  }
+  // lib.optionalAttrs pkgs.stdenv.isx86_64 {
     # x86_64-darwin
 
     # tests appear to be failing to link or something:

@@ -35,7 +35,8 @@ let
       pname = "metasrht-api";
       modRoot = "api";
       vendorHash = "sha256-ZoDRGmGe9o5pn89gJ60wjSp5Cc0yxRfvdhNnbwAhmSI=";
-    } // import ./fix-gqlgen-trimpath.nix {
+    }
+    // import ./fix-gqlgen-trimpath.nix {
       inherit unzip;
       gqlgenVersion = "0.17.20";
     }

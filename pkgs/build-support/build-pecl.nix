@@ -26,7 +26,8 @@
 }@args:
 
 stdenv.mkDerivation (
-  args // {
+  args
+  // {
     name = "php-${pname}-${version}";
     extensionName = pname;
 

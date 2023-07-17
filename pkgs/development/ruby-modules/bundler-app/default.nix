@@ -43,28 +43,35 @@
 let
   basicEnv = (callPackage ../bundled-common { inherit ruby; }) args;
 
-  cmdArgs = removeAttrs args [
-    "pname"
-    "postBuild"
-    "gemConfig"
-    "passthru"
-    "gemset"
-    "gemdir"
-  ] // {
-    inherit preferLocalBuild allowSubstitutes; # pass the defaults
+  cmdArgs =
+    removeAttrs args [
+      "pname"
+      "postBuild"
+      "gemConfig"
+      "passthru"
+      "gemset"
+      "gemdir"
+    ]
+    // {
+      inherit preferLocalBuild allowSubstitutes; # pass the defaults
 
-    nativeBuildInputs =
-      nativeBuildInputs ++ lib.optionals (scripts != [ ]) [ makeWrapper ];
+      nativeBuildInputs =
+        nativeBuildInputs ++ lib.optionals (scripts != [ ]) [ makeWrapper ];
 
-    meta = {
-      mainProgram = pname;
-      inherit (ruby.meta) platforms;
-    } // meta;
-    passthru = basicEnv.passthru // {
-      inherit basicEnv;
-      inherit (basicEnv) env;
-    } // passthru;
-  };
+      meta = {
+        mainProgram = pname;
+        inherit (ruby.meta) platforms;
+      } // meta;
+      passthru =
+        basicEnv.passthru
+        // {
+          inherit basicEnv;
+          inherit (basicEnv) env;
+        }
+        // passthru
+      ;
+    }
+  ;
 in
 runCommand basicEnv.name cmdArgs ''
   mkdir -p $out/bin

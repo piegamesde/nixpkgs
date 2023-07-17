@@ -1054,7 +1054,8 @@ lib.mapAttrs
         spdxId = "ZPL-2.1";
         fullName = "Zope Public License 2.1";
       };
-    } // {
+    }
+    // {
       # TODO: remove legacy aliases
       agpl3 = {
         spdxId = "AGPL-3.0";

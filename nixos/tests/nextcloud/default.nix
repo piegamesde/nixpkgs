@@ -9,7 +9,8 @@ with pkgs.lib;
 foldl
   (
     matrix: ver:
-    matrix // {
+    matrix
+    // {
       "basic${toString ver}" = import ./basic.nix {
         inherit system pkgs;
         nextcloudVersion = ver;

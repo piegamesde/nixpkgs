@@ -16,7 +16,8 @@ buildNimPackage rec {
   doCheck = false; # impure
   meta =
     with lib;
-    src.meta // {
+    src.meta
+    // {
       description = "Temporary files and folders";
       license = [ lib.licenses.mit ];
       maintainers = [ maintainers.ehmry ];

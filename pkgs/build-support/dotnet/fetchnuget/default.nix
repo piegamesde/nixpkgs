@@ -45,5 +45,6 @@ else
 
         traverseRename
       '';
-    } // attrs
+    }
+    // attrs
   )

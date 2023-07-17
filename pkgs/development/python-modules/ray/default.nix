@@ -80,7 +80,8 @@ buildPythonPackage rec {
         python = pyShortVersion;
         abi = pyShortVersion;
         platform = "manylinux2014_x86_64";
-      } // binary-hash
+      }
+      // binary-hash
     )
   ;
 

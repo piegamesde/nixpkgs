@@ -23,5 +23,7 @@ build-idris-package {
     sourceRoot=$sourceRoot/libs/${pname}
   '';
 
-  meta = idris.meta // { description = "${pname} builtin Idris library"; };
+  meta = idris.meta // {
+    description = "${pname} builtin Idris library";
+  };
 }

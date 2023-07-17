@@ -5,7 +5,8 @@
 }@args:
 
 callPackage ./generic.nix (
-  args // {
+  args
+  // {
     version = "1.2.14";
 
     src = fetchgit {

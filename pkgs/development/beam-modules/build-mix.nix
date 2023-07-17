@@ -35,7 +35,8 @@ let
   pkg =
     self:
     stdenv.mkDerivation (
-      attrs // {
+      attrs
+      // {
         name = "${name}-${version}";
         inherit version src;
 

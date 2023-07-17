@@ -28,7 +28,8 @@ let
   };
 in
 buildFHSEnv (
-  fhsArgs // {
+  fhsArgs
+  // {
     inherit name;
 
     targetPkgs =

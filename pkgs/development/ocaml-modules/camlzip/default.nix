@@ -17,13 +17,15 @@ let
   };
   param =
     if lib.versionAtLeast ocaml.version "4.07" then
-      common // {
+      common
+      // {
         version = "1.11";
         url = "https://github.com/xavierleroy/camlzip/archive/rel111.tar.gz";
         sha256 = "sha256-/7vF3j4cE9wOWScjdtIy0u3pGzJ1UQY9R/3bdPHV7Tc=";
       }
     else if lib.versionAtLeast ocaml.version "4.02" then
-      common // {
+      common
+      // {
         version = "1.10";
         url = "https://github.com/xavierleroy/camlzip/archive/rel110.tar.gz";
         sha256 = "X0YcczaQ3lFeJEiTIgjSSZ1zi32KFMtmZsP0FFpyfbI=";

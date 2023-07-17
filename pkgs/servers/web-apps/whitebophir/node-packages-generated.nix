@@ -856,7 +856,8 @@ in
         };
         dependencies = [
           (
-            sources."@financial-times/polyfill-useragent-normaliser-1.10.2" // {
+            sources."@financial-times/polyfill-useragent-normaliser-1.10.2"
+            // {
               dependencies = [ sources."semver-7.3.8" ];
             }
           )
@@ -881,7 +882,8 @@ in
           sources."ee-first-1.1.1"
           sources."encodeurl-1.0.2"
           (
-            sources."engine.io-6.2.0" // {
+            sources."engine.io-6.2.0"
+            // {
               dependencies = [
                 sources."debug-4.3.4"
                 sources."ms-2.1.2"
@@ -929,7 +931,8 @@ in
           sources."promise-polyfill-1.1.6"
           sources."range-parser-1.2.1"
           (
-            sources."readable-stream-2.3.7" // {
+            sources."readable-stream-2.3.7"
+            // {
               dependencies = [ sources."safe-buffer-5.1.2" ];
             }
           )
@@ -939,7 +942,8 @@ in
           sources."serve-static-1.15.0"
           sources."setprototypeof-1.2.0"
           (
-            sources."socket.io-4.5.3" // {
+            sources."socket.io-4.5.3"
+            // {
               dependencies = [
                 sources."debug-4.3.4"
                 sources."ms-2.1.2"
@@ -948,7 +952,8 @@ in
           )
           sources."socket.io-adapter-2.4.0"
           (
-            sources."socket.io-parser-4.2.1" // {
+            sources."socket.io-parser-4.2.1"
+            // {
               dependencies = [
                 sources."debug-4.3.4"
                 sources."ms-2.1.2"
@@ -961,7 +966,8 @@ in
           sources."stream-from-promise-1.0.0"
           sources."stream-to-string-1.2.0"
           (
-            sources."string_decoder-1.1.1" // {
+            sources."string_decoder-1.1.1"
+            // {
               dependencies = [ sources."safe-buffer-5.1.2" ];
             }
           )

@@ -62,5 +62,6 @@ stdenv.mkDerivation (
       license = lib.licenses.lgpl21;
       maintainers = with lib.maintainers; [ ];
     };
-  } // param.extra
+  }
+  // param.extra
 )

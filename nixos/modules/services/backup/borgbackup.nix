@@ -209,7 +209,9 @@ let
     mkWrapperDrv {
       original = "${pkgs.borgbackup}/bin/borg";
       name = "borg-job-${name}";
-      set = { BORG_REPO = cfg.repo; } // (mkPassEnv cfg) // cfg.environment;
+      set = {
+        BORG_REPO = cfg.repo;
+      } // (mkPassEnv cfg) // cfg.environment;
     }
   ;
 
@@ -880,7 +882,8 @@ in
         # A job named "foo" is mapped to systemd.services.borgbackup-job-foo
         mapAttrs' mkBackupService jobs
         # A repo named "foo" is mapped to systemd.services.borgbackup-repo-foo
-        // mapAttrs' mkRepoService repos;
+        // mapAttrs' mkRepoService repos
+      ;
 
       # A job named "foo" is mapped to systemd.timers.borgbackup-job-foo
       # only generate the timer if interval (startAt) is set

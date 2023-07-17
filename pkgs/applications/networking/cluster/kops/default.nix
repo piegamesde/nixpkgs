@@ -65,7 +65,8 @@ let
         ];
         platforms = platforms.unix;
       };
-    } // attrs'
+    }
+    // attrs'
   ;
 in
 rec {

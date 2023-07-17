@@ -142,9 +142,7 @@ let
         service: lib.filterAttrs filter (hardening // (service.serviceConfig or { }));
     in
     service:
-    service // {
-      serviceConfig = apply service;
-    }
+    service // { serviceConfig = apply service; }
   ;
 
   services.hylafax-spool = {

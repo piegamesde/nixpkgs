@@ -46,7 +46,8 @@ let
 
       # avoid duplicating log messageges in journal
       StandardError = "null";
-    } // commonServiceConfig
+    }
+    // commonServiceConfig
   ;
 
   configVal =
@@ -429,21 +430,22 @@ in
 
           db_type = cfg.database.type;
           db_name = cfg.database.name;
-        } // (optionalAttrs (cfg.database.host != null) {
-          db_host = cfg.database.host;
-        }) // (optionalAttrs mysqlLocal {
+        }
+        // (optionalAttrs (cfg.database.host != null) { db_host = cfg.database.host; })
+        // (optionalAttrs mysqlLocal {
           db_host = "localhost"; # use unix domain socket
-        }) // (optionalAttrs pgsqlLocal {
+        })
+        // (optionalAttrs pgsqlLocal {
           db_host = "/run/postgresql"; # use unix domain socket
-        }) // (optionalAttrs (cfg.database.port != null) {
-          db_port = cfg.database.port;
-        }) // (optionalAttrs (cfg.database.user != null) {
-          db_user = cfg.database.user;
-        }) // (optionalAttrs (cfg.mta.type == "postfix") {
+        })
+        // (optionalAttrs (cfg.database.port != null) { db_port = cfg.database.port; })
+        // (optionalAttrs (cfg.database.user != null) { db_user = cfg.database.user; })
+        // (optionalAttrs (cfg.mta.type == "postfix") {
           sendmail_aliases = "${dataDir}/sympa_transport";
           aliases_program = "${pkgs.postfix}/bin/postmap";
           aliases_db_type = "hash";
-        }) // (optionalAttrs cfg.web.enable {
+        })
+        // (optionalAttrs cfg.web.enable {
           static_content_path = "${dataDir}/static_content";
           css_path = "${dataDir}/static_content/css";
           pictures_path = "${dataDir}/static_content/pictures";
@@ -451,16 +453,19 @@ in
         })
       );
 
-    services.sympa.settingsFile = {
-      "virtual.sympa" = mkDefault { source = virtual; };
-      "transport.sympa" = mkDefault { source = transport; };
-      "etc/list_aliases.tt2" = mkDefault { source = listAliases; };
-    } // (flip mapAttrs' cfg.domains (
-      fqdn: domain:
-      nameValuePair "etc/${fqdn}/robot.conf" (
-        mkDefault { source = robotConfig fqdn domain; }
-      )
-    ));
+    services.sympa.settingsFile =
+      {
+        "virtual.sympa" = mkDefault { source = virtual; };
+        "transport.sympa" = mkDefault { source = transport; };
+        "etc/list_aliases.tt2" = mkDefault { source = listAliases; };
+      }
+      // (flip mapAttrs' cfg.domains (
+        fqdn: domain:
+        nameValuePair "etc/${fqdn}/robot.conf" (
+          mkDefault { source = robotConfig fqdn domain; }
+        )
+      ))
+    ;
 
     environment = {
       systemPackages = [ pkg ];
@@ -611,18 +616,22 @@ in
       genAttrs vHosts (
         host:
         {
-          locations = genAttrs (hostLocations host) (
-            loc: {
-              extraConfig = ''
-                include ${config.services.nginx.package}/conf/fastcgi_params;
+          locations =
+            genAttrs (hostLocations host) (
+              loc: {
+                extraConfig = ''
+                  include ${config.services.nginx.package}/conf/fastcgi_params;
 
-                fastcgi_pass unix:/run/sympa/wwsympa.socket;
-              '';
+                  fastcgi_pass unix:/run/sympa/wwsympa.socket;
+                '';
+              }
+            )
+            // {
+              "/static-sympa/".alias = "${dataDir}/static_content/";
             }
-          ) // {
-            "/static-sympa/".alias = "${dataDir}/static_content/";
-          };
-        } // httpsOpts
+          ;
+        }
+        // httpsOpts
       )
     );
 

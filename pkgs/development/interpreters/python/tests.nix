@@ -44,7 +44,8 @@ let
             is_nixenv = "False";
             is_virtualenv = "False";
           };
-        } // lib.optionalAttrs (!python.isPyPy) {
+        }
+        // lib.optionalAttrs (!python.isPyPy) {
           # Use virtualenv from a Nix env.
           nixenv-virtualenv = rec {
             env = runCommand "${python.name}-virtualenv" { } ''
@@ -56,7 +57,8 @@ let
             is_nixenv = "True";
             is_virtualenv = "True";
           };
-        } // lib.optionalAttrs (python.implementation != "graal") {
+        }
+        // lib.optionalAttrs (python.implementation != "graal") {
           # Python Nix environment (python.buildEnv)
           nixenv = rec {
             env = pythonEnv;
@@ -65,7 +67,8 @@ let
             is_nixenv = "True";
             is_virtualenv = "False";
           };
-        } // lib.optionalAttrs (python.isPy3k && (!python.isPyPy)) rec {
+        }
+        // lib.optionalAttrs (python.isPy3k && (!python.isPyPy)) rec {
           # Venv built using plain Python
           # Python 2 does not support venv
           # TODO: PyPy executable name is incorrect, it should be pypy-c or pypy-3c instead of pypy and pypy3.
@@ -78,7 +81,8 @@ let
             is_nixenv = "False";
             is_virtualenv = "False";
           };
-        } // lib.optionalAttrs (python.pythonAtLeast "3.8") {
+        }
+        // lib.optionalAttrs (python.pythonAtLeast "3.8") {
           # Venv built using Python Nix environment (python.buildEnv)
           # TODO: Cannot create venv from a  nix env
           # Error: Command '['/nix/store/ddc8nqx73pda86ibvhzdmvdsqmwnbjf7-python3-3.7.6-venv/bin/python3.7', '-Im', 'ensurepip', '--upgrade', '--default-pip']' returned non-zero exit status 1.
@@ -117,7 +121,8 @@ let
     lib.optionalAttrs (python.isPy3k && !stdenv.isDarwin) {
       # darwin has no split-debug
       cpython-gdb = callPackage ./tests/test_cpython_gdb { interpreter = python; };
-    } // lib.optionalAttrs (python.pythonAtLeast "3.7") rec {
+    }
+    // lib.optionalAttrs (python.pythonAtLeast "3.7") rec {
       # Before the addition of NIX_PYTHONPREFIX mypy was broken with typed packages
       nix-pythonprefix-mypy = callPackage ./tests/test_nix_pythonprefix {
         interpreter = python;
@@ -150,7 +155,8 @@ let
       # test-overrideScope = let
       #  myPackages = python.pkgs.overrideScope extension;
       # in assert myPackages.foobar == myPackages.numpy; myPackages.python.withPackages(ps: with ps; [ foobar ]);
-    } // lib.optionalAttrs (python ? pythonAttr) {
+    }
+    // lib.optionalAttrs (python ? pythonAttr) {
       # Test applying overrides using pythonPackagesOverlays.
       test-pythonPackagesExtensions =
         let

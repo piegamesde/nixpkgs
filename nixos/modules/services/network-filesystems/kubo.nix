@@ -409,21 +409,24 @@ in
         # After an unclean shutdown the fuse mounts at cfg.ipnsMountDir and cfg.ipfsMountDir are locked
         umount --quiet '${cfg.ipnsMountDir}' '${cfg.ipfsMountDir}' || true
       '';
-      serviceConfig = {
-        ExecStart = [
-          ""
-          "${cfg.package}/bin/ipfs daemon ${kuboFlags}"
-        ];
-        User = cfg.user;
-        Group = cfg.group;
-        StateDirectory = "";
-        ReadWritePaths = optionals (!cfg.autoMount) [
-          ""
-          cfg.dataDir
-        ];
-      } // optionalAttrs (cfg.serviceFdlimit != null) {
-        LimitNOFILE = cfg.serviceFdlimit;
-      };
+      serviceConfig =
+        {
+          ExecStart = [
+            ""
+            "${cfg.package}/bin/ipfs daemon ${kuboFlags}"
+          ];
+          User = cfg.user;
+          Group = cfg.group;
+          StateDirectory = "";
+          ReadWritePaths = optionals (!cfg.autoMount) [
+            ""
+            cfg.dataDir
+          ];
+        }
+        // optionalAttrs (cfg.serviceFdlimit != null) {
+          LimitNOFILE = cfg.serviceFdlimit;
+        }
+      ;
     } // optionalAttrs (!cfg.startWhenNeeded) { wantedBy = [ "default.target" ]; };
 
     systemd.sockets.ipfs-gateway = {

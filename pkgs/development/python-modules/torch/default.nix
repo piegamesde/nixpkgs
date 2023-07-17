@@ -556,16 +556,19 @@ buildPythonPackage rec {
   # Builds in 2+h with 2 cores, and ~15m with a big-parallel builder.
   requiredSystemFeatures = [ "big-parallel" ];
 
-  passthru = {
-    inherit cudaSupport cudaPackages;
-    # At least for 1.10.2 `torch.fft` is unavailable unless BLAS provider is MKL. This attribute allows for easy detection of its availability.
-    blasProvider = blas.provider;
-  } // lib.optionalAttrs cudaSupport {
-    # NOTE: supportedCudaCapabilities isn't computed unless cudaSupport is true, so we can't use
-    #   it in the passthru set above because a downstream package might try to access it even
-    #   when cudaSupport is false. Better to have it missing than null or an empty list by default.
-    cudaCapabilities = supportedCudaCapabilities;
-  };
+  passthru =
+    {
+      inherit cudaSupport cudaPackages;
+      # At least for 1.10.2 `torch.fft` is unavailable unless BLAS provider is MKL. This attribute allows for easy detection of its availability.
+      blasProvider = blas.provider;
+    }
+    // lib.optionalAttrs cudaSupport {
+      # NOTE: supportedCudaCapabilities isn't computed unless cudaSupport is true, so we can't use
+      #   it in the passthru set above because a downstream package might try to access it even
+      #   when cudaSupport is false. Better to have it missing than null or an empty list by default.
+      cudaCapabilities = supportedCudaCapabilities;
+    }
+  ;
 
   meta = with lib; {
     changelog = "https://github.com/pytorch/pytorch/releases/tag/v${version}";

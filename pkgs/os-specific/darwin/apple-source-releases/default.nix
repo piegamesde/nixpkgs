@@ -194,13 +194,18 @@ let
             exit 1
           fi
         '';
-      } // attrs // {
-        meta = (
-          with lib; {
-            platforms = platforms.darwin;
-            license = licenses.apsl20;
-          }
-        ) // (attrs.meta or { });
+      }
+      // attrs
+      // {
+        meta =
+          (
+            with lib; {
+              platforms = platforms.darwin;
+              license = licenses.apsl20;
+            }
+          )
+          // (attrs.meta or { })
+        ;
       }
     )
   ;
@@ -322,7 +327,9 @@ let
   ;
 in
 
-developerToolsPackages_11_3_1 // macosPackages_11_0_1 // {
+developerToolsPackages_11_3_1
+// macosPackages_11_0_1
+// {
   # TODO: shorten this list, we should cut down to a minimum set of bootstrap or necessary packages here.
 
   inherit (adv_cmds-boot) ps locale;

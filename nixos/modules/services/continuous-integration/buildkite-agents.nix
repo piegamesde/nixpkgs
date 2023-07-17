@@ -18,11 +18,14 @@ let
     }:
     {
       inherit name;
-      value = mkOption {
-        default = null;
-        description = lib.mdDoc description;
-        type = types.nullOr types.lines;
-      } // (if example == null then { } else { inherit example; });
+      value =
+        mkOption {
+          default = null;
+          description = lib.mdDoc description;
+          type = types.nullOr types.lines;
+        }
+        // (if example == null then { } else { inherit example; })
+      ;
     }
   ;
   mkHookOptions = hooks: listToAttrs (map mkHookOption hooks);
