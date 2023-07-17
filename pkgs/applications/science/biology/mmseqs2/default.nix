@@ -44,8 +44,7 @@ stdenv.mkDerivation rec {
       zlib
       bzip2
     ]
-    ++ lib.optional enableMpi mpi
-  ;
+    ++ lib.optional enableMpi mpi;
 
   postInstall = ''
     installShellCompletion --bash --cmd mmseqs $out/util/bash-completion.sh

@@ -107,22 +107,21 @@ let
     # configure: error: python is required when enabling python bindings
     strictDeps = false;
 
-    nativeBuildInputs =
-      [
-        autoreconfHook
-        bison
-        flex
-        pkg-config
-        swig
-        ncurses
-        which
-        perl
-      ]
-      ++ lib.optional withPython python
-    ;
+    nativeBuildInputs = [
+      autoreconfHook
+      bison
+      flex
+      pkg-config
+      swig
+      ncurses
+      which
+      perl
+    ] ++ lib.optional withPython python;
 
     buildInputs =
-      [ libxcrypt ] ++ lib.optional withPerl perl ++ lib.optional withPython python;
+      [ libxcrypt ]
+      ++ lib.optional withPerl perl ++ lib.optional withPython python
+    ;
 
     # required to build apparmor-parser
     dontDisableStatic = true;

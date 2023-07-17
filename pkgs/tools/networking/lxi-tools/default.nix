@@ -33,15 +33,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-F9svLaQnQyVyC5KzDnaGwB8J/nBZ3zzOVwYNxWBPifU=";
   };
 
-  nativeBuildInputs =
-    [
-      meson
-      ninja
-      cmake
-      pkg-config
-    ]
-    ++ lib.optional withGui wrapGAppsHook
-  ;
+  nativeBuildInputs = [
+    meson
+    ninja
+    cmake
+    pkg-config
+  ] ++ lib.optional withGui wrapGAppsHook;
 
   buildInputs =
     [

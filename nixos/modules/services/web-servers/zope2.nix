@@ -165,15 +165,11 @@ in
             '';
             env = pkgs.buildEnv {
               name = "zope2-${name}-env";
-              paths =
-                [
-                  pkgs.python27
-                  pkgs.python27Packages.recursivePthLoader
-                  pkgs.python27Packages."plone.recipe.zope2instance"
-                ]
-                ++ attrValues pkgs.python27.modules
-                ++ opts.packages
-              ;
+              paths = [
+                pkgs.python27
+                pkgs.python27Packages.recursivePthLoader
+                pkgs.python27Packages."plone.recipe.zope2instance"
+              ] ++ attrValues pkgs.python27.modules ++ opts.packages;
               postBuild = ''
                 echo "#!$out/bin/python" > $out/bin/interpreter
                 cat ${interpreter} >> $out/bin/interpreter

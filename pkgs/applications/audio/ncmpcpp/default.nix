@@ -43,19 +43,15 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ] ++ lib.optional taglibSupport taglib;
 
-  buildInputs =
-    [
-      boost
-      libmpdclient
-      ncurses
-      readline
-      libiconv
-      icu
-      curl
-    ]
-    ++ lib.optional visualizerSupport fftw
-    ++ lib.optional taglibSupport taglib
-  ;
+  buildInputs = [
+    boost
+    libmpdclient
+    ncurses
+    readline
+    libiconv
+    icu
+    curl
+  ] ++ lib.optional visualizerSupport fftw ++ lib.optional taglibSupport taglib;
 
   meta = with lib; {
     description = "A featureful ncurses based MPD client inspired by ncmpc";

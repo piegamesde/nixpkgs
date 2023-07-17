@@ -46,23 +46,17 @@ stdenv.mkDerivation rec {
     "AVR=avr-"
   ];
 
-  nativeBuildInputs =
-    [
-      which
-      pkg-config
-      avrgcc
-    ]
-    ++ lib.optional stdenv.isDarwin setupHookDarwin
-  ;
-  buildInputs =
-    [
-      libelf
-      freeglut
-      libGLU
-      libGL
-    ]
-    ++ lib.optional stdenv.isDarwin GLUT
-  ;
+  nativeBuildInputs = [
+    which
+    pkg-config
+    avrgcc
+  ] ++ lib.optional stdenv.isDarwin setupHookDarwin;
+  buildInputs = [
+    libelf
+    freeglut
+    libGLU
+    libGL
+  ] ++ lib.optional stdenv.isDarwin GLUT;
 
   # Hack to avoid TMPDIR in RPATHs.
   preFixup = ''rm -rf "$(pwd)" && mkdir "$(pwd)" '';

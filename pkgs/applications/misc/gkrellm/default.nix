@@ -31,17 +31,14 @@ stdenv.mkDerivation rec {
     which
     wrapGAppsHook
   ];
-  buildInputs =
-    [
-      gettext
-      glib
-      gtk2
-      libX11
-      libSM
-      libICE
-    ]
-    ++ lib.optionals stdenv.isDarwin [ IOKit ]
-  ;
+  buildInputs = [
+    gettext
+    glib
+    gtk2
+    libX11
+    libSM
+    libICE
+  ] ++ lib.optionals stdenv.isDarwin [ IOKit ];
 
   hardeningDisable = [ "format" ];
 

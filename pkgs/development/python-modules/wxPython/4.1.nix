@@ -69,16 +69,13 @@ buildPythonPackage rec {
   # https://github.com/wxWidgets/Phoenix/issues/1316
   doCheck = false;
 
-  nativeBuildInputs =
-    [
-      which
-      doxygen
-      gtk3
-      pkg-config
-      setuptools
-    ]
-    ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ]
-  ;
+  nativeBuildInputs = [
+    which
+    doxygen
+    gtk3
+    pkg-config
+    setuptools
+  ] ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ];
 
   buildInputs =
     [

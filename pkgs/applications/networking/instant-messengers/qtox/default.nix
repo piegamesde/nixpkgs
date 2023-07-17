@@ -38,37 +38,31 @@ mkDerivation rec {
     sha256 = "sha256-naKWoodSMw0AEtACvkASFmw9t0H0d2pcqOW79NNTYF0=";
   };
 
-  buildInputs =
-    [
-      libtoxcore
-      libpthreadstubs
-      libXdmcp
-      libXScrnSaver
-      qtbase
-      qtsvg
-      qttranslations
-      ffmpeg
-      filter-audio
-      libexif
-      libopus
-      libsodium
-      libvpx
-      openal
-      pcre
-      qrencode
-      sqlcipher
-    ]
-    ++ lib.optionals stdenv.isDarwin [ AVFoundation ]
-  ;
+  buildInputs = [
+    libtoxcore
+    libpthreadstubs
+    libXdmcp
+    libXScrnSaver
+    qtbase
+    qtsvg
+    qttranslations
+    ffmpeg
+    filter-audio
+    libexif
+    libopus
+    libsodium
+    libvpx
+    openal
+    pcre
+    qrencode
+    sqlcipher
+  ] ++ lib.optionals stdenv.isDarwin [ AVFoundation ];
 
-  nativeBuildInputs =
-    [
-      cmake
-      pkg-config
-      qttools
-    ]
-    ++ lib.optionals stdenv.isDarwin [ perl ]
-  ;
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    qttools
+  ] ++ lib.optionals stdenv.isDarwin [ perl ];
 
   cmakeFlags = [
     "-DGIT_DESCRIBE=v${version}"

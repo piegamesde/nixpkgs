@@ -28,17 +28,14 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs =
-    [
-      cloudpickle
-      distributed
-      multipledispatch
-      scikit-learn
-      scipy
-      sparse
-    ]
-    ++ dask.optional-dependencies.array
-  ;
+  propagatedBuildInputs = [
+    cloudpickle
+    distributed
+    multipledispatch
+    scikit-learn
+    scipy
+    sparse
+  ] ++ dask.optional-dependencies.array;
 
   nativeCheckInputs = [
     sparse

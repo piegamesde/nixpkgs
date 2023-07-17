@@ -38,8 +38,7 @@ rustPlatform.buildRustPackage rec {
         CoreFoundation
         Security
       ]
-    )
-  ;
+    );
 
   OPENSSL_NO_VENDOR = 1;
 

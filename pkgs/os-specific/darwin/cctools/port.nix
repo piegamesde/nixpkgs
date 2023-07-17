@@ -62,21 +62,18 @@ stdenv.mkDerivation {
     ++ lib.optional enableTapiSupport libtapi
   ;
 
-  patches =
-    [
-      ./ld-ignore-rpath-link.patch
-      ./ld-rpath-nonfinal.patch
-      (fetchpatch {
-        url = "https://github.com/tpoechtrager/cctools-port/commit/4a734070cd2838e49658464003de5b92271d8b9e.patch";
-        hash = "sha256-72KaJyu7CHXxJJ1GNq/fz+kW1RslO3UaKI91LhBtiXA=";
-      })
-      (fetchpatch {
-        url = "https://github.com/MercuryTechnologies/cctools-port/commit/025899b7b3593dedb0c681e689e57c0e7bbd9b80.patch";
-        hash = "sha256-SWVUzFaJHH2fu9y8RcU3Nx/QKx60hPE5zFx0odYDeQs=";
-      })
-    ]
-    ++ lib.optional stdenv.isDarwin ./darwin-no-memstream.patch
-  ;
+  patches = [
+    ./ld-ignore-rpath-link.patch
+    ./ld-rpath-nonfinal.patch
+    (fetchpatch {
+      url = "https://github.com/tpoechtrager/cctools-port/commit/4a734070cd2838e49658464003de5b92271d8b9e.patch";
+      hash = "sha256-72KaJyu7CHXxJJ1GNq/fz+kW1RslO3UaKI91LhBtiXA=";
+    })
+    (fetchpatch {
+      url = "https://github.com/MercuryTechnologies/cctools-port/commit/025899b7b3593dedb0c681e689e57c0e7bbd9b80.patch";
+      hash = "sha256-SWVUzFaJHH2fu9y8RcU3Nx/QKx60hPE5zFx0odYDeQs=";
+    })
+  ] ++ lib.optional stdenv.isDarwin ./darwin-no-memstream.patch;
 
   __propagatedImpureHostDeps = [
     # As far as I can tell, otool from cctools is the only thing that depends on these two, and we should fix them
@@ -87,13 +84,10 @@ stdenv.mkDerivation {
   enableParallelBuilding = true;
 
   # TODO(@Ericson2314): Always pass "--target" and always targetPrefix.
-  configurePlatforms =
-    [
-      "build"
-      "host"
-    ]
-    ++ lib.optional (stdenv.targetPlatform != stdenv.hostPlatform) "target"
-  ;
+  configurePlatforms = [
+    "build"
+    "host"
+  ] ++ lib.optional (stdenv.targetPlatform != stdenv.hostPlatform) "target";
   configureFlags =
     [ "--disable-clang-as" ]
     ++ lib.optionals enableTapiSupport [

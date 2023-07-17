@@ -36,13 +36,10 @@ stdenv.mkDerivation rec {
     ]
   ;
 
-  outputs =
-    [
-      "out"
-      "dev"
-    ]
-    ++ lib.optionals withDoc [ "devdoc" ]
-  ;
+  outputs = [
+    "out"
+    "dev"
+  ] ++ lib.optionals withDoc [ "devdoc" ];
 
   # TODO: enable xmodmap support, needs xmodmap DB
   propagatedBuildInputs = with xorg; [

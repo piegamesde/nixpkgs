@@ -67,12 +67,12 @@ stdenv.mkDerivation rec {
       zeitgeist
     ]
     ++
-      # applications-menu has a plugin to search switchboard plugins
-      # see https://github.com/NixOS/nixpkgs/issues/100209
-      # wingpanel's wrapper will need to pick up the fact that
-      # applications-menu needs a version of switchboard with all
-      # its plugins for search.
-      switchboard-with-plugs.buildInputs
+    # applications-menu has a plugin to search switchboard plugins
+    # see https://github.com/NixOS/nixpkgs/issues/100209
+    # wingpanel's wrapper will need to pick up the fact that
+    # applications-menu needs a version of switchboard with all
+    # its plugins for search.
+    switchboard-with-plugs.buildInputs
   ;
 
   mesonFlags = [ "--sysconfdir=${placeholder "out"}/etc" ];

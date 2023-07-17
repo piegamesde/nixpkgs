@@ -32,24 +32,18 @@ stdenv.mkDerivation rec {
     sphinx
     wafHook
   ];
-  buildInputs =
-    [
-      libpcap
-      ndn-cxx
-      openssl
-      websocketpp
-    ]
-    ++ lib.optional withSystemd systemd
-  ;
+  buildInputs = [
+    libpcap
+    ndn-cxx
+    openssl
+    websocketpp
+  ] ++ lib.optional withSystemd systemd;
 
-  wafConfigureFlags =
-    [
-      "--boost-includes=${boost.dev}/include"
-      "--boost-libs=${boost.out}/lib"
-      "--with-tests"
-    ]
-    ++ lib.optional (!withWebSocket) "--without-websocket"
-  ;
+  wafConfigureFlags = [
+    "--boost-includes=${boost.dev}/include"
+    "--boost-libs=${boost.out}/lib"
+    "--with-tests"
+  ] ++ lib.optional (!withWebSocket) "--without-websocket";
 
   doCheck = true;
   checkPhase = ''

@@ -29,14 +29,11 @@ rustPlatform.buildRustPackage rec {
     pkg-config
   ];
 
-  buildInputs =
-    [
-      libcap
-      zlib
-      openssl
-    ]
-    ++ lib.optional stdenv.isDarwin Security
-  ;
+  buildInputs = [
+    libcap
+    zlib
+    openssl
+  ] ++ lib.optional stdenv.isDarwin Security;
 
   postInstall = ''
     installManPage docs/${pname}.1

@@ -38,8 +38,7 @@ buildPythonPackage rec {
       "test_locale_accents"
       "test_locale_case"
       "test_run_with_locale"
-    ]
-  ;
+    ];
 
   pythonImportsCheck = [ "yamllint" ];
 

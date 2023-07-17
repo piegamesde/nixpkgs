@@ -18,7 +18,9 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs =
-    [ cmake ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
+    [ cmake ]
+    ++ lib.optional stdenv.isDarwin fixDarwinDylibNames
+  ;
 
   installPhase = ''
     mkdir -p $out $dev/include/btor2parser/ $lib/lib

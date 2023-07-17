@@ -70,20 +70,17 @@ buildPythonPackage rec {
     pandas
   ];
 
-  propagatedBuildInputs =
-    [
-      pillow
-      jinja2
-      python-dateutil
-      six
-      pyyaml
-      tornado
-      numpy
-      packaging
-      typing-extensions
-    ]
-    ++ lib.optionals (isPy27) [ futures ]
-  ;
+  propagatedBuildInputs = [
+    pillow
+    jinja2
+    python-dateutil
+    six
+    pyyaml
+    tornado
+    numpy
+    packaging
+    typing-extensions
+  ] ++ lib.optionals (isPy27) [ futures ];
 
   # This test suite is a complete pain. Somehow it can't find its fixtures.
   doCheck = false;

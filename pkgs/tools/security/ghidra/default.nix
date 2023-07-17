@@ -33,13 +33,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-0OcSdCN8vWUgTgFdgNtiI0OfHmfa/WD9IoaJUl+llqI=";
   };
 
-  nativeBuildInputs =
-    [
-      makeWrapper
-      icoutils
-    ]
-    ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ]
-  ;
+  nativeBuildInputs = [
+    makeWrapper
+    icoutils
+  ] ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ];
 
   buildInputs = [
     stdenv.cc.cc.lib

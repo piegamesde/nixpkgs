@@ -34,18 +34,15 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs =
-    [
-      zlib
-      mpg123
-      libogg
-      libvorbis
-      portaudio
-      libsndfile
-      flac
-    ]
-    ++ lib.optional usePulseAudio libpulseaudio
-  ;
+  buildInputs = [
+    zlib
+    mpg123
+    libogg
+    libvorbis
+    portaudio
+    libsndfile
+    flac
+  ] ++ lib.optional usePulseAudio libpulseaudio;
 
   configureFlags = lib.optional (!usePulseAudio) "--without-pulseaudio";
 

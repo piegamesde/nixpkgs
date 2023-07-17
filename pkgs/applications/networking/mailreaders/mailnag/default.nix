@@ -33,21 +33,18 @@ python3Packages.buildPythonApplication rec {
     sha256 = "0m1cyzwzm7z4p2v31dx098a1iar7dbilwyjcxiqnjx05nlmiqvgf";
   };
 
-  buildInputs =
-    [
-      gtk3
-      gdk-pixbuf
-      glib
-      libnotify
-      gst_all_1.gstreamer
-      gst_all_1.gst-plugins-base
-      gst_all_1.gst-plugins-good
-      gst_all_1.gst-plugins-bad
-      gobject-introspection
-      libsecret
-    ]
-    ++ pluginsDeps
-  ;
+  buildInputs = [
+    gtk3
+    gdk-pixbuf
+    glib
+    libnotify
+    gst_all_1.gstreamer
+    gst_all_1.gst-plugins-base
+    gst_all_1.gst-plugins-good
+    gst_all_1.gst-plugins-bad
+    gobject-introspection
+    libsecret
+  ] ++ pluginsDeps;
 
   nativeBuildInputs = [
     gettext

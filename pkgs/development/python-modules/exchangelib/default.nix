@@ -49,24 +49,21 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs =
-    [
-      cached-property
-      defusedxml
-      dnspython
-      isodate
-      lxml
-      oauthlib
-      pygments
-      requests
-      requests_ntlm
-      requests-oauthlib
-      requests-kerberos
-      tzdata
-      tzlocal
-    ]
-    ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ]
-  ;
+  propagatedBuildInputs = [
+    cached-property
+    defusedxml
+    dnspython
+    isodate
+    lxml
+    oauthlib
+    pygments
+    requests
+    requests_ntlm
+    requests-oauthlib
+    requests-kerberos
+    tzdata
+    tzlocal
+  ] ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ];
 
   nativeCheckInputs = [
     flake8

@@ -60,18 +60,15 @@ stdenv.mkDerivation rec {
     ./update-version-m4.sh
   '';
 
-  nativeBuildInputs =
-    [
-      autoconf-archive
-      autoreconfHook
-      python3.pkgs.docutils
-      python3.pkgs.jinja2
-      pkg-config
-      wrapGAppsHook
-      python3.pkgs.wrapPython
-    ]
-    ++ pythonPath
-  ;
+  nativeBuildInputs = [
+    autoconf-archive
+    autoreconfHook
+    python3.pkgs.docutils
+    python3.pkgs.jinja2
+    pkg-config
+    wrapGAppsHook
+    python3.pkgs.wrapPython
+  ] ++ pythonPath;
 
   buildInputs = [
     asio

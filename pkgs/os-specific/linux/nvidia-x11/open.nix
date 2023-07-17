@@ -22,19 +22,16 @@ stdenv.mkDerivation (
 
     nativeBuildInputs = kernel.moduleBuildDependencies;
 
-    makeFlags =
-      kernel.makeFlags
-      ++ [
-        "SYSSRC=${kernel.dev}/lib/modules/${kernel.modDirVersion}/source"
-        "SYSOUT=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-        "MODLIB=$(out)/lib/modules/${kernel.modDirVersion}"
-        {
-          aarch64-linux = "TARGET_ARCH=aarch64";
-          x86_64-linux = "TARGET_ARCH=x86_64";
-        }
-        .${stdenv.hostPlatform.system}
-      ]
-    ;
+    makeFlags = kernel.makeFlags ++ [
+      "SYSSRC=${kernel.dev}/lib/modules/${kernel.modDirVersion}/source"
+      "SYSOUT=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+      "MODLIB=$(out)/lib/modules/${kernel.modDirVersion}"
+      {
+        aarch64-linux = "TARGET_ARCH=aarch64";
+        x86_64-linux = "TARGET_ARCH=x86_64";
+      }
+      .${stdenv.hostPlatform.system}
+    ];
 
     installTargets = [ "modules_install" ];
     enableParallelBuilding = true;

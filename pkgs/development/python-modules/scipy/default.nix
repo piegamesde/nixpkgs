@@ -47,14 +47,11 @@ buildPythonPackage rec {
     wheel
   ];
 
-  buildInputs =
-    [
-      numpy.blas
-      pybind11
-      pooch
-    ]
-    ++ lib.optionals (pythonOlder "3.9") [ libxcrypt ]
-  ;
+  buildInputs = [
+    numpy.blas
+    pybind11
+    pooch
+  ] ++ lib.optionals (pythonOlder "3.9") [ libxcrypt ];
 
   propagatedBuildInputs = [ numpy ];
 

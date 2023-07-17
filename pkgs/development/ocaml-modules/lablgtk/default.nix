@@ -59,14 +59,11 @@ stdenv.mkDerivation {
     findlib
     gnumake42
   ];
-  buildInputs =
-    [
-      gtk2
-      libgnomecanvas
-      gtksourceview
-    ]
-    ++ param.buildInputs or [ ]
-  ;
+  buildInputs = [
+    gtk2
+    libgnomecanvas
+    gtksourceview
+  ] ++ param.buildInputs or [ ];
 
   configureFlags = [ "--with-libdir=$(out)/lib/ocaml/${ocaml.version}/site-lib" ];
   buildFlags = [ "world" ];

@@ -115,13 +115,10 @@ buildGoModule rec {
     "tool/teleport"
     "tool/tsh"
   ];
-  tags =
-    [
-      "libfido2"
-      "webassets_embed"
-    ]
-    ++ lib.optional withRdpClient "desktop_access_rdp"
-  ;
+  tags = [
+    "libfido2"
+    "webassets_embed"
+  ] ++ lib.optional withRdpClient "desktop_access_rdp";
 
   buildInputs =
     [

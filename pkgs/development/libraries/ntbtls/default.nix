@@ -23,15 +23,12 @@ stdenv.mkDerivation rec {
     "out"
   ];
 
-  buildInputs =
-    [
-      libgcrypt
-      libgpg-error
-      libksba
-      zlib
-    ]
-    ++ lib.optional stdenv.isDarwin gettext
-  ;
+  buildInputs = [
+    libgcrypt
+    libgpg-error
+    libksba
+    zlib
+  ] ++ lib.optional stdenv.isDarwin gettext;
 
   postInstall = ''
     moveToOutput "bin/ntbtls-config" $dev

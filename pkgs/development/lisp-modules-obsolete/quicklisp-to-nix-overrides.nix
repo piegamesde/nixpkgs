@@ -330,13 +330,10 @@ in
       pkgs.lib.filter (x: x.outPath != quicklisp-to-nix-packages.simple-date.outPath)
         x.deps
     ;
-    parasites =
-      (x.parasites or [ ])
-      ++ [
-        "simple-date"
-        "simple-date/postgres-glue"
-      ]
-    ;
+    parasites = (x.parasites or [ ]) ++ [
+      "simple-date"
+      "simple-date/postgres-glue"
+    ];
     asdFilesToKeep = x.asdFilesToKeep ++ [ "simple-date.asd" ];
   };
   buildnode = x: {
@@ -347,17 +344,13 @@ in
     parasites = pkgs.lib.filter (x: x != "buildnode-test") x.parasites;
   };
   postmodern = x: {
-    asdFilesToKeep =
-      (x.asdFilesToKeep or [ ])
-      ++ [
-        "postmodern.asd"
-        "simple-date.asd"
-      ]
-    ;
-    parasites =
-      (pkgs.lib.filter (x: x != "postmodern/tests") x.parasites)
-      ++ [ "simple-date/postgres-glue" ]
-    ;
+    asdFilesToKeep = (x.asdFilesToKeep or [ ]) ++ [
+      "postmodern.asd"
+      "simple-date.asd"
+    ];
+    parasites = (pkgs.lib.filter (x: x != "postmodern/tests") x.parasites) ++ [
+      "simple-date/postgres-glue"
+    ];
     deps =
       pkgs.lib.filter (x: x.name != quicklisp-to-nix-packages.simple-date.name)
         x.deps

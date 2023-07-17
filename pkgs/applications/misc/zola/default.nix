@@ -32,14 +32,11 @@ rustPlatform.buildRustPackage rec {
     pkg-config
     installShellFiles
   ];
-  buildInputs =
-    [
-      openssl
-      oniguruma
-      libsass
-    ]
-    ++ lib.optionals stdenv.isDarwin [ CoreServices ]
-  ;
+  buildInputs = [
+    openssl
+    oniguruma
+    libsass
+  ] ++ lib.optionals stdenv.isDarwin [ CoreServices ];
 
   RUSTONIG_SYSTEM_LIBONIG = true;
 

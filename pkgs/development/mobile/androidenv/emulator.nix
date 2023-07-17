@@ -13,7 +13,9 @@
 deployAndroidPackage {
   inherit package os;
   nativeBuildInputs =
-    [ makeWrapper ] ++ lib.optionals (os == "linux") [ autoPatchelfHook ];
+    [ makeWrapper ]
+    ++ lib.optionals (os == "linux") [ autoPatchelfHook ]
+  ;
   buildInputs =
     lib.optionals (os == "linux") (
       with pkgs; [

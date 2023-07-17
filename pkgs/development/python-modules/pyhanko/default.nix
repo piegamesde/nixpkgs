@@ -77,18 +77,15 @@ buildPythonPackage rec {
       --replace ", 'pytest-runner'" "" \
   '';
 
-  nativeCheckInputs =
-    [
-      aiohttp
-      certomancer
-      freezegun
-      python-pae
-      pytest-aiohttp
-      requests-mock
-      pytestCheckHook
-    ]
-    ++ lib.flatten (lib.attrValues passthru.optional-dependencies)
-  ;
+  nativeCheckInputs = [
+    aiohttp
+    certomancer
+    freezegun
+    python-pae
+    pytest-aiohttp
+    requests-mock
+    pytestCheckHook
+  ] ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
 
   disabledTestPaths =
     [

@@ -56,20 +56,17 @@ stdenv.mkDerivation rec {
     rpcsvc-proto
   ];
 
-  buildInputs =
-    [
-      libtirpc
-      libcap
-      libevent
-      sqlite
-      lvm2
-      libuuid
-      keyutils
-      libkrb5
-      tcp_wrappers
-    ]
-    ++ lib.optional enablePython python3
-  ;
+  buildInputs = [
+    libtirpc
+    libcap
+    libevent
+    sqlite
+    lvm2
+    libuuid
+    keyutils
+    libkrb5
+    tcp_wrappers
+  ] ++ lib.optional enablePython python3;
 
   enableParallelBuilding = true;
 

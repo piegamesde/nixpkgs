@@ -37,22 +37,19 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs =
-    [
-      dbus-glib
-      libxklavier
-      libcanberra-gtk3
-      libnotify
-      nss
-      polkit
-      gtk3
-      dconf
-      mate.mate-desktop
-      mate.libmatekbd
-      mate.libmatemixer
-    ]
-    ++ lib.optional pulseaudioSupport libpulseaudio
-  ;
+  buildInputs = [
+    dbus-glib
+    libxklavier
+    libcanberra-gtk3
+    libnotify
+    nss
+    polkit
+    gtk3
+    dconf
+    mate.mate-desktop
+    mate.libmatekbd
+    mate.libmatemixer
+  ] ++ lib.optional pulseaudioSupport libpulseaudio;
 
   configureFlags = lib.optional pulseaudioSupport "--enable-pulse";
 

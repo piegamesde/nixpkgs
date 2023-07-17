@@ -107,16 +107,13 @@ buildPythonPackage rec {
   ;
 
   # *** Tests ***
-  nativeCheckInputs =
-    [
-      pytestCheckHook
-      ddt
-      hypothesis
-      nbformat
-      nbconvert
-    ]
-    ++ lib.optionals (!withVisualization) visualizationPackages
-  ;
+  nativeCheckInputs = [
+    pytestCheckHook
+    ddt
+    hypothesis
+    nbformat
+    nbconvert
+  ] ++ lib.optionals (!withVisualization) visualizationPackages;
 
   pythonImportsCheck = [
     "qiskit"

@@ -19,15 +19,12 @@ let
   throwSystem = throw "Unsupported system: ${stdenv.hostPlatform.system}";
 
   # assemble list of components
-  components =
-    [
-      "basic"
-      "sdk"
-      "sqlplus"
-      "tools"
-    ]
-    ++ optional odbcSupport "odbc"
-  ;
+  components = [
+    "basic"
+    "sdk"
+    "sqlplus"
+    "tools"
+  ] ++ optional odbcSupport "odbc";
 
   # determine the version number, there might be different ones per architecture
   version =
@@ -130,8 +127,7 @@ stdenv.mkDerivation {
 
   buildInputs =
     [ stdenv.cc.cc.lib ]
-    ++ optional stdenv.isLinux libaio
-    ++ optional odbcSupport unixODBC
+    ++ optional stdenv.isLinux libaio ++ optional odbcSupport unixODBC
   ;
 
   nativeBuildInputs =

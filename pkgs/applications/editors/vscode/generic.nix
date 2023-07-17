@@ -110,14 +110,11 @@ let
       noDisplay = true;
     };
 
-    buildInputs =
-      [
-        libsecret
-        libXScrnSaver
-        libxshmfence
-      ]
-      ++ lib.optionals (!stdenv.isDarwin) ([ at-spi2-atk ] ++ atomEnv.packages)
-    ;
+    buildInputs = [
+      libsecret
+      libXScrnSaver
+      libxshmfence
+    ] ++ lib.optionals (!stdenv.isDarwin) ([ at-spi2-atk ] ++ atomEnv.packages);
 
     runtimeDependencies = lib.optionals stdenv.isLinux [
       (lib.getLib systemd)

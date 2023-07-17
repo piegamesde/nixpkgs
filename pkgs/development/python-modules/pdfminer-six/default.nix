@@ -25,13 +25,10 @@ buildPythonPackage rec {
     hash = "sha256-OyEeQBuYfj4iEcRt2/daSaUfTOjCVSCyHW2qffal+Bk=";
   };
 
-  propagatedBuildInputs =
-    [
-      charset-normalizer
-      cryptography
-    ]
-    ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
-  ;
+  propagatedBuildInputs = [
+    charset-normalizer
+    cryptography
+  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
 
   postInstall = ''
     for file in $out/bin/*.py; do

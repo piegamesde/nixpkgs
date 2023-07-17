@@ -40,9 +40,8 @@ builder rec {
 
   depsBuildBuild =
     [ buildPackages.stdenv.cc ]
-    ++
-      lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
-        pkgsBuildBuild.guile_2_0
+    ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
+      pkgsBuildBuild.guile_2_0
   ;
 
   nativeBuildInputs = [

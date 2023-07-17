@@ -52,15 +52,14 @@ buildPythonPackage rec {
       # python.withPackages (ps: with ps; [ debugpy ])
       ./fix-test-pythonpath.patch
     ]
-    ++
-      lib.optionals stdenv.isLinux
-        [
-          # Hard code GDB path (used to attach to process)
-          (substituteAll {
-            src = ./hardcode-gdb.patch;
-            inherit gdb;
-          })
-        ]
+    ++ lib.optionals stdenv.isLinux
+      [
+        # Hard code GDB path (used to attach to process)
+        (substituteAll {
+          src = ./hardcode-gdb.patch;
+          inherit gdb;
+        })
+      ]
     ++
       lib.optionals stdenv.isDarwin
         [

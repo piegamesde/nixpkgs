@@ -47,18 +47,15 @@ buildPythonPackage rec {
     yarl
   ];
 
-  nativeCheckInputs =
-    [
-      aiofiles
-      mock
-      parse
-      pytest-asyncio
-      pytest-console-scripts
-      pytestCheckHook
-      vcrpy
-    ]
-    ++ passthru.optional-dependencies.all
-  ;
+  nativeCheckInputs = [
+    aiofiles
+    mock
+    parse
+    pytest-asyncio
+    pytest-console-scripts
+    pytestCheckHook
+    vcrpy
+  ] ++ passthru.optional-dependencies.all;
 
   passthru.optional-dependencies = {
     all = [

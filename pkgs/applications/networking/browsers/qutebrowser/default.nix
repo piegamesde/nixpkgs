@@ -108,18 +108,15 @@ buildPythonApplication {
     )
   ;
 
-  nativeBuildInputs =
-    [
-      wrapQtAppsHook
-      wrapGAppsHook
-      asciidoc
-      docbook_xml_dtd_45
-      docbook_xsl
-      libxml2
-      libxslt
-    ]
-    ++ lib.optional isQt6 python3Packages.pygments
-  ;
+  nativeBuildInputs = [
+    wrapQtAppsHook
+    wrapGAppsHook
+    asciidoc
+    docbook_xml_dtd_45
+    docbook_xsl
+    libxml2
+    libxslt
+  ] ++ lib.optional isQt6 python3Packages.pygments;
 
   propagatedBuildInputs =
     with python3Packages;

@@ -53,19 +53,16 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  buildInputs =
-    [
-      zlib
-      openssl
-      ncurses
-      libidn
-      pcre
-      libssh
-      libmysqlclient
-      postgresql
-    ]
-    ++ lib.optional withGUI gtk2
-  ;
+  buildInputs = [
+    zlib
+    openssl
+    ncurses
+    libidn
+    pcre
+    libssh
+    libmysqlclient
+    postgresql
+  ] ++ lib.optional withGUI gtk2;
 
   enableParallelBuilding = true;
 

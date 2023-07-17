@@ -30,27 +30,20 @@ stdenv.mkDerivation (rec {
     pkg-config
     autoreconfHook
   ];
-  buildInputs =
-    [
-      openssl
-      libX11
-      libXcursor
-      libtasn1
-      nettle
-      gnutls
-    ]
-    ++ lib.optional enableCredssp krb5
-    ++ lib.optional stdenv.isDarwin libiconv
-  ;
+  buildInputs = [
+    openssl
+    libX11
+    libXcursor
+    libtasn1
+    nettle
+    gnutls
+  ] ++ lib.optional enableCredssp krb5 ++ lib.optional stdenv.isDarwin libiconv;
 
-  configureFlags =
-    [
-      "--with-ipv6"
-      "--with-openssl=${openssl.dev}"
-      "--disable-smartcard"
-    ]
-    ++ lib.optional (!enableCredssp) "--disable-credssp"
-  ;
+  configureFlags = [
+    "--with-ipv6"
+    "--with-openssl=${openssl.dev}"
+    "--disable-smartcard"
+  ] ++ lib.optional (!enableCredssp) "--disable-credssp";
 
   meta = {
     description = "Open source client for Windows Terminal Services";

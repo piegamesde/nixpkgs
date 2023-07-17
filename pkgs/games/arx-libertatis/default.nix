@@ -35,15 +35,12 @@ stdenv.mkDerivation {
     sha256 = "06plyyh0ddqv1j04m1vclz9j72609pgrp61v8wfjdcln8djm376i";
   };
 
-  nativeBuildInputs =
-    [
-      cmake
-      inkscape
-      imagemagick
-      optipng
-    ]
-    ++ optionals withCrashReporter [ wrapQtAppsHook ]
-  ;
+  nativeBuildInputs = [
+    cmake
+    inkscape
+    imagemagick
+    optipng
+  ] ++ optionals withCrashReporter [ wrapQtAppsHook ];
 
   buildInputs =
     [

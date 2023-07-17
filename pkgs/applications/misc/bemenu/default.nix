@@ -33,13 +33,10 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs =
-    [
-      pkg-config
-      scdoc
-    ]
-    ++ lib.optionals waylandSupport [ wayland-scanner ]
-  ;
+  nativeBuildInputs = [
+    pkg-config
+    scdoc
+  ] ++ lib.optionals waylandSupport [ wayland-scanner ];
 
   buildInputs =
     with lib;

@@ -37,12 +37,11 @@ stdenv.mkDerivation rec {
       pkg-config
       scdoc
     ]
-    ++
-      lib.optionals stdenv.isLinux
-        [
-          # GNOME Builder Plugin
-          gnome-builder
-        ]
+    ++ lib.optionals stdenv.isLinux
+      [
+        # GNOME Builder Plugin
+        gnome-builder
+      ]
   ;
 
   buildInputs = [

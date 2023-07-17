@@ -31,14 +31,11 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs =
-    [
-      curl
-      sqlite
-      libnotify
-    ]
-    ++ lib.optional withSystemd systemd
-  ;
+  buildInputs = [
+    curl
+    sqlite
+    libnotify
+  ] ++ lib.optional withSystemd systemd;
 
   configureFlags =
     [ "--enable-notifications" ]

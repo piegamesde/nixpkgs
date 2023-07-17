@@ -53,7 +53,9 @@ let
   ;
   inferNativeTarget = t: if t == "NATIVE" then llvmNativeTarget else t;
   llvmTargetsToBuild' =
-    [ "AMDGPU" ] ++ builtins.map inferNativeTarget llvmTargetsToBuild;
+    [ "AMDGPU" ]
+    ++ builtins.map inferNativeTarget llvmTargetsToBuild
+  ;
 in
 stdenv.mkDerivation (
   finalAttrs: {
@@ -95,16 +97,13 @@ stdenv.mkDerivation (
       ++ extraNativeBuildInputs
     ;
 
-    buildInputs =
-      [
-        libxml2
-        libxcrypt
-        libedit
-        libffi
-        mpfr
-      ]
-      ++ extraBuildInputs
-    ;
+    buildInputs = [
+      libxml2
+      libxcrypt
+      libedit
+      libffi
+      mpfr
+    ] ++ extraBuildInputs;
 
     propagatedBuildInputs = lib.optionals finalAttrs.passthru.isLLVM [
       zlib

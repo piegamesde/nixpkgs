@@ -30,8 +30,7 @@ rustPlatform.buildRustPackage rec {
     lib.optionals useNcurses [ ncurses ]
     ++ lib.optionals stdenv.isDarwin (
       with darwin.apple_sdk.frameworks; [ Security ]
-    )
-  ;
+    );
 
   # I'm picking pancurses for Windows simply because that's the example given in Cursive's
   # documentation for picking an alternative backend. We could just as easily pick crossterm.

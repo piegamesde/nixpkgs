@@ -35,13 +35,10 @@ stdenv.mkDerivation rec {
     ]
   ;
 
-  cmakeFlags =
-    [
-      "-DCMAKE_INSTALL_LIBDIR=lib"
-      "-DPROJECT_VERSION=${version}"
-    ]
-    ++ lib.optionals (!buildDocs) [ "-DBUILD_DOCS=OFF" ]
-  ;
+  cmakeFlags = [
+    "-DCMAKE_INSTALL_LIBDIR=lib"
+    "-DPROJECT_VERSION=${version}"
+  ] ++ lib.optionals (!buildDocs) [ "-DBUILD_DOCS=OFF" ];
 
   propagatedBuildInputs = [ glibmm ];
 

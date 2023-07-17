@@ -30,14 +30,11 @@ stdenv.mkDerivation rec {
     sha256 = "zPwnC2qd28fA1saG4nysPlKU1nnXhfuSG3DpCY6T+kM=";
   };
 
-  nativeBuildInputs =
-    [
-      autoreconfHook
-      pkg-config
-      hexdump
-    ]
-    ++ lib.optionals withGui [ wrapQtAppsHook ]
-  ;
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    hexdump
+  ] ++ lib.optionals withGui [ wrapQtAppsHook ];
 
   buildInputs =
     [

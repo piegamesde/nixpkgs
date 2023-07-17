@@ -601,32 +601,31 @@ in
         ''
       )
     ]
-    ++
-      map
-        (
-          o:
-          mkRenamedOptionModule
-            [
-              "services"
-              "syncthing"
-              "declarative"
-              o
-            ]
-            [
-              "services"
-              "syncthing"
-              o
-            ]
-        )
-        [
-          "cert"
-          "key"
-          "devices"
-          "folders"
-          "overrideDevices"
-          "overrideFolders"
-          "extraOptions"
-        ]
+    ++ map
+      (
+        o:
+        mkRenamedOptionModule
+          [
+            "services"
+            "syncthing"
+            "declarative"
+            o
+          ]
+          [
+            "services"
+            "syncthing"
+            o
+          ]
+      )
+      [
+        "cert"
+        "key"
+        "devices"
+        "folders"
+        "overrideDevices"
+        "overrideFolders"
+        "extraOptions"
+      ]
   ;
 
   ###### implementation

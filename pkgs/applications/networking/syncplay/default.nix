@@ -23,14 +23,10 @@ buildPythonApplication rec {
   };
 
   buildInputs = lib.optionals enableGUI [ qt5.qtwayland ];
-  propagatedBuildInputs =
-    [
-      twisted
-      certifi
-    ]
-    ++ twisted.optional-dependencies.tls
-    ++ lib.optional enableGUI pyside2
-  ;
+  propagatedBuildInputs = [
+    twisted
+    certifi
+  ] ++ twisted.optional-dependencies.tls ++ lib.optional enableGUI pyside2;
   nativeBuildInputs = lib.optionals enableGUI [ qt5.wrapQtAppsHook ];
 
   makeFlags = [

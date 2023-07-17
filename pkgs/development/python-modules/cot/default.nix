@@ -50,31 +50,28 @@ buildPythonPackage rec {
       --replace "'argparse'," ""
   '';
 
-  disabledTests =
-    [
-      # Many tests require network access and/or ovftool (https://code.vmware.com/web/tool/ovf)
-      # try enabling these tests with ovftool once/if it is added to nixpkgs
-      "HelperGenericTest"
-      "TestCOTAddDisk"
-      "TestCOTAddFile"
-      "TestCOTEditHardware"
-      "TestCOTEditProduct"
-      "TestCOTEditProperties"
-      "TestCOTInjectConfig"
-      "TestISO"
-      "TestOVFAPI"
-      "TestQCOW2"
-      "TestRAW"
-      "TestVMDKConversion"
-      # CLI test fails with AssertionError
-      "test_help"
-      # Failing TestCOTDeployESXi tests
-      "test_serial_fixup_stubbed"
-      "test_serial_fixup_stubbed_create"
-      "test_serial_fixup_stubbed_vm_not_found"
-    ]
-    ++ lib.optionals stdenv.isDarwin [ "test_serial_fixup_invalid_host" ]
-  ;
+  disabledTests = [
+    # Many tests require network access and/or ovftool (https://code.vmware.com/web/tool/ovf)
+    # try enabling these tests with ovftool once/if it is added to nixpkgs
+    "HelperGenericTest"
+    "TestCOTAddDisk"
+    "TestCOTAddFile"
+    "TestCOTEditHardware"
+    "TestCOTEditProduct"
+    "TestCOTEditProperties"
+    "TestCOTInjectConfig"
+    "TestISO"
+    "TestOVFAPI"
+    "TestQCOW2"
+    "TestRAW"
+    "TestVMDKConversion"
+    # CLI test fails with AssertionError
+    "test_help"
+    # Failing TestCOTDeployESXi tests
+    "test_serial_fixup_stubbed"
+    "test_serial_fixup_stubbed_create"
+    "test_serial_fixup_stubbed_vm_not_found"
+  ] ++ lib.optionals stdenv.isDarwin [ "test_serial_fixup_invalid_host" ];
 
   pythonImportsCheck = [ "COT" ];
 

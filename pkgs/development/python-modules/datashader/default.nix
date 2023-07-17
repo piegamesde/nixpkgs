@@ -36,24 +36,21 @@ buildPythonPackage rec {
     hash = "sha256-AkHmEflRvjJFlycI5adpuxg6+/zu7Dzy7vbYCvd1b70=";
   };
 
-  propagatedBuildInputs =
-    [
-      dask
-      bokeh
-      toolz
-      datashape
-      numba
-      numpy
-      pandas
-      pillow
-      xarray
-      colorcet
-      param
-      pyct
-      scipy
-    ]
-    ++ dask.optional-dependencies.complete
-  ;
+  propagatedBuildInputs = [
+    dask
+    bokeh
+    toolz
+    datashape
+    numba
+    numpy
+    pandas
+    pillow
+    xarray
+    colorcet
+    param
+    pyct
+    scipy
+  ] ++ dask.optional-dependencies.complete;
 
   nativeCheckInputs = [
     pytestCheckHook

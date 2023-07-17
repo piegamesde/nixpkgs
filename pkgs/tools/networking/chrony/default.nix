@@ -46,14 +46,11 @@ stdenv.mkDerivation rec {
     ]
   ;
 
-  configureFlags =
-    [
-      "--enable-ntp-signd"
-      "--sbindir=$(out)/bin"
-      "--chronyrundir=/run/chrony"
-    ]
-    ++ lib.optional stdenv.isLinux "--enable-scfilter"
-  ;
+  configureFlags = [
+    "--enable-ntp-signd"
+    "--sbindir=$(out)/bin"
+    "--chronyrundir=/run/chrony"
+  ] ++ lib.optional stdenv.isLinux "--enable-scfilter";
 
   patches =
     [

@@ -30,15 +30,12 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  configureFlags =
-    [
-      # Disable its dynamic loading or dlopen will fail because of no proper rpath
-      "--disable-jpg-shared"
-      "--disable-png-shared"
-      "--disable-tif-shared"
-    ]
-    ++ lib.optional stdenv.isDarwin "--disable-sdltest"
-  ;
+  configureFlags = [
+    # Disable its dynamic loading or dlopen will fail because of no proper rpath
+    "--disable-jpg-shared"
+    "--disable-png-shared"
+    "--disable-tif-shared"
+  ] ++ lib.optional stdenv.isDarwin "--disable-sdltest";
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [

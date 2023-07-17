@@ -46,15 +46,12 @@ stdenv.mkDerivation rec {
     "lib"
   ];
 
-  nativeBuildInputs =
-    [
-      meson
-      ninja
-      pkg-config
-      gi-docgen
-    ]
-    ++ lib.optional enableViewer wrapGAppsHook
-  ;
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    gi-docgen
+  ] ++ lib.optional enableViewer wrapGAppsHook;
 
   buildInputs =
     [

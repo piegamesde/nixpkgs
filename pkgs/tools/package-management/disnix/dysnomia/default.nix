@@ -60,44 +60,41 @@ stdenv.mkDerivation rec {
     sha256 = "0w9601g8zpaxrmynx6mh8zz85ldpb8psp7cc6ls8v3srjpj1l5n3";
   };
 
-  configureFlags =
-    [
-      (if enableApacheWebApplication then "--with-apache" else "--without-apache")
-      (if enableAxis2WebService then "--with-axis2" else "--without-axis2")
-      (if enableEjabberdDump then "--with-ejabberd" else "--without-ejabberd")
-      (if enableMySQLDatabase then "--with-mysql" else "--without-mysql")
-      (
-        if enablePostgreSQLDatabase then "--with-postgresql" else "--without-postgresql"
-      )
-      (
-        if enableSubversionRepository then
-          "--with-subversion"
-        else
-          "--without-subversion"
-      )
-      (
-        if enableTomcatWebApplication then
-          "--with-tomcat=${catalinaBaseDir}"
-        else
-          "--without-tomcat"
-      )
-      (if enableMongoDatabase then "--with-mongodb" else "--without-mongodb")
-      (if enableInfluxDatabase then "--with-influxdb" else "--without-influxdb")
-      (
-        if enableSupervisordProgram then
-          "--with-supervisord"
-        else
-          "--without-supervisord"
-      )
-      (if enableDockerContainer then "--with-docker" else "--without-docker")
-      (if enableNginxWebApplication then "--with-nginx" else "--without-nginx")
-      (if enableXinetdService then "--with-xinetd" else "--without-xinetd")
-      (if enableS6RCService then "--with-s6-rc" else "--without-s6-rc")
-      (if stdenv.isDarwin then "--with-launchd" else "--without-launchd")
-      "--with-job-template=${jobTemplate}"
-    ]
-    ++ lib.optional enableLegacy "--enable-legacy"
-  ;
+  configureFlags = [
+    (if enableApacheWebApplication then "--with-apache" else "--without-apache")
+    (if enableAxis2WebService then "--with-axis2" else "--without-axis2")
+    (if enableEjabberdDump then "--with-ejabberd" else "--without-ejabberd")
+    (if enableMySQLDatabase then "--with-mysql" else "--without-mysql")
+    (
+      if enablePostgreSQLDatabase then "--with-postgresql" else "--without-postgresql"
+    )
+    (
+      if enableSubversionRepository then
+        "--with-subversion"
+      else
+        "--without-subversion"
+    )
+    (
+      if enableTomcatWebApplication then
+        "--with-tomcat=${catalinaBaseDir}"
+      else
+        "--without-tomcat"
+    )
+    (if enableMongoDatabase then "--with-mongodb" else "--without-mongodb")
+    (if enableInfluxDatabase then "--with-influxdb" else "--without-influxdb")
+    (
+      if enableSupervisordProgram then
+        "--with-supervisord"
+      else
+        "--without-supervisord"
+    )
+    (if enableDockerContainer then "--with-docker" else "--without-docker")
+    (if enableNginxWebApplication then "--with-nginx" else "--without-nginx")
+    (if enableXinetdService then "--with-xinetd" else "--without-xinetd")
+    (if enableS6RCService then "--with-s6-rc" else "--without-s6-rc")
+    (if stdenv.isDarwin then "--with-launchd" else "--without-launchd")
+    "--with-job-template=${jobTemplate}"
+  ] ++ lib.optional enableLegacy "--enable-legacy";
 
   buildInputs =
     [

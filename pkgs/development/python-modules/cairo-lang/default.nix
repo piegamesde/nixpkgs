@@ -46,31 +46,28 @@ buildPythonPackage rec {
 
   buildInputs = [ gmp ];
 
-  propagatedBuildInputs =
-    [
-      aiohttp
-      cachetools
-      setuptools
-      ecdsa
-      fastecdsa
-      sympy
-      mpmath
-      numpy
-      typeguard
-      frozendict
-      prometheus-client
-      marshmallow
-      marshmallow-enum
-      marshmallow-dataclass
-      marshmallow-oneofschema
-      pipdeptree
-      lark
-      web3
-      eth-hash
-      pyyaml
-    ]
-    ++ eth-hash.optional-dependencies.pycryptodome
-  ;
+  propagatedBuildInputs = [
+    aiohttp
+    cachetools
+    setuptools
+    ecdsa
+    fastecdsa
+    sympy
+    mpmath
+    numpy
+    typeguard
+    frozendict
+    prometheus-client
+    marshmallow
+    marshmallow-enum
+    marshmallow-dataclass
+    marshmallow-oneofschema
+    pipdeptree
+    lark
+    web3
+    eth-hash
+    pyyaml
+  ] ++ eth-hash.optional-dependencies.pycryptodome;
 
   nativeCheckInputs = [
     pytest-asyncio

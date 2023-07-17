@@ -76,8 +76,7 @@ in
           stdenv.cc
         ]
     )
-    ++ optionals targetPlatform.isLinux [ patchelf ]
-  ;
+    ++ optionals targetPlatform.isLinux [ patchelf ];
 
   buildInputs =
     [

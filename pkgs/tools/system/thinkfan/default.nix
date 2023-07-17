@@ -35,15 +35,12 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  cmakeFlags =
-    [
-      "-DCMAKE_INSTALL_DOCDIR=share/doc/${pname}"
-      "-DUSE_NVML=OFF"
-      # force install unit files
-      "-DSYSTEMD_FOUND=ON"
-    ]
-    ++ lib.optional smartSupport "-DUSE_ATASMART=ON"
-  ;
+  cmakeFlags = [
+    "-DCMAKE_INSTALL_DOCDIR=share/doc/${pname}"
+    "-DUSE_NVML=OFF"
+    # force install unit files
+    "-DSYSTEMD_FOUND=ON"
+  ] ++ lib.optional smartSupport "-DUSE_ATASMART=ON";
 
   nativeBuildInputs = [
     cmake

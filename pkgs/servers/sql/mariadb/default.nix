@@ -252,15 +252,12 @@ let
 
           patches = common.patches ++ [ ./patch/cmake-plugin-includedir.patch ];
 
-          cmakeFlags =
-            common.cmakeFlags
-            ++ [
-              "-DPLUGIN_AUTH_PAM=NO"
-              "-DWITHOUT_SERVER=ON"
-              "-DWITH_WSREP=OFF"
-              "-DINSTALL_MYSQLSHAREDIR=share/mysql-client"
-            ]
-          ;
+          cmakeFlags = common.cmakeFlags ++ [
+            "-DPLUGIN_AUTH_PAM=NO"
+            "-DWITHOUT_SERVER=ON"
+            "-DWITH_WSREP=OFF"
+            "-DINSTALL_MYSQLSHAREDIR=share/mysql-client"
+          ];
 
           postInstall =
             common.postInstall
@@ -280,14 +277,11 @@ let
         // {
           pname = "mariadb-server";
 
-          nativeBuildInputs =
-            common.nativeBuildInputs
-            ++ [
-              bison
-              boost.dev
-              flex
-            ]
-          ;
+          nativeBuildInputs = common.nativeBuildInputs ++ [
+            bison
+            boost.dev
+            flex
+          ];
 
           buildInputs =
             common.buildInputs

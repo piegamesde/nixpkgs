@@ -49,20 +49,17 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  buildInputs =
-    [
-      glib
-      cairo
-      fontconfig
-      libtiff
-      giflib
-      libjpeg
-      libpng
-      libXrender
-      libexif
-    ]
-    ++ lib.optional stdenv.isDarwin Carbon
-  ;
+  buildInputs = [
+    glib
+    cairo
+    fontconfig
+    libtiff
+    giflib
+    libjpeg
+    libpng
+    libXrender
+    libexif
+  ] ++ lib.optional stdenv.isDarwin Carbon;
 
   postInstall = lib.optionalString stdenv.isDarwin ''
     ln -s $out/lib/libgdiplus.0.dylib $out/lib/libgdiplus.so

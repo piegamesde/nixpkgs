@@ -26,44 +26,38 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  buildInputs =
-    [
-      coreutils
-      glibcLocales
-      hwdata
-      kmod
-      sqlite
-      (perl.withPackages (
-        ps:
-        with ps; [
-          DBI
-          DBDSQLite
-        ]
-      ))
-    ]
-    ++ lib.optionals (!stdenv.isAarch64) [ dmidecode ]
-  ;
+  buildInputs = [
+    coreutils
+    glibcLocales
+    hwdata
+    kmod
+    sqlite
+    (perl.withPackages (
+      ps:
+      with ps; [
+        DBI
+        DBDSQLite
+      ]
+    ))
+  ] ++ lib.optionals (!stdenv.isAarch64) [ dmidecode ];
 
-  configureFlags =
-    [
-      "--sysconfdir=/etc"
-      "--localstatedir=/var"
-      "--with-sysconfdefdir=${placeholder "out"}/etc/sysconfig"
-      "--enable-sqlite3"
-      "--enable-aer"
-      "--enable-mce"
-      "--enable-extlog"
-      "--enable-non-standard"
-      "--enable-abrt-report"
-      "--enable-hisi-ns-decode"
-      "--enable-devlink"
-      "--enable-diskerror"
-      "--enable-memory-failure"
-      "--enable-memory-ce-pfa"
-      "--enable-amp-ns-decode"
-    ]
-    ++ lib.optionals (stdenv.isAarch64) [ "--enable-arm" ]
-  ;
+  configureFlags = [
+    "--sysconfdir=/etc"
+    "--localstatedir=/var"
+    "--with-sysconfdefdir=${placeholder "out"}/etc/sysconfig"
+    "--enable-sqlite3"
+    "--enable-aer"
+    "--enable-mce"
+    "--enable-extlog"
+    "--enable-non-standard"
+    "--enable-abrt-report"
+    "--enable-hisi-ns-decode"
+    "--enable-devlink"
+    "--enable-diskerror"
+    "--enable-memory-failure"
+    "--enable-memory-ce-pfa"
+    "--enable-amp-ns-decode"
+  ] ++ lib.optionals (stdenv.isAarch64) [ "--enable-arm" ];
 
   # The installation attempts to create the following directories:
   # /var/lib/rasdaemon

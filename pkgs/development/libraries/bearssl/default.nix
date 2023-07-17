@@ -22,15 +22,12 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  makeFlags =
-    [
-      "AR=${stdenv.cc.targetPrefix}ar"
-      "CC=${stdenv.cc.targetPrefix}cc"
-      "LD=${stdenv.cc.targetPrefix}cc"
-      "LDDLL=${stdenv.cc.targetPrefix}cc"
-    ]
-    ++ lib.optional stdenv.hostPlatform.isStatic "DLL=no"
-  ;
+  makeFlags = [
+    "AR=${stdenv.cc.targetPrefix}ar"
+    "CC=${stdenv.cc.targetPrefix}cc"
+    "LD=${stdenv.cc.targetPrefix}cc"
+    "LDDLL=${stdenv.cc.targetPrefix}cc"
+  ] ++ lib.optional stdenv.hostPlatform.isStatic "DLL=no";
 
   installPhase = ''
     runHook preInstall

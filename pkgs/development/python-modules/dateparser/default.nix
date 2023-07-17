@@ -51,17 +51,14 @@ buildPythonPackage rec {
     langdetect = [ langdetect ];
   };
 
-  nativeCheckInputs =
-    [
-      parameterized
-      pytestCheckHook
-      gitpython
-      parsel
-      requests
-      ruamel-yaml
-    ]
-    ++ lib.flatten (lib.attrValues passthru.optional-dependencies)
-  ;
+  nativeCheckInputs = [
+    parameterized
+    pytestCheckHook
+    gitpython
+    parsel
+    requests
+    ruamel-yaml
+  ] ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
 
   preCheck = ''
     export HOME="$TEMPDIR"

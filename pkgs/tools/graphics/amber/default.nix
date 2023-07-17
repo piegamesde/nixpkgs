@@ -61,14 +61,11 @@ stdenv.mkDerivation rec {
     vulkan-loader
   ];
 
-  nativeBuildInputs =
-    [
-      cmake
-      pkg-config
-      python3
-    ]
-    ++ lib.optionals stdenv.isDarwin [ cctools ]
-  ;
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    python3
+  ] ++ lib.optionals stdenv.isDarwin [ cctools ];
 
   # Tests are disabled so we do not have to pull in googletest and more dependencies
   cmakeFlags = [ "-DAMBER_SKIP_TESTS=ON" ];

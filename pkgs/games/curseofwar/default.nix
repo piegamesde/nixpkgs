@@ -22,14 +22,11 @@ stdenv.mkDerivation rec {
     SDL
   ];
 
-  makeFlags =
-    (lib.optionals (SDL != null) [ "SDL=yes" ])
-    ++ [
-      "PREFIX=$(out)"
-      # force platform's cc on darwin, otherwise gcc is used
-      "CC=${stdenv.cc.targetPrefix}cc"
-    ]
-  ;
+  makeFlags = (lib.optionals (SDL != null) [ "SDL=yes" ]) ++ [
+    "PREFIX=$(out)"
+    # force platform's cc on darwin, otherwise gcc is used
+    "CC=${stdenv.cc.targetPrefix}cc"
+  ];
 
   meta = with lib; {
     description = "A fast-paced action strategy game";

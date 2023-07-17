@@ -40,16 +40,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-jzD0TbC9BjcJv2++VROOOpivCry2HDYPNVgrvhDoBpE=";
   };
 
-  nativeBuildInputs =
-    [
-      meson
-      ninja
-      gettext
-      pkg-config
-      python3
-    ]
-    ++ lib.optionals enableDocumentation [ hotdoc ]
-  ;
+  nativeBuildInputs = [
+    meson
+    ninja
+    gettext
+    pkg-config
+    python3
+  ] ++ lib.optionals enableDocumentation [ hotdoc ];
 
   buildInputs =
     [

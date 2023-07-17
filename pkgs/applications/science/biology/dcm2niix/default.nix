@@ -46,8 +46,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withOpenJpeg [
       openjpeg
       openjpeg.dev
-    ]
-  ;
+    ];
 
   cmakeFlags =
     lib.optionals batchVersion [

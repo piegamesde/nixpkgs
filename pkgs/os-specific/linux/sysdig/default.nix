@@ -63,28 +63,25 @@ stdenv.mkDerivation rec {
     installShellFiles
     pkg-config
   ];
-  buildInputs =
-    [
-      luajit
-      ncurses
-      libb64
-      openssl
-      curl
-      jq
-      gcc
-      elfutils
-      tbb
-      libb64
-      re2
-      protobuf
-      grpc
-      yaml-cpp
-      jsoncpp
-      nlohmann_json
-      zstd
-    ]
-    ++ lib.optionals (kernel != null) kernel.moduleBuildDependencies
-  ;
+  buildInputs = [
+    luajit
+    ncurses
+    libb64
+    openssl
+    curl
+    jq
+    gcc
+    elfutils
+    tbb
+    libb64
+    re2
+    protobuf
+    grpc
+    yaml-cpp
+    jsoncpp
+    nlohmann_json
+    zstd
+  ] ++ lib.optionals (kernel != null) kernel.moduleBuildDependencies;
 
   hardeningDisable = [ "pic" ];
 
@@ -107,17 +104,14 @@ stdenv.mkDerivation rec {
     )
   '';
 
-  cmakeFlags =
-    [
-      "-DUSE_BUNDLED_DEPS=OFF"
-      "-DSYSDIG_VERSION=${version}"
-      "-DUSE_BUNDLED_B64=OFF"
-      "-DUSE_BUNDLED_TBB=OFF"
-      "-DUSE_BUNDLED_RE2=OFF"
-      "-DCREATE_TEST_TARGETS=OFF"
-    ]
-    ++ lib.optional (kernel == null) "-DBUILD_DRIVER=OFF"
-  ;
+  cmakeFlags = [
+    "-DUSE_BUNDLED_DEPS=OFF"
+    "-DSYSDIG_VERSION=${version}"
+    "-DUSE_BUNDLED_B64=OFF"
+    "-DUSE_BUNDLED_TBB=OFF"
+    "-DUSE_BUNDLED_RE2=OFF"
+    "-DCREATE_TEST_TARGETS=OFF"
+  ] ++ lib.optional (kernel == null) "-DBUILD_DRIVER=OFF";
 
   # needed since luajit-2.1.0-beta3
   env.NIX_CFLAGS_COMPILE = "-DluaL_reg=luaL_Reg -DluaL_getn(L,i)=((int)lua_objlen(L,i))";

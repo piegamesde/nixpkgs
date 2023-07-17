@@ -10,13 +10,10 @@
 
 qtModule {
   pname = "qtgamepad";
-  qtInputs =
-    [
-      qtbase
-      qtdeclarative
-    ]
-    ++ lib.optional stdenv.isDarwin GameController
-  ;
+  qtInputs = [
+    qtbase
+    qtdeclarative
+  ] ++ lib.optional stdenv.isDarwin GameController;
   buildInputs = [ ];
   nativeBuildInputs = [ pkg-config ];
   outputs = [

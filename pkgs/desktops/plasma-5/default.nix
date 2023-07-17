@@ -114,8 +114,9 @@ let
 
             defaultSetupHook = if hasBin && hasDev then propagateBin else null;
             setupHook = args.setupHook or defaultSetupHook;
-            nativeBuildInputs =
-              (args.nativeBuildInputs or [ ]) ++ [ libsForQt5.wrapQtAppsHook ];
+            nativeBuildInputs = (args.nativeBuildInputs or [ ]) ++ [
+              libsForQt5.wrapQtAppsHook
+            ];
 
             meta =
               let

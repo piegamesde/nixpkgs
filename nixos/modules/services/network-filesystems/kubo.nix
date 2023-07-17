@@ -433,9 +433,13 @@ in
       wantedBy = [ "sockets.target" ];
       socketConfig = {
         ListenStream =
-          [ "" ] ++ (multiaddrsToListenStreams cfg.settings.Addresses.Gateway);
+          [ "" ]
+          ++ (multiaddrsToListenStreams cfg.settings.Addresses.Gateway)
+        ;
         ListenDatagram =
-          [ "" ] ++ (multiaddrsToListenDatagrams cfg.settings.Addresses.Gateway);
+          [ "" ]
+          ++ (multiaddrsToListenDatagrams cfg.settings.Addresses.Gateway)
+        ;
       };
     };
 
@@ -444,13 +448,10 @@ in
       socketConfig = {
         # We also include "%t/ipfs.sock" because there is no way to put the "%t"
         # in the multiaddr.
-        ListenStream =
-          [
-            ""
-            "%t/ipfs.sock"
-          ]
-          ++ (multiaddrsToListenStreams cfg.settings.Addresses.API)
-        ;
+        ListenStream = [
+          ""
+          "%t/ipfs.sock"
+        ] ++ (multiaddrsToListenStreams cfg.settings.Addresses.API);
         SocketMode = "0660";
         SocketUser = cfg.user;
         SocketGroup = cfg.group;

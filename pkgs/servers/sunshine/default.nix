@@ -84,49 +84,43 @@ stdenv.mkDerivation rec {
     '';
   };
 
-  nativeBuildInputs =
-    [
-      cmake
-      pkg-config
-      autoPatchelfHook
-      makeWrapper
-    ]
-    ++ lib.optionals cudaSupport [ cudaPackages.autoAddOpenGLRunpathHook ]
-  ;
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    autoPatchelfHook
+    makeWrapper
+  ] ++ lib.optionals cudaSupport [ cudaPackages.autoAddOpenGLRunpathHook ];
 
-  buildInputs =
-    [
-      libcbs
-      avahi
-      ffmpeg_5-full
-      libevdev
-      libpulseaudio
-      xorg.libX11
-      libxcb
-      xorg.libXfixes
-      xorg.libXrandr
-      xorg.libXtst
-      xorg.libXi
-      openssl
-      libopus
-      boost
-      libdrm
-      wayland
-      libffi
-      libevdev
-      libcap
-      libdrm
-      curl
-      libva
-      libvdpau
-      numactl
-      mesa
-      amf-headers
-      svt-av1
-      libappindicator
-    ]
-    ++ lib.optionals cudaSupport [ cudaPackages.cudatoolkit ]
-  ;
+  buildInputs = [
+    libcbs
+    avahi
+    ffmpeg_5-full
+    libevdev
+    libpulseaudio
+    xorg.libX11
+    libxcb
+    xorg.libXfixes
+    xorg.libXrandr
+    xorg.libXtst
+    xorg.libXi
+    openssl
+    libopus
+    boost
+    libdrm
+    wayland
+    libffi
+    libevdev
+    libcap
+    libdrm
+    curl
+    libva
+    libvdpau
+    numactl
+    mesa
+    amf-headers
+    svt-av1
+    libappindicator
+  ] ++ lib.optionals cudaSupport [ cudaPackages.cudatoolkit ];
 
   runtimeDependencies = [
     avahi

@@ -130,13 +130,10 @@ let
         ''
         + lib.optionalString (manifestRc != null) (
           let
-            manifestWrapperArgs =
-              [
-                "${neovim}/bin/nvim"
-                "${placeholder "out"}/bin/nvim-wrapper"
-              ]
-              ++ commonWrapperArgs
-            ;
+            manifestWrapperArgs = [
+              "${neovim}/bin/nvim"
+              "${placeholder "out"}/bin/nvim-wrapper"
+            ] ++ commonWrapperArgs;
           in
           ''
             echo "Generating remote plugin manifest"

@@ -42,7 +42,9 @@ buildPythonPackage rec {
   };
 
   nativeBuildInputs =
-    [ packaging ] ++ lib.optionals withGui [ qt5.wrapQtAppsHook ];
+    [ packaging ]
+    ++ lib.optionals withGui [ qt5.wrapQtAppsHook ]
+  ;
 
   propagatedBuildInputs =
     [

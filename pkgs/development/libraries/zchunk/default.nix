@@ -27,13 +27,10 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs =
-    [
-      curl
-      zstd
-    ]
-    ++ lib.optional stdenv.isDarwin argp-standalone
-  ;
+  buildInputs = [
+    curl
+    zstd
+  ] ++ lib.optional stdenv.isDarwin argp-standalone;
 
   outputs = [
     "out"

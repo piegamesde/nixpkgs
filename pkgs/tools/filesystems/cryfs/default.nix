@@ -55,17 +55,14 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  buildInputs =
-    [
-      boost175
-      curl
-      fuse
-      openssl
-      range-v3
-      spdlog
-    ]
-    ++ lib.optional stdenv.cc.isClang llvmPackages.openmp
-  ;
+  buildInputs = [
+    boost175
+    curl
+    fuse
+    openssl
+    range-v3
+    spdlog
+  ] ++ lib.optional stdenv.cc.isClang llvmPackages.openmp;
 
   #nativeCheckInputs = [ gtest ];
 

@@ -1033,8 +1033,7 @@ in
 
     boot.initrd.availableKernelModules =
       optional cfg.writableStore "overlay"
-      ++ optional (cfg.qemu.diskInterface == "scsi") "sym53c8xx"
-    ;
+      ++ optional (cfg.qemu.diskInterface == "scsi") "sym53c8xx";
 
     virtualisation.additionalPaths = [ config.system.build.toplevel ];
 
@@ -1162,14 +1161,11 @@ in
           value.device = tag;
           value.fsType = "9p";
           value.neededForBoot = true;
-          value.options =
-            [
-              "trans=virtio"
-              "version=9p2000.L"
-              "msize=${toString cfg.msize}"
-            ]
-            ++ lib.optional (tag == "nix-store") "cache=loose"
-          ;
+          value.options = [
+            "trans=virtio"
+            "version=9p2000.L"
+            "msize=${toString cfg.msize}"
+          ] ++ lib.optional (tag == "nix-store") "cache=loose";
         };
       in
       lib.mkMerge [

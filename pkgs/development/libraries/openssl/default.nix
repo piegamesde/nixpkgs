@@ -107,7 +107,8 @@ let
           ++ lib.optionals static [ removeReferencesTo ]
         ;
         buildInputs =
-          lib.optional withCryptodev cryptodev ++ lib.optional withZlib zlib;
+          lib.optional withCryptodev cryptodev
+          ++ lib.optional withZlib zlib;
 
         # TODO(@Ericson2314): Improve with mass rebuild
         configurePlatforms = [ ];

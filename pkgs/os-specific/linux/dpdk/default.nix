@@ -54,19 +54,16 @@ stdenv.mkDerivation rec {
     python3.pkgs.sphinx
     python3.pkgs.pyelftools
   ];
-  buildInputs =
-    [
-      jansson
-      libbpf
-      libelf
-      libpcap
-      numactl
-      openssl.dev
-      zlib
-      python3
-    ]
-    ++ lib.optionals mod kernel.moduleBuildDependencies
-  ;
+  buildInputs = [
+    jansson
+    libbpf
+    libelf
+    libpcap
+    numactl
+    openssl.dev
+    zlib
+    python3
+  ] ++ lib.optionals mod kernel.moduleBuildDependencies;
 
   propagatedBuildInputs = [
     # Propagated to support current DPDK users in nixpkgs which statically link
@@ -119,14 +116,10 @@ stdenv.mkDerivation rec {
     ''
   ;
 
-  outputs =
-    [
-      "out"
-      "doc"
-    ]
-    ++ lib.optional mod "kmod"
-    ++ lib.optional (withExamples != [ ]) "examples"
-  ;
+  outputs = [
+    "out"
+    "doc"
+  ] ++ lib.optional mod "kmod" ++ lib.optional (withExamples != [ ]) "examples";
 
   meta = with lib; {
     description = "Set of libraries and drivers for fast packet processing";

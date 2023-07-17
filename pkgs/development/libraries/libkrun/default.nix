@@ -63,7 +63,9 @@ stdenv.mkDerivation rec {
   ;
 
   makeFlags =
-    [ "PREFIX=${placeholder "out"}" ] ++ lib.optional sevVariant "SEV=1";
+    [ "PREFIX=${placeholder "out"}" ]
+    ++ lib.optional sevVariant "SEV=1"
+  ;
 
   postFixup = lib.optionalString stdenv.isDarwin ''
     install_name_tool -id $out/lib/libkrun.dylib $out/lib/libkrun.${version}.dylib

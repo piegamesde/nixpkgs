@@ -45,8 +45,7 @@ stdenv.mkDerivation rec {
       openssl
       zlib
     ]
-    ++ lib.optional stdenv.isLinux e2fsprogs
-    ++ lib.optional stdenv.isDarwin bzip2
+    ++ lib.optional stdenv.isLinux e2fsprogs ++ lib.optional stdenv.isDarwin bzip2
   ;
 
   meta = {

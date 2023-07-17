@@ -57,13 +57,10 @@ rec {
       projectName = singularity.projectName or "singularity";
       layer = mkLayer {
         inherit name;
-        contents =
-          contents
-          ++ [
-            bash
-            runScriptFile
-          ]
-        ;
+        contents = contents ++ [
+          bash
+          runScriptFile
+        ];
         inherit projectName;
       };
       runAsRootFile = shellScript "run-as-root.sh" runAsRoot;

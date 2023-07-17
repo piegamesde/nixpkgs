@@ -137,15 +137,12 @@ stdenv.mkDerivation rec {
       ./darwin.patch
     ];
 
-  nativeBuildInputs =
-    [
-      cmake
-      ninja
-      autoconf # for vendored jemalloc
-      flatbuffers
-    ]
-    ++ lib.optional stdenv.isDarwin fixDarwinDylibNames
-  ;
+  nativeBuildInputs = [
+    cmake
+    ninja
+    autoconf # for vendored jemalloc
+    flatbuffers
+  ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
   buildInputs =
     [
       boost
@@ -279,15 +276,11 @@ stdenv.mkDerivation rec {
 
   __darwinAllowLocalNetworking = true;
 
-  nativeInstallCheckInputs =
-    [
-      perl
-      which
-      sqlite
-    ]
-    ++ lib.optionals enableS3 [ minio ]
-    ++ lib.optionals enableFlight [ python3 ]
-  ;
+  nativeInstallCheckInputs = [
+    perl
+    which
+    sqlite
+  ] ++ lib.optionals enableS3 [ minio ] ++ lib.optionals enableFlight [ python3 ];
 
   disabledTests = [
     # requires networking

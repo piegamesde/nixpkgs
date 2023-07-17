@@ -58,14 +58,10 @@ stdenv.mkDerivation (
       esac
     '';
 
-    buildInputs =
-      [
-        emacs
-        texinfo
-      ]
-      ++ packageRequires
-      ++ buildInputs
-    ;
+    buildInputs = [
+      emacs
+      texinfo
+    ] ++ packageRequires ++ buildInputs;
     propagatedBuildInputs = packageRequires;
     propagatedUserEnvPkgs = packageRequires;
 

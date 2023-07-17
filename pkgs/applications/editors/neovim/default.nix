@@ -154,7 +154,9 @@ stdenv.mkDerivation rec {
   '';
   # check that the above patching actually works
   disallowedReferences =
-    [ stdenv.cc ] ++ lib.optional (lua != codegenLua) codegenLua;
+    [ stdenv.cc ]
+    ++ lib.optional (lua != codegenLua) codegenLua
+  ;
 
   cmakeFlags =
     [
@@ -164,8 +166,7 @@ stdenv.mkDerivation rec {
       # third-party/CMakeLists.txt is not read at all.
       "-DUSE_BUNDLED=OFF"
     ]
-    ++ lib.optional (!lua.pkgs.isLuaJIT) "-DPREFER_LUA=ON"
-  ;
+    ++ lib.optional (!lua.pkgs.isLuaJIT) "-DPREFER_LUA=ON";
 
   preConfigure =
     lib.optionalString lua.pkgs.isLuaJIT ''

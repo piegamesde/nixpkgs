@@ -37,14 +37,10 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [ autoreconfHook ];
-  buildInputs =
-    [
-      ncurses
-      libxcrypt
-    ]
-    ++ lib.optional stdenv.isLinux pam
-    ++ lib.optional stdenv.isDarwin utmp
-  ;
+  buildInputs = [
+    ncurses
+    libxcrypt
+  ] ++ lib.optional stdenv.isLinux pam ++ lib.optional stdenv.isDarwin utmp;
 
   doCheck = true;
 

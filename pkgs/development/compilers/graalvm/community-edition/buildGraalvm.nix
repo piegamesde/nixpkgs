@@ -98,21 +98,15 @@ let
 
       dontStrip = true;
 
-      nativeBuildInputs =
-        [
-          unzip
-          makeWrapper
-        ]
-        ++ lib.optional stdenv.isLinux autoPatchelfHook
-      ;
+      nativeBuildInputs = [
+        unzip
+        makeWrapper
+      ] ++ lib.optional stdenv.isLinux autoPatchelfHook;
 
-      propagatedBuildInputs =
-        [
-          setJavaClassPath
-          zlib
-        ]
-        ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Foundation
-      ;
+      propagatedBuildInputs = [
+        setJavaClassPath
+        zlib
+      ] ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Foundation;
 
       buildInputs = lib.optionals stdenv.isLinux [
         alsa-lib # libasound.so wanted by lib/libjsound.so

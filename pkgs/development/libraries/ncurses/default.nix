@@ -200,15 +200,12 @@ stdenv.mkDerivation (
       license = licenses.mit;
       pkgConfigModules =
         let
-          base =
-            [
-              "form"
-              "menu"
-              "ncurses"
-              "panel"
-            ]
-            ++ lib.optional withCxx "ncurses++"
-          ;
+          base = [
+            "form"
+            "menu"
+            "ncurses"
+            "panel"
+          ] ++ lib.optional withCxx "ncurses++";
         in
         base ++ lib.optionals unicodeSupport (map (p: p + "w") base)
       ;

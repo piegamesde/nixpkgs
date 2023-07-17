@@ -35,21 +35,18 @@ buildPythonPackage rec {
     export PACKAGE_NAME=pytorch
   '';
 
-  propagatedBuildInputs =
-    [
-      fsspec
-      numpy
-      packaging
-      pyyaml
-      tensorboardx
-      torch
-      lightning-utilities
-      torchmetrics
-      tqdm
-      traitlets
-    ]
-    ++ fsspec.optional-dependencies.http
-  ;
+  propagatedBuildInputs = [
+    fsspec
+    numpy
+    packaging
+    pyyaml
+    tensorboardx
+    torch
+    lightning-utilities
+    torchmetrics
+    tqdm
+    traitlets
+  ] ++ fsspec.optional-dependencies.http;
 
   nativeCheckInputs = [
     psutil

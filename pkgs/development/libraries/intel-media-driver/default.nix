@@ -58,15 +58,12 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs =
-    [
-      libva
-      libpciaccess
-      intel-gmmlib
-      libdrm
-    ]
-    ++ lib.optional enableX11 libX11
-  ;
+  buildInputs = [
+    libva
+    libpciaccess
+    intel-gmmlib
+    libdrm
+  ] ++ lib.optional enableX11 libX11;
 
   postFixup = lib.optionalString enableX11 ''
     patchelf --set-rpath "$(patchelf --print-rpath $out/lib/dri/iHD_drv_video.so):${

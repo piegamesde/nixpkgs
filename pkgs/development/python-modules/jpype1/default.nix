@@ -21,7 +21,9 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs =
-    [ packaging ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+    [ packaging ]
+    ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
+  ;
 
   nativeCheckInputs = [ pytest ];
 

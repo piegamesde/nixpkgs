@@ -90,13 +90,10 @@ pinentryMkDerivation rec {
     sha256 = "sha256-RXoYXlqFI4+5RalV3GNSq5YtyLSHILYvyfpIx1QKQGc=";
   };
 
-  nativeBuildInputs =
-    [
-      pkg-config
-      autoreconfHook
-    ]
-    ++ lib.concatMap (f: flavorInfo.${f}.nativeBuildInputs or [ ]) enabledFlavors
-  ;
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+  ] ++ lib.concatMap (f: flavorInfo.${f}.nativeBuildInputs or [ ]) enabledFlavors;
 
   buildInputs =
     [
@@ -120,14 +117,11 @@ pinentryMkDerivation rec {
     ]
   ;
 
-  configureFlags =
-    [
-      "--with-libgpg-error-prefix=${libgpg-error.dev}"
-      "--with-libassuan-prefix=${libassuan.dev}"
-      (lib.enableFeature withLibsecret "libsecret")
-    ]
-    ++ (map enableFeaturePinentry (lib.attrNames flavorInfo))
-  ;
+  configureFlags = [
+    "--with-libgpg-error-prefix=${libgpg-error.dev}"
+    "--with-libassuan-prefix=${libassuan.dev}"
+    (lib.enableFeature withLibsecret "libsecret")
+  ] ++ (map enableFeaturePinentry (lib.attrNames flavorInfo));
 
   postInstall =
     lib.concatStrings (

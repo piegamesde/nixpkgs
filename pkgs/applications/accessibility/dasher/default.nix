@@ -49,18 +49,15 @@ stdenv.mkDerivation {
     libxml2
   ];
 
-  buildInputs =
-    [
-      glib
-      gtk3
-      expat
-      itstool
-      # at-spi2 needs dbus to be recognized by pkg-config
-      at-spi2-core
-      dbus
-    ]
-    ++ lib.optional speechSupport speechd
-  ;
+  buildInputs = [
+    glib
+    gtk3
+    expat
+    itstool
+    # at-spi2 needs dbus to be recognized by pkg-config
+    at-spi2-core
+    dbus
+  ] ++ lib.optional speechSupport speechd;
 
   enableParallelBuilding = true;
 

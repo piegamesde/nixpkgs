@@ -21,16 +21,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-zpsi/cJxvrba51Q9pfdM8ky4LmhIz9CIpaBp3sXqUZg=";
   };
 
-  outputs =
-    [
-      "out"
-      "dev"
-      "lib"
-      "man"
-      "doc"
-    ]
-    ++ lib.optional usePam "pam"
-  ;
+  outputs = [
+    "out"
+    "dev"
+    "lib"
+    "man"
+    "doc"
+  ] ++ lib.optional usePam "pam";
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
@@ -38,16 +35,13 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = [ attr ];
 
-  makeFlags =
-    [
-      "lib=lib"
-      "PAM_CAP=${if usePam then "yes" else "no"}"
-      "BUILD_CC=$(CC_FOR_BUILD)"
-      "CC:=$(CC)"
-      "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
-    ]
-    ++ lib.optional isStatic "SHARED=no"
-  ;
+  makeFlags = [
+    "lib=lib"
+    "PAM_CAP=${if usePam then "yes" else "no"}"
+    "BUILD_CC=$(CC_FOR_BUILD)"
+    "CC:=$(CC)"
+    "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
+  ] ++ lib.optional isStatic "SHARED=no";
 
   postPatch = ''
     patchShebangs ./progs/mkcapshdoc.sh

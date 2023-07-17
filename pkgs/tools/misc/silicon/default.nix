@@ -55,13 +55,10 @@ rustPlatform.buildRustPackage rec {
     ]
   ;
 
-  nativeBuildInputs =
-    [
-      cmake
-      pkg-config
-    ]
-    ++ lib.optionals stdenv.isLinux [ python3 ]
-  ;
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ] ++ lib.optionals stdenv.isLinux [ python3 ];
 
   LIBCLANG_PATH = "${llvmPackages.libclang.lib}/lib";
 

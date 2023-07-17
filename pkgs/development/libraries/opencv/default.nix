@@ -99,16 +99,13 @@ stdenv.mkDerivation rec {
       "-I${ilmbase.dev}/include/OpenEXR"
   ;
 
-  cmakeFlags =
-    [
-      (opencvFlag "TIFF" enableTIFF)
-      (opencvFlag "JPEG" enableJPEG)
-      (opencvFlag "PNG" enablePNG)
-      (opencvFlag "OPENEXR" enableEXR)
-      (opencvFlag "GSTREAMER" enableGStreamer)
-    ]
-    ++ lib.optional (!enableUnfree) "-DBUILD_opencv_nonfree=OFF"
-  ;
+  cmakeFlags = [
+    (opencvFlag "TIFF" enableTIFF)
+    (opencvFlag "JPEG" enableJPEG)
+    (opencvFlag "PNG" enablePNG)
+    (opencvFlag "OPENEXR" enableEXR)
+    (opencvFlag "GSTREAMER" enableGStreamer)
+  ] ++ lib.optional (!enableUnfree) "-DBUILD_opencv_nonfree=OFF";
 
   hardeningDisable = [
     "bindnow"

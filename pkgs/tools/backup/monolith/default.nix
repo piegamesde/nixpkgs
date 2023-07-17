@@ -28,8 +28,7 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optionals stdenv.isDarwin [
       libiconv
       Security
-    ]
-  ;
+    ];
 
   checkFlagsArray = [ "--skip=tests::cli" ];
 

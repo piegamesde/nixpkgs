@@ -108,24 +108,21 @@ let
       ]
     ;
 
-    patches =
-      [
-        ./fix-java-home-jdk10.patch
-        ./read-truststore-from-env-jdk10.patch
-        ./currency-date-range-jdk10.patch
-        ./increase-javadoc-heap.patch
-        ./fix-library-path-jdk11.patch
+    patches = [
+      ./fix-java-home-jdk10.patch
+      ./read-truststore-from-env-jdk10.patch
+      ./currency-date-range-jdk10.patch
+      ./increase-javadoc-heap.patch
+      ./fix-library-path-jdk11.patch
 
-        # Fix build for gnumake-4.4.1:
-        #   https://github.com/openjdk/jdk/pull/12992
-        (fetchpatch {
-          name = "gnumake-4.4.1";
-          url = "https://github.com/openjdk/jdk/commit/9341d135b855cc208d48e47d30cd90aafa354c36.patch";
-          hash = "sha256-Qcm3ZmGCOYLZcskNjj7DYR85R4v07vYvvavrVOYL8vg=";
-        })
-      ]
-      ++ lib.optionals (!headless && enableGnome2) [ ./swing-use-gtk-jdk10.patch ]
-    ;
+      # Fix build for gnumake-4.4.1:
+      #   https://github.com/openjdk/jdk/pull/12992
+      (fetchpatch {
+        name = "gnumake-4.4.1";
+        url = "https://github.com/openjdk/jdk/commit/9341d135b855cc208d48e47d30cd90aafa354c36.patch";
+        hash = "sha256-Qcm3ZmGCOYLZcskNjj7DYR85R4v07vYvvavrVOYL8vg=";
+      })
+    ] ++ lib.optionals (!headless && enableGnome2) [ ./swing-use-gtk-jdk10.patch ];
 
     preConfigure = ''
       chmod +x configure

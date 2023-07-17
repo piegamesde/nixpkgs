@@ -40,26 +40,23 @@ stdenv.mkDerivation rec {
     python3Packages.wrapPython
   ];
 
-  buildInputs =
-    [
-      cairo
-      fontconfig
-      freetype
-      fribidi
-      libXcursor
-      libXft
-      libXinerama
-      libXpm
-      libXt
-      libpng
-      librsvg
-      libxslt
-      perl
-      python3Packages.python
-      readline
-    ]
-    ++ lib.optional enableGestures libstroke
-  ;
+  buildInputs = [
+    cairo
+    fontconfig
+    freetype
+    fribidi
+    libXcursor
+    libXft
+    libXinerama
+    libXpm
+    libXt
+    libpng
+    librsvg
+    libxslt
+    perl
+    python3Packages.python
+    readline
+  ] ++ lib.optional enableGestures libstroke;
 
   pythonPath = [ python3Packages.pyxdg ];
 

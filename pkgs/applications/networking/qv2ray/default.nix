@@ -69,16 +69,13 @@ mkDerivation rec {
     c-ares
   ];
 
-  nativeBuildInputs =
-    [
-      cmake
-      pkg-config
-      qttools
-      curl
-      # The default clang_7 will result in reproducible ICE.
-    ]
-    ++ lib.optional (stdenv.isDarwin) clang_8
-  ;
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    qttools
+    curl
+    # The default clang_7 will result in reproducible ICE.
+  ] ++ lib.optional (stdenv.isDarwin) clang_8;
 
   meta = with lib; {
     description = "An GUI frontend to v2ray";

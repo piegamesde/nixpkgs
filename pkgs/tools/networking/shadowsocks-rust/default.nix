@@ -29,8 +29,7 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optionals stdenv.isDarwin [
       Security
       CoreServices
-    ]
-  ;
+    ];
 
   buildFeatures = [
     "trust-dns"

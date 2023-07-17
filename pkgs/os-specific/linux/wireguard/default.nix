@@ -24,13 +24,10 @@ stdenv.mkDerivation rec {
 
   KERNELDIR = "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build";
 
-  nativeBuildInputs =
-    [
-      perl
-      bc
-    ]
-    ++ kernel.moduleBuildDependencies
-  ;
+  nativeBuildInputs = [
+    perl
+    bc
+  ] ++ kernel.moduleBuildDependencies;
 
   preBuild = "cd src";
   buildFlags = [ "module" ];

@@ -96,13 +96,10 @@ let
             ;
 
             mlPlugin = true;
-            propagatedBuildInputs =
-              [
-                equations
-                coq.ocamlPackages.zarith
-              ]
-              ++ metacoq-deps
-            ;
+            propagatedBuildInputs = [
+              equations
+              coq.ocamlPackages.zarith
+            ] ++ metacoq-deps;
 
             patchPhase = ''
               patchShebangs ./configure.sh
@@ -162,8 +159,7 @@ let
             {
               propagatedBuildInputs =
                 o.propagatedBuildInputs
-                ++ optional requiresOcamlStdlibShims coq.ocamlPackages.stdlib-shims
-              ;
+                ++ optional requiresOcamlStdlibShims coq.ocamlPackages.stdlib-shims;
             }
           )
       ;

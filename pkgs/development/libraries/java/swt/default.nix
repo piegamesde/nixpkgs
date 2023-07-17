@@ -70,20 +70,17 @@ stdenv.mkDerivation rec {
     canonicalize-jars-hook
     pkg-config
   ];
-  buildInputs =
-    [
-      atk
-      gtk2
-      jdk
-      libGL
-      libGLU
-      libXtst
-      gnome2.gnome_vfs
-      gnome2.libgnome
-      gnome2.libgnomeui
-    ]
-    ++ lib.optionals (lib.hasPrefix "8u" jdk.version) [ libXt ]
-  ;
+  buildInputs = [
+    atk
+    gtk2
+    jdk
+    libGL
+    libGLU
+    libXtst
+    gnome2.gnome_vfs
+    gnome2.libgnome
+    gnome2.libgnomeui
+  ] ++ lib.optionals (lib.hasPrefix "8u" jdk.version) [ libXt ];
 
   patches = [
     ./awt-libs.patch

@@ -90,27 +90,24 @@ buildPythonPackage rec {
     bcrypt = [ bcrypt ];
   };
 
-  nativeCheckInputs =
-    [
-      # tests/requirements/py3.txt
-      aiosmtpd
-      docutils
-      geoip2
-      jinja2
-      numpy
-      pillow
-      pylibmc
-      pymemcache
-      pywatchman
-      pyyaml
-      pytz
-      redis
-      selenium
-      tblib
-      tzdata
-    ]
-    ++ lib.flatten (lib.attrValues passthru.optional-dependencies)
-  ;
+  nativeCheckInputs = [
+    # tests/requirements/py3.txt
+    aiosmtpd
+    docutils
+    geoip2
+    jinja2
+    numpy
+    pillow
+    pylibmc
+    pymemcache
+    pywatchman
+    pyyaml
+    pytz
+    redis
+    selenium
+    tblib
+    tzdata
+  ] ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
 
   doCheck = !stdenv.isDarwin;
 

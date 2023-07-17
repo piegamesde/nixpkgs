@@ -105,28 +105,25 @@ let
       ]
     ;
 
-    patches =
-      [
-        ./fix-java-home-jdk10.patch
-        ./read-truststore-from-env-jdk10.patch
-        ./currency-date-range-jdk10.patch
-        ./increase-javadoc-heap.patch
-        # -Wformat etc. are stricter in newer gccs, per
-        # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=79677
-        # so grab the work-around from
-        # https://src.fedoraproject.org/rpms/java-openjdk/pull-request/24
-        (fetchurl {
-          url = "https://src.fedoraproject.org/rpms/java-openjdk/raw/06c001c7d87f2e9fe4fedeef2d993bcd5d7afa2a/f/rh1673833-remove_removal_of_wformat_during_test_compilation.patch";
-          sha256 = "082lmc30x64x583vqq00c8y0wqih3y4r0mp1c4bqq36l22qv6b6r";
-        })
-        # Fix gnumake 4.3 incompatibility
-        (fetchpatch {
-          url = "https://github.com/openjdk/panama-foreign/commit/af5c725b8109ce83fc04ef0f8bf6aaf0b50c0441.patch";
-          sha256 = "0ja84kih5wkjn58pml53s59qnavb1z92dc88cbgw7vcyqwc1gs0h";
-        })
-      ]
-      ++ lib.optionals (!headless && enableGnome2) [ ./swing-use-gtk-jdk10.patch ]
-    ;
+    patches = [
+      ./fix-java-home-jdk10.patch
+      ./read-truststore-from-env-jdk10.patch
+      ./currency-date-range-jdk10.patch
+      ./increase-javadoc-heap.patch
+      # -Wformat etc. are stricter in newer gccs, per
+      # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=79677
+      # so grab the work-around from
+      # https://src.fedoraproject.org/rpms/java-openjdk/pull-request/24
+      (fetchurl {
+        url = "https://src.fedoraproject.org/rpms/java-openjdk/raw/06c001c7d87f2e9fe4fedeef2d993bcd5d7afa2a/f/rh1673833-remove_removal_of_wformat_during_test_compilation.patch";
+        sha256 = "082lmc30x64x583vqq00c8y0wqih3y4r0mp1c4bqq36l22qv6b6r";
+      })
+      # Fix gnumake 4.3 incompatibility
+      (fetchpatch {
+        url = "https://github.com/openjdk/panama-foreign/commit/af5c725b8109ce83fc04ef0f8bf6aaf0b50c0441.patch";
+        sha256 = "0ja84kih5wkjn58pml53s59qnavb1z92dc88cbgw7vcyqwc1gs0h";
+      })
+    ] ++ lib.optionals (!headless && enableGnome2) [ ./swing-use-gtk-jdk10.patch ];
 
     prePatch = ''
       chmod +x configure
@@ -170,8 +167,7 @@ let
         "-lgio-2.0"
         "-lgnomevfs-2"
         "-lgconf-2"
-      ]
-    ;
+      ];
 
     # -j flag is explicitly rejected by the build system:
     #     Error: 'make -jN' is not supported, use 'make JOBS=N'

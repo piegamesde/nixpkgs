@@ -126,18 +126,15 @@ stdenv.mkDerivation rec {
     outputHash = "sha256-Lj4YSPOiiJQ6uN4cAR+1s/eVSfoIsuvWR7gGkVYrOfc=";
   };
 
-  configureFlags =
-    [
-      (lib.enableFeature withMysql "mysql")
-      (lib.enableFeature withPgsql "pgsql")
-      (lib.enableFeature withSqlite "sqlite")
-      (lib.enableFeature withPam "pam")
-      (lib.enableFeature withZlib "zlib")
-      (lib.enableFeature withTools "tools")
-      (lib.enableFeature withRedis "redis")
-    ]
-    ++ lib.optional withSqlite "--with-sqlite3=${sqlite.dev}"
-  ;
+  configureFlags = [
+    (lib.enableFeature withMysql "mysql")
+    (lib.enableFeature withPgsql "pgsql")
+    (lib.enableFeature withSqlite "sqlite")
+    (lib.enableFeature withPam "pam")
+    (lib.enableFeature withZlib "zlib")
+    (lib.enableFeature withTools "tools")
+    (lib.enableFeature withRedis "redis")
+  ] ++ lib.optional withSqlite "--with-sqlite3=${sqlite.dev}";
 
   enableParallelBuilding = true;
 

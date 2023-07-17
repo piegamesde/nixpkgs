@@ -24,29 +24,23 @@ stdenv.mkDerivation rec {
   };
 
   # fuse2fs adds 14mb of dependencies
-  outputs =
-    [
-      "bin"
-      "dev"
-      "out"
-      "man"
-      "info"
-    ]
-    ++ lib.optionals stdenv.isLinux [ "fuse2fs" ]
-  ;
+  outputs = [
+    "bin"
+    "dev"
+    "out"
+    "man"
+    "info"
+  ] ++ lib.optionals stdenv.isLinux [ "fuse2fs" ];
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
   nativeBuildInputs = [
     pkg-config
     texinfo
   ];
-  buildInputs =
-    [
-      libuuid
-      gettext
-    ]
-    ++ lib.optionals stdenv.isLinux [ fuse ]
-  ;
+  buildInputs = [
+    libuuid
+    gettext
+  ] ++ lib.optionals stdenv.isLinux [ fuse ];
 
   patches = [
     (fetchpatch {

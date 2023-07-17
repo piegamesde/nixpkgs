@@ -41,14 +41,11 @@ buildPythonPackage rec {
     ''
   ;
 
-  nativeBuildInputs =
-    [
-      cython
-      ninja
-      setuptools-scm
-    ]
-    ++ lib.optionals stdenv.isDarwin [ xcodebuild ]
-  ;
+  nativeBuildInputs = [
+    cython
+    ninja
+    setuptools-scm
+  ] ++ lib.optionals stdenv.isDarwin [ xcodebuild ];
 
   buildInputs = lib.optionals stdenv.isDarwin [
     ApplicationServices

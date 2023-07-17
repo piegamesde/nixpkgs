@@ -22,13 +22,10 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs =
-    [
-      ncurses
-      openssl
-    ]
-    ++ lib.optionals stdenv.isDarwin [ Security ]
-  ;
+  buildInputs = [
+    ncurses
+    openssl
+  ] ++ lib.optionals stdenv.isDarwin [ Security ];
 
   cargoHash = "sha256-RWj1QCHYEtw+QzdX+YlFiMqMhvCfxYzj6SUzfhqrcM8=";
 

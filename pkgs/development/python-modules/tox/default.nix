@@ -47,23 +47,20 @@ buildPythonPackage rec {
     hatch-vcs
   ];
 
-  propagatedBuildInputs =
-    [
-      cachetools
-      chardet
-      colorama
-      filelock
-      packaging
-      platformdirs
-      pluggy
-      py
-      pyproject-api
-      six
-      toml
-      virtualenv
-    ]
-    ++ lib.optionals (pythonOlder "3.11") [ tomli ]
-  ;
+  propagatedBuildInputs = [
+    cachetools
+    chardet
+    colorama
+    filelock
+    packaging
+    platformdirs
+    pluggy
+    py
+    pyproject-api
+    six
+    toml
+    virtualenv
+  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
   doCheck = false; # infinite recursion via devpi-client
 

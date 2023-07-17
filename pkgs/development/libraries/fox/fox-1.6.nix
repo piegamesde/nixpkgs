@@ -27,24 +27,21 @@ stdenv.mkDerivation rec {
     sha256 = "08w98m6wjadraw1pi13igzagly4b2nfa57kdqdnkjfhgkvg1bvv5";
   };
 
-  buildInputs =
-    [
-      libpng
-      libjpeg
-      libtiff
-      zlib
-      bzip2
-      libXcursor
-      libXrandr
-      libXext
-      libXft
-      libGLU
-      libGL
-      libXfixes
-      xinput
-    ]
-    ++ lib.optional stdenv.isDarwin CoreServices
-  ;
+  buildInputs = [
+    libpng
+    libjpeg
+    libtiff
+    zlib
+    bzip2
+    libXcursor
+    libXrandr
+    libXext
+    libXft
+    libGLU
+    libGL
+    libXfixes
+    xinput
+  ] ++ lib.optional stdenv.isDarwin CoreServices;
 
   doCheck = true;
 

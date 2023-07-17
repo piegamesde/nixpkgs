@@ -69,14 +69,11 @@ stdenv.mkDerivation rec {
     patchShebangs utils/cat_files.py
   '';
 
-  nativeBuildInputs =
-    [
-      cmake
-      ninja
-      python3
-    ]
-    ++ lib.optional stdenv.isDarwin fixDarwinDylibNames
-  ;
+  nativeBuildInputs = [
+    cmake
+    ninja
+    python3
+  ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
 
   buildInputs = lib.optionals (!headersOnly) [ cxxabi ];
 

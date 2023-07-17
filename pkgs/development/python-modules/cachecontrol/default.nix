@@ -33,14 +33,11 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs =
-    [
-      cherrypy
-      mock
-      pytestCheckHook
-    ]
-    ++ passthru.optional-dependencies.filecache
-  ;
+  nativeCheckInputs = [
+    cherrypy
+    mock
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.filecache;
 
   pythonImportsCheck = [ "cachecontrol" ];
 

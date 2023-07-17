@@ -44,15 +44,12 @@ stdenv.mkDerivation rec {
     pyyaml
     requests
   ];
-  buildInputs =
-    [
-      python
-      perl
-      python-dateutil
-      setuptools
-    ]
-    ++ pythonPaths
-  ;
+  buildInputs = [
+    python
+    perl
+    python-dateutil
+    setuptools
+  ] ++ pythonPaths;
   nativeBuildInputs = [
     gitMinimal
     zip

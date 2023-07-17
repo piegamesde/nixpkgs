@@ -61,25 +61,22 @@ python3.pkgs.buildPythonApplication rec {
     wrapGAppsHook
   ];
 
-  buildInputs =
-    [
-      bash
-      glib
-      dconf
-      gsettings-desktop-schemas
-      gtk3
-      hunspell
-      isocodes
-      libappindicator-gtk3
-      libcanberra-gtk3
-      libxkbcommon
-      mousetweaks
-      udev
-      xorg.libXtst
-      xorg.libxkbfile
-    ]
-    ++ lib.optional atspiSupport at-spi2-core
-  ;
+  buildInputs = [
+    bash
+    glib
+    dconf
+    gsettings-desktop-schemas
+    gtk3
+    hunspell
+    isocodes
+    libappindicator-gtk3
+    libcanberra-gtk3
+    libxkbcommon
+    mousetweaks
+    udev
+    xorg.libXtst
+    xorg.libxkbfile
+  ] ++ lib.optional atspiSupport at-spi2-core;
 
   pythonPath = with python3.pkgs; [
     dbus-python

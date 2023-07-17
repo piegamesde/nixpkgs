@@ -22,8 +22,7 @@ stdenv.mkDerivation rec {
 
   configureFlags =
     lib.optional fixedPoint "--enable-fixed-point"
-    ++ lib.optional withCustomModes "--enable-custom-modes"
-  ;
+    ++ lib.optional withCustomModes "--enable-custom-modes";
 
   doCheck = !stdenv.isi686 && !stdenv.isAarch32; # test_unit_LPC_inv_pred_gain fails
 

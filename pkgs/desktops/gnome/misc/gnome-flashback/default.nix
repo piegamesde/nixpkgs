@@ -184,13 +184,10 @@ let
           panelModulesEnv = buildEnv {
             name = "gnome-panel-modules-env";
             # We always want to find the built-in panel applets.
-            paths =
-              [
-                gnome-panel
-                gnome-flashback
-              ]
-              ++ panelModulePackages
-            ;
+            paths = [
+              gnome-panel
+              gnome-flashback
+            ] ++ panelModulePackages;
             pathsToLink = [ "/lib/gnome-panel/modules" ];
           };
 

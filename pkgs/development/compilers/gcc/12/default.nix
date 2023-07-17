@@ -249,14 +249,11 @@ lib.pipe
 
       inherit patches;
 
-      outputs =
-        [
-          "out"
-          "man"
-          "info"
-        ]
-        ++ lib.optional (!langJit) "lib"
-      ;
+      outputs = [
+        "out"
+        "man"
+        "info"
+      ] ++ lib.optional (!langJit) "lib";
       setOutputFlags = false;
       NIX_NO_SELF_RPATH = true;
 

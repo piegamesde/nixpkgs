@@ -109,8 +109,7 @@ stdenv.mkDerivation rec {
     ++ optionals stdenv.isLinux [
       libX11
       libGL
-    ]
-  ;
+    ];
   # see https://github.com/NixOS/nixpkgs/pull/178367#issuecomment-1238827254
 
   patches = map fetchpatch patchesToFetch;

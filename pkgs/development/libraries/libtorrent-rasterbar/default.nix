@@ -34,16 +34,13 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs =
-    [
-      boostPython
-      openssl
-      zlib
-      python
-      ncurses
-    ]
-    ++ lib.optionals stdenv.isDarwin [ SystemConfiguration ]
-  ;
+  buildInputs = [
+    boostPython
+    openssl
+    zlib
+    python
+    ncurses
+  ] ++ lib.optionals stdenv.isDarwin [ SystemConfiguration ];
 
   # https://github.com/arvidn/libtorrent/issues/6865
   postPatch = ''

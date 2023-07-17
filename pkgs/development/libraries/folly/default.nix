@@ -39,24 +39,21 @@ stdenv.mkDerivation rec {
   ];
 
   # See CMake/folly-deps.cmake in the Folly source tree.
-  buildInputs =
-    [
-      boost
-      double-conversion
-      glog
-      gflags
-      libevent
-      libiberty
-      openssl
-      lz4
-      xz
-      zlib
-      libunwind
-      fmt_8
-      zstd
-    ]
-    ++ lib.optional stdenv.isLinux jemalloc
-  ;
+  buildInputs = [
+    boost
+    double-conversion
+    glog
+    gflags
+    libevent
+    libiberty
+    openssl
+    lz4
+    xz
+    zlib
+    libunwind
+    fmt_8
+    zstd
+  ] ++ lib.optional stdenv.isLinux jemalloc;
 
   # jemalloc headers are required in include/folly/portability/Malloc.h
   propagatedBuildInputs = lib.optional stdenv.isLinux jemalloc;

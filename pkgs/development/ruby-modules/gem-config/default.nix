@@ -127,14 +127,11 @@ in
 
   atk = attrs: {
     dependencies = attrs.dependencies ++ [ "gobject-introspection" ];
-    nativeBuildInputs =
-      [
-        rake
-        bundler
-        pkg-config
-      ]
-      ++ lib.optionals stdenv.isDarwin [ DarwinTools ]
-    ;
+    nativeBuildInputs = [
+      rake
+      bundler
+      pkg-config
+    ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
     propagatedBuildInputs = [
       gobject-introspection
       wrapGAppsHook
@@ -162,7 +159,9 @@ in
 
   cairo = attrs: {
     nativeBuildInputs =
-      [ pkg-config ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
+      [ pkg-config ]
+      ++ lib.optionals stdenv.isDarwin [ DarwinTools ]
+    ;
     buildInputs = [
       gtk2
       pcre2
@@ -173,7 +172,9 @@ in
 
   cairo-gobject = attrs: {
     nativeBuildInputs =
-      [ pkg-config ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
+      [ pkg-config ]
+      ++ lib.optionals stdenv.isDarwin [ DarwinTools ]
+    ;
     buildInputs = [
       cairo
       pcre2
@@ -322,14 +323,11 @@ in
   fiddle = attrs: { buildInputs = [ libffi ]; };
 
   gdk_pixbuf2 = attrs: {
-    nativeBuildInputs =
-      [
-        pkg-config
-        bundler
-        rake
-      ]
-      ++ lib.optionals stdenv.isDarwin [ DarwinTools ]
-    ;
+    nativeBuildInputs = [
+      pkg-config
+      bundler
+      rake
+    ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
     propagatedBuildInputs = [
       gobject-introspection
       wrapGAppsHook
@@ -345,7 +343,9 @@ in
 
   gio2 = attrs: {
     nativeBuildInputs =
-      [ pkg-config ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
+      [ pkg-config ]
+      ++ lib.optionals stdenv.isDarwin [ DarwinTools ]
+    ;
     buildInputs =
       [
         gtk2
@@ -411,7 +411,9 @@ in
 
   glib2 = attrs: {
     nativeBuildInputs =
-      [ pkg-config ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
+      [ pkg-config ]
+      ++ lib.optionals stdenv.isDarwin [ DarwinTools ]
+    ;
     buildInputs = [
       gtk2
       pcre2
@@ -449,13 +451,10 @@ in
   };
 
   gobject-introspection = attrs: {
-    nativeBuildInputs =
-      [
-        pkg-config
-        pcre2
-      ]
-      ++ lib.optionals stdenv.isDarwin [ DarwinTools ]
-    ;
+    nativeBuildInputs = [
+      pkg-config
+      pcre2
+    ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
     propagatedBuildInputs = [
       gobject-introspection
       wrapGAppsHook
@@ -716,18 +715,15 @@ in
   };
 
   pango = attrs: {
-    nativeBuildInputs =
-      [
-        pkg-config
-        fribidi
-        harfbuzz
-        pcre
-        pcre2
-        xorg.libpthreadstubs
-        xorg.libXdmcp
-      ]
-      ++ lib.optionals stdenv.isDarwin [ DarwinTools ]
-    ;
+    nativeBuildInputs = [
+      pkg-config
+      fribidi
+      harfbuzz
+      pcre
+      pcre2
+      xorg.libpthreadstubs
+      xorg.libXdmcp
+    ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
     buildInputs =
       [
         libdatrie
@@ -851,14 +847,11 @@ in
   };
 
   rugged = attrs: {
-    nativeBuildInputs =
-      [
-        cmake
-        pkg-config
-        which
-      ]
-      ++ lib.optional stdenv.isDarwin libiconv
-    ;
+    nativeBuildInputs = [
+      cmake
+      pkg-config
+      which
+    ] ++ lib.optional stdenv.isDarwin libiconv;
     buildInputs = [
       openssl
       libssh2

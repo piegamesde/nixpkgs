@@ -28,14 +28,11 @@ stdenv.mkDerivation rec {
   pname = "pango";
   version = "1.50.14";
 
-  outputs =
-    [
-      "bin"
-      "out"
-      "dev"
-    ]
-    ++ lib.optional withIntrospection "devdoc"
-  ;
+  outputs = [
+    "bin"
+    "out"
+    "dev"
+  ] ++ lib.optional withIntrospection "devdoc";
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -75,15 +72,12 @@ stdenv.mkDerivation rec {
     )
   ;
 
-  propagatedBuildInputs =
-    [
-      cairo
-      glib
-      libintl
-      harfbuzz
-    ]
-    ++ lib.optionals x11Support [ libXft ]
-  ;
+  propagatedBuildInputs = [
+    cairo
+    glib
+    libintl
+    harfbuzz
+  ] ++ lib.optionals x11Support [ libXft ];
 
   mesonFlags = [
     (lib.mesonBool "gtk_doc" withIntrospection)

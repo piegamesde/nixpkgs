@@ -95,44 +95,40 @@ stdenv.mkDerivation rec {
   FONTCONFIG_FILE = toString fontsConf;
 
   propagatedUserEnvPkgs = [ hicolor-icon-theme ];
-  buildInputs =
-    [
-      cairo
-      librsvg
-      dbus
-      gdk-pixbuf
-      gobject-introspection
-      git
-      luaEnv
-      libpthreadstubs
-      libstartup_notification
-      libxdg_basedir
-      lua
-      nettools
-      pango
-      xcb-util-cursor
-      xorg.libXau
-      xorg.libXdmcp
-      xorg.libxcb
-      xorg.libxshmfence
-      xorg.xcbutil
-      xorg.xcbutilimage
-      xorg.xcbutilkeysyms
-      xorg.xcbutilrenderutil
-      xorg.xcbutilwm
-      libxkbcommon
-      xcbutilxrm
-    ]
-    ++ lib.optional gtk3Support gtk3
-  ;
+  buildInputs = [
+    cairo
+    librsvg
+    dbus
+    gdk-pixbuf
+    gobject-introspection
+    git
+    luaEnv
+    libpthreadstubs
+    libstartup_notification
+    libxdg_basedir
+    lua
+    nettools
+    pango
+    xcb-util-cursor
+    xorg.libXau
+    xorg.libXdmcp
+    xorg.libxcb
+    xorg.libxshmfence
+    xorg.xcbutil
+    xorg.xcbutilimage
+    xorg.xcbutilkeysyms
+    xorg.xcbutilrenderutil
+    xorg.xcbutilwm
+    libxkbcommon
+    xcbutilxrm
+  ] ++ lib.optional gtk3Support gtk3;
 
   cmakeFlags =
     [
       #"-DGENERATE_MANPAGES=ON"
       "-DOVERRIDE_VERSION=${version}"
     ]
-    ++ lib.optional lua.pkgs.isLuaJIT "-DLUA_LIBRARY=${lua}/lib/libluajit-5.1.so"
-  ;
+    ++ lib.optional lua.pkgs.isLuaJIT "-DLUA_LIBRARY=${lua}/lib/libluajit-5.1.so";
 
   GI_TYPELIB_PATH = "${pango.out}/lib/girepository-1.0";
   # LUA_CPATH and LUA_PATH are used only for *building*, see the --search flags

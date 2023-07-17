@@ -54,14 +54,11 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs =
-    [
-      pytest-asyncio
-      pytest-console-scripts
-      pytestCheckHook
-    ]
-    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
-  ;
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytest-console-scripts
+    pytestCheckHook
+  ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
   preCheck = ''
     export PATH="$out/bin:$PATH"

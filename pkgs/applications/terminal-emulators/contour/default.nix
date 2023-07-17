@@ -55,21 +55,18 @@ mkDerivation rec {
     file
   ];
 
-  buildInputs =
-    [
-      fontconfig
-      freetype
-      libGL
-      pcre
-      boost
-      catch2
-      fmt
-      microsoft_gsl
-      range-v3
-      yaml-cpp
-    ]
-    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.libs.utmp ]
-  ;
+  buildInputs = [
+    fontconfig
+    freetype
+    libGL
+    pcre
+    boost
+    catch2
+    fmt
+    microsoft_gsl
+    range-v3
+    yaml-cpp
+  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.libs.utmp ];
 
   preConfigure = ''
     mkdir -p _deps/sources

@@ -42,18 +42,15 @@ stdenv.mkDerivation rec {
 
   patches = [ ./heimdal-make-missing-headers.patch ];
 
-  nativeBuildInputs =
-    [
-      autoreconfHook
-      pkg-config
-      python3
-      perl
-      bison
-      flex
-      texinfo
-    ]
-    ++ (with perlPackages; [ JSON ])
-  ;
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    python3
+    perl
+    bison
+    flex
+    texinfo
+  ] ++ (with perlPackages; [ JSON ]);
   buildInputs =
     lib.optionals (stdenv.isLinux) [ libcap_ng ]
     ++ [
@@ -72,25 +69,22 @@ stdenv.mkDerivation rec {
   ;
 
   ## ugly, X should be made an option
-  configureFlags =
-    [
-      "--sysconfdir=/etc"
-      "--localstatedir=/var"
-      "--infodir=$info/share/info"
-      "--enable-hdb-openldap-module"
-      "--with-sqlite3=${sqlite.dev}"
+  configureFlags = [
+    "--sysconfdir=/etc"
+    "--localstatedir=/var"
+    "--infodir=$info/share/info"
+    "--enable-hdb-openldap-module"
+    "--with-sqlite3=${sqlite.dev}"
 
-      # ugly, --with-libedit is not enought, it fall back to bundled libedit
-      "--with-libedit-include=${libedit.dev}/include"
-      "--with-libedit-lib=${libedit}/lib"
-      "--with-openssl=${openssl.dev}"
-      "--without-x"
-      "--with-berkeley-db"
-      "--with-berkeley-db-include=${db.dev}/include"
-      "--with-openldap=${openldap.dev}"
-    ]
-    ++ lib.optionals (stdenv.isLinux) [ "--with-capng" ]
-  ;
+    # ugly, --with-libedit is not enought, it fall back to bundled libedit
+    "--with-libedit-include=${libedit.dev}/include"
+    "--with-libedit-lib=${libedit}/lib"
+    "--with-openssl=${openssl.dev}"
+    "--without-x"
+    "--with-berkeley-db"
+    "--with-berkeley-db-include=${db.dev}/include"
+    "--with-openldap=${openldap.dev}"
+  ] ++ lib.optionals (stdenv.isLinux) [ "--with-capng" ];
 
   postUnpack = ''
     sed -i '/^DEFAULT_INCLUDES/ s,$, -I..,' source/cf/Makefile.am.common

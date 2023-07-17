@@ -28,10 +28,9 @@ stdenv.mkDerivation rec {
       "--enable-obsolete-api=glibc"
       "--disable-failure-tokens"
     ]
-    ++
-      lib.optionals
-        (stdenv.hostPlatform.isMusl || stdenv.hostPlatform.libc == "bionic")
-        [ "--disable-werror" ]
+    ++ lib.optionals
+      (stdenv.hostPlatform.isMusl || stdenv.hostPlatform.libc == "bionic")
+      [ "--disable-werror" ]
   ;
 
   nativeBuildInputs = [ perl ];

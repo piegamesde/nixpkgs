@@ -26,15 +26,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ] ++ lib.optional doCheck check;
 
-  buildInputs =
-    [
-      gnutls
-      libotr
-      python3
-    ]
-    ++ lib.optional enableLibPurple pidgin
-    ++ lib.optional enablePam pam
-  ;
+  buildInputs = [
+    gnutls
+    libotr
+    python3
+  ] ++ lib.optional enableLibPurple pidgin ++ lib.optional enablePam pam;
 
   propagatedBuildInputs = [ glib ];
 
@@ -44,8 +40,7 @@ stdenv.mkDerivation rec {
       "--ssl=gnutls"
       "--pidfile=/var/lib/bitlbee/bitlbee.pid"
     ]
-    ++ lib.optional enableLibPurple "--purple=1"
-    ++ lib.optional enablePam "--pam=1"
+    ++ lib.optional enableLibPurple "--purple=1" ++ lib.optional enablePam "--pam=1"
   ;
 
   patches =

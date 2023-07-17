@@ -31,24 +31,18 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  buildInputs =
-    [
-      mtdev
-      cairo
-      qtbase
-      qtx11extras
-      xorg.libSM
-    ]
-    ++ lib.optionals waylandSupport [ wayland ]
-  ;
+  buildInputs = [
+    mtdev
+    cairo
+    qtbase
+    qtx11extras
+    xorg.libSM
+  ] ++ lib.optionals waylandSupport [ wayland ];
 
-  qmakeFlags =
-    [
-      "INSTALL_PATH=${placeholder "out"}/${qtbase.qtPluginPrefix}/platforms"
-      "QT_XCB_PRIVATE_INCLUDE=${qtbase.src}/src/plugins/platforms/xcb"
-    ]
-    ++ lib.optionals (!waylandSupport) [ "CONFIG+=DISABLE_WAYLAND" ]
-  ;
+  qmakeFlags = [
+    "INSTALL_PATH=${placeholder "out"}/${qtbase.qtPluginPrefix}/platforms"
+    "QT_XCB_PRIVATE_INCLUDE=${qtbase.src}/src/plugins/platforms/xcb"
+  ] ++ lib.optionals (!waylandSupport) [ "CONFIG+=DISABLE_WAYLAND" ];
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString waylandSupport

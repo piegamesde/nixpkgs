@@ -35,13 +35,10 @@ stdenv.mkDerivation rec {
   pname = "librsvg";
   version = "2.55.1";
 
-  outputs =
-    [
-      "out"
-      "dev"
-    ]
-    ++ lib.optionals withIntrospection [ "devdoc" ]
-  ;
+  outputs = [
+    "out"
+    "dev"
+  ] ++ lib.optionals withIntrospection [ "devdoc" ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${

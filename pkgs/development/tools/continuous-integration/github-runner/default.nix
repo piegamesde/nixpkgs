@@ -111,22 +111,21 @@ buildDotnetModule rec {
   # Fully qualified name of disabled tests
   disabledTests =
     [ "GitHub.Runner.Common.Tests.Listener.SelfUpdaterL0.TestSelfUpdateAsync" ]
-    ++
-      map
-        (
-          x: "GitHub.Runner.Common.Tests.Listener.SelfUpdaterL0.TestSelfUpdateAsync_${x}"
-        )
-        [
-          "Cancel_CloneHashTask_WhenNotNeeded"
-          "CloneHash_RuntimeAndExternals"
-          "DownloadRetry"
-          "FallbackToFullPackage"
-          "NoUpdateOnOldVersion"
-          "NotUseExternalsRuntimeTrimmedPackageOnHashMismatch"
-          "UseExternalsRuntimeTrimmedPackage"
-          "UseExternalsTrimmedPackage"
-          "ValidateHash"
-        ]
+    ++ map
+      (
+        x: "GitHub.Runner.Common.Tests.Listener.SelfUpdaterL0.TestSelfUpdateAsync_${x}"
+      )
+      [
+        "Cancel_CloneHashTask_WhenNotNeeded"
+        "CloneHash_RuntimeAndExternals"
+        "DownloadRetry"
+        "FallbackToFullPackage"
+        "NoUpdateOnOldVersion"
+        "NotUseExternalsRuntimeTrimmedPackageOnHashMismatch"
+        "UseExternalsRuntimeTrimmedPackage"
+        "UseExternalsTrimmedPackage"
+        "ValidateHash"
+      ]
     ++
       map (x: "GitHub.Runner.Common.Tests.Worker.ActionManagerL0.PrepareActions_${x}")
         [

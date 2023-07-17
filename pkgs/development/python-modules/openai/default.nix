@@ -57,15 +57,12 @@ buildPythonPackage rec {
       pandas
       pandas-stubs
     ];
-    embeddings =
-      [
-        matplotlib
-        plotly
-        scikit-learn
-        tenacity
-      ]
-      ++ passthru.optional-dependencies.datalib
-    ;
+    embeddings = [
+      matplotlib
+      plotly
+      scikit-learn
+      tenacity
+    ] ++ passthru.optional-dependencies.datalib;
     wandb = [ wandb ] ++ passthru.optional-dependencies.datalib;
   };
 

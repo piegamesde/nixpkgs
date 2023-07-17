@@ -23,7 +23,9 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs =
-    [ aiohttp ] ++ lib.optionals (pythonOlder "3.7") [ typing-extensions ];
+    [ aiohttp ]
+    ++ lib.optionals (pythonOlder "3.7") [ typing-extensions ]
+  ;
 
   nativeCheckInputs = [
     pytest-aiohttp

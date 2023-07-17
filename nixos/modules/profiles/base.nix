@@ -65,10 +65,9 @@
       "vfat"
       "xfs"
     ]
-    ++
-      lib.optional
-        (lib.meta.availableOn pkgs.stdenv.hostPlatform config.boot.zfs.package)
-        "zfs"
+    ++ lib.optional
+      (lib.meta.availableOn pkgs.stdenv.hostPlatform config.boot.zfs.package)
+      "zfs"
   ;
 
   # Configure host id for ZFS to work

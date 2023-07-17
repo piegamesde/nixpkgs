@@ -32,14 +32,11 @@ stdenv.mkDerivation (
       sha256 = "sha256-VskyVJhSzdz6/as4ILAgDHdCZ1vpIXnlnmIVs0DiZGc=";
     };
 
-    outputs =
-      [
-        "out"
-        "dev"
-        "man"
-      ]
-      ++ lib.optional withDoc "info"
-    ; # it's dev-doc only
+    outputs = [
+      "out"
+      "dev"
+      "man"
+    ] ++ lib.optional withDoc "info"; # it's dev-doc only
     outputBin = "dev"; # fftw-wisdom
 
     nativeBuildInputs = [ gfortran ];
@@ -50,8 +47,7 @@ stdenv.mkDerivation (
           # TODO: This may mismatch the LLVM version sin the stdenv, see #79818.
           llvmPackages.openmp
         ]
-      ++ lib.optional enableMpi mpi
-    ;
+      ++ lib.optional enableMpi mpi;
 
     configureFlags =
       [

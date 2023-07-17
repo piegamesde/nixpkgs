@@ -83,18 +83,15 @@ stdenv.mkDerivation rec {
     export LD_LIBRARY_PATH=$PWD/inst/lib/SAT
   '';
 
-  buildInputs =
-    yices.buildInputs
-    ++ [
-      fontconfig
-      libX11 # tcltk
-      tcl
-      tk
-      which
-      xorg.libXft
-      zlib
-    ]
-  ;
+  buildInputs = yices.buildInputs ++ [
+    fontconfig
+    libX11 # tcltk
+    tcl
+    tk
+    which
+    xorg.libXft
+    zlib
+  ];
 
   nativeBuildInputs = [
     automake

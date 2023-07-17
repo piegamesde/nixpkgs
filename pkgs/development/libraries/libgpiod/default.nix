@@ -41,14 +41,11 @@ stdenv.mkDerivation rec {
     autoreconfHook
   ];
 
-  configureFlags =
-    [
-      "--enable-tools=${if enable-tools then "yes" else "no"}"
-      "--enable-bindings-cxx"
-      "--prefix=${placeholder "out"}"
-    ]
-    ++ lib.optional enablePython "--enable-bindings-python"
-  ;
+  configureFlags = [
+    "--enable-tools=${if enable-tools then "yes" else "no"}"
+    "--enable-bindings-cxx"
+    "--prefix=${placeholder "out"}"
+  ] ++ lib.optional enablePython "--enable-bindings-python";
 
   meta = with lib; {
     description = "C library and tools for interacting with the linux GPIO character device";

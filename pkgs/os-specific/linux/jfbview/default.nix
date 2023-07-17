@@ -48,20 +48,17 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = [ "format" ];
 
-  buildInputs =
-    [
-      freetype
-      harfbuzz
-      jbig2dec
-      libjpeg
-      libX11
-      mupdf_1_17
-      ncurses
-      openjpeg
-      openssl
-    ]
-    ++ lib.optionals imageSupport [ imlib2 ]
-  ;
+  buildInputs = [
+    freetype
+    harfbuzz
+    jbig2dec
+    libjpeg
+    libX11
+    mupdf_1_17
+    ncurses
+    openjpeg
+    openssl
+  ] ++ lib.optionals imageSupport [ imlib2 ];
 
   configurePhase = ''
     # Hack. Probing (`ldconfig -p`) fails with ‘cannot execute binary file’.

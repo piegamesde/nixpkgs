@@ -41,14 +41,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-/dih2LoqgRrAsVdHRwld28T8pXgqnzapnQhqkXnxbbc=";
   };
 
-  outputs =
-    [
-      "out"
-      "dev"
-      "lib"
-    ]
-    ++ lib.optional withDevdoc "devdoc"
-  ;
+  outputs = [
+    "out"
+    "dev"
+    "lib"
+  ] ++ lib.optional withDevdoc "devdoc";
 
   strictDeps = true;
   nativeBuildInputs =
@@ -80,19 +77,18 @@ stdenv.mkDerivation rec {
     ./autogen.sh
   '';
 
-  configureFlags =
-    [
-      "--sysconfdir=/etc"
-      "--with-xz"
-      "--with-zstd"
-      "--with-modulesdirs=${modulesDirs}"
-      (lib.enableFeature withDevdoc "gtk-doc")
-    ]
-    ++ lib.optional withStatic "--enable-static"
-  ;
+  configureFlags = [
+    "--sysconfdir=/etc"
+    "--with-xz"
+    "--with-zstd"
+    "--with-modulesdirs=${modulesDirs}"
+    (lib.enableFeature withDevdoc "gtk-doc")
+  ] ++ lib.optional withStatic "--enable-static";
 
   patches =
-    [ ./module-dir.patch ] ++ lib.optional withStatic ./enable-static.patch;
+    [ ./module-dir.patch ]
+    ++ lib.optional withStatic ./enable-static.patch
+  ;
 
   postInstall = ''
     for prog in rmmod insmod lsmod modinfo modprobe depmod; do

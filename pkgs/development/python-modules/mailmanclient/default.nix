@@ -20,7 +20,9 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs =
-    [ requests ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+    [ requests ]
+    ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
+  ;
 
   # Tests require a running Mailman instance
   doCheck = false;

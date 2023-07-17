@@ -38,14 +38,11 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "ndindex" ];
 
-  nativeCheckInputs =
-    [
-      hypothesis
-      pytest-cov # uses cov markers
-      pytestCheckHook
-    ]
-    ++ passthru.optional-dependencies.arrays
-  ;
+  nativeCheckInputs = [
+    hypothesis
+    pytest-cov # uses cov markers
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.arrays;
 
   pytestFlagsArray =
     [

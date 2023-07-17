@@ -43,13 +43,10 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  buildInputs =
-    [
-      qtbase
-      qttools
-    ]
-    ++ lib.optionals stdenv.isLinux [ qtwayland ]
-  ;
+  buildInputs = [
+    qtbase
+    qttools
+  ] ++ lib.optionals stdenv.isLinux [ qtwayland ];
 
   passthru.updateScript = gitUpdater { };
 

@@ -56,8 +56,7 @@ stdenv.mkDerivation rec {
       CoreFoundation
       CoreMIDI
       CoreServices
-    ]
-  ;
+    ];
 
   hardeningDisable = [ "format" ];
 

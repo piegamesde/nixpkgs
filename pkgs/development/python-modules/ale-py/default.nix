@@ -51,14 +51,11 @@ buildPythonPackage rec {
     SDL2
   ];
 
-  propagatedBuildInputs =
-    [
-      typing-extensions
-      importlib-resources
-      numpy
-    ]
-    ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ]
-  ;
+  propagatedBuildInputs = [
+    typing-extensions
+    importlib-resources
+    numpy
+  ] ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
 
   nativeCheckInputs = [
     pytestCheckHook

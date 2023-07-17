@@ -36,13 +36,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "scim2_filter_parser" ];
 
-  nativeCheckInputs =
-    [
-      mock
-      pytestCheckHook
-    ]
-    ++ passthru.optional-dependencies.django-query
-  ;
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.django-query;
 
   meta = with lib; {
     description = "A customizable parser/transpiler for SCIM2.0 filters";

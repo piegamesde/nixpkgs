@@ -92,16 +92,13 @@ stdenv.mkDerivation rec {
     zita-resampler
   ];
 
-  wafConfigureFlags =
-    [
-      "--no-font-cache-update"
-      "--shared-lib"
-      "--no-desktop-update"
-      "--enable-nls"
-      "--install-roboto-font"
-    ]
-    ++ optional optimizationSupport "--optimization"
-  ;
+  wafConfigureFlags = [
+    "--no-font-cache-update"
+    "--shared-lib"
+    "--no-desktop-update"
+    "--enable-nls"
+    "--install-roboto-font"
+  ] ++ optional optimizationSupport "--optimization";
 
   env.NIX_CFLAGS_COMPILE = toString [ "-fpermissive" ];
 

@@ -35,7 +35,9 @@ buildPythonPackage rec {
   '';
 
   propagatedBuildInputs =
-    [ quart ] ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ];
+    [ quart ]
+    ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ]
+  ;
 
   pythonImportsCheck = [ "quart_cors" ];
 

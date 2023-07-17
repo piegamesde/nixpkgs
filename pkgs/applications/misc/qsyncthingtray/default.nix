@@ -25,13 +25,10 @@ mkDerivation rec {
     sha256 = "1n9g4j7qznvg9zl6x163pi9f7wsc3x6q76i33psnm7x2v1i22x5w";
   };
 
-  buildInputs =
-    [
-      qtbase
-      qtwebengine
-    ]
-    ++ lib.optional preferQWebView qtwebkit
-  ;
+  buildInputs = [
+    qtbase
+    qtwebengine
+  ] ++ lib.optional preferQWebView qtwebkit;
 
   nativeBuildInputs = [ cmake ];
 
@@ -49,9 +46,8 @@ mkDerivation rec {
         sha256 = "0w665xdlsbjxs977pdpzaclxpswf7xys1q3rxriz181lhk2y66yy";
       })
     ]
-    ++
-      lib.optional (!preferQWebView && !preferNative)
-        ./qsyncthingtray-0.5.8-qt-5.6.3.patch
+    ++ lib.optional (!preferQWebView && !preferNative)
+      ./qsyncthingtray-0.5.8-qt-5.6.3.patch
   ;
 
   postPatch = ''

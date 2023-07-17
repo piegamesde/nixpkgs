@@ -73,15 +73,12 @@ rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } rec {
   SKIA_GN_COMMAND = "${gn}/bin/gn";
   SKIA_NINJA_COMMAND = "${ninja}/bin/ninja";
 
-  nativeBuildInputs =
-    [
-      makeWrapper
-      pkg-config
-      python3 # skia
-      removeReferencesTo
-    ]
-    ++ lib.optionals stdenv.isDarwin [ xcbuild ]
-  ;
+  nativeBuildInputs = [
+    makeWrapper
+    pkg-config
+    python3 # skia
+    removeReferencesTo
+  ] ++ lib.optionals stdenv.isDarwin [ xcbuild ];
 
   # All tests passes but at the end cargo prints for unknown reason:
   #   error: test failed, to rerun pass '--bin neovide'
@@ -89,14 +86,11 @@ rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } rec {
   # the failure do not occure.
   doCheck = false;
 
-  buildInputs =
-    [
-      SDL2
-      fontconfig
-      rustPlatform.bindgenHook
-    ]
-    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.AppKit ]
-  ;
+  buildInputs = [
+    SDL2
+    fontconfig
+    rustPlatform.bindgenHook
+  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.AppKit ];
 
   postFixup =
     let

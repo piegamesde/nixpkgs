@@ -64,16 +64,13 @@ stdenv.mkDerivation rec {
     export NIX_LDFLAGS="$NIX_LDFLAGS -lmnl -lnftnl"
   '';
 
-  configureFlags =
-    [
-      "--enable-bpf-compiler"
-      "--enable-devel"
-      "--enable-libipq"
-      "--enable-nfsynproxy"
-      "--enable-shared"
-    ]
-    ++ lib.optional (!nftablesCompat) "--disable-nftables"
-  ;
+  configureFlags = [
+    "--enable-bpf-compiler"
+    "--enable-devel"
+    "--enable-libipq"
+    "--enable-nfsynproxy"
+    "--enable-shared"
+  ] ++ lib.optional (!nftablesCompat) "--disable-nftables";
 
   postInstall = lib.optionalString nftablesCompat ''
     rm $out/sbin/{iptables,iptables-restore,iptables-save,ip6tables,ip6tables-restore,ip6tables-save}

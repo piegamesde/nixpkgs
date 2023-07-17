@@ -77,8 +77,7 @@ let
   # Tell OpenModelica where built dependencies are located.
   configureFlags =
     lib.optional ifDeps "--with-openmodelicahome=${joinedDeps}"
-    ++ getAttrDef "configureFlags" [ ] pkg
-  ;
+    ++ getAttrDef "configureFlags" [ ] pkg;
 
   # Our own configurePhase that accounts for omautoconf
   configurePhase = ''
@@ -123,19 +122,17 @@ stdenv.mkDerivation (
     src = fetchgit (import ./src-main.nix);
     version = "1.18.0";
 
-    nativeBuildInputs =
-      getAttrDef "nativeBuildInputs" [ ] pkg
-      ++ [
-        autoconf
-        automake
-        libtool
-        cmake
-        autoreconfHook
-      ]
-    ;
+    nativeBuildInputs = getAttrDef "nativeBuildInputs" [ ] pkg ++ [
+      autoconf
+      automake
+      libtool
+      cmake
+      autoreconfHook
+    ];
 
     buildInputs =
-      getAttrDef "buildInputs" [ ] pkg ++ lib.optional ifDeps joinedDeps;
+      getAttrDef "buildInputs" [ ] pkg
+      ++ lib.optional ifDeps joinedDeps;
 
     dontUseCmakeConfigure = true;
 

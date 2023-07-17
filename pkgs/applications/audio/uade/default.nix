@@ -41,14 +41,11 @@ stdenv.mkDerivation rec {
       --replace 'g++' '${stdenv.cc.targetPrefix}c++'
   '';
 
-  nativeBuildInputs =
-    [
-      pkg-config
-      which
-      makeWrapper
-    ]
-    ++ lib.optionals withWriteAudio [ python3 ]
-  ;
+  nativeBuildInputs = [
+    pkg-config
+    which
+    makeWrapper
+  ] ++ lib.optionals withWriteAudio [ python3 ];
 
   buildInputs =
     [
@@ -71,13 +68,10 @@ stdenv.mkDerivation rec {
     ]
   ;
 
-  configureFlags =
-    [
-      "--bencode-tools-prefix=${bencodetools}"
-      "--with-text-scope"
-    ]
-    ++ lib.optionals (!withWriteAudio) [ "--without-write-audio" ]
-  ;
+  configureFlags = [
+    "--bencode-tools-prefix=${bencodetools}"
+    "--with-text-scope"
+  ] ++ lib.optionals (!withWriteAudio) [ "--without-write-audio" ];
 
   enableParallelBuilding = true;
 

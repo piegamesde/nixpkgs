@@ -125,21 +125,18 @@ buildPythonPackage rec {
     ++ pooch.optional-dependencies.xxhash
   ;
 
-  nativeCheckInputs =
-    [
-      pytestCheckHook
-      filelock
-      hypothesis
-      pytest-benchmark
-      pytest-httpserver
-      pytest-mock
-      pytest-randomly
-      pytest-snapshot
-      pytest-xdist
-      rsync
-    ]
-    ++ lib.concatMap (name: passthru.optional-dependencies.${name}) testBackends
-  ;
+  nativeCheckInputs = [
+    pytestCheckHook
+    filelock
+    hypothesis
+    pytest-benchmark
+    pytest-httpserver
+    pytest-mock
+    pytest-randomly
+    pytest-snapshot
+    pytest-xdist
+    rsync
+  ] ++ lib.concatMap (name: passthru.optional-dependencies.${name}) testBackends;
 
   pytestFlagsArray = [
     "--dist=loadgroup"
@@ -176,7 +173,9 @@ buildPythonPackage rec {
   '';
 
   pythonImportsCheck =
-    [ "ibis" ] ++ map (backend: "ibis.backends.${backend}") testBackends;
+    [ "ibis" ]
+    ++ map (backend: "ibis.backends.${backend}") testBackends
+  ;
 
   passthru = {
     optional-dependencies = {

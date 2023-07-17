@@ -32,19 +32,15 @@ stdenv.mkDerivation rec {
     pkg-config
     intltool
   ];
-  buildInputs =
-    [
-      glib
-      gtk
-      pango
-    ]
-    ++ optional (!extraOnly) menu-cache
-  ;
+  buildInputs = [
+    glib
+    gtk
+    pango
+  ] ++ optional (!extraOnly) menu-cache;
 
   configureFlags =
     [ "--sysconfdir=/etc" ]
-    ++ optional extraOnly "--with-extra-only"
-    ++ optional withGtk3 "--with-gtk=3"
+    ++ optional extraOnly "--with-extra-only" ++ optional withGtk3 "--with-gtk=3"
   ;
 
   installFlags = [ "sysconfdir=${placeholder "out"}/etc" ];

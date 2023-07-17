@@ -62,17 +62,13 @@ buildGo118Module rec {
   buildInputs = [ rtloader ] ++ lib.optionals withSystemd [ systemd ];
   PKG_CONFIG_PATH = "${python}/lib/pkgconfig";
 
-  tags =
-    [
-      "ec2"
-      "python"
-      "process"
-      "log"
-      "secrets"
-    ]
-    ++ lib.optionals withSystemd [ "systemd" ]
-    ++ extraTags
-  ;
+  tags = [
+    "ec2"
+    "python"
+    "process"
+    "log"
+    "secrets"
+  ] ++ lib.optionals withSystemd [ "systemd" ] ++ extraTags;
 
   ldflags = [
     "-X ${goPackagePath}/pkg/version.Commit=${src.rev}"

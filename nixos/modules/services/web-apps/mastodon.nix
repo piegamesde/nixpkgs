@@ -818,13 +818,10 @@ in
               "pipe2"
             ];
           } // cfgService;
-          after =
-            [
-              "network.target"
-              "mastodon-init-dirs.service"
-            ]
-            ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
-          ;
+          after = [
+            "network.target"
+            "mastodon-init-dirs.service"
+          ] ++ lib.optional databaseActuallyCreateLocally "postgresql.service";
           requires =
             [ "mastodon-init-dirs.service" ]
             ++ lib.optional databaseActuallyCreateLocally "postgresql.service"

@@ -32,13 +32,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-olLgD8WA3rIdoNqMCqA7jDHoRAuESMi5gUP6tHfTIwU=";
   };
 
-  outputs =
-    [
-      "out"
-      "dev"
-    ]
-    ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform) "devdoc"
-  ;
+  outputs = [
+    "out"
+    "dev"
+  ] ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform) "devdoc";
 
   nativeBuildInputs = [
     pkg-config

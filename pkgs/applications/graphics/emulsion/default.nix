@@ -67,8 +67,7 @@ rustPlatform.buildRustPackage rec {
       CoreServices
       Foundation
       OpenGL
-    ]
-  ;
+    ];
 
   postFixup = lib.optionalString stdenv.isLinux ''
     patchelf --set-rpath "${lib.makeLibraryPath rpathLibs}" $out/bin/emulsion

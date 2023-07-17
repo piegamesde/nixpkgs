@@ -129,18 +129,15 @@ buildPerlPackage rec {
   ];
 
   doCheck = !stdenv.isDarwin;
-  nativeCheckInputs =
-    [
-      MailIMAPClient
-      curl
-      git
-      openssl
-      pkg-config
-      sqlite
-      xapian
-    ]
-    ++ lib.optionals stdenv.isLinux [ LinuxInotify2 ]
-  ;
+  nativeCheckInputs = [
+    MailIMAPClient
+    curl
+    git
+    openssl
+    pkg-config
+    sqlite
+    xapian
+  ] ++ lib.optionals stdenv.isLinux [ LinuxInotify2 ];
   preCheck = ''
     perl certs/create-certs.perl
     export TEST_LEI_ERR_LOUD=1

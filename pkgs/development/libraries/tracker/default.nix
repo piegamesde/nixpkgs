@@ -70,21 +70,18 @@ stdenv.mkDerivation rec {
     ]
   ;
 
-  buildInputs =
-    [
-      glib
-      libxml2
-      sqlite
-      icu
-      libsoup
-      libsoup_3
-      libuuid
-      json-glib
-      libstemmer
-      dbus
-    ]
-    ++ lib.optionals stdenv.isLinux [ systemd ]
-  ;
+  buildInputs = [
+    glib
+    libxml2
+    sqlite
+    icu
+    libsoup
+    libsoup_3
+    libuuid
+    json-glib
+    libstemmer
+    dbus
+  ] ++ lib.optionals stdenv.isLinux [ systemd ];
 
   nativeCheckInputs = [ dbus ];
 

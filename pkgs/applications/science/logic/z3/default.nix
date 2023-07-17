@@ -49,7 +49,9 @@ let
         ]
       ;
       propagatedBuildInputs =
-        [ python.pkgs.setuptools ] ++ optionals ocamlBindings [ zarith ];
+        [ python.pkgs.setuptools ]
+        ++ optionals ocamlBindings [ zarith ]
+      ;
       enableParallelBuilding = true;
 
       postPatch = optionalString ocamlBindings ''
@@ -92,16 +94,12 @@ let
         ''
       ;
 
-      outputs =
-        [
-          "out"
-          "lib"
-          "dev"
-          "python"
-        ]
-        ++ optional javaBindings "java"
-        ++ optional ocamlBindings "ocaml"
-      ;
+      outputs = [
+        "out"
+        "lib"
+        "dev"
+        "python"
+      ] ++ optional javaBindings "java" ++ optional ocamlBindings "ocaml";
 
       meta = with lib; {
         description = "A high-performance theorem prover and SMT solver";

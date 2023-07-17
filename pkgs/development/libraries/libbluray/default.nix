@@ -32,13 +32,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-R4/9aKD13ejvbKmJt/A1taCiLFmRQuXNP/ewO76+Xys=";
   };
 
-  nativeBuildInputs =
-    [
-      pkg-config
-      autoreconfHook
-    ]
-    ++ lib.optionals withJava [ ant ]
-  ;
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+  ] ++ lib.optionals withJava [ ant ];
 
   buildInputs =
     [ fontconfig ]

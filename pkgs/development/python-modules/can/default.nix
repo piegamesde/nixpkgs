@@ -51,16 +51,13 @@ buildPythonPackage rec {
     pcan = [ uptime ];
   };
 
-  nativeCheckInputs =
-    [
-      future
-      hypothesis
-      parameterized
-      pytest-timeout
-      pytestCheckHook
-    ]
-    ++ passthru.optional-dependencies.serial
-  ;
+  nativeCheckInputs = [
+    future
+    hypothesis
+    parameterized
+    pytest-timeout
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.serial;
 
   disabledTestPaths =
     [

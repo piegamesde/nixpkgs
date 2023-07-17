@@ -19,8 +19,9 @@ let
   boehmgc-nix = boehmgc-nix_2_3.overrideAttrs (
     drv: {
       # Part of the GC solution in https://github.com/NixOS/nix/pull/4944
-      patches =
-        (drv.patches or [ ]) ++ [ ./patches/boehmgc-coroutine-sp-fallback.patch ];
+      patches = (drv.patches or [ ]) ++ [
+        ./patches/boehmgc-coroutine-sp-fallback.patch
+      ];
     }
   );
 
@@ -79,10 +80,9 @@ let
             ''
           ;
 
-          patches =
-            (args.patches or [ ])
-            ++ [ ./patches/aws-sdk-cpp-TransferManager-ContentEncoding.patch ]
-          ;
+          patches = (args.patches or [ ]) ++ [
+            ./patches/aws-sdk-cpp-TransferManager-ContentEncoding.patch
+          ];
 
           # only a stripped down version is build which takes a lot less resources to build
           requiredSystemFeatures = [ ];

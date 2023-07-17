@@ -39,15 +39,12 @@ stdenv.mkDerivation rec {
     findlib
   ];
 
-  buildInputs =
-    [
-      fix
-      menhirSdk
-      ppxlib
-      utop
-    ]
-    ++ lib.optional (lib.versionOlder ocaml.version "4.07") ncurses
-  ;
+  buildInputs = [
+    fix
+    menhirSdk
+    ppxlib
+    utop
+  ] ++ lib.optional (lib.versionOlder ocaml.version "4.07") ncurses;
 
   propagatedBuildInputs = [
     menhirLib

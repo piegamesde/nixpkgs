@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
 
   cmakeFlags =
-    [ "-DOpenGL_GL_PREFERENCE=GLVND" ] ++ lib.optional (!withGui) "-DENABLE_GUI=OFF"
+    [ "-DOpenGL_GL_PREFERENCE=GLVND" ]
+    ++ lib.optional (!withGui) "-DENABLE_GUI=OFF"
   ;
 
   buildInputs =

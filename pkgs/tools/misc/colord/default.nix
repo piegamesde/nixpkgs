@@ -91,21 +91,18 @@ stdenv.mkDerivation rec {
     ]
   ;
 
-  buildInputs =
-    [
-      argyllcms
-      bash-completion
-      dbus
-      glib
-      gusb
-      lcms2
-      libgudev
-      sane-backends
-      sqlite
-      systemd
-    ]
-    ++ lib.optionals enableDaemon [ polkit ]
-  ;
+  buildInputs = [
+    argyllcms
+    bash-completion
+    dbus
+    glib
+    gusb
+    lcms2
+    libgudev
+    sane-backends
+    sqlite
+    systemd
+  ] ++ lib.optionals enableDaemon [ polkit ];
 
   postInstall = ''
     glib-compile-schemas $out/share/glib-2.0/schemas

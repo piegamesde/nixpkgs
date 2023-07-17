@@ -37,21 +37,18 @@ let
 
       nativeBuildInputs = extraNativeInputs;
 
-      buildInputs =
-        [
-          ocamlPackages.core
-          ocamlPackages.core_kernel
-          ocamlPackages.ocaml_pcre
-          ocamlPackages.mparser
-          ocamlPackages.mparser-pcre
-          ocamlPackages.angstrom
-          ocamlPackages.ppx_deriving
-          ocamlPackages.ppx_deriving_yojson
-          ocamlPackages.ppx_sexp_conv
-          ocamlPackages.ppx_sexp_message
-        ]
-        ++ extraBuildInputs
-      ;
+      buildInputs = [
+        ocamlPackages.core
+        ocamlPackages.core_kernel
+        ocamlPackages.ocaml_pcre
+        ocamlPackages.mparser
+        ocamlPackages.mparser-pcre
+        ocamlPackages.angstrom
+        ocamlPackages.ppx_deriving
+        ocamlPackages.ppx_deriving_yojson
+        ocamlPackages.ppx_sexp_conv
+        ocamlPackages.ppx_sexp_message
+      ] ++ extraBuildInputs;
 
       nativeCheckInputs = [ cacert ];
 

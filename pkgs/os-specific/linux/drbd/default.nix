@@ -50,13 +50,10 @@ stdenv.mkDerivation rec {
     "--without-distro"
   ];
 
-  makeFlags =
-    [
-      "SOURCE_DATE_EPOCH=1"
-      "WANT_DRBD_REPRODUCIBLE_BUILD=1"
-    ]
-    ++ lib.optional (!forOCF) "OCF_ROOT=${ocf-resource-agents}/usr/lib/ocf}"
-  ;
+  makeFlags = [
+    "SOURCE_DATE_EPOCH=1"
+    "WANT_DRBD_REPRODUCIBLE_BUILD=1"
+  ] ++ lib.optional (!forOCF) "OCF_ROOT=${ocf-resource-agents}/usr/lib/ocf}";
 
   installFlags = [
     "prefix="

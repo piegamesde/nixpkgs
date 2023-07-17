@@ -396,8 +396,7 @@ stdenv.mkDerivation {
 
   propagatedBuildInputs =
     lib.optional enablePython pythonPackages.numpy
-    ++ lib.optionals enableCuda [ nvidia-optical-flow-sdk ]
-  ;
+    ++ lib.optionals enableCuda [ nvidia-optical-flow-sdk ];
 
   nativeBuildInputs =
     [

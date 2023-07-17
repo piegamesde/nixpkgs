@@ -46,26 +46,20 @@ let
         pname = overrides.type;
         version = source.version;
 
-        nativeBuildInputs =
-          [
-            cmake
-            pkg-config
-            python3
-            qt5.wrapQtAppsHook
-            qt5.qttools
-          ]
-          ++ (overrides.nativeBuildInputs or [ ])
-        ;
+        nativeBuildInputs = [
+          cmake
+          pkg-config
+          python3
+          qt5.wrapQtAppsHook
+          qt5.qttools
+        ] ++ (overrides.nativeBuildInputs or [ ]);
 
-        buildInputs =
-          [
-            avahi
-            boost
-            poco
-            protobuf
-          ]
-          ++ (overrides.buildInputs or [ ])
-        ;
+        buildInputs = [
+          avahi
+          boost
+          poco
+          protobuf
+        ] ++ (overrides.buildInputs or [ ]);
 
         cmakeFlags = [ "-D g15=OFF" ] ++ (overrides.configureFlags or [ ]);
 

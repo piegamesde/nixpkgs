@@ -80,9 +80,8 @@ in
 
     environment.systemPackages =
       lib.optional config.users.mutableUsers pkgs.shadow
-      ++
-        lib.optional (types.shellPackage.check config.users.defaultUserShell)
-          config.users.defaultUserShell
+      ++ lib.optional (types.shellPackage.check config.users.defaultUserShell)
+        config.users.defaultUserShell
     ;
 
     environment.etc = {

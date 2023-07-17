@@ -25,28 +25,22 @@ buildPythonPackage rec {
     hash = "sha256-5v2hMJeeLo11mrcNZCe1lISBlIyW9f1KQjcLqWoRlZs=";
   };
 
-  propagatedBuildInputs =
-    [
-      google-api-core
-      proto-plus
-      protobuf
-    ]
-    ++ google-api-core.optional-dependencies.grpc
-  ;
+  propagatedBuildInputs = [
+    google-api-core
+    proto-plus
+    protobuf
+  ] ++ google-api-core.optional-dependencies.grpc;
 
   passthru.optional-dependencies = {
     pandas = [ pandas ];
   };
 
-  nativeCheckInputs =
-    [
-      google-cloud-testutils
-      mock
-      pytestCheckHook
-      pytest-asyncio
-    ]
-    ++ passthru.optional-dependencies.pandas
-  ;
+  nativeCheckInputs = [
+    google-cloud-testutils
+    mock
+    pytestCheckHook
+    pytest-asyncio
+  ] ++ passthru.optional-dependencies.pandas;
 
   disabledTests =
     [

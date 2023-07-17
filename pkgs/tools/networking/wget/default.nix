@@ -71,12 +71,11 @@ stdenv.mkDerivation rec {
 
   configureFlags =
     [ (lib.withFeatureAs withOpenssl "ssl" "openssl") ]
-    ++
-      lib.optionals stdenv.isDarwin
-        [
-          # https://lists.gnu.org/archive/html/bug-wget/2021-01/msg00076.html
-          "--without-included-regex"
-        ]
+    ++ lib.optionals stdenv.isDarwin
+      [
+        # https://lists.gnu.org/archive/html/bug-wget/2021-01/msg00076.html
+        "--without-included-regex"
+      ]
   ;
 
   doCheck = false;

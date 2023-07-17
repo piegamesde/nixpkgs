@@ -62,7 +62,9 @@ stdenv.mkDerivation rec {
   ;
 
   configureFlags =
-    [ "--localstatedir=/var" ] ++ lib.optionals stdenv.isLinux [ "--with-cuse" ];
+    [ "--localstatedir=/var" ]
+    ++ lib.optionals stdenv.isLinux [ "--with-cuse" ]
+  ;
 
   postPatch = ''
     patchShebangs tests/*

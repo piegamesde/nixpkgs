@@ -37,17 +37,14 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs =
-    [
-      attrs
-      iniconfig
-      packaging
-      pluggy
-      py
-      tomli
-    ]
-    ++ lib.optionals (pythonOlder "3.11") [ exceptiongroup ]
-  ;
+  propagatedBuildInputs = [
+    attrs
+    iniconfig
+    packaging
+    pluggy
+    py
+    tomli
+  ] ++ lib.optionals (pythonOlder "3.11") [ exceptiongroup ];
 
   postInstall = ''
     mkdir $testout

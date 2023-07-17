@@ -29,7 +29,9 @@ buildPythonPackage rec {
   HY_VERSION = version;
 
   propagatedBuildInputs =
-    [ funcparserlib ] ++ lib.optionals (pythonOlder "3.9") [ astor ];
+    [ funcparserlib ]
+    ++ lib.optionals (pythonOlder "3.9") [ astor ]
+  ;
 
   nativeCheckInputs = [ pytestCheckHook ];
 

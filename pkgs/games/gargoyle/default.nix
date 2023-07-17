@@ -50,13 +50,10 @@ stdenv.mkDerivation rec {
     sha256 = "0w54avmbp4i4zps2rb4acmpa641s6wvwbrln4vbdhcz97fx48nzz";
   };
 
-  nativeBuildInputs =
-    [
-      jam
-      pkg-config
-    ]
-    ++ lib.optional stdenv.isDarwin cctools
-  ;
+  nativeBuildInputs = [
+    jam
+    pkg-config
+  ] ++ lib.optional stdenv.isDarwin cctools;
 
   buildInputs =
     [

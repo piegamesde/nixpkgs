@@ -18,14 +18,11 @@ stdenv.mkDerivation rec {
     cmake
     pkg-config
   ];
-  buildInputs =
-    [
-      openssl
-      boost
-      gmp
-    ]
-    ++ lib.optional stdenv.hostPlatform.isLinux procps
-  ;
+  buildInputs = [
+    openssl
+    boost
+    gmp
+  ] ++ lib.optional stdenv.hostPlatform.isLinux procps;
 
   cmakeFlags =
     lib.optionals stdenv.hostPlatform.isDarwin [ "-DWITH_PROCPS=OFF" ]

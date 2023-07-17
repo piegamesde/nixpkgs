@@ -40,15 +40,12 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  buildInputs =
-    [
-      qtbase
-      gsettings-qt
-      lshw
-      libuchardet
-    ]
-    ++ lib.optional withSystemd systemd
-  ;
+  buildInputs = [
+    qtbase
+    gsettings-qt
+    lshw
+    libuchardet
+  ] ++ lib.optional withSystemd systemd;
 
   propagatedBuildInputs = [ dtkcommon ];
 

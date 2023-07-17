@@ -84,8 +84,7 @@ stdenv.mkDerivation rec {
 
   configureFlags =
     lib.optional stdenv.hostPlatform.sse4_1Support "--enable-sse41"
-    ++ lib.optional stdenv.hostPlatform.avx2Support "--enable-avx2"
-  ;
+    ++ lib.optional stdenv.hostPlatform.avx2Support "--enable-avx2";
 
   installPhase = lib.optionalString (!withGtk) ''
     runHook preInstall

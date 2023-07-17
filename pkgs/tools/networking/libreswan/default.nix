@@ -70,28 +70,25 @@ stdenv.mkDerivation rec {
     findXMLCatalogs
   ];
 
-  buildInputs =
-    [
-      systemd
-      coreutils
-      gnused
-      gawk
-      gmp
-      unbound
-      pam
-      libevent
-      libcap_ng
-      libxcrypt
-      curl
-      nspr
-      nss
-      ldns
-      # needed to patch shebangs
-      python3
-      bash
-    ]
-    ++ lib.optional stdenv.isLinux libselinux
-  ;
+  buildInputs = [
+    systemd
+    coreutils
+    gnused
+    gawk
+    gmp
+    unbound
+    pam
+    libevent
+    libcap_ng
+    libxcrypt
+    curl
+    nspr
+    nss
+    ldns
+    # needed to patch shebangs
+    python3
+    bash
+  ] ++ lib.optional stdenv.isLinux libselinux;
 
   prePatch = ''
     # Correct iproute2 and iptables path

@@ -45,22 +45,19 @@ stdenv.mkDerivation rec {
   # The dependencies and their justification are explained at
   # http://smalltalk.gnu.org/download
   nativeBuildInputs = [ pkg-config ];
-  buildInputs =
-    [
-      libtool
-      zip
-      libffi
-      libsigsegv-shared
-      readline
-      gmp
-      gnutls
-      gtk2
-      cairo
-      SDL
-      sqlite
-    ]
-    ++ lib.optional emacsSupport emacs
-  ;
+  buildInputs = [
+    libtool
+    zip
+    libffi
+    libsigsegv-shared
+    readline
+    gmp
+    gnutls
+    gtk2
+    cairo
+    SDL
+    sqlite
+  ] ++ lib.optional emacsSupport emacs;
 
   configureFlags = lib.optional (!emacsSupport) "--without-emacs";
 

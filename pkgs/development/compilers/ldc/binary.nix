@@ -37,8 +37,7 @@ stdenv.mkDerivation {
 
   nativeBuildInputs =
     lib.optionals hostPlatform.isLinux [ autoPatchelfHook ]
-    ++ lib.optional hostPlatform.isDarwin fixDarwinDylibNames
-  ;
+    ++ lib.optional hostPlatform.isDarwin fixDarwinDylibNames;
 
   buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
     libxml2

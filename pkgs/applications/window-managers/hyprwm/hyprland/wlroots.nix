@@ -93,14 +93,11 @@ assert (lib.assertMsg (hidpiXWayland -> enableXWayland) ''
       )
     ;
 
-    buildInputs =
-      old.buildInputs
-      ++ [
-        hwdata
-        libdisplay-info-new
-        libliftoff-new
-      ]
-    ;
+    buildInputs = old.buildInputs ++ [
+      hwdata
+      libdisplay-info-new
+      libliftoff-new
+    ];
   }
 )).override
   {

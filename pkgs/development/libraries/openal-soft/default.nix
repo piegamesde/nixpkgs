@@ -66,12 +66,11 @@ stdenv.mkDerivation rec {
       # removes the need for NIX_LDFLAGS.
       "-DALSOFT_DLOPEN=OFF"
     ]
-    ++
-      lib.optionals stdenv.hostPlatform.isLinux
-        [
-          # https://github.com/NixOS/nixpkgs/issues/183774
-          "-DOSS_INCLUDE_DIR=${stdenv.cc.libc}/include"
-        ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux
+      [
+        # https://github.com/NixOS/nixpkgs/issues/183774
+        "-DOSS_INCLUDE_DIR=${stdenv.cc.libc}/include"
+      ]
   ;
 
   postInstall = lib.optional pipewireSupport ''

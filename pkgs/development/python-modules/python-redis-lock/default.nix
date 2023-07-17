@@ -45,8 +45,7 @@ buildPythonPackage rec {
       # fail on Darwin because it defaults to multiprocessing `spawn`
       "test_reset_signalizes"
       "test_reset_all_signalizes"
-    ]
-  ;
+    ];
 
   pythonImportsCheck = [ "redis_lock" ];
 

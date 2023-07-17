@@ -234,7 +234,9 @@ in
         Group = "matrix-appservice-irc";
 
         CapabilityBoundingSet =
-          [ "CAP_CHOWN" ] ++ optional (cfg.needBindingCap) "CAP_NET_BIND_SERVICE";
+          [ "CAP_CHOWN" ]
+          ++ optional (cfg.needBindingCap) "CAP_NET_BIND_SERVICE"
+        ;
         AmbientCapabilities = CapabilityBoundingSet;
         NoNewPrivileges = true;
 

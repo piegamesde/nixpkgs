@@ -30,14 +30,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs =
-    [
-      jinja2
-      pygments
-      markupsafe
-    ]
-    ++ lib.optional (pythonOlder "3.9") astunparse
-  ;
+  propagatedBuildInputs = [
+    jinja2
+    pygments
+    markupsafe
+  ] ++ lib.optional (pythonOlder "3.9") astunparse;
 
   nativeCheckInputs = [
     pytestCheckHook

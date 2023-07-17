@@ -89,7 +89,9 @@ buildPythonPackage {
   ;
 
   nativeBuildInputs =
-    [ setuptools ] ++ lib.optionals torch.cudaSupport [ cuda-native-redist ];
+    [ setuptools ]
+    ++ lib.optionals torch.cudaSupport [ cuda-native-redist ]
+  ;
   buildInputs = lib.optionals torch.cudaSupport [ cuda-redist ];
 
   propagatedBuildInputs = [ torch ];

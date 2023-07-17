@@ -45,21 +45,17 @@ stdenv.mkDerivation {
     patchShebangs utils/cat_files.py
   '';
 
-  nativeBuildInputs =
-    [
-      cmake
-      python3
-    ]
-    ++ lib.optional stdenv.isDarwin fixDarwinDylibNames
-  ;
+  nativeBuildInputs = [
+    cmake
+    python3
+  ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
 
   buildInputs = [ cxxabi ];
 
   cmakeFlags =
     [ "-DLIBCXX_CXX_ABI=${cxxabi.pname}" ]
-    ++
-      lib.optional (stdenv.hostPlatform.isMusl || stdenv.hostPlatform.isWasi)
-        "-DLIBCXX_HAS_MUSL_LIBC=1"
+    ++ lib.optional (stdenv.hostPlatform.isMusl || stdenv.hostPlatform.isWasi)
+      "-DLIBCXX_HAS_MUSL_LIBC=1"
     ++
       lib.optional (stdenv.hostPlatform.useLLVM or false)
         "-DLIBCXX_USE_COMPILER_RT=ON"

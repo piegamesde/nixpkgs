@@ -33,13 +33,10 @@ buildPythonPackage rec {
     pkgs.pkg-config
     pkgs.swig
   ];
-  buildInputs =
-    [
-      setuptools
-      pkgs.libcdio
-    ]
-    ++ lib.optional stdenv.isDarwin pkgs.libiconv
-  ;
+  buildInputs = [
+    setuptools
+    pkgs.libcdio
+  ] ++ lib.optional stdenv.isDarwin pkgs.libiconv;
 
   # Run tests using nosetests but first need to install the binaries
   # to the root source directory where they can be found.

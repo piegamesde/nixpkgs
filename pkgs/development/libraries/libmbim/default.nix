@@ -21,13 +21,10 @@ stdenv.mkDerivation rec {
   pname = "libmbim";
   version = "1.28.4";
 
-  outputs =
-    [
-      "out"
-      "dev"
-    ]
-    ++ lib.optionals withDocs [ "man" ]
-  ;
+  outputs = [
+    "out"
+    "dev"
+  ] ++ lib.optionals withDocs [ "man" ];
 
   src = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";

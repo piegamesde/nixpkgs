@@ -38,7 +38,9 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs =
-    [ pkg-config ] ++ lib.optional stdenv.isDarwin desktopToDarwinBundle;
+    [ pkg-config ]
+    ++ lib.optional stdenv.isDarwin desktopToDarwinBundle
+  ;
 
   buildInputs =
     [

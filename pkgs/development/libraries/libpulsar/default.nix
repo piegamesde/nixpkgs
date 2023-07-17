@@ -74,24 +74,17 @@ stdenv.mkDerivation rec {
   sourceRoot = "apache-pulsar-${version}-src/pulsar-client-cpp";
 
   # clang-tools needed for clang-format
-  nativeBuildInputs =
-    [
-      cmake
-      pkg-config
-      clangTools
-    ]
-    ++ defaultOptionals
-    ++ lib.optional gtestSupport gtest.dev
-  ;
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    clangTools
+  ] ++ defaultOptionals ++ lib.optional gtestSupport gtest.dev;
 
-  buildInputs =
-    [
-      jsoncpp
-      openssl
-      curl
-    ]
-    ++ defaultOptionals
-  ;
+  buildInputs = [
+    jsoncpp
+    openssl
+    curl
+  ] ++ defaultOptionals;
 
   # Needed for GCC on Linux
   env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=return-type" ];

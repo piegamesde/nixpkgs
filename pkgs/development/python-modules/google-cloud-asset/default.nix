@@ -29,19 +29,16 @@ buildPythonPackage rec {
     hash = "sha256-oOGs6qAFq9Y17ktJeiQvd/UgUgV3nEt2m/dpZyRb0fs=";
   };
 
-  propagatedBuildInputs =
-    [
-      grpc-google-iam-v1
-      google-api-core
-      google-cloud-access-context-manager
-      google-cloud-org-policy
-      google-cloud-os-config
-      libcst
-      proto-plus
-      protobuf
-    ]
-    ++ google-api-core.optional-dependencies.grpc
-  ;
+  propagatedBuildInputs = [
+    grpc-google-iam-v1
+    google-api-core
+    google-cloud-access-context-manager
+    google-cloud-org-policy
+    google-cloud-os-config
+    libcst
+    proto-plus
+    protobuf
+  ] ++ google-api-core.optional-dependencies.grpc;
 
   passthru.optional-dependencies = {
     libcst = [ libcst ];

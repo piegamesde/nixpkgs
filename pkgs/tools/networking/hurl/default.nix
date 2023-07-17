@@ -26,13 +26,10 @@ rustPlatform.buildRustPackage rec {
     installShellFiles
   ];
 
-  buildInputs =
-    [
-      libxml2
-      openssl
-    ]
-    ++ lib.optionals stdenv.isDarwin [ curl ]
-  ;
+  buildInputs = [
+    libxml2
+    openssl
+  ] ++ lib.optionals stdenv.isDarwin [ curl ];
 
   # Tests require network access to a test server
   doCheck = false;

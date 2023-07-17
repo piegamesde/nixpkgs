@@ -37,13 +37,10 @@ buildPythonPackage rec {
       --replace "\"--cov-fail-under=100\"," ""
   '';
 
-  propagatedBuildInputs =
-    [
-      z3
-      astroid
-    ]
-    ++ z3.requiredPythonModules
-  ;
+  propagatedBuildInputs = [
+    z3
+    astroid
+  ] ++ z3.requiredPythonModules;
 
   nativeCheckInputs = [
     pytestCheckHook

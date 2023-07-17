@@ -42,22 +42,19 @@ stdenv.mkDerivation (
     };
 
     # https://sources.debian.org/patches/calibre/${finalAttrs.version}+dfsg-1
-    patches =
-      [
-        #  allow for plugin update check, but no calibre version check
-        (fetchpatch {
-          name = "0001-only-plugin-update.patch";
-          url = "https://raw.githubusercontent.com/debian-calibre/calibre/debian/${finalAttrs.version}-1/debian/patches/0001-only-plugin-update.patch";
-          hash = "sha256-uL1mSjgCl5ZRLbSuKxJM6XTfvVwog70F7vgKtQzQNEQ=";
-        })
-        (fetchpatch {
-          name = "0007-Hardening-Qt-code.patch";
-          url = "https://raw.githubusercontent.com/debian-calibre/calibre/debian/${finalAttrs.version}-1/debian/patches/0007-Hardening-Qt-code.patch";
-          hash = "sha256-9P1kGrQbWAWDzu5EUiQr7TiCPHRWUA8hxPpEvFpK20k=";
-        })
-      ]
-      ++ lib.optional (!unrarSupport) ./dont_build_unrar_plugin.patch
-    ;
+    patches = [
+      #  allow for plugin update check, but no calibre version check
+      (fetchpatch {
+        name = "0001-only-plugin-update.patch";
+        url = "https://raw.githubusercontent.com/debian-calibre/calibre/debian/${finalAttrs.version}-1/debian/patches/0001-only-plugin-update.patch";
+        hash = "sha256-uL1mSjgCl5ZRLbSuKxJM6XTfvVwog70F7vgKtQzQNEQ=";
+      })
+      (fetchpatch {
+        name = "0007-Hardening-Qt-code.patch";
+        url = "https://raw.githubusercontent.com/debian-calibre/calibre/debian/${finalAttrs.version}-1/debian/patches/0007-Hardening-Qt-code.patch";
+        hash = "sha256-9P1kGrQbWAWDzu5EUiQr7TiCPHRWUA8hxPpEvFpK20k=";
+      })
+    ] ++ lib.optional (!unrarSupport) ./dont_build_unrar_plugin.patch;
 
     prePatch = ''
       sed -i "s@\[tool.sip.project\]@[tool.sip.project]\nsip-include-dirs = [\"${python3Packages.pyqt6}/${python3Packages.python.sitePackages}/PyQt6/bindings\"]@g" \

@@ -17,11 +17,8 @@
 
 {
   nativeBuildInputs = [ pkg-config ] ++ nativeBuildInputs;
-  buildInputs =
-    [
-      libsecret
-      jsoncpp
-    ]
-    ++ buildInputs
-  ;
+  buildInputs = [
+    libsecret
+    jsoncpp
+  ] ++ buildInputs;
 }

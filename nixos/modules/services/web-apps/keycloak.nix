@@ -754,8 +754,7 @@ in
               ++ optionals (cfg.sslCertificate != null && cfg.sslCertificateKey != null) [
                 "ssl_cert:${cfg.sslCertificate}"
                 "ssl_key:${cfg.sslCertificateKey}"
-              ]
-            ;
+              ];
             User = "keycloak";
             Group = "keycloak";
             DynamicUser = true;

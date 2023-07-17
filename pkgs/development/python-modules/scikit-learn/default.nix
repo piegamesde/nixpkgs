@@ -28,13 +28,10 @@ buildPythonPackage rec {
     hash = "sha256-+/ilyJPJtLmbzH7Y+z6FAJV6ET9BAYYDhtBmNVIPfPs=";
   };
 
-  buildInputs =
-    [
-      pillow
-      glibcLocales
-    ]
-    ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ]
-  ;
+  buildInputs = [
+    pillow
+    glibcLocales
+  ] ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ];
 
   nativeBuildInputs = [
     cython
@@ -62,18 +59,15 @@ buildPythonPackage rec {
 
   doCheck = !stdenv.isAarch64;
 
-  disabledTests =
-    [
-      # Skip test_feature_importance_regression - does web fetch
-      "test_feature_importance_regression"
+  disabledTests = [
+    # Skip test_feature_importance_regression - does web fetch
+    "test_feature_importance_regression"
 
-      # failing on macos
-      "check_regressors_train"
-      "check_classifiers_train"
-      "xfail_ignored_in_check_estimator"
-    ]
-    ++ lib.optionals (stdenv.isDarwin) [ "test_graphical_lasso" ]
-  ;
+    # failing on macos
+    "check_regressors_train"
+    "check_classifiers_train"
+    "xfail_ignored_in_check_estimator"
+  ] ++ lib.optionals (stdenv.isDarwin) [ "test_graphical_lasso" ];
 
   pytestFlagsArray = [
     # verbose build outputs needed to debug hard-to-reproduce hydra failures

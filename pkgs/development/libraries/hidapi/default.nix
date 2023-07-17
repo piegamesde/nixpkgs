@@ -56,8 +56,7 @@ stdenv.mkDerivation (
         ++ lib.optionals stdenv.isLinux [
           "hidapi-hidraw"
           "hidapi-libusb"
-        ]
-      ;
+        ];
       platforms = platforms.unix;
     };
   }

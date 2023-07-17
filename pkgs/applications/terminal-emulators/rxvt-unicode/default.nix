@@ -67,20 +67,16 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs =
-    [
-      libX11
-      libXt
-      libXft
-      ncurses # required to build the terminfo file
-      fontconfig
-      freetype
-      libXrender
-      libptytty
-    ]
-    ++ optional perlSupport perl
-    ++ optional gdkPixbufSupport gdk-pixbuf
-  ;
+  buildInputs = [
+    libX11
+    libXt
+    libXft
+    ncurses # required to build the terminfo file
+    fontconfig
+    freetype
+    libXrender
+    libptytty
+  ] ++ optional perlSupport perl ++ optional gdkPixbufSupport gdk-pixbuf;
 
   outputs = [
     "out"
@@ -113,15 +109,12 @@ stdenv.mkDerivation {
     ++ optional stdenv.isDarwin ./patches/makefile-phony.patch
   ;
 
-  configureFlags =
-    [
-      "--with-terminfo=${placeholder "terminfo"}/share/terminfo"
-      "--enable-256-color"
-      (enableFeature perlSupport "perl")
-      (enableFeature unicode3Support "unicode3")
-    ]
-    ++ optional emojiSupport "--enable-wide-glyphs"
-  ;
+  configureFlags = [
+    "--with-terminfo=${placeholder "terminfo"}/share/terminfo"
+    "--enable-256-color"
+    (enableFeature perlSupport "perl")
+    (enableFeature unicode3Support "unicode3")
+  ] ++ optional emojiSupport "--enable-wide-glyphs";
 
   LDFLAGS = [
     "-lfontconfig"

@@ -41,18 +41,15 @@ stdenv.mkDerivation {
     makeWrapper
   ];
 
-  buildInputs =
-    [
-      zlib
-      perl
-      libpng
-      libjpeg
-      libxml2
-      libtiff
-      jbigkit
-    ]
-    ++ lib.optional enableX11 libX11
-  ;
+  buildInputs = [
+    zlib
+    perl
+    libpng
+    libjpeg
+    libxml2
+    libtiff
+    jbigkit
+  ] ++ lib.optional enableX11 libX11;
 
   strictDeps = true;
 

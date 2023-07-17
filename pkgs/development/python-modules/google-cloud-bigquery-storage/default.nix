@@ -25,13 +25,10 @@ buildPythonPackage rec {
     hash = "sha256-DZtfQqcD8yELSzrUWhgTkZH5NHQP3zYpsbIv2VrfC7o=";
   };
 
-  propagatedBuildInputs =
-    [
-      google-api-core
-      protobuf
-    ]
-    ++ google-api-core.optional-dependencies.grpc
-  ;
+  propagatedBuildInputs = [
+    google-api-core
+    protobuf
+  ] ++ google-api-core.optional-dependencies.grpc;
 
   passthru.optional-dependencies = {
     fastavro = [ fastavro ];

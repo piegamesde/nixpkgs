@@ -38,19 +38,16 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs =
-    [
-      boost
-      glog
-      leveldb
-      marisa
-      opencc
-      yaml-cpp
-      gtest
-      capnproto
-    ]
-    ++ plugins
-  ; # for propagated build inputs
+  buildInputs = [
+    boost
+    glog
+    leveldb
+    marisa
+    opencc
+    yaml-cpp
+    gtest
+    capnproto
+  ] ++ plugins; # for propagated build inputs
 
   preConfigure = copyPlugins;
 

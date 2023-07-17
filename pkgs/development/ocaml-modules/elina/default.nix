@@ -38,15 +38,12 @@ stdenv.mkDerivation rec {
   strictDeps = true;
 
   prefixKey = "--prefix ";
-  configureFlags =
-    [
-      "--use-apron"
-      "--use-opam"
-      "--apron-prefix"
-      apron
-    ]
-    ++ lib.optional stdenv.isDarwin "--absolute-dylibs"
-  ;
+  configureFlags = [
+    "--use-apron"
+    "--use-opam"
+    "--apron-prefix"
+    apron
+  ] ++ lib.optional stdenv.isDarwin "--absolute-dylibs";
 
   createFindlibDestdir = true;
 

@@ -48,22 +48,19 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  buildInputs =
-    [
-      qtbase
-      qtcharts
-      qtpositioning
-      qtmultimedia
-      qtserialport
-      qttranslations
-      qtwebengine
-      calcmysky
-      qxlsx
-      indilib
-      libnova
-    ]
-    ++ lib.optionals stdenv.isLinux [ qtwayland ]
-  ;
+  buildInputs = [
+    qtbase
+    qtcharts
+    qtpositioning
+    qtmultimedia
+    qtserialport
+    qttranslations
+    qtwebengine
+    calcmysky
+    qxlsx
+    indilib
+    libnova
+  ] ++ lib.optionals stdenv.isLinux [ qtwayland ];
 
   preConfigure = lib.optionalString stdenv.isDarwin ''
     export LC_ALL=en_US.UTF-8

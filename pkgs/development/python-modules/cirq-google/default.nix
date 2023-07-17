@@ -19,14 +19,11 @@ buildPythonPackage rec {
       --replace "protobuf >= 3.15.0, < 4" "protobuf >= 3.15.0"
   '';
 
-  propagatedBuildInputs =
-    [
-      cirq-core
-      google-api-core
-      protobuf
-    ]
-    ++ google-api-core.optional-dependencies.grpc
-  ;
+  propagatedBuildInputs = [
+    cirq-core
+    google-api-core
+    protobuf
+  ] ++ google-api-core.optional-dependencies.grpc;
 
   nativeCheckInputs = [
     freezegun

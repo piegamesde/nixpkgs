@@ -18,7 +18,9 @@ rustPlatform.buildRustPackage rec {
   dontUpdateAutotoolsGnuConfigScripts = true;
 
   buildInputs =
-    [ rustPlatform.rust.rustc.llvm ] ++ lib.optional stdenv.isDarwin Security;
+    [ rustPlatform.rust.rustc.llvm ]
+    ++ lib.optional stdenv.isDarwin Security
+  ;
 
   # As of 1.0.0 and rustc 1.30 rustfmt requires a nightly compiler
   RUSTC_BOOTSTRAP = 1;

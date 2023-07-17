@@ -38,22 +38,19 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs =
-    [
-      libX11
-      libXcursor
-      libXext
-      libXi
-      freetype
-      fontconfig
-      libjpeg
-      libpng
-      libtiff
-      libwebp
-      zlib
-    ]
-    ++ lib.optionals stdenv.isDarwin [ libiconv ]
-  ;
+  buildInputs = [
+    libX11
+    libXcursor
+    libXext
+    libXi
+    freetype
+    fontconfig
+    libjpeg
+    libpng
+    libtiff
+    libwebp
+    zlib
+  ] ++ lib.optionals stdenv.isDarwin [ libiconv ];
 
   preBuild = ''
     cd build

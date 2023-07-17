@@ -15491,16 +15491,13 @@ with pkgs;
     xorgserver = xorg.xorgserver.overrideAttrs (
       old: {
         buildInputs = lib.filter (pkg: lib.getName pkg != "mesa") old.buildInputs;
-        configureFlags =
-          old.configureFlags
-          ++ [
-            "--disable-glamor"
-            "--disable-glx"
-            "--disable-dri"
-            "--disable-dri2"
-            "--disable-dri3"
-          ]
-        ;
+        configureFlags = old.configureFlags ++ [
+          "--disable-glamor"
+          "--disable-glx"
+          "--disable-dri"
+          "--disable-dri2"
+          "--disable-dri3"
+        ];
       }
     );
   };
@@ -25789,13 +25786,10 @@ with pkgs;
     in
     symlinkJoin {
       inherit name;
-      paths =
-        [
-          libnvidia-container
-          nvidia-container-toolkit
-        ]
-        ++ additionalPaths
-      ;
+      paths = [
+        libnvidia-container
+        nvidia-container-toolkit
+      ] ++ additionalPaths;
     }
   ;
 
@@ -33548,8 +33542,9 @@ with pkgs;
   darcs =
     haskell.lib.compose.overrideCabal
       (drv: {
-        configureFlags =
-          (lib.remove "-flibrary" drv.configureFlags or [ ]) ++ [ "-f-library" ];
+        configureFlags = (lib.remove "-flibrary" drv.configureFlags or [ ]) ++ [
+          "-f-library"
+        ];
       })
       (haskell.lib.compose.justStaticExecutables haskellPackages.darcs)
   ;

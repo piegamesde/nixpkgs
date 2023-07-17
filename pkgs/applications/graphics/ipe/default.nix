@@ -36,21 +36,18 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  buildInputs =
-    [
-      cairo
-      freetype
-      ghostscript
-      gsl
-      libjpeg
-      libpng
-      libspiro
-      lua5
-      qtbase
-      zlib
-    ]
-    ++ (lib.optionals withTeXLive [ texlive ])
-  ;
+  buildInputs = [
+    cairo
+    freetype
+    ghostscript
+    gsl
+    libjpeg
+    libpng
+    libspiro
+    lua5
+    qtbase
+    zlib
+  ] ++ (lib.optionals withTeXLive [ texlive ]);
 
   makeFlags = [
     "-C src"

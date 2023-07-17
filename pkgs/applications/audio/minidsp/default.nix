@@ -29,8 +29,7 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optionals stdenv.isDarwin [
       AppKit
       IOKit
-    ]
-  ;
+    ];
 
   nativeBuildInputs = lib.optionals stdenv.isLinux [ pkg-config ];
 

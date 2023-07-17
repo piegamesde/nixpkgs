@@ -28,8 +28,7 @@ stdenv.mkDerivation rec {
       libobjc
       Foundation
       IOBluetooth
-    ]
-  ;
+    ];
 
   propagatedBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [ bluez ];
 

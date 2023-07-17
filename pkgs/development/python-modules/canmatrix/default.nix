@@ -29,23 +29,20 @@ buildPythonPackage rec {
     sha256 = "0x8x8kbg4gyzi0ia9657xygp0mqfii76b67fsx76d31bqsdvlda5";
   };
 
-  propagatedBuildInputs =
-    [
-      # required
-      attrs
-      bitstruct
-      click
-      future
-      pathlib2
-      # optional
-      lxml
-      xlwt
-      xlrd
-      xlsxwriter
-      pyyaml
-    ]
-    ++ lib.optional (pythonOlder "3.5") typing
-  ;
+  propagatedBuildInputs = [
+    # required
+    attrs
+    bitstruct
+    click
+    future
+    pathlib2
+    # optional
+    lxml
+    xlwt
+    xlrd
+    xlsxwriter
+    pyyaml
+  ] ++ lib.optional (pythonOlder "3.5") typing;
 
   postPatch = ''
     substituteInPlace setup.py \

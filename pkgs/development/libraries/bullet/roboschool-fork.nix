@@ -35,8 +35,7 @@ stdenv.mkDerivation {
     ++ lib.optionals stdenv.isDarwin [
       Cocoa
       OpenGL
-    ]
-  ;
+    ];
 
   patches = [ ./gwen-narrowing.patch ];
 

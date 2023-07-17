@@ -203,13 +203,10 @@ let
           };
           nativeCheckInputs =
             oldAttrs.nativeCheckInputs ++ (with super; [ pytest-xdist ]);
-          disabledTestPaths =
-            (oldAttrs.disabledTestPaths or [ ])
-            ++ [
-              "test/aaa_profiling"
-              "test/ext/mypy"
-            ]
-          ;
+          disabledTestPaths = (oldAttrs.disabledTestPaths or [ ]) ++ [
+            "test/aaa_profiling"
+            "test/ext/mypy"
+          ];
         }
       );
     };
@@ -364,34 +361,31 @@ rec {
       patchShebangs src/script src/spdk src/test src/tools
     '';
 
-    cmakeFlags =
-      [
-        "-DCMAKE_INSTALL_DATADIR=${placeholder "lib"}/lib"
+    cmakeFlags = [
+      "-DCMAKE_INSTALL_DATADIR=${placeholder "lib"}/lib"
 
-        "-DMGR_PYTHON_VERSION=${ceph-python-env.python.pythonVersion}"
-        "-DWITH_CEPHFS_SHELL:BOOL=ON"
-        "-DWITH_SYSTEMD:BOOL=OFF"
-        "-DWITH_TESTS:BOOL=OFF"
+      "-DMGR_PYTHON_VERSION=${ceph-python-env.python.pythonVersion}"
+      "-DWITH_CEPHFS_SHELL:BOOL=ON"
+      "-DWITH_SYSTEMD:BOOL=OFF"
+      "-DWITH_TESTS:BOOL=OFF"
 
-        # Use our own libraries, where possible
-        "-DWITH_SYSTEM_ARROW:BOOL=ON"
-        "-DWITH_SYSTEM_BOOST:BOOL=ON"
-        "-DWITH_SYSTEM_CIMG:BOOL=ON"
-        "-DWITH_SYSTEM_JSONCPP:BOOL=ON"
-        "-DWITH_SYSTEM_GTEST:BOOL=ON"
-        "-DWITH_SYSTEM_ROCKSDB:BOOL=ON"
-        "-DWITH_SYSTEM_UTF8PROC:BOOL=ON"
-        "-DWITH_SYSTEM_ZSTD:BOOL=ON"
+      # Use our own libraries, where possible
+      "-DWITH_SYSTEM_ARROW:BOOL=ON"
+      "-DWITH_SYSTEM_BOOST:BOOL=ON"
+      "-DWITH_SYSTEM_CIMG:BOOL=ON"
+      "-DWITH_SYSTEM_JSONCPP:BOOL=ON"
+      "-DWITH_SYSTEM_GTEST:BOOL=ON"
+      "-DWITH_SYSTEM_ROCKSDB:BOOL=ON"
+      "-DWITH_SYSTEM_UTF8PROC:BOOL=ON"
+      "-DWITH_SYSTEM_ZSTD:BOOL=ON"
 
-        # TODO breaks with sandbox, tries to download stuff with npm
-        "-DWITH_MGR_DASHBOARD_FRONTEND:BOOL=OFF"
-        # no matching function for call to 'parquet::PageReader::Open(std::shared_ptr<arrow::io::InputStream>&, int64_t, arrow::Compression::type, parquet::MemoryPool*, parquet::CryptoContext*)'
-        "-DWITH_RADOSGW_SELECT_PARQUET:BOOL=OFF"
-        # WITH_XFS has been set default ON from Ceph 16, keeping it optional in nixpkgs for now
-        "-DWITH_XFS=${if optLibxfs != null then "ON" else "OFF"}"
-      ]
-      ++ lib.optional stdenv.isLinux "-DWITH_SYSTEM_LIBURING=ON"
-    ;
+      # TODO breaks with sandbox, tries to download stuff with npm
+      "-DWITH_MGR_DASHBOARD_FRONTEND:BOOL=OFF"
+      # no matching function for call to 'parquet::PageReader::Open(std::shared_ptr<arrow::io::InputStream>&, int64_t, arrow::Compression::type, parquet::MemoryPool*, parquet::CryptoContext*)'
+      "-DWITH_RADOSGW_SELECT_PARQUET:BOOL=OFF"
+      # WITH_XFS has been set default ON from Ceph 16, keeping it optional in nixpkgs for now
+      "-DWITH_XFS=${if optLibxfs != null then "ON" else "OFF"}"
+    ] ++ lib.optional stdenv.isLinux "-DWITH_SYSTEM_LIBURING=ON";
 
     postFixup = ''
       wrapPythonPrograms

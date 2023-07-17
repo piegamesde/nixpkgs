@@ -49,17 +49,14 @@ stdenv.mkDerivation (
   overridable
   // {
     # rg is used as a better grep to search for erlang references in the final release
-    nativeBuildInputs =
-      nativeBuildInputs
-      ++ [
-        erlang
-        hex
-        elixir
-        makeWrapper
-        git
-        ripgrep
-      ]
-    ;
+    nativeBuildInputs = nativeBuildInputs ++ [
+      erlang
+      hex
+      elixir
+      makeWrapper
+      git
+      ripgrep
+    ];
     buildInputs = buildInputs ++ builtins.attrValues mixNixDeps;
 
     MIX_ENV = mixEnv;

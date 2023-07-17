@@ -34,13 +34,10 @@ stdenv.mkDerivation rec {
   dontBuild = true;
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs =
-    [
-      perlPackages.perl
-      beancount
-    ]
-    ++ perlDeps
-  ;
+  buildInputs = [
+    perlPackages.perl
+    beancount
+  ] ++ perlDeps;
 
   makeFlags = [ "prefix=$(out)" ];
   installFlags = [ "INSTALL=install" ];

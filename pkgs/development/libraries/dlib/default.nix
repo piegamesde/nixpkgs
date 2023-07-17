@@ -40,13 +40,10 @@ stdenv.mkDerivation rec {
     cmake
     pkg-config
   ];
-  buildInputs =
-    [
-      libpng
-      libjpeg
-    ]
-    ++ lib.optional guiSupport libX11
-  ;
+  buildInputs = [
+    libpng
+    libjpeg
+  ] ++ lib.optional guiSupport libX11;
 
   meta = with lib; {
     description = "A general purpose cross-platform C++ machine learning library";

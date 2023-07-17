@@ -56,13 +56,10 @@ stdenv.mkDerivation rec {
   # Qt setup hook complains about missing `wrapQtAppsHook` otherwise.
   dontWrapQtApps = true;
 
-  cmakeFlags =
-    [
-      "-DGLIB_SCHEMAS_DIR=${glib.getSchemaPath gsettings-desktop-schemas}"
-      "-DQT_PLUGINS_DIR=${placeholder "out"}/${qtbase.qtPluginPrefix}"
-    ]
-    ++ lib.optionals useQt6 [ "-DUSE_QT6=true" ]
-  ;
+  cmakeFlags = [
+    "-DGLIB_SCHEMAS_DIR=${glib.getSchemaPath gsettings-desktop-schemas}"
+    "-DQT_PLUGINS_DIR=${placeholder "out"}/${qtbase.qtPluginPrefix}"
+  ] ++ lib.optionals useQt6 [ "-DUSE_QT6=true" ];
 
   passthru = {
     updateScript = nix-update-script { };

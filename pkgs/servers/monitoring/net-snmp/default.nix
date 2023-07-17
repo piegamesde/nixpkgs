@@ -59,19 +59,16 @@ stdenv.mkDerivation rec {
     "lib"
   ];
 
-  configureFlags =
-    [
-      "--with-default-snmp-version=3"
-      "--with-sys-location=Unknown"
-      "--with-sys-contact=root@unknown"
-      "--with-logfile=/var/log/net-snmpd.log"
-      "--with-persistent-directory=/var/lib/net-snmp"
-      "--with-openssl=${openssl.dev}"
-      "--disable-embedded-perl"
-      "--without-perl-modules"
-    ]
-    ++ lib.optional stdenv.isLinux "--with-mnttab=/proc/mounts"
-  ;
+  configureFlags = [
+    "--with-default-snmp-version=3"
+    "--with-sys-location=Unknown"
+    "--with-sys-contact=root@unknown"
+    "--with-logfile=/var/log/net-snmpd.log"
+    "--with-persistent-directory=/var/lib/net-snmp"
+    "--with-openssl=${openssl.dev}"
+    "--disable-embedded-perl"
+    "--without-perl-modules"
+  ] ++ lib.optional stdenv.isLinux "--with-mnttab=/proc/mounts";
 
   postPatch = ''
     substituteInPlace testing/fulltests/support/simple_TESTCONF.sh --replace "/bin/netstat" "${nettools}/bin/netstat"

@@ -34,15 +34,12 @@ buildPythonPackage rec {
     pythonRelaxDepsHook
   ];
 
-  propagatedBuildInputs =
-    [
-      paho-mqtt
-      psutil
-      python-gnupg
-      sentry-sdk
-    ]
-    ++ lib.optionals (pythonOlder "3.11") [ tomli ]
-  ;
+  propagatedBuildInputs = [
+    paho-mqtt
+    psutil
+    python-gnupg
+    sentry-sdk
+  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

@@ -52,13 +52,10 @@ let
         '';
 
         buildInputs = buildInputs ++ [ ];
-        nativeBuildInputs =
-          nativeBuildInputs
-          ++ [
-            elixir
-            hex
-          ]
-        ;
+        nativeBuildInputs = nativeBuildInputs ++ [
+          elixir
+          hex
+        ];
         propagatedBuildInputs = propagatedBuildInputs ++ beamDeps;
 
         configurePhase =

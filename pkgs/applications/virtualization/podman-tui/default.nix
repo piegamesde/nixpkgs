@@ -22,13 +22,10 @@ buildGoModule rec {
 
   CGO_ENABLED = 0;
 
-  tags =
-    [
-      "containers_image_openpgp"
-      "remote"
-    ]
-    ++ lib.optional stdenv.isDarwin "darwin"
-  ;
+  tags = [
+    "containers_image_openpgp"
+    "remote"
+  ] ++ lib.optional stdenv.isDarwin "darwin";
 
   ldflags = [
     "-s"

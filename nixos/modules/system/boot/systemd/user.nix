@@ -25,29 +25,26 @@ let
     pathToUnit
   ;
 
-  upstreamUserUnits =
-    [
-      "app.slice"
-      "background.slice"
-      "basic.target"
-      "bluetooth.target"
-      "default.target"
-      "exit.target"
-      "graphical-session-pre.target"
-      "graphical-session.target"
-      "paths.target"
-      "printer.target"
-      "session.slice"
-      "shutdown.target"
-      "smartcard.target"
-      "sockets.target"
-      "sound.target"
-      "systemd-exit.service"
-      "timers.target"
-      "xdg-desktop-autostart.target"
-    ]
-    ++ config.systemd.additionalUpstreamUserUnits
-  ;
+  upstreamUserUnits = [
+    "app.slice"
+    "background.slice"
+    "basic.target"
+    "bluetooth.target"
+    "default.target"
+    "exit.target"
+    "graphical-session-pre.target"
+    "graphical-session.target"
+    "paths.target"
+    "printer.target"
+    "session.slice"
+    "shutdown.target"
+    "smartcard.target"
+    "sockets.target"
+    "sound.target"
+    "systemd-exit.service"
+    "timers.target"
+    "xdg-desktop-autostart.target"
+  ] ++ config.systemd.additionalUpstreamUserUnits;
 
   writeTmpfiles =
     {

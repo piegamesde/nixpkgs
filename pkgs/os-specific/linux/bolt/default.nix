@@ -47,20 +47,17 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs =
-    [
-      asciidoc
-      docbook_xml_dtd_45
-      docbook-xsl-nons
-      libxml2
-      libxslt
-      meson
-      ninja
-      pkg-config
-      glib
-    ]
-    ++ lib.optional (!doCheck) python3
-  ;
+  nativeBuildInputs = [
+    asciidoc
+    docbook_xml_dtd_45
+    docbook-xsl-nons
+    libxml2
+    libxslt
+    meson
+    ninja
+    pkg-config
+    glib
+  ] ++ lib.optional (!doCheck) python3;
 
   buildInputs = [
     polkit

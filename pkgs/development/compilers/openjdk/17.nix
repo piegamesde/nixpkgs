@@ -110,41 +110,38 @@ let
       ]
     ;
 
-    patches =
-      [
-        ./fix-java-home-jdk10.patch
-        ./read-truststore-from-env-jdk10.patch
-        ./currency-date-range-jdk10.patch
-        ./increase-javadoc-heap-jdk13.patch
-        ./ignore-LegalNoticeFilePlugin-jdk17.patch
-        ./fix-library-path-jdk17.patch
+    patches = [
+      ./fix-java-home-jdk10.patch
+      ./read-truststore-from-env-jdk10.patch
+      ./currency-date-range-jdk10.patch
+      ./increase-javadoc-heap-jdk13.patch
+      ./ignore-LegalNoticeFilePlugin-jdk17.patch
+      ./fix-library-path-jdk17.patch
 
-        # -Wformat etc. are stricter in newer gccs, per
-        # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=79677
-        # so grab the work-around from
-        # https://src.fedoraproject.org/rpms/java-openjdk/pull-request/24
-        (fetchurl {
-          url = "https://src.fedoraproject.org/rpms/java-openjdk/raw/06c001c7d87f2e9fe4fedeef2d993bcd5d7afa2a/f/rh1673833-remove_removal_of_wformat_during_test_compilation.patch";
-          sha256 = "082lmc30x64x583vqq00c8y0wqih3y4r0mp1c4bqq36l22qv6b6r";
-        })
+      # -Wformat etc. are stricter in newer gccs, per
+      # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=79677
+      # so grab the work-around from
+      # https://src.fedoraproject.org/rpms/java-openjdk/pull-request/24
+      (fetchurl {
+        url = "https://src.fedoraproject.org/rpms/java-openjdk/raw/06c001c7d87f2e9fe4fedeef2d993bcd5d7afa2a/f/rh1673833-remove_removal_of_wformat_during_test_compilation.patch";
+        sha256 = "082lmc30x64x583vqq00c8y0wqih3y4r0mp1c4bqq36l22qv6b6r";
+      })
 
-        # Patch borrowed from Alpine to fix build errors with musl libc and recent gcc.
-        # This is applied anywhere to prevent patchrot.
-        (fetchurl {
-          url = "https://git.alpinelinux.org/aports/plain/community/openjdk17/FixNullPtrCast.patch?id=41e78a067953e0b13d062d632bae6c4f8028d91c";
-          sha256 = "sha256-LzmSew51+DyqqGyyMw2fbXeBluCiCYsS1nCjt9hX6zo=";
-        })
+      # Patch borrowed from Alpine to fix build errors with musl libc and recent gcc.
+      # This is applied anywhere to prevent patchrot.
+      (fetchurl {
+        url = "https://git.alpinelinux.org/aports/plain/community/openjdk17/FixNullPtrCast.patch?id=41e78a067953e0b13d062d632bae6c4f8028d91c";
+        sha256 = "sha256-LzmSew51+DyqqGyyMw2fbXeBluCiCYsS1nCjt9hX6zo=";
+      })
 
-        # Fix build for gnumake-4.4.1:
-        #   https://github.com/openjdk/jdk/pull/12992
-        (fetchpatch {
-          name = "gnumake-4.4.1";
-          url = "https://github.com/openjdk/jdk/commit/9341d135b855cc208d48e47d30cd90aafa354c36.patch";
-          hash = "sha256-Qcm3ZmGCOYLZcskNjj7DYR85R4v07vYvvavrVOYL8vg=";
-        })
-      ]
-      ++ lib.optionals (!headless && enableGnome2) [ ./swing-use-gtk-jdk13.patch ]
-    ;
+      # Fix build for gnumake-4.4.1:
+      #   https://github.com/openjdk/jdk/pull/12992
+      (fetchpatch {
+        name = "gnumake-4.4.1";
+        url = "https://github.com/openjdk/jdk/commit/9341d135b855cc208d48e47d30cd90aafa354c36.patch";
+        hash = "sha256-Qcm3ZmGCOYLZcskNjj7DYR85R4v07vYvvavrVOYL8vg=";
+      })
+    ] ++ lib.optionals (!headless && enableGnome2) [ ./swing-use-gtk-jdk13.patch ];
 
     postPatch = ''
       chmod +x configure

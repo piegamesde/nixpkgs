@@ -18,13 +18,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-qEgdwG7ygVblIa3uRf1tddxHg7T1yvY17nbhZ7NRNvg=";
   };
 
-  nativeBuildInputs =
-    [
-      meson
-      ninja
-    ]
-    ++ lib.optional stdenv.isDarwin fixDarwinDylibNames
-  ;
+  nativeBuildInputs = [
+    meson
+    ninja
+  ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
 
   meta = with lib; {
     description = "Client library for MPD (music player daemon)";

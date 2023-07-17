@@ -27,13 +27,10 @@ stdenv.mkDerivation rec {
   pname = "libsecret";
   version = "0.20.5";
 
-  outputs =
-    [
-      "out"
-      "dev"
-    ]
-    ++ lib.optional withIntrospection "devdoc"
-  ;
+  outputs = [
+    "out"
+    "dev"
+  ] ++ lib.optional withIntrospection "devdoc";
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${

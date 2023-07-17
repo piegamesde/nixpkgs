@@ -65,40 +65,37 @@ mkDerivationWith buildPythonPackage rec {
     wrapQtAppsHook
   ];
 
-  propagatedBuildInputs =
-    [
-      app-model
-      appdirs
-      cachey
-      certifi
-      dask
-      docstring-parser
-      imageio
-      jsonschema
-      magicgui
-      napari-console
-      napari-npe2
-      napari-svg
-      numpydoc
-      pint
-      pillow
-      psutil
-      pydantic
-      pyopengl
-      pyyaml
-      scikitimage
-      scipy
-      sphinx
-      superqt
-      tifffile
-      toolz
-      tqdm
-      typing-extensions
-      vispy
-      wrapt
-    ]
-    ++ dask.optional-dependencies.array
-  ;
+  propagatedBuildInputs = [
+    app-model
+    appdirs
+    cachey
+    certifi
+    dask
+    docstring-parser
+    imageio
+    jsonschema
+    magicgui
+    napari-console
+    napari-npe2
+    napari-svg
+    numpydoc
+    pint
+    pillow
+    psutil
+    pydantic
+    pyopengl
+    pyyaml
+    scikitimage
+    scipy
+    sphinx
+    superqt
+    tifffile
+    toolz
+    tqdm
+    typing-extensions
+    vispy
+    wrapt
+  ] ++ dask.optional-dependencies.array;
 
   dontUseSetuptoolsCheck = true;
 

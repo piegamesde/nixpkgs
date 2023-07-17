@@ -25,8 +25,7 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs =
     lib.optionals stdenv.isLinux [ openssl ]
-    ++ lib.optionals stdenv.isDarwin [ Security ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ Security ];
 
   # FIXME: checkPhase on darwin will leave some zombie spawn processes
   # see https://github.com/NixOS/nixpkgs/issues/205620

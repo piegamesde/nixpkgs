@@ -34,18 +34,15 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  buildInputs =
-    [
-      SDL2
-      bzip2
-      curl
-      fftwFloat
-      lua
-      luajit
-      zlib
-    ]
-    ++ lib.optionals stdenv.isDarwin [ Cocoa ]
-  ;
+  buildInputs = [
+    SDL2
+    bzip2
+    curl
+    fftwFloat
+    lua
+    luajit
+    zlib
+  ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 
   installPhase = ''
     install -Dm 755 powder $out/bin/powder

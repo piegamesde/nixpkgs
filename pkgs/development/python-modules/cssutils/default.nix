@@ -38,16 +38,13 @@ buildPythonPackage rec {
     importlib-metadata
   ];
 
-  nativeCheckInputs =
-    [
-      cssselect
-      jaraco-test
-      lxml
-      mock
-      pytestCheckHook
-    ]
-    ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
-  ;
+  nativeCheckInputs = [
+    cssselect
+    jaraco-test
+    lxml
+    mock
+    pytestCheckHook
+  ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
 
   disabledTests = [
     # access network

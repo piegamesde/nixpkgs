@@ -33,13 +33,10 @@ stdenv.mkDerivation rec {
     ocamlbuild
     topkg
   ];
-  buildInputs =
-    [
-      topkg
-      uutf
-    ]
-    ++ lib.optional cmdlinerSupport cmdliner
-  ;
+  buildInputs = [
+    topkg
+    uutf
+  ] ++ lib.optional cmdlinerSupport cmdliner;
   propagatedBuildInputs = [ uucp ];
 
   strictDeps = true;

@@ -479,7 +479,9 @@ let
     ];
     curl = [ pkgs.curl.dev ];
     data_table =
-      [ pkgs.zlib.dev ] ++ lib.optional stdenv.isDarwin pkgs.llvmPackages.openmp;
+      [ pkgs.zlib.dev ]
+      ++ lib.optional stdenv.isDarwin pkgs.llvmPackages.openmp
+    ;
     devEMF = with pkgs; [ xorg.libXft.dev ];
     diversitree = with pkgs; [
       gsl
@@ -1302,14 +1304,11 @@ let
 
         cargoRoot = "src/myrustlib";
 
-        nativeBuildInputs =
-          attrs.nativeBuildInputs
-          ++ [
-            pkgs.rustPlatform.cargoSetupHook
-            pkgs.cargo
-            pkgs.rustc
-          ]
-        ;
+        nativeBuildInputs = attrs.nativeBuildInputs ++ [
+          pkgs.rustPlatform.cargoSetupHook
+          pkgs.cargo
+          pkgs.rustc
+        ];
       }
     );
 
@@ -1673,17 +1672,14 @@ let
     littler = old.littler.overrideAttrs (
       attrs:
       with pkgs; {
-        buildInputs =
-          [
-            pcre
-            xz
-            zlib
-            bzip2
-            icu
-            which
-          ]
-          ++ attrs.buildInputs
-        ;
+        buildInputs = [
+          pcre
+          xz
+          zlib
+          bzip2
+          icu
+          which
+        ] ++ attrs.buildInputs;
         postInstall = ''
           install -d $out/bin $out/share/man/man1
           ln -s ../library/littler/bin/r $out/bin/r
@@ -1817,13 +1813,10 @@ let
       in
       old.Rhdf5lib.overrideAttrs (
         attrs: {
-          propagatedBuildInputs =
-            attrs.propagatedBuildInputs
-            ++ [
-              hdf5.dev
-              pkgs.libaec
-            ]
-          ;
+          propagatedBuildInputs = attrs.propagatedBuildInputs ++ [
+            hdf5.dev
+            pkgs.libaec
+          ];
           patches = [ ./patches/Rhdf5lib.patch ];
           passthru.hdf5 = hdf5;
         }

@@ -25,16 +25,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-Wyxeyn49QWzGvW6bMwCp39iLkB1eMQUEpIxUgpLcxgA=";
   };
 
-  buildInputs =
-    [
-      blas
-      zlib
-      bzip2
-      coin-utils
-    ]
-    ++ lib.optional withGurobi gurobi
-    ++ lib.optional withCplex cplex
-  ;
+  buildInputs = [
+    blas
+    zlib
+    bzip2
+    coin-utils
+  ] ++ lib.optional withGurobi gurobi ++ lib.optional withCplex cplex;
   nativeBuildInputs = [
     gfortran
     pkg-config
@@ -47,8 +43,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withCplex [
       "--with-cplex-incdir=${cplex}/cplex/include/ilcplex"
       "--with-cplex-lib=-lcplex${cplex.libSuffix}"
-    ]
-  ;
+    ];
 
   NIX_LDFLAGS =
     lib.optionalString withCplex

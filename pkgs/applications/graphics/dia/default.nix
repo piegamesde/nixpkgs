@@ -54,17 +54,14 @@ stdenv.mkDerivation {
     ++ lib.optionals stdenv.isDarwin [ gtk-mac-integration-gtk2 ]
   ;
 
-  nativeBuildInputs =
-    [
-      appstream-glib
-      desktop-file-utils
-      intltool
-      meson
-      ninja
-      pkg-config
-    ]
-    ++ lib.optionals withDocs [ dblatex ]
-  ;
+  nativeBuildInputs = [
+    appstream-glib
+    desktop-file-utils
+    intltool
+    meson
+    ninja
+    pkg-config
+  ] ++ lib.optionals withDocs [ dblatex ];
 
   meta = with lib; {
     description = "Gnome Diagram drawing software";

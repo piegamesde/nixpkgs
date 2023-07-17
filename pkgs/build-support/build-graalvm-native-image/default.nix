@@ -44,13 +44,10 @@ stdenv.mkDerivation (
   {
     inherit dontUnpack LC_ALL jar;
 
-    nativeBuildInputs =
-      (args.nativeBuildInputs or [ ])
-      ++ [
-        graalvmDrv
-        glibcLocales
-      ]
-    ;
+    nativeBuildInputs = (args.nativeBuildInputs or [ ]) ++ [
+      graalvmDrv
+      glibcLocales
+    ];
 
     nativeImageBuildArgs =
       nativeImageBuildArgs ++ extraNativeImageBuildArgs ++ [ graalvmXmx ];

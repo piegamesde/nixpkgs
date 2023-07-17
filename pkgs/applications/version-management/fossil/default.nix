@@ -53,8 +53,7 @@ stdenv.mkDerivation rec {
 
   configureFlags =
     lib.optional (!withInternalSqlite) "--disable-internal-sqlite"
-    ++ lib.optional withJson "--json"
-  ;
+    ++ lib.optional withJson "--json";
 
   preBuild = ''
     export USER=nonexistent-but-specified-user

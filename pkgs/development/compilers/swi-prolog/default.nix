@@ -138,7 +138,8 @@ stdenv.mkDerivation {
     license = lib.licenses.bsd2;
     mainProgram = "swipl";
     platforms =
-      lib.platforms.linux ++ lib.optionals (!withGui) lib.platforms.darwin;
+      lib.platforms.linux
+      ++ lib.optionals (!withGui) lib.platforms.darwin;
     maintainers = [ lib.maintainers.meditans ];
   };
 }

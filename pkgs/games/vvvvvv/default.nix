@@ -59,7 +59,9 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE = "-I${lib.getDev SDL2_mixer}/include/SDL2";
 
   cmakeFlags =
-    [ "-DBUNDLE_DEPENDENCIES=OFF" ] ++ lib.optional makeAndPlay "-DMAKEANDPLAY=ON";
+    [ "-DBUNDLE_DEPENDENCIES=OFF" ]
+    ++ lib.optional makeAndPlay "-DMAKEANDPLAY=ON"
+  ;
 
   desktopItems = [
     (makeDesktopItem {

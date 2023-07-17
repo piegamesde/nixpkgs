@@ -32,13 +32,10 @@ stdenv.mkDerivation rec {
       lua.pkgs.lua-zlib
     ]
   ;
-  buildInputs =
-    [
-      openssl
-      zlib
-    ]
-    ++ lib.optional luaSupport lua
-  ;
+  buildInputs = [
+    openssl
+    zlib
+  ] ++ lib.optional luaSupport lua;
   strictDeps = true;
 
   makeFlags = [

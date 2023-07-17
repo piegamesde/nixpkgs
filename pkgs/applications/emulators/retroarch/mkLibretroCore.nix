@@ -48,29 +48,26 @@ stdenv.mkDerivation (
 
     inherit makefile;
 
-    makeFlags =
-      [
-        "platform=${
-          {
-            linux = "unix";
-            darwin = "osx";
-            windows = "win";
-          }
-          .${stdenv.hostPlatform.parsed.kernel.name}
-            or stdenv.hostPlatform.parsed.kernel.name
-        }"
-        "ARCH=${
-          {
-            armv7l = "arm";
-            armv6l = "arm";
-            aarch64 = "arm64";
-            i686 = "x86";
-          }
-          .${stdenv.hostPlatform.parsed.cpu.name} or stdenv.hostPlatform.parsed.cpu.name
-        }"
-      ]
-      ++ (args.makeFlags or [ ])
-    ;
+    makeFlags = [
+      "platform=${
+        {
+          linux = "unix";
+          darwin = "osx";
+          windows = "win";
+        }
+        .${stdenv.hostPlatform.parsed.kernel.name}
+          or stdenv.hostPlatform.parsed.kernel.name
+      }"
+      "ARCH=${
+        {
+          armv7l = "arm";
+          armv6l = "arm";
+          aarch64 = "arm64";
+          i686 = "x86";
+        }
+        .${stdenv.hostPlatform.parsed.cpu.name} or stdenv.hostPlatform.parsed.cpu.name
+      }"
+    ] ++ (args.makeFlags or [ ]);
 
     installPhase = ''
       runHook preInstall

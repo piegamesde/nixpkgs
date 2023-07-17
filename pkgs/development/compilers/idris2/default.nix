@@ -35,14 +35,11 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs =
-    [
-      makeWrapper
-      clang
-      platformChez
-    ]
-    ++ lib.optionals stdenv.isDarwin [ zsh ]
-  ;
+  nativeBuildInputs = [
+    makeWrapper
+    clang
+    platformChez
+  ] ++ lib.optionals stdenv.isDarwin [ zsh ];
   buildInputs = [
     platformChez
     gmp

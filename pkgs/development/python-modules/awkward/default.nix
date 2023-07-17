@@ -30,14 +30,11 @@ buildPythonPackage rec {
     hatchling
   ];
 
-  propagatedBuildInputs =
-    [
-      awkward-cpp
-      numpy
-      packaging
-    ]
-    ++ lib.optionals (pythonOlder "3.11") [ typing-extensions ]
-  ;
+  propagatedBuildInputs = [
+    awkward-cpp
+    numpy
+    packaging
+  ] ++ lib.optionals (pythonOlder "3.11") [ typing-extensions ];
 
   dontUseCmakeConfigure = true;
 

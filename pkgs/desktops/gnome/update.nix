@@ -107,15 +107,12 @@ let
 in
 {
   name = "gnome-update-script";
-  command =
-    [
-      updateScript
-      attrPath
-      packageName
-      packageVersion
-      versionPolicy
-    ]
-    ++ upperBound
-  ;
+  command = [
+    updateScript
+    attrPath
+    packageName
+    packageVersion
+    versionPolicy
+  ] ++ upperBound;
   supportedFeatures = [ "commit" ];
 }

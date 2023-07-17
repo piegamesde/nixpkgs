@@ -80,13 +80,12 @@ let
         cudatoolkit.lib
         cudatoolkit.out
       ]
-      ++
-        lib.optionals (lib.versionOlder cudatoolkit.version "11")
-          [
-            # for some reason some of the required libs are in the targets/x86_64-linux
-            # directory; not sure why but this works around it
-            "${cudatoolkit}/targets/${stdenv.system}"
-          ]
+      ++ lib.optionals (lib.versionOlder cudatoolkit.version "11")
+        [
+          # for some reason some of the required libs are in the targets/x86_64-linux
+          # directory; not sure why but this works around it
+          "${cudatoolkit}/targets/${stdenv.system}"
+        ]
     ;
   };
 
@@ -154,17 +153,14 @@ let
       hash = "sha256-DP68UwS9bg243iWU4MLHN0pwl8LaOcW3Sle1ZjsLOHo=";
     };
 
-    nativeBuildInputs =
-      [
-        cython
-        pkgs.flatbuffers
-        git
-        setuptools
-        wheel
-        which
-      ]
-      ++ lib.optionals stdenv.isDarwin [ cctools ]
-    ;
+    nativeBuildInputs = [
+      cython
+      pkgs.flatbuffers
+      git
+      setuptools
+      wheel
+      which
+    ] ++ lib.optionals stdenv.isDarwin [ cctools ];
 
     buildInputs =
       [

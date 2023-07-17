@@ -114,27 +114,21 @@ in
       hash = "sha256-rO8LCrdzYE1Nc5S2hRntt0+zD0aRIpSyi8J+DHtLTcI=";
     };
 
-    buildInputs =
-      [
-        boehmgc
-        openssl
-        pcre
-        readline
-        sqlite
-      ]
-      ++ lib.optional stdenv.isDarwin Security
-    ;
+    buildInputs = [
+      boehmgc
+      openssl
+      pcre
+      readline
+      sqlite
+    ] ++ lib.optional stdenv.isDarwin Security;
 
-    patches =
-      [
-        ./NIM_CONFIG_DIR.patch
-        # Override compiler configuration via an environmental variable
+    patches = [
+      ./NIM_CONFIG_DIR.patch
+      # Override compiler configuration via an environmental variable
 
-        ./nixbuild.patch
-        # Load libraries at runtime by absolute path
-      ]
-      ++ lib.optional (!stdenv.hostPlatform.isWindows) ./toLocation.patch
-    ;
+      ./nixbuild.patch
+      # Load libraries at runtime by absolute path
+    ] ++ lib.optional (!stdenv.hostPlatform.isWindows) ./toLocation.patch;
 
     configurePhase = ''
       runHook preConfigure
@@ -143,15 +137,12 @@ in
       runHook postConfigure
     '';
 
-    kochArgs =
-      [
-        "--cpu:${nimHost.cpu}"
-        "--os:${nimHost.os}"
-        "-d:release"
-        "-d:useGnuReadline"
-      ]
-      ++ lib.optional (stdenv.isDarwin || stdenv.isLinux) "-d:nativeStacktrace"
-    ;
+    kochArgs = [
+      "--cpu:${nimHost.cpu}"
+      "--os:${nimHost.os}"
+      "-d:release"
+      "-d:useGnuReadline"
+    ] ++ lib.optional (stdenv.isDarwin || stdenv.isLinux) "-d:nativeStacktrace";
 
     preBuild = lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) ''
       substituteInPlace makefile \

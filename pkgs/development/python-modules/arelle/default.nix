@@ -39,15 +39,12 @@ buildPythonPackage rec {
     sphinx
     py3to2
   ];
-  propagatedBuildInputs =
-    [
-      lxml
-      isodate
-      numpy
-      openpyxl
-    ]
-    ++ lib.optionals gui [ tkinter ]
-  ;
+  propagatedBuildInputs = [
+    lxml
+    isodate
+    numpy
+    openpyxl
+  ] ++ lib.optionals gui [ tkinter ];
 
   # arelle-gui is useless without gui dependencies, so delete it when !gui.
   postInstall =

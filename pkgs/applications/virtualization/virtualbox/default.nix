@@ -84,17 +84,14 @@ stdenv.mkDerivation {
     "modsrc"
   ];
 
-  nativeBuildInputs =
-    [
-      pkg-config
-      which
-      docbook_xsl
-      docbook_xml_dtd_43
-      yasm
-      glslang
-    ]
-    ++ optional (!headless) wrapQtAppsHook
-  ;
+  nativeBuildInputs = [
+    pkg-config
+    which
+    docbook_xsl
+    docbook_xml_dtd_43
+    yasm
+    glslang
+  ] ++ optional (!headless) wrapQtAppsHook;
 
   # Wrap manually because we wrap just a small number of executables.
   dontWrapQtApps = true;

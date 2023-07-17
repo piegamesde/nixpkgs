@@ -33,18 +33,15 @@ buildPythonPackage rec {
     hash = "sha256-rUY5fnsWg2UisF0tGORvHot8laCs8eVAvuVKUOG5ibw=";
   };
 
-  propagatedBuildInputs =
-    [
-      h5py
-      numpy
-      psutil
-      qiskit-terra
-      retworkx
-      scikit-learn
-      scipy
-    ]
-    ++ lib.optional withPyscf pyscf
-  ;
+  propagatedBuildInputs = [
+    h5py
+    numpy
+    psutil
+    qiskit-terra
+    retworkx
+    scikit-learn
+    scipy
+  ] ++ lib.optional withPyscf pyscf;
 
   nativeCheckInputs = [
     pytestCheckHook

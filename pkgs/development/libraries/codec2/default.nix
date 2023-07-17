@@ -38,8 +38,7 @@ stdenv.mkDerivation rec {
       # RPATH of binary /nix/store/.../bin/freedv_rx contains a forbidden reference to /build/
       "-DCMAKE_SKIP_BUILD_RPATH=ON"
     ]
-    ++ lib.optionals freedvSupport [ "-DLPCNET=ON" ]
-  ;
+    ++ lib.optionals freedvSupport [ "-DLPCNET=ON" ];
 
   meta = with lib; {
     description = "Speech codec designed for communications quality speech at low data rates";

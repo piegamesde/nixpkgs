@@ -50,8 +50,7 @@ qtModule {
       gst-libav
       gst-vaapi
     ]
-    ++ lib.optionals stdenv.isDarwin [ VideoToolbox ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ VideoToolbox ];
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.isDarwin

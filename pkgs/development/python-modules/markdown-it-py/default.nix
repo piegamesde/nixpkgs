@@ -41,13 +41,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ mdurl ];
 
-  nativeCheckInputs =
-    [
-      pytest-regressions
-      pytestCheckHook
-    ]
-    ++ passthru.optional-dependencies.linkify
-  ;
+  nativeCheckInputs = [
+    pytest-regressions
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.linkify;
 
   # disable and remove benchmark tests
   preCheck = ''

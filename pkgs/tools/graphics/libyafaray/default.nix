@@ -42,20 +42,17 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs =
-    [
-      freetype
-      ilmbase
-      libjpeg
-      libtiff
-      libxml2
-      opencv
-      openexr
-      swig
-      zlib
-    ]
-    ++ lib.optional withPython python3
-  ;
+  buildInputs = [
+    freetype
+    ilmbase
+    libjpeg
+    libtiff
+    libxml2
+    opencv
+    openexr
+    swig
+    zlib
+  ] ++ lib.optional withPython python3;
 
   meta = with lib; {
     description = "A free, open source raytracer";

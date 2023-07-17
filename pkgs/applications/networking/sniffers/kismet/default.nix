@@ -86,8 +86,7 @@ stdenv.mkDerivation rec {
           ps.websockets
         ]
       ))
-    ]
-  ;
+    ];
 
   configureFlags =
     [ ]

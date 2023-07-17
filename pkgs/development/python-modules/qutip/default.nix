@@ -40,13 +40,10 @@ buildPythonPackage rec {
     scipy
   ];
 
-  nativeCheckInputs =
-    [
-      pytestCheckHook
-      pytest-rerunfailures
-    ]
-    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
-  ;
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytest-rerunfailures
+  ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
   # Disabling OpenMP support on Darwin.
   setupPyGlobalFlags = lib.optionals (!stdenv.isDarwin) [ "--with-openmp" ];

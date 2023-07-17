@@ -33,7 +33,9 @@ buildPythonPackage rec {
   ];
 
   propagatedBuildInputs =
-    [ wcwidth ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+    [ wcwidth ]
+    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
+  ;
 
   nativeCheckInputs = [
     pytest-lazy-fixture

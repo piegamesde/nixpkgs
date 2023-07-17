@@ -45,14 +45,11 @@ stdenv.mkDerivation rec {
     export PYTHON_EXTRA_LDFLAGS=" "
   '';
 
-  nativeBuildInputs =
-    [
-      autoreconfHook
-      pkg-config
-      texinfo
-    ]
-    ++ lib.optional enablePython swig
-  ;
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+    texinfo
+  ] ++ lib.optional enablePython swig;
 
   buildInputs =
     [ pcre2 ]

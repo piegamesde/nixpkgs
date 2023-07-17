@@ -42,10 +42,9 @@ let
         optional
           (cfg.defaultGateway != null && (cfg.defaultGateway.address or "") != "")
           cfg.defaultGateway.address
-        ++
-          optional
-            (cfg.defaultGateway6 != null && (cfg.defaultGateway6.address or "") != "")
-            cfg.defaultGateway6.address
+        ++ optional
+          (cfg.defaultGateway6 != null && (cfg.defaultGateway6.address or "") != "")
+          cfg.defaultGateway6.address
       ;
       makeGateway = gateway: {
         routeConfig = {
@@ -538,13 +537,10 @@ in
                 # requires ovs-vswitchd to be alive at all times
                 bindsTo = [ "ovs-vswitchd.service" ];
                 # start switch after physical interfaces and vswitch daemon
-                after =
-                  [
-                    "network-pre.target"
-                    "ovs-vswitchd.service"
-                  ]
-                  ++ deps
-                ;
+                after = [
+                  "network-pre.target"
+                  "ovs-vswitchd.service"
+                ] ++ deps;
                 wants = deps; # if one or more interface fails, the switch should continue to run
                 serviceConfig.Type = "oneshot";
                 serviceConfig.RemainAfterExit = true;

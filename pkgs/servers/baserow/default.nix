@@ -58,48 +58,45 @@ buildPythonApplication rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  propagatedBuildInputs =
-    [
-      autobahn
-      advocate
-      antlr4-python3-runtime
-      boto3
-      cached-property
-      celery-redbeat
-      channels
-      channels-redis
-      daphne
-      dj-database-url
-      django-celery-beat
-      django-celery-email
-      django-cors-headers
-      django-health-check
-      django-redis
-      django-storages
-      drf-jwt
-      drf-spectacular
-      faker
-      gunicorn
-      importlib-resources
-      itsdangerous
-      pillow
-      pyparsing
-      psutil
-      psycopg2
-      redis
-      regex
-      requests
-      service-identity
-      setuptools
-      tqdm
-      twisted
-      unicodecsv
-      uvicorn
-      watchgod
-      zipp
-    ]
-    ++ uvicorn.optional-dependencies.standard
-  ;
+  propagatedBuildInputs = [
+    autobahn
+    advocate
+    antlr4-python3-runtime
+    boto3
+    cached-property
+    celery-redbeat
+    channels
+    channels-redis
+    daphne
+    dj-database-url
+    django-celery-beat
+    django-celery-email
+    django-cors-headers
+    django-health-check
+    django-redis
+    django-storages
+    drf-jwt
+    drf-spectacular
+    faker
+    gunicorn
+    importlib-resources
+    itsdangerous
+    pillow
+    pyparsing
+    psutil
+    psycopg2
+    redis
+    regex
+    requests
+    service-identity
+    setuptools
+    tqdm
+    twisted
+    unicodecsv
+    uvicorn
+    watchgod
+    zipp
+  ] ++ uvicorn.optional-dependencies.standard;
 
   postInstall = ''
     wrapProgram $out/bin/baserow \

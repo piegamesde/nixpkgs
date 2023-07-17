@@ -43,20 +43,17 @@ stdenv.mkDerivation rec {
     ]
   ;
 
-  patches =
-    [
-      # From debian
-      ./Fix-pkgconfig-file-by-adding-clucene-shared-library.patch
-      ./Fixing_ZLIB_configuration_in_shared_CMakeLists.patch
-      ./Install-contribs-lib.patch
-      # From arch
-      ./fix-missing-include-time.patch
+  patches = [
+    # From debian
+    ./Fix-pkgconfig-file-by-adding-clucene-shared-library.patch
+    ./Fixing_ZLIB_configuration_in_shared_CMakeLists.patch
+    ./Install-contribs-lib.patch
+    # From arch
+    ./fix-missing-include-time.patch
 
-      # required for darwin and linux-musl
-      ./pthread-include.patch
-    ]
-    ++ lib.optionals stdenv.isDarwin [ ./fix-darwin.patch ]
-  ;
+    # required for darwin and linux-musl
+    ./pthread-include.patch
+  ] ++ lib.optionals stdenv.isDarwin [ ./fix-darwin.patch ];
 
   # fails with "Unable to find executable:
   # /build/clucene-core-2.3.3.4/build/bin/cl_test"

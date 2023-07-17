@@ -39,24 +39,20 @@ stdenv.mkDerivation rec {
       mpfr
       gcc
     ]
-    ++
-      lib.optionals useBoehmgc
-        [
-          # replaces ecl's own gc which other packages can depend on, thus propagated
-          boehmgc
-        ]
+    ++ lib.optionals useBoehmgc
+      [
+        # replaces ecl's own gc which other packages can depend on, thus propagated
+        boehmgc
+      ]
   ;
 
-  configureFlags =
-    [
-      (if threadSupport then "--enable-threads" else "--disable-threads")
-      "--with-gmp-incdir=${lib.getDev gmp}/include"
-      "--with-gmp-libdir=${lib.getLib gmp}/lib"
-      # -incdir, -libdir doesn't seem to be supported for libffi
-      "--with-libffi-prefix=${lib.getDev libffi}"
-    ]
-    ++ lib.optional (!noUnicode) "--enable-unicode"
-  ;
+  configureFlags = [
+    (if threadSupport then "--enable-threads" else "--disable-threads")
+    "--with-gmp-incdir=${lib.getDev gmp}/include"
+    "--with-gmp-libdir=${lib.getLib gmp}/lib"
+    # -incdir, -libdir doesn't seem to be supported for libffi
+    "--with-libffi-prefix=${lib.getDev libffi}"
+  ] ++ lib.optional (!noUnicode) "--enable-unicode";
 
   patches = [
     (fetchpatch {

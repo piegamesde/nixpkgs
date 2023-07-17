@@ -86,17 +86,14 @@ stdenv.mkDerivation (
       ./hardcode-plugin-interpreters.patch
     ];
 
-    nativeBuildInputs =
-      [
-        autoreconfHook # hardcode-plugin-interpreters.patch changes Makefile.am
-        pkg-config
-        intltool
-        gettext
-        makeWrapper
-        gtk-doc
-      ]
-      ++ lib.optionals stdenv.isDarwin [ desktopToDarwinBundle ]
-    ;
+    nativeBuildInputs = [
+      autoreconfHook # hardcode-plugin-interpreters.patch changes Makefile.am
+      pkg-config
+      intltool
+      gettext
+      makeWrapper
+      gtk-doc
+    ] ++ lib.optionals stdenv.isDarwin [ desktopToDarwinBundle ];
 
     buildInputs =
       [

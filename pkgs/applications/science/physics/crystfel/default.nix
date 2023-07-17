@@ -209,19 +209,16 @@ stdenv.mkDerivation rec {
     url = "https://www.desy.de/~twhite/${pname}/${pname}-${version}.tar.gz";
     sha256 = "sha256-nCO9ndDKS54bVN9IhFBiCVNzqk7BsCljXFrOmlx+sP4=";
   };
-  nativeBuildInputs =
-    [
-      meson
-      pkg-config
-      ninja
-      flex
-      bison
-      doxygen
-      opencl-headers
-      makeWrapper
-    ]
-    ++ lib.optionals withGui [ wrapGAppsHook ]
-  ;
+  nativeBuildInputs = [
+    meson
+    pkg-config
+    ninja
+    flex
+    bison
+    doxygen
+    opencl-headers
+    makeWrapper
+  ] ++ lib.optionals withGui [ wrapGAppsHook ];
   buildInputs =
     [
       hdf5

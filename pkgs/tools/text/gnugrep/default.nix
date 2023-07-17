@@ -34,7 +34,9 @@ stdenv.mkDerivation {
 
   # Perl is needed for testing
   nativeBuildInputs =
-    [ perl ] ++ lib.optional stdenv.hostPlatform.isLoongArch64 autoreconfHook;
+    [ perl ]
+    ++ lib.optional stdenv.hostPlatform.isLoongArch64 autoreconfHook
+  ;
   outputs = [
     "out"
     "info"

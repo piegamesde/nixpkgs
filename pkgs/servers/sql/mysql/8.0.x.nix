@@ -40,14 +40,11 @@ let
       hash = "sha256-liAC9dkG9C9AsnejnS25OTEkjB8H/49DEsKI5jgD3RI=";
     };
 
-    nativeBuildInputs =
-      [
-        bison
-        cmake
-        pkg-config
-      ]
-      ++ lib.optionals (!stdenv.isDarwin) [ rpcsvc-proto ]
-    ;
+    nativeBuildInputs = [
+      bison
+      cmake
+      pkg-config
+    ] ++ lib.optionals (!stdenv.isDarwin) [ rpcsvc-proto ];
 
     patches = [
       ./no-force-outline-atomics.patch # Do not force compilers to turn on -moutline-atomics switch

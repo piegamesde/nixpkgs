@@ -57,23 +57,20 @@ buildPythonPackage rec {
     )
   ;
 
-  propagatedBuildInputs =
-    [
-      arc4
-      asn1crypto
-      asn1tools
-      asyauth
-      asysocks
-      colorama
-      minikerberos
-      pillow
-      pyperclip
-      tqdm
-      unicrypto
-      winsspi
-    ]
-    ++ lib.optionals (stdenv.isDarwin) [ iconv ]
-  ;
+  propagatedBuildInputs = [
+    arc4
+    asn1crypto
+    asn1tools
+    asyauth
+    asysocks
+    colorama
+    minikerberos
+    pillow
+    pyperclip
+    tqdm
+    unicrypto
+    winsspi
+  ] ++ lib.optionals (stdenv.isDarwin) [ iconv ];
 
   # Module doesn't have tests
   doCheck = false;

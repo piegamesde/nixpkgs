@@ -50,23 +50,20 @@ buildPythonPackage rec {
     ]
   ;
 
-  propagatedBuildInputs =
-    [
-      blis
-      catalogue
-      confection
-      cymem
-      murmurhash
-      numpy
-      plac
-      preshed
-      pydantic
-      srsly
-      tqdm
-      wasabi
-    ]
-    ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
-  ;
+  propagatedBuildInputs = [
+    blis
+    catalogue
+    confection
+    cymem
+    murmurhash
+    numpy
+    plac
+    preshed
+    pydantic
+    srsly
+    tqdm
+    wasabi
+  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
 
   nativeCheckInputs = [
     hypothesis

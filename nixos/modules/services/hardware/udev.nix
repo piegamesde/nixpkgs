@@ -416,16 +416,13 @@ in
       "systemd-udev-settle.service"
       "systemd-udev-trigger.service"
     ];
-    boot.initrd.systemd.storePaths =
-      [
-        "${config.boot.initrd.systemd.package}/lib/systemd/systemd-udevd"
-        "${config.boot.initrd.systemd.package}/lib/udev/ata_id"
-        "${config.boot.initrd.systemd.package}/lib/udev/cdrom_id"
-        "${config.boot.initrd.systemd.package}/lib/udev/scsi_id"
-        "${config.boot.initrd.systemd.package}/lib/udev/rules.d"
-      ]
-      ++ map (x: "${x}/bin") config.boot.initrd.services.udev.binPackages
-    ;
+    boot.initrd.systemd.storePaths = [
+      "${config.boot.initrd.systemd.package}/lib/systemd/systemd-udevd"
+      "${config.boot.initrd.systemd.package}/lib/udev/ata_id"
+      "${config.boot.initrd.systemd.package}/lib/udev/cdrom_id"
+      "${config.boot.initrd.systemd.package}/lib/udev/scsi_id"
+      "${config.boot.initrd.systemd.package}/lib/udev/rules.d"
+    ] ++ map (x: "${x}/bin") config.boot.initrd.services.udev.binPackages;
 
     # Generate the udev rules for the initrd
     boot.initrd.systemd.contents = {
@@ -436,10 +433,9 @@ in
         udevPath = config.boot.initrd.systemd.contents."/bin".source;
         udev = config.boot.initrd.systemd.package;
         systemd = config.boot.initrd.systemd.package;
-        binPackages =
-          config.boot.initrd.services.udev.binPackages
-          ++ [ config.boot.initrd.systemd.contents."/bin".source ]
-        ;
+        binPackages = config.boot.initrd.services.udev.binPackages ++ [
+          config.boot.initrd.systemd.contents."/bin".source
+        ];
       };
     };
     # Insert initrd rules

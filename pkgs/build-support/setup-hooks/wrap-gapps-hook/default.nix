@@ -26,8 +26,7 @@ makeSetupHook
         gtk3
 
         librsvg
-      ]
-    ;
+      ];
 
     # depsTargetTargetPropagated will essentially be buildInputs when wrapGAppsHook is placed into nativeBuildInputs
     # the librsvg and gtk3 above should be removed but kept to not break anything that implicitly depended on its binaries

@@ -30,14 +30,11 @@ rustPlatform.buildRustPackage rec {
     graphviz
   ];
 
-  buildInputs =
-    [
-      boost
-      nix
-      nlohmann_json
-    ]
-    ++ lib.optionals stdenv.isDarwin [ Security ]
-  ;
+  buildInputs = [
+    boost
+    nix
+    nlohmann_json
+  ] ++ lib.optionals stdenv.isDarwin [ Security ];
 
   nativeBuildInputs = [
     pkg-config

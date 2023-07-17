@@ -19,9 +19,8 @@ let
       "--status-srv=${cfg.statusListenAddress}:${toString cfg.statusPort}"
       "--provided-by=${escapeShellArg cfg.providedBy}"
     ]
-    ++
-      optional (cfg.pools != null)
-        "--pools=${escapeShellArg (concatStringsSep "," cfg.pools)}"
+    ++ optional (cfg.pools != null)
+      "--pools=${escapeShellArg (concatStringsSep "," cfg.pools)}"
     ++
       optional (cfg.globalRateBps != null)
         "--global-rate=${toString cfg.globalRateBps}"

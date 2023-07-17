@@ -119,16 +119,13 @@ clangStdenv.mkDerivation {
     ++ optionals remoteSupport [ curl ]
   ;
 
-  nativeBuildInputs =
-    [
-      autoconf
-      automake
-      intltool
-      libtool
-      pkg-config
-    ]
-    ++ optionals gtk3Support [ wrapGAppsHook ]
-  ;
+  nativeBuildInputs = [
+    autoconf
+    automake
+    intltool
+    libtool
+    pkg-config
+  ] ++ optionals gtk3Support [ wrapGAppsHook ];
 
   enableParallelBuilding = true;
 

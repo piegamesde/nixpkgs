@@ -95,8 +95,9 @@ self: super:
     al =
       overrideCabal
         (drv: {
-          libraryFrameworkDepends =
-            [ darwin.apple_sdk.frameworks.OpenAL ] ++ (drv.libraryFrameworkDepends or [ ]);
+          libraryFrameworkDepends = [
+            darwin.apple_sdk.frameworks.OpenAL
+          ] ++ (drv.libraryFrameworkDepends or [ ]);
         })
         super.al
     ;
@@ -165,10 +166,9 @@ self: super:
     blas-hs =
       overrideCabal
         (drv: {
-          libraryFrameworkDepends =
-            [ darwin.apple_sdk.frameworks.Accelerate ]
-            ++ (drv.libraryFrameworkDepends or [ ])
-          ;
+          libraryFrameworkDepends = [
+            darwin.apple_sdk.frameworks.Accelerate
+          ] ++ (drv.libraryFrameworkDepends or [ ]);
         })
         super.blas-hs
     ;
@@ -178,8 +178,9 @@ self: super:
       overrideCabal
         (drv: {
           librarySystemDepends = [ ];
-          libraryHaskellDepends =
-            drv.libraryHaskellDepends ++ [ darwin.apple_sdk.frameworks.OpenGL ];
+          libraryHaskellDepends = drv.libraryHaskellDepends ++ [
+            darwin.apple_sdk.frameworks.OpenGL
+          ];
           preConfigure =
             ''
               frameworkPaths=($(for i in $nativeBuildInputs; do if [ -d "$i"/Library/Frameworks ]; then echo "-F$i/Library/Frameworks"; fi done))
@@ -195,8 +196,9 @@ self: super:
       overrideCabal
         (drv: {
           librarySystemDepends = [ ];
-          libraryHaskellDepends =
-            drv.libraryHaskellDepends ++ [ darwin.apple_sdk.frameworks.OpenGL ];
+          libraryHaskellDepends = drv.libraryHaskellDepends ++ [
+            darwin.apple_sdk.frameworks.OpenGL
+          ];
         })
         super.GLURaw
     ;
@@ -204,18 +206,15 @@ self: super:
       overrideCabal
         (drv: {
           librarySystemDepends = [ ];
-          libraryHaskellDepends =
-            drv.libraryHaskellDepends
-            ++ [
-              darwin.apple_sdk.frameworks.AGL
-              darwin.apple_sdk.frameworks.Cocoa
-              darwin.apple_sdk.frameworks.OpenGL
-              darwin.apple_sdk.frameworks.IOKit
-              darwin.apple_sdk.frameworks.Kernel
-              darwin.apple_sdk.frameworks.CoreVideo
-              darwin.CF
-            ]
-          ;
+          libraryHaskellDepends = drv.libraryHaskellDepends ++ [
+            darwin.apple_sdk.frameworks.AGL
+            darwin.apple_sdk.frameworks.Cocoa
+            darwin.apple_sdk.frameworks.OpenGL
+            darwin.apple_sdk.frameworks.IOKit
+            darwin.apple_sdk.frameworks.Kernel
+            darwin.apple_sdk.frameworks.CoreVideo
+            darwin.CF
+          ];
         })
         super.bindings-GLFW
     ;
@@ -223,8 +222,9 @@ self: super:
       overrideCabal
         (drv: {
           librarySystemDepends = [ ];
-          libraryHaskellDepends =
-            drv.libraryHaskellDepends ++ [ darwin.apple_sdk.frameworks.OpenCL ];
+          libraryHaskellDepends = drv.libraryHaskellDepends ++ [
+            darwin.apple_sdk.frameworks.OpenCL
+          ];
         })
         super.OpenCL
     ;
@@ -242,13 +242,10 @@ self: super:
     FractalArt =
       overrideCabal
         (drv: {
-          librarySystemDepends =
-            [
-              darwin.libobjc
-              darwin.apple_sdk.frameworks.AppKit
-            ]
-            ++ (drv.librarySystemDepends or [ ])
-          ;
+          librarySystemDepends = [
+            darwin.libobjc
+            darwin.apple_sdk.frameworks.AppKit
+          ] ++ (drv.librarySystemDepends or [ ]);
         })
         super.FractalArt
     ;
@@ -256,14 +253,11 @@ self: super:
     arbtt =
       overrideCabal
         (drv: {
-          librarySystemDepends =
-            [
-              darwin.apple_sdk.frameworks.Foundation
-              darwin.apple_sdk.frameworks.Carbon
-              darwin.apple_sdk.frameworks.IOKit
-            ]
-            ++ (drv.librarySystemDepends or [ ])
-          ;
+          librarySystemDepends = [
+            darwin.apple_sdk.frameworks.Foundation
+            darwin.apple_sdk.frameworks.Carbon
+            darwin.apple_sdk.frameworks.IOKit
+          ] ++ (drv.librarySystemDepends or [ ]);
         })
         super.arbtt
     ;

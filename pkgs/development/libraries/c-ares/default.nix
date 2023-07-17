@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.hostPlatform.isStatic [
       "-DCARES_SHARED=OFF"
       "-DCARES_STATIC=ON"
-    ]
-  ;
+    ];
 
   enableParallelBuilding = true;
 

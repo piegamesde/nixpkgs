@@ -140,10 +140,14 @@ in
     ];
 
     environment.systemPackages =
-      [ cfg.package ] ++ lib.optional cfg.jack.enable jack-libs;
+      [ cfg.package ]
+      ++ lib.optional cfg.jack.enable jack-libs
+    ;
 
     systemd.packages =
-      [ cfg.package ] ++ lib.optional cfg.pulse.enable cfg.package.pulse;
+      [ cfg.package ]
+      ++ lib.optional cfg.pulse.enable cfg.package.pulse
+    ;
 
     # PipeWire depends on DBUS but doesn't list it. Without this booting
     # into a terminal results in the service crashing with an error.
@@ -204,13 +208,10 @@ in
       users.pipewire = {
         uid = config.ids.uids.pipewire;
         group = "pipewire";
-        extraGroups =
-          [
-            "audio"
-            "video"
-          ]
-          ++ lib.optional config.security.rtkit.enable "rtkit"
-        ;
+        extraGroups = [
+          "audio"
+          "video"
+        ] ++ lib.optional config.security.rtkit.enable "rtkit";
         description = "Pipewire system service user";
         isSystemUser = true;
         home = "/var/lib/pipewire";

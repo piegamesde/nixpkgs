@@ -28,13 +28,10 @@ stdenv.mkDerivation rec {
     cmake
     pkg-config
   ];
-  buildInputs =
-    [
-      sqlite
-      systemd
-    ]
-    ++ lib.optional tlsSupport openssl
-  ;
+  buildInputs = [
+    sqlite
+    systemd
+  ] ++ lib.optional tlsSupport openssl;
 
   postPatch = ''
     substituteInPlace CMakeLists.txt \

@@ -66,13 +66,10 @@ stdenv.mkDerivation rec {
   pname = "gtk4";
   version = "4.10.3";
 
-  outputs =
-    [
-      "out"
-      "dev"
-    ]
-    ++ lib.optionals x11Support [ "devdoc" ]
-  ;
+  outputs = [
+    "out"
+    "dev"
+  ] ++ lib.optionals x11Support [ "devdoc" ];
   outputBin = "dev";
 
   setupHooks = [
@@ -95,22 +92,18 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs =
-    [
-      gettext
-      gobject-introspection
-      makeWrapper
-      meson
-      ninja
-      pkg-config
-      python3
-      sassc
-      gi-docgen
-      libxml2 # for xmllint
-    ]
-    ++ lib.optionals waylandSupport [ wayland-scanner ]
-    ++ setupHooks
-  ;
+  nativeBuildInputs = [
+    gettext
+    gobject-introspection
+    makeWrapper
+    meson
+    ninja
+    pkg-config
+    python3
+    sassc
+    gi-docgen
+    libxml2 # for xmllint
+  ] ++ lib.optionals waylandSupport [ wayland-scanner ] ++ setupHooks;
 
   buildInputs =
     [

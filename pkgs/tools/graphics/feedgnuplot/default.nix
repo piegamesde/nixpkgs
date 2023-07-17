@@ -30,13 +30,10 @@ perlPackages.buildPerlPackage rec {
 
   outputs = [ "out" ];
 
-  nativeBuildInputs =
-    [
-      makeWrapper
-      installShellFiles
-    ]
-    ++ lib.optional stdenv.isDarwin shortenPerlShebang
-  ;
+  nativeBuildInputs = [
+    makeWrapper
+    installShellFiles
+  ] ++ lib.optional stdenv.isDarwin shortenPerlShebang;
 
   buildInputs =
     [

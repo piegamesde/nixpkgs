@@ -127,8 +127,7 @@ in
         "i7core_edac"
         "mce-inject"
         "aer-inject"
-      ]
-    ;
+      ];
 
     boot.kernelPatches = optionals (cfg.testing) [ {
       name = "rasdaemon-tests";

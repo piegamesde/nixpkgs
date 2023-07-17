@@ -294,13 +294,10 @@ in
         # This is needed for external filters
         temporary-directory = "/tmp";
         filterfile = [ "default.filter" ];
-        actionsfile =
-          [
-            "match-all.action"
-            "default.action"
-          ]
-          ++ optional cfg.inspectHttps (toString inspectAction)
-        ;
+        actionsfile = [
+          "match-all.action"
+          "default.action"
+        ] ++ optional cfg.inspectHttps (toString inspectAction);
       }
       // (optionalAttrs cfg.enableTor {
         forward-socks5 = "/ 127.0.0.1:9063 .";

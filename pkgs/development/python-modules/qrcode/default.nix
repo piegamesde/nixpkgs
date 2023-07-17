@@ -29,13 +29,10 @@ buildPythonPackage rec {
 
   passthru.optional-dependencies.pil = [ pillow ];
 
-  nativeCheckInputs =
-    [
-      mock
-      pytestCheckHook
-    ]
-    ++ passthru.optional-dependencies.pil
-  ;
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.pil;
 
   meta = with lib; {
     description = "Python QR Code image generator";

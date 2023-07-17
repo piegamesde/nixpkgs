@@ -618,17 +618,14 @@ in
         apiServer = mkCert {
           name = "kube-apiserver";
           CN = "kubernetes";
-          hosts =
-            [
-              "kubernetes.default.svc"
-              "kubernetes.default.svc.${top.addons.dns.clusterDomain}"
-              cfg.advertiseAddress
-              top.masterAddress
-              apiserverServiceIP
-              "127.0.0.1"
-            ]
-            ++ cfg.extraSANs
-          ;
+          hosts = [
+            "kubernetes.default.svc"
+            "kubernetes.default.svc.${top.addons.dns.clusterDomain}"
+            cfg.advertiseAddress
+            top.masterAddress
+            apiserverServiceIP
+            "127.0.0.1"
+          ] ++ cfg.extraSANs;
           action = "systemctl restart kube-apiserver.service";
         };
         apiserverProxyClient = mkCert {

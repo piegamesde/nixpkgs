@@ -84,8 +84,7 @@ let
       config = {
         _module.check = lib.mkDefault check;
       };
-    }
-  ;
+    };
 
   allUserModules =
     let

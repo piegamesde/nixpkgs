@@ -102,8 +102,7 @@ stdenv.mkDerivation rec {
       cairo
       harfbuzz
     ]
-    ++ lib.optionals stdenv.isDarwin [ OpenGL ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ OpenGL ];
 
   COGL_PANGO_DEP_CFLAGS = toString (
     lib.optionals (stdenv.isDarwin && pangoSupport) [

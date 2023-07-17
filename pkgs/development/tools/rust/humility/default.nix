@@ -18,13 +18,10 @@ rustPlatform.buildRustPackage rec {
     pkg-config
     cargo-readme
   ];
-  buildInputs =
-    [
-      libusb1
-      libftdi
-    ]
-    ++ lib.optionals stdenv.isDarwin [ AppKit ]
-  ;
+  buildInputs = [
+    libusb1
+    libftdi
+  ] ++ lib.optionals stdenv.isDarwin [ AppKit ];
 
   src = fetchFromGitHub {
     owner = "oxidecomputer";

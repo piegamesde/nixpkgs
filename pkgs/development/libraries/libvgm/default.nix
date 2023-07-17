@@ -52,13 +52,10 @@ stdenv.mkDerivation rec {
     sha256 = "U/PO/YtS8bOb2yKk57UQKH4eRNysYC/hrmUR5YZyYlw=";
   };
 
-  outputs =
-    [
-      "out"
-      "dev"
-    ]
-    ++ optional enableTools "bin"
-  ;
+  outputs = [
+    "out"
+    "dev"
+  ] ++ optional enableTools "bin";
 
   nativeBuildInputs = [ cmake ];
 

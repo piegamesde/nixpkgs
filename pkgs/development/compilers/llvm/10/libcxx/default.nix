@@ -55,9 +55,8 @@ stdenv.mkDerivation {
   ;
   nativeBuildInputs =
     [ cmake ]
-    ++
-      lib.optional (stdenv.hostPlatform.isMusl || stdenv.hostPlatform.isWasi)
-        python3
+    ++ lib.optional (stdenv.hostPlatform.isMusl || stdenv.hostPlatform.isWasi)
+      python3
     ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
   ;
 
@@ -68,9 +67,8 @@ stdenv.mkDerivation {
       "-DLIBCXX_LIBCPPABI_VERSION=2"
       "-DLIBCXX_CXX_ABI=${cxxabi.pname}"
     ]
-    ++
-      lib.optional (stdenv.hostPlatform.isMusl || stdenv.hostPlatform.isWasi)
-        "-DLIBCXX_HAS_MUSL_LIBC=1"
+    ++ lib.optional (stdenv.hostPlatform.isMusl || stdenv.hostPlatform.isWasi)
+      "-DLIBCXX_HAS_MUSL_LIBC=1"
     ++
       lib.optional (cxxabi.pname == "libcxxabi")
         "-DLIBCXX_LIBCXXABI_LIB_PATH=${cxxabi}/lib"

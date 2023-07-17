@@ -10,10 +10,9 @@ let
   copyChannel = true;
 in
 {
-  imports =
-    [ ../../../modules/virtualisation/openstack-config.nix ]
-    ++ (lib.optional copyChannel ../../../modules/installer/cd-dvd/channel.nix)
-  ;
+  imports = [
+    ../../../modules/virtualisation/openstack-config.nix
+  ] ++ (lib.optional copyChannel ../../../modules/installer/cd-dvd/channel.nix);
 
   documentation.enable = copyChannel;
 

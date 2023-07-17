@@ -54,14 +54,11 @@ buildPythonPackage rec {
     ];
   };
 
-  checkInputs =
-    [
-      mock
-      pytest-asyncio
-      pytestCheckHook
-    ]
-    ++ passthru.optional-dependencies.mqtt
-  ;
+  checkInputs = [
+    mock
+    pytest-asyncio
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.mqtt;
 
   pythonImportsCheck = [ "volvooncall" ];
 

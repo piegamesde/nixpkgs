@@ -35,13 +35,10 @@ stdenv.mkDerivation rec {
     perl
   ];
 
-  buildInputs =
-    [
-      pcsclite
-      libusb1
-    ]
-    ++ lib.optionals stdenv.isDarwin [ libiconv ]
-  ;
+  buildInputs = [
+    pcsclite
+    libusb1
+  ] ++ lib.optionals stdenv.isDarwin [ libiconv ];
 
   configureFlags = [ "--enable-usbdropdir=${placeholder "out"}/pcsc/drivers" ];
 

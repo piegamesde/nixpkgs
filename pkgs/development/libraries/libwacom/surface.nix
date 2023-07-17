@@ -33,8 +33,7 @@ libwacom.overrideAttrs (
         "0010-data-Add-Microsoft-Surface-Book-2-15.patch"
         "0011-data-Add-Microsoft-Surface-Book-3-13.5.patch"
         "0012-data-Add-Microsoft-Surface-Book-3-15.patch"
-      ]
-    ;
+      ];
 
     meta = old.meta // {
       homepage = "https://github.com/linux-surface/libwacom-surface";

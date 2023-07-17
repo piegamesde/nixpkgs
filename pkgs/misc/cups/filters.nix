@@ -52,42 +52,36 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  buildInputs =
-    [
-      cups
-      dbus
-      fontconfig
-      ghostscript
-      ijs
-      libjpeg
-      liblouis # braille embosser support
-      libpng
-      mupdf
-      perl
-      poppler
-      poppler_utils
-      qpdf
-    ]
-    ++ lib.optionals withAvahi [ avahi ]
-  ;
+  buildInputs = [
+    cups
+    dbus
+    fontconfig
+    ghostscript
+    ijs
+    libjpeg
+    liblouis # braille embosser support
+    libpng
+    mupdf
+    perl
+    poppler
+    poppler_utils
+    qpdf
+  ] ++ lib.optionals withAvahi [ avahi ];
 
-  configureFlags =
-    [
-      "--with-mutool-path=${mupdf}/bin/mutool"
-      "--with-pdftops=pdftops"
-      "--with-pdftops-path=${poppler_utils}/bin/pdftops"
-      "--with-gs-path=${ghostscript}/bin/gs"
-      "--with-pdftocairo-path=${poppler_utils}/bin/pdftocairo"
-      "--with-ippfind-path=${cups}/bin/ippfind"
-      "--enable-imagefilters"
-      "--with-rcdir=no"
-      "--with-shell=${stdenv.shell}"
-      "--with-test-font-path=${dejavu_fonts}/share/fonts/truetype/DejaVuSans.ttf"
-      "--localstatedir=/var"
-      "--sysconfdir=/etc"
-    ]
-    ++ lib.optionals (!withAvahi) [ "--disable-avahi" ]
-  ;
+  configureFlags = [
+    "--with-mutool-path=${mupdf}/bin/mutool"
+    "--with-pdftops=pdftops"
+    "--with-pdftops-path=${poppler_utils}/bin/pdftops"
+    "--with-gs-path=${ghostscript}/bin/gs"
+    "--with-pdftocairo-path=${poppler_utils}/bin/pdftocairo"
+    "--with-ippfind-path=${cups}/bin/ippfind"
+    "--enable-imagefilters"
+    "--with-rcdir=no"
+    "--with-shell=${stdenv.shell}"
+    "--with-test-font-path=${dejavu_fonts}/share/fonts/truetype/DejaVuSans.ttf"
+    "--localstatedir=/var"
+    "--sysconfdir=/etc"
+  ] ++ lib.optionals (!withAvahi) [ "--disable-avahi" ];
 
   makeFlags = [
     "CUPS_SERVERBIN=$(out)/lib/cups"

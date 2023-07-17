@@ -26,14 +26,11 @@ stdenv.mkDerivation {
   };
 
   # Didn't detect pybind11 without cmake
-  nativeBuildInputs =
-    [
-      meson
-      ninja
-      pkg-config
-    ]
-    ++ lib.optionals withPython [ cmake ]
-  ;
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+  ] ++ lib.optionals withPython [ cmake ];
   buildInputs =
     [
       libdrm

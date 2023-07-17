@@ -34,30 +34,24 @@ stdenv.mkDerivation rec {
     sed -i 's/{UNITTEST++_INCLUDE_DIR}/ENV{UNITTEST++_INCLUDE_DIR}/g' tests/CMakeLists.txt
   '';
 
-  nativeBuildInputs =
-    lib.optionals stdenv.isLinux [ alsa-lib ]
-    ++ [
-      cmake
-      doxygen
-      pkg-config
-      swig
-    ]
-  ;
+  nativeBuildInputs = lib.optionals stdenv.isLinux [ alsa-lib ] ++ [
+    cmake
+    doxygen
+    pkg-config
+    swig
+  ];
 
-  buildInputs =
-    [
-      cppzmq
-      ffmpeg
-      imagemagick
-      jsoncpp
-      libopenshot-audio
-      python3
-      qtbase
-      qtmultimedia
-      zeromq
-    ]
-    ++ lib.optionals stdenv.isDarwin [ llvmPackages.openmp ]
-  ;
+  buildInputs = [
+    cppzmq
+    ffmpeg
+    imagemagick
+    jsoncpp
+    libopenshot-audio
+    python3
+    qtbase
+    qtmultimedia
+    zeromq
+  ] ++ lib.optionals stdenv.isDarwin [ llvmPackages.openmp ];
 
   dontWrapQtApps = true;
 

@@ -98,21 +98,18 @@ qtModule {
     qtlocation
     qtwebchannel
   ];
-  nativeBuildInputs =
-    [
-      bison
-      flex
-      git
-      gperf
-      ninja
-      pkg-config
-      python
-      which
-      gn
-      nodejs
-    ]
-    ++ lib.optional stdenv.isDarwin xcbuild
-  ;
+  nativeBuildInputs = [
+    bison
+    flex
+    git
+    gperf
+    ninja
+    pkg-config
+    python
+    which
+    gn
+    nodejs
+  ] ++ lib.optional stdenv.isDarwin xcbuild;
   doCheck = true;
   outputs = [
     "bin"

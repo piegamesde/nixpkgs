@@ -46,13 +46,10 @@ stdenv.mkDerivation rec {
     perl
     unzip
   ]; # SDL2 for `sdl2-config`.
-  buildInputs =
-    [
-      ncurses
-      SDL2
-    ]
-    ++ (lib.optional stdenv.isLinux alsa-lib)
-  ;
+  buildInputs = [
+    ncurses
+    SDL2
+  ] ++ (lib.optional stdenv.isLinux alsa-lib);
   runtimeDependencies = [
     ncurses
     SDL2

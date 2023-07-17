@@ -329,13 +329,10 @@ with prev; {
         MYSQL_INCDIR = "${libmysqlclient.dev}/include/mysql";
         MYSQL_LIBDIR = "${libmysqlclient}/lib/mysql";
       };
-      buildInputs =
-        oa.buildInputs
-        ++ [
-          mariadb.client
-          libmysqlclient
-        ]
-      ;
+      buildInputs = oa.buildInputs ++ [
+        mariadb.client
+        libmysqlclient
+      ];
     }
   );
 
@@ -514,13 +511,10 @@ with prev; {
       final.lua
     ];
 
-    nativeBuildInputs =
-      [
-        pkg-config
-        cmake
-      ]
-      ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ]
-    ;
+    nativeBuildInputs = [
+      pkg-config
+      cmake
+    ] ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
   };
 
   luv = prev.luv.overrideAttrs (

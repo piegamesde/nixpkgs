@@ -61,7 +61,9 @@ stdenv.mkDerivation rec {
   };
 
   outputs =
-    [ "out" ] ++ lib.optional withExamples "bin" ++ lib.optional withDocs "doc";
+    [ "out" ]
+    ++ lib.optional withExamples "bin" ++ lib.optional withDocs "doc"
+  ;
 
   # Manually move example & test binaries to $bin to avoid cyclic dependencies on dev binaries
   outputBin = lib.optionalString withExamples "out";

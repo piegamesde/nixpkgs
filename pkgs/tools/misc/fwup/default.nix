@@ -36,17 +36,14 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs =
-    [
-      bzip2
-      libarchive
-      libconfuse
-      libsodium
-      xz
-      zlib
-    ]
-    ++ lib.optionals stdenv.isDarwin [ DiskArbitration ]
-  ;
+  buildInputs = [
+    bzip2
+    libarchive
+    libconfuse
+    libsodium
+    xz
+    zlib
+  ] ++ lib.optionals stdenv.isDarwin [ DiskArbitration ];
 
   propagatedBuildInputs =
     [

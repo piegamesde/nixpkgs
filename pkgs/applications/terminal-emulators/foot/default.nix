@@ -116,17 +116,14 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs =
-    [
-      wayland-scanner
-      meson
-      ninja
-      ncurses
-      scdoc
-      pkg-config
-    ]
-    ++ lib.optionals (compilerName == "clang") [ stdenv.cc.cc.libllvm.out ]
-  ;
+  nativeBuildInputs = [
+    wayland-scanner
+    meson
+    ninja
+    ncurses
+    scdoc
+    pkg-config
+  ] ++ lib.optionals (compilerName == "clang") [ stdenv.cc.cc.libllvm.out ];
 
   buildInputs = [
     tllist

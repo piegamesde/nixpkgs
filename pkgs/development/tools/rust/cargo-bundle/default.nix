@@ -30,8 +30,7 @@ rustPlatform.buildRustPackage {
     ++ lib.optionals stdenv.isLinux [
       libxkbcommon
       wayland
-    ]
-  ;
+    ];
 
   meta = with lib; {
     description = "Wrap rust executables in OS-specific app bundles";

@@ -44,21 +44,18 @@ buildPythonPackage {
     sha256 = "sha256-Grdht+TOFvCYRpL7uhPivqL7YzLoNVF3iQNHgbv1Te0=";
   };
 
-  propagatedBuildInputs =
-    [
-      pyopenssl
-      webcolors
-      future
-      atomicwrites
-      attrs
-      logbook
-      pygments
-      matrix-nio
-      aiohttp
-      requests
-    ]
-    ++ matrix-nio.optional-dependencies.e2e
-  ;
+  propagatedBuildInputs = [
+    pyopenssl
+    webcolors
+    future
+    atomicwrites
+    attrs
+    logbook
+    pygments
+    matrix-nio
+    aiohttp
+    requests
+  ] ++ matrix-nio.optional-dependencies.e2e;
 
   passthru.scripts = [ "matrix.py" ];
 

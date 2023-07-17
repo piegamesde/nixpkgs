@@ -30,16 +30,13 @@ stdenv.mkDerivation rec {
     vulkan-headers
   ];
 
-  buildInputs =
-    [
-      gzip
-      SDL2
-      libvorbis
-      libmad
-      vulkan-loader
-    ]
-    ++ lib.optional stdenv.isDarwin moltenvk
-  ;
+  buildInputs = [
+    gzip
+    SDL2
+    libvorbis
+    libmad
+    vulkan-loader
+  ] ++ lib.optional stdenv.isDarwin moltenvk;
 
   buildFlags = [ "DO_USERDIRS=1" ];
 

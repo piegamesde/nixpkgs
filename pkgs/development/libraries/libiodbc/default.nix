@@ -20,7 +20,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs =
-    lib.optionals useGTK [ gtk2 ] ++ lib.optional stdenv.isDarwin Carbon;
+    lib.optionals useGTK [ gtk2 ]
+    ++ lib.optional stdenv.isDarwin Carbon;
 
   preBuild = ''
     export NIX_LDFLAGS_BEFORE="-rpath $out/lib"

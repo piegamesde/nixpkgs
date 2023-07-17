@@ -78,9 +78,8 @@ stdenv.mkDerivation rec {
       (lib.enableFeature translateManpages "poman")
       "SYSCONFSTATICDIR=${placeholder "lib"}/lib"
     ]
-    ++
-      lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
-        "scanf_cv_type_modifier=ms"
+    ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
+      "scanf_cv_type_modifier=ms"
   ;
 
   makeFlags = [
@@ -89,13 +88,10 @@ stdenv.mkDerivation rec {
     "usrsbin_execdir=${placeholder "bin"}/sbin"
   ];
 
-  nativeBuildInputs =
-    [
-      pkg-config
-      installShellFiles
-    ]
-    ++ lib.optionals translateManpages [ po4a ]
-  ;
+  nativeBuildInputs = [
+    pkg-config
+    installShellFiles
+  ] ++ lib.optionals translateManpages [ po4a ];
 
   buildInputs =
     [

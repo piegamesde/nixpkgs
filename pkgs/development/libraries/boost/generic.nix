@@ -302,13 +302,10 @@ stdenv.mkDerivation {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs =
-    [
-      which
-      boost-build
-    ]
-    ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
-  ;
+  nativeBuildInputs = [
+    which
+    boost-build
+  ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
   buildInputs =
     [
       expat

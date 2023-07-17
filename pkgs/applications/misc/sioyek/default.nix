@@ -28,19 +28,16 @@ stdenv.mkDerivation (
       sha256 = "sha256-GFZaTXJhoBB+rSe7Qk6H6FZJVXr3nO9XgM+LAbS4te4=";
     };
 
-    buildInputs =
-      [
-        gumbo
-        harfbuzz
-        jbig2dec
-        mujs
-        mupdf
-        openjpeg
-        qt3d
-        qtbase
-      ]
-      ++ lib.optionals stdenv.isDarwin [ freetype ]
-    ;
+    buildInputs = [
+      gumbo
+      harfbuzz
+      jbig2dec
+      mujs
+      mupdf
+      openjpeg
+      qt3d
+      qtbase
+    ] ++ lib.optionals stdenv.isDarwin [ freetype ];
 
     nativeBuildInputs = [
       installShellFiles

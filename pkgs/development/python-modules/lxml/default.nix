@@ -22,14 +22,11 @@ buildPythonPackage rec {
   };
 
   # setuptoolsBuildPhase needs dependencies to be passed through nativeBuildInputs
-  nativeBuildInputs =
-    [
-      libxml2.dev
-      libxslt.dev
-      cython
-    ]
-    ++ lib.optionals stdenv.isDarwin [ xcodebuild ]
-  ;
+  nativeBuildInputs = [
+    libxml2.dev
+    libxslt.dev
+    cython
+  ] ++ lib.optionals stdenv.isDarwin [ xcodebuild ];
   buildInputs = [
     libxml2
     libxslt

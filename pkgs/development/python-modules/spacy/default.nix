@@ -47,32 +47,29 @@ buildPythonPackage rec {
     hash = "sha256-IsH/qrKFt0dwA9S1sDhBTMMkaKaQ1HkBW5ppjFMcgTs=";
   };
 
-  propagatedBuildInputs =
-    [
-      blis
-      catalogue
-      cymem
-      jinja2
-      jsonschema
-      langcodes
-      murmurhash
-      numpy
-      packaging
-      pathy
-      preshed
-      pydantic
-      requests
-      setuptools
-      spacy-legacy
-      spacy-loggers
-      srsly
-      thinc
-      tqdm
-      typer
-      wasabi
-    ]
-    ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
-  ;
+  propagatedBuildInputs = [
+    blis
+    catalogue
+    cymem
+    jinja2
+    jsonschema
+    langcodes
+    murmurhash
+    numpy
+    packaging
+    pathy
+    preshed
+    pydantic
+    requests
+    setuptools
+    spacy-legacy
+    spacy-loggers
+    srsly
+    thinc
+    tqdm
+    typer
+    wasabi
+  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
 
   postPatch = ''
     substituteInPlace setup.cfg \

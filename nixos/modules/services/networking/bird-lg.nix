@@ -288,8 +288,7 @@ in
         ''
       ++ lib.optional (cfg.proxy.enable && builtins.isString cfg.proxy.extraArgs) ''
         Passing strings to `services.bird-lg.proxy.extraOptions' is deprecated. Please pass a list of strings instead.
-      ''
-    ;
+      '';
 
     systemd.services = {
       bird-lg-frontend = mkIf cfg.frontend.enable {

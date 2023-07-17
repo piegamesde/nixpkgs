@@ -48,14 +48,11 @@ stdenv.mkDerivation {
     inherit (branch) rev hash;
   };
 
-  nativeBuildInputs =
-    [
-      pkg-config
-      cmake
-      spirv-tools
-    ]
-    ++ (if isROCm then [ llvm ] else [ llvm.dev ])
-  ;
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+    spirv-tools
+  ] ++ (if isROCm then [ llvm ] else [ llvm.dev ]);
 
   buildInputs = [ spirv-headers ] ++ lib.optionals (!isROCm) [ llvm ];
 

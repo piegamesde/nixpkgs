@@ -41,18 +41,15 @@ stdenv.mkDerivation rec {
     removeReferencesTo
   ];
 
-  buildInputs =
-    [
-      curl
-      hdf5
-      libxml2
-      mpi
-      bzip2
-      libzip
-      zstd
-    ]
-    ++ lib.optional szipSupport szip
-  ;
+  buildInputs = [
+    curl
+    hdf5
+    libxml2
+    mpi
+    bzip2
+    libzip
+    zstd
+  ] ++ lib.optional szipSupport szip;
 
   passthru = {
     inherit mpiSupport mpi;

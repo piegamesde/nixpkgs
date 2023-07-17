@@ -33,23 +33,20 @@ buildPythonApplication rec {
     sha256 = "sha256-/Xe4RDA9sBEsBBV1VP91VX0VfO8alK8L70m9WrB7qu4=";
   };
 
-  propagatedBuildInputs =
-    [
-      beautifulsoup4
-      boto3
-      configparser
-      filelock
-      keyring
-      keyrings-alt
-      lxml
-      pillow
-      requests
-      six
-      tabulate
-      tzlocal
-    ]
-    ++ lib.optional withU2F python-u2flib-host
-  ;
+  propagatedBuildInputs = [
+    beautifulsoup4
+    boto3
+    configparser
+    filelock
+    keyring
+    keyrings-alt
+    lxml
+    pillow
+    requests
+    six
+    tabulate
+    tzlocal
+  ] ++ lib.optional withU2F python-u2flib-host;
 
   nativeCheckInputs = [
     mock

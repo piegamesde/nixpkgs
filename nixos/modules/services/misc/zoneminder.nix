@@ -351,7 +351,9 @@ in
           psmisc
         ];
         after =
-          [ "nginx.service" ] ++ lib.optional cfg.database.createLocally "mysql.service";
+          [ "nginx.service" ]
+          ++ lib.optional cfg.database.createLocally "mysql.service"
+        ;
         wantedBy = [ "multi-user.target" ];
         restartTriggers = [
           defaultsFile

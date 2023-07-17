@@ -1187,18 +1187,15 @@ with self;
       hash = "sha256-EPOVabK2KSct2zQIUxdb0E3YTHEHLOqzcSW2xga58T0=";
     };
     buildInputs = [ PodParser ];
-    propagatedBuildInputs =
-      [
-        AppPackager
-        FileLoadLines
-        IOString
-        ImageInfo
-        PDFAPI2
-        StringInterpolateNamed
-        TextLayout
-      ]
-      ++ lib.optionals (!stdenv.isDarwin) [ Wx ]
-    ;
+    propagatedBuildInputs = [
+      AppPackager
+      FileLoadLines
+      IOString
+      ImageInfo
+      PDFAPI2
+      StringInterpolateNamed
+      TextLayout
+    ] ++ lib.optionals (!stdenv.isDarwin) [ Wx ];
     nativeBuildInputs = lib.optional stdenv.isDarwin shortenPerlShebang;
     postInstall = lib.optionalString stdenv.isDarwin ''
       shortenPerlShebang $out/bin/chordpro
@@ -17374,7 +17371,9 @@ with self;
       XMLLibXSLT
     ];
     nativeBuildInputs =
-      [ pkgs.makeWrapper ] ++ lib.optional stdenv.isDarwin shortenPerlShebang;
+      [ pkgs.makeWrapper ]
+      ++ lib.optional stdenv.isDarwin shortenPerlShebang
+    ;
     makeMakerFlags = [
       "TEXMF=\${tex}"
       "NOMKTEXLSR"
@@ -30651,15 +30650,12 @@ with self;
       url = "mirror://cpan/authors/id/V/VK/VKON/Tcl-1.27.tar.gz";
       hash = "sha256-+DhYd6Sp7Z89OQPS0PfNcPrDzmgyxg9gCmghzuP7WHI=";
     };
-    propagatedBuildInputs =
-      [
-        pkgs.bwidget
-        pkgs.tcl
-        pkgs.tix
-        pkgs.tk
-      ]
-      ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreServices ]
-    ;
+    propagatedBuildInputs = [
+      pkgs.bwidget
+      pkgs.tcl
+      pkgs.tix
+      pkgs.tk
+    ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreServices ];
     makeMakerFlags = lib.optionals stdenv.isLinux [
       "--tclsh=${pkgs.tcl}/bin/tclsh"
       "--nousestubs"

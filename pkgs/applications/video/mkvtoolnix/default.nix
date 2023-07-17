@@ -60,44 +60,37 @@ stdenv.mkDerivation rec {
     sha256 = "c3I2ULSvKBTYIm1chVHPkaV0TxblLglBjzeUJ5TRmGw=";
   };
 
-  nativeBuildInputs =
-    [
-      autoreconfHook
-      docbook_xsl
-      gettext
-      gtest
-      libxslt
-      pkg-config
-      rake
-    ]
-    ++ optional withGUI wrapQtAppsHook
-  ;
+  nativeBuildInputs = [
+    autoreconfHook
+    docbook_xsl
+    gettext
+    gtest
+    libxslt
+    pkg-config
+    rake
+  ] ++ optional withGUI wrapQtAppsHook;
 
   # 1. qtbase and qtmultimedia are needed without the GUI
   # 2. we have utf8cpp in nixpkgs but it doesn't find it
-  buildInputs =
-    [
-      boost
-      expat
-      file
-      flac
-      fmt
-      gmp
-      libdvdread
-      libebml
-      libmatroska
-      libogg
-      libvorbis
-      nlohmann_json
-      pugixml
-      qtbase
-      qtmultimedia
-      xdg-utils
-      zlib
-    ]
-    ++ optional withGUI cmark
-    ++ optional stdenv.isDarwin libiconv
-  ;
+  buildInputs = [
+    boost
+    expat
+    file
+    flac
+    fmt
+    gmp
+    libdvdread
+    libebml
+    libmatroska
+    libogg
+    libvorbis
+    nlohmann_json
+    pugixml
+    qtbase
+    qtmultimedia
+    xdg-utils
+    zlib
+  ] ++ optional withGUI cmark ++ optional stdenv.isDarwin libiconv;
 
   # autoupdate is not needed but it silences a ton of pointless warnings
   postPatch = ''

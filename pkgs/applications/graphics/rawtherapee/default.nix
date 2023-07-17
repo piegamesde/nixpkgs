@@ -40,14 +40,11 @@ stdenv.mkDerivation rec {
       --replace "/Applications" "${placeholder "out"}/Applications"
   '';
 
-  nativeBuildInputs =
-    [
-      cmake
-      pkg-config
-      wrapGAppsHook
-    ]
-    ++ lib.optionals stdenv.isDarwin [ makeWrapper ]
-  ;
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    wrapGAppsHook
+  ] ++ lib.optionals stdenv.isDarwin [ makeWrapper ];
 
   buildInputs =
     [

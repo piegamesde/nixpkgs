@@ -29,8 +29,9 @@ let
         })
       ];
       # valgrind_unittest failed
-      cmakeFlags =
-        old.cmakeFlags ++ [ "-DCMAKE_CTEST_ARGUMENTS=-E;valgrind_unittest" ];
+      cmakeFlags = old.cmakeFlags ++ [
+        "-DCMAKE_CTEST_ARGUMENTS=-E;valgrind_unittest"
+      ];
     }
   );
 in

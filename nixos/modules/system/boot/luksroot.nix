@@ -164,8 +164,7 @@ let
         }";
       fido2luksCredentials =
         dev.fido2.credentials
-        ++ optional (dev.fido2.credential != null) dev.fido2.credential
-      ;
+        ++ optional (dev.fido2.credential != null) dev.fido2.credential;
     in
     ''
       # Wait for luksRoot (and optionally keyFile and/or header) to appear, e.g.

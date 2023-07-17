@@ -53,16 +53,13 @@ stdenv.mkDerivation (
       substituteInPlace UI/NativeApp.cpp --replace /usr/share $out/share
     '';
 
-    nativeBuildInputs =
-      [
-        cmake
-        copyDesktopItems
-        makeWrapper
-        pkg-config
-        python3
-      ]
-      ++ lib.optional enableQt wrapQtAppsHook
-    ;
+    nativeBuildInputs = [
+      cmake
+      copyDesktopItems
+      makeWrapper
+      pkg-config
+      python3
+    ] ++ lib.optional enableQt wrapQtAppsHook;
 
     buildInputs =
       [

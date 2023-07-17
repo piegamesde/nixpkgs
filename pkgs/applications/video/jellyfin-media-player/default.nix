@@ -75,14 +75,11 @@ mkDerivation rec {
     python3
   ];
 
-  cmakeFlags =
-    [
-      "-DCMAKE_BUILD_TYPE=Release"
-      "-DQTROOT=${qtbase}"
-      "-GNinja"
-    ]
-    ++ lib.optionals (!withDbus) [ "-DLINUX_X11POWER=ON" ]
-  ;
+  cmakeFlags = [
+    "-DCMAKE_BUILD_TYPE=Release"
+    "-DQTROOT=${qtbase}"
+    "-GNinja"
+  ] ++ lib.optionals (!withDbus) [ "-DLINUX_X11POWER=ON" ];
 
   preConfigure = ''
     # link the jellyfin-web files to be copied by cmake (see fix-web-path.patch)

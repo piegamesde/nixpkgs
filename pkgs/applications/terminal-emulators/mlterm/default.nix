@@ -109,13 +109,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-gfs5cdwUUwSBWwJJSaxrQGWJvLkI27RMlk5QvDALEDg=";
   };
 
-  nativeBuildInputs =
-    [
-      pkg-config
-      autoconf
-    ]
-    ++ lib.optionals enableTools.mlconfig [ wrapGAppsHook ]
-  ;
+  nativeBuildInputs = [
+    pkg-config
+    autoconf
+  ] ++ lib.optionals enableTools.mlconfig [ wrapGAppsHook ];
   buildInputs =
     [
       gtk

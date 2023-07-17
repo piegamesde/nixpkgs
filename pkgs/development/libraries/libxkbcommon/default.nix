@@ -36,16 +36,13 @@ stdenv.mkDerivation rec {
   ];
 
   depsBuildBuild = [ pkg-config ];
-  nativeBuildInputs =
-    [
-      meson
-      ninja
-      pkg-config
-      bison
-      doxygen
-    ]
-    ++ lib.optional withWaylandTools wayland-scanner
-  ;
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    bison
+    doxygen
+  ] ++ lib.optional withWaylandTools wayland-scanner;
   buildInputs =
     [
       xkeyboard_config

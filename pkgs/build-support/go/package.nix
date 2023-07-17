@@ -109,7 +109,9 @@ let
     // {
 
       nativeBuildInputs =
-        [ go ] ++ (lib.optional (!dontRenameImports) govers) ++ nativeBuildInputs;
+        [ go ]
+        ++ (lib.optional (!dontRenameImports) govers) ++ nativeBuildInputs
+      ;
       buildInputs = buildInputs;
 
       inherit (go) GOOS GOARCH GO386;
@@ -345,7 +347,8 @@ let
       ;
 
       disallowedReferences =
-        lib.optional (!allowGoReference) go ++ lib.optional (!dontRenameImports) govers;
+        lib.optional (!allowGoReference) go
+        ++ lib.optional (!dontRenameImports) govers;
 
       passthru =
         passthru

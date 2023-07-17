@@ -165,13 +165,11 @@ let
           "io_uring"
           "systemd"
           "syslog"
-        ]
-      ;
+        ];
 
       knownFeatures =
         builtins.attrNames featureDependencies
-        ++ builtins.attrNames nativeFeatureDependencies
-      ;
+        ++ builtins.attrNames nativeFeatureDependencies;
       platformFeatures = lib.subtractLists platformMask knownFeatures;
 
       features_ =
@@ -225,14 +223,11 @@ let
         ]
       ;
 
-      nativeBuildInputs =
-        [
-          meson
-          ninja
-          pkg-config
-        ]
-        ++ concatAttrVals features_ nativeFeatureDependencies
-      ;
+      nativeBuildInputs = [
+        meson
+        ninja
+        pkg-config
+      ] ++ concatAttrVals features_ nativeFeatureDependencies;
 
       depsBuildBuild = [ buildPackages.stdenv.cc ];
 
@@ -258,13 +253,10 @@ let
 
       mesonAutoFeatures = "disabled";
 
-      outputs =
-        [
-          "out"
-          "doc"
-        ]
-        ++ lib.optional (builtins.elem "documentation" features_) "man"
-      ;
+      outputs = [
+        "out"
+        "doc"
+      ] ++ lib.optional (builtins.elem "documentation" features_) "man";
 
       CXXFLAGS = lib.optionals stdenv.isDarwin [
         "-D__ASSERT_MACROS_DEFINE_VERSIONS_WITHOUT_UNDERSCORES=0"

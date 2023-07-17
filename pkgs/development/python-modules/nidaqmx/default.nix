@@ -29,13 +29,10 @@ buildPythonPackage rec {
     sha256 = "19m9p99qvdmvvqbwmqrqm6b50x7czgrj07gdsxbbgw04shf5bhrs";
   };
 
-  propagatedBuildInputs =
-    [
-      numpy
-      six
-    ]
-    ++ lib.optionals (pythonOlder "3.4") [ enum34 ]
-  ;
+  propagatedBuildInputs = [
+    numpy
+    six
+  ] ++ lib.optionals (pythonOlder "3.4") [ enum34 ];
 
   nativeCheckInputs = [
     pytestCheckHook

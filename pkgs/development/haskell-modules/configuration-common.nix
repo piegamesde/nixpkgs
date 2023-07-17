@@ -482,18 +482,15 @@ self: super:
   inline-c-cpp =
     overrideCabal
       (drv: {
-        patches =
-          drv.patches or [ ]
-          ++ [
-            (fetchpatch {
-              # awaiting release >0.5.0.0
-              url = "https://github.com/fpco/inline-c/commit/e176b8e8c3c94e7d8289a8b7cc4ce8e737741730.patch";
-              name = "inline-c-cpp-pr-132-1.patch";
-              sha256 = "sha256-CdZXAT3Ar4KKDGyAUu8A7hzddKe5/AuMKoZSjt3o0UE=";
-              stripLen = 1;
-            })
-          ]
-        ;
+        patches = drv.patches or [ ] ++ [
+          (fetchpatch {
+            # awaiting release >0.5.0.0
+            url = "https://github.com/fpco/inline-c/commit/e176b8e8c3c94e7d8289a8b7cc4ce8e737741730.patch";
+            name = "inline-c-cpp-pr-132-1.patch";
+            sha256 = "sha256-CdZXAT3Ar4KKDGyAUu8A7hzddKe5/AuMKoZSjt3o0UE=";
+            stripLen = 1;
+          })
+        ];
         postPatch =
           (drv.postPatch or "")
           + ''
@@ -983,8 +980,9 @@ self: super:
         preCheck = "export HOME=$TMPDIR";
         testToolDepends = drv.testToolDepends or [ ] ++ [ self.cabal-install ];
         doCheck = false; # https://github.com/kazu-yamamoto/ghc-mod/issues/335
-        executableToolDepends =
-          drv.executableToolDepends or [ ] ++ [ pkgs.buildPackages.emacs ];
+        executableToolDepends = drv.executableToolDepends or [ ] ++ [
+          pkgs.buildPackages.emacs
+        ];
         postInstall = ''
           local lispdir=( "$data/share/${self.ghc.targetPrefix}${self.ghc.haskellCompilerName}/*/${drv.pname}-${drv.version}/elisp" )
           make -C $lispdir
@@ -1243,8 +1241,9 @@ self: super:
   sensei =
     overrideCabal
       (drv: {
-        testHaskellDepends =
-          drv.testHaskellDepends or [ ] ++ [ self.hspec-meta_2_10_5 ];
+        testHaskellDepends = drv.testHaskellDepends or [ ] ++ [
+          self.hspec-meta_2_10_5
+        ];
         testToolDepends = drv.testToolDepends or [ ] ++ [ pkgs.git ];
       })
       (
@@ -1279,8 +1278,9 @@ self: super:
           ''
           + (drv.preCheck or "")
         ;
-        libraryToolDepends =
-          drv.libraryToolDepends or [ ] ++ [ pkgs.buildPackages.postgresql ];
+        libraryToolDepends = drv.libraryToolDepends or [ ] ++ [
+          pkgs.buildPackages.postgresql
+        ];
         testToolDepends = drv.testToolDepends or [ ] ++ [ pkgs.procps ];
       })
       super.tmp-postgres
@@ -1626,13 +1626,10 @@ self: super:
             "--skip=/Esqueleto/MySQL"
           ]
         ;
-        testToolDepends =
-          drv.testToolDepends or [ ]
-          ++ [
-            pkgs.postgresql
-            pkgs.postgresqlTestHook
-          ]
-        ;
+        testToolDepends = drv.testToolDepends or [ ] ++ [
+          pkgs.postgresql
+          pkgs.postgresqlTestHook
+        ];
       })
       super.esqueleto
   ;
@@ -1789,13 +1786,10 @@ self: super:
             PGUSER=test
           ''
         ;
-        testToolDepends =
-          drv.testToolDepends or [ ]
-          ++ [
-            pkgs.postgresql
-            pkgs.postgresqlTestHook
-          ]
-        ;
+        testToolDepends = drv.testToolDepends or [ ] ++ [
+          pkgs.postgresql
+          pkgs.postgresqlTestHook
+        ];
       })
       super.persistent-postgresql
   ;
@@ -1911,8 +1905,9 @@ self: super:
   libsodium =
     overrideCabal
       (drv: {
-        libraryToolDepends =
-          (drv.libraryToolDepends or [ ]) ++ [ self.buildHaskellPackages.c2hs ];
+        libraryToolDepends = (drv.libraryToolDepends or [ ]) ++ [
+          self.buildHaskellPackages.c2hs
+        ];
       })
       super.libsodium
   ;
@@ -2010,13 +2005,10 @@ self: super:
           krb5.dev
           openssl.dev
         ];
-        testToolDepends =
-          drv.testToolDepends or [ ]
-          ++ [
-            pkgs.postgresql
-            pkgs.postgresqlTestHook
-          ]
-        ;
+        testToolDepends = drv.testToolDepends or [ ] ++ [
+          pkgs.postgresql
+          pkgs.postgresqlTestHook
+        ];
         # https://github.com/NixOS/nixpkgs/issues/198495
         doCheck = pkgs.postgresql.doCheck;
         preCheck =
@@ -2324,8 +2316,9 @@ self: super:
   spacecookie =
     overrideCabal
       (old: {
-        buildTools =
-          (old.buildTools or [ ]) ++ [ pkgs.buildPackages.installShellFiles ];
+        buildTools = (old.buildTools or [ ]) ++ [
+          pkgs.buildPackages.installShellFiles
+        ];
         # let testsuite discover the resulting binary
         preCheck =
           ''
@@ -2664,27 +2657,22 @@ self: super:
         # Provide newly added dependencies
         (overrideCabal (
           drv: {
-            libraryHaskellDepends =
-              drv.libraryHaskellDepends or [ ]
-              ++ [
-                self.cryptonite
-                self.memory
-              ]
-            ;
-            testHaskellDepends =
-              drv.testHaskellDepends or [ ] ++ [ self.inspection-testing ];
+            libraryHaskellDepends = drv.libraryHaskellDepends or [ ] ++ [
+              self.cryptonite
+              self.memory
+            ];
+            testHaskellDepends = drv.testHaskellDepends or [ ] ++ [
+              self.inspection-testing
+            ];
           }
         ))
         # https://github.com/factisresearch/large-hashable/issues/24
         (overrideCabal (
           drv: {
-            testFlags =
-              drv.testFlags or [ ]
-              ++ [
-                "-n"
-                "^Data.LargeHashable.Tests.Inspection:genericSumGetsOptimized$"
-              ]
-            ;
+            testFlags = drv.testFlags or [ ] ++ [
+              "-n"
+              "^Data.LargeHashable.Tests.Inspection:genericSumGetsOptimized$"
+            ];
           }
         ))
       ]
@@ -2777,17 +2765,14 @@ self: super:
     assert super.Unique.version == "0.4.7.9";
     overrideCabal
       (drv: {
-        testFlags =
-          [
-            "--skip"
-            "/Data.List.UniqueUnsorted.removeDuplicates/removeDuplicates: simple test/"
-            "--skip"
-            "/Data.List.UniqueUnsorted.repeatedBy,repeated,unique/unique: simple test/"
-            "--skip"
-            "/Data.List.UniqueUnsorted.repeatedBy,repeated,unique/repeatedBy: simple test/"
-          ]
-          ++ drv.testFlags or [ ]
-        ;
+        testFlags = [
+          "--skip"
+          "/Data.List.UniqueUnsorted.removeDuplicates/removeDuplicates: simple test/"
+          "--skip"
+          "/Data.List.UniqueUnsorted.repeatedBy,repeated,unique/unique: simple test/"
+          "--skip"
+          "/Data.List.UniqueUnsorted.repeatedBy,repeated,unique/repeatedBy: simple test/"
+        ] ++ drv.testFlags or [ ];
       })
       (doJailbreak super.Unique)
   ;
@@ -2797,13 +2782,10 @@ self: super:
     assert super.aeson-casing.version == "0.2.0.0";
     overrideCabal
       (drv: {
-        testFlags =
-          [
-            "-p"
-            "! /encode train/"
-          ]
-          ++ drv.testFlags or [ ]
-        ;
+        testFlags = [
+          "-p"
+          "! /encode train/"
+        ] ++ drv.testFlags or [ ];
       })
       super.aeson-casing
   ;
@@ -2814,13 +2796,10 @@ self: super:
   haskell-postgis =
     overrideCabal
       (drv: {
-        testFlags =
-          [
-            "--skip"
-            "/Geo/Hexable/Encodes a linestring/"
-          ]
-          ++ drv.testFlags or [ ]
-        ;
+        testFlags = [
+          "--skip"
+          "/Geo/Hexable/Encodes a linestring/"
+        ] ++ drv.testFlags or [ ];
       })
       super.haskell-postgis
   ;
@@ -2828,13 +2807,10 @@ self: super:
   json-to-haskell =
     overrideCabal
       (drv: {
-        testFlags =
-          [
-            "--match"
-            "/should sanitize weird field and record names/"
-          ]
-          ++ drv.testFlags or [ ]
-        ;
+        testFlags = [
+          "--match"
+          "/should sanitize weird field and record names/"
+        ] ++ drv.testFlags or [ ];
       })
       super.json-to-haskell
   ;
@@ -2844,26 +2820,20 @@ self: super:
   morpheus-graphql-core =
     overrideCabal
       (drv: {
-        testFlags =
-          [
-            "-p"
-            "!/field.unexpected-value/&&!/field.missing-field/&&!/argument.unexpected-value/&&!/argument.missing-field/"
-          ]
-          ++ drv.testFlags or [ ]
-        ;
+        testFlags = [
+          "-p"
+          "!/field.unexpected-value/&&!/field.missing-field/&&!/argument.unexpected-value/&&!/argument.missing-field/"
+        ] ++ drv.testFlags or [ ];
       })
       super.morpheus-graphql-core
   ;
   morpheus-graphql =
     overrideCabal
       (drv: {
-        testFlags =
-          [
-            "-p"
-            "!/Test Rendering/"
-          ]
-          ++ drv.testFlags or [ ]
-        ;
+        testFlags = [
+          "-p"
+          "!/Test Rendering/"
+        ] ++ drv.testFlags or [ ];
       })
       super.morpheus-graphql
   ;
@@ -2872,13 +2842,10 @@ self: super:
   dropbox =
     overrideCabal
       (drv: {
-        testFlags =
-          [
-            "--skip"
-            "/Dropbox/Dropbox aeson aeson/encodes list folder correctly/"
-          ]
-          ++ drv.testFlags or [ ]
-        ;
+        testFlags = [
+          "--skip"
+          "/Dropbox/Dropbox aeson aeson/encodes list folder correctly/"
+        ] ++ drv.testFlags or [ ];
       })
       super.dropbox
   ;
@@ -2886,13 +2853,10 @@ self: super:
   hschema-aeson =
     overrideCabal
       (drv: {
-        testFlags =
-          [
-            "--skip"
-            "/toJsonSerializer/should generate valid JSON/"
-          ]
-          ++ drv.testFlags or [ ]
-        ;
+        testFlags = [
+          "--skip"
+          "/toJsonSerializer/should generate valid JSON/"
+        ] ++ drv.testFlags or [ ];
       })
       super.hschema-aeson
   ;
@@ -2900,13 +2864,10 @@ self: super:
   minio-hs =
     overrideCabal
       (drv: {
-        testFlags =
-          [
-            "-p"
-            "!/Test mkSelectRequest/"
-          ]
-          ++ drv.testFlags or [ ]
-        ;
+        testFlags = [
+          "-p"
+          "!/Test mkSelectRequest/"
+        ] ++ drv.testFlags or [ ];
       })
       super.minio-hs
   ;

@@ -132,15 +132,12 @@ stdenv.mkDerivation rec {
     # some scripts hardcore /usr/bin/env which is not available in the build env
     patchShebangs .
   '';
-  configureFlags =
-    [
-      "--disable-appliance"
-      "--disable-daemon"
-      "--with-distro=NixOS"
-      "--with-guestfs-path=${placeholder "out"}/lib/guestfs"
-    ]
-    ++ lib.optionals (!javaSupport) [ "--without-java" ]
-  ;
+  configureFlags = [
+    "--disable-appliance"
+    "--disable-daemon"
+    "--with-distro=NixOS"
+    "--with-guestfs-path=${placeholder "out"}/lib/guestfs"
+  ] ++ lib.optionals (!javaSupport) [ "--without-java" ];
   patches = [ ./libguestfs-syms.patch ];
 
   createFindlibDestdir = true;

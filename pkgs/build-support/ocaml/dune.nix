@@ -82,14 +82,11 @@ else
 
       name = "ocaml${ocaml.version}-${pname}-${version}";
 
-      nativeBuildInputs =
-        [
-          ocaml
-          Dune
-          findlib
-        ]
-        ++ nativeBuildInputs
-      ;
+      nativeBuildInputs = [
+        ocaml
+        Dune
+        findlib
+      ] ++ nativeBuildInputs;
 
       meta = (args.meta or { }) // {
         platforms = args.meta.platforms or ocaml.meta.platforms;

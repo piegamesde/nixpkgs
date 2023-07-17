@@ -44,12 +44,9 @@ pkgs.stdenv.mkDerivation (
       mv bower_components $out
     '';
 
-    buildInputs =
-      buildInputs
-      ++ [
-        pkgs.git
-        pkgs.nodePackages.bower
-      ]
-    ;
+    buildInputs = buildInputs ++ [
+      pkgs.git
+      pkgs.nodePackages.bower
+    ];
   }
 )

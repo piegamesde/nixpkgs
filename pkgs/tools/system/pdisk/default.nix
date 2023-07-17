@@ -61,8 +61,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (stdenv.hostPlatform.isDarwin) [
       CoreFoundation
       IOKit
-    ]
-  ;
+    ];
 
   env.NIX_CFLAGS_COMPILE = "-D_GNU_SOURCE";
 

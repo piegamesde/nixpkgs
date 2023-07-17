@@ -157,20 +157,17 @@ in
 
   # Packages to prefix to the Apptainer/Singularity container runtime default PATH
   # Use overrideAttrs to override
-  defaultPathInputs =
-    [
-      bash
-      coreutils
-      cryptsetup # cryptsetup
-      fakeroot
-      fuse2fs # Mount ext3 filesystems
-      go
-      privileged-un-utils
-      squashfsTools # mksquashfs unsquashfs # Make / unpack squashfs image
-      squashfuse # squashfuse_ll squashfuse # Mount (without unpacking) a squashfs image without privileges
-    ]
-    ++ lib.optional enableNvidiaContainerCli nvidia-docker
-  ;
+  defaultPathInputs = [
+    bash
+    coreutils
+    cryptsetup # cryptsetup
+    fakeroot
+    fuse2fs # Mount ext3 filesystems
+    go
+    privileged-un-utils
+    squashfsTools # mksquashfs unsquashfs # Make / unpack squashfs image
+    squashfuse # squashfuse_ll squashfuse # Mount (without unpacking) a squashfs image without privileges
+  ] ++ lib.optional enableNvidiaContainerCli nvidia-docker;
 
   postPatch = ''
     if [[ ! -e .git || ! -e VERSION ]]; then

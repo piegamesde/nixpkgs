@@ -101,14 +101,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-LLEEbriHzZhAOQivqHqdr6g7lh4uj++ytlme8AfRjf4=";
   };
 
-  mesonFlags =
-    [
-      "-Dwindows=${withWindowSystem'}"
-      "-Dtest=enabled"
-      "-Dman=enabled"
-    ]
-    ++ backendFlags
-  ;
+  mesonFlags = [
+    "-Dwindows=${withWindowSystem'}"
+    "-Dtest=enabled"
+    "-Dman=enabled"
+  ] ++ backendFlags;
 
   nativeBuildInputs = [
     asciidoc

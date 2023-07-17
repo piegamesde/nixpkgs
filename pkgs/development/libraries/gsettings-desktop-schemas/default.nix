@@ -26,15 +26,12 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
   depsBuildBuild = [ pkg-config ];
-  nativeBuildInputs =
-    [
-      glib
-      meson
-      ninja
-      pkg-config
-    ]
-    ++ lib.optionals withIntrospection [ gobject-introspection ]
-  ;
+  nativeBuildInputs = [
+    glib
+    meson
+    ninja
+    pkg-config
+  ] ++ lib.optionals withIntrospection [ gobject-introspection ];
 
   mesonFlags = [ (lib.mesonBool "introspection" withIntrospection) ];
 

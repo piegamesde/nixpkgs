@@ -47,7 +47,8 @@ buildPythonPackage rec {
   ;
 
   propagatedBuildInputs =
-    [ olefile ] ++ lib.optionals (lib.versionAtLeast version "8.2.0") [ defusedxml ]
+    [ olefile ]
+    ++ lib.optionals (lib.versionAtLeast version "8.2.0") [ defusedxml ]
   ;
 
   nativeCheckInputs = [

@@ -28,13 +28,10 @@ mkDerivation (
     inherit pname version src;
     patches = (args.patches or [ ]) ++ (patches.${pname} or [ ]);
 
-    nativeBuildInputs =
-      (args.nativeBuildInputs or [ ])
-      ++ [
-        perl
-        self.qmake
-      ]
-    ;
+    nativeBuildInputs = (args.nativeBuildInputs or [ ]) ++ [
+      perl
+      self.qmake
+    ];
     propagatedBuildInputs = args.qtInputs ++ (args.propagatedBuildInputs or [ ]);
 
     outputs =

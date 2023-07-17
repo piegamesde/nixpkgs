@@ -25,17 +25,14 @@ stdenv.mkDerivation rec {
       ./glibc-2.34-fix.patch
     ];
 
-  configureFlags =
-    [
-      "--sysconfdir=/etc"
-      "--localstatedir=/var"
-      "--with-openssl-libdir=${lib.getLib openssl}/lib"
-      "--with-openssl-incdir=${openssl.dev}/include"
-      "--enable-ignore-dns-errors"
-      "--with-yielding-select=yes"
-    ]
-    ++ lib.optional stdenv.isLinux "--enable-linuxcaps"
-  ;
+  configureFlags = [
+    "--sysconfdir=/etc"
+    "--localstatedir=/var"
+    "--with-openssl-libdir=${lib.getLib openssl}/lib"
+    "--with-openssl-incdir=${openssl.dev}/include"
+    "--enable-ignore-dns-errors"
+    "--with-yielding-select=yes"
+  ] ++ lib.optional stdenv.isLinux "--enable-linuxcaps";
 
   buildInputs =
     [

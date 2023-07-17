@@ -45,22 +45,19 @@ stdenv.mkDerivation rec {
     makeWrapper
     perl
   ];
-  buildInputs =
-    [
-      fontconfig
-      freetype
-      glib
-      gsettings-desktop-schemas
-      gtk
-      jdk
-      libX11
-      libXrender
-      libXtst
-      libsecret
-      zlib
-    ]
-    ++ lib.optional (webkitgtk != null) webkitgtk
-  ;
+  buildInputs = [
+    fontconfig
+    freetype
+    glib
+    gsettings-desktop-schemas
+    gtk
+    jdk
+    libX11
+    libXrender
+    libXtst
+    libsecret
+    zlib
+  ] ++ lib.optional (webkitgtk != null) webkitgtk;
 
   buildCommand = ''
     # Unpack tarball.

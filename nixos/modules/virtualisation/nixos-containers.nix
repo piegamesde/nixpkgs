@@ -903,13 +903,10 @@ in
                     // (
                       if cfg.enableTun then
                         {
-                          allowedDevices =
-                            cfg.allowedDevices
-                            ++ [ {
-                              node = "/dev/net/tun";
-                              modifier = "rw";
-                            } ]
-                          ;
+                          allowedDevices = cfg.allowedDevices ++ [ {
+                            node = "/dev/net/tun";
+                            modifier = "rw";
+                          } ];
                           additionalCapabilities = cfg.additionalCapabilities ++ [ "CAP_NET_ADMIN" ];
                         }
                       else

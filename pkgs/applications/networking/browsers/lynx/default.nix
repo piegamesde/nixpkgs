@@ -36,25 +36,19 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  configureFlags =
-    [
-      "--enable-default-colors"
-      "--enable-widec"
-      "--enable-ipv6"
-    ]
-    ++ lib.optional sslSupport "--with-ssl"
-  ;
+  configureFlags = [
+    "--enable-default-colors"
+    "--enable-widec"
+    "--enable-ipv6"
+  ] ++ lib.optional sslSupport "--with-ssl";
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
   nativeBuildInputs = [ nukeReferences ] ++ lib.optional sslSupport pkg-config;
 
-  buildInputs =
-    [
-      ncurses
-      gzip
-    ]
-    ++ lib.optional sslSupport openssl
-  ;
+  buildInputs = [
+    ncurses
+    gzip
+  ] ++ lib.optional sslSupport openssl;
 
   # cfg_defs.h captures lots of references to build-only dependencies, derived
   # from config.cache.

@@ -197,13 +197,10 @@ in
           in
           nameValuePair daemon ({
             wantedBy = [ "multi-user.target" ];
-            after =
-              [
-                "network-pre.target"
-                "systemd-sysctl.service"
-              ]
-              ++ lib.optionals (service != "zebra") [ "zebra.service" ]
-            ;
+            after = [
+              "network-pre.target"
+              "systemd-sysctl.service"
+            ] ++ lib.optionals (service != "zebra") [ "zebra.service" ];
             bindsTo = lib.optionals (service != "zebra") [ "zebra.service" ];
             wants = [ "network.target" ];
 

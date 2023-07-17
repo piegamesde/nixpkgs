@@ -381,13 +381,10 @@ stdenv.mkDerivation (
   // {
     pname = "swiftpm";
 
-    nativeBuildInputs =
-      commonAttrs.nativeBuildInputs
-      ++ [
-        swift
-        swiftpm-bootstrap
-      ]
-    ;
+    nativeBuildInputs = commonAttrs.nativeBuildInputs ++ [
+      swift
+      swiftpm-bootstrap
+    ];
     buildInputs =
       [
         ncursesInput

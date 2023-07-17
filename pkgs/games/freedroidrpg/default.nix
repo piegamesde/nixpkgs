@@ -51,21 +51,18 @@ stdenv.mkDerivation {
     python3
   ];
 
-  buildInputs =
-    [
-      SDL
-      SDL_image
-      SDL_gfx
-      SDL_mixer
-      libogg
-      libvorbis
-      lua5_3
-      libjpeg
-      libpng
-      zlib
-    ]
-    ++ lib.optional stdenv.isDarwin libiconv
-  ;
+  buildInputs = [
+    SDL
+    SDL_image
+    SDL_gfx
+    SDL_mixer
+    libogg
+    libvorbis
+    lua5_3
+    libjpeg
+    libpng
+    zlib
+  ] ++ lib.optional stdenv.isDarwin libiconv;
 
   meta = with lib; {
     description = "Isometric 3D RPG similar to game Diablo";

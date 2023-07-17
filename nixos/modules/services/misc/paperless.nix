@@ -49,17 +49,14 @@ let
   # Secure the services
   defaultServiceConfig = {
     TemporaryFileSystem = "/:ro";
-    BindReadOnlyPaths =
-      [
-        "/nix/store"
-        "-/etc/resolv.conf"
-        "-/etc/nsswitch.conf"
-        "-/etc/hosts"
-        "-/etc/localtime"
-        "-/run/postgresql"
-      ]
-      ++ (optional enableRedis redisServer.unixSocket)
-    ;
+    BindReadOnlyPaths = [
+      "/nix/store"
+      "-/etc/resolv.conf"
+      "-/etc/nsswitch.conf"
+      "-/etc/hosts"
+      "-/etc/localtime"
+      "-/run/postgresql"
+    ] ++ (optional enableRedis redisServer.unixSocket);
     BindPaths = [
       cfg.consumptionDir
       cfg.dataDir

@@ -29,18 +29,14 @@ rustPlatform.buildRustPackage rec {
       ./remove-date-info.patch
     ];
 
-  nativeBuildInputs =
-    [
-      installShellFiles
-      just
-      pandoc
-    ]
-    ++ lib.optionals stdenv.isLinux [ pkg-config ]
-  ;
+  nativeBuildInputs = [
+    installShellFiles
+    just
+    pandoc
+  ] ++ lib.optionals stdenv.isLinux [ pkg-config ];
   buildInputs =
     lib.optionals stdenv.isLinux [ openssl ]
-    ++ lib.optionals stdenv.isDarwin [ Security ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ Security ];
 
   outputs = [
     "out"

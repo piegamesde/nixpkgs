@@ -37,21 +37,18 @@ buildPythonPackage rec {
     hash = "sha256-FmiuWfoFZjZf1/GbE6PmSkeshWWh+6nDj2u2PMSeDk0=";
   };
 
-  propagatedBuildInputs =
-    [
-      filelock
-      huggingface-hub
-      numpy
-      protobuf
-      packaging
-      pyyaml
-      regex
-      requests
-      tokenizers
-      tqdm
-    ]
-    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
-  ;
+  propagatedBuildInputs = [
+    filelock
+    huggingface-hub
+    numpy
+    protobuf
+    packaging
+    pyyaml
+    regex
+    requests
+    tokenizers
+    tqdm
+  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   passthru.optional-dependencies = {
     ja =

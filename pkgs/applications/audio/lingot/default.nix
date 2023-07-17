@@ -30,17 +30,14 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs =
-    [
-      gtk3
-      alsa-lib
-      libpulseaudio
-      fftw
-      fftwFloat
-      json_c
-    ]
-    ++ lib.optional jackSupport libjack2
-  ;
+  buildInputs = [
+    gtk3
+    alsa-lib
+    libpulseaudio
+    fftw
+    fftwFloat
+    json_c
+  ] ++ lib.optional jackSupport libjack2;
 
   configureFlags = lib.optional (!jackSupport) "--disable-jack";
 

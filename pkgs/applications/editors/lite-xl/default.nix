@@ -31,17 +31,14 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs =
-    [
-      agg
-      freetype
-      lua5_4
-      pcre2
-      reproc
-      SDL2
-    ]
-    ++ lib.optionals stdenv.isDarwin [ Foundation ]
-  ;
+  buildInputs = [
+    agg
+    freetype
+    lua5_4
+    pcre2
+    reproc
+    SDL2
+  ] ++ lib.optionals stdenv.isDarwin [ Foundation ];
 
   meta = with lib; {
     description = "A lightweight text editor written in Lua";

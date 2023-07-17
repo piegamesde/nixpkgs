@@ -36,19 +36,16 @@
 let
   hipPlatform = if useNVIDIA then "nvidia" else "amd";
 
-  wrapperArgs =
-    [
-      "--prefix PATH : $out/bin"
-      "--prefix LD_LIBRARY_PATH : ${rocm-runtime}"
-      "--set HIP_PLATFORM ${hipPlatform}"
-      "--set HIP_PATH $out"
-      "--set HIP_CLANG_PATH ${stdenv.cc}/bin"
-      "--set DEVICE_LIB_PATH ${rocm-device-libs}/amdgcn/bitcode"
-      "--set HSA_PATH ${rocm-runtime}"
-      "--set ROCM_PATH $out"
-    ]
-    ++ lib.optionals useNVIDIA [ "--set CUDA_PATH ${cudatoolkit}" ]
-  ;
+  wrapperArgs = [
+    "--prefix PATH : $out/bin"
+    "--prefix LD_LIBRARY_PATH : ${rocm-runtime}"
+    "--set HIP_PLATFORM ${hipPlatform}"
+    "--set HIP_PATH $out"
+    "--set HIP_CLANG_PATH ${stdenv.cc}/bin"
+    "--set DEVICE_LIB_PATH ${rocm-device-libs}/amdgcn/bitcode"
+    "--set HSA_PATH ${rocm-runtime}"
+    "--set ROCM_PATH $out"
+  ] ++ lib.optionals useNVIDIA [ "--set CUDA_PATH ${cudatoolkit}" ];
 in
 stdenv.mkDerivation (
   finalAttrs: {
@@ -101,38 +98,32 @@ stdenv.mkDerivation (
       libglvnd
     ];
 
-    propagatedBuildInputs =
-      [
-        stdenv.cc
-        llvm
-        rocminfo
-        rocm-thunk
-        rocm-comgr
-        rocm-device-libs
-        rocm-runtime
-        rocm-opencl-runtime
-      ]
-      ++ lib.optionals useNVIDIA [ cudatoolkit ]
-    ;
+    propagatedBuildInputs = [
+      stdenv.cc
+      llvm
+      rocminfo
+      rocm-thunk
+      rocm-comgr
+      rocm-device-libs
+      rocm-runtime
+      rocm-opencl-runtime
+    ] ++ lib.optionals useNVIDIA [ cudatoolkit ];
 
-    cmakeFlags =
-      [
-        "-DROCM_PATH=${rocminfo}"
-        "-DHIP_PLATFORM=${hipPlatform}"
-        "-DHIP_COMMON_DIR=${hip-common}"
-        "-DHIPCC_BIN_DIR=${hipcc}/bin"
-        "-DHIP_LLVM_ROOT=${stdenv.cc}"
-        "-DROCCLR_PATH=${rocclr}"
-        "-DAMD_OPENCL_PATH=${rocm-opencl-runtime.src}"
-        "-DPROF_API_HEADER_PATH=${roctracer.src}/inc/ext"
-        # Temporarily set variables to work around upstream CMakeLists issue
-        # Can be removed once https://github.com/ROCm-Developer-Tools/hipamd/issues/55 is fixed
-        "-DCMAKE_INSTALL_BINDIR=bin"
-        "-DCMAKE_INSTALL_INCLUDEDIR=include"
-        "-DCMAKE_INSTALL_LIBDIR=lib"
-      ]
-      ++ lib.optionals buildTests [ "-DHIP_CATCH_TEST=1" ]
-    ;
+    cmakeFlags = [
+      "-DROCM_PATH=${rocminfo}"
+      "-DHIP_PLATFORM=${hipPlatform}"
+      "-DHIP_COMMON_DIR=${hip-common}"
+      "-DHIPCC_BIN_DIR=${hipcc}/bin"
+      "-DHIP_LLVM_ROOT=${stdenv.cc}"
+      "-DROCCLR_PATH=${rocclr}"
+      "-DAMD_OPENCL_PATH=${rocm-opencl-runtime.src}"
+      "-DPROF_API_HEADER_PATH=${roctracer.src}/inc/ext"
+      # Temporarily set variables to work around upstream CMakeLists issue
+      # Can be removed once https://github.com/ROCm-Developer-Tools/hipamd/issues/55 is fixed
+      "-DCMAKE_INSTALL_BINDIR=bin"
+      "-DCMAKE_INSTALL_INCLUDEDIR=include"
+      "-DCMAKE_INSTALL_LIBDIR=lib"
+    ] ++ lib.optionals buildTests [ "-DHIP_CATCH_TEST=1" ];
 
     postPatch =
       ''

@@ -243,15 +243,13 @@ builtins.intersectAttrs super {
   cuda =
     overrideCabal
       (drv: {
-        extraLibraries =
-          (drv.extraLibraries or [ ]) ++ [ pkgs.linuxPackages.nvidia_x11 ];
-        configureFlags =
-          (drv.configureFlags or [ ])
-          ++ [
-            "--extra-lib-dirs=${pkgs.cudatoolkit.lib}/lib"
-            "--extra-include-dirs=${pkgs.cudatoolkit}/include"
-          ]
-        ;
+        extraLibraries = (drv.extraLibraries or [ ]) ++ [
+          pkgs.linuxPackages.nvidia_x11
+        ];
+        configureFlags = (drv.configureFlags or [ ]) ++ [
+          "--extra-lib-dirs=${pkgs.cudatoolkit.lib}/lib"
+          "--extra-include-dirs=${pkgs.cudatoolkit}/include"
+        ];
         preConfigure = ''
           export CUDA_PATH=${pkgs.cudatoolkit}
         '';
@@ -647,15 +645,12 @@ builtins.intersectAttrs super {
   hcwiid =
     overrideCabal
       (drv: {
-        configureFlags =
-          (drv.configureFlags or [ ])
-          ++ [
-            "--extra-lib-dirs=${pkgs.bluez.out}/lib"
-            "--extra-lib-dirs=${pkgs.cwiid}/lib"
-            "--extra-include-dirs=${pkgs.cwiid}/include"
-            "--extra-include-dirs=${pkgs.bluez.dev}/include"
-          ]
-        ;
+        configureFlags = (drv.configureFlags or [ ]) ++ [
+          "--extra-lib-dirs=${pkgs.bluez.out}/lib"
+          "--extra-lib-dirs=${pkgs.cwiid}/lib"
+          "--extra-include-dirs=${pkgs.cwiid}/include"
+          "--extra-include-dirs=${pkgs.bluez.dev}/include"
+        ];
         prePatch = ''
           sed -i -e "/Extra-Lib-Dirs/d" -e "/Include-Dirs/d" "hcwiid.cabal" '';
       })
@@ -669,8 +664,9 @@ builtins.intersectAttrs super {
       g' =
         overrideCabal
           (drv: {
-            executableSystemDepends =
-              (drv.executableSystemDepends or [ ]) ++ [ pkgs.ncurses ];
+            executableSystemDepends = (drv.executableSystemDepends or [ ]) ++ [
+              pkgs.ncurses
+            ];
           })
           g
       ;
@@ -686,16 +682,14 @@ builtins.intersectAttrs super {
   fltkhs =
     overrideCabal
       (drv: {
-        libraryToolDepends =
-          (drv.libraryToolDepends or [ ]) ++ [ pkgs.buildPackages.autoconf ];
-        librarySystemDepends =
-          (drv.librarySystemDepends or [ ])
-          ++ [
-            pkgs.fltk13
-            pkgs.libGL
-            pkgs.libjpeg
-          ]
-        ;
+        libraryToolDepends = (drv.libraryToolDepends or [ ]) ++ [
+          pkgs.buildPackages.autoconf
+        ];
+        librarySystemDepends = (drv.librarySystemDepends or [ ]) ++ [
+          pkgs.fltk13
+          pkgs.libGL
+          pkgs.libjpeg
+        ];
       })
       super.fltkhs
   ;
@@ -729,10 +723,9 @@ builtins.intersectAttrs super {
       (drv: {
         libraryHaskellDepends =
           (drv.libraryHaskellDepends or [ ])
-          ++
-            lib.optionals
-              (!(pkgs.stdenv.hostPlatform.isAarch64 || pkgs.stdenv.hostPlatform.isx86_64))
-              [ self.unbounded-delays ]
+          ++ lib.optionals
+            (!(pkgs.stdenv.hostPlatform.isAarch64 || pkgs.stdenv.hostPlatform.isx86_64))
+            [ self.unbounded-delays ]
         ;
       })
       super.tasty
@@ -776,13 +769,10 @@ builtins.intersectAttrs super {
   either-unwrap =
     overrideCabal
       (drv: {
-        testHaskellDepends =
-          (drv.testHaskellDepends or [ ])
-          ++ [
-            self.test-framework
-            self.test-framework-hunit
-          ]
-        ;
+        testHaskellDepends = (drv.testHaskellDepends or [ ]) ++ [
+          self.test-framework
+          self.test-framework-hunit
+        ];
       })
       super.either-unwrap
   ;
@@ -906,8 +896,9 @@ builtins.intersectAttrs super {
   LDAP = dontCheck (
     overrideCabal
       (drv: {
-        librarySystemDepends =
-          drv.librarySystemDepends or [ ] ++ [ pkgs.cyrus_sasl.dev ];
+        librarySystemDepends = drv.librarySystemDepends or [ ] ++ [
+          pkgs.cyrus_sasl.dev
+        ];
       })
       super.LDAP
   );
@@ -1468,8 +1459,9 @@ builtins.intersectAttrs super {
   aeson-typescript =
     overrideCabal
       (drv: {
-        testToolDepends =
-          drv.testToolDepends or [ ] ++ [ pkgs.nodePackages.typescript ];
+        testToolDepends = drv.testToolDepends or [ ] ++ [
+          pkgs.nodePackages.typescript
+        ];
         # the testsuite assumes that tsc is in the PATH if it thinks it's in
         # CI, otherwise trying to install it.
         #
@@ -1505,7 +1497,9 @@ builtins.intersectAttrs super {
           ;
           # install man page
           buildTools =
-            [ pkgs.buildPackages.installShellFiles ] ++ (drv.buildTools or [ ]);
+            [ pkgs.buildPackages.installShellFiles ]
+            ++ (drv.buildTools or [ ])
+          ;
           postInstall =
             ''
               installManPage man/atsfmt.1
@@ -1600,14 +1594,11 @@ builtins.intersectAttrs super {
             export PATH="$PWD/dist/build/disco:$PATH"
           ''
         ;
-        testFlags =
-          drv.testFlags or [ ]
-          ++ [
-            # Needs network access
-            "-p"
-            "!/oeis/"
-          ]
-        ;
+        testFlags = drv.testFlags or [ ] ++ [
+          # Needs network access
+          "-p"
+          "!/oeis/"
+        ];
         # disco-examples needs network access
         testTarget = "disco-tests";
       })
@@ -1619,15 +1610,12 @@ builtins.intersectAttrs super {
   graphviz =
     overrideCabal
       (drv: {
-        patches =
-          [
-            (pkgs.substituteAll {
-              src = ./patches/graphviz-hardcode-graphviz-store-path.patch;
-              inherit (pkgs) graphviz;
-            })
-          ]
-          ++ (drv.patches or [ ])
-        ;
+        patches = [
+          (pkgs.substituteAll {
+            src = ./patches/graphviz-hardcode-graphviz-store-path.patch;
+            inherit (pkgs) graphviz;
+          })
+        ] ++ (drv.patches or [ ]);
       })
       super.graphviz
   ;
@@ -1640,13 +1628,10 @@ builtins.intersectAttrs super {
   http-api-data-qq =
     overrideCabal
       (drv: {
-        testFlags =
-          [
-            "-p"
-            "!/Can be used with http-client/"
-          ]
-          ++ drv.testFlags or [ ]
-        ;
+        testFlags = [
+          "-p"
+          "!/Can be used with http-client/"
+        ] ++ drv.testFlags or [ ];
       })
       super.http-api-data-qq
   ;
@@ -1678,13 +1663,10 @@ builtins.intersectAttrs super {
   evdev =
     overrideCabal
       (drv: {
-        testFlags =
-          drv.testFlags or [ ]
-          ++ [
-            "-p"
-            "!/Smoke/"
-          ]
-        ;
+        testFlags = drv.testFlags or [ ] ++ [
+          "-p"
+          "!/Smoke/"
+        ];
       })
       super.evdev
   ;
@@ -1716,8 +1698,9 @@ builtins.intersectAttrs super {
   cabal-install =
     overrideCabal
       (old: {
-        executableToolDepends =
-          [ pkgs.buildPackages.makeWrapper ] ++ old.buildToolDepends or [ ];
+        executableToolDepends = [
+          pkgs.buildPackages.makeWrapper
+        ] ++ old.buildToolDepends or [ ];
         postInstall =
           old.postInstall
           + ''

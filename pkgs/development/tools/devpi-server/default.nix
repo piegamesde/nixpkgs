@@ -46,26 +46,23 @@ buildPythonApplication rec {
       --replace "--flake8" ""
   '';
 
-  propagatedBuildInputs =
-    [
-      aiohttp
-      appdirs
-      defusedxml
-      devpi-common
-      execnet
-      itsdangerous
-      packaging
-      passlib
-      platformdirs
-      pluggy
-      pyramid
-      repoze_lru
-      setuptools
-      strictyaml
-      waitress
-    ]
-    ++ passlib.optional-dependencies.argon2
-  ;
+  propagatedBuildInputs = [
+    aiohttp
+    appdirs
+    defusedxml
+    devpi-common
+    execnet
+    itsdangerous
+    packaging
+    passlib
+    platformdirs
+    pluggy
+    pyramid
+    repoze_lru
+    setuptools
+    strictyaml
+    waitress
+  ] ++ passlib.optional-dependencies.argon2;
 
   nativeCheckInputs = [
     beautifulsoup4

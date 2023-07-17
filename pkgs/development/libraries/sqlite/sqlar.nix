@@ -23,13 +23,10 @@ stdenv.mkDerivation {
 
   buildInputs = [ zlib ] ++ lib.optional withFuse fuse;
 
-  buildFlags =
-    [
-      "CFLAGS=-Wno-error"
-      "sqlar"
-    ]
-    ++ lib.optional withFuse "sqlarfs"
-  ;
+  buildFlags = [
+    "CFLAGS=-Wno-error"
+    "sqlar"
+  ] ++ lib.optional withFuse "sqlarfs";
 
   installPhase =
     ''

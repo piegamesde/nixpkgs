@@ -97,16 +97,13 @@ lib.makeOverridable (
     ;
 
     # Dependencies that are required to build kernel modules
-    moduleBuildDependencies =
-      [
-        pahole
-        perl
-        libelf
-        # module makefiles often run uname commands to find out the kernel version
-        (buildPackages.deterministic-uname.override { inherit modDirVersion; })
-      ]
-      ++ optional (lib.versionAtLeast version "5.13") zstd
-    ;
+    moduleBuildDependencies = [
+      pahole
+      perl
+      libelf
+      # module makefiles often run uname commands to find out the kernel version
+      (buildPackages.deterministic-uname.override { inherit modDirVersion; })
+    ] ++ optional (lib.versionAtLeast version "5.13") zstd;
 
     config =
       let
@@ -310,18 +307,15 @@ lib.makeOverridable (
 
       karch = stdenv.hostPlatform.linuxArch;
 
-      buildFlags =
-        [
-          "DTC_FLAGS=-@"
-          "KBUILD_BUILD_VERSION=1-NixOS"
+      buildFlags = [
+        "DTC_FLAGS=-@"
+        "KBUILD_BUILD_VERSION=1-NixOS"
 
-          # Set by default in the kernel since a73619a845d5,
-          # replicated here to apply to older versions.
-          # Makes __FILE__ relative to the build directory.
-          "KCPPFLAGS=-fmacro-prefix-map=$(sourceRoot)/="
-        ]
-        ++ extraMakeFlags
-      ;
+        # Set by default in the kernel since a73619a845d5,
+        # replicated here to apply to older versions.
+        # Makes __FILE__ relative to the build directory.
+        "KCPPFLAGS=-fmacro-prefix-map=$(sourceRoot)/="
+      ] ++ extraMakeFlags;
 
       installFlags =
         [ "INSTALL_PATH=$(out)" ]

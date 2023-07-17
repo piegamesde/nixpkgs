@@ -69,33 +69,27 @@ stdenv.mkDerivation rec {
   ;
 
   # rpm/rpmlib.h includes popt.h, and then the pkg-config file mentions these as linkage requirements
-  propagatedBuildInputs =
-    [
-      popt
-      nss
-      db
-      bzip2
-      libarchive
-      libbfd
-    ]
-    ++ lib.optional stdenv.isLinux elfutils
-  ;
+  propagatedBuildInputs = [
+    popt
+    nss
+    db
+    bzip2
+    libarchive
+    libbfd
+  ] ++ lib.optional stdenv.isLinux elfutils;
 
   env.NIX_CFLAGS_COMPILE = "-I${nspr.dev}/include/nspr -I${nss.dev}/include/nss";
 
-  configureFlags =
-    [
-      "--with-external-db"
-      "--with-lua"
-      "--enable-python"
-      "--enable-ndb"
-      "--enable-sqlite"
-      "--enable-zstd"
-      "--localstatedir=/var"
-      "--sharedstatedir=/com"
-    ]
-    ++ lib.optional stdenv.isLinux "--with-cap"
-  ;
+  configureFlags = [
+    "--with-external-db"
+    "--with-lua"
+    "--enable-python"
+    "--enable-ndb"
+    "--enable-sqlite"
+    "--enable-zstd"
+    "--localstatedir=/var"
+    "--sharedstatedir=/com"
+  ] ++ lib.optional stdenv.isLinux "--with-cap";
 
   postPatch = ''
     substituteInPlace Makefile.am --replace '@$(MKDIR_P) $(DESTDIR)$(localstatedir)/tmp' ""

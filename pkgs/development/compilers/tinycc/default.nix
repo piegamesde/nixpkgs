@@ -54,18 +54,15 @@ stdenv.mkDerivation rec {
     patchShebangs texi2pod.pl
   '';
 
-  configureFlags =
-    [
-      "--cc=$CC"
-      "--ar=$AR"
-      "--crtprefix=${lib.getLib stdenv.cc.libc}/lib"
-      "--sysincludepaths=${lib.getDev stdenv.cc.libc}/include:{B}/include"
-      "--libpaths=${lib.getLib stdenv.cc.libc}/lib"
-      # build cross compilers
-      "--enable-cross"
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isMusl [ "--config-musl" ]
-  ;
+  configureFlags = [
+    "--cc=$CC"
+    "--ar=$AR"
+    "--crtprefix=${lib.getLib stdenv.cc.libc}/lib"
+    "--sysincludepaths=${lib.getDev stdenv.cc.libc}/include:{B}/include"
+    "--libpaths=${lib.getLib stdenv.cc.libc}/lib"
+    # build cross compilers
+    "--enable-cross"
+  ] ++ lib.optionals stdenv.hostPlatform.isMusl [ "--config-musl" ];
 
   preConfigure = ''
     ${if stdenv.isDarwin && !isCleanVer version then

@@ -30,13 +30,10 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  buildInputs =
-    [
-      ncurses
-      libvorbis
-    ]
-    ++ lib.optional stdenv.isDarwin SDL
-  ;
+  buildInputs = [
+    ncurses
+    libvorbis
+  ] ++ lib.optional stdenv.isDarwin SDL;
 
   env.NIX_CFLAGS_COMPILE = toString (
     [ "-Wno-narrowing" ]

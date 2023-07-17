@@ -42,19 +42,16 @@ buildPythonPackage rec {
     pandoc
   ];
 
-  propagatedBuildInputs =
-    [
-      charset-normalizer
-      defusedxml
-      multidict
-      pygments
-      requests
-      requests-toolbelt
-      setuptools
-      rich
-    ]
-    ++ requests.optional-dependencies.socks
-  ;
+  propagatedBuildInputs = [
+    charset-normalizer
+    defusedxml
+    multidict
+    pygments
+    requests
+    requests-toolbelt
+    setuptools
+    rich
+  ] ++ requests.optional-dependencies.socks;
 
   nativeCheckInputs = [
     pytest-httpbin
@@ -109,12 +106,11 @@ buildPythonPackage rec {
       "test_xml_format_options"
       "test_xml_xhtm"
     ]
-    ++
-      lib.optionals stdenv.isDarwin
-        [
-          # flaky
-          "test_daemon_runner"
-        ]
+    ++ lib.optionals stdenv.isDarwin
+      [
+        # flaky
+        "test_daemon_runner"
+      ]
   ;
 
   meta = with lib; {

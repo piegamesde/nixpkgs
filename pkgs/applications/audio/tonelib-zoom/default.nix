@@ -30,16 +30,13 @@ stdenv.mkDerivation rec {
     dpkg
   ];
 
-  buildInputs =
-    [
-      stdenv.cc.cc.lib
-      alsa-lib
-      freetype
-      libglvnd
-      webkitgtk
-    ]
-    ++ runtimeDependencies
-  ;
+  buildInputs = [
+    stdenv.cc.cc.lib
+    alsa-lib
+    freetype
+    libglvnd
+    webkitgtk
+  ] ++ runtimeDependencies;
 
   runtimeDependencies = map lib.getLib [
     curl

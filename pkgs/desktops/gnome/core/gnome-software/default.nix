@@ -78,40 +78,36 @@ stdenv.mkDerivation rec {
     gobject-introspection
   ];
 
-  buildInputs =
-    [
-      gtk4
-      glib
-      packagekit
-      appstream
-      libsoup_3
-      libadwaita
-      gsettings-desktop-schemas
-      gnome-desktop
-      gspell
-      json-glib
-      libsecret
-      ostree
-      polkit
-      flatpak
-      libgudev
-      libxmlb
-      malcontent
-      libsysprof-capture
-      # For video screenshots
-      gst_all_1.gst-plugins-base
-      gst_all_1.gst-plugins-good
-    ]
-    ++ lib.optionals withFwupd [ fwupd ]
-  ;
+  buildInputs = [
+    gtk4
+    glib
+    packagekit
+    appstream
+    libsoup_3
+    libadwaita
+    gsettings-desktop-schemas
+    gnome-desktop
+    gspell
+    json-glib
+    libsecret
+    ostree
+    polkit
+    flatpak
+    libgudev
+    libxmlb
+    malcontent
+    libsysprof-capture
+    # For video screenshots
+    gst_all_1.gst-plugins-base
+    gst_all_1.gst-plugins-good
+  ] ++ lib.optionals withFwupd [ fwupd ];
 
   mesonFlags =
     [
       # Requires /etc/machine-id, D-Bus system bus, etc.
       "-Dtests=false"
     ]
-    ++ lib.optionals (!withFwupd) [ "-Dfwupd=false" ]
-  ;
+    ++ lib.optionals (!withFwupd) [ "-Dfwupd=false" ];
 
   passthru = {
     updateScript = gnome.updateScript {

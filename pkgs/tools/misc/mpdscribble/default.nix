@@ -40,15 +40,12 @@ stdenv.mkDerivation rec {
     meson
     ninja
   ];
-  buildInputs =
-    [
-      libmpdclient
-      curl
-      boost
-      libgcrypt
-    ]
-    ++ lib.optional stdenv.isLinux systemd
-  ;
+  buildInputs = [
+    libmpdclient
+    curl
+    boost
+    libgcrypt
+  ] ++ lib.optional stdenv.isLinux systemd;
 
   meta = with lib; {
     description = "A MPD client which submits info about tracks being played to a scrobbler";

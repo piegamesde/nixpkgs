@@ -51,13 +51,10 @@ stdenv.mkDerivation rec {
   ];
   buildInputs = lib.optionals stdenv.isLinux [ elfutils ];
 
-  makeFlags =
-    [
-      "PREFIX=${placeholder "out"}"
-      "SONAME_Darwin=-Wl,-install_name,${placeholder "out"}/lib/libkrunfw.dylib"
-    ]
-    ++ lib.optional sevVariant "SEV=1"
-  ;
+  makeFlags = [
+    "PREFIX=${placeholder "out"}"
+    "SONAME_Darwin=-Wl,-install_name,${placeholder "out"}/lib/libkrunfw.dylib"
+  ] ++ lib.optional sevVariant "SEV=1";
 
   enableParallelBuilding = true;
 

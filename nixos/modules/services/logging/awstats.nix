@@ -251,9 +251,8 @@ in
     # create data directory with the correct permissions
     systemd.tmpfiles.rules =
       [ "d '${cfg.dataDir}' 755 root root - -" ]
-      ++
-        mapAttrsToList (name: opts: "d '${cfg.dataDir}/${name}' 755 root root - -")
-          cfg.configs
+      ++ mapAttrsToList (name: opts: "d '${cfg.dataDir}/${name}' 755 root root - -")
+        cfg.configs
       ++ [ "Z '${cfg.dataDir}' 755 root root - -" ]
     ;
 

@@ -47,16 +47,13 @@ stdenv.mkDerivation rec {
     rustc
     wrapGAppsHook4
   ];
-  buildInputs =
-    [
-      gdk-pixbuf
-      glib
-      gtk4
-      gtksourceview5
-      libadwaita
-    ]
-    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Foundation ]
-  ;
+  buildInputs = [
+    gdk-pixbuf
+    glib
+    gtk4
+    gtksourceview5
+    libadwaita
+  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Foundation ];
 
   meta = with lib; {
     homepage = "https://gitlab.gnome.org/World/design/icon-library";

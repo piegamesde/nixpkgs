@@ -68,8 +68,7 @@ stdenv.mkDerivation rec {
       "-DGO_USE_JACK=OFF"
       "-DINSTALL_DEPEND=OFF"
     ]
-    ++ lib.optional (!includeDemo) "-DINSTALL_DEMO=OFF"
-  ;
+    ++ lib.optional (!includeDemo) "-DINSTALL_DEMO=OFF";
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.isDarwin

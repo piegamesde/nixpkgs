@@ -56,7 +56,8 @@ let
       inherit preferLocalBuild allowSubstitutes; # pass the defaults
 
       nativeBuildInputs =
-        nativeBuildInputs ++ lib.optionals (scripts != [ ]) [ makeWrapper ];
+        nativeBuildInputs
+        ++ lib.optionals (scripts != [ ]) [ makeWrapper ];
 
       meta = {
         mainProgram = pname;

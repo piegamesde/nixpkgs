@@ -47,8 +47,8 @@ rustPlatform.buildRustPackage rec {
       pkg-config
     ]
     ++
-      # for flock
-      lib.optional stdenv.isLinux util-linux
+    # for flock
+    lib.optional stdenv.isLinux util-linux
   ;
 
   buildInputs = [

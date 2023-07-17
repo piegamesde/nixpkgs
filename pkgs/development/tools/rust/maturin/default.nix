@@ -30,8 +30,7 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optionals stdenv.isDarwin [
       Security
       libiconv
-    ]
-  ;
+    ];
 
   # Requires network access, fails in sandbox.
   doCheck = false;

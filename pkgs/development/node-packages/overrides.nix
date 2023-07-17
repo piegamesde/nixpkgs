@@ -290,25 +290,19 @@ final: prev: {
       preRebuild = ''
         export npm_config_zmq_external=true
       '';
-      buildInputs =
-        oldAttrs.buildInputs
-        ++ [
-          final.node-gyp-build
-          pkgs.zeromq
-        ]
-      ;
+      buildInputs = oldAttrs.buildInputs ++ [
+        final.node-gyp-build
+        pkgs.zeromq
+      ];
     }
   );
 
   insect = prev.insect.override (
     oldAttrs: {
-      nativeBuildInputs =
-        oldAttrs.nativeBuildInputs or [ ]
-        ++ [
-          pkgs.psc-package
-          final.pulp
-        ]
-      ;
+      nativeBuildInputs = oldAttrs.nativeBuildInputs or [ ] ++ [
+        pkgs.psc-package
+        final.pulp
+      ];
     }
   );
 

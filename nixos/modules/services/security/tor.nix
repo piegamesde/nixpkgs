@@ -144,9 +144,8 @@ let
           config = {
             flags =
               filter (name: config.${name} == true) isolateFlags
-              ++
-                optional (config.SessionGroup != null)
-                  "SessionGroup=${toString config.SessionGroup}"
+              ++ optional (config.SessionGroup != null)
+                "SessionGroup=${toString config.SessionGroup}"
             ;
           };
         }
@@ -172,27 +171,24 @@ let
   optionSOCKSPort =
     doConfig:
     let
-      flags =
-        [
-          "CacheDNS"
-          "CacheIPv4DNS"
-          "CacheIPv6DNS"
-          "GroupWritable"
-          "IPv6Traffic"
-          "NoDNSRequest"
-          "NoIPv4Traffic"
-          "NoOnionTraffic"
-          "OnionTrafficOnly"
-          "PreferIPv6"
-          "PreferIPv6Automap"
-          "PreferSOCKSNoAuth"
-          "UseDNSCache"
-          "UseIPv4Cache"
-          "UseIPv6Cache"
-          "WorldWritable"
-        ]
-        ++ isolateFlags
-      ;
+      flags = [
+        "CacheDNS"
+        "CacheIPv4DNS"
+        "CacheIPv6DNS"
+        "GroupWritable"
+        "IPv6Traffic"
+        "NoDNSRequest"
+        "NoIPv4Traffic"
+        "NoOnionTraffic"
+        "OnionTrafficOnly"
+        "PreferIPv6"
+        "PreferIPv6Automap"
+        "PreferSOCKSNoAuth"
+        "UseDNSCache"
+        "UseIPv4Cache"
+        "UseIPv6Cache"
+        "WorldWritable"
+      ] ++ isolateFlags;
     in
     with types;
     oneOf [
@@ -226,9 +222,8 @@ let
             # Only add flags in SOCKSPort to avoid duplicates
             flags =
               filter (name: config.${name} == true) flags
-              ++
-                optional (config.SessionGroup != null)
-                  "SessionGroup=${toString config.SessionGroup}"
+              ++ optional (config.SessionGroup != null)
+                "SessionGroup=${toString config.SessionGroup}"
             ;
           };
         }
@@ -1571,8 +1566,7 @@ in
             ]
           )
           cfg.relay.onionServices
-      )
-    ;
+      );
 
     users.groups.tor.gid = config.ids.gids.tor;
     users.users.tor = {
@@ -1802,9 +1796,13 @@ in
           ]
         ;
         AmbientCapabilities =
-          [ "" ] ++ lib.optional bindsPrivilegedPort "CAP_NET_BIND_SERVICE";
+          [ "" ]
+          ++ lib.optional bindsPrivilegedPort "CAP_NET_BIND_SERVICE"
+        ;
         CapabilityBoundingSet =
-          [ "" ] ++ lib.optional bindsPrivilegedPort "CAP_NET_BIND_SERVICE";
+          [ "" ]
+          ++ lib.optional bindsPrivilegedPort "CAP_NET_BIND_SERVICE"
+        ;
         # ProtectClock= adds DeviceAllow=char-rtc r
         DeviceAllow = "";
         LockPersonality = true;

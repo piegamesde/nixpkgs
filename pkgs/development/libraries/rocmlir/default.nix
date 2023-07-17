@@ -43,13 +43,10 @@ stdenv.mkDerivation (
       hash = "sha256-MokE7Ej8mLHTQeLYvKr7PPlsNG6ul91fqfXDlGu5JpI=";
     };
 
-    nativeBuildInputs =
-      [
-        cmake
-        ninja
-      ]
-      ++ lib.optionals (!buildRockCompiler) [ hip ]
-    ;
+    nativeBuildInputs = [
+      cmake
+      ninja
+    ] ++ lib.optionals (!buildRockCompiler) [ hip ];
 
     buildInputs = [
       git

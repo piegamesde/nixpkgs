@@ -20,24 +20,18 @@
 let
   inherit (lib) optionals optionalString;
 
-  cursesDeps =
-    [
-      gettext
-      ncurses
-    ]
-    ++ optionals stdenv.isDarwin [ CoreFoundation ]
-  ;
+  cursesDeps = [
+    gettext
+    ncurses
+  ] ++ optionals stdenv.isDarwin [ CoreFoundation ];
 
-  tilesDeps =
-    [
-      SDL2
-      SDL2_image
-      SDL2_mixer
-      SDL2_ttf
-      freetype
-    ]
-    ++ optionals stdenv.isDarwin [ Cocoa ]
-  ;
+  tilesDeps = [
+    SDL2
+    SDL2_image
+    SDL2_mixer
+    SDL2_ttf
+    freetype
+  ] ++ optionals stdenv.isDarwin [ Cocoa ];
 
   patchDesktopFile = ''
     substituteInPlace $out/share/applications/org.cataclysmdda.CataclysmDDA.desktop \

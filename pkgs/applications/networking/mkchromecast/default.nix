@@ -17,20 +17,17 @@
   enableSonos ? true,
 }:
 let
-  packages =
-    [
-      vorbis-tools
-      sox
-      flac
-      lame
-      opusTools
-      gst_all_1.gstreamer
-      nodejs
-      ffmpeg
-      youtube-dl
-    ]
-    ++ lib.optionals stdenv.isLinux [ pulseaudio ]
-  ;
+  packages = [
+    vorbis-tools
+    sox
+    flac
+    lame
+    opusTools
+    gst_all_1.gstreamer
+    nodejs
+    ffmpeg
+    youtube-dl
+  ] ++ lib.optionals stdenv.isLinux [ pulseaudio ];
 in
 python3Packages.buildPythonApplication rec {
   pname = "mkchromecast-unstable";

@@ -93,13 +93,10 @@ let
     ++ extraFontDirs
   ;
   fontsConf = makeFontsConf {
-    fontDirectories =
-      fontDirs
-      ++ [
-        "/Library/Fonts"
-        "~/Library/Fonts"
-      ]
-    ;
+    fontDirectories = fontDirs ++ [
+      "/Library/Fonts"
+      "~/Library/Fonts"
+    ];
   };
   fonts = import ./system-fonts.nix { inherit stdenv xorg fontDirs; };
   # any X related programs expected to be available via $PATH

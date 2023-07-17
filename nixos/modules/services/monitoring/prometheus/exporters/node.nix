@@ -52,17 +52,16 @@ in
             # needs access to dbus via unix sockets (logind/systemd)
             "AF_UNIX"
           ]
-        ++
-          optionals
-            (
-              collectorIsEnabled "network_route"
-              || collectorIsEnabled "wifi"
-              || !collectorIsDisabled "netdev"
-            )
-            [
-              # needs netlink sockets for wireless collector
-              "AF_NETLINK"
-            ]
+        ++ optionals
+          (
+            collectorIsEnabled "network_route"
+            || collectorIsEnabled "wifi"
+            || !collectorIsDisabled "netdev"
+          )
+          [
+            # needs netlink sockets for wireless collector
+            "AF_NETLINK"
+          ]
       ;
       # The timex collector needs to access clock APIs
       ProtectClock = collectorIsDisabled "timex";

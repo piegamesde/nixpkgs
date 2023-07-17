@@ -30,15 +30,12 @@ let
     ${cfg.extraConfig}
   '';
 
-  ntpFlags =
-    [
-      "-c"
-      "${configFile}"
-      "-u"
-      "ntp:ntp"
-    ]
-    ++ cfg.extraFlags
-  ;
+  ntpFlags = [
+    "-c"
+    "${configFile}"
+    "-u"
+    "ntp:ntp"
+  ] ++ cfg.extraFlags;
 in
 
 {

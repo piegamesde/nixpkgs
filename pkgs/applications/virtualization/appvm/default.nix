@@ -14,15 +14,12 @@ let
   # https://github.com/jollheef/appvm/issues/28
   virt-manager-without-menu = virt-viewer.overrideAttrs (
     oldAttrs: {
-      patches =
-        oldAttrs.patches
-        ++ [
-          ./0001-Remove-menu-bar.patch
-          ./0002-Do-not-grab-keyboard-mouse.patch
-          ./0003-Use-name-of-appvm-applications-as-a-title.patch
-          ./0004-Use-title-application-name-as-subtitle.patch
-        ]
-      ;
+      patches = oldAttrs.patches ++ [
+        ./0001-Remove-menu-bar.patch
+        ./0002-Do-not-grab-keyboard-mouse.patch
+        ./0003-Use-name-of-appvm-applications-as-a-title.patch
+        ./0004-Use-title-application-name-as-subtitle.patch
+      ];
     }
   );
 in

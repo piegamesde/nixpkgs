@@ -83,8 +83,7 @@ rustPlatform.buildRustPackage rec {
       Foundation
       libiconv
       OpenGL
-    ]
-  ;
+    ];
 
   outputs = [
     "out"

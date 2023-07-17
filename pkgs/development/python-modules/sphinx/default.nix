@@ -58,40 +58,34 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flit-core ];
 
-  propagatedBuildInputs =
-    [
-      babel
-      alabaster
-      docutils
-      imagesize
-      jinja2
-      packaging
-      pygments
-      requests
-      snowballstemmer
-      sphinxcontrib-applehelp
-      sphinxcontrib-devhelp
-      sphinxcontrib-htmlhelp
-      sphinxcontrib-jsmath
-      sphinxcontrib-qthelp
-      sphinxcontrib-serializinghtml
-      # extra[docs]
-      sphinxcontrib-websupport
+  propagatedBuildInputs = [
+    babel
+    alabaster
+    docutils
+    imagesize
+    jinja2
+    packaging
+    pygments
+    requests
+    snowballstemmer
+    sphinxcontrib-applehelp
+    sphinxcontrib-devhelp
+    sphinxcontrib-htmlhelp
+    sphinxcontrib-jsmath
+    sphinxcontrib-qthelp
+    sphinxcontrib-serializinghtml
+    # extra[docs]
+    sphinxcontrib-websupport
 
-      # extra plugins which are otherwise not found by sphinx-build
-      sphinxcontrib-apidoc
-    ]
-    ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ]
-  ;
+    # extra plugins which are otherwise not found by sphinx-build
+    sphinxcontrib-apidoc
+  ] ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
 
-  nativeCheckInputs =
-    [
-      cython
-      html5lib
-      pytestCheckHook
-    ]
-    ++ lib.optionals (pythonOlder "3.8") [ typed-ast ]
-  ;
+  nativeCheckInputs = [
+    cython
+    html5lib
+    pytestCheckHook
+  ] ++ lib.optionals (pythonOlder "3.8") [ typed-ast ];
 
   preCheck = ''
     export HOME=$(mktemp -d)

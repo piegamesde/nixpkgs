@@ -22,15 +22,14 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-xL1QbeOLnAJVcBdp2NIMlT5LMxkNwA99VzCHV9NjwUo=";
 
   nativeBuildInputs =
-    [ pkg-config ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
-
-  buildInputs =
-    [
-      libusb1
-      libftdi1
-    ]
-    ++ lib.optionals stdenv.isDarwin [ AppKit ]
+    [ pkg-config ]
+    ++ lib.optionals stdenv.isDarwin [ DarwinTools ]
   ;
+
+  buildInputs = [
+    libusb1
+    libftdi1
+  ] ++ lib.optionals stdenv.isDarwin [ AppKit ];
 
   buildFeatures = [ "ftdi" ];
 

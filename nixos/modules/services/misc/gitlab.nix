@@ -1581,14 +1581,11 @@ in
         "gitlab-config.service"
         "gitlab-db-config.service"
       ];
-      bindsTo =
-        [
-          "redis-gitlab.service"
-          "gitlab-config.service"
-          "gitlab-db-config.service"
-        ]
-        ++ optional (cfg.databaseHost == "") "postgresql.service"
-      ;
+      bindsTo = [
+        "redis-gitlab.service"
+        "gitlab-config.service"
+        "gitlab-db-config.service"
+      ] ++ optional (cfg.databaseHost == "") "postgresql.service";
       wantedBy = [ "gitlab.target" ];
       partOf = [ "gitlab.target" ];
       environment =
@@ -1816,14 +1813,11 @@ in
         "gitlab-config.service"
         "gitlab-db-config.service"
       ];
-      bindsTo =
-        [
-          "redis-gitlab.service"
-          "gitlab-config.service"
-          "gitlab-db-config.service"
-        ]
-        ++ optional (cfg.databaseHost == "") "postgresql.service"
-      ;
+      bindsTo = [
+        "redis-gitlab.service"
+        "gitlab-config.service"
+        "gitlab-db-config.service"
+      ] ++ optional (cfg.databaseHost == "") "postgresql.service";
       wantedBy = [ "gitlab.target" ];
       partOf = [ "gitlab.target" ];
       environment = gitlabEnv;

@@ -66,17 +66,14 @@ let
         ]
       ;
 
-      nativeBuildInputs =
-        [
-          pkg-config
-          cmake
-          ninja
-          python3
-          openjdk
-          mono
-        ]
-        ++ lib.optionals useClang [ llvmPackages.lld ]
-      ;
+      nativeBuildInputs = [
+        pkg-config
+        cmake
+        ninja
+        python3
+        openjdk
+        mono
+      ] ++ lib.optionals useClang [ llvmPackages.lld ];
 
       separateDebugInfo = true;
       dontFixCmake = true;

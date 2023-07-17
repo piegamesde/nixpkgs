@@ -28,17 +28,14 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs =
-    [
-      jax-jumpy
-      cloudpickle
-      numpy
-      gym-notices
-      typing-extensions
-      farama-notifications
-    ]
-    ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ]
-  ;
+  propagatedBuildInputs = [
+    jax-jumpy
+    cloudpickle
+    numpy
+    gym-notices
+    typing-extensions
+    farama-notifications
+  ] ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
 
   pythonImportsCheck = [ "gymnasium" ];
 

@@ -91,38 +91,34 @@ stdenv.mkDerivation (
       ]
     ;
 
-    buildInputs =
-      [
-        libxml2
-        libffi
-      ]
-      ++ optional enablePFM libpfm
-    ; # exegesis
+    buildInputs = [
+      libxml2
+      libffi
+    ] ++ optional enablePFM libpfm; # exegesis
 
     propagatedBuildInputs =
-      optionals (stdenv.hostPlatform == stdenv.buildPlatform) [ ncurses ] ++ [ zlib ];
+      optionals (stdenv.hostPlatform == stdenv.buildPlatform) [ ncurses ]
+      ++ [ zlib ]
+    ;
 
     nativeCheckInputs = [ which ];
 
-    patches =
-      [
-        # When cross-compiling we configure llvm-config-native with an approximation
-        # of the flags used for the normal LLVM build. To avoid the need for building
-        # a native libLLVM.so (which would fail) we force llvm-config to be linked
-        # statically against the necessary LLVM components always.
-        ../../llvm-config-link-static.patch
+    patches = [
+      # When cross-compiling we configure llvm-config-native with an approximation
+      # of the flags used for the normal LLVM build. To avoid the need for building
+      # a native libLLVM.so (which would fail) we force llvm-config to be linked
+      # statically against the necessary LLVM components always.
+      ../../llvm-config-link-static.patch
 
-        ./gnu-install-dirs.patch
+      ./gnu-install-dirs.patch
 
-        # Fix random compiler crashes: https://bugs.llvm.org/show_bug.cgi?id=50611
-        (fetchpatch {
-          url = "https://raw.githubusercontent.com/archlinux/svntogit-packages/4764a4f8c920912a2bfd8b0eea57273acfe0d8a8/trunk/no-strict-aliasing-DwarfCompileUnit.patch";
-          sha256 = "18l6mrvm2vmwm77ckcnbjvh6ybvn72rhrb799d4qzwac4x2ifl7g";
-          stripLen = 1;
-        })
-      ]
-      ++ lib.optional enablePolly ./gnu-install-dirs-polly.patch
-    ;
+      # Fix random compiler crashes: https://bugs.llvm.org/show_bug.cgi?id=50611
+      (fetchpatch {
+        url = "https://raw.githubusercontent.com/archlinux/svntogit-packages/4764a4f8c920912a2bfd8b0eea57273acfe0d8a8/trunk/no-strict-aliasing-DwarfCompileUnit.patch";
+        sha256 = "18l6mrvm2vmwm77ckcnbjvh6ybvn72rhrb799d4qzwac4x2ifl7g";
+        stripLen = 1;
+      })
+    ] ++ lib.optional enablePolly ./gnu-install-dirs-polly.patch;
 
     postPatch =
       optionalString stdenv.isDarwin ''
@@ -194,13 +190,10 @@ stdenv.mkDerivation (
         #
         # Some flags don't need to be repassed because LLVM already does so (like
         # CMAKE_BUILD_TYPE), others are irrelevant to the result.
-        flagsForLlvmConfig =
-          [
-            "-DLLVM_INSTALL_CMAKE_DIR=${placeholder "dev"}/lib/cmake/llvm/"
-            "-DLLVM_ENABLE_RTTI=ON"
-          ]
-          ++ optionals enableSharedLibraries [ "-DLLVM_LINK_LLVM_DYLIB=ON" ]
-        ;
+        flagsForLlvmConfig = [
+          "-DLLVM_INSTALL_CMAKE_DIR=${placeholder "dev"}/lib/cmake/llvm/"
+          "-DLLVM_ENABLE_RTTI=ON"
+        ] ++ optionals enableSharedLibraries [ "-DLLVM_LINK_LLVM_DYLIB=ON" ];
       in
       flagsForLlvmConfig
       ++ [

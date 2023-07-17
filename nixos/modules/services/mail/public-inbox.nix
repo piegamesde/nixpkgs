@@ -675,9 +675,8 @@ in
               wants = [ "public-inbox-init.service" ];
               requires =
                 [ "public-inbox-init.service" ]
-                ++
-                  optional (cfg.settings.publicinboxwatch.spamcheck == "spamc")
-                    "spamassassin.service"
+                ++ optional (cfg.settings.publicinboxwatch.spamcheck == "spamc")
+                  "spamassassin.service"
               ;
               wantedBy = [ "multi-user.target" ];
               serviceConfig = {

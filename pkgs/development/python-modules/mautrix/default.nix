@@ -51,15 +51,12 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  checkInputs =
-    [
-      pytest-asyncio
-      aiosqlite
-      sqlalchemy
-      asyncpg
-    ]
-    ++ passthru.optional-dependencies.encryption
-  ;
+  checkInputs = [
+    pytest-asyncio
+    aiosqlite
+    sqlalchemy
+    asyncpg
+  ] ++ passthru.optional-dependencies.encryption;
 
   SQLALCHEMY_SILENCE_UBER_WARNING = 1;
 

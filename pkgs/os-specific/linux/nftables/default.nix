@@ -45,18 +45,14 @@ stdenv.mkDerivation rec {
     libxslt
   ];
 
-  buildInputs =
-    [
-      libmnl
-      libnftnl
-      libpcap
-      gmp
-      jansson
-      libedit
-    ]
-    ++ lib.optional withXtables iptables
-    ++ lib.optional withPython python3
-  ;
+  buildInputs = [
+    libmnl
+    libnftnl
+    libpcap
+    gmp
+    jansson
+    libedit
+  ] ++ lib.optional withXtables iptables ++ lib.optional withPython python3;
 
   configureFlags =
     [

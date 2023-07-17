@@ -39,16 +39,13 @@ buildPythonPackage rec {
     pybind11
     matplotlib
   ];
-  buildInputs =
-    [
-      boost
-      eigen
-      gmp
-      cgal_5
-      mpfr
-    ]
-    ++ lib.optionals enableTBB [ tbb ]
-  ;
+  buildInputs = [
+    boost
+    eigen
+    gmp
+    cgal_5
+    mpfr
+  ] ++ lib.optionals enableTBB [ tbb ];
   propagatedBuildInputs = [
     numpy
     scipy

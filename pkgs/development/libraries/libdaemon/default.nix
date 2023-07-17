@@ -17,12 +17,11 @@ stdenv.mkDerivation rec {
 
   configureFlags =
     [ "--disable-lynx" ]
-    ++
-      lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
-        [
-          # Can't run this test while cross-compiling
-          "ac_cv_func_setpgrp_void=yes"
-        ]
+    ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
+      [
+        # Can't run this test while cross-compiling
+        "ac_cv_func_setpgrp_void=yes"
+      ]
   ;
 
   meta = {

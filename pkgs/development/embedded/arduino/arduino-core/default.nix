@@ -147,18 +147,15 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
     unzip
   ];
-  buildInputs =
-    [
-      jdk
-      ant
-      libusb-compat-0_1
-      libusb1
-      zlib
-      ncurses5
-      readline
-    ]
-    ++ lib.optionals withTeensyduino [ upx ]
-  ;
+  buildInputs = [
+    jdk
+    ant
+    libusb-compat-0_1
+    libusb1
+    zlib
+    ncurses5
+    readline
+  ] ++ lib.optionals withTeensyduino [ upx ];
   downloadSrcList = builtins.attrValues externalDownloads;
   downloadDstList = builtins.attrNames externalDownloads;
 

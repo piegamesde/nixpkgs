@@ -9,13 +9,10 @@ collectd.overrideAttrs (
     inherit (collectd) version;
     buildInputs = [ ];
 
-    configureFlags =
-      (oldAttrs.configureFlags or [ ])
-      ++ [
-        "--disable-daemon"
-        "--disable-all-plugins"
-      ]
-    ;
+    configureFlags = (oldAttrs.configureFlags or [ ]) ++ [
+      "--disable-daemon"
+      "--disable-all-plugins"
+    ];
 
     postInstall = "rm -rf $out/{bin,etc,sbin,share}";
 

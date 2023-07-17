@@ -22,13 +22,10 @@
 }:
 
 let
-  platforms =
-    lib.platforms.linux
-    ++ [
-      "x86_64-darwin"
-      "aarch64-darwin"
-    ]
-  ;
+  platforms = lib.platforms.linux ++ [
+    "x86_64-darwin"
+    "aarch64-darwin"
+  ];
   ideaPlatforms = [
     "x86_64-darwin"
     "i686-darwin"
@@ -87,8 +84,7 @@ let
             ++ lib.optionals (stdenv.isLinux) [
               autoPatchelfHook
               patchelf
-            ]
-          ;
+            ];
           buildInputs =
             (attrs.buildInputs or [ ])
             ++ lib.optionals (stdenv.isLinux) [
@@ -98,8 +94,7 @@ let
               openssl.out
               expat
               libxcrypt-legacy
-            ]
-          ;
+            ];
           dontAutoPatchelf = true;
           postFixup =
             (attrs.postFixup or "")

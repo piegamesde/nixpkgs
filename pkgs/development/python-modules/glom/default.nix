@@ -52,8 +52,7 @@ buildPythonPackage rec {
     ++ lib.optionals (pythonAtLeast "3.11") [
       "test_regular_error_stack"
       "test_long_target_repr"
-    ]
-  ;
+    ];
 
   pythonImportsCheck = [ "glom" ];
 

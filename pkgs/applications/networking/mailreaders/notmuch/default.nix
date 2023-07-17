@@ -35,30 +35,23 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-DnZt8ot4v064I1Ymqx9S8E8eNmZJMlqM6NPJCGAnhvY=";
   };
 
-  nativeBuildInputs =
-    [
-      pkg-config
-      doxygen # (optional) api docs
-      pythonPackages.sphinx # (optional) documentation -> doc/INSTALL
-      texinfo # (optional) documentation -> doc/INSTALL
-      pythonPackages.cffi
-    ]
-    ++ lib.optional withEmacs emacs
-    ++ lib.optional withRuby ruby
-  ;
+  nativeBuildInputs = [
+    pkg-config
+    doxygen # (optional) api docs
+    pythonPackages.sphinx # (optional) documentation -> doc/INSTALL
+    texinfo # (optional) documentation -> doc/INSTALL
+    pythonPackages.cffi
+  ] ++ lib.optional withEmacs emacs ++ lib.optional withRuby ruby;
 
-  buildInputs =
-    [
-      gnupg # undefined dependencies
-      xapian
-      gmime3
-      talloc
-      zlib # dependencies described in INSTALL
-      perl
-      pythonPackages.python
-    ]
-    ++ lib.optional withRuby ruby
-  ;
+  buildInputs = [
+    gnupg # undefined dependencies
+    xapian
+    gmime3
+    talloc
+    zlib # dependencies described in INSTALL
+    perl
+    pythonPackages.python
+  ] ++ lib.optional withRuby ruby;
 
   postPatch =
     ''
@@ -102,16 +95,12 @@ stdenv.mkDerivation rec {
     cp bindings/python-cffi/_notmuch_config.py ${placeholder "bindingconfig"}/
   '';
 
-  outputs =
-    [
-      "out"
-      "man"
-      "info"
-      "bindingconfig"
-    ]
-    ++ lib.optional withEmacs "emacs"
-    ++ lib.optional withRuby "ruby"
-  ;
+  outputs = [
+    "out"
+    "man"
+    "info"
+    "bindingconfig"
+  ] ++ lib.optional withEmacs "emacs" ++ lib.optional withRuby "ruby";
 
   preCheck =
     let

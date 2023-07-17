@@ -43,14 +43,11 @@ stdenv.mkDerivation rec {
     gfortran
     python3
   ];
-  buildInputs =
-    [
-      perl
-      openssh
-      hwloc
-    ]
-    ++ lib.optional (!stdenv.isDarwin) ch4backend
-  ;
+  buildInputs = [
+    perl
+    openssh
+    hwloc
+  ] ++ lib.optional (!stdenv.isDarwin) ch4backend;
 
   doCheck = true;
 

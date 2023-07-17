@@ -29,17 +29,14 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
     cmake
   ];
-  buildInputs =
-    [
-      flex
-      bison
-      qt4
-      libX11
-      gperf
-      adms
-    ]
-    ++ kernels
-  ;
+  buildInputs = [
+    flex
+    bison
+    qt4
+    libX11
+    gperf
+    adms
+  ] ++ kernels;
 
   preConfigure = ''
     # Make custom kernels avaible from qucs-s

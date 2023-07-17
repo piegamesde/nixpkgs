@@ -58,8 +58,7 @@ stdenv.mkDerivation rec {
       glib
       xorg.libXtst
     ]
-    ++ lib.optional stdenv.isDarwin Cocoa
-  ;
+    ++ lib.optional stdenv.isDarwin Cocoa;
 
   src = fetchFromGitHub {
     owner = "willuhn";

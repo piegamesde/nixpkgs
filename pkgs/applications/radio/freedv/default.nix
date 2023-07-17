@@ -68,14 +68,11 @@ stdenv.mkDerivation rec {
     ]
   ;
 
-  cmakeFlags =
-    [
-      "-DUSE_INTERNAL_CODEC2:BOOL=FALSE"
-      "-DUSE_STATIC_DEPS:BOOL=FALSE"
-      "-DUNITTEST=ON"
-    ]
-    ++ lib.optionals pulseSupport [ "-DUSE_PULSEAUDIO:BOOL=TRUE" ]
-  ;
+  cmakeFlags = [
+    "-DUSE_INTERNAL_CODEC2:BOOL=FALSE"
+    "-DUSE_STATIC_DEPS:BOOL=FALSE"
+    "-DUNITTEST=ON"
+  ] ++ lib.optionals pulseSupport [ "-DUSE_PULSEAUDIO:BOOL=TRUE" ];
 
   env.NIX_CFLAGS_COMPILE = toString (
     lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [ "-DAPPLE_OLD_XCODE" ]

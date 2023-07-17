@@ -144,25 +144,22 @@ in
     '';
 
     system.build.metadata = pkgs.callPackage ../../lib/make-system-tarball.nix {
-      contents =
-        [ {
-          source = toYAML "metadata.yaml" {
-            architecture =
-              builtins.elemAt (builtins.match "^([a-z0-9_]+).+" (toString pkgs.system))
-                0
-            ;
-            creation_date = 1;
-            properties = {
-              description = "${config.system.nixos.distroName} ${config.system.nixos.codeName} ${config.system.nixos.label} ${pkgs.system}";
-              os = "${config.system.nixos.distroId}";
-              release = "${config.system.nixos.codeName}";
-            };
-            templates = templates.properties;
+      contents = [ {
+        source = toYAML "metadata.yaml" {
+          architecture =
+            builtins.elemAt (builtins.match "^([a-z0-9_]+).+" (toString pkgs.system))
+              0
+          ;
+          creation_date = 1;
+          properties = {
+            description = "${config.system.nixos.distroName} ${config.system.nixos.codeName} ${config.system.nixos.label} ${pkgs.system}";
+            os = "${config.system.nixos.distroId}";
+            release = "${config.system.nixos.codeName}";
           };
-          target = "/metadata.yaml";
-        } ]
-        ++ templates.files
-      ;
+          templates = templates.properties;
+        };
+        target = "/metadata.yaml";
+      } ] ++ templates.files;
     };
 
     # TODO: build rootfs as squashfs for faster unpack

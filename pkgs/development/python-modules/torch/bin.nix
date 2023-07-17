@@ -66,21 +66,18 @@ buildPythonPackage {
       "libcuda.so.1"
     ];
 
-  propagatedBuildInputs =
-    [
-      future
-      numpy
-      pyyaml
-      requests
-      setuptools
-      typing-extensions
-      sympy
-      jinja2
-      networkx
-      filelock
-    ]
-    ++ lib.optionals stdenv.isx86_64 [ openai-triton ]
-  ;
+  propagatedBuildInputs = [
+    future
+    numpy
+    pyyaml
+    requests
+    setuptools
+    typing-extensions
+    sympy
+    jinja2
+    networkx
+    filelock
+  ] ++ lib.optionals stdenv.isx86_64 [ openai-triton ];
 
   postInstall = ''
     # ONNX conversion

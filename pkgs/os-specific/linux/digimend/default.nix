@@ -33,15 +33,12 @@ stdenv.mkDerivation rec {
     rm -r $out/lib/udev
   '';
 
-  makeFlags =
-    kernel.makeFlags
-    ++ [
-      "KVERSION=${kernel.modDirVersion}"
-      "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-      "DESTDIR=${placeholder "out"}"
-      "INSTALL_MOD_PATH=${placeholder "out"}"
-    ]
-  ;
+  makeFlags = kernel.makeFlags ++ [
+    "KVERSION=${kernel.modDirVersion}"
+    "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+    "DESTDIR=${placeholder "out"}"
+    "INSTALL_MOD_PATH=${placeholder "out"}"
+  ];
 
   meta = with lib; {
     description = "DIGImend graphics tablet drivers for the Linux kernel";

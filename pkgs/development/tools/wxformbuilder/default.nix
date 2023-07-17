@@ -28,13 +28,10 @@ stdenv.mkDerivation {
     ++ lib.optionals stdenv.isLinux [ shared-mime-info ]
   ;
 
-  buildInputs =
-    [
-      wxGTK32
-      boost
-    ]
-    ++ lib.optionals stdenv.isDarwin [ Cocoa ]
-  ;
+  buildInputs = [
+    wxGTK32
+    boost
+  ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 
   preConfigure = ''
     sed -i 's/FATAL_ERROR/WARNING/' cmake/revision-git*.cmake

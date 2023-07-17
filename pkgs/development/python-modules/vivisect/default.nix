@@ -39,16 +39,13 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ wrapQtAppsHook ];
 
-  propagatedBuildInputs =
-    [
-      pyasn1
-      pyasn1-modules
-      cxxfilt
-      msgpack
-      pycparser
-    ]
-    ++ lib.optionals (withGui) passthru.optional-dependencies.gui
-  ;
+  propagatedBuildInputs = [
+    pyasn1
+    pyasn1-modules
+    cxxfilt
+    msgpack
+    pycparser
+  ] ++ lib.optionals (withGui) passthru.optional-dependencies.gui;
 
   passthru.optional-dependencies.gui = [
     pyqt5

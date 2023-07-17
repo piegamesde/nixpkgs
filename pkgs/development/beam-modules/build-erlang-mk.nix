@@ -63,23 +63,19 @@ let
             setupHook
         ;
 
-        buildInputs =
-          buildInputs
-          ++ [
-            erlang
-            perl
-            which
-            gitMinimal
-            wget
-          ]
-        ;
+        buildInputs = buildInputs ++ [
+          erlang
+          perl
+          which
+          gitMinimal
+          wget
+        ];
         propagatedBuildInputs = beamDeps;
 
         buildFlags =
           [ "SKIP_DEPS=1" ]
-          ++
-            lib.optional (enableDebugInfo || erlang.debugInfo)
-              ''ERL_OPTS="$ERL_OPTS +debug_info"''
+          ++ lib.optional (enableDebugInfo || erlang.debugInfo)
+            ''ERL_OPTS="$ERL_OPTS +debug_info"''
           ++ buildFlags
         ;
 

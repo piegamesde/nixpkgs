@@ -46,16 +46,13 @@ stdenv.mkDerivation (
 
     ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
 
-    nativeBuildInputs =
-      [
-        yarn
-        fixup_yarn_lock
-        nodejs
-        makeWrapper
-        copyDesktopItems
-      ]
-      ++ lib.optionals stdenv.isDarwin [ desktopToDarwinBundle ]
-    ;
+    nativeBuildInputs = [
+      yarn
+      fixup_yarn_lock
+      nodejs
+      makeWrapper
+      copyDesktopItems
+    ] ++ lib.optionals stdenv.isDarwin [ desktopToDarwinBundle ];
 
     configurePhase = ''
       runHook preConfigure

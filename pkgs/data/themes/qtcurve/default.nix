@@ -57,29 +57,26 @@ mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs =
-    [
-      qtbase
-      qtsvg
-      qtx11extras
-      karchive
-      kconfig
-      kconfigwidgets
-      kio
-      kiconthemes
-      kguiaddons
-      ki18n
-      kwindowsystem
-      kdelibs4support
-      frameworkintegration
-      libpthreadstubs
-      pcre
-      libXdmcp
-      libX11
-      libXau
-    ]
-    ++ lib.optional gtk2Support gtk2
-  ;
+  buildInputs = [
+    qtbase
+    qtsvg
+    qtx11extras
+    karchive
+    kconfig
+    kconfigwidgets
+    kio
+    kiconthemes
+    kguiaddons
+    ki18n
+    kwindowsystem
+    kdelibs4support
+    frameworkintegration
+    libpthreadstubs
+    pcre
+    libXdmcp
+    libX11
+    libXau
+  ] ++ lib.optional gtk2Support gtk2;
 
   preConfigure = ''
     for i in qt5/CMakeLists.txt qt5/config/CMakeLists.txt

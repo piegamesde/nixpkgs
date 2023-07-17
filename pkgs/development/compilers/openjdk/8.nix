@@ -114,15 +114,12 @@ let
       ]
     ;
 
-    patches =
-      [
-        ./fix-java-home-jdk8.patch
-        ./read-truststore-from-env-jdk8.patch
-        ./currency-date-range-jdk8.patch
-        ./fix-library-path-jdk8.patch
-      ]
-      ++ lib.optionals (!headless && enableGnome2) [ ./swing-use-gtk-jdk8.patch ]
-    ;
+    patches = [
+      ./fix-java-home-jdk8.patch
+      ./read-truststore-from-env-jdk8.patch
+      ./currency-date-range-jdk8.patch
+      ./fix-library-path-jdk8.patch
+    ] ++ lib.optionals (!headless && enableGnome2) [ ./swing-use-gtk-jdk8.patch ];
 
     # Hotspot cares about the host(!) version otherwise
     DISABLE_HOTSPOT_OS_VERSION_CHECK = "ok";
@@ -134,21 +131,18 @@ let
       substituteInPlace hotspot/make/linux/makefiles/dtrace.make --replace /usr/include/sys/sdt.h "/no-such-path"
     '';
 
-    configureFlags =
-      [
-        "--with-boot-jdk=${openjdk-bootstrap.home}"
-        "--with-update-version=${update}"
-        "--with-build-number=${build}"
-        "--with-milestone=fcs"
-        "--enable-unlimited-crypto"
-        "--with-native-debug-symbols=internal"
-        "--disable-freetype-bundling"
-        "--with-zlib=system"
-        "--with-giflib=system"
-        "--with-stdc++lib=dynamic"
-      ]
-      ++ lib.optional headless "--disable-headful"
-    ;
+    configureFlags = [
+      "--with-boot-jdk=${openjdk-bootstrap.home}"
+      "--with-update-version=${update}"
+      "--with-build-number=${build}"
+      "--with-milestone=fcs"
+      "--enable-unlimited-crypto"
+      "--with-native-debug-symbols=internal"
+      "--disable-freetype-bundling"
+      "--with-zlib=system"
+      "--with-giflib=system"
+      "--with-stdc++lib=dynamic"
+    ] ++ lib.optional headless "--disable-headful";
 
     separateDebugInfo = true;
 

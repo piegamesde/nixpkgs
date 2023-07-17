@@ -53,13 +53,10 @@ stdenv.mkDerivation rec {
     ;
   };
 
-  nativeBuildInputs =
-    [
-      cmake
-      pkg-config
-    ]
-    ++ lib.optionals unfree [ ninja ]
-  ;
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ] ++ lib.optionals unfree [ ninja ];
 
   buildInputs =
     [

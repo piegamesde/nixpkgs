@@ -46,19 +46,16 @@ rustPlatform.buildRustPackage rec {
     })
   ];
 
-  nativeBuildInputs =
-    [
-      pkg-config
-      cargo
-      rustc
-      git
-      llvmPackages_12.libclang.lib
-      llvmPackages_12.clang
-      ensureNewerSourcesForZipFilesHook
-      capnproto
-    ]
-    ++ lib.optionals pythonSupport [ pythonPackages.setuptools ]
-  ;
+  nativeBuildInputs = [
+    pkg-config
+    cargo
+    rustc
+    git
+    llvmPackages_12.libclang.lib
+    llvmPackages_12.clang
+    ensureNewerSourcesForZipFilesHook
+    capnproto
+  ] ++ lib.optionals pythonSupport [ pythonPackages.setuptools ];
 
   nativeCheckInputs = lib.optionals pythonSupport [
     pythonPackages.pytest

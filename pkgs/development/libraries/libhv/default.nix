@@ -22,13 +22,10 @@ stdenv.mkDerivation (
 
     nativeBuildInputs = [ cmake ];
 
-    buildInputs =
-      [
-        curl
-        openssl
-      ]
-      ++ lib.optional stdenv.isDarwin Security
-    ;
+    buildInputs = [
+      curl
+      openssl
+    ] ++ lib.optional stdenv.isDarwin Security;
 
     cmakeFlags = [
       "-DENABLE_UDS=ON"

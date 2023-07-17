@@ -22,13 +22,10 @@ let
       ''
   ;
 
-  plugins =
-    [
-      "${cfg.package}/libexec/netdata/plugins.d"
-      "${wrappedPlugins}/libexec/netdata/plugins.d"
-    ]
-    ++ cfg.extraPluginPaths
-  ;
+  plugins = [
+    "${cfg.package}/libexec/netdata/plugins.d"
+    "${wrappedPlugins}/libexec/netdata/plugins.d"
+  ] ++ cfg.extraPluginPaths;
 
   configDirectory = pkgs.runCommand "netdata-config-d" { } ''
     mkdir $out

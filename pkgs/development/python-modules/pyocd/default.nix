@@ -39,23 +39,20 @@ buildPythonPackage rec {
       })
     ];
 
-  propagatedBuildInputs =
-    [
-      capstone
-      cmsis-pack-manager
-      colorama
-      intelhex
-      intervaltree
-      natsort
-      prettytable
-      pyelftools
-      pylink-square
-      pyusb
-      pyyaml
-      typing-extensions
-    ]
-    ++ lib.optionals (!stdenv.isLinux) [ hidapi ]
-  ;
+  propagatedBuildInputs = [
+    capstone
+    cmsis-pack-manager
+    colorama
+    intelhex
+    intervaltree
+    natsort
+    prettytable
+    pyelftools
+    pylink-square
+    pyusb
+    pyyaml
+    typing-extensions
+  ] ++ lib.optionals (!stdenv.isLinux) [ hidapi ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

@@ -30,29 +30,26 @@ qtModule {
         }|'
   '';
 
-  devTools =
-    [
-      "bin/qcollectiongenerator"
-      "bin/linguist"
-      "bin/assistant"
-      "bin/qdoc"
-      "bin/lconvert"
-      "bin/designer"
-      "bin/qtattributionsscanner"
-      "bin/lrelease"
-      "bin/lrelease-pro"
-      "bin/pixeltool"
-      "bin/lupdate"
-      "bin/lupdate-pro"
-      "bin/qtdiag"
-      "bin/qhelpgenerator"
-      "bin/qtplugininfo"
-      "bin/qthelpconverter"
-      "bin/lprodump"
-      "bin/qdistancefieldgenerator"
-    ]
-    ++ lib.optionals stdenv.isDarwin [ "bin/macdeployqt" ]
-  ;
+  devTools = [
+    "bin/qcollectiongenerator"
+    "bin/linguist"
+    "bin/assistant"
+    "bin/qdoc"
+    "bin/lconvert"
+    "bin/designer"
+    "bin/qtattributionsscanner"
+    "bin/lrelease"
+    "bin/lrelease-pro"
+    "bin/pixeltool"
+    "bin/lupdate"
+    "bin/lupdate-pro"
+    "bin/qtdiag"
+    "bin/qhelpgenerator"
+    "bin/qtplugininfo"
+    "bin/qthelpconverter"
+    "bin/lprodump"
+    "bin/qdistancefieldgenerator"
+  ] ++ lib.optionals stdenv.isDarwin [ "bin/macdeployqt" ];
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.isDarwin

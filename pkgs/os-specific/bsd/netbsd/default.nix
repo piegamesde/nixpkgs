@@ -237,15 +237,14 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
         ];
         configureFlags =
           [ "--cache-file=config.cache" ]
-          ++
-            lib.optionals stdenv.hostPlatform.isMusl
-              [
-                # We include this header in our musl package only for legacy
-                # compatibility, and compat works fine without it (and having it
-                # know about sys/cdefs.h breaks packages like glib when built
-                # statically).
-                "ac_cv_header_sys_cdefs_h=no"
-              ]
+          ++ lib.optionals stdenv.hostPlatform.isMusl
+            [
+              # We include this header in our musl package only for legacy
+              # compatibility, and compat works fine without it (and having it
+              # know about sys/cdefs.h breaks packages like glib when built
+              # statically).
+              "ac_cv_header_sys_cdefs_h=no"
+            ]
         ;
 
         nativeBuildInputs =
@@ -743,8 +742,9 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       headersOnly = true;
       noCC = true;
       meta.platforms = lib.platforms.netbsd;
-      makeFlags =
-        defaultMakeFlags ++ [ "RPCGEN_CPP=${buildPackages.stdenv.cc.cc}/bin/cpp" ];
+      makeFlags = defaultMakeFlags ++ [
+        "RPCGEN_CPP=${buildPackages.stdenv.cc.cc}/bin/cpp"
+      ];
     };
 
     common =
@@ -948,8 +948,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
           "-D__va_list=va_list"
           "-D__warn_references(a,b)="
         ]
-        ++ lib.optional stdenv.isDarwin "-D__strong_alias(a,b)="
-      ;
+        ++ lib.optional stdenv.isDarwin "-D__strong_alias(a,b)=";
       propagatedBuildInputs = with self; compatIfNeeded;
       MKDOC = "no"; # missing vfontedpr
       makeFlags = defaultMakeFlags ++ [ "LIBDO.terminfo=${self.libterminfo}/lib" ];
@@ -1111,13 +1110,10 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       # Hack to prevent a symlink being installed here for compatibility.
       SHLINKINSTALLDIR = "/usr/libexec";
       USE_FORT = "yes";
-      makeFlags =
-        defaultMakeFlags
-        ++ [
-          "BINDIR=$(out)/libexec"
-          "CLIBOBJ=${self.libc}/lib"
-        ]
-      ;
+      makeFlags = defaultMakeFlags ++ [
+        "BINDIR=$(out)/libexec"
+        "CLIBOBJ=${self.libc}/lib"
+      ];
       extraPaths = with self; [ libc.src ] ++ libc.extraPaths;
     };
 
@@ -1251,13 +1247,10 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       postPatch = ''
         substituteInPlace $COMPONENT_PATH/man0/Makefile --replace "ps2pdf" "echo noop "
       '';
-      makeFlags =
-        defaultMakeFlags
-        ++ [
-          "FILESDIR=$(out)/share"
-          "MKRUMP=no" # would require to have additional path sys/rump/share/man
-        ]
-      ;
+      makeFlags = defaultMakeFlags ++ [
+        "FILESDIR=$(out)/share"
+        "MKRUMP=no" # would require to have additional path sys/rump/share/man
+      ];
     };
     #
     # END MISCELLANEOUS

@@ -39,19 +39,16 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs =
-    [
-      wayland-protocols
-      wlroots_0_16
-      libxkbcommon
-      pixman
-      udev
-      libevdev
-      libinput
-      libGL
-    ]
-    ++ lib.optional xwaylandSupport libX11
-  ;
+  buildInputs = [
+    wayland-protocols
+    wlroots_0_16
+    libxkbcommon
+    pixman
+    udev
+    libevdev
+    libinput
+    libGL
+  ] ++ lib.optional xwaylandSupport libX11;
 
   dontConfigure = true;
 

@@ -35,13 +35,10 @@ python3Packages.buildPythonApplication rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths =
-    [
-      "qtpy/"
-      "contrib/win32"
-    ]
-    ++ lib.optionals stdenv.isDarwin [ "cola/inotify.py" ]
-  ;
+  disabledTestPaths = [
+    "qtpy/"
+    "contrib/win32"
+  ] ++ lib.optionals stdenv.isDarwin [ "cola/inotify.py" ];
 
   preFixup = ''
     makeWrapperArgs+=("''${qtWrapperArgs[@]}")

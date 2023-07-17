@@ -28,25 +28,19 @@ stdenv.mkDerivation rec {
     gnumake42
     pkg-config
   ];
-  buildInputs =
-    [
-      gmp
-      swig
-      libantlr3c
-      boost
-      python3
-    ]
-    ++ lib.optionals stdenv.isLinux [ cln ]
-  ;
+  buildInputs = [
+    gmp
+    swig
+    libantlr3c
+    boost
+    python3
+  ] ++ lib.optionals stdenv.isLinux [ cln ];
 
-  configureFlags =
-    [
-      "--enable-language-bindings=c"
-      "--enable-gpl"
-      "--with-boost=${boost.dev}"
-    ]
-    ++ lib.optionals stdenv.isLinux [ "--with-cln" ]
-  ;
+  configureFlags = [
+    "--enable-language-bindings=c"
+    "--enable-gpl"
+    "--with-boost=${boost.dev}"
+  ] ++ lib.optionals stdenv.isLinux [ "--with-cln" ];
 
   prePatch = ''
     patch -p1 -i ${./minisat-fenv.patch} -d src/prop/minisat

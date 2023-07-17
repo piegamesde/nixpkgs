@@ -24,13 +24,10 @@ stdenv.mkDerivation rec {
     cmake
     makeWrapper
   ];
-  buildInputs =
-    [
-      itk
-      vtk
-    ]
-    ++ lib.optionals stdenv.isDarwin [ Cocoa ]
-  ;
+  buildInputs = [
+    itk
+    vtk
+  ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 
   cmakeFlags = [
     "-DANTS_SUPERBUILD=FALSE"

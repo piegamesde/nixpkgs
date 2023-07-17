@@ -65,22 +65,19 @@ mkDerivation {
       util-linux # provides libmount
     ]
   ;
-  propagatedBuildInputs =
-    [
-      kbookmarks
-      kcompletion
-      kconfig
-      kcoreaddons
-      kitemviews
-      kjobwidgets
-      kservice
-      kxmlgui
-      qtbase
-      qttools
-      solid
-    ]
-    ++ lib.optionals stdenv.isLinux [ kded ]
-  ;
+  propagatedBuildInputs = [
+    kbookmarks
+    kcompletion
+    kconfig
+    kcoreaddons
+    kitemviews
+    kjobwidgets
+    kservice
+    kxmlgui
+    qtbase
+    qttools
+    solid
+  ] ++ lib.optionals stdenv.isLinux [ kded ];
   outputs = [
     "out"
     "dev"

@@ -45,8 +45,7 @@ stdenv.mkDerivation rec {
       libXtst
       libX11
       libXext
-    ]
-  ;
+    ];
 
   makeFlags =
     [ "PREFIX=$(out)" ]

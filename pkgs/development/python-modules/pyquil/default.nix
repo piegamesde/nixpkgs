@@ -49,20 +49,17 @@ buildPythonPackage rec {
     pythonRelaxDepsHook
   ];
 
-  propagatedBuildInputs =
-    [
-      lark
-      networkx
-      numpy
-      qcs-api-client
-      retry
-      rpcq
-      scipy
-      types-python-dateutil
-      types-retry
-    ]
-    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
-  ;
+  propagatedBuildInputs = [
+    lark
+    networkx
+    numpy
+    qcs-api-client
+    retry
+    rpcq
+    scipy
+    types-python-dateutil
+    types-retry
+  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

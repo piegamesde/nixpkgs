@@ -44,17 +44,14 @@ buildPythonPackage rec {
   # jaxlib is _not_ included in propagatedBuildInputs because there are
   # different versions of jaxlib depending on the desired target hardware. The
   # JAX project ships separate wheels for CPU, GPU, and TPU.
-  propagatedBuildInputs =
-    [
-      absl-py
-      etils
-      numpy
-      opt-einsum
-      scipy
-      typing-extensions
-    ]
-    ++ etils.optional-dependencies.epath
-  ;
+  propagatedBuildInputs = [
+    absl-py
+    etils
+    numpy
+    opt-einsum
+    scipy
+    typing-extensions
+  ] ++ etils.optional-dependencies.epath;
 
   nativeCheckInputs = [
     jaxlib'

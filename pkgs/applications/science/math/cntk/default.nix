@@ -78,18 +78,14 @@ stdenv.mkDerivation rec {
   # Uses some deprecated tensorflow functions
   env.NIX_CFLAGS_COMPILE = "-Wno-error=deprecated-declarations";
 
-  buildInputs =
-    [
-      openblas
-      opencv3
-      libzip
-      boost
-      protobuf
-      mpi
-    ]
-    ++ lib.optional cudaSupport cudatoolkit
-    ++ lib.optional cudnnSupport cudnn
-  ;
+  buildInputs = [
+    openblas
+    opencv3
+    libzip
+    boost
+    protobuf
+    mpi
+  ] ++ lib.optional cudaSupport cudatoolkit ++ lib.optional cudnnSupport cudnn;
 
   configureFlags =
     [

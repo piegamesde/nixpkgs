@@ -32,13 +32,10 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs =
-    [
-      eigen
-      makeWrapper
-    ]
-    ++ lib.optional withGui qt5.wrapQtAppsHook
-  ;
+  nativeBuildInputs = [
+    eigen
+    makeWrapper
+  ] ++ lib.optional withGui qt5.wrapQtAppsHook;
 
   buildInputs =
     [

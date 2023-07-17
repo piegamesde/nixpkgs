@@ -34,14 +34,11 @@ buildPythonPackage rec {
 
   postUnpack = "sourceRoot=$sourceRoot/hypothesis-python";
 
-  propagatedBuildInputs =
-    [
-      attrs
-      coverage
-      sortedcontainers
-    ]
-    ++ lib.optional (!isPy3k) enum34
-  ;
+  propagatedBuildInputs = [
+    attrs
+    coverage
+    sortedcontainers
+  ] ++ lib.optional (!isPy3k) enum34;
 
   nativeCheckInputs = [
     pytest

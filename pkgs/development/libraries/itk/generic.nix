@@ -83,14 +83,11 @@ stdenv.mkDerivation {
     xz
     makeWrapper
   ];
-  buildInputs =
-    [
-      libX11
-      libuuid
-      vtk
-    ]
-    ++ lib.optionals stdenv.isDarwin [ Cocoa ]
-  ;
+  buildInputs = [
+    libX11
+    libuuid
+    vtk
+  ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
   # Due to ITKVtkGlue=ON and the additional dependencies needed to configure VTK 9
   # (specifically libGL and libX11 on Linux),
   # it's now seemingly necessary for packages that configure ITK to

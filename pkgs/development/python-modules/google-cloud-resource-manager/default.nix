@@ -24,16 +24,13 @@ buildPythonPackage rec {
     hash = "sha256-v8PmDrkuJaxWKpJIu4/BfpvvBMPcnwMf++Df4o2Rkoc=";
   };
 
-  propagatedBuildInputs =
-    [
-      google-api-core
-      google-cloud-core
-      grpc-google-iam-v1
-      proto-plus
-      protobuf
-    ]
-    ++ google-api-core.optional-dependencies.grpc
-  ;
+  propagatedBuildInputs = [
+    google-api-core
+    google-cloud-core
+    grpc-google-iam-v1
+    proto-plus
+    protobuf
+  ] ++ google-api-core.optional-dependencies.grpc;
 
   nativeCheckInputs = [
     pytest-asyncio

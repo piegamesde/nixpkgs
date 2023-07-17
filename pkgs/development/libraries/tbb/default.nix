@@ -42,10 +42,9 @@ stdenv.mkDerivation rec {
   # In member function 'void std::__atomic_base<_IntTp>::store(__int_type, std::memory_order) [with _ITp = bool]',
   NIX_CFLAGS_COMPILE =
     lib.optionals stdenv.cc.isGNU [ "-Wno-error=stringop-overflow" ]
-    ++
-      # Workaround for gcc-12 ICE when using -O3
-      # https://gcc.gnu.org/PR108854
-      lib.optionals (stdenv.cc.isGNU && stdenv.isx86_32) [ "-O2" ]
+    # Workaround for gcc-12 ICE when using -O3
+    # https://gcc.gnu.org/PR108854
+    ++ lib.optionals (stdenv.cc.isGNU && stdenv.isx86_32) [ "-O2" ]
   ;
 
   # Disable failing test on musl

@@ -34,13 +34,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs =
-    [
-      aiohttp
-      async-timeout
-    ]
-    ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ]
-  ;
+  propagatedBuildInputs = [
+    aiohttp
+    async-timeout
+  ] ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ];
 
   nativeCheckInputs = [
     pytest-asyncio

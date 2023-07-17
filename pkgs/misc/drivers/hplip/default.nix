@@ -94,14 +94,11 @@ python3Packages.buildPythonApplication {
     avahi
   ];
 
-  nativeBuildInputs =
-    [
-      pkg-config
-      removeReferencesTo
-      autoreconfHook
-    ]
-    ++ lib.optional withQt5 qt5.wrapQtAppsHook
-  ;
+  nativeBuildInputs = [
+    pkg-config
+    removeReferencesTo
+    autoreconfHook
+  ] ++ lib.optional withQt5 qt5.wrapQtAppsHook;
 
   pythonPath =
     with python3Packages;

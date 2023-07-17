@@ -170,13 +170,10 @@ in
 
     hardware.steam-hardware.enable = true;
 
-    environment.systemPackages =
-      [
-        cfg.package
-        cfg.package.run
-      ]
-      ++ lib.optional cfg.gamescopeSession.enable steam-gamescope
-    ;
+    environment.systemPackages = [
+      cfg.package
+      cfg.package.run
+    ] ++ lib.optional cfg.gamescopeSession.enable steam-gamescope;
 
     networking.firewall = lib.mkMerge [
       (mkIf cfg.remotePlay.openFirewall {

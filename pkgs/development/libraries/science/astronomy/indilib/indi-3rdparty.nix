@@ -31,27 +31,24 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs =
-    [
-      indilib
-      libnova
-      curl
-      cfitsio
-      libusb1
-      zlib
-      boost
-      gsl
-      gpsd
-      libjpeg
-      libgphoto2
-      libraw
-      libftdi1
-      libdc1394
-      ffmpeg
-      fftw
-    ]
-    ++ lib.optionals withFirmware [ firmware ]
-  ;
+  buildInputs = [
+    indilib
+    libnova
+    curl
+    cfitsio
+    libusb1
+    zlib
+    boost
+    gsl
+    gpsd
+    libjpeg
+    libgphoto2
+    libraw
+    libftdi1
+    libdc1394
+    ffmpeg
+    fftw
+  ] ++ lib.optionals withFirmware [ firmware ];
 
   postPatch = ''
     for f in indi-qsi/CMakeLists.txt \

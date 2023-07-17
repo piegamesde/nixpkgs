@@ -71,20 +71,17 @@ stdenv.mkDerivation rec {
   # For reference (last checked on commit 75f460d):
   # https://github.com/Singular/Singular/blob/spielwiese/doc/Building-Singular-from-source.md
   # https://github.com/Singular/Singular/blob/spielwiese/doc/external-packages-dynamic-modules.md
-  buildInputs =
-    [
-      # necessary
-      gmp
-      # by upstream recommended but optional
-      ncurses
-      readline
-      ntl
-      flint
-      lrcalc
-      gfan
-    ]
-    ++ lib.optionals enableGfanlib [ cddlib ]
-  ;
+  buildInputs = [
+    # necessary
+    gmp
+    # by upstream recommended but optional
+    ncurses
+    readline
+    ntl
+    flint
+    lrcalc
+    gfan
+  ] ++ lib.optionals enableGfanlib [ cddlib ];
 
   nativeBuildInputs =
     [
@@ -142,12 +139,11 @@ stdenv.mkDerivation rec {
       "Plural/short.lst"
       "Old/factor.tst"
     ]
-    ++
-      lib.optionals enableGfanlib
-        [
-          # tests that require gfanlib
-          "Short/ok_s.lst"
-        ]
+    ++ lib.optionals enableGfanlib
+      [
+        # tests that require gfanlib
+        "Short/ok_s.lst"
+      ]
   ;
 
   # simple test to make sure singular starts and finds its libraries

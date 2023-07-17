@@ -169,16 +169,13 @@ let
       "-DOS=${stdenv.hostPlatform.parsed.kernel.name}"
       "-DPKG_CONFIG_EXECUTABLE=pkg-config"
     ];
-    buildInputs =
-      [
-        libidn2
-        libtasn1
-        p11-kit
-        zlib
-        libva
-      ]
-      ++ lib.optional vdpauSupport libvdpau
-    ;
+    buildInputs = [
+      libidn2
+      libtasn1
+      p11-kit
+      zlib
+      libva
+    ] ++ lib.optional vdpauSupport libvdpau;
     nativeBuildInputs = [
       cmake
       nasm

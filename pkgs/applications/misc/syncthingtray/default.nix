@@ -57,13 +57,10 @@ mkDerivation rec {
     ++ lib.optionals plasmoidSupport [ plasma-framework ]
   ;
 
-  nativeBuildInputs =
-    [
-      cmake
-      qttools
-    ]
-    ++ lib.optionals plasmoidSupport [ extra-cmake-modules ]
-  ;
+  nativeBuildInputs = [
+    cmake
+    qttools
+  ] ++ lib.optionals plasmoidSupport [ extra-cmake-modules ];
 
   # No tests are available by upstream, but we test --help anyway
   # Don't test on Darwin because output is .app

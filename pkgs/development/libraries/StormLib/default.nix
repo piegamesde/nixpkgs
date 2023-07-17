@@ -31,14 +31,11 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [ cmake ];
-  buildInputs =
-    [
-      bzip2
-      libtomcrypt
-      zlib
-    ]
-    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Carbon ]
-  ;
+  buildInputs = [
+    bzip2
+    libtomcrypt
+    zlib
+  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Carbon ];
 
   meta = with lib; {
     homepage = "https://github.com/ladislav-zezula/StormLib";

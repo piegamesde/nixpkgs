@@ -43,14 +43,11 @@ stdenv.mkDerivation rec {
     "-DUSE_INCLUDED_SSL=OFF"
   ];
 
-  buildInputs =
-    [
-      libzip
-      gtest
-      openssl
-    ]
-    ++ (if stdenv.isDarwin then [ libossp_uuid ] else [ libuuid ])
-  ;
+  buildInputs = [
+    libzip
+    gtest
+    openssl
+  ] ++ (if stdenv.isDarwin then [ libossp_uuid ] else [ libuuid ]);
 
   postPatch = ''
     # fix libdir=''${exec_prefix}/@CMAKE_INSTALL_LIBDIR@

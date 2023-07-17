@@ -43,8 +43,7 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optionals stdenv.isDarwin [
       CoreServices
       Security
-    ]
-  ;
+    ];
   nativeBuildInputs = [ pkg-config ];
 
   meta = with lib; {

@@ -51,16 +51,13 @@ stdenv.mkDerivation {
       ]
     )
   ;
-  buildInputs =
-    buildInputs
-    ++ [
-      openssl
-      zlib
-      libxml2
-      libxslt
-      docbook_xsl
-    ]
-  ;
+  buildInputs = buildInputs ++ [
+    openssl
+    zlib
+    libxml2
+    libxslt
+    docbook_xsl
+  ];
   pythonPath = with python3Packages; [
     pygments
     markdown

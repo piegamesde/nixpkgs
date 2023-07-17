@@ -60,8 +60,7 @@ buildGoModule rec {
       Kernel
       UserNotifications
       WebKit
-    ]
-  ;
+    ];
 
   subPackages = lib.attrNames modules;
 

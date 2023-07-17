@@ -34,21 +34,18 @@ stdenv.mkDerivation rec {
     hash = "sha256-h/eSa2wCPvnX29wdtDHNQh8r1No1/YGinZNYU2MnsTM=";
   };
 
-  buildInputs =
-    [
-      openssl
-      zlib
-      pcre
-      libxcrypt
-      libxml2
-      libxslt
-      gd
-      geoip
-      gperftools
-      jemalloc
-    ]
-    ++ concatMap (mod: mod.inputs or [ ]) modules
-  ;
+  buildInputs = [
+    openssl
+    zlib
+    pcre
+    libxcrypt
+    libxml2
+    libxslt
+    gd
+    geoip
+    gperftools
+    jemalloc
+  ] ++ concatMap (mod: mod.inputs or [ ]) modules;
 
   patches =
     singleton (

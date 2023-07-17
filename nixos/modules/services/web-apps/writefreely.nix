@@ -462,9 +462,8 @@ in
         WorkingDirectory = cfg.stateDir;
         ReadOnlyPaths =
           optional isMysqlLocal cfg.database.passwordFile
-          ++
-            optional (cfg.admin.initialPasswordFile != null)
-              cfg.admin.initialPasswordFile
+          ++ optional (cfg.admin.initialPasswordFile != null)
+            cfg.admin.initialPasswordFile
         ;
       };
 

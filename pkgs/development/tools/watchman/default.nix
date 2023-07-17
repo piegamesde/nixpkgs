@@ -71,33 +71,30 @@ stdenv.mkDerivation rec {
     )
   ;
 
-  buildInputs =
-    [
-      pcre
-      openssl
-      python3
-      gtest
-      glog
-      boost
-      libevent
-      fmt_8
-      libsodium
-      zlib
-      folly
-      fizz
-      wangle
-      fbthrift
-      fb303
-      cpptoml
-      edencommon
-      libunwind
-      double-conversion
-      lz4
-      zstd
-      libiconv
-    ]
-    ++ lib.optionals stdenv.isDarwin [ CoreServices ]
-  ;
+  buildInputs = [
+    pcre
+    openssl
+    python3
+    gtest
+    glog
+    boost
+    libevent
+    fmt_8
+    libsodium
+    zlib
+    folly
+    fizz
+    wangle
+    fbthrift
+    fb303
+    cpptoml
+    edencommon
+    libunwind
+    double-conversion
+    lz4
+    zstd
+    libiconv
+  ] ++ lib.optionals stdenv.isDarwin [ CoreServices ];
 
   cargoRoot = "watchman/cli";
 

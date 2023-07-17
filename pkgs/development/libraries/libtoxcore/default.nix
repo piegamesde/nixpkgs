@@ -27,14 +27,11 @@ stdenv.mkDerivation rec {
       sha256 = "sha256-8pQFN5mIY1k+KLxqa19W8JZ19s2KKDJre8MbSDbAiUI=";
     };
 
-  cmakeFlags =
-    [
-      "-DBUILD_NTOX=ON"
-      "-DDHT_BOOTSTRAP=ON"
-      "-DBOOTSTRAP_DAEMON=ON"
-    ]
-    ++ lib.optional buildToxAV "-DMUST_BUILD_TOXAV=ON"
-  ;
+  cmakeFlags = [
+    "-DBUILD_NTOX=ON"
+    "-DDHT_BOOTSTRAP=ON"
+    "-DBOOTSTRAP_DAEMON=ON"
+  ] ++ lib.optional buildToxAV "-DMUST_BUILD_TOXAV=ON";
 
   buildInputs =
     [

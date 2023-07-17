@@ -50,23 +50,20 @@ stdenv.mkDerivation {
     makeWrapper
   ];
 
-  buildInputs =
-    [
-      libuuid
-      libscrypt
-      libsodium
-      keyutils
-      liburcu
-      zlib
-      libaio
-      zstd
-      lz4
-      python3Packages.pytest
-      udev
-      valgrind
-    ]
-    ++ lib.optional fuseSupport fuse3
-  ;
+  buildInputs = [
+    libuuid
+    libscrypt
+    libsodium
+    keyutils
+    liburcu
+    zlib
+    libaio
+    zstd
+    lz4
+    python3Packages.pytest
+    udev
+    valgrind
+  ] ++ lib.optional fuseSupport fuse3;
 
   doCheck = false; # needs bcachefs module loaded on builder
   checkFlags = [ "BCACHEFS_TEST_USE_VALGRIND=no" ];

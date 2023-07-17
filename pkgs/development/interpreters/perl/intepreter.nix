@@ -51,14 +51,11 @@ stdenv.mkDerivation (
 
     strictDeps = true;
     # TODO: Add a "dev" output containing the header files.
-    outputs =
-      [
-        "out"
-        "man"
-        "devdoc"
-      ]
-      ++ lib.optional crossCompiling "mini"
-    ;
+    outputs = [
+      "out"
+      "man"
+      "devdoc"
+    ] ++ lib.optional crossCompiling "mini";
     setOutputFlags = false;
 
     # On FreeBSD, if Perl is built with threads support, having

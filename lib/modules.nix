@@ -139,8 +139,7 @@ rec {
           config = {
             _module.check = mkDefault check;
           };
-        }
-      ;
+        };
       regularModules = modules ++ legacyModules;
 
       # This internal module declare internal options under the `_module'

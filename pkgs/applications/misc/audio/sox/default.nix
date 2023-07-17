@@ -57,12 +57,11 @@ stdenv.mkDerivation rec {
       autoreconfHook
       autoconf-archive
     ]
-    ++
-      lib.optionals enableOpusfile
-        [
-          # configure.ac uses pkg-config only to locate libopusfile
-          pkg-config
-        ]
+    ++ lib.optionals enableOpusfile
+      [
+        # configure.ac uses pkg-config only to locate libopusfile
+        pkg-config
+      ]
   ;
 
   patches = [ ./0001-musl-rewind-pipe-workaround.patch ];

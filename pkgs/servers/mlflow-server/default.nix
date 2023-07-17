@@ -11,13 +11,10 @@ py.toPythonApplication (
   py.mlflow.overridePythonAttrs (
     old: rec {
 
-      propagatedBuildInputs =
-        old.propagatedBuildInputs
-        ++ [
-          py.boto3
-          py.mysqlclient
-        ]
-      ;
+      propagatedBuildInputs = old.propagatedBuildInputs ++ [
+        py.boto3
+        py.mysqlclient
+      ];
 
       postPatch = ''
         substituteInPlace mlflow/utils/process.py --replace \

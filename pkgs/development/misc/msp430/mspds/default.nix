@@ -54,14 +54,11 @@ stdenv.mkDerivation {
   '';
 
   nativeBuildInputs = [ unzip ];
-  buildInputs =
-    [
-      boost
-      hidapi
-      pugixml
-    ]
-    ++ lib.optional stdenv.isLinux libusb1
-  ;
+  buildInputs = [
+    boost
+    hidapi
+    pugixml
+  ] ++ lib.optional stdenv.isLinux libusb1;
 
   meta = with lib; {
     description = "TI MSP430 FET debug driver";

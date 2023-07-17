@@ -77,17 +77,14 @@ let
 
     streaming.rtmp-allow-list = [ ".*" ];
 
-    chrome.flags =
-      [
-        "--use-fake-ui-for-media-stream"
-        "--start-maximized"
-        "--kiosk"
-        "--enabled"
-        "--disable-infobars"
-        "--autoplay-policy=no-user-gesture-required"
-      ]
-      ++ lists.optional cfg.ignoreCert "--ignore-certificate-errors"
-    ;
+    chrome.flags = [
+      "--use-fake-ui-for-media-stream"
+      "--start-maximized"
+      "--kiosk"
+      "--enabled"
+      "--disable-infobars"
+      "--autoplay-policy=no-user-gesture-required"
+    ] ++ lists.optional cfg.ignoreCert "--ignore-certificate-errors";
 
     stats.enable-stats-d = true;
     webhook.subscribers = [ ];

@@ -78,17 +78,14 @@ stdenv.mkDerivation rec {
     ]
   ;
 
-  cmakeFlags =
-    [
-      "-DCMAKE_BUILD_TYPE=Release"
-      "-DUSE_DEVICE_TREZOR=ON"
-      "-DBUILD_GUI_DEPS=ON"
-      "-DReadline_ROOT_DIR=${readline.dev}"
-      "-DReadline_INCLUDE_DIR=${readline.dev}/include/readline"
-      "-DRandomX_ROOT_DIR=${randomx}"
-    ]
-    ++ lib.optional stdenv.isDarwin "-DBoost_USE_MULTITHREADED=OFF"
-  ;
+  cmakeFlags = [
+    "-DCMAKE_BUILD_TYPE=Release"
+    "-DUSE_DEVICE_TREZOR=ON"
+    "-DBUILD_GUI_DEPS=ON"
+    "-DReadline_ROOT_DIR=${readline.dev}"
+    "-DReadline_INCLUDE_DIR=${readline.dev}/include/readline"
+    "-DRandomX_ROOT_DIR=${randomx}"
+  ] ++ lib.optional stdenv.isDarwin "-DBoost_USE_MULTITHREADED=OFF";
 
   outputs = [
     "out"

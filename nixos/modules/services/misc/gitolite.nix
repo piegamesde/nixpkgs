@@ -264,13 +264,10 @@ in
         ;
       };
 
-      environment.systemPackages =
-        [
-          pkgs.gitolite
-          pkgs.git
-        ]
-        ++ optional cfg.enableGitAnnex pkgs.git-annex
-      ;
+      environment.systemPackages = [
+        pkgs.gitolite
+        pkgs.git
+      ] ++ optional cfg.enableGitAnnex pkgs.git-annex;
     }
   );
 }

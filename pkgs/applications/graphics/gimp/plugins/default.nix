@@ -52,22 +52,16 @@ lib.makeScope pkgs.newScope (
         // attrs
         // {
           name = "${gimp.pname}-plugin-${name}";
-          buildInputs =
-            [
-              gimp
-              gimp.gtk
-              glib
-            ]
-            ++ (attrs.buildInputs or [ ])
-          ;
+          buildInputs = [
+            gimp
+            gimp.gtk
+            glib
+          ] ++ (attrs.buildInputs or [ ]);
 
-          nativeBuildInputs =
-            [
-              pkg-config
-              intltool
-            ]
-            ++ (attrs.nativeBuildInputs or [ ])
-          ;
+          nativeBuildInputs = [
+            pkg-config
+            intltool
+          ] ++ (attrs.nativeBuildInputs or [ ]);
 
           # Override installation paths.
           env = {

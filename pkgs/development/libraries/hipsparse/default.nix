@@ -50,19 +50,16 @@ stdenv.mkDerivation (
       ++ lib.optionals (buildTests || buildSamples) [ openmp ]
     ;
 
-    cmakeFlags =
-      [
-        "-DCMAKE_C_COMPILER=hipcc"
-        "-DCMAKE_CXX_COMPILER=hipcc"
-        "-DBUILD_CLIENTS_SAMPLES=${if buildSamples then "ON" else "OFF"}"
-        # Manually define CMAKE_INSTALL_<DIR>
-        # See: https://github.com/NixOS/nixpkgs/pull/197838
-        "-DCMAKE_INSTALL_BINDIR=bin"
-        "-DCMAKE_INSTALL_LIBDIR=lib"
-        "-DCMAKE_INSTALL_INCLUDEDIR=include"
-      ]
-      ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ]
-    ;
+    cmakeFlags = [
+      "-DCMAKE_C_COMPILER=hipcc"
+      "-DCMAKE_CXX_COMPILER=hipcc"
+      "-DBUILD_CLIENTS_SAMPLES=${if buildSamples then "ON" else "OFF"}"
+      # Manually define CMAKE_INSTALL_<DIR>
+      # See: https://github.com/NixOS/nixpkgs/pull/197838
+      "-DCMAKE_INSTALL_BINDIR=bin"
+      "-DCMAKE_INSTALL_LIBDIR=lib"
+      "-DCMAKE_INSTALL_INCLUDEDIR=include"
+    ] ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ];
 
     # We have to manually generate the matrices
     # CMAKE_MATRICES_DIR seems to be reset in clients/tests/CMakeLists.txt

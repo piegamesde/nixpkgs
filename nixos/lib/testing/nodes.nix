@@ -23,30 +23,27 @@ let
     inherit system;
     inherit (config.node) specialArgs;
     modules = [ config.defaults ];
-    baseModules =
-      (import ../../modules/module-list.nix)
-      ++ [
-        ./nixos-test-base.nix
+    baseModules = (import ../../modules/module-list.nix) ++ [
+      ./nixos-test-base.nix
+      {
+        key = "nodes";
+        _module.args.nodes = config.nodesCompat;
+      }
+      (
         {
-          key = "nodes";
-          _module.args.nodes = config.nodesCompat;
-        }
-        (
-          {
-            config,
-            ...
-          }:
-          {
-            virtualisation.qemu.package = testModuleArgs.config.qemu.package;
+          config,
+          ...
+        }:
+        {
+          virtualisation.qemu.package = testModuleArgs.config.qemu.package;
 
-            # Ensure we do not use aliases. Ideally this is only set
-            # when the test framework is used by Nixpkgs NixOS tests.
-            nixpkgs.config.allowAliases = false;
-          }
-        )
-        testModuleArgs.config.extraBaseModules
-      ]
-    ;
+          # Ensure we do not use aliases. Ideally this is only set
+          # when the test framework is used by Nixpkgs NixOS tests.
+          nixpkgs.config.allowAliases = false;
+        }
+      )
+      testModuleArgs.config.extraBaseModules
+    ];
   };
 in
 

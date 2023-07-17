@@ -40,8 +40,7 @@ stdenv.mkDerivation rec {
         src = ./hardcode-libnotify.patch;
         inherit libnotify;
       }
-    )
-  ;
+    );
 
   nativeBuildInputs = [
     cmake

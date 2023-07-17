@@ -30,14 +30,11 @@ stdenv.mkDerivation rec {
       --replace /usr/share/pcsc $out/share/pcsc
   '';
 
-  buildInputs =
-    [
-      dbus
-      perlPackages.perl
-      pcsclite
-    ]
-    ++ lib.optional stdenv.isLinux systemd
-  ;
+  buildInputs = [
+    dbus
+    perlPackages.perl
+    pcsclite
+  ] ++ lib.optional stdenv.isLinux systemd;
 
   nativeBuildInputs = [
     autoreconfHook

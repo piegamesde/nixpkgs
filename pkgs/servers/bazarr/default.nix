@@ -32,19 +32,16 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  buildInputs =
-    [
-      (python3.withPackages (
-        ps: [
-          ps.lxml
-          ps.numpy
-          ps.gevent
-          ps.gevent-websocket
-        ]
-      ))
-    ]
-    ++ runtimeProgDeps
-  ;
+  buildInputs = [
+    (python3.withPackages (
+      ps: [
+        ps.lxml
+        ps.numpy
+        ps.gevent
+        ps.gevent-websocket
+      ]
+    ))
+  ] ++ runtimeProgDeps;
 
   installPhase = ''
     runHook preInstall

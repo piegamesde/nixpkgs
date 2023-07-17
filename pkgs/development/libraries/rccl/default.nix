@@ -32,26 +32,20 @@ stdenv.mkDerivation (
       hip
     ];
 
-    buildInputs =
-      [
-        rocm-smi
-        gtest
-      ]
-      ++ lib.optionals buildTests [ chrpath ]
-    ;
+    buildInputs = [
+      rocm-smi
+      gtest
+    ] ++ lib.optionals buildTests [ chrpath ];
 
-    cmakeFlags =
-      [
-        "-DCMAKE_C_COMPILER=hipcc"
-        "-DCMAKE_CXX_COMPILER=hipcc"
-        # Manually define CMAKE_INSTALL_<DIR>
-        # See: https://github.com/NixOS/nixpkgs/pull/197838
-        "-DCMAKE_INSTALL_BINDIR=bin"
-        "-DCMAKE_INSTALL_LIBDIR=lib"
-        "-DCMAKE_INSTALL_INCLUDEDIR=include"
-      ]
-      ++ lib.optionals buildTests [ "-DBUILD_TESTS=ON" ]
-    ;
+    cmakeFlags = [
+      "-DCMAKE_C_COMPILER=hipcc"
+      "-DCMAKE_CXX_COMPILER=hipcc"
+      # Manually define CMAKE_INSTALL_<DIR>
+      # See: https://github.com/NixOS/nixpkgs/pull/197838
+      "-DCMAKE_INSTALL_BINDIR=bin"
+      "-DCMAKE_INSTALL_LIBDIR=lib"
+      "-DCMAKE_INSTALL_INCLUDEDIR=include"
+    ] ++ lib.optionals buildTests [ "-DBUILD_TESTS=ON" ];
 
     # Replace the manually set parallel jobs to NIX_BUILD_CORES
     postPatch = ''

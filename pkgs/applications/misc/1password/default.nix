@@ -57,7 +57,9 @@ stdenv.mkDerivation {
   ;
 
   nativeBuildInputs =
-    [ installShellFiles ] ++ lib.optional stdenv.isLinux autoPatchelfHook;
+    [ installShellFiles ]
+    ++ lib.optional stdenv.isLinux autoPatchelfHook
+  ;
 
   buildInputs = lib.optionals stdenv.isDarwin [
     xar

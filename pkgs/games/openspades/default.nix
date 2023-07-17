@@ -43,22 +43,19 @@ stdenv.mkDerivation rec {
     file
   ];
 
-  buildInputs =
-    [
-      freetype
-      SDL2
-      SDL2_image
-      libGL
-      zlib
-      curl
-      glew
-      opusfile
-      openal
-      libogg
-      libXext
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ Cocoa ]
-  ;
+  buildInputs = [
+    freetype
+    SDL2
+    SDL2_image
+    libGL
+    zlib
+    curl
+    glew
+    opusfile
+    openal
+    libogg
+    libXext
+  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ Cocoa ];
 
   patches =
     [

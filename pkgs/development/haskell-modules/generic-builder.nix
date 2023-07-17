@@ -407,8 +407,7 @@ let
   ;
   otherBuildInputsHaskell =
     optionals doCheck (testDepends ++ testHaskellDepends)
-    ++ optionals doBenchmark (benchmarkDepends ++ benchmarkHaskellDepends)
-  ;
+    ++ optionals doBenchmark (benchmarkDepends ++ benchmarkHaskellDepends);
   otherBuildInputsSystem =
     extraLibraries
     ++ librarySystemDepends
@@ -877,8 +876,7 @@ lib.fix (
             depsBuildBuild = lib.optional isCross ghcEnvForBuild;
             nativeBuildInputs =
               [ ghcEnv ]
-              ++ optional (allPkgconfigDepends != [ ]) pkg-config
-              ++ collectedToolDepends
+              ++ optional (allPkgconfigDepends != [ ]) pkg-config ++ collectedToolDepends
             ;
             buildInputs = otherBuildInputsSystem;
             phases = [ "installPhase" ];

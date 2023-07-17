@@ -38,22 +38,19 @@ gnustep.stdenv.mkDerivation rec {
     python3
     pkg-config
   ];
-  buildInputs =
-    [
-      gnustep.base
-      sope
-      openssl
-      libmemcached
-      curl
-      libsodium
-      libytnef
-      libzip
-      openldap
-      oath-toolkit
-      libxcrypt
-    ]
-    ++ lib.optional enableActiveSync libwbxml
-  ;
+  buildInputs = [
+    gnustep.base
+    sope
+    openssl
+    libmemcached
+    curl
+    libsodium
+    libytnef
+    libzip
+    openldap
+    oath-toolkit
+    libxcrypt
+  ] ++ lib.optional enableActiveSync libwbxml;
 
   patches = lib.optional enableActiveSync ./enable-activesync.patch;
 

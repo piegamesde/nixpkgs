@@ -53,7 +53,8 @@ stdenv.mkDerivation rec {
   ;
 
   cmakeFlags =
-    [ "-DUSE_HAMLIB=ON" ] ++ lib.optional enableDigitalLab "-DENABLE_DIGITAL_LAB=ON"
+    [ "-DUSE_HAMLIB=ON" ]
+    ++ lib.optional enableDigitalLab "-DENABLE_DIGITAL_LAB=ON"
   ;
 
   meta = with lib; {

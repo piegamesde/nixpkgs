@@ -32,16 +32,13 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs =
-    [
-      json_c
-      libcap
-      libsodium
-      libuecc
-      openssl
-    ]
-    ++ lib.optionals (stdenv.isLinux) [ libmnl ]
-  ;
+  buildInputs = [
+    json_c
+    libcap
+    libsodium
+    libuecc
+    openssl
+  ] ++ lib.optionals (stdenv.isLinux) [ libmnl ];
 
   # some options are only available on x86
   mesonFlags = lib.optionals (!stdenv.hostPlatform.isx86) [

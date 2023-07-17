@@ -45,19 +45,16 @@ stdenv.mkDerivation rec {
     "fortify"
   ];
 
-  configureFlags =
-    [
-      "--with-pngincludedir=${libpng.dev}/include"
-      "--with-pnglibdir=${libpng.out}/lib"
-      "--with-jpegincludedir=${libjpeg.dev}/include"
-      "--with-jpeglibdir=${libjpeg.out}/lib"
-      "--with-expatincludedir=${expat.dev}/include"
-      "--with-expatlibdir=${expat.out}/lib"
-      "--with-ltdl-include=${libtool}/include"
-      "--with-ltdl-lib=${libtool.lib}/lib"
-    ]
-    ++ lib.optional (libX11 == null) "--without-x"
-  ;
+  configureFlags = [
+    "--with-pngincludedir=${libpng.dev}/include"
+    "--with-pnglibdir=${libpng.out}/lib"
+    "--with-jpegincludedir=${libjpeg.dev}/include"
+    "--with-jpeglibdir=${libjpeg.out}/lib"
+    "--with-expatincludedir=${expat.dev}/include"
+    "--with-expatlibdir=${expat.out}/lib"
+    "--with-ltdl-include=${libtool}/include"
+    "--with-ltdl-lib=${libtool.lib}/lib"
+  ] ++ lib.optional (libX11 == null) "--without-x";
 
   meta = {
     description = "A program for visualising graphs";

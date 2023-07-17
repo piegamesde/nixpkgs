@@ -88,32 +88,26 @@ stdenv.mkDerivation rec {
 
   # TODO: build server, and move .so's to lib output
   # Python's wheel is stored in a separate dist output
-  outputs =
-    [
-      "out"
-      "dev"
-    ]
-    ++ lib.optionals pythonSupport [ "dist" ]
-  ;
+  outputs = [
+    "out"
+    "dev"
+  ] ++ lib.optionals pythonSupport [ "dist" ];
 
   enableParallelBuilding = true;
 
   cmakeDir = "../cmake";
 
-  cmakeFlags =
-    [
-      "-Donnxruntime_PREFER_SYSTEM_LIB=ON"
-      "-Donnxruntime_BUILD_SHARED_LIB=ON"
-      "-Donnxruntime_ENABLE_LTO=ON"
-      "-Donnxruntime_BUILD_UNIT_TESTS=ON"
-      "-Donnxruntime_USE_PREINSTALLED_EIGEN=ON"
-      "-Donnxruntime_USE_MPI=ON"
-      "-Deigen_SOURCE_PATH=${eigen.src}"
-      "-DFETCHCONTENT_SOURCE_DIR_ABSEIL_CPP=${abseil-cpp_202111.src}"
-      "-Donnxruntime_USE_DNNL=YES"
-    ]
-    ++ lib.optionals pythonSupport [ "-Donnxruntime_ENABLE_PYTHON=ON" ]
-  ;
+  cmakeFlags = [
+    "-Donnxruntime_PREFER_SYSTEM_LIB=ON"
+    "-Donnxruntime_BUILD_SHARED_LIB=ON"
+    "-Donnxruntime_ENABLE_LTO=ON"
+    "-Donnxruntime_BUILD_UNIT_TESTS=ON"
+    "-Donnxruntime_USE_PREINSTALLED_EIGEN=ON"
+    "-Donnxruntime_USE_MPI=ON"
+    "-Deigen_SOURCE_PATH=${eigen.src}"
+    "-DFETCHCONTENT_SOURCE_DIR_ABSEIL_CPP=${abseil-cpp_202111.src}"
+    "-Donnxruntime_USE_DNNL=YES"
+  ] ++ lib.optionals pythonSupport [ "-Donnxruntime_ENABLE_PYTHON=ON" ];
 
   doCheck = true;
 

@@ -628,8 +628,7 @@ in
         ;
         requires =
           lib.optional (cfg.databaseUrl == "local") "postgresql.service"
-          ++ lib.optional (cfg.redisUrl == "local") "redis-outline.service"
-        ;
+          ++ lib.optional (cfg.redisUrl == "local") "redis-outline.service";
         path = [
           pkgs.openssl # Required by the preStart script
           sequelize

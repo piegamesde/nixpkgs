@@ -50,35 +50,25 @@ stdenv.mkDerivation rec {
   ];
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
-  nativeBuildInputs =
-    [
-      autoreconfHook
-      pruneLibtoolFiles
-    ]
-    ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
-  ;
-  buildInputs =
-    [
-      openssl
-      db
-      gettext
-      libkrb5
-      libxcrypt
-    ]
-    ++ lib.optional enableLdap openldap
-    ++ lib.optional stdenv.isLinux pam
-  ;
+  nativeBuildInputs = [
+    autoreconfHook
+    pruneLibtoolFiles
+  ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
+  buildInputs = [
+    openssl
+    db
+    gettext
+    libkrb5
+    libxcrypt
+  ] ++ lib.optional enableLdap openldap ++ lib.optional stdenv.isLinux pam;
 
-  configureFlags =
-    [
-      "--with-openssl=${openssl.dev}"
-      "--with-plugindir=${placeholder "out"}/lib/sasl2"
-      "--with-saslauthd=/run/saslauthd"
-      "--enable-login"
-      "--enable-shared"
-    ]
-    ++ lib.optional enableLdap "--with-ldap=${openldap.dev}"
-  ;
+  configureFlags = [
+    "--with-openssl=${openssl.dev}"
+    "--with-plugindir=${placeholder "out"}/lib/sasl2"
+    "--with-saslauthd=/run/saslauthd"
+    "--enable-login"
+    "--enable-shared"
+  ] ++ lib.optional enableLdap "--with-ldap=${openldap.dev}";
 
   installFlags = lib.optionals stdenv.isDarwin [
     "framedir=$(out)/Library/Frameworks/SASL2.framework"

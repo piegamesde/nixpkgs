@@ -44,29 +44,22 @@ stdenv.mkDerivation rec {
     postInstall
   ;
 
-  nativeBuildInputs =
-    [
-      python3
-      pkg-config
-      hexdump
-    ]
-    ++ extraNativeBuildInputs
-  ;
+  nativeBuildInputs = [
+    python3
+    pkg-config
+    hexdump
+  ] ++ extraNativeBuildInputs;
 
-  buildInputs =
-    [
-      audiofile
-      SDL2
-    ]
-    ++ extraBuildInputs
-  ;
+  buildInputs = [
+    audiofile
+    SDL2
+  ] ++ extraBuildInputs;
 
   enableParallelBuilding = true;
 
   makeFlags =
     [ "VERSION=${region}" ]
-    ++ lib.optionals stdenv.isDarwin [ "OSX_BUILD=1" ]
-    ++ compileFlags
+    ++ lib.optionals stdenv.isDarwin [ "OSX_BUILD=1" ] ++ compileFlags
   ;
 
   preBuild = ''

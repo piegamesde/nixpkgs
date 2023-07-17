@@ -93,17 +93,16 @@ stdenv.mkDerivation rec {
           sha256 = "sha256-N21mAPfaTo+zGCip4njejasraV5IsWVqlGR5eOdFZZE=";
         })
       ]
-    ++
-      lib.optionals (lib.versionOlder version "2.092.2")
-        [
-          # Fixes C++ tests that compiled on older C++ but not on the current one
-          (fetchpatch {
-            url = "https://github.com/dlang/druntime/commit/438990def7e377ca1f87b6d28246673bb38022ab.patch";
-            stripLen = 1;
-            extraPrefix = "druntime/";
-            sha256 = "sha256-/pPKK7ZK9E/mBrxm2MZyBNhYExE8p9jz8JqBdZSE6uY=";
-          })
-        ]
+    ++ lib.optionals (lib.versionOlder version "2.092.2")
+      [
+        # Fixes C++ tests that compiled on older C++ but not on the current one
+        (fetchpatch {
+          url = "https://github.com/dlang/druntime/commit/438990def7e377ca1f87b6d28246673bb38022ab.patch";
+          stripLen = 1;
+          extraPrefix = "druntime/";
+          sha256 = "sha256-/pPKK7ZK9E/mBrxm2MZyBNhYExE8p9jz8JqBdZSE6uY=";
+        })
+      ]
   ;
 
   postPatch =
@@ -159,25 +158,21 @@ stdenv.mkDerivation rec {
     ''
   ;
 
-  nativeBuildInputs =
-    [
-      makeWrapper
-      which
-      installShellFiles
-    ]
-    ++ lib.optionals (lib.versionOlder version "2.088.0") [ git ]
-  ;
+  nativeBuildInputs = [
+    makeWrapper
+    which
+    installShellFiles
+  ] ++ lib.optionals (lib.versionOlder version "2.088.0") [ git ];
 
-  buildInputs =
-    [
-      curl
-      tzdata
-    ]
-    ++ lib.optionals stdenv.isDarwin [ Foundation ]
-  ;
+  buildInputs = [
+    curl
+    tzdata
+  ] ++ lib.optionals stdenv.isDarwin [ Foundation ];
 
   nativeCheckInputs =
-    [ gdb ] ++ lib.optionals (lib.versionOlder version "2.089.0") [ unzip ];
+    [ gdb ]
+    ++ lib.optionals (lib.versionOlder version "2.089.0") [ unzip ]
+  ;
 
   buildFlags = [
     "BUILD=release"

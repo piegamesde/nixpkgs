@@ -32,20 +32,17 @@ buildPythonPackage rec {
   };
 
   nativeBuildInputs = [ setuptools ];
-  propagatedBuildInputs =
-    [
-      setuptools
-      cryptography
-      jinja2
-      mako
-      passlib
-      pyyaml
-      requests
-      tomlkit
-      librouteros
-    ]
-    ++ lib.optionals (pythonOlder "3.11") [ rtoml ]
-  ;
+  propagatedBuildInputs = [
+    setuptools
+    cryptography
+    jinja2
+    mako
+    passlib
+    pyyaml
+    requests
+    tomlkit
+    librouteros
+  ] ++ lib.optionals (pythonOlder "3.11") [ rtoml ];
 
   pythonImportsCheck = [ "bundlewrap" ];
 

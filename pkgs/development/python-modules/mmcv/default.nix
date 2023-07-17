@@ -99,13 +99,10 @@ buildPythonPackage rec {
     "test_reader"
   ];
 
-  nativeBuildInputs =
-    [
-      ninja
-      which
-    ]
-    ++ lib.optionals cudaSupport [ cuda-native-redist ]
-  ;
+  nativeBuildInputs = [
+    ninja
+    which
+  ] ++ lib.optionals cudaSupport [ cuda-native-redist ];
 
   buildInputs = [ torch ] ++ lib.optionals cudaSupport [ cuda-redist ];
 

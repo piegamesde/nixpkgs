@@ -103,15 +103,12 @@ stdenv.mkDerivation (
 
     enableParallelBuilding = true;
 
-    patches =
-      [
-        ./docbook2texi.patch
-        ./git-sh-i18n.patch
-        ./git-send-email-honor-PATH.patch
-        ./installCheck-path.patch
-      ]
-      ++ lib.optionals withSsh [ ./ssh-path.patch ]
-    ;
+    patches = [
+      ./docbook2texi.patch
+      ./git-sh-i18n.patch
+      ./git-send-email-honor-PATH.patch
+      ./installCheck-path.patch
+    ] ++ lib.optionals withSsh [ ./ssh-path.patch ];
 
     postPatch =
       ''

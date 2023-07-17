@@ -32,14 +32,10 @@ stdenv.mkDerivation rec {
     ]
   ;
 
-  buildInputs =
-    [
-      zlib.dev
-      libxcrypt
-    ]
-    ++ lib.optionals useSSL [ openssl ]
-    ++ lib.optionals usePAM [ pam ]
-  ;
+  buildInputs = [
+    zlib.dev
+    libxcrypt
+  ] ++ lib.optionals useSSL [ openssl ] ++ lib.optionals usePAM [ pam ];
 
   preConfigure = lib.optionalString stdenv.hostPlatform.isDarwin ''
     substituteInPlace configure --replace "-framework System" "-lSystem"

@@ -14,13 +14,10 @@
 qtModule {
   pname = "qtsystems";
 
-  outputs =
-    [
-      "out"
-      "dev"
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [ "bin" ]
-  ;
+  outputs = [
+    "out"
+    "dev"
+  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ "bin" ];
 
   qtInputs = [ qtbase ];
 

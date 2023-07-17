@@ -32,13 +32,10 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ libsecret ];
 
-  nativeBuildInputs =
-    [
-      makeWrapper
-      wrapGAppsHook
-    ]
-    ++ lib.optional stdenv.hostPlatform.isLinux autoPatchelfHook
-  ;
+  nativeBuildInputs = [
+    makeWrapper
+    wrapGAppsHook
+  ] ++ lib.optional stdenv.hostPlatform.isLinux autoPatchelfHook;
 
   installPhase =
     if stdenv.hostPlatform.system == "x86_64-linux" then

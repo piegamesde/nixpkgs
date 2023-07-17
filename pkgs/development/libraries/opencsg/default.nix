@@ -23,7 +23,9 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs =
-    [ qmake ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
+    [ qmake ]
+    ++ lib.optional stdenv.isDarwin fixDarwinDylibNames
+  ;
 
   buildInputs =
     [ glew ]

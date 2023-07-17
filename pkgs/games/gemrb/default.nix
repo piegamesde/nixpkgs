@@ -35,21 +35,18 @@ stdenv.mkDerivation rec {
     hash = "sha256-pC83LgAy1aQxUhS2qa57hm03B37bj6dcRVRn7SI5I+k=";
   };
 
-  buildInputs =
-    [
-      SDL2
-      SDL2_mixer
-      freetype
-      libGL
-      libiconv
-      libpng
-      libvorbis
-      openal
-      python3
-      zlib
-    ]
-    ++ optional withVLC libvlc
-  ;
+  buildInputs = [
+    SDL2
+    SDL2_mixer
+    freetype
+    libGL
+    libiconv
+    libpng
+    libvorbis
+    openal
+    python3
+    zlib
+  ] ++ optional withVLC libvlc;
 
   nativeBuildInputs = [ cmake ];
 

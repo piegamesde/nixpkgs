@@ -44,19 +44,15 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs =
-    [
-      bluez
-      gtk3
-      pythonPackages.python
-      librsvg
-      gnome.adwaita-icon-theme
-      iproute2
-      networkmanager
-    ]
-    ++ pythonPath
-    ++ lib.optional withPulseAudio libpulseaudio
-  ;
+  buildInputs = [
+    bluez
+    gtk3
+    pythonPackages.python
+    librsvg
+    gnome.adwaita-icon-theme
+    iproute2
+    networkmanager
+  ] ++ pythonPath ++ lib.optional withPulseAudio libpulseaudio;
 
   postPatch = lib.optionalString withPulseAudio ''
     sed -i 's,CDLL(",CDLL("${libpulseaudio.out}/lib/,g' blueman/main/PulseAudioUtils.py

@@ -303,8 +303,7 @@ stdenv.mkDerivation {
 
   propagatedBuildInputs =
     lib.optional enablePython pythonPackages.numpy
-    ++ lib.optional enableCuda cudatoolkit
-  ;
+    ++ lib.optional enableCuda cudatoolkit;
 
   nativeBuildInputs = [
     cmake

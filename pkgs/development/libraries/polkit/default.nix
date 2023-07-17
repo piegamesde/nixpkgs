@@ -101,12 +101,11 @@ stdenv.mkDerivation rec {
       dbus
       duktape
     ]
-    ++
-      lib.optionals stdenv.isLinux
-        [
-          # On Linux, fall back to elogind when systemd support is off.
-          (if useSystemd then systemdMinimal else elogind)
-        ]
+    ++ lib.optionals stdenv.isLinux
+      [
+        # On Linux, fall back to elogind when systemd support is off.
+        (if useSystemd then systemdMinimal else elogind)
+      ]
   ;
 
   propagatedBuildInputs = [

@@ -790,9 +790,8 @@ in
     # script and the top-level system configuration directory.
     isoImage.storeContents =
       [ config.system.build.toplevel ]
-      ++
-        optional config.isoImage.includeSystemBuildDependencies
-          config.system.build.toplevel.drvPath
+      ++ optional config.isoImage.includeSystemBuildDependencies
+        config.system.build.toplevel.drvPath
     ;
 
     # Create the squashfs image that contains the Nix store.

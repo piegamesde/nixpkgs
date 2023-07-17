@@ -99,14 +99,11 @@ let
 
             name = "${name}-go-modules";
 
-            nativeBuildInputs =
-              (args.nativeBuildInputs or [ ])
-              ++ [
-                go
-                git
-                cacert
-              ]
-            ;
+            nativeBuildInputs = (args.nativeBuildInputs or [ ]) ++ [
+              go
+              git
+              cacert
+            ];
 
             inherit (args) src;
             inherit (go) GOOS GOARCH;
@@ -125,14 +122,11 @@ let
 
             GO111MODULE = "on";
 
-            impureEnvVars =
-              lib.fetchers.proxyImpureEnvVars
-              ++ [
-                "GIT_PROXY_COMMAND"
-                "SOCKS_SERVER"
-                "GOPROXY"
-              ]
-            ;
+            impureEnvVars = lib.fetchers.proxyImpureEnvVars ++ [
+              "GIT_PROXY_COMMAND"
+              "SOCKS_SERVER"
+              "GOPROXY"
+            ];
 
             configurePhase =
               args.modConfigurePhase or ''
@@ -240,8 +234,7 @@ let
       GO111MODULE = "on";
       GOFLAGS =
         lib.optionals (!proxyVendor) [ "-mod=vendor" ]
-        ++ lib.optionals (!allowGoReference) [ "-trimpath" ]
-      ;
+        ++ lib.optionals (!allowGoReference) [ "-trimpath" ];
       inherit CGO_ENABLED enableParallelBuilding;
 
       configurePhase =

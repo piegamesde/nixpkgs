@@ -352,7 +352,8 @@ in
 
       wantedBy = [ "multi-user.target" ];
       after =
-        optional mysqlLocal "mysql.service" ++ optional pgsqlLocal "postgresql.service";
+        optional mysqlLocal "mysql.service"
+        ++ optional pgsqlLocal "postgresql.service";
 
       path = [ "/run/wrappers" ] ++ cfg.extraPackages;
       preStart =
@@ -402,9 +403,8 @@ in
 
     systemd.services.httpd.after =
       optional (config.services.zabbixWeb.enable && mysqlLocal) "mysql.service"
-      ++
-        optional (config.services.zabbixWeb.enable && pgsqlLocal)
-          "postgresql.service"
+      ++ optional (config.services.zabbixWeb.enable && pgsqlLocal)
+        "postgresql.service"
     ;
   };
 }

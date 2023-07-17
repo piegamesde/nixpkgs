@@ -114,13 +114,10 @@ stdenv.mkDerivation rec {
       --replace "0.0" "${version}"
   '';
 
-  nativeBuildInputs =
-    [
-      cmake
-      nasm
-    ]
-    ++ lib.optionals (numaSupport) [ numactl ]
-  ;
+  nativeBuildInputs = [
+    cmake
+    nasm
+  ] ++ lib.optionals (numaSupport) [ numactl ];
 
   # Builds 10bits and 12bits static libs on the side if multi bit-depth is wanted
   # (we are in x265_<version>/source/build)

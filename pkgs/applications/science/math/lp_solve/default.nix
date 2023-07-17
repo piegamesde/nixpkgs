@@ -23,8 +23,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
       autoSignDarwinBinariesHook
-    ]
-  ;
+    ];
 
   dontConfigure = true;
 

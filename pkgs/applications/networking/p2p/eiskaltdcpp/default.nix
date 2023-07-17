@@ -36,30 +36,27 @@ mkDerivation rec {
     cmake
     pkg-config
   ];
-  buildInputs =
-    [
-      qtbase
-      qttools
-      qtmultimedia
-      qtscript
-      bzip2
-      libX11
-      pcre-cpp
-      libidn
-      lua5
-      miniupnpc
-      aspell
-      gettext
-      (perl.withPackages (
-        p:
-        with p; [
-          GetoptLong
-          TermShellUI
-        ]
-      ))
-    ]
-    ++ lib.optional stdenv.isDarwin libiconv
-  ;
+  buildInputs = [
+    qtbase
+    qttools
+    qtmultimedia
+    qtscript
+    bzip2
+    libX11
+    pcre-cpp
+    libidn
+    lua5
+    miniupnpc
+    aspell
+    gettext
+    (perl.withPackages (
+      p:
+      with p; [
+        GetoptLong
+        TermShellUI
+      ]
+    ))
+  ] ++ lib.optional stdenv.isDarwin libiconv;
 
   cmakeFlags = [
     "-DDBUS_NOTIFY=ON"

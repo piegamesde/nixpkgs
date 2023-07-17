@@ -288,15 +288,14 @@ stdenv.mkDerivation (
           extraPrefix = "libraries/Cabal/Cabal/";
         })
       ]
-      ++
-        lib.optionals stdenv.isDarwin
-          [
-            # Make Block.h compile with c++ compilers. Remove with the next release
-            (fetchpatch {
-              url = "https://gitlab.haskell.org/ghc/ghc/-/commit/97d0b0a367e4c6a52a17c3299439ac7de129da24.patch";
-              sha256 = "0r4zjj0bv1x1m2dgxp3adsf2xkr94fjnyj1igsivd9ilbs5ja0b5";
-            })
-          ]
+      ++ lib.optionals stdenv.isDarwin
+        [
+          # Make Block.h compile with c++ compilers. Remove with the next release
+          (fetchpatch {
+            url = "https://gitlab.haskell.org/ghc/ghc/-/commit/97d0b0a367e4c6a52a17c3299439ac7de129da24.patch";
+            sha256 = "0r4zjj0bv1x1m2dgxp3adsf2xkr94fjnyj1igsivd9ilbs5ja0b5";
+          })
+        ]
       ++
         lib.optionals
           (stdenv.targetPlatform.isDarwin && stdenv.targetPlatform.isAarch64)
@@ -384,13 +383,10 @@ stdenv.mkDerivation (
     ;
 
     # TODO(@Ericson2314): Always pass "--target" and always prefix.
-    configurePlatforms =
-      [
-        "build"
-        "host"
-      ]
-      ++ lib.optional (targetPlatform != hostPlatform) "target"
-    ;
+    configurePlatforms = [
+      "build"
+      "host"
+    ] ++ lib.optional (targetPlatform != hostPlatform) "target";
 
     # `--with` flags for libraries needed for RTS linker
     configureFlags =
@@ -457,13 +453,10 @@ stdenv.mkDerivation (
     # For building runtime libs
     depsBuildTarget = toolsForTarget;
 
-    buildInputs =
-      [
-        perl
-        bash
-      ]
-      ++ (libDeps hostPlatform)
-    ;
+    buildInputs = [
+      perl
+      bash
+    ] ++ (libDeps hostPlatform);
 
     depsTargetTarget = map lib.getDev (libDeps targetPlatform);
     depsTargetTargetPropagated = map (lib.getOutput "out") (libDeps targetPlatform);
@@ -471,7 +464,9 @@ stdenv.mkDerivation (
     # required, because otherwise all symbols from HSffi.o are stripped, and
     # that in turn causes GHCi to abort
     stripDebugFlags =
-      [ "-S" ] ++ lib.optional (!targetPlatform.isDarwin) "--keep-file-symbols";
+      [ "-S" ]
+      ++ lib.optional (!targetPlatform.isDarwin) "--keep-file-symbols"
+    ;
 
     checkTarget = "test";
 

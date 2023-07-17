@@ -58,21 +58,18 @@ let
 
     src = fetchurl { inherit (sourcePerArch.${cpuName}) url sha256; };
 
-    buildInputs =
-      [
-        alsa-lib # libasound.so wanted by lib/libjsound.so
-        fontconfig
-        freetype
-        stdenv.cc.cc.lib # libstdc++.so.6
-        xorg.libX11
-        xorg.libXext
-        xorg.libXi
-        xorg.libXrender
-        xorg.libXtst
-        zlib
-      ]
-      ++ lib.optional stdenv.isAarch32 libffi
-    ;
+    buildInputs = [
+      alsa-lib # libasound.so wanted by lib/libjsound.so
+      fontconfig
+      freetype
+      stdenv.cc.cc.lib # libstdc++.so.6
+      xorg.libX11
+      xorg.libXext
+      xorg.libXi
+      xorg.libXrender
+      xorg.libXtst
+      zlib
+    ] ++ lib.optional stdenv.isAarch32 libffi;
 
     nativeBuildInputs = [
       autoPatchelfHook

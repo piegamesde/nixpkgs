@@ -18,18 +18,15 @@ let
 
   inherit (lib) concatMapStringsSep;
 
-  gsettingsOverridePackages =
-    [
-      elementary-dock
-      gnome-settings-daemon
-      epiphany
-      gala
-      gsettings-desktop-schemas
-      gtk3
-      mutter
-    ]
-    ++ extraGSettingsOverridePackages
-  ;
+  gsettingsOverridePackages = [
+    elementary-dock
+    gnome-settings-daemon
+    epiphany
+    gala
+    gsettings-desktop-schemas
+    gtk3
+    mutter
+  ] ++ extraGSettingsOverridePackages;
 in
 
 # TODO: Having https://github.com/NixOS/nixpkgs/issues/54150 would supersede this

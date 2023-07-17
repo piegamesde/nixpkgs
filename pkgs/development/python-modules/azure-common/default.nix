@@ -21,7 +21,9 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs =
-    [ azure-nspkg ] ++ lib.optionals (!isPy3k) [ setuptools ]; # need for namespace lookup
+    [ azure-nspkg ]
+    ++ lib.optionals (!isPy3k) [ setuptools ]
+  ; # need for namespace lookup
 
   postInstall =
     if isPy3k then

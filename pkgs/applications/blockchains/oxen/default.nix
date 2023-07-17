@@ -75,18 +75,15 @@ stdenv.mkDerivation rec {
     ]
   ;
 
-  cmakeFlags =
-    [
-      "-DCMAKE_BUILD_TYPE=Release"
-      # "-DUSE_DEVICE_TREZOR=ON"
-      # "-DBUILD_GUI_DEPS=ON"
-      "-DReadline_ROOT_DIR=${readline.dev}"
-      # It build with shared libs but doesn't install them. Fail.
-      # "-DBUILD_SHARED_LIBS=ON"
-      "-DLIBZMQ_TARBALL_URL=${lbzmqsrc}"
-    ]
-    ++ lib.optional stdenv.isDarwin "-DBoost_USE_MULTITHREADED=OFF"
-  ;
+  cmakeFlags = [
+    "-DCMAKE_BUILD_TYPE=Release"
+    # "-DUSE_DEVICE_TREZOR=ON"
+    # "-DBUILD_GUI_DEPS=ON"
+    "-DReadline_ROOT_DIR=${readline.dev}"
+    # It build with shared libs but doesn't install them. Fail.
+    # "-DBUILD_SHARED_LIBS=ON"
+    "-DLIBZMQ_TARBALL_URL=${lbzmqsrc}"
+  ] ++ lib.optional stdenv.isDarwin "-DBoost_USE_MULTITHREADED=OFF";
 
   meta = with lib; {
     description = "Private cryptocurrency based on Monero";

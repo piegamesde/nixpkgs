@@ -42,7 +42,9 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs =
-    [ pkg-config ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
+    [ pkg-config ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
+  ;
 
   buildInputs = [ libffi ];
 
@@ -54,7 +56,9 @@ stdenv.mkDerivation rec {
   '';
 
   makeFlags =
-    [ "CC=${stdenv.cc.targetPrefix}cc" ] ++ lib.optional enableReplxx "REPLXX=1";
+    [ "CC=${stdenv.cc.targetPrefix}cc" ]
+    ++ lib.optional enableReplxx "REPLXX=1"
+  ;
 
   buildFlags =
     [
@@ -69,12 +73,11 @@ stdenv.mkDerivation rec {
           [ "o3" ]
       ))
     ]
-    ++
-      lib.optionals enableLibcbqn
-        [
-          # embeddable interpreter as a shared lib
-          "shared-o3"
-        ]
+    ++ lib.optionals enableLibcbqn
+      [
+        # embeddable interpreter as a shared lib
+        "shared-o3"
+      ]
   ;
 
   preBuild =

@@ -18,7 +18,9 @@ stdenv.mkDerivation (
     };
 
     buildInputs =
-      [ openal ] ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.OpenAL;
+      [ openal ]
+      ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.OpenAL
+    ;
 
     passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 

@@ -45,31 +45,28 @@ stdenv.mkDerivation (
       pkg-config
     ];
 
-    buildInputs =
-      [
-        gdk-pixbuf
-        gdk-pixbuf-xlib
-        gettext
-        gle
-        gtk3
-        libGL
-        libGLU
-        libX11
-        libXext
-        libXft
-        libXi
-        libXinerama
-        libXrandr
-        libXt
-        libXxf86vm
-        libxml2
-        pam
-        perlPackages.LWPProtocolHttps
-        perlPackages.MozillaCA
-        perlPackages.perl
-      ]
-      ++ lib.optional withSystemd systemd
-    ;
+    buildInputs = [
+      gdk-pixbuf
+      gdk-pixbuf-xlib
+      gettext
+      gle
+      gtk3
+      libGL
+      libGLU
+      libX11
+      libXext
+      libXft
+      libXi
+      libXinerama
+      libXrandr
+      libXt
+      libXxf86vm
+      libxml2
+      pam
+      perlPackages.LWPProtocolHttps
+      perlPackages.MozillaCA
+      perlPackages.perl
+    ] ++ lib.optional withSystemd systemd;
 
     preConfigure = ''
       # Fix installation paths for GTK resources.

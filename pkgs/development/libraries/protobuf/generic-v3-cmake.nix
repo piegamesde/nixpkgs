@@ -63,8 +63,7 @@ let
         ]
       ++ lib.optionals stdenv.hostPlatform.isStatic [
         ./static-executables-have-no-rpath.patch
-      ]
-    ;
+      ];
 
     nativeBuildInputs =
       let

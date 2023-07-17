@@ -50,19 +50,16 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs =
-    [
-      cryptography
-      defusedxml
-      pyopenssl
-      python-dateutil
-      pytz
-      requests
-      setuptools
-      xmlschema
-    ]
-    ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
-  ;
+  propagatedBuildInputs = [
+    cryptography
+    defusedxml
+    pyopenssl
+    python-dateutil
+    pytz
+    requests
+    setuptools
+    xmlschema
+  ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
 
   nativeCheckInputs = [
     pyasn1

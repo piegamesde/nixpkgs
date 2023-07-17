@@ -52,8 +52,7 @@ stdenv.mkDerivation rec {
     lib.optionals (!enableShared) [ "-DLIBUNWIND_ENABLE_SHARED=OFF" ]
     ++ lib.optionals (stdenv.hostPlatform.useLLVM or false) [
       "-DLLVM_ENABLE_LIBCXX=ON"
-    ]
-  ;
+    ];
 
   meta = llvm_meta // {
     # Details: https://github.com/llvm/llvm-project/blob/main/libunwind/docs/index.rst

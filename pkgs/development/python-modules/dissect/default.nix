@@ -51,34 +51,31 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  propagatedBuildInputs =
-    [
-      dissect-cim
-      dissect-clfs
-      dissect-cstruct
-      dissect-esedb
-      dissect-etl
-      dissect-eventlog
-      dissect-evidence
-      dissect-executable
-      dissect-extfs
-      dissect-fat
-      dissect-ffs
-      dissect-hypervisor
-      dissect-ntfs
-      dissect-ole
-      dissect-regf
-      dissect-shellitem
-      dissect-sql
-      dissect-squashfs
-      dissect-target
-      dissect-util
-      dissect-vmfs
-      dissect-volume
-      dissect-xfs
-    ]
-    ++ dissect-target.optional-dependencies.full
-  ;
+  propagatedBuildInputs = [
+    dissect-cim
+    dissect-clfs
+    dissect-cstruct
+    dissect-esedb
+    dissect-etl
+    dissect-eventlog
+    dissect-evidence
+    dissect-executable
+    dissect-extfs
+    dissect-fat
+    dissect-ffs
+    dissect-hypervisor
+    dissect-ntfs
+    dissect-ole
+    dissect-regf
+    dissect-shellitem
+    dissect-sql
+    dissect-squashfs
+    dissect-target
+    dissect-util
+    dissect-vmfs
+    dissect-volume
+    dissect-xfs
+  ] ++ dissect-target.optional-dependencies.full;
 
   # Module has no tests
   doCheck = false;

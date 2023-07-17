@@ -43,13 +43,10 @@ stdenv.mkDerivation (
       makeWrapper
       pkg-config
     ];
-    buildInputs =
-      [
-        readline
-        ncurses
-      ]
-      ++ lib.optional stdenv.hostPlatform.isMusl musl-fts
-    ;
+    buildInputs = [
+      readline
+      ncurses
+    ] ++ lib.optional stdenv.hostPlatform.isMusl musl-fts;
 
     env.NIX_CFLAGS_COMPILE =
       lib.optionalString stdenv.hostPlatform.isMusl

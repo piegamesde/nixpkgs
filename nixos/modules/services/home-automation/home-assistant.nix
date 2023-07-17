@@ -151,13 +151,12 @@ in
           "met"
           "esphome"
         ]
-        ++
-          optionals pkgs.stdenv.hostPlatform.isAarch
-            [
-              # Use the platform as an indicator that we might be running on a RaspberryPi and include
-              # relevant components
-              "rpi_power"
-            ]
+        ++ optionals pkgs.stdenv.hostPlatform.isAarch
+          [
+            # Use the platform as an indicator that we might be running on a RaspberryPi and include
+            # relevant components
+            "rpi_power"
+          ]
       ;
       example = literalExpression ''
         [
@@ -466,8 +465,7 @@ in
       ];
       reloadTriggers =
         lib.optional (cfg.config != null) configFile
-        ++ lib.optional (cfg.lovelaceConfig != null) lovelaceConfigFile
-      ;
+        ++ lib.optional (cfg.lovelaceConfig != null) lovelaceConfigFile;
 
       preStart =
         let
@@ -667,15 +665,12 @@ in
             in
             [ "${cfg.configDir}" ] ++ allowPaths
           ;
-          RestrictAddressFamilies =
-            [
-              "AF_INET"
-              "AF_INET6"
-              "AF_NETLINK"
-              "AF_UNIX"
-            ]
-            ++ optionals (any useComponent componentsUsingBluetooth) [ "AF_BLUETOOTH" ]
-          ;
+          RestrictAddressFamilies = [
+            "AF_INET"
+            "AF_INET6"
+            "AF_NETLINK"
+            "AF_UNIX"
+          ] ++ optionals (any useComponent componentsUsingBluetooth) [ "AF_BLUETOOTH" ];
           RestrictNamespaces = true;
           RestrictRealtime = true;
           RestrictSUIDSGID = true;
@@ -684,13 +679,10 @@ in
               [ "dialout" ]
           ;
           SystemCallArchitectures = "native";
-          SystemCallFilter =
-            [
-              "@system-service"
-              "~@privileged"
-            ]
-            ++ optionals (any useComponent componentsUsingPing) [ "capset" ]
-          ;
+          SystemCallFilter = [
+            "@system-service"
+            "~@privileged"
+          ] ++ optionals (any useComponent componentsUsingPing) [ "capset" ];
           UMask = "0077";
         }
       ;

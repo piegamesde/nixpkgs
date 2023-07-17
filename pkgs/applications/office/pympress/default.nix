@@ -25,13 +25,10 @@ python3Packages.buildPythonApplication rec {
     gobject-introspection
   ];
 
-  buildInputs =
-    [
-      gtk3
-      poppler_gi
-    ]
-    ++ lib.optional withGstreamer libcanberra-gtk3
-  ;
+  buildInputs = [
+    gtk3
+    poppler_gi
+  ] ++ lib.optional withGstreamer libcanberra-gtk3;
 
   propagatedBuildInputs =
     with python3Packages;

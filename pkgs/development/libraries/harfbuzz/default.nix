@@ -78,20 +78,17 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs =
-    [
-      meson
-      ninja
-      libintl
-      pkg-config
-      python3
-      glib
-      gtk-doc
-      docbook-xsl-nons
-      docbook_xml_dtd_43
-    ]
-    ++ lib.optional withIntrospection gobject-introspection
-  ;
+  nativeBuildInputs = [
+    meson
+    ninja
+    libintl
+    pkg-config
+    python3
+    glib
+    gtk-doc
+    docbook-xsl-nons
+    docbook_xml_dtd_43
+  ] ++ lib.optional withIntrospection gobject-introspection;
 
   buildInputs =
     [
@@ -109,8 +106,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withIcu [
       icu
       harfbuzz
-    ]
-  ;
+    ];
 
   doCheck = true;
 

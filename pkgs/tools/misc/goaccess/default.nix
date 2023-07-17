@@ -32,13 +32,10 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [ gettext ]
   ;
 
-  configureFlags =
-    [
-      "--enable-utf8"
-      "--with-openssl"
-    ]
-    ++ lib.optionals withGeolocation [ "--enable-geoip=mmdb" ]
-  ;
+  configureFlags = [
+    "--enable-utf8"
+    "--with-openssl"
+  ] ++ lib.optionals withGeolocation [ "--enable-geoip=mmdb" ];
 
   meta = with lib; {
     description = "Real-time web log analyzer and interactive viewer that runs in a terminal in *nix systems";

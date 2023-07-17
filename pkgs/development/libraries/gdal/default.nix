@@ -198,12 +198,11 @@ stdenv.mkDerivation rec {
       # tries to call unwrapped executable
       "test_SetPROJAuxDbPaths"
     ]
-    ++
-      lib.optionals (!stdenv.isx86_64)
-        [
-          # likely precision-related expecting x87 behaviour
-          "test_jp2openjpeg_22"
-        ]
+    ++ lib.optionals (!stdenv.isx86_64)
+      [
+        # likely precision-related expecting x87 behaviour
+        "test_jp2openjpeg_22"
+      ]
     ++
       lib.optionals stdenv.isDarwin
         [

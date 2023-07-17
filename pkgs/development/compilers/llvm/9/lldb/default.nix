@@ -59,12 +59,11 @@ stdenv.mkDerivation rec {
       lit
       makeWrapper
     ]
-    ++
-      lib.optionals stdenv.isDarwin
-        [
-          # for scripts/generate-vers.pl
-          perl
-        ]
+    ++ lib.optionals stdenv.isDarwin
+      [
+        # for scripts/generate-vers.pl
+        perl
+      ]
   ;
 
   buildInputs =
@@ -96,12 +95,11 @@ stdenv.mkDerivation rec {
       "-DLLVM_EXTERNAL_LIT=${lit}/bin/lit"
       "-DLLDB_CODESIGN_IDENTITY=" # codesigning makes nondeterministic
     ]
-    ++
-      lib.optionals stdenv.isDarwin
-        [
-          # Building debugserver requires the proprietary libcompression
-          "-DLLDB_USE_SYSTEM_DEBUGSERVER=ON"
-        ]
+    ++ lib.optionals stdenv.isDarwin
+      [
+        # Building debugserver requires the proprietary libcompression
+        "-DLLDB_USE_SYSTEM_DEBUGSERVER=ON"
+      ]
     ++ lib.optionals doCheck [
       "-DLLDB_TEST_C_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc"
       "-DLLDB_TEST_CXX_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}c++"

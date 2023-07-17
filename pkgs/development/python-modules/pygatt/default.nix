@@ -34,13 +34,10 @@ buildPythonPackage rec {
       nose
     ];
 
-  nativeCheckInputs =
-    [
-      mock
-      pytestCheckHook
-    ]
-    ++ passthru.optional-dependencies.GATTTOOL
-  ;
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.GATTTOOL;
 
   postPatch = ''
     # Not support for Python < 3.4

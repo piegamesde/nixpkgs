@@ -72,13 +72,12 @@ stdenv.mkDerivation rec {
         hash = "sha256-dx+7MpEiAkxTBnJcsT3/1BO8rYRfNLecXmpAvhqGMD0=";
       })
     ]
-    ++
-      lib.optionals (!isNixOS)
-        [
-          # References to /nix/store/... will get GC'ed which causes problems when
-          # copying the default configuration:
-          ./sway-config-no-nix-store-references.patch
-        ]
+    ++ lib.optionals (!isNixOS)
+      [
+        # References to /nix/store/... will get GC'ed which causes problems when
+        # copying the default configuration:
+        ./sway-config-no-nix-store-references.patch
+      ]
     ++
       lib.optionals isNixOS
         [

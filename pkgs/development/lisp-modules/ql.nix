@@ -239,16 +239,13 @@ let
       );
       mcclim-fonts = super.mcclim-fonts.overrideLispAttrs (
         o: {
-          lispLibs =
-            o.lispLibs
-            ++ [
-              super.cl-dejavu
-              super.zpb-ttf
-              super.cl-vectors
-              super.cl-paths-ttf
-              super.flexi-streams
-            ]
-          ;
+          lispLibs = o.lispLibs ++ [
+            super.cl-dejavu
+            super.zpb-ttf
+            super.cl-vectors
+            super.cl-paths-ttf
+            super.flexi-streams
+          ];
           systems = [
             "mcclim-fonts"
             "mcclim-fonts/truetype"

@@ -103,20 +103,16 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ removeReferencesTo ] ++ nativeBuildInputs;
 
-  buildInputs =
-    [
-      openssl
-      zlib
-      pcre
-      libxml2
-      libxslt
-      gd
-      geoip
-      perl
-    ]
-    ++ buildInputs
-    ++ mapModules "inputs"
-  ;
+  buildInputs = [
+    openssl
+    zlib
+    pcre
+    libxml2
+    libxslt
+    gd
+    geoip
+    perl
+  ] ++ buildInputs ++ mapModules "inputs";
 
   configureFlags =
     [

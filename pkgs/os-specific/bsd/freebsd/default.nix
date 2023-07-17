@@ -151,12 +151,9 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
           # Since STRIP below is the flag
           STRIPBIN = "${stdenv.cc.bintools.targetPrefix}strip";
 
-          makeFlags =
-            [
-              "STRIP=-s" # flag to install, not command
-            ]
-            ++ lib.optional (!stdenv.hostPlatform.isFreeBSD) "MK_WERROR=no"
-          ;
+          makeFlags = [
+            "STRIP=-s" # flag to install, not command
+          ] ++ lib.optional (!stdenv.hostPlatform.isFreeBSD) "MK_WERROR=no";
 
           # amd64 not x86_64 for this on unlike NetBSD
           MACHINE_ARCH = mkBsdArch stdenv';
@@ -423,9 +420,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
           "STRIP=-s" # flag to install, not command
           "MK_WERROR=no"
         ]
-        ++
-          lib.optional (stdenv.hostPlatform == stdenv.buildPlatform)
-            "INSTALL=boot-install"
+        ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform)
+          "INSTALL=boot-install"
       ;
       buildInputs = with self; compatIfNeeded;
     };
@@ -468,9 +464,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
             "MK_WERROR=no"
             "TESTSDIR=${builtins.placeholder "test"}"
           ]
-          ++
-            lib.optional (stdenv.hostPlatform == stdenv.buildPlatform)
-              "INSTALL=boot-install"
+          ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform)
+            "INSTALL=boot-install"
         ;
         postInstall = ''
           install -D -m 0550 ${binstall} $out/bin/binstall
@@ -575,7 +570,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
         make -C $BSDSRCDIR/share/mk FILESDIR=$out/share/mk install
       '';
       extraPaths =
-        [ "share/mk" ] ++ lib.optional (!stdenv.hostPlatform.isFreeBSD) "tools/build/mk"
+        [ "share/mk" ]
+        ++ lib.optional (!stdenv.hostPlatform.isFreeBSD) "tools/build/mk"
       ;
     };
     mtree = mkDerivation {

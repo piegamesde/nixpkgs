@@ -117,14 +117,11 @@ let
           ];
 
           # <ldns/ldns.h> depends on <openssl/ssl.h>
-          buildInputs =
-            [
-              libsodium
-              openssl.dev
-              ldns
-            ]
-            ++ optional stdenv.isLinux systemd
-          ;
+          buildInputs = [
+            libsodium
+            openssl.dev
+            ldns
+          ] ++ optional stdenv.isLinux systemd;
 
           postInstall = ''
             # Previous versions required libtool files to load plugins; they are

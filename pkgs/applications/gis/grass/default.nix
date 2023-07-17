@@ -66,25 +66,22 @@ stdenv.mkDerivation rec {
     )
   ;
 
-  buildInputs =
-    [
-      cairo
-      zlib
-      proj
-      libtiff
-      libpng
-      fftw
-      sqlite
-      readline
-      ffmpeg
-      postgresql
-      blas
-      wxGTK32
-      proj-datumgrid
-      zstd
-    ]
-    ++ lib.optionals stdenv.isDarwin [ libiconv ]
-  ;
+  buildInputs = [
+    cairo
+    zlib
+    proj
+    libtiff
+    libpng
+    fftw
+    sqlite
+    readline
+    ffmpeg
+    postgresql
+    blas
+    wxGTK32
+    proj-datumgrid
+    zstd
+  ] ++ lib.optionals stdenv.isDarwin [ libiconv ];
 
   strictDeps = true;
 

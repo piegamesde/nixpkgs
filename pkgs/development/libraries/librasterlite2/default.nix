@@ -49,33 +49,30 @@ stdenv.mkDerivation rec {
     geos # for geos-config
   ];
 
-  buildInputs =
-    [
-      cairo
-      curl
-      fontconfig
-      freetype
-      freexl
-      giflib
-      geos
-      libgeotiff
-      libjpeg
-      libpng
-      librttopo
-      libspatialite
-      libtiff
-      libwebp
-      libxml2
-      lz4
-      minizip
-      openjpeg
-      pixman
-      proj
-      sqlite
-      zstd
-    ]
-    ++ lib.optional stdenv.isDarwin ApplicationServices
-  ;
+  buildInputs = [
+    cairo
+    curl
+    fontconfig
+    freetype
+    freexl
+    giflib
+    geos
+    libgeotiff
+    libjpeg
+    libpng
+    librttopo
+    libspatialite
+    libtiff
+    libwebp
+    libxml2
+    lz4
+    minizip
+    openjpeg
+    pixman
+    proj
+    sqlite
+    zstd
+  ] ++ lib.optional stdenv.isDarwin ApplicationServices;
 
   enableParallelBuilding = true;
 

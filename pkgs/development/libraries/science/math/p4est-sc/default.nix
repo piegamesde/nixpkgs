@@ -35,7 +35,8 @@ stdenv.mkDerivation {
     pkg-config
   ];
   propagatedNativeBuildInputs =
-    lib.optional mpiSupport mpi ++ lib.optional isOpenmpi openssh;
+    lib.optional mpiSupport mpi
+    ++ lib.optional isOpenmpi openssh;
   propagatedBuildInputs = [ zlib ];
   inherit debugEnable mpiSupport;
 

@@ -66,13 +66,10 @@ stdenv.mkDerivation rec {
     ++ lib.optional withYubikey libyubikey
   ;
 
-  configureFlags =
-    [
-      "--sysconfdir=/etc"
-      "--localstatedir=/var"
-    ]
-    ++ lib.optional (!linkOpenssl) "--with-openssl=no"
-  ;
+  configureFlags = [
+    "--sysconfdir=/etc"
+    "--localstatedir=/var"
+  ] ++ lib.optional (!linkOpenssl) "--with-openssl=no";
 
   postPatch = ''
     substituteInPlace src/main/checkrad.in \

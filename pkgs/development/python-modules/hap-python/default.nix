@@ -42,14 +42,11 @@ buildPythonPackage rec {
     pyqrcode
   ];
 
-  nativeCheckInputs =
-    [
-      pytest-asyncio
-      pytest-timeout
-      pytestCheckHook
-    ]
-    ++ passthru.optional-dependencies.QRCode
-  ;
+  nativeCheckInputs = [
+    pytest-asyncio
+    pytest-timeout
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.QRCode;
 
   disabledTestPaths = [
     # Disable tests requiring network access

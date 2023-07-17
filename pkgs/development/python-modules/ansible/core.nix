@@ -43,30 +43,27 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  propagatedBuildInputs =
-    [
-      # depend on ansible instead of the other way around
-      ansible
-      # from requirements.txt
-      cryptography
-      jinja2
-      packaging
-      pyyaml
-      resolvelib # This library is a PITA, since ansible requires a very old version of it
-      # optional dependencies
-      junit-xml
-      lxml
-      ncclient
-      paramiko
-      pexpect
-      psutil
-      pycrypto
-      requests
-      scp
-      xmltodict
-    ]
-    ++ lib.optional windowsSupport pywinrm
-  ;
+  propagatedBuildInputs = [
+    # depend on ansible instead of the other way around
+    ansible
+    # from requirements.txt
+    cryptography
+    jinja2
+    packaging
+    pyyaml
+    resolvelib # This library is a PITA, since ansible requires a very old version of it
+    # optional dependencies
+    junit-xml
+    lxml
+    ncclient
+    paramiko
+    pexpect
+    psutil
+    pycrypto
+    requests
+    scp
+    xmltodict
+  ] ++ lib.optional windowsSupport pywinrm;
 
   postInstall = ''
     installManPage docs/man/man1/*.1

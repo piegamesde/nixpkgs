@@ -59,25 +59,22 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs =
-    [
-      beautifulsoup4
-      bleach
-      defusedxml
-      jinja2
-      jupyter-core
-      jupyterlab-pygments
-      markupsafe
-      mistune
-      nbclient
-      packaging
-      pandocfilters
-      pygments
-      tinycss2
-      traitlets
-    ]
-    ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ]
-  ;
+  propagatedBuildInputs = [
+    beautifulsoup4
+    bleach
+    defusedxml
+    jinja2
+    jupyter-core
+    jupyterlab-pygments
+    markupsafe
+    mistune
+    nbclient
+    packaging
+    pandocfilters
+    pygments
+    tinycss2
+    traitlets
+  ] ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
 
   preCheck = ''
     export HOME=$(mktemp -d)

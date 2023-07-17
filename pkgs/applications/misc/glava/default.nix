@@ -45,17 +45,14 @@ stdenv.mkDerivation rec {
     sha256 = "0kqkjxmpqkmgby05lsf6c6iwm45n33jk5qy6gi3zvjx4q4yzal1i";
   };
 
-  buildInputs =
-    [
-      libX11
-      libXext
-      libXrandr
-      libXrender
-      libpulseaudio
-      libXcomposite
-    ]
-    ++ optional enableGlfw glfw
-  ;
+  buildInputs = [
+    libX11
+    libXext
+    libXrandr
+    libXrender
+    libpulseaudio
+    libXcomposite
+  ] ++ optional enableGlfw glfw;
 
   nativeBuildInputs = [ python3 ];
 

@@ -298,28 +298,22 @@ in
 
     systemd.services.jitsi-meet-init-secrets = {
       wantedBy = [ "multi-user.target" ];
-      before =
-        [
-          "jicofo.service"
-          "jitsi-videobridge2.service"
-        ]
-        ++ (optional cfg.prosody.enable "prosody.service")
-      ;
+      before = [
+        "jicofo.service"
+        "jitsi-videobridge2.service"
+      ] ++ (optional cfg.prosody.enable "prosody.service");
       serviceConfig = {
         Type = "oneshot";
       };
 
       script =
         let
-          secrets =
-            [
-              "jicofo-component-secret"
-              "jicofo-user-secret"
-              "jibri-auth-secret"
-              "jibri-recorder-secret"
-            ]
-            ++ (optional (cfg.videobridge.passwordFile == null) "videobridge-secret")
-          ;
+          secrets = [
+            "jicofo-component-secret"
+            "jicofo-user-secret"
+            "jibri-auth-secret"
+            "jibri-recorder-secret"
+          ] ++ (optional (cfg.videobridge.passwordFile == null) "videobridge-secret");
         in
         ''
           cd /var/lib/jitsi-meet

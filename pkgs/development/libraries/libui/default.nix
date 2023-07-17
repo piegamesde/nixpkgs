@@ -27,7 +27,8 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
   propagatedBuildInputs =
-    lib.optional stdenv.isLinux gtk3 ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+    lib.optional stdenv.isLinux gtk3
+    ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 
   preConfigure = lib.optionalString stdenv.isDarwin ''
     sed -i 's/set(CMAKE_OSX_DEPLOYMENT_TARGET "10.8")//' ./CMakeLists.txt

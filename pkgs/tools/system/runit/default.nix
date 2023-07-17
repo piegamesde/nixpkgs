@@ -33,8 +33,7 @@ stdenv.mkDerivation rec {
       stdenv.cc.libc
       stdenv.cc.libc.static
     ]
-    ++ lib.optional stdenv.isDarwin darwin.apple_sdk.libs.utmp
-  ;
+    ++ lib.optional stdenv.isDarwin darwin.apple_sdk.libs.utmp;
 
   postPatch =
     ''

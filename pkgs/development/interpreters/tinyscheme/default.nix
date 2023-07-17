@@ -32,12 +32,11 @@ stdenv.mkDerivation rec {
       # to unnecessarily tie this package to the GCC stdenv.
       ./02-use-toolchain-env-vars.patch
     ]
-    ++
-      lib.optionals stdenv.targetPlatform.isDarwin
-        [
-          # On macOS the library suffix is .dylib:
-          ./03-macOS-SOsuf.patch
-        ]
+    ++ lib.optionals stdenv.targetPlatform.isDarwin
+      [
+        # On macOS the library suffix is .dylib:
+        ./03-macOS-SOsuf.patch
+      ]
   ;
   postPatch = ''
     substituteInPlace scheme.c --replace "init.scm" "$out/lib/init.scm"

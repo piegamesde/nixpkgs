@@ -55,17 +55,14 @@ buildPythonPackage rec {
     export HOME=$TMPDIR
   '';
 
-  nativeCheckInputs =
-    [
-      aria2
-      fastapi
-      pytest-xdist
-      pytestCheckHook
-      responses
-      uvicorn
-    ]
-    ++ passthru.optional-dependencies.tui
-  ;
+  nativeCheckInputs = [
+    aria2
+    fastapi
+    pytest-xdist
+    pytestCheckHook
+    responses
+    uvicorn
+  ] ++ passthru.optional-dependencies.tui;
 
   disabledTests = [
     # require a running display server

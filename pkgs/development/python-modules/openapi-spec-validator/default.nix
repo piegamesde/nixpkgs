@@ -38,15 +38,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs =
-    [
-      jsonschema
-      jsonschema-spec
-      lazy-object-proxy
-      openapi-schema-validator
-    ]
-    ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
-  ;
+  propagatedBuildInputs = [
+    jsonschema
+    jsonschema-spec
+    lazy-object-proxy
+    openapi-schema-validator
+  ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
 
   passthru.optional-dependencies.requests = [ requests ];
 

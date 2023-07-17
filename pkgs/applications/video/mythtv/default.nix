@@ -68,39 +68,36 @@ mkDerivation rec {
 
   setSourceRoot = "sourceRoot=$(echo */mythtv)";
 
-  buildInputs =
-    [
-      freetype
-      qtbase
-      qtscript
-      lame
-      zlib
-      libGLU
-      libGL
-      perl
-      libsamplerate
-      libbluray
-      lzo
-      alsa-lib
-      libpulseaudio
-      fftwSinglePrec
-      libX11
-      libXv
-      libXrandr
-      libXvMC
-      libXmu
-      libXinerama
-      libXxf86vm
-      libXmu
-      libuuid
-      taglib
-      exiv2
-      soundtouch
-      libzip
-      libhdhomerun
-    ]
-    ++ lib.optional withWebKit qtwebkit
-  ;
+  buildInputs = [
+    freetype
+    qtbase
+    qtscript
+    lame
+    zlib
+    libGLU
+    libGL
+    perl
+    libsamplerate
+    libbluray
+    lzo
+    alsa-lib
+    libpulseaudio
+    fftwSinglePrec
+    libX11
+    libXv
+    libXrandr
+    libXvMC
+    libXmu
+    libXinerama
+    libXxf86vm
+    libXmu
+    libuuid
+    taglib
+    exiv2
+    soundtouch
+    libzip
+    libhdhomerun
+  ] ++ lib.optional withWebKit qtwebkit;
   nativeBuildInputs = [
     pkg-config
     which

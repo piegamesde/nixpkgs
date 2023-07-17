@@ -51,26 +51,23 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  propagatedBuildInputs =
-    [
-      more-itertools
-      beautifulsoup4
-      mechanize
-      keyring
-      requests
-      feedparser
-      jaraco_text
-      jaraco_logging
-      jaraco-email
-      jaraco_functools
-      jaraco_collections
-      path
-      python-dateutil
-      pathvalidate
-      jsonpickle
-    ]
-    ++ lib.optionals stdenv.isDarwin [ ifconfig-parser ]
-  ;
+  propagatedBuildInputs = [
+    more-itertools
+    beautifulsoup4
+    mechanize
+    keyring
+    requests
+    feedparser
+    jaraco_text
+    jaraco_logging
+    jaraco-email
+    jaraco_functools
+    jaraco_collections
+    path
+    python-dateutil
+    pathvalidate
+    jsonpickle
+  ] ++ lib.optionals stdenv.isDarwin [ ifconfig-parser ];
 
   pythonImportsCheck = [ "jaraco.net" ];
 

@@ -95,13 +95,10 @@ stdenv.mkDerivation (
       "python"
     ];
 
-    nativeBuildInputs =
-      [
-        cmake
-        python
-      ]
-      ++ optional enableManpages python3.pkgs.sphinx
-    ;
+    nativeBuildInputs = [
+      cmake
+      python
+    ] ++ optional enableManpages python3.pkgs.sphinx;
 
     buildInputs = [
       libxml2
@@ -113,37 +110,34 @@ stdenv.mkDerivation (
       zlib
     ];
 
-    patches =
-      [
-        # Patches to fix tests, included in llvm_7
-        (fetchpatch {
-          url = "https://github.com/llvm-mirror/llvm/commit/737553be0c9c25c497b45a241689994f177d5a5d.patch";
-          sha256 = "0hnaxnkx7zy5yg98f1ggv8a9l0r6g19n6ygqsv26masrnlcbccli";
-        })
-        (fetchpatch {
-          url = "https://github.com/llvm-mirror/llvm/commit/1c0dd31a7837c3e2f1c4ac14e4d5ac640688bd1f.patch";
-          includes = [ "test/tools/gold/X86/common.ll" ];
-          sha256 = "0fxgrxmfnjx17w3lcq19rk68b2xksh1bynz3ina784kma7hp4wdb";
-        })
+    patches = [
+      # Patches to fix tests, included in llvm_7
+      (fetchpatch {
+        url = "https://github.com/llvm-mirror/llvm/commit/737553be0c9c25c497b45a241689994f177d5a5d.patch";
+        sha256 = "0hnaxnkx7zy5yg98f1ggv8a9l0r6g19n6ygqsv26masrnlcbccli";
+      })
+      (fetchpatch {
+        url = "https://github.com/llvm-mirror/llvm/commit/1c0dd31a7837c3e2f1c4ac14e4d5ac640688bd1f.patch";
+        includes = [ "test/tools/gold/X86/common.ll" ];
+        sha256 = "0fxgrxmfnjx17w3lcq19rk68b2xksh1bynz3ina784kma7hp4wdb";
+      })
 
-        # When cross-compiling we configure llvm-config-native with an approximation
-        # of the flags used for the normal LLVM build. To avoid the need for building
-        # a native libLLVM.so (which would fail) we force llvm-config to be linked
-        # statically against the necessary LLVM components always.
-        ../../llvm-config-link-static.patch
+      # When cross-compiling we configure llvm-config-native with an approximation
+      # of the flags used for the normal LLVM build. To avoid the need for building
+      # a native libLLVM.so (which would fail) we force llvm-config to be linked
+      # statically against the necessary LLVM components always.
+      ../../llvm-config-link-static.patch
 
-        ./gnu-install-dirs.patch
+      ./gnu-install-dirs.patch
 
-        # Fix invalid std::string(nullptr) for GCC 12
-        (fetchpatch {
-          name = "nvptx-gcc-12.patch";
-          url = "https://github.com/llvm/llvm-project/commit/99e64623ec9b31def9375753491cc6093c831809.patch";
-          sha256 = "0zjfjgavqzi2ypqwqnlvy6flyvdz8hi1anwv0ybwnm2zqixg7za3";
-          stripLen = 1;
-        })
-      ]
-      ++ lib.optional enablePolly ./gnu-install-dirs-polly.patch
-    ;
+      # Fix invalid std::string(nullptr) for GCC 12
+      (fetchpatch {
+        name = "nvptx-gcc-12.patch";
+        url = "https://github.com/llvm/llvm-project/commit/99e64623ec9b31def9375753491cc6093c831809.patch";
+        sha256 = "0zjfjgavqzi2ypqwqnlvy6flyvdz8hi1anwv0ybwnm2zqixg7za3";
+        stripLen = 1;
+      })
+    ] ++ lib.optional enablePolly ./gnu-install-dirs-polly.patch;
 
     postPatch =
       optionalString stdenv.isDarwin ''
@@ -212,13 +206,10 @@ stdenv.mkDerivation (
         #
         # Some flags don't need to be repassed because LLVM already does so (like
         # CMAKE_BUILD_TYPE), others are irrelevant to the result.
-        flagsForLlvmConfig =
-          [
-            "-DLLVM_INSTALL_CMAKE_DIR=${placeholder "dev"}/lib/cmake/llvm/"
-            "-DLLVM_ENABLE_RTTI=ON"
-          ]
-          ++ optionals enableSharedLibraries [ "-DLLVM_LINK_LLVM_DYLIB=ON" ]
-        ;
+        flagsForLlvmConfig = [
+          "-DLLVM_INSTALL_CMAKE_DIR=${placeholder "dev"}/lib/cmake/llvm/"
+          "-DLLVM_ENABLE_RTTI=ON"
+        ] ++ optionals enableSharedLibraries [ "-DLLVM_LINK_LLVM_DYLIB=ON" ];
       in
       flagsForLlvmConfig
       ++ [

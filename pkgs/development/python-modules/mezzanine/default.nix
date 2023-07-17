@@ -38,23 +38,20 @@ buildPythonPackage rec {
     pep8
   ];
 
-  propagatedBuildInputs =
-    [
-      beautifulsoup4
-      bleach
-      chardet
-      django
-      django_contrib_comments
-      filebrowser_safe
-      future
-      grappelli_safe
-      pillow
-      requests
-      requests-oauthlib
-      tzlocal
-    ]
-    ++ bleach.optional-dependencies.css
-  ;
+  propagatedBuildInputs = [
+    beautifulsoup4
+    bleach
+    chardet
+    django
+    django_contrib_comments
+    filebrowser_safe
+    future
+    grappelli_safe
+    pillow
+    requests
+    requests-oauthlib
+    tzlocal
+  ] ++ bleach.optional-dependencies.css;
 
   # Tests Fail Due to Syntax Warning, Fixed for v3.1.11+
   doCheck = false;

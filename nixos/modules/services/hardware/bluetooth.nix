@@ -148,7 +148,9 @@ in
 
   config = mkIf cfg.enable {
     environment.systemPackages =
-      [ package ] ++ optional cfg.hsphfpd.enable pkgs.hsphfpd;
+      [ package ]
+      ++ optional cfg.hsphfpd.enable pkgs.hsphfpd
+    ;
 
     environment.etc."bluetooth/input.conf".source =
       cfgFmt.generate "input.conf"
@@ -163,7 +165,9 @@ in
     );
     services.udev.packages = [ package ];
     services.dbus.packages =
-      [ package ] ++ optional cfg.hsphfpd.enable pkgs.hsphfpd;
+      [ package ]
+      ++ optional cfg.hsphfpd.enable pkgs.hsphfpd
+    ;
     systemd.packages = [ package ];
 
     systemd.services =
@@ -179,9 +183,8 @@ in
                 "-f"
                 "/etc/bluetooth/main.conf"
               ]
-              ++
-                optional hasDisabledPlugins
-                  "--noplugin=${concatStringsSep "," cfg.disabledPlugins}"
+              ++ optional hasDisabledPlugins
+                "--noplugin=${concatStringsSep "," cfg.disabledPlugins}"
             ;
           in
           {

@@ -31,7 +31,8 @@ stdenv.mkDerivation rec {
   ;
 
   buildInputs =
-    lib.optional stdenv.cc.isClang openmp ++ lib.optional enableMpi mpi;
+    lib.optional stdenv.cc.isClang openmp
+    ++ lib.optional enableMpi mpi;
 
   meta = with lib; {
     description = "Remote protein homology detection suite";

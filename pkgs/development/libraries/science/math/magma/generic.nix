@@ -135,14 +135,11 @@ stdenv.mkDerivation {
     inherit hash;
   };
 
-  nativeBuildInputs =
-    [
-      cmake
-      ninja
-      gfortran
-    ]
-    ++ lists.optionals cudaSupport [ cuda-native-redist ]
-  ;
+  nativeBuildInputs = [
+    cmake
+    ninja
+    gfortran
+  ] ++ lists.optionals cudaSupport [ cuda-native-redist ];
 
   buildInputs =
     [

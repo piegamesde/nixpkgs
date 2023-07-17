@@ -991,13 +991,10 @@ rec {
           "noarch"
           "x86_64"
         ];
-        packages =
-          commonFedoraPackages
-          ++ [
-            "cronie"
-            "util-linux"
-          ]
-        ;
+        packages = commonFedoraPackages ++ [
+          "cronie"
+          "util-linux"
+        ];
         unifiedSystemDir = true;
       }
     ;
@@ -1018,13 +1015,10 @@ rec {
           "noarch"
           "x86_64"
         ];
-        packages =
-          commonFedoraPackages
-          ++ [
-            "cronie"
-            "util-linux"
-          ]
-        ;
+        packages = commonFedoraPackages ++ [
+          "cronie"
+          "util-linux"
+        ];
         unifiedSystemDir = true;
       }
     ;
@@ -1108,13 +1102,10 @@ rec {
         })
       ];
       urlPrefix = "mirror://ubuntu";
-      packages =
-        commonDebPackages
-        ++ [
-          "diffutils"
-          "libc-bin"
-        ]
-      ;
+      packages = commonDebPackages ++ [
+        "diffutils"
+        "libc-bin"
+      ];
     };
 
     ubuntu1404x86_64 = {
@@ -1131,13 +1122,10 @@ rec {
         })
       ];
       urlPrefix = "mirror://ubuntu";
-      packages =
-        commonDebPackages
-        ++ [
-          "diffutils"
-          "libc-bin"
-        ]
-      ;
+      packages = commonDebPackages ++ [
+        "diffutils"
+        "libc-bin"
+      ];
     };
 
     ubuntu1604i386 = {
@@ -1154,13 +1142,10 @@ rec {
         })
       ];
       urlPrefix = "mirror://ubuntu";
-      packages =
-        commonDebPackages
-        ++ [
-          "diffutils"
-          "libc-bin"
-        ]
-      ;
+      packages = commonDebPackages ++ [
+        "diffutils"
+        "libc-bin"
+      ];
     };
 
     ubuntu1604x86_64 = {
@@ -1177,13 +1162,10 @@ rec {
         })
       ];
       urlPrefix = "mirror://ubuntu";
-      packages =
-        commonDebPackages
-        ++ [
-          "diffutils"
-          "libc-bin"
-        ]
-      ;
+      packages = commonDebPackages ++ [
+        "diffutils"
+        "libc-bin"
+      ];
     };
 
     ubuntu1804i386 = {
@@ -1200,13 +1182,10 @@ rec {
         })
       ];
       urlPrefix = "mirror://ubuntu";
-      packages =
-        commonDebPackages
-        ++ [
-          "diffutils"
-          "libc-bin"
-        ]
-      ;
+      packages = commonDebPackages ++ [
+        "diffutils"
+        "libc-bin"
+      ];
     };
 
     ubuntu1804x86_64 = {
@@ -1223,13 +1202,10 @@ rec {
         })
       ];
       urlPrefix = "mirror://ubuntu";
-      packages =
-        commonDebPackages
-        ++ [
-          "diffutils"
-          "libc-bin"
-        ]
-      ;
+      packages = commonDebPackages ++ [
+        "diffutils"
+        "libc-bin"
+      ];
     };
 
     ubuntu2004i386 = {
@@ -1246,13 +1222,10 @@ rec {
         })
       ];
       urlPrefix = "mirror://ubuntu";
-      packages =
-        commonDebPackages
-        ++ [
-          "diffutils"
-          "libc-bin"
-        ]
-      ;
+      packages = commonDebPackages ++ [
+        "diffutils"
+        "libc-bin"
+      ];
     };
 
     ubuntu2004x86_64 = {
@@ -1269,13 +1242,10 @@ rec {
         })
       ];
       urlPrefix = "mirror://ubuntu";
-      packages =
-        commonDebPackages
-        ++ [
-          "diffutils"
-          "libc-bin"
-        ]
-      ;
+      packages = commonDebPackages ++ [
+        "diffutils"
+        "libc-bin"
+      ];
     };
 
     ubuntu2204i386 = {
@@ -1292,13 +1262,10 @@ rec {
         })
       ];
       urlPrefix = "mirror://ubuntu";
-      packages =
-        commonDebPackages
-        ++ [
-          "diffutils"
-          "libc-bin"
-        ]
-      ;
+      packages = commonDebPackages ++ [
+        "diffutils"
+        "libc-bin"
+      ];
     };
 
     ubuntu2204x86_64 = {
@@ -1315,13 +1282,10 @@ rec {
         })
       ];
       urlPrefix = "mirror://ubuntu";
-      packages =
-        commonDebPackages
-        ++ [
-          "diffutils"
-          "libc-bin"
-        ]
-      ;
+      packages = commonDebPackages ++ [
+        "diffutils"
+        "libc-bin"
+      ];
     };
 
     debian10i386 = {
@@ -1491,13 +1455,10 @@ rec {
     "passwd"
   ];
 
-  commonDebianPackages =
-    commonDebPackages
-    ++ [
-      "sysvinit"
-      "diff"
-    ]
-  ;
+  commonDebianPackages = commonDebPackages ++ [
+    "sysvinit"
+    "diff"
+  ];
 
   /* A set of functions that build the Linux distributions specified
      in `rpmDistros' and `debDistros'.  For instance,

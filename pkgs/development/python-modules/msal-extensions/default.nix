@@ -19,13 +19,10 @@ buildPythonPackage rec {
     hash = "sha256-xnarpWsMzjeD3htcXs/oKNuZgWeHUSbKS0fcZDZFE1Q=";
   };
 
-  propagatedBuildInputs =
-    [
-      msal
-      portalocker
-    ]
-    ++ lib.optionals isPy27 [ pathlib2 ]
-  ;
+  propagatedBuildInputs = [
+    msal
+    portalocker
+  ] ++ lib.optionals isPy27 [ pathlib2 ];
 
   # upstream doesn't update this requirement probably because they use pip
   postPatch = ''

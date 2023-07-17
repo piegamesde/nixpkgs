@@ -554,8 +554,7 @@ rec {
             vimGenDocHook
             # many neovim plugins keep using buildVimPlugin
             neovimRequireCheckHook
-          ]
-        ;
+          ];
 
         passthru = (oldAttrs.passthru or { }) // {
           vimPlugin = true;
