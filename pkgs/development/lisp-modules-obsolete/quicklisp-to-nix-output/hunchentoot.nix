@@ -1,8 +1,5 @@
 # Generated file.
-args@{
-  fetchurl,
-  ...
-}:
+args@{ fetchurl, ... }:
 rec {
   baseName = "hunchentoot";
   version = "v1.3.0";

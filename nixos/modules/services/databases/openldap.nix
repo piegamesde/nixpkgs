@@ -277,25 +277,10 @@ in
   config =
     let
       dbSettings =
-        mapAttrs'
-          (
-            name:
-            {
-              attrs,
-              ...
-            }:
-            nameValuePair attrs.olcSuffix attrs
-          )
+        mapAttrs' (name: { attrs, ... }: nameValuePair attrs.olcSuffix attrs)
           (
             filterAttrs
-              (
-                name:
-                {
-                  attrs,
-                  ...
-                }:
-                (hasPrefix "olcDatabase=" name) && attrs ? olcSuffix
-              )
+              (name: { attrs, ... }: (hasPrefix "olcDatabase=" name) && attrs ? olcSuffix)
               cfg.settings.children
           )
       ;
@@ -435,16 +420,9 @@ in
           RuntimeDirectory = "openldap";
           StateDirectory =
             [ "openldap" ]
-            ++ (map
-              (
-                {
-                  olcDbDirectory,
-                  ...
-                }:
-                removePrefix "/var/lib/" olcDbDirectory
-              )
-              (attrValues dbSettings)
-            )
+            ++ (map ({ olcDbDirectory, ... }: removePrefix "/var/lib/" olcDbDirectory) (
+              attrValues dbSettings
+            ))
           ;
           StateDirectoryMode = "700";
           AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];

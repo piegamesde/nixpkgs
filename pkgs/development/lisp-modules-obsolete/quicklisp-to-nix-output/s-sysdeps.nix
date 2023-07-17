@@ -1,8 +1,5 @@
 # Generated file.
-args@{
-  fetchurl,
-  ...
-}:
+args@{ fetchurl, ... }:
 rec {
   baseName = "s-sysdeps";
   version = "20210228-git";

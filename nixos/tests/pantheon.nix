@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
 
   {
     name = "pantheon";
@@ -11,9 +7,7 @@ import ./make-test-python.nix (
     meta = with lib; { maintainers = teams.pantheon.members; };
 
     nodes.machine =
-      {
-        ...
-      }:
+      { ... }:
 
       {
         imports = [ ./common/user-account.nix ];
@@ -28,10 +22,7 @@ import ./make-test-python.nix (
     enableOCR = true;
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       let
         user = nodes.machine.users.users.alice;
         bob = nodes.machine.users.users.bob;

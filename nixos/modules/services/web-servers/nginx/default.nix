@@ -994,9 +994,7 @@ in
       proxyCachePath = mkOption {
         type = types.attrsOf (
           types.submodule (
-            {
-              ...
-            }:
+            { ... }:
             {
               options = {
                 enable = mkEnableOption (lib.mdDoc "this proxy cache path entry");

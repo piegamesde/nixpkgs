@@ -1,9 +1,5 @@
 import ../../make-test-python.nix (
-  {
-    lib,
-    pkgs,
-    ...
-  }:
+  { lib, pkgs, ... }:
 
   let
     inherit (lib) mkMerge nameValuePair maintainers;

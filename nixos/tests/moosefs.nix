@@ -1,15 +1,9 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
 
   let
     master =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         # data base is stored in memory
         # server crashes with default memory size
@@ -27,10 +21,7 @@ import ./make-test-python.nix (
     ;
 
     chunkserver =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         virtualisation.emptyDiskImages = [ 4096 ];
         boot.initrd.postDeviceCommands = ''
@@ -56,10 +47,7 @@ import ./make-test-python.nix (
     ;
 
     metalogger =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         services.moosefs = {
           masterHost = "master";
@@ -68,15 +56,7 @@ import ./make-test-python.nix (
       }
     ;
 
-    client =
-      {
-        pkgs,
-        ...
-      }:
-      {
-        services.moosefs.client.enable = true;
-      }
-    ;
+    client = { pkgs, ... }: { services.moosefs.client.enable = true; };
   in
   {
     name = "moosefs";

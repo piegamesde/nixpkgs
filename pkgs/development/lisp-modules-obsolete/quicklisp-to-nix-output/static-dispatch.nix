@@ -1,8 +1,5 @@
 # Generated file.
-args@{
-  fetchurl,
-  ...
-}:
+args@{ fetchurl, ... }:
 rec {
   baseName = "static-dispatch";
   version = "20211209-git";

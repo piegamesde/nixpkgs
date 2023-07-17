@@ -1,8 +1,5 @@
 # Generated file.
-args@{
-  fetchurl,
-  ...
-}:
+args@{ fetchurl, ... }:
 rec {
   baseName = "fast-http";
   version = "20191007-git";

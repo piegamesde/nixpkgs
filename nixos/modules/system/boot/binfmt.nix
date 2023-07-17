@@ -49,11 +49,7 @@ let
 
   activationSnippet =
     name:
-    {
-      interpreter,
-      wrapInterpreterInShell,
-      ...
-    }:
+    { interpreter, wrapInterpreterInShell, ... }:
     if wrapInterpreterInShell then
       ''
         rm -f /run/binfmt/${name}
@@ -212,10 +208,7 @@ in
 
         type = types.attrsOf (
           types.submodule (
-            {
-              config,
-              ...
-            }:
+            { config, ... }:
             {
               options = {
                 recognitionType = mkOption {
@@ -359,10 +352,7 @@ in
         (system: {
           name = system;
           value =
-            {
-              config,
-              ...
-            }:
+            { config, ... }:
             let
               interpreter = getEmulator system;
               qemuArch = getQemuArch system;

@@ -1,7 +1,4 @@
-{
-  lib,
-  pkgs,
-}:
+{ lib, pkgs }:
 
 let
   # Create a derivation that links all desired manylinux libraries

@@ -7,10 +7,7 @@
   rxvt-unicode-plugins,
   perlPackages,
   nixosTests,
-  configure ? {
-      availablePlugins,
-      ...
-    }:
+  configure ? { availablePlugins, ... }:
     {
       plugins = builtins.attrValues availablePlugins;
       extraDeps = [ ];
@@ -39,10 +36,7 @@ let
   # This provides simple way to customize urxvt using
   # the `.override` mechanism.
   wrapper =
-    {
-      configure,
-      ...
-    }:
+    { configure, ... }:
     let
       config = configure { inherit availablePlugins; };
       plugins = config.plugins or (builtins.attrValues availablePlugins);

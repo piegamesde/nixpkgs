@@ -31,10 +31,7 @@ let
       # Also: automatically set the `base` parameter and the layout for
       # the `/nix` bind.
       validate =
-        {
-          name,
-          ...
-        }@args:
+        { name, ... }@args:
         args
         // {
           # Combine the provided arguments with the required options.

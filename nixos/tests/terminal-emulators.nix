@@ -130,10 +130,7 @@ mapAttrs
       meta = with pkgs.lib.maintainers; { maintainers = [ jjjollyjim ]; };
 
       machine =
-        {
-          pkgsInner,
-          ...
-        }:
+        { pkgsInner, ... }:
 
         {
           imports = [
@@ -188,10 +185,7 @@ mapAttrs
       enableOCR = true;
 
       testScript =
-        {
-          nodes,
-          ...
-        }:
+        { nodes, ... }:
         let
         in
         ''

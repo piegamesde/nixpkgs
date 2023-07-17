@@ -1,15 +1,10 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "mimir";
     nodes = {
       server =
-        {
-          ...
-        }:
+        { ... }:
         {
           environment.systemPackages = [ pkgs.jq ];
           services.mimir.enable = true;

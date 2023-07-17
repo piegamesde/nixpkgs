@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    lib,
-    ...
-  }:
+  { lib, ... }:
 
   with lib;
 

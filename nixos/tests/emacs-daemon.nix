@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "emacs-daemon";
     meta = with pkgs.lib.maintainers; { maintainers = [ ]; };
@@ -10,9 +7,7 @@ import ./make-test-python.nix (
     enableOCR = true;
 
     nodes.machine =
-      {
-        ...
-      }:
+      { ... }:
 
       {
         imports = [ ./common/x11.nix ];

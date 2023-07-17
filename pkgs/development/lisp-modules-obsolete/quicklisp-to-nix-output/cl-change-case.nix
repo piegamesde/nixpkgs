@@ -1,8 +1,5 @@
 # Generated file.
-args@{
-  fetchurl,
-  ...
-}:
+args@{ fetchurl, ... }:
 rec {
   baseName = "cl-change-case";
   version = "20210411-git";

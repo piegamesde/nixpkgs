@@ -71,9 +71,7 @@
       };
     };
     packages =
-      {
-        fetchNuGet,
-      }:
+      { fetchNuGet }:
       [
         (fetchNuGet {
           pname = "Microsoft.AspNetCore.App.Runtime.linux-arm";

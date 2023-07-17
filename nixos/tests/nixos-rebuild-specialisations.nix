@@ -1,18 +1,11 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "nixos-rebuild-specialisations";
 
     nodes = {
       machine =
-        {
-          lib,
-          pkgs,
-          ...
-        }:
+        { lib, pkgs, ... }:
         {
           imports = [
             ../modules/profiles/installation-device.nix

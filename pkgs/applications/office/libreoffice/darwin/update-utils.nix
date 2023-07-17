@@ -1,6 +1,4 @@
-{
-  lib,
-}:
+{ lib }:
 let
   # extractLatestVersionFromHtml :: String -> String
   extractLatestVersionFromHtml =

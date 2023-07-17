@@ -80,11 +80,7 @@ in
       archives = mkOption {
         type = types.attrsOf (
           types.submodule (
-            {
-              config,
-              options,
-              ...
-            }:
+            { config, options, ... }:
             {
               options = {
                 keyfile = mkOption {

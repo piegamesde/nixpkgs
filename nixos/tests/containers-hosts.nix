@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   {
     name = "containers-hosts";
     meta = {
@@ -11,10 +7,7 @@ import ./make-test-python.nix (
     };
 
     nodes.machine =
-      {
-        lib,
-        ...
-      }:
+      { lib, ... }:
       {
         virtualisation.vlans = [ ];
 

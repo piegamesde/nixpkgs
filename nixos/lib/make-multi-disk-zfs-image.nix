@@ -182,10 +182,7 @@ let
           datasetlist
       ;
       cmd =
-        {
-          name,
-          value,
-        }:
+        { name, value }:
         let
           properties = stringifyProperties "-o" (value.properties or { });
         in
@@ -198,17 +195,7 @@ let
   mountDatasets =
     let
       datasetlist = lib.mapAttrsToList lib.nameValuePair datasets;
-      mounts =
-        lib.filter
-          (
-            {
-              value,
-              ...
-            }:
-            hasDefinedMount value
-          )
-          datasetlist
-      ;
+      mounts = lib.filter ({ value, ... }: hasDefinedMount value) datasetlist;
       sorted =
         lib.sort
           (
@@ -218,10 +205,7 @@ let
           mounts
       ;
       cmd =
-        {
-          name,
-          value,
-        }:
+        { name, value }:
         ''
           mkdir -p /mnt${lib.escapeShellArg value.mount}
           mount -t zfs ${name} /mnt${lib.escapeShellArg value.mount}
@@ -234,17 +218,7 @@ let
   unmountDatasets =
     let
       datasetlist = lib.mapAttrsToList lib.nameValuePair datasets;
-      mounts =
-        lib.filter
-          (
-            {
-              value,
-              ...
-            }:
-            hasDefinedMount value
-          )
-          datasetlist
-      ;
+      mounts = lib.filter ({ value, ... }: hasDefinedMount value) datasetlist;
       sorted =
         lib.sort
           (
@@ -254,10 +228,7 @@ let
           mounts
       ;
       cmd =
-        {
-          name,
-          value,
-        }:
+        { name, value }:
         ''
           umount /mnt${lib.escapeShellArg value.mount}
         ''

@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "rsyncd";
     meta.maintainers = with pkgs.lib.maintainers; [ ehmry ];
@@ -11,10 +8,7 @@ import ./make-test-python.nix (
       let
         mkNode =
           socketActivated:
-          {
-            config,
-            ...
-          }:
+          { config, ... }:
           {
             networking.firewall.allowedTCPPorts = [ config.services.rsyncd.port ];
             services.rsyncd = {

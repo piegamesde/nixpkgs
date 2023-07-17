@@ -1,17 +1,12 @@
 # Some tests to ensure doas is working properly.
 import ./make-test-python.nix (
-  {
-    lib,
-    ...
-  }:
+  { lib, ... }:
   {
     name = "doas";
     meta = with lib.maintainers; { maintainers = [ cole-h ]; };
 
     nodes.machine =
-      {
-        ...
-      }:
+      { ... }:
       {
         users.groups = {
           foobar = { };

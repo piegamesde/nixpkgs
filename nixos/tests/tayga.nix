@@ -23,11 +23,7 @@
 #        +------
 
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
 
   {
     name = "tayga";

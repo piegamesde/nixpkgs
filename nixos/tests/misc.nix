@@ -1,10 +1,7 @@
 # Miscellaneous small tests that don't warrant their own VM run.
 
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   let
     foo = pkgs.writeText "foo" "Hello World";
   in
@@ -13,10 +10,7 @@ import ./make-test-python.nix (
     meta = with pkgs.lib.maintainers; { maintainers = [ eelco ]; };
 
     nodes.machine =
-      {
-        lib,
-        ...
-      }:
+      { lib, ... }:
       with lib; {
         swapDevices = mkOverride 0 [ {
           device = "/root/swapfile";

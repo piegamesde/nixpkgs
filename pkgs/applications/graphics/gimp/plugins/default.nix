@@ -73,10 +73,7 @@ lib.makeScope pkgs.newScope (
     ;
 
     scriptDerivation =
-      {
-        src,
-        ...
-      }@attrs:
+      { src, ... }@attrs:
       pluginDerivation (
         {
           prePhases = "extraLib";

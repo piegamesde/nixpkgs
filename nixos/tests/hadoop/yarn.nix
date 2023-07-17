@@ -1,17 +1,12 @@
 # This only tests if YARN is able to start its services
 import ../make-test-python.nix (
-  {
-    package,
-    ...
-  }:
+  { package, ... }:
   {
     name = "hadoop-yarn";
 
     nodes = {
       resourcemanager =
-        {
-          ...
-        }:
+        { ... }:
         {
           services.hadoop = {
             inherit package;
@@ -23,11 +18,7 @@ import ../make-test-python.nix (
         }
       ;
       nodemanager =
-        {
-          options,
-          lib,
-          ...
-        }:
+        { options, lib, ... }:
         {
           services.hadoop = {
             inherit package;

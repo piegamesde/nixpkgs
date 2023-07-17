@@ -9,10 +9,7 @@
 
 let
   generic =
-    {
-      version,
-      sha256,
-    }:
+    { version, sha256 }:
     stdenv.mkDerivation rec {
       pname = "alloy${lib.versions.major version}";
       inherit version;

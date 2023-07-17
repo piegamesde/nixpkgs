@@ -203,9 +203,7 @@ let
       makeFSharpWriter
         {
           libraries =
-            {
-              fetchNuGet,
-            }:
+            { fetchNuGet }:
             [
               (fetchNuGet {
                 pname = "FSharp.SystemTextJson";

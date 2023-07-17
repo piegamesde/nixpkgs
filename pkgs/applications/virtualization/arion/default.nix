@@ -74,9 +74,7 @@ let
      Returns the module system's `config` and `options` variables.
   */
   eval =
-    args@{
-      ...
-    }:
+    args@{ ... }:
     import (srcUnpacked + "/src/nix/eval-composition.nix") (
       { inherit pkgs; } // args
     )
@@ -89,9 +87,7 @@ let
      to image tarballs may not always be desirable.
   */
   build =
-    args@{
-      ...
-    }:
+    args@{ ... }:
     let
       composition = eval args;
     in

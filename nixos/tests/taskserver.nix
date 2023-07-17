@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   let
     snakeOil =
       pkgs.runCommand "snakeoil-certs"
@@ -91,11 +88,7 @@ import ./make-test-python.nix (
 
       # New generation of the server with manual config
       newServer =
-        {
-          lib,
-          nodes,
-          ...
-        }:
+        { lib, nodes, ... }:
         {
           imports = [ server ];
           services.taskserver.pki.manual = {
@@ -114,10 +107,7 @@ import ./make-test-python.nix (
       ;
 
       client1 =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           environment.systemPackages = [
             pkgs.taskwarrior
@@ -134,10 +124,7 @@ import ./make-test-python.nix (
     };
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       let
         cfg = nodes.server.config.services.taskserver;
         portStr = toString cfg.listenPort;

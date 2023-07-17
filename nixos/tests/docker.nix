@@ -1,10 +1,7 @@
 # This test runs docker and checks if simple container starts
 
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "docker";
     meta = with pkgs.lib.maintainers; {
@@ -16,10 +13,7 @@ import ./make-test-python.nix (
 
     nodes = {
       docker =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           virtualisation.docker.enable = true;
           virtualisation.docker.autoPrune.enable = true;

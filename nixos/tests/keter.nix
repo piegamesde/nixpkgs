@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   let
     port = 81;
   in
@@ -11,11 +8,7 @@ import ./make-test-python.nix (
     meta = with pkgs.lib.maintainers; { maintainers = [ jappie ]; };
 
     nodes.machine =
-      {
-        config,
-        pkgs,
-        ...
-      }:
+      { config, pkgs, ... }:
       {
         services.keter = {
           enable = true;

@@ -56,10 +56,7 @@ in
         default = { };
         type = types.attrsOf (
           types.submodule (
-            {
-              name,
-              ...
-            }:
+            { name, ... }:
             {
               freeformType = json.type;
               options = {
@@ -114,10 +111,7 @@ in
         default = { };
         type = types.attrsOf (
           types.submodule (
-            {
-              name,
-              ...
-            }:
+            { name, ... }:
             {
               freeformType = json.type;
               options = {

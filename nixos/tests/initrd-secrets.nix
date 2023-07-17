@@ -15,9 +15,7 @@ let
       meta.maintainers = [ lib.maintainers.lheckemann ];
 
       nodes.machine =
-        {
-          ...
-        }:
+        { ... }:
         {
           virtualisation.useBootLoader = true;
           boot.initrd.secrets = {

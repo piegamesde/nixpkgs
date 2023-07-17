@@ -1,7 +1,4 @@
-{
-  stdenv,
-  fetchurl,
-}:
+{ stdenv, fetchurl }:
 
 let
   mecab-base = import ./base.nix { inherit fetchurl; };

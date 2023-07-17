@@ -9,11 +9,7 @@ with lib;
 
 let
   opts =
-    {
-      name,
-      config,
-      ...
-    }:
+    { name, config, ... }:
     {
       options = {
         enable = mkOption {

@@ -4,9 +4,7 @@ let
   carolPassword = "678287829ce4c67bc8b227e56d94422ee1b85fa11618157b2f591de6c6322b52";
 
   basicConfig =
-    {
-      ...
-    }:
+    { ... }:
     {
       services.cjdns.enable = true;
 
@@ -21,10 +19,7 @@ let
 in
 
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "cjdns";
     meta = with pkgs.lib.maintainers; { maintainers = [ ehmry ]; };
@@ -32,9 +27,7 @@ import ./make-test-python.nix (
     nodes = {
       # Alice finds peers over over ETHInterface.
       alice =
-        {
-          ...
-        }:
+        { ... }:
         {
           imports = [ basicConfig ];
 
@@ -48,9 +41,7 @@ import ./make-test-python.nix (
 
       # Bob explicitly connects to Carol over UDPInterface.
       bob =
-        {
-          ...
-        }:
+        { ... }:
 
         {
           imports = [ basicConfig ];
@@ -75,9 +66,7 @@ import ./make-test-python.nix (
       # Carol listens on ETHInterface and UDPInterface,
       # but knows neither Alice or Bob.
       carol =
-        {
-          ...
-        }:
+        { ... }:
         {
           imports = [ basicConfig ];
 

@@ -1,7 +1,4 @@
-{
-  lib,
-  stdenv,
-}:
+{ lib, stdenv }:
 {
   inherit (import ./build-kakoune-plugin.nix { inherit lib stdenv; })
     buildKakounePlugin

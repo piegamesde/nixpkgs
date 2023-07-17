@@ -1,15 +1,9 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
 
   let
     client =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         imports = [ ./common/x11.nix ];
         environment.systemPackages = [ pkgs.mumble ];
@@ -32,10 +26,7 @@ import ./make-test-python.nix (
 
     nodes = {
       server =
-        {
-          config,
-          ...
-        }:
+        { config, ... }:
         {
           services.murmur.enable = true;
           services.murmur.registerName = "NixOS tests";

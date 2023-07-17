@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
 
   with lib;
 
@@ -22,10 +18,7 @@ import ./make-test-python.nix (
       };
 
       custom_lockcmd =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           imports = [
             ./common/x11.nix

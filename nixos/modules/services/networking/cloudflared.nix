@@ -180,10 +180,7 @@ in
       '';
       type = types.attrsOf (
         types.submodule (
-          {
-            name,
-            ...
-          }:
+          { name, ... }:
           {
             options = {
               inherit originRequest;
@@ -225,10 +222,7 @@ in
                   attrsOf (
                     either str (
                       submodule (
-                        {
-                          hostname,
-                          ...
-                        }:
+                        { hostname, ... }:
                         {
                           options = {
                             inherit originRequest;

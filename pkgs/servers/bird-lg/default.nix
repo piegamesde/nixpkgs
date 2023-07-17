@@ -6,10 +6,7 @@
 }:
 let
   generic =
-    {
-      modRoot,
-      vendorSha256,
-    }:
+    { modRoot, vendorSha256 }:
     buildGoModule rec {
       pname = "bird-lg-${modRoot}";
       version = "1.2.0";

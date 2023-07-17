@@ -1,7 +1,4 @@
-{
-  lib,
-  runCommand,
-}:
+{ lib, runCommand }:
 runCommand "documentation-highlighter"
   {
     meta = {

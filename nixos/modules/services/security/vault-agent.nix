@@ -24,10 +24,7 @@ let
         with types;
         attrsOf (
           submodule (
-            {
-              name,
-              ...
-            }:
+            { name, ... }:
             {
               options = {
                 enable = mkEnableOption (mdDoc "this ${flavour} instance") // {

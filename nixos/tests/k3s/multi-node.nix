@@ -59,10 +59,7 @@ import ../make-test-python.nix (
 
     nodes = {
       server =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           environment.systemPackages = with pkgs; [
             gzip
@@ -112,10 +109,7 @@ import ../make-test-python.nix (
       ;
 
       server2 =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           environment.systemPackages = with pkgs; [
             gzip
@@ -163,10 +157,7 @@ import ../make-test-python.nix (
       ;
 
       agent =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           virtualisation.memorySize = 1024;
           virtualisation.diskSize = 2048;

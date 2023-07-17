@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
 
   let
     hashes = pkgs.writeText "hashes" ''
@@ -16,10 +13,7 @@ import ./make-test-python.nix (
 
     nodes = {
       server =
-        {
-          config,
-          ...
-        }:
+        { config, ... }:
         {
           networking.firewall.allowedTCPPorts = [ config.services.gitDaemon.port ];
 
@@ -38,15 +32,7 @@ import ./make-test-python.nix (
         }
       ;
 
-      client =
-        {
-          pkgs,
-          ...
-        }:
-        {
-          environment.systemPackages = [ pkgs.git ];
-        }
-      ;
+      client = { pkgs, ... }: { environment.systemPackages = [ pkgs.git ]; };
     };
 
     testScript = ''

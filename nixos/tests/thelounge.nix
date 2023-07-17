@@ -3,11 +3,7 @@ import ./make-test-python.nix {
 
   nodes = {
     private =
-      {
-        config,
-        pkgs,
-        ...
-      }:
+      { config, pkgs, ... }:
       {
         services.thelounge = {
           enable = true;
@@ -17,11 +13,7 @@ import ./make-test-python.nix {
     ;
 
     public =
-      {
-        config,
-        pkgs,
-        ...
-      }:
+      { config, pkgs, ... }:
       {
         services.thelounge = {
           enable = true;

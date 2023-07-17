@@ -108,11 +108,7 @@ let
 
   # removes NixOS special and unused attributes
   sensorToConf =
-    {
-      type,
-      query,
-      ...
-    }@args:
+    { type, query, ... }@args:
     (filterAttrs
       (
         k: v:

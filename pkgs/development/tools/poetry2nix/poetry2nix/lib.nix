@@ -237,16 +237,7 @@ let
     }:
     let
       pathParts =
-        (builtins.filter
-          (
-            {
-              prefix,
-              path,
-            }:
-            "NETRC" == prefix
-          )
-          builtins.nixPath
-        );
+        (builtins.filter ({ prefix, path }: "NETRC" == prefix) builtins.nixPath);
       netrc_file = if (pathParts != [ ]) then (builtins.head pathParts).path else "";
     in
     pkgs.runCommand file
@@ -265,10 +256,7 @@ let
   );
 
   getBuildSystemPkgs =
-    {
-      pythonPackages,
-      pyProject,
-    }:
+    { pythonPackages, pyProject }:
     let
       missingBuildBackendError =
         "No build-system.build-backend section in pyproject.toml. "
@@ -320,9 +308,7 @@ let
      - Uses cleanSourceFilter to filter out .git/.hg, .o/.so, editor backup files & nix result symlinks
   */
   cleanPythonSources =
-    {
-      src,
-    }:
+    { src }:
     let
       gitIgnores = findGitIgnores src;
       pycacheFilter =

@@ -1,7 +1,4 @@
-{
-  lib,
-  fetchurl,
-}:
+{ lib, fetchurl }:
 
 let
   pname = "netboot.xyz-efi";

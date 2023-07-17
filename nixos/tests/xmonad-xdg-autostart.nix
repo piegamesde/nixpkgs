@@ -1,18 +1,11 @@
 import ./make-test-python.nix (
-  {
-    lib,
-    ...
-  }:
+  { lib, ... }:
   {
     name = "xmonad-xdg-autostart";
     meta.maintainers = with lib.maintainers; [ oxalica ];
 
     nodes.machine =
-      {
-        pkgs,
-        config,
-        ...
-      }:
+      { pkgs, config, ... }:
       {
         imports = [
           ./common/x11.nix
@@ -40,10 +33,7 @@ import ./make-test-python.nix (
     ;
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       let
         user = nodes.machine.config.users.users.alice;
       in

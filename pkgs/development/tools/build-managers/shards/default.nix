@@ -6,10 +6,7 @@
 
 let
   generic =
-    {
-      version,
-      hash,
-    }:
+    { version, hash }:
 
     crystal.buildCrystalPackage {
       pname = "shards";

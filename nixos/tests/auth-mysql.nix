@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
 
   let
     dbUser = "nixos_auth";
@@ -50,9 +46,7 @@ import ./make-test-python.nix (
     meta.maintainers = with lib.maintainers; [ netali ];
 
     nodes.machine =
-      {
-        ...
-      }:
+      { ... }:
       {
         services.mysql = {
           enable = true;

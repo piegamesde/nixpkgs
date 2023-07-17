@@ -6,12 +6,7 @@
   wrapGAppsHook,
 }:
 let
-  libPathNative =
-    {
-      packages,
-    }:
-    lib.makeLibraryPath packages
-  ;
+  libPathNative = { packages }: lib.makeLibraryPath packages;
 in
 stdenv.mkDerivation rec {
   pname = "rocketchat-desktop";

@@ -5,11 +5,7 @@
     storage.legacy = { };
   };
   server =
-    {
-      lib,
-      pkgs,
-      ...
-    }:
+    { lib, pkgs, ... }:
     {
       deployment.targetEnv = "none";
       imports = [

@@ -33,10 +33,7 @@ let
 
       nodes = {
         ${name} =
-          {
-            pkgs,
-            ...
-          }:
+          { pkgs, ... }:
           {
 
             users = {

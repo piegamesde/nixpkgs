@@ -29,9 +29,7 @@ let
       meta = with pkgs.lib.maintainers; { maintainers = [ zagy ]; };
 
       nodes.machine =
-        {
-          ...
-        }:
+        { ... }:
         {
           services.postgresql = {
             enable = true;
@@ -147,9 +145,7 @@ let
       meta = with pkgs.lib.maintainers; { maintainers = [ zagy ]; };
 
       nodes.machine =
-        {
-          ...
-        }:
+        { ... }:
         {
           services.postgresql = {
             enable = true;

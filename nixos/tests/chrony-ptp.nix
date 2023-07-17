@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    lib,
-    ...
-  }:
+  { lib, ... }:
   {
     name = "chrony-ptp";
 
@@ -12,10 +9,7 @@ import ./make-test-python.nix (
 
     nodes = {
       qemuGuest =
-        {
-          lib,
-          ...
-        }:
+        { lib, ... }:
         {
           boot.kernelModules = [ "ptp_kvm" ];
 

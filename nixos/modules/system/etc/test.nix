@@ -12,10 +12,7 @@
 }:
 let
   node = evalMinimalConfig (
-    {
-      config,
-      ...
-    }:
+    { config, ... }:
     {
       imports = [
         pkgsModule

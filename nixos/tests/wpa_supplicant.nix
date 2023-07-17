@@ -1,17 +1,11 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   {
     name = "wpa_supplicant";
     meta = with lib.maintainers; { maintainers = [ rnhmjoj ]; };
 
     nodes.machine =
-      {
-        ...
-      }:
+      { ... }:
       {
         imports = [ ../modules/profiles/minimal.nix ];
 

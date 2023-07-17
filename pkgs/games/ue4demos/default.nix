@@ -16,10 +16,7 @@ let
   ];
 
   buildDemo =
-    {
-      name,
-      src,
-    }:
+    { name, src }:
     stdenv.mkDerivation rec {
       inherit name src;
 

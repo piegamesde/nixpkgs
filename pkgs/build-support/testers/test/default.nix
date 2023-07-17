@@ -32,10 +32,7 @@ lib.recurseIntoAttrs {
     {
       name = "nixosTest-test";
       nodes.machine =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           system.nixos = dummyVersioning;
           environment.systemPackages = [

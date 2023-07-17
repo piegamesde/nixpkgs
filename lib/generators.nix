@@ -12,9 +12,7 @@
 #
 # Tests can be found in ./tests/misc.nix
 # Documentation in the manual, #sec-generators
-{
-  lib,
-}:
+{ lib }:
 with (lib).trivial;
 let
   libStr = lib.strings;
@@ -217,10 +215,7 @@ rec {
       # allow lists as values for duplicate keys
       listsAsDuplicateKeys ? false,
     }:
-    {
-      globalSection,
-      sections,
-    }:
+    { globalSection, sections }:
     (
       if globalSection == { } then
         ""

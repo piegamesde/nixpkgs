@@ -1,8 +1,5 @@
 import ../make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   let
     certs = import ../common/acme/server/snakeoil-certs.nix;
     domain = certs.domain;
@@ -13,10 +10,7 @@ import ../make-test-python.nix (
 
     nodes = {
       server =
-        {
-          options,
-          ...
-        }:
+        { options, ... }:
         {
           services.maddy = {
             enable = true;
@@ -60,10 +54,7 @@ import ../make-test-python.nix (
       ;
 
       client =
-        {
-          nodes,
-          ...
-        }:
+        { nodes, ... }:
         {
           security.pki.certificateFiles = [ certs.ca.cert ];
           networking.extraHosts = ''

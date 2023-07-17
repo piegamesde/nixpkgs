@@ -1,7 +1,4 @@
-{
-  lib,
-  ...
-}:
+{ lib, ... }:
 {
   options.dummy = lib.mkOption {
     type = lib.types.anything;

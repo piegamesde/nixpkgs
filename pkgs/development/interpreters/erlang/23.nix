@@ -1,6 +1,4 @@
-{
-  mkDerivation,
-}:
+{ mkDerivation }:
 
 mkDerivation {
   version = "23.3.4.18";

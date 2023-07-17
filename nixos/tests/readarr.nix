@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    lib,
-    ...
-  }:
+  { lib, ... }:
 
   with lib;
 
@@ -10,15 +7,7 @@ import ./make-test-python.nix (
     name = "readarr";
     meta.maintainers = with maintainers; [ jocelynthode ];
 
-    nodes.machine =
-      {
-        pkgs,
-        ...
-      }:
-      {
-        services.readarr.enable = true;
-      }
-    ;
+    nodes.machine = { pkgs, ... }: { services.readarr.enable = true; };
 
     testScript = ''
       machine.wait_for_unit("readarr.service")

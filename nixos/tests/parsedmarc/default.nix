@@ -1,10 +1,7 @@
 # This tests parsedmarc by sending a report to its monitored email
 # address and reading the results out of Elasticsearch.
 
-{
-  pkgs,
-  ...
-}@args:
+{ pkgs, ... }@args:
 let
   inherit (import ../../lib/testing-python.nix args) makeTest;
   inherit (pkgs) lib;
@@ -62,10 +59,7 @@ in
     meta = with lib.maintainers; { maintainers = [ talyz ]; };
 
     nodes.parsedmarc =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       {
         virtualisation.memorySize = 2048;
 
@@ -97,9 +91,7 @@ in
     ;
 
     testScript =
-      {
-        nodes,
-      }:
+      { nodes }:
       let
         esPort = toString nodes.parsedmarc.config.services.elasticsearch.port;
         valueObject =
@@ -147,10 +139,7 @@ in
 
       nodes = {
         parsedmarc =
-          {
-            nodes,
-            ...
-          }:
+          { nodes, ... }:
           {
             virtualisation.memorySize = 2048;
 
@@ -178,10 +167,7 @@ in
         ;
 
         mail =
-          {
-            nodes,
-            ...
-          }:
+          { nodes, ... }:
           {
             imports = [ ../common/user-account.nix ];
 
@@ -220,9 +206,7 @@ in
       };
 
       testScript =
-        {
-          nodes,
-        }:
+        { nodes }:
         let
           esPort = toString nodes.parsedmarc.config.services.elasticsearch.port;
           valueObject =

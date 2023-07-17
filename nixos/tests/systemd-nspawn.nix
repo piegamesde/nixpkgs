@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   let
     gpgKeyring =
       (pkgs.runCommand "gpg-keyring" { buildInputs = [ pkgs.gnupg ]; } ''
@@ -59,10 +55,7 @@ import ./make-test-python.nix (
 
     nodes = {
       server =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           networking.firewall.allowedTCPPorts = [ 80 ];
           services.nginx = {
@@ -72,10 +65,7 @@ import ./make-test-python.nix (
         }
       ;
       client =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           environment.etc."systemd/import-pubring.gpg".source = "${gpgKeyring}/pubkey.gpg";
         }

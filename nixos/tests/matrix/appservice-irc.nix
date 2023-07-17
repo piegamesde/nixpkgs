@@ -1,8 +1,5 @@
 import ../make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   let
     homeserverUrl = "http://homeserver:8008";
   in
@@ -14,10 +11,7 @@ import ../make-test-python.nix (
 
     nodes = {
       homeserver =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           # We'll switch to this once the config is copied into place
           specialisation.running.configuration = {
@@ -58,10 +52,7 @@ import ../make-test-python.nix (
       ;
 
       ircd =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           services.ngircd = {
             enable = true;
@@ -84,10 +75,7 @@ import ../make-test-python.nix (
       ;
 
       appservice =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           services.matrix-appservice-irc = {
             enable = true;
@@ -113,10 +101,7 @@ import ../make-test-python.nix (
       ;
 
       client =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           environment.systemPackages = [
             (pkgs.writers.writePython3Bin "do_test"

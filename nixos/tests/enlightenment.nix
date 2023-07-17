@@ -1,17 +1,12 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "enlightenment";
 
     meta = with pkgs.lib.maintainers; { maintainers = [ romildo ]; };
 
     nodes.machine =
-      {
-        ...
-      }:
+      { ... }:
       {
         imports = [ ./common/user-account.nix ];
         services.xserver.enable = true;
@@ -34,10 +29,7 @@ import ./make-test-python.nix (
     enableOCR = true;
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       let
         user = nodes.machine.config.users.users.alice;
       in

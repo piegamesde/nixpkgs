@@ -20,10 +20,7 @@
 #   - bin/traffic_logstats
 #   - bin/tspush
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "trafficserver";
     meta = with pkgs.lib.maintainers; { maintainers = [ midchildan ]; };
@@ -87,11 +84,7 @@ import ./make-test-python.nix (
       ;
 
       httpbin =
-        {
-          pkgs,
-          lib,
-          ...
-        }:
+        { pkgs, lib, ... }:
         let
           python = pkgs.python3.withPackages (
             ps:
@@ -117,22 +110,11 @@ import ./make-test-python.nix (
       ;
 
       client =
-        {
-          pkgs,
-          lib,
-          ...
-        }:
-        {
-          environment.systemPackages = with pkgs; [ curl ];
-        }
-      ;
+        { pkgs, lib, ... }: { environment.systemPackages = with pkgs; [ curl ]; };
     };
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       let
         sampleFile = pkgs.writeText "sample.txt" ''
           It's the season of White Album.

@@ -25,10 +25,7 @@ let
       meta = with pkgs.lib.maintainers; { maintainers = [ chkno ]; };
 
       nodes.machine =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           environment.systemPackages = [ pkgs."${packageSet}"."${variant}" ];
           virtualisation.diskSize = 800;

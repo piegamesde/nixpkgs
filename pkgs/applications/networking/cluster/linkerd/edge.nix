@@ -1,6 +1,4 @@
-{
-  callPackage,
-}:
+{ callPackage }:
 
 (callPackage ./generic.nix { }) {
   channel = "edge";

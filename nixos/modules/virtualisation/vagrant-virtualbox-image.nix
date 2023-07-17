@@ -1,10 +1,6 @@
 # Vagrant + VirtualBox
 
-{
-  config,
-  pkgs,
-  ...
-}:
+{ config, pkgs, ... }:
 
 {
   imports = [

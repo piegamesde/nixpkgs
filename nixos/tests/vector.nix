@@ -13,11 +13,7 @@ with pkgs.lib;
     meta.maintainers = [ pkgs.lib.maintainers.happysalada ];
 
     nodes.machine =
-      {
-        config,
-        pkgs,
-        ...
-      }:
+      { config, pkgs, ... }:
       {
         services.vector = {
           enable = true;

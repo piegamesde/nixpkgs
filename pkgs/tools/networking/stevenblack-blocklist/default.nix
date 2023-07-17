@@ -1,7 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-}:
+{ lib, fetchFromGitHub }:
 
 let
   version = "3.11.19";

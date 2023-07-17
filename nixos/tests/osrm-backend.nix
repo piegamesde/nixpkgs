@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   let
     port = 5000;
   in
@@ -12,11 +8,7 @@ import ./make-test-python.nix (
     meta.maintainers = [ lib.maintainers.erictapen ];
 
     nodes.machine =
-      {
-        config,
-        pkgs,
-        ...
-      }:
+      { config, pkgs, ... }:
       {
 
         services.osrm = {

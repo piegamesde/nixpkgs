@@ -13,10 +13,7 @@ let
   vmVariantWithBootLoader = vmVariant.extendModules {
     modules = [
       (
-        {
-          config,
-          ...
-        }:
+        { config, ... }:
         {
           _file = "nixos/default.nix##vmWithBootLoader";
           virtualisation.useBootLoader = true;

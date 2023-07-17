@@ -12,11 +12,7 @@ let
   };
 in
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   {
     name = "containers-ipv4-ipv6";
     meta = {
@@ -29,10 +25,7 @@ import ./make-test-python.nix (
     };
 
     nodes.machine =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         imports = [ ../modules/installer/cd-dvd/channel.nix ];
         virtualisation = {
@@ -46,10 +39,7 @@ import ./make-test-python.nix (
     ;
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       ''
         import time
 

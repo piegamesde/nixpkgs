@@ -1,15 +1,8 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   let
     client =
-      {
-        config,
-        pkgs,
-        ...
-      }:
+      { config, pkgs, ... }:
       {
         environment.systemPackages = [
           pkgs.seafile-shared
@@ -29,11 +22,7 @@ import ./make-test-python.nix (
 
     nodes = {
       server =
-        {
-          config,
-          pkgs,
-          ...
-        }:
+        { config, pkgs, ... }:
         {
           services.seafile = {
             enable = true;

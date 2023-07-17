@@ -1,17 +1,11 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   {
     name = "headscale";
     meta.maintainers = with lib.maintainers; [ misterio77 ];
 
     nodes.machine =
-      {
-        ...
-      }:
+      { ... }:
       {
         services.headscale.enable = true;
         environment.systemPackages = [ pkgs.headscale ];

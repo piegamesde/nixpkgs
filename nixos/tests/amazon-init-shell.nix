@@ -18,9 +18,7 @@ makeTest {
   name = "amazon-init";
   meta = with maintainers; { maintainers = [ urbas ]; };
   nodes.machine =
-    {
-      ...
-    }:
+    { ... }:
     {
       imports = [
         ../modules/profiles/headless.nix

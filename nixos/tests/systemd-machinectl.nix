@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   let
 
     container = {
@@ -34,10 +31,7 @@ import ./make-test-python.nix (
     name = "systemd-machinectl";
 
     nodes.machine =
-      {
-        lib,
-        ...
-      }:
+      { lib, ... }:
       {
         # use networkd to obtain systemd network setup
         networking.useNetworkd = true;

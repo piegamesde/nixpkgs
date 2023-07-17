@@ -1,17 +1,9 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   {
     name = "systemd-userdbd";
     nodes.machine =
-      {
-        config,
-        pkgs,
-        ...
-      }:
+      { config, pkgs, ... }:
       {
         services.userdbd.enable = true;
 

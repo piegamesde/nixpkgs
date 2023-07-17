@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ctags,
-}:
+{ pkgs, ctags }:
 
 with pkgs.lib;
 
@@ -19,10 +16,7 @@ with pkgs.lib;
   ctagsWrapped =
     makeOverridable
       (
-        {
-          args,
-          name,
-        }:
+        { args, name }:
         pkgs.writeScriptBin name ''
           #!${pkgs.runtimeShell}
           exec ${pkgs.ctags}/bin/ctags ${

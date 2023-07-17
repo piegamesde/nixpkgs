@@ -3,10 +3,7 @@ let
   domain = certs.domain;
 in
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "alps";
     meta = with pkgs.lib.maintainers; { maintainers = [ hmenke ]; };
@@ -41,11 +38,7 @@ import ./make-test-python.nix (
       };
 
       client =
-        {
-          nodes,
-          config,
-          ...
-        }:
+        { nodes, config, ... }:
         {
           security.pki.certificateFiles = [ certs.ca.cert ];
           networking.extraHosts = ''
@@ -104,10 +97,7 @@ import ./make-test-python.nix (
     };
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       ''
         server.start()
         server.wait_for_unit("postfix.service")

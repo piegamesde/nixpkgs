@@ -11,10 +11,7 @@ makeTest {
 
   nodes = {
     server =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         environment.systemPackages = with pkgs; [
           tigervnc # for Xvnc
@@ -26,10 +23,7 @@ makeTest {
     ;
 
     client =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         imports = [ ./common/x11.nix ];
         # for vncviewer

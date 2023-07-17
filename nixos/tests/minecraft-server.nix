@@ -4,18 +4,13 @@ let
   rcon-port = 43000;
 in
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "minecraft-server";
     meta = with pkgs.lib.maintainers; { maintainers = [ nequissimus ]; };
 
     nodes.server =
-      {
-        ...
-      }:
+      { ... }:
       {
         environment.systemPackages = [ pkgs.mcrcon ];
 

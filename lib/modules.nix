@@ -1,6 +1,4 @@
-{
-  lib,
-}:
+{ lib }:
 
 let
   inherit (lib)
@@ -509,10 +507,7 @@ rec {
       # modules recursively. It returns the final list of unique-by-key modules
       filterModules =
         modulesPath:
-        {
-          disabled,
-          modules,
-        }:
+        { disabled, modules }:
         let
           moduleKey =
             file: m:
@@ -542,14 +537,7 @@ rec {
           ;
 
           disabledKeys =
-            concatMap
-              (
-                {
-                  file,
-                  disabled,
-                }:
-                map (moduleKey file) disabled
-              )
+            concatMap ({ file, disabled }: map (moduleKey file) disabled)
               disabled
           ;
           keyFilter = filter (attrs: !elem attrs.key disabledKeys);
@@ -1400,10 +1388,7 @@ rec {
   */
   mkRemovedOptionModule =
     optionName: replacementInstructions:
-    {
-      options,
-      ...
-    }:
+    { options, ... }:
     {
       options = setAttrByPath optionName (
         mkOption {
@@ -1518,11 +1503,7 @@ rec {
   */
   mkMergedOptionModule =
     from: to: mergeFn:
-    {
-      config,
-      options,
-      ...
-    }:
+    { config, options, ... }:
     {
       options = foldl' recursiveUpdate { } (
         map
@@ -1651,11 +1632,7 @@ rec {
       withPriority ? true,
       markdown ? false,
     }:
-    {
-      config,
-      options,
-      ...
-    }:
+    { config, options, ... }:
     let
       fromOpt = getAttrFromPath from options;
       toOf = attrByPath to (

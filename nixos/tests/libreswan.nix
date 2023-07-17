@@ -4,11 +4,7 @@
 # enable the secure tunnel Eve's spying becomes ineffective.
 
 import ./make-test-python.nix (
-  {
-    lib,
-    pkgs,
-    ...
-  }:
+  { lib, pkgs, ... }:
 
   let
 
@@ -66,9 +62,7 @@ import ./make-test-python.nix (
 
     # Our protagonist
     nodes.alice =
-      {
-        ...
-      }:
+      { ... }:
       {
         virtualisation.vlans = [ 1 ];
         networking = baseNetwork // addRoute "fd::a" "fd::b";
@@ -78,9 +72,7 @@ import ./make-test-python.nix (
 
     # Her best friend
     nodes.bob =
-      {
-        ...
-      }:
+      { ... }:
       {
         virtualisation.vlans = [ 2 ];
         networking = baseNetwork // addRoute "fd::b" "fd::a";
@@ -90,9 +82,7 @@ import ./make-test-python.nix (
 
     # The malicious network operator
     nodes.eve =
-      {
-        ...
-      }:
+      { ... }:
       {
         virtualisation.vlans = [
           1

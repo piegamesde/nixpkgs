@@ -43,10 +43,7 @@ import ../make-test-python.nix (
     meta = with pkgs.lib.maintainers; { maintainers = [ euank ]; };
 
     nodes.machine =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         environment.systemPackages = with pkgs; [
           k3s

@@ -105,11 +105,7 @@ runCommand name
     contents =
       lib.concatMapStringsSep "\n"
         (
-          {
-            object,
-            symlink,
-            ...
-          }:
+          { object, symlink, ... }:
           ''
             ${object}
             ${if symlink == null then "" else symlink}''

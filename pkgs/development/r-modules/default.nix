@@ -70,11 +70,7 @@ let
   #
   deriveBioc = mkDerive {
     mkHomepage =
-      {
-        name,
-        biocVersion,
-        ...
-      }:
+      { name, biocVersion, ... }:
       "https://bioconductor.org/packages/${biocVersion}/bioc/html/${name}.html"
     ;
     mkUrls =
@@ -91,13 +87,7 @@ let
     ;
   };
   deriveBiocAnn = mkDerive {
-    mkHomepage =
-      {
-        name,
-        ...
-      }:
-      "http://www.bioconductor.org/packages/${name}.html"
-    ;
+    mkHomepage = { name, ... }: "http://www.bioconductor.org/packages/${name}.html";
     mkUrls =
       {
         name,
@@ -111,13 +101,7 @@ let
     hydraPlatforms = [ ];
   };
   deriveBiocExp = mkDerive {
-    mkHomepage =
-      {
-        name,
-        ...
-      }:
-      "http://www.bioconductor.org/packages/${name}.html"
-    ;
+    mkHomepage = { name, ... }: "http://www.bioconductor.org/packages/${name}.html";
     mkUrls =
       {
         name,
@@ -131,18 +115,9 @@ let
     hydraPlatforms = [ ];
   };
   deriveCran = mkDerive {
-    mkHomepage =
-      {
-        name,
-        ...
-      }:
-      "https://cran.r-project.org/web/packages/${name}/"
-    ;
+    mkHomepage = { name, ... }: "https://cran.r-project.org/web/packages/${name}/";
     mkUrls =
-      {
-        name,
-        version,
-      }:
+      { name, version }:
       [
         "mirror://cran/${name}_${version}.tar.gz"
         "mirror://cran/Archive/${name}/${name}_${version}.tar.gz"

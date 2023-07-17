@@ -1,20 +1,14 @@
 # Test the firewall module.
 
 import ./make-test-python.nix (
-  {
-    pkgs,
-    nftables,
-    ...
-  }:
+  { pkgs, nftables, ... }:
   {
     name = "firewall" + pkgs.lib.optionalString nftables "-nftables";
     meta = with pkgs.lib.maintainers; { maintainers = [ eelco ]; };
 
     nodes = {
       walled =
-        {
-          ...
-        }:
+        { ... }:
         {
           networking.firewall.enable = true;
           networking.firewall.logRefusedPackets = true;
@@ -29,9 +23,7 @@ import ./make-test-python.nix (
       # original walled configuration so that there is a change in the service
       # file.
       walled2 =
-        {
-          ...
-        }:
+        { ... }:
         {
           networking.firewall.enable = true;
           networking.firewall.rejectPackets = true;
@@ -40,9 +32,7 @@ import ./make-test-python.nix (
       ;
 
       attacker =
-        {
-          ...
-        }:
+        { ... }:
         {
           services.httpd.enable = true;
           services.httpd.adminAddr = "foo@example.org";
@@ -52,10 +42,7 @@ import ./make-test-python.nix (
     };
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       let
         newSystem = nodes.walled2.config.system.build.toplevel;
         unit = if nftables then "nftables" else "firewall";

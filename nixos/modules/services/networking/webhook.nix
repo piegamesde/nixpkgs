@@ -14,10 +14,7 @@ let
   hookFormat = pkgs.formats.json { };
 
   hookType = types.submodule (
-    {
-      name,
-      ...
-    }:
+    { name, ... }:
     {
       freeformType = hookFormat.type;
       options = {

@@ -127,15 +127,7 @@ rec {
       anyMatch = platform: lib.any (lib.meta.platformMatch platform) metaPatterns;
       matchingPlatforms = lib.filter anyMatch supportedPlatforms;
     in
-    map
-      (
-        {
-          system,
-          ...
-        }:
-        system
-      )
-      matchingPlatforms
+    map ({ system, ... }: system) matchingPlatforms
   ;
 
   assertTrue =

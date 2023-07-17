@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
 
   let
     port = 3142;
@@ -15,10 +11,7 @@ import ./make-test-python.nix (
 
     nodes = {
       customized =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           services.calibre-web = {
             enable = true;

@@ -23,11 +23,7 @@ let
   ;
 
   wrapperType = lib.types.submodule (
-    {
-      name,
-      config,
-      ...
-    }:
+    { name, config, ... }:
     {
       options.source = lib.mkOption {
         type = lib.types.path;

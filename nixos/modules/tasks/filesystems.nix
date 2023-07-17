@@ -59,11 +59,7 @@ let
   ;
 
   coreFileSystemOpts =
-    {
-      name,
-      config,
-      ...
-    }:
+    { name, config, ... }:
     {
 
       options = {
@@ -117,10 +113,7 @@ let
   ;
 
   fileSystemOpts =
-    {
-      config,
-      ...
-    }:
+    { config, ... }:
     {
 
       options = {

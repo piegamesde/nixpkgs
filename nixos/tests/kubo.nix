@@ -1,7 +1,4 @@
-{
-  lib,
-  ...
-}:
+{ lib, ... }:
 {
   name = "kubo";
   meta = with lib.maintainers; {
@@ -12,10 +9,7 @@
   };
 
   nodes.machine =
-    {
-      config,
-      ...
-    }:
+    { config, ... }:
     {
       services.kubo = {
         enable = true;
@@ -32,10 +26,7 @@
   ;
 
   nodes.fuse =
-    {
-      config,
-      ...
-    }:
+    { config, ... }:
     {
       services.kubo = {
         enable = true;

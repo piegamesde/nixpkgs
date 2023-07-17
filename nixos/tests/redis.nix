@@ -1,19 +1,12 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "redis";
     meta = with pkgs.lib.maintainers; { maintainers = [ flokli ]; };
 
     nodes = {
       machine =
-        {
-          pkgs,
-          lib,
-          ...
-        }:
+        { pkgs, lib, ... }:
         with lib;
 
         {
@@ -41,10 +34,7 @@ import ./make-test-python.nix (
     };
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       let
         inherit (nodes.machine.config.services) redis;
       in

@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   let
     lualibs = [ pkgs.lua.pkgs.markdown ];
 
@@ -17,11 +13,7 @@ import ./make-test-python.nix (
 
     nodes = {
       webserver =
-        {
-          pkgs,
-          lib,
-          ...
-        }:
+        { pkgs, lib, ... }:
         {
           services.nginx = {
             enable = true;
@@ -49,10 +41,7 @@ import ./make-test-python.nix (
     };
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       ''
         url = "http://localhost"
 

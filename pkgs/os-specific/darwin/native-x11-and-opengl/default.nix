@@ -1,7 +1,4 @@
-{
-  stdenv,
-  writeScript,
-}:
+{ stdenv, writeScript }:
 
 stdenv.mkDerivation rec {
   name = "darwin-native-x11-and-opengl";

@@ -751,10 +751,7 @@ in
           with types;
           attrsOf (
             submodule (
-              {
-                name,
-                ...
-              }:
+              { name, ... }:
               {
                 options = {
                   destinationPort = mkOption {
@@ -781,10 +778,7 @@ in
           with types;
           attrsOf (
             submodule (
-              {
-                name,
-                ...
-              }:
+              { name, ... }:
               {
                 options = {
                   inPort = mkOption {

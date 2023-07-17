@@ -1,18 +1,12 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   {
     name = "connman";
     meta = with lib.maintainers; { maintainers = [ rnhmjoj ]; };
 
     # Router running radvd on VLAN 1
     nodes.router =
-      {
-        ...
-      }:
+      { ... }:
       {
         imports = [ ../modules/profiles/minimal.nix ];
 
@@ -46,9 +40,7 @@ import ./make-test-python.nix (
 
     # Client running connman, connected to VLAN 1
     nodes.client =
-      {
-        ...
-      }:
+      { ... }:
       {
         virtualisation.vlans = [ 1 ];
 

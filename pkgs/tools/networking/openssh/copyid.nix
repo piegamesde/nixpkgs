@@ -1,7 +1,4 @@
-{
-  runCommand,
-  openssh,
-}:
+{ runCommand, openssh }:
 
 runCommand "ssh-copy-id-${openssh.version}"
   {

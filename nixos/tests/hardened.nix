@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "hardened";
     meta = with pkgs.lib.maintainers; { maintainers = [ joachifm ]; };

@@ -28,10 +28,7 @@ import ./make-test-python.nix (
     meta = with pkgs.lib.maintainers; { maintainers = [ talyz ]; };
 
     nodes.discourse =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       {
         virtualisation.memorySize = 2048;
         virtualisation.cores = 4;
@@ -88,10 +85,7 @@ import ./make-test-python.nix (
     ;
 
     nodes.client =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       {
         imports = [ common/user-account.nix ];
 
@@ -172,9 +166,7 @@ import ./make-test-python.nix (
     ;
 
     testScript =
-      {
-        nodes,
-      }:
+      { nodes }:
       let
         request = builtins.toJSON {
           title = "Private message";

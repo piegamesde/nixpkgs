@@ -1,18 +1,12 @@
 import ./make-test-python.nix (
-  {
-    lib,
-    pkgs,
-    ...
-  }:
+  { lib, pkgs, ... }:
 
   {
     name = "jellyfin";
     meta.maintainers = with lib.maintainers; [ minijackson ];
 
     nodes.machine =
-      {
-        ...
-      }:
+      { ... }:
       {
         services.jellyfin.enable = true;
         environment.systemPackages = with pkgs; [ ffmpeg ];

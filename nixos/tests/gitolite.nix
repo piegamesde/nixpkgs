@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
 
   let
     adminPrivateKey = pkgs.writeText "id_ed25519" ''
@@ -60,9 +57,7 @@ import ./make-test-python.nix (
     nodes = {
 
       server =
-        {
-          ...
-        }:
+        { ... }:
         {
           services.gitolite = {
             enable = true;
@@ -73,10 +68,7 @@ import ./make-test-python.nix (
       ;
 
       client =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           environment.systemPackages = [ pkgs.git ];
           programs.ssh.extraConfig = ''

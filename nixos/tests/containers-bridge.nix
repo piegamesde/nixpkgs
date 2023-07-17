@@ -6,11 +6,7 @@ let
 in
 
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   {
     name = "containers-bridge";
     meta = {
@@ -23,10 +19,7 @@ import ./make-test-python.nix (
     };
 
     nodes.machine =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         imports = [ ../modules/installer/cd-dvd/channel.nix ];
         virtualisation.writableStore = true;

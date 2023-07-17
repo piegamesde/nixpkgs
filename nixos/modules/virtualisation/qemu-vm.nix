@@ -30,9 +30,7 @@ let
   consoles = lib.concatMapStringsSep " " (c: "console=${c}") cfg.qemu.consoles;
 
   driveOpts =
-    {
-      ...
-    }:
+    { ... }:
     {
 
       options = {
@@ -67,10 +65,7 @@ let
   ;
 
   selectPartitionTableLayout =
-    {
-      useEFIBoot,
-      useDefaultFilesystems,
-    }:
+    { useEFIBoot, useDefaultFilesystems }:
     if useDefaultFilesystems then if useEFIBoot then "efi" else "legacy" else "none"
   ;
 

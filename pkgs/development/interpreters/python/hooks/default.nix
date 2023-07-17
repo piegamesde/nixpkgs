@@ -38,9 +38,7 @@ in
   condaUnpackHook =
     callPackage
       (
-        {
-          makePythonHook,
-        }:
+        { makePythonHook }:
         makePythonHook
           {
             name = "conda-unpack-hook";
@@ -54,9 +52,7 @@ in
   eggBuildHook =
     callPackage
       (
-        {
-          makePythonHook,
-        }:
+        { makePythonHook }:
         makePythonHook
           {
             name = "egg-build-hook.sh";
@@ -70,10 +66,7 @@ in
   eggInstallHook =
     callPackage
       (
-        {
-          makePythonHook,
-          setuptools,
-        }:
+        { makePythonHook, setuptools }:
         makePythonHook
           {
             name = "egg-install-hook.sh";
@@ -90,9 +83,7 @@ in
   eggUnpackHook =
     callPackage
       (
-        {
-          makePythonHook,
-        }:
+        { makePythonHook }:
         makePythonHook
           {
             name = "egg-unpack-hook.sh";
@@ -106,10 +97,7 @@ in
   flitBuildHook =
     callPackage
       (
-        {
-          makePythonHook,
-          flit,
-        }:
+        { makePythonHook, flit }:
         makePythonHook
           {
             name = "flit-build-hook";
@@ -150,10 +138,7 @@ in
   pipInstallHook =
     callPackage
       (
-        {
-          makePythonHook,
-          pip,
-        }:
+        { makePythonHook, pip }:
         makePythonHook
           {
             name = "pip-install-hook";
@@ -170,10 +155,7 @@ in
   pytestCheckHook =
     callPackage
       (
-        {
-          makePythonHook,
-          pytest,
-        }:
+        { makePythonHook, pytest }:
         makePythonHook
           {
             name = "pytest-check-hook";
@@ -190,10 +172,7 @@ in
   pythonCatchConflictsHook =
     callPackage
       (
-        {
-          makePythonHook,
-          setuptools,
-        }:
+        { makePythonHook, setuptools }:
         makePythonHook
           {
             name = "python-catch-conflicts-hook";
@@ -210,9 +189,7 @@ in
   pythonImportsCheckHook =
     callPackage
       (
-        {
-          makePythonHook,
-        }:
+        { makePythonHook }:
         makePythonHook
           {
             name = "python-imports-check-hook.sh";
@@ -228,10 +205,7 @@ in
   pythonNamespacesHook =
     callPackage
       (
-        {
-          makePythonHook,
-          findutils,
-        }:
+        { makePythonHook, findutils }:
         makePythonHook
           {
             name = "python-namespaces-hook.sh";
@@ -247,9 +221,7 @@ in
   pythonOutputDistHook =
     callPackage
       (
-        {
-          makePythonHook,
-        }:
+        { makePythonHook }:
         makePythonHook { name = "python-output-dist-hook"; }
           ./python-output-dist-hook.sh
       )
@@ -259,9 +231,7 @@ in
   pythonRecompileBytecodeHook =
     callPackage
       (
-        {
-          makePythonHook,
-        }:
+        { makePythonHook }:
         makePythonHook
           {
             name = "python-recompile-bytecode-hook";
@@ -286,10 +256,7 @@ in
   pythonRelaxDepsHook =
     callPackage
       (
-        {
-          makePythonHook,
-          wheel,
-        }:
+        { makePythonHook, wheel }:
         makePythonHook
           {
             name = "python-relax-deps-hook";
@@ -306,9 +273,7 @@ in
   pythonRemoveBinBytecodeHook =
     callPackage
       (
-        {
-          makePythonHook,
-        }:
+        { makePythonHook }:
         makePythonHook { name = "python-remove-bin-bytecode-hook"; }
           ./python-remove-bin-bytecode-hook.sh
       )
@@ -318,9 +283,7 @@ in
   pythonRemoveTestsDirHook =
     callPackage
       (
-        {
-          makePythonHook,
-        }:
+        { makePythonHook }:
         makePythonHook
           {
             name = "python-remove-tests-dir-hook";
@@ -360,10 +323,7 @@ in
   setuptoolsCheckHook =
     callPackage
       (
-        {
-          makePythonHook,
-          setuptools,
-        }:
+        { makePythonHook, setuptools }:
         makePythonHook
           {
             name = "setuptools-check-hook";
@@ -380,9 +340,7 @@ in
   unittestCheckHook =
     callPackage
       (
-        {
-          makePythonHook,
-        }:
+        { makePythonHook }:
         makePythonHook
           {
             name = "unittest-check-hook";
@@ -398,10 +356,7 @@ in
   venvShellHook = disabledIf (!isPy3k) (
     callPackage
       (
-        {
-          makePythonHook,
-          ensureNewerSourcesForZipFilesHook,
-        }:
+        { makePythonHook, ensureNewerSourcesForZipFilesHook }:
         makePythonHook
           {
             name = "venv-shell-hook";
@@ -418,10 +373,7 @@ in
   wheelUnpackHook =
     callPackage
       (
-        {
-          makePythonHook,
-          wheel,
-        }:
+        { makePythonHook, wheel }:
         makePythonHook
           {
             name = "wheel-unpack-hook.sh";

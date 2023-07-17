@@ -750,9 +750,7 @@ package-set { inherit pkgs lib callPackage; } self
   generateOptparseApplicativeCompletions =
     self.callPackage
       (
-        {
-          stdenv,
-        }:
+        { stdenv }:
 
         commands: pkg:
 

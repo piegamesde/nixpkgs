@@ -2,10 +2,7 @@
 # machine.
 
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "munin";
     meta = with pkgs.lib.maintainers; {
@@ -17,10 +14,7 @@ import ./make-test-python.nix (
 
     nodes = {
       one =
-        {
-          config,
-          ...
-        }:
+        { config, ... }:
         {
           services = {
             munin-node = {

@@ -1,7 +1,4 @@
-{
-  lib,
-  stdenvNoCC,
-}:
+{ lib, stdenvNoCC }:
 
 stdenvNoCC.mkDerivation rec {
   name = "usb-blaster-udev-rules";

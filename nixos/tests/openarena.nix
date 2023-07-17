@@ -1,15 +1,9 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
 
   let
     client =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
 
       {
         imports = [ ./common/x11.nix ];

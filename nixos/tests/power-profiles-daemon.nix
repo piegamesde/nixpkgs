@@ -1,17 +1,11 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
 
   {
     name = "power-profiles-daemon";
     meta = with pkgs.lib.maintainers; { maintainers = [ mvnetbiz ]; };
     nodes.machine =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         security.polkit.enable = true;
         services.power-profiles-daemon.enable = true;

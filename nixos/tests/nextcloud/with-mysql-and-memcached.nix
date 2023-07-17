@@ -5,10 +5,7 @@ args@{
 }:
 
 (import ../make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   let
     adminpass = "hunter2";
     adminuser = "root";
@@ -19,19 +16,10 @@ args@{
 
     nodes = {
       # The only thing the client needs to do is download a file.
-      client =
-        {
-          ...
-        }:
-        { }
-      ;
+      client = { ... }: { };
 
       nextcloud =
-        {
-          config,
-          pkgs,
-          ...
-        }:
+        { config, pkgs, ... }:
         {
           networking.firewall.allowedTCPPorts = [ 80 ];
 

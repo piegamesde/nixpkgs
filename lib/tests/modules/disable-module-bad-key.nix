@@ -1,15 +1,9 @@
-{
-  lib,
-  ...
-}:
+{ lib, ... }:
 let
   inherit (lib) mkOption types;
 
   moduleWithKey =
-    {
-      config,
-      ...
-    }:
+    { config, ... }:
     {
       config = {
         enable = true;

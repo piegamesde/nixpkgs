@@ -1,17 +1,11 @@
 import ./make-test-python.nix (
-  {
-    lib,
-    ...
-  }:
+  { lib, ... }:
   {
     name = "dex-oidc";
     meta.maintainers = with lib.maintainers; [ Flakebi ];
 
     nodes.machine =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         environment.systemPackages = with pkgs; [ jq ];
         services.dex = {

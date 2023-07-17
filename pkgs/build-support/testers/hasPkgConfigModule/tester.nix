@@ -1,8 +1,5 @@
 # Static arguments
-{
-  runCommand,
-  pkg-config,
-}:
+{ runCommand, pkg-config }:
 
 # Tester arguments
 {

@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   let
     listenPort = 30123;
     testString = "It works!";
@@ -29,11 +26,7 @@ import ./make-test-python.nix (
 
     nodes = {
       server =
-        {
-          config,
-          pkgs,
-          ...
-        }:
+        { config, pkgs, ... }:
         {
           # Create some small files of zeros to use as the ndb disks
           ## `vault-pub.disk` is accessible from any IP
@@ -83,16 +76,7 @@ import ./make-test-python.nix (
         }
       ;
 
-      client =
-        {
-          config,
-          pkgs,
-          ...
-        }:
-        {
-          programs.nbd.enable = true;
-        }
-      ;
+      client = { config, pkgs, ... }: { programs.nbd.enable = true; };
     };
 
     testScript = ''

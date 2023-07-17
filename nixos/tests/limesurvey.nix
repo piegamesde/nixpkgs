@@ -1,16 +1,11 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "limesurvey";
     meta.maintainers = [ pkgs.lib.maintainers.aanderse ];
 
     nodes.machine =
-      {
-        ...
-      }:
+      { ... }:
       {
         services.limesurvey = {
           enable = true;

@@ -209,10 +209,7 @@ in
         '';
         type = types.attrsOf (
           types.submodule (
-            {
-              name,
-              ...
-            }:
+            { name, ... }:
             {
               freeformType =
                 with types;

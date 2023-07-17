@@ -17,10 +17,7 @@ let
   };
 
   netDeviceOpts =
-    {
-      name,
-      ...
-    }:
+    { name, ... }:
     {
 
       options = {

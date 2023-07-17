@@ -8,10 +8,7 @@ import ../make-test-python.nix (
   let
 
     client =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         virtualisation.fileSystems = {
           "/data" = {
@@ -35,9 +32,7 @@ import ../make-test-python.nix (
       client2 = client;
 
       server =
-        {
-          ...
-        }:
+        { ... }:
         {
           services.nfs.server.enable = true;
           services.nfs.server.exports = ''

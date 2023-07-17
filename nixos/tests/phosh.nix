@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   let
     pin = "1234";
   in
@@ -17,11 +14,7 @@ import ./make-test-python.nix (
 
     nodes = {
       phone =
-        {
-          config,
-          pkgs,
-          ...
-        }:
+        { config, pkgs, ... }:
         {
           users.users.nixos = {
             isNormalUser = true;

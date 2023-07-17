@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    lib,
-    pkgs,
-    ...
-  }:
+  { lib, pkgs, ... }:
 
   {
     name = "loki";
@@ -11,9 +7,7 @@ import ./make-test-python.nix (
     meta = with lib.maintainers; { maintainers = [ willibutz ]; };
 
     nodes.machine =
-      {
-        ...
-      }:
+      { ... }:
       {
         services.loki = {
           enable = true;

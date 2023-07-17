@@ -28,10 +28,7 @@ let
 
   mkKeyboardTest =
     name:
-    {
-      settings,
-      test,
-    }:
+    { settings, test }:
     with pkgs.lib;
     makeTest {
       inherit name;

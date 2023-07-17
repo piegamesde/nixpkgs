@@ -1,19 +1,12 @@
 import ./make-test-python.nix (
-  {
-    lib,
-    ...
-  }:
+  { lib, ... }:
   {
     name = "fontconfig-default-fonts";
 
     meta.maintainers = with lib.maintainers; [ jtojnar ];
 
     nodes.machine =
-      {
-        config,
-        pkgs,
-        ...
-      }:
+      { config, pkgs, ... }:
       {
         fonts.enableDefaultFonts = true; # Background fonts
         fonts.fonts = with pkgs; [

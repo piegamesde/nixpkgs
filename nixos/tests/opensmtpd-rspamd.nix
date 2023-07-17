@@ -3,10 +3,7 @@ import ./make-test-python.nix {
 
   nodes = {
     smtp1 =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         imports = [ common/user-account.nix ];
         networking = {
@@ -48,10 +45,7 @@ import ./make-test-python.nix {
     ;
 
     smtp2 =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         imports = [ common/user-account.nix ];
         networking = {
@@ -93,10 +87,7 @@ import ./make-test-python.nix {
     ;
 
     client =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         networking = {
           useDHCP = false;

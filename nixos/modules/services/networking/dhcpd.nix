@@ -79,9 +79,7 @@ let
   ;
 
   machineOpts =
-    {
-      ...
-    }:
+    { ... }:
     {
 
       options = {

@@ -31,9 +31,7 @@ in
 testers.nixosTest {
   name = "nixpkgs-trivial-builders";
   nodes.machine =
-    {
-      ...
-    }:
+    { ... }:
     {
       virtualisation.writableStore = true;
 

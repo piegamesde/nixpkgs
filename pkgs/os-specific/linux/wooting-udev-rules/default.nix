@@ -1,7 +1,4 @@
-{
-  lib,
-  stdenv,
-}:
+{ lib, stdenv }:
 
 stdenv.mkDerivation rec {
   pname = "wooting-udev-rules";

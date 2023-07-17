@@ -1,6 +1,4 @@
-{
-  pkgs,
-}:
+{ pkgs }:
 let
   inherit (pkgs) lib formats;
 in
@@ -33,10 +31,7 @@ let
 
   runBuildTest =
     name:
-    {
-      drv,
-      expected,
-    }:
+    { drv, expected }:
     pkgs.runCommand name
       {
         passAsFile = [ "expected" ];

@@ -1,7 +1,4 @@
-{
-  lib,
-  ...
-}:
+{ lib, ... }:
 
 {
   disabledModules = [ (toString ./define-enable.nix) ];

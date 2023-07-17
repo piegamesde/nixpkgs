@@ -1,10 +1,6 @@
 # This test runs podman as a backend for the Docker CLI.
 import ../make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
 
   let
     gen-ca = pkgs.writeScript "gen-ca" ''
@@ -47,10 +43,7 @@ import ../make-test-python.nix (
 
     nodes = {
       podman =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           virtualisation.podman.enable = true;
           virtualisation.podman.dockerSocket.enable = true;
@@ -75,9 +68,7 @@ import ../make-test-python.nix (
       ;
 
       client =
-        {
-          ...
-        }:
+        { ... }:
         {
           environment.systemPackages =
             [

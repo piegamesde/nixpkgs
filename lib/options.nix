@@ -1,7 +1,5 @@
 # Nixpkgs/NixOS option handling.
-{
-  lib,
-}:
+{ lib }:
 
 let
   inherit (lib)
@@ -246,9 +244,7 @@ rec {
   mergeOneOption = mergeUniqueOption { message = ""; };
 
   mergeUniqueOption =
-    {
-      message,
-    }:
+    { message }:
     loc: defs:
     if length defs == 1 then
       (head defs).value

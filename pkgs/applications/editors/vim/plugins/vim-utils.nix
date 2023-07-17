@@ -443,9 +443,7 @@ rec {
   vimGenDocHook =
     callPackage
       (
-        {
-          vim,
-        }:
+        { vim }:
         makeSetupHook
           {
             name = "vim-gen-doc-hook";
@@ -463,9 +461,7 @@ rec {
   vimCommandCheckHook =
     callPackage
       (
-        {
-          neovim-unwrapped,
-        }:
+        { neovim-unwrapped }:
         makeSetupHook
           {
             name = "vim-command-check-hook";
@@ -483,9 +479,7 @@ rec {
   neovimRequireCheckHook =
     callPackage
       (
-        {
-          neovim-unwrapped,
-        }:
+        { neovim-unwrapped }:
         makeSetupHook
           {
             name = "neovim-require-check-hook";

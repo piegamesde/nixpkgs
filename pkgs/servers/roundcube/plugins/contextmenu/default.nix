@@ -1,7 +1,4 @@
-{
-  roundcubePlugin,
-  fetchzip,
-}:
+{ roundcubePlugin, fetchzip }:
 
 roundcubePlugin rec {
   pname = "contextmenu";

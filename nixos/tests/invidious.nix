@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "invidious";
 
@@ -67,10 +64,7 @@ import ./make-test-python.nix (
     ;
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       ''
         def curl_assert_status_code(url, code, form=None):
             assert int(machine.succeed(f"curl -s -o /dev/null -w %{{http_code}} {'-F ' + form + ' ' if form else '''}{url}")) == code

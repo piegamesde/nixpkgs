@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   let
     testUser = "alice";
   in
@@ -13,10 +10,7 @@ import ./make-test-python.nix (
     };
 
     nodes.machine =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         imports = [
           ./common/user-account.nix

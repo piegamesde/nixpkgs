@@ -31,14 +31,7 @@
 #    DOCKER_CREDENTIALS path
 let
   pathParts =
-    (builtins.filter
-      (
-        {
-          prefix,
-          path,
-        }:
-        "DOCKER_CREDENTIALS" == prefix
-      )
+    (builtins.filter ({ prefix, path }: "DOCKER_CREDENTIALS" == prefix)
       builtins.nixPath
     );
 in

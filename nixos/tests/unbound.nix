@@ -16,20 +16,12 @@
    shouldn't be able to access the control socket at all. Not even root.
 */
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   let
     # common client configuration that we can just use for the multitude of
     # clients we are constructing
     common =
-      {
-        lib,
-        pkgs,
-        ...
-      }:
+      { lib, pkgs, ... }:
       {
         config = {
           environment.systemPackages = [ pkgs.knot-dns ];
@@ -106,11 +98,7 @@ import ./make-test-python.nix (
       # The resolver that knows that fowards (only) to the authoritative server
       # and listens on UDP/53, TCP/53 & TCP/853.
       resolver =
-        {
-          lib,
-          nodes,
-          ...
-        }:
+        { lib, nodes, ... }:
         {
           imports = [ common ];
           networking.interfaces.eth1.ipv4.addresses = lib.mkForce [ {
@@ -259,11 +247,7 @@ import ./make-test-python.nix (
       # plain node that only has network access and doesn't run any part of the
       # resolver software locally
       client =
-        {
-          lib,
-          nodes,
-          ...
-        }:
+        { lib, nodes, ... }:
         {
           imports = [ common ];
           networking.nameservers = [
@@ -285,10 +269,7 @@ import ./make-test-python.nix (
     };
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       ''
         import typing
 

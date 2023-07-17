@@ -1,6 +1,4 @@
-{
-  fetchMaven,
-}:
+{ fetchMaven }:
 
 {
   antLauncher_1_8_2 =

@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   let
     client_base = {
       containers.test1 = {
@@ -26,20 +22,10 @@ import ./make-test-python.nix (
     };
 
     nodes = {
-      client =
-        {
-          ...
-        }:
-        {
-          imports = [ client_base ];
-        }
-      ;
+      client = { ... }: { imports = [ client_base ]; };
 
       client_c1 =
-        {
-          lib,
-          ...
-        }:
+        { lib, ... }:
         {
           imports = [ client_base ];
 
@@ -51,10 +37,7 @@ import ./make-test-python.nix (
         }
       ;
       client_c2 =
-        {
-          lib,
-          ...
-        }:
+        { lib, ... }:
         {
           imports = [ client_base ];
 
@@ -67,10 +50,7 @@ import ./make-test-python.nix (
     };
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       let
         c1System = nodes.client_c1.config.system.build.toplevel;
         c2System = nodes.client_c2.config.system.build.toplevel;

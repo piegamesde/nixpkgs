@@ -1,17 +1,11 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "bcachefs";
     meta.maintainers = with pkgs.lib.maintainers; [ Madouura ];
 
     nodes.machine =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         virtualisation.emptyDiskImages = [ 4096 ];
         networking.hostId = "deadbeef";

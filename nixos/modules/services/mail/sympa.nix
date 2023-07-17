@@ -146,11 +146,7 @@ in
     domains = mkOption {
       type = attrsOf (
         submodule (
-          {
-            name,
-            config,
-            ...
-          }:
+          { name, config, ... }:
           {
             options = {
               webHost = mkOption {
@@ -367,11 +363,7 @@ in
     settingsFile = mkOption {
       type = attrsOf (
         submodule (
-          {
-            name,
-            config,
-            ...
-          }:
+          { name, config, ... }:
           {
             options = {
               enable = mkOption {

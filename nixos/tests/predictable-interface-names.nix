@@ -46,10 +46,7 @@ pkgs.lib.listToAttrs (
           meta = { };
 
           nodes.machine =
-            {
-              lib,
-              ...
-            }:
+            { lib, ... }:
             let
               script = ''
                 ip link

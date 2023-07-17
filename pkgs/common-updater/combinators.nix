@@ -1,6 +1,4 @@
-{
-  lib,
-}:
+{ lib }:
 
 /* This is a set of tools to manipulate update scripts as recognized by update.nix.
    It is still very experimental with **instability** almost guaranteed so any use
@@ -150,14 +148,7 @@ rec {
     let
       scripts = scriptsNormalized;
       hasCommitSupport =
-        lib.findSingle
-          (
-            {
-              supportedFeatures,
-              ...
-            }:
-            supportedFeatures == [ "commit" ]
-          )
+        lib.findSingle ({ supportedFeatures, ... }: supportedFeatures == [ "commit" ])
           null
           null
           scripts != null
@@ -165,20 +156,11 @@ rec {
       validateFeatures =
         if hasCommitSupport then
           (
-            {
-              supportedFeatures,
-              ...
-            }:
+            { supportedFeatures, ... }:
             supportedFeatures == [ "commit" ] || supportedFeatures == [ "silent" ]
           )
         else
-          (
-            {
-              supportedFeatures,
-              ...
-            }:
-            supportedFeatures == [ ]
-          )
+          ({ supportedFeatures, ... }: supportedFeatures == [ ])
       ;
     in
 
@@ -204,15 +186,7 @@ rec {
 
     {
       command = commandsToShellInvocation (
-        builtins.map
-          (
-            {
-              command,
-              ...
-            }:
-            command
-          )
-          scripts
+        builtins.map ({ command, ... }: command) scripts
       );
       supportedFeatures = lib.optionals hasCommitSupport [ "commit" ];
     }

@@ -1,10 +1,7 @@
 # This test start mongodb, runs a query using mongo shell
 
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   let
     testQuery = pkgs.writeScript "nixtest.js" ''
       db.greetings.insert({ "greeting": "hello" });
@@ -42,9 +39,7 @@ import ./make-test-python.nix (
 
     nodes = {
       node =
-        {
-          ...
-        }:
+        { ... }:
         {
           environment.systemPackages = with pkgs; [
             mongodb-4_2

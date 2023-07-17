@@ -5,11 +5,7 @@ let
 in
 
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   {
     name = "containers-macvlans";
     meta = {
@@ -19,10 +15,7 @@ import ./make-test-python.nix (
     nodes = {
 
       machine1 =
-        {
-          lib,
-          ...
-        }:
+        { lib, ... }:
         {
           virtualisation.vlans = [ 1 ];
 
@@ -70,14 +63,7 @@ import ./make-test-python.nix (
         }
       ;
 
-      machine2 =
-        {
-          ...
-        }:
-        {
-          virtualisation.vlans = [ 1 ];
-        }
-      ;
+      machine2 = { ... }: { virtualisation.vlans = [ 1 ]; };
     };
 
     testScript = ''

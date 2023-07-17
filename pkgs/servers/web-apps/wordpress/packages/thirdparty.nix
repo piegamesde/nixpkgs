@@ -1,6 +1,4 @@
-{
-  fetchzip,
-}:
+{ fetchzip }:
 {
   plugins.civicrm = fetchzip rec {
     name = "civicrm";

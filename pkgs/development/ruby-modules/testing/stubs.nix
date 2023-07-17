@@ -7,10 +7,7 @@
 }:
 let
   mkDerivation =
-    {
-      name,
-      ...
-    }@argSet:
+    { name, ... }@argSet:
     derivation {
       inherit name;
       text =

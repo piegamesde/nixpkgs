@@ -14,9 +14,7 @@ let
   # interface options
 
   interfaceOpts =
-    {
-      ...
-    }:
+    { ... }:
     {
       options = {
 

@@ -1,9 +1,5 @@
 import ../make-test-python.nix (
-  {
-    lib,
-    pkgs,
-    ...
-  }:
+  { lib, pkgs, ... }:
 
   let
     inherit (lib) mkMerge nameValuePair maintainers;
@@ -31,10 +27,7 @@ import ../make-test-python.nix (
       sqlite = { };
 
       socket =
-        {
-          config,
-          ...
-        }:
+        { config, ... }:
         {
           services.grafana.settings.server = {
             protocol = "socket";

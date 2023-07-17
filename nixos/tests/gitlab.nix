@@ -7,11 +7,7 @@
 # - Opening and closing issues.
 # - Downloading repository archives as tar.gz and tar.bz2
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
 
   with lib;
 
@@ -42,9 +38,7 @@ import ./make-test-python.nix (
 
     nodes = {
       gitlab =
-        {
-          ...
-        }:
+        { ... }:
         {
           imports = [ common/user-account.nix ];
 
@@ -112,10 +106,7 @@ import ./make-test-python.nix (
     };
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       let
         auth = pkgs.writeText "auth.json" (
           builtins.toJSON {

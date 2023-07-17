@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    lib,
-    ...
-  }:
+  { lib, ... }:
   {
     name = "herbstluftwm";
 
@@ -11,11 +8,7 @@ import ./make-test-python.nix (
     };
 
     nodes.machine =
-      {
-        pkgs,
-        lib,
-        ...
-      }:
+      { pkgs, lib, ... }:
       {
         imports = [
           ./common/x11.nix

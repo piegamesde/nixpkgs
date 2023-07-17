@@ -1,7 +1,4 @@
-{
-  callPackage,
-  configuredSrc,
-}:
+{ callPackage, configuredSrc }:
 
 {
 

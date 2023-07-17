@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   let
     inherit (import ./ssh-keys.nix pkgs) snakeOilPrivateKey snakeOilPublicKey;
   in
@@ -13,10 +9,7 @@ import ./make-test-python.nix (
 
     nodes = {
       client =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           virtualisation.vlans = [
             1
@@ -93,10 +86,7 @@ import ./make-test-python.nix (
       ;
 
       node1 =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           virtualisation.vlans = [ 1 ];
           networking = {
@@ -123,10 +113,7 @@ import ./make-test-python.nix (
       ;
 
       node2 =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           virtualisation.vlans = [ 2 ];
           networking = {
@@ -150,10 +137,7 @@ import ./make-test-python.nix (
       ;
 
       node3 =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           virtualisation.vlans = [ 2 ];
           networking = {

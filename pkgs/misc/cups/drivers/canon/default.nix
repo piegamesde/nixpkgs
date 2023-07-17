@@ -28,16 +28,7 @@
 }:
 
 let
-  i686_NIX_GCC =
-    pkgsi686Linux.callPackage
-      (
-        {
-          gcc,
-        }:
-        gcc
-      )
-      { }
-  ;
+  i686_NIX_GCC = pkgsi686Linux.callPackage ({ gcc }: gcc) { };
   ld32 =
     if stdenv.hostPlatform.system == "x86_64-linux" then
       "${stdenv.cc}/nix-support/dynamic-linker-m32"

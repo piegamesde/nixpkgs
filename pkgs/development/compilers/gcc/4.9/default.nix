@@ -117,10 +117,7 @@ let
     ++
       builtins.map
         (
-          {
-            commit,
-            sha256,
-          }:
+          { commit, sha256 }:
           fetchpatch {
             url = "https://github.com/hjl-tools/gcc/commit/${commit}.patch";
             inherit sha256;

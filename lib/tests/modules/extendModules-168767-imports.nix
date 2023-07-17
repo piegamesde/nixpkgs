@@ -1,8 +1,4 @@
-{
-  lib,
-  extendModules,
-  ...
-}:
+{ lib, extendModules, ... }:
 with lib; {
   imports = [
 
@@ -10,11 +6,7 @@ with lib; {
       options.sub = mkOption {
         default = { };
         type = types.submodule (
-          {
-            config,
-            extendModules,
-            ...
-          }:
+          { config, extendModules, ... }:
           {
             options.value = mkOption { type = types.int; };
 

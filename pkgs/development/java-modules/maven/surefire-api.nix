@@ -1,6 +1,4 @@
-{
-  fetchMaven,
-}:
+{ fetchMaven }:
 
 {
   mavenSurefireApi_2_12_4 =

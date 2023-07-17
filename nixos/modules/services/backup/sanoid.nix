@@ -170,11 +170,7 @@ in
     datasets = mkOption {
       type = types.attrsOf (
         types.submodule (
-          {
-            config,
-            options,
-            ...
-          }:
+          { config, options, ... }:
           {
             freeformType = datasetSettingsType;
             options = commonOptions // datasetOptions;

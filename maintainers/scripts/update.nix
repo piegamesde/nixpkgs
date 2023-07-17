@@ -58,10 +58,7 @@ let
           result = builtins.tryEval pathContent;
 
           somewhatUniqueRepresentant =
-            {
-              package,
-              attrPath,
-            }:
+            { package, attrPath }:
             {
               inherit (package) updateScript;
               # Some updaters use the same `updateScript` value for all packages.
@@ -229,10 +226,7 @@ let
 
   # Transform a matched package into an object for update.py.
   packageData =
-    {
-      package,
-      attrPath,
-    }:
+    { package, attrPath }:
     {
       name = package.name;
       pname = lib.getName package;

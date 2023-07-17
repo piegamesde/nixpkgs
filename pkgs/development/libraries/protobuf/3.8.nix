@@ -1,7 +1,4 @@
-{
-  callPackage,
-  ...
-}@args:
+{ callPackage, ... }@args:
 
 callPackage ./generic-v3.nix (
   {

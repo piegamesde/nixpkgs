@@ -1,6 +1,4 @@
-{
-  fetchMaven,
-}:
+{ fetchMaven }:
 
 {
   plexusContainerDefault_1_0_alpha9 =

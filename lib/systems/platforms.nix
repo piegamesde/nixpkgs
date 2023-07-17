@@ -5,9 +5,7 @@
 # file takes an already-valid platform and further elaborates it with
 # optional fields; currently these are: linux-kernel, gcc, and rustc.
 
-{
-  lib,
-}:
+{ lib }:
 rec {
   pc = {
     linux-kernel = {

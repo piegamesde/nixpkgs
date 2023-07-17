@@ -42,11 +42,7 @@ import ./make-test-python.nix (
 
     nodes = {
       client =
-        {
-          pkgs,
-          nodes,
-          ...
-        }:
+        { pkgs, nodes, ... }:
         lib.mkMerge [ {
           virtualisation.vlans = [ 1 ];
           networking.defaultGateway =
@@ -57,9 +53,7 @@ import ./make-test-python.nix (
       ;
 
       router =
-        {
-          ...
-        }:
+        { ... }:
         lib.mkMerge [
           routerBase
           { networking.nat.enable = true; }
@@ -67,9 +61,7 @@ import ./make-test-python.nix (
       ;
 
       routerDummyNoNat =
-        {
-          ...
-        }:
+        { ... }:
         lib.mkMerge [
           routerBase
           { networking.nat.enable = false; }
@@ -77,9 +69,7 @@ import ./make-test-python.nix (
       ;
 
       server =
-        {
-          ...
-        }:
+        { ... }:
         {
           virtualisation.vlans = [ 2 ];
           networking.firewall.enable = false;
@@ -92,10 +82,7 @@ import ./make-test-python.nix (
     };
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       let
         routerDummyNoNatClosure = nodes.routerDummyNoNat.config.system.build.toplevel;
         routerClosure = nodes.router.config.system.build.toplevel;

@@ -6,11 +6,7 @@
 # address.
 
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   {
     meta.maintainers = with lib.maintainers; [ hexa ];
 
@@ -18,11 +14,7 @@ import ./make-test-python.nix (
 
     nodes = {
       router =
-        {
-          config,
-          pkgs,
-          ...
-        }:
+        { config, pkgs, ... }:
         {
           virtualisation.vlans = [ 1 ];
 
@@ -101,11 +93,7 @@ import ./make-test-python.nix (
       ;
 
       nameserver =
-        {
-          config,
-          pkgs,
-          ...
-        }:
+        { config, pkgs, ... }:
         {
           virtualisation.vlans = [ 1 ];
 
@@ -180,11 +168,7 @@ import ./make-test-python.nix (
       ;
 
       client =
-        {
-          config,
-          pkgs,
-          ...
-        }:
+        { config, pkgs, ... }:
         {
           virtualisation.vlans = [ 1 ];
           systemd.services.systemd-networkd.environment.SYSTEMD_LOG_LEVEL = "debug";
@@ -198,9 +182,7 @@ import ./make-test-python.nix (
       ;
     };
     testScript =
-      {
-        ...
-      }:
+      { ... }:
       ''
         start_all()
         router.wait_for_unit("kea-dhcp4-server.service")

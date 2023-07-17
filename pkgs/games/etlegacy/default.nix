@@ -29,10 +29,7 @@ let
   pkgname = "etlegacy";
   mirror = "https://mirror.etlegacy.com";
   fetchAsset =
-    {
-      asset,
-      sha256,
-    }:
+    { asset, sha256 }:
     fetchurl {
       url = mirror + "/etmain/" + asset;
       inherit sha256;

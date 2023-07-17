@@ -44,14 +44,7 @@ let
     filter (i: cfg.interfaces ? ${i}) slaves
   );
 
-  rstpBridges = flip filterAttrs cfg.bridges (
-    _:
-    {
-      rstp,
-      ...
-    }:
-    rstp
-  );
+  rstpBridges = flip filterAttrs cfg.bridges (_: { rstp, ... }: rstp);
 
   needsMstpd = rstpBridges != { };
 
@@ -178,9 +171,7 @@ let
   gatewayCoerce = address: { inherit address; };
 
   gatewayOpts =
-    {
-      ...
-    }:
+    { ... }:
     {
 
       options = {
@@ -208,10 +199,7 @@ let
   ;
 
   interfaceOpts =
-    {
-      name,
-      ...
-    }:
+    { name, ... }:
     {
 
       options = {
@@ -493,10 +481,7 @@ let
   ;
 
   vswitchInterfaceOpts =
-    {
-      name,
-      ...
-    }:
+    { name, ... }:
     {
 
       options = {
@@ -544,14 +529,7 @@ let
   };
   tempaddrDoc = concatStringsSep "\n" (
     mapAttrsToList
-      (
-        name:
-        {
-          description,
-          ...
-        }:
-        ''- `"${name}"` to ${description};''
-      )
+      (name: { description, ... }: ''- `"${name}"` to ${description};'')
       tempaddrValues
   );
 

@@ -1,7 +1,4 @@
-{
-  fetchFromGitHub,
-  lib,
-}:
+{ fetchFromGitHub, lib }:
 
 fetchFromGitHub rec {
   pname = "5etools";

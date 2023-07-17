@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "plotinus";
     meta = {
@@ -10,10 +7,7 @@ import ./make-test-python.nix (
     };
 
     nodes.machine =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
 
       {
         imports = [ ./common/x11.nix ];

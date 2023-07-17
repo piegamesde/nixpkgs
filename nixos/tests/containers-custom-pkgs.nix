@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   let
 
     customPkgs = pkgs.appendOverlays [
@@ -22,10 +18,7 @@ import ./make-test-python.nix (
     };
 
     nodes.machine =
-      {
-        config,
-        ...
-      }:
+      { config, ... }:
       {
         assertions =
           let
@@ -41,11 +34,7 @@ import ./make-test-python.nix (
         containers.test = {
           autoStart = true;
           config =
-            {
-              pkgs,
-              config,
-              ...
-            }:
+            { pkgs, config, ... }:
             {
               nixpkgs.pkgs = customPkgs;
               system.extraDependencies = [ pkgs.hello ];

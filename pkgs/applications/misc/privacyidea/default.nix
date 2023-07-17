@@ -10,14 +10,7 @@
 
 let
   dropDevOutput =
-    {
-      outputs,
-      ...
-    }:
-    {
-      outputs = lib.filter (x: x != "doc") outputs;
-    }
-  ;
+    { outputs, ... }: { outputs = lib.filter (x: x != "doc") outputs; };
 
   python3' = python310.override {
     packageOverrides = self: super: {

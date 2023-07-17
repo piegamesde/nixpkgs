@@ -1,6 +1,4 @@
-{
-  callPackage,
-}:
+{ callPackage }:
 
 {
   ut2004-demo = callPackage ./demo.nix { };

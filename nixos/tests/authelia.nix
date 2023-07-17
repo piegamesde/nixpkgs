@@ -1,9 +1,6 @@
 # Test Authelia as an auth server for Traefik as a reverse proxy of a local web service
 import ./make-test-python.nix (
-  {
-    lib,
-    ...
-  }:
+  { lib, ... }:
   {
     name = "authelia";
     meta.maintainers = with lib.maintainers; [ jk ];

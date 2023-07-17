@@ -1,6 +1,4 @@
-{
-  fetchMaven,
-}:
+{ fetchMaven }:
 
 {
   mavenModel_2_0_1 =

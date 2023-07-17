@@ -1,8 +1,5 @@
 import ../make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   let
     homeserverUrl = "http://homeserver:8008";
 
@@ -17,10 +14,7 @@ import ../make-test-python.nix (
 
     nodes = {
       homeserver =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           services.dendrite = {
             enable = true;
@@ -38,10 +32,7 @@ import ../make-test-python.nix (
       ;
 
       client =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           environment.systemPackages = [
             (pkgs.writers.writePython3Bin "do_test"

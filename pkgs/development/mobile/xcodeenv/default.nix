@@ -1,6 +1,4 @@
-{
-  callPackage,
-}:
+{ callPackage }:
 
 rec {
   composeXcodeWrapper = callPackage ./compose-xcodewrapper.nix { };

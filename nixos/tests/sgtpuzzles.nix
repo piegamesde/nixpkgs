@@ -1,16 +1,11 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "sgtpuzzles";
     meta = with pkgs.lib.maintainers; { maintainers = [ tomfitzhenry ]; };
 
     nodes.machine =
-      {
-        ...
-      }:
+      { ... }:
 
       {
         imports = [ ./common/x11.nix ];
@@ -23,10 +18,7 @@ import ./make-test-python.nix (
     enableOCR = true;
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       ''
         start_all()
         machine.wait_for_x()

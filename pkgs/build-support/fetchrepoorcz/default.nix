@@ -1,6 +1,4 @@
-{
-  fetchzip,
-}:
+{ fetchzip }:
 
 # gitweb example, snapshot support is optional in gitweb
 {

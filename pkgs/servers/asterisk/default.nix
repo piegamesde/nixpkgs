@@ -215,10 +215,7 @@ let
     lib.mapAttrs
       (
         _:
-        {
-          version,
-          sha256,
-        }:
+        { version, sha256 }:
         let
           pjsip = pjproject_2_13;
         in

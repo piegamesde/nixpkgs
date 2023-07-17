@@ -1,18 +1,11 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "dnsdist";
     meta = with pkgs.lib; { maintainers = with maintainers; [ jojosch ]; };
 
     nodes.machine =
-      {
-        pkgs,
-        lib,
-        ...
-      }:
+      { pkgs, lib, ... }:
       {
         services.bind = {
           enable = true;

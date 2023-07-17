@@ -14,11 +14,7 @@ let
   parentConfig = config;
 
   pamOpts =
-    {
-      config,
-      name,
-      ...
-    }:
+    { config, name, ... }:
     let
       cfg = config;
     in
@@ -869,9 +865,7 @@ let
     with lib.types;
     listOf (
       submodule (
-        {
-          ...
-        }:
+        { ... }:
         {
           options = {
             domain = mkOption {

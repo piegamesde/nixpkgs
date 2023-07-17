@@ -311,10 +311,7 @@ let
   kernelVersion = config.boot.kernelPackages.kernel.version;
 
   bindMountOpts =
-    {
-      name,
-      ...
-    }:
+    { name, ... }:
     {
 
       options = {
@@ -346,9 +343,7 @@ let
   ;
 
   allowedDeviceOpts =
-    {
-      ...
-    }:
+    { ... }:
     {
       options = {
         node = mkOption {
@@ -539,10 +534,7 @@ in
                       modules =
                         let
                           extraConfig =
-                            {
-                              options,
-                              ...
-                            }:
+                            { options, ... }:
                             {
                               _file = "module at ${__curPos.file}:${toString __curPos.line}";
                               config = {

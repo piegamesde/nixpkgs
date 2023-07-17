@@ -5,10 +5,7 @@ args@{
 }:
 
 (import ../make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   let
     adminuser = "root";
     adminpass = "notproduction";
@@ -37,10 +34,7 @@ args@{
       };
     };
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       let
         withRcloneEnv =
           host:

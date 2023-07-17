@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
 
   let
     fenicsScript = pkgs.writeScript "poisson.py" ''
@@ -38,10 +35,7 @@ import ./make-test-python.nix (
 
     nodes = {
       fenicsnode =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           environment.systemPackages = with pkgs; [
             gcc
@@ -51,10 +45,7 @@ import ./make-test-python.nix (
       ;
     };
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       ''
         start_all()
         fenicsnode.succeed("${fenicsScript}")

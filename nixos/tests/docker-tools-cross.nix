@@ -3,10 +3,7 @@
 # can run the majority of the test suite without the extra setup.
 
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   let
 
     remoteSystem =
@@ -51,9 +48,7 @@ import ./make-test-python.nix (
 
     nodes = {
       docker =
-        {
-          ...
-        }:
+        { ... }:
         {
           virtualisation = {
             diskSize = 2048;

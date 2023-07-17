@@ -1,7 +1,4 @@
-{
-  lib,
-  writeScript,
-}:
+{ lib, writeScript }:
 
 {
   name ? "",

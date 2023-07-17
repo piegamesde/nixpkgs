@@ -24,9 +24,7 @@ in
       servers = mkOption {
         type = types.attrsOf (
           types.submodule (
-            {
-              ...
-            }:
+            { ... }:
             {
               options = {
                 enable = mkEnableOption (mdDoc "Coqui TTS server");

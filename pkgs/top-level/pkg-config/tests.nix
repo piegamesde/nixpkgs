@@ -1,10 +1,6 @@
 # cd nixpkgs
 # nix-build -A tests.pkg-config
-{
-  lib,
-  stdenv,
-  ...
-}:
+{ lib, stdenv, ... }:
 
 let
   # defaultPkgConfigPackages test needs a Nixpkgs with allowUnsupportedPlatform

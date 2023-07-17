@@ -1,7 +1,4 @@
-{
-  pkgs,
-  libsForQt5,
-}:
+{ pkgs, libsForQt5 }:
 
 let
   packages =

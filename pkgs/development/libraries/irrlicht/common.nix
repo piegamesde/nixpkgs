@@ -1,6 +1,4 @@
-{
-  fetchzip,
-}:
+{ fetchzip }:
 
 rec {
   pname = "irrlicht";

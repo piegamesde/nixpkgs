@@ -1,7 +1,4 @@
-{
-  callPackage,
-  fetchurl,
-}:
+{ callPackage, fetchurl }:
 
 let
   mkBitscope = callPackage (import ./common.nix) { };

@@ -1,7 +1,4 @@
-{
-  dhallPackages,
-  dhallPackageToNix,
-}:
+{ dhallPackages, dhallPackageToNix }:
 
 # `dhallDirectoryToNix is a utility function to take a directory of Dhall files
 # and read them in as a Nix expression.

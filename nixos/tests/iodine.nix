@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   let
     domain = "whatever.example.com";
     password = "false;foo;exit;withspecialcharacters";
@@ -11,9 +8,7 @@ import ./make-test-python.nix (
     name = "iodine";
     nodes = {
       server =
-        {
-          ...
-        }:
+        { ... }:
 
         {
           networking.firewall = {
@@ -41,9 +36,7 @@ import ./make-test-python.nix (
       ;
 
       client =
-        {
-          ...
-        }:
+        { ... }:
         {
           services.iodine.clients.testClient = {
             # test that ProtectHome is "read-only"

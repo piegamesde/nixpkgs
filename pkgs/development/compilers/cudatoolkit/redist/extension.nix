@@ -23,10 +23,7 @@ let
 
   # Function that builds all cudatoolkit redist packages given a cuda version and manifest file
   buildCudaToolkitRedistPackages =
-    {
-      version,
-      manifest,
-    }:
+    { version, manifest }:
     let
       attrs = lib.filterAttrs (key: value: key != "release_date") (
         lib.importJSON manifest

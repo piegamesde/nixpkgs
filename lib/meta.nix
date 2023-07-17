@@ -2,9 +2,7 @@
    name attribute.
 */
 
-{
-  lib,
-}:
+{ lib }:
 
 rec {
 

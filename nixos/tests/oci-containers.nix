@@ -28,10 +28,7 @@ let
 
       nodes = {
         ${backend} =
-          {
-            pkgs,
-            ...
-          }:
+          { pkgs, ... }:
           {
             virtualisation.oci-containers = {
               inherit backend;

@@ -3,10 +3,7 @@ import ./make-test-python.nix {
 
   nodes = {
     server =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         imports = [ common/user-account.nix ];
         services.nginx = {

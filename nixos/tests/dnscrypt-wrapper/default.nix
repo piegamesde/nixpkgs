@@ -1,18 +1,12 @@
 import ../make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "dnscrypt-wrapper";
     meta = with pkgs.lib.maintainers; { maintainers = [ rnhmjoj ]; };
 
     nodes = {
       server =
-        {
-          lib,
-          ...
-        }:
+        { lib, ... }:
         {
           services.dnscrypt-wrapper = with builtins; {
             enable = true;
@@ -41,10 +35,7 @@ import ../make-test-python.nix (
       ;
 
       client =
-        {
-          lib,
-          ...
-        }:
+        { lib, ... }:
         {
           services.dnscrypt-proxy2.enable = true;
           services.dnscrypt-proxy2.upstreamDefaults = false;

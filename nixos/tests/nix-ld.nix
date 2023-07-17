@@ -1,16 +1,9 @@
 import ./make-test-python.nix (
-  {
-    lib,
-    pkgs,
-    ...
-  }:
+  { lib, pkgs, ... }:
   {
     name = "nix-ld";
     nodes.machine =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         programs.nix-ld.enable = true;
         environment.systemPackages = [

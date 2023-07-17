@@ -1,18 +1,11 @@
-{
-  pkgs,
-  lib,
-  ...
-}:
+{ pkgs, lib, ... }:
 {
   name = "stargazer";
   meta = with lib.maintainers; { maintainers = [ gaykitty ]; };
 
   nodes = {
     geminiserver =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         services.stargazer = {
           enable = true;
@@ -30,10 +23,7 @@
   };
 
   testScript =
-    {
-      nodes,
-      ...
-    }:
+    { nodes, ... }:
     ''
       geminiserver.wait_for_unit("stargazer")
       geminiserver.wait_for_open_port(1965)

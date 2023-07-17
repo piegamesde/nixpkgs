@@ -15,10 +15,7 @@
 # for discussion of other alternatives).
 
 import ../../../../nixos/tests/make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "usbrelayd";
 

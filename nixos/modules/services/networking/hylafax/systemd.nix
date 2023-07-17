@@ -35,19 +35,11 @@ let
   modemConfigPath =
     let
       mkModemConfigFile =
-        {
-          config,
-          name,
-          ...
-        }:
+        { config, name, ... }:
         mkConfigFile ".${name}" (cfg.commonModemConfig // config)
       ;
       mkLine =
-        {
-          name,
-          type,
-          ...
-        }@modem:
+        { name, type, ... }@modem:
         ''
           # check if modem config file exists:
           test -f "${pkgs.hylafaxplus}/spool/config/${type}"
@@ -169,13 +161,7 @@ let
     documentation = [ "man:faxq(8)" ];
     requires = [ "hylafax-spool.service" ];
     after = [ "hylafax-spool.service" ];
-    wants = mapModems (
-      {
-        name,
-        ...
-      }:
-      "hylafax-faxgetty@${name}.service"
-    );
+    wants = mapModems ({ name, ... }: "hylafax-faxgetty@${name}.service");
     wantedBy = mkIf cfg.autostart [ "multi-user.target" ];
     serviceConfig.Type = "forking";
     serviceConfig.ExecStart = ''
@@ -252,10 +238,7 @@ let
   };
 
   mkFaxgettyService =
-    {
-      name,
-      ...
-    }:
+    { name, ... }:
     lib.nameValuePair "hylafax-faxgetty@${name}" rec {
       description = "HylaFAX faxgetty for %I";
       documentation = [ "man:faxgetty(8)" ];

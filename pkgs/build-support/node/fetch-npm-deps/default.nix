@@ -47,10 +47,7 @@
     passthru.tests =
       let
         makeTestSrc =
-          {
-            name,
-            src,
-          }:
+          { name, src }:
           stdenvNoCC.mkDerivation {
             name = "${name}-src";
 

@@ -8,10 +8,7 @@
 let
   phpWithExts =
     (php.withExtensions (
-      {
-        all,
-        ...
-      }:
+      { all, ... }:
       with all; [
         curl
         filter

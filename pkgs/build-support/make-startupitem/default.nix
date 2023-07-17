@@ -1,10 +1,7 @@
 # given a pakcage with a $name.desktop file, makes a copy
 # as autostart item.
 
-{
-  stdenv,
-  lib,
-}:
+{ stdenv, lib }:
 {
   name, # name of the desktop file (without .desktop)
   package, # package where the desktop file resides in

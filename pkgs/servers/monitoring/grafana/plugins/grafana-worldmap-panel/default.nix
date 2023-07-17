@@ -1,7 +1,4 @@
-{
-  grafanaPlugin,
-  lib,
-}:
+{ grafanaPlugin, lib }:
 
 grafanaPlugin rec {
   pname = "grafana-worldmap-panel";

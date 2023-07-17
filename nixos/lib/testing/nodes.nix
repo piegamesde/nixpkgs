@@ -30,10 +30,7 @@ let
         _module.args.nodes = config.nodesCompat;
       }
       (
-        {
-          config,
-          ...
-        }:
+        { config, ... }:
         {
           virtualisation.qemu.package = testModuleArgs.config.qemu.package;
 

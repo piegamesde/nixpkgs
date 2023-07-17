@@ -1,6 +1,4 @@
-{
-  fetchMaven,
-}:
+{ fetchMaven }:
 
 {
   mavenEnforcerApi_1_3_1 =

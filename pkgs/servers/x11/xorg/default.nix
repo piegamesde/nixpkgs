@@ -1,8 +1,5 @@
 # THIS IS A GENERATED FILE.  DO NOT EDIT!
-{
-  lib,
-  pixman,
-}:
+{ lib, pixman }:
 
 self:
 with self; {

@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   {
     name = "mod_perl";
 
@@ -59,9 +55,7 @@ import ./make-test-python.nix (
       }
     ;
     testScript =
-      {
-        ...
-      }:
+      { ... }:
       ''
         machine.wait_for_unit("httpd.service")
         response = machine.succeed("curl -fvvv -s http://127.0.0.1:80/modperl")

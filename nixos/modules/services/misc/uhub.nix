@@ -114,10 +114,7 @@ in
                   lib.strings.concatStringsSep "\n" (
                     map
                       (
-                        {
-                          plugin,
-                          settings,
-                        }:
+                        { plugin, settings }:
                         ''
                           plugin ${plugin} "${
                             toString (lib.attrsets.mapAttrsToList (key: value: "${key}=${value}") settings)

@@ -392,11 +392,7 @@ let
       name = "virtualbox-${name}";
 
       nodes.machine =
-        {
-          lib,
-          config,
-          ...
-        }:
+        { lib, config, ... }:
         {
           imports =
             let

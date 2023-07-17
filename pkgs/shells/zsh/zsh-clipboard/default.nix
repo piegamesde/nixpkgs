@@ -1,7 +1,4 @@
-{
-  stdenv,
-  lib,
-}:
+{ stdenv, lib }:
 
 stdenv.mkDerivation rec {
   pname = "zsh-clipboard";

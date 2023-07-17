@@ -46,11 +46,7 @@ in
     meta.maintainers = with pkgs.lib.maintainers; [ lukegb ];
 
     nodes.machine =
-      {
-        pkgs,
-        lib,
-        ...
-      }:
+      { pkgs, lib, ... }:
       {
         imports = [ common ];
         specialisation.something.configuration = { };
@@ -76,11 +72,7 @@ in
     meta.maintainers = with pkgs.lib.maintainers; [ danielfullmer ];
 
     nodes.machine =
-      {
-        pkgs,
-        lib,
-        ...
-      }:
+      { pkgs, lib, ... }:
       {
         imports = [ common ];
         boot.loader.efi.canTouchEfiVariables = mkForce false;
@@ -131,11 +123,7 @@ in
     meta.maintainers = with pkgs.lib.maintainers; [ Enzime ];
 
     nodes.machine =
-      {
-        pkgs,
-        lib,
-        ...
-      }:
+      { pkgs, lib, ... }:
       {
         imports = [ common ];
         boot.loader.systemd-boot.memtest86.enable = true;
@@ -155,11 +143,7 @@ in
     meta.maintainers = with pkgs.lib.maintainers; [ Enzime ];
 
     nodes.machine =
-      {
-        pkgs,
-        lib,
-        ...
-      }:
+      { pkgs, lib, ... }:
       {
         imports = [ common ];
         boot.loader.systemd-boot.netbootxyz.enable = true;
@@ -177,11 +161,7 @@ in
     meta.maintainers = with pkgs.lib.maintainers; [ Enzime ];
 
     nodes.machine =
-      {
-        pkgs,
-        lib,
-        ...
-      }:
+      { pkgs, lib, ... }:
       {
         imports = [ common ];
         boot.loader.systemd-boot.memtest86.enable = true;
@@ -203,11 +183,7 @@ in
     meta.maintainers = with pkgs.lib.maintainers; [ Enzime ];
 
     nodes.machine =
-      {
-        pkgs,
-        lib,
-        ...
-      }:
+      { pkgs, lib, ... }:
       {
         imports = [ common ];
         boot.loader.systemd-boot.extraEntries = {
@@ -229,11 +205,7 @@ in
     meta.maintainers = with pkgs.lib.maintainers; [ Enzime ];
 
     nodes.machine =
-      {
-        pkgs,
-        lib,
-        ...
-      }:
+      { pkgs, lib, ... }:
       {
         imports = [ common ];
         boot.loader.systemd-boot.extraFiles = {
@@ -256,10 +228,7 @@ in
       inherit common;
 
       machine =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           imports = [ common ];
           boot.loader.systemd-boot.extraFiles = {
@@ -269,10 +238,7 @@ in
       ;
 
       with_netbootxyz =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           imports = [ common ];
           boot.loader.systemd-boot.netbootxyz.enable = true;
@@ -281,10 +247,7 @@ in
     };
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       let
         originalSystem = nodes.machine.config.system.build.toplevel;
         baseSystem = nodes.common.config.system.build.toplevel;

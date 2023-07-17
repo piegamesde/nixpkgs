@@ -7,11 +7,7 @@ let
   frontendUrl = "https://${certs.domain}";
 
   keycloakTest = import ./make-test-python.nix (
-    {
-      pkgs,
-      databaseType,
-      ...
-    }:
+    { pkgs, databaseType, ... }:
     let
       initialAdminPassword = ''h4Iho"JFn't2>iQIR9'';
       adminPasswordFile = pkgs.writeText "admin-password" "${initialAdminPassword}";
@@ -22,10 +18,7 @@ let
 
       nodes = {
         keycloak =
-          {
-            config,
-            ...
-          }:
+          { config, ... }:
           {
             security.pki.certificateFiles = [ certs.ca.cert ];
 

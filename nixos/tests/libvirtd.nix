@@ -1,18 +1,12 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "libvirtd";
     meta.maintainers = with pkgs.lib.maintainers; [ fpletz ];
 
     nodes = {
       virthost =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           virtualisation = {
             cores = 2;

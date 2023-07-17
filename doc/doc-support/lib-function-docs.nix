@@ -32,10 +32,7 @@ stdenv.mkDerivation {
 
     ${lib.concatMapStrings
       (
-        {
-          name,
-          description,
-        }:
+        { name, description }:
         ''
           docgen ${name} ${lib.escapeShellArg description}
         ''

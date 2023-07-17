@@ -1,31 +1,15 @@
 # Test Traefik as a reverse proxy of a local web service
 # and a Docker container.
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "traefik";
     meta = with pkgs.lib.maintainers; { maintainers = [ joko ]; };
 
     nodes = {
-      client =
-        {
-          config,
-          pkgs,
-          ...
-        }:
-        {
-          environment.systemPackages = [ pkgs.curl ];
-        }
-      ;
+      client = { config, pkgs, ... }: { environment.systemPackages = [ pkgs.curl ]; };
       traefik =
-        {
-          config,
-          pkgs,
-          ...
-        }:
+        { config, pkgs, ... }:
         {
           virtualisation.oci-containers = {
             backend = "docker";

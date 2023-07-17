@@ -67,10 +67,7 @@ let
     autoAddOpenGLRunpathHook =
       final.callPackage
         (
-          {
-            makeSetupHook,
-            addOpenGLRunpath,
-          }:
+          { makeSetupHook, addOpenGLRunpath }:
           makeSetupHook
             {
               name = "auto-add-opengl-runpath-hook";

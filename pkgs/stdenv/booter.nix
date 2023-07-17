@@ -25,10 +25,7 @@
 # stages are kept around with a `stdenv.__bootPackges` attribute referring the
 # previous stage. It is idiomatic that attributes prefixed with `__` come with
 # special restrictions and should not be used under normal circumstances.
-{
-  lib,
-  allPackages,
-}:
+{ lib, allPackages }:
 
 # Type:
 #   [ pkgset -> (args to stage/default.nix) or ({ __raw = true; } // pkgs) ]

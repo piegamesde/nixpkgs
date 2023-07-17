@@ -1,8 +1,5 @@
 import ../make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   let
     username = "custom_admin_username";
     # This will be used both for redis and postgresql
@@ -20,19 +17,10 @@ import ../make-test-python.nix (
 
     nodes = {
       # The only thing the client needs to do is download a file.
-      client =
-        {
-          ...
-        }:
-        { }
-      ;
+      client = { ... }: { };
 
       nextcloud =
-        {
-          config,
-          pkgs,
-          ...
-        }:
+        { config, pkgs, ... }:
         {
           networking.firewall.allowedTCPPorts = [ 80 ];
 

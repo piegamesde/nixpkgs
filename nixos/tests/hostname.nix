@@ -30,10 +30,7 @@ let
       };
 
       nodes.machine =
-        {
-          lib,
-          ...
-        }:
+        { lib, ... }:
         {
           networking.hostName = hostName;
           networking.domain = domain;
@@ -43,10 +40,7 @@ let
       ;
 
       testScript =
-        {
-          nodes,
-          ...
-        }:
+        { nodes, ... }:
         ''
           start_all()
 

@@ -1,8 +1,5 @@
 import ../make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "kerberos_server-mit";
     nodes.machine =

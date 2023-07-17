@@ -36,10 +36,7 @@ let
   nixpkgsLib = pkgs.lib;
 
   flattenedLibSubset =
-    {
-      subsetname,
-      functions,
-    }:
+    { subsetname, functions }:
     builtins.map
       (fn: {
         name = "lib.${subsetname}.${fn.name}";
@@ -66,10 +63,7 @@ let
   );
 
   fnLocationRelative =
-    {
-      name,
-      value,
-    }:
+    { name, value }:
     {
       inherit name;
       value = value // {
@@ -85,10 +79,7 @@ let
   xmlstrings =
     (nixpkgsLib.strings.concatMapStrings
       (
-        {
-          name,
-          value,
-        }:
+        { name, value }:
         ''
           <section><title>${name}</title>
             <para xml:id="${sanitizeId name}">

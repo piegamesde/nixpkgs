@@ -38,9 +38,7 @@ makeTest {
   };
 
   nodes.machine2 =
-    {
-      ...
-    }:
+    { ... }:
     {
       virtualisation.qemu.options = [
         "-cdrom"

@@ -1,9 +1,6 @@
 let
   common =
-    {
-      pkgs,
-      ...
-    }:
+    { pkgs, ... }:
     {
       networking.firewall.enable = false;
       networking.useDHCP = false;
@@ -13,21 +10,14 @@ let
   ;
 in
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "nsd";
     meta = with pkgs.lib.maintainers; { maintainers = [ aszlig ]; };
 
     nodes = {
       clientv4 =
-        {
-          lib,
-          nodes,
-          ...
-        }:
+        { lib, nodes, ... }:
         {
           imports = [ common ];
           networking.nameservers = lib.mkForce [
@@ -41,11 +31,7 @@ import ./make-test-python.nix (
       ;
 
       clientv6 =
-        {
-          lib,
-          nodes,
-          ...
-        }:
+        { lib, nodes, ... }:
         {
           imports = [ common ];
           networking.nameservers = lib.mkForce [
@@ -59,10 +45,7 @@ import ./make-test-python.nix (
       ;
 
       server =
-        {
-          lib,
-          ...
-        }:
+        { lib, ... }:
         {
           imports = [ common ];
           networking.interfaces.eth1.ipv4.addresses = [ {

@@ -41,10 +41,7 @@ appimageTools.wrapAppImage {
 
   multiPkgs = null; # no 32bit needed
   extraPkgs =
-    {
-      pkgs,
-      ...
-    }@args:
+    { pkgs, ... }@args:
     [ pkgs.hidapi ] ++ appimageTools.defaultFhsEnvArgs.multiPkgs args
   ;
 

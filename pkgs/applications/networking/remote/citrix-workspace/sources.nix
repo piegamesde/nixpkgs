@@ -1,7 +1,4 @@
-{
-  stdenv,
-  lib,
-}:
+{ stdenv, lib }:
 
 let
   mkVersionInfo =

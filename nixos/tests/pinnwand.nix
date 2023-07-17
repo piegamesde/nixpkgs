@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   let
     port = 8000;
     baseUrl = "http://server:${toString port}";
@@ -13,10 +10,7 @@ import ./make-test-python.nix (
 
     nodes = {
       server =
-        {
-          config,
-          ...
-        }:
+        { config, ... }:
         {
           networking.firewall.allowedTCPPorts = [ port ];
 
@@ -28,10 +22,7 @@ import ./make-test-python.nix (
       ;
 
       client =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           environment.systemPackages = [
             pkgs.steck

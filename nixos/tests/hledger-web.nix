@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   let
     journal = pkgs.writeText "test.journal" ''
       2010/01/10 Loan
@@ -20,11 +16,7 @@ import ./make-test-python.nix (
 
     nodes = rec {
       server =
-        {
-          config,
-          pkgs,
-          ...
-        }:
+        { config, pkgs, ... }:
         {
           services.hledger-web = {
             host = "127.0.0.1";
@@ -39,9 +31,7 @@ import ./make-test-python.nix (
         }
       ;
       apiserver =
-        {
-          ...
-        }:
+        { ... }:
         {
           imports = [ server ];
           services.hledger-web.serveApi = true;

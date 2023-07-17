@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   let
     common = {
       networking.firewall.enable = false;
@@ -50,10 +46,7 @@ import ./make-test-python.nix (
 
     nodes = {
       primary =
-        {
-          lib,
-          ...
-        }:
+        { lib, ... }:
         {
           imports = [ common ];
 
@@ -115,10 +108,7 @@ import ./make-test-python.nix (
       ;
 
       secondary =
-        {
-          lib,
-          ...
-        }:
+        { lib, ... }:
         {
           imports = [ common ];
           networking.interfaces.eth1 = {
@@ -172,11 +162,7 @@ import ./make-test-python.nix (
         }
       ;
       client =
-        {
-          lib,
-          nodes,
-          ...
-        }:
+        { lib, nodes, ... }:
         {
           imports = [ common ];
           networking.interfaces.eth1 = {
@@ -195,10 +181,7 @@ import ./make-test-python.nix (
     };
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       let
         primary4 =
           (lib.head nodes.primary.config.networking.interfaces.eth1.ipv4.addresses)

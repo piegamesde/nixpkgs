@@ -18,11 +18,7 @@ in
     meta = common_meta;
 
     nodes.machine =
-      {
-        config,
-        pkgs,
-        ...
-      }:
+      { config, pkgs, ... }:
       {
         services.gemstash = {
           enable = true;
@@ -44,11 +40,7 @@ in
     meta = common_meta;
 
     nodes.machine =
-      {
-        config,
-        pkgs,
-        ...
-      }:
+      { config, pkgs, ... }:
       {
         services.gemstash = {
           enable = true;

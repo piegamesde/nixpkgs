@@ -1,17 +1,11 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "restart-by-activation-script";
     meta = with pkgs.lib.maintainers; { maintainers = [ das_j ]; };
 
     nodes.machine =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         imports = [ ../modules/profiles/minimal.nix ];
 

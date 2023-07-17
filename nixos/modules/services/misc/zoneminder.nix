@@ -310,10 +310,7 @@ in
         pools.zoneminder = {
           inherit user group;
           phpPackage = pkgs.php.withExtensions (
-            {
-              enabled,
-              all,
-            }:
+            { enabled, all }:
             enabled
             ++ [
               all.apcu

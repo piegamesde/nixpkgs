@@ -1,6 +1,4 @@
-{
-  lib,
-}:
+{ lib }:
 
 let
   # This is essentially the same thing as `lib.makeOverridable`, except storing

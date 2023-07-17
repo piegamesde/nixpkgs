@@ -1,6 +1,4 @@
-{
-  pycryptodome,
-}:
+{ pycryptodome }:
 
 (pycryptodome.overrideAttrs (
   oldAttrs: rec {

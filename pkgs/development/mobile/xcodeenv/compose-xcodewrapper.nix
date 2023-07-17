@@ -1,7 +1,4 @@
-{
-  stdenv,
-  lib,
-}:
+{ stdenv, lib }:
 {
   version ? "11.1",
   allowHigher ? false,

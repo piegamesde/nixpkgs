@@ -1,14 +1,9 @@
 import ./make-test-python.nix (
-  {
-    ...
-  }:
+  { ... }:
 
   let
     server =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         networking.firewall.allowedTCPPorts = [ 3334 ];
         boot.initrd.postDeviceCommands = ''
@@ -37,10 +32,7 @@ import ./make-test-python.nix (
     ;
 
     client =
-      {
-        lib,
-        ...
-      }:
+      { lib, ... }:
       {
         networking.firewall.enable = true;
 

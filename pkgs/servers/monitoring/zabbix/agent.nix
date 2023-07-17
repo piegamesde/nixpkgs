@@ -9,11 +9,7 @@
 }:
 
 import ./versions.nix (
-  {
-    version,
-    sha256,
-    ...
-  }:
+  { version, sha256, ... }:
   stdenv.mkDerivation {
     pname = "zabbix-agent";
     inherit version;

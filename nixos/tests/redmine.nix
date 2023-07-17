@@ -9,18 +9,11 @@ with pkgs.lib;
 
 let
   redmineTest =
-    {
-      name,
-      type,
-    }:
+    { name, type }:
     makeTest {
       name = "redmine-${name}";
       nodes.machine =
-        {
-          config,
-          pkgs,
-          ...
-        }:
+        { config, pkgs, ... }:
         {
           services.redmine = {
             enable = true;

@@ -283,9 +283,7 @@ with pkgs;
   ;
 
   ensureNewerSourcesHook =
-    {
-      year,
-    }:
+    { year }:
     makeSetupHook { name = "ensure-newer-sources-hook"; } (
       writeScript "ensure-newer-sources-hook.sh" ''
         postUnpackHooks+=(_ensureNewerSources)
@@ -1199,9 +1197,7 @@ with pkgs;
   fetchPypi = callPackage ../build-support/fetchpypi { };
 
   resolveMirrorURLs =
-    {
-      url,
-    }:
+    { url }:
     fetchurl {
       showURLs = true;
       inherit url;
@@ -2915,9 +2911,7 @@ with pkgs;
   };
 
   wrapRetroArch =
-    {
-      retroarch,
-    }:
+    { retroarch }:
     callPackage ../applications/emulators/retroarch/wrapper.nix {
       inherit retroarch;
     }
@@ -19996,10 +19990,7 @@ with pkgs;
   ccacheWrapper =
     makeOverridable
       (
-        {
-          extraConfig,
-          cc,
-        }:
+        { extraConfig, cc }:
         cc.override {
           cc = ccache.links {
             inherit extraConfig;
@@ -20016,10 +20007,7 @@ with pkgs;
   ccacheStdenv = lowPrio (
     makeOverridable
       (
-        {
-          stdenv,
-          ...
-        }@extraArgs:
+        { stdenv, ... }@extraArgs:
         overrideCC stdenv (
           buildPackages.ccacheWrapper.override (
             {
@@ -44299,10 +44287,7 @@ with pkgs;
         modules =
           [
             (
-              {
-                lib,
-                ...
-              }:
+              { lib, ... }:
               {
                 config.nixpkgs.pkgs = lib.mkDefault pkgs;
                 config.nixpkgs.localSystem = lib.mkDefault stdenv.hostPlatform;
@@ -44318,11 +44303,7 @@ with pkgs;
 
   # A NixOS/home-manager/arion/... module that sets the `pkgs` module argument.
   pkgsModule =
-    {
-      lib,
-      options,
-      ...
-    }:
+    { lib, options, ... }:
     {
       config =
         if options ? nixpkgs.pkgs then

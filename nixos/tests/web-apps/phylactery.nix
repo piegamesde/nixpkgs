@@ -1,16 +1,10 @@
 import ../make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   {
     name = "phylactery";
 
     nodes.machine =
-      {
-        ...
-      }:
+      { ... }:
       {
         services.phylactery = rec {
           enable = true;

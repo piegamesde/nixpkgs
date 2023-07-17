@@ -15,9 +15,7 @@ testing.makeTest {
   name = "initrd-secrets-changing";
 
   nodes.machine =
-    {
-      ...
-    }:
+    { ... }:
     {
       virtualisation.useBootLoader = true;
 

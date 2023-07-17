@@ -1,7 +1,5 @@
 import ../make-test-python.nix (
-  {
-    ...
-  }:
+  { ... }:
 
   let
     oathSnakeoilSecret = "cdd4083ef8ff1fa9178c6d46bfb1a3";
@@ -24,9 +22,7 @@ import ../make-test-python.nix (
     name = "pam-oath-login";
 
     nodes.machine =
-      {
-        ...
-      }:
+      { ... }:
       {
         security.pam.oath = {
           enable = true;

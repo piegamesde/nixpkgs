@@ -1,10 +1,7 @@
 # This test checks charliecloud image construction and run
 
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   let
 
     dockerfile = pkgs.writeText "Dockerfile" ''
@@ -20,9 +17,7 @@ import ./make-test-python.nix (
 
     nodes = {
       host =
-        {
-          ...
-        }:
+        { ... }:
         {
           environment.systemPackages = [ pkgs.charliecloud ];
           virtualisation.docker.enable = true;

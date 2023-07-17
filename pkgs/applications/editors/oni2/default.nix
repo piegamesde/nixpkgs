@@ -1,6 +1,4 @@
-{
-  callPackage,
-}:
+{ callPackage }:
 
 let
   mkOni2 = callPackage ./common.nix { };

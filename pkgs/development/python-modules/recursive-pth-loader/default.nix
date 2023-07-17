@@ -1,7 +1,4 @@
-{
-  stdenv,
-  python,
-}:
+{ stdenv, python }:
 
 stdenv.mkDerivation {
   pname = "python-recursive-pth-loader";

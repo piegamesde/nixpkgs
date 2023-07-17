@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   let
     initiatorName = "iqn.2020-08.org.linux-iscsi.initiatorhost:example";
     targetName = "iqn.2003-01.org.linux-iscsi.target.x8664:sn.acf8fd9c23af";
@@ -191,10 +187,7 @@ import ./make-test-python.nix (
     };
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       ''
         target.start()
         target.wait_for_unit("iscsi-target.service")

@@ -60,10 +60,7 @@ let
   };
 
   makeSource =
-    {
-      system,
-      phpMajor,
-    }:
+    { system, phpMajor }:
 
     let
       isLinux = builtins.match ".+-linux" system != null;

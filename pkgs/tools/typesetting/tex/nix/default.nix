@@ -64,18 +64,13 @@ rec {
   # \input{}), images (e.g. \includegraphics{}), bibliographies, and
   # so on.
   findLaTeXIncludes =
-    {
-      rootFile,
-    }:
+    { rootFile }:
 
     builtins.genericClosure {
       startSet = [ { key = rootFile; } ];
 
       operator =
-        {
-          key,
-          ...
-        }:
+        { key, ... }:
 
         let
 
@@ -128,19 +123,13 @@ rec {
   ;
 
   findLhs2TeXIncludes =
-    {
-      lib,
-      rootFile,
-    }:
+    { lib, rootFile }:
 
     builtins.genericClosure {
       startSet = [ { key = rootFile; } ];
 
       operator =
-        {
-          key,
-          ...
-        }:
+        { key, ... }:
 
         let
 
@@ -157,9 +146,7 @@ rec {
   ;
 
   dot2pdf =
-    {
-      dotGraph,
-    }:
+    { dotGraph }:
 
     pkgs.stdenv.mkDerivation {
       name = "pdf";
@@ -173,9 +160,7 @@ rec {
   ;
 
   dot2ps =
-    {
-      dotGraph,
-    }:
+    { dotGraph }:
 
     pkgs.stdenv.mkDerivation {
       name = "ps";
@@ -249,9 +234,7 @@ rec {
   # Convert a Postscript file to a PNG image, trimming it so that
   # there is no unnecessary surrounding whitespace.
   postscriptToPNG =
-    {
-      postscript,
-    }:
+    { postscript }:
 
     pkgs.stdenv.mkDerivation {
       name = "png";

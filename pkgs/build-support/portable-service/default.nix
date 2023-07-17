@@ -83,10 +83,7 @@ let
         )
         + (lib.concatMapStringsSep "\n"
           (
-            {
-              object,
-              symlink,
-            }:
+            { object, symlink }:
             ''
               mkdir -p $(dirname $out/${symlink});
               ln -s ${object} $out/${symlink};

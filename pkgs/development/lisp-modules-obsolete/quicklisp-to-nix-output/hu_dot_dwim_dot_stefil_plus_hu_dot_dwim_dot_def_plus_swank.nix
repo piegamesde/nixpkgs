@@ -1,8 +1,5 @@
 # Generated file.
-args@{
-  fetchurl,
-  ...
-}:
+args@{ fetchurl, ... }:
 rec {
   baseName = "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank";
   version = "hu.dwim.stefil-20200218-darcs";

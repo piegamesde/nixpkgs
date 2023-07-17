@@ -508,10 +508,7 @@ final: prev: {
   coxpcall =
     callPackage
       (
-        {
-          buildLuarocksPackage,
-          fetchgit,
-        }:
+        { buildLuarocksPackage, fetchgit }:
         buildLuarocksPackage {
           pname = "coxpcall";
           version = "1.17.0-1";
@@ -2259,10 +2256,7 @@ final: prev: {
   lua-resty-openssl =
     callPackage
       (
-        {
-          fetchgit,
-          buildLuarocksPackage,
-        }:
+        { fetchgit, buildLuarocksPackage }:
         buildLuarocksPackage {
           pname = "lua-resty-openssl";
           version = "0.8.17-1";
@@ -2409,10 +2403,7 @@ final: prev: {
   lua-term =
     callPackage
       (
-        {
-          fetchurl,
-          buildLuarocksPackage,
-        }:
+        { fetchurl, buildLuarocksPackage }:
         buildLuarocksPackage {
           pname = "lua-term";
           version = "0.7-1";
@@ -4174,10 +4165,7 @@ final: prev: {
   mpack =
     callPackage
       (
-        {
-          buildLuarocksPackage,
-          fetchurl,
-        }:
+        { buildLuarocksPackage, fetchurl }:
         buildLuarocksPackage {
           pname = "mpack";
           version = "1.0.9-0";

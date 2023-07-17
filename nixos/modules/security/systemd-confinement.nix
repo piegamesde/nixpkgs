@@ -15,11 +15,7 @@ in
   options.systemd.services = lib.mkOption {
     type = types.attrsOf (
       types.submodule (
-        {
-          name,
-          config,
-          ...
-        }:
+        { name, config, ... }:
         {
           options.confinement.enable = lib.mkOption {
             type = types.bool;

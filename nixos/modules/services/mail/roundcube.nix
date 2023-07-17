@@ -13,11 +13,7 @@ let
   localDB = cfg.database.host == "localhost";
   user = cfg.database.username;
   phpWithPspell = pkgs.php81.withExtensions (
-    {
-      enabled,
-      all,
-    }:
-    [ all.pspell ] ++ enabled
+    { enabled, all }: [ all.pspell ] ++ enabled
   );
 in
 {

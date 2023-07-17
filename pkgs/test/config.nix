@@ -1,7 +1,4 @@
-{
-  lib,
-  ...
-}:
+{ lib, ... }:
 lib.recurseIntoAttrs {
 
   # https://github.com/NixOS/nixpkgs/issues/175196

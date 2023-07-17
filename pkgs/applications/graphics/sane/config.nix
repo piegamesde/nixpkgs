@@ -1,7 +1,4 @@
-{
-  lib,
-  stdenv,
-}:
+{ lib, stdenv }:
 
 {
   paths,

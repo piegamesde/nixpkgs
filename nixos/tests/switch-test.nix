@@ -1,10 +1,7 @@
 # Test configuration switching.
 
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   let
 
     # Simple service that can either be socket-activated or that will
@@ -59,11 +56,7 @@ import ./make-test-python.nix (
 
     nodes = {
       machine =
-        {
-          pkgs,
-          lib,
-          ...
-        }:
+        { pkgs, lib, ... }:
         {
           environment.systemPackages = [ pkgs.socat ]; # for the socket activation stuff
           users.mutableUsers = false;
@@ -510,10 +503,7 @@ import ./make-test-python.nix (
     };
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       let
         originalSystem = nodes.machine.config.system.build.toplevel;
         otherSystem = nodes.other.config.system.build.toplevel;

@@ -1,17 +1,12 @@
 import ../make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "maddy-unencrypted";
     meta = with pkgs.lib.maintainers; { maintainers = [ onny ]; };
 
     nodes = {
       server =
-        {
-          ...
-        }:
+        { ... }:
         {
           services.maddy = {
             enable = true;
@@ -29,9 +24,7 @@ import ../make-test-python.nix (
       ;
 
       client =
-        {
-          ...
-        }:
+        { ... }:
         {
           environment.systemPackages = [
             (pkgs.writers.writePython3Bin "send-testmail" { } ''

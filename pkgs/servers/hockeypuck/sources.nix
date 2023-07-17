@@ -1,6 +1,4 @@
-{
-  fetchFromGitHub,
-}:
+{ fetchFromGitHub }:
 
 let
   pname = "hockeypuck";

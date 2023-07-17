@@ -5,11 +5,7 @@
 }:
 
 import ../make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   {
     inherit name;
     meta = {

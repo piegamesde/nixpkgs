@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    lib,
-    pkgs,
-    ...
-  }:
+  { lib, pkgs, ... }:
   let
     gpgKeyring =
       (pkgs.runCommand "gpg-keyring" { buildInputs = [ pkgs.gnupg ]; } ''
@@ -32,9 +28,7 @@ import ./make-test-python.nix (
     meta.maintainers = with lib.maintainers; [ etu ];
 
     nodes.machine =
-      {
-        ...
-      }:
+      { ... }:
       {
         # Used for test
         environment.systemPackages = [ pkgs.gnupg ];

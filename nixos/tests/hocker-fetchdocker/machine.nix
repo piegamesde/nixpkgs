@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}:
+{ pkgs, ... }:
 {
   nixpkgs.config.packageOverrides = pkgs': {
     hello-world-container = pkgs'.callPackage ./hello-world-container.nix { };

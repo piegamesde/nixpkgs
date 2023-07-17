@@ -17,10 +17,7 @@ let
     ps: [ ps.tomlkit ]
   );
   makeRemoveSpecialDependenciesHook =
-    {
-      fields,
-      kind,
-    }:
+    { fields, kind }:
     nonOverlayedPython.pkgs.callPackage
       (
         _:
@@ -72,10 +69,7 @@ in
   pipBuildHook =
     callPackage
       (
-        {
-          pip,
-          wheel,
-        }:
+        { pip, wheel }:
         makeSetupHook
           (
             {

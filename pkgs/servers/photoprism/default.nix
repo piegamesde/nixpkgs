@@ -29,10 +29,7 @@ let
   frontend = pkgs.callPackage ./frontend.nix { inherit src version; };
 
   fetchModel =
-    {
-      name,
-      sha256,
-    }:
+    { name, sha256 }:
     fetchzip {
       inherit sha256;
       url = "https://dl.photoprism.org/tensorflow/${name}.zip";

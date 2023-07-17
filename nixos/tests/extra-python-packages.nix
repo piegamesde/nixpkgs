@@ -1,7 +1,5 @@
 import ./make-test-python.nix (
-  {
-    ...
-  }:
+  { ... }:
   {
     name = "extra-python-packages";
 

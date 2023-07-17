@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    lib,
-    pkgs,
-    ...
-  }:
+  { lib, pkgs, ... }:
   let
     hosts = ''
       192.168.2.101 acme.test
@@ -15,10 +11,7 @@ import ./make-test-python.nix (
 
     nodes = {
       server =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           networking = {
             interfaces.eth1 = {
@@ -66,10 +59,7 @@ import ./make-test-python.nix (
       ;
 
       client =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           environment.systemPackages = [ pkgs.curlHTTP3 ];
           networking = {

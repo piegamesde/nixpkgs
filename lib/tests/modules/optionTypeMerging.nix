@@ -1,8 +1,4 @@
-{
-  config,
-  lib,
-  ...
-}:
+{ config, lib, ... }:
 {
 
   options.theType = lib.mkOption { type = lib.types.optionType; };

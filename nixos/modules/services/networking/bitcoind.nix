@@ -12,10 +12,7 @@ let
   eachBitcoind = config.services.bitcoind;
 
   rpcUserOpts =
-    {
-      name,
-      ...
-    }:
+    { name, ... }:
     {
       options = {
         name = mkOption {

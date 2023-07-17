@@ -1,15 +1,10 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "powerdns-recursor";
 
     nodes.server =
-      {
-        ...
-      }:
+      { ... }:
       {
         services.pdns-recursor.enable = true;
         services.pdns-recursor.exportHosts = true;

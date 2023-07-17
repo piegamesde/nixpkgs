@@ -1,7 +1,4 @@
-{
-  runCommand,
-  sfxr-qt,
-}:
+{ runCommand, sfxr-qt }:
 
 runCommand "sfxr-qt-test-export-square-wave" ''
   mkdir $out

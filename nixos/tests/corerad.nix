@@ -2,11 +2,7 @@ import ./make-test-python.nix ({
   name = "corerad";
   nodes = {
     router =
-      {
-        config,
-        pkgs,
-        ...
-      }:
+      { config, pkgs, ... }:
       {
         config = {
           # This machine simulates a router with IPv6 forwarding and a static IPv6 address.
@@ -47,11 +43,7 @@ import ./make-test-python.nix ({
       }
     ;
     client =
-      {
-        config,
-        pkgs,
-        ...
-      }:
+      { config, pkgs, ... }:
       {
         # Use IPv6 SLAAC from router advertisements, and install rdisc6 so we can
         # trigger one immediately.

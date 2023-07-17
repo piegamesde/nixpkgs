@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   {
     name = "containers-physical_interfaces";
     meta = {
@@ -12,9 +8,7 @@ import ./make-test-python.nix (
 
     nodes = {
       server =
-        {
-          ...
-        }:
+        { ... }:
         {
           virtualisation.vlans = [ 1 ];
 
@@ -33,9 +27,7 @@ import ./make-test-python.nix (
         }
       ;
       bridged =
-        {
-          ...
-        }:
+        { ... }:
         {
           virtualisation.vlans = [ 1 ];
 
@@ -56,9 +48,7 @@ import ./make-test-python.nix (
       ;
 
       bonded =
-        {
-          ...
-        }:
+        { ... }:
         {
           virtualisation.vlans = [ 1 ];
 
@@ -82,9 +72,7 @@ import ./make-test-python.nix (
       ;
 
       bridgedbond =
-        {
-          ...
-        }:
+        { ... }:
         {
           virtualisation.vlans = [ 1 ];
 

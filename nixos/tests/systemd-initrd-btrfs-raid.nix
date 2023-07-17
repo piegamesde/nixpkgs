@@ -1,17 +1,10 @@
 import ./make-test-python.nix (
-  {
-    lib,
-    pkgs,
-    ...
-  }:
+  { lib, pkgs, ... }:
   {
     name = "systemd-initrd-btrfs-raid";
 
     nodes.machine =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         # Use systemd-boot
         virtualisation = {

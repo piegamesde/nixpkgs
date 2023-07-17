@@ -1,7 +1,4 @@
-{
-  stdenv,
-  lib,
-}:
+{ stdenv, lib }:
 {
   kernel = stdenv.hostPlatform.parsed.kernel.name;
   abi = stdenv.hostPlatform.parsed.abi.name;

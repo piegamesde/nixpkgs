@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
 
   let
     port = 8081;
@@ -12,9 +9,7 @@ import ./make-test-python.nix (
     meta = with pkgs.lib.maintainers; { maintainers = [ rnhmjoj ]; };
 
     nodes.machine =
-      {
-        ...
-      }:
+      { ... }:
       {
         imports = [ ../modules/profiles/minimal.nix ];
 

@@ -631,10 +631,7 @@ lib.makeScope pkgs.newScope (
               python = py;
               dependencyEnv =
                 (lib.makeOverridable (
-                  {
-                    app,
-                    ...
-                  }@attrs:
+                  { app, ... }@attrs:
                   let
                     args = builtins.removeAttrs attrs [ "app" ] // {
                       extraLibs = [ app ];

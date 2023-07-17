@@ -31,10 +31,7 @@ in
         description = lib.mdDoc "pppd peers.";
         type = types.attrsOf (
           types.submodule (
-            {
-              name,
-              ...
-            }:
+            { name, ... }:
             {
               options = {
                 name = mkOption {

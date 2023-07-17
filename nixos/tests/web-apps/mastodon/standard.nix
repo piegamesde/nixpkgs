@@ -1,8 +1,5 @@
 import ../../make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   let
     cert =
       pkgs:
@@ -27,10 +24,7 @@ import ../../make-test-python.nix (
 
     nodes = {
       server =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
 
           virtualisation.memorySize = 2048;
@@ -84,10 +78,7 @@ import ../../make-test-python.nix (
       ;
 
       client =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           environment.systemPackages = [ pkgs.jq ];
           networking = {

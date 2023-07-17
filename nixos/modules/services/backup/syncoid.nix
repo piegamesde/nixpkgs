@@ -233,10 +233,7 @@ in
     commands = mkOption {
       type = types.attrsOf (
         types.submodule (
-          {
-            name,
-            ...
-          }:
+          { name, ... }:
           {
             options = {
               source = mkOption {

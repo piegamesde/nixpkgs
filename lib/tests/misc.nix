@@ -14,10 +14,7 @@ let
   testingDeepThrow = expr: testingThrow (builtins.deepSeq expr expr);
 
   testSanitizeDerivationName =
-    {
-      name,
-      expected,
-    }:
+    { name, expected }:
     let
       drv = derivation {
         name = strings.sanitizeDerivationName name;
@@ -182,16 +179,7 @@ runTests {
   };
 
   testFunctionArgsFunctor = {
-    expr = functionArgs {
-      __functor =
-        self:
-        {
-          a,
-          b,
-        }:
-        null
-      ;
-    };
+    expr = functionArgs { __functor = self: { a, b }: null; };
     expected = {
       a = false;
       b = false;
@@ -1314,14 +1302,7 @@ runTests {
   testWithRecursionDealsWithFunctors =
     let
       functor = {
-        __functor =
-          self:
-          {
-            a,
-            b,
-          }:
-          null
-        ;
+        __functor = self: { a, b }: null;
       };
       a = {
         value = "1234";
@@ -1626,10 +1607,7 @@ runTests {
     expr =
       let
         submodule =
-          {
-            lib,
-            ...
-          }:
+          { lib, ... }:
           {
             freeformType = lib.types.attrsOf (
               lib.types.submodule { options.bar = lib.mkOption { }; }
@@ -1639,10 +1617,7 @@ runTests {
         ;
 
         module =
-          {
-            lib,
-            ...
-          }:
+          { lib, ... }:
           {
             options.foo = lib.mkOption { type = lib.types.submodule submodule; };
           }

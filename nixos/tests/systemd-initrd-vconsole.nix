@@ -1,17 +1,10 @@
 import ./make-test-python.nix (
-  {
-    lib,
-    pkgs,
-    ...
-  }:
+  { lib, pkgs, ... }:
   {
     name = "systemd-initrd-vconsole";
 
     nodes.machine =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         boot.kernelParams = [ "rd.systemd.unit=rescue.target" ];
 

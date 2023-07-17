@@ -1,4 +1,1 @@
-{
-  fontforge,
-}:
-fontforge.override { withExtras = true; }
+{ fontforge }: fontforge.override { withExtras = true; }

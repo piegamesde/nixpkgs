@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
 
   let
     lxd-image = import ../release.nix {
@@ -25,10 +21,7 @@ import ./make-test-python.nix (
     meta = with pkgs.lib.maintainers; { maintainers = [ patryk27 ]; };
 
     nodes.machine =
-      {
-        lib,
-        ...
-      }:
+      { lib, ... }:
       {
         virtualisation = {
           diskSize = 4096;

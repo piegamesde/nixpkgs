@@ -1,9 +1,6 @@
 # This module defines a NixOS installation CD that contains GNOME.
 
-{
-  pkgs,
-  ...
-}:
+{ pkgs, ... }:
 
 {
   imports = [ ./installation-cd-graphical-calamares.nix ];

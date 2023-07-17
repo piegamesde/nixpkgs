@@ -65,9 +65,7 @@ let
       tclPackageHook =
         callPackage
           (
-            {
-              buildPackages,
-            }:
+            { buildPackages }:
             makeSetupHook
               {
                 name = "tcl-package-hook";

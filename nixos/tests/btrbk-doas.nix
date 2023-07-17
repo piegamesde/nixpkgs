@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
 
   let
     privateKey = ''
@@ -29,9 +26,7 @@ import ./make-test-python.nix (
 
     nodes = {
       archive =
-        {
-          ...
-        }:
+        { ... }:
         {
           security.sudo.enable = false;
           security.doas.enable = true;
@@ -63,9 +58,7 @@ import ./make-test-python.nix (
       ;
 
       main =
-        {
-          ...
-        }:
+        { ... }:
         {
           security.sudo.enable = false;
           security.doas.enable = true;

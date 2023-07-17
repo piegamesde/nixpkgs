@@ -1,7 +1,4 @@
-{
-  buildPecl,
-  lib,
-}:
+{ buildPecl, lib }:
 
 buildPecl rec {
   version = "2.2.0RC2";

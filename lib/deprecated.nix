@@ -1,6 +1,4 @@
-{
-  lib,
-}:
+{ lib }:
 let
   inherit (builtins)
     head
@@ -208,10 +206,7 @@ rec {
   ;
 
   lazyGenericClosure =
-    {
-      startSet,
-      operator,
-    }:
+    { startSet, operator }:
     let
       work =
         list: doneKeys: result:

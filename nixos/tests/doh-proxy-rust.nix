@@ -1,20 +1,12 @@
 import ./make-test-python.nix (
-  {
-    lib,
-    pkgs,
-    ...
-  }:
+  { lib, pkgs, ... }:
   {
     name = "doh-proxy-rust";
     meta = with lib.maintainers; { maintainers = [ stephank ]; };
 
     nodes = {
       machine =
-        {
-          pkgs,
-          lib,
-          ...
-        }:
+        { pkgs, lib, ... }:
         {
           services.bind = {
             enable = true;
@@ -39,10 +31,7 @@ import ./make-test-python.nix (
     };
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       ''
         url = "http://localhost:3000/dns-query"
         query = "AAABAAABAAAAAAAAAm5zB2V4YW1wbGUDb3JnAAABAAE="  # IN A ns.example.org.

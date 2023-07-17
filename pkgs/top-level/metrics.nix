@@ -1,7 +1,4 @@
-{
-  nixpkgs,
-  pkgs,
-}:
+{ nixpkgs, pkgs }:
 
 with pkgs;
 

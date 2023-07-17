@@ -1,18 +1,10 @@
 import ./make-test-python.nix (
-  {
-    lib,
-    pkgs,
-    ...
-  }:
+  { lib, pkgs, ... }:
   {
     name = "systemd-initrd-luks-fido2";
 
     nodes.machine =
-      {
-        pkgs,
-        config,
-        ...
-      }:
+      { pkgs, config, ... }:
       {
         # Use systemd-boot
         virtualisation = {

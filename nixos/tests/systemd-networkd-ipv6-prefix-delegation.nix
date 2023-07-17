@@ -8,11 +8,7 @@
 # - VLAN 2 is the connection between the router and the client
 
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   {
     name = "systemd-networkd-ipv6-prefix-delegation";
     meta = with lib.maintainers; {
@@ -33,11 +29,7 @@ import ./make-test-python.nix (
       # this example. That being said we can't use it (yet) as networkd doesn't
       # implement the serving side of DHCPv6. We will use ISC Kea for that task.
       isp =
-        {
-          lib,
-          pkgs,
-          ...
-        }:
+        { lib, pkgs, ... }:
         {
           virtualisation.vlans = [ 1 ];
           networking = {

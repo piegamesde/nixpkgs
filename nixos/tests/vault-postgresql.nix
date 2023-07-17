@@ -6,10 +6,7 @@
     - the postgres integration works
 */
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "vault-postgresql";
     meta = with pkgs.lib.maintainers; {
@@ -19,11 +16,7 @@ import ./make-test-python.nix (
       ];
     };
     nodes.machine =
-      {
-        lib,
-        pkgs,
-        ...
-      }:
+      { lib, pkgs, ... }:
       {
         environment.systemPackages = [ pkgs.vault ];
         environment.variables.VAULT_ADDR = "http://127.0.0.1:8200";

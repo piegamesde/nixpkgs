@@ -1,7 +1,4 @@
-{
-  lib,
-  ...
-}:
+{ lib, ... }:
 let
   deathtrapArgs =
     lib.mapAttrs

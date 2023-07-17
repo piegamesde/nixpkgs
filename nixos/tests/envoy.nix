@@ -1,18 +1,11 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   {
     name = "envoy";
     meta = with pkgs.lib.maintainers; { maintainers = [ cameronnemo ]; };
 
     nodes.machine =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         services.envoy.enable = true;
         services.envoy.settings = {
@@ -33,9 +26,7 @@ import ./make-test-python.nix (
         };
         specialisation = {
           withoutConfigValidation.configuration =
-            {
-              ...
-            }:
+            { ... }:
             {
               services.envoy = {
                 requireValidConfig = false;
@@ -48,10 +39,7 @@ import ./make-test-python.nix (
     ;
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       let
         specialisations = "${nodes.machine.system.build.toplevel}/specialisation";
       in

@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   let
     domain = "sourcehut.localdomain";
 
@@ -23,10 +19,7 @@ import ./make-test-python.nix (
       nixos.unstable.x86_64 =
         let
           systemConfig =
-            {
-              pkgs,
-              ...
-            }:
+            { pkgs, ... }:
             {
               # passwordless ssh server
               services.openssh = {
@@ -86,10 +79,7 @@ import ./make-test-python.nix (
             }
           ;
           qemuConfig =
-            {
-              pkgs,
-              ...
-            }:
+            { pkgs, ... }:
             {
               imports = [ systemConfig ];
               fileSystems."/".device = "/dev/disk/by-label/nixos";

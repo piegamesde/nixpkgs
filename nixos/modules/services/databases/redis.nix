@@ -408,11 +408,7 @@ in
           with types;
           attrsOf (
             submodule (
-              {
-                config,
-                name,
-                ...
-              }:
+              { config, name, ... }:
               {
                 options = {
                   enable = mkEnableOption (
@@ -555,9 +551,7 @@ in
                       with types;
                       nullOr (
                         submodule (
-                          {
-                            ...
-                          }:
+                          { ... }:
                           {
                             options = {
                               ip = mkOption {

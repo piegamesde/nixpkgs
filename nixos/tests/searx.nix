@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
 
   {
     name = "searx";
@@ -10,9 +7,7 @@ import ./make-test-python.nix (
 
     # basic setup: searx running the built-in webserver
     nodes.base =
-      {
-        ...
-      }:
+      { ... }:
       {
         imports = [ ../modules/profiles/minimal.nix ];
 
@@ -45,9 +40,7 @@ import ./make-test-python.nix (
 
     # fancy setup: run in uWSGI and use nginx as proxy
     nodes.fancy =
-      {
-        ...
-      }:
+      { ... }:
       {
         imports = [ ../modules/profiles/minimal.nix ];
 

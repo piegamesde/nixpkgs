@@ -1,7 +1,4 @@
-{
-  stdenvNoCC,
-  breezy,
-}:
+{ stdenvNoCC, breezy }:
 {
   url,
   rev,

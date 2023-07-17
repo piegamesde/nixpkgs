@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    lib,
-    pkgs,
-    ...
-  }:
+  { lib, pkgs, ... }:
 
   with lib;
   let
@@ -15,10 +11,7 @@ import ./make-test-python.nix (
 
     nodes = {
       machine =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           services.convos = {
             enable = true;

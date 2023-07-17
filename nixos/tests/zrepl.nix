@@ -2,11 +2,7 @@ import ./make-test-python.nix ({
   name = "zrepl";
 
   nodes.host =
-    {
-      config,
-      pkgs,
-      ...
-    }:
+    { config, pkgs, ... }:
     {
       config = {
         # Prerequisites for ZFS and tests.

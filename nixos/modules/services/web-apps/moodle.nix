@@ -94,10 +94,7 @@ let
 
   phpExt = pkgs.php81.buildEnv {
     extensions =
-      {
-        all,
-        ...
-      }:
+      { all, ... }:
       with all; [
         iconv
         mbstring

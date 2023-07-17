@@ -52,10 +52,7 @@ let
 
   # Build helper to build a single datadog integration package.
   buildIntegration =
-    {
-      pname,
-      ...
-    }@args:
+    { pname, ... }@args:
     python.pkgs.buildPythonPackage (
       args
       // {

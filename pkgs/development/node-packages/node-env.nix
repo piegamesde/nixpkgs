@@ -107,9 +107,7 @@ let
   #
   # Only include dependencies if they don't exist. They may also be bundled in the package.
   includeDependencies =
-    {
-      dependencies,
-    }:
+    { dependencies }:
     lib.optionalString (dependencies != [ ]) (
       ''
         mkdir -p node_modules
@@ -147,10 +145,7 @@ let
   ;
 
   pinpointDependencies =
-    {
-      dependencies,
-      production,
-    }:
+    { dependencies, production }:
     let
       pinpointDependenciesFromPackageJSON = writeTextFile {
         name = "pinpointDependencies.js";

@@ -11,11 +11,7 @@ let
   cfg = config.services.awstats;
   package = pkgs.awstats;
   configOpts =
-    {
-      name,
-      config,
-      ...
-    }:
+    { name, config, ... }:
     {
       options = {
         type = mkOption {

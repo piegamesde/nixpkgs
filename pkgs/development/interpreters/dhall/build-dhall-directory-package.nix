@@ -1,7 +1,4 @@
-{
-  buildDhallPackage,
-  lib,
-}:
+{ buildDhallPackage, lib }:
 
 # This is a minor variation on `buildDhallPackage` that splits the `code`
 # argument into `src` and `file` in such a way that you can easily override

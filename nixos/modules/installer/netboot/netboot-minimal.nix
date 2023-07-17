@@ -1,9 +1,6 @@
 # This module defines a small netboot environment.
 
-{
-  lib,
-  ...
-}:
+{ lib, ... }:
 
 {
   imports = [

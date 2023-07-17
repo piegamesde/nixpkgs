@@ -41,11 +41,7 @@ let
      build in the exact same way.
   */
   buildDict =
-    {
-      shortName,
-      fullName,
-      ...
-    }@args:
+    { shortName, fullName, ... }@args:
 
     stdenv.mkDerivation (
       {

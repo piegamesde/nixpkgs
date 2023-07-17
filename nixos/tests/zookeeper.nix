@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   let
 
     perlEnv = pkgs.perl.withPackages (p: [ p.NetZooKeeper ]);
@@ -18,9 +15,7 @@ import ./make-test-python.nix (
 
     nodes = {
       server =
-        {
-          ...
-        }:
+        { ... }:
         {
           services.zookeeper = {
             enable = true;

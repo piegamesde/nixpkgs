@@ -12,10 +12,7 @@ let
   cfg = config.services.zope2;
 
   zope2Opts =
-    {
-      name,
-      ...
-    }:
+    { name, ... }:
     {
       options = {
 

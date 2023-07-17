@@ -118,10 +118,7 @@ in
       '';
       type = attrsOf (
         submodule (
-          {
-            name,
-            ...
-          }:
+          { name, ... }:
           {
             options = {
               hostName = mkOption {

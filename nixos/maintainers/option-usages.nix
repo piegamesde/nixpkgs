@@ -89,19 +89,10 @@ let
   reportNewFailures =
     old: new:
     let
-      filterChanges = filter (
-        {
-          fst,
-          snd,
-        }:
-        !(fst.success -> snd.success)
-      );
+      filterChanges = filter ({ fst, snd }: !(fst.success -> snd.success));
 
       keepNames = map (
-        {
-          fst,
-          snd,
-        }:
+        { fst, snd }:
         # assert fst.name == snd.name;
         snd.name
       );
@@ -173,10 +164,7 @@ let
       checkAll = checkList == [ ];
     in
     flip filter graph (
-      {
-        option,
-        ...
-      }:
+      { option, ... }:
       (checkAll || elem option checkList) && !(elem option excludedTestOptions)
     )
   ;
@@ -186,11 +174,7 @@ let
       ${
         concatMapStrings
           (
-            {
-              option,
-              usedBy,
-            }:
-            concatMapStrings (user: ''"${option}" -> "${user}"'') usedBy
+            { option, usedBy }: concatMapStrings (user: ''"${option}" -> "${user}"'') usedBy
           )
           displayOptionsGraph
       }
@@ -201,10 +185,7 @@ let
     graph:
     concatMapStrings
       (
-        {
-          usedBy,
-          ...
-        }:
+        { usedBy, ... }:
         concatMapStrings
           (user: ''
             ${user}

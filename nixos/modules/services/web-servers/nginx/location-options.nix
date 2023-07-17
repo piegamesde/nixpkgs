@@ -3,10 +3,7 @@
 # has additional options that affect the web server as a whole, like
 # the user/group to run under.)
 
-{
-  lib,
-  config,
-}:
+{ lib, config }:
 
 with lib;
 

@@ -130,10 +130,7 @@ import ./make-test-python.nix (
     };
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       ''
         start_all()
         akkoma.wait_for_unit('akkoma-initdb.service')

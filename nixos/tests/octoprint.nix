@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
 
   let
     apikey = "testapikey";
@@ -13,10 +9,7 @@ import ./make-test-python.nix (
     meta.maintainers = with lib.maintainers; [ gador ];
 
     nodes.machine =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         environment.systemPackages = with pkgs; [ jq ];
         services.octoprint = {

@@ -1,7 +1,4 @@
-{
-  fetchurl,
-  mirror,
-}:
+{ fetchurl, mirror }:
 
 {
   gfx1030_36 = fetchurl {

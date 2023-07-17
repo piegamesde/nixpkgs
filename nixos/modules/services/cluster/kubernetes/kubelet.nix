@@ -51,10 +51,7 @@ let
 
   taintOptions =
     with lib.types;
-    {
-      name,
-      ...
-    }:
+    { name, ... }:
     {
       options = {
         key = mkOption {

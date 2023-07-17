@@ -14,9 +14,7 @@ let
   randomEncryptionCoerce = enable: { inherit enable; };
 
   randomEncryptionOpts =
-    {
-      ...
-    }:
+    { ... }:
     {
 
       options = {
@@ -71,11 +69,7 @@ let
   ;
 
   swapCfg =
-    {
-      config,
-      options,
-      ...
-    }:
+    { config, options, ... }:
     {
 
       options = {

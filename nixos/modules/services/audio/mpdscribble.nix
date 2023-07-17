@@ -170,10 +170,7 @@ in
         (
           let
             endpoint =
-              {
-                name,
-                ...
-              }:
+              { name, ... }:
               {
                 options = {
                   url = mkOption {

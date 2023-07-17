@@ -1,10 +1,7 @@
 let
   tests = {
     wayland =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         imports = [ ./common/wayland-cage.nix ];
 
@@ -17,10 +14,7 @@ let
       }
     ;
     xorg =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         imports = [
           ./common/user-account.nix
@@ -40,10 +34,7 @@ let
   mkTest =
     name: machine:
     import ./make-test-python.nix (
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         inherit name;
 

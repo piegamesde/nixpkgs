@@ -1,19 +1,12 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "service-runner";
     meta = with pkgs.lib.maintainers; { maintainers = [ roberth ]; };
 
     nodes = {
       machine =
-        {
-          pkgs,
-          lib,
-          ...
-        }:
+        { pkgs, lib, ... }:
         {
           services.nginx.enable = true;
           services.nginx.virtualHosts.machine.root = pkgs.runCommand "webroot" { } ''
@@ -26,10 +19,7 @@ import ./make-test-python.nix (
     };
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       ''
         url = "http://localhost/index.html"
 

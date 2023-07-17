@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
 
   let
 
@@ -22,20 +19,9 @@ import ./make-test-python.nix (
     name = "systemd-coredump";
     meta = with pkgs.lib.maintainers; { maintainers = [ squalus ]; };
 
-    nodes.machine1 =
-      {
-        pkgs,
-        lib,
-        ...
-      }:
-      commonConfig
-    ;
+    nodes.machine1 = { pkgs, lib, ... }: commonConfig;
     nodes.machine2 =
-      {
-        pkgs,
-        lib,
-        ...
-      }:
+      { pkgs, lib, ... }:
       lib.recursiveUpdate commonConfig {
         systemd.coredump.enable = false;
         systemd.package = pkgs.systemd.override { withCoredump = false; };

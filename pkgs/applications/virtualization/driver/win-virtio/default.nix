@@ -25,10 +25,7 @@ stdenv.mkDerivation rec {
     let
       copy =
         arch: version:
-        {
-          input,
-          output,
-        }:
+        { input, output }:
         "mkdir -p $out/${arch}/${output}; cp ${input}/${version}/${arch}/* $out/${arch}/${output}/."
       ;
       virtio = [

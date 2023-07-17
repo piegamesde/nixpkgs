@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
 
   let
     user = "alice"; # from ./common/user-account.nix
@@ -16,10 +12,7 @@ import ./make-test-python.nix (
     };
     nodes = {
       server =
-        {
-          config,
-          ...
-        }:
+        { config, ... }:
         {
           imports = [ ./common/user-account.nix ];
           security.polkit.enable = true;
@@ -38,10 +31,7 @@ import ./make-test-python.nix (
         }
       ;
       client =
-        {
-          config,
-          ...
-        }:
+        { config, ... }:
         {
           imports = [ ./common/user-account.nix ];
           environment.systemPackages =

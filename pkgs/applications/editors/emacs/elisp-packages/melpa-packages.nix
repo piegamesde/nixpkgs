@@ -20,10 +20,7 @@
    formats commits for you.
 */
 
-{
-  lib,
-  pkgs,
-}:
+{ lib, pkgs }:
 variant: self:
 let
   dontConfigure =

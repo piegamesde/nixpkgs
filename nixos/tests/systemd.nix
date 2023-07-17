@@ -1,16 +1,10 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "systemd";
 
     nodes.machine =
-      {
-        lib,
-        ...
-      }:
+      { lib, ... }:
       {
         imports = [
           common/user-account.nix

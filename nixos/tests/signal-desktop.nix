@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
 
   let
     sqlcipher-signal = pkgs.writeShellScriptBin "sqlcipher" ''
@@ -25,9 +22,7 @@ import ./make-test-python.nix (
     };
 
     nodes.machine =
-      {
-        ...
-      }:
+      { ... }:
 
       {
         imports = [
@@ -49,10 +44,7 @@ import ./make-test-python.nix (
     enableOCR = true;
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       let
         user = nodes.machine.config.users.users.alice;
       in

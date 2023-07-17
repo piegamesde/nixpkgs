@@ -1,7 +1,4 @@
-{
-  lib,
-  nix-update,
-}:
+{ lib, nix-update }:
 
 {
   attrPath ? null,

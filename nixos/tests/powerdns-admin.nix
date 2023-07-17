@@ -25,11 +25,7 @@ let
       };
 
       nodes.server =
-        {
-          pkgs,
-          config,
-          ...
-        }:
+        { pkgs, config, ... }:
         mkMerge (
           [ {
             services.powerdns-admin = {

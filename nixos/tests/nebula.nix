@@ -1,19 +1,12 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   let
 
     # We'll need to be able to trade cert files between nodes via scp.
     inherit (import ./ssh-keys.nix pkgs) snakeOilPrivateKey snakeOilPublicKey;
 
     makeNebulaNode =
-      {
-        config,
-        ...
-      }:
+      { config, ... }:
       name: extraConfig:
       lib.mkMerge [
         {
@@ -44,9 +37,7 @@ import ./make-test-python.nix (
     nodes = {
 
       lighthouse =
-        {
-          ...
-        }@args:
+        { ... }@args:
         makeNebulaNode args "lighthouse" {
           networking.interfaces.eth1.ipv4.addresses = lib.mkForce [ {
             address = "192.168.1.1";
@@ -73,9 +64,7 @@ import ./make-test-python.nix (
       ;
 
       allowAny =
-        {
-          ...
-        }@args:
+        { ... }@args:
         makeNebulaNode args "allowAny" {
           networking.interfaces.eth1.ipv4.addresses = lib.mkForce [ {
             address = "192.168.1.2";
@@ -106,9 +95,7 @@ import ./make-test-python.nix (
       ;
 
       allowFromLighthouse =
-        {
-          ...
-        }@args:
+        { ... }@args:
         makeNebulaNode args "allowFromLighthouse" {
           networking.interfaces.eth1.ipv4.addresses = lib.mkForce [ {
             address = "192.168.1.3";
@@ -139,9 +126,7 @@ import ./make-test-python.nix (
       ;
 
       allowToLighthouse =
-        {
-          ...
-        }@args:
+        { ... }@args:
         makeNebulaNode args "allowToLighthouse" {
           networking.interfaces.eth1.ipv4.addresses = lib.mkForce [ {
             address = "192.168.1.4";
@@ -173,9 +158,7 @@ import ./make-test-python.nix (
       ;
 
       disabled =
-        {
-          ...
-        }@args:
+        { ... }@args:
         makeNebulaNode args "disabled" {
           networking.interfaces.eth1.ipv4.addresses = lib.mkForce [ {
             address = "192.168.1.5";

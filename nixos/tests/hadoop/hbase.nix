@@ -1,8 +1,5 @@
 # Test a minimal hbase cluster
-{
-  pkgs,
-  ...
-}:
+{ pkgs, ... }:
 import ../make-test-python.nix (
   {
     hadoop ? pkgs.hadoop,
@@ -25,18 +22,14 @@ import ../make-test-python.nix (
       in
       {
         zookeeper =
-          {
-            ...
-          }:
+          { ... }:
           {
             services.zookeeper.enable = true;
             networking.firewall.allowedTCPPorts = [ 2181 ];
           }
         ;
         namenode =
-          {
-            ...
-          }:
+          { ... }:
           {
             services.hadoop = {
               hdfs = {
@@ -49,9 +42,7 @@ import ../make-test-python.nix (
           }
         ;
         datanode =
-          {
-            ...
-          }:
+          { ... }:
           {
             virtualisation.diskSize = 8192;
             services.hadoop = {
@@ -62,9 +53,7 @@ import ../make-test-python.nix (
         ;
 
         master =
-          {
-            ...
-          }:
+          { ... }:
           {
             services.hadoop = {
               inherit coreSite;
@@ -78,9 +67,7 @@ import ../make-test-python.nix (
           }
         ;
         regionserver =
-          {
-            ...
-          }:
+          { ... }:
           {
             services.hadoop = {
               inherit coreSite;
@@ -92,9 +79,7 @@ import ../make-test-python.nix (
           }
         ;
         thrift =
-          {
-            ...
-          }:
+          { ... }:
           {
             services.hadoop = {
               inherit coreSite;
@@ -106,9 +91,7 @@ import ../make-test-python.nix (
           }
         ;
         rest =
-          {
-            ...
-          }:
+          { ... }:
           {
             services.hadoop = {
               inherit coreSite;

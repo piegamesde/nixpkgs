@@ -12,10 +12,7 @@ let
       replicationMode,
       publicV6Address ? "::1",
     }:
-    {
-      pkgs,
-      ...
-    }:
+    { pkgs, ... }:
     {
       networking.interfaces.eth1.ipv6.addresses = [ {
         address = publicV6Address;

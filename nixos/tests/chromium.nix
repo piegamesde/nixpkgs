@@ -61,9 +61,7 @@ mapAttrs
       enableOCR = true;
 
       nodes.machine =
-        {
-          ...
-        }:
+        { ... }:
         {
           imports = [
             ./common/user-account.nix

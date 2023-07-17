@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
 
   let
     # Make sure we don't have to go through the startup tutorial
@@ -19,9 +16,7 @@ import ./make-test-python.nix (
     meta = with pkgs.lib.maintainers; { maintainers = [ turion ]; };
 
     nodes.machine =
-      {
-        ...
-      }:
+      { ... }:
 
       {
         imports = [ ./common/x11.nix ];
@@ -37,9 +32,7 @@ import ./make-test-python.nix (
     enableOCR = true;
 
     testScript =
-      {
-        ...
-      }:
+      { ... }:
       ''
         start_all()
         machine.wait_for_x()

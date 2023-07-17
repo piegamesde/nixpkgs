@@ -106,10 +106,7 @@ let
   ;
 in
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "cockroachdb";
     meta.maintainers = with pkgs.lib.maintainers; [ thoughtpolice ];

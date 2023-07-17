@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   {
     name = "systemd-initrd-network";
     meta.maintainers = [ lib.maintainers.elvishjerricco ];
@@ -12,9 +8,7 @@ import ./make-test-python.nix (
       let
         mkFlushTest =
           flush: script:
-          {
-            ...
-          }:
+          { ... }:
           {
             boot.initrd.systemd.enable = true;
             boot.initrd.network = {
@@ -41,9 +35,7 @@ import ./make-test-python.nix (
       in
       {
         basic =
-          {
-            ...
-          }:
+          { ... }:
           {
             boot.initrd.network.enable = true;
 

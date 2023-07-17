@@ -58,11 +58,7 @@ let
   '';
 
   userOpts =
-    {
-      name,
-      config,
-      ...
-    }:
+    { name, config, ... }:
     {
 
       options = {
@@ -389,11 +385,7 @@ let
   ;
 
   groupOpts =
-    {
-      name,
-      config,
-      ...
-    }:
+    { name, config, ... }:
     {
 
       options = {
@@ -474,10 +466,7 @@ let
     !(foldr
       (
         name:
-        args@{
-          dup,
-          acc,
-        }:
+        args@{ dup, acc }:
         let
           id = builtins.toString (builtins.getAttr idAttr (builtins.getAttr name set));
           exists = builtins.hasAttr id acc;
@@ -692,10 +681,7 @@ in
       default = { };
       type = types.attrsOf (
         types.submodule (
-          {
-            name,
-            ...
-          }:
+          { name, ... }:
           {
             options.uid = mkOption {
               visible = false;
@@ -728,10 +714,7 @@ in
       default = { };
       type = types.attrsOf (
         types.submodule (
-          {
-            name,
-            ...
-          }:
+          { name, ... }:
           {
             options.gid = mkOption {
               visible = false;
@@ -850,11 +833,7 @@ in
         mapAttrs'
           (
             _:
-            {
-              packages,
-              name,
-              ...
-            }:
+            { packages, name, ... }:
             {
               name = "profiles/per-user/${name}";
               value.source = pkgs.buildEnv {
@@ -881,10 +860,7 @@ in
               lib.mapAttrsToList
                 (
                   n:
-                  {
-                    uid,
-                    group,
-                  }:
+                  { uid, group }:
                   let
                     g = config.boot.initrd.systemd.groups.${group};
                   in
@@ -895,14 +871,7 @@ in
           '';
           "/etc/group".text = ''
             ${lib.concatStringsSep "\n" (
-              lib.mapAttrsToList
-                (
-                  n:
-                  {
-                    gid,
-                  }:
-                  "${n}:x:${toString gid}:"
-                )
+              lib.mapAttrsToList (n: { gid }: "${n}:x:${toString gid}:")
                 config.boot.initrd.systemd.groups
             )}
           '';

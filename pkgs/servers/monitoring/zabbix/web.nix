@@ -6,11 +6,7 @@
 }:
 
 import ./versions.nix (
-  {
-    version,
-    sha256,
-    ...
-  }:
+  { version, sha256, ... }:
   stdenv.mkDerivation rec {
     pname = "zabbix-web";
     inherit version;

@@ -19,11 +19,7 @@ in
     '';
     type = types.attrsOf (
       types.submodule (
-        {
-          config,
-          name,
-          ...
-        }:
+        { config, name, ... }:
         {
           options = {
             passwordFile = mkOption {

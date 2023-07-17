@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   let
     test-certificates = pkgs.runCommandLocal "test-certificates" { } ''
       mkdir -p $out
@@ -16,11 +13,7 @@ import ./make-test-python.nix (
     name = "step-ca";
     nodes = {
       caserver =
-        {
-          config,
-          pkgs,
-          ...
-        }:
+        { config, pkgs, ... }:
         {
           services.step-ca = {
             enable = true;
@@ -49,11 +42,7 @@ import ./make-test-python.nix (
       ;
 
       caclient =
-        {
-          config,
-          pkgs,
-          ...
-        }:
+        { config, pkgs, ... }:
         {
           security.acme.defaults.server = "https://caserver:8443/acme/acme/directory";
           security.acme.defaults.email = "root@example.org";
@@ -79,11 +68,7 @@ import ./make-test-python.nix (
       ;
 
       catester =
-        {
-          config,
-          pkgs,
-          ...
-        }:
+        { config, pkgs, ... }:
         {
           security.pki.certificateFiles = [ "${test-certificates}/root_ca.crt" ];
         }

@@ -1,18 +1,11 @@
-{
-  pkgs,
-  lib,
-  ...
-}:
+{ pkgs, lib, ... }:
 {
   name = "agate";
   meta = with lib.maintainers; { maintainers = [ jk ]; };
 
   nodes = {
     geminiserver =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         services.agate = {
           enable = true;
@@ -26,10 +19,7 @@
   };
 
   testScript =
-    {
-      nodes,
-      ...
-    }:
+    { nodes, ... }:
     ''
       geminiserver.wait_for_unit("agate")
       geminiserver.wait_for_open_port(1965)

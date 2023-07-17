@@ -1,7 +1,4 @@
-{
-  pkgs,
-  makeTest,
-}:
+{ pkgs, makeTest }:
 
 with pkgs.lib;
 

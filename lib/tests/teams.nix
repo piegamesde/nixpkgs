@@ -10,10 +10,7 @@ let
   inherit (lib) types;
 
   teamModule =
-    {
-      config,
-      ...
-    }:
+    { config, ... }:
     {
       options = {
         shortName = lib.mkOption { type = types.str; };

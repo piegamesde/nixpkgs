@@ -1,16 +1,11 @@
 import ./make-test-python.nix (
-  {
-    lib,
-    ...
-  }:
+  { lib, ... }:
   {
     name = "please";
     meta.maintainers = with lib.maintainers; [ azahi ];
 
     nodes.machine =
-      {
-        ...
-      }:
+      { ... }:
       {
         users.users =
           with lib;

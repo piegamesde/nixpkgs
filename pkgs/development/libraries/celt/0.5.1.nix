@@ -1,8 +1,4 @@
-{
-  callPackage,
-  fetchurl,
-  ...
-}@args:
+{ callPackage, fetchurl, ... }@args:
 
 callPackage ./generic.nix (
   args

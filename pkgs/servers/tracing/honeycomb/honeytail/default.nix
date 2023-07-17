@@ -4,10 +4,7 @@
   fetchFromGitHub,
 }:
 import ./versions.nix (
-  {
-    version,
-    sha256,
-  }:
+  { version, sha256 }:
   buildGoModule {
     pname = "honeytail";
     inherit version;

@@ -6,21 +6,14 @@
 # and verifies some configuration information.
 
 import ./make-test-python.nix (
-  {
-    lib,
-    pkgs,
-    ...
-  }:
+  { lib, pkgs, ... }:
   {
     name = "tsm-client";
 
     enableOCR = true;
 
     nodes.machine =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         imports = [ ./common/x11.nix ];
         programs.tsmClient = {

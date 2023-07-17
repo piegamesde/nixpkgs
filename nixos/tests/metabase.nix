@@ -1,21 +1,11 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "metabase";
     meta = with pkgs.lib.maintainers; { maintainers = [ mmahut ]; };
 
     nodes = {
-      machine =
-        {
-          ...
-        }:
-        {
-          services.metabase.enable = true;
-        }
-      ;
+      machine = { ... }: { services.metabase.enable = true; };
     };
 
     testScript = ''

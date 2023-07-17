@@ -1,8 +1,5 @@
 import ../make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "test-hocker-fetchdocker";
     meta = with pkgs.lib.maintainers; {

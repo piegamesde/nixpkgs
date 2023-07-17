@@ -1,7 +1,4 @@
-{
-  python3,
-  lib,
-}:
+{ python3, lib }:
 
 let
   python = python3.override {

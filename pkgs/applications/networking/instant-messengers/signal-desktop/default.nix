@@ -1,6 +1,4 @@
-{
-  callPackage,
-}:
+{ callPackage }:
 builtins.mapAttrs
   (pname: attrs: callPackage ./generic.nix (attrs // { inherit pname; }))
   {

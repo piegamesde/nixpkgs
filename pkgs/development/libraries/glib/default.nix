@@ -333,10 +333,7 @@ stdenv.mkDerivation (
       };
 
       mkHardcodeGsettingsPatch =
-        {
-          src,
-          glib-schema-to-var,
-        }:
+        { src, glib-schema-to-var }:
         builtins.trace
           "glib.mkHardcodeGsettingsPatch is deprecated, please use makeHardcodeGsettingsPatch instead"
           (

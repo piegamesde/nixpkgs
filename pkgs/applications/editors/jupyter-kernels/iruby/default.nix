@@ -1,7 +1,4 @@
-{
-  lib,
-  bundlerApp,
-}:
+{ lib, bundlerApp }:
 
 bundlerApp {
   pname = "iruby";

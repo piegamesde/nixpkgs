@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
 
   {
     name = "botamusique";
@@ -11,10 +7,7 @@ import ./make-test-python.nix (
 
     nodes = {
       machine =
-        {
-          config,
-          ...
-        }:
+        { config, ... }:
         {
           networking.extraHosts = ''
             127.0.0.1 all.api.radio-browser.info

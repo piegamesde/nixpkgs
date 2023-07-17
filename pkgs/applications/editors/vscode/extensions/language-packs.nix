@@ -1,7 +1,4 @@
-{
-  lib,
-  vscode-utils,
-}:
+{ lib, vscode-utils }:
 
 with vscode-utils;
 

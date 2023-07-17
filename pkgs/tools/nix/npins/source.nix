@@ -62,11 +62,7 @@ let
   ;
 
   mkPyPiSource =
-    {
-      url,
-      hash,
-      ...
-    }:
+    { url, hash, ... }:
     fetchurl {
       inherit url;
       sha256 = hash;
@@ -74,11 +70,7 @@ let
   ;
 
   mkChannelSource =
-    {
-      url,
-      hash,
-      ...
-    }:
+    { url, hash, ... }:
     fetchzip {
       inherit url;
       sha256 = hash;

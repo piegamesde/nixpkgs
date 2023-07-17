@@ -64,10 +64,7 @@ in
       services.mediawiki.webserver = "none";
     };
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       ''
         start_all()
         machine.wait_for_unit("phpfpm-mediawiki.service")

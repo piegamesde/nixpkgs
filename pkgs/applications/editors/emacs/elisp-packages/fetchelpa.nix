@@ -5,15 +5,9 @@
 # To work around this issue we fall back to the URL with the .lz suffix and if that's the
 # one we downloaded we uncompress the file to ensure the hash matches regardless of compression.
 
-{
-  fetchurl,
-  lzip,
-}:
+{ fetchurl, lzip }:
 
-{
-  url,
-  ...
-}@args:
+{ url, ... }@args:
 fetchurl (
   (removeAttrs args [ "url" ])
   // {

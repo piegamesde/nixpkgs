@@ -1,16 +1,11 @@
-{
-  lib,
-  mkspiffs,
-}:
+{ lib, mkspiffs }:
 
 # We provide the same presets as the upstream
 
 lib.mapAttrs
   (
     name:
-    {
-      CPPFLAGS,
-    }:
+    { CPPFLAGS }:
     mkspiffs.overrideAttrs (
       drv: {
         inherit CPPFLAGS;

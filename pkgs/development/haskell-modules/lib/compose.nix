@@ -1,9 +1,6 @@
 # TODO(@Ericson2314): Remove `pkgs` param, which is only used for
 # `buildStackProject`, `justStaticExecutables` and `checkUnusedPackages`
-{
-  pkgs,
-  lib,
-}:
+{ pkgs, lib }:
 
 rec {
 
@@ -530,10 +527,7 @@ rec {
   #
   # packagesFromDirectory : { directory : Directory, ... } -> HaskellPackageOverrideSet
   packagesFromDirectory =
-    {
-      directory,
-      ...
-    }:
+    { directory, ... }:
 
     self: super:
     let
@@ -634,10 +628,7 @@ rec {
                 drvs
             ;
             operator =
-              {
-                val,
-                ...
-              }:
+              { val, ... }:
               if !lib.isDerivation val then
                 [ ]
               else

@@ -1,7 +1,4 @@
-{
-  version,
-  sha256,
-}:
+{ version, sha256 }:
 
 {
   fetchurl,

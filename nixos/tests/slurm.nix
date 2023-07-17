@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    lib,
-    pkgs,
-    ...
-  }:
+  { lib, pkgs, ... }:
   let
     slurmconfig = {
       services.slurm = {
@@ -66,9 +62,7 @@ import ./make-test-python.nix (
     nodes =
       let
         computeNode =
-          {
-            ...
-          }:
+          { ... }:
           {
             imports = [ slurmconfig ];
             # TODO slurmd port and slurmctld port should be configurations and
@@ -82,9 +76,7 @@ import ./make-test-python.nix (
       {
 
         control =
-          {
-            ...
-          }:
+          { ... }:
           {
             imports = [ slurmconfig ];
             services.slurm = {
@@ -94,9 +86,7 @@ import ./make-test-python.nix (
         ;
 
         submit =
-          {
-            ...
-          }:
+          { ... }:
           {
             imports = [ slurmconfig ];
             services.slurm = {
@@ -106,10 +96,7 @@ import ./make-test-python.nix (
         ;
 
         dbd =
-          {
-            pkgs,
-            ...
-          }:
+          { pkgs, ... }:
           let
             passFile = pkgs.writeText "dbdpassword" "password123";
           in

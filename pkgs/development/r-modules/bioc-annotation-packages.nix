@@ -3,10 +3,7 @@
 #
 # Rscript generate-r-packages.R bioc-annotation >new && mv new bioc-annotation-packages.nix
 
-{
-  self,
-  derive,
-}:
+{ self, derive }:
 let
   derive2 = derive { biocVersion = "3.16"; };
 in

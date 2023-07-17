@@ -28,11 +28,7 @@ let
   ;
 
   bindZoneOptions =
-    {
-      name,
-      config,
-      ...
-    }:
+    { name, config, ... }:
     {
       options = {
         name = mkOption {

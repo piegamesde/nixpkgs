@@ -1,6 +1,4 @@
-{
-  libsForQt5,
-}:
+{ libsForQt5 }:
 let
   common = opts: libsForQt5.callPackage (import ./common.nix opts) { };
 in

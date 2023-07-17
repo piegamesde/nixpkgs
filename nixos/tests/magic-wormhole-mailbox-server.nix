@@ -1,17 +1,12 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "magic-wormhole-mailbox-server";
     meta = with pkgs.lib.maintainers; { maintainers = [ mmahut ]; };
 
     nodes = {
       server =
-        {
-          ...
-        }:
+        { ... }:
         {
           networking.firewall.allowedTCPPorts = [ 4000 ];
           services.magic-wormhole-mailbox-server.enable = true;
@@ -19,23 +14,14 @@ import ./make-test-python.nix (
       ;
 
       client_alice =
-        {
-          ...
-        }:
+        { ... }:
         {
           networking.firewall.enable = false;
           environment.systemPackages = [ pkgs.magic-wormhole ];
         }
       ;
 
-      client_bob =
-        {
-          ...
-        }:
-        {
-          environment.systemPackages = [ pkgs.magic-wormhole ];
-        }
-      ;
+      client_bob = { ... }: { environment.systemPackages = [ pkgs.magic-wormhole ]; };
     };
 
     testScript = ''

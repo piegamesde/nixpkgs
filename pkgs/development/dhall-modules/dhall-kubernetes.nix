@@ -1,6 +1,4 @@
-{
-  buildDhallGitHubPackage,
-}:
+{ buildDhallGitHubPackage }:
 
 buildDhallGitHubPackage {
   name = "dhall-kubernetes-3.0.0";

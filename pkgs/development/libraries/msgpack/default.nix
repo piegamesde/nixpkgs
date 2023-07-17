@@ -1,8 +1,4 @@
-{
-  callPackage,
-  fetchFromGitHub,
-  ...
-}@args:
+{ callPackage, fetchFromGitHub, ... }@args:
 
 callPackage ./generic.nix (
   args

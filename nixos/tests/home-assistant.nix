@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
 
   let
     configDir = "/var/lib/foobar";
@@ -13,10 +9,7 @@ import ./make-test-python.nix (
     meta.maintainers = lib.teams.home-assistant.members;
 
     nodes.hass =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         services.postgresql = {
           enable = true;
@@ -130,10 +123,7 @@ import ./make-test-python.nix (
     ;
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       let
         system = nodes.hass.system.build.toplevel;
       in

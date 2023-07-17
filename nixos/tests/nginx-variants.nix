@@ -14,10 +14,7 @@ builtins.listToAttrs (
         name = "nginx-variant-${nginxName}";
 
         nodes.machine =
-          {
-            pkgs,
-            ...
-          }:
+          { pkgs, ... }:
           {
             services.nginx = {
               enable = true;

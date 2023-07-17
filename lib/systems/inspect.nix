@@ -1,6 +1,4 @@
-{
-  lib,
-}:
+{ lib }:
 with import ./parse.nix { inherit lib; };
 with lib.attrsets;
 with lib.lists;
@@ -82,10 +80,7 @@ rec {
     isArmv7 =
       map
         (
-          {
-            arch,
-            ...
-          }:
+          { arch, ... }:
           {
             cpu = {
               inherit arch;

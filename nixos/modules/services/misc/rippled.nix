@@ -99,10 +99,7 @@ let
   ;
 
   portOptions =
-    {
-      name,
-      ...
-    }:
+    { name, ... }:
     {
       options = {
         name = mkOption {

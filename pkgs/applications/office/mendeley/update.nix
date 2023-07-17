@@ -1,7 +1,4 @@
-{
-  writeScript,
-  runtimeShell,
-}:
+{ writeScript, runtimeShell }:
 
 writeScript "update-mendeley" ''
   #!${runtimeShell}

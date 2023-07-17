@@ -20,11 +20,7 @@
   ...
 }:
 
-{
-  name,
-  src,
-  ...
-}:
+{ name, src, ... }:
 
 stdenv.mkDerivation rec {
 

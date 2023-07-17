@@ -49,9 +49,7 @@ let
       meta = with pkgs.lib.maintainers; { maintainers = [ typetetris ]; };
 
       nodes.machine =
-        {
-          ...
-        }:
+        { ... }:
         {
           services.postgresql = {
             enable = true;

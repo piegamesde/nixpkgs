@@ -1,17 +1,12 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
 
   {
     name = "plasma5";
     meta = with pkgs.lib.maintainers; { maintainers = [ ttuegel ]; };
 
     nodes.machine =
-      {
-        ...
-      }:
+      { ... }:
 
       {
         imports = [ ./common/user-account.nix ];
@@ -31,10 +26,7 @@ import ./make-test-python.nix (
     ;
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       let
         user = nodes.machine.config.users.users.alice;
         xdo = "${pkgs.xdotool}/bin/xdotool";

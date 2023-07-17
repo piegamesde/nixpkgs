@@ -10,11 +10,7 @@ let
 in
 
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   {
     name = "inspircd";
     nodes =

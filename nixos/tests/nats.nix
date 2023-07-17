@@ -6,11 +6,7 @@ let
   topic = "foo.bar";
 in
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   {
     name = "nats";
     meta = with pkgs.lib; { maintainers = with maintainers; [ c0deaddict ]; };
@@ -18,21 +14,11 @@ import ./make-test-python.nix (
     nodes =
       let
         client =
-          {
-            pkgs,
-            ...
-          }:
-          {
-            environment.systemPackages = with pkgs; [ natscli ];
-          }
-        ;
+          { pkgs, ... }: { environment.systemPackages = with pkgs; [ natscli ]; };
       in
       {
         server =
-          {
-            pkgs,
-            ...
-          }:
+          { pkgs, ... }:
           {
             networking.firewall.allowedTCPPorts = [ port ];
             services.nats = {

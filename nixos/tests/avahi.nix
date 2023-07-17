@@ -15,9 +15,7 @@ import ./make-test-python.nix
     nodes =
       let
         cfg =
-          {
-            ...
-          }:
+          { ... }:
           {
             services.avahi = {
               enable = true;

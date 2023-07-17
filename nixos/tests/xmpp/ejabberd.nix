@@ -1,18 +1,11 @@
 import ../make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "ejabberd";
     meta = with pkgs.lib.maintainers; { maintainers = [ ajs124 ]; };
     nodes = {
       client =
-        {
-          nodes,
-          pkgs,
-          ...
-        }:
+        { nodes, pkgs, ... }:
         {
           networking.extraHosts = ''
             ${nodes.server.config.networking.primaryIPAddress} example.com
@@ -26,11 +19,7 @@ import ../make-test-python.nix (
         }
       ;
       server =
-        {
-          config,
-          pkgs,
-          ...
-        }:
+        { config, pkgs, ... }:
         {
           networking.extraHosts = ''
             ${config.networking.primaryIPAddress} example.com
@@ -277,10 +266,7 @@ import ../make-test-python.nix (
     };
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       ''
         ejabberd_prefix = "su ejabberd -s $(which ejabberdctl) "
 

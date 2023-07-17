@@ -147,10 +147,7 @@ let
   ;
 
   mailboxes =
-    {
-      name,
-      ...
-    }:
+    { name, ... }:
     {
       options = {
         name = mkOption {

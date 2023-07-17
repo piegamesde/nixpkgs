@@ -3,18 +3,12 @@
 # MariaDB server using UNIX sockets authentication.
 
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   {
     name = "powerdns";
 
     nodes.server =
-      {
-        ...
-      }:
+      { ... }:
       {
         services.powerdns.enable = true;
         services.powerdns.extraConfig = ''

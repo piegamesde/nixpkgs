@@ -1,6 +1,4 @@
-{
-  lib,
-}:
+{ lib }:
 with lib.kernel; {
   # DRM_AMDGPU = yes;
 

@@ -20,11 +20,7 @@ let
     };
   };
   makeCert =
-    {
-      config,
-      pkgs,
-      ...
-    }:
+    { config, pkgs, ... }:
     {
       system.activationScripts.create-test-cert = stringAfter [ "users" ] ''
         ${pkgs.openssl}/bin/openssl req -batch -x509 -newkey rsa -nodes -out /test-cert.pem -keyout /test-key.pem -subj /CN=${config.networking.hostName}
@@ -34,10 +30,7 @@ let
     }
   ;
   serverCommon =
-    {
-      pkgs,
-      ...
-    }:
+    { pkgs, ... }:
     {
       networking.firewall.allowedTCPPorts = [ 443 ];
       services.stunnel.servers.https = {

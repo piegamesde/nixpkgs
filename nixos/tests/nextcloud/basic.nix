@@ -5,10 +5,7 @@ args@{
 }:
 
 (import ../make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   let
     adminpass = "notproduction";
     adminuser = "root";
@@ -25,9 +22,7 @@ args@{
     nodes = rec {
       # The only thing the client needs to do is download a file.
       client =
-        {
-          ...
-        }:
+        { ... }:
         {
           services.davfs2.enable = true;
           system.activationScripts.davfs2-secrets = ''
@@ -54,11 +49,7 @@ args@{
       ;
 
       nextcloud =
-        {
-          config,
-          pkgs,
-          ...
-        }:
+        { config, pkgs, ... }:
         let
           cfg = config;
         in
@@ -107,10 +98,7 @@ args@{
     };
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       let
         withRcloneEnv = pkgs.writeScript "with-rclone-env" ''
           #!${pkgs.runtimeShell}

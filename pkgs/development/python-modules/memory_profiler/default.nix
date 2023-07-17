@@ -1,7 +1,4 @@
-{
-  lib,
-  python,
-}:
+{ lib, python }:
 
 python.pkgs.buildPythonPackage rec {
   pname = "memory_profiler";

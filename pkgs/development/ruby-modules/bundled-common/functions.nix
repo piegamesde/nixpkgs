@@ -1,8 +1,4 @@
-{
-  lib,
-  gemConfig,
-  ...
-}:
+{ lib, gemConfig, ... }:
 
 let
   inherit (lib)
@@ -43,11 +39,7 @@ rec {
   ;
 
   filterGemset =
-    {
-      ruby,
-      groups,
-      ...
-    }:
+    { ruby, groups, ... }:
     gemset:
     let
       platformGems = filterAttrs (_: platformMatches ruby) gemset;
@@ -66,11 +58,7 @@ rec {
   ;
 
   platformMatches =
-    {
-      rubyEngine,
-      version,
-      ...
-    }:
+    { rubyEngine, version, ... }:
     attrs:
     (
       !(attrs ? platforms)

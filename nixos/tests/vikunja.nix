@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   {
     name = "vikunja";
 
@@ -11,9 +7,7 @@ import ./make-test-python.nix (
 
     nodes = {
       vikunjaSqlite =
-        {
-          ...
-        }:
+        { ... }:
         {
           services.vikunja = {
             enable = true;
@@ -27,10 +21,7 @@ import ./make-test-python.nix (
         }
       ;
       vikunjaPostgresql =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           services.vikunja = {
             enable = true;

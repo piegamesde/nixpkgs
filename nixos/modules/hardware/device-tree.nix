@@ -91,10 +91,7 @@ let
     name: f:
     pkgs.callPackage
       (
-        {
-          stdenv,
-          dtc,
-        }:
+        { stdenv, dtc }:
         stdenv.mkDerivation {
           name = "${name}-dtbo";
 

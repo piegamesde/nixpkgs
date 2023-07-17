@@ -1,9 +1,5 @@
 import ../make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   {
     name = "podman";
     meta = {
@@ -12,10 +8,7 @@ import ../make-test-python.nix (
 
     nodes = {
       rootful =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           virtualisation.podman.enable = true;
 
@@ -25,10 +18,7 @@ import ../make-test-python.nix (
         }
       ;
       rootless =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           virtualisation.podman.enable = true;
 
@@ -38,10 +28,7 @@ import ../make-test-python.nix (
         }
       ;
       dns =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           virtualisation.podman.enable = true;
 
@@ -51,10 +38,7 @@ import ../make-test-python.nix (
         }
       ;
       docker =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           virtualisation.podman.enable = true;
 

@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "caddy";
     meta = with pkgs.lib.maintainers; {
@@ -14,11 +11,7 @@ import ./make-test-python.nix (
 
     nodes = {
       webserver =
-        {
-          pkgs,
-          lib,
-          ...
-        }:
+        { pkgs, lib, ... }:
         {
           services.caddy.enable = true;
           services.caddy.extraConfig = ''
@@ -68,10 +61,7 @@ import ./make-test-python.nix (
     };
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       let
         etagSystem = "${nodes.webserver.config.system.build.toplevel}/specialisation/etag";
         justReloadSystem = "${nodes.webserver.config.system.build.toplevel}/specialisation/config-reload";

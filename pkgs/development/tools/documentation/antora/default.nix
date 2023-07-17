@@ -1,7 +1,4 @@
-{
-  lib,
-  nodePackages,
-}:
+{ lib, nodePackages }:
 
 let
   linkNodeDeps =

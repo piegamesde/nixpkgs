@@ -1,18 +1,12 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "postgis";
     meta = with pkgs.lib.maintainers; { maintainers = [ lsix ]; };
 
     nodes = {
       master =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
 
         {
           services.postgresql =

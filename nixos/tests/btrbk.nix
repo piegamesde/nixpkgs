@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
 
   let
     privateKey = ''
@@ -24,9 +21,7 @@ import ./make-test-python.nix (
 
     nodes = {
       archive =
-        {
-          ...
-        }:
+        { ... }:
         {
           environment.systemPackages = with pkgs; [ btrfs-progs ];
           # note: this makes the privateKey world readable.
@@ -56,9 +51,7 @@ import ./make-test-python.nix (
       ;
 
       main =
-        {
-          ...
-        }:
+        { ... }:
         {
           environment.systemPackages = with pkgs; [ btrfs-progs ];
           services.openssh = {

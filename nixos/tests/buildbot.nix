@@ -12,10 +12,7 @@ import ./make-test-python.nix
 
     nodes = {
       bbmaster =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           services.buildbot-master = {
             enable = true;
@@ -42,10 +39,7 @@ import ./make-test-python.nix
       ;
 
       bbworker =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           services.buildbot-worker = {
             enable = true;
@@ -59,10 +53,7 @@ import ./make-test-python.nix
       ;
 
       gitrepo =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           services.openssh.enable = true;
           networking.firewall.allowedTCPPorts = [

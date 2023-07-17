@@ -6,10 +6,7 @@
 # mapping.
 
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
 
   let
     internalRouterAddress = "192.168.3.1";
@@ -23,11 +20,7 @@ import ./make-test-python.nix (
 
     nodes = {
       router =
-        {
-          pkgs,
-          nodes,
-          ...
-        }:
+        { pkgs, nodes, ... }:
         {
           virtualisation.vlans = [
             1
@@ -58,11 +51,7 @@ import ./make-test-python.nix (
       ;
 
       client1 =
-        {
-          pkgs,
-          nodes,
-          ...
-        }:
+        { pkgs, nodes, ... }:
         {
           environment.systemPackages = [
             pkgs.miniupnpc
@@ -89,10 +78,7 @@ import ./make-test-python.nix (
       ;
 
       client2 =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           environment.systemPackages = [ pkgs.miniupnpc ];
           virtualisation.vlans = [ 1 ];
@@ -106,10 +92,7 @@ import ./make-test-python.nix (
     };
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       ''
         start_all()
 

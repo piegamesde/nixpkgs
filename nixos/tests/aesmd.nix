@@ -1,8 +1,4 @@
-{
-  pkgs,
-  lib,
-  ...
-}:
+{ pkgs, lib, ... }:
 {
   name = "aesmd";
   meta = {
@@ -13,10 +9,7 @@
   };
 
   nodes.machine =
-    {
-      lib,
-      ...
-    }:
+    { lib, ... }:
     {
       services.aesmd = {
         enable = true;
@@ -41,9 +34,7 @@
 
       specialisation = {
         withQuoteProvider.configuration =
-          {
-            ...
-          }:
+          { ... }:
           {
             services.aesmd = {
               quoteProviderLibrary = pkgs.sgx-azure-dcap-client;
@@ -58,10 +49,7 @@
   ;
 
   testScript =
-    {
-      nodes,
-      ...
-    }:
+    { nodes, ... }:
     let
       specialisations = "${nodes.machine.system.build.toplevel}/specialisation";
     in

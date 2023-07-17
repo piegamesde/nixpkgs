@@ -51,10 +51,7 @@ in
         default = { };
         type = types.attrsOf (
           types.submodule (
-            {
-              name,
-              ...
-            }:
+            { name, ... }:
             {
               freeformType = settingsFormat.type;
               options = {

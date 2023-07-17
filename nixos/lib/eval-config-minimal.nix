@@ -1,7 +1,5 @@
 # DO NOT IMPORT. Use nixpkgsFlake.lib.nixos, or import (nixpkgs + "/nixos/lib")
-{
-  lib,
-}: # read -^
+{ lib }: # read -^
 
 let
 
