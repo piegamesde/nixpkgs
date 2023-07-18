@@ -23,8 +23,7 @@ let
       '';
 
       setupHook = ./pdfset-hook.sh;
-    }
-  ;
+    };
 in
 lib.mapAttrs mkPdfSet {
   "ABMP15_3_nnlo" = "028q5xixxjxhb8sr7l5v5mwh9mkszm5m59fgnpb69yxvv40a70v0";

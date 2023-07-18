@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
           blas
           lapack
         ]
-    )
-  ;
+    );
 
   preBuild = ''
     sed -i 's|zlib-1.2.8/zlib.h|zlib.h|g' *.c *.h

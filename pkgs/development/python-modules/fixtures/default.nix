@@ -29,8 +29,7 @@ buildPythonPackage rec {
           url = "https://salsa.debian.org/openstack-team/python/python-fixtures/-/raw/debian/victoria/debian/patches/remove-broken-monkey-patch-test.patch";
           sha256 = "1s3hg2zmqc4shmnf90kscphzj5qlqpxghzw2a59p8f88zrbsj97r";
         })
-      ]
-  ;
+      ];
 
   nativeBuildInputs = [ pbr ];
 

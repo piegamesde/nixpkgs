@@ -49,8 +49,7 @@ let
         platforms = platforms.unix;
         maintainers = with maintainers; [ pSub ];
       };
-    }
-  ;
+    };
 in
 
 {

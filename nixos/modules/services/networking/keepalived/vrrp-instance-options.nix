@@ -127,8 +127,7 @@ with lib; {
       ];
       description =
         lib.mdDoc
-          "List of network interfaces to monitor for health tracking."
-      ;
+          "List of network interfaces to monitor for health tracking.";
     };
 
     extraConfig = mkOption {

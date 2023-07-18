@@ -16,8 +16,7 @@ openvpn.overrideAttrs (
       fetchpatch {
         url = "https://github.com/mullvad/openvpn/commit/${commit}.patch";
         inherit sha256;
-      }
-    ;
+      };
   in
   rec {
     pname = "openvpn-mullvad";

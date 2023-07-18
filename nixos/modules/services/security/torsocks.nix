@@ -35,8 +35,7 @@ let
       '';
       executable = true;
       destination = "/bin/${name}";
-    }
-  ;
+    };
 in
 {
   options = {
@@ -46,8 +45,7 @@ in
         default = config.services.tor.enable && config.services.tor.client.enable;
         defaultText =
           literalExpression
-            "config.services.tor.enable && config.services.tor.client.enable"
-        ;
+            "config.services.tor.enable && config.services.tor.client.enable";
         description = lib.mdDoc ''
           Whether to build `/etc/tor/torsocks.conf`
           containing the specified global torsocks configuration.

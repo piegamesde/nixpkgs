@@ -39,14 +39,12 @@ let
   # getSha256 :: String -> String
   getSha256 =
     dmgUrl: oldVersion: newVersion:
-    extractSha256FromHtml (getHtml (getSha256Url dmgUrl oldVersion newVersion))
-  ;
+    extractSha256FromHtml (getHtml (getSha256Url dmgUrl oldVersion newVersion));
 
   # getSha256Url :: String -> String -> String -> String
   getSha256Url =
     dmgUrl: oldVersion: newVersion:
-    (builtins.replaceStrings [ oldVersion ] [ newVersion ] dmgUrl) + ".sha256"
-  ;
+    (builtins.replaceStrings [ oldVersion ] [ newVersion ] dmgUrl) + ".sha256";
 in
 {
   inherit

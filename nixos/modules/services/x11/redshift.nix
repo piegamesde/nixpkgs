@@ -35,8 +35,7 @@ in
                 "redshift"
                 "latitude"
               ]
-              config
-          ;
+              config;
         in
         if value == null then
           throw "services.redshift.latitude is set to null, you can remove this"
@@ -64,8 +63,7 @@ in
                 "redshift"
                 "longitude"
               ]
-              config
-          ;
+              config;
         in
         if value == null then
           throw "services.redshift.longitude is set to null, you can remove this"
@@ -199,7 +197,6 @@ in
           RestartSec = 3;
           Restart = "always";
         };
-      }
-    ;
+      };
   };
 }

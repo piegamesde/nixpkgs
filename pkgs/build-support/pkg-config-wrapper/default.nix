@@ -37,8 +37,7 @@ let
         "_"
         "_"
       ]
-      targetPlatform.config
-  ;
+      targetPlatform.config;
 in
 
 stdenv.mkDerivation {
@@ -51,8 +50,7 @@ stdenv.mkDerivation {
 
   outputs =
     [ "out" ]
-    ++ optionals propagateDoc ([ "man" ] ++ optional (pkg-config ? doc) "doc")
-  ;
+    ++ optionals propagateDoc ([ "man" ] ++ optional (pkg-config ? doc) "doc");
 
   passthru = {
     inherit targetPrefix suffixSalt;

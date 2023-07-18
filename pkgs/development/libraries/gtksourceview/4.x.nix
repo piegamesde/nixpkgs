@@ -42,8 +42,7 @@ stdenv.mkDerivation (
             lib.versions.majorMinor version
           }/${pname}-${version}.tar.xz";
         sha256 = "fsnRj7KD0fhKOj7/O3pysJoQycAGWXs/uru1lYQgqH0=";
-      }
-    ;
+      };
 
     patches =
       [

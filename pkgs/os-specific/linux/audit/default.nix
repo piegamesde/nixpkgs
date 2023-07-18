@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals enablePython [
       python3
       swig
-    ]
-  ;
+    ];
   buildInputs = [ bash ];
 
   configureFlags = [

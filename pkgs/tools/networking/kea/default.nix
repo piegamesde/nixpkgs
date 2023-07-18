@@ -61,8 +61,7 @@ stdenv.mkDerivation rec {
         sphinxHook
         sphinx-rtd-theme
       ]
-    )
-  ;
+    );
 
   sphinxBuilders = [
     "html"

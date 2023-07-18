@@ -80,8 +80,7 @@ buildFHSEnv {
       libxshmfence
       libpthreadstubs
       libappindicator
-    ]
-  ;
+    ];
 
   extraInstallCommands = ''
     mkdir -p "$out/share/applications"

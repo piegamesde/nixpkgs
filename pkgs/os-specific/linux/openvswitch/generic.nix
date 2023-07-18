@@ -104,8 +104,7 @@ stdenv.mkDerivation rec {
         pyparsing
         pytest
       ]
-    )
-  ;
+    );
 
   meta = with lib; {
     changelog = "https://www.openvswitch.org/releases/NEWS-${version}.txt";

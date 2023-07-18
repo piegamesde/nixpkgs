@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
       [
         # Needed with GCC 12
         "-Wno-error=array-bounds"
-      ]
-  ;
+      ];
 
   preBuild = lib.optionalString stdenv.isDarwin ''
     sed -i 's/,--version-script=.*$//' Makefile

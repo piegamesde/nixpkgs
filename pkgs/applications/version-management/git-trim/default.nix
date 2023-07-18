@@ -47,8 +47,7 @@ rustPlatform.buildRustPackage rec {
       IOKit
       CoreFoundation
       Security
-    ]
-  ;
+    ];
 
   postInstall = ''
     install -Dm644 -t $out/share/man/man1/ docs/git-trim.1

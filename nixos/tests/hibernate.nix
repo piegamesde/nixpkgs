@@ -75,8 +75,7 @@ makeTest {
             512
           ];
         virtualisation.rootDevice = "/dev/vdb";
-      }
-    ;
+      };
   };
 
   # 9P doesn't support reconnection to virtio transport after a hibernation.

@@ -50,8 +50,7 @@ let
         license = licenses.mit;
         platforms = platforms.all;
       };
-    }
-  ;
+    };
 in
 {
   fmt_8 = generic {

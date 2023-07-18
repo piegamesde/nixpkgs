@@ -26,8 +26,7 @@ let
       gst-plugins-good
       gst-plugins-bad
       gst-plugins-ugly
-    ]
-  ;
+    ];
 in
 stdenv.mkDerivation rec {
   pname = "qt-video-wlr";

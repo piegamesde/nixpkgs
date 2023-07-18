@@ -55,8 +55,7 @@ stdenv.mkDerivation rec {
       [
         # Needed with GCC 12
         "-Wno-error=use-after-free"
-      ]
-  ;
+      ];
 
   # Be sure to keep the statically linked libraries
   dontDisableStatic = true;

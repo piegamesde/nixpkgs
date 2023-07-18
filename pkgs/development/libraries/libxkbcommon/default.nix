@@ -52,8 +52,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withWaylandTools [
       wayland
       wayland-protocols
-    ]
-  ;
+    ];
   nativeCheckInputs = [ python3 ];
 
   mesonFlags = [

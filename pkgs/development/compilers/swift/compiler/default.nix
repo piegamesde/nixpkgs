@@ -60,8 +60,7 @@ let
           mkdir -p $out/bin
           ln -s ${cctools}/bin/libtool $out/bin/libtool
         '')
-      ]
-  ;
+      ];
 
   # There are apparently multiple naming conventions on Darwin. Swift uses the
   # xcrun naming convention. See `configure_sdk_darwin` calls in CMake files.
@@ -175,8 +174,7 @@ let
           "_"
           "_"
         ]
-        targetPlatform.config
-    ;
+        targetPlatform.config;
     use_response_file_by_default = 1;
     swiftDriver = "";
     # NOTE: @prog@ needs to be filled elsewhere.
@@ -241,8 +239,7 @@ stdenv.mkDerivation {
       sigtool # codesign
       DarwinTools # sw_vers
       fixDarwinDylibNames
-    ]
-  ;
+    ];
 
   buildInputs =
     [
@@ -299,8 +296,7 @@ stdenv.mkDerivation {
       )}
 
       chmod -R u+w .
-    ''
-  ;
+    '';
 
   patchPhase = ''
     # Just patch all the things for now, we can focus this later.

@@ -24,8 +24,7 @@ let
 
   ipsecSecrets =
     secrets:
-    toFile "ipsec.secrets" (concatMapStringsSep "\n" (f: "include ${f}") secrets)
-  ;
+    toFile "ipsec.secrets" (concatMapStringsSep "\n" (f: "include ${f}") secrets);
 
   ipsecConf =
     {
@@ -47,8 +46,7 @@ let
               + (concatStringsSep "\n" (mapAttrsToList (k: v: "  ${k}=${v}") attrs))
             )
             sections
-        )
-      ;
+        );
       setupConf = makeSections "config" { inherit setup; };
       connectionsConf = makeSections "conn" connections;
       caConf = makeSections "ca" ca;
@@ -57,8 +55,7 @@ let
       ${setupConf}
       ${connectionsConf}
       ${caConf}
-    ''
-  ;
+    '';
 
   strongswanConf =
     {
@@ -85,8 +82,7 @@ let
       starter {
         config_file = ${ipsecConf { inherit setup connections ca; }}
       }
-    ''
-  ;
+    '';
 in
 {
   options.services.strongswan = {
@@ -220,6 +216,5 @@ in
           mkdir -m 700 -p /etc/ppp
         '';
       };
-    }
-  ;
+    };
 }

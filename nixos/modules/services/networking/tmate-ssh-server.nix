@@ -32,8 +32,7 @@ in
       description = mdDoc "External host name";
       defaultText =
         lib.literalExpression
-          "config.networking.domain or config.networking.hostName"
-      ;
+          "config.networking.domain or config.networking.hostName";
       default = if domain == null then config.networking.hostName else domain;
     };
 
@@ -48,8 +47,7 @@ in
       default = false;
       description =
         mdDoc
-          "Whether to automatically open the specified ports in the firewall."
-      ;
+          "Whether to automatically open the specified ports in the firewall.";
     };
 
     advertisedPort = mkOption {
@@ -61,8 +59,7 @@ in
       type = with types; nullOr str;
       description =
         mdDoc
-          "Directory containing ssh keys, defaulting to auto-generation"
-      ;
+          "Directory containing ssh keys, defaulting to auto-generation";
       default = null;
     };
   };
@@ -99,8 +96,7 @@ in
               sd -sp '@rsa_fingerprint@' "$RSA_SIG"
           '';
         })
-      ]
-    ;
+      ];
 
     systemd.services.tmate-ssh-server = {
       description = "tmate SSH Server";

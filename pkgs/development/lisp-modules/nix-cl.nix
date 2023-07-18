@@ -68,8 +68,7 @@ let
       ff = f origArgs;
       overrideWith =
         newArgs:
-        origArgs // (if pkgs.lib.isFunction newArgs then newArgs origArgs else newArgs)
-      ;
+        origArgs // (if pkgs.lib.isFunction newArgs then newArgs origArgs else newArgs);
     in
     if builtins.isAttrs ff then
       (
@@ -108,8 +107,7 @@ let
         mkdir -p $out
         cp -v asdf.${faslExt} $out
       '';
-    }
-  ;
+    };
 
   #
   # Wrapper around stdenv.mkDerivation for building ASDF systems.
@@ -250,8 +248,7 @@ let
                     "[+]"
                   ]
                 )
-                systems
-            ;
+                systems;
           in
           ''
             mkdir -pv $out
@@ -261,8 +258,7 @@ let
             find $out -name "*.asd" \
             | grep -v "/\(${mkSystemsRegex systems}\)\.asd$" \
             | xargs rm -fv || true
-          ''
-        ;
+          '';
 
         dontPatchShebangs = true;
 
@@ -309,8 +305,7 @@ let
     pkgs.callPackage ./packages.nix {
       inherit spec quicklispPackagesFor;
       build-asdf-system = build-asdf-system';
-    }
-  ;
+    };
 
   # Build the set of packages imported from quicklisp using `lisp`
   quicklispPackagesFor =
@@ -318,8 +313,7 @@ let
     let
       build-asdf-system' = body: build-asdf-system (body // spec);
     in
-    pkgs.callPackage ./ql.nix { build-asdf-system = build-asdf-system'; }
-  ;
+    pkgs.callPackage ./ql.nix { build-asdf-system = build-asdf-system'; };
 
   # Creates a lisp wrapper with `packages` installed
   #
@@ -366,8 +360,7 @@ let
               --prefix PATH : "${makeBinPath (o.propagatedBuildInputs or [ ])}"
           '';
         }
-      )
-  ;
+      );
 
   wrapLisp =
     {
@@ -401,8 +394,7 @@ let
             asdf
           ;
           inherit packageOverrides;
-        }
-      ;
+        };
       buildASDFSystem = args: build-asdf-system (args // spec);
     in
     pkg

@@ -33,8 +33,7 @@ stdenv.mkDerivation rec {
 
   patches =
     [ ./fix-libxcrypt-build.patch ]
-    ++ lib.optional stdenv.isFreeBSD ./include-static-dependencies.patch
-  ;
+    ++ lib.optional stdenv.isFreeBSD ./include-static-dependencies.patch;
 
   NIX_CFLAGS_LINK = [ "-lcrypt" ];
 
@@ -46,8 +45,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs =
     [ makeWrapper ]
-    ++ lib.optional stdenv.isFreeBSD autoreconfHook
-  ;
+    ++ lib.optional stdenv.isFreeBSD autoreconfHook;
 
   configureFlags =
     [

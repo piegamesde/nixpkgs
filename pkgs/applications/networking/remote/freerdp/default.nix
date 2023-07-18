@@ -196,8 +196,7 @@ stdenv.mkDerivation rec {
       WITH_SERVER = buildServer;
       WITH_VAAPI = false; # false is recommended by upstream
       WITH_X11 = true;
-    }
-  ;
+    };
 
   env.NIX_CFLAGS_COMPILE = toString (
     lib.optionals stdenv.isDarwin [

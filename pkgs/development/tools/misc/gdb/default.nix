@@ -45,8 +45,7 @@ let
   basename = "gdb";
   targetPrefix =
     lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform)
-      "${stdenv.targetPlatform.config}-"
-  ;
+      "${stdenv.targetPlatform.config}-";
 in
 
 assert pythonSupport -> python3 != null;
@@ -76,8 +75,7 @@ stdenv.mkDerivation rec {
 
   patches =
     [ ./debug-info-from-env.patch ]
-    ++ lib.optionals stdenv.isDarwin [ ./darwin-target-match.patch ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ ./darwin-target-match.patch ];
 
   nativeBuildInputs = [
     pkg-config

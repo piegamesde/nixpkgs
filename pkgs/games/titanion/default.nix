@@ -17,8 +17,7 @@ let
       name = "${patchname}.patch";
       url = "https://sources.debian.org/data/main/t/titanion/0.3.dfsg1-7/debian/patches/${patchname}";
       sha256 = hash;
-    }
-  ;
+    };
 in
 stdenv.mkDerivation rec {
   pname = "titanion";

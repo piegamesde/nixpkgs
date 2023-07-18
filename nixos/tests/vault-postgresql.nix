@@ -48,8 +48,7 @@ import ./make-test-python.nix (
 
           GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO vaultuser;
         '';
-      }
-    ;
+      };
 
     testScript = ''
       secretConfig = """

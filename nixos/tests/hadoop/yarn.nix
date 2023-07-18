@@ -15,8 +15,7 @@ import ../make-test-python.nix (
               openFirewall = true;
             };
           };
-        }
-      ;
+        };
       nodemanager =
         { options, lib, ... }:
         {
@@ -31,8 +30,7 @@ import ../make-test-python.nix (
               "yarn.nodemanager.log-dirs" = "/tmp/userlogs";
             };
           };
-        }
-      ;
+        };
     };
 
     testScript = ''

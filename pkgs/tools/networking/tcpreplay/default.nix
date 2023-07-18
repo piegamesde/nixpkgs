@@ -22,8 +22,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       Carbon
       CoreServices
-    ]
-  ;
+    ];
 
   configureFlags = [
     "--disable-local-libopts"

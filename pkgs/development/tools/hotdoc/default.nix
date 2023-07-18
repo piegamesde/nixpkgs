@@ -89,8 +89,7 @@ buildPythonApplication rec {
       [
         # Test does not correctly handle absolute /home paths on Darwin (even fake ones)
         "test_index"
-      ]
-  ;
+      ];
 
   # Hardcode libclang paths
   postPatch = ''

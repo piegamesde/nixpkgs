@@ -154,14 +154,12 @@ in
         # Allows to load another bundler version
         sed -i -e "s/activate_bin_path/bin_path/g" $out/bin/bundle
       '';
-    }
-  ;
+    };
 
   cairo = attrs: {
     nativeBuildInputs =
       [ pkg-config ]
-      ++ lib.optionals stdenv.isDarwin [ DarwinTools ]
-    ;
+      ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
     buildInputs = [
       gtk2
       pcre2
@@ -173,8 +171,7 @@ in
   cairo-gobject = attrs: {
     nativeBuildInputs =
       [ pkg-config ]
-      ++ lib.optionals stdenv.isDarwin [ DarwinTools ]
-    ;
+      ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
     buildInputs = [
       cairo
       pcre2
@@ -268,8 +265,7 @@ in
         cd $(cat $out/nix-support/gem-meta/install-path)
         rm {$out/bin,bin,../../bin}/{setup,console}
       '';
-    }
-  ;
+    };
 
   redis-rack = attrs: {
     dontBuild = false;
@@ -344,8 +340,7 @@ in
   gio2 = attrs: {
     nativeBuildInputs =
       [ pkg-config ]
-      ++ lib.optionals stdenv.isDarwin [ DarwinTools ]
-    ;
+      ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
     buildInputs =
       [
         gtk2
@@ -357,8 +352,7 @@ in
         util-linux
         libselinux
         libsepol
-      ]
-    ;
+      ];
   };
 
   gitlab-markup = attrs: { meta.priority = 1; };
@@ -375,8 +369,7 @@ in
           }
         }';" ext/pg_query/extconf.rb
       '';
-    }
-  ;
+    };
 
   parser = attrs: { meta.mainProgram = "ruby-parse"; };
 
@@ -412,8 +405,7 @@ in
   glib2 = attrs: {
     nativeBuildInputs =
       [ pkg-config ]
-      ++ lib.optionals stdenv.isDarwin [ DarwinTools ]
-    ;
+      ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
     buildInputs = [
       gtk2
       pcre2
@@ -573,8 +565,7 @@ in
       ++ lib.optionals stdenv.isDarwin [
         "--with-iconv-dir=${libiconv}"
         "--with-opt-include=${libiconv}/include"
-      ]
-    ;
+      ];
   };
 
   mathematical = attrs: {
@@ -689,8 +680,7 @@ in
       ++ lib.optionals stdenv.isDarwin [
         "--with-iconv-dir=${libiconv}"
         "--with-opt-include=${libiconv}/include"
-      ]
-    ;
+      ];
   };
 
   openssl = attrs: {
@@ -733,8 +723,7 @@ in
         libselinux
         libsepol
         util-linux
-      ]
-    ;
+      ];
     propagatedBuildInputs = [
       gobject-introspection
       wrapGAppsHook
@@ -770,8 +759,7 @@ in
         czmq
       ];
       buildFlags = [ "--with-system-libs" ];
-    }
-  ;
+    };
 
   rbnacl =
     spec:
@@ -882,8 +870,7 @@ in
       postPatch = ''
         sed -i -e "s/-arch i386//" Rakefile ext/scrypt/Rakefile
       '';
-    }
-  ;
+    };
 
   semian = attrs: { buildInputs = [ openssl ]; };
 
@@ -948,10 +935,8 @@ in
         ''
           substituteInPlace ${path} \
             --replace "/usr/share/zoneinfo" "${tzdata}/share/zoneinfo"
-        ''
-      ;
-    }
-  ;
+        '';
+    };
 
   uuid4r = attrs: {
     buildInputs = [

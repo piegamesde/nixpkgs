@@ -27,8 +27,7 @@ let
     if stdenv.hostPlatform.system == "x86_64-linux" then "x86_64" else "i386";
   appendPath =
     lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux")
-      "64"
-  ;
+      "64";
   libPath =
     lib.makeLibraryPath [
       cups

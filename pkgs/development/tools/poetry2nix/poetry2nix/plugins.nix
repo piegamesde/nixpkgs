@@ -51,8 +51,7 @@ let
       '';
 
       inherit postInstall;
-    }
-  ;
+    };
 in
 {
 
@@ -80,10 +79,8 @@ in
                 buildInputs
               ;
               drv = finalDrv;
-            }
-          ;
+            };
         };
       }
-    )
-  ;
+    );
 }

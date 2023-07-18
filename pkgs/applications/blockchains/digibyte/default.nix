@@ -48,8 +48,7 @@ stdenv.mkDerivation rec {
       qtbase
       qttools
       protobuf
-    ]
-  ;
+    ];
 
   enableParallelBuilding = true;
 
@@ -58,8 +57,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withGui [
       "--with-gui=qt5"
       "--with-qt-bindir=${qtbase.dev}/bin:${qttools.dev}/bin"
-    ]
-  ;
+    ];
 
   meta = with lib; {
     description = "DigiByte (DGB) is a rapidly growing decentralized, global blockchain";

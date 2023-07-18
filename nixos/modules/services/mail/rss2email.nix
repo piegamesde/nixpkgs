@@ -34,8 +34,7 @@ in
         default = "12h";
         description =
           lib.mdDoc
-            "How often to check the feeds, in systemd interval format"
-        ;
+            "How often to check the feeds, in systemd interval format";
       };
 
       config = mkOption {
@@ -47,8 +46,7 @@ in
               int
               bool
             ]
-          )
-        ;
+          );
         default = { };
         description = lib.mdDoc ''
           The configuration to give rss2email.
@@ -148,8 +146,7 @@ in
           ExecStart = "${pkgs.rss2email}/bin/r2e -c ${conf} -d /var/rss2email/db.json run";
           User = "rss2email";
         };
-      }
-    ;
+      };
 
     systemd.timers.rss2email = {
       partOf = [ "rss2email.service" ];

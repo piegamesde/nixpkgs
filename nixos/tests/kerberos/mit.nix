@@ -38,8 +38,7 @@ import ../make-test-python.nix (
         users.extraUsers.alice = {
           isNormalUser = true;
         };
-      }
-    ;
+      };
 
     testScript = ''
       machine.succeed(

@@ -22,6 +22,5 @@
     testers.invalidateFetcherByDrvHash fetchFirefoxAddon {
       name = "image-search-options";
       src = image-search-options;
-    }
-  ;
+    };
 }

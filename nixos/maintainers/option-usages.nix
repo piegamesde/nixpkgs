@@ -54,8 +54,7 @@ let
     import ../lib/eval-config.nix {
       modules = [ configuration ];
       inherit specialArgs;
-    }
-  ;
+    };
 
   eval = evalFun { };
   inherit (eval) pkgs;
@@ -107,13 +106,11 @@ let
         moduleResult:
         forEach (excludeOptions (collect isOption moduleResult)) (
           opt: { name = showOption opt.loc; } // builtins.tryEval (strict opt.value)
-        )
-      ;
+        );
     in
     keepNames (
       filterChanges (zipLists (tryCollectOptions old) (tryCollectOptions new))
-    )
-  ;
+    );
 
   # Create a list of modules where each module contains only one failling
   # options.
@@ -127,8 +124,7 @@ let
         );
       };
     in
-    map setIntrospection (collect isOption eval.options)
-  ;
+    map setIntrospection (collect isOption eval.options);
 
   overrideConfig =
     thrower:
@@ -138,8 +134,7 @@ let
         path == thrower.path
       )
       eval.config
-      thrower.config
-  ;
+      thrower.config;
 
   graph =
     map
@@ -152,11 +147,9 @@ let
               specialArgs = {
                 config = overrideConfig thrower;
               };
-            }).options
-        ;
+            }).options;
       })
-      introspectionModules
-  ;
+      introspectionModules;
 
   displayOptionsGraph =
     let
@@ -166,8 +159,7 @@ let
     flip filter graph (
       { option, ... }:
       (checkAll || elem option checkList) && !(elem option excludedTestOptions)
-    )
-  ;
+    );
 
   graphToDot = graph: ''
     digraph "Option Usages" {
@@ -192,8 +184,7 @@ let
           '')
           usedBy
       )
-      displayOptionsGraph
-  ;
+      displayOptionsGraph;
 in
 
 rec {

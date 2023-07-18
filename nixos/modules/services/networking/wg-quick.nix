@@ -39,8 +39,7 @@ let
         autostart = mkOption {
           description =
             lib.mdDoc
-              "Whether to bring up this interface automatically during boot."
-          ;
+              "Whether to bring up this interface automatically during boot.";
           default = true;
           example = false;
           type = types.bool;
@@ -151,8 +150,7 @@ let
           type = with types; listOf (submodule peerOpts);
         };
       };
-    }
-  ;
+    };
 
   # peer options
 
@@ -384,8 +382,7 @@ let
       preStop = ''
         wg-quick down ${configPath}
       '';
-    }
-  ;
+    };
 in
 {
 
@@ -417,21 +414,18 @@ in
   config = mkIf (cfg.interfaces != { }) {
     boot.extraModulePackages =
       optional (versionOlder kernel.kernel.version "5.6")
-        kernel.wireguard
-    ;
+        kernel.wireguard;
     environment.systemPackages = [ pkgs.wireguard-tools ];
     systemd.services = mapAttrs' generateUnit cfg.interfaces;
 
     # Prevent networkd from clearing the rules set by wg-quick when restarted (e.g. when waking up from suspend).
     systemd.network.config.networkConfig.ManageForeignRoutingPolicyRules =
       mkDefault
-        false
-    ;
+        false;
 
     # WireGuard interfaces should be ignored in determining whether the network is online.
     systemd.network.wait-online.ignoredInterfaces =
       builtins.attrNames
-        cfg.interfaces
-    ;
+        cfg.interfaces;
   };
 }

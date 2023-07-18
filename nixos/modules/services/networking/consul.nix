@@ -209,8 +209,7 @@ in
             [ config.environment.etc."consul.json".source ]
             ++ mapAttrsToList (_: d: d.source) (
               filterAttrs (n: _: hasPrefix "consul.d/" n) config.environment.etc
-            )
-          ;
+            );
 
           serviceConfig =
             {
@@ -226,8 +225,7 @@ in
             }
             // (optionalAttrs (cfg.leaveOnStop) {
               ExecStop = "${lib.getExe cfg.package} leave";
-            })
-          ;
+            });
 
           path = with pkgs; [
             iproute2

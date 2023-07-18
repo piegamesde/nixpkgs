@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
         IOKit
         DiskArbitration
       ]
-    )
-  ;
+    );
 
   propagatedBuildInputs = [ libcdio ];
 

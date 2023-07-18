@@ -47,8 +47,7 @@ with self;
       [ perl ]
       ++ modules
       ++ lib.concatLists (lib.catAttrs "requiredPerlModules" modules)
-    )
-  ;
+    );
 
   # Convert derivation to a perl module.
   toPerlModule =
@@ -61,8 +60,7 @@ with self;
           requiredPerlModules = requiredPerlModules drv.propagatedBuildInputs;
         };
       }
-    )
-  ;
+    );
 
   buildPerlPackage = callPackage ../development/perl-modules/generic { };
 
@@ -95,8 +93,7 @@ with self;
         '';
         buildInputs = (args.buildInputs or [ ]) ++ [ ModuleBuild ];
       }
-    )
-  ;
+    );
 
   /* Construct a perl search path (such as $PERL5LIB)
 
@@ -6616,8 +6613,7 @@ with self;
     propagatedBuildInputs = [ ClassMix ];
     perlPreHook =
       lib.optionalString (stdenv.isi686 || stdenv.isDarwin)
-        "export LD=$CC"
-    ;
+        "export LD=$CC";
     meta = {
       description = "The Eksblowfish block cipher";
       license = with lib.licenses; [
@@ -6921,8 +6917,7 @@ with self;
     propagatedBuildInputs = [ DigestSHA1 ];
     perlPreHook =
       lib.optionalString (stdenv.isi686 || stdenv.isDarwin)
-        "export LD=$CC"
-    ;
+        "export LD=$CC";
     meta = {
       description = "Emulate MySQL PASSWORD() function";
       license = with lib.licenses; [
@@ -7356,8 +7351,7 @@ with self;
     };
     perlPreHook =
       lib.optionalString (stdenv.isi686 || stdenv.isDarwin)
-        "export LD=$CC"
-    ;
+        "export LD=$CC";
     meta = {
       description = "XS based CSS minifier";
       homepage = "https://metacpan.org/release/CSS-Minifier-XS";
@@ -12678,8 +12672,7 @@ with self;
     buildInputs = [ ExtUtilsCChecker ];
     perlPreHook =
       lib.optionalString (stdenv.isi686 || stdenv.isDarwin)
-        "export LD=$CC"
-    ; # fix undefined reference to `__stack_chk_fail_local'
+        "export LD=$CC"; # fix undefined reference to `__stack_chk_fail_local'
     meta = {
       description = "Modify attributes of symlinks without dereferencing them";
       license = with lib.licenses; [
@@ -17082,8 +17075,7 @@ with self;
     };
     perlPreHook =
       lib.optionalString (stdenv.isi686 || stdenv.isDarwin)
-        "export LD=$CC"
-    ;
+        "export LD=$CC";
     meta = {
       description = "XS based JavaScript minifier";
       homepage = "https://metacpan.org/release/JavaScript-Minifier-XS";
@@ -17123,8 +17115,7 @@ with self;
       lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform)
         ''
           substituteInPlace Makefile.PL --replace "exit 0;" ""
-        ''
-    ;
+        '';
     buildInputs = [ TestPod ];
     meta = {
       description = "JSON (JavaScript Object Notation) encoder/decoder";
@@ -17372,8 +17363,7 @@ with self;
     ];
     nativeBuildInputs =
       [ pkgs.makeWrapper ]
-      ++ lib.optional stdenv.isDarwin shortenPerlShebang
-    ;
+      ++ lib.optional stdenv.isDarwin shortenPerlShebang;
     makeMakerFlags = [
       "TEXMF=\${tex}"
       "NOMKTEXLSR"
@@ -23214,8 +23204,7 @@ with self;
     perlPreHook = "export LD=$CC";
     env.NIX_CFLAGS_COMPILE =
       lib.optionalString stdenv.isi686
-        "-fno-stack-protector"
-    ;
+        "-fno-stack-protector";
     hardeningDisable = lib.optional stdenv.isi686 "stackprotector";
     meta = {
       description = "Moose minus the antlers";
@@ -25878,8 +25867,7 @@ with self;
           xorg.libXmu
           xorg.libXi
         ]
-      )
-    ;
+      );
 
     propagatedBuildInputs = [
       AstroFITSHeader
@@ -29859,8 +29847,7 @@ with self;
 
   strip-nondeterminism =
     callPackage ../development/perl-modules/strip-nondeterminism
-      { }
-  ;
+      { };
 
   StructDumb = buildPerlModule {
     pname = "Struct-Dumb";
@@ -30362,8 +30349,7 @@ with self;
     ];
     buildInputs =
       lib.optional stdenv.isDarwin
-        pkgs.darwin.apple_sdk.frameworks.Carbon
-    ;
+        pkgs.darwin.apple_sdk.frameworks.Carbon;
     doCheck = !stdenv.isAarch64;
     meta = {
       description = "Perl extension for getting CPU information. Currently only number of CPU's supported.";
@@ -30989,8 +30975,7 @@ with self;
           gpl1Plus
         ];
       };
-    }
-  ;
+    };
 
   TermReadLineGnu = buildPerlPackage {
     pname = "Term-ReadLine-Gnu";
@@ -35780,8 +35765,7 @@ with self;
     ];
     env.NIX_CFLAGS_COMPILE =
       lib.optionalString stdenv.cc.isClang
-        "-Wno-return-type"
-    ;
+        "-Wno-return-type";
     buildInputs = [ pkgs.curl ];
     doCheck = false; # performs network access
     meta = {
@@ -35902,8 +35886,7 @@ with self;
 
   WWWYoutubeViewer =
     callPackage ../development/perl-modules/WWW-YoutubeViewer
-      { }
-  ;
+      { };
 
   Want = buildPerlPackage {
     pname = "Want";
@@ -36365,8 +36348,7 @@ with self;
           libiconv
           zlib
         ]
-      )
-    ;
+      );
     propagatedBuildInputs = [ XMLSAX ];
     meta = {
       description = "Perl Binding for libxml2";

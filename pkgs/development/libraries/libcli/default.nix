@@ -39,8 +39,7 @@ stdenv.mkDerivation rec {
       [
         # Needed with GCC 12
         "-Wno-error=address"
-      ]
-  ;
+      ];
 
   meta = with lib; {
     description = "Emulate a Cisco-style telnet command-line interface";

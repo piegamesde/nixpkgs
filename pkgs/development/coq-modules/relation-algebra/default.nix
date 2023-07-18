@@ -60,8 +60,7 @@ mkCoqDerivation {
           out = "1.7.1";
         }
       ]
-      null
-  ;
+      null;
 
   mlPlugin = true;
 

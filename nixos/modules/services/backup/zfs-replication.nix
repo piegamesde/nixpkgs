@@ -20,8 +20,7 @@ in
       followDelete = mkOption {
         description =
           lib.mdDoc
-            "Remove remote snapshots that don't have a local correspondent."
-        ;
+            "Remove remote snapshots that don't have a local correspondent.";
         default = true;
         type = types.bool;
       };
@@ -29,8 +28,7 @@ in
       host = mkOption {
         description =
           lib.mdDoc
-            "Remote host where snapshots should be sent. `lz4` is expected to be installed on this host."
-        ;
+            "Remote host where snapshots should be sent. `lz4` is expected to be installed on this host.";
         example = "example.com";
         type = types.str;
       };
@@ -44,8 +42,7 @@ in
       localFilesystem = mkOption {
         description =
           lib.mdDoc
-            "Local ZFS filesystem from which snapshots should be sent.  Defaults to the attribute name."
-        ;
+            "Local ZFS filesystem from which snapshots should be sent.  Defaults to the attribute name.";
         example = "pool/file/path";
         type = types.str;
       };

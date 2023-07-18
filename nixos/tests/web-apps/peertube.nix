@@ -104,8 +104,7 @@ import ../make-test-python.nix (
               };
             };
           };
-        }
-      ;
+        };
 
       client = {
         environment.systemPackages = [ pkgs.jq ];

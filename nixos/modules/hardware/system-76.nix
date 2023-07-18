@@ -94,8 +94,7 @@ in
         example = true;
         description =
           lib.mdDoc
-            "Whether to make the system76 out-of-tree kernel modules available"
-        ;
+            "Whether to make the system76 out-of-tree kernel modules available";
         type = types.bool;
       };
 

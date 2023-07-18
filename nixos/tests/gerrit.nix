@@ -45,8 +45,7 @@ import ./make-test-python.nix (
               sshd.advertisedAddress = "[::]:2222";
             };
           };
-        }
-      ;
+        };
 
       client = { ... }: { };
     };

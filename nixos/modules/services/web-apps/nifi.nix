@@ -114,8 +114,7 @@ in
         default = null;
         description =
           lib.mdDoc
-            "Initial user account for Apache NiFi. Username must be at least 4 characters."
-        ;
+            "Initial user account for Apache NiFi. Username must be at least 4 characters.";
       };
 
       initPasswordFile = lib.mkOption {
@@ -124,8 +123,7 @@ in
         example = "/run/keys/nifi/password-nifi";
         description =
           lib.mdDoc
-            "nitial password for Apache NiFi. Password must be at least 12 characters."
-        ;
+            "nitial password for Apache NiFi. Password must be at least 12 characters.";
       };
 
       initJavaHeapSize = lib.mkOption {

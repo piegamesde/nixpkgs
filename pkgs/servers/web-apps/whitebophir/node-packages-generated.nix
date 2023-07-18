@@ -990,6 +990,5 @@ in
         production = true;
         bypassCache = true;
         reconstructLock = true;
-      }
-  ;
+      };
 }

@@ -47,8 +47,7 @@ mkDerivation rec {
       })
     ]
     ++ lib.optional (!preferQWebView && !preferNative)
-      ./qsyncthingtray-0.5.8-qt-5.6.3.patch
-  ;
+      ./qsyncthingtray-0.5.8-qt-5.6.3.patch;
 
   postPatch = ''
     ${lib.optionalString stdenv.isLinux ''
@@ -75,8 +74,7 @@ mkDerivation rec {
       ln -s $out/bin/${qst} $out/bin/QSyncthingTray
 
       runHook postInstall
-    ''
-  ;
+    '';
 
   meta = with lib; {
     homepage = "https://github.com/sieren/QSyncthingTray/";

@@ -93,8 +93,7 @@ stdenv.mkDerivation rec {
         concatStringsSep "|" brokenTests
       }'
       runHook postCheck
-    ''
-  ;
+    '';
 
   postInstall = ''
     mkdir -p $bin $dev/share

@@ -24,8 +24,7 @@ import ./make-test-python.nix (
             if (subject.user == "alice") return "yes";
           });
         '';
-      }
-    ;
+      };
 
     testScript = ''
       import lzma

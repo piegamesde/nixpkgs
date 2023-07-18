@@ -41,8 +41,7 @@ let
             libraries = xmonadAndPackages cfg.haskellPackages;
             inherit (cfg) ghcArgs;
           }
-          cfg.config
-      ;
+          cfg.config;
     in
     pkgs.runCommandLocal "xmonad" { nativeBuildInputs = [ pkgs.makeWrapper ]; } (
       ''
@@ -55,8 +54,7 @@ let
       + ''
         --set XMONAD_XMESSAGE "${pkgs.xorg.xmessage}/bin/xmessage"
       ''
-    )
-  ;
+    );
 
   xmonad = if (cfg.config != null) then xmonad-config else xmonad-vanilla;
 in

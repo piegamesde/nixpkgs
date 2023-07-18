@@ -103,8 +103,7 @@ let
   # TODO(@Ericson2314) Make unconditional
   targetPrefix =
     lib.optionalString (targetPlatform != hostPlatform)
-      "${targetPlatform.config}-"
-  ;
+      "${targetPlatform.config}-";
 
   buildMK =
     dontStrip:
@@ -183,8 +182,7 @@ let
   # GHC doesn't seem to have {LLC,OPT}_HOST
   toolsForTarget =
     [ pkgsBuildTarget.targetPackages.stdenv.cc ]
-    ++ lib.optional useLLVM buildTargetLlvmPackages.llvm
-  ;
+    ++ lib.optional useLLVM buildTargetLlvmPackages.llvm;
 
   targetCC = builtins.head toolsForTarget;
 
@@ -213,7 +211,8 @@ in
 assert targetCC == pkgsHostTarget.targetPackages.stdenv.cc;
 assert buildTargetLlvmPackages.llvm == llvmPackages.llvm;
 assert stdenv.targetPlatform.isDarwin
-  -> buildTargetLlvmPackages.clang == llvmPackages.clang;
+  -> buildTargetLlvmPackages.clang == llvmPackages.clang
+;
 
 stdenv.mkDerivation (
   rec {
@@ -409,8 +408,7 @@ stdenv.mkDerivation (
     # that in turn causes GHCi to abort
     stripDebugFlags =
       [ "-S" ]
-      ++ lib.optional (!targetPlatform.isDarwin) "--keep-file-symbols"
-    ;
+      ++ lib.optional (!targetPlatform.isDarwin) "--keep-file-symbols";
 
     checkTarget = "test";
 
@@ -460,8 +458,7 @@ stdenv.mkDerivation (
           "i686-linux"
           "aarch64-linux"
           "x86_64-darwin"
-        ]
-      ;
+        ];
       # integer-simple builds are broken with musl when bootstrapping using
       # GHC 8.10.2 and below, however it is not possible to reverse bootstrap
       # GHC 8.8.4 with GHC 8.10.7.

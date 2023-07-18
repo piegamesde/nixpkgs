@@ -28,8 +28,7 @@ import ./make-test-python.nix (
             CREATE DATABASE documize WITH OWNER documize;
           '';
         };
-      }
-    ;
+      };
 
     testScript = ''
       start_all()

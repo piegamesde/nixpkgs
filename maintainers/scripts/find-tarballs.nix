@@ -17,8 +17,7 @@ let
             key = file.url;
             inherit file;
           })
-          urls
-      ;
+          urls;
       operator = const [ ];
     }
   );
@@ -32,8 +31,7 @@ let
         type = drv.outputHashAlgo;
         name = drv.name;
       })
-      fetchurlDependencies
-  ;
+      fetchurlDependencies;
 
   fetchurlDependencies =
     filter
@@ -43,8 +41,7 @@ let
         && drv.outputHashMode or "flat" == "flat"
         && (drv ? url || drv ? urls)
       )
-      dependencies
-  ;
+      dependencies;
 
   dependencies = map (x: x.value) (
     genericClosure {
@@ -94,8 +91,7 @@ let
           ++ optionals (drv ? passthru) (attrNames drv.passthru)
         )
       )
-    )
-  ;
+    );
 
   derivationsIn =
     x:

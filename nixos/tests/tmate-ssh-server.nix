@@ -25,16 +25,14 @@ import ./make-test-python.nix (
             enable = true;
             port = 2223;
           };
-        }
-      ;
+        };
       client =
         { ... }:
         {
           environment.systemPackages = [ pkgs.tmate ];
           services.openssh.enable = true;
           users.users.root.openssh.authorizedKeys.keys = [ snakeOilPublicKey ];
-        }
-      ;
+        };
       client2 = { ... }: { environment.systemPackages = [ pkgs.openssh ]; };
     };
     testScript = ''

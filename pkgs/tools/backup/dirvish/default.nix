@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
         TimeParseDate
         TimePeriod
       ]
-    )
-  ;
+    );
 
   executables = [
     "dirvish"

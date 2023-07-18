@@ -62,8 +62,7 @@ buildPythonPackage rec {
         ]
       else
         [ gtk3 ]
-    )
-  ;
+    );
 
   propagatedBuildInputs = [
     numpy

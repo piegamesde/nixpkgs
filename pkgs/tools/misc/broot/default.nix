@@ -44,8 +44,7 @@ rustPlatform.buildRustPackage rec {
       libiconv
       Security
       zlib
-    ]
-  ;
+    ];
 
   RUSTONIG_SYSTEM_LIBONIG = true;
 

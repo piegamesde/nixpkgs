@@ -33,8 +33,7 @@ import ./make-test-python.nix (
             # No mcu configured so won't even enter `ready` state
             settings = { };
           };
-        }
-      ;
+        };
     };
 
     testScript = ''

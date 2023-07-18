@@ -46,8 +46,7 @@ buildGoModule rec {
       "-X ${t}.Version=${version}"
       "-X ${t}.Revision=unknown"
       "-X ${t}.Branch=unknown"
-    ]
-  ;
+    ];
 
   meta = with lib; {
     description = "Grafana Mimir provides horizontally scalable, highly available, multi-tenant, long-term storage for Prometheus. ";

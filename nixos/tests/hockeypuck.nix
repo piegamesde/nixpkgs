@@ -43,8 +43,7 @@ import ./make-test-python.nix (
             ensurePermissions."DATABASE hockeypuck" = "ALL PRIVILEGES";
           } ];
         };
-      }
-    ;
+      };
 
     testScript = ''
       machine.wait_for_unit("hockeypuck.service")

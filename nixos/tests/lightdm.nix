@@ -12,8 +12,7 @@ import ./make-test-python.nix (
         services.xserver.displayManager.lightdm.enable = true;
         services.xserver.displayManager.defaultSession = "none+icewm";
         services.xserver.windowManager.icewm.enable = true;
-      }
-    ;
+      };
 
     enableOCR = true;
 
@@ -30,7 +29,6 @@ import ./make-test-python.nix (
         machine.wait_for_file("${user.home}/.Xauthority")
         machine.succeed("xauth merge ${user.home}/.Xauthority")
         machine.wait_for_window("^IceWM ")
-      ''
-    ;
+      '';
   }
 )

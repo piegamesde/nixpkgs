@@ -129,13 +129,11 @@ in
                 default = "";
                 description =
                   lib.mdDoc
-                    "Extra configuration-lines added to the section of the service."
-                ;
+                    "Extra configuration-lines added to the section of the service.";
               };
             };
           })
-        )
-      ;
+        );
     };
   };
 

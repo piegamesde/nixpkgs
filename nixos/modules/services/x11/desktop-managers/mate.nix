@@ -33,8 +33,7 @@ in
       type = types.listOf types.package;
       description =
         lib.mdDoc
-          "Which MATE packages to exclude from the default environment"
-      ;
+          "Which MATE packages to exclude from the default environment";
     };
   };
 
@@ -70,8 +69,7 @@ in
             pkgs.yelp # for 'Contents' in 'Help' menus
           ]
         )
-        config.environment.mate.excludePackages
-    ;
+        config.environment.mate.excludePackages;
 
     programs.dconf.enable = true;
     # Shell integration for VTE terminals

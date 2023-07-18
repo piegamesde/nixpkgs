@@ -49,8 +49,7 @@ stdenv.mkDerivation rec {
       AppKit
       Cocoa
       Foundation
-    ]
-  ;
+    ];
 
   cmakeFlags = [
     "-DHAS_WHATSAPP=OFF" # go module build required

@@ -38,8 +38,7 @@ buildGoModule rec {
           --bash <($out/bin/fly completion --shell bash) \
           --fish <($out/bin/fly completion --shell fish) \
           --zsh <($out/bin/fly completion --shell zsh)
-      ''
-  ;
+      '';
 
   meta = with lib; {
     description = "Command line interface to Concourse CI";

@@ -39,8 +39,7 @@ buildGoModule rec {
           GitRev = src.rev;
         }
       )
-    )
-  ;
+    );
 
   postInstall = ''
     installShellCompletion --cmd brig \

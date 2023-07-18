@@ -21,8 +21,7 @@ let
               inherit sha256;
             }
           )
-          { }
-      ;
+          { };
       gitlab =
         self.callPackage
           (
@@ -34,8 +33,7 @@ let
               inherit sha256;
             }
           )
-          { }
-      ;
+          { };
       git =
         self.callPackage
           (
@@ -46,8 +44,7 @@ let
             }).overrideAttrs
               (_: { GIT_SSL_NO_VERIFY = true; })
           )
-          { }
-      ;
+          { };
       bitbucket =
         self.callPackage
           (
@@ -58,8 +55,7 @@ let
               inherit sha256;
             }
           )
-          { }
-      ;
+          { };
       hg =
         self.callPackage
           (
@@ -69,8 +65,7 @@ let
               inherit sha256 url;
             }
           )
-          { }
-      ;
+          { };
       sourcehut =
         self.callPackage
           (
@@ -80,8 +75,7 @@ let
               inherit sha256;
             }
           )
-          { }
-      ;
+          { };
       codeberg =
         self.callPackage
           (
@@ -91,10 +85,8 @@ let
               inherit sha256;
             }
           )
-          { }
-      ;
-    }
-  ;
+          { };
+    };
 in
 {
 

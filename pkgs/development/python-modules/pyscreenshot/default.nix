@@ -28,8 +28,7 @@ buildPythonPackage rec {
     ++ lib.optionals (isPy3k) [
       jeepney
       mss
-    ]
-  ;
+    ];
 
   # recursive dependency on pyvirtualdisplay
   doCheck = false;

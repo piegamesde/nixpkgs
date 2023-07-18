@@ -37,8 +37,7 @@ python3.pkgs.buildPythonApplication rec {
         pytest-cram
         pytestCheckHook
       ]
-    )
-  ;
+    );
 
   preCheck = ''
     export HOME=$(mktemp -d)

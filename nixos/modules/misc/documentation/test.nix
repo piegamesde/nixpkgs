@@ -42,8 +42,7 @@ let
           description = lib.mdDoc "The foobar option was added via specialArgs";
           default = "qux";
         };
-      }
-    ;
+      };
   };
 in
 runCommand "documentation-check"

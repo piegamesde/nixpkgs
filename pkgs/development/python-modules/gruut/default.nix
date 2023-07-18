@@ -75,8 +75,7 @@ buildPythonPackage rec {
         }
       )
       langPkgs
-    )
-  ;
+    );
 
   nativeCheckInputs = [
     glibcLocales

@@ -73,8 +73,7 @@ in
         default = "${pkgs.dejavu_fonts.minimal}/share/fonts/truetype/DejaVuSans.ttf";
         defaultText =
           literalExpression
-            ''"''${pkgs.dejavu_fonts.minimal}/share/fonts/truetype/DejaVuSans.ttf"''
-        ;
+            ''"''${pkgs.dejavu_fonts.minimal}/share/fonts/truetype/DejaVuSans.ttf"'';
         type = types.path;
         description = lib.mdDoc ''
           Font file made available for displaying text on the splash screen.
@@ -189,8 +188,7 @@ in
               # module might come from a theme
               cp ${themesEnv}/lib/plymouth/{text,details,label,$moduleName}.so $out
               cp ${plymouth}/lib/plymouth/renderers/{drm,frame-buffer}.so $out/renderers
-            ''
-        ;
+            '';
         "/etc/plymouth/themes".source = pkgs.runCommand "plymouth-initrd-themes" { } ''
           # Check if the actual requested theme is here
           if [[ ! -d ${themesEnv}/share/plymouth/themes/${cfg.theme} ]]; then
@@ -315,24 +313,21 @@ in
               <dir>$out/share/fonts</dir>
           </fontconfig>
           EOF
-        ''
-    ;
+        '';
 
     boot.initrd.extraUtilsCommandsTest =
       mkIf (!config.boot.initrd.systemd.enable)
         ''
           $out/bin/plymouthd --help >/dev/null
           $out/bin/plymouth --help >/dev/null
-        ''
-    ;
+        '';
 
     boot.initrd.extraUdevRulesCommands =
       mkIf (!config.boot.initrd.systemd.enable)
         ''
           cp ${config.systemd.package}/lib/udev/rules.d/{70-uaccess,71-seat}.rules $out
           sed -i '/loginctl/d' $out/71-seat.rules
-        ''
-    ;
+        '';
 
     # We use `mkAfter` to ensure that LUKS password prompt would be shown earlier than the splash screen.
     boot.initrd.preLVMCommands = mkIf (!config.boot.initrd.systemd.enable) (

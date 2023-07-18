@@ -54,8 +54,7 @@ python3.pkgs.buildPythonApplication rec {
         webtest
         wheel
       ]
-    )
-  ;
+    );
 
   preCheck = ''
     export HOME=$(mktemp -d);

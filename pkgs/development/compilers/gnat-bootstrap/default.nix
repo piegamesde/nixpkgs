@@ -23,8 +23,7 @@
 let
   throwUnsupportedSystem =
     throw
-      "Unsupported system: ${stdenv.hostPlatform.system}"
-  ;
+      "Unsupported system: ${stdenv.hostPlatform.system}";
 
   versionMap = rec {
     "11" =
@@ -42,8 +41,7 @@ let
           upstreamTriplet = "x86_64-pc-linux-gnu";
         };
       }
-      .${stdenv.hostPlatform.system} or throwUnsupportedSystem
-    ;
+      .${stdenv.hostPlatform.system} or throwUnsupportedSystem;
     "12" =
       {
         gccVersion = "12.1.0";
@@ -59,8 +57,7 @@ let
           upstreamTriplet = "x86_64-pc-linux-gnu";
         };
       }
-      .${stdenv.hostPlatform.system} or throwUnsupportedSystem
-    ;
+      .${stdenv.hostPlatform.system} or throwUnsupportedSystem;
   };
 in
 with versionMap.${majorVersion};
@@ -95,8 +92,7 @@ stdenv.mkDerivation rec {
       autoPatchelfHook
       elfutils
       glibc
-    ]
-  ;
+    ];
 
   postPatch =
     lib.optionalString (stdenv.hostPlatform.isDarwin) ''

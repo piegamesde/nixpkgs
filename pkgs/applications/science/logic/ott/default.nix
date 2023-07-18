@@ -30,8 +30,7 @@ stdenv.mkDerivation rec {
         findlib
         ocaml
       ]
-    )
-  ;
+    );
   buildInputs = with ocamlPackages; [ ocamlgraph ];
 
   installTargets = "ott.install";

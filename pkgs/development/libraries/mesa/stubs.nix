@@ -106,7 +106,6 @@ stdenv.mkDerivation (
           license
           platforms
         ;
-      }
-    ;
+      };
   }
 )

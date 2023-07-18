@@ -59,8 +59,7 @@ let
     (pkgs.gammu.override {
       dbiSupport = service == "sql" && sql.driver == "sqlite";
       postgresSupport = service == "sql" && sql.driver == "native_pgsql";
-    })
-  ;
+    });
 in
 {
   options = {
@@ -99,8 +98,7 @@ in
           default = true;
           description =
             lib.mdDoc
-              "Whether to set time from computer to the phone during starting connection"
-          ;
+              "Whether to set time from computer to the phone during starting connection";
         };
 
         pin = mkOption {
@@ -116,8 +114,7 @@ in
           default = "syslog";
           description =
             lib.mdDoc
-              "Path to file where information about communication will be stored"
-          ;
+              "Path to file where information about communication will be stored";
         };
 
         format = mkOption {
@@ -284,8 +281,7 @@ in
                 (optionalString (sql.user != null) "-U ${sql.user}")
                 "$extraArgs"
                 "${sql.database}"
-              ]
-            ;
+              ];
           in
           optionalString (service == "sql" && sql.driver == "native_pgsql") ''
             echo '\i '"${gammuPackage}/${initDBDir}/pgsql.sql" | ${execPsql ""}

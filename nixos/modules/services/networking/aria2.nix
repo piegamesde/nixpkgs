@@ -73,8 +73,7 @@ in
         default = 6800;
         description =
           lib.mdDoc
-            "Specify a port number for JSON-RPC/XML-RPC server to listen to. Possible Values: 1024-65535"
-        ;
+            "Specify a port number for JSON-RPC/XML-RPC server to listen to. Possible Values: 1024-65535";
       };
       rpcSecret = mkOption {
         type = types.str;

@@ -26,8 +26,7 @@ let
         [ 	
         ]*''
       s
-    ) == null
-  ;
+    ) == null;
   nonEmptyStr = addCheckDesc "non-empty" types.str isNonEmpty;
 
   fileSystems' = toposort fsBefore (attrValues config.fileSystems);
@@ -55,8 +54,7 @@ let
 
   nonEmptyWithoutTrailingSlash =
     addCheckDesc "non-empty without trailing slash" types.str
-      (s: isNonEmpty s && (builtins.match ".+/" s) == null)
-  ;
+      (s: isNonEmpty s && (builtins.match ".+/" s) == null);
 
   coreFileSystemOpts =
     { name, config, ... }:
@@ -109,8 +107,7 @@ let
         mountPoint = mkDefault name;
         device = mkIf (elem config.fsType specialFSTypes) (mkDefault config.fsType);
       };
-    }
-  ;
+    };
 
   fileSystemOpts =
     { config, ... }:
@@ -187,10 +184,8 @@ let
           formatOptions = mkIf (defaultFormatOptions != null) (
             mkDefault defaultFormatOptions
           );
-        }
-      ;
-    }
-  ;
+        };
+    };
 
   # Makes sequence of `specialMount device mountPoint options fsType` commands.
   # `systemMount` should be defined in the sourcing script.
@@ -204,8 +199,7 @@ let
           }" "${mount.fsType}"
         '')
         mounts
-    )
-  ;
+    );
 
   makeFstabEntries =
     let
@@ -240,8 +234,7 @@ let
           "xfs"
           "jfs"
           "f2fs"
-        ]
-      ;
+        ];
       isBindMount = fs: builtins.elem "bind" fs.options;
       skipCheck =
         fs:
@@ -262,8 +255,7 @@ let
             "\\040"
             "\\011"
           ]
-          string
-      ;
+          string;
     in
     fstabFileSystems:
     {
@@ -299,8 +291,7 @@ let
         )
         + "\n"
       )
-      fstabFileSystems
-  ;
+      fstabFileSystems;
 
   initrdFstab = pkgs.writeText "initrd-fstab" (
     makeFstabEntries (filter utils.fsNeededForBoot fileSystems) {
@@ -435,18 +426,15 @@ in
             ''
               Mountpoint '${fs.mountPoint}': 'autoResize = true' is not supported for 'fsType = "${fs.fsType}"':${
                 optionalString (fs.fsType == "auto") " fsType has to be explicitly set and"
-              } only the ext filesystems and f2fs support it.''
-          ;
+              } only the ext filesystems and f2fs support it.'';
         }
-      ]
-    ;
+      ];
 
     # Export for use in other modules
     system.build.fileSystems = fileSystems;
     system.build.earlyMountScript =
       makeSpecialMounts
-        (toposort fsBefore (attrValues config.boot.specialFileSystems)).result
-    ;
+        (toposort fsBefore (attrValues config.boot.specialFileSystems)).result;
 
     boot.supportedFilesystems = map (fs: fs.fsType) fileSystems;
 
@@ -474,8 +462,7 @@ in
                 "discard${
                   optionalString (sw.discardPolicy != "both") "=${toString sw.discardPolicy}"
                 }"
-          )
-        ;
+          );
       in
       ''
         # This is a generated file.  Do not edit!
@@ -494,8 +481,7 @@ in
             ${sw.realDevice} none swap ${swapOptions sw}
           ''
         )}
-      ''
-    ;
+      '';
 
     boot.initrd.systemd.storePaths = [ initrdFstab ];
     boot.initrd.systemd.managerEnvironment.SYSTEMD_SYSROOT_FSTAB = initrdFstab;
@@ -544,8 +530,7 @@ in
             unitConfig.RequiresMountsFor = [ "${dirOf fs.device}" ];
             unitConfig.DefaultDependencies = false; # needed to prevent a cycle
             serviceConfig.Type = "oneshot";
-          }
-        ;
+          };
       in
       listToAttrs (
         map formatDevice (
@@ -666,7 +651,6 @@ in
             "nodev"
           ];
         };
-      }
-    ;
+      };
   };
 }

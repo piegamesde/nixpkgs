@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
         CoreVideo
         zlib
       ]
-    )
-  ;
+    );
 
   cmakeFlags = [
     "-DBUILD_EXAMPLES=ON"

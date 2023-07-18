@@ -57,8 +57,7 @@ let
           [
             # https://github.com/jonls/redshift/pull/575
             ./575.patch
-          ]
-      ;
+          ];
 
       nativeBuildInputs = [
         autoconf
@@ -82,8 +81,7 @@ let
         ++ lib.optionals (pname == "gammastep") [
           "--with-systemduserunitdir=${placeholder "out"}/share/systemd/user/"
           "--enable-apparmor"
-        ]
-      ;
+        ];
 
       buildInputs =
         [
@@ -143,8 +141,7 @@ let
       ;
 
       enableParallelBuilding = true;
-    }
-  ;
+    };
 in
 rec {
   redshift = mkRedshift rec {

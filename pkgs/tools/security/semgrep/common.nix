@@ -57,8 +57,7 @@ rec {
       fetchzip {
         url = "https://github.com/returntocorp/semgrep/releases/download/v${version}/semgrep-v${version}${suffix}";
         inherit sha256;
-      }
-    ;
+      };
   };
 
   meta = with lib; {

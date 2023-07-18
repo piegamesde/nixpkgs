@@ -55,32 +55,28 @@ in
         cpuVCores = mkOption {
           description =
             lib.mdDoc
-              "Number of vcores that can be allocated for containers."
-          ;
+              "Number of vcores that can be allocated for containers.";
           type = with types; nullOr ints.positive;
           default = null;
         };
         maximumAllocationVCores = mkOption {
           description =
             lib.mdDoc
-              "The maximum virtual CPU cores any container can be allocated."
-          ;
+              "The maximum virtual CPU cores any container can be allocated.";
           type = with types; nullOr ints.positive;
           default = null;
         };
         memoryMB = mkOption {
           description =
             lib.mdDoc
-              "Amount of physical memory, in MB, that can be allocated for containers."
-          ;
+              "Amount of physical memory, in MB, that can be allocated for containers.";
           type = with types; nullOr ints.positive;
           default = null;
         };
         maximumAllocationMB = mkOption {
           description =
             lib.mdDoc
-              "The maximum physical memory any container can be allocated."
-          ;
+              "The maximum physical memory any container can be allocated.";
           type = with types; nullOr ints.positive;
           default = null;
         };
@@ -220,8 +216,7 @@ in
             "yarn.nodemanager.linux-container-executor.cgroups.mount" = "true";
             "yarn.nodemanager.linux-container-executor.cgroups.mount-path" = "/run/wrappers/yarn-nodemanager/cgroup";
           })
-        ]
-      ;
+        ];
 
       networking.firewall.allowedTCPPortRanges = [
         (mkIf (cfg.yarn.nodemanager.openFirewall) {

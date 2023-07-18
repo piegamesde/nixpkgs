@@ -81,8 +81,7 @@ gccStdenv.mkDerivation rec {
     ]
     ++
     # due not enable poll on darwin due to https://github.com/gambit/gambit/issues/498
-    lib.optional (!gccStdenv.isDarwin) "--enable-poll"
-  ;
+    lib.optional (!gccStdenv.isDarwin) "--enable-poll";
 
   configurePhase = ''
     export CC=${gccStdenv.cc}/bin/${gccStdenv.cc.targetPrefix}gcc \

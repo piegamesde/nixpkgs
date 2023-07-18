@@ -83,8 +83,7 @@ in
           source = "${cfg.package}/bin/pleaseedit";
           inherit owner group setuid;
         };
-      }
-    ;
+      };
 
     security.please.settings = rec {
       # The "wheel" group is allowed to do anything by default but this can be

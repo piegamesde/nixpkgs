@@ -47,8 +47,8 @@ let
         triple = "aarch64-linux-android";
       };
     }
-    .${config} or (throw "Android NDK doesn't support ${config}, as far as we know")
-  ;
+    .${config}
+      or (throw "Android NDK doesn't support ${config}, as far as we know");
 
   buildInfo = ndkInfoFun stdenv.buildPlatform;
   hostInfo = ndkInfoFun stdenv.hostPlatform;
@@ -65,16 +65,14 @@ let
         "_"
         "_"
       ]
-      stdenv.targetPlatform.config
-  ;
+      stdenv.targetPlatform.config;
 
   # targetInfo.triple is what Google thinks the toolchain should be, this is a little
   # different from what we use. We make it four parts to conform with the existing
   # standard more properly.
   targetPrefix =
     lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform)
-      (stdenv.targetPlatform.config + "-")
-  ;
+      (stdenv.targetPlatform.config + "-");
 in
 
 rec {

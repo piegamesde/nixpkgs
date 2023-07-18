@@ -46,8 +46,7 @@ buildPythonPackage rec {
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.isDarwin
-      "-I${lib.getDev libcxx}/include/c++/v1"
-  ;
+      "-I${lib.getDev libcxx}/include/c++/v1";
 
   nativeBuildInputs = [ numpy ] ++ lib.optionals cudaSupport [ addOpenGLRunpath ];
 
@@ -82,8 +81,7 @@ buildPythonPackage rec {
         cuda_toolkit_path = cudatoolkit;
         cuda_toolkit_lib_path = cudatoolkit.lib;
       })
-    ]
-  ;
+    ];
 
   postFixup = lib.optionalString cudaSupport ''
     find $out -type f \( -name '*.so' -or -name '*.so.*' \) | while read lib; do

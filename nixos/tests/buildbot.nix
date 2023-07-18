@@ -35,8 +35,7 @@ import ./make-test-python.nix
             git
             buildbot-full
           ];
-        }
-      ;
+        };
 
       bbworker =
         { pkgs, ... }:
@@ -49,8 +48,7 @@ import ./make-test-python.nix
             git
             buildbot-worker
           ];
-        }
-      ;
+        };
 
       gitrepo =
         { pkgs, ... }:
@@ -100,8 +98,7 @@ import ./make-test-python.nix
               git daemon --verbose --export-all --base-path=/srv/repos --reuseaddr
             '';
           };
-        }
-      ;
+        };
     };
 
     testScript = ''

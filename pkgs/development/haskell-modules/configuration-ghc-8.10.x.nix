@@ -56,8 +56,7 @@ self: super: {
   # Additionally depends on OneTuple for GHC < 9.0
   base-compat-batteries =
     addBuildDepend self.OneTuple
-      super.base-compat-batteries
-  ;
+      super.base-compat-batteries;
 
   # Pick right versions for GHC-specific packages
   ghc-api-compat = doDistribute (unmarkBroken self.ghc-api-compat_8_10_7);
@@ -92,8 +91,7 @@ self: super: {
         url = "https://gitlab.haskell.org/ghc/head.hackage/-/raw/e48738ee1be774507887a90a0d67ad1319456afc/patches/language-haskell-extract-0.2.4.patch?inline=false";
         sha256 = "0rgzrq0513nlc1vw7nw4km4bcwn4ivxcgi33jly4a7n3c1r32v1f";
       })
-      (doJailbreak super.language-haskell-extract)
-  ;
+      (doJailbreak super.language-haskell-extract);
 
   # hnix 0.9.0 does not provide an executable for ghc < 8.10, so define completions here for now.
   hnix = self.generateOptparseApplicativeCompletions [ "hnix" ] (
@@ -125,8 +123,7 @@ self: super: {
           lsp-types = doJailbreak lsuper.lsp-types; # Checks require aeson >= 2.0
         }
       )
-    )
-  ;
+    );
 
   hls-tactics-plugin = unmarkBroken (
     addBuildDepends

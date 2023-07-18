@@ -207,8 +207,7 @@ let
             md5 = "185d60944ea767075d27247c3162b3bc";
             md5name = "${md5}-${name}";
           }) ]
-        )
-    ;
+        );
 
     translations = primary-src.translations;
     help = primary-src.help;
@@ -552,8 +551,7 @@ in
       "--enable-kf5"
       "--enable-qt5"
       "--enable-gtk3-kde5"
-    ]
-  ;
+    ];
 
   checkTarget = concatStringsSep " " [
     "unitcheck"

@@ -19,8 +19,7 @@ import ./make-test-python.nix (
             scripts = [ pkgs.mpvScripts.simple-mpv-webui ];
           })
         ];
-      }
-    ;
+      };
 
     testScript = ''
       machine.execute("set -m; mpv --script-opts=webui-port=${port} --idle=yes >&2 &")

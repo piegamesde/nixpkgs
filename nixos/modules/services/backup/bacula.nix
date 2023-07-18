@@ -168,8 +168,7 @@ let
           '';
         };
       };
-    }
-  ;
+    };
 
   autochangerOptions =
     { ... }:
@@ -231,8 +230,7 @@ let
           example = "\n";
         };
       };
-    }
-  ;
+    };
 
   deviceOptions =
     { ... }:
@@ -309,8 +307,7 @@ let
           '';
         };
       };
-    }
-  ;
+    };
 in
 {
   options = {

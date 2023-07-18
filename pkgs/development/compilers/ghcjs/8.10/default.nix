@@ -90,8 +90,7 @@ stdenv.mkDerivation {
     ]
     ++ lib.optionals stdenv.isDarwin [
       gcc # https://github.com/ghcjs/ghcjs/issues/663
-    ]
-  ;
+    ];
   dontConfigure = true;
   dontInstall = true;
 

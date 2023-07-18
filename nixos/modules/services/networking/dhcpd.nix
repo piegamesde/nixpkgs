@@ -31,8 +31,7 @@ let
           }
         '')
         cfg.machines}
-    ''
-  ;
+    '';
 
   dhcpdService =
     postfix: cfg:
@@ -75,8 +74,7 @@ let
           PIDFile = "/run/dhcpd${postfix}/dhcpd.pid";
         };
       };
-    }
-  ;
+    };
 
   machineOpts =
     { ... }:
@@ -108,8 +106,7 @@ let
           '';
         };
       };
-    }
-  ;
+    };
 
   dhcpConfig = postfix: {
 
@@ -233,8 +230,7 @@ in
             This means the directory is named after the service (dhcpd${postfix}), created under
             /var/lib/private/ and symlinked to /var/lib/.
           ''
-      )
-  ;
+      );
 
   ###### interface
 

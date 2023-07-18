@@ -40,8 +40,7 @@ mkDerivation rec {
 
   cmakeFlags =
     [ "-DCMAKE_BUILD_TYPE=Release" ]
-    ++ lib.optional withShibboleth "-DBUILD_SHIBBOLETH_SUPPORT=ON"
-  ;
+    ++ lib.optional withShibboleth "-DBUILD_SHIBBOLETH_SUPPORT=ON";
 
   qtWrapperArgs = [ "--suffix PATH : ${lib.makeBinPath [ seafile-shared ]}" ];
 

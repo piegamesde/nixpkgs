@@ -33,8 +33,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals cupsSupport [
       cups
       perl
-    ]
-  ; # for cups-config
+    ]; # for cups-config
   buildInputs =
     [
       ijs

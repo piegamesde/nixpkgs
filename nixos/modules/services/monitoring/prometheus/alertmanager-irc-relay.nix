@@ -29,8 +29,7 @@ in
       default = [ ];
       description =
         mdDoc
-          "Extra command line options to pass to alertmanager-irc-relay."
-      ;
+          "Extra command line options to pass to alertmanager-irc-relay.";
     };
 
     settings = mkOption {

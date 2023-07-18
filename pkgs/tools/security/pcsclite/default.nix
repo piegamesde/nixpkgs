@@ -50,8 +50,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isLinux [
       "--enable-ipcdir=/run/pcscd"
       "--with-systemdsystemunitdir=${placeholder "bin"}/lib/systemd/system"
-    ]
-  ;
+    ];
 
   postConfigure = ''
     sed -i -re '/^#define *PCSCLITE_HP_DROPDIR */ {

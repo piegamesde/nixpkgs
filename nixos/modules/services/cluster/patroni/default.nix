@@ -36,8 +36,7 @@ in
       defaultText =
         literalExpression
           ''
-            "/var/lib/postgresql/''${config.services.patroni.postgresqlPackage.psqlSchema}"''
-      ;
+            "/var/lib/postgresql/''${config.services.patroni.postgresqlPackage.psqlSchema}"'';
       example = "/var/lib/postgresql/14";
       default = "/var/lib/postgresql/${cfg.postgresqlPackage.psqlSchema}";
       description = mdDoc ''
@@ -181,8 +180,7 @@ in
               package
             ]
           )
-        )
-      ;
+        );
       default = { };
       example = {
         PATRONI_REPLICATION_PASSWORD = "/secret/file";
@@ -190,8 +188,7 @@ in
       };
       description =
         mdDoc
-          "Environment variables made available to Patroni as files content, useful for providing secrets from files."
-      ;
+          "Environment variables made available to Patroni as files content, useful for providing secrets from files.";
     };
   };
 

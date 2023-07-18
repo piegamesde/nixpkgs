@@ -57,8 +57,7 @@ mkDerivation rec {
       llvmPackages_8.libclang
       clang_qt_vendor
       llvmPackages_8.llvm
-    ]
-  ;
+    ];
 
   nativeBuildInputs = [ qmake ];
 
@@ -78,8 +77,7 @@ mkDerivation rec {
 
   installFlags =
     [ "INSTALL_ROOT=$(out)" ]
-    ++ lib.optional withDocumentation "install_docs"
-  ;
+    ++ lib.optional withDocumentation "install_docs";
 
   qtWrapperArgs = [
     "--set-default PERFPROFILER_PARSER_FILEPATH ${lib.getBin perf}/bin"

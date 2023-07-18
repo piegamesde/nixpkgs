@@ -27,8 +27,7 @@ let
         ( umask 077; cat /test-key.pem /test-cert.pem > /test-key-and-cert.pem )
         chown stunnel /test-key.pem /test-key-and-cert.pem
       '';
-    }
-  ;
+    };
   serverCommon =
     { pkgs, ... }:
     {
@@ -45,8 +44,7 @@ let
           ${pkgs.python3}/bin/python -m http.server 80
         '';
       };
-    }
-  ;
+    };
   copyCert = src: dest: filename: ''
     from shlex import quote
     ${src}.wait_for_file("/test-key-and-cert.pem")

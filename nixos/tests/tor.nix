@@ -21,8 +21,7 @@ import ./make-test-python.nix (
         services.tor.enable = true;
         services.tor.client.enable = true;
         services.tor.settings.ControlPort = 9051;
-      }
-    ;
+      };
 
     testScript = ''
       client.wait_for_unit("tor.service")

@@ -53,8 +53,7 @@ in
       type = types.path;
       example =
         literalExpression
-          ''"''${pkgs.routedns}/cmd/routedns/example-config/use-case-1.toml"''
-      ;
+          ''"''${pkgs.routedns}/cmd/routedns/example-config/use-case-1.toml"'';
       description = lib.mdDoc "Path to RouteDNS TOML configuration file.";
     };
 

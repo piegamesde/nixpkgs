@@ -40,8 +40,7 @@ import ./make-test-python.nix {
               # units to do early file system initialisation).
               serviceConfig.ExecStop = "${pkgs.coreutils}/bin/true";
             };
-          }
-        ;
+          };
         gen2.configuration = {
           security.dhparams.params.foo.bits = 1026;
         };
@@ -57,8 +56,7 @@ import ./make-test-python.nix {
           security.dhparams.params.bar3 = { };
         };
       };
-    }
-  ;
+    };
 
   testScript =
     { nodes, ... }:
@@ -68,8 +66,7 @@ import ./make-test-python.nix {
         let
           node = "gen${toString gen}";
         in
-        nodes.machine.config.specialisation.${node}.configuration.security.dhparams.params.${name}.path
-      ;
+        nodes.machine.config.specialisation.${node}.configuration.security.dhparams.params.${name}.path;
 
       switchToGeneration =
         gen:
@@ -81,8 +78,7 @@ import ./make-test-python.nix {
         ''
           with machine.nested("switch to generation ${toString gen}"):
             machine.succeed("${switchCmd}")
-        ''
-      ;
+        '';
     in
     ''
       import re
@@ -142,6 +138,5 @@ import ./make-test-python.nix {
       with subtest("check whether defaultBitSize works as intended"):
           assert_param_bits("${getParamPath 5 "foo3"}", 1029)
           assert_param_bits("${getParamPath 5 "bar3"}", 1029)
-    ''
-  ;
+    '';
 }

@@ -56,8 +56,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals enableGlade [
       libxml2 # for xmllint
-    ]
-  ;
+    ];
 
   buildInputs = [
     gdk-pixbuf
@@ -131,10 +130,8 @@ stdenv.mkDerivation rec {
           cp -r "${libhandyWithGlade.glade}" "$out"
           chmod -R +w "$out"
           sed -e "s#${libhandyWithGlade.out}#${libhandy.out}#g" -e "s#${libhandyWithGlade.glade}#$out#g" -i $(find "$out" -type f)
-        ''
-      ;
-    }
-  ;
+        '';
+    };
 
   meta = with lib; {
     changelog = "https://gitlab.gnome.org/GNOME/libhandy/-/tags/${version}";

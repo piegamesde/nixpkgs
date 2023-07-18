@@ -97,6 +97,5 @@ with lib;
         # Workaround: https://github.com/NixOS/nixpkgs/issues/81138
         wantedBy = [ "multi-user.target" ];
       };
-    }
-  ;
+    };
 }

@@ -163,27 +163,23 @@ let
                 hash = "sha256:f9faf45cdb2e1a32ea2ec14403587d4295108f35017a7821a2b1acb8cfd9257d";
               };
             }
-          )
-      ;
+          );
       psycopg2 =
         (super.psycopg2.override {
           sphinxHook = null;
           sphinx-better-theme = null;
         }).overridePythonAttrs
-          dropDevOutput
-      ;
+          dropDevOutput;
       hypothesis = super.hypothesis.override { enableDocumentation = false; };
       pyjwt =
         (super.pyjwt.override {
           sphinxHook = null;
           sphinx-rtd-theme = null;
         }).overridePythonAttrs
-          (old: (dropDevOutput old) // { format = "setuptools"; })
-      ;
+          (old: (dropDevOutput old) // { format = "setuptools"; });
       beautifulsoup4 =
         (super.beautifulsoup4.override { sphinxHook = null; }).overridePythonAttrs
-          dropDevOutput
-      ;
+          dropDevOutput;
       pydash =
         (super.pydash.override { sphinx-rtd-theme = null; }).overridePythonAttrs
           (
@@ -197,8 +193,7 @@ let
               format = "setuptools";
               doCheck = false;
             }
-          )
-      ;
+          );
     };
   };
 in

@@ -64,8 +64,7 @@ stdenv.mkDerivation rec {
         pydantic
         anyio
       ]
-    )
-  ;
+    );
 
   installPhase = ''
     mkdir -pv $out

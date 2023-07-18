@@ -45,8 +45,7 @@ let
         maintainers = with lib.maintainers; [ illustris ];
         platforms = lib.platforms.linux;
       };
-    }
-  ;
+    };
 in
 {
   hbase_2_4 = common {

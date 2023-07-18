@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
   ];
   buildInputs =
     [ openssl ]
-    ++ lib.optionals withJdbc [ openjdk11 ] ++ lib.optionals withOdbc [ unixODBC ]
-  ;
+    ++ lib.optionals withJdbc [ openjdk11 ] ++ lib.optionals withOdbc [ unixODBC ];
 
   cmakeFlags =
     [
@@ -67,8 +66,7 @@ stdenv.mkDerivation rec {
       [
         # development settings
         "-DBUILD_UNITTESTS=ON"
-      ]
-  ;
+      ];
 
   doInstallCheck = true;
 
@@ -120,8 +118,7 @@ stdenv.mkDerivation rec {
       $PWD/test/unittest ${lib.concatStringsSep " " excludes}
 
       runHook postInstallCheck
-    ''
-  ;
+    '';
 
   meta = with lib; {
     homepage = "https://github.com/duckdb/duckdb";

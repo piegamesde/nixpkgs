@@ -29,8 +29,7 @@ python3.pkgs.buildPythonApplication rec {
 
   KSRC =
     lib.optionalString withDriver
-      "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-  ;
+      "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build";
 
   nativeBuildInputs = [
     libelf
@@ -52,8 +51,7 @@ python3.pkgs.buildPythonApplication rec {
       [
         # Needed with GCC 12
         "-Wno-error=dangling-pointer"
-      ]
-  ;
+      ];
 
   preInstall = lib.optionalString withDriver ''
     mkdir -p $out/${python3.pkgs.python.sitePackages}/drivers/linux
@@ -63,8 +61,7 @@ python3.pkgs.buildPythonApplication rec {
 
   setupPyBuildFlags =
     [ "--build-lib=$CHIPSEC_BUILD_LIB" ]
-    ++ lib.optionals (!withDriver) [ "--skip-driver" ]
-  ;
+    ++ lib.optionals (!withDriver) [ "--skip-driver" ];
 
   pythonImportsCheck = [ "chipsec" ];
 

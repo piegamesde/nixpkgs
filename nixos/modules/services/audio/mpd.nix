@@ -204,8 +204,7 @@ in
                     List of permissions that are granted with this password.
                     Permissions can be "${concatStringsSep ''", "'' perms}".
                   '';
-                }
-              ;
+                };
             };
           }
         );

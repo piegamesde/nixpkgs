@@ -70,8 +70,7 @@ let
           "7"
           "8"
           "9"
-        ]
-      ;
+        ];
     in
     if (val == "") then
       ''""''
@@ -118,8 +117,7 @@ let
 
       mkConf = cfg: concatStrings (mapAttrsToList mkConfigLine cfg);
     in
-    mkConf exprs
-  ;
+    mkConf exprs;
 in
 {
 

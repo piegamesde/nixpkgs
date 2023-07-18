@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
         rust.cargo
         rust.rustc
       ]
-    )
-  ;
+    );
 
   meta = with lib; {
     description = "Tool for integrating Rust into an existing CMake project";

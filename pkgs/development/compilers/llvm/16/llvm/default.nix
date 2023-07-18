@@ -29,13 +29,15 @@
     !stdenv.isx86_32 # TODO: why
   )
     && (!stdenv.hostPlatform.isMusl)
-    && (stdenv.hostPlatform == stdenv.buildPlatform),
+    && (stdenv.hostPlatform == stdenv.buildPlatform)
+  ,
   enableManpages ? false,
   enableSharedLibraries ? !stdenv.hostPlatform.isStatic,
   enablePFM ? stdenv.isLinux # PFM only supports Linux
     # broken for Ampere eMAG 8180 (c2.large.arm on Packet) #56245
     # broken for the armv7l builder
-    && !stdenv.hostPlatform.isAarch,
+    && !stdenv.hostPlatform.isAarch
+  ,
   enablePolly ? true,
 }@args:
 
@@ -117,8 +119,7 @@ stdenv.mkDerivation (
         # splicing does *not* work with the latter. (TODO: fix)
         python3Packages.sphinx
         python3Packages.recommonmark
-      ]
-    ;
+      ];
 
     buildInputs = [
       libxml2
@@ -182,8 +183,7 @@ stdenv.mkDerivation (
 
         # Just like the `llvm-lit-cfg` patch, but for `polly`.
         ./polly-lit-cfg-add-libs-to-dylib-path.patch
-      ]
-    ;
+      ];
 
     postPatch =
       optionalString stdenv.isDarwin ''
@@ -326,14 +326,12 @@ stdenv.mkDerivation (
         check_version major ${major}
         check_version minor ${minor}
         check_version patch ${patch}
-      ''
-    ;
+      '';
 
     # E.g. mesa.drivers use the build-id as a cache key (see #93946):
     LDFLAGS =
       optionalString (enableSharedLibraries && !stdenv.isDarwin)
-        "-Wl,--build-id=sha1"
-    ;
+        "-Wl,--build-id=sha1";
 
     cmakeFlags =
       with stdenv;

@@ -51,8 +51,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals enableGui [
       qtbase
       qtwebengine
-    ]
-  ;
+    ];
 
   cmakeFlags = lib.optional enableGui "-DUSE_QT_GUI=ON";
 

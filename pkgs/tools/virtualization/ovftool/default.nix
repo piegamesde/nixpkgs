@@ -50,8 +50,7 @@ let
         sha256 = "1fkm18yfkkm92m7ccl6b4nxy5lagwwldq56b567091a5sgad38zw";
         unpackPhase = ovftoolZipUnpackPhase;
       };
-    }
-  ;
+    };
 
   ovftoolSystem =
     if builtins.hasAttr system ovftoolSystems then

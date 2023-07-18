@@ -18,7 +18,8 @@
   fetchpatch,
   doCheck ? stdenv.isLinux
     && (!stdenv.isi686)
-    && (stdenv.hostPlatform == stdenv.buildPlatform),
+    && (stdenv.hostPlatform == stdenv.buildPlatform)
+  ,
   debugVersion ? false,
   enableManpages ? false,
   enableSharedLibraries ? !stdenv.hostPlatform.isStatic,
@@ -34,8 +35,7 @@ let
     let
       parts = splitVersion release_version;
     in
-    imap (i: _: concatStringsSep "." (take i parts)) parts
-  ;
+    imap (i: _: concatStringsSep "." (take i parts)) parts;
 
   # Ordinarily we would just the `doCheck` and `checkDeps` functionality
   # `mkDerivation` gives us to manage our test dependencies (instead of breaking
@@ -73,8 +73,7 @@ stdenv.mkDerivation (
     src = fetch "llvm" "1qpls3vk85lydi5b4axl0809fv932qgsqgdgrk098567z4jc7mmn";
     polly_src =
       fetch "polly"
-        "1k2frwg5mkqh0raia8xf69h3jhdw7a5nxd6vjscjn44cdkgmyxp7"
-    ;
+        "1k2frwg5mkqh0raia8xf69h3jhdw7a5nxd6vjscjn44cdkgmyxp7";
 
     unpackPhase =
       ''

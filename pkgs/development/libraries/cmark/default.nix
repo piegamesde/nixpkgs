@@ -34,8 +34,7 @@ stdenv.mkDerivation rec {
     in
     ''
       export ${lib_path}=$(readlink -f ./src)
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "CommonMark parsing and rendering library and program in C";

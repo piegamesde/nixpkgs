@@ -58,8 +58,7 @@ stdenvNoCC.mkDerivation (
         mkdir -p "$destdir"
         cp -R "${modRoot}" "$destdir/${modName}"
         runHook postInstall
-      ''
-    ;
+      '';
 
     passthru = {
       forTiles = true;

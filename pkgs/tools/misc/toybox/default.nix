@@ -63,8 +63,7 @@ stdenv.mkDerivation rec {
 
   makeFlags =
     [ "PREFIX=$(out)/bin" ]
-    ++ optionals enableStatic [ "LDFLAGS=--static" ]
-  ;
+    ++ optionals enableStatic [ "LDFLAGS=--static" ];
 
   installTargets = [ "install_flat" ];
 

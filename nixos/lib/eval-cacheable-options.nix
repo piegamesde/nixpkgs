@@ -40,8 +40,7 @@ let
       # duplicate of the declaration in all-packages.nix
       buildPackages.nixosOptionsDoc =
         attrs:
-        (import "${nixosPath}/lib/make-options-doc") ({ inherit pkgs lib; } // attrs)
-      ;
+        (import "${nixosPath}/lib/make-options-doc") ({ inherit pkgs lib; } // attrs);
     };
     config = config.config;
     options = eval.options;

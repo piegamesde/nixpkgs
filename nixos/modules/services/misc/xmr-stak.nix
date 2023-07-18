@@ -96,8 +96,7 @@ in
           PrivateTmp = true;
           DynamicUser = !rootRequired;
           LimitMEMLOCK = toString (1024 * 1024);
-        }
-      ;
+        };
     };
   };
 

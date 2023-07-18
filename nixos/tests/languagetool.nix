@@ -12,8 +12,7 @@ import ./make-test-python.nix (
       {
         services.languagetool.enable = true;
         services.languagetool.port = port;
-      }
-    ;
+      };
 
     testScript = ''
       machine.start()

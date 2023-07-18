@@ -31,8 +31,7 @@ let
     let
       parts = splitVersion release_version;
     in
-    imap (i: _: concatStringsSep "." (take i parts)) parts
-  ;
+    imap (i: _: concatStringsSep "." (take i parts)) parts;
 in
 
 stdenv.mkDerivation (
@@ -43,8 +42,7 @@ stdenv.mkDerivation (
     src = fetch "llvm" "0g1bbj2n6xv4p1n6hh17vj3vpvg56wacipc81dgwga9mg2lys8nm";
     polly_src =
       fetch "polly"
-        "1f4i1qsw7ywx25v262p8syz339zcbvfkx295xz26hmqrn944xa6x"
-    ;
+        "1f4i1qsw7ywx25v262p8syz339zcbvfkx295xz26hmqrn944xa6x";
 
     unpackPhase =
       ''

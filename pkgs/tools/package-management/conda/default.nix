@@ -89,8 +89,7 @@ buildFHSEnv {
       [ conda ]
       condaDeps
       extraPkgs
-    ])
-  ;
+    ]);
   profile = ''
     # Add conda to PATH
     export PATH=${installationPath}/bin:$PATH

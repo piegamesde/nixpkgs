@@ -34,15 +34,13 @@ let
           admin-email = adminEmail;
           service-account = serviceAccountJSON;
           group = groups;
-        }
-      ;
+        };
     };
   };
 
   authenticatedEmailsFile =
     pkgs.writeText "authenticated-emails"
-      cfg.email.addresses
-  ;
+      cfg.email.addresses;
 
   getProviderOptions =
     cfg: provider: providerSpecificOptions.${provider} or (_: { }) cfg;
@@ -120,8 +118,7 @@ let
         "--${key}='${attr}'"
       else
         "--${key}=${toString attr}"
-    )
-  ;
+    );
 
   configString = concatStringsSep " " (mapAttrsToList mapConfig allConfig);
 in

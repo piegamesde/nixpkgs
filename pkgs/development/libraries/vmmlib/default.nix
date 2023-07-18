@@ -39,8 +39,7 @@ stdenv.mkDerivation rec {
       Accelerate
       CoreGraphics
       CoreVideo
-    ]
-  ;
+    ];
 
   doCheck = !stdenv.isDarwin;
 

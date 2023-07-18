@@ -18,8 +18,7 @@ let
         lib.optionalString (!required) "|| true"
       }
       cp "${file}" "$out"
-    ''
-  ;
+    '';
 in
 
 {

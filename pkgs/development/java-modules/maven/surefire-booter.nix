@@ -22,8 +22,7 @@
           type = "pom";
           sha512 = "3rj97rbbdm0m0f1cpbvw7mc9hc5jmfkqbg1w1ggr640bd8fzrgmxrcynxf440mf0wg4xy55v27g6v5c3z20zlw1h4qi500x6wfm0l5s";
         }
-      ]
-  ;
+      ];
 
   mavenSurefireBooter_2_17 =
     map
@@ -46,6 +45,5 @@
           type = "pom";
           sha512 = "0w2ql9a70ncdvzicv0947q8jil4ksha42xxswqk1aas1bsg7qwpg8v4pih887y4zirnl861qaw6d1v09l1s3jqq7hxid0w3jxnlcasb";
         }
-      ]
-  ;
+      ];
 }

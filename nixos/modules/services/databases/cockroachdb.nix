@@ -119,8 +119,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Open firewall ports for cluster communication by default"
-        ;
+            "Open firewall ports for cluster communication by default";
       };
 
       cache = mkOption {

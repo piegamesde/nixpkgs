@@ -37,16 +37,14 @@ let
               inherit src;
               postUnpack = "sourceRoot+=/frontend/curry-base";
             })
-            (super.callPackage ./curry-base.nix { })
-        ;
+            (super.callPackage ./curry-base.nix { });
         curry-frontend =
           haskell.lib.compose.overrideCabal
             (drv: {
               inherit src;
               postUnpack = "sourceRoot+=/frontend/curry-frontend";
             })
-            (super.callPackage ./curry-frontend.nix { })
-        ;
+            (super.callPackage ./curry-frontend.nix { });
       };
     }).curry-frontend;
 in

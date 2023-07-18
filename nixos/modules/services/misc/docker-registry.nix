@@ -25,8 +25,7 @@ let
           { filesystem.rootdirectory = cfg.storagePath; }
         else
           { }
-      )
-    ;
+      );
     http = {
       addr = "${cfg.listenAddress}:${builtins.toString cfg.port}";
       headers.X-Content-Type-Options = [ "nosniff" ];
@@ -167,8 +166,7 @@ in
       // {
         group = "docker-registry";
         isSystemUser = true;
-      }
-    ;
+      };
     users.groups.docker-registry = { };
   };
 }

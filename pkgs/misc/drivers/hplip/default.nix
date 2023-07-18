@@ -73,7 +73,8 @@ in
 assert withPlugin
   ->
     builtins.elem hplipArch pluginArches
-    || throw "HPLIP plugin not supported on ${stdenv.hostPlatform.system}";
+    || throw "HPLIP plugin not supported on ${stdenv.hostPlatform.system}"
+;
 
 python3Packages.buildPythonApplication {
   inherit pname version src;
@@ -211,8 +212,7 @@ python3Packages.buildPythonApplication {
       "policykit_dbus_sharedir=${out}/share/dbus-1/system-services"
       "hplip_confdir=${out}/etc/hp"
       "hplip_statedir=${out}/var/lib/hp"
-    ]
-  ;
+    ];
 
   postConfigure = ''
     # don't save timestamp, in order to improve reproducibility

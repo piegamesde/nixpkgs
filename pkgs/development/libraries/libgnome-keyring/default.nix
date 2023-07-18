@@ -24,8 +24,7 @@ stdenv.mkDerivation (
             lib.versions.majorMinor version
           }/${pname}-${version}.tar.bz2";
         sha256 = "030gka96kzqg1r19b4xrmac89hf1xj1kr5p461yvbzfxh46qqf2n";
-      }
-    ;
+      };
 
     outputs = [
       "out"

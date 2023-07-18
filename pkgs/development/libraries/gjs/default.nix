@@ -73,8 +73,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
       mesonEmulatorHook
-    ]
-  ;
+    ];
 
   buildInputs = [
     cairo
@@ -91,8 +90,7 @@ stdenv.mkDerivation rec {
     [ "-Dinstalled_test_prefix=${placeholder "installedTests"}" ]
     ++ lib.optionals (!stdenv.isLinux || stdenv.hostPlatform.isMusl) [
       "-Dprofiler=disabled"
-    ]
-  ;
+    ];
 
   doCheck = !stdenv.isDarwin;
 

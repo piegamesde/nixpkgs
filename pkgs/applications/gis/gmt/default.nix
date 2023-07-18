@@ -57,8 +57,7 @@ stdenv.mkDerivation rec {
           blas
           lapack
         ]
-    )
-  ;
+    );
 
   propagatedBuildInputs = [ ghostscript ];
 
@@ -86,8 +85,7 @@ stdenv.mkDerivation rec {
         "-DLAPACK_LIBRARY=${lapack}/lib/liblapack.so"
         "-DBLAS_LIBRARY=${blas}/lib/libblas.so"
       ]
-    )
-  ;
+    );
 
   meta = with lib; {
     homepage = "https://www.generic-mapping-tools.org";

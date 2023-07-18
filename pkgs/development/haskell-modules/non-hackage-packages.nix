@@ -11,8 +11,7 @@ self: super: {
 
   ldgallery-compiler =
     self.callPackage ../../tools/graphics/ldgallery/compiler
-      { }
-  ;
+      { };
 
   # Used by maintainers/scripts/regenerate-hackage-packages.sh, and generated
   # from the latest master instead of the current version on Hackage.
@@ -42,6 +41,5 @@ self: super: {
   # cabal2nix --maintainer roberth https://github.com/hercules-ci/optparse-applicative.git > pkgs/development/misc/haskell/hercules-ci-optparse-applicative.nix
   hercules-ci-optparse-applicative =
     self.callPackage ../misc/haskell/hercules-ci-optparse-applicative.nix
-      { }
-  ;
+      { };
 }

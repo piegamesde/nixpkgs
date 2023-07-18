@@ -54,8 +54,7 @@ stdenv.mkDerivation rec {
       "--mandir=\${out}/share/man"
     ]
     ++ lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
-      "ac_cv_func_setpgrp_void=yes"
-  ;
+      "ac_cv_func_setpgrp_void=yes";
 
   installFlags = [
     "logdir=\${out}/logdir"

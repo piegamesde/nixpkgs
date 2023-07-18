@@ -29,8 +29,7 @@ import ./make-test-python.nix (
                   echo "$source" > "$name.c"
                   make -C "$ksrc" M=$(pwd) modules
                   install -vD "$name.ko" "$out/lib/modules/$kver/$name.ko"
-                ''
-            ;
+                '';
 
             # This spawns a kthread which just waits until it gets a signal and
             # terminates if that is the case. We want to make sure that nothing during
@@ -80,8 +79,7 @@ import ./make-test-python.nix (
               module_exit(kcanaryExit);
             '';
           in
-          lib.singleton kcanary
-        ;
+          lib.singleton kcanary;
 
         boot.initrd.kernelModules = [ "kcanary" ];
 
@@ -92,8 +90,7 @@ import ./make-test-python.nix (
               pkgs.runCommandCC name { inherit source; } ''
                 mkdir -p "$out/bin"
                 echo "$source" | gcc -Wall -o "$out/bin/$name" -xc -
-              ''
-            ;
+              '';
 
             daemonize =
               name: source:
@@ -111,8 +108,7 @@ import ./make-test-python.nix (
                   runSource();
                   return 1;
                 }
-              ''
-            ;
+              '';
 
             mkCmdlineCanary =
               {
@@ -147,8 +143,7 @@ import ./make-test-python.nix (
                   ''}
                   copy_bin_and_libs "${canary}/bin/${canary.name}"
                 ''
-              )
-            ;
+              );
           in
           copyCanaries [
             # Simple canary process which just sleeps forever and should be killed by
@@ -175,8 +170,7 @@ import ./make-test-python.nix (
               name = "canary3";
               cmdline = "@canary3";
             })
-          ]
-        ;
+          ];
 
         boot.initrd.postMountCommands = ''
           canary1
@@ -186,8 +180,7 @@ import ./make-test-python.nix (
           # its former pid after the killing spree starts next within stage 1.
           while [ ! -s /run/canary2.pid ]; do sleep 0.1; done
         '';
-      }
-    ;
+      };
 
     testScript = ''
       machine.wait_for_unit("multi-user.target")

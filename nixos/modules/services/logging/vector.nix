@@ -49,8 +49,7 @@ in
               ''
                 vector validate --no-environment "${file}"
                 ln -s "${file}" "$out"
-              ''
-          ;
+              '';
         in
         {
           ExecStart = "${pkgs.vector}/bin/vector --config ${validateConfig conf}";
@@ -61,8 +60,7 @@ in
           AmbientCapabilities = "CAP_NET_BIND_SERVICE";
           # This group is required for accessing journald.
           SupplementaryGroups = mkIf cfg.journaldAccess "systemd-journal";
-        }
-      ;
+        };
     };
   };
 }

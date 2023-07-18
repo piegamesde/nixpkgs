@@ -11,8 +11,7 @@ import ./make-test-python.nix (
 
         services.xserver.enable = true;
         environment.systemPackages = [ pkgs.ladybird ];
-      }
-    ;
+      };
 
     enableOCR = true;
 

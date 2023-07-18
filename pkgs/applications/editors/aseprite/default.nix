@@ -82,8 +82,7 @@ stdenv.mkDerivation rec {
       pcre
       skia
       libGL
-    ]
-  ;
+    ];
 
   patches =
     if !unfree then
@@ -132,8 +131,7 @@ stdenv.mkDerivation rec {
       # UI backend.
       "-DLAF_OS_BACKEND=skia"
       "-DSKIA_DIR=${skia}"
-    ]
-  ;
+    ];
 
   postInstall = ''
     # Install desktop icons.

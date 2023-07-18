@@ -88,8 +88,7 @@ import ./make-test-python.nix (
         [
           "6_1"
           "6_2"
-        ]
-    ;
+        ];
 
     testScript = ''
       import re

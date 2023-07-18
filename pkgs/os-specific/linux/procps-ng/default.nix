@@ -38,8 +38,7 @@ stdenv.mkDerivation rec {
           url = "https://git.alpinelinux.org/aports/plain/main/procps/musl-fixes.patch?id=37cb5b6ef194db66d9ed07c8ecab59bca3b91215";
           sha256 = "sha256-DphAvESmVg1U3bJABU95R++QD34odStCl82EF0vmht0=";
         })
-      ]
-  ;
+      ];
 
   buildInputs = [ ncurses ] ++ lib.optional withSystemd systemd;
   nativeBuildInputs = [ pkg-config ];
@@ -49,8 +48,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals watchOnly [
       "watch"
       "PKG_LDFLAGS="
-    ]
-  ;
+    ];
 
   enableParallelBuilding = true;
 

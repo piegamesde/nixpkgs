@@ -20,8 +20,7 @@ import ./make-test-python.nix (
             admin = true;
           } ];
         };
-      }
-    ;
+      };
 
     testScript = ''
       machine.wait_for_unit("polaris.service")

@@ -58,8 +58,7 @@ stdenv.mkDerivation rec {
           src = ./fix-mbrola-paths.patch;
           inherit espeak mbrola;
         })
-      ]
-  ;
+      ];
 
   nativeBuildInputs = [
     pkg-config

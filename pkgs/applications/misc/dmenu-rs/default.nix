@@ -60,8 +60,7 @@ stdenv.mkDerivation rec {
         sha256 = "sha256-hmXApWg8qngc1vHkHUnB7Lt7wQUOyCSsBmn4HC1j53M=";
       };
     in
-    [ fix-broken-make-install-patch ]
-  ;
+    [ fix-broken-make-install-patch ];
 
   # Copy the Cargo.lock stored here in nixpkgs into the build directory.
   postPatch = ''

@@ -36,8 +36,7 @@ in
         type = types.listOf types.package;
         description =
           lib.mdDoc
-            "List of lua packages available for being used in the Awesome configuration."
-        ;
+            "List of lua packages available for being used in the Awesome configuration.";
         example = literalExpression "[ pkgs.luaPackages.vicious ]";
       };
 
@@ -53,8 +52,7 @@ in
         type = types.bool;
         description =
           lib.mdDoc
-            "Disable client transparency support, which can be greatly detrimental to performance in some setups"
-        ;
+            "Disable client transparency support, which can be greatly detrimental to performance in some setups";
       };
     };
   };

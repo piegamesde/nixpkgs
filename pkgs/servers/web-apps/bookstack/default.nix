@@ -25,8 +25,7 @@ let
             ''
           ;
         }
-      )
-  ;
+      );
 in
 package.override rec {
   pname = "bookstack";

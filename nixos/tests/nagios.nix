@@ -86,11 +86,9 @@ import ./make-test-python.nix (
                 retry_interval 1
                 }
               '')
-            ]
-          ;
+            ];
         };
-      }
-    ;
+      };
 
     testScript =
       { ... }:
@@ -119,7 +117,6 @@ import ./make-test-python.nix (
             machine.succeed("systemctl start sshd")
             machine.succeed("rm /tmp/notifications")
             assert_notify("ssh is OK")
-      ''
-    ;
+      '';
   }
 )

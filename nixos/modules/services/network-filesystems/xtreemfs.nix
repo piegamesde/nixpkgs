@@ -23,8 +23,7 @@ let
       JAVADIR="${xtreemfs}/share/java"
       JAVA_CALL="$JAVA_HOME/bin/java -ea -cp $JAVADIR/XtreemFS.jar:$JAVADIR/BabuDB.jar:$JAVADIR/Flease.jar:$JAVADIR/protobuf-java-2.5.0.jar:$JAVADIR/Foundation.jar:$JAVADIR/jdmkrt.jar:$JAVADIR/jdmktk.jar:$JAVADIR/commons-codec-1.3.jar"
       $JAVA_CALL ${class} ${configPath}
-    ''
-  ;
+    '';
 
   dirReplicationConfig =
     pkgs.writeText "xtreemfs-dir-replication-plugin.properties"
@@ -34,8 +33,7 @@ let
         babudb.repl.dependency.0 = ${xtreemfs}/share/java/Flease.jar
 
         ${cfg.dir.replication.extraConfig}
-      ''
-  ;
+      '';
 
   dirConfig = pkgs.writeText "xtreemfs-dir-config.properties" ''
     uuid = ${cfg.dir.uuid}
@@ -62,8 +60,7 @@ let
         babudb.repl.dependency.0 = ${xtreemfs}/share/java/Flease.jar
 
         ${cfg.mrc.replication.extraConfig}
-      ''
-  ;
+      '';
 
   mrcConfig = pkgs.writeText "xtreemfs-mrc-config.properties" ''
     uuid = ${cfg.mrc.uuid}

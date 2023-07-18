@@ -146,8 +146,7 @@ let
           )
         ;
       }
-    )
-  ;
+    );
 
   rake = runCommand "discourse-rake" { nativeBuildInputs = [ makeWrapper ]; } ''
     mkdir -p $out/bin

@@ -136,8 +136,7 @@ stdenv.mkDerivation rec {
       python
       svn
       copyDesktopItems
-    ]
-  ;
+    ];
 
   buildInputs = [
     glib

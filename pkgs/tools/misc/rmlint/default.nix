@@ -49,8 +49,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withGui [
       makeWrapper
       wrapGAppsHook
-    ]
-  ;
+    ];
 
   buildInputs =
     [
@@ -67,8 +66,7 @@ stdenv.mkDerivation rec {
       polkit
       python3
       python3.pkgs.pygobject3
-    ]
-  ;
+    ];
 
   prePatch = ''
     # remove sources of nondeterminism

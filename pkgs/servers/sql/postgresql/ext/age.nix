@@ -55,8 +55,7 @@ stdenv.mkDerivation rec {
           --inputdir=./regress --outputdir=./regress --temp-instance=./regress/instance \
           --port=61958 --dbname=contrib_regression \
           $REGRESS_TESTS
-      ''
-    ;
+      '';
 
     installPhase = ''
       touch $out

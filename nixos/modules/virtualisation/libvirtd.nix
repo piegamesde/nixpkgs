@@ -53,8 +53,7 @@ let
         defaultText = literalExpression "[ pkgs.OVMF.fd ]";
         example =
           literalExpression
-            "[ pkgs.OVMFFull.fd pkgs.pkgsCross.aarch64-multiplatform.OVMF.fd ]"
-        ;
+            "[ pkgs.OVMFFull.fd pkgs.pkgsCross.aarch64-multiplatform.OVMF.fd ]";
         description = lib.mdDoc ''
           List of OVMF packages to use. Each listed package must contain files names FV/OVMF_CODE.fd and FV/OVMF_VARS.fd or FV/AAVMF_CODE.fd and FV/AAVMF_VARS.fd
         '';
@@ -347,8 +346,7 @@ in
       # this file is expected in /etc/qemu and not sysconfdir (/var/lib)
       etc."qemu/bridge.conf".text =
         lib.concatMapStringsSep "\n" (e: "allow ${e}")
-          cfg.allowedBridges
-      ;
+          cfg.allowedBridges;
       systemPackages = with pkgs; [
         libressl.nc
         iptables
@@ -438,8 +436,7 @@ in
       requires = [ "libvirtd-config.service" ];
       after =
         [ "libvirtd-config.service" ]
-        ++ optional vswitch.enable "ovs-vswitchd.service"
-      ;
+        ++ optional vswitch.enable "ovs-vswitchd.service";
 
       environment.LIBVIRTD_ARGS = escapeShellArgs (
         [

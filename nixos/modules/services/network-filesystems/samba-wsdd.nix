@@ -50,8 +50,7 @@ in
         example = "FILESERVER";
         description =
           lib.mdDoc
-            "Override (NetBIOS) hostname to be used (default hostname)."
-        ;
+            "Override (NetBIOS) hostname to be used (default hostname).";
       };
       domain = mkOption {
         type = types.nullOr types.str;

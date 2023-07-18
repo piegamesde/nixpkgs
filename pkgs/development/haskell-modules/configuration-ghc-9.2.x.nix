@@ -72,8 +72,7 @@ self: super: {
         url = "https://gitlab.haskell.org/ghc/head.hackage/-/raw/dfd024c9a336c752288ec35879017a43bd7e85a0/patches/language-haskell-extract-0.2.4.patch";
         sha256 = "0w4y3v69nd3yafpml4gr23l94bdhbmx8xky48a59lckmz5x9fgxv";
       })
-      (doJailbreak super.language-haskell-extract)
-  ;
+      (doJailbreak super.language-haskell-extract);
 
   # Tests depend on `parseTime` which is no longer available
   hourglass = dontCheck super.hourglass;
@@ -102,6 +101,5 @@ self: super: {
       else
         x: x
     )
-      super.inline-c-cpp
-  ;
+      super.inline-c-cpp;
 }

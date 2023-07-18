@@ -62,8 +62,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withDevdoc [
       docbook_xml_dtd_43
       gtk-doc
-    ]
-  ;
+    ];
   buildInputs =
     [
       xz
@@ -87,8 +86,7 @@ stdenv.mkDerivation rec {
 
   patches =
     [ ./module-dir.patch ]
-    ++ lib.optional withStatic ./enable-static.patch
-  ;
+    ++ lib.optional withStatic ./enable-static.patch;
 
   postInstall = ''
     for prog in rmmod insmod lsmod modinfo modprobe depmod; do

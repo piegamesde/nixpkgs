@@ -123,17 +123,14 @@ let
     let
       archived =
         name: date:
-        throw "the ${name} terraform provider has been archived by upstream on ${date}"
-      ;
+        throw "the ${name} terraform provider has been archived by upstream on ${date}";
       license =
         name: date:
         throw
-          "the ${name} terraform provider removed from nixpkgs on ${date} because of unclear licensing"
-      ;
+          "the ${name} terraform provider removed from nixpkgs on ${date} because of unclear licensing";
       removed =
         name: date:
-        throw "the ${name} terraform provider removed from nixpkgs on ${date}"
-      ;
+        throw "the ${name} terraform provider removed from nixpkgs on ${date}";
     in
     lib.optionalAttrs config.allowAliases {
       b2 = removed "b2" "2022/06";
@@ -148,8 +145,7 @@ let
       panos = removed "panos" "2022/05";
       template = archived "template" "2022/05";
       vercel = license "vercel" "2022/11";
-    }
-  ;
+    };
 
   # excluding aliases, used by terraform-full
   actualProviders = automated-providers // special-providers;

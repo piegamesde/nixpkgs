@@ -65,8 +65,7 @@ else
             url = "https://foss.heptapod.net/pypy/cffi/-/commit/8a3c2c816d789639b49d3ae867213393ed7abdff.diff";
             hash = "sha256-3wpZeBqN4D8IP+47QDGK7qh/9Z0Ag4lAe+H0R5xCb1E=";
           })
-        ]
-    ;
+        ];
 
     postPatch = lib.optionalString stdenv.isDarwin ''
       # Remove setup.py impurities
@@ -85,8 +84,7 @@ else
     # The tests use -Werror but with python3.6 clang detects some unreachable code.
     env.NIX_CFLAGS_COMPILE =
       lib.optionalString stdenv.cc.isClang
-        "-Wno-unused-command-line-argument -Wno-unreachable-code -Wno-c++11-narrowing"
-    ;
+        "-Wno-unused-command-line-argument -Wno-unreachable-code -Wno-c++11-narrowing";
 
     doCheck = !stdenv.hostPlatform.isMusl;
 
@@ -98,8 +96,7 @@ else
           # AssertionError: cannot seem to get an int[10] not completely cleared
           # https://foss.heptapod.net/pypy/cffi/-/issues/556
           "test_ffi_new_allocator_1"
-        ]
-    ;
+        ];
 
     meta = with lib; {
       maintainers = with maintainers; [

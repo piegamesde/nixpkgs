@@ -71,8 +71,7 @@ runCommand "${pname}-${version}"
           nss
           stdenv.cc.cc
           udev
-        ]
-      ;
+        ];
       # extraBwrapArgs = [
       #   "--ro-bind /run/user/$(id -u)/pulse /run/user/$(id -u)/pulse"
       # ];

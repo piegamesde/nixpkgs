@@ -125,7 +125,6 @@ in
       }
       // optionalAttrs (cfg.environmentFile != null) {
         EnvironmentFile = cfg.environmentFile;
-      }
-    ;
+      };
   };
 }

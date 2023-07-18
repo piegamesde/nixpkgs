@@ -7,8 +7,7 @@ import ../make-test-python.nix (
           openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes -subj '/CN=localhost' -days 36500
           mkdir -p $out
           cp key.pem cert.pem $out
-        ''
-    ;
+        '';
   in
   {
     name = "monica";
@@ -27,8 +26,7 @@ import ../make-test-python.nix (
               sslCertificateKey = "${cert}/key.pem";
             };
           };
-        }
-      ;
+        };
     };
 
     testScript = ''

@@ -29,8 +29,7 @@ let
         lib.importJSON manifest
       );
     in
-    lib.mapAttrs buildCudaToolkitRedistPackage attrs
-  ;
+    lib.mapAttrs buildCudaToolkitRedistPackage attrs;
 
   # All cudatoolkit redist packages for the current cuda version
   cudaToolkitRedistPackages =

@@ -26,8 +26,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Whether to enable svnserve to serve Subversion repositories through the SVN protocol."
-        ;
+            "Whether to enable svnserve to serve Subversion repositories through the SVN protocol.";
       };
 
       svnBaseDir = mkOption {
@@ -35,8 +34,7 @@ in
         default = "/repos";
         description =
           lib.mdDoc
-            "Base directory from which Subversion repositories are accessed."
-        ;
+            "Base directory from which Subversion repositories are accessed.";
       };
     };
   };

@@ -44,8 +44,7 @@ let
           cfg.defaultGateway.address
         ++ optional
           (cfg.defaultGateway6 != null && (cfg.defaultGateway6.address or "") != "")
-          cfg.defaultGateway6.address
-      ;
+          cfg.defaultGateway6.address;
       makeGateway = gateway: {
         routeConfig = {
           Gateway = gateway;
@@ -96,8 +95,7 @@ let
         DHCP = "yes";
         linkConfig.RequiredForOnline =
           lib.mkDefault
-            config.systemd.network.wait-online.anyInterface
-        ;
+            config.systemd.network.wait-online.anyInterface;
         networkConfig.IPv6PrivacyExtensions = "kernel";
         # We also set the route metric to one more than the default
         # of 1024, so that Ethernet is preferred if both are
@@ -105,8 +103,7 @@ let
         dhcpV4Config.RouteMetric = 1025;
         ipv6AcceptRAConfig.RouteMetric = 1025;
       };
-    }
-  ;
+    };
 
   interfaceNetworks = mkMerge (
     forEach interfaces (
@@ -314,8 +311,7 @@ in
                         };
                         AllSlavesActive = simp "all_slaves_active";
                         MinLinks = simp "min_links";
-                      }
-                    ;
+                      };
 
                     do = bond.driverOptions;
                     assertNoUnknownOption =
@@ -334,8 +330,7 @@ in
                               "The bond.driverOption `${driverOpt}` cannot be mapped to the list of known networkd bond options. Please add it to the mapping above the assert or to `unknownOptions` should it not exist in networkd."
                           )
                           (mapAttrsToList (k: _: k) do);
-                      ""
-                    ;
+                      "";
                     # get those driverOptions that have been set
                     filterSystemdOptions = filterAttrs (
                       sysDOpt: kOpts: any (kOpt: do ? ${kOpt}) kOpts.optNames
@@ -357,8 +352,7 @@ in
                   in
                   seq assertNoUnknownOption (
                     buildOptionSet (filterSystemdOptions driverOptionMapping)
-                  )
-                ;
+                  );
               };
 
               networks = listToAttrs (
@@ -590,8 +584,7 @@ in
                   ovs-vsctl --if-exists del-br ${n} || true
                 '';
               }
-            )
-          ;
+            );
         in
         mapAttrs' createVswitchDevice cfg.vswitches
         // {

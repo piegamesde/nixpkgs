@@ -24,8 +24,7 @@ import ./make-test-python.nix (
           outputs.file.files = [ "/tmp/metrics.out" ];
           outputs.file.data_format = "influx";
         };
-      }
-    ;
+      };
 
     testScript = ''
       start_all()

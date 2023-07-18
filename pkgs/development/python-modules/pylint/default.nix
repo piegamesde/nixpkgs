@@ -102,8 +102,7 @@ buildPythonPackage rec {
     ++ lib.optionals stdenv.isDarwin [
       "test_parallel_execution"
       "test_py3k_jobs_option"
-    ]
-  ;
+    ];
 
   meta = with lib; {
     homepage = "https://pylint.pycqa.org/";

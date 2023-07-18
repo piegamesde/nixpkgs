@@ -110,8 +110,7 @@ import ./make-test-python.nix (
           inheritParentConfig = true;
           configuration.services.home-assistant.config.homeassistant.name =
             lib.mkForce
-              "Test Home"
-          ;
+              "Test Home";
         };
 
         # Cause a configuration change that requires a service restart as we added a new runtime dependency
@@ -119,8 +118,7 @@ import ./make-test-python.nix (
           inheritParentConfig = true;
           configuration.services.home-assistant.config.backup = { };
         };
-      }
-    ;
+      };
 
     testScript =
       { nodes, ... }:
@@ -214,7 +212,6 @@ import ./make-test-python.nix (
         with subtest("Check systemd unit hardening"):
             hass.log(hass.succeed("systemctl cat home-assistant.service"))
             hass.log(hass.succeed("systemd-analyze security home-assistant.service"))
-      ''
-    ;
+      '';
   }
 )

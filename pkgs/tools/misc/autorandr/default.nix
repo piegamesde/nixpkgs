@@ -62,7 +62,8 @@ python3.pkgs.buildPythonApplication rec {
           PM_SLEEPHOOKS_DIR=/lib/pm-utils/sleep.d
         make install TARGETS='udev' PREFIX=$out DESTDIR=$out \
           UDEV_RULES_DIR=/etc/udev/rules.d
-      ''}
+      ''
+    }
 
     runHook postInstall
   '';

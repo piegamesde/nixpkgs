@@ -14,8 +14,7 @@ import ./make-test-python.nix (
           parted
           keyutils
         ];
-      }
-    ;
+      };
 
     testScript = ''
       machine.succeed("modprobe bcachefs")

@@ -185,8 +185,7 @@ import ../../make-test-python.nix (
               muteTimings.path = mkdir ./mute-timings.yaml;
             };
           };
-        }
-      ;
+        };
     };
 
     nodes =
@@ -198,8 +197,7 @@ import ../../make-test-python.nix (
             baseGrafanaConf
           ]
         )
-        extraNodeConfs
-    ;
+        extraNodeConfs;
   in
   {
     name = "grafana-provision";

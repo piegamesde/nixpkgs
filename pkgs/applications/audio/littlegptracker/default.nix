@@ -21,8 +21,7 @@ stdenv.mkDerivation rec {
 
   buildInputs =
     [ SDL ]
-    ++ lib.optional stdenv.isDarwin Foundation ++ lib.optional stdenv.isLinux jack2
-  ;
+    ++ lib.optional stdenv.isDarwin Foundation ++ lib.optional stdenv.isLinux jack2;
 
   patches =
     [
@@ -50,8 +49,7 @@ stdenv.mkDerivation rec {
     let
       extension = if stdenv.isDarwin then "app" else "deb-exe";
     in
-    "install -Dm555 lgpt.${extension} $out/bin/lgpt"
-  ;
+    "install -Dm555 lgpt.${extension} $out/bin/lgpt";
 
   passthru.updateScript = unstableGitUpdater {
     url = "https://github.com/Mdashdotdashn/littlegptracker.git";

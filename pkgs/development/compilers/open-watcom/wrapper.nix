@@ -51,12 +51,10 @@ let
       # but we don't support targeting DOS, OS/2, 16-bit Windows etc Nixpkgs-wide so this needs extra logic
       includeDirs =
         with stdenv.hostPlatform;
-        [ "h" ] ++ lib.optional isWindows "h/nt" ++ lib.optional isLinux "lh"
-      ;
+        [ "h" ] ++ lib.optional isWindows "h/nt" ++ lib.optional isLinux "lh";
       listToDirs =
         list:
-        lib.strings.concatMapStringsSep ":" (dir: "${placeholder "out"}/${dir}") list
-      ;
+        lib.strings.concatMapStringsSep ":" (dir: "${placeholder "out"}/${dir}") list;
       name = "${open-watcom.passthru.prettyName}-${open-watcom.version}";
     in
     symlinkJoin {
@@ -134,8 +132,7 @@ let
                     (!stdenv.hostPlatform.isDarwin && !stdenv.hostPlatform.isAarch)
                     "./test_cpp"}
                   touch $out
-                ''
-            ;
+                '';
             cross =
               runCommand "${name}-test-cross"
                 {
@@ -168,14 +165,11 @@ let
                   file ./windows.exe | grep "MS-DOS" | grep "Windows 3.x"
                   file ./dos.exe | grep "MS-DOS" | grep -v "LE" | grep -v "Windows 3.x"
                   touch $out
-                ''
-            ;
-          }
-        ;
+                '';
+          };
       };
 
       inherit (open-watcom) meta;
-    }
-  ;
+    };
 in
 lib.makeOverridable wrapper

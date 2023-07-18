@@ -162,8 +162,7 @@ import ./make-test-python.nix (
               '';
             };
           };
-        }
-      ;
+        };
 
       # This will be our (residential) router that receives the IPv6 prefix (IA_PD)
       # and /128 (IA_NA) allocation.

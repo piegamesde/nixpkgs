@@ -37,8 +37,7 @@ let
       XMLTwig
       XMLParser
       X11Protocol
-    ]
-  ;
+    ];
 in
 
 stdenv.mkDerivation rec {

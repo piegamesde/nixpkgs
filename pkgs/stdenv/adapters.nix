@@ -27,8 +27,7 @@ let
         stdenvSuperArgs.mkDerivationFromStdenv or defaultMkDerivationFromStdenv;
       mkDerivationSuper = mkDerivationFromStdenv-super stdenvSelf;
     in
-    k stdenvSelf mkDerivationSuper
-  ;
+    k stdenvSelf mkDerivationSuper;
 
   # Wrap the original `mkDerivation` providing extra args to it.
   extendMkDerivationArgs =
@@ -36,8 +35,7 @@ let
     withOldMkDerivation old (
       _: mkDerivationSuper: args:
       (mkDerivationSuper args).overrideAttrs f
-    )
-  ;
+    );
 
   # Wrap the original `mkDerivation` transforming the result.
   overrideMkDerivationResult =
@@ -45,8 +43,7 @@ let
     withOldMkDerivation old (
       _: mkDerivationSuper: args:
       f (mkDerivationSuper args)
-    )
-  ;
+    );
 in
 
 rec {
@@ -57,8 +54,7 @@ rec {
     stdenv.override {
       allowedRequisites = null;
       cc = cc;
-    }
-  ;
+    };
 
   # Add some arbitrary packages to buildInputs for specific packages.
   # Used to override packages in stdenv like Make.  Should not be used
@@ -70,8 +66,7 @@ rec {
         allowedRequisites = null;
         extraBuildInputs = (prev.extraBuildInputs or [ ]) ++ pkgs;
       }
-    )
-  ;
+    );
 
   # Override the setup script of stdenv.  Useful for testing new
   # versions of the setup script without causing a rebuild of
@@ -111,8 +106,7 @@ rec {
       // lib.optionalAttrs (stdenv0.hostPlatform.libc == "libc") {
         extraBuildInputs = (old.extraBuildInputs or [ ]) ++ [ pkgs.glibc.static ];
       }
-    )
-  ;
+    );
 
   # Return a modified stdenv that builds static libraries instead of
   # shared libraries.
@@ -135,8 +129,7 @@ rec {
           }
         );
       }
-    )
-  ;
+    );
 
   # Best effort static binaries. Will still be linked to libSystem,
   # but more portable than Nix store binaries.
@@ -166,8 +159,7 @@ rec {
           }
         );
       }
-    )
-  ;
+    );
 
   # Puts all the other ones together
   makeStatic =
@@ -183,11 +175,9 @@ rec {
       # Apple does not provide a static version of libSystem or crt0.o
       # So we can’t build static binaries without extensive hacks.
       ++ lib.optional (!stdenv.hostPlatform.isDarwin) makeStaticBinaries
-
     # Glibc doesn’t come with static runtimes by default.
     # ++ lib.optional (stdenv.hostPlatform.libc == "glibc") ((lib.flip overrideInStdenv) [ self.glibc.static ])
-    )
-  ;
+    );
 
   /* Modify a stdenv so that all buildInputs are implicitly propagated to
      consuming derivations
@@ -204,8 +194,7 @@ rec {
           }
         );
       }
-    )
-  ;
+    );
 
   /* Modify a stdenv so that the specified attributes are added to
      every derivation returned by its mkDerivation function.
@@ -220,8 +209,7 @@ rec {
     extraAttrs: stdenv:
     stdenv.override (
       old: { mkDerivationFromStdenv = extendMkDerivationArgs old (_: extraAttrs); }
-    )
-  ;
+    );
 
   /* Use the trace output to report all processed derivations with their
      license name.
@@ -239,8 +227,7 @@ rec {
                 drvPath = builtins.unsafeDiscardStringContext pkg.drvPath;
                 license = pkg.meta.license or null;
               in
-              builtins.trace "@:drv:${toString drvPath}:${builtins.toString license}:@" val
-            ;
+              builtins.trace "@:drv:${toString drvPath}:${builtins.toString license}:@" val;
           in
           pkg
           // {
@@ -249,8 +236,7 @@ rec {
           }
         );
       }
-    )
-  ;
+    );
 
   /* Modify a stdenv so that it produces debug builds; that is,
      binaries have debug info, and compiler optimisations are
@@ -270,8 +256,7 @@ rec {
           }
         );
       }
-    )
-  ;
+    );
 
   # Modify a stdenv so that it uses the Gold linker.
   useGoldLinker =
@@ -284,8 +269,7 @@ rec {
           }
         );
       }
-    )
-  ;
+    );
 
   useMoldLinker =
     stdenv:
@@ -317,8 +301,7 @@ rec {
                 (lib.getLib pkgs.openssl)
               ]
             )
-            (stdenv.allowedRequisites or null)
-        ;
+            (stdenv.allowedRequisites or null);
         # gcc >12.1.0 supports '-fuse-ld=mold'
         # the wrap ld above in bintools supports gcc <12.1.0 and shouldn't harm >12.1.0
         # https://github.com/rui314/mold#how-to-use
@@ -336,8 +319,7 @@ rec {
               }
             );
           }
-    )
-  ;
+    );
 
   /* Modify a stdenv so that it builds binaries optimized specifically
      for the machine they are built on.
@@ -362,8 +344,7 @@ rec {
           }
         );
       }
-    )
-  ;
+    );
 
   /* Modify a stdenv so that it builds binaries with the specified list of
      compilerFlags appended and passed to the compiler.
@@ -391,6 +372,5 @@ rec {
           }
         );
       }
-    )
-  ;
+    );
 }

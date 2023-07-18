@@ -88,8 +88,7 @@ buildPythonPackage rec {
       [
         # darwin sandboxing limitations
         "tests/streams/test_tls.py"
-      ]
-  ;
+      ];
 
   pythonImportsCheck = [ "anyio" ];
 

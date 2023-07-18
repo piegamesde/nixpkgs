@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
 
   configureFlags =
     lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
-      "ac_cv_linux_vers=2"
-  ;
+      "ac_cv_linux_vers=2";
 
   meta = with lib; {
     description = "Network sniffer";

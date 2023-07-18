@@ -20,8 +20,7 @@ import ./make-test-python.nix (
           rdma-core
           screen
         ];
-      }
-    ;
+      };
   in
   {
     name = "rxe";

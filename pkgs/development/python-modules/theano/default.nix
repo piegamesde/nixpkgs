@@ -36,8 +36,7 @@ let
       $(type -P '${command}') "\$@"
       EOF
       chmod +x "$out"
-    ''
-  ;
+    '';
 
   # Theano spews warnings and disabled flags if the compiler isn't named g++
   cxx_compiler_name =

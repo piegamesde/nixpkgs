@@ -197,8 +197,7 @@ let
     !(
       stdenv.targetPlatform.isx86
       || (stdenv.targetPlatform.isAarch64 && stdenv.targetPlatform.isDarwin)
-    )
-  ;
+    );
 
   libPath = lib.makeLibraryPath (
     # Add arch-specific libraries.
@@ -488,8 +487,7 @@ stdenv.mkDerivation rec {
       # The isHadrian mechanism will become obsolete with GHCs that use hadrian
       # exclusively, i.e. 9.6 (and 9.4?).
       hadrian = null;
-    }
-  ;
+    };
 
   meta = rec {
     homepage = "http://haskell.org/ghc";

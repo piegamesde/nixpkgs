@@ -22,8 +22,7 @@
           type = "jar";
           sha512 = "2phbi7q2k3v48gyys7s0yw8xaa9kpczwif5jfqgfarzf7il1r0vplpwgwcnlsxpifjjnap7lw0yq38zp0mbajp7h8p5z0qp7gisa4m3";
         }
-      ]
-  ;
+      ];
 
   commonsLang_2_3 =
     map
@@ -46,8 +45,7 @@
           type = "jar";
           sha512 = "1f30pryvd39m2yazflzy5l1h4l473dj8ccrd9v8z8lb6iassn4xc142f2snkzxlc7ncqsi6fbfd3zfxsy8afivmxmxds6mbsrxayqwk";
         }
-      ]
-  ;
+      ];
 
   commonsLang_2_6 =
     map
@@ -70,6 +68,5 @@
           type = "jar";
           sha512 = "11gnsj6c1rz61j19wnr0j5rbdnl63hq9axwm7wwampmdq70n3m1szbn014phl8y3nccvrq2ifcgwb48q6jwqs50rki4bij196z3snja";
         }
-      ]
-  ;
+      ];
 }

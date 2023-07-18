@@ -52,8 +52,7 @@ stdenv.mkDerivation rec {
       libsecret
       libnma
       libnma-gtk4
-    ]
-  ;
+    ];
 
   postPatch = ''
     sed -i 's#/sbin/pppd#${ppp}/bin/pppd#' src/nm-sstp-service.c

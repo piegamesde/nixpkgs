@@ -57,8 +57,7 @@ edk2.mkDerivation projectDscPath (
       ++ lib.optionals stdenv.cc.isClang [
         llvmPackages.bintools
         llvmPackages.llvm
-      ]
-    ;
+      ];
     strictDeps = true;
 
     hardeningDisable = [
@@ -87,8 +86,7 @@ edk2.mkDerivation projectDscPath (
 
     env.NIX_CFLAGS_COMPILE =
       lib.optionalString stdenv.cc.isClang
-        "-Qunused-arguments"
-    ;
+        "-Qunused-arguments";
 
     env.PYTHON_COMMAND = "python3";
 
@@ -135,8 +133,7 @@ edk2.mkDerivation projectDscPath (
         variables = "${prefix}_VARS.fd";
         # This will test the EFI firmware for the host platform as part of the NixOS Tests setup.
         tests.basic-systemd-boot = nixosTests.systemd-boot.basic;
-      }
-    ;
+      };
 
     meta = {
       description = "Sample UEFI firmware for QEMU and KVM";

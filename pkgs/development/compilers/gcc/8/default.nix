@@ -105,8 +105,7 @@ let
   stageNameAddon = if crossStageStatic then "stage-static" else "stage-final";
   crossNameAddon =
     optionalString (targetPlatform != hostPlatform)
-      "${targetPlatform.config}-${stageNameAddon}-"
-  ;
+      "${targetPlatform.config}-${stageNameAddon}-";
 
   callFile = lib.callPackageWith {
     # lets
@@ -281,8 +280,7 @@ stdenv.mkDerivation (
 
     buildFlags =
       optional (targetPlatform == hostPlatform && hostPlatform == buildPlatform)
-        (if profiledCompiler then "profiledbootstrap" else "bootstrap")
-    ;
+        (if profiledCompiler then "profiledbootstrap" else "bootstrap");
 
     inherit (callFile ../common/strip-attributes.nix { })
       stripDebugList

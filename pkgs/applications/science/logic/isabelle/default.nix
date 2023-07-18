@@ -274,8 +274,7 @@ stdenv.mkDerivation (
         name = "isabelle-with-components-${isabelle.version}";
         paths =
           [ isabelle ]
-          ++ (builtins.map (c: c.override { inherit isabelle; }) components)
-        ;
+          ++ (builtins.map (c: c.override { inherit isabelle; }) components);
 
         postBuild =
           ''
@@ -298,7 +297,6 @@ stdenv.mkDerivation (
               '')
               components
         ;
-      }
-    ;
+      };
   }
 )

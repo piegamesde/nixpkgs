@@ -44,8 +44,7 @@ in
               bool
               str
             ]
-          )
-        ;
+          );
         default = { };
         example = {
           apply_nice = false;

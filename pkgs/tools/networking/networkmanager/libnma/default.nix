@@ -66,8 +66,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
       mesonEmulatorHook
-    ]
-  ;
+    ];
 
   buildInputs =
     [
@@ -115,14 +114,12 @@ stdenv.mkDerivation rec {
         updateGsettingsPatch =
           _experimental-update-script-combinators.copyAttrOutputToFile
             "libnma.hardcodeGsettingsPatch"
-            ./hardcode-gsettings.patch
-        ;
+            ./hardcode-gsettings.patch;
       in
       _experimental-update-script-combinators.sequence [
         updateSource
         updateGsettingsPatch
-      ]
-    ;
+      ];
   };
 
   meta = with lib; {

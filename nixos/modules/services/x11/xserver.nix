@@ -85,8 +85,7 @@ let
         inherit config;
       };
     in
-    imap1 mkHead cfg.xrandrHeads
-  ;
+    imap1 mkHead cfg.xrandrHeads;
 
   xrandrDeviceSection =
     let
@@ -96,8 +95,7 @@ let
         ''
       );
     in
-    concatStrings monitors
-  ;
+    concatStrings monitors;
 
   # Here we chain every monitor from the left to right, so we have:
   # m4 right of m3 right of m2 right of m1   .----.----.----.----.
@@ -130,8 +128,7 @@ let
       ;
       monitors = reverseList (foldl mkMonitor [ ] xrandrHeads);
     in
-    concatMapStrings (getAttr "value") monitors
-  ;
+    concatMapStrings (getAttr "value") monitors;
 
   configFile =
     pkgs.runCommand "xserver.conf"
@@ -163,13 +160,11 @@ let
         echo >> $out
 
         echo "$config" >> $out
-      ''
-  ; # */
+      ''; # */
 
   prefixStringLines =
     prefix: str:
-    concatMapStringsSep "\n" (line: prefix + line) (splitString "\n" str)
-  ;
+    concatMapStringsSep "\n" (line: prefix + line) (splitString "\n" str);
 
   indent = prefixStringLines "  ";
 
@@ -264,8 +259,7 @@ in
         type = types.listOf types.package;
         description =
           lib.mdDoc
-            "Which X11 packages to exclude from the default environment"
-        ;
+            "Which X11 packages to exclude from the default environment";
       };
 
       exportConfiguration = mkOption {
@@ -316,8 +310,7 @@ in
         '';
         description =
           lib.mdDoc
-            "Content of additional InputClass sections of the X server configuration file."
-        ;
+            "Content of additional InputClass sections of the X server configuration file.";
       };
 
       modules = mkOption {
@@ -326,8 +319,7 @@ in
         example = literalExpression "[ pkgs.xf86_input_wacom ]";
         description =
           lib.mdDoc
-            "Packages to be added to the module search path of the X server."
-        ;
+            "Packages to be added to the module search path of the X server.";
       };
 
       resolutions = mkOption {
@@ -494,8 +486,7 @@ in
         example = ''FontPath "/path/to/my/fonts"'';
         description =
           lib.mdDoc
-            "Contents of the first `Files` section of the X server configuration file."
-        ;
+            "Contents of the first `Files` section of the X server configuration file.";
       };
 
       deviceSection = mkOption {
@@ -504,8 +495,7 @@ in
         example = "VideoRAM 131072";
         description =
           lib.mdDoc
-            "Contents of the first Device section of the X server configuration file."
-        ;
+            "Contents of the first Device section of the X server configuration file.";
       };
 
       screenSection = mkOption {
@@ -516,8 +506,7 @@ in
         '';
         description =
           lib.mdDoc
-            "Contents of the first Screen section of the X server configuration file."
-        ;
+            "Contents of the first Screen section of the X server configuration file.";
       };
 
       monitorSection = mkOption {
@@ -526,8 +515,7 @@ in
         example = "HorizSync 28-49";
         description =
           lib.mdDoc
-            "Contents of the first Monitor section of the X server configuration file."
-        ;
+            "Contents of the first Monitor section of the X server configuration file.";
       };
 
       extraConfig = mkOption {
@@ -535,8 +523,7 @@ in
         default = "";
         description =
           lib.mdDoc
-            "Additional contents (sections) included in the X server configuration file"
-        ;
+            "Additional contents (sections) included in the X server configuration file";
       };
 
       xrandrHeads = mkOption {
@@ -558,8 +545,7 @@ in
             coercedTo str (output: { inherit output; }) (
               submodule { options = xrandrOptions; }
             )
-          )
-        ;
+          );
         # Set primary to true for the first head if no other has been set
         # primary already.
         apply =
@@ -571,8 +557,7 @@ in
             };
             newHeads = singleton firstPrimary ++ tail heads;
           in
-          if heads != [ ] && !hasPrimary then newHeads else heads
-        ;
+          if heads != [ ] && !hasPrimary then newHeads else heads;
         description = lib.mdDoc ''
           Multiple monitor configuration, just specify a list of XRandR
           outputs. The individual elements should be either simple strings or
@@ -610,8 +595,7 @@ in
         '';
         description =
           lib.mdDoc
-            "Contents of the ServerFlags section of the X server configuration file."
-        ;
+            "Contents of the ServerFlags section of the X server configuration file.";
       };
 
       moduleSection = mkOption {
@@ -623,8 +607,7 @@ in
         '';
         description =
           lib.mdDoc
-            "Contents of the Module section of the X server configuration file."
-        ;
+            "Contents of the Module section of the X server configuration file.";
       };
 
       serverLayoutSection = mkOption {
@@ -635,8 +618,7 @@ in
         '';
         description =
           lib.mdDoc
-            "Contents of the ServerLayout section of the X server configuration file."
-        ;
+            "Contents of the ServerLayout section of the X server configuration file.";
       };
 
       extraDisplaySettings = mkOption {
@@ -645,8 +627,7 @@ in
         example = "Virtual 2048 2048";
         description =
           lib.mdDoc
-            "Lines to be added to every Display subsection of the Screen section."
-        ;
+            "Lines to be added to every Display subsection of the Screen section.";
       };
 
       defaultDepth = mkOption {
@@ -757,11 +738,9 @@ in
             || dmConf.sx.enable
             || dmConf.startx.enable
             || config.services.greetd.enable
-          )
-        ;
+          );
       in
-      mkIf (default) (mkDefault true)
-    ;
+      mkIf (default) (mkDefault true);
 
     # so that the service won't be enabled when only startx is used
     systemd.services.display-manager.enable =
@@ -773,11 +752,9 @@ in
             || dmConf.sddm.enable
             || dmConf.xpra.enable
             || dmConf.lightdm.enable
-          )
-        ;
+          );
       in
-      mkIf (noDmUsed) (mkDefault false)
-    ;
+      mkIf (noDmUsed) (mkDefault false);
 
     hardware.opengl.enable = mkDefault true;
 
@@ -797,8 +774,7 @@ in
               else
                 null
             )
-            knownVideoDrivers
-        ;
+            knownVideoDrivers;
       in
       optional (driver != null) (
         {
@@ -928,8 +904,7 @@ in
       # TODO: move declaring the systemd service to its own mkIf
       script =
         mkIf (config.systemd.services.display-manager.enable == true)
-          "${cfg.displayManager.job.execCmd}"
-      ;
+          "${cfg.displayManager.job.execCmd}";
 
       # Stop restarting if the display manager stops (crashes) 2 times
       # in one minute. Starting X typically takes 3-4s.

@@ -62,8 +62,7 @@ let
         # Please change the options ‘systemd.user.tmpfiles’ instead.
         ${concatStringsSep "\n" rules}
       '';
-    }
-  ;
+    };
 in
 {
   options = {
@@ -204,8 +203,7 @@ in
           wantedBy = [ "timers.target" ];
           timerConfig.OnCalendar = service.startAt;
         })
-        (filterAttrs (name: service: service.startAt != [ ]) cfg.services)
-    ;
+        (filterAttrs (name: service: service.startAt != [ ]) cfg.services);
 
     # Provide the systemd-user PAM service, required to run systemd
     # user instances.
@@ -230,8 +228,7 @@ in
           cfg.tmpfiles.rules != [ ]
           || any (cfg': cfg'.rules != [ ]) (attrValues cfg.tmpfiles.users)
         )
-        "basic.target"
-    ;
+        "basic.target";
 
     # /run/current-system/sw/etc/xdg is in systemd's $XDG_CONFIG_DIRS so we can
     # write the tmpfiles.d rules for everyone there
@@ -251,7 +248,6 @@ in
             }
           );
         })
-        cfg.tmpfiles.users
-    ;
+        cfg.tmpfiles.users;
   };
 }

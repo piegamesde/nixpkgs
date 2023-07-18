@@ -54,7 +54,8 @@ let
               ''
                 boot.loader.grub.device = "${grubDevice}";
                 boot.loader.grub.fsIdentifier = "${grubIdentifier}";
-              ''}
+              ''
+            }
 
             boot.loader.grub.configurationLimit = 100 + ${toString forceGrubReinstallCount};
           ''
@@ -78,8 +79,7 @@ let
 
         ${replaceStrings [ "\n" ] [ "\n  " ] extraConfig}
       }
-    ''
-  ;
+    '';
 
   # The test script boots a NixOS VM, installs NixOS on an empty hard
   # disk, and then reboot from the hard disk.  It's parameterized with
@@ -466,8 +466,7 @@ let
               hashed-mirrors = null;
               connect-timeout = 1;
             };
-          }
-        ;
+          };
       };
 
       testScript = testScriptFun {
@@ -484,8 +483,7 @@ let
           testSpecialisationConfig
         ;
       };
-    }
-  ;
+    };
 
   makeLuksRootTest =
     name: luksFormatOpts:
@@ -518,8 +516,7 @@ let
         machine.wait_for_text("Passphrase for")
         machine.send_chars("supersecret\n")
       '';
-    }
-  ;
+    };
 
   # The (almost) simplest partitioning scheme: a swap partition and
   # one big filesystem partition.
@@ -626,8 +623,7 @@ in
   # Test cloned configurations with the uefi grub configuration
   simpleUefiGrubSpecialisation =
     makeInstallerTest "simpleUefiGrubSpecialisation"
-      (simple-uefi-grub-config // specialisation-test-extraconfig)
-  ;
+      (simple-uefi-grub-config // specialisation-test-extraconfig);
 
   # Same as the previous, but now with a separate /boot partition.
   separateBoot = makeInstallerTest "separateBoot" {

@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       darwin.cctools
       fixDarwinDylibNames
-    ]
-  ;
+    ];
 
   buildInputs = [
     zlib
@@ -131,8 +130,7 @@ stdenv.mkDerivation rec {
         }
 
       runHook postBuild
-    ''
-  ;
+    '';
 
   env.NIX_CFLAGS_COMPILE = toString (
     [

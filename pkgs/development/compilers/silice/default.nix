@@ -77,8 +77,7 @@ stdenv.mkDerivation rec {
               cp -r BUILD_$target $out/
             done
           '';
-        }
-      ;
+        };
     in
     {
       # a selection of test projects that build with the FPGA tools in
@@ -87,8 +86,7 @@ stdenv.mkDerivation rec {
       bram_interface = testProject "bram_interface";
       blinky = testProject "blinky";
       pipeline_sort = testProject "pipeline_sort";
-    }
-  ;
+    };
 
   meta = with lib; {
     description = "Open source language that simplifies prototyping and writing algorithms on FPGA architectures";

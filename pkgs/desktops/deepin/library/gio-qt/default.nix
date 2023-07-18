@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals buildDocs [
       doxygen
       qttools.dev
-    ]
-  ;
+    ];
 
   cmakeFlags = [
     "-DCMAKE_INSTALL_LIBDIR=lib"

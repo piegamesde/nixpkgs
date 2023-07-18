@@ -72,7 +72,6 @@ let
       sed -i -e "s|^SCRIPTDIR=.*|SCRIPTDIR=$out|" "$out/apccontrol"
     ''
     + concatStringsSep "\n" (map eventToShellCmds eventList)
-
   );
 
   # Ensure the CLI uses our generated configFile
@@ -84,8 +83,7 @@ let
             bname=$(basename "$p")
             makeWrapper "$p" "$out/bin/$bname" --add-flags "-f ${configFile}"
         done
-      ''
-  ;
+      '';
 
   apcupsdWrapped = pkgs.symlinkJoin {
     name = "apcupsd-wrapped";
@@ -163,8 +161,7 @@ in
         let
           hooknames = builtins.attrNames cfg.hooks;
         in
-        all (x: elem x eventList) hooknames
-      ;
+        all (x: elem x eventList) hooknames;
       message = ''
         One (or more) attribute names in services.apcupsd.hooks are invalid.
         Current attribute names: ${toString (builtins.attrNames cfg.hooks)}

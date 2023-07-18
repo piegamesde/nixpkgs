@@ -101,8 +101,7 @@ let
         "libpng"
         "libpaper"
         "zlib"
-      ]
-    ;
+      ];
 
     # clean broken links to stuff not built
     cleanBrokenLinks = ''
@@ -143,8 +142,7 @@ rec {
         # dev (himktables) is used when building hitex to generate the additional source file hitables.c
         texlive.bin.core
         texlive.bin.core.dev
-      ]
-    ;
+      ];
 
     buildInputs = [
       # teckit
@@ -674,8 +672,7 @@ rec {
           libXext
           libXfixes
         ]
-      )
-    ;
+      );
 
     preConfigure = "cd texk/xdvik";
 

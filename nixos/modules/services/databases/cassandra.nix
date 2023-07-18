@@ -475,8 +475,7 @@ in
       ;
       defaultText =
         literalMD
-          "generated configuration file if version is at least 3.11, otherwise `null`"
-      ;
+          "generated configuration file if version is at least 3.11, otherwise `null`";
       example = "/var/lib/cassandra/jmx.password";
       description = lib.mdDoc ''
         Specify your own jmx roles file.
@@ -598,8 +597,7 @@ in
             OnUnitActiveSec = cfg.incrementalRepairInterval;
             Persistent = true;
           };
-        }
-    ;
+        };
   };
 
   meta.maintainers = with lib.maintainers; [ roberth ];

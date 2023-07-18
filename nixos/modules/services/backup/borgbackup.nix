@@ -19,14 +19,12 @@ let
   mkExcludeFile =
     cfg:
     # Write each exclude pattern to a new line
-    pkgs.writeText "excludefile" (concatMapStrings (s: s + "\n") cfg.exclude)
-  ;
+    pkgs.writeText "excludefile" (concatMapStrings (s: s + "\n") cfg.exclude);
 
   mkPatternsFile =
     cfg:
     # Write each pattern to a new line
-    pkgs.writeText "patternsfile" (concatMapStrings (s: s + "\n") cfg.patterns)
-  ;
+    pkgs.writeText "patternsfile" (concatMapStrings (s: s + "\n") cfg.patterns);
 
   mkKeepArgs =
     cfg:
@@ -34,8 +32,7 @@ let
     # its content is passed on as --keep-yearly
     concatStringsSep " " (
       mapAttrsToList (x: y: "--keep-${x}=${toString y}") cfg.prune.keep
-    )
-  ;
+    );
 
   mkBackupScript =
     name: cfg:
@@ -99,8 +96,7 @@ let
         borg compact $extraArgs $extraCompactArgs
         ${cfg.postPrune}
       ''
-    )
-  ;
+    );
 
   mkPassEnv =
     cfg:
@@ -164,8 +160,7 @@ let
           extraPruneArgs
         ;
       } // (mkPassEnv cfg) // cfg.environment;
-    }
-  ;
+    };
 
   mkBackupTimers =
     name: cfg:
@@ -179,10 +174,8 @@ let
       # if remote-backup wait for network
       after =
         optional (cfg.persistentTimer && !isLocalPath cfg.repo)
-          "network-online.target"
-      ;
-    }
-  ;
+          "network-online.target";
+    };
 
   # utility function around makeWrapper
   mkWrapperDrv =
@@ -201,8 +194,7 @@ let
               )
             }
         ''
-      )
-  ;
+      );
 
   mkBorgWrapper =
     name: cfg:
@@ -212,8 +204,7 @@ let
       set = {
         BORG_REPO = cfg.repo;
       } // (mkPassEnv cfg) // cfg.environment;
-    }
-  ;
+    };
 
   # Paths listed in ReadWritePaths must exist before service is started
   mkActivationScript =
@@ -235,14 +226,12 @@ let
           ${install} -d ${escapeShellArg cfg.repo}
         ''
       )
-    )
-  ;
+    );
 
   mkPassAssertion = name: cfg: {
     assertion =
       with cfg.encryption;
-      mode != "none" -> passCommand != null || passphrase != null
-    ;
+      mode != "none" -> passCommand != null || passphrase != null;
     message =
       "passCommand or passphrase has to be specified because"
       + ''borgbackup.jobs.${name}.encryption != "none"''
@@ -262,8 +251,7 @@ let
         Type = "oneshot";
       };
       wantedBy = [ "multi-user.target" ];
-    }
-  ;
+    };
 
   mkAuthorizedKey =
     cfg: appendOnly: key:
@@ -277,8 +265,7 @@ let
       quotaArg = optionalString (cfg.quota != null) "--storage-quota ${cfg.quota}";
       serveCommand = "borg serve ${restrictedArg} ${appendOnlyArg} ${quotaArg}";
     in
-    ''command="${cdCommand} && ${serveCommand}",restrict ${key}''
-  ;
+    ''command="${cdCommand} && ${serveCommand}",restrict ${key}'';
 
   mkUsersConfig = name: cfg: {
     users.${cfg.user} = {
@@ -307,8 +294,7 @@ let
       count isNull [
         cfg.dumpCommand
         cfg.paths
-      ] == 1
-    ;
+      ] == 1;
     message = ''
       Exactly one of borgbackup.jobs.${name}.paths or borgbackup.jobs.${name}.dumpCommand
       must be set.
@@ -408,8 +394,7 @@ in
               default = false;
               description =
                 lib.mdDoc
-                  "Whether the repo (which must be local) is a removable device."
-              ;
+                  "Whether the repo (which must be local) is a removable device.";
             };
 
             archiveBaseName = mkOption {
@@ -535,8 +520,7 @@ in
               # compression level is optional
               type =
                 types.strMatching
-                  "none|(auto,)?(lz4|zstd|zlib|lzma)(,[[:digit:]]{1,2})?"
-              ;
+                  "none|(auto,)?(lz4|zstd|zlib|lzma)(,[[:digit:]]{1,2})?";
               description = lib.mdDoc ''
                 Compression method to use. Refer to
                 {command}`borg help compression`

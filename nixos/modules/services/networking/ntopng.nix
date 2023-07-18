@@ -110,8 +110,7 @@ in
         type = types.nullOr types.str;
         default =
           optionalString (versionAtLeast config.system.stateVersion "22.05")
-            "ntopng"
-        ;
+            "ntopng";
         description = lib.mdDoc ''
           Local Redis instance name. Set to `null` to disable
           local Redis instance. Defaults to `""` for
@@ -150,8 +149,7 @@ in
     # ntopng uses redis for data storage
     services.ntopng.redis.address =
       mkIf createRedis
-        config.services.redis.servers.${cfg.redis.createInstance}.unixSocket
-    ;
+        config.services.redis.servers.${cfg.redis.createInstance}.unixSocket;
 
     services.redis.servers = mkIf createRedis {
       ${cfg.redis.createInstance} = {

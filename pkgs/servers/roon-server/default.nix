@@ -27,8 +27,7 @@ let
         "00"
         "0"
       ]
-      version
-  ;
+      version;
 in
 stdenv.mkDerivation {
   pname = "roon-server";
@@ -113,8 +112,7 @@ stdenv.mkDerivation {
       makeWrapper "$out/Server/RoonServer" "$out/bin/RoonServer" --chdir "$out"
 
       runHook postInstall
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "The music player for music lovers";

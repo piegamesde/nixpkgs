@@ -42,8 +42,7 @@ stdenv.mkDerivation {
         python
         pybind11
       ]
-    )
-  ;
+    );
 
   dontUseCmakeConfigure = true;
 

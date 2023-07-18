@@ -109,8 +109,7 @@ stdenvNoCC.mkDerivation {
       update-source-version lima-bin 0 ${lib.fakeSha256} --file=${lima-bin} --system=x86_64-linux
       update-source-version lima-bin $LATEST_VERSION $X86_64_LINUX_SHA256 --file=${lima-bin} --system=x86_64-linux
       rm SHA256SUMS
-    ''
-  ;
+    '';
 
   meta = with lib; {
     homepage = "https://github.com/lima-vm/lima";

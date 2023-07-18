@@ -44,13 +44,10 @@ let
         let
           generated =
             pkgs.runCommand "dhparams-${name}.pem" { nativeBuildInputs = [ pkgs.openssl ]; }
-              ''openssl dhparam -out "$out" ${toString config.bits}''
-          ;
+              ''openssl dhparam -out "$out" ${toString config.bits}'';
         in
-        if cfg.stateful then "${cfg.path}/${name}.pem" else generated
-      ;
-    }
-  ;
+        if cfg.stateful then "${cfg.path}/${name}.pem" else generated;
+    };
 in
 {
   options = {
@@ -69,8 +66,7 @@ in
           let
             coerce = bits: { inherit bits; };
           in
-          attrsOf (coercedTo int coerce (submodule paramsSubmodule))
-        ;
+          attrsOf (coercedTo int coerce (submodule paramsSubmodule));
         default = { };
         example = lib.literalExpression "{ nginx.bits = 3072; }";
         description = lib.mdDoc ''
@@ -213,8 +209,7 @@ in
             '';
           }
         )
-        cfg.params
-    ;
+        cfg.params;
   };
 
   meta.maintainers = with lib.maintainers; [ ekleog ];

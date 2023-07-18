@@ -73,8 +73,7 @@ let
           builtins.replaceStrings [ "." ] [ "" ] phpMajor
         }.so";
       sha256 = hashes.${system}.sha256.${phpMajor};
-    }
-  ;
+    };
   self = stdenv.mkDerivation rec {
     pname = "php-blackfire";
     extensionName = "blackfire";
@@ -131,8 +130,7 @@ let
           createName =
             path:
 
-            builtins.replaceStrings [ "." ] [ "_" ] (lib.concatStringsSep "_" path)
-          ;
+            builtins.replaceStrings [ "." ] [ "_" ] (lib.concatStringsSep "_" path);
 
           createSourceParams =
             path:
@@ -145,16 +143,14 @@ let
             {
               system = builtins.head path;
               phpMajor = if builtins.length rest == 0 then null else builtins.head rest;
-            }
-          ;
+            };
 
           createUpdateable =
             path: _value:
 
             lib.nameValuePair (createName path) (
               self.overrideAttrs (attrs: { src = makeSource (createSourceParams path); })
-            )
-          ;
+            );
 
           hashesOnly =
             # Filter out all attributes other than hashes.
@@ -166,8 +162,7 @@ let
             lib.collect (attrs: attrs ? name) (
               lib.mapAttrsRecursive createUpdateable hashesOnly
             )
-          )
-      ;
+          );
     };
 
     meta = with lib; {

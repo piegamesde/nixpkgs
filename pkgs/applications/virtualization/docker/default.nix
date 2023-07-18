@@ -381,8 +381,7 @@ rec {
           ];
         };
       }
-    )
-  ;
+    );
 
   # Get revisions from
   # https://github.com/moby/moby/tree/${version}/hack/dockerfile/install/*

@@ -186,8 +186,7 @@ stdenv.mkDerivation rec {
           patchelf --set-rpath "$origRpath:${lib.makeLibraryPath [ library.pkg ]}" "$i"
         done
       '')
-      dlopenLibs
-  ;
+      dlopenLibs;
 
   meta = {
     description = "Guest additions for VirtualBox";

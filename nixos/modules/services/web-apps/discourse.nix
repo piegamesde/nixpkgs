@@ -129,8 +129,7 @@ in
                 float
               ]
             )
-          )
-        ;
+          );
         default = { };
         example = lib.literalExpression ''
           {
@@ -436,8 +435,7 @@ in
                   "login"
                   "cram_md5"
                 ]
-              )
-            ;
+              );
             default = null;
             description = lib.mdDoc ''
               Authentication type to use, see http://api.rubyonrails.org/classes/ActionMailer/Base.html
@@ -483,8 +481,7 @@ in
             default = "%{reply_key}@${cfg.hostname}";
             defaultText =
               lib.literalExpression
-                ''"%{reply_key}@''${config.services.discourse.hostname}"''
-            ;
+                ''"%{reply_key}@''${config.services.discourse.hostname}"'';
             description = lib.mdDoc ''
               Template for reply by email incoming email address, for
               example: %{reply_key}@reply.example.com or
@@ -709,8 +706,7 @@ in
           enable = true;
           bind = cfg.redis.host;
           port = cfg.backendSettings.redis_port;
-        }
-    ;
+        };
 
     services.postgresql = lib.mkIf databaseActuallyCreateLocally {
       enable = true;
@@ -744,8 +740,7 @@ in
           Type = "oneshot";
           RemainAfterExit = true;
         };
-      }
-    ;
+      };
 
     systemd.services.discourse = {
       wantedBy = [ "multi-user.target" ];
@@ -759,8 +754,7 @@ in
         ++ lib.optionals (cfg.database.host == null) [
           "postgresql.service"
           "discourse-postgresql.service"
-        ]
-      ;
+        ];
       path = cfg.package.runtimeDeps ++ [
         postgresqlPackage
         pkgs.replace-secret
@@ -805,8 +799,7 @@ in
             file:
             lib.optionalString (file != null) ''
               replace-secret '${file}' '${file}' /run/discourse/config/discourse.conf
-            ''
-          ;
+            '';
 
           mkAdmin = ''
             export ADMIN_EMAIL="${cfg.admin.email}"
@@ -852,8 +845,7 @@ in
 
           discourse-rake themes:update
           discourse-rake uploads:regenerate_missing_optimized
-        ''
-      ;
+        '';
 
       serviceConfig = {
         Type = "simple";
@@ -930,8 +922,7 @@ in
                     proxy_set_header X-Request-Start "t=''${msec}";
                   ''
                 ;
-              }
-            ;
+              };
             cache = time: ''
               expires ${time};
               add_header Cache-Control public,immutable;
@@ -1024,8 +1015,7 @@ in
                     proxy_cache_key "$scheme,$host,$request_uri";
                     proxy_cache_valid 200 301 302 7d;
                   '';
-                }
-            ;
+                };
             "/message-bus/" = proxy {
               extraConfig = ''
                 proxy_http_version 1.1;
@@ -1036,8 +1026,7 @@ in
               internal;
               alias ${cfg.package}/share/discourse/public/;
             '';
-          }
-        ;
+          };
       };
     };
 
@@ -1055,8 +1044,7 @@ in
             };
             mail-receiver-json =
               json.generate "mail-receiver.json"
-                mail-receiver-environment
-            ;
+                mail-receiver-environment;
           in
           {
             before = [ "postfix.service" ];
@@ -1094,8 +1082,7 @@ in
                 jq <${mail-receiver-json} \
                    '.DISCOURSE_API_KEY = $ENV.api_key' \
                    >'/run/discourse-mail-receiver/mail-receiver-environment.json'
-              ''
-            ;
+              '';
 
             serviceConfig = {
               Type = "oneshot";
@@ -1107,8 +1094,7 @@ in
               Group = "discourse";
             };
           }
-        )
-    ;
+        );
 
     services.discourse.siteSettings = {
       required = {
@@ -1128,8 +1114,7 @@ in
       sslCert = lib.optionalString (cfg.sslCertificate != null) cfg.sslCertificate;
       sslKey =
         lib.optionalString (cfg.sslCertificateKey != null)
-          cfg.sslCertificateKey
-      ;
+          cfg.sslCertificateKey;
 
       origin = cfg.hostname;
       relayDomains = [ cfg.hostname ];
@@ -1179,8 +1164,7 @@ in
       }
       // (lib.optionalAttrs cfg.nginx.enable {
         ${config.services.nginx.user}.extraGroups = [ "discourse" ];
-      })
-    ;
+      });
 
     users.groups = {
       discourse = { };

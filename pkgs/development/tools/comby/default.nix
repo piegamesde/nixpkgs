@@ -57,8 +57,7 @@ let
         license = lib.licenses.asl20;
         homepage = "https://comby.dev";
       };
-    }
-  ;
+    };
 
   combyKernel = mkCombyPackage { pname = "comby-kernel"; };
   combySemantic = mkCombyPackage {
@@ -109,8 +108,7 @@ mkCombyPackage {
         [ ocamlPackages.hack_parallel ]
       else
         [ ]
-    )
-  ;
+    );
 
   extraNativeInputs = [
     autoconf

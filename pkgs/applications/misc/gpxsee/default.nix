@@ -56,8 +56,7 @@ stdenv.mkDerivation rec {
         ]
       else
         [ qtlocation ]
-    )
-  ;
+    );
 
   nativeBuildInputs = [
     qmake

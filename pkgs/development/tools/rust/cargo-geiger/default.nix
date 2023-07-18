@@ -32,8 +32,7 @@ rustPlatform.buildRustPackage rec {
         libiconv
         curl
       ]
-    )
-  ;
+    );
   nativeBuildInputs =
     [ pkg-config ]
     # curl-sys wants to run curl-config on darwin

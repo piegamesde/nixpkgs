@@ -49,8 +49,7 @@ stdenv.mkDerivation rec {
         --prefix PATH : "${binPath}"
 
       runHook postInstall
-    ''
-  ;
+    '';
 
   meta = with lib; {
     homepage = "https://acme.sh/";

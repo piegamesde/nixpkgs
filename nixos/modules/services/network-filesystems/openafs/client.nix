@@ -174,8 +174,7 @@ in
           type = types.package;
           description =
             lib.mdDoc
-              "OpenAFS kernel module package. MUST match the userland package!"
-          ;
+              "OpenAFS kernel module package. MUST match the userland package!";
         };
         programs = mkOption {
           default = getBin pkgs.openafs;
@@ -183,8 +182,7 @@ in
           type = types.package;
           description =
             lib.mdDoc
-              "OpenAFS programs package. MUST match the kernel module package!"
-          ;
+              "OpenAFS programs package. MUST match the kernel module package!";
         };
       };
 

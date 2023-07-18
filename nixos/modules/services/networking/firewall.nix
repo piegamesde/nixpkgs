@@ -88,8 +88,7 @@ in
         defaultText =
           literalExpression
             ''
-              if config.networking.nftables.enable then "pkgs.nftables" else "pkgs.iptables"''
-        ;
+              if config.networking.nftables.enable then "pkgs.nftables" else "pkgs.iptables"'';
         example = literalExpression "pkgs.iptables-legacy";
         description = lib.mdDoc ''
           The package to use for running the firewall service.
@@ -188,8 +187,7 @@ in
         default = true;
         defaultText =
           literalMD
-            "`true` except if the iptables based firewall is in use and the kernel lacks rpfilter support"
-        ;
+            "`true` except if the iptables based firewall is in use and the kernel lacks rpfilter support";
         example = "loose";
         description = lib.mdDoc ''
           Performs a reverse path filter test on a packet.  If a reply

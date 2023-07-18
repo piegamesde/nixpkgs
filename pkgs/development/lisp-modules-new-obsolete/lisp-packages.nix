@@ -73,8 +73,7 @@ let
               value = d;
             })
             list
-        )
-      ;
+        );
       toList = attrValues;
       walk =
         acc: node:
@@ -84,8 +83,7 @@ let
           builtins.foldl' walk (acc // toSet node.lispLibs) node.lispLibs
       ;
     in
-    toList (walk { } { inherit lispLibs; })
-  ;
+    toList (walk { } { inherit lispLibs; });
 
   # Stolen from python-packages.nix
   # Actually no idea how this works
@@ -95,8 +93,7 @@ let
       ff = f origArgs;
       overrideWith =
         newArgs:
-        origArgs // (if pkgs.lib.isFunction newArgs then newArgs origArgs else newArgs)
-      ;
+        origArgs // (if pkgs.lib.isFunction newArgs then newArgs origArgs else newArgs);
     in
     if builtins.isAttrs ff then
       (
@@ -211,8 +208,7 @@ let
                 + concatStringsSep ":" paths
               ;
             in
-            concatStringsSep ":" (unique (splitString ":" path))
-          ;
+            concatStringsSep ":" (unique (splitString ":" path));
 
           # Java libraries For ABCL
           CLASSPATH = makeSearchPath "share/java/*" (concatMap (x: x.javaLibs) libsFlat);
@@ -288,8 +284,7 @@ let
                       "[+]"
                     ]
                   )
-                  systems
-              ;
+                  systems;
             in
             ''
               mkdir -pv $out
@@ -299,8 +294,7 @@ let
               find $out -name "*.asd" \
               | grep -v "/\(${mkSystemsRegex systems}\)\.asd$" \
               | xargs rm -fv || true
-            ''
-          ;
+            '';
 
           # Not sure if it's needed, but caused problems with SBCL
           # save-lisp-and-die binaries in the past
@@ -366,8 +360,7 @@ let
       inherit quicklispPackagesFor;
       inherit fixupFor;
       build-asdf-system = build-asdf-system';
-    }
-  ;
+    };
 
   # Build the set of packages imported from quicklisp using `lisp`
   quicklispPackagesFor =
@@ -383,8 +376,7 @@ let
       inherit pkgs;
       inherit fixup;
       build-asdf-system = build-asdf-system';
-    }
-  ;
+    };
 
   # Rewrite deps of pkg to use manually defined packages
   #
@@ -401,8 +393,7 @@ let
         pkg: if lib.hasAttr pkg.pname packages then packages.${pkg.pname} else pkg;
       pkg = substituteLib qlPkg;
     in
-    pkg // { lispLibs = map substituteLib pkg.lispLibs; }
-  ;
+    pkg // { lispLibs = map substituteLib pkg.lispLibs; };
 
   makeAttrName =
     str:
@@ -419,8 +410,7 @@ let
           "_slash_"
         ]
         str
-    )
-  ;
+    );
 
   oldMakeWrapper = pkgs.runCommand "make-wrapper.sh" { } ''
     substitute ${./old-make-wrapper.sh} $out \
@@ -467,16 +457,14 @@ let
               --prefix PATH : "${makeBinPath (o.propagatedBuildInputs or [ ])}"
           '';
         }
-      )
-  ;
+      );
 
   lispWithPackages =
     lisp:
     let
       packages = lispPackagesFor lisp;
     in
-    lispWithPackagesInternal packages
-  ;
+    lispWithPackagesInternal packages;
 
   lispPackagesFor =
     lisp:
@@ -487,8 +475,7 @@ let
         fixup = fixupFor packages;
       };
     in
-    qlPackages // packages
-  ;
+    qlPackages // packages;
 
   commonLispPackages = rec {
     inherit

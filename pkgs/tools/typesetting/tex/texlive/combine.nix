@@ -33,8 +33,7 @@ let
           }
         )
       ];
-    }
-  ;
+    };
   pkgList = rec {
     all = lib.filter pkgFilter (combinePkgs (lib.attrValues pkgSet));
     splitBin = builtins.partition (p: p.tlType == "bin") all;
@@ -42,8 +41,7 @@ let
       splitBin.right
       ++ lib.optional
         (lib.any (p: p.tlType == "run" && p.pname == "pdfcrop") splitBin.wrong)
-        (lib.getBin ghostscript)
-    ;
+        (lib.getBin ghostscript);
     nonbin = splitBin.wrong;
 
     # extra interpreters needed for shebangs, based on 2015 schemes "medium" and "tetex"
@@ -87,8 +85,7 @@ let
             -- "$out/texmf-dist/scripts/texlive/mktexlsr.pl" --sort "$out"/texmf-dist
         '';
     }).overrideAttrs
-      (_: { allowSubstitutes = true; })
-  ;
+      (_: { allowSubstitutes = true; });
 
   # expose info and man pages in usual /share/{info,man} location
   doc = buildEnv {
@@ -182,13 +179,11 @@ in
         let
           hyphens =
             lib.filter (p: p.hasHyphens or false && p.tlType == "run")
-              pkgList.splitBin.wrong
-          ;
+              pkgList.splitBin.wrong;
           hyphenPNames = map (p: p.pname) hyphens;
           formats =
             lib.filter (p: p.hasFormats or false && p.tlType == "run")
-              pkgList.splitBin.wrong
-          ;
+              pkgList.splitBin.wrong;
           formatPNames = map (p: p.pname) formats;
           # sed expression that prints the lines in /start/,/end/ except for /end/
           section = start: end: ''

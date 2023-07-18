@@ -33,8 +33,7 @@ stdenv.mkDerivation rec {
     in
     ''
       ln -s ${opensslSourceArchive} $sourceRoot/openssl_source/openssl-${opensslVersion}.tar.gz
-    ''
-  ;
+    '';
 
   patches =
     [

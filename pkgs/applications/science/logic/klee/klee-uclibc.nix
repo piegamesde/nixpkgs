@@ -29,8 +29,7 @@ let
           "RUNTIME_PREFIX" = "/";
           "DEVEL_PREFIX" = "/";
         }
-      )
-  ;
+      );
 in
 stdenv.mkDerivation rec {
   pname = "klee-uclibc";

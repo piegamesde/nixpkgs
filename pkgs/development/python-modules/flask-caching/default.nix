@@ -52,8 +52,7 @@ buildPythonPackage rec {
       [
         # ignore flaky test
         "test_cached_view_class"
-      ]
-  ;
+      ];
 
   meta = with lib; {
     description = "A caching extension for Flask";

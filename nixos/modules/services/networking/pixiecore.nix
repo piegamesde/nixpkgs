@@ -43,8 +43,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Log more things that aren't directly related to booting a recognized client"
-        ;
+            "Log more things that aren't directly related to booting a recognized client";
       };
 
       dhcpNoBind = mkOption {
@@ -52,8 +51,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Handle DHCP traffic without binding to the DHCP server port"
-        ;
+            "Handle DHCP traffic without binding to the DHCP server port";
       };
 
       quick = mkOption {
@@ -87,8 +85,7 @@ in
         default = "";
         description =
           lib.mdDoc
-            "Kernel commandline arguments. Ignored unless mode is set to 'boot'"
-        ;
+            "Kernel commandline arguments. Ignored unless mode is set to 'boot'";
       };
 
       listen = mkOption {
@@ -108,8 +105,7 @@ in
         default = 80;
         description =
           lib.mdDoc
-            "HTTP port for status information (can be the same as --port)"
-        ;
+            "HTTP port for status information (can be the same as --port)";
       };
 
       apiServer = mkOption {
@@ -117,8 +113,7 @@ in
         example = "localhost:8080";
         description =
           lib.mdDoc
-            "host:port to connect to the API. Ignored unless mode is set to 'api'"
-        ;
+            "host:port to connect to the API. Ignored unless mode is set to 'api'";
       };
 
       extraArguments = mkOption {
@@ -126,8 +121,7 @@ in
         default = [ ];
         description =
           lib.mdDoc
-            "Additional command line arguments to pass to Pixiecore"
-        ;
+            "Additional command line arguments to pass to Pixiecore";
       };
     };
   };
@@ -162,8 +156,7 @@ in
         Restart = "always";
         AmbientCapabilities =
           [ "cap_net_bind_service" ]
-          ++ optional cfg.dhcpNoBind "cap_net_raw"
-        ;
+          ++ optional cfg.dhcpNoBind "cap_net_raw";
         ExecStart =
           let
             argString =
@@ -198,8 +191,7 @@ in
               --port ${toString cfg.port} \
               --status-port ${toString cfg.statusPort} \
               ${escapeShellArgs cfg.extraArguments}
-          ''
-        ;
+          '';
       };
     };
   };

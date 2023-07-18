@@ -72,8 +72,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (stdenv.isDarwin) [
       bootstrap_cmds
       xnu
-    ]
-  ;
+    ];
 
   # Perl is also a native build input.
   nativeBuildInputs = [
@@ -166,8 +165,7 @@ stdenv.mkDerivation rec {
       with lib.platforms;
       lib.intersectLists (x86 ++ power ++ s390x ++ armv7 ++ aarch64 ++ mips) (
         darwin ++ freebsd ++ illumos ++ linux
-      )
-    ;
+      );
     broken = stdenv.isDarwin || stdenv.hostPlatform.isStatic; # https://hydra.nixos.org/build/128521440/nixlog/2
   };
 }

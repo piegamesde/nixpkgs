@@ -30,8 +30,7 @@ import ./make-test-python.nix (
             uwsgi_pass unix:/run/privacyidea/socket;
           '';
         };
-      }
-    ;
+      };
 
     testScript = ''
       machine.start()

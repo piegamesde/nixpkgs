@@ -59,8 +59,7 @@ import ../make-test-python.nix (
               default      = SYSLOG:NOTICE
           '';
         };
-      }
-    ;
+      };
 
     testScript =
       let
@@ -112,7 +111,6 @@ import ../make-test-python.nix (
         machine.succeed(
             "diff /etc/krb5.conf ${snapshot}"
         )
-      ''
-    ;
+      '';
   }
 )

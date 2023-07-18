@@ -77,8 +77,7 @@ buildPythonPackage rec {
       [
         # FileNotFoundError: [Errno 2] No such file or directory: 'pbpaste'
         "test_clipboard_get"
-      ]
-  ;
+      ];
 
   meta = with lib; {
     description = "IPython: Productive Interactive Computing";

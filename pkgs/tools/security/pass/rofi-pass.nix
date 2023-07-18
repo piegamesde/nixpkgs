@@ -55,8 +55,7 @@ stdenv.mkDerivation rec {
       util-linux
       xclip
       xdotool
-    ]
-  ;
+    ];
 
   fixupPhase = ''
     patchShebangs $out/bin

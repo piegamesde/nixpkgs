@@ -89,8 +89,7 @@ in
           lib.mkIf (cfg != null) {
             source = pkgs.writeText name cfg;
             mode = "0644";
-          }
-        ;
+          };
       in
       {
         "asusd/anime.ron" = maybeConfig "anime.ron" cfg.animeConfig;
@@ -100,10 +99,8 @@ in
         "asusd/fan_curves.ron" = maybeConfig "fan_curves.ron" cfg.fanCurvesConfig;
         "asusd/asusd_user_ledmodes.ron" =
           maybeConfig "asusd_user_ledmodes.ron"
-            cfg.userLedModesConfig
-        ;
-      }
-    ;
+            cfg.userLedModesConfig;
+      };
 
     services.dbus.enable = true;
     systemd.packages = [ pkgs.asusctl ];

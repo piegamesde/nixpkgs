@@ -20,8 +20,7 @@ in
       default = [ ];
       description =
         lib.mdDoc
-          "Packages providing GDK-Pixbuf modules, for cache generation."
-      ;
+          "Packages providing GDK-Pixbuf modules, for cache generation.";
     };
   };
 

@@ -36,8 +36,7 @@ mkYarnPackage rec {
       rm deps/heroic/node_modules
       ln -s ../../node_modules deps/heroic/
       ${yarnCmd} vite build
-    ''
-  ;
+    '';
 
   # Disable bundling into a tar archive.
   doDist = false;
@@ -63,8 +62,7 @@ mkYarnPackage rec {
       mkdir -p "$out/share/applications" "$out/share/icons/hicolor/512x512/apps"
       ln -s "${deps}/flatpak/com.heroicgameslauncher.hgl.desktop" "$out/share/applications"
       ln -s "${deps}/flatpak/com.heroicgameslauncher.hgl.png" "$out/share/icons/hicolor/512x512/apps"
-    ''
-  ;
+    '';
 
   passthru.updateScript = gitUpdater { rev-prefix = "v"; };
 

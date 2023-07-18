@@ -43,8 +43,7 @@ pythonPackages.buildPythonApplication rec {
         tornado
       ]
       ++ lib.optional (!stdenv.isDarwin) dbus-python
-    )
-  ;
+    );
 
   propagatedNativeBuildInputs = [ gobject-introspection ];
 

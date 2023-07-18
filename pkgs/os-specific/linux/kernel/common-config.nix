@@ -90,8 +90,7 @@ let
         X86_AMD_PSTATE = whenAtLeast "5.17" yes;
         # Intel DPTF (Dynamic Platform and Thermal Framework) Support
         ACPI_DPTF = whenAtLeast "5.10" yes;
-      }
-    ;
+      };
 
     external-firmware = {
       # Support drivers that need external firmware.
@@ -402,8 +401,7 @@ let
           SND_SOC_SOF_MERRIFIELD_SUPPORT = whenOlder "5.12" yes;
           SND_SOC_SOF_TIGERLAKE = whenAtLeast "5.12" module;
           SND_SOC_SOF_TIGERLAKE_SUPPORT = whenOlder "5.12" yes;
-        }
-    ;
+        };
 
     usb-serial =
       {
@@ -424,8 +422,7 @@ let
         USB_SERIAL_KEYSPAN_USA19QI = yes;
         USB_SERIAL_KEYSPAN_USA49W = yes;
         USB_SERIAL_KEYSPAN_USA49WLC = yes;
-      }
-    ;
+      };
 
     usb = {
       USB_DEBUG = {

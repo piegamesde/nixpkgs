@@ -53,8 +53,7 @@ buildPythonPackage rec {
       abi = "abi3";
       platform = "manylinux_2_31_${system.name}";
       hash = system.hash;
-    }
-  ;
+    };
 
   nativeBuildInputs = [ autoPatchelfHook ];
 

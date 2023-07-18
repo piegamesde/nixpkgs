@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
         findlib
         ocaml
       ]
-    )
-  ;
+    );
 
   buildInputs = with ocamlPackages; [
     functory

@@ -35,8 +35,7 @@ buildPythonPackage rec {
       [
         # Exception: unable to connect to Redis server
         "tests/test_redis.py"
-      ]
-  ;
+      ];
 
   meta = with lib; {
     description = "Logging utilities";

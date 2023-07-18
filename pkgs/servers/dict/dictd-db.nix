@@ -10,8 +10,7 @@ let
   # work around than report. Not that it can cause any other problems..
   makeDictdDBFreedict =
     src: name: locale:
-    makeDictdDB src name "{.,bin}" locale
-  ;
+    makeDictdDB src name "{.,bin}" locale;
 
   makeDictdDB =
     src: _name: _subdir: _locale:
@@ -34,8 +33,7 @@ let
         description = "dictd-db dictionary for dictd";
         platforms = lib.platforms.linux;
       };
-    }
-  ;
+    };
 in
 rec {
   deu2eng =
@@ -45,8 +43,7 @@ rec {
         sha256 = "0dqrhv04g4f5s84nbgisgcfwk5x0rpincif0yfhfh4sc1bsvzsrb";
       })
       "deu-eng"
-      "de_DE"
-  ;
+      "de_DE";
   eng2deu =
     makeDictdDBFreedict
       (fetchurl {
@@ -54,8 +51,7 @@ rec {
         sha256 = "01x12p72sa3071iff3jhzga8588440f07zr56r3x98bspvdlz73r";
       })
       "eng-deu"
-      "en_EN"
-  ;
+      "en_EN";
   nld2eng =
     makeDictdDBFreedict
       (fetchurl {
@@ -63,8 +59,7 @@ rec {
         sha256 = "1vhw81pphb64fzsjvpzsnnyr34ka2fxizfwilnxyjcmpn9360h07";
       })
       "nld-eng"
-      "nl_NL"
-  ;
+      "nl_NL";
   eng2nld =
     makeDictdDBFreedict
       (fetchurl {
@@ -72,8 +67,7 @@ rec {
         sha256 = "0rcg28ldykv0w2mpxc6g4rqmfs33q7pbvf68ssy1q9gpf6mz7vcl";
       })
       "eng-nld"
-      "en_UK"
-  ;
+      "en_UK";
   eng2rus =
     makeDictdDBFreedict
       (fetchurl {
@@ -81,8 +75,7 @@ rec {
         sha256 = "15409ivhww1wsfjr05083pv6mg10bak8v5pg1wkiqybk7ck61rry";
       })
       "eng-rus"
-      "en_UK"
-  ;
+      "en_UK";
   fra2eng =
     makeDictdDBFreedict
       (fetchurl {
@@ -90,8 +83,7 @@ rec {
         sha256 = "0sdd88s2zs5whiwdf3hd0s4pzzv75sdsccsrm1wxc87l3hjm85z3";
       })
       "fra-eng"
-      "fr_FR"
-  ;
+      "fr_FR";
   eng2fra =
     makeDictdDBFreedict
       (fetchurl {
@@ -99,8 +91,7 @@ rec {
         sha256 = "0fi6rrnbqnhc6lq8d0nmn30zdqkibrah0mxfg27hsn9z7alwbj3m";
       })
       "eng-fra"
-      "en_UK"
-  ;
+      "en_UK";
   jpn2eng =
     makeDictdDB
       (fetchurl {
@@ -108,14 +99,12 @@ rec {
           let
             version = "0.1";
           in
-          "mirror://sourceforge/freedict/jpn-eng/${version}/freedict-jpn-eng-${version}.dictd.tar.xz"
-        ;
+          "mirror://sourceforge/freedict/jpn-eng/${version}/freedict-jpn-eng-${version}.dictd.tar.xz";
         sha256 = "sha256-juJBoEq7EztLZzOomc7uoZhXVaQPKoUvIxxPLB0xByc=";
       })
       "jpn-eng"
       "jpn-eng"
-      "ja_JP"
-  ;
+      "ja_JP";
   eng2jpn =
     makeDictdDB
       (fetchurl {
@@ -123,14 +112,12 @@ rec {
           let
             version = "2022.04.06";
           in
-          "https://download.freedict.org/dictionaries/eng-jpn/${version}/freedict-eng-jpn-${version}.dictd.tar.xz"
-        ;
+          "https://download.freedict.org/dictionaries/eng-jpn/${version}/freedict-eng-jpn-${version}.dictd.tar.xz";
         sha256 = "sha256-kfRT2kgbV3XKarCr4mqDRT5A1jR8M8APky5M5MFYatE=";
       })
       "eng-jpn"
       "eng-jpn"
-      "en_UK"
-  ;
+      "en_UK";
   mueller_eng2rus_pkg =
     makeDictdDB
       (fetchurl {
@@ -139,8 +126,7 @@ rec {
       })
       "mueller-eng-rus"
       "mueller-dict-*/dict"
-      "en_UK"
-  ;
+      "en_UK";
   mueller_enru_abbr = {
     outPath = "${mueller_eng2rus_pkg}/share/dictd/mueller-abbrev";
     name = "mueller-abbr";

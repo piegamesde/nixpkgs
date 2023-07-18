@@ -28,8 +28,7 @@ buildPythonPackage rec {
     ++ lib.optionals (!isPy3k) [
       futures
       pathlib2
-    ]
-  ;
+    ];
 
   # has no tests
   doCheck = false;

@@ -59,8 +59,7 @@ stdenv.mkDerivation {
       makeWrapper "${gameDir}/openarena.${arch}" "$out/bin/openarena" \
         --prefix LD_LIBRARY_PATH : "${libPath}"
       makeWrapper "${gameDir}/oa_ded.${arch}" "$out/bin/oa_ded"
-    ''
-  ;
+    '';
 
   meta = {
     description = "Crossplatform openarena client";

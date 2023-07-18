@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
 
   configureFlags =
     [ "--enable-cxx" ]
-    ++ lib.optionals stdenv.isLinux [ "--enable-fat" ]
-  ;
+    ++ lib.optionals stdenv.isLinux [ "--enable-fat" ];
 
   meta = {
     description = "A highly optimised library for bignum arithmetic forked from GMP";

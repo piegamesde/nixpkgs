@@ -56,8 +56,7 @@ python.pkgs.buildPythonApplication rec {
         poetry-core
         pythonRelaxDepsHook
       ]
-    )
-  ;
+    );
 
   # Can be removed in later versions (probably > 0.11.16)
   pythonRelaxDeps = [

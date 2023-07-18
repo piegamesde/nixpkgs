@@ -77,8 +77,7 @@ stdenv.mkDerivation rec {
         pip
         mypy-protobuf
       ]
-    )
-  ;
+    );
   buildInputs = [
     bzip2
     cbc

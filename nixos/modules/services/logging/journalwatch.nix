@@ -44,8 +44,7 @@ let
 
         '')
         filterBlocks
-    )
-  ;
+    );
 
   # can't use joinSymlinks directly, because when we point $XDG_CONFIG_HOME
   # to the /nix/store path, we still need the subdirectory "journalwatch" inside that
@@ -60,8 +59,7 @@ let
         mkdir -p $out/journalwatch
         ln -sf ${journalwatchConfig} $out/journalwatch/config
         ln -sf ${journalwatchPatterns} $out/journalwatch/patterns
-      ''
-  ;
+      '';
 in
 {
   options = {
@@ -94,8 +92,7 @@ in
         default = "journalwatch@${config.networking.hostName}";
         defaultText =
           literalExpression
-            ''"journalwatch@''${config.networking.hostName}"''
-        ;
+            ''"journalwatch@''${config.networking.hostName}"'';
         description = lib.mdDoc ''
           Mail address to send journalwatch reports from.
         '';

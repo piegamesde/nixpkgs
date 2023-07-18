@@ -47,8 +47,7 @@ in
       drives = mkOption {
         description =
           lib.mdDoc
-            "List of drives to monitor. If you pass /dev/disk/by-path/* entries the symlinks will be resolved as hddtemp doesn't like names with colons."
-        ;
+            "List of drives to monitor. If you pass /dev/disk/by-path/* entries the symlinks will be resolved as hddtemp doesn't like names with colons.";
         type = types.listOf types.str;
       };
 

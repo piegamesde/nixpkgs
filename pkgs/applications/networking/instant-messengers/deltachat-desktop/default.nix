@@ -56,8 +56,7 @@ let
           };
           vendorHash = "sha256-+BfxCyg0KkDQpHt/wycy/8CTG6YBA/VJvJFhhzUnSiQ=";
         }
-      )
-    ;
+      );
   };
 in
 buildNpmPackage rec {
@@ -81,8 +80,7 @@ buildNpmPackage rec {
 
   buildInputs =
     [ libdeltachat' ]
-    ++ lib.optionals stdenv.isDarwin [ CoreServices ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ CoreServices ];
 
   env = {
     ELECTRON_SKIP_BINARY_DOWNLOAD = "1";

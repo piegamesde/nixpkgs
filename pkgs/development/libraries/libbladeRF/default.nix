@@ -68,16 +68,14 @@ stdenv.mkDerivation rec {
       "-DUDEV_RULES_PATH=etc/udev/rules.d"
       "-DINSTALL_UDEV_RULES=ON"
       "-DBLADERF_GROUP=bladerf"
-    ]
-  ;
+    ];
 
   env.NIX_CFLAGS_COMPILE =
     toString
       [
         # Needed with GCC 12
         "-Wno-error=array-bounds"
-      ]
-  ;
+      ];
 
   hardeningDisable = [ "fortify" ];
 

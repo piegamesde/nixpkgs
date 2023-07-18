@@ -48,8 +48,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       AudioToolbox
       CoreAudio
-    ]
-  ;
+    ];
 
   meta = with lib; {
     description = "SDL2 sound library";

@@ -104,8 +104,7 @@ let
     fetchurl {
       url = "https://download.oracle.com/otn_software/${shortArch}/instantclient/${directory}/${srcFilename}";
       sha256 = hash;
-    }
-  ;
+    };
 
   # assemble srcs
   srcs =
@@ -116,8 +115,7 @@ let
           hashes.${component} or ""
         )
       )
-      components
-  ;
+      components;
 
   pname = "oracle-instantclient";
   extLib = stdenv.hostPlatform.extensions.sharedLibrary;
@@ -127,8 +125,7 @@ stdenv.mkDerivation {
 
   buildInputs =
     [ stdenv.cc.cc.lib ]
-    ++ optional stdenv.isLinux libaio ++ optional odbcSupport unixODBC
-  ;
+    ++ optional stdenv.isLinux libaio ++ optional odbcSupport unixODBC;
 
   nativeBuildInputs =
     [

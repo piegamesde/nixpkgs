@@ -91,8 +91,7 @@ in
         default = "";
         description =
           lib.mdDoc
-            "Extra configuration options to be passed to Git daemon."
-        ;
+            "Extra configuration options to be passed to Git daemon.";
       };
 
       user = mkOption {

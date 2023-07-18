@@ -28,8 +28,7 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optionals stdenv.isDarwin [
       libiconv
       Security
-    ]
-  ;
+    ];
 
   meta = with lib; {
     description = "A TUI interface to the StackExchange network";

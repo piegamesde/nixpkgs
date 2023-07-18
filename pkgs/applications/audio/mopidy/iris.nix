@@ -21,8 +21,7 @@ python3Packages.buildPythonApplication rec {
         requests
         tornado
       ]
-    )
-  ;
+    );
 
   # no tests implemented
   doCheck = false;

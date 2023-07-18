@@ -39,6 +39,5 @@ rec {
         }
       );
     in
-    self
-  ;
+    self;
 }

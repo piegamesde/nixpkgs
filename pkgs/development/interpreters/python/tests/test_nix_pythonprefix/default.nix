@@ -13,8 +13,7 @@ let
     interpreter.override {
       inherit packageOverrides;
       self = python;
-    }
-  ;
+    };
 
   pythonEnv = python.withPackages (
     ps: [

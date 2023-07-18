@@ -55,8 +55,7 @@ let
             in
             makeScopeWithSplicing otherSplices keep extra perlPackagesFun
           )
-          { perl = self; }
-      ;
+          { perl = self; };
     in
     rec {
       buildEnv = callPackage ./wrapper.nix {
@@ -71,8 +70,7 @@ let
         inherit overrides;
         self = perlOnBuild;
       };
-    }
-  ;
+    };
 in
 rec {
   # Maint version

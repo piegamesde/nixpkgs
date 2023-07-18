@@ -30,8 +30,7 @@ let
     stdenv.mkDerivation {
       name = "interactive-shell-${drv.pname}";
       buildInputs = [ drv ];
-    }
-  ;
+    };
 
   customPhases = lib.filterAttrs (_: v: v != null) {
     inherit
@@ -124,7 +123,6 @@ let
           );
       }
       // customPhases
-    )
-  ;
+    );
 in
 lib.fix pkg

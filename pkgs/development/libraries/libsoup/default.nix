@@ -48,8 +48,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withIntrospection [
       gobject-introspection
       vala
-    ]
-  ;
+    ];
 
   buildInputs = [
     sqlite

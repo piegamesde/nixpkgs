@@ -81,8 +81,7 @@ let
         ]
         ++ dropAttrs
       )
-      keepAttrs
-  ;
+      keepAttrs;
   fetch = import ../coq/meta-fetch/default.nix { inherit lib stdenv fetchzip; } (
     {
       inherit release releaseRev;
@@ -143,16 +142,14 @@ let
       [
         "COQLIBINSTALL=$(out)/lib/coq/${coq.coq-version}/user-contrib"
         "COQPLUGININSTALL=$(OCAMLFIND_DESTDIR)"
-      ]
-  ;
+      ];
   docdir-flags =
     switch coq.coq-version
       [ {
         case = v: versions.isLe "8.6" v && v != "dev";
         out = [ "DOCDIR=$(out)/share/coq/${coq.coq-version}/" ];
       } ]
-      [ "COQDOCINSTALL=$(out)/share/coq/${coq.coq-version}/user-contrib" ]
-  ;
+      [ "COQDOCINSTALL=$(out)/share/coq/${coq.coq-version}/user-contrib" ];
 in
 
 stdenv.mkDerivation (

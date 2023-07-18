@@ -154,8 +154,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals videoSupport [
       harvid
       xjadeo
-    ]
-  ;
+    ];
 
   wafConfigureFlags = [
     "--cxx11"

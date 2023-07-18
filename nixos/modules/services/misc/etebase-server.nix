@@ -140,8 +140,7 @@ in
                 default = "${cfg.dataDir}/static";
                 defaultText =
                   literalExpression
-                    ''"''${config.services.etebase-server.dataDir}/static"''
-                ;
+                    ''"''${config.services.etebase-server.dataDir}/static"'';
                 description = lib.mdDoc "The directory for static files.";
               };
               media_root = mkOption {
@@ -149,8 +148,7 @@ in
                 default = "${cfg.dataDir}/media";
                 defaultText =
                   literalExpression
-                    ''"''${config.services.etebase-server.dataDir}/media"''
-                ;
+                    ''"''${config.services.etebase-server.dataDir}/media"'';
                 description = lib.mdDoc "The media directory.";
               };
             };
@@ -178,8 +176,7 @@ in
                 default = "${cfg.dataDir}/db.sqlite3";
                 defaultText =
                   literalExpression
-                    ''"''${config.services.etebase-server.dataDir}/db.sqlite3"''
-                ;
+                    ''"''${config.services.etebase-server.dataDir}/db.sqlite3"'';
                 description = lib.mdDoc "The database name.";
               };
             };
@@ -264,8 +261,7 @@ in
           cd "${pythonEnv}/lib/etebase-server";
           daphne ${networking} \
             etebase_server.asgi:application
-        ''
-      ;
+        '';
     };
 
     users = optionalAttrs (cfg.user == defaultUser) {

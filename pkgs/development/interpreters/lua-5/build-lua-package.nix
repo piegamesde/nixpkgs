@@ -147,8 +147,7 @@ let
           ''
             ${generatedConfig}
             ${extraConfig}
-          ''
-        ;
+          '';
 
         configurePhase =
           ''

@@ -120,8 +120,7 @@ stdenv.mkDerivation rec {
       ln -s ${lib.getLib systemd}/lib/libudev.so.1 $out/opt/pencil/libudev.so.1
       wrapProgram $out/opt/pencil/pencil \
         --prefix LD_LIBRARY_PATH : $out/opt/pencil
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "GUI prototyping/mockup tool";

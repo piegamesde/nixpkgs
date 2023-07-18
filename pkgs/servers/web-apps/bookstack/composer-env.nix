@@ -25,8 +25,7 @@ let
           && baseNameOf path != ".svn"
         )
       )
-      src
-  ;
+      src;
 
   buildZipPackage =
     { name, src }:
@@ -41,8 +40,7 @@ let
         mkdir -p $out
         mv * $out
       '';
-    }
-  ;
+    };
 
   buildPackage =
     {
@@ -155,7 +153,8 @@ let
                   ${if symlinkDependencies then
                     ''ln -s "${dependency.src}" "$vendorDir/$(basename "${dependencyName}")"''
                   else
-                    ''cp -av "${dependency.src}" "$vendorDir/$(basename "${dependencyName}")"''}
+                    ''cp -av "${dependency.src}" "$vendorDir/$(basename "${dependencyName}")"''
+                  }
                 ''
               else
                 ''
@@ -166,12 +165,13 @@ let
                       ln -s "${dependency.src}" "$namespaceDir/$(basename "${dependency.targetDir}")"''
                   else
                     ''
-                      cp -av "${dependency.src}" "$namespaceDir/$(basename "${dependency.targetDir}")"''}
-                ''}
+                      cp -av "${dependency.src}" "$namespaceDir/$(basename "${dependency.targetDir}")"''
+                  }
+                ''
+              }
             ''
           )
-          (builtins.attrNames dependencies)
-      ;
+          (builtins.attrNames dependencies);
 
       extraArgs = removeAttrs args [
         "packages"
@@ -201,7 +201,8 @@ let
               cp -av $src $out
               chmod -R u+w $out
               cd $out
-            ''}
+            ''
+          }
 
           # Remove unwanted files
           rm -f *.nix
@@ -286,8 +287,7 @@ let
         '';
       }
       // extraArgs
-    )
-  ;
+    );
 in
 {
   inherit filterSrc;

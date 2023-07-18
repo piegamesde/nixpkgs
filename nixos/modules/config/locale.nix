@@ -41,8 +41,7 @@ in
         type = types.bool;
         description =
           lib.mdDoc
-            "If set, keep the hardware clock in local time instead of UTC."
-        ;
+            "If set, keep the hardware clock in local time instead of UTC.";
       };
     };
 
@@ -91,8 +90,7 @@ in
 
     systemd.services.systemd-timedated.environment =
       lib.optionalAttrs (config.time.timeZone != null)
-        { NIXOS_STATIC_TIMEZONE = "1"; }
-    ;
+        { NIXOS_STATIC_TIMEZONE = "1"; };
 
     environment.etc =
       {
@@ -101,7 +99,6 @@ in
       // lib.optionalAttrs (config.time.timeZone != null) {
         localtime.source = "/etc/zoneinfo/${config.time.timeZone}";
         localtime.mode = "direct-symlink";
-      }
-    ;
+      };
   };
 }

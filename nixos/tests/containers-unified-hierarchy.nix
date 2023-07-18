@@ -15,8 +15,7 @@ import ./make-test-python.nix (
             config = { };
           };
         };
-      }
-    ;
+      };
 
     testScript = ''
       machine.wait_for_unit("default.target")

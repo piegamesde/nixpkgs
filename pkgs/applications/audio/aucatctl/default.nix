@@ -17,8 +17,7 @@ stdenv.mkDerivation rec {
 
   buildInputs =
     [ sndio ]
-    ++ lib.optional (!stdenv.isDarwin && !stdenv.targetPlatform.isBSD) libbsd
-  ;
+    ++ lib.optional (!stdenv.isDarwin && !stdenv.targetPlatform.isBSD) libbsd;
 
   outputs = [
     "out"

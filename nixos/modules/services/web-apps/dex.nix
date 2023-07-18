@@ -23,8 +23,7 @@ let
   ;
   filteredSettings =
     mapAttrs (n: v: if n == "staticClients" then (builtins.map fixClient v) else v)
-      cfg.settings
-  ;
+      cfg.settings;
   secretFiles = flatten (
     builtins.map (c: if c ? secretFile then [ c.secretFile ] else [ ]) (
       cfg.settings.staticClients or [ ]
@@ -101,8 +100,7 @@ in
       wantedBy = [ "multi-user.target" ];
       after =
         [ "networking.target" ]
-        ++ (optional (cfg.settings.storage.type == "postgres") "postgresql.service")
-      ;
+        ++ (optional (cfg.settings.storage.type == "postgres") "postgresql.service");
       path = with pkgs; [ replace-secret ];
       serviceConfig =
         {
@@ -125,8 +123,7 @@ in
           ];
           BindPaths =
             optional (cfg.settings.storage.type == "postgres")
-              "/var/run/postgresql"
-          ;
+              "/var/run/postgresql";
           CapabilityBoundingSet = "CAP_NET_BIND_SERVICE";
           # ProtectClock= adds DeviceAllow=char-rtc r
           DeviceAllow = "";
@@ -170,8 +167,7 @@ in
         }
         // optionalAttrs (cfg.environmentFile != null) {
           EnvironmentFile = cfg.environmentFile;
-        }
-      ;
+        };
     };
   };
 

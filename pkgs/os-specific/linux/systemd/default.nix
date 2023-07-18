@@ -110,7 +110,8 @@
     # risking making it too easy to ignore the above comment about llvmPackages.
     &&
       lib.meta.availableOn stdenv.hostPlatform
-        buildPackages.targetPackages.llvmPackages.compiler-rt,
+        buildPackages.targetPackages.llvmPackages.compiler-rt
+  ,
   withLibidn2 ? true,
   withLocaled ? true,
   withLogind ? true,
@@ -255,8 +256,7 @@ stdenv.mkDerivation (
             + "/0026-src-boot-efi-efi-string.c-define-wchar_t-from-__WCHA.patch"
           )
         ]
-      )
-    ;
+      );
 
     postPatch =
       ''
@@ -408,8 +408,7 @@ stdenv.mkDerivation (
                 name = "libp11-kit.so.0";
                 pkg = opt (withHomed || withCryptsetup) p11-kit;
               }
-            ]
-          ;
+            ];
 
           patchDlOpen =
             dl:
@@ -501,8 +500,7 @@ stdenv.mkDerivation (
         bpftools
         buildPackages.llvmPackages.clang
         buildPackages.llvmPackages.libllvm
-      ]
-    ;
+      ];
 
     buildInputs =
       [
@@ -774,8 +772,7 @@ stdenv.mkDerivation (
             ignore ? [ ],
           }:
           map (path: ''substituteInPlace ${path} --replace '${search}' "${replacement}"'')
-            where
-        ;
+            where;
         mkEnsureSubstituted =
           {
             replacement,
@@ -801,8 +798,7 @@ stdenv.mkDerivation (
               echo "$search"
               exit 1
             fi
-          ''
-        ;
+          '';
       in
       ''
         mesonFlagsArray+=(-Dntp-servers="0.nixos.pool.ntp.org 1.nixos.pool.ntp.org 2.nixos.pool.ntp.org 3.nixos.pool.ntp.org")
@@ -816,8 +812,7 @@ stdenv.mkDerivation (
 
         substituteInPlace src/import/pull-tar.c \
           --replace 'wait_for_terminate_and_check("tar"' 'wait_for_terminate_and_check("${gnutar}/bin/tar"'
-      ''
-    ;
+      '';
 
     # These defines are overridden by CFLAGS and would trigger annoying
     # warning messages
@@ -910,8 +905,7 @@ stdenv.mkDerivation (
         # 'or p' is for manually specified buildPackages as they dont have __spliced
         (
           builtins.map (p: p.__spliced.buildHost or p) finalAttrs.nativeBuildInputs
-        )
-    ;
+        );
 
     passthru = {
       # The interface version prevents NixOS from switching to an

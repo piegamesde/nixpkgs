@@ -10,8 +10,7 @@ import ./make-test-python.nix (
         virtualisation.emptyDiskImages = [ 1024 ];
 
         boot.supportedFilesystems = [ "apfs" ];
-      }
-    ;
+      };
 
     testScript = ''
       machine.wait_for_unit("basic.target")

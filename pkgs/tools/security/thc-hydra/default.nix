@@ -33,8 +33,7 @@ stdenv.mkDerivation rec {
         output: subDir:
         lib.concatStringsSep " " (
           map (path: lib.getOutput output path + "/" + subDir) buildInputs
-        )
-      ;
+        );
     in
     ''
       substituteInPlace configure \
@@ -45,8 +44,7 @@ stdenv.mkDerivation rec {
         }/include/math.h" \
         --replace "libcurses.so" "libncurses.so" \
         --replace "-lcurses" "-lncurses"
-    ''
-  ;
+    '';
 
   nativeBuildInputs = lib.optionals withGUI [
     pkg-config

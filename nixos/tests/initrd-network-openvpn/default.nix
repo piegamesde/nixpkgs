@@ -37,8 +37,7 @@ import ../make-test-python.nix (
                 configuration = builtins.toFile "initrd.ovpn" "";
               };
             };
-          }
-        ;
+          };
 
         # initrd VPN client
         ovpnclient =
@@ -81,8 +80,7 @@ import ../make-test-python.nix (
                 };
               };
             };
-          }
-        ;
+          };
 
         # VPN server and gateway for ovpnclient between vlan 1 and 2
         ovpnserver =
@@ -119,13 +117,11 @@ import ../make-test-python.nix (
                 ${secretblock}
               '';
             };
-          }
-        ;
+          };
 
         # Client that resides in the "external" VLAN
         testclient = { ... }: { virtualisation.vlans = [ 2 ]; };
-      }
-    ;
+      };
 
     testScript = ''
       # Minimal test case, checks whether enabling (with invalid config) harms

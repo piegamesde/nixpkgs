@@ -89,8 +89,7 @@ let
     }
     // {
       inherit ucsEncoding;
-    }
-  ;
+    };
 
   version = with sourceVersion; "${major}.${minor}.${patch}${suffix}";
 
@@ -274,8 +273,7 @@ let
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       buildPackages.stdenv.cc
       buildPackages.python
-    ]
-  ;
+    ];
 
   mkPaths = paths: {
     C_INCLUDE_PATH = lib.makeSearchPathOutput "dev" "include" paths;
@@ -285,8 +283,7 @@ let
   # Python 2.7 needs this
   crossCompileEnv =
     lib.optionalAttrs (stdenv.hostPlatform != stdenv.buildPlatform)
-      { _PYTHON_HOST_PLATFORM = stdenv.hostPlatform.config; }
-  ;
+      { _PYTHON_HOST_PLATFORM = stdenv.hostPlatform.config; };
 in
 # Build the basic Python interpreter without modules that have
 # external dependencies.

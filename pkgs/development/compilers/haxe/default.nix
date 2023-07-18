@@ -150,8 +150,7 @@ let
         ];
         platforms = platforms.linux ++ platforms.darwin;
       };
-    }
-  ;
+    };
 in
 {
   haxe_4_0 = generic {

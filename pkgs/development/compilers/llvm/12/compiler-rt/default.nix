@@ -26,8 +26,7 @@ stdenv.mkDerivation {
   inherit version;
   src =
     fetch "compiler-rt"
-      "1950rg294izdwkaasi7yjrmadc9mzdd5paf0q63jjcq2m3rdbj5l"
-  ;
+      "1950rg294izdwkaasi7yjrmadc9mzdd5paf0q63jjcq2m3rdbj5l";
 
   nativeBuildInputs = [
     cmake

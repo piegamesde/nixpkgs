@@ -151,8 +151,7 @@ in
                 type = types.path;
                 description =
                   lib.mdDoc
-                    "Path certificate authority used to sign the cluster certificates."
-                ;
+                    "Path certificate authority used to sign the cluster certificates.";
               };
             };
           }

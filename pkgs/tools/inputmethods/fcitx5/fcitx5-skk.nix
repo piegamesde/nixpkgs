@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals enableQt [
       fcitx5-qt
       qtbase
-    ]
-  ;
+    ];
 
   cmakeFlags = [
     "-DENABLE_QT=${toString enableQt}"

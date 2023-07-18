@@ -5,8 +5,7 @@ import ../make-test-python.nix (
 
     private_key =
       pkgs.runCommand "matrix_key.pem" { buildInputs = [ pkgs.dendrite ]; }
-        "generate-keys --private-key $out"
-    ;
+        "generate-keys --private-key $out";
   in
   {
     name = "dendrite";
@@ -28,8 +27,7 @@ import ../make-test-python.nix (
           };
 
           networking.firewall.allowedTCPPorts = [ 8008 ];
-        }
-      ;
+        };
 
       client =
         { pkgs, ... }:
@@ -87,8 +85,7 @@ import ../make-test-python.nix (
               ''
             )
           ];
-        }
-      ;
+        };
     };
 
     testScript = ''

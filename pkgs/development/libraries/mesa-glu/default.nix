@@ -20,14 +20,12 @@ stdenv.mkDerivation (
       fetchurl {
         url = "https://mesa.freedesktop.org/archive/${pname}/${pname}-${version}.tar.xz";
         sha256 = "sha256-bnKA/1hcah2d/N8vykiSUWNLM3e/wzwp5AAkZqONAtQ=";
-      }
-    ;
+      };
 
     nativeBuildInputs = [ pkg-config ];
     propagatedBuildInputs =
       [ libGL ]
-      ++ lib.optional stdenv.isDarwin ApplicationServices
-    ;
+      ++ lib.optional stdenv.isDarwin ApplicationServices;
 
     outputs = [
       "out"

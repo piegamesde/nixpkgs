@@ -103,8 +103,7 @@ let
               --compressed \
               "$RESOLVEURL" \
               > $out
-          ''
-      ;
+          '';
 
       # The unpack phase won't generate a directory
       setSourceRoot = ''
@@ -174,8 +173,7 @@ buildFHSEnv {
       # currently they want python 3.6 which is EOL
       #python3
       aprutil
-    ]
-  ;
+    ];
 
   runScript = "${bash}/bin/bash ${
       writeText "davinci-wrapper" ''

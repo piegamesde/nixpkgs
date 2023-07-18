@@ -35,8 +35,7 @@ let
           name = "contrib";
           path = "${src}/contrib";
         }
-      ]
-  ;
+      ];
   libcxxUnified = symlinkJoin {
     inherit (libcxx) name;
     paths = [

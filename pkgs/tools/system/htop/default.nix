@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs =
     [ autoreconfHook ]
-    ++ lib.optional stdenv.isLinux pkg-config
-  ;
+    ++ lib.optional stdenv.isLinux pkg-config;
 
   buildInputs =
     [ ncurses ]
@@ -64,8 +63,7 @@ stdenv.mkDerivation rec {
     lib.optionalString (!stdenv.hostPlatform.isStatic) ''
       ${optionalPatch sensorsSupport "${lm_sensors}/lib/libsensors.so"}
       ${optionalPatch systemdSupport "${systemd}/lib/libsystemd.so"}
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "An interactive process viewer";

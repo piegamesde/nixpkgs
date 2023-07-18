@@ -53,8 +53,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (stdenv.hostPlatform.system == "x86_64-linux") [
       "-DCMAKE_CXX_FLAGS=-fPIC"
       "-DCMAKE_C_FLAGS=-fPIC"
-    ]
-  ;
+    ];
 
   meta = with lib; {
     description = "Novel computer vision C++ library with customizable algorithms and data structures";

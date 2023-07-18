@@ -39,8 +39,7 @@ import ./make-test-python.nix
       {
         one = cfg;
         two = cfg;
-      }
-    ;
+      };
 
     testScript = ''
       start_all()

@@ -23,8 +23,7 @@ stdenv.mkDerivation rec {
       libobjc
       Security
       IOKit
-    ]
-  ;
+    ];
 
   propagatedBuildInputs = [ libusb-compat-0_1 ];
 

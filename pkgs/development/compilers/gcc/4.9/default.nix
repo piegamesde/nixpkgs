@@ -62,11 +62,8 @@
 
 assert langJava
   ->
-    zip != null
-    && unzip != null
-    && zlib != null
-    && boehmgc != null
-    && perl != null; # for `--enable-java-home'
+    zip != null && unzip != null && zlib != null && boehmgc != null && perl != null
+; # for `--enable-java-home'
 
 # We enable the isl cloog backend.
 assert cloog != null -> isl != null;
@@ -225,8 +222,7 @@ let
   stageNameAddon = if crossStageStatic then "stage-static" else "stage-final";
   crossNameAddon =
     optionalString (targetPlatform != hostPlatform)
-      "${targetPlatform.config}-${stageNameAddon}-"
-  ;
+      "${targetPlatform.config}-${stageNameAddon}-";
 
   callFile = lib.callPackageWith {
     # lets
@@ -315,7 +311,8 @@ assert x11Support
         libart_lgpl
       ]
       ++ xlibs
-    )) == [ ];
+    )) == [ ]
+;
 
 stdenv.mkDerivation (
   {
@@ -414,8 +411,7 @@ stdenv.mkDerivation (
 
     buildFlags =
       optional (targetPlatform == hostPlatform && hostPlatform == buildPlatform)
-        (if profiledCompiler then "profiledbootstrap" else "bootstrap")
-    ;
+        (if profiledCompiler then "profiledbootstrap" else "bootstrap");
 
     inherit (callFile ../common/strip-attributes.nix { })
       stripDebugList

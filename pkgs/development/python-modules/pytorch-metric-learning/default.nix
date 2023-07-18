@@ -64,8 +64,7 @@ buildPythonPackage rec {
       # RuntimeError: DataLoader worker (pid(s) <...>) exited unexpectedly
       "test_global_embedding_space_tester"
       "test_with_same_parent_label_tester"
-    ]
-  ;
+    ];
 
   meta = {
     description = "Metric learning library for PyTorch";

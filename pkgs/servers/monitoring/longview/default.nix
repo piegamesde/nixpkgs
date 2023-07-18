@@ -55,8 +55,7 @@ stdenv.mkDerivation rec {
         DBI
         DBDmysql
       ]
-    )
-  ;
+    );
 
   dontBuild = true;
 

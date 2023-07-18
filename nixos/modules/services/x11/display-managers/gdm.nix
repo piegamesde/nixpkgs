@@ -189,8 +189,7 @@ in
           # configured setupCommands. This relies on a patched GDM which supports
           # this environment variable.
           GDM_X_SESSION_WRAPPER = "${xSessionWrapper}";
-        }
-      ;
+        };
       execCmd = "exec ${gdm}/bin/gdm";
       preStart = optionalString (defaultSessionName != null) ''
         # Set default session in session chooser to a specified values – basically ignore session history.
@@ -307,8 +306,7 @@ in
           # Insert our custom DB behind it.
           sed '2ifile-db:${customDconfDb}' ${gdm}/share/dconf/profile/gdm > $out
         '';
-      }
-    ;
+      };
 
     # Use AutomaticLogin if delay is zero, because it's immediate.
     # Otherwise with TimedLogin with zero seconds the prompt is still

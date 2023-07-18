@@ -38,8 +38,7 @@ with lib;
             pkgs.grub2
             pkgs.syslinux
           ]
-      )
-    ;
+      );
 
     fileSystems."/" = mkImageMediaOverride {
       fsType = "tmpfs";

@@ -55,8 +55,7 @@ let
           (language: "cp -r ${language} $out/share/wordpress/wp-content/languages/")
           cfg.languages}
       '';
-    }
-  ;
+    };
 
   mergeConfig =
     cfg:
@@ -109,8 +108,7 @@ let
         ?>
       '';
       checkPhase = "${pkgs.php81}/bin/php --syntax-check $target";
-    }
-  ;
+    };
 
   mkPhpValue =
     v:
@@ -209,8 +207,7 @@ let
                   map (p: nameValuePair (p.name or (throw "${p} does not have a name")) p) l
                 )
               )
-              (attrsOf path)
-          ;
+              (attrsOf path);
           default = { };
           description = lib.mdDoc ''
             Path(s) to respective plugin(s) which are copied from the 'plugins' directory.
@@ -236,15 +233,13 @@ let
                   map (p: nameValuePair (p.name or (throw "${p} does not have a name")) p) l
                 )
               )
-              (attrsOf path)
-          ;
+              (attrsOf path);
           default = {
             inherit (pkgs.wordpressPackages.themes) twentytwentythree;
           };
           defaultText =
             literalExpression
-              "{ inherit (pkgs.wordpressPackages.themes) twentytwentythree; }"
-          ;
+              "{ inherit (pkgs.wordpressPackages.themes) twentytwentythree; }";
           description = lib.mdDoc ''
             Path(s) to respective theme(s) which are copied from the 'theme' directory.
 
@@ -339,8 +334,7 @@ let
             defaultText = literalExpression "/run/mysqld/mysqld.sock";
             description =
               lib.mdDoc
-                "Path to the unix socket file to use for authentication."
-            ;
+                "Path to the unix socket file to use for authentication.";
           };
 
           createLocally = mkOption {
@@ -373,8 +367,7 @@ let
                 int
                 bool
               ]
-            )
-          ;
+            );
           default = {
             "pm" = "dynamic";
             "pm.max_children" = 32;
@@ -444,8 +437,7 @@ let
       };
 
       config.virtualHost.hostName = mkDefault name;
-    }
-  ;
+    };
 in
 {
   # interface
@@ -516,10 +508,8 @@ in
                       "${cfg.database.name}.*" = "ALL PRIVILEGES";
                     };
                   })
-                  eachSite
-              ;
-            }
-        ;
+                  eachSite;
+            };
 
         services.phpfpm.pools =
           mapAttrs'
@@ -534,8 +524,7 @@ in
                 } // cfg.poolConfig;
               })
             )
-            eachSite
-        ;
+            eachSite;
       }
 
       (mkIf (cfg.webserver == "httpd") {
@@ -583,8 +572,7 @@ in
                   }
                 ]
               )
-              eachSite
-          ;
+              eachSite;
         };
       })
 
@@ -688,8 +676,7 @@ in
                   };
                 };
               })
-              eachSite
-          ;
+              eachSite;
         };
       })
 
@@ -719,8 +706,7 @@ in
                   '';
                 })
               )
-              eachSite
-          ;
+              eachSite;
         };
       })
     ]

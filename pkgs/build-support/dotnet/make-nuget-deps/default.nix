@@ -12,7 +12,6 @@ linkFarmFromDrvs "${name}-nuget-deps" (
       fetchurl {
         name = "${pname}.${version}.nupkg";
         inherit url sha256;
-      }
-    ;
+      };
   }
 )

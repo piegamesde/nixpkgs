@@ -71,8 +71,7 @@ buildPythonPackage rec {
       ujson
       orjson
       hypothesis
-    ]
-  ;
+    ];
 
   propagatedBuildInputs = [
     devtools

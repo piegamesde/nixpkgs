@@ -53,8 +53,7 @@ buildPythonPackage rec {
       capstone
       pyelftools
       unicorn
-    ]
-  ;
+    ];
 
   postPatch = ''
     # Python API is not used in the code, only z3 from PATH
@@ -78,8 +77,7 @@ buildPythonPackage rec {
       "tests/native"
       "tests/other/test_locking.py"
       "tests/other/test_state_introspection.py"
-    ]
-  ;
+    ];
 
   disabledTests = [
     # Failing tests

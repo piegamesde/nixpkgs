@@ -173,8 +173,7 @@ let
           --suffix-each ERL_LIBS ":" "$out/lib ${toString pluginLibDirs}" \
           --add-flags "+sbtu +A1 -noshell -boot start_clean -s rebar3 main -extra"
       '';
-    }
-  ;
+    };
 in
 {
   inherit rebar3 rebar3WithPlugins;

@@ -40,8 +40,7 @@ let
         };
       }
       // extraArgs
-    )
-  ;
+    );
 in
 rec {
   filebeat7 = beat "filebeat" {

@@ -30,13 +30,11 @@ in
             int
             bool
           ]
-        )
-      ;
+        );
       default = { };
       example =
         lib.literalExpression
-          ''{ DefaultMemoryPressureDurationSec = "20s"; }''
-      ;
+          ''{ DefaultMemoryPressureDurationSec = "20s"; }'';
       description = lib.mdDoc ''
         Extra config options for `systemd-oomd`. See {command}`man oomd.conf`
         for available options.
@@ -57,8 +55,7 @@ in
 
     systemd.oomd.extraConfig.DefaultMemoryPressureDurationSec =
       lib.mkDefault
-        "20s"
-    ; # Fedora default
+        "20s"; # Fedora default
 
     users.users.systemd-oom = {
       description = "systemd-oomd service user";

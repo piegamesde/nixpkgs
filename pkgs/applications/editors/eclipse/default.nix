@@ -72,8 +72,7 @@ rec {
     eclipseData:
     buildEclipseUnversioned (
       eclipseData // { productVersion = "${platform_major}.${platform_minor}"; }
-    )
-  ;
+    );
 
   ### Eclipse CPP
 
@@ -146,8 +145,7 @@ rec {
           # Only download for x86_64
           meta.platforms = [ "x86_64-linux" ];
         }
-      )
-  ;
+      );
 
   ### Eclipse SDK
 
@@ -268,8 +266,7 @@ rec {
         --add-flags "--launcher.ini $out/etc/eclipse.ini"
 
       ln -s ${eclipse}/share $out/
-    ''
-  ;
+    '';
 
   ### Plugins
 

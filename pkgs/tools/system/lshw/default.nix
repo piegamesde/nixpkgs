@@ -30,8 +30,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withGUI [
       gtk2
       sqlite
-    ]
-  ;
+    ];
 
   makeFlags = [
     "PREFIX=$(out)"

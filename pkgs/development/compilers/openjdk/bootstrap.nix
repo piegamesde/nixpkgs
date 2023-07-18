@@ -16,8 +16,7 @@ let
       name = "openjdk${version}-bootstrap-${arch}-linux.tar.xz";
       url = "http://tarballs.nixos.org/openjdk/2018-03-31/${version}/${arch}-linux.tar.xz";
       inherit sha256;
-    }
-  ;
+    };
 
   src =
     if stdenv.hostPlatform.system == "x86_64-linux" then
@@ -55,7 +54,6 @@ let
           patchelf --set-interpreter $(cat "${stdenv.cc}/nix-support/dynamic-linker") "$elf" || true
           patchelf --set-rpath "${stdenv.cc.libc}/lib:${stdenv.cc.cc.lib}/lib:${zlib}/lib:$LIBDIRS" "$elf" || true
         done
-      ''
-  ;
+      '';
 in
 bootstrap

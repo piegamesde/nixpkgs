@@ -83,8 +83,7 @@ stdenv.mkDerivation (
           sphinx_rtd_theme
           graphviz-nox
         ]
-      )
-    ;
+      );
 
     buildInputs = lib.optional (withEncryption != false) encryptionBackend;
 
@@ -117,8 +116,7 @@ stdenv.mkDerivation (
       in
       lib.optionalString (disabledTests != [ ]) ''
         checkFlagsArray+=(ARGS="-E ${lib.escapeRegex regex}")
-      ''
-    ;
+      '';
 
     postInstall =
       lib.optionalString withDoc ''
@@ -155,15 +153,13 @@ stdenv.mkDerivation (
             #withExamples = true;
             withEncryption = encBackend;
             withPubSub = true;
-          }
-        ;
+          };
       in
       {
         open62541Full = open62541Full false;
         open62541Full-openssl = open62541Full "openssl";
         open62541Full-mbedtls = open62541Full "mbedtls";
-      }
-    ;
+      };
 
     meta = with lib; {
       description = "Open source implementation of OPC UA";

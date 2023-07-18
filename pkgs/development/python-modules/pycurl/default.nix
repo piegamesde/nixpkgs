@@ -80,8 +80,7 @@ buildPythonPackage rec {
       [
         # Fatal Python error: Segmentation fault
         "cadata_test"
-      ]
-  ;
+      ];
 
   meta = with lib; {
     homepage = "http://pycurl.io/";

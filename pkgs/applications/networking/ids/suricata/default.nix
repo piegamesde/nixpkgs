@@ -58,8 +58,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals rustSupport [
       rustc
       cargo
-    ]
-  ;
+    ];
 
   buildInputs =
     [

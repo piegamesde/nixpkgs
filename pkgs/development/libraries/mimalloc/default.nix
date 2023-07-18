@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
     in
     ''
       export ${ldLibraryPathEnv}="$(pwd)/build:''${${ldLibraryPathEnv}}"
-    ''
-  ;
+    '';
 
   nativeBuildInputs = [
     cmake

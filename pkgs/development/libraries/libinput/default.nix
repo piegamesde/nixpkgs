@@ -44,8 +44,7 @@ let
     runCommand "sphinx-build" { } ''
       mkdir -p "$out/bin"
       ln -s "${env}/bin/sphinx-build" "$out/bin"
-    ''
-  ;
+    '';
 in
 
 stdenv.mkDerivation rec {
@@ -78,8 +77,7 @@ stdenv.mkDerivation rec {
       doxygen
       graphviz
       sphinx-build
-    ]
-  ;
+    ];
 
   buildInputs =
     [
@@ -101,8 +99,7 @@ stdenv.mkDerivation rec {
       cairo
       glib
       gtk3
-    ]
-  ;
+    ];
 
   propagatedBuildInputs = [ udev ];
 

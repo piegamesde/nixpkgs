@@ -102,8 +102,7 @@ stdenv.mkDerivation rec {
           extraPrefix = "druntime/";
           sha256 = "sha256-/pPKK7ZK9E/mBrxm2MZyBNhYExE8p9jz8JqBdZSE6uY=";
         })
-      ]
-  ;
+      ];
 
   postPatch =
     ''
@@ -171,8 +170,7 @@ stdenv.mkDerivation rec {
 
   nativeCheckInputs =
     [ gdb ]
-    ++ lib.optionals (lib.versionOlder version "2.089.0") [ unzip ]
-  ;
+    ++ lib.optionals (lib.versionOlder version "2.089.0") [ unzip ];
 
   buildFlags = [
     "BUILD=release"

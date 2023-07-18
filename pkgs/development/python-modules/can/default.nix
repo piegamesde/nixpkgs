@@ -78,8 +78,7 @@ buildPythonPackage rec {
       # timing sensitive
       "test_general"
       "test_gap"
-    ]
-  ;
+    ];
 
   preCheck = ''
     export PATH="$PATH:$out/bin";

@@ -14,8 +14,7 @@ let
 
   plugin_path =
     lib.concatMapStringsSep ":" (plugin: "${plugin}/lib/ofono/plugins")
-      cfg.plugins
-  ;
+      cfg.plugins;
 in
 
 {
@@ -43,7 +42,6 @@ in
 
     systemd.services.ofono.environment.OFONO_PLUGIN_PATH =
       mkIf (cfg.plugins != [ ])
-        plugin_path
-    ;
+        plugin_path;
   };
 }

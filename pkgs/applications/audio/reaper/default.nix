@@ -28,8 +28,7 @@ let
     version: arch:
     "https://www.reaper.fm/files/${lib.versions.major version}.x/reaper${
       builtins.replaceStrings [ "." ] [ "" ] version
-    }_linux_${arch}.tar.xz"
-  ;
+    }_linux_${arch}.tar.xz";
 in
 stdenv.mkDerivation rec {
   pname = "reaper";

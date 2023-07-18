@@ -44,8 +44,7 @@ let
         mkSectionName = id;
         mkKeyValue = k: v: "${k} = ${mkValueString v}";
       }
-      (removeNulls c)
-  ;
+      (removeNulls c);
 in
 
 {
@@ -119,8 +118,7 @@ in
                 ]
               )
             )
-          )
-        ;
+          );
         example = {
           fancyWebserver = {
             accept = 443;
@@ -151,8 +149,7 @@ in
                 ]
               )
             )
-          )
-        ;
+          );
 
         apply =
           let
@@ -177,8 +174,7 @@ in
             ;
             forceClient = c: c // { client = true; };
           in
-          mapAttrs (_: c: forceClient (setCheckHostFromVerifyHostname (applyDefaults c)))
-        ;
+          mapAttrs (_: c: forceClient (setCheckHostFromVerifyHostname (applyDefaults c)));
 
         example = {
           foobar = {

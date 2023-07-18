@@ -16,7 +16,8 @@
   testedTargets ? if stdenv.isAarch64 || stdenv.isAarch32 then
     [ "neon-i32x4" ]
   else
-    [ "sse2-i32x4" ],
+    [ "sse2-i32x4" ]
+  ,
 }:
 
 stdenv.mkDerivation rec {

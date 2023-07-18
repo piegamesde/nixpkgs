@@ -20,8 +20,7 @@ mkCoqDerivation {
         case = isGe "8.7";
         out = "8.12.0";
       } ]
-      null
-  ;
+      null;
 
   meta = with lib; {
     description = "Pocklington's criterion for primality in Coq";

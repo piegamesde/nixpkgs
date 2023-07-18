@@ -78,8 +78,7 @@ stdenv.mkDerivation rec {
       wayland
       libseccomp
       systemd
-    ]
-  ;
+    ];
 
   propagatedBuildInputs = [ gsettings-desktop-schemas ];
 
@@ -91,8 +90,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (!stdenv.isLinux) [
       "-Dsystemd=disabled"
       "-Dudev=disabled"
-    ]
-  ;
+    ];
 
   separateDebugInfo = stdenv.isLinux;
 

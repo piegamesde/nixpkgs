@@ -91,8 +91,7 @@ in
           TTS server instances.
         '';
       };
-    }
-  ;
+    };
 
   config =
     let
@@ -174,8 +173,6 @@ in
               };
             }
           )
-          cfg.servers
-      ;
-    }
-  ;
+          cfg.servers;
+    };
 }

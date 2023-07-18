@@ -43,13 +43,11 @@ buildPythonPackage rec {
       "test_grab"
       "test_grabclipboard"
       "test_save"
-    ]
-  ;
+    ];
 
   propagatedBuildInputs =
     [ olefile ]
-    ++ lib.optionals (lib.versionAtLeast version "8.2.0") [ defusedxml ]
-  ;
+    ++ lib.optionals (lib.versionAtLeast version "8.2.0") [ defusedxml ];
 
   nativeCheckInputs = [
     pytestCheckHook

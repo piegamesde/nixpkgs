@@ -57,8 +57,7 @@ buildGoModule rec {
     ''
       wrapProgram $out/bin/generator --prefix PATH : ${lib.makeBinPath runtimeInputs}
       wrapProgram $out/bin/init --prefix PATH : ${lib.makeBinPath runtimeInputs}
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "Fast and secure initramfs generator ";

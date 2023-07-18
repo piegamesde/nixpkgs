@@ -22,8 +22,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Whether to enable the Hologram agent for AWS instance credentials"
-        ;
+            "Whether to enable the Hologram agent for AWS instance credentials";
       };
 
       dialAddress = mkOption {

@@ -118,8 +118,7 @@ buildGoModule rec {
     ++ lib.optionals stdenv.isDarwin [
       CoreFoundation
       Security
-    ]
-  ;
+    ];
   # FIXME: building on Darwin currently fails
   # due to missing debug symbols for Qt,
   # this should be fixable once darwin.apple_sdk >= 10.13

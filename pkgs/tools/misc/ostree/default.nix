@@ -148,8 +148,7 @@ stdenv.mkDerivation rec {
       for test in $installedTests/libexec/installed-tests/libostree/*.js; do
         wrapProgram "$test" --prefix GI_TYPELIB_PATH : "${typelibPath}"
       done
-    ''
-  ;
+    '';
 
   passthru = {
     tests = {

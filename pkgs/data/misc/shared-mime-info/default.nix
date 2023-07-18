@@ -38,8 +38,7 @@ stdenv.mkDerivation rec {
       gettext
       libxml2
     ]
-    ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) shared-mime-info
-  ;
+    ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) shared-mime-info;
 
   buildInputs = [
     libxml2

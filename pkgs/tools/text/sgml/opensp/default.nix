@@ -59,8 +59,7 @@ stdenv.mkDerivation rec {
       autoconf
       automake
       libtool
-    ]
-  ;
+    ];
 
   doCheck = false; # fails
 

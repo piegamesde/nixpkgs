@@ -18,8 +18,7 @@ let
               bootstrapFiles = bootstrapFiles;
             };
           in
-          (import "${pkgspath}/pkgs/stdenv/darwin" args').stagesDarwin
-        ;
+          (import "${pkgspath}/pkgs/stdenv/darwin" args').stagesDarwin;
       }
     else
       { }
@@ -202,7 +201,8 @@ rec {
         ''
           sed -i -e 's|/nix/store/.*/libobjc.A.dylib|@executable_path/../libobjc.A.dylib|g' \
             $out/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation.tbd
-        ''}
+        ''
+      }
 
       nuke-refs $out/lib/*
       nuke-refs $out/lib/system/*
@@ -353,7 +353,6 @@ rec {
           inherit bootstrapLlvmVersion bootstrapFiles;
         };
       in
-      (import (test-pkgspath + "/pkgs/stdenv/darwin") args').stagesDarwin
-    ;
+      (import (test-pkgspath + "/pkgs/stdenv/darwin") args').stagesDarwin;
   };
 }

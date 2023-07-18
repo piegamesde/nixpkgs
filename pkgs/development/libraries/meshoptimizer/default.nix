@@ -37,8 +37,7 @@ stdenv.mkDerivation {
       "-DMESHOPT_BASISU_PATH=${basis_universal}"
     ]
     ++ lib.optional (!stdenv.hostPlatform.isStatic)
-      "-DMESHOPT_BUILD_SHARED_LIBS:BOOL=ON"
-  ;
+      "-DMESHOPT_BUILD_SHARED_LIBS:BOOL=ON";
 
   meta = with lib; {
     description = "Mesh optimization library that makes meshes smaller and faster to render";

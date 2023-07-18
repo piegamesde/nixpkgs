@@ -41,8 +41,7 @@ args@{
           };
 
           services.memcached.enable = true;
-        }
-      ;
+        };
     };
 
     testScript =
@@ -84,8 +83,7 @@ args@{
         client.succeed(
             "${withRcloneEnv} ${diffSharedFile}"
         )
-      ''
-    ;
+      '';
   }
 ))
   args

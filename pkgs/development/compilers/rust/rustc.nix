@@ -300,8 +300,7 @@ stdenv.mkDerivation rec {
       }
       // lib.optionalAttrs stdenv.hostPlatform.isLinux {
         inherit firefox thunderbird;
-      }
-    ;
+      };
   };
 
   meta = with lib; {

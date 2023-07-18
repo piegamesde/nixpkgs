@@ -50,8 +50,7 @@ with rec {
         "none"
         "native"
       ]
-      (builtins.head isas)
-  ;
+      (builtins.head isas);
 };
 
 stdenv.mkDerivation rec {

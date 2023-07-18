@@ -128,8 +128,7 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild =
     [ buildPackages.stdenv.cc ]
-    ++ lib.optionals hexagonSupport [ pkg-config ]
-  ;
+    ++ lib.optionals hexagonSupport [ pkg-config ];
 
   nativeBuildInputs =
     [

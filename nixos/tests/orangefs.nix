@@ -28,8 +28,7 @@ import ./make-test-python.nix (
             server2 = "tcp://server2:3334";
           };
         };
-      }
-    ;
+      };
 
     client =
       { lib, ... }:
@@ -43,8 +42,7 @@ import ./make-test-python.nix (
             mountPoint = "/orangefs";
           } ];
         };
-      }
-    ;
+      };
   in
   {
     name = "orangefs";

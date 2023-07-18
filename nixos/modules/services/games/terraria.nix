@@ -27,8 +27,7 @@ let
               ''"''
             ]
             (toString val)
-        }"''
-  ;
+        }"'';
   boolFlag = name: val: optionalString val "-${name}";
   flags = [
     (valFlag "port" cfg.port)

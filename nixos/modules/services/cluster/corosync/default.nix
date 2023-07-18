@@ -55,8 +55,7 @@ in
               };
             };
           }
-        )
-      ;
+        );
     };
   };
 
@@ -138,7 +137,6 @@ in
       lib.optionalString (cfg.extraOptions != [ ])
         ''
           COROSYNC_OPTIONS="${lib.escapeShellArgs cfg.extraOptions}"
-        ''
-    ;
+        '';
   };
 }

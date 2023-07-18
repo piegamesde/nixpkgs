@@ -603,7 +603,6 @@
           version = "7.0.5";
           sha256 = "1fyhsrw7zraf8ml0ibqi26i4y76a5i7hm7155hrlf6g2wh9c2wni";
         })
-      ]
-    ;
+      ];
   };
 }

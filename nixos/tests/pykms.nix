@@ -13,8 +13,7 @@ import ./make-test-python.nix (
       }:
       {
         services.pykms.enable = true;
-      }
-    ;
+      };
 
     testScript = ''
       machine.wait_for_unit("pykms.service")

@@ -20,8 +20,7 @@ import ./make-test-python.nix (
         };
         services.snapper.configs.home.subvolume = "/home";
         services.snapper.filters = "/nix";
-      }
-    ;
+      };
 
     testScript = ''
       machine.succeed("btrfs subvolume create /home/.snapshots")

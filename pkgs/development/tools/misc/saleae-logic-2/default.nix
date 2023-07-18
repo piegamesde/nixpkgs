@@ -34,8 +34,7 @@ appimageTools.wrapType2 {
       mkdir -p $out/share/pixmaps
       ln -s ${desktopItem}/share/applications $out/share/
       cp ${appimageContents}/usr/share/icons/hicolor/256x256/apps/Logic.png $out/share/pixmaps/Logic.png
-    ''
-  ;
+    '';
 
   extraPkgs =
     pkgs:
@@ -68,8 +67,7 @@ appimageTools.wrapType2 {
       at-spi2-core
       cups
       libxcrypt-legacy
-    ]
-  ;
+    ];
 
   meta = with lib; {
     homepage = "https://www.saleae.com/";

@@ -27,12 +27,10 @@ let
 
   checks =
     mapAttrs' (n: v: nameValuePair "check.${n}" (filterAttrs (_: v: v != null) v))
-      cfg.checks
-  ;
+      cfg.checks;
   wakeups =
     mapAttrs' (n: v: nameValuePair "wakeup.${n}" (filterAttrs (_: v: v != null) v))
-      cfg.wakeups
-  ;
+      cfg.wakeups;
 
   # Whether the given check is enabled
   hasCheck =
@@ -40,8 +38,7 @@ let
     (filterAttrs
       (n: v: v.enabled && (if v.class == null then n else v.class) == class)
       cfg.checks
-    ) != { }
-  ;
+    ) != { };
 
   # Dependencies needed by specific checks
   dependenciesForChecks = {
@@ -89,8 +86,7 @@ let
             "XIdleTime"
             "XPath"
           ]
-        )
-      ;
+        );
       description = mdDoc ''
         Name of the class implementing the check.  If this option is not specified, the check's
         name must represent a valid internal check class.
@@ -119,8 +115,7 @@ let
             "XPath"
             "XPathDelta"
           ]
-        )
-      ;
+        );
       description = mdDoc ''
         Name of the class implementing the check.  If this option is not specified, the check's
         name must represent a valid internal check class.

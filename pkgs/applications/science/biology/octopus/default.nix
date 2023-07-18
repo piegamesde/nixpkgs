@@ -47,8 +47,7 @@ stdenv.mkDerivation rec {
       [
         # Needed with GCC 12
         "-Wno-error=deprecated-declarations"
-      ]
-  ;
+      ];
 
   postInstall = ''
     mkdir $out/bin

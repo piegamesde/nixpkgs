@@ -43,8 +43,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals enableBackend [
       "man"
       "devdoc"
-    ]
-  ;
+    ];
 
   src = fetchFromGitLab {
     domain = "gitlab.gnome.org";

@@ -95,8 +95,7 @@ in
                 key
                 v
               ])
-              list
-          ;
+              list;
           addresses = prefixKeyList "--addr" cfg.addresses;
           hostnames = prefixKeyList "--hostname" cfg.hostnames;
         in
@@ -119,8 +118,7 @@ in
               ++ (optionals (cfg.extraArgs != [ ]) cfg.extraArgs)
             )
           }
-        ''
-      ;
+        '';
 
       serviceConfig = {
         Restart = "always";

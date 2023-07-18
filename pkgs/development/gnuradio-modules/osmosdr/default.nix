@@ -108,8 +108,7 @@ mkDerivation {
           python.pkgs.mako
       )
       python
-    ]
-  ;
+    ];
 
   meta = with lib; {
     description = "Gnuradio block for OsmoSDR and rtl-sdr";

@@ -125,8 +125,7 @@ stdenv.mkDerivation (
 
     disallowedReferences =
       lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
-        [ lua.luaOnBuild ]
-    ;
+        [ lua.luaOnBuild ];
 
     passthru = {
       updateScript = nix-update-script { };

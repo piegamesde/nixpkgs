@@ -152,8 +152,7 @@ in
         x: {
           deps =
             pkgs.lib.filter (x: x.outPath != quicklisp-to-nix-packages.uffi.outPath)
-              (x.deps ++ (with quicklisp-to-nix-packages; [ cffi-uffi-compat ]))
-          ;
+              (x.deps ++ (with quicklisp-to-nix-packages; [ cffi-uffi-compat ]));
           overrides =
             y:
             (x.overrides y)
@@ -177,8 +176,7 @@ in
         x: {
           deps =
             pkgs.lib.filter (x: x.outPath != quicklisp-to-nix-packages.uffi.outPath)
-              (x.deps ++ (with quicklisp-to-nix-packages; [ cffi-uffi-compat ]))
-          ;
+              (x.deps ++ (with quicklisp-to-nix-packages; [ cffi-uffi-compat ]));
           overrides =
             y:
             (x.overrides y)
@@ -189,8 +187,7 @@ in
             }
           ;
         }
-      )
-  ;
+      );
   clx-truetype = skipBuildPhase;
   query-fs = x: {
     overrides =
@@ -328,8 +325,7 @@ in
   cl-postgres = x: {
     deps =
       pkgs.lib.filter (x: x.outPath != quicklisp-to-nix-packages.simple-date.outPath)
-        x.deps
-    ;
+        x.deps;
     parasites = (x.parasites or [ ]) ++ [
       "simple-date"
       "simple-date/postgres-glue"
@@ -339,8 +335,7 @@ in
   buildnode = x: {
     deps =
       pkgs.lib.filter (x: x.name != quicklisp-to-nix-packages.buildnode-xhtml.name)
-        x.deps
-    ;
+        x.deps;
     parasites = pkgs.lib.filter (x: x != "buildnode-test") x.parasites;
   };
   postmodern = x: {
@@ -353,15 +348,13 @@ in
     ];
     deps =
       pkgs.lib.filter (x: x.name != quicklisp-to-nix-packages.simple-date.name)
-        x.deps
-    ;
+        x.deps;
   };
   s-sql = x: {
     parasites = pkgs.lib.filter (x: x != "s-sql/tests") x.parasites;
     deps =
       pkgs.lib.filter (x: x.name != quicklisp-to-nix-packages.postmodern.name)
-        x.deps
-    ;
+        x.deps;
   };
   split-sequence = x: {
     overrides =
@@ -399,8 +392,7 @@ in
             && true
           )
         )
-        x.deps
-    ;
+        x.deps;
   };
   cl-cffi-gtk-glib = addNativeLibs [ pkgs.glib ];
   cl-cffi-gtk-gdk-pixbuf = addNativeLibs [ pkgs.gdk-pixbuf ];
@@ -429,8 +421,7 @@ in
         "sbcl"
         "gcl"
       ]
-      (extraLispDeps (with quicklisp-to-nix-packages; [ cl-speedy-queue ]))
-  ;
+      (extraLispDeps (with quicklisp-to-nix-packages; [ cl-speedy-queue ]));
   cl-syslog = x: {
     overrides =
       y:
@@ -448,8 +439,7 @@ in
         "sbcl"
         "gcl"
       ]
-      (extraLispDeps (with quicklisp-to-nix-packages; [ cl-syslog ]))
-  ;
+      (extraLispDeps (with quicklisp-to-nix-packages; [ cl-syslog ]));
   md5 =
     ifLispNotIn
       [
@@ -457,8 +447,7 @@ in
         "ccl"
         "gcl"
       ]
-      (extraLispDeps (with quicklisp-to-nix-packages; [ flexi-streams ]))
-  ;
+      (extraLispDeps (with quicklisp-to-nix-packages; [ flexi-streams ]));
   cl-gobject-introspection = addNativeLibs (
     with pkgs; [
       glib

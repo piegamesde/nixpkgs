@@ -54,8 +54,7 @@ buildDotnetModule rec {
   DOTNET_SYSTEM_GLOBALIZATION_INVARIANT = isNull glibcLocales;
   LOCALE_ARCHIVE =
     lib.optionalString (!DOTNET_SYSTEM_GLOBALIZATION_INVARIANT)
-      "${glibcLocales}/lib/locale/locale-archive"
-  ;
+      "${glibcLocales}/lib/locale/locale-archive";
 
   postConfigure = ''
     # Generate src/Runner.Sdk/BuildConstants.cs

@@ -37,8 +37,7 @@ stdenv.mkDerivation (
       # https://harelang.org/platforms/
       platforms =
         with lib.platforms;
-        lib.intersectLists (freebsd ++ linux) (aarch64 ++ x86_64 ++ riscv64)
-      ;
+        lib.intersectLists (freebsd ++ linux) (aarch64 ++ x86_64 ++ riscv64);
       badPlatforms = lib.platforms.darwin;
     };
   }

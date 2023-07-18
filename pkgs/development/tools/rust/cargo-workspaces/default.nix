@@ -48,8 +48,7 @@ rustPlatform.buildRustPackage rec {
         AppKit
       ]
       ++ (lib.optionals stdenv.isAarch64 [ System ])
-    ))
-  ;
+    ));
 
   meta = with lib; {
     description = "A tool for managing cargo workspaces and their crates, inspired by lerna";

@@ -78,8 +78,7 @@ rec {
             "-DENABLE_${info.cmakeEnableFlag}=OFF"
         )
       )
-      featuresInfo
-  ;
+      featuresInfo;
   disallowedReferences =
     [
       # TODO: Should this be conditional?

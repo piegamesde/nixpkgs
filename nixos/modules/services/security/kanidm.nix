@@ -31,8 +31,7 @@ let
     list: newPath:
     lib.any
       (path: lib.hasPrefix (builtins.toString path) (builtins.toString newPath))
-      list
-  ;
+      list;
   mergePaths =
     lib.foldl'
       (
@@ -41,16 +40,14 @@ let
           # If the new path is a prefix to some existing path, we need to filter it out
           filteredPaths =
             lib.filter (p: !lib.hasPrefix (builtins.toString newPath) (builtins.toString p))
-              merged
-          ;
+              merged;
           # If a prefix of the new path is already in the list, do not add it
           filteredNew =
             if hasPrefixInList filteredPaths newPath then [ ] else [ newPath ];
         in
         filteredPaths ++ filteredNew
       )
-      [ ]
-  ;
+      [ ];
 
   defaultServiceConfig = {
     BindReadOnlyPaths = [
@@ -125,8 +122,7 @@ in
           origin = lib.mkOption {
             description =
               lib.mdDoc
-                "The origin of your Kanidm instance. Must have https as protocol."
-            ;
+                "The origin of your Kanidm instance. Must have https as protocol.";
             example = "https://idm.example.org";
             type = lib.types.strMatching "^https://.*";
           };
@@ -170,8 +166,7 @@ in
           role = lib.mkOption {
             description =
               lib.mdDoc
-                "The role of this server. This affects the replication relationship and thereby available features."
-            ;
+                "The role of this server. This affects the replication relationship and thereby available features.";
             default = "WriteReplica";
             type = lib.types.enum [
               "WriteReplica"

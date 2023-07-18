@@ -63,8 +63,7 @@ buildPythonPackage rec {
       [
         # usual aarch64-linux RuntimeError: DataLoader worker (pid(s) <...>) exited unexpectedly
         "CheckpointTest"
-      ]
-  ;
+      ];
   # numerous instances of torch.multiprocessing.spawn.ProcessRaisedException:
   doCheck = !stdenv.isDarwin;
   pythonImportsCheck = [ "accelerate" ];

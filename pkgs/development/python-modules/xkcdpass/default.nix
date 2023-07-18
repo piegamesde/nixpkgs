@@ -31,8 +31,7 @@ buildPythonPackage rec {
       [
         # https://github.com/redacted/XKCD-password-generator/issues/138
         "test_entropy_printout_valid_input"
-      ]
-  ;
+      ];
 
   postInstall = ''
     installManPage *.?

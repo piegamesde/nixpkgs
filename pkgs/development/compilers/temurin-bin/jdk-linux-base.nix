@@ -38,8 +38,7 @@ let
       cairo
       glib
       gtk3
-    ]
-  ;
+    ];
   runtimeLibraryPath = lib.makeLibraryPath runtimeDependencies;
   validCpuTypes = builtins.attrNames lib.systems.parse.cpuTypes;
   providedCpuTypes = builtins.filter (arch: builtins.elem arch validCpuTypes) (

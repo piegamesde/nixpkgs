@@ -65,8 +65,7 @@ stdenv.mkDerivation rec {
           ln -s $f $out/lib/firmware/$\{f#${path}};
         done;
       '')
-      firmware
-  ;
+      firmware;
 
   meta = {
     homepage = "https://www.kernel.org/pub/linux/utils/kernel/pcmcia/";

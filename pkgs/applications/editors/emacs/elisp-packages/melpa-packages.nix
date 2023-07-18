@@ -47,8 +47,7 @@ let
                   broken = true;
                 };
               }
-            )
-          ;
+            );
         }
       )
     else
@@ -69,8 +68,7 @@ let
 
                 propagatedUserEnvPkgs = [ epkg ];
               }
-            )
-          ;
+            );
         }
       )
     else
@@ -81,8 +79,7 @@ let
     pkg:
     pkg.overrideAttrs (
       attrs: { nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ [ pkgs.git ]; }
-    )
-  ;
+    );
 
   fix-rtags =
     pkg: if pkg != null then dontConfigure (externalSrc pkg pkgs.rtags) else null;
@@ -341,8 +338,7 @@ let
           # Build same version as Haskell package
           hindent =
             (externalSrc super.hindent pkgs.haskellPackages.hindent).overrideAttrs
-              (attrs: { packageRequires = [ self.haskell-mode ]; })
-          ;
+              (attrs: { packageRequires = [ self.haskell-mode ]; });
 
           irony = super.irony.overrideAttrs (
             old: {
@@ -708,8 +704,7 @@ let
                     highlight
                   ];
                 }
-              )
-          ;
+              );
 
           hamlet-mode = super.hamlet-mode.overrideAttrs (
             attrs: {
@@ -789,11 +784,9 @@ let
                         substituteInPlace w3m.el \
                         --replace 'defcustom w3m-command nil' \
                         'defcustom w3m-command "${w3m}"'
-                      ''
-                    ;
+                      '';
                   }
-                )
-              ;
+                );
             }
           );
 
@@ -820,8 +813,7 @@ let
               ;
             }
           );
-        }
-      ;
+        };
     in
     lib.mapAttrs (n: v: if lib.hasAttr n overrides then overrides.${n} else v) super
   );

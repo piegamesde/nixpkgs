@@ -50,8 +50,7 @@ let
       ;
       propagatedBuildInputs =
         [ python.pkgs.setuptools ]
-        ++ optionals ocamlBindings [ zarith ]
-      ;
+        ++ optionals ocamlBindings [ zarith ];
       enableParallelBuilding = true;
 
       postPatch = optionalString ocamlBindings ''
@@ -111,8 +110,7 @@ let
           ttuegel
         ];
       };
-    }
-  ;
+    };
 in
 {
   z3_4_11 = common {

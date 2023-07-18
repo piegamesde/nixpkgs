@@ -40,8 +40,7 @@ buildPythonPackage rec {
       [
         # https://github.com/Marco-Sulla/python-frozendict/issues/68
         "test_c_extension"
-      ]
-  ;
+      ];
 
   meta = with lib; {
     description = "Module for immutable dictionary";

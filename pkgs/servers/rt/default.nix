@@ -128,8 +128,7 @@ stdenv.mkDerivation rec {
           WebMachine
           XMLRSS
           perlldap
-        ])
-      ;
+        ]);
     })
   ];
 

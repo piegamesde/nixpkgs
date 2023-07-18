@@ -27,8 +27,7 @@ let
         expr = repeatedOverrides.entangled.pname == "a-better-figlet-with-blackjack";
         expected = true;
       })
-    ]
-  ;
+    ];
 
   addEntangled =
     origOverrideAttrs: f:
@@ -41,8 +40,7 @@ let
           };
         }
       )
-    )
-  ;
+    );
 
   entangle =
     pkg1: pkg2:
@@ -53,8 +51,7 @@ let
           overrideAttrs = addEntangled self.overrideAttrs;
         };
       }
-    )
-  ;
+    );
 
   example = entangle pkgs.hello pkgs.figlet;
 

@@ -76,16 +76,14 @@ stdenv.mkDerivation (
             "test.basedir"
             "test.multi_arch"
             "test.nocpp2"
-          ]
-        ;
+          ];
       in
       ''
         runHook preCheck
         export HOME=$(mktemp -d)
         ctest --output-on-failure -E '^(${lib.concatStringsSep "|" badTests})$'
         runHook postCheck
-      ''
-    ;
+      '';
 
     passthru = {
       # A derivation that provides gcc and g++ commands, but that
@@ -130,8 +128,7 @@ stdenv.mkDerivation (
               ln -s ${unwrappedCC}/$file $out/$file
             done
           '';
-        }
-      ;
+        };
 
       updateScript = nix-update-script { };
     };

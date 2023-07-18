@@ -28,8 +28,7 @@ let
           ''
         ;
       }
-    )
-  ;
+    );
 
   passthru = rec {
     spirv-llvm-translator = llvmPkgs.spirv-llvm-translator.override {
@@ -125,7 +124,6 @@ let
         platforms = platforms.all;
         maintainers = with maintainers; [ SuperSandro2000 ];
       };
-    }
-  ;
+    };
 in
 library

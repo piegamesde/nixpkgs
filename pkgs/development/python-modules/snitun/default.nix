@@ -50,8 +50,7 @@ buildPythonPackage rec {
       [
         # TypeError: Passing coroutines is forbidden, use tasks explicitly.
         "test_snitun_runner_updown"
-      ]
-  ;
+      ];
 
   pythonImportsCheck = [ "snitun" ];
 

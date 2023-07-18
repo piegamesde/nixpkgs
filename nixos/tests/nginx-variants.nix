@@ -21,8 +21,7 @@ builtins.listToAttrs (
               virtualHosts.localhost.locations."/".return = "200 'foo'";
               package = pkgs."${nginxName}";
             };
-          }
-        ;
+          };
 
         testScript = ''
           machine.wait_for_unit("nginx")

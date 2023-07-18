@@ -181,16 +181,14 @@ in
                         ${pkgs.coreutils}/bin/rm -f "$logfile".new
                       fi
                     done
-                  ''
-              ;
+                  '';
             }
             // mkService cfg.atopacctService.enable "atopacct" [ atop ]
             // mkService cfg.netatop.enable "netatop" [ cfg.netatop.package ]
             // mkService cfg.atopgpu.enable "atopgpu" [ atop ]
           ;
           timers = mkTimer cfg.atopRotateTimer.enable "atop-rotate" [ atop ];
-        }
-      ;
+        };
 
       security.wrappers = lib.mkIf cfg.setuidWrapper.enable {
         atop = {

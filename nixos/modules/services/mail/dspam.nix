@@ -69,8 +69,7 @@ in
         default = defaultSock;
         description =
           lib.mdDoc
-            "Path to local domain socket which is used for communication with the daemon. Set to null to disable UNIX socket."
-        ;
+            "Path to local domain socket which is used for communication with the daemon. Set to null to disable UNIX socket.";
       };
 
       extraConfig = mkOption {
@@ -84,8 +83,7 @@ in
         default = null;
         description =
           lib.mdDoc
-            "If set, maintenance script will be run at specified (in systemd.timer format) interval"
-        ;
+            "If set, maintenance script will be run at specified (in systemd.timer format) interval";
       };
     };
   };

@@ -23,8 +23,7 @@ stdenvNoCC.mkDerivation rec {
     fetchzip {
       url = "https://downloadirpf.receita.fazenda.gov.br/irpf/${year}/irpf/arquivos/IRPF${version}.zip";
       sha256 = "sha256-UOo9LBeOA6H/A7dM6wIa0wXyAaq9xGnX9EUBzK4Y0ng=";
-    }
-  ;
+    };
 
   nativeBuildInputs = [
     unzip

@@ -77,8 +77,7 @@ stdenv.mkDerivation rec {
         libICE
         libSM
       ]
-    )
-  ;
+    );
 
   ldpath =
     lib.makeLibraryPath buildInputs

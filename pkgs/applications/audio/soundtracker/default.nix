@@ -40,8 +40,7 @@ stdenv.mkDerivation rec {
 
   configureFlags =
     [ "--with-graphics-backend=gdk" ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ "--disable-alsa" ]
-  ;
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [ "--disable-alsa" ];
 
   enableParallelBuilding = true;
 

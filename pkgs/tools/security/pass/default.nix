@@ -41,7 +41,8 @@ assert waylandSupport -> wl-clipboard != null;
 assert dmenuSupport -> x11Support || waylandSupport;
 assert dmenuSupport && x11Support -> dmenu != null && xdotool != null;
 assert dmenuSupport && waylandSupport
-  -> dmenu-wayland != null && ydotool != null;
+  -> dmenu-wayland != null && ydotool != null
+;
 
 let
   passExtensions = import ./extensions { inherit pkgs; };
@@ -78,8 +79,7 @@ let
         wrapProgram $out/bin/pass \
           --set SYSTEM_EXTENSION_DIR "$out/lib/password-store/extensions"
       '';
-    }
-  ;
+    };
 in
 
 stdenv.mkDerivation rec {
@@ -143,8 +143,7 @@ stdenv.mkDerivation rec {
         xdotool
         dmenu
       ]
-    )
-  ;
+    );
 
   postFixup =
     ''

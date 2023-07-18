@@ -78,8 +78,7 @@ in
               bool
               (listOf str)
             ]
-          )
-        ;
+          );
         default = { };
         description = lib.mdDoc ''
           automysqlbackup configuration. Refer to
@@ -157,7 +156,6 @@ in
           ensurePermissions = {
             "*.*" = "SELECT, SHOW VIEW, TRIGGER, LOCK TABLES, EVENT";
           };
-        }
-    ;
+        };
   };
 }

@@ -20,8 +20,7 @@ import ./make-test-python.nix (
           xmlstarlet
           libxml2
         ];
-      }
-    ;
+      };
 
     testScript = ''
       engelsystem.start()

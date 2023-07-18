@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
             }
             .${system};
         in
-        "https://dl.photoprism.app/tensorflow/${systemName}/libtensorflow-${systemName}-${version}.tar.gz"
-      ;
+        "https://dl.photoprism.app/tensorflow/${systemName}/libtensorflow-${systemName}-${version}.tar.gz";
     })
     # Upstream tensorflow tarball (with .h's photoprism's tarball is missing)
     (fetchurl {
@@ -72,8 +71,7 @@ stdenv.mkDerivation rec {
       chmod -R +w lib
       patchelf --set-rpath "${rpath}:$out/lib" lib/libtensorflow.so
       patchelf --set-rpath "${rpath}" lib/libtensorflow_framework.so
-    ''
-  ;
+    '';
 
   buildPhase = ''
     # Write pkg-config file.

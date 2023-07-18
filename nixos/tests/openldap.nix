@@ -115,8 +115,7 @@ import ./make-test-python.nix (
                 declarativeContents."dc=example" = dbContents;
                 mutableConfig = true;
               };
-            }
-          ;
+            };
           manualConfigDir = {
             inheritParentConfig = false;
             configuration =
@@ -127,12 +126,10 @@ import ./make-test-python.nix (
                   enable = true;
                   configDir = "/var/db/slapd.d";
                 };
-              }
-            ;
+              };
           };
         };
-      }
-    ;
+      };
     testScript =
       { nodes, ... }:
       let
@@ -181,7 +178,6 @@ import ./make-test-python.nix (
             pkgs.writeText "rootpw.ldif" changeRootPw
           }')
           machine.succeed('ldapsearch -LLL -D "cn=root,dc=example" -w foobar')
-      ''
-    ;
+      '';
   }
 )

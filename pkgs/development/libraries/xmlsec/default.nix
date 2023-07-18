@@ -27,8 +27,7 @@ lib.fix (
 
     patches =
       [ ./lt_dladdsearchdir.patch ]
-      ++ lib.optionals stdenv.isDarwin [ ./remove_bsd_base64_decode_flag.patch ]
-    ;
+      ++ lib.optionals stdenv.isDarwin [ ./remove_bsd_base64_decode_flag.patch ];
     postPatch = ''
       substituteAllInPlace src/dl.c
     '';
@@ -105,8 +104,7 @@ lib.fix (
             ./crypto-test $crypto
           done
           touch $out
-        ''
-    ;
+        '';
 
     meta = with lib; {
       description = "XML Security Library in C based on libxml2";

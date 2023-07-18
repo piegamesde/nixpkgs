@@ -20,8 +20,7 @@ in
           inherit (tests) test-bash;
         };
       }
-      ./patch-rc-path-bash.sh
-  ;
+      ./patch-rc-path-bash.sh;
   patchRcPathCsh =
     makeSetupHook
       {
@@ -37,8 +36,7 @@ in
           inherit (tests) test-csh;
         };
       }
-      ./patch-rc-path-csh.sh
-  ;
+      ./patch-rc-path-csh.sh;
   patchRcPathFish =
     makeSetupHook
       {
@@ -51,8 +49,7 @@ in
           inherit (tests) test-fish;
         };
       }
-      ./patch-rc-path-fish.sh
-  ;
+      ./patch-rc-path-fish.sh;
   patchRcPathPosix =
     makeSetupHook
       {
@@ -68,6 +65,5 @@ in
           inherit (tests) test-posix;
         };
       }
-      ./patch-rc-path-posix.sh
-  ;
+      ./patch-rc-path-posix.sh;
 }

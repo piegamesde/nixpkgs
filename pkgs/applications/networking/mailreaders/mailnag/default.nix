@@ -75,8 +75,7 @@ python3Packages.buildPythonApplication rec {
       self.override {
         userPlugins = plugs;
         inherit pluginsDeps;
-      }
-    ;
+      };
   };
 
   # See https://nixos.org/nixpkgs/manual/#ssec-gnome-common-issues-double-wrapped

@@ -75,8 +75,7 @@ stdenv.mkDerivation (
       [ pkg-config ]
       ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
         buildPackages.ncurses
-      ]
-    ;
+      ];
 
     buildInputs = lib.optional (mouseSupport && stdenv.isLinux) gpm;
 
@@ -173,15 +172,13 @@ stdenv.mkDerivation (
         moveToOutput "bin/captoinfo" "$out"
         moveToOutput "bin/infotocap" "$out"
         moveToOutput "bin/infocmp" "$out"
-      ''
-    ;
+      '';
 
     preFixup =
       lib.optionalString (!stdenv.hostPlatform.isCygwin && !enableStatic)
         ''
           rm "$out"/lib/*.a
-        ''
-    ;
+        '';
 
     meta = with lib; {
       homepage = "https://www.gnu.org/software/ncurses/";
@@ -207,8 +204,7 @@ stdenv.mkDerivation (
             "panel"
           ] ++ lib.optional withCxx "ncurses++";
         in
-        base ++ lib.optionals unicodeSupport (map (p: p + "w") base)
-      ;
+        base ++ lib.optionals unicodeSupport (map (p: p + "w") base);
       platforms = platforms.all;
     };
 

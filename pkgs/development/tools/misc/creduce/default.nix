@@ -45,8 +45,7 @@ stdenv.mkDerivation rec {
         RegexpCommon
         TermReadKey
       ]
-    )
-  ;
+    );
 
   # On Linux, c-reduce's preferred way to reason about
   # the cpu architecture/topology is to use 'lscpu',

@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withSystemd [
       "--with-systemdsystemunitdir=${placeholder "out"}/lib/systemd/system"
       "--with-systemduserunitdir=${placeholder "out"}/lib/systemd/user"
-    ]
-  ;
+    ];
 
   # we could also pass --enable-completions to configure but we would then have to
   # figure out the paths manually and pass those along.

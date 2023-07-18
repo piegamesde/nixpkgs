@@ -78,8 +78,7 @@ stdenv.mkDerivation (
             # trivial test to see if the prefab path munging works
             mkdir $out/
             pl -prefab scat inlinedata="A 1 2" x=2 y=3 -png -o $out/out.png
-          ''
-      ;
+          '';
     };
 
     meta = with lib; {

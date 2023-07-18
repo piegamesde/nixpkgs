@@ -46,8 +46,7 @@ let
           ''
         ;
       }
-    )
-  ;
+    );
 
   patchNpmElm =
     pkg:
@@ -67,8 +66,7 @@ let
           ''
         ;
       }
-    )
-  ;
+    );
 in
 {
   inherit patchBinwrap patchNpmElm;

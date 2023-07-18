@@ -30,8 +30,7 @@ let
         jq '{production:del(.[]|nulls)|del(.[][]?|nulls)}' \
           < ${settingsFormat.generate "hedgedoc-ugly.json" cfg.settings} \
           > $out
-      ''
-  ;
+      '';
 in
 {
   imports = [
@@ -1069,8 +1068,7 @@ in
           <https://docs.hedgedoc.org/configuration/>
           for documentation.
         '';
-      }
-    ;
+      };
 
     environmentFile = mkOption {
       type = with types; nullOr path;

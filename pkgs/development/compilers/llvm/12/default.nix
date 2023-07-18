@@ -39,13 +39,11 @@ let
     fetchurl {
       url = "https://github.com/llvm/llvm-project/releases/download/llvmorg-${version}/${name}-${release_version}${candidate}.src.tar.xz";
       inherit sha256;
-    }
-  ;
+    };
 
   clang-tools-extra_src =
     fetch "clang-tools-extra"
-      "1r9a4fdz9ci58b5z2inwvm4z4cdp6scrivnaw05dggkxz7yrwrb5"
-  ;
+      "1r9a4fdz9ci58b5z2inwvm4z4cdp6scrivnaw05dggkxz7yrwrb5";
 
   llvm_meta = {
     license = lib.licenses.ncsa;
@@ -200,8 +198,7 @@ let
           ]
           ++ lib.optionals (!stdenv.targetPlatform.isWasm) [
             targetLlvmLibraries.libunwind
-          ]
-        ;
+          ];
         extraBuildCommands =
           ''
             echo "-rtlib=compiler-rt -Wno-unused-command-line-argument" >> $out/nix-support/cc-cflags

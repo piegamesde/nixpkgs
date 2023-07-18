@@ -16,8 +16,7 @@ let
         name = n + ".json";
         path = if isAttrs v then pkgs.writeText name (builtins.toJSON v) else v;
       })
-      cfg.specs
-  ;
+      cfg.specs;
 
   allSpecs = pkgs.linkFarm "certmgr.d" specs;
 
@@ -71,8 +70,7 @@ in
       type = types.str;
       description =
         lib.mdDoc
-          "The interval before a certificate expires to start attempting to renew it."
-      ;
+          "The interval before a certificate expires to start attempting to renew it.";
     };
 
     renewInterval = mkOption {
@@ -80,8 +78,7 @@ in
       type = types.str;
       description =
         lib.mdDoc
-          "How often to check certificate expirations and how often to update the cert_next_expires metric."
-      ;
+          "How often to check certificate expirations and how often to update the cert_next_expires metric.";
     };
 
     metricsAddress = mkOption {
@@ -146,8 +143,7 @@ in
                   default = null;
                   description =
                     lib.mdDoc
-                      "The service on which to perform <action> after fetching."
-                  ;
+                      "The service on which to perform <action> after fetching.";
                 };
 
                 action = mkOption {
@@ -187,8 +183,7 @@ in
               };
             }
           )
-        )
-      ;
+        );
       description = lib.mdDoc ''
         Certificate specs as described by:
         <https://github.com/cloudflare/certmgr#certificate-specs>
@@ -228,8 +223,7 @@ in
               "authority"
               "auth_key"
             ])
-            (attrValues cfg.specs)
-        ;
+            (attrValues cfg.specs);
         message = ''
           Inline services.certmgr.specs are added to the Nix store rendering them world readable.
           Specify paths as specs, if you want to use include auth_key - or use the auth_key_file option."

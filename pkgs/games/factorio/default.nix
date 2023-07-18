@@ -32,7 +32,8 @@
 
 assert releaseType == "alpha"
   || releaseType == "headless"
-  || releaseType == "demo";
+  || releaseType == "demo"
+;
 
 let
 
@@ -105,8 +106,7 @@ let
           throw "expected attrset at ${toString path} - got ${toString value}"
       ;
     in
-    builtins.mapAttrs (f [ ]) versions
-  ;
+    builtins.mapAttrs (f [ ]) versions;
   makeBinDist =
     {
       name,
@@ -158,8 +158,7 @@ let
             )
           )
       ;
-    }
-  ;
+    };
 
   configBaseCfg = ''
     use-system-read-write-data-directories=false

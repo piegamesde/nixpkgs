@@ -19,8 +19,7 @@ let
         dir = "bin";
         isExecutable = true;
       }
-    )
-  ;
+    );
 
   nixos-build-vms = makeProg {
     name = "nixos-build-vms";

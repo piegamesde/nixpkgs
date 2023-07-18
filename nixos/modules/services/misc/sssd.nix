@@ -13,8 +13,7 @@ let
   settingsFile = "${dataDir}/sssd.conf";
   settingsFileUnsubstituted =
     pkgs.writeText "${dataDir}/sssd-unsubstituted.conf"
-      cfg.config
-  ;
+      cfg.config;
 in
 {
   options = {

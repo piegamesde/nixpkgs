@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
       [
         # Needed with GCC 12
         "-Wno-error=array-bounds"
-      ]
-  ;
+      ];
 
   installPhase = ''
     mkdir -p $out/share/wimboot/

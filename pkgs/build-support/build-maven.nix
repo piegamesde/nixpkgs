@@ -110,8 +110,7 @@ in
           (toString path) != (toString (src + "/target"))
           && (toString path) != (toString (src + "/.git"))
         )
-        src
-    ;
+        src;
 
     buildInputs = [ maven ];
 

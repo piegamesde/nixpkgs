@@ -72,8 +72,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withIntrospection [
       gobject-introspection
       gi-docgen
-    ]
-  ;
+    ];
 
   buildInputs =
     [
@@ -87,8 +86,7 @@ stdenv.mkDerivation rec {
       ApplicationServices
       Foundation
       libobjc
-    ]
-  ;
+    ];
 
   propagatedBuildInputs = [
     glib
@@ -169,8 +167,7 @@ stdenv.mkDerivation rec {
           lib.getLib gdk-pixbuf
         }/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache $GDK_PIXBUF/loaders.cache > $GDK_PIXBUF/loaders.cache.tmp
         mv $GDK_PIXBUF/loaders.cache.tmp $GDK_PIXBUF/loaders.cache
-      ''
-  ;
+      '';
 
   postFixup = lib.optionalString withIntrospection ''
     # Cannot be in postInstall, otherwise _multioutDocs hook in preFixup will move right back.
@@ -213,8 +210,7 @@ stdenv.mkDerivation rec {
       _experimental-update-script-combinators.sequence [
         updateSource
         updateLockfile
-      ]
-    ;
+      ];
   };
 
   meta = with lib; {

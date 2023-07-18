@@ -107,8 +107,7 @@ let
       }
 
       exit($mainRes & 127 ? 255 : $mainRes << 8);
-    ''
-  ;
+    '';
 
   opts =
     { config, name, ... }:
@@ -122,8 +121,7 @@ let
         '';
       };
       config.runner = makeScript name config;
-    }
-  ;
+    };
 in
 
 {

@@ -46,16 +46,14 @@ stdenv.mkDerivation (
 
           # For some reason Meson uses QMake instead of pkg-config detection method for Qt6 on Darwin, which gives wrong search paths for tools
           export PATH=${qtbase.dev}/libexec:$PATH
-        ''
-    ;
+        '';
 
     mesonFlags =
       lib.optionals (withGUI && lib.versionAtLeast qtbase.version "6.0")
         [
           # Qt6 requires at least C++17, project uses compiler's default, default too old on Darwin & aarch64-linux
           "-Dcpp_std=c++17"
-        ]
-    ;
+        ];
 
     nativeBuildInputs = [
       meson

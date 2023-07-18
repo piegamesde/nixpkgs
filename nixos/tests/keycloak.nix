@@ -51,8 +51,7 @@ let
               html-tidy
               jq
             ];
-          }
-        ;
+          };
       };
 
       testScript =
@@ -176,8 +175,7 @@ let
           keycloak.succeed(
               "curl -sSf -H @auth_header '${frontendUrl}/realms/${realm.realm}/protocol/openid-connect/userinfo' | jq -f ${jqCheckUserinfo}"
           )
-        ''
-      ;
+        '';
     }
   );
 in

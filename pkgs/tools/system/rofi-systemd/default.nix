@@ -40,8 +40,7 @@ stdenv.mkDerivation rec {
       rofi
       systemd
       util-linux
-    ]
-  ;
+    ];
 
   fixupPhase = ''
     patchShebangs $out/bin

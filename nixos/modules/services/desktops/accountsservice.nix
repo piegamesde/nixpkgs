@@ -58,7 +58,6 @@ with lib;
           optionalAttrs (!config.users.mutableUsers) {
             environment.NIXOS_USERS_PURE = "true";
           }
-        )
-    ;
+        );
   };
 }

@@ -34,8 +34,7 @@ let
             meta.platforms = lib.platforms.darwin;
           }
         )
-        count
-    ;
+        count;
 
     finalExe = stdenv.mkDerivation {
       name = "${prefix}-final-asdf";

@@ -16,8 +16,7 @@ import ./make-test-python.nix (
       }:
       {
         services.rstudio-server.enable = true;
-      }
-    ;
+      };
 
     nodes.customPackageMachine =
       {
@@ -33,8 +32,7 @@ import ./make-test-python.nix (
             packages = [ pkgs.rPackages.ggplot2 ];
           };
         };
-      }
-    ;
+      };
 
     testScript = ''
       machine.wait_for_unit("rstudio-server.service")

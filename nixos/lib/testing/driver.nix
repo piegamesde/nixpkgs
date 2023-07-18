@@ -41,8 +41,7 @@ let
   # beyond RFC1035
   invalidNodeNames =
     lib.filter (node: builtins.match "^[A-z_]([A-z0-9_]+)?$" node == null)
-      nodeHostNames
-  ;
+      nodeHostNames;
 
   uniqueVlans = lib.unique (builtins.concatLists vlans);
   vlanNames = map (i: "vlan${toString i}: VLan;") uniqueVlans;
@@ -68,8 +67,7 @@ let
         # inherit testName; TODO (roberth): need this?
         nativeBuildInputs =
           [ hostPkgs.makeWrapper ]
-          ++ lib.optionals (!config.skipTypeCheck) [ hostPkgs.mypy ]
-        ;
+          ++ lib.optionals (!config.skipTypeCheck) [ hostPkgs.mypy ];
         buildInputs = [ testDriver ];
         testScript = config.testScriptString;
         preferLocalBuild = true;
@@ -126,8 +124,7 @@ let
                 config.extraDriverArgs
             )
           }
-      ''
-  ;
+      '';
 in
 {
   options = {
@@ -149,8 +146,7 @@ in
     qemu.package = mkOption {
       description =
         mdDoc
-          "Which qemu package to use for the virtualisation of [{option}`nodes`](#test-opt-nodes)."
-      ;
+          "Which qemu package to use for the virtualisation of [{option}`nodes`](#test-opt-nodes).";
       type = types.package;
       default = hostPkgs.qemu_test;
       defaultText = "hostPkgs.qemu_test";

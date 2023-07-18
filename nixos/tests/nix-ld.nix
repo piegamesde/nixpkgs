@@ -12,8 +12,7 @@ import ./make-test-python.nix (
             patchelf $out/bin/hello --set-interpreter $(cat ${pkgs.nix-ld}/nix-support/ldpath)
           '')
         ];
-      }
-    ;
+      };
     testScript = ''
       start_all()
       machine.succeed("hello")

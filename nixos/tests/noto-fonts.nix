@@ -56,7 +56,6 @@ import ./make-test-python.nix (
         machine.wait_for_window(".* - gedit")
         machine.sleep(10)
         machine.screenshot("screen")
-      ''
-    ;
+      '';
   }
 )

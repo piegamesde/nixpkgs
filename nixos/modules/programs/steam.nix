@@ -22,8 +22,7 @@ let
       gamescope --steam ${
         toString cfg.gamescopeSession.args
       } -- steam -tenfoot -pipewire-dmabuf
-    ''
-  ;
+    '';
 
   gamescopeSessionFile =
     (pkgs.writeTextDir "share/wayland-sessions/steam.desktop" ''
@@ -33,8 +32,7 @@ let
       Exec=${steam-gamescope}/bin/steam-gamescope
       Type=Application
     '').overrideAttrs
-      (_: { passthru.providedSessions = [ "steam" ]; })
-  ;
+      (_: { passthru.providedSessions = [ "steam" ]; });
 in
 {
   options.programs.steam = {
@@ -73,8 +71,7 @@ in
                     [ package32 ] ++ extraPackages32
                 ;
               in
-              prevLibs ++ additionalLibs
-            ;
+              prevLibs ++ additionalLibs;
           }
           // optionalAttrs (cfg.gamescopeSession.enable && gamescopeCfg.capSysNice) {
             buildFHSEnv = pkgs.buildFHSEnv.override {
@@ -82,8 +79,7 @@ in
               bubblewrap = "${config.security.wrapperDir}/..";
             };
           }
-        )
-      ;
+        );
       description = lib.mdDoc ''
         The Steam package to use. Additional libraries are added from the system
         configuration to ensure graphics work properly.
@@ -112,8 +108,7 @@ in
     gamescopeSession = mkOption {
       description =
         mdDoc
-          "Run a GameScope driven Steam session from your display-manager"
-      ;
+          "Run a GameScope driven Steam session from your display-manager";
       default = { };
       type = types.submodule {
         options = {
@@ -156,14 +151,12 @@ in
             source = "${pkgs.bubblewrap}/bin/bwrap";
             setuid = true;
           };
-        }
-    ;
+        };
 
     programs.gamescope.enable = mkDefault cfg.gamescopeSession.enable;
     services.xserver.displayManager.sessionPackages =
       mkIf cfg.gamescopeSession.enable
-        [ gamescopeSessionFile ]
-    ;
+        [ gamescopeSessionFile ];
 
     # optionally enable 32bit pulseaudio support if pulseaudio is enabled
     hardware.pulseaudio.support32Bit = config.hardware.pulseaudio.enable;

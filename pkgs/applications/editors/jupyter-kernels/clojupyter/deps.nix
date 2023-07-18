@@ -27,8 +27,7 @@ rec {
     {
       extraClasspaths ? [ ],
     }:
-    builtins.concatStringsSep ":" (makePaths { inherit extraClasspaths; })
-  ;
+    builtins.concatStringsSep ":" (makePaths { inherit extraClasspaths; });
 
   packages = [
     {

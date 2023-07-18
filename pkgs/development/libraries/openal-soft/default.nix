@@ -70,8 +70,7 @@ stdenv.mkDerivation rec {
       [
         # https://github.com/NixOS/nixpkgs/issues/183774
         "-DOSS_INCLUDE_DIR=${stdenv.cc.libc}/include"
-      ]
-  ;
+      ];
 
   postInstall = lib.optional pipewireSupport ''
     remove-references-to -t ${pipewire.dev} $(readlink -f $out/lib/*.so)

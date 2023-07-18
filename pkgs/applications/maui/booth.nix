@@ -40,8 +40,7 @@ mkDerivation {
         gst-plugins-good
         gstreamer
       ]
-    )
-  ;
+    );
 
   preFixup = ''
     qtWrapperArgs+=(

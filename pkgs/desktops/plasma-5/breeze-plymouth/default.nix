@@ -43,8 +43,7 @@ mkDerivation {
       imagemagick
       netpbm
       perl
-    ]
-  ;
+    ];
   buildInputs = [ plymouth ];
   patches = [ ./install-paths.patch ];
   cmakeFlags =

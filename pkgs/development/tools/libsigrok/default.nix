@@ -48,8 +48,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isLinux [
       libieee1284
       bluez
-    ]
-  ;
+    ];
 
   strictDeps = true;
 

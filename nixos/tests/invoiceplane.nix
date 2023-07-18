@@ -28,8 +28,7 @@ import ./make-test-python.nix (
             "site1.local"
             "site2.local"
           ];
-        }
-      ;
+        };
     };
 
     testScript = ''

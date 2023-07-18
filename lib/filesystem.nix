@@ -25,17 +25,14 @@ in
             name = file;
             value = root + "/${file}";
           })
-          root-files
-      ;
+          root-files;
       # Subdirectories of the root with a cabal file.
       cabal-subdirs =
         builtins.filter
           ({ name, value }: builtins.pathExists (value + "/${name}.cabal"))
-          root-files-with-paths
-      ;
+          root-files-with-paths;
     in
-    builtins.listToAttrs cabal-subdirs
-  ;
+    builtins.listToAttrs cabal-subdirs;
   /* Find the first directory containing a file matching 'pattern'
      upward from a given 'file'.
      Returns 'null' if no directories contain a file matching 'pattern'.
@@ -69,11 +66,9 @@ in
           base = baseNameOf file;
           type = (builtins.readDir parent).${base} or null;
         in
-        file == /. || type == "directory"
-      ;
+        file == /. || type == "directory";
     in
-    go (if isDir then file else parent)
-  ;
+    go (if isDir then file else parent);
 
   /* Given a directory, return a flattened list of all files within it recursively.
 
@@ -92,6 +87,5 @@ in
             dir + "/${name}"
         )
         (builtins.readDir dir)
-    )
-  ;
+    );
 }

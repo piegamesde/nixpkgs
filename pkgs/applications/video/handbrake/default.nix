@@ -207,8 +207,7 @@ let
       ++ optionals useGtk [
         intltool
         wrapGAppsHook
-      ]
-    ;
+      ];
 
     buildInputs =
       [
@@ -302,8 +301,7 @@ let
             test -e test.mp4
             HandBrakeCLI -i ${testMkv} -o test.mkv -e x264 -q 20 -B 160
             test -e test.mkv
-          ''
-      ;
+          '';
       version = testers.testVersion {
         package = self;
         command = "HandBrakeCLI --version";
@@ -328,7 +326,8 @@ let
       ];
       platforms = with platforms; unix;
       broken =
-        stdenv.isDarwin && lib.versionOlder stdenv.hostPlatform.darwinMinVersion "10.13"
+        stdenv.isDarwin
+        && lib.versionOlder stdenv.hostPlatform.darwinMinVersion "10.13"
       ;
     };
   };

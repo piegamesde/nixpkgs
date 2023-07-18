@@ -19,8 +19,7 @@ let
         ln -s /run/wrappers/bin/perf.plugin $out/libexec/netdata/plugins.d/perf.plugin
         ln -s /run/wrappers/bin/slabinfo.plugin $out/libexec/netdata/plugins.d/slabinfo.plugin
         ln -s /run/wrappers/bin/freeipmi.plugin $out/libexec/netdata/plugins.d/freeipmi.plugin
-      ''
-  ;
+      '';
 
   plugins = [
     "${cfg.package}/libexec/netdata/plugins.d"
@@ -88,8 +87,7 @@ in
         type = types.nullOr types.lines;
         description =
           lib.mdDoc
-            "Verbatim netdata.conf, cannot be combined with config."
-        ;
+            "Verbatim netdata.conf, cannot be combined with config.";
         default = null;
         example = ''
           [global]
@@ -148,8 +146,7 @@ in
         default = { };
         description =
           lib.mdDoc
-            "netdata.conf configuration as nix attributes. cannot be combined with configText."
-        ;
+            "netdata.conf configuration as nix attributes. cannot be combined with configText.";
         example = literalExpression ''
           global = {
             "debug log" = "syslog";
@@ -325,8 +322,7 @@ in
           group = cfg.group;
           permissions = "u+rx,g+x,o-rwx";
         };
-      }
-    ;
+      };
 
     security.pam.loginLimits = [
       {

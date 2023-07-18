@@ -41,8 +41,7 @@ import ./make-test-python.nix {
             '';
           };
         };
-      }
-    ;
+      };
     client =
       { ... }:
       {
@@ -55,8 +54,7 @@ import ./make-test-python.nix {
           source = ./initrd-network-ssh/id_ed25519; # dont use this anywhere else
           mode = "0600";
         };
-      }
-    ;
+      };
   };
 
   testScript = ''

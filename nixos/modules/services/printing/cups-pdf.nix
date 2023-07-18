@@ -49,8 +49,7 @@ let
           path
           package
         ]
-      )
-    ;
+      );
     # override defaults:
     # inject instance name into paths,
     # also avoid conflicts between user names and special dirs
@@ -113,8 +112,7 @@ let
           ))
           // {
             default = true;
-          }
-        ;
+          };
         confFileText = lib.mkOption {
           type = lib.types.lines;
           description = lib.mdDoc ''
@@ -146,8 +144,7 @@ let
         ))
         lib.concatStrings
       ];
-    }
-  ;
+    };
 
   cupsPdfCfg = config.services.printing.cups-pdf;
 

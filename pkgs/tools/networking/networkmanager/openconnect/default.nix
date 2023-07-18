@@ -54,8 +54,7 @@ stdenv.mkDerivation rec {
       gtk4
       gcr
       libsecret
-    ]
-  ;
+    ];
 
   nativeBuildInputs = [
     intltool

@@ -57,8 +57,7 @@ stdenv.mkDerivation rec {
         DevelChecklib
         locallib
       ]
-    )
-  ;
+    );
 
   desktopItem = makeDesktopItem {
     name = "slic3r";
@@ -82,8 +81,7 @@ stdenv.mkDerivation rec {
   # this patch can be probably be removed in the next version after 1.3.0
   patches =
     lib.optional (lib.versionAtLeast boost.version "1.56.0")
-      ./boost-compile-error.patch
-  ;
+      ./boost-compile-error.patch;
 
   buildPhase = ''
     export SLIC3R_NO_AUTO=true

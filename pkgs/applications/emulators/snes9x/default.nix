@@ -49,8 +49,7 @@ stdenv.mkDerivation rec {
       cmake
       ninja
       wrapGAppsHook
-    ]
-  ;
+    ];
 
   buildInputs =
     [
@@ -129,6 +128,5 @@ stdenv.mkDerivation rec {
       ];
       platforms = platforms.unix;
       broken = (withGtk && stdenv.isDarwin);
-    }
-  ;
+    };
 }

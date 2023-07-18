@@ -129,8 +129,7 @@ in
     populateFirmwareCommands = mkOption {
       example =
         literalExpression
-          "'' cp \${pkgs.myBootLoader}/u-boot.bin firmware/ ''"
-      ;
+          "'' cp \${pkgs.myBootLoader}/u-boot.bin firmware/ ''";
       description = lib.mdDoc ''
         Shell commands to populate the ./firmware directory.
         All files in that directory are copied to the
@@ -141,8 +140,7 @@ in
     populateRootCommands = mkOption {
       example =
         literalExpression
-          "''\${config.boot.loader.generic-extlinux-compatible.populateCmd} -c \${config.system.build.toplevel} -d ./files/boot''"
-      ;
+          "''\${config.boot.loader.generic-extlinux-compatible.populateCmd} -c \${config.system.build.toplevel} -d ./files/boot''";
       description = lib.mdDoc ''
         Shell commands to populate the ./files directory.
         All files in that directory are copied to the
@@ -154,8 +152,7 @@ in
     postBuildCommands = mkOption {
       example =
         literalExpression
-          "'' dd if=\${pkgs.myBootLoader}/SPL of=$img bs=1024 seek=1 conv=notrunc ''"
-      ;
+          "'' dd if=\${pkgs.myBootLoader}/SPL of=$img bs=1024 seek=1 conv=notrunc ''";
       default = "";
       description = lib.mdDoc ''
         Shell commands to run after the image is built.
@@ -305,8 +302,7 @@ in
             '';
           }
         )
-        { }
-    ;
+        { };
 
     boot.postBootCommands = lib.mkIf config.sdImage.expandOnBoot ''
       # On the first boot do some maintenance tasks

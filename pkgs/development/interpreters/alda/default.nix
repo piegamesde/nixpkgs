@@ -34,8 +34,7 @@ stdenv.mkDerivation rec {
 
       wrapProgram $out/bin/alda --prefix PATH : $out/bin:${binPath}
       wrapProgram $out/bin/alda-player --prefix PATH : $out/bin:${binPath}
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "A music programming language for musicians";

@@ -57,12 +57,10 @@
           patch = fetchurl (lib.filterAttrs (k: v: k != "extra") src);
           extra = src.extra;
           inherit version sha256;
-        }
-      ;
+        };
       patches = lib.importJSON ./hardened/patches.json;
     in
-    lib.mapAttrs mkPatch patches
-  ;
+    lib.mapAttrs mkPatch patches;
 
   # Adapted for Linux 5.4 from:
   # https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=04896832c94aae4842100cafb8d3a73e1bed3a45

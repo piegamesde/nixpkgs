@@ -43,8 +43,7 @@ buildGoModule rec {
     ++ lib.optionals (CGO_ENABLED == 1) [
       "-extldflags=-static"
       "-linkmode external"
-    ]
-  ;
+    ];
 
   tags =
     [
@@ -60,8 +59,7 @@ buildGoModule rec {
       "no_devmapper"
       "osusergo"
       "static_build"
-    ]
-  ;
+    ];
 
   preCheck =
     ''

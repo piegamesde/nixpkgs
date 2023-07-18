@@ -46,8 +46,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
-    ]
-  ;
+    ];
 
   prePatch = ''
     substituteInPlace ./Makefile \

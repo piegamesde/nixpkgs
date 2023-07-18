@@ -145,8 +145,7 @@ stdenv.mkDerivation rec {
       # to build bundled libdispatch
       clang
       extra-cmake-modules
-    ]
-  ;
+    ];
 
   buildInputs =
     [

@@ -39,8 +39,7 @@ stdenv.mkDerivation rec {
       (ynf "USE_AESNI" aesniSupport)
       (ynf "USE_AVX" avxSupport)
       (ynf "USE_UPNP" upnpSupport)
-    ]
-  ;
+    ];
 
   enableParallelBuilding = true;
 

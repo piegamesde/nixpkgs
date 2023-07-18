@@ -31,8 +31,7 @@ in
       default = null;
       description =
         lib.mdDoc
-          "CPU family of motherboard. Allows for addition motherboard i2c support."
-      ;
+          "CPU family of motherboard. Allows for addition motherboard i2c support.";
     };
 
     server.port = mkOption {

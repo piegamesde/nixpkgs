@@ -268,8 +268,7 @@ stdenv.mkDerivation rec {
       echo $src >> "$out/share/workspace_dependencies.pin"
 
       runHook postInstall
-    ''
-  ;
+    '';
 
   # Make sure that `autoPatchelfHook` is executed before
   # running `ctx_rehash`.

@@ -25,13 +25,11 @@ import ./make-test-python.nix (
               f = QRawFont.fromFont(QFont("Noto Sans CJK SC", 20))
 
               assert f.styleName() == "Regular", f.styleName()
-            ''
-        ;
+            '';
       in
       ''
         machine.wait_for_x()
         machine.succeed("${script}")
-      ''
-    ;
+      '';
   }
 )

@@ -25,8 +25,7 @@ in
         )
         // {
           default = true;
-        }
-      ;
+        };
 
       settings = mkOption {
         type = settingsFormat.type;

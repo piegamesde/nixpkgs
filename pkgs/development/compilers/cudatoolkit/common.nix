@@ -347,8 +347,7 @@ backendStdenv.mkDerivation rec {
         esac
       done
       popd
-    ''
-  ;
+    '';
   passthru = {
     inherit (backendStdenv) cc;
     majorMinorVersion = lib.versions.majorMinor version;

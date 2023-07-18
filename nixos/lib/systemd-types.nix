@@ -21,8 +21,7 @@ rec {
           };
         }
       )
-    )
-  ;
+    );
 
   services =
     with types;
@@ -32,8 +31,7 @@ rec {
         unitConfig
         stage2ServiceConfig
       ]
-    )
-  ;
+    );
   initrdServices =
     with types;
     attrsOf (
@@ -42,8 +40,7 @@ rec {
         unitConfig
         stage1ServiceConfig
       ]
-    )
-  ;
+    );
 
   targets =
     with types;
@@ -52,8 +49,7 @@ rec {
         stage2CommonUnitOptions
         unitConfig
       ]
-    )
-  ;
+    );
   initrdTargets =
     with types;
     attrsOf (
@@ -61,8 +57,7 @@ rec {
         stage1CommonUnitOptions
         unitConfig
       ]
-    )
-  ;
+    );
 
   sockets =
     with types;
@@ -71,8 +66,7 @@ rec {
         stage2SocketOptions
         unitConfig
       ]
-    )
-  ;
+    );
   initrdSockets =
     with types;
     attrsOf (
@@ -80,8 +74,7 @@ rec {
         stage1SocketOptions
         unitConfig
       ]
-    )
-  ;
+    );
 
   timers =
     with types;
@@ -90,8 +83,7 @@ rec {
         stage2TimerOptions
         unitConfig
       ]
-    )
-  ;
+    );
   initrdTimers =
     with types;
     attrsOf (
@@ -99,8 +91,7 @@ rec {
         stage1TimerOptions
         unitConfig
       ]
-    )
-  ;
+    );
 
   paths =
     with types;
@@ -109,8 +100,7 @@ rec {
         stage2PathOptions
         unitConfig
       ]
-    )
-  ;
+    );
   initrdPaths =
     with types;
     attrsOf (
@@ -118,8 +108,7 @@ rec {
         stage1PathOptions
         unitConfig
       ]
-    )
-  ;
+    );
 
   slices =
     with types;
@@ -128,8 +117,7 @@ rec {
         stage2SliceOptions
         unitConfig
       ]
-    )
-  ;
+    );
   initrdSlices =
     with types;
     attrsOf (
@@ -137,8 +125,7 @@ rec {
         stage1SliceOptions
         unitConfig
       ]
-    )
-  ;
+    );
 
   mounts =
     with types;
@@ -148,8 +135,7 @@ rec {
         unitConfig
         mountConfig
       ]
-    )
-  ;
+    );
   initrdMounts =
     with types;
     listOf (
@@ -158,8 +144,7 @@ rec {
         unitConfig
         mountConfig
       ]
-    )
-  ;
+    );
 
   automounts =
     with types;
@@ -169,8 +154,7 @@ rec {
         unitConfig
         automountConfig
       ]
-    )
-  ;
+    );
   initrdAutomounts =
     with types;
     attrsOf (
@@ -179,8 +163,7 @@ rec {
         unitConfig
         automountConfig
       ]
-    )
-  ;
+    );
 
   initrdContents = types.attrsOf (
     types.submodule (
@@ -196,8 +179,7 @@ rec {
             mkEnableOption (lib.mdDoc "copying of this file and symlinking it")
             // {
               default = true;
-            }
-          ;
+            };
 
           target = mkOption {
             type = types.path;

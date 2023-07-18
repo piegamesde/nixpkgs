@@ -145,7 +145,8 @@ in
                   include "${cfg.rulesetFile}"
                 ''
               else
-                cfg.ruleset}
+                cfg.ruleset
+              }
             '';
             checkPhase = lib.optionalString cfg.checkRuleset ''
               cp $out ruleset.conf
@@ -162,8 +163,7 @@ in
           ExecStart = rulesScript;
           ExecReload = rulesScript;
           ExecStop = "${pkgs.nftables}/bin/nft flush ruleset";
-        }
-      ;
+        };
     };
   };
 }

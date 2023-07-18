@@ -23,8 +23,7 @@ let
         inherit nagiosObjectDefs;
         preferLocalBuild = true;
       }
-      "mkdir -p $out; ln -s $nagiosObjectDefs $out/"
-  ;
+      "mkdir -p $out; ln -s $nagiosObjectDefs $out/";
 
   nagiosCfgFile =
     let
@@ -61,8 +60,7 @@ let
       '';
       defaultCfgFile = if cfg.validateConfig then validated else file;
     in
-    if cfg.mainConfigFile == null then defaultCfgFile else cfg.mainConfigFile
-  ;
+    if cfg.mainConfigFile == null then defaultCfgFile else cfg.mainConfigFile;
 
   # Plain configuration for the Nagios web-interface with no
   # authentication.
@@ -128,8 +126,7 @@ in
         ];
         defaultText =
           literalExpression
-            "[pkgs.monitoring-plugins pkgs.msmtp pkgs.mailutils]"
-        ;
+            "[pkgs.monitoring-plugins pkgs.msmtp pkgs.mailutils]";
         description = lib.mdDoc ''
           Packages to be added to the Nagios {env}`PATH`.
           Typically used to add plugins, but can be anything.
@@ -159,12 +156,10 @@ in
         default = pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform;
         defaultText =
           literalExpression
-            "pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform"
-        ;
+            "pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform";
         description =
           lib.mdDoc
-            "if true, the syntax of the nagios configuration file is checked at build time"
-        ;
+            "if true, the syntax of the nagios configuration file is checked at build time";
       };
 
       cgiConfigFile = mkOption {

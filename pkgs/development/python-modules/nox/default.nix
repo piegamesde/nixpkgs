@@ -52,8 +52,7 @@ buildPythonPackage rec {
     ++ lib.optionals (pythonOlder "3.8") [
       typing-extensions
       importlib-metadata
-    ]
-  ;
+    ];
 
   checkInputs = [
     jinja2

@@ -268,8 +268,7 @@ in
               plocate
             ]
           ));
-      }
-    ;
+      };
 
     nixpkgs.config = {
       locate.dbfile = cfg.output;
@@ -314,8 +313,7 @@ in
             toFlags =
               x:
               optional (cfg.${x} != [ ])
-                "--${lib.toLower x} '${concatStringsSep " " cfg.${x}}'"
-            ;
+                "--${lib.toLower x} '${concatStringsSep " " cfg.${x}}'";
             args = concatLists (
               map toFlags [
                 "pruneFS"

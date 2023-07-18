@@ -13,8 +13,7 @@ import ./make-test-python.nix (
           enable = true;
           port = 3000;
         };
-      }
-    ;
+      };
 
     testScript = ''
       machine.start()

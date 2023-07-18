@@ -104,7 +104,6 @@ in
                | .disks.root.file = $root
                ' > $out/nix-support/image-info.json
           '';
-        }
-    ;
+        };
   };
 }

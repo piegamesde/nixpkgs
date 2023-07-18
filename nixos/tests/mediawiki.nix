@@ -11,8 +11,7 @@ let
     services.mediawiki.httpd.virtualHost.adminAddr = "root@example.com";
     services.mediawiki.passwordFile =
       pkgs.writeText "password"
-        "correcthorsebatterystaple"
-    ;
+        "correcthorsebatterystaple";
     services.mediawiki.extensions = {
       Matomo = pkgs.fetchzip {
         url = "https://github.com/DaSchTour/matomo-mediawiki-extension/archive/v4.0.1.tar.gz";
@@ -77,7 +76,6 @@ in
         );
         page = machine.succeed(f"{' '.join(env)} ${pkgs.fcgi}/bin/cgi-fcgi -bind -connect ${nodes.machine.services.phpfpm.pools.mediawiki.socket}")
         assert "MediaWiki has been installed" in page, f"no 'MediaWiki has been installed' in:\n{page}"
-      ''
-    ;
+      '';
   };
 }

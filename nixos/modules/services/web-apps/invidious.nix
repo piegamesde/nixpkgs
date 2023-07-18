@@ -35,16 +35,14 @@ let
           ;
           jqFiles =
             [ settingsFile ]
-            ++ lib.optional (cfg.extraSettingsFile != null) cfg.extraSettingsFile
-          ;
+            ++ lib.optional (cfg.extraSettingsFile != null) cfg.extraSettingsFile;
         in
         ''
           export INVIDIOUS_CONFIG="$(${pkgs.jq}/bin/jq -s "${jqFilter}" ${
             lib.escapeShellArgs jqFiles
           })"
           exec ${cfg.package}/bin/invidious
-        ''
-      ;
+        '';
 
       serviceConfig = {
         RestartSec = "2s";

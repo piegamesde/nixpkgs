@@ -60,8 +60,7 @@ let
         homepage = "https://github.com/liberationfonts";
         maintainers = with maintainers; [ raskin ];
       };
-    }
-  ;
+    };
 in
 {
   liberation_ttf_v1 = common {

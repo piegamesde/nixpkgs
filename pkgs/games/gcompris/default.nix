@@ -59,8 +59,7 @@ stdenv.mkDerivation rec {
         gst-plugins-good
         gst-plugins-bad
       ]
-    )
-  ;
+    );
 
   postInstall = ''
     install -Dm444 ../org.kde.gcompris.desktop     -t $out/share/applications

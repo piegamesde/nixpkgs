@@ -30,8 +30,7 @@ import ./make-test-python.nix (
 
           services.dnsmasq.enable = true;
           services.dnsmasq.settings.server = [ "127.0.0.1#${toString localProxyPort}" ];
-        }
-      ;
+        };
     };
 
     testScript = ''

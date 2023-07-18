@@ -63,8 +63,7 @@ buildPythonPackage rec {
     ]
     ++ lib.optionals stdenv.isAarch64 [
       "test_ecos_bb_mi_lp_2" # https://github.com/cvxgrp/cvxpy/issues/1241#issuecomment-780912155
-    ]
-  ;
+    ];
 
   pythonImportsCheck = [ "cvxpy" ];
 

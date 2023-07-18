@@ -30,8 +30,7 @@ let
         default = false;
         description =
           lib.mdDoc
-            "Whether the indexation must take place recursively or not."
-        ;
+            "Whether the indexation must take place recursively or not.";
       };
       hidden-files = mkOption {
         type = types.bool;
@@ -396,12 +395,10 @@ in
       binaryCommand = "${pkg}/bin/${name}";
       interfaceFlag =
         optionalString (cfg.interface != "")
-          "--interface ${cfg.interface}"
-      ;
+          "--interface ${cfg.interface}";
       configFlag =
         optionalString (!cfg.customCfg)
-          "--config ${pkgs.writeText "config.xml" configText}"
-      ;
+          "--config ${pkgs.writeText "config.xml" configText}";
     in
     mkIf cfg.enable {
       systemd.services.mediatomb = {
@@ -441,6 +438,5 @@ in
         })
         (mkIf (cfg.openFirewall && cfg.interface == "") defaultFirewallRules)
       ];
-    }
-  ;
+    };
 }

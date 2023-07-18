@@ -98,8 +98,7 @@ in
         Group = cfg.group;
         LoadCredential =
           lib.mkIf (cfg.passwordFile != null)
-            "password:${cfg.passwordFile}"
-        ;
+            "password:${cfg.passwordFile}";
       };
 
       script = ''

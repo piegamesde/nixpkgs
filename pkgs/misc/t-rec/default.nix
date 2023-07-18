@@ -33,8 +33,7 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optionals stdenv.isDarwin [
       libiconv
       Foundation
-    ]
-  ;
+    ];
 
   postInstall = ''
     wrapProgram "$out/bin/t-rec" --prefix PATH : "${binPath}"

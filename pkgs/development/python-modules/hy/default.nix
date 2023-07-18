@@ -30,8 +30,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs =
     [ funcparserlib ]
-    ++ lib.optionals (pythonOlder "3.9") [ astor ]
-  ;
+    ++ lib.optionals (pythonOlder "3.9") [ astor ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -64,8 +63,7 @@ buildPythonPackage rec {
             mainProgram = "hy";
           };
         }
-      )
-    ;
+      );
   };
 
   meta = with lib; {

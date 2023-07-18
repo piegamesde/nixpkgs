@@ -34,7 +34,10 @@ let
     port = toString cfg.port;
     hostname = cfg.hostname;
     headingtext =
-      if (cfg.headingText != null) then (lib.escapeShellArg cfg.headingText) else null
+      if (cfg.headingText != null) then
+        (lib.escapeShellArg cfg.headingText)
+      else
+        null
     ;
     nodemodification = lib.boolToString cfg.nodeModification;
     configcheckms = toString cfg.configCheckMs;

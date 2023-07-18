@@ -44,8 +44,7 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optionals stdenv.isDarwin [
       libiconv
       Security
-    ]
-  ;
+    ];
 
   buildNoDefaultFeatures = true;
   buildFeatures = lib.optional gitSupport "git";

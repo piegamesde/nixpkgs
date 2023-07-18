@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
         "-Wno-error=use-after-free"
       ])
       ++ optional stdenv.cc.isClang "-Wno-error=null-dereference"
-    )
-  ;
+    );
 
   patchPhase = lib.optionalString stdenv.isDarwin ''
     substituteInPlace src/LApack.cc --replace "malloc.h" "malloc/malloc.h"

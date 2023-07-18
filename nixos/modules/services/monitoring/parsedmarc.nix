@@ -404,8 +404,7 @@ in
           "batch_size"
         ];
       in
-      builtins.map deprecationWarning (builtins.filter hasImapOpt movedOptions)
-    ;
+      builtins.map deprecationWarning (builtins.filter hasImapOpt movedOptions);
 
     services.elasticsearch.enable = lib.mkDefault cfg.provision.elasticsearch;
 
@@ -441,8 +440,7 @@ in
         lib.mkIf cfg.provision.grafana.dashboard [
           grafana-worldmap-panel
           grafana-piechart-panel
-        ]
-      ;
+        ];
 
       provision = {
         enable = cfg.provision.grafana.datasource || cfg.provision.grafana.dashboard;
@@ -471,8 +469,7 @@ in
                 inherit esVersion;
               };
             }
-          ]
-        ;
+          ];
         dashboards.settings.providers = lib.mkIf cfg.provision.grafana.dashboard [ {
           name = "parsedmarc";
           options.path = "${pkgs.python3Packages.parsedmarc.dashboard}";
@@ -517,8 +514,7 @@ in
                 { }
               ]
             ))
-            cfg.settings
-        ;
+            cfg.settings;
 
         # Extract secrets (attributes set to an attrset with a
         # "_secret" key) from the settings and generate the commands
@@ -572,8 +568,7 @@ in
             "+${
               pkgs.writeShellScript "parsedmarc-start-pre-full-privileges"
                 startPreFullPrivileges
-            }"
-          ;
+            }";
           Type = "simple";
           User = "parsedmarc";
           Group = "parsedmarc";
@@ -610,16 +605,14 @@ in
           SystemCallArchitectures = "native";
           ExecStart = "${pkgs.python3Packages.parsedmarc}/bin/parsedmarc -c /run/parsedmarc/parsedmarc.ini";
         };
-      }
-    ;
+      };
 
     users.users.${cfg.provision.localMail.recipientName} =
       lib.mkIf cfg.provision.localMail.enable
         {
           isNormalUser = true;
           description = "DMARC mail recipient";
-        }
-    ;
+        };
   };
 
   meta.doc = ./parsedmarc.md;

@@ -56,8 +56,7 @@ let
           camlzip
           psmt2-frontend
         ]
-      )
-    ;
+      );
   };
 in
 

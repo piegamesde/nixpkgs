@@ -69,8 +69,7 @@ let
             HUnit
           ]
         )
-        ++ [ tamarin-prover-utils ]
-      ;
+        ++ [ tamarin-prover-utils ];
     }
   );
 
@@ -91,8 +90,7 @@ let
         ++ [
           tamarin-prover-utils
           tamarin-prover-term
-        ]
-      ;
+        ];
     }
   );
 
@@ -187,7 +185,6 @@ mkDerivation (
         tamarin-prover-sapic
         tamarin-prover-term
         tamarin-prover-theory
-      ]
-    ;
+      ];
   }
 )

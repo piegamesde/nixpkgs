@@ -81,8 +81,7 @@ let
         sha256 = aarch64-darwin-sha256;
       };
     }
-    .${system} or throwSystem
-  ;
+    .${system} or throwSystem;
 
   meta = with lib; {
     description = "Desktop client for Slack";

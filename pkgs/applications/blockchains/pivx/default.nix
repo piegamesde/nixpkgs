@@ -59,8 +59,7 @@ stdenv.mkDerivation rec {
       qtbase
       qttools
       qrencode
-    ]
-  ;
+    ];
 
   configureFlags =
     [ "--with-boost-libdir=${boost.out}/lib" ]

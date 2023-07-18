@@ -22,8 +22,7 @@ import ./make-test-python.nix (
               } ];
             };
           };
-        }
-      ;
+        };
       server =
         { pkgs, ... }:
         {
@@ -54,8 +53,7 @@ import ./make-test-python.nix (
             localAddress6 = "fd42::2";
             config = { };
           };
-        }
-      ;
+        };
     };
 
     testScript = ''

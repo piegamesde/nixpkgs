@@ -40,8 +40,7 @@ let
             acl
         )
       )
-      cfg.realms
-  ;
+      cfg.realms;
 
   kdcConfigs =
     mapAttrsToList
@@ -51,8 +50,7 @@ let
           acl_file = ${value}
         }
       '')
-      aclFiles
-  ;
+      aclFiles;
   kdcConfFile = pkgs.writeText "kdc.conf" ''
     [kdc]
     ${concatStringsSep "\n" kdcConfigs}

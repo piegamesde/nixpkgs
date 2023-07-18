@@ -93,8 +93,7 @@ let
         mainProgram = "amm";
         platforms = platforms.all;
       };
-    }
-  ;
+    };
 in
 {
   ammonite_2_12 = common {

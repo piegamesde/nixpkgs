@@ -55,15 +55,13 @@ stdenv.mkDerivation (
       ++ lib.optionals usePython [
         python
         swig2
-      ]
-    ;
+      ];
 
     propagatedBuildInputs = lib.optional usePython python.pkgs.numpy;
 
     cmakeFlags =
       [ "-DCMAKE_BUILD_TYPE=Release" ]
-      ++ lib.optional usePython "-DUSE_PYTHON_CONFIG=ON"
-    ;
+      ++ lib.optional usePython "-DUSE_PYTHON_CONFIG=ON";
 
     # https://github.com/pothosware/SoapySDR/issues/352
     postPatch = ''

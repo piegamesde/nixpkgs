@@ -68,8 +68,7 @@ let
         ]
       else
         [ darwin.Libsystem ]
-    )
-  ;
+    );
 in
 stdenv.mkDerivation rec {
   pname = "powershell";
@@ -85,8 +84,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ less ] ++ libraries;
   nativeBuildInputs =
     [ makeWrapper ]
-    ++ lib.optional stdenv.isLinux autoPatchelfHook
-  ;
+    ++ lib.optional stdenv.isLinux autoPatchelfHook;
 
   installPhase =
     let

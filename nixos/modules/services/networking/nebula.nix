@@ -126,8 +126,7 @@ in
                 default = null;
                 description =
                   lib.mdDoc
-                    "Name of the tun device. Defaults to nebula.\${networkName}."
-                ;
+                    "Name of the tun device. Defaults to nebula.\${networkName}.";
               };
 
               firewall.outbound = mkOption {
@@ -216,8 +215,7 @@ in
                     outbound = netCfg.firewall.outbound;
                   };
                 }
-                netCfg.settings
-            ;
+                netCfg.settings;
             configFile = format.generate "nebula-config-${netName}.yml" settings;
           in
           {

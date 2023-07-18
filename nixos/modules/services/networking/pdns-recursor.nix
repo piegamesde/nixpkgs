@@ -18,8 +18,7 @@ let
       str
       bool
       path
-    ]
-  ;
+    ];
   configType = with types; attrsOf (nullOr (oneOrMore valueType));
 
   toBool = val: if val then "yes" else "no";
@@ -220,8 +219,7 @@ in
       forward-zones = mapAttrsToList (zone: uri: "${zone}.=${uri}") cfg.forwardZones;
       forward-zones-recurse =
         mapAttrsToList (zone: uri: "${zone}.=${uri}")
-          cfg.forwardZonesRecurse
-      ;
+          cfg.forwardZonesRecurse;
       export-etc-hosts = cfg.exportHosts;
       dnssec = cfg.dnssecValidation;
       serve-rfc1918 = cfg.serveRFC1918;

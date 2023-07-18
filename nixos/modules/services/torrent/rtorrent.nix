@@ -221,8 +221,7 @@ in
               RuntimeDirectory = "rtorrent";
               RuntimeDirectoryMode = 755;
             };
-          }
-        ;
+          };
       };
 
       tmpfiles.rules = [

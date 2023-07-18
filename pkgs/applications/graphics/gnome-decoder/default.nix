@@ -55,8 +55,7 @@ clangStdenv.mkDerivation rec {
         rust.rustc
         cargoSetupHook
       ]
-    )
-  ;
+    );
 
   buildInputs = [
     glib

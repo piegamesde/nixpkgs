@@ -76,8 +76,7 @@ stdenv.mkDerivation rec {
       libseccomp
       systemd
       libcap
-    ]
-  ;
+    ];
 
   patches = [ ./disable-monotonic-timer-tests.patch ];
 

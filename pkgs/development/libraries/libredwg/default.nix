@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
     ''
       # avoid git dependency
       cp ${printVersion} build-aux/git-version-gen
-    ''
-  ;
+    '';
 
   preConfigure = lib.optionalString (stdenv.isDarwin && enablePython) ''
     # prevent configure picking up stack_size from distutils.sysconfig

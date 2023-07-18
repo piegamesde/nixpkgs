@@ -23,8 +23,7 @@ let
   ipv6Set = toNftSet cfg.internalIPv6s;
   oifExpr =
     optionalString (cfg.externalInterface != null)
-      ''oifname "${cfg.externalInterface}"''
-  ;
+      ''oifname "${cfg.externalInterface}"'';
 
   # Whether given IP (plus optional port) is an IPv6.
   isIPv6 = ip: length (lib.splitString ":" ip) > 2;
@@ -38,8 +37,7 @@ let
     {
       IP = if m == null then throw "bad ip:ports `${IPPorts}'" else elemAt m 0;
       ports = if m == null then throw "bad ip:ports `${IPPorts}'" else elemAt m 1;
-    }
-  ;
+    };
 
   mkTable =
     {
@@ -56,8 +54,7 @@ let
       fwdPorts = filter (x: length (splitString "-" x.destination) == 1) forwardPorts;
       fwdPortsRange =
         filter (x: length (splitString "-" x.destination) > 1)
-          forwardPorts
-      ;
+          forwardPorts;
 
       # nftables maps for port forward
       # l4proto . dport : addr . port
@@ -71,8 +68,7 @@ let
               "${fwd.proto} . ${toNftRange fwd.sourcePort} : ${IP} . ${ports}"
             )
             forwardPorts
-        )
-      ;
+        );
       fwdMap = toFwdMap fwdPorts;
       fwdRangeMap = toFwdMap fwdPortsRange;
 
@@ -93,8 +89,7 @@ let
                 fwd.loopbackIPs
             )
             forwardPorts
-        )
-      ;
+        );
       fwdLoopDnatMap = toFwdLoopDnatMap fwdPorts;
       fwdLoopDnatRangeMap = toFwdLoopDnatMap fwdPortsRange;
 
@@ -174,8 +169,7 @@ let
           ''
         }
       }
-    ''
-  ;
+    '';
 in
 
 {
@@ -236,7 +230,6 @@ in
           ${optionalString (ipv6Set != "") ''
             ip6 saddr { ${ipv6Set} } ${oifExpr} accept comment "from internal IPv6s"
           ''}
-        ''
-    ;
+        '';
   };
 }

@@ -50,8 +50,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withGui [
       wrapQtAppsHook
       qttools
-    ]
-  ;
+    ];
 
   buildInputs =
     [

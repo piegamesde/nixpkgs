@@ -137,8 +137,7 @@ in
             float
             int
           ]
-        )
-      ;
+        );
       default = null;
       description = lib.mdDoc ''
         The P1 Time Window in seconds.
@@ -162,8 +161,7 @@ in
             float
             int
           ]
-        )
-      ;
+        );
       default = null;
       description = lib.mdDoc ''
         The P2 Time Window in seconds.

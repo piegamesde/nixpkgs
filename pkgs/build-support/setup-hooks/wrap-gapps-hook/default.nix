@@ -95,8 +95,7 @@ makeSetupHook
                   "GIO_EXTRA_MODULES"
                   "${dconf.lib}/lib/gio/modules"}
               ''
-            )
-          ;
+            );
 
           basic-contains-gdk-pixbuf =
             let
@@ -111,8 +110,7 @@ makeSetupHook
                   "GDK_PIXBUF_MODULE_FILE"
                   "${lib.getLib librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"}
               ''
-            )
-          ;
+            );
 
           # Simple derivation containing a gobject-introspection typelib.
           typelib-Mahjong = stdenv.mkDerivation {
@@ -160,8 +158,7 @@ makeSetupHook
               ${expectSomeLineContainingYInFileXToMentionZ "${tested}/libexec/bar"
                 "GI_TYPELIB_PATH"
                 "${typelib-Mahjong}/lib/girepository-1.0"}
-            ''
-          ;
+            '';
 
           # Simple derivation containing a gobject-introspection typelib in lib output.
           typelib-Bechamel = stdenv.mkDerivation {
@@ -217,8 +214,7 @@ makeSetupHook
               ${expectSomeLineContainingYInFileXToMentionZ "${tested}/libexec/bar"
                 "GI_TYPELIB_PATH"
                 "${typelib-Bechamel.lib}/lib/girepository-1.0"}
-            ''
-          ;
+            '';
 
           # Simple derivation that contains a typelib as well as a program using it.
           typelib-self-user = stdenv.mkDerivation {
@@ -255,10 +251,8 @@ makeSetupHook
               ${expectSomeLineContainingYInFileXToMentionZ "${tested}/libexec/bar"
                 "GI_TYPELIB_PATH"
                 "${typelib-self-user}/lib/girepository-1.0"}
-            ''
-          ;
-        }
-      ;
+            '';
+        };
     };
   }
   ./wrap-gapps-hook.sh

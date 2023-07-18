@@ -82,8 +82,7 @@ import ./make-test-python.nix (
               };
             };
           };
-        }
-      ;
+        };
 
       node1 =
         { pkgs, ... }:
@@ -109,8 +108,7 @@ import ./make-test-python.nix (
               };
             };
           };
-        }
-      ;
+        };
 
       node2 =
         { pkgs, ... }:
@@ -133,8 +131,7 @@ import ./make-test-python.nix (
               };
             };
           };
-        }
-      ;
+        };
 
       node3 =
         { pkgs, ... }:
@@ -157,8 +154,7 @@ import ./make-test-python.nix (
               };
             };
           };
-        }
-      ;
+        };
     };
 
     testScript = ''

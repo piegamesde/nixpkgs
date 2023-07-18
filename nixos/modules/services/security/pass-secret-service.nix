@@ -21,8 +21,7 @@ in
       description = lib.mdDoc "Which pass-secret-service package to use.";
       example =
         literalExpression
-          "pkgs.pass-secret-service.override { python3 = pkgs.python310 }"
-      ;
+          "pkgs.pass-secret-service.override { python3 = pkgs.python310 }";
     };
   };
 

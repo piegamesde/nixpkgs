@@ -226,8 +226,7 @@ let
           done
         '';
       }
-    )
-  ;
+    );
 
   # Builder for 'faust2appl' scripts, such as faust2firefox that
   # simply need to be wrapped with some dependencies on PATH.
@@ -258,7 +257,6 @@ let
           done
         '';
       }
-    )
-  ;
+    );
 in
 faust

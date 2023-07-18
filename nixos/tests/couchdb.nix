@@ -10,8 +10,7 @@ let
       services.couchdb.package = couchpkg;
       services.couchdb.adminUser = user;
       services.couchdb.adminPass = passwd;
-    }
-  ;
+    };
   testuser = "testadmin";
   testpass = "cowabunga";
   testlogin = "${testuser}:${testpass}@";
@@ -39,8 +38,7 @@ import ./make-test-python.nix (
             if [ "$RESULT" != "${result}" ]; then
               exit 1
             fi
-          ''
-        ;
+          '';
       in
       ''
         start_all()
@@ -67,7 +65,6 @@ import ./make-test-python.nix (
               curlJqCheck testlogin "GET" "_node/couchdb@127.0.0.1" ".couchdb" "Welcome"
             }"
         )
-      ''
-    ;
+      '';
   }
 )

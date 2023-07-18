@@ -18,8 +18,7 @@ import ../make-test-python.nix (
           virtualHosts.localhost.documentRoot = ./example;
           adminAddr = "noone@testing.nowhere";
         };
-      }
-    ;
+      };
 
     testScript = ''
       start_all()

@@ -71,8 +71,7 @@ pythonPackages.callPackage
                     version
                 + ".*$"
               )
-              fname != null
-          ;
+              fname != null;
           hasSupportedExtension = fname: builtins.match supportedRegex fname != null;
           isCompatibleEgg =
             fname:
@@ -85,8 +84,7 @@ pythonPackages.callPackage
             f:
             matchesVersion f.file && hasSupportedExtension f.file && isCompatibleEgg f.file
           )
-          files
-      ;
+          files;
       toPath = s: pwd + "/${s}";
       isLocked = lib.length fileCandidates > 0;
       isSource = source != null;
@@ -154,8 +152,7 @@ pythonPackages.callPackage
             else
               (builtins.elemAt (lib.strings.splitString "-" name) 2)
           ;
-        }
-      ;
+        };
 
       format =
         if isWheelUrl then
@@ -223,8 +220,7 @@ pythonPackages.callPackage
           );
           depAttrs = lib.attrNames deps;
         in
-        builtins.map (n: pythonPackages.${normalizePackageName n}) depAttrs
-      ;
+        builtins.map (n: pythonPackages.${normalizePackageName n}) depAttrs;
 
       inherit pos;
 

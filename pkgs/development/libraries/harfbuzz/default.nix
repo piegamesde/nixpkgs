@@ -98,8 +98,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withCoreText [
       ApplicationServices
       CoreText
-    ]
-  ;
+    ];
 
   propagatedBuildInputs =
     lib.optional withGraphite2 graphite2

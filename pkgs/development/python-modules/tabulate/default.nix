@@ -34,8 +34,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs =
     [ pytestCheckHook ]
-    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
-  ;
+    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
   meta = {
     description = "Pretty-print tabular data";

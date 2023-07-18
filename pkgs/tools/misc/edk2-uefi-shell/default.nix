@@ -21,8 +21,7 @@ edk2.mkDerivation "ShellPkg/ShellPkg.dsc" (
       ++ lib.optionals stdenv.cc.isClang [
         llvmPackages.bintools
         llvmPackages.llvm
-      ]
-    ;
+      ];
     strictDeps = true;
 
     env.NIX_CFLAGS_COMPILE = toString (

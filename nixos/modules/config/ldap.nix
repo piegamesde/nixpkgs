@@ -54,8 +54,7 @@ let
         makeWrapper ${nss_pam_ldapd}/sbin/nslcd $out/bin/nslcd \
           --set LD_PRELOAD    "${pkgs.libredirect}/lib/libredirect.so" \
           --set NIX_REDIRECTS "/etc/nslcd.conf=/run/nslcd/nslcd.conf"
-      ''
-  ;
+      '';
 in
 
 {
@@ -73,8 +72,7 @@ in
         default = true;
         description =
           lib.mdDoc
-            "Whether to include authentication against LDAP in login PAM."
-        ;
+            "Whether to include authentication against LDAP in login PAM.";
       };
 
       nsswitch = mkOption {
@@ -254,8 +252,7 @@ in
               cat ${ldapConfig.source} - >"$conf"
               mv -fT "$conf" /etc/ldap.conf
             fi
-          ''
-      ;
+          '';
     };
 
     system.nssModules = mkIf cfg.nsswitch (

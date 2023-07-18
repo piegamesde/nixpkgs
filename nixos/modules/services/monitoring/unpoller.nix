@@ -234,8 +234,7 @@ in
                   "default"
                   "all"
                 ])
-                (listOf str)
-            ;
+                (listOf str);
             default = "all";
             description = lib.mdDoc ''
               List of site names for which statistics should be exported.
@@ -323,8 +322,7 @@ in
           '';
           apply = map (flip removeAttrs [ "_module" ]);
         };
-      }
-    ;
+      };
   };
 
   config = mkIf cfg.enable {

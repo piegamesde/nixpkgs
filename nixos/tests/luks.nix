@@ -35,8 +35,7 @@ import ./make-test-python.nix (
             { console.keyMap = "neo"; }
           ];
         };
-      }
-    ;
+      };
 
     enableOCR = true;
 

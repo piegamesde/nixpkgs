@@ -47,8 +47,7 @@ in
           "--config.file ${escapeShellArg cfg.configFile}"
         ]
         ++ extraFlags
-      )
-    ;
+      );
 
     ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
   };

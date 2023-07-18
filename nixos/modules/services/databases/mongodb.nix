@@ -24,8 +24,7 @@ let
       ${optionalString (cfg.replSetName != "")
         "replication.replSetName: ${cfg.replSetName}"}
       ${cfg.extraConfig}
-    ''
-  ;
+    '';
 in
 
 {
@@ -70,8 +69,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Enable client authentication. Creates a default superuser with username root!"
-        ;
+            "Enable client authentication. Creates a default superuser with username root!";
       };
 
       initialRootPassword = mkOption {

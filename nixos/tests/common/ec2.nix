@@ -88,6 +88,5 @@ with pkgs.lib;
       ;
 
       inherit meta;
-    }
-  ;
+    };
 }

@@ -10,8 +10,7 @@ runCommand "nixpkgs-metrics"
         nix
         time
         jq
-      ]
-    ;
+      ];
     requiredSystemFeatures = [ "benchmark" ]; # dedicated `t2a` machine, by @vcunat
   }
   ''

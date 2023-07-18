@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
         --subst-var-by GIT_SHA1 "${src.rev}"
       substituteInPlace library/init/version.lean.in \
         --subst-var-by GIT_SHA1 "${src.rev}"
-    ''
-  ;
+    '';
 
   postPatch = "patchShebangs .";
 

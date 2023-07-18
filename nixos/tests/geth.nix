@@ -22,8 +22,7 @@ import ./make-test-python.nix (
             port = 18545;
           };
         };
-      }
-    ;
+      };
 
     testScript = ''
       start_all()

@@ -36,8 +36,7 @@ python3Packages.buildPythonApplication rec {
         psutil
         xlsxwriter
       ]
-    )
-  ;
+    );
 
   # Tests rely on some of the databases being available, which is not bundled
   # with this package as (1) in total, they represent >100GB of data, and (2)

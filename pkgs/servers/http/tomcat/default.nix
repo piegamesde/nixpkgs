@@ -39,8 +39,7 @@ let
         maintainers = [ ];
         license = [ licenses.asl20 ];
       };
-    })
-  ;
+    });
 in
 {
   tomcat9 = common {

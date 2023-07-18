@@ -35,8 +35,7 @@ buildPythonPackage rec {
     ''
       # required for the custom _find_library function in setup.py
       export ${ldLibraryPathEnvName}="${lib.makeLibraryPath [ liberasurecode ]}"
-    ''
-  ;
+    '';
 
   buildInputs = [ liberasurecode ];
 

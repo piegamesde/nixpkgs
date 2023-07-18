@@ -143,8 +143,7 @@ stdenvNoLibs.mkDerivation rec {
       "--with-system-zlib"
     ]
     ++ lib.optional (stdenvNoLibs.hostPlatform.libc == "glibc")
-      "--with-glibc-version=${glibc.version}"
-  ;
+      "--with-glibc-version=${glibc.version}";
 
   configurePlatforms = [
     "build"

@@ -127,8 +127,7 @@ let
   stageNameAddon = if crossStageStatic then "stage-static" else "stage-final";
   crossNameAddon =
     optionalString (targetPlatform != hostPlatform)
-      "${targetPlatform.config}-${stageNameAddon}-"
-  ;
+      "${targetPlatform.config}-${stageNameAddon}-";
 
   callFile = lib.callPackageWith {
     # lets
@@ -328,8 +327,7 @@ lib.pipe
                 "bootstrap"
           ;
         in
-        lib.optional (target != "") target
-      ;
+        lib.optional (target != "") target;
 
       inherit (callFile ../common/strip-attributes.nix { })
         stripDebugList

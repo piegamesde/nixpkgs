@@ -17,8 +17,7 @@ rustPlatform.buildRustPackage {
 
   buildInputs =
     [ openssl ]
-    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
   cargoLock = {
     lockFile = ./Cargo.lock;

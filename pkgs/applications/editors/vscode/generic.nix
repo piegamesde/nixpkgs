@@ -130,8 +130,7 @@ let
         nodePackages.asar
         # override doesn't preserve splicing https://github.com/NixOS/nixpkgs/issues/132651
         (buildPackages.wrapGAppsHook.override { inherit (buildPackages) makeWrapper; })
-      ]
-    ;
+      ];
 
     dontBuild = true;
     dontConfigure = true;
@@ -277,7 +276,6 @@ let
           Should allow for easy usage of extensions without nix-specific modifications.
         '';
       };
-    }
-  ;
+    };
 in
 unwrapped

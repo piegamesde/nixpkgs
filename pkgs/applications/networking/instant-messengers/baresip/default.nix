@@ -74,8 +74,7 @@ stdenv.mkDerivation rec {
         gst-plugins-bad
         gst-plugins-good
       ]
-    )
-  ;
+    );
 
   cmakeFlags = [
     "-DCMAKE_SKIP_BUILD_RPATH=ON"

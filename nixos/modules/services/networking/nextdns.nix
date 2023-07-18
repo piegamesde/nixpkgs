@@ -18,8 +18,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Whether to enable the NextDNS DNS/53 to DoH Proxy service."
-        ;
+            "Whether to enable the NextDNS DNS/53 to DoH Proxy service.";
       };
       arguments = mkOption {
         type = types.listOf types.str;

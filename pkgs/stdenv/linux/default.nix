@@ -102,8 +102,7 @@
             null
         )
         null
-        (lib.attrNames archLookupTable)
-    ;
+        (lib.attrNames archLookupTable);
 
     archLookupTable =
       table.${localSystem.libc}
@@ -116,8 +115,7 @@
           (abort "unsupported platform for the pure Linux stdenv")
       );
   in
-  files
-  ,
+  files,
 }:
 
 assert crossSystem == localSystem;
@@ -176,8 +174,7 @@ let
     )
     // {
       passthru.isFromBootstrapFiles = true;
-    }
-  ;
+    };
 
   getLibc = stage: stage.${localSystem.libc};
 
@@ -251,8 +248,7 @@ let
     {
       inherit config overlays;
       stdenv = thisStdenv;
-    }
-  ;
+    };
 in
 assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
 [
@@ -371,8 +367,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
       # `gettext` comes with obsolete config.sub/config.guess that don't recognize LoongArch64.
       extraNativeBuildInputs =
         lib.optional (localSystem.isLoongArch64)
-          prevStage.updateAutotoolsGnuConfigScriptsHook
-      ;
+          prevStage.updateAutotoolsGnuConfigScriptsHook;
     }
   )
 
@@ -469,15 +464,13 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
                   find $lib/lib/ -name \*.so\* -exec patchelf --shrink-rpath {} \; || true
                 '';
               }
-            )
-        ;
+            );
       };
 
       # `gettext` comes with obsolete config.sub/config.guess that don't recognize LoongArch64.
       extraNativeBuildInputs =
         lib.optional (localSystem.isLoongArch64)
-          prevStage.updateAutotoolsGnuConfigScriptsHook
-      ;
+          prevStage.updateAutotoolsGnuConfigScriptsHook;
     }
   )
 
@@ -592,8 +585,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
       # `libtool` comes with obsolete config.sub/config.guess that don't recognize Risc-V.
       extraNativeBuildInputs =
         lib.optional (localSystem.isLoongArch64 || localSystem.isRiscV)
-          prevStage.updateAutotoolsGnuConfigScriptsHook
-      ;
+          prevStage.updateAutotoolsGnuConfigScriptsHook;
     }
   )
 
@@ -661,8 +653,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
                     ;
                   };
                 }
-              )
-          ;
+              );
         }
       ;
       extraNativeBuildInputs =
@@ -670,8 +661,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
         ++
         # Many tarballs come with obsolete config.sub/config.guess that don't recognize aarch64.
         lib.optional (!localSystem.isx86 || localSystem.libc == "musl")
-          prevStage.updateAutotoolsGnuConfigScriptsHook
-      ;
+          prevStage.updateAutotoolsGnuConfigScriptsHook;
     }
   )
 
@@ -743,8 +733,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
         ++
         # Many tarballs come with obsolete config.sub/config.guess that don't recognize aarch64.
         lib.optional (!localSystem.isx86 || localSystem.libc == "musl")
-          prevStage.updateAutotoolsGnuConfigScriptsHook
-      ;
+          prevStage.updateAutotoolsGnuConfigScriptsHook;
     }
   )
 
@@ -784,8 +773,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
           ++
           # Many tarballs come with obsolete config.sub/config.guess that don't recognize aarch64.
           lib.optional (!localSystem.isx86 || localSystem.libc == "musl")
-            prevStage.updateAutotoolsGnuConfigScriptsHook
-        ;
+            prevStage.updateAutotoolsGnuConfigScriptsHook;
 
         cc = prevStage.gcc;
 
@@ -909,8 +897,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
                     patchelf
                     libunistring
                   ;
-                }
-            ;
+                };
 
             gnumake = super.gnumake.override { inBootstrap = false; };
           }

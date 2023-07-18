@@ -76,8 +76,7 @@ rustPlatform.buildRustPackage rec {
       CoreFoundation
       Security
       SystemConfiguration
-    ]
-  ;
+    ];
 
   depositContractSpec = fetchurl {
     url = "https://raw.githubusercontent.com/ethereum/eth2.0-specs/v${depositContractSpecVersion}/deposit_contract/contracts/validator_registration.json";
@@ -120,8 +119,7 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optionals (stdenv.isAarch64 && stdenv.isDarwin) [
       "--skip subnet_service::tests::sync_committee_service::same_subscription_with_lower_until_epoch"
       "--skip subnet_service::tests::sync_committee_service::subscribe_and_unsubscribe"
-    ]
-  ;
+    ];
 
   nativeCheckInputs = [
     nodePackages.ganache

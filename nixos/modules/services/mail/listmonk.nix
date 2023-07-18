@@ -15,8 +15,7 @@ let
     key: value:
     "UPDATE settings SET value = '${
       lib.replaceStrings [ "'" ] [ "''" ] (builtins.toJSON value)
-    }' WHERE key = '${key}';"
-  ;
+    }' WHERE key = '${key}';";
   updateDatabaseConfigSQL = pkgs.writeText "update-database-config.sql" (
     concatStringsSep "\n" (
       mapAttrsToList setDatabaseOption (
@@ -35,9 +34,9 @@ let
             fi
           ''
         else
-          "${pkgs.postgresql}/bin/psql -d listmonk -f ${updateDatabaseConfigSQL}"}
-      ''
-  ;
+          "${pkgs.postgresql}/bin/psql -d listmonk -f ${updateDatabaseConfigSQL}"
+        }
+      '';
 
   databaseSettingsOpts = with types; {
     freeformType = oneOf [
@@ -65,8 +64,7 @@ let
         ];
         description =
           lib.mdDoc
-            "List of fields which can be exported through an automatic export request"
-        ;
+            "List of fields which can be exported through an automatic export request";
       };
 
       "privacy.domain_blocklist" = mkOption {
@@ -74,8 +72,7 @@ let
         default = [ ];
         description =
           lib.mdDoc
-            "E-mail addresses with these domains are disallowed from subscribing."
-        ;
+            "E-mail addresses with these domains are disallowed from subscribing.";
       };
 
       smtp = mkOption {
@@ -89,8 +86,7 @@ let
                   int
                   bool
                 ]
-              )
-            ;
+              );
 
             options = {
               enabled = mkEnableOption (lib.mdDoc "this SMTP server for listmonk");
@@ -106,8 +102,7 @@ let
                 type = types.int;
                 description =
                   lib.mdDoc
-                    "Maximum number of simultaneous connections, defaults to 1"
-                ;
+                    "Maximum number of simultaneous connections, defaults to 1";
                 default = 1;
               };
               tls_type = mkOption {
@@ -135,8 +130,7 @@ let
                 str
                 int
                 bool
-              ]
-            ;
+              ];
           }
         );
         default = [ ];
@@ -148,8 +142,7 @@ let
         default = [ ];
         description =
           lib.mdDoc
-            "List of messengers, see: <https://github.com/knadh/listmonk/blob/master/models/settings.go#L64-L74> for options."
-        ;
+            "List of messengers, see: <https://github.com/knadh/listmonk/blob/master/models/settings.go#L64-L74> for options.";
       };
     };
   };
@@ -167,8 +160,7 @@ in
           default = false;
           description =
             lib.mdDoc
-              "Create the PostgreSQL database and database user locally."
-          ;
+              "Create the PostgreSQL database and database user locally.";
         };
 
         settings = mkOption {
@@ -176,8 +168,7 @@ in
           type = with types; nullOr (submodule databaseSettingsOpts);
           description =
             lib.mdDoc
-              "Dynamic settings in the PostgreSQL database, set by a SQL script, see <https://github.com/knadh/listmonk/blob/master/schema.sql#L177-L230> for details."
-          ;
+              "Dynamic settings in the PostgreSQL database, set by a SQL script, see <https://github.com/knadh/listmonk/blob/master/schema.sql#L177-L230> for details.";
         };
         mutableSettings = mkOption {
           type = types.bool;
@@ -201,8 +192,7 @@ in
         default = null;
         description =
           lib.mdDoc
-            "A file containing secrets as environment variables. See <https://listmonk.app/docs/configuration/#environment-variables> for details on supported values."
-        ;
+            "A file containing secrets as environment variables. See <https://listmonk.app/docs/configuration/#environment-variables> for details on supported values.";
       };
     };
   };
@@ -242,8 +232,7 @@ in
       description = "Listmonk - newsletter and mailing list manager";
       after =
         [ "network.target" ]
-        ++ optional cfg.database.createLocally "postgresql.service"
-      ;
+        ++ optional cfg.database.createLocally "postgresql.service";
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         Type = "exec";

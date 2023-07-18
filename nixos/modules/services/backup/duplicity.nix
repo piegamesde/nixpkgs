@@ -206,8 +206,7 @@ in
                 )
               )
             } ${extra}
-          ''
-        ;
+          '';
         serviceConfig =
           {
             PrivateTmp = true;
@@ -222,8 +221,7 @@ in
 
       tmpfiles.rules =
         optional (localTarget != null)
-          "d ${localTarget} 0700 root root -"
-      ;
+          "d ${localTarget} 0700 root root -";
     };
 
     assertions = singleton {

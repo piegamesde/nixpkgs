@@ -48,8 +48,7 @@
         capabilities = "cap_net_bind_service,cap_net_admin=+ep";
         source = "${lib.getExe pkgs.clash-verge}";
       };
-    }
-  ;
+    };
 
   meta.maintainers = with lib.maintainers; [ zendo ];
 }

@@ -82,8 +82,7 @@ in
       example = "0.0.0.0";
       description =
         lib.mdDoc
-          "Address to bind to. The default is to bind to all addresses"
-      ;
+          "Address to bind to. The default is to bind to all addresses";
     };
 
     extraConfig = mkOption {
@@ -108,8 +107,7 @@ in
       type = types.str;
       description =
         lib.mdDoc
-          "Specifies how often to snapshot the task state  (in InfluxDB time units)"
-      ;
+          "Specifies how often to snapshot the task state  (in InfluxDB time units)";
       default = "1m0s";
     };
 
@@ -117,8 +115,7 @@ in
       type = types.nullOr types.path;
       description =
         lib.mdDoc
-          "Directory where to load services from, such as tasks, templates and handlers (or null to disable service loading on startup)"
-      ;
+          "Directory where to load services from, such as tasks, templates and handlers (or null to disable service loading on startup)";
       default = null;
     };
 
@@ -128,8 +125,7 @@ in
       url = mkOption {
         description =
           lib.mdDoc
-            "The URL to an InfluxDB server that serves as the default database"
-        ;
+            "The URL to an InfluxDB server that serves as the default database";
         example = "http://localhost:8086";
         type = types.str;
       };

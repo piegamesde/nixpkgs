@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
         CoreGraphics
         CoreVideo
       ]
-    )
-  ;
+    );
   makeFlags = [ "AR:=$(AR)" ];
 
   meta = with lib; {

@@ -17,8 +17,7 @@ let
       name = "${patchname}.patch";
       url = "https://sources.debian.org/data/main/t/torus-trooper/0.22.dfsg1-12/debian/patches/${patchname}.patch";
       sha256 = hash;
-    }
-  ;
+    };
 in
 stdenv.mkDerivation rec {
   pname = "torus-trooper";

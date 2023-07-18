@@ -69,8 +69,7 @@ let
         maintainers = with maintainers; [ peterhoeg ];
         inherit description;
       };
-    }
-  ;
+    };
 in
 {
   check-mssql-health = generic {

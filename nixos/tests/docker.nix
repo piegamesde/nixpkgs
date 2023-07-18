@@ -33,8 +33,7 @@ import ./make-test-python.nix (
               extraGroups = [ "docker" ];
             };
           };
-        }
-      ;
+        };
     };
 
     testScript = ''

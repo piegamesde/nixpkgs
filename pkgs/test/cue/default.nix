@@ -13,8 +13,7 @@ let
           field1: string
         }
       '')
-      { document = "#Def1"; }
-  ;
+      { document = "#Def1"; };
 in
 runCommand "cue-validation" { } ''
   cat > valid.json <<EOF

@@ -17,8 +17,7 @@ import ./make-test-python.nix (
         {
           virtualisation.docker.enable = true;
           virtualisation.docker.storageDriver = "overlay"; # defaults to overlay2
-        }
-      ;
+        };
     };
 
     testScript = ''

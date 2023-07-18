@@ -77,8 +77,7 @@ import ./make-test-python.nix (
           enable = true;
           adminAddr = "foo@example.org";
         };
-      }
-    ;
+      };
 
     testScript = ''
       start_all()

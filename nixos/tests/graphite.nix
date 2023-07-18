@@ -17,8 +17,7 @@ import ./make-test-python.nix (
             carbon.enableCache = true;
             seyren.enable = false; # Implicitly requires openssl-1.0.2u which is marked insecure
           };
-        }
-      ;
+        };
     };
 
     testScript = ''

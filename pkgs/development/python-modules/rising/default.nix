@@ -46,8 +46,7 @@ buildPythonPackage rec {
       [
         # RuntimeError: DataLoader worker (pid(s) <...>) exited unexpectedly:
         "test_progressive_resize_integration"
-      ]
-  ;
+      ];
 
   pythonImportsCheck = [
     "rising"

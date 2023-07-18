@@ -104,8 +104,7 @@ import ./make-test-python.nix (
               - target: syslog
                 any: info
           '';
-        }
-      ;
+        };
 
       secondary =
         { lib, ... }:
@@ -159,8 +158,7 @@ import ./make-test-python.nix (
               - target: syslog
                 any: info
           '';
-        }
-      ;
+        };
       client =
         { lib, nodes, ... }:
         {
@@ -176,8 +174,7 @@ import ./make-test-python.nix (
             } ];
           };
           environment.systemPackages = [ pkgs.knot-dns ];
-        }
-      ;
+        };
     };
 
     testScript =
@@ -230,7 +227,6 @@ import ./make-test-python.nix (
                 test(host, "DNSKEY", "example.com", r"DNSSEC key is")
 
         primary.log(primary.succeed("systemd-analyze security knot.service | grep -v '✓'"))
-      ''
-    ;
+      '';
   }
 )

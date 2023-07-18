@@ -21,8 +21,7 @@ in
         defaultText = lib.literalExpression "config.services.pipewire.enable";
         description =
           lib.mdDoc
-            "Whether to enable Wireplumber, a modular session / policy manager for PipeWire"
-        ;
+            "Whether to enable Wireplumber, a modular session / policy manager for PipeWire";
       };
 
       package = lib.mkOption {
@@ -49,8 +48,7 @@ in
             -- Pipewire is not used for audio, so prevent it from grabbing audio devices
             alsa_monitor.enable = function() end
           '';
-        }
-    ;
+        };
     environment.etc."wireplumber/main.lua.d/80-systemwide.lua" =
       lib.mkIf config.services.pipewire.systemWide
         {
@@ -60,8 +58,7 @@ in
             alsa_monitor.properties["alsa.reserve"] = false
             default_access.properties["enable-flatpak-portal"] = false
           '';
-        }
-    ;
+        };
     environment.etc."wireplumber/bluetooth.lua.d/80-systemwide.lua" =
       lib.mkIf config.services.pipewire.systemWide
         {
@@ -69,8 +66,7 @@ in
             -- When running system-wide, logind-integration needs to be disabled.
             bluez_monitor.properties["with-logind"] = false
           '';
-        }
-    ;
+        };
 
     systemd.packages = [ cfg.package ];
 
@@ -85,7 +81,6 @@ in
         {
           # Force wireplumber to use system dbus.
           DBUS_SESSION_BUS_ADDRESS = "unix:path=/run/dbus/system_bus_socket";
-        }
-    ;
+        };
   };
 }

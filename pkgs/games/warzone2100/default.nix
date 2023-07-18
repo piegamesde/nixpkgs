@@ -74,8 +74,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (!stdenv.isDarwin) [
       vulkan-headers
       vulkan-loader
-    ]
-  ;
+    ];
 
   nativeBuildInputs = [
     pkg-config

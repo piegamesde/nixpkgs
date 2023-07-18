@@ -159,7 +159,6 @@ in
             ExecStart = "${sksPkg}/bin/sks db -hkp_address ${hkpAddress} -hkp_port ${hkpPort}";
           };
         };
-      }
-    ;
+      };
   };
 }

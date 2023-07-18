@@ -282,8 +282,7 @@ in
       // optionalAttrs (builtins.compareVersions cfg.package.version "4.10" >= 0) {
         # in V 4.10 oxenstored requires /etc/xen/oxenstored.conf to start
         "xen/oxenstored.conf".source = "${cfg.package}/etc/xen/oxenstored.conf";
-      }
-    ;
+      };
 
     # Xen provides udev rules.
     services.udev.packages = [ cfg.package ];

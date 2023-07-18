@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
         }
       else
         throw "only linux x86_64 and x86_32 are currently supported"
-    )
-  ;
+    );
 
   nativeBuildInputs = [ autoPatchelfHook ];
 

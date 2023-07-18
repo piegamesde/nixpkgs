@@ -13,8 +13,7 @@ let
 
   toOption =
     indent: n: v:
-    "${indent}${toString n}: ${v}"
-  ;
+    "${indent}${toString n}: ${v}";
 
   toConf =
     indent: n: v:
@@ -105,8 +104,7 @@ in
         type = types.bool;
         description =
           lib.mdDoc
-            "Use and update root trust anchor for DNSSEC validation."
-        ;
+            "Use and update root trust anchor for DNSSEC validation.";
       };
 
       localControlSocketPath = mkOption {
@@ -177,8 +175,7 @@ in
                 internal = true;
               };
             };
-          }
-        ;
+          };
         example = literalExpression ''
           {
             server = {
@@ -249,8 +246,7 @@ in
         // optionalAttrs (cfg.localControlSocketPath != null) {
           control-enable = true;
           control-interface = cfg.localControlSocketPath;
-        }
-      ;
+        };
     };
 
     environment.systemPackages = [ cfg.package ];

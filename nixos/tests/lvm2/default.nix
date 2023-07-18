@@ -45,8 +45,7 @@ let
         kernelFilter = lib.filter (v: v == "5.15");
         flavour = "vdo";
       };
-    }
-  ;
+    };
 in
 lib.listToAttrs (
   lib.filter (x: x.value != { }) (

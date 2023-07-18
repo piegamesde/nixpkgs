@@ -109,8 +109,7 @@ stdenv.mkDerivation (
         # due to libxml2 being without DLLs ATM
         "--enable-static"
         "--disable-shared"
-      ]
-    ;
+      ];
 
     nativeBuildInputs = [
       pkg-config

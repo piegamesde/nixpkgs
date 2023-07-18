@@ -68,8 +68,7 @@ let
         [ makeWrapper ]
         ++ optionals (stdenv.isLinux && (nativeLibs != [ ] || libPatches != "")) [
           autoPatchelfHook
-        ]
-      ;
+        ];
       buildInputs = [ openssl ] ++ nativeLibs;
 
       installPhase =
@@ -139,10 +138,8 @@ let
               ]
               { }
               platformAttrs
-          )
-      ;
-    }
-  ;
+          );
+    };
 in
 {
   # Different version of hadoop support different java runtime versions

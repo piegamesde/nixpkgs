@@ -86,8 +86,7 @@ stdenv.mkDerivation rec {
       requests
       pycairo
       pysmbc
-    ]
-  ;
+    ];
 
   preConfigure = ''
     intltoolize --copy --force --automake

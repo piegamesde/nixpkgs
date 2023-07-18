@@ -128,8 +128,7 @@ stdenv.mkDerivation rec {
         gstreamer
         gst-plugins-base
       ]
-    )
-  ;
+    );
 
   env.NIX_CFLAGS_COMPILE = toString [
     "-I${gst_all_1.gstreamer.dev}/include/gstreamer-1.0"

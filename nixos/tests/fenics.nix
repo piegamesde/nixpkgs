@@ -41,15 +41,13 @@ import ./make-test-python.nix (
             gcc
             (python3.withPackages (ps: with ps; [ fenics ]))
           ];
-        }
-      ;
+        };
     };
     testScript =
       { nodes, ... }:
       ''
         start_all()
         fenicsnode.succeed("${fenicsScript}")
-      ''
-    ;
+      '';
   }
 )

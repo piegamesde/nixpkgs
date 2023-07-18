@@ -24,8 +24,7 @@ let
             _: { doCheck = false; }
           );
         };
-      }
-  ;
+      };
 in
 
 python.pkgs.buildPythonApplication rec {
@@ -84,8 +83,7 @@ python.pkgs.buildPythonApplication rec {
       ''
         mypy --strict ${src}
         touch $out
-      ''
-  ;
+      '';
 
   meta = with lib; {
     description = "Renderer for NixOS manual and option docs";

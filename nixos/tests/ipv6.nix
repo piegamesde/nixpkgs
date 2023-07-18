@@ -49,8 +49,7 @@ import ./make-test-python.nix (
               prefix fd60:cc69:b537:1::/64 { };
             };
           '';
-        }
-      ;
+        };
     };
 
     testScript = ''

@@ -43,8 +43,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals buildToxAV [
       libopus
       libvpx
-    ]
-  ;
+    ];
 
   nativeBuildInputs = [
     cmake

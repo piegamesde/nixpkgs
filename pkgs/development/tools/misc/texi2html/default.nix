@@ -34,8 +34,7 @@ stdenv.mkDerivation rec {
         for f in $out/bin/*; do
           substituteInPlace $f --replace "${buildPackages.perl}" "${perl}"
         done
-      ''
-  ;
+      '';
 
   meta = with lib; {
     description = "Perl script which converts Texinfo source files to HTML output";

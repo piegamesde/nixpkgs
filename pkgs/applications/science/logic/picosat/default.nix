@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
 
   makeFlags =
     lib.optional stdenv.isDarwin
-      "SONAME=-Wl,-install_name,$(out)/lib/libpicosat.so"
-  ;
+      "SONAME=-Wl,-install_name,$(out)/lib/libpicosat.so";
 
   installPhase = ''
     mkdir -p $out/bin $out/lib $out/share $out/include/picosat

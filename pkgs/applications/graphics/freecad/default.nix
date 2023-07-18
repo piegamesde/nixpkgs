@@ -106,8 +106,7 @@ mkDerivation rec {
     ++ lib.optionals spaceNavSupport [
       libspnav
       qtx11extras
-    ]
-  ;
+    ];
 
   cmakeFlags = [
     "-Wno-dev" # turns off warnings which otherwise makes it hard to see what is going on

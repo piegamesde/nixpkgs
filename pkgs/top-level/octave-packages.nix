@@ -33,8 +33,7 @@ makeScope newScope (
           inherit lib stdenv;
           inherit octave;
           inherit computeRequiredOctavePackages;
-        }
-    ;
+        };
 
     # Given a list of required Octave package derivations, get a list of
     # ALL required Octave packages needed for the ones specified to run.
@@ -45,8 +44,7 @@ makeScope newScope (
         hasOctavePackage = drv: drv ? isOctavePackage;
         packages = filter hasOctavePackage drvs;
       in
-      unique (packages ++ concatLists (catAttrs "requiredOctavePackages" packages))
-    ;
+      unique (packages ++ concatLists (catAttrs "requiredOctavePackages" packages));
   in
   {
 
@@ -100,8 +98,7 @@ makeScope newScope (
 
     fuzzy-logic-toolkit =
       callPackage ../development/octave-modules/fuzzy-logic-toolkit
-        { }
-    ;
+        { };
 
     ga = callPackage ../development/octave-modules/ga { };
 
@@ -119,13 +116,11 @@ makeScope newScope (
 
     image-acquisition =
       callPackage ../development/octave-modules/image-acquisition
-        { }
-    ;
+        { };
 
     instrument-control =
       callPackage ../development/octave-modules/instrument-control
-        { }
-    ;
+        { };
 
     io = callPackage ../development/octave-modules/io {
       inherit (octave) enableJava;

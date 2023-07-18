@@ -28,8 +28,7 @@ buildPythonPackage rec {
       pathlib2
       contextlib2
       configparser
-    ]
-  ;
+    ];
 
   # Cyclic dependencies
   doCheck = false;

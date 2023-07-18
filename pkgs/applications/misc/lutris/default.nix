@@ -107,8 +107,7 @@ buildPythonApplication rec {
         gst-plugins-ugly
         gstreamer
       ]
-    )
-  ;
+    );
 
   # See `install_requires` in https://github.com/lutris/lutris/blob/master/setup.py
   propagatedBuildInputs = [

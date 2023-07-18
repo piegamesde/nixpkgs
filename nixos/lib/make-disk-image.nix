@@ -377,8 +377,7 @@ let
       ]
       ++ lib.optional deterministic gptfdisk
       ++ stdenv.initialPath
-    )
-  ;
+    );
 
   # I'm preserving the line below because I'm going to search for it across nixpkgs to consolidate
   # image building logic. The comment right below this now appears in 4 different places in nixpkgs :)
@@ -391,8 +390,7 @@ let
 
   basePaths =
     [ config.system.build.toplevel ]
-    ++ lib.optional copyChannel channelSources
-  ;
+    ++ lib.optional copyChannel channelSources;
 
   additionalPaths' = subtractLists basePaths additionalPaths;
 
@@ -530,7 +528,8 @@ let
         else
           ''
             reservedSpace=0
-          ''}
+          ''
+        }
         additionalSpace=$(( $(numfmt --from=iec '${additionalSpace}') + reservedSpace ))
 
         # Compute required space in filesystem blocks
@@ -564,7 +563,8 @@ let
     else
       ''
         truncate -s ${toString diskSize}M $diskImage
-      ''}
+      ''
+    }
 
     ${partitionDiskScript}
 
@@ -578,7 +578,8 @@ let
     else
       ''
         mkfs.${fsType} -b ${blockSize} -F -L ${label} $diskImage
-      ''}
+      ''
+    }
 
     echo "copying staging root to image..."
     cptofs -p ${
@@ -598,7 +599,8 @@ let
     else
       ''
         ${pkgs.qemu}/bin/qemu-img convert -f raw -O ${format} ${compress} $diskImage $out/${filename}
-      ''}
+      ''
+    }
     diskImage=$out/${filename}
   '';
 

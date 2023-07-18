@@ -16,8 +16,7 @@ in
     enable = mkOption {
       description =
         lib.mdDoc
-          "Enable unclutter to hide your mouse cursor when inactive"
-      ;
+          "Enable unclutter to hide your mouse cursor when inactive";
       type = types.bool;
       default = false;
     };
@@ -38,8 +37,7 @@ in
     timeout = mkOption {
       description =
         lib.mdDoc
-          "Number of seconds before the cursor is marked inactive"
-      ;
+          "Number of seconds before the cursor is marked inactive";
       type = types.int;
       default = 1;
     };

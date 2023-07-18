@@ -71,16 +71,14 @@ buildPythonPackage rec {
       # Fatal Python error: Aborted
       "test_basic_response"
       "test_text_response"
-    ]
-  ;
+    ];
 
   disabledTestPaths =
     lib.optionals (stdenv.isDarwin && stdenv.isAarch64)
       [
         # Fatal Python error: Aborted
         "tests/test_lowlevel.py"
-      ]
-  ;
+      ];
 
   pythonImportsCheck = [ "requests" ];
 

@@ -23,8 +23,7 @@ let
   package =
     lib.attrByPath (lib.splitString "." attrPath)
       (throw "Cannot find attribute ‘${attrPath}’.")
-      pkgs
-  ;
+      pkgs;
   packageVersion = lib.getVersion package;
   upperBound =
     let

@@ -69,8 +69,7 @@ let
     lib.makeLibraryPath [
       xorg.libX11
       libGL
-    ]
-  ;
+    ];
 
   python = python3.withPackages (
     ps:
@@ -147,7 +146,8 @@ stdenv.mkDerivation {
     else
       ''
         rm $out/share/playonlinux/bin/check_dd_amd64.bz2
-      ''}
+      ''
+    }
     for f in $out/share/playonlinux/bin/*; do
       bzip2 $f
     done

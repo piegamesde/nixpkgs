@@ -48,8 +48,7 @@ stdenv.mkDerivation rec {
         libiconv
         ApplicationServices
       ]
-    )
-  ;
+    );
 
   # '@LIBPNG_LDFLAGS@' is no longer substituted by autoconf (the code is commented out)
   # so we need to remove it from the pkg-config file as well

@@ -29,8 +29,7 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optionals stdenv.isDarwin [
       CoreServices
       Security
-    ]
-  ;
+    ];
 
   OPENSSL_NO_VENDOR = 1;
 

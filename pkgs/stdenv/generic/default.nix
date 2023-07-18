@@ -229,8 +229,7 @@ let
       };
       passthru.tests =
         lib.warn "Use `stdenv.tests` instead. `passthru` is a `mkDerivation` detail."
-          stdenv.tests
-      ;
+          stdenv.tests;
     }
 
     # Propagate any extra attributes.  For instance, we use this to

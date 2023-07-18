@@ -25,8 +25,7 @@
           nodeVersionMajor = lib.versions.major nodejs.version;
         };
       }
-      ./npm-config-hook.sh
-  ;
+      ./npm-config-hook.sh;
 
   npmBuildHook = makeSetupHook { name = "npm-build-hook"; } ./npm-build-hook.sh;
 
@@ -40,6 +39,5 @@
           jq = "${buildPackages.jq}/bin/jq";
         };
       }
-      ./npm-install-hook.sh
-  ;
+      ./npm-install-hook.sh;
 }

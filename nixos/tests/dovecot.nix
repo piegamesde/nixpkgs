@@ -78,10 +78,8 @@ import ./make-test-python.nix {
           sendTestMailViaDeliveryAgent
           testImap
           testPop
-        ]
-      ;
-    }
-  ;
+        ];
+    };
 
   testScript = ''
     machine.wait_for_unit("postfix.service")

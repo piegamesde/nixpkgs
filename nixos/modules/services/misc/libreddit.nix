@@ -46,8 +46,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Open ports in the firewall for the libreddit web interface"
-        ;
+            "Open ports in the firewall for the libreddit web interface";
       };
     };
   };

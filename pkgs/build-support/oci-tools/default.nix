@@ -133,8 +133,7 @@
                   ;
                 }
               )
-              sysMounts
-          ;
+              sysMounts;
         }
       );
     in
@@ -143,6 +142,5 @@
       mkdir -p $out/rootfs/{dev,proc,sys}
       cp ${config} $out/config.json
       xargs tar c < ${writeReferencesToFile args} | tar -xC $out/rootfs/
-    ''
-  ;
+    '';
 }

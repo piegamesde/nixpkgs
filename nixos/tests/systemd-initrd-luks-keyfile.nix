@@ -38,8 +38,7 @@ import ./make-test-python.nix (
           virtualisation.rootDevice = "/dev/mapper/cryptroot";
           boot.initrd.secrets."/etc/cryptroot.key" = keyfile;
         };
-      }
-    ;
+      };
 
     testScript = ''
       # Create encrypted volume

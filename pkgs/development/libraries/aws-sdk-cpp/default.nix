@@ -89,8 +89,7 @@ stdenv.mkDerivation rec {
       [
         CoreAudio
         AudioToolbox
-      ]
-  ;
+      ];
 
   # propagation is needed for Security.framework to be available when linking
   propagatedBuildInputs = [ aws-crt-cpp ];
@@ -116,8 +115,7 @@ stdenv.mkDerivation rec {
       [
         # openssl 3 generates several deprecation warnings
         "-Wno-error=deprecated-declarations"
-      ]
-  ;
+      ];
 
   # aws-cpp-sdk-core-tests/aws/client/AWSClientTest.cpp
   # seem to have a datarace

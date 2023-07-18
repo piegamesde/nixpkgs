@@ -39,8 +39,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals (!stdenv.isDarwin) [
       "AR:=$(AR)" # libtool is used for darwin
-    ]
-  ;
+    ];
 
   patchPhase = ''
     substituteInPlace Makefile \

@@ -87,8 +87,7 @@ stdenv.mkDerivation rec {
         python
         python3.pkgs.protobuf
       ]
-    )
-  ;
+    );
 
   postPatch = ''
     substituteInPlace ./Documentation/Makefile \

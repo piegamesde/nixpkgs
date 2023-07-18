@@ -20,8 +20,7 @@ let
       unicorn
       capstone
       ropper
-    ]
-  ;
+    ];
 in
 stdenv.mkDerivation rec {
   pname = "gef";

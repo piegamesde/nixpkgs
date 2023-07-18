@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
       libxcb
       libXrandr
       wayland
-    ]
-  ;
+    ];
 
   cmakeFlags =
     [ "-DCMAKE_INSTALL_INCLUDEDIR=${vulkan-headers}/include" ]

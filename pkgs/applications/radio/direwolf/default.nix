@@ -40,8 +40,7 @@ stdenv.mkDerivation rec {
     ++ (optionals stdenv.isLinux [
       alsa-lib
       udev
-    ])
-  ;
+    ]);
 
   postPatch = ''
     substituteInPlace conf/CMakeLists.txt \

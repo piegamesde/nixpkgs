@@ -25,8 +25,7 @@ in
       type = types.attrsOf types.str;
       description =
         lib.mdDoc
-          "Extra Environment variables to pass to the conduit server."
-      ;
+          "Extra Environment variables to pass to the conduit server.";
       default = { };
       example = {
         RUST_BACKTRACE = "yes";
@@ -51,24 +50,21 @@ in
             example = "example.com";
             description =
               lib.mdDoc
-                "The server_name is the name of this server. It is used as a suffix for user # and room ids."
-            ;
+                "The server_name is the name of this server. It is used as a suffix for user # and room ids.";
           };
           global.port = mkOption {
             type = types.port;
             default = 6167;
             description =
               lib.mdDoc
-                "The port Conduit will be running on. You need to set up a reverse proxy in your web server (e.g. apache or nginx), so all requests to /_matrix on port 443 and 8448 will be forwarded to the Conduit instance running on this port"
-            ;
+                "The port Conduit will be running on. You need to set up a reverse proxy in your web server (e.g. apache or nginx), so all requests to /_matrix on port 443 and 8448 will be forwarded to the Conduit instance running on this port";
           };
           global.max_request_size = mkOption {
             type = types.ints.positive;
             default = 20000000;
             description =
               lib.mdDoc
-                "Max request size in bytes. Don't forget to also change it in the proxy."
-            ;
+                "Max request size in bytes. Don't forget to also change it in the proxy.";
           };
           global.allow_registration = mkOption {
             type = types.bool;
@@ -80,8 +76,7 @@ in
             default = true;
             description =
               lib.mdDoc
-                "Whether new encrypted rooms can be created. Note: existing rooms will continue to work."
-            ;
+                "Whether new encrypted rooms can be created. Note: existing rooms will continue to work.";
           };
           global.allow_federation = mkOption {
             type = types.bool;
@@ -100,8 +95,7 @@ in
             default = "::1";
             description =
               lib.mdDoc
-                "Address to listen on for connections by the reverse proxy/tls terminator."
-            ;
+                "Address to listen on for connections by the reverse proxy/tls terminator.";
           };
           global.database_path = mkOption {
             type = types.str;

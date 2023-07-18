@@ -26,8 +26,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs =
     [ importlib-metadata ]
-    ++ lib.optionals (pythonOlder "3.5") [ typing ]
-  ;
+    ++ lib.optionals (pythonOlder "3.5") [ typing ];
 
   nativeCheckInputs = [ unittestCheckHook ];
 

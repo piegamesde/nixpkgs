@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags =
     lib.optional (stdenv.isDarwin && stdenv.isAarch64)
-      "-DCMAKE_OSX_ARCHITECTURES=arm64"
-  ;
+      "-DCMAKE_OSX_ARCHITECTURES=arm64";
 
   meta = with lib; {
     homepage = "http://cegui.org.uk/";

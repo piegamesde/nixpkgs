@@ -42,8 +42,7 @@ import ./make-test-python.nix (
           if __name__ == "__main__":
               server = Server(("localhost", 1234), Handler)
               server.serve_forever()
-        ''
-    ;
+        '';
   in
   {
     name = "switch-test";
@@ -114,8 +113,7 @@ import ./make-test-python.nix (
               imports = [ simpleServiceModified.configuration ];
               systemd.services.test.serviceConfig.ExecStart =
                 lib.mkForce
-                  "${pkgs.coreutils}/bin/false"
-              ;
+                  "${pkgs.coreutils}/bin/false";
             };
 
             autorestartService.configuration = {
@@ -429,8 +427,7 @@ import ./make-test-python.nix (
               imports = [ timer.configuration ];
               systemd.timers.test-timer.timerConfig.OnCalendar =
                 lib.mkForce
-                  "Fri 2012-11-23 16:00:00"
-              ;
+                  "Fri 2012-11-23 16:00:00";
             };
 
             hybridSleepModified.configuration = {
@@ -494,8 +491,7 @@ import ./make-test-python.nix (
               systemd.slices.testslice.sliceConfig.MemoryMax = lib.mkForce null;
             };
           };
-        }
-      ;
+        };
 
       other = {
         users.mutableUsers = true;
@@ -1106,7 +1102,6 @@ import ./make-test-python.nix (
             assert_lacks(out, "the following new units were started:")
             machine.succeed("systemctl start testservice.service")
             machine.succeed("echo 1 > /proc/sys/vm/panic_on_oom")  # disallow OOMing
-      ''
-    ;
+      '';
   }
 )

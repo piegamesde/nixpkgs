@@ -29,8 +29,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs =
     [ pkg-config ]
-    ++ lib.optionals stdenv.isDarwin [ rustPlatform.bindgenHook ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ rustPlatform.bindgenHook ];
 
   buildInputs =
     [ openssl ]

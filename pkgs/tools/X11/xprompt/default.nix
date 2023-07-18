@@ -39,8 +39,7 @@ stdenv.mkDerivation rec {
           writeText "config.h" conf
       ;
     in
-    optionalString (conf != null) "cp ${configFile} config.h"
-  ;
+    optionalString (conf != null) "cp ${configFile} config.h";
 
   makeFlags = [
     "CC:=$(CC)"

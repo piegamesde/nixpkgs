@@ -35,8 +35,7 @@ in
           };
           environment.WEBHOOK_MESSAGE = "Templates are working!";
         };
-      }
-    ;
+      };
   };
 
   extraPythonPackages = p: [
@@ -70,6 +69,5 @@ in
 
         assert response.status_code == 200
         assert response.content == b"Templates are working!"
-    ''
-  ;
+    '';
 }

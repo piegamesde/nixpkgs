@@ -41,12 +41,10 @@ args@{
                   "conf=${davfs2Conf}"
                   "x-systemd.automount"
                   "noauto"
-                ]
-              ;
+                ];
             };
           };
-        }
-      ;
+        };
 
       nextcloud =
         { config, pkgs, ... }:
@@ -80,8 +78,7 @@ args@{
           };
 
           environment.systemPackages = [ cfg.services.nextcloud.occ ];
-        }
-      ;
+        };
 
       nextcloudWithoutMagick =
         args@{
@@ -93,8 +90,7 @@ args@{
         lib.mkMerge [
           (nextcloud args)
           { services.nextcloud.enableImagemagick = false; }
-        ]
-      ;
+        ];
     };
 
     testScript =
@@ -132,16 +128,13 @@ args@{
             ''
               test -e graph
               grep "$what" graph >$out || true
-            ''
-        ;
+            '';
         nextcloudUsesImagick =
           findInClosure "imagick"
-            nodes.nextcloud.config.system.build.vm
-        ;
+            nodes.nextcloud.config.system.build.vm;
         nextcloudWithoutDoesntUseIt =
           findInClosure "imagick"
-            nodes.nextcloudWithoutMagick.config.system.build.vm
-        ;
+            nodes.nextcloudWithoutMagick.config.system.build.vm;
       in
       ''
         assert open("${nextcloudUsesImagick}").read() != ""
@@ -167,8 +160,7 @@ args@{
         )
         assert "hi" in client.succeed("cat /mnt/dav/test-shared-file")
         nextcloud.succeed("grep -vE '^HBEGIN:oc_encryption_module' /var/lib/nextcloud-data/data/root/files/test-shared-file")
-      ''
-    ;
+      '';
   }
 ))
   args

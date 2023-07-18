@@ -290,8 +290,7 @@ in
     extraSANs = mkOption {
       description =
         lib.mdDoc
-          "Extra x509 Subject Alternative Names to be added to the kubernetes apiserver tls cert."
-      ;
+          "Extra x509 Subject Alternative Names to be added to the kubernetes apiserver tls cert.";
       default = [ ];
       type = listOf str;
     };
@@ -325,8 +324,7 @@ in
     preferredAddressTypes = mkOption {
       description =
         lib.mdDoc
-          "List of the preferred NodeAddressTypes to use for kubelet connections."
-      ;
+          "List of the preferred NodeAddressTypes to use for kubelet connections.";
       type = nullOr str;
       default = null;
     };

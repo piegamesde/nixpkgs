@@ -27,8 +27,7 @@ let
       fi
 
       touch $out
-    ''
-  ;
+    '';
 
   check = cond: if cond then "ok" else "nok";
 in
@@ -44,8 +43,7 @@ in
         phpWithImagick="${php.withExtensions ({ all, ... }: [ all.imagick ])}"
         checking "that imagick extension is present when enabled"
         $phpWithImagick/bin/php -r 'exit(extension_loaded("imagick") ? 0 : 1);' && ok || nok
-      ''
-  ;
+      '';
 
   overrideAttrs-preserves-enabled-extensions =
     let
@@ -73,8 +71,7 @@ in
       checking "if imagick extension is linked against the overridden PHP"
       echo $php
       $php/bin/php -r 'exit(extension_loaded("imagick") ? 0 : 1);' && ok || nok
-    ''
-  ;
+    '';
 
   unwrapped-overrideAttrs-stacks =
     let
@@ -114,8 +111,7 @@ in
 
       checking "if second override is there"
       ${check (builtins.match ".*oAs-second.*" customPhp.postInstall != null)}
-    ''
-  ;
+    '';
 
   wrapped-overrideAttrs-stacks =
     let
@@ -159,6 +155,5 @@ in
       ${check (
         builtins.match ".*oAs-second.*" customPhp.unwrapped.postInstall != null
       )}
-    ''
-  ;
+    '';
 }

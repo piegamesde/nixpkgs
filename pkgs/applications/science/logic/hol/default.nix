@@ -26,8 +26,7 @@ let
     with pkgs;
     lib.overrideDerivation polyml (
       attrs: { configureFlags = [ "--enable-shared" ]; }
-    )
-  ;
+    );
 in
 
 stdenv.mkDerivation {

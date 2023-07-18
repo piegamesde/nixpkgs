@@ -62,8 +62,7 @@ stdenv.mkDerivation rec {
 
   outputs =
     [ "out" ]
-    ++ lib.optional withExamples "bin" ++ lib.optional withDocs "doc"
-  ;
+    ++ lib.optional withExamples "bin" ++ lib.optional withDocs "doc";
 
   # Manually move example & test binaries to $bin to avoid cyclic dependencies on dev binaries
   outputBin = lib.optionalString withExamples "out";
@@ -82,8 +81,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withDocs [
       doxygen
       graphviz
-    ]
-  ;
+    ];
 
   buildInputs =
     lib.optionals stdenv.hostPlatform.isDarwin [
@@ -166,8 +164,7 @@ stdenv.mkDerivation rec {
       ''
         # unresolved symbols in cairo dylib without this: https://github.com/fltk/fltk/issues/250
         export NIX_LDFLAGS="$NIX_LDFLAGS -undefined dynamic_lookup"
-      ''
-  ;
+      '';
 
   postBuild = lib.optionalString withDocs ''
     make docs

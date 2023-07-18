@@ -56,8 +56,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals stdenv.isDarwin [
       "-Dunwind=disabled" # libplacebo doesn’t build with `darwin.libunwind`
-    ]
-  ;
+    ];
 
   postPatch = ''
     substituteInPlace meson.build \

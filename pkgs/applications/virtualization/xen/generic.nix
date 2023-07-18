@@ -98,8 +98,7 @@ let
         }
         ( __do )
       ''
-    )
-  ;
+    );
 
   # We don't want to use the wrapped version, because this version of ld is
   # only used for linking the Xen EFI binary, and the build process really
@@ -373,8 +372,7 @@ stdenv.mkDerivation (
         ]
         ++ lib.optionals (lib.versionOlder version "4.15") [
           "This version of Xen has reached its end of life. See https://xenbits.xen.org/docs/unstable/support-matrix.html"
-        ]
-      ;
+        ];
     } // (config.meta or { });
   }
   // removeAttrs config [

@@ -53,8 +53,7 @@ let
                 "${pkgs.gzip}/bin/zcat /var/backup/mysql/daily/testdb/daily_testdb_*.sql.gz | grep hello"
             )
       '';
-    }
-  ;
+    };
 in
 lib.mapAttrs (_: package: makeAutobackupTest { inherit package; })
   mariadbPackages

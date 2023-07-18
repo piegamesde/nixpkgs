@@ -44,8 +44,7 @@ stdenv.mkDerivation rec {
         NetDNS
         perlldap
       ]
-    )
-  ;
+    );
 
   nativeBuildInputs = [ autoreconfHook ];
 

@@ -26,13 +26,11 @@ import ./make-test-python.nix (
         excludedTerminfos =
           lib.filterAttrs
             (_: drv: !(builtins.elem drv.terminfo config.environment.systemPackages))
-            terminfos
-        ;
+            terminfos;
         includedOuts =
           lib.filterAttrs
             (_: drv: builtins.elem drv.out config.environment.systemPackages)
-            terminfos
-        ;
+            terminfos;
       in
       {
         environment = {
@@ -44,8 +42,7 @@ import ./make-test-python.nix (
             builtins.attrNames includedOuts
           );
         };
-      }
-    ;
+      };
 
     testScript = ''
       machine.fail("grep . /etc/terminfo-missing >&2")

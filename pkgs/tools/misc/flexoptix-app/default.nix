@@ -32,8 +32,7 @@ let
             ${nodePackages.asar}/bin/asar pack app $out/resources/app.asar
           '';
         }
-      )
-  ;
+      );
 in
 appimageTools.wrapAppImage {
   inherit pname version;
@@ -42,8 +41,7 @@ appimageTools.wrapAppImage {
   multiPkgs = null; # no 32bit needed
   extraPkgs =
     { pkgs, ... }@args:
-    [ pkgs.hidapi ] ++ appimageTools.defaultFhsEnvArgs.multiPkgs args
-  ;
+    [ pkgs.hidapi ] ++ appimageTools.defaultFhsEnvArgs.multiPkgs args;
 
   extraInstallCommands = ''
     # Add desktop convencience stuff

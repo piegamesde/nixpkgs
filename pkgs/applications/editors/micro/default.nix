@@ -32,8 +32,7 @@ buildGoModule rec {
       "-w"
       "-X ${t}/util.Version=${version}"
       "-X ${t}/util.CommitHash=${src.rev}"
-    ]
-  ;
+    ];
 
   preBuild = ''
     go generate ./runtime

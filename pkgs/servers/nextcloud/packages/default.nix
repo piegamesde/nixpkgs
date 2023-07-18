@@ -23,8 +23,7 @@ let
       mkNextcloudDerivation =
         self.callPackage
           ({ }: { data }: pkgs.fetchNextcloudApp { inherit (data) url sha256; })
-          { }
-      ;
+          { };
     }
     //
       lib.mapAttrs

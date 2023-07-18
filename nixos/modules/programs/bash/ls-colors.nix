@@ -16,8 +16,7 @@ in
       mkEnableOption (lib.mdDoc "extra colors in directory listings")
       // {
         default = true;
-      }
-    ;
+      };
   };
 
   config = mkIf enable {

@@ -65,8 +65,7 @@ let
           cp "${package}/${src}" "${dst}"
         ''
       )
-    )
-  ;
+    );
 
   npmPackages = import ./npm_deps.nix;
 in
@@ -119,8 +118,7 @@ rustPlatform.buildRustPackage rec {
       libiconv
       DiskArbitration
       Foundation
-    ]
-  ;
+    ];
 
   # Skip tests that use the network
   checkFlags = [

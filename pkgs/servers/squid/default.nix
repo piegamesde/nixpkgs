@@ -40,8 +40,7 @@ stdenv.mkDerivation rec {
       libcap
       pam
       systemd
-    ]
-  ;
+    ];
 
   enableParallelBuilding = true;
 
@@ -59,8 +58,7 @@ stdenv.mkDerivation rec {
       "--enable-htcp"
     ]
     ++ lib.optional (stdenv.isLinux && !stdenv.hostPlatform.isMusl)
-      "--enable-linux-netfilter"
-  ;
+      "--enable-linux-netfilter";
 
   doCheck = true;
   nativeCheckInputs = [ cppunit ];

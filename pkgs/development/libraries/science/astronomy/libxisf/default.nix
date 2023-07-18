@@ -29,8 +29,7 @@ stdenv.mkDerivation (
 
     cmakeFlags =
       [ "-DUSE_BUNDLED_LIBS=OFF" ]
-      ++ lib.optional stdenv.hostPlatform.isStatic "-DBUILD_SHARED_LIBS=OFF"
-    ;
+      ++ lib.optional stdenv.hostPlatform.isStatic "-DBUILD_SHARED_LIBS=OFF";
 
     buildInputs = [
       lz4

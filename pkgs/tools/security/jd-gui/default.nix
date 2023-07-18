@@ -140,8 +140,7 @@ stdenv.mkDerivation rec {
       chmod +x $out/bin/jd-gui
 
       runHook postInstall
-    ''
-  ;
+    '';
 
   desktopItems = [ desktopItem ];
 

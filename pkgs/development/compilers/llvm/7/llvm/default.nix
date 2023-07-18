@@ -20,7 +20,8 @@
   debugVersion ? false,
   doCheck ? stdenv.isLinux
     && (!stdenv.isx86_32)
-    && (stdenv.hostPlatform == stdenv.buildPlatform),
+    && (stdenv.hostPlatform == stdenv.buildPlatform)
+  ,
   enableManpages ? false,
   enableSharedLibraries ? !stdenv.hostPlatform.isStatic,
   # broken for Ampere eMAG 8180 (c2.large.arm on Packet) #56245
@@ -38,8 +39,7 @@ let
     let
       parts = splitVersion release_version;
     in
-    imap (i: _: concatStringsSep "." (take i parts)) parts
-  ;
+    imap (i: _: concatStringsSep "." (take i parts)) parts;
 
   # Ordinarily we would just the `doCheck` and `checkDeps` functionality
   # `mkDerivation` gives us to manage our test dependencies (instead of breaking
@@ -76,8 +76,7 @@ stdenv.mkDerivation (
     src = fetch "llvm" "0r1p5didv4rkgxyvbkyz671xddg6i3dxvbpsi1xxipkla0l9pk0v";
     polly_src =
       fetch "polly"
-        "16qkns4ab4x0azrvhy4j7cncbyb2rrbdrqj87zphvqxm5pvm8m1h"
-    ;
+        "16qkns4ab4x0azrvhy4j7cncbyb2rrbdrqj87zphvqxm5pvm8m1h";
 
     unpackPhase =
       ''

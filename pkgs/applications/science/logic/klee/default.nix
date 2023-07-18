@@ -111,8 +111,7 @@ stdenv.mkDerivation rec {
       "-DGTEST_SRC_DIR=${gtest.src}"
       "-DGTEST_INCLUDE_DIR=${gtest.src}/googletest/include"
       "-Wno-dev"
-    ]
-  ;
+    ];
 
   # Silence various warnings during the compilation of fortified bitcode.
   env.NIX_CFLAGS_COMPILE = toString [ "-Wno-macro-redefined" ];

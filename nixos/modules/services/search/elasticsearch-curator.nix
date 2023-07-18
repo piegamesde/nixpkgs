@@ -47,8 +47,7 @@ in
     interval = mkOption {
       description =
         lib.mdDoc
-          "The frequency to run curator, a systemd.time such as 'hourly'"
-      ;
+          "The frequency to run curator, a systemd.time such as 'hourly'";
       default = "hourly";
       type = types.str;
     };
@@ -65,8 +64,7 @@ in
     actionYAML = mkOption {
       description =
         lib.mdDoc
-          "curator action.yaml file contents, alternatively use curator-cli which takes a simple action command"
-      ;
+          "curator action.yaml file contents, alternatively use curator-cli which takes a simple action command";
       type = types.lines;
       example = ''
         ---

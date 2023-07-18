@@ -17,8 +17,7 @@ import ./make-test-python.nix (
             openFirewall = true;
             port = 1337;
           };
-        }
-      ;
+        };
       client1 = client;
       client2 = client;
     };

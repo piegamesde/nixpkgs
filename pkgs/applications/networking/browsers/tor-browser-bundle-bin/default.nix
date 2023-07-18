@@ -256,7 +256,8 @@ stdenv.mkDerivation rec {
     else
       ''
         clearPref("security.sandbox.content.write_path_whitelist");
-      ''}
+      ''
+    }
 
     ${lib.optionalString (extraPrefs != "") ''
       ${extraPrefs}

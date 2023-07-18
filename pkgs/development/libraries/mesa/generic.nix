@@ -58,7 +58,8 @@
       "crocus" # Intel legacy, x86 only
     ]
   else
-    [ "auto" ],
+    [ "auto" ]
+  ,
   vulkanDrivers ? if stdenv.isLinux then
     [
       "amd" # AMD (aka RADV)
@@ -87,7 +88,8 @@
       "intel_hasvk" # Intel Haswell/Broadwell, "legacy" Vulkan driver (https://www.phoronix.com/news/Intel-HasVK-Drop-Dead-Code)
     ]
   else
-    [ "auto" ],
+    [ "auto" ]
+  ,
   eglPlatforms ? [ "x11" ] ++ lib.optionals stdenv.isLinux [ "wayland" ],
   vulkanLayers ? lib.optionals (!stdenv.isDarwin) [
     "device-select"
@@ -98,7 +100,8 @@
   OpenGL,
   Xplugin,
   withValgrind ? lib.meta.availableOn stdenv.hostPlatform valgrind-light
-    && !valgrind-light.meta.broken,
+    && !valgrind-light.meta.broken
+  ,
   valgrind-light,
   enableGalliumNine ? stdenv.isLinux,
   enableOSMesa ? stdenv.isLinux,

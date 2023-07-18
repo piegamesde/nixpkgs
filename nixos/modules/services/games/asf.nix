@@ -39,8 +39,7 @@ let
         PasswordFormat = 4;
         Enabled = c.enabled;
       }
-    )
-  ;
+    );
 in
 {
   options.services.archisteamfarm = {
@@ -60,8 +59,7 @@ in
           enable = mkEnableOption "" // {
             description =
               lib.mdDoc
-                "Whether to start the web-ui. This is the preferred way of configuring things such as the steam guard token."
-            ;
+                "Whether to start the web-ui. This is the preferred way of configuring things such as the steam guard token.";
           };
 
           package = mkOption {
@@ -87,19 +85,15 @@ in
       defaultText = lib.literalExpression "pkgs.ArchiSteamFarm";
       description =
         lib.mdDoc
-          "Package to use. Should always be the latest version, for security reasons, since this module uses very new features and to not get out of sync with the Steam API."
-      ;
+          "Package to use. Should always be the latest version, for security reasons, since this module uses very new features and to not get out of sync with the Steam API.";
     };
 
     dataDir = mkOption {
       type = types.path;
       default = "/var/lib/asf";
-      description =
-        lib.mdDoc
-          ''
-            The ASF home directory used to store all data.
-            If left as the default value this directory will automatically be created before the ASF server starts, otherwise the sysadmin is responsible for ensuring the directory exists with appropriate ownership and permissions.''
-      ;
+      description = lib.mdDoc ''
+        The ASF home directory used to store all data.
+        If left as the default value this directory will automatically be created before the ASF server starts, otherwise the sysadmin is responsible for ensuring the directory exists with appropriate ownership and permissions.'';
     };
 
     settings = mkOption {
@@ -121,8 +115,7 @@ in
       default = null;
       description =
         lib.mdDoc
-          "Path to a file containing the password. The file must be readable by the `asf` user/group."
-      ;
+          "Path to a file containing the password. The file must be readable by the `asf` user/group.";
     };
 
     ipcSettings = mkOption {
@@ -151,16 +144,14 @@ in
               type = types.str;
               description =
                 lib.mdDoc
-                  "Name of the user to log in. Default is attribute name."
-              ;
+                  "Name of the user to log in. Default is attribute name.";
               default = "";
             };
             passwordFile = mkOption {
               type = types.path;
               description =
                 lib.mdDoc
-                  "Path to a file containing the password. The file must be readable by the `asf` user/group."
-              ;
+                  "Path to a file containing the password. The file must be readable by the `asf` user/group.";
             };
             enabled = mkOption {
               type = types.bool;
@@ -285,8 +276,7 @@ in
             ${optionalString cfg.web-ui.enable ''
               ln -s ${cfg.web-ui.package}/lib/dist www
             ''}
-          ''
-        ;
+          '';
       };
     };
   };

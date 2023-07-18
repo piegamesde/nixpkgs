@@ -175,8 +175,7 @@ in
         # explicitly tell it where the actual configuration files are
         Environment =
           mkIf (config.virtualisation.lxc.lxcfs.enable)
-            "LXD_LXC_TEMPLATE_CONFIG=${pkgs.lxcfs}/share/lxc/config"
-        ;
+            "LXD_LXC_TEMPLATE_CONFIG=${pkgs.lxcfs}/share/lxc/config";
       };
     };
 

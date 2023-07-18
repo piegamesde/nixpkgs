@@ -17,8 +17,7 @@ import ../make-test-python.nix (
           kdc = "kerberos.mit.edu";
           kerberosAdminServer = "kerberos.mit.edu";
         };
-      }
-    ;
+      };
 
     testScript =
       let
@@ -50,7 +49,6 @@ import ../make-test-python.nix (
         machine.succeed(
             "diff /etc/krb5.conf ${snapshot}"
         )
-      ''
-    ;
+      '';
   }
 )

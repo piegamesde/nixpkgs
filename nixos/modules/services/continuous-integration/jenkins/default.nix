@@ -105,8 +105,7 @@ in
         ];
         defaultText =
           literalExpression
-            "[ pkgs.stdenv pkgs.git pkgs.jdk17 config.programs.ssh.package pkgs.nix ]"
-        ;
+            "[ pkgs.stdenv pkgs.git pkgs.jdk17 config.programs.ssh.package pkgs.nix ]";
         type = types.listOf types.package;
         description = lib.mdDoc ''
           Packages to add to PATH for the jenkins process.
@@ -213,8 +212,7 @@ in
         let
           selectedSessionVars =
             lib.filterAttrs (n: v: builtins.elem n [ "NIX_PATH" ])
-              config.environment.sessionVariables
-          ;
+              config.environment.sessionVariables;
         in
         selectedSessionVars
         // {
@@ -237,8 +235,7 @@ in
               let
                 pluginCmds =
                   lib.attrsets.mapAttrsToList (n: v: "cp ${v} ${cfg.home}/plugins/${n}.jpi")
-                    cfg.plugins
-                ;
+                    cfg.plugins;
               in
               ''
                 rm -r ${cfg.home}/plugins || true
@@ -250,8 +247,7 @@ in
         ''
           rm -rf ${cfg.home}/war
           ${replacePlugins}
-        ''
-      ;
+        '';
 
       # For reference: https://wiki.jenkins.io/display/JENKINS/JenkinsLinuxStartupScript
       script = ''

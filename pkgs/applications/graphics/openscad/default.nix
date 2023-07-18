@@ -107,8 +107,7 @@ mkDerivation rec {
       "ENABLE_SPNAV=1"
       "SPNAV_INCLUDEPATH=${libspnav}/include"
       "SPNAV_LIBPATH=${libspnav}/lib"
-    ]
-  ;
+    ];
 
   enableParallelBuilding = true;
 

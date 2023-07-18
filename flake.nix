@@ -36,8 +36,7 @@
                 # non-hermetic default.
                 system = null;
               }
-            )
-          ;
+            );
         }
       );
 
@@ -64,6 +63,5 @@
       nixosModules = {
         notDetected = ./nixos/modules/installer/scan/not-detected.nix;
       };
-    }
-  ;
+    };
 }

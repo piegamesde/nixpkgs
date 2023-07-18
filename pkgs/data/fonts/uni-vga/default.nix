@@ -27,8 +27,7 @@ stdenv.mkDerivation {
     ++ lib.optionals stdenv.isLinux [
       perl
       kbd
-    ]
-  ;
+    ];
 
   postPatch = "patchShebangs .";
 

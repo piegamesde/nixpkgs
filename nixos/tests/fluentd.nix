@@ -28,8 +28,7 @@ import ./make-test-python.nix (
             </match>
           '';
         };
-      }
-    ;
+      };
 
     testScript =
       let
@@ -52,7 +51,6 @@ import ./make-test-python.nix (
         machine.succeed("systemctl stop fluentd")
 
         machine.succeed("grep '${testMessage}' /tmp/current-log")
-      ''
-    ;
+      '';
   }
 )

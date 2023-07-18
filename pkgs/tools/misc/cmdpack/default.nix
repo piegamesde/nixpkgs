@@ -45,8 +45,7 @@ let
         license = licenses.gpl3Plus;
         maintainers = with maintainers; [ zane ];
       };
-    }
-  ;
+    };
 in
 {
   bin2iso = mkCmdPackDerivation {

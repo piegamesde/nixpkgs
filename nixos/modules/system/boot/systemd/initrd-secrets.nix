@@ -21,8 +21,7 @@
                   }
                 )
                 config.boot.initrd.secrets
-            )
-        ;
+            );
 
         # Copy secrets to their respective locations
         boot.initrd.systemd.services.initrd-nixos-copy-secrets =
@@ -49,10 +48,8 @@
                 Type = "oneshot";
                 RemainAfterExit = true;
               };
-            }
-        ;
+            };
         # The script needs this
         boot.initrd.systemd.extraBin.find = "${pkgs.findutils}/bin/find";
-      }
-  ;
+      };
 }

@@ -57,16 +57,17 @@ let
           default = null;
           description =
             lib.mdDoc
-              "A name for the drive. Must be unique in the drives list. Not passed to qemu."
-          ;
+              "A name for the drive. Must be unique in the drives list. Not passed to qemu.";
         };
       };
-    }
-  ;
+    };
 
   selectPartitionTableLayout =
     { useEFIBoot, useDefaultFilesystems }:
-    if useDefaultFilesystems then if useEFIBoot then "efi" else "legacy" else "none"
+    if useDefaultFilesystems then
+      if useEFIBoot then "efi" else "legacy"
+    else
+      "none"
   ;
 
   driveCmdline =
@@ -98,8 +99,7 @@ let
           "-device virtio-blk-pci,${deviceOpts}"
       ;
     in
-    "-drive ${driveOpts} ${device}"
-  ;
+    "-drive ${driveOpts} ${device}";
 
   drivesCmdLine = drives: concatStringsSep "\\\n    " (imap1 driveCmdline drives);
 
@@ -123,8 +123,7 @@ let
       (throw "Drive ${driveName} not found")
       (throw "Multiple drives named ${driveName}")
       driveList
-    ).device
-  ;
+    ).device;
 
   addDeviceNames = imap1 (idx: drive: drive // { device = driveDeviceName idx; });
 
@@ -225,7 +224,8 @@ let
         # write into it and we want to keep this data.
         ''cp ${systemImage}/efi-vars.fd "$NIX_EFI_VARS"''
       else
-        ''cp ${cfg.efi.variables} "$NIX_EFI_VARS"''}
+        ''cp ${cfg.efi.variables} "$NIX_EFI_VARS"''
+      }
         chmod 0644 "$NIX_EFI_VARS"
       fi
     ''}
@@ -419,8 +419,7 @@ in
       default = lookupDriveDeviceName "root" cfg.qemu.drives;
       defaultText =
         literalExpression
-          ''lookupDriveDeviceName "root" cfg.qemu.drives''
-      ;
+          ''lookupDriveDeviceName "root" cfg.qemu.drives'';
       example = "/dev/vda";
       description = lib.mdDoc ''
         The disk to be used for the boot filesystem.
@@ -433,8 +432,7 @@ in
       default = if cfg.useEFIBoot then "${cfg.bootLoaderDevice}1" else null;
       defaultText =
         literalExpression
-          ''if cfg.useEFIBoot then "''${cfg.bootLoaderDevice}1" else null''
-      ;
+          ''if cfg.useEFIBoot then "''${cfg.bootLoaderDevice}1" else null'';
       example = "/dev/vda1";
       description = lib.mdDoc ''
         The boot partition to be used to mount /boot filesystem.
@@ -506,15 +504,13 @@ in
             type = types.str;
             description =
               lib.mdDoc
-                "The path of the directory to share, can be a shell variable"
-            ;
+                "The path of the directory to share, can be a shell variable";
           };
           options.target = mkOption {
             type = types.path;
             description =
               lib.mdDoc
-                "The mount point of the directory inside the virtual machine"
-            ;
+                "The mount point of the directory inside the virtual machine";
           };
         }
       );
@@ -722,8 +718,7 @@ in
               "tty0"
             ];
           in
-          if cfg.graphics then consoles else reverseList consoles
-        ;
+          if cfg.graphics then consoles else reverseList consoles;
         example = [ "console=tty1" ];
         description = lib.mdDoc ''
           The output console devices to pass to the kernel command line via the
@@ -847,8 +842,7 @@ in
                   }).fd'';
         description =
           lib.mdDoc
-            "OVMF firmware package, defaults to OVMF configured with secure boot if needed."
-        ;
+            "OVMF firmware package, defaults to OVMF configured with secure boot if needed.";
       };
 
       firmware = mkOption {
@@ -946,8 +940,7 @@ in
           Otherwise, we recommend
 
             ${opt.writableStore} = false;
-        ''
-    ;
+        '';
 
     # In UEFI boot, we use a EFI-only partition table layout, thus GRUB will fail when trying to install
     # legacy and UEFI. In order to avoid this, we have to put "nodev" to force UEFI-only installs.
@@ -962,8 +955,7 @@ in
 
     boot.initrd.kernelModules =
       optionals (cfg.useNixStoreImage && !cfg.writableStore)
-        [ "erofs" ]
-    ;
+        [ "erofs" ];
 
     boot.loader.supportsInitrdSecrets = mkIf (!cfg.useBootLoader) (
       mkVMOverride false
@@ -974,8 +966,7 @@ in
         ''
           # We need mke2fs in the initrd.
           copy_bin_and_libs ${pkgs.e2fsprogs}/bin/mke2fs
-        ''
-    ;
+        '';
 
     boot.initrd.postDeviceCommands =
       lib.mkIf (cfg.useDefaultFilesystems && !config.boot.initrd.systemd.enable)
@@ -987,8 +978,7 @@ in
           if test -z "$FSTYPE" -a -z "$PARTTYPE"; then
               mke2fs -t ext4 ${cfg.rootDevice}
           fi
-        ''
-    ;
+        '';
 
     boot.initrd.postMountCommands = lib.mkIf (!config.boot.initrd.systemd.enable) ''
       # Mark this as a NixOS machine.
@@ -1069,8 +1059,7 @@ in
         "-net nic,netdev=user.0,model=virtio"
         ''
           -netdev user,id=user.0,${forwardingOptions}${restrictNetworkOption}"$QEMU_NET_OPTS"''
-      ]
-    ;
+      ];
 
     # FIXME: Consolidate this one day.
     virtualisation.qemu.options = mkMerge [
@@ -1093,8 +1082,7 @@ in
             s:
             concatMapStrings (c: if builtins.elem c alphaNumericChars then c else "_") (
               stringToCharacters s
-            )
-          ;
+            );
         in
         mkIf (!cfg.useBootLoader) [
           "-kernel \${NIXPKGS_QEMU_KERNEL_${
@@ -1198,8 +1186,7 @@ in
                 device = "${lookupDriveDeviceName "nix-store" cfg.qemu.drives}";
                 neededForBoot = true;
                 options = [ "ro" ];
-              }
-          ;
+              };
           "/nix/.rw-store" = lib.mkIf (cfg.writableStore && cfg.writableStoreUseTmpfs) {
             fsType = "tmpfs";
             options = [ "mode=0755" ];
@@ -1211,8 +1198,7 @@ in
             noCheck = true; # fsck fails on a r/o filesystem
           };
         }
-      ]
-    ;
+      ];
 
     boot.initrd.systemd =
       lib.mkIf (config.boot.initrd.systemd.enable && cfg.writableStore)
@@ -1238,17 +1224,14 @@ in
               ExecStart = "/bin/mkdir -p -m 0755 /sysroot/nix/.rw-store/store /sysroot/nix/.rw-store/work /sysroot/nix/store";
             };
           };
-        }
-    ;
+        };
 
     swapDevices =
       (if cfg.useDefaultFilesystems then mkVMOverride else mkDefault)
-        [ ]
-    ;
+        [ ];
     boot.initrd.luks.devices =
       (if cfg.useDefaultFilesystems then mkVMOverride else mkDefault)
-        { }
-    ;
+        { };
 
     # Don't run ntpd in the guest.  It should get the correct time from KVM.
     services.timesyncd.enable = false;
@@ -1267,8 +1250,7 @@ in
           ln -s ${
             cfg.host.pkgs.writeScript "run-nixos-vm" startVM
           } $out/bin/run-${config.system.name}-vm
-        ''
-    ;
+        '';
 
     # When building a regular system configuration, override whatever
     # video driver the host uses.

@@ -44,8 +44,7 @@ let
         '';
       }
       // args
-    )
-  ;
+    );
 
   mkDictFromRla =
     {
@@ -96,8 +95,7 @@ let
         unzip ${dictFileName}.zip \
           ${dictFileName}.dic ${dictFileName}.aff ${readmeFile}
       '';
-    }
-  ;
+    };
 
   mkDictFromDSSO =
     {
@@ -145,8 +143,7 @@ let
         install -dm755 "$out/share/doc"
         install -m644 ${readmeFile} $out/share/doc/${pname}.txt
       '';
-    }
-  ;
+    };
 
   mkDictFromDicollecte =
     {
@@ -184,8 +181,7 @@ let
           ln -sv $out/share/myspell/dicts/${dictFileName}.$ext $out/share/myspell/dicts/fr_FR.$ext
         done
       '';
-    }
-  ;
+    };
 
   mkDictFromWordlist =
     {
@@ -218,8 +214,7 @@ let
         mv ${srcFileName}.aff ${dictFileName}.aff || true
         mv ${srcReadmeFile} ${readmeFile}         || true
       '';
-    }
-  ;
+    };
 
   mkDictFromLinguistico =
     {
@@ -249,8 +244,7 @@ let
       unpackCmd = ''
         unzip $src ${dictFileName}.dic ${dictFileName}.aff ${readmeFile}
       '';
-    }
-  ;
+    };
 
   mkDictFromXuxen =
     {
@@ -288,8 +282,7 @@ let
         maintainers = with maintainers; [ zalakain ];
         platforms = platforms.all;
       };
-    }
-  ;
+    };
 
   mkDictFromJ3e =
     {
@@ -337,8 +330,7 @@ let
         maintainers = with maintainers; [ timor ];
         platforms = platforms.all;
       };
-    }
-  ;
+    };
 
   mkDictFromLibreOffice =
     {
@@ -369,8 +361,7 @@ let
         maintainers = with maintainers; [ vlaci ];
         platforms = platforms.all;
       };
-    }
-  ;
+    };
 in
 rec {
 

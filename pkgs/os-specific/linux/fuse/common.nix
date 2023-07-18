@@ -117,8 +117,7 @@ stdenv.mkDerivation rec {
         python
         pytest
       ]
-    )
-  ;
+    );
 
   checkPhase = ''
     python3 -m pytest test/

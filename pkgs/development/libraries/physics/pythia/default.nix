@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs =
     [ rsync ]
-    ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
   buildInputs = [
     boost
     fastjet
@@ -48,8 +47,7 @@ stdenv.mkDerivation rec {
         [ "--with-hepmc3=${hepmc}" ]
       else
         [ "--with-hepmc2=${hepmc}" ]
-    )
-  ;
+    );
 
   enableParallelBuilding = true;
 

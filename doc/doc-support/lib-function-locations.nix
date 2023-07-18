@@ -20,8 +20,7 @@ let
             (builtins.length prefix == 0 && builtins.isAttrs set.${name})
             (libDefPos (prefix ++ [ name ]) set.${name})
       )
-      (builtins.attrNames set)
-  ;
+      (builtins.attrNames set);
 
   libset =
     toplib:
@@ -30,8 +29,7 @@ let
         subsetname = subsetname;
         functions = libDefPos [ ] toplib.${subsetname};
       })
-      (builtins.map (x: x.name) libsets)
-  ;
+      (builtins.map (x: x.name) libsets);
 
   nixpkgsLib = pkgs.lib;
 
@@ -42,8 +40,7 @@ let
         name = "lib.${subsetname}.${fn.name}";
         value = fn.location;
       })
-      functions
-  ;
+      functions;
 
   locatedlibsets = libs: builtins.map flattenedLibSubset (libset libs);
   removeFilenamePrefix =
@@ -53,8 +50,7 @@ let
       filenameLen = builtins.stringLength filename;
       substr = builtins.substring prefixLen filenameLen filename;
     in
-    substr
-  ;
+    substr;
 
   removeNixpkgs = removeFilenamePrefix (builtins.toString pkgs.path);
 
@@ -69,8 +65,7 @@ let
       value = value // {
         file = removeNixpkgs value.file;
       };
-    }
-  ;
+    };
 
   relativeLocs = (builtins.map fnLocationRelative liblocations);
   sanitizeId = builtins.replaceStrings [ "'" ] [ "-prime" ];

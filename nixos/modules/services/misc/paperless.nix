@@ -43,8 +43,7 @@ let
     pkgs.writeShellScript "manage" ''
       ${setupEnv}
       exec ${pkg}/bin/paperless-ngx "$@"
-    ''
-  ;
+    '';
 
   # Secure the services
   defaultServiceConfig = {
@@ -360,8 +359,7 @@ in
           in
           ''
             ${pythonWithNltk}/bin/python -m nltk.downloader -d '${nltkDir}' punkt snowball_data stopwords
-          ''
-        ;
+          '';
       };
     };
 

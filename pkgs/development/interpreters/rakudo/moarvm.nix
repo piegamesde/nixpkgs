@@ -35,8 +35,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       CoreServices
       ApplicationServices
-    ]
-  ;
+    ];
   doCheck = false; # MoarVM does not come with its own test suite
 
   configureScript = "${perl}/bin/perl ./Configure.pl";

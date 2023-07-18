@@ -33,8 +33,7 @@ let
           throw "Unknown source type ${spec.type}"
       ;
     in
-    spec // { outPath = path; }
-  ;
+    spec // { outPath = path; };
 
   mkGitSource =
     {
@@ -66,8 +65,7 @@ let
     fetchurl {
       inherit url;
       sha256 = hash;
-    }
-  ;
+    };
 
   mkChannelSource =
     { url, hash, ... }:
@@ -75,7 +73,6 @@ let
       inherit url;
       sha256 = hash;
       extension = "tar";
-    }
-  ;
+    };
 in
 mkSource

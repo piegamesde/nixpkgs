@@ -12,8 +12,7 @@ let
 
   allTests =
     lib.mapAttrs (k: v: if v == null then null else makePkgConfigTestMaybe k v)
-      (builtins.removeAttrs defaultPkgConfigPackages [ "recurseForDerivations" ])
-  ;
+      (builtins.removeAttrs defaultPkgConfigPackages [ "recurseForDerivations" ]);
 
   # nix-build rejects attribute names with periods
   # This will build those regardless.
@@ -21,8 +20,7 @@ let
     runCommand "pkg-config-checks" { allTests = lib.attrValues allTests; }
       ''
         touch $out
-      ''
-  ;
+      '';
 
   makePkgConfigTestMaybe =
     moduleName: pkg:

@@ -70,8 +70,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withFluidSynth [
       fluidsynth
       soundfont-fluid
-    ]
-  ;
+    ];
 
   prefixKey = "--prefix-dir=";
 

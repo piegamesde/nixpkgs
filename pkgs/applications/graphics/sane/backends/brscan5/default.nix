@@ -20,8 +20,7 @@ let
           optionalString stdenv.is64bit "-x86-64"
         }.so.2 \
         ${file}
-    ''
-  ;
+    '';
   system = stdenv.hostPlatform.system;
 in
 stdenv.mkDerivation rec {
@@ -84,8 +83,7 @@ stdenv.mkDerivation rec {
       printf '/etc/opt/brother/scanner/models\x00' | dd of=opt/brother/scanner/brscan5/libsane-brother5.so.1.0.7 bs=1 seek=${
         toString patchOffsetBytes
       } conv=notrunc
-    ''
-  ;
+    '';
 
   installPhase = with lib; ''
     runHook preInstall

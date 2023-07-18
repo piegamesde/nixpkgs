@@ -39,8 +39,7 @@ rustPlatform.buildRustPackage rec {
       libiconv
       DiskArbitration
       Foundation
-    ]
-  ;
+    ];
 
   preCheck = ''
     HOME=$TMPDIR

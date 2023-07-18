@@ -57,8 +57,7 @@ let
   # on the PATH to both be usable.
   targetPrefix =
     lib.optionalString (targetPlatform != hostPlatform)
-      "${targetPlatform.config}-"
-  ;
+      "${targetPlatform.config}-";
 in
 
 stdenv.mkDerivation (
@@ -311,8 +310,7 @@ stdenv.mkDerivation (
         ''
           ln -s $out/${hostPlatform.config}/${targetPlatform.config}/lib/*     $out/lib/
           ln -s $out/${hostPlatform.config}/${targetPlatform.config}/include/* $dev/include/
-        ''
-    ;
+        '';
 
     passthru = {
       inherit targetPrefix;

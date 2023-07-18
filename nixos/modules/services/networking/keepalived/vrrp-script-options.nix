@@ -9,8 +9,7 @@ with lib.types; {
       example = literalExpression ''"''${pkgs.curl} -f http://localhost:80"'';
       description =
         lib.mdDoc
-          "(Path of) Script command to execute followed by args, i.e. cmd [args]..."
-      ;
+          "(Path of) Script command to execute followed by args, i.e. cmd [args]...";
     };
 
     interval = mkOption {
@@ -24,8 +23,7 @@ with lib.types; {
       default = 5;
       description =
         lib.mdDoc
-          "Seconds after which script is considered to have failed."
-      ;
+          "Seconds after which script is considered to have failed.";
     };
 
     weight = mkOption {
@@ -33,8 +31,7 @@ with lib.types; {
       default = 0;
       description =
         lib.mdDoc
-          "Following a failure, adjust the priority by this weight."
-      ;
+          "Following a failure, adjust the priority by this weight.";
     };
 
     rise = mkOption {
@@ -60,8 +57,7 @@ with lib.types; {
       default = null;
       description =
         lib.mdDoc
-          "Name of group to run the script under. Defaults to user group."
-      ;
+          "Name of group to run the script under. Defaults to user group.";
     };
 
     extraConfig = mkOption {
@@ -69,8 +65,7 @@ with lib.types; {
       default = "";
       description =
         lib.mdDoc
-          "Extra lines to be added verbatim to the vrrp_script section."
-      ;
+          "Extra lines to be added verbatim to the vrrp_script section.";
     };
   };
 }

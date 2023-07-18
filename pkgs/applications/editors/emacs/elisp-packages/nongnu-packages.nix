@@ -29,8 +29,7 @@ let
               # Use custom elpa url fetcher with fallback/uncompress
               fetchurl = buildPackages.callPackage ./fetchelpa.nix { };
             }
-          )
-        ;
+          );
       };
 
       super = imported;

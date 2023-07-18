@@ -38,8 +38,7 @@ stdenv.mkDerivation {
         # libxcrypt is required for crypt.h for building older python modules
         libxcrypt
       ]
-    )
-  ;
+    );
 
   cmakeFlags = [ "-DBUILD_TESTS=OFF" ];
 

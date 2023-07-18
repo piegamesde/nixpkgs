@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
         ocamlbuild
         menhir
       ]
-    )
-  ;
+    );
 
   buildInputs = with ocamlPackages; [
     batteries

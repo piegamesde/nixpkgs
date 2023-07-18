@@ -285,8 +285,7 @@ stdenv.mkDerivation rec {
       ]
       ++ optional x264Support "-lx264"
       ++ [ "-lfreetype" ]
-    )
-  ;
+    );
 
   installTargets = [ "install" ] ++ lib.optional x11Support "install-gui";
 

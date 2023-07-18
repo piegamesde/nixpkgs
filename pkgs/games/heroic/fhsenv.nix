@@ -56,8 +56,7 @@ buildFHSEnv {
           libXrender
           libXv
           libXxf86vm
-        ]
-      ;
+        ];
     in
     pkgs:
     with pkgs;

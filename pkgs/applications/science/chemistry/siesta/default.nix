@@ -39,8 +39,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals useMpi [
       mpi
       scalapack
-    ]
-  ;
+    ];
 
   enableParallelBuilding = false; # Started making trouble with gcc-11
 

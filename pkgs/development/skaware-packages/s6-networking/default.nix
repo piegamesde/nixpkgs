@@ -61,8 +61,7 @@ buildPackage {
       "--with-include=${lib.getDev sslLibs.${sslSupport}}/include"
       "--with-lib=${lib.getLib sslLibs.${sslSupport}}/lib"
       "--with-dynlib=${lib.getLib sslLibs.${sslSupport}}/lib"
-    ])
-  ;
+    ]);
 
   postInstall = ''
     # remove all s6 executables from build directory

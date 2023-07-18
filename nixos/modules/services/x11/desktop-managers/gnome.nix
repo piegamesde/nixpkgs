@@ -41,8 +41,7 @@ let
           favoriteAppsOverride
         ;
         inherit flashbackEnabled nixos-background-dark nixos-background-light;
-      }
-  ;
+      };
 
   nixos-background-info = pkgs.writeTextFile rec {
     name = "nixos-background-info";
@@ -353,8 +352,7 @@ in
         '';
         description =
           lib.mdDoc
-            "List of desktop files to put as favorite apps into gnome-shell. These need to be installed somehow globally."
-        ;
+            "List of desktop files to put as favorite apps into gnome-shell. These need to be installed somehow globally.";
       };
 
       extraGSettingsOverrides = mkOption {
@@ -390,8 +388,7 @@ in
                   type = types.str;
                   description =
                     lib.mdDoc
-                      "The name of the window manager to show in the session chooser."
-                  ;
+                      "The name of the window manager to show in the session chooser.";
                   example = "XMonad";
                 };
 
@@ -433,8 +430,7 @@ in
       type = types.listOf types.package;
       description =
         lib.mdDoc
-          "Which packages gnome should exclude from the default environment"
-      ;
+          "Which packages gnome should exclude from the default environment";
     };
   };
 
@@ -501,8 +497,7 @@ in
               inherit (cfg.flashback) panelModulePackages;
             }
           )
-          flashbackWms
-      ;
+          flashbackWms;
 
       security.pam.services.gnome-flashback = {
         enableGnomeKeyring = true;
@@ -510,8 +505,7 @@ in
 
       systemd.packages =
         with pkgs.gnome;
-        [ gnome-flashback ] ++ map gnome-flashback.mkSystemdTargetForWm flashbackWms
-      ;
+        [ gnome-flashback ] ++ map gnome-flashback.mkSystemdTargetForWm flashbackWms;
 
       # gnome-panel needs these for menu applet
       environment.sessionVariables.XDG_DATA_DIRS = [
@@ -615,8 +609,7 @@ in
           # Force enable KMS modifiers for devices that require them.
           # https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/1443
           mutter
-        ]
-      ;
+        ];
 
       services.avahi.enable = mkDefault true;
 
@@ -713,8 +706,7 @@ in
                   gnome-software
                 ]
           )
-          config.environment.gnome.excludePackages
-      ;
+          config.environment.gnome.excludePackages;
 
       # Enable default program modules
       # Since some of these have a corresponding package, we only
@@ -767,8 +759,7 @@ in
             swell-foop
             tali
           ]
-          config.environment.gnome.excludePackages
-      ;
+          config.environment.gnome.excludePackages;
     })
 
     # Adapt from https://gitlab.gnome.org/GNOME/gnome-build-meta/-/blob/3.38.0/elements/core/meta-gnome-core-developer-tools.bst
@@ -786,8 +777,7 @@ in
             # https://github.com/NixOS/nixpkgs/issues/60908
             # gnome-boxes
           ]
-          config.environment.gnome.excludePackages
-      ;
+          config.environment.gnome.excludePackages;
 
       services.sysprof.enable = notExcluded pkgs.sysprof;
     })

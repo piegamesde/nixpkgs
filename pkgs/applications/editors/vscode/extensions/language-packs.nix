@@ -19,8 +19,7 @@ let
       meta = {
         license = lib.licenses.mit;
       };
-    }
-  ;
+    };
 in
 
 # See list of core language packs at https://github.com/Microsoft/vscode-loc

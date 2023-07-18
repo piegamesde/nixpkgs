@@ -40,8 +40,7 @@ let
       meta = attrs.meta // {
         platforms = attrs.meta.platforms or idris.meta.platforms;
       };
-    }
-  ;
+    };
 in
 stdenv.mkDerivation (
   {

@@ -24,8 +24,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs =
     [ ipython ]
-    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
-  ;
+    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

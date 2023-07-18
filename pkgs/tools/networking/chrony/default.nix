@@ -43,8 +43,7 @@ stdenv.mkDerivation rec {
       libcap
       libseccomp
       pps-tools
-    ]
-  ;
+    ];
 
   configureFlags = [
     "--enable-ntp-signd"

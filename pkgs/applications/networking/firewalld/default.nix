@@ -80,8 +80,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withGui [
       gobject-introspection
       wrapGAppsNoGuiHook
-    ]
-  ;
+    ];
 
   buildInputs =
     [
@@ -92,8 +91,7 @@ stdenv.mkDerivation rec {
       gtk3
       libnotify
       pythonPath
-    ]
-  ;
+    ];
 
   dontWrapGApps = true;
 

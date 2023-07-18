@@ -34,8 +34,7 @@ evalConfigArgs@{
   extraModules ? let
     e = builtins.getEnv "NIXOS_EXTRA_MODULE_PATH";
   in
-  if e == "" then [ ] else [ (import e) ]
-  ,
+  if e == "" then [ ] else [ (import e) ],
 }:
 
 let
@@ -71,8 +70,7 @@ let
       lib.warnIf
       (evalConfigArgs ? check)
       "The check argument to eval-config.nix is deprecated. Please set config._module.check instead."
-      x
-  ;
+      x;
 
   legacyModules =
     lib.optional (evalConfigArgs ? extraArgs) {
@@ -97,8 +95,7 @@ let
           map (lib.setDefaultModuleLocation modulesLocation) modules
       ;
     in
-    locatedModules ++ legacyModules
-  ;
+    locatedModules ++ legacyModules;
 
   noUserModules = evalModulesMinimal ({
     inherit prefix specialArgs;

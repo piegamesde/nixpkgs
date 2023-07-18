@@ -65,8 +65,7 @@ import ./make-test-python.nix (
           maxDuration = "15m";
           interval = "5s";
         };
-      }
-    ;
+      };
 
     testScript = ''
       with subtest("start the server"):

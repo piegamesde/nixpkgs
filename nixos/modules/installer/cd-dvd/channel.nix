@@ -38,8 +38,7 @@ let
         ''}
         echo -n ${config.system.nixos.versionSuffix} > $out/nixos/.version-suffix
         echo ${config.system.nixos.versionSuffix} | sed -e s/pre// > $out/nixos/svn-revision
-      ''
-  ;
+      '';
 in
 
 {

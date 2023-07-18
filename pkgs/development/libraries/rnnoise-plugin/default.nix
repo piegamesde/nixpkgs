@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
       [
         # Ubsan seems to be broken on aarch64-darwin, it produces linker errors similar to https://github.com/NixOS/nixpkgs/issues/140751
         ./disable-ubsan.patch
-      ]
-  ;
+      ];
 
   buildInputs =
     [

@@ -105,8 +105,7 @@ let
 
       nativeBuildInputs =
         [ go ]
-        ++ (lib.optional (!dontRenameImports) govers) ++ nativeBuildInputs
-      ;
+        ++ (lib.optional (!dontRenameImports) govers) ++ nativeBuildInputs;
       buildInputs = buildInputs;
 
       inherit (go) GOOS GOARCH GO386;

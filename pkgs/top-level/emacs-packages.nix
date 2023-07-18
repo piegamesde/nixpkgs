@@ -42,31 +42,27 @@ let
         buildPackages
       ;
       inherit lib;
-    }
-  ;
+    };
 
   mkNongnuPackages =
     { pkgs, lib }:
     import ../applications/editors/emacs/elisp-packages/nongnu-packages.nix {
       inherit (pkgs) buildPackages;
       inherit lib;
-    }
-  ;
+    };
 
   # Contains both melpa stable & unstable
   melpaGeneric =
     { pkgs, lib }:
     import ../applications/editors/emacs/elisp-packages/melpa-packages.nix {
       inherit lib pkgs;
-    }
-  ;
+    };
 
   mkManualPackages =
     { pkgs, lib }:
     import ../applications/editors/emacs/elisp-packages/manual-packages.nix {
       inherit lib pkgs;
-    }
-  ;
+    };
 
   emacsWithPackages =
     { pkgs, lib }:
@@ -74,8 +70,7 @@ let
       inherit (pkgs) makeWrapper runCommand gcc;
       inherit (pkgs.xorg) lndir;
       inherit lib;
-    }
-  ;
+    };
 in
 makeScope pkgs'.newScope (
   self:

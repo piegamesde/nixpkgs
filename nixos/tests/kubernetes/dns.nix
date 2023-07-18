@@ -102,8 +102,7 @@ let
       services.dnsmasq.settings.server = [
         "/cluster.local/${config.services.kubernetes.addons.dns.clusterIp}#53"
       ];
-    }
-  ;
+    };
 
   base = {
     name = "dns";

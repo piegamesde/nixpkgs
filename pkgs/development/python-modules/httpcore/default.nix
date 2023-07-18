@@ -50,8 +50,7 @@ buildPythonPackage rec {
       pytest-trio
       pytestCheckHook
     ]
-    ++ passthru.optional-dependencies.http2 ++ passthru.optional-dependencies.socks
-  ;
+    ++ passthru.optional-dependencies.http2 ++ passthru.optional-dependencies.socks;
 
   pythonImportsCheck = [ "httpcore" ];
 

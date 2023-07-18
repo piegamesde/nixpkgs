@@ -259,7 +259,6 @@ stdenv.mkDerivation rec {
       with maintainers;
       [
         # please consider maintaining if you are updating this package
-      ]
-    ;
+      ];
   };
 }

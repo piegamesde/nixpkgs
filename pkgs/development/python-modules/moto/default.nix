@@ -130,8 +130,7 @@ buildPythonPackage rec {
 
       # AssertionError: expected `{0}` to be greater than `{1}`
       "--deselect=tests/test_databrew/test_databrew_recipes.py::test_publish_recipe"
-    ]
-  ;
+    ];
 
   disabledTestPaths = [
     # xml.parsers.expat.ExpatError: out of memory: line 1, column 0

@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
       [
         # Some x86 tests are interrupted by signal 10
         "-DCMAKE_CTEST_ARGUMENTS=--exclude-regex;test_x86"
-      ]
-  ;
+      ];
 
   doCheck = true;
 

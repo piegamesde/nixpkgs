@@ -186,8 +186,7 @@ let
         [
           # For gr_plot
           matplotlib
-        ]
-      ;
+        ];
     };
     gr-modtool = {
       pythonRuntime = with python.pkgs; [

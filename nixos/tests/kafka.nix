@@ -23,8 +23,7 @@ let
               };
 
               networking.firewall.allowedTCPPorts = [ 2181 ];
-            }
-          ;
+            };
           kafka =
             { ... }:
             {
@@ -41,8 +40,7 @@ let
               networking.firewall.allowedTCPPorts = [ 9092 ];
               # i686 tests: qemu-system-i386 can simulate max 2047MB RAM (not 2048)
               virtualisation.memorySize = 2047;
-            }
-          ;
+            };
         };
 
         testScript = ''
@@ -74,8 +72,7 @@ let
         '';
       })
       { inherit system; }
-    )
-  ;
+    );
 in
 with pkgs; {
   kafka_2_8 = makeKafkaTest "kafka_2_8" apacheKafka_2_8;

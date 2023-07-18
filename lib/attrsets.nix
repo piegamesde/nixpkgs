@@ -118,8 +118,7 @@ rec {
       atDepth =
         n: if n == len then value else { ${elemAt attrPath n} = atDepth (n + 1); };
     in
-    atDepth 0
-  ;
+    atDepth 0;
 
   /* Like `attrByPath`, but without a default value. If it doesn't find the
      path it will throw an error.
@@ -142,8 +141,7 @@ rec {
     let
       errorMsg = "cannot find attribute `" + concatStringsSep "." attrPath + "'";
     in
-    attrByPath attrPath (abort errorMsg) set
-  ;
+    attrByPath attrPath (abort errorMsg) set;
 
   /* Map each attribute in the given set and merge them into a new attribute set.
 
@@ -165,8 +163,7 @@ rec {
       (mapAttrs f)
       attrValues
       (foldl' mergeAttrs { })
-    ]
-  ;
+    ];
 
   /* Update or set specific paths of an attribute set.
 
@@ -279,12 +276,10 @@ rec {
         # after having applied all the nested updates
         # We use foldl instead of foldl' so that in case of multiple updates,
         # intermediate values aren't evaluated if not needed
-        foldl (acc: el: el.update acc) withNestedMods split.right
-      ;
+        foldl (acc: el: el.update acc) withNestedMods split.right;
     in
     updates: value:
-    go 0 true value updates
-  ;
+    go 0 true value updates;
 
   /* Return the specified attributes from a set.
 
@@ -300,8 +295,7 @@ rec {
     nameList:
     # The set to get attribute values from
     set:
-    map (x: set.${x}) nameList
-  ;
+    map (x: set.${x}) nameList;
 
   /* Return the values of all attributes in the given set, sorted by
      attribute name.
@@ -330,8 +324,7 @@ rec {
     names:
     # The set to get the named attributes from
     attrs:
-    genAttrs names (name: attrs.${name})
-  ;
+    genAttrs names (name: attrs.${name});
 
   /* Collect each attribute named `attr` from a list of attribute
      sets.  Sets that don't contain the named attribute are ignored.
@@ -373,8 +366,7 @@ rec {
           if pred name v then [ (nameValuePair name v) ] else [ ]
         )
         (attrNames set)
-    )
-  ;
+    );
 
   /* Filter an attribute set recursively by removing all attributes for
      which the given predicate return false.
@@ -404,8 +396,7 @@ rec {
             [ ]
         )
         (attrNames set)
-    )
-  ;
+    );
 
   /* Like builtins.foldl' but for attribute sets.
      Iterates over every name-value pair in the given attribute set.
@@ -462,8 +453,7 @@ rec {
   */
   foldlAttrs =
     f: init: set:
-    foldl' (acc: name: f acc name set.${name}) init (attrNames set)
-  ;
+    foldl' (acc: name: f acc name set.${name}) init (attrNames set);
 
   /* Apply fold functions to values grouped by key.
 
@@ -489,8 +479,7 @@ rec {
         )
       )
       { }
-      list_of_attrs
-  ;
+      list_of_attrs;
 
   /* Recursively collect sets that verify a given predicate named `pred`
      from the set `attrs`.  The recursion is stopped when the predicate is
@@ -547,8 +536,7 @@ rec {
           listOfAttrs
       )
       [ { } ]
-      (attrNames attrsOfLists)
-  ;
+      (attrNames attrsOfLists);
 
   /* Utility function that creates a `{name, value}` pair as expected by `builtins.listToAttrs`.
 
@@ -607,8 +595,7 @@ rec {
     f:
     # Attribute set to map over.
     set:
-    listToAttrs (map (attr: f attr set.${attr}) (attrNames set))
-  ;
+    listToAttrs (map (attr: f attr set.${attr}) (attrNames set));
 
   /* Call a function for each attribute in the given set and return
      the result in a list.
@@ -626,8 +613,7 @@ rec {
     f:
     # Attribute set to map over.
     attrs:
-    map (name: f name attrs.${name}) (attrNames attrs)
-  ;
+    map (name: f name attrs.${name}) (attrNames attrs);
 
   /* Like `mapAttrs`, except that it recursively applies itself to
      the *leaf* attributes of a potentially-nested attribute set:
@@ -651,8 +637,7 @@ rec {
     f:
     # Set to recursively map over.
     set:
-    mapAttrsRecursiveCond (as: true) f set
-  ;
+    mapAttrsRecursiveCond (as: true) f set;
 
   /* Like `mapAttrsRecursive`, but it takes an additional predicate
      function that tells it whether to recurse into an attribute
@@ -690,11 +675,9 @@ rec {
               f (path ++ [ name ]) value
           ;
         in
-        mapAttrs g
-      ;
+        mapAttrs g;
     in
-    recurse [ ] set
-  ;
+    recurse [ ] set;
 
   /* Generate an attribute set by mapping a function over a list of
      attribute names.
@@ -711,8 +694,7 @@ rec {
     names:
     # A function, given the name of the attribute, returns the attribute's value.
     f:
-    listToAttrs (map (n: nameValuePair n (f n)) names)
-  ;
+    listToAttrs (map (n: nameValuePair n (f n)) names);
 
   /* Check whether the argument is a derivation. Any set with
      `{ type = "derivation"; }` counts as a derivation.
@@ -730,8 +712,7 @@ rec {
   isDerivation =
     # Value to check.
     value:
-    value.type or null == "derivation"
-  ;
+    value.type or null == "derivation";
 
   /* Converts a store path to a fake derivation.
 
@@ -752,8 +733,7 @@ rec {
         outputName = "out";
       };
     in
-    res
-  ;
+    res;
 
   /* If `cond` is true, return the attribute set `as`,
      otherwise an empty attribute set.
@@ -772,8 +752,7 @@ rec {
     cond:
     # The attribute set to return if `cond` is `true`.
     as:
-    if cond then as else { }
-  ;
+    if cond then as else { };
 
   /* Merge sets of attributes and use the function `f` to merge attributes
      values.
@@ -799,8 +778,7 @@ rec {
           value = f name (catAttrs name sets);
         })
         names
-    )
-  ;
+    );
 
   /* Merge sets of attributes and use the function f to merge attribute values.
      Like `lib.attrsets.zipAttrsWithNames` with all key names are passed for `names`.
@@ -835,8 +813,7 @@ rec {
   zipAttrs =
     # List of attribute sets to zip together.
     sets:
-    zipAttrsWith (name: values: values) sets
-  ;
+    zipAttrsWith (name: values: values) sets;
 
   /* Does the same as the update operator '//' except that attributes are
      merged until the given predicate is verified.  The predicate should
@@ -887,14 +864,12 @@ rec {
             head values
           else
             f here values
-        )
-      ;
+        );
     in
     f [ ] [
       rhs
       lhs
-    ]
-  ;
+    ];
 
   /* A recursive variant of the update operator ‘//’.  The recursion
      stops when one of the attribute values is not an attribute set,
@@ -928,8 +903,7 @@ rec {
         !(isAttrs lhs && isAttrs rhs)
       )
       lhs
-      rhs
-  ;
+      rhs;
 
   /* Returns true if the pattern is contained in the set. False otherwise.
 
@@ -967,8 +941,7 @@ rec {
             attrs
           ]
       )
-    )
-  ;
+    );
 
   /* Override only the attributes that are already present in the old set
      useful for deep-overriding.
@@ -989,8 +962,7 @@ rec {
     old:
     # Attribute set with attributes to override in `old`.
     new:
-    mapAttrs (name: value: new.${name} or value) old
-  ;
+    mapAttrs (name: value: new.${name} or value) old;
 
   /* Turns a list of strings into a human-readable description of those
      strings represented as an attribute path. The result of this function is
@@ -1088,8 +1060,7 @@ rec {
   chooseDevOutputs =
     # List of packages to pick `dev` outputs from
     drvs:
-    builtins.map getDev drvs
-  ;
+    builtins.map getDev drvs;
 
   /* Make various Nix tools consider the contents of the resulting
      attribute set when looking for what to build, find, etc.
@@ -1111,8 +1082,7 @@ rec {
   recurseIntoAttrs =
     # An attribute set to scan for derivations.
     attrs:
-    attrs // { recurseForDerivations = true; }
-  ;
+    attrs // { recurseForDerivations = true; };
 
   /* Undo the effect of recurseIntoAttrs.
 
@@ -1122,8 +1092,7 @@ rec {
   dontRecurseIntoAttrs =
     # An attribute set to not scan for derivations.
     attrs:
-    attrs // { recurseForDerivations = false; }
-  ;
+    attrs // { recurseForDerivations = false; };
 
   /* `unionOfDisjoint x y` is equal to `x // y // z` where the
      attrnames in `z` are the intersection of the attrnames in `x` and
@@ -1144,11 +1113,9 @@ rec {
             builtins.throw
               "unionOfDisjoint: collision on ${name}; complete list: ${collisions}"
           )
-          intersection
-      ;
+          intersection;
     in
-    (x // y) // mask
-  ;
+    (x // y) // mask;
 
   # DEPRECATED
   zipWithNames = zipAttrsWithNames;
@@ -1156,6 +1123,5 @@ rec {
   # DEPRECATED
   zip =
     builtins.trace "lib.zip is deprecated, use lib.zipAttrsWith instead"
-      zipAttrsWith
-  ;
+      zipAttrsWith;
 }

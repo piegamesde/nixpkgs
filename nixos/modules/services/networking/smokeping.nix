@@ -79,8 +79,7 @@ in
         default = "http://${cfg.hostName}:${toString cfg.port}/smokeping.cgi";
         defaultText =
           literalExpression
-            ''"http://''${hostName}:''${toString port}/smokeping.cgi"''
-        ;
+            ''"http://''${hostName}:''${toString port}/smokeping.cgi"'';
         example = "https://somewhere.example.com/smokeping.cgi";
         description = lib.mdDoc "URL to the smokeping cgi.";
       };
@@ -246,8 +245,7 @@ in
         default = "${pkgs.smokeping}/etc/basepage.html.dist";
         defaultText =
           literalExpression
-            ''"''${pkgs.smokeping}/etc/basepage.html.dist"''
-        ;
+            ''"''${pkgs.smokeping}/etc/basepage.html.dist"'';
         description = lib.mdDoc "Default page layout for the web UI.";
       };
       probeConfig = mkOption {
@@ -299,8 +297,7 @@ in
         default = "smokeping";
         description =
           lib.mdDoc
-            "User that runs smokeping and (optionally) thttpd. A group of the same name will be created as well."
-        ;
+            "User that runs smokeping and (optionally) thttpd. A group of the same name will be created as well.";
       };
       webService = mkOption {
         type = types.bool;

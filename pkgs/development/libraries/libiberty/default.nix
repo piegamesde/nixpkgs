@@ -24,8 +24,7 @@ stdenv.mkDerivation {
 
   configureFlags =
     [ "--enable-install-libiberty" ]
-    ++ lib.optional (!staticBuild) "--enable-shared"
-  ;
+    ++ lib.optional (!staticBuild) "--enable-shared";
 
   postInstall = lib.optionalString (!staticBuild) ''
     cp pic/libiberty.a $out/lib*/libiberty.a

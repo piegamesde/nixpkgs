@@ -21,8 +21,7 @@ mkCoqDerivation {
         cases = [ (range "8.13" "8.17") ];
         out = "1.0";
       } ]
-      null
-  ;
+      null;
 
   propagatedBuildInputs = [ coq-elpi ];
 

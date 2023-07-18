@@ -65,8 +65,7 @@ let
           '';
         };
       };
-    }
-  ;
+    };
 
   swapCfg =
     { config, options, ... }:
@@ -186,8 +185,7 @@ let
             config.device
         ;
       };
-    }
-  ;
+    };
 in
 
 {
@@ -231,8 +229,7 @@ in
             Use /dev/disk/by-partuuid/… instead.
           '';
         })
-        config.swapDevices
-    ;
+        config.swapDevices;
 
     warnings =
       concatMap
@@ -243,8 +240,7 @@ in
           else
             [ ]
         )
-        config.swapDevices
-    ;
+        config.swapDevices;
 
     system.requiredKernelConfig = with config.lib.kernelConfig; [ (isYes "SWAP") ];
 
@@ -295,17 +291,14 @@ in
             serviceConfig.RemainAfterExit = sw.randomEncryption.enable;
             serviceConfig.ExecStop =
               optionalString sw.randomEncryption.enable
-                "${pkgs.cryptsetup}/bin/cryptsetup luksClose ${sw.deviceName}"
-            ;
+                "${pkgs.cryptsetup}/bin/cryptsetup luksClose ${sw.deviceName}";
             restartIfChanged = false;
-          }
-        ;
+          };
       in
       listToAttrs (
         map createSwapDevice (
           filter (sw: sw.size != null || sw.randomEncryption.enable) config.swapDevices
         )
-      )
-    ;
+      );
   };
 }

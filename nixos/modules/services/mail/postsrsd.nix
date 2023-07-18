@@ -24,8 +24,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Whether to enable the postsrsd SRS server for Postfix."
-        ;
+            "Whether to enable the postsrsd SRS server for Postfix.";
       };
 
       secretsFile = mkOption {
@@ -78,8 +77,7 @@ in
         default = [ ];
         description =
           lib.mdDoc
-            "Origin domains to exclude from rewriting in addition to primary domain"
-        ;
+            "Origin domains to exclude from rewriting in addition to primary domain";
       };
 
       user = mkOption {

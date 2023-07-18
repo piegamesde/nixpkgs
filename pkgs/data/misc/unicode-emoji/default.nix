@@ -30,8 +30,7 @@ let
 
         runHook postInstall
       '';
-    }
-  ;
+    };
 
   srcs = {
     emoji-sequences = fetchData {

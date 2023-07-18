@@ -110,6 +110,5 @@ in
   depsTargetTarget =
     optionals
       (!crossStageStatic && threadsCross != { } && threadsCross.package != null)
-      [ threadsCross.package ]
-  ;
+      [ threadsCross.package ];
 }

@@ -88,8 +88,7 @@ stdenv.mkDerivation rec {
           ]
         ;
       }
-    )
-  ;
+    );
 
   meta = with lib; {
     description = "Open source RGB lighting control";

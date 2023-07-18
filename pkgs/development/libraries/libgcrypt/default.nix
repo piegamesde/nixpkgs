@@ -34,8 +34,7 @@ stdenv.mkDerivation rec {
           url = "https://git.gnupg.org/cgi-bin/gitweb.cgi?p=libgcrypt.git;a=commitdiff_plain;h=d41177937cea4aa1e9042ebcd195a349c40e8071";
           hash = "sha256-CgQjNtC1qLe5LicIc8rESc6Z1u4fk7ErMUVcG/2G9gM=";
         })
-      ]
-  ;
+      ];
 
   outputs = [
     "out"
@@ -66,8 +65,7 @@ stdenv.mkDerivation rec {
         stdenv.hostPlatform.isMusl
         || (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
       )
-      "--disable-asm"
-  ; # for darwin see https://dev.gnupg.org/T5157
+      "--disable-asm"; # for darwin see https://dev.gnupg.org/T5157
 
   # Necessary to generate correct assembly when compiling for aarch32 on
   # aarch64

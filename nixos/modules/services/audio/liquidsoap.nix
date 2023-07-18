@@ -31,8 +31,7 @@ let
           LogsDirectory = "liquidsoap";
         };
       };
-    }
-  ;
+    };
 in
 {
 

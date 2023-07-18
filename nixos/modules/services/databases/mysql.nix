@@ -213,8 +213,7 @@ in
         default = null;
         description =
           lib.mdDoc
-            "A file containing SQL statements to be executed on the first startup. Can be used for granting certain permissions on the database."
-        ;
+            "A file containing SQL statements to be executed on the first startup. Can be used for granting certain permissions on the database.";
       };
 
       ensureDatabases = mkOption {
@@ -310,8 +309,7 @@ in
           default = 1;
           description =
             lib.mdDoc
-              "Id of the MySQL server instance. This number must be unique for each instance."
-          ;
+              "Id of the MySQL server instance. This number must be unique for each instance.";
         };
 
         masterHost = mkOption {
@@ -558,8 +556,7 @@ in
               ) | ${cfg.package}/bin/mysql -N
             '')
             cfg.ensureUsers}
-        ''
-      ;
+        '';
 
       serviceConfig = mkMerge [
         {

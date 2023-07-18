@@ -117,10 +117,8 @@ let
           zlib
 
           (writeTextDir "etc/vmware/config" configText)
-        ]
-      ;
-    }
-  ;
+        ];
+    };
 
   desktopItem = makeDesktopItem {
     name = "vmware-view";
@@ -133,8 +131,7 @@ let
   binLinkCommands =
     lib.concatMapStringsSep "\n"
       (bin: "ln -s ${vmwareFHSUserEnv bin}/bin/${bin} $out/bin/")
-      bins
-  ;
+      bins;
 in
 stdenv.mkDerivation {
   pname = "vmware-horizon-client";

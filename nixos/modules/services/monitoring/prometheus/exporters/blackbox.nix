@@ -46,8 +46,7 @@ let
       ''
         ln -s ${coerceConfigFile file} $out
         blackbox_exporter --config.check --config.file $out
-      ''
-  ;
+      '';
 in
 {
   port = 9115;
@@ -89,6 +88,5 @@ in
         '';
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
       };
-    }
-  ;
+    };
 }

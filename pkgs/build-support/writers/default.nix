@@ -82,8 +82,7 @@ let
             mkdir -p $out/$(dirname "${nameOrPath}")
             mv tmp $out/${nameOrPath}
           ''}
-        ''
-    ;
+        '';
 
     # Base implementation for compiled executables.
     # Takes a compile script, which in turn takes the name as an argument.
@@ -139,8 +138,7 @@ let
             mkdir -p $out/$(dirname "${nameOrPath}")
             mv tmp $out/${nameOrPath}
           ''}
-        ''
-    ;
+        '';
 
     # Like writeScript but the first line is a shebang to bash
     #
@@ -212,8 +210,7 @@ let
           '';
           inherit strip;
         }
-        name
-    ;
+        name;
 
     # writeHaskellBin takes the same arguments as writeHaskell but outputs a directory (like writeScriptBin)
     writeHaskellBin = name: writeHaskell "/bin/${name}";
@@ -238,8 +235,7 @@ let
           '';
           inherit strip;
         }
-        name
-    ;
+        name;
 
     writeRustBin = name: writeRust "/bin/${name}";
 
@@ -269,8 +265,7 @@ let
       writeDash name ''
         export NODE_PATH=${node-env}/lib/node_modules
         exec ${pkgs.nodejs}/bin/node ${pkgs.writeText "js" content} "$@"
-      ''
-    ;
+      '';
 
     # writeJSBin takes the same arguments as writeJS but outputs a directory (like writeScriptBin)
     writeJSBin = name: writeJS "/bin/${name}";
@@ -295,8 +290,7 @@ let
           # nginx-config-formatter has an error - https://github.com/1connect/nginx-config-formatter/issues/16
           awk -f ${awkFormatNginx} "$textPath" | sed '/^\s*$/d' > $out
           gixy $out
-        ''
-    ;
+        '';
 
     # writePerl takes a name an attributeset with libraries and some perl sourcecode and
     # returns an executable
@@ -313,8 +307,7 @@ let
       }:
       makeScriptWriter
         { interpreter = "${pkgs.perl.withPackages (p: libraries)}/bin/perl"; }
-        name
-    ;
+        name;
 
     # writePerlBin takes the same arguments as writePerl but outputs a directory (like writeScriptBin)
     writePerlBin = name: writePerl "/bin/${name}";
@@ -331,8 +324,7 @@ let
       let
         ignoreAttribute =
           optionalString (flakeIgnore != [ ])
-            "--ignore ${concatMapStringsSep "," escapeShellArg flakeIgnore}"
-        ;
+            "--ignore ${concatMapStringsSep "," escapeShellArg flakeIgnore}";
       in
       makeScriptWriter
         {
@@ -348,8 +340,7 @@ let
             ''
           );
         }
-        name
-    ;
+        name;
 
     # writePyPy2 takes a name an attributeset with libraries and some pypy2 sourcecode and
     # returns an executable
@@ -365,8 +356,7 @@ let
     # ''
     writePyPy2 =
       makePythonWriter pkgs.pypy2 pkgs.pypy2Packages
-        buildPackages.pypy2Packages
-    ;
+        buildPackages.pypy2Packages;
 
     # writePyPy2Bin takes the same arguments as writePyPy2 but outputs a directory (like writeScriptBin)
     writePyPy2Bin = name: writePyPy2 "/bin/${name}";
@@ -385,8 +375,7 @@ let
     # ''
     writePython3 =
       makePythonWriter pkgs.python3 pkgs.python3Packages
-        buildPackages.python3Packages
-    ;
+        buildPackages.python3Packages;
 
     # writePython3Bin takes the same arguments as writePython3 but outputs a directory (like writeScriptBin)
     writePython3Bin = name: writePython3 "/bin/${name}";
@@ -405,8 +394,7 @@ let
     # ''
     writePyPy3 =
       makePythonWriter pkgs.pypy3 pkgs.pypy3Packages
-        buildPackages.pypy3Packages
-    ;
+        buildPackages.pypy3Packages;
 
     # writePyPy3Bin takes the same arguments as writePyPy3 but outputs a directory (like writeScriptBin)
     writePyPy3Bin = name: writePyPy3 "/bin/${name}";
@@ -446,8 +434,7 @@ let
         #i "nuget: ${nuget-source}/lib"
         ${content}
         exit 0
-      ''
-    ;
+      '';
 
     writeFSharp = makeFSharpWriter { };
 

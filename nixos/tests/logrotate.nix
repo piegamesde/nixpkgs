@@ -7,8 +7,7 @@ let
       services.logrotate.settings.import = {
         olddir = false;
       };
-    }
-  ;
+    };
 in
 
 import ./make-test-python.nix (
@@ -26,8 +25,7 @@ import ./make-test-python.nix (
             # self-written config file
             su notarealuser notagroupeither
           '';
-        }
-      ;
+        };
       machine =
         { config, ... }:
         {
@@ -74,8 +72,7 @@ import ./make-test-python.nix (
               notifempty = true;
             };
           };
-        }
-      ;
+        };
     };
 
     testScript = ''

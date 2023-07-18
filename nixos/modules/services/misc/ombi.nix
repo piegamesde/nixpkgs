@@ -38,8 +38,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Open ports in the firewall for the Ombi web interface."
-        ;
+            "Open ports in the firewall for the Ombi web interface.";
       };
 
       user = mkOption {

@@ -42,8 +42,7 @@ stdenv.mkDerivation (
       fetchurl {
         url = "https://gstreamer.freedesktop.org/src/${pname}/${pname}-${version}.tar.xz";
         hash = "sha256-sq/nNgOSHGCLpIlp27fXQ3dnRL/l2AWeziQRN7f4jiE=";
-      }
-    ;
+      };
 
     depsBuildBuild = [ pkg-config ];
 
@@ -96,8 +95,7 @@ stdenv.mkDerivation (
         # darwin.libunwind doesn't have pkg-config definitions so meson doesn't detect it.
         "-Dlibunwind=disabled"
         "-Dlibdw=disabled"
-      ]
-    ;
+      ];
 
     postPatch = ''
       patchShebangs \

@@ -21,7 +21,8 @@
   doCheck ? stdenv.isLinux
     && (!stdenv.isx86_32)
     && (!stdenv.hostPlatform.isRiscV)
-    && (stdenv.hostPlatform == stdenv.buildPlatform),
+    && (stdenv.hostPlatform == stdenv.buildPlatform)
+  ,
   enableManpages ? false,
   enableSharedLibraries ? !stdenv.hostPlatform.isStatic,
   # broken for Ampere eMAG 8180 (c2.large.arm on Packet) #56245
@@ -72,8 +73,7 @@ stdenv.mkDerivation (
     src = fetch pname "16hwp3qa54c3a3v7h8nlw0fh5criqh0hlr1skybyk0cz70gyx880";
     polly_src =
       fetch "polly"
-        "1kqg0isv0kicnylrdp5iajlgd6alc0zx1l3cxc9hs8r3z6fwcjls"
-    ;
+        "1kqg0isv0kicnylrdp5iajlgd6alc0zx1l3cxc9hs8r3z6fwcjls";
 
     unpackPhase =
       ''
@@ -102,8 +102,7 @@ stdenv.mkDerivation (
       ++ optionals enableManpages [
         python3.pkgs.sphinx
         python3.pkgs.recommonmark
-      ]
-    ;
+      ];
 
     buildInputs = [
       libxml2

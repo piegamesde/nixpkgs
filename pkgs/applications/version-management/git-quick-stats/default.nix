@@ -39,8 +39,7 @@ stdenv.mkDerivation rec {
     in
     ''
       wrapProgram $out/bin/git-quick-stats --suffix PATH : ${path}
-    ''
-  ;
+    '';
 
   meta = with lib; {
     homepage = "https://github.com/arzzen/git-quick-stats";

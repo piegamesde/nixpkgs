@@ -21,8 +21,7 @@ import ./make-test-python.nix (
               pgtap
             ];
           };
-        }
-      ;
+        };
     };
 
     testScript =
@@ -40,7 +39,6 @@ import ./make-test-python.nix (
         master.succeed(
             "${pkgs.sudo}/bin/sudo -u ${sqlSU} PGOPTIONS=--search_path=tap,public ${pgProve}/bin/pg_prove -d postgres -v -f /tmp/test.sql"
         )
-      ''
-    ;
+      '';
   }
 )

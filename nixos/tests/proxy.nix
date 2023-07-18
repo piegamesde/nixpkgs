@@ -11,8 +11,7 @@ import ./make-test-python.nix (
           virtualHosts.localhost.documentRoot = "${pkgs.valgrind.doc}/share/doc/valgrind/html";
         };
         networking.firewall.allowedTCPPorts = [ 80 ];
-      }
-    ;
+      };
   in
   {
     name = "proxy";
@@ -56,8 +55,7 @@ import ./make-test-python.nix (
             };
           };
           networking.firewall.allowedTCPPorts = [ 80 ];
-        }
-      ;
+        };
 
       backend1 = backend;
       backend2 = backend;

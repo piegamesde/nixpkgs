@@ -22,8 +22,7 @@
           type = "pom";
           sha512 = "0pdl78hp921lgkfya54wl8hxgm1c5474j1p921q5ix1knx1rlr4klpjwx212wy2m7b6bxq0bkf8n66mqjr72rh2rh308qij00ymrga8";
         }
-      ]
-  ;
+      ];
 
   plexusCompilerApi_2_4 =
     map
@@ -46,6 +45,5 @@
           type = "pom";
           sha512 = "0mqghnfagrmws585bvdwbpf1c719jvbmhwb318vw661cjfzj1b55nvjxza49bx5y38kwnwk0cqk9f26pv323ng09iifyjxgzafqq479";
         }
-      ]
-  ;
+      ];
 }

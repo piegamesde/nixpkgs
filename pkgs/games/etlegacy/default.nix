@@ -33,8 +33,7 @@ let
     fetchurl {
       url = mirror + "/etmain/" + asset;
       inherit sha256;
-    }
-  ;
+    };
   pak0 = fetchAsset {
     asset = "pak0.pk3";
     sha256 = "712966b20e06523fe81419516500e499c86b2b4fec823856ddbd333fcb3d26e5";

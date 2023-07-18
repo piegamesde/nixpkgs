@@ -34,9 +34,11 @@ assert useX11 -> safeX11 stdenv;
 assert aflSupport -> lib.versionAtLeast version "4.05";
 assert flambdaSupport -> lib.versionAtLeast version "4.03";
 assert spaceTimeSupport
-  -> lib.versionAtLeast version "4.04" && lib.versionOlder version "4.12";
+  -> lib.versionAtLeast version "4.04" && lib.versionOlder version "4.12"
+;
 assert unsafeStringSupport
-  -> lib.versionAtLeast version "4.06" && lib.versionOlder version "5.0";
+  -> lib.versionAtLeast version "4.06" && lib.versionOlder version "5.0"
+;
 assert framePointerSupport -> lib.versionAtLeast version "4.01";
 
 let
@@ -142,8 +144,7 @@ stdenv.mkDerivation (
         [
           "host"
           "target"
-        ]
-    ;
+        ];
     # x86_64-unknown-linux-musl-ld: -r and -pie may not be used together
     hardeningDisable =
       lib.optional (lib.versionAtLeast version "4.09" && stdenv.hostPlatform.isMusl)

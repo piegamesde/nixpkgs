@@ -140,8 +140,7 @@ in
     extraCmdLineOptions = lib.mkOption {
       description =
         lib.mdDoc
-          "Extra command line options for the OpenSearch launcher."
-      ;
+          "Extra command line options for the OpenSearch launcher.";
       default = [ ];
       type = lib.types.listOf lib.types.str;
     };
@@ -237,8 +236,7 @@ in
               }"
               "${pkgs.writeShellScript "opensearch-start-pre-unprivileged"
                 startPreUnprivileged}"
-            ]
-          ;
+            ];
           ExecStartPost = pkgs.writeShellScript "opensearch-start-post" ''
             set -o errexit -o pipefail -o nounset -o errtrace
             shopt -s inherit_errexit
@@ -262,8 +260,7 @@ in
         // (optionalAttrs (usingDefaultDataDir) {
           StateDirectory = "opensearch";
           StateDirectoryMode = "0700";
-        })
-      ;
+        });
     };
 
     environment.systemPackages = [ cfg.package ];

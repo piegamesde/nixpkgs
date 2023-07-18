@@ -66,15 +66,13 @@ stdenv.mkDerivation rec {
           ListMoreUtils
           PDFAPI2
           libintl-perl
-        ]
-      ;
+        ];
     in
     ''
       for cmd in pdfoutline pdf-extract-outline; do
         wrapProgram "$out/bin/$cmd" --prefix PERL5LIB : "${perlPath}"
       done
-    ''
-  ;
+    '';
 
   meta = with lib; {
     homepage = "https://github.com/eugmes/fntsample";

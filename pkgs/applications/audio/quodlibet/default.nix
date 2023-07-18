@@ -83,8 +83,7 @@ python3.pkgs.buildPythonApplication rec {
         sphinxHook
         sphinx-rtd-theme
       ]
-    )
-  ;
+    );
 
   buildInputs =
     [
@@ -150,8 +149,7 @@ python3.pkgs.buildPythonApplication rec {
         pytest
         pytest-xdist
       ]
-    )
-  ;
+    );
 
   pytestFlags =
     [
@@ -167,8 +165,7 @@ python3.pkgs.buildPythonApplication rec {
     ]
     ++ lib.optionals (withXineBackend || !withGstPlugins) [
       "--ignore=tests/plugin/test_replaygain.py"
-    ]
-  ;
+    ];
 
   preCheck = ''
     export XDG_DATA_DIRS="$out/share:${gtk3}/share/gsettings-schemas/${gtk3.name}:$XDG_ICON_DIRS:$XDG_DATA_DIRS"

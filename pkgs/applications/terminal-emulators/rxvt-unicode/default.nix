@@ -51,8 +51,7 @@ let
       url = "https://aur.archlinux.org/cgit/aur.git/plain/${name}?h=${package}&id=${rev}";
       extraPrefix = "";
       inherit name sha256;
-    }
-  ;
+    };
 in
 
 with lib;

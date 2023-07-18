@@ -18,8 +18,7 @@ import ./make-test-python.nix (
               {
                 region = "universe";
                 datacenter = "earth";
-              }
-          ;
+              };
 
           services.nomad = {
             enable = true;
@@ -34,8 +33,7 @@ import ./make-test-python.nix (
             extraSettingsPaths = [ "/etc/nomad.custom.json" ];
             enableDocker = false;
           };
-        }
-      ;
+        };
 
       custom_state_dir_server =
         { pkgs, lib, ... }:
@@ -52,8 +50,7 @@ import ./make-test-python.nix (
               {
                 region = "universe";
                 datacenter = "earth";
-              }
-          ;
+              };
 
           services.nomad = {
             enable = true;
@@ -78,8 +75,7 @@ import ./make-test-python.nix (
 
                 ${pkgs.coreutils}/bin/mkdir -p /nomad/data/dir
               ''}";
-        }
-      ;
+        };
     };
 
     testScript = ''

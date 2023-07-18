@@ -9,8 +9,7 @@ let
     rev:
     overrideCabal (
       old: { jailbreak = assert old.revision or "0" == toString rev; true; }
-    )
-  ;
+    );
   checkAgainAfter =
     pkg: ver: msg: act:
     if builtins.compareVersions pkg.version ver <= 0 then
@@ -149,8 +148,7 @@ self: super: {
           stripLen = 1;
         })
       ]
-      (super.foundation)
-  ;
+      (super.foundation);
 
   # Add support for time 1.10
   # https://github.com/vincenthz/hs-hourglass/pull/56
@@ -163,8 +161,7 @@ self: super: {
           sha256 = "sha256-gntZf7RkaR4qzrhjrXSC69jE44SknPDBmfs4z9rVa5Q=";
         })
       ]
-      (super.hourglass)
-  ;
+      (super.hourglass);
 
   # Test suite doesn't compile with base-4.18 / GHC 9.6
   # https://github.com/dreixel/syb/issues/40

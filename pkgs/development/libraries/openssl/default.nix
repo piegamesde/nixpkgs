@@ -286,8 +286,7 @@ let
           // extraMeta
         ;
       }
-    )
-  ;
+    );
 in
 {
 

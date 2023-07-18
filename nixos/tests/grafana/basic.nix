@@ -42,8 +42,7 @@ import ../make-test-python.nix (
             recommendedProxySettings = true;
             virtualHosts."_".locations."/".proxyPass = "http://unix:/run/grafana/sock";
           };
-        }
-      ;
+        };
 
       declarativePlugins = {
         services.grafana.declarativePlugins = [
@@ -91,8 +90,7 @@ import ../make-test-python.nix (
             baseGrafanaConf
           ]
         )
-        extraNodeConfs
-    ;
+        extraNodeConfs;
   in
   {
     name = "grafana-basic";

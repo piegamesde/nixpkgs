@@ -55,6 +55,5 @@ rec {
         webrtcSupport = false;
 
         pgoSupport = false; # console.warn: feeds: "downloadFeed: network connection unavailable"
-      }
-  ;
+      };
 }

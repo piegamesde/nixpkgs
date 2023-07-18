@@ -15,8 +15,7 @@ let
         server.uid = config.users.users."${cfg.user}".uid;
         server.gid = config.users.groups."${cfg.group}".gid;
       }
-      cfg.settings
-  ;
+      cfg.settings;
 in
 {
   options = {

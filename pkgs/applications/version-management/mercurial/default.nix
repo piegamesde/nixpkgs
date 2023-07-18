@@ -80,12 +80,10 @@ let
           rust.cargo
           rust.rustc
         ]
-      )
-    ;
+      );
     buildInputs =
       [ docutils ]
-      ++ lib.optionals stdenv.isDarwin [ ApplicationServices ]
-    ;
+      ++ lib.optionals stdenv.isDarwin [ ApplicationServices ];
 
     makeFlags = [ "PREFIX=$(out)" ] ++ lib.optional rustSupport "PURE=--rust";
 
@@ -218,8 +216,7 @@ let
         export HGTESTFLAGS="--blacklist blacklists/nix --timeout 1800 -j$NIX_BUILD_CORES ${flags}"
         make check
         touch $out
-      ''
-  ;
+      '';
 in
 self.overridePythonAttrs (
   origAttrs: {
@@ -240,8 +237,7 @@ self.overridePythonAttrs (
                   priority = 50;
                 };
               }
-            )
-          ;
+            );
           plugins = (f python.pkgs) ++ [ (mercurialHighPrio python.pkgs) ];
           env = python.withPackages (ps: plugins);
         in
@@ -284,8 +280,7 @@ self.overridePythonAttrs (
 
             runHook postInstallCheck
           '';
-        }
-      ;
+        };
 
       tests = origAttrs.passthru.tests // {
         withExtensions = withExtensions (pm: [ pm.hg-evolve ]);

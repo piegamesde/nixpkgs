@@ -38,8 +38,7 @@ buildPythonPackage rec {
       )
       ''
         MACOSX_DEPLOYMENT_TARGET=10.16
-      ''
-  ;
+      '';
 
   configureFlags = [ "PYTHON=${python.pythonForBuild.interpreter}" ];
 

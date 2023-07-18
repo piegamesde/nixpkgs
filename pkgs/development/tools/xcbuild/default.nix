@@ -89,8 +89,7 @@ stdenv.mkDerivation {
       CoreServices
       CoreGraphics
       ImageIO
-    ]
-  ;
+    ];
 
   meta = with lib; {
     description = "Xcode-compatible build tool";

@@ -35,8 +35,7 @@ mkDerivation rec {
     appimageTools.extract {
       name = "${pname}-${version}";
       src = appimage;
-    }
-  ;
+    };
 
   nativeBuildInputs = [
     autoPatchelfHook

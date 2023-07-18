@@ -79,8 +79,7 @@ stdenv.mkDerivation {
     ++ lib.optionals enableMpi [
       mpi
       globalarrays
-    ]
-  ;
+    ];
 
   passthru = lib.optionalAttrs enableMpi { inherit mpi; };
 

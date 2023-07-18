@@ -34,8 +34,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
       [
         #"-prefix=$out"
-      ]
-  ;
+      ];
 
   postInstall =
     if

@@ -57,10 +57,8 @@ import ./make-test-python.nix {
           [
             pkgs.opensmtpd
             checkMailLanded
-          ]
-        ;
-      }
-    ;
+          ];
+      };
   };
 
   testScript = ''

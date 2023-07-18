@@ -101,11 +101,13 @@
   withNvdec ? withHeadlessDeps
     && !stdenv.isDarwin
     && stdenv.hostPlatform == stdenv.buildPlatform
-    && !stdenv.isAarch32,
+    && !stdenv.isAarch32
+  ,
   withNvenc ? withHeadlessDeps
     && !stdenv.isDarwin
     && stdenv.hostPlatform == stdenv.buildPlatform
-    && !stdenv.isAarch32,
+    && !stdenv.isAarch32
+  ,
   withOgg ? withHeadlessDeps # Ogg container used by vorbis & theora
   ,
   withOpenal ? withFullDeps # OpenAL 1.1 capture support
@@ -256,7 +258,8 @@
     || buildAvutil
     || buildPostproc
     || buildSwresample
-    || buildSwscale,
+    || buildSwscale
+  ,
   # *  Documentation options
   withDocumentation ? withHtmlDoc || withManPages || withPodDoc || withTxtDoc,
   withHtmlDoc ? withHeadlessDeps # HTML documentation pages
@@ -410,13 +413,15 @@ assert buildFfmpeg
     buildAvcodec
     && buildAvfilter
     && buildAvformat
-    && (buildSwresample || buildAvresample);
+    && (buildSwresample || buildAvresample)
+;
 assert buildFfplay
   ->
     buildAvcodec
     && buildAvformat
     && buildSwscale
-    && (buildSwresample || buildAvresample);
+    && (buildSwresample || buildAvresample)
+;
 assert buildFfprobe -> buildAvcodec && buildAvformat;
 # *  Library dependencies
 assert buildAvcodec -> buildAvutil; # configure flag since 0.6
@@ -658,8 +663,7 @@ stdenv.mkDerivation (
       in
       "remove-references-to ${
         lib.concatStringsSep " " (map (o: "-t ${placeholder o}") toStrip)
-      } config.h"
-    ;
+      } config.h";
 
     nativeBuildInputs = [
       removeReferencesTo
@@ -807,8 +811,7 @@ stdenv.mkDerivation (
         ${ldLibraryPathEnv}="${
           lib.concatStringsSep ":" libsToLink
         }" make check -j$NIX_BUILD_CORES
-      ''
-    ;
+      '';
 
     outputs =
       optionals withBin [ "bin" ] # The first output is the one that gets symlinked by default!

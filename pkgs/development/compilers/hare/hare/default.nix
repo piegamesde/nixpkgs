@@ -76,8 +76,7 @@ stdenv.mkDerivation (
         cat ${config-file} > config.mk
 
         runHook postConfigure
-      ''
-    ;
+      '';
 
     makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
@@ -93,8 +92,7 @@ stdenv.mkDerivation (
       in
       ''
         wrapProgram $out/bin/hare --prefix PATH : ${binPath}
-      ''
-    ;
+      '';
 
     setupHook = ./setup-hook.sh;
 

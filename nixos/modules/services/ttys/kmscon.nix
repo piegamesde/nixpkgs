@@ -18,8 +18,7 @@ let
 
   autologinArg =
     lib.optionalString (cfg.autologinUser != null)
-      "-f ${cfg.autologinUser}"
-  ;
+      "-f ${cfg.autologinUser}";
 
   configDir = pkgs.writeTextFile {
     name = "kmscon-config";
@@ -45,8 +44,7 @@ in
       hwRender = mkOption {
         description =
           lib.mdDoc
-            "Whether to use 3D hardware acceleration to render the console."
-        ;
+            "Whether to use 3D hardware acceleration to render the console.";
         type = types.bool;
         default = false;
       };
@@ -56,8 +54,7 @@ in
         default = null;
         example =
           lib.literalExpression
-            ''[ { name = "Source Code Pro"; package = pkgs.source-code-pro; } ]''
-        ;
+            ''[ { name = "Source Code Pro"; package = pkgs.source-code-pro; } ]'';
         type =
           with types;
           let
@@ -74,8 +71,7 @@ in
               };
             };
           in
-          nullOr (nonEmptyListOf fontType)
-        ;
+          nullOr (nonEmptyListOf fontType);
       };
 
       extraConfig = mkOption {
@@ -145,11 +141,9 @@ in
         ];
         fonts =
           optional (cfg.fonts != null)
-            "font-name=${lib.concatMapStringsSep ", " (f: f.name) cfg.fonts}"
-        ;
+            "font-name=${lib.concatMapStringsSep ", " (f: f.name) cfg.fonts}";
       in
-      lib.concatStringsSep "\n" (render ++ fonts)
-    ;
+      lib.concatStringsSep "\n" (render ++ fonts);
 
     hardware.opengl.enable = mkIf cfg.hwRender true;
 

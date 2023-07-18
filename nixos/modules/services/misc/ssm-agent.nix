@@ -31,8 +31,7 @@ in
       default = pkgs.ssm-agent.override { overrideEtc = false; };
       defaultText =
         literalExpression
-          "pkgs.ssm-agent.override { overrideEtc = false; }"
-      ;
+          "pkgs.ssm-agent.override { overrideEtc = false; }";
     };
   };
 

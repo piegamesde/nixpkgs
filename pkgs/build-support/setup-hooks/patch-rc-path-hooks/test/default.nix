@@ -141,8 +141,7 @@
             touch "$out"
           ''
       )
-      { }
-  ;
+      { };
 
   test-csh =
     callPackage
@@ -226,8 +225,7 @@
             touch "$out"
           ''
       )
-      { }
-  ;
+      { };
 
   test-fish =
     callPackage
@@ -314,8 +312,7 @@
             touch "$out"
           ''
       )
-      { }
-  ;
+      { };
 
   test-posix =
     callPackage
@@ -467,6 +464,5 @@
             touch "$out"
           ''
       )
-      { }
-  ;
+      { };
 }

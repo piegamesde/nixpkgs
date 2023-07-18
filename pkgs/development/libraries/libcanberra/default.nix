@@ -79,8 +79,7 @@ stdenv.mkDerivation rec {
         sha256 = "sha256-nUjha2pKh5VZl0ZZzcr9NTo1TVuMqF4OcLiztxW+ofQ=";
         extraPrefix = "";
       })
-    ]
-  ;
+    ];
 
   postInstall = ''
     for f in $out/lib/*.la; do

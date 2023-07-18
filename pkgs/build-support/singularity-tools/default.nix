@@ -20,8 +20,7 @@ rec {
       #!${runtimeShell}
       set -e
       ${text}
-    ''
-  ;
+    '';
 
   mkLayer =
     {
@@ -35,8 +34,7 @@ rec {
       for f in $contents ; do
         cp -ra $f $out/
       done
-    ''
-  ;
+    '';
 
   buildImage =
     let
@@ -131,6 +129,5 @@ rec {
           ''
       );
     in
-    result
-  ;
+    result;
 }

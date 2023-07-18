@@ -60,8 +60,7 @@ import ./make-test-python.nix (
           } ];
         };
         services.cassandra = cassandraCfg ipAddress // extra;
-      }
-    ;
+      };
   in
   {
     name = "cassandra-${testPackage.version}";

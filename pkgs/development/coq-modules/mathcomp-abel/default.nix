@@ -48,8 +48,7 @@ mkCoqDerivation {
           out = "1.1.2";
         }
       ]
-      null
-  ;
+      null;
 
   release."1.2.1".sha256 = "sha256-M1q6WIPBsayHde2hwlTxylH169hcTs3OuFsEkM0e3yc=";
   release."1.2.0".sha256 = "1picd4m85ipj22j3b84cv8ab3330radzrhd6kp0gpxq14dhv02c2";

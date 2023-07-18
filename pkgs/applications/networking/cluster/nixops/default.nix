@@ -120,7 +120,6 @@ let
       tests = nixosTests.nixops.unstable.override { nixopsPkg = pkg; };
       # Not strictly necessary, but probably expected somewhere; part of the workaround:
       passthru.tests = tests;
-    }
-  ;
+    };
 in
 pkg

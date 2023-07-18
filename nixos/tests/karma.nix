@@ -54,8 +54,7 @@ import ./make-test-python.nix (
               log.timestamp = true;
             };
           };
-        }
-      ;
+        };
     };
 
     testScript = ''

@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withMtp [
       pkg-config
       which
-    ]
-  ;
+    ];
   buildInputs = [ qt4 ] ++ lib.optional withMtp libmtp;
 
   enableParallelBuilding = true;

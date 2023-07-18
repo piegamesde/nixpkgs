@@ -96,8 +96,7 @@ let
           retry-interval = "1s";
         };
       }
-      cfg.extraConfig
-  ;
+      cfg.extraConfig;
 
   configFile = pkgs.runCommandLocal "config.toml" { } ''
     ${pkgs.buildPackages.remarshal}/bin/remarshal -if json -of toml \
@@ -180,8 +179,7 @@ in
           until ${pkgs.curl.bin}/bin/curl -s -o /dev/null ${scheme}://${bindAddr}/ping; do
             sleep 1;
           done
-        ''
-      ;
+        '';
     };
 
     users.users = optionalAttrs (cfg.user == "influxdb") {

@@ -90,8 +90,7 @@ let
           platforms = platforms.linux;
         };
       }
-    )
-  ;
+    );
 in
 
 lib.listToAttrs (

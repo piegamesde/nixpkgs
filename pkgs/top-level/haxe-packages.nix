@@ -30,8 +30,7 @@ let
       mkdir -p "$out/lib/haxe/${withCommas libname}/${withCommas version}"
       echo -n "${version}" > $out/lib/haxe/${withCommas libname}/.current
       cp -dpR ${files} "$out/lib/haxe/${withCommas libname}/${withCommas version}/"
-    ''
-  ;
+    '';
 
   buildHaxeLib =
     {
@@ -78,8 +77,7 @@ let
           description = throw "please write meta.description";
         } // attrs.meta;
       }
-    )
-  ;
+    );
 in
 {
   format = buildHaxeLib {
@@ -169,6 +167,5 @@ in
         platforms = lib.platforms.all;
         description = "Extern definitions for node.js 6.9";
       };
-    }
-  ;
+    };
 }

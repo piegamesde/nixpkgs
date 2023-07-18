@@ -27,8 +27,7 @@ let
       buildInputs = [ vdr ];
       preConfigure = "cd PLUGINS/src/${name}";
       installFlags = [ "DESTDIR=$(out)" ];
-    }
-  ;
+    };
 in
 {
 

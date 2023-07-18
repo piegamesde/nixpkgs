@@ -227,8 +227,7 @@ let
                   )
                 }
                 setup.py
-            ''
-          ;
+            '';
 
           dontUseSetuptoolsCheck = true;
 

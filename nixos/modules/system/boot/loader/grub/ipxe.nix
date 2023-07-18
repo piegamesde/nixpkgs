@@ -71,7 +71,6 @@ in
             value = scriptFile name;
           })
           scripts
-      )
-    ;
+      );
   };
 }

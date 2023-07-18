@@ -87,8 +87,7 @@ stdenv.mkDerivation {
       runHook preInstall
       ${(copy "amd64" "w10") + (copy "x86" "w10")}
       runHook postInstall
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "Windows SPICE Drivers";

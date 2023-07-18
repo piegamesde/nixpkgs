@@ -74,8 +74,7 @@ mkCoqDerivation {
           out = "8.5.0";
         }
       ]
-      null
-  ;
+      null;
 
   mlPlugin = true;
 

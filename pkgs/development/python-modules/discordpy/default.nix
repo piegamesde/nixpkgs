@@ -30,8 +30,7 @@ buildPythonPackage rec {
       libopus
       pynacl
       ffmpeg
-    ]
-  ;
+    ];
 
   patchPhase =
     ''

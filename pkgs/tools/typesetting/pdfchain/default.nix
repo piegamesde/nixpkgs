@@ -39,8 +39,7 @@ stdenv.mkDerivation rec {
         fetchpatch {
           url = "https://salsa.debian.org/debian/pdfchain/raw/2d29107756a3194fb522bdea8e9b9e393b15a8f3/debian/patches/${name}";
           inherit name sha256;
-        }
-      ;
+        };
     in
     [
       (fetchDebianPatch {
@@ -55,8 +54,7 @@ stdenv.mkDerivation rec {
         name = "fix_spelling";
         sha256 = "sha256-sOUUslPfcOo2K3zuaLcux+CNdgfWM0phsfe6g4GUFes=";
       })
-    ]
-  ;
+    ];
 
   postPatch = ''
     substituteInPlace src/constant.h \

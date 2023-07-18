@@ -88,8 +88,7 @@ crystal.buildCrystalPackage rec {
           --replace 'Process.run(%(rsvg-convert' 'Process.run(%(${
             lib.getBin librsvg
           }/bin/rsvg-convert'
-    ''
-  ;
+    '';
 
   nativeBuildInputs = [
     pkg-config

@@ -129,8 +129,7 @@ let
             fwd.loopbackIPs}
         '')
         forwardPorts}
-    ''
-  ;
+    '';
 
   setupNat = ''
     ${helpers}

@@ -51,13 +51,11 @@ let
             super = rattrs self;
           in
           super // f self super
-        )
-      ;
+        );
 
       finalPackage = mkDerivationSimple overrideAttrs args;
     in
-    finalPackage
-  ;
+    finalPackage;
 
   # makeDerivationExtensibleConst == makeDerivationExtensible (_: attrs),
   # but pre-evaluated for a slight improvement in performance.
@@ -72,13 +70,11 @@ let
             let
               x = f0 super;
             in
-            if builtins.isFunction x then f0 self super else x
-          ;
+            if builtins.isFunction x then f0 self super else x;
         in
         makeDerivationExtensible (self: attrs // f self attrs)
       )
-      attrs
-  ;
+      attrs;
 
   mkDerivationSimple =
     overrideAttrs:
@@ -165,7 +161,8 @@ let
       strictDeps ? if config.strictDepsByDefault then
         true
       else
-        stdenv.hostPlatform != stdenv.buildPlatform,
+        stdenv.hostPlatform != stdenv.buildPlatform
+      ,
 
       enableParallelBuilding ? config.enableParallelBuildingByDefault,
 
@@ -195,7 +192,8 @@ let
 
       __contentAddressed ?
         (!attrs ? outputHash) # Fixed-output drvs can't be content addressed too
-        && config.contentAddressedByDefault,
+        && config.contentAddressedByDefault
+      ,
 
       # Experimental.  For simple packages mostly just works,
       # but for anything complex, be prepared to debug if enabling.
@@ -237,8 +235,7 @@ let
           ++ propagatedBuildInputs
           ++ depsTargetTarget
           ++ depsTargetTargetPropagated
-        ) == 0
-      ;
+        ) == 0;
       dontAddHostSuffix = attrs ? outputHash && !noNonNativeDeps || !stdenv.hasCC;
 
       hardeningDisable' =
@@ -311,8 +308,7 @@ let
               "Dependency is not of a valid type: ${
                 lib.concatMapStrings (ix: "element ${toString ix} of ") ([ index ] ++ positions)
               }${name} for ${attrs.name or attrs.pname}"
-        )
-      ;
+        );
     in
     if builtins.length erroneousHardeningFlags != 0 then
       abort (
@@ -415,13 +411,11 @@ let
               stdenv.extraNativeBuildInputs
               ++ stdenv.extraBuildInputs
               ++ lib.concatLists dependencies
-            )
-        ;
+            );
 
         computedPropagatedSandboxProfile =
           lib.concatMap (input: input.__propagatedSandboxProfile or [ ])
-            (lib.concatLists propagatedDependencies)
-        ;
+            (lib.concatLists propagatedDependencies);
 
         computedImpureHostDeps = lib.unique (
           lib.concatMap (input: input.__propagatedImpureHostDeps or [ ]) (
@@ -469,8 +463,7 @@ let
                 hostSuffix =
                   lib.optionalString
                     (stdenv.hostPlatform != stdenv.buildPlatform && !dontAddHostSuffix)
-                    "-${stdenv.hostPlatform.config}"
-                ;
+                    "-${stdenv.hostPlatform.config}";
 
                 # Disambiguate statically built packages. This was originally
                 # introduce as a means to prevent nix-env to get confused between
@@ -487,8 +480,7 @@ let
                   assert lib.assertMsg (attrs ? version && attrs.version != null)
                       "The ‘version’ attribute cannot be null.";
                   "${attrs.pname}${staticMarker}${hostSuffix}-${attrs.version}"
-              )
-            ;
+              );
           })
           // lib.optionalAttrs __structuredAttrs { env = checkedEnv; }
           // {
@@ -522,8 +514,7 @@ let
             depsBuildBuildPropagated = lib.elemAt (lib.elemAt propagatedDependencies 0) 0;
             propagatedNativeBuildInputs =
               lib.elemAt (lib.elemAt propagatedDependencies 0)
-                1
-            ;
+                1;
             depsBuildTargetPropagated = lib.elemAt (lib.elemAt propagatedDependencies 0) 2;
             depsHostHostPropagated = lib.elemAt (lib.elemAt propagatedDependencies 1) 0;
             propagatedBuildInputs = lib.elemAt (lib.elemAt propagatedDependencies 1) 1;
@@ -662,8 +653,7 @@ let
                   "--cross-file=${crossFile}"
                 ];
               in
-              crossFlags ++ explicitFlags
-            ;
+              crossFlags ++ explicitFlags;
 
             inherit patches;
 
@@ -715,8 +705,7 @@ let
                   lib.filter (x: x != "") (lib.unique profiles)
                 );
               in
-              final
-            ;
+              final;
             __propagatedSandboxProfile = lib.unique (
               computedPropagatedSandboxProfile ++ [ propagatedSandboxProfile ]
             );
@@ -758,26 +747,22 @@ let
             lib.optionalAttrs (attrs ? disallowedReferences) {
               disallowedReferences =
                 map unsafeDerivationToUntrackedOutpath
-                  attrs.disallowedReferences
-              ;
+                  attrs.disallowedReferences;
             }
           // lib.optionalAttrs (attrs ? disallowedRequisites) {
             disallowedRequisites =
               map unsafeDerivationToUntrackedOutpath
-                attrs.disallowedRequisites
-            ;
+                attrs.disallowedRequisites;
           }
           // lib.optionalAttrs (attrs ? allowedReferences) {
             allowedReferences =
               lib.mapNullable unsafeDerivationToUntrackedOutpath
-                attrs.allowedReferences
-            ;
+                attrs.allowedReferences;
           }
           // lib.optionalAttrs (attrs ? allowedRequisites) {
             allowedRequisites =
               lib.mapNullable unsafeDerivationToUntrackedOutpath
-                attrs.allowedRequisites
-            ;
+                attrs.allowedRequisites;
           }
         ;
 
@@ -811,8 +796,7 @@ let
                   }.";
               v
             )
-            env
-        ;
+            env;
       in
 
       lib.extendDerivation validity.handled

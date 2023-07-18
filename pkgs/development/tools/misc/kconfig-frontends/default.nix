@@ -38,8 +38,7 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.cc.isClang
-      "-Wno-error=format-security"
-  ;
+      "-Wno-error=format-security";
 
   meta = with lib; {
     description = "Out of Linux tree packaging of the kconfig infrastructure";

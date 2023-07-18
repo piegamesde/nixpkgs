@@ -31,8 +31,7 @@ python3.pkgs.buildPythonApplication rec {
         notmuch
         pygobject3
       ]
-    )
-  ;
+    );
 
   nativeBuildInputs = [
     gobject-introspection

@@ -67,7 +67,6 @@ let
           };
         }
       )
-    )
-  ;
+    );
 in
 withPlugins (ps: [ ])

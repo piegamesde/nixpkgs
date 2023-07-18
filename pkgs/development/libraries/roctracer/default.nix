@@ -26,8 +26,7 @@ stdenv.mkDerivation (
 
     outputs =
       [ "out" ]
-      ++ lib.optionals buildDocs [ "doc" ] ++ lib.optionals buildTests [ "test" ]
-    ;
+      ++ lib.optionals buildDocs [ "doc" ] ++ lib.optionals buildTests [ "test" ];
 
     src = fetchFromGitHub {
       owner = "ROCm-Developer-Tools";
@@ -45,8 +44,7 @@ stdenv.mkDerivation (
       ++ lib.optionals buildDocs [
         doxygen
         graphviz
-      ]
-    ;
+      ];
 
     buildInputs = [
       rocm-device-libs
@@ -70,8 +68,7 @@ stdenv.mkDerivation (
         [
           # Needed with GCC 12
           "-Wno-error=array-bounds"
-        ]
-    ;
+        ];
 
     postPatch =
       ''

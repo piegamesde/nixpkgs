@@ -134,8 +134,7 @@ stdenv.mkDerivation rec {
         zfs = "${zfs}/bin/zfs";
         zpool = "${zfs}/bin/zpool";
       })
-    ]
-  ;
+    ];
 
   # remove some broken tests
   postPatch =
@@ -353,8 +352,7 @@ stdenv.mkDerivation rec {
       (storage "scsi" true)
       (storage "vstorage" isLinux)
       (storage "zfs" enableZfs)
-    ]
-  ;
+    ];
 
   doCheck = true;
 

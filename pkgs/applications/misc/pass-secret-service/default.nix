@@ -61,8 +61,7 @@ python3.pkgs.buildPythonApplication rec {
       ps.pytest
       ps.pytest-asyncio
       ps.pypass
-    ]
-  ;
+    ];
 
   checkTarget = "test";
 

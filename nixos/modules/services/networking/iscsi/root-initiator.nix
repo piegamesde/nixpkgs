@@ -179,13 +179,13 @@ in
           else
             ''
               iscsiadm --mode node --targetname ${escapeShellArg cfg.target} --login
-            ''}
+            ''
+          }
 
           ${cfg.extraIscsiCommands}
 
           pkill -9 iscsid
-        ''
-      ;
+        '';
     };
 
     services.openiscsi = {

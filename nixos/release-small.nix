@@ -39,8 +39,7 @@ let
         inherit supportedSystems;
         nixpkgs = nixpkgsSrc;
       })
-      [ "unstable" ]
-  ;
+      [ "unstable" ];
 in
 rec {
 
@@ -113,8 +112,7 @@ rec {
         systems: x:
         map (system: "${x}.${system}") (
           pkgs.lib.intersectLists systems supportedSystems
-        )
-      ;
+        );
     in
     pkgs.releaseTools.aggregate {
       name = "nixos-${nixos.channel.version}";
@@ -162,6 +160,5 @@ rec {
           "nixpkgs.tests-stdenv-gcc-stageCompare"
         ])
       ];
-    }
-  ;
+    };
 }

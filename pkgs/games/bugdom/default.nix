@@ -35,8 +35,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       IOKit
       Foundation
-    ]
-  ;
+    ];
 
   nativeBuildInputs = [
     cmake

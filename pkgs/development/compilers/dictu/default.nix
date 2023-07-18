@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
 
   buildInputs =
     [ sqlite ]
-    ++ lib.optional httpSupport curl ++ lib.optional linenoiseSupport linenoise
-  ;
+    ++ lib.optional httpSupport curl ++ lib.optional linenoiseSupport linenoise;
 
   patches = [ ./0001-force-sqlite-to-be-found.patch ];
 
@@ -51,8 +50,7 @@ stdenv.mkDerivation rec {
       # TODO: LTO with LLVM
       "-DCMAKE_AR=${stdenv.cc.cc}/bin/gcc-ar"
       "-DCMAKE_RANLIB=${stdenv.cc.cc}/bin/gcc-ranlib"
-    ]
-  ;
+    ];
 
   doCheck = cliSupport;
 

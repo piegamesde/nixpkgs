@@ -63,8 +63,7 @@ in
                 };
               }
             )
-          )
-        ;
+          );
       };
     };
   };
@@ -105,7 +104,6 @@ in
           what = fs.target;
           where = fs.mountPoint;
         })
-        cfg.fileSystems
-    ;
+        cfg.fileSystems;
   };
 }

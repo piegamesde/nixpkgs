@@ -17,8 +17,7 @@ import ./make-test-python.nix (
         pkgs.writeShellScript "shutdown-message"
           ''
             echo "${msg}"
-          ''
-      ;
+          '';
       boot.initrd.systemd.enable = systemdStage1;
     };
 

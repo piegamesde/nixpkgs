@@ -53,8 +53,7 @@ python3Packages.buildPythonApplication rec {
         pyqt5
       ]
       ++ lib.optionals enableSonos [ soco ]
-    )
-  ;
+    );
 
   postPatch = ''
     substituteInPlace setup.py \

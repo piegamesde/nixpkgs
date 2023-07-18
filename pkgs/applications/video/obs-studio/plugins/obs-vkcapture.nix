@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
         # We don't want to build the plugin for 32bit. The library integrates with
         # the 64bit plugin but it's necessary to be loaded into 32bit games.
         "-DBUILD_PLUGIN=OFF"
-      ]
-  ;
+      ];
 
   nativeBuildInputs = [
     cmake
@@ -63,8 +62,7 @@ stdenv.mkDerivation rec {
       ''
         ln -s ${obs-vkcapture32}/share/vulkan/implicit_layer.d/obs_vkcapture_32.json \
           "$out/share/vulkan/implicit_layer.d/"
-      ''
-  ;
+      '';
 
   meta = with lib; {
     description = "OBS Linux Vulkan/OpenGL game capture";

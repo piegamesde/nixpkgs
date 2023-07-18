@@ -111,8 +111,7 @@ stdenv.mkDerivation rec {
       in
       {
         nixos = assert test.testPackage.version == version; test;
-      }
-    ;
+      };
 
     updateScript = callPackage ./update-script.nix { inherit generation; };
   };

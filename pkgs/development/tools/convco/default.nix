@@ -33,8 +33,7 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optionals stdenv.isDarwin [
       libiconv
       Security
-    ]
-  ;
+    ];
 
   meta = with lib; {
     description = "A Conventional commit cli";

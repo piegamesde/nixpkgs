@@ -113,7 +113,6 @@ in
         ${concatStringsSep "\n" (mapAttrsToList mkAccountString cfg.accounts)}
 
         ${cfg.extraConfig}
-      ''
-    ;
+      '';
   };
 }

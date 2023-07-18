@@ -116,8 +116,7 @@ stdenv.mkDerivation rec {
         perl
         XMLParser
       ]
-    )
-  ;
+    );
 
   buildInputs =
     [

@@ -49,15 +49,13 @@ stdenv.mkDerivation rec {
       "CXX_COMPILER=$(CXX)"
       "LINKER_OPTIONS=-headerpad_max_install_names"
       "POSTINSTALL_PROGRAM=install_name_tool"
-    ])
-  ;
+    ]);
 
   nativeBuildInputs =
     [ makeWrapper ]
     ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
       darwin.autoSignDarwinBinariesHook
-    ]
-  ;
+    ];
 
   buildInputs = lib.optionals (bootstrap-chicken != null) [ bootstrap-chicken ];
 

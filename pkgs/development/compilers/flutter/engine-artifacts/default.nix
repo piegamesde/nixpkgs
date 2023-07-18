@@ -46,8 +46,7 @@ let
                       { archive = "artifacts.zip"; }
                       { archive = "${lib.toLower hostPlatform.uname.system}-x64.zip"; }
                     ]
-                  )
-              ;
+                  );
             }
           )
         )
@@ -56,8 +55,7 @@ let
             base = [ { archive = "artifacts.zip"; } ];
             variants.jit-release = [ { archive = "artifacts.zip"; } ];
           };
-        }
-      ;
+        };
 
       linux =
         lib.genAttrs
@@ -105,11 +103,9 @@ let
                     "profile"
                     "release"
                   ]
-                  (variant: [ linux-flutter-gtk ])
-              ;
+                  (variant: [ linux-flutter-gtk ]);
             }
-          )
-      ;
+          );
     };
   };
 
@@ -129,8 +125,7 @@ let
       ;
       archiveBasename =
         lib.removeSuffix ".${(lib.last (lib.splitString "." archive))}"
-          archive
-      ;
+          archive;
     in
     stdenv.mkDerivation (
       {
@@ -154,8 +149,7 @@ let
         installPhase = "cp -r . $out";
       }
       // args
-    )
-  ;
+    );
 
   artifactDerivations = {
     common = builtins.mapAttrs (name: mkArtifactDerivation) artifacts.common;
@@ -168,8 +162,7 @@ let
               base =
                 map
                   (args: mkArtifactDerivation ({ platform = "${os}-${architecture}"; } // args))
-                  variants.base
-              ;
+                  variants.base;
               variants =
                 builtins.mapAttrs
                   (
@@ -187,13 +180,11 @@ let
                       )
                       variantArtifacts
                   )
-                  variants.variants
-              ;
+                  variants.variants;
             })
             architectures
         )
-        artifacts.platform
-    ;
+        artifacts.platform;
   };
 in
 artifactDerivations

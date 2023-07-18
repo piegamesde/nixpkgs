@@ -39,14 +39,14 @@ stdenv.mkDerivation rec {
         https://www.xmlmind.com/xmleditor/license_xxe_perso.html
         by setting nixpkgs config option `xxe-pe.acceptLicense = true;`
         or by using `xxe-pe.override { acceptLicense = true; }` package.
-      '';
+      ''
+    ;
     fetchurl {
       url = "https://www.xmlmind.com/xmleditor/_download/xxe-perso-${
           builtins.replaceStrings [ "." ] [ "_" ] version
         }.zip";
       sha256 = "sha256-JZ9nQwMrQL/1HKGwvXoWlnTx55ZK/UYjMJAddCtm0rw=";
-    }
-  ;
+    };
 
   nativeBuildInputs = [
     unzip

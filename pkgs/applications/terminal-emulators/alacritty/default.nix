@@ -48,8 +48,7 @@ let
     ++ lib.optionals stdenv.isLinux [
       libxkbcommon
       wayland
-    ]
-  ;
+    ];
 in
 rustPlatform.buildRustPackage rec {
   pname = "alacritty";

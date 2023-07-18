@@ -52,8 +52,7 @@ buildPythonPackage rec {
       [
         # overly strict float tolerances
         "TestDendrogram"
-      ]
-  ;
+      ];
 
   # All platforms should use Agg. Let's set it explicitly to avoid probing GUI
   # backends (leads to crashes on macOS).

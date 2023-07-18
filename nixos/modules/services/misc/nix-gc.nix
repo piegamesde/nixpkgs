@@ -19,8 +19,7 @@ in
         type = types.bool;
         description =
           lib.mdDoc
-            "Automatically run the garbage collector at a specific time."
-        ;
+            "Automatically run the garbage collector at a specific time.";
       };
 
       dates = mkOption {

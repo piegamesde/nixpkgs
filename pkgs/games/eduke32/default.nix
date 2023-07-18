@@ -95,8 +95,7 @@ stdenv.mkDerivation rec {
       [
         # broken, see: https://github.com/NixOS/nixpkgs/issues/19098
         "LTO=0"
-      ]
-  ;
+      ];
 
   enableParallelBuilding = true;
 

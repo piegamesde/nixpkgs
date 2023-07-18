@@ -74,8 +74,7 @@ let
               symbol = "{.symbol}";
               type = "{.type}";
             }
-            extraLabels
-        ;
+            extraLabels;
         values = {
           revision = "{.revision}";
           size = "{.size}";
@@ -84,8 +83,7 @@ let
           languages = "{.languages}";
           users = "{.users}";
         };
-      } ]
-    ;
+      } ];
   };
 in
 {

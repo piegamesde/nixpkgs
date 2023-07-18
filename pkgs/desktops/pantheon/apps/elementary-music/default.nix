@@ -52,8 +52,7 @@ stdenv.mkDerivation rec {
         gst-plugins-ugly
         gstreamer
       ]
-    )
-  ;
+    );
 
   postPatch = ''
     chmod +x meson/post_install.py

@@ -33,8 +33,7 @@ let
         int
       ];
     in
-    attrsOf (either valueType (listOf valueType))
-  ;
+    attrsOf (either valueType (listOf valueType));
 
   addressSubmodule = {
     options = {
@@ -42,8 +41,7 @@ let
         type = types.str;
         description =
           lib.mdDoc
-            "The external IP address or hostname where the host can be reached."
-        ;
+            "The external IP address or hostname where the host can be reached.";
       };
 
       port = mkOption {
@@ -175,8 +173,7 @@ let
             config.subnets
         );
       };
-    }
-  ;
+    };
 in
 {
 
@@ -360,8 +357,7 @@ in
                         ${toTincConf host.settings}
                         ${host.rsaPublicKey}
                       '')
-                      config.hostSettings
-                  ;
+                      config.hostSettings;
 
                   settings = {
                     DeviceType = mkDefault config.interfaceType;
@@ -382,8 +378,7 @@ in
                 };
               }
             )
-          )
-        ;
+          );
 
         description = lib.mdDoc ''
           Defines the tinc networks which will be started.
@@ -445,8 +440,7 @@ in
               RestartSec = "3";
               ExecReload =
                 mkIf (versionAtLeast version "1.1pre")
-                  "${data.package}/bin/tinc -n ${network} reload"
-              ;
+                  "${data.package}/bin/tinc -n ${network} reload";
               ExecStart = "${data.package}/bin/tincd -D -U tinc.${network} -n ${network} ${
                   optionalString (data.chroot) "-R"
                 } --pidfile /run/tinc.${network}.pid -d ${toString data.debugLevel}";
@@ -466,13 +460,15 @@ in
                 ''
                   # Prefer ED25519 keys (only in 1.1+)
                   [ -f "/etc/tinc/${network}/ed25519_key.priv" ] || tinc -n ${network} generate-ed25519-keys
-                ''}
+                ''
+              }
               ${if data.rsaPrivateKeyFile != null then
                 "  # RSA Keyfile managed by nix"
               else
                 ''
                   [ -f "/etc/tinc/${network}/rsa_key.priv" ] || tinc -n ${network} generate-rsa-keys 4096
-                ''}
+                ''
+              }
                 # In case there isn't anything to do
                 true
               else
@@ -506,8 +502,7 @@ in
             '';
           };
         in
-        [ cli-wrappers ]
-      ;
+        [ cli-wrappers ];
 
       users.users = flip mapAttrs' cfg.networks (
         network: _:

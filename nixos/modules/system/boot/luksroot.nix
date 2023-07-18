@@ -578,12 +578,12 @@ let
       else
         ''
           open_normally
-        ''}
+        ''
+      }
 
       # commands to run right after we mounted our device
       ${dev.postOpenCommands}
-    ''
-  ;
+    '';
 
   askPass = pkgs.writeScriptBin "cryptsetup-askpass" ''
     #!/bin/sh
@@ -742,8 +742,7 @@ in
                   type = types.str;
                   description =
                     lib.mdDoc
-                      "Name of the unencrypted device in {file}`/dev/mapper`."
-                  ;
+                      "Name of the unencrypted device in {file}`/dev/mapper`.";
                 };
 
                 device = mkOption {
@@ -824,8 +823,7 @@ in
                   type = types.bool;
                   description =
                     lib.mdDoc
-                      "Whether the luksOpen will be attempted before LVM scan or after it."
-                  ;
+                      "Whether the luksOpen will be attempted before LVM scan or after it.";
                 };
 
                 allowDiscards = mkOption {
@@ -890,8 +888,7 @@ in
                           };
                         };
                       }
-                    )
-                  ;
+                    );
                 };
 
                 fido2 = {
@@ -949,8 +946,7 @@ in
                             type = types.bool;
                             description =
                               lib.mdDoc
-                                "Whether to use a passphrase and a YubiKey (true), or only a YubiKey (false)."
-                            ;
+                                "Whether to use a passphrase and a YubiKey (true), or only a YubiKey (false).";
                           };
 
                           slot = mkOption {
@@ -964,8 +960,7 @@ in
                             type = types.int;
                             description =
                               lib.mdDoc
-                                "Length of the new salt in byte (64 is the effective maximum)."
-                            ;
+                                "Length of the new salt in byte (64 is the effective maximum).";
                           };
 
                           keyLength = mkOption {
@@ -973,8 +968,7 @@ in
                             type = types.int;
                             description =
                               lib.mdDoc
-                                "Length of the LUKS slot key derived with PBKDF2 in byte."
-                            ;
+                                "Length of the LUKS slot key derived with PBKDF2 in byte.";
                           };
 
                           iterationStep = mkOption {
@@ -982,8 +976,7 @@ in
                             type = types.int;
                             description =
                               lib.mdDoc
-                                "How much the iteration count for PBKDF2 is increased at each successful authentication."
-                            ;
+                                "How much the iteration count for PBKDF2 is increased at each successful authentication.";
                           };
 
                           gracePeriod = mkOption {
@@ -1023,8 +1016,7 @@ in
                           };
                         };
                       }
-                    )
-                  ;
+                    );
                 };
 
                 preOpenCommands = mkOption {
@@ -1065,8 +1057,7 @@ in
               };
             }
           )
-        )
-      ;
+        );
     };
 
     boot.initrd.luks.gpgSupport = mkOption {
@@ -1209,8 +1200,7 @@ in
               mkdir -p "$out/bin"
               cc -O3 -lcrypto ${./pbkdf2-sha512.c} -o "$out/bin/pbkdf2-sha512"
               strip -s "$out/bin/pbkdf2-sha512"
-            ''
-        ;
+            '';
       in
       mkIf (!config.boot.initrd.systemd.enable) ''
         copy_bin_and_libs ${pkgs.cryptsetup}/bin/cryptsetup
@@ -1256,8 +1246,7 @@ in
             )
             (attrValues luks.devices)}
         ''}
-      ''
-    ;
+      '';
 
     boot.initrd.extraUtilsCommandsTest =
       mkIf (!config.boot.initrd.systemd.enable)
@@ -1276,8 +1265,7 @@ in
           ${optionalString luks.fido2Support ''
             $out/bin/fido2luks --version
           ''}
-        ''
-    ;
+        '';
 
     boot.initrd.systemd = {
       contents."/etc/crypttab".source = stage1Crypttab;
@@ -1299,8 +1287,7 @@ in
 
     boot.initrd.preFailCommands =
       mkIf (!config.boot.initrd.systemd.enable)
-        postCommands
-    ;
+        postCommands;
     boot.initrd.preLVMCommands = mkIf (!config.boot.initrd.systemd.enable) (
       commonFunctions
       + preCommands

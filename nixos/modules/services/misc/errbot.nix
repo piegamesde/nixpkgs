@@ -14,8 +14,7 @@ let
     pkgs.buildEnv {
       name = "errbot-plugins";
       paths = plugins;
-    }
-  ;
+    };
   mkConfigDir =
     instanceCfg: dataDir:
     pkgs.writeTextDir "config.py" ''
@@ -32,8 +31,7 @@ let
       BOT_IDENTITY = ${builtins.toJSON instanceCfg.identity}
 
       ${instanceCfg.extraConfig}
-    ''
-  ;
+    '';
 in
 {
   options = {
@@ -127,7 +125,6 @@ in
             }
           )
         )
-        cfg.instances
-    ;
+        cfg.instances;
   };
 }

@@ -25,6 +25,5 @@ qtModule {
   ];
   NIX_LDFLAGS =
     lib.optionalString stdenv.isDarwin
-      "-framework CoreFoundation -framework WebKit"
-  ;
+      "-framework CoreFoundation -framework WebKit";
 }

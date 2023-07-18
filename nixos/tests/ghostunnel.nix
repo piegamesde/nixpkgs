@@ -12,8 +12,7 @@ import ./make-test-python.nix (
             echo hi >$out/hi.txt
           '';
           networking.firewall.allowedTCPPorts = [ 80 ];
-        }
-      ;
+        };
       service =
         { ... }:
         {
@@ -39,8 +38,7 @@ import ./make-test-python.nix (
             443
             1443
           ];
-        }
-      ;
+        };
       client = { pkgs, ... }: { environment.systemPackages = [ pkgs.curl ]; };
     };
 

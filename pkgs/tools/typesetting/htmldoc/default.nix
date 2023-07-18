@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       Foundation
       SystemConfiguration
-    ]
-  ;
+    ];
 
   # do not generate universal binary on Darwin
   # because it is not supported by Nix's clang

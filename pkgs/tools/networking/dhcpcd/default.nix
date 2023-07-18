@@ -57,8 +57,7 @@ stdenv.mkDerivation rec {
           # so we explicitly specify a user.
           "--privsepuser=dhcpcd"
         ]
-    )
-  ;
+    );
 
   makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
@@ -72,8 +71,7 @@ stdenv.mkDerivation rec {
   # Check that the udev plugin got built.
   postInstall =
     lib.optionalString (udev != null)
-      "[ -e ${placeholder "out"}/lib/dhcpcd/dev/udev.so ]"
-  ;
+      "[ -e ${placeholder "out"}/lib/dhcpcd/dev/udev.so ]";
 
   passthru = {
     inherit enablePrivSep;

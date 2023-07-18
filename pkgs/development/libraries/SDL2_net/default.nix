@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
 
   configureFlags =
     [ "--disable-examples" ]
-    ++ lib.optional stdenv.isDarwin "--disable-sdltest"
-  ;
+    ++ lib.optional stdenv.isDarwin "--disable-sdltest";
 
   propagatedBuildInputs = [ SDL2 ];
 

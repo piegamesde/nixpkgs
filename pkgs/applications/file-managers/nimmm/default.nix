@@ -30,8 +30,7 @@ nimPackages.buildNimPackage rec {
         nimbox
         lscolors
       ]
-    )
-  ;
+    );
 
   meta = with lib; {
     description = "Terminal file manager written in nim";

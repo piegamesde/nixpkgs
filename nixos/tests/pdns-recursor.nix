@@ -9,8 +9,7 @@ import ./make-test-python.nix (
         services.pdns-recursor.enable = true;
         services.pdns-recursor.exportHosts = true;
         networking.hosts."192.0.2.1" = [ "example.com" ];
-      }
-    ;
+      };
 
     testScript = ''
       server.wait_for_unit("pdns-recursor")

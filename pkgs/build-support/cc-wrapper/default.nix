@@ -70,7 +70,8 @@
     # `-L` flags pointing at the new gcc's libstdc++ headers.  Example failure:
     # https://hydra.nixos.org/build/213125495
     else
-      false,
+      false
+  ,
 
   # the derivation at which the `-B` and `-L` flags added by `useCcForLibs` will point
   gccForLibs ? if useCcForLibs then cc else null,
@@ -124,16 +125,14 @@ let
         "_"
         "_"
       ]
-      targetPlatform.config
-  ;
+      targetPlatform.config;
 
   expand-response-params =
     lib.optionalString
       (
         (buildPackages.stdenv.hasCC or false) && buildPackages.stdenv.cc != "/dev/null"
       )
-      (import ../expand-response-params { inherit (buildPackages) stdenv; })
-  ;
+      (import ../expand-response-params { inherit (buildPackages) stdenv; });
 
   useGccForLibs =
     useCcForLibs
@@ -198,8 +197,7 @@ let
 
   darwinMinVersionVariable =
     optionalString stdenv.targetPlatform.isDarwin
-      stdenv.targetPlatform.darwinMinVersionVariable
-  ;
+      stdenv.targetPlatform.darwinMinVersionVariable;
 in
 
 # Ensure bintools matches
@@ -221,8 +219,7 @@ stdenv.mkDerivation {
     ++ optionals propagateDoc [
       "man"
       "info"
-    ]
-  ;
+    ];
 
   passthru = {
     inherit targetPrefix suffixSalt;
@@ -380,8 +377,7 @@ stdenv.mkDerivation {
   strictDeps = true;
   propagatedBuildInputs =
     [ bintools ]
-    ++ extraTools ++ optionals cc.langD or false [ zlib ]
-  ;
+    ++ extraTools ++ optionals cc.langD or false [ zlib ];
   depsTargetTargetPropagated = optional (libcxx != null) libcxx ++ extraPackages;
 
   setupHooks =

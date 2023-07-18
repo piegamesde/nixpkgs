@@ -50,8 +50,7 @@ stdenv.mkDerivation rec {
         gst-plugins-base
         gst-plugins-bad
       ]
-    )
-  ;
+    );
 
   meta = with lib; {
     description = "Get what motivates you done, without losing concentration";

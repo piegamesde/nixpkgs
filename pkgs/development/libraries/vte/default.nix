@@ -85,8 +85,7 @@ stdenv.mkDerivation rec {
       (if gtkVersion == "3" then gtk3 else gtk4)
       glib
       pango
-    ]
-  ;
+    ];
 
   mesonFlags =
     [ "-Ddocs=true" ]
@@ -106,8 +105,7 @@ stdenv.mkDerivation rec {
   # error: argument unused during compilation: '-pie' [-Werror,-Wunused-command-line-argument]
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.hostPlatform.isMusl
-      "-Wno-unused-command-line-argument"
-  ;
+      "-Wno-unused-command-line-argument";
 
   postPatch = ''
     patchShebangs perf/*

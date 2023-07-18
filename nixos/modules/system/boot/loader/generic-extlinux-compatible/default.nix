@@ -87,6 +87,5 @@ in
       system.boot.loader.id = "generic-extlinux-compatible";
 
       boot.loader.generic-extlinux-compatible.populateCmd = "${populateBuilder} ${builderArgs}";
-    }
-  ;
+    };
 }

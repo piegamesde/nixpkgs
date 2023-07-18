@@ -26,8 +26,7 @@ let
   cfg = config.services.dolibarr;
   vhostCfg =
     lib.optionalAttrs (cfg.nginx != null)
-      config.services.nginx.virtualHosts."${cfg.domain}"
-  ;
+      config.services.nginx.virtualHosts."${cfg.domain}";
 
   mkConfigFile =
     filename: settings:
@@ -58,8 +57,7 @@ let
       ${concatStringsSep "\n" (
         mapAttrsToList (k: v: "\$${k} = ${toStr k v};") settings
       )}
-    ''
-  ;
+    '';
 
   # see https://github.com/Dolibarr/dolibarr/blob/develop/htdocs/install/install.forced.sample.php for all possible values
   install =
@@ -82,8 +80,7 @@ let
     // optionalAttrs (cfg.database.passwordFile != null) {
       force_install_databasepass = ''
         file_get_contents("${cfg.database.passwordFile}")'';
-    }
-  ;
+    };
 in
 {
   # interface
@@ -177,13 +174,11 @@ in
             int
             str
           ]
-        ))
-      ;
+        ));
       default = { };
       description =
         lib.mdDoc
-          "Dolibarr settings, see <https://github.com/Dolibarr/dolibarr/blob/develop/htdocs/conf/conf.php.example> for details."
-      ;
+          "Dolibarr settings, see <https://github.com/Dolibarr/dolibarr/blob/develop/htdocs/conf/conf.php.example> for details.";
     };
 
     nginx = mkOption {
@@ -228,8 +223,7 @@ in
             int
             bool
           ]
-        )
-      ;
+        );
       default = {
         "pm" = "dynamic";
         "pm.max_children" = 32;
@@ -389,8 +383,7 @@ in
       (mkIf (cfg.nginx != null) {
         users.users."${config.services.nginx.group}".extraGroups =
           mkIf (cfg.nginx != null)
-            [ cfg.group ]
-        ;
+            [ cfg.group ];
       })
     ]
   );

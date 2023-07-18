@@ -50,8 +50,7 @@ in
       default = "*:0/3"; # every 3 minutes
       description =
         lib.mdDoc
-          "How often is offlineimap started. Default is '*:0/3' meaning every 3 minutes. See systemd.time(7) for more information about the format."
-      ;
+          "How often is offlineimap started. Default is '*:0/3' meaning every 3 minutes. See systemd.time(7) for more information about the format.";
     };
 
     timeoutStartSec = mkOption {
@@ -59,8 +58,7 @@ in
       default = "120sec"; # Kill if still alive after 2 minutes
       description =
         lib.mdDoc
-          "How long waiting for offlineimap before killing it. Default is '120sec' meaning every 2 minutes. See systemd.time(7) for more information about the format."
-      ;
+          "How long waiting for offlineimap before killing it. Default is '120sec' meaning every 2 minutes. See systemd.time(7) for more information about the format.";
     };
   };
   config = mkIf (cfg.enable || cfg.install) {

@@ -64,8 +64,7 @@ stdenv.mkDerivation rec {
   mesonBuildType = "release";
   mesonFlags =
     builtins.map (t: lib.mesonEnable "${t}-shaping" (lib.elem t withShapingTypes))
-      availableShapingTypes
-  ;
+      availableShapingTypes;
 
   doCheck = true;
 

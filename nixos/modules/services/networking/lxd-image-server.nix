@@ -56,8 +56,7 @@ in
 
       environment.etc."lxd-image-server/config.toml".source =
         format.generate "config.toml"
-          cfg.settings
-      ;
+          cfg.settings;
 
       services.logrotate.settings.lxd-image-server = {
         files = "/var/log/lxd-image-server/lxd-image-server.log";

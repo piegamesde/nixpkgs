@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs =
     [ cmake ]
-    ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
-  ;
+    ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
   buildInputs = [
     boost
     gdal

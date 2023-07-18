@@ -84,8 +84,7 @@ buildPythonPackage rec {
     ++ lib.optionals stdenv.isDarwin [
       "test_delete"
       "test_checkpoints_follow_file"
-    ]
-  ;
+    ];
 
   disabledTestPaths = lib.optionals stdenv.isDarwin [
     # requires local networking

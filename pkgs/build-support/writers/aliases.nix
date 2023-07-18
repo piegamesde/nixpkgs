@@ -31,8 +31,7 @@ let
     aliases:
     lib.mapAttrs
       (n: alias: removeDistribute (removeRecurseForDerivations (checkInPkgs n alias)))
-      aliases
-  ;
+      aliases;
 in
 mapAliases ({
   # Cleanup before 22.05, Added 2021-12-11

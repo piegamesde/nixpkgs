@@ -74,8 +74,7 @@ stdenv.mkDerivation rec {
           darwin = "0qcmb2vn2nykyikzgnlma627zhks7ksy1vkgvpcmqwyxq4bd38d7";
         }
         .${kernel.name} or "17gjaz7353zyprmds64p01qivy2r8pwf88nvvhi57idas2qd604n";
-    }
-  ;
+    };
 
   dontUnpack = true;
 
@@ -106,8 +105,7 @@ stdenv.mkDerivation rec {
         url = free-license.url;
         appendixUrl = appendix.url;
         free = false;
-      }
-    ;
+      };
     maintainers = with maintainers; [
       toonn
       jtojnar

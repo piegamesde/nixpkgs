@@ -243,13 +243,11 @@ in
             }
             // (optionalAttrs (cfg.mail.smtp.user != null) {
               SMTP_USER_NAME = cfg.mail.smtp.user;
-            })
-          ;
+            });
 
           path =
             [ cfg.package ]
-            ++ optional cfg.database.postgres.setup config.services.postgresql.package
-          ;
+            ++ optional cfg.database.postgres.setup config.services.postgresql.package;
           script = ''
             export CONFIG_DIR=$CREDENTIALS_DIRECTORY
 
@@ -280,8 +278,7 @@ in
               ]
               ++ lib.optionals (cfg.mail.smtp.passwordFile != null) [
                 "SMTP_USER_PWD:${cfg.mail.smtp.passwordFile}"
-              ]
-            ;
+              ];
           };
         };
       }

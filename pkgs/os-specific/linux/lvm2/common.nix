@@ -142,8 +142,7 @@ stdenv.mkDerivation rec {
       "install_systemd_generators"
       "install_systemd_units"
       "install_tmpfiles_configuration"
-    ]
-  ;
+    ];
 
   installPhase = lib.optionalString onlyLib ''
     install -D -t $out/lib libdm/ioctl/libdevmapper.${

@@ -49,8 +49,7 @@ let
           "\n"
         ])
         (splitString "\n" str)
-    )
-  ;
+    );
   configText = indent (toString cfg.configSetup);
   connectionText = concatStrings (
     mapAttrsToList
@@ -74,8 +73,7 @@ let
         name = "ipsec.d/policies/${name}";
         value.source = pkgs.writeText "ipsec-policy-${name}" text;
       })
-      cfg.policies
-  ;
+      cfg.policies;
 in
 
 {
@@ -101,8 +99,7 @@ in
         '';
         description =
           lib.mdDoc
-            "Options to go in the 'config setup' section of the Libreswan IPsec configuration"
-        ;
+            "Options to go in the 'config setup' section of the Libreswan IPsec configuration";
       };
 
       connections = mkOption {
@@ -123,8 +120,7 @@ in
         '';
         description =
           lib.mdDoc
-            "A set of connections to define for the Libreswan IPsec service"
-        ;
+            "A set of connections to define for the Libreswan IPsec service";
       };
 
       policies = mkOption {

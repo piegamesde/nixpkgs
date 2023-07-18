@@ -52,8 +52,7 @@ import ../make-test-python.nix (
               ];
             };
           };
-        }
-      ;
+        };
 
       server =
         { lib, ... }:
@@ -84,8 +83,7 @@ import ../make-test-python.nix (
           services.nfs.server.exports = ''
             /data *(rw,no_root_squash,fsid=0,sec=krb5p)
           '';
-        }
-      ;
+        };
     };
 
     testScript = ''

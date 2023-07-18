@@ -80,8 +80,7 @@ buildPythonPackage rec {
       [
         # requires access to trash
         "test_load_save_rename"
-      ]
-  ;
+      ];
 
   pythonImportsCheck = [
     "jupytext"

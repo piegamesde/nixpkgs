@@ -26,8 +26,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Open ports in the firewall for the Jackett web interface."
-        ;
+            "Open ports in the firewall for the Jackett web interface.";
       };
 
       user = mkOption {

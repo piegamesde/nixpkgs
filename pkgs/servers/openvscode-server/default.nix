@@ -57,8 +57,7 @@ let
           };
           vendorHash = "sha256-+BfxCyg0KkDQpHt/wycy/8CTG6YBA/VJvJFhhzUnSiQ=";
         }
-      )
-    ;
+      );
   };
 
   # replaces esbuild's download script with a binary from nixpkgs

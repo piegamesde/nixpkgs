@@ -46,8 +46,7 @@ import ./make-test-python.nix (
             git push origin master
           '';
         };
-      }
-    ;
+      };
 
     testScript = ''
       start_all()

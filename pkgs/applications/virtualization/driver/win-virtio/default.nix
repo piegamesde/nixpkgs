@@ -26,8 +26,7 @@ stdenv.mkDerivation rec {
       copy =
         arch: version:
         { input, output }:
-        "mkdir -p $out/${arch}/${output}; cp ${input}/${version}/${arch}/* $out/${arch}/${output}/."
-      ;
+        "mkdir -p $out/${arch}/${output}; cp ${input}/${version}/${arch}/* $out/${arch}/${output}/.";
       virtio = [
         {
           input = "Balloon";
@@ -61,8 +60,7 @@ stdenv.mkDerivation rec {
         (map (copy "amd64" "w10") virtio) ++ (map (copy "x86" "w10") virtio)
       )}
       runHook postInstall
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "Windows VirtIO Drivers";

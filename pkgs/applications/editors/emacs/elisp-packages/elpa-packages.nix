@@ -44,10 +44,8 @@ let
               broken = true;
             };
           }
-        )
-      ;
-    }
-  ;
+        );
+    };
 
   elpaBuild = import ../../../../build-support/emacs/elpa.nix {
     inherit

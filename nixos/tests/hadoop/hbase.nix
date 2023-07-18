@@ -26,8 +26,7 @@ import ../make-test-python.nix (
           {
             services.zookeeper.enable = true;
             networking.firewall.allowedTCPPorts = [ 2181 ];
-          }
-        ;
+          };
         namenode =
           { ... }:
           {
@@ -39,8 +38,7 @@ import ../make-test-python.nix (
               };
               inherit coreSite;
             };
-          }
-        ;
+          };
         datanode =
           { ... }:
           {
@@ -49,8 +47,7 @@ import ../make-test-python.nix (
               hdfs.datanode = defOpts;
               inherit coreSite;
             };
-          }
-        ;
+          };
 
         master =
           { ... }:
@@ -64,8 +61,7 @@ import ../make-test-python.nix (
                 };
               };
             };
-          }
-        ;
+          };
         regionserver =
           { ... }:
           {
@@ -76,8 +72,7 @@ import ../make-test-python.nix (
                 regionServer = defOpts;
               };
             };
-          }
-        ;
+          };
         thrift =
           { ... }:
           {
@@ -88,8 +83,7 @@ import ../make-test-python.nix (
                 thrift = defOpts;
               };
             };
-          }
-        ;
+          };
         rest =
           { ... }:
           {
@@ -100,10 +94,8 @@ import ../make-test-python.nix (
                 rest = defOpts;
               };
             };
-          }
-        ;
-      }
-    ;
+          };
+      };
 
     testScript = ''
       start_all()

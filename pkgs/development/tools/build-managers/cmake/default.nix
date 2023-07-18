@@ -81,8 +81,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals buildDocs [
       "man"
       "info"
-    ]
-  ;
+    ];
   setOutputFlags = false;
 
   setupHooks = [

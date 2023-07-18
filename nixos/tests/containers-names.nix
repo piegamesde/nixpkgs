@@ -28,10 +28,8 @@ import ./make-test-python.nix (
             second = container "2";
             really-long-name = container "3";
             really-long-long-name-2 = container "4";
-          }
-        ;
-      }
-    ;
+          };
+      };
 
     testScript = ''
       machine.wait_for_unit("default.target")

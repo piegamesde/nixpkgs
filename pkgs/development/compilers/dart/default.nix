@@ -48,8 +48,7 @@ stdenv.mkDerivation (
               [[ -d $PROJECTNAME ]]
               [[ -f $PROJECTNAME/bin/$PROJECTNAME.dart ]]
               touch $out
-            ''
-        ;
+            '';
 
         testCompile =
           runCommand "dart-test-compile"
@@ -59,8 +58,7 @@ stdenv.mkDerivation (
                 ++ lib.optionals stdenv.isDarwin [
                   darwin.cctools
                   darwin.sigtool
-                ]
-              ;
+                ];
             }
             ''
               HELLO_MESSAGE="Hello, world!"
@@ -70,8 +68,7 @@ stdenv.mkDerivation (
 
               [[ "$PROGRAM_OUT" == "$HELLO_MESSAGE" ]]
               touch $out
-            ''
-        ;
+            '';
       };
     };
 

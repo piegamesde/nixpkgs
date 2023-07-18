@@ -32,8 +32,7 @@ stdenv.mkDerivation {
     ++ lib.optionals stdenv.isLinux [
       libcap
       systemd
-    ]
-  ;
+    ];
 
   nativeBuildInputs = [ cmake ];
 

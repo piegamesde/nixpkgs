@@ -71,8 +71,7 @@ let
         platforms = platforms.all;
         maintainers = with maintainers; [ das_j ];
       };
-    })
-  ;
+    });
 in
 {
   rainloop-community = common {

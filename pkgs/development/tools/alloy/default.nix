@@ -65,8 +65,7 @@ let
         platforms = platforms.unix;
         maintainers = with maintainers; [ notbandali ];
       };
-    }
-  ;
+    };
 in
 rec {
   alloy5 = generic rec {

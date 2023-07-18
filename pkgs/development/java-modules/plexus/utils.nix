@@ -22,8 +22,7 @@
           type = "pom";
           sha512 = "35mm9fkfw1wljabr4lz6l5mq3mxgl7k87whlcz5qlddsbxy0j69j4xgf1fvjlyp06nqq2wz574v54aqpxgp8s6jwjyz9wyvqvsyka8d";
         }
-      ]
-  ;
+      ];
 
   plexusUtils_1_0_5 =
     map
@@ -46,8 +45,7 @@
           type = "pom";
           sha512 = "1pz98avnr6pml058mg2db79rpxckcxkgpl8z373l055kppsy1pvmkhjahkjpzfrg63pdsk2kgm2ls9ji5697whpbm7xcwi8j3ssx791";
         }
-      ]
-  ;
+      ];
 
   plexusUtils_1_1 =
     map
@@ -70,8 +68,7 @@
           type = "pom";
           sha512 = "0vbzdfsdcc4cq7hdqzb1vdfxp23vnavq7z4qmmlb4d4fiqj5wqdgagrs43gl7yzca2azpyj3kyxgaipimi7gck07jcsz0pzljkplk4w";
         }
-      ]
-  ;
+      ];
 
   plexusUtils_1_4_1 =
     map
@@ -94,8 +91,7 @@
           type = "pom";
           sha512 = "00h4r4l6isrks402minrpmm0shx8mxhkc31dbfcm86r220vl0bbgxw9mfqqc2ldjh7wkwcd0xp236kxwphxcrajiayxgvp7xgqnvfvb";
         }
-      ]
-  ;
+      ];
 
   plexusUtils_1_4_5 =
     map
@@ -118,8 +114,7 @@
           type = "pom";
           sha512 = "0liqhpc9pn81vn04qz4j3101jc33hygb415jnwpf0dhph3jay88l49gd9s1bwq6x4npn2v6863vidb8hdh5f8wd20k6m1lqhdpv882j";
         }
-      ]
-  ;
+      ];
 
   plexusUtils_1_4_9 =
     map
@@ -142,8 +137,7 @@
           type = "pom";
           sha512 = "23fpn9f8gq0a3hi2mlwzjpbr3kyrsr4wl58zyq8i6xbdnnfx0wfwc2xsfn8yp3mq2pjjpdlza9l3qdmwsyzmrz8micvms8bladpvcmv";
         }
-      ]
-  ;
+      ];
 
   plexusUtils_1_5_1 =
     map
@@ -166,8 +160,7 @@
           type = "pom";
           sha512 = "161cdrgjrw2cab4lf189hwa4s1lh42fsahjcjkir696sx0m9bmmxgjbhwxl1l8kpaxn5p6jf701bx16gry393pws636vy59nvnnx1sw";
         }
-      ]
-  ;
+      ];
 
   plexusUtils_1_5_5 =
     map
@@ -190,8 +183,7 @@
           type = "pom";
           sha512 = "29knasqhkvjif27gm3ycqhc206ycgc9920mccw7biybxmiqqajyfvv74f02sqpavlk5h6l45cfb20bmldwfznvzz9bw4zhvc12s9y5h";
         }
-      ]
-  ;
+      ];
 
   plexusUtils_1_5_6 =
     map
@@ -214,8 +206,7 @@
           type = "pom";
           sha512 = "261yv9sgjmslxjsfx7fj1ma53ld930qxic4br5m88wv96skyni09w2nh9sslgrmpxj3q89ykhq3fciscn40066v1qn0h0f6lbk3w68r";
         }
-      ]
-  ;
+      ];
 
   plexusUtils_1_5_8 =
     map
@@ -238,8 +229,7 @@
           type = "pom";
           sha512 = "06z4gkq3bh2pwyj8pvaly9fihd8gbgcqp3jxl05vkj2rcdb4jw3lw3hwn8f8ggqi17i2fdm8cbndkqgr9vdgiz45p8f1nx8kjlqikbi";
         }
-      ]
-  ;
+      ];
 
   plexusUtils_1_5_15 =
     map
@@ -262,8 +252,7 @@
           type = "pom";
           sha512 = "3ax5sy7x5l7c3qxj4vn4fyak0s6d7m2hbv2r79z5mr7hf0wp29jvg9jjlb8x6mdrg9q0i363j32b4mrvbxcdq7i128sqgc80c5jczdk";
         }
-      ]
-  ;
+      ];
 
   plexusUtils_2_0_5 =
     map
@@ -286,8 +275,7 @@
           type = "pom";
           sha512 = "2rkkshqf3ahjijvr64ndzh10iksbz7pj0618drvg9iklnpv6i6y904fi31xjg7vxb3fy17k3mvi49pr2jxznbf1c8ndwbyawlvmw9j7";
         }
-      ]
-  ;
+      ];
 
   plexusUtils_2_0_6 =
     map
@@ -310,8 +298,7 @@
           type = "pom";
           sha512 = "22g2dlbgc557k126hd0nfaf6n76vwa19nnd0ga8ywdx5pnai63x9806d7dhvjm778rmgpxlrj65y8if36q0zkbg153i007cxg36indj";
         }
-      ]
-  ;
+      ];
 
   plexusUtils_3_0 =
     map
@@ -334,8 +321,7 @@
           type = "pom";
           sha512 = "123fsmm1jvy571yl1s3wp7yd5k52nfjqxzqpzx2940rsigm35rw2mx1g4bvr3wx0gv5bqlfmqj5cwdhhxdq5vzrax8z5vbmdg5vb77r";
         }
-      ]
-  ;
+      ];
 
   plexusUtils_3_0_5 =
     map
@@ -358,8 +344,7 @@
           type = "pom";
           sha512 = "264k562pvd1cyh5danf56iyay1a661d15rywwq12fd3v8k7p85kl9b9ykqa5hssqkkixrv4gmhy6nkk5dhy5whbmlan99h6w6q0pjyw";
         }
-      ]
-  ;
+      ];
 
   plexusUtils_3_0_8 =
     map
@@ -382,6 +367,5 @@
           type = "pom";
           sha512 = "1p1l437rwpxv9jfygr25b455xymqcmm4smin1bf7fzcmgkc3m7k0gdd7rfvfg2622070rmwjbk4fgv0z3alf1xz03ksjp6s0gr6sqr8";
         }
-      ]
-  ;
+      ];
 }

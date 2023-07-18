@@ -43,8 +43,7 @@ buildPythonPackage rec {
     ++ lib.optionals (isPy27) [
       enum34
       futures
-    ]
-  ;
+    ];
 
   preBuild =
     ''

@@ -114,8 +114,7 @@ rec {
           lib.concatMapStrings (x: "--replace '${x}/' '' ") strip
         }
       done
-    '')
-  ;
+    '');
   # TODO: echo for debug, can be removed at some point
   make =
     lore: drv:
@@ -131,6 +130,5 @@ rec {
         ${lore.callback lore drv overrides}
 
         echo binlore for $drv written to $out
-      '')
-  ;
+      '');
 }

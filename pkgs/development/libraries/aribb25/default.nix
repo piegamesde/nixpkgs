@@ -46,13 +46,11 @@ stdenv.mkDerivation rec {
         url = url "cebabeab2bda065dca1c9f033b42d391be866d86";
         sha256 = "1283kqv1r4rbaba0sv2hphkhcxgjkmh8ndlcd24fhx43nn63hd28";
       })
-    ]
-  ;
+    ];
 
   buildFlags =
     lib.optional stdenv.isDarwin
-      "pcsclite_CFLAGS=-I${PCSC}/Library/Frameworks/PCSC.framework/Headers"
-  ;
+      "pcsclite_CFLAGS=-I${PCSC}/Library/Frameworks/PCSC.framework/Headers";
 
   meta = with lib; {
     description = "Sample implementation of the ARIB STD-B25 standard";

@@ -54,8 +54,7 @@ rustPlatform.buildRustPackage rec {
             lib.getDev darwin.apple_sdk.sdk
           }/include/libproc.h $out/include/libproc.h
         '')
-      ]
-  ;
+      ];
 
   LIBCLANG_PATH = lib.optionalString stdenv.isDarwin "${stdenv.cc.cc.lib}/lib";
 

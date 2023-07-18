@@ -26,8 +26,7 @@ in
               bool
               str
             ]
-          )
-        ;
+          );
         default = { };
         description = lib.mdDoc ''
           Configuration for `create_ap`.

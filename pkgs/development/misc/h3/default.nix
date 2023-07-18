@@ -43,8 +43,7 @@ let
           marsam
         ];
       };
-    }
-  ;
+    };
 in
 {
   h3_3 = generic {

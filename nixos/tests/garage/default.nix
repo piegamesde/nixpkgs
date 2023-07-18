@@ -51,8 +51,7 @@ let
 
       # Garage requires at least 1GiB of free disk space to run.
       virtualisation.diskSize = 2 * 1024;
-    }
-  ;
+    };
 in
 foldl
   (

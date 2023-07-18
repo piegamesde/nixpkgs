@@ -16,8 +16,7 @@ import ./make-test-python.nix (
             "-device tpm-tis,tpmdev=tpm0"
           ];
         };
-      }
-    ;
+      };
 
     testScript = ''
       import subprocess

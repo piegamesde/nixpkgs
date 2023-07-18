@@ -37,8 +37,7 @@ let
   # From data/sessions/Makefile.am
   requiredComponentsCommon =
     enableGnomePanel:
-    [ "gnome-flashback" ] ++ lib.optional enableGnomePanel "gnome-panel"
-  ;
+    [ "gnome-flashback" ] ++ lib.optional enableGnomePanel "gnome-panel";
   requiredComponentsGsd = [
     "org.gnome.SettingsDaemon.A11ySettings"
     "org.gnome.SettingsDaemon.Color"
@@ -63,8 +62,7 @@ let
       lib.concatStringsSep ";" (
         [ wmName ] ++ requiredComponentsCommon enableGnomePanel ++ requiredComponentsGsd
       )
-    };"
-  ;
+    };";
 
   gnome-flashback = stdenv.mkDerivation rec {
     name = "${pname}-${version}";
@@ -199,8 +197,7 @@ let
             ];
             buildInputs =
               [ gnome-flashback ]
-              ++ lib.optionals enableGnomePanel ([ gnome-panel ] ++ panelModulePackages)
-            ;
+              ++ lib.optionals enableGnomePanel ([ gnome-panel ] ++ panelModulePackages);
 
             # We want to use the wrapGAppsHook mechanism to wrap gnome-session
             # with the environment that gnome-flashback and gnome-panel need to
@@ -266,8 +263,7 @@ let
           mkdir -p $out/lib/systemd/user
           cp -r "${gnome-flashback}/lib/systemd/user/gnome-session@gnome-flashback-metacity.target.d" \
             "$out/lib/systemd/user/gnome-session@gnome-flashback-${wmName}.target.d"
-        ''
-      ;
+        '';
     };
 
     meta = with lib; {

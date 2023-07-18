@@ -71,8 +71,7 @@ let
         }
         // passthru
       ;
-    }
-  ;
+    };
 in
 runCommand basicEnv.name cmdArgs ''
   mkdir -p $out/bin

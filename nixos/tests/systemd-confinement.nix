@@ -48,8 +48,7 @@ import ./make-test-python.nix {
             // removeAttrs config [
               "confinement"
               "serviceConfig"
-            ]
-          ;
+            ];
 
           __testSteps = lib.mkOrder num (
             ''
@@ -57,8 +56,7 @@ import ./make-test-python.nix {
             ''
             + testScript
           );
-        }
-      ;
+        };
     in
     {
       imports = lib.imap1 mkTestStep [
@@ -110,8 +108,7 @@ import ./make-test-python.nix {
                     got me
                   '';
                 }
-                ''ln -s "$target" "$out"''
-            ;
+                ''ln -s "$target" "$out"'';
           in
           {
             config.confinement.packages = lib.singleton symlink;
@@ -216,8 +213,7 @@ import ./make-test-python.nix {
         description = "Chroot Test User";
         group = "chroot-testgroup";
       };
-    }
-  ;
+    };
 
   testScript =
     { nodes, ... }:

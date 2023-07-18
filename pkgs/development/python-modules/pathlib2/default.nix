@@ -24,8 +24,7 @@ buildPythonPackage rec {
     ++ lib.optionals (pythonOlder "3.5") [
       scandir
       typing
-    ]
-  ;
+    ];
   nativeCheckInputs = [ glibcLocales ] ++ lib.optional (pythonOlder "3.3") mock;
 
   preCheck = ''

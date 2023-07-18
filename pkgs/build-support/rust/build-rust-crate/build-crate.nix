@@ -109,7 +109,8 @@ in
             else
               ''
                 BIN_PATH='${bin.path}'
-              ''}
+              ''
+            }
               ${build_bin} "$BIN_NAME" "$BIN_PATH"
           ''
         else

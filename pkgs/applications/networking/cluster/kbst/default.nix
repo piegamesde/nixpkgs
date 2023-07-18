@@ -27,8 +27,7 @@ buildGoModule rec {
       "-X ${package_url}.gitCommit=${src.rev}"
       "-X ${package_url}.gitTag=v${version}"
       "-X ${package_url}.gitTreeState=clean"
-    ]
-  ;
+    ];
 
   vendorSha256 = "sha256-DZ47Bj8aFfBnxU9+e1jZiTMF75rCJtcj4yUfZRJWCic=";
 

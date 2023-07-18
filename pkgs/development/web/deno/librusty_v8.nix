@@ -16,8 +16,7 @@ let
       meta = {
         inherit (args) version;
       };
-    }
-  ;
+    };
 in
 fetch_librusty_v8 {
   version = "0.71.0";

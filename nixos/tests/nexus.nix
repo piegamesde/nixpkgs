@@ -18,8 +18,7 @@ import ./make-test-python.nix (
           virtualisation.diskSize = 8192;
 
           services.nexus.enable = true;
-        }
-      ;
+        };
     };
 
     testScript = ''

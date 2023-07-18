@@ -66,8 +66,7 @@ import ./make-test-python.nix (
         boot.kernelModules = [ "xfs" ];
 
         services.ceph = cephConfig;
-      }
-    ;
+      };
 
     networkMonA = {
       dhcpcd.enable = false;
@@ -218,8 +217,7 @@ import ./make-test-python.nix (
         monA.wait_for_open_port(8080)
         monA.wait_until_succeeds("curl -q --fail http://localhost:8080")
         monA.wait_until_succeeds("ceph -s | grep 'HEALTH_OK'")
-      ''
-    ;
+      '';
   in
   {
     name = "basic-single-node-ceph-cluster";

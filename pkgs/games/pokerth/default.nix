@@ -31,8 +31,7 @@ let
     patch:
     runCommand "revert-${patch.name}" { } ''
       ${patchutils}/bin/interdiff ${patch} /dev/null > $out
-    ''
-  ;
+    '';
 in
 
 mkDerivation rec {

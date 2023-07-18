@@ -108,8 +108,7 @@ stdenv.mkDerivation rec {
         libXfixes
         libXrandr
       ]
-    )
-  ;
+    );
 
   postPatch = ''
     patchelf ./installer \

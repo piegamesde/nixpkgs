@@ -49,8 +49,7 @@
           out = "8.5.0";
         }
       ]
-      null
-  ;
+      null;
 
   useDuneifVersion = lib.versions.isGe "9.0";
 

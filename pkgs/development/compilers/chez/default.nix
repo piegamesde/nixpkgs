@@ -34,8 +34,7 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.cc.isGNU
-      "-Wno-error=format-truncation"
-  ;
+      "-Wno-error=format-truncation";
 
   #* We patch out a very annoying 'feature' in ./configure, which
   #* tries to use 'git' to update submodules.

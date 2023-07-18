@@ -36,8 +36,7 @@ buildPythonPackage {
       # $out/${sitePackages}/torchvision/_C.so wants libcudart.so.11.0 but torchvision.libs only ships
       # libcudart.$hash.so.11.0
       cuda_cudart
-    ]
-  ;
+    ];
 
   nativeBuildInputs = [
     autoPatchelfHook

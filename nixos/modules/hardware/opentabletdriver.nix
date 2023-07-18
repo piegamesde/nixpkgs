@@ -74,7 +74,6 @@ in
           ExecStart = "${cfg.package}/bin/otd-daemon";
           Restart = "on-failure";
         };
-      }
-    ;
+      };
   };
 }

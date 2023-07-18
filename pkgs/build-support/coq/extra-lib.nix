@@ -11,8 +11,7 @@ recursiveUpdate lib (rec {
         let
           n = length (splitVersion v0);
         in
-        op (truncate n v) (truncate n v0)
-      ;
+        op (truncate n v) (truncate n v0);
     in
     rec {
 
@@ -72,8 +71,7 @@ recursiveUpdate lib (rec {
       isLt = opTruncate versionOlder;
       isEq = opTruncate pred.equal;
       range = low: high: pred.inter (versions.isGe low) (versions.isLe high);
-    }
-  ;
+    };
 
   /* Returns a list of list, splitting it using a predicate.
       This is analoguous to builtins.split sep list,
@@ -113,19 +111,16 @@ recursiveUpdate lib (rec {
               loop vv (v ++ [ hd ]) tl
         );
     in
-    loop [ ] [ ] l
-  ;
+    loop [ ] [ ] l;
 
   pred = {
     # Predicate intersection, union, and complement
     inter =
       p: q: x:
-      p x && q x
-    ;
+      p x && q x;
     union =
       p: q: x:
-      p x || q x
-    ;
+      p x || q x;
     compl = p: x: !p x;
     true = p: true;
     false = p: false;
@@ -199,8 +194,7 @@ recursiveUpdate lib (rec {
         })
         clauses
       )
-      default
-  ;
+      default;
 
   /* Override arguments to mkCoqDerivation for a Coq library.
 
@@ -250,6 +244,5 @@ recursiveUpdate lib (rec {
     f: drv:
     (drv.override (
       args: { mkCoqDerivation = drv_: (args.mkCoqDerivation drv_).override f; }
-    ))
-  ;
+    ));
 })

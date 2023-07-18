@@ -27,8 +27,7 @@ let
     in
     pkgs.writeText "hylafax-config${name}" (
       concatStringsSep "\n" (include ++ other)
-    )
-  ;
+    );
 
   globalConfigPath = mkConfigFile "" cfg.faxqConfig;
 
@@ -36,8 +35,7 @@ let
     let
       mkModemConfigFile =
         { config, name, ... }:
-        mkConfigFile ".${name}" (cfg.commonModemConfig // config)
-      ;
+        mkConfigFile ".${name}" (cfg.commonModemConfig // config);
       mkLine =
         { name, type, ... }@modem:
         ''
@@ -48,12 +46,10 @@ let
             --no-target-directory \
             "${mkModemConfigFile modem}" \
             "$out/config.${name}"
-        ''
-      ;
+        '';
     in
     pkgs.runCommand "hylafax-config-modems" { preferLocalBuild = true; }
-      ''mkdir --parents "$out/" ${concatStringsSep "\n" (mapModems mkLine)}''
-  ;
+      ''mkdir --parents "$out/" ${concatStringsSep "\n" (mapModems mkLine)}'';
 
   setupSpoolScript = pkgs.substituteAll {
     name = "hylafax-setup-spool.sh";
@@ -134,8 +130,7 @@ let
         service: lib.filterAttrs filter (hardening // (service.serviceConfig or { }));
     in
     service:
-    service // { serviceConfig = apply service; }
-  ;
+    service // { serviceConfig = apply service; };
 
   services.hylafax-spool = {
     description = "HylaFAX spool area preparation";
@@ -205,8 +200,7 @@ let
     wantedBy = mkIf cfg.faxcron.enable.spoolInit requires;
     startAt =
       mkIf (cfg.faxcron.enable.frequency != null)
-        cfg.faxcron.enable.frequency
-    ;
+        cfg.faxcron.enable.frequency;
     serviceConfig.ExecStart = concatStringsSep " " [
       "${pkgs.hylafaxplus}/spool/bin/faxcron"
       ''-q "${cfg.spoolAreaPath}"''
@@ -224,8 +218,7 @@ let
     wantedBy = mkIf cfg.faxqclean.enable.spoolInit requires;
     startAt =
       mkIf (cfg.faxqclean.enable.frequency != null)
-        cfg.faxqclean.enable.frequency
-    ;
+        cfg.faxqclean.enable.frequency;
     serviceConfig.ExecStart = concatStringsSep " " [
       "${pkgs.hylafaxplus}/spool/bin/faxqclean"
       ''-q "${cfg.spoolAreaPath}"''
@@ -265,8 +258,7 @@ let
       # disable some systemd hardening settings
       serviceConfig.PrivateDevices = null;
       serviceConfig.RestrictRealtime = null;
-    }
-  ;
+    };
 
   modemServices = lib.listToAttrs (mapModems mkFaxgettyService);
 in

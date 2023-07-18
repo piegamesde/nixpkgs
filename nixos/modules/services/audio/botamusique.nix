@@ -59,8 +59,7 @@ in
               description = lib.mdDoc "Comment displayed for the bot.";
             };
           };
-        }
-      ;
+        };
       default = { };
       description = lib.mdDoc ''
         Your {file}`configuration.ini` as a Nix attribute set. Look up

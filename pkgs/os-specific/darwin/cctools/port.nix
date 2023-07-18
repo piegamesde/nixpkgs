@@ -21,8 +21,7 @@ let
   # PATH to both be usable.
   targetPrefix =
     lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform)
-      "${stdenv.targetPlatform.config}-"
-  ;
+      "${stdenv.targetPlatform.config}-";
 in
 
 # Non-Darwin alternatives
@@ -93,8 +92,7 @@ stdenv.mkDerivation {
     ++ lib.optionals enableTapiSupport [
       "--enable-tapi-support"
       "--with-libtapi=${libtapi}"
-    ]
-  ;
+    ];
 
   postPatch =
     lib.optionalString stdenv.hostPlatform.isDarwin ''

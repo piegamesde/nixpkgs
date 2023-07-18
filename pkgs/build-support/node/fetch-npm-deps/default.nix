@@ -25,8 +25,7 @@
         let
           name' = builtins.baseNameOf name;
         in
-        name' != "default.nix" && name' != "target"
-      ;
+        name' != "default.nix" && name' != "target";
     };
 
     cargoLock.lockFile = ./Cargo.lock;
@@ -57,8 +56,7 @@
               mkdir -p $out
               cp $src $out/package-lock.json
             '';
-          }
-        ;
+          };
 
         makeTest =
           {
@@ -71,8 +69,7 @@
             inherit name hash forceGitDeps;
 
             src = makeTestSrc { inherit name src; };
-          }
-        ;
+          };
       in
       {
         lockfileV1 = makeTest {
@@ -143,8 +140,7 @@
 
           forceGitDeps = true;
         };
-      }
-    ;
+      };
 
     meta = with lib; {
       description = "Prefetch dependencies from npm (for use with `fetchNpmDeps`)";
@@ -207,6 +203,5 @@
       }
       // hash_
       // forceGitDeps_
-    )
-  ;
+    );
 }

@@ -46,8 +46,7 @@ import ./make-test-python.nix (
             echo 'blacklist ''${HOME}/my-secrets' > .config/firejail/globals.local
           '';
         };
-      }
-    ;
+      };
 
     testScript = ''
       start_all()

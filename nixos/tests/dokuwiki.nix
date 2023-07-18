@@ -95,8 +95,7 @@ import ./make-test-python.nix (
           "site1.local"
           "site2.local"
         ];
-      }
-    ;
+      };
 
     titleFile = pkgs.writeText "dokuwiki-title" "DokuWiki on site2";
   in

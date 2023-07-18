@@ -49,8 +49,7 @@ buildPythonPackage rec {
       [
         # https://github.com/DataDog/datadogpy/issues/746
         "TestDogshell"
-      ]
-  ;
+      ];
 
   pythonImportsCheck = [ "datadog" ];
 

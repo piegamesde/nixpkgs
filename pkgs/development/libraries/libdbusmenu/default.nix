@@ -32,8 +32,7 @@ stdenv.mkDerivation (
             lib.versions.majorMinor version
           }/${version}/+download/libdbusmenu-${version}.tar.gz";
         sha256 = "12l7z8dhl917iy9h02sxmpclnhkdjryn08r8i4sr8l3lrlm4mk5r";
-      }
-    ;
+      };
 
     nativeBuildInputs = [
       vala
@@ -53,8 +52,7 @@ stdenv.mkDerivation (
           "2" = gtk2;
           "3" = gtk3;
         }
-        .${gtkVersion} or (throw "unknown GTK version ${gtkVersion}")
-    ;
+        .${gtkVersion} or (throw "unknown GTK version ${gtkVersion}");
 
     postPatch = ''
       for f in {configure,ltmain.sh,m4/libtool.m4}; do

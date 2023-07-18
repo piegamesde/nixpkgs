@@ -87,8 +87,7 @@ let
           # only a stripped down version is build which takes a lot less resources to build
           requiredSystemFeatures = [ ];
         }
-      )
-  ;
+      );
 
   aws-sdk-cpp-nix =
     (aws-sdk-cpp.override {
@@ -103,8 +102,7 @@ let
           # only a stripped down version is build which takes a lot less resources to build
           requiredSystemFeatures = [ ];
         }
-      )
-  ;
+      );
 
   common =
     args:
@@ -122,8 +120,7 @@ let
         else
           aws-sdk-cpp-old-nix
       ;
-    }
-  ;
+    };
 
   # https://github.com/NixOS/nix/pull/7585
   patch-monitorfdhup = fetchpatch2 {
@@ -157,8 +154,7 @@ lib.makeExtensible (
         };
         patches = [ patch-monitorfdhup ];
       }).override
-        { boehmgc = boehmgc-nix_2_3; }
-    ;
+        { boehmgc = boehmgc-nix_2_3; };
 
     nix_2_4 = throw "nixVersions.nix_2_4 has been removed";
 

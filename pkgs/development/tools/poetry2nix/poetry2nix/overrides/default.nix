@@ -66,8 +66,7 @@ let
               ;
             }
         )
-    )
-  ;
+    );
 in
 lib.composeManyExtensions [
   # NixOps
@@ -124,8 +123,7 @@ lib.composeManyExtensions [
             lib.take 2 (builtins.splitVersion version)
           );
         in
-        pkgs."qt${selector}" or pkgs.qt5
-      ;
+        pkgs."qt${selector}" or pkgs.qt5;
     in
 
     {
@@ -235,8 +233,7 @@ lib.composeManyExtensions [
             .${version} or (lib.warn
               "Unknown bcrypt version: '${version}'. Please update getCargoHash."
               lib.fakeHash
-            )
-          ;
+            );
         in
         super.bcrypt.overridePythonAttrs (
           old:
@@ -271,8 +268,7 @@ lib.composeManyExtensions [
             };
             cargoRoot = "src/_bcrypt";
           }
-        )
-      ;
+        );
       bjoern = super.bjoern.overridePythonAttrs (
         old: { buildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.libev ]; }
       );
@@ -447,8 +443,7 @@ lib.composeManyExtensions [
             .${version} or (lib.warn
               "Unknown cryptography version: '${version}'. Please update getCargoHash."
               lib.fakeHash
-            )
-          ;
+            );
           sha256 = getCargoHash super.cryptography.version;
           isWheel = lib.hasSuffix ".whl" super.cryptography.src;
           scrypto =
@@ -502,8 +497,7 @@ lib.composeManyExtensions [
             };
             cargoRoot = "src/rust";
           }
-        )
-      ;
+        );
 
       cyclonedx-python-lib = super.cyclonedx-python-lib.overridePythonAttrs (
         old: {
@@ -745,8 +739,7 @@ lib.composeManyExtensions [
         old: {
           propagatedBuildInputs =
             builtins.filter (i: i.pname != "eth-hash")
-              old.propagatedBuildInputs
-          ;
+              old.propagatedBuildInputs;
           preConfigure = ''
             ${old.preConfigure or ""}
             sed -i '/eth-hash/d' setup.py
@@ -836,8 +829,7 @@ lib.composeManyExtensions [
               ''
             ;
           }
-        )
-      ;
+        );
 
       grandalf = super.grandalf.overridePythonAttrs (
         old: {
@@ -860,8 +852,7 @@ lib.composeManyExtensions [
               "0.3.0" = "sha256-icBjtW8fZjT3mLo43nKWdirMz6GZIy/RghEO95pHJEU=";
               "0.3.1" = "sha256-EKK+RxkJ//fY43EjvN1Fry7mn2ZLIaNlTyKPJRxyKZs=";
             }
-            .${version}
-          ;
+            .${version};
           sha256 = getRepoHash super.granian.version;
         in
         super.granian.overridePythonAttrs (
@@ -880,8 +871,7 @@ lib.composeManyExtensions [
               pkgs.rustPlatform.maturinBuildHook
             ];
           }
-        )
-      ;
+        );
 
       gitpython = super.gitpython.overridePythonAttrs (
         old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.typing-extensions ]; }
@@ -1429,8 +1419,7 @@ lib.composeManyExtensions [
                 // lib.optionalAttrs stdenv.isDarwin {
                   # LTO not working in darwin stdenv, see Nixpkgs #19312
                   enable_lto = false;
-                }
-              ;
+                };
             };
           };
 
@@ -1721,8 +1710,7 @@ lib.composeManyExtensions [
                   // lib.optionalAttrs (blasImplementation == "mkl") {
                     mkl_libs = "mkl_rt";
                     lapack_libs = "";
-                  }
-                ;
+                  };
               });
           };
         in
@@ -1779,8 +1767,7 @@ lib.composeManyExtensions [
               (stdenv.isDarwin && lib.versionAtLeast super.open3d.version "0.16.0")
               ''
                 install_name_tool -change /opt/homebrew/opt/libomp/lib/libomp.dylib ${pkgs.llvmPackages.openmp}/lib/libomp.dylib $out/lib/python*/site-packages/open3d/cpu/pybind.cpython-*-darwin.so
-              ''
-          ;
+              '';
 
           # TODO(Sem Mulder): Add overridable flags for CUDA/PyTorch/Tensorflow support.
           autoPatchelfIgnoreMissingDeps = true;
@@ -1815,18 +1802,15 @@ lib.composeManyExtensions [
 
       opencv-python =
         super.opencv-python.overridePythonAttrs
-          self._opencv-python-override
-      ;
+          self._opencv-python-override;
 
       opencv-python-headless =
         super.opencv-python-headless.overridePythonAttrs
-          self._opencv-python-override
-      ;
+          self._opencv-python-override;
 
       opencv-contrib-python =
         super.opencv-contrib-python.overridePythonAttrs
-          self._opencv-python-override
-      ;
+          self._opencv-python-override;
 
       openexr = super.openexr.overridePythonAttrs (
         old: {
@@ -1874,8 +1858,7 @@ lib.composeManyExtensions [
             .${version} or (lib.warn
               "Unknown orjson version: '${version}'. Please update getCargoHash."
               lib.fakeHash
-            )
-          ;
+            );
         in
         super.orjson.overridePythonAttrs (
           old: {
@@ -1892,8 +1875,7 @@ lib.composeManyExtensions [
               (old.buildInputs or [ ])
               ++ lib.optional pkgs.stdenv.isDarwin pkgs.libiconv;
           }
-        )
-      ;
+        );
 
       osqp = super.osqp.overridePythonAttrs (
         old: {
@@ -1923,8 +1905,7 @@ lib.composeManyExtensions [
                 substituteInPlace setup.py \
                   --replace "['pandas/src/klib', 'pandas/src']" \
                             "['pandas/src/klib', 'pandas/src', '$cpp_sdk']"
-              ''
-          ;
+              '';
 
           enableParallelBuilding = true;
         }
@@ -2212,8 +2193,7 @@ lib.composeManyExtensions [
             }
           )
         )
-          super.pycairo
-      ;
+          super.pycairo;
 
       pycocotools = super.pycocotools.overridePythonAttrs (
         old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.numpy ]; }
@@ -2395,8 +2375,7 @@ lib.composeManyExtensions [
           ;
           NIX_CFLAGS_COMPILE =
             lib.optionalString (!withApplePCSC)
-              "-I ${lib.getDev pcsclite}/include/PCSC"
-          ;
+              "-I ${lib.getDev pcsclite}/include/PCSC";
           nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.swig ];
         }
       );
@@ -2470,8 +2449,7 @@ lib.composeManyExtensions [
               qt5.full
             ];
           }
-        )
-      ;
+        );
 
       pyqt5-qt5 =
         let
@@ -2489,8 +2467,7 @@ lib.composeManyExtensions [
               pkgs.unixODBC
             ];
           }
-        )
-      ;
+        );
 
       pytest-datadir = super.pytest-datadir.overridePythonAttrs (
         old: {
@@ -2811,8 +2788,7 @@ lib.composeManyExtensions [
             buildInputs =
               old.buildInputs ++ (lib.optionals (!v4orLater) [ self.setuptools ]);
           }
-        )
-      ;
+        );
 
       shapely = super.shapely.overridePythonAttrs (
         old: {
@@ -2824,8 +2800,7 @@ lib.composeManyExtensions [
             lib.optionalString (!stdenv.isDarwin)
               "${
                 lib.getLib stdenv.cc.libc
-              }/lib/libc${stdenv.hostPlatform.extensions.sharedLibrary}.6"
-          ;
+              }/lib/libc${stdenv.hostPlatform.extensions.sharedLibrary}.6";
 
           # Fix library paths
           postPatch = lib.optionalString (!(old.src.isWheel or false)) (
@@ -2849,8 +2824,7 @@ lib.composeManyExtensions [
               substituteInPlace setup.py \
                 --replace "'fetch_binaries': fetch_binaries," "'fetch_binaries': ${fakeCommand}," \
                 --replace "'install_shellcheck': install_shellcheck," "'install_shellcheck': ${fakeCommand},"
-            ''
-          ;
+            '';
 
           propagatedUserEnvPkgs = (old.propagatedUserEnvPkgs or [ ]) ++ [
             pkgs.shellcheck
@@ -2995,8 +2969,7 @@ lib.composeManyExtensions [
               }
             )
           )
-          { }
-      ;
+          { };
 
       torchvision =
         lib.makeOverridable
@@ -3034,8 +3007,7 @@ lib.composeManyExtensions [
               }
             )
           )
-          { }
-      ;
+          { };
 
       typed_ast = super.typed-ast.overridePythonAttrs (
         old: {
@@ -3104,8 +3076,7 @@ lib.composeManyExtensions [
               "0.11" = "0vx56h9wfxj7x3aq7jign4rnlfm7x9nhjwmsv8p22acbzbs10dgv";
               "0.10" = "0ypdy9sq4211djqh4ni5ap9l7whq9hw0vhsxjfl3a0a4czlldxqp";
             }
-            .${version}
-          ;
+            .${version};
           sha256 = getRepoHash super.watchfiles.version;
         in
         super.watchfiles.overridePythonAttrs (
@@ -3138,8 +3109,7 @@ lib.composeManyExtensions [
               pkgs.rustPlatform.maturinBuildHook
             ];
           }
-        )
-      ;
+        );
 
       weasyprint = super.weasyprint.overridePythonAttrs (
         old: {
@@ -3172,8 +3142,7 @@ lib.composeManyExtensions [
                 src
               ;
             }
-          )
-      ;
+          );
 
       zipp =
         if super.zipp == null then
@@ -3255,8 +3224,7 @@ lib.composeManyExtensions [
           buildInputs =
             (old.buildInputs or [ ])
             ++ lib.optional pkgs.stdenv.isDarwin
-              pkgs.darwin.apple_sdk.frameworks.CoreServices
-          ;
+              pkgs.darwin.apple_sdk.frameworks.CoreServices;
         }
       );
 
@@ -3446,8 +3414,7 @@ lib.composeManyExtensions [
                   'root_dirs.extend(jupyter_path())' \
                   'root_dirs.extend(jupyter_path() + [os.path.join("@out@", "share", "jupyter")])' \
                   --subst-var out
-              ''
-          ;
+              '';
         in
         super.nbconvert.overridePythonAttrs (
           old: {
@@ -3467,8 +3434,7 @@ lib.composeManyExtensions [
               popd
             '';
           }
-        )
-      ;
+        );
 
       meson-python = super.meson-python.overridePythonAttrs (
         old: { dontUseMesonConfigure = true; }
@@ -3505,8 +3471,7 @@ lib.composeManyExtensions [
                 popd
               '';
             }
-        )
-      ;
+        );
 
       y-py = super.y-py.override { preferWheel = true; };
     }

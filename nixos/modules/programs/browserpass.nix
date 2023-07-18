@@ -35,8 +35,7 @@ with lib;
         # brave
         "opt/brave/native-messaging-hosts/${appId}".source = source "hosts/chromium";
         "opt/brave/policies/managed/${appId}".source = source "policies/chromium";
-      }
-    ;
+      };
     nixpkgs.config.firefox.enableBrowserpass = true;
   };
 }

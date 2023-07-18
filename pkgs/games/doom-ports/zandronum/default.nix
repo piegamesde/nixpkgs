@@ -67,8 +67,7 @@ stdenv.mkDerivation rec {
       fmod
       fluidsynth
       gtk2
-    ]
-  ;
+    ];
 
   nativeBuildInputs = [
     cmake
@@ -98,8 +97,7 @@ stdenv.mkDerivation rec {
         [ "-DSERVERONLY=ON" ]
       else
         [ "-DFMOD_LIBRARY=${fmod}/lib/libfmodex.so" ]
-    )
-  ;
+    );
 
   hardeningDisable = [ "format" ];
 

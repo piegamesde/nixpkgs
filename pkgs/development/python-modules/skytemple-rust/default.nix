@@ -39,8 +39,7 @@ buildPythonPackage rec {
         rust.cargo
         rust.rustc
       ]
-    )
-  ;
+    );
   propagatedBuildInputs = [ range-typed-integers ];
 
   GETTEXT_SYSTEM = true;

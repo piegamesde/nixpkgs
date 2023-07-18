@@ -172,8 +172,7 @@ buildPythonPackage rec {
       "hdfs"
       "json"
       "parquet"
-    ]
-  ;
+    ];
 
   meta = with lib; {
     description = "A cross-language development platform for in-memory data";

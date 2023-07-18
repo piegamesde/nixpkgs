@@ -24,8 +24,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs =
     [ pkg-config ]
-    ++ lib.optionals stdenv.isDarwin [ DarwinTools ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
 
   buildInputs =
     [ libusb1 ]
@@ -33,8 +32,7 @@ rustPlatform.buildRustPackage rec {
       libiconv
       AppKit
       IOKit
-    ]
-  ;
+    ];
 
   meta = with lib; {
     description = "Run embedded programs just like native ones";

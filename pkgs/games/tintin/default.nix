@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (stdenv.system == "x86_64-darwin") [
       memorymappingHook
       memstreamHook
-    ]
-  ;
+    ];
 
   preConfigure = ''
     cd src

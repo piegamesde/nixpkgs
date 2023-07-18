@@ -13,7 +13,10 @@ mkCoqDerivation {
   };
   inherit version;
   defaultVersion =
-    if lib.versions.isGe "8.6" coq.coq-version then "${coq.coq-version}.0" else null
+    if lib.versions.isGe "8.6" coq.coq-version then
+      "${coq.coq-version}.0"
+    else
+      null
   ;
 
   release."8.17.0".sha256 = "sha256-MXYjqN86+3O4hT2ql62U83T5H03E/8ysH8erpvC/oyw=";

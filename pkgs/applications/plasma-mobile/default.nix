@@ -54,8 +54,7 @@ let
           }
         ;
       }
-    )
-  ;
+    );
 
   packages =
     self:
@@ -67,7 +66,6 @@ let
       plasma-phonebook = callPackage ./plasma-phonebook.nix { };
       plasma-settings = callPackage ./plasma-settings.nix { };
       spacebar = callPackage ./spacebar.nix { };
-    }
-  ;
+    };
 in
 lib.makeScope libsForQt5.newScope packages

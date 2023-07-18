@@ -30,7 +30,6 @@ in
             copy_bin_and_libs ${pkgs.f2fs-tools}/sbin/resize.f2fs
           ''}
 
-        ''
-    ;
+        '';
   };
 }

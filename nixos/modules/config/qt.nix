@@ -189,8 +189,7 @@ in
       {
         QT_PLUGIN_PATH = map (qt: "/${qt.qtbase.qtPluginPrefix}") qtVersions;
         QML2_IMPORT_PATH = map (qt: "/${qt.qtbase.qtQmlPrefix}") qtVersions;
-      }
-    ;
+      };
 
     environment.systemPackages = packages;
   };

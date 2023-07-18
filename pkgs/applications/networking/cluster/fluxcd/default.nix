@@ -64,8 +64,7 @@ buildGoModule rec {
           $out/bin/flux completion $shell > flux.$shell
           installShellCompletion flux.$shell
         done
-      ''
-  ;
+      '';
 
   passthru.updateScript = ./update.sh;
 

@@ -19,8 +19,7 @@ let
 
   toCommandOptionsString =
     options:
-    "${concatStringsSep ":" options}${optionalString (length options != 0) ":"} "
-  ;
+    "${concatStringsSep ":" options}${optionalString (length options != 0) ":"} ";
 
   toCommandsString =
     commands:
@@ -34,8 +33,7 @@ let
             "${toCommandOptionsString command.options}${command.command}"
         )
         commands
-    )
-  ;
+    );
 in
 
 {
@@ -196,8 +194,7 @@ in
                                   "LOG_OUTPUT"
                                   "NOLOG_OUTPUT"
                                 ]
-                              )
-                            ;
+                              );
                             description = lib.mdDoc ''
                               Options for running the command. Refer to the [sudo manual](https://www.sudo.ws/man/1.7.10/sudoers.man.html).
                             '';
@@ -206,13 +203,11 @@ in
                         };
                       }
                     )
-                  )
-                ;
+                  );
               };
             };
           }
-        )
-      ;
+        );
     };
 
     security.sudo.extraConfig = mkOption {
@@ -320,8 +315,7 @@ in
             permissions
           ;
         };
-      }
-    ;
+      };
 
     environment.systemPackages = [ sudo ];
 
@@ -339,8 +333,7 @@ in
           }
           # Make sure that the sudoers file is syntactically valid.
           # (currently disabled - NIXOS-66)
-          "${pkgs.buildPackages.sudo}/sbin/visudo -f $src -c && cp $src $out"
-      ;
+          "${pkgs.buildPackages.sudo}/sbin/visudo -f $src -c && cp $src $out";
       mode = "0440";
     };
   };

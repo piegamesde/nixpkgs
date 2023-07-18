@@ -34,13 +34,11 @@ let
           value = deviceIds.${name};
         })
         supportedDevices
-    )
-  ;
+    );
 
   unsupportedDeviceIds =
     lib.filterAttrs (name: value: !(lib.hasAttr name supportedDeviceIds))
-      deviceIds
-  ;
+      deviceIds;
 
   componentHashes = {
     "arria_lite" = "140jqnb97vrxx6398cpgpw35zrrx3z5kv1x5gr9is1xdbnf4fqhy";
@@ -63,8 +61,7 @@ let
         }std.${lib.versions.patch version}/${
           lib.elemAt (lib.splitVersion version) 3
         }/ib_installers/${name}";
-    }
-  ;
+    };
 in
 stdenv.mkDerivation rec {
   inherit version;
@@ -120,8 +117,7 @@ stdenv.mkDerivation rec {
         --mode unattended --installdir $out --accept_eula 1
 
       rm -r $out/uninstall $out/logs
-    ''
-  ;
+    '';
 
   meta = with lib; {
     homepage = "https://fpgasoftware.intel.com";

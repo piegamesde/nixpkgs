@@ -122,8 +122,7 @@ stdenv.mkDerivation rec {
       for docFile in ${lib.concatStringsSep " " docFiles}; do
         cp $docFile ${docDir}/$(stripHash $docFile);
       done;
-    ''
-  ;
+    '';
 
   propagatedBuildInputs = [
     (python3.withPackages (

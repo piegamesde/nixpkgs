@@ -72,8 +72,7 @@ assert xarSupport -> libxml2 != null;
         substituteInPlace Makefile.am --replace '/bin/pwd' "$(type -P pwd)"
 
         ${lib.concatStringsSep "\n" (map removeTest skipTestPaths)}
-      ''
-    ;
+      '';
 
     nativeBuildInputs = [
       autoreconfHook

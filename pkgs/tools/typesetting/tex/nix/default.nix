@@ -24,8 +24,7 @@ rec {
           # always include basic stuff you need for LaTeX
           (
             { inherit (pkgs.texlive) scheme-basic; } // texPackages
-          )
-      ;
+          );
     in
 
     pkgs.stdenv.mkDerivation {
@@ -49,15 +48,13 @@ rec {
             x.key
             (baseNameOf (toString x.key))
           ])
-          (findLaTeXIncludes { inherit rootFile; })
-      ;
+          (findLaTeXIncludes { inherit rootFile; });
 
       buildInputs = [
         tex
         pkgs.perl
       ] ++ packages;
-    }
-  ;
+    };
 
   # Returns the closure of the "dependencies" of a LaTeX source file.
   # Dependencies are other LaTeX source files (e.g. included using
@@ -114,13 +111,10 @@ rec {
                 map (ext: dirOf key + ("/" + dep.name + ext)) exts
               );
             in
-            if fn != null then [ { key = fn; } ] ++ xs else xs
-          ;
+            if fn != null then [ { key = fn; } ] ++ xs else xs;
         in
-        pkgs.lib.foldr foundDeps [ ] deps
-      ;
-    }
-  ;
+        pkgs.lib.foldr foundDeps [ ] deps;
+    };
 
   findLhs2TeXIncludes =
     { lib, rootFile }:
@@ -140,10 +134,8 @@ rec {
         in
         pkgs.lib.concatMap (x: lib.optionals (builtins.pathExists x) [ { key = x; } ]) (
           map (x: dirOf key + ("/" + x)) deps
-        )
-      ;
-    }
-  ;
+        );
+    };
 
   dot2pdf =
     { dotGraph }:
@@ -156,8 +148,7 @@ rec {
         pkgs.perl
         pkgs.graphviz
       ];
-    }
-  ;
+    };
 
   dot2ps =
     { dotGraph }:
@@ -171,8 +162,7 @@ rec {
         pkgs.graphviz
         pkgs.ghostscript
       ];
-    }
-  ;
+    };
 
   lhs2tex =
     {
@@ -194,10 +184,8 @@ rec {
             x.key
             (baseNameOf (toString x.key))
           ])
-          (findLhs2TeXIncludes { rootFile = source; })
-      ;
-    }
-  ;
+          (findLhs2TeXIncludes { rootFile = source; });
+    };
 
   animateDot =
     dotGraph: nrFrames:
@@ -205,8 +193,7 @@ rec {
       name = "dot-frames";
       builder = ./animatedot.sh;
       inherit dotGraph nrFrames;
-    }
-  ;
+    };
 
   # Wrap a piece of TeX code in a document.  Useful when generating
   # inline images from TeX code.
@@ -228,8 +215,7 @@ rec {
         cat $body >> $out
         echo '\end{document}' >> $out
       '';
-    }
-  ;
+    };
 
   # Convert a Postscript file to a PNG image, trimming it so that
   # there is no unnecessary surrounding whitespace.
@@ -264,8 +250,7 @@ rec {
           $input \
           "$out/$(basename $input .ps).png"
       ''; # */
-    }
-  ;
+    };
 
   # Convert a piece of TeX code to a PNG image.
   simpleTeXToPNG =
@@ -282,8 +267,7 @@ rec {
         generatePDF = false;
         generatePS = true;
       };
-    }
-  ;
+    };
 
   # Convert a piece of TeX code to a PDF.
   simpleTeXToPDF =
@@ -296,8 +280,7 @@ rec {
     runLaTeX {
       rootFile = wrapSimpleTeX { inherit body preamble; };
       inherit packages;
-    }
-  ;
+    };
 
   # Some tools (like dot) need a fontconfig configuration file.
   # This should be extended to allow the called to add additional

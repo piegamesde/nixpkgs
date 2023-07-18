@@ -52,8 +52,7 @@ let
 
   wrapNeovim2 =
     suffix: config:
-    wrapNeovimUnstable neovim-unwrapped (config // { extraName = suffix; })
-  ;
+    wrapNeovimUnstable neovim-unwrapped (config // { extraName = suffix; });
 
   nmt = fetchFromGitLab {
     owner = "rycee";
@@ -73,8 +72,7 @@ let
     '')
     // {
       pname = "test-ftplugin";
-    }
-  ;
+    };
 
   # neovim-drv must be a wrapped neovim
   runTest =
@@ -93,8 +91,7 @@ let
           ${pkgs.perl}/bin/perl -pe "s|\Q$NIX_STORE\E/[a-z0-9]{32}-|$NIX_STORE/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-|g" < "$vimrc" > "$vimrcGeneric"
         ''
         + buildCommand
-      )
-  ;
+      );
 in
 pkgs.recurseIntoAttrs (rec {
   vim_empty_config = vimUtils.vimrcFile {

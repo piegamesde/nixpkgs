@@ -112,8 +112,7 @@ stdenv.mkDerivation rec {
       "--with-unbound-root-key-file=${dns-root-data}/root.key"
       (lib.withFeature withP11-kit "p11-kit")
       (lib.enableFeature cxxBindings "cxx")
-    ]
-  ;
+    ];
 
   enableParallelBuilding = true;
 
@@ -143,8 +142,7 @@ stdenv.mkDerivation rec {
       which
       nettools
       util-linux
-    ]
-  ;
+    ];
 
   propagatedBuildInputs =
     [ nettle ]

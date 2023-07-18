@@ -40,8 +40,7 @@ in
         default = 8192;
         description =
           mdDoc
-            "The max length of each history item the atuin server should store."
-        ;
+            "The max length of each history item the atuin server should store.";
       };
 
       port = mkOption {

@@ -63,8 +63,7 @@ mkDerivation {
       acl
       attr # both are needed for ACL support
       util-linux # provides libmount
-    ]
-  ;
+    ];
   propagatedBuildInputs = [
     kbookmarks
     kcompletion

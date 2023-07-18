@@ -89,8 +89,7 @@ let
             xorg.libxkbfile
             krb5
           ]
-        )
-      ;
+        );
 
       runScript = writeShellScript "anki-wrapper.sh" ''
         exec ${unpacked}/bin/anki ${lib.strings.escapeShellArgs commandLineArgs}

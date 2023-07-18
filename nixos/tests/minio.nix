@@ -44,8 +44,7 @@ import ./make-test-python.nix (
 
           # Minio requires at least 1GiB of free disk space to run.
           virtualisation.diskSize = 4 * 1024;
-        }
-      ;
+        };
     };
 
     testScript = ''

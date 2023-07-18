@@ -33,8 +33,7 @@ stdenv.mkDerivation (
       let
         postfix = if monoSupport then "sharp" else "gtk${gtkVersion}";
       in
-      "libappindicator-${postfix}"
-    ;
+      "libappindicator-${postfix}";
     version = "12.10.1+20.10.20200706.1";
 
     outputs = [
@@ -86,8 +85,7 @@ stdenv.mkDerivation (
           "3" = gtk-sharp-3_0;
         }
         .${gtkVersion} or throwBadGtkVersion
-      ]
-    ;
+      ];
 
     preAutoreconf = ''
       gtkdocize

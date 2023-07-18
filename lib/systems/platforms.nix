@@ -586,7 +586,6 @@ rec {
         raspberrypi
       else
         armv7l-hf-multiplatform
-
     else if platform.isAarch64 then
       if platform.isDarwin then apple-m1 else aarch64-multiplatform
 

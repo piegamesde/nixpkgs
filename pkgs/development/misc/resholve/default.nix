@@ -14,8 +14,7 @@ let
           knownVulnerabilities = [ ];
         };
       }
-    )
-  ;
+    );
   # We are removing `meta.knownVulnerabilities` from `python27`,
   # and setting it in `resholve` itself.
   python27' = (removeKnownVulnerabilities pkgsBuildHost.python27).override {

@@ -44,8 +44,7 @@ stdenv.mkDerivation rec {
           "LogBacktraceAt.DoesBacktraceAtRightLineWhenEnabled"
         ];
     in
-    lib.optionalString doCheck "-${builtins.concatStringsSep ":" filteredTests}"
-  ;
+    lib.optionalString doCheck "-${builtins.concatStringsSep ":" filteredTests}";
 
   meta = with lib; {
     homepage = "https://github.com/google/glog";

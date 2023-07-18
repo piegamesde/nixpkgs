@@ -79,8 +79,7 @@ let
 
       extraIncludeDirs =
         lib.optionals (with stdenvNoCC.hostPlatform; isPower && is32bit && isBigEndian)
-          [ "ppc" ]
-      ;
+          [ "ppc" ];
 
       inherit patches;
 
@@ -143,8 +142,7 @@ let
         license = licenses.gpl2;
         platforms = platforms.linux;
       };
-    }
-  ;
+    };
 in
 {
   inherit makeLinuxHeaders;
@@ -164,6 +162,5 @@ in
       patches = [
         ./no-relocs.patch # for building x86 kernel headers on non-ELF platforms
       ];
-    }
-  ;
+    };
 }

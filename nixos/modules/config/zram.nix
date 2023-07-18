@@ -91,8 +91,7 @@ in
               "lz4"
               "zstd"
             ])
-            str
-        ;
+            str;
         description = lib.mdDoc ''
           Compression algorithm. `lzo` has good compression,
           but is slow. `lz4` has bad compression, but is fast.
@@ -159,7 +158,6 @@ in
               })
               devices
           )
-        )
-    ;
+        );
   };
 }

@@ -64,8 +64,7 @@ let
       curlOpts = "--header Accept:application/vnd.github.v3.sha";
       hash =
         nullableOr args.squeakVmCommitHashHash or null
-          "sha256-quwmhpJlb2fp0fI9b03fBxSR44j1xmHPW20wkSqTOhQ="
-      ;
+          "sha256-quwmhpJlb2fp0fI9b03fBxSR44j1xmHPW20wkSqTOhQ=";
     }
   );
 in
@@ -83,8 +82,7 @@ stdenv.mkDerivation {
     rev = squeakVmVersionRelease;
     hash =
       nullableOr args.squeakVmHash or null
-        "sha256-rNJn5ya+7ggC21MpwSrl2ByJDjVycONKHADboH7dQLM="
-    ;
+        "sha256-rNJn5ya+7ggC21MpwSrl2ByJDjVycONKHADboH7dQLM=";
   };
   imageSrc =
     let
@@ -98,16 +96,13 @@ stdenv.mkDerivation {
       stripRoot = false;
       hash =
         nullableOr args.squeakImageHash or null
-          "sha256-wDuRyc/DNqG1D4DzyBkUvrzFkBlXBtbpnANZlRV/Fas="
-      ;
-    }
-  ;
+          "sha256-wDuRyc/DNqG1D4DzyBkUvrzFkBlXBtbpnANZlRV/Fas=";
+    };
   sourcesSrc = fetchurl {
     url = "https://files.squeak.org/sources_files/SqueakV${squeakSourcesVersion}.sources.gz";
     hash =
       nullableOr args.squeakSourcesHash or null
-        "sha256-ZViZ1VgI32LwLTEyw7utp8oaAK3UmCNJnHqsGm1IKYE="
-    ;
+        "sha256-ZViZ1VgI32LwLTEyw7utp8oaAK3UmCNJnHqsGm1IKYE=";
   };
 
   vmBuild = "linux64x64";

@@ -33,8 +33,7 @@
           out = "20181116";
         }
       ]
-      null
-  ;
+      null;
   release."20211215".sha256 = "sha256:0m4d4jhdcyq8p2gpz9j3nd6jqzmz2bjmbpc0q06b38b8i550mamp";
   release."20210316".sha256 = "1hlavnx20lxpf2iydbbxqmim9p8wdwv4phzp9ypij93yivih0g4a";
   release."20200328".sha256 = "16vzild9gni8zhgb3qhmka47f8zagdh03k6nssif7drpim8233lx";

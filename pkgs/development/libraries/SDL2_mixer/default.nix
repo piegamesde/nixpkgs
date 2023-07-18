@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       "--disable-sdltest"
       "--disable-smpegtest"
-    ]
-  ;
+    ];
 
   nativeBuildInputs = [ pkg-config ];
 

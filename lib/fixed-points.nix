@@ -21,8 +21,7 @@ rec {
     let
       x = f x;
     in
-    x
-  ;
+    x;
 
   # A variant of `fix` that records the original recursive attribute set in the
   # result. This is useful in combination with the `extends` function to
@@ -35,8 +34,7 @@ rec {
         __unfix__ = f;
       };
     in
-    x
-  ;
+    x;
 
   # Return the fixpoint that `f` converges to when called recursively, starting
   # with the input `x`.
@@ -48,8 +46,7 @@ rec {
     let
       x' = f x;
     in
-    if x' == x then x else converge f x'
-  ;
+    if x' == x then x else converge f x';
 
   # Modify the contents of an explicitly recursive attribute set in a way that
   # honors `self`-references. This is accomplished with a function
@@ -85,8 +82,7 @@ rec {
     let
       super = rattrs self;
     in
-    super // f self super
-  ;
+    super // f self super;
 
   # Compose two extending functions of the type expected by 'extends'
   # into one where changes made in the first are available in the
@@ -97,8 +93,7 @@ rec {
       fApplied = f final prev;
       prev' = prev // fApplied;
     in
-    fApplied // g final prev'
-  ;
+    fApplied // g final prev';
 
   # Compose several extending functions of the type expected by 'extends' into
   # one where changes made in preceding functions are made available to
@@ -139,6 +134,5 @@ rec {
         ${extenderName} =
           f: makeExtensibleWithCustomName extenderName (extends f rattrs);
       }
-    )
-  ;
+    );
 }

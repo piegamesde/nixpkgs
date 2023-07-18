@@ -44,8 +44,7 @@ mkCoqDerivation {
           out = "20180709";
         }
       ]
-      null
-  ;
+      null;
 
   mlPlugin = true;
   propagatedBuildInputs = [

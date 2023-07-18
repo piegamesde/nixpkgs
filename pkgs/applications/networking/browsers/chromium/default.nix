@@ -54,15 +54,13 @@ let
     in
     lib.warnIf (lib.versionAtLeast ungoogled-version min-version)
       "chromium: ungoogled version ${ungoogled-version} is newer than a conditional bounded at ${min-version}. You can safely delete it."
-      result
-  ;
+      result;
   chromiumVersionAtLeast =
     min-version:
     let
       result = lib.versionAtLeast upstream-info.version min-version;
     in
-    warnObsoleteVersionConditional min-version result
-  ;
+    warnObsoleteVersionConditional min-version result;
   versionRange =
     min-version: upto-version:
     let
@@ -70,8 +68,7 @@ let
       result =
         lib.versionAtLeast version min-version && lib.versionOlder version upto-version;
     in
-    warnObsoleteVersionConditional upto-version result
-  ;
+    warnObsoleteVersionConditional upto-version result;
 
   callPackage = newScope chromium;
 
@@ -143,8 +140,7 @@ let
         "http://repo.fdzh.org/chrome/deb/pool/main/g"
       ];
       inherit sha256;
-    }
-  ;
+    };
 
   mkrpath =
     p: "${lib.makeSearchPathOutput "lib" "lib64" p}:${lib.makeLibraryPath p}";
@@ -176,8 +172,7 @@ let
 
         # unpackCmd wants a single output directory; let it take WidevineCdm/
         rm -rf opt
-      ''
-    ;
+      '';
 
     doCheck = true;
     checkPhase = ''

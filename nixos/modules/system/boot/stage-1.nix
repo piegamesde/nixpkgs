@@ -249,7 +249,8 @@ let
         else
           ''
             $out/bin/mount --help 2>&1 | grep -q "BusyBox"
-          ''}
+          ''
+        }
         $out/bin/blkid -V 2>&1 | grep -q 'libblkid'
         $out/bin/udevadm --version
         $out/bin/dmsetup --version 2>&1 | tee -a log | grep -q "version:"
@@ -262,8 +263,7 @@ let
 
         ${config.boot.initrd.extraUtilsCommandsTest}
         fi
-      ''
-  ; # */
+      ''; # */
 
   # Networkd link files are used early by udev to set up interfaces early.
   # This must be done in stage 1 to avoid race conditions between udev and
@@ -286,8 +286,7 @@ let
           in
           concatMapStringsSep "\n" (file: "cp -v ${file} $out/") files
         )
-      )
-  ;
+      );
 
   udevRules =
     pkgs.runCommand "udev-rules"
@@ -331,8 +330,7 @@ let
         #   http://www.spinics.net/lists/hotplug/msg03935.html
         substituteInPlace $out/60-persistent-storage.rules \
           --replace ID_CDROM_MEDIA_TRACK_COUNT_DATA ID_CDROM_MEDIA
-      ''
-  ; # */
+      ''; # */
 
   # The init script of boot stage 1 (loading kernel modules for
   # mounting the root FS).
@@ -387,8 +385,7 @@ let
               && !(hasPrefix "/dev/zram" sd.device)
             )
             config.swapDevices
-        )
-    ;
+        );
 
     fsInfo =
       let
@@ -399,8 +396,9 @@ let
           (builtins.concatStringsSep "," fs.options)
         ];
       in
-      pkgs.writeText "initrd-fsinfo" (concatStringsSep "\n" (concatMap f fileSystems))
-    ;
+      pkgs.writeText "initrd-fsinfo" (
+        concatStringsSep "\n" (concatMap f fileSystems)
+      );
 
     setHostId = optionalString (config.networking.hostId != null) ''
       hi="${config.networking.hostId}"
@@ -411,7 +409,8 @@ let
       else
         ''
           echo -ne "\x''${hi:6:2}\x''${hi:4:2}\x''${hi:2:2}\x''${hi:0:2}" > /etc/hostid
-        ''}
+        ''
+      }
     '';
   };
 
@@ -430,8 +429,7 @@ let
         {
           object =
             pkgs.writeText "mdadm.conf"
-              config.boot.initrd.services.swraid.mdadmConf
-          ;
+              config.boot.initrd.services.swraid.mdadmConf;
           symlink = "/etc/mdadm.conf";
         }
         {
@@ -444,8 +442,7 @@ let
               ''
                 target=$out
                 ${pkgs.buildPackages.perl}/bin/perl -0pe 's/## file: iwlwifi.conf(.+?)##/##/s;' $src > $out
-              ''
-          ;
+              '';
           symlink = "/etc/modprobe.d/ubuntu.conf";
         }
         {
@@ -469,8 +466,7 @@ let
               printf "$src" > $out
               substituteInPlace $out \
                 --replace ${config.services.multipath.package}/lib ${extraUtils}/lib
-            ''
-        ;
+            '';
         symlink = "/etc/multipath.conf";
       } ]
       ++ (lib.mapAttrsToList
@@ -536,8 +532,7 @@ let
       # mindepth 1 so that we don't change the mode of /
       (cd "$tmp" && find . -mindepth 1 -print0 | sort -z | bsdtar --uid 0 --gid 0 -cnf - -T - | bsdtar --null -cf - --format=newc @-) | \
         ${compressorExe} ${lib.escapeShellArgs initialRamdisk.compressorArgs} >> "$1"
-    ''
-  ;
+    '';
 in
 
 {
@@ -688,8 +683,7 @@ in
         );
       defaultText =
         literalMD
-          "`zstd` if the kernel supports it (5.9+), `gzip` if not"
-      ;
+          "`zstd` if the kernel supports it (5.9+), `gzip` if not";
       type = types.either types.str (types.functionTo types.str);
       description = lib.mdDoc ''
         The compressor to use on the initrd image. May be any of:
@@ -708,8 +702,7 @@ in
       type = types.nullOr (types.listOf types.str);
       description =
         lib.mdDoc
-          "Arguments to pass to the compressor for the initrd image, or null to use the compressor's defaults."
-      ;
+          "Arguments to pass to the compressor for the initrd image, or null to use the compressor's defaults.";
     };
 
     boot.initrd.secrets = mkOption {
@@ -734,8 +727,7 @@ in
       type = types.listOf types.str;
       description =
         lib.mdDoc
-          "Names of supported filesystem types in the initial ramdisk."
-      ;
+          "Names of supported filesystem types in the initial ramdisk.";
     };
 
     boot.initrd.verbose = mkOption {
@@ -779,8 +771,7 @@ in
               '';
             };
           }
-        )
-      ;
+        );
     };
   };
 
@@ -795,8 +786,7 @@ in
           let
             inherit (config.boot) resumeDevice;
           in
-          resumeDevice == "" || builtins.substring 0 1 resumeDevice == "/"
-        ;
+          resumeDevice == "" || builtins.substring 0 1 resumeDevice == "/";
         message =
           "boot.resumeDevice has to be an absolute path."
           + " Old \"x:y\" style is no longer supported."

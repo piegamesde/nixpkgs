@@ -94,6 +94,5 @@ self: super: {
       else
         x: x
     )
-      super.inline-c-cpp
-  ;
+      super.inline-c-cpp;
 }

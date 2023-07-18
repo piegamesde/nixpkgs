@@ -38,8 +38,7 @@ rustPlatform.buildRustPackage rec {
               --subst-var patchelf \
               --subst-var dynamicLinker \
               --subst-var libPath
-          ''
-      ;
+          '';
     in
     lib.optionals stdenv.isLinux [ patchelfPatch ]
     ++ [

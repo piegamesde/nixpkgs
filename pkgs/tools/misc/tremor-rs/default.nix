@@ -45,8 +45,7 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       Security
       libiconv
-    ]
-  ;
+    ];
 
   # TODO export TREMOR_PATH($out/lib) variable
   postInstall = ''

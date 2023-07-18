@@ -30,8 +30,7 @@ let
         ''group = "${cfg.group}"''
         cfg.extraConfig
       ]
-    )
-  ;
+    );
 in
 with lib; {
   options = {

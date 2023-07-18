@@ -13,8 +13,7 @@ let
   listenCfg = concatMapStringsSep "\n" (l: "listen ${l}") cfg.listen;
   tlsCfg =
     optionalString (cfg.tlsCertificate != null)
-      "tls ${cfg.tlsCertificate} ${cfg.tlsCertificateKey}"
-  ;
+      "tls ${cfg.tlsCertificate} ${cfg.tlsCertificateKey}";
   logCfg = optionalString cfg.enableMessageLogging "log fs ${stateDir}/logs";
 
   configFile = pkgs.writeText "soju.conf" ''

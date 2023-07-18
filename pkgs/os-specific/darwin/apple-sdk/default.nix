@@ -86,11 +86,9 @@ let
             x
             deps'."${x}"
           ])
-          (lib.attrNames deps')
-      ;
+          (lib.attrNames deps');
     in
-    lib.escapeShellArgs substArgs
-  ;
+    lib.escapeShellArgs substArgs;
 
   framework =
     name: deps:
@@ -218,8 +216,7 @@ let
         maintainers = with maintainers; [ copumpkin ];
         platforms = platforms.darwin;
       };
-    }
-  ;
+    };
 
   tbdOnlyFramework =
     name:
@@ -251,8 +248,7 @@ let
 
         # NOTE there's no re-export checking here, this is probably wrong
       '';
-    }
-  ;
+    };
 in
 rec {
   libs = {

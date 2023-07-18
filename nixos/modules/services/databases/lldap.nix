@@ -70,8 +70,7 @@ in
             type = types.port;
             description =
               mdDoc
-                "The port on which to have the HTTP server, for user login and administration."
-            ;
+                "The port on which to have the HTTP server, for user login and administration.";
             default = 17170;
           };
 

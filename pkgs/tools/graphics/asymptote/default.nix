@@ -68,8 +68,7 @@ stdenv.mkDerivation rec {
         python
         pyqt5
       ]
-    )
-  ;
+    );
 
   propagatedBuildInputs =
     [ glm ]

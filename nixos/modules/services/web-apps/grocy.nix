@@ -39,8 +39,7 @@ in
             str
             bool
           ]
-        )
-      ;
+        );
       default = {
         "pm" = "dynamic";
         "php_admin_value[error_log]" = "stderr";
@@ -150,8 +149,7 @@ in
           "plugins"
           "settingoverrides"
           "storage"
-        ]
-    ;
+        ];
 
     services.phpfpm.pools.grocy = {
       user = "grocy";

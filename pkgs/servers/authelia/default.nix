@@ -45,8 +45,7 @@ buildGoModule rec {
       "-X '${p}.BuildState=tagged clean'"
       "-X ${p}.BuildBranch=v${version}"
       "-X ${p}.BuildExtra=nixpkgs"
-    ]
-  ;
+    ];
 
   # several tests with networking and several that want chromium
   doCheck = false;

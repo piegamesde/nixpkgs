@@ -53,11 +53,9 @@ rec {
             )
             // {
               description = "JSON value";
-            }
-          ;
+            };
         in
-        valueType
-      ;
+        valueType;
 
       generate =
         name: value:
@@ -74,10 +72,8 @@ rec {
                 jq . "$valuePath"> $out
               ''
           )
-          { }
-      ;
-    }
-  ;
+          { };
+    };
 
   yaml =
     { }:
@@ -98,8 +94,7 @@ rec {
                 json2yaml "$valuePath" "$out"
               ''
           )
-          { }
-      ;
+          { };
 
       type =
         with lib.types;
@@ -118,13 +113,10 @@ rec {
             )
             // {
               description = "YAML value";
-            }
-          ;
+            };
         in
-        valueType
-      ;
-    }
-  ;
+        valueType;
+    };
 
   ini =
     {
@@ -152,8 +144,7 @@ rec {
             )
             // {
               description = "INI atom (null, bool, int, float or string)";
-            }
-          ;
+            };
 
           iniAtom =
             if listsAsDuplicateKeys then
@@ -171,8 +162,7 @@ rec {
               singleIniAtom
           ;
         in
-        attrsOf (attrsOf iniAtom)
-      ;
+        attrsOf (attrsOf iniAtom);
 
       generate =
         name: value:
@@ -191,10 +181,8 @@ rec {
         in
         pkgs.writeText name (
           lib.generators.toINI (removeAttrs args [ "listToValue" ]) transformedValue
-        )
-      ;
-    }
-  ;
+        );
+    };
 
   keyValue =
     {
@@ -222,8 +210,7 @@ rec {
             )
             // {
               description = "atom (null, bool, int, float or string)";
-            }
-          ;
+            };
 
           atom =
             if listsAsDuplicateKeys then
@@ -240,8 +227,7 @@ rec {
               singleAtom
           ;
         in
-        attrsOf atom
-      ;
+        attrsOf atom;
 
       generate =
         name: value:
@@ -255,10 +241,8 @@ rec {
         in
         pkgs.writeText name (
           lib.generators.toKeyValue (removeAttrs args [ "listToValue" ]) transformedValue
-        )
-      ;
-    }
-  ;
+        );
+    };
 
   gitIni =
     {
@@ -276,12 +260,10 @@ rec {
             .functor.wrapped # attrsOf
             .functor.wrapped;
         in
-        attrsOf (attrsOf (either iniAtom (attrsOf iniAtom)))
-      ;
+        attrsOf (attrsOf (either iniAtom (attrsOf iniAtom)));
 
       generate = name: value: pkgs.writeText name (lib.generators.toGitINI value);
-    }
-  ;
+    };
 
   toml =
     { }:
@@ -302,11 +284,9 @@ rec {
             ]
             // {
               description = "TOML value";
-            }
-          ;
+            };
         in
-        valueType
-      ;
+        valueType;
 
       generate =
         name: value:
@@ -323,8 +303,7 @@ rec {
                 json2toml "$valuePath" "$out"
               ''
           )
-          { }
-      ;
+          { };
     }
   ;
 
@@ -430,8 +409,7 @@ rec {
           toEntry = name: value: "${toElixir name} => ${toElixir value}";
           entries = concatStringsSep ", " (mapAttrsToList toEntry set);
         in
-        "%{${entries}}"
-      ;
+        "%{${entries}}";
 
       tuple = values: "{${listContent values}}";
 
@@ -440,8 +418,7 @@ rec {
         let
           keyConfig =
             rootKey: key: value:
-            "config ${rootKey}, ${key}, ${toElixir value}"
-          ;
+            "config ${rootKey}, ${key}, ${toElixir value}";
           keyConfigs = rootKey: values: mapAttrsToList (keyConfig rootKey) values;
           rootConfigs = flatten (mapAttrsToList keyConfigs values);
         in
@@ -449,8 +426,7 @@ rec {
           import Config
 
           ${concatStringsSep "\n" rootConfigs}
-        ''
-      ;
+        '';
     in
     {
       type =
@@ -469,11 +445,9 @@ rec {
             )
             // {
               description = "Elixir value";
-            }
-          ;
+            };
         in
-        attrsOf (attrsOf (valueType))
-      ;
+        attrsOf (attrsOf (valueType));
 
       lib =
         let
@@ -491,8 +465,7 @@ rec {
               envVariable,
               fallback ? null,
             }:
-            mkRaw "System.get_env(${toElixir envVariable}, ${toElixir fallback})"
-          ;
+            mkRaw "System.get_env(${toElixir envVariable}, ${toElixir fallback})";
 
           /* Make an Elixir atom.
 
@@ -565,8 +538,7 @@ rec {
             }
             // lib.mapAttrs (_name: type: elixirOr type) lib.types
           ;
-        }
-      ;
+        };
 
       generate =
         name: value:
@@ -579,10 +551,8 @@ rec {
           ''
             cp "$valuePath" "$out"
             mix format "$out"
-          ''
-      ;
-    }
-  ;
+          '';
+    };
 
   # Outputs a succession of Python variable assignments
   # Useful for many Django-based services
@@ -606,11 +576,9 @@ rec {
             )
             // {
               description = "Python value";
-            }
-          ;
+            };
         in
-        attrsOf valueType
-      ;
+        attrsOf valueType;
       generate =
         name: value:
         pkgs.callPackage
@@ -646,8 +614,6 @@ rec {
                 black $out
               ''
           )
-          { }
-      ;
-    }
-  ;
+          { };
+    };
 }

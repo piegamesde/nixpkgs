@@ -34,8 +34,7 @@ rustPlatform.buildRustPackage rec {
       Security
       libiconv
       SystemConfiguration
-    ]
-  ;
+    ];
 
   # Requires network access
   doCheck = false;

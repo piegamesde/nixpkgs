@@ -120,8 +120,7 @@ in
             "hash"
             "sha256"
           ])
-        )
-      ;
+        );
     in
     lib.setFunctionArgs f (lib.functionArgs f)
     // {

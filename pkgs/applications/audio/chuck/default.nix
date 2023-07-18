@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       DarwinTools
       xcbuild
-    ]
-  ;
+    ];
 
   buildInputs =
     [ libsndfile ]

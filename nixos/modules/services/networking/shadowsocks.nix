@@ -114,8 +114,7 @@ in
         default = null;
         example =
           literalExpression
-            ''"''${pkgs.shadowsocks-v2ray-plugin}/bin/v2ray-plugin"''
-        ;
+            ''"''${pkgs.shadowsocks-v2ray-plugin}/bin/v2ray-plugin"'';
         description = lib.mdDoc ''
           SIP003 plugin for shadowsocks
         '';

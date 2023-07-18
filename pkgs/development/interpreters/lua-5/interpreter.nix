@@ -178,15 +178,13 @@ stdenv.mkDerivation rec {
       # When we override the interpreter we also need to override the spliced versions of the interpreter
       inputs' =
         lib.filterAttrs (n: v: !lib.isDerivation v && n != "passthruFun")
-          inputs
-      ;
+          inputs;
       override =
         attr:
         let
           lua = attr.override (inputs' // { self = lua; });
         in
-        lua
-      ;
+        lua;
     in
     passthruFun rec {
       inherit
@@ -206,8 +204,7 @@ stdenv.mkDerivation rec {
         else
           { }
       ;
-    }
-  ;
+    };
 
   meta = {
     homepage = "https://www.lua.org";

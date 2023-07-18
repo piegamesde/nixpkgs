@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals docSupport [
       doxygen
       graphviz
-    ]
-  ;
+    ];
 
   buildInputs = [
     libgcrypt

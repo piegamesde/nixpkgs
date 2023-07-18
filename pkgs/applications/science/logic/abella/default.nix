@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
         ocamlbuild
         findlib
       ]
-    )
-  ;
+    );
 
   installPhase = ''
     mkdir -p $out/bin

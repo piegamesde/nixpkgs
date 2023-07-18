@@ -40,8 +40,7 @@ let
             enable = true;
             databases = optional (!backup-all) "postgres";
           };
-        }
-      ;
+        };
 
       testScript =
         let
@@ -133,10 +132,8 @@ let
               machine.succeed("sudo -u postgres initdb -D /tmp/testpostgres2")
 
           machine.shutdown()
-        ''
-      ;
-    }
-  ;
+        '';
+    };
 
   mk-ensure-clauses-test =
     postgresql-name: postgresql-package:
@@ -166,8 +163,7 @@ let
               { name = "default-clauses"; }
             ];
           };
-        }
-      ;
+        };
 
       testScript =
         let
@@ -187,8 +183,7 @@ let
               "FROM pg_roles"
               "WHERE rolname = '${user}'"
               ") row;"
-            ]
-          ;
+            ];
         in
         ''
           import json
@@ -225,10 +220,8 @@ let
               assert not clauses['rolbypassrls'], 'expected user with no clauses set to have default bypassrls clause'
 
           machine.shutdown()
-        ''
-      ;
-    }
-  ;
+        '';
+    };
 in
 concatMapAttrs
   (name: package: {
@@ -240,6 +233,5 @@ concatMapAttrs
   postgresql_11-backup-all =
     make-postgresql-test "postgresql_11-backup-all"
       postgresql-versions.postgresql_11
-      true
-  ;
+      true;
 }

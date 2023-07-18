@@ -25,7 +25,8 @@ let
       archdir ? if (stdenv.hostPlatform.system == "aarch64-linux") then
         "arm-64bit"
       else
-        "x86-64bit",
+        "x86-64bit"
+      ,
       ...
     }:
     stdenv.mkDerivation rec {
@@ -81,8 +82,7 @@ let
         ];
         maintainers = [ maintainers.mausch ];
       };
-    }
-  ;
+    };
 
   fetchWithCurlScript =
     {
@@ -129,8 +129,7 @@ let
           "NIX_CURL_FLAGS"
         ]
       ;
-    }
-  ;
+    };
 
   fetchPianoteqTrial =
     { name, sha256 }:
@@ -164,8 +163,7 @@ let
         fi
         "''${curl[@]}" --progress-bar --cookie cookies -o $out "$url"
       '';
-    }
-  ;
+    };
 
   fetchPianoteqWithLogin =
     { name, sha256 }:
@@ -211,8 +209,7 @@ let
         url=$(echo $json | ${jq}/bin/jq -r .url)
         "''${curl[@]}" --progress-bar --cookie cookies -o $out "$url"
       '';
-    }
-  ;
+    };
 in
 {
   # TODO currently can't install more than one because `lame` clashes

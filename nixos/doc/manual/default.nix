@@ -82,15 +82,13 @@ let
                 else
                   decl
               )
-              opt.declarations
-          ;
+              opt.declarations;
         }
       ;
       documentType = "none";
       variablelistId = "test-options-list";
       optionIdPrefix = "test-opt-";
-    }
-  ;
+    };
 
   toc = builtins.toFile "toc.xml" ''
     <toc role="chunk-toc">
@@ -216,8 +214,7 @@ let
         cp manual-combined.xml $out/
 
         lintrng $out/manual-combined.xml
-      ''
-  ;
+      '';
 
   manpages-combined =
     runCommand "nixos-manpages-combined.xml"
@@ -238,8 +235,7 @@ let
         ${linterFunctions}
 
         lintrng $out
-      ''
-  ;
+      '';
 in
 rec {
   inherit (optionsDoc)
@@ -311,13 +307,13 @@ rec {
               --chunk-toc-depth 1 \
               ./manual.md \
               $dst/index.html
-          ''}
+          ''
+        }
 
         mkdir -p $out/nix-support
         echo "nix-build out $out" >> $out/nix-support/hydra-build-products
         echo "doc manual $dst" >> $out/nix-support/hydra-build-products
-      ''
-  ; # */
+      ''; # */
 
   # Alias for backward compatibility. TODO(@oxij): remove eventually.
   manual = manualHTML;
@@ -355,8 +351,7 @@ rec {
 
         mkdir -p $out/nix-support
         echo "doc-epub manual $manual" >> $out/nix-support/hydra-build-products
-      ''
-  ;
+      '';
 
   # Generate the NixOS manpages.
   manpages =
@@ -394,7 +389,7 @@ rec {
               --revision ${lib.escapeShellArg revision} \
               ${optionsJSON}/share/doc/nixos/options.json \
               $out/share/man/man5/configuration.nix.5
-          ''}
-      ''
-  ;
+          ''
+        }
+      '';
 }

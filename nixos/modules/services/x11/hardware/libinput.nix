@@ -48,8 +48,7 @@ let
       example = "-0.5";
       description =
         lib.mdDoc
-          "Cursor acceleration (how fast speed increases from minSpeed to maxSpeed)."
-      ;
+          "Cursor acceleration (how fast speed increases from minSpeed to maxSpeed).";
     };
 
     buttonMapping = mkOption {
@@ -99,8 +98,7 @@ let
       default = false;
       description =
         lib.mdDoc
-          "Enables left-handed button orientation, i.e. swapping left and right buttons."
-      ;
+          "Enables left-handed button orientation, i.e. swapping left and right buttons.";
     };
 
     middleEmulation = mkOption {
@@ -329,8 +327,7 @@ in
         ${cfgPath} = {
           source = pkgs.xorg.xf86inputlibinput.out + "/share/" + cfgPath;
         };
-      }
-    ;
+      };
 
     services.udev.packages = [ pkgs.libinput.out ];
 

@@ -35,8 +35,7 @@ import ./make-test-python.nix (
         boot.initrd.availableKernelModules = [ "tpm_tis" ];
 
         environment.systemPackages = with pkgs; [ diffutils ];
-      }
-    ;
+      };
 
     testScript = ''
       import subprocess

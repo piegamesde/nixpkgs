@@ -26,8 +26,7 @@ let
         }
         // (if example == null then { } else { inherit example; })
       ;
-    }
-  ;
+    };
   mkHookOptions = hooks: listToAttrs (map mkHookOption hooks);
 
   hooksDir =
@@ -47,8 +46,7 @@ let
       ${concatStringsSep "\n" (
         mapAttrsToList mkHookEntry (filterAttrs (n: v: v != null) cfg.hooks)
       )}
-    ''
-  ;
+    '';
 
   buildkiteOptions =
     {
@@ -87,8 +85,7 @@ let
           ];
           defaultText =
             literalExpression
-              "[ pkgs.bash pkgs.gnutar pkgs.gzip pkgs.git pkgs.nix ]"
-          ;
+              "[ pkgs.bash pkgs.gnutar pkgs.gzip pkgs.git pkgs.nix ]";
           description = lib.mdDoc "Add programs to the buildkite-agent environment";
           type = types.listOf types.package;
         };
@@ -230,8 +227,7 @@ let
           default = hooksDir config;
           defaultText =
             literalMD
-              "generated from {option}`services.buildkite-agents.<name>.hooks`"
-          ;
+              "generated from {option}`services.buildkite-agents.<name>.hooks`";
           description = lib.mdDoc ''
             Path to the directory storing the hooks.
             Consider using {option}`services.buildkite-agents.<name>.hooks.<name>`
@@ -248,8 +244,7 @@ let
           '';
         };
       };
-    }
-  ;
+    };
   enabledAgents = lib.filterAttrs (n: v: v.enable) cfg;
   mapAgents = function: lib.mkMerge (lib.mapAttrsToList function enabledAgents);
 in

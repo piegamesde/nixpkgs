@@ -11,8 +11,7 @@ let
     entries:
     lib.concatStringsSep "\n" (
       lib.mapAttrsToList (name: value: "${name} ${value}") entries
-    )
-  ;
+    );
   writePostfixMap = name: entries: pkgs.writeText name (postfixMap entries);
   configScript = pkgs.writeScript "schleuder-cfg" ''
     #!${pkgs.runtimeShell}
@@ -35,8 +34,7 @@ in
       lib.mkEnableOption (lib.mdDoc "automatic postfix integration")
       // {
         default = true;
-      }
-    ;
+      };
     lists = lib.mkOption {
       description = lib.mdDoc ''
         List of list addresses that should be handled by Schleuder.
@@ -84,8 +82,7 @@ in
     extraSettingsFile = lib.mkOption {
       description =
         lib.mdDoc
-          "YAML file to merge into the schleuder config at runtime. This can be used for secrets such as API keys."
-      ;
+          "YAML file to merge into the schleuder config at runtime. This can be used for secrets such as API keys.";
       type = lib.types.nullOr lib.types.path;
       default = null;
     };
@@ -178,25 +175,21 @@ in
             ];
           };
         };
-      }
-    ;
+      };
 
     environment.etc."schleuder/schleuder.yml" =
       lib.mkIf (cfg.extraSettingsFile == null)
-        { source = settingsFormat.generate "schleuder.yml" cfg.settings; }
-    ;
+        { source = settingsFormat.generate "schleuder.yml" cfg.settings; };
     environment.etc."schleuder/list-defaults.yml".source =
       settingsFormat.generate "list-defaults.yml"
-        cfg.listDefaults
-    ;
+        cfg.listDefaults;
 
     services.schleuder = {
       #lists_dir = "/var/lib/schleuder.lists";
       settings.filters_dir = lib.mkDefault "/var/lib/schleuder/filters";
       settings.keyword_handlers_dir =
         lib.mkDefault
-          "/var/lib/schleuder/keyword_handlers"
-      ;
+          "/var/lib/schleuder/keyword_handlers";
     };
   };
 }

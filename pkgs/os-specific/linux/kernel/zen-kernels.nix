@@ -59,8 +59,7 @@ let
         };
       }
       // (args.argsOverride or { })
-    )
-  ;
+    );
 in
 {
   zen = zenKernelsFor zenVariant;

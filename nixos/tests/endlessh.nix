@@ -18,8 +18,7 @@ import ./make-test-python.nix (
 
             privileged.configuration.services.endlessh.port = 22;
           };
-        }
-      ;
+        };
 
       client =
         { pkgs, ... }:
@@ -28,8 +27,7 @@ import ./make-test-python.nix (
             curl
             netcat
           ];
-        }
-      ;
+        };
     };
 
     testScript = ''

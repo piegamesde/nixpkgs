@@ -30,8 +30,7 @@ in
           exit 1
         fi
         mkdir $out
-      ''
-  ;
+      '';
 }
 //
   lib.optionalAttrs
@@ -47,8 +46,7 @@ in
             export HOME="$(mktemp -d)"
             wine $exe help
             mkdir $out
-          ''
-      ;
+          '';
     }
 // lib.optionalAttrs (buildPlatform.isLinux && buildPlatform.isx86_64) {
   runs-through-wine64 =
@@ -61,6 +59,5 @@ in
         export HOME="$(mktemp -d)"
         wine64 $exe help
         mkdir $out
-      ''
-  ;
+      '';
 }

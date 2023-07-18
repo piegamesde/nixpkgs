@@ -54,8 +54,7 @@ in
               (nonEmptyListOf str)
               str
             ]
-          )
-        ;
+          );
 
         options = {
           return-size = mkOption {
@@ -98,11 +97,9 @@ in
                     a = cfg.address;
                     p = cfg.port;
                   }
-                )
-            ;
+                );
           in
-          "${pkgs.imaginary}/bin/imaginary ${utils.escapeSystemdExecArgs args}"
-        ;
+          "${pkgs.imaginary}/bin/imaginary ${utils.escapeSystemdExecArgs args}";
         ProtectProc = "invisible";
         BindReadOnlyPaths = lib.optional (cfg.settings ? mount) cfg.settings.mount;
         CapabilityBoundingSet =

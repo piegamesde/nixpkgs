@@ -62,8 +62,7 @@ let
               shared_preload_libraries = "timescaledb, timescaledb_toolkit";
             };
           };
-        }
-      ;
+        };
 
       testScript = ''
         def check_count(statement, lines):
@@ -86,12 +85,10 @@ let
 
         machine.shutdown()
       '';
-    }
-  ;
+    };
   applicablePostgresqlVersions =
     filterAttrs (_: value: versionAtLeast value.version "12")
-      postgresql-versions
-  ;
+      postgresql-versions;
 in
 mapAttrs'
   (name: package: {

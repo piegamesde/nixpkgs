@@ -25,8 +25,7 @@ let
             url = "https://github.com/garrigue/labltk/archive/${rev}.tar.gz";
             inherit sha256;
           };
-        }
-      ;
+        };
     in
     rec {
       "4.06" = mkNewParam {
@@ -69,8 +68,7 @@ let
         version = "8.06.13";
         sha256 = "sha256-Vpf13g3DEWlUI5aypiowGp2fkQPK0cOGv2XiRUY/Ip4=";
       };
-    }
-  ;
+    };
   param =
     params.${lib.versions.majorMinor ocaml.version}
       or (throw "labltk is not available for OCaml ${ocaml.version}");

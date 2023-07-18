@@ -29,6 +29,5 @@
             exec kexec --load $p/kernel --initrd=$p/initrd --append="$(cat $p/kernel-params) init=$p/init"
           '';
         };
-      }
-  ;
+      };
 }

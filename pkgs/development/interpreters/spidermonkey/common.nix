@@ -109,8 +109,7 @@ stdenv.mkDerivation (
       ++ lib.optionals stdenv.isDarwin [
         libobjc
         libiconv
-      ]
-    ;
+      ];
 
     depsBuildBuild = [ buildPackages.stdenv.cc ];
 
@@ -155,8 +154,7 @@ stdenv.mkDerivation (
     env.NIX_CFLAGS_COMPILE =
       lib.optionalString
         (with stdenv.hostPlatform; isRiscV && is64bit && lib.versionOlder version "91")
-        "-mabi=lp64d"
-    ;
+        "-mabi=lp64d";
 
     postPatch = lib.optionalString (lib.versionOlder version "102") ''
       # This patch is a manually applied fix of

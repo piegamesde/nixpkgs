@@ -11,8 +11,7 @@ let
 
   configurationPrefix =
     optionalString (versionAtLeast config.system.stateVersion "22.05")
-      "nixos-"
-  ;
+      "nixos-";
   configurationDirectoryName = "${configurationPrefix}containers";
   configurationDirectory = "/etc/${configurationDirectoryName}";
   stateDirectory = "/var/lib/${configurationPrefix}containers";
@@ -281,8 +280,7 @@ let
 
     RuntimeDirectory =
       lib.optional cfg.ephemeral
-        "${configurationDirectoryName}/%i"
-    ;
+        "${configurationDirectoryName}/%i";
 
     # Note that on reboot, systemd-nspawn returns 133, so this
     # unit will be restarted. On poweroff, it returns 0, so the
@@ -331,16 +329,14 @@ let
           type = types.bool;
           description =
             lib.mdDoc
-              "Determine whether the mounted path will be accessed in read-only mode."
-          ;
+              "Determine whether the mounted path will be accessed in read-only mode.";
         };
       };
 
       config = {
         mountPoint = mkDefault name;
       };
-    }
-  ;
+    };
 
   allowedDeviceOpts =
     { ... }:
@@ -362,8 +358,7 @@ let
             information.'';
         };
       };
-    }
-  ;
+    };
 
   mkBindFlag =
     d:
@@ -376,8 +371,7 @@ let
           "${d.mountPoint}"
       ;
     in
-    flagPrefix + mountstr
-  ;
+    flagPrefix + mountstr;
 
   mkBindFlags = bs: concatMapStrings mkBindFlag (lib.attrValues bs);
 
@@ -401,8 +395,7 @@ let
               default = "tcp";
               description =
                 lib.mdDoc
-                  "The protocol specifier for port forwarding between host and container"
-              ;
+                  "The protocol specifier for port forwarding between host and container";
             };
             hostPort = mkOption {
               type = types.int;
@@ -564,18 +557,15 @@ in
                                   '';
                                 } ];
                               };
-                            }
-                          ;
+                            };
                         in
-                        [ extraConfig ] ++ (map (x: x.value) defs)
-                      ;
+                        [ extraConfig ] ++ (map (x: x.value) defs);
                       prefix = [
                         "containers"
                         name
                       ];
                       inherit (config) specialArgs;
-                    }).config
-                  ;
+                    }).config;
                 };
               };
 
@@ -803,10 +793,8 @@ in
               {
                 path =
                   builtins.seq checkAssertion mkIf options.config.isDefined
-                    config.config.system.build.toplevel
-                ;
-              }
-            ;
+                    config.config.system.build.toplevel;
+              };
           }
         )
       );
@@ -913,8 +901,7 @@ in
                   serviceConfig = serviceDirectives containerConfig;
                   unitConfig.RequiresMountsFor =
                     lib.optional (!containerConfig.ephemeral)
-                      "${stateDirectory}/%i"
-                  ;
+                      "${stateDirectory}/%i";
                   environment.root =
                     if containerConfig.ephemeral then
                       "/run/nixos-containers/%i"
@@ -1004,8 +991,7 @@ in
               '';
             }
           )
-          config.containers
-      ;
+          config.containers;
 
       # Generate /etc/hosts entries for the containers.
       networking.extraHosts = concatStrings (
@@ -1029,8 +1015,7 @@ in
           ''
             # Don't manage interfaces created by nixos-container.
             ENV{INTERFACE}=="v[eb]-*", ENV{NM_UNMANAGED}="1"
-          ''
-      ;
+          '';
 
       environment.systemPackages = [ nixos-container ];
 

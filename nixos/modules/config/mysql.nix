@@ -36,8 +36,7 @@ in
         example = "/run/secrets/mysql-auth-db-passwd";
         description =
           lib.mdDoc
-            "The path to the file containing the password for the user"
-        ;
+            "The path to the file containing the password for the user";
       };
       pam = mkOption {
         description = lib.mdDoc "Settings for `pam_mysql`";
@@ -48,8 +47,7 @@ in
               example = "users";
               description =
                 lib.mdDoc
-                  "The name of table that maps unique login names to the passwords."
-              ;
+                  "The name of table that maps unique login names to the passwords.";
             };
             updateTable = mkOption {
               type = types.nullOr types.str;
@@ -65,16 +63,14 @@ in
               example = "username";
               description =
                 lib.mdDoc
-                  "The name of the column that contains a unix login name."
-              ;
+                  "The name of the column that contains a unix login name.";
             };
             passwordColumn = mkOption {
               type = types.str;
               example = "password";
               description =
                 lib.mdDoc
-                  "The name of the column that contains a (encrypted) password string."
-              ;
+                  "The name of the column that contains a (encrypted) password string.";
             };
             statusColumn = mkOption {
               type = types.nullOr types.str;
@@ -161,8 +157,7 @@ in
               example = "blowfish";
               description =
                 lib.mdDoc
-                  "The default encryption method to use for `passwordCrypt = 1`."
-              ;
+                  "The default encryption method to use for `passwordCrypt = 1`.";
             };
             where = mkOption {
               type = types.nullOr types.str;
@@ -194,8 +189,7 @@ in
                 default = false;
                 description =
                   lib.mdDoc
-                    "Enables logging of authentication attempts in the MySQL database."
-                ;
+                    "Enables logging of authentication attempts in the MySQL database.";
               };
               table = mkOption {
                 type = types.str;

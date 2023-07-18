@@ -55,10 +55,8 @@ import ./make-test-python.nix (
             docbook_xsl_ns
             xorg.lndir
             documentation-highlighter
-          ]
-        ;
-      }
-    ;
+          ];
+      };
 
     testScript =
       let
@@ -192,7 +190,6 @@ import ./make-test-python.nix (
                 "nixos-container create b0rk --config-file ${brokenCfg}"
             )
             machine.succeed("test ! -e /var/lib/nixos-containers/b0rk")
-      ''
-    ;
+      '';
   }
 )

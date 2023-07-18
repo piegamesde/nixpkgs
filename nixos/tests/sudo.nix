@@ -111,8 +111,7 @@ import ./make-test-python.nix (
             }
           ];
         };
-      }
-    ;
+      };
 
     nodes.strict =
       { ... }:
@@ -132,8 +131,7 @@ import ./make-test-python.nix (
           wheelNeedsPassword = false;
           execWheelOnly = true;
         };
-      }
-    ;
+      };
 
     testScript = ''
       with subtest("users in wheel group should have passwordless sudo"):

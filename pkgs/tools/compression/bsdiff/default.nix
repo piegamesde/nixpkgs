@@ -38,8 +38,7 @@ stdenv.mkDerivation rec {
         url = "https://sources.debian.org/data/main/b/bsdiff/4.3-22/debian/patches/32-bug-632585-use-int32_t-instead-off_t-for-file-size.patch";
         sha256 = "sha256-SooFnFK4uKNXvXQb/LEcH8GocnRtkryExI4b3BZTsAY=";
       })
-    ]
-  ;
+    ];
 
   buildPhase = ''
     $CC -O3 -lbz2 bspatch.c -o bspatch

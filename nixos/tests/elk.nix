@@ -170,8 +170,7 @@ let
                   '';
                 };
               };
-            }
-          ;
+            };
         };
 
         passthru.elkPackages = elk;
@@ -179,8 +178,7 @@ let
           let
             valueObject =
               lib.optionalString (lib.versionAtLeast elk.elasticsearch.version "7")
-                ".value"
-            ;
+                ".value";
           in
           ''
             import json
@@ -294,8 +292,7 @@ let
           ''
         ;
       })
-      { inherit pkgs system; }
-  ;
+      { inherit pkgs system; };
 in
 {
   # We currently only package upstream binaries.

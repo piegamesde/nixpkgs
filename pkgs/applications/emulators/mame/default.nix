@@ -183,8 +183,7 @@ stdenv.mkDerivation rec {
       mv $tools/bin/{,mame-}split
 
       runHook postInstall
-    ''
-  ;
+    '';
 
   # man1 is the tools documentation, man6 is the emulator documentation
   # Need to be done in postFixup otherwise multi-output hook will move it back to $out

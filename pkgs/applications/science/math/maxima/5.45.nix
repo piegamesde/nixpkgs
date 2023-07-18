@@ -96,8 +96,7 @@ stdenv.mkDerivation rec {
           url = "https://git.sagemath.org/sage.git/plain/build/pkgs/maxima/patches/maxima.system.patch?id=07d6c37d18811e2b377a9689790a7c5e24da16ba";
           sha256 = "18zafig8vflhkr80jq2ivk46k92dkszqlyq8cfmj0b2vcfjwwbar";
         })
-      ]
-  ;
+      ];
 
   # The test suite is disabled since 5.42.2 because of the following issues:
   #

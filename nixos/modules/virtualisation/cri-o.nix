@@ -13,8 +13,7 @@ let
     extraPackages =
       cfg.extraPackages
       ++ lib.optional (builtins.elem "zfs" config.boot.supportedFilesystems)
-        config.boot.zfs.package
-    ;
+        config.boot.zfs.package;
   };
 
   format = pkgs.formats.toml { };
@@ -145,8 +144,7 @@ in
         pinns_path = "${cfg.package}/bin/pinns";
         hooks_dir =
           optional (config.virtualisation.containers.ociSeccompBpfHook.enable)
-            config.boot.kernelPackages.oci-seccomp-bpf-hook
-        ;
+            config.boot.kernelPackages.oci-seccomp-bpf-hook;
 
         default_runtime = mkIf (cfg.runtime != null) cfg.runtime;
         runtimes = mkIf (cfg.runtime != null) { "${cfg.runtime}" = { }; };

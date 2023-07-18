@@ -40,8 +40,7 @@ let
           sha256 = fSha;
         })
       )
-      selectedFontsShas
-  ;
+      selectedFontsShas;
 in
 
 stdenv.mkDerivation rec {

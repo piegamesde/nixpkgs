@@ -16,8 +16,7 @@ let
       (value: ''
         ${option}=${value}
       '')
-      list
-  ;
+      list;
 
   login = (cfg.rpc.user != null && cfg.rpc.password != null);
 
@@ -51,8 +50,7 @@ let
       ${listToConf "add-exclusive-node" exclusiveNodes}
 
       ${extraConfig}
-    ''
-  ;
+    '';
 in
 
 {

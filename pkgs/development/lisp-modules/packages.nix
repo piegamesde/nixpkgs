@@ -47,8 +47,7 @@ let
                 cp -r * $out
               '';
             }
-          )
-      ;
+          );
     in
     build-asdf-system (
       args
@@ -57,8 +56,7 @@ let
         patches = [ ];
         src = build;
       }
-    )
-  ;
+    );
 
   # A little hacky
   isJVM = spec.pkg.pname == "abcl";
@@ -92,8 +90,7 @@ let
             trivial-features
           ];
           javaLibs = optionals isJVM [ jna ];
-        }
-      ;
+        };
 
       cffi-libffi = build-asdf-system {
         inherit (super.cffi-libffi)
@@ -171,8 +168,7 @@ let
             let
               rev = "0c10bc82f14702c97a26dc25ce075b5d3a2347d1";
             in
-            "https://gitlab.common-lisp.net/cl-tar/cl-tar-file/-/archive/${rev}/cl-tar-file-${rev}.tar.gz"
-          ;
+            "https://gitlab.common-lisp.net/cl-tar/cl-tar-file/-/archive/${rev}/cl-tar-file-${rev}.tar.gz";
           sha256 = "0i8j05fkgdqy4c4pqj0c68sh4s3klpx9kc5wp73qwzrl3xqd2svy";
         };
         lispLibs = with super; [
@@ -199,8 +195,7 @@ let
             let
               rev = "7c6e07a10c93d9e311f087b5f6328cddd481669a";
             in
-            "https://gitlab.common-lisp.net/cl-tar/cl-tar/-/archive/${rev}/cl-tar-${rev}.tar.gz"
-          ;
+            "https://gitlab.common-lisp.net/cl-tar/cl-tar/-/archive/${rev}/cl-tar-${rev}.tar.gz";
           sha256 = "0wp23cs3i6a89dibifiz6559la5nk58d1n17xvbxq4nrl8cqsllf";
         };
         lispLibs =
@@ -463,8 +458,7 @@ let
             trivial-garbage
             bordeaux-threads
           ];
-        }
-      ;
+        };
 
       qt-libs = build-with-compile-into-pwd {
         inherit (super.qt-libs) pname version src;
@@ -527,8 +521,7 @@ let
         ;
         lispLibs =
           [ self.qt ]
-          ++ remove super.qt_plus_libs super.qtools.lispLibs ++ [ self.qt-libs ]
-        ;
+          ++ remove super.qt_plus_libs super.qtools.lispLibs ++ [ self.qt-libs ];
         patches = [ ./patches/qtools-use-nix-libs.patch ];
       };
 

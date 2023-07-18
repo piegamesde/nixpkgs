@@ -19,8 +19,7 @@ let
         default = true;
         description =
           lib.mdDoc
-            "Whether this VPN connection should be started automatically."
-        ;
+            "Whether this VPN connection should be started automatically.";
         type = types.bool;
       };
 
@@ -105,8 +104,7 @@ let
       attrsets.mapAttrsToList
         (name: value: if (value == true) then name else "${name}=${value}")
         (attrsets.filterAttrs (_: value: value != false) extra_cfg)
-    )
-  ;
+    );
   generateConfig =
     name: icfg:
     pkgs.writeText "config" ''
@@ -118,8 +116,7 @@ let
       ${optionalString (icfg.privateKey != null) "sslkey=${icfg.privateKey}"}
 
       ${generateExtraConfig icfg.extraOptions}
-    ''
-  ;
+    '';
   generateUnit = name: icfg: {
     description = "OpenConnect Interface - ${name}";
     requires = [ "network-online.target" ];
@@ -136,8 +133,7 @@ let
         } ${icfg.gateway}";
       StandardInput =
         lib.mkIf (icfg.passwordFile != null)
-          "file:${icfg.passwordFile}"
-      ;
+          "file:${icfg.passwordFile}";
 
       ProtectHome = true;
     };
@@ -169,8 +165,7 @@ in
           name = "openconnect-${name}";
           value = generateUnit name value;
         })
-        cfg.interfaces
-    ;
+        cfg.interfaces;
   };
 
   meta.maintainers = with maintainers; [ alyaeanyx ];

@@ -59,8 +59,7 @@
           out = "1.0.3";
         }
       ]
-      null
-  ;
+      null;
 
   release."1.1.1".sha256 = "sha256-ExAdC3WuArNxS+Sa1r4x5aT7ylbCvP/BZXfkdQNAvZ8=";
   release."1.1.0".sha256 = "1vyhfna5frkkq2fl1fkg2mwzpg09k3sbzxxpyp14fjay81xajrxr";
@@ -86,7 +85,6 @@
       propagatedBuildInputs =
         o.propagatedBuildInputs
         ++ lib.optional (lib.versions.isGe "1.1" o.version || o.version == "dev")
-          mathcomp-real-closed
-      ;
+          mathcomp-real-closed;
     }
   )

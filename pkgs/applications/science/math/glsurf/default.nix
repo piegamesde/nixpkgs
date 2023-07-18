@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
         ocaml
         findlib
       ]
-    )
-  ;
+    );
 
   buildInputs =
     [
@@ -50,8 +49,7 @@ stdenv.mkDerivation rec {
         camlimages
         num
       ]
-    )
-  ;
+    );
 
   postPatch = ''
     for f in callbacks*/Makefile src/Makefile; do

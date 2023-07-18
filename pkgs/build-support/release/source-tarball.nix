@@ -10,7 +10,8 @@
   versionSuffix ? if officialRelease then
     ""
   else
-    "pre${toString (src.rev or src.revCount or "")}",
+    "pre${toString (src.rev or src.revCount or "")}"
+  ,
   src,
   stdenv,
   autoconf,
@@ -136,5 +137,4 @@ stdenv.mkDerivation (
         schedulingPriority = 200;
       };
     }
-
 )

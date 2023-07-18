@@ -33,8 +33,7 @@ with lib;
 
     boot.extraModulePackages =
       optional (versionOlder kernelPackages.kernel.version "5.16")
-        kernelPackages.hid-nintendo
-    ;
+        kernelPackages.hid-nintendo;
 
     services.udev.packages = [ cfg.package ];
 

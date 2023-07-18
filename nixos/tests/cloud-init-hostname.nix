@@ -46,8 +46,7 @@ makeTest {
       ];
       services.cloud-init.enable = true;
       networking.hostName = "";
-    }
-  ;
+    };
 
   testScript = ''
     unnamed.wait_for_unit("cloud-final.service")

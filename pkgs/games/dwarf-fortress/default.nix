@@ -111,8 +111,7 @@ let
             ;
 
             jdk = jdk8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
-          }
-        ;
+          };
       })
       (lib.attrNames self.df-hashes)
   );

@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       GLUT
       Cocoa
-    ]
-  ;
+    ];
 
   nativeBuildInputs = [
     cmake
@@ -54,8 +53,7 @@ stdenv.mkDerivation rec {
       [
         "examples/CMakeLists.txt"
         "wrappers/cpp/CMakeLists.txt"
-      ]
-  ;
+      ];
 
   meta = {
     description = "Drivers and libraries for the Xbox Kinect device on Windows, Linux, and macOS";

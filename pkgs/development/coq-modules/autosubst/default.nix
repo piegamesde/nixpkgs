@@ -20,8 +20,7 @@ mkCoqDerivation {
         case = range "8.10" "8.16";
         out = "1.7";
       } ]
-      null
-  ;
+      null;
 
   propagatedBuildInputs = [ mathcomp-ssreflect ];
 

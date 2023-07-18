@@ -46,8 +46,7 @@ let
         # Implementation is done via pkgs/applications/display-managers/sddm/sddm-default-session.patch
         DefaultSession =
           optionalString (dmcfg.defaultSession != null)
-            "${dmcfg.defaultSession}.desktop"
-        ;
+            "${dmcfg.defaultSession}.desktop";
       };
 
       Theme = {
@@ -85,8 +84,7 @@ let
         Session = autoLoginSessionName;
         Relogin = cfg.autoLogin.relogin;
       };
-    }
-  ;
+    };
 
   cfgFile = iniFmt.generate "sddm.conf" (
     lib.recursiveUpdate defaultConfig cfg.settings

@@ -23,8 +23,7 @@ let
               pkgs.gcc
             ]
           }:$PATH' \
-      ''
-  ;
+      '';
 in
 {
   options.services.node-red = {
@@ -59,8 +58,7 @@ in
       default = "${cfg.package}/lib/node_modules/node-red/settings.js";
       defaultText =
         literalExpression
-          ''"''${package}/lib/node_modules/node-red/settings.js"''
-      ;
+          ''"''${package}/lib/node_modules/node-red/settings.js"'';
       description = lib.mdDoc ''
         Path to the JavaScript configuration file.
         See <https://github.com/node-red/node-red/blob/master/packages/node_modules/node-red/settings.js>
@@ -116,8 +114,7 @@ in
       default = { };
       description =
         lib.mdDoc
-          "List of settings.js overrides to pass via -D to Node-RED."
-      ;
+          "List of settings.js overrides to pass via -D to Node-RED.";
       example = literalExpression ''
         {
           "logging.console.level" = "trace";

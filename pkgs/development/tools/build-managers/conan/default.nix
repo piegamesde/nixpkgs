@@ -60,8 +60,7 @@ python3.pkgs.buildPythonApplication rec {
         pytestCheckHook
         webtest
       ]
-    )
-  ;
+    );
 
   pythonImportsCheck = [ "conan" ];
 

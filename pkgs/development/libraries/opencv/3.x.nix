@@ -313,8 +313,7 @@ stdenv.mkDerivation {
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString enableEXR
-      "-I${ilmbase.dev}/include/OpenEXR"
-  ;
+      "-I${ilmbase.dev}/include/OpenEXR";
 
   # Configure can't find the library without this.
   OpenBLAS_HOME = lib.optionalString enableOpenblas openblas;

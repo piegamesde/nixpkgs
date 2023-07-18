@@ -38,15 +38,13 @@ let
       ENCRYPTION_CIPHER=AES-256
       SETUP_COMPLETED=false
       REMOVE_INDEXPHP=true
-    ''
-  ;
+    '';
 
   extraConfig =
     hostName: cfg:
     pkgs.writeText "extraConfig.php" ''
       ${toString cfg.extraConfig}
-    ''
-  ;
+    '';
 
   pkg =
     hostName: cfg:
@@ -82,8 +80,7 @@ let
           (template: "cp -r ${template}/. $out/application/views/invoice_templates/pdf/")
           cfg.invoiceTemplates}
       '';
-    }
-  ;
+    };
 
   siteOpts =
     { lib, name, ... }:
@@ -185,8 +182,7 @@ let
                 int
                 bool
               ]
-            )
-          ;
+            );
           default = {
             "pm" = "dynamic";
             "pm.max_children" = 32;
@@ -235,8 +231,7 @@ let
           };
         };
       };
-    }
-  ;
+    };
 in
 {
   # interface
@@ -305,10 +300,8 @@ in
                       "${cfg.database.name}.*" = "ALL PRIVILEGES";
                     };
                   })
-                  eachSite
-              ;
-            }
-        ;
+                  eachSite;
+            };
 
         services.phpfpm = {
           phpPackage = pkgs.php81;
@@ -325,8 +318,7 @@ in
                   } // cfg.poolConfig;
                 })
               )
-              eachSite
-          ;
+              eachSite;
         };
       }
 
@@ -388,8 +380,7 @@ in
                 }
               ))
             )
-            eachSite
-        ;
+            eachSite;
 
         systemd.services =
           mapAttrs'
@@ -405,8 +396,7 @@ in
                 }
               ))
             )
-            eachSite
-        ;
+            eachSite;
       }
 
       (mkIf (cfg.webserver == "caddy") {
@@ -426,8 +416,7 @@ in
                   '';
                 })
               )
-              eachSite
-          ;
+              eachSite;
         };
       })
     ]

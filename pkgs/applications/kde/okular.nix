@@ -97,8 +97,7 @@ mkDerivation {
 
   cmakeFlags =
     lib.optional (!withSpeech)
-      "-DFORCE_NOT_REQUIRED_DEPENDENCIES=Qt5TextToSpeech"
-  ;
+      "-DFORCE_NOT_REQUIRED_DEPENDENCIES=Qt5TextToSpeech";
 
   meta = with lib; {
     homepage = "http://www.kde.org";

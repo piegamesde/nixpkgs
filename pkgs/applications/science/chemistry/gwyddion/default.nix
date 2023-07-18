@@ -76,8 +76,7 @@ stdenv.mkDerivation rec {
       pygobject2
       python
       gnome2.gtksourceview
-    ]
-  ;
+    ];
 
   # This patch corrects problems with python support, but should apply cleanly
   # regardless of whether python support is enabled, and have no effects if

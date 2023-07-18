@@ -17,8 +17,7 @@ let
         mkdir -p $out/bin
         makeWrapper ${cfg.package}/bin/dgraph $out/bin/dgraph \
           --prefix PATH : "${lib.makeBinPath [ pkgs.nodejs ]}" \
-      ''
-  ;
+      '';
   securityOptions = {
     NoNewPrivileges = true;
 

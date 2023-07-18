@@ -99,8 +99,7 @@ let
           EOF
             chmod +x $out/bin/g++
           fi
-        '')
-      ;
+        '');
     };
 
     meta = {

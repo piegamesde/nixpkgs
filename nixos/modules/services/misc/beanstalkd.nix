@@ -24,8 +24,7 @@ in
           type = types.port;
           description =
             lib.mdDoc
-              "TCP port that will be used to accept client connections."
-          ;
+              "TCP port that will be used to accept client connections.";
           default = 11300;
         };
 

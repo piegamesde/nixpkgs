@@ -56,14 +56,12 @@ let
               // (lib.optionalAttrs (pkgsBuildHost ? ${name}) {
                 nativeDrv =
                   lib.warn "use ${name}.__spliced.buildHost instead of ${name}.nativeDrv"
-                    valueBuildHost
-                ;
+                    valueBuildHost;
               })
               // (lib.optionalAttrs (pkgsHostTarget ? ${name}) {
                 crossDrv =
                   lib.warn "use ${name}.__spliced.hostTarget instead of ${name}.crossDrv"
-                    valueHostTarget
-                ;
+                    valueHostTarget;
               })
               // {
                 __spliced =
@@ -90,14 +88,12 @@ let
               let
                 inherit (builtins.tryEval value0) success value;
               in
-              getOutputs (lib.optionalAttrs success value)
-            ;
+              getOutputs (lib.optionalAttrs success value);
             getOutputs =
               value:
               lib.genAttrs (value.outputs or (lib.optional (value ? out) "out")) (
                 output: value.${output}
-              )
-            ;
+              );
           in
           # The derivation along with its outputs, which we recur
           # on to splice them together.
@@ -128,8 +124,7 @@ let
         ;
       };
     in
-    lib.listToAttrs (map merge (lib.attrNames mash))
-  ;
+    lib.listToAttrs (map merge (lib.attrNames mash));
 
   splicePackages =
     {
@@ -140,8 +135,7 @@ let
       pkgsHostTarget,
       pkgsTargetTarget,
     }@args:
-    if actuallySplice then spliceReal args else pkgsHostTarget
-  ;
+    if actuallySplice then spliceReal args else pkgsHostTarget;
 
   splicedPackages =
     splicePackages {
@@ -168,8 +162,7 @@ let
         targetPackages
       ;
       inherit (pkgs.stdenv) buildPlatform targetPlatform hostPlatform;
-    }
-  ;
+    };
 
   splicedPackagesWithXorg =
     splicedPackages
@@ -210,8 +203,7 @@ in
       selfHostHost = lib.attrByPath (split "pkgsHostHost") null pkgs;
       selfHostTarget = lib.attrByPath (split "pkgsHostTarget") null pkgs;
       selfTargetTarget = lib.attrByPath (split "pkgsTargetTarget") { } pkgs;
-    }
-  ;
+    };
 
   # Haskell package sets need this because they reimplement their own
   # `newScope`.

@@ -20,8 +20,7 @@ in
       default = false;
       description =
         mdDoc
-          "Open port in the firewall for the Jellyseerr web interface."
-      ;
+          "Open port in the firewall for the Jellyseerr web interface.";
     };
 
     port = mkOption {

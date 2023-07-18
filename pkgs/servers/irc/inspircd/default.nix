@@ -27,8 +27,7 @@ let
     lib.any (lic: lic == (drv.meta.license or { })) [
       lib.licenses.mit # musl
       lib.licenses.lgpl2Plus # glibc
-    ]
-  ;
+    ];
 
   # compatible if libc is compatible
   libcModules = [
@@ -125,8 +124,7 @@ let
   # buildInputs necessary for the enabled extraModules
   extraInputs =
     lib.concatMap (m: extras."${m}" or (builtins.throw "Unknown extra module ${m}"))
-      extraModules
-  ;
+      extraModules;
 
   # if true, we can't provide a binary version of this
   # package without violating the GPL 2
@@ -134,8 +132,7 @@ let
     let
       allowed = compatibleModules lib stdenv;
     in
-    !lib.all (lib.flip lib.elem allowed) extraModules
-  ;
+    !lib.all (lib.flip lib.elem allowed) extraModules;
 
   # return list of the license(s) of the given derivation
   getLicenses =
@@ -143,8 +140,7 @@ let
     let
       lics = drv.meta.license or [ ];
     in
-    if lib.isAttrs lics || lib.isString lics then [ lics ] else lics
-  ;
+    if lib.isAttrs lics || lib.isString lics then [ lics ] else lics;
 
   # Whether any member of list1 is also member of list2, i. e. set intersection.
   anyMembers = list1: list2: lib.any (m1: lib.elem m1 list2) list1;
@@ -243,6 +239,5 @@ stdenv.mkDerivation rec {
       # make sure we never distribute a GPLv2-violating module
       # in binary form. They can be built locally of course.
       hydraPlatforms = [ ];
-    }
-  ;
+    };
 }

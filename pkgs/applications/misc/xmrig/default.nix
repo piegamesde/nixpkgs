@@ -46,8 +46,7 @@ stdenv.mkDerivation rec {
       Carbon
       CoreServices
       OpenCL
-    ]
-  ;
+    ];
 
   inherit donateLevel;
 

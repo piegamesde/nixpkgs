@@ -37,8 +37,7 @@ let
   electronDummyFilename = builtins.baseNameOf (builtins.head (electron.src.urls));
   electronDummyHash =
     builtins.hashString "sha256"
-      "${electronDummyMirror}${electronDummyDir}"
-  ;
+      "${electronDummyMirror}${electronDummyDir}";
 
   unwrapped = stdenvNoCC.mkDerivation {
     pname = "${pname}-unwrapped";
@@ -166,8 +165,7 @@ buildFHSEnv {
 
       # Electron 2.0.8 is the earliest working version, due to
       # https://github.com/electron/electron/issues/13972
-    ]
-  ;
+    ];
 
   meta = with lib; {
     description = "The easiest way to get started with Electron";

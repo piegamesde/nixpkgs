@@ -38,8 +38,7 @@ let
       url = "https://github.com/mozilla/pdf.js/releases/download/v${version}/pdfjs-${version}-dist.zip";
       hash = "sha256-E7t+0AUndrgi4zfJth0w28RmWLqLyXMUCnueNf/gNi4=";
       stripRoot = false;
-    }
-  ;
+    };
 
   backendPackage =
     if backend == "webengine" then
@@ -105,8 +104,7 @@ buildPythonApplication {
         gst-plugins-ugly
         gst-libav
       ]
-    )
-  ;
+    );
 
   nativeBuildInputs = [
     wrapQtAppsHook
@@ -138,8 +136,7 @@ buildPythonApplication {
       ]
       ++ lib.optional (pythonOlder "3.9") importlib-resources
       ++ lib.optional stdenv.isLinux qtwayland
-    )
-  ;
+    );
 
   patches = [ ./fix-restart.patch ];
 
@@ -204,8 +201,7 @@ buildPythonApplication {
               --add-flags "--qt-flag widevine-path=${widevine-cdm}/share/google/chrome/WidevineCdm/_platform_specific/linux_x64/libwidevinecdm.so"''
         }
       )
-    ''
-  ;
+    '';
 
   meta = with lib; {
     homepage = "https://github.com/qutebrowser/qutebrowser";

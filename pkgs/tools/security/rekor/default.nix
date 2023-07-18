@@ -70,8 +70,7 @@ let
           developer-guy
         ];
       };
-    }
-  ;
+    };
 in
 {
   rekor-cli = generic {

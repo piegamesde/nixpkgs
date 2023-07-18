@@ -141,8 +141,7 @@ stdenv.mkDerivation rec {
       libselinux
       libsepol
       util-linux
-    ]
-  ;
+    ];
 
   cmakeFlags =
     [

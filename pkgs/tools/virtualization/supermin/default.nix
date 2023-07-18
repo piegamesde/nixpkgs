@@ -34,8 +34,7 @@ stdenv.mkDerivation (
           findlib
           ocaml
         ]
-      )
-    ;
+      );
     buildInputs = lib.optionals stdenv.hostPlatform.isGnu [
       glibc
       glibc.static

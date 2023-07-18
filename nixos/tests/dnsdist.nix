@@ -34,8 +34,7 @@ import ./make-test-python.nix (
         };
 
         environment.systemPackages = with pkgs; [ dig ];
-      }
-    ;
+      };
 
     testScript = ''
       machine.wait_for_unit("bind.service")

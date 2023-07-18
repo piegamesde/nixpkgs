@@ -37,8 +37,7 @@ let
       "vc"
       "name"
       "fetchSubmodules"
-    ]
-  ;
+    ];
   vcArgs = baseArgs // {
     inherit rev;
     url = baseUrl;

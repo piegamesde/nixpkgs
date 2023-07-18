@@ -55,8 +55,7 @@ let
             inherit sha256;
           };
         }
-      )
-  ;
+      );
   minVersion =
     with lib;
     if majorVersion == null then

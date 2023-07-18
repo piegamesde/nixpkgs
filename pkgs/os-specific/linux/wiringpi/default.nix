@@ -35,8 +35,7 @@ let
         # On NixOS we don't need to run ldconfig during build:
         "LDCONFIG=echo"
       ];
-    }
-  ;
+    };
   passthru = {
     inherit mkSubProject;
     wiringPi = mkSubProject {

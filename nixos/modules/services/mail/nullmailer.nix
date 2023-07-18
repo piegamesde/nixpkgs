@@ -255,6 +255,5 @@ with lib;
         setuid = true;
         setgid = true;
       };
-    }
-  ;
+    };
 }

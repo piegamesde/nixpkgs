@@ -98,8 +98,7 @@ stdenv.mkDerivation rec {
       startupNotify = true;
       startupWMClass = name;
       keywords = [ "git" ];
-    }
-  ;
+    };
 
   meta = with lib; {
     description = "GUI for Git, Mercurial, Subversion";

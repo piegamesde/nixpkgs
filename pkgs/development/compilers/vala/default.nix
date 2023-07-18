@@ -80,8 +80,7 @@ let
       preBuild =
         lib.optionalString
           (disableGraphviz && (stdenv.buildPlatform == stdenv.hostPlatform))
-          ''buildFlagsArray+=("VALAC=$(pwd)/compiler/valac")''
-      ;
+          ''buildFlagsArray+=("VALAC=$(pwd)/compiler/valac")'';
 
       outputs = [
         "out"
@@ -123,8 +122,7 @@ let
             in
             "${pname}_${lib.versions.major version}_${
               builtins.toString (roundUpToEven (lib.toInt (lib.versions.minor version)))
-            }"
-          ;
+            }";
           packageName = pname;
           freeze = true;
         };

@@ -47,8 +47,7 @@ let
           --replace "go test" "go test -p $NIX_BUILD_CORES -skip '(${
             lib.concatStringsSep "|" skipTests
           })'"
-      ''
-    ;
+      '';
 
     doCheck = stdenv.isLinux;
 

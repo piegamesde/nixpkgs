@@ -30,8 +30,7 @@ import ./make-test-python.nix (
             -addext 'subjectAltName = DNS:akkoma.nixos.test' \
             -keyout "$out/key.pem" -newkey ed25519 \
             -out "$out/cert.pem" -noenc
-        ''
-    ;
+        '';
 
     sendToot = pkgs.writers.writeBashBin "sendToot" ''
       set -eu -o errtrace -o pipefail
@@ -77,8 +76,7 @@ import ./make-test-python.nix (
         {
           security.pki.certificateFiles = [ "${tlsCert}/cert.pem" ];
           networking.extraHosts = hosts nodes;
-        }
-      ;
+        };
 
       akkoma =
         {
@@ -125,8 +123,7 @@ import ./make-test-python.nix (
 
           services.nginx.enable = true;
           services.postgresql.enable = true;
-        }
-      ;
+        };
     };
 
     testScript =
@@ -141,7 +138,6 @@ import ./make-test-python.nix (
         akkoma.wait_for_unit('nginx.service')
         client.succeed('${sendToot}/bin/sendToot')
         client.succeed('${checkFe}/bin/checkFe')
-      ''
-    ;
+      '';
   }
 )

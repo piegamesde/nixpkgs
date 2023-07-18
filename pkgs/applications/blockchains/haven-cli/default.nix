@@ -75,8 +75,7 @@ stdenv.mkDerivation rec {
       libusb1
       protobuf
       python3
-    ]
-  ;
+    ];
 
   cmakeFlags = [
     "-DCMAKE_BUILD_TYPE=Release"

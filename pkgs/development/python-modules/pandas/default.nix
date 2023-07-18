@@ -113,8 +113,7 @@ buildPythonPackage rec {
       #
       # Attempts to reproduce this problem outside of Hydra failed.
       "test_reindex_timestamp_with_fold"
-    ]
-  ;
+    ];
 
   # Tests have relative paths, and need to reference compiled C extensions
   # so change directory where `import .test` is able to be resolved

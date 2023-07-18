@@ -82,8 +82,7 @@ stdenv.mkDerivation rec {
         libICE
         libSM
       ]
-    )
-  ;
+    );
 
   # some bundled libs are found through LD_LIBRARY_PATH
   autoPatchelfIgnoreMissingDeps = true;

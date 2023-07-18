@@ -41,8 +41,7 @@ mkCoqDerivation {
         case = isEq "8.13";
         out = "2021-09-17";
       } ]
-      null
-  ;
+      null;
 
   propagatedBuildInputs =
     [
@@ -56,8 +55,7 @@ mkCoqDerivation {
         num
         zarith
       ]
-    )
-  ;
+    );
   mlPlugin = true;
   nativeBuildInputs =
     (with pkgs; [ gnumake42 ]) ++ (with coq.ocamlPackages; [ ocamlbuild ]);

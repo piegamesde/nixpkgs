@@ -147,8 +147,7 @@ let
           object = v.source;
           symlink = v.target;
         })
-        (filterAttrs (_: v: v.enable) cfg.contents)
-    ;
+        (filterAttrs (_: v: v.enable) cfg.contents);
   };
 in
 {
@@ -190,8 +189,7 @@ in
               package
             ]
           )
-        )
-      ;
+        );
       default = { };
       example = {
         SYSTEMD_LOG_LEVEL = "debug";
@@ -224,8 +222,7 @@ in
             singleLineStr
             package
           ]
-        )
-      ;
+        );
       default = [ ];
     };
 
@@ -270,8 +267,7 @@ in
         oneOf [
           bool
           (nullOr (passwdEntry str))
-        ]
-      ;
+        ];
       description = lib.mdDoc ''
         Set to true for unauthenticated emergency access, and false for
         no emergency access.
@@ -406,8 +402,7 @@ in
         # systemd-cryptenroll
         "tpm-tis"
       ]
-      ++ lib.optional (pkgs.stdenv.hostPlatform.system != "riscv64-linux") "tpm-crb"
-    ;
+      ++ lib.optional (pkgs.stdenv.hostPlatform.system != "riscv64-linux") "tpm-crb";
 
     boot.initrd.systemd = {
       initrdBin = [
@@ -447,8 +442,7 @@ in
 
           "/etc/modules-load.d/nixos.conf".text =
             concatStringsSep "\n"
-              config.boot.initrd.kernelModules
-          ;
+              config.boot.initrd.kernelModules;
 
           # We can use either ! or * to lock the root account in the
           # console, but some software like OpenSSH won't even allow you
@@ -469,8 +463,7 @@ in
             pkgs.runCommand "initrd-kmod-blacklist-ubuntu" { }
               ''
                 ${pkgs.buildPackages.perl}/bin/perl -0pe 's/## file: iwlwifi.conf(.+?)##/##/s;' $src > $out
-              ''
-          ;
+              '';
           "/etc/modprobe.d/debian.conf".source = pkgs.kmod-debian-aliases;
 
           "/etc/os-release".source = config.boot.initrd.osRelease;
@@ -479,8 +472,7 @@ in
         // optionalAttrs (config.environment.etc ? "modprobe.d/nixos.conf") {
           "/etc/modprobe.d/nixos.conf".source =
             config.environment.etc."modprobe.d/nixos.conf".source;
-        }
-      ;
+        };
 
       storePaths =
         [

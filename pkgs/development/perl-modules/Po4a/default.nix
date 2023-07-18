@@ -50,8 +50,7 @@ buildPerlPackage rec {
     let
       kpsewhich-stub =
         writeShellScriptBin "kpsewhich"
-          ''[[ $1 = "article.cls" ]] && echo /dev/null''
-      ;
+          ''[[ $1 = "article.cls" ]] && echo /dev/null'';
     in
     [
       gettext
@@ -64,8 +63,7 @@ buildPerlPackage rec {
       opensp
       kpsewhich-stub
       glibcLocales
-    ]
-  ;
+    ];
   propagatedBuildInputs =
     lib.optional (!stdenv.hostPlatform.isMusl) TextWrapI18N
     ++ [
@@ -74,8 +72,7 @@ buildPerlPackage rec {
       UnicodeLineBreak
       PodParser
       YAMLTiny
-    ]
-  ;
+    ];
   # TODO: TermReadKey was temporarily removed from propagatedBuildInputs to unfreeze the build
   buildInputs = [ bash ];
   LC_ALL = "en_US.UTF-8";

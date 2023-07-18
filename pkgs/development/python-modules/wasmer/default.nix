@@ -83,8 +83,7 @@ let
         platforms = platforms.unix;
         maintainers = with maintainers; [ SuperSandro2000 ];
       };
-    }
-  ;
+    };
 in
 rec {
   wasmer = common {

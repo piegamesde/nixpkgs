@@ -12,8 +12,7 @@ import ./make-test-python.nix (
         {
           services.influxdb.enable = true;
           environment.systemPackages = [ pkgs.httpie ];
-        }
-      ;
+        };
     };
 
     testScript = ''

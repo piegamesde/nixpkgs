@@ -20,8 +20,7 @@ stdenv.mkDerivation rec {
 
   configureFlags =
     [ "--with-boost=${boost.dev}" ]
-    ++ lib.optionals (!doCheck) [ "--enable-unittest=no" ]
-  ;
+    ++ lib.optionals (!doCheck) [ "--enable-unittest=no" ];
 
   buildInputs =
     [
@@ -32,8 +31,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       libiconv
       darwin.apple_sdk.frameworks.CoreServices
-    ]
-  ;
+    ];
 
   doCheck = stdenv.isLinux && stdenv.is64bit;
   dontDisableStatic = doCheck;

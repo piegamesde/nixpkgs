@@ -116,8 +116,7 @@ stdenv.mkDerivation rec {
         jinja2
         ply
       ]
-    )
-  ;
+    );
 
   buildInputs =
     [
@@ -167,8 +166,7 @@ stdenv.mkDerivation rec {
       "-DINTERFACE_PYTHON=${enableIf pythonSupport}"
       "-DOpenCV=${enableIf opencvSupport}"
       "-DUSE_SVMLIGHT=${enableIf withSvmLight}"
-    ]
-  ;
+    ];
 
   CXXFLAGS = "-faligned-new";
 

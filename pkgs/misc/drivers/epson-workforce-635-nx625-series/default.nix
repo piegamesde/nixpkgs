@@ -73,8 +73,7 @@ stdenv.mkDerivation rec {
       done
       cp COPYING.EPSON README "${docdir}"
       cp -r resource watermark ${libdir} "$out"
-    ''
-  ;
+    '';
 
   meta = {
     description = "Proprietary CUPS drivers for Epson inkjet printers";

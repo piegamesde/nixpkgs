@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (!stdenv.hostPlatform.isMusl) [
       glibc
       glibc.static
-    ]
-  ;
+    ];
 
   # manpage requires building the vendored go-md2man
   makeFlags = [ "bin/conmon" ];

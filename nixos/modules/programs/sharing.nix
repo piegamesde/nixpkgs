@@ -21,6 +21,5 @@ with lib; {
     mkIf cfg.enable {
       environment.systemPackages = [ pkgs.sharing ];
       networking.firewall.allowedTCPPorts = [ 7478 ];
-    }
-  ;
+    };
 }

@@ -83,8 +83,7 @@ let
         [
           # Needed with GCC 12
           "-Wno-error=use-after-free"
-        ]
-    ;
+        ];
 
     makeFlags = [ "PREFIX=$(out)" ];
     buildPhase = ''

@@ -86,8 +86,7 @@ buildGoModule rec {
           setVars
       );
     in
-    [ "${varFlags}" ]
-  ;
+    [ "${varFlags}" ];
 
   preBuild = ''
     # Replace embedded envoy with nothing.

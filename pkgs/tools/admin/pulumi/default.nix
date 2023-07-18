@@ -108,8 +108,7 @@ buildGoModule rec {
           mkdir -p $out/bin
           makeWrapper ${pulumi}/bin/pulumi $out/bin/pulumi \
             --suffix PATH : ${lib.makeSearchPath "bin" (f pulumiPackages)}
-        ''
-    ;
+        '';
   };
 
   meta = with lib; {

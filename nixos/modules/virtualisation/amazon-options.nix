@@ -73,8 +73,7 @@ in
       let
         mountable =
           lib.filterAttrs (_: value: ((value.mount or null) != null))
-            config.ec2.zfs.datasets
-        ;
+            config.ec2.zfs.datasets;
       in
       lib.mapAttrs'
         (
@@ -84,7 +83,6 @@ in
             fsType = "zfs";
           }
         )
-        mountable
-    ;
+        mountable;
   };
 }

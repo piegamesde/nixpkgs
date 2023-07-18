@@ -16,8 +16,7 @@ import ./make-test-python.nix (
             PUFFER_PANEL_SETTINGS_COMPANYNAME = "NixOS";
           };
         };
-      }
-    ;
+      };
 
     testScript = ''
       import shlex

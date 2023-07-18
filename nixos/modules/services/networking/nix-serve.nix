@@ -102,8 +102,7 @@ in
         DynamicUser = true;
         LoadCredential =
           lib.optionalString (cfg.secretKeyFile != null)
-            "NIX_SECRET_KEY_FILE:${cfg.secretKeyFile}"
-        ;
+            "NIX_SECRET_KEY_FILE:${cfg.secretKeyFile}";
       };
     };
 

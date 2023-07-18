@@ -40,8 +40,7 @@ stdenv.mkDerivation rec {
       hunspell
       gamin
       boost
-    ]
-  ;
+    ];
   enableParallelBuilding = true;
   patches = [
     ./writable-projects.patch
@@ -146,8 +145,7 @@ stdenv.mkDerivation rec {
   preConfigure = "substituteInPlace ./configure --replace /usr/bin/file ${file}/bin/file";
   postConfigure =
     lib.optionalString stdenv.isLinux
-      "substituteInPlace libtool --replace ldconfig ${stdenv.cc.libc.bin}/bin/ldconfig"
-  ;
+      "substituteInPlace libtool --replace ldconfig ${stdenv.cc.libc.bin}/bin/ldconfig";
   configureFlags =
     [ "--enable-pch=no" ]
     ++ lib.optionals contribPlugins [
@@ -156,8 +154,7 @@ stdenv.mkDerivation rec {
         + lib.optionalString stdenv.isDarwin "=all,-FileManager,-NassiShneiderman"
       )
       "--with-boost-libdir=${boost}/lib"
-    ]
-  ;
+    ];
   postInstall = lib.optionalString stdenv.isDarwin ''
     ln -s $out/lib/codeblocks/plugins $out/share/codeblocks/plugins
   '';

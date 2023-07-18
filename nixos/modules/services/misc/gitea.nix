@@ -221,8 +221,7 @@ in
         type = types.bool;
         description =
           lib.mdDoc
-            "Do not generate a configuration and use gitea' installation wizard instead. The first registered user will be administrator."
-        ;
+            "Do not generate a configuration and use gitea' installation wizard instead. The first registered user will be administrator.";
       };
 
       stateDir = mkOption {
@@ -237,8 +236,7 @@ in
         type = types.str;
         description =
           lib.mdDoc
-            "Gitea custom directory. Used for config, custom templates and other options."
-        ;
+            "Gitea custom directory. Used for config, custom templates and other options.";
       };
 
       user = mkOption {
@@ -328,8 +326,7 @@ in
           example = "/run/mysqld/mysqld.sock";
           description =
             lib.mdDoc
-              "Path to the unix socket file to use for authentication."
-          ;
+              "Path to the unix socket file to use for authentication.";
         };
 
         path = mkOption {
@@ -397,8 +394,7 @@ in
           default = null;
           description =
             lib.mdDoc
-              "Filename to be used for the dump. If `null` a default name is chosen by gitea."
-          ;
+              "Filename to be used for the dump. If `null` a default name is chosen by gitea.";
           example = "gitea-dump";
         };
       };
@@ -498,8 +494,7 @@ in
                 default = "http";
                 description =
                   lib.mdDoc
-                    ''Listen protocol. `+unix` means "over unix", not "in addition to."''
-                ;
+                    ''Listen protocol. `+unix` means "over unix", not "in addition to."'';
               };
 
               HTTP_ADDR = mkOption {
@@ -513,12 +508,10 @@ in
                 defaultText =
                   literalExpression
                     ''
-                      if lib.hasSuffix "+unix" cfg.settings.server.PROTOCOL then "/run/gitea/gitea.sock" else "0.0.0.0"''
-                ;
+                      if lib.hasSuffix "+unix" cfg.settings.server.PROTOCOL then "/run/gitea/gitea.sock" else "0.0.0.0"'';
                 description =
                   lib.mdDoc
-                    "Listen address. Must be a path when using a unix socket."
-                ;
+                    "Listen address. Must be a path when using a unix socket.";
               };
 
               HTTP_PORT = mkOption {
@@ -541,8 +534,7 @@ in
                 defaultText =
                   literalExpression
                     ''
-                      "http://''${config.services.gitea.settings.server.DOMAIN}:''${toString config.services.gitea.settings.server.HTTP_PORT}/"''
-                ;
+                      "http://''${config.services.gitea.settings.server.DOMAIN}:''${toString config.services.gitea.settings.server.HTTP_PORT}/"'';
                 description = lib.mdDoc "Full public URL of gitea server.";
               };
 
@@ -605,8 +597,7 @@ in
         default = null;
         description =
           lib.mdDoc
-            "Configuration lines appended to the generated gitea configuration file."
-        ;
+            "Configuration lines appended to the generated gitea configuration file.";
       };
     };
   };
@@ -678,8 +669,7 @@ in
               "DATABASE ${cfg.database.name}" = "ALL PRIVILEGES";
             };
           } ];
-        }
-    ;
+        };
 
     services.mysql = optionalAttrs (useMysql && cfg.database.createDatabase) {
       enable = mkDefault true;
@@ -725,8 +715,7 @@ in
         "d '${cfg.lfs.contentDir}' 0750 ${cfg.user} ${cfg.group} - -"
         "z '${cfg.lfs.contentDir}' 0750 ${cfg.user} ${cfg.group} - -"
         "Z '${cfg.lfs.contentDir}' - ${cfg.user} ${cfg.group} - -"
-      ]
-    ;
+      ];
 
     systemd.services.gitea = {
       description = "gitea";
@@ -823,8 +812,7 @@ in
           then
             ${exe} admin regenerate keys
           fi
-        ''
-      ;
+        '';
 
       serviceConfig = {
         Type = "simple";

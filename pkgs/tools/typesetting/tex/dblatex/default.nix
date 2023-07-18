@@ -72,8 +72,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals enableAllFeatures [
       imagemagick
       fig2dev
-    ]
-  ;
+    ];
 
   # TODO: dblatex tries to execute texindy command, but nixpkgs doesn't have
   # that yet. In Ubuntu, texindy is a part of the xindy package.

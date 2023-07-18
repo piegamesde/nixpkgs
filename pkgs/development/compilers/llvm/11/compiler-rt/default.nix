@@ -28,8 +28,7 @@ stdenv.mkDerivation {
   inherit version;
   src =
     fetch "compiler-rt"
-      "0x1j8ngf1zj63wlnns9vlibafq48qcm72p4jpaxkmkb4qw0grwfy"
-  ;
+      "0x1j8ngf1zj63wlnns9vlibafq48qcm72p4jpaxkmkb4qw0grwfy";
 
   nativeBuildInputs = [
     cmake
@@ -175,7 +174,9 @@ stdenv.mkDerivation {
     # compiler-rt requires a Clang stdenv on 32-bit RISC-V:
     # https://reviews.llvm.org/D43106#1019077
     broken =
-      stdenv.hostPlatform.isRiscV && stdenv.hostPlatform.is32bit && !stdenv.cc.isClang
+      stdenv.hostPlatform.isRiscV
+      && stdenv.hostPlatform.is32bit
+      && !stdenv.cc.isClang
     ;
   };
 }

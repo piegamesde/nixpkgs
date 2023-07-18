@@ -59,8 +59,7 @@ stdenv.mkDerivation rec {
       wayland
       libffi
       libGL
-    ]
-  ;
+    ];
   # TODO: share libs between minimal and !minimal - perhaps just symlink them
 
   mesonFlags =

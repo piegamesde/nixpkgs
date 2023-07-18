@@ -44,8 +44,7 @@ let
             out = "3.8";
           }
         ]
-        null
-    ;
+        null;
 
     release = {
       "3.8".sha256 = "1gzlyxvw64ca12qql3wnq3bidcx9ygsklv9grjma3ib4hvg7vnr7";
@@ -220,7 +219,6 @@ compcert.overrideAttrs (
             ];
           }
         ]
-        [ ]
-    ;
+        [ ];
   }
 )

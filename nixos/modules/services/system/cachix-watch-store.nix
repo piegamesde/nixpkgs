@@ -37,8 +37,7 @@ in
       type = types.nullOr types.int;
       description =
         lib.mdDoc
-          "The compression level for ZSTD compression (between 0 and 16)"
-      ;
+          "The compression level for ZSTD compression (between 0 and 16)";
       default = null;
     };
 
@@ -111,8 +110,7 @@ in
         ''
           export CACHIX_AUTH_TOKEN="$(<"$CREDENTIALS_DIRECTORY/cachix-token")"
           ${lib.escapeShellArgs command}
-        ''
-      ;
+        '';
     };
   };
 }

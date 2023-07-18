@@ -112,8 +112,7 @@ stdenv.mkDerivation rec {
       name = fileName;
       url = "https://cef-builds.spotifycdn.com/${urlName}.tar.bz2";
       hash = "sha256-0PAWWBR+9TO8hhejydWz8R6Df3d9A/Mb0VL8stlPz5Q=";
-    }
-  ;
+    };
   clang-fmt = fetchurl {
     url = "https://storage.googleapis.com/chromium-clang-format/942fc8b1789144b8071d3fc03ff0fcbe1cf81ac8";
     hash = "sha256-5iAU49tQmLS7zkS+6iGT+6SEdERRo1RkyRpiRvc9nVY=";

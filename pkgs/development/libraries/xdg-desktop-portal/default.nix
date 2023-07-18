@@ -84,8 +84,7 @@ stdenv.mkDerivation (
 
     configureFlags =
       [ "--enable-installed-tests" ]
-      ++ lib.optionals (!enableGeoLocation) [ "--disable-geoclue" ]
-    ;
+      ++ lib.optionals (!enableGeoLocation) [ "--disable-geoclue" ];
 
     makeFlags = [
       "installed_testdir=${

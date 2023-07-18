@@ -95,8 +95,7 @@ with lib; {
               };
             };
           };
-        }
-      ;
+        };
       default = { };
       example = literalExpression ''
         {

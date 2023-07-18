@@ -158,8 +158,7 @@ stdenv.mkDerivation rec {
       runHook preCheck
       ctest --output-on-failure -E '^${lib.concatStringsSep "|" disabledTests}$'
       runHook postCheck
-    ''
-  ;
+    '';
 
   # Use Zyn-Fusion logo for zest build
   # An SVG version of the logo isn't hosted anywhere we can fetch, I

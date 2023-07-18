@@ -45,8 +45,7 @@ stdenv.mkDerivation rec {
       ant createJPackage -Dmachine.arch=${arch}
 
       runHook postBuild
-    ''
-  ;
+    '';
 
   desktopItem = makeDesktopItem rec {
     name = "HDFView";

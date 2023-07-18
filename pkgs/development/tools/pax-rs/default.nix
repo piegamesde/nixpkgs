@@ -40,8 +40,7 @@ rustPlatform.buildRustPackage rec {
       cp -R ${source} $out
       chmod +w $out
       cp ${cargo-lock} $out/Cargo.lock
-    ''
-  ;
+    '';
 
   cargoSha256 = "0d6g52hjflnw2zvlx10pz78527vh7mw5n43yi8q6dwr3pkbds1fs";
 }

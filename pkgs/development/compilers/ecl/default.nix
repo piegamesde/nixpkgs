@@ -46,8 +46,7 @@ stdenv.mkDerivation rec {
       [
         # replaces ecl's own gc which other packages can depend on, thus propagated
         boehmgc
-      ]
-  ;
+      ];
 
   patches =
     [

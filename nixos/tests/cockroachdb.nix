@@ -102,8 +102,7 @@ let
       systemd.services.cockroachdb.preStart = ''
         ${pkgs.chrony}/bin/chronyc waitsync
       '';
-    }
-  ;
+    };
 in
 import ./make-test-python.nix (
   { pkgs, ... }:

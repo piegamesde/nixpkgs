@@ -46,8 +46,7 @@
                       "provides"
                       "setupHook"
                     ]
-                    false
-                ;
+                    false;
                 valid =
                   value:
                   pythonPackages.hasPythonModule value
@@ -70,8 +69,7 @@
                     value
                 ;
               in
-              lib.mapAttrs func items
-            ;
+              lib.mapAttrs func items;
           in
           ensurePythonModules (
             callPackage
@@ -114,8 +112,7 @@
                     self: super:
                     lib.optionalAttrs config.allowAliases (
                       import ../../../top-level/python-aliases.nix lib self super
-                    )
-                  ;
+                    );
                 in
                 makeScopeWithSplicing otherSplices keep extra (
                   lib.extends (lib.composeExtensions aliases extensions) keep
@@ -125,8 +122,7 @@
                 overrides = packageOverrides;
                 python = self;
               }
-          )
-        ;
+          );
       in
       rec {
         isPy27 = pythonVersion == "2.7";
@@ -169,8 +165,7 @@
         tests = callPackage ./tests.nix { python = self; };
 
         inherit pythonAttr;
-      }
-    ;
+      };
 
     sources = {
       python310 = {
@@ -301,8 +296,7 @@
             strictDeps = true;
             pname = "python3-minimal";
           }
-        )
-    ;
+        );
 
     pypy27 = callPackage ./pypy {
       self = __splicedPackages.pypy27;
@@ -346,8 +340,7 @@
 
     pypy37 =
       throw
-        "pypy37 has been removed from nixpkgs since it is no longer supported upstream"
-    ; # Added 2023-01-04
+        "pypy37 has been removed from nixpkgs since it is no longer supported upstream"; # Added 2023-01-04
 
     pypy27_prebuilt = callPackage ./pypy/prebuilt_2_7.nix {
       # Not included at top-level

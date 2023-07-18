@@ -274,8 +274,7 @@ let
           for i in $out/libexec/zfs/zpool.d/*; do
             sed -i '2i${path}' $i
           done
-        ''
-      ;
+        '';
 
       outputs = [ "out" ] ++ optionals buildUser [ "dev" ];
 
@@ -315,8 +314,7 @@ let
         # On NixOS set the option boot.zfs.enableUnstable.
         broken = buildKernel && (kernelCompatible != null) && !kernelCompatible;
       };
-    }
-  ;
+    };
 in
 {
   # also check if kernel version constraints in

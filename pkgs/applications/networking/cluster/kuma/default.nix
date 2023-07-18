@@ -63,8 +63,7 @@ buildGoModule rec {
       "-X ${prefix}.gitTag=${version}"
       "-X ${prefix}.gitCommit=${version}"
       "-X ${prefix}.buildDate=${version}"
-    ]
-  ;
+    ];
 
   meta = with lib; {
     description = "Service mesh controller";

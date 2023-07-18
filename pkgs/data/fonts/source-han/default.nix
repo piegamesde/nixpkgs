@@ -57,8 +57,7 @@ let
           emily
         ];
       };
-    }
-  ;
+    };
 in
 {
   sans = makePackage {

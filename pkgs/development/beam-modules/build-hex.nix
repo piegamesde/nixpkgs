@@ -26,7 +26,6 @@ let
           inherit sha256;
         };
       }
-    )
-  ;
+    );
 in
 lib.fix pkg

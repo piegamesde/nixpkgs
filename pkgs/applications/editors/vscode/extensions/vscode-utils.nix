@@ -63,8 +63,7 @@ let
           runHook postInstall
         '';
       }
-    )
-  ;
+    );
 
   fetchVsixFromVscodeMarketplace =
     mktplcExtRef: fetchurl (import ./mktplcExtRefToFetchArgs.nix mktplcExtRef);
@@ -92,8 +91,7 @@ let
         vscodeExtName = mktplcRef.name;
         vscodeExtUniqueId = "${mktplcRef.publisher}.${mktplcRef.name}";
       }
-    )
-  ;
+    );
 
   mktplcRefAttrList = [
     "name"
@@ -110,11 +108,9 @@ let
       // {
         mktplcRef =
           builtins.intersectAttrs (lib.genAttrs mktplcRefAttrList (_: null))
-            ext
-        ;
+            ext;
       }
-    )
-  ;
+    );
 
   extensionFromVscodeMarketplace = mktplcExtRefToExtDrv;
   extensionsFromVscodeMarketplace =

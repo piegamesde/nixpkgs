@@ -13,8 +13,7 @@ let
     in
     unique (
       [ lua ] ++ modules ++ concatLists (catAttrs "requiredLuaModules" modules)
-    )
-  ;
+    );
   # Check whether a derivation provides a lua module.
   hasLuaModule = drv: drv ? luaModule;
 
@@ -87,8 +86,7 @@ rec {
           requiredLuaModules = requiredLuaModules drv.propagatedBuildInputs;
         };
       }
-    )
-  ;
+    );
 
   /* generate luarocks config
 
@@ -113,8 +111,7 @@ rec {
             root = "${dep}";
             rocks_dir = "${dep}/${dep.rocksSubdir}";
           })
-          requiredLuaRocks
-      ;
+          requiredLuaRocks;
 
       # Explicitly point luarocks to the relevant locations for multiple-output
       # derivations that are external dependencies, to work around an issue it has
@@ -175,6 +172,5 @@ rec {
         # as per https://github.com/luarocks/luarocks/issues/766
         variables = (depVariables // extraVariables);
       }
-    )
-  ;
+    );
 }

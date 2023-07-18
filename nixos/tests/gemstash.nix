@@ -23,8 +23,7 @@ in
         services.gemstash = {
           enable = true;
         };
-      }
-    ;
+      };
 
     # gemstash responds to http requests
     testScript = ''
@@ -49,8 +48,7 @@ in
             bind = "tcp://0.0.0.0:12345";
           };
         };
-      }
-    ;
+      };
 
     # gemstash responds to http requests
     testScript = ''

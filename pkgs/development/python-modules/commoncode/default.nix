@@ -69,16 +69,14 @@ buildPythonPackage rec {
         # expected result is tailored towards the quirks of upstream's
         # CI environment on darwin
         "test_searchable_paths"
-      ]
-  ;
+      ];
 
   disabledTestPaths =
     lib.optionals (pythonAtLeast "3.10")
       [
         # https://github.com/nexB/commoncode/issues/36
         "src/commoncode/fetch.py"
-      ]
-  ;
+      ];
 
   pythonImportsCheck = [ "commoncode" ];
 

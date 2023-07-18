@@ -39,8 +39,7 @@ lib.recurseIntoAttrs {
             pkgs.proof-of-overlay-hello
             figlet
           ];
-        }
-      ;
+        };
       testScript = ''
         machine.succeed("hello | figlet >/dev/console")
       '';
@@ -75,8 +74,7 @@ lib.recurseIntoAttrs {
           [[ 3 = $(cat $failed/testBuildFailure.exit) ]]
 
           touch $out
-        ''
-    ;
+        '';
 
     helloDoesNotFail =
       runCommand "testBuildFailure-helloDoesNotFail"
@@ -93,8 +91,7 @@ lib.recurseIntoAttrs {
           [[ 1 = $(cat $failed/testBuildFailure.exit) ]]
           touch $out
           echo 'All good.'
-        ''
-    ;
+        '';
 
     multiOutput =
       runCommand "testBuildFailure-multiOutput"
@@ -123,8 +120,7 @@ lib.recurseIntoAttrs {
           echo $failed/_ | grep -- '-dev/_' >/dev/null
           echo 'All good.'
           touch $out
-        ''
-    ;
+        '';
   };
 
   testEqualContents = lib.recurseIntoAttrs {
@@ -181,8 +177,7 @@ lib.recurseIntoAttrs {
           }
           echo 'All good.'
           touch $out
-        ''
-    ;
+        '';
 
     fileDiff =
       runCommand "testEqualContents-fileDiff"
@@ -219,8 +214,7 @@ lib.recurseIntoAttrs {
           }
           echo 'All good.'
           touch $out
-        ''
-    ;
+        '';
 
     fileMissing =
       runCommand "testEqualContents-fileMissing"
@@ -253,7 +247,6 @@ lib.recurseIntoAttrs {
           }
           echo 'All good.'
           touch $out
-        ''
-    ;
+        '';
   };
 }

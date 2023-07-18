@@ -77,8 +77,7 @@ in
     tcp_port = mkOption {
       description =
         lib.mdDoc
-          "Elasticsearch port for the node to node communication."
-      ;
+          "Elasticsearch port for the node to node communication.";
       default = 9300;
       type = types.int;
     };
@@ -86,8 +85,7 @@ in
     cluster_name = mkOption {
       description =
         lib.mdDoc
-          "Elasticsearch name that identifies your cluster for auto-discovery."
-      ;
+          "Elasticsearch name that identifies your cluster for auto-discovery.";
       default = "elasticsearch";
       type = types.str;
     };
@@ -137,8 +135,7 @@ in
     extraCmdLineOptions = mkOption {
       description =
         lib.mdDoc
-          "Extra command line options for the elasticsearch launcher."
-      ;
+          "Extra command line options for the elasticsearch launcher.";
       default = [ ];
       type = types.listOf types.str;
     };

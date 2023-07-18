@@ -114,8 +114,7 @@ in
               name = "flannel-client";
             } ];
           };
-        }
-    ;
+        };
   };
 
   meta.buildDocsInSandbox = false;

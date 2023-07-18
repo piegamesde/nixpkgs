@@ -54,8 +54,7 @@ buildPythonPackage rec {
         cargo
         rustc
       ]
-    )
-  ;
+    );
 
   propagatedBuildInputs = [
     arc4

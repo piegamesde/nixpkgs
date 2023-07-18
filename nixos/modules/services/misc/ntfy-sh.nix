@@ -106,6 +106,5 @@ in
           group = cfg.group;
         };
       };
-    }
-  ;
+    };
 }

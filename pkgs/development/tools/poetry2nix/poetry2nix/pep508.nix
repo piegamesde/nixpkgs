@@ -12,8 +12,7 @@ let
   # Like builtins.substring but with stop being offset instead of length
   substr =
     start: stop: s:
-    builtins.substring start (stop - start) s
-  ;
+    builtins.substring start (stop - start) s;
 
   # Strip leading/trailing whitespace from string
   stripStr =
@@ -52,8 +51,7 @@ let
         )
       else
         acc // { pos = acc.pos + 1; }
-    )
-  ;
+    );
 
   # Make a tree out of expression groups (parens)
   findSubExpressions =
@@ -70,13 +68,11 @@ let
             exprPos = 0;
             startPos = 0;
           }
-          (lib.stringToCharacters expr)
-      ;
+          (lib.stringToCharacters expr);
       tailExpr = (substr acc.exprPos acc.pos expr);
       tailExprs = if tailExpr != "" then [ tailExpr ] else [ ];
     in
-    acc.exprs ++ tailExprs
-  ;
+    acc.exprs ++ tailExprs;
   parseExpressions =
     exprs:
     let
@@ -107,8 +103,7 @@ let
               type = "expr";
               value = expr;
             }
-        )
-      ;
+        );
       parse =
         expr: builtins.filter (x: x != null) (builtins.map mapfn (splitCond expr));
     in
@@ -119,8 +114,7 @@ let
         ++ (if builtins.typeOf v == "string" then parse v else [ (parseExpressions v) ])
       )
       [ ]
-      exprs
-  ;
+      exprs;
 
   # Transform individual expressions to structured expressions
   # This function also performs variable substitution, replacing environment markers with their explicit values
@@ -150,8 +144,7 @@ let
               "PyPy"
             else
               throw "Unsupported implementation ${impl}"
-          )
-        ;
+          );
         platform_release = ""; # Field not reproducible
         platform_system =
           (
@@ -181,8 +174,7 @@ let
         builtins.foldl' (acc: v: v acc) value [
           stripStr
           substituteVar
-        ]
-      ;
+        ];
     in
     if builtins.typeOf exprs == "set" then
       (
@@ -232,14 +224,12 @@ let
             false
           else
             builtins.fromJSON v
-        )
-      ;
+        );
       hasElem =
         needle: haystack:
         builtins.elem needle (
           builtins.filter (x: builtins.typeOf x == "string") (builtins.split " " haystack)
-        )
-      ;
+        );
       op = {
         "true" = x: y: true;
         "<=" = x: y: op.">=" y x;
@@ -260,8 +250,7 @@ let
               ireplace (builtins.length pruned - 1) upper pruned
             );
           in
-          op.">=" v c && op."<" v upperConstraint
-        ;
+          op.">=" v c && op."<" v upperConstraint;
         "===" = x: y: x == y;
         "in" =
           x: y:
@@ -270,8 +259,7 @@ let
               builtins.split " " (unmarshal y)
             );
           in
-          builtins.elem (unmarshal x) values
-        ;
+          builtins.elem (unmarshal x) values;
       };
     in
     if builtins.typeOf exprs == "set" then
@@ -325,15 +313,13 @@ let
                       value = true;
                       cond = "and";
                     }
-                    v
-                ;
+                    v;
               in
               acc // { value = cond."${acc.cond}" acc.value ret.value; }
             )
           else
             throw "Unsupported type"
-        )
-      ;
+        );
     in
     (builtins.foldl' reduceExpressionsFun
       {
@@ -341,8 +327,7 @@ let
         cond = "and";
       }
       exprs
-    ).value
-  ;
+    ).value;
 in
 e:
 builtins.foldl' (acc: v: v acc) e [

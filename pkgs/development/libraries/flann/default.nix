@@ -46,8 +46,7 @@ stdenv.mkDerivation rec {
         url = "https://github.com/flann-lib/flann/commit/25eb56ec78472bd419a121c6905095a793cf8992.patch";
         sha256 = "qt8h576Gn8uR7+T9u9bEBIRz6e6AoTKpa1JfdZVvW9s=";
       })
-    ]
-  ;
+    ];
 
   cmakeFlags = [
     "-DBUILD_EXAMPLES:BOOL=OFF"

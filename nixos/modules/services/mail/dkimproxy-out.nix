@@ -119,8 +119,7 @@ in
           PermissionsStartOnly = true;
         };
       };
-    }
-  ;
+    };
 
   meta.maintainers = with lib.maintainers; [ ekleog ];
 }

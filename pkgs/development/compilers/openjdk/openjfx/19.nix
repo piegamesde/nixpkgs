@@ -104,8 +104,7 @@ let
         '';
       }
       // args
-    )
-  ;
+    );
 
   # Fake build to pre-download deps into fixed-output derivation.
   # We run nearly full build because I see no other way to download everything that's needed.

@@ -38,8 +38,7 @@ stdenv.mkDerivation rec {
         TaskFreecellSolverTesting
         TemplateToolkit
       ]
-    )
-  ;
+    );
 
   buildInputs = [
     gmp

@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       Carbon
       CoreServices
-    ]
-  ;
+    ];
 
   meta = with lib; {
     description = "Multiplayer 3D Tank game";

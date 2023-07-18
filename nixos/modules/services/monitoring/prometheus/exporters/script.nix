@@ -40,8 +40,7 @@ in
               };
             };
           }
-        )
-      ;
+        );
       example = literalExpression ''
         {
           scripts = [

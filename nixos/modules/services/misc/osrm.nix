@@ -46,8 +46,7 @@ in
       default = "MLD";
       description =
         lib.mdDoc
-          "Algorithm to use for the data. Must be one of CH, CoreCH, MLD"
-      ;
+          "Algorithm to use for the data. Must be one of CH, CoreCH, MLD";
     };
 
     extraFlags = mkOption {

@@ -23,7 +23,8 @@ let
 
       # This is important to obtain a version of `libpq` that does not depend on systemd.
       enableSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd
-        && !stdenv.hostPlatform.isStatic,
+        && !stdenv.hostPlatform.isStatic
+      ,
       gssSupport ? with stdenv.hostPlatform; !isWindows && !isStatic,
 
       # for postgresql.pkgs
@@ -107,8 +108,7 @@ let
           llvmPackages.llvm.dev
           nukeReferences
           patchelf
-        ]
-      ;
+        ];
 
       enableParallelBuilding = !stdenv'.isDarwin;
 
@@ -155,8 +155,7 @@ let
             else
               ./patches/socketdir-in-run.patch
           )
-        ]
-      ;
+        ];
 
       installTargets = [ "install-world" ];
 
@@ -231,8 +230,7 @@ let
           ''
             # initdb needs access to "locale" command from glibc.
             wrapProgram $out/bin/initdb --prefix PATH ":" ${glibc.bin}/bin
-          ''
-      ;
+          '';
 
       doCheck = !stdenv'.isDarwin;
       # autodetection doesn't seem to able to find this, but it's there.
@@ -288,8 +286,7 @@ let
                 callPackage = newScope (scope // this.pkgs);
               };
             in
-            import ./packages.nix newSelf newSuper
-          ;
+            import ./packages.nix newSelf newSuper;
 
           withPackages =
             postgresqlWithPackages
@@ -297,8 +294,7 @@ let
                 inherit makeWrapper buildEnv;
                 postgresql = this;
               }
-              this.pkgs
-          ;
+              this.pkgs;
 
           tests =
             {
@@ -306,8 +302,7 @@ let
             }
             // lib.optionalAttrs jitSupport {
               postgresql-jit = nixosTests.postgresql-jit.${thisAttr};
-            }
-          ;
+            };
         }
         // lib.optionalAttrs jitSupport { inherit (llvmPackages) llvm; }
       ;
@@ -338,8 +333,7 @@ let
         # a query, postgres would coredump with `Illegal instruction`.
         broken = jitSupport && (stdenv.hostPlatform != stdenv.buildPlatform);
       };
-    }
-  ;
+    };
 
   postgresqlWithPackages =
     {
@@ -377,8 +371,7 @@ let
 
       passthru.version = postgresql.version;
       passthru.psqlSchema = postgresql.psqlSchema;
-    }
-  ;
+    };
 
   mkPackages = self: {
     postgresql_11 = self.callPackage generic {

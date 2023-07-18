@@ -19,7 +19,8 @@
   else if stdenv.cc.isGNU then
     "gcc"
   else
-    null,
+    null
+  ,
   enableRelease ? true,
   enableDebug ? false,
   enableSingleThreaded ? false,
@@ -57,7 +58,8 @@ assert with lib;
   (
     stdenv.isLinux && toolset == "clang" && versionAtLeast stdenv.cc.version "8.0.0"
   )
-  -> versionAtLeast version "1.69";
+  -> versionAtLeast version "1.69"
+;
 
 let
 
@@ -297,8 +299,7 @@ stdenv.mkDerivation {
 
   NIX_CFLAGS_LINK =
     lib.optionalString stdenv.isDarwin
-      "-headerpad_max_install_names"
-  ;
+      "-headerpad_max_install_names";
 
   enableParallelBuilding = true;
 

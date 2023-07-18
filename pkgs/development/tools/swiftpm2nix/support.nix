@@ -22,10 +22,8 @@ rec {
             repositoryURL = dep.packageRef.location;
             state = dep.state.checkoutState;
           })
-          workspaceState.object.dependencies
-      ;
-    }
-  ;
+          workspaceState.object.dependencies;
+    };
 
   # Make packaging helpers from swiftpm2nix generated output.
   helpers =
@@ -77,6 +75,5 @@ rec {
           }
         ''
       ;
-    }
-  ;
+    };
 }

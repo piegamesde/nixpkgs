@@ -38,8 +38,7 @@ stdenv.mkDerivation rec {
   dontAddWafCrossFlags = true;
   wafFlags =
     lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
-      "--disable-tests"
-  ;
+      "--disable-tests";
 
   meta = with lib; {
     description = "Library for audio labelling";

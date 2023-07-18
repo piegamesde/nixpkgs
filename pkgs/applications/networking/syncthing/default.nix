@@ -39,8 +39,7 @@ let
             # the binaries on both architectures to make it possible for launchd to
             # auto-start Syncthing at login.
             autoSignDarwinBinariesHook
-          ]
-      ;
+          ];
 
       doCheck = false;
 
@@ -83,8 +82,7 @@ let
         mainProgram = target;
         platforms = platforms.unix;
       };
-    }
-  ;
+    };
 in
 {
   syncthing = common {

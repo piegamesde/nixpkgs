@@ -150,8 +150,7 @@ in
         (atopacctService false)
         (netatop false)
         (atopgpu false)
-      ]
-    ;
+      ];
   };
   defaults = makeTest {
     name = "atop-defaults";
@@ -171,8 +170,7 @@ in
         (atopacctService true)
         (netatop false)
         (atopgpu false)
-      ]
-    ;
+      ];
   };
   minimal = makeTest {
     name = "atop-minimal";
@@ -195,8 +193,7 @@ in
         (atopacctService false)
         (netatop false)
         (atopgpu false)
-      ]
-    ;
+      ];
   };
   netatop = makeTest {
     name = "atop-netatop";
@@ -217,8 +214,7 @@ in
         (atopacctService true)
         (netatop true)
         (atopgpu false)
-      ]
-    ;
+      ];
   };
   atopgpu = makeTest {
     name = "atop-atopgpu";
@@ -239,8 +235,7 @@ in
         (atopacctService true)
         (netatop false)
         (atopgpu true)
-      ]
-    ;
+      ];
   };
   everything = makeTest {
     name = "atop-everthing";
@@ -267,7 +262,6 @@ in
         (atopacctService true)
         (netatop true)
         (atopgpu true)
-      ]
-    ;
+      ];
   };
 }

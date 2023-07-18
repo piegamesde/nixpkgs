@@ -61,8 +61,7 @@ let
         #  Including pkg-config in build inputs would also have the same effect!
       ])
       (builtins.attrNames sharedLibDeps)
-    ++ [ "--with-intl=system-icu" ]
-  ;
+    ++ [ "--with-intl=system-icu" ];
 
   copyLibHeaders = map (name: "${lib.getDev sharedLibDeps.${name}}/include/*") (
     builtins.attrNames sharedLibDeps
@@ -97,8 +96,7 @@ let
         openssl
         http-parser
         icu
-      ]
-    ;
+      ];
 
     nativeBuildInputs = [
       which
@@ -241,7 +239,8 @@ let
           cat files | while read -r file; do
             ar -cqS $libv8/lib/libv8.a $file
           done
-        ''}
+        ''
+      }
       popd
 
       # copy v8 headers
@@ -292,8 +291,7 @@ let
       mainProgram = "node";
       knownVulnerabilities =
         optional (versionOlder version "14")
-          "This NodeJS release has reached its end of life. See https://nodejs.org/en/about/releases/."
-      ;
+          "This NodeJS release has reached its end of life. See https://nodejs.org/en/about/releases/.";
     };
 
     passthru.python = python; # to ensure nodeEnv uses the same version

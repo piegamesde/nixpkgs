@@ -44,8 +44,7 @@ let
         "poetry"
         "poetry-core"
       ]
-      knownBuildSystems
-  ;
+      knownBuildSystems;
 
   mkInputAttrs =
     {
@@ -79,8 +78,7 @@ let
             if isCompat then pkg else null
           )
           depAttrs
-        )
-      ;
+        );
 
       buildSystemPkgs = poetryLib.getBuildSystemPkgs {
         inherit pyProject;
@@ -131,8 +129,7 @@ let
       nativeBuildInputs = mkInput "nativeBuildInputs" [ ];
       checkInputs = mkInput "checkInputs" checkInputs';
       nativeCheckInputs = mkInput "nativeCheckInputs" checkInputs';
-    }
-  ;
+    };
 in
 lib.makeScope pkgs.newScope (
   self: {
@@ -163,8 +160,7 @@ lib.makeScope pkgs.newScope (
           poetryLib
           editablePackageSources
         ;
-      }
-    ;
+      };
 
     # Returns a package containing scripts defined in tool.poetry.scripts.
     mkPoetryScriptsPackage =
@@ -176,8 +172,7 @@ lib.makeScope pkgs.newScope (
         scripts ? pyProject.tool.poetry.scripts,
       }:
       assert scripts != { };
-      import ./shell-scripts.nix { inherit lib python scripts; }
-    ;
+      import ./shell-scripts.nix { inherit lib python scripts; };
 
     # Returns an attrset { python, poetryPackages, pyProject, poetryLock } for the given pyproject/lockfile.
     mkPoetryPackages =
@@ -220,8 +215,7 @@ lib.makeScope pkgs.newScope (
 
         editablePackageSources' =
           lib.filterAttrs (name: path: path != null)
-            editablePackageSources
-        ;
+            editablePackageSources;
         hasEditable = editablePackageSources' != { };
         editablePackage = self.mkPoetryEditablePackage {
           inherit pyProject python;
@@ -239,8 +233,7 @@ lib.makeScope pkgs.newScope (
                   "metadata"
                   "files"
                 ]
-                poetryLock
-            ;
+                poetryLock;
           in
           lib.listToAttrs (
             lib.mapAttrsToList
@@ -249,8 +242,7 @@ lib.makeScope pkgs.newScope (
                 value = v;
               })
               lockfiles
-          )
-        ;
+          );
 
         evalPep508 = mkEvalPep508 python;
 
@@ -265,8 +257,7 @@ lib.makeScope pkgs.newScope (
                 true && isCompatible (poetryLib.getPythonVersion python) pkgMeta.python-versions
             ;
           in
-          lib.partition supportsPythonVersion poetryLock.package
-        ;
+          lib.partition supportsPythonVersion poetryLock.package;
         compatible = partitions.right;
         incompatible = partitions.wrong;
 
@@ -446,8 +437,7 @@ lib.makeScope pkgs.newScope (
         ;
         poetryLock = poetryLock;
         inherit pyProject;
-      }
-    ;
+      };
 
     /* Returns a package with a python interpreter and all packages specified in the poetry.lock lock file.
        In editablePackageSources you can pass a mapping from package name to source directory to have
@@ -480,13 +470,11 @@ lib.makeScope pkgs.newScope (
           set:
           lib.mapAttrs (name: value: projectDir + "/${value.path}") (
             lib.filterAttrs (name: dep: dep.develop or false && hasAttr "path" dep) set
-          )
-        ;
+          );
 
         excludedEditablePackageNames =
           builtins.filter (pkg: editablePackageSources."${pkg}" == null)
-            (builtins.attrNames editablePackageSources)
-        ;
+            (builtins.attrNames editablePackageSources);
 
         allEditablePackageSources =
           (
@@ -507,8 +495,7 @@ lib.makeScope pkgs.newScope (
 
         editablePackageSources' =
           builtins.removeAttrs allEditablePackageSources
-            excludedEditablePackageNames
-        ;
+            excludedEditablePackageNames;
 
         poetryPython = self.mkPoetryPackages {
           inherit
@@ -531,11 +518,9 @@ lib.makeScope pkgs.newScope (
         editableAttrs = lib.attrNames editablePackageSources';
         envPkgs =
           builtins.filter (drv: !lib.elem (drv.pname or drv.name or "") editableAttrs)
-            poetryPackages
-        ;
+            poetryPackages;
       in
-      poetryPython.python.withPackages (ps: envPkgs ++ (extraPackages ps))
-    ;
+      poetryPython.python.withPackages (ps: envPkgs ++ (extraPackages ps));
 
     /* Creates a Python application from pyproject.toml and poetry.lock
 
@@ -639,8 +624,7 @@ lib.makeScope pkgs.newScope (
                   in
                   py.buildEnv.override args
                 ))
-                  { inherit app; }
-              ;
+                  { inherit app; };
             };
 
             # Extract position from explicitly passed attrs so meta.position won't point to poetry2nix internals
@@ -662,8 +646,7 @@ lib.makeScope pkgs.newScope (
           }
         );
       in
-      app
-    ;
+      app;
 
     # Poetry2nix CLI used to supplement SHA-256 hashes for git dependencies
     cli = import ./cli.nix {
@@ -684,8 +667,7 @@ lib.makeScope pkgs.newScope (
         let
           composed = lib.foldr lib.composeExtensions overlay [ defaults ];
         in
-        self.mkDefaultPoetryOverrides composed
-      ;
+        self.mkDefaultPoetryOverrides composed;
 
       overrideOverlay =
         fn:
@@ -696,11 +678,9 @@ lib.makeScope pkgs.newScope (
               defaultSet = defaults self super;
               customSet = fn self super;
             in
-            defaultSet // customSet
-          ;
+            defaultSet // customSet;
         in
-        self.mkDefaultPoetryOverrides overlay
-      ;
+        self.mkDefaultPoetryOverrides overlay;
     };
 
     /* The default list of poetry2nix override overlays

@@ -119,8 +119,7 @@ stdenv.mkDerivation (
           # this, maybe make cmake not look up executables in
           # CMAKE_PREFIX_PATH.
           cmakeFlags+=" -DCMAKE_IGNORE_PATH=${lib.getBin gettext}/bin"
-        ''
-    ;
+        '';
 
     nativeBuildInputs =
       [
@@ -141,8 +140,7 @@ stdenv.mkDerivation (
       ]
       ++ lib.optionals stdenv.isLinux [
         wayland # for wayland-scanner
-      ]
-    ;
+      ];
 
     buildInputs =
       [

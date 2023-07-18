@@ -177,8 +177,7 @@ in
           assertion = (c.encrypt -> !c.decrypt) || (c.decrypt -> c.encrypt);
           message = "A pipe must either encrypt or decrypt";
         })
-        cfg.config
-    ;
+        cfg.config;
 
     users.groups.spiped.gid = config.ids.gids.spiped;
     users.users.spiped = {
@@ -208,8 +207,7 @@ in
 
     system.activationScripts.spiped =
       optionalString (cfg.config != { })
-        "mkdir -p /var/lib/spiped"
-    ;
+        "mkdir -p /var/lib/spiped";
 
     # Setup spiped config files
     environment.etc =
@@ -231,7 +229,6 @@ in
             ];
           }
         )
-        cfg.config
-    ;
+        cfg.config;
   };
 }

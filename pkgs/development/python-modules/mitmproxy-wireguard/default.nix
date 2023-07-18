@@ -36,8 +36,7 @@ buildPythonPackage rec {
         cargoSetupHook
         maturinBuildHook
       ]
-    )
-  ;
+    );
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src;

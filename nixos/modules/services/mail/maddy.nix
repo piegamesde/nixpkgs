@@ -228,8 +228,7 @@ in
                 "file"
                 "off"
               ]
-            )
-          ;
+            );
           default = "off";
           description = lib.mdDoc ''
             TLS certificates are obtained by modules called "certificate
@@ -261,8 +260,7 @@ in
                   };
                 };
               }
-            )
-          ;
+            );
           default = [ ];
           example = lib.literalExpression ''
             [{
@@ -427,7 +425,8 @@ in
             tls off
           ''
         else
-          ""}
+          ""
+        }
 
         ${cfg.config}
       '';

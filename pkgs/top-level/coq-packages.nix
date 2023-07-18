@@ -65,8 +65,7 @@ let
       coq-lsp = callPackage ../development/coq-modules/coq-lsp { };
       coq-record-update =
         callPackage ../development/coq-modules/coq-record-update
-          { }
-      ;
+          { };
       coqeal = callPackage ../development/coq-modules/coqeal { };
       coqhammer = callPackage ../development/coq-modules/coqhammer { };
       coqide = callPackage ../development/coq-modules/coqide { };
@@ -89,8 +88,7 @@ let
       heq = callPackage ../development/coq-modules/heq { };
       hierarchy-builder =
         callPackage ../development/coq-modules/hierarchy-builder
-          { }
-      ;
+          { };
       HoTT = callPackage ../development/coq-modules/HoTT { };
       hydra-battles = callPackage ../development/coq-modules/hydra-battles { };
       interval = callPackage ../development/coq-modules/interval { };
@@ -112,23 +110,19 @@ let
       mathcomp-abel = callPackage ../development/coq-modules/mathcomp-abel { };
       mathcomp-algebra-tactics =
         callPackage ../development/coq-modules/mathcomp-algebra-tactics
-          { }
-      ;
+          { };
       mathcomp-analysis =
         callPackage ../development/coq-modules/mathcomp-analysis
-          { }
-      ;
+          { };
       mathcomp-apery = callPackage ../development/coq-modules/mathcomp-apery { };
       mathcomp-bigenough =
         callPackage ../development/coq-modules/mathcomp-bigenough
-          { }
-      ;
+          { };
       mathcomp-classical = self.mathcomp-analysis.classical;
       mathcomp-finmap = callPackage ../development/coq-modules/mathcomp-finmap { };
       mathcomp-real-closed =
         callPackage ../development/coq-modules/mathcomp-real-closed
-          { }
-      ;
+          { };
       mathcomp-tarjan = callPackage ../development/coq-modules/mathcomp-tarjan { };
       mathcomp-word = callPackage ../development/coq-modules/mathcomp-word { };
       mathcomp-zify = callPackage ../development/coq-modules/mathcomp-zify { };
@@ -170,8 +164,7 @@ let
       zorns-lemma = callPackage ../development/coq-modules/zorns-lemma { };
       filterPackages =
         doesFilter: if doesFilter then filterCoqPackages self else self;
-    }
-  ;
+    };
 
   filterCoqPackages =
     set:
@@ -192,8 +185,7 @@ let
           )
         )
         (lib.attrNames set)
-    )
-  ;
+    );
   mkCoq =
     version:
     callPackage ../applications/science/logic/coq {
@@ -205,8 +197,7 @@ let
         ocamlPackages_4_12
         ocamlPackages_4_14
       ;
-    }
-  ;
+    };
 in
 rec {
 
@@ -222,8 +213,7 @@ rec {
     let
       self = lib.makeScope newScope (lib.flip mkCoqPackages' coq);
     in
-    self.filterPackages (!coq.dontFilter or false)
-  ;
+    self.filterPackages (!coq.dontFilter or false);
 
   coq_8_5 = mkCoq "8.5";
   coq_8_6 = mkCoq "8.6";

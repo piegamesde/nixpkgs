@@ -46,15 +46,13 @@ let
         ((if dynamic then enableCabalFlag else disableCabalFlag) "dynamic")
       ]
       ++ optionals (!dynamic) [ justStaticExecutables ]
-    )
-  ;
+    );
   targets =
     version:
     let
       packages = getPackages version;
     in
-    [ "haskell-language-server-${packages.ghc.version}" ]
-  ;
+    [ "haskell-language-server-${packages.ghc.version}" ];
   makeSymlinks =
     version:
     concatMapStringsSep "\n"
@@ -64,8 +62,7 @@ let
           tunedHls (getPackages version)
         }/bin/haskell-language-server $out/bin/${x}"
       )
-      (targets version)
-  ;
+      (targets version);
 in
 assert supportedGhcVersions != [ ];
 stdenv.mkDerivation {

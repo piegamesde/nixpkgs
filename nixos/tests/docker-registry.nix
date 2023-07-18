@@ -22,24 +22,21 @@ import ./make-test-python.nix (
           services.dockerRegistry.listenAddress = "0.0.0.0";
           services.dockerRegistry.enableGarbageCollect = true;
           networking.firewall.allowedTCPPorts = [ 8080 ];
-        }
-      ;
+        };
 
       client1 =
         { ... }:
         {
           virtualisation.docker.enable = true;
           virtualisation.docker.extraOptions = "--insecure-registry registry:8080";
-        }
-      ;
+        };
 
       client2 =
         { ... }:
         {
           virtualisation.docker.enable = true;
           virtualisation.docker.extraOptions = "--insecure-registry registry:8080";
-        }
-      ;
+        };
     };
 
     testScript = ''

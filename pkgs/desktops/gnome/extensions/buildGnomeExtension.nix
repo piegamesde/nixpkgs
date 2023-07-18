@@ -61,7 +61,6 @@ let
         # Store the extension's UUID, because we might need it at some places
         extensionUuid = uuid;
       };
-    }
-  ;
+    };
 in
 lib.makeOverridable buildGnomeExtension

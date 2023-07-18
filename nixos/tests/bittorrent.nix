@@ -33,8 +33,7 @@ import ./make-test-python.nix (
             inherit download-dir;
           };
         };
-      }
-    ;
+      };
   in
 
   {
@@ -72,8 +71,7 @@ import ./make-test-python.nix (
             };
           };
           services.opentracker.enable = true;
-        }
-      ;
+        };
 
       router =
         { pkgs, nodes, ... }:
@@ -104,8 +102,7 @@ import ./make-test-python.nix (
               ext_ip=${externalRouterAddress}
             '';
           };
-        }
-      ;
+        };
 
       client1 =
         { pkgs, nodes, ... }:
@@ -121,8 +118,7 @@ import ./make-test-python.nix (
           } ];
           networking.defaultGateway = internalRouterAddress;
           networking.firewall.enable = false;
-        }
-      ;
+        };
 
       client2 =
         { pkgs, ... }:
@@ -136,8 +132,7 @@ import ./make-test-python.nix (
             prefixLength = 24;
           } ];
           networking.firewall.enable = false;
-        }
-      ;
+        };
     };
 
     testScript =
@@ -191,7 +186,6 @@ import ./make-test-python.nix (
         client2.succeed(
             "cmp ${download-dir}/test.tar.bz2 ${file}"
         )
-      ''
-    ;
+      '';
   }
 )

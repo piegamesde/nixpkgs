@@ -6,8 +6,7 @@ let
       networking.useDHCP = false;
       # for a host utility with IPv6 support
       environment.systemPackages = [ pkgs.bind ];
-    }
-  ;
+    };
 in
 import ./make-test-python.nix (
   { pkgs, ... }:
@@ -27,8 +26,7 @@ import ./make-test-python.nix (
             address = "192.168.0.2";
             prefixLength = 24;
           } ];
-        }
-      ;
+        };
 
       clientv6 =
         { lib, nodes, ... }:
@@ -41,8 +39,7 @@ import ./make-test-python.nix (
             address = "dead:beef::2";
             prefixLength = 24;
           } ];
-        }
-      ;
+        };
 
       server =
         { lib, ... }:
@@ -85,8 +82,7 @@ import ./make-test-python.nix (
             root A 1.8.7.4
             root AAAA acbd::4
           '';
-        }
-      ;
+        };
     };
 
     testScript = ''

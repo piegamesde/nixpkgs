@@ -71,8 +71,7 @@ stdenv.mkDerivation rec {
       {
         name = "${pname}-${version}";
         sha256 = "0gmp2ahmfd97nn9bwpfx9lznjmjkd042slnrrbdmyh59cqh98y2m";
-      }
-  ;
+      };
 
   FONTCONFIG_FILE = fontsConf;
   LD_LIBRARY_PATH = libPath;
@@ -98,8 +97,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       libiconv
       CoreFoundation
-    ]
-  ;
+    ];
 
   preConfigure = ''
     unset AR

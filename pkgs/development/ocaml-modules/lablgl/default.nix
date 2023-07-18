@@ -40,8 +40,7 @@ else
       ++ lib.optionals stdenv.isDarwin [
         darwin.apple_sdk.frameworks.GLUT
         darwin.apple_sdk.libs.Xplugin
-      ]
-    ;
+      ];
 
     patches = [
       ./Makefile.config.patch

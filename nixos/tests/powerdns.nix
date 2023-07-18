@@ -34,8 +34,7 @@ import ./make-test-python.nix (
           powerdns
           mariadb
         ];
-      }
-    ;
+      };
 
     testScript = ''
       import re

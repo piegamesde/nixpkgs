@@ -68,8 +68,7 @@ mkDerivation rec {
 
   qtWrapperArgs =
     lib.optional trackerSearch
-      "--prefix PATH : ${lib.makeBinPath [ python3 ]}"
-  ;
+      "--prefix PATH : ${lib.makeBinPath [ python3 ]}";
 
   postInstall = lib.optionalString stdenv.isDarwin ''
     mkdir -p $out/{Applications,bin}

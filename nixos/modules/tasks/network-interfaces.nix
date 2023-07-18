@@ -101,8 +101,7 @@ let
           '';
         };
       };
-    }
-  ;
+    };
 
   routeOpts = v: {
     options = {
@@ -195,8 +194,7 @@ let
           description = lib.mdDoc "The default gateway metric/preference.";
         };
       };
-    }
-  ;
+    };
 
   interfaceOpts =
     { name, ... }:
@@ -363,15 +361,13 @@ let
           default = if hasPrefix "tun" name then "tun" else "tap";
           defaultText =
             literalExpression
-              ''if hasPrefix "tun" name then "tun" else "tap"''
-          ;
+              ''if hasPrefix "tun" name then "tun" else "tap"'';
           type =
             with types;
             enum [
               "tun"
               "tap"
-            ]
-          ;
+            ];
           description = lib.mdDoc ''
             The type of interface to create.
             The default is TUN for an interface name starting
@@ -475,10 +471,8 @@ let
             options.warnings = options.warnings;
             options.assertions = options.assertions;
           })
-        ]
-      ;
-    }
-  ;
+        ];
+    };
 
   vswitchInterfaceOpts =
     { name, ... }:
@@ -506,8 +500,7 @@ let
           default = null;
         };
       };
-    }
-  ;
+    };
 
   hexChars = stringToCharacters "0123456789abcdef";
 
@@ -542,7 +535,8 @@ let
     else
       ''
         echo -ne "\x''${hi:6:2}\x''${hi:4:2}\x''${hi:2:2}\x''${hi:0:2}" > $out
-      ''}
+      ''
+    }
   '';
 in
 
@@ -594,8 +588,7 @@ in
       ;
       defaultText =
         literalExpression
-          ''"''${networking.hostName}.''${networking.domain}"''
-      ;
+          ''"''${networking.hostName}.''${networking.domain}"'';
       description = lib.mdDoc ''
         The fully qualified domain name (FQDN) of this host. It is the result
         of combining `networking.hostName` and `networking.domain.` Using this
@@ -802,8 +795,7 @@ in
               interfaces = mkOption {
                 description =
                   lib.mdDoc
-                    "The physical network interfaces connected by the vSwitch."
-                ;
+                    "The physical network interfaces connected by the vSwitch.";
                 type = with types; attrsOf (submodule vswitchInterfaceOpts);
               };
 
@@ -866,8 +858,7 @@ in
               };
             };
           }
-        )
-      ;
+        );
     };
 
     networking.bridges = mkOption {
@@ -905,8 +896,7 @@ in
                 type = types.listOf types.str;
                 description =
                   lib.mdDoc
-                    "The physical network interfaces connected by the bridge."
-                ;
+                    "The physical network interfaces connected by the bridge.";
               };
 
               rstp = mkOption {
@@ -916,8 +906,7 @@ in
               };
             };
           }
-        )
-      ;
+        );
     };
 
     networking.bonds =
@@ -1024,10 +1013,8 @@ in
                 };
               };
             }
-          )
-        ;
-      }
-    ;
+          );
+      };
 
     networking.macvlans = mkOption {
       default = { };
@@ -1054,8 +1041,7 @@ in
                 type = types.str;
                 description =
                   lib.mdDoc
-                    "The interface the macvlan will transmit packets through."
-                ;
+                    "The interface the macvlan will transmit packets through.";
               };
 
               mode = mkOption {
@@ -1066,8 +1052,7 @@ in
               };
             };
           }
-        )
-      ;
+        );
     };
 
     networking.fooOverUDP = mkOption {
@@ -1146,8 +1131,7 @@ in
               };
             };
           }
-        )
-      ;
+        );
     };
 
     networking.sits = mkOption {
@@ -1257,12 +1241,10 @@ in
                   description = lib.mdDoc ''
                     Configures encapsulation in UDP packets.
                   '';
-                }
-              ;
+                };
             };
           }
-        )
-      ;
+        );
     };
 
     networking.greTunnels = mkOption {
@@ -1339,8 +1321,7 @@ in
                     "tap"
                     "tun6"
                     "tap6"
-                  ]
-                ;
+                  ];
                 default = "tap";
                 example = "tap";
                 apply =
@@ -1351,16 +1332,14 @@ in
                     tun6 = "ip6gre";
                     tap6 = "ip6gretap";
                   }
-                  .${v}
-                ;
+                  .${v};
                 description = lib.mdDoc ''
                   Whether the tunnel routes layer 2 (tap) or layer 3 (tun) traffic.
                 '';
               };
             };
           }
-        )
-      ;
+        );
     };
 
     networking.vlans = mkOption {
@@ -1404,8 +1383,7 @@ in
               };
             };
           }
-        )
-      ;
+        );
     };
 
     networking.wlanInterfaces = mkOption {
@@ -1456,8 +1434,7 @@ in
                 example = "wlp6s0";
                 description =
                   lib.mdDoc
-                    "The name of the underlying hardware WLAN device as assigned by `udev`."
-                ;
+                    "The name of the underlying hardware WLAN device as assigned by `udev`.";
               };
 
               type = mkOption {
@@ -1494,8 +1471,7 @@ in
                       "cook"
                       "active"
                     ]
-                  )
-                ;
+                  );
                 default = null;
                 example = "control";
                 description = lib.mdDoc ''
@@ -1508,8 +1484,7 @@ in
                 default = null;
                 description =
                   lib.mdDoc
-                    "Whether to enable `4-address mode` with type `managed`."
-                ;
+                    "Whether to enable `4-address mode` with type `managed`.";
               };
 
               mac = mkOption {
@@ -1529,8 +1504,7 @@ in
               };
             };
           }
-        )
-      ;
+        );
     };
 
     networking.useDHCP = mkOption {
@@ -1691,8 +1665,7 @@ in
               capability setpcap,
             }
           ''
-        )
-    ;
+        );
 
     # Set the host and domain names in the activation script.  Don't
     # clear it if it's not configured in the NixOS configuration,
@@ -1703,8 +1676,7 @@ in
       in
       optionalString (effectiveHostname != "") ''
         hostname "${effectiveHostname}"
-      ''
-    ;
+      '';
     system.activationScripts.domain = optionalString (cfg.domain != null) ''
       domainname "${cfg.domain}"
     '';
@@ -1776,8 +1748,7 @@ in
             ''
               # enable and prefer IPv6 privacy addresses by default
               ACTION=="add", SUBSYSTEM=="net", RUN+="${pkgs.bash}/bin/sh -c 'echo ${sysctl-value} > /proc/sys/net/ipv6/conf/$name/use_tempaddr'"
-            ''
-          ;
+            '';
         })
         (pkgs.writeTextFile rec {
           name = "ipv6-privacy-extensions.rules";
@@ -1798,8 +1769,7 @@ in
                   }.use_tempaddr=${val}"
                 ''
               )
-              (filter (i: i.tempAddress != cfg.tempAddresses) interfaces)
-          ;
+              (filter (i: i.tempAddress != cfg.tempAddresses) interfaces);
         })
       ]
       ++ lib.optional (cfg.wlanInterfaces != { }) (
@@ -1815,8 +1785,7 @@ in
                   allDevices = unique (mapAttrsToList (_: v: v.device) cfg.wlanInterfaces);
                   interfacesOfDevice = d: filterAttrs (_: v: v.device == d) cfg.wlanInterfaces;
                 in
-                genAttrs allDevices (d: interfacesOfDevice d)
-              ;
+                genAttrs allDevices (d: interfacesOfDevice d);
 
               # Convert device:interface key:value pairs into a list, and if it exists,
               # place the interface which is named after the device at the beginning.
@@ -1862,8 +1831,7 @@ in
                     }"}
                   ${optionalString (current.mac != null)
                     "${pkgs.iproute2}/bin/ip link set dev ${device} address ${current.mac}"}
-                ''
-              ;
+                '';
 
               # Udev script to execute for a new WLAN interface. The script configures the new WLAN interface.
               newInterfaceScript =
@@ -1882,15 +1850,13 @@ in
                     }"}
                   ${optionalString (new.mac != null)
                     "${pkgs.iproute2}/bin/ip link set dev ${new._iName} address ${new.mac}"}
-                ''
-              ;
+                '';
 
               # Udev attributes for systemd to name the device and to create a .device target.
               systemdAttrs =
                 n:
                 ''
-                  NAME:="${n}", ENV{INTERFACE}="${n}", ENV{SYSTEMD_ALIAS}="/sys/subsystem/net/devices/${n}", TAG+="systemd"''
-              ;
+                  NAME:="${n}", ENV{INTERFACE}="${n}", ENV{SYSTEMD_ALIAS}="/sys/subsystem/net/devices/${n}", TAG+="systemd"'';
             in
             flip (concatMapStringsSep "\n") (attrNames wlanDeviceInterfaces) (
               device:
@@ -1922,10 +1888,8 @@ in
                   systemdAttrs curInterface._iName
                 }
               ''
-            )
-          ;
+            );
         }
-      )
-    ;
+      );
   };
 }

@@ -43,8 +43,7 @@ stdenv.mkDerivation {
 
   nativeBuildInputs =
     [ bootstrap ]
-    ++ lib.optionals stdenv.isDarwin [ darwin.cctools ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ darwin.cctools ];
 
   buildInputs = [ libck ];
 

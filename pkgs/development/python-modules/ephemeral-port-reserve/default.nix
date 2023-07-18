@@ -28,8 +28,7 @@ buildPythonPackage {
       [
         # can't find hostname in our darwin build environment
         "test_fqdn"
-      ]
-  ;
+      ];
 
   __darwinAllowLocalNetworking = true;
 

@@ -42,8 +42,7 @@ buildGoModule rec {
     in
     ''
       buildFlagsArray+=("-run" "[^(${builtins.concatStringsSep "|" skippedTests})]")
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "Easily rename multiple files using your text editor";

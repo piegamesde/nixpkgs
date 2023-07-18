@@ -39,8 +39,7 @@ let
         # with.
         # https://github.com/mozilla-services/syncstorage-rs/issues/1313#issuecomment-1145293375
         node_capacity_release_rate = 1;
-      }
-    ;
+      };
   };
   configFile = format.generate "syncstorage.toml" (
     lib.recursiveUpdate settings cfg.settings
@@ -322,12 +321,10 @@ in
       wantedBy = [ "firefox-syncserver.service" ];
       requires =
         [ "firefox-syncserver.service" ]
-        ++ lib.optional dbIsLocal "mysql.service"
-      ;
+        ++ lib.optional dbIsLocal "mysql.service";
       after =
         [ "firefox-syncserver.service" ]
-        ++ lib.optional dbIsLocal "mysql.service"
-      ;
+        ++ lib.optional dbIsLocal "mysql.service";
       path = [ config.services.mysql.package ];
       serviceConfig.ExecStart = [ "${setupScript}" ];
     };

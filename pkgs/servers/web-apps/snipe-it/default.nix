@@ -38,8 +38,7 @@ let
             ''
           ;
         }
-      )
-  ;
+      );
 in
 package.override rec {
   pname = "snipe-it";

@@ -14,8 +14,7 @@ import ../make-test-python.nix (
             abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789
           '';
         };
-      }
-    ;
+      };
 
     testScript =
       { nodes }:
@@ -41,7 +40,6 @@ import ../make-test-python.nix (
             machine.succeed(
                 "cd ${nodes.machine.config.system.build.peeringManagerPkg}/opt/peering-manager ; peering-manager-manage test --no-input"
             )
-      ''
-    ;
+      '';
   }
 )

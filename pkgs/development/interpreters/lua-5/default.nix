@@ -80,8 +80,7 @@ let
           {
             overrides = packageOverrides;
             lua = self;
-          }
-      ;
+          };
     in
     rec {
       buildEnv = callPackage ./wrapper.nix {
@@ -101,8 +100,7 @@ let
       tests = callPackage ./tests { inherit (luaPackages) wrapLua; };
 
       inherit luaAttr;
-    }
-  ;
+    };
 in
 
 rec {
@@ -160,8 +158,7 @@ rec {
     inherit passthruFun;
     patches =
       [ ./CVE-2022-28805.patch ]
-      ++ lib.optional stdenv.isDarwin ./5.2.darwin.patch
-    ;
+      ++ lib.optional stdenv.isDarwin ./5.2.darwin.patch;
   };
 
   lua5_2_compat = lua5_2.override ({

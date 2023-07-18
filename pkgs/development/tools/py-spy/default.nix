@@ -37,8 +37,7 @@ rustPlatform.buildRustPackage rec {
             lib.getDev darwin.apple_sdk.sdk
           }/include/libproc.h $out/include/libproc.h
         '')
-      ]
-  ;
+      ];
 
   env.NIX_CFLAGS_COMPILE = "-L${libunwind}/lib";
 
@@ -47,8 +46,7 @@ rustPlatform.buildRustPackage rec {
     lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform)
       ''
         export RUSTFLAGS="-Clinker=$CC"
-      ''
-  ;
+      '';
 
   checkFlags =
     [

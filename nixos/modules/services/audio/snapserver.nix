@@ -294,8 +294,7 @@ in
                 inherit codec;
               };
             }
-          )
-        ;
+          );
         default = {
           default = { };
         };

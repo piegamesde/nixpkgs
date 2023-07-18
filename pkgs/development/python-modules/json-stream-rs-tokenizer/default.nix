@@ -38,8 +38,7 @@ buildPythonPackage rec {
         rust.cargo
         rust.rustc
       ]
-    )
-  ;
+    );
 
   # Tests depend on json-stream, which depends on this package.
   # To avoid infinite recursion, we only enable tests when building passthru.tests.

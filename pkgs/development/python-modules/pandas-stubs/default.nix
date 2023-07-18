@@ -112,8 +112,7 @@ buildPythonPackage rec {
     ]
     ++ lib.optionals stdenv.isDarwin [
       "test_plotting" # Fatal Python error: Illegal instruction
-    ]
-  ;
+    ];
 
   pythonImportsCheck = [ "pandas" ];
 

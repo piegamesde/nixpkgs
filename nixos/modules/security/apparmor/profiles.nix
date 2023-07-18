@@ -16,6 +16,5 @@ in
         include "${pkgs.inetutils.apparmor}/bin.ping"
         # Note that including those two profiles in the same profile
         # would not work if the second one were to re-include <tunables/global>.
-      ''
-  ;
+      '';
 }

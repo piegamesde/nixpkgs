@@ -72,8 +72,7 @@ in
                 well as paths from other options except those listed
                 above.
                 :::
-              ''
-            ;
+              '';
           };
 
           options.confinement.binSh = lib.mkOption {
@@ -163,16 +162,13 @@ in
                         in
                         lib.flatten (lib.optional isSet config.serviceConfig.${opt})
                       )
-                      execOpts
-                  ;
+                      execOpts;
                   unitAttrs = toplevelConfig.systemd.units."${name}.service";
                   allPkgs = lib.singleton (builtins.toJSON unitAttrs);
                   unitPkgs = if fullUnit then allPkgs else execPkgs;
                 in
-                unitPkgs ++ lib.optional (binSh != null) binSh
-              ;
-            }
-          ;
+                unitPkgs ++ lib.optional (binSh != null) binSh;
+            };
         }
       )
     );
@@ -231,8 +227,7 @@ in
             let
               contents = lib.concatStringsSep "\n" cfg.confinement.packages;
             in
-            pkgs.writeText "${mkPathSafeName name}-string-contexts.txt" contents
-          ;
+            pkgs.writeText "${mkPathSafeName name}-string-contexts.txt" contents;
 
           chrootPaths =
             pkgs.runCommand "${mkPathSafeName name}-chroot-paths"
@@ -264,8 +259,7 @@ in
                     echo "BindReadOnlyPaths=$storePath"
                   fi
                 done < "$closureInfo/store-paths" >> "$serviceFile"
-              ''
-          ;
+              '';
         in
         lib.optional cfg.confinement.enable chrootPaths
       )

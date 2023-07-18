@@ -47,8 +47,7 @@ stdenv.mkDerivation rec {
   FORCE_UNSAFE_CONFIGURE =
     lib.optionalString
       (stdenv.hostPlatform.system == "armv7l-linux" || stdenv.isSunOS)
-      "1"
-  ;
+      "1";
 
   preConfigure =
     if stdenv.isCygwin then

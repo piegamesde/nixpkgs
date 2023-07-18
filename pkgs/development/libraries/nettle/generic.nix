@@ -41,8 +41,7 @@ stdenv.mkDerivation {
 
   patches =
     lib.optional (stdenv.hostPlatform.system == "i686-cygwin")
-      ./cygwin.patch
-  ;
+      ./cygwin.patch;
 
   meta = with lib; {
     description = "Cryptographic library";

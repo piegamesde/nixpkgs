@@ -21,8 +21,7 @@ in
         type = types.nullOr types.path;
         description =
           lib.mdDoc
-            "File mapping user names to pre-shared keys (passwords)."
-        ;
+            "File mapping user names to pre-shared keys (passwords).";
       };
 
       port = mkOption {
@@ -30,8 +29,7 @@ in
         default = 25826;
         description =
           lib.mdDoc
-            "Network address on which to accept collectd binary network packets."
-        ;
+            "Network address on which to accept collectd binary network packets.";
       };
 
       listenAddress = mkOption {
@@ -101,6 +99,5 @@ in
             ${concatStringsSep " \\\n  " cfg.extraFlags}
         '';
       };
-    }
-  ;
+    };
 }

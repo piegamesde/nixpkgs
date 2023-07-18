@@ -39,8 +39,7 @@ let
   primaryBinaryAliases = [ "smerge" ];
   downloadUrl =
     arch:
-    "https://download.sublimetext.com/sublime_merge_build_${buildVersion}_${arch}.tar.xz"
-  ;
+    "https://download.sublimetext.com/sublime_merge_build_${buildVersion}_${arch}.tar.xz";
   versionUrl = "https://www.sublimemerge.com/${
       if dev then "dev" else "download"
     }";
@@ -199,8 +198,7 @@ stdenv.mkDerivation (rec {
       [
         script
         versionFile
-      ]
-    ;
+      ];
   };
 
   meta = with lib; {

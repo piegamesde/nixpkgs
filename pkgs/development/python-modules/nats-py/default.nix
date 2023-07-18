@@ -52,8 +52,7 @@ buildPythonPackage rec {
     ++ lib.optionals stdenv.isDarwin [
       "test_subscribe_iterate_next_msg"
       "test_buf_size_force_flush_timeout"
-    ]
-  ;
+    ];
 
   pythonImportsCheck = [ "nats" ];
 

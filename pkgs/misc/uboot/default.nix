@@ -289,8 +289,7 @@ in
         ./aml_encrypt_gxl --bootmk --output $out/u-boot.gxl \
           --bl2 bl2.n.bin.sig --bl30 bl30_new.bin.enc --bl31 bl31.img.enc --bl33 bl33.bin.enc
       '';
-    }
-  ;
+    };
 
   ubootNanoPCT4 = buildUBoot rec {
     rkbin = fetchFromGitHub {
@@ -376,8 +375,7 @@ in
         '${buildPackages.meson-tools}/bin/amlbootsig' boot_new.bin u-boot.img
         dd if=u-boot.img of=u-boot.gxbb bs=512 skip=96
       '';
-    }
-  ;
+    };
 
   ubootOdroidXU3 = buildUBoot {
     defconfig = "odroid-xu3_defconfig";
@@ -572,8 +570,7 @@ in
         ./tools/mkimage -n rk3328 -T rksd -d ${rkbin}/rk33/rk3328_ddr_786MHz_v1.13.bin idbloader.img
         cat spl/u-boot-spl.bin >> idbloader.img
       '';
-    }
-  ;
+    };
 
   ubootRockPro64 = buildUBoot {
     extraMakeFlags = [

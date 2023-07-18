@@ -294,8 +294,7 @@ in
 
     environment.systemPackages =
       [ pkgs.zsh ]
-      ++ optional cfg.enableCompletion pkgs.nix-zsh-completions
-    ;
+      ++ optional cfg.enableCompletion pkgs.nix-zsh-completions;
 
     environment.pathsToLink = optional cfg.enableCompletion "/share/zsh";
 

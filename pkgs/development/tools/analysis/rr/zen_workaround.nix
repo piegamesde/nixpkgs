@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
       cp *.ko "${modDestDir}/"
       find ${modDestDir} -name '*.ko' -exec xz -f '{}' \;
       runHook postInstall
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "Kernel module supporting the rr debugger on (some) AMD Zen-based CPUs";

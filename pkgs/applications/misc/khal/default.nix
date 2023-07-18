@@ -31,8 +31,7 @@ python3.pkgs.buildPythonApplication rec {
         sphinx
         sphinxcontrib_newsfeed
       ]
-    )
-  ;
+    );
 
   propagatedBuildInputs = with python3.pkgs; [
     atomicwrites

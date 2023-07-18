@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
         # workaround for "error: non-constant-expression cannot be narrowed from type 'long' to 'int'"
         "-Wno-c++11-narrowing"
       ]
-    )
-  ;
+    );
 
   meta = {
     description = "An open source full text search server";

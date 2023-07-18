@@ -70,8 +70,7 @@ python3.pkgs.buildPythonApplication rec {
       [
         # https://github.com/NixOS/nixpkgs/issues/209358
         "test_scripts_no_environment"
-      ]
-  ;
+      ];
 
   meta = with lib; {
     description = "Modern, extensible Python project manager";

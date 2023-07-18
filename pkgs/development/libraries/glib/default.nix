@@ -192,8 +192,7 @@ stdenv.mkDerivation (
         gtk-doc
         docbook_xml_dtd_45
         libxml2
-      ]
-    ;
+      ];
 
     propagatedBuildInputs = [
       zlib
@@ -307,8 +306,7 @@ stdenv.mkDerivation (
           export G_TEST_DBUS_DAEMON="${dbus}/bin/dbus-daemon"
           export PATH="$PATH:$(pwd)/gobject"
           echo "PATH=$PATH"
-        ''
-    ;
+        '';
 
     separateDebugInfo = stdenv.isLinux;
 
@@ -341,8 +339,7 @@ stdenv.mkDerivation (
               inherit src;
               schemaIdToVariableMapping = glib-schema-to-var;
             }
-          )
-      ;
+          );
     };
 
     meta = with lib; {

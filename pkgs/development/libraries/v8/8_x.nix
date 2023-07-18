@@ -151,8 +151,7 @@ stdenv.mkDerivation rec {
       xcbuild
       darwin.DarwinTools
       python39.pkgs.setuptools
-    ]
-  ;
+    ];
   buildInputs = [
     glib
     icu

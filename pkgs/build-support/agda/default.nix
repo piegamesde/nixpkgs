@@ -51,8 +51,7 @@ let
           --add-flags "--library-file=${library-file}" \
           --add-flags "--local-interfaces"
         ln -s ${Agda}/bin/agda-mode $out/bin/agda-mode
-      ''
-  ; # Local interfaces has been added for now: See https://github.com/agda/agda/issues/4526
+      ''; # Local interfaces has been added for now: See https://github.com/agda/agda/issues/4526
 
   withPackages =
     arg:
@@ -154,10 +153,8 @@ let
             self.lib.isUnbrokenAgdaPackage pkg
             && elem pname (map (pkg: pkg.pname) pkg.buildInputs)
           )
-          self
-      ;
-    }
-  ;
+          self;
+    };
 in
 {
   mkDerivation = args: stdenv.mkDerivation (args // defaults args);

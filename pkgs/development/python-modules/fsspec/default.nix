@@ -112,8 +112,7 @@ buildPythonPackage rec {
       # this two tests however, assume nanosecond resolution
       "test_modified"
       "test_touch"
-    ]
-  ;
+    ];
 
   pythonImportsCheck = [ "fsspec" ];
 

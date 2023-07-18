@@ -55,8 +55,7 @@ import ./make-test-python.nix (
                       --load-ca-privkey "$out/ca.key" \
                       --load-ca-certificate "$out/ca.crt" \
                       --outfile "$out/client1.crt"
-        ''
-    ;
+        '';
   in
   {
     name = "mosquitto";
@@ -147,13 +146,11 @@ import ./make-test-python.nix (
                 }
               ];
             };
-          }
-        ;
+          };
 
         client1 = client;
         client2 = client;
-      }
-    ;
+      };
 
     testScript = ''
       import json

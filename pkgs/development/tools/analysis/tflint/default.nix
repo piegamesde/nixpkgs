@@ -43,8 +43,7 @@ buildGoModule rec {
     runCommand "tflint-with-plugins" { nativeBuildInputs = [ makeWrapper ]; } ''
       makeWrapper ${tflint}/bin/tflint $out/bin/tflint \
         --set TFLINT_PLUGIN_DIR "${pluginDir}"
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "Terraform linter focused on possible errors, best practices, and so on";

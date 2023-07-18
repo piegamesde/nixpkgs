@@ -21,7 +21,6 @@ in
       mkIf (inInitrd && !config.boot.initrd.systemd.enable)
         ''
           copy_bin_and_libs ${pkgs.jfsutils}/sbin/fsck.jfs
-        ''
-    ;
+        '';
   };
 }

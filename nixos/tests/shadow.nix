@@ -52,8 +52,7 @@ import ./make-test-python.nix (
             shell = pkgs.bash;
           };
         };
-      }
-    ;
+      };
 
     testScript = ''
       shadow.wait_for_unit("multi-user.target")

@@ -18,8 +18,7 @@ let
     makePythonPath ([
       pillow
       pycryptodome
-    ])
-  ;
+    ]);
 
   # each kodi addon can potentially export a python module which should be included in PYTHONPATH
   # see any addon which supplies `passthru.pythonPath` and the corresponding entry in the addons `addon.xml`
@@ -32,8 +31,7 @@ let
       (
         addon: "${addon}${kodiPackages.addonDir}/${addon.namespace}/${addon.pythonPath}"
       )
-      addonsWithPythonPath
-  ;
+      addonsWithPythonPath;
 in
 
 buildEnv {

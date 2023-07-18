@@ -39,8 +39,7 @@ stdenv.mkDerivation rec {
             CoreGraphics
             CoreVideo
           ]
-    )
-  ;
+    );
 
   nativeCheckInputs = [ expect ];
   doCheck = true;

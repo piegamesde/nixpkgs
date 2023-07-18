@@ -56,8 +56,7 @@ let
       yqEvalStr =
         concatImapStringsSep " * "
           (pos: _: "select(fileIndex == ${toString (pos - 1)})")
-          configFiles
-      ;
+          configFiles;
       yqEvalArgs = concatStringsSep " " configFiles;
     in
     ''
@@ -218,12 +217,10 @@ in
       description = "mjolnir - a moderation tool for Matrix";
       wants =
         [ "network-online.target" ]
-        ++ optionals (cfg.pantalaimon.enable) [ "pantalaimon-mjolnir.service" ]
-      ;
+        ++ optionals (cfg.pantalaimon.enable) [ "pantalaimon-mjolnir.service" ];
       after =
         [ "network-online.target" ]
-        ++ optionals (cfg.pantalaimon.enable) [ "pantalaimon-mjolnir.service" ]
-      ;
+        ++ optionals (cfg.pantalaimon.enable) [ "pantalaimon-mjolnir.service" ];
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {

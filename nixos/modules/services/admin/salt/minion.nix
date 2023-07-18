@@ -22,8 +22,7 @@ let
         # Default is in /etc/salt/pki/minion
         pki_dir = "/var/lib/salt/pki/minion";
       }
-      cfg.configuration
-  ;
+      cfg.configuration;
 in
 
 {

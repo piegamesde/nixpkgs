@@ -72,8 +72,7 @@ perlPackages.buildPerlPackage rec {
         FilesysDf
         SubOverride
       ]
-    )
-  ;
+    );
 
   postPatch =
     let
@@ -86,8 +85,7 @@ perlPackages.buildPerlPackage rec {
 
       # Substitute the non-free Helvetica font in the tests
       sed -i 's|-pointsize|-font ${fontSubstitute} -pointsize|g' t/*.t
-    ''
-  ;
+    '';
 
   postInstall = ''
     # Remove impurity

@@ -28,8 +28,7 @@ import ./make-test-python.nix (
             js_content http.hello;
           '';
         };
-      }
-    ;
+      };
     testScript = ''
       machine.wait_for_unit("nginx")
 

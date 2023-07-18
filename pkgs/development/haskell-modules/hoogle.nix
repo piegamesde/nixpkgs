@@ -46,8 +46,7 @@ let
       # we grab the doc outputs
       (
         map (lib.getOutput "doc") packages
-      )
-  ;
+      );
 in
 buildPackages.stdenv.mkDerivation {
   name = "hoogle-with-packages";
@@ -80,8 +79,7 @@ buildPackages.stdenv.mkDerivation {
       "echo WARNING: localHoogle package list empty, even though"
       + " the following were specified: "
       + lib.concatMapStringsSep ", " (p: p.name) packages'
-    )
-    }
+    )}
     mkdir -p $out/share/doc/hoogle
 
     echo importing builtin packages

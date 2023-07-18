@@ -49,8 +49,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       darwin.cctools
       darwin.autoSignDarwinBinariesHook
-    ]
-  ;
+    ];
 
   buildInputs = [
     gmp

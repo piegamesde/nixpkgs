@@ -232,8 +232,7 @@ in
             description = lib.mdDoc ''
               Port of the database to connect to.
             '';
-          }
-        ;
+          };
 
         useSSL = mkOption {
           type = bool;
@@ -489,8 +488,7 @@ in
           {file}`/run/keys/store_password` file.
         '';
       };
-    }
-  ;
+    };
 
   config =
     let
@@ -575,8 +573,7 @@ in
               null
             ]
           ))
-          cfg.settings
-      ;
+          cfg.settings;
       confFile = pkgs.writeText "keycloak.conf" (keycloakConfig filteredConfig);
       keycloakBuild = cfg.package.override {
         inherit confFile;
@@ -645,8 +642,7 @@ in
             https-certificate-file = "/run/keycloak/ssl/ssl_cert";
             https-certificate-key-file = "/run/keycloak/ssl/ssl_key";
           })
-        ]
-      ;
+        ];
 
       systemd.services.keycloakPostgreSQLInit = mkIf createLocalPostgreSQL {
         after = [ "postgresql.service" ];
@@ -794,8 +790,7 @@ in
               kc.sh start --optimized
             ''
           ;
-        }
-      ;
+        };
 
       services.postgresql.enable = mkDefault createLocalPostgreSQL;
       services.mysql.enable = mkDefault createLocalMySQL;
@@ -803,10 +798,8 @@ in
         let
           dbPkg = if cfg.database.type == "mariadb" then pkgs.mariadb else pkgs.mysql80;
         in
-        mkIf createLocalMySQL (mkDefault dbPkg)
-      ;
-    }
-  ;
+        mkIf createLocalMySQL (mkDefault dbPkg);
+    };
 
   meta.doc = ./keycloak.md;
   meta.maintainers = [ maintainers.talyz ];

@@ -42,8 +42,7 @@ let
             })
           ];
         }
-      )
-  ;
+      );
 
   bullet_openmw = bullet.overrideDerivation (
     old: rec {

@@ -59,8 +59,7 @@ stdenv.mkDerivation rec {
     ++ [
       ./check-resolv-conf.patch
       ../nginx/nix-skip-check-logs-path.patch
-    ]
-  ;
+    ];
 
   configureFlags =
     [

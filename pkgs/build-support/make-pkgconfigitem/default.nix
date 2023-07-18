@@ -39,8 +39,7 @@ let
     let
       mustBeAList =
         attr: attrName:
-        lib.throwIfNot (lib.isList attr) "'${attrName}' must be a list" attr
-      ;
+        lib.throwIfNot (lib.isList attr) "'${attrName}' must be a list" attr;
     in
     {
       "Name" = name;
@@ -53,19 +52,16 @@ let
       "Cflags" = mustBeAList cflags "cflags";
       "Libs" = mustBeAList libs "libs";
       "Libs.private" = mustBeAList libsPrivate "libsPrivate";
-    }
-  ;
+    };
 
   renderVariable =
     name: value:
     lib.optionalString (value != "" && value != [ ])
-      "${name}=${replacePlaceholderAndListToString value}"
-  ;
+      "${name}=${replacePlaceholderAndListToString value}";
   renderKeyword =
     name: value:
     lib.optionalString (value != "" && value != [ ])
-      "${name}: ${replacePlaceholderAndListToString value}"
-  ;
+      "${name}: ${replacePlaceholderAndListToString value}";
 
   renderSomething =
     renderFunc: attrs:
@@ -76,8 +72,7 @@ let
       (section: ''
         ${section}
       '')
-    ]
-  ;
+    ];
 
   variablesSectionRendered = renderSomething renderVariable variables;
   keywordsSectionRendered = renderSomething renderKeyword keywordsSection;

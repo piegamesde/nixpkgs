@@ -23,7 +23,8 @@
   doCheck ? stdenv.isLinux
     && (!stdenv.isx86_32)
     && (!stdenv.hostPlatform.isMusl)
-    && (stdenv.hostPlatform == stdenv.buildPlatform),
+    && (stdenv.hostPlatform == stdenv.buildPlatform)
+  ,
   enableManpages ? false,
   enableSharedLibraries ? !stdenv.hostPlatform.isStatic,
   # broken for Ampere eMAG 8180 (c2.large.arm on Packet) #56245
@@ -101,8 +102,7 @@ stdenv.mkDerivation (
       ++ optionals enableManpages [
         python3.pkgs.sphinx
         python3.pkgs.recommonmark
-      ]
-    ;
+      ];
 
     buildInputs = [
       libxml2
@@ -118,8 +118,7 @@ stdenv.mkDerivation (
 
     patches =
       [ ./gnu-install-dirs.patch ]
-      ++ lib.optional enablePolly ./gnu-install-dirs-polly.patch
-    ;
+      ++ lib.optional enablePolly ./gnu-install-dirs-polly.patch;
 
     postPatch =
       optionalString stdenv.isDarwin ''
@@ -195,8 +194,7 @@ stdenv.mkDerivation (
     # E.g. mesa.drivers use the build-id as a cache key (see #93946):
     LDFLAGS =
       optionalString (enableSharedLibraries && !stdenv.isDarwin)
-        "-Wl,--build-id=sha1"
-    ;
+        "-Wl,--build-id=sha1";
 
     cmakeFlags =
       with stdenv;

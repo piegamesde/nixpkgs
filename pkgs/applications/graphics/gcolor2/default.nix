@@ -52,8 +52,7 @@ stdenv.mkDerivation {
         perl
         XMLParser
       ]
-    )
-  ;
+    );
 
   meta = {
     description = "Simple GTK 2 color selector";

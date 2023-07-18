@@ -24,8 +24,7 @@ import ./make-test-python.nix (
           enable = true;
           extraPlugins = [ pkgs.budgie.budgie-analogue-clock-applet ];
         };
-      }
-    ;
+      };
 
     testScript =
       { nodes, ... }:
@@ -52,7 +51,6 @@ import ./make-test-python.nix (
             machine.wait_for_window("Terminal")
             machine.sleep(20)
             machine.screenshot("screen")
-      ''
-    ;
+      '';
   }
 )

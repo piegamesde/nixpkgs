@@ -18,8 +18,7 @@ import ./make-test-python.nix (
           script = "${pkgs.netcat}/bin/nc -Fl 443 | true && touch /tmp/registration-connect";
         };
         networking.hosts."127.0.0.1" = [ "api.github.com" ];
-      }
-    ;
+      };
 
     testScript = ''
       start_all()

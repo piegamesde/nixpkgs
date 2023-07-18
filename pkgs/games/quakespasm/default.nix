@@ -40,8 +40,7 @@ stdenv.mkDerivation rec {
       [
         # Makes Darwin Makefile use system libraries instead of ones from app bundle
         ./quakespasm-darwin-makefile-improvements.patch
-      ]
-  ;
+      ];
 
   nativeBuildInputs = [
     copyDesktopItems
@@ -87,8 +86,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals useSDL2 [
       "SDL_CONFIG=sdl2-config"
       "USE_SDL2=1"
-    ]
-  ;
+    ];
 
   makefile = if (stdenv.isDarwin) then "Makefile.darwin" else "Makefile";
 

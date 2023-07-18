@@ -40,7 +40,8 @@
       # XXX: Ensure `solana-genesis` is built LAST!
       # See https://github.com/solana-labs/solana/issues/5826
       "solana-genesis"
-    ],
+    ]
+  ,
 }:
 let
   version = "1.14.17";
@@ -110,8 +111,7 @@ rustPlatform.buildRustPackage rec {
   # cmath functions
   CPPFLAGS =
     lib.optionals stdenv.isDarwin
-      "-isystem ${lib.getDev libcxx}/include/c++/v1"
-  ;
+      "-isystem ${lib.getDev libcxx}/include/c++/v1";
   LDFLAGS = lib.optionals stdenv.isDarwin "-L${lib.getLib libcxx}/lib";
 
   # If set, always finds OpenSSL in the system, even if the vendored feature is enabled.

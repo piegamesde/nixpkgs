@@ -18,8 +18,7 @@ let
       .functor.wrapped # attrsOf
       .functor.wrapped # either
       .functor.wrapped
-      0
-  ;
+      0;
 
   useSpamAssassin =
     cfg.settings.publicinboxmda.spamcheck == "spamc"
@@ -32,8 +31,7 @@ let
       default = [ ];
       description =
         lib.mdDoc
-          "Command-line arguments to pass to {manpage}`public-inbox-${proto}d(1)`."
-      ;
+          "Command-line arguments to pass to {manpage}`public-inbox-${proto}d(1)`.";
     };
     port = mkOption {
       type = with types; nullOr (either str port);
@@ -51,8 +49,7 @@ let
       example = "/path/to/fullchain.pem";
       description =
         lib.mdDoc
-          "Path to TLS certificate to use for connections to {manpage}`public-inbox-${proto}d(1)`."
-      ;
+          "Path to TLS certificate to use for connections to {manpage}`public-inbox-${proto}d(1)`.";
     };
     key = mkOption {
       type = with types; nullOr str;
@@ -60,8 +57,7 @@ let
       example = "/path/to/key.pem";
       description =
         lib.mdDoc
-          "Path to TLS key to use for connections to {manpage}`public-inbox-${proto}d(1)`."
-      ;
+          "Path to TLS key to use for connections to {manpage}`public-inbox-${proto}d(1)`.";
     };
   };
 
@@ -127,8 +123,7 @@ let
           ++ optionals needNetwork [
             "AF_INET"
             "AF_INET6"
-          ]
-        ;
+          ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
@@ -174,8 +169,7 @@ let
           pkgs.tzdata
         ];
       };
-    }
-  ;
+    };
 in
 
 {
@@ -211,8 +205,7 @@ in
               default = "${stateDir}/inboxes/${name}";
               description =
                 lib.mdDoc
-                  "The absolute path to the directory which hosts the public-inbox."
-              ;
+                  "The absolute path to the directory which hosts the public-inbox.";
             };
             options.address = mkOption {
               type = with types; listOf str;
@@ -241,8 +234,7 @@ in
               default = [ ];
               description =
                 lib.mdDoc
-                  "Paths for {manpage}`public-inbox-watch(1)` to monitor for new mail."
-              ;
+                  "Paths for {manpage}`public-inbox-watch(1)` to monitor for new mail.";
               example = [ "maildir:/path/to/test.example.com.git" ];
             };
             options.watchheader = mkOption {
@@ -261,8 +253,7 @@ in
               default = [ ];
               description =
                 lib.mdDoc
-                  "Nicknames of a 'coderepo' section associated with the inbox."
-              ;
+                  "Nicknames of a 'coderepo' section associated with the inbox.";
             };
           }
         )
@@ -304,8 +295,7 @@ in
         default = [ ];
         description =
           lib.mdDoc
-            "Command-line arguments to pass to {manpage}`public-inbox-mda(1)`."
-        ;
+            "Command-line arguments to pass to {manpage}`public-inbox-mda(1)`.";
       };
     };
     postfix.enable = mkEnableOption (lib.mdDoc "the integration into Postfix");
@@ -317,8 +307,7 @@ in
       default = "${cfg.package.sa_config}/user/.spamassassin/user_prefs";
       defaultText =
         literalExpression
-          "\${cfg.package.sa_config}/user/.spamassassin/user_prefs"
-      ;
+          "\${cfg.package.sa_config}/user/.spamassassin/user_prefs";
       description = lib.mdDoc "SpamAssassin configuration specific to public-inbox.";
     };
     settings = mkOption {
@@ -342,16 +331,14 @@ in
                   iniAtom
                   (attrsOf iniAtom)
                 ]
-              )
-            ;
+              );
 
             options.css = mkOption {
               type = with types; listOf str;
               default = [ ];
               description =
                 lib.mdDoc
-                  "The local path name of a CSS file for the PSGI web interface."
-              ;
+                  "The local path name of a CSS file for the PSGI web interface.";
             };
             options.nntpserver = mkOption {
               type = with types; listOf str;
@@ -369,8 +356,7 @@ in
                   "all"
                   "404"
                   "match=domain"
-                ]
-              ;
+                ];
               default = "404";
               description = lib.mdDoc ''
                 Controls which lists (if any) are listed for when the root
@@ -385,8 +371,7 @@ in
             enum [
               "spamc"
               "none"
-            ]
-          ;
+            ];
           default = "none";
           description = lib.mdDoc ''
             If set to spamc, {manpage}`public-inbox-watch(1)` will filter spam
@@ -399,8 +384,7 @@ in
             enum [
               "spamc"
               "none"
-            ]
-          ;
+            ];
           default = "none";
           description = lib.mdDoc ''
             If set to spamc, {manpage}`public-inbox-watch(1)` will filter spam
@@ -673,8 +657,7 @@ in
               requires =
                 [ "public-inbox-init.service" ]
                 ++ optional (cfg.settings.publicinboxwatch.spamcheck == "spamc")
-                  "spamassassin.service"
-              ;
+                  "spamassassin.service";
               wantedBy = [ "multi-user.target" ];
               serviceConfig = {
                 ExecStart = "${cfg.package}/bin/public-inbox-watch";
@@ -768,8 +751,7 @@ in
                 ];
               };
             }
-          ]
-        ;
+          ];
       })
     ];
     environment.systemPackages = with pkgs; [ cfg.package ];

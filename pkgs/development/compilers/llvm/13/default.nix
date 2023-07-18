@@ -195,8 +195,7 @@ let
           ]
           ++ lib.optionals (!stdenv.targetPlatform.isWasm) [
             targetLlvmLibraries.libunwind
-          ]
-        ;
+          ];
         extraBuildCommands =
           ''
             echo "-rtlib=compiler-rt -Wno-unused-command-line-argument" >> $out/nix-support/cc-cflags
@@ -357,8 +356,7 @@ let
         callPackage ./libcxxabi {
           stdenv = stdenv_;
           inherit llvm_meta cxx-headers;
-        }
-      ;
+        };
 
       libunwind = callPackage ./libunwind {
         inherit llvm_meta;

@@ -31,8 +31,7 @@ rustPlatform.buildRustPackage rec {
       CoreFoundation
       Security
       SystemConfiguration
-    ]
-  ;
+    ];
 
   meta = with lib; {
     description = "A cargo subcommand for displaying when Rust dependencies are out of date";

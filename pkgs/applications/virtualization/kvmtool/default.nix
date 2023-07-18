@@ -27,8 +27,7 @@ stdenv.mkDerivation {
         "CROSS_COMPILE=aarch64-unknown-linux-gnu-"
         "ARCH=arm64"
       ]
-    )
-  ;
+    );
 
   meta = with lib; {
     description = "A lightweight tool for hosting KVM guests";

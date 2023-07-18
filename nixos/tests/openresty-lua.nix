@@ -36,8 +36,7 @@ import ./make-test-python.nix (
               };
             };
           };
-        }
-      ;
+        };
     };
 
     testScript =
@@ -52,7 +51,6 @@ import ./make-test-python.nix (
           f"curl -w '%{{http_code}}' --head --fail {url}"
         )
         assert http_code.split("\n")[-1] == "200"
-      ''
-    ;
+      '';
   }
 )

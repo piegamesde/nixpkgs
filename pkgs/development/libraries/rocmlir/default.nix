@@ -94,8 +94,7 @@ stdenv.mkDerivation (
         cp -a external/llvm-project/llvm/lib/{*.a*,*.so*} $external/lib
         patchelf --set-rpath $external/lib:$out/lib:${libPath} $external/lib/*.so*
         patchelf --set-rpath $out/lib:$external/lib:${libPath} $out/{bin/*,lib/*.so*}
-      ''
-    ;
+      '';
 
     passthru.updateScript = rocmUpdateScript {
       name = finalAttrs.pname;

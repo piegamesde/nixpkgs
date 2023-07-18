@@ -44,8 +44,7 @@ rustPlatform.buildRustPackage rec {
       CoreFoundation
       libresolv
       Security
-    ]
-  ;
+    ];
 
   nativeCheckInputs = [ git ];
 

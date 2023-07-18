@@ -78,8 +78,7 @@ stdenv.mkDerivation rec {
 
   PCSC_CFLAGS =
     lib.optionalString withApplePCSC
-      "-I${PCSC}/Library/Frameworks/PCSC.framework/Headers"
-  ;
+      "-I${PCSC}/Library/Frameworks/PCSC.framework/Headers";
 
   installFlags = [
     "sysconfdir=$(out)/etc"

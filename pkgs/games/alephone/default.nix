@@ -42,8 +42,7 @@ let
         let
           date = "20210408";
         in
-        "https://github.com/Aleph-One-Marathon/alephone/releases/download/release-${date}/AlephOne-${date}.tar.bz2"
-      ;
+        "https://github.com/Aleph-One-Marathon/alephone/releases/download/release-${date}/AlephOne-${date}.tar.bz2";
       sha256 = "sha256-tMwATUhUpo8W2oSWxGSZcAHVkj1PWEvUR/rpMZwWCWA=";
     };
 
@@ -151,6 +150,5 @@ self
           // meta
         ;
       }
-    )
-  ;
+    );
 }

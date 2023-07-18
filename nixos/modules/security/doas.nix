@@ -25,8 +25,7 @@ let
       "setenv { SSH_AUTH_SOCK TERMINFO TERMINFO_DIRS ${
         concatStringsSep " " rule.setEnv
       } }"
-    ]
-  ;
+    ];
 
   mkArgs =
     rule:
@@ -56,8 +55,7 @@ let
       (optionalString (length rule.groups > 0) (
         map (grp: "permit ${opts} ${mkGrpString grp} ${as} ${cmd} ${args}") rule.groups
       ))
-    ]
-  ;
+    ];
 in
 {
 
@@ -236,8 +234,7 @@ in
               };
             };
           }
-        )
-      ;
+        );
     };
 
     extraConfig = mkOption {
@@ -296,8 +293,7 @@ in
             preferLocalBuild = true;
           }
           # Make sure that the doas.conf file is syntactically valid.
-          "${pkgs.buildPackages.doas}/bin/doas -C $src && cp $src $out"
-      ;
+          "${pkgs.buildPackages.doas}/bin/doas -C $src && cp $src $out";
       mode = "0440";
     };
   };

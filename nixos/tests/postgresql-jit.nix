@@ -27,8 +27,7 @@ let
               insert into demo (id) select generate_series(1, 5);
             '';
           };
-        }
-      ;
+        };
       testScript = ''
         machine.start()
         machine.wait_for_unit("postgresql.service")
@@ -51,7 +50,6 @@ let
 
         machine.shutdown()
       '';
-    }
-  ;
+    };
 in
 lib.genAttrs packages mkJitTest

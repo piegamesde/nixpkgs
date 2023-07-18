@@ -17,8 +17,7 @@ let
     let
       initrd = config.boot.initrd;
     in
-    (initrd.network.enable || initrd.systemd.network.enable) && cfg.enable
-  ;
+    (initrd.network.enable || initrd.systemd.network.enable) && cfg.enable;
 in
 
 {
@@ -101,8 +100,7 @@ in
       default = config.users.users.root.openssh.authorizedKeys.keys;
       defaultText =
         literalExpression
-          "config.users.users.root.openssh.authorizedKeys.keys"
-      ;
+          "config.users.users.root.openssh.authorizedKeys.keys";
       description = lib.mdDoc ''
         Authorized keys for the root user on initrd.
       '';
@@ -141,8 +139,7 @@ in
         "hostRSAKey"
         "hostDSSKey"
         "hostECDSAKey"
-      ]
-  ;
+      ];
 
   config =
     let
@@ -190,7 +187,8 @@ in
         else
           ''
             UseDNS no
-          ''}
+          ''
+        }
 
         ${cfg.extraConfig}
       '';
@@ -234,8 +232,7 @@ in
               $out/bin/sshd -t -f /dev/stdin \
               -h "$tmpkey"
             rm "$tmpkey"
-          ''
-      ;
+          '';
 
       boot.initrd.network.postCommands = mkIf (!config.boot.initrd.systemd.enable) ''
         echo '${shell}' > /etc/shells
@@ -298,8 +295,7 @@ in
 
         contents."/etc/ssh/authorized_keys.d/root".text =
           concatStringsSep "\n"
-            config.boot.initrd.network.ssh.authorizedKeys
-        ;
+            config.boot.initrd.network.ssh.authorizedKeys;
         contents."/etc/ssh/sshd_config".text = sshdConfig;
         storePaths = [ "${package}/bin/sshd" ];
 
@@ -328,6 +324,5 @@ in
           };
         };
       };
-    }
-  ;
+    };
 }

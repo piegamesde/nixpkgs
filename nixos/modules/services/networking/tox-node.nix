@@ -32,8 +32,7 @@ let
     runCommand "config.yml" { } ''
       ${remarshal}/bin/remarshal -if yaml -of json ${src} -o src.json
       ${jq}/bin/jq -s '(.[0] | with_entries( select(.key == "bootstrap-nodes"))) * .[1]' src.json ${confJSON} > $out
-    ''
-  ;
+    '';
 in
 {
   options.services.tox-node = {
@@ -69,8 +68,7 @@ in
       default = 8192;
       description =
         lib.mdDoc
-          "Maximum number of active TCP connections relay can hold"
-      ;
+          "Maximum number of active TCP connections relay can hold";
     };
     lanDiscovery = mkOption {
       type = types.bool;

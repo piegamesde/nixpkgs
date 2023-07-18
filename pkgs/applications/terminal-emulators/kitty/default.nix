@@ -109,8 +109,7 @@ buildPythonApplication rec {
     ++ lib.optionals stdenv.isDarwin [
       imagemagick
       libicns # For the png2icns tool.
-    ]
-  ;
+    ];
 
   outputs = [
     "out"
@@ -183,10 +182,10 @@ buildPythonApplication rec {
           --fontconfig-library='${fontconfig.lib}/lib/libfontconfig.so' \
           ${commonOptions}
           ${python.pythonForBuild.interpreter} setup.py build-launcher
-        ''}
+        ''
+      }
       runHook postBuild
-    ''
-  ;
+    '';
 
   nativeCheckInputs = [
     pillow
@@ -246,7 +245,8 @@ buildPythonApplication rec {
       ''
         cp -r linux-package/{bin,share,lib} $out
         cp linux-package/bin/kitten $kitten/bin/kitten
-      ''}
+      ''
+    }
     wrapProgram "$out/bin/kitty" --prefix PATH : "$out/bin:${
       lib.makeBinPath [
         imagemagick

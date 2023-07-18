@@ -59,8 +59,7 @@ with lib; {
             bool
             (listOf str)
           ]
-        )
-      ;
+        );
       default = { };
       example = literalExpression "{ global.tor = enable; }";
 

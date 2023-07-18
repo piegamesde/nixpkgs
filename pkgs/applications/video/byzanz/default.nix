@@ -61,8 +61,7 @@ stdenv.mkDerivation {
         gst-libav
         wrapGAppsHook
       ]
-    )
-  ;
+    );
 
   meta = with lib; {
     description = "Tool to record a running X desktop to an animation suitable for presentation in a web browser";

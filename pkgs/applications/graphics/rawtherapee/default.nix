@@ -73,8 +73,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals stdenv.isDarwin [
       "-DCMAKE_OSX_DEPLOYMENT_TARGET=${stdenv.hostPlatform.darwinMinVersion}"
-    ]
-  ;
+    ];
 
   CMAKE_CXX_FLAGS = toString [
     "-std=c++11"

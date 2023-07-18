@@ -33,10 +33,12 @@ rec {
       ;
 
       gemset =
-        if gemset == null then assert gemdir != null; gemdir + "/gemset.nix" else gemset
+        if gemset == null then
+          assert gemdir != null; gemdir + "/gemset.nix"
+        else
+          gemset
       ;
-    }
-  ;
+    };
 
   filterGemset =
     { ruby, groups, ... }:
@@ -51,11 +53,9 @@ rec {
           depNames = concatMap (gem: gem.dependencies or [ ]) (attrValues gems);
           deps = getAttrs depNames platformGems;
         in
-        gems // deps
-      ;
+        gems // deps;
     in
-    converge expandDependencies directlyMatchingGems
-  ;
+    converge expandDependencies directlyMatchingGems;
 
   platformMatches =
     { rubyEngine, version, ... }:
@@ -71,8 +71,7 @@ rec {
             && (!(platform ? version) || platform.version == version.majMin)
           )
           attrs.platforms
-    )
-  ;
+    );
 
   groupMatches =
     groups: attrs:
@@ -88,8 +87,7 @@ rec {
         attrs // gemConfig.${attrs.gemName} attrs
       else
         attrs
-    )
-  ;
+    );
 
   genStubsScript =
     {
@@ -109,8 +107,7 @@ rec {
         "${bundler}/${ruby.gemPath}/gems/bundler-${bundler.version}" \
         ${lib.escapeShellArg binPaths} \
         ${lib.escapeShellArg groups}
-    ''
-  ;
+    '';
 
   pathDerivation =
     {
@@ -131,8 +128,7 @@ rec {
         outputName = "out";
       };
     in
-    res
-  ;
+    res;
 
   composeGemAttrs =
     ruby: gems: name: attrs:
@@ -145,6 +141,5 @@ rec {
         gemName = name;
         gemPath = map (gemName: gems.${gemName}) (attrs.dependencies or [ ]);
       }
-    )
-  ;
+    );
 }

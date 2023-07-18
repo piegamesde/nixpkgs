@@ -34,8 +34,7 @@ stdenv.mkDerivation rec {
       "--with-octave"
       "M_INSTALL_DIR=$(out)/${octave.sitePath}/m"
       "OCT_INSTALL_DIR=$(out)/${octave.sitePath}/oct"
-    ]
-  ;
+    ];
 
   postFixup = ''
     substituteInPlace $out/lib/cmake/nlopt/NLoptLibraryDepends.cmake --replace \

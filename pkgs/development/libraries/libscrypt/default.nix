@@ -17,8 +17,7 @@ stdenv.mkDerivation rec {
 
   buildFlags =
     lib.optional stdenv.isDarwin
-      "LDFLAGS= LDFLAGS_EXTRA= CFLAGS_EXTRA="
-  ;
+      "LDFLAGS= LDFLAGS_EXTRA= CFLAGS_EXTRA=";
 
   installFlags = [ "PREFIX=$(out)" ];
   installTargets = lib.optional stdenv.isDarwin "install-osx";

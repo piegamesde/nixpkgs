@@ -20,7 +20,8 @@
   else if lib.versionAtLeast ocaml.version "4.07" then
     "1.15.2"
   else
-    "1.14.1",
+    "1.14.1"
+  ,
 }:
 
 let
@@ -44,8 +45,7 @@ let
           repo = "elpi";
         };
       })
-      version
-  ;
+      version;
 in
 buildDunePackage rec {
   pname = "elpi";
@@ -53,8 +53,7 @@ buildDunePackage rec {
 
   patches =
     lib.optional (lib.versionAtLeast version "1.16" || version == "dev")
-      ./atd_2_10.patch
-  ;
+      ./atd_2_10.patch;
 
   minimalOCamlVersion = "4.04";
   duneVersion = "3";
@@ -71,8 +70,7 @@ buildDunePackage rec {
   ;
   buildInputs =
     [ ncurses ]
-    ++ lib.optional (lib.versionAtLeast version "1.16" || version == "dev") atdgen
-  ;
+    ++ lib.optional (lib.versionAtLeast version "1.16" || version == "dev") atdgen;
 
   propagatedBuildInputs =
     [

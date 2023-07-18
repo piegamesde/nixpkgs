@@ -18,16 +18,14 @@ let
         m = builtins.match "([^/@]+[^@]*)" d;
       in
       optionals (m != null) m
-    )
-  ;
+    );
 
   # Escape as required by: https://www.freedesktop.org/software/systemd/man/systemd.unit.html
   escapeUnitName =
     name:
     lib.concatMapStrings (s: if lib.isList s then "-" else s) (
       builtins.split "[^a-zA-Z0-9_.\\-]+" name
-    )
-  ;
+    );
 
   # Function to build "zfs allow" commands for the filesystems we've delegated
   # permissions to. It also checks if the target dataset exists before
@@ -74,8 +72,7 @@ let
           fi
         ''
       }"
-    )
-  ;
+    );
 
   # Function to build "zfs unallow" commands for the filesystems we've
   # delegated permissions to. Here we unallow both the target but also
@@ -108,8 +105,7 @@ let
           )}
         ''
       }"
-    )
-  ;
+    );
 in
 {
 
@@ -491,8 +487,7 @@ in
             ]
           )
         )
-        cfg.commands
-    ;
+        cfg.commands;
   };
 
   meta.maintainers = with maintainers; [

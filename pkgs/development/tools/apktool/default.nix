@@ -35,8 +35,7 @@ stdenv.mkDerivation rec {
       makeWrapper "${jre}/bin/java" "$out/bin/apktool" \
           --add-flags "-jar $out/libexec/apktool/apktool.jar" \
           --prefix PATH : "${tools}/libexec/android-sdk/build-tools/${tools.version}"
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "A tool for reverse engineering Android apk files";

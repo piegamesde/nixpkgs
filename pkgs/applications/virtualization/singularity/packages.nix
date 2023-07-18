@@ -35,8 +35,7 @@ let
         # when building on a system with disabled unprivileged namespace.
         # See https://github.com/NixOS/nixpkgs/pull/215690#issuecomment-1426954601
         defaultToSuid = null;
-      }
-  ;
+      };
 
   singularity =
     callPackage
@@ -64,8 +63,7 @@ let
         extraDescription = " (Sylabs Inc's fork of Singularity, a.k.a. SingularityCE)";
         extraMeta.homepage = "https://sylabs.io/";
       })
-      { defaultToSuid = true; }
-  ;
+      { defaultToSuid = true; };
 
   genOverridenNixos =
     package: packageName:
@@ -88,8 +86,7 @@ let
             '';
           };
         }
-      )
-  ;
+      );
 in
 {
   inherit apptainer singularity;

@@ -44,8 +44,7 @@ buildGoModule rec {
       Cocoa
       Kernel
       UserNotifications
-    ]
-  ;
+    ];
 
   ldflags = [
     "-s"

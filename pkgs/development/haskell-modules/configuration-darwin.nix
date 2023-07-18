@@ -33,8 +33,7 @@ self: super:
           testToolDepends = [ ];
           doCheck = false;
         }
-        super.hakyll
-    ;
+        super.hakyll;
 
     barbly = addBuildDepend darwin.apple_sdk.frameworks.AppKit super.barbly;
 
@@ -44,8 +43,7 @@ self: super:
 
     apecs-physics =
       addPkgconfigDepends [ darwin.apple_sdk.frameworks.ApplicationServices ]
-        super.apecs-physics
-    ;
+        super.apecs-physics;
 
     # Framework deps are hidden behind a flag
     hmidi =
@@ -55,8 +53,7 @@ self: super:
           darwin.apple_sdk.frameworks.CoreAudio
           darwin.apple_sdk.frameworks.CoreMIDI
         ]
-        super.hmidi
-    ;
+        super.hmidi;
 
     # "erf table" test fails on Darwin
     # https://github.com/bos/math-functions/issues/63
@@ -74,8 +71,7 @@ self: super:
             + (drv.preCheck or "")
           ;
         })
-        super.mockery
-    ;
+        super.mockery;
 
     # https://github.com/ndmitchell/shake/issues/206
     shake = dontCheck super.shake;
@@ -96,13 +92,11 @@ self: super:
             darwin.apple_sdk.frameworks.OpenAL
           ] ++ (drv.libraryFrameworkDepends or [ ]);
         })
-        super.al
-    ;
+        super.al;
 
     proteaaudio =
       addExtraLibrary darwin.apple_sdk.frameworks.AudioToolbox
-        super.proteaaudio
-    ;
+        super.proteaaudio;
 
     # the system-fileio tests use canonicalizePath, which fails in the sandbox
     system-fileio = dontCheck super.system-fileio;
@@ -131,8 +125,7 @@ self: super:
             ;
           }
         )
-        super.x509-system
-    ;
+        super.x509-system;
 
     # https://github.com/haskell-foundation/foundation/pull/412
     foundation = dontCheck super.foundation;
@@ -153,8 +146,7 @@ self: super:
             + (oldAttrs.preCompileBuildDriver or "")
           ;
         })
-        super.llvm-hs
-    ;
+        super.llvm-hs;
 
     yesod-bin = addBuildDepend darwin.apple_sdk.frameworks.Cocoa super.yesod-bin;
 
@@ -167,8 +159,7 @@ self: super:
             darwin.apple_sdk.frameworks.Accelerate
           ] ++ (drv.libraryFrameworkDepends or [ ]);
         })
-        super.blas-hs
-    ;
+        super.blas-hs;
 
     # Ensure the necessary frameworks are propagatedBuildInputs on darwin
     OpenGLRaw =
@@ -187,8 +178,7 @@ self: super:
             + (drv.preConfigure or "")
           ;
         })
-        super.OpenGLRaw
-    ;
+        super.OpenGLRaw;
     GLURaw =
       overrideCabal
         (drv: {
@@ -197,8 +187,7 @@ self: super:
             darwin.apple_sdk.frameworks.OpenGL
           ];
         })
-        super.GLURaw
-    ;
+        super.GLURaw;
     bindings-GLFW =
       overrideCabal
         (drv: {
@@ -213,8 +202,7 @@ self: super:
             darwin.CF
           ];
         })
-        super.bindings-GLFW
-    ;
+        super.bindings-GLFW;
     OpenCL =
       overrideCabal
         (drv: {
@@ -223,8 +211,7 @@ self: super:
             darwin.apple_sdk.frameworks.OpenCL
           ];
         })
-        super.OpenCL
-    ;
+        super.OpenCL;
 
     # cabal2nix likes to generate dependencies on hinotify when hfsevents is
     # really required on darwin: https://github.com/NixOS/cabal2nix/issues/146.
@@ -244,8 +231,7 @@ self: super:
             darwin.apple_sdk.frameworks.AppKit
           ] ++ (drv.librarySystemDepends or [ ]);
         })
-        super.FractalArt
-    ;
+        super.FractalArt;
 
     arbtt =
       overrideCabal
@@ -256,8 +242,7 @@ self: super:
             darwin.apple_sdk.frameworks.IOKit
           ] ++ (drv.librarySystemDepends or [ ]);
         })
-        super.arbtt
-    ;
+        super.arbtt;
 
     HTF =
       overrideCabal
@@ -270,8 +255,7 @@ self: super:
             + (drv.postPatch or "")
           ;
         })
-        super.HTF
-    ;
+        super.HTF;
 
     # conditional dependency via a cabal flag
     cas-store =
@@ -279,8 +263,7 @@ self: super:
         (drv: {
           libraryHaskellDepends = [ self.kqueue ] ++ (drv.libraryHaskellDepends or [ ]);
         })
-        super.cas-store
-    ;
+        super.cas-store;
 
     # 2021-05-25: Tests fail and I have no way to debug them.
     hls-class-plugin = dontCheck super.hls-class-plugin;
@@ -311,8 +294,7 @@ self: super:
             + (drv.postPatch or "")
           ;
         })
-        super.GLHUI
-    ;
+        super.GLHUI;
 
     SDL-image =
       overrideCabal
@@ -331,8 +313,7 @@ self: super:
               ./patches/SDL-image-darwin-hsc.patch
             ];
         })
-        super.SDL-image
-    ;
+        super.SDL-image;
 
     # Prevent darwin-specific configuration code path being taken which
     # doesn't work with nixpkgs' SDL libraries
@@ -346,8 +327,7 @@ self: super:
             + (drv.postPatch or "")
           ;
         })
-        super.SDL-mixer
-    ;
+        super.SDL-mixer;
 
     # Work around SDL_main.h redefining main to SDL_main
     SDL-ttf = appendPatch ./patches/SDL-ttf-darwin-hsc.patch super.SDL-ttf;
@@ -384,8 +364,7 @@ self: super:
             + drv.postPatch or ""
           ;
         })
-        super.http-client-tls
-    ;
+        super.http-client-tls;
 
     foldl =
       overrideCabal
@@ -403,8 +382,7 @@ self: super:
             + drv.postPatch or ""
           ;
         })
-        super.foldl
-    ;
+        super.foldl;
   }
   // lib.optionalAttrs pkgs.stdenv.isAarch64 {
     # aarch64-darwin
@@ -423,14 +401,12 @@ self: super:
             sed -i 's/\bit /xit /g' test/RIO/FileSpec.hs
           '';
         })
-        super.rio
-    ;
+        super.rio;
 
     # https://github.com/haskell-crypto/cryptonite/issues/360
     cryptonite =
       appendPatch ./patches/cryptonite-remove-argon2.patch
-        super.cryptonite
-    ;
+        super.cryptonite;
 
     # Build segfaults unless `fixity-th` is disabled.
     # https://github.com/tweag/ormolu/issues/927
@@ -439,15 +415,13 @@ self: super:
         (drv: {
           libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.file-embed ];
         })
-        (disableCabalFlag "fixity-th" super.ormolu)
-    ;
+        (disableCabalFlag "fixity-th" super.ormolu);
     fourmolu =
       overrideCabal
         (drv: {
           libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.file-embed ];
         })
-        (disableCabalFlag "fixity-th" super.fourmolu)
-    ;
+        (disableCabalFlag "fixity-th" super.fourmolu);
 
     # https://github.com/NixOS/nixpkgs/issues/149692
     Agda = removeConfigureFlag "-foptimise-heavily" super.Agda;

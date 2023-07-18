@@ -52,8 +52,7 @@ stdenv.mkDerivation {
         gst-plugins-base
         gst-plugins-good
       ]
-    )
-  ;
+    );
 
   configurePhase = ''
     cmake RetroFE/Source -BRetroFE/Build -DCMAKE_BUILD_TYPE=Release \

@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
 
   makeFlags =
     lib.optional stdenv.hostPlatform.isStatic
-      "AR=${stdenv.cc.targetPrefix}ar"
-  ;
+      "AR=${stdenv.cc.targetPrefix}ar";
 
   # it's unclear which headers are intended to be part of the public interface
   # so we may find ourselves having to add more here over time

@@ -168,8 +168,7 @@ beamPackages.mixRelease rec {
             ''
               mkdir config
               cp ${cfgFile} config/config.exs
-            ''
-          ;
+            '';
         };
 
         crypt =
@@ -179,8 +178,7 @@ beamPackages.mixRelease rec {
           prev.crypt.override {
             buildInputs = [ libxcrypt-legacy ];
             postInstall = "mv $out/lib/erlang/lib/crypt-${version}/priv/{hex-source-crypt-${version},crypt}.so";
-          }
-        ;
+          };
       });
   };
 

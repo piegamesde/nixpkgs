@@ -46,8 +46,7 @@ mkCoqDerivation rec {
           out = "8.6.0";
         }
       ]
-      null
-  ;
+      null;
 
   propagatedBuildInputs = [ zorns-lemma ];
 

@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
           writeText "config.h" conf
       ;
     in
-    lib.optionalString (conf != null) "cp ${configFile} config.h"
-  ;
+    lib.optionalString (conf != null) "cp ${configFile} config.h";
 
   makeFlags = [ "PREFIX=$(out)" ];
 

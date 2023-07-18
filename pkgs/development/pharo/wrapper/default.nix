@@ -67,7 +67,6 @@ stdenv.mkDerivation rec {
     platforms =
       lib.filter
         (system: with lib.systems.elaborate { inherit system; }; isUnix && !isDarwin)
-        lib.platforms.mesaPlatforms
-    ;
+        lib.platforms.mesaPlatforms;
   };
 }

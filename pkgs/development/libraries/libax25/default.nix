@@ -11,8 +11,7 @@ stdenv.mkDerivation rec {
 
   buildInputs =
     [ glibc ]
-    ++ lib.optionals stdenv.hostPlatform.isStatic [ glibc.static ]
-  ;
+    ++ lib.optionals stdenv.hostPlatform.isStatic [ glibc.static ];
 
   # Due to recent unsolvable administrative domain problems with linux-ax25.org,
   # the new domain is linux-ax25.in-berlin.de

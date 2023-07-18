@@ -86,8 +86,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withAI [
       python3
       jdk
-    ]
-  ;
+    ];
 
   postInstall = ''
     wrapProgram "$out/bin/spring" \

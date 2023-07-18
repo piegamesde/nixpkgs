@@ -61,19 +61,15 @@ let
       HOME_URL = lib.optionalString (cfg.distroId == "nixos") "https://nixos.org/";
       DOCUMENTATION_URL =
         lib.optionalString (cfg.distroId == "nixos")
-          "https://nixos.org/learn.html"
-      ;
+          "https://nixos.org/learn.html";
       SUPPORT_URL =
         lib.optionalString (cfg.distroId == "nixos")
-          "https://nixos.org/community.html"
-      ;
+          "https://nixos.org/community.html";
       BUG_REPORT_URL =
         lib.optionalString (cfg.distroId == "nixos")
-          "https://github.com/NixOS/nixpkgs/issues"
-      ;
+          "https://github.com/NixOS/nixpkgs/issues";
     }
-    // lib.optionalAttrs (cfg.variant_id != null) { VARIANT_ID = cfg.variant_id; }
-  ;
+    // lib.optionalAttrs (cfg.variant_id != null) { VARIANT_ID = cfg.variant_id; };
 
   initrdReleaseContents = osReleaseContents // {
     PRETTY_NAME = "${osReleaseContents.PRETTY_NAME} (Initrd)";
@@ -165,8 +161,7 @@ in
       default = trivial.revisionWithDefault null;
       description =
         lib.mdDoc
-          "The Git revision from which this NixOS configuration was built."
-      ;
+          "The Git revision from which this NixOS configuration was built.";
     };
 
     nixos.codeName = mkOption {
@@ -195,8 +190,7 @@ in
       default = null;
       description =
         lib.mdDoc
-          "A lower-case string identifying a specific variant or edition of the operating system"
-      ;
+          "A lower-case string identifying a specific variant or edition of the operating system";
       example = "installer";
     };
 
@@ -209,8 +203,7 @@ in
         lib.warnIf
           (options.system.stateVersion.highestPrio == (lib.mkOptionDefault { }).priority)
           "system.stateVersion is not set, defaulting to ${v}. Read why this matters on https://nixos.org/manual/nixos/stable/options.html#opt-system.stateVersion."
-          v
-      ;
+          v;
       default = cfg.release;
       defaultText = literalExpression "config.${opt.release}";
       description = lib.mdDoc ''
@@ -239,8 +232,7 @@ in
       default = "https://nixos.org/channels/nixos-unstable";
       description =
         lib.mdDoc
-          "Default NixOS channel to which the root user is subscribed."
-      ;
+          "Default NixOS channel to which the root user is subscribed.";
     };
 
     configurationRevision = mkOption {
@@ -248,8 +240,7 @@ in
       default = null;
       description =
         lib.mdDoc
-          "The Git revision of the top-level flake from which this configuration was built."
-      ;
+          "The Git revision of the top-level flake from which this configuration was built.";
     };
   };
 

@@ -61,8 +61,7 @@ stdenv.mkDerivation rec {
       }-avx512vl"
       "--${if stdenv.hostPlatform.fmaSupport then "enable" else "disable"}-fma"
       "--${if stdenv.hostPlatform.fma4Support then "enable" else "disable"}-fma4"
-    ]
-  ;
+    ];
   doCheck = true;
 
   meta = with lib; {

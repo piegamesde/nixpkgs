@@ -27,8 +27,7 @@ rec {
         unzip
         makeWrapper
       ;
-    }
-  ;
+    };
 
   buildApp = import ./build-app.nix {
     inherit (pkgs)

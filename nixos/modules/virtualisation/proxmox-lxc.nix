@@ -77,6 +77,5 @@ with lib;
         where = "/sys/kernel/debug";
         enable = false;
       } ];
-    }
-  ;
+    };
 }

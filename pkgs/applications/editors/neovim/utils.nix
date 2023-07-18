@@ -61,13 +61,11 @@ let
             optional = false;
           };
         in
-        map (x: defaultPlugin // (if (x ? plugin) then x else { plugin = x; })) plugins
-      ;
+        map (x: defaultPlugin // (if (x ? plugin) then x else { plugin = x; })) plugins;
 
       pluginRC =
         lib.foldl (acc: p: if p.config != null then acc ++ [ p.config ] else acc) [ ]
-          pluginsNormalized
-      ;
+          pluginsNormalized;
 
       pluginsPartitioned = lib.partition (x: x.optional == true) pluginsNormalized;
       requiredPlugins = vimUtils.requiredPluginsForPackage myVimPackage;
@@ -211,8 +209,7 @@ let
         wrapperArgs = lib.escapeShellArgs res.wrapperArgs + " " + extraMakeWrapperArgs;
         wrapRc = (configure != { });
       }
-    )
-  ;
+    );
 
   /* Generate vim.g.<LANG>_host_prog lua rc to setup host providers
 
@@ -250,8 +247,7 @@ let
 
       hostProviderLua = lib.mapAttrsToList genProviderCommand hostprog_check_table;
     in
-    lib.concatStringsSep ";" hostProviderLua
-  ;
+    lib.concatStringsSep ";" hostProviderLua;
 in
 {
   inherit makeNeovimConfig;

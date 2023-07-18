@@ -38,8 +38,7 @@ rustPlatform.buildRustPackage rec {
       Security
       SystemConfiguration
       libiconv
-    ]
-  ;
+    ];
 
   preCheck = ''
     export TEST_GIT=${git}/bin/git

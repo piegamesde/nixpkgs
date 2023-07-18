@@ -65,8 +65,7 @@ stdenv.mkDerivation rec {
         pip
         pythonOutputDistHook
       ]
-    )
-  ;
+    );
 
   buildInputs =
     [
@@ -83,8 +82,7 @@ stdenv.mkDerivation rec {
       python3Packages.numpy
       python3Packages.pybind11
       python3Packages.packaging
-    ]
-  ;
+    ];
 
   # TODO: build server, and move .so's to lib output
   # Python's wheel is stored in a separate dist output

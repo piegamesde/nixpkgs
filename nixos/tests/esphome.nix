@@ -19,8 +19,7 @@ import ./make-test-python.nix (
             address = "0.0.0.0";
             openFirewall = true;
           };
-        }
-      ;
+        };
 
       esphomeUnix =
         { ... }:
@@ -29,8 +28,7 @@ import ./make-test-python.nix (
             enable = true;
             enableUnixSocket = true;
           };
-        }
-      ;
+        };
     };
 
     testScript = ''

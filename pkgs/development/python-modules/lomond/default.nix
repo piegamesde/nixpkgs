@@ -50,8 +50,7 @@ buildPythonPackage rec {
       [
         # requires tornado_4, which is not compatible with python3.10
         "tests/test_integration.py"
-      ]
-  ;
+      ];
 
   meta = with lib; {
     description = "Websocket Client Library";

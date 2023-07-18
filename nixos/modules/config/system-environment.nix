@@ -92,13 +92,11 @@ in
             [
               "@{HOME}"
               "@{PAM_USER}"
-            ]
-        ;
+            ];
 
         pamVariable =
           n: v:
-          ''${n}   DEFAULT="${concatStringsSep ":" (map replaceEnvVars (toList v))}"''
-        ;
+          ''${n}   DEFAULT="${concatStringsSep ":" (map replaceEnvVars (toList v))}"'';
 
         pamVariables = concatStringsSep "\n" (
           mapAttrsToList pamVariable (
@@ -118,7 +116,6 @@ in
       in
       ''
         ${pamVariables}
-      ''
-    ;
+      '';
   };
 }

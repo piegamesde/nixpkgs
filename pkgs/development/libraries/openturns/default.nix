@@ -48,8 +48,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs =
     [ cmake ]
-    ++ lib.optional enablePython python3Packages.sphinx
-  ;
+    ++ lib.optional enablePython python3Packages.sphinx;
   buildInputs =
     [
       swig

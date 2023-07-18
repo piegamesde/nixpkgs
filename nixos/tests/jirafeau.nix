@@ -13,8 +13,7 @@ import ./make-test-python.nix (
         services.jirafeau = {
           enable = true;
         };
-      }
-    ;
+      };
 
     testScript = ''
       machine.start()

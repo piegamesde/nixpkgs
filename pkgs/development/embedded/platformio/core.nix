@@ -167,8 +167,7 @@ buildPythonApplication rec {
       "test_misc.py::test_ping_internet_ips"
       "test_misc.py::test_platformio_cli"
       "test_pkgmanifest.py::test_packages"
-    ])
-  ;
+    ]);
 
   passthru = {
     python = python3;

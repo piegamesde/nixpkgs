@@ -20,8 +20,7 @@ runCommand "documentation-highlighter"
             ./mono-blue.css
             ./README.md
           ]
-        )
-      ;
+        );
     };
   }
   ''

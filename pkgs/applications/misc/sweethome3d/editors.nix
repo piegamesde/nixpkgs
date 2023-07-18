@@ -19,8 +19,7 @@ let
   sweetExec =
     with lib;
     m:
-    "sweethome3d-" + removeSuffix "libraryeditor" (toLower m) + "-editor"
-  ;
+    "sweethome3d-" + removeSuffix "libraryeditor" (toLower m) + "-editor";
 
   applicationSrc = stdenv.mkDerivation {
     name = "application-src";
@@ -109,8 +108,7 @@ let
         maintainers = [ lib.maintainers.edwtjo ];
         platforms = lib.platforms.linux;
       };
-    }
-  ;
+    };
 
   d2u = lib.replaceStrings [ "." ] [ "_" ];
 in

@@ -85,8 +85,7 @@ buildPythonPackage rec {
       [
         # flaky
         "tests/test_plugins_cli.py"
-      ]
-  ;
+      ];
 
   disabledTests =
     [
@@ -110,8 +109,7 @@ buildPythonPackage rec {
       [
         # flaky
         "test_daemon_runner"
-      ]
-  ;
+      ];
 
   meta = with lib; {
     description = "A command line HTTP client whose goal is to make CLI human-friendly";

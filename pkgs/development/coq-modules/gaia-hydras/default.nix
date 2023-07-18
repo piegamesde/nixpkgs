@@ -41,8 +41,7 @@ mkCoqDerivation rec {
           out = "0.5";
         }
       ]
-      null
-  ;
+      null;
 
   propagatedBuildInputs = [
     hydra-battles

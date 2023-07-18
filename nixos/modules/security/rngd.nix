@@ -6,8 +6,7 @@ let
       "security"
       "rngd"
       k
-    ]
-  ;
+    ];
 in
 {
   imports = [

@@ -54,8 +54,9 @@ let
       paths = lib.closePropagation plugins;
       module_flags =
         with builtins;
-        concatStringsSep " " (map (n: "--add-flags -m --add-flags ${n.plugin}") plugins)
-      ;
+        concatStringsSep " " (
+          map (n: "--add-flags -m --add-flags ${n.plugin}") plugins
+        );
     in
     lib.appendToName "with-plugins" (
       symlinkJoin {
@@ -68,8 +69,7 @@ let
             ${module_flags}
         '';
       }
-    )
-  ;
+    );
 
   allPlugins = {
     bluespec = yosys-bluespec;
@@ -134,8 +134,7 @@ stdenv.mkDerivation rec {
         echo "ERROR: yosys version in Makefile isn't equivalent to version of the nix package (allegedly ${version}), failing."
         exit 1
       fi
-    ''
-  ;
+    '';
 
   checkTarget = "test";
   doCheck = true;

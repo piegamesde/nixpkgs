@@ -39,8 +39,7 @@ in
       type = types.listOf types.package;
       description =
         lib.mdDoc
-          "List of default packages to exclude from the configuration"
-      ;
+          "List of default packages to exclude from the configuration";
     };
   };
 

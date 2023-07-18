@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
       libobjc
       IOKit
       Security
-    ]
-  ;
+    ];
 
   cmakeFlags = [ "-DSoapySDR_DIR=${soapysdr}/share/cmake/SoapySDR/" ];
 

@@ -28,8 +28,7 @@ in
         default = { };
         description =
           lib.mdDoc
-            "configuration options for influxdb2, see <https://docs.influxdata.com/influxdb/v2.0/reference/config-options> for details."
-        ;
+            "configuration options for influxdb2, see <https://docs.influxdata.com/influxdb/v2.0/reference/config-options> for details.";
         type = format.type;
       };
     };

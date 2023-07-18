@@ -115,8 +115,7 @@ buildPythonPackage rec {
       [
         # Flaky with older low-res mtime on darwin < 10.13 (#143987)
         "test_second_load_timestamp"
-      ]
-  ;
+      ];
 
   pythonImportsCheck = [ "intake" ];
 

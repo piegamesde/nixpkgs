@@ -48,8 +48,7 @@ stdenv.mkDerivation {
       bzip2
       glib
       libxml2
-    ]
-  ;
+    ];
 
   installPhase = ''
     runHook preInstall

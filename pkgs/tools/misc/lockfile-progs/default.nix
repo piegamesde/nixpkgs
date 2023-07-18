@@ -21,8 +21,7 @@ stdenv.mkDerivation rec {
       [
         # Needed with GCC 12
         "-Wno-error=format-overflow"
-      ]
-  ;
+      ];
 
   installPhase = ''
     runHook preInstall

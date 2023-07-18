@@ -40,8 +40,7 @@ buildGoModule rec {
       # https://github.com/argoproj/argo-cd/blob/v${version}/go.mod#L95
       # Per https://github.com/argoproj/argo-cd/blob/master/Makefile#L18
       # Will need a way to automate it :P
-    ]
-  ;
+    ];
 
   nativeBuildInputs = [ installShellFiles ];
 

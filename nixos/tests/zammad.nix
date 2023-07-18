@@ -45,10 +45,8 @@ import ./make-test-python.nix (
               echo '[{"locale":"en-us","format":"time","source":"date","target":"mm/dd/yyyy","target_initial":"mm/dd/yyyy"},{"locale":"en-us","format":"time","source":"timestamp","target":"mm/dd/yyyy HH:MM","target_initial":"mm/dd/yyyy HH:MM"}]' \
                 > ./config/translations/en-us-$VERSION.yml
             '';
-          }
-        ;
-      }
-    ;
+          };
+      };
 
     testScript = ''
       start_all()

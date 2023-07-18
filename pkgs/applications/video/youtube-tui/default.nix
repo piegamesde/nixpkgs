@@ -41,8 +41,7 @@ rustPlatform.buildRustPackage rec {
       CoreFoundation
       Security
       AppKit
-    ]
-  ;
+    ];
 
   meta = with lib; {
     description = "An aesthetically pleasing YouTube TUI written in Rust";

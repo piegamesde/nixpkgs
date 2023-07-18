@@ -102,8 +102,7 @@ let
           out = "0.2.3";
         }
       ]
-      null
-  ;
+      null;
 
   # list of analysis packages sorted by dependency order
   packages = [
@@ -224,7 +223,6 @@ let
           { propagatedBuildInputs = o.propagatedBuildInputs ++ [ hierarchy-builder ]; }
       );
     in
-    patched-derivation
-  ;
+    patched-derivation;
 in
 mathcomp_ (if single then "single" else "analysis")

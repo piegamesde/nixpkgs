@@ -56,8 +56,7 @@ stdenv.mkDerivation rec {
       [
         # fix `multiversioning needs 'ifunc' which is not supported on this target` error
         "--disable-roll-simd"
-      ]
-  ;
+      ];
 
   enableParallelBuilding = true;
 

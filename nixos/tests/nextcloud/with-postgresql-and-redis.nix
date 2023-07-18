@@ -65,8 +65,7 @@ args@{
 
           services.redis.servers."nextcloud".enable = true;
           services.redis.servers."nextcloud".port = 6379;
-        }
-      ;
+        };
     };
 
     testScript =
@@ -111,8 +110,7 @@ args@{
             "${withRcloneEnv} ${diffSharedFile}"
         )
         nextcloud.wait_until_succeeds("journalctl -u nextcloud-notify_push | grep -q \"Sending ping to ${adminuser}\"")
-      ''
-    ;
+      '';
   }
 ))
   args

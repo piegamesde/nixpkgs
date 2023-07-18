@@ -71,8 +71,7 @@ let
               builtins.stringLength x < 32
               || abort "Username '${x}' is longer than 31 characters which is not allowed!"
             );
-            x
-          ;
+            x;
           description = lib.mdDoc ''
             The name of the user account. If undefined, the name of the
             attribute set will be used.
@@ -136,8 +135,7 @@ let
               builtins.stringLength x < 32
               || abort "Group name '${x}' is longer than 31 characters which is not allowed!"
             );
-            x
-          ;
+            x;
           default = "";
           description = lib.mdDoc "The user's primary group.";
         };
@@ -159,8 +157,7 @@ let
           default = "700";
           description =
             lib.mdDoc
-              "The user's home directory mode in numeric format. See chmod(1). The mode is only applied if {option}`users.users.<name>.createHome` is true."
-          ;
+              "The user's home directory mode in numeric format. See chmod(1). The mode is only applied if {option}`users.users.<name>.createHome` is true.";
         };
 
         cryptHomeLuks = mkOption {
@@ -381,8 +378,7 @@ let
           { autoSubUidGidRange = mkDefault true; }
         )
       ];
-    }
-  ;
+    };
 
   groupOpts =
     { name, config, ... }:
@@ -424,8 +420,7 @@ let
           filterAttrs (n: u: elem config.name u.extraGroups) cfg.users
         );
       };
-    }
-  ;
+    };
 
   subordinateUidRange = {
     options = {
@@ -496,27 +491,22 @@ let
         acc = { };
       }
       (builtins.attrNames set)
-    ).dup
-  ;
+    ).dup;
 
   uidsAreUnique =
     idsAreUnique (filterAttrs (n: u: u.uid != null) cfg.users)
-      "uid"
-  ;
+      "uid";
   gidsAreUnique =
     idsAreUnique (filterAttrs (n: g: g.gid != null) cfg.groups)
-      "gid"
-  ;
+      "gid";
   sdInitrdUidsAreUnique =
     idsAreUnique
       (filterAttrs (n: u: u.uid != null) config.boot.initrd.systemd.users)
-      "uid"
-  ;
+      "uid";
   sdInitrdGidsAreUnique =
     idsAreUnique
       (filterAttrs (n: g: g.gid != null) config.boot.initrd.systemd.groups)
-      "gid"
-  ;
+      "gid";
 
   spec = pkgs.writeText "users-groups.json" (
     builtins.toJSON {
@@ -544,8 +534,7 @@ let
             ;
             shell = utils.toShellPath u.shell;
           })
-          cfg.users
-      ;
+          cfg.users;
       groups = attrValues cfg.groups;
     }
   );
@@ -554,8 +543,7 @@ let
     let
       shells = mapAttrsToList (_: u: u.shell) cfg.users;
     in
-    filter types.shellPackage.check shells
-  ;
+    filter types.shellPackage.check shells;
 in
 {
   imports = [
@@ -844,8 +832,7 @@ in
               };
             }
           )
-          (filterAttrs (_: u: u.packages != [ ]) cfg.users)
-      ;
+          (filterAttrs (_: u: u.packages != [ ]) cfg.users);
 
       environment.profiles = [
         "$HOME/.nix-profile"
@@ -973,8 +960,7 @@ in
                     isEffectivelySystemUser =
                       user.isSystemUser || (user.uid != null && user.uid < 1000);
                   in
-                  xor isEffectivelySystemUser user.isNormalUser
-                ;
+                  xor isEffectivelySystemUser user.isNormalUser;
                 message = ''
                   Exactly one of users.users.${user.name}.isSystemUser and users.users.${user.name}.isNormalUser must be set.
                 '';
@@ -1009,8 +995,7 @@ in
               ]
             )
           )
-        )
-      ;
+        );
 
       warnings = builtins.filter (x: x != null) (
         flip mapAttrsToList cfg.users (
@@ -1049,6 +1034,5 @@ in
             null
         )
       );
-    }
-  ;
+    };
 }

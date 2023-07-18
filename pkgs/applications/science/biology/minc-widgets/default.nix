@@ -39,8 +39,7 @@ stdenv.mkDerivation rec {
       octave
       coreutils
       minc_tools
-    ]
-  ;
+    ];
 
   postFixup = ''
     for p in $out/bin/*; do

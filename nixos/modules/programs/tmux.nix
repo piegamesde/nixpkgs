@@ -110,8 +110,7 @@ in
         type = types.bool;
         description =
           lib.mdDoc
-            "Override the hjkl and HJKL bindings for pane navigation and resizing in VI mode."
-        ;
+            "Override the hjkl and HJKL bindings for pane navigation and resizing in VI mode.";
       };
 
       escapeTime = mkOption {
@@ -120,8 +119,7 @@ in
         type = types.int;
         description =
           lib.mdDoc
-            "Time in milliseconds for which tmux waits after an escape is input."
-        ;
+            "Time in milliseconds for which tmux waits after an escape is input.";
       };
 
       extraConfig = mkOption {
@@ -154,8 +152,7 @@ in
         type = types.bool;
         description =
           lib.mdDoc
-            "Automatically spawn a session if trying to attach and none are running."
-        ;
+            "Automatically spawn a session if trying to attach and none are running.";
       };
 
       reverseSplit = mkOption {
@@ -177,8 +174,7 @@ in
         type = types.str;
         description =
           lib.mdDoc
-            "Ctrl following by this key is used as the main shortcut."
-        ;
+            "Ctrl following by this key is used as the main shortcut.";
       };
 
       terminal = mkOption {
@@ -230,8 +226,7 @@ in
       variables = {
         TMUX_TMPDIR =
           lib.optional cfg.secureSocket
-            ''''${XDG_RUNTIME_DIR:-"/run/user/$(id -u)"}''
-        ;
+            ''''${XDG_RUNTIME_DIR:-"/run/user/$(id -u)"}'';
       };
     };
     security.wrappers = mkIf cfg.withUtempter {

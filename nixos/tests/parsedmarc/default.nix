@@ -50,8 +50,7 @@ let
       with smtplib.SMTP('localhost') as server:
           server.sendmail(sender_email, receiver_email, text)
           server.quit()
-    ''
-  ;
+    '';
 in
 {
   localMail = makeTest {
@@ -87,8 +86,7 @@ in
           (sendEmail "dmarc@localhost")
           pkgs.jq
         ];
-      }
-    ;
+      };
 
     testScript =
       { nodes }:
@@ -100,8 +98,7 @@ in
               nodes.parsedmarc.config.services.elasticsearch.package.version
               "7"
             )
-            ".value"
-        ;
+            ".value";
       in
       ''
         parsedmarc.start()
@@ -123,8 +120,7 @@ in
             + " | tee /dev/console"
             + " | jq -es 'if . == [] then null else .[] | .hits.total${valueObject} > 0 end'"
         )
-      ''
-    ;
+      '';
   };
 
   externalMail =
@@ -163,8 +159,7 @@ in
             };
 
             environment.systemPackages = [ pkgs.jq ];
-          }
-        ;
+          };
 
         mail =
           { nodes, ... }:
@@ -201,8 +196,7 @@ in
             environment.systemPackages = [ (sendEmail "alice@${mailDomain}") ];
 
             networking.firewall.allowedTCPPorts = [ 993 ];
-          }
-        ;
+          };
       };
 
       testScript =
@@ -215,8 +209,7 @@ in
                 nodes.parsedmarc.config.services.elasticsearch.package.version
                 "7"
               )
-              ".value"
-          ;
+              ".value";
         in
         ''
           mail.start()
@@ -240,8 +233,6 @@ in
               + " | tee /dev/console"
               + " | jq -es 'if . == [] then null else .[] | .hits.total${valueObject} > 0 end'"
           )
-        ''
-      ;
-    }
-  ;
+        '';
+    };
 }

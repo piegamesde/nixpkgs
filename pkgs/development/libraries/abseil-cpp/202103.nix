@@ -35,13 +35,13 @@ stdenv.mkDerivation rec {
           url = "https://github.com/abseil/abseil-cpp/commit/808bc202fc13e85a7948db0d7fb58f0f051200b1.patch";
           sha256 = "sha256-ayY/aV/xWOdEyFSDqV7B5WDGvZ0ASr/aeBeYwP5RZVc=";
         })
-      ]
-  ;
+      ];
 
   cmakeFlags =
     [ "-DBUILD_SHARED_LIBS=${if static then "OFF" else "ON"}" ]
-    ++ lib.optionals (cxxStandard != null) [ "-DCMAKE_CXX_STANDARD=${cxxStandard}" ]
-  ;
+    ++ lib.optionals (cxxStandard != null) [
+      "-DCMAKE_CXX_STANDARD=${cxxStandard}"
+    ];
 
   nativeBuildInputs = [ cmake ];
 

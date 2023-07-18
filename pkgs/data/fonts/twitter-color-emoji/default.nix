@@ -83,8 +83,7 @@ stdenv.mkDerivation rec {
           mv $png emoji_u''${png//-/_}
       done
       popd
-    ''
-  ;
+    '';
 
   makeFlags = [
     "EMOJI=TwitterColorEmoji"

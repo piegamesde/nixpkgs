@@ -40,8 +40,7 @@ rustPlatform.buildRustPackage rec {
         ]
       else
         [ openssl ]
-    )
-  ;
+    );
 
   # Needed to get openssl-sys to use pkg-config.
   OPENSSL_NO_VENDOR = 1;

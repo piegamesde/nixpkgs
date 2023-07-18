@@ -47,8 +47,7 @@ rustPlatform.buildRustPackage rec {
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.isDarwin
-      "-faligned-allocation"
-  ;
+      "-faligned-allocation";
 
   meta = with lib; {
     description = "Vector Search Engine for the next generation of AI applications";

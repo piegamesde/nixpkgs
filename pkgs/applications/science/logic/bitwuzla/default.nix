@@ -67,8 +67,7 @@ stdenv.mkDerivation rec {
     ''
       export ${var}=$(readlink -f lib)
       patchShebangs ..
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "A SMT solver for fixed-size bit-vectors, floating-point arithmetic, arrays, and uninterpreted functions";

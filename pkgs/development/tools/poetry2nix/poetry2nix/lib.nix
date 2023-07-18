@@ -12,8 +12,7 @@ let
     idx: value: list:
     (genList (i: if i == idx then value else (builtins.elemAt list i)) (
       length list
-    ))
-  ;
+    ));
 
   # Normalize package names as per PEP 503
   normalizePackageName =
@@ -22,11 +21,9 @@ let
       parts = builtins.split "[-_.]+" name;
       partsWithoutSeparator =
         builtins.filter (x: builtins.typeOf x == "string")
-          parts
-      ;
+          parts;
     in
-    lib.strings.toLower (lib.strings.concatStringsSep "-" partsWithoutSeparator)
-  ;
+    lib.strings.toLower (lib.strings.concatStringsSep "-" partsWithoutSeparator);
 
   # Normalize an entire attrset of packages
   normalizePackageSet = lib.attrsets.mapAttrs' (
@@ -45,8 +42,7 @@ let
     in
     joinVersion (
       if major pyVer == major ver && minor pyVer == minor ver then ver else pyVer
-    )
-  ;
+    );
 
   # Compare a semver expression with a version
   isCompatible =
@@ -89,8 +85,7 @@ let
         state = true;
       };
     in
-    if expr == "" then true else (builtins.foldl' combine initial tokens).state
-  ;
+    if expr == "" then true else (builtins.foldl' combine initial tokens).state;
   fromTOML =
     builtins.fromTOML or (
       toml:
@@ -269,12 +264,10 @@ let
             "requires"
           ]
           (throw missingBuildBackendError)
-          pyProject
-      ;
+          pyProject;
       requiredPkgs =
         builtins.map (n: lib.elemAt (builtins.match "([^!=<>~[]+).*" n) 0)
-          requires
-      ;
+          requires;
     in
     builtins.map
       (
@@ -282,8 +275,7 @@ let
         pythonPackages.${drvAttr}
           or (throw "unsupported build system requirement ${drvAttr}")
       )
-      requiredPkgs
-  ;
+      requiredPkgs;
 
   # Find gitignore files recursively in parent directory stopping with .git
   findGitIgnores =
@@ -323,8 +315,7 @@ let
         filter = pkgs.nix-gitignore.gitignoreFilterPure pycacheFilter gitIgnores src;
         inherit src;
       };
-    }
-  ;
+    };
 
   # Maps Nixpkgs CPU values to target machines known to be supported for manylinux* wheels.
   # (a.k.a. `uname -m` output from CentOS 7)
@@ -343,8 +334,7 @@ let
   # Machine tag for our target platform (if available)
   getTargetMachine =
     stdenv:
-    manyLinuxTargetMachines.${stdenv.targetPlatform.parsed.cpu.name} or null
-  ;
+    manyLinuxTargetMachines.${stdenv.targetPlatform.parsed.cpu.name} or null;
 in
 {
   inherit

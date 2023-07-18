@@ -26,8 +26,7 @@ in
     package = mkOption {
       description =
         lib.mdDoc
-          "The package to use for meilisearch. Use this if you require specific features to be enabled. The default package has no features."
-      ;
+          "The package to use for meilisearch. Use this if you require specific features to be enabled. The default package has no features.";
       default = pkgs.meilisearch;
       defaultText = lib.literalExpression "pkgs.meilisearch";
       type = types.package;
@@ -137,8 +136,7 @@ in
         StateDirectory = "meilisearch";
         EnvironmentFile =
           mkIf (cfg.masterKeyEnvironmentFile != null)
-            cfg.masterKeyEnvironmentFile
-        ;
+            cfg.masterKeyEnvironmentFile;
       };
     };
   };

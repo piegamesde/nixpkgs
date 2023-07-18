@@ -32,8 +32,7 @@ let
       "--navbar-all-url" = fe.navbar.allServersURL;
       "--net-specific-mode" = fe.netSpecificMode;
       "--protocol-filter" = concatStringsSep "," cfg.frontend.protocolFilter;
-    }
-  ;
+    };
 
   proxy_args =
     let
@@ -46,8 +45,7 @@ let
       "--traceroute_bin" = px.traceroute.binary;
       "--traceroute_flags" = concatStringsSep " " px.traceroute.flags;
       "--traceroute_raw" = px.traceroute.rawOutput;
-    }
-  ;
+    };
 
   mkArgValue =
     value:
@@ -63,8 +61,7 @@ let
 
   argsAttrToList =
     args:
-    mapAttrsToList (name: value: "${name} " + mkArgValue value) (filterNull args)
-  ;
+    mapAttrsToList (name: value: "${name} " + mkArgValue value) (filterNull args);
 in
 {
   options = {
@@ -167,8 +164,7 @@ in
           example = "^ospf";
           description =
             lib.mdDoc
-              "Protocol names to hide in summary tables (RE2 syntax),"
-          ;
+              "Protocol names to hide in summary tables (RE2 syntax),";
         };
 
         timeout = mkOption {

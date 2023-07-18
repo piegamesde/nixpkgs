@@ -61,8 +61,7 @@ let
       let
         version = "v20201206-cjk";
       in
-      "https://github.com/googlefonts/noto-cjk/raw/${version}/NotoSansCJKsc-Regular.otf"
-    ;
+      "https://github.com/googlefonts/noto-cjk/raw/${version}/NotoSansCJKsc-Regular.otf";
     sha256 = "sha256-aJXSVNJ+p6wMAislXUn4JQilLhimNSedbc9nAuPVxo4=";
   };
 

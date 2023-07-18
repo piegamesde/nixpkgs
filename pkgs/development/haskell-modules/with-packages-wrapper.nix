@@ -218,7 +218,6 @@ else
             (ghc.withPackages.override { useLLVM = true; }) (p: [ p.my-package ])
 
           Also note that withLLVM has been renamed to useLLVM for consistency with
-          the GHC Nix expressions.''
-      ;
+          the GHC Nix expressions.'';
     };
   }

@@ -40,8 +40,7 @@ stdenv.mkDerivation rec {
       eigen
       ghc_filesystem
       tinygltf
-    ]
-  ;
+    ];
 
   nativeBuildInputs = [
     cmake
@@ -59,8 +58,7 @@ stdenv.mkDerivation rec {
       "-DDRACO_EIGEN_PATH=${eigen}/include/eigen3"
       "-DDRACO_FILESYSTEM_PATH=${ghc_filesystem}"
       "-DDRACO_TINYGLTF_PATH=${tinygltf}"
-    ]
-  ;
+    ];
 
   passthru.updateScript = nix-update-script { };
 

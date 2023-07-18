@@ -133,8 +133,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Enable Mailman on this host. Requires an active MTA on the host (e.g. Postfix)."
-        ;
+            "Enable Mailman on this host. Requires an active MTA on the host (e.g. Postfix).";
       };
 
       ldap = {
@@ -331,8 +330,7 @@ in
       extraPythonPackages = mkOption {
         description =
           lib.mdDoc
-            "Packages to add to the python environment used by mailman and mailman-web"
-        ;
+            "Packages to add to the python environment used by mailman and mailman-web";
         type = types.listOf types.package;
         default = [ ];
       };
@@ -413,8 +411,7 @@ in
           loggerSectionNames = map (n: "logging.${n}") loggerNames;
         in
         lib.genAttrs loggerSectionNames (name: { handler = "stderr"; })
-      )
-    ;
+      );
 
     assertions =
       let
@@ -434,8 +431,7 @@ in
               "${expected}".
               See <https://mailman.readthedocs.io/en/latest/src/mailman/docs/mta.html>.
             '';
-          }
-        ;
+          };
       in
       [ {
         assertion = cfg.webHosts != [ ];
@@ -710,8 +706,7 @@ in
                     mount = "${cfg.serve.virtualRoot}=mailman_web.wsgi:application";
                     manage-script-name = true;
                   }
-              )
-            ;
+              );
             uwsgiConfigFile = pkgs.writeText "uwsgi-mailman.json" (
               builtins.toJSON uwsgiConfig
             );
@@ -789,8 +784,7 @@ in
               };
             }
           )
-        )
-    ;
+        );
   };
 
   meta = {

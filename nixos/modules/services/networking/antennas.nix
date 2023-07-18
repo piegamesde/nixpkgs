@@ -39,8 +39,7 @@ in
         default = "2f70c0d7-90a3-4429-8275-cbeeee9cd605";
         description =
           lib.mdDoc
-            "Device tuner UUID. Change this if you are running multiple instances."
-        ;
+            "Device tuner UUID. Change this if you are running multiple instances.";
       };
     };
   };

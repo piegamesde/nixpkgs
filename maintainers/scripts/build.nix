@@ -39,8 +39,7 @@ let
           if result.success then result.value else [ ]
         )
         set
-    ))
-  ;
+    ));
 in
 packagesWith
   (

@@ -42,8 +42,7 @@
           out = "0.2.2";
         }
       ]
-      null
-  ;
+      null;
 
   releaseRev = v: "v${v}";
 

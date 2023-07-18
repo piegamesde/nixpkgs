@@ -15,8 +15,7 @@ import ../make-test-python.nix (
           1024
           1024
         ];
-      }
-    ;
+      };
 
     testScript = ''
       machine.wait_for_unit("stratisd")

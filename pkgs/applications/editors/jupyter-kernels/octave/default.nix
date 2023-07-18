@@ -37,8 +37,7 @@ rec {
         makeWrapper $python/bin/python $out/bin/octave-kernel \
           --add-flags "-m octave_kernel" \
           --suffix PATH : $octave/bin
-      ''
-  ;
+      '';
 
   sizedLogo =
     size:
@@ -56,8 +55,7 @@ rec {
       buildPhase = ''
         convert ./libgui/src/icons/logo.png -resize ${size}x${size} $out
       '';
-    }
-  ;
+    };
 
   definition = {
     displayName = "Octave";

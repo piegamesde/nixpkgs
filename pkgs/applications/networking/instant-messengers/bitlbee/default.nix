@@ -40,7 +40,8 @@ stdenv.mkDerivation rec {
       "--ssl=gnutls"
       "--pidfile=/var/lib/bitlbee/bitlbee.pid"
     ]
-    ++ lib.optional enableLibPurple "--purple=1" ++ lib.optional enablePam "--pam=1"
+    ++ lib.optional enableLibPurple "--purple=1"
+    ++ lib.optional enablePam "--pam=1"
   ;
 
   patches =

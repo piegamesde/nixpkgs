@@ -72,8 +72,7 @@ stdenv.mkDerivation rec {
         liquibase.integration.commandline.LiquibaseCommandLine \''${1+"\$@"}
       EOF
       chmod +x $out/bin/liquibase
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "Version Control for your database";

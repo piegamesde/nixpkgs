@@ -37,8 +37,7 @@ let
         platforms = platforms.all;
         maintainers = with maintainers; [ sudosubin ];
       };
-    }
-  ;
+    };
 in
 {
   pretendard = mkPretendard {

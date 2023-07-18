@@ -57,8 +57,7 @@ in
           default = cfg.alsa.enable || cfg.jack.enable || cfg.pulse.enable;
           defaultText =
             lib.literalExpression
-              "config.services.pipewire.alsa.enable || config.services.pipewire.jack.enable || config.services.pipewire.pulse.enable"
-          ;
+              "config.services.pipewire.alsa.enable || config.services.pipewire.jack.enable || config.services.pipewire.pulse.enable";
           description = lib.mdDoc "Whether to use PipeWire as the primary sound server";
         };
       };
@@ -141,13 +140,11 @@ in
 
     environment.systemPackages =
       [ cfg.package ]
-      ++ lib.optional cfg.jack.enable jack-libs
-    ;
+      ++ lib.optional cfg.jack.enable jack-libs;
 
     systemd.packages =
       [ cfg.package ]
-      ++ lib.optional cfg.pulse.enable cfg.package.pulse
-    ;
+      ++ lib.optional cfg.pulse.enable cfg.package.pulse;
 
     # PipeWire depends on DBUS but doesn't list it. Without this booting
     # into a terminal results in the service crashing with an error.
@@ -169,8 +166,7 @@ in
     ];
     systemd.user.sockets.pipewire-pulse.wantedBy =
       lib.mkIf (cfg.socketActivation && cfg.pulse.enable)
-        [ "sockets.target" ]
-    ;
+        [ "sockets.target" ];
 
     services.udev.packages = [ cfg.package ];
 

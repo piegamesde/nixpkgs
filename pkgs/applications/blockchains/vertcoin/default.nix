@@ -50,8 +50,7 @@ stdenv.mkDerivation rec {
       qtbase
       qttools
       protobuf
-    ]
-  ;
+    ];
 
   enableParallelBuilding = true;
 
@@ -60,8 +59,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withGui [
       "--with-gui=qt5"
       "--with-qt-bindir=${qtbase.dev}/bin:${qttools.dev}/bin"
-    ]
-  ;
+    ];
 
   meta = with lib; {
     description = "A digital currency with mining decentralisation and ASIC resistance as a key focus";

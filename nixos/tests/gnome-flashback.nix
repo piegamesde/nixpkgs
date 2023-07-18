@@ -30,8 +30,7 @@ import ./make-test-python.nix (
         services.xserver.desktopManager.gnome.debug = true;
         services.xserver.desktopManager.gnome.flashback.enableMetacity = true;
         services.xserver.displayManager.defaultSession = "gnome-flashback-metacity";
-      }
-    ;
+      };
 
     testScript =
       { nodes, ... }:
@@ -56,7 +55,6 @@ import ./make-test-python.nix (
             )
             machine.sleep(20)
             machine.screenshot("screen")
-      ''
-    ;
+      '';
   }
 )

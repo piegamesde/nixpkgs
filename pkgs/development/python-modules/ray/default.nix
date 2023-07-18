@@ -82,8 +82,7 @@ buildPythonPackage rec {
         platform = "manylinux2014_x86_64";
       }
       // binary-hash
-    )
-  ;
+    );
 
   passthru.optional-dependencies = rec {
     data-deps = [

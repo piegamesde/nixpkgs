@@ -26,7 +26,6 @@ in
     deferred =
       { ... }:
       # this should be an attrset, so this fails
-      true
-    ;
+      true;
   };
 }

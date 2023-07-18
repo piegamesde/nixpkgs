@@ -69,8 +69,7 @@ stdenv.mkDerivation (
     # Without libxcrypt, Perl will still find FreeBSD's crypt functions.
     propagatedBuildInputs =
       lib.optional (enableCrypt && !stdenv.isFreeBSD)
-        libxcrypt
-    ;
+        libxcrypt;
 
     disallowedReferences = [ stdenv.cc ];
 
@@ -159,8 +158,7 @@ stdenv.mkDerivation (
 
     configureScript =
       lib.optionalString (!crossCompiling)
-        "${stdenv.shell} ./Configure"
-    ;
+        "${stdenv.shell} ./Configure";
 
     dontAddStaticConfigureFlags = true;
 
@@ -217,15 +215,13 @@ stdenv.mkDerivation (
         # When we override the interpreter we also need to override the spliced versions of the interpreter
         inputs' =
           lib.filterAttrs (n: v: !lib.isDerivation v && n != "passthruFun")
-            inputs
-        ;
+            inputs;
         override =
           attr:
           let
             perl = attr.override (inputs' // { self = perl; });
           in
-          perl
-        ;
+          perl;
       in
       passthruFun rec {
         inherit self perlAttr;
@@ -240,8 +236,7 @@ stdenv.mkDerivation (
           else
             { }
         ;
-      }
-    ;
+      };
 
     doCheck = false; # some tests fail, expensive
 

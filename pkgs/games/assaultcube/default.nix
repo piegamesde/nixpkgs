@@ -45,8 +45,7 @@ stdenv.mkDerivation rec {
       SDL2_image
       libogg
       libvorbis
-    ]
-  ;
+    ];
 
   targets =
     (lib.optionalString server "server") + (lib.optionalString client " client");

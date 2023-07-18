@@ -43,8 +43,7 @@ stdenv.mkDerivation rec {
       [
         # replaces ecl's own gc which other packages can depend on, thus propagated
         boehmgc
-      ]
-  ;
+      ];
 
   configureFlags = [
     (if threadSupport then "--enable-threads" else "--disable-threads")

@@ -37,8 +37,7 @@ import ./make-test-python.nix (
 
         # Switch to a different GPU driver (default: -vga std), otherwise TinyWL segfaults:
         virtualisation.qemu.options = [ "-vga none -device virtio-gpu-pci" ];
-      }
-    ;
+      };
 
     testScript =
       { nodes, ... }:
@@ -63,7 +62,6 @@ import ./make-test-python.nix (
         machine.wait_until_fails("pgrep tinywl")
         machine.wait_for_file("/tmp/tinywl-exit-ok")
         machine.copy_from_vm("/tmp/tinywl.log")
-      ''
-    ;
+      '';
   }
 )

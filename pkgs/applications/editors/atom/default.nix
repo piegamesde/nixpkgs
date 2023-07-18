@@ -114,7 +114,6 @@ let
         platforms = platforms.x86_64;
         inherit broken;
       };
-    }
-  ;
+    };
 in
 lib.mapAttrs common versions

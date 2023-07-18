@@ -54,8 +54,7 @@ let
   supportedCustomGpuTargets = lists.intersectLists gpuTargets supportedGpuTargets;
   unsupportedCustomGpuTargets =
     lists.subtractLists supportedCustomGpuTargets
-      gpuTargets
-  ;
+      gpuTargets;
 
   # Use trivial.warnIf to print a warning if any unsupported GPU targets are specified.
   gpuArchWarner =
@@ -65,8 +64,7 @@ let
         "No supported GPU targets specified. Requested GPU targets: "
         + strings.concatStringsSep ", " unsupported
       )
-      supported
-  ;
+      supported;
 
   gpuTargetString = strings.concatStringsSep "," (
     if gpuTargets != [ ] then
@@ -89,8 +87,7 @@ let
       minArch' = builtins.head (builtins.sort strings.versionOlder cudaArchitectures);
     in
     # "75" -> "750"  Cf. https://bitbucket.org/icl/magma/src/f4ec79e2c13a2347eff8a77a3be6f83bc2daec20/CMakeLists.txt#lines-273
-    "${minArch'}0"
-  ;
+    "${minArch'}0";
 
   cuda-common-redist = with cudaPackages; [
     libcublas # cublas_v2.h

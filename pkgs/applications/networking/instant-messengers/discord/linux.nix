@@ -75,8 +75,7 @@ let
         cp ${./disable-breaking-updates.py} $out/bin/disable-breaking-updates.py
         substituteAllInPlace $out/bin/disable-breaking-updates.py
         chmod +x $out/bin/disable-breaking-updates.py
-      ''
-  ;
+      '';
 in
 
 stdenv.mkDerivation rec {

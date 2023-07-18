@@ -17,8 +17,7 @@ let
           int
           str
         ]
-      )
-    ;
+      );
     generate =
       name: attrs:
       pkgs.writeText name (
@@ -26,8 +25,7 @@ let
           lib.attrsets.mapAttrsToList (key: value: "${key}=${builtins.toJSON value}")
             attrs
         )
-      )
-    ;
+      );
   };
 in
 {
@@ -87,8 +85,7 @@ in
                       };
                     };
                   }
-                )
-              ;
+                );
               default = [ ];
             };
           };
@@ -130,8 +127,7 @@ in
               value.source = settingsFormat.generate "uhub-${name}.conf" settings';
             }
           )
-          hubs
-      ;
+          hubs;
 
       systemd.services =
         lib.attrsets.mapAttrs'
@@ -155,11 +151,8 @@ in
                   AmbientCapabilities = "CAP_NET_BIND_SERVICE";
                   CapabilityBoundingSet = "CAP_NET_BIND_SERVICE";
                 };
-              }
-            ;
+              };
           })
-          hubs
-      ;
-    }
-  ;
+          hubs;
+    };
 }

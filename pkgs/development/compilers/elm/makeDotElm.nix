@@ -40,8 +40,7 @@ let
           cp -R ${pkg} .elm/${ver}/packages/${name}/${info.version}
         ''
       )
-      deps
-  ;
+      deps;
 in
 (lib.concatStrings cmds)
 + ''

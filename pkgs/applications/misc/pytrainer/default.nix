@@ -91,8 +91,7 @@ python.pkgs.buildPythonApplication rec {
         mysqlclient
         psycopg2
       ]
-    )
-  ;
+    );
 
   checkPhase = ''
     env HOME=$TEMPDIR TZDIR=${tzdata}/share/zoneinfo \

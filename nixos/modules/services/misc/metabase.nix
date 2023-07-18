@@ -92,8 +92,7 @@ in
           MB_JETTY_SSL = true;
           MB_JETTY_SSL_PORT = toString cfg.ssl.port;
           MB_JETTY_SSL_KEYSTORE = cfg.ssl.keystore;
-        }
-      ;
+        };
       serviceConfig = {
         DynamicUser = true;
         StateDirectory = baseNameOf dataDir;

@@ -53,8 +53,7 @@ python3.pkgs.buildPythonApplication rec {
       "tests/checker/test_content_allows_robots.py"
       "tests/checker/test_http*.py"
       "tests/test_network.py"
-    ]
-  ;
+    ];
 
   meta = with lib; {
     description = "Check websites for broken links";

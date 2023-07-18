@@ -106,8 +106,7 @@ let
         ];
         inherit knownVulnerabilities;
       };
-    }
-  ;
+    };
 in
 {
   libressl_3_4 = generic {

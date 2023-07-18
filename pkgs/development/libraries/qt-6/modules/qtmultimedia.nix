@@ -40,8 +40,7 @@ qtModule {
       elfutils
       alsa-lib
       wayland
-    ]
-  ;
+    ];
   propagatedBuildInputs =
     lib.optionals stdenv.isLinux [
       gstreamer
@@ -54,7 +53,6 @@ qtModule {
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.isDarwin
-      "-include AudioToolbox/AudioToolbox.h"
-  ;
+      "-include AudioToolbox/AudioToolbox.h";
   NIX_LDFLAGS = lib.optionalString stdenv.isDarwin "-framework AudioToolbox";
 }

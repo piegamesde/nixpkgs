@@ -50,8 +50,7 @@ buildGoModule rec {
       libseccomp
       libselinux
       lvm2
-    ]
-  ;
+    ];
 
   buildPhase = ''
     runHook preBuild

@@ -65,8 +65,7 @@ stdenv.mkDerivation rec {
                 gst-plugins-base
                 gst-plugins-bad
               ]
-            )
-        ;
+            );
       })
     ];
 

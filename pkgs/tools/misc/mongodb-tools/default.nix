@@ -52,8 +52,7 @@ buildGoModule rec {
         tools}
 
       runHook postBuild
-    ''
-  ;
+    '';
 
   meta = {
     homepage = "https://github.com/mongodb/mongo-tools";

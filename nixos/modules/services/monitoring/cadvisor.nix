@@ -111,8 +111,7 @@ in
                 }
               )
             )
-          )
-      ;
+          );
     }
 
     (mkIf cfg.enable {

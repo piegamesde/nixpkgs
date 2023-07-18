@@ -32,8 +32,7 @@ let
     let
       majorVersion = lib.versions.major (lib.getVersion php);
     in
-    (if majorVersion == "8" then "php" else "php${majorVersion}")
-  ;
+    (if majorVersion == "8" then "php" else "php${majorVersion}");
 
   mod_perl = pkgs.apacheHttpdPackages.mod_perl.override { apacheHttpd = pkg; };
 
@@ -47,12 +46,14 @@ let
         hostOpts
         // {
           certName =
-            if hostOpts.useACMEHost != null then hostOpts.useACMEHost else hostOpts.hostName
+            if hostOpts.useACMEHost != null then
+              hostOpts.useACMEHost
+            else
+              hostOpts.hostName
           ;
         }
       )
-      (filter (hostOpts: hostOpts.enableACME || hostOpts.useACMEHost != null) vhosts)
-  ;
+      (filter (hostOpts: hostOpts.enableACME || hostOpts.useACMEHost != null) vhosts);
 
   dependentCertNames = unique (
     map (hostOpts: hostOpts.certName) acmeEnabledVhosts
@@ -198,8 +199,7 @@ let
         LuaPackageCPath ${cfg.package.lua5}/lib/lua/${luaversion}/?.so
         LuaPackagePath  ${cfg.package.lua5}/share/lua/${luaversion}/?.lua
       </IfModule>
-    ''
-  ;
+    '';
 
   mkVHostConf =
     hostOpts:
@@ -338,8 +338,7 @@ let
               </Location>
             '')
             (sortProperties (mapAttrsToList (k: v: v // { location = k; }) locations))
-        )
-      ;
+        );
     in
     ''
       ${optionalString cfg.logPerVirtualHost ''
@@ -390,13 +389,11 @@ let
           </Directory>
         '';
       in
-      concatMapStrings makeDirConf hostOpts.servedDirs
-      }
+      concatMapStrings makeDirConf hostOpts.servedDirs}
 
       ${mkLocations hostOpts.locations}
       ${hostOpts.extraConfig}
-    ''
-  ;
+    '';
 
   confFile = pkgs.writeText "httpd.conf" ''
 
@@ -421,12 +418,10 @@ let
         listen:
         "Listen ${listen.ip}:${toString listen.port} ${
           if listen.ssl then "https" else "http"
-        }"
-      ;
+        }";
       uniqueListen = uniqList { inputList = map toStr listenInfo; };
     in
-    concatStringsSep "\n" uniqueListen
-    }
+    concatStringsSep "\n" uniqueListen}
 
     User ${cfg.user}
     Group ${cfg.group}
@@ -447,8 +442,7 @@ let
     in
     concatMapStringsSep "\n"
       (module: "LoadModule ${module.name}_module ${module.path}")
-      (unique (map mkModule modules))
-    }
+      (unique (map mkModule modules))}
 
     AddHandler type-map var
 
@@ -502,13 +496,11 @@ let
         cat ${php}/etc/php.ini > $out
         cat ${php.phpIni} > $out
         echo "$options" >> $out
-      ''
-  ;
+      '';
 
   mkCertOwnershipAssertion =
     import
-      ../../../security/acme/mk-cert-ownership-assertion.nix
-  ;
+      ../../../security/acme/mk-cert-ownership-assertion.nix;
 in
 
 {
@@ -673,8 +665,7 @@ in
         defaultText = literalExpression "confFile";
         example =
           literalExpression
-            ''pkgs.writeText "httpd.conf" "# my custom config file ..."''
-        ;
+            ''pkgs.writeText "httpd.conf" "# my custom config file ..."'';
         description = lib.mdDoc ''
           Override the configuration file used by Apache. By default,
           NixOS generates one automatically.
@@ -878,8 +869,7 @@ in
         default = "HIGH:!aNULL:!MD5:!EXP";
         description =
           lib.mdDoc
-            "Cipher Suite available for negotiation in SSL proxy handshake."
-        ;
+            "Cipher Suite available for negotiation in SSL proxy handshake.";
       };
 
       sslProtocols = mkOption {
@@ -913,8 +903,7 @@ in
                 with hostOpts;
                 !(addSSL && onlySSL) && !(forceSSL && onlySSL) && !(addSSL && forceSSL)
               )
-              vhosts
-          ;
+              vhosts;
           message = ''
             Options `services.httpd.virtualHosts.<name>.addSSL`,
             `services.httpd.virtualHosts.<name>.onlySSL` and `services.httpd.virtualHosts.<name>.forceSSL`
@@ -924,8 +913,7 @@ in
         {
           assertion =
             all (hostOpts: !(hostOpts.enableACME && hostOpts.useACMEHost != null))
-              vhosts
-          ;
+              vhosts;
           message = ''
             Options `services.httpd.virtualHosts.<name>.enableACME` and
             `services.httpd.virtualHosts.<name>.useACMEHost` are mutually exclusive.
@@ -948,16 +936,14 @@ in
             groups = config.users.groups;
           }
         )
-        dependentCertNames
-    ;
+        dependentCertNames;
 
     warnings =
       mapAttrsToList
         (name: hostOpts: ''
           Using config.services.httpd.virtualHosts."${name}".servedFiles is deprecated and will become unsupported in a future release. Your configuration will continue to work as is but please migrate your configuration to config.services.httpd.virtualHosts."${name}".locations before the 20.09 release of NixOS.
         '')
-        (filterAttrs (name: hostOpts: hostOpts.servedFiles != [ ]) cfg.virtualHosts)
-    ;
+        (filterAttrs (name: hostOpts: hostOpts.servedFiles != [ ]) cfg.virtualHosts);
 
     users.users = optionalAttrs (cfg.user == "wwwrun") {
       wwwrun = {
@@ -997,11 +983,9 @@ in
                 # Filter for enableACME-only vhosts. Don't want to create dud certs
               }
             )
-            (filter (hostOpts: hostOpts.useACMEHost == null) acmeEnabledVhosts)
-        ;
+            (filter (hostOpts: hostOpts.useACMEHost == null) acmeEnabledVhosts);
       in
-      listToAttrs acmePairs
-    ;
+      listToAttrs acmePairs;
 
     # httpd requires a stable path to the configuration file for reloads
     environment.etc."httpd/httpd.conf".source = cfg.configFile;
@@ -1086,8 +1070,7 @@ in
       [
         "d '${cfg.logDir}' 0700 ${svc.User} ${svc.Group}"
         "Z '${cfg.logDir}' - ${svc.User} ${svc.Group}"
-      ]
-    ;
+      ];
 
     systemd.services.httpd = {
       description = "Apache HTTPD";
@@ -1097,8 +1080,7 @@ in
       );
       after =
         [ "network.target" ]
-        ++ map (certName: "acme-selfsigned-${certName}.service") dependentCertNames
-      ;
+        ++ map (certName: "acme-selfsigned-${certName}.service") dependentCertNames;
       before = map (certName: "acme-${certName}.service") dependentCertNames;
       restartTriggers = [ cfg.configFile ];
 
@@ -1146,8 +1128,7 @@ in
         sslServices = map (certName: "acme-${certName}.service") dependentCertNames;
         sslTargets =
           map (certName: "acme-finished-${certName}.target")
-            dependentCertNames
-        ;
+            dependentCertNames;
       in
       mkIf (sslServices != [ ]) {
         wantedBy = sslServices ++ [ "multi-user.target" ];
@@ -1161,8 +1142,7 @@ in
         # Happens when config changes add new vhosts/certs.
         unitConfig.ConditionPathExists =
           map (certName: certs.${certName}.directory + "/fullchain.pem")
-            dependentCertNames
-        ;
+            dependentCertNames;
         serviceConfig = {
           Type = "oneshot";
           TimeoutSec = 60;
@@ -1170,7 +1150,6 @@ in
           ExecStartPre = "${pkg}/bin/httpd -f /etc/httpd/httpd.conf -t";
           ExecStart = "/run/current-system/systemd/bin/systemctl reload httpd.service";
         };
-      }
-    ;
+      };
   };
 }

@@ -61,8 +61,7 @@ let
                 pkgs.jq
               ];
               services.openssh.enable = true;
-            }
-          ;
+            };
           client1 = { config, pkgs, ... }: { environment.systemPackages = [ pkgs.git ]; };
           client2 = { config, pkgs, ... }: { environment.systemPackages = [ pkgs.git ]; };
         };
@@ -149,11 +148,9 @@ let
             client1.shutdown()
             client2.shutdown()
             server.shutdown()
-          ''
-        ;
+          '';
       }
-    )
-  ;
+    );
 in
 
 listToAttrs (map makeGiteaTest supportedDbTypes)

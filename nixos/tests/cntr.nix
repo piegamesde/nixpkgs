@@ -34,8 +34,7 @@ let
                 ports = [ "8181:80" ];
               };
             };
-          }
-        ;
+          };
       };
 
       testScript = ''
@@ -52,8 +51,7 @@ let
         assert "0" == ${backend}.succeed("cat /tmp/exitcode").strip(), "non-zero exit code"
         assert "Hello" in ${backend}.succeed("cat /tmp/result"), "no greeting in output"
       '';
-    }
-  ;
+    };
 
   mkContainersTest = makeTest {
     name = "cntr-containers";
@@ -76,8 +74,7 @@ let
           localAddress = "172.16.0.2";
           config = { };
         };
-      }
-    ;
+      };
 
     testScript = ''
       machine.start()

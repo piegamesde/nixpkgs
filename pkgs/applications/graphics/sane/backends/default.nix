@@ -102,8 +102,7 @@ stdenv.mkDerivation {
       libv4l
       net-snmp
       systemd
-    ]
-  ;
+    ];
 
   enableParallelBuilding = true;
 

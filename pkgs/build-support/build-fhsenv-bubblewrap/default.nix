@@ -103,8 +103,7 @@ let
         "pki"
       ];
     in
-    map (path: "/etc/${path}") files
-  ;
+    map (path: "/etc/${path}") files;
 
   # Create this on the fly instead of linking from /nix
   # The container might have to modify it and re-run ldconfig if there are
@@ -132,15 +131,13 @@ let
       source /etc/profile
       ${createLdConfCache}
       exec ${run} "$@"
-    ''
-  ;
+    '';
 
   indentLines =
     str:
     lib.concatLines (
       map (s: "  " + s) (filter (s: s != "") (lib.splitString "\n" str))
-    )
-  ;
+    );
   bwrapCmd =
     {
       initArgs ? "",

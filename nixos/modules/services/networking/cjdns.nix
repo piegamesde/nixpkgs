@@ -21,8 +21,7 @@ let
           type = types.str;
           description =
             lib.mdDoc
-              "Authorized password to the opposite end of the tunnel."
-          ;
+              "Authorized password to the opposite end of the tunnel.";
         };
         login = mkOption {
           default = "";
@@ -44,12 +43,10 @@ let
           type = types.str;
           description =
             lib.mdDoc
-              "Optional hostname to add to /etc/hosts; prevents reverse lookup failures."
-          ;
+              "Optional hostname to add to /etc/hosts; prevents reverse lookup failures.";
         };
       };
-    }
-  ;
+    };
 
   # Additional /etc/hosts entries for peers with an associated hostname
   cjdnsExtraHosts = pkgs.runCommand "cjdns-hosts" { } ''
@@ -71,8 +68,7 @@ let
     // {
       connectTo =
         mapAttrs (name: value: { inherit (value) password publicKey; })
-          x.connectTo
-      ;
+          x.connectTo;
     }
   ;
 

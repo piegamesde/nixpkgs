@@ -28,8 +28,7 @@ buildPythonPackage rec {
     ++ lib.optionals (pythonOlder "3.4") [
       pathlib
       statistics
-    ]
-  ;
+    ];
 
   # Circular dependency
   doCheck = false;

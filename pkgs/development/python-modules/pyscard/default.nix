@@ -52,8 +52,7 @@ buildPythonPackage rec {
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString (!withApplePCSC)
-      "-I ${lib.getDev pcsclite}/include/PCSC"
-  ;
+      "-I ${lib.getDev pcsclite}/include/PCSC";
 
   propagatedBuildInputs = if withApplePCSC then [ PCSC ] else [ pcsclite ];
   nativeBuildInputs = [ swig ];

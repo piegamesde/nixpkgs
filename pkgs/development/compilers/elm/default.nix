@@ -46,8 +46,7 @@ let
                     turbomack
                   ];
                 })
-                (self.callPackage ./packages/elm.nix { })
-            ;
+                (self.callPackage ./packages/elm.nix { });
 
             elmi-to-json = justStaticExecutables (
               overrideCabal
@@ -105,8 +104,7 @@ let
           elm-format = null;
         }
       ;
-    }
-  ;
+    };
 
   # Haskell packages that require ghc 9.2
   hs92Pkgs =
@@ -155,14 +153,12 @@ let
           # unorderd-container's tests indirectly depend on text < 2.0
           unordered-containers =
             overrideCabal (drv: { doCheck = false; })
-              super.unordered-containers
-          ;
+              super.unordered-containers;
           # relude-1.1.0.0's tests depend on hedgehog < 1.2, which indirectly depends on text < 2.0
           relude = overrideCabal (drv: { doCheck = false; }) super.relude;
         }
       ;
-    }
-  ;
+    };
 
   nodePkgs = pkgs.callPackage ./packages/node-composition.nix {
     inherit pkgs;
@@ -192,8 +188,7 @@ lib.makeScope pkgs.newScope (
         inherit lib;
         inherit (pkgs) writeScriptBin stdenv;
         inherit (hsElmPkgs.elmPkgs) elm;
-      }
-    ;
+      };
 
     elm-json = callPackage ./packages/elm-json.nix { };
 
@@ -230,8 +225,7 @@ lib.makeScope pkgs.newScope (
               maintainers = [ maintainers.turbomack ];
             }
           ;
-        }
-      ;
+        };
 
       elm-coverage =
         let
@@ -270,8 +264,7 @@ lib.makeScope pkgs.newScope (
               }
             ;
           }
-        )
-      ;
+        );
 
       create-elm-app = patchNpmElm nodePkgs.create-elm-app // {
         meta =

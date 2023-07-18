@@ -54,8 +54,7 @@ stdenv.mkDerivation {
       "--disable-sdltest"
       # Don't use native macOS frameworks
       "--disable-imageio"
-    ]
-  ;
+    ];
 
   enableParallelBuilding = true;
 

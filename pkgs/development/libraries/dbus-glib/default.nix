@@ -46,8 +46,7 @@ stdenv.mkDerivation rec {
   configureFlags =
     [ "--exec-prefix=${placeholder "dev"}" ]
     ++ lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
-      "--with-dbus-binding-tool=${buildPackages.dbus-glib.dev}/bin/dbus-binding-tool"
-  ;
+      "--with-dbus-binding-tool=${buildPackages.dbus-glib.dev}/bin/dbus-binding-tool";
 
   doCheck = false;
 

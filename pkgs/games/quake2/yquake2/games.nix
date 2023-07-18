@@ -60,7 +60,6 @@ let
         platforms = platforms.unix;
         maintainers = with maintainers; [ tadfisher ];
       };
-    }
-  ;
+    };
 in
 lib.mapAttrs toDrv games

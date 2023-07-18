@@ -40,8 +40,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   bdftopcf =
@@ -71,8 +70,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   bitmap =
@@ -118,8 +116,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   editres =
@@ -163,8 +160,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   encodings =
@@ -197,8 +193,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontadobe100dpi =
@@ -237,8 +232,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontadobe75dpi =
@@ -277,8 +271,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontadobeutopia100dpi =
@@ -317,8 +310,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontadobeutopia75dpi =
@@ -357,8 +349,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontadobeutopiatype1 =
@@ -394,8 +385,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontalias =
@@ -424,8 +414,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontarabicmisc =
@@ -463,8 +452,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontbh100dpi =
@@ -503,8 +491,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontbh75dpi =
@@ -543,8 +530,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontbhlucidatypewriter100dpi =
@@ -583,8 +569,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontbhlucidatypewriter75dpi =
@@ -623,8 +608,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontbhttf =
@@ -660,8 +644,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontbhtype1 =
@@ -697,8 +680,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontbitstream100dpi =
@@ -736,8 +718,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontbitstream75dpi =
@@ -775,8 +756,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontbitstreamtype1 =
@@ -812,8 +792,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontcronyxcyrillic =
@@ -851,8 +830,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontcursormisc =
@@ -890,8 +868,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontdaewoomisc =
@@ -929,8 +906,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontdecmisc =
@@ -968,8 +944,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontibmtype1 =
@@ -1005,8 +980,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontisasmisc =
@@ -1044,8 +1018,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontjismisc =
@@ -1083,8 +1056,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontmicromisc =
@@ -1122,8 +1094,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontmisccyrillic =
@@ -1161,8 +1132,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontmiscethiopic =
@@ -1198,8 +1168,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontmiscmeltho =
@@ -1235,8 +1204,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontmiscmisc =
@@ -1275,8 +1243,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontmuttmisc =
@@ -1314,8 +1281,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontschumachermisc =
@@ -1354,8 +1320,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontscreencyrillic =
@@ -1393,8 +1358,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontsonymisc =
@@ -1432,8 +1396,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontsunmisc =
@@ -1471,8 +1434,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fonttosfnt =
@@ -1508,8 +1470,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontutil =
@@ -1538,8 +1499,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontwinitzkicyrillic =
@@ -1577,8 +1537,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   fontxfree86type1 =
@@ -1614,8 +1573,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   gccmakedep =
@@ -1644,8 +1602,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   iceauth =
@@ -1679,8 +1636,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   ico =
@@ -1714,8 +1670,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   imake =
@@ -1745,8 +1700,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libAppleWM =
@@ -1782,8 +1736,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libFS =
@@ -1817,8 +1770,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libICE =
@@ -1852,8 +1804,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libSM =
@@ -1891,8 +1842,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libWindowsWM =
@@ -1928,8 +1878,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libX11 =
@@ -1967,8 +1916,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXScrnSaver =
@@ -2004,8 +1952,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXTrap =
@@ -2043,8 +1990,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXau =
@@ -2074,8 +2020,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXaw =
@@ -2117,8 +2062,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXcomposite =
@@ -2154,8 +2098,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXcursor =
@@ -2193,8 +2136,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXdamage =
@@ -2230,8 +2172,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXdmcp =
@@ -2261,8 +2202,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXext =
@@ -2296,8 +2236,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXfixes =
@@ -2331,8 +2270,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXfont =
@@ -2372,8 +2310,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXfont2 =
@@ -2413,8 +2350,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXft =
@@ -2454,8 +2390,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXi =
@@ -2493,8 +2428,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXinerama =
@@ -2530,8 +2464,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXmu =
@@ -2569,8 +2502,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXp =
@@ -2608,8 +2540,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXpm =
@@ -2651,8 +2582,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXpresent =
@@ -2686,8 +2616,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXrandr =
@@ -2725,8 +2654,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXrender =
@@ -2760,8 +2688,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXres =
@@ -2797,8 +2724,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXt =
@@ -2836,8 +2762,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXtst =
@@ -2875,8 +2800,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXv =
@@ -2912,8 +2836,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXvMC =
@@ -2951,8 +2874,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXxf86dga =
@@ -2988,8 +2910,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXxf86misc =
@@ -3025,8 +2946,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libXxf86vm =
@@ -3062,8 +2982,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libdmx =
@@ -3099,8 +3018,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libfontenc =
@@ -3134,8 +3052,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libpciaccess =
@@ -3170,8 +3087,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libpthreadstubs =
@@ -3200,8 +3116,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libxcb =
@@ -3245,8 +3160,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libxcvt =
@@ -3281,8 +3195,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libxkbfile =
@@ -3316,8 +3229,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   libxshmfence =
@@ -3347,8 +3259,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   listres =
@@ -3386,8 +3297,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   lndir =
@@ -3417,8 +3327,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   luit =
@@ -3447,8 +3356,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   makedepend =
@@ -3478,8 +3386,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   mkfontscale =
@@ -3517,8 +3424,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   oclock =
@@ -3562,8 +3468,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   sessreg =
@@ -3593,8 +3498,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   setxkbmap =
@@ -3628,8 +3532,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   smproxy =
@@ -3667,8 +3570,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   transset =
@@ -3702,8 +3604,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   twm =
@@ -3747,8 +3648,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   utilmacros =
@@ -3777,8 +3677,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   viewres =
@@ -3818,8 +3717,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   x11perf =
@@ -3861,8 +3759,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xauth =
@@ -3902,8 +3799,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xbacklight =
@@ -3937,8 +3833,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xbitmaps =
@@ -3967,8 +3862,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcalc =
@@ -4010,8 +3904,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcbproto =
@@ -4044,8 +3937,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcbutil =
@@ -4085,8 +3977,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcbutilcursor =
@@ -4130,8 +4021,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcbutilerrors =
@@ -4175,8 +4065,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcbutilimage =
@@ -4218,8 +4107,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcbutilkeysyms =
@@ -4259,8 +4147,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcbutilrenderutil =
@@ -4300,8 +4187,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcbutilwm =
@@ -4341,8 +4227,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xclock =
@@ -4392,8 +4277,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcmsdb =
@@ -4423,8 +4307,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcompmgr =
@@ -4464,8 +4347,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xconsole =
@@ -4509,8 +4391,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcursorgen =
@@ -4546,8 +4427,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xcursorthemes =
@@ -4577,8 +4457,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xdm =
@@ -4636,8 +4515,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xdpyinfo =
@@ -4693,8 +4571,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xdriinfo =
@@ -4730,8 +4607,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xev =
@@ -4767,8 +4643,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xeyes =
@@ -4814,8 +4689,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86inputevdev =
@@ -4855,8 +4729,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86inputjoystick =
@@ -4890,8 +4763,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86inputkeyboard =
@@ -4925,8 +4797,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86inputlibinput =
@@ -4962,8 +4833,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86inputmouse =
@@ -4997,8 +4867,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86inputsynaptics =
@@ -5040,8 +4909,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86inputvmmouse =
@@ -5077,8 +4945,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86inputvoid =
@@ -5112,8 +4979,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoamdgpu =
@@ -5155,8 +5021,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoapm =
@@ -5192,8 +5057,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoark =
@@ -5229,8 +5093,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoast =
@@ -5266,8 +5129,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoati =
@@ -5311,8 +5173,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videochips =
@@ -5348,8 +5209,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videocirrus =
@@ -5385,8 +5245,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videodummy =
@@ -5420,8 +5279,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videofbdev =
@@ -5457,8 +5315,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videogeode =
@@ -5494,8 +5351,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoglide =
@@ -5529,8 +5385,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoglint =
@@ -5566,8 +5421,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoi128 =
@@ -5603,8 +5457,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoi740 =
@@ -5640,8 +5493,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videointel =
@@ -5709,8 +5561,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videomga =
@@ -5748,8 +5599,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoneomagic =
@@ -5785,8 +5635,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videonewport =
@@ -5820,8 +5669,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videonouveau =
@@ -5861,8 +5709,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videonv =
@@ -5898,8 +5745,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoomap =
@@ -5935,8 +5781,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoopenchrome =
@@ -5982,8 +5827,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoqxl =
@@ -6023,8 +5867,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videor128 =
@@ -6062,8 +5905,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videorendition =
@@ -6099,8 +5941,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videos3virge =
@@ -6136,8 +5977,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videosavage =
@@ -6175,8 +6015,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videosiliconmotion =
@@ -6212,8 +6051,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videosis =
@@ -6251,8 +6089,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videosisusb =
@@ -6288,8 +6125,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videosuncg6 =
@@ -6323,8 +6159,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videosunffb =
@@ -6358,8 +6193,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videosunleo =
@@ -6393,8 +6227,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videotdfx =
@@ -6432,8 +6265,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videotga =
@@ -6469,8 +6301,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videotrident =
@@ -6506,8 +6337,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videov4l =
@@ -6541,8 +6371,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videovboxvideo =
@@ -6578,8 +6407,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videovesa =
@@ -6615,8 +6443,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videovmware =
@@ -6660,8 +6487,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videovoodoo =
@@ -6697,8 +6523,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videowsfb =
@@ -6732,8 +6557,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xf86videoxgi =
@@ -6771,8 +6595,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xfd =
@@ -6824,8 +6647,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xfontsel =
@@ -6867,8 +6689,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xfs =
@@ -6904,8 +6725,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xfsinfo =
@@ -6939,8 +6759,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xgamma =
@@ -6976,8 +6795,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xgc =
@@ -7015,8 +6833,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xhost =
@@ -7058,8 +6875,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xinit =
@@ -7093,8 +6909,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xinput =
@@ -7136,8 +6951,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xkbcomp =
@@ -7173,8 +6987,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xkbevd =
@@ -7208,8 +7021,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xkbprint =
@@ -7245,8 +7057,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xkbutils =
@@ -7284,8 +7095,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xkeyboardconfig =
@@ -7323,8 +7133,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xkill =
@@ -7360,8 +7169,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xload =
@@ -7407,8 +7215,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xlsatoms =
@@ -7438,8 +7245,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xlsclients =
@@ -7469,8 +7275,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xlsfonts =
@@ -7504,8 +7309,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xmag =
@@ -7547,8 +7351,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xmessage =
@@ -7586,8 +7389,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xmodmap =
@@ -7621,8 +7423,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xmore =
@@ -7660,8 +7461,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xorgcffiles =
@@ -7690,8 +7490,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xorgdocs =
@@ -7720,8 +7519,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xorgproto =
@@ -7755,8 +7553,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xorgserver =
@@ -7812,8 +7609,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xorgsgmldoctools =
@@ -7842,8 +7638,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xpr =
@@ -7879,8 +7674,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xprop =
@@ -7914,8 +7708,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xrandr =
@@ -7953,8 +7746,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xrdb =
@@ -7990,8 +7782,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xrefresh =
@@ -8025,8 +7816,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xset =
@@ -8066,8 +7856,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xsetroot =
@@ -8107,8 +7896,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xsm =
@@ -8152,8 +7940,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xstdcmap =
@@ -8189,8 +7976,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xtrans =
@@ -8219,8 +8005,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xtrap =
@@ -8256,8 +8041,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xvinfo =
@@ -8293,8 +8077,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xwd =
@@ -8330,8 +8113,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xwininfo =
@@ -8367,8 +8149,7 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 
   # THIS IS A GENERATED FILE.  DO NOT EDIT!
   xwud =
@@ -8402,6 +8183,5 @@ with self; {
           meta.platforms = lib.platforms.unix;
         }
       )
-      { }
-  ;
+      { };
 }

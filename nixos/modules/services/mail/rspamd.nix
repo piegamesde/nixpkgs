@@ -49,8 +49,7 @@ let
         let
           maybeOption =
             option:
-            optionalString options.${option}.isDefined " ${option}=${config.${option}}"
-          ;
+            optionalString options.${option}.isDefined " ${option}=${config.${option}}";
         in
         if (!(hasPrefix "/" config.socket)) then
           "${config.socket}"
@@ -59,8 +58,7 @@ let
             maybeOption "group"
           }"
       ;
-    }
-  ;
+    };
 
   traceWarning = w: x: builtins.trace "[1;31mwarning: ${w}[0m" x;
 
@@ -103,8 +101,7 @@ let
                 } has enum value `proxy` which has been renamed to `rspamd_proxy`";
             in
             x:
-            if x == "proxy" then traceWarning warning "rspamd_proxy" else x
-          ;
+            if x == "proxy" then traceWarning warning "rspamd_proxy" else x;
         };
         bindSockets = mkOption {
           type = types.listOf (types.either types.str (types.submodule bindSocketOpts));
@@ -142,8 +139,7 @@ let
                 else
                   each
               )
-              value
-          ;
+              value;
         };
         count = mkOption {
           type = types.nullOr types.int;
@@ -164,8 +160,7 @@ let
           default = "";
           description =
             lib.mdDoc
-              "Additional entries to put verbatim into worker section of rspamd config file."
-          ;
+              "Additional entries to put verbatim into worker section of rspamd config file.";
         };
       };
       config =
@@ -199,12 +194,9 @@ let
                   [ (unixSocket "proxy") ]
                 else
                   [ ]
-              )
-            ;
-          }
-      ;
-    }
-  ;
+              );
+          };
+    };
 
   isUnixSocket =
     socket: hasPrefix "/" (if (isString socket) then socket else socket.socket);
@@ -213,8 +205,7 @@ let
     enabled: socks:
     concatStringsSep "\n  " (
       flatten (map (each: ''bind_socket = "${each.rawEntry}";'') socks)
-    )
-  ;
+    );
 
   rspamdConfFile = pkgs.writeText "rspamd.conf" ''
     .include "$CONFDIR/common.conf"
@@ -323,8 +314,7 @@ let
           mkDefault (pkgs.writeText name' config.text)
         );
       };
-    }
-  ;
+    };
 
   configOverrides =
     (mapAttrs'
@@ -464,8 +454,7 @@ in
                 str
                 (listOf str)
               ]
-            )
-          ;
+            );
           description = lib.mdDoc ''
             Addon to postfix configuration
           '';

@@ -81,8 +81,7 @@ stdenv.mkDerivation rec {
         libXv
         libxcb
       ]
-    )
-  ;
+    );
 
   enableParallelBuilding = true;
 

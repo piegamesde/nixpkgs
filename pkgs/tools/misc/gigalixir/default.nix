@@ -39,8 +39,7 @@ python3.pkgs.buildPythonApplication rec {
         pytestCheckHook
         sure
       ]
-    )
-  ;
+    );
 
   disabledTests =
     [

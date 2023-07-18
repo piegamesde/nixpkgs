@@ -61,8 +61,7 @@ in
                       bool
                     ]
                   )
-                )
-              ;
+                );
               default = null;
               description = lib.mdDoc ''
                 Options to pass to rclone to control its behavior.
@@ -88,8 +87,7 @@ in
                       bool
                     ]
                   )
-                )
-              ;
+                );
               default = null;
               description = lib.mdDoc ''
                 Configuration for the rclone remote being used for backup.
@@ -318,16 +316,16 @@ in
           n: v:
           "services.restic.backups.${n}.s3CredentialsFile is deprecated, please use services.restic.backups.${n}.environmentFile instead."
         )
-        (filterAttrs (n: v: v.s3CredentialsFile != null) config.services.restic.backups)
-    ;
+        (
+          filterAttrs (n: v: v.s3CredentialsFile != null) config.services.restic.backups
+        );
     assertions =
       mapAttrsToList
         (n: v: {
           assertion = (v.repository == null) != (v.repositoryFile == null);
           message = "services.restic.backups.${n}: exactly one of repository or repositoryFile should be set";
         })
-        config.services.restic.backups
-    ;
+        config.services.restic.backups;
     systemd.services =
       mapAttrs'
         (
@@ -407,8 +405,7 @@ in
                 }
                 // optionalAttrs (backup.environmentFile != null) {
                   EnvironmentFile = backup.environmentFile;
-                }
-              ;
+                };
             }
             //
               optionalAttrs
@@ -447,8 +444,7 @@ in
                 }
           )
         )
-        config.services.restic.backups
-    ;
+        config.services.restic.backups;
     systemd.timers =
       mapAttrs'
         (
@@ -458,7 +454,6 @@ in
             timerConfig = backup.timerConfig;
           }
         )
-        config.services.restic.backups
-    ;
+        config.services.restic.backups;
   };
 }

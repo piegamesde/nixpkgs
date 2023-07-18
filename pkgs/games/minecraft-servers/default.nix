@@ -25,8 +25,7 @@ let
           ); # versions <= 1.6 will default to 8
         };
       })
-      versions
-  ;
+      versions;
 in
 lib.recurseIntoAttrs (
   packages

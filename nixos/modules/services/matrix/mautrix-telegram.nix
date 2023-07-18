@@ -14,8 +14,7 @@ let
   settingsFormat = pkgs.formats.json { };
   settingsFile =
     settingsFormat.generate "mautrix-telegram-config.json"
-      cfg.settings
-  ;
+      cfg.settings;
 in
 {
   options = {
@@ -130,8 +129,7 @@ in
         type = with types; listOf str;
         default =
           optional config.services.matrix-synapse.enable
-            "matrix-synapse.service"
-        ;
+            "matrix-synapse.service";
         defaultText = literalExpression ''
           optional config.services.matrix-synapse.enable "matrix-synapse.service"
         '';

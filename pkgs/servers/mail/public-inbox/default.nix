@@ -79,8 +79,7 @@ let
 
   testConditions =
     with lib;
-    concatMapStringsSep " " (n: "! -name ${escapeShellArg n}.t") skippedTests
-  ;
+    concatMapStringsSep " " (n: "! -name ${escapeShellArg n}.t") skippedTests;
 in
 
 buildPerlPackage rec {

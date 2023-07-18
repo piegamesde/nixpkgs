@@ -29,8 +29,7 @@ stdenv.mkDerivation (
         [
           # error: no member named 'fill' in namespace 'std'
           "-include algorithm"
-        ]
-    ;
+        ];
 
     nativeCheckInputs = [ catch2_3 ];
 

@@ -35,6 +35,5 @@ self: super: {
             optparse-applicative = doJailbreak self.optparse-applicative_0_15_1_0;
           }
         )
-      )
-  ;
+      );
 }

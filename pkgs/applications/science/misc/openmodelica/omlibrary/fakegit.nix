@@ -28,11 +28,9 @@ let
           [
             "_"
             "_"
-          ]
-      ;
+          ];
     in
-    (rpl r.url) + "-" + (rpl r.rev)
-  ;
+    (rpl r.url) + "-" + (rpl r.rev);
 in
 stdenv.mkDerivation {
   name = "fakegit";

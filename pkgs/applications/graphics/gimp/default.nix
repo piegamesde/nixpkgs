@@ -160,8 +160,7 @@ stdenv.mkDerivation (
       ]
       ++ lib.optionals (!withPython) [
         "--disable-python" # depends on Python2 which was EOLed on 2020-01-01
-      ]
-    ;
+      ];
 
     enableParallelBuilding = true;
 

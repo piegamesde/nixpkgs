@@ -52,8 +52,7 @@ let
 
         networking.primaryIPAddress =
           optionalString (interfaces != [ ])
-            (head (head interfaces).value.ipv4.addresses).address
-        ;
+            (head (head interfaces).value.ipv4.addresses).address;
 
         # Put the IP addresses of all VMs in this machine's
         # /etc/hosts file.  If a machine has multiple
@@ -83,8 +82,7 @@ let
           flip concatMap interfacesNumbered (
             { fst, snd }:
             qemu-common.qemuNICFlags snd fst config.virtualisation.test.nodeNumber
-          )
-        ;
+          );
       };
     in
     {
@@ -94,8 +92,7 @@ let
         # that need to recreate the network config.
         system.build.networkConfig = networkConfig;
       };
-    }
-  ;
+    };
 
   nodeNumberModule =
     (

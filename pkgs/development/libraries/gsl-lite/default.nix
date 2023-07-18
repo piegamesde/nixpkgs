@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
         INSTALL_COMPAT_HEADER = installCompatHeader;
         INSTALL_LEGACY_HEADERS = installLegacyHeaders;
         BUILD_TESTS = doCheck;
-      }
-  ;
+      };
 
   # Building tests is broken on Darwin.
   doCheck = !stdenv.isDarwin;

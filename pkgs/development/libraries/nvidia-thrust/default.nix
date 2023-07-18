@@ -87,8 +87,7 @@ stdenv.mkDerivation {
         # Goes in native build inputs because thrust looks for headers
         # in a path relative to nvcc...
         cudaJoined
-      ]
-  ;
+      ];
 
   cmakeFlags =
     [

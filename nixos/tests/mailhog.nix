@@ -10,8 +10,7 @@ import ./make-test-python.nix (
         services.mailhog.enable = true;
 
         environment.systemPackages = with pkgs; [ swaks ];
-      }
-    ;
+      };
 
     testScript = ''
       start_all()

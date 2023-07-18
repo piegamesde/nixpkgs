@@ -42,10 +42,8 @@ import ./make-test-python.nix (
             serviceConfig.ExecStart = ''
               ${echoAll} ${utils.escapeSystemdExecArgs args}
             '';
-          }
-        ;
-      }
-    ;
+          };
+      };
 
     testScript = ''
       machine.wait_for_unit("multi-user.target")

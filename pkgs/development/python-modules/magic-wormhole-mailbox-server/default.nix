@@ -42,8 +42,7 @@ buildPythonPackage rec {
       twisted
       autobahn
     ]
-    ++ autobahn.optional-dependencies.twisted ++ twisted.optional-dependencies.tls
-  ;
+    ++ autobahn.optional-dependencies.twisted ++ twisted.optional-dependencies.tls;
 
   nativeCheckInputs = [
     treq

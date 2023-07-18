@@ -44,8 +44,7 @@ let
           optionalString stdenv.is64bit "-x86-64"
         }.so.2 \
         ${file}
-    ''
-  ;
+    '';
 in
 stdenv.mkDerivation rec {
   pname = "brgenml1lpr";

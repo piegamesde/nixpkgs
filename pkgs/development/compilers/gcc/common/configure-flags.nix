@@ -61,8 +61,7 @@ let
 
   targetPrefix =
     lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform)
-      "${stdenv.targetPlatform.config}-"
-  ;
+      "${stdenv.targetPlatform.config}-";
 
   crossConfigureFlags =
     # Ensure that -print-prog-name is able to find the correct programs.
@@ -139,8 +138,7 @@ let
             (targetPlatform.libc == "newlib" || targetPlatform.libc == "newlib-nano")
             "--with-newlib"
         ++ lib.optional (targetPlatform.libc == "avrlibc") "--with-avrlibc"
-    )
-  ;
+    );
 
   configureFlags =
     # Basic dependencies

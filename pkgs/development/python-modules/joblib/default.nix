@@ -43,8 +43,7 @@ buildPythonPackage rec {
     ]
     ++ lib.optionals stdenv.isDarwin [
       "test_dispatch_multiprocessing" # test_dispatch_multiprocessing is broken only on Darwin.
-    ]
-  ;
+    ];
 
   meta = with lib; {
     description = "Lightweight pipelining: using Python functions as pipeline jobs";

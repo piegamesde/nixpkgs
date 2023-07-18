@@ -16,8 +16,7 @@ import ./make-test-python.nix (
         environment.extraInit = ''
           mkdir -p /media/photos
         '';
-      }
-    ;
+      };
 
     testScript = ''
       machine.wait_for_unit("multi-user.target")

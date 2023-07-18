@@ -22,8 +22,7 @@ with lib;
         nftablesEnabled = config.networking.nftables.enable;
         iptablesServices =
           [ "iptables.service" ]
-          ++ optional config.networking.enableIPv6 "ip6tables.service"
-        ;
+          ++ optional config.networking.enableIPv6 "ip6tables.service";
         tableServices =
           if nftablesEnabled then [ "nftables.service" ] else iptablesServices;
       in
@@ -54,8 +53,7 @@ with lib;
           bash
           iproute2
         ]; # required by v2rayA TProxy functionality
-      }
-    ;
+      };
   };
 
   meta.maintainers = with maintainers; [ elliot ];

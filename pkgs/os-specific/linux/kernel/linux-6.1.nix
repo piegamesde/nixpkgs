@@ -28,8 +28,7 @@ buildLinux (
     # TODO: possible to remove after any rebuild, e.g. after update.
     extraConfig =
       lib.optionalString (buildPackages.stdenv.system == "x86_64-linux")
-        "\n"
-    ;
+        "\n";
   }
   // (args.argsOverride or { })
 )

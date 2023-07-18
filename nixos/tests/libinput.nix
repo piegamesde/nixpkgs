@@ -23,8 +23,7 @@ import ./make-test-python.nix (
             horizontalScrolling = false;
           };
         };
-      }
-    ;
+      };
 
     testScript = ''
       def expect_xserver_option(option, value):

@@ -110,8 +110,7 @@ import ./make-test-python.nix (
           };
 
           environment.sessionVariables.RCLONE_CONFIG_LOCAL_TYPE = "local";
-        }
-      ;
+        };
     };
 
     testScript = ''

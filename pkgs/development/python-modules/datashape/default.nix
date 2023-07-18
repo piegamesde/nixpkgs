@@ -24,8 +24,7 @@ let
       repo = pname;
       rev = version;
       inherit sha256;
-    }
-  ;
+    };
 in
 buildPythonPackage rec {
   pname = "datashape";

@@ -51,8 +51,7 @@ import ./make-test-python.nix (
         environment.etc."radicale/users".source = pkgs.runCommand "htpasswd" { } ''
           ${pkgs.apacheHttpd}/bin/htpasswd -bcB "$out" ${user} ${password}
         '';
-      }
-    ;
+      };
     testScript = ''
       machine.wait_for_unit("radicale.service")
       machine.wait_for_open_port(${port})

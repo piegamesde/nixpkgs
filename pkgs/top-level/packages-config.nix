@@ -49,6 +49,5 @@
       haskell = super.haskell // {
         compiler = recurseIntoAttrs super.haskell.compiler;
       };
-    }
-  ;
+    };
 }

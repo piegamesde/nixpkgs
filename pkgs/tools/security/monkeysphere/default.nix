@@ -70,8 +70,7 @@ stdenv.mkDerivation rec {
           CryptOpenSSLBignum
         ]
       )
-    )
-  ;
+    );
 
   makeFlags = [
     "PREFIX=/"
@@ -116,8 +115,7 @@ stdenv.mkDerivation rec {
       '';
       wrapPrograms =
         runtimeDeps: programs:
-        lib.concatMapStrings (wrapMonkeysphere runtimeDeps) programs
-      ;
+        lib.concatMapStrings (wrapMonkeysphere runtimeDeps) programs;
     in
     wrapPrograms [ gnupg ] [
       "monkeysphere-authentication"

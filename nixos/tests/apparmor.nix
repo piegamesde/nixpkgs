@@ -13,8 +13,7 @@ import ./make-test-python.nix (
       }:
       with lib; {
         security.apparmor.enable = mkDefault true;
-      }
-    ;
+      };
 
     testScript = ''
       machine.wait_for_unit("multi-user.target")

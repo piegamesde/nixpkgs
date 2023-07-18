@@ -145,17 +145,14 @@ import ../make-test-python.nix (
                   set -o nounset
                   su postgres -c "psql -d matrix-synapse -f ${insertEmailForAlice}"
                   curl --fail -XPOST 'https://localhost:8448/_matrix/client/r0/account/password/email/requestToken' -d '{"email":"${testEmail}","client_secret":"foobar","send_attempt":1}' -v
-                ''
-              ;
+                '';
             in
             [
               sendTestMailStarttls
               pkgs.matrix-synapse
               obtainTokenAndRegisterEmail
-            ]
-          ;
-        }
-      ;
+            ];
+        };
 
       # test mail delivery
       mailserver =
@@ -194,8 +191,7 @@ import ../make-test-python.nix (
               smtp_tls_mandatory_protocols = "TLSv1.3, TLSv1.2, !TLSv1.1, !TLSv1, !SSLv2, !SSLv3";
             };
           };
-        }
-      ;
+        };
 
       serversqlite = args: {
         services.matrix-synapse = {

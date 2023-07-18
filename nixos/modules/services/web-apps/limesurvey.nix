@@ -148,8 +148,7 @@ in
         defaultText = literalExpression "/run/mysqld/mysqld.sock";
         description =
           lib.mdDoc
-            "Path to the unix socket file to use for authentication."
-        ;
+            "Path to the unix socket file to use for authentication.";
       };
 
       createLocally = mkOption {
@@ -188,8 +187,7 @@ in
             int
             bool
           ]
-        )
-      ;
+        );
       default = {
         "pm" = "dynamic";
         "pm.max_children" = 32;
@@ -251,8 +249,7 @@ in
           username = cfg.database.user;
           password =
             mkIf (cfg.database.passwordFile != null)
-              ''file_get_contents("${toString cfg.database.passwordFile}");''
-          ;
+              ''file_get_contents("${toString cfg.database.passwordFile}");'';
           tablePrefix = "limesurvey_";
         };
         assetManager.basePath = "${stateDir}/tmp/assets";
@@ -269,8 +266,7 @@ in
         force_ssl =
           mkIf
             (cfg.virtualHost.addSSL || cfg.virtualHost.forceSSL || cfg.virtualHost.onlySSL)
-            "on"
-        ;
+            "on";
         config.defaultlang = "en";
       };
     };

@@ -44,8 +44,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isLinux [
       acl
       libselinux
-    ]
-  ;
+    ];
 
   postPatch = ''
     patchShebangs ./configure

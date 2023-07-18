@@ -127,8 +127,7 @@ mkChromiumDerivation (
           [
             "aarch64-linux"
             "x86_64-linux"
-          ]
-      ;
+          ];
       timeout = 172800; # 48 hours (increased from the Hydra default of 10h)
     };
   }

@@ -86,8 +86,7 @@ stdenv.mkDerivation rec {
       Cocoa
       OpenGL
       Security
-    ]
-  ;
+    ];
 
   postPatch = ''
     substituteInPlace src/engine/shared/storage.cpp \

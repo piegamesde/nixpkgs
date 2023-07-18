@@ -84,8 +84,7 @@ let
           illustris
         ];
       } // extraMeta;
-    }
-  ;
+    };
 in
 {
   spark_3_2 = spark rec {

@@ -19,8 +19,7 @@ import ./make-test-python.nix (
               refclock PHC /dev/ptp_kvm poll 2 dpoll -2 offset 0 stratum 3
             '';
           };
-        }
-      ;
+        };
     };
 
     testScript = ''

@@ -39,8 +39,7 @@ stdenv.mkDerivation rec {
       [
         # Needed with GCC 12
         "-std=c++14"
-      ]
-  ;
+      ];
 
   meta = with lib; {
     broken = stdenv.isDarwin;

@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
       [
         # On macOS the library suffix is .dylib:
         ./03-macOS-SOsuf.patch
-      ]
-  ;
+      ];
   postPatch = ''
     substituteInPlace scheme.c --replace "init.scm" "$out/lib/init.scm"
   '';

@@ -33,8 +33,7 @@ rustPlatform.buildRustPackage rec {
       SystemConfiguration
       CoreFoundation
       curl
-    ]
-  ;
+    ];
 
   meta = with lib; {
     description = "Creates CycloneDX Software Bill of Materials (SBOM) from Rust (Cargo) projects";

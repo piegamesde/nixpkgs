@@ -112,14 +112,12 @@ let
       fi
       rm -rf $out/nixos/.git
       echo -n ${config.system.nixos.versionSuffix} > $out/nixos/.version-suffix
-    ''
-  ;
+    '';
 
   closureInfo = pkgs.closureInfo {
     rootPaths =
       [ config.system.build.toplevel ]
-      ++ (lib.optional includeChannel channelSources)
-    ;
+      ++ (lib.optional includeChannel channelSources);
   };
 
   modulesTree = pkgs.aggregateModules (
@@ -154,8 +152,7 @@ let
           "${prefix} ${lib.escapeShellArg property}=${lib.escapeShellArg value}"
         )
         properties
-    )
-  ;
+    );
 
   createDatasets =
     let
@@ -163,18 +160,15 @@ let
       sorted =
         lib.sort
           (left: right: (lib.stringLength left.name) < (lib.stringLength right.name))
-          datasetlist
-      ;
+          datasetlist;
       cmd =
         { name, value }:
         let
           properties = stringifyProperties "-o" (value.properties or { });
         in
-        "zfs create -p ${properties} ${name}"
-      ;
+        "zfs create -p ${properties} ${name}";
     in
-    lib.concatMapStringsSep "\n" cmd sorted
-  ;
+    lib.concatMapStringsSep "\n" cmd sorted;
 
   mountDatasets =
     let
@@ -186,18 +180,15 @@ let
             left: right:
             (lib.stringLength left.value.mount) < (lib.stringLength right.value.mount)
           )
-          mounts
-      ;
+          mounts;
       cmd =
         { name, value }:
         ''
           mkdir -p /mnt${lib.escapeShellArg value.mount}
           mount -t zfs ${name} /mnt${lib.escapeShellArg value.mount}
-        ''
-      ;
+        '';
     in
-    lib.concatMapStringsSep "\n" cmd sorted
-  ;
+    lib.concatMapStringsSep "\n" cmd sorted;
 
   unmountDatasets =
     let
@@ -209,17 +200,14 @@ let
             left: right:
             (lib.stringLength left.value.mount) > (lib.stringLength right.value.mount)
           )
-          mounts
-      ;
+          mounts;
       cmd =
         { name, value }:
         ''
           umount /mnt${lib.escapeShellArg value.mount}
-        ''
-      ;
+        '';
     in
-    lib.concatMapStringsSep "\n" cmd sorted
-  ;
+    lib.concatMapStringsSep "\n" cmd sorted;
 
   fileSystemsCfgFile =
     let
@@ -241,8 +229,7 @@ let
                   device = "${dataset}";
                 };
               })
-              mountable
-          ;
+              mountable;
         };
         passAsFile = [ "filesystems" ];
       }
@@ -254,8 +241,7 @@ let
         ) > $out
 
         nixpkgs-fmt $out
-      ''
-  ;
+      '';
 
   mergedConfig =
     if configFile == null then
@@ -307,7 +293,8 @@ let
               else
                 ''
                   ${pkgs.qemu}/bin/qemu-img convert -f raw -O ${formatOpt} ${compress} $rootDiskImage $out/${rootFilename}
-                ''}
+                ''
+              }
               rootDiskImage=$out/${rootFilename}
               set -x
               ${postVM}
@@ -371,7 +358,6 @@ let
 
             zpool export ${rootPoolName}
           ''
-      )
-  ;
+      );
 in
 image

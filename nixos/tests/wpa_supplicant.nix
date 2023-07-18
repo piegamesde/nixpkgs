@@ -62,8 +62,7 @@ import ./make-test-python.nix (
             PSK_SPECIAL=",./;'[]\-= <>?:\"{}|_+ !@#$%^\&*()`~";
           '';
         };
-      }
-    ;
+      };
 
     testScript = ''
       config_file = "/run/wpa_supplicant/wpa_supplicant.conf"

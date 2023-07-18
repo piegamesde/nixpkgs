@@ -36,8 +36,7 @@ python3Packages.buildPythonPackage rec {
 
   nativeBuildInputs =
     [ installShellFiles ]
-    ++ (with python3Packages; [ poetry-core ])
-  ;
+    ++ (with python3Packages; [ poetry-core ]);
 
   propagatedBuildInputs =
     with python3Packages;

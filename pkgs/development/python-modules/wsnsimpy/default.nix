@@ -31,8 +31,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck =
     [ "wsnsimpy" ]
-    ++ lib.optional enableVisualization "wsnsimpy.wsnsimpy_tk"
-  ;
+    ++ lib.optional enableVisualization "wsnsimpy.wsnsimpy_tk";
 
   meta = with lib; {
     description = "SimPy-based WSN Simulator";

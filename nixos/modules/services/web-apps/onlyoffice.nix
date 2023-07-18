@@ -55,8 +55,7 @@ in
       default = "/run/postgresql";
       description =
         lib.mdDoc
-          "The Postgresql hostname or socket path OnlyOffice should connect to."
-      ;
+          "The Postgresql hostname or socket path OnlyOffice should connect to.";
     };
 
     postgresName = mkOption {
@@ -88,8 +87,7 @@ in
       default = "amqp://guest:guest@localhost:5672";
       description =
         lib.mdDoc
-          "The Rabbitmq in amqp URI style OnlyOffice should connect to."
-      ;
+          "The Rabbitmq in amqp URI style OnlyOffice should connect to.";
     };
   };
 
@@ -314,8 +312,7 @@ in
             Type = "simple";
             User = "onlyoffice";
           };
-        }
-      ;
+        };
     };
 
     users.users = {

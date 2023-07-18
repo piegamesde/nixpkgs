@@ -16,8 +16,7 @@ let
         }
         // env
       )
-      buildCommand
-  ;
+      buildCommand;
 in
 
 recurseIntoAttrs {
@@ -63,8 +62,7 @@ recurseIntoAttrs {
         [[ ! -f ''${!outputDevman:?}/share/man/man1/foo.1 ]]
 
         touch $out
-      ''
-  ;
+      '';
 
   # installShellCompletion
 
@@ -102,8 +100,7 @@ recurseIntoAttrs {
         cmp foo ''${!outputBin:?}/share/bash-completion/completions/foo
 
         touch $out
-      ''
-  ;
+      '';
   install-completion-name = runTest "install-completion-name" { } ''
     echo foo > foo
     echo bar > bar

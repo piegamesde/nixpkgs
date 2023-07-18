@@ -167,8 +167,7 @@ stdenv.mkDerivation rec {
       patchelf \
         --set-rpath "${libPath.liboneauth}" \
         opt/microsoft/${shortName}/liboneauth.so
-    ''
-  ;
+    '';
 
   installPhase = ''
     mkdir -p $out
@@ -177,7 +176,8 @@ stdenv.mkDerivation rec {
     ${if channel == "stable" then
       ""
     else
-      "ln -sf $out/opt/microsoft/${shortName}/${baseName}-${channel} $out/opt/microsoft/${shortName}/${baseName}"}
+      "ln -sf $out/opt/microsoft/${shortName}/${baseName}-${channel} $out/opt/microsoft/${shortName}/${baseName}"
+    }
 
     ln -sf $out/opt/microsoft/${shortName}/${longName} $out/bin/${longName}
 

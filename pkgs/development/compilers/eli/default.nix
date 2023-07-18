@@ -50,8 +50,7 @@ stdenv.mkDerivation rec {
         libXaw.dev
         libXext.dev
       ]
-    )
-  ;
+    );
 
   nativeBuildInputs = [
     file

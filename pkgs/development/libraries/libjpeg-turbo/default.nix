@@ -48,8 +48,7 @@ stdenv.mkDerivation rec {
   patches =
     [ ./0001-Compile-transupp.c-as-part-of-the-library.patch ]
     ++ lib.optional (stdenv.hostPlatform.libc or null == "msvcrt")
-      ./mingw-boolean.patch
-  ;
+      ./mingw-boolean.patch;
 
   outputs = [
     "bin"

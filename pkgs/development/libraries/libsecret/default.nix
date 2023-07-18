@@ -57,8 +57,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withIntrospection [
       gi-docgen
       gobject-introspection
-    ]
-  ;
+    ];
 
   buildInputs = [ libgcrypt ];
 

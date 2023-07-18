@@ -43,8 +43,7 @@ buildPythonApplication rec {
     ++ lib.optionals stdenv.isDarwin [
       billiard
       gnureadline
-    ]
-  ;
+    ];
 
   # No tests
   doCheck = false;

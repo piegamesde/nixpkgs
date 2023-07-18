@@ -28,8 +28,7 @@ let
           default = 30303;
           description =
             lib.mdDoc
-              "Port number Go Ethereum will be listening on, both TCP and UDP."
-          ;
+              "Port number Go Ethereum will be listening on, both TCP and UDP.";
         };
 
         http = {
@@ -101,8 +100,7 @@ let
             default = [ "localhost" ];
             description =
               lib.mdDoc
-                "List of virtual hostnames from which to accept requests."
-            ;
+                "List of virtual hostnames from which to accept requests.";
             example = [
               "localhost"
               "geth.example.org"
@@ -144,8 +142,7 @@ let
           default = null;
           description =
             lib.mdDoc
-              "The network to connect to. Mainnet (null) is the default ethereum network."
-          ;
+              "The network to connect to. Mainnet (null) is the default ethereum network.";
         };
 
         syncmode = mkOption {
@@ -187,8 +184,7 @@ let
           description = lib.mdDoc "Package to use as Go Ethereum node.";
         };
       };
-    }
-  ;
+    };
 in
 
 {
@@ -288,7 +284,6 @@ in
             }
           ))
         )
-        eachGeth
-    ;
+        eachGeth;
   };
 }

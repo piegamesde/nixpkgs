@@ -18,8 +18,7 @@ let
     magmaRelease:
     callPackage ./generic.nix (
       (builtins.removeAttrs args [ "callPackage" ]) // { inherit magmaRelease; }
-    )
-  ;
+    );
 
   # Reverse the list to have the latest release first
   # magmaReleases :: List Release

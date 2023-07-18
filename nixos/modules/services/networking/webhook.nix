@@ -29,8 +29,7 @@ let
           type = types.str;
           description =
             mdDoc
-              "The command that should be executed when the hook is triggered."
-          ;
+              "The command that should be executed when the hook is triggered.";
         };
       };
     }
@@ -41,8 +40,7 @@ let
       cfg.hooks
     ++ mapAttrsToList
       (name: hook: pkgs.writeText "webhook-${name}.json.tmpl" "[${hook}]")
-      cfg.hooksTemplated
-  ;
+      cfg.hooksTemplated;
 in
 {
   options = {
@@ -195,8 +193,7 @@ in
               concatStringsSep ", " (builtins.attrNames overlappingHooks)
             }";
         }
-      ]
-    ;
+      ];
 
     users.users = mkIf (cfg.user == defaultUser) {
       ${defaultUser} = {
@@ -241,8 +238,7 @@ in
         in
         ''
           ${cfg.package}/bin/webhook ${escapeShellArgs args}
-        ''
-      ;
+        '';
       serviceConfig = {
         Restart = "on-failure";
         User = cfg.user;

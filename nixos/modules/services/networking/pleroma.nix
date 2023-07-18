@@ -39,8 +39,7 @@ in
         readOnly = true;
         description =
           lib.mdDoc
-            "Directory where the pleroma service will save the uploads and static files."
-        ;
+            "Directory where the pleroma service will save the uploads and static files.";
       };
 
       configs = mkOption {
@@ -141,8 +140,7 @@ in
               ${cfg.package}/bin/pleroma_ctl migrate
             '';
           in
-          "${preScript}/bin/pleromaStartPre"
-        ;
+          "${preScript}/bin/pleromaStartPre";
 
         ExecStart = "${cfg.package}/bin/pleroma start";
         ExecStop = "${cfg.package}/bin/pleroma stop";

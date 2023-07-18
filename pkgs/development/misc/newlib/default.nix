@@ -30,8 +30,7 @@ stdenv.mkDerivation (
             url = "https://gitweb.gentoo.org/repo/gentoo.git/plain/sys-libs/newlib/files/newlib-3.3.0-no-nano-cxx.patch?id=9ee5a1cd6f8da6d084b93b3dbd2e8022a147cfbf";
             sha256 = "sha256-S3mf7vwrzSMWZIGE+d61UDH+/SK/ao1hTPee1sElgco=";
           })
-        ]
-    ;
+        ];
 
     depsBuildBuild = [
       buildPackages.stdenv.cc
@@ -78,8 +77,7 @@ stdenv.mkDerivation (
             "--enable-newlib-reent-small"
             "--enable-newlib-retargetable-locking"
           ]
-      )
-    ;
+      );
 
     dontDisableStatic = true;
 

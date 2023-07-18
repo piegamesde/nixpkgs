@@ -32,11 +32,9 @@ let
 
       exportVariables =
         mapAttrsToList (n: v: ''export ${n}="${concatStringsSep ":" v}"'')
-          allVariables
-      ;
+          allVariables;
     in
-    concatStringsSep "\n" exportVariables
-  ;
+    concatStringsSep "\n" exportVariables;
 in
 
 {
@@ -64,8 +62,7 @@ in
             str
             path
           ]
-        )
-      ;
+        );
       apply = mapAttrs (n: v: if isList v then concatStringsSep ":" v else "${v}");
     };
 

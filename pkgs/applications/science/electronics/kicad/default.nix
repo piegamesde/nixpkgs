@@ -84,8 +84,7 @@ let
       repo = "kicad-${name}";
       rev = versionsImport.${baseName}.libVersion.libSources.${name}.rev;
       sha256 = versionsImport.${baseName}.libVersion.libSources.${name}.sha256;
-    }
-  ;
+    };
 
   # only override `src` or `version` if building `kicad-unstable` with
   # the appropriate attribute defined in `srcs`.
@@ -152,8 +151,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs =
     [ makeWrapper ]
-    ++ optionals (withScripting) [ python.pkgs.wrapPython ]
-  ;
+    ++ optionals (withScripting) [ python.pkgs.wrapPython ];
 
   # We are emulating wrapGAppsHook, along with other variables to the wrapper
   makeWrapperArgs =
@@ -231,8 +229,7 @@ stdenv.mkDerivation rec {
 
         "runHook postInstall"
       ]
-    ))
-  ;
+    ));
 
   postInstall = ''
     mkdir -p $out/share

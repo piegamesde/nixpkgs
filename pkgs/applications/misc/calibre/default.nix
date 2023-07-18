@@ -143,8 +143,7 @@ stdenv.mkDerivation (
               pyqt6-webengine
             ]
         ++ lib.optional (unrarSupport) unrardll
-      )
-    ;
+      );
 
     installPhase = ''
       runHook preInstall

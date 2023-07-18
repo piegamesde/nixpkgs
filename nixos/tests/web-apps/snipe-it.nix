@@ -41,8 +41,7 @@ in
             );
           };
         };
-      }
-    ;
+      };
   };
 
   testScript =
@@ -59,8 +58,7 @@ in
           snipeit.${
             if shouldSucceed then "succeed" else "fail"
           }("""curl http://localhost/login | grep '${siteName}'""")
-        ''
-      ;
+        '';
     in
     ''
       start_all()
@@ -115,6 +113,5 @@ in
 
           # Login page should be back again
           ${checkLoginPage { }}
-    ''
-  ;
+    '';
 }

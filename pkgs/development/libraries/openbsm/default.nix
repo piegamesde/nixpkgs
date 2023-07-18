@@ -33,8 +33,7 @@ stdenv.mkDerivation rec {
       (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11")
       ''
         MACOSX_DEPLOYMENT_TARGET=10.16
-      ''
-  ;
+      '';
 
   configureFlags = [ "ac_cv_file__usr_include_mach_audit_triggers_defs=no" ];
 

@@ -30,8 +30,7 @@ with super; {
 
   importlib-metadata =
     callPackage ../development/python2-modules/importlib-metadata
-      { }
-  ;
+      { };
 
   jinja2 = callPackage ../development/python2-modules/jinja2 { };
 

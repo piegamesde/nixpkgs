@@ -48,8 +48,7 @@ python3Packages.buildPythonApplication rec {
         # Additionaly, other start methods are unsafe and prone to failure
         # on macOS; see https://bugs.python.org/issue33725.
         "BottleServer"
-      ]
-  ;
+      ];
   # Allow tests that bind or connect to localhost on macOS.
   __darwinAllowLocalNetworking = true;
 

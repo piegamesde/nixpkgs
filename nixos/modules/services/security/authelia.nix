@@ -217,8 +217,7 @@ let
                   example = "/var/log/authelia/authelia.log";
                   description =
                     mdDoc
-                      "File path where the logs will be written. If not set logs are written to stdout."
-                  ;
+                      "File path where the logs will be written. If not set logs are written to stdout.";
                 };
 
                 keep_stdout = mkOption {
@@ -227,8 +226,7 @@ let
                   example = true;
                   description =
                     mdDoc
-                      "Whether to also log to stdout when a `file_path` is defined."
-                  ;
+                      "Whether to also log to stdout when a `file_path` is defined.";
                 };
               };
 
@@ -247,8 +245,7 @@ let
                     example = "tcp://0.0.0.0:8888";
                     description =
                       mdDoc
-                        "The address to listen on for metrics. This should be on a different port to the main `server.port` value."
-                    ;
+                        "The address to listen on for metrics. This should be on a different port to the main `server.port` value.";
                   };
                 };
               };
@@ -271,8 +268,7 @@ let
           '';
         };
       };
-    }
-  ;
+    };
 in
 {
   options.services.authelia.instances =
@@ -317,8 +313,7 @@ in
           };
         }
       '';
-    }
-  ;
+    };
 
   config =
     let
@@ -408,21 +403,18 @@ in
               "~@setuid"
             ];
           };
-        }
-      ;
+        };
       mkInstanceUsersConfig = instance: {
         groups."authelia-${instance.name}" =
           lib.mkIf (instance.group == "authelia-${instance.name}")
-            { name = "authelia-${instance.name}"; }
-        ;
+            { name = "authelia-${instance.name}"; };
         users."authelia-${instance.name}" =
           lib.mkIf (instance.user == "authelia-${instance.name}")
             {
               name = "authelia-${instance.name}";
               isSystemUser = true;
               group = instance.group;
-            }
-        ;
+            };
       };
       instances = lib.attrValues cfg.instances;
     in
@@ -464,6 +456,5 @@ in
         map (instance: lib.mkIf instance.enable (mkInstanceUsersConfig instance))
           instances
       );
-    }
-  ;
+    };
 }

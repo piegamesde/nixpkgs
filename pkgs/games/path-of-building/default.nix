@@ -54,8 +54,7 @@ stdenv.mkDerivation {
         # Completely stub out the update check
         chmod +w $out/src/UpdateCheck.lua
         echo 'return "none"' > $out/src/UpdateCheck.lua
-      ''
-  ;
+      '';
 
   nativeBuildInputs = [
     meson

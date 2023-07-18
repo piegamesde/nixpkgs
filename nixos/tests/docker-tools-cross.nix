@@ -23,8 +23,7 @@ import ./make-test-python.nix (
           # NOTE: Since this file can't control where the test will be _run_ we don't
           #       cross-compile _to_ a different system but _from_ a different system
           crossSystem = pkgs.stdenv.hostPlatform.system;
-        }
-    ;
+        };
 
     hello1 = remoteCrossPkgs.dockerTools.buildImage {
       name = "hello1";
@@ -54,8 +53,7 @@ import ./make-test-python.nix (
             diskSize = 2048;
             docker.enable = true;
           };
-        }
-      ;
+        };
     };
 
     testScript = ''

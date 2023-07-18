@@ -20,8 +20,7 @@ import ./make-test-python.nix {
           1.0.168.192.in-addr.arpa IN PTR ns.example.org.
         '';
       };
-    }
-  ;
+    };
 
   testScript = ''
     machine.wait_for_unit("bind.service")

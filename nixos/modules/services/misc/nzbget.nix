@@ -86,8 +86,7 @@ in
               int
               str
             ]
-          )
-        ;
+          );
         default = { };
         description = lib.mdDoc ''
           NZBGet configuration, passed via command line using switch -o. Refer to

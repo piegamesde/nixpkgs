@@ -58,8 +58,7 @@ mkDerivation rec {
       "-DDISABLE_SSE4_1=${if stdenv.hostPlatform.sse4_1Support then "OFF" else "ON"}"
       "-DDISABLE_SSE4_2=${if stdenv.hostPlatform.sse4_2Support then "OFF" else "ON"}"
       "-DDISABLE_SSE4_A=${if stdenv.hostPlatform.sse4_aSupport then "OFF" else "ON"}"
-    ]
-  ;
+    ];
 
   meta = with lib; {
     description = "A General Framework for Graph Optimization";

@@ -25,8 +25,7 @@ appimageTools.wrapType2 {
     with pkgs; [
       polkit
       udev
-    ]
-  ;
+    ];
 
   extraInstallCommands = ''
     mv $out/bin/${pname}-${version} $out/bin/${pname}

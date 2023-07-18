@@ -91,8 +91,7 @@ rec {
           makeWrapper ${java}/bin/java $out/bin/gradle \
             ${varDefs}
             --add-flags "-classpath $gradle_launcher_jar org.gradle.launcher.GradleMain${toolchain.property}"
-        ''
-      ;
+        '';
 
       dontFixup = !stdenv.isLinux;
 
@@ -126,8 +125,7 @@ rec {
           # Gradle will refuse to start without _both_ 5 and 6 versions of ncurses.
           echo ${ncurses5} >> $out/nix-support/manual-runtime-dependencies
           echo ${ncurses6} >> $out/nix-support/manual-runtime-dependencies
-        ''
-      ;
+        '';
 
       meta = with lib; {
         inherit platforms;
@@ -153,8 +151,7 @@ rec {
           liff
         ];
       };
-    }
-  ;
+    };
 
   # NOTE: Default JDKs that are hardcoded below must be LTS versions
   # and respect the compatibility matrix at

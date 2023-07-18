@@ -599,8 +599,7 @@ self: super:
           make build
         '';
       }
-    )
-  ;
+    );
 
   fuzzy-nvim = super.fuzzy-nvim.overrideAttrs (
     old: { dependencies = with self; [ telescope-fzy-native-nvim ]; }
@@ -727,8 +726,7 @@ self: super:
         substituteInPlace "$out"/autoload/LanguageClient.vim \
           --replace "let l:path = s:root . '/bin/'" "let l:path = '${LanguageClient-neovim-bin}' . '/bin/'"
       '';
-    }
-  ;
+    };
 
   lazy-lsp-nvim = super.lazy-lsp-nvim.overrideAttrs (
     old: { dependencies = with self; [ nvim-lspconfig ]; }
@@ -795,8 +793,7 @@ self: super:
         ipykernel
         pyperclip
         pnglatex
-      ]
-    ;
+      ];
     meta.homepage = "https://github.com/WhiteBlackGoose/magma-nvim-goose/";
   };
 
@@ -806,8 +803,7 @@ self: super:
       # We only need its dependencies `node-modules`.
       nodeDep =
         nodePackages."markdown-preview-nvim-../../applications/editors/vim/plugins/markdown-preview-nvim".overrideAttrs
-          (old: { dontNpmInstall = true; })
-      ;
+          (old: { dontNpmInstall = true; });
     in
     {
       patches = [
@@ -1009,8 +1005,7 @@ self: super:
         [
           # we need the 'query' grammer to make
           (nvim-treesitter.withPlugins (p: [ p.query ]))
-        ]
-      ;
+        ];
     }
   );
 
@@ -1067,8 +1062,7 @@ self: super:
 
         buildInputs =
           [ openssl ]
-          ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ]
-        ;
+          ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
         cargoBuildFlags = [ "--workspace" ];
 
@@ -1139,8 +1133,7 @@ self: super:
       '';
 
       propagatedBuildInputs = [ sniprun-bin ];
-    }
-  ;
+    };
 
   # The GitHub repository returns 404, which breaks the update script
   Spacegray-vim = buildVimPluginFrom2Nix {
@@ -1166,8 +1159,7 @@ self: super:
             --replace "path = vim.g.sqlite_clib_path" "path = vim.g.sqlite_clib_path or ${
               lib.escapeShellArg libsqlite
             }"
-        ''
-      ;
+        '';
     }
   );
 
@@ -1235,8 +1227,7 @@ self: super:
           description = "synctex support between vim/neovim and evince";
         };
       }
-    )
-  ;
+    );
 
   taskwarrior = buildVimPluginFrom2Nix {
     inherit (taskwarrior) version pname;
@@ -1293,8 +1284,7 @@ self: super:
           rm -rf $target/${fzy-lua-native-path}/*
           ln -s ${fzy-lua-native}/static $target/${fzy-lua-native-path}/static
           ln -s ${fzy-lua-native}/lua $target/${fzy-lua-native-path}/lua
-        ''
-      ;
+        '';
       meta.platforms = lib.platforms.all;
     }
   );
@@ -1354,8 +1344,7 @@ self: super:
         cd vim-plugin
       '';
       meta.maintainers = with lib.maintainers; [ enderger ];
-    }
-  ;
+    };
 
   unicode-vim =
     let
@@ -1374,8 +1363,7 @@ self: super:
           ${vim}/bin/vim --cmd ":set rtp^=$PWD" -c 'ru plugin/unicode.vim' -c 'UnicodeCache' -c ':echohl Normal' -c ':q' > /dev/null
         '';
       }
-    )
-  ;
+    );
 
   unison = super.unison.overrideAttrs (
     old: {
@@ -1418,8 +1406,7 @@ self: super:
 
   vim-addon-goto-thing-at-cursor =
     super.vim-addon-goto-thing-at-cursor.overrideAttrs
-      (old: { dependencies = with self; [ tlib_vim ]; })
-  ;
+      (old: { dependencies = with self; [ tlib_vim ]; });
 
   vim-addon-manager = super.vim-addon-manager.overrideAttrs (
     old: { buildInputs = lib.optional stdenv.isDarwin Cocoa; }
@@ -1617,8 +1604,7 @@ self: super:
         in
         ''
           ln -s ${hexokinase}/bin/hexokinase $target/hexokinase/hexokinase
-        ''
-      ;
+        '';
 
       meta.platforms = lib.platforms.all;
     }
@@ -1653,8 +1639,7 @@ self: super:
             "'${vim-markdown-composer-bin}/bin/markdown-composer'"
         '';
       }
-    )
-  ;
+    );
 
   vim-metamath = super.vim-metamath.overrideAttrs (
     old: { preInstall = "cd vim"; }
@@ -1907,8 +1892,7 @@ self: super:
         pname = name;
         inherit (nodePackages.${name}) version meta;
         src = "${nodePackages.${name}}/lib/node_modules/${name}";
-      }
-    ;
+      };
   in
   lib.genAttrs nodePackageNames nodePackage2VimPackage
 )

@@ -65,8 +65,7 @@ import ./make-test-python.nix (
             bind_addr = ip;
           };
         };
-      }
-    ;
+      };
 
     server =
       index:
@@ -105,10 +104,8 @@ import ./make-test-python.nix (
               ;
               bind_addr = ip;
             };
-          }
-        ;
-      }
-    ;
+          };
+      };
   in
   {
     name = "consul";

@@ -47,8 +47,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals interactive [
       readline
       ncurses
-    ]
-  ;
+    ];
 
   # required for aarch64 but applied for all arches for simplicity
   preConfigure = ''
@@ -57,8 +56,7 @@ stdenv.mkDerivation rec {
 
   configureFlags =
     [ "--enable-threadsafe" ]
-    ++ lib.optional interactive "--enable-readline"
-  ;
+    ++ lib.optional interactive "--enable-readline";
 
   env.NIX_CFLAGS_COMPILE = toString (
     [

@@ -30,8 +30,7 @@ stdenv.mkDerivation rec {
   ];
   nativeBuildInputs =
     [ qmake ]
-    ++ lib.optional stdenv.isDarwin fixDarwinDylibNames
-  ;
+    ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
 
   postPatch = ''
     sed -e "s|QWT_INSTALL_PREFIX.*=.*|QWT_INSTALL_PREFIX = $out|g" -i qwtconfig.pri

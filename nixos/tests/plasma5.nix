@@ -22,8 +22,7 @@ import ./make-test-python.nix (
           user = "alice";
         };
         hardware.pulseaudio.enable = true; # needed for the factl test, /dev/snd/* exists without them but udev doesn't care then
-      }
-    ;
+      };
 
     testScript =
       { nodes, ... }:
@@ -67,7 +66,6 @@ import ./make-test-python.nix (
                 "${xdo} key Alt+F1 sleep 10"
             )
             machine.screenshot("screen")
-      ''
-    ;
+      '';
   }
 )

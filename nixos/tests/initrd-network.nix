@@ -23,8 +23,7 @@ import ./make-test-python.nix (
           ip addr | grep 10.0.2.15 && exit 1
           ping -c1 10.0.2.2 && exit 1
         '';
-      }
-    ;
+      };
 
     testScript = ''
       start_all()

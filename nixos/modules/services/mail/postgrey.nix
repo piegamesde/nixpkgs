@@ -17,8 +17,7 @@ let
     with types;
     addCheck (either (submodule unixSocket) (submodule inetSocket)) (
       x: x ? path || x ? port
-    )
-  ;
+    );
 
   inetSocket = with types; {
     options = {
@@ -122,24 +121,21 @@ in
         default = "Greylisted for %%s seconds";
         description =
           lib.mdDoc
-            "Response status text for greylisted messages; use %%s for seconds left until greylisting is over and %%r for mail domain of recipient"
-        ;
+            "Response status text for greylisted messages; use %%s for seconds left until greylisting is over and %%r for mail domain of recipient";
       };
       greylistAction = mkOption {
         type = str;
         default = "DEFER_IF_PERMIT";
         description =
           lib.mdDoc
-            "Response status for greylisted messages (see access(5))"
-        ;
+            "Response status for greylisted messages (see access(5))";
       };
       greylistHeader = mkOption {
         type = str;
         default = "X-Greylist: delayed %%t seconds by postgrey-%%v at %%h; %%d";
         description =
           lib.mdDoc
-            "Prepend header to greylisted mails; use %%t for seconds delayed due to greylisting, %%v for the version of postgrey, %%d for the date, and %%h for the host"
-        ;
+            "Prepend header to greylisted mails; use %%t for seconds delayed due to greylisting, %%v for the version of postgrey, %%d for the date, and %%h for the host";
       };
       delay = mkOption {
         type = natural;
@@ -151,8 +147,7 @@ in
         default = 35;
         description =
           lib.mdDoc
-            "Delete entries from whitelist if they haven't been seen for N days"
-        ;
+            "Delete entries from whitelist if they haven't been seen for N days";
       };
       retryWindow = mkOption {
         type = either str natural;
@@ -160,32 +155,28 @@ in
         example = "12h";
         description =
           lib.mdDoc
-            "Allow N days for the first retry. Use string with appended 'h' to specify time in hours"
-        ;
+            "Allow N days for the first retry. Use string with appended 'h' to specify time in hours";
       };
       lookupBySubnet = mkOption {
         type = bool;
         default = true;
         description =
           lib.mdDoc
-            "Strip the last N bits from IP addresses, determined by IPv4CIDR and IPv6CIDR"
-        ;
+            "Strip the last N bits from IP addresses, determined by IPv4CIDR and IPv6CIDR";
       };
       IPv4CIDR = mkOption {
         type = natural;
         default = 24;
         description =
           lib.mdDoc
-            "Strip N bits from IPv4 addresses if lookupBySubnet is true"
-        ;
+            "Strip N bits from IPv4 addresses if lookupBySubnet is true";
       };
       IPv6CIDR = mkOption {
         type = natural;
         default = 64;
         description =
           lib.mdDoc
-            "Strip N bits from IPv6 addresses if lookupBySubnet is true"
-        ;
+            "Strip N bits from IPv6 addresses if lookupBySubnet is true";
       };
       privacy = mkOption {
         type = bool;
@@ -197,8 +188,7 @@ in
         default = 5;
         description =
           lib.mdDoc
-            "Whitelist clients after successful delivery of N messages"
-        ;
+            "Whitelist clients after successful delivery of N messages";
       };
       whitelistClients = mkOption {
         type = listOf path;
@@ -287,7 +277,6 @@ in
           RestartSec = 5;
           TimeoutSec = 10;
         };
-      }
-    ;
+      };
   };
 }

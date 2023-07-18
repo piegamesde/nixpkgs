@@ -74,8 +74,7 @@ import ../make-test-python.nix (
               ''
                 ${iproute2}/bin/ip route replace 10.23.42.1/32 dev wg0
                 ${iproute2}/bin/ip route replace fc00::1/128 dev wg0
-              ''
-            ;
+              '';
           };
         };
       };

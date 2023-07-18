@@ -116,8 +116,7 @@ let
                         test_data["expect"],
                     )
       '';
-    }
-  ;
+    };
 in
 pkgs.lib.mapAttrs mkKeyboardTest {
   azerty = {

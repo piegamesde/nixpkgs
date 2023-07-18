@@ -41,8 +41,7 @@ buildPythonPackage rec {
 
   buildInputs =
     [ pybind11 ]
-    ++ lib.optional stdenv.cc.isClang llvmPackages.openmp
-  ;
+    ++ lib.optional stdenv.cc.isClang llvmPackages.openmp;
 
   NIX_CFLAGS_LINK = lib.optional stdenv.cc.isClang "-lomp";
 

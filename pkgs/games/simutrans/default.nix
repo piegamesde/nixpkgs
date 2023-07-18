@@ -27,8 +27,7 @@ let
         attrValues pakSpec # taking all
       else
         map (name: pakSpec.${name}) (splitString " " paksets)
-    )
-  ;
+    );
 
   ver1 = "121";
   ver2 = "0";
@@ -109,10 +108,8 @@ let
           mv ./"$toStrip"/* .
           rm -f "$toStrip/.directory" #pak128.german had this
           rmdir -p "$toStrip"
-        ''
-      ;
-    }
-  ;
+        '';
+    };
 
   /* The binaries need all data in one directory; the default is directory
       of the executable, and another option is the current directory :-/
@@ -136,8 +133,7 @@ let
         hydraPlatforms = [ ];
       };
       passthru.binaries = binaries;
-    }
-  ;
+    };
 
   binaries = stdenv.mkDerivation {
     pname = "simutrans";
@@ -188,8 +184,7 @@ let
         # use -O2 optimization (defaults are -O or -O3)
         sed -i -e '/CFLAGS += -O/d' Makefile
         export CFLAGS+=-O2
-      ''
-    ;
+      '';
 
     enableParallelBuilding = true;
 

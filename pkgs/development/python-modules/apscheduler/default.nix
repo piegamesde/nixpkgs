@@ -64,8 +64,7 @@ buildPythonPackage rec {
     ++ lib.optionals stdenv.isDarwin [
       "test_submit_job"
       "test_max_instances"
-    ]
-  ;
+    ];
 
   pythonImportsCheck = [ "apscheduler" ];
 

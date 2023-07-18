@@ -49,8 +49,8 @@ let
       (mkFlag werrorSupport "WARNINGS_AS_ERRORS")
       # Potentially riscv cross could be fixed by providing the correct CMAKE_SYSTEM_PROCESSOR flag
     ]
-    ++ lib.optional (isCross && stdenv.hostPlatform.isRiscV) "-DENABLE_ASSEMBLY=OFF"
-  ;
+    ++ lib.optional (isCross && stdenv.hostPlatform.isRiscV)
+      "-DENABLE_ASSEMBLY=OFF";
 
   cmakeStaticLibFlags =
     [
@@ -61,8 +61,7 @@ let
     ]
     ++ lib.optionals stdenv.hostPlatform.isPower [
       "-DENABLE_ALTIVEC=OFF" # https://bitbucket.org/multicoreware/x265_git/issues/320/fail-to-build-on-power8-le
-    ]
-  ;
+    ];
 in
 
 stdenv.mkDerivation rec {

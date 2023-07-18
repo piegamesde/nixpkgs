@@ -36,8 +36,7 @@ let
             lib.findFirst
               (choice: (!(choice ? version) || choice.version == dep.version or ""))
               { rename = extern; }
-              choices
-          ;
+              choices;
           name =
             if lib.hasAttr dep.crateName crateRenames then
               let
@@ -62,8 +61,7 @@ let
         in
         " --extern ${opts}${name}=${dep.lib}/lib/lib${extern}-${filename}"
       )
-      dependencies
-  ;
+      dependencies;
 
   # Create feature arguments for rustc.
   mkRustcFeatureArgs = lib.concatMapStringsSep " " (
@@ -372,8 +370,7 @@ lib.makeOverridable
               + rustAttrs.toRustTarget stdenv.hostPlatform
             );
           in
-          lib.substring 0 10 hashedMetadata
-        ;
+          lib.substring 0 10 hashedMetadata;
 
         build = crate.build or "";
         # Either set to a concrete sub path to the crate root

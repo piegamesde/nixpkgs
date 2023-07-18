@@ -33,8 +33,7 @@ rustPlatform.buildRustPackage rec {
       Cocoa
       Foundation
       Security
-    ]
-  ;
+    ];
 
   NIX_LDFLAGS = lib.optionals stdenv.isDarwin [
     "-framework"

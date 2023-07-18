@@ -120,8 +120,7 @@ runCommand "${unwrapped.name}-wrapped"
       libreoffice =
         lib.warn
           "libreoffice: Use the unwrapped attributed, using libreoffice.libreoffice is deprecated."
-          unwrapped
-      ;
+          unwrapped;
       inherit (unwrapped) kdeIntegration;
     };
   }

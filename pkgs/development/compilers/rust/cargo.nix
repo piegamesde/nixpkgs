@@ -76,8 +76,7 @@ rustPlatform.buildRustPackage.override
             host-config = true
             target-applies-to-host = true
             EOF
-          ''
-      ;
+          '';
 
       # changes hash of vendor directory otherwise
       dontUpdateAutotoolsGnuConfigScripts = true;
@@ -101,8 +100,7 @@ rustPlatform.buildRustPackage.override
         ++ lib.optionals stdenv.isDarwin [
           CoreFoundation
           Security
-        ]
-      ;
+        ];
 
       # cargo uses git-rs which is made for a version of libgit2 from recent master that
       # is not compatible with the current version in nixpkgs.

@@ -53,8 +53,7 @@ buildPythonPackage rec {
       repo = pname;
       rev = "Release_${versionTag}";
       hash = "sha256-hiDaPWDAWzALRf3+SAfzghu2K706rcajeZ69tMFplhU=";
-    }
-  ;
+    };
 
   unpackPhase = ''
     cp -r $src/* .

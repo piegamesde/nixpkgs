@@ -33,8 +33,7 @@ appimageTools.wrapType2 {
     with pkgs; [
       libsecret
       libappindicator-gtk3
-    ]
-  ;
+    ];
 
   meta = with lib; {
     description = "ElectronMail is an Electron-based unofficial desktop client for ProtonMail";

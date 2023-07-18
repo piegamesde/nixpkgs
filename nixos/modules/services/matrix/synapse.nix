@@ -46,8 +46,7 @@ let
               listener.resources
           )
           (lib.last cfg.settings.listeners)
-          cfg.settings.listeners
-      ;
+          cfg.settings.listeners;
       # FIXME: Handle cases with missing client listener properly,
       # don't rely on lib.last, this will not work.
 
@@ -66,8 +65,7 @@ let
         "${listenerProtocol}://${
           if (isIpv6 bindAddress) then "[${bindAddress}]" else "${bindAddress}"
         }:${builtins.toString listener.port}/"
-    ''
-  ;
+    '';
 in
 {
 
@@ -733,8 +731,7 @@ in
                 default = ./synapse-log_config.yaml;
                 defaultText =
                   lib.literalExpression
-                    "nixos/modules/services/matrix/synapse-log_config.yaml"
-                ;
+                    "nixos/modules/services/matrix/synapse-log_config.yaml";
                 description = lib.mdDoc ''
                   The file that holds the logging configuration.
                 '';
@@ -1148,8 +1145,7 @@ in
                 '';
               };
             };
-          }
-        ;
+          };
       };
 
       extraConfigFiles = mkOption {
@@ -1204,8 +1200,7 @@ in
       description = "Synapse Matrix homeserver";
       after =
         [ "network.target" ]
-        ++ optional hasLocalPostgresDB "postgresql.service"
-      ;
+        ++ optional hasLocalPostgresDB "postgresql.service";
       wantedBy = [ "multi-user.target" ];
       preStart = ''
         ${cfg.package}/bin/synapse_homeserver \
@@ -1221,8 +1216,7 @@ in
         }
         // optionalAttrs (cfg.withJemalloc) {
           LD_PRELOAD = "${pkgs.jemalloc}/lib/libjemalloc.so";
-        }
-      ;
+        };
       serviceConfig = {
         Type = "notify";
         User = "matrix-synapse";

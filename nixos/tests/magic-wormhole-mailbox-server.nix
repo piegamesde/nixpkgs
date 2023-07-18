@@ -10,16 +10,14 @@ import ./make-test-python.nix (
         {
           networking.firewall.allowedTCPPorts = [ 4000 ];
           services.magic-wormhole-mailbox-server.enable = true;
-        }
-      ;
+        };
 
       client_alice =
         { ... }:
         {
           networking.firewall.enable = false;
           environment.systemPackages = [ pkgs.magic-wormhole ];
-        }
-      ;
+        };
 
       client_bob = { ... }: { environment.systemPackages = [ pkgs.magic-wormhole ]; };
     };

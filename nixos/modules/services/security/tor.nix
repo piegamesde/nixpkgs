@@ -43,40 +43,35 @@ let
           cfg.settings.SOCKSPort
           cfg.settings.TransPort
         ]
-      )
-  ;
+      );
   optionBool =
     optionName:
     mkOption {
       type = with types; nullOr bool;
       default = null;
       description = lib.mdDoc (descriptionGeneric optionName);
-    }
-  ;
+    };
   optionInt =
     optionName:
     mkOption {
       type = with types; nullOr int;
       default = null;
       description = lib.mdDoc (descriptionGeneric optionName);
-    }
-  ;
+    };
   optionString =
     optionName:
     mkOption {
       type = with types; nullOr str;
       default = null;
       description = lib.mdDoc (descriptionGeneric optionName);
-    }
-  ;
+    };
   optionStrings =
     optionName:
     mkOption {
       type = with types; listOf str;
       default = [ ];
       description = lib.mdDoc (descriptionGeneric optionName);
-    }
-  ;
+    };
   optionAddress = mkOption {
     type = with types; nullOr str;
     default = null;
@@ -100,8 +95,7 @@ let
           port
           (enum [ "auto" ])
         ]
-      )
-    ;
+      );
     default = null;
   };
   optionPorts =
@@ -110,8 +104,7 @@ let
       type = with types; listOf port;
       default = [ ];
       description = lib.mdDoc (descriptionGeneric optionName);
-    }
-  ;
+    };
   optionIsolablePort =
     with types;
     oneOf [
@@ -136,27 +129,23 @@ let
                 type = types.bool;
                 default = false;
               }
-            )
-          ;
+            );
           config = {
             flags =
               filter (name: config.${name} == true) isolateFlags
               ++ optional (config.SessionGroup != null)
-                "SessionGroup=${toString config.SessionGroup}"
-            ;
+                "SessionGroup=${toString config.SessionGroup}";
           };
         }
       ))
-    ]
-  ;
+    ];
   optionIsolablePorts =
     optionName:
     mkOption {
       default = [ ];
       type = with types; either optionIsolablePort (listOf optionIsolablePort);
       description = lib.mdDoc (descriptionGeneric optionName);
-    }
-  ;
+    };
   isolateFlags = [
     "IsolateClientAddr"
     "IsolateClientProtocol"
@@ -210,20 +199,17 @@ let
                 type = types.bool;
                 default = false;
               }
-            )
-          ;
+            );
           config = mkIf doConfig {
             # Only add flags in SOCKSPort to avoid duplicates
             flags =
               filter (name: config.${name} == true) flags
               ++ optional (config.SessionGroup != null)
-                "SessionGroup=${toString config.SessionGroup}"
-            ;
+                "SessionGroup=${toString config.SessionGroup}";
           };
         }
       ))
-    ]
-  ;
+    ];
   optionFlags = mkOption {
     type = with types; listOf str;
     default = [ ];
@@ -265,8 +251,7 @@ let
                         type = types.bool;
                         default = false;
                       }
-                    )
-                  ;
+                    );
                   config = {
                     flags = filter (name: config.${name} == true) flags;
                   };
@@ -274,27 +259,23 @@ let
               ))
             ]
           ))
-        ]
-      ;
+        ];
       description = lib.mdDoc (descriptionGeneric optionName);
-    }
-  ;
+    };
   optionBandwidth =
     optionName:
     mkOption {
       type = with types; nullOr (either int str);
       default = null;
       description = lib.mdDoc (descriptionGeneric optionName);
-    }
-  ;
+    };
   optionPath =
     optionName:
     mkOption {
       type = with types; nullOr path;
       default = null;
       description = lib.mdDoc (descriptionGeneric optionName);
-    }
-  ;
+    };
 
   mkValueString =
     k: v:
@@ -345,8 +326,7 @@ let
               v
           )
           (lib.filterAttrs (k: v: !(v == null || v == "")) settings)
-      )
-  ;
+      );
   torrc = pkgs.writeText "torrc" (
     genTorrc cfg.settings
     + concatStrings (
@@ -699,8 +679,7 @@ in
         )
         // {
           default = true;
-        }
-      ;
+        };
 
       controlSocket.enable = mkEnableOption (
         lib.mdDoc ''
@@ -989,8 +968,7 @@ in
                           }
                         ))
                       ]
-                    )
-                  ;
+                    );
                   apply = map (
                     v:
                     if isInt v then
@@ -1011,8 +989,7 @@ in
                         2
                         3
                       ]
-                    )
-                  ;
+                    );
                   default = null;
                 };
                 options.settings = mkOption {
@@ -1040,12 +1017,10 @@ in
                     ;
                     options.HiddenServiceAllowUnknownPorts =
                       optionBool
-                        "HiddenServiceAllowUnknownPorts"
-                    ;
+                        "HiddenServiceAllowUnknownPorts";
                     options.HiddenServiceDirGroupReadable =
                       optionBool
-                        "HiddenServiceDirGroupReadable"
-                    ;
+                        "HiddenServiceDirGroupReadable";
                     options.HiddenServiceExportCircuitID = mkOption {
                       description = lib.mdDoc (descriptionGeneric "HiddenServiceExportCircuitID");
                       type = with types; nullOr (enum [ "haproxy" ]);
@@ -1058,8 +1033,7 @@ in
                     };
                     options.HiddenServiceMaxStreamsCloseCircuit =
                       optionBool
-                        "HiddenServiceMaxStreamsCloseCircuit"
-                    ;
+                        "HiddenServiceMaxStreamsCloseCircuit";
                     options.HiddenServiceNumIntroductionPoints = mkOption {
                       description = lib.mdDoc (
                         descriptionGeneric "HiddenServiceNumIntroductionPoints"
@@ -1086,8 +1060,7 @@ in
                   ;
                   settings.HiddenServicePort =
                     map (p: mkValueString "" p.port + " " + mkValueString "" p.target)
-                      config.map
-                  ;
+                      config.map;
                 };
               }
             )
@@ -1149,8 +1122,7 @@ in
           options.ClientAutoIPv6ORPort = optionBool "ClientAutoIPv6ORPort";
           options.ClientDNSRejectInternalAddresses =
             optionBool
-              "ClientDNSRejectInternalAddresses"
-          ;
+              "ClientDNSRejectInternalAddresses";
           options.ClientOnionAuthDir = mkOption {
             description = lib.mdDoc (descriptionGeneric "ClientOnionAuthDir");
             default = null;
@@ -1160,8 +1132,7 @@ in
           options.ClientPreferIPv6ORPort = optionBool "ClientPreferIPv6ORPort"; # default is null and like "auto"
           options.ClientRejectInternalAddresses =
             optionBool
-              "ClientRejectInternalAddresses"
-          ;
+              "ClientRejectInternalAddresses";
           options.ClientUseIPv4 = optionBool "ClientUseIPv4";
           options.ClientUseIPv6 = optionBool "ClientUseIPv6";
           options.ConnDirectionStatistics = optionBool "ConnDirectionStatistics";
@@ -1203,8 +1174,7 @@ in
                               type = types.bool;
                               default = false;
                             }
-                          )
-                        ;
+                          );
                         config = {
                           flags = filter (name: config.${name} == true) flags;
                         };
@@ -1212,13 +1182,11 @@ in
                     ))
                   ]
                 ))
-              ]
-            ;
+              ];
           };
           options.ControlPortFileGroupReadable =
             optionBool
-              "ControlPortFileGroupReadable"
-          ;
+              "ControlPortFileGroupReadable";
           options.ControlPortWriteToFile = optionPath "ControlPortWriteToFile";
           options.ControlSocket = optionPath "ControlSocket";
           options.ControlSocketsGroupWritable = optionBool "ControlSocketsGroupWritable";
@@ -1235,8 +1203,7 @@ in
           options.DormantOnFirstStartup = optionBool "DormantOnFirstStartup";
           options.DormantTimeoutDisabledByIdleStreams =
             optionBool
-              "DormantTimeoutDisabledByIdleStreams"
-          ;
+              "DormantTimeoutDisabledByIdleStreams";
           options.DirCache = optionBool "DirCache";
           options.DirPolicy = mkOption {
             description = lib.mdDoc (descriptionGeneric "DirPolicy");
@@ -1255,8 +1222,7 @@ in
           options.DoSConnectionEnabled = optionBool "DoSConnectionEnabled"; # default is null and like "auto"
           options.DoSRefuseSingleHopClientRendezvous =
             optionBool
-              "DoSRefuseSingleHopClientRendezvous"
-          ;
+              "DoSRefuseSingleHopClientRendezvous";
           options.DownloadExtraInfo = optionBool "DownloadExtraInfo";
           options.EnforceDistinctSubnets = optionBool "EnforceDistinctSubnets";
           options.EntryStatistics = optionBool "EntryStatistics";
@@ -1266,8 +1232,7 @@ in
           };
           options.ExitPolicyRejectLocalInterfaces =
             optionBool
-              "ExitPolicyRejectLocalInterfaces"
-          ;
+              "ExitPolicyRejectLocalInterfaces";
           options.ExitPolicyRejectPrivate = optionBool "ExitPolicyRejectPrivate";
           options.ExitPortStatistics = optionBool "ExitPortStatistics";
           options.ExitRelay = optionBool "ExitRelay"; # default is null and like "auto"
@@ -1290,15 +1255,13 @@ in
                     }
                   ))
                 ]
-              )
-            ;
+              );
             apply = p: if isInt p || isString p then { port = p; } else p;
           };
           options.ExtORPortCookieAuthFile = optionPath "ExtORPortCookieAuthFile";
           options.ExtORPortCookieAuthFileGroupReadable =
             optionBool
-              "ExtORPortCookieAuthFileGroupReadable"
-          ;
+              "ExtORPortCookieAuthFileGroupReadable";
           options.ExtendAllowPrivateAddresses = optionBool "ExtendAllowPrivateAddresses";
           options.ExtraInfoStatistics = optionBool "ExtraInfoStatistics";
           options.FascistFirewall = optionBool "FascistFirewall";
@@ -1334,8 +1297,7 @@ in
                     };
                   })
                 ]
-              )
-            ;
+              );
             example = [ {
               onion = "xxxxxxxxxxxxxxxx.onion";
               auth = "xxxxxxxxxxxxxxxxxxxxxx";
@@ -1343,8 +1305,7 @@ in
           };
           options.HiddenServiceNonAnonymousMode =
             optionBool
-              "HiddenServiceNonAnonymousMode"
-          ;
+              "HiddenServiceNonAnonymousMode";
           options.HiddenServiceStatistics = optionBool "HiddenServiceStatistics";
           options.HSLayer2Nodes = optionStrings "HSLayer2Nodes";
           options.HSLayer3Nodes = optionStrings "HSLayer3Nodes";
@@ -1385,8 +1346,7 @@ in
                   "v3"
                   "bridge"
                 ]
-              )
-            ;
+              );
             default = null;
           };
           options.ReducedExitPolicy = optionBool "ReducedExitPolicy";
@@ -1399,8 +1359,7 @@ in
           options.ServerDNSAllowBrokenConfig = optionBool "ServerDNSAllowBrokenConfig";
           options.ServerDNSAllowNonRFC953Hostnames =
             optionBool
-              "ServerDNSAllowNonRFC953Hostnames"
-          ;
+              "ServerDNSAllowNonRFC953Hostnames";
           options.ServerDNSDetectHijacking = optionBool "ServerDNSDetectHijacking";
           options.ServerDNSRandomizeCase = optionBool "ServerDNSRandomizeCase";
           options.ServerDNSResolvConfFile = optionPath "ServerDNSResolvConfFile";
@@ -1432,8 +1391,7 @@ in
                     };
                   }
                 )
-              )
-            ;
+              );
           };
           options.ShutdownWaitLength = mkOption {
             type = types.int;
@@ -1472,8 +1430,7 @@ in
                   "ipfw"
                   "pf-divert"
                 ]
-              )
-            ;
+              );
             default = null;
           };
           #options.TruncateLogFile
@@ -1484,8 +1441,7 @@ in
           options.V3AuthoritativeDirectory = optionBool "V3AuthoritativeDirectory";
           options.VersioningAuthoritativeDirectory =
             optionBool
-              "VersioningAuthoritativeDirectory"
-          ;
+              "VersioningAuthoritativeDirectory";
           options.VirtualAddrNetworkIPv4 = optionString "VirtualAddrNetworkIPv4";
           options.VirtualAddrNetworkIPv6 = optionString "VirtualAddrNetworkIPv6";
           options.WarnPlaintextPorts = optionPorts "WarnPlaintextPorts";
@@ -1638,8 +1594,7 @@ in
               cfg.settings.ORPort
               cfg.settings.DirPort
             ]
-          )
-      ;
+          );
     };
 
     systemd.services.tor = {
@@ -1745,8 +1700,7 @@ in
             mapAttrsToList
               (name: onion: optional (onion.secretKey == null) "tor/onion/${name}")
               cfg.relay.onionServices
-          )
-        ;
+          );
         # The following options are only to optimize:
         # systemd-analyze security tor
         RootDirectory = runDir + "/root";
@@ -1762,16 +1716,13 @@ in
           ++ optionals config.services.resolved.enable [
             "/run/systemd/resolve/stub-resolv.conf"
             "/run/systemd/resolve/resolv.conf"
-          ]
-        ;
+          ];
         AmbientCapabilities =
           [ "" ]
-          ++ lib.optional bindsPrivilegedPort "CAP_NET_BIND_SERVICE"
-        ;
+          ++ lib.optional bindsPrivilegedPort "CAP_NET_BIND_SERVICE";
         CapabilityBoundingSet =
           [ "" ]
-          ++ lib.optional bindsPrivilegedPort "CAP_NET_BIND_SERVICE"
-        ;
+          ++ lib.optional bindsPrivilegedPort "CAP_NET_BIND_SERVICE";
         # ProtectClock= adds DeviceAllow=char-rtc r
         DeviceAllow = "";
         LockPersonality = true;

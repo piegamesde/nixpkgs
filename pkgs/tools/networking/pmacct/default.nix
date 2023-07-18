@@ -61,8 +61,7 @@ stdenv.mkDerivation rec {
 
   MYSQL_CONFIG =
     lib.optionalString withMysql
-      "${lib.getDev libmysqlclient}/bin/mysql_config"
-  ;
+      "${lib.getDev libmysqlclient}/bin/mysql_config";
 
   configureFlags =
     [ "--with-pcap-includes=${libpcap}/include" ]

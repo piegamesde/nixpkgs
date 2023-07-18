@@ -83,8 +83,7 @@ lib.makeScope pkgs.newScope (
             (if lib.isFunction origArgs then origArgs else (_: origArgs))
         );
       in
-      pkgs.stdenv.mkDerivation args
-    ;
+      pkgs.stdenv.mkDerivation args;
 
     # Function to build an extension which is shipped as part of the php
     # source, based on the php version.
@@ -214,8 +213,7 @@ lib.makeScope pkgs.newScope (
 
       php-parallel-lint =
         callPackage ../development/php-packages/php-parallel-lint
-          { }
-      ;
+          { };
 
       phpcbf = callPackage ../development/php-packages/phpcbf { };
 
@@ -650,8 +648,7 @@ lib.makeScope pkgs.newScope (
               name = "tokenizer";
               patches =
                 lib.optional (lib.versionAtLeast php.version "8.1")
-                  ../development/interpreters/php/fix-tokenizer-php81.patch
-              ;
+                  ../development/interpreters/php/fix-tokenizer-php81.patch;
             }
             {
               name = "xml";
@@ -715,12 +712,10 @@ lib.makeScope pkgs.newScope (
                 name = drv.name;
                 value = mkExtension drv;
               })
-              (builtins.filter (i: i.enable or true) extensionData)
-          ;
+              (builtins.filter (i: i.enable or true) extensionData);
         in
         # Produce the final attribute set of all extensions defined.
         builtins.listToAttrs namedExtensions
-      )
-    ;
+      );
   }
 )

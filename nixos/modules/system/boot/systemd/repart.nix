@@ -13,8 +13,7 @@ let
     name: partitionConfig:
     pkgs.writeText "${name}.conf" (
       lib.generators.toINI { } { Partition = partitionConfig; }
-    )
-  ;
+    );
 
   listOfDefinitions = lib.mapAttrsToList writeDefinition (
     lib.filterAttrs (k: _: !(lib.hasPrefix "_" k)) cfg.partitions
@@ -44,8 +43,7 @@ in
           To run systemd-repart after the initrd, see
           `options.systemd.repart.enable`.
         '';
-      }
-    ;
+      };
 
     systemd.repart = {
       enable = lib.mkEnableOption (lib.mdDoc "systemd-repart") // {
@@ -69,8 +67,7 @@ in
                 bool
               ]
             )
-          )
-        ;
+          );
         default = { };
         example = {
           "10-root" = {

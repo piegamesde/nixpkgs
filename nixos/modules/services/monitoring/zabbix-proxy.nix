@@ -184,8 +184,7 @@ in
           example = "/run/postgresql";
           description =
             lib.mdDoc
-              "Path to the unix socket file to use for authentication."
-          ;
+              "Path to the unix socket file to use for authentication.";
         };
 
         createLocally = mkOption {
@@ -231,8 +230,7 @@ in
               str
               (listOf str)
             ]
-          )
-        ;
+          );
         default = { };
         description = lib.mdDoc ''
           Zabbix Proxy configuration. Refer to

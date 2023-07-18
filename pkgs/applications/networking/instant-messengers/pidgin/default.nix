@@ -162,14 +162,12 @@ let
           echo "Testing: $f --help"
           "$f" --help
         done
-      ''
-    ;
+      '';
 
     passthru = {
       makePluginPath =
         lib.makeSearchPathOutput "lib"
-          "lib/purple-${lib.versions.major version}"
-      ;
+          "lib/purple-${lib.versions.major version}";
     };
 
     meta = with lib; {

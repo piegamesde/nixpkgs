@@ -59,8 +59,7 @@ in
             StateDirectory = "goeland";
             StateDirectoryMode = "0750";
           })
-        ]
-      ;
+        ];
       startAt = cfg.schedule;
     };
 

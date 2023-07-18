@@ -59,8 +59,7 @@ buildPythonPackage rec {
     ]
     ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
       autoSignDarwinBinariesHook
-    ]
-  ;
+    ];
 
   buildInputs = [
     sip
@@ -96,7 +95,6 @@ buildPythonPackage rec {
     license = licenses.gpl3;
     platforms =
       lib.lists.intersectLists qtwebengine.meta.platforms
-        platforms.mesaPlatforms
-    ;
+        platforms.mesaPlatforms;
   };
 }

@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals x11Support [
       xorg.libX11
       xorg.libXext
-    ]
-  ;
+    ];
 
   outputs = [
     "bin"

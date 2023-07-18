@@ -61,8 +61,7 @@ let
           done < graph
           echo }) > $out
         ''
-      ).outPath
-  ;
+      ).outPath;
 
   discard = builtins.unsafeDiscardStringContext;
 
@@ -86,8 +85,7 @@ let
     drv:
     discard (
       substring 33 (stringLength (builtins.baseNameOf drv)) (builtins.baseNameOf drv)
-    )
-  ;
+    );
 
   rewriteHashes =
     drv: hashes:
@@ -100,8 +98,7 @@ let
             hashes
         )
       } | $nixStore --restore $out
-    ''
-  ;
+    '';
 
   rewrittenDeps = listToAttrs [ {
     name = discard (toString oldDependency);

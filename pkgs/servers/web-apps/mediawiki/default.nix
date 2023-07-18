@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
       cp ${phpConfig} $out/share/mediawiki/LocalSettings.php
 
       runHook postInstall
-    ''
-  ;
+    '';
 
   passthru.tests = {
     inherit (nixosTests.mediawiki) mysql postgresql;

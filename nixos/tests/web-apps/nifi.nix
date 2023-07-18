@@ -16,8 +16,7 @@ import ../make-test-python.nix (
             enable = true;
             enableHTTPS = false;
           };
-        }
-      ;
+        };
     };
 
     testScript = ''

@@ -56,8 +56,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       "--with-arch=${stdenv.hostPlatform.parsed.cpu.name}"
-    ]
-  ;
+    ];
 
   enableParallelBuilding = true;
 

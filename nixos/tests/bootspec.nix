@@ -159,8 +159,7 @@ in
             osRelease = config.environment.etc."os-release".source;
           };
         };
-      }
-    ;
+      };
 
     testScript = ''
       machine.start()

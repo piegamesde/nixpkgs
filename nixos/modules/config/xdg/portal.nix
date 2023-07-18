@@ -68,8 +68,7 @@ in
       )
       // {
         default = false;
-      }
-    ;
+      };
 
     extraPortals = mkOption {
       type = types.listOf types.package;
@@ -144,6 +143,5 @@ in
           XDG_DESKTOP_PORTAL_DIR = "${joinedPortals}/share/xdg-desktop-portal/portals";
         };
       };
-    }
-  ;
+    };
 }

@@ -55,8 +55,7 @@ rustPlatform.buildRustPackage rec {
       Security
       libiconv
       xz
-    ]
-  ;
+    ];
 
   checkFeatures = [ ];
 

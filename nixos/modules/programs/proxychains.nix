@@ -138,8 +138,7 @@ in
         default = "127.0.0.0/255.0.0.0";
         description =
           lib.mdDoc
-            "By default enable localnet for loopback address ranges."
-        ;
+            "By default enable localnet for loopback address ranges.";
       };
 
       proxies = mkOption {

@@ -214,8 +214,7 @@ buildPythonPackage {
     ''
       rm -f ${ptxasDestination}
       ln -s ${ptxas} ${ptxasDestination}
-    ''
-  ;
+    '';
 
   checkInputs = [
     cmake # ctest

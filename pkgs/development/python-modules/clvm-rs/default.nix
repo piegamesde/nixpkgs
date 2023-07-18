@@ -41,8 +41,7 @@ buildPythonPackage rec {
         cargoSetupHook
         maturinBuildHook
       ]
-    )
-  ;
+    );
 
   buildInputs = [ openssl ];
 

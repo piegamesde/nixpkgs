@@ -16,8 +16,7 @@ in
       example = true;
       description =
         lib.mdDoc
-          "Enable FractalArt for generating colorful wallpapers on login"
-      ;
+          "Enable FractalArt for generating colorful wallpapers on login";
     };
 
     width = mkOption {

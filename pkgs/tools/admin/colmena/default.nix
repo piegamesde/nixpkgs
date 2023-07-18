@@ -35,8 +35,7 @@ rustPlatform.buildRustPackage rec {
           --bash <($out/bin/colmena gen-completions bash) \
           --zsh <($out/bin/colmena gen-completions zsh) \
           --fish <($out/bin/colmena gen-completions fish)
-      ''
-  ;
+      '';
 
   # Recursive Nix is not stable yet
   doCheck = false;

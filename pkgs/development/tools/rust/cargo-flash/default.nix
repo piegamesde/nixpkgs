@@ -22,8 +22,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs =
     [ pkg-config ]
-    ++ lib.optionals stdenv.isDarwin [ DarwinTools ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
   buildInputs = [ libusb1 ] ++ lib.optionals stdenv.isDarwin [ AppKit ];
 
   meta = with lib; {

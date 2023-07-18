@@ -29,6 +29,5 @@ in
         cp ${programs.plikd-unwrapped}/bin/plikd $out/libexec/plikd/bin/plikd
         makeWrapper $out/libexec/plikd/bin/plikd $out/bin/plikd \
           --chdir "$out/libexec/plikd/bin"
-      ''
-  ;
+      '';
 }

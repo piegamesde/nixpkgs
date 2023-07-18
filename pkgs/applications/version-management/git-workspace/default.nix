@@ -31,8 +31,7 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optionals stdenv.isDarwin [
       libiconv
       Security
-    ]
-  ;
+    ];
 
   passthru.tests.version = testers.testVersion { package = git-workspace; };
 

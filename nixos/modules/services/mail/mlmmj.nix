@@ -21,8 +21,7 @@ let
   virtual = domain: list: "${list}@${domain} ${domain}--${list}@local.list.mlmmj";
   alias =
     domain: list:
-    ''${list}: "|${pkgs.mlmmj}/bin/mlmmj-receive -L ${listDir domain list}/"''
-  ;
+    ''${list}: "|${pkgs.mlmmj}/bin/mlmmj-receive -L ${listDir domain list}/"'';
   subjectPrefix = list: "[${list}]";
   listAddress = domain: list: "${list}@${domain}";
   customHeaders = domain: list: [
@@ -57,8 +56,7 @@ let
           echo ${footer d l} > '${ctlDir}/footer'
       [ ! -e ${ctlDir}/prefix ] && \
           echo ${subjectPrefix l} > '${ctlDir}/prefix'
-    ''
-  ;
+    '';
 in
 
 {

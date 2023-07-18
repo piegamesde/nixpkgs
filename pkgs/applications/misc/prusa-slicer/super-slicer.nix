@@ -97,12 +97,10 @@ let
       };
 
       passthru = allVersions;
-    }
-  ;
+    };
   allVersions =
     builtins.mapAttrs
       (_name: version: (prusa-slicer.overrideAttrs (override version)))
-      versions
-  ;
+      versions;
 in
 allVersions.stable

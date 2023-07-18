@@ -64,8 +64,7 @@ stdenv.mkDerivation rec {
         rust.cargo
         rust.rustc
       ]
-    )
-  ;
+    );
 
   buildInputs = [
     gtk4

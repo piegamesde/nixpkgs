@@ -48,8 +48,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
       mesonEmulatorHook
-    ]
-  ;
+    ];
 
   buildInputs = [ glib ];
 
@@ -73,8 +72,7 @@ stdenv.mkDerivation rec {
       # We are using a symlink that will be overridden during installation.
       mkdir -p $out/lib
       ln -s $PWD/gexiv2/libgexiv2.${libSuffix} $out/lib/libgexiv2.${libSuffix}
-    ''
-  ;
+    '';
 
   passthru = {
     updateScript = gnome.updateScript {

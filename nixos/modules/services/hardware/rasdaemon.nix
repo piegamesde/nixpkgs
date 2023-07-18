@@ -27,8 +27,7 @@ in
       default = "";
       description =
         lib.mdDoc
-          "Custom mainboard description, see {manpage}`ras-mc-ctl(8)` for more details."
-      ;
+          "Custom mainboard description, see {manpage}`ras-mc-ctl(8)` for more details.";
       example = ''
         vendor = ASRock
         model = B450M Pro4
@@ -49,8 +48,7 @@ in
       default = "";
       description =
         lib.mdDoc
-          "Additional memory module label descriptions to be placed in /etc/ras/dimm_labels.d/labels"
-      ;
+          "Additional memory module label descriptions to be placed in /etc/ras/dimm_labels.d/labels";
       example = ''
         # vendor and model may be shown by 'ras-mc-ctl --mainboard'
         vendor: ASRock
@@ -114,8 +112,7 @@ in
           mce-inject
           aer-inject
         ]
-      )
-    ;
+      );
 
     boot.initrd.kernelModules =
       cfg.extraModules

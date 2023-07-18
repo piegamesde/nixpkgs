@@ -84,8 +84,7 @@ in
               LOGS_DIRECTORY="$3"
 
               ${lines}
-            ''
-          ;
+            '';
           runnerRegistrationConfig =
             getAttrs
               [
@@ -97,8 +96,7 @@ in
                 "ephemeral"
                 "workDir"
               ]
-              cfg
-          ;
+              cfg;
           newConfigPath = builtins.toFile "${svcName}-config.json" (
             builtins.toJSON runnerRegistrationConfig
           );
@@ -216,8 +214,7 @@ in
             "+${unconfigureRunner}" # runs as root
             configureRunner
             setupWorkDir
-          ]
-      ;
+          ];
 
       # If running in ephemeral mode, restart the service on-exit (i.e., successful de-registration of the runner)
       # to trigger a fresh registration.

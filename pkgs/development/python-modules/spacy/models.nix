@@ -93,13 +93,11 @@ let
         license = licenses.${license};
         maintainers = with maintainers; [ rvl ];
       };
-    }
-  ;
+    };
 
   makeModelSet =
     models:
     with lib;
-    listToAttrs (map (m: nameValuePair m.pname (buildModelPackage m)) models)
-  ;
+    listToAttrs (map (m: nameValuePair m.pname (buildModelPackage m)) models);
 in
 makeModelSet (lib.importJSON ./models.json)

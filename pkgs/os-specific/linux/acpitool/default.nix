@@ -11,8 +11,7 @@ let
     fetchpatch rec {
       inherit (params) name sha256;
       url = "https://salsa.debian.org/debian/acpitool/raw/33e2ef42a663de820457b212ea2925e506df3b88/debian/patches/${name}";
-    }
-  ;
+    };
 in
 stdenv.mkDerivation rec {
   pname = "acpitool";

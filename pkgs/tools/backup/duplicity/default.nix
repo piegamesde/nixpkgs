@@ -44,8 +44,7 @@ pythonPackages.buildPythonApplication rec {
       [
         # Broken on Linux in Nix' build environment
         ./linux-disable-timezone-test.patch
-      ]
-  ;
+      ];
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 

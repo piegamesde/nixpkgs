@@ -26,7 +26,8 @@
     else
       null
   else
-    lib.getLib libc,
+    lib.getLib libc
+  ,
   nativeTools,
   noLibc ? false,
   nativeLibc,
@@ -87,8 +88,7 @@ let
         "_"
         "_"
       ]
-      targetPlatform.config
-  ;
+      targetPlatform.config;
 
   # The dynamic linker has different names on different platforms. This is a
   # shell glob that ought to match it.
@@ -142,8 +142,7 @@ let
         && buildPackages.stdenv.hasCC
         && buildPackages.stdenv.cc != "/dev/null"
       )
-      (import ../expand-response-params { inherit (buildPackages) stdenv; })
-  ;
+      (import ../expand-response-params { inherit (buildPackages) stdenv; });
 in
 
 stdenv.mkDerivation {
@@ -154,8 +153,7 @@ stdenv.mkDerivation {
 
   outputs =
     [ "out" ]
-    ++ optionals propagateDoc ([ "man" ] ++ optional (bintools ? info) "info")
-  ;
+    ++ optionals propagateDoc ([ "man" ] ++ optional (bintools ? info) "info");
 
   passthru = {
     inherit targetPrefix suffixSalt;

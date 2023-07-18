@@ -12,8 +12,7 @@ rec {
     // {
       rtp =
         lib.warn "`rtp` attribute is deprecated, use `outPath` instead."
-          drv.outPath
-      ;
+          drv.outPath;
       overrideAttrs = f: addRtp (drv.overrideAttrs f);
     }
   ;
@@ -64,8 +63,7 @@ rec {
         }
       );
     in
-    addRtp (toVimPlugin drv)
-  ;
+    addRtp (toVimPlugin drv);
 
   buildVimPluginFrom2Nix =
     attrs:
@@ -76,6 +74,5 @@ rec {
         configurePhase = ":";
       }
       // attrs
-    )
-  ;
+    );
 }

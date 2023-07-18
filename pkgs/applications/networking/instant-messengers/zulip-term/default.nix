@@ -42,8 +42,7 @@ python3.pkgs.buildPythonApplication rec {
         pytest-cov
         pytest-mock
       ]
-    )
-  ;
+    );
 
   makeWrapperArgs = [
     "--prefix"

@@ -23,8 +23,7 @@ let
           ''
         );
       }
-    )
-  ;
+    );
 
   options = {
 
@@ -44,8 +43,7 @@ let
     warnUndeclaredOptions = mkOption {
       description =
         lib.mdDoc
-          "Whether to warn when `config` contains an unrecognized attribute."
-      ;
+          "Whether to warn when `config` contains an unrecognized attribute.";
       type = types.bool;
       default = false;
     };
@@ -96,8 +94,7 @@ let
       # getEnv part is in check-meta.nix
       defaultText =
         literalExpression
-          ''false || builtins.getEnv "NIXPKGS_ALLOW_UNFREE" == "1"''
-      ;
+          ''false || builtins.getEnv "NIXPKGS_ALLOW_UNFREE" == "1"'';
       description = lib.mdDoc ''
         Whether to allow unfree packages.
 
@@ -111,8 +108,7 @@ let
       # getEnv part is in check-meta.nix
       defaultText =
         literalExpression
-          ''false || builtins.getEnv "NIXPKGS_ALLOW_BROKEN" == "1"''
-      ;
+          ''false || builtins.getEnv "NIXPKGS_ALLOW_BROKEN" == "1"'';
       description = lib.mdDoc ''
         Whether to allow broken packages.
 
@@ -126,8 +122,7 @@ let
       # getEnv part is in check-meta.nix
       defaultText =
         literalExpression
-          ''false || builtins.getEnv "NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM" == "1"''
-      ;
+          ''false || builtins.getEnv "NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM" == "1"'';
       description = lib.mdDoc ''
         Whether to allow unsupported packages.
 
@@ -172,8 +167,7 @@ in
         let
           r = t.merge loc defs;
         in
-        r // { _undeclared = r; }
-      ;
+        r // { _undeclared = r; };
     }
   ;
 

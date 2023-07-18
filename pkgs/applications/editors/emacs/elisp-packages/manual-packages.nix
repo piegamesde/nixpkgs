@@ -35,8 +35,7 @@ in
 
   haskell-unicode-input-method =
     callPackage ./manual-packages/haskell-unicode-input-method
-      { }
-  ;
+      { };
 
   header-file-mode = callPackage ./manual-packages/header-file-mode { };
 
@@ -106,8 +105,7 @@ in
   rect-mark = callPackage ./manual-packages/rect-mark { };
   session-management-for-emacs =
     callPackage ./manual-packages/session-management-for-emacs
-      { }
-  ;
+      { };
   sunrise-commander = callPackage ./manual-packages/sunrise-commander { };
 
   # camelCase aliases for some of the kebab-case expressions above

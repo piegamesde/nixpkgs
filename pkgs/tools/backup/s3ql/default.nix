@@ -25,8 +25,7 @@ python3Packages.buildPythonApplication rec {
         pytest
         pytest-trio
       ]
-    )
-  ;
+    );
   propagatedBuildInputs = with python3Packages; [
     sqlite
     apsw

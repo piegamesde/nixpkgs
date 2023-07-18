@@ -73,8 +73,7 @@ stdenv.mkDerivation (
       ++ lib.optionals stdenv.isDarwin [
         ./patches/2.0-gnome_bugzilla_557780_306776_freeciv_darwin.patch
         ./patches/2.0-darwin-x11.patch
-      ]
-    ;
+      ];
 
     propagatedBuildInputs =
       with xorg;
@@ -166,8 +165,7 @@ stdenv.mkDerivation (
         ++ lib.optionals (gdktarget == "x11") [
           "gdk-x11-2.0"
           "gtk+-x11-2.0"
-        ]
-      ;
+        ];
       platforms = platforms.all;
 
       longDescription = ''

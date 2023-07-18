@@ -187,8 +187,7 @@ let
         path = drv;
       };
     in
-    linkFarm name (map mkEntryFromDrv drvs)
-  ;
+    linkFarm name (map mkEntryFromDrv drvs);
 
   /* Generates a packpath folder as expected by vim
        Example:
@@ -216,8 +215,7 @@ let
             ps:
             lib.flatten (
               builtins.map (plugin: (plugin.python3Dependencies or (_: [ ])) ps) allPlugins
-            )
-          ;
+            );
           python3Env = python3.withPackages allPython3Dependencies;
 
           packdirStart = vimFarm "pack/${packageName}/start" "packdir-start" allPlugins;
@@ -241,8 +239,7 @@ let
     buildEnv {
       name = "vim-pack-dir";
       paths = (lib.flatten (lib.mapAttrsToList packageLinks packages));
-    }
-  ;
+    };
 
   nativeImpl = packages: ''
     set packpath^=${packDir packages}
@@ -304,8 +301,7 @@ let
             start = plugins;
           };
         in
-        nativeImpl vamPackages
-      ;
+        nativeImpl vamPackages;
 
       entries =
         [ beforePlugins ]
@@ -323,8 +319,7 @@ let
         ++ [ customRC ]
       ;
     in
-    lib.concatStringsSep "\n" (lib.filter (x: x != null && x != "") entries)
-  ;
+    lib.concatStringsSep "\n" (lib.filter (x: x != null && x != "") entries);
 
   vimrcFile = settings: writeText "vimrc" (vimrcContent settings);
 in
@@ -352,7 +347,8 @@ rec {
           executableName ? if lib.hasInfix "vim" name then
             lib.replaceStrings [ "vim" ] [ "$exe" ] name
           else
-            "\${exe/vim/${lib.escapeShellArg name}}",
+            "\${exe/vim/${lib.escapeShellArg name}}"
+          ,
           # A custom vimrc configuration, treated as an argument to vimrcContent (see the documentation in this file).
           vimrcConfig ? null,
           # A custom vimrc file.
@@ -378,7 +374,8 @@ rec {
               "Set `standalone = false` to include the manual."
             else
               lib.optionalString (wrapManual == false && name == "vim")
-                "Set `standalone = true` to get the *vim wrappers only."}''
+                "Set `standalone = true` to get the *vim wrappers only."
+            }''
           lib.warnIf
           (wrapGui != null)
           "vim.customize: wrapGui is deprecated: gvim is now automatically included if present"
@@ -430,8 +427,7 @@ rec {
                   bin
                 ];
               }
-          )
-      ;
+          );
 
       override = f: makeCustomizable (vim.override f);
       overrideAttrs = f: makeCustomizable (vim.overrideAttrs f);
@@ -455,8 +451,7 @@ rec {
           }
           ./vim-gen-doc-hook.sh
       )
-      { }
-  ;
+      { };
 
   vimCommandCheckHook =
     callPackage
@@ -473,8 +468,7 @@ rec {
           }
           ./vim-command-check-hook.sh
       )
-      { }
-  ;
+      { };
 
   neovimRequireCheckHook =
     callPackage
@@ -491,8 +485,7 @@ rec {
           }
           ./neovim-require-check-hook.sh
       )
-      { }
-  ;
+      { };
 
   inherit
     (import ./build-vim-plugin.nix {
@@ -519,8 +512,7 @@ rec {
       nonNativePlugins = (lib.optionals (plug != null) plug.plugins);
       nativePlugins = lib.concatMap (requiredPluginsForPackage) nativePluginsConfigs;
     in
-    nativePlugins ++ nonNativePlugins
-  ;
+    nativePlugins ++ nonNativePlugins;
 
   # figures out which python dependencies etc. is needed for one vim package
   requiredPluginsForPackage =
@@ -528,8 +520,7 @@ rec {
       start ? [ ],
       opt ? [ ],
     }:
-    start ++ opt
-  ;
+    start ++ opt;
 
   toVimPlugin =
     drv:
@@ -554,6 +545,5 @@ rec {
           vimPlugin = true;
         };
       }
-    )
-  ;
+    );
 }

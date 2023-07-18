@@ -62,8 +62,7 @@ let
         sourceRoot = "source/${args.sourceRoot or pname}";
         doCheck = false;
       }
-    )
-  ;
+    );
 
   # Base package depended on by all other integrations.
   datadog_checks_base = buildIntegration {
@@ -132,8 +131,7 @@ let
           propagatedBuildInputs = (fdeps python.pkgs) ++ [ datadog_checks_base ];
         }
       )
-      integrations
-  ;
+      integrations;
 in
 builtIntegrations
 // {

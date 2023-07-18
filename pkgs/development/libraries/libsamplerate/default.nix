@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
     ++ optionals stdenv.isDarwin [
       ApplicationServices
       CoreServices
-    ]
-  ;
+    ];
 
   configureFlags = [ "--disable-fftw" ];
 

@@ -143,8 +143,7 @@ in
               fi
             '';
           in
-          "!${preStartScript}"
-        ;
+          "!${preStartScript}";
 
         ExecStart = "${cfg.package}/bin/plexmediaserver";
         KillSignal = "SIGQUIT";

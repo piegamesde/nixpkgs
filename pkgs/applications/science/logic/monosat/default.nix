@@ -130,7 +130,6 @@ let
         "test_assertAtMostOne"
         "test_assertEqual"
       ];
-    }
-  ;
+    };
 in
 core

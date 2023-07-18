@@ -20,8 +20,7 @@ buildGoModule rec {
 
   subPackages =
     [ "cmd/buildctl" ]
-    ++ lib.optionals stdenv.isLinux [ "cmd/buildkitd" ]
-  ;
+    ++ lib.optionals stdenv.isLinux [ "cmd/buildkitd" ];
 
   ldflags = [
     "-s"

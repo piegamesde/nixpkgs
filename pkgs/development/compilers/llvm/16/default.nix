@@ -61,8 +61,7 @@ in
 lib.assertMsg (xor (gitRelease != null) (officialRelease != null)) (
   "must specify `gitRelease` or `officialRelease`"
   + (lib.optionalString (gitRelease != null) " — not both")
-)
-;
+);
 let
   monorepoSrc' = monorepoSrc;
 in
@@ -259,8 +258,7 @@ let
           ]
           ++ lib.optionals (!stdenv.targetPlatform.isWasm) [
             targetLlvmLibraries.libunwind
-          ]
-        ;
+          ];
         extraBuildCommands = mkExtraBuildCommands cc;
         nixSupport.cc-cflags =
           [
@@ -413,8 +411,7 @@ let
         callPackage ./libcxxabi {
           stdenv = stdenv_;
           inherit llvm_meta cxx-headers;
-        }
-      ;
+        };
 
       # Like `libcxxabi` above, `libcxx` requires a fairly modern C++ compiler,
       # so: we use the clang from this LLVM package set instead of the regular

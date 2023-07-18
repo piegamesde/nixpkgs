@@ -88,8 +88,7 @@ buildPythonPackage rec {
       mesa
       webkitgtk
       xorgproto
-    ]
-  ;
+    ];
 
   propagatedBuildInputs = [
     numpy

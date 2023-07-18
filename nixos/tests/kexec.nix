@@ -19,8 +19,7 @@ import ./make-test-python.nix (
           virtualisation.useEFIBoot = true;
           boot.loader.systemd-boot.enable = true;
           boot.loader.efi.canTouchEfiVariables = true;
-        }
-      ;
+        };
 
       node2 =
         { modulesPath, ... }:
@@ -28,8 +27,7 @@ import ./make-test-python.nix (
           virtualisation.vlans = [ ];
           environment.systemPackages = [ pkgs.hello ];
           imports = [ "${modulesPath}/installer/netboot/netboot-minimal.nix" ];
-        }
-      ;
+        };
     };
 
     testScript =
@@ -56,7 +54,6 @@ import ./make-test-python.nix (
         node1.succeed('[ "$(hostname)" = "node2" ]')
 
         node1.shutdown()
-      ''
-    ;
+      '';
   }
 )

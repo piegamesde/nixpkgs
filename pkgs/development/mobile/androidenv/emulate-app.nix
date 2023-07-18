@@ -64,7 +64,8 @@ stdenv.mkDerivation {
       ''
         mkdir -p "${androidUserHome}"
         export ANDROID_USER_HOME="${androidUserHome}"
-      ''}
+      ''
+    }
 
     ${if androidAvdHome == null then
       ''
@@ -74,7 +75,8 @@ stdenv.mkDerivation {
       ''
         mkdir -p "${androidAvdHome}"
         export ANDROID_AVD_HOME="${androidAvdHome}"
-      ''}
+      ''
+    }
 
     # We need to specify the location of the Android SDK root folder
     export ANDROID_SDK_ROOT=${sdk}/libexec/android-sdk

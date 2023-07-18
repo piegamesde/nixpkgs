@@ -22,8 +22,7 @@
           type = "pom";
           sha512 = "3g1rbjz64x7cihfgmc061nm7sg52p7wr34cb1b1725w7d3hp0vz33s5ybql3vccbf7brx9vvfykxiwsgqbw6g19zv77276vdpy8v5nr";
         }
-      ]
-  ;
+      ];
 
   mavenPluginRegistry_2_0_6 =
     map
@@ -46,8 +45,7 @@
           type = "pom";
           sha512 = "0b85gmdgwwxdw4czs7383ivssp5n8nxr5vxnj8agjlx6yclxpbbw7n192c4p1hba8as1md52c08cxilibjiiahlv83bmzyh2hb0vdm3";
         }
-      ]
-  ;
+      ];
 
   mavenPluginRegistry_2_0_9 =
     map
@@ -70,8 +68,7 @@
           type = "pom";
           sha512 = "0c09imgd44b3pgnj1bjak7xn2z3mpwy9nhbchagfqkicras4djmn2dqwpm1z6p1d4khwx830x9grjrw45przan8lgc7wxzkalnnaqkf";
         }
-      ]
-  ;
+      ];
 
   mavenPluginRegistry_2_2_1 =
     map
@@ -94,6 +91,5 @@
           type = "pom";
           sha512 = "2i5zj8fmfjdnjl5y91b8m5n8gyiaih4n1i6rn85plibq4n8a42kmxgphvicnn36sgrgmy7la4vrzbaigm2zci857qws52j9p16hzv9c";
         }
-      ]
-  ;
+      ];
 }

@@ -62,8 +62,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       Foundation
       AppKit
-    ]
-  ;
+    ];
 
   configureFlags =
     [
@@ -71,8 +70,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [
       "--enable-gtk-doc"
-    ]
-  ;
+    ];
 
   doCheck = true;
 

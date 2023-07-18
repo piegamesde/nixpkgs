@@ -8,8 +8,7 @@ let
       config = {
         enable = true;
       };
-    }
-  ;
+    };
 in
 {
   imports = [ ./declare-enable.nix ];

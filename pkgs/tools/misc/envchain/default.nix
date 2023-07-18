@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
       libedit
       ncurses
       Security
-    ]
-  ;
+    ];
 
   makeFlags = [ "DESTDIR=$(out)" ];
 

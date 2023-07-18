@@ -49,8 +49,7 @@ stdenv.mkDerivation {
         python
         wrapPython
       ]
-    )
-  ;
+    );
   buildInputs = buildInputs ++ [
     openssl
     zlib

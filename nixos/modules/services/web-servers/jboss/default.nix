@@ -40,8 +40,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Whether to enable JBoss. WARNING : this package is outdated and is known to have vulnerabilities."
-        ;
+            "Whether to enable JBoss. WARNING : this package is outdated and is known to have vulnerabilities.";
       };
 
       tempDir = mkOption {

@@ -56,8 +56,7 @@ rec {
         __spliced =
           { } // (lib.mapAttrs (_: sDrv: overrideDerivation sDrv f) drv.__spliced);
       }
-    )
-  ;
+    );
 
   /* `makeOverridable` takes a function from attribute set to attribute set and
      injects `override` attribute which can be used to override arguments of
@@ -87,8 +86,7 @@ rec {
       # Changes the original arguments with (potentially a function that returns) a set of new attributes
       overrideWith =
         newArgs:
-        origArgs // (if lib.isFunction newArgs then newArgs origArgs else newArgs)
-      ;
+        origArgs // (if lib.isFunction newArgs then newArgs origArgs else newArgs);
 
       # Re-call the function but with different arguments
       overrideArgs = copyArgs (newArgs: makeOverridable f (overrideWith newArgs));
@@ -155,8 +153,7 @@ rec {
               (
                 removeAttrs fargs (lib.attrNames allArgs)
               )
-          )
-      ;
+          );
 
       # Get a list of suggested argument names for a given missing one
       getSuggestions =
@@ -172,8 +169,7 @@ rec {
           (lib.take 3)
           # Quote all entries
           (map (x: ''"'' + x + ''"''))
-        ]
-      ;
+        ];
 
       prettySuggestions =
         suggestions:
@@ -209,8 +205,7 @@ rec {
       # Only show the error for the first missing argument
       error = errorForArg (lib.head missingArgs);
     in
-    if missingArgs == [ ] then makeOverridable f allArgs else abort error
-  ;
+    if missingArgs == [ ] then makeOverridable f allArgs else abort error;
 
   /* Like callPackage, but for a function that returns an attribute
      set of derivations. The override function is added to the
@@ -316,15 +311,13 @@ rec {
             type = "derivation";
             inherit outputName;
           };
-        }
-      ;
+        };
 
       outputsList = map makeOutput outputs;
 
       drv' = (lib.head outputsList).value;
     in
-    if drv == null then null else lib.deepSeq drv' drv'
-  ;
+    if drv == null then null else lib.deepSeq drv' drv';
 
   /* Make a set of packages with a common scope. All packages called
      with the provided `callPackage` will be evaluated with the same
@@ -346,14 +339,12 @@ rec {
           g:
           lib.warn
             "`overrideScope` (from `lib.makeScope`) is deprecated. Do `overrideScope' (self: super: { … })` instead of `overrideScope (super: self: { … })`. All other overrides have the parameters in that order, including other definitions of `overrideScope`. This was the only definition violating the pattern."
-            (makeScope newScope (lib.fixedPoints.extends (lib.flip g) f))
-        ;
+            (makeScope newScope (lib.fixedPoints.extends (lib.flip g) f));
         overrideScope' = g: makeScope newScope (lib.fixedPoints.extends g f);
         packages = f;
       };
     in
-    self
-  ;
+    self;
 
   /* Like the above, but aims to support cross compilation. It's still ugly, but
      hopefully it helps a little bit.
@@ -379,11 +370,9 @@ rec {
           g:
           makeScopeWithSplicing splicePackages newScope otherSplices keep extra (
             lib.fixedPoints.extends g f
-          )
-        ;
+          );
         packages = f;
       };
     in
-    self
-  ;
+    self;
 }

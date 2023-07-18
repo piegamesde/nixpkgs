@@ -62,14 +62,12 @@ import ./make-test-python.nix (
             enable = true;
             virtualHosts."server".root = nspawnImages;
           };
-        }
-      ;
+        };
       client =
         { pkgs, ... }:
         {
           environment.etc."systemd/import-pubring.gpg".source = "${gpgKeyring}/pubkey.gpg";
-        }
-      ;
+        };
     };
 
     testScript = ''

@@ -103,8 +103,7 @@ import ./make-test-python.nix (
         ];
         environment.systemPackages = [ pkgs.tcpdump ];
         boot.kernel.sysctl."net.ipv6.conf.all.forwarding" = true;
-      }
-    ;
+      };
 
     testScript = ''
       def alice_to_bob(msg: str):

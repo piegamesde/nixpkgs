@@ -37,8 +37,7 @@ let
         "%2E"
         "%2F"
       ]
-      slug
-  ;
+      slug;
   escapedRev =
     lib.replaceStrings
       [
@@ -51,8 +50,7 @@ let
         "%25"
         "%2F"
       ]
-      rev
-  ;
+      rev;
   passthruAttrs = removeAttrs args [
     "protocol"
     "domain"

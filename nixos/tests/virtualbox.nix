@@ -109,8 +109,7 @@ let
       ];
 
       networking.usePredictableInterfaceNames = false;
-    }
-  ;
+    };
 
   mkLog =
     logfile: tag:
@@ -119,8 +118,7 @@ let
       all = concatMapStringsSep " " (f: ''"${f}"'') ([ logfile ] ++ rotated);
       logcmd = ''tail -F ${all} 2> /dev/null | logger -t "${tag}"'';
     in
-    if debug then "machine.execute(ru('${logcmd} & disown'))" else "pass"
-  ;
+    if debug then "machine.execute(ru('${logcmd} & disown'))" else "pass";
 
   testVM =
     vmName: vmScript:
@@ -174,8 +172,7 @@ let
           GRUB
           umount /mnt
         ''
-    )
-  ;
+    );
 
   createVM =
     name: attrs:
@@ -342,8 +339,7 @@ let
             )
             wait_for_shutdown_${name}()
       '';
-    }
-  ;
+    };
 
   hostonlyVMFlags = [
     "--nictype1 virtio"
@@ -416,12 +412,10 @@ let
             let
               inherit (config.virtualisation.virtualbox.host) enableHardening;
             in
-            lib.mkIf enableHardening (lib.singleton "vboxusers")
-          ;
+            lib.mkIf enableHardening (lib.singleton "vboxusers");
           virtualisation.virtualbox.host.enableExtensionPack = useExtensionPack;
           nixpkgs.config.allowUnfree = useExtensionPack;
-        }
-      ;
+        };
 
       testScript = ''
         from shlex import quote
@@ -455,8 +449,7 @@ let
           cdepillabout
         ];
       };
-    }
-  ;
+    };
 
   unfreeTests = mapAttrs (mkVBoxTest true vboxVMsWithExtpack) {
     enable-extension-pack = ''

@@ -25,8 +25,7 @@ import ./make-test-python.nix (
             isNormalUser = true;
             extraGroups = [ "docker" ];
           };
-        }
-      ;
+        };
     };
 
     testScript = ''

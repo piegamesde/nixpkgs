@@ -57,8 +57,7 @@ let
             )
             cfg.wrappedBinaries
         )}
-      ''
-  ;
+      '';
 in
 {
   options.programs.firejail = {
@@ -79,12 +78,10 @@ in
                 default = null;
                 description =
                   lib.mkDoc
-                    ".desktop file to modify. Only necessary if it uses the absolute path to the executable."
-                ;
+                    ".desktop file to modify. Only necessary if it uses the absolute path to the executable.";
                 example =
                   literalExpression
-                    ''"''${pkgs.firefox}/share/applications/firefox.desktop"''
-                ;
+                    ''"''${pkgs.firefox}/share/applications/firefox.desktop"'';
               };
               profile = mkOption {
                 type = types.nullOr types.path;
@@ -92,8 +89,7 @@ in
                 description = lib.mdDoc "Profile to use";
                 example =
                   literalExpression
-                    ''"''${pkgs.firejail}/etc/firejail/firefox.profile"''
-                ;
+                    ''"''${pkgs.firejail}/etc/firejail/firefox.profile"'';
               };
               extraArgs = mkOption {
                 type = types.listOf types.str;

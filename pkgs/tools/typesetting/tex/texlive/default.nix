@@ -84,8 +84,7 @@ let
         collection-basic = orig.collection-basic // {
           deps =
             lib.filter (n: n != "metafont" && n != "xdvi")
-              orig.collection-basic.deps
-          ;
+              orig.collection-basic.deps;
         };
         # add them elsewhere so that collections cover all packages
         collection-metapost = orig.collection-metapost // {
@@ -117,8 +116,7 @@ let
         };
       }; # overrides
     in
-    lib.mapAttrs mkTLPkg overridden
-  ;
+    lib.mapAttrs mkTLPkg overridden;
   # TODO: texlive.infra for web2c config?
 
   # create a TeX package: an attribute set { pkgs = [ ... ]; ... } where pkgs is a list of derivations
@@ -134,8 +132,7 @@ let
             inherit pname tlType version;
           };
         in
-        mkPkg pkg
-      ;
+        mkPkg pkg;
     in
     {
       # TL pkg contains lists of packages: runtime files, docs, sources, binaries
@@ -160,8 +157,7 @@ let
         ++ lib.optional (attrs.sha512 ? source) (mkPkgV "source")
         ++ lib.optional (bin ? ${pname}) (bin.${pname} // { tlType = "bin"; })
       ;
-    }
-  ;
+    };
 
   version = {
     # day of the snapshot being taken
@@ -211,8 +207,7 @@ let
       }
       ''
         xzcat "$tlpdbxz" | sed -rn -f "$tl2nix" | uniq > "$out"
-      ''
-  ;
+      '';
 
   # create a derivation that contains an unpacked upstream TL package
   mkPkg =
@@ -275,8 +270,7 @@ let
           -C "$out" --anchored --exclude=tlpkg --keep-old-files
         ''
         + postUnpack
-      )
-  ;
+      );
 
   # combine a set of TL packages into a single TL meta-package
   combinePkgs =
@@ -301,16 +295,14 @@ let
                 inherit pkg;
               }
             )
-            pkgs
-        ;
+            pkgs;
         pkgListToSets = lib.concatMap tlPkgToSets;
       in
       builtins.genericClosure {
         startSet = pkgListToSets pkgList;
         operator = { pkg, ... }: pkgListToSets (pkg.tlDeps or [ ]);
       }
-    )
-  ;
+    );
 
   assertions =
     lib.assertMsg (tlpdbVersion.year == version.texliveYear)
@@ -368,6 +360,5 @@ tl
             scheme-tetex
           ;
         }
-    )
-  ;
+    );
 }

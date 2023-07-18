@@ -108,8 +108,7 @@ let
            --set APP_ROOT_PATH "$out/lib/node_modules/epgstation"
 
           popd
-        ''
-      ;
+        '';
 
       # NOTE: this may take a while since it has to update all packages in
       # nixpkgs.nodePackages

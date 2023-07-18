@@ -122,8 +122,7 @@ let
                 }
               );
             in
-            [ ode' ]
-          ;
+            [ ode' ];
         }
       );
       classimp = super.classimp.overrideLispAttrs (

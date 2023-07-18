@@ -24,8 +24,7 @@ mkCoqDerivation {
         case = range "8.11" "8.16";
         out = "8.13.0";
       } ]
-      null
-  ;
+      null;
 
   propagatedBuildInputs = [
     hydra-battles

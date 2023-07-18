@@ -74,8 +74,7 @@ let
         gtk3
         nss
         alsa-lib
-      ]
-    ;
+      ];
 
     runtimeDependencies = [
       (lib.getLib udev)

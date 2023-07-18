@@ -26,8 +26,7 @@ in
       example = "0.0.0.0";
       description =
         lib.mdDoc
-          "The hostname or IP address for chatgpt-retrieval-plugin to bind to."
-      ;
+          "The hostname or IP address for chatgpt-retrieval-plugin to bind to.";
     };
 
     bearerTokenPath = mkOption {
@@ -60,8 +59,7 @@ in
       default = "qdrant";
       description =
         lib.mdDoc
-          "This specifies the vector database provider you want to use to store and query embeddings."
-      ;
+          "This specifies the vector database provider you want to use to store and query embeddings.";
     };
 
     qdrantCollection = mkOption {

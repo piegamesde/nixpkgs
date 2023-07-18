@@ -14,8 +14,7 @@ import ./make-test-python.nix (
           enable = true;
           port = 1234;
         };
-      }
-    ;
+      };
 
     testScript = ''
       machine.wait_for_unit("komga.service")

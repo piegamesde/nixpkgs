@@ -204,8 +204,7 @@ runCommand (appendToName "with-packages" emacs).name
               --eval "(add-to-list 'native-comp-eln-load-path \"$out/share/emacs/native-lisp/\")" \
               -f batch-native-compile "$siteStart" "$subdirs"
           ''}
-        ''
-    ;
+        '';
 
     inherit (emacs) meta;
   }

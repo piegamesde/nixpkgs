@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs =
     lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
-      buildPackages.cracklib
-  ;
+      buildPackages.cracklib;
   buildInputs = [
     zlib
     gettext

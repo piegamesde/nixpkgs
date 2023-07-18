@@ -44,8 +44,7 @@ let
         'failover' => array(),
         'save_queries' => TRUE
       );
-    ''
-  ;
+    '';
   configFile = pkgs.writeText "config.php" ''
     <?php
     include('${pkgs.cloudlog}/install/config/config.php');
@@ -377,8 +376,7 @@ in
                 ${mysql} ${cfg.database.name} < ${pkgs.cloudlog}/install/assets/install.sql
                 touch ${cfg.dataDir}/.dbexists
               fi
-            ''
-          ;
+            '';
         };
         cloudlog-upload-lotw = {
           description = "Upload QSOs to LoTW if certs have been provided";
@@ -510,8 +508,7 @@ in
           "d ${cfg.dataDir}/logbook        0750 ${cfg.user} ${group} - -"
           "d ${cfg.dataDir}/assets/json    0750 ${cfg.user} ${group} - -"
           "d ${cfg.dataDir}/assets/qslcard 0750 ${cfg.user} ${group} - -"
-        ]
-      ;
+        ];
     };
 
     users.users."${cfg.user}" = {

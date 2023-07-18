@@ -68,8 +68,7 @@ let
     in
     runCommand "out" (parameters // extraParams) ''
       ${shab}/bin/shab "$shabScript" >$out
-    ''
-  ;
+    '';
 
   /* shabScriptText:   a string to use as a template
      parameters.name:  the name to use as part of the store path
@@ -77,7 +76,6 @@ let
   */
   renderText =
     shabScriptText: parameters:
-    render (writeText "template" shabScriptText) parameters
-  ;
+    render (writeText "template" shabScriptText) parameters;
 in
 shab

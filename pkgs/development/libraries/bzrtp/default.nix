@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
       [
         # Needed with GCC 12
         "-Wno-error=stringop-overflow"
-      ]
-  ;
+      ];
 
   meta = with lib; {
     description = "An opensource implementation of ZRTP keys exchange protocol. Part of the Linphone project.";

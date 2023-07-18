@@ -34,8 +34,7 @@ import ./make-test-python.nix (
             services.httpd.enable = true;
             services.httpd.adminAddr = "nixos@example.com";
           };
-        }
-      ;
+        };
       client_c2 =
         { lib, ... }:
         {
@@ -45,8 +44,7 @@ import ./make-test-python.nix (
             environment.etc.check.text = lib.mkForce "client_c2";
             services.nginx.enable = true;
           };
-        }
-      ;
+        };
     };
 
     testScript =
@@ -75,7 +73,6 @@ import ./make-test-python.nix (
                 "systemctl status nginx -M test1 >&2",
             )
             client.fail("systemctl status httpd -M test1 >&2")
-      ''
-    ;
+      '';
   }
 )

@@ -59,8 +59,7 @@ let
         ${text}
       '';
     in
-    "${dir}/bin/${name}"
-  ;
+    "${dir}/bin/${name}";
 
   startScript = writeShScript "firewall-start" ''
     ${helpers}
@@ -94,7 +93,8 @@ let
     else
       ''
         ip46tables -A nixos-fw-refuse -j DROP
-      ''}
+      ''
+    }
 
 
     # The "nixos-fw-log-refuse" chain performs logging, then

@@ -76,8 +76,7 @@ buildPythonPackage rec {
         # test_process_isolation_settings is currently broken on Darwin Catalina
         # https://github.com/ansible/ansible-runner/issues/413
         "process_isolation_settings"
-      ]
-  ;
+      ];
 
   disabledTestPaths =
     [
@@ -90,8 +89,7 @@ buildPythonPackage rec {
       "test/integration"
       # These tests write to `/tmp` which is not writable on Darwin
       "test/unit/config/test__base.py"
-    ]
-  ;
+    ];
 
   pythonImportsCheck = [ "ansible_runner" ];
 

@@ -38,8 +38,7 @@ let
 
   knownHostsFiles =
     [ "/etc/ssh/ssh_known_hosts" ]
-    ++ map pkgs.copyPathToStore cfg.knownHostsFiles
-  ;
+    ++ map pkgs.copyPathToStore cfg.knownHostsFiles;
 in
 {
   ###### interface
@@ -60,8 +59,7 @@ in
         default = "${pkgs.x11_ssh_askpass}/libexec/x11-ssh-askpass";
         defaultText =
           literalExpression
-            ''"''${pkgs.x11_ssh_askpass}/libexec/x11-ssh-askpass"''
-        ;
+            ''"''${pkgs.x11_ssh_askpass}/libexec/x11-ssh-askpass"'';
         description = lib.mdDoc "Program used by SSH to ask for passwords.";
       };
 
@@ -186,8 +184,7 @@ in
                   default = [ name ] ++ config.extraHostNames;
                   defaultText =
                     literalExpression
-                      "[ ${name} ] ++ config.${options.extraHostNames}"
-                  ;
+                      "[ ${name} ] ++ config.${options.extraHostNames}";
                   description = lib.mdDoc ''
                     A list of host names and/or IP numbers used for accessing
                     the host's ssh service. This list includes the name of the
@@ -340,8 +337,7 @@ in
           ;
           message = "knownHost ${name} must contain either a publicKey or publicKeyFile";
         }
-      )
-    ;
+      );
 
     # SSH configuration. Slight duplication of the sshd_config
     # generation in the sshd service.
@@ -398,8 +394,7 @@ in
       # import-environment’).
       environment.SSH_ASKPASS =
         optionalString cfg.enableAskPassword
-          askPasswordWrapper
-      ;
+          askPasswordWrapper;
       environment.DISPLAY = "fake"; # required to make ssh-agent start $SSH_ASKPASS
     };
 
@@ -411,7 +406,6 @@ in
 
     environment.variables.SSH_ASKPASS =
       optionalString cfg.enableAskPassword
-        askPassword
-    ;
+        askPassword;
   };
 }

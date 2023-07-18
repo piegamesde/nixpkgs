@@ -132,8 +132,7 @@ let
     ]
     ++ lib.optionals (stdenv.cc ? cc.libgcc) [
       "${lib.getLib stdenv.cc.cc.libgcc}/lib"
-    ]
-  ;
+    ];
 in
 (if withMacport then llvmPackages_6.stdenv else stdenv).mkDerivation (
   finalAttrs:
@@ -413,8 +412,7 @@ in
           ''
             patchelf --add-rpath ${lib.makeLibraryPath [ libXcursor ]} $out/bin/emacs
             patchelf --add-needed "libXcursor.so.1" "$out/bin/emacs"
-          ''
-      ;
+          '';
 
       passthru = {
         inherit nativeComp;

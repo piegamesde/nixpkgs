@@ -36,15 +36,13 @@ stdenv.mkDerivation rec {
       (
         stdenv.isLinux && !(stdenv.hostPlatform.isAarch || stdenv.hostPlatform.isStatic)
       )
-      libunwind
-  ;
+      libunwind;
 
   # Disable general dynamic TLS on AArch to support dlopen()'ing the library:
   # https://bugzilla.redhat.com/show_bug.cgi?id=1483558
   configureFlags =
     lib.optional stdenv.hostPlatform.isAarch
-      "--disable-general-dynamic-tls"
-  ;
+      "--disable-general-dynamic-tls";
 
   prePatch = lib.optionalString stdenv.isDarwin ''
     substituteInPlace Makefile.am --replace stdc++ c++

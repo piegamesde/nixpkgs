@@ -18,7 +18,6 @@ let
         update: makePackageOverridable f (overrideWith update)
       );
     in
-    result // { inherit overridePackage; }
-  ;
+    result // { inherit overridePackage; };
 in
 lib // { inherit makePackageOverridable; }

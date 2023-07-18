@@ -79,15 +79,13 @@ self: super: {
   HTTP =
     overrideCabal
       (drv: { postPatch = "sed -i -e 's,! Socket,!Socket,' Network/TCP.hs"; })
-      (doJailbreak super.HTTP)
-  ;
+      (doJailbreak super.HTTP);
   integer-logarithms =
     overrideCabal
       (drv: {
         postPatch = "sed -i -e 's,integer-gmp <1.1,integer-gmp < 2,' integer-logarithms.cabal";
       })
-      (doJailbreak super.integer-logarithms)
-  ;
+      (doJailbreak super.integer-logarithms);
   lukko = doJailbreak super.lukko;
   parallel = doJailbreak super.parallel;
   primitive = doJailbreak (dontCheck super.primitive);
@@ -112,8 +110,7 @@ self: super: {
         url = "https://gitlab.haskell.org/ghc/head.hackage/-/raw/master/patches/language-haskell-extract-0.2.4.patch";
         sha256 = "0rgzrq0513nlc1vw7nw4km4bcwn4ivxcgi33jly4a7n3c1r32v1f";
       })
-      (doJailbreak super.language-haskell-extract)
-  ;
+      (doJailbreak super.language-haskell-extract);
 
   haskell-language-server =
     let
@@ -133,8 +130,7 @@ self: super: {
           Cabal = lself.Cabal_3_6_3_0;
         }
       )
-    )
-  ;
+    );
 
   # Needs to use ghc-lib due to incompatible GHC
   ghc-tags = doDistribute (addBuildDepend self.ghc-lib self.ghc-tags_1_5);
@@ -213,8 +209,7 @@ self: super: {
       (old: {
         libraryHaskellDepends = old.libraryHaskellDepends ++ [ self.ghc-api-compat ];
       })
-      super.hiedb
-  ;
+      super.hiedb;
 
   # 2021-09-18: https://github.com/haskell/haskell-language-server/issues/2206
   # Restrictive upper bound on ormolu
@@ -232,8 +227,7 @@ self: super: {
       else
         x: x
     )
-      super.inline-c-cpp
-  ;
+      super.inline-c-cpp;
 
   # 2022-05-31: weeder 2.3.0 requires GHC 9.2
   weeder = doDistribute self.weeder_2_3_1;

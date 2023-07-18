@@ -50,8 +50,7 @@ let
         coercedTo int (toString) str
       );
     in
-    attrsOf (coercedTo innerType lib.singleton (listOf innerType))
-  ;
+    attrsOf (coercedTo innerType lib.singleton (listOf innerType));
 
   cfg = config.services.hylafax;
 
@@ -94,8 +93,7 @@ let
       };
       config.name = mkDefault name;
       config.config.Include = [ "config/${config.type}" ];
-    }
-  ;
+    };
 
   defaultConfig =
     let
@@ -115,14 +113,12 @@ let
         file:
         lib.attrsets.mapAttrs (lib.trivial.const mkDefault) (
           import file { inherit pkgs; }
-        )
-      ;
+        );
       c.commonModemConfig = importDefaultConfig ./modem-default.nix;
       c.faxqConfig = importDefaultConfig ./faxq-default.nix;
       c.hfaxdConfig = importDefaultConfig ./hfaxd-default.nix;
     in
-    c
-  ;
+    c;
 
   localConfig =
     let
@@ -134,12 +130,10 @@ let
             CountryCode = cfg.countryCode;
             LongDistancePrefix = cfg.longDistancePrefix;
             InternationalPrefix = cfg.internationalPrefix;
-          }
-      ;
+          };
       c.commonModemConfig = c.faxqConfig;
     in
-    c
-  ;
+    c;
 in
 
 {

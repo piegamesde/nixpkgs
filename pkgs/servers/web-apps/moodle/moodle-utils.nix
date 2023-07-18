@@ -31,8 +31,7 @@ let
           runHook postInstall
         '';
       }
-    )
-  ;
+    );
 in
 {
   inherit buildMoodlePlugin;

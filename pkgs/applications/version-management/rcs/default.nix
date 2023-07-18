@@ -26,8 +26,7 @@ stdenv.mkDerivation rec {
       [
         buildPackages.diffutils
         buildPackages.ed
-      ]
-  ;
+      ];
 
   env.NIX_CFLAGS_COMPILE = "-std=c99";
 

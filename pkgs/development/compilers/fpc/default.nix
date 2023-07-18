@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       libiconv
       darwin.apple_sdk.frameworks.CoreFoundation
-    ]
-  ;
+    ];
 
   glibc = stdenv.cc.libc.out;
 
@@ -59,8 +58,7 @@ stdenv.mkDerivation rec {
         stripLen = 1;
         extraPrefix = "fpcsrc/";
       }
-    )
-  ;
+    );
 
   postPatch = ''
     # substitute the markers set by the mark-paths patch

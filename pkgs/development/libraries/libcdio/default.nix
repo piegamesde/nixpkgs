@@ -54,8 +54,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       Carbon
       IOKit
-    ]
-  ;
+    ];
 
   enableParallelBuilding = true;
 

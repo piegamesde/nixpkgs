@@ -48,8 +48,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals enableXslt [
       libxslt
       libxml2
-    ]
-  ;
+    ];
 
   prePatch = ''
     substituteInPlace CMakeLists.txt --replace SETUID ""

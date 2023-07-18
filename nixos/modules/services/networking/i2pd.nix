@@ -233,8 +233,7 @@ let
         ))
       ;
     in
-    pkgs.writeText "i2pd.conf" (concatStringsSep "\n" opts)
-  ;
+    pkgs.writeText "i2pd.conf" (concatStringsSep "\n" opts);
 
   tunnelConf =
     let
@@ -319,8 +318,7 @@ let
         ))
       ];
     in
-    pkgs.writeText "i2pd-tunnels.conf" opts
-  ;
+    pkgs.writeText "i2pd-tunnels.conf" opts;
 
   i2pdFlags = concatStringsSep " " (
     optional (cfg.address != null) ("--host=" + cfg.address)
@@ -721,8 +719,7 @@ in
             default = null;
             description = lib.mdDoc "Upstream outproxy bind address.";
           };
-        }
-      ;
+        };
       proto.socksProxy =
         (mkKeyedEndpointOpt "socksproxy" "127.0.0.1" 4447 "socksproxy-keys.dat")
         // {
@@ -737,8 +734,7 @@ in
             default = 4444;
             description = lib.mdDoc "Upstream outproxy bind port.";
           };
-        }
-      ;
+        };
 
       proto.sam = mkEndpointOpt "sam" "127.0.0.1" 7656;
       proto.bob = mkEndpointOpt "bob" "127.0.0.1" 2827;
@@ -765,8 +761,7 @@ in
                 };
               }
             )
-          )
-        ;
+          );
         description = lib.mdDoc ''
           Connect to someone as a client and establish a local accept endpoint
         '';
@@ -791,8 +786,7 @@ in
                     default = [ ];
                     description =
                       lib.mdDoc
-                        "I2P nodes that are allowed to connect to this service."
-                    ;
+                        "I2P nodes that are allowed to connect to this service.";
                   };
                 } // commonTunOpts name;
                 config = {
@@ -800,8 +794,7 @@ in
                 };
               }
             )
-          )
-        ;
+          );
         description = lib.mdDoc ''
           Serve something on I2P network at port and delegate requests to address inPort.
         '';

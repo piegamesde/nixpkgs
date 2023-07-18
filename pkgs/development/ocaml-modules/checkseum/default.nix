@@ -32,8 +32,7 @@ buildDunePackage rec {
   nativeBuildInputs = [ pkg-config ];
   propagatedBuildInputs =
     [ optint ]
-    ++ lib.optionals withFreestanding [ ocaml-freestanding ]
-  ;
+    ++ lib.optionals withFreestanding [ ocaml-freestanding ];
 
   checkInputs = [
     alcotest

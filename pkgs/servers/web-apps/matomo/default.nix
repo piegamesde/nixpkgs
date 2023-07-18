@@ -127,7 +127,6 @@ let
           sebbel
         ];
       };
-    }
-  ;
+    };
 in
 lib.mapAttrs common versions

@@ -77,8 +77,7 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs =
     [ glib ]
-    ++ lib.optionals withIntrospection [ libqrtr-glib ]
-  ;
+    ++ lib.optionals withIntrospection [ libqrtr-glib ];
 
   mesonFlags = [
     "-Dudevdir=${placeholder "out"}/lib/udev"

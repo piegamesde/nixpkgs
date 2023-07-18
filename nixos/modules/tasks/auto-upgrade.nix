@@ -148,8 +148,7 @@ in
                 };
               };
             }
-          )
-        ;
+          );
       };
 
       persistent = mkOption {

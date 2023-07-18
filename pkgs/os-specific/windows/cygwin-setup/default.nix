@@ -52,8 +52,7 @@ stdenv.mkDerivation rec {
       bzip2
       xz
       libgcrypt
-    ]
-  ;
+    ];
 
   configureFlags = [ "--disable-shared" ];
 

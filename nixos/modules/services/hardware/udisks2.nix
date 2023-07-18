@@ -88,8 +88,7 @@ in
         # warnings
         "libblockdev/conf.d/00-default.cfg".source = "${pkgs.libblockdev}/etc/libblockdev/conf.d/00-default.cfg";
         "libblockdev/conf.d/10-lvm-dbus.cfg".source = "${pkgs.libblockdev}/etc/libblockdev/conf.d/10-lvm-dbus.cfg";
-      }
-    ;
+      };
 
     security.polkit.enable = true;
 
@@ -97,8 +96,7 @@ in
 
     systemd.tmpfiles.rules =
       [ "d /var/lib/udisks2 0755 root root -" ]
-      ++ optional cfg.mountOnMedia "D! /media 0755 root root -"
-    ;
+      ++ optional cfg.mountOnMedia "D! /media 0755 root root -";
 
     services.udev.packages = [ pkgs.udisks2 ];
 

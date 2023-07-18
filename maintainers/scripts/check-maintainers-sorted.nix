@@ -23,8 +23,7 @@ let
       [
         ""
         ""
-      ]
-  ;
+      ];
   compare = a: b: simplify (toLower a) < simplify (toLower b);
   namesSorted = sort (a: b: a.key < b.key) (
     map
@@ -50,8 +49,7 @@ let
     foldl'
       (acc: n: if n.key < key && (acc == null || n.key > acc.key) then n else acc)
       null
-      namesSorted
-  ;
+      namesSorted;
   errors = foldl' add 0 (
     map
       (
@@ -63,8 +61,7 @@ let
             let
               t = before a;
             in
-            if t == null then "the initial {" else t.name
-          ;
+            if t == null then "the initial {" else t.name;
         in
         if a.line >= b.line then
           trace

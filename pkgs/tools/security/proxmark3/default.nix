@@ -64,8 +64,7 @@ let
         license = licenses.gpl2Plus;
         maintainers = with maintainers; [ fpletz ];
       };
-    }
-  ;
+    };
 in
 
 {

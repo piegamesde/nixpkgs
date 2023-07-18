@@ -38,8 +38,7 @@ rustPlatform.buildRustPackage rec {
           Security
           libiconv
         ]
-    )
-  ;
+    );
 
   meta = with lib; {
     description = "A migration manager written in Rust, that attempts to be smart yet minimal";

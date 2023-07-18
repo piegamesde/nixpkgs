@@ -152,8 +152,7 @@ let
           value = f name;
         })
         xs
-    )
-  ;
+    );
 in
 
 {
@@ -210,7 +209,6 @@ in
     )
     // {
       recurseForDerivations = true;
-    }
-  ;
+    };
   recurseForDerivations = true;
 }

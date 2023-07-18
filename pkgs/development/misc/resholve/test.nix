@@ -216,8 +216,7 @@ rec {
       ''
         echo "Hello"
         file .
-      ''
-  ;
+      '';
   resholvedScriptBin =
     resholve.writeScriptBin "resholved-script-bin"
       {
@@ -227,8 +226,7 @@ rec {
       ''
         echo "Hello"
         file .
-      ''
-  ;
+      '';
   resholvedScriptBinNone =
     resholve.writeScriptBin "resholved-script-bin"
       {
@@ -238,6 +236,5 @@ rec {
       ''
         echo "Hello"
         file .
-      ''
-  ;
+      '';
 }

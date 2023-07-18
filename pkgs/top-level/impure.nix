@@ -12,8 +12,7 @@ let
     let
       res = builtins.tryEval x;
     in
-    if res.success then res.value else def
-  ;
+    if res.success then res.value else def;
 in
 
 {
@@ -45,7 +44,6 @@ in
     import configFile3
   else
     { }
-
   ,
   # Overlays are used to extend Nixpkgs collection with additional
   # collections of packages.  These collection of packages are part of the

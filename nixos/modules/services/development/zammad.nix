@@ -242,8 +242,7 @@ in
               "${cfg.database.name}.*" = "ALL PRIVILEGES";
             };
           } ];
-        }
-    ;
+        };
 
     services.postgresql =
       optionalAttrs (cfg.database.createLocally && cfg.database.type == "PostgreSQL")
@@ -256,8 +255,7 @@ in
               "DATABASE ${cfg.database.name}" = "ALL PRIVILEGES";
             };
           } ];
-        }
-    ;
+        };
 
     systemd.services.zammad-web = {
       inherit environment;

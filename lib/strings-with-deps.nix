@@ -93,13 +93,11 @@ rec {
               ([ predefined.${entry} ] ++ tail todo)
       ;
     in
-    (f { } arg).result
-  ;
+    (f { } arg).result;
 
   textClosureMap =
     f: predefined: names:
-    concatStringsSep "\n" (map f (textClosureList predefined names))
-  ;
+    concatStringsSep "\n" (map f (textClosureList predefined names));
 
   noDepEntry = text: {
     inherit text;

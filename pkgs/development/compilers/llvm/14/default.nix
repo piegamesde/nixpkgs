@@ -194,8 +194,7 @@ let
           ]
           ++ lib.optionals (!stdenv.targetPlatform.isWasm) [
             targetLlvmLibraries.libunwind
-          ]
-        ;
+          ];
         extraBuildCommands = mkExtraBuildCommands cc;
         nixSupport.cc-cflags =
           [
@@ -336,8 +335,7 @@ let
         callPackage ./libcxxabi {
           stdenv = stdenv_;
           inherit llvm_meta cxx-headers;
-        }
-      ;
+        };
 
       libunwind = callPackage ./libunwind {
         inherit llvm_meta;

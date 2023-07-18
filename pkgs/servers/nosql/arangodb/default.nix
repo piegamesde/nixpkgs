@@ -87,8 +87,7 @@ gcc10Stdenv.mkDerivation rec {
       "-DHAVE_SSE42=${
         if gcc10Stdenv.targetPlatform.sse4_2Support then "ON" else "OFF"
       }"
-    ]
-  ;
+    ];
 
   meta = with lib; {
     homepage = "https://www.arangodb.com";

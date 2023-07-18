@@ -171,8 +171,7 @@ stdenv.mkDerivation rec {
       ln -s $out/opt/${binaryName}/aether.png $out/share/icons/hicolor/512x512/apps/
 
       runHook postInstall
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "Peer-to-peer ephemeral public communities";

@@ -24,8 +24,7 @@ let
           (daemonId: {
             "ceph-${daemonType}-${daemonId}" =
               makeService daemonType daemonId cfg.global.clusterName
-                pkgs.ceph
-            ;
+                pkgs.ceph;
           })
           daemonIds
       )
@@ -420,8 +419,7 @@ in
 
     warnings =
       optional (cfg.global.monInitialMembers == null)
-        "Not setting up a list of members in monInitialMembers requires that you set the host variable for each mon daemon or else the cluster won't function"
-    ;
+        "Not setting up a list of members in monInitialMembers requires that you set the host variable for each mon daemon or else the cluster won't function";
 
     environment.etc."ceph/ceph.conf".text =
       let
@@ -451,8 +449,7 @@ in
               cfg.client.extraConfig
         ;
       in
-      generators.toINI { } totalConfig
-    ;
+      generators.toINI { } totalConfig;
 
     users.users.ceph = {
       uid = config.ids.uids.ceph;
@@ -476,8 +473,7 @@ in
           ++ optional cfg.mgr.enable (makeServices "mgr" cfg.mgr.daemons)
         ;
       in
-      mkMerge services
-    ;
+      mkMerge services;
 
     systemd.targets =
       let
@@ -496,8 +492,7 @@ in
           ++ optional cfg.mgr.enable (makeTarget "mgr")
         ;
       in
-      mkMerge targets
-    ;
+      mkMerge targets;
 
     systemd.tmpfiles.rules =
       [

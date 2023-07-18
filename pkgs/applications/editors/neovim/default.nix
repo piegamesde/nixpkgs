@@ -155,8 +155,7 @@ stdenv.mkDerivation rec {
   # check that the above patching actually works
   disallowedReferences =
     [ stdenv.cc ]
-    ++ lib.optional (lua != codegenLua) codegenLua
-  ;
+    ++ lib.optional (lua != codegenLua) codegenLua;
 
   cmakeFlags =
     [

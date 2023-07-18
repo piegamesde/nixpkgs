@@ -69,8 +69,7 @@ stdenv.mkDerivation (
       ++ lib.optionals enableManpages [
         python3.pkgs.sphinx
         python3.pkgs.recommonmark
-      ]
-    ;
+      ];
 
     buildInputs =
       [
@@ -87,8 +86,7 @@ stdenv.mkDerivation (
         bootstrap_cmds
         Carbon
         Cocoa
-      ]
-    ;
+      ];
 
     hardeningDisable = [ "format" ];
 

@@ -40,8 +40,7 @@ let
               buildTensorRTPackage (removeAttrs file [ "fileVersionCuda" ])
             )
           )
-          supportedVersions
-      ;
+          supportedVersions;
       # Set the default attributes, e.g. tensorrt = tensorrt_8_4;
       defaultBuild = {
         "tensorrt" =
@@ -53,8 +52,7 @@ let
         ;
       };
     in
-    { inherit buildTensorRTPackage; } // allBuilds // defaultBuild
-  ;
+    { inherit buildTensorRTPackage; } // allBuilds // defaultBuild;
 
   tarballURL =
     {

@@ -45,8 +45,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withPython [
       swig
       python3.pkgs.setuptools
-    ]
-  ;
+    ];
 
   buildInputs = [
     cairo

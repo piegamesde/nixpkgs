@@ -72,8 +72,7 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.isDarwin
-      "-DTARGET_OS_IPHONE=0"
-  ;
+      "-DTARGET_OS_IPHONE=0";
 
   postInstall = lib.optionalString stdenv.isDarwin ''
     mkdir -p $out/{Applications,bin,lib}

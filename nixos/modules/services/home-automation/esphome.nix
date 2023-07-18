@@ -45,8 +45,7 @@ in
       default = false;
       description =
         lib.mdDoc
-          "Listen on a unix socket `/run/esphome/esphome.sock` instead of the TCP port."
-      ;
+          "Listen on a unix socket `/run/esphome/esphome.sock` instead of the TCP port.";
     };
 
     address = mkOption {
@@ -88,8 +87,7 @@ in
   config = mkIf cfg.enable {
     networking.firewall.allowedTCPPorts =
       mkIf (cfg.openFirewall && !cfg.enableUnixSocket)
-        [ cfg.port ]
-    ;
+        [ cfg.port ];
 
     systemd.services.esphome = {
       description = "ESPHome dashboard";

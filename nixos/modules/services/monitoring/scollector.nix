@@ -86,8 +86,7 @@ in
         default = { };
         example =
           literalExpression
-            ''{ "0" = [ "''${postgresStats}/bin/collect-stats" ]; }''
-        ;
+            ''{ "0" = [ "''${postgresStats}/bin/collect-stats" ]; }'';
         description = lib.mdDoc ''
           An attribute set mapping the frequency of collection to a list of
           binaries that should be executed at that frequency. You can use "0"

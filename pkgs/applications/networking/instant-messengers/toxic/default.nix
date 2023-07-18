@@ -46,8 +46,7 @@ stdenv.mkDerivation rec {
       libvpx
       freealut
       qrencode
-    ]
-  ;
+    ];
   nativeBuildInputs = [
     pkg-config
     libconfig

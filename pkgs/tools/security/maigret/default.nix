@@ -88,8 +88,7 @@ python3.pkgs.buildPythonApplication rec {
         # AsyncioProgressbarExecutor is slower on darwin than it should be,
         # Upstream issue: https://github.com/soxoj/maigret/issues/679
         "test_asyncio_progressbar_executor"
-      ]
-  ;
+      ];
 
   pythonImportsCheck = [ "maigret" ];
 

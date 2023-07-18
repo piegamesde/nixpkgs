@@ -29,8 +29,7 @@ let
     in
     {
       inherit major minor tags;
-    }
-  ;
+    };
   abiTag = "cp${pythonVer.major}${pythonVer.minor}m";
 
   #
@@ -65,8 +64,7 @@ let
       pyVer = builtins.elemAt entries 2;
       abi = builtins.elemAt entries 3;
       platform = p;
-    }
-  ;
+    };
 
   #
   # Builds list of acceptable osx wheel files
@@ -111,12 +109,10 @@ let
         in
         {
           inherit major minor tag;
-        }
-      ;
+        };
       markers = splitString "." x;
     in
-    lib.lists.any isCompat (map parseMarker markers)
-  ;
+    lib.lists.any isCompat (map parseMarker markers);
 
   #
   # Selects the best matching wheel file from a list of files
@@ -139,8 +135,7 @@ let
       ;
       withPython =
         ver: abi: x:
-        (isPyVersionCompatible ver x.pyVer) && (isPyAbiCompatible abi x.abi)
-      ;
+        (isPyVersionCompatible ver x.pyVer) && (isPyAbiCompatible abi x.abi);
       withPlatform =
         if isLinux then
           if targetMachine != null then
@@ -179,8 +174,7 @@ let
         let
           f = toWheelAttrs x.file;
         in
-        (withPython pythonVer abiTag f) && (withPlatforms f)
-      ;
+        (withPython pythonVer abiTag f) && (withPlatforms f);
       filtered = builtins.filter filterWheel filesWithoutSources;
       choose =
         files:
@@ -208,11 +202,9 @@ let
           chooseLinux = x: lib.take 1 (findBestMatches linuxMatches x);
           chooseOSX = x: lib.take 1 (findBestMatches osxMatches x);
         in
-        if isLinux then chooseLinux files else chooseOSX files
-      ;
+        if isLinux then chooseLinux files else chooseOSX files;
     in
-    if (builtins.length filtered == 0) then [ ] else choose (filtered)
-  ;
+    if (builtins.length filtered == 0) then [ ] else choose (filtered);
 in
 {
   inherit selectWheel toWheelAttrs isPyVersionCompatible;

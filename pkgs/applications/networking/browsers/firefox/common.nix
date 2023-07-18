@@ -118,7 +118,8 @@
 
   crashreporterSupport ? !privacySupport
     && !stdenv.hostPlatform.isRiscV
-    && !stdenv.hostPlatform.isMusl,
+    && !stdenv.hostPlatform.isMusl
+  ,
   curl,
   geolocationSupport ? !privacySupport,
   googleAPISupport ? geolocationSupport,
@@ -158,7 +159,8 @@
 assert stdenv.cc.libc or null != null;
 assert pipewireSupport
   -> !waylandSupport || !webrtcSupport
-  -> throw "${pname}: pipewireSupport requires both wayland and webrtc support.";
+  -> throw "${pname}: pipewireSupport requires both wayland and webrtc support."
+;
 
 let
   inherit (lib) enableFeature;

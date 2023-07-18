@@ -22,8 +22,7 @@ in
       example = "sso.example.com";
       description =
         lib.mdDoc
-          "Subdomain which gets reverse proxied to Portunus webserver."
-      ;
+          "Subdomain which gets reverse proxied to Portunus webserver.";
     };
 
     port = mkOption {
@@ -69,8 +68,7 @@ in
       default = "portunus";
       description =
         lib.mdDoc
-          "Group account under which Portunus runs its webserver."
-      ;
+          "Group account under which Portunus runs its webserver.";
     };
 
     dex = {
@@ -163,8 +161,7 @@ in
         default = "openldap";
         description =
           lib.mdDoc
-            "User account under which Portunus runs its LDAP server."
-        ;
+            "User account under which Portunus runs its LDAP server.";
       };
 
       group = mkOption {
@@ -172,8 +169,7 @@ in
         default = "openldap";
         description =
           lib.mdDoc
-            "Group account under which Portunus runs its LDAP server."
-        ;
+            "Group account under which Portunus runs its LDAP server.";
       };
     };
   };

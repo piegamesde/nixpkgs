@@ -63,8 +63,7 @@ import ./make-test-python.nix (
           };
 
           users.users.traefik.extraGroups = [ "docker" ];
-        }
-      ;
+        };
     };
 
     testScript = ''

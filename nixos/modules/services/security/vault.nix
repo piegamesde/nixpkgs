@@ -99,8 +99,7 @@ in
         example = "/path/to/your/cert.pem";
         description =
           lib.mdDoc
-            "TLS certificate file. TLS will be disabled unless this option is set"
-        ;
+            "TLS certificate file. TLS will be disabled unless this option is set";
       };
 
       tlsKeyFile = mkOption {
@@ -109,8 +108,7 @@ in
         example = "/path/to/your/key.pem";
         description =
           lib.mdDoc
-            "TLS private key file. TLS will be disabled unless this option is set"
-        ;
+            "TLS private key file. TLS will be disabled unless this option is set";
       };
 
       listenerExtraConfig = mkOption {
@@ -252,8 +250,7 @@ in
 
     systemd.tmpfiles.rules =
       optional (cfg.storagePath != null)
-        "d '${cfg.storagePath}' 0700 vault vault - -"
-    ;
+        "d '${cfg.storagePath}' 0700 vault vault - -";
 
     systemd.services.vault = {
       description = "Vault server daemon";
@@ -262,8 +259,7 @@ in
       after =
         [ "network.target" ]
         ++ optional (config.services.consul.enable && cfg.storageBackend == "consul")
-          "consul.service"
-      ;
+          "consul.service";
 
       restartIfChanged = false; # do not restart on "nixos-rebuild switch". It would seal the storage and disrupt the clients.
 
@@ -290,8 +286,7 @@ in
 
       unitConfig.RequiresMountsFor =
         optional (cfg.storagePath != null)
-          cfg.storagePath
-      ;
+          cfg.storagePath;
     };
   };
 }

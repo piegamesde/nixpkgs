@@ -60,14 +60,12 @@ let
           ${key}	${configVal val}
         ''
       )
-    )
-  ;
+    );
 
   mainConfig = pkgs.writeText "sympa.conf" (configGenerator cfg.settings);
   robotConfig =
     fqdn: domain:
-    pkgs.writeText "${fqdn}-robot.conf" (configGenerator domain.settings)
-  ;
+    pkgs.writeText "${fqdn}-robot.conf" (configGenerator domain.settings);
 
   transport = pkgs.writeText "transport.sympa" (
     concatStringsSep "\n" (
@@ -187,8 +185,7 @@ in
             config.settings = mkIf (cfg.web.enable && config.webHost != null) {
               wwsympa_url =
                 mkDefault
-                  "https://${config.webHost}${strings.removeSuffix "/" config.webLocation}"
-              ;
+                  "https://${config.webHost}${strings.removeSuffix "/" config.webLocation}";
             };
           }
         )
@@ -252,8 +249,7 @@ in
           if cfg.database.type == "SQLite" then "${dataDir}/sympa.sqlite" else "sympa";
         defaultText =
           literalExpression
-            ''if database.type == "SQLite" then "${dataDir}/sympa.sqlite" else "sympa"''
-        ;
+            ''if database.type == "SQLite" then "${dataDir}/sympa.sqlite" else "sympa"'';
         description = lib.mdDoc ''
           Database name. When using SQLite this must be an absolute
           path to the database file.
@@ -265,8 +261,7 @@ in
         default = user;
         description =
           lib.mdDoc
-            "Database user. The system user name is used as a default."
-        ;
+            "Database user. The system user name is used as a default.";
       };
 
       passwordFile = mkOption {
@@ -371,8 +366,7 @@ in
                 default = true;
                 description =
                   lib.mdDoc
-                    "Whether this file should be generated. This option allows specific files to be disabled."
-                ;
+                    "Whether this file should be generated. This option allows specific files to be disabled.";
               };
               text = mkOption {
                 default = null;
@@ -456,8 +450,7 @@ in
         nameValuePair "etc/${fqdn}/robot.conf" (
           mkDefault { source = robotConfig fqdn domain; }
         )
-      ))
-    ;
+      ));
 
     environment = {
       systemPackages = [ pkg ];
@@ -598,8 +591,7 @@ in
         vHosts = unique (remove null (mapAttrsToList (_k: v: v.webHost) cfg.domains));
         hostLocations =
           host:
-          map (v: v.webLocation) (filter (v: v.webHost == host) (attrValues cfg.domains))
-        ;
+          map (v: v.webLocation) (filter (v: v.webHost == host) (attrValues cfg.domains));
         httpsOpts = optionalAttrs cfg.web.https {
           forceSSL = mkDefault true;
           enableACME = mkDefault true;
@@ -620,8 +612,7 @@ in
             )
             // {
               "/static-sympa/".alias = "${dataDir}/static_content/";
-            }
-          ;
+            };
         }
         // httpsOpts
       )

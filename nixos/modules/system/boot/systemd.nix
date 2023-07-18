@@ -326,8 +326,7 @@ in
               package
             ]
           )
-        )
-      ;
+        );
       default = { };
       example = {
         TZ = "CET";
@@ -348,8 +347,7 @@ in
               package
             ]
           )
-        )
-      ;
+        );
       default = { };
       example = {
         SYSTEMD_LOG_LEVEL = "debug";
@@ -540,13 +538,11 @@ in
                   '')
                   links
               )}
-            ''
-        ;
+            '';
 
         enabledUpstreamSystemUnits =
           filter (n: !elem n cfg.suppressedSystemUnits)
-            upstreamSystemUnits
-        ;
+            upstreamSystemUnits;
         enabledUnits = filterAttrs (n: v: !elem n cfg.suppressedSystemUnits) cfg.units;
       in
       ({
@@ -598,8 +594,7 @@ in
         "systemd/system-shutdown" = {
           source = hooks "shutdown" cfg.shutdown;
         };
-      })
-    ;
+      });
 
     services.dbus.enable = true;
 
@@ -665,8 +660,7 @@ in
       # If SYSTEMD_UNIT_PATH ends with an empty component (":"), the usual unit load path will be appended to the contents of the variable
       SYSTEMD_UNIT_PATH =
         lib.mkIf (config.boot.extraSystemdUnitPaths != [ ])
-          "${builtins.concatStringsSep ":" config.boot.extraSystemdUnitPaths}:"
-      ;
+          "${builtins.concatStringsSep ":" config.boot.extraSystemdUnitPaths}:";
     };
 
     system.requiredKernelConfig = map config.lib.kernelConfig.isEnabled [
@@ -700,8 +694,7 @@ in
         (
           filterAttrs (name: service: service.enable && service.startAt != [ ])
             cfg.services
-        )
-    ;
+        );
 
     # Some overrides to upstream units.
     systemd.services."systemd-backlight@".restartIfChanged = false;
@@ -735,8 +728,7 @@ in
 
     boot.kernelParams =
       optional (!cfg.enableUnifiedCgroupHierarchy)
-        "systemd.unified_cgroup_hierarchy=0"
-    ;
+        "systemd.unified_cgroup_hierarchy=0";
 
     # Avoid potentially degraded system state due to
     # "Userspace Out-Of-Memory (OOM) Killer was skipped because of a failed condition check (ConditionControlGroupController=v2)."

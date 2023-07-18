@@ -36,8 +36,7 @@ import ./make-test-python.nix (
               mv manifest.json.new manifest.json
 
               tar --sort=name --hard-dereference -cf $out .
-            ''
-        ;
+            '';
       in
       pkgs.dockerTools.buildImage {
         fromImage = repeatedRootfsDiffs;
@@ -48,8 +47,7 @@ import ./make-test-python.nix (
         runAsRoot = ''
           echo 'runAsRoot has run.'
         '';
-      }
-    ;
+      };
   in
   {
     name = "docker-tools";
@@ -68,8 +66,7 @@ import ./make-test-python.nix (
             diskSize = 2048;
             docker.enable = true;
           };
-        }
-      ;
+        };
     };
 
     testScript = with pkgs.dockerTools; ''

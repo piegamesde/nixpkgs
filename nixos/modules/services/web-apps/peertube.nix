@@ -209,8 +209,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Configure local PostgreSQL database server for PeerTube."
-        ;
+            "Configure local PostgreSQL database server for PeerTube.";
       };
 
       host = lib.mkOption {
@@ -347,15 +346,15 @@ in
         assertion =
           !(
             cfg.redis.enableUnixSocket && (cfg.redis.host != null || cfg.redis.port != null)
-          )
-        ;
+          );
         message = ''
           <option>services.peertube.redis.createLocally</option> and redis network connection (<option>services.peertube.redis.host</option> or <option>services.peertube.redis.port</option>) enabled. Disable either of them.
         '';
       }
       {
         assertion =
-          cfg.redis.enableUnixSocket || (cfg.redis.host != null && cfg.redis.port != null)
+          cfg.redis.enableUnixSocket
+          || (cfg.redis.host != null && cfg.redis.port != null)
         ;
         message = ''
           <option>services.peertube.redis.host</option> and <option>services.peertube.redis.port</option> needs to be set if <option>services.peertube.redis.enableUnixSocket</option> is not enabled.
@@ -423,8 +422,7 @@ in
           videos = lib.mkDefault "/var/lib/peertube/storage/videos/";
           streaming_playlists =
             lib.mkDefault
-              "/var/lib/peertube/storage/streaming-playlists/"
-          ;
+              "/var/lib/peertube/storage/streaming-playlists/";
           redundancy = lib.mkDefault "/var/lib/peertube/storage/redundancy/";
           logs = lib.mkDefault "/var/lib/peertube/storage/logs/";
           previews = lib.mkDefault "/var/lib/peertube/storage/previews/";
@@ -478,8 +476,7 @@ in
             CREATE EXTENSION IF NOT EXISTS unaccent;
           '';
         in
-        "${config.services.postgresql.package}/bin/psql -f ${psqlSetupCommands}"
-      ;
+        "${config.services.postgresql.package}/bin/psql -f ${psqlSetupCommands}";
 
       serviceConfig = {
         Type = "oneshot";

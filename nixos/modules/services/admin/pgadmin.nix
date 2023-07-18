@@ -24,8 +24,7 @@ let
         (attrsOf (oneOf _base))
       ]
       ++ _base
-    )
-  ;
+    );
 
   formatAttrset =
     attr:
@@ -34,8 +33,7 @@ let
         mapAttrsToList (key: value: "${builtins.toJSON key}: ${formatPyValue value},")
           attr
       )
-    }}"
-  ;
+    }}";
 
   formatPyValue =
     value:
@@ -59,8 +57,7 @@ let
     attrs:
     concatStringsSep "\n" (
       mapAttrsToList (key: value: "${key} = ${formatPyValue value}") attrs
-    )
-  ;
+    );
 
   pyType =
     with types;
@@ -70,8 +67,7 @@ let
         (listOf base)
         base
       ]
-    )
-  ;
+    );
 in
 {
   options.services.pgadmin = {

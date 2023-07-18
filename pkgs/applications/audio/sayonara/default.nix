@@ -54,8 +54,7 @@ mkDerivation rec {
         gst-plugins-bad
         gst-plugins-ugly
       ]
-    )
-  ;
+    );
 
   # we carry the patched taglib 1.11.1 that doesn't break ogg but sayonara just
   # checks for the version

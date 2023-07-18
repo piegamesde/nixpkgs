@@ -37,8 +37,7 @@ let
             (a.meta.maintainers or [ ]) ++ (with lib.maintainers; [ offline ]);
         };
       }
-    )
-  ;
+    );
 in
 {
 
@@ -222,6 +221,5 @@ in
         description = "Elasticsearch plugin that offers encryption, authentication, and authorisation.";
         license = licenses.asl20;
       };
-    }
-  ;
+    };
 }

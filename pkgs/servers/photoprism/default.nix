@@ -34,8 +34,7 @@ let
       inherit sha256;
       url = "https://dl.photoprism.org/tensorflow/${name}.zip";
       stripRoot = false;
-    }
-  ;
+    };
 
   facenet = fetchModel {
     name = "facenet";

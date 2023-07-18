@@ -24,8 +24,7 @@ python3.pkgs.buildPythonApplication rec {
 
   nativeBuildInputs =
     [ installShellFiles ]
-    ++ (with python3.pkgs; [ setuptools-scm ])
-  ;
+    ++ (with python3.pkgs; [ setuptools-scm ]);
 
   propagatedBuildInputs = with python3.pkgs; [
     atomicwrites

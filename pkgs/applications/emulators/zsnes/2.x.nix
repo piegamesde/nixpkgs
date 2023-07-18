@@ -43,8 +43,7 @@ stdenv.mkDerivation (
         [
           # Until upstream fixes the issues...
           "-Wp,-D_FORTIFY_SOURCE=0"
-        ]
-    ;
+        ];
 
     installFlags = [ "PREFIX=${placeholder "out"}" ];
 

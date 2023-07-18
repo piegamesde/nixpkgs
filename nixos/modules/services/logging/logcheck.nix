@@ -16,8 +16,7 @@ let
         cp -prd ${pkgs.logcheck}/etc/logcheck $out
         chmod u+w $out
         rm -r $out/logcheck.*
-      ''
-  ;
+      '';
 
   rulesDir = pkgs.symlinkJoin {
     name = "logcheck-rules-dir";
@@ -50,8 +49,7 @@ let
       text = ''
         ^\w{3} [ :[:digit:]]{11} [._[:alnum:]-]+ ${regex}
       '';
-    }
-  ;
+    };
 
   writeIgnoreCronRule =
     name:
@@ -79,8 +77,7 @@ let
       regex = ''
         (/usr/bin/)?cron\[[0-9]+\]: \(${user}\) CMD \(${re}\)$
       '';
-    }
-  ;
+    };
 
   levelOption = mkOption {
     default = "server";
@@ -273,10 +270,8 @@ in
           }:
           ''
             ${timeArgs} ${user} ${cmdline}
-          ''
-        ;
+          '';
       in
-      mapAttrsToList mkCron (filterAttrs withTime cfg.ignoreCron) ++ [ cronJob ]
-    ;
+      mapAttrsToList mkCron (filterAttrs withTime cfg.ignoreCron) ++ [ cronJob ];
   };
 }

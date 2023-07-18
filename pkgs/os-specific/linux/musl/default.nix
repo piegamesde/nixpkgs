@@ -85,8 +85,7 @@ stdenv.mkDerivation rec {
   ];
   CFLAGS =
     [ "-fstack-protector-strong" ]
-    ++ lib.optional stdenv.hostPlatform.isPower "-mlong-double-64"
-  ;
+    ++ lib.optional stdenv.hostPlatform.isPower "-mlong-double-64";
 
   configureFlags = [
     "--enable-shared"

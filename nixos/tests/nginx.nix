@@ -75,8 +75,7 @@ import ./make-test-python.nix (
             services.nginx.package = pkgs.nginxMainline;
             services.nginx.virtualHosts."!@$$(#*%".locations."~@#*$*!)".proxyPass = ";;;";
           };
-        }
-      ;
+        };
     };
 
     testScript =
@@ -141,7 +140,6 @@ import ./make-test-python.nix (
             webserver.fail(
                 "${reloadWithErrorsSystem}/bin/switch-to-configuration test >&2"
             )
-      ''
-    ;
+      '';
   }
 )

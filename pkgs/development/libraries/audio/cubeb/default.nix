@@ -53,8 +53,7 @@ stdenv.mkDerivation {
         ]
       else
         backendLibs
-    )
-  ;
+    );
 
   cmakeFlags = [
     "-DBUILD_SHARED_LIBS=ON"

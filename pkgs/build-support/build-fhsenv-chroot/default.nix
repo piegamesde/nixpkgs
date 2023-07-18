@@ -48,8 +48,7 @@ let
 
       source /etc/profile
       exec ${run} "$@"
-    ''
-  ;
+    '';
 
   versionStr = lib.optionalString (version != null) ("-" + version);
 
@@ -72,8 +71,7 @@ runCommandLocal nameAndVersion
             echo >&2 "*** User chroot 'env' attributes are intended for interactive nix-shell sessions, not for building! ***"
             echo >&2 ""
             exit 1
-          ''
-      ;
+          '';
     };
   }
   ''

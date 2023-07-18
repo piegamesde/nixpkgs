@@ -76,8 +76,7 @@ let
             urls = d.urls or [ d.url ];
             sha256 = d.sha256;
           }
-        )
-      ;
+        );
     in
     builtins.listToAttrs (
       map toFetchurl [
@@ -109,8 +108,7 @@ let
         srcs.com_google_googleapis
         srcs.bazel_gazelle
       ]
-    )
-  ;
+    );
 
   distDir = runCommand "bazel-deps" { } ''
     mkdir -p $out
@@ -169,8 +167,7 @@ let
   # on aarch64 Darwin, `uname -m` returns "arm64"
   arch =
     with stdenv.hostPlatform;
-    if isDarwin && isAarch64 then "arm64" else parsed.cpu.name
-  ;
+    if isDarwin && isAarch64 then "arm64" else parsed.cpu.name;
 
   bazelRC = writeTextFile {
     name = "bazel-rc";
@@ -282,8 +279,7 @@ stdenv.mkDerivation rec {
             }
             // attrs'
           )
-          script
-      ;
+          script;
 
       # bazel wants to extract itself into $install_dir/install every time it runs,
       # so let’s do that only once.
@@ -304,8 +300,7 @@ stdenv.mkDerivation rec {
             || (echo "oh no! $install_base but we are \
           trying to copy ${install_dir} to $out instead!"; exit 1)
           cp -R ${install_dir} $out
-        ''
-      ;
+        '';
 
       bazelTest =
         {
@@ -342,8 +337,7 @@ stdenv.mkDerivation rec {
 
             touch $out
           ''
-        )
-      ;
+        );
 
       bazelWithNixHacks = bazel_self.override { enableNixHacks = true; };
 
@@ -640,8 +634,7 @@ stdenv.mkDerivation rec {
         patchShebangs .
       '';
     in
-    lib.optionalString stdenv.hostPlatform.isDarwin darwinPatches + genericPatches
-  ;
+    lib.optionalString stdenv.hostPlatform.isDarwin darwinPatches + genericPatches;
 
   buildInputs = [ buildJdk ] ++ defaultShellUtils;
 
@@ -663,8 +656,7 @@ stdenv.mkDerivation rec {
       CoreFoundation
       CoreServices
       Foundation
-    ]
-  ;
+    ];
 
   # Bazel makes extensive use of symlinks in the WORKSPACE.
   # This causes problems with infinite symlinks if the build output is in the same location as the

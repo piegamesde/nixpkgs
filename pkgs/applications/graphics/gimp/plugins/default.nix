@@ -69,8 +69,7 @@ lib.makeScope pkgs.newScope (
             PKG_CONFIG_GIMP_2_0_GIMPDATADIR = "${placeholder "out"}/${gimp.targetDataDir}";
           } // attrs.env or { };
         }
-      )
-    ;
+      );
 
     scriptDerivation =
       { src, ... }@attrs:
@@ -85,8 +84,7 @@ lib.makeScope pkgs.newScope (
           '';
         }
         // attrs
-      )
-    ;
+      );
   in
   {
     # Allow overriding GIMP package in the scope.

@@ -39,8 +39,7 @@ rustPlatform.buildRustPackage rec {
         # WORKAROUND: test_body fails when using clang
         # https://github.com/eqrion/cbindgen/issues/628
         "--skip test_body"
-      ]
-  ;
+      ];
 
   meta = with lib; {
     description = "A project for generating C bindings from Rust code";

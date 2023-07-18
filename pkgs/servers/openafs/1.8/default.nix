@@ -48,8 +48,7 @@ stdenv.mkDerivation {
     ++ optionals withDevdoc [
       doxygen
       dblatex
-    ]
-  ;
+    ];
 
   buildInputs = [ libkrb5 ] ++ optional withNcurses ncurses;
 

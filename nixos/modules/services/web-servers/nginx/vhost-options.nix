@@ -59,8 +59,7 @@ with lib; {
               };
             };
           }
-        )
-      ;
+        );
       default = [ ];
       example = [
         {
@@ -221,8 +220,7 @@ with lib; {
       example = literalExpression ''"''${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"'';
       description =
         lib.mdDoc
-          "Path to root SSL certificate for stapling and client certificates."
-      ;
+          "Path to root SSL certificate for stapling and client certificates.";
     };
 
     http2 = mkOption {

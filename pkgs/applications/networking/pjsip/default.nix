@@ -65,8 +65,7 @@ stdenv.mkDerivation (
 
     NIX_CFLAGS_LINK =
       lib.optionalString stdenv.isDarwin
-        "-headerpad_max_install_names"
-    ;
+        "-headerpad_max_install_names";
 
     postBuild = lib.optionalString pythonSupport ''
       make -C pjsip-apps/src/swig/python

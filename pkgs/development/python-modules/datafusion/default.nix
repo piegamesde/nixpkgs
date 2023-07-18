@@ -60,8 +60,7 @@ buildPythonPackage rec {
     ++ lib.optionals stdenv.isDarwin [
       libiconv
       Security
-    ]
-  ;
+    ];
 
   propagatedBuildInputs = [ pyarrow ];
 

@@ -28,8 +28,7 @@ import ./make-test-python.nix {
             match from any for any action do_relay
           '';
         };
-      }
-    ;
+      };
 
     smtp2 =
       { pkgs, ... }:
@@ -63,8 +62,7 @@ import ./make-test-python.nix {
           mailLocation = "maildir:~/mail";
           protocols = [ "imap" ];
         };
-      }
-    ;
+      };
 
     client =
       { pkgs, ... }:
@@ -116,10 +114,8 @@ import ./make-test-python.nix {
           [
             sendTestMail
             checkMailLanded
-          ]
-        ;
-      }
-    ;
+          ];
+      };
   };
 
   testScript = ''

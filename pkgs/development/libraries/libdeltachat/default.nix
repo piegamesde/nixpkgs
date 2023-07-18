@@ -66,8 +66,7 @@ stdenv.mkDerivation rec {
       Security
       SystemConfiguration
       libiconv
-    ]
-  ;
+    ];
 
   nativeCheckInputs = with rustPlatform; [ cargoCheckHook ];
 

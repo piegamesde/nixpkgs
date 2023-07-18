@@ -102,16 +102,14 @@ stdenv.mkDerivation rec {
 
       nasm-load =
         writeShellScript "nasm-load"
-          "${sgx-asm-pp} --MITIGATION-CVE-2020-0551=LOAD $@"
-      ;
+          "${sgx-asm-pp} --MITIGATION-CVE-2020-0551=LOAD $@";
       ipp-crypto-cve_2020_0551_load = callPackage ./ipp-crypto.nix {
         extraCmakeFlags = [ "-DCMAKE_ASM_NASM_COMPILER=${nasm-load}" ];
       };
 
       nasm-cf =
         writeShellScript "nasm-cf"
-          "${sgx-asm-pp} --MITIGATION-CVE-2020-0551=CF $@"
-      ;
+          "${sgx-asm-pp} --MITIGATION-CVE-2020-0551=CF $@";
       ipp-crypto-cve_2020_0551_cf = callPackage ./ipp-crypto.nix {
         extraCmakeFlags = [ "-DCMAKE_ASM_NASM_COMPILER=${nasm-cf}" ];
       };
@@ -136,8 +134,7 @@ stdenv.mkDerivation rec {
       install -D ${ipp-crypto-no_mitigation.src}/LICENSE license/LICENSE
 
       popd
-    ''
-  ;
+    '';
 
   buildFlags = [ "sdk_install_pkg" ] ++ lib.optionals debug [ "DEBUG=1" ];
 
@@ -281,8 +278,7 @@ stdenv.mkDerivation rec {
           printf '\n'
         done
       '';
-    }
-  ;
+    };
 
   meta = with lib; {
     description = "Intel SGX SDK for Linux built with IPP Crypto Library";

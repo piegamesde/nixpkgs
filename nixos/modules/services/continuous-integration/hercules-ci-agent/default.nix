@@ -104,8 +104,7 @@ in
             nixos.codeName = config.system.nixos.codeName;
             nixos.tags = config.system.nixos.tags;
             nixos.systemName = mkIfNotNull config.system.name;
-          }
-        ;
+          };
       };
     };
 

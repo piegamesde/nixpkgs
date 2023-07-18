@@ -68,8 +68,7 @@ let
         args = [ ];
         paths = [ ];
       }
-      command
-  ;
+      command;
   /* processCommand : { maxArgIndex : Int, commands : [[ShellArg]], paths : [FilePath] } → [ (String|FilePath) ] → { maxArgIndex : Int, commands : [[ShellArg]], paths : [FilePath] }
      Helper reducer function for extracting file paths from individual commands.
   */
@@ -87,8 +86,7 @@ let
       commands = commands ++ [ new.args ];
       paths = paths ++ new.paths;
       maxArgIndex = new.maxArgIndex;
-    }
-  ;
+    };
   /* extractCommands : Int → [[ (String|FilePath) ]] → { maxArgIndex : Int, commands : [[ShellArg]], paths : [FilePath] }
      Helper function for extracting file paths from a list of commands and replacing them with argv[x] references.
   */
@@ -100,8 +98,7 @@ let
         commands = [ ];
         paths = [ ];
       }
-      commands
-  ;
+      commands;
 
   /* commandsToShellInvocation : [[ (String|FilePath) ]] → [ (String|FilePath) ]
      Converts a list of commands into a single command by turning them into a shell script and passing them to `sh -c`.
@@ -151,8 +148,7 @@ rec {
         lib.findSingle ({ supportedFeatures, ... }: supportedFeatures == [ "commit" ])
           null
           null
-          scripts != null
-      ;
+          scripts != null;
       validateFeatures =
         if hasCommitSupport then
           (
@@ -189,8 +185,7 @@ rec {
         builtins.map ({ command, ... }: command) scripts
       );
       supportedFeatures = lib.optionals hasCommitSupport [ "commit" ];
-    }
-  ;
+    };
 
   /* copyAttrOutputToFile : String → FilePath → UpdateScript
      EXPERIMENTAL! Simple update script that copies the output of Nix derivation built by `attr` to `path`.

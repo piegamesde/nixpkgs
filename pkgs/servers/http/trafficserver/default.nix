@@ -196,8 +196,7 @@ stdenv.mkDerivation rec {
       ${lib.removeSuffix "\n" expected}
       EOF
       runHook postInstallCheck
-    ''
-  ;
+    '';
 
   doCheck = true;
   doInstallCheck = true;

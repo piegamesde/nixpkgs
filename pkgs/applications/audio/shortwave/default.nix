@@ -73,8 +73,7 @@ stdenv.mkDerivation rec {
         gst-plugins-good
         gst-plugins-bad
       ]
-    )
-  ;
+    );
 
   meta = with lib; {
     homepage = "https://gitlab.gnome.org/World/Shortwave";

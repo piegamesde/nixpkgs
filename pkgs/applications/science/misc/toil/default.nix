@@ -48,8 +48,7 @@ python3.pkgs.buildPythonApplication rec {
         pytestCheckHook
         stubserver
       ]
-    )
-  ;
+    );
 
   pytestFlagsArray = [ "src/toil/test" ];
 

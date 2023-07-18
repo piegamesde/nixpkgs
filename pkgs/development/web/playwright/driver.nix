@@ -140,7 +140,6 @@ let
           mkdir -p $out/ffmpeg-$FFMPEG_REVISION
           ln -s ${ffmpeg}/bin/ffmpeg $out/ffmpeg-$FFMPEG_REVISION/ffmpeg-linux
         ''
-      )
-  ;
+      );
 in
 driver

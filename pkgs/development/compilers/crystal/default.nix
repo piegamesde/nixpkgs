@@ -91,8 +91,7 @@ let
       '';
 
       meta.platforms = lib.attrNames sha256s;
-    }
-  ;
+    };
 
   generic =
     (
@@ -138,8 +137,7 @@ let
                     url = "https://github.com/crystal-lang/crystal/pull/11399.patch";
                     sha256 = "sha256-CjNpkQQ2UREADmlyLUt7zbhjXf0rTjFhNbFYLwJKkc8=";
                   })
-                ]
-            ;
+                ];
 
             outputs = [
               "out"
@@ -239,8 +237,7 @@ let
                 [
                   # ffi is only used by the interpreter and its spec are broken on < 1.6.1
                   "-Dwithout_ffi"
-                ]
-            ;
+                ];
 
             # This makes sure we don't keep depending on the previous version of
             # crystal used to build this one.

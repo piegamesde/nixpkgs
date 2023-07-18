@@ -23,8 +23,7 @@ buildPythonPackage rec {
       substituteInPlace discid/libdiscid.py \
         --replace "_open_library(_LIB_NAME)" \
                   "_open_library('${libdiscid}/lib/libdiscid${extension}')"
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "Python binding of libdiscid";

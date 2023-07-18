@@ -18,11 +18,9 @@ let
 
       appendShort =
         lib.optionalString ((builtins.match "[a-f0-9]*" rev) != null)
-          "-${short}"
-      ;
+          "-${short}";
     in
-    "${if matched == null then base else builtins.head matched}${appendShort}"
-  ;
+    "${if matched == null then base else builtins.head matched}${appendShort}";
 in
 {
   url,

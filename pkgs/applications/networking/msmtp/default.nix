@@ -57,7 +57,8 @@ let
         gsasl
         libidn2
       ]
-      ++ optionals stdenv.isDarwin [ Security ] ++ optionals withKeyring [ libsecret ]
+      ++ optionals stdenv.isDarwin [ Security ]
+      ++ optionals withKeyring [ libsecret ]
     ;
 
     nativeBuildInputs = [

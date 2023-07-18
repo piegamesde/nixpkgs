@@ -28,8 +28,7 @@ in
         cp ${hook} hook.sh
         substituteAllInPlace hook.sh
         mv hook.sh $out
-      ''
-  ;
+      '';
 
   luarocksCheckHook =
     callPackage
@@ -42,8 +41,7 @@ in
           }
           ./luarocks-check-hook.sh
       )
-      { }
-  ;
+      { };
 
   # luarocks installs data in a non-overridable location. Until a proper luarocks patch,
   # we move the files around ourselves
@@ -58,6 +56,5 @@ in
           }
           ./luarocks-move-data.sh
       )
-      { }
-  ;
+      { };
 }

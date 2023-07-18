@@ -56,8 +56,7 @@ in
       default = true;
       description =
         mdDoc
-          "Enable persistence of Wireguard peer info between restarts."
-      ;
+          "Enable persistence of Wireguard peer info between restarts.";
     };
     openFirewall = mkOption {
       type = types.bool;
@@ -91,8 +90,7 @@ in
             default = true;
             description =
               mdDoc
-                "Enable discovery of peers on the same LAN using UDP broadcast."
-            ;
+                "Enable discovery of peers on the same LAN using UDP broadcast.";
           };
           upnp_forward_external_port = mkOption {
             type = types.nullOr types.port;
@@ -144,8 +142,7 @@ in
     services.wgautomesh.settings = {
       gossip_secret_file =
         mkIf cfg.enableGossipEncryption
-          "$CREDENTIALS_DIRECTORY/gossip_secret"
-      ;
+          "$CREDENTIALS_DIRECTORY/gossip_secret";
       persist_file = mkIf cfg.enablePersistence "/var/lib/wgautomesh/state";
     };
 

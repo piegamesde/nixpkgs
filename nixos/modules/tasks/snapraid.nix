@@ -61,8 +61,7 @@ in
       example = false;
       description =
         lib.mdDoc
-          "Whether {command}`snapraid touch` should be run before {command}`snapraid sync`."
-      ;
+          "Whether {command}`snapraid touch` should be run before {command}`snapraid sync`.";
       type = bool;
     };
     sync.interval = mkOption {
@@ -83,8 +82,7 @@ in
         example = 5;
         description =
           lib.mdDoc
-            "Percent of the array that should be checked by {command}`snapraid scrub`."
-        ;
+            "Percent of the array that should be checked by {command}`snapraid scrub`.";
         type = int;
       };
       olderThan = mkOption {
@@ -92,8 +90,7 @@ in
         example = 20;
         description =
           lib.mdDoc
-            "Number of days since data was last scrubbed before it can be scrubbed again."
-        ;
+            "Number of days since data was last scrubbed before it can be scrubbed again.";
         type = int;
       };
     };
@@ -195,8 +192,7 @@ in
               let
                 contentDirs = map dirOf contentFiles;
               in
-              unique (attrValues dataDisks ++ contentDirs)
-            ;
+              unique (attrValues dataDisks ++ contentDirs);
           };
           unitConfig.After = "snapraid-sync.service";
         };
@@ -239,15 +235,12 @@ in
                 let
                   contentDirs = map dirOf contentFiles;
                 in
-                unique (attrValues dataDisks ++ parityFiles ++ contentDirs)
-              ;
+                unique (attrValues dataDisks ++ parityFiles ++ contentDirs);
             }
             // optionalAttrs touchBeforeSync {
               ExecStartPre = "${pkgs.snapraid}/bin/snapraid touch";
-            }
-          ;
+            };
         };
       };
-    }
-  ;
+    };
 }

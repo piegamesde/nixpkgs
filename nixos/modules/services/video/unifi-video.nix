@@ -173,8 +173,7 @@ in
       default = "${cfg.dataDir}/unifi-video.pid";
       defaultText =
         literalExpression
-          ''"''${config.${opt.dataDir}}/unifi-video.pid"''
-      ;
+          ''"''${config.${opt.dataDir}}/unifi-video.pid"'';
       description = lib.mdDoc "Location of unifi-video pid file.";
     };
   };
@@ -187,8 +186,7 @@ in
           options.services.unifi-video.openFirewall.highestPrio >= (mkOptionDefault null)
           .priority
         )
-        "The current services.unifi-video.openFirewall = true default is deprecated and will change to false in 22.11. Set it explicitly to silence this warning."
-    ;
+        "The current services.unifi-video.openFirewall = true default is deprecated and will change to false in 22.11. Set it explicitly to silence this warning.";
 
     users.users.unifi-video = {
       description = "UniFi Video controller daemon user";

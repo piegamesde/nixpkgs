@@ -73,8 +73,7 @@ stdenv.mkDerivation rec {
           QuartzCore
           DarwinTools
         ]
-    )
-  ;
+    );
 
   configurePhase = ''
     runHook preConfigure

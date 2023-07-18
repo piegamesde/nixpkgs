@@ -105,8 +105,7 @@ let
       name = "mplw-${commit}.tar.gz";
       url = "https://api.github.com/repos/lvv/mplw/tarball/${commit}";
       sha256 = "0yfhkm2dr8gnp0fcg25x89hwiymkri2m5cyqzmzragzwj0hbmcf1";
-    }
-  ;
+    };
 
   aafigureFilterSrc = fetchurl {
     url = "https://asciidoc-aafigure-filter.googlecode.com/files/aafigure-filter-1.1.zip";
@@ -328,8 +327,7 @@ python3.pkgs.buildPythonApplication rec {
     '';
     sourceProvenance =
       with sourceTypes;
-      [ fromSource ] ++ lib.optional _enableDitaaFilter binaryBytecode
-    ;
+      [ fromSource ] ++ lib.optional _enableDitaaFilter binaryBytecode;
     homepage = "https://asciidoc-py.github.io/";
     changelog = "https://github.com/asciidoc-py/asciidoc-py/blob/${version}/CHANGELOG.adoc";
     license = licenses.gpl2Plus;

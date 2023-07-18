@@ -28,8 +28,7 @@ rec {
               (matches pair)
               (last pair)
             ])
-            patterns
-        ;
+            patterns;
       in
       last (
         last (
@@ -40,8 +39,7 @@ rec {
           ++ (filter head matched)
         )
       )
-    )
-  ;
+    );
 
   # string -> [[regex bool]]
   gitignoreToPatterns =
@@ -59,8 +57,7 @@ rec {
         [
           (elemAt split 1)
           (head split == "!")
-        ]
-      ;
+        ];
 
       # regex -> regex
       handleHashesBangs =
@@ -72,8 +69,7 @@ rec {
           [
             "#"
             "!"
-          ]
-      ;
+          ];
 
       # ignore -> regex
       substWildcards =
@@ -89,8 +85,7 @@ rec {
               ;
             in
             str:
-            recurse str
-          ;
+            recurse str;
           chars = s: filter (c: c != "" && !isList c) (splitString s);
           escape = s: map (c: "\\" + c) (chars s);
         in
@@ -114,8 +109,7 @@ rec {
               "[^/]*"
               "[^/]"
             ]
-          )
-      ;
+          );
 
       # (regex -> regex) -> regex -> regex
       mapAroundCharclass =
@@ -127,8 +121,7 @@ rec {
           map (rl: if isList rl then slightFix (elemAt rl 0) else f rl) (
             split "(\\[([^\\\\]|\\\\.)+])" r
           )
-        )
-      ;
+        );
 
       # regex -> regex
       handleSlashPrefix =
@@ -148,8 +141,7 @@ rec {
         let
           split = (match "^(.*)/$" l);
         in
-        if split != null then (elemAt split 0) + "($|/.*)" else l
-      ;
+        if split != null then (elemAt split 0) + "($|/.*)" else l;
 
       # (regex -> regex) -> [regex, bool] -> [regex, bool]
       mapPat = f: l: [
@@ -169,8 +161,7 @@ rec {
           )
           (computeNegation l)
       )
-      (filter (l: !isList l && !isComment l) (split "\n" gitignore))
-  ;
+      (filter (l: !isList l && !isComment l) (split "\n" gitignore));
 
   gitignoreFilter = ign: root: filterPattern (gitignoreToPatterns ign) root;
 
@@ -181,8 +172,7 @@ rec {
       onPath = f: a: if typeOf a == "path" then f a else a;
       str_patterns = map (onPath readFile) (lib.toList file_str_patterns);
     in
-    concatStringsSep "\n" str_patterns
-  ;
+    concatStringsSep "\n" str_patterns;
 
   gitignoreFilterPure =
     filter: patterns: root: name: type:
@@ -235,33 +225,29 @@ rec {
           " "$1"
         ' sh {} \; > $out
       ''
-    )
-  ;
+    );
 
   withGitignoreFile =
     patterns: root: lib.toList patterns ++ [ ".git" ] ++ [ (root + "/.gitignore") ];
 
   withRecursiveGitignoreFile =
     patterns: root:
-    lib.toList patterns ++ [ ".git" ] ++ [ (compileRecursiveGitignore root) ]
-  ;
+    lib.toList patterns ++ [ ".git" ] ++ [ (compileRecursiveGitignore root) ];
 
   # filterSource derivatives
 
   gitignoreFilterSourcePure =
     filter: patterns: root:
-    filterSource (gitignoreFilterPure filter patterns root) root
-  ;
+    filterSource (gitignoreFilterPure filter patterns root) root;
 
   gitignoreFilterSource =
     filter: patterns: root:
-    gitignoreFilterSourcePure filter (withGitignoreFile patterns root) root
-  ;
+    gitignoreFilterSourcePure filter (withGitignoreFile patterns root) root;
 
   gitignoreFilterRecursiveSource =
     filter: patterns: root:
-    gitignoreFilterSourcePure filter (withRecursiveGitignoreFile patterns root) root
-  ;
+    gitignoreFilterSourcePure filter (withRecursiveGitignoreFile patterns root)
+      root;
 
   # "Filter"-less alternatives
 

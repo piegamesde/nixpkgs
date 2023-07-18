@@ -97,8 +97,7 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString (lib.versionAtLeast kernelVersion "6.3")
-      "-Wno-incompatible-pointer-types"
-  ;
+      "-Wno-incompatible-pointer-types";
 
   buildPhase = ''
     runHook preBuild

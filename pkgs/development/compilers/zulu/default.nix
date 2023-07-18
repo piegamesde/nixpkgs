@@ -48,8 +48,7 @@ let
       cairo
       glib
       gtk3
-    ]
-  ;
+    ];
   runtimeLibraryPath = lib.makeLibraryPath runtimeDependencies;
 in
 stdenv.mkDerivation {

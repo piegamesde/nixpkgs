@@ -39,8 +39,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs =
     [ pkg-config ]
-    ++ lib.optional stdenv.isDarwin desktopToDarwinBundle
-  ;
+    ++ lib.optional stdenv.isDarwin desktopToDarwinBundle;
 
   buildInputs =
     [
@@ -68,8 +67,7 @@ stdenv.mkDerivation rec {
       Carbon
       Cocoa
       IOKit
-    ]
-  ;
+    ];
 
   enableParallelBuilding = true;
 

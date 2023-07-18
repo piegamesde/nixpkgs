@@ -198,8 +198,7 @@ let
             maintainers = with maintainers; teams.graalvm-ce.members ++ [ ];
           }
           // meta
-        )
-      ;
+        );
     }
     // extraArgs
   );

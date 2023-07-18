@@ -71,10 +71,8 @@ import ./make-test-python.nix {
           sendTestMail
           sendTestMailStarttls
           sendTestMailSmtps
-        ]
-      ;
-    }
-  ;
+        ];
+    };
 
   testScript = ''
     machine.wait_for_unit("postfix.service")

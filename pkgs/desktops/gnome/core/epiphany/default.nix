@@ -89,8 +89,7 @@ stdenv.mkDerivation rec {
   # Tests need an X display
   mesonFlags =
     [ "-Dunit_tests=disabled" ]
-    ++ lib.optionals withPantheon [ "-Dgranite=enabled" ]
-  ;
+    ++ lib.optionals withPantheon [ "-Dgranite=enabled" ];
 
   passthru = {
     updateScript = gnome.updateScript { packageName = pname; };

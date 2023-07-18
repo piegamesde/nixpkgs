@@ -21,8 +21,7 @@ stdenv.mkDerivation rec {
 
   configureFlags =
     [ "--enable-dependency-tracking" ]
-    ++ lib.optional stdenv.isDarwin "--disable-sdltest"
-  ;
+    ++ lib.optional stdenv.isDarwin "--disable-sdltest";
 
   nativeBuildInputs = [
     autoreconfHook

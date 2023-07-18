@@ -153,8 +153,7 @@ stdenv.mkDerivation rec {
     ]
     ++ flatten (
       builtins.catAttrs "packages" (builtins.filter (e: e.enable) options)
-    )
-  ;
+    );
 
   passthru.tests = {
     inherit (nixosTests) mediatomb;

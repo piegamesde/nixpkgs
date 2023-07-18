@@ -77,8 +77,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals enableRDW [
       "install-rdw"
       "install-man-rdw"
-    ]
-  ;
+    ];
 
   doCheck = true;
   nativeCheckInputs = [
@@ -139,8 +138,7 @@ stdenv.mkDerivation rec {
 
       rm -rf $out/var
       rm -rf $out/share/metainfo
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "Advanced Power Management for Linux";

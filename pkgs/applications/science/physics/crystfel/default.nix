@@ -72,8 +72,7 @@ let
       in
       ''
         cp ${mesonPatch}/meson.build .
-      ''
-    ;
+      '';
   };
   # This is the statically-linked, pre-built binary of mosflm. Compiling it ourselves turns out to be very difficult
   # since the build process is very hard-coded for a specific machine, architecture, and libraries.
@@ -120,8 +119,7 @@ let
         cp ${mosflmBinary} $out/bin/mosflm-raw
         makeWrapper $out/bin/mosflm-raw $out/bin/mosflm --set SYMINFO ${libccp4}/share/syminfo.lib --add-flags -n
       '';
-    }
-  ;
+    };
 
   xgandalf = stdenv.mkDerivation rec {
     pname = "xgandalf";

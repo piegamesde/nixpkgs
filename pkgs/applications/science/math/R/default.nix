@@ -62,8 +62,7 @@ stdenv.mkDerivation (
             lib.versions.major version
           }/${pname}-${version}.tar.gz";
         sha256 = "sha256-VeSpptQ74xTiwD0CZqb6VESv3OULMDv8O4Kzl5UW4HQ=";
-      }
-    ;
+      };
 
     dontUseImakeConfigure = true;
 
@@ -106,8 +105,7 @@ stdenv.mkDerivation (
         Foundation
         libobjc
         libcxx
-      ]
-    ;
+      ];
 
     patches = [ ./no-usr-local-search-paths.patch ];
 

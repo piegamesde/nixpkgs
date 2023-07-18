@@ -48,8 +48,7 @@ buildPythonPackage rec {
       [
         # Flaky tests on darwin
         "test_timeout_generator"
-      ]
-  ;
+      ];
 
   meta = with lib; {
     description = "Module with some convenient utilities";

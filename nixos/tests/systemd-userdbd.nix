@@ -16,8 +16,7 @@ import ./make-test-python.nix (
         };
 
         environment.systemPackages = with pkgs; [ libvarlink ];
-      }
-    ;
+      };
     testScript = ''
       import json
       from shlex import quote

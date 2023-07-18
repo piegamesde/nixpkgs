@@ -7011,6 +7011,5 @@ in
         production = false;
         bypassCache = true;
         reconstructLock = true;
-      }
-  ;
+      };
 }

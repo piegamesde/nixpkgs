@@ -44,8 +44,7 @@ stdenv.mkDerivation (
         "LIBSRC=icon"
         "ICONC=icont"
       ]
-      ++ [ "CC=${stdenv.cc.targetPrefix}cc" ]
-    ;
+      ++ [ "CC=${stdenv.cc.targetPrefix}cc" ];
 
     preInstall = ''
       mkdir -p "$tex/tex/latex/noweb"

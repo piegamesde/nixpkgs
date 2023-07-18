@@ -52,7 +52,6 @@ let
         export cxxincludes="$(< ${clang}/nix-support/libcxx-cxxflags)"
         substituteAll ${./wrapper.sh} $out/bin/bindgen
         chmod +x $out/bin/bindgen
-      ''
-  ;
+      '';
 in
 self

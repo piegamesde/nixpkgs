@@ -45,8 +45,7 @@ let
         license = licenses.ofl;
         maintainers = with maintainers; [ yurrriq ];
       };
-    }
-  ;
+    };
 in
 
 rec {

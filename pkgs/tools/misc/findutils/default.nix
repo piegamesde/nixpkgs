@@ -54,8 +54,7 @@ stdenv.mkDerivation rec {
         # TODO: Revisit upstream issue https://savannah.gnu.org/bugs/?59972
         # https://github.com/Homebrew/homebrew-core/pull/69761#issuecomment-770268478
         "-D__nonnull\\(params\\)="
-      ]
-  ;
+      ];
 
   postInstall = ''
     moveToOutput bin/locate $locate
@@ -76,8 +75,7 @@ stdenv.mkDerivation rec {
   # or you can check libc/include/sys/cdefs.h in bionic source code
   hardeningDisable =
     lib.optional (stdenv.hostPlatform.libc == "bionic")
-      "fortify"
-  ;
+      "fortify";
 
   meta = {
     homepage = "https://www.gnu.org/software/findutils/";

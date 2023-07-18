@@ -64,8 +64,7 @@ let
         --load-ca-certificate $out/ca.crt \
         --template server.template        \
         --outfile $out/server.crt
-    ''
-  ;
+    '';
 
   example-good-cert = makeCert {
     caName = "Example good CA";
@@ -147,8 +146,7 @@ let
             pkgs.xdotool
             pkgs.${browser}
           ];
-        }
-      ;
+        };
 
       testScript = ''
         from typing import Tuple
@@ -194,8 +192,7 @@ let
             machine.wait_for_text("${testParams.error}")
             machine.screenshot("bad${browser}")
       '';
-    }
-  ;
+    };
 in
 
 {

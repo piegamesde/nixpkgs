@@ -26,8 +26,7 @@ stdenv.mkDerivation rec {
         findlib
         camlp5
       ]
-    )
-  ;
+    );
   buildInputs = [ ncurses ] ++ (with ocamlPackages; [ lablgtk ]);
 
   dontAddPrefix = true;

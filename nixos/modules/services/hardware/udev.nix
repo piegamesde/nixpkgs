@@ -159,8 +159,7 @@ let
         ${optionalString (!config.boot.hardwareScan) ''
           ln -s /dev/null $out/80-drivers.rules
         ''}
-      ''
-  ;
+      '';
 
   hwdbBin =
     pkgs.runCommand "hwdb.bin"
@@ -184,8 +183,7 @@ let
         echo "$res"
         [ -z "$(echo "$res" | egrep '^Error')" ]
         mv etc/udev/hwdb.bin $out
-      ''
-  ;
+      '';
 
   compressFirmware =
     firmware:
@@ -304,8 +302,7 @@ in
           paths = map compressFirmware list;
           pathsToLink = [ "/lib/firmware" ];
           ignoreCollisions = true;
-        }
-      ;
+        };
     };
 
     networking.usePredictableInterfaceNames = mkOption {
@@ -403,8 +400,7 @@ in
           cat <<'EOF' > $out/99-local.rules
           ${config.boot.initrd.services.udev.rules}
           EOF
-        ''
-    ;
+        '';
 
     boot.initrd.services.udev.rules = nixosInitrdRules;
 

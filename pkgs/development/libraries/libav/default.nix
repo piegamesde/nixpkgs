@@ -204,7 +204,6 @@ let
           ]
         ;
       };
-    }
-  ; # libavFun
+    }; # libavFun
 in
 result

@@ -28,15 +28,13 @@ import ./make-test-python.nix (
           systemd.services.hledger-web.preStart = ''
             ln -s ${journal} /var/lib/hledger-web/.hledger.journal
           '';
-        }
-      ;
+        };
       apiserver =
         { ... }:
         {
           imports = [ server ];
           services.hledger-web.serveApi = true;
-        }
-      ;
+        };
     };
 
     testScript = ''

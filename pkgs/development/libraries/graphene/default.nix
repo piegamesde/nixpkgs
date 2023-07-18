@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) [
       "installedTests"
-    ]
-  ;
+    ];
 
   src = fetchFromGitHub {
     owner = "ebassi";
@@ -71,8 +70,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
       mesonEmulatorHook
-    ]
-  ;
+    ];
 
   buildInputs = [ glib ];
 
@@ -110,8 +108,7 @@ stdenv.mkDerivation rec {
         wrapProgram '${introspectionPy}' \
           --prefix GI_TYPELIB_PATH : "$out/lib/girepository-1.0"
       fi
-    ''
-  ;
+    '';
 
   passthru = {
     tests = {

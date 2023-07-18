@@ -56,8 +56,7 @@ buildPythonPackage rec {
       scipy
       matplotlib
       youtube-dl
-    ]
-  ;
+    ];
 
   meta = with lib; {
     description = "Video editing with Python";

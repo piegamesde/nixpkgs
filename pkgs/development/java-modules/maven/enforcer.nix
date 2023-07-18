@@ -22,8 +22,7 @@
           type = "jar";
           sha512 = "2pi1df9brkrlqp36pvk8ccc308b2882nmb2c1pbp2vaf4v95wm529vyng5gv9012l6c293ciamaxiv019zv04hl3zsgpk0m5fg3qhs0";
         }
-      ]
-  ;
+      ];
 
   mavenEnforcerRules_1_3_1 =
     map
@@ -46,6 +45,5 @@
           type = "jar";
           sha512 = "33xp9dgdml15bf8dpw4b61wfqnkypixd697q60lan3hvv10bs33jfw8xxsj2pl2l11hca6whk2c1wdddc913s88r13zzaghgizwsx55";
         }
-      ]
-  ;
+      ];
 }

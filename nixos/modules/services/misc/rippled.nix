@@ -134,8 +134,7 @@ let
         user = mkOption {
           description =
             lib.mdDoc
-              "When set, these credentials will be required on HTTP/S requests."
-          ;
+              "When set, these credentials will be required on HTTP/S requests.";
           type = types.str;
           default = "";
         };
@@ -143,8 +142,7 @@ let
         password = mkOption {
           description =
             lib.mdDoc
-              "When set, these credentials will be required on HTTP/S requests."
-          ;
+              "When set, these credentials will be required on HTTP/S requests.";
           type = types.str;
           default = "";
         };
@@ -183,8 +181,7 @@ let
           };
         };
       };
-    }
-  ;
+    };
 
   dbOptions = {
     options = {
@@ -427,8 +424,7 @@ in
         address = mkOption {
           description =
             lib.mdDoc
-              "The UDP address and port of the listening StatsD server."
-          ;
+              "The UDP address and port of the listening StatsD server.";
           default = "127.0.0.1:8125";
           type = types.str;
         };

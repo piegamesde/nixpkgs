@@ -25,8 +25,7 @@
           inherit (pkgs) lib fetchurl;
         };
       in
-      (lib.makeOverridable mkFrameworks attrs)
-    ;
+      (lib.makeOverridable mkFrameworks attrs);
   in
 
   (

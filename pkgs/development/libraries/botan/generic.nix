@@ -47,8 +47,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       CoreServices
       Security
-    ]
-  ;
+    ];
 
   configurePhase = ''
     python configure.py --prefix=$out --with-bzip2 --with-zlib ${extraConfigureFlags}${

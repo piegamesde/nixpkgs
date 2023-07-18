@@ -76,8 +76,7 @@ let
 
       [Install]
       WantedBy=hyperv-daemons.target
-    ''
-  ;
+    '';
 in
 stdenv.mkDerivation {
   pname = "hyperv-daemons";

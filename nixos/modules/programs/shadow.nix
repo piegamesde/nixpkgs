@@ -81,8 +81,7 @@ in
     environment.systemPackages =
       lib.optional config.users.mutableUsers pkgs.shadow
       ++ lib.optional (types.shellPackage.check config.users.defaultUserShell)
-        config.users.defaultUserShell
-    ;
+        config.users.defaultUserShell;
 
     environment.etc = {
       # /etc/login.defs: global configuration for pwdutils.  You
@@ -156,7 +155,6 @@ in
       // lib.optionalAttrs config.users.mutableUsers {
         chsh = mkSetuidRoot "${pkgs.shadow.out}/bin/chsh";
         passwd = mkSetuidRoot "${pkgs.shadow.out}/bin/passwd";
-      }
-    ;
+      };
   };
 }

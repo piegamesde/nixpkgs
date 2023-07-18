@@ -39,7 +39,8 @@ stdenv.mkDerivation {
     else
       ''
         if [ -z "$(echo $currVer | grep -x 'Xcode ${version}')" ]
-      ''}
+      ''
+    }
     then
         echo "We require xcodebuild version${
           if allowHigher then " or higher" else ""

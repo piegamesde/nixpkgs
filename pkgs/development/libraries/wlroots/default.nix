@@ -118,8 +118,7 @@ let
           synthetica
         ];
       };
-    }
-  ;
+    };
 in
 rec {
   wlroots_0_14 = generic {

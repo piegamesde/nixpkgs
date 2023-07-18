@@ -46,8 +46,7 @@ let
       ++ lib.optionals stdenv.isDarwin [
         "ac_cv_build=x86_64-apple-darwin13.4.0"
         "ac_cv_host=x86_64-apple-darwin13.4.0"
-      ]
-    ;
+      ];
 
     # The test t-lucnum_ui fails (on Linux/x86_64) when built with GCC 4.8.
     # Newer versions of GMP don't have that issue anymore.

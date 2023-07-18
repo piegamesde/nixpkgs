@@ -93,8 +93,7 @@ in
               ++ optional cfg.proxied "--proxied"
             ;
           in
-          "${pkgs.cloudflare-dyndns}/bin/cloudflare-dyndns ${toString args}"
-        ;
+          "${pkgs.cloudflare-dyndns}/bin/cloudflare-dyndns ${toString args}";
       };
     };
   };

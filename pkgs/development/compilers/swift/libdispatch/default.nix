@@ -28,8 +28,7 @@ stdenv.mkDerivation {
     ++ lib.optionals useSwift [
       ninja
       swift
-    ]
-  ;
+    ];
 
   patches = [ ./disable-swift-overlay.patch ];
 

@@ -43,8 +43,7 @@ stdenv.mkDerivation rec {
       [
         # provides ical-glib-src-generator that runs during build
         libical
-      ]
-  ;
+      ];
 
   nativeBuildInputs =
     [
@@ -85,8 +84,7 @@ stdenv.mkDerivation rec {
       "-DIMPORT_ICAL_GLIB_SRC_GENERATOR=${
         lib.getDev pkgsBuildBuild.libical
       }/lib/cmake/LibIcal/IcalGlibSrcGenerator.cmake"
-    ]
-  ;
+    ];
 
   patches =
     [

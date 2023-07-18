@@ -16,6 +16,5 @@
         pkgs.hello
         pkgs.figlet
       ];
-    }
-  ;
+    };
 }

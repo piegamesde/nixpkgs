@@ -306,8 +306,7 @@ let
           license = licenses.mit;
           platforms = with platforms; (linux ++ darwin);
         };
-      }
-    ;
+      };
 
     MonoAddins = buildDotnetPackage rec {
       pname = "Mono.Addins";

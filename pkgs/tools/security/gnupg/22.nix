@@ -62,8 +62,7 @@ stdenv.mkDerivation rec {
       readline
       sqlite
       zlib
-    ]
-  ;
+    ];
 
   patches = [
     ./fix-libusb-include-path.patch

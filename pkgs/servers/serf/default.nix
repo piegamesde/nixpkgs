@@ -28,8 +28,7 @@ buildGoModule rec {
         GitCommit = rev;
         Version = version;
         VersionPrerelease = "";
-      }
-  ;
+      };
 
   # There are no tests for cmd/serf.
   doCheck = false;

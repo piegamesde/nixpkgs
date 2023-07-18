@@ -46,8 +46,7 @@ stdenv.mkDerivation rec {
       macdylibbundler
       makeWrapper
       darwin.autoSignDarwinBinariesHook
-    ]
-  ;
+    ];
 
   buildInputs =
     [

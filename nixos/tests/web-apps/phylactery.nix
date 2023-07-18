@@ -11,8 +11,7 @@ import ../make-test-python.nix (
           port = 8080;
           library = "/tmp";
         };
-      }
-    ;
+      };
 
     testScript = ''
       start_all()

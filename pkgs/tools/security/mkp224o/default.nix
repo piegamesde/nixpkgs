@@ -63,8 +63,7 @@ stdenv.mkDerivation rec {
           } $out/bin/mkp224o-${suffix}
         ''
       )
-      variants
-  ;
+      variants;
 
   meta = with lib; {
     description = "Vanity address generator for tor onion v3 (ed25519) hidden services";

@@ -16,8 +16,7 @@ in
       enable = mkOption {
         description =
           lib.mdDoc
-            "Whether to enable websockify to forward websocket connections to TCP connections."
-        ;
+            "Whether to enable websockify to forward websocket connections to TCP connections.";
 
         default = false;
 
@@ -60,8 +59,7 @@ in
       unitConfig.X-StopOnReconfiguration = true;
       wants =
         mapAttrsToList (name: value: "websockify@${name}:${toString value}.service")
-          cfg.portMap
-      ;
+          cfg.portMap;
       wantedBy = [ "multi-user.target" ];
     };
   };

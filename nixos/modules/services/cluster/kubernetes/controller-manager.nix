@@ -46,8 +46,7 @@ in
     allocateNodeCIDRs = mkOption {
       description =
         lib.mdDoc
-          "Whether to automatically allocate CIDR ranges for cluster nodes."
-      ;
+          "Whether to automatically allocate CIDR ranges for cluster nodes.";
       default = true;
       type = bool;
     };
@@ -70,8 +69,7 @@ in
     extraOpts = mkOption {
       description =
         lib.mdDoc
-          "Kubernetes controller manager extra command line options."
-      ;
+          "Kubernetes controller manager extra command line options.";
       default = "";
       type = separatedString " ";
     };
@@ -88,8 +86,7 @@ in
     leaderElect = mkOption {
       description =
         lib.mdDoc
-          "Whether to start leader election before executing main loop."
-      ;
+          "Whether to start leader election before executing main loop.";
       type = bool;
       default = true;
     };
@@ -217,8 +214,7 @@ in
 
     services.kubernetes.controllerManager.kubeconfig.server =
       mkDefault
-        top.apiserverAddress
-    ;
+        top.apiserverAddress;
   };
 
   meta.buildDocsInSandbox = false;

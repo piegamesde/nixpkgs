@@ -60,8 +60,7 @@ buildPackage {
             --replace '<execline/config.h>' '"${targetPackages.execline.dev}/include/execline/config.h"' \
             --replace '<s6/config.h>' '"${targetPackages.s6.dev}/include/s6/config.h"' \
             --replace '<s6-rc/config.h>' '"${targetPackages.s6-rc.dev}/include/s6-rc/config.h"'
-      ''
-  ;
+      '';
 
   postInstall = ''
     # remove all s6 executables from build directory

@@ -6,8 +6,7 @@ let
       matchWildCard = s: match "([^*])(\\.[*])" s;
       mkComparison =
         ret: version: v:
-        builtins.compareVersions version v == ret
-      ;
+        builtins.compareVersions version v == ret;
       mkIdxComparison =
         idx: version: v:
         let
@@ -15,8 +14,7 @@ let
           minor = builtins.toString (lib.toInt (elemAt ver idx) + 1);
           upper = builtins.concatStringsSep "." (ireplace idx minor ver);
         in
-        operators.">=" version v && operators."<" version upper
-      ;
+        operators.">=" version v && operators."<" version upper;
       dropWildcardPrecision =
         f: version: constraint:
         let
@@ -30,8 +28,7 @@ let
               version
           ;
         in
-        f v c
-      ;
+        f v c;
     in
     {
       # Prefix operators
@@ -57,15 +54,13 @@ let
             ireplace (builtins.length pruned - 1) upper pruned
           );
         in
-        operators.">=" v c && operators."<" v upperConstraint
-      ;
+        operators.">=" v c && operators."<" v upperConstraint;
       # Infix operators
       "-" = version: v: operators.">=" version v.vl && operators."<=" version v.vu;
       # Arbitrary equality clause, just run simple comparison
       "===" = v: c: v == c;
       #
-    }
-  ;
+    };
   re = {
     operators = "([=><!~^]+)";
     version = "([0-9.*x]+)";
@@ -96,15 +91,13 @@ let
         }
       else
         throw ''Constraint "${constraintStr}" could not be parsed''
-    )
-  ;
+    );
   satisfiesSemver =
     version: constraint:
     let
       inherit (parseConstraint constraint) op v;
     in
-    if constraint == "*" then true else operators."${op}" version v
-  ;
+    if constraint == "*" then true else operators."${op}" version v;
 in
 {
   inherit satisfiesSemver;

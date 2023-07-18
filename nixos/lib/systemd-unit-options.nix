@@ -144,8 +144,7 @@ rec {
         type = types.singleLineStr;
         description =
           lib.mdDoc
-            "Description of this unit used in systemd messages and progress indicators."
-        ;
+            "Description of this unit used in systemd messages and progress indicators.";
       };
 
       documentation = mkOption {
@@ -153,8 +152,7 @@ rec {
         type = types.listOf types.str;
         description =
           lib.mdDoc
-            "A list of URIs referencing documentation for this unit or its configuration."
-        ;
+            "A list of URIs referencing documentation for this unit or its configuration.";
       };
 
       requires = mkOption {
@@ -324,16 +322,14 @@ rec {
                   package
                 ]
               )
-            )
-          ;
+            );
           example = {
             PATH = "/foo/bar/bin";
             LANG = "nl_NL.UTF-8";
           };
           description =
             lib.mdDoc
-              "Environment variables passed to the service's processes."
-          ;
+              "Environment variables passed to the service's processes.";
         };
 
         path = mkOption {
@@ -345,8 +341,7 @@ rec {
                 package
                 str
               ]
-            )
-          ;
+            );
           description = lib.mdDoc ''
             Packages added to the service's {env}`PATH`
             environment variable.  Both the {file}`bin`
@@ -373,8 +368,7 @@ rec {
           default = "";
           description =
             lib.mdDoc
-              "Shell commands executed as the service's main process."
-          ;
+              "Shell commands executed as the service's main process.";
         };
 
         scriptArgs = mkOption {
@@ -465,8 +459,7 @@ rec {
           serviceConfig.ExecStopPost = jobScripts;
         })
       ];
-    }
-  ;
+    };
 
   stage2ServiceOptions = {
     imports = [
@@ -671,8 +664,7 @@ rec {
         type = types.str;
         description =
           lib.mdDoc
-            "Absolute path of device node, file or other resource. (Mandatory)"
-        ;
+            "Absolute path of device node, file or other resource. (Mandatory)";
       };
 
       where = mkOption {

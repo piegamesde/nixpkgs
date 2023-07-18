@@ -49,8 +49,7 @@ let
       ++ lib.optionals stdenv.isDarwin [
         CoreFoundation
         Security
-      ]
-    ;
+      ];
     nativeBuildInputs = [ pkg-config ];
 
     # https://github.com/NixOS/nixpkgs/issues/161570 ,
@@ -129,8 +128,7 @@ buildGoModule rec {
       CoreFoundation
       Security
       AppKit
-    ]
-  ;
+    ];
   nativeBuildInputs = [
     makeWrapper
     pkg-config

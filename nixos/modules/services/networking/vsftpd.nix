@@ -175,8 +175,7 @@ in
         );
         defaultText =
           literalExpression
-            ''pkgs.writeText "userlist" (concatMapStrings (x: "''${x}\n") cfg.userlist)''
-        ;
+            ''pkgs.writeText "userlist" (concatMapStrings (x: "''${x}\n") cfg.userlist)'';
         description = lib.mdDoc ''
           Newline separated list of names to be allowed/denied if {option}`userlistEnable`
           is `true`. Meaning see {option}`userlistDeny`.
@@ -275,8 +274,7 @@ in
         example = "ftpd_banner=Hello";
         description =
           lib.mdDoc
-            "Extra configuration to add at the bottom of the generated configuration file."
-        ;
+            "Extra configuration to add at the bottom of the generated configuration file.";
       };
     } // (listToAttrs (catAttrs "nixosOption" optionDescription));
   };
@@ -324,8 +322,7 @@ in
           description = "Anonymous FTP user";
           home = cfg.anonymousUserHome;
         };
-      }
-    ;
+      };
 
     users.groups.vsftpd = { };
     users.groups.ftp.gid = config.ids.gids.ftp;
@@ -338,8 +335,7 @@ in
       tmpfiles.rules =
         optional cfg.anonymousUser
           #Type Path                       Mode User   Gr    Age Arg
-          "d    '${builtins.toString cfg.anonymousUserHome}' 0555 'ftp'  'ftp' -   -"
-      ;
+          "d    '${builtins.toString cfg.anonymousUserHome}' 0555 'ftp'  'ftp' -   -";
       services.vsftpd = {
         description = "Vsftpd Server";
 
@@ -356,7 +352,6 @@ in
         ''
           auth required pam_userdb.so db=${cfg.userDbPath}
           account required pam_userdb.so db=${cfg.userDbPath}
-        ''
-    ;
+        '';
   };
 }

@@ -37,8 +37,7 @@ rustPlatform.buildRustPackage rec {
       Cocoa
       Foundation
       Security
-    ]
-  ;
+    ];
 
   # Needed to get openssl-sys to use pkg-config.
   OPENSSL_NO_VENDOR = 1;

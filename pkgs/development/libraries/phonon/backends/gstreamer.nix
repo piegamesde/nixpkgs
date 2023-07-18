@@ -63,8 +63,7 @@ stdenv.mkDerivation rec {
       "-I${gst_all_1.gstreamer.dev}/lib/gstreamer-1.0/include"
 
       ''-DGST_PLUGIN_PATH_1_0="${gstPluginPaths}"''
-    ]
-  ;
+    ];
 
   buildInputs = with gst_all_1; [
     gstreamer

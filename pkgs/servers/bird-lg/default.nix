@@ -34,8 +34,7 @@ let
         license = licenses.gpl3Plus;
         maintainers = with maintainers; [ tchekda ];
       };
-    }
-  ;
+    };
 
   bird-lg-frontend = generic {
     modRoot = "frontend";

@@ -42,8 +42,7 @@ stdenv.mkDerivation {
     ++ lib.optionals stdenv.isDarwin [
       CryptoKit
       LocalAuthentication
-    ]
-  ;
+    ];
 
   configurePhase =
     generated.configure

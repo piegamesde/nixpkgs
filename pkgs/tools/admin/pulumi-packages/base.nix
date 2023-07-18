@@ -35,8 +35,7 @@ let
         ] ++ extraLdflags;
       }
       // args
-    )
-  ;
+    );
 
   mkPythonPackage =
     {
@@ -95,8 +94,7 @@ let
           pythonImportsCheck = [ (builtins.replaceStrings [ "-" ] [ "_" ] pname) ];
         }
       )
-      { }
-  ;
+      { };
 in
 {
   owner,

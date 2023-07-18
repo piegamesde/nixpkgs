@@ -14,7 +14,8 @@ let
       kernelPackage ? if enableUnstable then
         pkgs.zfsUnstable.latestCompatibleLinuxPackages
       else
-        pkgs.linuxPackages,
+        pkgs.linuxPackages
+      ,
       enableUnstable ? false,
       enableSystemdStage1 ? false,
       extraTest ? "",
@@ -123,8 +124,7 @@ let
               };
             };
           };
-        }
-      ;
+        };
 
       testScript =
         ''
@@ -205,8 +205,7 @@ let
         ''
         + extraTest
       ;
-    }
-  ;
+    };
 in
 {
 
@@ -245,8 +244,7 @@ in
           specialisation.resize.configuration = {
             services.zfs.expandOnBoot = [ "tank" ];
           };
-        }
-      ;
+        };
     };
 
     testScript =
@@ -279,7 +277,6 @@ in
         else:
           print(f"Disk went from {start_size} to {new_size}, which doesn't seem right.")
           exit(1)
-      ''
-    ;
+      '';
   };
 }

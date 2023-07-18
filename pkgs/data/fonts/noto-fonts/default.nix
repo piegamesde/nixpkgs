@@ -48,8 +48,7 @@ rec {
 
       _variants =
         map (variant: builtins.replaceStrings [ " " ] [ "" ] variant)
-          variants
-      ;
+          variants;
 
       installPhase =
         ''
@@ -102,8 +101,7 @@ rec {
           jopejoe1
         ];
       };
-    }
-  ;
+    };
 
   mkNotoCJK =
     {
@@ -151,8 +149,7 @@ rec {
           emily
         ];
       };
-    }
-  ;
+    };
 
   noto-fonts = mkNoto { pname = "noto-fonts"; };
 
@@ -259,8 +256,7 @@ rec {
           sternenseemann
         ];
       };
-    }
-  ;
+    };
 
   noto-fonts-emoji-blob-bin =
     let
@@ -298,6 +294,5 @@ rec {
           jk
         ];
       };
-    }
-  ;
+    };
 }

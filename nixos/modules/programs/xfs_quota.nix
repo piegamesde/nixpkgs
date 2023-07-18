@@ -18,8 +18,7 @@ let
     concatStringsSep " " [
       (optionalString (opts.sizeSoftLimit != null) "bsoft=${opts.sizeSoftLimit}")
       (optionalString (opts.sizeHardLimit != null) "bhard=${opts.sizeHardLimit}")
-    ]
-  ;
+    ];
 in
 
 {
@@ -69,8 +68,7 @@ in
 
         description =
           lib.mdDoc
-            "Setup of xfs_quota projects. Make sure the filesystem is mounted with the pquota option."
-        ;
+            "Setup of xfs_quota projects. Make sure the filesystem is mounted with the pquota option.";
 
         example = {
           projname = {
@@ -123,7 +121,6 @@ in
             };
           }
         )
-        cfg.projects
-    ;
+        cfg.projects;
   };
 }

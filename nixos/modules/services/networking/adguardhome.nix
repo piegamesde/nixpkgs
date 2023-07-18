@@ -52,8 +52,7 @@ in
           "bind_port"
         ];
       })
-    ]
-  ;
+    ];
 
   options.services.adguardhome = with types; {
     enable = mkEnableOption (lib.mdDoc "AdGuard Home network-wide ad blocker");

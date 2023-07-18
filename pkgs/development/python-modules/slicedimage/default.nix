@@ -41,8 +41,7 @@ buildPythonPackage rec {
     ++ lib.optionals isPy27 [
       pathlib
       enum34
-    ]
-  ;
+    ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

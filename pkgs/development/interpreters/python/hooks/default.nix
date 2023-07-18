@@ -32,8 +32,7 @@ in
           }
           ./conda-install-hook.sh
       )
-      { }
-  ;
+      { };
 
   condaUnpackHook =
     callPackage
@@ -46,8 +45,7 @@ in
           }
           ./conda-unpack-hook.sh
       )
-      { }
-  ;
+      { };
 
   eggBuildHook =
     callPackage
@@ -60,8 +58,7 @@ in
           }
           ./egg-build-hook.sh
       )
-      { }
-  ;
+      { };
 
   eggInstallHook =
     callPackage
@@ -77,8 +74,7 @@ in
           }
           ./egg-install-hook.sh
       )
-      { }
-  ;
+      { };
 
   eggUnpackHook =
     callPackage
@@ -91,8 +87,7 @@ in
           }
           ./egg-unpack-hook.sh
       )
-      { }
-  ;
+      { };
 
   flitBuildHook =
     callPackage
@@ -108,8 +103,7 @@ in
           }
           ./flit-build-hook.sh
       )
-      { }
-  ;
+      { };
 
   pipBuildHook =
     callPackage
@@ -132,8 +126,7 @@ in
           }
           ./pip-build-hook.sh
       )
-      { }
-  ;
+      { };
 
   pipInstallHook =
     callPackage
@@ -149,8 +142,7 @@ in
           }
           ./pip-install-hook.sh
       )
-      { }
-  ;
+      { };
 
   pytestCheckHook =
     callPackage
@@ -166,8 +158,7 @@ in
           }
           ./pytest-check-hook.sh
       )
-      { }
-  ;
+      { };
 
   pythonCatchConflictsHook =
     callPackage
@@ -183,8 +174,7 @@ in
           }
           ./python-catch-conflicts-hook.sh
       )
-      { }
-  ;
+      { };
 
   pythonImportsCheckHook =
     callPackage
@@ -199,8 +189,7 @@ in
           }
           ./python-imports-check-hook.sh
       )
-      { }
-  ;
+      { };
 
   pythonNamespacesHook =
     callPackage
@@ -215,8 +204,7 @@ in
           }
           ./python-namespaces-hook.sh
       )
-      { }
-  ;
+      { };
 
   pythonOutputDistHook =
     callPackage
@@ -225,8 +213,7 @@ in
         makePythonHook { name = "python-output-dist-hook"; }
           ./python-output-dist-hook.sh
       )
-      { }
-  ;
+      { };
 
   pythonRecompileBytecodeHook =
     callPackage
@@ -250,8 +237,7 @@ in
           }
           ./python-recompile-bytecode-hook.sh
       )
-      { }
-  ;
+      { };
 
   pythonRelaxDepsHook =
     callPackage
@@ -267,8 +253,7 @@ in
           }
           ./python-relax-deps-hook.sh
       )
-      { }
-  ;
+      { };
 
   pythonRemoveBinBytecodeHook =
     callPackage
@@ -277,8 +262,7 @@ in
         makePythonHook { name = "python-remove-bin-bytecode-hook"; }
           ./python-remove-bin-bytecode-hook.sh
       )
-      { }
-  ;
+      { };
 
   pythonRemoveTestsDirHook =
     callPackage
@@ -293,8 +277,7 @@ in
           }
           ./python-remove-tests-dir-hook.sh
       )
-      { }
-  ;
+      { };
 
   setuptoolsBuildHook =
     callPackage
@@ -317,8 +300,7 @@ in
           }
           ./setuptools-build-hook.sh
       )
-      { }
-  ;
+      { };
 
   setuptoolsCheckHook =
     callPackage
@@ -334,8 +316,7 @@ in
           }
           ./setuptools-check-hook.sh
       )
-      { }
-  ;
+      { };
 
   unittestCheckHook =
     callPackage
@@ -350,8 +331,7 @@ in
           }
           ./unittest-check-hook.sh
       )
-      { }
-  ;
+      { };
 
   venvShellHook = disabledIf (!isPy3k) (
     callPackage
@@ -381,8 +361,7 @@ in
           }
           ./wheel-unpack-hook.sh
       )
-      { }
-  ;
+      { };
 
   wrapPython = callPackage ../wrap-python.nix {
     inherit (pkgs.buildPackages) makeWrapper;
@@ -406,6 +385,5 @@ in
           }
           ./sphinx-hook.sh
       )
-      { }
-  ;
+      { };
 }

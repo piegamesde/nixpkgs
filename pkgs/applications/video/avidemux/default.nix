@@ -106,8 +106,7 @@ stdenv.mkDerivation rec {
     let
       wrapWith =
         makeWrapper: filename:
-        "${makeWrapper} ${filename} --set ADM_ROOT_DIR $out --prefix LD_LIBRARY_PATH : ${libXext}/lib"
-      ;
+        "${makeWrapper} ${filename} --set ADM_ROOT_DIR $out --prefix LD_LIBRARY_PATH : ${libXext}/lib";
       wrapQtApp = wrapWith "wrapQtApp";
       wrapProgram = wrapWith "wrapProgram";
     in
@@ -135,8 +134,7 @@ stdenv.mkDerivation rec {
       ln -s "$out/bin/avidemux3_${default}" "$out/bin/avidemux"
 
       fixupPhase
-    ''
-  ;
+    '';
 
   meta = with lib; {
     homepage = "http://fixounet.free.fr/avidemux/";

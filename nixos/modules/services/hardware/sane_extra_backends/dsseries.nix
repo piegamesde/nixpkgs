@@ -19,8 +19,7 @@ with lib;
           This supports the Brother DSmobile scanner series, including the
           DS-620, DS-720D, DS-820W, and DS-920DW scanners.
         '';
-      }
-    ;
+      };
   };
 
   config =
@@ -30,6 +29,5 @@ with lib;
         hardware.sane.extraBackends = [ pkgs.dsseries ];
         services.udev.packages = [ pkgs.dsseries ];
         boot.kernelModules = [ "sg" ];
-      }
-  ;
+      };
 }

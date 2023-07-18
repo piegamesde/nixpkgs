@@ -34,8 +34,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (lib.versionAtLeast gfortran.version "10") [
       "FFLAGS=-fallow-argument-mismatch" # https://github.com/pmodels/mpich/issues/4300
       "FCFLAGS=-fallow-argument-mismatch"
-    ]
-  ;
+    ];
 
   enableParallelBuilding = true;
 

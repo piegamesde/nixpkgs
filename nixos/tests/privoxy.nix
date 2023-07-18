@@ -76,8 +76,7 @@ import ./make-test-python.nix (
         networking.hosts."::1" = [ "example.com" ];
         networking.proxy.httpProxy = "http://localhost:8118";
         networking.proxy.httpsProxy = "http://localhost:8118";
-      }
-    ;
+      };
 
     testScript = ''
       with subtest("Privoxy is running"):

@@ -26,8 +26,7 @@ let
           # Newline at end of file
           [ "" ]
       )
-    )
-  ;
+    );
 in
 {
   options.services.aesmd = {
@@ -44,8 +43,7 @@ in
       default = { };
       description =
         mdDoc
-          "Additional environment variables to pass to the AESM service."
-      ;
+          "Additional environment variables to pass to the AESM service.";
       # Example environment variable for `sgx-azure-dcap-client` provider library
       example = {
         AZDCAP_COLLATERAL_VERSION = "v2";
@@ -83,8 +81,7 @@ in
                 "direct"
                 "manual"
               ]
-            )
-          ;
+            );
           default = if (cfg.settings.proxy != null) then "manual" else null;
           defaultText = literalExpression ''
             if (config.${opt.settings}.proxy != null) then "manual" else null
@@ -106,8 +103,7 @@ in
                 "epid_linkable"
                 "epid_unlinkable"
               ]
-            )
-          ;
+            );
           default = null;
           example = "ecdsa_256";
           description = lib.mdDoc "Attestation quote type.";
@@ -279,7 +275,6 @@ in
           RestrictSUIDSGID = true;
           UMask = "0066";
         };
-      }
-    ;
+      };
   };
 }
