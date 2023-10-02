@@ -145,14 +145,12 @@ let
         emptyValue ? { },
         # Return a flat list of sub-options.  Used to generate
         # documentation.
-        getSubOptions ? prefix:
-          { },
+        getSubOptions ? prefix: { },
         # List of modules if any, or null if none.
         getSubModules ? null,
         # Function for building the same option type with a different list of
         # modules.
-        substSubModules ? m:
-          null,
+        substSubModules ? m: null,
         # Function that merge type declarations.
         # internal, takes a functor as argument and returns the merged type.
         # returning null means the type is not mergeable

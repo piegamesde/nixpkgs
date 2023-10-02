@@ -198,8 +198,7 @@ in
   */
   subpath.isValid =
     # The value to check
-    value:
-    subpathInvalidReason value == null;
+    value: subpathInvalidReason value == null;
 
   /* Join subpath strings together using `/`, returning a normalised subpath string.
 

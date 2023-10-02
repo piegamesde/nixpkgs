@@ -247,9 +247,7 @@ rec {
                 )
             else
             # If there are nested modifications, try to apply them to the value
-            if
-              !hasValue
-            then
+            if !hasValue then
               # But if we don't have a value, just use an empty attribute set
               # as the value, but simplify the code a bit
               mapAttrs (name: go (prefixLength + 1) false null) nested
@@ -711,8 +709,7 @@ rec {
   */
   isDerivation =
     # Value to check.
-    value:
-    value.type or null == "derivation";
+    value: value.type or null == "derivation";
 
   /* Converts a store path to a fake derivation.
 
@@ -812,8 +809,7 @@ rec {
   */
   zipAttrs =
     # List of attribute sets to zip together.
-    sets:
-    zipAttrsWith (name: values: values) sets;
+    sets: zipAttrsWith (name: values: values) sets;
 
   /* Does the same as the update operator '//' except that attributes are
      merged until the given predicate is verified.  The predicate should
@@ -1059,8 +1055,7 @@ rec {
   */
   chooseDevOutputs =
     # List of packages to pick `dev` outputs from
-    drvs:
-    builtins.map getDev drvs;
+    drvs: builtins.map getDev drvs;
 
   /* Make various Nix tools consider the contents of the resulting
      attribute set when looking for what to build, find, etc.
@@ -1081,8 +1076,7 @@ rec {
   */
   recurseIntoAttrs =
     # An attribute set to scan for derivations.
-    attrs:
-    attrs // { recurseForDerivations = true; };
+    attrs: attrs // { recurseForDerivations = true; };
 
   /* Undo the effect of recurseIntoAttrs.
 
@@ -1091,8 +1085,7 @@ rec {
   */
   dontRecurseIntoAttrs =
     # An attribute set to not scan for derivations.
-    attrs:
-    attrs // { recurseForDerivations = false; };
+    attrs: attrs // { recurseForDerivations = false; };
 
   /* `unionOfDisjoint x y` is equal to `x // y // z` where the
      attrnames in `z` are the intersection of the attrnames in `x` and

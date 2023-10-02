@@ -33,9 +33,7 @@
 
   ,
   # zpool properties
-  rootPoolProperties ? {
-    autoexpand = "on";
-  },
+  rootPoolProperties ? { autoexpand = "on"; },
   # pool-wide filesystem properties
   rootPoolFilesystemProperties ? {
     acltype = "posixacl";
