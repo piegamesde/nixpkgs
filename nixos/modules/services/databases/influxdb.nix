@@ -69,12 +69,14 @@ let
 
         udp = [ { enabled = false; } ];
 
-        collectd = [ {
-          enabled = false;
-          typesdb = "${pkgs.collectd-data}/share/collectd/types.db";
-          database = "collectd_db";
-          bind-address = ":25826";
-        } ];
+        collectd = [
+          {
+            enabled = false;
+            typesdb = "${pkgs.collectd-data}/share/collectd/types.db";
+            database = "collectd_db";
+            bind-address = ":25826";
+          }
+        ];
 
         opentsdb = [ { enabled = false; } ];
 

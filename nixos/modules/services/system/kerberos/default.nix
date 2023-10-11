@@ -88,9 +88,11 @@ in
 
   config = mkIf cfg.enable {
     environment.systemPackages = [ kerberos ];
-    assertions = [ {
-      assertion = length (attrNames cfg.realms) <= 1;
-      message = "Only one realm per server is currently supported.";
-    } ];
+    assertions = [
+      {
+        assertion = length (attrNames cfg.realms) <= 1;
+        message = "Only one realm per server is currently supported.";
+      }
+    ];
   };
 }

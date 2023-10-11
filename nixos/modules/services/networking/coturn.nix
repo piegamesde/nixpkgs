@@ -323,11 +323,13 @@ in
   config = mkIf cfg.enable (
     mkMerge ([
       {
-        assertions = [ {
-          assertion =
-            cfg.static-auth-secret != null -> cfg.static-auth-secret-file == null;
-          message = "static-auth-secret and static-auth-secret-file cannot be set at the same time";
-        } ];
+        assertions = [
+          {
+            assertion =
+              cfg.static-auth-secret != null -> cfg.static-auth-secret-file == null;
+            message = "static-auth-secret and static-auth-secret-file cannot be set at the same time";
+          }
+        ];
       }
 
       {

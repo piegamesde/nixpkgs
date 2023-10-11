@@ -314,16 +314,18 @@ in
   ###### implementation
 
   config = mkIf cfg.enable {
-    assertions = [ {
-      assertion =
-        (
-          cfg.bantime-increment.formula == null
-          || cfg.bantime-increment.multipliers == null
-        );
-      message = ''
-        Options `services.fail2ban.bantime-increment.formula` and `services.fail2ban.bantime-increment.multipliers` cannot be both specified.
-      '';
-    } ];
+    assertions = [
+      {
+        assertion =
+          (
+            cfg.bantime-increment.formula == null
+            || cfg.bantime-increment.multipliers == null
+          );
+        message = ''
+          Options `services.fail2ban.bantime-increment.formula` and `services.fail2ban.bantime-increment.multipliers` cannot be both specified.
+        '';
+      }
+    ];
 
     warnings =
       mkIf (!config.networking.firewall.enable && !config.networking.nftables.enable)

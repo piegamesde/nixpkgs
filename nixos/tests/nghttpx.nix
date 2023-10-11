@@ -27,24 +27,28 @@ import ./make-test-python.nix (
         networking.firewall.allowedTCPPorts = [ 80 ];
         services.nghttpx = {
           enable = true;
-          frontends = [ {
-            server = {
-              host = "*";
-              port = 80;
-            };
+          frontends = [
+            {
+              server = {
+                host = "*";
+                port = 80;
+              };
 
-            params = {
-              tls = "no-tls";
-            };
-          } ];
-          backends = [ {
-            server = {
-              host = "webserver";
-              port = 80;
-            };
-            patterns = [ "/" ];
-            params.proto = "http/1.1";
-          } ];
+              params = {
+                tls = "no-tls";
+              };
+            }
+          ];
+          backends = [
+            {
+              server = {
+                host = "webserver";
+                port = 80;
+              };
+              patterns = [ "/" ];
+              params.proto = "http/1.1";
+            }
+          ];
         };
       };
 

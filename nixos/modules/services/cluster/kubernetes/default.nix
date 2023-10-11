@@ -43,25 +43,31 @@ let
       builtins.toJSON {
         apiVersion = "v1";
         kind = "Config";
-        clusters = [ {
-          name = "local";
-          cluster.certificate-authority = conf.caFile or cfg.caFile;
-          cluster.server = conf.server;
-        } ];
-        users = [ {
-          inherit name;
-          user = {
-            client-certificate = conf.certFile;
-            client-key = conf.keyFile;
-          };
-        } ];
-        contexts = [ {
-          context = {
-            cluster = "local";
-            user = name;
-          };
-          name = "local";
-        } ];
+        clusters = [
+          {
+            name = "local";
+            cluster.certificate-authority = conf.caFile or cfg.caFile;
+            cluster.server = conf.server;
+          }
+        ];
+        users = [
+          {
+            inherit name;
+            user = {
+              client-certificate = conf.certFile;
+              client-key = conf.keyFile;
+            };
+          }
+        ];
+        contexts = [
+          {
+            context = {
+              cluster = "local";
+              user = name;
+            };
+            name = "local";
+          }
+        ];
         current-context = "local";
       }
     );

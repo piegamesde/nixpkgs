@@ -43,10 +43,12 @@ let
       saved_caches_directory = "${cfg.homeDir}/saved_caches";
     }
     // optionalAttrs (cfg.seedAddresses != [ ]) {
-      seed_provider = [ {
-        class_name = "org.apache.cassandra.locator.SimpleSeedProvider";
-        parameters = [ { seeds = concatStringsSep "," cfg.seedAddresses; } ];
-      } ];
+      seed_provider = [
+        {
+          class_name = "org.apache.cassandra.locator.SimpleSeedProvider";
+          parameters = [ { seeds = concatStringsSep "," cfg.seedAddresses; } ];
+        }
+      ];
     }
     // optionalAttrs atLeast3 { hints_directory = "${cfg.homeDir}/hints"; }
   );

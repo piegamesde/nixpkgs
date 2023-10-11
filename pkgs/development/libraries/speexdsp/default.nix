@@ -31,9 +31,9 @@ stdenv.mkDerivation rec {
   ];
   buildInputs = [ fftw ];
 
-  configureFlags =
-    [ "--with-fft=gpl-fftw3" ]
-    ++ lib.optional stdenv.isAarch64 "--disable-neon";
+  configureFlags = [
+    "--with-fft=gpl-fftw3"
+  ] ++ lib.optional stdenv.isAarch64 "--disable-neon";
 
   meta = with lib; {
     homepage = "https://www.speex.org/";

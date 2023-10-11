@@ -25,10 +25,12 @@ import ../../make-test-python.nix (
       database = {
         networking = {
           interfaces.eth1 = {
-            ipv4.addresses = [ {
-              address = "192.168.2.102";
-              prefixLength = 24;
-            } ];
+            ipv4.addresses = [
+              {
+                address = "192.168.2.102";
+                prefixLength = 24;
+              }
+            ];
           };
           extraHosts = hosts;
           firewall.allowedTCPPorts = [ 5432 ];
@@ -51,10 +53,12 @@ import ../../make-test-python.nix (
       nginx = {
         networking = {
           interfaces.eth1 = {
-            ipv4.addresses = [ {
-              address = "192.168.2.103";
-              prefixLength = 24;
-            } ];
+            ipv4.addresses = [
+              {
+                address = "192.168.2.103";
+                prefixLength = 24;
+              }
+            ];
           };
           extraHosts = hosts;
           firewall.allowedTCPPorts = [
@@ -106,10 +110,12 @@ import ../../make-test-python.nix (
 
           networking = {
             interfaces.eth1 = {
-              ipv4.addresses = [ {
-                address = "192.168.2.201";
-                prefixLength = 24;
-              } ];
+              ipv4.addresses = [
+                {
+                  address = "192.168.2.201";
+                  prefixLength = 24;
+                }
+              ];
             };
             extraHosts = hosts;
             firewall.allowedTCPPorts = [
@@ -150,10 +156,12 @@ import ../../make-test-python.nix (
           environment.systemPackages = [ pkgs.jq ];
           networking = {
             interfaces.eth1 = {
-              ipv4.addresses = [ {
-                address = "192.168.2.202";
-                prefixLength = 24;
-              } ];
+              ipv4.addresses = [
+                {
+                  address = "192.168.2.202";
+                  prefixLength = 24;
+                }
+              ];
             };
             extraHosts = hosts;
           };

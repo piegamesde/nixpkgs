@@ -26,10 +26,12 @@ let
             services.mysql = {
               inherit package;
               enable = true;
-              initialDatabases = [ {
-                name = "testdb";
-                schema = ./testdb.sql;
-              } ];
+              initialDatabases = [
+                {
+                  name = "testdb";
+                  schema = ./testdb.sql;
+                }
+              ];
             };
 
             services.mysqlBackup = {

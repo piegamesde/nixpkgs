@@ -302,9 +302,9 @@ stdenv.mkDerivation {
   '';
 
   # Ensures that we use the system OpenEXR rather than the vendored copy of the source included with OpenCV.
-  patches =
-    [ ./cmake-don-t-use-OpenCVFindOpenEXR.patch ]
-    ++ lib.optional enableCuda ./cuda_opt_flow.patch;
+  patches = [
+    ./cmake-don-t-use-OpenCVFindOpenEXR.patch
+  ] ++ lib.optional enableCuda ./cuda_opt_flow.patch;
 
   # This prevents cmake from using libraries in impure paths (which
   # causes build failure on non NixOS)

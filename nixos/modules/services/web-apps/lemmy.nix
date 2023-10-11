@@ -123,10 +123,12 @@ in
     services.postgresql = mkIf cfg.database.createLocally {
       enable = true;
       ensureDatabases = [ cfg.settings.database.database ];
-      ensureUsers = [ {
-        name = cfg.settings.database.user;
-        ensurePermissions."DATABASE ${cfg.settings.database.database}" = "ALL PRIVILEGES";
-      } ];
+      ensureUsers = [
+        {
+          name = cfg.settings.database.user;
+          ensurePermissions."DATABASE ${cfg.settings.database.database}" = "ALL PRIVILEGES";
+        }
+      ];
     };
 
     services.pict-rs.enable = true;
@@ -165,15 +167,17 @@ in
       };
     };
 
-    assertions = [ {
-      assertion =
-        cfg.database.createLocally
-        ->
-          cfg.settings.database.host == "localhost"
-          || cfg.settings.database.host == "/run/postgresql"
-      ;
-      message = "if you want to create the database locally, you need to use a local database";
-    } ];
+    assertions = [
+      {
+        assertion =
+          cfg.database.createLocally
+          ->
+            cfg.settings.database.host == "localhost"
+            || cfg.settings.database.host == "/run/postgresql"
+        ;
+        message = "if you want to create the database locally, you need to use a local database";
+      }
+    ];
 
     systemd.services.lemmy = {
       description = "Lemmy server";
@@ -193,9 +197,9 @@ in
 
       wantedBy = [ "multi-user.target" ];
 
-      after =
-        [ "pict-rs.service" ]
-        ++ lib.optionals cfg.database.createLocally [ "postgresql.service" ];
+      after = [
+        "pict-rs.service"
+      ] ++ lib.optionals cfg.database.createLocally [ "postgresql.service" ];
 
       requires = lib.optionals cfg.database.createLocally [ "postgresql.service" ];
 

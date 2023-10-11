@@ -47,12 +47,14 @@ import ./make-test-python.nix {
           scrapeConfigs = [
             {
               job_name = "prometheus";
-              static_configs = [ {
-                targets = [ "127.0.0.1:${toString queryPort}" ];
-                labels = {
-                  instance = "localhost";
-                };
-              } ];
+              static_configs = [
+                {
+                  targets = [ "127.0.0.1:${toString queryPort}" ];
+                  labels = {
+                    instance = "localhost";
+                  };
+                }
+              ];
             }
             {
               job_name = "pushgateway";
@@ -60,13 +62,15 @@ import ./make-test-python.nix {
               static_configs = [ { targets = [ "127.0.0.1:${toString pushgwPort}" ]; } ];
             }
           ];
-          rules = [ ''
-            groups:
-              - name: test
-                rules:
-                  - record: testrule
-                    expr: count(up{job="prometheus"})
-          '' ];
+          rules = [
+            ''
+              groups:
+                - name: test
+                  rules:
+                    - record: testrule
+                      expr: count(up{job="prometheus"})
+            ''
+          ];
           globalConfig = {
             external_labels = {
               some_label = "required by thanos";
@@ -127,10 +131,12 @@ import ./make-test-python.nix {
               # This configuration just adds a new prometheus job
               # to scrape the node_exporter metrics of the s3 machine.
               services.prometheus = {
-                scrapeConfigs = [ {
-                  job_name = "s3-node_exporter";
-                  static_configs = [ { targets = [ "s3:9100" ]; } ];
-                } ];
+                scrapeConfigs = [
+                  {
+                    job_name = "s3-node_exporter";
+                    static_configs = [ { targets = [ "s3:9100" ]; } ];
+                  }
+                ];
               };
             };
           };

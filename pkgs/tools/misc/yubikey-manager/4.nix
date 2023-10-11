@@ -34,9 +34,9 @@ python3Packages.buildPythonPackage rec {
       }/bin/pkill'
   '';
 
-  nativeBuildInputs =
-    [ installShellFiles ]
-    ++ (with python3Packages; [ poetry-core ]);
+  nativeBuildInputs = [
+    installShellFiles
+  ] ++ (with python3Packages; [ poetry-core ]);
 
   propagatedBuildInputs =
     with python3Packages;

@@ -48,11 +48,13 @@ let
   layers = builtins.map stripNixStore imageLayers;
 
   manifest = writeText "manifest.json" (
-    builtins.toJSON [ {
-      Config = stripNixStore imageConfig;
-      Layers = layers;
-      RepoTags = [ "${repoTag1}:${tag}" ];
-    } ]
+    builtins.toJSON [
+      {
+        Config = stripNixStore imageConfig;
+        Layers = layers;
+        RepoTags = [ "${repoTag1}:${tag}" ];
+      }
+    ]
   );
 
   repositories = writeText "repositories" (

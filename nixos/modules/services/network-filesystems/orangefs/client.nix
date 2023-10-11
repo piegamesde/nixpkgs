@@ -30,10 +30,12 @@ in
           the pvfs client service needs to be running for it to be mounted.
         '';
 
-        example = [ {
-          mountPoint = "/orangefs";
-          target = "tcp://server:3334/orangefs";
-        } ];
+        example = [
+          {
+            mountPoint = "/orangefs";
+            target = "tcp://server:3334/orangefs";
+          }
+        ];
 
         type =
           with types;

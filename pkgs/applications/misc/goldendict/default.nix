@@ -42,9 +42,9 @@ mkDerivation rec {
     sha256 = "sha256-gNM+iahoGQy8TlNFLQx5ksITzQznv7MWMX/88QCTnL0";
   };
 
-  patches =
-    [ ./0001-dont-check-for-updates.patch ]
-    ++ lib.optionals stdenv.isDarwin [ ./0001-dont-use-maclibs.patch ];
+  patches = [
+    ./0001-dont-check-for-updates.patch
+  ] ++ lib.optionals stdenv.isDarwin [ ./0001-dont-use-maclibs.patch ];
 
   postPatch = ''
     substituteInPlace goldendict.pro \

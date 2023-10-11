@@ -258,12 +258,14 @@ in
     services.mysql = lib.mkIf cfg.database.createLocally {
       enable = true;
       ensureDatabases = [ cfg.database.name ];
-      ensureUsers = [ {
-        name = cfg.database.user;
-        ensurePermissions = {
-          "${cfg.database.name}.*" = "all privileges";
-        };
-      } ];
+      ensureUsers = [
+        {
+          name = cfg.database.user;
+          ensurePermissions = {
+            "${cfg.database.name}.*" = "all privileges";
+          };
+        }
+      ];
     };
 
     systemd.services.firefox-syncserver = {
@@ -319,12 +321,12 @@ in
 
     systemd.services.firefox-syncserver-setup = lib.mkIf cfg.singleNode.enable {
       wantedBy = [ "firefox-syncserver.service" ];
-      requires =
-        [ "firefox-syncserver.service" ]
-        ++ lib.optional dbIsLocal "mysql.service";
-      after =
-        [ "firefox-syncserver.service" ]
-        ++ lib.optional dbIsLocal "mysql.service";
+      requires = [
+        "firefox-syncserver.service"
+      ] ++ lib.optional dbIsLocal "mysql.service";
+      after = [
+        "firefox-syncserver.service"
+      ] ++ lib.optional dbIsLocal "mysql.service";
       path = [ config.services.mysql.package ];
       serviceConfig.ExecStart = [ "${setupScript}" ];
     };

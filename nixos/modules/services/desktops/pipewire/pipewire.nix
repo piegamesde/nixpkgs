@@ -138,13 +138,13 @@ in
       }
     ];
 
-    environment.systemPackages =
-      [ cfg.package ]
-      ++ lib.optional cfg.jack.enable jack-libs;
+    environment.systemPackages = [
+      cfg.package
+    ] ++ lib.optional cfg.jack.enable jack-libs;
 
-    systemd.packages =
-      [ cfg.package ]
-      ++ lib.optional cfg.pulse.enable cfg.package.pulse;
+    systemd.packages = [
+      cfg.package
+    ] ++ lib.optional cfg.pulse.enable cfg.package.pulse;
 
     # PipeWire depends on DBUS but doesn't list it. Without this booting
     # into a terminal results in the service crashing with an error.

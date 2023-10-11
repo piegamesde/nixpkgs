@@ -17361,9 +17361,9 @@ with self;
       TextUnidecode
       XMLLibXSLT
     ];
-    nativeBuildInputs =
-      [ pkgs.makeWrapper ]
-      ++ lib.optional stdenv.isDarwin shortenPerlShebang;
+    nativeBuildInputs = [
+      pkgs.makeWrapper
+    ] ++ lib.optional stdenv.isDarwin shortenPerlShebang;
     makeMakerFlags = [
       "TEXMF=\${tex}"
       "NOMKTEXLSR"

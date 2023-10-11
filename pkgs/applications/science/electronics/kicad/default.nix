@@ -149,9 +149,9 @@ stdenv.mkDerivation rec {
     python.pkgs.requests
   ];
 
-  nativeBuildInputs =
-    [ makeWrapper ]
-    ++ optionals (withScripting) [ python.pkgs.wrapPython ];
+  nativeBuildInputs = [
+    makeWrapper
+  ] ++ optionals (withScripting) [ python.pkgs.wrapPython ];
 
   # We are emulating wrapGAppsHook, along with other variables to the wrapper
   makeWrapperArgs =

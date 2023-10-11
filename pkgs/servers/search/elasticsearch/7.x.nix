@@ -45,9 +45,9 @@ stdenv.mkDerivation rec {
       "ES_CLASSPATH=\"\$ES_CLASSPATH:$out/\$additional_classpath_directory/*\""
   '';
 
-  nativeBuildInputs =
-    [ makeWrapper ]
-    ++ lib.optional (!stdenv.hostPlatform.isDarwin) autoPatchelfHook;
+  nativeBuildInputs = [
+    makeWrapper
+  ] ++ lib.optional (!stdenv.hostPlatform.isDarwin) autoPatchelfHook;
 
   buildInputs = [
     jre_headless

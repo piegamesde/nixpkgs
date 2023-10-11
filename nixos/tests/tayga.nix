@@ -51,12 +51,14 @@ import ./make-test-python.nix (
           networks."vlan1" = {
             matchConfig.Name = "eth1";
             address = [ "100.64.0.2/24" ];
-            routes = [ {
-              routeConfig = {
-                Destination = "192.0.2.0/24";
-                Gateway = "100.64.0.1";
-              };
-            } ];
+            routes = [
+              {
+                routeConfig = {
+                  Destination = "192.0.2.0/24";
+                  Gateway = "100.64.0.1";
+                };
+              }
+            ];
           };
         };
       };
@@ -88,18 +90,22 @@ import ./make-test-python.nix (
           firewall.enable = false;
           interfaces.eth1 = lib.mkForce {
             ipv4 = {
-              addresses = [ {
-                address = "100.64.0.1";
-                prefixLength = 24;
-              } ];
+              addresses = [
+                {
+                  address = "100.64.0.1";
+                  prefixLength = 24;
+                }
+              ];
             };
           };
           interfaces.eth2 = lib.mkForce {
             ipv6 = {
-              addresses = [ {
-                address = "2001:db8::1";
-                prefixLength = 64;
-              } ];
+              addresses = [
+                {
+                  address = "2001:db8::1";
+                  prefixLength = 64;
+                }
+              ];
             };
           };
         };
@@ -145,18 +151,22 @@ import ./make-test-python.nix (
           firewall.enable = false;
           interfaces.eth1 = lib.mkForce {
             ipv4 = {
-              addresses = [ {
-                address = "100.64.0.1";
-                prefixLength = 24;
-              } ];
+              addresses = [
+                {
+                  address = "100.64.0.1";
+                  prefixLength = 24;
+                }
+              ];
             };
           };
           interfaces.eth2 = lib.mkForce {
             ipv6 = {
-              addresses = [ {
-                address = "2001:db8::1";
-                prefixLength = 64;
-              } ];
+              addresses = [
+                {
+                  address = "2001:db8::1";
+                  prefixLength = 64;
+                }
+              ];
             };
           };
         };
@@ -204,12 +214,14 @@ import ./make-test-python.nix (
           networks."vlan1" = {
             matchConfig.Name = "eth1";
             address = [ "2001:db8::2/64" ];
-            routes = [ {
-              routeConfig = {
-                Destination = "64:ff9b::/96";
-                Gateway = "2001:db8::1";
-              };
-            } ];
+            routes = [
+              {
+                routeConfig = {
+                  Destination = "64:ff9b::/96";
+                  Gateway = "2001:db8::1";
+                };
+              }
+            ];
           };
         };
         environment.systemPackages = [ pkgs.mtr ];

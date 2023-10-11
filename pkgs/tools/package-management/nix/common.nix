@@ -134,9 +134,9 @@ let
       ++ lib.optionals withAWS [ aws-sdk-cpp ]
     ;
 
-    propagatedBuildInputs =
-      [ boehmgc ]
-      ++ lib.optionals (atLeast27) [ nlohmann_json ];
+    propagatedBuildInputs = [
+      boehmgc
+    ] ++ lib.optionals (atLeast27) [ nlohmann_json ];
 
     NIX_LDFLAGS = lib.optionals (!atLeast24) [
       # https://github.com/NixOS/nix/commit/3e85c57a6cbf46d5f0fe8a89b368a43abd26daba

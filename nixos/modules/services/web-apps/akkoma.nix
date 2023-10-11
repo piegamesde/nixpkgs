@@ -146,24 +146,26 @@ let
   configFile = format.generate "config.exs" (
     replaceSec (
       attrsets.updateManyAttrsByPath
-        [ {
-          path = [
-            ":pleroma"
-            "Pleroma.Web.Endpoint"
-            "http"
-            "ip"
-          ];
-          update =
-            addr:
-            if isAbsolutePath addr then
-              format.lib.mkTuple [
-                (format.lib.mkAtom ":local")
-                addr
-              ]
-            else
-              format.lib.mkRaw (erlAddr addr)
-          ;
-        } ]
+        [
+          {
+            path = [
+              ":pleroma"
+              "Pleroma.Web.Endpoint"
+              "http"
+              "ip"
+            ];
+            update =
+              addr:
+              if isAbsolutePath addr then
+                format.lib.mkTuple [
+                  (format.lib.mkAtom ":local")
+                  addr
+                ]
+              else
+                format.lib.mkRaw (erlAddr addr)
+            ;
+          }
+        ]
         cfg.config
     )
   );
@@ -1079,10 +1081,12 @@ in
   };
 
   config = mkIf cfg.enable {
-    warnings = optionals (!config.security.sudo.enable) [ ''
-      The pleroma_ctl wrapper enabled by the installWrapper option relies on
-      sudo, which appears to have been disabled through security.sudo.enable.
-    '' ];
+    warnings = optionals (!config.security.sudo.enable) [
+      ''
+        The pleroma_ctl wrapper enabled by the installWrapper option relies on
+        sudo, which appears to have been disabled through security.sudo.enable.
+      ''
+    ];
 
     users = {
       users."${cfg.user}" = {

@@ -65,13 +65,15 @@ in
 
   config = mkIf cfg.enable {
 
-    assertions = [ {
-      assertion = !hasPrefix "/" cfg.stateDir;
-      message =
-        "The option services.journalbeat.stateDir shouldn't be an absolute directory."
-        + " It should be a directory relative to /var/lib/."
-      ;
-    } ];
+    assertions = [
+      {
+        assertion = !hasPrefix "/" cfg.stateDir;
+        message =
+          "The option services.journalbeat.stateDir shouldn't be an absolute directory."
+          + " It should be a directory relative to /var/lib/."
+        ;
+      }
+    ];
 
     systemd.services.journalbeat = {
       description = "Journalbeat log shipper";

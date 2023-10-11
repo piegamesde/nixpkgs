@@ -875,9 +875,9 @@ lib.fix (
             inherit name shellHook;
 
             depsBuildBuild = lib.optional isCross ghcEnvForBuild;
-            nativeBuildInputs =
-              [ ghcEnv ]
-              ++ optional (allPkgconfigDepends != [ ]) pkg-config ++ collectedToolDepends;
+            nativeBuildInputs = [
+              ghcEnv
+            ] ++ optional (allPkgconfigDepends != [ ]) pkg-config ++ collectedToolDepends;
             buildInputs = otherBuildInputsSystem;
             phases = [ "installPhase" ];
             installPhase = "echo $nativeBuildInputs $buildInputs > $out";

@@ -155,10 +155,12 @@ in
         "mysqlPassword"
       ];
 
-    assertions = [ {
-      assertion = cfg.apiKeyFile != null;
-      message = "Longview needs an API key configured";
-    } ];
+    assertions = [
+      {
+        assertion = cfg.apiKeyFile != null;
+        message = "Longview needs an API key configured";
+      }
+    ];
 
     # Create API key file if not configured.
     services.longview.apiKeyFile = mkIf (cfg.apiKey != "") (

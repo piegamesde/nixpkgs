@@ -48,9 +48,9 @@ stdenv.mkDerivation {
 
   preferLocalBuild = true;
 
-  outputs =
-    [ "out" ]
-    ++ optionals propagateDoc ([ "man" ] ++ optional (pkg-config ? doc) "doc");
+  outputs = [
+    "out"
+  ] ++ optionals propagateDoc ([ "man" ] ++ optional (pkg-config ? doc) "doc");
 
   passthru = {
     inherit targetPrefix suffixSalt;

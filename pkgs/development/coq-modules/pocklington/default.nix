@@ -16,10 +16,12 @@ mkCoqDerivation {
   defaultVersion =
     with lib.versions;
     lib.switch coq.coq-version
-      [ {
-        case = isGe "8.7";
-        out = "8.12.0";
-      } ]
+      [
+        {
+          case = isGe "8.7";
+          out = "8.12.0";
+        }
+      ]
       null;
 
   meta = with lib; {

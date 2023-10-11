@@ -19,9 +19,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-fK0FBn9e7l1Y/A7taFlaoas6ZPREFhEmskVBqjda6q0=";
   };
 
-  configureFlags =
-    [ "--enable-dependency-tracking" ]
-    ++ lib.optional stdenv.isDarwin "--disable-sdltest";
+  configureFlags = [
+    "--enable-dependency-tracking"
+  ] ++ lib.optional stdenv.isDarwin "--disable-sdltest";
 
   nativeBuildInputs = [
     autoreconfHook

@@ -605,10 +605,12 @@ in
             kind = "ClusterRole";
             name = "system:kubelet-api-admin";
           };
-          subjects = [ {
-            kind = "User";
-            name = "system:kube-apiserver";
-          } ];
+          subjects = [
+            {
+              kind = "User";
+              name = "system:kube-apiserver";
+            }
+          ];
         };
       };
 

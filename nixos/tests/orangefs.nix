@@ -37,10 +37,12 @@ import ./make-test-python.nix (
 
         services.orangefs.client = {
           enable = true;
-          fileSystems = [ {
-            target = "tcp://server1:3334/orangefs";
-            mountPoint = "/orangefs";
-          } ];
+          fileSystems = [
+            {
+              target = "tcp://server1:3334/orangefs";
+              mountPoint = "/orangefs";
+            }
+          ];
         };
       };
   in

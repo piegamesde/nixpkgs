@@ -171,10 +171,12 @@ in
     networking.firewall = lib.mkMerge [
       (mkIf cfg.remotePlay.openFirewall {
         allowedTCPPorts = [ 27036 ];
-        allowedUDPPortRanges = [ {
-          from = 27031;
-          to = 27036;
-        } ];
+        allowedUDPPortRanges = [
+          {
+            from = 27031;
+            to = 27036;
+          }
+        ];
       })
 
       (mkIf cfg.dedicatedServer.openFirewall {

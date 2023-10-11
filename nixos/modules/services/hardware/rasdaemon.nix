@@ -126,18 +126,20 @@ in
         "aer-inject"
       ];
 
-    boot.kernelPatches = optionals (cfg.testing) [ {
-      name = "rasdaemon-tests";
-      patch = null;
-      extraConfig = ''
-        EDAC_DEBUG y
-        X86_MCE_INJECT y
+    boot.kernelPatches = optionals (cfg.testing) [
+      {
+        name = "rasdaemon-tests";
+        patch = null;
+        extraConfig = ''
+          EDAC_DEBUG y
+          X86_MCE_INJECT y
 
-        PCIEPORTBUS y
-        PCIEAER y
-        PCIEAER_INJECT y
-      '';
-    } ];
+          PCIEPORTBUS y
+          PCIEAER y
+          PCIEAER_INJECT y
+        '';
+      }
+    ];
 
     # i tried to set up a group for this
     # but rasdaemon needs higher permissions?

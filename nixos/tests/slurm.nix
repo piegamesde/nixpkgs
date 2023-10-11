@@ -113,12 +113,14 @@ import ./make-test-python.nix (
                 GRANT ALL PRIVILEGES ON slurm_acct_db.* TO 'slurm'@'localhost';
               '';
               ensureDatabases = [ "slurm_acct_db" ];
-              ensureUsers = [ {
-                ensurePermissions = {
-                  "slurm_acct_db.*" = "ALL PRIVILEGES";
-                };
-                name = "slurm";
-              } ];
+              ensureUsers = [
+                {
+                  ensurePermissions = {
+                    "slurm_acct_db.*" = "ALL PRIVILEGES";
+                  };
+                  name = "slurm";
+                }
+              ];
               settings.mysqld = {
                 # recommendations from: https://slurm.schedmd.com/accounting.html#mysql-configuration
                 innodb_buffer_pool_size = "1024M";

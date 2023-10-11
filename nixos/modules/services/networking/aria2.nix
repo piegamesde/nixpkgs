@@ -60,10 +60,12 @@ in
       };
       listenPortRange = mkOption {
         type = types.listOf types.attrs;
-        default = [ {
-          from = 6881;
-          to = 6999;
-        } ];
+        default = [
+          {
+            from = 6881;
+            to = 6999;
+          }
+        ];
         description = lib.mdDoc ''
           Set UDP listening port range used by DHT(IPv4, IPv6) and UDP tracker.
         '';

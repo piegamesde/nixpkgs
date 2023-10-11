@@ -811,9 +811,9 @@ in
             "network.target"
             "mastodon-init-dirs.service"
           ] ++ lib.optional databaseActuallyCreateLocally "postgresql.service";
-          requires =
-            [ "mastodon-init-dirs.service" ]
-            ++ lib.optional databaseActuallyCreateLocally "postgresql.service";
+          requires = [
+            "mastodon-init-dirs.service"
+          ] ++ lib.optional databaseActuallyCreateLocally "postgresql.service";
         };
 
         systemd.services.mastodon-streaming = {
@@ -991,10 +991,12 @@ in
             };
         services.postgresql = lib.mkIf databaseActuallyCreateLocally {
           enable = true;
-          ensureUsers = [ {
-            name = cfg.database.user;
-            ensurePermissions."DATABASE ${cfg.database.name}" = "ALL PRIVILEGES";
-          } ];
+          ensureUsers = [
+            {
+              name = cfg.database.user;
+              ensurePermissions."DATABASE ${cfg.database.name}" = "ALL PRIVILEGES";
+            }
+          ];
           ensureDatabases = [ cfg.database.name ];
         };
 

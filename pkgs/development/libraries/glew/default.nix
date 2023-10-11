@@ -47,9 +47,9 @@ stdenv.mkDerivation (
     propagatedBuildInputs = if stdenv.isDarwin then [ OpenGL ] else [ libGLU ]; # GL/glew.h includes GL/glu.h
 
     cmakeDir = "cmake";
-    cmakeFlags =
-      [ "-DBUILD_SHARED_LIBS=ON" ]
-      ++ lib.optional enableEGL "-DGLEW_EGL=ON";
+    cmakeFlags = [
+      "-DBUILD_SHARED_LIBS=ON"
+    ] ++ lib.optional enableEGL "-DGLEW_EGL=ON";
 
     postInstall = ''
       moveToOutput lib/cmake "''${!outputDev}"

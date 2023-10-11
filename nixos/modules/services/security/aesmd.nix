@@ -113,10 +113,12 @@ in
   };
 
   config = mkIf cfg.enable {
-    assertions = [ {
-      assertion = !(config.boot.specialFileSystems."/dev".options ? "noexec");
-      message = "SGX requires exec permission for /dev";
-    } ];
+    assertions = [
+      {
+        assertion = !(config.boot.specialFileSystems."/dev".options ? "noexec");
+        message = "SGX requires exec permission for /dev";
+      }
+    ];
 
     hardware.cpu.intel.sgx.provision.enable = true;
 

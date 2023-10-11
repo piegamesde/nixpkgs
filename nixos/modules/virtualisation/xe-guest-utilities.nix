@@ -51,15 +51,17 @@ in
       };
     };
 
-    systemd.mounts = [ {
-      description = "Mount /proc/xen files";
-      what = "xenfs";
-      where = "/proc/xen";
-      type = "xenfs";
-      unitConfig = {
-        ConditionPathExists = "/proc/xen";
-        RefuseManualStop = "true";
-      };
-    } ];
+    systemd.mounts = [
+      {
+        description = "Mount /proc/xen files";
+        what = "xenfs";
+        where = "/proc/xen";
+        type = "xenfs";
+        unitConfig = {
+          ConditionPathExists = "/proc/xen";
+          RefuseManualStop = "true";
+        };
+      }
+    ];
   };
 }

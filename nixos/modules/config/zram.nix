@@ -115,10 +115,12 @@ in
 
   config = lib.mkIf cfg.enable {
 
-    assertions = [ {
-      assertion = cfg.writebackDevice == null || cfg.swapDevices <= 1;
-      message = "A single writeback device cannot be shared among multiple zram devices";
-    } ];
+    assertions = [
+      {
+        assertion = cfg.writebackDevice == null || cfg.swapDevices <= 1;
+        message = "A single writeback device cannot be shared among multiple zram devices";
+      }
+    ];
 
     system.requiredKernelConfig =
       with config.lib.kernelConfig; [ (isModule "ZRAM") ];

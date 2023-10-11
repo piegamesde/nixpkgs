@@ -844,10 +844,12 @@ in
       let
         httpDiscoItems =
           if (cfg.uploadHttp != null) then
-            [ {
-              url = cfg.uploadHttp.domain;
-              description = "HTTP upload endpoint";
-            } ]
+            [
+              {
+                url = cfg.uploadHttp.domain;
+                description = "HTTP upload endpoint";
+              }
+            ]
           else
             [ ]
         ;
@@ -855,10 +857,12 @@ in
           builtins.foldl'
             (
               acc: muc:
-              [ {
-                url = muc.domain;
-                description = "${muc.domain} MUC endpoint";
-              } ]
+              [
+                {
+                  url = muc.domain;
+                  description = "${muc.domain} MUC endpoint";
+                }
+              ]
               ++ acc
             )
             [ ]

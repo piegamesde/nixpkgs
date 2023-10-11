@@ -189,16 +189,18 @@ let
               "Local hosts and ports to listen on, plus the hosts and ports on remote to forward traffic to. Setting a local port to a value less than 1024 will additionally give the process the required CAP_NET_BIND_SERVICE capability.";
           type = types.listOf (types.submodule localRemoteSubmodule);
           default = [ ];
-          example = [ {
-            local = {
-              host = "127.0.0.1";
-              port = 8080;
-            };
-            remote = {
-              host = "127.0.0.1";
-              port = 8080;
-            };
-          } ];
+          example = [
+            {
+              local = {
+                host = "127.0.0.1";
+                port = 8080;
+              };
+              remote = {
+                host = "127.0.0.1";
+                port = 8080;
+              };
+            }
+          ];
         };
 
         dynamicToRemote = mkOption {

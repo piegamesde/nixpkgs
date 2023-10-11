@@ -82,9 +82,9 @@ stdenv.mkDerivation (
       (python3.withPackages (pp: with pp; [ pygobject3 ]))
     ] ++ lib.optionals enableGeoLocation [ geoclue2 ];
 
-    configureFlags =
-      [ "--enable-installed-tests" ]
-      ++ lib.optionals (!enableGeoLocation) [ "--disable-geoclue" ];
+    configureFlags = [
+      "--enable-installed-tests"
+    ] ++ lib.optionals (!enableGeoLocation) [ "--disable-geoclue" ];
 
     makeFlags = [
       "installed_testdir=${

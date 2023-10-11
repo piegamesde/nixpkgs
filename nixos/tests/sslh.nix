@@ -6,10 +6,12 @@ import ./make-test-python.nix {
       { pkgs, lib, ... }:
       {
         networking.firewall.allowedTCPPorts = [ 443 ];
-        networking.interfaces.eth1.ipv6.addresses = [ {
-          address = "fe00:aa:bb:cc::2";
-          prefixLength = 64;
-        } ];
+        networking.interfaces.eth1.ipv6.addresses = [
+          {
+            address = "fe00:aa:bb:cc::2";
+            prefixLength = 64;
+          }
+        ];
         # sslh is really slow when reverse dns does not work
         networking.hosts = {
           "fe00:aa:bb:cc::2" = [ "server" ];
@@ -45,10 +47,12 @@ import ./make-test-python.nix {
     client =
       { ... }:
       {
-        networking.interfaces.eth1.ipv6.addresses = [ {
-          address = "fe00:aa:bb:cc::1";
-          prefixLength = 64;
-        } ];
+        networking.interfaces.eth1.ipv6.addresses = [
+          {
+            address = "fe00:aa:bb:cc::1";
+            prefixLength = 64;
+          }
+        ];
         networking.hosts."fe00:aa:bb:cc::2" = [ "server" ];
         environment.etc.sshKey = {
           source = ./initrd-network-ssh/id_ed25519; # dont use this anywhere else

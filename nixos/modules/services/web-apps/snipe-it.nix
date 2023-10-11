@@ -374,12 +374,14 @@ in
       enable = true;
       package = mkDefault pkgs.mariadb;
       ensureDatabases = [ db.name ];
-      ensureUsers = [ {
-        name = db.user;
-        ensurePermissions = {
-          "${db.name}.*" = "ALL PRIVILEGES";
-        };
-      } ];
+      ensureUsers = [
+        {
+          name = db.user;
+          ensurePermissions = {
+            "${db.name}.*" = "ALL PRIVILEGES";
+          };
+        }
+      ];
     };
 
     services.phpfpm.pools.snipe-it = {

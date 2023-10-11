@@ -126,9 +126,9 @@ stdenv.mkDerivation rec {
     sha256 = "u2DwNBUxGB1sw5ad0ZoBPQQnqH+RgZOXDZrbkRMeVtA=";
   };
 
-  depsBuildBuild =
-    [ buildPackages.stdenv.cc ]
-    ++ lib.optionals hexagonSupport [ pkg-config ];
+  depsBuildBuild = [
+    buildPackages.stdenv.cc
+  ] ++ lib.optionals hexagonSupport [ pkg-config ];
 
   nativeBuildInputs =
     [

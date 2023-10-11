@@ -111,11 +111,13 @@ in
           metadata = {
             inherit name namespace;
           };
-          rules = [ {
-            apiGroups = [ "*" ];
-            resources = [ "*" ];
-            verbs = [ "*" ];
-          } ];
+          rules = [
+            {
+              apiGroups = [ "*" ];
+              resources = [ "*" ];
+              verbs = [ "*" ];
+            }
+          ];
         };
 
         kube-addon-manager-rb = {
@@ -129,11 +131,13 @@ in
             kind = "Role";
             inherit name;
           };
-          subjects = [ {
-            apiGroup = "rbac.authorization.k8s.io";
-            kind = "User";
-            inherit name;
-          } ];
+          subjects = [
+            {
+              apiGroup = "rbac.authorization.k8s.io";
+              kind = "User";
+              inherit name;
+            }
+          ];
         };
 
         kube-addon-manager-cluster-lister-cr = {
@@ -142,11 +146,13 @@ in
           metadata = {
             name = "${name}:cluster-lister";
           };
-          rules = [ {
-            apiGroups = [ "*" ];
-            resources = [ "*" ];
-            verbs = [ "list" ];
-          } ];
+          rules = [
+            {
+              apiGroups = [ "*" ];
+              resources = [ "*" ];
+              verbs = [ "list" ];
+            }
+          ];
         };
 
         kube-addon-manager-cluster-lister-crb = {
@@ -160,10 +166,12 @@ in
             kind = "ClusterRole";
             name = "${name}:cluster-lister";
           };
-          subjects = [ {
-            kind = "User";
-            inherit name;
-          } ];
+          subjects = [
+            {
+              kind = "User";
+              inherit name;
+            }
+          ];
         };
       }
     );

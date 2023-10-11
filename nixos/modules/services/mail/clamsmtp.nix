@@ -163,10 +163,12 @@ in
         '';
     in
     mkIf cfg.enable {
-      assertions = [ {
-        assertion = config.services.clamav.daemon.enable;
-        message = "clamsmtp requires clamav to be enabled";
-      } ];
+      assertions = [
+        {
+          assertion = config.services.clamav.daemon.enable;
+          message = "clamsmtp requires clamav to be enabled";
+        }
+      ];
 
       systemd.services = listToAttrs (
         imap1

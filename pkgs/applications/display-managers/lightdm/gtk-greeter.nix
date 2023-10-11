@@ -60,10 +60,12 @@ stdenv.mkDerivation rec {
       --replace "Exec=lightdm-gtk-greeter" "Exec=$out/bin/lightdm-gtk-greeter"
   '';
 
-  passthru.xgreeters = linkFarm "lightdm-gtk-greeter-xgreeters" [ {
-    path = "${lightdm-gtk-greeter}/share/xgreeters/lightdm-gtk-greeter.desktop";
-    name = "lightdm-gtk-greeter.desktop";
-  } ];
+  passthru.xgreeters = linkFarm "lightdm-gtk-greeter-xgreeters" [
+    {
+      path = "${lightdm-gtk-greeter}/share/xgreeters/lightdm-gtk-greeter.desktop";
+      name = "lightdm-gtk-greeter.desktop";
+    }
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/Xubuntu/lightdm-gtk-greeter";

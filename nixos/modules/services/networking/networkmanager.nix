@@ -493,13 +493,15 @@ in
 
   config = mkIf cfg.enable {
 
-    assertions = [ {
-      assertion = config.networking.wireless.enable == true -> cfg.unmanaged != [ ];
-      message = ''
-        You can not use networking.networkmanager with networking.wireless.
-        Except if you mark some interfaces as <literal>unmanaged</literal> by NetworkManager.
-      '';
-    } ];
+    assertions = [
+      {
+        assertion = config.networking.wireless.enable == true -> cfg.unmanaged != [ ];
+        message = ''
+          You can not use networking.networkmanager with networking.wireless.
+          Except if you mark some interfaces as <literal>unmanaged</literal> by NetworkManager.
+        '';
+      }
+    ];
 
     hardware.wirelessRegulatoryDatabase = true;
 

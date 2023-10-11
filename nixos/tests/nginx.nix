@@ -61,10 +61,12 @@ import ./make-test-python.nix (
           };
 
           specialisation.justReloadSystem.configuration = {
-            services.nginx.virtualHosts."1.my.test".listen = [ {
-              addr = "127.0.0.1";
-              port = 8080;
-            } ];
+            services.nginx.virtualHosts."1.my.test".listen = [
+              {
+                addr = "127.0.0.1";
+                port = 8080;
+              }
+            ];
           };
 
           specialisation.reloadRestartSystem.configuration = {

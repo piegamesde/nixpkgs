@@ -172,14 +172,16 @@ in
 
   config = {
 
-    assertions = [ {
-      assertion = !localhostMultiple;
-      message = ''
-        `networking.hosts` maps "localhost" to something other than "127.0.0.1"
-        or "::1". This will break some applications. Please use
-        `networking.extraHosts` if you really want to add such a mapping.
-      '';
-    } ];
+    assertions = [
+      {
+        assertion = !localhostMultiple;
+        message = ''
+          `networking.hosts` maps "localhost" to something other than "127.0.0.1"
+          or "::1". This will break some applications. Please use
+          `networking.extraHosts` if you really want to add such a mapping.
+        '';
+      }
+    ];
 
     # These entries are required for "hostname -f" and to resolve both the
     # hostname and FQDN correctly:

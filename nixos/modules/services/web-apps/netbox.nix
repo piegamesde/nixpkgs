@@ -259,12 +259,14 @@ in
     services.postgresql = {
       enable = true;
       ensureDatabases = [ "netbox" ];
-      ensureUsers = [ {
-        name = "netbox";
-        ensurePermissions = {
-          "DATABASE netbox" = "ALL PRIVILEGES";
-        };
-      } ];
+      ensureUsers = [
+        {
+          name = "netbox";
+          ensurePermissions = {
+            "DATABASE netbox" = "ALL PRIVILEGES";
+          };
+        }
+      ];
     };
 
     environment.systemPackages = [ netboxManageScript ];

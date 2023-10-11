@@ -157,9 +157,9 @@ in
     };
 
   cairo = attrs: {
-    nativeBuildInputs =
-      [ pkg-config ]
-      ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
+    nativeBuildInputs = [
+      pkg-config
+    ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
     buildInputs = [
       gtk2
       pcre2
@@ -169,9 +169,9 @@ in
   };
 
   cairo-gobject = attrs: {
-    nativeBuildInputs =
-      [ pkg-config ]
-      ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
+    nativeBuildInputs = [
+      pkg-config
+    ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
     buildInputs = [
       cairo
       pcre2
@@ -338,9 +338,9 @@ in
   };
 
   gio2 = attrs: {
-    nativeBuildInputs =
-      [ pkg-config ]
-      ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
+    nativeBuildInputs = [
+      pkg-config
+    ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
     buildInputs =
       [
         gtk2
@@ -403,9 +403,9 @@ in
   prettier = attrs: { meta.mainProgram = "rbprettier"; };
 
   glib2 = attrs: {
-    nativeBuildInputs =
-      [ pkg-config ]
-      ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
+    nativeBuildInputs = [
+      pkg-config
+    ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
     buildInputs = [
       gtk2
       pcre2

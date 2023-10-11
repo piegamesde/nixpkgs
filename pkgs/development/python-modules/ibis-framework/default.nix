@@ -172,9 +172,9 @@ buildPythonPackage rec {
     rm -r "$IBIS_TEST_DATA_DIRECTORY"
   '';
 
-  pythonImportsCheck =
-    [ "ibis" ]
-    ++ map (backend: "ibis.backends.${backend}") testBackends;
+  pythonImportsCheck = [
+    "ibis"
+  ] ++ map (backend: "ibis.backends.${backend}") testBackends;
 
   passthru = {
     optional-dependencies = {

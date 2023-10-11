@@ -857,25 +857,31 @@ in
         };
       }
       (mkIf cfg.postgresql.enable {
-        assertions = [ {
-          assertion = postgresql.enable;
-          message = "postgresql must be enabled and configured";
-        } ];
+        assertions = [
+          {
+            assertion = postgresql.enable;
+            message = "postgresql must be enabled and configured";
+          }
+        ];
       })
       (mkIf cfg.postfix.enable {
-        assertions = [ {
-          assertion = postfix.enable;
-          message = "postfix must be enabled and configured";
-        } ];
+        assertions = [
+          {
+            assertion = postfix.enable;
+            message = "postfix must be enabled and configured";
+          }
+        ];
         # Needed for sharing the LMTP sockets with JoinsNamespaceOf=
         systemd.services.postfix.serviceConfig.PrivateTmp = true;
       })
       (mkIf cfg.redis.enable { services.redis.vmOverCommit = mkDefault true; })
       (mkIf cfg.nginx.enable {
-        assertions = [ {
-          assertion = nginx.enable;
-          message = "nginx must be enabled and configured";
-        } ];
+        assertions = [
+          {
+            assertion = nginx.enable;
+            message = "nginx must be enabled and configured";
+          }
+        ];
         # For proxyPass= in virtual-hosts for Sourcehut services.
         services.nginx.recommendedProxySettings = mkDefault true;
       })
@@ -1485,16 +1491,18 @@ in
       };
       extraConfig = mkMerge [
         {
-          assertions = [ {
-            assertion =
-              let
-                s = cfg.settings."meta.sr.ht::billing";
-              in
-              s.enabled == "yes"
-              -> (s.stripe-public-key != null && s.stripe-secret-key != null)
-            ;
-            message = "If meta.sr.ht::billing is enabled, the keys must be defined.";
-          } ];
+          assertions = [
+            {
+              assertion =
+                let
+                  s = cfg.settings."meta.sr.ht::billing";
+                in
+                s.enabled == "yes"
+                -> (s.stripe-public-key != null && s.stripe-secret-key != null)
+              ;
+              message = "If meta.sr.ht::billing is enabled, the keys must be defined.";
+            }
+          ];
           environment.systemPackages = optional cfg.meta.enable (
             pkgs.writeShellScriptBin "metasrht-manageuser" ''
               set -eux

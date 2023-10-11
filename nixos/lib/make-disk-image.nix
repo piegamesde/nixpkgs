@@ -388,9 +388,9 @@ let
   users = map (x: x.user or "''") contents;
   groups = map (x: x.group or "''") contents;
 
-  basePaths =
-    [ config.system.build.toplevel ]
-    ++ lib.optional copyChannel channelSources;
+  basePaths = [
+    config.system.build.toplevel
+  ] ++ lib.optional copyChannel channelSources;
 
   additionalPaths' = subtractLists basePaths additionalPaths;
 

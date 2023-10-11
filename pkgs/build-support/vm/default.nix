@@ -175,10 +175,12 @@ rec {
   '';
 
   initrd = pkgs.makeInitrd {
-    contents = [ {
-      object = stage1Init;
-      symlink = "/init";
-    } ];
+    contents = [
+      {
+        object = stage1Init;
+        symlink = "/init";
+      }
+    ];
   };
 
   stage2Init = writeScript "vm-run-stage2" ''

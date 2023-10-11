@@ -143,9 +143,9 @@ in
   ###### implementation
 
   config = mkIf cfg.enable {
-    environment.systemPackages =
-      [ package ]
-      ++ optional cfg.hsphfpd.enable pkgs.hsphfpd;
+    environment.systemPackages = [
+      package
+    ] ++ optional cfg.hsphfpd.enable pkgs.hsphfpd;
 
     environment.etc."bluetooth/input.conf".source =
       cfgFmt.generate "input.conf"
@@ -157,9 +157,9 @@ in
       recursiveUpdate defaults cfg.settings
     );
     services.udev.packages = [ package ];
-    services.dbus.packages =
-      [ package ]
-      ++ optional cfg.hsphfpd.enable pkgs.hsphfpd;
+    services.dbus.packages = [
+      package
+    ] ++ optional cfg.hsphfpd.enable pkgs.hsphfpd;
     systemd.packages = [ package ];
 
     systemd.services =

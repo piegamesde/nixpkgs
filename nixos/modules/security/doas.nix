@@ -252,10 +252,12 @@ in
 
   config = mkIf cfg.enable {
 
-    security.doas.extraRules = mkOrder 600 [ {
-      groups = [ "wheel" ];
-      noPass = !cfg.wheelNeedsPassword;
-    } ];
+    security.doas.extraRules = mkOrder 600 [
+      {
+        groups = [ "wheel" ];
+        noPass = !cfg.wheelNeedsPassword;
+      }
+    ];
 
     security.wrappers.doas = {
       setuid = true;

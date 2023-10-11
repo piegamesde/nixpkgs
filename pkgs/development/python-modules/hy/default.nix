@@ -28,9 +28,9 @@ buildPythonPackage rec {
   # https://github.com/hylang/hy/blob/1.0a4/get_version.py#L9-L10
   HY_VERSION = version;
 
-  propagatedBuildInputs =
-    [ funcparserlib ]
-    ++ lib.optionals (pythonOlder "3.9") [ astor ];
+  propagatedBuildInputs = [
+    funcparserlib
+  ] ++ lib.optionals (pythonOlder "3.9") [ astor ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

@@ -45,9 +45,9 @@ let
   nsdEnv = pkgs.buildEnv {
     name = "nsd-env";
 
-    paths =
-      [ configFile ]
-      ++ mapAttrsToList (name: zone: writeZoneData name zone.data) zoneConfigs;
+    paths = [
+      configFile
+    ] ++ mapAttrsToList (name: zone: writeZoneData name zone.data) zoneConfigs;
 
     postBuild = ''
       echo "checking zone files"

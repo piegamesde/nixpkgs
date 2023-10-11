@@ -274,11 +274,13 @@ rec {
               && ((testsToRun == [ ]) || elem name tests.tests)
               && (test.expr != test.expected)
             then
-              [ {
-                inherit name;
-                expected = test.expected;
-                result = test.expr;
-              } ]
+              [
+                {
+                  inherit name;
+                  expected = test.expected;
+                  result = test.expr;
+                }
+              ]
             else
               [ ]
           )

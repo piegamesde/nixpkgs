@@ -42,10 +42,12 @@ in
   };
 
   config = mkIf (config.boot.initrd.network.enable && cfg.enable) {
-    assertions = [ {
-      assertion = cfg.configuration != null;
-      message = "You should specify a configuration for initrd OpenVPN";
-    } ];
+    assertions = [
+      {
+        assertion = cfg.configuration != null;
+        message = "You should specify a configuration for initrd OpenVPN";
+      }
+    ];
 
     # Add kernel modules needed for OpenVPN
     boot.initrd.kernelModules = [

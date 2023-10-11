@@ -494,16 +494,18 @@ in
       enable = true;
       package = mkDefault pkgs.mariadb;
       ensureDatabases = [ cfg.database.name ];
-      ensureUsers = [ {
-        name = cfg.database.user;
-        ensurePermissions = {
-          "${cfg.database.name}.*" = "ALL PRIVILEGES";
-          # WriteFreely requires the use of passwords, so we need permissions
-          # to `ALTER` the user to add password support and also to reload
-          # permissions so they can be used.
-          "*.*" = "CREATE USER, RELOAD";
-        };
-      } ];
+      ensureUsers = [
+        {
+          name = cfg.database.user;
+          ensurePermissions = {
+            "${cfg.database.name}.*" = "ALL PRIVILEGES";
+            # WriteFreely requires the use of passwords, so we need permissions
+            # to `ALTER` the user to add password support and also to reload
+            # permissions so they can be used.
+            "*.*" = "CREATE USER, RELOAD";
+          };
+        }
+      ];
     };
 
     services.nginx = lib.mkIf cfg.nginx.enable {

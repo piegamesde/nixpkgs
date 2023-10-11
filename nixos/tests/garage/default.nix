@@ -14,10 +14,12 @@ let
     }:
     { pkgs, ... }:
     {
-      networking.interfaces.eth1.ipv6.addresses = [ {
-        address = publicV6Address;
-        prefixLength = 64;
-      } ];
+      networking.interfaces.eth1.ipv6.addresses = [
+        {
+          address = publicV6Address;
+          prefixLength = 64;
+        }
+      ];
 
       networking.firewall.allowedTCPPorts = [
         3901

@@ -30,13 +30,15 @@ mkCoqDerivation {
         coq.version
         mathcomp.version
       ]
-      [ {
-        cases = [
-          (range "8.12" "8.16")
-          (isGe "1.12")
-        ];
-        out = "2.0";
-      } ]
+      [
+        {
+          cases = [
+            (range "8.12" "8.16")
+            (isGe "1.12")
+          ];
+          out = "2.0";
+        }
+      ]
       null;
 
   propagatedBuildInputs = [

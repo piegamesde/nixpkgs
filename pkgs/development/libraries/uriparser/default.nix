@@ -18,9 +18,9 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  cmakeFlags =
-    [ "-DURIPARSER_BUILD_DOCS=OFF" ]
-    ++ lib.optional (!doCheck) "-DURIPARSER_BUILD_TESTS=OFF";
+  cmakeFlags = [
+    "-DURIPARSER_BUILD_DOCS=OFF"
+  ] ++ lib.optional (!doCheck) "-DURIPARSER_BUILD_TESTS=OFF";
 
   nativeCheckInputs = [ gtest ];
   doCheck = stdenv.buildPlatform == stdenv.hostPlatform;

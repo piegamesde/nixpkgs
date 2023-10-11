@@ -139,13 +139,15 @@ in
   };
 
   config = mkIf cfg.enable {
-    assertions = [ {
-      assertion = cfg.extraSessionCommands != "" -> cfg.wrapperFeatures.base;
-      message = ''
-        The extraSessionCommands for Sway will not be run if
-        wrapperFeatures.base is disabled.
-      '';
-    } ];
+    assertions = [
+      {
+        assertion = cfg.extraSessionCommands != "" -> cfg.wrapperFeatures.base;
+        message = ''
+          The extraSessionCommands for Sway will not be run if
+          wrapperFeatures.base is disabled.
+        '';
+      }
+    ];
     environment = {
       systemPackages =
         optional (cfg.package != null) cfg.package ++ cfg.extraPackages;

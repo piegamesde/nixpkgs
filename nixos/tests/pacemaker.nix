@@ -7,10 +7,12 @@ import ./make-test-python.nix (
     nodes =
       let
         node = i: {
-          networking.interfaces.eth1.ipv4.addresses = [ {
-            address = "192.168.0.${toString i}";
-            prefixLength = 24;
-          } ];
+          networking.interfaces.eth1.ipv4.addresses = [
+            {
+              address = "192.168.0.${toString i}";
+              prefixLength = 24;
+            }
+          ];
 
           services.corosync = {
             enable = true;

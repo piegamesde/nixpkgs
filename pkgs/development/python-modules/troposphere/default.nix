@@ -25,9 +25,9 @@ buildPythonPackage rec {
     hash = "sha256-YciNwiLb/1fUYmlWtDRaJgtkgJi1mMt2FgeJKQi9yRg=";
   };
 
-  propagatedBuildInputs =
-    [ cfn-flip ]
-    ++ lib.lists.optionals (pythonOlder "3.8") [ typing-extensions ];
+  propagatedBuildInputs = [
+    cfn-flip
+  ] ++ lib.lists.optionals (pythonOlder "3.8") [ typing-extensions ];
 
   nativeCheckInputs = [ awacs ];
 

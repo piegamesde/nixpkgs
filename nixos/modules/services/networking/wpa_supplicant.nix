@@ -560,31 +560,33 @@ in
             options networking.wireless."${name}".{psk,pskRaw,auth} are mutually exclusive'';
         }
       )
-      ++ [ {
-        assertion = length cfg.interfaces > 1 -> !cfg.dbusControlled;
-        message =
-          let
-            daemon =
-              if config.networking.networkmanager.enable then
-                "NetworkManager"
-              else if config.services.connman.enable then
-                "connman"
-              else
-                null
-            ;
-            n = toString (length cfg.interfaces);
-          in
-          ''
-            It's not possible to run multiple wpa_supplicant instances with DBus support.
-            Note: you're seeing this error because `networking.wireless.interfaces` has
-            ${n} entries, implying an equal number of wpa_supplicant instances.
-          ''
-          + optionalString (daemon != null) ''
-            You don't need to change `networking.wireless.interfaces` when using ${daemon}:
-            in this case the interfaces will be configured automatically for you.
-          ''
-        ;
-      } ];
+      ++ [
+        {
+          assertion = length cfg.interfaces > 1 -> !cfg.dbusControlled;
+          message =
+            let
+              daemon =
+                if config.networking.networkmanager.enable then
+                  "NetworkManager"
+                else if config.services.connman.enable then
+                  "connman"
+                else
+                  null
+              ;
+              n = toString (length cfg.interfaces);
+            in
+            ''
+              It's not possible to run multiple wpa_supplicant instances with DBus support.
+              Note: you're seeing this error because `networking.wireless.interfaces` has
+              ${n} entries, implying an equal number of wpa_supplicant instances.
+            ''
+            + optionalString (daemon != null) ''
+              You don't need to change `networking.wireless.interfaces` when using ${daemon}:
+              in this case the interfaces will be configured automatically for you.
+            ''
+          ;
+        }
+      ];
 
     hardware.wirelessRegulatoryDatabase = true;
 

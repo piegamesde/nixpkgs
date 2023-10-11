@@ -9,10 +9,12 @@ import ./make-test-python.nix (
     clusterName = "NixOS Automated-Test Cluster";
 
     testRemoteAuth = lib.versionAtLeast testPackage.version "3.11";
-    jmxRoles = [ {
-      username = "me";
-      password = "password";
-    } ];
+    jmxRoles = [
+      {
+        username = "me";
+        password = "password";
+      }
+    ];
     jmxRolesFile = ./cassandra-jmx-roles;
     jmxAuthArgs = "-u ${(builtins.elemAt jmxRoles 0).username} -pw ${
         (builtins.elemAt jmxRoles 0).password
@@ -54,10 +56,12 @@ import ./make-test-python.nix (
             services.cassandra.jmxPort
           ];
           useDHCP = false;
-          interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [ {
-            address = ipAddress;
-            prefixLength = 24;
-          } ];
+          interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [
+            {
+              address = ipAddress;
+              prefixLength = 24;
+            }
+          ];
         };
         services.cassandra = cassandraCfg ipAddress // extra;
       };

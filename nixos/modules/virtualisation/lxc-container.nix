@@ -140,31 +140,35 @@ in
     '';
 
     system.build.metadata = pkgs.callPackage ../../lib/make-system-tarball.nix {
-      contents = [ {
-        source = toYAML "metadata.yaml" {
-          architecture =
-            builtins.elemAt (builtins.match "^([a-z0-9_]+).+" (toString pkgs.system))
-              0;
-          creation_date = 1;
-          properties = {
-            description = "${config.system.nixos.distroName} ${config.system.nixos.codeName} ${config.system.nixos.label} ${pkgs.system}";
-            os = "${config.system.nixos.distroId}";
-            release = "${config.system.nixos.codeName}";
+      contents = [
+        {
+          source = toYAML "metadata.yaml" {
+            architecture =
+              builtins.elemAt (builtins.match "^([a-z0-9_]+).+" (toString pkgs.system))
+                0;
+            creation_date = 1;
+            properties = {
+              description = "${config.system.nixos.distroName} ${config.system.nixos.codeName} ${config.system.nixos.label} ${pkgs.system}";
+              os = "${config.system.nixos.distroId}";
+              release = "${config.system.nixos.codeName}";
+            };
+            templates = templates.properties;
           };
-          templates = templates.properties;
-        };
-        target = "/metadata.yaml";
-      } ] ++ templates.files;
+          target = "/metadata.yaml";
+        }
+      ] ++ templates.files;
     };
 
     # TODO: build rootfs as squashfs for faster unpack
     system.build.tarball = pkgs.callPackage ../../lib/make-system-tarball.nix {
       extraArgs = "--owner=0";
 
-      storeContents = [ {
-        object = config.system.build.toplevel;
-        symlink = "none";
-      } ];
+      storeContents = [
+        {
+          object = config.system.build.toplevel;
+          symlink = "none";
+        }
+      ];
 
       contents = [
         {

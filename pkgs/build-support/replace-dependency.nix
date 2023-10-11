@@ -100,10 +100,12 @@ let
       } | $nixStore --restore $out
     '';
 
-  rewrittenDeps = listToAttrs [ {
-    name = discard (toString oldDependency);
-    value = newDependency;
-  } ];
+  rewrittenDeps = listToAttrs [
+    {
+      name = discard (toString oldDependency);
+      value = newDependency;
+    }
+  ];
 
   rewriteMemo =
     listToAttrs (

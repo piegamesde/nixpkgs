@@ -210,12 +210,14 @@ in
     services.postgresql = mkIf localDB {
       enable = true;
       ensureDatabases = [ cfg.database.dbname ];
-      ensureUsers = [ {
-        name = cfg.database.username;
-        ensurePermissions = {
-          "DATABASE ${cfg.database.username}" = "ALL PRIVILEGES";
-        };
-      } ];
+      ensureUsers = [
+        {
+          name = cfg.database.username;
+          ensurePermissions = {
+            "DATABASE ${cfg.database.username}" = "ALL PRIVILEGES";
+          };
+        }
+      ];
     };
 
     users.users.${user} = mkIf localDB {

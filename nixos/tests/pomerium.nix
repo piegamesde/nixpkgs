@@ -27,10 +27,12 @@ import ./make-test-python.nix (
                   "dummy-oidc"
                 ];
               };
-              interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [ {
-                address = myIP;
-                prefixLength = 24;
-              } ];
+              interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [
+                {
+                  address = myIP;
+                  prefixLength = 24;
+                }
+              ];
             };
           };
       in

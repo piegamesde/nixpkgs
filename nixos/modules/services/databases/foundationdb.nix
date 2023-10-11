@@ -362,19 +362,21 @@ in
   };
 
   config = mkIf cfg.enable {
-    assertions = [ {
-      assertion =
-        lib.versionOlder cfg.package.version "6.1" -> cfg.traceFormat == "xml";
-      message =
-        ''
-          Versions of FoundationDB before 6.1 do not support configurable trace formats (only XML is supported).
-          This option has no effect for version ''
-        + cfg.package.version
-        + ''
-          , and enabling it is an error.
-        ''
-      ;
-    } ];
+    assertions = [
+      {
+        assertion =
+          lib.versionOlder cfg.package.version "6.1" -> cfg.traceFormat == "xml";
+        message =
+          ''
+            Versions of FoundationDB before 6.1 do not support configurable trace formats (only XML is supported).
+            This option has no effect for version ''
+          + cfg.package.version
+          + ''
+            , and enabling it is an error.
+          ''
+        ;
+      }
+    ];
 
     environment.systemPackages = [ pkg ];
 
@@ -390,10 +392,12 @@ in
       foundationdb.gid = config.ids.gids.foundationdb;
     };
 
-    networking.firewall.allowedTCPPortRanges = mkIf cfg.openFirewall [ {
-      from = cfg.listenPortStart;
-      to = (cfg.listenPortStart + cfg.serverProcesses) - 1;
-    } ];
+    networking.firewall.allowedTCPPortRanges = mkIf cfg.openFirewall [
+      {
+        from = cfg.listenPortStart;
+        to = (cfg.listenPortStart + cfg.serverProcesses) - 1;
+      }
+    ];
 
     systemd.tmpfiles.rules = [
       "d /etc/foundationdb 0755 ${cfg.user} ${cfg.group} - -"

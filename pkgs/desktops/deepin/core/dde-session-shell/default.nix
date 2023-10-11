@@ -98,10 +98,12 @@ stdenv.mkDerivation rec {
     qtWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';
 
-  passthru.xgreeters = linkFarm "deepin-greeter-xgreeters" [ {
-    path = "${dde-session-shell}/share/xgreeters/lightdm-deepin-greeter.desktop";
-    name = "lightdm-deepin-greeter.desktop";
-  } ];
+  passthru.xgreeters = linkFarm "deepin-greeter-xgreeters" [
+    {
+      path = "${dde-session-shell}/share/xgreeters/lightdm-deepin-greeter.desktop";
+      name = "lightdm-deepin-greeter.desktop";
+    }
+  ];
 
   meta = with lib; {
     description = "Deepin desktop-environment - session-shell module";

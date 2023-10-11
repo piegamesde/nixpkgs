@@ -148,9 +148,9 @@ let
             filter (i: !(hasAttr i.name cfg.bridges)) interfaces
           );
           conflicts = [ "shutdown.target" ];
-          wantedBy =
-            [ "multi-user.target" ]
-            ++ optional hasDefaultGatewaySet "network-online.target";
+          wantedBy = [
+            "multi-user.target"
+          ] ++ optional hasDefaultGatewaySet "network-online.target";
 
           unitConfig.ConditionCapability = "CAP_NET_ADMIN";
 
@@ -558,9 +558,9 @@ let
               ];
               bindsTo = deps;
               partOf = [ "network-setup.service" ];
-              after =
-                [ "network-pre.target" ]
-                ++ deps ++ map (i: "network-addresses-${i}.service") v.interfaces;
+              after = [
+                "network-pre.target"
+              ] ++ deps ++ map (i: "network-addresses-${i}.service") v.interfaces;
               before = [ "network-setup.service" ];
               serviceConfig.Type = "oneshot";
               serviceConfig.RemainAfterExit = true;

@@ -192,10 +192,12 @@ in
       source $ZSH/oh-my-zsh.sh
     '';
 
-    assertions = [ {
-      assertion = cfg.custom != null -> cfg.customPkgs == [ ];
-      message = "If `cfg.custom` is set for `ZSH_CUSTOM`, `customPkgs` can't be used!";
-    } ];
+    assertions = [
+      {
+        assertion = cfg.custom != null -> cfg.customPkgs == [ ];
+        message = "If `cfg.custom` is set for `ZSH_CUSTOM`, `customPkgs` can't be used!";
+      }
+    ];
   };
 
   meta.doc = ./oh-my-zsh.md;

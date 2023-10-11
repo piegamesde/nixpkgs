@@ -98,9 +98,9 @@ in
     systemd.services.dex = {
       description = "dex identity provider";
       wantedBy = [ "multi-user.target" ];
-      after =
-        [ "networking.target" ]
-        ++ (optional (cfg.settings.storage.type == "postgres") "postgresql.service");
+      after = [
+        "networking.target"
+      ] ++ (optional (cfg.settings.storage.type == "postgres") "postgresql.service");
       path = with pkgs; [ replace-secret ];
       serviceConfig =
         {

@@ -98,10 +98,12 @@ in
           }
         );
         default = [ ];
-        example = [ {
-          callbackURL = "https://example.com/client/oidc/callback";
-          id = "service";
-        } ];
+        example = [
+          {
+            callbackURL = "https://example.com/client/oidc/callback";
+            id = "service";
+          }
+        ];
         description = lib.mdDoc ''
           List of OIDC clients.
 
@@ -175,10 +177,12 @@ in
   };
 
   config = mkIf cfg.enable {
-    assertions = [ {
-      assertion = cfg.dex.enable -> cfg.ldap.searchUserName != "";
-      message = "services.portunus.dex.enable requires services.portunus.ldap.searchUserName to be set.";
-    } ];
+    assertions = [
+      {
+        assertion = cfg.dex.enable -> cfg.ldap.searchUserName != "";
+        message = "services.portunus.dex.enable requires services.portunus.ldap.searchUserName to be set.";
+      }
+    ];
 
     # add ldapsearch(1) etc. to interactive shells
     environment.systemPackages = [ cfg.ldap.package ];
@@ -199,34 +203,38 @@ in
           config.file = "/var/lib/dex/dex.db";
         };
         enablePasswordDB = false;
-        connectors = [ {
-          type = "ldap";
-          id = "ldap";
-          name = "LDAP";
-          config = {
-            host = "${cfg.domain}:636";
-            bindDN = "uid=${cfg.ldap.searchUserName},ou=users,${cfg.ldap.suffix}";
-            bindPW = "$DEX_SEARCH_USER_PASSWORD";
-            userSearch = {
-              baseDN = "ou=users,${cfg.ldap.suffix}";
-              filter = "(objectclass=person)";
-              username = "uid";
-              idAttr = "uid";
-              emailAttr = "mail";
-              nameAttr = "cn";
-              preferredUsernameAttr = "uid";
+        connectors = [
+          {
+            type = "ldap";
+            id = "ldap";
+            name = "LDAP";
+            config = {
+              host = "${cfg.domain}:636";
+              bindDN = "uid=${cfg.ldap.searchUserName},ou=users,${cfg.ldap.suffix}";
+              bindPW = "$DEX_SEARCH_USER_PASSWORD";
+              userSearch = {
+                baseDN = "ou=users,${cfg.ldap.suffix}";
+                filter = "(objectclass=person)";
+                username = "uid";
+                idAttr = "uid";
+                emailAttr = "mail";
+                nameAttr = "cn";
+                preferredUsernameAttr = "uid";
+              };
+              groupSearch = {
+                baseDN = "ou=groups,${cfg.ldap.suffix}";
+                filter = "(objectclass=groupOfNames)";
+                nameAttr = "cn";
+                userMatchers = [
+                  {
+                    userAttr = "DN";
+                    groupAttr = "member";
+                  }
+                ];
+              };
             };
-            groupSearch = {
-              baseDN = "ou=groups,${cfg.ldap.suffix}";
-              filter = "(objectclass=groupOfNames)";
-              nameAttr = "cn";
-              userMatchers = [ {
-                userAttr = "DN";
-                groupAttr = "member";
-              } ];
-            };
-          };
-        } ];
+          }
+        ];
 
         staticClients = forEach cfg.dex.oidcClients (
           client: {

@@ -15,9 +15,9 @@
 deployAndroidPackage {
   name = "androidsdk";
   inherit package os;
-  nativeBuildInputs =
-    [ makeWrapper ]
-    ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ];
+  nativeBuildInputs = [
+    makeWrapper
+  ] ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ];
 
   patchInstructions = ''
     ${lib.optionalString (os == "linux") ''

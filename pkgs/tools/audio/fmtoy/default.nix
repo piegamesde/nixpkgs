@@ -35,9 +35,9 @@ stdenv.mkDerivation rec {
     ''
   ;
 
-  nativeBuildInputs =
-    [ dos2unix ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [ pkg-config ];
+  nativeBuildInputs = [
+    dos2unix
+  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ pkg-config ];
 
   buildInputs =
     [ zlib ]

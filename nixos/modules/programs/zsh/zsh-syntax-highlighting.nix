@@ -137,13 +137,15 @@ in
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [ zsh-syntax-highlighting ];
 
-    assertions = [ {
-      assertion =
-        length (attrNames cfg.patterns) > 0 -> elem "pattern" cfg.highlighters;
-      message = ''
-        When highlighting patterns, "pattern" needs to be included in the list of highlighters.
-      '';
-    } ];
+    assertions = [
+      {
+        assertion =
+          length (attrNames cfg.patterns) > 0 -> elem "pattern" cfg.highlighters;
+        message = ''
+          When highlighting patterns, "pattern" needs to be included in the list of highlighters.
+        '';
+      }
+    ];
 
     programs.zsh.interactiveShellInit =
       with pkgs;

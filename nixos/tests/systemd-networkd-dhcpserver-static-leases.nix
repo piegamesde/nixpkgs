@@ -32,12 +32,14 @@ import ./make-test-python.nix (
                 DHCPServer = true;
                 Address = "10.0.0.1/24";
               };
-              dhcpServerStaticLeases = [ {
-                dhcpServerStaticLeaseConfig = {
-                  MACAddress = "02:de:ad:be:ef:01";
-                  Address = "10.0.0.10";
-                };
-              } ];
+              dhcpServerStaticLeases = [
+                {
+                  dhcpServerStaticLeaseConfig = {
+                    MACAddress = "02:de:ad:be:ef:01";
+                    Address = "10.0.0.10";
+                  };
+                }
+              ];
             };
           };
         };

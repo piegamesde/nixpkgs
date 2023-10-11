@@ -222,11 +222,13 @@ in
 
       memorySize = cfg.memorySize;
 
-      forwardPorts = [ {
-        from = "host";
-        guest.port = 22;
-        host.port = cfg.hostPort;
-      } ];
+      forwardPorts = [
+        {
+          from = "host";
+          guest.port = 22;
+          host.port = cfg.hostPort;
+        }
+      ];
 
       # Disable graphics for the builder since users will likely want to run it
       # non-interactively in the background.

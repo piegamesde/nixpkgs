@@ -75,9 +75,9 @@ mkDerivation rec {
 
   buildFlags = lib.optional withDocumentation "docs";
 
-  installFlags =
-    [ "INSTALL_ROOT=$(out)" ]
-    ++ lib.optional withDocumentation "install_docs";
+  installFlags = [
+    "INSTALL_ROOT=$(out)"
+  ] ++ lib.optional withDocumentation "install_docs";
 
   qtWrapperArgs = [
     "--set-default PERFPROFILER_PARSER_FILEPATH ${lib.getBin perf}/bin"

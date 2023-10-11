@@ -64,19 +64,23 @@ import ./make-test-python.nix (
               commands = [ ];
             }
             {
-              commands = [ {
-                command = "ALL";
-                options = [ ];
-              } ];
+              commands = [
+                {
+                  command = "ALL";
+                  options = [ ];
+                }
+              ];
             }
 
             # Test defining commands with the options syntax, though not setting any options
             {
               users = [ "notest2" ];
-              commands = [ {
-                command = "ALL";
-                options = [ ];
-              } ];
+              commands = [
+                {
+                  command = "ALL";
+                  options = [ ];
+                }
+              ];
             }
 
             # CONFIGURATION FOR TEST CASES
@@ -90,23 +94,27 @@ import ./make-test-python.nix (
                 "barfoo"
                 1337
               ];
-              commands = [ {
-                command = "ALL";
-                options = [
-                  "NOPASSWD"
-                  "NOSETENV"
-                ];
-              } ];
+              commands = [
+                {
+                  command = "ALL";
+                  options = [
+                    "NOPASSWD"
+                    "NOSETENV"
+                  ];
+                }
+              ];
             }
             {
               users = [ "test5" ];
-              commands = [ {
-                command = "ALL";
-                options = [
-                  "NOPASSWD"
-                  "SETENV"
-                ];
-              } ];
+              commands = [
+                {
+                  command = "ALL";
+                  options = [
+                    "NOPASSWD"
+                    "SETENV"
+                  ];
+                }
+              ];
               runAs = "test1:barfoo";
             }
           ];

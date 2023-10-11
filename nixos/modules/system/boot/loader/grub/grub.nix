@@ -842,11 +842,13 @@ in
 
       boot.loader.grub.devices = optional (cfg.device != "") cfg.device;
 
-      boot.loader.grub.mirroredBoots = optionals (cfg.devices != [ ]) [ {
-        path = "/boot";
-        inherit (cfg) devices;
-        inherit (efi) efiSysMountPoint;
-      } ];
+      boot.loader.grub.mirroredBoots = optionals (cfg.devices != [ ]) [
+        {
+          path = "/boot";
+          inherit (cfg) devices;
+          inherit (efi) efiSysMountPoint;
+        }
+      ];
 
       boot.loader.supportsInitrdSecrets = true;
 

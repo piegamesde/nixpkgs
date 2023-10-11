@@ -44,15 +44,19 @@ import ./make-test-python.nix (
 
     # Adds an address and route from a to b via Eve
     addRoute = a: b: {
-      interfaces.eth1.ipv6.addresses = [ {
-        address = a;
-        prefixLength = 64;
-      } ];
-      interfaces.eth1.ipv6.routes = [ {
-        address = b;
-        prefixLength = 128;
-        via = "fd::e";
-      } ];
+      interfaces.eth1.ipv6.addresses = [
+        {
+          address = a;
+          prefixLength = 64;
+        }
+      ];
+      interfaces.eth1.ipv6.routes = [
+        {
+          address = b;
+          prefixLength = 128;
+          via = "fd::e";
+        }
+      ];
     };
   in
 
@@ -91,10 +95,12 @@ import ./make-test-python.nix (
         networking = lib.mkMerge [
           baseNetwork
           {
-            interfaces.br0.ipv6.addresses = [ {
-              address = "fd::e";
-              prefixLength = 64;
-            } ];
+            interfaces.br0.ipv6.addresses = [
+              {
+                address = "fd::e";
+                prefixLength = 64;
+              }
+            ];
             bridges.br0.interfaces = [
               "eth1"
               "eth2"

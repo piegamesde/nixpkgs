@@ -47,31 +47,35 @@ import ./make-test-python.nix (
                 }
               ];
 
-              chargers = [ {
-                name = "dummy-charger";
-                type = "custom";
-                status = {
-                  source = "script";
-                  cmd = "/bin/sh -c 'echo charger status F'";
-                };
-                enabled = {
-                  source = "script";
-                  cmd = "/bin/sh -c 'echo charger enabled state false'";
-                };
-                enable = {
-                  source = "script";
-                  cmd = "/bin/sh -c 'echo set charger enabled state true'";
-                };
-                maxcurrent = {
-                  source = "script";
-                  cmd = "/bin/sh -c 'echo set charger max current 7200'";
-                };
-              } ];
+              chargers = [
+                {
+                  name = "dummy-charger";
+                  type = "custom";
+                  status = {
+                    source = "script";
+                    cmd = "/bin/sh -c 'echo charger status F'";
+                  };
+                  enabled = {
+                    source = "script";
+                    cmd = "/bin/sh -c 'echo charger enabled state false'";
+                  };
+                  enable = {
+                    source = "script";
+                    cmd = "/bin/sh -c 'echo set charger enabled state true'";
+                  };
+                  maxcurrent = {
+                    source = "script";
+                    cmd = "/bin/sh -c 'echo set charger max current 7200'";
+                  };
+                }
+              ];
 
-              loadpoints = [ {
-                title = "Dummy";
-                charger = "dummy-charger";
-              } ];
+              loadpoints = [
+                {
+                  title = "Dummy";
+                  charger = "dummy-charger";
+                }
+              ];
             };
           };
         };

@@ -37,10 +37,12 @@ mkCoqDerivation {
   defaultVersion =
     with lib.versions;
     lib.switch coq.version
-      [ {
-        case = isEq "8.13";
-        out = "2021-09-17";
-      } ]
+      [
+        {
+          case = isEq "8.13";
+          out = "2021-09-17";
+        }
+      ]
       null;
 
   propagatedBuildInputs =

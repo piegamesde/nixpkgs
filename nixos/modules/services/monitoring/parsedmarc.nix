@@ -470,10 +470,12 @@ in
               };
             }
           ];
-        dashboards.settings.providers = lib.mkIf cfg.provision.grafana.dashboard [ {
-          name = "parsedmarc";
-          options.path = "${pkgs.python3Packages.parsedmarc.dashboard}";
-        } ];
+        dashboards.settings.providers = lib.mkIf cfg.provision.grafana.dashboard [
+          {
+            name = "parsedmarc";
+            options.path = "${pkgs.python3Packages.parsedmarc.dashboard}";
+          }
+        ];
       };
     };
 

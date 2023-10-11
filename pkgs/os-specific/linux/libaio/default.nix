@@ -22,9 +22,9 @@ stdenv.mkDerivation rec {
       --replace "-Werror" ""
   '';
 
-  makeFlags =
-    [ "prefix=${placeholder "out"}" ]
-    ++ lib.optional stdenv.hostPlatform.isStatic "ENABLE_SHARED=0";
+  makeFlags = [
+    "prefix=${placeholder "out"}"
+  ] ++ lib.optional stdenv.hostPlatform.isStatic "ENABLE_SHARED=0";
 
   hardeningDisable = lib.optional (stdenv.isi686) "stackprotector";
 

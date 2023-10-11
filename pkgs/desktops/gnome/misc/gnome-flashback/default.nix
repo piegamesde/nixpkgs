@@ -195,9 +195,9 @@ let
               glib
               wrapGAppsHook
             ];
-            buildInputs =
-              [ gnome-flashback ]
-              ++ lib.optionals enableGnomePanel ([ gnome-panel ] ++ panelModulePackages);
+            buildInputs = [
+              gnome-flashback
+            ] ++ lib.optionals enableGnomePanel ([ gnome-panel ] ++ panelModulePackages);
 
             # We want to use the wrapGAppsHook mechanism to wrap gnome-session
             # with the environment that gnome-flashback and gnome-panel need to

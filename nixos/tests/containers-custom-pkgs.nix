@@ -25,10 +25,12 @@ import ./make-test-python.nix (
             helloName =
               (builtins.head config.containers.test.config.system.extraDependencies).name;
           in
-          [ {
-            assertion = helloName == "custom-hello";
-            message = "Unexpected value: ${helloName}";
-          } ];
+          [
+            {
+              assertion = helloName == "custom-hello";
+              message = "Unexpected value: ${helloName}";
+            }
+          ];
 
         containers.test = {
           autoStart = true;

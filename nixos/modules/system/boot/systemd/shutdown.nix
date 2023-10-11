@@ -63,11 +63,13 @@ in
       "${pkgs.coreutils}/bin"
     ];
 
-    systemd.mounts = [ {
-      what = "tmpfs";
-      where = "/run/initramfs";
-      type = "tmpfs";
-    } ];
+    systemd.mounts = [
+      {
+        what = "tmpfs";
+        where = "/run/initramfs";
+        type = "tmpfs";
+      }
+    ];
 
     systemd.services.generate-shutdown-ramfs = {
       description = "Generate shutdown ramfs";

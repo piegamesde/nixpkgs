@@ -744,10 +744,12 @@ in
       headerChecks = mkOption {
         type = types.listOf (types.submodule headerCheckOptions);
         default = [ ];
-        example = [ {
-          pattern = "/^X-Spam-Flag:/";
-          action = "REDIRECT spam@example.com";
-        } ];
+        example = [
+          {
+            pattern = "/^X-Spam-Flag:/";
+            action = "REDIRECT spam@example.com";
+          }
+        ];
         description = lib.mdDoc "Postfix header checks.";
       };
 
@@ -978,9 +980,9 @@ in
             virtual_alias_maps = [ "${cfg.virtualMapType}:/etc/postfix/virtual" ];
           }
           // optionalAttrs haveLocalRecipients {
-            local_recipient_maps =
-              [ "hash:/etc/postfix/local_recipients" ]
-              ++ optional haveAliases "$alias_maps";
+            local_recipient_maps = [
+              "hash:/etc/postfix/local_recipients"
+            ] ++ optional haveAliases "$alias_maps";
           }
           // optionalAttrs (cfg.dnsBlacklists != [ ]) {
             smtpd_client_restrictions = clientRestrictions;

@@ -174,13 +174,15 @@ in
       group = cfg.group;
     };
 
-    assertions = [ {
-      assertion =
-        cfg.sso.enable
-        -> ((cfg.sso.applicationPassword == null) != (cfg.sso.applicationPasswordFile))
-      ;
-      message = "Please set either applicationPassword or applicationPasswordFile";
-    } ];
+    assertions = [
+      {
+        assertion =
+          cfg.sso.enable
+          -> ((cfg.sso.applicationPassword == null) != (cfg.sso.applicationPasswordFile))
+        ;
+        message = "Please set either applicationPassword or applicationPasswordFile";
+      }
+    ];
 
     warnings = mkIf (cfg.sso.enable && cfg.sso.applicationPassword != null) [
       "Using `services.confluence.sso.applicationPassword` is deprecated! Use `applicationPasswordFile` instead!"

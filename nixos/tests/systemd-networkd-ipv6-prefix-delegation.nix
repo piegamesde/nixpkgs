@@ -70,18 +70,22 @@ import ./make-test-python.nix (
               enable = true;
               settings = {
                 interfaces-config.interfaces = [ "eth1" ];
-                subnet6 = [ {
-                  interface = "eth1";
-                  subnet = "2001:DB8:F::/36";
-                  pd-pools = [ {
-                    prefix = "2001:DB8:F::";
-                    prefix-len = 36;
-                    delegated-len = 48;
-                  } ];
-                  pools = [ {
-                    pool = "2001:DB8:0000:0000:FFFF::-2001:DB8:0000:0000:FFFF::FFFF";
-                  } ];
-                } ];
+                subnet6 = [
+                  {
+                    interface = "eth1";
+                    subnet = "2001:DB8:F::/36";
+                    pd-pools = [
+                      {
+                        prefix = "2001:DB8:F::";
+                        prefix-len = 36;
+                        delegated-len = 48;
+                      }
+                    ];
+                    pools = [
+                      { pool = "2001:DB8:0000:0000:FFFF::-2001:DB8:0000:0000:FFFF::FFFF"; }
+                    ];
+                  }
+                ];
 
                 # This is the glue between Kea and the Kernel FIB. DHCPv6
                 # rightfully has no concept of setting up a route in your
@@ -94,48 +98,50 @@ import ./make-test-python.nix (
                 # In this example we use the run script hook, that lets use
                 # execute anything and passes information via the environment.
                 # https://kea.readthedocs.io/en/kea-2.2.0/arm/hooks.html#run-script-run-script-support-for-external-hook-scripts
-                hooks-libraries = [ {
-                  library = "${pkgs.kea}/lib/kea/hooks/libdhcp_run_script.so";
-                  parameters = {
-                    name = pkgs.writeShellScript "kea-run-hooks" ''
-                      export PATH="${
-                        lib.makeBinPath (
-                          with pkgs; [
-                            coreutils
-                            iproute2
-                          ]
-                        )
-                      }"
+                hooks-libraries = [
+                  {
+                    library = "${pkgs.kea}/lib/kea/hooks/libdhcp_run_script.so";
+                    parameters = {
+                      name = pkgs.writeShellScript "kea-run-hooks" ''
+                        export PATH="${
+                          lib.makeBinPath (
+                            with pkgs; [
+                              coreutils
+                              iproute2
+                            ]
+                          )
+                        }"
 
-                      set -euxo pipefail
+                        set -euxo pipefail
 
-                      leases6_committed() {
-                        for i in $(seq $LEASES6_SIZE); do
-                          idx=$((i-1))
-                          prefix_var="LEASES6_AT''${idx}_ADDRESS"
-                          plen_var="LEASES6_AT''${idx}_PREFIX_LEN"
+                        leases6_committed() {
+                          for i in $(seq $LEASES6_SIZE); do
+                            idx=$((i-1))
+                            prefix_var="LEASES6_AT''${idx}_ADDRESS"
+                            plen_var="LEASES6_AT''${idx}_PREFIX_LEN"
 
-                          ip -6 route replace ''${!prefix_var}/''${!plen_var} via $QUERY6_REMOTE_ADDR dev $QUERY6_IFACE_NAME
-                        done
-                      }
+                            ip -6 route replace ''${!prefix_var}/''${!plen_var} via $QUERY6_REMOTE_ADDR dev $QUERY6_IFACE_NAME
+                          done
+                        }
 
-                      unknown_handler() {
-                        echo "Unhandled function call ''${*}"
-                        exit 123
-                      }
+                        unknown_handler() {
+                          echo "Unhandled function call ''${*}"
+                          exit 123
+                        }
 
-                      case "$1" in
-                          "leases6_committed")
-                              leases6_committed
-                              ;;
-                          *)
-                              unknown_handler "''${@}"
-                              ;;
-                      esac
-                    '';
-                    sync = false;
-                  };
-                } ];
+                        case "$1" in
+                            "leases6_committed")
+                                leases6_committed
+                                ;;
+                            *)
+                                unknown_handler "''${@}"
+                                ;;
+                        esac
+                      '';
+                      sync = false;
+                    };
+                  }
+                ];
               };
             };
 

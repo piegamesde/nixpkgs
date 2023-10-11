@@ -119,9 +119,9 @@ let
       perl
     ] ++ lib.optional withPython python;
 
-    buildInputs =
-      [ libxcrypt ]
-      ++ lib.optional withPerl perl ++ lib.optional withPython python;
+    buildInputs = [
+      libxcrypt
+    ] ++ lib.optional withPerl perl ++ lib.optional withPython python;
 
     # required to build apparmor-parser
     dontDisableStatic = true;

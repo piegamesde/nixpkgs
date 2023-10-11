@@ -119,13 +119,15 @@ in
   };
 
   config = mkIf cfg.enable {
-    assertions = [ {
-      assertion = cfg.settings == { } || cfg.config == "";
-      message = ''
-        The options services.radicale.config and services.radicale.settings
-        are mutually exclusive.
-      '';
-    } ];
+    assertions = [
+      {
+        assertion = cfg.settings == { } || cfg.config == "";
+        message = ''
+          The options services.radicale.config and services.radicale.settings
+          are mutually exclusive.
+        '';
+      }
+    ];
 
     warnings =
       optional

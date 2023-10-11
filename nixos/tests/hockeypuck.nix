@@ -38,10 +38,12 @@ import ./make-test-python.nix (
         services.postgresql = {
           enable = true;
           ensureDatabases = [ "hockeypuck" ];
-          ensureUsers = [ {
-            name = "hockeypuck";
-            ensurePermissions."DATABASE hockeypuck" = "ALL PRIVILEGES";
-          } ];
+          ensureUsers = [
+            {
+              name = "hockeypuck";
+              ensurePermissions."DATABASE hockeypuck" = "ALL PRIVILEGES";
+            }
+          ];
         };
       };
 

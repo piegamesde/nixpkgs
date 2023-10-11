@@ -15,10 +15,12 @@ import ./make-test-python.nix (
         ip = builtins.elemAt nodesIps index; # since we already use IPs to identify servers
       in
       {
-        networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [ {
-          address = ip;
-          prefixLength = 16;
-        } ];
+        networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [
+          {
+            address = ip;
+            prefixLength = 16;
+          }
+        ];
 
         networking.firewall.allowedTCPPorts = [
           5432
@@ -109,10 +111,12 @@ import ./make-test-python.nix (
         { pkgs, ... }:
         {
 
-          networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [ {
-            address = "192.168.1.4";
-            prefixLength = 16;
-          } ];
+          networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [
+            {
+              address = "192.168.1.4";
+              prefixLength = 16;
+            }
+          ];
 
           services.etcd = {
             enable = true;
@@ -127,10 +131,12 @@ import ./make-test-python.nix (
         {
           environment.systemPackages = [ pkgs.postgresql_14 ];
 
-          networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [ {
-            address = "192.168.2.1";
-            prefixLength = 16;
-          } ];
+          networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [
+            {
+              address = "192.168.2.1";
+              prefixLength = 16;
+            }
+          ];
 
           services.haproxy = {
             enable = true;

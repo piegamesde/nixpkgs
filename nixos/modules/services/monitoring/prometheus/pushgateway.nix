@@ -157,14 +157,16 @@ in
   };
 
   config = mkIf cfg.enable {
-    assertions = [ {
-      assertion = !hasPrefix "/" cfg.stateDir;
-      message =
-        "The option services.prometheus.pushgateway.stateDir"
-        + " shouldn't be an absolute directory."
-        + " It should be a directory relative to /var/lib."
-      ;
-    } ];
+    assertions = [
+      {
+        assertion = !hasPrefix "/" cfg.stateDir;
+        message =
+          "The option services.prometheus.pushgateway.stateDir"
+          + " shouldn't be an absolute directory."
+          + " It should be a directory relative to /var/lib."
+        ;
+      }
+    ];
     systemd.services.pushgateway = {
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];

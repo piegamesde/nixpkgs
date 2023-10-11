@@ -124,10 +124,12 @@ with prev; {
 
   cyrussasl = prev.cyrussasl.overrideAttrs (
     drv: {
-      externalDeps = [ {
-        name = "LIBSASL";
-        dep = cyrus_sasl;
-      } ];
+      externalDeps = [
+        {
+          name = "LIBSASL";
+          dep = cyrus_sasl;
+        }
+      ];
     }
   );
 
@@ -284,10 +286,12 @@ with prev; {
 
   lrexlib-pcre = prev.lrexlib-pcre.overrideAttrs (
     oa: {
-      externalDeps = [ {
-        name = "PCRE";
-        dep = pcre;
-      } ];
+      externalDeps = [
+        {
+          name = "PCRE";
+          dep = pcre;
+        }
+      ];
     }
   );
 
@@ -340,30 +344,36 @@ with prev; {
 
   luadbi-sqlite3 = prev.luadbi-sqlite3.overrideAttrs (
     oa: {
-      externalDeps = [ {
-        name = "SQLITE";
-        dep = sqlite;
-      } ];
+      externalDeps = [
+        {
+          name = "SQLITE";
+          dep = sqlite;
+        }
+      ];
     }
   );
 
   luaevent = prev.luaevent.overrideAttrs (
     oa: {
       propagatedBuildInputs = oa.propagatedBuildInputs ++ [ luasocket ];
-      externalDeps = [ {
-        name = "EVENT";
-        dep = libevent;
-      } ];
+      externalDeps = [
+        {
+          name = "EVENT";
+          dep = libevent;
+        }
+      ];
       disabled = luaOlder "5.1" || luaAtLeast "5.4";
     }
   );
 
   luaexpat = prev.luaexpat.overrideAttrs (
     _: {
-      externalDeps = [ {
-        name = "EXPAT";
-        dep = expat;
-      } ];
+      externalDeps = [
+        {
+          name = "EXPAT";
+          dep = expat;
+        }
+      ];
     }
   );
 
@@ -385,10 +395,12 @@ with prev; {
 
   lualdap = prev.lualdap.overrideAttrs (
     _: {
-      externalDeps = [ {
-        name = "LDAP";
-        dep = openldap;
-      } ];
+      externalDeps = [
+        {
+          name = "LDAP";
+          dep = openldap;
+        }
+      ];
     }
   );
 
@@ -409,28 +421,34 @@ with prev; {
 
   luaposix = prev.luaposix.overrideAttrs (
     _: {
-      externalDeps = [ {
-        name = "CRYPT";
-        dep = libxcrypt;
-      } ];
+      externalDeps = [
+        {
+          name = "CRYPT";
+          dep = libxcrypt;
+        }
+      ];
     }
   );
 
   luasec = prev.luasec.overrideAttrs (
     oa: {
-      externalDeps = [ {
-        name = "OPENSSL";
-        dep = openssl;
-      } ];
+      externalDeps = [
+        {
+          name = "OPENSSL";
+          dep = openssl;
+        }
+      ];
     }
   );
 
   luasql-sqlite3 = prev.luasql-sqlite3.overrideAttrs (
     oa: {
-      externalDeps = [ {
-        name = "SQLITE";
-        dep = sqlite;
-      } ];
+      externalDeps = [
+        {
+          name = "SQLITE";
+          dep = sqlite;
+        }
+      ];
     }
   );
 
@@ -448,10 +466,12 @@ with prev; {
 
   luaunbound = prev.luaunbound.overrideAttrs (
     oa: {
-      externalDeps = [ {
-        name = "libunbound";
-        dep = unbound;
-      } ];
+      externalDeps = [
+        {
+          name = "libunbound";
+          dep = unbound;
+        }
+      ];
     }
   );
 
@@ -463,10 +483,12 @@ with prev; {
 
   luuid = prev.luuid.overrideAttrs (
     oa: {
-      externalDeps = [ {
-        name = "LIBUUID";
-        dep = libuuid;
-      } ];
+      externalDeps = [
+        {
+          name = "LIBUUID";
+          dep = libuuid;
+        }
+      ];
       # Trivial patch to make it work in both 5.1 and 5.2.  Basically just the
       # tiny diff between the two upstream versions placed behind an #if.
       # Upstreams:

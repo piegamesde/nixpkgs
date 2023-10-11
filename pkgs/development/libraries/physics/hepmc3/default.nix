@@ -25,9 +25,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-JI87WzbddzhEy+c9UfYIkUWDNLmGsll1TFnb9Lvx1SU=";
   };
 
-  nativeBuildInputs =
-    [ cmake ]
-    ++ lib.optional withPython python.pkgs.pythonImportsCheckHook;
+  nativeBuildInputs = [
+    cmake
+  ] ++ lib.optional withPython python.pkgs.pythonImportsCheckHook;
 
   buildInputs = [ root_py ] ++ lib.optional withPython python;
 

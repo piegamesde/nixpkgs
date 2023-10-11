@@ -743,10 +743,12 @@ in
     networking.interfaces = mkOption {
       default = { };
       example = {
-        eth0.ipv4.addresses = [ {
-          address = "131.211.84.78";
-          prefixLength = 25;
-        } ];
+        eth0.ipv4.addresses = [
+          {
+            address = "131.211.84.78";
+            prefixLength = 25;
+          }
+        ];
       };
       description = lib.mdDoc ''
         The configuration for each network interface.  If
@@ -1588,11 +1590,13 @@ in
           '';
         }
       ))
-      ++ [ {
-        assertion =
-          cfg.hostId == null || (stringLength cfg.hostId == 8 && isHexString cfg.hostId);
-        message = "Invalid value given to the networking.hostId option.";
-      } ]
+      ++ [
+        {
+          assertion =
+            cfg.hostId == null || (stringLength cfg.hostId == 8 && isHexString cfg.hostId);
+          message = "Invalid value given to the networking.hostId option.";
+        }
+      ]
     ;
 
     boot.kernelModules =

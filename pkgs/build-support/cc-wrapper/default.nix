@@ -375,9 +375,9 @@ stdenv.mkDerivation {
   ;
 
   strictDeps = true;
-  propagatedBuildInputs =
-    [ bintools ]
-    ++ extraTools ++ optionals cc.langD or false [ zlib ];
+  propagatedBuildInputs = [
+    bintools
+  ] ++ extraTools ++ optionals cc.langD or false [ zlib ];
   depsTargetTargetPropagated = optional (libcxx != null) libcxx ++ extraPackages;
 
   setupHooks =

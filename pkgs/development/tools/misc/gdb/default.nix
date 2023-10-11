@@ -73,9 +73,9 @@ stdenv.mkDerivation rec {
     ''
   ;
 
-  patches =
-    [ ./debug-info-from-env.patch ]
-    ++ lib.optionals stdenv.isDarwin [ ./darwin-target-match.patch ];
+  patches = [
+    ./debug-info-from-env.patch
+  ] ++ lib.optionals stdenv.isDarwin [ ./darwin-target-match.patch ];
 
   nativeBuildInputs = [
     pkg-config

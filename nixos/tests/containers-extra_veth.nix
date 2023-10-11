@@ -24,20 +24,26 @@ import ./make-test-python.nix (
         };
         networking.interfaces = {
           br0 = {
-            ipv4.addresses = [ {
-              address = "192.168.0.1";
-              prefixLength = 24;
-            } ];
-            ipv6.addresses = [ {
-              address = "fc00::1";
-              prefixLength = 7;
-            } ];
+            ipv4.addresses = [
+              {
+                address = "192.168.0.1";
+                prefixLength = 24;
+              }
+            ];
+            ipv6.addresses = [
+              {
+                address = "fc00::1";
+                prefixLength = 7;
+              }
+            ];
           };
           br1 = {
-            ipv4.addresses = [ {
-              address = "192.168.1.1";
-              prefixLength = 24;
-            } ];
+            ipv4.addresses = [
+              {
+                address = "192.168.1.1";
+                prefixLength = 24;
+              }
+            ];
           };
         };
 

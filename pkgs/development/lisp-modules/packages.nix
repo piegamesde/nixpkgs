@@ -519,9 +519,9 @@ let
           src
           nativeLibs
         ;
-        lispLibs =
-          [ self.qt ]
-          ++ remove super.qt_plus_libs super.qtools.lispLibs ++ [ self.qt-libs ];
+        lispLibs = [
+          self.qt
+        ] ++ remove super.qt_plus_libs super.qtools.lispLibs ++ [ self.qt-libs ];
         patches = [ ./patches/qtools-use-nix-libs.patch ];
       };
 

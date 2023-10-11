@@ -20,12 +20,14 @@ import ./make-test-python.nix (
 
         {
           services.openssh.enable = true;
-          security.pam.services.sshd.limits = [ {
-            domain = "*";
-            item = "memlock";
-            type = "-";
-            value = 1024;
-          } ];
+          security.pam.services.sshd.limits = [
+            {
+              domain = "*";
+              item = "memlock";
+              type = "-";
+              value = 1024;
+            }
+          ];
           users.users.root.openssh.authorizedKeys.keys = [ snakeOilPublicKey ];
         };
 
@@ -37,12 +39,14 @@ import ./make-test-python.nix (
             enable = true;
             startWhenNeeded = true;
           };
-          security.pam.services.sshd.limits = [ {
-            domain = "*";
-            item = "memlock";
-            type = "-";
-            value = 1024;
-          } ];
+          security.pam.services.sshd.limits = [
+            {
+              domain = "*";
+              item = "memlock";
+              type = "-";
+              value = 1024;
+            }
+          ];
           users.users.root.openssh.authorizedKeys.keys = [ snakeOilPublicKey ];
         };
 
@@ -52,10 +56,12 @@ import ./make-test-python.nix (
         {
           services.openssh = {
             enable = true;
-            listenAddresses = [ {
-              addr = "127.0.0.1";
-              port = 22;
-            } ];
+            listenAddresses = [
+              {
+                addr = "127.0.0.1";
+                port = 22;
+              }
+            ];
           };
         };
 
@@ -66,10 +72,12 @@ import ./make-test-python.nix (
           services.openssh = {
             enable = true;
             startWhenNeeded = true;
-            listenAddresses = [ {
-              addr = "127.0.0.1";
-              port = 22;
-            } ];
+            listenAddresses = [
+              {
+                addr = "127.0.0.1";
+                port = 22;
+              }
+            ];
           };
         };
 

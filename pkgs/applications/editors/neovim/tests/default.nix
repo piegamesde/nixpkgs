@@ -16,12 +16,14 @@
 let
   inherit (neovimUtils) makeNeovimConfig;
 
-  plugins = with vimPlugins; [ {
-    plugin = vim-obsession;
-    config = ''
-      map <Leader>$ <Cmd>Obsession<CR>
-    '';
-  } ];
+  plugins = with vimPlugins; [
+    {
+      plugin = vim-obsession;
+      config = ''
+        map <Leader>$ <Cmd>Obsession<CR>
+      '';
+    }
+  ];
 
   packagesWithSingleLineConfigs = with vimPlugins; [
     {

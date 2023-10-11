@@ -29,9 +29,9 @@ stdenv.mkDerivation rec {
     sha256 = "1zbygqn0443p0gxwr4kx3m1bkqaj8x9hrpch3s41py7jq08f6x28";
   };
 
-  nativeBuildInputs =
-    [ unzip ]
-    ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
+  nativeBuildInputs = [
+    unzip
+  ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
   outputs = [
     "out"
     "doc"

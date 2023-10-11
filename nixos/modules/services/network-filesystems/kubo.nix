@@ -422,12 +422,12 @@ in
     systemd.sockets.ipfs-gateway = {
       wantedBy = [ "sockets.target" ];
       socketConfig = {
-        ListenStream =
-          [ "" ]
-          ++ (multiaddrsToListenStreams cfg.settings.Addresses.Gateway);
-        ListenDatagram =
-          [ "" ]
-          ++ (multiaddrsToListenDatagrams cfg.settings.Addresses.Gateway);
+        ListenStream = [
+          ""
+        ] ++ (multiaddrsToListenStreams cfg.settings.Addresses.Gateway);
+        ListenDatagram = [
+          ""
+        ] ++ (multiaddrsToListenDatagrams cfg.settings.Addresses.Gateway);
       };
     };
 

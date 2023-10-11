@@ -37,10 +37,12 @@ in
   };
 
   config = mkIf cfg.enable {
-    assertions = [ {
-      assertion = cfg.config != "";
-      message = "please provide Dante configuration file contents";
-    } ];
+    assertions = [
+      {
+        assertion = cfg.config != "";
+        message = "please provide Dante configuration file contents";
+      }
+    ];
 
     users.users.dante = {
       description = "Dante SOCKS proxy daemon user";

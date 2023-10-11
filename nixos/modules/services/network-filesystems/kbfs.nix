@@ -66,9 +66,9 @@ in
           # Note that the "Requires" directive will cause a unit to be restarted whenever its dependency is restarted.
           # Do not issue a hard dependency on keybase, because kbfs can reconnect to a restarted service.
           # Do not issue a hard dependency on keybase-redirector, because it's ok if it fails (e.g., if it is disabled).
-          wants =
-            [ "keybase.service" ]
-            ++ optional cfg.enableRedirector "keybase-redirector.service";
+          wants = [
+            "keybase.service"
+          ] ++ optional cfg.enableRedirector "keybase-redirector.service";
           path = [ "/run/wrappers" ];
           unitConfig.ConditionUser = "!@system";
 

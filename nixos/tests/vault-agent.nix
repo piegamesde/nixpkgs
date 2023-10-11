@@ -9,24 +9,30 @@ import ./make-test-python.nix (
         services.vault-agent.instances.example.settings = {
           vault.address = config.environment.variables.VAULT_ADDR;
 
-          auto_auth = [ {
-            method = [ {
-              type = "token_file";
-              config.token_file_path =
-                pkgs.writeText "vault-token"
-                  config.environment.variables.VAULT_TOKEN;
-            } ];
-          } ];
+          auto_auth = [
+            {
+              method = [
+                {
+                  type = "token_file";
+                  config.token_file_path =
+                    pkgs.writeText "vault-token"
+                      config.environment.variables.VAULT_TOKEN;
+                }
+              ];
+            }
+          ];
 
-          template = [ {
-            contents = ''
-              {{- with secret "secret/example" }}
-              {{ .Data.data.key }}"
-              {{- end }}
-            '';
-            perms = "0600";
-            destination = "/example";
-          } ];
+          template = [
+            {
+              contents = ''
+                {{- with secret "secret/example" }}
+                {{ .Data.data.key }}"
+                {{- end }}
+              '';
+              perms = "0600";
+              destination = "/example";
+            }
+          ];
         };
 
         services.vault = {

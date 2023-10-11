@@ -101,10 +101,12 @@ import ../make-test-python.nix (
           networking.firewall.trustedInterfaces = [ "flannel.1" ];
           networking.useDHCP = false;
           networking.defaultGateway = "192.168.1.1";
-          networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkForce [ {
-            address = "192.168.1.1";
-            prefixLength = 24;
-          } ];
+          networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkForce [
+            {
+              address = "192.168.1.1";
+              prefixLength = 24;
+            }
+          ];
         };
 
       server2 =
@@ -148,10 +150,12 @@ import ../make-test-python.nix (
           networking.firewall.trustedInterfaces = [ "flannel.1" ];
           networking.useDHCP = false;
           networking.defaultGateway = "192.168.1.3";
-          networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkForce [ {
-            address = "192.168.1.3";
-            prefixLength = 24;
-          } ];
+          networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkForce [
+            {
+              address = "192.168.1.3";
+              prefixLength = 24;
+            }
+          ];
         };
 
       agent =
@@ -176,10 +180,12 @@ import ../make-test-python.nix (
           networking.firewall.trustedInterfaces = [ "flannel.1" ];
           networking.useDHCP = false;
           networking.defaultGateway = "192.168.1.2";
-          networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkForce [ {
-            address = "192.168.1.2";
-            prefixLength = 24;
-          } ];
+          networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkForce [
+            {
+              address = "192.168.1.2";
+              prefixLength = 24;
+            }
+          ];
         };
     };
 

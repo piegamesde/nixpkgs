@@ -27,10 +27,12 @@ import ./make-test-python.nix (
           };
           networking.interfaces.eth1.ipv4.addresses = lib.mkForce [ ];
           networking.interfaces.mv-eth1-host = {
-            ipv4.addresses = [ {
-              address = "192.168.1.1";
-              prefixLength = 24;
-            } ];
+            ipv4.addresses = [
+              {
+                address = "192.168.1.1";
+                prefixLength = 24;
+              }
+            ];
           };
 
           containers.test1 = {
@@ -39,10 +41,12 @@ import ./make-test-python.nix (
 
             config = {
               networking.interfaces.mv-eth1 = {
-                ipv4.addresses = [ {
-                  address = containerIp1;
-                  prefixLength = 24;
-                } ];
+                ipv4.addresses = [
+                  {
+                    address = containerIp1;
+                    prefixLength = 24;
+                  }
+                ];
               };
             };
           };
@@ -53,10 +57,12 @@ import ./make-test-python.nix (
 
             config = {
               networking.interfaces.mv-eth1 = {
-                ipv4.addresses = [ {
-                  address = containerIp2;
-                  prefixLength = 24;
-                } ];
+                ipv4.addresses = [
+                  {
+                    address = containerIp2;
+                    prefixLength = 24;
+                  }
+                ];
               };
             };
           };

@@ -31,10 +31,12 @@ import ./make-test-python.nix (
                 dataSource = "/var/lib/step-ca/db";
               };
               authority = {
-                provisioners = [ {
-                  type = "ACME";
-                  name = "acme";
-                } ];
+                provisioners = [
+                  {
+                    type = "ACME";
+                    name = "acme";
+                  }
+                ];
               };
             };
           };

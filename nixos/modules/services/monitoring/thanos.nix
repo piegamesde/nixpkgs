@@ -723,13 +723,15 @@ let
   };
 
   assertRelativeStateDir = cmd: {
-    assertions = [ {
-      assertion = !hasPrefix "/" cfg.${cmd}.stateDir;
-      message =
-        "The option services.thanos.${cmd}.stateDir should not be an absolute directory."
-        + " It should be a directory relative to /var/lib."
-      ;
-    } ];
+    assertions = [
+      {
+        assertion = !hasPrefix "/" cfg.${cmd}.stateDir;
+        message =
+          "The option services.thanos.${cmd}.stateDir should not be an absolute directory."
+          + " It should be a directory relative to /var/lib."
+        ;
+      }
+    ];
   };
 in
 {

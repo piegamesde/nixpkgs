@@ -69,10 +69,12 @@ in
 
   config = mkMerge [
     (mkIf (cfg.enable && efiSupport) {
-      assertions = [ {
-        assertion = cfg.params == [ ];
-        message = "Parameters are not available for MemTest86";
-      } ];
+      assertions = [
+        {
+          assertion = cfg.params == [ ];
+          message = "Parameters are not available for MemTest86";
+        }
+      ];
 
       boot.loader.grub.extraFiles = {
         "memtest86.efi" = "${pkgs.memtest86-efi}/BOOTX64.efi";

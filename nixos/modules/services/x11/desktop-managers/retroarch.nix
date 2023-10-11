@@ -34,13 +34,15 @@ in
   };
 
   config = mkIf cfg.enable {
-    services.xserver.desktopManager.session = [ {
-      name = "RetroArch";
-      start = ''
-        ${cfg.package}/bin/retroarch -f ${escapeShellArgs cfg.extraArgs} &
-        waitPID=$!
-      '';
-    } ];
+    services.xserver.desktopManager.session = [
+      {
+        name = "RetroArch";
+        start = ''
+          ${cfg.package}/bin/retroarch -f ${escapeShellArgs cfg.extraArgs} &
+          waitPID=$!
+        '';
+      }
+    ];
 
     environment.systemPackages = [ cfg.package ];
   };

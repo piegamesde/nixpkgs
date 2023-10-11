@@ -63,9 +63,9 @@ buildPythonPackage rec {
       --replace "packaging>=22.0" "packaging"
   '';
 
-  propagatedBuildInputs =
-    [ packaging ]
-    ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  propagatedBuildInputs = [
+    packaging
+  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
   passthru.optional-dependencies = {
     validation = [ pydantic ];
@@ -78,9 +78,9 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "pytoolconfig" ];
 
-  nativeCheckInputs =
-    [ pytestCheckHook ]
-    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
+  nativeCheckInputs = [
+    pytestCheckHook
+  ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
   meta = with lib; {
     changelog = "https://github.com/bagel897/pytoolconfig/releases/tag/v${version}";

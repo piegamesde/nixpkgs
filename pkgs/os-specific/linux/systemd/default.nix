@@ -756,11 +756,13 @@ stdenv.mkDerivation (
               ];
             }
           ]
-          ++ lib.optionals withKmod [ {
-            search = "/sbin/modprobe";
-            replacement = "${lib.getBin kmod}/sbin/modprobe";
-            where = [ "units/modprobe@.service" ];
-          } ]
+          ++ lib.optionals withKmod [
+            {
+              search = "/sbin/modprobe";
+              replacement = "${lib.getBin kmod}/sbin/modprobe";
+              where = [ "units/modprobe@.service" ];
+            }
+          ]
         ;
 
         # { replacement, search, where } -> List[str]

@@ -32,10 +32,12 @@ let
     allowedTCPPortRanges = mkOption {
       type = types.listOf (types.attrsOf types.port);
       default = [ ];
-      example = [ {
-        from = 8999;
-        to = 9003;
-      } ];
+      example = [
+        {
+          from = 8999;
+          to = 9003;
+        }
+      ];
       description = lib.mdDoc ''
         A range of TCP ports on which incoming connections are
         accepted.
@@ -55,10 +57,12 @@ let
     allowedUDPPortRanges = mkOption {
       type = types.listOf (types.attrsOf types.port);
       default = [ ];
-      example = [ {
-        from = 60000;
-        to = 61000;
-      } ];
+      example = [
+        {
+          from = 60000;
+          to = 61000;
+        }
+      ];
       description = lib.mdDoc ''
         Range of open UDP ports.
       '';

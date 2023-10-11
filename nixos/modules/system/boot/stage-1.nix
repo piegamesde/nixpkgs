@@ -454,21 +454,23 @@ let
           symlink = "/etc/modprobe.d/debian.conf";
         }
       ]
-      ++ lib.optionals config.services.multipath.enable [ {
-        object =
-          pkgs.runCommand "multipath.conf"
-            {
-              src = config.environment.etc."multipath.conf".text;
-              preferLocalBuild = true;
-            }
-            ''
-              target=$out
-              printf "$src" > $out
-              substituteInPlace $out \
-                --replace ${config.services.multipath.package}/lib ${extraUtils}/lib
-            '';
-        symlink = "/etc/multipath.conf";
-      } ]
+      ++ lib.optionals config.services.multipath.enable [
+        {
+          object =
+            pkgs.runCommand "multipath.conf"
+              {
+                src = config.environment.etc."multipath.conf".text;
+                preferLocalBuild = true;
+              }
+              ''
+                target=$out
+                printf "$src" > $out
+                substituteInPlace $out \
+                  --replace ${config.services.multipath.package}/lib ${extraUtils}/lib
+              '';
+          symlink = "/etc/multipath.conf";
+        }
+      ]
       ++ (lib.mapAttrsToList
         (symlink: options: {
           inherit symlink;

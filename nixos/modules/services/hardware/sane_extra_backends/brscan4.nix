@@ -110,13 +110,15 @@ in
       source = "${etcFiles}/etc/opt/brother/scanner/brscan4";
     };
 
-    assertions = [ {
-      assertion = all (x: !(null != x.ip && null != x.nodename)) netDeviceList;
-      message = ''
-        When describing a network device as part of the attribute list
-        `hardware.sane.brscan4.netDevices`, only one of its `ip` or `nodename`
-        attribute should be specified, not both!
-      '';
-    } ];
+    assertions = [
+      {
+        assertion = all (x: !(null != x.ip && null != x.nodename)) netDeviceList;
+        message = ''
+          When describing a network device as part of the attribute list
+          `hardware.sane.brscan4.netDevices`, only one of its `ip` or `nodename`
+          attribute should be specified, not both!
+        '';
+      }
+    ];
   };
 }

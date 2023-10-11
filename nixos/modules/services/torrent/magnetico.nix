@@ -228,13 +228,15 @@ in
       };
     };
 
-    assertions = [ {
-      assertion = cfg.web.credentialsFile == null || cfg.web.credentials == { };
-      message = ''
-        The options services.magnetico.web.credentialsFile and
-        services.magnetico.web.credentials are mutually exclusives.
-      '';
-    } ];
+    assertions = [
+      {
+        assertion = cfg.web.credentialsFile == null || cfg.web.credentials == { };
+        message = ''
+          The options services.magnetico.web.credentialsFile and
+          services.magnetico.web.credentials are mutually exclusives.
+        '';
+      }
+    ];
   };
 
   meta.maintainers = with lib.maintainers; [ rnhmjoj ];

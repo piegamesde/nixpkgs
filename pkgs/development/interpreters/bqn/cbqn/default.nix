@@ -41,9 +41,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-M9GTsm65DySLcMk9QDEhImHnUvWtYGPwiG657wHg3KA=";
   };
 
-  nativeBuildInputs =
-    [ pkg-config ]
-    ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
+  nativeBuildInputs = [
+    pkg-config
+  ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
 
   buildInputs = [ libffi ];
 
@@ -54,9 +54,9 @@ stdenv.mkDerivation rec {
     patchShebangs build/build
   '';
 
-  makeFlags =
-    [ "CC=${stdenv.cc.targetPrefix}cc" ]
-    ++ lib.optional enableReplxx "REPLXX=1";
+  makeFlags = [
+    "CC=${stdenv.cc.targetPrefix}cc"
+  ] ++ lib.optional enableReplxx "REPLXX=1";
 
   buildFlags =
     [

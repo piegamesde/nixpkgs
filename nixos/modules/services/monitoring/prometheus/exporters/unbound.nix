@@ -48,26 +48,28 @@ in
   };
 
   serviceOpts = mkMerge (
-    [ {
-      serviceConfig = {
-        ExecStart = ''
-          ${pkgs.prometheus-unbound-exporter}/bin/unbound-telemetry \
-            ${cfg.fetchType} \
-            --bind ${cfg.listenAddress}:${toString cfg.port} \
-            --path ${cfg.telemetryPath} \
-            ${
-              optionalString (cfg.controlInterface != null)
-                "--control-interface ${cfg.controlInterface}"
-            } \
-            ${toString cfg.extraFlags}
-        '';
-        RestrictAddressFamilies =
-          [
-            # Need AF_UNIX to collect data
-            "AF_UNIX"
-          ];
-      };
-    } ]
+    [
+      {
+        serviceConfig = {
+          ExecStart = ''
+            ${pkgs.prometheus-unbound-exporter}/bin/unbound-telemetry \
+              ${cfg.fetchType} \
+              --bind ${cfg.listenAddress}:${toString cfg.port} \
+              --path ${cfg.telemetryPath} \
+              ${
+                optionalString (cfg.controlInterface != null)
+                  "--control-interface ${cfg.controlInterface}"
+              } \
+              ${toString cfg.extraFlags}
+          '';
+          RestrictAddressFamilies =
+            [
+              # Need AF_UNIX to collect data
+              "AF_UNIX"
+            ];
+        };
+      }
+    ]
     ++ [
       (mkIf config.services.unbound.enable {
         after = [ "unbound.service" ];

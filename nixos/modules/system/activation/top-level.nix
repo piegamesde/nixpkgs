@@ -404,10 +404,12 @@ in
   };
 
   config = {
-    assertions = [ {
-      assertion = config.system.copySystemConfiguration -> !lib.inPureEvalMode;
-      message = "system.copySystemConfiguration is not supported with flakes";
-    } ];
+    assertions = [
+      {
+        assertion = config.system.copySystemConfiguration -> !lib.inPureEvalMode;
+        message = "system.copySystemConfiguration is not supported with flakes";
+      }
+    ];
 
     system.extraSystemBuilderCmds =
       optionalString config.system.copySystemConfiguration ''

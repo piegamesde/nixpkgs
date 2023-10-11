@@ -43,12 +43,14 @@ in
     };
   };
   config = mkIf cfg.enable {
-    assertions = [ {
-      assertion = config.users.motd == null;
-      message = ''
-        `programs.rust-motd` is incompatible with `users.motd`!
-      '';
-    } ];
+    assertions = [
+      {
+        assertion = config.users.motd == null;
+        message = ''
+          `programs.rust-motd` is incompatible with `users.motd`!
+        '';
+      }
+    ];
     systemd.services.rust-motd = {
       path = with pkgs; [ bash ];
       documentation = [

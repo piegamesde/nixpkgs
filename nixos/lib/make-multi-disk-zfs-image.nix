@@ -129,9 +129,9 @@ let
     '';
 
   closureInfo = pkgs.closureInfo {
-    rootPaths =
-      [ config.system.build.toplevel ]
-      ++ (lib.optional includeChannel channelSources);
+    rootPaths = [
+      config.system.build.toplevel
+    ] ++ (lib.optional includeChannel channelSources);
   };
 
   modulesTree = pkgs.aggregateModules (

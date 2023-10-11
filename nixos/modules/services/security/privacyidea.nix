@@ -308,16 +308,18 @@ in
 
     (mkIf cfg.enable {
 
-      assertions = [ {
-        assertion =
-          cfg.tokenjanitor.enable
-          -> (cfg.tokenjanitor.orphaned || cfg.tokenjanitor.unassigned)
-        ;
-        message = ''
-          privacyidea-token-janitor has no effect if neither orphaned nor unassigned tokens
-          are to be searched.
-        '';
-      } ];
+      assertions = [
+        {
+          assertion =
+            cfg.tokenjanitor.enable
+            -> (cfg.tokenjanitor.orphaned || cfg.tokenjanitor.unassigned)
+          ;
+          message = ''
+            privacyidea-token-janitor has no effect if neither orphaned nor unassigned tokens
+            are to be searched.
+          '';
+        }
+      ];
 
       environment.systemPackages = [
         pkgs.privacyidea
@@ -447,14 +449,16 @@ in
 
     (mkIf cfg.ldap-proxy.enable {
 
-      assertions = [ {
-        assertion =
-          let
-            xor = a: b: a && !b || !a && b;
-          in
-          xor (cfg.ldap-proxy.settings == { }) (cfg.ldap-proxy.configFile == null);
-        message = "configFile & settings are mutually exclusive for services.privacyidea.ldap-proxy!";
-      } ];
+      assertions = [
+        {
+          assertion =
+            let
+              xor = a: b: a && !b || !a && b;
+            in
+            xor (cfg.ldap-proxy.settings == { }) (cfg.ldap-proxy.configFile == null);
+          message = "configFile & settings are mutually exclusive for services.privacyidea.ldap-proxy!";
+        }
+      ];
 
       warnings = mkIf (cfg.ldap-proxy.configFile != null) [
         "Using services.privacyidea.ldap-proxy.configFile is deprecated! Use the RFC42-style settings option instead!"

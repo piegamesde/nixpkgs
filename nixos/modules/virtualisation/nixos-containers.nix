@@ -410,11 +410,13 @@ let
         }
       );
       default = [ ];
-      example = [ {
-        protocol = "tcp";
-        hostPort = 8080;
-        containerPort = 80;
-      } ];
+      example = [
+        {
+          protocol = "tcp";
+          hostPort = 8080;
+          containerPort = 80;
+        }
+      ];
       description = lib.mdDoc ''
         List of forwarded ports from host to container. Each forwarded port
         is specified by protocol, hostPort and containerPort. By default,
@@ -542,20 +544,22 @@ in
                                 boot.isContainer = true;
                                 networking.hostName = mkDefault name;
                                 networking.useDHCP = false;
-                                assertions = [ {
-                                  assertion =
-                                    (builtins.compareVersions kernelVersion "5.8" <= 0)
-                                    -> config.privateNetwork
-                                    -> stringLength name <= 11
-                                  ;
-                                  message = ''
-                                    Container name `${name}` is too long: When `privateNetwork` is enabled, container names can
-                                    not be longer than 11 characters, because the container's interface name is derived from it.
-                                    You should either make the container name shorter or upgrade to a more recent kernel that
-                                    supports interface altnames (i.e. at least Linux 5.8 - please see https://github.com/NixOS/nixpkgs/issues/38509
-                                    for details).
-                                  '';
-                                } ];
+                                assertions = [
+                                  {
+                                    assertion =
+                                      (builtins.compareVersions kernelVersion "5.8" <= 0)
+                                      -> config.privateNetwork
+                                      -> stringLength name <= 11
+                                    ;
+                                    message = ''
+                                      Container name `${name}` is too long: When `privateNetwork` is enabled, container names can
+                                      not be longer than 11 characters, because the container's interface name is derived from it.
+                                      You should either make the container name shorter or upgrade to a more recent kernel that
+                                      supports interface altnames (i.e. at least Linux 5.8 - please see https://github.com/NixOS/nixpkgs/issues/38509
+                                      for details).
+                                    '';
+                                  }
+                                ];
                               };
                             };
                         in
@@ -732,10 +736,12 @@ in
               allowedDevices = mkOption {
                 type = with types; listOf (submodule allowedDeviceOpts);
                 default = [ ];
-                example = [ {
-                  node = "/dev/net/tun";
-                  modifier = "rw";
-                } ];
+                example = [
+                  {
+                    node = "/dev/net/tun";
+                    modifier = "rw";
+                  }
+                ];
                 description = lib.mdDoc ''
                   A list of device nodes to which the containers has access to.
                 '';
@@ -868,10 +874,12 @@ in
       systemd.services = listToAttrs (
         filter (x: x.value != null) (
           # The generic container template used by imperative containers
-          [ {
-            name = "container@";
-            value = unit;
-          } ]
+          [
+            {
+              name = "container@";
+              value = unit;
+            }
+          ]
           # declarative containers
           ++ (mapAttrsToList
             (
@@ -883,10 +891,12 @@ in
                     // (
                       if cfg.enableTun then
                         {
-                          allowedDevices = cfg.allowedDevices ++ [ {
-                            node = "/dev/net/tun";
-                            modifier = "rw";
-                          } ];
+                          allowedDevices = cfg.allowedDevices ++ [
+                            {
+                              node = "/dev/net/tun";
+                              modifier = "rw";
+                            }
+                          ];
                           additionalCapabilities = cfg.additionalCapabilities ++ [ "CAP_NET_ADMIN" ];
                         }
                       else

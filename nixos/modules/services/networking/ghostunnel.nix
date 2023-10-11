@@ -156,26 +156,28 @@ let
       config.cacert = mkIf config.disableAuthentication (mkDefault null);
 
       config.atRoot = {
-        assertions = [ {
-          message = ''
-            services.ghostunnel.servers.${name}: At least one access control flag is required.
-            Set at least one of:
-              - services.ghostunnel.servers.${name}.disableAuthentication
-              - services.ghostunnel.servers.${name}.allowAll
-              - services.ghostunnel.servers.${name}.allowCN
-              - services.ghostunnel.servers.${name}.allowOU
-              - services.ghostunnel.servers.${name}.allowDNS
-              - services.ghostunnel.servers.${name}.allowURI
-          '';
-          assertion =
-            config.disableAuthentication
-            || config.allowAll
-            || config.allowCN != [ ]
-            || config.allowOU != [ ]
-            || config.allowDNS != [ ]
-            || config.allowURI != [ ]
-          ;
-        } ];
+        assertions = [
+          {
+            message = ''
+              services.ghostunnel.servers.${name}: At least one access control flag is required.
+              Set at least one of:
+                - services.ghostunnel.servers.${name}.disableAuthentication
+                - services.ghostunnel.servers.${name}.allowAll
+                - services.ghostunnel.servers.${name}.allowCN
+                - services.ghostunnel.servers.${name}.allowOU
+                - services.ghostunnel.servers.${name}.allowDNS
+                - services.ghostunnel.servers.${name}.allowURI
+            '';
+            assertion =
+              config.disableAuthentication
+              || config.allowAll
+              || config.allowCN != [ ]
+              || config.allowOU != [ ]
+              || config.allowDNS != [ ]
+              || config.allowURI != [ ]
+            ;
+          }
+        ];
 
         systemd.services."ghostunnel-server-${name}" = {
           after = [ "network.target" ];

@@ -37,9 +37,9 @@ let
     beta
   ];
 
-  comps =
-    [ google-cloud-sdk ]
-    ++ filterPreInstalled (findDepsRecursive (defaultComponents ++ comps_));
+  comps = [
+    google-cloud-sdk
+  ] ++ filterPreInstalled (findDepsRecursive (defaultComponents ++ comps_));
 in
 # Components are installed by copying the `google-cloud-sdk` package, along
 # with each component, over to a new location, and then patching that location

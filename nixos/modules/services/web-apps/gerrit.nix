@@ -156,11 +156,13 @@ in
 
   config = mkIf cfg.enable {
 
-    assertions = [ {
-      assertion =
-        cfg.replicationSettings != { } -> elem "replication" cfg.builtinPlugins;
-      message = "Gerrit replicationSettings require enabling the replication plugin";
-    } ];
+    assertions = [
+      {
+        assertion =
+          cfg.replicationSettings != { } -> elem "replication" cfg.builtinPlugins;
+        message = "Gerrit replicationSettings require enabling the replication plugin";
+      }
+    ];
 
     services.gerrit.settings = {
       cache.directory = "/var/cache/gerrit";

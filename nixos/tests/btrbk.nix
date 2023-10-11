@@ -62,15 +62,17 @@ import ./make-test-python.nix (
           };
           services.btrbk = {
             extraPackages = [ pkgs.lz4 ];
-            sshAccess = [ {
-              key = publicKey;
-              roles = [
-                "source"
-                "send"
-                "info"
-                "delete"
-              ];
-            } ];
+            sshAccess = [
+              {
+                key = publicKey;
+                roles = [
+                  "source"
+                  "send"
+                  "info"
+                  "delete"
+                ];
+              }
+            ];
             instances = {
               local = {
                 onCalendar = "minutely";

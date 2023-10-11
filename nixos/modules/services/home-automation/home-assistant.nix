@@ -430,10 +430,12 @@ in
   };
 
   config = mkIf cfg.enable {
-    assertions = [ {
-      assertion = cfg.openFirewall -> cfg.config != null;
-      message = "openFirewall can only be used with a declarative config";
-    } ];
+    assertions = [
+      {
+        assertion = cfg.openFirewall -> cfg.config != null;
+        message = "openFirewall can only be used with a declarative config";
+      }
+    ];
 
     networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [
       cfg.config.http.server_port

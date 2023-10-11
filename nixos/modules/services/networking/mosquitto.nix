@@ -478,10 +478,12 @@ let
   bridgeAsserts =
     prefix: bridge:
     assertKeysValid "${prefix}.settings" freeformBridgeKeys bridge.settings
-    ++ [ {
-      assertion = length bridge.addresses > 0;
-      message = "Bridge ${prefix} needs remote broker addresses";
-    } ]
+    ++ [
+      {
+        assertion = length bridge.addresses > 0;
+        message = "Bridge ${prefix} needs remote broker addresses";
+      }
+    ]
   ;
 
   formatBridge =

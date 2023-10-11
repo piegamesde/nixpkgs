@@ -57,9 +57,9 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  makeFlags =
-    [ "VERSION=${region}" ]
-    ++ lib.optionals stdenv.isDarwin [ "OSX_BUILD=1" ] ++ compileFlags;
+  makeFlags = [
+    "VERSION=${region}"
+  ] ++ lib.optionals stdenv.isDarwin [ "OSX_BUILD=1" ] ++ compileFlags;
 
   preBuild = ''
     patchShebangs extract_assets.py

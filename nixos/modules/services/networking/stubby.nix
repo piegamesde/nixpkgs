@@ -98,13 +98,15 @@ in
   };
 
   config = mkIf cfg.enable {
-    assertions = [ {
-      assertion = (cfg.settings.resolution_type or "") == "GETDNS_RESOLUTION_STUB";
-      message = ''
-        services.stubby.settings.resolution_type must be set to "GETDNS_RESOLUTION_STUB".
-        Is services.stubby.settings unset?
-      '';
-    } ];
+    assertions = [
+      {
+        assertion = (cfg.settings.resolution_type or "") == "GETDNS_RESOLUTION_STUB";
+        message = ''
+          services.stubby.settings.resolution_type must be set to "GETDNS_RESOLUTION_STUB".
+          Is services.stubby.settings unset?
+        '';
+      }
+    ];
 
     services.stubby.settings.appdata_dir = "/var/cache/stubby";
 

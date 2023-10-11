@@ -35,13 +35,15 @@ in
 
   config = mkIf cfg.enable {
 
-    assertions = [ {
-      assertion = !config.services.tlp.enable;
-      message = ''
-        You have set services.power-profiles-daemon.enable = true;
-        which conflicts with services.tlp.enable = true;
-      '';
-    } ];
+    assertions = [
+      {
+        assertion = !config.services.tlp.enable;
+        message = ''
+          You have set services.power-profiles-daemon.enable = true;
+          which conflicts with services.tlp.enable = true;
+        '';
+      }
+    ];
 
     environment.systemPackages = [ package ];
 

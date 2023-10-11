@@ -49,10 +49,12 @@ stdenv.mkDerivation rec {
       --replace "Exec=lightdm-tiny-greeter" "Exec=$out/bin/lightdm-tiny-greeter"
   '';
 
-  passthru.xgreeters = linkFarm "lightdm-tiny-greeter-xgreeters" [ {
-    path = "${lightdm-tiny-greeter}/share/xgreeters/lightdm-tiny-greeter.desktop";
-    name = "lightdm-tiny-greeter.desktop";
-  } ];
+  passthru.xgreeters = linkFarm "lightdm-tiny-greeter-xgreeters" [
+    {
+      path = "${lightdm-tiny-greeter}/share/xgreeters/lightdm-tiny-greeter.desktop";
+      name = "lightdm-tiny-greeter.desktop";
+    }
+  ];
 
   meta = with lib; {
     description = "A tiny multi user lightdm greeter";

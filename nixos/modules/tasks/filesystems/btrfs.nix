@@ -90,14 +90,16 @@ in
     })
 
     (mkIf enableAutoScrub {
-      assertions = [ {
-        assertion = cfgScrub.enable -> (cfgScrub.fileSystems != [ ]);
-        message = ''
-          If 'services.btrfs.autoScrub' is enabled, you need to have at least one
-          btrfs file system mounted via 'fileSystems' or specify a list manually
-          in 'services.btrfs.autoScrub.fileSystems'.
-        '';
-      } ];
+      assertions = [
+        {
+          assertion = cfgScrub.enable -> (cfgScrub.fileSystems != [ ]);
+          message = ''
+            If 'services.btrfs.autoScrub' is enabled, you need to have at least one
+            btrfs file system mounted via 'fileSystems' or specify a list manually
+            in 'services.btrfs.autoScrub.fileSystems'.
+          '';
+        }
+      ];
 
       # This will yield duplicated units if the user mounts a filesystem multiple times
       # or additionally mounts subvolumes, but going the other way around via devices would

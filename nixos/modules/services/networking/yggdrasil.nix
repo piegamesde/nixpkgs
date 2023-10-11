@@ -145,10 +145,12 @@ in
       binHjson = "${pkgs.hjson-go}/bin/hjson-cli";
     in
     {
-      assertions = [ {
-        assertion = config.networking.enableIPv6;
-        message = "networking.enableIPv6 must be true for yggdrasil to work";
-      } ];
+      assertions = [
+        {
+          assertion = config.networking.enableIPv6;
+          message = "networking.enableIPv6 must be true for yggdrasil to work";
+        }
+      ];
 
       system.activationScripts.yggdrasil = mkIf cfg.persistentKeys ''
         if [ ! -e ${keysPath} ]

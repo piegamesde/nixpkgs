@@ -1380,9 +1380,9 @@ in
       wants = concatLists (
         map (certName: [ "acme-finished-${certName}.target" ]) dependentCertNames
       );
-      after =
-        [ "network.target" ]
-        ++ map (certName: "acme-selfsigned-${certName}.service") dependentCertNames;
+      after = [
+        "network.target"
+      ] ++ map (certName: "acme-selfsigned-${certName}.service") dependentCertNames;
       # Nginx needs to be started in order to be able to request certificates
       # (it's hosting the acme challenge after all)
       # This fixes https://github.com/NixOS/nixpkgs/issues/81842

@@ -218,21 +218,23 @@ in
     services.postgresql = mkIf cfg.database.createLocally {
       enable = true;
 
-      ensureUsers = [ {
-        name = "listmonk";
-        ensurePermissions = {
-          "DATABASE listmonk" = "ALL PRIVILEGES";
-        };
-      } ];
+      ensureUsers = [
+        {
+          name = "listmonk";
+          ensurePermissions = {
+            "DATABASE listmonk" = "ALL PRIVILEGES";
+          };
+        }
+      ];
 
       ensureDatabases = [ "listmonk" ];
     };
 
     systemd.services.listmonk = {
       description = "Listmonk - newsletter and mailing list manager";
-      after =
-        [ "network.target" ]
-        ++ optional cfg.database.createLocally "postgresql.service";
+      after = [
+        "network.target"
+      ] ++ optional cfg.database.createLocally "postgresql.service";
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         Type = "exec";

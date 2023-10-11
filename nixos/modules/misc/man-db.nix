@@ -36,9 +36,9 @@ in
           name = "man-paths";
           paths = lib.subtractLists cfg.skipPackages config.environment.systemPackages;
           pathsToLink = [ "/share/man" ];
-          extraOutputsToInstall =
-            [ "man" ]
-            ++ lib.optionals config.documentation.dev.enable [ "devman" ];
+          extraOutputsToInstall = [
+            "man"
+          ] ++ lib.optionals config.documentation.dev.enable [ "devman" ];
           ignoreCollisions = true;
         };
         defaultText =

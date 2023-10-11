@@ -167,10 +167,12 @@ in
 
       sensors = mkOption {
         type = types.listOf (sensorType "sensor");
-        default = [ {
-          type = "tpacpi";
-          query = "/proc/acpi/ibm/thermal";
-        } ];
+        default = [
+          {
+            type = "tpacpi";
+            query = "/proc/acpi/ibm/thermal";
+          }
+        ];
         description = lib.mdDoc ''
           List of temperature sensors thinkfan will monitor.
 
@@ -180,10 +182,12 @@ in
 
       fans = mkOption {
         type = types.listOf (sensorType "fan");
-        default = [ {
-          type = "tpacpi";
-          query = "/proc/acpi/ibm/fan";
-        } ];
+        default = [
+          {
+            type = "tpacpi";
+            query = "/proc/acpi/ibm/fan";
+          }
+        ];
         description = lib.mdDoc ''
           List of fans thinkfan will control.
 

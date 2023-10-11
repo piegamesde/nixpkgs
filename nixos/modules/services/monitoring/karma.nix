@@ -103,10 +103,12 @@ in
         };
         alertmanager = {
           interval = "15s";
-          servers = [ {
-            name = "prod";
-            uri = "http://alertmanager.example.com";
-          } ];
+          servers = [
+            {
+              name = "prod";
+              uri = "http://alertmanager.example.com";
+            }
+          ];
         };
       };
     };

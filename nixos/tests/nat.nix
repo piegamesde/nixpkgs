@@ -15,17 +15,19 @@ import ./make-test-python.nix (
     unit =
       if nftables then "nftables" else (if withFirewall then "firewall" else "nat");
 
-    routerBase = lib.mkMerge [ {
-      virtualisation.vlans = [
-        2
-        1
-      ];
-      networking.firewall.enable = withFirewall;
-      networking.firewall.filterForward = nftables;
-      networking.nftables.enable = nftables;
-      networking.nat.internalIPs = [ "192.168.1.0/24" ];
-      networking.nat.externalInterface = "eth1";
-    } ];
+    routerBase = lib.mkMerge [
+      {
+        virtualisation.vlans = [
+          2
+          1
+        ];
+        networking.firewall.enable = withFirewall;
+        networking.firewall.filterForward = nftables;
+        networking.nftables.enable = nftables;
+        networking.nat.internalIPs = [ "192.168.1.0/24" ];
+        networking.nat.externalInterface = "eth1";
+      }
+    ];
   in
   {
     name =
@@ -43,13 +45,15 @@ import ./make-test-python.nix (
     nodes = {
       client =
         { pkgs, nodes, ... }:
-        lib.mkMerge [ {
-          virtualisation.vlans = [ 1 ];
-          networking.defaultGateway =
-            (pkgs.lib.head nodes.router.config.networking.interfaces.eth2.ipv4.addresses)
-            .address;
-          networking.nftables.enable = nftables;
-        } ];
+        lib.mkMerge [
+          {
+            virtualisation.vlans = [ 1 ];
+            networking.defaultGateway =
+              (pkgs.lib.head nodes.router.config.networking.interfaces.eth2.ipv4.addresses)
+              .address;
+            networking.nftables.enable = nftables;
+          }
+        ];
 
       router =
         { ... }:

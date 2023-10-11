@@ -280,10 +280,12 @@ rec {
               (
                 x:
                 if x != null then
-                  [ {
-                    key = x.outPath;
-                    val = x;
-                  } ]
+                  [
+                    {
+                      key = x.outPath;
+                      val = x;
+                    }
+                  ]
                 else
                   [ ]
               )

@@ -69,9 +69,9 @@ stdenv.mkDerivation (
       ++ lib.optional (!stdenv.isLinux) gnumake
     ;
 
-    patches =
-      [ ./enable-table-validation.patch ]
-      ++ lib.optional useEncumberedCode ./enable-subpixel-rendering.patch;
+    patches = [
+      ./enable-table-validation.patch
+    ] ++ lib.optional useEncumberedCode ./enable-subpixel-rendering.patch;
 
     outputs = [
       "out"

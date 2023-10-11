@@ -9,9 +9,7 @@ rec {
       sha256 = "0gjlvz5nk0fnaclljpyfk21rkf0nidjj6wcv3jbnpmfafgjny5fi";
     };
 
-    buildInputs =
-      [
-      ];
+    buildInputs = [ ];
   };
 
   blob-utils = eggDerivation {
@@ -50,9 +48,7 @@ rec {
       sha256 = "0442wly63zis19vh8xc9nhxgp9sabaccxylpzmchd5f1d48iag65";
     };
 
-    buildInputs =
-      [
-      ];
+    buildInputs = [ ];
   };
 
   foreigners = eggDerivation {
@@ -106,9 +102,7 @@ rec {
       sha256 = "07y3lpzgm4djiwi9y2adc796f9kwkmdr28fkfkw65syahdax8990";
     };
 
-    buildInputs =
-      [
-      ];
+    buildInputs = [ ];
   };
 
   message-digest = eggDerivation {
@@ -139,9 +133,7 @@ rec {
       sha256 = "1ajdgjrni10i2hmhcp4rawnxajjxry3kmq1krdmah4sf0kjrgajc";
     };
 
-    buildInputs =
-      [
-      ];
+    buildInputs = [ ];
   };
 
   parley = eggDerivation {
@@ -169,9 +161,7 @@ rec {
       sha256 = "14llya7l04z49xpi3iylk8aglrw968vy304ymavhhqlyzmzwkx3g";
     };
 
-    buildInputs =
-      [
-      ];
+    buildInputs = [ ];
   };
 
   posix-extras = eggDerivation {
@@ -183,9 +173,7 @@ rec {
       sha256 = "0gnmhn2l0161ham7f8i0lx1ay94ap8l8l7ga4nw9qs86lk024abi";
     };
 
-    buildInputs =
-      [
-      ];
+    buildInputs = [ ];
   };
 
   record-variants = eggDerivation {
@@ -197,9 +185,7 @@ rec {
       sha256 = "15wgysxkm8m4hx9nhhw9akchzipdnqc7yj3qd3zn0z7sxg4sld1h";
     };
 
-    buildInputs =
-      [
-      ];
+    buildInputs = [ ];
   };
 
   regex = eggDerivation {
@@ -211,9 +197,7 @@ rec {
       sha256 = "1z9bh7xvab6h5cdlsz8jk02pv5py1i6ryqarbcs3wdgkkjgmmkif";
     };
 
-    buildInputs =
-      [
-      ];
+    buildInputs = [ ];
   };
 
   setup-helper = eggDerivation {
@@ -225,9 +209,7 @@ rec {
       sha256 = "1lpplp8f2wyc486dd98gs4wl1kkhh1cs6vdqkxrdk7f92ikmwbx3";
     };
 
-    buildInputs =
-      [
-      ];
+    buildInputs = [ ];
   };
 
   sha2 = eggDerivation {
@@ -266,9 +248,7 @@ rec {
       sha256 = "1a2zdkdzrv15fw9dfdy8067fsgh4kr8ppffm8mc3cmlczrrd58cb";
     };
 
-    buildInputs =
-      [
-      ];
+    buildInputs = [ ];
   };
 
   srfi-71 = eggDerivation {
@@ -280,9 +260,7 @@ rec {
       sha256 = "01mlaxw2lfczykmx69xki2s0f4ywlg794rl4kz07plvzn0s3fbqq";
     };
 
-    buildInputs =
-      [
-      ];
+    buildInputs = [ ];
   };
 
   ssql = eggDerivation {
@@ -439,9 +417,7 @@ rec {
       sha256 = "1w6xsjyapi2x8dv21dpidkyw1kjfsbasddn554xx561pi3i0yv9h";
     };
 
-    buildInputs =
-      [
-      ];
+    buildInputs = [ ];
   };
 
   silex = eggDerivation {
@@ -453,9 +429,7 @@ rec {
       sha256 = "17x7f07aa3qnay3bhjr7knjivhycs54j97jyv3gjs1h8qnp63g00";
     };
 
-    buildInputs =
-      [
-      ];
+    buildInputs = [ ];
   };
 
   z3 = eggDerivation {

@@ -103,12 +103,14 @@ with lib; {
     services.postgresql = {
       enable = true;
       ensureDatabases = [ "hydron" ];
-      ensureUsers = [ {
-        name = "hydron";
-        ensurePermissions = {
-          "DATABASE hydron" = "ALL PRIVILEGES";
-        };
-      } ];
+      ensureUsers = [
+        {
+          name = "hydron";
+          ensurePermissions = {
+            "DATABASE hydron" = "ALL PRIVILEGES";
+          };
+        }
+      ];
     };
 
     systemd.tmpfiles.rules = [

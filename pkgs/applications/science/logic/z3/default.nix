@@ -48,9 +48,9 @@ let
           findlib
         ]
       ;
-      propagatedBuildInputs =
-        [ python.pkgs.setuptools ]
-        ++ optionals ocamlBindings [ zarith ];
+      propagatedBuildInputs = [
+        python.pkgs.setuptools
+      ] ++ optionals ocamlBindings [ zarith ];
       enableParallelBuilding = true;
 
       postPatch = optionalString ocamlBindings ''

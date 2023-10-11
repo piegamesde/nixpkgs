@@ -122,14 +122,16 @@ in
       hardware.wirelessRegulatoryDatabase = true;
     })
     (mkIf cfg.enableAllFirmware {
-      assertions = [ {
-        assertion = !cfg.enableAllFirmware || config.nixpkgs.config.allowUnfree;
-        message = ''
-          the list of hardware.enableAllFirmware contains non-redistributable licensed firmware files.
-            This requires nixpkgs.config.allowUnfree to be true.
-            An alternative is to use the hardware.enableRedistributableFirmware option.
-        '';
-      } ];
+      assertions = [
+        {
+          assertion = !cfg.enableAllFirmware || config.nixpkgs.config.allowUnfree;
+          message = ''
+            the list of hardware.enableAllFirmware contains non-redistributable licensed firmware files.
+              This requires nixpkgs.config.allowUnfree to be true.
+              An alternative is to use the hardware.enableRedistributableFirmware option.
+          '';
+        }
+      ];
       hardware.firmware =
         with pkgs;
         [

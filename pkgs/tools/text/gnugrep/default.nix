@@ -32,9 +32,9 @@ stdenv.mkDerivation {
       ./sigsegv-loongarch.patch;
 
   # Perl is needed for testing
-  nativeBuildInputs =
-    [ perl ]
-    ++ lib.optional stdenv.hostPlatform.isLoongArch64 autoreconfHook;
+  nativeBuildInputs = [
+    perl
+  ] ++ lib.optional stdenv.hostPlatform.isLoongArch64 autoreconfHook;
   outputs = [
     "out"
     "info"

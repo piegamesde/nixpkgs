@@ -100,10 +100,12 @@ in
   # implementation
   config = mkIf cfg.enable {
 
-    assertions = [ {
-      assertion = !config.services.mysqlBackup.enable;
-      message = "Please choose one of services.mysqlBackup or services.automysqlbackup.";
-    } ];
+    assertions = [
+      {
+        assertion = !config.services.mysqlBackup.enable;
+        message = "Please choose one of services.mysqlBackup or services.automysqlbackup.";
+      }
+    ];
 
     services.automysqlbackup.config = mapAttrs (name: mkDefault) {
       mysql_dump_username = user;

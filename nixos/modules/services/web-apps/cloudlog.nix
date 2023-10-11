@@ -313,10 +313,12 @@ in
   };
   config = mkIf cfg.enable {
 
-    assertions = [ {
-      assertion = cfg.database.createLocally -> cfg.database.passwordFile == null;
-      message = "services.cloudlog.database.passwordFile cannot be specified if services.cloudlog.database.createLocally is set to true.";
-    } ];
+    assertions = [
+      {
+        assertion = cfg.database.createLocally -> cfg.database.passwordFile == null;
+        message = "services.cloudlog.database.passwordFile cannot be specified if services.cloudlog.database.createLocally is set to true.";
+      }
+    ];
 
     services.phpfpm = {
       pools.cloudlog = {
@@ -349,12 +351,14 @@ in
     services.mysql = mkIf cfg.database.createLocally {
       enable = true;
       ensureDatabases = [ cfg.database.name ];
-      ensureUsers = [ {
-        name = cfg.database.user;
-        ensurePermissions = {
-          "${cfg.database.name}.*" = "ALL PRIVILEGES";
-        };
-      } ];
+      ensureUsers = [
+        {
+          name = cfg.database.user;
+          ensurePermissions = {
+            "${cfg.database.name}.*" = "ALL PRIVILEGES";
+          };
+        }
+      ];
     };
 
     systemd = {

@@ -603,11 +603,13 @@ in
   };
 
   config = mkIf cfg.enable {
-    assertions = [ {
-      assertion =
-        cfg.database.createDatabase -> useSqlite || cfg.database.user == cfg.user;
-      message = "services.gitea.database.user must match services.gitea.user if the database is to be automatically provisioned";
-    } ];
+    assertions = [
+      {
+        assertion =
+          cfg.database.createDatabase -> useSqlite || cfg.database.user == cfg.user;
+        message = "services.gitea.database.user must match services.gitea.user if the database is to be automatically provisioned";
+      }
+    ];
 
     services.gitea.settings = {
       "cron.update_checker".ENABLED = lib.mkDefault false;
@@ -663,12 +665,14 @@ in
           enable = mkDefault true;
 
           ensureDatabases = [ cfg.database.name ];
-          ensureUsers = [ {
-            name = cfg.database.user;
-            ensurePermissions = {
-              "DATABASE ${cfg.database.name}" = "ALL PRIVILEGES";
-            };
-          } ];
+          ensureUsers = [
+            {
+              name = cfg.database.user;
+              ensurePermissions = {
+                "DATABASE ${cfg.database.name}" = "ALL PRIVILEGES";
+              };
+            }
+          ];
         };
 
     services.mysql = optionalAttrs (useMysql && cfg.database.createDatabase) {
@@ -676,12 +680,14 @@ in
       package = mkDefault pkgs.mariadb;
 
       ensureDatabases = [ cfg.database.name ];
-      ensureUsers = [ {
-        name = cfg.database.user;
-        ensurePermissions = {
-          "${cfg.database.name}.*" = "ALL PRIVILEGES";
-        };
-      } ];
+      ensureUsers = [
+        {
+          name = cfg.database.user;
+          ensurePermissions = {
+            "${cfg.database.name}.*" = "ALL PRIVILEGES";
+          };
+        }
+      ];
     };
 
     systemd.tmpfiles.rules =

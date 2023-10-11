@@ -19,9 +19,9 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  propagatedBuildInputs =
-    [ setuptools ]
-    ++ lib.optionals (!isPy3k) [ backports_functools_lru_cache ];
+  propagatedBuildInputs = [
+    setuptools
+  ] ++ lib.optionals (!isPy3k) [ backports_functools_lru_cache ];
 
   # To prevent infinite recursion with pytest
   doCheck = false;

@@ -226,36 +226,38 @@ in
   config = mkIf (sshEnabled || serviceEnabled) {
     environment.systemPackages = [ pkgs.btrbk ] ++ cfg.extraPackages;
     security.sudo = mkIf (sudo_doas == "sudo") {
-      extraRules = [ {
-        users = [ "btrbk" ];
-        commands = [
-          {
-            command = "${pkgs.btrfs-progs}/bin/btrfs";
-            options = [ "NOPASSWD" ];
-          }
-          {
-            command = "${pkgs.coreutils}/bin/mkdir";
-            options = [ "NOPASSWD" ];
-          }
-          {
-            command = "${pkgs.coreutils}/bin/readlink";
-            options = [ "NOPASSWD" ];
-          }
-          # for ssh, they are not the same than the one hard coded in ${pkgs.btrbk}
-          {
-            command = "/run/current-system/bin/btrfs";
-            options = [ "NOPASSWD" ];
-          }
-          {
-            command = "/run/current-system/sw/bin/mkdir";
-            options = [ "NOPASSWD" ];
-          }
-          {
-            command = "/run/current-system/sw/bin/readlink";
-            options = [ "NOPASSWD" ];
-          }
-        ];
-      } ];
+      extraRules = [
+        {
+          users = [ "btrbk" ];
+          commands = [
+            {
+              command = "${pkgs.btrfs-progs}/bin/btrfs";
+              options = [ "NOPASSWD" ];
+            }
+            {
+              command = "${pkgs.coreutils}/bin/mkdir";
+              options = [ "NOPASSWD" ];
+            }
+            {
+              command = "${pkgs.coreutils}/bin/readlink";
+              options = [ "NOPASSWD" ];
+            }
+            # for ssh, they are not the same than the one hard coded in ${pkgs.btrbk}
+            {
+              command = "/run/current-system/bin/btrfs";
+              options = [ "NOPASSWD" ];
+            }
+            {
+              command = "/run/current-system/sw/bin/mkdir";
+              options = [ "NOPASSWD" ];
+            }
+            {
+              command = "/run/current-system/sw/bin/readlink";
+              options = [ "NOPASSWD" ];
+            }
+          ];
+        }
+      ];
     };
     security.doas = mkIf (sudo_doas == "doas") {
       extraRules =

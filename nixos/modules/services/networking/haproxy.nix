@@ -54,10 +54,12 @@ with lib; {
 
   config = mkIf cfg.enable {
 
-    assertions = [ {
-      assertion = cfg.config != null;
-      message = "You must provide services.haproxy.config.";
-    } ];
+    assertions = [
+      {
+        assertion = cfg.config != null;
+        message = "You must provide services.haproxy.config.";
+      }
+    ];
 
     # configuration file indirection is needed to support reloading
     environment.etc."haproxy.cfg".source = haproxyCfg;

@@ -389,25 +389,29 @@ import ./make-test-python.nix (
             };
 
             mount.configuration = {
-              systemd.mounts = [ {
-                description = "Testmount";
-                what = "tmpfs";
-                type = "tmpfs";
-                where = "/testmount";
-                options = "size=1M";
-                wantedBy = [ "local-fs.target" ];
-              } ];
+              systemd.mounts = [
+                {
+                  description = "Testmount";
+                  what = "tmpfs";
+                  type = "tmpfs";
+                  where = "/testmount";
+                  options = "size=1M";
+                  wantedBy = [ "local-fs.target" ];
+                }
+              ];
             };
 
             mountModified.configuration = {
-              systemd.mounts = [ {
-                description = "Testmount";
-                what = "tmpfs";
-                type = "tmpfs";
-                where = "/testmount";
-                options = "size=10M";
-                wantedBy = [ "local-fs.target" ];
-              } ];
+              systemd.mounts = [
+                {
+                  description = "Testmount";
+                  what = "tmpfs";
+                  type = "tmpfs";
+                  where = "/testmount";
+                  options = "size=10M";
+                  wantedBy = [ "local-fs.target" ];
+                }
+              ];
             };
 
             timer.configuration = {
