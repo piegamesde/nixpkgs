@@ -417,8 +417,7 @@ in
               ${cfg.package}/bin/mysqld --defaults-file=/etc/my.cnf ${mysqldOptions} --initialize-insecure
               touch ${cfg.dataDir}/mysql_init
             fi
-          ''
-      ;
+          '';
 
       script = ''
         # https://mariadb.com/kb/en/getting-started-with-mariadb-galera-cluster/#systemd-and-galera-recovery

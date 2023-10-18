@@ -54,8 +54,7 @@ buildPythonPackage rec {
       pytestCheckHook
     ]
     ++ passthru.optional-dependencies.networkx
-    ++ passthru.optional-dependencies.html
-  ;
+    ++ passthru.optional-dependencies.html;
 
   pytestFlagsArray = [
     # requires network access

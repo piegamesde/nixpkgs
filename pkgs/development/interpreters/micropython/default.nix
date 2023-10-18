@@ -45,8 +45,7 @@ stdenv.mkDerivation rec {
       lib.optionalString (stdenv.isDarwin)
         " -e uasyncio_basic -e uasyncio_heaplock -e uasyncio_wait_task"
     + lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) " -e ffi_callback"
-    + lib.optionalString (stdenv.isLinux && stdenv.isAarch64) " -e float_parse"
-  ;
+    + lib.optionalString (stdenv.isLinux && stdenv.isAarch64) " -e float_parse";
 
   checkPhase = ''
     runHook preCheck

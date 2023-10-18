@@ -100,8 +100,7 @@ let
         ]
         ++ lib.optional withAppIndicator (
           if (pname != "gammastep") then libappindicator else libayatana-appindicator
-        )
-      ;
+        );
 
       pythonPath = [
         pygobject3
@@ -137,8 +136,7 @@ let
               --replace 'Exec=redshift' "Exec=$out/bin/redshift"
             substituteInPlace $out/share/applications/redshift-gtk.desktop \
               --replace 'Exec=redshift-gtk' "Exec=$out/bin/redshift-gtk"
-          ''
-      ;
+          '';
 
       enableParallelBuilding = true;
     };

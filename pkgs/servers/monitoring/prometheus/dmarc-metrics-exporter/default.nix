@@ -36,8 +36,7 @@ python3.pkgs.buildPythonApplication rec {
       uvicorn
       xsdata
     ]
-    ++ uvicorn.optional-dependencies.standard
-  ;
+    ++ uvicorn.optional-dependencies.standard;
 
   nativeCheckInputs = with python3.pkgs; [
     aiohttp

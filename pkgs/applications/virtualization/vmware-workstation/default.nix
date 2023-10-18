@@ -115,8 +115,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals enableMacOSGuests [
       gnutar
       unzip
-    ]
-  ;
+    ];
 
   src = fetchurl {
     url = "https://download3.vmware.com/software/WKST-1700-LX/VMware-Workstation-Full-${version}-${build}.x86_64.bundle";

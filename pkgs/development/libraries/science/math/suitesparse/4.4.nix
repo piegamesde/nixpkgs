@@ -51,8 +51,7 @@ stdenv.mkDerivation rec {
           -e 's|^[[:space:]]*\(NV35          =\)|NV35 = -arch=sm_35 -Xcompiler -fPIC|' \
           -e 's|^[[:space:]]*\(NVCC          =\) echo|NVCC = $(CUDA_ROOT)/bin/nvcc|' \
           -e 's|^[[:space:]]*\(NVCCFLAGS     =\)|NVCCFLAGS = $(NV20) -O3 -gencode=arch=compute_20,code=sm_20 -gencode=arch=compute_30,code=sm_30 -gencode=arch=compute_35,code=sm_35 -gencode=arch=compute_60,code=sm_60|'
-    ''
-  ;
+    '';
 
   makeFlags = [
     ''PREFIX="$(out)"''

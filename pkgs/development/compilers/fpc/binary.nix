@@ -33,8 +33,7 @@ stdenv.mkDerivation rec {
         sha256 = "05d4510c8c887e3c68de20272abf62171aa5b2ef1eba6bce25e4c0bc41ba8b7d";
       }
     else
-      throw "Not supported on ${stdenv.hostPlatform.system}."
-  ;
+      throw "Not supported on ${stdenv.hostPlatform.system}.";
 
   nativeBuildInputs = lib.optionals stdenv.hostPlatform.isDarwin [
     undmg
@@ -48,8 +47,7 @@ stdenv.mkDerivation rec {
     else if stdenv.hostPlatform.isDarwin then
       ./binary-builder-darwin.sh
     else
-      throw "Not supported on ${stdenv.hostPlatform}."
-  ;
+      throw "Not supported on ${stdenv.hostPlatform}.";
 
   meta = {
     description = "Free Pascal Compiler from a binary distribution";

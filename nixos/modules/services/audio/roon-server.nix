@@ -98,7 +98,6 @@ in
           extraGroups = [ "audio" ];
         }
       else
-        { }
-    ;
+        { };
   };
 }

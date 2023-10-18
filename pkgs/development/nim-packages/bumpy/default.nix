@@ -27,6 +27,5 @@ buildNimPackage rec {
       description = "2d collision library";
       license = [ licenses.mit ];
       maintainers = [ maintainers.ehmry ];
-    }
-  ;
+    };
 }

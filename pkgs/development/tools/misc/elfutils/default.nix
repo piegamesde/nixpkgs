@@ -67,8 +67,7 @@ stdenv.mkDerivation rec {
       #
       # > dwfl_thread_getframes: No DWARF information found
       sed -i s/run-backtrace-dwarf.sh//g tests/Makefile.in
-    ''
-  ;
+    '';
 
   outputs = [
     "bin"
@@ -103,8 +102,7 @@ stdenv.mkDerivation rec {
       curl
       libmicrohttpd
       libarchive
-    ]
-  ;
+    ];
 
   propagatedNativeBuildInputs = [ setupDebugInfoDirs ];
 

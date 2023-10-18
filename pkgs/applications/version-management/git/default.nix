@@ -87,8 +87,7 @@ stdenv.mkDerivation (
             && !pythonSupport
             && !withpcre2
           )
-          "-minimal"
-    ;
+          "-minimal";
     inherit version;
 
     src = fetchurl {
@@ -124,8 +123,7 @@ stdenv.mkDerivation (
           substituteInPlace "$x" \
             --subst-var-by ssh "${openssh}/bin/ssh"
         done
-      ''
-    ;
+      '';
 
     nativeBuildInputs =
       [
@@ -166,15 +164,13 @@ stdenv.mkDerivation (
       ++ lib.optionals withLibsecret [
         glib
         libsecret
-      ]
-    ;
+      ];
 
     # required to support pthread_cancel()
     NIX_LDFLAGS =
       lib.optionalString (stdenv.cc.isGNU && stdenv.hostPlatform.libc == "glibc")
         "-lgcc_s"
-      + lib.optionalString (stdenv.isFreeBSD) "-lthr"
-    ;
+      + lib.optionalString (stdenv.isFreeBSD) "-lthr";
 
     configureFlags =
       [ "ac_cv_prog_CURL_CONFIG=${lib.getDev curl}/bin/curl-config" ]
@@ -231,8 +227,7 @@ stdenv.mkDerivation (
       # acceptable version.
       #
       # See https://github.com/Homebrew/homebrew-core/commit/dfa3ccf1e7d3901e371b5140b935839ba9d8b706
-      ++ lib.optional stdenv.isDarwin "TKFRAMEWORK=/nonexistent"
-    ;
+      ++ lib.optional stdenv.isDarwin "TKFRAMEWORK=/nonexistent";
 
     disallowedReferences =
       lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform)
@@ -250,8 +245,7 @@ stdenv.mkDerivation (
       '')
       + (lib.optionalString withLibsecret ''
         make -C contrib/credential/libsecret
-      '')
-    ;
+      '');
 
     ## Install
 
@@ -270,8 +264,7 @@ stdenv.mkDerivation (
         mkdir -p $out/bin
         ln -s $out/share/git/contrib/credential/libsecret/git-credential-libsecret $out/bin/
         rm -f $PWD/contrib/credential/libsecret/git-credential-libsecret.o
-      '')
-    ;
+      '');
 
     postInstall =
       ''
@@ -427,8 +420,7 @@ stdenv.mkDerivation (
         [credential]
           helper = osxkeychain
         EOF
-      ''
-    ;
+      '';
 
     ## InstallCheck
 
@@ -523,8 +515,7 @@ stdenv.mkDerivation (
         # Fails largely due to assumptions about BOM
         # Tested to fail: 2.18.0
         disable_test t0028-working-tree-encoding
-      ''
-    ;
+      '';
 
     stripDebugList = [
       "lib"

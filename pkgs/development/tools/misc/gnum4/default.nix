@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
         find . -name Makefile.in -exec touch {} + || die
       ''
     else
-      null
-  ;
+      null;
 
   strictDeps = true;
   enableParallelBuilding = true;

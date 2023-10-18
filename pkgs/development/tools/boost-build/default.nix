@@ -46,8 +46,7 @@ stdenv.mkDerivation {
         (useBoost ? version && lib.versionAtLeast useBoost.version "1.82")
         ''
           patchShebangs --build src/engine/build.sh
-        ''
-  ;
+        '';
 
   nativeBuildInputs = [ bison ];
 

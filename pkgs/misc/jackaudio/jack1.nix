@@ -20,8 +20,7 @@ let
     if pkg != null && lib.meta.availableOn stdenv.hostPlatform pkg then
       pkg
     else
-      null
-  ;
+      null;
 
   optAlsaLib = shouldUsePkg alsa-lib;
   optDb = shouldUsePkg db;

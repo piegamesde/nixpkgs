@@ -21,8 +21,7 @@ buildPythonPackage {
     if lib.versionAtLeast protobuf.version "3.21" then
       "${toString (lib.toInt versionMajor + 1)}.${versionMinor}.${versionPatch}"
     else
-      protobuf.version
-  ;
+      protobuf.version;
 
   disabled = isPyPy;
 

@@ -61,8 +61,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional stdenv.isLinux gpm
     ++ lib.optional enableGuile guile
     ++ lib.optional enablePython python
-    ++ lib.optional enablePerl perl
-  ;
+    ++ lib.optional enablePerl perl;
 
   nativeBuildInputs = [
     autoreconfHook
@@ -87,8 +86,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional enableGuile "--with-guile"
     ++ lib.optional enablePython "--with-python"
-    ++ lib.optional enablePerl "--with-perl"
-  ;
+    ++ lib.optional enablePerl "--with-perl";
 
   meta = with lib; {
     description = "Full-featured text-mode web browser (package based on the fork felinks)";

@@ -141,8 +141,7 @@ in
             mpdCfg.credentials
           ).passwordFile
         else
-          null
-      ;
+          null;
       defaultText = literalMD ''
         The first password file with read access configured for MPD when using a local instance,
         otherwise `null`.

@@ -216,8 +216,7 @@ in
         xfce4-panel
         xfdesktop
       ]
-      ++ optional cfg.enableScreensaver xfce4-screensaver
-    ;
+      ++ optional cfg.enableScreensaver xfce4-screensaver;
 
     programs.xfconf.enable = true;
     programs.thunar.enable = true;

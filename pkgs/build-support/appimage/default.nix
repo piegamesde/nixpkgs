@@ -94,8 +94,7 @@ rec {
             (lib.remove "src")
             (removeAttrs args)
           ]
-          // args.passthru or { }
-        ;
+          // args.passthru or { };
       }
     );
 

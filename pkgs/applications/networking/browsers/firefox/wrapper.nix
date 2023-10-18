@@ -100,8 +100,7 @@ let
           lib.optional (cfg.enablePlasmaBrowserIntegration or false)
             plasma5Packages.plasma-browser-integration
         ++ lib.optional (cfg.enableFXCastBridge or false) fx_cast_bridge
-        ++ extraNativeMessagingHosts
-      ;
+        ++ extraNativeMessagingHosts;
       libs =
         lib.optionals stdenv.isLinux [
           udev
@@ -134,8 +133,7 @@ let
         ++ lib.optional jackSupport libjack2
         ++ lib.optional smartcardSupport opensc
         ++ lib.optional (cfg.speechSynthesisSupport or false) speechd
-        ++ pkcs11Modules
-      ;
+        ++ pkcs11Modules;
       gtk_modules = [ libcanberra-gtk3 ];
 
       launcherName = "${applicationName}${nameSuffix}";
@@ -174,8 +172,7 @@ let
               else
                 a
             )
-            (lib.optionals usesNixExtensions nixExtensions)
-      ;
+            (lib.optionals usesNixExtensions nixExtensions);
 
       enterprisePolicies = {
         policies =
@@ -214,8 +211,7 @@ let
               "OpenSC PKCS#11 Module" = "opensc-pkcs11.so";
             };
           }
-          // extraPolicies
-        ;
+          // extraPolicies;
       };
 
       mozillaCfg = ''

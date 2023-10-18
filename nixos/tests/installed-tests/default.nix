@@ -74,8 +74,7 @@ let
                     escapeShellArgs testRunnerFlags
                   } -d '${tested.installedTests}/share'"
               )
-            ''
-          ;
+            '';
         }
 
         (

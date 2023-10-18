@@ -53,8 +53,7 @@ stdenv.mkDerivation rec {
       MetalKit
       CoreAudioKit
       simd
-    ]
-  ;
+    ];
 
   cmakeFlags = [ "-DCMAKE_BUILD_TYPE=Release" ];
 

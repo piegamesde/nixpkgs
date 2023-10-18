@@ -67,8 +67,7 @@ python3.pkgs.buildPythonApplication rec {
       pango
       totem-pl-parser
     ]
-    ++ lib.optional lastFMSupport libsecret
-  ;
+    ++ lib.optional lastFMSupport libsecret;
 
   propagatedBuildInputs =
     with python3.pkgs;
@@ -79,8 +78,7 @@ python3.pkgs.buildPythonApplication rec {
       pygobject3
     ]
     ++ lib.optional lastFMSupport pylast
-    ++ lib.optional youtubeSupport youtube-dl
-  ;
+    ++ lib.optional youtubeSupport youtube-dl;
 
   postPatch = ''
     chmod +x meson_post_install.py

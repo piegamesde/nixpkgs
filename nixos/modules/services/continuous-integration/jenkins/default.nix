@@ -219,8 +219,7 @@ in
           JENKINS_HOME = cfg.home;
           NIX_REMOTE = "daemon";
         }
-        // cfg.environment
-      ;
+        // cfg.environment;
 
       path = cfg.packages;
 
@@ -241,8 +240,7 @@ in
                 rm -r ${cfg.home}/plugins || true
                 mkdir -p ${cfg.home}/plugins
                 ${lib.strings.concatStringsSep "\n" pluginCmds}
-              ''
-          ;
+              '';
         in
         ''
           rm -rf ${cfg.home}/war

@@ -92,8 +92,7 @@ stdenv.mkDerivation rec {
       tetex
       ghostscript
       texlive.combined.scheme-medium
-    ]
-  ;
+    ];
 
   propagatedBuildInputs = [ pythonEnv ];
 
@@ -109,16 +108,14 @@ stdenv.mkDerivation rec {
     ]
     ++ optional (build_profile != null) "--build-profile=${build_profile}"
     ++ optional withExamples " --enable-examples "
-    ++ optional doCheck " --enable-tests "
-  ;
+    ++ optional doCheck " --enable-tests ";
 
   doCheck = true;
 
   buildTargets =
     "build"
     + lib.optionalString enableDoxygen " doxygen"
-    + lib.optionalString withManual "sphinx"
-  ;
+    + lib.optionalString withManual "sphinx";
 
   # to prevent fatal error: 'backward_warning.h' file not found
   CXXFLAGS = "-D_GLIBCXX_PERMIT_BACKWARD_HASH";

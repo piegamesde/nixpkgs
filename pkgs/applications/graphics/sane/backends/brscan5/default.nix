@@ -64,8 +64,7 @@ stdenv.mkDerivation rec {
         else if system == "i686-linux" then
           77396
         else
-          throw "Unsupported system: ${system}"
-      ;
+          throw "Unsupported system: ${system}";
     in
     ''
       ${myPatchElf "opt/brother/scanner/brscan5/brsaneconfig5"}

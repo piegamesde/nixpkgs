@@ -45,8 +45,7 @@ let
           pymorphy3-dicts-uk
         ]
         ++ lib.optionals (lang == "zh") [ spacy-pkuseg ]
-        ++ lib.optionals (pname == "fr_dep_news_trf") [ sentencepiece ]
-      ;
+        ++ lib.optionals (pname == "fr_dep_news_trf") [ sentencepiece ];
 
       postPatch = lib.optionalString requires-protobuf ''
         substituteInPlace meta.json \

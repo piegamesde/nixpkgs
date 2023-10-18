@@ -112,8 +112,7 @@ let
         rev = "32e315a5b106a7b89dbed51c28f8120a48b368b4";
         sha256 = "19w9f0r16072s59diqxsr5q6nmwyz9gnxjs49nglzhd66p3ddbkp";
       }
-      + "/ippicv"
-    ;
+      + "/ippicv";
     files =
       let
         name = platform: "ippicv_2019_${platform}_general_20180723.tgz";
@@ -126,8 +125,7 @@ let
         { ${name "mac_intel64"} = "fe6b2bb75ae0e3f19ad3ae1a31dfa4a2"; }
       else
         throw
-          "ICV is not available for this platform (or not yet supported by this package)"
-    ;
+          "ICV is not available for this platform (or not yet supported by this package)";
     dst = ".cache/ippicv";
   };
 
@@ -195,8 +193,7 @@ let
           ln -s "${extra.src}/${name}" "${extra.dst}/${md5}-${name}"
         '')
         extra.files
-    )
-  ;
+    );
 
   opencvFlag = name: enabled: "-DWITH_${name}=${printEnabled enabled}";
 
@@ -232,8 +229,7 @@ stdenv.mkDerivation {
       ${installExtraFiles vgg}
       ${installExtraFiles boostdesc}
       ${installExtraFiles face}
-    '')
-  ;
+    '');
 
   postConfigure = ''
     [ -e modules/core/version_string.inc ]
@@ -298,8 +294,7 @@ stdenv.mkDerivation {
     ++ lib.optionals enableDocs [
       doxygen
       graphviz-nox
-    ]
-  ;
+    ];
 
   propagatedBuildInputs =
     lib.optional enablePython pythonPackages.numpy
@@ -354,8 +349,7 @@ stdenv.mkDerivation {
         [
           # Autodetection broken by https://github.com/opencv/opencv/pull/13337
           "-DEIGEN_INCLUDE_PATH=${eigen}/include/eigen3"
-        ]
-  ;
+        ];
 
   postBuild = lib.optionalString enableDocs ''
     make doxygen

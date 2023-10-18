@@ -16,8 +16,7 @@ stdenv.mkDerivation rec {
         sha256 = "1cm3q6y2crw6pcsvh21sbkmh1hin7xl4fyslc96nbyql8rxsky5n";
       }
     else
-      throw "${pname}-${version} is not supported on ${stdenv.hostPlatform.system}"
-  ;
+      throw "${pname}-${version} is not supported on ${stdenv.hostPlatform.system}";
 
   nativeBuildInputs = [
     makeWrapper

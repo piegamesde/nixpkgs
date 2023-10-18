@@ -32,8 +32,7 @@ runCommand testName
             unfree = throw "unused";
             unsupported = throw "unused";
           }
-          package.meta
-    ;
+          package.meta;
   }
   ''
     echo "checking pkg-config module $moduleName in $buildInputs"

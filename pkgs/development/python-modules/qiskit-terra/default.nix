@@ -102,8 +102,7 @@ buildPythonPackage rec {
       tweedledum
     ]
     ++ lib.optionals withVisualization visualizationPackages
-    ++ lib.optionals withCrosstalkPass crosstalkPackages
-  ;
+    ++ lib.optionals withCrosstalkPass crosstalkPackages;
 
   # *** Tests ***
   nativeCheckInputs = [
@@ -186,8 +185,7 @@ buildPythonPackage rec {
       "test_vqe_qasm"
       "test_dag_from_networkx"
       "test_defaults_to_dict_46"
-    ]
-  ;
+    ];
 
   # Moves tests to $PACKAGEDIR/test. They can't be run from /build because of finding
   # cythonized modules and expecting to find some resource files in the test directory.

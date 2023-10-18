@@ -72,8 +72,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       Carbon
       Cocoa
-    ]
-  ;
+    ];
 
   postInstall =
     lib.optionalString stdenv.isLinux ''
@@ -93,8 +92,7 @@ stdenv.mkDerivation rec {
       cp '../other/bundle/client/PkgInfo' "$out/Applications/teeworlds.app/Contents/"
       ln -s "$out/bin/teeworlds" "$out/Applications/teeworlds.app/Contents/MacOS/"
       ln -s "$out/share/teeworlds/data" "$out/Applications/teeworlds.app/Contents/Resources/data"
-    ''
-  ;
+    '';
 
   passthru.tests.teeworlds = nixosTests.teeworlds;
 

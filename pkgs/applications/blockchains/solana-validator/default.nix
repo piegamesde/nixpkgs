@@ -44,8 +44,7 @@
       # XXX: Ensure `solana-genesis` is built LAST!
       # See https://github.com/solana-labs/solana/issues/5826
       "solana-genesis"
-    ]
-  ,
+    ],
 }:
 let
   pinData = lib.importJSON ./pin.json;

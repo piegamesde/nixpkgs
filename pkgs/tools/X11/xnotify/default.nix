@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
         if isDerivation conf || builtins.isPath conf then
           conf
         else
-          writeText "config.h" conf
-      ;
+          writeText "config.h" conf;
     in
     optionalString (conf != null) "cp ${configFile} config.h";
 

@@ -47,8 +47,7 @@ assert lib.getVersion wineUnstable == patch.version;
         python3 ./staging/patchinstall.py DESTDIR="$PWD" --all ${
           lib.concatMapStringsSep " " (ps: "-W ${ps}") patch.disabledPatchsets
         }
-      ''
-    ;
+      '';
   }
 ))
 // {

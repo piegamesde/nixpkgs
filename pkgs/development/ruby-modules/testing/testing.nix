@@ -65,8 +65,7 @@ let
       [
         failed
         (name ": not a function, list or set")
-      ]
-  ;
+      ];
 in
 {
   inherit run passed failed;

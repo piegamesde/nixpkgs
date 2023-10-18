@@ -39,8 +39,7 @@ rustPlatform.buildRustPackage rec {
       lib.optionalString (lib.elem "default" features || lib.elem "unstable" features)
         ''
           export RUSTC_BOOTSTRAP=1
-        ''
-  ;
+        '';
 
   # depends on cpu instructions that may not be available on builders
   doCheck = false;

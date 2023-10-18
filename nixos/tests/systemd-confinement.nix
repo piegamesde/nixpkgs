@@ -223,6 +223,5 @@ import ./make-test-python.nix {
 
       machine.wait_for_unit("multi-user.target")
     ''
-    + nodes.machine.config.__testSteps
-  ;
+    + nodes.machine.config.__testSteps;
 }

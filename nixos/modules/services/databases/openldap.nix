@@ -121,8 +121,7 @@ let
     )
     ++ (lib.flatten (
       lib.mapAttrsToList (name: value: attrsToLdif "${name},${dn}" value) children
-    ))
-  ;
+    ));
 in
 {
   options = {
@@ -343,8 +342,7 @@ in
                 -> (
                   (hasPrefix "/var/lib/openldap/" olcDbDirectory)
                   && (olcDbDirectory != "/var/lib/openldap/")
-                )
-              ;
+                );
               message = ''
                 Database ${dn} has `olcDbDirectory` (${olcDbDirectory}) that is not a subdirectory of
                 `/var/lib/openldap/`.
@@ -352,8 +350,7 @@ in
             }
           )
           dbSettings
-        )
-      ;
+        );
       environment.systemPackages = [ openldap ];
 
       # Literal attributes must always be set
@@ -398,8 +395,7 @@ in
               )
               contentsFiles
             )
-            ++ [ "${openldap}/bin/slaptest -u -F ${configDir}" ]
-          ;
+            ++ [ "${openldap}/bin/slaptest -u -F ${configDir}" ];
           ExecStart = lib.escapeShellArgs ([
             "${openldap}/libexec/slapd"
             "-d"

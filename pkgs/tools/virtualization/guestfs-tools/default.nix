@@ -65,8 +65,7 @@ stdenv.mkDerivation rec {
         ocaml_gettext
         ounit2
       ]
-    )
-  ;
+    );
 
   buildInputs = [
     bash-completion

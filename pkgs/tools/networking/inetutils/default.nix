@@ -59,8 +59,7 @@ stdenv.mkDerivation rec {
       "--disable-rlogin"
       "--disable-rexec"
     ]
-    ++ lib.optional stdenv.isDarwin "--disable-servers"
-  ;
+    ++ lib.optional stdenv.isDarwin "--disable-servers";
 
   # Test fails with "UNIX socket name too long", probably because our
   # $TMPDIR is too long.

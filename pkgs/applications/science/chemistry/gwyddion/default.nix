@@ -66,8 +66,7 @@ stdenv.mkDerivation rec {
     ++ optional libwebpSupport libwebp
     ++ optional zlibSupport zlib
     ++ optional libuniqueSupport libunique
-    ++ optional libzipSupport libzip
-  ;
+    ++ optional libzipSupport libzip;
 
   propagatedBuildInputs =
     with lib;

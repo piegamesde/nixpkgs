@@ -64,8 +64,7 @@ stdenv.mkDerivation rec {
       Foundation
       ApplicationServices
       AppKit
-    ]
-  ;
+    ];
 
   configureFlags =
     [ "--with-boost-libdir=${boost.out}/lib" ]

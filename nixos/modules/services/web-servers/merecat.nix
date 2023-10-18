@@ -19,8 +19,7 @@ let
             if builtins.isBool v then
               if v then "true" else "false"
             else
-              generators.mkValueStringDefault { } v
-          ;
+              generators.mkValueStringDefault { } v;
         }
         "=";
   };

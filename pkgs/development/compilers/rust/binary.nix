@@ -48,8 +48,7 @@ rec {
         gcc.cc.lib
         zlib
       ]
-      ++ lib.optional stdenv.isDarwin Security
-    ;
+      ++ lib.optional stdenv.isDarwin Security;
 
     postPatch = ''
       patchShebangs .
@@ -97,8 +96,7 @@ rec {
     buildInputs =
       [ bash ]
       ++ lib.optional (!stdenv.isDarwin) gcc.cc.lib
-      ++ lib.optional stdenv.isDarwin Security
-    ;
+      ++ lib.optional stdenv.isDarwin Security;
 
     postPatch = ''
       patchShebangs .

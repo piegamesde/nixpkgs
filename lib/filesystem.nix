@@ -58,8 +58,7 @@ in
         else if path == /. then
           null
         else
-          go (dirOf path)
-      ;
+          go (dirOf path);
       parent = dirOf file;
       isDir =
         let

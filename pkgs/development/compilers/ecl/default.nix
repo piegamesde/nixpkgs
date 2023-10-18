@@ -69,8 +69,7 @@ stdenv.mkDerivation rec {
       "--with-libgc-incdir=${lib.getDev boehmgc}/include"
       "--with-libgc-libdir=${lib.getLib boehmgc}/lib"
     ]
-    ++ lib.optional (!noUnicode) "--enable-unicode"
-  ;
+    ++ lib.optional (!noUnicode) "--enable-unicode";
 
   hardeningDisable = [ "format" ];
 

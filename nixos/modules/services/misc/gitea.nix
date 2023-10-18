@@ -320,8 +320,7 @@ in
             else if (cfg.database.createDatabase && useMysql) then
               "/run/mysqld/mysqld.sock"
             else
-              null
-          ;
+              null;
           defaultText = literalExpression "null";
           example = "/run/mysqld/mysqld.sock";
           description =
@@ -503,8 +502,7 @@ in
                   if lib.hasSuffix "+unix" cfg.settings.server.PROTOCOL then
                     "/run/gitea/gitea.sock"
                   else
-                    "0.0.0.0"
-                ;
+                    "0.0.0.0";
                 defaultText =
                   literalExpression
                     ''
@@ -621,8 +619,7 @@ in
             if cfg.database.socket != null then
               cfg.database.socket
             else
-              cfg.database.host + ":" + toString cfg.database.port
-          ;
+              cfg.database.host + ":" + toString cfg.database.port;
           NAME = cfg.database.name;
           USER = cfg.database.user;
           PASSWD = "#dbpass#";
@@ -728,8 +725,7 @@ in
       after =
         [ "network.target" ]
         ++ lib.optional usePostgresql "postgresql.service"
-        ++ lib.optional useMysql "mysql.service"
-      ;
+        ++ lib.optional useMysql "mysql.service";
       wantedBy = [ "multi-user.target" ];
       path = [
         cfg.package
@@ -919,8 +915,7 @@ in
         User = cfg.user;
         ExecStart =
           "${exe} dump --type ${cfg.dump.type}"
-          + optionalString (cfg.dump.file != null) " --file ${cfg.dump.file}"
-        ;
+          + optionalString (cfg.dump.file != null) " --file ${cfg.dump.file}";
         WorkingDirectory = cfg.dump.backupDir;
       };
     };

@@ -18,8 +18,7 @@ let
     else if stdenv.hostPlatform.system == "i686-linux" then
       "i386"
     else
-      throw "Unsupported system: ${stdenv.hostPlatform.system}"
-  ;
+      throw "Unsupported system: ${stdenv.hostPlatform.system}";
 in
 stdenv.mkDerivation rec {
   pname = "fxlinuxprintutil";

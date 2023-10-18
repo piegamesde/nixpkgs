@@ -59,8 +59,7 @@ in
         if cfg.configFile != null then
           cfg.configFile
         else
-          "${pkgs.writeText "mikrotik-exporter.yml" (builtins.toJSON cfg.configuration)}"
-      ;
+          "${pkgs.writeText "mikrotik-exporter.yml" (builtins.toJSON cfg.configuration)}";
     in
     {
       serviceConfig = {

@@ -40,8 +40,7 @@
       # XXX: Ensure `solana-genesis` is built LAST!
       # See https://github.com/solana-labs/solana/issues/5826
       "solana-genesis"
-    ]
-  ,
+    ],
 }:
 let
   version = "1.14.17";
@@ -95,8 +94,7 @@ rustPlatform.buildRustPackage rec {
       AppKit
       System
       Libsystem
-    ]
-  ;
+    ];
 
   postInstall = ''
     mkdir -p $out/bin/sdk/bpf

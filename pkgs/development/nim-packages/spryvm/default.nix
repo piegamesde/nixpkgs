@@ -24,6 +24,5 @@ buildNimPackage rec {
       description = "Spry virtual machine";
       license = [ licenses.mit ];
       maintainers = [ maintainers.ehmry ];
-    }
-  ;
+    };
 }

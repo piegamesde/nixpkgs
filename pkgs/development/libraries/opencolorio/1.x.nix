@@ -55,8 +55,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional (!stdenv.hostPlatform.isx86) "-DOCIO_USE_SSE=OFF"
     ++
       lib.optional (stdenv.isDarwin && stdenv.isAarch64)
-        "-DCMAKE_OSX_ARCHITECTURES=arm64"
-  ;
+        "-DCMAKE_OSX_ARCHITECTURES=arm64";
 
   postInstall = ''
     moveToOutput bin "$bin"

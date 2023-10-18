@@ -158,8 +158,7 @@ let
       ++ (lib.optionals (isCross && isAarch32 && lib.hasAttr "float-abi" gcc) [
         "--with-arm-float-abi=${gcc.float-abi}"
       ])
-      ++ extraConfigFlags
-    ;
+      ++ extraConfigFlags;
 
     configurePlatforms = [ ];
 
@@ -202,8 +201,7 @@ let
       + lib.optionalString stdenv.isDarwin ''
         sed -i -e "s|tr1/type_traits|type_traits|g" \
                -e "s|std::tr1|std|" src/util.h
-      ''
-    ;
+      '';
 
     nativeCheckInputs = [ procps ];
     doCheck = false; # fails 4 out of 1453 tests
@@ -239,8 +237,7 @@ let
           cat files | while read -r file; do
             ar -cqS $libv8/lib/libv8.a $file
           done
-        ''
-      }
+        ''}
       popd
 
       # copy v8 headers

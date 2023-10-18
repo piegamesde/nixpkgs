@@ -93,8 +93,7 @@ pkgs.lib.throwIf (args ? specialArgs)
           }).config;
       in
       testConfig.test # For nix-build
-      // testConfig
-    ; # For all-tests.nix
+      // testConfig; # For all-tests.nix
 
     simpleTest = as: (makeTest as).test;
   }

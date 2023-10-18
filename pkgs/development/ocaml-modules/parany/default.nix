@@ -20,8 +20,7 @@ let
         version = "12.2.2";
         hash = "sha256-woZ4XJqqoRr/7mDurXYvTbSUUcLBEylzVYBQp1BAOqc=";
         propagatedBuildInputs = [ cpu ];
-      }
-  ;
+      };
 in
 
 buildDunePackage rec {

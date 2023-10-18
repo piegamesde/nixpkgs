@@ -42,8 +42,7 @@ buildGraalvmNativeImage rec {
     #${babashka}/bin/bb integration-test ./${pname}
     + ''
       runHook postCheck
-    ''
-  ;
+    '';
 
   passthru.updateScript = writeScript "update-clojure-lsp" ''
     #!/usr/bin/env nix-shell

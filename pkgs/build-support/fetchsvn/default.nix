@@ -44,8 +44,7 @@ let
       "${trd path}-${fst path}"
     # ../repo (no trunk) -> repo
     else
-      fst path
-  ;
+      fst path;
 
   name_ = if name == null then "${repoName}-r${toString rev}" else name;
 in

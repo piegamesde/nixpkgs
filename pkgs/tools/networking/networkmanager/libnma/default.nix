@@ -81,8 +81,7 @@ stdenv.mkDerivation rec {
         [
           # advanced certificate chooser
           gcr_4
-        ]
-  ;
+        ];
 
   mesonFlags = [
     "-Dgcr=${lib.boolToString withGnome}"

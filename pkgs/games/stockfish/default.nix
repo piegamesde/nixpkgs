@@ -20,8 +20,7 @@ let
     else if stdenv.isAarch64 then
       "armv8"
     else
-      "unknown"
-  ;
+      "unknown";
 
   nnueFile = "nn-6877cd24400e.nnue";
   nnue = fetchurl {

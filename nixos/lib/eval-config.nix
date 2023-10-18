@@ -92,8 +92,7 @@ let
         if modulesLocation == null then
           modules
         else
-          map (lib.setDefaultModuleLocation modulesLocation) modules
-      ;
+          map (lib.setDefaultModuleLocation modulesLocation) modules;
     in
     locatedModules ++ legacyModules;
 
@@ -105,8 +104,7 @@ let
       ++ [
         pkgsModule
         modulesModule
-      ]
-    ;
+      ];
   });
 
   # Extra arguments that are useful for constructing a similar configuration.

@@ -80,8 +80,7 @@ let
       ''
         <transcoding enabled="no">
         </transcoding>
-      ''
-  ;
+      '';
 
   configText = optionalString (!cfg.customCfg) ''
     <?xml version="1.0" encoding="UTF-8"?>

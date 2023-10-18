@@ -48,8 +48,7 @@ stdenv.mkDerivation rec {
   src = fetchzip {
     url =
       "https://archive.eclipse.org/eclipse/downloads/drops4/"
-      + "R-${fullVersion}/${pname}-${version}-${metadata.platform}.zip"
-    ;
+      + "R-${fullVersion}/${pname}-${version}-${metadata.platform}.zip";
     inherit (metadata) sha256;
     stripRoot = false;
     postFetch = ''

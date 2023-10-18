@@ -52,8 +52,7 @@ mkDerivation rec {
     + ''
       wrapQtApp $out/bin/projectM-pulseaudio
       rm $out/bin/projectM-unittest
-    ''
-  ;
+    '';
 
   meta = {
     homepage = "https://github.com/projectM-visualizer/projectm";

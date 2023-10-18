@@ -82,8 +82,7 @@ stdenv.mkDerivation rec {
           lib.getBin ghostscript
         }/bin/gs" \
         --replace '$GROFF_AWK_INTERPRETER' "${lib.getBin gawk}/bin/gawk"
-    ''
-  ;
+    '';
 
   strictDeps = true;
   nativeBuildInputs =
@@ -95,8 +94,7 @@ stdenv.mkDerivation rec {
     # Required due to the patch that changes .ypp files.
     ++
       lib.optional (stdenv.cc.isClang && lib.versionAtLeast stdenv.cc.version "9")
-        bison
-  ;
+        bison;
   buildInputs =
     [
       perl
@@ -115,8 +113,7 @@ stdenv.mkDerivation rec {
       netpbm
     ]
     ++ lib.optionals enableIconv [ iconv ]
-    ++ lib.optionals enableLibuchardet [ libuchardet ]
-  ;
+    ++ lib.optionals enableLibuchardet [ libuchardet ];
 
   # Builds running without a chroot environment may detect the presence
   # of /usr/X11 in the host system, leading to an impure build of the
@@ -131,8 +128,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
       "gl_cv_func_signbit=yes"
-    ]
-  ;
+    ];
 
   makeFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
     # Trick to get the build system find the proper 'native' groff

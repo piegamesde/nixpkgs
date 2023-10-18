@@ -68,8 +68,7 @@ stdenv.mkDerivation rec {
       substituteInPlace emacs/notmuch-emacs-mua \
         --replace 'EMACS:-emacs' 'EMACS:-${emacs}/bin/emacs' \
         --replace 'EMACSCLIENT:-emacsclient' 'EMACSCLIENT:-${emacs}/bin/emacsclient'
-    ''
-  ;
+    '';
 
   configureFlags =
     [
@@ -81,8 +80,7 @@ stdenv.mkDerivation rec {
     ++
       lib.optional withEmacs
         "--emacslispdir=${placeholder "emacs"}/share/emacs/site-lisp"
-    ++ lib.optional (!withRuby) "--without-ruby"
-  ;
+    ++ lib.optional (!withRuby) "--without-ruby";
 
   # Notmuch doesn't use autoconf and consequently doesn't tag --bindir and
   # friends
@@ -143,8 +141,7 @@ stdenv.mkDerivation rec {
         SHELL=$SHELL \
         $makeFlags "''${makeFlagsArray[@]}" \
         $installFlags "''${installFlagsArray[@]}"
-    ''
-  ;
+    '';
 
   passthru = {
     pythonSourceRoot = "notmuch-${version}/bindings/python";

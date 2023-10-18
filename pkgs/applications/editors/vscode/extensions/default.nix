@@ -860,8 +860,7 @@ let
             publisher = "devsense";
             version = "1.33.13032";
           }
-          // sources.${stdenv.system}
-        ;
+          // sources.${stdenv.system};
 
         nativeBuildInputs = [ autoPatchelfHook ];
 

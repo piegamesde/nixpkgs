@@ -34,8 +34,7 @@ in
       ''
       + optionalString cfg.keybindings ''
         source ${cfg.package}/share/skim/key-bindings.bash
-      ''
-    ;
+      '';
 
     programs.zsh.interactiveShellInit =
       optionalString cfg.fuzzyCompletion ''
@@ -43,8 +42,7 @@ in
       ''
       + optionalString cfg.keybindings ''
         source ${cfg.package}/share/skim/key-bindings.zsh
-      ''
-    ;
+      '';
 
     programs.fish.interactiveShellInit = optionalString cfg.keybindings ''
       source ${cfg.package}/share/skim/key-bindings.fish && skim_key_bindings

@@ -126,8 +126,7 @@ rec {
         else if isAttrs v then
           noQuotes "{…}" v
         else
-          v
-      ;
+          v;
       noQuotes = str: v: {
         __pretty = const str;
         val = v;
@@ -141,8 +140,7 @@ rec {
         else if isAttrs v then
           mapAttrs (const (modify (n - 1) fn)) v
         else
-          v
-      ;
+          v;
     in
     trace (generators.toPretty { allowPrettyValues = true; } (modify depth snip x))
       y;
@@ -273,6 +271,7 @@ rec {
               (substring 0 4 name == "test" || elem name testsToRun)
               && ((testsToRun == [ ]) || elem name tests.tests)
               && (test.expr != test.expected)
+
             then
               [
                 {

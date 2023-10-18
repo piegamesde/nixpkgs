@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
             lib.last (lib.splitString "." version)
           }/wps-office_${version}.XA_amd64.deb";
         sha256 = "sha256-spqxQK/xTE8yFPmGbSbrDY1vSxkan2kwAWpCWIExhgs=";
-      }
-  ;
+      };
 
   unpackCmd = "dpkg -x $src .";
   sourceRoot = ".";

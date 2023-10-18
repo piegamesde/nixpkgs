@@ -19,8 +19,7 @@ let
     else if (stdenv.isLinux or stdenv.isBSD) then
       "LD_LIBRARY_PATH"
     else
-      throw "unsupported platform"
-  ;
+      throw "unsupported platform";
 in
 stdenv.mkDerivation rec {
   pname = "sagittarius-scheme";

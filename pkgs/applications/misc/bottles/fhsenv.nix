@@ -19,8 +19,7 @@ let
         # See https://github.com/bottlesdevs/Bottles/issues/2401
         vkbasalt
       ]
-      ++ extraPkgs pkgs
-    ;
+      ++ extraPkgs pkgs;
 
     multiPkgs =
       let
@@ -101,8 +100,7 @@ let
         zlib # Freetype
       ]
       ++ xorgDeps pkgs
-      ++ extraLibraries pkgs
-    ;
+      ++ extraLibraries pkgs;
 
     profile = ''
       export GST_PLUGIN_PATH=/usr/lib32/gstreamer-1.0:/usr/lib64/gstreamer-1.0

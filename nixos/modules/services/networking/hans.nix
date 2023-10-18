@@ -143,8 +143,7 @@ in
                 ''-p $(cat "${cfg.server.passwordFile}")''
             }";
         };
-      }
-    ;
+      };
 
     users.users.${hansUser} = {
       description = "Hans daemon user";

@@ -38,6 +38,5 @@ stdenvNoCC.mkDerivation {
         platforms = platforms.windows;
         mainProgram = "LosslessCut.exe";
       }
-    )
-  ;
+    );
 }

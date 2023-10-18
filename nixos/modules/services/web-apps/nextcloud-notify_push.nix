@@ -108,8 +108,7 @@ in
           + ''
             export DATABASE_URL="${dbUrl}"
             ${cfg.package}/bin/notify_push '${config.services.nextcloud.datadir}/config/config.php'
-          ''
-        ;
+          '';
         serviceConfig = {
           User = "nextcloud";
           Group = "nextcloud";

@@ -23,7 +23,6 @@ lib.makeExtensible (
       // {
         wayfire = wrapWayfireApplication wayfire selector;
         wcm = wrapWayfireApplication wcm selector;
-      }
-    ;
+      };
   }
 )

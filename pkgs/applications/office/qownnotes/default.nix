@@ -51,8 +51,7 @@ stdenv.mkDerivation {
       mkdir -p $out/Applications
       mv $out/bin/${appname}.app $out/Applications
       makeWrapper $out/Applications/${appname}.app/Contents/MacOS/${appname} $out/bin/${pname}
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "Plain-text file notepad and todo-list manager with markdown support and Nextcloud/ownCloud integration";

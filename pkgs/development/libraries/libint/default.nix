@@ -234,8 +234,7 @@ let
       ++ optional enableGeneric "--enable-generic"
       ++ optional enableContracted "--enable-contracted-ints"
       ++ optional eri3PureSh "--enable-eri3-pure-sh"
-      ++ optional eri2PureSh "--enable-eri2-pure-sh"
-    ;
+      ++ optional eri2PureSh "--enable-eri2-pure-sh";
 
     preConfigure = ''
       ./autogen.sh
@@ -274,8 +273,7 @@ let
     cmakeFlags =
       [ "-DLIBINT2_SHGAUSS_ORDERING=${shGaussOrd}" ]
       ++ lib.optional enableFortran "-DENABLE_FORTRAN=ON"
-      ++ lib.optional enableSSE "-DLIBINT2_REALTYPE=libint2::simd::VectorSSEDouble"
-    ;
+      ++ lib.optional enableSSE "-DLIBINT2_REALTYPE=libint2::simd::VectorSSEDouble";
 
     # Can only build in the source-tree. A lot of preprocessing magic fails otherwise.
     dontUseCmakeBuildDir = true;

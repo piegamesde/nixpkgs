@@ -11,8 +11,7 @@ in
         + ''
           This package is a wrapped version of timeshift-unwrapped
           without runtime dependencies of command utilities.
-        ''
-      ;
+        '';
     };
   }
 )

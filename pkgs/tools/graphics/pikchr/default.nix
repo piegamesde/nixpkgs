@@ -43,8 +43,7 @@ stdenv.mkDerivation {
     ''
     + ''
       runHook postInstall
-    ''
-  ;
+    '';
 
   dontWrapTclBinaries = true;
 

@@ -85,8 +85,7 @@ stdenv.mkDerivation rec {
                   ]
                   (toString pluginsDir)
               }/lib\\\""''
-          ]
-        ;
+          ];
       }
     );
 

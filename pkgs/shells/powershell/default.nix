@@ -22,16 +22,14 @@ let
     else if stdenv.isx86_64 then
       "x64"
     else
-      throw "unsupported platform"
-  ;
+      throw "unsupported platform";
   platformString =
     if stdenv.isDarwin then
       "osx"
     else if stdenv.isLinux then
       "linux"
     else
-      throw "unsupported platform"
-  ;
+      throw "unsupported platform";
   platformSha =
     if (stdenv.isDarwin && stdenv.isx86_64) then
       "sha256-JKB7Oy+3KWtVo1Aqmc7vZiO88FrF9+8N/tdGlvIQolM="
@@ -42,16 +40,14 @@ let
     else if (stdenv.isLinux && stdenv.isAarch64) then
       "sha256-3Lm9WYVcfkEVfji/h52VqFy1Jo1AiSQ22JhEGiCPzzM="
     else
-      throw "unsupported platform"
-  ;
+      throw "unsupported platform";
   platformLdLibraryPath =
     if stdenv.isDarwin then
       "DYLD_FALLBACK_LIBRARY_PATH"
     else if stdenv.isLinux then
       "LD_LIBRARY_PATH"
     else
-      throw "unsupported platform"
-  ;
+      throw "unsupported platform";
   libraries =
     [
       libunwind
@@ -118,8 +114,7 @@ stdenv.mkDerivation rec {
       makeWrapper $pslibs/pwsh $out/bin/pwsh \
         --prefix ${platformLdLibraryPath} : "${lib.makeLibraryPath libraries}" \
         --set TERM xterm --set POWERSHELL_TELEMETRY_OPTOUT 1 --set DOTNET_CLI_TELEMETRY_OPTOUT 1
-    ''
-  ;
+    '';
 
   dontStrip = true;
 

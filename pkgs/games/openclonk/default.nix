@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString enableSoundtrack ''
       ln -sv ${soundtrack_src} $out/share/games/openclonk/Music.ocg
-    ''
-  ;
+    '';
 
   nativeBuildInputs = [
     cmake

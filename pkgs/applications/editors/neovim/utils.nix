@@ -118,8 +118,7 @@ let
           "LUA_CPATH"
           ";"
           (neovim-unwrapped.lua.pkgs.luaLib.genLuaCPathAbsStr luaEnv)
-        ]
-      ;
+        ];
 
       manifestRc = vimUtils.vimrcContent ({ customRC = ""; });
       # we call vimrcContent without 'packages' to avoid the init.vim generation
@@ -140,8 +139,7 @@ let
       inherit luaEnv;
       inherit withNodeJs;
     }
-    // lib.optionalAttrs withRuby { inherit rubyEnv; }
-  ;
+    // lib.optionalAttrs withRuby { inherit rubyEnv; };
 
   # to keep backwards compatibility for people using neovim.override
   legacyWrapper =
@@ -170,8 +168,7 @@ let
           throw
             "The neovim legacy wrapper doesn't support configure.plug anymore, please setup your plugins via 'configure.packages' instead"
         else
-          lib.flatten (lib.mapAttrsToList genPlugin (configure.packages or { }))
-      ;
+          lib.flatten (lib.mapAttrsToList genPlugin (configure.packages or { }));
       genPlugin =
         packageName:
         {
@@ -185,8 +182,7 @@ let
             optional = true;
           })
           opt
-        )
-      ;
+        );
 
       res = makeNeovimConfig {
         inherit withPython3;
@@ -242,8 +238,7 @@ let
         if withProg then
           "vim.g.${prog}_host_prog='${placeholder "out"}/bin/nvim-${prog}'"
         else
-          "vim.g.loaded_${prog}_provider=0"
-      ;
+          "vim.g.loaded_${prog}_provider=0";
 
       hostProviderLua = lib.mapAttrsToList genProviderCommand hostprog_check_table;
     in

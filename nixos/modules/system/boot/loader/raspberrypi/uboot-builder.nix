@@ -17,8 +17,7 @@ let
     else if version == 3 then
       if isAarch64 then pkgs.ubootRaspberryPi3_64bit else pkgs.ubootRaspberryPi3_32bit
     else
-      throw "U-Boot is not yet supported on the raspberry pi 4."
-  ;
+      throw "U-Boot is not yet supported on the raspberry pi 4.";
 
   extlinuxConfBuilder =
     import ../generic-extlinux-compatible/extlinux-conf-builder.nix

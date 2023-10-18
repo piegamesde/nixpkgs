@@ -114,8 +114,7 @@ in
         substitute etc/linux-systemd/user/syncthing.service \
                    $out/lib/systemd/user/syncthing.service \
                    --replace /usr/bin/syncthing $out/bin/syncthing
-      ''
-    ;
+      '';
   };
 
   syncthing-discovery = common {

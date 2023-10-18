@@ -21,8 +21,7 @@ let
     + lib.optionalString (stdenv.isFreeBSD || stdenv.isOpenBSD) ''
       CFLAGS="-O2 -Wall -fomit-frame-pointer"
       LDFLAGS=-s
-    ''
-  ; # use linux flags by default
+    ''; # use linux flags by default
 in
 stdenv.mkDerivation rec {
   pname = "tree";

@@ -146,8 +146,7 @@ in
           if cfg.storageBackend == "file" || cfg.storageBackend == "raft" then
             "/var/lib/vault"
           else
-            null
-        ;
+            null;
         defaultText = literalExpression ''
           if config.${opt.storageBackend} == "file" || cfg.storageBackend == "raft"
           then "/var/lib/vault"
@@ -218,8 +217,7 @@ in
       {
         assertion =
           cfg.storageBackend == "inmem"
-          -> (cfg.storagePath == null && cfg.storageConfig == null)
-        ;
+          -> (cfg.storagePath == null && cfg.storageConfig == null);
         message = ''
           The "inmem" storage expects no services.vault.storagePath nor services.vault.storageConfig'';
       }

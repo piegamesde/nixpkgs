@@ -65,8 +65,7 @@ gnuradioMinimal.pkgs.mkDerivation rec {
       gnuradioMinimal.unwrapped.python.pkgs.thrift
     ]
     ++ lib.optionals pulseaudioSupport [ libpulseaudio ]
-    ++ lib.optionals portaudioSupport [ portaudio ]
-  ;
+    ++ lib.optionals portaudioSupport [ portaudio ];
 
   cmakeFlags =
     let
@@ -76,8 +75,7 @@ gnuradioMinimal.pkgs.mkDerivation rec {
         else if portaudioSupport then
           "Portaudio"
         else
-          "Gr-audio"
-      ;
+          "Gr-audio";
     in
     [ "-DLINUX_AUDIO_BACKEND=${audioBackend}" ];
 

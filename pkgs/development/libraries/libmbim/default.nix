@@ -50,8 +50,7 @@ stdenv.mkDerivation rec {
       python3
     ]
     ++ lib.optionals withDocs [ help2man ]
-    ++ lib.optionals withIntrospection [ gobject-introspection ]
-  ;
+    ++ lib.optionals withIntrospection [ gobject-introspection ];
 
   buildInputs = [
     glib

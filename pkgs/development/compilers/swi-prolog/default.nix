@@ -117,8 +117,7 @@ stdenv.mkDerivation {
       libjpeg
     ]
     ++ extraLibraries
-    ++ lib.optional stdenv.isDarwin Security
-  ;
+    ++ lib.optional stdenv.isDarwin Security;
 
   hardeningDisable = [ "format" ];
 

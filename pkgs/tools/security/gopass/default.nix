@@ -58,8 +58,7 @@ buildGoModule rec {
     ''
     + lib.optionalString passAlias ''
       ln -s $out/bin/gopass $out/bin/pass
-    ''
-  ;
+    '';
 
   postFixup = ''
     wrapProgram $out/bin/gopass \

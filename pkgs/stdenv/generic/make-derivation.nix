@@ -42,8 +42,7 @@ let
               # Looks inefficient, but `f0 super` was a cheap thunk.
               f0 self super
             else
-              x
-          ;
+              x;
         in
         makeDerivationExtensible (
           self:
@@ -161,8 +160,7 @@ let
       strictDeps ? if config.strictDepsByDefault then
         true
       else
-        stdenv.hostPlatform != stdenv.buildPlatform
-      ,
+        stdenv.hostPlatform != stdenv.buildPlatform,
 
       enableParallelBuilding ? config.enableParallelBuildingByDefault,
 
@@ -192,8 +190,7 @@ let
 
       __contentAddressed ?
         (!attrs ? outputHash) # Fixed-output drvs can't be content addressed too
-        && config.contentAddressedByDefault
-      ,
+        && config.contentAddressedByDefault,
 
       # Experimental.  For simple packages mostly just works,
       # but for anything complex, be prepared to debug if enabling.
@@ -222,8 +219,7 @@ let
         if lib.isDerivation drv then
           builtins.unsafeDiscardStringContext drv.outPath
         else
-          drv
-      ;
+          drv;
 
       noNonNativeDeps =
         builtins.length (
@@ -245,8 +241,7 @@ let
         then
           lib.unique (hardeningDisable ++ [ "fortify3" ])
         else
-          hardeningDisable
-      ;
+          hardeningDisable;
       supportedHardeningFlags = [
         "fortify"
         "fortify3"
@@ -276,14 +271,12 @@ let
         then
           supportedHardeningFlags'
         else
-          lib.remove "pie" supportedHardeningFlags'
-      ;
+          lib.remove "pie" supportedHardeningFlags';
       enabledHardeningOptions =
         if builtins.elem "all" hardeningDisable' then
           [ ]
         else
-          lib.subtractLists hardeningDisable' (defaultHardeningFlags ++ hardeningEnable)
-      ;
+          lib.subtractLists hardeningDisable' (defaultHardeningFlags ++ hardeningEnable);
       # hardeningDisable additionally supports "all".
       erroneousHardeningFlags = lib.subtractLists supportedHardeningFlags (
         hardeningEnable ++ lib.remove "all" hardeningDisable
@@ -329,8 +322,7 @@ let
         buildInputs' =
           buildInputs
           ++ lib.optionals doCheck checkInputs
-          ++ lib.optionals doInstallCheck installCheckInputs
-        ;
+          ++ lib.optionals doInstallCheck installCheckInputs;
         nativeBuildInputs' =
           nativeBuildInputs
           ++
@@ -340,8 +332,7 @@ let
             lib.optional stdenv.hostPlatform.isWindows
               ../../build-support/setup-hooks/win-dll-link.sh
           ++ lib.optionals doCheck nativeCheckInputs
-          ++ lib.optionals doInstallCheck nativeInstallCheckInputs
-        ;
+          ++ lib.optionals doInstallCheck nativeInstallCheckInputs;
 
         outputs = outputs';
 
@@ -349,8 +340,7 @@ let
           nativeBuildInputs
           ++ buildInputs
           ++ propagatedNativeBuildInputs
-          ++ propagatedBuildInputs
-        ;
+          ++ propagatedBuildInputs;
 
         dependencies = map (map lib.chooseDevOutputs) [
           [
@@ -549,8 +539,7 @@ let
                   "--host=${stdenv.hostPlatform.config}"
               ++
                 optional (elem "target" configurePlatforms)
-                  "--target=${stdenv.targetPlatform.config}"
-            ;
+                  "--target=${stdenv.targetPlatform.config}";
 
             cmakeFlags =
               let
@@ -568,8 +557,7 @@ let
                       }"
                       [ ]
                   else
-                    cmakeFlags
-                ;
+                    cmakeFlags;
 
                 crossFlags =
                   [
@@ -596,12 +584,10 @@ let
                   ]
                   ++ lib.optionals (stdenv.buildPlatform.uname.release != null) [
                     "-DCMAKE_HOST_SYSTEM_VERSION=${stdenv.buildPlatform.uname.release}"
-                  ]
-                ;
+                  ];
               in
               explicitFlags
-              ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) crossFlags
-            ;
+              ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) crossFlags;
 
             mesonFlags =
               let
@@ -619,8 +605,7 @@ let
                       }"
                       [ ]
                   else
-                    mesonFlags
-                ;
+                    mesonFlags;
 
                 # See https://mesonbuild.com/Reference-tables.html#cpu-families
                 cpuFamily =
@@ -631,8 +616,7 @@ let
                   else if isx86_32 then
                     "x86"
                   else
-                    platform.uname.processor
-                ;
+                    platform.uname.processor;
 
                 crossFile = builtins.toFile "cross-file.conf" ''
                   [properties]
@@ -699,8 +683,7 @@ let
                   ++ [
                     propagatedSandboxProfile
                     sandboxProfile
-                  ]
-                ;
+                  ];
                 final = lib.concatStringsSep "\n" (
                   lib.filter (x: x != "") (lib.unique profiles)
                 );
@@ -720,8 +703,7 @@ let
                 "/dev/random"
                 "/dev/urandom"
                 "/bin/sh"
-              ]
-            ;
+              ];
             __propagatedImpureHostDeps =
               computedPropagatedImpureHostDeps ++ __propagatedImpureHostDeps;
           }
@@ -763,8 +745,7 @@ let
             allowedRequisites =
               lib.mapNullable unsafeDerivationToUntrackedOutpath
                 attrs.allowedRequisites;
-          }
-        ;
+          };
 
         meta = checkMeta.commonMeta {
           inherit
@@ -848,8 +829,7 @@ let
             # derivation (e.g., in assertions).
             passthru
         )
-        (derivation (derivationArg // lib.optionalAttrs envIsExportable checkedEnv))
-  ;
+        (derivation (derivationArg // lib.optionalAttrs envIsExportable checkedEnv));
 in
 fnOrAttrs:
 if builtins.isFunction fnOrAttrs then

@@ -67,8 +67,7 @@ let
     if useDefaultFilesystems then
       if useEFIBoot then "efi" else "legacy"
     else
-      "none"
-  ;
+      "none";
 
   driveCmdline =
     idx:
@@ -96,8 +95,7 @@ let
         if cfg.qemu.diskInterface == "scsi" then
           "-device lsi53c895a -device scsi-hd,${deviceOpts}"
         else
-          "-device virtio-blk-pci,${deviceOpts}"
-      ;
+          "-device virtio-blk-pci,${deviceOpts}";
     in
     "-drive ${driveOpts} ${device}";
 
@@ -114,8 +112,7 @@ let
     if cfg.qemu.diskInterface == "scsi" then
       "/dev/sd${letter}"
     else
-      "/dev/vd${letter}"
-  ;
+      "/dev/vd${letter}";
 
   lookupDriveDeviceName =
     driveName: driveList:
@@ -224,8 +221,7 @@ let
         # write into it and we want to keep this data.
         ''cp ${systemImage}/efi-vars.fd "$NIX_EFI_VARS"''
       else
-        ''cp ${cfg.efi.variables} "$NIX_EFI_VARS"''
-      }
+        ''cp ${cfg.efi.variables} "$NIX_EFI_VARS"''}
         chmod 0644 "$NIX_EFI_VARS"
       fi
     ''}
@@ -318,8 +314,7 @@ let
       else
         "direct_boot_with_default_fs"
     else
-      "custom"
-  ;
+      "custom";
   suggestedRootDevice =
     {
       "efi_bootloading_with_default_fs" = "${cfg.bootLoaderDevice}2";
@@ -1143,8 +1138,7 @@ in
             if tag == "nix-store" && cfg.writableStore then
               "/nix/.ro-store"
             else
-              share.target
-          ;
+              share.target;
           value.device = tag;
           value.fsType = "9p";
           value.neededForBoot = true;
@@ -1298,8 +1292,7 @@ in
         (isYes "SERIAL_8250_CONSOLE")
         (isYes "SERIAL_8250")
       ]
-      ++ optionals (cfg.writableStore) [ (isEnabled "OVERLAY_FS") ]
-    ;
+      ++ optionals (cfg.writableStore) [ (isEnabled "OVERLAY_FS") ];
   };
 
   # uses types of services/x11/xserver.nix

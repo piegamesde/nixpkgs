@@ -37,8 +37,7 @@ mkDerivation rec {
       ''
         mkdir -p $out/bin
         cp -a calaos_installer $out/bin
-      ''
-  ;
+      '';
 
   meta = with lib; {
     description = "Calaos Installer, a tool to create calaos configuration";

@@ -30,8 +30,7 @@ let
         args: { melpaBuild = drv: args.melpaBuild (drv // { dontConfigure = true; }); }
       )
     else
-      null
-  ;
+      null;
 
   markBroken =
     pkg:
@@ -51,8 +50,7 @@ let
         }
       )
     else
-      null
-  ;
+      null;
 
   externalSrc =
     pkg: epkg:
@@ -72,8 +70,7 @@ let
         }
       )
     else
-      null
-  ;
+      null;
 
   buildWithGit =
     pkg:
@@ -105,8 +102,7 @@ let
             if super.abridge-diff.version == "0.1" then
               markBroken super.abridge-diff
             else
-              super.abridge-diff
-          ;
+              super.abridge-diff;
 
           # upstream issue: missing file header
           bufshow = markBroken super.bufshow;
@@ -143,16 +139,14 @@ let
             if super.fold-dwim.version == "1.2" then
               markBroken super.fold-dwim
             else
-              super.fold-dwim
-          ;
+              super.fold-dwim;
 
           # upstream issue: missing file header
           gl-conf-mode =
             if super.gl-conf-mode.version == "0.3" then
               markBroken super.gl-conf-mode
             else
-              super.gl-conf-mode
-          ;
+              super.gl-conf-mode;
 
           # upstream issue: missing file header
           ligo-mode =
@@ -170,8 +164,7 @@ let
             if super.revbufs.version == "1.2" then
               markBroken super.revbufs
             else
-              super.revbufs
-          ;
+              super.revbufs;
 
           # upstream issue: missing file header
           elmine = markBroken super.elmine;
@@ -226,8 +219,7 @@ let
                 + ''
                   install -m=755 -D source/sqlite/emacsql-sqlite \
                     $out/share/emacs/site-lisp/elpa/emacsql-${old.version}/sqlite/emacsql-sqlite
-                ''
-              ;
+                '';
 
               stripDebugList = [ "share" ];
             }
@@ -249,8 +241,7 @@ let
                 + ''
                   install -m=755 -D source/sqlite/emacsql-sqlite \
                     $out/share/emacs/site-lisp/elpa/emacsql-sqlite-${old.version}/sqlite/emacsql-sqlite
-                ''
-              ;
+                '';
 
               stripDebugList = [ "share" ];
             }
@@ -405,8 +396,7 @@ let
                   install -m444 --target-directory=$outd jinx-mod${libExt}
                   rm $outd/jinx-mod.c $outd/emacs-module.h
                   popd
-                ''
-              ;
+                '';
 
               meta = old.meta // {
                 maintainers = [ lib.maintainers.DamienCassou ];
@@ -433,8 +423,7 @@ let
                   install -m444 -t $outd sqlite3-api.so
                   rm $outd/*.c $outd/*.h
                   popd
-                ''
-              ;
+                '';
 
               meta = old.meta // {
                 maintainers = [ lib.maintainers.DamienCassou ];
@@ -463,8 +452,7 @@ let
                   mkdir $outd/build
                   install -m444 -t $outd/build ./source/src/libegit2.so
                   rm -r $outd/src $outd/Makefile $outd/CMakeLists.txt
-                ''
-              ;
+                '';
             }
           );
 
@@ -568,14 +556,12 @@ let
                   make lib
                   mkdir -p /build/rime-lib
                   cp *.so /build/rime-lib
-                ''
-              ;
+                '';
               postInstall =
                 (old.postInstall or "")
                 + ''
                   install -m444 -t $out/share/emacs/site-lisp/elpa/rime-* /build/rime-lib/*.so
-                ''
-              ;
+                '';
             }
           );
 
@@ -614,8 +600,7 @@ let
                 + ''
                   mkdir -p $out/bin
                   install -m755 -Dt $out/bin ./source/server/telega-server
-                ''
-              ;
+                '';
             }
           );
 
@@ -651,8 +636,7 @@ let
                   mv $EZMQ_LIBDIR/emacs-zmq.* $out/share/emacs/site-lisp/elpa/zmq-*
                   rm -r $out/share/emacs/site-lisp/elpa/zmq-*/src
                   rm $out/share/emacs/site-lisp/elpa/zmq-*/Makefile
-                ''
-              ;
+                '';
             }
           );
 
@@ -733,8 +717,7 @@ let
                 + ''
                   substituteInPlace racer.el \
                     --replace /usr/local/src/rust/src ${pkgs.rustPlatform.rustcSrc}
-                ''
-              ;
+                '';
             }
           );
 
@@ -764,8 +747,7 @@ let
                   install -m444 -t $out/share/emacs/site-lisp/elpa/vterm-** ../*.so
                   popd > /dev/null
                   rm -rf $out/share/emacs/site-lisp/elpa/vterm-**/{CMake*,build,*.c,*.h}
-                ''
-              ;
+                '';
             }
           );
 
@@ -797,8 +779,7 @@ let
                 + ''
                   substituteInPlace wordnut.el \
                     --replace 'wordnut-cmd "wn"' 'wordnut-cmd "${lib.getExe pkgs.wordnet}"'
-                ''
-              ;
+                '';
             }
           );
 
@@ -809,8 +790,7 @@ let
                 + ''
                   substituteInPlace src/unix/emacs/mozc.el \
                     --replace '"mozc_emacs_helper"' '"${pkgs.ibus-engines.mozc}/lib/mozc/mozc_emacs_helper"'
-                ''
-              ;
+                '';
             }
           );
         };

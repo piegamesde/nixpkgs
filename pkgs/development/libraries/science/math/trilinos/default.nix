@@ -92,8 +92,7 @@ stdenv.mkDerivation rec {
     else
       ''
         cmakeFlagsArray+=(${flagsBase})
-      ''
-  ;
+      '';
 
   passthru = {
     inherit withMPI;

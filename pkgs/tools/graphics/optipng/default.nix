@@ -44,8 +44,7 @@ stdenv.mkDerivation rec {
         mv "$out"/bin/optipng{,.exe}
       ''
     else
-      null
-  ;
+      null;
 
   meta = with lib; {
     homepage = "https://optipng.sourceforge.net/";

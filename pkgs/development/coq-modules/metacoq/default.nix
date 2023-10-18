@@ -72,8 +72,7 @@ let
         if package == "single" then
           [ ]
         else
-          map metacoq_ (head (splitList (lib.pred.equal package) packages))
-      ;
+          map metacoq_ (head (splitList (lib.pred.equal package) packages));
       pkgpath = if package == "single" then "./" else "./${package}";
       pname = if package == "all" then "metacoq" else "metacoq-${package}";
       pkgallMake = ''
@@ -127,8 +126,7 @@ let
                   ''
               + optionalString (package == "single") ''
                 ./configure.sh local
-              ''
-            ;
+              '';
 
             preBuild = ''
               cd ${pkgpath}
@@ -152,8 +150,7 @@ let
                 || (
                   o.version == "dev"
                   && (versionAtLeast coq.coq-version "8.16" || coq.coq-version == "dev")
-                )
-              ;
+                );
             in
             {
               propagatedBuildInputs =

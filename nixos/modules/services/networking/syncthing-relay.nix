@@ -27,8 +27,7 @@ let
     ++
       optional (cfg.perSessionRateBps != null)
         "--per-session-rate=${toString cfg.perSessionRateBps}"
-    ++ cfg.extraOptions
-  ;
+    ++ cfg.extraOptions;
 in
 {
   ###### interface

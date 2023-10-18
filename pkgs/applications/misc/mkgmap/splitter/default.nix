@@ -55,8 +55,7 @@ stdenv.mkDerivation rec {
           cp ${res} test/resources/in/${builtins.replaceStrings [ "__" ] [ "/" ] res.name}
         '')
         testInputs}
-    ''
-  ;
+    '';
 
   nativeBuildInputs = [
     jdk

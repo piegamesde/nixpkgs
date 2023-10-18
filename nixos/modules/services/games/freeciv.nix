@@ -41,8 +41,7 @@ let
             [
               ("--" + k)
               v
-            ]
-        ;
+            ];
         mkParams = k: v: map (mkParam k) (if isList v then v else [ v ]);
       in
       escapeShellArgs (concatLists (concatLists (mapAttrsToList mkParams value)));

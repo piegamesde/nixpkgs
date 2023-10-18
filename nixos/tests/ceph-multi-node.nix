@@ -37,8 +37,7 @@ import ./make-test-python.nix (
           monInitialMembers = cfg.monA.name;
         };
       }
-      // daemonConfig
-    ;
+      // daemonConfig;
 
     generateHost =
       {

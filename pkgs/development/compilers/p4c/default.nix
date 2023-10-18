@@ -75,8 +75,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals enableBPF [
       libllvm
       libbpf
-    ]
-  ;
+    ];
 
   buildInputs = [
     protobuf

@@ -156,8 +156,7 @@ stdenv.mkDerivation rec {
               libXScrnSaver
             ]
           }'
-      ''
-  ;
+      '';
 
   meta = with lib; {
     description = "Software modular synth with controllers support, scripting and VST";

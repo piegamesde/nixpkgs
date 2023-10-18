@@ -55,8 +55,7 @@ stdenv.mkDerivation rec {
       python3Packages.apycula
     ]
     ++ (lib.optional enableGui qtbase)
-    ++ (lib.optional stdenv.cc.isClang llvmPackages.openmp)
-  ;
+    ++ (lib.optional stdenv.cc.isClang llvmPackages.openmp);
 
   cmakeFlags =
     [
@@ -74,8 +73,7 @@ stdenv.mkDerivation rec {
     ++ (lib.optional enableGui "-DBUILD_GUI=ON")
     ++ (lib.optional (enableGui && stdenv.isDarwin)
       "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks"
-    )
-  ;
+    );
 
   patchPhase = with builtins; ''
     # use PyPy for icestorm if enabled

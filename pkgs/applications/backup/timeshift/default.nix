@@ -33,8 +33,7 @@ in
           + ''
             This package comes with runtime dependencies of command utilities provided by rsync, coreutils, mount, umount, psmisc, cron and (optionally) btrfs.
             If you want to use the commands provided by the system, override the propagatedBuildInputs or use timeshift-minimal instead
-          ''
-        ;
+          '';
       };
     }
   )

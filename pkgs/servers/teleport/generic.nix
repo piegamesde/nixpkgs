@@ -156,8 +156,7 @@ buildGoModule rec {
     + lib.optionalString withRdpClient ''
       ln -s ${rdpClient}/lib/* lib/
       ln -s ${rdpClient}/include/* lib/srv/desktop/rdp/rdpclient/
-    ''
-  ;
+    '';
 
   # Multiple tests fail in the build sandbox
   # due to trying to spawn nixbld's shell (/noshell), etc.

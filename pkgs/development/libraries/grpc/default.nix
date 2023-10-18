@@ -90,8 +90,7 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.cc.isClang "-Wno-error=unknown-warning-option"
-    + lib.optionalString stdenv.isAarch64 "-Wno-error=format-security"
-  ;
+    + lib.optionalString stdenv.isAarch64 "-Wno-error=format-security";
 
   enableParallelBuilds = true;
 
@@ -102,13 +101,11 @@ stdenv.mkDerivation rec {
       # https://github.com/grpc/grpc/issues/26473#issuecomment-860885484
       useLLVMAndOldCC =
         (stdenv.hostPlatform.useLLVM or false)
-        && lib.versionOlder stdenv.cc.cc.version "11.0"
-      ;
+        && lib.versionOlder stdenv.cc.cc.version "11.0";
       # With GCC 9 (current aarch64-linux) it fails with c++17 but OK with c++14.
       useOldGCC =
         !(stdenv.hostPlatform.useLLVM or false)
-        && lib.versionOlder stdenv.cc.cc.version "10"
-      ;
+        && lib.versionOlder stdenv.cc.cc.version "10";
     in
     (
       if useLLVMAndOldCC then

@@ -12,8 +12,7 @@ let
   cfg = config.services.prometheus;
   checkConfigEnabled =
     (lib.isBool cfg.checkConfig && cfg.checkConfig)
-    || cfg.checkConfig == "syntax-only"
-  ;
+    || cfg.checkConfig == "syntax-only";
 
   workingDir = "/var/lib/" + cfg.stateDir;
 
@@ -51,8 +50,7 @@ let
           promtool ${what} $out
         ''
     else
-      file
-  ;
+      file;
 
   generatedPrometheusYml = yaml.generate "prometheus.yml" promConfig;
 
@@ -77,8 +75,7 @@ let
         if cfg.configText != null then
           pkgs.writeText "prometheus.yml" cfg.configText
         else
-          generatedPrometheusYml
-      ;
+          generatedPrometheusYml;
     in
     promtoolCheck
       "check config ${
@@ -105,8 +102,9 @@ let
     ++
       optional (cfg.retentionTime != null)
         "--storage.tsdb.retention.time=${cfg.retentionTime}"
-    ++ optional (cfg.webConfigFile != null) "--web.config.file=${cfg.webConfigFile}"
-  ;
+    ++
+      optional (cfg.webConfigFile != null)
+        "--web.config.file=${cfg.webConfigFile}";
 
   filterValidPrometheus = filterAttrsListRecursive (
     n: v: !(n == "_module" || v == null)
@@ -131,8 +129,7 @@ let
     else if isList x then
       map (filterAttrsListRecursive pred) x
     else
-      x
-  ;
+      x;
 
   #
   # Config types: helper functions
@@ -1949,8 +1946,7 @@ in
           "${cfg.package}/bin/prometheus"
           + optionalString (length cmdlineArgs != 0) (
             " \\\n  " + concatStringsSep " \\\n  " cmdlineArgs
-          )
-        ;
+          );
         ExecReload = mkIf cfg.enableReload "+${reload}/bin/reload-prometheus";
         User = "prometheus";
         Restart = "always";

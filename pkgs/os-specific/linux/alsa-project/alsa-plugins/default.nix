@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
       libogg
     ]
     ++ lib.optional (libpulseaudio != null) libpulseaudio
-    ++ lib.optional (libjack2 != null) libjack2
-  ;
+    ++ lib.optional (libjack2 != null) libjack2;
 
   meta = with lib; {
     description = "Various plugins for ALSA";

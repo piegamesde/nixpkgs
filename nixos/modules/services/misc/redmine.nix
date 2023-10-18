@@ -241,8 +241,7 @@ in
             else if pgsqlLocal then
               "/run/postgresql"
             else
-              null
-          ;
+              null;
           defaultText = literalExpression "/run/mysqld/mysqld.sock";
           example = "/run/mysqld/mysqld.sock";
           description =
@@ -420,8 +419,7 @@ in
       after =
         [ "network.target" ]
         ++ optional mysqlLocal "mysql.service"
-        ++ optional pgsqlLocal "postgresql.service"
-      ;
+        ++ optional pgsqlLocal "postgresql.service";
       wantedBy = [ "multi-user.target" ];
       environment.RAILS_ENV = "production";
       environment.RAILS_CACHE = "${cfg.stateDir}/cache";
@@ -436,8 +434,7 @@ in
         ++ optional cfg.components.cvs cvs
         ++ optional cfg.components.breezy breezy
         ++ optional cfg.components.imagemagick imagemagick
-        ++ optional cfg.components.ghostscript ghostscript
-      ;
+        ++ optional cfg.components.ghostscript ghostscript;
 
       preStart = ''
         rm -rf "${cfg.stateDir}/plugins/"*

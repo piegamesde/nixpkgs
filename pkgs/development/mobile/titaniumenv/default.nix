@@ -16,8 +16,7 @@ rec {
         else if tiVersion == "8.3.2.GA" then
           ./titaniumsdk-8.3.nix
         else
-          throw "Titanium version not supported: " + tiVersion
-      ;
+          throw "Titanium version not supported: " + tiVersion;
     in
     import titaniumSdkFile {
       inherit (pkgs)

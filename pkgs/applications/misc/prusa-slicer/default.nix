@@ -149,8 +149,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString (stdenv.isDarwin && stdenv.isx86_64) ''
       # Disable segfault tests
       sed -i '/libslic3r/d' tests/CMakeLists.txt
-    ''
-  ;
+    '';
 
   src = fetchFromGitHub {
     owner = "prusa3d";
@@ -193,6 +192,5 @@ stdenv.mkDerivation rec {
         tweber
       ];
     }
-    // lib.optionalAttrs (stdenv.isDarwin) { mainProgram = "PrusaSlicer"; }
-  ;
+    // lib.optionalAttrs (stdenv.isDarwin) { mainProgram = "PrusaSlicer"; };
 }

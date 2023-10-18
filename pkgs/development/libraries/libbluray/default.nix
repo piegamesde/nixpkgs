@@ -42,15 +42,13 @@ stdenv.mkDerivation rec {
     ++ lib.optional withJava jdk
     ++ lib.optional withMetadata libxml2
     ++ lib.optional withFonts freetype
-    ++ lib.optional stdenv.isDarwin DiskArbitration
-  ;
+    ++ lib.optional stdenv.isDarwin DiskArbitration;
 
   propagatedBuildInputs = lib.optional withAACS libaacs;
 
   NIX_LDFLAGS =
     lib.optionalString withAACS "-L${libaacs}/lib -laacs"
-    + lib.optionalString withBDplus " -L${libbdplus}/lib -lbdplus"
-  ;
+    + lib.optionalString withBDplus " -L${libbdplus}/lib -lbdplus";
 
   preConfigure = lib.optionalString withJava ''
     export JDK_HOME="${jdk.home}"
@@ -59,8 +57,7 @@ stdenv.mkDerivation rec {
   configureFlags =
     lib.optional (!withJava) "--disable-bdjava-jar"
     ++ lib.optional (!withMetadata) "--without-libxml2"
-    ++ lib.optional (!withFonts) "--without-freetype"
-  ;
+    ++ lib.optional (!withFonts) "--without-freetype";
 
   meta = with lib; {
     homepage = "http://www.videolan.org/developers/libbluray.html";

@@ -40,8 +40,7 @@ python3.pkgs.buildPythonApplication rec {
       mock
       pytestCheckHook
     ]
-    ++ [ ncurses ]
-  ;
+    ++ [ ncurses ];
 
   preBuild = ''
     export HOME=$(mktemp -d)

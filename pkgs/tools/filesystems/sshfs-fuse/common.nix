@@ -65,8 +65,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString (!stdenv.isDarwin) ''
       wrapProgram $out/bin/sshfs --prefix PATH : "${openssh}/bin"
-    ''
-  ;
+    '';
 
   # doCheck = true;
   checkPhase = lib.optionalString (!stdenv.isDarwin) ''

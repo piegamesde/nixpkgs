@@ -62,8 +62,7 @@ stdenv.mkDerivation rec {
       Foundation
       AppKit
       OpenAL
-    ]
-  ;
+    ];
 
   cmakeFlags = [
     "-DSFML_INSTALL_PKGCONFIG_FILES=yes"

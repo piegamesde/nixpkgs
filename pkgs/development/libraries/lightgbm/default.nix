@@ -66,8 +66,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals hdfsSupport [ hadoop ]
     ++ lib.optionals (hdfsSupport || javaWrapper) [ openjdk ]
     ++ lib.optionals javaWrapper [ swig ]
-    ++ lib.optionals rLibrary [ R ]
-  ;
+    ++ lib.optionals rLibrary [ R ];
 
   buildInputs = [ gtest ] ++ lib.optional cudaSupport cudaPackages.cudatoolkit;
 
@@ -110,8 +109,7 @@ stdenv.mkDerivation rec {
       "-DHDFS_INCLUDE_DIR=${hadoop}/lib/hadoop-3.3.1/include"
     ]
     ++ lib.optionals javaWrapper [ "-DUSE_SWIG=ON" ]
-    ++ lib.optionals rLibrary [ "-D__BUILD_FOR_R=ON" ]
-  ;
+    ++ lib.optionals rLibrary [ "-D__BUILD_FOR_R=ON" ];
 
   configurePhase = lib.optionals rLibrary ''
     export R_LIBS_SITE="$out/library:$R_LIBS_SITE''${R_LIBS_SITE:+:}"
@@ -164,8 +162,7 @@ stdenv.mkDerivation rec {
     ''
     + ''
       runHook postInstall
-    ''
-  ;
+    '';
 
   postFixup = lib.optionalString rLibrary ''
     if test -e $out/nix-support/propagated-build-inputs; then

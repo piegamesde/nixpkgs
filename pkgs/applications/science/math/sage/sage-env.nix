@@ -204,8 +204,7 @@ writeTextFile rec {
               giac
             ]
           }''${DYLD_LIBRARY_PATH:+:}$DYLD_LIBRARY_PATH"
-      ''
-  ;
+      '';
 }
 // {
   # equivalent of `passthru`, which `writeTextFile` doesn't support

@@ -58,8 +58,7 @@ in
           fi
           export NVCC_PREPEND_FLAGS+=' --compiler-bindir=${cc}/bin -Xfatbin=-compress-all'
           EOF
-        ''
-      ;
+        '';
     }
   );
 
@@ -90,8 +89,7 @@ in
             [ pkgs.qt5.wrapQtAppsHook ]
           else
             [ pkgs.qt6.wrapQtAppsHook ]
-        )
-      ;
+        );
       buildInputs =
         oldAttrs.buildInputs
         ++ (
@@ -99,8 +97,7 @@ in
             [ pkgs.qt5.qtwebview ]
           else
             [ pkgs.qt6.qtwebview ]
-        )
-      ;
+        );
     }
   );
 

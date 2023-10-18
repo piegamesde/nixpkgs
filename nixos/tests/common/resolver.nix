@@ -45,8 +45,7 @@
           getZones =
             cfg:
             mkNsdZoneNames cfg.services.nsd.zones
-            ++ mkBindZoneNames cfg.services.bind.zones
-          ;
+            ++ mkBindZoneNames cfg.services.bind.zones;
 
           getZonesForNode = attrs: {
             ip = attrs.config.networking.primaryIPAddress;
@@ -89,8 +88,7 @@
                   {
                     ipAddr = lib.head result;
                     hosts = lib.singleton (lib.elemAt result 1) ++ matchAliases (lib.last result);
-                  }
-              ;
+                  };
 
               skipLine =
                 str:

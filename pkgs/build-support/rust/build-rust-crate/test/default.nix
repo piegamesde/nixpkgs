@@ -105,8 +105,7 @@ let
             crateName = "run-test-${crateName}";
             dependencies = [ crate ];
             src = mkBinExtern "src/main.rs" libName;
-          }
-      ;
+          };
     in
     assert expectedTestOutputs != null -> hasTests;
     assert hasTests -> expectedTestOutputs != null;
@@ -658,8 +657,7 @@ rec {
           withoutCargoTomlSearch
           // {
             expectedTestOutputs = [ "test ignore_main ... ok" ];
-          }
-        ;
+          };
         procMacroInPrelude = {
           procMacro = true;
           edition = "2018";
@@ -810,8 +808,7 @@ rec {
               test -x '${pkg}/bin/rcgen' && touch $out
             ''
         );
-    }
-  ;
+    };
   test = releaseTools.aggregate {
     name = "buildRustCrate-tests";
     meta = {

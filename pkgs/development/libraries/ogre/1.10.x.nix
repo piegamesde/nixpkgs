@@ -96,8 +96,7 @@ stdenv.mkDerivation rec {
       AGL
       Cocoa
     ]
-    ++ lib.optionals withNvidiaCg [ nvidia_cg_toolkit ]
-  ;
+    ++ lib.optionals withNvidiaCg [ nvidia_cg_toolkit ];
 
   cmakeFlags = [
     "-DOGRE_BUILD_COMPONENT_OVERLAY_IMGUI=FALSE"

@@ -26,8 +26,7 @@ stdenv.mkDerivation rec {
         name = "cov-analysis-linux64-${version}.tar.gz";
         sha256 = "0iby75p0g8gv7b501xav47milr8m9781h0hcgm1ch6x3qj6irqd8";
         inherit message;
-      }
-  ;
+      };
 
   dontStrip = true;
   buildPhase = false;

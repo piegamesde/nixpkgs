@@ -32,8 +32,7 @@ python3.pkgs.buildPythonApplication rec {
           git
         ]
         ++ lib.optional withSandboxSupport bubblewrap
-        ++ lib.optional withNom nix-output-monitor
-      ;
+        ++ lib.optional withNom nix-output-monitor;
     in
     [
       "--prefix PATH : ${lib.makeBinPath binPath}"

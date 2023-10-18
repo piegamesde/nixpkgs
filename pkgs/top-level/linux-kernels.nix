@@ -59,8 +59,7 @@ let
               stdenv.isx86_64
               && lib.versionAtLeast version "4.19"
               && lib.versionOlder version "5.5"
-            )
-          ;
+            );
         };
       };
       kernelPatches = kernel.kernelPatches ++ [
@@ -405,8 +404,7 @@ in
           if lib.versionOlder kernel.version "5.8" then
             callPackage ../os-specific/linux/exfat { }
           else
-            null
-        ;
+            null;
 
         evdi = callPackage ../os-specific/linux/evdi { };
 
@@ -421,15 +419,13 @@ in
           if lib.versionOlder kernel.version "4.10" then
             callPackage ../os-specific/linux/e1000e { }
           else
-            null
-        ;
+            null;
 
         intel-speed-select =
           if lib.versionAtLeast kernel.version "5.3" then
             callPackage ../os-specific/linux/intel-speed-select { }
           else
-            null
-        ;
+            null;
 
         ipu6-drivers = callPackage ../os-specific/linux/ipu6-drivers { };
 
@@ -527,8 +523,7 @@ in
           if lib.versionOlder kernel.version "5.16" then
             callPackage ../os-specific/linux/rtw89 { }
           else
-            null
-        ;
+            null;
 
         openafs_1_8 = callPackage ../servers/openafs/1.8/module.nix { };
         # Current stable release; don't backport release updates!
@@ -540,8 +535,7 @@ in
           if lib.versionAtLeast kernel.version "4.14" then
             callPackage ../os-specific/linux/tuxedo-keyboard { }
           else
-            null
-        ;
+            null;
 
         jool = callPackage ../os-specific/linux/jool { };
 
@@ -565,8 +559,7 @@ in
           if lib.versionAtLeast kernel.version "4.10" then
             callPackage ../os-specific/linux/phc-intel { }
           else
-            null
-        ;
+            null;
 
         prl-tools = callPackage ../os-specific/linux/prl-tools { };
 
@@ -627,8 +620,7 @@ in
           if lib.versionOlder kernel.version "5.6" then
             callPackage ../os-specific/linux/wireguard { }
           else
-            null
-        ;
+            null;
 
         x86_energy_perf_policy =
           callPackage ../os-specific/linux/x86_energy_perf_policy
@@ -638,8 +630,7 @@ in
           if lib.versionAtLeast kernel.version "5.4" then
             callPackage ../os-specific/linux/xone { }
           else
-            null
-        ;
+            null;
 
         xpadneo = callPackage ../os-specific/linux/xpadneo { };
 

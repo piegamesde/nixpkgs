@@ -55,8 +55,7 @@ in
               if local.config.inheritParentConfig then
                 extendModules
               else
-                noUserModules.extendModules
-            ;
+                noUserModules.extendModules;
           in
           {
             options.inheritParentConfig = mkOption {

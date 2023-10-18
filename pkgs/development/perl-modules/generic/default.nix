@@ -62,8 +62,7 @@ lib.throwIf (attrs ? name)
             nativeBuildInputs
             ++ (
               if stdenv.buildPlatform != stdenv.hostPlatform then [ perl.mini ] else [ perl ]
-            )
-          ;
+            );
 
           inherit
             outputs

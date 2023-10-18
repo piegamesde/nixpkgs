@@ -30,8 +30,7 @@ let
               )
             )
             cfg.cni.config;
-      })
-  ;
+      });
 
   infraContainer = pkgs.dockerTools.buildImage {
     name = "pause";
@@ -355,8 +354,7 @@ in
             socat
           ]
           ++ lib.optional config.boot.zfs.enabled config.boot.zfs.package
-          ++ top.path
-        ;
+          ++ top.path;
         preStart = ''
           ${concatMapStrings
             (img: ''
@@ -366,8 +364,7 @@ in
                   ${pkgs.gzip}/bin/zcat "${img}" | ${pkgs.containerd}/bin/ctr -n k8s.io image import --all-platforms -''
               else
                 ''
-                  ${pkgs.coreutils}/bin/cat "${img}" | ${pkgs.containerd}/bin/ctr -n k8s.io image import --all-platforms -''
-              }
+                  ${pkgs.coreutils}/bin/cat "${img}" | ${pkgs.containerd}/bin/ctr -n k8s.io image import --all-platforms -''}
             '')
             cfg.seedDockerImages}
 

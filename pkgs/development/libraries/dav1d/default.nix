@@ -44,8 +44,7 @@ stdenv.mkDerivation rec {
       libplacebo
       vulkan-loader
       vulkan-headers
-    ]
-  ;
+    ];
 
   mesonFlags = [
     "-Denable_tools=${lib.boolToString withTools}"

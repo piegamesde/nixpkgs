@@ -52,8 +52,7 @@ stdenv.mkDerivation rec {
       zlib
     ]
     # ndbm compat library
-    ++ lib.optional stdenv.isLinux gdbm
-  ;
+    ++ lib.optional stdenv.isLinux gdbm;
   configureFlags =
     lib.optional (tcl != null)
       "--with-tcl=${tcl}/lib/tclConfig.sh";

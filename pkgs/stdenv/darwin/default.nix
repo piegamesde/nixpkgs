@@ -80,8 +80,7 @@
         sha256 = "sha256-kRC/bhCmlD4L7KAvJQgcukk7AinkMz4IwmG1rqlh5tA=";
         executable = false;
       };
-    }
-  ,
+    },
 }:
 
 assert crossSystem == localSystem;
@@ -123,8 +122,7 @@ rec {
         if localSystem.isAarch64 then
           [ ./unpack-bootstrap-tools-aarch64.sh ]
         else
-          [ ./unpack-bootstrap-tools.sh ]
-      ;
+          [ ./unpack-bootstrap-tools.sh ];
 
       inherit (bootstrapFiles)
         mkdir
@@ -203,8 +201,7 @@ rec {
               ];
               extraBuildCommands = mkExtraBuildCommands cc;
             }
-          )
-      ;
+          );
 
       ccNoLibcxx =
         if last == null then
@@ -223,11 +220,9 @@ rec {
                   }/lib" >> $out/nix-support/cc-cflags
                   echo "-nostdlib++" >> $out/nix-support/cc-cflags
                 ''
-                + mkExtraBuildCommands cc
-              ;
+                + mkExtraBuildCommands cc;
             }
-          )
-      ;
+          );
 
       thisStdenv = import ../generic {
         name = "${name}-stdenv-darwin";
@@ -258,8 +253,7 @@ rec {
               last.pkgs.darwin.postLinkSignHook
               last.pkgs.darwin.sigtool
               last.pkgs.darwin.signingUtils
-            ]
-        ;
+            ];
 
         buildPlatform = localSystem;
         hostPlatform = localSystem;
@@ -276,8 +270,7 @@ rec {
           + ''
             ${commonPreHook}
             ${extraPreHook}
-          ''
-        ;
+          '';
         initialPath = [ bootstrapTools ];
 
         fetchurlBoot = import ../../build-support/fetchurl {
@@ -296,8 +289,7 @@ rec {
           // {
             inherit ccNoLibcxx;
             fetchurl = thisStdenv.fetchurlBoot;
-          }
-        ;
+          };
       };
     in
     {
@@ -505,8 +497,7 @@ rec {
                 );
               in
               { inherit tools libraries; } // tools // libraries
-            )
-          ;
+            );
 
           darwin = super.darwin.overrideScope (
             selfDarwin: _: {
@@ -554,8 +545,7 @@ rec {
             CF
           ]
           ++ lib.optional useAppleSDKLibs objc4
-        )
-      ;
+        );
 
       overrides = persistent;
     };
@@ -652,8 +642,7 @@ rec {
                 );
               in
               { inherit tools libraries; } // tools // libraries
-            )
-          ;
+            );
 
           darwin = super.darwin.overrideScope (
             _: _: {
@@ -729,8 +718,7 @@ rec {
             locale
           ]
           ++ lib.optional useAppleSDKLibs objc4
-        )
-      ;
+        );
 
       overrides = persistent;
     };
@@ -794,8 +782,7 @@ rec {
                 );
               in
               { inherit libraries; } // libraries
-            )
-          ;
+            );
 
           darwin = super.darwin.overrideScope (
             _: _: {
@@ -879,8 +866,7 @@ rec {
             locale
           ]
           ++ lib.optional useAppleSDKLibs objc4
-        )
-      ;
+        );
 
       overrides = persistent;
     };
@@ -942,8 +928,7 @@ rec {
                 );
               in
               { inherit tools libraries; } // tools // libraries
-            )
-          ;
+            );
 
           darwin = super.darwin.overrideScope (
             _: superDarwin: {
@@ -963,8 +948,7 @@ rec {
                   superDarwin.CF.override {
                     inherit libxml2;
                     python3 = prevStage.python3;
-                  }
-              ;
+                  };
             }
           );
         };
@@ -1050,12 +1034,10 @@ rec {
                 );
               in
               { inherit tools libraries; } // tools // libraries
-            )
-          ;
+            );
 
           inherit binutils binutils-unwrapped;
-        }
-      ;
+        };
     in
     import ../generic rec {
       name = "stdenv-darwin";
@@ -1072,8 +1054,7 @@ rec {
         + ''
           export NIX_COREFOUNDATION_RPATH=${pkgs.darwin.CF}/Library/Frameworks
           export PATH_LOCALE=${pkgs.darwin.locale}/share/locale
-        ''
-      ;
+        '';
 
       __stdenvImpureHostDeps = commonImpureHostDeps;
       __extraImpureHostDeps = commonImpureHostDeps;
@@ -1186,8 +1167,7 @@ rec {
             sigtool
             signingUtils
           ]
-        )
-      ;
+        );
 
       overrides = lib.composeExtensions persistent (
         self: super:

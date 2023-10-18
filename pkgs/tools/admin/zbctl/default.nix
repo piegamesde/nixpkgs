@@ -20,8 +20,7 @@ stdenvNoCC.mkDerivation rec {
         sha256 = "1xng11x7wcjvc0vipdrqyn97aa4jlgcp7g9aw4d36fw0xp9p47kp";
       }
     else
-      throw "Unsupported platform ${stdenvNoCC.hostPlatform.system}"
-  ;
+      throw "Unsupported platform ${stdenvNoCC.hostPlatform.system}";
 
   dontUnpack = true;
   dontConfigure = true;

@@ -106,8 +106,7 @@ stdenv.mkDerivation rec {
       openssl
     ]
     ++ lib.optional withFFI libffi
-    ++ lib.optional withMisc libeb
-  ;
+    ++ lib.optional withMisc libeb;
 
   prePatch = ''
     patchShebangs *.sh */*.sh */*/*.sh
@@ -169,8 +168,7 @@ stdenv.mkDerivation rec {
       "--with-openssl-dir=${openssl.dev}"
     ]
     ++ lib.optional withFFI "--with-ffi"
-    ++ lib.optional withMisc "--with-eb"
-  ;
+    ++ lib.optional withMisc "--with-eb";
 
   # TODO: things in `./configure --help`, but not in nixpkgs
   #--with-canna            Use Canna [default=no]

@@ -153,8 +153,7 @@ let
         else if lib.isString value then
           mkGnString value
         else
-          throw "Unsupported type for GN value `${value}'."
-      ;
+          throw "Unsupported type for GN value `${value}'.";
       toFlag = key: value: "${key}=${sanitize value}";
     in
     attrs:
@@ -262,8 +261,7 @@ let
         libgcrypt
         cups
       ]
-      ++ lib.optional pulseSupport libpulseaudio
-    ;
+      ++ lib.optional pulseSupport libpulseaudio;
 
     patches = [
       # Optional patch to use SOURCE_DATE_EPOCH in compute_build_timestamp.py (should be upstreamed):
@@ -361,8 +359,7 @@ let
         ${ungoogler}/utils/prune_binaries.py . ${ungoogler}/pruning.list || echo "some errors"
         ${ungoogler}/utils/patches.py . ${ungoogler}/patches
         ${ungoogler}/utils/domain_substitution.py apply -r ${ungoogler}/domain_regex.list -f ${ungoogler}/domain_substitution.list -c ./ungoogled-domsubcache.tar.gz .
-      ''
-    ;
+      '';
 
     gnFlags = mkGnFlags (
       {

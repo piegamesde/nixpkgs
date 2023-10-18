@@ -77,8 +77,7 @@ stdenv.mkDerivation rec {
       libnotify
       gdk-pixbuf
     ]
-    ++ lib.optionals (!stdenv.isDarwin) [ modemmanager ]
-  ;
+    ++ lib.optionals (!stdenv.isDarwin) [ modemmanager ];
 
   propagatedBuildInputs = [
     glib

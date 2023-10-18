@@ -36,8 +36,7 @@ stdenv.mkDerivation (
       "ppsspp"
       + lib.optionalString enableQt "-qt"
       + lib.optionalString (!enableQt) "-sdl"
-      + lib.optionalString forceWayland "-wayland"
-    ;
+      + lib.optionalString forceWayland "-wayland";
     version = "1.14.4";
 
     src = fetchFromGitHub {
@@ -78,8 +77,7 @@ stdenv.mkDerivation (
       ++ lib.optionals vulkanWayland [
         wayland
         libffi
-      ]
-    ;
+      ];
 
     cmakeFlags = [
       "-DHEADLESS=${if enableQt then "OFF" else "ON"}"
@@ -136,16 +134,14 @@ stdenv.mkDerivation (
         mv assets $out/share/ppsspp
 
         runHook postInstall
-      ''
-    ;
+      '';
 
     meta = {
       homepage = "https://www.ppsspp.org/";
       description =
         "A HLE Playstation Portable emulator, written in C++ ("
         + (if enableQt then "Qt" else "SDL + headless")
-        + ")"
-      ;
+        + ")";
       license = lib.licenses.gpl2Plus;
       maintainers = [ lib.maintainers.AndersonTorres ];
       platforms = lib.platforms.linux;

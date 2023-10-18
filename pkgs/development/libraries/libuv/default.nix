@@ -121,8 +121,7 @@ stdenv.mkDerivation rec {
               # I observe this test failing with some regularity on ARMv7:
               # https://github.com/libuv/libuv/issues/1871
               "shutdown_close_pipe"
-            ]
-      ;
+            ];
       tdRegexp = lib.concatStringsSep "\\|" toDisable;
     in
     lib.optionalString doCheck ''

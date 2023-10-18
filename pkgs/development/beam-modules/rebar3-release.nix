@@ -65,8 +65,7 @@ let
             rebar3
             openssl
           ]
-          ++ beamDeps
-        ;
+          ++ beamDeps;
 
         # ensure we strip any native binaries (eg. NIFs, ports)
         stripDebugList = lib.optional (releaseType == "release") "rel";

@@ -52,8 +52,7 @@ let
     ++ optional enableGDBJITSupport "-DLUAJIT_USE_GDBJIT"
     ++ optional enableAPICheck "-DLUAJIT_USE_APICHECK"
     ++ optional enableVMAssertions "-DLUAJIT_USE_ASSERT"
-    ++ optional deterministicStringIds "-DLUAJIT_SECURITY_STRID=0"
-  ;
+    ++ optional deterministicStringIds "-DLUAJIT_SECURITY_STRID=0";
 
   # LuaJIT requires build for 32bit architectures to be build on x86 not x86_64
   # TODO support also other build architectures. The ideal way would be to use
@@ -63,8 +62,7 @@ let
     if buildPackages.stdenv.isx86_64 && stdenv.is32bit then
       buildPackages.pkgsi686Linux.buildPackages.stdenv
     else
-      buildPackages.stdenv
-  ;
+      buildPackages.stdenv;
 in
 stdenv.mkDerivation rec {
   pname = "luajit";
@@ -151,8 +149,7 @@ stdenv.mkDerivation rec {
         if lib.hasAttr luaAttr pkgsTargetTarget then
           (override pkgsTargetTarget.${luaAttr})
         else
-          { }
-      ;
+          { };
     };
 
   meta =
@@ -174,6 +171,5 @@ stdenv.mkDerivation rec {
         lblasc
       ];
     }
-    // extraMeta
-  ;
+    // extraMeta;
 }

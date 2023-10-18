@@ -69,8 +69,7 @@ stdenv.mkDerivation (
       ++ lib.optionals stdenv.isDarwin [
         Cocoa
         OpenAL
-      ]
-    ;
+      ];
 
     enableParallelBuilding = true;
 
@@ -86,8 +85,7 @@ stdenv.mkDerivation (
         "openmp=true"
         "prefix=$(out)"
         "-C desktop-ui"
-      ]
-    ;
+      ];
 
     env.NIX_CFLAGS_COMPILE =
       lib.optionalString stdenv.isDarwin

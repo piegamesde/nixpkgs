@@ -59,8 +59,7 @@ stdenv.mkDerivation rec {
         else if stdenv.system == "i686_linux" then
           "lib"
         else
-          throw "other platforms than i686_linux and x86_64-linux are not yet supported"
-      ;
+          throw "other platforms than i686_linux and x86_64-linux are not yet supported";
     in
     ''
       mkdir -p "$out" "${docdir}" "${filterdir}" "${ppddir}"

@@ -5,8 +5,7 @@
   url ? if rev != null then
     "https://gitlab.haskell.org/ghc/ghc.git"
   else
-    "https://downloads.haskell.org/ghc/${version}/ghc-${version}-src.tar.xz"
-  ,
+    "https://downloads.haskell.org/ghc/${version}/ghc-${version}-src.tar.xz",
 
 }:
 
@@ -61,8 +60,7 @@
     lib.meta.availableOn stdenv.hostPlatform gmp
     && lib.meta.availableOn stdenv.targetPlatform gmp
   )
-    || stdenv.targetPlatform.isGhcjs
-  ,
+    || stdenv.targetPlatform.isGhcjs,
   gmp
 
   ,
@@ -95,8 +93,7 @@
       # HACK: elfutils is marked as broken on static platforms
       # which availableOn can't tell.
       !stdenv.targetPlatform.isStatic
-    && !stdenv.hostPlatform.isStatic
-  ,
+    && !stdenv.hostPlatform.isStatic,
   elfutils
 
   ,
@@ -118,8 +115,7 @@
       # While split sections are now enabled by default in ghc 8.8 for windows,
       # they seem to lead to `too many sections` errors when building base for
       # profiling.
-      ++ lib.optionals (!stdenv.targetPlatform.isWindows) [ "split_sections" ]
-    ;
+      ++ lib.optionals (!stdenv.targetPlatform.isWindows) [ "split_sections" ];
   in
   baseFlavour + lib.concatMapStrings (t: "+${t}") transformers
 
@@ -231,8 +227,7 @@ let
         (
           platform.libc != "glibc" && !targetPlatform.isWindows && !targetPlatform.isGhcjs
         )
-        libiconv
-  ;
+        libiconv;
 
   # TODO(@sternenseemann): is buildTarget LLVM unnecessary?
   # GHC doesn't seem to have {LLC,OPT}_HOST
@@ -257,16 +252,14 @@ let
       if stdenv.targetPlatform.isAarch64 then
         targetCC.bintools
       else
-        targetCC.bintools.bintools
-    ;
+        targetCC.bintools.bintools;
     # Same goes for strip.
     strip =
       # TODO(@sternenseemann): also use wrapper if linker == "bfd" or "gold"
       if stdenv.targetPlatform.isAarch64 && stdenv.targetPlatform.isDarwin then
         targetCC.bintools
       else
-        targetCC.bintools.bintools
-    ;
+        targetCC.bintools.bintools;
   };
 
   # Use gold either following the default, or to avoid the BFD linker due to some bugs / perf issues.
@@ -278,8 +271,7 @@ let
       targetPlatform.linker == "bfd"
       && (targetCC.bintools.bintools.hasGold or false)
       && !targetPlatform.isMusl
-    )
-  ;
+    );
 
   # Makes debugging easier to see which variant is at play in `nix-store -q --tree`.
   variantSuffix = lib.concatStrings [
@@ -292,12 +284,10 @@ in
 # the resulting GHC's settings file and used at runtime. This means that we are
 # currently only able to build GHC if hostPlatform == buildPlatform.
 assert !targetPlatform.isGhcjs
-  -> targetCC == pkgsHostTarget.targetPackages.stdenv.cc
-;
+  -> targetCC == pkgsHostTarget.targetPackages.stdenv.cc;
 assert buildTargetLlvmPackages.llvm == llvmPackages.llvm;
 assert stdenv.targetPlatform.isDarwin
-  -> buildTargetLlvmPackages.clang == llvmPackages.clang
-;
+  -> buildTargetLlvmPackages.clang == llvmPackages.clang;
 
 stdenv.mkDerivation (
   {
@@ -406,8 +396,7 @@ stdenv.mkDerivation (
           "-j$NIX_BUILD_CORES"
           ${lib.escapeShellArgs hadrianSettings}
         )
-      ''
-    ;
+      '';
 
     ${
       if targetPlatform.isGhcjs then "configureScript" else null
@@ -463,8 +452,7 @@ stdenv.mkDerivation (
         "--enable-dwarf-unwind"
         "--with-libdw-includes=${lib.getDev elfutils}/include"
         "--with-libdw-libraries=${lib.getLib elfutils}/lib"
-      ]
-    ;
+      ];
 
     # Make sure we never relax`$PATH` and hooks support for compatibility.
     strictDeps = true;
@@ -490,8 +478,7 @@ stdenv.mkDerivation (
       ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
         autoSignDarwinBinariesHook
       ]
-      ++ lib.optionals enableDocs [ sphinx ]
-    ;
+      ++ lib.optionals enableDocs [ sphinx ];
 
     # For building runtime libs
     depsBuildTarget = toolsForTarget;
@@ -539,8 +526,7 @@ stdenv.mkDerivation (
       # See:
       # * https://github.com/NixOS/nixpkgs/issues/129247
       # * https://gitlab.haskell.org/ghc/ghc/-/issues/19580
-      ++ lib.optional stdenv.targetPlatform.isMusl "pie"
-    ;
+      ++ lib.optional stdenv.targetPlatform.isMusl "pie";
 
     # big-parallel allows us to build with more than 2 cores on
     # Hydra which already warrants a significant speedup

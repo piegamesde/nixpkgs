@@ -20,8 +20,7 @@ let
     cfg.nginx.addSSL
     || cfg.nginx.forceSSL
     || cfg.nginx.onlySSL
-    || cfg.nginx.enableACME
-  ;
+    || cfg.nginx.enableACME;
 
   # shell script for local administration
   artisan = pkgs.writeScriptBin "snipe-it" ''
@@ -481,8 +480,7 @@ in
                   else
                     hashString "sha256" (builtins.readFile v._secret)
                 else
-                  throw "unsupported type ${typeOf v}: ${(lib.generators.toPretty { }) v}"
-              ;
+                  throw "unsupported type ${typeOf v}: ${(lib.generators.toPretty { }) v}";
             };
           };
           secretPaths = lib.mapAttrsToList (_: v: v._secret) (

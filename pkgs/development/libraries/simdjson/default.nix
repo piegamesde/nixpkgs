@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
           # Assume required CPU features are available, since otherwise we
           # just get a failed build.
           "-DCMAKE_CXX_FLAGS=-mpower8-vector"
-        ]
-  ;
+        ];
 
   meta = with lib; {
     homepage = "https://simdjson.org/";

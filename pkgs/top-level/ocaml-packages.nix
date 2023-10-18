@@ -165,8 +165,7 @@ let
           if lib.versionOlder "4.02" ocaml.version then
             callPackage ../development/tools/ocaml/camlp4 { }
           else
-            null
-        ;
+            null;
 
         camlp5 = callPackage ../development/tools/ocaml/camlp5 { };
 
@@ -181,8 +180,7 @@ let
           if lib.versionOlder "4.02" ocaml.version then
             callPackage ../development/ocaml-modules/camomile { }
           else
-            callPackage ../development/ocaml-modules/camomile/0.8.5.nix { }
-        ;
+            callPackage ../development/ocaml-modules/camomile/0.8.5.nix { };
         camomile_0_8_2 =
           callPackage ../development/ocaml-modules/camomile/0.8.2.nix
             { };
@@ -422,8 +420,7 @@ let
           else if lib.versionAtLeast ocaml.version "4.02" then
             pkgs.dune_2
           else
-            throw "dune_2 is not available for OCaml ${ocaml.version}"
-        ;
+            throw "dune_2 is not available for OCaml ${ocaml.version}";
 
         dune_3 =
           if lib.versionAtLeast ocaml.version "4.08" then
@@ -431,8 +428,7 @@ let
           else if lib.versionAtLeast ocaml.version "4.02" then
             pkgs.dune_3
           else
-            throw "dune_3 is not available for OCaml ${ocaml.version}"
-        ;
+            throw "dune_3 is not available for OCaml ${ocaml.version}";
 
         dune-action-plugin =
           callPackage ../development/ocaml-modules/dune-action-plugin
@@ -495,8 +491,7 @@ let
               if lib.versionAtLeast ppxlib.version "0.15" then
                 ppxlib.override { version = "0.15.0"; }
               else
-                ppxlib
-            ;
+                ppxlib;
           in
           {
             ppx_deriving_0_15 = ppx_deriving.override { ppxlib = ppxlib_0_15; };
@@ -690,8 +685,7 @@ let
           if lib.versionOlder "4.09" ocaml.version then
             callPackage ../development/ocaml-modules/graphics { }
           else
-            null
-        ;
+            null;
 
         graphql = callPackage ../development/ocaml-modules/graphql { };
 
@@ -837,8 +831,7 @@ let
           else if lib.versionOlder "4.07" ocaml.version then
             callPackage ../development/ocaml-modules/janestreet/janePackage_0_12.nix { }
           else
-            callPackage ../development/ocaml-modules/janestreet/janePackage.nix { }
-        ;
+            callPackage ../development/ocaml-modules/janestreet/janePackage.nix { };
 
         janeStreet =
           if lib.versionOlder "4.10.2" ocaml.version then
@@ -876,8 +869,7 @@ let
                 ppxlib = ppxlib.override { version = "0.8.1"; };
               };
               inherit (pkgs) openssl;
-            }
-        ;
+            };
 
         janeStreet_0_9_0 = import ../development/ocaml-modules/janestreet/old.nix {
           self = self.janeStreet_0_9_0;
@@ -965,8 +957,7 @@ let
           if lib.versionOlder "4.02" ocaml.version then
             callPackage ../development/ocaml-modules/lablgtk-extras { }
           else
-            callPackage ../development/ocaml-modules/lablgtk-extras/1.4.nix { }
-        ;
+            callPackage ../development/ocaml-modules/lablgtk-extras/1.4.nix { };
 
         lablgtk3 = callPackage ../development/ocaml-modules/lablgtk3 { };
 
@@ -1110,8 +1101,7 @@ let
           if lib.versionAtLeast ocaml.version "4.12" then
             callPackage ../development/tools/ocaml/merlin/4.x.nix { }
           else
-            callPackage ../development/tools/ocaml/merlin { }
-        ;
+            callPackage ../development/tools/ocaml/merlin { };
 
         merlin-extend = callPackage ../development/ocaml-modules/merlin-extend { };
 
@@ -1319,8 +1309,7 @@ let
           if lib.versionOlder "4.06" ocaml.version then
             callPackage ../development/ocaml-modules/num { }
           else
-            null
-        ;
+            null;
 
         ### O ###
 
@@ -1332,8 +1321,7 @@ let
           if lib.versionAtLeast ocaml.version "4.02" then
             callPackage ../development/ocaml-modules/expat { }
           else
-            callPackage ../development/ocaml-modules/expat/0.9.nix { }
-        ;
+            callPackage ../development/ocaml-modules/expat/0.9.nix { };
 
         ocaml-freestanding =
           callPackage ../development/ocaml-modules/ocaml-freestanding
@@ -1397,8 +1385,7 @@ let
           if lib.versionOlder "4.03" ocaml.version then
             callPackage ../development/tools/ocaml/ocamlbuild { }
           else
-            null
-        ;
+            null;
 
         ocamlc-loc = callPackage ../development/ocaml-modules/ocamlc-loc { };
 
@@ -1637,8 +1624,7 @@ let
           if lib.versionAtLeast ocaml.version "4.02" then
             callPackage ../development/ocaml-modules/ppx_tools { }
           else
-            null
-        ;
+            null;
 
         ppx_tools_versioned =
           callPackage ../development/ocaml-modules/ppx_tools_versioned

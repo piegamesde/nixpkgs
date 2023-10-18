@@ -48,8 +48,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString stdenv.cc.isClang ''
       substituteInPlace Makefile --replace "-lgomp" "-lomp"
-    ''
-  ;
+    '';
 
   patches = [
     # https://github.com/EUA/wxHexEditor/issues/90

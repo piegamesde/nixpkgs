@@ -33,8 +33,7 @@ stdenv.mkDerivation rec {
         `configuration.nix` for NixOS.
       ''
     else
-      releasePath
-  ;
+      releasePath;
 
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = [

@@ -57,16 +57,14 @@ stdenv.mkDerivation rec {
       qt5.qttools
     ]
     ++ lib.optional stdenv.isLinux alsa-lib
-    ++ lib.optional enableVncRenderer libvncserver
-  ;
+    ++ lib.optional enableVncRenderer libvncserver;
 
   cmakeFlags =
     lib.optional stdenv.isDarwin "-DCMAKE_MACOSX_BUNDLE=OFF"
     ++ lib.optional enableNewDynarec "-DNEW_DYNAREC=ON"
     ++ lib.optional enableVncRenderer "-DVNC=ON"
     ++ lib.optional (!enableDynarec) "-DDYNAREC=OFF"
-    ++ lib.optional (!unfreeEnableDiscord) "-DDISCORD=OFF"
-  ;
+    ++ lib.optional (!unfreeEnableDiscord) "-DDISCORD=OFF";
 
   # Some libraries are loaded dynamically, but QLibrary doesn't seem to search
   # the runpath, so use a wrapper instead.

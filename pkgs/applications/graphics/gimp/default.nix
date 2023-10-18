@@ -143,8 +143,7 @@ stdenv.mkDerivation (
         python
         # Duplicated here because python.withPackages does not expose the dev output with pkg-config files
         python2.pkgs.pygtk
-      ]
-    ;
+      ];
 
     # needed by gimp-2.0.pc
     propagatedBuildInputs = [ gegl ];

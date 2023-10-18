@@ -31,8 +31,7 @@ let
                     lib.escapeShellArg cfg.database.passwordFile
                   })"'"'"''
             + " | .[0]"
-            + lib.optionalString (cfg.extraSettingsFile != null) " * .[1]"
-          ;
+            + lib.optionalString (cfg.extraSettingsFile != null) " * .[1]";
           jqFiles = [
             settingsFile
           ] ++ lib.optional (cfg.extraSettingsFile != null) cfg.extraSettingsFile;

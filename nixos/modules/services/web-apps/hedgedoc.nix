@@ -18,8 +18,7 @@ let
     if versionAtLeast config.system.stateVersion "21.03" then
       "hedgedoc"
     else
-      "codimd"
-  ;
+      "codimd";
 
   settingsFormat = pkgs.formats.json { };
 
@@ -1113,8 +1112,7 @@ in
       {
         assertion =
           cfg.settings.db == { }
-          -> (cfg.settings.dbURL != "" && cfg.settings.dbURL != null)
-        ;
+          -> (cfg.settings.dbURL != "" && cfg.settings.dbURL != null);
         message = "Database configuration for HedgeDoc missing.";
       }
     ];

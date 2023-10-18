@@ -51,8 +51,7 @@
                   value:
                   pythonPackages.hasPythonModule value
                   || providesSetupHook value
-                  || lib.elem value exceptions
-                ;
+                  || lib.elem value exceptions;
                 func =
                   name: value:
                   if lib.isDerivation value then
@@ -66,8 +65,7 @@
                       { }
                       value
                   else
-                    value
-                ;
+                    value;
               in
               lib.mapAttrs func items;
           in

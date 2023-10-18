@@ -134,8 +134,7 @@ stdenv.mkDerivation rec {
       Cocoa
       CoreSymbolication
       OpenGL
-    ]
-  ;
+    ];
 
   patches = [ ./sw_vers.patch ];
 
@@ -177,8 +176,7 @@ stdenv.mkDerivation rec {
         )
         ''
           MACOSX_DEPLOYMENT_TARGET=10.16
-        ''
-  ;
+        '';
 
   cmakeFlags =
     [
@@ -235,8 +233,7 @@ stdenv.mkDerivation rec {
       # fatal error: module map file '/nix/store/<hash>-Libsystem-osx-10.12.6/include/module.modulemap' not found
       # fatal error: could not build module '_Builtin_intrinsics'
       "-Druntime_cxxmodules=OFF"
-    ]
-  ;
+    ];
 
   # Workaround the xrootd runpath bug #169677 by prefixing [DY]LD_LIBRARY_PATH with ${lib.makeLibraryPath xrootd}.
   # TODO: Remove the [DY]LDLIBRARY_PATH prefix for xrootd when #200830 get merged.

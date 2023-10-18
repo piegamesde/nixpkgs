@@ -107,8 +107,7 @@ in
         "dbus-org.freedesktop.login1.service"
         "user@.service"
         "user-runtime-dir@.service"
-      ]
-    ;
+      ];
 
     environment.etc = {
       "systemd/logind.conf".text = ''

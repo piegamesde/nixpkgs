@@ -46,8 +46,7 @@ let
     then
       { propagatedBuildInputs = deps; }
     else
-      { inherit deps; }
-  ;
+      { inherit deps; };
 in
 {
   removePathDependenciesHook = makeRemoveSpecialDependenciesHook {

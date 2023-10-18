@@ -64,8 +64,7 @@ stdenv.mkDerivation rec {
       attr
       e2fsprogs
     ]
-    ++ lib.optionals stdenv.isDarwin [ CoreFoundation ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ CoreFoundation ];
 
   configureFlags = [
     "--disable-birthtime"

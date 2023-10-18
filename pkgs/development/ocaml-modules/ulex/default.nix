@@ -20,8 +20,7 @@ let
       {
         version = "1.1";
         sha256 = "0cmscxcmcxhlshh4jd0lzw5ffzns12x3bj7h27smbc8waxkwffhl";
-      }
-  ;
+      };
 in
 
 stdenv.mkDerivation rec {

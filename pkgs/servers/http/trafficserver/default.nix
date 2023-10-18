@@ -89,8 +89,7 @@ stdenv.mkDerivation rec {
         ExtUtilsMakeMaker
       ]
     )
-    ++ lib.optionals stdenv.isLinux [ linuxHeaders ]
-  ;
+    ++ lib.optionals stdenv.isLinux [ linuxHeaders ];
 
   buildInputs =
     [
@@ -111,8 +110,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional withCurses ncurses
     ++ lib.optional withLuaJIT luajit
     ++ lib.optional withUnwind libunwind
-    ++ lib.optional withMaxmindDB libmaxminddb
-  ;
+    ++ lib.optional withMaxmindDB libmaxminddb;
 
   outputs = [
     "out"
@@ -137,8 +135,7 @@ stdenv.mkDerivation rec {
       # 'xcrun leaks' probably requires non-free XCode
       substituteInPlace iocore/net/test_certlookup.cc \
         --replace 'xcrun leaks' 'true'
-    ''
-  ;
+    '';
 
   configureFlags = [
     "--enable-layout=NixOS"

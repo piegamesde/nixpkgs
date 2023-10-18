@@ -46,8 +46,7 @@ mkDerivation rec {
     ''
     + lib.optionalString stdenv.isDarwin ''
       ln -s $out/bin/cool-retro-term.app/Contents/MacOS/cool-retro-term $out/bin/cool-retro-term
-    ''
-  ;
+    '';
 
   passthru.tests.test = nixosTests.terminal-emulators.cool-retro-term;
 

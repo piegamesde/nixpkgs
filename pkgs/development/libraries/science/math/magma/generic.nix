@@ -109,8 +109,7 @@ let
       ++ lists.optionals (strings.versionAtLeast cudaVersion "11.8") [
         cuda_profiler_api # <cuda_profiler_api.h>
       ]
-      ++ cuda-common-redist
-    ;
+      ++ cuda-common-redist;
   };
 
   # Run-time dependencies
@@ -150,8 +149,7 @@ stdenv.mkDerivation {
       hipblas
       hipsparse
       openmp
-    ]
-  ;
+    ];
 
   cmakeFlags =
     [ "-DGPU_TARGET=${gpuTargetString}" ]
@@ -166,8 +164,7 @@ stdenv.mkDerivation {
       "-DCMAKE_C_COMPILER=${hip}/bin/hipcc"
       "-DCMAKE_CXX_COMPILER=${hip}/bin/hipcc"
       "-DMAGMA_ENABLE_HIP=ON"
-    ]
-  ;
+    ];
 
   buildFlags = [
     "magma"
@@ -189,7 +186,6 @@ stdenv.mkDerivation {
     # CUDA and ROCm are mutually exclusive
     broken =
       cudaSupport && rocmSupport
-      || cudaSupport && strings.versionOlder cudaVersion "9"
-    ;
+      || cudaSupport && strings.versionOlder cudaVersion "9";
   };
 }

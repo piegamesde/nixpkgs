@@ -47,13 +47,11 @@ stdenv.mkDerivation {
     ''
     + lib.optionalString stdenv.hostPlatform.isMusl ''
       patchShebangs utils/cat_files.py
-    ''
-  ;
+    '';
   nativeBuildInputs =
     [ cmake ]
     ++ lib.optional stdenv.hostPlatform.isMusl python3
-    ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
-  ;
+    ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
 
   buildInputs = [ cxxabi ];
 
@@ -65,8 +63,7 @@ stdenv.mkDerivation {
     ++ lib.optional stdenv.hostPlatform.isMusl "-DLIBCXX_HAS_MUSL_LIBC=1"
     ++
       lib.optional (cxxabi.pname == "libcxxabi")
-        "-DLIBCXX_LIBCXXABI_LIB_PATH=${cxxabi}/lib"
-  ;
+        "-DLIBCXX_LIBCXXABI_LIB_PATH=${cxxabi}/lib";
 
   preInstall = lib.optionalString (stdenv.isDarwin) ''
     for file in lib/*.dylib; do

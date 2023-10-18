@@ -226,8 +226,7 @@ in
               ${cfg.sso.applicationPasswordFile} \
               ${cfg.home}/crowd.properties
           ''}
-        ''
-      ;
+        '';
 
       serviceConfig = {
         User = cfg.user;

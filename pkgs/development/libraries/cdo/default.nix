@@ -38,8 +38,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional enable_cdi_lib "--enable-cdi-lib"
     ++ lib.optional enable_all_static "--enable-all-static"
-    ++ lib.optional enable_cxx "--enable-cxx"
-  ;
+    ++ lib.optional enable_cxx "--enable-cxx";
 
   meta = with lib; {
     description = "Collection of command line Operators to manipulate and analyse Climate and NWP model Data";

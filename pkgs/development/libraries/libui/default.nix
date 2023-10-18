@@ -55,8 +55,7 @@ stdenv.mkDerivation rec {
       substituteInPlace $out/lib/pkgconfig/libui.pc \
         --subst-var-by out $out \
         --subst-var-by version "${version}"
-    ''
-  ;
+    '';
   postInstall = lib.optionalString stdenv.isDarwin ''
     install_name_tool -id $out/lib/libui.A.dylib $out/lib/libui.A.dylib
   '';

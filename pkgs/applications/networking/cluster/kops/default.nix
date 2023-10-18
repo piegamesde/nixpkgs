@@ -66,8 +66,7 @@ let
         platforms = platforms.unix;
       };
     }
-    // attrs'
-  ;
+    // attrs';
 in
 rec {
   mkKops = generic;

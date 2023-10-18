@@ -214,8 +214,7 @@ resholve.mkDerivation rec {
 
           ${bats}/bin/bats test
           touch $out
-        ''
-      ;
+        '';
     }
   );
 

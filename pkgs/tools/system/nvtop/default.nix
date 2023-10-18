@@ -22,8 +22,7 @@ let
     else if amd then
       "-amd"
     else
-      "-nvidia"
-  ;
+      "-nvidia";
   nvidia-postFixup = "addOpenGLRunpath $out/bin/nvtop";
   libPath = lib.makeLibraryPath [
     libdrm
@@ -61,8 +60,7 @@ stdenv.mkDerivation rec {
         "-DNVML_LIBRARIES=${cudatoolkit}/targets/x86_64-linux/lib/stubs/libnvidia-ml.so"
     ++ optional (!amd) "-DAMDGPU_SUPPORT=OFF"
     ++ optional (!nvidia) "-DNVIDIA_SUPPORT=OFF"
-    ++ optional amd "-DLibdrm_INCLUDE_DIRS=${libdrm}/lib/stubs/libdrm.so.2"
-  ;
+    ++ optional amd "-DLibdrm_INCLUDE_DIRS=${libdrm}/lib/stubs/libdrm.so.2";
   nativeBuildInputs = [
     cmake
     gtest
@@ -74,14 +72,12 @@ stdenv.mkDerivation rec {
       udev
     ]
     ++ optional nvidia cudatoolkit
-    ++ optional amd libdrm
-  ;
+    ++ optional amd libdrm;
 
   # ordering of fixups is important
   postFixup =
     (lib.optionalString amd amd-postFixup)
-    + (lib.optionalString nvidia nvidia-postFixup)
-  ;
+    + (lib.optionalString nvidia nvidia-postFixup);
 
   doCheck = true;
 

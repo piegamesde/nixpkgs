@@ -35,8 +35,7 @@ stdenv.mkDerivation rec {
         sha256 = "044wnh9hhg6if886xy805683k0as347xd37r0r1yi4x7qlxzzgx9";
       })
     else
-      throw "Architecture not supported"
-  ;
+      throw "Architecture not supported";
 
   codeSrc = fetchurl {
     url = "mirror://sourceforge/project/mlton/mlton/${version}/${pname}-${version}.src.tgz";
@@ -81,8 +80,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString stdenv.isDarwin ''
       sed -i 's|XCFLAGS += -I/usr/local/include -I/sw/include -I/opt/local/include||' ./runtime/Makefile
-    ''
-  ;
+    '';
 
   preBuild =
     ''
@@ -110,8 +108,7 @@ stdenv.mkDerivation rec {
       install_name_tool -change /opt/local/lib/libgmp.10.dylib ${gmp}/lib/libgmp.10.dylib $(pwd)/../${usr_prefix}/lib/mlton/mlton-compile
       install_name_tool -change /opt/local/lib/libgmp.10.dylib ${gmp}/lib/libgmp.10.dylib $(pwd)/../${usr_prefix}/bin/mlyacc
       install_name_tool -change /opt/local/lib/libgmp.10.dylib ${gmp}/lib/libgmp.10.dylib $(pwd)/../${usr_prefix}/bin/mllex
-    ''
-  ;
+    '';
 
   doCheck = true;
 

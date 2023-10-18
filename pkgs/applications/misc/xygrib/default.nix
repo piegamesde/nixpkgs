@@ -60,8 +60,7 @@ stdenv.mkDerivation rec {
         wrapQtApp $out/XyGrib/XyGrib
         mkdir -p $out/bin
         ln -s $out/XyGrib/XyGrib $out/bin/xygrib
-      ''
-  ;
+      '';
 
   meta = with lib; {
     homepage = "https://opengribs.org";

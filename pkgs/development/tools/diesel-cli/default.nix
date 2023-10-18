@@ -51,15 +51,13 @@ rustPlatform.buildRustPackage rec {
     ++ optionals mysqlSupport [
       mariadb
       zlib
-    ]
-  ;
+    ];
 
   buildNoDefaultFeatures = true;
   buildFeatures =
     optional sqliteSupport "sqlite"
     ++ optional postgresqlSupport "postgres"
-    ++ optional mysqlSupport "mysql"
-  ;
+    ++ optional mysqlSupport "mysql";
 
   checkPhase =
     ''
@@ -76,8 +74,7 @@ rustPlatform.buildRustPackage rec {
     ''
     + ''
       runHook postCheck
-    ''
-  ;
+    '';
 
   postInstall = ''
     installShellCompletion --cmd diesel \

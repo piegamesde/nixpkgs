@@ -30,8 +30,7 @@ buildPythonPackage rec {
       numpy
     ]
     ++ lib.optional withTreeVisualization (if isPy3k then pyqt5 else pyqt4)
-    ++ lib.optional withXmlSupport lxml
-  ;
+    ++ lib.optional withXmlSupport lxml;
 
   meta = with lib; {
     description = "A Python framework for the analysis and visualization of trees";

@@ -52,16 +52,14 @@ stdenv.mkDerivation (
           else if stdenv.hostPlatform.isRiscV && stdenv.is64bit then
             "riscv64"
           else
-            "unsupported"
-        ;
+            "unsupported";
         platform =
           if stdenv.isLinux then
             "linux"
           else if stdenv.isFreeBSD then
             "freebsd"
           else
-            "unsupported"
-        ;
+            "unsupported";
         hareflags = "";
         config-file = substituteAll {
           src = ./config-template.mk;

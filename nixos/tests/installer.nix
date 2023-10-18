@@ -54,8 +54,7 @@ let
               ''
                 boot.loader.grub.device = "${grubDevice}";
                 boot.loader.grub.fsIdentifier = "${grubIdentifier}";
-              ''
-            }
+              ''}
 
             boot.loader.grub.configurationLimit = 100 + ${toString forceGrubReinstallCount};
           ''
@@ -332,8 +331,7 @@ let
 
         ${postBootCommands}
         machine.shutdown()
-      ''
-  ;
+      '';
 
   makeInstallerTest =
     name:
@@ -387,8 +385,7 @@ let
               if grubVersion == 1 then
                 "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive2"
               else
-                "/dev/vdb"
-            ;
+                "/dev/vdb";
             virtualisation.bootLoaderDevice = "/dev/vda";
             virtualisation.qemu.diskInterface =
               if grubVersion == 1 then "scsi" else "virtio";
@@ -458,8 +455,7 @@ let
                   (pkgs.grub2.override { inherit zfsSupport; })
                   (pkgs.grub2_efi.override { inherit zfsSupport; })
                 ]
-              )
-            ;
+              );
 
             nix.settings = {
               substituters = mkForce [ ];

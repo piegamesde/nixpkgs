@@ -61,8 +61,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString withGui ''
       substituteInPlace src/firewall-applet.in \
         --replace "/usr/bin/nm-connection-editor" "${networkmanagerapplet}/bin/nm-conenction-editor"
-    ''
-  ;
+    '';
 
   nativeBuildInputs =
     [

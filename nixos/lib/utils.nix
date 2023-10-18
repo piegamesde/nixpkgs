@@ -55,16 +55,14 @@ rec {
           device = normalisePath (toString mount.device);
           mountPoint = normalisePath mount.mountPoint;
           depends = map normalisePath mount.depends;
-        }
-      ;
+        };
 
       a' = normalise a;
       b' = normalise b;
     in
     hasPrefix a'.mountPoint b'.device
     || hasPrefix a'.mountPoint b'.mountPoint
-    || any (hasPrefix a'.mountPoint) b'.depends
-  ;
+    || any (hasPrefix a'.mountPoint) b'.depends;
 
   # Escape a path according to the systemd rules. FIXME: slow
   # The rules are described in systemd.unit(5) as follows:
@@ -105,8 +103,7 @@ rec {
         else if builtins.isInt arg || builtins.isFloat arg then
           toString arg
         else
-          throw "escapeSystemdExecArg only allows strings, paths and numbers"
-      ;
+          throw "escapeSystemdExecArg only allows strings, paths and numbers";
     in
     replaceStrings
       [
@@ -131,8 +128,7 @@ rec {
     else if types.package.check shell then
       throw "${shell} is not a shell package"
     else
-      shell
-  ;
+      shell;
 
   /* Recurse into a list or an attrset, searching for attrs named like
      the value of the "attr" parameter, and return an attrset where the
@@ -188,8 +184,7 @@ rec {
         else if isList item then
           imap0 (index: item: recurse (prefix + "[${toString index}]") item) item
         else
-          [ ]
-      ;
+          [ ];
     in
     listToAttrs (flatten (recurse "" item));
 
@@ -282,8 +277,7 @@ rec {
       ${builtins.toJSON set}
       EOF
       (( ! $inherit_errexit_enabled )) && shopt -u inherit_errexit
-    ''
-  ;
+    '';
 
   /* Remove packages of packagesToRemove from packages, based on their names.
      Relies on package names and has quadratic complexity so use with caution!

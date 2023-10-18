@@ -109,8 +109,7 @@ let
     else if originalStdenv.isDarwin then
       llvmPackages_11.stdenv
     else
-      originalStdenv
-  ;
+      originalStdenv;
   inherit (cudaPackages) cudatoolkit cudnn nccl;
 in
 
@@ -265,8 +264,7 @@ let
         }
       )
     else
-      _bazel-build
-  ;
+      _bazel-build;
 
   _bazel-build = buildBazelPackage.override { inherit stdenv; } {
     name = "${pname}-${version}";
@@ -323,8 +321,7 @@ let
         Foundation
         Security
       ]
-      ++ lib.optionals (!stdenv.isDarwin) [ nsync ]
-    ;
+      ++ lib.optionals (!stdenv.isDarwin) [ nsync ];
 
     # arbitrarily set to the current latest bazel version, overly careful
     TF_IGNORE_MAX_BAZEL_VERSION = true;
@@ -427,8 +424,7 @@ let
         # include security vulnerabilities. So we make it optional.
         # https://github.com/tensorflow/tensorflow/issues/20280#issuecomment-400230560
         sed -i '/tensorboard ~=/d' tensorflow/tools/pip_package/setup.py
-      ''
-    ;
+      '';
 
     # https://github.com/tensorflow/tensorflow/pull/39470
     env.NIX_CFLAGS_COMPILE = toString [ "-Wno-stringop-truncation" ];
@@ -439,8 +435,7 @@ let
           [ ]
           ++ lib.optionals sse42Support [ "-msse4.2" ]
           ++ lib.optionals avx2Support [ "-mavx2" ]
-          ++ lib.optionals fmaSupport [ "-mfma" ]
-        ;
+          ++ lib.optionals fmaSupport [ "-mfma" ];
       in
       ''
         patchShebangs configure
@@ -480,8 +475,7 @@ let
         # workaround for https://github.com/bazelbuild/bazel/issues/15359
         "--spawn_strategy=sandboxed"
       ]
-      ++ lib.optionals (mklSupport) [ "--config=mkl" ]
-    ;
+      ++ lib.optionals (mklSupport) [ "--config=mkl" ];
 
     bazelTargets = [
       "//tensorflow/tools/pip_package:build_pip_package //tensorflow/tools/lib_package:libtensorflow"
@@ -498,8 +492,7 @@ let
             if cudaSupport then
               "sha256-rcTPOMoBfmKFuuCanMlhmtFtOQzOICfEXTZey/rQEdM="
             else
-              "sha256-JGLH64F81xwSUl9RCWJhBLNRBQandImsVafEF5s+ap0="
-          ;
+              "sha256-JGLH64F81xwSUl9RCWJhBLNRBQandImsVafEF5s+ap0=";
           aarch64-linux = "sha256-g6JUZQQalCTSjvAarkI7+gq13cPhFg/O9LPQDGNvrII=";
           x86_64-darwin = "sha256-7O0zPs+damAjWXZn5C5SSWBp35C8QX3y4kCM7tYkM7s=";
           aarch64-darwin = "sha256-US7uunEBDo2NKI9UHvgThbQ7rA05HjQlUthw0gIINaI=";
@@ -561,8 +554,7 @@ let
       // lib.optionalAttrs stdenv.isDarwin {
         timeout = 86400; # 24 hours
         maxSilent = 14400; # 4h, double the default of 7200s
-      }
-    ;
+      };
   };
 in
 buildPythonPackage {

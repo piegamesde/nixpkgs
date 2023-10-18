@@ -26,8 +26,7 @@ in
           if hasAutoLuksConfig then
             hasAutoLuksConfig && enableDeprecatedAutoLuks
           else
-            true
-        ;
+            true;
         message = ''
           ⚠️  !!! WARNING !!! ⚠️
 

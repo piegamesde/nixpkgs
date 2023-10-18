@@ -60,8 +60,7 @@ stdenv.mkDerivation rec {
         lib.versions.majorMinor openjpeg.version
       }"
     ]
-    ++ lib.optionals withCloudflareZlib [ "-DZLIB_IMPLEMENTATION=Cloudflare" ]
-  ;
+    ++ lib.optionals withCloudflareZlib [ "-DZLIB_IMPLEMENTATION=Cloudflare" ];
 
   meta = with lib; {
     description = "DICOM to NIfTI converter";

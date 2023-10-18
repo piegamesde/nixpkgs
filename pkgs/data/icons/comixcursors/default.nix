@@ -111,8 +111,7 @@ stdenvNoCC.mkDerivation rec {
     [ default ]
     ++ (lib.remove default variants)
     # Need a dummy "out" output to prevent the builder scripts from breaking.
-    ++ [ "out" ]
-  ;
+    ++ [ "out" ];
 
   # No default output (to the extent possible).  Instead, the outputs'
   # attributes are used to choose which variant(s) to have.

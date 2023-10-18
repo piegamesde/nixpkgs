@@ -22,8 +22,7 @@ import ./make-test-python.nix (
         allowLicenses = [ lib.licenses.unfreeRedistributable ];
       in
       elem pkg.pname allowPackageNames
-      && elem (pkg.meta.license or null) allowLicenses
-    ;
+      && elem (pkg.meta.license or null) allowLicenses;
 
     client =
       { pkgs, ... }:
@@ -58,8 +57,7 @@ import ./make-test-python.nix (
             wantedBy = [ "multi-user.target" ];
             script =
               "${pkgs.quake3demo}/bin/quake3-server +set g_gametype 0 "
-              + "+map q3dm7 +addbot grunt +addbot daemia 2> /tmp/log"
-            ;
+              + "+map q3dm7 +addbot grunt +addbot daemia 2> /tmp/log";
           };
           nixpkgs.config.packageOverrides = overrides;
           nixpkgs.config.allowUnfreePredicate = unfreePredicate;

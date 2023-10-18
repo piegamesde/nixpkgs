@@ -11,8 +11,7 @@ let
     else if stdenv.hostPlatform.system == "i686-linux" then
       "x86"
     else
-      throw "Unsupported architecture"
-  ;
+      throw "Unsupported architecture";
 in
 stdenv.mkDerivation rec {
   pname = "ut2004-demo";

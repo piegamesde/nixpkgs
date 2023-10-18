@@ -21,8 +21,7 @@
 }:
 
 assert use3DOVideos
-  -> requireFile != null && writeText != null && haskellPackages != null
-;
+  -> requireFile != null && writeText != null && haskellPackages != null;
 
 let
   videos = import ./3dovideo.nix {
@@ -105,8 +104,7 @@ stdenv.mkDerivation rec {
     )
     + lib.optionalString use3DOVideos ''
       ln -s "${videos}" "uqm-${version}/content/addons/3dovideo"
-    ''
-  ;
+    '';
 
   postPatch = ''
     # Using _STRINGS_H as include guard conflicts with glibc.

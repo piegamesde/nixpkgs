@@ -63,8 +63,7 @@ stdenv.mkDerivation {
 
         [1]: ${url}
         [2]: https://www.segger.com/purchase/licensing/
-      ''
-    ;
+      '';
     fetchurl {
       inherit url;
       inherit (platform) sha256;

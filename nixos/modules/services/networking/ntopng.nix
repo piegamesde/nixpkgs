@@ -18,8 +18,7 @@ let
     if cfg.redis.createInstance == "" then
       "redis.service"
     else
-      "redis-${cfg.redis.createInstance}.service"
-  ;
+      "redis-${cfg.redis.createInstance}.service";
 
   configFile =
     if cfg.configText != "" then
@@ -34,8 +33,7 @@ let
         --data-dir=/var/lib/ntopng
         --user=ntopng
         ${cfg.extraConfig}
-      ''
-  ;
+      '';
 in
 
 {

@@ -98,8 +98,7 @@ let
       xml_int.rpc
       xml_int.scgi
     ]
-    ++ lib.optionals stdenv.isLinux [ endpoints.gsmopen ]
-  ;
+    ++ lib.optionals stdenv.isLinux [ endpoints.gsmopen ];
 
   enabledModules =
     (if modules != null then modules else defaultModules)
@@ -163,8 +162,7 @@ stdenv.mkDerivation rec {
       libxcrypt
     ]
     ++ lib.unique (lib.concatMap (mod: mod.inputs) enabledModules)
-    ++ lib.optionals stdenv.isDarwin [ SystemConfiguration ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ SystemConfiguration ];
 
   enableParallelBuilding = true;
 

@@ -95,8 +95,7 @@ let
         gtkspell2
         farstream
       ]
-      ++ lib.optional stdenv.isDarwin gtk2-x11
-    ;
+      ++ lib.optional stdenv.isDarwin gtk2-x11;
 
     propagatedBuildInputs =
       [
@@ -110,8 +109,7 @@ let
         ]
       )
       ++ lib.optional stdenv.isLinux gtk2
-      ++ lib.optional stdenv.isDarwin gtk2-x11
-    ;
+      ++ lib.optional stdenv.isDarwin gtk2-x11;
 
     patches = [
       ./pidgin-makefile.patch
@@ -139,8 +137,7 @@ let
       ++ lib.optionals stdenv.isDarwin [
         "--disable-gtkspell"
         "--disable-vv"
-      ]
-    ;
+      ];
 
     enableParallelBuilding = true;
 

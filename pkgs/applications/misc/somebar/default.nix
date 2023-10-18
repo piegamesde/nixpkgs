@@ -18,8 +18,7 @@ let
     if lib.isDerivation conf || builtins.isPath conf then
       conf
     else
-      "src/config.def.hpp"
-  ;
+      "src/config.def.hpp";
 in
 
 stdenv.mkDerivation rec {

@@ -149,8 +149,7 @@ stdenv.mkDerivation rec {
       "-DEXTRA_LINK_FLAGS=-L."
       "-DLINKED_10BIT=ON"
       "-DLINKED_12BIT=ON"
-    ]
-  ;
+    ];
 
   doCheck = unittestsSupport;
   checkPhase = ''

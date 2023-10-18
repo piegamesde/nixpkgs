@@ -62,8 +62,7 @@ let
     ++ [
       "--debug"
       (toString cfg.logLevel)
-    ]
-  ;
+    ];
 in
 
 {
@@ -209,8 +208,7 @@ in
       {
         assertion =
           cfg.enableSSL
-          -> cfg.certFile != null && cfg.keyFile != null && cfg.caFile != null
-        ;
+          -> cfg.certFile != null && cfg.keyFile != null && cfg.caFile != null;
         message = "SSL is enabled for ttyd, but no certFile, keyFile or caFile has been specified.";
       }
       {
@@ -246,8 +244,7 @@ in
           ''
             ${pkgs.ttyd}/bin/ttyd ${lib.escapeShellArgs args} \
               ${pkgs.shadow}/bin/login
-          ''
-      ;
+          '';
     };
   };
 }

@@ -95,8 +95,7 @@ let
     else
       ''
         and test -f /etc/fish/nixos-env-preinit.fish
-        and source /etc/fish/nixos-env-preinit.fish''
-    }
+        and source /etc/fish/nixos-env-preinit.fish''}
     and set -gx __fish_nixos_env_preinit_sourced 1
 
     test -n "$NIX_PROFILES"
@@ -202,8 +201,7 @@ let
         # pexpect tests are flaky on aarch64-linux (also x86_64-linux)
         # See https://github.com/fish-shell/fish-shell/issues/8789
         rm tests/pexpects/exit_handlers.py
-      ''
-    ;
+      '';
 
     outputs = [
       "out"
@@ -235,8 +233,7 @@ let
       ''
       + lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
         export CMAKE_PREFIX_PATH=
-      ''
-    ;
+      '';
 
     # Required binaries during execution
     propagatedBuildInputs = [
@@ -310,8 +307,7 @@ let
       ''
       + ''
         tee -a $out/share/fish/__fish_build_paths.fish < ${fishPreInitHooks}
-      ''
-    ;
+      '';
 
     meta = with lib; {
       description = "Smart and user-friendly command line shell";

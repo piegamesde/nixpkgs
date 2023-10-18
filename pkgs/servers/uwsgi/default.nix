@@ -79,8 +79,7 @@ let
     if lib.hasAttr name available then
       lib.getAttr name available // { inherit name; }
     else
-      throw "Unknown UWSGI plugin ${name}, available : ${all}"
-  ;
+      throw "Unknown UWSGI plugin ${name}, available : ${all}";
 
   needed = builtins.map getPlugin plugins;
 in
@@ -120,8 +119,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional withPAM pam
     ++ lib.optional withSystemd systemd
     ++ lib.optional withCap libcap
-    ++ lib.concatMap (x: x.inputs) needed
-  ;
+    ++ lib.concatMap (x: x.inputs) needed;
 
   basePlugins = lib.concatStringsSep "," (
     lib.optional withPAM "pam" ++ lib.optional withSystemd "systemd_logger"

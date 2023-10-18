@@ -33,8 +33,7 @@ import ./make-test-python.nix (
     name =
       "nat"
       + (lib.optionalString nftables "Nftables")
-      + (if withFirewall then "WithFirewall" else "Standalone")
-    ;
+      + (if withFirewall then "WithFirewall" else "Standalone");
     meta = with pkgs.lib.maintainers; {
       maintainers = [
         eelco

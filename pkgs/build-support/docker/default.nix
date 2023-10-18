@@ -661,8 +661,7 @@ rec {
               extraCommands
             ;
             copyToRoot = rootContents;
-          }
-      ;
+          };
       result =
         runCommand "docker-image-${baseName}.tar.gz"
           {
@@ -683,8 +682,7 @@ rec {
               if tag != null then
                 tag
               else
-                lib.head (lib.strings.splitString "-" (baseNameOf result.outPath))
-            ;
+                lib.head (lib.strings.splitString "-" (baseNameOf result.outPath));
           }
           ''
             ${lib.optionalString (tag == null) ''
@@ -1055,8 +1053,7 @@ rec {
               if tag != null then
                 tag
               else
-                lib.head (lib.strings.splitString "-" (baseNameOf conf.outPath))
-            ;
+                lib.head (lib.strings.splitString "-" (baseNameOf conf.outPath));
             paths = buildPackages.referencesByPopularity overallClosure;
             nativeBuildInputs = [ jq ];
           }
@@ -1071,8 +1068,7 @@ rec {
             else
               ''
                 imageTag="${tag}"
-              ''
-            }
+              ''}
 
             # convert "created" to iso format
             if [[ "$created" != "now" ]]; then
@@ -1245,8 +1241,7 @@ rec {
         else if builtins.typeOf value == "list" then
           toString (map stringValue value)
         else
-          toString value
-      ;
+          toString value;
 
       # https://github.com/NixOS/nix/blob/2.8.0/src/libstore/build/local-derivation-goal.cc#L992-L1004
       drvEnv =
@@ -1266,8 +1261,7 @@ rec {
         # https://github.com/NixOS/nix/blob/2.8.0/src/libexpr/primops.cc#L1253
         // lib.genAttrs drv.outputs (
           output: builtins.unsafeDiscardStringContext drv.${output}.outPath
-        )
-      ;
+        );
 
       # Environment variables set in the image
       envVars =
@@ -1312,8 +1306,7 @@ rec {
 
           # https://github.com/NixOS/nix/blob/2.8.0/src/libstore/build/local-derivation-goal.cc#L1076-L1077
           TERM = "xterm-256color";
-        }
-      ;
+        };
     in
     streamLayeredImage {
       inherit name tag;
@@ -1360,8 +1353,7 @@ rec {
           [
             shell
             rcfile
-          ]
-      ;
+          ];
       config.WorkingDir = sandboxBuildDir;
       config.Env = lib.mapAttrsToList (name: value: "${name}=${value}") envVars;
     };

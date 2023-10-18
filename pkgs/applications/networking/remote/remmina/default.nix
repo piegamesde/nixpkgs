@@ -96,8 +96,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals withLibsecret [ libsecret ]
     ++ lib.optionals withKf5Wallet [ libsForQt5.kwallet ]
-    ++ lib.optionals withVte [ vte ]
-  ;
+    ++ lib.optionals withVte [ vte ];
 
   cmakeFlags = [
     "-DWITH_VTE=${if withVte then "ON" else "OFF"}"

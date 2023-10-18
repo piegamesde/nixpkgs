@@ -13,8 +13,7 @@ let
     x:
     builtins.substring 0 1 x == "/" # absolute path
     || builtins.substring 0 1 x == "." # relative path
-    || builtins.match "[.*:.*]" == null
-  ; # not machine:path
+    || builtins.match "[.*:.*]" == null; # not machine:path
 
   mkExcludeFile =
     cfg:
@@ -106,8 +105,7 @@ let
     else if passphrase != null then
       { BORG_PASSPHRASE = passphrase; }
     else
-      { }
-  ;
+      { };
 
   mkBackupService =
     name: cfg:
@@ -131,8 +129,7 @@ let
                       --what="sleep" \
                       --why="Scheduled backup" \
         ''
-        + backupScript
-      ;
+        + backupScript;
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;
@@ -147,8 +144,7 @@ let
           ]
           ++ cfg.readWritePaths
           # Borg needs write access to repo if it is not remote
-          ++ optional (isLocalPath cfg.repo) cfg.repo
-        ;
+          ++ optional (isLocalPath cfg.repo) cfg.repo;
         PrivateTmp = cfg.privateTmp;
       };
       environment = {
@@ -234,8 +230,7 @@ let
       mode != "none" -> passCommand != null || passphrase != null;
     message =
       "passCommand or passphrase has to be specified because"
-      + ''borgbackup.jobs.${name}.encryption != "none"''
-    ;
+      + ''borgbackup.jobs.${name}.encryption != "none"'';
   };
 
   mkRepoService =
@@ -285,8 +280,7 @@ let
     assertion = cfg.authorizedKeys != [ ] || cfg.authorizedKeysAppendOnly != [ ];
     message =
       "borgbackup.repos.${name} does not make sense"
-      + " without at least one public key"
-    ;
+      + " without at least one public key";
   };
 
   mkSourceAssertions = name: cfg: {
@@ -851,8 +845,7 @@ in
         mapAttrsToList mkPassAssertion jobs
         ++ mapAttrsToList mkKeysAssertion repos
         ++ mapAttrsToList mkSourceAssertions jobs
-        ++ mapAttrsToList mkRemovableDeviceAssertions jobs
-      ;
+        ++ mapAttrsToList mkRemovableDeviceAssertions jobs;
 
       system.activationScripts = mapAttrs' mkActivationScript jobs;
 
@@ -860,8 +853,7 @@ in
         # A job named "foo" is mapped to systemd.services.borgbackup-job-foo
         mapAttrs' mkBackupService jobs
         # A repo named "foo" is mapped to systemd.services.borgbackup-repo-foo
-        // mapAttrs' mkRepoService repos
-      ;
+        // mapAttrs' mkRepoService repos;
 
       # A job named "foo" is mapped to systemd.timers.borgbackup-job-foo
       # only generate the timer if interval (startAt) is set

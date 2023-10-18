@@ -98,8 +98,7 @@ else
         else if sha256 != "" then
           sha256
         else
-          lib.fakeSha256
-      ;
+          lib.fakeSha256;
 
       # git-sparse-checkout(1) says:
       # > When the --stdin option is provided, the directories or patterns are read
@@ -108,8 +107,7 @@ else
         if builtins.isString sparseCheckout then
           sparseCheckout
         else
-          builtins.concatStringsSep "\n" sparseCheckout
-      ;
+          builtins.concatStringsSep "\n" sparseCheckout;
 
       inherit
         url
@@ -132,8 +130,7 @@ else
             # required that git uses the netrc file
             mv {,.}netrc
             export HOME=$PWD
-          ''
-      ;
+          '';
 
       GIT_SSL_CAINFO = "${cacert}/etc/ssl/certs/ca-bundle.crt";
 
@@ -144,8 +141,7 @@ else
           "GIT_PROXY_COMMAND"
           "NIX_GIT_SSL_CAINFO"
           "SOCKS_SERVER"
-        ]
-      ;
+        ];
 
       inherit preferLocalBuild meta allowedRequisites;
 

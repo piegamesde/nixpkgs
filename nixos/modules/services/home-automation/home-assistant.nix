@@ -54,8 +54,7 @@ let
     else if isList config then
       concatMap usedPlatforms config
     else
-      [ ]
-  ;
+      [ ];
 
   useComponentPlatform = component: elem component (usedPlatforms cfg.config);
 
@@ -66,8 +65,7 @@ let
     hasAttrByPath (splitString "." component) cfg.config
     || useComponentPlatform component
     || useExplicitComponent component
-    || builtins.elem component cfg.extraComponents
-  ;
+    || builtins.elem component cfg.extraComponents;
 
   # Final list of components passed into the package to include required dependencies
   extraComponents = filter useComponent availableComponents;
@@ -476,8 +474,7 @@ in
               ''
                 rm -f "${cfg.configDir}/configuration.yaml"
                 ln -s /etc/home-assistant/configuration.yaml "${cfg.configDir}/configuration.yaml"
-              ''
-          ;
+              '';
           copyLovelaceConfig =
             if cfg.lovelaceConfigWritable then
               ''
@@ -487,12 +484,10 @@ in
               ''
                 rm -f "${cfg.configDir}/ui-lovelace.yaml"
                 ln -s /etc/home-assistant/ui-lovelace.yaml "${cfg.configDir}/ui-lovelace.yaml"
-              ''
-          ;
+              '';
         in
         (optionalString (cfg.config != null) copyConfig)
-        + (optionalString (cfg.lovelaceConfig != null) copyLovelaceConfig)
-      ;
+        + (optionalString (cfg.lovelaceConfig != null) copyLovelaceConfig);
       environment.PYTHONPATH = package.pythonPath;
       serviceConfig =
         let

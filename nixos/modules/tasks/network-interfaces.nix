@@ -21,8 +21,7 @@ let
   hasBonds = cfg.bonds != { };
   hasFous =
     cfg.fooOverUDP != { }
-    || filterAttrs (_: s: s.encapsulation != null) cfg.sits != { }
-  ;
+    || filterAttrs (_: s: s.encapsulation != null) cfg.sits != { };
 
   slaves =
     concatMap (i: i.interfaces) (attrValues cfg.bonds)
@@ -37,8 +36,7 @@ let
               i.interfaces
           )
         )
-        (attrValues cfg.vswitches)
-  ;
+        (attrValues cfg.vswitches);
 
   slaveIfs = map (i: cfg.interfaces.${i}) (
     filter (i: cfg.interfaces ? ${i}) slaves
@@ -535,8 +533,7 @@ let
     else
       ''
         echo -ne "\x''${hi:6:2}\x''${hi:4:2}\x''${hi:2:2}\x''${hi:0:2}" > $out
-      ''
-    }
+      ''}
   '';
 in
 
@@ -584,8 +581,7 @@ in
           throw ''
             The FQDN is required but cannot be determined. Please make sure that
             both networking.hostName and networking.domain are set properly.
-          ''
-      ;
+          '';
       defaultText =
         literalExpression
           ''"''${networking.hostName}.''${networking.domain}"'';
@@ -1596,8 +1592,7 @@ in
             cfg.hostId == null || (stringLength cfg.hostId == 8 && isHexString cfg.hostId);
           message = "Invalid value given to the networking.hostId option.";
         }
-      ]
-    ;
+      ];
 
     boot.kernelModules =
       [ ]
@@ -1605,8 +1600,7 @@ in
       ++ optional hasSits "sit"
       ++ optional hasGres "gre"
       ++ optional hasBonds "bonding"
-      ++ optional hasFous "fou"
-    ;
+      ++ optional hasFous "fou";
 
     boot.extraModprobeConfig =
       # This setting is intentional as it prevents default bond devices
@@ -1640,8 +1634,7 @@ in
             "net.ipv6.conf.${replaceStrings [ "." ] [ "/" ] i.name}.use_tempaddr"
             val
         )
-      )
-    ;
+      );
 
     security.wrappers = {
       ping = {
@@ -1707,8 +1700,7 @@ in
         pkgs.wirelesstools # FIXME: obsolete?
         pkgs.iw
       ]
-      ++ bridgeStp
-    ;
+      ++ bridgeStp;
 
     # The network-interfaces target is kept for backwards compatibility.
     # New modules must NOT use it.
@@ -1803,8 +1795,7 @@ in
                     filterAttrs (n: _: n != device) interfaces
                   )
                 else
-                  mapAttrsToList (n: v: v // { _iName = n; }) interfaces
-              ;
+                  mapAttrsToList (n: v: v // { _iName = n; }) interfaces;
 
               # Udev script to execute for the default WLAN interface with the persistend udev name.
               # The script creates the required, new WLAN interfaces interfaces and configures the

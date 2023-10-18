@@ -133,8 +133,7 @@ stdenv.mkDerivation {
         libxcb
       ]
     )
-    ++ lib.optional cudaSupport cudaEnv
-  ;
+    ++ lib.optional cudaSupport cudaEnv;
 
   wrapProgramFlags =
     [

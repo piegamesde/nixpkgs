@@ -124,8 +124,7 @@ let
             EndSection
           '';
         }
-        ++ previous
-      ;
+        ++ previous;
       monitors = reverseList (foldl mkMonitor [ ] xrandrHeads);
     in
     concatMapStrings (getAttr "value") monitors;
@@ -798,8 +797,7 @@ in
             "Only one head is allowed to be primary in "
             + "‘services.xserver.xrandrHeads’, but there are "
             + "${toString (length primaryHeads)} heads set to primary: "
-            + concatMapStringsSep ", " (x: x.output) primaryHeads
-          ;
+            + concatMapStringsSep ", " (x: x.output) primaryHeads;
         }
       )
       {
@@ -835,8 +833,7 @@ in
         {
           ${cfgPath}.source = xorg.xf86inputevdev.out + "/share" + cfgPath;
         }
-      )
-    ;
+      );
 
     environment.systemPackages =
       utils.removePackagesByName
@@ -892,8 +889,7 @@ in
         optionalAttrs config.hardware.opengl.setLdLibraryPath {
           LD_LIBRARY_PATH = lib.makeLibraryPath [ pkgs.addOpenGLRunpath.driverLink ];
         }
-        // cfg.displayManager.job.environment
-      ;
+        // cfg.displayManager.job.environment;
 
       preStart = ''
         ${cfg.displayManager.job.preStart}
@@ -935,8 +931,7 @@ in
       ++
         optional (cfg.autoRepeatInterval != null)
           "-arinterval ${toString cfg.autoRepeatInterval}"
-      ++ optional cfg.terminateOnReset "-terminate"
-    ;
+      ++ optional cfg.terminateOnReset "-terminate";
 
     services.xserver.modules = concatLists (catAttrs "modules" cfg.drivers) ++ [
       xorg.xorgserver.out

@@ -41,8 +41,7 @@ buildGoModule rec {
       Carbon
       Cocoa
       IOKit
-    ]
-  ;
+    ];
 
   meta = {
     description = "Easy encrypted file, folder, and text sharing between devices";

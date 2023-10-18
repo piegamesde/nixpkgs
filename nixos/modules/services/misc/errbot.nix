@@ -104,8 +104,7 @@ in
                 if instanceCfg.dataDir != null then
                   instanceCfg.dataDir
                 else
-                  "/var/lib/errbot/${name}"
-              ;
+                  "/var/lib/errbot/${name}";
             in
             {
               after = [ "network-online.target" ];

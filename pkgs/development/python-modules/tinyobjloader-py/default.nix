@@ -25,6 +25,5 @@ buildPythonPackage rec {
     tinyobjloader.meta
     // {
       description = "Python wrapper for the C++ wavefront .obj loader tinyobjloader";
-    }
-  ;
+    };
 }

@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString stdenv.isDarwin ''
       sed -i 's|lcurses|lncurses|g' Configure
-    ''
-  ;
+    '';
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
   nativeBuildInputs = [

@@ -93,8 +93,7 @@ assert wxSupport
       wxGTK != null
     else
       libGL != null && libGLU != null && wxGTK != null && xorg != null
-  )
-;
+  );
 
 assert odbcSupport -> unixODBC != null;
 assert javacSupport -> openjdk11 != null;
@@ -117,8 +116,7 @@ stdenv.mkDerivation (
       "${baseName}"
       + optionalString javacSupport "_javac"
       + optionalString odbcSupport "_odbc"
-      + "-${version}"
-    ;
+      + "-${version}";
 
     inherit src version;
 
@@ -147,8 +145,7 @@ stdenv.mkDerivation (
           Cocoa
           WebKit
         ]
-      )
-    ;
+      );
 
     debugInfo = enableDebugInfo;
 
@@ -179,8 +176,7 @@ stdenv.mkDerivation (
       ++ optional stdenv.isDarwin "--enable-darwin-64bit"
       # make[3]: *** [yecc.beam] Segmentation fault: 11
       ++ optional (stdenv.isDarwin && stdenv.isx86_64) "--disable-jit"
-      ++ configureFlags
-    ;
+      ++ configureFlags;
 
     # install-docs will generate and install manpages and html docs
     # (PDFs are generated only when fop is available).

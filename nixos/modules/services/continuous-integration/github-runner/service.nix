@@ -51,8 +51,7 @@ in
       ]
     )
     ++ [ config.nix.package ]
-    ++ cfg.extraPackages
-  ;
+    ++ cfg.extraPackages;
 
   serviceConfig = mkMerge [
     {

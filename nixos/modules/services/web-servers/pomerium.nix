@@ -69,8 +69,7 @@ in
         if cfg.configFile != null then
           cfg.configFile
         else
-          (format.generate "pomerium.yaml" cfg.settings)
-      ;
+          (format.generate "pomerium.yaml" cfg.settings);
     in
     mkIf cfg.enable ({
       systemd.services.pomerium = {

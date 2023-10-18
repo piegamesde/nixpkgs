@@ -76,8 +76,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals withSystemd [ systemd ]
     ++ lib.optionals withDoH [ libnghttp2 ]
-    ++ lib.optionals withPythonModule [ python ]
-  ;
+    ++ lib.optionals withPythonModule [ python ];
 
   enableParallelBuilding = true;
 
@@ -121,8 +120,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withRedis [
       "--enable-cachedb"
       "--with-libhiredis=${hiredis}"
-    ]
-  ;
+    ];
 
   PROTOC_C = lib.optionalString withDNSTAP "${protobufc}/bin/protoc-c";
 
@@ -156,8 +154,7 @@ stdenv.mkDerivation rec {
       wrapProgram $out/bin/unbound \
         --prefix PYTHONPATH : "$out/${python.sitePackages}" \
         --argv0 $out/bin/unbound
-    ''
-  ;
+    '';
 
   preFixup =
     lib.optionalString withSlimLib
@@ -181,8 +178,7 @@ stdenv.mkDerivation rec {
           lib.optionalString (pkg ? dev)
             " --replace '-L${pkg.dev}/lib' '-L${pkg.out}/lib' --replace '-R${pkg.dev}/lib' '-R${pkg.out}/lib'"
         )
-        (builtins.filter (p: p != null) buildInputs)
-  ;
+        (builtins.filter (p: p != null) buildInputs);
 
   passthru.tests = {
     inherit gnutls;

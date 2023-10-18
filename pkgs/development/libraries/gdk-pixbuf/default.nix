@@ -36,8 +36,7 @@ stdenv.mkDerivation (
         "man"
       ]
       ++ lib.optional withIntrospection "devdoc"
-      ++ lib.optional (stdenv.buildPlatform == stdenv.hostPlatform) "installedTests"
-    ;
+      ++ lib.optional (stdenv.buildPlatform == stdenv.hostPlatform) "installedTests";
 
     src =
       let
@@ -78,8 +77,7 @@ stdenv.mkDerivation (
       ++ lib.optionals withIntrospection [
         gi-docgen
         gobject-introspection
-      ]
-    ;
+      ];
 
     propagatedBuildInputs = [
       glib
@@ -128,8 +126,7 @@ stdenv.mkDerivation (
         ${
           stdenv.hostPlatform.emulator buildPackages
         } $dev/bin/gdk-pixbuf-query-loaders --update-cache
-      ''
-    ;
+      '';
 
     # The fixDarwinDylibNames hook doesn't patch binaries.
     preFixup = lib.optionalString stdenv.isDarwin ''

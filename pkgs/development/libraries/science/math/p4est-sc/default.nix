@@ -51,8 +51,7 @@ stdenv.mkDerivation {
   configureFlags =
     [ "--enable-pthread=-pthread" ]
     ++ lib.optional debugEnable "--enable-debug"
-    ++ lib.optional mpiSupport "--enable-mpi"
-  ;
+    ++ lib.optional mpiSupport "--enable-mpi";
 
   dontDisableStatic = true;
   enableParallelBuilding = true;

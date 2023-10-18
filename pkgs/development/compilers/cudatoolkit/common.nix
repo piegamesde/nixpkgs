@@ -64,8 +64,7 @@ backendStdenv.mkDerivation rec {
         inherit (args) name sha256;
       }
     else
-      fetchurl { inherit (args) url sha256; }
-  ;
+      fetchurl { inherit (args) url sha256; };
 
   outputs = [
     "out"
@@ -85,8 +84,7 @@ backendStdenv.mkDerivation rec {
     ++ lib.optionals (lib.versionOlder version "11") [ libsForQt5.wrapQtAppsHook ]
     ++ lib.optionals (lib.versionAtLeast version "11.8") [
       qt6Packages.wrapQtAppsHook
-    ]
-  ;
+    ];
   buildInputs =
     lib.optionals (lib.versionOlder version "11") [
       libsForQt5.qt5.qtwebengine
@@ -137,8 +135,7 @@ backendStdenv.mkDerivation rec {
       ucx
       xorg.libxshmfence
       xorg.libxkbfile
-    ]
-  ;
+    ];
 
   # Prepended to runpaths by autoPatchelf.
   # The order inherited from older rpath preFixup code
@@ -315,8 +312,7 @@ backendStdenv.mkDerivation rec {
     ''
     + ''
       runHook postInstall
-    ''
-  ;
+    '';
 
   postInstall = ''
     for b in nvvp ${lib.optionalString (lib.versionOlder version "11") "nsight"}; do

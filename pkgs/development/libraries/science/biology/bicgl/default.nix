@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
       mesa_glu
     ]
     ++ lib.optionals stdenv.isDarwin [ GLUT ]
-    ++ lib.optionals stdenv.isLinux [ freeglut ]
-  ;
+    ++ lib.optionals stdenv.isLinux [ freeglut ];
 
   cmakeFlags = [
     "-DLIBMINC_DIR=${libminc}/lib/cmake"

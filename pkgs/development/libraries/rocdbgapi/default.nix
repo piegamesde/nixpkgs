@@ -87,8 +87,7 @@ stdenv.mkDerivation (
       + lib.optionalString buildDocs ''
         mv $out/share/html/amd-dbgapi $doc/share/doc/amd-dbgapi/html
         rmdir $out/share/html
-      ''
-    ;
+      '';
 
     passthru.updateScript = rocmUpdateScript {
       name = finalAttrs.pname;

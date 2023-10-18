@@ -33,8 +33,7 @@ buildPythonPackage rec {
           # inside NixPkgs for python 2. Since it's going to be deleted, we just skip it
           # on py2 as well.
           ./skip-test.patch
-        ]
-  ;
+        ];
 
   propagatedBuildInputs = [ flake8 ];
 

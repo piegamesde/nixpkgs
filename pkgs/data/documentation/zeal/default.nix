@@ -43,8 +43,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString (!isQt5) ''
       substituteInPlace src/app/CMakeLists.txt \
         --replace "COMPONENTS Widgets" "COMPONENTS Widgets QmlIntegration"
-    ''
-  ;
+    '';
 
   nativeBuildInputs = [
     cmake

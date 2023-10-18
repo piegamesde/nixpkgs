@@ -44,8 +44,7 @@ let
   pname =
     (lib.replaceStrings [ "." ] [ "_" ] groupId)
     + "_"
-    + (lib.replaceStrings [ "." ] [ "_" ] artifactId)
-  ;
+    + (lib.replaceStrings [ "." ] [ "_" ] artifactId);
   suffix = lib.optionalString (classifier != null) "-${classifier}";
   filename = "${artifactId}-${version}${suffix}.jar";
   mkJarUrl =
@@ -63,8 +62,7 @@ let
     else if urls != [ ] then
       urls
     else
-      map mkJarUrl repos
-  ;
+      map mkJarUrl repos;
   jar = fetchurl (
     builtins.removeAttrs args [
       "groupId"

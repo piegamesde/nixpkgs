@@ -96,8 +96,7 @@ stdenv.mkDerivation {
       fetchurl {
         url = "https://nginx.org/download/nginx-${version}.tar.gz";
         inherit hash;
-      }
-  ;
+      };
 
   nativeBuildInputs = [ removeReferencesTo ] ++ nativeBuildInputs;
 
@@ -166,8 +165,7 @@ stdenv.mkDerivation {
       lib.optional (with stdenv.hostPlatform; isLinux || isFreeBSD)
         "--with-file-aio"
     ++ configureFlags
-    ++ map (mod: "--add-module=${mod.src}") modules
-  ;
+    ++ map (mod: "--add-module=${mod.src}") modules;
 
   env.NIX_CFLAGS_COMPILE = toString (
     [
@@ -192,8 +190,7 @@ stdenv.mkDerivation {
       setOutputFlags=
     ''
     + preConfigure
-    + lib.concatMapStringsSep "\n" (mod: mod.preConfigure or "") modules
-  ;
+    + lib.concatMapStringsSep "\n" (mod: mod.preConfigure or "") modules;
 
   patches =
     map fixPatch (
@@ -222,8 +219,7 @@ stdenv.mkDerivation {
       ]
       ++ mapModules "patches"
     )
-    ++ extraPatches
-  ;
+    ++ extraPatches;
 
   inherit postPatch;
 
@@ -283,6 +279,5 @@ stdenv.mkDerivation {
           globin
           ajs124
         ];
-      }
-  ;
+      };
 }

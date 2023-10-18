@@ -72,8 +72,7 @@ let
             cur = op pred (builtins.elemAt list n) succ;
             succ = go cur (n + 1);
           in
-          cur
-      ;
+          cur;
       lapp = lnul cur;
       cur = go lapp 0;
     in
@@ -124,20 +123,16 @@ let
                       if args.stdenv.targetPlatform == args.stdenv.hostPlatform then
                         pkgsBuildHost
                       else
-                        assert args.stdenv.hostPlatform == args.stdenv.buildPlatform; thisStage
-                    ;
+                        assert args.stdenv.hostPlatform == args.stdenv.buildPlatform; thisStage;
                     pkgsHostHost =
                       if args.stdenv.hostPlatform == args.stdenv.targetPlatform then
                         thisStage
                       else
-                        assert args.stdenv.buildPlatform == args.stdenv.hostPlatform; pkgsBuildHost
-                    ;
+                        assert args.stdenv.buildPlatform == args.stdenv.hostPlatform; pkgsBuildHost;
                     pkgsTargetTarget = nextStage;
-                  }
-              ;
+                  };
             }
-          )
-      ;
+          );
     in
     thisStage;
 
@@ -164,8 +159,7 @@ let
         # This will blow up if anything uses it, but that's OK. The `if
         # buildPackages.stdenv.cc.isClang then ... else ...` would blow up
         # everything, so we make sure to avoid that.
-        buildPackages.stdenv.cc
-    ;
+        buildPackages.stdenv.cc;
   };
 in
 dfold folder postStage (_: { }) withAllowCustomOverrides

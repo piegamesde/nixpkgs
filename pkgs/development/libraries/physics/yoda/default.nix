@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
         matplotlib
       ]
     )
-    ++ lib.optionals withRootSupport [ root ]
-  ;
+    ++ lib.optionals withRootSupport [ root ];
 
   propagatedBuildInputs = [ zlib ];
 

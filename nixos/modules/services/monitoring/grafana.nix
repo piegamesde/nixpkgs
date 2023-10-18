@@ -39,8 +39,7 @@ let
             apiVersion = 1;
             ${attr} = [ ];
           }
-      )
-  ;
+      );
 
   datasourceFileOrDir =
     mkProvisionCfg "datasource" "datasources"
@@ -64,8 +63,7 @@ let
       provisioningSettingsFormat.generate "${x}.yaml"
         cfg.provision.alerting."${x}".settings
     else
-      cfg.provision.alerting."${x}".path
-  ;
+      cfg.provision.alerting."${x}".path;
   rulesFileOrDir = generateAlertingProvisioningYaml "rules";
   contactPointsFileOrDir = generateAlertingProvisioningYaml "contactPoints";
   policiesFileOrDir = generateAlertingProvisioningYaml "policies";
@@ -156,8 +154,7 @@ let
               (or `services.grafana.provision.dashboards.settings.providers`) instead.
             ''
           else
-            isAttrs x || isFunction x
-        ;
+            isAttrs x || isFunction x;
       })
       id
       (types.submodule module);
@@ -1090,8 +1087,7 @@ in
                 if (cfg.declarativePlugins == null) then
                   "${cfg.dataDir}/plugins"
                 else
-                  declarativePlugins
-              ;
+                  declarativePlugins;
               defaultText =
                 literalExpression
                   ''
@@ -2034,8 +2030,7 @@ in
             declarationUnsafe =
               { secureJsonData, ... }:
               secureJsonData != null
-              && any (flip doesntUseFileProvider null) (attrValues secureJsonData)
-            ;
+              && any (flip doesntUseFileProvider null) (attrValues secureJsonData);
           in
           any declarationUnsafe datasourcesToCheck
         )
@@ -2046,8 +2041,7 @@ in
       )
       ++ (optional (any (x: x.secure_settings != null) cfg.provision.notifiers)
         "Notifier secure settings will be stored as plaintext in the Nix store! Use file provider instead."
-      )
-    ;
+      );
 
     environment.systemPackages = [ cfg.package ];
 
@@ -2055,8 +2049,7 @@ in
       {
         assertion =
           cfg.provision.datasources.settings == null
-          || cfg.provision.datasources.path == null
-        ;
+          || cfg.provision.datasources.path == null;
         message = "Cannot set both datasources settings and datasources path";
       }
       {
@@ -2067,50 +2060,43 @@ in
               all ({ type, access, ... }: type == "prometheus" -> access != "direct") opt;
           in
           cfg.provision.datasources.settings == null
-          || prometheusIsNotDirect cfg.provision.datasources.settings.datasources
-        ;
+          || prometheusIsNotDirect cfg.provision.datasources.settings.datasources;
         message = "For datasources of type `prometheus`, the `direct` access mode is not supported anymore (since Grafana 9.2.0)";
       }
       {
         assertion =
           cfg.provision.dashboards.settings == null
-          || cfg.provision.dashboards.path == null
-        ;
+          || cfg.provision.dashboards.path == null;
         message = "Cannot set both dashboards settings and dashboards path";
       }
       {
         assertion =
           cfg.provision.alerting.rules.settings == null
-          || cfg.provision.alerting.rules.path == null
-        ;
+          || cfg.provision.alerting.rules.path == null;
         message = "Cannot set both rules settings and rules path";
       }
       {
         assertion =
           cfg.provision.alerting.contactPoints.settings == null
-          || cfg.provision.alerting.contactPoints.path == null
-        ;
+          || cfg.provision.alerting.contactPoints.path == null;
         message = "Cannot set both contact points settings and contact points path";
       }
       {
         assertion =
           cfg.provision.alerting.policies.settings == null
-          || cfg.provision.alerting.policies.path == null
-        ;
+          || cfg.provision.alerting.policies.path == null;
         message = "Cannot set both policies settings and policies path";
       }
       {
         assertion =
           cfg.provision.alerting.templates.settings == null
-          || cfg.provision.alerting.templates.path == null
-        ;
+          || cfg.provision.alerting.templates.path == null;
         message = "Cannot set both templates settings and templates path";
       }
       {
         assertion =
           cfg.provision.alerting.muteTimings.settings == null
-          || cfg.provision.alerting.muteTimings.path == null
-        ;
+          || cfg.provision.alerting.muteTimings.path == null;
         message = "Cannot set both mute timings settings and mute timings path";
       }
     ];
@@ -2121,8 +2107,7 @@ in
       after =
         [ "networking.target" ]
         ++ lib.optional usePostgresql "postgresql.service"
-        ++ lib.optional useMysql "mysql.service"
-      ;
+        ++ lib.optional useMysql "mysql.service";
       script = ''
         set -o errexit -o pipefail -o nounset -o errtrace
         shopt -s inherit_errexit
@@ -2142,8 +2127,7 @@ in
           if (cfg.settings.server.http_port < 1024) then
             [ "CAP_NET_BIND_SERVICE" ]
           else
-            [ "" ]
-        ;
+            [ "" ];
         DeviceAllow = [ "" ];
         LockPersonality = true;
         NoNewPrivileges = true;

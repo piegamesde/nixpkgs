@@ -86,8 +86,7 @@ stdenv.mkDerivation (
         ''}
 
       ''
-      + (attrs.postUnpack or "")
-    ;
+      + (attrs.postUnpack or "");
 
     configurePhase =
       attrs.configurePhase or ''
@@ -155,8 +154,7 @@ stdenv.mkDerivation (
         # strip debug symbols to avoid hardreferences to "foreign" closures actually
         # not needed at runtime, while at the same time reduce size of BEAM files.
         erl -noinput -eval 'lists:foreach(fun(F) -> io:format("Stripping ~p.~n", [F]), beam_lib:strip(F) end, filelib:wildcard("'"$out"'/**/*.beam"))' -s init stop
-      ''
-    ;
+      '';
 
     # TODO investigate why the resulting closure still has
     # a reference to erlang.

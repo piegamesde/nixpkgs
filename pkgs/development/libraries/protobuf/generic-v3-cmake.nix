@@ -48,8 +48,7 @@ let
       + lib.optionalString stdenv.isDarwin ''
         substituteInPlace src/google/protobuf/testing/googletest.cc \
           --replace 'tmpnam(b)' '"'$TMPDIR'/foo"'
-      ''
-    ;
+      '';
 
     patches =
       lib.optionals (lib.versionOlder version "3.22")
@@ -76,8 +75,7 @@ let
             # protoc of the same version must be available for build. For non-cross builds, it's able to
             # re-use the executable generated as part of the build
             buildPackages."protobuf${protobufVersion}"
-          ]
-    ;
+          ];
 
     buildInputs = [
       abseil-cpp
@@ -96,8 +94,7 @@ let
       # https://github.com/protocolbuffers/protobuf/issues/10418
       ++
         lib.optional (stdenv.targetPlatform.is32bit && lib.versionOlder version "3.22")
-          "-Dprotobuf_BUILD_TESTS=OFF"
-    ;
+          "-Dprotobuf_BUILD_TESTS=OFF";
 
     # unfortunately the shared libraries have yet to been patched by nix, thus tests will fail
     doCheck = false;

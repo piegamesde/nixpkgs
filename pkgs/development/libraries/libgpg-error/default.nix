@@ -69,8 +69,7 @@ stdenv.mkDerivation (
       + lib.optionalString stdenv.hostPlatform.isStatic ''
         sed '/USE_POSIX_THREADS_WEAK/ d' config.h
         echo '#undef USE_POSIX_THREADS_WEAK' >> config.h
-      ''
-    ;
+      '';
 
     doCheck = true; # not cross
 

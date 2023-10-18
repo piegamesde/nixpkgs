@@ -44,8 +44,7 @@ stdenv.mkDerivation rec {
         runHook postInstall
       ''
     else
-      null
-  ;
+      null;
 
   meta = with lib; {
     description = "ePub XHTML Visual Editor";

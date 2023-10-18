@@ -23,8 +23,7 @@ let
     else if (elem "nvidia" drivers) then
       cfg.package
     else
-      null
-  ;
+      null;
 
   enabled = nvidia_x11 != null;
   cfg = config.hardware.nvidia;
@@ -349,8 +348,7 @@ in
         {
           assertion =
             primeEnabled
-            -> pCfg.nvidiaBusId != "" && (pCfg.intelBusId != "" || pCfg.amdgpuBusId != "")
-          ;
+            -> pCfg.nvidiaBusId != "" && (pCfg.intelBusId != "" || pCfg.amdgpuBusId != "");
           message = ''
             When NVIDIA PRIME is enabled, the GPU bus IDs must configured.
           '';
@@ -364,8 +362,7 @@ in
         {
           assertion =
             (reverseSyncCfg.enable && pCfg.amdgpuBusId != "")
-            -> versionAtLeast nvidia_x11.version "470.0"
-          ;
+            -> versionAtLeast nvidia_x11.version "470.0";
           message = "NVIDIA PRIME render offload for AMD APUs is currently only supported on versions >= 470 beta.";
         }
 
@@ -448,8 +445,7 @@ in
               Option         "metamodes" "nvidia-auto-select +0+0 {ForceFullCompositionPipeline=On}"
               Option         "AllowIndirectGLXProtocol" "off"
               Option         "TripleBuffer" "on"
-            ''
-          ;
+            '';
         };
 
       services.xserver.serverLayoutSection =
@@ -461,8 +457,7 @@ in
         ''
         + optionalString offloadCfg.enable ''
           Option "AllowNVIDIAGPUScreens"
-        ''
-      ;
+        '';
 
       services.xserver.displayManager.setupCommands =
         let
@@ -471,14 +466,12 @@ in
               # find the name of the provider if amdgpu
               "`${pkgs.xorg.xrandr}/bin/xrandr --listproviders | ${pkgs.gnugrep}/bin/grep -i AMD | ${pkgs.gnused}/bin/sed -n 's/^.*name://p'`"
             else
-              igpuDriver
-          ;
+              igpuDriver;
           providerCmdParams =
             if syncCfg.enable then
               ''"${gpuProviderName}" NVIDIA-0''
             else
-              ''NVIDIA-G0 "${gpuProviderName}"''
-          ;
+              ''NVIDIA-G0 "${gpuProviderName}"'';
         in
         optionalString (syncCfg.enable || reverseSyncCfg.enable) ''
           # Added by nvidia configuration module for Optimus/PRIME.
@@ -514,8 +507,7 @@ in
             export __VK_LAYER_NV_optimus=NVIDIA_only
             exec "$@"
           '')
-        ]
-      ;
+        ];
 
       systemd.packages = optional cfg.powerManagement.enable nvidia_x11.out;
 
@@ -537,8 +529,7 @@ in
             // {
               before = [ "systemd-${sleepState}.service" ];
               requiredBy = [ "systemd-${sleepState}.service" ];
-            }
-          ;
+            };
 
           services =
             (builtins.listToAttrs (
@@ -573,8 +564,7 @@ in
               ExecStopPost = "${pkgs.coreutils}/bin/rm -rf /var/run/nvidia-persistenced";
             };
           };
-        }
-      ;
+        };
 
       systemd.tmpfiles.rules =
         optional config.virtualisation.docker.enableNvidia
@@ -605,8 +595,7 @@ in
         ++ optional cfg.open "nvidia.NVreg_OpenRmEnableUnsupportedGpus=1"
         ++
           optional (config.boot.kernelPackages.kernel.kernelAtLeast "6.2" && !ibtSupport)
-            "ibt=off"
-      ;
+            "ibt=off";
 
       services.udev.extraRules =
         ''
@@ -637,8 +626,7 @@ in
             ACTION=="unbind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030000", TEST=="power/control", ATTR{power/control}="on"
             ACTION=="unbind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030200", TEST=="power/control", ATTR{power/control}="on"
           ''
-        )
-      ;
+        );
 
       boot.extraModprobeConfig = mkIf cfg.powerManagement.finegrained ''
         options nvidia "NVreg_DynamicPowerManagement=0x02"

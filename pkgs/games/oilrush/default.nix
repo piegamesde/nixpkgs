@@ -32,8 +32,7 @@ stdenv.mkDerivation {
     if stdenv.hostPlatform.system == "x86_64-linux" then
       "x64"
     else
-      lib.optionalString (stdenv.hostPlatform.system == "i686-linux") "x86"
-  ;
+      lib.optionalString (stdenv.hostPlatform.system == "i686-linux") "x86";
   unpackPhase = ''
     mkdir oilrush
     cd oilrush

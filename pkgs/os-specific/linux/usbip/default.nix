@@ -23,8 +23,7 @@ stdenv.mkDerivation {
       # fixes build with gcc9
       ./fix-strncpy-truncation.patch
     ]
-    ++ kernel.patches
-  ;
+    ++ kernel.patches;
 
   nativeBuildInputs = [
     autoconf

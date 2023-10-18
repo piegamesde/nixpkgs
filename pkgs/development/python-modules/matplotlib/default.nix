@@ -118,8 +118,7 @@ buildPythonPackage rec {
         echo "[libs]
         system_freetype=true
         system_qhull=true" > mplsetup.cfg
-      ''
-  ;
+      '';
 
   nativeBuildInputs = [
     pkg-config
@@ -144,8 +143,7 @@ buildPythonPackage rec {
       tcl
       tk
     ]
-    ++ lib.optionals stdenv.isDarwin [ Cocoa ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 
   # clang-11: error: argument unused during compilation: '-fno-strict-overflow' [-Werror,-Wunused-command-line-argument]
   hardeningDisable = lib.optionals stdenv.isDarwin [ "strictoverflow" ];
@@ -171,8 +169,7 @@ buildPythonPackage rec {
     ++ lib.optionals enableQt [ pyqt5 ]
     ++ lib.optionals enableWebagg [ tornado ]
     ++ lib.optionals enableNbagg [ ipykernel ]
-    ++ lib.optionals enableTk [ tkinter ]
-  ;
+    ++ lib.optionals enableTk [ tkinter ];
 
   passthru.config = {
     directories = {

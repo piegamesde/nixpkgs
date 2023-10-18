@@ -104,8 +104,7 @@ let
     ++
       optional
         (!crossStageStatic && targetPlatform.isMinGW && threadsCross.model == "mcf")
-        ./Added-mcf-thread-model-support-from-mcfgthread.patch
-  ;
+        ./Added-mcf-thread-model-support-from-mcfgthread.patch;
 
   # Cross-gcc settings (build == host != target)
   crossMingw = targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt";
@@ -252,8 +251,7 @@ stdenv.mkDerivation (
         makeFlagsArray+=(
            'LIMITS_H_TEST=false'
         )
-      ''
-    ;
+      '';
 
     inherit
       noSysDirs

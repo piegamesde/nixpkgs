@@ -197,8 +197,7 @@ in
           bash
           "/run/wrappers"
         ]
-        ++ cfg.extraPackages
-      ;
+        ++ cfg.extraPackages;
 
       serviceConfig = {
         ExecStart = "@${cfg.package}/sbin/zabbix_agentd zabbix_agentd -f --config ${configFile}";

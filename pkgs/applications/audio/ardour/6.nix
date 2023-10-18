@@ -183,8 +183,7 @@ stdenv.mkDerivation rec {
             xjadeo
           ]
         }"
-    ''
-  ;
+    '';
 
   LINKFLAGS = "-lpthread";
 

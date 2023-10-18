@@ -58,8 +58,7 @@ stdenv.mkDerivation rec {
         XMLParser
       ]
     )
-    ++ lib.optional monoSupport mono
-  ;
+    ++ lib.optional monoSupport mono;
 
   buildInputs = [
     libxml2

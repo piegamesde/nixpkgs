@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
         ShellCommand
         TestMost
       ]
-    )
-  ;
+    );
 
   outputs = [
     "out"

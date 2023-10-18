@@ -25,8 +25,7 @@ let
         else if isSecret v then
           hashString "sha256" v._secret
         else
-          throw "unsupported type ${typeOf v}: ${(lib.generators.toPretty { }) v}"
-      ;
+          throw "unsupported type ${typeOf v}: ${(lib.generators.toPretty { }) v}";
     };
   };
   inherit (builtins)
@@ -392,8 +391,7 @@ in
         deprecationWarning =
           optname:
           "Starting in 8.0.0, the `${optname}` option has been moved from the `services.parsedmarc.settings.imap`"
-          + "configuration section to the `services.parsedmarc.settings.mailbox` configuration section."
-        ;
+          + "configuration section to the `services.parsedmarc.settings.mailbox` configuration section.";
         hasImapOpt = lib.flip builtins.hasAttr cfg.settings.imap;
         movedOptions = [
           "reports_folder"
@@ -564,8 +562,7 @@ in
                   replace-secret '@imap-password@' '/run/parsedmarc/dmarc_user_passwd' /run/parsedmarc/parsedmarc.ini
                   echo "Setting new randomized password for user '${cfg.provision.localMail.recipientName}'."
                   cat <(echo -n "${cfg.provision.localMail.recipientName}:") /run/parsedmarc/dmarc_user_passwd | chpasswd
-                ''
-              ;
+                '';
             in
             "+${
               pkgs.writeShellScript "parsedmarc-start-pre-full-privileges"

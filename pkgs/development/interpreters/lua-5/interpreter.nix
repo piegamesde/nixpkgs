@@ -45,8 +45,7 @@ let
     else if stdenv.hostPlatform.isUnix then
       "posix"
     else
-      "generic"
-  ;
+      "generic";
 
   compatFlags =
     if (lib.versionOlder self.luaversion "5.3") then
@@ -54,8 +53,7 @@ let
     else if (lib.versionOlder self.luaversion "5.4") then
       " -DLUA_COMPAT_5_1 -DLUA_COMPAT_5_2"
     else
-      " -DLUA_COMPAT_5_3"
-  ;
+      " -DLUA_COMPAT_5_3";
 in
 
 stdenv.mkDerivation rec {
@@ -94,8 +92,7 @@ stdenv.mkDerivation rec {
           -e 's/ALL_T *= */&$(LUA_SO) /' \
           -i src/Makefile
       cat ${./lua-dso.make} >> src/Makefile
-    ''
-  ;
+    '';
 
   # see configurePhase for additional flags (with space)
   makeFlags = [
@@ -202,8 +199,7 @@ stdenv.mkDerivation rec {
         if lib.hasAttr luaAttr pkgsTargetTarget then
           (override pkgsTargetTarget.${luaAttr})
         else
-          { }
-      ;
+          { };
     };
 
   meta = {

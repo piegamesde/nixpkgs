@@ -23,6 +23,5 @@ buildNimPackage rec {
 
       license = [ licenses.mit ];
       maintainers = with maintainers; [ marcusramberg ];
-    }
-  ;
+    };
 }

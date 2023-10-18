@@ -307,8 +307,7 @@ rec {
             if defs == [ ] then
               { }
             else
-              declaredConfig._module.freeformType.merge prefix defs
-          ;
+              declaredConfig._module.freeformType.merge prefix defs;
         in
         if declaredConfig._module.freeformType == null then
           declaredConfig
@@ -316,8 +315,7 @@ rec {
         # declaredConfig, freeformConfig can only contain the non-option
         # paths, meaning recursiveUpdate will never override any value
         else
-          recursiveUpdate freeformConfig declaredConfig
-      ;
+          recursiveUpdate freeformConfig declaredConfig;
 
       checkUnmatched =
         if
@@ -363,8 +361,7 @@ rec {
           else
             throw baseMsg
         else
-          null
-      ;
+          null;
 
       checked = builtins.seq checkUnmatched;
 
@@ -424,8 +421,7 @@ rec {
         else
           unifyModuleSyntax (toString m) (toString m) (
             applyModuleArgsIfFunction (toString m) (import m) args
-          )
-      ;
+          );
 
       /* Collects all modules recursively into the form
 
@@ -485,8 +481,7 @@ rec {
                     else
                       [ ]
                   )
-                  ++ collectedImports.disabled
-                ;
+                  ++ collectedImports.disabled;
               }
             )
             initialModules
@@ -513,6 +508,7 @@ rec {
                   }) but also has a `.key` attribute (${m.key}) with a different value. This makes it ambiguous which module should be disabled."
               else
                 toString m
+
             else if m ? key then
               m.key
 
@@ -523,8 +519,7 @@ rec {
               throw
                 "Each disabledModules item must be a path, string, or a attribute set with a key attribute, or a value supported by toString. However, one of the disabledModules items in `${
                   toString file
-                }` is none of that, but is of type ${builtins.typeOf m}."
-          ;
+                }` is none of that, but is of type ${builtins.typeOf m}.";
 
           disabledKeys =
             concatMap ({ file, disabled }: map (moduleKey file) disabled)
@@ -563,8 +558,7 @@ rec {
             { meta = m.meta; }
           ]
         else
-          config
-      ;
+          config;
       addFreeformType =
         config:
         if m ? freeformType then
@@ -573,8 +567,7 @@ rec {
             { _module.freeformType = m.freeformType; }
           ]
         else
-          config
-      ;
+          config;
     in
     if m ? config || m ? options then
       let
@@ -625,8 +618,7 @@ rec {
               "freeformType"
             ]
           );
-        }
-  ;
+        };
 
   applyModuleArgsIfFunction =
     key: f:
@@ -667,8 +659,7 @@ rec {
       # works.
       f (args // extraArgs)
     else
-      f
-  ;
+      f;
 
   /* Merge a list of modules.  This will recurse over the option
      declarations in all modules, combining them into a single set.
@@ -815,8 +806,7 @@ rec {
                 shorthandOnlyDefinesConfig = null;
               };
             };
-          }
-      ;
+          };
 
       resultsByName =
         mapAttrs
@@ -880,8 +870,7 @@ rec {
         # Propagate all unmatched definitions from nested option sets
         mapAttrs (n: v: v.unmatchedDefns) resultsByName
         # Plus the definitions for the current prefix that don't have a matching option
-        // removeAttrs defnsByName' (attrNames matchedOptions)
-      ;
+        // removeAttrs defnsByName' (attrNames matchedOptions);
     in
     {
       inherit matchedOptions;
@@ -909,8 +898,7 @@ rec {
                   defs
               )
               unmatchedDefnsByName
-          )
-      ;
+          );
     };
 
   /* Merge multiple option declarations into a single declaration.  In
@@ -957,8 +945,7 @@ rec {
               if getSubModules != null then
                 map (setDefaultModuleLocation opt._file) getSubModules ++ res.options
               else
-                res.options
-            ;
+                res.options;
           in
           opt.options
           // res
@@ -987,8 +974,7 @@ rec {
           file = head opt.declarations;
           value = mkOptionDefault opt.default;
         })
-        ++ defs
-      ;
+        ++ defs;
 
       # Handle properties, check types, and merge everything together.
       res =
@@ -1008,8 +994,7 @@ rec {
               showDefs separateDefs
             }"
         else
-          mergeDefinitions loc opt.type defs'
-      ;
+          mergeDefinitions loc opt.type defs';
 
       # Apply the 'apply' function to the merged value. This allows options to
       # yield a value computed from the definitions
@@ -1033,8 +1018,7 @@ rec {
       inherit (res) isDefined;
       # This allows options to be correctly displayed using `${options.path.to.it}`
       __toString = _: showOption loc;
-    }
-  ;
+    };
 
   # Merge definitions of a value of a given type.
   mergeDefinitions = loc: type: defs: rec {
@@ -1067,8 +1051,7 @@ rec {
           if any (def: def.value._type or "" == "order") defs''.values then
             sortProperties defs''.values
           else
-            defs''.values
-        ;
+            defs''.values;
       in
       {
         values = defs''';
@@ -1094,8 +1077,7 @@ rec {
       else
         # (nixos-option detects this specific error message and gives it special
         # handling.  If changed here, please change it there too.)
-        throw "The option `${showOption loc}' is used but not defined."
-    ;
+        throw "The option `${showOption loc}' is used but not defined.";
 
     isDefined = defsFinal != [ ];
 
@@ -1128,8 +1110,7 @@ rec {
         pushDownProperties cfg.content
       )
     else # FIXME: handle mkOrder?
-      [ cfg ]
-  ;
+      [ cfg ];
 
   /* Given a config value, expand mkMerge properties, and discharge
      any mkIf conditions.  That is, this is the place where mkIf
@@ -1151,8 +1132,7 @@ rec {
       else
         throw "‘mkIf’ called with a non-Boolean condition"
     else
-      [ def ]
-  ;
+      [ def ];
 
   /* Given a list of config values, process the mkOverride properties,
      that is, return the values that have the highest (that is,
@@ -1183,16 +1163,14 @@ rec {
         if def.value._type or "" == "override" then
           def.value.priority
         else
-          defaultOverridePriority
-      ;
+          defaultOverridePriority;
       highestPrio = foldl' (prio: def: min (getPrio def) prio) 9999 defs;
       strip =
         def:
         if def.value._type or "" == "override" then
           def // { value = def.value.content; }
         else
-          def
-      ;
+          def;
     in
     {
       values =
@@ -1217,8 +1195,7 @@ rec {
             inherit (def.value) priority;
           }
         else
-          def
-      ;
+          def;
       defs' = map strip defs;
       compare =
         a: b:
@@ -1238,8 +1215,7 @@ rec {
       // {
         type = opt.type.substSubModules opt.options;
         options = [ ];
-      }
-  ;
+      };
 
   # Properties.
 
@@ -1610,8 +1586,7 @@ rec {
             if markdown then
               lib.mdDoc "Alias of {option}`${showOption to}`."
             else
-              "Alias of <option>${showOption to}</option>."
-          ;
+              "Alias of <option>${showOption to}</option>.";
           apply = x: use (toOf config);
         }
         // optionalAttrs (toType != null) { type = toType; }

@@ -98,8 +98,7 @@ let
         dontConfigure = true;
         dontBuild = true;
         preferLocalBuild = true;
-      }
-  ;
+      };
 
   mattermostConfWithoutPlugins =
     recursiveUpdate
@@ -376,8 +375,7 @@ in
 
             chown "${cfg.user}:${cfg.group}" "${cfg.statePath}/data" .
             chmod u+rw,g+r,o-rwx "${cfg.statePath}/data" .
-          ''
-        ;
+          '';
 
         serviceConfig = {
           PermissionsStartOnly = true;

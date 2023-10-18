@@ -17,8 +17,7 @@ let
     ${lib.optionalString (tssUser != null || tssGroup != null)
       ''KERNEL=="tpmrm[0-9]*", MODE="0660"''
     + lib.optionalString (tssUser != null) '', OWNER="${tssUser}"''
-    + lib.optionalString (tssGroup != null) '', GROUP="${tssGroup}"''
-    }
+    + lib.optionalString (tssGroup != null) '', GROUP="${tssGroup}"''}
   '';
 in
 {

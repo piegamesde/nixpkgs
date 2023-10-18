@@ -297,8 +297,7 @@ let
     else if k == "HidServAuth" then
       v.onion + " " + v.auth
     else
-      generators.mkValueStringDefault { } v
-  ;
+      generators.mkValueStringDefault { } v;
   genTorrc =
     settings:
     generators.toKeyValue
@@ -1013,8 +1012,7 @@ in
                       ))
                       // {
                         description = "settings option";
-                      }
-                    ;
+                      };
                     options.HiddenServiceAllowUnknownPorts =
                       optionBool
                         "HiddenServiceAllowUnknownPorts";
@@ -1056,8 +1054,7 @@ in
                       + " "
                       + concatStringsSep "," config.authorizeClient.clientNames
                     else
-                      null
-                  ;
+                      null;
                   settings.HiddenServicePort =
                     map (p: mkValueString "" p.port + " " + mkValueString "" p.target)
                       config.map;
@@ -1089,8 +1086,7 @@ in
             ))
             // {
               description = "settings option";
-            }
-          ;
+            };
           options.Address = optionString "Address";
           options.AssumeReachable = optionBool "AssumeReachable";
           options.AccountingMax = optionBandwidth "AccountingMax";
@@ -1409,8 +1405,7 @@ in
               if cfg.settings.HiddenServiceNonAnonymousMode == true then
                 [ { port = 0; } ]
               else
-                [ ]
-            ;
+                [ ];
             defaultText = literalExpression ''
               if config.${opt.settings}.HiddenServiceNonAnonymousMode == true
               then [ { port = 0; } ]

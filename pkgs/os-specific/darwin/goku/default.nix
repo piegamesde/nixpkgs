@@ -20,8 +20,7 @@ stdenv.mkDerivation rec {
       fetchurl {
         url = "https://github.com/yqrashawn/GokuRakuJoudo/releases/download/v${version}/goku.zip";
         hash = "sha256-8HdIwtpzR6O2WCbMYIJ6PHcM27Xmb+4Tc5Fmjl0dABQ=";
-      }
-  ;
+      };
 
   nativeBuildInputs = [ unzip ];
 

@@ -24,8 +24,7 @@ let
     ]
     // {
       description = "setting type (integer, string, bool or path)";
-    }
-  ;
+    };
 
   configType =
     with types;
@@ -37,8 +36,7 @@ let
         a value or an attribute set. The allowed values are integers,
         strings, booleans or paths.
       '';
-    }
-  ;
+    };
 
   configFile =
     pkgs.runCommand "ncdns.conf"
@@ -229,8 +227,7 @@ in
         if cfg.dnssec.enable then
           ''readTrustAnchorsFromFile("${cfg.dnssec.keys.public}")''
         else
-          ''addNTA("bit", "namecoin DNSSEC disabled")''
-      ;
+          ''addNTA("bit", "namecoin DNSSEC disabled")'';
     };
 
     # Avoid pdns-recursor not finding the DNSSEC keys

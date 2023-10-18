@@ -242,8 +242,7 @@ in
           ++ optionals nmh.euwebid [ web-eid-app ]
           ++ optionals nmh.gsconnect [ gnomeExtensions.gsconnect ]
           ++ optionals nmh.jabref [ jabref ]
-          ++ optionals nmh.passff [ passff-host ]
-        ;
+          ++ optionals nmh.passff [ passff-host ];
       })
     ];
 

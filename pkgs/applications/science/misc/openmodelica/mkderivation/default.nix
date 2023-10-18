@@ -48,8 +48,7 @@ let
       symlinkJoin {
         name = pkg.pname + "-omhome";
         paths = pkg.omdeps;
-      }
-  ;
+      };
 
   # Should we run ./configure for the target pkg?
   omautoconf = getAttrDef "omautoconf" false pkg;
@@ -65,8 +64,7 @@ let
     lib.optionalString ifDeps ''
       sed -i $(find -name omhome.m4) -e 's|if test ! -z "$USINGPRESETBUILDDIR"|if test ! -z "$USINGPRESETBUILDDIR" -a -z "$OMHOME"|'
     ''
-    + appendByAttr "postPatch" "\n" pkg
-  ;
+    + appendByAttr "postPatch" "\n" pkg;
 
   # Update shebangs in the scripts before running configuration.
   preAutoreconf =
@@ -96,8 +94,7 @@ let
         touch ''${target}.skip;
       done
     ''
-    + appendByAttr "preBuild" "\n" pkg
-  ;
+    + appendByAttr "preBuild" "\n" pkg;
 
   makeFlags = "${omtarget}" + appendByAttr "makeFlags" " " pkg;
 

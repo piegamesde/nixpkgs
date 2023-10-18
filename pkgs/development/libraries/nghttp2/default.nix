@@ -60,8 +60,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs =
     [ pkg-config ]
     ++ lib.optionals (enableApp) [ installShellFiles ]
-    ++ lib.optionals (enablePython) [ python3Packages.cython ]
-  ;
+    ++ lib.optionals (enablePython) [ python3Packages.cython ];
 
   buildInputs =
     lib.optionals enableApp [
@@ -78,8 +77,7 @@ stdenv.mkDerivation rec {
       python3Packages.python
       ncurses
       python3Packages.setuptools
-    ]
-  ;
+    ];
 
   enableParallelBuilding = true;
 
@@ -95,8 +93,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (enablePython) [
       "--enable-python-bindings"
       "--with-cython=${python3Packages.cython}/bin/cython"
-    ]
-  ;
+    ];
 
   # Unit tests require CUnit and setting TZDIR environment variable
   doCheck = enableTests;
@@ -121,8 +118,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString (enableApp) ''
       installShellCompletion --bash doc/bash_completion/{h2load,nghttp,nghttpd,nghttpx}
-    ''
-  ;
+    '';
 
   passthru.tests = {
     inherit curl libsoup;

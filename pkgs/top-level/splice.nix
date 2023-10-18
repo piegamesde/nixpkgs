@@ -36,8 +36,7 @@ let
         // pkgsTargetTarget
         # The same pkgs sets one probably intends
         // pkgsBuildHost
-        // pkgsHostTarget
-      ;
+        // pkgsHostTarget;
       merge = name: {
         inherit name;
         value =
@@ -76,10 +75,8 @@ let
                   })
                   // (lib.optionalAttrs (pkgsTargetTarget ? ${name}) {
                     targetTarget = valueTargetTarget;
-                  })
-                ;
-              }
-            ;
+                  });
+              };
             # Get the set of outputs of a derivation. If one derivation fails to
             # evaluate we don't want to diverge the entire splice, so we fall back
             # on {}
@@ -120,8 +117,7 @@ let
               # `__functor__` for functions instead.
             }
           else
-            defaultValue
-        ;
+            defaultValue;
       };
     in
     lib.listToAttrs (map merge (lib.attrNames mash));

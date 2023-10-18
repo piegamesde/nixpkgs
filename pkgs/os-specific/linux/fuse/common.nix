@@ -56,8 +56,7 @@ stdenv.mkDerivation rec {
             sha256 = "sha256-ELYBW/wxRcSMssv7ejCObrpsJHtOPJcGq33B9yHQII4=";
           })
         ]
-    )
-  ;
+    );
 
   nativeBuildInputs =
     if isFuse3 then
@@ -70,8 +69,7 @@ stdenv.mkDerivation rec {
       [
         autoreconfHook
         gettext
-      ]
-  ;
+      ];
 
   outputs = [ "out" ] ++ lib.optional isFuse3 "common";
 
@@ -107,8 +105,7 @@ stdenv.mkDerivation rec {
           sed -e 's@CONFIG_RPATH=/usr/share/gettext/config.rpath@CONFIG_RPATH=${gettext}/share/gettext/config.rpath@' -i makeconf.sh
           ./makeconf.sh
         ''
-    )
-  ;
+    );
 
   nativeCheckInputs =
     [ which ]
@@ -140,8 +137,7 @@ stdenv.mkDerivation rec {
           cp ${fusePackages.fuse_3.common}/etc/fuse.conf etc/fuse.conf
           cp ${fusePackages.fuse_3.common}/etc/udev/rules.d/99-fuse.rules etc/udev/rules.d/99-fuse.rules
         ''
-    )
-  ;
+    );
 
   meta = with lib; {
     description = "Library that allows filesystems to be implemented in user space";

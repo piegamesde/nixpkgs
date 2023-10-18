@@ -38,8 +38,7 @@ stdenv.mkDerivation rec {
       sed -i 's/\tranlib /\t${stdenv.cc.targetPrefix}ranlib /' Makefile
       sed -i '/install -m 644 libstfl.so./d' Makefile
       sed -i '/ln -fs libstfl.so./d' Makefile
-    ''
-  ;
+    '';
 
   installPhase =
     ''
@@ -48,8 +47,7 @@ stdenv.mkDerivation rec {
     # some programs rely on libstfl.so.0 to be present, so link it
     + lib.optionalString (!stdenv.hostPlatform.isStatic) ''
       ln -s $out/lib/libstfl.so.0.24 $out/lib/libstfl.so.0
-    ''
-  ;
+    '';
 
   meta = {
     homepage = "http://www.clifford.at/stfl/";

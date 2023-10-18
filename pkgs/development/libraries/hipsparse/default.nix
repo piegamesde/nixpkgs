@@ -24,8 +24,7 @@ stdenv.mkDerivation (
     outputs =
       [ "out" ]
       ++ lib.optionals buildTests [ "test" ]
-      ++ lib.optionals buildSamples [ "sample" ]
-    ;
+      ++ lib.optionals buildSamples [ "sample" ];
 
     src = fetchFromGitHub {
       owner = "ROCmSoftwarePlatform";
@@ -47,8 +46,7 @@ stdenv.mkDerivation (
         git
       ]
       ++ lib.optionals buildTests [ gtest ]
-      ++ lib.optionals (buildTests || buildSamples) [ openmp ]
-    ;
+      ++ lib.optionals (buildTests || buildSamples) [ openmp ];
 
     cmakeFlags = [
       "-DCMAKE_C_COMPILER=hipcc"
@@ -105,8 +103,7 @@ stdenv.mkDerivation (
 
         substituteInPlace clients/tests/CMakeLists.txt \
           --replace "\''${PROJECT_BINARY_DIR}/matrices" "/build/source/matrices"
-      ''
-    ;
+      '';
 
     postInstall =
       lib.optionalString buildTests ''
@@ -127,8 +124,7 @@ stdenv.mkDerivation (
             ]
           )
         } $sample/bin/example_*
-      ''
-    ;
+      '';
 
     passthru.updateScript = rocmUpdateScript {
       name = finalAttrs.pname;

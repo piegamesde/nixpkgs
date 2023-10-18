@@ -33,8 +33,7 @@ let
       EMAIL_SENDER_TRANSPORT_host = cfg.smtpHost;
     }
     // hydraEnv
-    // cfg.extraEnv
-  ;
+    // cfg.extraEnv;
 
   serverEnv =
     env
@@ -44,8 +43,7 @@ let
       COLUMNS = "80";
       PGPASSFILE = "${baseDir}/pgpass-www"; # grrr
     }
-    // (optionalAttrs cfg.debugServer { DBIC_TRACE = "1"; })
-  ;
+    // (optionalAttrs cfg.debugServer { DBIC_TRACE = "1"; });
 
   localDB = "dbi:Pg:dbname=hydra;user=hydra;";
 
@@ -381,8 +379,7 @@ in
         ExecStart =
           "@${hydra-package}/bin/hydra-server hydra-server -f -h '${cfg.listenHost}' "
           + "-p ${toString cfg.port} --max_spare_servers 5 --max_servers 25 "
-          + "--max_requests 100 ${optionalString cfg.debugServer "-d"}"
-        ;
+          + "--max_requests 100 ${optionalString cfg.debugServer "-d"}";
         User = "hydra-www";
         PermissionsStartOnly = true;
         Restart = "always";

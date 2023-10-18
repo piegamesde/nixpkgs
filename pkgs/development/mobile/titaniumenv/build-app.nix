@@ -40,15 +40,13 @@ assert (release && target == "android")
   ->
     androidKeyStore != null
     && androidKeyAlias != null
-    && androidKeyStorePassword != null
-;
+    && androidKeyStorePassword != null;
 assert (release && target == "iphone")
   ->
     iosMobileProvisioningProfile != null
     && iosCertificateName != null
     && iosCertificate != null
-    && iosCertificatePassword != null
-;
+    && iosCertificatePassword != null;
 assert enableWirelessDistribution -> installURL != null;
 
 let
@@ -139,8 +137,7 @@ stdenv.mkDerivation (
           else
             ''
               titanium build --config-file $TMPDIR/config.json --no-colors --force --platform android --target emulator --build-only -B foo --output $out
-            ''
-          }
+            ''}
         ''
       else if target == "iphone" then
         ''
@@ -215,12 +212,10 @@ stdenv.mkDerivation (
               then
                   rm $out/modules
               fi
-            ''
-          }
+            ''}
         ''
       else
-        throw "Target: ${target} is not supported!"
-      }
+        throw "Target: ${target} is not supported!"}
     '';
 
     installPhase = ''
@@ -231,8 +226,7 @@ stdenv.mkDerivation (
           else
             ''
               cp "$(ls build/android/bin/*.apk | grep -v '\-unsigned.apk')" $out
-            ''
-          }
+            ''}
 
           mkdir -p $out/nix-support
           echo "file binary-dist \"$(ls $out/*.apk)\"" > $out/nix-support/hydra-build-products
@@ -254,8 +248,7 @@ stdenv.mkDerivation (
           ''}
         ''
       else
-        throw "Target: ${target} is not supported!"
-      }
+        throw "Target: ${target} is not supported!"}
     '';
 
     failureHook = lib.optionalString (release && target == "iphone") deleteKeychain;

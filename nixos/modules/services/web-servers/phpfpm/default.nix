@@ -19,8 +19,7 @@ let
     else if false == value then
       "no"
     else
-      toString value
-  ;
+      toString value;
 
   fpmCfgFile =
     pool: poolOpts:
@@ -296,8 +295,7 @@ in
           (filterAttrs (pool: poolOpts: poolOpts.extraConfig != null) cfg.pools)
       ++ optional (cfg.extraConfig != null) ''
         Using config.services.phpfpm.extraConfig is deprecated and will become unsupported in a future release. Please migrate your configuration to config.services.phpfpm.settings.
-      ''
-    ;
+      '';
 
     services.phpfpm.settings = {
       error_log = "syslog";

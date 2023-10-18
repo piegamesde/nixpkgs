@@ -42,6 +42,7 @@ in
     import configFile3
   else
     { }
+
   ,
   # Overlays are used to extend Nixpkgs collection with additional
   # collections of packages.  These collection of packages are part of the
@@ -75,8 +76,7 @@ in
         )
       else
         # it's a file, so the result is the contents of the file itself
-        import path
-    ;
+        import path;
   in
   if pathOverlays != "" && builtins.pathExists pathOverlays then
     overlays pathOverlays
@@ -98,8 +98,7 @@ in
     else
       overlays homeOverlaysDir
   else
-    [ ]
-  ,
+    [ ],
 
   crossOverlays ? [ ]
 

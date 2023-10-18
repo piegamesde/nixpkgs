@@ -22,8 +22,7 @@ let
 
   useSpamAssassin =
     cfg.settings.publicinboxmda.spamcheck == "spamc"
-    || cfg.settings.publicinboxwatch.spamcheck == "spamc"
-  ;
+    || cfg.settings.publicinboxwatch.spamcheck == "spamc";
 
   publicInboxDaemonOptions = proto: defaultPort: {
     args = mkOption {
@@ -98,8 +97,7 @@ let
             optionals (!config.systemd.services."public-inbox-${srv}".confinement.enable) [
               "${pkgs.dash}/bin/dash:/bin/sh"
               builtins.storeDir
-            ]
-        ;
+            ];
         # The following options are only for optimizing:
         # systemd-analyze security public-inbox-'*'
         AmbientCapabilities = "";
@@ -739,8 +737,7 @@ in
                     ls -1 "$inbox" | grep -q '^xap' ||
                     ${cfg.package}/bin/public-inbox-index "$inbox"
                   done
-                ''
-              ;
+                '';
               serviceConfig = {
                 Type = "oneshot";
                 RemainAfterExit = true;

@@ -111,8 +111,7 @@ buildGo118Module rec {
     + lib.makeLibraryPath [
       (lib.getLib systemd)
       rtloader
-    ]
-  ;
+    ];
 
   meta = with lib; {
     description = ''

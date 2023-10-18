@@ -43,8 +43,7 @@ stdenv.mkDerivation rec {
       gmp
       mpfr
     ]
-    ++ lib.optional enableCuda cudatoolkit
-  ;
+    ++ lib.optional enableCuda cudatoolkit;
 
   preConfigure = ''
     # Mongoose and GraphBLAS are packaged separately
@@ -69,8 +68,7 @@ stdenv.mkDerivation rec {
       # https://github.com/DrTimothyAldenDavis/SuiteSparse/blob/v5.13.0/SuiteSparse_config/SuiteSparse_config.mk#L368
       "BLAS=-lblas"
       "LAPACK=-llapack"
-    ]
-  ;
+    ];
 
   buildFlags =
     [

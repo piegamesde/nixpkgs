@@ -54,8 +54,7 @@ let
                       prev
                   )
                 else
-                  (final: prev: { })
-              ;
+                  (final: prev: { });
               overriddenPackages = callPackage ../../lua-modules/overrides.nix { };
 
               otherSplices = {

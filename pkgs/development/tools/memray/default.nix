@@ -37,8 +37,7 @@ python3.pkgs.buildPythonApplication rec {
       ipython
       pytestCheckHook
     ]
-    ++ lib.optionals (pythonOlder "3.11") [ greenlet ]
-  ;
+    ++ lib.optionals (pythonOlder "3.11") [ greenlet ];
 
   pythonImportsCheck = [ "memray" ];
 

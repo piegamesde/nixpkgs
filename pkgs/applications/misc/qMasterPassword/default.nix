@@ -58,8 +58,7 @@ stdenv.mkDerivation rec {
         lrelease ./data/translations/translation_pl.ts
         mv ./data/translations/translation_de.qm $out/share/qMasterPassword/translations/translation_de.qm
         mv ./data/translations/translation_pl.qm $out/share/qMasterPassword/translations/translation_pl.qm
-      ''
-  ;
+      '';
 
   meta = with lib; {
     description = "Stateless Master Password Manager";

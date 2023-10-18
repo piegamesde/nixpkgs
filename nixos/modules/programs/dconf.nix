@@ -26,8 +26,7 @@ let
       ))
       + ''
         ${pkgs.dconf}/bin/dconf update $out/db
-      ''
-    ;
+      '';
   };
 in
 {

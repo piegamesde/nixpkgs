@@ -143,8 +143,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals enableDocumentation [ hotdoc ]
     ++ lib.optionals stdenv.isLinux [
       wayland # for wayland-scanner
-    ]
-  ;
+    ];
 
   buildInputs =
     [
@@ -255,8 +254,7 @@ stdenv.mkDerivation rec {
       CoreVideo
       Foundation
       MediaToolbox
-    ]
-  ;
+    ];
 
   mesonFlags =
     [
@@ -350,8 +348,7 @@ stdenv.mkDerivation rec {
           "-Dresindvd=disabled"
           "-Dx265=disabled"
         ]
-    )
-  ;
+    );
 
   # Argument list too long
   strictDeps = true;

@@ -39,8 +39,7 @@ stdenv.mkDerivation rec {
       # Order does not matter
       ./configure.patch
     ]
-    ++ lib.optional stdenv.hostPlatform.isMusl ./utils.patch
-  ;
+    ++ lib.optional stdenv.hostPlatform.isMusl ./utils.patch;
 
   nativeBuildInputs = [
     updateAutotoolsGnuConfigScriptsHook

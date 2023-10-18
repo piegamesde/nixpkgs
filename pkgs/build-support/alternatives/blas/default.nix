@@ -167,16 +167,14 @@ let
     if stdenv.hostPlatform.isLinux then
       "${stdenv.hostPlatform.extensions.sharedLibrary}.${version}"
     else
-      stdenv.hostPlatform.extensions.sharedLibrary
-  ;
+      stdenv.hostPlatform.extensions.sharedLibrary;
 
   blasImplementation = lib.getName blasProvider;
   blasProvider' =
     if blasImplementation == "mkl" then
       blasProvider
     else
-      blasProvider.override { blas64 = isILP64; }
-  ;
+      blasProvider.override { blas64 = isILP64; };
 in
 
 assert isILP64 -> blasImplementation == "mkl" || blasProvider'.blas64;

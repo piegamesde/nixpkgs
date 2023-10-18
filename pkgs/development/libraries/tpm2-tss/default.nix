@@ -66,8 +66,7 @@ stdenv.mkDerivation rec {
     ]
     # cmocka doesn't build with pkgsStatic, and we don't need it anyway
     # when tests are not run
-    ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ cmocka ]
-  ;
+    ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ cmocka ];
 
   nativeCheckInputs = [
     cmocka

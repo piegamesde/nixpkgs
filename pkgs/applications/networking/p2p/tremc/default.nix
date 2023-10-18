@@ -48,8 +48,7 @@ python3Packages.buildPythonApplication rec {
       ipy
       pyperclip
     ]
-    ++ lib.optional useGeoIP geoip
-  ;
+    ++ lib.optional useGeoIP geoip;
 
   dontBuild = true;
   doCheck = false;

@@ -25,8 +25,7 @@ let
         if config.networking.nftables.enable then
           "sshg-fw-nft-sets"
         else
-          "sshg-fw-ipset"
-      ;
+          "sshg-fw-ipset";
     in
     pkgs.writeText "sshguard.conf" ''
       BACKEND="${pkgs.sshguard}/libexec/${backend}"
@@ -144,8 +143,7 @@ in
             ipset
             iproute2
             systemd
-          ]
-      ;
+          ];
 
       # The sshguard ipsets must exist before we invoke
       # iptables. sshguard creates the ipsets after startup if
@@ -164,8 +162,7 @@ in
             ''
               ${pkgs.ipset}/bin/ipset -quiet create -exist sshguard6 hash:net family inet6
               ${pkgs.iptables}/bin/ip6tables -I INPUT -m set --match-set sshguard6 src -j DROP
-            ''
-      ;
+            '';
 
       postStop =
         optionalString config.networking.firewall.enable ''
@@ -178,8 +175,7 @@ in
             ''
               ${pkgs.iptables}/bin/ip6tables -D INPUT -m set --match-set sshguard6 src -j DROP
               ${pkgs.ipset}/bin/ipset -quiet destroy sshguard6
-            ''
-      ;
+            '';
 
       unitConfig.Documentation = "man:sshguard(8)";
 

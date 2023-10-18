@@ -254,26 +254,22 @@ let
           )
           values.peers
         )
-        ++ optional (values.postUp != "") values.postUp
-      ;
+        ++ optional (values.postUp != "") values.postUp;
       postUpFile =
         if postUp != [ ] then
           writeScriptFile "postUp.sh" (concatMapStringsSep "\n" (line: line) postUp)
         else
-          null
-      ;
+          null;
       preDownFile =
         if values.preDown != "" then
           writeScriptFile "preDown.sh" values.preDown
         else
-          null
-      ;
+          null;
       postDownFile =
         if values.postDown != "" then
           writeScriptFile "postDown.sh" values.postDown
         else
-          null
-      ;
+          null;
       configDir = pkgs.writeTextFile {
         name = "config-${name}";
         executable = false;
@@ -334,16 +330,14 @@ let
                   AllowedIPs = ${concatStringsSep "," peer.allowedIPs}
                 ''
               )
-              values.peers
-        ;
+              values.peers;
       };
       configPath =
         if values.configFile != null then
           # This uses bind-mounted private tmp folder (/tmp/systemd-private-***)
           "/tmp/${name}.conf"
         else
-          "${configDir}/${name}.conf"
-      ;
+          "${configDir}/${name}.conf";
     in
     nameValuePair "wg-quick-${name}" {
       description = "wg-quick WireGuard Tunnel - ${name}";

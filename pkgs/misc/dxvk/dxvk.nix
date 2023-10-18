@@ -107,8 +107,7 @@ stdenv.mkDerivation {
       "--cross-file"
       "build-win${arch}.txt"
     ]
-    ++ lib.optional glfwSupport "-Ddxvk_native_wsi=glfw"
-  ;
+    ++ lib.optional glfwSupport "-Ddxvk_native_wsi=glfw";
 
   doCheck = isDxvk2 && !isCross;
 

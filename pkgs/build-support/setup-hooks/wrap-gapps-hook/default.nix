@@ -55,8 +55,7 @@ makeSetupHook
             # Unfortunately, it also requires the user to have dconf
             # D-Bus service enabled globally (e.g. through a NixOS module).
             dconf.lib
-          ]
-    ;
+          ];
     passthru = {
       tests =
         let

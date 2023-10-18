@@ -30,8 +30,7 @@ buildGoModule rec {
       substituteInPlace app/discovery/provider/file_test.go \
         --replace "TestFile_Events" "SkipFile_Events" \
         --replace "TestFile_Events_BusyListener" "SkipFile_Events_BusyListener"
-    ''
-  ;
+    '';
 
   vendorSha256 = null;
 

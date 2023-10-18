@@ -38,8 +38,7 @@ let
       if !stdenv.isDarwin then
         "ln -sf configfsf.guess config.guess"
       else
-        ''echo "Darwin host is `./config.guess`."''
-    ;
+        ''echo "Darwin host is `./config.guess`."'';
 
     configureFlags =
       [ (lib.enableFeature cxx "cxx") ]

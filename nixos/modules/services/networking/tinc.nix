@@ -16,8 +16,7 @@ let
     else if value == false then
       "no"
     else
-      generators.mkValueStringDefault { } value
-  ;
+      generators.mkValueStringDefault { } value;
 
   toTincConf = generators.toKeyValue {
     listsAsDuplicateKeys = true;
@@ -460,15 +459,13 @@ in
                 ''
                   # Prefer ED25519 keys (only in 1.1+)
                   [ -f "/etc/tinc/${network}/ed25519_key.priv" ] || tinc -n ${network} generate-ed25519-keys
-                ''
-              }
+                ''}
               ${if data.rsaPrivateKeyFile != null then
                 "  # RSA Keyfile managed by nix"
               else
                 ''
                   [ -f "/etc/tinc/${network}/rsa_key.priv" ] || tinc -n ${network} generate-rsa-keys 4096
-                ''
-              }
+                ''}
                 # In case there isn't anything to do
                 true
               else

@@ -59,8 +59,7 @@ buildPythonPackage rec {
     ++ lib.optionals (cudaSupport) [
       openai-triton
       torchWithCuda
-    ]
-  ;
+    ];
 
   postPatch =
     ''
@@ -72,8 +71,7 @@ buildPythonPackage rec {
     # -> by making it optional, we can build whisper without unfree packages enabled
     + lib.optionalString (!cudaSupport) ''
       sed -i '/if sys.platform.startswith("linux") and platform.machine() == "x86_64":/{N;d}' setup.py
-    ''
-  ;
+    '';
 
   preCheck = ''
     export HOME=$TMPDIR

@@ -88,8 +88,7 @@ stdenv.mkDerivation {
     ++ lib.optionals stdenv.isDarwin [
       tcl-8_6
       tk-8_6
-    ]
-  ;
+    ];
 
   nativeBuildInputs = lib.optionals stdenv.isLinux [ autoPatchelfHook ];
 
@@ -141,8 +140,7 @@ stdenv.mkDerivation {
           }/opt/tcl-tk/lib/libtk8.6.dylib \
           ${tk-8_6}/lib/libtk8.6.dylib \
           $out/lib_pypy/_tkinter/*.so
-    ''
-  ;
+    '';
 
   doInstallCheck = true;
 

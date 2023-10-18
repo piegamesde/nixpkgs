@@ -68,8 +68,7 @@ stdenv.mkDerivation rec {
       tomlplusplus
     ]
     ++ lib.optional (lib.versionAtLeast qtbase.version "6") qtwayland
-    ++ lib.optional gamemodeSupport gamemode.dev
-  ;
+    ++ lib.optional gamemodeSupport gamemode.dev;
 
   cmakeFlags =
     lib.optionals (msaClientID != "") [ "-DLauncher_MSA_CLIENT_ID=${msaClientID}" ]

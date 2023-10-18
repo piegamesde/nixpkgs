@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
       "AR=${stdenv.cc.targetPrefix}ar"
     ]
     ++ lib.optional (stdenv.cc.cc != null) "SYSROOT_ALT=${lib.getDev stdenv.cc.cc}"
-    ++ lib.optional (stdenv.cc.libc != null) "SYSROOT=${lib.getDev stdenv.cc.libc}"
-  ;
+    ++ lib.optional (stdenv.cc.libc != null) "SYSROOT=${lib.getDev stdenv.cc.libc}";
   enableParallelBuilding = true;
   meta = {
     description = "A library for real-time audio and video processing";

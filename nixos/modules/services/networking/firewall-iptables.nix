@@ -46,8 +46,7 @@ let
 
   kernelHasRPFilter =
     ((kernel.config.isEnabled or (x: false)) "IP_NF_MATCH_RPFILTER")
-    || (kernel.features.netfilterRPFilter or false)
-  ;
+    || (kernel.features.netfilterRPFilter or false);
 
   helpers = import ./helpers.nix { inherit config lib; };
 
@@ -93,8 +92,7 @@ let
     else
       ''
         ip46tables -A nixos-fw-refuse -j DROP
-      ''
-    }
+      ''}
 
 
     # The "nixos-fw-log-refuse" chain performs logging, then

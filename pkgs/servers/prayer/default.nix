@@ -56,8 +56,7 @@ stdenv.mkDerivation rec {
     + ''
       substituteInPlace ./session/html_secure_tidy.c \
         --replace buffio.h tidybuffio.h
-    ''
-  ;
+    '';
 
   buildInputs = [
     openssl

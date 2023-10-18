@@ -88,8 +88,7 @@ let
         mkdir -p "$out/bin"
         ln -s ${lib.escapeShellArg newuidmapPath} "$out/bin/newuidmap"
         ln -s ${lib.escapeShellArg newgidmapPath} "$out/bin/newgidmap"
-      '')
-  ;
+      '');
 in
 (buildGoModule {
   inherit pname version src;
@@ -138,8 +137,7 @@ in
       squashfsTools # Required at build time by SingularityCE
     ]
     ++ lib.optional enableNvidiaContainerCli nvidia-docker
-    ++ lib.optional enableSeccomp libseccomp
-  ;
+    ++ lib.optional enableSeccomp libseccomp;
 
   configureScript = "./mconfig";
 
@@ -152,8 +150,7 @@ in
     ++ lib.optional (enableSuid != defaultToSuid) (
       if enableSuid then "--with-suid" else "--without-suid"
     )
-    ++ extraConfigureFlags
-  ;
+    ++ extraConfigureFlags;
 
   # Packages to prefix to the Apptainer/Singularity container runtime default PATH
   # Use overrideAttrs to override
@@ -260,8 +257,7 @@ in
       ];
       mainProgram = projectName;
     }
-    // extraMeta
-  ;
+    // extraMeta;
 }).overrideAttrs
   (
     finalAttrs: prevAttrs: {

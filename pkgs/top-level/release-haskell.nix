@@ -257,8 +257,7 @@ let
                 (packagePlatforms pkgs.haskell.compiler.${ghcjsName}.passthru).bootGhcjs;
             }
           )
-        )
-      ;
+        );
 
       tests.haskell = packagePlatforms pkgs.tests.haskell;
 

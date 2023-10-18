@@ -12,12 +12,10 @@ let
     let
       kernelPath =
         "${config.boot.kernelPackages.kernel}/"
-        + "${config.system.boot.loader.kernelFile}"
-      ;
+        + "${config.system.boot.loader.kernelFile}";
       initrdPath =
         "${config.system.build.initialRamdisk}/"
-        + "${config.system.boot.loader.initrdFile}"
-      ;
+        + "${config.system.boot.loader.initrdFile}";
     in
     ''
       mkdir $out
@@ -66,8 +64,7 @@ let
         ''
           cp ${config.system.build.bootStage2} $out/init
           substituteInPlace $out/init --subst-var-by systemConfig $out
-        ''
-      }
+        ''}
 
       ln -s ${config.system.build.etc}/etc $out/etc
       ln -s ${config.system.path} $out/sw
@@ -156,8 +153,7 @@ let
         Failed assertions:
         ${concatStringsSep "\n" (map (x: "- ${x}") failedAssertions)}''
     else
-      showWarnings config.warnings baseSystem
-  ;
+      showWarnings config.warnings baseSystem;
 
   # Replace runtime dependencies
   system =
@@ -177,8 +173,7 @@ let
         o.buildCommand
         + ''
           ln -sn $systemBuildClosure $out/build-closure
-        ''
-      ;
+        '';
     }
   );
 in
@@ -366,8 +361,7 @@ in
         if config.networking.hostName == "" then
           "unnamed"
         else
-          config.networking.hostName
-      ;
+          config.networking.hostName;
       defaultText = literalExpression ''
         if config.networking.hostName == ""
         then "unnamed"
@@ -423,8 +417,7 @@ in
             exit 1
           fi
         fi
-      ''
-    ;
+      '';
 
     system.systemBuilderArgs =
       lib.optionalAttrs (config.system.forbiddenDependenciesRegex != "")

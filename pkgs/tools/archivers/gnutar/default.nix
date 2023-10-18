@@ -55,8 +55,7 @@ stdenv.mkDerivation rec {
         sed -i gnu/fpending.h -e 's,include <stdio_ext.h>,,'
       ''
     else
-      null
-  ;
+      null;
 
   doCheck = false; # fails
   doInstallCheck = false; # fails

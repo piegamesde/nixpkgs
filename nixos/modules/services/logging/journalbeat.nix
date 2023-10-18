@@ -70,8 +70,7 @@ in
         assertion = !hasPrefix "/" cfg.stateDir;
         message =
           "The option services.journalbeat.stateDir shouldn't be an absolute directory."
-          + " It should be a directory relative to /var/lib/."
-        ;
+          + " It should be a directory relative to /var/lib/.";
       }
     ];
 

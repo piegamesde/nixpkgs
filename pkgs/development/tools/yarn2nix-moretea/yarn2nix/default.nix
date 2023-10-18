@@ -28,8 +28,7 @@ let
     if licstr == "UNLICENSED" then
       lib.licenses.unfree
     else
-      lib.getLicenseFromSpdxId licstr
-  ;
+      lib.getLicenseFromSpdxId licstr;
 in
 rec {
   # Export yarn again to make it easier to find out which yarn was used.
@@ -171,8 +170,7 @@ rec {
         + ''
           # Yarn writes cache directories etc to $HOME.
           export HOME=$PWD/yarn_home
-        ''
-      ;
+        '';
 
       buildPhase = ''
         runHook preBuild
@@ -235,8 +233,7 @@ rec {
         if lib.isList package.workspaces then
           package.workspaces
         else
-          package.workspaces.packages
-      ;
+          package.workspaces.packages;
 
       packageResolutions = package.resolutions or { };
 
@@ -263,8 +260,7 @@ rec {
           [ base ]
         else
           lib.concatMap (child: expandGlobList (base + ("/" + child)) rest)
-            matchingChildren
-      ;
+            matchingChildren;
 
       # Path -> PathGlob -> [Path]
       expandGlob = base: glob: expandGlobList base (splitGlob glob);
@@ -518,8 +514,7 @@ rec {
           // lib.optionalAttrs (package ? license) {
             license = getLicenseFromSpdxId package.license;
           }
-          // (attrs.meta or { })
-        ;
+          // (attrs.meta or { });
       }
     );
 

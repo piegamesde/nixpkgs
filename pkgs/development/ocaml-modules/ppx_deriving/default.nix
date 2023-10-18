@@ -33,8 +33,7 @@ let
         version = "5.0";
         sha256 = "0fkzrn4pdyvf1kl0nwvhqidq01pnq3ql8zk1jd56hb0cxaw851w3";
         useOMP2 = false;
-      }
-  ;
+      };
 in
 
 buildDunePackage rec {

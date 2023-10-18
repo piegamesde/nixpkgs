@@ -23,8 +23,7 @@ in
         )
         db
     ))
-    + "\n"
-  ;
+    + "\n";
 
   # CellServDB configuration type
   cellServDBConfig = {

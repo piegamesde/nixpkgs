@@ -1559,8 +1559,7 @@ with self; {
     if stdenv.hostPlatform.system == "i686-linux" then
       callPackage ../development/python-modules/bcrypt/3.nix { }
     else
-      callPackage ../development/python-modules/bcrypt { }
-  ;
+      callPackage ../development/python-modules/bcrypt { };
 
   beaker = callPackage ../development/python-modules/beaker { };
 
@@ -5240,8 +5239,7 @@ with self; {
     else if stdenv.hostPlatform.system == "x86_64-linux" then
       callPackage ../development/python-modules/gurobipy/linux.nix { }
     else
-      throw "gurobipy not yet supported on ${stdenv.hostPlatform.system}"
-  ;
+      throw "gurobipy not yet supported on ${stdenv.hostPlatform.system}";
 
   guzzle_sphinx_theme =
     callPackage ../development/python-modules/guzzle_sphinx_theme

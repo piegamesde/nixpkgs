@@ -63,8 +63,7 @@ stdenv.mkDerivation rec {
       Cocoa
       GLUT
       OpenGL
-    ]
-  ;
+    ];
 
   nativeBuildInputs = [
     makeWrapper
@@ -86,8 +85,7 @@ stdenv.mkDerivation rec {
         substituteInPlace source/glad/src/$f \
           --replace libGL.so ${libGL}/lib/libGL.so
       done
-    ''
-  ;
+    '';
 
   makeFlags =
     [ "SDLCONFIG=${SDL2}/bin/sdl2-config" ]
@@ -126,8 +124,7 @@ stdenv.mkDerivation rec {
     ''
     + ''
       runHook postInstall
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "Enhanched port of Duke Nukem 3D for various platforms";

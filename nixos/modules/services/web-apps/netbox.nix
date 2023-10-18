@@ -33,8 +33,7 @@ let
           ''
           + optionalString cfg.enableLdap ''
             ln -s ${cfg.ldapConfigPath} $out/opt/netbox/netbox/netbox/ldap_config.py
-          ''
-        ;
+          '';
       }
     )).override
       { inherit (cfg) plugins; };
@@ -97,8 +96,7 @@ in
         if versionAtLeast config.system.stateVersion "23.05" then
           pkgs.netbox
         else
-          pkgs.netbox_3_3
-      ;
+          pkgs.netbox_3_3;
       defaultText = literalExpression ''
         if versionAtLeast config.system.stateVersion "23.05" then pkgs.netbox else pkgs.netbox_3_3;
       '';

@@ -208,8 +208,7 @@ in
             ++ optionals (cfg.font != null && hasPrefix builtins.storeDir cfg.font) [
               "${cfg.font}"
             ]
-            ++ optionals (hasPrefix builtins.storeDir cfg.keyMap) [ "${cfg.keyMap}" ]
-          ;
+            ++ optionals (hasPrefix builtins.storeDir cfg.keyMap) [ "${cfg.keyMap}" ];
 
           systemd.services.reload-systemd-vconsole-setup = {
             description = "Reset console on configuration changes";
@@ -246,8 +245,7 @@ in
               else
                 ''
                   font="$(echo ${consoleEnv pkgs.kbd}/share/consolefonts/${cfg.font}.*)"
-                ''
-              }
+                ''}
               if [[ $font == *.gz ]]; then
                 gzip -cd $font > $out/share/consolefonts/font.psf
               else

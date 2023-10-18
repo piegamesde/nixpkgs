@@ -39,8 +39,7 @@ let
       then
         "substituteInPlace i18n/digitlst.cpp --replace '<xlocale.h>' '<locale.h>'"
       else
-        null
-    ; # won't find locale_t on darwin
+        null; # won't find locale_t on darwin
 
     inherit patchFlags patches;
 
@@ -54,16 +53,14 @@ let
       + lib.optionalString stdenv.isAarch32 ''
         # From https://archlinuxarm.org/packages/armv7h/icu/files/icudata-stdlibs.patch
         sed -e 's/LDFLAGSICUDT=-nodefaultlibs -nostdlib/LDFLAGSICUDT=/' -i config/mh-linux
-      ''
-    ;
+      '';
 
     configureFlags =
       [ "--disable-debug" ]
       ++ lib.optional (stdenv.isFreeBSD || stdenv.isDarwin) "--enable-rpath"
       ++
         lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
-          "--with-cross-build=${nativeBuildRoot}"
-    ;
+          "--with-cross-build=${nativeBuildRoot}";
 
     enableParallelBuilding = true;
 
@@ -123,8 +120,7 @@ let
               lib.concatMapStringsSep " " (r: "--replace '${r.from}' '${r.to}'") replacements
             }
         ''
-      )
-    ;
+      );
 
     postFixup = ''moveToOutput lib/icu "$dev" '';
   };
@@ -138,8 +134,7 @@ let
         mkdir build
         cd build
         configureScript=../configure
-      ''
-    ;
+      '';
 
     postBuild = ''
       cd ..

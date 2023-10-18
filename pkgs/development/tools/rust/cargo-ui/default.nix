@@ -41,8 +41,7 @@ rustPlatform.buildRustPackage rec {
       xorg.libXrandr
       xorg.libxcb
     ]
-    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.AppKit ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.AppKit ];
 
   postFixup = lib.optionalString stdenv.isLinux ''
     patchelf $out/bin/cargo-ui \

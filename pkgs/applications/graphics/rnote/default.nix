@@ -72,8 +72,7 @@ stdenv.mkDerivation rec {
       poppler
     ]
     ++ lib.optionals stdenv.isLinux [ alsa-lib ]
-    ++ lib.optionals stdenv.isDarwin [ AudioUnit ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ AudioUnit ];
 
   postPatch = ''
     pushd build-aux

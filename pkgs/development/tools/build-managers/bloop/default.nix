@@ -19,8 +19,7 @@ stdenv.mkDerivation rec {
     else if stdenv.isDarwin && stdenv.isx86_64 then
       "x86_64-apple-darwin"
     else
-      throw "unsupported platform"
-  ;
+      throw "unsupported platform";
 
   bloop-bash = fetchurl {
     url = "https://github.com/scalacenter/bloop/releases/download/v${version}/bash-completions";
@@ -45,8 +44,7 @@ stdenv.mkDerivation rec {
       else if stdenv.isDarwin && stdenv.isx86_64 then
         "sha256-xOAuMLVzhYsUd3HyWeAESEjhBG3FUeTiqyi91t0rSgQ="
       else
-        throw "unsupported platform"
-    ;
+        throw "unsupported platform";
   };
 
   dontUnpack = true;

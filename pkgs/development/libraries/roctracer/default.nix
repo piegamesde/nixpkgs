@@ -77,8 +77,7 @@ stdenv.mkDerivation (
       + lib.optionalString (!buildTests) ''
         substituteInPlace CMakeLists.txt \
           --replace "add_subdirectory(test)" ""
-      ''
-    ;
+      '';
 
     # Tests always fail, probably need GPU
     # doCheck = buildTests;
@@ -103,8 +102,7 @@ stdenv.mkDerivation (
           )
         } $test/bin/*
         rm -rf $out/test
-      ''
-    ;
+      '';
 
     passthru.updateScript = rocmUpdateScript {
       name = finalAttrs.pname;

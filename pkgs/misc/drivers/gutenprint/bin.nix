@@ -41,8 +41,7 @@ stdenv.mkDerivation {
         sha256 = "0an5gba6r6v54r53s2gj2fjk8fzpl4lrksjas2333528b0k8gbbc";
       }
     else
-      throw "TODO"
-  ; # get from openprint.com -> drivers -> gutenprint
+      throw "TODO"; # get from openprint.com -> drivers -> gutenprint
 
   buildInputs = [
     rpm

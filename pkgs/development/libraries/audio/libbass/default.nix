@@ -58,8 +58,7 @@ let
             if bass.so ? ${stdenv.hostPlatform.system} then
               bass.so.${stdenv.hostPlatform.system}
             else
-              throw "${name} not packaged for ${stdenv.hostPlatform.system} (yet)."
-          ;
+              throw "${name} not packaged for ${stdenv.hostPlatform.system} (yet).";
         in
         ''
           mkdir -p $out/{lib,include}

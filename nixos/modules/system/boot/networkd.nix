@@ -3105,8 +3105,7 @@ let
         [Link]
         ${attrsToSection def.linkConfig}
       ''
-      + def.extraConfig
-    ;
+      + def.extraConfig;
   };
 
   netdevToUnit = name: def: {
@@ -3185,8 +3184,7 @@ let
         [BatmanAdvanced]
         ${attrsToSection def.batmanAdvancedConfig}
       ''
-      + def.extraConfig
-    ;
+      + def.extraConfig;
   };
 
   renderConfig = def: {
@@ -3202,8 +3200,7 @@ let
       + optionalString (def.dhcpV6Config != { }) ''
         [DHCPv6]
         ${attrsToSection def.dhcpV6Config}
-      ''
-    ;
+      '';
   };
 
   networkToUnit = name: def: {
@@ -3449,8 +3446,7 @@ let
           ${attrsToSection x.bridgeVLANConfig}
         ''
       )
-      + def.extraConfig
-    ;
+      + def.extraConfig;
   };
 
   mkUnitFiles =
@@ -3604,8 +3600,7 @@ let
         systemd.network.wait-online.extraArgs =
           [ "--timeout=${toString cfg.wait-online.timeout}" ]
           ++ optional cfg.wait-online.anyInterface "--any"
-          ++ map (i: "--ignore=${i}") cfg.wait-online.ignoredInterfaces
-        ;
+          ++ map (i: "--ignore=${i}") cfg.wait-online.ignoredInterfaces;
       }
 
       (mkIf config.systemd.network.enable {

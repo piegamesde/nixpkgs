@@ -89,8 +89,7 @@ let
     if crossSystem0 == null || crossSystem0 == args.localSystem then
       localSystem
     else
-      lib.systems.elaborate crossSystem0
-  ;
+      lib.systems.elaborate crossSystem0;
 
   # Allow both:
   # { /* the config */ } and

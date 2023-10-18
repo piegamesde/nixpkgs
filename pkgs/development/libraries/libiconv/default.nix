@@ -38,8 +38,7 @@ stdenv.mkDerivation rec {
       ''
     + lib.optionalString (!enableShared) ''
       sed -i -e '/preload/d' Makefile.in
-    ''
-  ;
+    '';
 
   configureFlags = [
     (lib.enableFeature enableStatic "static")

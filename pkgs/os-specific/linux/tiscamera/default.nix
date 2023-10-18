@@ -68,8 +68,7 @@ stdenv.mkDerivation rec {
       graphviz
     ]
     ++ lib.optionals withAravis [ meson ]
-    ++ lib.optionals withGui [ qt5.wrapQtAppsHook ]
-  ;
+    ++ lib.optionals withGui [ qt5.wrapQtAppsHook ];
 
   buildInputs =
     [

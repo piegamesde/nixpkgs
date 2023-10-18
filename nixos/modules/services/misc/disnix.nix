@@ -104,8 +104,7 @@ in
           ++ optional config.services.tomcat.enable "tomcat.service"
           ++ optional config.services.svnserve.enable "svnserve.service"
           ++ optional config.services.mongodb.enable "mongodb.service"
-          ++ optional config.services.influxdb.enable "influxdb.service"
-        ;
+          ++ optional config.services.influxdb.enable "influxdb.service";
 
         restartIfChanged = false;
 
@@ -131,8 +130,7 @@ in
               { inherit (config.environment.variables) DYSNOMIA_MODULES_PATH; }
             else
               { }
-          )
-        ;
+          );
 
         serviceConfig.ExecStart = "${cfg.package}/bin/disnix-service";
       };

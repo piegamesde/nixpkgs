@@ -35,8 +35,7 @@ let
                       desktop = null;
                       profile = null;
                       extraArgs = [ ];
-                    }
-                ;
+                    };
                 args = lib.escapeShellArgs (
                   opts.extraArgs
                   ++ (optional (opts.profile != null) "--profile=${toString opts.profile}")

@@ -117,8 +117,7 @@ let
                 license = meta.license or license;
                 maintainers = (meta.maintainers or [ ]) ++ maintainers;
                 platforms = meta.platforms or lib.platforms.linux;
-              }
-            ;
+              };
           in
           mkDerivation (
             args

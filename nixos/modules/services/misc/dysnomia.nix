@@ -265,8 +265,7 @@ in
         ++ optional (dysnomiaFlags.enablePostgreSQLDatabase) "postgresql-database"
         ++ optional (dysnomiaFlags.enableTomcatWebApplication) "tomcat-webapplication"
         ++ optional (dysnomiaFlags.enableMongoDatabase) "mongo-database"
-        ++ optional (dysnomiaFlags.enableSubversionRepository) "subversion-repository"
-      ;
+        ++ optional (dysnomiaFlags.enableSubversionRepository) "subversion-repository";
     };
 
     dysnomia.containers =

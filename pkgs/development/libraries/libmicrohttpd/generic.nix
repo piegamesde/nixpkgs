@@ -74,6 +74,5 @@ stdenv.mkDerivation rec {
       ];
       platforms = platforms.unix;
     }
-    // meta_
-  ;
+    // meta_;
 }

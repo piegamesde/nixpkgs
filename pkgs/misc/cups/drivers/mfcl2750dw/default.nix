@@ -96,8 +96,7 @@ stdenv.mkDerivation rec {
         $out/share/cups/model/
 
       runHook postInstall
-    ''
-  ;
+    '';
 
   meta = with lib; {
     homepage = "http://www.brother.com/";

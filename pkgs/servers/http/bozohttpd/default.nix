@@ -60,8 +60,7 @@ stdenv.mkDerivation rec {
     ++ optional (!luaSupport) "-DNO_LUA_SUPPORT"
     ++ optional (!sslSupport) "-DNO_SSL_SUPPORT"
     ++ optional (!cgiSupport) "-DNO_CGIBIN_SUPPORT"
-    ++ optional (htpasswdSupport) "-DDO_HTPASSWD"
-  ;
+    ++ optional (htpasswdSupport) "-DDO_HTPASSWD";
 
   _LDADD =
     [ "-lm" ]
@@ -70,8 +69,7 @@ stdenv.mkDerivation rec {
     ++ optionals (sslSupport) [
       "-lssl"
       "-lcrypto"
-    ]
-  ;
+    ];
   makeFlags = [ "LDADD=$(_LDADD)" ];
 
   doCheck = true;

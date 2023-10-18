@@ -16,7 +16,6 @@ in
             echo "wrong output: expected $expected, got $got"
             exit 1
           fi
-        ''
-      ;
+        '';
     }
   )

@@ -56,8 +56,7 @@ stdenv.mkDerivation rec {
     ++
       lib.optional ((stdenv.buildPlatform != stdenv.hostPlatform) || secureMemory)
         "-DJSONCPP_WITH_TESTS=OFF"
-    ++ lib.optional (!enableStatic) "-DBUILD_STATIC_LIBS=OFF"
-  ;
+    ++ lib.optional (!enableStatic) "-DBUILD_STATIC_LIBS=OFF";
 
   # this is fixed and no longer necessary in 1.9.5 but there they use
   # memset_s without switching to a different c++ standard in the cmake files

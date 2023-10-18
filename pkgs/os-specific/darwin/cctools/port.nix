@@ -58,8 +58,7 @@ stdenv.mkDerivation {
   buildInputs =
     [ libuuid ]
     ++ lib.optionals stdenv.isDarwin [ libobjc ]
-    ++ lib.optional enableTapiSupport libtapi
-  ;
+    ++ lib.optional enableTapiSupport libtapi;
 
   patches = [
     ./ld-ignore-rpath-link.patch
@@ -114,8 +113,7 @@ stdenv.mkDerivation {
       sed -i -e 's/which/type -P/' tools/*.sh
 
       cd cctools
-    ''
-  ;
+    '';
 
   preInstall = ''
     installManPage ar/ar.{1,5}

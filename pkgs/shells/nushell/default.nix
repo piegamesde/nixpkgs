@@ -43,8 +43,7 @@ rustPlatform.buildRustPackage (
     nativeBuildInputs =
       [ pkg-config ]
       ++ lib.optionals (withDefaultFeatures && stdenv.isLinux) [ python3 ]
-      ++ lib.optionals stdenv.isDarwin [ rustPlatform.bindgenHook ]
-    ;
+      ++ lib.optionals stdenv.isDarwin [ rustPlatform.bindgenHook ];
 
     buildInputs =
       [
@@ -62,8 +61,7 @@ rustPlatform.buildRustPackage (
         AppKit
         nghttp2
         libgit2
-      ]
-    ;
+      ];
 
     buildFeatures = additionalFeatures [
       (lib.optional withDefaultFeatures "default")

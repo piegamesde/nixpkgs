@@ -118,8 +118,7 @@ stdenv.mkDerivation (rec {
                (placeholder "out")
              ]
            }"
-    ''
-  ;
+    '';
 
   # Stripping breaks linking for ponyc
   dontStrip = true;

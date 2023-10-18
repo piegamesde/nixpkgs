@@ -12,8 +12,7 @@
       "crate2nix: Passing `buildRustCrate` as argument to Cargo.nix is deprecated. If you don't customize `buildRustCrate`, replace `callPackage ./Cargo.nix {}` by `import ./Cargo.nix { inherit pkgs; }`, and if you need to customize `buildRustCrate`, use `buildRustCrateForPkgs` instead."
       (_: buildRustCrate)
   else
-    pkgs: pkgs.buildRustCrate
-  ,
+    pkgs: pkgs.buildRustCrate,
   # Deprecated
   buildRustCrate ? null,
   # This is used as the `crateOverrides` argument for `buildRustCrate`.
@@ -30,8 +29,7 @@
   crateConfig ? if builtins.pathExists ./crate-config.nix then
     pkgs.callPackage ./crate-config.nix { }
   else
-    { }
-  ,
+    { },
 }:
 
 rec {
@@ -4163,8 +4161,7 @@ rec {
         if stdenv.hostPlatform.isDarwin then
           "macos"
         else
-          stdenv.hostPlatform.parsed.kernel.name
-      ;
+          stdenv.hostPlatform.parsed.kernel.name;
       arch = stdenv.hostPlatform.parsed.cpu.name;
       family = "unix";
       env = "gnu";
@@ -4172,8 +4169,7 @@ rec {
         if stdenv.hostPlatform.parsed.cpu.significantByte.name == "littleEndian" then
           "little"
         else
-          "big"
-      ;
+          "big";
       pointer_width = toString stdenv.hostPlatform.parsed.cpu.bits;
       vendor = stdenv.hostPlatform.parsed.vendor.name;
       debug_assertions = false;
@@ -4350,8 +4346,7 @@ rec {
                     (buildRustCrateForPkgs pkgs).override {
                       defaultCrateOverrides = crateOverrides;
                     }
-                )
-            ;
+                );
             builtRustCrates = builtRustCratesWithFeatures {
               inherit packageId features;
               buildRustCrateForPkgsFunc = buildRustCrateForPkgsFuncOverriden;
@@ -4377,8 +4372,7 @@ rec {
                   ;
                 }
               else
-                drv
-            ;
+                drv;
           in
           derivation
         )
@@ -4455,8 +4449,7 @@ rec {
                 if crateConfigs.${depPackageId}.procMacro or false then
                   self.build.crates.${depPackageId}
                 else
-                  self.crates.${depPackageId}
-              ;
+                  self.crates.${depPackageId};
               dependencies = (crateConfig.dependencies or [ ]) ++ devDependencies;
             };
             buildDependencies = dependencyDerivations {
@@ -4556,8 +4549,7 @@ rec {
       else if builtins.isFunction val then
         "function"
       else
-        val
-    ;
+        val;
 
     # Returns various tools to debug a crate.
     debugCrate =
@@ -4858,8 +4850,7 @@ rec {
       if strictDeprecation then
         builtins.throw "strictDeprecation enabled, aborting: ${message}"
       else
-        builtins.trace message value
-    ;
+        builtins.trace message value;
 
     #
     # crate2nix/default.nix (excerpt end)

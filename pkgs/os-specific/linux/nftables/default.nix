@@ -62,8 +62,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional (!withDebugSymbols) "--disable-debug"
     ++ lib.optional (!withPython) "--disable-python"
     ++ lib.optional withPython "--enable-python"
-    ++ lib.optional withXtables "--with-xtables"
-  ;
+    ++ lib.optional withXtables "--with-xtables";
 
   meta = with lib; {
     description = "The project that aims to replace the existing {ip,ip6,arp,eb}tables framework";

@@ -22,6 +22,5 @@ buildNimPackage rec {
       description = "Tool to translate Ansi C code to Nim";
       license = licenses.mit;
       maintainers = [ maintainers.ehmry ];
-    }
-  ;
+    };
 }

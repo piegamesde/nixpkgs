@@ -113,8 +113,7 @@ stdenv.mkDerivation rec {
         substituteInPlace coregrind/link_tool_exe_darwin.in \
           --replace /usr/bin/ld ${cctools}/bin/ld
       ''
-    )
-  ;
+    );
 
   configureFlags =
     lib.optional stdenv.hostPlatform.isx86_64 "--enable-only64bit"

@@ -16,8 +16,7 @@ let
     }
     // {
       overrideAttrs = f: mkTmuxPlugin (attrs // f attrs);
-    }
-  ;
+    };
 
   mkTmuxPlugin =
     a@{
@@ -67,8 +66,7 @@ let
             '';
           }
         )
-      )
-  ;
+      );
 in
 rec {
   inherit mkTmuxPlugin;

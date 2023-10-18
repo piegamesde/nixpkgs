@@ -50,8 +50,7 @@ mkDerivation {
       darwin.DarwinTools
       darwin.bootstrap_cmds
     ]
-    ++ lib.optionals (!stdenv.isDarwin) [ gnustep.make ]
-  ;
+    ++ lib.optionals (!stdenv.isDarwin) [ gnustep.make ];
 
   buildInputs =
     [
@@ -63,8 +62,7 @@ mkDerivation {
       gnustep.back
       gnustep.base
       gnustep.gui
-    ]
-  ;
+    ];
 
   preConfigure = ''
     mkdir -p build

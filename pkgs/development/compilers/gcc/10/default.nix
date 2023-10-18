@@ -110,8 +110,7 @@ let
             url = "https://raw.githubusercontent.com/richard-vd/musl-cross-make/5e9e87f06fc3220e102c29d3413fbbffa456fcd6/patches/gcc-${version}/0008-darwin-aarch64-self-host-driver.patch";
             sha256 = "sha256-XtykrPd5h/tsnjY1wGjzSOJ+AyyNLsfnjuOZ5Ryq9vA=";
           }
-        )
-  ;
+        );
 
   # Cross-gcc settings (build == host != target)
   crossMingw = targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt";
@@ -260,8 +259,7 @@ stdenv.mkDerivation (
            '-s' # workaround for hitting hydra log limit
            'LIMITS_H_TEST=false'
         )
-      ''
-    ;
+      '';
 
     inherit
       noSysDirs
@@ -285,8 +283,7 @@ stdenv.mkDerivation (
       (callFile ../common/pre-configure.nix { })
       + ''
         ln -sf ${libxcrypt}/include/crypt.h libsanitizer/sanitizer_common/crypt.h
-      ''
-    ;
+      '';
 
     dontDisableStatic = true;
 

@@ -55,8 +55,7 @@ let
     || (leaveDotGit == true)
     || deepClone
     || forceFetchGit
-    || !(sparseCheckout == "" || sparseCheckout == [ ])
-  ;
+    || !(sparseCheckout == "" || sparseCheckout == [ ]);
   # We prefer fetchzip in cases we don't need submodules as the hash
   # is more stable in that case.
   fetcher = if useFetchGit then fetchgit else fetchzip;
@@ -106,8 +105,7 @@ let
     // passthruAttrs
     // {
       inherit name;
-    }
-  ;
+    };
 in
 
 fetcher fetcherArgs

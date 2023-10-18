@@ -72,8 +72,7 @@ buildPythonPackage rec {
       timeout-decorator
     ]
     ++ passthru.optional-dependencies.json
-    ++ passthru.optional-dependencies.security
-  ;
+    ++ passthru.optional-dependencies.security;
 
   preCheck = ''
     export HOME=$(mktemp -d);

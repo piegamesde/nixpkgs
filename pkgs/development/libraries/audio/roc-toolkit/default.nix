@@ -52,8 +52,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional libunwindSupport libunwind
     ++ lib.optional pulseaudioSupport libpulseaudio
     ++ lib.optional opensslSupport openssl
-    ++ lib.optional soxSupport sox
-  ;
+    ++ lib.optional soxSupport sox;
 
   sconsFlags =
     [
@@ -73,8 +72,7 @@ stdenv.mkDerivation rec {
           "--with-libraries=${openfec}/lib"
           "--with-openfec-includes=${openfec.dev}/include"
         ]
-    )
-  ;
+    );
 
   meta = with lib; {
     description = "Roc is a toolkit for real-time audio streaming over the network";

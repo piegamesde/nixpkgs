@@ -191,8 +191,7 @@ in
                   if [ $(${pkgs.procps}/bin/sysctl -n vm.max_map_count) -lt 262144 ]; then
                     ${pkgs.procps}/bin/sysctl -w vm.max_map_count=262144
                   fi
-                '')
-              ;
+                '');
               startPreUnprivileged = ''
                 set -o errexit -o pipefail -o nounset -o errtrace
                 shopt -s inherit_errexit

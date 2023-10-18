@@ -114,8 +114,7 @@ stdenvNoLibs.mkDerivation rec {
       export CC_FOR_TARGET=${stdenvNoLibs.cc}/bin/$CC_FOR_TARGET
       export CPP_FOR_TARGET=${stdenvNoLibs.cc}/bin/$CPP_FOR_TARGET
       export LD_FOR_TARGET=${stdenvNoLibs.cc.bintools}/bin/$LD_FOR_TARGET
-    ''
-  ;
+    '';
 
   gccConfigureFlags =
     [

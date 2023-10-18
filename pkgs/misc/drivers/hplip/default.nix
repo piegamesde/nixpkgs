@@ -73,8 +73,7 @@ in
 assert withPlugin
   ->
     builtins.elem hplipArch pluginArches
-    || throw "HPLIP plugin not supported on ${stdenv.hostPlatform.system}"
-;
+    || throw "HPLIP plugin not supported on ${stdenv.hostPlatform.system}";
 
 python3Packages.buildPythonApplication {
   inherit pname version src;
@@ -117,8 +116,7 @@ python3Packages.buildPythonApplication {
       pyqt5
       pyqt5_sip
       enum-compat
-    ]
-  ;
+    ];
 
   makeWrapperArgs = [
     "--prefix"
@@ -191,8 +189,7 @@ python3Packages.buildPythonApplication {
       "--disable-imageProcessor-build"
     ]
     ++ lib.optional withStaticPPDInstall "--enable-cups-ppd-install"
-    ++ lib.optional withQt5 "--enable-qt5"
-  ;
+    ++ lib.optional withQt5 "--enable-qt5";
 
   # Prevent 'ppdc: Unable to find include file "<font.defs>"' which prevent
   # generation of '*.ppd' files.
@@ -273,8 +270,7 @@ python3Packages.buildPythonApplication {
 
       mkdir -p $out/var/lib/hp
       cp ${hplipState} $out/var/lib/hp/hplip.state
-    ''
-  ;
+    '';
 
   # The installed executables are just symlinks into $out/share/hplip,
   # but wrapPythonPrograms ignores symlinks. We cannot replace the Python
@@ -316,8 +312,7 @@ python3Packages.buildPythonApplication {
       for f in $out/bin/hp-*;do
         wrapQtApp $f
       done
-    ''
-  ;
+    '';
 
   # There are some binaries there, which reference gcc-unwrapped otherwise.
   stripDebugList = [
@@ -340,8 +335,7 @@ python3Packages.buildPythonApplication {
           mit
           bsd2
           gpl2Plus
-        ]
-    ;
+        ];
     platforms = [
       "i686-linux"
       "x86_64-linux"

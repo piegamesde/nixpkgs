@@ -46,8 +46,7 @@ stdenv.mkDerivation rec {
       substituteInPlace t/200-shell/nonshelltest.do \
         --replace "/usr/bin/env perl" "${perl}/bin/perl"
 
-    ''
-  ;
+    '';
 
   inherit doCheck;
 

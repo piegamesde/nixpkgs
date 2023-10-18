@@ -45,8 +45,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString stdenv.isDarwin ''
       ln -s /bin/stty $out/libexec/nix-top
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "Tracks what nix is building";

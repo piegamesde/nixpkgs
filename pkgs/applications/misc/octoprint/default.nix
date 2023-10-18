@@ -176,8 +176,7 @@ let
               zeroconf
               zipstream-ng
             ]
-            ++ lib.optionals stdenv.isDarwin [ py.pkgs.appdirs ]
-          ;
+            ++ lib.optionals stdenv.isDarwin [ py.pkgs.appdirs ];
 
           nativeCheckInputs = with self; [
             ddt

@@ -81,6 +81,5 @@ stdenvNoCC.mkDerivation {
             lib.boolToString t.expected
           } ]] && echo '${t.name} success') || (echo '${t.name} fail' && exit 1)"
         )
-        tests
-  ;
+        tests;
 }

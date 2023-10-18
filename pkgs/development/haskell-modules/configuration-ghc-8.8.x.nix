@@ -42,8 +42,7 @@ self: super: {
     if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform then
       null
     else
-      self.terminfo_0_4_1_6
-  ;
+      self.terminfo_0_4_1_6;
   text = null;
   time = null;
   transformers = null;

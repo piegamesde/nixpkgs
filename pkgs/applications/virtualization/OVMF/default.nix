@@ -26,8 +26,7 @@ let
     else if stdenv.hostPlatform.isAarch then
       "ArmVirtPkg/ArmVirtQemu.dsc"
     else
-      throw "Unsupported architecture"
-  ;
+      throw "Unsupported architecture";
 
   version = lib.getVersion edk2;
 
@@ -81,8 +80,7 @@ edk2.mkDerivation projectDscPath (
         "-D TPM_ENABLE"
         "-D TPM2_ENABLE"
         "-D TPM2_CONFIG_ENABLE"
-      ]
-    ;
+      ];
 
     env.NIX_CFLAGS_COMPILE =
       lib.optionalString stdenv.cc.isClang
@@ -114,8 +112,7 @@ edk2.mkDerivation projectDscPath (
         ''
           mkdir -vp $fd/FV
           mv -v $out/FV/OVMF{,_CODE,_VARS}.fd $fd/FV
-        ''
-    ;
+        '';
 
     dontPatchELF = true;
 

@@ -34,8 +34,7 @@ stdenv.mkDerivation rec {
         IOKit
         iconv
       ]
-    )
-  ;
+    );
 
   hardeningDisable = [ "format" ];
   env.NIX_CFLAGS_COMPILE =

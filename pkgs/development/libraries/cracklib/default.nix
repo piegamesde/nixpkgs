@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
     ''
     + ''
       ln -vs ${toString wordlists} dicts/
-    ''
-  ;
+    '';
 
   postInstall = ''
     make dict-local

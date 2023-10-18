@@ -48,8 +48,7 @@ let
             maturinBuildHook
           ]
         )
-        ++ extraNativeBuildInputs
-      ;
+        ++ extraNativeBuildInputs;
 
       postPatch = ''
         # Workaround for metadata, that maturin 0.14 does not accept in Cargo.toml anymore

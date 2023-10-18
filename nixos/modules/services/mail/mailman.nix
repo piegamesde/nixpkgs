@@ -470,8 +470,7 @@ in
           ]
           "postfix_lmtp"
         )
-      ])
-    ;
+      ]);
 
     users.users.mailman = {
       description = "GNU Mailman";
@@ -596,8 +595,7 @@ in
           after =
             [ "network.target" ]
             ++ lib.optional cfg.enablePostfix "postfix-setup.service"
-            ++ lib.optional withPostgresql "postgresql.service"
-          ;
+            ++ lib.optional withPostgresql "postgresql.service";
           restartTriggers = [ mailmanCfgFile ];
           requires = optional withPostgresql "postgresql.service";
           wantedBy = [ "multi-user.target" ];

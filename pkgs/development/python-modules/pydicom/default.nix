@@ -69,8 +69,7 @@ buildPythonPackage {
         [
           # flaky, hard to reproduce failure outside hydra
           "test_time_check"
-        ]
-  ;
+        ];
 
   pythonImportsCheck = [ "pydicom" ];
 

@@ -21,8 +21,7 @@ stdenv.mkDerivation rec {
   buildInputs =
     lib.optionals stdenv.isDarwin [ Carbon ]
     ++ lib.optionals withJpegSupport [ libjpeg ]
-    ++ lib.optionals withPngSupport [ libpng ]
-  ;
+    ++ lib.optionals withPngSupport [ libpng ];
   preBuild =
     ''
       cd unix
@@ -34,8 +33,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString withPngSupport ''
       export USEPNG=" -DUSEPNG"
       export PNGLIB=" -lpng -lz"
-    ''
-  ;
+    '';
   arch =
     if stdenv.hostPlatform.system == "x86_64-linux" then
       "linux-64-thr"
@@ -60,8 +58,7 @@ stdenv.mkDerivation rec {
     else if stdenv.hostPlatform.system == "x686-freebsd" then
       "bsd"
     else
-      throw "Don't know what arch to select for tachyon build"
-  ;
+      throw "Don't know what arch to select for tachyon build";
   makeFlags = [ arch ];
 
   patches = [

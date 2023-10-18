@@ -22,8 +22,7 @@ let
         log.dirs=${concatStringsSep "," cfg.logDirs}
         zookeeper.connect=${cfg.zookeeper}
         ${toString cfg.extraProperties}
-      ''
-  ;
+      '';
 
   serverConfig = pkgs.writeText "server.properties" serverProperties;
   logConfig = pkgs.writeText "log4j.properties" cfg.log4jProperties;

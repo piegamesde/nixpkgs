@@ -35,8 +35,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals stdenv.isDarwin [ hidapi ]
     ++ lib.optionals stdenv.isLinux [ udev ]
-    ++ lib.optionals (stdenv.isLinux && withPcsclite) [ pcsclite ]
-  ;
+    ++ lib.optionals (stdenv.isLinux && withPcsclite) [ pcsclite ];
 
   propagatedBuildInputs = [ openssl ];
 
@@ -53,8 +52,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals stdenv.isDarwin [ "-DUSE_HIDAPI=1" ]
     ++ lib.optionals stdenv.isLinux [ "-DNFC_LINUX=1" ]
-    ++ lib.optionals (stdenv.isLinux && withPcsclite) [ "-DUSE_PCSC=1" ]
-  ;
+    ++ lib.optionals (stdenv.isLinux && withPcsclite) [ "-DUSE_PCSC=1" ];
 
   meta = with lib; {
     description = ''

@@ -72,8 +72,7 @@ in
         if cfg.configFile == null then
           config.virtualisation.digitalOcean.defaultConfigFile
         else
-          cfg.configFile
-      ;
+          cfg.configFile;
       inherit (cfg) diskSize;
       inherit config lib pkgs;
     };

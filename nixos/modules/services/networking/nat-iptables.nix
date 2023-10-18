@@ -19,8 +19,7 @@ let
     if externalIP == null then
       "-j MASQUERADE"
     else
-      "-j SNAT --to-source ${externalIP}"
-  ;
+      "-j SNAT --to-source ${externalIP}";
   dest = mkDest cfg.externalIP;
   destIPv6 = mkDest cfg.externalIPv6;
 
@@ -100,8 +99,7 @@ let
                   if m == null then
                     throw "bad ip:ports `${fwd.destination}'"
                   else
-                    builtins.replaceStrings [ "-" ] [ ":" ] (elemAt m 1)
-                ;
+                    builtins.replaceStrings [ "-" ] [ ":" ] (elemAt m 1);
               in
               ''
                 # Allow connections to ${loopbackip}:${

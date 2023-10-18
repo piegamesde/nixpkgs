@@ -26,8 +26,7 @@ let
         hash
       ;
     }
-    // args
-  ;
+    // args;
   fetchFromGitLab =
     args@{
       domain,
@@ -46,8 +45,7 @@ let
         hash
       ;
     }
-    // args
-  ;
+    // args;
 
   updateScriptPreamble = ''
     set -eou pipefail

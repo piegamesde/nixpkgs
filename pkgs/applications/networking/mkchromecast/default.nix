@@ -85,8 +85,7 @@ python3Packages.buildPythonApplication rec {
       install -Dm 755 -t $out/bin bin/audiodevice
       substituteInPlace $out/lib/${python3Packages.python.libPrefix}/site-packages/mkchromecast/audio_devices.py \
         --replace './bin/audiodevice' '${placeholder "out"}/bin/audiodevice'
-    ''
-  ;
+    '';
 
   meta = with lib; {
     homepage = "https://mkchromecast.com/";

@@ -149,8 +149,7 @@ in
               paths are copied into the world-readable Nix store.
           ''
         else
-          value
-      ;
+          value;
     in
     {
       enable = mkOption {
@@ -503,8 +502,7 @@ in
         && elem cfg.database.type [
           "mysql"
           "mariadb"
-        ]
-      ;
+        ];
 
       mySqlCaKeystore = pkgs.runCommand "mysql-ca-keystore" { } ''
         ${pkgs.jre}/bin/keytool -importcert -trustcacerts -alias MySQLCACert -file ${cfg.database.caCert} -keystore $out -storepass notsosecretpassword -noprompt
@@ -558,8 +556,7 @@ in
             else if isSecret v then
               hashString "sha256" v._secret
             else
-              throw "unsupported type ${typeOf v}: ${(lib.generators.toPretty { }) v}"
-          ;
+              throw "unsupported type ${typeOf v}: ${(lib.generators.toPretty { }) v}";
         };
       };
 
@@ -585,15 +582,13 @@ in
         {
           assertion =
             (cfg.database.useSSL && cfg.database.type == "postgresql")
-            -> (cfg.database.caCert != null)
-          ;
+            -> (cfg.database.caCert != null);
           message = "A CA certificate must be specified (in 'services.keycloak.database.caCert') when PostgreSQL is used with SSL";
         }
         {
           assertion =
             createLocalPostgreSQL
-            -> config.services.postgresql.settings.standard_conforming_strings or true
-          ;
+            -> config.services.postgresql.settings.standard_conforming_strings or true;
           message = "Setting up a local PostgreSQL db for Keycloak requires `standard_conforming_strings` turned on to work reliably";
         }
       ];
@@ -721,8 +716,7 @@ in
                 "mysql.service"
               ]
             else
-              [ ]
-          ;
+              [ ];
           secretPaths = catAttrs "_secret" (collect isSecret cfg.settings);
           mkSecretReplacement = file: ''
             replace-secret ${hashString "sha256" file} $CREDENTIALS_DIRECTORY/${
@@ -788,8 +782,7 @@ in
               export KEYCLOAK_ADMIN=admin
               export KEYCLOAK_ADMIN_PASSWORD=${escapeShellArg cfg.initialAdminPassword}
               kc.sh start --optimized
-            ''
-          ;
+            '';
         };
 
       services.postgresql.enable = mkDefault createLocalPostgreSQL;

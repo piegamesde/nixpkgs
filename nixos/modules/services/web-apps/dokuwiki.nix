@@ -44,8 +44,7 @@ let
       useacl = false; # Dokuwiki default
       savedir = cfg.stateDir;
     }
-    // cfg.settings
-  ;
+    // cfg.settings;
 
   writePhpFile =
     name: text:
@@ -79,8 +78,7 @@ let
       abort
         "The dokuwiki localConf value ${
           lib.generators.toPretty { } v
-        } can not be encoded."
-  ;
+        } can not be encoded.";
 
   mkPhpAttrVals = v: flatten (mapAttrsToList mkPhpKeyVal v);
   mkPhpKeyVal =
@@ -90,8 +88,7 @@ let
         if (isAttrs v && (hasAttr "_file" v || hasAttr "_raw" v)) || !isAttrs v then
           [ " = ${mkPhpValue v};" ]
         else
-          mkPhpAttrVals v
-      ;
+          mkPhpAttrVals v;
     in
     map (e: "[${escapeShellArg k}]${e}") (flatten values);
 
@@ -132,8 +129,7 @@ let
         if cfg.settings.useacl && cfg.acl != null then
           dokuwikiAclAuthConfig hostName cfg
         else
-          null
-      ;
+          null;
     };
 
   aclOpts =
@@ -364,8 +360,7 @@ let
             if (config.mergedConfig.useacl && config.acl == null) then
               "/var/lib/dokuwiki/${name}/acl.auth.php"
             else
-              null
-          ;
+              null;
           description = lib.mdDoc ''
             Location of the dokuwiki acl rules. Mutually exclusive with services.dokuwiki.acl
             Mutually exclusive with services.dokuwiki.acl which is preferred.
@@ -394,8 +389,7 @@ let
             if config.mergedConfig.useacl then
               "/var/lib/dokuwiki/${name}/users.auth.php"
             else
-              null
-          ;
+              null;
           description = lib.mdDoc ''
             Location of the dokuwiki users file. List of users. Format:
 
@@ -633,8 +627,7 @@ in
                       if (cfg.acl != null) then
                         "${dokuwikiAclAuthConfig hostName cfg}"
                       else
-                        "${toString cfg.aclFile}"
-                    ;
+                        "${toString cfg.aclFile}";
                   };
 
                 settings = {

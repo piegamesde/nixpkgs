@@ -45,8 +45,7 @@ stdenv.mkDerivation rec {
         sha256 = "0115pxdzdyma2vicxgr0j21pp82gxdyrlj090s8ihp0b50f0nlll";
       }
     else
-      null
-  ;
+      null;
 
   sourceRoot = "source";
 

@@ -29,8 +29,7 @@ let
     // {
       spirv-llvm-translator = spirv-llvm-translator.override { llvm = llvm; };
     }
-    // lib.optionalAttrs buildWithPatches opencl-clang
-  ;
+    // lib.optionalAttrs buildWithPatches opencl-clang;
 
   inherit (llvmPackages_11) lld llvm;
   inherit (llvmPkgs) clang libclang spirv-llvm-translator;

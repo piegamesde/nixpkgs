@@ -346,8 +346,7 @@ in
               AUTHELIA_IDENTITY_PROVIDERS_OIDC_HMAC_SECRET_FILE =
                 instance.secrets.oidcHmacSecretFile;
             })
-            // instance.environmentVariables
-          ;
+            // instance.environmentVariables;
 
           preStart = "${execCommand} ${configArg} validate-config";
           serviceConfig = {
@@ -428,8 +427,7 @@ in
                 || (
                   instance.secrets.jwtSecretFile != null
                   && instance.secrets.storageEncryptionKeyFile != null
-                )
-              ;
+                );
               message = ''
                 Authelia requires a JWT Secret and a Storage Encryption Key to work.
                 Either set them like so:

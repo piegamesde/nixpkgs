@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
       [
         libX11
         libXext
-      ]
-  ;
+      ];
 
   buildFlags = [
     "all"
@@ -36,8 +35,7 @@ stdenv.mkDerivation rec {
   makeFlags =
     [ "PREFIX=$(out)" ]
     # work around https://github.com/NixOS/nixpkgs/issues/19098
-    ++ lib.optional (stdenv.cc.isClang && stdenv.isDarwin) "CFLAGS=-fno-lto"
-  ;
+    ++ lib.optional (stdenv.cc.isClang && stdenv.isDarwin) "CFLAGS=-fno-lto";
 
   meta = with lib; {
     homepage = "https://github.com/LekKit/RVVM";

@@ -49,8 +49,7 @@ let
             if hostOpts.useACMEHost != null then
               hostOpts.useACMEHost
             else
-              hostOpts.hostName
-          ;
+              hostOpts.hostName;
         }
       )
       (filter (hostOpts: hostOpts.enableACME || hostOpts.useACMEHost != null) vhosts);
@@ -81,8 +80,7 @@ let
             ssl = false;
           })
           hostOpts.listenAddresses
-      )
-  ;
+      );
 
   listenInfo = unique (concatMap mkListenInfo vhosts);
 
@@ -124,8 +122,7 @@ let
       name = "perl";
       path = "${mod_perl}/modules/mod_perl.so";
     }
-    ++ cfg.extraModules
-  ;
+    ++ cfg.extraModules;
 
   loggingConf =
     (
@@ -216,8 +213,7 @@ let
         else if hostOpts.useACMEHost != null then
           certs.${hostOpts.useACMEHost}.directory
         else
-          abort "This case should never happen."
-      ;
+          abort "This case should never happen.";
 
       sslServerCert =
         if useACME then "${sslCertDir}/fullchain.pem" else hostOpts.sslServerCert;
@@ -293,8 +289,7 @@ let
           ${acmeChallenge}
           ${mkVHostCommonConf hostOpts}
       </VirtualHost>
-    ''
-  ;
+    '';
 
   mkVHostCommonConf =
     hostOpts:
@@ -303,8 +298,7 @@ let
         if hostOpts.documentRoot != null then
           hostOpts.documentRoot
         else
-          pkgs.emptyDirectory
-      ;
+          pkgs.emptyDirectory;
 
       mkLocations =
         locations:
@@ -437,8 +431,7 @@ let
         else if isAttrs module then
           { inherit (module) name path; }
         else
-          throw "Expecting either a string or attribute set including a name and path."
-      ;
+          throw "Expecting either a string or attribute set including a name and path.";
     in
     concatMapStringsSep "\n"
       (module: "LoadModule ${module.name}_module ${module.path}")
@@ -1017,8 +1010,7 @@ in
 
         ; Apparently PHP doesn't use $TZ.
         date.timezone = "${config.time.timeZone}"
-      ''
-    ;
+      '';
 
     services.httpd.extraModules = mkBefore [
       # HTTP authentication mechanisms: basic and digest.

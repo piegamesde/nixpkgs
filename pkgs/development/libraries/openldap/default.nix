@@ -70,8 +70,7 @@ stdenv.mkDerivation rec {
       "--with-yielding_select=yes"
       "ac_cv_func_memcmp_working=yes"
     ]
-    ++ lib.optional stdenv.isFreeBSD "--with-pic"
-  ;
+    ++ lib.optional stdenv.isFreeBSD "--with-pic";
 
   env.NIX_CFLAGS_COMPILE = toString [ ''-DLDAPI_SOCK="/run/openldap/ldapi"'' ];
 

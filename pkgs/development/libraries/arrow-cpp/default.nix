@@ -46,8 +46,7 @@
   enableS3 ? (!stdenv.isDarwin)
     || (
       lib.versionOlder boost.version "1.69" || lib.versionAtLeast boost.version "1.70"
-    )
-  ,
+    ),
   enableGcs ? (!stdenv.isDarwin) && (lib.versionAtLeast grpc.cxxStandard "17") # google-cloud-cpp is not supported on darwin, needs to support C++17
   ,
 }:
@@ -180,8 +179,7 @@ stdenv.mkDerivation rec {
       google-cloud-cpp
       grpc
       nlohmann_json
-    ]
-  ;
+    ];
 
   preConfigure = ''
     patchShebangs build-support/
@@ -237,8 +235,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (!stdenv.isx86_64) [ "-DARROW_USE_SIMD=OFF" ]
     ++ lib.optionals enableS3 [
       "-DAWSSDK_CORE_HEADER_FILE=${aws-sdk-cpp-arrow}/include/aws/core/Aws.h"
-    ]
-  ;
+    ];
 
   doInstallCheck = true;
   ARROW_TEST_DATA = lib.optionalString doInstallCheck "${arrow-testing}/data";
@@ -269,8 +266,7 @@ stdenv.mkDerivation rec {
               # is available, see
               # https://github.com/apache/arrow/pull/15288#discussion_r1071244661
               "ExecPlanExecution.StressSourceSinkStopped"
-            ]
-      ;
+            ];
     in
     lib.optionalString doInstallCheck "-${lib.concatStringsSep ":" filteredTests}";
 

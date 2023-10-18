@@ -75,8 +75,7 @@ stdenv.mkDerivation rec {
       "-DLIBCXX_ENABLE_FILESYSTEM=OFF"
       "-DLIBCXX_ENABLE_EXCEPTIONS=OFF"
     ]
-    ++ lib.optional (!enableShared) "-DLIBCXX_ENABLE_SHARED=OFF"
-  ;
+    ++ lib.optional (!enableShared) "-DLIBCXX_ENABLE_SHARED=OFF";
 
   buildFlags = lib.optional headersOnly "generate-cxx-headers";
   installTargets = lib.optional headersOnly "install-cxx-headers";

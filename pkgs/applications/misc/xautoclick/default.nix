@@ -47,8 +47,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals qtSupport [
       qt5.qtbase
       qt5.wrapQtAppsHook
-    ]
-  ;
+    ];
 
   meta = with lib; {
     description = "Autoclicker application, which enables you to automatically click the left mousebutton";

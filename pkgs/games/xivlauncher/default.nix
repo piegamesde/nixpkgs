@@ -73,8 +73,7 @@ buildDotnetModule rec {
       # the reference to aria2 gets mangled as UTF-16LE and isn't detectable by nix: https://github.com/NixOS/nixpkgs/issues/220065
       mkdir -p $out/nix-support
       echo ${aria2} >> $out/nix-support/depends
-    ''
-  ;
+    '';
 
   executables = [ "XIVLauncher.Core" ];
 

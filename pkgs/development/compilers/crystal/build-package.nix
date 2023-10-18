@@ -52,8 +52,7 @@ let
           if (builtins.hasAttr "url" value) then
             fetchgit value
           else
-            fetchFromGitHub value
-        ;
+            fetchFromGitHub value;
       })
       (import shardsFile)
   );
@@ -110,8 +109,7 @@ stdenv.mkDerivation (
     buildInputs =
       args.buildInputs or [ ]
       ++ [ crystal ]
-      ++ lib.optional (lib.versionAtLeast crystal.version "1.8") pcre2
-    ;
+      ++ lib.optional (lib.versionAtLeast crystal.version "1.8") pcre2;
 
     nativeBuildInputs =
       args.nativeBuildInputs or [ ]
@@ -123,8 +121,7 @@ stdenv.mkDerivation (
         pkg-config
         which
       ]
-      ++ lib.optional (format != "crystal") shards
-    ;
+      ++ lib.optional (format != "crystal") shards;
 
     buildPhase =
       args.buildPhase or (lib.concatStringsSep "\n" (

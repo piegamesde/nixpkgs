@@ -23,8 +23,7 @@ let
       (c.verifyHostname or null) == null || (c.verifyChain || c.verifyPeer);
     message =
       ''stunnel: "${n}" client configuration - hostname verification ''
-      + "is not possible without either verifyChain or verifyPeer enabled"
-    ;
+      + "is not possible without either verifyChain or verifyPeer enabled";
   };
 
   removeNulls = mapAttrs (_: filterAttrs (_: v: v != null));
@@ -35,8 +34,7 @@ let
     else if v == false then
       "no"
     else
-      generators.mkValueStringDefault { } v
-  ;
+      generators.mkValueStringDefault { } v;
   generateConfig =
     c:
     generators.toINI
@@ -160,8 +158,7 @@ in
                 OCSPaia = true;
                 verifyChain = true;
               }
-              // c
-            ;
+              // c;
             setCheckHostFromVerifyHostname =
               c:
               # To preserve backward-compatibility with the old NixOS stunnel module
@@ -170,8 +167,7 @@ in
               // {
                 checkHost = c.checkHost or c.verifyHostname or null;
                 verifyHostname = null; # Not a real stunnel configuration setting
-              }
-            ;
+              };
             forceClient = c: c // { client = true; };
           in
           mapAttrs (_: c: forceClient (setCheckHostFromVerifyHostname (applyDefaults c)));
@@ -196,8 +192,7 @@ in
       (singleton {
         assertion =
           (length (attrValues cfg.servers) != 0)
-          || ((length (attrValues cfg.clients)) != 0)
-        ;
+          || ((length (attrValues cfg.clients)) != 0);
         message = "stunnel: At least one server- or client-configuration has to be present.";
       })
 

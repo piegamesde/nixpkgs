@@ -68,8 +68,7 @@ stdenv.mkDerivation rec {
               else if p.pluginType == "report" then
                 "admin/report"
               else
-                throw "unknown moodle plugin type"
-            ;
+                throw "unknown moodle plugin type";
           in
           # we have to copy it, because the plugins have refrences to .. inside
           ''

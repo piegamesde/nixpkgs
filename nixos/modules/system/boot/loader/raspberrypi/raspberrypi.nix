@@ -22,8 +22,7 @@ let
         toString cfg.uboot.configurationLimit
       } -t ${timeoutStr} -c"
     else
-      "${builderGeneric} -c"
-  ;
+      "${builderGeneric} -c";
 
   blCfg = config.boot.loader;
   timeoutStr = if blCfg.timeout == null then "-1" else toString blCfg.timeout;

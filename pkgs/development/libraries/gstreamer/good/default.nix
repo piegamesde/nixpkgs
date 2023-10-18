@@ -96,8 +96,7 @@ stdenv.mkDerivation rec {
         qttools
       ]
     )
-    ++ lib.optionals stdenv.isLinux [ wayland-protocols ]
-  ;
+    ++ lib.optionals stdenv.isLinux [ wayland-protocols ];
 
   buildInputs =
     [
@@ -158,8 +157,7 @@ stdenv.mkDerivation rec {
       libgudev
       wayland
     ]
-    ++ lib.optionals enableJack [ libjack2 ]
-  ;
+    ++ lib.optionals enableJack [ libjack2 ];
 
   mesonFlags =
     [
@@ -180,8 +178,7 @@ stdenv.mkDerivation rec {
       "-Dv4l2=disabled" # Linux-only
       "-Dximagesrc=disabled" # Linux-only
     ]
-    ++ lib.optionals (!raspiCameraSupport) [ "-Drpicamsrc=disabled" ]
-  ;
+    ++ lib.optionals (!raspiCameraSupport) [ "-Drpicamsrc=disabled" ];
 
   postPatch = ''
     patchShebangs \

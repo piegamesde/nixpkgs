@@ -124,8 +124,7 @@ in
         else if version == "8.14.0+0.14.0" || version == "8.15.0+0.15.0" then
           [ ./janestreet-0.15.patch ]
         else
-          [ ]
-      ;
+          [ ];
 
       propagatedBuildInputs =
         o.propagatedBuildInputs

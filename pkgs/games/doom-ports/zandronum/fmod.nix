@@ -51,8 +51,7 @@ stdenv.mkDerivation rec {
     ''
     + ''
       cp -r api/inc $out/include
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "Programming library and toolkit for the creation and playback of interactive audio";

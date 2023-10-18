@@ -94,8 +94,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals withConnPrometheus [ snappy ]
     ++ lib.optionals (withCloud || withConnPrometheus) [ protobuf ]
-    ++ lib.optionals withSsl [ openssl ]
-  ;
+    ++ lib.optionals withSsl [ openssl ];
 
   patches = [
     # required to prevent plugins from relying on /etc
@@ -143,8 +142,7 @@ stdenv.mkDerivation rec {
         mv $out/libexec/netdata/plugins.d/freeipmi.plugin \
            $out/libexec/netdata/plugins.d/freeipmi.plugin.org
       ''}
-    ''
-  ;
+    '';
 
   preConfigure = lib.optionalString (!stdenv.isDarwin) ''
     substituteInPlace collectors/python.d.plugin/python_modules/third_party/lm_sensors.py \
@@ -159,8 +157,7 @@ stdenv.mkDerivation rec {
       "--with-jemalloc=${jemalloc}"
     ]
     ++ lib.optionals (!withDBengine) [ "--disable-dbengine" ]
-    ++ lib.optionals (!withCloud) [ "--disable-cloud" ]
-  ;
+    ++ lib.optionals (!withCloud) [ "--disable-cloud" ];
 
   postFixup = ''
     wrapProgram $out/bin/netdata-claim.sh --prefix PATH : ${

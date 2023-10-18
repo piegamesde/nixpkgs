@@ -48,8 +48,7 @@ python3.pkgs.buildPythonApplication rec {
       wrapGAppsHook
       gobject-introspection
     ]
-    ++ lib.optionals withQT [ qt5.wrapQtAppsHook ]
-  ;
+    ++ lib.optionals withQT [ qt5.wrapQtAppsHook ];
 
   buildInputs = lib.optionals withGTK [
     glib
@@ -90,8 +89,7 @@ python3.pkgs.buildPythonApplication rec {
       mkDesktopItem "trackma-curses" "Trackma (ncurses)"
         "Trackma Updater (ncurses frontend)"
         true
-    )
-  ;
+    );
 
   postInstall = ''
     install -Dvm444 $src/trackma/data/icon.png $out/share/pixmaps/trackma.png
@@ -104,8 +102,7 @@ python3.pkgs.buildPythonApplication rec {
   postDist =
     lib.optional (!withQT) "rm $out/bin/trackma-qt"
     ++ lib.optional (!withGTK) "rm $out/bin/trackma-gtk"
-    ++ lib.optional (!withCurses) "rm $out/bin/trackma-curses"
-  ;
+    ++ lib.optional (!withCurses) "rm $out/bin/trackma-curses";
 
   passthru.updateScript = ./update.sh;
 

@@ -27,8 +27,7 @@ let
         if isMa1sd cfg.package then
           "${cfg.dataDir}/ma1sd.db"
         else
-          "${cfg.dataDir}/mxisd.db"
-      ;
+          "${cfg.dataDir}/mxisd.db";
     };
   } // optionalAttrs (server != { }) { inherit server; };
 
@@ -39,8 +38,7 @@ let
     if isMa1sd cfg.package then
       pkgs.writeText "ma1sd-config.yaml" (builtins.toJSON fullConfig)
     else
-      pkgs.writeText "mxisd-config.yaml" (builtins.toJSON fullConfig)
-  ;
+      pkgs.writeText "mxisd-config.yaml" (builtins.toJSON fullConfig);
 in
 {
   options = {

@@ -78,8 +78,7 @@ stdenv.mkDerivation (
       ''
       + lib.optionalString buildDocs ''
         patchShebangs subprojects/meson-docs/docs/genrefman.py
-      ''
-    ;
+      '';
 
     # tests try to access "~"
     postConfigure = ''

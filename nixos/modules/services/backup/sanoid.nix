@@ -24,8 +24,7 @@ let
     ))
     // {
       description = "dataset/template options";
-    }
-  ;
+    };
 
   commonOptions = {
     hourly = mkOption {
@@ -126,8 +125,7 @@ let
         if builtins.isList v then
           concatStringsSep "," v
         else
-          generators.mkValueStringDefault { } v
-      ;
+          generators.mkValueStringDefault { } v;
 
       mkKeyValue =
         k: v:
@@ -138,8 +136,7 @@ let
         else if k == "useTemplate" then
           ""
         else
-          generators.mkKeyValueDefault { inherit mkValueString; } "=" k v
-      ;
+          generators.mkKeyValueDefault { inherit mkValueString; } "=" k v;
     in
     generators.toINI { inherit mkKeyValue; } cfg.settings;
 in

@@ -48,8 +48,7 @@ let
         python = python3;
       }
     else
-      boost17x
-  ;
+      boost17x;
   defaultOptionals =
     [
       boost
@@ -59,8 +58,7 @@ let
     ++ lib.optional snappySupport snappy.dev
     ++ lib.optional zlibSupport zlib
     ++ lib.optional zstdSupport zstd
-    ++ lib.optional log4cxxSupport log4cxx
-  ;
+    ++ lib.optional log4cxxSupport log4cxx;
 in
 stdenv.mkDerivation rec {
   pname = "libpulsar";

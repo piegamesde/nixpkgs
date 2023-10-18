@@ -65,8 +65,7 @@ let
       "$out/lib/HaLVM-${ghc.version}"
     else
       "$out/lib/${ghc.targetPrefix}${ghc.haskellCompilerName}"
-      + lib.optionalString (ghc ? hadrian) "/lib"
-  ;
+      + lib.optionalString (ghc ? hadrian) "/lib";
   docDir = "$out/share/doc/ghc/html";
   packageCfgDir = "${libDir}/package.conf.d";
   paths = lib.concatLists (
@@ -98,8 +97,7 @@ else
     paths =
       paths
       ++ [ ghc ]
-      ++ lib.optionals installDocumentation [ (lib.getOutput "doc" ghc) ]
-    ;
+      ++ lib.optionals installDocumentation [ (lib.getOutput "doc" ghc) ];
     nativeBuildInputs = [ makeWrapper ];
     postBuild =
       ''
@@ -197,8 +195,7 @@ else
         ''}
         $out/bin/${ghcCommand}-pkg check
       ''
-      + postBuild
-    ;
+      + postBuild;
     preferLocalBuild = true;
     passthru = {
       inherit (ghc) version meta;

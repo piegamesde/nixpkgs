@@ -88,8 +88,7 @@ let
       {
         "ghc${headVersion}" = headSet;
       }
-    )
-  ;
+    );
 
   setsForFile =
     fileName:

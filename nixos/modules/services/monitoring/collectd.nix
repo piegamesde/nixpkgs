@@ -26,8 +26,7 @@ let
         cp ${unvalidated_conf} $out
       ''
     else
-      unvalidated_conf
-  ;
+      unvalidated_conf;
 
   package = if cfg.buildMinimalPackage then minimalPackage else cfg.package;
 

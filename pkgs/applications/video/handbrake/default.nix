@@ -192,8 +192,7 @@ let
         # Use the Nix-provided libxml2 instead of the system-provided one.
         substituteInPlace libhb/module.defs \
           --replace /usr/include/libxml2 ${libxml2.dev}/include/libxml2
-      ''
-    ;
+      '';
 
     nativeBuildInputs =
       [
@@ -263,8 +262,7 @@ let
       ]
       # NOTE: 2018-12-27: Handbrake supports nv-codec-headers for Linux only,
       # look at ./make/configure.py search "enable_nvenc"
-      ++ optional stdenv.isLinux nv-codec-headers
-    ;
+      ++ optional stdenv.isLinux nv-codec-headers;
 
     configureFlags =
       [
@@ -275,8 +273,7 @@ let
       ++ optional (!useGtk) "--disable-gtk"
       ++ optional useFdk "--enable-fdk-aac"
       ++ optional stdenv.isDarwin "--disable-xcode"
-      ++ optional stdenv.hostPlatform.isx86 "--harden"
-    ;
+      ++ optional stdenv.hostPlatform.isx86 "--harden";
 
     # NOTE: 2018-12-27: Check NixOS HandBrake test if changing
     NIX_LDFLAGS = [ "-lx265" ];
@@ -327,8 +324,7 @@ let
       platforms = with platforms; unix;
       broken =
         stdenv.isDarwin
-        && lib.versionOlder stdenv.hostPlatform.darwinMinVersion "10.13"
-      ;
+        && lib.versionOlder stdenv.hostPlatform.darwinMinVersion "10.13";
     };
   };
 in

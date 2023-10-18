@@ -99,16 +99,14 @@ let
         if extras == [ "*" ] then
           rawDeps
         else
-          rawRequiredDeps // lib.getAttrs desiredExtrasDeps rawDeps
-      ;
+          rawRequiredDeps // lib.getAttrs desiredExtrasDeps rawDeps;
       checkInputs' =
         getDeps (pyProject.tool.poetry."dev-dependencies" or { }) # <poetry-1.2.0
         # >=poetry-1.2.0 dependency groups
         ++ lib.flatten (
           map (g: getDeps (pyProject.tool.poetry.group.${g}.dependencies or { }))
             checkGroups
-        )
-      ;
+        );
     in
     {
       buildInputs = mkInput "buildInputs" (
@@ -254,8 +252,8 @@ lib.makeScope pkgs.newScope (
               if pkgMeta ? marker then
                 (evalPep508 pkgMeta.marker)
               else
-                true && isCompatible (poetryLib.getPythonVersion python) pkgMeta.python-versions
-            ;
+                true
+                && isCompatible (poetryLib.getPythonVersion python) pkgMeta.python-versions;
           in
           lib.partition supportsPythonVersion poetryLock.package;
         compatible = partitions.right;
@@ -316,8 +314,7 @@ lib.makeScope pkgs.newScope (
           // {
             # Create a dummy null package for the current project in case any dependencies depend on the root project (issue #307)
             ${pyProject.tool.poetry.name} = null;
-          }
-        ;
+          };
         overlays = builtins.map getFunctorFn (
           [
             # Remove Python packages aliases with non-normalized names to avoid issues with infinite recursion (issue #750).
@@ -433,8 +430,7 @@ lib.makeScope pkgs.newScope (
         poetryPackages =
           storePackages
           ++ lib.optional hasScripts scriptsPackage
-          ++ lib.optional hasEditable editablePackage
-        ;
+          ++ lib.optional hasEditable editablePackage;
         poetryLock = poetryLock;
         inherit pyProject;
       };
@@ -641,8 +637,7 @@ lib.makeScope pkgs.newScope (
                 inherit (py.meta) platforms;
                 license = getLicenseBySpdxId (pyProject.tool.poetry.license or "unknown");
               }
-              // meta
-            ;
+              // meta;
           }
         );
       in

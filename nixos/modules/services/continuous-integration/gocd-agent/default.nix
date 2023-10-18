@@ -200,8 +200,7 @@ in
           LOG_DIR = cfg.workDir;
           LOG_FILE = "${cfg.workDir}/go-agent-start.log";
         }
-        // cfg.environment
-      ;
+        // cfg.environment;
 
       path = cfg.packages;
 

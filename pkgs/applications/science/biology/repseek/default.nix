@@ -21,8 +21,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString stdenv.isLinux ''
       substituteInPlace Makefile --replace "MACHINE = MACOSX" "MACHINE = LINUX"
-    ''
-  ;
+    '';
 
   meta = {
     description = "Tool to retrieve approximate repeats from large DNA sequences";

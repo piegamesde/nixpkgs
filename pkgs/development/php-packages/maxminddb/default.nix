@@ -34,7 +34,6 @@ buildPecl {
         ajs124
         das_j
       ]
-      ++ teams.php.members
-    ;
+      ++ teams.php.members;
   };
 }

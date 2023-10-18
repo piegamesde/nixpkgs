@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
         wrapQtAppsHook
       ]
     )
-    ++ lib.optionals stdenv.isDarwin [ CoreServices ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ CoreServices ];
 
   cmakeFlags = [
     "-DICONV_INCLUDE_DIR=${libiconv}/include"

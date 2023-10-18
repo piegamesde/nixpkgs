@@ -33,8 +33,7 @@ stdenv.mkDerivation {
         # Sed needs a writable directory to do inplace modifications
         chmod u+rw "$out/share/applications"
         sed -e "s|Exec=.\\+gnvim\\>|Exec=gnvim|" -i $out/share/applications/*.desktop
-      ''
-  ;
+      '';
 
   preferLocalBuild = true;
 

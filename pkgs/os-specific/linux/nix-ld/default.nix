@@ -17,8 +17,7 @@ let
     then
       "/lib64"
     else
-      "/lib"
-  ;
+      "/lib";
 in
 stdenv.mkDerivation rec {
   pname = "nix-ld";

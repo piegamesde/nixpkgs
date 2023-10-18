@@ -133,8 +133,7 @@ rustPlatform.buildRustPackage.override
         !stdenv.hostPlatform.isStatic
         &&
           stdenv.hostPlatform.parsed.kernel.execFormat
-          == lib.systems.parse.execFormats.elf
-      ;
+          == lib.systems.parse.execFormats.elf;
       installCheckPhase = ''
         runHook preInstallCheck
         readelf -a $out/bin/.cargo-wrapped | grep -F 'Shared library: [libcurl.so'

@@ -134,8 +134,7 @@ rustPlatform.buildRustPackage rec {
       tic -xe alacritty,alacritty-direct -o "$terminfo/share/terminfo" extra/alacritty.info
       mkdir -p $out/nix-support
       echo "$terminfo" >> $out/nix-support/propagated-user-env-packages
-    ''
-  ;
+    '';
 
   dontPatchELF = true;
 

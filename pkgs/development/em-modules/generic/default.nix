@@ -96,7 +96,6 @@ wrapDerivation (
       // {
         # add an extra maintainer to every package
         maintainers = (meta.maintainers or [ ]) ++ [ lib.maintainers.qknight ];
-      }
-    ;
+      };
   }
 )

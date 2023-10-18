@@ -25,8 +25,7 @@ in
       ''
       + optionalString cfg.keybindings ''
         source ${pkgs.fzf}/share/fzf/key-bindings.bash
-      ''
-    ;
+      '';
 
     programs.zsh.interactiveShellInit =
       optionalString cfg.fuzzyCompletion ''
@@ -34,8 +33,7 @@ in
       ''
       + optionalString cfg.keybindings ''
         source ${pkgs.fzf}/share/fzf/key-bindings.zsh
-      ''
-    ;
+      '';
   };
   meta.maintainers = with maintainers; [ laalsaas ];
 }

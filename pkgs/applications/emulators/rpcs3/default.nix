@@ -118,8 +118,7 @@ gcc12Stdenv.mkDerivation {
     ++ lib.optional sdl2Support SDL2
     ++ lib.optional pulseaudioSupport libpulseaudio
     ++ lib.optional alsaSupport alsa-lib
-    ++ lib.optional waylandSupport wayland
-  ;
+    ++ lib.optional waylandSupport wayland;
 
   postInstall = ''
     # Taken from https://wiki.rpcs3.net/index.php?title=Help:Controller_Configuration

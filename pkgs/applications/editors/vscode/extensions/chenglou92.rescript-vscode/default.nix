@@ -15,8 +15,7 @@ let
     else if stdenv.isDarwin then
       "darwin"
     else
-      throw "Unsupported platform"
-  ;
+      throw "Unsupported platform";
   analysisDir = "server/analysis_binaries/${arch}";
 in
 vscode-utils.buildVscodeMarketplaceExtension rec {

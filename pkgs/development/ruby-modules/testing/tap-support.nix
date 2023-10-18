@@ -7,8 +7,7 @@ let
     report:
     "${okStr report} ${toString (report.index + 1)} ${report.description}"
     + testDirective report
-    + testYaml report
-  ;
+    + testYaml report;
 
   # These are part of the TAP spec, not yet implemented.
   #c.f.  https://github.com/NixOS/nixpkgs/issues/27071
@@ -27,6 +26,5 @@ in
     + ''
 
       # Finished at ${toString currentTime}
-    ''
-  ;
+    '';
 }

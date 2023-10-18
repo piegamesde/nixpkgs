@@ -232,8 +232,7 @@ in
       ]
       ++
         optional (cfg.domain0MemorySize != 0)
-          "dom0_mem=${toString cfg.domain0MemorySize}M"
-    ;
+          "dom0_mem=${toString cfg.domain0MemorySize}M";
 
     system.extraSystemBuilderCmds = ''
       ln -s ${cfg.package}/boot/xen.gz $out/xen.gz
@@ -326,8 +325,7 @@ in
             Type = "notify";
             RemainAfterExit = true;
             NotifyAccess = "all";
-          }
-      ;
+          };
       postStart = ''
         ${optionalString (builtins.compareVersions cfg.package.version "4.8" < 0) ''
           time=0

@@ -155,8 +155,7 @@ in
           in
           builtins.unsafeDiscardStringContext (
             "/etc/ssh/" + substring 1 (stringLength name) name
-          )
-      ;
+          );
 
       sshdCfg = config.services.openssh;
 
@@ -187,8 +186,7 @@ in
         else
           ''
             UseDNS no
-          ''
-        }
+          ''}
 
         ${cfg.extraConfig}
       '';

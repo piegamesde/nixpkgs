@@ -89,8 +89,7 @@ in
     environment.systemPackages =
       [ ]
       ++ lib.optional cfg.wireless.enable pkgs.ltunify
-      ++ lib.optional cfg.wireless.enableGraphical pkgs.solaar
-    ;
+      ++ lib.optional cfg.wireless.enableGraphical pkgs.solaar;
 
     services.udev = {
       # ltunifi and solaar both provide udev rules but the most up-to-date have been split
@@ -99,8 +98,7 @@ in
       packages =
         [ ]
         ++ lib.optional cfg.wireless.enable pkgs.logitech-udev-rules
-        ++ lib.optional cfg.lcd.enable pkgs.g15daemon
-      ;
+        ++ lib.optional cfg.lcd.enable pkgs.g15daemon;
 
       extraRules =
         ''
@@ -113,8 +111,7 @@ in
               ''
                 ACTION=="add", SUBSYSTEMS=="usb", ATTRS{idVendor}=="${vendor}", ATTRS{idProduct}=="${dev}", TAG+="systemd", ENV{SYSTEMD_WANTS}+="${daemon}.service"''
             )
-            cfg.lcd.devices
-      ;
+            cfg.lcd.devices;
     };
 
     systemd.services."${daemon}" = lib.mkIf cfg.lcd.enable {

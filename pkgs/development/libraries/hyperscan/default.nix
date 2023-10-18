@@ -49,8 +49,7 @@ stdenv.mkDerivation rec {
       "-DBUILD_AVX512=ON"
     ]
     ++ lib.optional (withStatic) "-DBUILD_STATIC_AND_SHARED=ON"
-    ++ lib.optional (!withStatic) "-DBUILD_SHARED_LIBS=ON"
-  ;
+    ++ lib.optional (!withStatic) "-DBUILD_SHARED_LIBS=ON";
 
   patches = [
     (fetchpatch {

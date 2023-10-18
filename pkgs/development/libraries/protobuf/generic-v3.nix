@@ -38,8 +38,7 @@ let
         + lib.optionalString stdenv.isDarwin ''
           substituteInPlace src/google/protobuf/testing/googletest.cc \
             --replace 'tmpnam(b)' '"'$TMPDIR'/foo"'
-        ''
-      ;
+        '';
 
       nativeBuildInputs = [
         autoreconfHook
@@ -53,8 +52,7 @@ let
         if buildProtobuf == null then
           [ ]
         else
-          [ "--with-protoc=${buildProtobuf}/bin/protoc" ]
-      ;
+          [ "--with-protoc=${buildProtobuf}/bin/protoc" ];
 
       enableParallelBuilding = true;
 

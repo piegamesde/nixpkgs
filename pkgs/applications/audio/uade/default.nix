@@ -93,8 +93,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString withWriteAudio ''
       wrapProgram $out/bin/generate_amiga_oscilloscope_view \
         --prefix PYTHONPATH : "$PYTHONPATH:$out/${python3.sitePackages}"
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "Plays old Amiga tunes through UAE emulation and cloned m68k-assembler Eagleplayer API";

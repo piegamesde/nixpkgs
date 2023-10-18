@@ -76,8 +76,7 @@ buildPythonPackage rec {
     + ''
       # increase tolerance for time-based test
       substituteInPlace tests/unit/io/utils.py --replace 'delta=.15' 'delta=.3'
-    ''
-  ;
+    '';
 
   pythonImportsCheck = [ "cassandra" ];
 

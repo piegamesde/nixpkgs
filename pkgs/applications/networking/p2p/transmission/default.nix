@@ -81,8 +81,7 @@ stdenv.mkDerivation {
       cmake
     ]
     ++ lib.optionals enableGTK3 [ wrapGAppsHook ]
-    ++ lib.optionals enableQt [ qt5.wrapQtAppsHook ]
-  ;
+    ++ lib.optionals enableQt [ qt5.wrapQtAppsHook ];
 
   buildInputs =
     [
@@ -107,8 +106,7 @@ stdenv.mkDerivation {
     ]
     ++ lib.optionals enableSystemd [ systemd ]
     ++ lib.optionals stdenv.isLinux [ inotify-tools ]
-    ++ lib.optionals stdenv.isDarwin [ libiconv ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ libiconv ];
 
   postInstall = ''
     mkdir $apparmor

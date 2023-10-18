@@ -21,8 +21,7 @@ let
     ++ opt "persistence.interval" cfg.persistence.interval
     ++ opt "log.level" cfg.log.level
     ++ opt "log.format" cfg.log.format
-    ++ cfg.extraFlags
-  ;
+    ++ cfg.extraFlags;
 
   opt = k: v: optional (v != null) ''--${k}="${v}"'';
 in
@@ -163,8 +162,7 @@ in
         message =
           "The option services.prometheus.pushgateway.stateDir"
           + " shouldn't be an absolute directory."
-          + " It should be a directory relative to /var/lib."
-        ;
+          + " It should be a directory relative to /var/lib.";
       }
     ];
     systemd.services.pushgateway = {
@@ -177,8 +175,7 @@ in
           "${cfg.package}/bin/pushgateway"
           + optionalString (length cmdlineArgs != 0) (
             " \\\n  " + concatStringsSep " \\\n  " cmdlineArgs
-          )
-        ;
+          );
         StateDirectory = if cfg.persistMetrics then cfg.stateDir else null;
       };
     };

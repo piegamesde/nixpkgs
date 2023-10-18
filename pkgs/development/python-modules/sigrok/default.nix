@@ -26,8 +26,7 @@ toPythonModule (
           # Makes libsigrok install the bindings into site-packages properly (like
           # we expect) instead of making a version-specific *.egg subdirectory.
           ./python-install.patch
-        ]
-      ;
+        ];
 
       nativeBuildInputs =
         orig.nativeBuildInputs or [ ]
@@ -40,8 +39,7 @@ toPythonModule (
         ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) [
           pythonImportsCheckHook
           pythonCatchConflictsHook
-        ]
-      ;
+        ];
 
       buildInputs = orig.buildInputs or [ ] ++ [
         pygobject3 # makes headers available the configure script checks for

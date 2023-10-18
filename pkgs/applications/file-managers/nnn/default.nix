@@ -55,8 +55,7 @@ stdenv.mkDerivation (
     makeFlags =
       [ "PREFIX=$(out)" ]
       ++ lib.optionals withIcons [ "O_ICONS=1" ]
-      ++ lib.optionals withNerdIcons [ "O_NERD=1" ]
-    ;
+      ++ lib.optionals withNerdIcons [ "O_NERD=1" ];
 
     binPath = lib.makeBinPath [
       file

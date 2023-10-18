@@ -62,8 +62,7 @@ python3Packages.buildPythonApplication rec {
       ]
     )
     # Run-time GTK dependency required by the Tray module
-    ++ [ libdbusmenu-gtk3 ]
-  ;
+    ++ [ libdbusmenu-gtk3 ];
 
   postInstall = ''
     mkdir -p $out/share/{applications,pixmaps}

@@ -57,8 +57,7 @@ python3Packages.buildPythonPackage rec {
       bitstring
       matrix-nio
     ]
-    ++ matrix-nio.optional-dependencies.e2e
-  ;
+    ++ matrix-nio.optional-dependencies.e2e;
 
   passthru.python = python3Packages.python;
 

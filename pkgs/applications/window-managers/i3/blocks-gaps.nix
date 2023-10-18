@@ -72,8 +72,7 @@ stdenv.mkDerivation rec {
     + optionalString (elem "volume" scripts) ''
       wrapProgram $out/libexec/i3blocks/volume \
         --prefix PATH : ${makeBinPath [ alsa-utils ]}
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "A flexible scheduler for your i3bar blocks -- this is a fork to use with i3-gaps";

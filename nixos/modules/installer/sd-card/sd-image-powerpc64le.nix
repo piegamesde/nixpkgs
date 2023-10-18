@@ -50,7 +50,6 @@
       # a `/` when parsing these fields
       + ''
         sed -i 's_^\(\W\W*\(INITRD\|initrd\|LINUX\|linux\)\W\)\.\./_\1/boot/_' ./files/boot/syslinux/syslinux.cfg
-      ''
-    ;
+      '';
   };
 }

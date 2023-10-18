@@ -31,8 +31,7 @@ let
       minorVersion = lib.versions.minor packageVersion;
       minorAvailable =
         builtins.length versionComponents > 1
-        && builtins.match "[0-9]+" minorVersion != null
-      ;
+        && builtins.match "[0-9]+" minorVersion != null;
       nextMinor = builtins.fromJSON minorVersion + 1;
       upperBound = "${lib.versions.major packageVersion}.${
           builtins.toString nextMinor
@@ -43,8 +42,7 @@ let
     else if builtins.isString freeze then
       [ freeze ]
     else
-      throw "“freeze” argument needs to be either a boolean, or a version string."
-  ;
+      throw "“freeze” argument needs to be either a boolean, or a version string.";
   updateScript = writeScript "gnome-update-script" ''
     #!${python}/bin/python
     import json

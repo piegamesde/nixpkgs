@@ -74,8 +74,7 @@ with lib;
 
         Type `sudo systemctl start display-manager' to
         start the graphical user interface.
-      ''
-    ;
+      '';
 
     # We run sshd by default. Login is only possible after adding a
     # password via "passwd" or by adding a ssh key to ~/.ssh/authorized_keys.

@@ -68,8 +68,7 @@ let
     "pak128.german" = {
       url =
         "mirror://sourceforge/simutrans/PAK128.german/"
-        + "pak128.german_1.2_for_ST_121.0/PAK128.german_1.2_for_ST_121-0.zip"
-      ;
+        + "pak128.german_1.2_for_ST_121.0/PAK128.german_1.2_for_ST_121-0.zip";
       sha256 = "1cv1rzl1a3i5dvk476zq094wawk9hhdh2f0y4xrdny5gn17mb2xi";
     };
 
@@ -164,8 +163,7 @@ let
           else if stdenv.isDarwin then
             "mac"
           else
-            throw "add your platform"
-        ;
+            throw "add your platform";
         config = ''
           BACKEND = mixer_sdl
           COLOUR_DEPTH = 16

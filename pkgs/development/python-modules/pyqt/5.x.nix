@@ -55,8 +55,7 @@ buildPythonPackage rec {
     ''
     + ''
       EOF
-    ''
-  ;
+    '';
 
   enableParallelBuilding = true;
   # HACK: paralellize compilation of make calls within pyqt's setup.py
@@ -93,8 +92,7 @@ buildPythonPackage rec {
     ++ lib.optional withMultimedia qtmultimedia
     ++ lib.optional withWebKit qtwebkit
     ++ lib.optional withWebSockets qtwebsockets
-    ++ lib.optional withLocation qtlocation
-  ;
+    ++ lib.optional withLocation qtlocation;
 
   buildInputs =
     with libsForQt5;
@@ -108,8 +106,7 @@ buildPythonPackage rec {
     ++ lib.optional withConnectivity qtconnectivity
     ++ lib.optional withWebKit qtwebkit
     ++ lib.optional withWebSockets qtwebsockets
-    ++ lib.optional withLocation qtlocation
-  ;
+    ++ lib.optional withLocation qtlocation;
 
   propagatedBuildInputs = [
     dbus-python
@@ -140,8 +137,7 @@ buildPythonPackage rec {
     ++ lib.optional withWebKit "PyQt5.QtWebKit"
     ++ lib.optional withMultimedia "PyQt5.QtMultimedia"
     ++ lib.optional withConnectivity "PyQt5.QtBluetooth"
-    ++ lib.optional withLocation "PyQt5.QtPositioning"
-  ;
+    ++ lib.optional withLocation "PyQt5.QtPositioning";
 
   meta = with lib; {
     description = "Python bindings for Qt5";

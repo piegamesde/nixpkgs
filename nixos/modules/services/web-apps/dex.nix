@@ -19,8 +19,7 @@ let
         }
       )
     else
-      client
-  ;
+      client;
   filteredSettings =
     mapAttrs (n: v: if n == "staticClients" then (builtins.map fixClient v) else v)
       cfg.settings;

@@ -39,8 +39,7 @@ stdenv.mkDerivation rec {
       libpng
     ]
     ++ lib.optionals stdenv.isLinux [ systemd ]
-    ++ lib.optionals stdenv.isDarwin [ Carbon ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ Carbon ];
 
   propagatedBuildInputs = [ zlib ];
 

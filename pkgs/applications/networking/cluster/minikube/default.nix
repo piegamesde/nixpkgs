@@ -39,8 +39,7 @@ buildGoModule rec {
     else if stdenv.isLinux then
       [ libvirt ]
     else
-      null
-  ;
+      null;
 
   buildPhase = ''
     make COMMIT=${src.rev}

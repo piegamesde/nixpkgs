@@ -45,8 +45,7 @@ rustPlatform.buildRustPackage rec {
       CoreServices
     ]
     ++ optional (dbBackend == "mysql") libmysqlclient
-    ++ optional (dbBackend == "postgresql") postgresql
-  ;
+    ++ optional (dbBackend == "postgresql") postgresql;
 
   buildFeatures = dbBackend;
 

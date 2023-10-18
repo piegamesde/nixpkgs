@@ -70,8 +70,7 @@ buildPythonPackage rec {
       setuptools
     ]
     ++ lib.optional (pythonOlder "3.9") importlib-resources
-    ++ lib.optional (pythonOlder "3.8") importlib-metadata
-  ;
+    ++ lib.optional (pythonOlder "3.8") importlib-metadata;
 
   nativeCheckInputs = [
     pytestCheckHook

@@ -27,8 +27,7 @@ appimageTools.wrapType2 rec {
     ++ [
       texlive
       pandoc
-    ]
-  ;
+    ];
   extraInstallCommands = ''
     mv $out/bin/{${name},${pname}}
     install -m 444 -D ${appimageContents}/Zettlr.desktop $out/share/applications/Zettlr.desktop

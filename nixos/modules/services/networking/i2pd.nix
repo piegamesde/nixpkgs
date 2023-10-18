@@ -80,8 +80,7 @@ let
         description = lib.mdDoc "Max latency for tunnels.";
         default = null;
       };
-    }
-  ;
+    };
 
   commonTunOpts =
     name:
@@ -103,8 +102,7 @@ let
         description = lib.mdDoc "Keyset used for tunnel identity.";
       };
     }
-    // mkEndpointOpt name "127.0.0.1" 0
-  ;
+    // mkEndpointOpt name "127.0.0.1" 0;
 
   sec =
     name:
@@ -112,8 +110,7 @@ let
 
       [''
     + name
-    + "]"
-  ;
+    + "]";
   notice = "# DO NOT EDIT -- this file has been generated automatically.";
   i2pdConf =
     let
@@ -226,12 +223,10 @@ let
                   optionalNullBool "outproxy.enabled" proto.outproxyEnable
                 else
                   [ ]
-              )
-            ;
+              );
           in
           (concatStringsSep "\n" protoOpts)
-        ))
-      ;
+        ));
     in
     pkgs.writeText "i2pd.conf" (concatStringsSep "\n" opts);
 
@@ -286,8 +281,7 @@ let
                   optionalNullInt "crypto.tagstosend" tun.crypto.tagsToSend
                 else
                   [ ]
-              )
-            ;
+              );
           in
           concatStringsSep "\n" outTunOpts
         ))
@@ -311,8 +305,7 @@ let
               ++ (if tun ? inPort then optionalNullInt "inport" tun.inPort else [ ])
               ++ (
                 if tun ? accessList then optionalEmptyList "accesslist" tun.accessList else [ ]
-              )
-            ;
+              );
           in
           concatStringsSep "\n" inTunOpts
         ))

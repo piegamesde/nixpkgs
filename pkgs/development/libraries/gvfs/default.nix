@@ -118,8 +118,7 @@ stdenv.mkDerivation rec {
       gnome-online-accounts
       libsecret
       libgdata
-    ]
-  ;
+    ];
 
   mesonFlags =
     [
@@ -150,8 +149,7 @@ stdenv.mkDerivation rec {
         [
           # Xfce don't want samba
           "-Dsmb=false"
-        ]
-  ;
+        ];
 
   doCheck = false; # fails with "ModuleNotFoundError: No module named 'gi'"
   doInstallCheck = doCheck;
@@ -168,8 +166,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description =
       "Virtual Filesystem support library"
-      + optionalString gnomeSupport " (full GNOME support)"
-    ;
+      + optionalString gnomeSupport " (full GNOME support)";
     license = licenses.lgpl2Plus;
     platforms = platforms.unix;
     maintainers = teams.gnome.members;

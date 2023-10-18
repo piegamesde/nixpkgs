@@ -114,14 +114,12 @@ rec {
             "
 
           substituteInPlace cmake/server.cmake --replace SETUID ""
-        ''
-      ;
+        '';
 
       meta = common.meta // {
         longDescription =
           common.meta.longDescription
-          + "This package provides the servers and libraries."
-        ;
+          + "This package provides the servers and libraries.";
       };
     }
   );
@@ -148,8 +146,7 @@ rec {
         common.postPatch
         + ''
           patchShebangs ./bin
-        ''
-      ;
+        '';
 
       cmakeFlags = common.cmakeFlags ++ [
         "-DCMAKE_INSTALL_PREFIX=${stdenv.out}"
@@ -163,8 +160,7 @@ rec {
         description = common.meta.description + " CLI clients";
         longDescription =
           common.meta.longDescription
-          + "This package provides the CLI clients, called 'icommands'."
-        ;
+          + "This package provides the CLI clients, called 'icommands'.";
       };
     }
   );

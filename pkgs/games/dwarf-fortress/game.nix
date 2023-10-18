@@ -44,20 +44,17 @@ let
     if hasAttr dfVersion df-hashes then
       getAttr dfVersion df-hashes
     else
-      throw "Unknown Dwarf Fortress version: ${dfVersion}"
-  ;
+      throw "Unknown Dwarf Fortress version: ${dfVersion}";
   dfPlatform =
     if hasAttr stdenv.hostPlatform.system platforms then
       getAttr stdenv.hostPlatform.system platforms
     else
-      throw "Unsupported system: ${stdenv.hostPlatform.system}"
-  ;
+      throw "Unsupported system: ${stdenv.hostPlatform.system}";
   sha256 =
     if hasAttr dfPlatform game then
       getAttr dfPlatform game
     else
-      throw "Unsupported dfPlatform: ${dfPlatform}"
-  ;
+      throw "Unsupported dfPlatform: ${dfPlatform}";
 in
 
 stdenv.mkDerivation {
@@ -106,8 +103,7 @@ stdenv.mkDerivation {
     + ''
       # Store the new hash
       md5sum $exe | awk '{ print $1 }' > $out/hash.md5
-    ''
-  ;
+    '';
 
   passthru = {
     inherit baseVersion patchVersion dfVersion;

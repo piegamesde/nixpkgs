@@ -23,8 +23,7 @@ let
     if cfg != null then
       { "trafficserver/${name}.yaml".source = yaml.generate "${name}.yaml" cfg; }
     else
-      { "trafficserver/${name}.yaml".text = ""; }
-  ;
+      { "trafficserver/${name}.yaml".text = ""; };
 
   mkRecordLines =
     path: value:
@@ -35,8 +34,7 @@ let
     else if isFloat value then
       "CONFIG ${concatStringsSep "." path} FLOAT ${toString value}"
     else
-      "CONFIG ${concatStringsSep "." path} STRING ${toString value}"
-  ;
+      "CONFIG ${concatStringsSep "." path} STRING ${toString value}";
 
   mkRecordsConfig = cfg: concatStringsSep "\n" (flatten (mkRecordLines [ ] cfg));
   mkPluginConfig = cfg: concatStringsSep "\n" (map (p: "${p.path} ${p.arg}") cfg);
@@ -299,8 +297,7 @@ in
       // (mkYamlConf "ip_allow" cfg.ipAllow)
       // (mkYamlConf "logging" cfg.logging)
       // (mkYamlConf "sni" cfg.sni)
-      // (mkYamlConf "strategies" cfg.strategies)
-    ;
+      // (mkYamlConf "strategies" cfg.strategies);
 
     environment.systemPackages = [ pkgs.trafficserver ];
     systemd.packages = [ pkgs.trafficserver ];

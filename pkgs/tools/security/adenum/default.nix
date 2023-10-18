@@ -25,8 +25,7 @@ python3.pkgs.buildPythonApplication rec {
       pwntools
       python-ldap
     ]
-    ++ [ john ]
-  ;
+    ++ [ john ];
 
   installPhase = ''
     runHook preInstall

@@ -58,8 +58,7 @@ stdenv.mkDerivation rec {
         # https://github.com/flatpak/xdg-desktop-portal-gtk/issues/355
         "--disable-settings"
         "--disable-appchooser"
-      ]
-  ;
+      ];
 
   meta = with lib; {
     description = "Desktop integration portals for sandboxed apps";

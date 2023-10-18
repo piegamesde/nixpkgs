@@ -93,8 +93,7 @@ let
                 builtins.replaceStrings [ "." ] [ "" ] version
               }/pre-built/mosflm-linux-64-noX11.zip";
             sha256 = "1rqh3nprxfmnyihllw31nb8i3wfhybmsic6y7z6wn4rafyv3w4fk";
-          }
-      ;
+          };
       mosflmBinary =
         if stdenv.isDarwin then "bin/mosflm" else "mosflm-linux-64-noX11";
     in
@@ -238,8 +237,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals stdenv.isDarwin [ argp-standalone ]
     ++ lib.optionals (stdenv.isDarwin && !stdenv.isAarch64) [ memorymappingHook ]
-    ++ lib.optionals withBitshuffle [ hdf5-external-filter-plugins ]
-  ;
+    ++ lib.optionals withBitshuffle [ hdf5-external-filter-plugins ];
 
   patches = [
     ./link-to-argp-standalone-if-needed.patch

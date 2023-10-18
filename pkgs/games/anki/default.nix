@@ -203,8 +203,7 @@ python3.pkgs.buildPythonApplication {
     ++ lib.optionals stdenv.isDarwin [
       AVKit
       CoreAudio
-    ]
-  ;
+    ];
 
   # Activate optimizations
   RELEASE = true;

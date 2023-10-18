@@ -20,8 +20,7 @@ let
     // optionalAttrs (config.time.timeZone != null) {
       TIMEZONE = config.time.timeZone;
     }
-    // (lib.mapAttrs (_: toString) cfg.extraConfig)
-  ;
+    // (lib.mapAttrs (_: toString) cfg.extraConfig);
 
   manage =
     let

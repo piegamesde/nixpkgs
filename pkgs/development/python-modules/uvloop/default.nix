@@ -78,8 +78,7 @@ buildPythonPackage rec {
       "--deselect=tests/test_context.py::Test_UV_Context::test_create_ssl_server_manual_connection_lost"
       # Segmentation fault
       "--deselect=tests/test_fs_event.py::Test_UV_FS_EVENT_RENAME::test_fs_event_rename"
-    ]
-  ;
+    ];
 
   disabledTestPaths =
     [
@@ -102,8 +101,7 @@ buildPythonPackage rec {
       export TEST_DIR=$(mktemp -d)
       cp -r tests $TEST_DIR
       pushd $TEST_DIR
-    ''
-  ;
+    '';
 
   postCheck = ''
     popd

@@ -43,8 +43,7 @@ python.pkgs.buildPythonApplication rec {
           ".mypy_cache"
           "__pycache__"
         ]
-      )
-    ;
+      );
     src = ./src;
   };
 

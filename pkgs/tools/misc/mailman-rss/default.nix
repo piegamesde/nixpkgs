@@ -21,8 +21,7 @@ python3Packages.buildPythonApplication rec {
       requests
       beautifulsoup4
     ]
-    ++ lib.optional withTwitter python3Packages.twitter
-  ;
+    ++ lib.optional withTwitter python3Packages.twitter;
 
   # No tests in Pypi Tarball
   doCheck = false;

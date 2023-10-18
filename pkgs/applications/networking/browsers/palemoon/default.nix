@@ -104,8 +104,7 @@ stdenv.mkDerivation rec {
         xorgproto
       ]
     )
-    ++ lib.optionals withGTK3 [ gtk3 ]
-  ;
+    ++ lib.optionals withGTK3 [ gtk3 ];
 
   enableParallelBuilding = true;
 

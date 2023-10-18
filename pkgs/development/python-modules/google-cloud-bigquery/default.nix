@@ -78,8 +78,7 @@ buildPythonPackage rec {
       pytest-xdist
     ]
     ++ passthru.optional-dependencies.pandas
-    ++ passthru.optional-dependencies.ipython
-  ;
+    ++ passthru.optional-dependencies.ipython;
 
   # prevent google directory from shadowing google imports
   preCheck = ''

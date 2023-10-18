@@ -87,8 +87,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals redisSupport [
       redis
       hiredis
-    ]
-  ;
+    ];
 
   enableParallelBuilding = true;
 
@@ -132,8 +131,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals rustSupport [
       "--enable-rust"
       "--enable-rust-experimental"
-    ]
-  ;
+    ];
 
   postConfigure = ''
     # Avoid unintended clousure growth.

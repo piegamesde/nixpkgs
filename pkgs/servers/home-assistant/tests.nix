@@ -123,8 +123,7 @@ lib.listToAttrs (
             nativeCheckInputs =
               old.nativeCheckInputs
               ++ home-assistant.getPackages component home-assistant.python.pkgs
-              ++ extraCheckInputs.${component} or [ ]
-            ;
+              ++ extraCheckInputs.${component} or [ ];
 
             disabledTests =
               old.disabledTests or [ ] ++ extraDisabledTests.${component} or [ ];
@@ -138,8 +137,7 @@ lib.listToAttrs (
               lib.remove "tests" old.pytestFlagsArray
               ++ [ "--numprocesses=2" ]
               ++ extraPytestFlagsArray.${component} or [ ]
-              ++ [ "tests/components/${component}" ]
-            ;
+              ++ [ "tests/components/${component}" ];
 
             preCheck =
               old.preCheck
@@ -152,8 +150,7 @@ lib.listToAttrs (
                   ])
                   ''
                     patch -p1 < ${./patches/tests-mock-source-ip.patch}
-                  ''
-            ;
+                  '';
 
             meta = old.meta // {
               broken = lib.elem component [ ];

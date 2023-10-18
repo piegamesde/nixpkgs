@@ -83,8 +83,7 @@ let
           ;
         }
       else
-        abort "Unrecognized package fetch type: ${goDep.fetch.type}"
-    ;
+        abort "Unrecognized package fetch type: ${goDep.fetch.type}";
   };
 
   importGodeps = { depsFile }: map dep2src (import depsFile);
@@ -93,8 +92,7 @@ let
     if goDeps != null then
       importGodeps { depsFile = goDeps; } ++ extraSrcs
     else
-      extraSrcs
-  ;
+      extraSrcs;
   package = stdenv.mkDerivation (
     (builtins.removeAttrs args [
       "goPackageAliases"
@@ -334,8 +332,7 @@ let
             )
           }
         ''
-        + shellHook
-      ;
+        + shellHook;
 
       disallowedReferences =
         lib.optional (!allowGoReference) go
@@ -346,8 +343,7 @@ let
         // {
           inherit go;
         }
-        // lib.optionalAttrs (goPackageAliases != [ ]) { inherit goPackageAliases; }
-      ;
+        // lib.optionalAttrs (goPackageAliases != [ ]) { inherit goPackageAliases; };
 
       meta = {
         # Add default meta information

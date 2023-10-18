@@ -28,8 +28,7 @@ let
     if builtins.typeOf value == "path" then
       value
     else
-      builtins.toFile "${name}.ipxe" value
-  ;
+      builtins.toFile "${name}.ipxe" value;
 in
 {
   options = {
@@ -57,8 +56,7 @@ in
       if config.boot.loader.grub.version == 2 then
         toString (map grubEntry scripts)
       else
-        throw "iPXE is not supported with GRUB 1."
-    ;
+        throw "iPXE is not supported with GRUB 1.";
 
     boot.loader.grub.extraFiles =
       {

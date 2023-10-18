@@ -44,8 +44,7 @@ stdenv.mkDerivation rec {
 
         # we need to build inside this directory as well, so we have to make it writeable
         chmod +w ../UniversalDetector -R
-      ''
-  ;
+      '';
 
   buildInputs =
     [
@@ -59,14 +58,12 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       Foundation
       AppKit
-    ]
-  ;
+    ];
 
   nativeBuildInputs =
     [ installShellFiles ]
     ++ lib.optionals stdenv.isLinux [ gnustep.make ]
-    ++ lib.optionals stdenv.isDarwin [ xcbuildHook ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ xcbuildHook ];
 
   xcbuildFlags = lib.optionals stdenv.isDarwin [
     "-target unar"

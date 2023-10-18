@@ -50,8 +50,7 @@ stdenv.mkDerivation rec {
       # goto-gcc rely on gcc
       substituteInPlace "regression/CMakeLists.txt" \
         --replace "add_subdirectory(goto-gcc)" ""
-    ''
-  ;
+    '';
 
   postInstall = ''
     # goto-cc expects ls_parse.py in PATH

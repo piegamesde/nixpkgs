@@ -64,8 +64,7 @@ let
               "https://github.com/sagemath/sagetrac-mirror/compare/${base}...${rev}.diff"
             ]
           else
-            [ "https://git.sagemath.org/sage.git/patch?id2=${base}&id=${rev}" ]
-        ;
+            [ "https://git.sagemath.org/sage.git/patch?id2=${base}&id=${rev}" ];
       }
       // builtins.removeAttrs args [
         "rev"

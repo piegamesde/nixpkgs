@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString stdenv.isDarwin ''
       sed -i 's/FIND_PACKAGE(OpenGL)//' CMakeLists.txt
       sed -i 's/FIND_LIBRARY(COCOA_LIBRARY Cocoa)//' CMakeLists.txt
-    ''
-  ;
+    '';
 
   cmakeFlags =
     [

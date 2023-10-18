@@ -69,8 +69,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString stdenv.isDarwin ''
       cp include/pa_mac_core.h $out/include/pa_mac_core.h
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "Portable cross-platform Audio API";

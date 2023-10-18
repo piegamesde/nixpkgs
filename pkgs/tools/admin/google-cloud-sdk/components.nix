@@ -148,8 +148,7 @@ let
         else
           builtins.concatMap
             (arch: builtins.map (os: toNixPlatform arch os) operating_systems)
-            architectures
-      ;
+            architectures;
       snapshot = snapshotFromComponent attrs;
     };
 

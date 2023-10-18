@@ -39,8 +39,7 @@ vmTools.runInLinuxImage (
           name
           + "-"
           + diskImage.name
-          + (lib.optionalString (src ? version) "-${src.version}")
-        ;
+          + (lib.optionalString (src ? version) "-${src.version}");
 
         # !!! cut&paste from rpm-build.nix
         postHook = ''
@@ -110,5 +109,6 @@ vmTools.runInLinuxImage (
           description = "Deb package for ${diskImage.fullName}";
         };
       }
+
   )
 )

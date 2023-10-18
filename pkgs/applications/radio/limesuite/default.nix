@@ -46,8 +46,7 @@ stdenv.mkDerivation rec {
       libX11
       mesa_glu
       wxGTK32
-    ]
-  ;
+    ];
 
   postInstall = ''
     install -Dm444 -t $out/lib/udev/rules.d ../udev-rules/64-limesuite.rules

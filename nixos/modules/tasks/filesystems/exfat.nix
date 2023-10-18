@@ -17,7 +17,6 @@ with lib;
       else
         [
           pkgs.exfatprogs # non-FUSE
-        ]
-    ;
+        ];
   };
 }

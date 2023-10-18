@@ -580,8 +580,7 @@ rec {
         if pkgs.stdenv.hostPlatform.system == "aarch64-linux" then
           pkgsCross.gnu64
         else
-          pkgsCross.aarch64-multiplatform
-      ;
+          pkgsCross.aarch64-multiplatform;
     in
     crossPkgs.dockerTools.buildImage {
       name = "hello-cross";
@@ -611,8 +610,7 @@ rec {
       passthru = {
         inherit symlink;
       };
-    }
-  ;
+    };
 
   # image with registry/ prefix
   prefixedImage = pkgs.dockerTools.buildImage {

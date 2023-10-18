@@ -122,8 +122,7 @@ buildPythonPackage rec {
     ]
     ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
     ++ pooch.optional-dependencies.progress
-    ++ pooch.optional-dependencies.xxhash
-  ;
+    ++ pooch.optional-dependencies.xxhash;
 
   nativeCheckInputs = [
     pytestCheckHook

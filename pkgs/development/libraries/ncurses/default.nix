@@ -62,8 +62,7 @@ stdenv.mkDerivation (
                 "/run/current-system/sw/share/terminfo" # NixOS
               ]
             }"
-          ]
-    ;
+          ];
 
     # Only the C compiler, and explicitly not C++ compiler needs this flag on solaris:
     CFLAGS = lib.optionalString stdenv.isSunOS "-D_XOPEN_SOURCE_EXTENDED";
@@ -96,8 +95,7 @@ stdenv.mkDerivation (
                -e '/CPPFLAGS="$CPPFLAGS/s/ -D_XOPEN_SOURCE_EXTENDED//' \
             configure
         CFLAGS=-D_XOPEN_SOURCE_EXTENDED
-      ''
-    ;
+      '';
 
     enableParallelBuilding = true;
 
@@ -112,8 +110,7 @@ stdenv.mkDerivation (
           if stdenv.isDarwin then
             "${abiVersion}.$dylibtype"
           else
-            "$dylibtype.${abiVersion}"
-        ;
+            "$dylibtype.${abiVersion}";
       in
       ''
         # Determine what suffixes our libraries have

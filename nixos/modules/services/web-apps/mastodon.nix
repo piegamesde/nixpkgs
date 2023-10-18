@@ -50,8 +50,7 @@ let
       (cfg.database.host != "/run/postgresql" && cfg.database.port != null)
       { DB_PORT = toString cfg.database.port; }
     // lib.optionalAttrs cfg.smtp.authenticate { SMTP_LOGIN = cfg.smtp.user; }
-    // cfg.extraConfig
-  ;
+    // cfg.extraConfig;
 
   systemCallsList = [
     "@cpu-emulation"
@@ -168,13 +167,11 @@ let
                 "mastodon-init-dirs.service"
               ]
               ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
-              ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service"
-            ;
+              ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
             requires =
               [ "mastodon-init-dirs.service" ]
               ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
-              ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service"
-            ;
+              ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
             description = "Mastodon sidekiq${jobClassLabel}";
             wantedBy = [ "mastodon.target" ];
             environment = env // {
@@ -736,8 +733,7 @@ in
             ''
             + ''
               EOF
-            ''
-          ;
+            '';
           environment = env;
           serviceConfig = {
             Type = "oneshot";
@@ -783,8 +779,7 @@ in
             + lib.optionalString (!databaseActuallyCreateLocally) ''
               rm $PGPASSFILE
               unset PGPASSFILE
-            ''
-          ;
+            '';
           path = [
             cfg.package
             pkgs.postgresql
@@ -823,13 +818,11 @@ in
               "mastodon-init-dirs.service"
             ]
             ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
-            ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service"
-          ;
+            ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
           requires =
             [ "mastodon-init-dirs.service" ]
             ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
-            ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service"
-          ;
+            ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
           wantedBy = [ "mastodon.target" ];
           description = "Mastodon streaming";
           environment =
@@ -839,8 +832,7 @@ in
                 { SOCKET = "/run/mastodon-streaming/streaming.socket"; }
               else
                 { PORT = toString (cfg.streamingPort); }
-            )
-          ;
+            );
           serviceConfig = {
             ExecStart = "${cfg.package}/run-streaming.sh";
             Restart = "always";
@@ -875,13 +867,11 @@ in
               "mastodon-init-dirs.service"
             ]
             ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
-            ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service"
-          ;
+            ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
           requires =
             [ "mastodon-init-dirs.service" ]
             ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
-            ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service"
-          ;
+            ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
           wantedBy = [ "mastodon.target" ];
           description = "Mastodon web";
           environment =
@@ -891,8 +881,7 @@ in
                 { SOCKET = "/run/mastodon-web/web.socket"; }
               else
                 { PORT = toString (cfg.webPort); }
-            )
-          ;
+            );
           serviceConfig = {
             ExecStart = "${cfg.package}/bin/puma -C config/puma.rb";
             Restart = "always";

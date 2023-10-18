@@ -116,8 +116,7 @@ let
           ];
         }
       else
-        null
-    ;
+        null;
 
     unstable = pkgs.releaseTools.aggregate {
       name = "nixpkgs-${jobs.tarball.version}";
@@ -190,8 +189,7 @@ let
              jobs.tests.macOSSierraShared.x86_64-darwin
              jobs.tests.stdenv.hooks.patch-shebangs.x86_64-darwin
           */
-        ]
-      ;
+        ];
     };
 
     stdenvBootstrapTools =

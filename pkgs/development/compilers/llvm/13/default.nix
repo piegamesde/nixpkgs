@@ -57,8 +57,7 @@ let
       ++ lib.platforms.riscv
       ++ lib.platforms.s390x
       ++ lib.platforms.wasi
-      ++ lib.platforms.x86
-    ;
+      ++ lib.platforms.x86;
   };
 
   tools = lib.makeExtensible (
@@ -92,8 +91,7 @@ let
         + ''
           ln -s "${targetLlvmLibraries.compiler-rt.out}/lib" "$rsrc/lib"
           ln -s "${targetLlvmLibraries.compiler-rt.out}/share" "$rsrc/share"
-        ''
-      ;
+        '';
 
       bintoolsNoLibc' =
         if bootBintoolsNoLibc == null then tools.bintoolsNoLibc else bootBintoolsNoLibc;
@@ -138,8 +136,7 @@ let
         else if (pkgs.targetPackages.stdenv or stdenv).cc.isGNU then
           tools.libstdcxxClang
         else
-          tools.libcxxClang
-      ;
+          tools.libcxxClang;
 
       libstdcxxClang = wrapCCWith rec {
         cc = tools.clang-unwrapped;
@@ -213,8 +210,7 @@ let
           + lib.optionalString stdenv.targetPlatform.isWasm ''
             echo "-fno-exceptions" >> $out/nix-support/cc-cflags
           ''
-          + mkExtraBuildCommands cc
-        ;
+          + mkExtraBuildCommands cc;
       };
 
       clangNoLibcxx = wrapCCWith rec {
@@ -228,8 +224,7 @@ let
             echo "-B${targetLlvmLibraries.compiler-rt}/lib" >> $out/nix-support/cc-cflags
             echo "-nostdlib++" >> $out/nix-support/cc-cflags
           ''
-          + mkExtraBuildCommands cc
-        ;
+          + mkExtraBuildCommands cc;
       };
 
       clangNoLibc = wrapCCWith rec {
@@ -242,8 +237,7 @@ let
             echo "-rtlib=compiler-rt" >> $out/nix-support/cc-cflags
             echo "-B${targetLlvmLibraries.compiler-rt}/lib" >> $out/nix-support/cc-cflags
           ''
-          + mkExtraBuildCommands cc
-        ;
+          + mkExtraBuildCommands cc;
       };
 
       clangNoCompilerRt = wrapCCWith rec {
@@ -255,8 +249,7 @@ let
           ''
             echo "-nostartfiles" >> $out/nix-support/cc-cflags
           ''
-          + mkExtraBuildCommands0 cc
-        ;
+          + mkExtraBuildCommands0 cc;
       };
 
       clangNoCompilerRtWithLibc = wrapCCWith rec {
@@ -297,8 +290,7 @@ let
           if stdenv.hostPlatform.useLLVM or false then
             overrideCC stdenv buildLlvmTools.clangNoCompilerRtWithLibc
           else
-            stdenv
-        ;
+            stdenv;
       };
 
       compiler-rt-no-libc = callPackage ./compiler-rt {
@@ -307,8 +299,7 @@ let
           if stdenv.hostPlatform.useLLVM or false then
             overrideCC stdenv buildLlvmTools.clangNoCompilerRt
           else
-            stdenv
-        ;
+            stdenv;
       };
 
       # N.B. condition is safe because without useLLVM both are the same.
@@ -316,8 +307,7 @@ let
         if stdenv.hostPlatform.isAndroid then
           libraries.compiler-rt-libc
         else
-          libraries.compiler-rt-no-libc
-      ;
+          libraries.compiler-rt-no-libc;
 
       stdenv = overrideCC stdenv buildLlvmTools.clang;
 
@@ -335,8 +325,7 @@ let
                 pkgs.gcc10Stdenv
               else
                 stdenv
-            )
-        ;
+            );
       };
 
       libcxxabi =
@@ -345,8 +334,7 @@ let
             if stdenv.hostPlatform.useLLVM or false then
               overrideCC stdenv buildLlvmTools.clangNoLibcxx
             else
-              stdenv
-          ;
+              stdenv;
           cxx-headers = callPackage ./libcxx {
             inherit llvm_meta;
             stdenv = stdenv_;

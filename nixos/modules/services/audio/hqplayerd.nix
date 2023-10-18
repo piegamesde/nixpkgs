@@ -79,8 +79,7 @@ in
       {
         assertion =
           (cfg.auth.username != null -> cfg.auth.password != null)
-          && (cfg.auth.password != null -> cfg.auth.username != null)
-        ;
+          && (cfg.auth.password != null -> cfg.auth.username != null);
         message = "You must set either both services.hqplayer.auth.username and password, or neither.";
       }
     ];
@@ -140,8 +139,7 @@ in
           ''
           + optionalString (cfg.auth.username != null && cfg.auth.password != null) ''
             ${pkg}/bin/hqplayerd -s ${cfg.auth.username} ${cfg.auth.password}
-          ''
-        ;
+          '';
       };
     };
 

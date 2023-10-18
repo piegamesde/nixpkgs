@@ -78,8 +78,7 @@ stdenv.mkDerivation (
         gobject-introspection
       ]
       ++ lib.optionals enableDocumentation [ hotdoc ]
-      ++ lib.optionals enableWayland [ wayland ]
-    ;
+      ++ lib.optionals enableWayland [ wayland ];
 
     buildInputs =
       [
@@ -109,8 +108,7 @@ stdenv.mkDerivation (
         wayland-protocols
       ]
       ++ lib.optional enableCocoa Cocoa
-      ++ lib.optional enableCdparanoia cdparanoia
-    ;
+      ++ lib.optional enableCdparanoia cdparanoia;
 
     propagatedBuildInputs = [ gstreamer ];
 
@@ -135,8 +133,7 @@ stdenv.mkDerivation (
       ++ lib.optional (!enableGl) "-Dgl=disabled"
       ++ lib.optional (!enableAlsa) "-Dalsa=disabled"
       ++ lib.optional (!enableCdparanoia) "-Dcdparanoia=disabled"
-      ++ lib.optionals stdenv.isDarwin [ "-Dlibvisual=disabled" ]
-    ;
+      ++ lib.optionals stdenv.isDarwin [ "-Dlibvisual=disabled" ];
 
     postPatch = ''
       patchShebangs \

@@ -11,8 +11,7 @@ let
     if alias.recurseForDerivations or false then
       removeAttrs alias [ "recurseForDerivations" ]
     else
-      alias
-  ;
+      alias;
 
   # Disabling distribution prevents top-level aliases for non-recursed package
   # sets from building on Hydra.
@@ -26,8 +25,7 @@ let
     if builtins.hasAttr n super then
       throw "Alias ${n} is still in python-packages.nix"
     else
-      alias
-  ;
+      alias;
 
   mapAliases =
     aliases:

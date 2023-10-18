@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
       substituteInPlace build/mif/local.mif \
         --replace '-static' ""
-    ''
-  ;
+    '';
 
   nativeBuildInputs = [ dosbox ] ++ lib.optionals withDocs [ ghostscript ];
 
@@ -122,8 +121,7 @@ stdenv.mkDerivation rec {
 
         The documentation has been excluded from this build for build time reasons. It can be found here:
         https://github.com/open-watcom/open-watcom-v2/wiki/Open-Watcom-Documentation
-      ''
-    ;
+      '';
     homepage = "https://open-watcom.github.io";
     license = licenses.watcom;
     platforms = with platforms; windows ++ unix;

@@ -38,8 +38,7 @@ stdenv.mkDerivation rec {
       "--enable-def-interp=${stdenv.shell}" # 183
     ]
     ++ lib.optionals historySupport [ "--with-history" ]
-    ++ lib.optionals readlineSupport [ "--with-edit=readline" ]
-  ;
+    ++ lib.optionals readlineSupport [ "--with-edit=readline" ];
 
   #reproducible-build
   postPatch = ''

@@ -74,8 +74,7 @@ stdenv.mkDerivation {
       installShellCompletion --cmd scala-cli \
         --bash <(scala-cli completions bash) \
         --zsh <(scala-cli completions zsh)
-    ''
-  ;
+    '';
 
   meta = with lib; {
     homepage = "https://scala-cli.virtuslab.org";

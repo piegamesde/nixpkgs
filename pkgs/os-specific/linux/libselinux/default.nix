@@ -90,8 +90,7 @@ stdenv.mkDerivation rec {
     ++ optionals enablePython [
       "PYTHON=${python3.pythonForBuild.interpreter}"
       "PYTHONLIBDIR=$(py)/${python3.sitePackages}"
-    ]
-  ;
+    ];
 
   postPatch = lib.optionalString stdenv.hostPlatform.isMusl ''
     substituteInPlace src/procattr.c \

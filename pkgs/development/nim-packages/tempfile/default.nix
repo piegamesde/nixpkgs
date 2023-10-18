@@ -22,6 +22,5 @@ buildNimPackage rec {
       license = [ lib.licenses.mit ];
       maintainers = [ maintainers.ehmry ];
       mainProgram = "tempfile_seeder";
-    }
-  ;
+    };
 }

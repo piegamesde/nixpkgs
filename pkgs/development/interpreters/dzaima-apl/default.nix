@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
     ''
     + ''
       runHook postBuild
-    ''
-  ;
+    '';
 
   installPhase =
     ''
@@ -69,15 +68,13 @@ stdenv.mkDerivation rec {
       ln -s $out/bin/dapl $out/bin/apl
 
       runHook postInstall
-    ''
-  ;
+    '';
 
   meta = with lib; {
     homepage = "https://github.com/dzaima/APL";
     description =
       "An APL implementation in Java"
-      + lib.optionalString buildNativeImage ", compiled as a native image"
-    ;
+      + lib.optionalString buildNativeImage ", compiled as a native image";
     license = licenses.mit;
     maintainers = with maintainers; [ AndersonTorres ];
     inherit (jdk.meta) platforms;

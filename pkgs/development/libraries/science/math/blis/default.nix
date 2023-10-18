@@ -46,8 +46,7 @@ stdenv.mkDerivation rec {
       "--blas-int-size=${blasIntSize}"
     ]
     ++ lib.optionals withOpenMP [ "--enable-threading=openmp" ]
-    ++ [ withArchitecture ]
-  ;
+    ++ [ withArchitecture ];
 
   postPatch = ''
     patchShebangs configure build/flatten-headers.py

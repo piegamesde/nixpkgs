@@ -47,8 +47,7 @@ stdenv.mkDerivation rec {
       docbook_xml_dtd_412
     ]
     ++ lib.optional stdenv.isDarwin Carbon
-    ++ (if withApplePCSC then [ PCSC ] else [ pcsclite ])
-  ;
+    ++ (if withApplePCSC then [ PCSC ] else [ pcsclite ]);
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error";
 

@@ -110,8 +110,7 @@ buildPythonPackage rec {
       OpenGL
       Security
       WebKit
-    ]
-  ;
+    ];
 
   propagatedBuildInputs = [
     pillow

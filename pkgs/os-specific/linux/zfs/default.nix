@@ -155,8 +155,7 @@ let
                 systemd
               ]
             }"
-        ''
-      ;
+        '';
 
       nativeBuildInputs =
         [
@@ -164,8 +163,7 @@ let
           nukeReferences
         ]
         ++ optionals buildKernel (kernel.moduleBuildDependencies ++ [ perl ])
-        ++ optional buildUser pkg-config
-      ;
+        ++ optional buildUser pkg-config;
       buildInputs =
         optionals buildUser [
           zlib
@@ -175,8 +173,7 @@ let
         ]
         ++ optional buildUser openssl
         ++ optional buildUser curl
-        ++ optional (buildUser && enablePython) python3
-      ;
+        ++ optional (buildUser && enablePython) python3;
 
       # for zdb to get the rpath to libgcc_s, needed for pthread_cancel to work
       NIX_CFLAGS_LINK = "-lgcc_s";
@@ -211,8 +208,7 @@ let
             "--with-linux-obj=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
           ]
           ++ kernel.makeFlags
-        )
-      ;
+        );
 
       makeFlags = optionals buildKernel kernel.makeFlags;
 
@@ -253,8 +249,7 @@ let
           # Add Bash completions.
           install -v -m444 -D -t $out/share/bash-completion/completions contrib/bash_completion.d/zfs
           (cd $out/share/bash-completion/completions; ln -s zfs zpool)
-        ''
-      ;
+        '';
 
       postFixup =
         let
@@ -288,8 +283,7 @@ let
             [
               nixosTests.zfs.installer
               nixosTests.zfs.stable
-            ]
-        ;
+            ];
       };
 
       meta = {

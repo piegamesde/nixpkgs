@@ -48,8 +48,7 @@ let
             allBuilds.${computeName tensorRTDefaultVersion}
           else
             throw
-              "tensorrt-${tensorRTDefaultVersion} does not support your cuda version ${cudaVersion}"
-        ;
+              "tensorrt-${tensorRTDefaultVersion} does not support your cuda version ${cudaVersion}";
       };
     in
     { inherit buildTensorRTPackage; } // allBuilds // defaultBuild;
@@ -62,8 +61,7 @@ let
     }:
     "TensorRT-${fullVersion}.Linux.x86_64-gnu.cuda-${fileVersionCuda}"
     + lib.optionalString (fileVersionCudnn != null) ".cudnn${fileVersionCudnn}"
-    + ".tar.gz"
-  ;
+    + ".tar.gz";
 
   tensorRTVersions = {
     "8.6.0" = [

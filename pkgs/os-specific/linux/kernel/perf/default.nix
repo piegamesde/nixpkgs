@@ -87,8 +87,7 @@ stdenv.mkDerivation {
     ''
     + lib.optionalString (lib.versionAtLeast kernel.version "6.0") ''
       patchShebangs pmu-events/jevents.py
-    ''
-  ;
+    '';
 
   makeFlags =
     [
@@ -99,8 +98,7 @@ stdenv.mkDerivation {
     ++ kernel.makeFlags
     ++ lib.optional (!withGtk) "NO_GTK2=1"
     ++ lib.optional (!withZstd) "NO_LIBZSTD=1"
-    ++ lib.optional (!withLibcap) "NO_LIBCAP=1"
-  ;
+    ++ lib.optional (!withLibcap) "NO_LIBCAP=1";
 
   hardeningDisable = [ "format" ];
 
@@ -154,8 +152,7 @@ stdenv.mkDerivation {
     ++ lib.optional withLibcap libcap
     ++
       lib.optional (lib.versionAtLeast kernel.version "6.0")
-        python3.pkgs.setuptools
-  ;
+        python3.pkgs.setuptools;
 
   env.NIX_CFLAGS_COMPILE = toString [
     "-Wno-error=cpp"

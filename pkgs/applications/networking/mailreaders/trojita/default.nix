@@ -76,8 +76,7 @@ mkDerivation rec {
       for f in `find ${l10n} -name "trojita_common.po"`; do
         cp $f po/trojita_common_$(echo $f | cut -d/ -f5).po
       done
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "A Qt IMAP e-mail client";

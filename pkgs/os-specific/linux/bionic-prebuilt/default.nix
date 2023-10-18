@@ -142,8 +142,7 @@ stdenvNoCC.mkDerivation rec {
     + ''
       mkdir -p $dev/include
       cp -v $out/include/*.h $dev/include/
-    ''
-  ;
+    '';
 
   outputs = [
     "out"

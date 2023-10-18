@@ -39,8 +39,7 @@ stdenv.mkDerivation rec {
       libnl
     ]
     ++ lib.optional sensorsSupport lm_sensors
-    ++ lib.optional systemdSupport systemd
-  ;
+    ++ lib.optional systemdSupport systemd;
 
   configureFlags =
     [
@@ -52,8 +51,7 @@ stdenv.mkDerivation rec {
       "--enable-capabilities"
       "--enable-delayacct"
     ]
-    ++ lib.optional sensorsSupport "--with-sensors"
-  ;
+    ++ lib.optional sensorsSupport "--with-sensors";
 
   postFixup =
     let

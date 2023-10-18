@@ -26,8 +26,7 @@ let
         "jpdfgrep"
       ] # all require imlib2
     else
-      [ "jfbpdf" ]
-  ; # does not
+      [ "jfbpdf" ]; # does not
 in
 
 stdenv.mkDerivation rec {

@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
         cp -r DwarfTherapist.app $out/Applications
       ''
     else
-      null
-  ;
+      null;
 
   dontWrapQtApps = true;
 

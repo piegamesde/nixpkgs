@@ -512,8 +512,7 @@ in
           "${cfg.package}/lib/cryptsetup/libcryptsetup-token-systemd-fido2.so"
           "${pkgs.libfido2}/lib/libfido2.so.1"
         ]
-        ++ jobScripts
-      ;
+        ++ jobScripts;
 
       targets.initrd.aliases = [ "default.target" ];
       units =
@@ -546,8 +545,7 @@ in
               nameValuePair "${n}.automount" (automountToUnit n v)
             )
             cfg.automounts
-        )
-      ;
+        );
 
       # make sure all the /dev nodes are set up
       services.systemd-tmpfiles-setup-dev.wantedBy = [ "sysinit.target" ];

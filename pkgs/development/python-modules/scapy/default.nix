@@ -61,8 +61,7 @@ buildPythonPackage rec {
     ''
     + lib.optionalString withManufDb ''
       substituteInPlace scapy/data.py --replace "/opt/wireshark" "${wireshark}"
-    ''
-  ;
+    '';
 
   propagatedBuildInputs =
     [
@@ -81,8 +80,7 @@ buildPythonPackage rec {
       texlive.combined.scheme-minimal
       graphviz
       imagemagick
-    ]
-  ;
+    ];
 
   # Running the tests seems too complicated:
   doCheck = false;

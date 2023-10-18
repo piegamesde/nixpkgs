@@ -335,8 +335,7 @@ in
                   })
                   (attrNames ingressesStr)
                 )
-                ++ [ { service = tunnel.default; } ]
-              ;
+                ++ [ { service = tunnel.default; } ];
             };
             mkConfigFile = pkgs.writeText "cloudflared.yml" (builtins.toJSON fullConfig);
           in

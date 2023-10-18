@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
       perl
       gsl
     ]
-    ++ lib.optionals stdenv.isDarwin [ xcbuild ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ xcbuild ];
 
   buildInputs = lib.optionals useIv [
     xorg.libX11.dev
@@ -60,8 +59,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals useRx3d [
       python3.pkgs.cython
       python3.pkgs.numpy
-    ]
-  ;
+    ];
 
   patches = [ ./neuron_darwin_rpath.patch ];
 

@@ -34,8 +34,7 @@ stdenv.mkDerivation rec {
       soxr
     ]
     ++ lib.optional alsaSupport alsa-lib
-    ++ lib.optional pcapSupport libpcap
-  ;
+    ++ lib.optional pcapSupport libpcap;
   nativeBuildInputs = [
     cmake
     pkg-config

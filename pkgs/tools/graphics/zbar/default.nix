@@ -77,8 +77,7 @@ stdenv.mkDerivation rec {
       gtk3
       qtbase
       qtx11extras
-    ]
-  ;
+    ];
 
   nativeCheckInputs = [
     bash
@@ -114,8 +113,7 @@ stdenv.mkDerivation rec {
           "--without-gtk"
           "--without-qt"
         ]
-    )
-  ;
+    );
 
   doCheck = true;
 

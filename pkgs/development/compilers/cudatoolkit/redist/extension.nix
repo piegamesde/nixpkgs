@@ -39,7 +39,6 @@ let
         manifest = cudaToolkitRedistManifests.${cudaVersion};
       }
     else
-      { }
-  ;
+      { };
 in
 cudaToolkitRedistPackages

@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
   configureFlags =
     [ "--enable-release-build" ]
     ++ lib.optional withNetworking "--enable-networking"
-    ++ lib.optional withALSA "--enable-alsa"
-  ;
+    ++ lib.optional withALSA "--enable-alsa";
 
   meta = with lib; {
     description = "Emulator for IBM PC computers and clones";

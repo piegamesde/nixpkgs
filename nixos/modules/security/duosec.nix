@@ -29,8 +29,7 @@ let
     + ''
       motd=${boolToStr cfg.motd}
       accept_env_factor=${boolToStr cfg.acceptEnvFactor}
-    ''
-  ;
+    '';
 in
 {
   imports = [

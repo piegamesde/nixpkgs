@@ -35,8 +35,7 @@ let
               chmod +x $out/artisan
 
               substituteInPlace config/database.php --replace "env('DB_DUMP_PATH', '/usr/local/bin')" "env('DB_DUMP_PATH', '${mariadb}/bin')"
-            ''
-          ;
+            '';
         }
       );
 in

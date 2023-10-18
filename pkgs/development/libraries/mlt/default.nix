@@ -103,8 +103,7 @@ stdenv.mkDerivation rec {
       cp -a src/swig/python/_mlt.so ${outPythonPath}/mlt/
       cp -a src/swig/python/mlt.py ${outPythonPath}/mlt/__init__.py
       sed -i ${outPythonPath}/mlt/__init__.py -e "s|return importlib.import_module('_mlt')|return importlib.import_module('mlt._mlt')|g"
-    ''
-  ;
+    '';
 
   passthru.updateScript = gitUpdater { rev-prefix = "v"; };
 

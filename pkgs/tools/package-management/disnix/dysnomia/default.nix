@@ -115,8 +115,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional enableDockerContainer docker
     ++ lib.optional enableNginxWebApplication nginx
     ++ lib.optional enableS6RCService s6-rc
-    ++ lib.optional enableXinetdService xinetd
-  ;
+    ++ lib.optional enableXinetdService xinetd;
 
   meta = {
     description = "Automated deployment of mutable components and services for Disnix";

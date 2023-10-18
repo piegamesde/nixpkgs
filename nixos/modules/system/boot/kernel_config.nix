@@ -9,8 +9,7 @@ let
     else if any (x: x == false) (getValues defs) then
       false
     else
-      true
-  ;
+      true;
 
   kernelItem = types.submodule {
     options = {
@@ -81,8 +80,7 @@ let
     else if substring 0 2 val == "0x" then
       val
     else
-      val
-  ; # FIXME: fix quoting one day
+      val; # FIXME: fix quoting one day
 
   # generate nix intermediate kernel config file of the form
   #
@@ -112,8 +110,7 @@ let
         else
           ''
             ${key} ${mkValue val}
-          ''
-      ;
+          '';
 
       mkConf = cfg: concatStrings (mapAttrsToList mkConfigLine cfg);
     in

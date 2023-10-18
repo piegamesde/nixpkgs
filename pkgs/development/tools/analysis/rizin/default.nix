@@ -65,8 +65,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString stdenv.isDarwin ''
       substituteInPlace binrz/rizin/macos_sign.sh \
         --replace 'codesign' '# codesign'
-    ''
-  ;
+    '';
 
   buildInputs = [
     file

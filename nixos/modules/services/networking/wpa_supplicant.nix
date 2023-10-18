@@ -14,8 +14,7 @@ let
     if cfg.allowAuxiliaryImperativeNetworks then
       pkgs.wpa_supplicant_ro_ssids
     else
-      pkgs.wpa_supplicant
-  ;
+      pkgs.wpa_supplicant;
 
   cfg = config.networking.wireless;
   opt = options.networking.wireless;
@@ -38,8 +37,7 @@ let
     opts
     // optionalAttrs (hasMixedWPA opts) {
       priority = if opts.priority == null then 1 else opts.priority + 1;
-    }
-  ;
+    };
 
   # Creates a WPA2 fallback network
   mkWPA2Fallback =
@@ -57,8 +55,7 @@ let
       map increaseWPA3Priority networkList
       ++ map mkWPA2Fallback (filter hasMixedWPA networkList)
     else
-      networkList
-  ;
+      networkList;
 
   # Content of wpa_supplicant.conf
   generatedConfig = concatStringsSep "\n" (
@@ -83,8 +80,7 @@ let
     if configIsGenerated then
       pkgs.writeText "wpa_supplicant.conf" generatedConfig
     else
-      "/etc/wpa_supplicant.conf"
-  ;
+      "/etc/wpa_supplicant.conf";
   # the config file with environment variables replaced
   finalConfig = ''"$RUNTIME_DIRECTORY"/wpa_supplicant.conf'';
 
@@ -113,8 +109,7 @@ let
           filter (x: x != "") (splitString "\n" opts.auth)
         )
         ++ optional (opts.priority != null) "priority=${toString opts.priority}"
-        ++ optional (opts.extraConfig != "") opts.extraConfig
-      ;
+        ++ optional (opts.extraConfig != "") opts.extraConfig;
     in
     ''
       network={
@@ -133,14 +128,12 @@ let
         if cfg.allowAuxiliaryImperativeNetworks then
           "-c /etc/wpa_supplicant.conf -I ${finalConfig}"
         else
-          "-c ${finalConfig}"
-      ;
+          "-c ${finalConfig}";
     in
     {
       description =
         "WPA Supplicant instance"
-        + optionalString (iface != null) " for interface ${iface}"
-      ;
+        + optionalString (iface != null) " for interface ${iface}";
 
       after = deviceUnit;
       before = [ "network.target" ];
@@ -204,8 +197,7 @@ let
           ''
             # add known interface to the daemon arguments
             args="-i${iface} $iface_args"
-          ''
-        }
+          ''}
 
         # finally start daemon
         exec wpa_supplicant $args
@@ -571,8 +563,7 @@ in
                 else if config.services.connman.enable then
                   "connman"
                 else
-                  null
-              ;
+                  null;
               n = toString (length cfg.interfaces);
             in
             ''
@@ -583,8 +574,7 @@ in
             + optionalString (daemon != null) ''
               You don't need to change `networking.wireless.interfaces` when using ${daemon}:
               in this case the interfaces will be configured automatically for you.
-            ''
-          ;
+            '';
         }
       ];
 
@@ -599,8 +589,7 @@ in
       else
         listToAttrs (
           map (i: nameValuePair "wpa_supplicant-${i}" (mkUnit i)) cfg.interfaces
-        )
-    ;
+        );
 
     # Restart wpa_supplicant after resuming from sleep
     powerManagement.resumeCommands = concatStringsSep "\n" (

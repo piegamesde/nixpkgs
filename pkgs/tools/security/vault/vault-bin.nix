@@ -75,8 +75,7 @@ stdenv.mkDerivation rec {
         Chili-Man
         techknowlogick
         mkaito
-      ]
-    ;
+      ];
     mainProgram = "vault";
     platforms = [
       "x86_64-linux"

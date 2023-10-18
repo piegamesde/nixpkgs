@@ -79,8 +79,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString cliSupport ''
       install -Dm755 /build/source/dictu $out/bin/dictu
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "High-level dynamically typed, multi-paradigm, interpreted programming language";

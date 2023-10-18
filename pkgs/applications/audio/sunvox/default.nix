@@ -25,8 +25,7 @@ let
     else if stdenv.is64bit then
       "x86_64"
     else
-      "x86"
-  ;
+      "x86";
 in
 stdenv.mkDerivation rec {
   pname = "SunVox";

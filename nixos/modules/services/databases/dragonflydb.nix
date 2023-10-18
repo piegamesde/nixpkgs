@@ -26,8 +26,7 @@ let
       memcache_port = cfg.memcachePort;
     })
     // (lib.optionalAttrs (cfg.dbNum != null) { dbnum = cfg.dbNum; })
-    // (lib.optionalAttrs (cfg.cacheMode != null) { cache_mode = cfg.cacheMode; })
-  ;
+    // (lib.optionalAttrs (cfg.cacheMode != null) { cache_mode = cfg.cacheMode; });
 in
 {
 

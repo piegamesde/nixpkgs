@@ -62,8 +62,7 @@ let
       ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
         "--cross-prefix=${stdenv.cc.targetPrefix}"
         "--enable-cross-compile"
-      ]
-    ;
+      ];
 
     enableParallelBuilding = true;
 

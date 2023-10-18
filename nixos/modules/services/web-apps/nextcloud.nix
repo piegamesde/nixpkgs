@@ -37,8 +37,7 @@ let
         ++ optional cfg.caching.redis redis
         ++ optional cfg.caching.memcached memcached
       )
-      ++ cfg.phpExtraExtensions all
-    ; # Enabled by user
+      ++ cfg.phpExtraExtensions all; # Enabled by user
     extraConfig = toKeyValue phpOptions;
   };
 
@@ -421,8 +420,7 @@ in
           else if mysqlLocal then
             "localhost:/run/mysqld/mysqld.sock"
           else
-            "localhost"
-        ;
+            "localhost";
         defaultText = "localhost";
         description = lib.mdDoc ''
           Database host or socket path. Defaults to the correct unix socket
@@ -815,8 +813,7 @@ in
               Nextcloud26 supports RC4 without requiring legacy OpenSSL, so
               `services.nextcloud.enableBrokenCiphersForSSE` can be set to `false`.
             ''
-          )
-        ;
+          );
 
         services.nextcloud.package =
           with pkgs;
@@ -1166,8 +1163,7 @@ in
                 "listen.owner" = config.services.nginx.user;
                 "listen.group" = config.services.nginx.group;
               }
-              // cfg.poolSettings
-            ;
+              // cfg.poolSettings;
             extraConfig = cfg.poolConfig;
           };
         };

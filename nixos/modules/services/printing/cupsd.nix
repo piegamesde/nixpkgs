@@ -448,8 +448,7 @@ in
               ${getGutenprint cfg.drivers}/bin/cups-genppdupdate -p /var/lib/cups/ppd
             fi
           ''}
-        ''
-      ;
+        '';
 
       serviceConfig.PrivateTmp = true;
     };

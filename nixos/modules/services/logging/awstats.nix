@@ -246,8 +246,7 @@ in
       [ "d '${cfg.dataDir}' 755 root root - -" ]
       ++ mapAttrsToList (name: opts: "d '${cfg.dataDir}/${name}' 755 root root - -")
         cfg.configs
-      ++ [ "Z '${cfg.dataDir}' 755 root root - -" ]
-    ;
+      ++ [ "Z '${cfg.dataDir}' 755 root root - -" ];
 
     # nginx options
     services.nginx.virtualHosts =
@@ -300,8 +299,7 @@ in
                 ${package.out}/share/awstats/tools/awstats_buildstaticpages.pl \
                   -config=${name} -update -dir=${cfg.dataDir}/${name} \
                   -awstatsprog=${package.bin}/bin/awstats
-              ''
-            ;
+              '';
             startAt = cfg.updateAt;
           }
         )

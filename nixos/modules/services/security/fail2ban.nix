@@ -109,8 +109,7 @@ in
           if config.networking.nftables.enable then
             "nftables-multiport"
           else
-            "iptables-multiport"
-        ;
+            "iptables-multiport";
         defaultText =
           literalExpression
             ''
@@ -129,8 +128,7 @@ in
           if config.networking.nftables.enable then
             "nftables-allport"
           else
-            "iptables-allport"
-        ;
+            "iptables-allport";
         defaultText =
           literalExpression
             ''

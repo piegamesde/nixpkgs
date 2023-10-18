@@ -92,8 +92,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString withDebug ''
       cp -r ../src $out/
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "A fork of XCompMgr, a sample compositing manager for X servers";

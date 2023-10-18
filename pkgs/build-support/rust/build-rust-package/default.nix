@@ -66,8 +66,7 @@ assert cargoVendorDir == null && cargoLock == null
   ->
     !(args ? cargoSha256 && args.cargoSha256 != null)
     && !(args ? cargoHash && args.cargoHash != null)
-  -> throw "cargoSha256, cargoHash, cargoVendorDir, or cargoLock must be set"
-;
+  -> throw "cargoSha256, cargoHash, cargoVendorDir, or cargoLock must be set";
 assert buildType == "release" || buildType == "debug";
 
 let
@@ -95,8 +94,7 @@ let
         // lib.optionalAttrs (args ? cargoHash) { hash = args.cargoHash; }
         // lib.optionalAttrs (args ? cargoSha256) { sha256 = args.cargoSha256; }
         // depsExtraArgs
-      )
-  ;
+      );
 
   target = rust.toRustTargetSpec stdenv.hostPlatform;
   targetIsJSON = lib.hasSuffix ".json" target;
@@ -108,8 +106,7 @@ let
     if targetIsJSON then
       (lib.removeSuffix ".json" (builtins.baseNameOf "${target}"))
     else
-      target
-  ;
+      target;
 
   sysroot = callPackage ./sysroot { } {
     inherit target shortTarget;
@@ -161,14 +158,12 @@ stdenv.mkDerivation (
         cargoInstallHook
         cargoSetupHook
         rustc
-      ]
-    ;
+      ];
 
     buildInputs =
       buildInputs
       ++ lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ]
-      ++ lib.optionals stdenv.hostPlatform.isMinGW [ windows.pthreads ]
-    ;
+      ++ lib.optionals stdenv.hostPlatform.isMinGW [ windows.pthreads ];
 
     patches = cargoPatches ++ patches;
 
@@ -181,8 +176,7 @@ stdenv.mkDerivation (
 
         export RUST_LOG=${logLevel}
       ''
-      + (args.postUnpack or "")
-    ;
+      + (args.postUnpack or "");
 
     configurePhase =
       args.configurePhase or ''

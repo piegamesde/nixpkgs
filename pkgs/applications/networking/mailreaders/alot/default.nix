@@ -81,8 +81,7 @@ buildPythonApplication rec {
       install -D extra/completion/alot-completion.zsh $out/share/zsh/site-functions/_alot
 
       sed "s,/usr/bin,$out/bin,g" extra/alot.desktop > $out/share/applications/alot.desktop
-    ''
-  ;
+    '';
 
   meta = with lib; {
     homepage = "https://github.com/pazz/alot";

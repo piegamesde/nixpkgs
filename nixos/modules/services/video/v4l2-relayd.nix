@@ -187,8 +187,7 @@ in
                 "video/x-raw,format=${instance.output.format}"
                 "queue"
               ]
-              ++ [ "v4l2sink name=v4l2sink device=$(cat $V4L2_DEVICE_FILE)" ]
-            ;
+              ++ [ "v4l2sink name=v4l2sink device=$(cat $V4L2_DEVICE_FILE)" ];
           in
           ''
             exec ${pkgs.v4l2-relayd}/bin/v4l2-relayd -i "${instance.input.pipeline}" -o "${

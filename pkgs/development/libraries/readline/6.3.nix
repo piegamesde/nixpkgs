@@ -48,8 +48,7 @@ stdenv.mkDerivation {
           };
       in
       import ./readline-6.3-patches.nix patch
-    )
-  ;
+    );
 
   meta = with lib; {
     description = "Library for interactive line editing";

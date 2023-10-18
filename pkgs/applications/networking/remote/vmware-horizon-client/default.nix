@@ -17,8 +17,7 @@ let
     if stdenv.hostPlatform.system == "x86_64-linux" then
       "x64"
     else
-      throw "Unsupported system: ${stdenv.hostPlatform.system}"
-  ;
+      throw "Unsupported system: ${stdenv.hostPlatform.system}";
   # The downloaded archive also contains ARM binaries, but these have not been tested.
 
   # For USB support, ensure that /var/run/vmware/<YOUR-UID>

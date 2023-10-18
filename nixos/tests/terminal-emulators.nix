@@ -176,8 +176,7 @@ mapAttrs
             if !((pkg pkgs) ? "passthru" && (pkg pkgs).passthru ? "tests") then
               [ "The package for ${name} doesn't have a passthru.tests" ]
             else
-              [ ]
-          ;
+              [ ];
         };
 
       # We need imagemagick, though not tesseract

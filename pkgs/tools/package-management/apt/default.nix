@@ -70,8 +70,7 @@ stdenv.mkDerivation rec {
       perlPackages.Po4a
       w3m
     ]
-    ++ lib.optionals withNLS [ gettext ]
-  ;
+    ++ lib.optionals withNLS [ gettext ];
 
   cmakeFlags = [
     "-DBERKELEY_INCLUDE_DIRS=${db.dev}/include"

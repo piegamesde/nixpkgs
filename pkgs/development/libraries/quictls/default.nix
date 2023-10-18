@@ -53,8 +53,7 @@ stdenv.mkDerivation rec {
       substituteInPlace crypto/async/arch/async_posix.h \
         --replace '!defined(__ANDROID__) && !defined(__OpenBSD__)' \
                   '!defined(__ANDROID__) && !defined(__OpenBSD__) && 0'
-    ''
-  ;
+    '';
 
   outputs = [
     "bin"
@@ -67,8 +66,7 @@ stdenv.mkDerivation rec {
   separateDebugInfo =
     !stdenv.hostPlatform.isDarwin
     && !(stdenv.hostPlatform.useLLVM or false)
-    && stdenv.cc.isGNU
-  ;
+    && stdenv.cc.isGNU;
 
   nativeBuildInputs = [
     makeWrapper
@@ -95,8 +93,7 @@ stdenv.mkDerivation rec {
         else if stdenv.hostPlatform.isMips64n32 then
           "./Configure linux-mips64"
         else
-          throw "unsupported ABI for ${stdenv.hostPlatform.system}"
-      ;
+          throw "unsupported ABI for ${stdenv.hostPlatform.system}";
     }
     .${stdenv.hostPlatform.system} or (
       if stdenv.hostPlatform == stdenv.buildPlatform then
@@ -150,8 +147,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional static "no-shared"
     # This introduces a reference to the CTLOG_FILE which is undesired when
     # trying to build binaries statically.
-    ++ lib.optional static "no-ct"
-  ;
+    ++ lib.optional static "no-ct";
 
   makeFlags = [
     "MANDIR=$(man)/share/man"
@@ -196,8 +192,7 @@ stdenv.mkDerivation rec {
       # remove dependency on Perl at runtime
       rm -r $out/etc/ssl/misc
       rmdir $out/etc/ssl/{certs,private}
-    ''
-  ;
+    '';
 
   postFixup = lib.optionalString (!stdenv.hostPlatform.isWindows) ''
     # Check to make sure the main output doesn't depend on perl

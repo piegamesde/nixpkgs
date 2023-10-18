@@ -59,8 +59,7 @@ buildPythonPackage rec {
     [ pytestCheckHook ]
     ++ passthru.optional-dependencies.cli
     ++ passthru.optional-dependencies.lxml
-    ++ passthru.optional-dependencies.soap
-  ;
+    ++ passthru.optional-dependencies.soap;
 
   disabledTestPaths = [ "tests/integration/benchmarks" ];
 

@@ -56,8 +56,7 @@ stdenv.mkDerivation rec {
         wtf8
       ]
       ++ lib.optionals stdenv.isLinux [ inotify ]
-    )
-  ;
+    );
 
   meta = with lib; {
     description = "A static type checker for JavaScript";

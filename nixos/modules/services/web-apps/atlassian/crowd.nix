@@ -19,8 +19,7 @@ let
     }
     // (optionalAttrs cfg.proxy.enable {
       proxyUrl = "${cfg.proxy.scheme}://${cfg.proxy.name}:${toString cfg.proxy.port}";
-    })
-  ;
+    });
 
   crowdPropertiesFile = pkgs.writeText "crowd.properties" ''
     application.name                        crowd-openid-server
@@ -215,8 +214,7 @@ in
               ${cfg.openidPasswordFile} \
               ${cfg.home}/crowd.properties
           ''}
-        ''
-      ;
+        '';
 
       serviceConfig = {
         User = cfg.user;

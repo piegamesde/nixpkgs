@@ -88,8 +88,7 @@ self: super:
             # Prevent dependency on doctest which causes an inconsistent dependency
             # due to depending on ghc which depends on directory etc.
             vector = dontCheck csuper.vector;
-          }
-        ;
+          };
       in
       {
         cabal-install = super.cabal-install.overrideScope cabalInstallOverlay;
@@ -178,8 +177,7 @@ self: super:
             drv.prePatch or ""
             + ''
               "${pkgs.buildPackages.dos2unix}/bin/dos2unix" *.cabal
-            ''
-          ;
+            '';
         })
         (
           appendPatch
@@ -192,8 +190,7 @@ self: super:
             super.hls-rename-plugin
         )
     else
-      super.hls-rename-plugin
-  ;
+      super.hls-rename-plugin;
 
   hls-floskell-plugin =
     if lib.versionAtLeast super.ghc.version "9.4" then
@@ -203,8 +200,7 @@ self: super:
             drv.prePatch or ""
             + ''
               "${pkgs.buildPackages.dos2unix}/bin/dos2unix" *.cabal
-            ''
-          ;
+            '';
         })
         (
           appendPatch
@@ -217,8 +213,7 @@ self: super:
             super.hls-floskell-plugin
         )
     else
-      super.hls-floskell-plugin
-  ;
+      super.hls-floskell-plugin;
 
   hls-stylish-haskell-plugin =
     if lib.versionAtLeast super.ghc.version "9.4" then
@@ -228,8 +223,7 @@ self: super:
             drv.prePatch or ""
             + ''
               "${pkgs.buildPackages.dos2unix}/bin/dos2unix" *.cabal
-            ''
-          ;
+            '';
         })
         (
           appendPatch
@@ -242,8 +236,7 @@ self: super:
             super.hls-stylish-haskell-plugin
         )
     else
-      super.hls-stylish-haskell-plugin
-  ;
+      super.hls-stylish-haskell-plugin;
 
   hie-compat =
     if lib.versionAtLeast super.ghc.version "9.6" then
@@ -253,8 +246,7 @@ self: super:
             drv.prePatch or ""
             + ''
               "${pkgs.buildPackages.dos2unix}/bin/dos2unix" *.cabal
-            ''
-          ;
+            '';
         })
         (
           appendPatch
@@ -267,8 +259,7 @@ self: super:
             super.hie-compat
         )
     else
-      super.hie-compat
-  ;
+      super.hie-compat;
 
   # For -f-auto see cabal.project in haskell-language-server.
   ghc-lib-parser-ex = addBuildDepend self.ghc-lib-parser (
@@ -285,8 +276,7 @@ self: super:
           super.stylish-haskell
       )
     else
-      super.stylish-haskell
-  ;
+      super.stylish-haskell;
 
   ###########################################
   ### END HASKELL-LANGUAGE-SERVER SECTION ###
@@ -478,8 +468,7 @@ self: super:
           (drv.postPatch or "")
           + ''
             substituteInPlace inline-c-cpp.cabal --replace "-optc-std=c++11" ""
-          ''
-        ;
+          '';
       })
       super.inline-c-cpp;
 
@@ -1039,8 +1028,7 @@ self: super:
               drv.prePatch or ""
               + ''
                 "${pkgs.buildPackages.dos2unix}/bin/dos2unix" *.cabal
-              ''
-            ;
+              '';
           })
           super.bloomfilter
       );
@@ -1070,8 +1058,7 @@ self: super:
           (drv.postPatch or "")
           + ''
             substituteInPlace source/Network/Stun/MappedAddress.hs --replace "import Network.Endian" ""
-          ''
-        ;
+          '';
       })
       super.stunclient;
 
@@ -1190,8 +1177,7 @@ self: super:
             for b in $out/bin/cryptol $out/bin/cryptol-html; do
               wrapProgram $b --prefix 'PATH' ':' "${lib.getBin pkgs.z3}/bin"
             done
-          ''
-        ;
+          '';
       })
       super.cryptol;
 
@@ -1240,8 +1226,7 @@ self: super:
           ''
             export HOME="$TMPDIR"
           ''
-          + (drv.preCheck or "")
-        ;
+          + (drv.preCheck or "");
         libraryToolDepends = drv.libraryToolDepends or [ ] ++ [
           pkgs.buildPackages.postgresql
         ];
@@ -1395,14 +1380,12 @@ self: super:
               ];
             })
           ]
-          ++ drv.patches or [ ]
-        ;
+          ++ drv.patches or [ ];
         prePatch =
           drv.prePatch or ""
           + ''
             ${pkgs.buildPackages.dos2unix}/bin/dos2unix *.cabal
-          ''
-        ;
+          '';
       })
       super.dhall-nix
   );
@@ -1447,8 +1430,7 @@ self: super:
     if pkgs.stdenv.hostPlatform.isMusl then
       dontCheck super.unix-time
     else
-      super.unix-time
-  ;
+      super.unix-time;
 
   # Workaround for https://github.com/sol/hpack/issues/528
   # The hpack test suite can't deal with the CRLF line endings hackage revisions insert
@@ -1459,8 +1441,7 @@ self: super:
           drv.postPatch or ""
           + ''
             "${lib.getBin pkgs.buildPackages.dos2unix}/bin/dos2unix" *.cabal
-          ''
-        ;
+          '';
       })
       super.hpack;
 
@@ -1470,8 +1451,7 @@ self: super:
     if pkgs.stdenv.hostPlatform.isMusl then
       dontCheck super.hslua-core
     else
-      super.hslua-core
-  ;
+      super.hslua-core;
 
   # Missing files required by the test suite.
   # https://github.com/deemp/flakes/issues/4
@@ -1558,8 +1538,7 @@ self: super:
             # patch out TCP usage: https://nixos.org/manual/nixpkgs/stable/#sec-postgresqlTestHook-tcp
             sed -i test/PostgreSQL/Test.hs \
               -e s^host=localhost^^
-          ''
-        ;
+          '';
         # https://github.com/NixOS/nixpkgs/issues/198495
         doCheck = pkgs.postgresql.doCheck;
         # Match the test suite defaults (or hardcoded values?)
@@ -1568,15 +1547,13 @@ self: super:
           + ''
             PGUSER=esqutest
             PGDATABASE=esqutest
-          ''
-        ;
+          '';
         testFlags =
           drv.testFlags or [ ]
           ++ [
             # We don't have a MySQL test hook yet
             "--skip=/Esqueleto/MySQL"
-          ]
-        ;
+          ];
         testToolDepends = drv.testToolDepends or [ ] ++ [
           pkgs.postgresql
           pkgs.postgresqlTestHook
@@ -1647,8 +1624,7 @@ self: super:
           (drv.postPatch or "")
           + ''
             substituteInPlace hledger-flow.cabal --replace "-static" ""
-          ''
-        ;
+          '';
       })
       super.hledger-flow;
 
@@ -1662,8 +1638,7 @@ self: super:
           old.preCheck or ""
           + ''
             tar --one-top-level=../chart --strip-components=1 -xf ${self.Chart.src}
-          ''
-        ;
+          '';
       })
       (addExtraLibrary self.QuickCheck super.Chart-tests);
 
@@ -1714,8 +1689,7 @@ self: super:
             # NOTE: upstream host variable takes only two values...
             sed -i test/PgInit.hs \
               -e s^'host=" <> host <> "'^^
-          ''
-        ;
+          '';
         doCheck =
           # https://github.com/commercialhaskell/stackage/issues/6884
           # persistent-postgresql-2.13.5.1 needs persistent-test >= 2.13.1.3 which
@@ -1723,15 +1697,13 @@ self: super:
           # are disabled temporarily.
           false
           # https://github.com/NixOS/nixpkgs/issues/198495
-          && pkgs.postgresql.doCheck
-        ;
+          && pkgs.postgresql.doCheck;
         preCheck =
           drv.preCheck or ""
           + ''
             PGDATABASE=test
             PGUSER=test
-          ''
-        ;
+          '';
         testToolDepends = drv.testToolDepends or [ ] ++ [
           pkgs.postgresql
           pkgs.postgresqlTestHook
@@ -1773,8 +1745,7 @@ self: super:
           old.postPatch or ""
           + ''
             sed -i 's/bytestring.*0.11/bytestring/' jsaddle-webkit2gtk.cabal
-          ''
-        ;
+          '';
       }
     ))
   ];
@@ -1787,8 +1758,7 @@ self: super:
           old.postPatch or ""
           + ''
             sed -i 's/lens.*4.20/lens/' jsaddle-dom.cabal
-          ''
-        ;
+          '';
       })
       (doJailbreak super.jsaddle-dom);
 
@@ -1801,8 +1771,7 @@ self: super:
           old.postPatch or ""
           + ''
             sed -i 's/template-haskell.*2.17/template-haskell/' reflex-dom-core.cabal
-          ''
-        ;
+          '';
       })
       (
         (appendPatches
@@ -1955,8 +1924,7 @@ self: super:
           + ''
             # empty string means use default connection
             export DATABASE_URL=""
-          ''
-        ;
+          '';
       })
       (
         super.pg-client.override {
@@ -2017,8 +1985,7 @@ self: super:
               wrapProgram "$out/bin/update-nix-fetchgit" --prefix 'PATH' ':' "${
                 lib.makeBinPath deps
               }"
-            ''
-          ;
+            '';
         })
         (addTestToolDepends deps super.update-nix-fetchgit)
     );
@@ -2252,15 +2219,13 @@ self: super:
           ''
             export SPACECOOKIE_TEST_BIN=./dist/build/spacecookie/spacecookie
           ''
-          + (old.preCheck or "")
-        ;
+          + (old.preCheck or "");
         # install man pages shipped in the sdist
         postInstall =
           ''
             installManPage docs/man/*
           ''
-          + (old.postInstall or "")
-        ;
+          + (old.postInstall or "");
       })
       super.spacecookie;
 
@@ -2482,8 +2447,7 @@ self: super:
             sed -i 's/time.*,/time,/' jsaddle.cabal
             sed -i 's/(!name)/(! name)/' src/Language/Javascript/JSaddle/Object.hs
           ''
-          + (drv.postPatch or "")
-        ;
+          + (drv.postPatch or "");
       })
       (doJailbreak super.jsaddle);
 
@@ -2880,8 +2844,7 @@ self: super:
           ''
             sed -i 's/import "jsaddle-dom" GHCJS.DOM.Document/import "ghcjs-dom-jsaddle" GHCJS.DOM.Document/' src/GHCJS/DOM/Document.hs
           ''
-          + (old.postPatch or "")
-        ;
+          + (old.postPatch or "");
       })
       super.ghcjs-dom;
 

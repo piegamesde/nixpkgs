@@ -21,8 +21,7 @@ let
       "!" # password login disabled
       "!!" # a variant of "!"
       "*" # password unset
-    ])
-  ;
+    ]);
 
   passwordDescription = ''
     The options {option}`hashedPassword`,
@@ -472,8 +471,7 @@ let
                 name = id;
                 value = true;
               }
-            ])
-          ;
+            ]);
         in
         if dup then
           args
@@ -929,8 +927,7 @@ in
                   )
                   cfg.users
                 ++ [ config.security.googleOsLogin.enable ]
-              )
-            ;
+              );
             message = ''
               Neither the root account nor any wheel user has a password or SSH authorized key.
               You must set one to prevent being locked out of your system.
@@ -947,8 +944,7 @@ in
               {
                 assertion =
                   (user.hashedPassword != null)
-                  -> (builtins.match ".*:.*" user.hashedPassword == null)
-                ;
+                  -> (builtins.match ".*:.*" user.hashedPassword == null);
                 message = ''
                   The password hash of user "${user.name}" contains a ":" character.
                   This is invalid and would break the login system because the fields

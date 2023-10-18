@@ -46,8 +46,7 @@ let
             if (url != "") then
               ((if authenticated then requireFile else fetchurl) { inherit url sha1; })
             else
-              ""
-          ;
+              "";
 
           fetchMetadata = (if authenticated then requireFile else fetchurl) {
             inherit (metadata) url sha1;

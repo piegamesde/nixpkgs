@@ -16,8 +16,7 @@ makeSetupHook
     propagatedBuildInputs =
       [ dieHook ]
       # https://github.com/NixOS/nixpkgs/issues/148189
-      ++ lib.optional (stdenv.isDarwin && stdenv.isAarch64) cc
-    ;
+      ++ lib.optional (stdenv.isDarwin && stdenv.isAarch64) cc;
 
     substitutions = {
       cc = "${cc}/bin/${cc.targetPrefix}cc ${

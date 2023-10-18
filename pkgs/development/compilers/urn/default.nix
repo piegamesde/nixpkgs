@@ -26,8 +26,7 @@ let
           readline
         ]
       else
-        [ lua ]
-    ;
+        [ lua ];
   };
 
   inherit (lib) optionalString concatMapStringsSep;

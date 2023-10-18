@@ -102,8 +102,7 @@ stdenv.mkDerivation rec {
       wrapProgram "$out"/bin/xtrabackup --prefix PERL5LIB : $PERL5LIB
       rm -r "$out"/lib/plugin/debug
     ''
-    + extraPostInstall
-  ;
+    + extraPostInstall;
 
   meta = with lib; {
     description = "Non-blocking backup tool for MySQL";

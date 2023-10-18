@@ -33,8 +33,7 @@ buildPythonPackage rec {
       CoreAudio
       CoreMIDI
       CoreServices
-    ]
-  ;
+    ];
   nativeCheckInputs = [
     tox
     flake8

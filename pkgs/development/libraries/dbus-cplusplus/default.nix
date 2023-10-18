@@ -23,32 +23,28 @@ stdenv.mkDerivation rec {
       name = "gcc-4.7.patch";
       url =
         "https://gitweb.gentoo.org/repo/gentoo.git/plain/dev-libs/"
-        + "dbus-c++/files/dbus-c++-0.9.0-gcc-4.7.patch"
-      ;
+        + "dbus-c++/files/dbus-c++-0.9.0-gcc-4.7.patch";
       sha256 = "0rwcz9pvc13b3yfr0lkifnfz0vb5q6dg240bzgf37ni4s8rpc72g";
     })
     (fetchurl {
       name = "writechar.patch"; # since gcc7
       url =
         "https://src.fedoraproject.org/cgit/rpms/dbus-c++.git/plain/"
-        + "dbus-c++-writechar.patch?id=7f371172f5c"
-      ;
+        + "dbus-c++-writechar.patch?id=7f371172f5c";
       sha256 = "1kkg4gbpm4hp87l25zw2a3r9c58g7vvgzcqgiman734i66zsbb9l";
     })
     (fetchurl {
       name = "threading.patch"; # since gcc7
       url =
         "https://src.fedoraproject.org/cgit/rpms/dbus-c++.git/plain/"
-        + "dbus-c++-threading.patch?id=7f371172f5c"
-      ;
+        + "dbus-c++-threading.patch?id=7f371172f5c";
       sha256 = "1h362anx3wyxm5lq0v8girmip1jmkdbijrmbrq7k5pp47zkhwwrq";
     })
     (fetchurl {
       name = "template-operators.patch"; # since gcc12
       url =
         "https://src.fedoraproject.org/cgit/rpms/dbus-c++.git/plain/"
-        + "dbus-c++-template-operators.patch?id=d3f0d8bb519c0af"
-      ;
+        + "dbus-c++-template-operators.patch?id=d3f0d8bb519c0af";
       sha256 = "N25Y7jXDbr0qb7MfRr2yz3zRySppgGOe+oCfNQhRvVc=";
     })
   ];

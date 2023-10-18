@@ -32,8 +32,7 @@ let
           openal
         ]
         + ":"
-        + lib.makeSearchPathOutput "lib" "lib64" [ stdenv.cc.cc ]
-      ;
+        + lib.makeSearchPathOutput "lib" "lib64" [ stdenv.cc.cc ];
 
       buildCommand = ''
         mkdir -p "$out"

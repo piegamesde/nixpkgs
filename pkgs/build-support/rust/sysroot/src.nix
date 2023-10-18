@@ -29,6 +29,5 @@ stdenv.mkDerivation {
       echo '#![no_std]' > $out/src/lib.rs
       cp Cargo.toml $out/Cargo.toml
       cp ${./Cargo.lock} $out/Cargo.lock
-    ''
-  ;
+    '';
 }

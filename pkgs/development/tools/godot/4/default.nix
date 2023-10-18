@@ -95,8 +95,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional withSpeechd speechd
     ++ lib.optional withFontconfig fontconfig
     ++ lib.optional withFontconfig fontconfig.lib
-    ++ lib.optional withUdev udev
-  ;
+    ++ lib.optional withUdev udev;
 
   enableParallelBuilding = true;
 

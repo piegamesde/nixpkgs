@@ -33,8 +33,7 @@ stdenv.mkDerivation rec {
   cmakeFlags =
     [ "-DBUILD_SHARED_LIBS=ON" ]
     ++ lib.optional withCurl "-DWITH_LIBCURL=ON"
-    ++ lib.optional withOpenSSL "-DWITH_OPENSSL=ON"
-  ;
+    ++ lib.optional withOpenSSL "-DWITH_OPENSSL=ON";
 
   passthru.updateScript = gitUpdater { };
 

@@ -13,8 +13,7 @@ let
     if stableVersions == [ ] then
       abort "Failed to extract versions from html."
     else
-      lib.last (builtins.sort builtins.lessThan stableVersions)
-  ;
+      lib.last (builtins.sort builtins.lessThan stableVersions);
 
   # getHtml :: String -> String
   getHtml = url: builtins.readFile (builtins.fetchurl url);
@@ -33,8 +32,7 @@ let
     if sha256 == [ ] then
       abort "Failed to extract sha256 from html."
     else
-      builtins.head sha256
-  ;
+      builtins.head sha256;
 
   # getSha256 :: String -> String
   getSha256 =

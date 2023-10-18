@@ -16,8 +16,7 @@ let
   resolvconfOptions =
     cfg.extraOptions
     ++ optional cfg.dnsSingleRequest "single-request"
-    ++ optional cfg.dnsExtensionMechanism "edns0"
-  ;
+    ++ optional cfg.dnsExtensionMechanism "edns0";
 
   configText =
     ''
@@ -39,8 +38,7 @@ let
       # This hosts runs a full-blown DNS resolver.
       name_servers='127.0.0.1'
     ''
-    + cfg.extraConfig
-  ;
+    + cfg.extraConfig;
 in
 
 {
@@ -191,8 +189,7 @@ in
             exit 1
           ''
         else
-          configText
-      ;
+          configText;
     }
 
     (mkIf cfg.enable {

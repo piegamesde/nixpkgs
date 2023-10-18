@@ -151,8 +151,7 @@ let
 
   defaultSessionFromLegacyOptions =
     dmFallbackDefault
-    + optionalString (wmDefault != null && wmDefault != "none") "+${wmDefault}"
-  ;
+    + optionalString (wmDefault != null && wmDefault != "none") "+${wmDefault}";
 in
 
 {
@@ -295,8 +294,7 @@ in
             else if cfg.displayManager.sessionData.sessionNames != [ ] then
               head cfg.displayManager.sessionData.sessionNames
             else
-              null
-          ;
+              null;
         };
       };
 
@@ -317,14 +315,12 @@ in
                   Valid names for 'services.xserver.displayManager.defaultSession' are:
                     ${concatStringsSep "\n  " cfg.displayManager.sessionData.sessionNames}
                 '';
-          }
-        ;
+          };
         default =
           if dmDefault != null || wmDefault != null then
             defaultSessionFromLegacyOptions
           else
-            null
-        ;
+            null;
         defaultText = literalMD ''
           Taken from display manager settings or window manager settings, if either is set.
         '';
@@ -427,8 +423,7 @@ in
       {
         assertion =
           cfg.displayManager.autoLogin.enable
-          -> cfg.displayManager.autoLogin.user != null
-        ;
+          -> cfg.displayManager.autoLogin.user != null;
         message = ''
           services.xserver.displayManager.autoLogin.enable requires services.xserver.displayManager.autoLogin.user to be set
         '';
@@ -436,8 +431,7 @@ in
       {
         assertion =
           cfg.desktopManager.default != null || cfg.windowManager.default != null
-          -> cfg.displayManager.defaultSession == defaultSessionFromLegacyOptions
-        ;
+          -> cfg.displayManager.defaultSession == defaultSessionFromLegacyOptions;
         message = "You cannot use both services.xserver.displayManager.defaultSession option and legacy options (services.xserver.desktopManager.default and services.xserver.windowManager.default).";
       }
     ];

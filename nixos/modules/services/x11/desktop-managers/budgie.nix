@@ -183,8 +183,7 @@ in
         ]
         config.environment.budgie.excludePackages
       )
-      ++ cfg.sessionPath
-    ;
+      ++ cfg.sessionPath;
 
     # Fonts.
     fonts.fonts = mkDefault [

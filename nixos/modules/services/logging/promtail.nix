@@ -18,8 +18,7 @@ let
 
   allowSystemdJournal =
     cfg.configuration ? scrape_configs
-    && lib.any (v: v ? journal) cfg.configuration.scrape_configs
-  ;
+    && lib.any (v: v ? journal) cfg.configuration.scrape_configs;
 
   allowPositionsFile = !lib.hasPrefix "/var/cache/promtail" positionsFile;
   positionsFile = cfg.configuration.positions.filename;

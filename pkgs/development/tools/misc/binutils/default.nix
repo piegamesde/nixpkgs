@@ -3,8 +3,7 @@ let
     platform:
     platform.parsed.kernel.execFormat.name == "elf"
     && !platform.isRiscV
-    && !platform.isLoongArch64
-  ;
+    && !platform.isLoongArch64;
 in
 
 {
@@ -124,8 +123,7 @@ stdenv.mkDerivation (
           )
       # This patch fixes a bug in 2.40 on MinGW, which breaks DXVK when cross-building from Darwin.
       # See https://sourceware.org/bugzilla/show_bug.cgi?id=30079
-      ++ lib.optional stdenv.targetPlatform.isMinGW ./mingw-abort-fix.patch
-    ;
+      ++ lib.optional stdenv.targetPlatform.isMinGW ./mingw-abort-fix.patch;
 
     outputs =
       [
@@ -141,8 +139,7 @@ stdenv.mkDerivation (
       # to $lib as binutils does not build target libraries. Let's make our
       # life slightly simpler by installing everything into $out for
       # cross-binutils.
-      ++ lib.optionals (targetPlatform == hostPlatform) [ "lib" ]
-    ;
+      ++ lib.optionals (targetPlatform == hostPlatform) [ "lib" ];
 
     strictDeps = true;
     depsBuildBuild = [ buildPackages.stdenv.cc ];
@@ -161,8 +158,7 @@ stdenv.mkDerivation (
         gettext
         libtool
       ]
-      ++ lib.optionals targetPlatform.isVc4 [ flex ]
-    ;
+      ++ lib.optionals targetPlatform.isVc4 [ flex ];
 
     buildInputs = [
       zlib
@@ -197,8 +193,7 @@ stdenv.mkDerivation (
         # autoreconfHook is not included for all targets.
         # Call it here explicitly as well.
         ${finalAttrs.postAutoreconf}
-      ''
-    ;
+      '';
 
     postAutoreconf = ''
       # As we regenerated configure build system tries hard to use
@@ -216,8 +211,7 @@ stdenv.mkDerivation (
       if hostPlatform.isDarwin then
         "-Wno-string-plus-int -Wno-deprecated-declarations"
       else
-        "-static-libgcc"
-    ;
+        "-static-libgcc";
 
     hardeningDisable = [
       "format"
@@ -278,8 +272,7 @@ stdenv.mkDerivation (
             "--disable-shared"
             "--enable-static"
           ]
-      )
-    ;
+      );
 
     # Fails
     doCheck = false;
@@ -289,8 +282,7 @@ stdenv.mkDerivation (
       if stdenv.hostPlatform != stdenv.targetPlatform then
         "bin lib ${stdenv.hostPlatform.config}"
       else
-        null
-    ;
+        null;
 
     # INFO: Otherwise it fails with:
     # `./sanity.sh: line 36: $out/bin/size: not found`

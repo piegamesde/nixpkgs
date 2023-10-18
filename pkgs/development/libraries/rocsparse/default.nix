@@ -26,8 +26,7 @@ stdenv.mkDerivation (
     outputs =
       [ "out" ]
       ++ lib.optionals (buildTests || buildBenchmarks) [ "test" ]
-      ++ lib.optionals buildBenchmarks [ "benchmark" ]
-    ;
+      ++ lib.optionals buildBenchmarks [ "benchmark" ];
 
     src = fetchFromGitHub {
       owner = "ROCmSoftwarePlatform";
@@ -69,8 +68,7 @@ stdenv.mkDerivation (
         "-DCMAKE_MATRICES_DIR=/build/source/matrices"
         "-Dpython=python3"
       ]
-      ++ lib.optionals buildBenchmarks [ "-DBUILD_CLIENTS_BENCHMARKS=ON" ]
-    ;
+      ++ lib.optionals buildBenchmarks [ "-DBUILD_CLIENTS_BENCHMARKS=ON" ];
 
     # We have to manually generate the matrices
     postPatch = lib.optionalString (buildTests || buildBenchmarks) ''
@@ -126,8 +124,7 @@ stdenv.mkDerivation (
         rm $test/bin/rocsparse-bench || true
         mv /build/source/matrices $test
         rmdir $out/bin
-      ''
-    ;
+      '';
 
     passthru = {
       matrices = import ./deps.nix {

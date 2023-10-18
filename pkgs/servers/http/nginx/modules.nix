@@ -329,8 +329,7 @@ let
           rev = "v1.0.1";
           sha256 = "0qcx15c8wbsmyz2hkmyy5yd7qn1n84kx9amaxnfxkpqi05vzm1zz";
         }
-        + "/ipscrub"
-      ;
+        + "/ipscrub";
 
       inputs = [ libbsd ];
 
@@ -516,8 +515,7 @@ let
           rev = "95ac520eed2ea04098a76305fd0ad7e9158840b7";
           sha256 = "0b5pnqkgg18kbw5rf2ifiq7lsx5rqmpqsql6hx5ycxjzxj6acfb3";
         }
-        + "/naxsi_src"
-      ;
+        + "/naxsi_src";
 
       meta = with lib; {
         description = "Open-source, high performance, low rules maintenance WAF";

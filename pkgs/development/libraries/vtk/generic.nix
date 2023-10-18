@@ -102,8 +102,7 @@ stdenv.mkDerivation rec {
       OpenGL
       GLUT
     ]
-    ++ optionals enablePython [ python ]
-  ;
+    ++ optionals enablePython [ python ];
   propagatedBuildInputs =
     optionals stdenv.isDarwin [ libobjc ]
     ++ optionals stdenv.isLinux [
@@ -160,8 +159,7 @@ stdenv.mkDerivation rec {
     ++ optionals enablePython [
       "-DVTK_WRAP_PYTHON:BOOL=ON"
       "-DVTK_PYTHON_VERSION:STRING=${pythonMajor}"
-    ]
-  ;
+    ];
 
   postPatch = optionalString stdenv.isDarwin ''
     sed -i 's|COMMAND vtkHashSource|COMMAND "DYLD_LIBRARY_PATH=''${VTK_BINARY_DIR}/lib" ''${VTK_BINARY_DIR}/bin/vtkHashSource-${majorVersion}|' ./Parallel/Core/CMakeLists.txt

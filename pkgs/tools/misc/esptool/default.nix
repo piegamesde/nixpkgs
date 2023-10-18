@@ -51,8 +51,7 @@ python3.pkgs.buildPythonApplication rec {
         dezgeg
         dotlambda
       ]
-      ++ teams.lumiguide.members
-    ;
+      ++ teams.lumiguide.members;
     platforms = with platforms; linux ++ darwin;
   };
 }

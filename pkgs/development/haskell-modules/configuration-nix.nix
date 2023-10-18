@@ -129,8 +129,7 @@ builtins.intersectAttrs super {
               ''
                 export HOME=$TMPDIR/home
               ''
-              + (drv.preCheck or "")
-            ;
+              + (drv.preCheck or "");
           }
         )
       )
@@ -554,8 +553,7 @@ builtins.intersectAttrs super {
               wrapGAppsHook # Fix error: GLib-GIO-ERROR **: No GSettings schemas are installed on the system
               gtk3 # Fix error: GLib-GIO-ERROR **: Settings schema 'org.gtk.Settings.FileChooser' is not installed
             ]
-          )
-        ;
+          );
         postPatch =
           (drv.postPatch or "")
           + ''
@@ -563,8 +561,7 @@ builtins.intersectAttrs super {
             do
               substituteInPlace "$f" --replace "\"leksah-server\"" "\"${self.leksah-server}/bin/leksah-server\""
             done
-          ''
-        ;
+          '';
       })
       super.leksah
   );
@@ -683,8 +680,7 @@ builtins.intersectAttrs super {
           drv.preCheck or ""
           + ''
             export PATH="$PWD/dist/build/goldplate:$PATH"
-          ''
-        ;
+          '';
       })
       super.goldplate;
 
@@ -709,8 +705,7 @@ builtins.intersectAttrs super {
           ''
             export PATH="$PWD/dist/build/tasty-discover:$PATH"
           ''
-          + (drv.preBuild or "")
-        ;
+          + (drv.preBuild or "");
       })
       super.tasty-discover;
 
@@ -806,8 +801,7 @@ builtins.intersectAttrs super {
       appendPatch ./patches/servant-client-core-redact-auth-header.patch
         super.servant-client-core
     else
-      super.servant-client-core
-  ;
+      super.servant-client-core;
 
   # tests run executable, relying on PATH
   # without this, tests fail with "Couldn't launch intero process"
@@ -911,16 +905,14 @@ builtins.intersectAttrs super {
           (_drv.postBuild or "")
           + ''
             make -C docs man
-          ''
-        ;
+          '';
 
         postInstall =
           (_drv.postInstall or "")
           + ''
             mkdir -p $out/share/man/man1
             mv docs/_build/man/*.1 $out/share/man/man1/
-          ''
-        ;
+          '';
       })
       (
         addBuildTools
@@ -944,8 +936,7 @@ builtins.intersectAttrs super {
             substituteInPlace Test.hs \
               --replace ', testCase "crypto" test_crypto' ""
           ''
-          + (drv.postPatch or "")
-        ;
+          + (drv.postPatch or "");
         # Ensure git-annex uses the exact same coreutils it saw at build-time.
         # This is especially important on Darwin but also in Linux environments
         # where non-GNU coreutils are used by default.
@@ -961,8 +952,7 @@ builtins.intersectAttrs super {
                 )
               }"
           ''
-          + (drv.postFixup or "")
-        ;
+          + (drv.postFixup or "");
         buildTools = [ pkgs.buildPackages.makeWrapper ] ++ (drv.buildTools or [ ]);
       })
       (
@@ -1053,8 +1043,7 @@ builtins.intersectAttrs super {
                   "$sourceRoot/templates/purescript-docs-search-0.0.10" \
                   "$sourceRoot/templates/docs-search-app-0.0.11.js" \
                   "$sourceRoot/templates/purescript-docs-search-0.0.11"
-              ''
-            ;
+              '';
           })
           super.spago;
 
@@ -1203,8 +1192,7 @@ builtins.intersectAttrs super {
           ''
             export PATH=dist/build/stutter:$PATH
           ''
-          + (drv.preCheck or "")
-        ;
+          + (drv.preCheck or "");
       })
       super.stutter;
 
@@ -1216,8 +1204,7 @@ builtins.intersectAttrs super {
           ''
             install -D man/pnbackup.1 $out/share/man/man1/pnbackup.1
           ''
-          + (drv.postInstall or "")
-        ;
+          + (drv.postInstall or "");
       })
       (
         self.generateOptparseApplicativeCompletions [ "pnbackup" ]
@@ -1236,8 +1223,7 @@ builtins.intersectAttrs super {
           ''
             install -Dm644 data/hlint.1 -t "$out/share/man/man1"
           ''
-          + drv.postInstall or ""
-        ;
+          + drv.postInstall or "";
       })
       super.hlint;
 
@@ -1299,8 +1285,7 @@ builtins.intersectAttrs super {
           ''
             sed -i 's|"tophat"|"./dist/build/tophat/tophat"|' app-test-bin/*.hs
           ''
-          + (drv.postPatch or "")
-        ;
+          + (drv.postPatch or "");
       })
       super.tophat;
 
@@ -1321,8 +1306,7 @@ builtins.intersectAttrs super {
                 pkgs.nix-prefetch-docker
               ]
             }"
-          ''
-        ;
+          '';
       })
       super.nvfetcher
   );
@@ -1377,8 +1361,7 @@ builtins.intersectAttrs super {
     then
       super.hercules-ci-api-core.overrideAttrs (_: { dummyAttr = 1; })
     else
-      super.hercules-ci-api-core
-  ;
+      super.hercules-ci-api-core;
 
   hercules-ci-agent = super.hercules-ci-agent.override {
     nix = self.hercules-ci-cnix-store.passthru.nixPackage;
@@ -1431,8 +1414,7 @@ builtins.intersectAttrs super {
               main = defaultMain
               EOF
             ''
-            + (drv.preCompileBuildDriver or "")
-          ;
+            + (drv.preCompileBuildDriver or "");
           # install man page
           buildTools = [
             pkgs.buildPackages.installShellFiles
@@ -1441,8 +1423,7 @@ builtins.intersectAttrs super {
             ''
               installManPage man/atsfmt.1
             ''
-            + (drv.postInstall or "")
-          ;
+            + (drv.postInstall or "");
         })
         super.ats-format
     )
@@ -1486,8 +1467,7 @@ builtins.intersectAttrs super {
               unset doCheck
             fi
           ''
-          + (drv.postConfigure or "")
-        ;
+          + (drv.postConfigure or "");
       })
       super.procex;
 
@@ -1499,8 +1479,7 @@ builtins.intersectAttrs super {
           drv.preCheck or ""
           + ''
             export PATH="$PWD/dist/build/fourmolu:$PATH"
-          ''
-        ;
+          '';
       })
       super.fourmolu;
 
@@ -1512,8 +1491,7 @@ builtins.intersectAttrs super {
           drv.preCheck or ""
           + ''
             export PATH="$PWD/dist/build/fourmolu:$PATH"
-          ''
-        ;
+          '';
       })
       super.fourmolu_0_10_1_0;
 
@@ -1525,8 +1503,7 @@ builtins.intersectAttrs super {
           drv.preCheck or ""
           + ''
             export PATH="$PWD/dist/build/disco:$PATH"
-          ''
-        ;
+          '';
         testFlags = drv.testFlags or [ ] ++ [
           # Needs network access
           "-p"
@@ -1637,8 +1614,7 @@ builtins.intersectAttrs super {
 
             wrapProgram "$out/bin/cabal" \
               --prefix PATH : "${pkgs.lib.makeBinPath [ pkgs.groff ]}"
-          ''
-        ;
+          '';
         hydraPlatforms = pkgs.lib.platforms.all;
         broken = false;
       })

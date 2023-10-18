@@ -90,8 +90,7 @@ let
             ''
           )
           symlinks
-        )
-      ;
+        );
     };
 in
 

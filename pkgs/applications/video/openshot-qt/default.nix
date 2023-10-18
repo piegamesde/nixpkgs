@@ -61,8 +61,7 @@ mkDerivationWith python3.pkgs.buildPythonApplication rec {
     + ''
       "''${gappsWrapperArgs[@]}" \
       "''${qtWrapperArgs[@]}"
-    ''
-  ;
+    '';
 
   passthru = {
     inherit libopenshot;

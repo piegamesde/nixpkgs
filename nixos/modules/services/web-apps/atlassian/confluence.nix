@@ -178,8 +178,7 @@ in
       {
         assertion =
           cfg.sso.enable
-          -> ((cfg.sso.applicationPassword == null) != (cfg.sso.applicationPasswordFile))
-        ;
+          -> ((cfg.sso.applicationPassword == null) != (cfg.sso.applicationPasswordFile));
         message = "Please set either applicationPassword or applicationPasswordFile";
       }
     ];
@@ -247,8 +246,7 @@ in
                 ${cfg.home}/crowd.properties
             ''}
           ''}
-        ''
-      ;
+        '';
 
       serviceConfig = {
         User = cfg.user;

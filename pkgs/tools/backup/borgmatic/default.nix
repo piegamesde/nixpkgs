@@ -56,8 +56,7 @@ python3Packages.buildPythonApplication rec {
                  --replace /root/.local/bin/borgmatic $out/bin/borgmatic \
                  --replace systemd-inhibit ${systemd}/bin/systemd-inhibit \
                  --replace "sleep " "${coreutils}/bin/sleep "
-    ''
-  ;
+    '';
 
   passthru.tests.version = testers.testVersion { package = borgmatic; };
 

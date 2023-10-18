@@ -26,8 +26,7 @@ python3.pkgs.buildPythonApplication rec {
       jinja2
       requests
     ]
-    ++ lib.optionals (python3.pythonOlder "3.11") [ tomli ]
-  ;
+    ++ lib.optionals (python3.pythonOlder "3.11") [ tomli ];
 
   nativeCheckInputs = with python3.pkgs; [
     pytestCheckHook

@@ -48,8 +48,7 @@ stdenv.mkDerivation rec {
       sed -i '/all:/ s/libutil.so//' Makefile
       sed -i '/-m 755 libgif.so/ d' Makefile
       sed -i '/ln -sf libgif.so/ d' Makefile
-    ''
-  ;
+    '';
 
   nativeBuildInputs = lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
 

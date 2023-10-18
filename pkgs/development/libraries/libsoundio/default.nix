@@ -28,8 +28,7 @@ stdenv.mkDerivation rec {
       libpulseaudio
       alsa-lib
     ]
-    ++ lib.optional stdenv.isDarwin AudioUnit
-  ;
+    ++ lib.optional stdenv.isDarwin AudioUnit;
 
   cmakeFlags = lib.optionals stdenv.isDarwin [ "-DBUILD_TESTS=OFF" ];
 

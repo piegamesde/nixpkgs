@@ -45,8 +45,7 @@ let
       + ''
 
         ${cfg.extraConfig}
-      ''
-    ;
+      '';
   };
   pkg =
     (pkgs.peering-manager.overrideAttrs (
@@ -57,8 +56,7 @@ let
           ''
           + optionalString cfg.enableLdap ''
             ln -s ${cfg.ldapConfigPath} $out/opt/peering-manager/peering_manager/ldap_config.py
-          ''
-        ;
+          '';
       }
     )).override
       { inherit (cfg) plugins; };

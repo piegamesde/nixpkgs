@@ -26,8 +26,7 @@ let
     else if build.isCurses then
       mod.forCurses or false
     else
-      false
-  ;
+      false;
 in
 
 lib.makeExtensible (_: pkgs')

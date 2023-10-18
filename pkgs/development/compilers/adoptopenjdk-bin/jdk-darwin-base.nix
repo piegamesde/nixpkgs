@@ -21,8 +21,7 @@ let
       if sourcePerArch.packageType == "jdk" then
         "adoptopenjdk-${sourcePerArch.vmType}-bin"
       else
-        "adoptopenjdk-${sourcePerArch.packageType}-${sourcePerArch.vmType}-bin"
-    ;
+        "adoptopenjdk-${sourcePerArch.packageType}-${sourcePerArch.vmType}-bin";
     version =
       sourcePerArch.${cpuName}.version or (throw "unsupported CPU ${cpuName}");
 

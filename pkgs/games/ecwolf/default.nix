@@ -53,8 +53,7 @@ stdenv.mkDerivation rec {
       mkdir -p $out/{Applications,bin}
       cp -R ecwolf.app $out/Applications
       makeWrapper $out/{Applications/ecwolf.app/Contents/MacOS,bin}/ecwolf
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "Enhanched SDL-based port of Wolfenstein 3D for various platforms";

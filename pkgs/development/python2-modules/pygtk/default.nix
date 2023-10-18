@@ -58,8 +58,7 @@ buildPythonPackage rec {
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.isDarwin "-ObjC"
-    + lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) " -lpython2.7"
-  ;
+    + lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) " -lpython2.7";
 
   installPhase = "installPhase";
 
@@ -77,8 +76,7 @@ buildPythonPackage rec {
              -e "s/sys.path.insert(0, buildDir)//" \
              tests/common.py
       make check
-    ''
-  ;
+    '';
   # XXX: TypeError: Unsupported type: <class 'gtk._gtk.WindowType'>
   # The check phase was not executed in the previous
   # non-buildPythonPackage setup - not sure why not.

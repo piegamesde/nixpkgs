@@ -193,8 +193,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals enableTesseract [
       leptonica_modded
       tesseract_modded
-    ]
-  ;
+    ];
 
   dontUseCmakeBuildDir = true;
 

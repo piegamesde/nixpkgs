@@ -216,8 +216,7 @@ stdenv.mkDerivation (
         if unrarSupport then
           lib.licenses.unfreeRedistributable
         else
-          lib.licenses.gpl3Plus
-      ;
+          lib.licenses.gpl3Plus;
       maintainers = with lib.maintainers; [
         pSub
         AndersonTorres

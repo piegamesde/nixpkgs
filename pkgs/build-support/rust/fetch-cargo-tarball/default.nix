@@ -49,8 +49,7 @@ let
         outputHash = args.sha256;
       }
     else
-      throw "fetchCargoTarball requires a hash for ${name}"
-  ;
+      throw "fetchCargoTarball requires a hash for ${name}";
 in
 stdenv.mkDerivation (
   {

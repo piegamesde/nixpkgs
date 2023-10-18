@@ -32,8 +32,7 @@ stdenv.mkDerivation {
         --bash <($out/bin/pulumi completion bash) \
         --fish <($out/bin/pulumi completion fish) \
         --zsh  <($out/bin/pulumi completion zsh)
-    ''
-  ;
+    '';
 
   nativeBuildInputs =
     [ installShellFiles ]

@@ -360,8 +360,7 @@ let
         if peer.presharedKey != null then
           pkgs.writeText "wg-psk" peer.presharedKey
         else
-          peer.presharedKeyFile
-      ;
+          peer.presharedKeyFile;
       src = interfaceCfg.socketNamespace;
       dst = interfaceCfg.interfaceNamespace;
       ip = nsWrap "ip" src dst;
@@ -410,10 +409,8 @@ let
               if null != peer.dynamicEndpointRefreshRestartSeconds then
                 peer.dynamicEndpointRefreshRestartSeconds
               else
-                peer.dynamicEndpointRefreshSeconds
-            ;
-          }
-      ;
+                peer.dynamicEndpointRefreshSeconds;
+          };
       unitConfig = lib.optionalAttrs dynamicRefreshEnabled {
         StartLimitIntervalSec = 0;
       };
@@ -483,8 +480,7 @@ let
         (peerUnitServiceName name peer.publicKey (
           peer.dynamicEndpointRefreshSeconds != 0
         ))
-        + ".service"
-      ;
+        + ".service";
     in
     nameValuePair "wireguard-${name}" rec {
       description = "WireGuard Tunnel - ${name}";
@@ -502,8 +498,7 @@ let
         if values.privateKeyFile != null then
           values.privateKeyFile
         else
-          pkgs.writeText "wg-key" values.privateKey
-      ;
+          pkgs.writeText "wg-key" values.privateKey;
       src = values.socketNamespace;
       dst = values.interfaceNamespace;
       ipPreMove = nsWrap "ip" src null;
@@ -578,8 +573,7 @@ let
     if (length nsList > 0 && ns != "init") then
       ''ip netns exec "${ns}" "${cmd}"''
     else
-      cmd
-  ;
+      cmd;
 in
 
 {
@@ -673,8 +667,7 @@ in
                 message = "networking.wireguard.interfaces.${interfaceName} peer «${peer.publicKey}» has both presharedKey and presharedKeyFile set, but only one can be used.";
               }
             )
-            all_peers
-      ;
+            all_peers;
 
       boot.extraModulePackages =
         optional (versionOlder kernel.kernel.version "5.6")
@@ -686,8 +679,7 @@ in
         // (listToAttrs (map generatePeerUnit all_peers))
         // (mapAttrs' generateKeyServiceUnit (
           filterAttrs (name: value: value.generatePrivateKeyFile) cfg.interfaces
-        ))
-      ;
+        ));
 
       systemd.targets = mapAttrs' generateInterfaceTarget cfg.interfaces;
     }

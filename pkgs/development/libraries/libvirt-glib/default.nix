@@ -55,8 +55,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withDocs [
       gtk-doc
       docbook-xsl-nons
-    ]
-  ;
+    ];
 
   buildInputs = [
     libvirt

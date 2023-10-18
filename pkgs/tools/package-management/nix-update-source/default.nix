@@ -42,8 +42,7 @@ python3Packages.buildPythonApplication rec {
       // {
         inherit src;
         overrideSrc = drv: lib.overrideDerivation drv (orig: { inherit src; });
-      }
-    ;
+      };
 
     updateScript = ''
       #!${runtimeShell}

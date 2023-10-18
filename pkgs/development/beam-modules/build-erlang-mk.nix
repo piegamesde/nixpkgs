@@ -58,8 +58,7 @@ let
               addToSearchPath ERL_LIBS "$1/lib/erlang/lib"
             ''
           else
-            setupHook
-        ;
+            setupHook;
 
         buildInputs = buildInputs ++ [
           erlang
@@ -74,8 +73,7 @@ let
           [ "SKIP_DEPS=1" ]
           ++ lib.optional (enableDebugInfo || erlang.debugInfo)
             ''ERL_OPTS="$ERL_OPTS +debug_info"''
-          ++ buildFlags
-        ;
+          ++ buildFlags;
 
         configurePhase =
           if configurePhase == null then
@@ -89,8 +87,7 @@ let
               runHook postConfigure
             ''
           else
-            configurePhase
-        ;
+            configurePhase;
 
         buildPhase =
           if buildPhase == null then
@@ -102,8 +99,7 @@ let
               runHook postBuild
             ''
           else
-            buildPhase
-        ;
+            buildPhase;
 
         installPhase =
           if installPhase == null then
@@ -129,8 +125,7 @@ let
               runHook postInstall
             ''
           else
-            installPhase
-        ;
+            installPhase;
 
         passthru = {
           packageName = name;

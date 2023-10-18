@@ -33,8 +33,7 @@ let
     nodesList
     ++
       lib.optional (lib.length nodesList == 1 && !lib.elem "machine" nodesList)
-        "machine"
-  ;
+        "machine";
 
   # TODO: This is an implementation error and needs fixing
   # the testing famework cannot legitimately restrict hostnames further
@@ -58,8 +57,7 @@ let
         please stick to alphanumeric chars and underscores as separation.
       ''
     else
-      lib.warnIf config.skipLint "Linting is disabled"
-  ;
+      lib.warnIf config.skipLint "Linting is disabled";
 
   driver =
     hostPkgs.runCommand "nixos-test-driver-${config.name}"

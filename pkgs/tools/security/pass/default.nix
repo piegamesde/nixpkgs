@@ -41,8 +41,7 @@ assert waylandSupport -> wl-clipboard != null;
 assert dmenuSupport -> x11Support || waylandSupport;
 assert dmenuSupport && x11Support -> dmenu != null && xdotool != null;
 assert dmenuSupport && waylandSupport
-  -> dmenu-wayland != null && ydotool != null
-;
+  -> dmenu-wayland != null && ydotool != null;
 
 let
   passExtensions = import ./extensions { inherit pkgs; };
@@ -53,8 +52,7 @@ let
       selected =
         [ pass ]
         ++ extensions passExtensions
-        ++ lib.optional tombPluginSupport passExtensions.tomb
-      ;
+        ++ lib.optional tombPluginSupport passExtensions.tomb;
     in
     buildEnv {
       # lib.getExe looks for name, so we keep it the same as mainProgram
@@ -112,8 +110,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString dmenuSupport ''
       cp "contrib/dmenu/passmenu" "$out/bin/"
-    ''
-  ;
+    '';
 
   wrapperPath =
     with lib;
@@ -160,8 +157,7 @@ stdenv.mkDerivation rec {
       # need all the tools in there but it doesn't hurt either.
       wrapProgram $out/bin/passmenu \
         --prefix PATH : "$out/bin:${wrapperPath}"
-    ''
-  ;
+    '';
 
   # Turn "check" into "installcheck", since we want to test our pass,
   # not the one before the fixup.
@@ -187,8 +183,7 @@ stdenv.mkDerivation rec {
       rm -f tests/t0100-insert-tests.sh
       rm -f tests/t0300-reencryption.sh
       rm -f tests/t0400-grep.sh
-    ''
-  ;
+    '';
 
   doCheck = false;
 

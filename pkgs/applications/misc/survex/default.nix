@@ -60,8 +60,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.hostPlatform.isLinux [
       libICE
       libX11
-    ]
-  ;
+    ];
 
   postPatch = ''
     patchShebangs .

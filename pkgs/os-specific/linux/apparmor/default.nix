@@ -12,12 +12,10 @@
   linuxHeaders ? stdenv.cc.libc.linuxHeaders,
   gawk,
   withPerl ? stdenv.hostPlatform == stdenv.buildPlatform
-    && lib.meta.availableOn stdenv.hostPlatform perl
-  ,
+    && lib.meta.availableOn stdenv.hostPlatform perl,
   perl,
   withPython ? stdenv.hostPlatform == stdenv.buildPlatform
-    && lib.meta.availableOn stdenv.hostPlatform python3
-  ,
+    && lib.meta.availableOn stdenv.hostPlatform python3,
   python3,
   swig,
   ncurses,
@@ -130,8 +128,7 @@ let
       prePatchCommon
       + ''
         substituteInPlace ./libraries/libapparmor/swig/perl/Makefile.am --replace install_vendor install_site
-      ''
-    ;
+      '';
     inherit patches;
 
     postPatch = ''
@@ -189,8 +186,7 @@ let
         for file in utils/apparmor/easyprof.py utils/apparmor/aa.py utils/logprof.conf; do
           substituteInPlace $file --replace "/sbin/apparmor_parser" "${apparmor-parser}/bin/apparmor_parser"
         done
-      ''
-    ;
+      '';
     inherit patches;
     postPatch = "cd ./utils";
     makeFlags = [ "LANGS=" ];
@@ -285,8 +281,7 @@ let
         substituteInPlace parser/rc.apparmor.functions \
          --replace "/sbin/apparmor_parser" "$out/bin/apparmor_parser"
         sed -i parser/rc.apparmor.functions -e '2i . ${./fix-rc.apparmor.functions.sh}'
-      ''
-    ;
+      '';
     inherit patches;
     postPatch = ''
       cd ./parser

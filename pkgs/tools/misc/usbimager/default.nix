@@ -35,8 +35,7 @@ stdenv.mkDerivation rec {
       glib
     ]
     ++ lib.optional (!withLibui) libX11
-    ++ lib.optional withLibui gtk3
-  ;
+    ++ lib.optional withLibui gtk3;
   # libui is bundled with the source of usbimager as a compiled static libary
 
   postPatch = ''
@@ -51,8 +50,7 @@ stdenv.mkDerivation rec {
   makeFlags =
     [ "PREFIX=$(out)" ]
     ++ lib.optional withLibui "USE_LIBUI=yes"
-    ++ lib.optional withUdisks "USE_UDISKS2=yes"
-  ;
+    ++ lib.optional withUdisks "USE_UDISKS2=yes";
 
   meta = with lib; {
     description = "A very minimal GUI app that can write compressed disk images to USB drives";

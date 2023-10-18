@@ -79,8 +79,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString (stdenv.hostPlatform == stdenv.buildPlatform) ''
       mkdir -p $test/bin
       cp -a test/* $test/bin/
-    ''
-  ;
+    '';
 
   preFixup = ''
     wrapPythonPrograms

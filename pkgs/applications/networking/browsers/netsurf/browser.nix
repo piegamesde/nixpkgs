@@ -103,8 +103,7 @@ stdenv.mkDerivation rec {
       SDL
     ]
     ++ optional (uilib == "gtk2") gtk2
-    ++ optional (uilib == "gtk3") gtk3
-  ;
+    ++ optional (uilib == "gtk3") gtk3;
 
   preConfigure = ''
     cat <<EOF > Makefile.conf

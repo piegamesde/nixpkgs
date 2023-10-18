@@ -51,8 +51,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       Carbon
       Cocoa
-    ]
-  ;
+    ];
 
   nativeCheckInputs = [ cppunit ];
 

@@ -68,8 +68,7 @@ in
                   if pkgs.stdenv.hostPlatform.is64bit then
                     [ package ] ++ extraPackages
                   else
-                    [ package32 ] ++ extraPackages32
-                ;
+                    [ package32 ] ++ extraPackages32;
               in
               prevLibs ++ additionalLibs;
           }

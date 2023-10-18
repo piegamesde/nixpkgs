@@ -35,8 +35,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString stdenv.isLinux ''
       patchelf --add-needed ${libX11}/lib/libX11.so $out/lib/libIVhines.so
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "InterViews graphical library for Neuron";

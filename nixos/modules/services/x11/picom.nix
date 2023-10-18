@@ -19,8 +19,7 @@ let
     addCheck (listOf x) (y: length y == 2)
     // {
       description = "pair of ${x.description}";
-    }
-  ;
+    };
 
   mkDefaultAttrs = mapAttrs (n: v: mkDefault v);
 
@@ -56,8 +55,7 @@ let
       throw ''
         invalid expression used in option services.picom.settings:
         ${v}
-      ''
-  ;
+      '';
 
   toConf = attrs: concatStringsSep "\n" (mkAttrsString true cfg.settings);
 
@@ -295,8 +293,7 @@ in
           res = x != "none";
           msg =
             "The type of services.picom.vSync has changed to bool:"
-            + " interpreting ${x} as ${boolToString res}"
-          ;
+            + " interpreting ${x} as ${boolToString res}";
         in
         if isBool x then x else warn msg res;
 

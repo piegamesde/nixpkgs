@@ -82,8 +82,7 @@ stdenv.mkDerivation (
           genPkgConfig egl EGL
           genPkgConfig glesv1_cm GLESv1_CM
           genPkgConfig glesv2 GLESv2
-        ''
-    ;
+        '';
 
     passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 
@@ -91,8 +90,7 @@ stdenv.mkDerivation (
       {
         description =
           "Stub bindings using "
-          + (if stdenv.hostPlatform.isDarwin then "mesa" else "libglvnd")
-        ;
+          + (if stdenv.hostPlatform.isDarwin then "mesa" else "libglvnd");
         pkgConfigModules = [
           "gl"
           "egl"

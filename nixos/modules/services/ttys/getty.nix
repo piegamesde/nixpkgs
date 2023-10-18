@@ -23,8 +23,7 @@ let
       "--login-options"
       cfg.loginOptions
     ]
-    ++ cfg.extraArgs
-  ;
+    ++ cfg.extraArgs;
 
   gettyCmd =
     args:

@@ -99,8 +99,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString withSudo ''
       configureFlagsArray+=("--with-sudo")
-    ''
-  ;
+    '';
 
   enableParallelBuilding = true;
   # Disable parallel install due to missing depends:

@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
       do
         sed -i "$i" -e's/localhost/127.0.0.1/g'
       done
-    ''
-  ;
+    '';
 
   nativeBuildInputs = [
     gettext
@@ -66,8 +65,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional withOpenssl openssl
     ++ lib.optional withLibpsl libpsl
-    ++ lib.optional stdenv.isDarwin perlPackages.perl
-  ;
+    ++ lib.optional stdenv.isDarwin perlPackages.perl;
 
   configureFlags =
     [ (lib.withFeatureAs withOpenssl "ssl" "openssl") ]

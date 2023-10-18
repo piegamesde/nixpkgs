@@ -40,8 +40,7 @@ stdenv.mkDerivation rec {
     ''
       mkdir -p $out/bin
     ''
-    + (pip.postPatch or "")
-  ; # `pip` does not necessarily have a `postPatch` field.
+    + (pip.postPatch or ""); # `pip` does not necessarily have a `postPatch` field.
 
   nativeBuildInputs = [
     makeWrapper
@@ -80,8 +79,7 @@ stdenv.mkDerivation rec {
       rm pyproject.toml
       ${python.pythonForBuild.interpreter} -m pip install --no-build-isolation --no-index --prefix=$out  --ignore-installed --no-dependencies --no-cache .
       popd
-    ''
-  ;
+    '';
 
   meta = {
     description = "Version of pip used for bootstrapping";

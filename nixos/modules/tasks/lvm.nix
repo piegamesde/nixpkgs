@@ -157,8 +157,7 @@ in
         + optionalString cfg.dmeventd.enable ''
           dmeventd/executable = /bin/false
           activation/monitoring = 0
-        ''
-      ;
+        '';
 
       boot.initrd.preLVMCommands = mkIf (!config.boot.initrd.systemd.enable) ''
         mkdir -p /etc/lvm

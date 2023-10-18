@@ -403,8 +403,7 @@ rec {
     if builtins.isList patterns then
       attrs: any (pattern: matchAttrs pattern attrs) patterns
     else
-      matchAttrs patterns
-  ;
+      matchAttrs patterns;
 
   predicates = mapAttrs (_: matchAnyAttrs) patterns;
 

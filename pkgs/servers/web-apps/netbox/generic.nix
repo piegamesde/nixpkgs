@@ -96,8 +96,7 @@ py.pkgs.buildPythonApplication rec {
       tablib
       jsonschema
     ]
-    ++ extraBuildInputs
-  ;
+    ++ extraBuildInputs;
 
   buildInputs = with py.pkgs; [
     mkdocs-material

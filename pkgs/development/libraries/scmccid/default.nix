@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
         sha256 = "0k9lzlk01sl4ycfqgrqqy3bildz0mcr1r0kkicgjz96l4s0jgz0i";
       })
     else
-      throw "Architecture not supported"
-  ;
+      throw "Architecture not supported";
 
   nativeBuildInputs = [ patchelf ];
 

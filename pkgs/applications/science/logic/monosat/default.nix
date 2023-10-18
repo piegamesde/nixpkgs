@@ -121,8 +121,7 @@ let
           ''
             substituteInPlace setup.py \
               --replace 'library_dir = "../../../../"' 'library_dir = "${core}/lib/"'
-          ''
-      ;
+          '';
 
       nativeCheckInputs = [ pytestCheckHook ];
 

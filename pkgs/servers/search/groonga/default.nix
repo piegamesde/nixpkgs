@@ -49,8 +49,7 @@ stdenv.mkDerivation rec {
       zeromq
       libevent
       msgpack
-    ]
-  ;
+    ];
 
   nativeBuildInputs = [
     autoreconfHook

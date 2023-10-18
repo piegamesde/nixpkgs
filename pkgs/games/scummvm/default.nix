@@ -63,8 +63,7 @@ stdenv.mkDerivation rec {
       libGL
       SDL2
       zlib
-    ]
-  ;
+    ];
 
   dontDisableStatic = true;
 
@@ -82,8 +81,7 @@ stdenv.mkDerivation rec {
       substituteInPlace config.mk \
         --replace x86_64-apple-darwin-ranlib ${cctools}/bin/ranlib \
         --replace aarch64-apple-darwin-ranlib ${cctools}/bin/ranlib
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "Program to run certain classic graphical point-and-click adventure games (such as Monkey Island)";

@@ -108,8 +108,7 @@ stdenv.mkDerivation rec {
       OpenGL
       ForceFeedback
       IOKit
-    ]
-  ;
+    ];
 
   cmakeFlags = [
     "-DUSE_SHARED_ENET=ON"
@@ -131,8 +130,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString stdenv.isDarwin ''
       substituteInPlace CMakeLists.txt --replace 'if(NOT APPLE)' 'if(true)'
       substituteInPlace CMakeLists.txt --replace 'if(LIBUSB_FOUND AND NOT APPLE)' 'if(LIBUSB_FOUND)'
-    ''
-  ;
+    '';
 
   postInstall =
     ''
@@ -144,8 +142,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString stdenv.hostPlatform.isLinux ''
       install -D $src/Data/51-usb-device.rules $out/etc/udev/rules.d/51-usb-device.rules
-    ''
-  ;
+    '';
 
   meta = with lib; {
     homepage = "https://github.com/shiiion/dolphin";

@@ -41,8 +41,7 @@ in
   then
     compressors.${compressor}.executable
   else
-    _: compressor
-  ,
+    _: compressor,
   _compressorExecutable ? _compressorFunction pkgsBuildHost,
   _compressorName ? compressorName _compressorExecutable,
   _compressorMeta ? compressors.${_compressorName} or { },
@@ -52,8 +51,7 @@ in
   _compressorArgsReal ? if compressorArgs == null then
     _compressorMeta.defaultArgs or [ ]
   else
-    compressorArgs
-  ,
+    compressorArgs,
 
   # Filename extension to use for the compressed initramfs. This is
   # included for clarity, but $out/initrd will always be a symlink to

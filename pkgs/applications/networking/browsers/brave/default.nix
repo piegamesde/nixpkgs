@@ -255,8 +255,7 @@ stdenv.mkDerivation rec {
     description = "Privacy-oriented browser for Desktop and Laptop computers";
     changelog =
       "https://github.com/brave/brave-browser/blob/master/CHANGELOG_DESKTOP.md#"
-      + replaceStrings [ "." ] [ "" ] version
-    ;
+      + replaceStrings [ "." ] [ "" ] version;
     longDescription = ''
       Brave browser blocks the ads and trackers that slow you down,
       chew up your bandwidth, and invade your privacy. Brave lets you

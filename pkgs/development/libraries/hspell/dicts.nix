@@ -19,8 +19,7 @@ let
             broken = true;
             description = "${variant} Hebrew dictionary";
           }
-          // (if a ? meta then a.meta else { })
-        ;
+          // (if a ? meta then a.meta else { });
       }
       // (removeAttrs a [ "meta" ])
     );

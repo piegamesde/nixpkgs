@@ -143,8 +143,7 @@ let
     + optionalString (mailbox.specialUse != null) ''
       special_use = \${toString mailbox.specialUse}
     ''
-    + "}"
-  ;
+    + "}";
 
   mailboxes =
     { name, ... }:
@@ -471,8 +470,7 @@ in
     services.dovecot2.protocols =
       optional cfg.enableImap "imap"
       ++ optional cfg.enablePop3 "pop3"
-      ++ optional cfg.enableLmtp "lmtp"
-    ;
+      ++ optional cfg.enableLmtp "lmtp";
 
     services.dovecot2.mailPlugins = mkIf cfg.enableQuota {
       globally.enable = [ "quota" ];
@@ -499,8 +497,7 @@ in
           description = "Virtual Mail User";
           isSystemUser = true;
         } // optionalAttrs (cfg.mailGroup != null) { group = cfg.mailGroup; };
-      }
-    ;
+      };
 
     users.groups =
       {
@@ -511,8 +508,7 @@ in
       }
       // optionalAttrs (cfg.createMailUser && cfg.mailGroup != null) {
         ${cfg.mailGroup} = { };
-      }
-    ;
+      };
 
     environment.etc."dovecot/modules".source = modulesDir;
     environment.etc."dovecot/dovecot.conf".source = cfg.configFile;
@@ -560,8 +556,7 @@ in
               cfg.sieveScripts
           )}
           chown -R '${cfg.mailUser}:${cfg.mailGroup}' '${stateDir}/sieve'
-        ''
-      ;
+        '';
     };
 
     environment.systemPackages = [ dovecotPkg ];
@@ -577,8 +572,7 @@ in
           && (
             cfg.sslCACert != null
             -> !(cfg.sslServerCert == null || cfg.sslServerKey == null)
-          )
-        ;
+          );
         message = "dovecot needs both sslServerCert and sslServerKey defined for working crypto";
       }
       {

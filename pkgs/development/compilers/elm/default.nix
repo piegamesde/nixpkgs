@@ -102,8 +102,7 @@ let
 
           # elm-instrument's tests depend on an old version of elm-format, but we set doCheck to false for other reasons above
           elm-format = null;
-        }
-      ;
+        };
     };
 
   # Haskell packages that require ghc 9.2
@@ -156,8 +155,7 @@ let
               super.unordered-containers;
           # relude-1.1.0.0's tests depend on hedgehog < 1.2, which indirectly depends on text < 2.0
           relude = overrideCabal (drv: { doCheck = false; }) super.relude;
-        }
-      ;
+        };
     };
 
   nodePkgs = pkgs.callPackage ./packages/node-composition.nix {
@@ -203,8 +201,7 @@ lib.makeScope pkgs.newScope (
           homepage = "https://github.com/rtfeldman/node-test-runner";
           license = licenses.bsd3;
           maintainers = [ maintainers.turbomack ];
-        }
-      ;
+        };
     };
   }
   // (hs810Pkgs self).elmPkgs
@@ -223,8 +220,7 @@ lib.makeScope pkgs.newScope (
               homepage = "https://github.com/stoeffel/elm-verify-examples";
               license = licenses.bsd3;
               maintainers = [ maintainers.turbomack ];
-            }
-          ;
+            };
         };
 
       elm-coverage =
@@ -244,15 +240,13 @@ lib.makeScope pkgs.newScope (
                 # in case of just this package
                 # TODO: investigate
                 sed 's/\"install\".*/\"install\":\"echo no-op\",/g' --in-place node_modules/elmi-to-json/package.json
-              ''
-            ;
+              '';
             postInstall =
               (old.postInstall or "")
               + ''
                 mkdir -p unpacked_bin
                 ln -sf ${elm-instrument}/bin/elm-instrument unpacked_bin/elm-instrument
-              ''
-            ;
+              '';
             meta =
               with lib;
               nodePkgs.elm-coverage.meta
@@ -261,8 +255,7 @@ lib.makeScope pkgs.newScope (
                 homepage = "https://github.com/zwilias/elm-coverage";
                 license = licenses.bsd3;
                 maintainers = [ maintainers.turbomack ];
-              }
-            ;
+              };
           }
         );
 
@@ -275,8 +268,7 @@ lib.makeScope pkgs.newScope (
             homepage = "https://github.com/halfzebra/create-elm-app";
             license = licenses.mit;
             maintainers = [ maintainers.turbomack ];
-          }
-        ;
+          };
       };
 
       elm-review = nodePkgs.elm-review // {
@@ -288,8 +280,7 @@ lib.makeScope pkgs.newScope (
             homepage = "https://package.elm-lang.org/packages/jfmengels/elm-review/${nodePkgs.elm-review.version}";
             license = licenses.bsd3;
             maintainers = [ maintainers.turbomack ];
-          }
-        ;
+          };
       };
 
       elm-language-server = nodePkgs."@elm-tooling/elm-language-server" // {
@@ -301,8 +292,7 @@ lib.makeScope pkgs.newScope (
             homepage = "https://github.com/elm-tooling/elm-language-server";
             license = licenses.mit;
             maintainers = [ maintainers.turbomack ];
-          }
-        ;
+          };
       };
 
       elm-spa = nodePkgs."elm-spa".overrideAttrs (
@@ -320,8 +310,7 @@ lib.makeScope pkgs.newScope (
               homepage = "https://www.elm-spa.dev/";
               license = licenses.bsd3;
               maintainers = [ maintainers.ilyakooo0 ];
-            }
-          ;
+            };
         }
       );
 
@@ -334,8 +323,7 @@ lib.makeScope pkgs.newScope (
             homepage = "https://github.com/mdgriffith/elm-optimize-level-2";
             license = licenses.bsd3;
             maintainers = [ maintainers.turbomack ];
-          }
-        ;
+          };
       };
 
       elm-pages = nodePkgs."elm-pages".overrideAttrs (
@@ -376,8 +364,7 @@ lib.makeScope pkgs.newScope (
                 maintainers.turbomack
                 maintainers.jali-clarke
               ];
-            }
-          ;
+            };
         }
       );
 

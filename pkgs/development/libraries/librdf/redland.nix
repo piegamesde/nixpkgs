@@ -47,8 +47,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional withMysql libmysqlclient
     ++ lib.optional withSqlite sqlite
     ++ lib.optional withPostgresql postgresql
-    ++ lib.optional withBdb db
-  ;
+    ++ lib.optional withBdb db;
 
   propagatedBuildInputs = [ librdf_rasqal ];
 

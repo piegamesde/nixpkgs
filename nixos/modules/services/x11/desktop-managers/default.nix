@@ -108,8 +108,7 @@ in
                     optionalString cfg.wallpaper.combineScreens "--no-xinerama"
                   } $HOME/.background-image
                 fi
-              ''
-            ;
+              '';
           }
         );
       };

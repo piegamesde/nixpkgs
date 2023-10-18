@@ -230,8 +230,7 @@ in
           else
             "--inet=${optionalString (cfg.socket.addr != null) (cfg.socket.addr + ":")}${
               toString cfg.socket.port
-            }"
-        ;
+            }";
       in
       {
         description = "Postfix Greylisting Service";

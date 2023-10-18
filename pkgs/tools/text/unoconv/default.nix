@@ -40,8 +40,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString installSymlinks ''
       make install-links prefix="$out"
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "Convert between any document format supported by LibreOffice/OpenOffice";

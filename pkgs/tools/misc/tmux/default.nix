@@ -57,8 +57,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals withSystemd [ systemd ]
     ++ lib.optionals withUtf8proc [ utf8proc ]
-    ++ lib.optionals withUtempter [ libutempter ]
-  ;
+    ++ lib.optionals withUtempter [ libutempter ];
 
   configureFlags =
     [
@@ -67,8 +66,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals withSystemd [ "--enable-systemd" ]
     ++ lib.optionals withUtempter [ "--enable-utempter" ]
-    ++ lib.optionals withUtf8proc [ "--enable-utf8proc" ]
-  ;
+    ++ lib.optionals withUtf8proc [ "--enable-utf8proc" ];
 
   enableParallelBuilding = true;
 

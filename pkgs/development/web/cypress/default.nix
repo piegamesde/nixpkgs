@@ -64,8 +64,7 @@ stdenv.mkDerivation rec {
       alsa-lib
       gtk3
       mesa # for libgbm
-    ]
-  ;
+    ];
 
   runtimeDependencies = [ (lib.getLib udev) ];
 

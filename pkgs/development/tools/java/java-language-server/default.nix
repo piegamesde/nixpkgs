@@ -17,8 +17,7 @@ let
     else if stdenv.isWindows then
       "windows"
     else
-      throw "unsupported platform"
-  ;
+      throw "unsupported platform";
 in
 stdenv.mkDerivation rec {
   pname = "java-language-server";

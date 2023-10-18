@@ -17,8 +17,7 @@ let
     if pkgs.stdenv.buildPlatform == pkgs.stdenv.hostPlatform then
       cfgc.package
     else
-      pkgs.buildPackages.openssh
-  ;
+      pkgs.buildPackages.openssh;
 
   # reports boolean as yes / no
   mkValueStringSshd =
@@ -36,8 +35,7 @@ let
       concatStringsSep "," v
     else
       throw
-        "unsupported type ${builtins.typeOf v}: ${(lib.generators.toPretty { }) v}"
-  ;
+        "unsupported type ${builtins.typeOf v}: ${(lib.generators.toPretty { }) v}";
 
   # dont use the "=" operator
   settingsFormat =
@@ -725,8 +723,7 @@ in
                 + (optionalString cfg.startWhenNeeded "-i ")
                 + "-D "
                 # don't detach into a daemon process
-                + "-f /etc/ssh/sshd_config"
-              ;
+                + "-f /etc/ssh/sshd_config";
               KillMode = "process";
             }
             // (
@@ -755,8 +752,7 @@ in
                 map (l: "${l.addr}:${toString (if l.port != null then l.port else 22)}")
                   cfg.listenAddresses
               else
-                cfg.ports
-            ;
+                cfg.ports;
             socketConfig.Accept = true;
             # Prevent brute-force attacks from shutting down socket
             socketConfig.TriggerLimitIntervalSec = 0;
@@ -768,8 +764,7 @@ in
         {
 
           services.sshd = service;
-        }
-    ;
+        };
 
     networking.firewall.allowedTCPPorts =
       if cfg.openFirewall then cfg.ports else [ ];

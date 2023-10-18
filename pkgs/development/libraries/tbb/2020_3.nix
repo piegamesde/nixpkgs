@@ -62,8 +62,7 @@ stdenv.mkDerivation rec {
         "arch=intel64"
       else
         throw "Unsupported cross architecture"
-    ))
-  ;
+    ));
 
   enableParallelBuilding = true;
 

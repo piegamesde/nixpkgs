@@ -25,8 +25,7 @@ let
     else if isInt v then
       toString v
     else
-      v
-  ;
+      v;
 in
 {
   imports = [

@@ -91,8 +91,7 @@ stdenv.mkDerivation rec {
       # TODO: Remove in the next release: https://github.com/Murmele/Gittyup/commit/5b93e7e514b887fafb00a8158be5986e6c12b2e3
       substituteInPlace $out/share/applications/gittyup.desktop \
         --replace "Exec=Gittyup" "Exec=gittyup"
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "A graphical Git client designed to help you understand and manage your source code history";

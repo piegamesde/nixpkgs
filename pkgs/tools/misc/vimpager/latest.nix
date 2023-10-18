@@ -10,7 +10,6 @@
         old.postPatch or ""
         + ''
           echo 'echo ${runtimeShell}' > scripts/find_shell
-        ''
-      ;
+        '';
     }
   )

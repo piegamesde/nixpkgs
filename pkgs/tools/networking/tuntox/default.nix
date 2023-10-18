@@ -70,8 +70,7 @@ stdenv.mkDerivation rec {
       substituteInPlace Makefile.mac --replace '/usr/local/lib/libtoxcore.a' '${libtoxcore}/lib/libtoxcore.a'
       substituteInPlace Makefile.mac --replace '/usr/local/lib/libsodium.a' '${libsodium}/lib/libsodium.dylib'
       substituteInPlace Makefile.mac --replace 'CC=gcc' ' '
-    ''
-  ;
+    '';
 
   buildPhase =
     ""
@@ -80,8 +79,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString stdenv.isDarwin ''
       make -f Makefile.mac tuntox
-    ''
-  ;
+    '';
 
   installPhase = ''
     mkdir -p $out/bin

@@ -109,8 +109,7 @@ stdenv.mkDerivation (
       # in some cases, e.g. when compiling libpng.
       + lib.optionalString (stdenv.hostPlatform.libc == "msvcrt" && shared) ''
         ln -s zlib1.dll $out/bin/libz.dll
-      ''
-    ;
+      '';
 
     # As zlib takes part in the stdenv building, we don't want references
     # to the bootstrap-tools libgcc (as uses to happen on arm/mips)
@@ -144,8 +143,7 @@ stdenv.mkDerivation (
             # Note that as of writing (zlib 1.2.11), this flag only has an effect
             # for Windows as it is specific to `win32/Makefile.gcc`.
             "SHARED_MODE=1"
-          ]
-    ;
+          ];
 
     passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 

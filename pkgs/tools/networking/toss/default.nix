@@ -22,6 +22,5 @@ stdenv.mkDerivation rec {
       license = with licenses; [ mit ];
       maintainers = with maintainers; [ ehmry ];
       platforms = platforms.unix;
-    }
-  ;
+    };
 }

@@ -28,8 +28,7 @@ with pkgs.lib;
             ln -s ${
               pkgs.writeText "sshPublicKey" sshPublicKey
             } $out/1.0/meta-data/public-keys/0/openssh-key
-          ''
-        ;
+          '';
       };
       indentLines = str: concatLines (map (s: "  " + s) (splitString "\n" str));
     in
@@ -84,8 +83,7 @@ with pkgs.lib;
         + ''
           finally:
             machine.shutdown()
-        ''
-      ;
+        '';
 
       inherit meta;
     };

@@ -63,8 +63,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional withRedis hiredis
     ++ lib.optional withRest curl
     ++ lib.optional withSqlite sqlite
-    ++ lib.optional withYubikey libyubikey
-  ;
+    ++ lib.optional withYubikey libyubikey;
 
   configureFlags = [
     "--sysconfdir=/etc"

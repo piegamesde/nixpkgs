@@ -98,8 +98,7 @@ lib.makeOverridable (
       if document == [ ] then
         "-N"
       else
-        "--document ${lib.concatStringsSep "," document}"
-    ;
+        "--document ${lib.concatStringsSep "," document}";
   in
 
   stdenv.mkDerivation (
@@ -117,8 +116,7 @@ lib.makeOverridable (
         ]
         ++ lib.optionals (type == "git") [ gitMinimal ]
         ++ lib.optionals (type != "gem") [ bundler ]
-        ++ nativeBuildInputs
-      ;
+        ++ nativeBuildInputs;
 
       buildInputs = [
         ruby

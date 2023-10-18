@@ -40,8 +40,7 @@ let
         set fish_function_path ${pkgs.fishPlugins.foreign-env}/share/fish/vendor_functions.d $fish_function_path
         fenv source /etc/fish/foreign-env/${file} > /dev/null
         set -e fish_function_path[1]
-      ''
-  ;
+      '';
 
   babelfishTranslate =
     path: name:
@@ -200,8 +199,7 @@ in
 
               # clear fish_function_path so that it will be correctly set when we return to $__fish_datadir/config.fish
               set -e fish_function_path
-            ''
-        ;
+            '';
       }
 
       {
@@ -303,8 +301,7 @@ in
           [ ]
           ++ optional cfg.vendor.config.enable "/share/fish/vendor_conf.d"
           ++ optional cfg.vendor.completions.enable "/share/fish/vendor_completions.d"
-          ++ optional cfg.vendor.functions.enable "/share/fish/vendor_functions.d"
-        ;
+          ++ optional cfg.vendor.functions.enable "/share/fish/vendor_functions.d";
       }
 
       { systemPackages = [ pkgs.fish ]; }

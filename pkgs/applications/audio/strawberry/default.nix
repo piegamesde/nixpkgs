@@ -96,8 +96,7 @@ stdenv.mkDerivation rec {
         gst-plugins-ugly
       ]
     )
-    ++ lib.optional withVlc libvlc
-  ;
+    ++ lib.optional withVlc libvlc;
 
   nativeBuildInputs = [
     cmake

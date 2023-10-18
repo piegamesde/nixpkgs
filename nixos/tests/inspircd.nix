@@ -89,8 +89,7 @@ import ./make-test-python.nix (
                     "grep '${msg other}$' ${iiDir}/${server}/#${channel}/out"
                 )
               '')
-              clients
-        ;
+              clients;
 
         # foldl', but requires a non-empty list instead of a start value
         reduce = f: list: builtins.foldl' f (builtins.head list) (builtins.tail list);
@@ -105,7 +104,6 @@ import ./make-test-python.nix (
       ''
       + lib.concatStrings (
         reduce (lib.zipListsWith (cs: c: cs + c)) (builtins.map clientScript clients)
-      )
-    ;
+      );
   }
 )

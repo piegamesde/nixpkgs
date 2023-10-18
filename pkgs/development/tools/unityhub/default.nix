@@ -45,8 +45,7 @@ stdenv.mkDerivation rec {
         freetype
         lsb-release
       ]
-      ++ extraPkgs pkgs
-    ;
+      ++ extraPkgs pkgs;
 
     multiPkgs =
       pkgs:
@@ -103,8 +102,7 @@ stdenv.mkDerivation rec {
         clang
         git # for git-based packages in unity package manager
       ]
-      ++ extraLibs pkgs
-    ;
+      ++ extraLibs pkgs;
   };
 
   unpackCmd = "dpkg -x $curSrc src";

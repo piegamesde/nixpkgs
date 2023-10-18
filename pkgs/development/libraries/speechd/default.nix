@@ -86,8 +86,7 @@ stdenv.mkDerivation rec {
       pcaudiolib
     ]
     ++ lib.optionals withFlite [ flite ]
-    ++ lib.optionals withPico [ svox ]
-  ;
+    ++ lib.optionals withPico [ svox ];
 
   pythonPath = [ pyxdg ];
 
@@ -102,8 +101,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withLibao [ "--with-libao" ]
     ++ lib.optionals withOss [ "--with-oss" ]
     ++ lib.optionals withEspeak [ "--with-espeak-ng" ]
-    ++ lib.optionals withPico [ "--with-pico" ]
-  ;
+    ++ lib.optionals withPico [ "--with-pico" ];
 
   postPatch = ''
     substituteInPlace src/modules/pico.c --replace "/usr/share/pico/lang" "${svox}/share/pico/lang"

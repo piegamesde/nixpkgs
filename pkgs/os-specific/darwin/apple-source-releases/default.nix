@@ -202,8 +202,7 @@ let
               license = licenses.apsl20;
             }
           )
-          // (attrs.meta or { })
-        ;
+          // (attrs.meta or { });
       }
     );
 
@@ -450,8 +449,7 @@ developerToolsPackages_11_3_1
           python3 = pkgs.buildPackages.buildPackages.python3; # TODO(@Ericson2314) this shouldn't be needed.
         }
     else
-      macosPackages_11_0_1.xnu
-  ;
+      macosPackages_11_0_1.xnu;
   hfs =
     applePackage "hfs" "osx-10.12.6"
       "sha256-eGi18HQFJrU5UHoBOE0LqO5gQ0xOf8+OJuAWQljfKE4="
@@ -482,8 +480,7 @@ developerToolsPackages_11_3_1
         "sha256-I89CLIswGheewOjiNZwQTgWvWbhm0qtB5+KUqzxnQ5M="
         { }
     else
-      macosPackages_11_0_1.network_cmds
-  ;
+      macosPackages_11_0_1.network_cmds;
   file_cmds =
     applePackage "file_cmds" "osx-10.11.6"
       "sha256-JYy6HwmultKeZtLfaysbsyLoWg+OaTh7eJu54JkJC0Q="

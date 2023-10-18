@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       AudioUnit
       CoreAudio
-    ]
-  ;
+    ];
 
   meta = with lib; {
     description = "Extended module player";

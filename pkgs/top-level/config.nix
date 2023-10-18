@@ -168,8 +168,7 @@ in
           r = t.merge loc defs;
         in
         r // { _undeclared = r; };
-    }
-  ;
+    };
 
   inherit options;
 

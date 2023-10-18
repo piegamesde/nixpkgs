@@ -45,8 +45,7 @@ rustPlatform.buildRustPackage rec {
         libGL.dev
       ]
     else
-      [ openssl ]
-  ;
+      [ openssl ];
 
   buildNoDefaultFeatures = true;
   buildFeatures = [ (if withGui then "egui" else "cli") ];
@@ -57,8 +56,7 @@ rustPlatform.buildRustPackage rec {
     ''
     + lib.optionalString withGui ''
       mv $out/bin/rusty-psn $out/bin/rusty-psn-gui
-    ''
-  ;
+    '';
 
   desktopItem = lib.optionalString withGui (
     makeDesktopItem {

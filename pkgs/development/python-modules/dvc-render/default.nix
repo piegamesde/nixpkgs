@@ -47,8 +47,7 @@ buildPythonPackage rec {
       pytest-test-utils
     ]
     ++ passthru.optional-dependencies.table
-    ++ passthru.optional-dependencies.markdown
-  ;
+    ++ passthru.optional-dependencies.markdown;
 
   disabledTestPaths = lib.optionals stdenv.isDarwin [ "tests/test_vega.py" ];
 

@@ -62,8 +62,7 @@ python3.pkgs.buildPythonApplication rec {
       setuptools
     ]
     ++ lib.optional fehSupport feh
-    ++ lib.optional imagemagickSupport imagemagick
-  ;
+    ++ lib.optional imagemagickSupport imagemagick;
 
   doCheck = false;
 

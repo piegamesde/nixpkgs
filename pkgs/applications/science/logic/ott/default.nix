@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
     # There is `emacsPackages.ott-mode` for this now.
     + ''
       rm -r $out/share/emacs
-    ''
-  ;
+    '';
 
   meta = {
     description = "A tool for the working semanticist";

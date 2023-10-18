@@ -49,8 +49,7 @@ stdenv.mkDerivation rec {
       rdflib
       pyliblo
     ]
-    ++ lib.optional withFrontend pyqt5
-  ;
+    ++ lib.optional withFrontend pyqt5;
 
   buildInputs =
     [
@@ -64,8 +63,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional withQt qtbase
     ++ lib.optional withGtk2 gtk2
-    ++ lib.optional withGtk3 gtk3
-  ;
+    ++ lib.optional withGtk3 gtk3;
 
   propagatedBuildInputs = pythonPath;
 

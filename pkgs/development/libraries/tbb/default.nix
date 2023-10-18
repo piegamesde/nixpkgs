@@ -44,8 +44,7 @@ stdenv.mkDerivation rec {
     lib.optionals stdenv.cc.isGNU [ "-Wno-error=stringop-overflow" ]
     # Workaround for gcc-12 ICE when using -O3
     # https://gcc.gnu.org/PR108854
-    ++ lib.optionals (stdenv.cc.isGNU && stdenv.isx86_32) [ "-O2" ]
-  ;
+    ++ lib.optionals (stdenv.cc.isGNU && stdenv.isx86_32) [ "-O2" ];
 
   # Disable failing test on musl
   # test/conformance/conformance_resumable_tasks.cpp:37:24: error: ‘suspend’ is not a member of ‘tbb::v1::task’; did you mean ‘tbb::detail::r1::suspend’?

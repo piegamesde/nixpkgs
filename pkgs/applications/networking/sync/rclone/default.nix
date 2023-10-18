@@ -53,8 +53,7 @@ buildGoModule rec {
         if stdenv.buildPlatform.canExecute stdenv.hostPlatform then
           "$out"
         else
-          lib.getBin buildPackages.rclone
-      ;
+          lib.getBin buildPackages.rclone;
     in
     ''
       installManPage rclone.1
@@ -71,8 +70,7 @@ buildGoModule rec {
           wrapProgram $out/bin/rclone \
             --suffix PATH : "${lib.makeBinPath [ fuse ]}" \
             --prefix LD_LIBRARY_PATH : "${fuse}/lib"
-        ''
-  ;
+        '';
 
   meta = with lib; {
     description = "Command line program to sync files and directories to and from major cloud storage";

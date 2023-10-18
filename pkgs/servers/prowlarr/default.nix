@@ -27,8 +27,7 @@ let
     else if stdenv.isLinux then
       "linux"
     else
-      unsupported
-  ;
+      unsupported;
 
   arch =
     {

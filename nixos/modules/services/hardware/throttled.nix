@@ -32,8 +32,7 @@ in
       if cfg.extraConfig != "" then
         pkgs.writeText "throttled.conf" cfg.extraConfig
       else
-        "${pkgs.throttled}/etc/throttled.conf"
-    ;
+        "${pkgs.throttled}/etc/throttled.conf";
 
     # Kernel 5.9 spams warnings whenever userspace writes to CPU MSRs.
     # See https://github.com/erpalma/throttled/issues/215

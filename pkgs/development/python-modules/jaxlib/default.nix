@@ -184,8 +184,7 @@ let
         cudnn
       ]
       ++ lib.optionals stdenv.isDarwin [ IOKit ]
-      ++ lib.optionals (!stdenv.isDarwin) [ nsync ]
-    ;
+      ++ lib.optionals (!stdenv.isDarwin) [ nsync ];
 
     postPatch = ''
       rm -f .bazelversion
@@ -231,8 +230,7 @@ let
       ''
       + ''
         CFG
-      ''
-    ;
+      '';
 
     # Make sure Bazel knows about our configuration flags during fetching so that the
     # relevant dependencies can be downloaded.
@@ -265,15 +263,13 @@ let
               # have access to darwin machines
               "--config=cuda"
             ]
-        ++ [ "--config=mkl_open_source_only" ]
-      ;
+        ++ [ "--config=mkl_open_source_only" ];
 
       sha256 =
         if cudaSupport then
           "sha256-cgsiloW77p4+TKRrYequZ/UwKwfO2jsHKtZ+aA30H7E="
         else
-          "sha256-D7WYG3YUaWq+4APYx8WpA191VVtoHG0fth3uEHXOeos="
-      ;
+          "sha256-D7WYG3YUaWq+4APYx8WpA191VVtoHG0fth3uEHXOeos=";
     };
 
     buildAttrs = {
@@ -292,8 +288,7 @@ let
           lib.optionals (stdenv.targetPlatform.isx86_64 && stdenv.targetPlatform.isUnix)
             [ "--config=avx_posix" ]
         ++ lib.optionals cudaSupport [ "--config=cuda" ]
-        ++ lib.optionals mklSupport [ "--config=mkl_open_source_only" ]
-      ;
+        ++ lib.optionals mklSupport [ "--config=mkl_open_source_only" ];
       # Note: we cannot do most of this patching at `patch` phase as the deps are not available yet.
       # 1) Fix pybind11 include paths.
       # 2) Link protobuf from nixpkgs (through TF_SYSTEM_LIBS when using gcc) to prevent crashes on
@@ -331,8 +326,7 @@ let
             ''
           else
             throw "Unsupported stdenv.cc: ${stdenv.cc}"
-        )
-      ;
+        );
 
       installPhase = ''
         ./bazel-bin/build/build_wheel --output_path=$out --cpu=${stdenv.targetPlatform.linuxArch}
@@ -349,8 +343,7 @@ let
     else if stdenv.system == "aarch64-darwin" then
       "macosx_11_0_${stdenv.targetPlatform.linuxArch}"
     else
-      throw "Unsupported target platform: ${stdenv.targetPlatform}"
-  ;
+      throw "Unsupported target platform: ${stdenv.targetPlatform}";
 in
 buildPythonPackage {
   inherit meta pname version;

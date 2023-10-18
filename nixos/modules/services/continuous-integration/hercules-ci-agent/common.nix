@@ -182,8 +182,7 @@ let
           fi
         '';
         installPhase = "touch $out";
-      }
-  ;
+      };
 in
 {
   imports = [
@@ -308,8 +307,7 @@ in
           then
             "nixpkgs"
           else
-            lib.mkOptionDefault "override"
-        ;
+            lib.mkOptionDefault "override";
         pkgs.version = pkgs.lib.version;
         lib.version = lib.version;
       };

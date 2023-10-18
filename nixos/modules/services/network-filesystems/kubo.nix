@@ -86,8 +86,7 @@ let
     else if s 0 == "unix" then
       "/${lib.concatStringsSep "/" (lib.tail addr)}"
     else
-      null
-  ; # not valid for listen stream, skip
+      null; # not valid for listen stream, skip
 
   multiaddrToListenDatagram =
     addrRaw:
@@ -100,8 +99,7 @@ let
     else if s 0 == "ip6" && s 2 == "udp" then
       "[${s 1}]:${s 3}"
     else
-      null
-  ; # not valid for listen datagram, skip
+      null; # not valid for listen datagram, skip
 in
 {
 
@@ -141,8 +139,7 @@ in
           if versionAtLeast config.system.stateVersion "17.09" then
             "/var/lib/ipfs"
           else
-            "/var/lib/ipfs/.ipfs"
-        ;
+            "/var/lib/ipfs/.ipfs";
         defaultText = literalExpression ''
           if versionAtLeast config.system.stateVersion "17.09"
           then "/var/lib/ipfs"
@@ -353,8 +350,7 @@ in
       if cfg.autoMount then
         [ cfg.package.systemd_unit ]
       else
-        [ cfg.package.systemd_unit_hardened ]
-    ;
+        [ cfg.package.systemd_unit_hardened ];
 
     services.kubo.settings = mkIf cfg.autoMount {
       Mounts.FuseAllowOther = lib.mkDefault true;
@@ -394,8 +390,7 @@ in
             # section (redacted by `ipfs config show`), such that that section doesn't
             # change when the changes are applied. Whyyyyyy.....
             ipfs --offline config replace -
-        ''
-      ;
+        '';
       postStop = mkIf cfg.autoMount ''
         # After an unclean shutdown the fuse mounts at cfg.ipnsMountDir and cfg.ipfsMountDir are locked
         umount --quiet '${cfg.ipnsMountDir}' '${cfg.ipfsMountDir}' || true

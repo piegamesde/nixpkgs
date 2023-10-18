@@ -45,8 +45,7 @@ buildPythonPackage rec {
     ++ lib.optionals enableDimensionalityReduction [
       autograd
       pymanopt
-    ]
-  ;
+    ];
 
   nativeCheckInputs = [
     cvxopt

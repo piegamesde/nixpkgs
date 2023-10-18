@@ -21,8 +21,7 @@ let
     + optionalString (cfg.saltFile != null) ''
       with open('${cfg.saltFile}') as file:
         SALT = file.read()
-    ''
-  ;
+    '';
 in
 {
   options.services.powerdns-admin = {
@@ -105,8 +104,7 @@ in
             "-/etc/localtime"
           ]
           ++ (optional (cfg.secretKeyFile != null) cfg.secretKeyFile)
-          ++ (optional (cfg.saltFile != null) cfg.saltFile)
-        ;
+          ++ (optional (cfg.saltFile != null) cfg.saltFile);
         CapabilityBoundingSet = "CAP_NET_BIND_SERVICE";
         # ProtectClock= adds DeviceAllow=char-rtc r
         DeviceAllow = "";

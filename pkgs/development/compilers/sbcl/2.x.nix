@@ -93,8 +93,7 @@ stdenv.mkDerivation rec {
           sed -e "s@/bin/uname@$(command -v uname)@g" -i src/code/*-os.lisp \
             src/code/run-program.lisp
         ''
-    )
-  ;
+    );
 
   preBuild = ''
     export INSTALL_ROOT=$out
@@ -107,8 +106,7 @@ stdenv.mkDerivation rec {
     optional threadSupport "sb-thread"
     ++ optional linkableRuntime "sb-linkable-runtime"
     ++ optional coreCompression "sb-core-compression"
-    ++ optional stdenv.isAarch32 "arm"
-  ;
+    ++ optional stdenv.isAarch32 "arm";
 
   disableFeatures =
     with lib;
@@ -117,8 +115,7 @@ stdenv.mkDerivation rec {
       "immobile-space"
       "immobile-code"
       "compact-instance-header"
-    ]
-  ;
+    ];
 
   env.NIX_CFLAGS_COMPILE = toString (
     lib.optionals (lib.versionOlder version "2.1.10")
@@ -166,8 +163,7 @@ stdenv.mkDerivation rec {
          '(("SYS:SRC;**;*.*.*" #P"$out/lib/sbcl/src/**/*.*")
            ("SYS:CONTRIB;**;*.*.*" #P"$out/lib/sbcl/contrib/**/*.*")))
       EOF
-    ''
-  ;
+    '';
 
   setupHook = lib.optional purgeNixReferences (
     writeText "setupHook.sh" ''

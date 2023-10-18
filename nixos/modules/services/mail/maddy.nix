@@ -427,8 +427,7 @@ in
             tls off
           ''
         else
-          ""
-        }
+          ""}
 
         ${cfg.config}
       '';

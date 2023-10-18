@@ -41,8 +41,7 @@ let
         ''
           with subtest("/etc/atoprc should not be present"):
               machine.succeed("test ! -e /etc/atoprc")
-        ''
-    ;
+        '';
     wrapper =
       present:
       if present then
@@ -53,8 +52,7 @@ let
               assert stat == "4511 0", f"Wrapper stat is {stat}, expected '4511 0'"
         ''
       else
-        path "atop" "/run/current-system/sw/bin/atop"
-    ;
+        path "atop" "/run/current-system/sw/bin/atop";
     atopService =
       present:
       if present then
@@ -75,8 +73,7 @@ let
                   retry(has_data_files)
         ''
       else
-        unit "atop.service" "inactive"
-    ;
+        unit "atop.service" "inactive";
     atopRotateTimer =
       present: unit "atop-rotate.timer" (if present then "active" else "inactive");
     atopacctService =
@@ -102,8 +99,7 @@ let
                   retry(has_data_files)
         ''
       else
-        unit "atopacct.service" "inactive"
-    ;
+        unit "atopacct.service" "inactive";
     netatop =
       present:
       if present then
@@ -117,8 +113,7 @@ let
         ''
           with subtest("The netatop kernel module should be absent"):
               machine.fail("modprobe -n -v netatop")
-        ''
-    ;
+        '';
     atopgpu =
       present:
       if present then
@@ -129,8 +124,7 @@ let
         + ''
           with subtest("atopgpud should not be present"):
               machine.fail("type -p atopgpud")
-        ''
-    ;
+        '';
   };
 in
 {

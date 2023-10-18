@@ -47,8 +47,7 @@ let
       # avoid duplicating log messageges in journal
       StandardError = "null";
     }
-    // commonServiceConfig
-  ;
+    // commonServiceConfig;
 
   configVal =
     value: if isBool value then if value then "on" else "off" else toString value;
@@ -513,8 +512,7 @@ in
             "C ${dataDir}/${k}              0700 ${user}  ${group} - ${v.source}"
           ]
         )
-      ))
-    ;
+      ));
 
     systemd.services.sympa = {
       description = "Sympa mailing list manager";

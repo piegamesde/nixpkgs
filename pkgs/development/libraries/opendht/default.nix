@@ -52,8 +52,7 @@ stdenv.mkDerivation rec {
       openssl
       fmt
     ]
-    ++ lib.optionals stdenv.isDarwin [ Security ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ Security ];
 
   cmakeFlags =
     lib.optionals enableProxyServerAndClient [

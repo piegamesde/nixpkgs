@@ -61,8 +61,7 @@ stdenv.mkDerivation rec {
         wrapPython
       ]
     )
-    ++ lib.optional stdenv.isDarwin Cocoa
-  ;
+    ++ lib.optional stdenv.isDarwin Cocoa;
   pythonPath = with python3Packages; [
     pyyaml
     requests

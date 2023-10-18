@@ -142,8 +142,7 @@ stdenv.mkDerivation rec {
           kloenk
           yuka
         ]
-      )
-    ;
+      );
     license = licenses.asl20;
     platforms = platforms.all;
   };

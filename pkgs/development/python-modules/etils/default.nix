@@ -79,8 +79,7 @@ buildPythonPackage rec {
       ++ etree
       ++ etree-dm
       ++ etree-jax
-      ++ etree-tf
-    ;
+      ++ etree-tf;
   };
 
   pythonImportsCheck = [ "etils" ];

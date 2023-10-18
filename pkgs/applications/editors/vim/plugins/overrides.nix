@@ -169,8 +169,7 @@ self: super:
 
                 substituteInPlace "$out"/plugin/libclang.py \
                   --replace "/usr/lib/clang" "${llvmPackages.clang.cc}/lib/clang"
-        ''
-      ;
+        '';
     }
   );
 
@@ -543,8 +542,7 @@ self: super:
               "let s:direnv_cmd = get(g:, 'direnv_cmd', '${
                 lib.getBin direnv
               }/bin/direnv')"
-        ''
-      ;
+        '';
     }
   );
 
@@ -1497,8 +1495,7 @@ self: super:
             (srcOld.postFetch or "")
             + lib.optionalString (!stdenv.isDarwin) ''
               rm $out/colors/darkBlue.vim
-            ''
-          ;
+            '';
         }
       );
     }
@@ -1666,8 +1663,7 @@ self: super:
           substituteInPlace ftplugin/haskell/stylish-haskell.vim --replace \
             'g:stylish_haskell_command = "stylish-haskell"' \
             'g:stylish_haskell_command = "${stylish-haskell}/bin/stylish-haskell"'
-        ''
-      ;
+        '';
     }
   );
 

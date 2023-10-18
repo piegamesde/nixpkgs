@@ -62,8 +62,7 @@ let
       optionalAttrs
         (!(configEnv ? WEB_VAULT_ENABLED) || configEnv.WEB_VAULT_ENABLED == "true")
         { WEB_VAULT_FOLDER = "${cfg.webVaultPackage}/share/vaultwarden/vault"; }
-    // configEnv
-  ;
+    // configEnv;
 
   configFile = pkgs.writeText "vaultwarden.env" (
     concatStrings (

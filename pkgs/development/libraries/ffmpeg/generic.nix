@@ -101,13 +101,11 @@
   withNvdec ? withHeadlessDeps
     && !stdenv.isDarwin
     && stdenv.hostPlatform == stdenv.buildPlatform
-    && !stdenv.isAarch32
-  ,
+    && !stdenv.isAarch32,
   withNvenc ? withHeadlessDeps
     && !stdenv.isDarwin
     && stdenv.hostPlatform == stdenv.buildPlatform
-    && !stdenv.isAarch32
-  ,
+    && !stdenv.isAarch32,
   withOgg ? withHeadlessDeps # Ogg container used by vorbis & theora
   ,
   withOpenal ? withFullDeps # OpenAL 1.1 capture support
@@ -257,8 +255,7 @@
     || buildAvutil
     || buildPostproc
     || buildSwresample
-    || buildSwscale
-  ,
+    || buildSwscale,
   # *  Documentation options
   withDocumentation ? withHtmlDoc || withManPages || withPodDoc || withTxtDoc,
   withHtmlDoc ? withHeadlessDeps # HTML documentation pages
@@ -412,15 +409,13 @@ assert buildFfmpeg
     buildAvcodec
     && buildAvfilter
     && buildAvformat
-    && (buildSwresample || buildAvresample)
-;
+    && (buildSwresample || buildAvresample);
 assert buildFfplay
   ->
     buildAvcodec
     && buildAvformat
     && buildSwscale
-    && (buildSwresample || buildAvresample)
-;
+    && (buildSwresample || buildAvresample);
 assert buildFfprobe -> buildAvcodec && buildAvformat;
 # *  Library dependencies
 assert buildAvcodec -> buildAvutil; # configure flag since 0.6
@@ -455,8 +450,7 @@ stdenv.mkDerivation (
         # FIXME: horrible hack, remove for next release
         substituteInPlace libavutil/hwcontext_vulkan.c \
           --replace VK_EXT_VIDEO_DECODE VK_KHR_VIDEO_DECODE
-      ''
-    ;
+      '';
 
     patches = map (patch: fetchpatch patch) (
       extraPatches
@@ -649,8 +643,7 @@ stdenv.mkDerivation (
       ++ optionals stdenv.cc.isClang [
         "--cc=clang"
         "--cxx=clang++"
-      ]
-    ;
+      ];
 
     # ffmpeg embeds the configureFlags verbatim in its binaries and because we
     # configure binary, include, library dir etc., this causes references in
@@ -781,8 +774,7 @@ stdenv.mkDerivation (
         MediaToolbox
         VideoDecodeAcceleration
         VideoToolbox
-      ]
-    ;
+      ];
 
     buildFlags = [ "all" ] ++ optional buildQtFaststart "tools/qt-faststart"; # Build qt-faststart executable
 
@@ -803,8 +795,7 @@ stdenv.mkDerivation (
           ++ optional buildAvutil "libavutil"
           ++ optional buildPostproc "libpostproc"
           ++ optional buildSwresample "libswresample"
-          ++ optional buildSwscale "libswscale"
-        ;
+          ++ optional buildSwscale "libswscale";
       in
       ''
         ${ldLibraryPathEnv}="${
@@ -857,8 +848,7 @@ stdenv.mkDerivation (
         [ lgpl21Plus ]
         ++ optional withGPL gpl2Plus
         ++ optional withGPLv3 gpl3Plus
-        ++ optional withUnfree unfreeRedistributable
-      ;
+        ++ optional withUnfree unfreeRedistributable;
       pkgConfigModules = [ "libavutil" ];
       platforms = platforms.all;
       maintainers = with maintainers; [ atemu ];

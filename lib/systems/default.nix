@@ -42,8 +42,7 @@ rec {
             platform:
             final.isAndroid == platform.isAndroid
             && parse.isCompatible final.parsed.cpu platform.parsed.cpu
-            && final.parsed.kernel == platform.parsed.kernel
-          ;
+            && final.parsed.kernel == platform.parsed.kernel;
           isCompatible =
             _:
             throw
@@ -78,8 +77,7 @@ rec {
               "newlib"
             # TODO(@Ericson2314) think more about other operating systems
             else
-              "native/impure"
-          ;
+              "native/impure";
           # Choose what linker we wish to use by default. Someday we might also
           # choose the C compiler, runtime library, C++ standard library, etc. in
           # this way, nice and orthogonally, and deprecate `useLLVM`. But due to
@@ -95,8 +93,7 @@ rec {
             # is why we use the more obscure "bfd" and not "binutils" for this
             # choice.
             else
-              "bfd"
-          ;
+              "bfd";
           extensions = rec {
             sharedLibrary =
               if final.isDarwin then
@@ -104,8 +101,7 @@ rec {
               else if final.isWindows then
                 ".dll"
               else
-                ".so"
-            ;
+                ".so";
             staticLibrary = if final.isWindows then ".lib" else ".a";
             library = if final.isStatic then staticLibrary else sharedLibrary;
             executable = if final.isWindows then ".exe" else "";
@@ -140,8 +136,7 @@ rec {
               else if final.isMips64 then
                 "mips64" # endianness is *not* included on mips64
               else
-                final.parsed.cpu.name
-            ;
+                final.parsed.cpu.name;
 
             # uname -r
             release = null;
@@ -188,8 +183,7 @@ rec {
             else if final.isLoongArch64 then
               "loongarch"
             else
-              final.parsed.cpu.name
-          ;
+              final.parsed.cpu.name;
 
           qemuArch =
             if final.isAarch32 then
@@ -201,8 +195,7 @@ rec {
             else if final.isx86 then
               "i386"
             else
-              final.uname.processor
-          ;
+              final.uname.processor;
 
           # Name used by UEFI for architectures.
           efiArch =
@@ -215,8 +208,7 @@ rec {
             else if final.isAarch64 then
               "aa64"
             else
-              final.parsed.cpu.name
-          ;
+              final.parsed.cpu.name;
 
           darwinArch =
             {
@@ -231,8 +223,7 @@ rec {
             else if final.isiOS then
               "ios"
             else
-              null
-          ;
+              null;
           # The canonical name for this attribute is darwinSdkVersion, but some
           # platforms define the old name "sdkVer".
           darwinSdkVersion =
@@ -244,8 +235,7 @@ rec {
             else if final.isiOS then
               "IPHONEOS_DEPLOYMENT_TARGET"
             else
-              null
-          ;
+              null;
         }
         // (
           let
@@ -284,8 +274,7 @@ rec {
               else if final.isMmix then
                 "${pkgs.mmixware}/bin/mmix"
               else
-                null
-            ;
+                null;
           in
           {
             emulatorAvailable = pkgs: (selectEmulator pkgs) != null;
@@ -295,14 +284,12 @@ rec {
               if (final.emulatorAvailable pkgs) then
                 selectEmulator pkgs
               else
-                throw "Don't know how to run ${final.config} executables."
-            ;
+                throw "Don't know how to run ${final.config} executables.";
           }
         )
         // mapAttrs (n: v: v final.parsed) inspect.predicates
         // mapAttrs (n: v: v final.gcc.arch or "default") architectures.predicates
-        // args
-      ;
+        // args;
     in
     assert final.useAndroidPrebuilt -> final.isAndroid;
     assert lib.foldl

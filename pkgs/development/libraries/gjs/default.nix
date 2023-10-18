@@ -102,8 +102,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString stdenv.hostPlatform.isMusl ''
       substituteInPlace installed-tests/js/meson.build \
         --replace "'Encoding'," "#'Encoding',"
-    ''
-  ;
+    '';
 
   preCheck = ''
     # Our gobject-introspection patches make the shared library paths absolute

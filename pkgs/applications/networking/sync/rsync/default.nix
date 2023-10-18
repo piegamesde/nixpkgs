@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional enableZstd zstd
     ++ lib.optional enableLZ4 lz4
     ++ lib.optional enableOpenSSL openssl
-    ++ lib.optional enableXXHash xxHash
-  ;
+    ++ lib.optional enableXXHash xxHash;
 
   configureFlags =
     [

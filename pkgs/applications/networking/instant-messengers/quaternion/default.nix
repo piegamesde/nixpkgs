@@ -48,8 +48,7 @@ mkDerivation rec {
       ''
         substituteInPlace $out/share/applications/com.github.quaternion.desktop \
           --replace 'Exec=quaternion' "Exec=$out/bin/quaternion"
-      ''
-  ;
+      '';
 
   meta = with lib; {
     description = "Cross-platform desktop IM client for the Matrix protocol";

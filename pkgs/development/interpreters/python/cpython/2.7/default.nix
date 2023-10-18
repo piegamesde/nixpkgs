@@ -69,8 +69,7 @@ let
     if stdenv.hostPlatform == stdenv.buildPlatform then
       "$out/bin/python"
     else
-      pythonForBuild.interpreter
-  ;
+      pythonForBuild.interpreter;
 
   passthru =
     passthruFun rec {
@@ -182,8 +181,7 @@ let
     ]
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       ./cross-compile.patch
-    ]
-  ;
+    ];
 
   preConfigure =
     ''
@@ -201,8 +199,7 @@ let
       substituteInPlace configure --replace '`/usr/bin/arch`' '"i386"'
       substituteInPlace Lib/multiprocessing/__init__.py \
         --replace 'os.popen(comm)' 'os.popen("${coreutils}/bin/nproc")'
-    ''
-  ;
+    '';
 
   configureFlags =
     lib.optionals enableOptimizations [ "--enable-optimizations" ]
@@ -243,8 +240,7 @@ let
     # Never even try to use lchmod on linux,
     # don't rely on detecting glibc-isms.
     ++ lib.optional stdenv.hostPlatform.isLinux "ac_cv_func_lchmod=no"
-    ++ lib.optional static "LDFLAGS=-static"
-  ;
+    ++ lib.optional static "LDFLAGS=-static";
 
   strictDeps = true;
   buildInputs =
@@ -266,8 +262,7 @@ let
       tk
       libX11
     ]
-    ++ lib.optional (stdenv.isDarwin && configd != null) configd
-  ;
+    ++ lib.optional (stdenv.isDarwin && configd != null) configd;
   nativeBuildInputs =
     [ autoreconfHook ]
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
@@ -307,8 +302,7 @@ stdenv.mkDerivation (
 
     env.NIX_CFLAGS_COMPILE =
       lib.optionalString (stdenv.targetPlatform.system == "x86_64-darwin") "-msse2"
-      + lib.optionalString stdenv.hostPlatform.isMusl " -DTHREAD_STACK_SIZE=0x100000"
-    ;
+      + lib.optionalString stdenv.hostPlatform.isMusl " -DTHREAD_STACK_SIZE=0x100000";
     DETERMINISTIC_BUILD = 1;
 
     setupHook = python-setup-hook sitePackages;
@@ -356,8 +350,7 @@ stdenv.mkDerivation (
       ''
       + lib.optionalString stdenv.hostPlatform.isCygwin ''
         cp libpython2.7.dll.a $out/lib
-      ''
-    ;
+      '';
 
     inherit passthru;
 
@@ -379,8 +372,7 @@ stdenv.mkDerivation (
       + lib.optionalString stripTests ''
         # Strip tests
         rm -R $out/lib/python*/test $out/lib/python*/**/test{,s}
-      ''
-    ;
+      '';
 
     enableParallelBuilding = true;
 

@@ -83,8 +83,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional withSystemd systemd
     ++ lib.optional withOpenldap openldap
     ++ lib.optional withBdb db
-    ++ lib.optional withNetSnmp net-snmp
-  ;
+    ++ lib.optional withNetSnmp net-snmp;
 
   postPatch = ''
     patchShebangs ./buildnum.py ./ldap/servers/slapd/mkDBErrStrs.py
@@ -121,8 +120,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withAsan [
       "--enable-asan"
       "--enable-debug"
-    ]
-  ;
+    ];
 
   enableParallelBuilding = true;
   # Disable parallel builds as those lack some dependencies:

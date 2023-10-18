@@ -50,8 +50,7 @@ stdenv.mkDerivation rec {
         -e '/ldl/s,$cc,clang++,'
       sed -i scripts/compiler/gcc.lua \
         -e '/cxx_/s,$cc,clang++,'
-    ''
-  ;
+    '';
 
   ninjaFlags = [
     "-fcompile/ninja/${if stdenv.isDarwin then "macos" else "linux"}.ninja"

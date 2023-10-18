@@ -108,8 +108,7 @@ stdenv.mkDerivation rec {
         )
         +
           lib.optionalString (builtins.length runtimeDeps > 0)
-            " --prefix PATH : ${lib.makeBinPath runtimeDeps}"
-      ;
+            " --prefix PATH : ${lib.makeBinPath runtimeDeps}";
       wrapMonkeysphere = runtimeDeps: program: ''
         wrapProgram $out/bin/${program} ${wrapperArgs runtimeDeps}
       '';
@@ -136,8 +135,7 @@ stdenv.mkDerivation rec {
         makeWrapper $out/share/monkeysphere/$program $out/bin/$program \
           ${wrapperArgs [ ]}
       done
-    ''
-  ;
+    '';
 
   meta = with lib; {
     homepage = "http://web.monkeysphere.info/";

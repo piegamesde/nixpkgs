@@ -124,8 +124,7 @@ stdenv.mkDerivation {
     # https://sourceware.org/git/?p=binutils-gdb.git;a=commit;h=cebc89b9328eab994f6b0314c263f94e7949a553
     ++
       lib.optional stdenv.targetPlatform.isPower
-        ./ppc-make-machine-less-strict.patch
-  ;
+        ./ppc-make-machine-less-strict.patch;
 
   outputs = [
     "out"
@@ -148,8 +147,7 @@ stdenv.mkDerivation {
       gettext
       libtool
     ]
-    ++ lib.optionals targetPlatform.isVc4 [ flex ]
-  ;
+    ++ lib.optionals targetPlatform.isVc4 [ flex ];
 
   buildInputs = [
     zlib
@@ -180,8 +178,7 @@ stdenv.mkDerivation {
       for i in binutils/Makefile.in gas/Makefile.in ld/Makefile.in gold/Makefile.in; do
           sed -i "$i" -e 's|ln |ln -s |'
       done
-    ''
-  ;
+    '';
 
   # As binutils takes part in the stdenv building, we don't want references
   # to the bootstrap-tools libgcc (as uses to happen on arm/mips)
@@ -189,8 +186,7 @@ stdenv.mkDerivation {
     if hostPlatform.isDarwin then
       "-Wno-string-plus-int -Wno-deprecated-declarations"
     else
-      "-static-libgcc"
-  ;
+      "-static-libgcc";
 
   hardeningDisable = [
     "format"
@@ -242,8 +238,7 @@ stdenv.mkDerivation {
           "--disable-shared"
           "--enable-static"
         ]
-    )
-  ;
+    );
 
   # Fails
   doCheck = false;
@@ -257,8 +252,7 @@ stdenv.mkDerivation {
     if stdenv.hostPlatform != stdenv.targetPlatform then
       "bin lib ${stdenv.hostPlatform.config}"
     else
-      null
-  ;
+      null;
 
   # INFO: Otherwise it fails with:
   # `./sanity.sh: line 36: $out/bin/size: not found`

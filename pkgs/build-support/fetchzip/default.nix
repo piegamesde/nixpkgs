@@ -39,8 +39,7 @@ lib.warnIf (extraPostFetch != "")
         if extension != null then
           "download.${extension}"
         else
-          baseNameOf (if url != "" then url else builtins.head urls)
-      ;
+          baseNameOf (if url != "" then url else builtins.head urls);
     in
 
     fetchurl (
@@ -107,8 +106,7 @@ lib.warnIf (extraPostFetch != "")
           # Fixes https://github.com/NixOS/nixpkgs/issues/38649
           + ''
             chmod 755 "$out"
-          ''
-        ;
+          '';
       }
       // removeAttrs args [
         "stripRoot"

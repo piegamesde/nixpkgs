@@ -33,8 +33,7 @@ python3Packages.buildPythonApplication rec {
       setuptools
       platformdirs
     ]
-    ++ lib.optionals stdenv.isLinux [ qt5.qtwayland ]
-  ;
+    ++ lib.optionals stdenv.isLinux [ qt5.qtwayland ];
 
   postPatch = ''
     substituteInPlace setup.cfg \

@@ -19,8 +19,7 @@ let
     else if isSunOS then
       "solaris"
     else
-      "linux"
-  ; # Should be a sane default
+      "linux"; # Should be a sane default
 in
 stdenv.mkDerivation rec {
   pname = "chicken";

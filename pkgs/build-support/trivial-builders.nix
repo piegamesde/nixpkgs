@@ -346,8 +346,7 @@ rec {
         + ''
 
           ${text}
-        ''
-      ;
+        '';
 
       checkPhase =
         if checkPhase == null then
@@ -362,8 +361,7 @@ rec {
             runHook postCheck
           ''
         else
-          checkPhase
-      ;
+          checkPhase;
 
       meta.mainProgram = name;
     };
@@ -573,8 +571,7 @@ rec {
         else if (lib.isList entries) then
           lib.foldl (a: b: a // { "${b.name}" = b.path; }) { } entries
         else
-          throw "linkFarm entries must be either attrs or a list!"
-      ;
+          throw "linkFarm entries must be either attrs or a list!";
 
       linkCommands =
         lib.mapAttrsToList
@@ -830,8 +827,7 @@ rec {
     if builtins ? getContext then
       writeText "string-references" allPathsWithContext
     else
-      writeDirectReferencesToFile (writeText "string-file" string)
-  ;
+      writeDirectReferencesToFile (writeText "string-file" string);
 
   /* Print an error message if the file with the specified name and
      hash doesn't exist in the Nix store. This function should only
@@ -872,24 +868,21 @@ rec {
               nix-store --add-fixed ${hashAlgo} ${name_}
             or
               nix-prefetch-url --type ${hashAlgo} file:///path/to/${name_}
-          ''
-      ;
+          '';
       hashAlgo =
         if hash != null then
           ""
         else if sha256 != null then
           "sha256"
         else
-          "sha1"
-      ;
+          "sha1";
       hash_ =
         if hash != null then
           hash
         else if sha256 != null then
           sha256
         else
-          sha1
-      ;
+          sha1;
       name_ = if name == null then baseNameOf (toString url) else name;
     in
     stdenvNoCC.mkDerivation {
@@ -950,8 +943,7 @@ rec {
           throw
             "applyPatches: please supply a `name` argument because a default name can only be computed when the `src` is a path or is an attribute set with a `name` attribute."
       )
-        + "-patched"
-      ,
+        + "-patched",
       patches ? [ ],
       postPatch ? "",
     }:

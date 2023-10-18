@@ -52,8 +52,7 @@ let
         description = lib.mdDoc "Open firewall ports for ${serviceName}.";
       };
     })
-    // (optionalAttrs (extraOpts != null) extraOpts)
-  ;
+    // (optionalAttrs (extraOpts != null) extraOpts);
 
   # Generator for HDFS service configs
   hadoopServiceConfig =
@@ -199,8 +198,7 @@ in
             50075 # datanode.http.address
             50010 # datanode.address
             50020 # datanode.ipc.address
-          ]
-      ;
+          ];
       extraConfig.services.hadoop.hdfsSiteInternal."dfs.datanode.data.dir" =
         mkIf (cfg.hdfs.datanode.dataDirs != null)
           (

@@ -32,8 +32,7 @@ let
                 extraLibs = with python.pkgs; [ virtualenv ];
                 # Collisions because of namespaces __init__.py
                 ignoreCollisions = true;
-              }
-          ;
+              };
         in
         {
           # Plain Python interpreter
@@ -95,8 +94,7 @@ let
             is_nixenv = "True";
             is_virtualenv = "False";
           };
-        }
-      ;
+        };
 
       testfun =
         name: attrs:
@@ -165,8 +163,7 @@ let
           );
         in
         pkgs_.${python.pythonAttr}.pkgs.foo;
-    }
-  ;
+    };
 
   condaTests =
     let

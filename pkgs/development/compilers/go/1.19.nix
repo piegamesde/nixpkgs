@@ -24,8 +24,7 @@ let
     if useGccGoBootstrap then
       buildPackages.gccgo12
     else
-      buildPackages.callPackage ./bootstrap116.nix { }
-  ;
+      buildPackages.callPackage ./bootstrap116.nix { };
 
   skopeoTest = skopeo.override { buildGoModule = buildGo119Module; };
 
@@ -68,8 +67,9 @@ stdenv.mkDerivation rec {
   buildInputs =
     [ ]
     ++ lib.optionals stdenv.isLinux [ stdenv.cc.libc.out ]
-    ++ lib.optionals (stdenv.hostPlatform.libc == "glibc") [ stdenv.cc.libc.static ]
-  ;
+    ++ lib.optionals (stdenv.hostPlatform.libc == "glibc") [
+      stdenv.cc.libc.static
+    ];
 
   depsTargetTargetPropagated = lib.optionals stdenv.targetPlatform.isDarwin [
     Foundation
@@ -187,8 +187,7 @@ stdenv.mkDerivation rec {
               rm -rf pkg/${GOOS}_${GOARCH} pkg/tool/${GOOS}_${GOARCH}
             ''}
           ''
-    )
-  ;
+    );
 
   installPhase = ''
     runHook preInstall

@@ -309,8 +309,7 @@ in
         ''
         + optionalString cfg.settings.watch-dir-enabled ''
           install -d -m '${cfg.downloadDirPermissions}' -o '${cfg.user}' -g '${cfg.group}' '${cfg.settings.watch-dir}'
-        ''
-      ;
+        '';
     };
 
     systemd.services.transmission = {
@@ -366,8 +365,7 @@ in
           ++
             optional
               (cfg.settings.watch-dir-enabled && cfg.settings.trash-original-torrent-files)
-              cfg.settings.watch-dir
-        ;
+              cfg.settings.watch-dir;
         BindReadOnlyPaths =
           [
             # No confinement done of /nix/store here like in systemd-confinement.nix,
@@ -385,8 +383,7 @@ in
           ++
             optional
               (cfg.settings.watch-dir-enabled && !cfg.settings.trash-original-torrent-files)
-              cfg.settings.watch-dir
-        ;
+              cfg.settings.watch-dir;
         StateDirectory = [
           "transmission"
           "transmission/.config/transmission-daemon"

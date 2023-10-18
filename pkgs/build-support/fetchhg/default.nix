@@ -37,8 +37,7 @@ else
       else if sha256 != null then
         sha256
       else
-        lib.fakeSha256
-    ;
+        lib.fakeSha256;
 
     inherit url rev;
     inherit preferLocalBuild;

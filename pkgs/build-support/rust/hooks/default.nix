@@ -22,8 +22,7 @@ let
     if targetIsJSON then
       (lib.removeSuffix ".json" (builtins.baseNameOf "${target}"))
     else
-      target
-  ;
+      target;
   ccForBuild = "${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}cc";
   cxxForBuild = "${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}c++";
   ccForHost = "${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc";

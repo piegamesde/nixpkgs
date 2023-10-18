@@ -60,8 +60,7 @@ stdenv.mkDerivation rec {
       libp11
       libp11.passthru.openssl
     ]
-    ++ lib.optionals withRtlsdr [ rtl-sdr ]
-  ;
+    ++ lib.optionals withRtlsdr [ rtl-sdr ];
 
   enableParallelBuilding = true;
 

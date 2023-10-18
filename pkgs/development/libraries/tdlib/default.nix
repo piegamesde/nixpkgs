@@ -44,8 +44,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) ''
       sed -i "/vptr/d" test/CMakeLists.txt
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "Cross-platform library for building Telegram clients";

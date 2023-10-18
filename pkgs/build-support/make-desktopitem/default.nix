@@ -54,8 +54,7 @@ lib.makeOverridable (
       else if builtins.isBool value then
         lib.boolToString value
       else
-        throw "makeDesktopItem: value must be a boolean or null!"
-    ;
+        throw "makeDesktopItem: value must be a boolean or null!";
 
     # Multiple values are represented as one string, joined by semicolons.
     # Technically, it's possible to escape semicolons in values with \;, but this is currently not implemented.
@@ -68,8 +67,7 @@ lib.makeOverridable (
       else if value == [ ] then
         null
       else
-        builtins.concatStringsSep ";" value
-    ;
+        builtins.concatStringsSep ";" value;
 
     # The [Desktop Entry] section of the desktop file, as an attribute set.
     # Please keep in spec order.

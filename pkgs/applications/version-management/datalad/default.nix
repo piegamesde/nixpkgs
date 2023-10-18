@@ -77,8 +77,7 @@ python3.pkgs.buildPythonApplication rec {
       distro
     ]
     ++ lib.optionals stdenv.hostPlatform.isWindows [ colorama ]
-    ++ lib.optionals (python3.pythonOlder "3.10") [ importlib-metadata ]
-  ;
+    ++ lib.optionals (python3.pythonOlder "3.10") [ importlib-metadata ];
 
   postInstall = ''
     installShellCompletion --cmd datalad \

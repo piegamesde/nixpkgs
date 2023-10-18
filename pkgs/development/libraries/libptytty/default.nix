@@ -30,8 +30,7 @@ stdenv.mkDerivation rec {
       "-DUTMP_SUPPORT=OFF"
       "-DWTMP_SUPPORT=OFF"
       "-DLASTLOG_SUPPORT=OFF"
-    ]
-  ;
+    ];
 
   meta = with lib; {
     description = "OS independent and secure pty/tty and utmp/wtmp/lastlog";

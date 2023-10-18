@@ -121,8 +121,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (guiModule == "zest") [
       libGL
       libX11
-    ]
-  ;
+    ];
 
   cmakeFlags =
     [ "-DGuiModule=${guiModule}" ]
@@ -130,8 +129,7 @@ stdenv.mkDerivation rec {
     # Must explicitly disable if support is not wanted.
     ++ lib.optional (!ossSupport) "-DOssEnable=OFF"
     # Find FLTK without requiring an OpenGL library in buildInputs
-    ++ lib.optional (guiModule == "fltk") "-DFLTK_SKIP_OPENGL=ON"
-  ;
+    ++ lib.optional (guiModule == "fltk") "-DFLTK_SKIP_OPENGL=ON";
 
   doCheck = true;
   nativeCheckInputs = [
@@ -151,8 +149,7 @@ stdenv.mkDerivation rec {
         ++ lib.optionals stdenv.isAarch64 [
           "MessageTest"
           "UnisonTest"
-        ]
-      ;
+        ];
     in
     ''
       runHook preCheck
@@ -188,8 +185,7 @@ stdenv.mkDerivation rec {
       if guiModule == "zest" then
         "https://zynaddsubfx.sourceforge.io/zyn-fusion.html"
       else
-        "https://zynaddsubfx.sourceforge.io"
-    ;
+        "https://zynaddsubfx.sourceforge.io";
 
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [

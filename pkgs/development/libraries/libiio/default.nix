@@ -57,8 +57,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       CFNetwork
       CoreServices
-    ]
-  ;
+    ];
 
   cmakeFlags = [
     "-DUDEV_RULES_INSTALL_DIR=${placeholder "out"}/lib/udev/rules.d"

@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
         sha256 = "1cw7yhw48qp12q0adwf8srpjzrgkp84kmlkqw3pz8vkxz4p9hbdv";
       })
     else
-      throw "Architecture not supported"
-  ;
+      throw "Architecture not supported";
 
   buildInputs = [ gmp ];
   nativeBuildInputs = lib.optional stdenv.isLinux patchelf;
@@ -63,8 +62,7 @@ stdenv.mkDerivation rec {
           ${gmp}/lib/libgmp.10.dylib \
           $out/bin/$e
       done
-    ''
-  ;
+    '';
 
   meta = import ./meta.nix;
 }

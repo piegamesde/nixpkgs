@@ -128,8 +128,7 @@ let
         ]
         ""
     )
-    + optionalString (v == null) "-broken"
-  ;
+    + optionalString (v == null) "-broken";
   append-version = p: n: p + display-pkg n "" coqPackages.${n}.version + "-";
   prefix-name = foldl append-version "" namePrefix;
   useDune = args.useDune or (useDuneifVersion fetched.version);
@@ -202,8 +201,7 @@ stdenv.mkDerivation (
               broken = true;
             }
           )
-          // (args.meta or { })
-        ;
+          // (args.meta or { });
       }
       // (optionalAttrs setCOQBIN { COQBIN = "${coq}/bin/"; })
       // (optionalAttrs (!args ? installPhase && !args ? useMelquiondRemake) {

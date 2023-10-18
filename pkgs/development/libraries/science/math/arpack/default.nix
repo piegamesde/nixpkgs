@@ -50,8 +50,7 @@ stdenv.mkDerivation rec {
       lapack
       eigen
     ]
-    ++ lib.optional useMpi mpi
-  ;
+    ++ lib.optional useMpi mpi;
 
   nativeCheckInputs = lib.optional useMpi openssh;
 

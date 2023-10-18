@@ -43,8 +43,7 @@ let
     }
     // {
       meta.maintainers = [ maintainers.aanderse ];
-    }
-  ;
+    };
 in
 {
   mysql = redmineTest {

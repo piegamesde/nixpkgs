@@ -340,8 +340,7 @@ in
                 } is invalid: files cannot be placed in the nixos/.extra-files directory";
             }
           ])
-          (builtins.attrNames cfg.extraFiles)
-    ;
+          (builtins.attrNames cfg.extraFiles);
 
     boot.loader.grub.enable = mkDefault false;
 

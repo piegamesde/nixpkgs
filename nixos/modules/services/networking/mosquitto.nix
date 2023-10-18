@@ -34,8 +34,7 @@ let
     ]
     // {
       description = "string, path, bool, or integer";
-    }
-  ;
+    };
   optionToString =
     v:
     if isBool v then
@@ -43,8 +42,7 @@ let
     else if path.check v then
       "${v}"
     else
-      toString v
-  ;
+      toString v;
 
   assertKeysValid =
     prefix: valid: config:
@@ -147,8 +145,7 @@ let
             ] <= 1;
           message = "Cannot set more than one password option for user ${n} in ${prefix}";
         })
-        users
-  ;
+        users;
 
   makePasswordFile =
     users: path:
@@ -161,8 +158,7 @@ let
         ++
           mapAttrsToList
             (n: u: "addFile ${escapeShellArg n} ${escapeShellArg "${u.${file}}"}")
-            (filterAttrs (_: u: u.${file} != null) users)
-      ;
+            (filterAttrs (_: u: u.${file} != null) users);
       plainLines = makeLines "password" "passwordFile";
       hashedLines = makeLines "hashedPassword" "hashedPasswordFile";
     in
@@ -254,8 +250,7 @@ let
       "auth_plugin ${plugin.plugin}"
       "auth_plugin_deny_special_chars ${optionToString plugin.denySpecialChars}"
     ]
-    ++ formatFreeform { prefix = "auth_opt_"; } plugin.options
-  ;
+    ++ formatFreeform { prefix = "auth_opt_"; } plugin.options;
 
   freeformListenerKeys = {
     allow_anonymous = 1;
@@ -371,8 +366,7 @@ let
     ++ userAsserts prefix listener.users
     ++
       imap0 (i: v: authAsserts "${prefix}.authPlugins.${toString i}" v)
-        listener.authPlugins
-  ;
+        listener.authPlugins;
 
   formatListener =
     idx: listener:
@@ -384,8 +378,7 @@ let
       optional (!listener.omitPasswordAuth)
         "password_file ${cfg.dataDir}/passwd-${toString idx}"
     ++ formatFreeform { } listener.settings
-    ++ concatMap formatAuthPlugin listener.authPlugins
-  ;
+    ++ concatMap formatAuthPlugin listener.authPlugins;
 
   freeformBridgeKeys = {
     bridge_alpn = 1;
@@ -483,8 +476,7 @@ let
         assertion = length bridge.addresses > 0;
         message = "Bridge ${prefix} needs remote broker addresses";
       }
-    ]
-  ;
+    ];
 
   formatBridge =
     name: bridge:
@@ -495,8 +487,7 @@ let
       }"
     ]
     ++ map (t: "topic ${t}") bridge.topics
-    ++ formatFreeform { } bridge.settings
-  ;
+    ++ formatFreeform { } bridge.settings;
 
   freeformGlobalKeys = {
     allow_duplicate_messages = 1;
@@ -654,8 +645,7 @@ let
     ++ formatFreeform { } cfg.settings
     ++ concatLists (imap0 formatListener cfg.listeners)
     ++ concatLists (mapAttrsToList formatBridge cfg.bridges)
-    ++ map (d: "include_dir ${d}") cfg.includeDirs
-  ;
+    ++ map (d: "include_dir ${d}") cfg.includeDirs;
 
   configFile = pkgs.writeText "mosquitto.conf" (
     concatStringsSep "\n" (formatGlobal cfg)

@@ -18,8 +18,7 @@ stdenv.mkDerivation rec {
       if stdenv.isDarwin then
         "sha256-48I+FhJUUam1nMCMMM47CwGO82BYsNz0eHDHXBfqO2E="
       else
-        "sha256-Gf+QgAjTrysZj7qTtt1wcQPganDtO0YtRY4ykhLPzVo="
-    ;
+        "sha256-Gf+QgAjTrysZj7qTtt1wcQPganDtO0YtRY4ykhLPzVo=";
   };
 
   nativeBuildInputs = [ makeWrapper ];

@@ -59,8 +59,7 @@ stdenv.mkDerivation rec {
       Carbon
       Cocoa
       IOKit
-    ]
-  ;
+    ];
 
   makeFlags = [
     "prefix=${placeholder "out"}"

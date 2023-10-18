@@ -56,8 +56,7 @@ let
         else
           "${config.socket}${maybeOption "mode"}${maybeOption "owner"}${
             maybeOption "group"
-          }"
-      ;
+          }";
     };
 
   traceWarning = w: x: builtins.trace "[1;31mwarning: ${w}[0m" x;
@@ -333,8 +332,7 @@ let
         { }
       else
         { "extra-config.inc".text = cfg.extraConfig; }
-    )
-  ;
+    );
 in
 
 {

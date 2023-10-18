@@ -18,8 +18,7 @@ stdenv.mkDerivation rec {
   pname =
     "pcre"
     + lib.optionalString (variant == "cpp") "-cpp"
-    + lib.optionalString (variant != "cpp" && variant != null) variant
-  ;
+    + lib.optionalString (variant != "cpp" && variant != null) variant;
   version = "8.45";
 
   src = fetchurl {
@@ -43,8 +42,7 @@ stdenv.mkDerivation rec {
       "--enable-unicode-properties"
       "--disable-cpp"
     ]
-    ++ lib.optional (variant != null) "--enable-${variant}"
-  ;
+    ++ lib.optional (variant != null) "--enable-${variant}";
 
   # https://bugs.exim.org/show_bug.cgi?id=2173
   patches = [ ./stacksize-detection.patch ];
@@ -55,8 +53,7 @@ stdenv.mkDerivation rec {
 
   doCheck =
     !(with stdenv.hostPlatform; isCygwin || isFreeBSD)
-    && stdenv.hostPlatform == stdenv.buildPlatform
-  ;
+    && stdenv.hostPlatform == stdenv.buildPlatform;
   # XXX: test failure on Cygwin
   # we are running out of stack on both freeBSDs on Hydra
 
@@ -66,8 +63,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString (variant != null) ''
       ln -sf -t "$out/lib/" '${pcre.out}'/lib/libpcre{,posix}.{so.*.*.*,*dylib,*a}
-    ''
-  ;
+    '';
 
   meta = {
     homepage = "http://www.pcre.org/";

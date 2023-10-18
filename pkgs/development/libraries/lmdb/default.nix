@@ -44,8 +44,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.hostPlatform.isWindows [
       "SOEXT=.dll"
       "BINEXT=.exe"
-    ]
-  ;
+    ];
 
   doCheck = true;
   checkTarget = "test";
@@ -65,8 +64,7 @@ stdenv.mkDerivation rec {
       Cflags: -I$dev/include
       Libs: -L$out/lib -llmdb
       EOF
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "Lightning memory-mapped database";

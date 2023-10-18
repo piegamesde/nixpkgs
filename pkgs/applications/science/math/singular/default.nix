@@ -58,8 +58,7 @@ stdenv.mkDerivation rec {
       "--disable-pyobject-module"
     ]
     ++ lib.optionals enableDocs [ "--enable-doc-build" ]
-    ++ lib.optionals enableGfanlib [ "--enable-gfanlib" ]
-  ;
+    ++ lib.optionals enableGfanlib [ "--enable-gfanlib" ];
 
   prePatch = ''
     # don't let the tests depend on `hostname`
@@ -98,8 +97,7 @@ stdenv.mkDerivation rec {
       texinfo4
       texlive.combined.scheme-small
     ]
-    ++ lib.optionals stdenv.isDarwin [ getconf ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ getconf ];
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
   preAutoreconf = ''
@@ -126,8 +124,7 @@ stdenv.mkDerivation rec {
     + ''
       # Make sure patchelf picks up the right libraries
       rm -rf libpolys factory resources omalloc Singular
-    ''
-  ;
+    '';
 
   # singular tests are a bit complicated, see
   # https://github.com/Singular/Singular/tree/spielwiese/Tst

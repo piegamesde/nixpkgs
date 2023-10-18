@@ -254,8 +254,7 @@ in
                       }
                       // cfg.extraConfig
                     )
-                  )
-              ;
+                  );
             in
             {
               description = "blockbook-frontend-${blockbookName} daemon";

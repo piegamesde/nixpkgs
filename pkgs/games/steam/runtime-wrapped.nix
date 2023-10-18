@@ -33,8 +33,7 @@ let
     else if steamArch == "i386" then
       "i386-linux-gnu"
     else
-      abort "Unsupported architecture"
-  ;
+      abort "Unsupported architecture";
 
   libs = [
     "lib/${gnuArch}"

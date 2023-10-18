@@ -17,8 +17,7 @@ let
     else if value == false then
       "no"
     else
-      generators.mkValueStringDefault { } value
-  ;
+      generators.mkValueStringDefault { } value;
 
   redisConfig =
     settings:
@@ -676,8 +675,7 @@ in
                         ''""'' # Disable saving with `save = ""`
                       else
                         map (d: "${toString (builtins.elemAt d 0)} ${toString (builtins.elemAt d 1)}")
-                          config.save
-                    ;
+                          config.save;
                     dbfilename = "dump.rdb";
                     dir = "/var/lib/${redisName name}";
                     appendfsync = config.appendFsync;
@@ -783,8 +781,7 @@ in
                       } >> "${redisConfRun}"
                     ''}
                   ''
-                )
-              ;
+                );
               Type = "notify";
               # User and group
               User = conf.user;

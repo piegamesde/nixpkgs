@@ -68,8 +68,7 @@ let
     + ''
       -exec echo "Removing package {}" \; \
       -exec rm -r '{}' \;
-    ''
-  ;
+    '';
 in
 stdenv.mkDerivation rec {
   pname = "gap";
@@ -86,8 +85,7 @@ stdenv.mkDerivation rec {
     lib.optionalString (!keepAll) (removeNonWhitelistedPkgs packagesToKeep)
     + ''
       patchShebangs .
-    ''
-  ;
+    '';
 
   buildInputs = [
     readline

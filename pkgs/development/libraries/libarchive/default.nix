@@ -94,8 +94,7 @@ assert xarSupport -> libxml2 != null;
         attr
         e2fsprogs
       ]
-      ++ lib.optional xarSupport libxml2
-    ;
+      ++ lib.optional xarSupport libxml2;
 
     # Without this, pkg-config-based dependencies are unhappy
     propagatedBuildInputs = lib.optionals stdenv.isLinux [

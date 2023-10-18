@@ -99,8 +99,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString (stdenv.isLinux && enableShared) ''
       ls -1 $tools/bin/* | xargs -I{} patchelf --set-rpath $out/lib:${stdenv.cc.cc.lib}/lib {}
-    ''
-  ;
+    '';
 
   # Old version doesn't ship the .pc file, new version puts wrong paths in there.
   postFixup = ''

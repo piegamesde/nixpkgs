@@ -55,8 +55,7 @@ let
     else
       ''
         ${n} ${v}
-      ''
-  ;
+      '';
   generateSection =
     indent: settings:
     concatStringsSep (fixedWidthString indent " " "") (
@@ -72,8 +71,7 @@ let
       ''
         ${concatMapStringsSep "\n" (files: ''"${files}"'') (toList settings.files)} {
           ${generateSection 2 settings}}
-      ''
-  ;
+      '';
 
   settings = sortProperties (
     attrValues (

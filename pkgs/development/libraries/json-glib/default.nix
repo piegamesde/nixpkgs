@@ -57,8 +57,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withIntrospection [
       gobject-introspection
       gi-docgen
-    ]
-  ;
+    ];
 
   propagatedBuildInputs = [ glib ];
 

@@ -55,8 +55,7 @@ stdenv.mkDerivation rec {
       if for_HP_laptop then
         "sha256-H1JzT/RgnbHqnW2/FmvXFuI6gnHI2vQU3W1iq2FqwJw="
       else
-        "sha256-k8DGHjTIpnjWw7GNN2kyR8rRl2MAq1xkfOndd0znLns="
-    ;
+        "sha256-k8DGHjTIpnjWw7GNN2kyR8rRl2MAq1xkfOndd0znLns=";
   };
 
   nativeBuildInputs = [

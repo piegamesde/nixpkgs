@@ -117,8 +117,7 @@ let
         (!crossStageStatic && targetPlatform.isMinGW && threadsCross.model == "mcf")
         ./Added-mcf-thread-model-support-from-mcfgthread.patch
 
-    ++ [ ../libsanitizer-no-cyclades-9.patch ]
-  ;
+    ++ [ ../libsanitizer-no-cyclades-9.patch ];
 
   # Cross-gcc settings (build == host != target)
   crossMingw = targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt";
@@ -262,8 +261,7 @@ stdenv.mkDerivation (
         makeFlagsArray+=(
            'LIMITS_H_TEST=false'
         )
-      ''
-    ;
+      '';
 
     inherit
       noSysDirs
@@ -299,8 +297,7 @@ stdenv.mkDerivation (
     configureFlags =
       (callFile ../common/configure-flags.nix { })
       ++ optional (targetPlatform.isAarch64) "--enable-fix-cortex-a53-843419"
-      ++ optional targetPlatform.isNetBSD "--disable-libcilkrts"
-    ;
+      ++ optional targetPlatform.isNetBSD "--disable-libcilkrts";
 
     targetConfig =
       if targetPlatform != hostPlatform then targetPlatform.config else null;

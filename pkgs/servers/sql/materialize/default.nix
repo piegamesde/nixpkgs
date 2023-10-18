@@ -54,8 +54,7 @@ let
         ++ lib.optional (args ? extra_file) {
           src = extra_file.src;
           dst = "${static}/${extra_file.dst}";
-        }
-      ;
+        };
     in
     lib.concatStringsSep "\n" (
       lib.forEach files (
@@ -106,8 +105,7 @@ rustPlatform.buildRustPackage rec {
       pkg-config
     ]
     # Provides the mig command used by the krb5-src build script
-    ++ lib.optional stdenv.isDarwin bootstrap_cmds
-  ;
+    ++ lib.optional stdenv.isDarwin bootstrap_cmds;
 
   # Needed to get openssl-sys to use pkg-config.
   OPENSSL_NO_VENDOR = 1;

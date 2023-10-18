@@ -33,8 +33,7 @@ let
             _: lib.mapAttrs (pname: data: self.mkNextcloudDerivation { inherit data; }) pkgs
           )
         )
-        generatedJson
-  ;
+        generatedJson;
 in
 (lib.makeExtensible (_: (lib.makeScope newScope packages))).extend (
   selfNC: superNC: { }

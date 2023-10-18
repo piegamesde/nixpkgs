@@ -70,8 +70,7 @@ mkDerivation rec {
       dbus-python
       matrix-nio
     ]
-    ++ matrix-nio.optional-dependencies.e2e
-  ;
+    ++ matrix-nio.optional-dependencies.e2e;
 
   qmakeFlags = [
     "PREFIX=${placeholder "out"}"

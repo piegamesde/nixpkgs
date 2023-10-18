@@ -57,8 +57,7 @@ let
       ''
       + lib.optionalString stdenv.isDarwin ''
         install_name_tool -id $out/lib/libflux.dylib $out/lib/libflux.dylib
-      ''
-    ;
+      '';
   };
 in
 buildGoModule rec {

@@ -60,8 +60,7 @@ buildPythonPackage rec {
     ++ relatorio.optional-dependencies.fodt
     ++ passlib.optional-dependencies.bcrypt
     ++ passlib.optional-dependencies.argon2
-    ++ lib.optional withPostgresql psycopg2
-  ;
+    ++ lib.optional withPostgresql psycopg2;
 
   nativeCheckInputs = [ unittestCheckHook ];
 

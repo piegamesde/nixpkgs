@@ -34,8 +34,7 @@ let
     && stdenv.isx86_64
     && (
       pkgs.pkgsi686Linux.alsa-lib != null && pkgs.pkgsi686Linux.libpulseaudio != null
-    )
-  ;
+    );
 
   myConfigFile =
     let
@@ -174,8 +173,7 @@ in
           if config.services.jack.jackd.enable then
             pkgs.pulseaudioFull
           else
-            pkgs.pulseaudio
-        ;
+            pkgs.pulseaudio;
         defaultText = literalExpression "pkgs.pulseaudio";
         example = literalExpression "pkgs.pulseaudioFull";
         description = lib.mdDoc ''

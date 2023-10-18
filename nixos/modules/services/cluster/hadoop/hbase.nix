@@ -46,8 +46,7 @@ let
         description = mdDoc "Environment variables passed to ${name}.";
       };
     }
-    // extraOpts
-  ;
+    // extraOpts;
   # generic hbase role configs
   hbaseRoleConfig =
     name: ports:
@@ -63,8 +62,7 @@ let
         path =
           with cfg;
           [ hbase.package ]
-          ++ optional (with cfg.hbase.master; enable && initHDFS) package
-        ;
+          ++ optional (with cfg.hbase.master; enable && initHDFS) package;
         preStart = mkIf (with cfg.hbase.master; enable && initHDFS) (
           concatStringsSep "\n" (
             map (x: "HADOOP_USER_NAME=hdfs hdfs --config /etc/hadoop-conf ${x}") [

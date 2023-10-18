@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString stdenv.isDarwin ''
       substituteInPlace configure --replace '@executable_path/' "$out/lib/"
       substituteInPlace configure.in --replace '@executable_path/' "$out/lib/"
-    ''
-  ;
+    '';
 
   HOST_CC = "cc";
   depsBuildBuild = [ buildPackages.stdenv.cc ];

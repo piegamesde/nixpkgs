@@ -70,8 +70,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString enableCapabilities ''
       sed -i 's,\(-lcap\),-L${libcap.lib}/lib \1,' $out/lib/libgcrypt.la
-    ''
-  ;
+    '';
 
   doCheck = true;
 

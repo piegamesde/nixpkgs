@@ -99,8 +99,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals enableCuda [
       "--enable-nvidia-gpu"
       "--with-NVIDIA-GPU-compute-capability=${nvidiaArch}"
-    ]
-  ;
+    ];
 
   doCheck = true;
 

@@ -45,8 +45,7 @@ let
         if lib.isString wrapperArgs then
           wrapperArgs
         else
-          lib.escapeShellArgs wrapperArgs
-      ;
+          lib.escapeShellArgs wrapperArgs;
 
       # "--add-flags" (lib.escapeShellArgs flags)
       # wrapper args used both when generating the manifest and in the final neovim executable
@@ -69,8 +68,7 @@ let
               ''--cmd "set packpath^=${vimUtils.packDir packpathDirs}"''
               "--add-flags"
               ''--cmd "set rtp^=${vimUtils.packDir packpathDirs}"''
-            ]
-      ;
+            ];
 
       providerLuaRc = neovimUtils.generateProviderRc args;
       # providerLuaRc = "toto";
@@ -95,14 +93,12 @@ let
           "--add-flags"
           "-u ${writeText "init.vim" neovimRcContent}"
         ]
-        ++ commonWrapperArgs
-      ;
+        ++ commonWrapperArgs;
     in
     assert withPython2
       ->
         throw
-          "Python2 support has been removed from the neovim wrapper, please remove withPython2 and python2Env."
-    ;
+          "Python2 support has been removed from the neovim wrapper, please remove withPython2 and python2Env.";
 
     symlinkJoin {
       name = "neovim-${lib.getVersion neovim}${extraName}";
@@ -172,8 +168,7 @@ let
           rm $out/bin/nvim
           touch $out/rplugin.vim
           makeWrapper ${lib.escapeShellArgs finalMakeWrapperArgs} ${wrapperArgsStr}
-        ''
-      ;
+        '';
 
       paths = [ neovim ];
 

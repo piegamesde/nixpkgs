@@ -43,8 +43,7 @@ let
   # Update libtool for macOS 11 support
   needsAutogen =
     stdenv.hostPlatform.isDarwin
-    && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11"
-  ;
+    && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11";
 
   common =
     {
@@ -97,8 +96,7 @@ let
           ++ lib.optionals stdenv.hostPlatform.isDarwin [
             CoreServices
             Security
-          ]
-        ;
+          ];
 
         patches = [ ./apr-1.patch ] ++ extraPatches;
 

@@ -30,8 +30,7 @@ let
       #"dnn" #- some caffe tests failed, probably because github workflow also downloads additional models
     ]
     ++ lib.optionals (!stdenv.isAarch64 && enableGStreamer) [ "gapi" ]
-    ++ lib.optionals (enableGtk2 || enableGtk3) [ "highgui" ]
-  ;
+    ++ lib.optionals (enableGtk2 || enableGtk3) [ "highgui" ];
   perfTestNames = [
     "calib3d"
     "core"

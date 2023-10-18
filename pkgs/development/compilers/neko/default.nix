@@ -64,8 +64,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       pkgs.darwin.apple_sdk.frameworks.Security
       pkgs.darwin.apple_sdk.frameworks.Carbon
-    ]
-  ;
+    ];
   cmakeFlags = [ "-DRUN_LDCONFIG=OFF" ];
 
   installCheckPhase = ''

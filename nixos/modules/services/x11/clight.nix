@@ -32,8 +32,7 @@ let
 
         }''
     else
-      abort "clight.toConf: unexpected type (v = ${v})"
-  ;
+      abort "clight.toConf: unexpected type (v = ${v})";
 
   getSep = v: if isAttrs v then ":" else "=";
 
@@ -123,8 +122,7 @@ in
             config.location.provider == "manual"
             ->
               inRange config.location.latitude (-90) 90
-              && inRange config.location.longitude (-180) 180
-          ;
+              && inRange config.location.longitude (-180) 180;
           message = "You must specify a valid latitude and longitude if manually providing location";
         }
       ];

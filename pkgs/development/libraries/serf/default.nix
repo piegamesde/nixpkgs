@@ -59,8 +59,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString (!stdenv.isCygwin) ''
       sconsFlags+=" GSSAPI=${libkrb5.dev}"
-    ''
-  ;
+    '';
 
   enableParallelBuilding = true;
 

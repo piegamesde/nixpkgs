@@ -23,8 +23,7 @@
     else if x ? meta && x.meta ? sourceWithTags then
       x.meta.sourceWithTags
     else
-      null
-  ;
+      null;
 
   # createTagFiles =  [ { name  = "my_tag_name_without_suffix", tagCmd = "ctags -R . -o \$TAG_FILE"; } ]
   # tag command must create file named $TAG_FILE
@@ -96,8 +95,7 @@
           ];
         };
       };
-    }
-  ;
+    };
 
   addCTaggingInfo =
     deriv:
@@ -115,8 +113,7 @@
           ];
         };
       };
-    }
-  ;
+    };
 }
 /* experimental
    idea:

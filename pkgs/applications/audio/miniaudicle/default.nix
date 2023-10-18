@@ -45,8 +45,7 @@ stdenv.mkDerivation rec {
       qscintilla-qt4
     ]
     ++ lib.optional (audioBackend == "pulse") libpulseaudio
-    ++ lib.optional (audioBackend == "jack") libjack2
-  ;
+    ++ lib.optional (audioBackend == "jack") libjack2;
 
   buildFlags = [ "linux-${audioBackend}" ];
 

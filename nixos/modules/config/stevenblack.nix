@@ -26,14 +26,12 @@ let
     ++ optionals (elem "fakenews" block) [ "fakenews" ]
     ++ optionals (elem "gambling" block) [ "gambling" ]
     ++ optionals (elem "porn" block) [ "porn" ]
-    ++ optionals (elem "social" block) [ "social" ]
-  ;
+    ++ optionals (elem "social" block) [ "social" ];
 
   hostsPath =
     "${pkgs.stevenblack-blocklist}/alternates/"
     + concatStringsSep "-" activatedHosts
-    + "/hosts"
-  ;
+    + "/hosts";
 in
 {
   options.networking.stevenblack = {
@@ -57,8 +55,7 @@ in
     networking.hostFiles =
       [ ]
       ++ optionals (activatedHosts != [ ]) [ hostsPath ]
-      ++ optionals (activatedHosts == [ ]) [ "${pkgs.stevenblack-blocklist}/hosts" ]
-    ;
+      ++ optionals (activatedHosts == [ ]) [ "${pkgs.stevenblack-blocklist}/hosts" ];
   };
 
   meta.maintainers = [

@@ -83,8 +83,7 @@ mkDerivation rec {
     [ karchive ]
     ++ optionals buildClient clientDeps
     ++ optionals buildServer serverDeps
-    ++ optionals enableKisTablet kisDeps
-  ;
+    ++ optionals enableKisTablet kisDeps;
 
   cmakeFlags = [
     "-Wno-dev"

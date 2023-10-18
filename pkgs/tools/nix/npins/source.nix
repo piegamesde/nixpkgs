@@ -30,8 +30,7 @@ let
         else if spec.type == "Channel" then
           mkChannelSource spec
         else
-          throw "Unknown source type ${spec.type}"
-      ;
+          throw "Unknown source type ${spec.type}";
     in
     spec // { outPath = path; };
 
@@ -57,8 +56,7 @@ let
       fetchgit {
         url = repository.url;
         rev = revision;
-      }
-  ;
+      };
 
   mkPyPiSource =
     { url, hash, ... }:

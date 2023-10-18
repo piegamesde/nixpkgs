@@ -94,8 +94,7 @@ let
       {
         flags = [ ];
         deps = [ ];
-      }
-  ;
+      };
 
   opts = [
     # Audio output
@@ -161,8 +160,7 @@ stdenv.mkDerivation rec {
       AudioUnit
       VideoToolbox
     ]
-    ++ lib.flatten (lib.concatMap (a: a.deps) opts)
-  ;
+    ++ lib.flatten (lib.concatMap (a: a.deps) opts);
 
   prefixKey = "prefix=";
 

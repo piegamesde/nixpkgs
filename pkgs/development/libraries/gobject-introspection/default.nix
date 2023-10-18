@@ -130,8 +130,7 @@ stdenv.mkDerivation (
       ]
       ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
         "-Dgi_cross_use_prebuilt_gi=true"
-      ]
-    ;
+      ];
 
     doCheck = !stdenv.isAarch64;
 
@@ -184,8 +183,7 @@ stdenv.mkDerivation (
             lovek323
             artturin
           ]
-        )
-      ;
+        );
       pkgConfigModules = [ "gobject-introspection-1.0" ];
       platforms = platforms.unix;
       license = with licenses; [

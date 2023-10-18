@@ -287,15 +287,13 @@ in
       {
         assertion =
           (cfg.forceLocalLoginsSSL -> cfg.rsaCertFile != null)
-          && (cfg.forceLocalDataSSL -> cfg.rsaCertFile != null)
-        ;
+          && (cfg.forceLocalDataSSL -> cfg.rsaCertFile != null);
         message = "vsftpd: If forceLocalLoginsSSL or forceLocalDataSSL is true then a rsaCertFile must be provided!";
       }
       {
         assertion =
           (cfg.enableVirtualUsers -> cfg.userDbPath != null)
-          && (cfg.enableVirtualUsers -> cfg.localUsers != null)
-        ;
+          && (cfg.enableVirtualUsers -> cfg.localUsers != null);
         message = "vsftpd: If enableVirtualUsers is true, you need to setup both the userDbPath and localUsers options.";
       }
     ];
@@ -310,8 +308,7 @@ in
             if cfg.localRoot != null then
               cfg.localRoot # <= Necessary for virtual users.
             else
-              "/homeless-shelter"
-          ;
+              "/homeless-shelter";
         };
       }
       // optionalAttrs cfg.anonymousUser {

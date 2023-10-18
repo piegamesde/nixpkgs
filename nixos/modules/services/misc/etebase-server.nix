@@ -254,8 +254,7 @@ in
             if cfg.unixSocket != null then
               "-u ${cfg.unixSocket}"
             else
-              "-b 0.0.0.0 -p ${toString cfg.port}"
-          ;
+              "-b 0.0.0.0 -p ${toString cfg.port}";
         in
         ''
           cd "${pythonEnv}/lib/etebase-server";

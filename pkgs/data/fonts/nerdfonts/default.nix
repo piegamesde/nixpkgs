@@ -26,8 +26,7 @@ let
       if (unknown != [ ]) then
         throw "Unknown font(s): ${lib.concatStringsSep " " unknown}"
       else
-        fonts
-  ;
+        fonts;
   selectedFontsShas = lib.attrsets.genAttrs selectedFonts (
     fName: fontsShas."${fName}"
   );

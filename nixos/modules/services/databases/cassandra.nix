@@ -66,8 +66,7 @@ let
         { rpc_interface = cfg.rpcInterface; }
       else
         { rpc_address = cfg.rpcAddress; }
-    )
-  ;
+    );
 
   cassandraEtc = pkgs.stdenv.mkDerivation {
     name = "cassandra-etc";
@@ -119,8 +118,7 @@ let
           # Historically, we don't use a log dir, whereas the upstream scripts do
           # expect this. We override those by providing our own -Xlog:gc flag.
           "-Xlog:gc=warning,heap*=warning,age*=warning,safepoint=warning,promotion*=warning"
-        ]
-  ;
+        ];
 
   commonEnv = {
     # Sufficient for cassandra 2.x, 3.x
@@ -473,8 +471,7 @@ in
         if atLeast3_11 then
           pkgs.writeText "jmx-roles-file" defaultJmxRolesFile
         else
-          null
-      ;
+          null;
       defaultText =
         literalMD
           "generated configuration file if version is at least 3.11, otherwise `null`";

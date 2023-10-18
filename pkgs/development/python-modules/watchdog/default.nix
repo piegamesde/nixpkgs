@@ -85,8 +85,7 @@ buildPythonPackage rec {
       "--deselect=ests/test_fsevents.py::test_recursive_check_accepts_relative_paths"
       # gets stuck
       "--deselect=tests/test_fsevents.py::test_converting_cfstring_to_pyunicode"
-    ]
-  ;
+    ];
 
   disabledTestPaths =
     [

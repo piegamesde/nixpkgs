@@ -65,8 +65,7 @@ stdenv.mkDerivation rec {
       sqlite
     ]
     ++ lib.optional stdenv.cc.isClang llvmPackages.openmp
-    ++ lib.optional stdenv.isLinux libcap
-  ;
+    ++ lib.optional stdenv.isLinux libcap;
 
   # rpm/rpmlib.h includes popt.h, and then the pkg-config file mentions these as linkage requirements
   propagatedBuildInputs = [

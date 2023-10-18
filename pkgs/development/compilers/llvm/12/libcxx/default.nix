@@ -63,8 +63,7 @@ stdenv.mkDerivation {
       "-DLIBCXX_ENABLE_FILESYSTEM=OFF"
       "-DLIBCXX_ENABLE_EXCEPTIONS=OFF"
     ]
-    ++ lib.optional (!enableShared) "-DLIBCXX_ENABLE_SHARED=OFF"
-  ;
+    ++ lib.optional (!enableShared) "-DLIBCXX_ENABLE_SHARED=OFF";
 
   preInstall = lib.optionalString (stdenv.isDarwin) ''
     for file in lib/*.dylib; do

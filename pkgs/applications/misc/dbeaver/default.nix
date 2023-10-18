@@ -133,8 +133,7 @@
           ln -s $out/dbeaver/icon.xpm $out/share/pixmaps/dbeaver.xpm
 
           runHook postInstall
-        ''
-    ;
+        '';
 
     meta = with lib; {
       homepage = "https://dbeaver.io/";

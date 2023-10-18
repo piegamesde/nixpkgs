@@ -40,8 +40,7 @@ stdenv.mkDerivation rec {
     ''
     + ''
       runHook postInstall
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "A library of routines that help solvers work with AMPL";

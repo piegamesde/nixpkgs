@@ -35,8 +35,7 @@ stdenv.mkDerivation rec {
   makeFlags =
     [ "CXX=${stdenv.cc.targetPrefix}c++" ]
     ++ lib.optionals stdenv.isLinux [ "PLATFORM=DEB" ]
-    ++ lib.optionals stdenv.isDarwin [ "PLATFORM=OSX" ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ "PLATFORM=OSX" ];
 
   env.NIX_CFLAGS_COMPILE = toString (
     [ "-fpermissive" ]

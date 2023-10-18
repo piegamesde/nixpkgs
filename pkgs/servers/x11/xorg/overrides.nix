@@ -278,8 +278,7 @@ self: super:
         # missing transitive dependencies
         + lib.optionalString stdenv.hostPlatform.isStatic ''
           export NIX_CFLAGS_LINK="$NIX_CFLAGS_LINK -lXau -lXdmcp"
-        ''
-      ;
+        '';
     }
   );
 
@@ -296,8 +295,7 @@ self: super:
             [
               "ac_cv_file__dev_urandom=true"
               "ac_cv_file__dev_random=true"
-            ]
-      ;
+            ];
     }
   );
 
@@ -583,8 +581,7 @@ self: super:
           libXext
           libXfixes
           libXrandr
-        ]
-      ;
+        ];
     }
   );
 
@@ -1144,8 +1141,7 @@ self: super:
               '';
             }
           else
-            throw "unsupported xorg abiCompat ${abiCompat} for ${attrs_passed.name}"
-        ;
+            throw "unsupported xorg abiCompat ${abiCompat} for ${attrs_passed.name}";
       in
       attrs
       // (
@@ -1215,8 +1211,7 @@ self: super:
               attrs.propagatedBuildInputs or [ ]
               ++ [ libpciaccess ]
               ++ commonPropagatedBuildInputs
-              ++ lib.optionals stdenv.isLinux [ udev ]
-            ;
+              ++ lib.optionals stdenv.isLinux [ udev ];
             depsBuildBuild = [ buildPackages.stdenv.cc ];
             prePatch = lib.optionalString stdenv.hostPlatform.isMusl ''
               export CFLAGS+=" -D__uid_t=uid_t -D__gid_t=gid_t"
@@ -1375,8 +1370,7 @@ self: super:
         # missing transitive dependencies
         + lib.optionalString stdenv.hostPlatform.isStatic ''
           export NIX_CFLAGS_LINK="$NIX_CFLAGS_LINK -lxcb -lXau -lXdmcp"
-        ''
-      ;
+        '';
     }
   );
 
@@ -1423,8 +1417,7 @@ self: super:
             ++ lib.optionals isDarwin [
               xorg.libX11
               xorg.xorgproto
-            ]
-          ;
+            ];
           postFixup = ''
             substituteInPlace $out/bin/startx \
               --replace $out/etc/X11/xinit/xserverrc /etc/X11/xinit/xserverrc \

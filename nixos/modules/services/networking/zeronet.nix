@@ -33,8 +33,7 @@ let
         else if cfg.torAlways then
           "always"
         else
-          "enable"
-      ;
+          "enable";
     };
   };
 in

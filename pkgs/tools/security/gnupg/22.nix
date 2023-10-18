@@ -82,8 +82,7 @@ stdenv.mkDerivation rec {
       sed -i 's,"libpcsclite\.so[^"]*","${
         lib.getLib pcsclite
       }/lib/libpcsclite.so",g' scd/scdaemon.c
-    ''
-  ;
+    '';
 
   configureFlags =
     [
@@ -95,8 +94,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional guiSupport
       "--with-pinentry-pgm=${pinentry}/${pinentry.binaryPath or "bin/pinentry"}"
-    ++ lib.optional stdenv.isDarwin "--disable-ccid-driver"
-  ;
+    ++ lib.optional stdenv.isDarwin "--disable-ccid-driver";
 
   postInstall =
     if enableMinimal then
@@ -125,8 +123,7 @@ stdenv.mkDerivation rec {
         done
 
         ln -s -t $out/bin $out/libexec/*
-      ''
-  ;
+      '';
 
   enableParallelBuilding = true;
 

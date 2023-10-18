@@ -93,8 +93,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals videoSupport [
       ffmpeg_4
       libmpeg2
-    ]
-  ;
+    ];
 
   configureFlags = [
     "--disable-ltdl-install"

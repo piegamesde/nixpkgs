@@ -92,8 +92,7 @@ stdenv.mkDerivation rec {
       libGL
       libGLU
     ]
-    ++ lib.optionals (withExamples && withGL) [ glew ]
-  ;
+    ++ lib.optionals (withExamples && withGL) [ glew ];
 
   propagatedBuildInputs =
     [
@@ -115,8 +114,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.hostPlatform.isDarwin [ Cocoa ]
     ++ lib.optionals (withGL && stdenv.hostPlatform.isDarwin) [ OpenGL ]
     ++ lib.optionals withCairo [ cairo ]
-    ++ lib.optionals withPango [ pango ]
-  ;
+    ++ lib.optionals withPango [ pango ];
 
   cmakeFlags = [
     # Common
@@ -197,8 +195,7 @@ stdenv.mkDerivation rec {
       }; do
         moveAppBundles "$app"
       done
-    ''
-  ;
+    '';
 
   postFixup = ''
     substituteInPlace $out/bin/fltk-config \

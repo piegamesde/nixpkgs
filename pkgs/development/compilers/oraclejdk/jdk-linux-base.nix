@@ -59,8 +59,7 @@ let
         sha256 = sha256JCE;
       }
     else
-      ""
-  ;
+      "";
 
   rSubPaths = [
     "lib/${architecture}/jli"
@@ -76,8 +75,7 @@ let
       if installjdk then
         "oraclejdk"
       else
-        "oraclejre" + lib.optionalString pluginSupport "-with-plugin"
-    ;
+        "oraclejre" + lib.optionalString pluginSupport "-with-plugin";
     version = "${productVersion}u${patchVersion}";
 
     src =
@@ -220,8 +218,7 @@ let
       if installjdk then
         "/jre/lib/${architecture}/plugins"
       else
-        "/lib/${architecture}/plugins"
-    ;
+        "/lib/${architecture}/plugins";
 
     passthru.jre = result; # FIXME: use multiple outputs or return actual JRE package
 

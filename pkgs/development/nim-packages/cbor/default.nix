@@ -22,6 +22,5 @@ buildNimPackage rec {
       license = licenses.unlicense;
       maintainers = [ maintainers.ehmry ];
       mainProgram = "cbordiag";
-    }
-  ;
+    };
 }

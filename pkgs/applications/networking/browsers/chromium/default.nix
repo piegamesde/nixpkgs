@@ -113,8 +113,7 @@ let
     if channel == "dev" then
       "unstable"
     else
-      (if channel == "ungoogled-chromium" then "stable" else channel)
-  ;
+      (if channel == "ungoogled-chromium" then "stable" else channel);
   pkgName = "google-chrome-${pkgSuffix}";
   chromeSrc =
     let
@@ -123,14 +122,12 @@ let
         if chromium.upstream-info.sha256bin64 != null then
           chromium.upstream-info.version
         else
-          (lib.importJSON ./upstream-info.json).stable.version
-      ;
+          (lib.importJSON ./upstream-info.json).stable.version;
       sha256 =
         if chromium.upstream-info.sha256bin64 != null then
           chromium.upstream-info.sha256bin64
         else
-          (lib.importJSON ./upstream-info.json).stable.sha256bin64
-      ;
+          (lib.importJSON ./upstream-info.json).stable.sha256bin64;
     in
     fetchurl {
       urls = map (repo: "${repo}/${pkgName}/${pkgName}_${version}-1_amd64.deb") [
@@ -159,8 +156,7 @@ let
           else if channel == "dev" then
             "./opt/google/chrome-unstable/WidevineCdm"
           else
-            throw "Unknown chromium channel."
-        ;
+            throw "Unknown chromium channel.";
       in
       ''
         # Extract just WidevineCdm from upstream's .deb file
@@ -205,8 +201,7 @@ let
     if (channel == "stable" || channel == "ungoogled-chromium") then
       ""
     else
-      "-" + channel
-  ;
+      "-" + channel;
 
   sandboxExecutableName = chromium.browser.passthru.sandboxExecutableName;
 
@@ -227,8 +222,7 @@ let
         cp -a ${widevineCdm}/WidevineCdm $out/libexec/chromium/
       ''
     else
-      browser
-  ;
+      browser;
 in
 stdenv.mkDerivation {
   pname = lib.optionalString ungoogled "ungoogled-" + "chromium${suffix}";
@@ -319,8 +313,7 @@ stdenv.mkDerivation {
       for f in '${chromium.browser}'/share/*; do # hello emacs */
         ln -s -t "$out/share/" "$f"
       done
-    ''
-  ;
+    '';
 
   inherit (chromium.browser) packageName;
   meta = chromium.browser.meta;

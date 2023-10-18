@@ -54,8 +54,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       darwin.apple_sdk.frameworks.PCSC
       libiconv
-    ]
-  ;
+    ];
 
   cmakeFlags = lib.optionals stdenv.isDarwin [ "-DDISABLE_LTO=ON" ];
 

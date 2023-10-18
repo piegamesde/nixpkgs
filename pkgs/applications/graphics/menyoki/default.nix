@@ -37,8 +37,7 @@ rustPlatform.buildRustPackage rec {
         libXrandr
       ]
     )
-    ++ lib.optional stdenv.isDarwin AppKit
-  ;
+    ++ lib.optional stdenv.isDarwin AppKit;
 
   buildNoDefaultFeatures = !withSki;
   buildFeatures = lib.optional withSixel "sixel";

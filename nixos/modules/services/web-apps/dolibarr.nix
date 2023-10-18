@@ -49,8 +49,7 @@ let
         else if v == null then
           "null"
         else
-          toString v
-      ;
+          toString v;
     in
     pkgs.writeText filename ''
       <?php

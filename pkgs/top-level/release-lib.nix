@@ -79,8 +79,7 @@ rec {
     else if system == "x86_64-cygwin" then
       pkgs_x86_64_cygwin
     else
-      abort "unsupported system type: ${system}"
-  ;
+      abort "unsupported system type: ${system}";
 
   pkgsFor = pkgsForCross null;
 
@@ -107,8 +106,7 @@ rec {
     then
       candidate.pkgsFor
     else
-      mkPkgsFor crossSystem
-  ; # uncached fallback
+      mkPkgsFor crossSystem; # uncached fallback
 
   # Given a list of 'meta.platforms'-style patterns, return the sublist of
   # `supportedSystems` containing systems that matches at least one of the given
@@ -133,8 +131,7 @@ rec {
     if bool then
       pkgs.runCommand "evaluated-to-true" { } "touch $out"
     else
-      pkgs.runCommand "evaluated-to-false" { } "false"
-  ;
+      pkgs.runCommand "evaluated-to-false" { } "false";
 
   /* The working or failing mails for cross builds will be sent only to
      the following maintainers, as most package maintainers will not be

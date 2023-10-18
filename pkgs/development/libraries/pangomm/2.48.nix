@@ -70,8 +70,7 @@ stdenv.mkDerivation rec {
           lovek323
           raskin
         ]
-      )
-    ;
+      );
     platforms = platforms.unix;
   };
 }

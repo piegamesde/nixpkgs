@@ -85,13 +85,11 @@ stdenv.mkDerivation rec {
           Note that you must supply a baserom yourself to extract assets from.
           If you are not using an US baserom, you must overwrite the "region" attribute with either "eu" or "jp".
           If you would like to use patches sm64ex distributes as makeflags, add them to the "compileFlags" attribute.
-        ''
-      ;
+        '';
       mainProgram = "sm64ex";
       license = licenses.unfree;
       maintainers = with maintainers; [ ivar ];
       platforms = platforms.unix;
     }
-    // extraMeta
-  ;
+    // extraMeta;
 }

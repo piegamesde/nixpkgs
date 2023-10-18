@@ -41,8 +41,7 @@ buildPythonPackage rec {
       openssl
     ]
     ++ lib.optionals stdenv.isLinux [ e2fsprogs ]
-    ++ lib.optionals stdenv.isDarwin [ gcc ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ gcc ];
 
   preConfigure = ''
     cd Source

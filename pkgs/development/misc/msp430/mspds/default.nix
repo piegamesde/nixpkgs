@@ -45,8 +45,7 @@ stdenv.mkDerivation {
     ''
     + lib.optionalString stdenv.isDarwin ''
       makeFlagsArray+=(OUTNAME="-install_name ")
-    ''
-  ;
+    '';
 
   installPhase = ''
     install -Dm0755 -t $out/lib $libName

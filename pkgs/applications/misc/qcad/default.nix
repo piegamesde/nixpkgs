@@ -125,8 +125,7 @@ mkDerivation rec {
       installManPage qcad.1
 
       runHook postInstall
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "2D CAD package based on Qt";

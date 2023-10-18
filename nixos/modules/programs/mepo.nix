@@ -35,8 +35,7 @@ in
       with pkgs;
       [ mepo ]
       ++ lib.optional cfg.locationBackends.geoclue geoclue2-with-demo-agent
-      ++ lib.optional cfg.locationBackends.gpsd gpsd
-    ;
+      ++ lib.optional cfg.locationBackends.gpsd gpsd;
 
     services.geoclue2 = mkIf cfg.locationBackends.geoclue {
       enable = true;

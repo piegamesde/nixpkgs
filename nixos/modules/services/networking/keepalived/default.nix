@@ -119,8 +119,7 @@ let
     + optionalString (notNullOrEmpty ip.brd) " brd ${ip.brd}"
     + optionalString (notNullOrEmpty ip.dev) " dev ${ip.dev}"
     + optionalString (notNullOrEmpty ip.scope) " scope ${ip.scope}"
-    + optionalString (notNullOrEmpty ip.label) " label ${ip.label}"
-  ;
+    + optionalString (notNullOrEmpty ip.label) " label ${ip.label}";
 
   notNullOrEmpty = s: !(s == null || s == "");
 
@@ -157,8 +156,7 @@ let
       }
     ]
     ++ flatten (map (virtualIpAssertions i.name) i.virtualIps)
-    ++ flatten (map (vrrpScriptAssertion i.name) i.trackScripts)
-  ;
+    ++ flatten (map (vrrpScriptAssertion i.name) i.trackScripts);
 
   virtualIpAssertions = vrrpName: ip: [
     {
@@ -338,8 +336,7 @@ in
           if cfg.secretFile == null then
             keepalivedConf
           else
-            "/run/keepalived/keepalived.conf"
-        ;
+            "/run/keepalived/keepalived.conf";
       in
       {
         description = "Keepalive Daemon (LVS and VRRP)";
@@ -365,8 +362,7 @@ in
             "${pkgs.keepalived}/sbin/keepalived"
             + " -f ${finalConfigFile}"
             + " -p ${pidFile}"
-            + optionalString cfg.snmp.enable " --snmp"
-          ;
+            + optionalString cfg.snmp.enable " --snmp";
           ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
           Restart = "always";
           RestartSec = "1s";

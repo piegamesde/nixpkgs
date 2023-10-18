@@ -42,8 +42,7 @@ let
         "aarch64-linux"
       ]
       ++ optionals (versionAtLeast version "11.0.0") [ "aarch64-darwin" ]
-      ++ optionals (versionOlder version "19.0.0") [ "i686-linux" ]
-    ;
+      ++ optionals (versionOlder version "19.0.0") [ "i686-linux" ];
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     knownVulnerabilities =
       optional (versionOlder version "22.0.0")
@@ -76,8 +75,7 @@ let
     }
     // lib.optionalAttrs (lib.versionOlder version "19.0.0") {
       i686-linux = "linux-ia32";
-    }
-  ;
+    };
 
   get =
     as: platform:

@@ -122,8 +122,7 @@ stdenv.mkDerivation rec {
     ++ optional openalSupport openal
     ++ optional portaudioSupport portaudio
     ++ optional pulseaudioSupport libpulseaudio
-    ++ optional spellcheckSupport hunspell
-  ;
+    ++ optional spellcheckSupport hunspell;
 
   enableParallelBuilding = true;
 

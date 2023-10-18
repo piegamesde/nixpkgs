@@ -58,8 +58,7 @@
       "crocus" # Intel legacy, x86 only
     ]
   else
-    [ "auto" ]
-  ,
+    [ "auto" ],
   vulkanDrivers ? if stdenv.isLinux then
     [
       "amd" # AMD (aka RADV)
@@ -88,8 +87,7 @@
       "intel_hasvk" # Intel Haswell/Broadwell, "legacy" Vulkan driver (https://www.phoronix.com/news/Intel-HasVK-Drop-Dead-Code)
     ]
   else
-    [ "auto" ]
-  ,
+    [ "auto" ],
   eglPlatforms ? [ "x11" ] ++ lib.optionals stdenv.isLinux [ "wayland" ],
   vulkanLayers ? lib.optionals (!stdenv.isDarwin) [
     "device-select"
@@ -100,8 +98,7 @@
   OpenGL,
   Xplugin,
   withValgrind ? lib.meta.availableOn stdenv.hostPlatform valgrind-light
-    && !valgrind-light.meta.broken
-  ,
+    && !valgrind-light.meta.broken,
   valgrind-light,
   enableGalliumNine ? stdenv.isLinux,
   enableOSMesa ? stdenv.isLinux,
@@ -152,8 +149,7 @@ let
   haveZink = lib.elem "zink" galliumDrivers;
   haveDozen =
     (lib.elem "d3d12" galliumDrivers)
-    || (lib.elem "microsoft-experimental" vulkanDrivers)
-  ;
+    || (lib.elem "microsoft-experimental" vulkanDrivers);
   self = stdenv.mkDerivation {
     pname = "mesa";
     inherit version;
@@ -196,8 +192,7 @@ let
       # https://gitlab.freedesktop.org/mesa/mesa/-/commit/035aa34ed5eb418339c0e2d2
       + ''
         sed '/--size_t-is-usize/d' -i src/gallium/frontends/rusticl/meson.build
-      ''
-    ;
+      '';
 
     outputs =
       [
@@ -211,8 +206,7 @@ let
       # the Dozen drivers depend on libspirv2dxil, but link it statically, and
       # libspirv2dxil itself is pretty chonky, so relocate it to its own output
       # in case anything wants to use it at some point
-      ++ lib.optional haveDozen "spirv2dxil"
-    ;
+      ++ lib.optional haveDozen "spirv2dxil";
 
     # FIXME: this fixes rusticl/iris segfaulting on startup, _somehow_.
     # Needs more investigating.
@@ -275,8 +269,7 @@ let
           "-Dvideo-codecs=h264dec,h264enc,h265dec,h265enc,vc1dec"
       ++
         lib.optional (vulkanLayers != [ ])
-          "-D vulkan-layers=${builtins.concatStringsSep "," vulkanLayers}"
-    ;
+          "-D vulkan-layers=${builtins.concatStringsSep "," vulkanLayers}";
 
     buildInputs =
       with xorg;
@@ -320,8 +313,7 @@ let
       ]
       ++ lib.optional withValgrind valgrind-light
       ++ lib.optional haveZink vulkan-loader
-      ++ lib.optional haveDozen directx-headers
-    ;
+      ++ lib.optional haveDozen directx-headers;
 
     depsBuildBuild = [ pkg-config ];
 
@@ -350,8 +342,7 @@ let
       ++ lib.optionals stdenv.isDarwin [
         OpenGL
         Xplugin
-      ]
-    ;
+      ];
 
     doCheck = false;
 
@@ -413,8 +404,7 @@ let
         mkdir -p $spirv2dxil/{bin,lib}
         mv -t $spirv2dxil/lib $out/lib/libspirv_to_dxil*
         mv -t $spirv2dxil/bin $out/bin/spirv2dxil
-      ''
-    ;
+      '';
 
     postFixup = lib.optionalString stdenv.isLinux ''
       # set the default search path for DRI drivers; used e.g. by X server

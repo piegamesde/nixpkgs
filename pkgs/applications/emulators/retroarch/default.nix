@@ -72,8 +72,7 @@ stdenv.mkDerivation rec {
       wrapQtAppsHook
     ]
     ++ lib.optional withWayland wayland
-    ++ lib.optional (runtimeLibs != [ ]) makeWrapper
-  ;
+    ++ lib.optional (runtimeLibs != [ ]) makeWrapper;
 
   buildInputs =
     [
@@ -106,8 +105,7 @@ stdenv.mkDerivation rec {
       libxkbcommon
       mesa
       udev
-    ]
-  ;
+    ];
 
   enableParallelBuilding = true;
 
@@ -131,8 +129,7 @@ stdenv.mkDerivation rec {
       "--enable-dbus"
       "--enable-egl"
       "--enable-kms"
-    ]
-  ;
+    ];
 
   postInstall =
     lib.optionalString (runtimeLibs != [ ]) ''
@@ -142,8 +139,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString enableNvidiaCgToolkit ''
       wrapProgram $out/bin/retroarch-cg2glsl \
         --prefix PATH ':' ${lib.makeBinPath [ nvidia_cg_toolkit ]}
-    ''
-  ;
+    '';
 
   preFixup = lib.optionalString (!enableNvidiaCgToolkit) ''
     rm $out/bin/retroarch-cg2glsl
@@ -164,8 +160,7 @@ stdenv.mkDerivation rec {
       ++ [
         matthewbauer
         kolbycrouch
-      ]
-    ;
+      ];
     mainProgram = "retroarch";
     # If you want to (re)-add support for macOS, see:
     # https://docs.libretro.com/development/retroarch/compilation/osx/

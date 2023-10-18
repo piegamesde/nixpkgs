@@ -95,8 +95,7 @@ let
         sha256 = "18mlj8dp4wnz42xbhdk1jlz2ygra6fbln9wyrcyvynxh96g1871z";
       }
     else
-      null
-  ;
+      null;
 
   codecs =
     if codecs_src != null then
@@ -113,8 +112,7 @@ let
         meta.license = lib.licenses.unfree;
       }
     else
-      null
-  ;
+      null;
 
   crossBuild = stdenv.hostPlatform != stdenv.buildPlatform;
 in
@@ -185,8 +183,7 @@ stdenv.mkDerivation rec {
         Cocoa
         OpenGL
       ]
-    )
-  ;
+    );
 
   configurePlatforms = [ ];
   configureFlags =
@@ -255,8 +252,7 @@ stdenv.mkDerivation rec {
       "--enable-cross-compile"
       "--disable-vidix-pcidb"
       "--with-vidix-drivers=no"
-    ]
-  ;
+    ];
 
   preConfigure = ''
     configureFlagsArray+=(

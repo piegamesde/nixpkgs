@@ -40,8 +40,7 @@ let
         subvolume = 2; # Contains: options, target.
         volume = 3; # Contains: options, target, subvolume.
       }
-      .${name} or (throw "Unknow section '${name}'")
-  ;
+      .${name} or (throw "Unknow section '${name}'");
 
   genConfig' = set: concatStringsSep "\n" (genConfig set);
   genConfig =
@@ -59,8 +58,7 @@ let
     if !isAttrs value then
       [ "${name} ${value}" ]
     else
-      concatLists (mapAttrsToList (genSection name) value)
-  ;
+      concatLists (mapAttrsToList (genSection name) value);
 
   sudo_doas =
     if config.security.sudo.enable then
@@ -69,8 +67,7 @@ let
       "doas"
     else
       throw
-        "The btrbk nixos module needs either sudo or doas enabled in the configuration"
-  ;
+        "The btrbk nixos module needs either sudo or doas enabled in the configuration";
 
   addDefaults = settings: { backend = "btrfs-progs-${sudo_doas}"; } // settings;
 

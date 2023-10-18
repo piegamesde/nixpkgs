@@ -38,8 +38,7 @@ buildPythonPackage rec {
       substituteInPlace nuitka/plugins/standard/ImplicitImports.py --replace 'locateDLL("uuid")' '"${
         lib.getLib pkgs.util-linux
       }/lib/libuuid.so"'
-    ''
-  ;
+    '';
 
   # We do not want any wrappers here.
   postFixup = "";

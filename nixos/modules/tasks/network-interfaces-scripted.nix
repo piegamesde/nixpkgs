@@ -22,8 +22,7 @@ let
         (i: attrNames (filterAttrs (_: config: config.type != "internal") i.interfaces))
         (attrValues cfg.vswitches)
     ++ concatMap (i: [ i.interface ]) (attrValues cfg.macvlans)
-    ++ concatMap (i: [ i.interface ]) (attrValues cfg.vlans)
-  ;
+    ++ concatMap (i: [ i.interface ]) (attrValues cfg.vlans);
 
   # We must escape interfaces due to the systemd interpretation
   subsystemDevice =
@@ -82,8 +81,7 @@ let
             linkConfig =
               optionalAttrs (i.macAddress != null) { MACAddress = i.macAddress; }
               // optionalAttrs (i.mtu != null) { MTUBytes = toString i.mtu; }
-              // optionalAttrs (i.wakeOnLan.enable == true) { WakeOnLan = "magic"; }
-            ;
+              // optionalAttrs (i.wakeOnLan.enable == true) { WakeOnLan = "magic"; };
           };
       in
       listToAttrs (map createNetworkLink interfaces);
@@ -107,8 +105,7 @@ let
           else
             optional (dev != null && dev != "lo" && !config.boot.isContainer) (
               subsystemDevice dev
-            )
-        ;
+            );
 
         hasDefaultGatewaySet =
           (cfg.defaultGateway != null && cfg.defaultGateway.address != "")
@@ -116,14 +113,12 @@ let
             cfg.enableIPv6
             && cfg.defaultGateway6 != null
             && cfg.defaultGateway6.address != ""
-          )
-        ;
+          );
 
         needNetworkSetup =
           cfg.resolvconf.enable
           || cfg.defaultGateway != null
-          || cfg.defaultGateway6 != null
-        ;
+          || cfg.defaultGateway6 != null;
 
         networkLocalCommands = lib.mkIf needNetworkSetup {
           after = [ "network-setup.service" ];
@@ -369,8 +364,7 @@ let
                 [ "network-pre.target" ]
                 ++ deps
                 ++ optional v.rstp "mstpd.service"
-                ++ map (i: "network-addresses-${i}.service") v.interfaces
-              ;
+                ++ map (i: "network-addresses-${i}.service") v.interfaces;
               before = [ "network-setup.service" ];
               serviceConfig.Type = "oneshot";
               serviceConfig.RemainAfterExit = true;
@@ -577,8 +571,7 @@ let
                 ${let
                   opts =
                     (mapAttrs (const toString) (bondDeprecation.filterDeprecated v))
-                    // v.driverOptions
-                  ;
+                    // v.driverOptions;
                 in
                 concatStringsSep "\n" (mapAttrsToList (set: val: "  ${set} ${val} \\") opts)}
 
@@ -801,8 +794,7 @@ let
       // {
         network-setup = networkSetup;
         network-local-commands = networkLocalCommands;
-      }
-    ;
+      };
 
     services.udev.extraRules = ''
       KERNEL=="tun", TAG+="systemd"

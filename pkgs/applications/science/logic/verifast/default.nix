@@ -31,8 +31,7 @@ let
       libxml2
       gnome2.gtksourceview
     ]
-    + ":${stdenv.cc.cc.lib}/lib64:$out/libexec"
-  ;
+    + ":${stdenv.cc.cc.lib}/lib64:$out/libexec";
 
   patchExe = x: ''
     patchelf --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \

@@ -66,8 +66,7 @@ let
           "-DWT_WRASTERIMAGE_IMPLEMENTATION=GraphicsMagick"
           "-DGM_PREFIX=${graphicsmagick}"
         ]
-        ++ lib.optional (libmysqlclient != null) "-DMYSQL_PREFIX=${libmysqlclient}"
-      ;
+        ++ lib.optional (libmysqlclient != null) "-DMYSQL_PREFIX=${libmysqlclient}";
 
       meta = with lib; {
         homepage = "https://www.webtoolkit.eu/wt";

@@ -62,8 +62,7 @@ stdenv.mkDerivation rec {
         ]
         ++ lib.optionals enableGI [ lxml ]
       ))
-    ]
-  ;
+    ];
 
   buildInputs = [
     glib

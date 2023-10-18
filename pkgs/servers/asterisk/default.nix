@@ -86,8 +86,7 @@ let
           opusfile
           libogg
         ]
-        ++ lib.optionals ldapSupport [ openldap ]
-      ;
+        ++ lib.optionals ldapSupport [ openldap ];
       nativeBuildInputs = [
         util-linux
         pkg-config

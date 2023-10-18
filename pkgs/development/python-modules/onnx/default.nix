@@ -81,8 +81,7 @@ buildPythonPackage rec {
         lib.getDev gtestStatic
       }/include"
       export ONNX_BUILD_TESTS=1
-    ''
-  ;
+    '';
 
   preBuild = ''
     export MAX_JOBS=$NIX_BUILD_CORES

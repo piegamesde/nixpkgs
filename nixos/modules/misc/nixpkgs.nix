@@ -27,17 +27,14 @@ let
       packageOverrides =
         pkgs:
         optCall lhs.packageOverrides pkgs
-        // optCall (attrByPath [ "packageOverrides" ] { } rhs) pkgs
-      ;
+        // optCall (attrByPath [ "packageOverrides" ] { } rhs) pkgs;
     }
     // optionalAttrs (lhs ? perlPackageOverrides) {
       perlPackageOverrides =
         pkgs:
         optCall lhs.perlPackageOverrides pkgs
-        // optCall (attrByPath [ "perlPackageOverrides" ] { } rhs) pkgs
-      ;
-    }
-  ;
+        // optCall (attrByPath [ "perlPackageOverrides" ] { } rhs) pkgs;
+    };
 
   configType = mkOptionType {
     name = "nixpkgs-config";
@@ -89,8 +86,7 @@ let
         opt.localSystem
     ++
       optional (opt.crossSystem.highestPrio < (mkOptionDefault { }).priority)
-        opt.crossSystem
-  ;
+        opt.crossSystem;
 
   defaultPkgs =
     if opt.hostPlatform.isDefined then
@@ -103,8 +99,7 @@ let
               crossSystem = cfg.hostPlatform;
             }
           else
-            { localSystem = cfg.hostPlatform; }
-        ;
+            { localSystem = cfg.hostPlatform; };
       in
       import ../../.. ({ inherit (cfg) config overlays; } // systemArgs)
     else
@@ -115,15 +110,13 @@ let
           localSystem
           crossSystem
         ;
-      }
-  ;
+      };
 
   finalPkgs =
     if opt.pkgs.isDefined then
       cfg.pkgs.appendOverlays cfg.overlays
     else
-      defaultPkgs
-  ;
+      defaultPkgs;
 in
 
 {
@@ -351,8 +344,7 @@ in
             a recent version of nixos-generate-config.
             The option ${opt.system} is still fully supported for NixOS 22.05 interoperability,
             but will be deprecated in the future, so we recommend to set ${opt.hostPlatform}.
-          ''
-      ;
+          '';
       defaultText = lib.literalMD ''
         Traditionally `builtins.currentSystem`, but unset when invoking NixOS through `lib.nixosSystem`.
       '';
@@ -396,14 +388,12 @@ in
             else
               config.nixpkgs.localSystem.system or (lib.systems.parse.doubleFromSystem (
                 lib.systems.parse.mkSystemFromString config.nixpkgs.localSystem.config
-              ))
-          ;
+              ));
           nixosOption =
             if config.nixpkgs.crossSystem != null then
               "nixpkgs.crossSystem"
             else
-              "nixpkgs.localSystem"
-          ;
+              "nixpkgs.localSystem";
           pkgsSystem = finalPkgs.stdenv.targetPlatform.system;
         in
         {

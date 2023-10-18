@@ -22,8 +22,7 @@ let
             benley
             mkaito
           ]
-          ++ lib.teams.serokell.members
-        ;
+          ++ lib.teams.serokell.members;
       };
 
       nodes = {

@@ -94,8 +94,7 @@ let
       xorg.libXScrnSaver
       xorg.libxcb
     ]
-    + ":${stdenv.cc.cc.lib}/lib64"
-  ;
+    + ":${stdenv.cc.cc.lib}/lib64";
 
   src =
     if stdenv.hostPlatform.system == "x86_64-linux" then
@@ -108,8 +107,7 @@ let
         sha256 = "sha256-tkOPYFkmc4nzO8Rgat9/VNuzzIW10qSEzbXhjkZV83k=";
       }
     else
-      throw "Skype for linux is not supported on ${stdenv.hostPlatform.system}"
-  ;
+      throw "Skype for linux is not supported on ${stdenv.hostPlatform.system}";
 in
 stdenv.mkDerivation {
   pname = "skypeforlinux";

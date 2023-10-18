@@ -67,8 +67,7 @@ stdenv.mkDerivation (
       ++ optional svgSupport librsvg
       ++ optional webpSupport libwebp
       ++ optional jxlSupport libjxl
-      ++ optional psSupport libspectre
-    ;
+      ++ optional psSupport libspectre;
 
     nativeBuildInputs = [ pkg-config ];
 
@@ -80,8 +79,7 @@ stdenv.mkDerivation (
       optional stdenv.isDarwin "--enable-amd64=no"
       ++ optional (!svgSupport) "--without-svg"
       ++ optional (!heifSupport) "--without-heif"
-      ++ optional (!x11Support) "--without-x"
-    ;
+      ++ optional (!x11Support) "--without-x";
 
     outputs = [
       "bin"

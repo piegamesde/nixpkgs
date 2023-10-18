@@ -47,8 +47,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       Carbon
       AudioToolbox
-    ]
-  ;
+    ];
 
   enableParallelBuilding = true;
 

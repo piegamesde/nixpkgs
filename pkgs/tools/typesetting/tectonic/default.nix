@@ -61,8 +61,7 @@ rustPlatform.buildRustPackage rec {
       install -D dist/appimage/tectonic.svg -t $out/share/icons/hicolor/scalable/apps/
 
       ln -s $out/bin/tectonic $out/bin/nextonic
-    ''
-  ;
+    '';
 
   doCheck = true;
 

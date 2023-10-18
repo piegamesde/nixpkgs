@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
     )
     + (lib.optionalString (rcreboot != null)
       ''sed -re 's@(rc(reboot)cmd[^"]*")[^"]*"@\1${rcreboot}"@' -i config.def.h; ''
-    )
-  ;
+    );
 
   meta = with lib; {
     description = "A very minimal Linux init implementation from suckless.org";

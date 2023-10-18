@@ -143,8 +143,7 @@ buildPythonPackage rec {
       echo 'PosixReactorBaseTests.test_wakerIsInternalReader.skip = "Fails due to unclosed event loop"' >> src/twisted/internet/test/test_posixbase.py
 
       echo 'TCPPortTests.test_connectionLostFailed.skip = "Fails due to unclosed event loop"' >> src/twisted/internet/test/test_posixbase.py
-    ''
-  ;
+    '';
 
   # Generate Twisted's plug-in cache. Twisted users must do it as well. See
   # http://twistedmatrix.com/documents/current/core/howto/plugin.html#auto3
@@ -167,8 +166,7 @@ buildPythonPackage rec {
     # not supported on aarch64-darwin: https://github.com/pyca/pyopenssl/issues/873
     ++
       lib.optionals (!(stdenv.isDarwin && stdenv.isAarch64))
-        passthru.optional-dependencies.tls
-  ;
+        passthru.optional-dependencies.tls;
 
   checkPhase = ''
     export SOURCE_DATE_EPOCH=315532800

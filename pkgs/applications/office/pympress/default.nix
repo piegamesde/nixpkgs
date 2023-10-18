@@ -38,8 +38,7 @@ python3Packages.buildPythonApplication rec {
       setuptools
       watchdog
     ]
-    ++ lib.optional withVLC python-vlc
-  ;
+    ++ lib.optional withVLC python-vlc;
 
   doCheck = false; # there are no tests
 

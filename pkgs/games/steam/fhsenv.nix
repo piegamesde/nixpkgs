@@ -52,8 +52,7 @@ let
       mesa
       sqlite
     ]
-    ++ extraPkgs pkgs
-  ;
+    ++ extraPkgs pkgs;
 
   ldPath =
     lib.optionals stdenv.is64bit [ "/lib64" ]
@@ -64,8 +63,7 @@ let
     ++ lib.optionals (steam-runtime-wrapped-i686 != null) (
       map (x: "/steamrt/${steam-runtime-wrapped-i686.arch}/" + x)
         steam-runtime-wrapped-i686.libs
-    )
-  ;
+    );
 
   # Zachtronics and a few other studios expect STEAM_LD_LIBRARY_PATH to be present
   exportLDPath = ''
@@ -96,8 +94,7 @@ buildFHSEnv rec {
       # License agreement
       gnome.zenity
     ]
-    ++ commonTargetPkgs pkgs
-  ;
+    ++ commonTargetPkgs pkgs;
 
   multiPkgs =
     pkgs:
@@ -245,8 +242,7 @@ buildFHSEnv rec {
       rtmpdump
     ]
     ++ steamPackages.steam-runtime-wrapped.overridePkgs
-    ++ extraLibraries pkgs
-  ;
+    ++ extraLibraries pkgs;
 
   extraInstallCommands = ''
     mkdir -p $out/share/applications
@@ -274,8 +270,7 @@ buildFHSEnv rec {
       # [1] <https://github.com/libsdl-org/SDL/commit/8e2746cfb6e1f1a1da5088241a1440fd2535e321>
       export SDL_JOYSTICK_DISABLE_UDEV=1
     ''
-    + extraProfile
-  ;
+    + extraProfile;
 
   runScript = writeShellScript "steam-wrapper.sh" ''
     if [ -f /host/etc/NIXOS ]; then   # Check only useful on NixOS

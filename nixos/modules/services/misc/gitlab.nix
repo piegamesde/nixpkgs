@@ -22,8 +22,7 @@ let
     if config.services.postgresql.enable then
       config.services.postgresql.package
     else
-      pkgs.postgresql_12
-  ;
+      pkgs.postgresql_12;
 
   gitlabSocket = "${cfg.statePath}/tmp/sockets/gitlab.socket";
   gitalySocket = "${cfg.statePath}/tmp/sockets/gitaly.socket";
@@ -43,8 +42,7 @@ let
     if lib.versionAtLeast (lib.getVersion cfg.packages.gitlab) "15.0" then
       { production.main = val; }
     else
-      { production = val; }
-  ;
+      { production = val; };
 
   # We only want to create a database if we're actually going to connect to it.
   databaseActuallyCreateLocally =
@@ -206,8 +204,7 @@ let
       RAILS_ENV = "production";
       MALLOC_ARENA_MAX = "2";
     }
-    // cfg.extraEnv
-  ;
+    // cfg.extraEnv;
 
   runtimeDeps = with pkgs; [
     nodejs
@@ -1537,8 +1534,7 @@ in
       bindsTo =
         [ "gitlab-config.service" ]
         ++ optional (cfg.databaseHost == "") "postgresql.service"
-        ++ optional databaseActuallyCreateLocally "gitlab-postgresql.service"
-      ;
+        ++ optional databaseActuallyCreateLocally "gitlab-postgresql.service";
       wantedBy = [ "gitlab.target" ];
       partOf = [ "gitlab.target" ];
       serviceConfig = {
@@ -1583,8 +1579,7 @@ in
           SIDEKIQ_MEMORY_KILLER_MAX_RSS = cfg.sidekiq.memoryKiller.maxMemory;
           SIDEKIQ_MEMORY_KILLER_GRACE_TIME = cfg.sidekiq.memoryKiller.graceTime;
           SIDEKIQ_MEMORY_KILLER_SHUTDOWN_WAIT = cfg.sidekiq.memoryKiller.shutdownWait;
-        })
-      ;
+        });
       path = with pkgs; [
         postgresqlPackage
         git
@@ -1664,8 +1659,7 @@ in
                 builtins.hashString "sha256" v._secret
               else
                 throw
-                  "unsupported type ${builtins.typeOf v}: ${(lib.generators.toPretty { }) v}"
-            ;
+                  "unsupported type ${builtins.typeOf v}: ${(lib.generators.toPretty { }) v}";
           };
         };
         secretPaths = lib.catAttrs "_secret" (lib.collect isSecret filteredConfig);
@@ -1762,8 +1756,7 @@ in
           + "-authSocket ${gitlabSocket} "
           + "-documentRoot ${cfg.packages.gitlab}/share/gitlab/public "
           + "-config ${cfg.statePath}/config/gitlab-workhorse.toml "
-          + "-secretPath ${cfg.statePath}/.gitlab_workhorse_secret"
-        ;
+          + "-secretPath ${cfg.statePath}/.gitlab_workhorse_secret";
       };
     };
 

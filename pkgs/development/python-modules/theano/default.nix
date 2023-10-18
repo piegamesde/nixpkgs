@@ -45,8 +45,7 @@ let
     else if stdenv.cc.isClang then
       "clang++"
     else
-      throw "Unknown C++ compiler"
-  ;
+      throw "Unknown C++ compiler";
   cxx_compiler = wrapped cxx_compiler_name "\\$HOME/.theano" (
     lib.optional cudaSupport libgpuarray_ ++ lib.optional cudnnSupport cudnn
   );
@@ -79,8 +78,7 @@ buildPythonPackage rec {
     + lib.optionalString cudnnSupport ''
       substituteInPlace theano/configdefaults.py \
         --replace 'StrParam(default_dnn_base_path)' 'StrParam('\'''${cudnn}'\''')'
-    ''
-  ;
+    '';
 
   # needs to be postFixup so it runs before pythonImportsCheck even when
   # doCheck = false (meaning preCheck would be disabled)

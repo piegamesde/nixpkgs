@@ -27,6 +27,5 @@ buildNimPackage rec {
       description = "Nim implementation of snappy compression algorithm";
       license = [ lib.licenses.mit ];
       maintainers = [ maintainers.ehmry ];
-    }
-  ;
+    };
 }

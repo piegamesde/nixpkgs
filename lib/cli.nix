@@ -71,8 +71,7 @@ rec {
           [
             (mkOptionName k)
             (lib.generators.mkValueStringDefault { } v)
-          ]
-      ,
+          ],
     }:
     options:
     let
@@ -83,8 +82,7 @@ rec {
         else if builtins.isList v then
           mkList k v
         else
-          mkOption k v
-      ;
+          mkOption k v;
     in
     builtins.concatLists (lib.mapAttrsToList render options);
 }

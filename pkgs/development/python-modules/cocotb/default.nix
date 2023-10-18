@@ -46,8 +46,7 @@ buildPythonPackage rec {
       # disable lto on darwin
       # https://github.com/NixOS/nixpkgs/issues/19098
       substituteInPlace cocotb_build_libs.py --replace "-flto" ""
-    ''
-  ;
+    '';
 
   patches =
     [

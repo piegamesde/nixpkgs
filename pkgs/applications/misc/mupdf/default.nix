@@ -77,14 +77,12 @@ stdenv.mkDerivation rec {
       "PKG_CONFIG=${buildPackages.pkg-config}/bin/${buildPackages.pkg-config.targetPrefix}pkg-config"
     ]
     ++ lib.optionals (!enableX11) [ "HAVE_X11=no" ]
-    ++ lib.optionals (!enableGL) [ "HAVE_GLUT=no" ]
-  ;
+    ++ lib.optionals (!enableGL) [ "HAVE_GLUT=no" ];
 
   nativeBuildInputs =
     [ pkg-config ]
     ++ lib.optional (enableGL || enableX11) copyDesktopItems
-    ++ lib.optional stdenv.isDarwin desktopToDarwinBundle
-  ;
+    ++ lib.optional stdenv.isDarwin desktopToDarwinBundle;
 
   buildInputs =
     [
@@ -117,8 +115,7 @@ stdenv.mkDerivation rec {
           freeglut-mupdf
           libGLU
         ]
-    )
-  ;
+    );
   outputs = [
     "bin"
     "dev"
@@ -197,8 +194,7 @@ stdenv.mkDerivation rec {
         lib.optionalString (enableX11) ''
           ln -s "$bin/bin/mupdf-x11" "$bin/bin/mupdf"
         ''
-    )
-  ;
+    );
 
   enableParallelBuilding = true;
 

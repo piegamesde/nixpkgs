@@ -45,8 +45,7 @@ stdenv.mkDerivation rec {
 
       tar -zxf ${ae.prebuilt}   -C $sourceRoot/
       tar -zxf ${dcap.prebuilt} -C $sourceRoot/external/dcap_source/QuoteGeneration/
-    ''
-  ;
+    '';
 
   nativeBuildInputs = [
     cmake

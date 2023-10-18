@@ -26,8 +26,7 @@ let
     else if stdenv.hostPlatform.isLinux then
       "LINUX"
     else
-      throw "Unknown host OS"
-  ;
+      throw "Unknown host OS";
 in
 
 stdenv.mkDerivation rec {
@@ -60,8 +59,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString stdenv.isi686 ''
       # EPSILON is exceeded
       rm tests/aws-cpp-sdk-core-tests/aws/client/AdaptiveRetryStrategyTest.cpp
-    ''
-  ;
+    '';
 
   # FIXME: might be nice to put different APIs in different outputs
   # (e.g. libaws-cpp-sdk-s3.so in output "s3").
@@ -107,8 +105,7 @@ stdenv.mkDerivation rec {
     ]
     ++
       lib.optional (apis != [ "*" ])
-        "-DBUILD_ONLY=${lib.concatStringsSep ";" apis}"
-  ;
+        "-DBUILD_ONLY=${lib.concatStringsSep ";" apis}";
 
   env.NIX_CFLAGS_COMPILE =
     toString
@@ -145,7 +142,6 @@ stdenv.mkDerivation rec {
     # building ec2 runs out of memory: cc1plus: out of memory allocating 33554372 bytes after a total of 74424320 bytes
     broken =
       stdenv.buildPlatform.is32bit
-      && ((builtins.elem "ec2" apis) || (builtins.elem "*" apis))
-    ;
+      && ((builtins.elem "ec2" apis) || (builtins.elem "*" apis));
   };
 }

@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
       substituteInPlace atlassian-jira/WEB-INF/classes/seraph-config.xml \
         --replace com.atlassian.jira.security.login.JiraSeraphAuthenticator \
                   com.atlassian.jira.security.login.SSOSeraphAuthenticator
-    ''
-  ;
+    '';
 
   installPhase = ''
     cp -rva . $out

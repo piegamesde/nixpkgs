@@ -79,8 +79,7 @@ builder rec {
         url = "https://gitlab.gnome.org/GNOME/gtk-osx/raw/52898977f165777ad9ef169f7d4818f2d4c9b731/patches/guile-clocktime.patch";
         sha256 = "12wvwdna9j8795x59ldryv9d84c1j3qdk2iskw09306idfsis207";
       }
-    )
-  ;
+    );
 
   # Explicitly link against libgcc_s, to work around the infamous
   # "libgcc_s.so.1 must be installed for pthread_cancel to work".
@@ -110,8 +109,7 @@ builder rec {
     ++ lib.optional (stdenv.isDarwin && stdenv.isAarch64) "--enable-jit=no"
     # At least on x86_64-darwin '-flto' autodetection is not correct:
     #  https://github.com/NixOS/nixpkgs/pull/160051#issuecomment-1046193028
-    ++ lib.optional (stdenv.isDarwin) "--disable-lto"
-  ;
+    ++ lib.optional (stdenv.isDarwin) "--disable-lto";
 
   postInstall =
     ''
@@ -127,8 +125,7 @@ builder rec {
               s|-lltdl|-L${libtool.lib}/lib -lltdl|g ;
               s|includedir=$out|includedir=$dev|g
               "
-    ''
-  ;
+    '';
 
   # make check doesn't work on darwin
   # On Linuxes+Hydra the tests are flaky; feel free to investigate deeper.

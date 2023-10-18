@@ -84,8 +84,7 @@ let
           darwinMinVersion = "10.12";
           darwinSdkVersion = "11.0";
         };
-      }
-  ;
+      };
 
   stdenvs =
     {

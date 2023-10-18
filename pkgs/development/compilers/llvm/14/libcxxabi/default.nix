@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString stdenv.hostPlatform.isWasm ''
       patch -p1 -d llvm -i ${./wasm.patch}
-    ''
-  ;
+    '';
 
   patches = [ ./gnu-install-dirs.patch ];
 
@@ -64,8 +63,7 @@ stdenv.mkDerivation rec {
       "-DLIBCXXABI_ENABLE_THREADS=OFF"
       "-DLIBCXXABI_ENABLE_EXCEPTIONS=OFF"
     ]
-    ++ lib.optionals (!enableShared) [ "-DLIBCXXABI_ENABLE_SHARED=OFF" ]
-  ;
+    ++ lib.optionals (!enableShared) [ "-DLIBCXXABI_ENABLE_SHARED=OFF" ];
 
   installPhase =
     if stdenv.isDarwin then
@@ -104,8 +102,7 @@ stdenv.mkDerivation rec {
         install -m 644 lib/libc++abi.so.1.0 $out/lib
         ln -s libc++abi.so.1.0 $out/lib/libc++abi.so
         ln -s libc++abi.so.1.0 $out/lib/libc++abi.so.1
-      ''
-  ;
+      '';
 
   passthru = {
     libName = "c++abi";

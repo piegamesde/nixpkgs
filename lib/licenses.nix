@@ -19,8 +19,7 @@ lib.mapAttrs
             if license ? spdxId then
               license // { url = "https://spdx.org/licenses/${license.spdxId}.html"; }
             else
-              license
-          ;
+              license;
           applyRedistributable = license: { redistributable = license.free; } // license;
         in
         lib.pipe licenseDeclaration [

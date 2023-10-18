@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
     else
       ''
         rm -f check/check-requires-private check/check-gtk check/missing
-      ''
-  ;
+      '';
 
   buildInputs = [ libiconv ];
 
@@ -55,8 +54,7 @@ stdenv.mkDerivation rec {
       "glib_cv_uscore=no"
       "ac_cv_func_posix_getpwuid_r=yes"
       "ac_cv_func_posix_getgrgid_r=yes"
-    ]
-  ;
+    ];
 
   enableParallelBuilding = true;
   doCheck = true;

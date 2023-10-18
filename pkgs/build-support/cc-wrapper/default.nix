@@ -70,8 +70,7 @@
     # `-L` flags pointing at the new gcc's libstdc++ headers.  Example failure:
     # https://hydra.nixos.org/build/213125495
     else
-      false
-  ,
+      false,
 
   # the derivation at which the `-B` and `-L` flags added by `useCcForLibs` will point
   gccForLibs ? if useCcForLibs then cc else null,
@@ -104,8 +103,7 @@ let
   libc_lib = if libc == null then "" else getLib libc;
   cc_solib =
     getLib cc
-    + optionalString (targetPlatform != hostPlatform) "/${targetPlatform.config}"
-  ;
+    + optionalString (targetPlatform != hostPlatform) "/${targetPlatform.config}";
 
   # The wrapper scripts use 'cat' and 'grep', so we may need coreutils.
   coreutils_bin = if nativeTools then "" else getBin coreutils;
@@ -141,8 +139,7 @@ let
     && !(stdenv.targetPlatform.useLLVM or false)
     && !(stdenv.targetPlatform.useAndroidPrebuilt or false)
     && !(stdenv.targetPlatform.isiOS or false)
-    && gccForLibs != null
-  ;
+    && gccForLibs != null;
 
   # older compilers (for example bootstrap's GCC 5) fail with -march=too-modern-cpu
   isGccArchSupported =
@@ -181,8 +178,7 @@ let
       }
       .${arch} or true
     else
-      false
-  ;
+      false;
 
   darwinPlatformForCC = optionalString stdenv.targetPlatform.isDarwin (
     if (targetPlatform.darwinPlatform == "macos" && isGNU) then
@@ -371,8 +367,7 @@ stdenv.mkDerivation {
     + optionalString cc.langGo or false ''
       wrap ${targetPrefix}gccgo $wrapper $ccPath/${targetPrefix}gccgo
       wrap ${targetPrefix}go ${./go-wrapper.sh} $ccPath/${targetPrefix}go
-    ''
-  ;
+    '';
 
   strictDeps = true;
   propagatedBuildInputs = [
@@ -383,8 +378,7 @@ stdenv.mkDerivation {
   setupHooks =
     [ ../setup-hooks/role.bash ]
     ++ lib.optional (cc.langC or true) ./setup-hook.sh
-    ++ lib.optional (cc.langFortran or false) ./fortran-hook.sh
-  ;
+    ++ lib.optional (cc.langFortran or false) ./fortran-hook.sh;
 
   postFixup =
     # Ensure flags files exists, as some other programs cat them. (That these
@@ -742,8 +736,7 @@ stdenv.mkDerivation {
       lib.attrsets.mapAttrsToList
         (name: value: "echo ${toString value} >> $out/nix-support/${name}")
         nixSupport
-    )
-  ;
+    );
 
   env = {
     # for substitution in utils.bash
@@ -773,9 +766,7 @@ stdenv.mkDerivation {
           ]
           "System C compiler"
           cc_
-        + " (wrapper script)"
-      ;
+        + " (wrapper script)";
       priority = 10;
-    }
-  ;
+    };
 }

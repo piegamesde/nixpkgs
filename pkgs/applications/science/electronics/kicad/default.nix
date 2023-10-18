@@ -98,8 +98,7 @@ let
     if srcOverridep "kicadVersion" then
       srcs.kicadVersion
     else
-      versionsImport.${baseName}.kicadVersion.version
-  ;
+      versionsImport.${baseName}.kicadVersion.version;
 
   libSrc = name: if srcOverridep name then srcs.${name} else libSrcFetch name;
   # TODO does it make sense to only have one version for all libs?
@@ -107,8 +106,7 @@ let
     if srcOverridep "libVersion" then
       srcs.libVersion
     else
-      versionsImport.${baseName}.libVersion.version
-  ;
+      versionsImport.${baseName}.libVersion.version;
 
   wxGTK = wxGTK32;
   python = python3;
@@ -181,8 +179,7 @@ stdenv.mkDerivation rec {
     # infinisil's workaround for #39493
     ++ [
       "--set GDK_PIXBUF_MODULE_FILE ${librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"
-    ]
-  ;
+    ];
 
   # why does $makeWrapperArgs have to be added explicitly?
   # $out and $program_PYTHONPATH don't exist when makeWrapperArgs gets set?
@@ -257,8 +254,7 @@ stdenv.mkDerivation rec {
         else
           "Open Source EDA suite, development build"
       )
-      + (lib.optionalString (!with3d) ", without 3D models")
-    ;
+      + (lib.optionalString (!with3d) ", without 3D models");
     homepage = "https://www.kicad.org/";
     longDescription = ''
       KiCad is an open source software suite for Electronic Design Automation.

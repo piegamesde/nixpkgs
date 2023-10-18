@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString (stdenv.isLinux && !stdenv.isx86_64) ''
       substituteInPlace 3rd/CMakeLists.txt \
         --replace "-msse4.2 -maes" ""
-    ''
-  ;
+    '';
 
   nativeBuildInputs = [
     cmake

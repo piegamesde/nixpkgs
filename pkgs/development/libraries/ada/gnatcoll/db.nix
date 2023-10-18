@@ -54,8 +54,7 @@ stdenv.mkDerivation rec {
     if onlyExecutable then
       builtins.replaceStrings [ "_" ] [ "-" ] component
     else
-      "gnatcoll-${component}"
-  ;
+      "gnatcoll-${component}";
   version = "23.0.0";
 
   src = fetchFromGitHub {

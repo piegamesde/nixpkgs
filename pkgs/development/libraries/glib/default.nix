@@ -123,8 +123,7 @@ stdenv.mkDerivation (
         # Disable flaky test.
         # https://gitlab.gnome.org/GNOME/glib/-/issues/820
         ./skip-timer-test.patch
-      ]
-    ;
+      ];
 
     outputs = [
       "bin"
@@ -172,8 +171,7 @@ stdenv.mkDerivation (
             #
             # [1] https://github.com/mesonbuild/meson/issues/2003
             gtk-doc
-          ]
-    ;
+          ];
 
     strictDeps = true;
 
@@ -215,8 +213,7 @@ stdenv.mkDerivation (
       ++ lib.optionals stdenv.isFreeBSD [
         "-Db_lundef=false"
         "-Dxattr=false"
-      ]
-    ;
+      ];
 
     env.NIX_CFLAGS_COMPILE = toString [
       "-Wno-error=nonnull"
@@ -249,8 +246,7 @@ stdenv.mkDerivation (
       + lib.optionalString stdenv.hostPlatform.isWindows ''
         substituteInPlace gio/win32/meson.build \
           --replace "libintl, " ""
-      ''
-    ;
+      '';
 
     postConfigure = ''
       patchShebangs gio/gdbus-2.0/codegen/gdbus-codegen gobject/glib-{genmarshal,mkenums}
@@ -276,8 +272,7 @@ stdenv.mkDerivation (
       ''
       + lib.optionalString (!buildDocs) ''
         cp -r ${buildPackages.glib.devdoc} $devdoc
-      ''
-    ;
+      '';
 
     # Move man pages to the same output as their binaries (needs to be
     # done after preFixupHooks which moves man pages too - in
@@ -353,8 +348,7 @@ stdenv.mkDerivation (
             lovek323
             raskin
           ]
-        )
-      ;
+        );
       pkgConfigModules = [
         "gio-2.0"
         "gobject-2.0"

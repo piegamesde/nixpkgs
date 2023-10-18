@@ -81,8 +81,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional enablePam linux-pam
     ++ lib.optional enableSasl cyrus_sasl
     ++ lib.optional enableWebDAV sqlite
-    ++ lib.optional enableWebDAV libuuid
-  ;
+    ++ lib.optional enableWebDAV libuuid;
 
   configureFlags =
     [ "--with-openssl" ]
@@ -94,8 +93,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional enableSasl "--with-sasl"
     ++ lib.optional enableWebDAV "--with-webdav-props"
     ++ lib.optional enableWebDAV "--with-webdav-locks"
-    ++ lib.optional enableExtendedAttrs "--with-attr"
-  ;
+    ++ lib.optional enableExtendedAttrs "--with-attr";
 
   preConfigure = ''
     export PATH=$PATH:${pcre2.dev}/bin

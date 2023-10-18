@@ -63,8 +63,7 @@ mkDerivation rec {
         libXcursor
         xkeyboardconfig
       ]
-    )
-  ;
+    );
 
   fontsConf = makeFontsConf { fontDirectories = [ twemoji-color-font ]; };
 

@@ -65,8 +65,7 @@ in
           else
             adoptopenjdk.jdk-hotspot
         else
-          callPackage path args
-      ;
+          callPackage path args;
 
       mkOpenjdk =
         path-linux: path-darwin: args:
@@ -76,8 +75,7 @@ in
           let
             openjdk = callPackage path-darwin { };
           in
-          openjdk // { headless = openjdk; }
-      ;
+          openjdk // { headless = openjdk; };
 
       mkOpenjdkLinuxOnly =
         path-linux: args:

@@ -69,8 +69,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withGui [
       "--with-gui=yes"
       "--with-qt-bindir=${lib.getDev qtbase}/bin:${lib.getDev qttools}/bin"
-    ]
-  ;
+    ];
 
   enableParallelBuilding = true;
   doCheck = true;

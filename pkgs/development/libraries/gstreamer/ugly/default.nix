@@ -67,8 +67,7 @@ stdenv.mkDerivation rec {
       IOKit
       CoreFoundation
       DiskArbitration
-    ]
-  ;
+    ];
 
   mesonFlags =
     [

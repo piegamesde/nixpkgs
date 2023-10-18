@@ -50,8 +50,7 @@ stdenv.mkDerivation rec {
       libGLU
     ]
     ++ lib.optionals stdenv.isLinux [ libX11 ]
-    ++ lib.optionals stdenv.isDarwin [ Cocoa ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 
   # Tools are disabled due to compilation failures.
   cmakeFlags = [

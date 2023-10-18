@@ -18,8 +18,7 @@ let
       SECURE_ONLY = cfg.secureOnly;
     }
     // lib.optionalAttrs (cfg.adTag != null) { AD_TAG = cfg.adTag; }
-    // cfg.extraConfig
-  ;
+    // cfg.extraConfig;
 
   convertOption =
     opt:
@@ -36,8 +35,7 @@ let
       )
       + "}"
     else
-      throw "Invalid option type"
-  ;
+      throw "Invalid option type";
 
   configFile = pkgs.writeText "config.py" (
     concatStringsSep "\n" (

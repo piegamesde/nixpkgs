@@ -62,8 +62,7 @@ let
         && (
           stdenv.hostPlatform.isx86_64
           || (!stdenv.hostPlatform.isWindows && stdenv.hostPlatform.isAarch64)
-        )
-      ;
+        );
       self =
         lib.makeOverridable
           (
@@ -161,8 +160,7 @@ let
                   rustPlatform.rust.cargo
                   rustPlatform.rust.rustc
                 ]
-                ++ op useBaseRuby baseRuby
-              ;
+                ++ op useBaseRuby baseRuby;
               buildInputs =
                 [ autoconf ]
                 ++ (op fiddleSupport libffi)
@@ -185,8 +183,7 @@ let
                   libobjc
                   libunwind
                   Foundation
-                ]
-              ;
+                ];
               propagatedBuildInputs = op jemallocSupport jemalloc;
 
               enableParallelBuilding = true;
@@ -235,8 +232,7 @@ let
                       # the final product. Removing this reference doesn't seem to break
                       # anything and fixes cross compliation.
                       ./dont-refer-to-build-dir.patch
-                    ]
-              ;
+                    ];
 
               cargoRoot = opString yjitSupport "yjit";
 
@@ -248,8 +244,7 @@ let
                     sha256 = cargoSha256;
                   }
                 else
-                  null
-              ;
+                  null;
 
               postUnpack = opString rubygemsSupport ''
                 rm -rf $sourceRoot/{lib,test}/rubygems*
@@ -267,8 +262,7 @@ let
                   # Make the build reproducible for ruby <= 2.7
                   # See https://github.com/ruby/io-console/commit/679a941d05d869f5e575730f6581c027203b7b26#diff-d8422f096931c58d4463e2489f62a228b0f24f0492950ba88c8c89a0d741cfe6
                   sed -i ext/io/console/io-console.gemspec -e '/s\.date/d'
-                ''
-              ;
+                '';
 
               configureFlags =
                 [
@@ -294,8 +288,7 @@ let
                   "--with-out-ext=tk"
                   # on yosemite, "generating encdb.h" will hang for a very long time without this flag
                   "--with-setjmp-type=setjmp"
-                ]
-              ;
+                ];
 
               preConfigure = opString docSupport ''
                 # rdoc creates XDG_DATA_DIR (defaulting to $HOME/.local/share) even if
@@ -374,8 +367,7 @@ let
                   ${removeReferencesTo}/bin/remove-references-to \
                     -t ${baseRuby} \
                     $rbConfig $out/lib/libruby*
-                ''
-              ;
+                '';
 
               installCheckPhase = ''
                 overriden_cc=$(CC=foo $out/bin/ruby -rrbconfig -e 'puts RbConfig::CONFIG["CC"]')

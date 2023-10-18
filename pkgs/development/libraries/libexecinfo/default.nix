@@ -52,8 +52,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString enableStatic ''
       install -Dm755 libexecinfo.a -t $out/lib
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "Quick-n-dirty BSD licensed clone of the GNU libc backtrace facility";

@@ -78,6 +78,5 @@
         stripDebugListTarget="$stripDebugListTarget ''${outTargetFiles[*]} ''${libTargetFiles[*]}"
       }
       updateDebugListPaths
-    ''
-  ;
+    '';
 }

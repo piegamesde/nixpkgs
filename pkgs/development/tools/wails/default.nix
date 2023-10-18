@@ -24,8 +24,7 @@ buildGoModule rec {
       rev = "v${version}";
       sha256 = "sha256-ei+bp4fwlxZ9ZiXW/FqpqICXpFxpmOKkZZYW0LxHh1s=";
     }
-    + "/v2"
-  ;
+    + "/v2";
 
   vendorSha256 = "sha256-RiectpUhm24xjgfPZEMDVFSEzPtIjn7L/qC2KE2s5aw=";
 

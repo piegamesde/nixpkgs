@@ -67,8 +67,7 @@ stdenv.mkDerivation rec {
       libunwind
       libevent
       elfutils
-    ]
-  ;
+    ];
 
   outputs = [ "out" ] ++ optionals buildPythonBindings [ "python" ];
 
@@ -136,8 +135,7 @@ stdenv.mkDerivation rec {
       cp ./lib/simgrid.cpython*.so $python/lib/python${
         lib.versions.majorMinor python3.version
       }/site-packages/
-    ''
-  ;
+    '';
 
   # improve debuggability if requested
   hardeningDisable = lib.optionals debug [ "fortify" ];

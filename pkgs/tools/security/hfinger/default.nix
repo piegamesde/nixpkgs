@@ -23,8 +23,7 @@ python3.pkgs.buildPythonApplication rec {
       fnvhash
       python-magic
     ]
-    ++ [ wireshark-cli ]
-  ;
+    ++ [ wireshark-cli ];
 
   # Project has no tests
   doCheck = false;

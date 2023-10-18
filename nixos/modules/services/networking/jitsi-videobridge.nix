@@ -27,16 +27,16 @@ let
     else if isList x then
       "[${concatMapStringsSep "," toHOCON x}]"
     else
-      builtins.toJSON x
-  ;
+      builtins.toJSON x;
 
   # We're passing passwords in environment variables that have names generated
   # from an attribute name, which may not be a valid bash identifier.
   toVarName =
     s:
     "XMPP_PASSWORD_"
-    + stringAsChars (c: if builtins.match "[A-Za-z0-9]" c != null then c else "_") s
-  ;
+    +
+      stringAsChars (c: if builtins.match "[A-Za-z0-9]" c != null then c else "_")
+        s;
 
   defaultJvbConfig = {
     videobridge = {
@@ -272,8 +272,7 @@ in
             ${pkgs.jitsi-videobridge}/bin/jitsi-videobridge --apis=${
               if (cfg.apis == [ ]) then "none" else concatStringsSep "," cfg.apis
             }
-          ''
-        ;
+          '';
 
         serviceConfig = {
           Type = "exec";

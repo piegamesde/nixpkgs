@@ -29,15 +29,13 @@
     !stdenv.isx86_32 # TODO: why
   )
     && (!stdenv.hostPlatform.isMusl)
-    && (stdenv.hostPlatform == stdenv.buildPlatform)
-  ,
+    && (stdenv.hostPlatform == stdenv.buildPlatform),
   enableManpages ? false,
   enableSharedLibraries ? !stdenv.hostPlatform.isStatic,
   enablePFM ? stdenv.isLinux # PFM only supports Linux
     # broken for Ampere eMAG 8180 (c2.large.arm on Packet) #56245
     # broken for the armv7l builder
-    && !stdenv.hostPlatform.isAarch
-  ,
+    && !stdenv.hostPlatform.isAarch,
   enablePolly ? true,
 }@args:
 
@@ -75,8 +73,7 @@ let
       in
       pkgsBuildBuild.targetPackages.python3.withPackages checkDeps
     else
-      python3
-  ;
+      python3;
 in
 assert (lib.assertMsg (!enableGoldPlugin)
   "Gold plugin cannot be enabled on LLVM16 due to a upstream issue: https://github.com/llvm/llvm-project/issues/61350"
@@ -284,8 +281,7 @@ stdenv.mkDerivation (
       ''
       + ''
         patchShebangs test/BugPoint/compile-custom.ll.py
-      ''
-    ;
+      '';
 
     preConfigure = ''
       # Workaround for configure flags that need to have spaces
@@ -413,8 +409,7 @@ stdenv.mkDerivation (
             ]
           )
         )
-      ]
-    ;
+      ];
 
     postInstall =
       ''
@@ -435,8 +430,7 @@ stdenv.mkDerivation (
       ''
       + optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
         cp NATIVE/bin/llvm-config $dev/bin/llvm-config-native
-      ''
-    ;
+      '';
 
     inherit doCheck;
 

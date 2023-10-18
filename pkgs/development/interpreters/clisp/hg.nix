@@ -35,8 +35,7 @@
       "bindings/glibc"
       "zlib"
     ]
-    ++ lib.optional x11Support "clx/new-clx"
-  ,
+    ++ lib.optional x11Support "clx/new-clx",
 }:
 
 assert x11Support
@@ -47,8 +46,7 @@ assert x11Support
     && libXpm != null
     && xorgproto != null
     && libXext != null
-  )
-;
+  );
 
 stdenv.mkDerivation rec {
   version = "2.50pre20171114";
@@ -81,8 +79,7 @@ stdenv.mkDerivation rec {
       libXpm
       xorgproto
       libXext
-    ]
-  ;
+    ];
 
   # First, replace port 9090 (rather low, can be used)
   # with 64237 (much higher, IANA private area, not
@@ -106,8 +103,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional ffcallAvailable "--with-ffcall"
     ++ lib.optional (!ffcallAvailable) "--without-ffcall"
     ++ builtins.map (x: " --with-module=" + x) withModules
-    ++ lib.optional threadSupport "--with-threads=POSIX_THREADS"
-  ;
+    ++ lib.optional threadSupport "--with-threads=POSIX_THREADS";
 
   preBuild = ''
     sed -e '/avcall.h/a\#include "config.h"' -i src/foreign.d

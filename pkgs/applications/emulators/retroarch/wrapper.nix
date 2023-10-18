@@ -59,8 +59,7 @@ symlinkJoin {
         The following cores are included: ${
           lib.concatStringsSep ", " (map (c: c.core) cores)
         }
-      ''
-    ;
+      '';
     mainProgram = "retroarch";
   };
 }

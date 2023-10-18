@@ -238,8 +238,7 @@ in
     environment.systemPackages =
       with cfg.backend;
       [ gammuPackage ]
-      ++ optionals (service == "sql" && sql.driver == "sqlite") [ pkgs.sqlite ]
-    ;
+      ++ optionals (service == "sql" && sql.driver == "sqlite") [ pkgs.sqlite ];
 
     systemd.services.gammu-smsd = {
       description = "gammu-smsd daemon";
@@ -251,8 +250,7 @@ in
         [ ]
         ++ optionals (service == "sql" && sql.driver == "native_pgsql") [
           "postgresql.service"
-        ]
-      ;
+        ];
 
       preStart =
         with cfg.backend;
@@ -286,8 +284,7 @@ in
           optionalString (service == "sql" && sql.driver == "native_pgsql") ''
             echo '\i '"${gammuPackage}/${initDBDir}/pgsql.sql" | ${execPsql ""}
           ''
-        )
-      ;
+        );
 
       serviceConfig = {
         User = "${cfg.user}";

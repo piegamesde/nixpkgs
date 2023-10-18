@@ -113,8 +113,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString nocaps ''
       substituteInPlace "libfreerdp/locale/keyboard_xkbfile.c" \
         --replace "RDP_SCANCODE_CAPSLOCK" "RDP_SCANCODE_LCONTROL"
-    ''
-  ;
+    '';
 
   buildInputs =
     [
@@ -162,8 +161,7 @@ stdenv.mkDerivation rec {
       Cocoa
       CoreMedia
     ]
-    ++ optionals withUnfree [ faac ]
-  ;
+    ++ optionals withUnfree [ faac ];
 
   nativeBuildInputs = [
     cmake

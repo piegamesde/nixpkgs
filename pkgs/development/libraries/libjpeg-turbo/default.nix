@@ -82,8 +82,7 @@ stdenv.mkDerivation rec {
           # https://github.com/libjpeg-turbo/libjpeg-turbo/issues/428
           # https://github.com/libjpeg-turbo/libjpeg-turbo/commit/88bf1d16786c74f76f2e4f6ec2873d092f577c75
           "-DFLOATTEST=fp-contract"
-        ]
-  ;
+        ];
 
   doInstallCheck = true;
   installCheckTarget = "test";

@@ -179,8 +179,7 @@ in
                 [
                   "api"
                   cfg.apiServer
-                ]
-            ;
+                ];
           in
           ''
             ${pkgs.pixiecore}/bin/pixiecore \

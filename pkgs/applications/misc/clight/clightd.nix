@@ -60,8 +60,7 @@ stdenv.mkDerivation rec {
     ++ optional enableDpms "-DENABLE_DPMS=1"
     ++ optional enableGamma "-DENABLE_GAMMA=1"
     ++ optional enableScreen "-DENABLE_SCREEN=1"
-    ++ optional enableYoctolight "-DENABLE_YOCTOLIGHT=1"
-  ;
+    ++ optional enableYoctolight "-DENABLE_YOCTOLIGHT=1";
 
   nativeBuildInputs = [
     dbus
@@ -90,8 +89,7 @@ stdenv.mkDerivation rec {
     ++ optionals (enableDpms || enableGamma || enableScreen) [
       libdrm
       wayland
-    ]
-  ;
+    ];
 
   postInstall = ''
     mkdir -p $out/bin

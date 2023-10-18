@@ -85,8 +85,7 @@ let
         __functor = self: ff;
       }
     else
-      ff
-  ;
+      ff;
 
   buildAsdf =
     {
@@ -273,8 +272,7 @@ let
             if builtins.length (args.patches or [ ]) > 0 then
               pkgs.applyPatches { inherit (args) src patches; }
             else
-              args.src
-          ;
+              args.src;
           patches = [ ];
           propagatedBuildInputs =
             args.propagatedBuildInputs or [ ] ++ lispLibs ++ javaLibs ++ nativeLibs;
@@ -405,7 +403,6 @@ let
         withOverrides
         buildASDFSystem
       ;
-    }
-  ;
+    };
 in
 wrapLisp

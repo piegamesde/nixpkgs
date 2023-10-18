@@ -45,8 +45,7 @@ import ./make-test-python.nix (
             ftpProxy = "101112-http://user:pass@ftp-host:port";
             noProxy = "131415-127.0.0.1,localhost,.localdomain";
           };
-        }
-      ;
+        };
 
       # mix default + proxy options
       machine4 =
@@ -61,8 +60,7 @@ import ./make-test-python.nix (
             rsyncProxy = "123-http://user:pass@http-host:port";
             noProxy = "131415-127.0.0.1,localhost,.localdomain";
           };
-        }
-      ;
+        };
     };
 
     testScript = ''

@@ -20,8 +20,7 @@
 assert fileVersionCudnn == null
   ||
     lib.assertMsg (lib.strings.versionAtLeast cudnn.version fileVersionCudnn)
-      "This version of TensorRT requires at least cuDNN ${fileVersionCudnn} (current version is ${cudnn.version})"
-;
+      "This version of TensorRT requires at least cuDNN ${fileVersionCudnn} (current version is ${cudnn.version})";
 
 backendStdenv.mkDerivation rec {
   pname = "cudatoolkit-${cudatoolkit.majorVersion}-tensorrt";

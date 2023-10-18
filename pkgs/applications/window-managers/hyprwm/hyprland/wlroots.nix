@@ -60,8 +60,7 @@ assert (lib.assertMsg (hidpiXWayland -> enableXWayland) ''
       old.pname
       + "-hyprland"
       + (if hidpiXWayland then "-hidpi" else "")
-      + (if nvidiaPatches then "-nvidia" else "")
-    ;
+      + (if nvidiaPatches then "-nvidia" else "");
 
     patches =
       (old.patches or [ ])
@@ -78,8 +77,7 @@ assert (lib.assertMsg (hidpiXWayland -> enableXWayland) ''
           url = "https://aur.archlinux.org/cgit/aur.git/plain/0001-nvidia-format-workaround.patch?h=hyprland-nvidia-screenshare-git&id=2830d3017d7cdd240379b4cc7e5dd6a49cf3399a";
           sha256 = "A9f1p5EW++mGCaNq8w7ZJfeWmvTfUm4iO+1KDcnqYX8=";
         })
-      ])
-    ;
+      ]);
 
     postPatch =
       (old.postPatch or "")
@@ -90,8 +88,7 @@ assert (lib.assertMsg (hidpiXWayland -> enableXWayland) ''
           ''
         else
           ""
-      )
-    ;
+      );
 
     buildInputs = old.buildInputs ++ [
       hwdata
@@ -108,8 +105,7 @@ assert (lib.assertMsg (hidpiXWayland -> enableXWayland) ''
           ++ (lib.optionals hidpiXWayland [
             "${hyprland.src}/nix/xwayland-vsync.patch"
             "${hyprland.src}/nix/xwayland-hidpi.patch"
-          ])
-        ;
+          ]);
       }
     );
   }

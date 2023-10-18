@@ -48,8 +48,7 @@ stdenv.mkDerivation rec {
     )
     + (lib.optionalString (configOpts != null)
       "ln -sf ${configOpts} ./config/config.opts"
-    )
-  ;
+    );
 
   makeFlags = [ "LEX=flex" ];
   installFlags = [

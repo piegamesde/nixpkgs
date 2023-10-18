@@ -281,8 +281,7 @@ in
               )
               cfg.credentials
           )
-        )
-      ;
+        );
 
       serviceConfig = {
         User = "${cfg.user}";
@@ -302,8 +301,7 @@ in
           ++ optionals (cfg.musicDirectory == "/var/lib/${name}/music") [
             name
             "${name}/music"
-          ]
-        ;
+          ];
       };
     };
 

@@ -30,8 +30,7 @@ buildPythonPackage rec {
     else
       ''
         nosetests
-      ''
-  ;
+      '';
 
   meta = with lib; {
     description = "Nose plugin to randomly order tests and control random.seed";

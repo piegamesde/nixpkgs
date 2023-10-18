@@ -110,8 +110,7 @@
     # risking making it too easy to ignore the above comment about llvmPackages.
     &&
       lib.meta.availableOn stdenv.hostPlatform
-        buildPackages.targetPackages.llvmPackages.compiler-rt
-  ,
+        buildPackages.targetPackages.llvmPackages.compiler-rt,
   withLibidn2 ? true,
   withLocaled ? true,
   withLogind ? true,
@@ -440,8 +439,7 @@ stdenv.mkDerivation (
                   substituteInPlace "$file" --replace '"${dl.name}"' '"${library}"'
                 done
 
-              ''
-          ;
+              '';
         in
         # patch all the dlopen calls to contain absolute paths to the libraries
         lib.concatMapStringsSep "\n" patchDlOpen dlopenLibs
@@ -460,8 +458,7 @@ stdenv.mkDerivation (
       + ''
         shopt -s extglob
         patchShebangs tools test src/!(rpm|kernel-install|ukify) src/kernel-install/test-kernel-install.sh
-      ''
-    ;
+      '';
 
     outputs = [
       "out"
@@ -544,8 +541,7 @@ stdenv.mkDerivation (
       ++ lib.optional withTpm2Tss tpm2-tss
       ++ lib.optional withUkify (
         python3Packages.python.withPackages (ps: with ps; [ pefile ])
-      )
-    ;
+      );
 
     #dontAddPrefix = true;
 
@@ -670,8 +666,7 @@ stdenv.mkDerivation (
       ++ lib.optionals withKmod [
         "-Dkmod=true"
         "-Dkmod-path=${kmod}/bin/kmod"
-      ]
-    ;
+      ];
     preConfigure =
       let
         # A list of all the runtime binaries that the systemd executables, tests and libraries are referencing in their source code, scripts and unit files.
@@ -762,8 +757,7 @@ stdenv.mkDerivation (
               replacement = "${lib.getBin kmod}/sbin/modprobe";
               where = [ "units/modprobe@.service" ];
             }
-          ]
-        ;
+          ];
 
         # { replacement, search, where } -> List[str]
         mkSubstitute =
@@ -875,8 +869,7 @@ stdenv.mkDerivation (
       ''
       + lib.optionalString withKmod ''
         mv $out/lib/modules-load.d $out/example
-      ''
-    ;
+      '';
 
     # Avoid *.EFI binary stripping. At least on aarch64-linux strip
     # removes too much from PE32+ files:
@@ -899,8 +892,7 @@ stdenv.mkDerivation (
       ''
       + lib.optionalString withEfi ''
         mv $out/dont-strip-me $out/lib/systemd/boot/efi
-      ''
-    ;
+      '';
 
     disallowedReferences =
       lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform)

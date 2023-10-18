@@ -16,8 +16,7 @@ let
     types.addCheck elemType check
     // {
       description = "${elemType.description} (with check: ${desc})";
-    }
-  ;
+    };
 
   isNonEmpty =
     s:
@@ -40,8 +39,7 @@ let
       # but we fall back to the original order
       # anyway so that other modules could check
       # their assertions too
-      (attrValues config.fileSystems)
-  ;
+      (attrValues config.fileSystems);
 
   specialFSTypes = [
     "proc"
@@ -173,8 +171,7 @@ let
             else if config.fsType == "reiserfs" then
               "-q"
             else
-              null
-          ;
+              null;
         in
         {
           options = mkMerge [
@@ -241,8 +238,7 @@ let
         fs.noCheck
         || fs.device == "none"
         || builtins.elem fs.fsType fsToSkipCheck
-        || isBindMount fs
-      ;
+        || isBindMount fs;
       # https://wiki.archlinux.org/index.php/fstab#Filepath_spaces
       escape =
         string:
@@ -299,8 +295,7 @@ let
       extraOpts =
         fs:
         (optional fs.autoResize "x-systemd.growfs")
-        ++ (optional fs.autoFormat "x-systemd.makefs")
-      ;
+        ++ (optional fs.autoFormat "x-systemd.makefs");
     }
   );
 in
@@ -447,8 +442,7 @@ in
         fuse3
         fuse
       ]
-      ++ config.system.fsPackages
-    ;
+      ++ config.system.fsPackages;
 
     environment.etc.fstab.text =
       let
@@ -570,8 +564,7 @@ in
           before = [ "systemd-pstore.service" ];
           wantedBy = [ "systemd-pstore.service" ];
         };
-      }
-    ;
+      };
 
     systemd.tmpfiles.rules = [
       "d /run/keys 0750 root ${toString config.ids.gids.keys}"

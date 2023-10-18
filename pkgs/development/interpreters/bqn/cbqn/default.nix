@@ -97,8 +97,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString enableSingeli ''
       cp -r ${singeli-submodule}/dev/* build/singeliLocal/
-    ''
-  ;
+    '';
 
   outputs =
     [ "out" ]
@@ -123,8 +122,7 @@ stdenv.mkDerivation rec {
     ''
     + ''
       runHook postInstall
-    ''
-  ;
+    '';
 
   meta = with lib; {
     homepage = "https://github.com/dzaima/CBQN/";

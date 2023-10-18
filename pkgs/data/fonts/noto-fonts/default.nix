@@ -84,8 +84,7 @@ rec {
                 fi
               done
             ''
-        )
-      ;
+        );
 
       passthru.updateScript = gitUpdater { rev-prefix = "noto-monthly-release-"; };
 

@@ -76,8 +76,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       Foundation
       SystemConfiguration
-    ]
-  ;
+    ];
 
   meta = with lib; {
     description = "A Rust + GTK based netease cloud music player";

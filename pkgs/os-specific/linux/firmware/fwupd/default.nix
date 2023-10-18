@@ -121,8 +121,7 @@ let
           in
           pos.file + ":" + toString pos.line;
       };
-    }
-  ;
+    };
 in
 stdenv.mkDerivation (
   finalAttrs: {
@@ -215,8 +214,7 @@ stdenv.mkDerivation (
         xz # for liblzma
       ]
       ++ lib.optionals haveDell [ libsmbios ]
-      ++ lib.optionals haveFlashrom [ flashrom ]
-    ;
+      ++ lib.optionals haveFlashrom [ flashrom ];
 
     mesonFlags =
       [
@@ -245,8 +243,7 @@ stdenv.mkDerivation (
       ]
       ++ lib.optionals (!haveRedfish) [ "-Dplugin_redfish=disabled" ]
       ++ lib.optionals (!haveFlashrom) [ "-Dplugin_flashrom=disabled" ]
-      ++ lib.optionals (!haveMSR) [ "-Dplugin_msr=disabled" ]
-    ;
+      ++ lib.optionals (!haveMSR) [ "-Dplugin_msr=disabled" ];
 
     # TODO: wrapGAppsHook wraps efi capsule even though it is not ELF
     dontWrapGApps = true;
@@ -365,8 +362,7 @@ stdenv.mkDerivation (
         ++ lib.optionals haveDell [ "fwupd/remotes.d/dell-esrt.conf" ]
         ++ lib.optionals haveRedfish [ "fwupd/redfish.conf" ]
         ++ lib.optionals haveMSR [ "fwupd/msr.conf" ]
-        ++ lib.optionals isx86 [ "fwupd/thunderbolt.conf" ]
-      ;
+        ++ lib.optionals isx86 [ "fwupd/thunderbolt.conf" ];
 
       # DisabledPlugins key in fwupd/daemon.conf
       defaultDisabledPlugins = [

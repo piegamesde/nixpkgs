@@ -74,8 +74,7 @@ stdenv.mkDerivation {
         sha256 = "1nxwmyw3vqc5wghj38kpksisy0i808x0x3pa8w3p290w709g311l";
       }
     else
-      throw "Platform: ${stdenv.system} not supported!"
-  ;
+      throw "Platform: ${stdenv.system} not supported!";
 
   nativeBuildInputs = [
     makeWrapper
@@ -119,7 +118,6 @@ stdenv.mkDerivation {
     else
       lib.optionalString (stdenv.system == "x86_64-linux") ''
         patchelf --set-interpreter ${stdenv.cc.libc}/lib/ld-linux-x86-64.so.2 android/titanium_prep.linux64
-      ''
-    }
+      ''}
   '';
 }

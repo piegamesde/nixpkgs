@@ -46,7 +46,6 @@ stdenv.mkDerivation rec {
     ];
     broken =
       stdenv.isAarch64
-      || ((lib.versions.majorMinor kernel.version) == "5.4" && kernel.isHardened)
-    ;
+      || ((lib.versions.majorMinor kernel.version) == "5.4" && kernel.isHardened);
   };
 }

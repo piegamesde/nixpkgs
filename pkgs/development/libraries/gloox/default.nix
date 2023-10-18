@@ -30,8 +30,7 @@ stdenv.mkDerivation rec {
     [ ]
     ++ lib.optional zlibSupport zlib
     ++ lib.optional sslSupport openssl
-    ++ lib.optional idnSupport libidn
-  ;
+    ++ lib.optional idnSupport libidn;
 
   meta = with lib; {
     description = "A portable high-level Jabber/XMPP library for C++";

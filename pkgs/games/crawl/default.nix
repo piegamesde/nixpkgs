@@ -82,8 +82,7 @@ stdenv.mkDerivation rec {
         IOKit
         OpenGL
       ]
-    ))
-  ;
+    ));
 
   preBuild = ''
     cd crawl-ref/source

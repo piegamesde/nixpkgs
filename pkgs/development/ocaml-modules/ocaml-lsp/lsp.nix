@@ -87,8 +87,7 @@ buildDunePackage rec {
         dune-build-info
         omd
         cmdliner
-      ]
-  ;
+      ];
 
   nativeBuildInputs = lib.optional (lib.versionOlder version "1.7.0") cppo;
 

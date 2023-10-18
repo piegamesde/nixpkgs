@@ -30,8 +30,7 @@ let
         extraPrefix = lib.optionalString (extraPrefix != null) extraPrefix;
       }
     else
-      { inherit stripLen extraPrefix; }
-  ;
+      { inherit stripLen extraPrefix; };
 in
 let
   inherit (args') stripLen extraPrefix;
@@ -112,8 +111,7 @@ lib.throwIfNot (excludes == [ ] || includes == [ ])
           ${patchutils}/bin/interdiff "$out" /dev/null > "$tmpfile"
           mv "$tmpfile" "$out"
         ''
-        + postFetch
-      ;
+        + postFetch;
     }
     // builtins.removeAttrs args [
       "relative"

@@ -36,8 +36,7 @@ let
       "${stdenv.cc}/nix-support/dynamic-linker"
     else
       throw
-        "Unsupported platform for Canon UFR2 Drivers: ${stdenv.hostPlatform.system}"
-  ;
+        "Unsupported platform for Canon UFR2 Drivers: ${stdenv.hostPlatform.system}";
   ld64 = "${stdenv.cc}/nix-support/dynamic-linker";
   libs = pkgs: lib.makeLibraryPath buildInputs;
 

@@ -25,8 +25,7 @@ let
             for p in ${passthru.patchesOut}/${component}/*; do
               patch -p1 -i "$p"
             done
-          ''
-        ;
+          '';
       }
     );
 

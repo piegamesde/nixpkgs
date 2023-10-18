@@ -13,8 +13,7 @@ let
     if l == [ ] then
       { }
     else
-      ((builtins.head l) x) // (multiOverride (builtins.tail l) x)
-  ;
+      ((builtins.head l) x) // (multiOverride (builtins.tail l) x);
   lispName =
     (clwrapper.lisp.pname or (builtins.parseDrvName clwrapper.lisp.name).name);
   ifLispIn = l: f: if (pkgs.lib.elem lispName l) then f else (x: { });
@@ -38,8 +37,7 @@ in
 
           cp "$out/lib/common-lisp/stumpwm/stumpwm" "$out/bin"
         '';
-      }
-    ;
+      };
   };
   iterate = multiOverride [
     skipBuildPhase
@@ -66,8 +64,7 @@ in
           cp -r . "$out/lib/common-lisp/cl-fuse/"
           "gcc" "-x" "c" "$out/lib/common-lisp/cl-fuse/fuse-launcher.c-minus" "-fPIC" "--shared" "-lfuse" "-o" "$out/lib/common-lisp/cl-fuse/libfuse-launcher.so"
         '';
-      }
-    ;
+      };
   };
   hunchentoot = addNativeLibs [ pkgs.openssl ];
   iolib = x: {
@@ -78,8 +75,7 @@ in
           libfixposix
           gcc
         ]
-      )
-    ;
+      );
     overrides =
       y:
       (x.overrides y)
@@ -89,8 +85,7 @@ in
           # Socket tests don't work because they try to access the internet
           sed 's/(:file "sockets" :depends-on ("pkgdcl" "defsuites"))//' -i iolib.asd
         '';
-      }
-    ;
+      };
   };
   cxml = skipBuildPhase;
   wookie = addNativeLibs (
@@ -111,8 +106,7 @@ in
             pkgs.lib.getLib pkgs.openssl
           }/lib/libssl.so|' -i src/reload.lisp
         '';
-      }
-    ;
+      };
   };
   cl-colors = skipBuildPhase;
   cl-libuv = addNativeLibs [ pkgs.libuv ];
@@ -138,10 +132,8 @@ in
             + ''
               export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -I${pkgs.libmysqlclient}/include/mysql"
               export NIX_LDFLAGS="$NIX_LDFLAGS -L${pkgs.libmysqlclient}/lib/mysql"
-            ''
-          ;
-        }
-      ;
+            '';
+        };
     })
     (ifLispIn
       [
@@ -160,8 +152,7 @@ in
               postUnpack = ''
                 sed -e '1i(cl:push :clsql-cffi cl:*features*)' -i "$sourceRoot/clsql.asd"
               '';
-            }
-          ;
+            };
         }
       )
     )
@@ -184,8 +175,7 @@ in
               postUnpack = ''
                 sed -e '1i(cl:push :clsql-cffi cl:*features*)' -i "$sourceRoot/clsql-postgresql-socket.asd"
               '';
-            }
-          ;
+            };
         }
       );
   clx-truetype = skipBuildPhase;
@@ -205,10 +195,8 @@ in
                                 '(function query-fs:run-fs-with-cmdline-args)' '$linkedSystems'"
                     "$out/bin/query-fs-lisp-launcher.sh"
                     cp "$out/lib/common-lisp/query-fs/query-fs" "$out/bin/"
-          ''
-        ;
-      }
-    ;
+          '';
+      };
   };
   cffi = addNativeLibs [ pkgs.libffi ];
   cl-mysql = x: {
@@ -221,10 +209,8 @@ in
           ((x.overrides y).prePatch or "")
           + ''
             sed -i 's,libmysqlclient_r,${pkgs.libmysqlclient}/lib/mysql/libmysqlclient_r,' system.lisp
-          ''
-        ;
-      }
-    ;
+          '';
+      };
   };
   cl-ppcre-template = x: {
     overrides =
@@ -234,8 +220,7 @@ in
         postPatch = ''
           ln -s lib-dependent/*.asd .
         '';
-      }
-    ;
+      };
   };
   sqlite = x: {
     propagatedBuildInputs = [ pkgs.sqlite ];
@@ -247,10 +232,8 @@ in
           ((x.overrides y).preConfigure or "")
           + ''
             sed 's|libsqlite3|${pkgs.sqlite.out}/lib/libsqlite3|' -i sqlite-ffi.lisp
-          ''
-        ;
-      }
-    ;
+          '';
+      };
   };
   swank = x: {
     overrides =
@@ -286,8 +269,7 @@ in
                                       (fasl-dir (contrib-dir *fasl-directory*))
           EOD
         '';
-      }
-    ;
+      };
   };
   uiop = x: {
     overrides =
@@ -298,10 +280,8 @@ in
           ((x.overrides y).postInstall or "")
           + ''
             cp -r "${pkgs.asdf}/lib/common-lisp/asdf/uiop/contrib" "$out/lib/common-lisp/uiop"
-          ''
-        ;
-      }
-    ;
+          '';
+      };
   };
   cl-containers = x: {
     overrides = y: (x.overrides y) // { postConfigure = "rm GNUmakefile"; };
@@ -364,8 +344,7 @@ in
         preConfigure = ''
           sed -i -e '/:components/i:serial t' split-sequence.asd
         '';
-      }
-    ;
+      };
   };
   cl-store = x: {
     overrides =
@@ -375,8 +354,7 @@ in
         postPatch = ''
           sed -i -e 's/:initform "Unknown" /:initform #:|Unknown| /' backends.lisp
         '';
-      }
-    ;
+      };
   };
   dbi = x: {
     parasites = [ ];
@@ -412,8 +390,7 @@ in
 
           cp "$out/lib/common-lisp/clfswm/clfswm" "$out/bin"
         '';
-      }
-    ;
+      };
   };
   woo =
     ifLispNotIn
@@ -430,8 +407,7 @@ in
         postUnpack = ''
           sed -e '1a:serial t' -i $sourceRoot/cl-syslog.asd
         '';
-      }
-    ;
+      };
   };
   log4cl =
     ifLispNotIn
@@ -467,8 +443,7 @@ in
               -e '$a)' \
               -i $sourceRoot/src/combin.lisp
         '';
-      }
-    ;
+      };
   };
   lla = addNativeLibs [ pkgs.openblas ];
   #  cl-opengl = addNativeLibs [ pkgs.libGL pkgs.glfw ];

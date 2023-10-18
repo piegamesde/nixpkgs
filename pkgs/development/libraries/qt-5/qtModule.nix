@@ -70,8 +70,7 @@ mkDerivation (
             if [[ -z "$dontSyncQt" && -f sync.profile ]]; then
               syncqt.pl -version "''${version%%-*}"
             fi
-          ''
-    ;
+          '';
 
     dontWrapQtApps = args.dontWrapQtApps or true;
 

@@ -274,8 +274,7 @@ let
       ''
         output ${name}
         off
-      ''
-  ;
+      '';
 in
 {
 

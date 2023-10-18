@@ -69,8 +69,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString stdenv.isLinux ''
       substituteInPlace src/lib/synergy/unix/AppUtilUnix.cpp \
         --replace "/usr/share/X11/xkb/rules/evdev.xml" "${xkeyboardconfig}/share/X11/xkb/rules/evdev.xml"
-    ''
-  ;
+    '';
 
   nativeBuildInputs = [
     cmake
@@ -110,8 +109,7 @@ stdenv.mkDerivation rec {
       avahi-compat
       gdk-pixbuf
       libnotify
-    ]
-  ;
+    ];
 
   # Silences many warnings
   env.NIX_CFLAGS_COMPILE =
@@ -125,8 +123,7 @@ stdenv.mkDerivation rec {
       lib.optional stdenv.isDarwin
         "-DCMAKE_OSX_DEPLOYMENT_TARGET=${
           if stdenv.isAarch64 then "10.13" else stdenv.targetPlatform.darwinSdkVersion
-        }"
-  ;
+        }";
 
   doCheck = true;
 
@@ -159,8 +156,7 @@ stdenv.mkDerivation rec {
     ''
     + ''
       runHook postInstall
-    ''
-  ;
+    '';
 
   dontWrapQtApps = lib.optional (!withGUI) true;
 

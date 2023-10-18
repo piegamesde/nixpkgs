@@ -85,8 +85,7 @@ mkDerivation {
         gpl2
         lgpl3
       ]
-      ++ optional unfreeEnableUnrar unfree
-    ;
+      ++ optional unfreeEnableUnrar unfree;
     maintainers = [ maintainers.ttuegel ];
   };
 }

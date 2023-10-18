@@ -89,8 +89,7 @@ stdenv.mkDerivation rec {
         )
         ''
           sed -z -i "s/NSAppearanceName.*systemAppearance//" src/AudacityApp.mm
-        ''
-  ;
+        '';
 
   nativeBuildInputs = [
     cmake
@@ -152,8 +151,7 @@ stdenv.mkDerivation rec {
       CoreAudioKit # for portaudio
       libpng
       libjpeg
-    ]
-  ;
+    ];
 
   cmakeFlags = [
     "-DAUDACITY_BUILD_LEVEL=2"
@@ -197,8 +195,7 @@ stdenv.mkDerivation rec {
       mkdir -p $out/{Applications,bin}
       mv $out/Audacity.app $out/Applications/
       makeWrapper $out/Applications/Audacity.app/Contents/MacOS/Audacity $out/bin/audacity
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "Sound editor with graphical UI";

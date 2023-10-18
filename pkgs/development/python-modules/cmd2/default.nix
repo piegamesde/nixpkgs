@@ -67,8 +67,7 @@ buildPythonPackage rec {
       echo '#!${stdenv.shell}' > bin/pbcopy
       chmod +x bin/{pbcopy,pbpaste}
       export PATH=$(realpath bin):$PATH
-    ''
-  ;
+    '';
 
   doCheck = !stdenv.isDarwin;
 

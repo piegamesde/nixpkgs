@@ -138,8 +138,7 @@ buildPythonApplication rec {
       x264
       x265
     ]
-    ++ lib.optional withNvenc nvencHeaders
-  ;
+    ++ lib.optional withNvenc nvencHeaders;
 
   propagatedBuildInputs =
     with python3.pkgs;
@@ -213,8 +212,7 @@ buildPythonApplication rec {
     ''
     + ''
       )
-    ''
-  ;
+    '';
 
   postInstall = ''
     # append module paths to xorg.conf

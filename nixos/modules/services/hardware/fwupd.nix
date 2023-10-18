@@ -64,8 +64,7 @@ let
         (enableRemote cfg.package.installedTests "fwupd-tests")
       else
         { }
-    )
-  ;
+    );
 in
 {
 

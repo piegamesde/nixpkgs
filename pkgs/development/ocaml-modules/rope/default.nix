@@ -33,8 +33,7 @@ let
         extra = {
           createFindlibDestdir = true;
         };
-      }
-  ;
+      };
 in
 
 stdenv.mkDerivation (

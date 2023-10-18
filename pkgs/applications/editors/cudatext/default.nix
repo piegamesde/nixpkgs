@@ -77,8 +77,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional (widgetset == "gtk2") gtk2
     ++ lib.optional (widgetset == "gtk3") gtk3
-    ++ lib.optional (widgetset == "qt5") libqt5pas
-  ;
+    ++ lib.optional (widgetset == "qt5") libqt5pas;
 
   NIX_LDFLAGS = "--as-needed -rpath ${lib.makeLibraryPath buildInputs}";
 
@@ -107,8 +106,7 @@ stdenv.mkDerivation rec {
         Python-for-Lazarus/python4lazarus/python4lazarus_package.lpk \
         Emmet-Pascal/emmet/emmet_package.lpk \
         app/cudatext.lpi
-    ''
-  ;
+    '';
 
   installPhase =
     ''
@@ -130,8 +128,7 @@ stdenv.mkDerivation rec {
             exit 1
           fi
         '')
-        additionalLexers
-  ;
+        additionalLexers;
 
   passthru.updateScript = ./update.sh;
 

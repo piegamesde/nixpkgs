@@ -96,8 +96,7 @@ let
                 paths = [ pkg ] ++ pkg.buildInputs;
               }
             else
-              pkg
-          ;
+              pkg;
         }
       )
       testedSystems;

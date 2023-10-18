@@ -122,8 +122,7 @@ let
         rev = "a56b6ac6f030c312b2dce17430eef13aed9af274";
         sha256 = "1msbkc3zixx61rcg6a04i1bcfhw1phgsrh93glq1n80hgsk3nbjq";
       }
-      + "/ippicv"
-    ;
+      + "/ippicv";
     files =
       let
         name = platform: "ippicv_2019_${platform}_general_20180723.tgz";
@@ -136,8 +135,7 @@ let
         { ${name "mac_intel64"} = "fe6b2bb75ae0e3f19ad3ae1a31dfa4a2"; }
       else
         throw
-          "ICV is not available for this platform (or not yet supported by this package)"
-    ;
+          "ICV is not available for this platform (or not yet supported by this package)";
     dst = ".cache/ippicv";
   };
 
@@ -233,8 +231,7 @@ let
           ln -s "${extra.src}/${name}" "${extra.dst}/${md5}-${name}"
         ''
       )
-    )
-  ;
+    );
   installExtraFile = extra: ''
     mkdir -p "${extra.dst}"
     ln -s "${extra.src}" "${extra.dst}/${extra.md5}-${extra.name}"
@@ -267,8 +264,7 @@ let
     ]
     ++ lib.optionals enableCufft [
       libcufft # cufft.h
-    ]
-  ;
+    ];
 
   cuda-native-redist = symlinkJoin {
     name = "cuda-native-redist-${cudaVersion}";
@@ -278,8 +274,7 @@ let
         cuda_cudart # cuda_runtime.h
         cuda_nvcc
       ]
-      ++ cuda-common-redist
-    ;
+      ++ cuda-common-redist;
   };
 
   cuda-redist = symlinkJoin {
@@ -322,8 +317,7 @@ stdenv.mkDerivation {
       ${installExtraFiles boostdesc}
       ${installExtraFiles face}
       ${installExtraFiles wechat_qrcode}
-    '')
-  ;
+    '');
 
   postConfigure = ''
     [ -e modules/core/version_string.inc ]
@@ -390,8 +384,7 @@ stdenv.mkDerivation {
       doxygen
       graphviz-nox
     ]
-    ++ lib.optionals enableCuda [ cuda-redist ]
-  ;
+    ++ lib.optionals enableCuda [ cuda-redist ];
 
   propagatedBuildInputs =
     lib.optional enablePython pythonPackages.numpy
@@ -408,8 +401,7 @@ stdenv.mkDerivation {
       pythonPackages.wheel
       pythonPackages.setuptools
     ]
-    ++ lib.optionals enableCuda [ cuda-native-redist ]
-  ;
+    ++ lib.optionals enableCuda [ cuda-native-redist ];
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString enableEXR
@@ -487,8 +479,7 @@ stdenv.mkDerivation {
     ++ lib.optionals (!stdenv.isDarwin) [
       "-DOPENCL_LIBRARY=${ocl-icd}/lib/libOpenCL.so"
     ]
-    ++ lib.optionals enablePython [ "-DOPENCV_SKIP_PYTHON_LOADER=ON" ]
-  ;
+    ++ lib.optionals enablePython [ "-DOPENCV_SKIP_PYTHON_LOADER=ON" ];
 
   postBuild = lib.optionalString enableDocs ''
     make doxygen
@@ -502,8 +493,7 @@ stdenv.mkDerivation {
     + lib.optionalString runAccuracyTests ''
       mv ./bin/*test* $package_tests/ 
     ''
-    + lib.optionalString runPerformanceTests "mv ./bin/*perf* $package_tests/"
-  ;
+    + lib.optionalString runPerformanceTests "mv ./bin/*perf* $package_tests/";
 
   # By default $out/lib/pkgconfig/opencv4.pc looks something like this:
   #
@@ -536,8 +526,7 @@ stdenv.mkDerivation {
 
       popd
       popd
-    ''
-  ;
+    '';
 
   passthru = {
     tests =
@@ -558,8 +547,7 @@ stdenv.mkDerivation {
           ;
           inherit opencv4;
         };
-      }
-    ;
+      };
   } // lib.optionalAttrs enablePython { pythonPath = [ ]; };
 
   meta = with lib; {

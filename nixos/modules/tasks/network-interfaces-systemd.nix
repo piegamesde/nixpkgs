@@ -31,8 +31,7 @@ let
     ++
       concatMap
         (i: attrNames (filterAttrs (_: config: config.type != "internal") i.interfaces))
-        (attrValues cfg.vswitches)
-  ;
+        (attrValues cfg.vswitches);
 
   domains = cfg.search ++ (optional (cfg.domain != null) cfg.domain);
   genericNetwork =
@@ -53,8 +52,7 @@ let
       };
     in
     optionalAttrs (gateway != [ ]) { routes = override (map makeGateway gateway); }
-    // optionalAttrs (domains != [ ]) { domains = override domains; }
-  ;
+    // optionalAttrs (domains != [ ]) { domains = override domains; };
 
   genericDhcpNetworks =
     initrd:
@@ -165,8 +163,7 @@ let
                   }
                   // optionalAttrs (route.options ? ttl-propagate) {
                     TTLPropagate = route.options.ttl-propagate == "enabled";
-                  }
-                ;
+                  };
               }
             );
             networkConfig.IPv6PrivacyExtensions = "kernel";
@@ -226,8 +223,7 @@ in
             assertion = local == null;
             message = "networking.fooOverUDP.${n}.local is not supported by networkd.";
           }
-        )
-      ;
+        );
 
       networking.dhcpcd.enable = mkDefault false;
 
@@ -429,15 +425,13 @@ in
                         if sit.encapsulation.type == "fou" then
                           "FooOverUDP"
                         else
-                          "GenericUDPEncapsulation"
-                      ;
+                          "GenericUDPEncapsulation";
                       FOUDestinationPort = sit.encapsulation.port;
                     }
                     // (optionalAttrs (sit.encapsulation.sourcePort != null) {
                       FOUSourcePort = sit.encapsulation.sourcePort;
                     })
-                  ))
-                ;
+                  ));
               };
               networks = mkIf (sit.dev != null) {
                 "40-${sit.dev}" =
@@ -460,8 +454,7 @@ in
                 tunnelConfig =
                   (optionalAttrs (gre.remote != null) { Remote = gre.remote; })
                   // (optionalAttrs (gre.local != null) { Local = gre.local; })
-                  // (optionalAttrs (gre.ttl != null) { TTL = gre.ttl; })
-                ;
+                  // (optionalAttrs (gre.ttl != null) { TTL = gre.ttl; });
               };
               networks = mkIf (gre.dev != null) {
                 "40-${gre.dev}" =
@@ -592,8 +585,7 @@ in
             after = [ "systemd-networkd.service" ];
             bindsTo = [ "systemd-networkd.service" ];
           };
-        }
-      ;
+        };
     })
   ];
 }

@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString stdenv.hostPlatform.isMusl ''
       substituteInPlace webrtc/base/checks.cc --replace 'defined(__UCLIBC__)' 1
-    ''
-  ;
+    '';
 
   meta = with lib; {
     homepage = "https://www.freedesktop.org/software/pulseaudio/webrtc-audio-processing";

@@ -51,8 +51,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString stdenv.hostPlatform.isDarwin ''
       substituteInPlace makefile \
         --replace '-lbsd' '-framework CoreFoundation -framework IOKit'
-    ''
-  ;
+    '';
 
   nativeBuildInputs = [ installShellFiles ];
 

@@ -326,8 +326,7 @@ in
           message = "You cannot set both lowmem and verylowmem";
         })
         gcfg.archives
-      )
-    ;
+      );
 
     systemd.services =
       (mapAttrs'
@@ -381,8 +380,7 @@ in
                    exec flock ${cachedir}/firstrun ${run}
                 ''
               else
-                "exec ${run}"
-            ;
+                "exec ${run}";
 
             serviceConfig = {
               Type = "oneshot";
@@ -435,8 +433,7 @@ in
                      exec flock ${cachedir}/firstrun ${run}
                   ''
                 else
-                  "exec ${run}"
-              ;
+                  "exec ${run}";
 
               serviceConfig = {
                 Type = "oneshot";
@@ -448,8 +445,7 @@ in
             }
           )
           gcfg.archives
-        )
-    ;
+        );
 
     # Note: the timer must be Persistent=true, so that systemd will start it even
     # if e.g. your laptop was asleep while the latest interval occurred.

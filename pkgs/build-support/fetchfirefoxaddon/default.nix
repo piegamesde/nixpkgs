@@ -35,8 +35,7 @@ let
           sha512
           hash
         ;
-      }
-  ;
+      };
 in
 stdenv.mkDerivation {
   inherit name;

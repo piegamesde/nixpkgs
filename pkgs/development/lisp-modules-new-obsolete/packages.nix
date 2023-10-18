@@ -64,8 +64,7 @@ let
         LD_LIBRARY_PATH =
           build.LD_LIBRARY_PATH
           + (optionalString (stringLength build.LD_LIBRARY_PATH != 0) ":")
-          + "${build}"
-        ;
+          + "${build}";
       }
     );
 
@@ -232,8 +231,7 @@ let
           parachute
           osicat
         ]
-        ++ [ cl-tar-file ]
-      ;
+        ++ [ cl-tar-file ];
       systems = [
         "tar"
         "tar/common-extract"
@@ -357,8 +355,7 @@ let
             cl-webkit2
             mk-string-metrics
           ]
-        )
-      ;
+        );
 
       src = pkgs.fetchzip {
         url = "https://github.com/atlas-engineer/nyxt/archive/2.2.4.tar.gz";
@@ -398,8 +395,7 @@ let
             --prefix XDG_DATA_DIRS : $GSETTINGS_SCHEMAS_PATH \
             --prefix GIO_EXTRA_MODULES ":" ${pkgs.dconf.lib}/lib/gio/modules/ \
             --prefix GIO_EXTRA_MODULES ":" ${pkgs.glib-networking}/lib/gio/modules/
-        ''
-      ;
+        '';
     };
 
     nyxt = nyxt-gtk;

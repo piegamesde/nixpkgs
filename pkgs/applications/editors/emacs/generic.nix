@@ -146,8 +146,7 @@ in
         pname
         +
           lib.optionalString (!withX && !withNS && !withMacport && !withGTK2 && !withGTK3)
-            "-nox"
-      ;
+            "-nox";
       inherit version;
 
       patches =
@@ -158,8 +157,7 @@ in
               if lib.versionOlder finalAttrs.version "29" then
                 ./native-comp-driver-options-28.patch
               else
-                ./native-comp-driver-options.patch
-            ;
+                ./native-comp-driver-options.patch;
             backendPath =
               (lib.concatStringsSep " " (
                 builtins.map (x: ''"-B${x}"'') (
@@ -192,8 +190,7 @@ in
             repo = "emacs";
             rev = version;
             inherit sha256;
-          }
-      ;
+          };
 
       enableParallelBuilding = true;
 
@@ -241,8 +238,7 @@ in
         ]
         ++ lib.optionals (srcRepo || withMacport) [ texinfo ]
         ++ lib.optionals srcRepo [ autoreconfHook ]
-        ++ lib.optional (withPgtk || withX && (withGTK3 || withXwidgets)) wrapGAppsHook
-      ;
+        ++ lib.optional (withPgtk || withX && (withGTK3 || withXwidgets)) wrapGAppsHook;
 
       buildInputs =
         [
@@ -313,8 +309,7 @@ in
         ]
         ++ lib.optionals stdenv.isDarwin [ sigtool ]
         ++ lib.optionals nativeComp [ libgccjit ]
-        ++ lib.optionals withTreeSitter [ tree-sitter ]
-      ;
+        ++ lib.optionals withTreeSitter [ tree-sitter ];
 
       hardeningDisable = [ "format" ];
 
@@ -356,8 +351,7 @@ in
         ++ lib.optional withImageMagick "--with-imagemagick"
         ++ lib.optional withXinput2 "--with-xinput2"
         ++ lib.optional (!withToolkitScrollBars) "--without-toolkit-scroll-bars"
-        ++ lib.optional withTreeSitter "--with-tree-sitter"
-      ;
+        ++ lib.optional withTreeSitter "--with-tree-sitter";
 
       installTargets = [
         "tags"
@@ -404,8 +398,7 @@ in
           $out/bin/emacs --batch \
             --eval "(add-to-list 'native-comp-eln-load-path \"$out/share/emacs/native-lisp\")" \
             -f batch-native-compile $out/share/emacs/site-lisp/site-start.el
-        ''
-      ;
+        '';
 
       postFixup =
         lib.optionalString (stdenv.isLinux && withX && toolkit == "lucid")
@@ -426,14 +419,12 @@ in
       meta = with lib; {
         description =
           "The extensible, customizable GNU text editor"
-          + optionalString withMacport " with Mitsuharu Yamamoto's macport patches"
-        ;
+          + optionalString withMacport " with Mitsuharu Yamamoto's macport patches";
         homepage =
           if withMacport then
             "https://bitbucket.org/mituharu/emacs-mac/"
           else
-            "https://www.gnu.org/software/emacs/"
-        ;
+            "https://www.gnu.org/software/emacs/";
         license = licenses.gpl3Plus;
         maintainers = with maintainers; [
           lovek323

@@ -187,8 +187,7 @@ qtModule {
         --replace "/usr/bin/xcrun" "${xcbuild}/bin/xcrun"
       substituteInPlace src/3rdparty/chromium/third_party/crashpad/crashpad/util/BUILD.gn \
         --replace "\$sysroot/usr" "${xnu}"
-    ''
-  ;
+    '';
 
   cmakeFlags =
     [
@@ -216,8 +215,7 @@ qtModule {
     ]
     ++ lib.optionals stdenv.isDarwin [
       "-DCMAKE_OSX_DEPLOYMENT_TARGET=${stdenv.targetPlatform.darwinSdkVersion}"
-    ]
-  ;
+    ];
 
   propagatedBuildInputs =
     [
@@ -312,8 +310,7 @@ qtModule {
 
       openbsm
       libunwind
-    ]
-  ;
+    ];
 
   buildInputs =
     [ cups ]

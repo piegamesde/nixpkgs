@@ -159,8 +159,7 @@ rec {
                 description = singleIniAtom.description + " or a non-empty list of them";
               }
             else
-              singleIniAtom
-          ;
+              singleIniAtom;
         in
         attrsOf (attrsOf iniAtom);
 
@@ -176,8 +175,7 @@ rec {
                 )
                 value
             else
-              value
-          ;
+              value;
         in
         pkgs.writeText name (
           lib.generators.toINI (removeAttrs args [ "listToValue" ]) transformedValue
@@ -224,8 +222,7 @@ rec {
                 description = singleAtom.description + " or a non-empty list of them";
               }
             else
-              singleAtom
-          ;
+              singleAtom;
         in
         attrsOf atom;
 
@@ -236,8 +233,7 @@ rec {
             if listToValue != null then
               lib.mapAttrs (key: val: if lib.isList val then listToValue val else val) value
             else
-              value
-          ;
+              value;
         in
         pkgs.writeText name (
           lib.generators.toKeyValue (removeAttrs args [ "listToValue" ]) transformedValue
@@ -304,8 +300,7 @@ rec {
               ''
           )
           { };
-    }
-  ;
+    };
 
   /* For configurations of Elixir project, like config.exs or runtime.exs
 
@@ -363,8 +358,7 @@ rec {
         else if isList value then
           list value
         else
-          abort "formats.elixirConf: should never happen (value = ${value})"
-      ;
+          abort "formats.elixirConf: should never happen (value = ${value})";
 
       escapeElixir = escape [
         "\\"
@@ -382,8 +376,7 @@ rec {
             toKeyword = name: value: "${name}: ${toElixir value}";
             keywordList = concatStringsSep ", " (mapAttrsToList toKeyword set);
           in
-          "[" + keywordList + "]"
-      ;
+          "[" + keywordList + "]";
 
       listContent = values: concatStringsSep ", " (map toElixir values);
 
@@ -400,8 +393,7 @@ rec {
         else if _elixirType == "tuple" then
           tuple value
         else
-          abort "formats.elixirConf: should never happen (_elixirType = ${_elixirType})"
-      ;
+          abort "formats.elixirConf: should never happen (_elixirType = ${_elixirType})";
 
       elixirMap =
         set:
@@ -536,8 +528,7 @@ rec {
               # Wrap standard types, since anything in the Elixir configuration
               # can be raw Elixir
             }
-            // lib.mapAttrs (_name: type: elixirOr type) lib.types
-          ;
+            // lib.mapAttrs (_name: type: elixirOr type) lib.types;
         };
 
       generate =

@@ -30,8 +30,7 @@ in
           if versionAtLeast config.system.stateVersion "20.09" then
             "/var/lib/supybot"
           else
-            "/home/supybot"
-        ;
+            "/home/supybot";
         defaultText = literalExpression "/var/lib/supybot";
         description = lib.mdDoc "The root directory, logs and plugins are stored here";
       };
@@ -148,8 +147,7 @@ in
           StateDirectory = "supybot";
           ProtectSystem = "strict";
         }
-        // optionalAttrs (!isStateDirHome) { ProtectHome = true; }
-      ;
+        // optionalAttrs (!isStateDirHome) { ProtectHome = true; };
     };
 
     systemd.tmpfiles.rules =

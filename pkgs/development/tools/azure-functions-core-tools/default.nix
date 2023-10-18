@@ -82,8 +82,7 @@ stdenv.mkDerivation rec {
     + ''
       ln -s $out/bin/{azure-functions-core-tools,}/func
       ln -s $out/bin/{azure-functions-core-tools,}/gozip
-    ''
-  ;
+    '';
   dontStrip = true; # Causes rpath patching to break if not set
 
   meta = with lib; {

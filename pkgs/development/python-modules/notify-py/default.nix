@@ -78,8 +78,7 @@ buildPythonPackage rec {
     else
       ''
         pytest
-      ''
-  ;
+      '';
 
   # GDBus.Error:org.freedesktop.DBus.Error.ServiceUnknown: The name
   # org.freedesktop.Notifications was not provided by any .service files

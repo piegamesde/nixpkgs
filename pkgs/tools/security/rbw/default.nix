@@ -69,8 +69,7 @@ rustPlatform.buildRustPackage rec {
       install -Dm755 -t $out/bin bin/pass-import
       substituteInPlace $out/bin/pass-import \
         --replace pass ${pass}/bin/pass
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "Unofficial command line client for Bitwarden";

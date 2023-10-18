@@ -68,8 +68,7 @@ rec {
     else if set ? ${attr} then
       attrByPath (tail attrPath) default set.${attr}
     else
-      default
-  ;
+      default;
 
   /* Return if an attribute from nested attribute set exists.
 
@@ -96,8 +95,7 @@ rec {
     else if e ? ${attr} then
       hasAttrByPath (tail attrPath) e.${attr}
     else
-      false
-  ;
+      false;
 
   /* Create a new attribute set with `value` set at the nested attribute location specified in `attrPath`.
 
@@ -267,8 +265,7 @@ rec {
                 + "be updated, but path '${showAttrPath (take prefixLength updatePath)}' "
                 + "of the given value is not an attribute set, so we can't "
                 + "update an attribute inside of it."
-              )
-          ;
+              );
         in
         # We get the final result by applying all the updates on this level
         # after having applied all the nested updates
@@ -504,8 +501,7 @@ rec {
     else if isAttrs attrs then
       concatMap (collect pred) (attrValues attrs)
     else
-      [ ]
-  ;
+      [ ];
 
   /* Return the cartesian product of attribute set value combinations.
 
@@ -670,8 +666,7 @@ rec {
             if isAttrs value && cond value then
               recurse (path ++ [ name ]) value
             else
-              f (path ++ [ name ]) value
-          ;
+              f (path ++ [ name ]) value;
         in
         mapAttrs g;
     in
@@ -980,8 +975,7 @@ rec {
     if path == [ ] then
       "<root attribute path>"
     else
-      concatMapStringsSep "." escapeNixIdentifier path
-  ;
+      concatMapStringsSep "." escapeNixIdentifier path;
 
   /* Get a package output.
      If no output is found, fallback to `.out` and then to the default.
@@ -998,8 +992,7 @@ rec {
     if !pkg ? outputSpecified || !pkg.outputSpecified then
       pkg.${output} or pkg.out or pkg
     else
-      pkg
-  ;
+      pkg;
 
   /* Get a package's `bin` output.
      If the output does not exist, fallback to `.out` and then to the default.

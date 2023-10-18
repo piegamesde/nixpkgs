@@ -16,8 +16,7 @@ symlinkJoin {
       dev
       out
     ]
-    ++ plugins
-  ;
+    ++ plugins;
 
   nativeBuildInputs = [ makeWrapper ];
 

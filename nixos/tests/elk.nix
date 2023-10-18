@@ -289,8 +289,7 @@ let
                 one.wait_until_succeeds(
                     '! curl --silent --show-error --fail-with-body "${esUrl}/_cat/indices" | grep logstash | grep ^'
                 )
-          ''
-        ;
+          '';
       })
       { inherit pkgs system; };
 in

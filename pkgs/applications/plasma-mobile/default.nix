@@ -51,8 +51,7 @@ let
           // {
             homepage = meta.homepage or "https://www.plasma-mobile.org/";
             platforms = meta.platforms or lib.platforms.linux;
-          }
-        ;
+          };
       }
     );
 

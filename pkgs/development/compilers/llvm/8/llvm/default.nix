@@ -20,8 +20,7 @@
   debugVersion ? false,
   doCheck ? stdenv.isLinux
     && (!stdenv.isx86_32)
-    && (stdenv.hostPlatform == stdenv.buildPlatform)
-  ,
+    && (stdenv.hostPlatform == stdenv.buildPlatform),
   enableManpages ? false,
   enableSharedLibraries ? !stdenv.hostPlatform.isStatic,
   # broken for Ampere eMAG 8180 (c2.large.arm on Packet) #56245
@@ -61,8 +60,7 @@ let
       in
       python3.withPackages checkDeps
     else
-      python3
-  ;
+      python3;
 in
 stdenv.mkDerivation (
   rec {
@@ -83,8 +81,7 @@ stdenv.mkDerivation (
       + optionalString enablePolly ''
         unpackFile $polly_src
         mv polly-* $sourceRoot/tools/polly
-      ''
-    ;
+      '';
 
     outputs = [
       "out"
@@ -193,8 +190,7 @@ stdenv.mkDerivation (
             --replace 'Starting llvm::' 'Starting {{.*}}' \
             --replace 'Finished llvm::' 'Finished {{.*}}'
         done
-      ''
-    ;
+      '';
 
     preConfigure = ''
       # Workaround for configure flags that need to have spaces
@@ -281,8 +277,7 @@ stdenv.mkDerivation (
             ]
           )
         )
-      ]
-    ;
+      ];
 
     postBuild = ''
       rm -fR $out
@@ -311,8 +306,7 @@ stdenv.mkDerivation (
       ''
       + optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
         cp NATIVE/bin/llvm-config $dev/bin/llvm-config-native
-      ''
-    ;
+      '';
 
     inherit doCheck;
 

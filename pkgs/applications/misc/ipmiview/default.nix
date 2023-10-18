@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
         else if stdenv.hostPlatform.system == "i686-linux" then
           "linux/stunnel32"
         else
-          throw "IPMIView is not supported on this platform"
-      ;
+          throw "IPMIView is not supported on this platform";
     in
     ''
       runHook preBuild

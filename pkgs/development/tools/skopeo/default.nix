@@ -70,8 +70,7 @@ buildGoModule rec {
     ''
     + ''
       runHook postInstall
-    ''
-  ;
+    '';
 
   passthru = {
     policy = runCommand "policy" { } ''
@@ -93,8 +92,7 @@ buildGoModule rec {
         lewo
         developer-guy
       ]
-      ++ teams.podman.members
-    ;
+      ++ teams.podman.members;
     license = licenses.asl20;
   };
 }

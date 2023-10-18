@@ -43,8 +43,7 @@ let
       netConf
     ]
     ++ optional config.services.saned.enable sanedConf
-    ++ config.hardware.sane.extraBackends
-  ;
+    ++ config.hardware.sane.extraBackends;
   saneConfig = pkgs.mkSaneConfig {
     paths = backends;
     inherit (config.hardware.sane) disabledDefaultBackends;

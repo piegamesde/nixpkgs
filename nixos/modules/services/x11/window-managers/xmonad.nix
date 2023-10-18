@@ -23,8 +23,7 @@ let
     ++ optionals cfg.enableContribAndExtras [
       self.xmonad-contrib
       self.xmonad-extras
-    ]
-  ;
+    ];
 
   xmonad-vanilla = pkgs.xmonad-with-packages.override {
     inherit ghcWithPackages packages;

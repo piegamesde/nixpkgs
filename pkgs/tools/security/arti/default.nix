@@ -29,8 +29,7 @@ rustPlatform.buildRustPackage rec {
   buildInputs =
     [ sqlite ]
     ++ lib.optionals stdenv.isLinux [ openssl ]
-    ++ lib.optionals stdenv.isDarwin [ CoreServices ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ CoreServices ];
 
   cargoBuildFlags = [
     "--package"

@@ -39,8 +39,7 @@ stdenv.mkDerivation rec {
     + (lib.optionalString stdenv.isDarwin ''
       substituteInPlace src/Makefile.in \
         --replace "gfortran -print-file-name=libgfortran.a" "gfortran -print-file-name=libgfortran.dylib"
-    '')
-  ;
+    '');
 
   enableParallelBuilding = false; # broken
 

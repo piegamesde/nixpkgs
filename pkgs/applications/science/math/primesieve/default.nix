@@ -38,8 +38,7 @@ stdenv.mkDerivation rec {
           abbradar
           AndersonTorres
         ]
-      )
-    ;
+      );
     platforms = platforms.unix;
   };
 }

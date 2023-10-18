@@ -135,8 +135,7 @@ stdenv.mkDerivation rec {
       fcitx5-gtk
     ]
     ++ lib.optionals enableFeatures.ibus [ ibus ]
-    ++ lib.optionals enableFeatures.uim [ uim ]
-  ;
+    ++ lib.optionals enableFeatures.uim [ uim ];
 
   #bad configure.ac and Makefile.in everywhere
   preConfigure = ''
@@ -169,8 +168,7 @@ stdenv.mkDerivation rec {
       "--with-gtk=${lib.versions.major gtk.version}.0"
     ]
     ++ (lib.mapAttrsToList (n: v: lib.enableFeature v n) enableFeatures)
-    ++ [ ]
-  ;
+    ++ [ ];
 
   enableParallelBuilding = true;
 
@@ -184,8 +182,7 @@ stdenv.mkDerivation rec {
       mkdir -p $out/Applications/
       cp -a cocoa/mlterm.app $out/Applications/
       install $out/bin/mlterm -Dt $out/Applications/mlterm.app/Contents/MacOS/
-    ''
-  ;
+    '';
 
   desktopItem = makeDesktopItem {
     name = "mlterm";

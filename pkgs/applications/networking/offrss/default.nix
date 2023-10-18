@@ -23,8 +23,7 @@ stdenv.mkDerivation rec {
       libmrss
     ]
     ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform) podofo
-    ++ lib.optional (!stdenv.isLinux) libiconv
-  ;
+    ++ lib.optional (!stdenv.isLinux) libiconv;
 
   # Workaround build failure on -fno-common toolchains:
   #   ld: serve_pdf.o:offrss.h:75: multiple definition of `cgi_url_path';
@@ -41,8 +40,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
       sed 's/^PDF/#PDF/' -i Makefile
-    ''
-  ;
+    '';
 
   src = fetchurl {
     url = "http://vicerveza.homeunix.net/~viric/soft/offrss/offrss-${version}.tar.gz";

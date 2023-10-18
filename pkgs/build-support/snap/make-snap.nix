@@ -44,8 +44,7 @@ let
             # execution environment's filesystem namespace.
             "/nix".bind = "$SNAP/nix";
           };
-        }
-      ;
+        };
     in
     writeText "snap.yaml" (builtins.toJSON (validate meta));
 

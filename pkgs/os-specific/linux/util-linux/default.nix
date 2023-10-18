@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
     "util-linux"
     +
       lib.optionalString (!nlsSupport && !ncursesSupport && !systemdSupport)
-        "-minimal"
-  ;
+        "-minimal";
   version = "2.38.1";
 
   src = fetchurl {
@@ -100,8 +99,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals pamSupport [ pam ]
     ++ lib.optionals capabilitiesSupport [ libcap_ng ]
     ++ lib.optionals ncursesSupport [ ncurses ]
-    ++ lib.optionals systemdSupport [ systemd ]
-  ;
+    ++ lib.optionals systemdSupport [ systemd ];
 
   doCheck = false; # "For development purpose only. Don't execute on production system!"
 

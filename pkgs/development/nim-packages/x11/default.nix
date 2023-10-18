@@ -24,6 +24,5 @@ buildNimPackage rec {
       description = "X11 library for nim";
       license = [ licenses.mit ];
       maintainers = [ maintainers.marcusramberg ];
-    }
-  ;
+    };
 }

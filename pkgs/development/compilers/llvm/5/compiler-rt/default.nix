@@ -68,8 +68,7 @@ stdenv.mkDerivation {
           # and finds i386;x86_64;x86_64h. We only build for x86_64, so linking fails
           # when it tries to use libc++ and libc++api for i386.
           "-DDARWIN_osx_ARCHS=${stdenv.hostPlatform.darwinArch}"
-        ]
-  ;
+        ];
 
   outputs = [
     "out"
@@ -104,8 +103,7 @@ stdenv.mkDerivation {
         --replace "#include <assert.h>" ""
       substituteInPlace lib/builtins/cpu_model.c \
         --replace "#include <assert.h>" ""
-    ''
-  ;
+    '';
 
   # Hack around weird upsream RPATH bug
   postInstall =
@@ -121,8 +119,7 @@ stdenv.mkDerivation {
     ''
     + lib.optionalString doFakeLibgcc ''
       ln -s $out/lib/freebsd/libclang_rt.builtins-*.a $out/lib/freebsd/libgcc.a
-    ''
-  ;
+    '';
 
   meta = llvm_meta // {
     homepage = "https://compiler-rt.llvm.org/";

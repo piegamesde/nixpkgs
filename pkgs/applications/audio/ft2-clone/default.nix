@@ -39,8 +39,7 @@ stdenv.mkDerivation rec {
       CoreMIDI
       CoreServices
       Cocoa
-    ]
-  ;
+    ];
 
   NIX_LDFLAGS = lib.optionalString stdenv.isDarwin [
     "-framework CoreAudio"

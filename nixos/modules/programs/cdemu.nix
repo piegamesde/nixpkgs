@@ -66,7 +66,6 @@ in
         pkgs.cdemu-client
       ]
       ++ optional cfg.gui pkgs.gcdemu
-      ++ optional cfg.image-analyzer pkgs.image-analyzer
-    ;
+      ++ optional cfg.image-analyzer pkgs.image-analyzer;
   };
 }

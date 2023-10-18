@@ -51,8 +51,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString stdenv.isDarwin ''
       mkdir -p $out/Applications
       mv wxsqliteplus.app $out/Applications/
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "A simple SQLite database browser built with wxWidgets";

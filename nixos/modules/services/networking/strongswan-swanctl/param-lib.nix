@@ -98,8 +98,7 @@ rec {
             if isAttrs value && cond value then
               { ${name} = recurse (path ++ [ name ]) value; }
             else
-              f (path ++ [ name ]) name value
-          ;
+              f (path ++ [ name ]) name value;
         in
         mapAttrs'' g set;
     in

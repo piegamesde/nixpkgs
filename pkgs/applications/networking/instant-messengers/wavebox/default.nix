@@ -59,8 +59,7 @@ stdenv.mkDerivation {
       alsa-lib
       gtk3
       nss
-    ]
-  ;
+    ];
 
   runtimeDependencies = [
     (lib.getLib udev)

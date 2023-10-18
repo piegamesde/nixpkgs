@@ -59,8 +59,7 @@ buildPythonPackage rec {
       "test_create_environment_venv_path"
       "test_create_environment_executable"
       "test_venv_and_pths"
-    ]
-  ;
+    ];
 
   meta = with lib; {
     description = "An autocompletion tool for Python that can be used for text editors";

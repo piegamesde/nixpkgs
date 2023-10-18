@@ -112,8 +112,7 @@ buildPythonApplication rec {
       dpkt
       dnslib
     ]
-    ++ lib.optional withXclip xclip
-  ;
+    ++ lib.optional withXclip xclip;
 
   nativeCheckInputs = [ git ];
 

@@ -47,8 +47,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString stdenv.hostPlatform.isDarwin ''
       substituteInPlace Makefile --replace "-flto" ""
-    ''
-  ;
+    '';
 
   makeFlags = [
     "SAIL=sail"

@@ -626,8 +626,7 @@ in
         after =
           [ "networking.target" ]
           ++ lib.optional (cfg.databaseUrl == "local") "postgresql.service"
-          ++ lib.optional (cfg.redisUrl == "local") "redis-outline.service"
-        ;
+          ++ lib.optional (cfg.redisUrl == "local") "redis-outline.service";
         requires =
           lib.optional (cfg.databaseUrl == "local") "postgresql.service"
           ++ lib.optional (cfg.redisUrl == "local") "redis-outline.service";
@@ -755,8 +754,7 @@ in
               }
               EOF
               export DATABASE_URL=${lib.escapeShellArg cfg.databaseUrl}
-            ''
-          }
+            ''}
 
           cd $RUNTIME_DIRECTORY
           ${sequelize}/bin/outline-sequelize db:migrate
@@ -811,8 +809,7 @@ in
           else
             ''
               export DATABASE_URL=${lib.escapeShellArg cfg.databaseUrl}
-            ''
-          }
+            ''}
 
           ${cfg.package}/bin/outline-server
         '';

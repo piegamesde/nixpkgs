@@ -20,8 +20,7 @@
     optLevels =
       lib.optionals stdenv.hostPlatform.avx2Support [ "avx2" ]
       ++ lib.optionals stdenv.hostPlatform.sse4_1Support [ "sse4" ]
-      ++ [ "generic" ]
-    ;
+      ++ [ "generic" ];
   in
   # Choose the maximum available optimization level
   builtins.head optLevels,
@@ -56,8 +55,7 @@ let
       ]
       ++ lib.optionals (!(cudaPackages ? cuda_profiler_api)) [
         cuda_nvprof # cuda_profiler_api.h
-      ]
-    ;
+      ];
   };
 in
 stdenv.mkDerivation {
@@ -86,8 +84,7 @@ stdenv.mkDerivation {
       pythonPackages.wheel
     ]
     ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ]
-    ++ lib.optionals cudaSupport [ cudaJoined ]
-  ;
+    ++ lib.optionals cudaSupport [ cudaJoined ];
 
   propagatedBuildInputs = lib.optionals pythonSupport [ pythonPackages.numpy ];
 
@@ -97,8 +94,7 @@ stdenv.mkDerivation {
       cudaPackages.cuda_nvcc
       addOpenGLRunpath
     ]
-    ++ lib.optionals pythonSupport [ pythonPackages.python ]
-  ;
+    ++ lib.optionals pythonSupport [ pythonPackages.python ];
 
   passthru.extra-requires.all = [ pythonPackages.numpy ];
 
@@ -126,8 +122,7 @@ stdenv.mkDerivation {
       make -j swigfaiss
       (cd faiss/python &&
        python -m pip wheel --verbose --no-index --no-deps --no-clean --no-build-isolation --wheel-dir dist .)
-    ''
-  ;
+    '';
 
   installPhase =
     ''
@@ -138,8 +133,7 @@ stdenv.mkDerivation {
     + lib.optionalString pythonSupport ''
       mkdir -p $out/${pythonPackages.python.sitePackages}
       (cd faiss/python && python -m pip install dist/*.whl --no-index --no-warn-script-location --prefix="$out" --no-cache)
-    ''
-  ;
+    '';
 
   fixupPhase = lib.optionalString (pythonSupport && cudaSupport) ''
     addOpenGLRunpath $out/${pythonPackages.python.sitePackages}/faiss/*.so

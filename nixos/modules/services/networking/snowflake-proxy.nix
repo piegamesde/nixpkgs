@@ -60,8 +60,7 @@ in
             ++ optional (cfg.capacity != null) "-capacity ${builtins.toString cfg.capacity}"
             ++ optional (cfg.relay != null) "-relay ${cfg.relay}"
             ++ optional (cfg.stun != null) "-stun ${cfg.stun}"
-          )
-        ;
+          );
 
         # Security Hardening
         # Refer to systemd.exec(5) for option descriptions.

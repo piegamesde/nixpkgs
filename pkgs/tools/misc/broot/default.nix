@@ -90,8 +90,7 @@ rustPlatform.buildRustPackage rec {
       # it is impure.
       wrapProgram $out/bin/broot \
         --set BR_INSTALL no
-    ''
-  ;
+    '';
 
   doInstallCheck = true;
   installCheckPhase = ''

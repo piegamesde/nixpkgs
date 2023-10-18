@@ -96,8 +96,7 @@ buildPythonApplication rec {
     ++ lib.optionals enableRedis [
       hiredis
       txredisapi
-    ]
-  ;
+    ];
 
   nativeCheckInputs = [
     mock

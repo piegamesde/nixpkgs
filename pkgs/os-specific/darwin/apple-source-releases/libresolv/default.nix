@@ -61,6 +61,5 @@ appleDerivation' (if headersOnly then stdenvNoCC else stdenv) {
 
       cp libresolv.9.dylib $out/lib
       ln -s libresolv.9.dylib $out/lib/libresolv.dylib
-    ''
-  ;
+    '';
 }

@@ -22,8 +22,7 @@ with rec {
     else if isAarch64 then
       [ "NEON" ]
     else
-      [ "NONE" ]
-  ;
+      [ "NONE" ];
 
   archFlags = lib.optionals stdenv.hostPlatform.isAarch64 [ "-DARCH=aarch64" ];
 

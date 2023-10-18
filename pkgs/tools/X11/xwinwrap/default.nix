@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
         make all32
       ''
     else
-      throw "xwinwrap is not supported on ${stdenv.hostPlatform.system}"
-  ;
+      throw "xwinwrap is not supported on ${stdenv.hostPlatform.system}";
 
   installPhase = ''
     mkdir -p $out/bin

@@ -30,8 +30,7 @@ stdenv.mkDerivation (
         ninja
         perl
       ]
-      ++ lib.optionals stdenv.isDarwin [ moveBuildTree ]
-    ;
+      ++ lib.optionals stdenv.isDarwin [ moveBuildTree ];
     propagatedBuildInputs = args.qtInputs ++ (args.propagatedBuildInputs or [ ]);
 
     moveToDev = false;
@@ -61,7 +60,6 @@ stdenv.mkDerivation (
         ];
         platforms = platforms.unix;
       }
-      // (args.meta or { })
-    ;
+      // (args.meta or { });
   }
 )

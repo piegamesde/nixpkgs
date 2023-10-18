@@ -20,8 +20,7 @@ buildPythonPackage rec {
     [ tkinter ]
     # we currently build SuperCollider only on Linux
     # but FoxDot is totally usable on macOS with the official SuperCollider binary
-    ++ lib.optionals stdenv.isLinux [ supercollider ]
-  ;
+    ++ lib.optionals stdenv.isLinux [ supercollider ];
 
   # Requires a running SuperCollider instance
   doCheck = false;

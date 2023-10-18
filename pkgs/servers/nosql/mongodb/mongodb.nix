@@ -70,8 +70,7 @@ let
 
         mozjsVersion = "60";
         mozjsReplace = "defined(HAVE___SINCOS)";
-      }
-  ;
+      };
 
   system-libraries = [
     "boost"
@@ -157,8 +156,7 @@ stdenv.mkDerivation rec {
       # don't fail by default on i686
       substituteInPlace src/mongo/db/storage/storage_options.h \
         --replace 'engine("wiredTiger")' 'engine("mmapv1")'
-    ''
-  ;
+    '';
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.cc.isClang
@@ -176,8 +174,7 @@ stdenv.mkDerivation rec {
       "VARIANT_DIR=nixos" # Needed so we don't produce argument lists that are too long for gcc / ld
     ]
     ++ lib.optionals (versionAtLeast version "4.4") [ "--link-model=static" ]
-    ++ map (lib: "--use-system-${lib}") system-libraries
-  ;
+    ++ map (lib: "--use-system-${lib}") system-libraries;
 
   preBuild =
     ''
@@ -186,8 +183,7 @@ stdenv.mkDerivation rec {
     ''
     + optionalString stdenv.isAarch64 ''
       sconsFlags+=" CCFLAGS='-march=armv8-a+crc'"
-    ''
-  ;
+    '';
 
   preInstall = ''
     mkdir -p "$out/lib"
@@ -210,8 +206,7 @@ stdenv.mkDerivation rec {
     else if (versionAtLeast version "4.4") then
       "install-core"
     else
-      "install"
-  ;
+      "install";
 
   prefixKey = if (versionAtLeast version "4.4") then "DESTDIR=" else "--prefix=";
 

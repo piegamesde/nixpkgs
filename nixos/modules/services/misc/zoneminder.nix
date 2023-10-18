@@ -381,8 +381,7 @@ in
                 SET Value = REGEXP_REPLACE(Value, "^/nix/store/[^-/]+-zoneminder-[^/]+", "${pkgs.zoneminder}")
                 WHERE Name = "ZM_FONT_FILE_LOCATION";
             EOF
-          ''
-        ;
+          '';
         serviceConfig = {
           User = user;
           Group = group;

@@ -48,8 +48,7 @@ optionalWarning (crowdProperties != null)
         ''
         + lib.optionalString withMysql ''
           cp -v ${mysql_jdbc}/share/java/*jar confluence/WEB-INF/lib/
-        ''
-      ;
+        '';
 
       installPhase = ''
         cp -rva . $out

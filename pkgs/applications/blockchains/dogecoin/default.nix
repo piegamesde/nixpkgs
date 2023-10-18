@@ -67,8 +67,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withUpnp [ miniupnpc ]
     ++ lib.optionals withWallet [ db5 ]
     ++ lib.optionals withZmq [ zeromq ]
-    ++ lib.optionals stdenv.isDarwin [ Cocoa ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 
   configureFlags =
     [
@@ -79,8 +78,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (!withUpnp) [ "--without-miniupnpc" ]
     ++ lib.optionals (!withUtils) [ "--without-utils" ]
     ++ lib.optionals (!withWallet) [ "--disable-wallet" ]
-    ++ lib.optionals (!withZmq) [ "--disable-zmq" ]
-  ;
+    ++ lib.optionals (!withZmq) [ "--disable-zmq" ];
 
   enableParallelBuilding = true;
 

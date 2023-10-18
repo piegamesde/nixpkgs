@@ -47,8 +47,7 @@ stdenv.mkDerivation (
         libX11
         libGL
       ]
-      ++ lib.optionals stdenv.isDarwin [ OpenGL ]
-    ;
+      ++ lib.optionals stdenv.isDarwin [ OpenGL ];
 
     configureFlags = [
       "--enable-ILU"
@@ -62,8 +61,7 @@ stdenv.mkDerivation (
       ''
       + lib.optionalString stdenv.cc.isClang ''
         sed -i 's/libIL_la_CXXFLAGS = $(AM_CFLAGS)/libIL_la_CXXFLAGS =/g' lib/Makefile.in
-      ''
-    ;
+      '';
 
     postConfigure = ''
       sed -i '/RESTRICT_KEYWORD/d' include/IL/config.h

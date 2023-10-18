@@ -64,8 +64,7 @@ stdenv.mkDerivation rec {
       cp ${
         if stdenv.hostPlatform.isMusl then ./musl-iconv-detect.h else ./iconv-detect.h
       } ./iconv-detect.h
-    ''
-  ;
+    '';
 
   nativeCheckInputs = [ gnupg ];
 

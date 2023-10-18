@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
       IOKit
     ]
     # acl relies on attr, which I can't get to build on darwin
-    ++ lib.optional (!stdenv.isDarwin) acl
-  ;
+    ++ lib.optional (!stdenv.isDarwin) acl;
 
   configureFlags =
     [

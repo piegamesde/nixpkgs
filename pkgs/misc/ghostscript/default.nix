@@ -115,8 +115,7 @@ stdenv.mkDerivation rec {
       xorg.libXext
       xorg.libXt
     ]
-    ++ lib.optional cupsSupport cups
-  ;
+    ++ lib.optional cupsSupport cups;
 
   preConfigure = ''
     # https://ghostscript.com/doc/current/Make.htm
@@ -142,8 +141,7 @@ stdenv.mkDerivation rec {
       "--disable-hidden-visibility"
     ]
     ++ lib.optional x11Support [ "--with-x" ]
-    ++ lib.optionals cupsSupport [ "--enable-cups" ]
-  ;
+    ++ lib.optionals cupsSupport [ "--enable-cups" ];
 
   # make check does nothing useful
   doCheck = false;
@@ -164,8 +162,7 @@ stdenv.mkDerivation rec {
       for file in $out/lib/*.dylib* ; do
         install_name_tool -id "$file" $file
       done
-    ''
-  ;
+    '';
 
   # dynamic library name only contains maj.min, eg. '9.53'
   dylib_version = lib.versions.majorMinor version;

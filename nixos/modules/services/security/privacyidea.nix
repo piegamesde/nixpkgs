@@ -67,8 +67,7 @@ let
     else if isString x && hasInfix "," x then
       ''"${x}"''
     else
-      x
-  ;
+      x;
 
   ldapProxyConfig = pkgs.writeText "ldap-proxy.ini" (
     generators.toINI { } (
@@ -312,8 +311,7 @@ in
         {
           assertion =
             cfg.tokenjanitor.enable
-            -> (cfg.tokenjanitor.orphaned || cfg.tokenjanitor.unassigned)
-          ;
+            -> (cfg.tokenjanitor.orphaned || cfg.tokenjanitor.unassigned);
           message = ''
             privacyidea-token-janitor has no effect if neither orphaned nor unassigned tokens
             are to be searched.
@@ -490,8 +488,7 @@ in
                   if cfg.ldap-proxy.settings != { } then
                     "%S/privacyidea-ldap-proxy/ldap-proxy.ini"
                   else
-                    cfg.ldap-proxy.configFile
-                ;
+                    cfg.ldap-proxy.configFile;
               in
               ''
                 ${ldap-proxy-env}/bin/twistd \

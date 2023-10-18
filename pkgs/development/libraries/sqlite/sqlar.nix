@@ -34,8 +34,7 @@ stdenv.mkDerivation {
     ''
     + lib.optionalString withFuse ''
       install -D -t $out/bin sqlarfs
-    ''
-  ;
+    '';
 
   meta = with lib; {
     homepage = "https://sqlite.org/sqlar";

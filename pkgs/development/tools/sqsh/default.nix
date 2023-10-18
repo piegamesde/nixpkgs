@@ -26,8 +26,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString stdenv.isDarwin ''
       substituteInPlace configure --replace "libct.so" "libct.dylib"
-    ''
-  ;
+    '';
 
   enableParallelBuilding = true;
 

@@ -45,8 +45,7 @@ stdenv.mkDerivation rec {
         for size in 16 32 64 128; do
           install -D src/icons/kristall-''${size}.png $out/share/icons/hicolor/''${size}x''${size}/apps/net.random-projects.kristall.png
         done
-      ''
-  ;
+      '';
 
   meta = with lib; {
     description = "Graphical small-internet client, supports gemini, http, https, gopher, finger";

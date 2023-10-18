@@ -96,8 +96,7 @@ stdenv.mkDerivation (
         nss
       ]
       ++ lib.optionals (qt5Support || qt6Support) [ qtbase ]
-      ++ lib.optionals introspectionSupport [ gobject-introspection ]
-    ;
+      ++ lib.optionals introspectionSupport [ gobject-introspection ];
 
     cmakeFlags = [
       (mkFlag true "UNSTABLE_API_ABI_HEADERS") # previously "XPDF_HEADERS"

@@ -54,8 +54,7 @@ mkDerivation {
     +
       lib.optionalString
         (pdfSupport && presentationSupport && vlcSupport && gstreamerSupport)
-        "-full"
-  ;
+        "-full";
   inherit (baseLib) version src;
 
   nativeBuildInputs = [

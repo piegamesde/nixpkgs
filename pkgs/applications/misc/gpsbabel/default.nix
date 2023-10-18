@@ -59,8 +59,7 @@ stdenv.mkDerivation rec {
 
       substituteInPlace xmldoc/gpsbabel_man.xml \
         --replace /usr/share/doc $doc/share/doc
-    ''
-  ;
+    '';
 
   outputs = [ "out" ] ++ lib.optional withDoc "doc";
 
@@ -81,8 +80,7 @@ stdenv.mkDerivation rec {
       libxml2
       libxslt
       perl
-    ]
-  ;
+    ];
 
   buildInputs =
     [
@@ -91,8 +89,7 @@ stdenv.mkDerivation rec {
       zlib
     ]
     ++ lib.optional withGUI qtserialport
-    ++ lib.optional (withGUI && withMapPreview) qtwebengine
-  ;
+    ++ lib.optional (withGUI && withMapPreview) qtwebengine;
 
   nativeCheckInputs = [
     libxml2
@@ -150,8 +147,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString withDoc ''
       install -Dm655 gpsbabel.{html,pdf} -t $doc/share/doc/gpsbabel
       cp -r html $doc/share/doc/gpsbabel
-    ''
-  ;
+    '';
 
   postFixup = lib.optionalString withGUI (
     if stdenv.isDarwin then

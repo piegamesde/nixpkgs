@@ -108,8 +108,7 @@ stdenv.mkDerivation rec {
         gst-plugins-ugly
         gst-libav
       ]
-    )
-  ;
+    );
 
   mesonFlags =
     [
@@ -117,8 +116,7 @@ stdenv.mkDerivation rec {
       "-Dps=enabled"
     ]
     ++ lib.optionals (!withLibsecret) [ "-Dkeyring=disabled" ]
-    ++ lib.optionals (!supportMultimedia) [ "-Dmultimedia=disabled" ]
-  ;
+    ++ lib.optionals (!supportMultimedia) [ "-Dmultimedia=disabled" ];
 
   env.NIX_CFLAGS_COMPILE = "-I${glib.dev}/include/gio-unix-2.0";
 

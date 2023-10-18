@@ -106,6 +106,5 @@ in
       # `lazyDerivation` caller knew a shortcut, be taken from there.
       meta = args.meta or checked.meta;
     }
-    // passthru
-  ;
+    // passthru;
 }

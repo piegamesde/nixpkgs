@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
         --replace '/usr/' '/nope/'
       substituteInPlace 3rdparty/dyncall/configure \
         --replace '`sw_vers -productVersion`' '"$MACOSX_DEPLOYMENT_TARGET"'
-    ''
-  ;
+    '';
 
   buildInputs =
     [ perl ]

@@ -59,8 +59,7 @@ mkDerivation rec {
         shiboken2
       ]
     )
-    ++ lib.optional waylandSupport wayland
-  ;
+    ++ lib.optional waylandSupport wayland;
 
   nativeBuildInputs = [
     cmake

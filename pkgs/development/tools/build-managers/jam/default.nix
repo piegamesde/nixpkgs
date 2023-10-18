@@ -70,8 +70,7 @@ let
           mainProgram = "jam";
           platforms = platforms.unix;
         }
-        // meta
-      ;
+        // meta;
     };
 in
 {
@@ -135,8 +134,7 @@ in
           (oldAttrs.postPatch or "")
           + ''
             substituteInPlace Jamfile --replace strip ${stdenv.cc.targetPrefix}strip
-          ''
-        ;
+          '';
 
         # Doesn't understand how to cross compile once bootstrapped, so we'll just
         # use the Makefile for the bootstrapping portion.

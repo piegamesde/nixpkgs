@@ -298,8 +298,7 @@ in
           "findutils locate does not support pruning by directory component"
       ++
         optional (isFindutils && cfg.pruneBindMounts)
-          "findutils locate does not support skipping bind mounts"
-    ;
+          "findutils locate does not support skipping bind mounts";
 
     systemd.services.update-locatedb = {
       description = "Update Locate Database";
@@ -336,8 +335,7 @@ in
                   "--localuser=${cfg.localuser}"
               } \
               --output=${toString cfg.output} ${concatStringsSep " " cfg.extraFlags}
-          ''
-      ;
+          '';
       environment = optionalAttrs (!isMorPLocate) {
         PRUNEFS = concatStringsSep " " cfg.pruneFS;
         PRUNEPATHS = concatStringsSep " " cfg.prunePaths;

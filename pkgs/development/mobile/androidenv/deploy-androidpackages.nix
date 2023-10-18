@@ -60,8 +60,7 @@ let
     else if !hasXmlAttrs && hasXmlValues then
       "<${tag}>${mkXmlValues xmlValues}</${tag}>"
     else
-      "<${tag}/>"
-  ;
+      "<${tag}/>";
   mkXmlPackage = package: ''
     <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
     <ns2:repository

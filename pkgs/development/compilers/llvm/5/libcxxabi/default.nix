@@ -32,8 +32,7 @@ stdenv.mkDerivation {
     ''
     + lib.optionalString stdenv.hostPlatform.isMusl ''
       patch -p1 -d $(ls -d libcxx-*) -i ${../../libcxx-0001-musl-hacks.patch}
-    ''
-  ;
+    '';
 
   patches = [ ./gnu-install-dirs.patch ];
 

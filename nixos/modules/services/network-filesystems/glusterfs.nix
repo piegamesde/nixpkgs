@@ -19,8 +19,7 @@ let
     else
       ''
         rm -f /var/lib/glusterd/secure-access
-      ''
-  ;
+      '';
 
   restartTriggers =
     if (cfg.tlsSettings != null) then
@@ -30,8 +29,7 @@ let
         config.environment.etc."ssl/glusterfs.ca".source
       ]
     else
-      [ ]
-  ;
+      [ ];
 
   cfg = config.services.glusterfs;
 in
@@ -200,8 +198,7 @@ in
         + ''
           mkdir -p /var/lib/glusterd/glusterfind/.keys
           mkdir -p /var/lib/glusterd/hooks/1/delete/post/
-        ''
-      ;
+        '';
 
       serviceConfig = {
         LimitNOFILE = 65536;

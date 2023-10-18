@@ -92,8 +92,7 @@ let
       vpc = "vhd";
       raw = "img";
     }
-      .${formatOpt} or formatOpt
-  ;
+      .${formatOpt} or formatOpt;
   rootFilename = "nixos.root${filenameSuffix}";
 
   # FIXME: merge with channel.nix / make-channel.nix.
@@ -256,8 +255,7 @@ let
           ) > $out
 
           nixpkgs-fmt $out
-        ''
-  ;
+        '';
 
   image =
     (pkgs.vmTools.override {
@@ -291,8 +289,7 @@ let
               else
                 ''
                   ${pkgs.qemu}/bin/qemu-img convert -f raw -O ${formatOpt} ${compress} $rootDiskImage $out/${rootFilename}
-                ''
-              }
+                ''}
               rootDiskImage=$out/${rootFilename}
               set -x
               ${postVM}

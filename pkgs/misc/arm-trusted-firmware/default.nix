@@ -103,8 +103,7 @@ let
               ];
             maintainers = with maintainers; [ lopsided98 ];
           }
-          // extraMeta
-        ;
+          // extraMeta;
       }
       // builtins.removeAttrs args [ "extraMeta" ]
     );

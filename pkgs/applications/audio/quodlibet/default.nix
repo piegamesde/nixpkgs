@@ -113,8 +113,7 @@ python3.pkgs.buildPythonApplication rec {
         gst-plugins-good
         gst-plugins-ugly
       ]
-    )
-  ;
+    );
 
   propagatedBuildInputs =
     with python3.pkgs;
@@ -130,8 +129,7 @@ python3.pkgs.buildPythonApplication rec {
     ++ lib.optionals withPyInotify [ pyinotify ]
     ++ lib.optionals withMusicBrainzNgs [ musicbrainzngs ]
     ++ lib.optionals withPahoMqtt [ paho-mqtt ]
-    ++ lib.optionals withSoco [ soco ]
-  ;
+    ++ lib.optionals withSoco [ soco ];
 
   LC_ALL = "en_US.UTF-8";
 

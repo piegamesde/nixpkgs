@@ -37,8 +37,7 @@ python3.pkgs.buildPythonPackage rec {
       yarl
       zstandard
     ]
-    ++ lib.optional enableSystemd systemd
-  ;
+    ++ lib.optional enableSystemd systemd;
 
   postPatch = ''
     # Drop version limiting so that every dependency update doesn't break this package.

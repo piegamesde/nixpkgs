@@ -58,8 +58,7 @@ let
       ARCH_WANTS_LITTLE_ENDIAN y
       ARCH_LITTLE_ENDIAN y
       UCLIBC_HAS_FPU n
-    ''
-  ;
+    '';
 in
 stdenv.mkDerivation rec {
   pname = "uclibc-ng";

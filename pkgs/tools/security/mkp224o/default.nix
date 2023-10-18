@@ -47,8 +47,7 @@ stdenv.mkDerivation rec {
             suffix = "amd64-64-24k";
             configureFlags = [ "--enable-amd64-64-24k" ];
           }
-        ]
-      ;
+        ];
     in
     lib.concatMapStrings
       (

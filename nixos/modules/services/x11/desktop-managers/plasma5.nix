@@ -35,8 +35,7 @@ let
     // {
       description = "KDE Configuration file";
       emptyValue.value = { };
-    }
-  ;
+    };
 
   libsForQt5 = pkgs.plasma5Packages;
   inherit (libsForQt5) kdeGear kdeFrameworks plasma5;
@@ -389,8 +388,7 @@ in
           pkgs.samba
         ]
         ++ lib.optional config.services.xserver.wacom.enable pkgs.wacomtablet
-        ++ lib.optional config.services.flatpak.enable flatpak-kcm
-      ;
+        ++ lib.optional config.services.flatpak.enable flatpak-kcm;
 
       # Extra services for D-Bus activation
       services.dbus.packages = [ plasma5.kactivitymanagerd ];
@@ -548,8 +546,7 @@ in
         requiredPackages
         ++
           utils.removePackagesByName optionalPackages
-            config.environment.plasma5.excludePackages
-      ;
+            config.environment.plasma5.excludePackages;
 
       systemd.user.services = {
         plasma-run-with-systemd = {
@@ -585,8 +582,7 @@ in
           # The user interface breaks without pulse
           assertion =
             config.hardware.pulseaudio.enable
-            || (config.services.pipewire.enable && config.services.pipewire.pulse.enable)
-          ;
+            || (config.services.pipewire.enable && config.services.pipewire.pulse.enable);
           message = "Plasma Mobile requires pulseaudio.";
         }
       ];
@@ -623,8 +619,7 @@ in
             plasma-settings
             spacebar
           ]
-        )
-      ;
+        );
 
       # The following services are needed or the UI is broken.
       hardware.bluetooth.enable = true;

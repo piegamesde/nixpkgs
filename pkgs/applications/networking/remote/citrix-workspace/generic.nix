@@ -150,8 +150,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional (lib.versionOlder version "20.04") e2fsprogs
     ++ lib.optional (lib.versionAtLeast version "20.10") libpulseaudio
-    ++ lib.optional (lib.versionAtLeast version "21.12") llvmPackages_12.libunwind
-  ;
+    ++ lib.optional (lib.versionAtLeast version "21.12") llvmPackages_12.libunwind;
 
   runtimeDependencies = [
     glib
@@ -182,8 +181,7 @@ stdenv.mkDerivation rec {
         then
           null
         else
-          "-icaroot"
-      ;
+          "-icaroot";
       wrap = program: ''
         wrapProgram $out/opt/citrix-icaclient/${program} \
           ${

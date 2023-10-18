@@ -128,8 +128,7 @@ let
         ''}
 
         ${cfg.extraConfig}
-      ''
-  ;
+      '';
 in
 
 {

@@ -82,8 +82,7 @@ stdenv.mkDerivation rec {
         gst-plugins-bad
         libnice
       ]
-    )
-  ;
+    );
 
   cmakeFlags = [
     "-DCOMPILE_QML=ON" # see https://github.com/Nheko-Reborn/nheko/issues/389

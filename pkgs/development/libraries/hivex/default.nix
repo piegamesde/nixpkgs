@@ -49,8 +49,7 @@ stdenv.mkDerivation rec {
         IOStringy
       ]
     )
-    ++ lib.optionals stdenv.isDarwin [ libintl ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ libintl ];
 
   enableParallelBuilding = true;
 

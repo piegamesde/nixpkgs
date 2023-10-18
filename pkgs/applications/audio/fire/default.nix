@@ -110,8 +110,7 @@ stdenv.mkDerivation rec {
     + ''
 
       runHook postInstall
-    ''
-  ;
+    '';
 
   # Fails to find fp.h on its own
   env.NIX_CFLAGS_COMPILE =

@@ -33,8 +33,7 @@ stdenv.mkDerivation (
       lib.optionalString (conf != null) "cp ${finalAttrs.configFile} config.def.h"
       + lib.optionalString stdenv.isDarwin ''
         substituteInPlace config.mk --replace "-lrt" ""
-      ''
-    ;
+      '';
 
     strictDeps = true;
 

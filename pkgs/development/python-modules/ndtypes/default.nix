@@ -32,8 +32,7 @@ buildPythonPackage {
     ''
     + lib.optionalString stdenv.isDarwin ''
       install_name_tool -add_rpath ${libndtypes}/lib $out/${python.sitePackages}/ndtypes/_ndtypes.*.so
-    ''
-  ;
+    '';
 
   checkPhase = ''
     pushd python

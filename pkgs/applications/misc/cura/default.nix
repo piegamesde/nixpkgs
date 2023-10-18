@@ -48,8 +48,7 @@ mkDerivation rec {
       trimesh
       keyring
     ]
-    ++ plugins
-  ;
+    ++ plugins;
   nativeBuildInputs = [
     cmake
     python3.pkgs.wrapPython

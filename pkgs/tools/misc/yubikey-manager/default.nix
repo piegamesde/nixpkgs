@@ -47,8 +47,7 @@ python3Packages.buildPythonPackage rec {
       libu2f-host
       libusb1
       yubikey-personalization
-    ]
-  ;
+    ];
 
   makeWrapperArgs = [
     "--prefix"

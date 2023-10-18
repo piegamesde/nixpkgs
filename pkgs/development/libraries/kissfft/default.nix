@@ -47,8 +47,7 @@ stdenv.mkDerivation rec {
       # Don't know how to make math.h's double long constants available
       substituteInPlace test/testcpp.cc \
         --replace "M_PIl" "M_PI"
-    ''
-  ;
+    '';
 
   makeFlags = [
     "PREFIX=${placeholder "out"}"
@@ -61,8 +60,7 @@ stdenv.mkDerivation rec {
   buildInputs =
     lib.optionals (withTools && datatype != "simd") [ libpng ]
     # TODO: This may mismatch the LLVM version in the stdenv, see #79818.
-    ++ lib.optional (enableOpenmp && stdenv.cc.isClang) llvmPackages.openmp
-  ;
+    ++ lib.optional (enableOpenmp && stdenv.cc.isClang) llvmPackages.openmp;
 
   doCheck = true;
 

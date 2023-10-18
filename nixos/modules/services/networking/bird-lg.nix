@@ -54,8 +54,7 @@ let
     else if isBool value then
       boolToString value
     else
-      toString value
-  ;
+      toString value;
 
   filterNull = filterAttrs (_: v: v != "" && v != null && v != [ ]);
 

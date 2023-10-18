@@ -42,8 +42,7 @@ let
         sqlite
         webkitgtk
       ]
-      + ":${libmysqlclient}/lib/mysql"
-    ;
+      + ":${libmysqlclient}/lib/mysql";
   };
 in
 stdenv.mkDerivation self

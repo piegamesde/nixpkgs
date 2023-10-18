@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       CoreFoundation
       Security
-    ]
-  ;
+    ];
 
   meta = {
     description = "Platform-independent Qt API for storing passwords securely";

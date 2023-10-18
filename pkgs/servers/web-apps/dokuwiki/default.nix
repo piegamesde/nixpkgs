@@ -98,8 +98,7 @@ stdenv.mkDerivation rec {
               ${isNotEmpty pluginsConfig
                 "ln -sf ${pluginsConfig} $out/share/dokuwiki/conf/plugins.local.php"}
               ${isNotEmpty aclConfig "ln -sf ${aclConfig} $out/share/dokuwiki/acl.auth.php"}
-            ''
-          ;
+            '';
         }
       );
     tests = {

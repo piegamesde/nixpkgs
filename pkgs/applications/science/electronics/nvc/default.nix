@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
       zlib
     ]
     ++ lib.optionals stdenv.isLinux [ elfutils ]
-    ++ lib.optionals (!stdenv.isLinux) [ libelf ]
-  ;
+    ++ lib.optionals (!stdenv.isLinux) [ libelf ];
 
   preConfigure = ''
     mkdir build

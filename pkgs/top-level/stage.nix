@@ -60,6 +60,7 @@
     && stdenv.buildPlatform.system != "i686-freebsd"
     && stdenv.buildPlatform.system != "x86_64-solaris"
     && stdenv.buildPlatform.system != "x86_64-kfreebsd-gnu"
+
   ,
   # The configuration attribute set
   config
@@ -133,8 +134,7 @@ let
         (if adjacentPackages == null then self else thisPkgs)
         // {
           recurseForDerivations = false;
-        }
-      ;
+        };
     in
     {
       # Here are package sets of from related stages. They are all in the form
@@ -249,12 +249,11 @@ let
             else
               "crossSystem"
           } = {
-              parsed = makeMuslParsedPlatform stdenv.hostPlatform.parsed;
-            };
+            parsed = makeMuslParsedPlatform stdenv.hostPlatform.parsed;
+          };
         }
       else
-        throw "Musl libc only supports 64-bit Linux systems."
-    ;
+        throw "Musl libc only supports 64-bit Linux systems.";
 
     # All packages built for i686 Linux.
     # Used by wine, firefox with debugging version of Flash, ...
@@ -268,14 +267,13 @@ let
             else
               "crossSystem"
           } = {
-              parsed = stdenv.hostPlatform.parsed // {
-                cpu = lib.systems.parse.cpuTypes.i686;
-              };
+            parsed = stdenv.hostPlatform.parsed // {
+              cpu = lib.systems.parse.cpuTypes.i686;
             };
+          };
         }
       else
-        throw "i686 Linux package set can only be used with the x86 family."
-    ;
+        throw "i686 Linux package set can only be used with the x86 family.";
 
     # x86_64-darwin packages for aarch64-darwin users to use with Rosetta for incompatible packages
     pkgsx86_64Darwin =
@@ -289,8 +287,7 @@ let
           };
         }
       else
-        throw "x86_64 Darwin package set can only be used on Darwin systems."
-    ;
+        throw "x86_64 Darwin package set can only be used on Darwin systems.";
 
     # Extend the package set with zero or more overlays. This preserves
     # preexisting overlays. Prefer to initialize with the right overlays
@@ -300,8 +297,7 @@ let
       if extraOverlays == [ ] then
         self
       else
-        nixpkgsFun { overlays = args.overlays ++ extraOverlays; }
-    ;
+        nixpkgsFun { overlays = args.overlays ++ extraOverlays; };
 
     # NOTE: each call to extend causes a full nixpkgs rebuild, adding ~130MB
     #       of allocations. DO NOT USE THIS IN NIXPKGS.

@@ -42,8 +42,7 @@ rustPlatform.buildRustPackage rec {
       IOKit
       CoreFoundation
       AppKit
-    ]
-  ;
+    ];
 
   postInstall = ''
     install -D 70-solo2.rules $out/lib/udev/rules.d/70-solo2.rules

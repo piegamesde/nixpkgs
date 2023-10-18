@@ -138,6 +138,5 @@ server
 
       # NOTE: updateScript relies on this being correct
       position = toString ./default.nix + ":1";
-    }
-  ;
+    };
 }

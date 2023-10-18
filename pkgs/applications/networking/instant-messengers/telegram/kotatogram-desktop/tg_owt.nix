@@ -122,8 +122,7 @@ stdenv.mkDerivation {
       MetalKit
       CoreFoundation
       ApplicationServices
-    ]
-  ;
+    ];
 
   enableParallelBuilding = true;
 

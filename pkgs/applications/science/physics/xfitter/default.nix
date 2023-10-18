@@ -66,8 +66,7 @@ stdenv.mkDerivation rec {
       memorymappingHook
       memstreamHook
     ]
-    ++ lib.optional (stdenv.hostPlatform.libc == "glibc") libtirpc
-  ;
+    ++ lib.optional (stdenv.hostPlatform.libc == "glibc") libtirpc;
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString (stdenv.hostPlatform.libc == "glibc")

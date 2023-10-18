@@ -83,8 +83,7 @@ let
       xorgproto
       zlib
     ])
-    ++ extraLibraries
-  ;
+    ++ extraLibraries;
 
   # Tools used by the Flutter SDK to compile applications.
   buildTools = lib.optionals supportsLinuxDesktop [
@@ -103,8 +102,7 @@ let
   );
   linkerFlags =
     (map (pkg: "-rpath,${lib.getOutput "lib" pkg}/lib") appRuntimeDeps)
-    ++ extraLinkerFlags
-  ;
+    ++ extraLinkerFlags;
 in
 (callPackage ./sdk-symlink.nix { }) (
   runCommandLocal "flutter-wrapped"

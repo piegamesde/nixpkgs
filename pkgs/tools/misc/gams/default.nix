@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString (optgamsFile != null) ''
       cp ${optgamsFile} $out/share/gams/optgams.def
       ln -s $out/share/gams/optgams.def $out/bin/optgams.def
-    ''
-  ;
+    '';
 
   postFixup = ''
     for f in $out/share/gams/*; do

@@ -149,8 +149,7 @@ rec {
             ++ lib.optional withLvm lvm2
             ++ lib.optional withBtrfs btrfs-progs
             ++ lib.optional withSystemd systemd
-            ++ lib.optional withSeccomp libseccomp
-          ;
+            ++ lib.optional withSeccomp libseccomp;
 
           extraPath = lib.optionals stdenv.isLinux (
             lib.makeBinPath [
@@ -227,8 +226,7 @@ rec {
             lib.optional withSystemd "journald"
             ++ lib.optional (!withBtrfs) "exclude_graphdriver_btrfs"
             ++ lib.optional (!withLvm) "exclude_graphdriver_devicemapper"
-            ++ lib.optional withSeccomp "seccomp"
-          ;
+            ++ lib.optional withSeccomp "seccomp";
         }
       );
 
@@ -279,8 +277,7 @@ rec {
           ++ lib.optional withBtrfs btrfs-progs
           ++ lib.optional withSystemd systemd
           ++ lib.optional withSeccomp libseccomp
-          ++ plugins
-        ;
+          ++ plugins;
 
         postPatch =
           ''
@@ -290,8 +287,7 @@ rec {
           + lib.optionalString (plugins != [ ]) ''
             substituteInPlace ./cli-plugins/manager/manager_unix.go --replace /usr/libexec/docker/cli-plugins \
                 "${pluginsRef}/libexec/docker/cli-plugins"
-          ''
-        ;
+          '';
 
         # Keep eyes on BUILDTIME format - https://github.com/docker/cli/blob/${version}/scripts/build/.variables
         buildPhase = ''
@@ -353,8 +349,7 @@ rec {
             ./man/md2man-all.sh -q
 
             installManPage man/*/*.[1-9]
-          ''
-        ;
+          '';
 
         passthru = {
           # Exposed for tarsum build on non-linux systems (build-support/docker/default.nix)

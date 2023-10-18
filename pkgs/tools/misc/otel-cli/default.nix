@@ -30,8 +30,7 @@ buildGoModule rec {
         --replace 'const minimumPath = `/bin:/usr/bin`' 'const minimumPath = `${
           lib.makeBinPath [ getent ]
         }`'
-    ''
-  ;
+    '';
 
   passthru.updateScript = nix-update-script { };
 

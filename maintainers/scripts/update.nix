@@ -37,8 +37,7 @@ let
         x = lib.head list;
         xs = lib.filter (p: f x != f p) (lib.drop 1 list);
       in
-      [ x ] ++ nubOn f xs
-  ;
+      [ x ] ++ nubOn f xs;
 
   /* Recursively find all packages (derivations) in `pkgs` matching `cond` predicate.
 
@@ -95,8 +94,7 @@ let
           else
             [ ]
         else
-          [ ]
-      ;
+          [ ];
     in
     packagesWithPathInner rootPath pkgs;
 
@@ -117,8 +115,7 @@ let
           builtins.throw
             "Maintainer with name `${maintainer'} does not exist in `maintainers/maintainer-list.nix`."
         else
-          builtins.getAttr maintainer' lib.maintainers
-      ;
+          builtins.getAttr maintainer' lib.maintainers;
     in
     packagesWithUpdateScriptMatchingPredicate (
       path: pkg:
@@ -146,8 +143,7 @@ let
       builtins.throw "Attribute path `${path}` does not exist."
     else
       packagesWithPath prefix (path: pkg: builtins.hasAttr "updateScript" pkg)
-        pathContent
-  ;
+        pathContent;
 
   # Find a package under `path` in `pkgs` and require that it has an updateScript.
   packageByName =
@@ -164,8 +160,7 @@ let
       {
         attrPath = path;
         inherit package;
-      }
-  ;
+      };
 
   # List of packages matched based on the CLI arguments.
   packages =
@@ -181,8 +176,7 @@ let
       builtins.throw ''
         No arguments provided.
 
-        ${helpText}''
-  ;
+        ${helpText}'';
 
   helpText = ''
     Please run:
@@ -242,8 +236,7 @@ let
   optionalArgs =
     lib.optional (max-workers != null) "--max-workers=${max-workers}"
     ++ lib.optional (keep-going == "true") "--keep-going"
-    ++ lib.optional (commit == "true") "--commit"
-  ;
+    ++ lib.optional (commit == "true") "--commit";
 
   args = [ packagesJson ] ++ optionalArgs;
 in

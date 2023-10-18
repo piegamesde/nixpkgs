@@ -380,8 +380,7 @@ let
     // import ./cran-packages.nix {
       inherit self;
       derive = deriveCran;
-    }
-  ;
+    };
 
   # tweaks for the individual packages and "in self" follow
 
@@ -1781,8 +1780,7 @@ let
         propagatedBuildInputs =
           with pkgs;
           attrs.propagatedBuildInputs
-          ++ [ (hdf5-blosc.override { hdf5 = self.Rhdf5lib.hdf5; }) ]
-        ;
+          ++ [ (hdf5-blosc.override { hdf5 = self.Rhdf5lib.hdf5; }) ];
         patches = [ ./patches/rhdf5filters.patch ];
       }
     );

@@ -41,8 +41,7 @@ in
         if (lib.versionAtLeast (lib.getVersion cfg.unifiPackage) "7.3") then
           pkgs.jdk11
         else
-          pkgs.jre8
-      ;
+          pkgs.jre8;
       defaultText =
         literalExpression
           ''

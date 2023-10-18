@@ -109,8 +109,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional withHiredis hiredis
     ++ lib.optional withMaxminddb libmaxminddb
     ++ lib.optional withMysql libmysqlclient
-    ++ lib.optional withSystemd systemd
-  ;
+    ++ lib.optional withSystemd systemd;
 
   configureFlags = with lib; [
     "--sysconfdir=/etc"

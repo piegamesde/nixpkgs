@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
       "-DSKIP_TESTS=${lib.boolToString (!doCheck)}"
     ]
     # Disable idn usage w/musl (https://github.com/iputils/iputils/pull/111):
-    ++ lib.optional stdenv.hostPlatform.isMusl "-DUSE_IDN=false"
-  ;
+    ++ lib.optional stdenv.hostPlatform.isMusl "-DUSE_IDN=false";
 
   nativeBuildInputs = [
     meson

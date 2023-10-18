@@ -70,8 +70,7 @@ py.pkgs.buildPythonApplication rec {
       requests
       tzdata
     ]
-    ++ plugins py.pkgs
-  ;
+    ++ plugins py.pkgs;
 
   buildPhase = ''
     runHook preBuild

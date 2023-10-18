@@ -172,8 +172,7 @@ buildFHSEnv {
     ++ qt5Deps pkgs
     ++ gnomeDeps pkgs
     ++ lib.optional steamSupport pkgs.steam
-    ++ extraPkgs pkgs
-  ;
+    ++ extraPkgs pkgs;
 
   multiPkgs =
     pkgs:
@@ -267,8 +266,7 @@ buildFHSEnv {
       fribidi
     ]
     ++ xorgDeps pkgs
-    ++ extraLibraries pkgs
-  ;
+    ++ extraLibraries pkgs;
 
   extraInstallCommands = ''
     mkdir -p $out/share

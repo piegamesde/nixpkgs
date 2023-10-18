@@ -35,8 +35,7 @@ import ./make-test-python.nix (
           prev.installPhase or ""
           + ''
             ln -sf ${acronymsFile} $out/share/dokuwiki/conf/acronyms.local.conf
-          ''
-        ;
+          '';
       }
     );
 

@@ -92,8 +92,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals doCheck [
       "-DLLDB_TEST_C_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc"
       "-DLLDB_TEST_CXX_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}c++"
-    ]
-  ;
+    ];
 
   doCheck = false;
 

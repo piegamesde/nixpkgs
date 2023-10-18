@@ -48,8 +48,7 @@ stdenv.mkDerivation rec {
         " -I/opt/local/include -I /usr/local/include -I/opt/local/include" ""
       substituteInPlace Makefile.mac --replace \
         "/usr/local/Cellar/ncurses/6.2/lib/libncurses.dylib" "${ncurses.out}/lib/libncurses.dylib"
-    ''
-  ;
+    '';
 
   buildPhase = lib.optionalString stdenv.isDarwin "make -f Makefile.mac";
   buildInputs = [

@@ -69,8 +69,7 @@ stdenv.mkDerivation rec {
       libpsm2
       libfabric
     ]
-    ++ optional useSlurm slurm
-  ;
+    ++ optional useSlurm slurm;
 
   configureFlags =
     with lib;
@@ -92,8 +91,7 @@ stdenv.mkDerivation rec {
     ++ optionals (network == "omnipath") [
       "--with-device=ch3:psm"
       "--with-psm2=${libpsm2}"
-    ]
-  ;
+    ];
 
   doCheck = true;
 

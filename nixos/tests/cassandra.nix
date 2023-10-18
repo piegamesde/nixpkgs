@@ -157,8 +157,7 @@ import ./make-test-python.nix (
             cass0.wait_until_succeeds(
                 "nodetool status -p ${jmxPortStr} --resolve-ip | egrep '^UN[[:space:]]+cass2'"
             )
-      ''
-    ;
+      '';
 
     passthru = {
       inherit testPackage;

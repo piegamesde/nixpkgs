@@ -77,8 +77,7 @@ python.pkgs.buildPythonApplication rec {
       requests
       types-setuptools
     ]
-    ++ requests.optional-dependencies.socks
-  ;
+    ++ requests.optional-dependencies.socks;
 
   doCheck = false;
 

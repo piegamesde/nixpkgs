@@ -71,8 +71,7 @@ disabledIf (pythonAtLeast "3.11") (
           # libxcrypt is required for crypt.h for building older python modules
           libxcrypt
         ]
-      )
-    ;
+      );
 
     propagatedBuildInputs = [ shiboken2 ];
 

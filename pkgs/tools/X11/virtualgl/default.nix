@@ -20,8 +20,7 @@ stdenv.mkDerivation {
     ''
     + lib.optionalString (virtualglLib_i686 != null) ''
       ln -sf ${virtualglLib_i686}/bin/.vglrun.vars32 $out/bin
-    ''
-  ;
+    '';
 
   meta = {
     platforms = lib.platforms.linux;

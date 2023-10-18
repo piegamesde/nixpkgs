@@ -83,8 +83,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString stdenv.isLinux ''
       substituteInPlace $out/share/applications/scrcpy-console.desktop \
         --replace "/bin/bash" "${runtimeShell}"
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "Display and control Android devices over USB or TCP/IP";

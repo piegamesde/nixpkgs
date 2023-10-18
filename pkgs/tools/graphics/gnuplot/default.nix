@@ -36,8 +36,7 @@
 }:
 
 assert libX11 != null
-  -> (fontconfig != null && gnused != null && coreutils != null)
-;
+  -> (fontconfig != null && gnused != null && coreutils != null);
 let
   withX = libX11 != null && !aquaterm && !stdenv.isDarwin;
 in
@@ -81,8 +80,7 @@ in
       qtsvg
     ]
     ++ lib.optional withWxGTK wxGTK32
-    ++ lib.optional (withWxGTK && stdenv.isDarwin) Cocoa
-  ;
+    ++ lib.optional (withWxGTK && stdenv.isDarwin) Cocoa;
 
   postPatch = ''
     # lrelease is in qttools, not in qtbase.

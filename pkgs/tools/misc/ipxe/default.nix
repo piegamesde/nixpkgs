@@ -40,8 +40,7 @@ let
       "bin-arm64-efi/ipxe.efi" = null;
       "bin-arm64-efi/ipxe.efirom" = null;
       "bin-arm64-efi/ipxe.usb" = "ipxe-efi.usb";
-    }
-  ;
+    };
 in
 
 stdenv.mkDerivation rec {
@@ -105,8 +104,7 @@ stdenv.mkDerivation rec {
     ''
     + ''
       runHook postConfigure
-    ''
-  ;
+    '';
 
   preBuild = "cd src";
 

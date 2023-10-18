@@ -33,8 +33,7 @@ stdenv.mkDerivation rec {
       python3
     ]
     ++ lib.optionals (with stdenv; isLinux || isDarwin) [ fuse ]
-    ++ lib.optionals stdenv.isDarwin [ libiconv ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ libiconv ];
 
   meta = {
     homepage = "http://afflib.sourceforge.net/";

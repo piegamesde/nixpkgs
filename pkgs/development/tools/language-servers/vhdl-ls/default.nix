@@ -28,8 +28,7 @@ rustPlatform.buildRustPackage rec {
     + ''
       substituteInPlace vhdl_lang/src/config.rs \
         --replace /usr/lib $out/lib
-    ''
-  ;
+    '';
 
   postInstall = ''
     mkdir -p $out/lib/rust_hdl

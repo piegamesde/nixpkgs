@@ -38,8 +38,7 @@ rustPlatform.buildRustPackage rec {
         Security
         SystemConfiguration
       ]
-    ))
-  ;
+    ));
 
   buildFeatures = lib.optional gitImportSupport "git";
 

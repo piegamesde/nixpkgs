@@ -32,8 +32,7 @@ let
         if al_portOnly == null then
           "'${head al}${elemAt al 2}'"
         else
-          "{'::', '0.0.0.0'}"
-      ;
+          "{'::', '0.0.0.0'}";
     in
     # freebind is set for compatibility with earlier kresd services;
     # it could be configurable, for example.
@@ -201,8 +200,7 @@ in
     systemd.services."kresd@".serviceConfig = {
       ExecStart =
         "${cfg.package}/bin/kresd --noninteractive "
-        + "-c ${cfg.package}/lib/knot-resolver/distro-preconfig.lua -c ${configFile}"
-      ;
+        + "-c ${cfg.package}/lib/knot-resolver/distro-preconfig.lua -c ${configFile}";
       # Ensure /run/knot-resolver exists
       RuntimeDirectory = "knot-resolver";
       RuntimeDirectoryMode = "0770";

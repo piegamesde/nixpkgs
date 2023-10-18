@@ -50,8 +50,7 @@ in
         {
           assertion =
             (cfg.provision.group == defaultPrvGroup)
-            || (hasAttr cfg.provision.group config.users.groups)
-          ;
+            || (hasAttr cfg.provision.group config.users.groups);
           message = "Given group does not exist";
         }
       ];

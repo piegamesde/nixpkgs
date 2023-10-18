@@ -57,8 +57,7 @@ stdenv.mkDerivation rec {
       CoreServices
       AudioUnit
       AudioToolbox
-    ]
-  ;
+    ];
 
   cmakeFlags =
     [

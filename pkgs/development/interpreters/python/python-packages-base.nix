@@ -53,8 +53,7 @@ let
         __functor = self: result;
       }
     else
-      result
-  ;
+      result;
 
   buildPythonPackage = makeOverridablePythonPackage (
     lib.makeOverridable (

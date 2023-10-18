@@ -45,8 +45,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withSssd [
       "--with-sssd"
       "--with-sssd-lib=${sssd}/lib"
-    ]
-  ;
+    ];
 
   configureFlagsArray = [
     "--with-passprompt=[sudo] password for %p: " # intentional trailing space

@@ -34,8 +34,7 @@ stdenv.mkDerivation rec {
       # Fix warning about implicit declaration of function 'strlcpy'
       substituteInPlace aucatctl.c \
         --replace '#include <string.h>' '#include <bsd/string.h>'
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "The aucatctl utility sends MIDI messages to control sndiod and/or aucat volumes";

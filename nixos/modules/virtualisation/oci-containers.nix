@@ -252,8 +252,7 @@ let
         ]
         # if imageFile is not set, the service needs the network to download the image from the registry
         ++ lib.optionals (container.imageFile == null) [ "network-online.target" ]
-        ++ dependsOn
-      ;
+        ++ dependsOn;
       requires = dependsOn;
       environment = proxy_env;
 
@@ -263,8 +262,7 @@ let
         else if cfg.backend == "podman" then
           [ config.virtualisation.podman.package ]
         else
-          throw "Unhandled backend: ${cfg.backend}"
-      ;
+          throw "Unhandled backend: ${cfg.backend}";
 
       preStart = ''
         ${cfg.backend} rm -f ${name} || true
@@ -317,14 +315,12 @@ let
         if cfg.backend == "podman" then
           "[ $SERVICE_RESULT = success ] || podman stop --ignore --cidfile=/run/podman-${escapedName}.ctr-id"
         else
-          "[ $SERVICE_RESULT = success ] || ${cfg.backend} stop ${name}"
-      ;
+          "[ $SERVICE_RESULT = success ] || ${cfg.backend} stop ${name}";
       postStop =
         if cfg.backend == "podman" then
           "podman rm -f --ignore --cidfile=/run/podman-${escapedName}.ctr-id"
         else
-          "${cfg.backend} rm -f ${name} || true"
-      ;
+          "${cfg.backend} rm -f ${name} || true";
 
       serviceConfig =
         {
@@ -390,8 +386,7 @@ in
         if versionAtLeast config.system.stateVersion "22.05" then
           "podman"
         else
-          "docker"
-      ;
+          "docker";
       description = lib.mdDoc "The underlying Docker implementation to use.";
     };
 

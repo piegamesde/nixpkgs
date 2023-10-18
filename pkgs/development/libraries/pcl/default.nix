@@ -57,8 +57,7 @@ stdenv.mkDerivation rec {
       Cocoa
       AGL
     ]
-    ++ lib.optionals withCuda [ cudatoolkit ]
-  ;
+    ++ lib.optionals withCuda [ cudatoolkit ];
 
   propagatedBuildInputs = [
     boost

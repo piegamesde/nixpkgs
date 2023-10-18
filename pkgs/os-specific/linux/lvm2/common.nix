@@ -33,8 +33,7 @@ stdenv.mkDerivation rec {
   pname =
     "lvm2"
     + lib.optionalString enableDmeventd "-with-dmeventd"
-    + lib.optionalString enableVDO "-with-vdo"
-  ;
+    + lib.optionalString enableVDO "-with-vdo";
   inherit version;
 
   src = fetchurl {
@@ -50,8 +49,7 @@ stdenv.mkDerivation rec {
     [ libaio ]
     ++ lib.optionals udevSupport [ udev ]
     ++ lib.optionals (!onlyLib) [ libuuid ]
-    ++ lib.optionals enableVDO [ vdo ]
-  ;
+    ++ lib.optionals enableVDO [ vdo ];
 
   configureFlags =
     [
@@ -83,8 +81,7 @@ stdenv.mkDerivation rec {
       "--enable-udev_sync"
     ]
     ++ lib.optionals enableVDO [ "--enable-vdo" ]
-    ++ lib.optionals stdenv.hostPlatform.isStatic [ "--enable-static_link" ]
-  ;
+    ++ lib.optionals stdenv.hostPlatform.isStatic [ "--enable-static_link" ];
 
   preConfigure = ''
     sed -i /DEFAULT_SYS_DIR/d Makefile.in
@@ -162,8 +159,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (!onlyLib && !enableCmdlib) [
       "bin"
       "lib"
-    ]
-  ;
+    ];
 
   postInstall = lib.optionalString (enableCmdlib != true) ''
     moveToOutput lib/libdevmapper.so $lib

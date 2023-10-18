@@ -61,8 +61,7 @@ stdenv.mkDerivation rec {
       "--with-libnet-includes=${libnet}/include"
     ]
     ++ lib.optional (!enableAdmin) "--disable-admin"
-    ++ lib.optional (!withGtk) "--disable-gtk"
-  ;
+    ++ lib.optional (!withGtk) "--disable-gtk";
 
   makeFlags = [ "LDFLAGS=-lncurses" ];
 

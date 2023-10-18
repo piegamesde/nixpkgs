@@ -52,8 +52,7 @@ stdenv.mkDerivation rec {
         rust.cargo
       ]
     )
-    ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
 
   buildInputs =
     [

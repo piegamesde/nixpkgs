@@ -65,8 +65,7 @@ stdenv.mkDerivation rec {
       sqlite
       zlib
     ]
-    ++ lib.optionals withTpm2Tss [ tpm2-tss ]
-  ;
+    ++ lib.optionals withTpm2Tss [ tpm2-tss ];
 
   patches = [
     ./fix-libusb-include-path.patch
@@ -85,8 +84,7 @@ stdenv.mkDerivation rec {
       sed -i 's,"libpcsclite\.so[^"]*","${
         lib.getLib pcsclite
       }/lib/libpcsclite.so",g' scd/scdaemon.c
-    ''
-  ;
+    '';
 
   configureFlags =
     [
@@ -100,8 +98,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional guiSupport
       "--with-pinentry-pgm=${pinentry}/${pinentry.binaryPath or "bin/pinentry"}"
     ++ lib.optional withTpm2Tss "--with-tss=intel"
-    ++ lib.optional stdenv.isDarwin "--disable-ccid-driver"
-  ;
+    ++ lib.optional stdenv.isDarwin "--disable-ccid-driver";
 
   postInstall =
     if enableMinimal then
@@ -133,8 +130,7 @@ stdenv.mkDerivation rec {
           if [[ "$(basename $f)" == "gpg-wks-client" ]]; then continue; fi
           ln -s $f $out/bin/$(basename $f)
         done
-      ''
-  ;
+      '';
 
   enableParallelBuilding = true;
 

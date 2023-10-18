@@ -52,8 +52,7 @@ let
            }"
       )
     else
-      lib.head matching-versions
-  ;
+      lib.head matching-versions;
 
   specific-drv = ./. + "/${lib.versions.major found-version.version}.nix";
 

@@ -82,11 +82,9 @@ in
                     rm -f $out/${removePrefix "tmpfiles.d/" name}
                   ''
                 )
-                config.system.build.etc.passthru.targets
-          ;
+                config.system.build.etc.passthru.targets;
         })
-        + "/*"
-      ;
+        + "/*";
     };
 
     systemd.tmpfiles.packages = [

@@ -69,8 +69,7 @@ stdenvNoCC.mkDerivation {
             find . -name "$font[*.ttf" -exec install -m 444 -Dt $dest '{}' +
           done
         ''
-    )
-  ;
+    );
 
   meta = with lib; {
     homepage = "https://fonts.google.com";

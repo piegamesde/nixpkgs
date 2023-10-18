@@ -33,8 +33,7 @@ buildPythonPackage {
     ''
     + lib.optionalString stdenv.isDarwin ''
       install_name_tool -add_rpath ${libxnd}/lib $out/${python.sitePackages}/xnd/_xnd.*.so
-    ''
-  ;
+    '';
 
   checkPhase = ''
     pushd python

@@ -26,8 +26,7 @@ let
         pip
         bottle
       ]
-    )
-  ;
+    );
 in
 buildFHSEnv {
   name = "platformio";

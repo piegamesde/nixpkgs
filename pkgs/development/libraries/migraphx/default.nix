@@ -129,8 +129,7 @@ stdenv.mkDerivation (
       + lib.optionalString (!buildTests) ''
         substituteInPlace CMakeLists.txt \
           --replace "add_subdirectory(test)" ""
-      ''
-    ;
+      '';
 
     # Unfortunately, it seems like we have to call make on this manually
     preInstall = lib.optionalString buildDocs ''
@@ -150,8 +149,7 @@ stdenv.mkDerivation (
         mkdir -p $test/bin
         mv bin/test_* $test/bin
         patchelf $test/bin/test_* --shrink-rpath --allowed-rpath-prefixes /nix/store
-      ''
-    ;
+      '';
 
     passthru.updateScript = rocmUpdateScript {
       name = finalAttrs.pname;

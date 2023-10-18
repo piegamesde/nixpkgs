@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
         libXpm
         libXt
       ]
-    )
-  ;
+    );
 
   configureFlags = [ "--with-motif" ];
 

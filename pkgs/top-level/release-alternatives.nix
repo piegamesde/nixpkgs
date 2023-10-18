@@ -130,8 +130,7 @@ let
     ++ lib.optionals (allowUnfree && system.isx86) [
       "mkl"
       "mkl64"
-    ]
-  ;
+    ];
 
   blas64Providers = [
     "mkl64"
@@ -147,8 +146,7 @@ let
             if builtins.isList name then
               builtins.elemAt name (builtins.length name - 1)
             else
-              name
-          ;
+              name;
           value = f name;
         })
         xs

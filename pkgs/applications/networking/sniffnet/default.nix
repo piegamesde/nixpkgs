@@ -47,8 +47,7 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optionals stdenv.isDarwin [
       darwin.apple_sdk.frameworks.AppKit
       rustPlatform.bindgenHook
-    ]
-  ;
+    ];
 
   # requires internet access
   checkFlags = [

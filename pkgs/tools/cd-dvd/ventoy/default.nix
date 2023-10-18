@@ -87,8 +87,7 @@ stdenv.mkDerivation (
         makeWrapper
       ]
       ++ optional (withQt5 || withGtk3) copyDesktopItems
-      ++ optional withQt5 wrapQtAppsHook
-    ;
+      ++ optional withQt5 wrapQtAppsHook;
 
     buildInputs =
       [
@@ -111,8 +110,7 @@ stdenv.mkDerivation (
       ++ optional withGtk3 gtk3
       ++ optional withNtfs ntfs3g
       ++ optional withXfs xfsprogs
-      ++ optional withQt5 qtbase
-    ;
+      ++ optional withQt5 qtbase;
 
     desktopItems = [
       (makeDesktopItem {
@@ -195,8 +193,7 @@ stdenv.mkDerivation (
       + ''
 
         runHook postInstall
-      ''
-    ;
+      '';
 
     meta = {
       homepage = "https://www.ventoy.net";

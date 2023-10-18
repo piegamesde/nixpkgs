@@ -15,8 +15,7 @@ let
     check =
       x:
       types.str.check x
-      && builtins.match "(-?[0-9]+(.[0-9]+)?(ns|us|µs|ms|s|m|h))+" x != null
-    ;
+      && builtins.match "(-?[0-9]+(.[0-9]+)?(ns|us|µs|ms|s|m|h))+" x != null;
     inherit (types.str) merge;
   };
 in

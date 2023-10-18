@@ -324,8 +324,7 @@ in
         {
           assertion =
             cfg.configFile == configFile
-            -> cfg.adapter == "caddyfile" || cfg.adapter == null
-          ;
+            -> cfg.adapter == "caddyfile" || cfg.adapter == null;
           message = "To specify an adapter other than 'caddyfile' please provide your own configuration via `services.caddy.configFile`";
         }
       ]

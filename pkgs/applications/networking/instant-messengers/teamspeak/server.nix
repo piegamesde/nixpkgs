@@ -20,8 +20,7 @@ stdenv.mkDerivation rec {
       if stdenv.is64bit then
         "sha256-d1pXMamAmAHkyPkGbNm8ViobNoVTE5wSSfKgdA1QBB4="
       else
-        "sha256-aMEDOnvBeKfzG8lDFhU8I5DYgG53IsCDBMV2MUyJi2g="
-    ;
+        "sha256-aMEDOnvBeKfzG8lDFhU8I5DYgG53IsCDBMV2MUyJi2g=";
   };
 
   buildInputs = [

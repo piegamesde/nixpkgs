@@ -79,8 +79,7 @@ python3Packages.buildPythonApplication rec {
       substituteInPlace tests/testcases/integration.py --replace \
         "for encoder in ['fdkaacenc', 'faac', 'avenc_aac']:" \
         "for encoder in ['fdkaacenc', 'avenc_aac']:"
-    ''
-  ;
+    '';
 
   checkPhase = ''
     runHook preCheck

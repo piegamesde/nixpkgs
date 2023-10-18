@@ -389,8 +389,7 @@ in
             extraConfig = {
               services.httpd.adminAddr = config.security.acme.defaults.email;
             };
-          })
-        ;
+          });
       };
 
     # The client will be used to curl the webserver to validate configuration

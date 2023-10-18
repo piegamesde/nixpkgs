@@ -32,8 +32,7 @@ let
       # (if it is a function).
       discoverTests (val { inherit system pkgs; })
     else
-      val
-  ;
+      val;
   handleTest =
     path: args: discoverTests (import path ({ inherit system pkgs; } // args));
   handleTestOn =
@@ -59,8 +58,7 @@ let
         if tree ? recurseForDerivations && tree.recurseForDerivations then
           mapAttrs (k: findTests) (builtins.removeAttrs tree [ "recurseForDerivations" ])
         else
-          callTest tree
-      ;
+          callTest tree;
 
       runTest =
         arg:

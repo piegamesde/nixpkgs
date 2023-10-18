@@ -64,8 +64,7 @@ stdenv.mkDerivation (
       ++ lib.optionals stdenv.isLinux [
         libcap # for setcap binary
       ]
-      ++ lib.optionals enableDocumentation [ hotdoc ]
-    ;
+      ++ lib.optionals enableDocumentation [ hotdoc ];
 
     buildInputs =
       [
@@ -80,8 +79,7 @@ stdenv.mkDerivation (
       ++ lib.optionals stdenv.isDarwin [
         Cocoa
         CoreServices
-      ]
-    ;
+      ];
 
     propagatedBuildInputs = [ glib ];
 

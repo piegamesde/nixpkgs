@@ -55,8 +55,7 @@ stdenv.mkDerivation rec {
       for file in poly class cws nef mori; do
         ln -sf $file-6d.x $file.x
       done
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "A Package for Analyzing Lattice Polytopes";

@@ -41,8 +41,7 @@ let
             lib.replaceStrings [ "." ] [ "_" ] version
           }.dmg";
         hash = "sha256-OI6NSPqYws5Rv25U5jIPzkyJtB8LF04qHB3NPR9XBWg=";
-      }
-  ;
+      };
 
   srcIcon = fetchurl {
     url = "https://www.ej-technologies.com/assets/content/header-product-jprofiler@2x-24bc4d84bd2a4eb641a5c8531758ff7c.png";

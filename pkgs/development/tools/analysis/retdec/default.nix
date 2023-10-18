@@ -106,8 +106,7 @@ let
         if withPEPatterns then
           "148i8flbyj1y4kfdyzsz7jsj38k4h97npjxj18h6v4wksd4m4jm7"
         else
-          "0ixv9qyqq40pzyqy6v9jf5rxrvivjb0z0zn260nbmb9gk765bacy"
-      ;
+          "0ixv9qyqq40pzyqy6v9jf5rxrvivjb0z0zn260nbmb9gk765bacy";
       stripRoot = false;
       # Removing PE signatures reduces this from 3.8GB -> 642MB (uncompressed)
       postFetch = lib.optionalString (!withPEPatterns) ''
@@ -116,8 +115,7 @@ let
     }
     // {
       inherit version; # necessary to check the version against the expected version
-    }
-  ;
+    };
 
   # patch CMakeLists.txt for a dependency and compare the versions to the ones expected by upstream
   # this has to be applied for every dependency (which it is in postPatch)
@@ -227,8 +225,7 @@ stdenv.mkDerivation rec {
       # call correct `time` and `upx` programs
       substituteInPlace scripts/retdec-config.py --replace /usr/bin/time ${time}/bin/time
       substituteInPlace scripts/retdec-unpacker.py --replace "'upx'" "'${upx}/bin/upx'"
-    ''
-  ;
+    '';
 
   doInstallCheck = true;
   installCheckPhase = ''

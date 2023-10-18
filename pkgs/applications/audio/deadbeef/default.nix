@@ -116,8 +116,7 @@ clangStdenv.mkDerivation {
     ++ optionals resamplerSupport [ libsamplerate ]
     ++ optionals overloadSupport [ zlib ]
     ++ optionals wavpackSupport [ wavpack ]
-    ++ optionals remoteSupport [ curl ]
-  ;
+    ++ optionals remoteSupport [ curl ];
 
   nativeBuildInputs = [
     autoconf

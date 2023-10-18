@@ -269,8 +269,7 @@ in
       ln -svf ${srcs.translations} $sourceRoot/${tarballPath}/${srcs.translations.name}
       tar -xf ${srcs.help}
       tar -xf ${srcs.translations}
-    ''
-  ;
+    '';
 
   ### QT/KDE
   #
@@ -308,8 +307,7 @@ in
         --replace '$QT5LIB ' '$QT5LIB ${kdeDeps}/lib ' \
         --replace '$KF5INC ' '$KF5INC ${kdeDeps}/include ${kdeDeps}/include/KF5 '\
         --replace '$KF5LIB ' '$KF5LIB ${kdeDeps}/lib '
-    ''
-  ;
+    '';
 
   dontUseCmakeConfigure = true;
   dontUseCmakeBuildDir = true;
@@ -426,8 +424,7 @@ in
       sed -i '/gb_LinkTarget_LDFLAGS/{ n; /rpath-link/d;}' solenv/gbuild/platform/unxgcc.mk
 
       find -name "*.cmd" -exec sed -i s,/lib:/usr/lib,, {} \;
-    ''
-  ;
+    '';
 
   makeFlags = [ "SHELL=${bash}/bin/bash" ];
 
@@ -672,8 +669,7 @@ in
     ]
     ++ optionals (lib.versionAtLeast (lib.versions.majorMinor version) "7.4") [
       libwebp
-    ]
-  ;
+    ];
 
   passthru = {
     inherit srcs;

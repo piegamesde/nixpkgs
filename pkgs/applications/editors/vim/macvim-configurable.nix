@@ -78,7 +78,6 @@ let
 
       override = f: makeCustomizable (macvim.override f);
       overrideAttrs = f: makeCustomizable (macvim.overrideAttrs f);
-    }
-  ;
+    };
 in
 makeCustomizable macvim

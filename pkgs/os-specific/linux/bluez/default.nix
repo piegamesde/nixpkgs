@@ -149,8 +149,7 @@ stdenv.mkDerivation rec {
         install -Dm755 tools/$filename $out/bin/$filename
       done
       install -Dm755 attrib/gatttool $out/bin/gatttool
-    ''
-  ;
+    '';
 
   enableParallelBuilding = true;
 

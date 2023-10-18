@@ -29,8 +29,7 @@ buildPythonPackage rec {
       pycountry
     ]
     ++ lib.optionals (pythonOlder "3.8") [ importlib-resources ]
-    ++ lib.optionals (pythonOlder "3.7") [ importlib-metadata ]
-  ;
+    ++ lib.optionals (pythonOlder "3.7") [ importlib-metadata ];
 
   nativeCheckInputs = [
     pytest-cov

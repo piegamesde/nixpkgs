@@ -50,8 +50,7 @@ stdenv.mkDerivation rec {
       libXau
       libXt
     ]
-    ++ optionals enableDirectFB [ directfb ]
-  ;
+    ++ optionals enableDirectFB [ directfb ];
 
   nativeBuildInputs = [
     pkg-config
@@ -63,8 +62,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional (enableX11 || enableFB || enableDirectFB) "--enable-graphics"
     ++ lib.optional enableX11 "--with-x"
     ++ lib.optional enableFB "--with-fb"
-    ++ lib.optional enableDirectFB "--with-directfb"
-  ;
+    ++ lib.optional enableDirectFB "--with-directfb";
 
   meta = with lib; {
     homepage = "http://links.twibright.com/";

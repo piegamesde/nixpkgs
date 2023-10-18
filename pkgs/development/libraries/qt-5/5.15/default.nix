@@ -355,8 +355,7 @@ let
           ''
             qt5 now uses makeScopeWithSplicing which does not have "overrideScope'", use "overrideScope".''
           self.overrideScope;
-    }
-  ;
+    };
 in
 makeScopeWithSplicing (generateSplicesForMkScope "qt5") (_: { }) (_: { })
   addPackages

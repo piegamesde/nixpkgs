@@ -61,8 +61,7 @@ stdenv.mkDerivation rec {
   cmakeFlags =
     optional enablePadding "-DARRAY_LENGTH_PADDING=ON"
     ++ optional enableSerialization "-DENABLE_SERIALISATION=ON"
-    ++ optional stdenv.is64bit "-DBZ_FULLY64BIT=ON"
-  ;
+    ++ optional stdenv.is64bit "-DBZ_FULLY64BIT=ON";
   # FIXME ++ optional doCheck "-DBUILD_TESTING=ON";
 
   # skip broken library name detection

@@ -37,8 +37,7 @@ let
                   if stdenv.buildPlatform != stdenv.hostPlatform then
                     pkgs.__splicedPackages
                   else
-                    pkgs
-                ;
+                    pkgs;
                 inherit stdenv;
                 perl = self;
               };

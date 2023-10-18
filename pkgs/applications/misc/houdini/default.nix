@@ -47,8 +47,7 @@ buildFHSEnv rec {
         libxcb
         libXScrnSaver
       ]
-    )
-  ;
+    );
 
   passthru = {
     inherit unwrapped;

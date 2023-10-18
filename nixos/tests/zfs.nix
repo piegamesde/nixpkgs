@@ -14,8 +14,7 @@ let
       kernelPackage ? if enableUnstable then
         pkgs.zfsUnstable.latestCompatibleLinuxPackages
       else
-        pkgs.linuxPackages
-      ,
+        pkgs.linuxPackages,
       enableUnstable ? false,
       enableSystemdStage1 ? false,
       extraTest ? "",
@@ -203,8 +202,7 @@ let
                   "mount | grep forcepool",
               )
         ''
-        + extraTest
-      ;
+        + extraTest;
     };
 in
 {

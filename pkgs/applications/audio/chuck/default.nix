@@ -49,8 +49,7 @@ stdenv.mkDerivation rec {
       CoreServices
       Kernel
       MultitouchSupport
-    ]
-  ;
+    ];
 
   patches = [ ./darwin-limits.patch ];
 

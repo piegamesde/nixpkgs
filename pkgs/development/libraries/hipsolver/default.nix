@@ -26,8 +26,7 @@ stdenv.mkDerivation (
       [ "out" ]
       ++ lib.optionals buildTests [ "test" ]
       ++ lib.optionals buildBenchmarks [ "benchmark" ]
-      ++ lib.optionals buildSamples [ "sample" ]
-    ;
+      ++ lib.optionals buildSamples [ "sample" ];
 
     src = fetchFromGitHub {
       owner = "ROCmSoftwarePlatform";
@@ -49,8 +48,7 @@ stdenv.mkDerivation (
         rocsolver
       ]
       ++ lib.optionals buildTests [ gtest ]
-      ++ lib.optionals (buildTests || buildBenchmarks) [ lapack-reference ]
-    ;
+      ++ lib.optionals (buildTests || buildBenchmarks) [ lapack-reference ];
 
     cmakeFlags =
       [
@@ -64,8 +62,7 @@ stdenv.mkDerivation (
       ]
       ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ]
       ++ lib.optionals buildBenchmarks [ "-DBUILD_CLIENTS_BENCHMARKS=ON" ]
-      ++ lib.optionals buildSamples [ "-DBUILD_CLIENTS_SAMPLES=ON" ]
-    ;
+      ++ lib.optionals buildSamples [ "-DBUILD_CLIENTS_SAMPLES=ON" ];
 
     postInstall =
       lib.optionalString buildTests ''
@@ -83,8 +80,7 @@ stdenv.mkDerivation (
       ''
       + lib.optionalString (buildTests || buildBenchmarks) ''
         rmdir $out/bin
-      ''
-    ;
+      '';
 
     passthru.updateScript = rocmUpdateScript {
       name = finalAttrs.pname;
