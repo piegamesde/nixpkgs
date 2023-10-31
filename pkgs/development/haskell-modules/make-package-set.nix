@@ -340,8 +340,7 @@ package-set { inherit pkgs lib callPackage; } self
     }:
     let
       drv =
-        (extensible-self.extend (pkgs.lib.composeExtensions (self.packageSourceOverrides source-overrides) overrides)).callCabal2nixWithOptions name
-          root
+        (extensible-self.extend (pkgs.lib.composeExtensions (self.packageSourceOverrides source-overrides) overrides)).callCabal2nixWithOptions name root
           cabal2nixOptions
           { };
     in
@@ -693,10 +692,7 @@ package-set { inherit pkgs lib callPackage; } self
 
         commands: pkg:
 
-        if stdenv.buildPlatform.canExecute stdenv.hostPlatform then
-          lib.foldr haskellLib.__generateOptparseApplicativeCompletion pkg commands
-        else
-          pkg
+        if stdenv.buildPlatform.canExecute stdenv.hostPlatform then lib.foldr haskellLib.__generateOptparseApplicativeCompletion pkg commands else pkg
       )
       { };
 }

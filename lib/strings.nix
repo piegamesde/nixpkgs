@@ -619,9 +619,7 @@ rec {
       ];
 
   # warning added 12-12-2022
-  replaceChars =
-    lib.warn "replaceChars is a deprecated alias of replaceStrings, replace usages of it with replaceStrings."
-      builtins.replaceStrings;
+  replaceChars = lib.warn "replaceChars is a deprecated alias of replaceStrings, replace usages of it with replaceStrings." builtins.replaceStrings;
 
   # Case conversion utilities.
   lowerChars = stringToCharacters "abcdefghijklmnopqrstuvwxyz";
@@ -859,8 +857,7 @@ rec {
         mesonEnable "savage" false
         => "-Dsavage=disabled"
   */
-  mesonEnable =
-    feature: flag: assert (lib.isString feature); assert (lib.isBool flag); mesonOption feature (if flag then "enabled" else "disabled");
+  mesonEnable = feature: flag: assert (lib.isString feature); assert (lib.isBool flag); mesonOption feature (if flag then "enabled" else "disabled");
 
   /* Create an --{enable,disable}-<feat> string that can be passed to
      standard GNU Autoconf scripts.

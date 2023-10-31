@@ -70,9 +70,7 @@ buildPackages.stdenv.mkDerivation {
       packages' = lib.filter (p: p != null) packages;
     in
     lib.optionalString (packages' != [ ] -> docPackages == [ ]) (
-      "echo WARNING: localHoogle package list empty, even though"
-      + " the following were specified: "
-      + lib.concatMapStringsSep ", " (p: p.name) packages'
+      "echo WARNING: localHoogle package list empty, even though" + " the following were specified: " + lib.concatMapStringsSep ", " (p: p.name) packages'
     )}
     mkdir -p $out/share/doc/hoogle
 

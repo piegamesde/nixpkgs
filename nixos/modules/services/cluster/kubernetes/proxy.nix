@@ -90,9 +90,7 @@ in
           ${top.package}/bin/kube-proxy \
                     --bind-address=${cfg.bindAddress} \
                     ${optionalString (top.clusterCidr != null) "--cluster-cidr=${top.clusterCidr}"} \
-                    ${
-                      optionalString (cfg.featureGates != [ ]) "--feature-gates=${concatMapStringsSep "," (feature: "${feature}=true") cfg.featureGates}"
-                    } \
+                    ${optionalString (cfg.featureGates != [ ]) "--feature-gates=${concatMapStringsSep "," (feature: "${feature}=true") cfg.featureGates}"} \
                     --hostname-override=${cfg.hostname} \
                     --kubeconfig=${top.lib.mkKubeConfig "kube-proxy" cfg.kubeconfig} \
                     ${optionalString (cfg.verbosity != null) "--v=${toString cfg.verbosity}"} \

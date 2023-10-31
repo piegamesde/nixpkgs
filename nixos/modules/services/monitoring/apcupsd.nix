@@ -48,8 +48,7 @@ let
     chmod a+x "$out/${eventname}"
   '';
 
-  eventToShellCmds =
-    event: if builtins.hasAttr event cfg.hooks then (shellCmdsForEventScript event (builtins.getAttr event cfg.hooks)) else "";
+  eventToShellCmds = event: if builtins.hasAttr event cfg.hooks then (shellCmdsForEventScript event (builtins.getAttr event cfg.hooks)) else "";
 
   scriptDir = pkgs.runCommand "apcupsd-scriptdir" { preferLocalBuild = true; } (
     ''

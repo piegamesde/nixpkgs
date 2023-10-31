@@ -24,10 +24,7 @@ let
         atLeast12 = lib.versionAtLeast pkg.version "12.0";
 
         recoveryFile =
-          if atLeast12 then
-            pkgs.writeTextDir "recovery.signal" ""
-          else
-            pkgs.writeTextDir "recovery.conf" "restore_command = 'cp ${walBackupDir}/%f %p'";
+          if atLeast12 then pkgs.writeTextDir "recovery.signal" "" else pkgs.writeTextDir "recovery.conf" "restore_command = 'cp ${walBackupDir}/%f %p'";
       in
       makeTest {
         name = "postgresql-wal-receiver-${postgresqlPackage}";

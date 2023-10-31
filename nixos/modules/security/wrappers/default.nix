@@ -136,9 +136,7 @@ let
       chmod "u${if setuid then "+" else "-"}s,g${if setgid then "+" else "-"}s,${permissions}" "$wrapperDir/${program}"
     '';
 
-  mkWrappedPrograms = builtins.map (opts: if opts.capabilities != "" then mkSetcapProgram opts else mkSetuidProgram opts) (
-    lib.attrValues wrappers
-  );
+  mkWrappedPrograms = builtins.map (opts: if opts.capabilities != "" then mkSetcapProgram opts else mkSetuidProgram opts) (lib.attrValues wrappers);
 in
 {
   imports = [

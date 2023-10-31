@@ -16,9 +16,7 @@ stdenv.mkDerivation rec {
 
   src = requireFile {
     name = "java_card_kit-${uscoreVersion}-linux.zip";
-    url =
-      "http://www.oracle.com/technetwork/java/javasebusiness/downloads/"
-      + "java-archive-downloads-javame-419430.html#java_card_kit-2.2.2-oth-JPR";
+    url = "http://www.oracle.com/technetwork/java/javasebusiness/downloads/" + "java-archive-downloads-javame-419430.html#java_card_kit-2.2.2-oth-JPR";
     sha256 = "1rzkw8izqq73ifvyp937wnjjc40a40drc4zsm0l1s6jyv3d7agb2";
   };
 

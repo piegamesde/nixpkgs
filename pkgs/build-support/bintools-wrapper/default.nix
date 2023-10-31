@@ -131,9 +131,9 @@ let
     else
       "";
 
-  expand-response-params =
-    lib.optionalString (buildPackages ? stdenv && buildPackages.stdenv.hasCC && buildPackages.stdenv.cc != "/dev/null")
-      (import ../expand-response-params { inherit (buildPackages) stdenv; });
+  expand-response-params = lib.optionalString (buildPackages ? stdenv && buildPackages.stdenv.hasCC && buildPackages.stdenv.cc != "/dev/null") (
+    import ../expand-response-params { inherit (buildPackages) stdenv; }
+  );
 in
 
 stdenv.mkDerivation {

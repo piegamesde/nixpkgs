@@ -17,9 +17,7 @@ stdenv.mkDerivation (
     version = "2.42";
 
     src = fetchurl {
-      url = "mirror://sourceforge/ploticus/ploticus/${finalAttrs.version}/ploticus${
-          lib.replaceStrings [ "." ] [ "" ] finalAttrs.version
-        }_src.tar.gz";
+      url = "mirror://sourceforge/ploticus/ploticus/${finalAttrs.version}/ploticus${lib.replaceStrings [ "." ] [ "" ] finalAttrs.version}_src.tar.gz";
       sha256 = "PynkufQFIDqT7+yQDlgW2eG0OBghiB4kHAjKt91m4LA=";
     };
 

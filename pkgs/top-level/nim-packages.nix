@@ -16,9 +16,7 @@ lib.makeScope newScope (
   {
     inherit nim;
     nim_builder = callPackage ../development/nim-packages/nim_builder { };
-    buildNimPackage = callPackage ../development/nim-packages/build-nim-package {
-      inherit (buildPackages.buildPackages.nimPackages) nim_builder;
-    };
+    buildNimPackage = callPackage ../development/nim-packages/build-nim-package { inherit (buildPackages.buildPackages.nimPackages) nim_builder; };
     fetchNimble = callPackage ../development/nim-packages/fetch-nimble { };
 
     asciigraph = callPackage ../development/nim-packages/asciigraph { };

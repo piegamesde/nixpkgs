@@ -103,9 +103,7 @@ in
                       "10.10.0.0/24"
                       "127.0.0.1"
                     ];
-                    description =
-                      lib.mdDoc
-                        "IPs and subnets that are authorized to connect for this device. If not specified, the server will allow all connections.";
+                    description = lib.mdDoc "IPs and subnets that are authorized to connect for this device. If not specified, the server will allow all connections.";
                   };
 
                   extraOptions = mkOption {

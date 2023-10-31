@@ -54,8 +54,7 @@ buildPythonPackage rec {
 
   buildPhase = "buildPhase";
 
-  env.NIX_CFLAGS_COMPILE =
-    lib.optionalString stdenv.isDarwin "-ObjC" + lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) " -lpython2.7";
+  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-ObjC" + lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) " -lpython2.7";
 
   installPhase = "installPhase";
 

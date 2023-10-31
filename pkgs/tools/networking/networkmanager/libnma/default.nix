@@ -104,9 +104,7 @@ stdenv.mkDerivation rec {
           packageName = "libnma";
           versionPolicy = "odd-unstable";
         };
-        updateGsettingsPatch =
-          _experimental-update-script-combinators.copyAttrOutputToFile "libnma.hardcodeGsettingsPatch"
-            ./hardcode-gsettings.patch;
+        updateGsettingsPatch = _experimental-update-script-combinators.copyAttrOutputToFile "libnma.hardcodeGsettingsPatch" ./hardcode-gsettings.patch;
       in
       _experimental-update-script-combinators.sequence [
         updateSource

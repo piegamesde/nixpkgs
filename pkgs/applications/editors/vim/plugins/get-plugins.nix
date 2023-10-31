@@ -4,8 +4,7 @@ let
   inherit (neovimUtils) buildNeovimPluginFrom2Nix;
 
   generated =
-    callPackage <localpkgs/pkgs/applications/editors/vim/plugins/generated.nix> { inherit buildNeovimPluginFrom2Nix buildVimPluginFrom2Nix; }
-      { }
+    callPackage <localpkgs/pkgs/applications/editors/vim/plugins/generated.nix> { inherit buildNeovimPluginFrom2Nix buildVimPluginFrom2Nix; } { }
       { };
   hasChecksum =
     value:

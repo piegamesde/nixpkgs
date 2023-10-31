@@ -18,10 +18,7 @@ let
 
   mkYamlConf =
     name: cfg:
-    if cfg != null then
-      { "trafficserver/${name}.yaml".source = yaml.generate "${name}.yaml" cfg; }
-    else
-      { "trafficserver/${name}.yaml".text = ""; };
+    if cfg != null then { "trafficserver/${name}.yaml".source = yaml.generate "${name}.yaml" cfg; } else { "trafficserver/${name}.yaml".text = ""; };
 
   mkRecordLines =
     path: value:

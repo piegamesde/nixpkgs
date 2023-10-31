@@ -885,8 +885,7 @@ in
       dontBuild = false;
       postPatch =
         let
-          path =
-            if lib.versionAtLeast attrs.version "2.0" then "lib/tzinfo/data_sources/zoneinfo_data_source.rb" else "lib/tzinfo/zoneinfo_data_source.rb";
+          path = if lib.versionAtLeast attrs.version "2.0" then "lib/tzinfo/data_sources/zoneinfo_data_source.rb" else "lib/tzinfo/zoneinfo_data_source.rb";
         in
         ''
           substituteInPlace ${path} \

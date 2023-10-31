@@ -265,9 +265,7 @@ let
                       "settings"
                       "useacl"
                     ]
-                  } is required when ${showPath [ "usersFile" ]} is set (Currently defiend as `${config.usersFile}' in ${
-                    showFiles options.usersFile.files
-                  }).";
+                  } is required when ${showPath [ "usersFile" ]} is set (Currently defiend as `${config.usersFile}' in ${showFiles options.usersFile.files}).";
               }
             ];
           }
@@ -606,9 +604,7 @@ in
                 "d ${cfg.stateDir}/pages 0750 ${user} ${webserver.group} - -"
                 "d ${cfg.stateDir}/tmp 0750 ${user} ${webserver.group} - -"
               ]
-              ++
-                lib.optional (cfg.aclFile != null)
-                  "C ${cfg.aclFile} 0640 ${user} ${webserver.group} - ${pkg hostName cfg}/share/dokuwiki/conf/acl.auth.php.dist"
+              ++ lib.optional (cfg.aclFile != null) "C ${cfg.aclFile} 0640 ${user} ${webserver.group} - ${pkg hostName cfg}/share/dokuwiki/conf/acl.auth.php.dist"
               ++
                 lib.optional (cfg.usersFile != null)
                   "C ${cfg.usersFile} 0640 ${user} ${webserver.group} - ${pkg hostName cfg}/share/dokuwiki/conf/users.auth.php.dist"

@@ -202,8 +202,7 @@ in
       }
     ];
 
-    services.pantalaimon-headless.instances."mjolnir" =
-      mkIf cfg.pantalaimon.enable { homeserver = cfg.homeserverUrl; } // cfg.pantalaimon.options;
+    services.pantalaimon-headless.instances."mjolnir" = mkIf cfg.pantalaimon.enable { homeserver = cfg.homeserverUrl; } // cfg.pantalaimon.options;
 
     systemd.services.mjolnir = {
       description = "mjolnir - a moderation tool for Matrix";

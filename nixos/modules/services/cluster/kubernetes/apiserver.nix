@@ -462,9 +462,7 @@ in
                           --authorization-mode=${concatStringsSep "," cfg.authorizationMode} \
                             ${
                               optionalString (elem "ABAC" cfg.authorizationMode)
-                                "--authorization-policy-file=${
-                                  pkgs.writeText "kube-auth-policy.jsonl" (concatMapStringsSep "\n" (l: builtins.toJSON l) cfg.authorizationPolicy)
-                                }"
+                                "--authorization-policy-file=${pkgs.writeText "kube-auth-policy.jsonl" (concatMapStringsSep "\n" (l: builtins.toJSON l) cfg.authorizationPolicy)}"
                             } \
                             ${optionalString (elem "Webhook" cfg.authorizationMode) "--authorization-webhook-config-file=${cfg.webhookConfig}"} \
                           --bind-address=${cfg.bindAddress} \
@@ -476,9 +474,7 @@ in
                           ${optionalString (cfg.etcd.caFile != null) "--etcd-cafile=${cfg.etcd.caFile}"} \
                           ${optionalString (cfg.etcd.certFile != null) "--etcd-certfile=${cfg.etcd.certFile}"} \
                           ${optionalString (cfg.etcd.keyFile != null) "--etcd-keyfile=${cfg.etcd.keyFile}"} \
-                          ${
-                            optionalString (cfg.featureGates != [ ]) "--feature-gates=${concatMapStringsSep "," (feature: "${feature}=true") cfg.featureGates}"
-                          } \
+                          ${optionalString (cfg.featureGates != [ ]) "--feature-gates=${concatMapStringsSep "," (feature: "${feature}=true") cfg.featureGates}"} \
                           ${optionalString (cfg.basicAuthFile != null) "--basic-auth-file=${cfg.basicAuthFile}"} \
                           ${optionalString (cfg.kubeletClientCaFile != null) "--kubelet-certificate-authority=${cfg.kubeletClientCaFile}"} \
                           ${optionalString (cfg.kubeletClientCertFile != null) "--kubelet-client-certificate=${cfg.kubeletClientCertFile}"} \

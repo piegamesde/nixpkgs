@@ -100,8 +100,7 @@ appleDerivation' (if headersOnly then stdenvNoCC else stdenv) (
 
     preBuild =
       let
-        macosVersion =
-          "10.0 10.1 10.2 10.3 10.4 10.5 10.6 10.7 10.8 10.9 10.10 10.11" + lib.optionalString stdenv.isAarch64 " 10.12 10.13 10.14 10.15 11.0";
+        macosVersion = "10.0 10.1 10.2 10.3 10.4 10.5 10.6 10.7 10.8 10.9 10.10 10.11" + lib.optionalString stdenv.isAarch64 " 10.12 10.13 10.14 10.15 11.0";
       in
       ''
         # This is a bit of a hack...

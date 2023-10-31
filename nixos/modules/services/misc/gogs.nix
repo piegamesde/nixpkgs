@@ -60,9 +60,7 @@ in
       useWizard = mkOption {
         default = false;
         type = types.bool;
-        description =
-          lib.mdDoc
-            "Do not generate a configuration and use Gogs' installation wizard instead. The first registered user will be administrator.";
+        description = lib.mdDoc "Do not generate a configuration and use Gogs' installation wizard instead. The first registered user will be administrator.";
       };
 
       stateDir = mkOption {

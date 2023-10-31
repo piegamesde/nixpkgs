@@ -73,9 +73,7 @@ in
         ExecStart = ''
           ${top.package}/bin/kube-scheduler \
                     --bind-address=${cfg.address} \
-                    ${
-                      optionalString (cfg.featureGates != [ ]) "--feature-gates=${concatMapStringsSep "," (feature: "${feature}=true") cfg.featureGates}"
-                    } \
+                    ${optionalString (cfg.featureGates != [ ]) "--feature-gates=${concatMapStringsSep "," (feature: "${feature}=true") cfg.featureGates}"} \
                     --kubeconfig=${top.lib.mkKubeConfig "kube-scheduler" cfg.kubeconfig} \
                     --leader-elect=${boolToString cfg.leaderElect} \
                     --secure-port=${toString cfg.port} \

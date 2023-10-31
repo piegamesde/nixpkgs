@@ -402,8 +402,7 @@ in
       }
       {
         assertion =
-          cfg.desktopManager.default != null || cfg.windowManager.default != null
-          -> cfg.displayManager.defaultSession == defaultSessionFromLegacyOptions;
+          cfg.desktopManager.default != null || cfg.windowManager.default != null -> cfg.displayManager.defaultSession == defaultSessionFromLegacyOptions;
         message = "You cannot use both services.xserver.displayManager.defaultSession option and legacy options (services.xserver.desktopManager.default and services.xserver.windowManager.default).";
       }
     ];

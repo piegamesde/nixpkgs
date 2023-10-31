@@ -474,9 +474,7 @@ let
                     cmakeFlags;
 
                 crossFlags =
-                  [
-                    "-DCMAKE_SYSTEM_NAME=${lib.findFirst lib.isString "Generic" (lib.optional (!stdenv.hostPlatform.isRedox) stdenv.hostPlatform.uname.system)}"
-                  ]
+                  [ "-DCMAKE_SYSTEM_NAME=${lib.findFirst lib.isString "Generic" (lib.optional (!stdenv.hostPlatform.isRedox) stdenv.hostPlatform.uname.system)}" ]
                   ++ lib.optionals (stdenv.hostPlatform.uname.processor != null) [ "-DCMAKE_SYSTEM_PROCESSOR=${stdenv.hostPlatform.uname.processor}" ]
                   ++ lib.optionals (stdenv.hostPlatform.uname.release != null) [ "-DCMAKE_SYSTEM_VERSION=${stdenv.hostPlatform.uname.release}" ]
                   ++ lib.optionals (stdenv.hostPlatform.isDarwin) [ "-DCMAKE_OSX_ARCHITECTURES=${stdenv.hostPlatform.darwinArch}" ]
@@ -606,18 +604,10 @@ let
             # to be built eventually, we would still like to get the error early and without
             # having to wait while nix builds a derivation that might not be used.
             # See also https://github.com/NixOS/nix/issues/4629
-            lib.optionalAttrs (attrs ? disallowedReferences) {
-              disallowedReferences = map unsafeDerivationToUntrackedOutpath attrs.disallowedReferences;
-            }
-          // lib.optionalAttrs (attrs ? disallowedRequisites) {
-            disallowedRequisites = map unsafeDerivationToUntrackedOutpath attrs.disallowedRequisites;
-          }
-          // lib.optionalAttrs (attrs ? allowedReferences) {
-            allowedReferences = lib.mapNullable unsafeDerivationToUntrackedOutpath attrs.allowedReferences;
-          }
-          // lib.optionalAttrs (attrs ? allowedRequisites) {
-            allowedRequisites = lib.mapNullable unsafeDerivationToUntrackedOutpath attrs.allowedRequisites;
-          };
+            lib.optionalAttrs (attrs ? disallowedReferences) { disallowedReferences = map unsafeDerivationToUntrackedOutpath attrs.disallowedReferences; }
+          // lib.optionalAttrs (attrs ? disallowedRequisites) { disallowedRequisites = map unsafeDerivationToUntrackedOutpath attrs.disallowedRequisites; }
+          // lib.optionalAttrs (attrs ? allowedReferences) { allowedReferences = lib.mapNullable unsafeDerivationToUntrackedOutpath attrs.allowedReferences; }
+          // lib.optionalAttrs (attrs ? allowedRequisites) { allowedRequisites = lib.mapNullable unsafeDerivationToUntrackedOutpath attrs.allowedRequisites; };
 
         meta = checkMeta.commonMeta {
           inherit
@@ -642,9 +632,7 @@ let
             (
               n: v:
               assert lib.assertMsg (lib.isString v || lib.isBool v || lib.isInt v || lib.isDerivation v)
-                  "The ‘env’ attribute set can only contain derivation, string, boolean or integer attributes. The ‘${n}’ attribute is of type ${
-                    builtins.typeOf v
-                  }.";
+                  "The ‘env’ attribute set can only contain derivation, string, boolean or integer attributes. The ‘${n}’ attribute is of type ${builtins.typeOf v}.";
               v
             )
             env;

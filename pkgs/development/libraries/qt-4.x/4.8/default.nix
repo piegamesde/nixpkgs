@@ -116,8 +116,7 @@ stdenv.mkDerivation rec {
       (fetchpatch {
         name = "fix-medium-font.patch";
         url =
-          "https://salsa.debian.org/qt-kde-team/qt/qt4-x11/raw/"
-          + "21b342d71c19e6d68b649947f913410fe6129ea4/debian/patches/kubuntu_39_fix_medium_font.diff";
+          "https://salsa.debian.org/qt-kde-team/qt/qt4-x11/raw/" + "21b342d71c19e6d68b649947f913410fe6129ea4/debian/patches/kubuntu_39_fix_medium_font.diff";
         sha256 = "0bli44chn03c2y70w1n8l7ss4ya0b40jqqav8yxrykayi01yf95j";
       })
       # Patches are no longer available from here, so vendoring it for now.
@@ -130,8 +129,7 @@ stdenv.mkDerivation rec {
       ./qt4-openssl-1.1.patch
       (fetchpatch {
         name = "gcc9-foreach.patch";
-        url =
-          "https://salsa.debian.org/qt-kde-team/qt/qt4-x11/raw/" + "0d4a3dd61ccb156dee556c214dbe91c04d44a717/debian/patches/gcc9-qforeach.patch";
+        url = "https://salsa.debian.org/qt-kde-team/qt/qt4-x11/raw/" + "0d4a3dd61ccb156dee556c214dbe91c04d44a717/debian/patches/gcc9-qforeach.patch";
         sha256 = "0dzn6qxrgxb75rvck9kmy5gspawdn970wsjw56026dhkih8cp3pg";
       })
 

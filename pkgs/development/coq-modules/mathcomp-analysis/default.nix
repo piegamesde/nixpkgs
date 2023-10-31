@@ -178,19 +178,17 @@ let
       # split packages didn't exist before 0.6, so bulding nothing in that case
       patched-derivation1 = derivation.overrideAttrs (
         o:
-        optionalAttrs
-          (o.pname != null && o.pname != "mathcomp-analysis" && o.version != null && o.version != "dev" && versions.isLt "0.6" o.version)
-          {
-            preBuild = "";
-            buildPhase = "echo doing nothing";
-            installPhase = "echo doing nothing";
-          }
+        optionalAttrs (o.pname != null && o.pname != "mathcomp-analysis" && o.version != null && o.version != "dev" && versions.isLt "0.6" o.version) {
+          preBuild = "";
+          buildPhase = "echo doing nothing";
+          installPhase = "echo doing nothing";
+        }
       );
       patched-derivation2 = patched-derivation1.overrideAttrs (
         o:
-        optionalAttrs
-          (o.pname != null && o.pname == "mathcomp-analysis" && o.version != null && o.version != "dev" && versions.isLt "0.6" o.version)
-          { preBuild = ""; }
+        optionalAttrs (o.pname != null && o.pname == "mathcomp-analysis" && o.version != null && o.version != "dev" && versions.isLt "0.6" o.version) {
+          preBuild = "";
+        }
       );
       patched-derivation = patched-derivation2.overrideAttrs (
         o:

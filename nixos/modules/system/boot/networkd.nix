@@ -2272,9 +2272,7 @@ let
     ipv6PrefixDelegationConfig = mkOption {
       visible = false;
       apply =
-        _:
-        throw
-          "The option `systemd.network.networks.*.ipv6PrefixDelegationConfig` has been replaced by `systemd.network.networks.*.ipv6SendRAConfig`.";
+        _: throw "The option `systemd.network.networks.*.ipv6PrefixDelegationConfig` has been replaced by `systemd.network.networks.*.ipv6SendRAConfig`.";
     };
 
     ipv6SendRAConfig = mkOption {
@@ -3548,9 +3546,7 @@ let
           serviceConfig = {
             Type = "oneshot";
             RemainAfterExit = true;
-            ExecStart = "${config.systemd.package}/lib/systemd/systemd-networkd-wait-online -i %I ${
-                utils.escapeSystemdExecArgs cfg.wait-online.extraArgs
-              }";
+            ExecStart = "${config.systemd.package}/lib/systemd/systemd-networkd-wait-online -i %I ${utils.escapeSystemdExecArgs cfg.wait-online.extraArgs}";
           };
         };
       })

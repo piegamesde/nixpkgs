@@ -109,8 +109,7 @@ in
       in
       [
         {
-          assertion =
-            config.location.provider == "manual" -> inRange config.location.latitude (-90) 90 && inRange config.location.longitude (-180) 180;
+          assertion = config.location.provider == "manual" -> inRange config.location.latitude (-90) 90 && inRange config.location.longitude (-180) 180;
           message = "You must specify a valid latitude and longitude if manually providing location";
         }
       ];

@@ -307,9 +307,9 @@ rec {
             baseMsg =
               let
                 optText = showOption (prefix ++ firstDef.prefix);
-                defText =
-                  builtins.addErrorContext "while evaluating the error message for definitions for `${optText}', which is an option that does not exist"
-                    (builtins.addErrorContext "while evaluating a definition from `${firstDef.file}'" (showDefs [ firstDef ]));
+                defText = builtins.addErrorContext "while evaluating the error message for definitions for `${optText}', which is an option that does not exist" (
+                  builtins.addErrorContext "while evaluating a definition from `${firstDef.file}'" (showDefs [ firstDef ])
+                );
               in
               "The option `${optText}' does not exist. Definition values:${defText}";
           in
@@ -601,9 +601,7 @@ rec {
         # not their values.  The values are forwarding the result of the
         # evaluation of the option.
         context = name: ''while evaluating the module argument `${name}' in "${key}":'';
-        extraArgs = builtins.mapAttrs (name: _: builtins.addErrorContext (context name) (args.${name} or config._module.args.${name})) (
-          lib.functionArgs f
-        );
+        extraArgs = builtins.mapAttrs (name: _: builtins.addErrorContext (context name) (args.${name} or config._module.args.${name})) (lib.functionArgs f);
       in
       # Note: we append in the opposite order such that we can add an error
       # context on the explicit arguments of "args" too. This update
@@ -1039,10 +1037,7 @@ rec {
     if def._type or "" == "merge" then
       concatMap dischargeProperties def.contents
     else if def._type or "" == "if" then
-      if isBool def.condition then
-        if def.condition then dischargeProperties def.content else [ ]
-      else
-        throw "‘mkIf’ called with a non-Boolean condition"
+      if isBool def.condition then if def.condition then dischargeProperties def.content else [ ] else throw "‘mkIf’ called with a non-Boolean condition"
     else
       [ def ];
 
@@ -1349,9 +1344,9 @@ rec {
                 opt = getAttrFromPath f options;
               in
               optionalString (val != "_mkMergedOptionModule")
-                "The option `${showOption f}' defined in ${showFiles opt.files} has been changed to `${
+                "The option `${showOption f}' defined in ${showFiles opt.files} has been changed to `${showOption to}' that has a different type. Please read `${
                   showOption to
-                }' that has a different type. Please read `${showOption to}' documentation and update your configuration accordingly."
+                }' documentation and update your configuration accordingly."
             )
             from
         );

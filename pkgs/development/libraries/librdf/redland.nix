@@ -35,19 +35,14 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs =
-    [
-      openssl
-      libxslt
-      curl
-      pcre
-      libxml2
-      gmp
-    ]
-    ++ lib.optional withMysql libmysqlclient
-    ++ lib.optional withSqlite sqlite
-    ++ lib.optional withPostgresql postgresql
-    ++ lib.optional withBdb db;
+  buildInputs = [
+    openssl
+    libxslt
+    curl
+    pcre
+    libxml2
+    gmp
+  ] ++ lib.optional withMysql libmysqlclient ++ lib.optional withSqlite sqlite ++ lib.optional withPostgresql postgresql ++ lib.optional withBdb db;
 
   propagatedBuildInputs = [ librdf_rasqal ];
 

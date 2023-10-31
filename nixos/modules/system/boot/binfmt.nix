@@ -372,9 +372,7 @@ in
           ruleFor = system: cfg.registrations.${system};
           hasWrappedRule = lib.any (system: (ruleFor system).wrapInterpreterInShell) cfg.emulatedSystems;
         in
-        [ "/run/binfmt" ]
-        ++ lib.optional hasWrappedRule "${pkgs.bash}"
-        ++ (map (system: (ruleFor system).interpreterSandboxPath) cfg.emulatedSystems);
+        [ "/run/binfmt" ] ++ lib.optional hasWrappedRule "${pkgs.bash}" ++ (map (system: (ruleFor system).interpreterSandboxPath) cfg.emulatedSystems);
     };
 
     environment.etc."binfmt.d/nixos.conf".source = builtins.toFile "binfmt_nixos.conf" (

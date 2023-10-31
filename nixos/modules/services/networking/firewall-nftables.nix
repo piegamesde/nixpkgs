@@ -13,8 +13,7 @@ let
 
   ifaceSet = concatStringsSep ", " (map (x: ''"${x}"'') cfg.trustedInterfaces);
 
-  portsToNftSet =
-    ports: portRanges: concatStringsSep ", " (map (x: toString x) ports ++ map (x: "${toString x.from}-${toString x.to}") portRanges);
+  portsToNftSet = ports: portRanges: concatStringsSep ", " (map (x: toString x) ports ++ map (x: "${toString x.from}-${toString x.to}") portRanges);
 in
 
 {

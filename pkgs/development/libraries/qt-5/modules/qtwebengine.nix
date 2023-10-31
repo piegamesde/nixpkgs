@@ -353,9 +353,7 @@ qtModule {
     # x86-64, ARM, Aarch64, and MIPSel architectures."
     platforms = lib.trivial.pipe lib.systems.doubles.all [
       (map (double: lib.systems.elaborate { system = double; }))
-      (lib.lists.filter (
-        parsedPlatform: with parsedPlatform; isUnix && (isx86_32 || isx86_64 || isAarch32 || isAarch64 || (isMips && isLittleEndian))
-      ))
+      (lib.lists.filter (parsedPlatform: with parsedPlatform; isUnix && (isx86_32 || isx86_64 || isAarch32 || isAarch64 || (isMips && isLittleEndian))))
       (map (plat: plat.system))
     ];
     broken = stdenv.isDarwin && stdenv.isx86_64;

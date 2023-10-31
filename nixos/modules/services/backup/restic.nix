@@ -363,8 +363,7 @@ in
               serviceConfig = {
                 Type = "oneshot";
                 ExecStart =
-                  (optionals (backupPaths != "") [ "${resticCmd} backup ${concatStringsSep " " (backup.extraBackupArgs ++ excludeFlags)} ${backupPaths}" ])
-                  ++ pruneCmd;
+                  (optionals (backupPaths != "") [ "${resticCmd} backup ${concatStringsSep " " (backup.extraBackupArgs ++ excludeFlags)} ${backupPaths}" ]) ++ pruneCmd;
                 User = backup.user;
                 RuntimeDirectory = "restic-backups-${name}";
                 CacheDirectory = "restic-backups-${name}";

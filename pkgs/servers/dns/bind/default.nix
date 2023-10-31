@@ -56,9 +56,7 @@ stdenv.mkDerivation rec {
       nghttp2
       jemalloc
     ]
-    ++ lib.optional stdenv.isLinux libcap
-    ++ lib.optional enableGSSAPI libkrb5
-    ++ lib.optional enablePython (python3.withPackages (ps: with ps; [ ply ]));
+    ++ lib.optional stdenv.isLinux libcap ++ lib.optional enableGSSAPI libkrb5 ++ lib.optional enablePython (python3.withPackages (ps: with ps; [ ply ]));
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 

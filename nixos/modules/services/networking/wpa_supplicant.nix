@@ -28,8 +28,7 @@ let
     hasWPA3 && others != [ ];
 
   # Gives a WPA3 network higher priority
-  increaseWPA3Priority =
-    opts: opts // optionalAttrs (hasMixedWPA opts) { priority = if opts.priority == null then 1 else opts.priority + 1; };
+  increaseWPA3Priority = opts: opts // optionalAttrs (hasMixedWPA opts) { priority = if opts.priority == null then 1 else opts.priority + 1; };
 
   # Creates a WPA2 fallback network
   mkWPA2Fallback = opts: opts // { authProtocols = subtractLists wpa3Protocols opts.authProtocols; };
@@ -38,8 +37,7 @@ let
   networkList = mapAttrsToList (ssid: opts: opts // { inherit ssid; }) cfg.networks;
 
   # List of all networks (normal + generated fallbacks)
-  allNetworks =
-    if cfg.fallbackToWPA2 then map increaseWPA3Priority networkList ++ map mkWPA2Fallback (filter hasMixedWPA networkList) else networkList;
+  allNetworks = if cfg.fallbackToWPA2 then map increaseWPA3Priority networkList ++ map mkWPA2Fallback (filter hasMixedWPA networkList) else networkList;
 
   # Content of wpa_supplicant.conf
   generatedConfig = concatStringsSep "\n" (
@@ -548,8 +546,7 @@ in
 
     # Restart wpa_supplicant after resuming from sleep
     powerManagement.resumeCommands = concatStringsSep "\n" (
-      optional (cfg.interfaces == [ ]) "${systemctl} try-restart wpa_supplicant"
-      ++ map (i: "${systemctl} try-restart wpa_supplicant-${i}") cfg.interfaces
+      optional (cfg.interfaces == [ ]) "${systemctl} try-restart wpa_supplicant" ++ map (i: "${systemctl} try-restart wpa_supplicant-${i}") cfg.interfaces
     );
 
     # Restart wpa_supplicant when a wlan device appears or disappears. This is

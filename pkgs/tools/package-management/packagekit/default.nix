@@ -69,22 +69,20 @@ stdenv.mkDerivation rec {
     ninja
   ];
 
-  mesonFlags =
-    [
-      (if enableSystemd then "-Dsystemd=true" else "-Dsystem=false")
-      # often fails to build with nix updates
-      # and remounts /nix/store as rw
-      # https://github.com/NixOS/nixpkgs/issues/177946
-      #"-Dpackaging_backend=nix"
-      "-Ddbus_sys=${placeholder "out"}/share/dbus-1/system.d"
-      "-Ddbus_services=${placeholder "out"}/share/dbus-1/system-services"
-      "-Dsystemdsystemunitdir=${placeholder "out"}/lib/systemd/system"
-      "-Dcron=false"
-      "-Dgtk_doc=true"
-      "--sysconfdir=/etc"
-      "--localstatedir=/var"
-    ]
-    ++ lib.optional (!enableBashCompletion) "-Dbash_completion=false" ++ lib.optional (!enableCommandNotFound) "-Dbash_command_not_found=false";
+  mesonFlags = [
+    (if enableSystemd then "-Dsystemd=true" else "-Dsystem=false")
+    # often fails to build with nix updates
+    # and remounts /nix/store as rw
+    # https://github.com/NixOS/nixpkgs/issues/177946
+    #"-Dpackaging_backend=nix"
+    "-Ddbus_sys=${placeholder "out"}/share/dbus-1/system.d"
+    "-Ddbus_services=${placeholder "out"}/share/dbus-1/system-services"
+    "-Dsystemdsystemunitdir=${placeholder "out"}/lib/systemd/system"
+    "-Dcron=false"
+    "-Dgtk_doc=true"
+    "--sysconfdir=/etc"
+    "--localstatedir=/var"
+  ] ++ lib.optional (!enableBashCompletion) "-Dbash_completion=false" ++ lib.optional (!enableCommandNotFound) "-Dbash_command_not_found=false";
 
   postPatch = ''
     # HACK: we want packagekit to look in /etc for configs but install

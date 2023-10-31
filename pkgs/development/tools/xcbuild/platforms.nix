@@ -308,15 +308,9 @@ runCommand "Platforms" { } ''
 
   install -D ${writeText "Info.plist" (toPlist { } Info)} $platform/Info.plist
   install -D ${writeText "version.plist" (toPlist { } Version)} $platform/version.plist
-  install -D ${
-    writeText "Architectures.xcspec" (toPlist { } Architectures)
-  } $platform/Developer/Library/Xcode/Specifications/Architectures.xcspec
-  install -D ${
-    writeText "PackageTypes.xcspec" (toPlist { } PackageTypes)
-  } $platform/Developer/Library/Xcode/Specifications/PackageTypes.xcspec
-  install -D ${
-    writeText "ProductTypes.xcspec" (toPlist { } ProductTypes)
-  } $platform/Developer/Library/Xcode/Specifications/ProductTypes.xcspec
+  install -D ${writeText "Architectures.xcspec" (toPlist { } Architectures)} $platform/Developer/Library/Xcode/Specifications/Architectures.xcspec
+  install -D ${writeText "PackageTypes.xcspec" (toPlist { } PackageTypes)} $platform/Developer/Library/Xcode/Specifications/PackageTypes.xcspec
+  install -D ${writeText "ProductTypes.xcspec" (toPlist { } ProductTypes)} $platform/Developer/Library/Xcode/Specifications/ProductTypes.xcspec
 
   ln -s $platform $platform/usr
 

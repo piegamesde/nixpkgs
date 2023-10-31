@@ -42,9 +42,7 @@ let
 
       config.path =
         let
-          generated =
-            pkgs.runCommand "dhparams-${name}.pem" { nativeBuildInputs = [ pkgs.openssl ]; }
-              ''openssl dhparam -out "$out" ${toString config.bits}'';
+          generated = pkgs.runCommand "dhparams-${name}.pem" { nativeBuildInputs = [ pkgs.openssl ]; } ''openssl dhparam -out "$out" ${toString config.bits}'';
         in
         if cfg.stateful then "${cfg.path}/${name}.pem" else generated;
     };

@@ -25,9 +25,7 @@ stdenv.mkDerivation rec {
   src =
     if useChineseVersion then
       fetchurl {
-        url = "https://wps-linux-personal.wpscdn.cn/wps/download/ep/Linux2019/${
-            lib.last (lib.splitString "." version)
-          }/wps-office_${version}_amd64.deb";
+        url = "https://wps-linux-personal.wpscdn.cn/wps/download/ep/Linux2019/${lib.last (lib.splitString "." version)}/wps-office_${version}_amd64.deb";
         sha256 = "sha256-m7BOE2IF2m75mV/4X3HY9UJcidL0S0biqkidddp4LbQ=";
       }
     else

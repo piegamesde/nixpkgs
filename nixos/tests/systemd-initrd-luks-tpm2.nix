@@ -11,9 +11,7 @@ import ./make-test-python.nix (
           emptyDiskImages = [ 512 ];
           useBootLoader = true;
           useEFIBoot = true;
-          qemu.options = [
-            "-chardev socket,id=chrtpm,path=/tmp/mytpm1/swtpm-sock -tpmdev emulator,id=tpm0,chardev=chrtpm -device tpm-tis,tpmdev=tpm0"
-          ];
+          qemu.options = [ "-chardev socket,id=chrtpm,path=/tmp/mytpm1/swtpm-sock -tpmdev emulator,id=tpm0,chardev=chrtpm -device tpm-tis,tpmdev=tpm0" ];
         };
         boot.loader.systemd-boot.enable = true;
 

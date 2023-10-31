@@ -13,9 +13,7 @@ let
   imageBootMode = if config.openstack.efi then "uefi" else "legacy-bios";
 in
 {
-  imports = [
-    ../../../modules/virtualisation/openstack-config.nix
-  ] ++ (lib.optional copyChannel ../../../modules/installer/cd-dvd/channel.nix);
+  imports = [ ../../../modules/virtualisation/openstack-config.nix ] ++ (lib.optional copyChannel ../../../modules/installer/cd-dvd/channel.nix);
 
   options.openstackImage = {
     name = mkOption {

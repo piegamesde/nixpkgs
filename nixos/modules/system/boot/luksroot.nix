@@ -537,9 +537,7 @@ let
       ${dev.preOpenCommands}
 
       ${if
-        (luks.yubikeySupport && (dev.yubikey != null))
-        || (luks.gpgSupport && (dev.gpgCard != null))
-        || (luks.fido2Support && fido2luksCredentials != [ ])
+        (luks.yubikeySupport && (dev.yubikey != null)) || (luks.gpgSupport && (dev.gpgCard != null)) || (luks.fido2Support && fido2luksCredentials != [ ])
       then
         ''
           open_with_hardware
@@ -1075,8 +1073,7 @@ in
         message = "boot.initrd.luks.reusePassphrases has no effect with systemd stage 1.";
       }
       {
-        assertion =
-          config.boot.initrd.systemd.enable -> all (dev: dev.preOpenCommands == "" && dev.postOpenCommands == "") (attrValues luks.devices);
+        assertion = config.boot.initrd.systemd.enable -> all (dev: dev.preOpenCommands == "" && dev.postOpenCommands == "") (attrValues luks.devices);
         message = "boot.initrd.luks.devices.<name>.preOpenCommands and postOpenCommands is not supported by systemd stage 1. Please bind a service to cryptsetup.target or cryptsetup-pre.target instead.";
       }
       # TODO

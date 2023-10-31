@@ -205,9 +205,7 @@ in
       )
       { };
 
-  pythonOutputDistHook =
-    callPackage ({ makePythonHook }: makePythonHook { name = "python-output-dist-hook"; } ./python-output-dist-hook.sh)
-      { };
+  pythonOutputDistHook = callPackage ({ makePythonHook }: makePythonHook { name = "python-output-dist-hook"; } ./python-output-dist-hook.sh) { };
 
   pythonRecompileBytecodeHook =
     callPackage

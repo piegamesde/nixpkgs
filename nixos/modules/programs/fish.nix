@@ -15,9 +15,7 @@ let
 
   fishAbbrs = concatStringsSep "\n" (mapAttrsFlatten (k: v: "abbr -ag ${k} ${escapeShellArg v}") cfg.shellAbbrs);
 
-  fishAliases = concatStringsSep "\n" (
-    mapAttrsFlatten (k: v: "alias ${k} ${escapeShellArg v}") (filterAttrs (k: v: v != null) cfg.shellAliases)
-  );
+  fishAliases = concatStringsSep "\n" (mapAttrsFlatten (k: v: "alias ${k} ${escapeShellArg v}") (filterAttrs (k: v: v != null) cfg.shellAliases));
 
   envShellInit = pkgs.writeText "shellInit" cfge.shellInit;
 
@@ -37,8 +35,7 @@ let
       '';
 
   babelfishTranslate =
-    path: name:
-    pkgs.runCommandLocal "${name}.fish" { nativeBuildInputs = [ pkgs.babelfish ]; } "${pkgs.babelfish}/bin/babelfish < ${path} > $out;";
+    path: name: pkgs.runCommandLocal "${name}.fish" { nativeBuildInputs = [ pkgs.babelfish ]; } "${pkgs.babelfish}/bin/babelfish < ${path} > $out;";
 in
 
 {

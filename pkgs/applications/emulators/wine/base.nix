@@ -206,9 +206,7 @@ stdenv.mkDerivation (
       map (path: "-rpath " + path) (
         map (x: "${lib.getLib x}/lib") ([ stdenv.cc.cc ] ++ buildInputs)
         # libpulsecommon.so is linked but not found otherwise
-        ++ lib.optionals supportFlags.pulseaudioSupport (
-          map (x: "${lib.getLib x}/lib/pulseaudio") (toBuildInputs pkgArches (pkgs: [ pkgs.libpulseaudio ]))
-        )
+        ++ lib.optionals supportFlags.pulseaudioSupport (map (x: "${lib.getLib x}/lib/pulseaudio") (toBuildInputs pkgArches (pkgs: [ pkgs.libpulseaudio ])))
         ++ lib.optionals supportFlags.waylandSupport (
           map (x: "${lib.getLib x}/share/wayland-protocols") (toBuildInputs pkgArches (pkgs: [ pkgs.wayland-protocols ]))
         )
@@ -261,9 +259,7 @@ stdenv.mkDerivation (
 
     # https://bugs.winehq.org/show_bug.cgi?id=43530
     # https://github.com/NixOS/nixpkgs/issues/31989
-    hardeningDisable = [
-      "bindnow"
-    ] ++ lib.optional (stdenv.hostPlatform.isDarwin) "fortify" ++ lib.optional (supportFlags.mingwSupport) "format";
+    hardeningDisable = [ "bindnow" ] ++ lib.optional (stdenv.hostPlatform.isDarwin) "fortify" ++ lib.optional (supportFlags.mingwSupport) "format";
 
     passthru = {
       inherit pkgArches;

@@ -40,8 +40,7 @@ let
         in
         attrsOf valueType;
 
-      generate =
-        name: value: pkgs.writeText name (lib.concatStringsSep "\n" (lib.mapAttrsToList (key: val: "${key} = ${valueToString val}") value));
+      generate = name: value: pkgs.writeText name (lib.concatStringsSep "\n" (lib.mapAttrsToList (key: val: "${key} = ${valueToString val}") value));
     };
 
   initTool = pkgs.writeShellScriptBin "mfsmaster-init" ''

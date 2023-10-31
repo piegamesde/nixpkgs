@@ -773,9 +773,7 @@ with self; {
 
   audioread = callPackage ../development/python-modules/audioread { };
 
-  audiotools = callPackage ../development/python-modules/audiotools {
-    inherit (pkgs.darwin.apple_sdk.frameworks) AudioToolbox AudioUnit CoreServices;
-  };
+  audiotools = callPackage ../development/python-modules/audiotools { inherit (pkgs.darwin.apple_sdk.frameworks) AudioToolbox AudioUnit CoreServices; };
 
   augeas = callPackage ../development/python-modules/augeas { inherit (pkgs) augeas; };
 
@@ -3671,9 +3669,7 @@ with self; {
 
   fontmake = callPackage ../development/python-modules/fontmake { };
 
-  skia-pathops = callPackage ../development/python-modules/skia-pathops {
-    inherit (pkgs.darwin.apple_sdk.frameworks) ApplicationServices OpenGL;
-  };
+  skia-pathops = callPackage ../development/python-modules/skia-pathops { inherit (pkgs.darwin.apple_sdk.frameworks) ApplicationServices OpenGL; };
 
   openstep-plist = callPackage ../development/python-modules/openstep-plist { };
 
@@ -5773,9 +5769,7 @@ with self; {
 
   mac-vendor-lookup = callPackage ../development/python-modules/mac-vendor-lookup { };
 
-  macfsevents = callPackage ../development/python-modules/macfsevents {
-    inherit (pkgs.darwin.apple_sdk.frameworks) CoreFoundation CoreServices;
-  };
+  macfsevents = callPackage ../development/python-modules/macfsevents { inherit (pkgs.darwin.apple_sdk.frameworks) CoreFoundation CoreServices; };
 
   macropy = callPackage ../development/python-modules/macropy { };
 
@@ -10028,9 +10022,7 @@ with self; {
 
   rachiopy = callPackage ../development/python-modules/rachiopy { };
 
-  radicale_infcloud = callPackage ../development/python-modules/radicale_infcloud {
-    radicale = pkgs.radicale.override { python3 = python; };
-  };
+  radicale_infcloud = callPackage ../development/python-modules/radicale_infcloud { radicale = pkgs.radicale.override { python3 = python; }; };
 
   radian = callPackage ../development/python-modules/radian { };
 

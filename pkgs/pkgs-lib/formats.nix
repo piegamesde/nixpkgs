@@ -146,15 +146,9 @@ rec {
 
           iniAtom =
             if listsAsDuplicateKeys then
-              coercedTo singleIniAtom lib.singleton (listOf singleIniAtom)
-              // {
-                description = singleIniAtom.description + " or a list of them for duplicate keys";
-              }
+              coercedTo singleIniAtom lib.singleton (listOf singleIniAtom) // { description = singleIniAtom.description + " or a list of them for duplicate keys"; }
             else if listToValue != null then
-              coercedTo singleIniAtom lib.singleton (nonEmptyListOf singleIniAtom)
-              // {
-                description = singleIniAtom.description + " or a non-empty list of them";
-              }
+              coercedTo singleIniAtom lib.singleton (nonEmptyListOf singleIniAtom) // { description = singleIniAtom.description + " or a non-empty list of them"; }
             else
               singleIniAtom;
         in
@@ -164,10 +158,7 @@ rec {
         name: value:
         let
           transformedValue =
-            if listToValue != null then
-              lib.mapAttrs (section: lib.mapAttrs (key: val: if lib.isList val then listToValue val else val)) value
-            else
-              value;
+            if listToValue != null then lib.mapAttrs (section: lib.mapAttrs (key: val: if lib.isList val then listToValue val else val)) value else value;
         in
         pkgs.writeText name (lib.generators.toINI (removeAttrs args [ "listToValue" ]) transformedValue);
     };
@@ -202,10 +193,7 @@ rec {
 
           atom =
             if listsAsDuplicateKeys then
-              coercedTo singleAtom lib.singleton (listOf singleAtom)
-              // {
-                description = singleAtom.description + " or a list of them for duplicate keys";
-              }
+              coercedTo singleAtom lib.singleton (listOf singleAtom) // { description = singleAtom.description + " or a list of them for duplicate keys"; }
             else if listToValue != null then
               coercedTo singleAtom lib.singleton (nonEmptyListOf singleAtom) // { description = singleAtom.description + " or a non-empty list of them"; }
             else

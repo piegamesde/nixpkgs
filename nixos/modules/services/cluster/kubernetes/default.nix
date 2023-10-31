@@ -223,9 +223,7 @@ in
     };
 
     path = mkOption {
-      description =
-        lib.mdDoc
-          "Packages added to the services' PATH environment variable. Both the bin and sbin subdirectories of each package are added.";
+      description = lib.mdDoc "Packages added to the services' PATH environment variable. Both the bin and sbin subdirectories of each package are added.";
       type = types.listOf types.package;
       default = [ ];
     };
@@ -328,14 +326,7 @@ in
     })
 
     (mkIf
-      (
-        cfg.apiserver.enable
-        || cfg.scheduler.enable
-        || cfg.controllerManager.enable
-        || cfg.kubelet.enable
-        || cfg.proxy.enable
-        || cfg.addonManager.enable
-      )
+      (cfg.apiserver.enable || cfg.scheduler.enable || cfg.controllerManager.enable || cfg.kubelet.enable || cfg.proxy.enable || cfg.addonManager.enable)
       {
         systemd.targets.kubernetes = {
           description = "Kubernetes";
@@ -362,10 +353,7 @@ in
 
         services.kubernetes.apiserverAddress = mkDefault (
           "https://${
-            if cfg.apiserver.advertiseAddress != null then
-              cfg.apiserver.advertiseAddress
-            else
-              "${cfg.masterAddress}:${toString cfg.apiserver.securePort}"
+            if cfg.apiserver.advertiseAddress != null then cfg.apiserver.advertiseAddress else "${cfg.masterAddress}:${toString cfg.apiserver.securePort}"
           }"
         );
       }

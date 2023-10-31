@@ -503,9 +503,7 @@ rec {
   cartesianProductOfSets =
     # Attribute set with attributes that are lists of values
     attrsOfLists:
-    foldl'
-      (listOfAttrs: attrName: concatMap (attrs: map (listValue: attrs // { ${attrName} = listValue; }) attrsOfLists.${attrName}) listOfAttrs)
-      [ { } ]
+    foldl' (listOfAttrs: attrName: concatMap (attrs: map (listValue: attrs // { ${attrName} = listValue; }) attrsOfLists.${attrName}) listOfAttrs) [ { } ]
       (attrNames attrsOfLists);
 
   /* Utility function that creates a `{name, value}` pair as expected by `builtins.listToAttrs`.

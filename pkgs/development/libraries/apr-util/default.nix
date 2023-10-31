@@ -76,17 +76,12 @@ stdenv.mkDerivation rec {
           --replace "-ldb-6.9" "-ldb"
       '';
 
-  propagatedBuildInputs =
-    [
-      apr
-      expat
-      libiconv
-      libxcrypt
-    ]
-    ++ lib.optional sslSupport openssl
-    ++ lib.optional bdbSupport db
-    ++ lib.optional ldapSupport openldap
-    ++ lib.optional stdenv.isFreeBSD cyrus_sasl;
+  propagatedBuildInputs = [
+    apr
+    expat
+    libiconv
+    libxcrypt
+  ] ++ lib.optional sslSupport openssl ++ lib.optional bdbSupport db ++ lib.optional ldapSupport openldap ++ lib.optional stdenv.isFreeBSD cyrus_sasl;
 
   postInstall = ''
     for f in $out/lib/*.la $out/lib/apr-util-1/*.la $dev/bin/apu-1-config; do

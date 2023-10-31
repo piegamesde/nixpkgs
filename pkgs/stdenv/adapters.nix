@@ -249,9 +249,7 @@ rec {
   useGoldLinker =
     stdenv:
     stdenv.override (
-      old: {
-        mkDerivationFromStdenv = extendMkDerivationArgs old (args: { NIX_CFLAGS_LINK = toString (args.NIX_CFLAGS_LINK or "") + " -fuse-ld=gold"; });
-      }
+      old: { mkDerivationFromStdenv = extendMkDerivationArgs old (args: { NIX_CFLAGS_LINK = toString (args.NIX_CFLAGS_LINK or "") + " -fuse-ld=gold"; }); }
     );
 
   useMoldLinker =

@@ -40,8 +40,7 @@ let
   # [ drv1 drv2 drv3 ]
   accumulateDerivations =
     jobList:
-    lib.concatMap
-      (attrs: if lib.isDerivation attrs then [ attrs ] else lib.optionals (lib.isAttrs attrs) (accumulateDerivations (lib.attrValues attrs)))
+    lib.concatMap (attrs: if lib.isDerivation attrs then [ attrs ] else lib.optionals (lib.isAttrs attrs) (accumulateDerivations (lib.attrValues attrs)))
       jobList;
 
   # names of all subsets of `pkgs.haskell.packages`

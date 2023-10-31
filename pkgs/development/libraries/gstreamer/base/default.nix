@@ -113,9 +113,7 @@ stdenv.mkDerivation (
       [
         "-Dexamples=disabled" # requires many dependencies and probably not useful for our users
         # See https://github.com/GStreamer/gst-plugins-base/blob/d64a4b7a69c3462851ff4dcfa97cc6f94cd64aef/meson_options.txt#L15 for a list of choices
-        "-Dgl_winsys=${
-          lib.concatStringsSep "," (lib.optional enableX11 "x11" ++ lib.optional enableWayland "wayland" ++ lib.optional enableCocoa "cocoa")
-        }"
+        "-Dgl_winsys=${lib.concatStringsSep "," (lib.optional enableX11 "x11" ++ lib.optional enableWayland "wayland" ++ lib.optional enableCocoa "cocoa")}"
         (lib.mesonEnable "doc" enableDocumentation)
       ]
       ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ "-Dtests=disabled" ]

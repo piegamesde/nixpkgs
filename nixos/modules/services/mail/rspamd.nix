@@ -49,10 +49,7 @@ let
         let
           maybeOption = option: optionalString options.${option}.isDefined " ${option}=${config.${option}}";
         in
-        if (!(hasPrefix "/" config.socket)) then
-          "${config.socket}"
-        else
-          "${config.socket}${maybeOption "mode"}${maybeOption "owner"}${maybeOption "group"}";
+        if (!(hasPrefix "/" config.socket)) then "${config.socket}" else "${config.socket}${maybeOption "mode"}${maybeOption "owner"}${maybeOption "group"}";
     };
 
   traceWarning = w: x: builtins.trace "[1;31mwarning: ${w}[0m" x;

@@ -102,8 +102,7 @@ let
       # builtins multiply by 4 the memory usage and the time used to compute
       # each options.
       tryCollectOptions =
-        moduleResult:
-        forEach (excludeOptions (collect isOption moduleResult)) (opt: { name = showOption opt.loc; } // builtins.tryEval (strict opt.value));
+        moduleResult: forEach (excludeOptions (collect isOption moduleResult)) (opt: { name = showOption opt.loc; } // builtins.tryEval (strict opt.value));
     in
     keepNames (filterChanges (zipLists (tryCollectOptions old) (tryCollectOptions new)));
 

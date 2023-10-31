@@ -45,9 +45,7 @@ stdenv.mkDerivation {
       (fetchArchlinuxPatch "0005-gnu-efi-version-compatibility.patch" "821c3da473d1399d930d5b4a086e46a4179eaa45"
         "sha256-hhCVnfbAFWj/R4yh60qsMB87ofW9RznarsByhl6L4tc="
       )
-      (fetchArchlinuxPatch "0025-reproducible-build.patch" "821c3da473d1399d930d5b4a086e46a4179eaa45"
-        "sha256-mnb291pCSFvDNxY7o4BosJ94ib3BpOGRQIiY8Q3jZmI="
-      )
+      (fetchArchlinuxPatch "0025-reproducible-build.patch" "821c3da473d1399d930d5b4a086e46a4179eaa45" "sha256-mnb291pCSFvDNxY7o4BosJ94ib3BpOGRQIiY8Q3jZmI=")
       (fetchDebianPatch
         # mbr.bin: too big (452 > 440)
         # https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=906414

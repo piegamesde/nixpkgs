@@ -18,10 +18,7 @@ buildPythonPackage {
 
   # protobuf 3.21 coresponds with its python library 4.21
   version =
-    if lib.versionAtLeast protobuf.version "3.21" then
-      "${toString (lib.toInt versionMajor + 1)}.${versionMinor}.${versionPatch}"
-    else
-      protobuf.version;
+    if lib.versionAtLeast protobuf.version "3.21" then "${toString (lib.toInt versionMajor + 1)}.${versionMinor}.${versionPatch}" else protobuf.version;
 
   disabled = isPyPy;
 

@@ -160,9 +160,7 @@ rec {
       type = lib.types.package;
       description = "The ${name'} package to use." + (if extraDescription == "" then "" else " ") + extraDescription;
       ${if default != null then "default" else null} = defaultValue;
-      ${if example != null then "example" else null} = literalExpression (
-        if isList example then "pkgs." + concatStringsSep "." example else example
-      );
+      ${if example != null then "example" else null} = literalExpression (if isList example then "pkgs." + concatStringsSep "." example else example);
     };
 
   # Like mkPackageOption, but emit an mdDoc description instead of DocBook.
@@ -310,9 +308,7 @@ rec {
               example = builtins.addErrorContext "while evaluating the example of option `${name}`" (renderOptionValue opt.example);
             }
             // optionalAttrs (opt ? default) {
-              default = builtins.addErrorContext "while evaluating the default value of option `${name}`" (
-                renderOptionValue (opt.defaultText or opt.default)
-              );
+              default = builtins.addErrorContext "while evaluating the default value of option `${name}`" (renderOptionValue (opt.defaultText or opt.default));
             }
             // optionalAttrs (opt ? relatedPackages && opt.relatedPackages != null) { inherit (opt) relatedPackages; };
 

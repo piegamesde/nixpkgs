@@ -35,8 +35,7 @@ let
   # Check whether a CUDNN release supports our CUDA version
   # Thankfully we're able to do lexicographic comparison on the version strings
   # isSupported :: Release -> Bool
-  isSupported =
-    release: strings.versionAtLeast cudaVersion release.minCudaVersion && strings.versionAtLeast release.maxCudaVersion cudaVersion;
+  isSupported = release: strings.versionAtLeast cudaVersion release.minCudaVersion && strings.versionAtLeast release.maxCudaVersion cudaVersion;
 
   # useCudatoolkitRunfile :: Bool
   useCudatoolkitRunfile = strings.versionOlder cudaVersion "11.3.999";

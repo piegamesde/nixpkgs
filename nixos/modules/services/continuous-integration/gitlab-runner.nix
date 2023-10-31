@@ -19,10 +19,7 @@ let
     let
       hash = substring 0 12 (hashString "md5" (unsafeDiscardStringContext (toJSON service)));
     in
-    if service ? description && service.description != null then
-      "${hash} ${service.description}"
-    else
-      "${name}_${config.networking.hostName}_${hash}";
+    if service ? description && service.description != null then "${hash} ${service.description}" else "${name}_${config.networking.hostName}_${hash}";
 
   hashedServices = mapAttrs' (name: service: nameValuePair (genRunnerName name service) service) cfg.services;
   configPath = ''"$HOME"/.gitlab-runner/config.toml'';

@@ -59,18 +59,13 @@ stdenv.mkDerivation rec {
     cmake
     wrapQtAppsHook
   ];
-  buildInputs =
-    [
-      zlib
-      libglvnd
-      libGLU
-      openssl
-      libssh
-    ]
-    ++ lib.optional sshSupport openssl
-    ++ lib.optional tetgenSupport tetgen
-    ++ lib.optional ffmpegSupport ffmpeg_4
-    ++ lib.optional dicomSupport dcmtk;
+  buildInputs = [
+    zlib
+    libglvnd
+    libGLU
+    openssl
+    libssh
+  ] ++ lib.optional sshSupport openssl ++ lib.optional tetgenSupport tetgen ++ lib.optional ffmpegSupport ffmpeg_4 ++ lib.optional dicomSupport dcmtk;
 
   meta = with lib; {
     description = "FEBio Suite Solver";

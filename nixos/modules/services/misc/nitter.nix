@@ -15,9 +15,7 @@ let
         # String values need to be quoted
         mkKeyValue =
           generators.mkKeyValueDefault
-            {
-              mkValueString = v: if isString v then ''"'' + (strings.escape [ ''"'' ] (toString v)) + ''"'' else generators.mkValueStringDefault { } v;
-            }
+            { mkValueString = v: if isString v then ''"'' + (strings.escape [ ''"'' ] (toString v)) + ''"'' else generators.mkValueStringDefault { } v; }
             " = ";
       }
       (

@@ -48,8 +48,7 @@ lib.optionalString (hostPlatform.isSunOS && hostPlatform.is64bit) ''
 # `gas`.
 #
 +
-  lib.optionalString
-    (langAda && buildPlatform == hostPlatform && hostPlatform == targetPlatform && targetPlatform.isx86_64 && targetPlatform.isDarwin)
+  lib.optionalString (langAda && buildPlatform == hostPlatform && hostPlatform == targetPlatform && targetPlatform.isx86_64 && targetPlatform.isDarwin)
     ''
       export AS_FOR_BUILD=${gnat-bootstrap}/bin/as
       export AS_FOR_TARGET=${gnat-bootstrap}/bin/gas

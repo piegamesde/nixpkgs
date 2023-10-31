@@ -67,10 +67,7 @@ let
   };
 
   release =
-    if hasAttr dfVersion unfuck-releases then
-      getAttr dfVersion unfuck-releases
-    else
-      throw "[unfuck] Unknown Dwarf Fortress version: ${dfVersion}";
+    if hasAttr dfVersion unfuck-releases then getAttr dfVersion unfuck-releases else throw "[unfuck] Unknown Dwarf Fortress version: ${dfVersion}";
 in
 
 stdenv.mkDerivation {

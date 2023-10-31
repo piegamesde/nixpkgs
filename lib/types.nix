@@ -237,10 +237,7 @@ let
               foldl'
                 (
                   type: def:
-                  if getType def.value == type then
-                    type
-                  else
-                    throw "The option `${showOption loc}' has conflicting option types in ${showFiles (getFiles defs)}"
+                  if getType def.value == type then type else throw "The option `${showOption loc}' has conflicting option types in ${showFiles (getFiles defs)}"
                 )
                 (getType (head defs).value)
                 defs;
@@ -791,9 +788,7 @@ let
           description = "module";
           descriptionClass = "noun";
           check = x: isAttrs x || isFunction x || path.check x;
-          merge = loc: defs: {
-            imports = staticModules ++ map (def: lib.setDefaultModuleLocation "${def.file}, via option ${showOption loc}" def.value) defs;
-          };
+          merge = loc: defs: { imports = staticModules ++ map (def: lib.setDefaultModuleLocation "${def.file}, via option ${showOption loc}" def.value) defs; };
           inherit (submoduleWith { modules = staticModules; }) getSubOptions getSubModules;
           substSubModules = m: deferredModuleWith (attrs // { staticModules = m; });
           functor = defaultFunctor "deferredModuleWith" // {
@@ -1050,8 +1045,7 @@ let
       # converted to `finalType` using `coerceFunc`.
       coercedTo =
         coercedType: coerceFunc: finalType:
-        assert lib.assertMsg (coercedType.getSubModules == null)
-            "coercedTo: coercedType must not have submodules (it’s a ${coercedType.description})";
+        assert lib.assertMsg (coercedType.getSubModules == null) "coercedTo: coercedType must not have submodules (it’s a ${coercedType.description})";
         mkOptionType rec {
           name = "coercedTo";
           description = "${optionDescriptionPhrase (class: class == "noun") finalType} or ${

@@ -56,8 +56,7 @@ let
       ''
         ${n} ${v}
       '';
-  generateSection =
-    indent: settings: concatStringsSep (fixedWidthString indent " " "") (filter (x: x != null) (mapAttrsToList generateLine settings));
+  generateSection = indent: settings: concatStringsSep (fixedWidthString indent " " "") (filter (x: x != null) (mapAttrsToList generateLine settings));
 
   # generateSection includes a final newline hence weird closing brace
   mkConf =
@@ -133,9 +132,7 @@ let
     '';
   };
 
-  mailOption =
-    optionalString (foldr (n: a: a || (n.mail or false) != false) false (attrValues cfg.settings))
-      "--mail=${pkgs.mailutils}/bin/mail";
+  mailOption = optionalString (foldr (n: a: a || (n.mail or false) != false) false (attrValues cfg.settings)) "--mail=${pkgs.mailutils}/bin/mail";
 in
 {
   imports = [

@@ -222,9 +222,7 @@ let
 
     # Optionally respond to ICMPv4 pings.
     ${optionalString cfg.allowPing ''
-      iptables -w -A nixos-fw -p icmp --icmp-type echo-request ${
-        optionalString (cfg.pingLimit != null) "-m limit ${cfg.pingLimit} "
-      }-j nixos-fw-accept
+      iptables -w -A nixos-fw -p icmp --icmp-type echo-request ${optionalString (cfg.pingLimit != null) "-m limit ${cfg.pingLimit} "}-j nixos-fw-accept
     ''}
 
     ${optionalString config.networking.enableIPv6 ''

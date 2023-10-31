@@ -803,10 +803,7 @@ rec {
       allPaths = lib.concatStringsSep "\n" (lib.unique (sources ++ namedOutputPaths ++ outputPaths));
       allPathsWithContext = builtins.appendContext allPaths context;
     in
-    if builtins ? getContext then
-      writeText "string-references" allPathsWithContext
-    else
-      writeDirectReferencesToFile (writeText "string-file" string);
+    if builtins ? getContext then writeText "string-references" allPathsWithContext else writeDirectReferencesToFile (writeText "string-file" string);
 
   /* Print an error message if the file with the specified name and
      hash doesn't exist in the Nix store. This function should only

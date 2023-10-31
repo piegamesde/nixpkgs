@@ -113,9 +113,7 @@ let
     ++ optional langGo ./gogcc-workaround-glibc-2.36.patch
 
     # Obtain latest patch with ../update-mcfgthread-patches.sh
-    ++
-      optional (!crossStageStatic && targetPlatform.isMinGW && threadsCross.model == "mcf")
-        ./Added-mcf-thread-model-support-from-mcfgthread.patch
+    ++ optional (!crossStageStatic && targetPlatform.isMinGW && threadsCross.model == "mcf") ./Added-mcf-thread-model-support-from-mcfgthread.patch
     ++ optional (targetPlatform.libc == "musl" && targetPlatform.isx86_32) (
       fetchpatch {
         url = "https://git.alpinelinux.org/aports/plain/main/gcc/gcc-6.1-musl-libssp.patch?id=5e4b96e23871ee28ef593b439f8c07ca7c7eb5bb";

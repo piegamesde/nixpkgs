@@ -162,9 +162,9 @@ let
               ''}
               ip route replace default ${
                 optionalString (cfg.defaultGateway.metric != null) "metric ${toString cfg.defaultGateway.metric}"
-              } via "${cfg.defaultGateway.address}" ${
-                optionalString (cfg.defaultGatewayWindowSize != null) "window ${toString cfg.defaultGatewayWindowSize}"
-              } ${optionalString (cfg.defaultGateway.interface != null) "dev ${cfg.defaultGateway.interface}"} proto static
+              } via "${cfg.defaultGateway.address}" ${optionalString (cfg.defaultGatewayWindowSize != null) "window ${toString cfg.defaultGatewayWindowSize}"} ${
+                optionalString (cfg.defaultGateway.interface != null) "dev ${cfg.defaultGateway.interface}"
+              } proto static
             ''}
             ${optionalString (cfg.defaultGateway6 != null && cfg.defaultGateway6.address != "") ''
               ${optionalString (cfg.defaultGateway6.interface != null) ''
@@ -174,9 +174,9 @@ let
               ''}
               ip -6 route replace default ${
                 optionalString (cfg.defaultGateway6.metric != null) "metric ${toString cfg.defaultGateway6.metric}"
-              } via "${cfg.defaultGateway6.address}" ${
-                optionalString (cfg.defaultGatewayWindowSize != null) "window ${toString cfg.defaultGatewayWindowSize}"
-              } ${optionalString (cfg.defaultGateway6.interface != null) "dev ${cfg.defaultGateway6.interface}"} proto static
+              } via "${cfg.defaultGateway6.address}" ${optionalString (cfg.defaultGatewayWindowSize != null) "window ${toString cfg.defaultGatewayWindowSize}"} ${
+                optionalString (cfg.defaultGateway6.interface != null) "dev ${cfg.defaultGateway6.interface}"
+              } proto static
             ''}
           '';
         };
@@ -444,14 +444,11 @@ let
                 echo "Configuring Open vSwitch ${n}..."
                 ovs-vsctl ${
                   concatStrings (
-                    mapAttrsToList (name: config: " -- add-port ${n} ${name}" + optionalString (config.vlan != null) " tag=${toString config.vlan}")
-                      v.interfaces
+                    mapAttrsToList (name: config: " -- add-port ${n} ${name}" + optionalString (config.vlan != null) " tag=${toString config.vlan}") v.interfaces
                   )
                 } \
                   ${
-                    concatStrings (
-                      mapAttrsToList (name: config: optionalString (config.type != null) " -- set interface ${name} type=${config.type}") v.interfaces
-                    )
+                    concatStrings (mapAttrsToList (name: config: optionalString (config.type != null) " -- set interface ${name} type=${config.type}") v.interfaces)
                   } \
                   ${concatMapStrings (x: " -- set-controller ${n} " + x) v.controllers} \
                   ${concatMapStrings (x: " -- " + x) (splitString "\n" v.extraOvsctlCmds)}
@@ -561,8 +558,7 @@ let
               # configured, otherwise external sequencing is required.
               deps = optionals (v.local != null && v.local.dev != null) (deviceDependency v.local.dev ++ [ "network-addresses-${v.local.dev}.service" ]);
               fouSpec = "port ${toString v.port} ${if v.protocol != null then "ipproto ${toString v.protocol}" else "gue"} ${
-                  optionalString (v.local != null)
-                    "local ${escapeShellArg v.local.address} ${optionalString (v.local.dev != null) "dev ${escapeShellArg v.local.dev}"}"
+                  optionalString (v.local != null) "local ${escapeShellArg v.local.address} ${optionalString (v.local.dev != null) "dev ${escapeShellArg v.local.dev}"}"
                 }";
             in
             {

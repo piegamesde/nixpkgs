@@ -7,8 +7,7 @@
 with lib;
 let
   cfg = config.hardware.printers;
-  ppdOptionsString =
-    options: optionalString (options != { }) (concatStringsSep " " (mapAttrsToList (name: value: "-o '${name}'='${value}'") options));
+  ppdOptionsString = options: optionalString (options != { }) (concatStringsSep " " (mapAttrsToList (name: value: "-o '${name}'='${value}'") options));
   ensurePrinter = p: ''
     ${pkgs.cups}/bin/lpadmin -p '${p.name}' -E \
       ${optionalString (p.location != null) "-L '${p.location}'"} \

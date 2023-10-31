@@ -134,9 +134,7 @@ in
     };
 
     populateRootCommands = mkOption {
-      example =
-        literalExpression
-          "''\${config.boot.loader.generic-extlinux-compatible.populateCmd} -c \${config.system.build.toplevel} -d ./files/boot''";
+      example = literalExpression "''\${config.boot.loader.generic-extlinux-compatible.populateCmd} -c \${config.system.build.toplevel} -d ./files/boot''";
       description = lib.mdDoc ''
         Shell commands to populate the ./files directory.
         All files in that directory are copied to the

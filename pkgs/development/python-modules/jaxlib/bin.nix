@@ -80,10 +80,7 @@ buildPythonPackage rec {
 
   # See https://discourse.nixos.org/t/ofborg-does-not-respect-meta-platforms/27019/6.
   src =
-    if !cudaSupport then
-      (cpuSrcs."${stdenv.hostPlatform.system}" or (throw "jaxlib-bin is not supported on ${stdenv.hostPlatform.system}"))
-    else
-      gpuSrc;
+    if !cudaSupport then (cpuSrcs."${stdenv.hostPlatform.system}" or (throw "jaxlib-bin is not supported on ${stdenv.hostPlatform.system}")) else gpuSrc;
 
   # Prebuilt wheels are dynamically linked against things that nix can't find.
   # Run `autoPatchelfHook` to automagically fix them.

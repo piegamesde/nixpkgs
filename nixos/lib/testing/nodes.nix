@@ -111,9 +111,7 @@ in
           name: config:
           config
           // {
-            config =
-              lib.warnIf (lib.isInOldestRelease 2211) "Module argument `nodes.${name}.config` is deprecated. Use `nodes.${name}` instead."
-                config;
+            config = lib.warnIf (lib.isInOldestRelease 2211) "Module argument `nodes.${name}.config` is deprecated. Use `nodes.${name}` instead." config;
           }
         )
         config.nodes;

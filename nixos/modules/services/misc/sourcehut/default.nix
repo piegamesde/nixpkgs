@@ -1356,8 +1356,7 @@ in
                  /run/sourcehut/${srvsrht}-webhooks/celeryconfig.py
             '';
             ExecStart =
-              "${cfg.python}/bin/celery --app listssrht.process worker --hostname listssrht-process@%%h "
-              + concatStringsSep " " cfg.lists.process.extraArgs;
+              "${cfg.python}/bin/celery --app listssrht.process worker --hostname listssrht-process@%%h " + concatStringsSep " " cfg.lists.process.extraArgs;
             # Avoid crashing: os.getloadavg()
             ProcSubset = mkForce "all";
           };

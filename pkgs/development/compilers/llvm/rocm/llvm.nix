@@ -104,9 +104,7 @@ stdenv.mkDerivation (
 
     cmakeFlags =
       [ "-DLLVM_TARGETS_TO_BUILD=${builtins.concatStringsSep ";" llvmTargetsToBuild'}" ]
-      ++ lib.optionals (finalAttrs.passthru.isLLVM && targetProjects != [ ]) [
-        "-DLLVM_ENABLE_PROJECTS=${lib.concatStringsSep ";" targetProjects}"
-      ]
+      ++ lib.optionals (finalAttrs.passthru.isLLVM && targetProjects != [ ]) [ "-DLLVM_ENABLE_PROJECTS=${lib.concatStringsSep ";" targetProjects}" ]
       ++ lib.optionals ((finalAttrs.passthru.isLLVM || targetDir == "runtimes") && targetRuntimes != [ ]) [
         "-DLLVM_ENABLE_RUNTIMES=${lib.concatStringsSep ";" targetRuntimes}"
       ]

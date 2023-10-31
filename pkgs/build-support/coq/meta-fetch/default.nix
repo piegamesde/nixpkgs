@@ -60,11 +60,7 @@ in
 let
   isVersion = x: isString x && match "^/.*" x == null && release ? ${x};
   shortVersion =
-    x:
-    if (isString x && match "^/.*" x == null) then
-      findFirst (v: versions.majorMinor v == x) null (sort versionAtLeast (attrNames release))
-    else
-      null;
+    x: if (isString x && match "^/.*" x == null) then findFirst (v: versions.majorMinor v == x) null (sort versionAtLeast (attrNames release)) else null;
   isShortVersion = x: shortVersion x != null;
   isPathString = x: isString x && match "^/.*" x != null && pathExists x;
 in

@@ -58,9 +58,7 @@ in
       customConfigFile = mkOption {
         type = types.nullOr types.path;
         default = null;
-        description =
-          lib.mdDoc
-            "Defines the path to a custom configuration file that is copied to the user's directory. Overrides any config options.";
+        description = lib.mdDoc "Defines the path to a custom configuration file that is copied to the user's directory. Overrides any config options.";
       };
 
       network = mkOption {

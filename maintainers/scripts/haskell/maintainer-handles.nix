@@ -13,7 +13,6 @@ let
   pkgs = import ../../.. { };
   maintainers = import ../../maintainer-list.nix;
   inherit (pkgs) lib;
-  mkMailGithubPair =
-    _: maintainer: if (maintainer ? email) && (maintainer ? github) then { "${maintainer.email}" = maintainer.github; } else { };
+  mkMailGithubPair = _: maintainer: if (maintainer ? email) && (maintainer ? github) then { "${maintainer.email}" = maintainer.github; } else { };
 in
 lib.zipAttrsWith (_: builtins.head) (lib.mapAttrsToList mkMailGithubPair maintainers)

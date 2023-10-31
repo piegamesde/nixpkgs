@@ -414,8 +414,7 @@ let
             ++ optional (peer.allowedIPs != [ ]) ''allowed-ips "${concatStringsSep "," peer.allowedIPs}"''
           );
           route_setup = optionalString interfaceCfg.allowedIPsAsRoutes (
-            concatMapStringsSep "\n" (allowedIP: ''${ip} route replace "${allowedIP}" dev "${interfaceName}" table "${interfaceCfg.table}"'')
-              peer.allowedIPs
+            concatMapStringsSep "\n" (allowedIP: ''${ip} route replace "${allowedIP}" dev "${interfaceName}" table "${interfaceCfg.table}"'') peer.allowedIPs
           );
         in
         ''
@@ -436,8 +435,7 @@ let
       postStop =
         let
           route_destroy = optionalString interfaceCfg.allowedIPsAsRoutes (
-            concatMapStringsSep "\n" (allowedIP: ''${ip} route delete "${allowedIP}" dev "${interfaceName}" table "${interfaceCfg.table}"'')
-              peer.allowedIPs
+            concatMapStringsSep "\n" (allowedIP: ''${ip} route delete "${allowedIP}" dev "${interfaceName}" table "${interfaceCfg.table}"'') peer.allowedIPs
           );
         in
         ''

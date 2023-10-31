@@ -101,8 +101,7 @@ let
   # Maps a feature across a list of architecture versions to produce a list of gencode arguments.
   # For example, "sm" and [ "8.0" "8.6" "8.7" ] produces [ "-gencode=arch=compute_80,code=sm_80"
   # "-gencode=arch=compute_86,code=sm_86" "-gencode=arch=compute_87,code=sm_87" ].
-  gencodeMapper =
-    feat: lists.map (computeCapability: "-gencode=arch=compute_${dropDot computeCapability},code=${feat}_${dropDot computeCapability}");
+  gencodeMapper = feat: lists.map (computeCapability: "-gencode=arch=compute_${dropDot computeCapability},code=${feat}_${dropDot computeCapability}");
 
   formatCapabilities =
     {

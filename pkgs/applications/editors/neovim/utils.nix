@@ -74,9 +74,7 @@ let
       };
 
       pluginPython3Packages = getDeps "python3Dependencies" requiredPlugins;
-      python3Env = python3Packages.python.withPackages (
-        ps: [ ps.pynvim ] ++ (extraPython3Packages ps) ++ (lib.concatMap (f: f ps) pluginPython3Packages)
-      );
+      python3Env = python3Packages.python.withPackages (ps: [ ps.pynvim ] ++ (extraPython3Packages ps) ++ (lib.concatMap (f: f ps) pluginPython3Packages));
 
       luaEnv = neovim-unwrapped.lua.withPackages (extraLuaPackages);
 

@@ -200,8 +200,7 @@ stdenv.mkDerivation rec {
         (map
           (
             tool:
-            "makeWrapper ${base}/${bin}/${tool} $out/bin/${tool} $makeWrapperArgs"
-            + optionalString (withScripting) " --set PYTHONPATH \"$program_PYTHONPATH\""
+            "makeWrapper ${base}/${bin}/${tool} $out/bin/${tool} $makeWrapperArgs" + optionalString (withScripting) " --set PYTHONPATH \"$program_PYTHONPATH\""
           )
           tools
         )

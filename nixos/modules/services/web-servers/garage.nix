@@ -38,9 +38,7 @@ in
       ]);
       default = "info";
       example = "debug";
-      description =
-        lib.mdDoc
-          "Garage log level, see <https://garagehq.deuxfleurs.fr/documentation/quick-start/#launching-the-garage-server> for examples.";
+      description = lib.mdDoc "Garage log level, see <https://garagehq.deuxfleurs.fr/documentation/quick-start/#launching-the-garage-server> for examples.";
     };
 
     settings = mkOption {
@@ -78,9 +76,7 @@ in
           };
         };
       };
-      description =
-        lib.mdDoc
-          "Garage configuration, see <https://garagehq.deuxfleurs.fr/documentation/reference-manual/configuration/> for reference.";
+      description = lib.mdDoc "Garage configuration, see <https://garagehq.deuxfleurs.fr/documentation/reference-manual/configuration/> for reference.";
     };
 
     package = mkOption {

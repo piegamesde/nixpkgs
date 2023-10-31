@@ -132,9 +132,7 @@ in
       ]
       (
         x: {
-          deps = pkgs.lib.filter (x: x.outPath != quicklisp-to-nix-packages.uffi.outPath) (
-            x.deps ++ (with quicklisp-to-nix-packages; [ cffi-uffi-compat ])
-          );
+          deps = pkgs.lib.filter (x: x.outPath != quicklisp-to-nix-packages.uffi.outPath) (x.deps ++ (with quicklisp-to-nix-packages; [ cffi-uffi-compat ]));
           overrides =
             y:
             (x.overrides y)
@@ -155,9 +153,7 @@ in
       ]
       (
         x: {
-          deps = pkgs.lib.filter (x: x.outPath != quicklisp-to-nix-packages.uffi.outPath) (
-            x.deps ++ (with quicklisp-to-nix-packages; [ cffi-uffi-compat ])
-          );
+          deps = pkgs.lib.filter (x: x.outPath != quicklisp-to-nix-packages.uffi.outPath) (x.deps ++ (with quicklisp-to-nix-packages; [ cffi-uffi-compat ]));
           overrides =
             y:
             (x.overrides y)

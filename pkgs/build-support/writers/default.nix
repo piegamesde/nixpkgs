@@ -118,8 +118,7 @@ let
         )
         ''
           ${compileScript}
-          ${lib.optionalString strip
-            "${lib.getBin buildPackages.bintools-unwrapped}/bin/${buildPackages.bintools-unwrapped.targetPrefix}strip -S $out"}
+          ${lib.optionalString strip "${lib.getBin buildPackages.bintools-unwrapped}/bin/${buildPackages.bintools-unwrapped.targetPrefix}strip -S $out"}
           # Sometimes binaries produced for darwin (e. g. by GHC) won't be valid
           # mach-o executables from the get-go, but need to be corrected somehow
           # which is done by fixupPhase.
@@ -217,9 +216,7 @@ let
         {
           compileScript = ''
             cp "$contentPath" tmp.rs
-            PATH=${makeBinPath [ pkgs.gcc ]} ${lib.getBin rustc}/bin/rustc ${lib.escapeShellArgs rustcArgs} ${
-              lib.escapeShellArgs darwinArgs
-            } -o "$out" tmp.rs
+            PATH=${makeBinPath [ pkgs.gcc ]} ${lib.getBin rustc}/bin/rustc ${lib.escapeShellArgs rustcArgs} ${lib.escapeShellArgs darwinArgs} -o "$out" tmp.rs
           '';
           inherit strip;
         }

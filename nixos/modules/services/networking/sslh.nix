@@ -200,8 +200,7 @@ in
 
             ''
             + optionalString config.networking.enableIPv6 ''
-              ${concatMapStringsSep "\n" ({ table, command }: "while ip6tables -w -t ${table} -D ${command} 2>/dev/null; do echo; done")
-                ip6tablesCommands}
+              ${concatMapStringsSep "\n" ({ table, command }: "while ip6tables -w -t ${table} -D ${command} 2>/dev/null; do echo; done") ip6tablesCommands}
               ${concatMapStringsSep "\n" ({ table, command }: "ip6tables -w -t ${table} -A ${command}") ip6tablesCommands}
 
               ip -6 rule  add fwmark 0x2 lookup 100

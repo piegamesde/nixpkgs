@@ -38,8 +38,7 @@ let
     let
       isIpv6 = x: lib.length (lib.splitString ":" x) > 1;
       listener =
-        lib.findFirst (listener: lib.any (resource: lib.any (name: name == "client") resource.names) listener.resources)
-          (lib.last cfg.settings.listeners)
+        lib.findFirst (listener: lib.any (resource: lib.any (name: name == "client") resource.names) listener.resources) (lib.last cfg.settings.listeners)
           cfg.settings.listeners;
       # FIXME: Handle cases with missing client listener properly,
       # don't rely on lib.last, this will not work.

@@ -17,9 +17,7 @@ let
   cfg = config.programs.zsh;
   opt = options.programs.zsh;
 
-  zshAliases = concatStringsSep "\n" (
-    mapAttrsFlatten (k: v: "alias -- ${k}=${escapeShellArg v}") (filterAttrs (k: v: v != null) cfg.shellAliases)
-  );
+  zshAliases = concatStringsSep "\n" (mapAttrsFlatten (k: v: "alias -- ${k}=${escapeShellArg v}") (filterAttrs (k: v: v != null) cfg.shellAliases));
 
   zshStartupNotes = ''
     # Note that generated /etc/zprofile and /etc/zshrc files do a lot of

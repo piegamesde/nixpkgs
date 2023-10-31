@@ -527,9 +527,7 @@ let
             auth sufficient ${pkgs.pam_mysql}/lib/security/pam_mysql.so config_file=/etc/security/pam_mysql.conf
           ''
           + optionalString (config.security.pam.enableSSHAgentAuth && cfg.sshAgentAuth) ''
-            auth sufficient ${pkgs.pam_ssh_agent_auth}/libexec/pam_ssh_agent_auth.so file=${
-              lib.concatStringsSep ":" config.services.openssh.authorizedKeysFiles
-            }
+            auth sufficient ${pkgs.pam_ssh_agent_auth}/libexec/pam_ssh_agent_auth.so file=${lib.concatStringsSep ":" config.services.openssh.authorizedKeysFiles}
           ''
           + (
             let
@@ -548,9 +546,9 @@ let
                 optionalString (u2f.authFile != null) "authfile=${u2f.authFile}"
               } "
               + ''
-                ${optionalString u2f.interactive "interactive"} ${optionalString u2f.cue "cue"} ${
-                  optionalString (u2f.appId != null) "appid=${u2f.appId}"
-                } ${optionalString (u2f.origin != null) "origin=${u2f.origin}"}
+                ${optionalString u2f.interactive "interactive"} ${optionalString u2f.cue "cue"} ${optionalString (u2f.appId != null) "appid=${u2f.appId}"} ${
+                  optionalString (u2f.origin != null) "origin=${u2f.origin}"
+                }
               ''
             )
           )

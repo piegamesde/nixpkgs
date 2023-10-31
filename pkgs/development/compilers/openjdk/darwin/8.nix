@@ -16,10 +16,7 @@ let
         zuluVersion = "8.54.0.21";
         jdkVersion = "8.0.292";
         sha256 =
-          if enableJavaFX then
-            "e671f8990229b1ca2a76faabb21ba2f1a9e1f7211392e0f657225559be9b05c8"
-          else
-            "1pgl0bir4r5v349gkxk54k6v62w241q7vw4gjxhv2g6pfq6hv7in";
+          if enableJavaFX then "e671f8990229b1ca2a76faabb21ba2f1a9e1f7211392e0f657225559be9b05c8" else "1pgl0bir4r5v349gkxk54k6v62w241q7vw4gjxhv2g6pfq6hv7in";
       };
 
       aarch64-darwin = {
@@ -27,10 +24,7 @@ let
         zuluVersion = "8.54.0.21";
         jdkVersion = "8.0.292";
         sha256 =
-          if enableJavaFX then
-            "8e901075cde2c31f531a34e8321ea4201970936abf54240a232e9389952afe84"
-          else
-            "05w89wfjlfbpqfjnv6wisxmaf13qb28b2223f9264jyx30qszw1c";
+          if enableJavaFX then "8e901075cde2c31f531a34e8321ea4201970936abf54240a232e9389952afe84" else "05w89wfjlfbpqfjnv6wisxmaf13qb28b2223f9264jyx30qszw1c";
       };
     }
     ."${stdenv.hostPlatform.system}";

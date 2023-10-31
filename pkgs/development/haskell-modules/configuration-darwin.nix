@@ -78,9 +78,7 @@ self: super:
 
     OpenAL = addExtraLibrary darwin.apple_sdk.frameworks.OpenAL super.OpenAL;
 
-    al =
-      overrideCabal (drv: { libraryFrameworkDepends = [ darwin.apple_sdk.frameworks.OpenAL ] ++ (drv.libraryFrameworkDepends or [ ]); })
-        super.al;
+    al = overrideCabal (drv: { libraryFrameworkDepends = [ darwin.apple_sdk.frameworks.OpenAL ] ++ (drv.libraryFrameworkDepends or [ ]); }) super.al;
 
     proteaaudio = addExtraLibrary darwin.apple_sdk.frameworks.AudioToolbox super.proteaaudio;
 

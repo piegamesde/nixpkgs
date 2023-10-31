@@ -529,9 +529,7 @@ let
             }
             ${
               concatStringsSep "\n" (
-                mapAttrsToList (n: v: ''fastcgi_param ${n} "${v}";'') (
-                  optionalAttrs (config.fastcgiParams != { }) (defaultFastcgiParams // config.fastcgiParams)
-                )
+                mapAttrsToList (n: v: ''fastcgi_param ${n} "${v}";'') (optionalAttrs (config.fastcgiParams != { }) (defaultFastcgiParams // config.fastcgiParams))
               )
             }
             ${optionalString (config.index != null) "index ${config.index};"}
@@ -1380,8 +1378,7 @@ in
         ];
         RestrictNamespaces = true;
         LockPersonality = true;
-        MemoryDenyWriteExecute =
-          !((builtins.any (mod: (mod.allowMemoryWriteExecute or false)) cfg.package.modules) || (cfg.package == pkgs.openresty));
+        MemoryDenyWriteExecute = !((builtins.any (mod: (mod.allowMemoryWriteExecute or false)) cfg.package.modules) || (cfg.package == pkgs.openresty));
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         RemoveIPC = true;
@@ -1390,9 +1387,9 @@ in
         SystemCallArchitectures = "native";
         SystemCallFilter =
           [ "~@cpu-emulation @debug @keyring @mount @obsolete @privileged @setuid" ]
-          ++ optionals
-            ((cfg.package != pkgs.tengine) && (cfg.package != pkgs.openresty) && (!lib.any (mod: (mod.disableIPC or false)) cfg.package.modules))
-            [ "~@ipc" ];
+          ++ optionals ((cfg.package != pkgs.tengine) && (cfg.package != pkgs.openresty) && (!lib.any (mod: (mod.disableIPC or false)) cfg.package.modules)) [
+            "~@ipc"
+          ];
       };
     };
 
@@ -1419,9 +1416,7 @@ in
         restartTriggers = optionals cfg.enableReload [ configFile ];
         # Block reloading if not all certs exist yet.
         # Happens when config changes add new vhosts/certs.
-        unitConfig.ConditionPathExists = optionals (sslServices != [ ]) (
-          map (certName: certs.${certName}.directory + "/fullchain.pem") dependentCertNames
-        );
+        unitConfig.ConditionPathExists = optionals (sslServices != [ ]) (map (certName: certs.${certName}.directory + "/fullchain.pem") dependentCertNames);
         serviceConfig = {
           Type = "oneshot";
           TimeoutSec = 60;

@@ -29,9 +29,7 @@ let
   mapFeatures = features: map (fun: fun { features = features; });
   mkFeatures =
     feat:
-    lib.lists.foldl (features: featureName: if feat.${featureName} or false then [ featureName ] ++ features else features) [ ] (
-      builtins.attrNames feat
-    );
+    lib.lists.foldl (features: featureName: if feat.${featureName} or false then [ featureName ] ++ features else features) [ ] (builtins.attrNames feat);
 in
 rec {
   alloc_no_stdlib_1_3_0_ =
@@ -134,9 +132,7 @@ rec {
     updateFeatures f
       (rec {
         alloc_no_stdlib_1_3_0.no-stdlib =
-          (f.alloc_no_stdlib_1_3_0.no-stdlib or false)
-          || (brotli_decompressor_1_3_1.no-stdlib or false)
-          || (f.brotli_decompressor_1_3_1.no-stdlib or false);
+          (f.alloc_no_stdlib_1_3_0.no-stdlib or false) || (brotli_decompressor_1_3_1.no-stdlib or false) || (f.brotli_decompressor_1_3_1.no-stdlib or false);
         alloc_no_stdlib_1_3_0.default = true;
         alloc_no_stdlib_1_3_0.unsafe =
           (f.alloc_no_stdlib_1_3_0.unsafe or false) || (brotli_decompressor_1_3_1.unsafe or false) || (f.brotli_decompressor_1_3_1.unsafe or false);

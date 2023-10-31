@@ -133,9 +133,7 @@ let
     bookmarks = mkOption {
       type = types.bool;
       default = true;
-      description =
-        lib.mdDoc
-          "Allows interop between older clients that use XEP-0048: Bookmarks in its 1.0 version and recent clients which use it in PEP";
+      description = lib.mdDoc "Allows interop between older clients that use XEP-0048: Bookmarks in its 1.0 version and recent clients which use it in PEP";
     };
 
     # Nice to have

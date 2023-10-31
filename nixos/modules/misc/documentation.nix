@@ -79,9 +79,7 @@ let
 
     baseOptionsJSON =
       let
-        filter = builtins.filterSource (
-          n: t: cleanSourceFilter n t && (t == "directory" -> baseNameOf n != "tests") && (t == "file" -> hasSuffix ".nix" n)
-        );
+        filter = builtins.filterSource (n: t: cleanSourceFilter n t && (t == "directory" -> baseNameOf n != "tests") && (t == "file" -> hasSuffix ".nix" n));
       in
       pkgs.runCommand "lazy-options.json"
         {

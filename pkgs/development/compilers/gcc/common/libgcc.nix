@@ -7,8 +7,7 @@
 }:
 
 let
-  enableLibGccOutput =
-    (with stdenv; targetPlatform == hostPlatform) && !langJit && !stdenv.hostPlatform.isDarwin && !stdenv.hostPlatform.isStatic;
+  enableLibGccOutput = (with stdenv; targetPlatform == hostPlatform) && !langJit && !stdenv.hostPlatform.isDarwin && !stdenv.hostPlatform.isStatic;
 in
 (
   pkg:

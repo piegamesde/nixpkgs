@@ -23,8 +23,7 @@
 { lib, pkgs }:
 variant: self:
 let
-  dontConfigure =
-    pkg: if pkg != null then pkg.override (args: { melpaBuild = drv: args.melpaBuild (drv // { dontConfigure = true; }); }) else null;
+  dontConfigure = pkg: if pkg != null then pkg.override (args: { melpaBuild = drv: args.melpaBuild (drv // { dontConfigure = true; }); }) else null;
 
   markBroken =
     pkg:

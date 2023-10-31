@@ -233,8 +233,7 @@ let
     ${optionalString (cfg.${deviceType}.accelSpeed != null) ''Option "AccelSpeed" "${cfg.${deviceType}.accelSpeed}"''}
     ${optionalString (cfg.${deviceType}.buttonMapping != null) ''Option "ButtonMapping" "${cfg.${deviceType}.buttonMapping}"''}
     ${optionalString (cfg.${deviceType}.calibrationMatrix != null) ''Option "CalibrationMatrix" "${cfg.${deviceType}.calibrationMatrix}"''}
-    ${optionalString (cfg.${deviceType}.transformationMatrix != null)
-      ''Option "TransformationMatrix" "${cfg.${deviceType}.transformationMatrix}"''}
+    ${optionalString (cfg.${deviceType}.transformationMatrix != null) ''Option "TransformationMatrix" "${cfg.${deviceType}.transformationMatrix}"''}
     ${optionalString (cfg.${deviceType}.clickMethod != null) ''Option "ClickMethod" "${cfg.${deviceType}.clickMethod}"''}
     Option "LeftHanded" "${xorgBool cfg.${deviceType}.leftHanded}"
     Option "MiddleEmulation" "${xorgBool cfg.${deviceType}.middleEmulation}"

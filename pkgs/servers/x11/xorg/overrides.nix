@@ -164,9 +164,7 @@ self: super:
         "man"
       ];
       configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
-      depsBuildBuild = [
-        buildPackages.stdenv.cc
-      ] ++ lib.optionals stdenv.hostPlatform.isStatic [ (xorg.buildPackages.stdenv.cc.libc.static or null) ];
+      depsBuildBuild = [ buildPackages.stdenv.cc ] ++ lib.optionals stdenv.hostPlatform.isStatic [ (xorg.buildPackages.stdenv.cc.libc.static or null) ];
       preConfigure = ''
         sed 's,^as_dummy.*,as_dummy="\$PATH",' -i configure
       '';
@@ -832,9 +830,7 @@ self: super:
 
   xf86videoomap = super.xf86videoomap.overrideAttrs (attrs: { env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=format-overflow" ]; });
 
-  xf86videoamdgpu = super.xf86videoamdgpu.overrideAttrs (
-    attrs: { configureFlags = [ "--with-xorg-conf-dir=$(out)/share/X11/xorg.conf.d" ]; }
-  );
+  xf86videoamdgpu = super.xf86videoamdgpu.overrideAttrs (attrs: { configureFlags = [ "--with-xorg-conf-dir=$(out)/share/X11/xorg.conf.d" ]; });
 
   xf86videoati = super.xf86videoati.overrideAttrs (
     attrs: {

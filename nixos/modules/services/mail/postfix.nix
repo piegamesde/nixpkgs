@@ -914,9 +914,7 @@ in
           // optionalAttrs haveAliases { alias_maps = [ "${cfg.aliasMapType}:/etc/postfix/aliases" ]; }
           // optionalAttrs haveTransport { transport_maps = [ "hash:/etc/postfix/transport" ]; }
           // optionalAttrs haveVirtual { virtual_alias_maps = [ "${cfg.virtualMapType}:/etc/postfix/virtual" ]; }
-          // optionalAttrs haveLocalRecipients {
-            local_recipient_maps = [ "hash:/etc/postfix/local_recipients" ] ++ optional haveAliases "$alias_maps";
-          }
+          // optionalAttrs haveLocalRecipients { local_recipient_maps = [ "hash:/etc/postfix/local_recipients" ] ++ optional haveAliases "$alias_maps"; }
           // optionalAttrs (cfg.dnsBlacklists != [ ]) { smtpd_client_restrictions = clientRestrictions; }
           // optionalAttrs cfg.useSrs {
             sender_canonical_maps = [ "tcp:127.0.0.1:10001" ];
@@ -1061,11 +1059,7 @@ in
                     || cfg.submissionsOptions.smtpd_tls_security_level == "none"
                     || cfg.submissionsOptions.smtpd_tls_security_level == "may";
                   submissionsOptions =
-                    cfg.submissionsOptions
-                    // {
-                      smtpd_tls_wrappermode = "yes";
-                    }
-                    // optionalAttrs adjustSmtpTlsSecurityLevel { smtpd_tls_security_level = "encrypt"; };
+                    cfg.submissionsOptions // { smtpd_tls_wrappermode = "yes"; } // optionalAttrs adjustSmtpTlsSecurityLevel { smtpd_tls_security_level = "encrypt"; };
                 in
                 concatLists (mapAttrsToList mkKeyVal submissionsOptions);
             };

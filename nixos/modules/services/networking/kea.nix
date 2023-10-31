@@ -15,9 +15,7 @@ let
 
   chooseNotNull = x: y: if x != null then x else y;
 
-  ctrlAgentConfig = chooseNotNull cfg.ctrl-agent.configFile (
-    format.generate "kea-ctrl-agent.conf" { Control-agent = cfg.ctrl-agent.settings; }
-  );
+  ctrlAgentConfig = chooseNotNull cfg.ctrl-agent.configFile (format.generate "kea-ctrl-agent.conf" { Control-agent = cfg.ctrl-agent.settings; });
 
   dhcp4Config = chooseNotNull cfg.dhcp4.configFile (format.generate "kea-dhcp4.conf" { Dhcp4 = cfg.dhcp4.settings; });
 

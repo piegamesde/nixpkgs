@@ -79,9 +79,7 @@ import ./make-test-python.nix (
       customized.wait_for_open_port(${toString port})
       customized.succeed("curl --fail 'http://localhost:${toString port}/healthcheck' | grep OK")
       customized.succeed(
-          "curl 'http://localhost:${
-            toString port
-          }/v1/me' -u '${username}:${password}' -H Content-Type:application/json | grep '\"is_admin\":true'"
+          "curl 'http://localhost:${toString port}/v1/me' -u '${username}:${password}' -H Content-Type:application/json | grep '\"is_admin\":true'"
       )
     '';
   }

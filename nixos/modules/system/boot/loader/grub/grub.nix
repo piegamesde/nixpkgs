@@ -111,9 +111,7 @@ let
       }
     );
 
-  bootDeviceCounters = foldr (device: attr: attr // { ${device} = (attr.${device} or 0) + 1; }) { } (
-    concatMap (args: args.devices) cfg.mirroredBoots
-  );
+  bootDeviceCounters = foldr (device: attr: attr // { ${device} = (attr.${device} or 0) + 1; }) { } (concatMap (args: args.devices) cfg.mirroredBoots);
 
   convertedFont =
     (pkgs.runCommand "grub-font-converted.pf2" { } (

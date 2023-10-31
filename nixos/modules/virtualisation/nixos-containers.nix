@@ -896,8 +896,7 @@ in
       # configuration.
       environment.etc =
         let
-          mkPortStr =
-            p: p.protocol + ":" + (toString p.hostPort) + ":" + (if p.containerPort == null then toString p.hostPort else toString p.containerPort);
+          mkPortStr = p: p.protocol + ":" + (toString p.hostPort) + ":" + (if p.containerPort == null then toString p.hostPort else toString p.containerPort);
         in
         mapAttrs'
           (

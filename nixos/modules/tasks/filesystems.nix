@@ -47,9 +47,7 @@ let
     "devpts"
   ];
 
-  nonEmptyWithoutTrailingSlash = addCheckDesc "non-empty without trailing slash" types.str (
-    s: isNonEmpty s && (builtins.match ".+/" s) == null
-  );
+  nonEmptyWithoutTrailingSlash = addCheckDesc "non-empty without trailing slash" types.str (s: isNonEmpty s && (builtins.match ".+/" s) == null);
 
   coreFileSystemOpts =
     { name, config, ... }:

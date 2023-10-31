@@ -102,8 +102,7 @@ let
     in
     fetchzip {
       url = "https://github.com/avast-tl/retdec-support/releases/download/${version}/retdec-support_${version}.tar.xz";
-      sha256 =
-        if withPEPatterns then "148i8flbyj1y4kfdyzsz7jsj38k4h97npjxj18h6v4wksd4m4jm7" else "0ixv9qyqq40pzyqy6v9jf5rxrvivjb0z0zn260nbmb9gk765bacy";
+      sha256 = if withPEPatterns then "148i8flbyj1y4kfdyzsz7jsj38k4h97npjxj18h6v4wksd4m4jm7" else "0ixv9qyqq40pzyqy6v9jf5rxrvivjb0z0zn260nbmb9gk765bacy";
       stripRoot = false;
       # Removing PE signatures reduces this from 3.8GB -> 642MB (uncompressed)
       postFetch = lib.optionalString (!withPEPatterns) ''

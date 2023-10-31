@@ -104,23 +104,21 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs =
-    [
-      atpublic
-      bidict
-      multipledispatch
-      numpy
-      pandas
-      parsy
-      pooch
-      python-dateutil
-      pytz
-      rich
-      sqlglot
-      toolz
-      typing-extensions
-    ]
-    ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ] ++ pooch.optional-dependencies.progress ++ pooch.optional-dependencies.xxhash;
+  propagatedBuildInputs = [
+    atpublic
+    bidict
+    multipledispatch
+    numpy
+    pandas
+    parsy
+    pooch
+    python-dateutil
+    pytz
+    rich
+    sqlglot
+    toolz
+    typing-extensions
+  ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ] ++ pooch.optional-dependencies.progress ++ pooch.optional-dependencies.xxhash;
 
   nativeCheckInputs = [
     pytestCheckHook

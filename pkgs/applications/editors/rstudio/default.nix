@@ -167,8 +167,7 @@ in
     # These dicts contain identically-named dict files, so we only keep the
     # -large versions in case of clashes
     largeDicts = with lib; filter (d: hasInfix "-large-wordlist" d.name) hunspellDictionaries;
-    otherDicts =
-      with lib; filter (d: !(hasAttr "dictFileName" d && elem d.dictFileName (map (d: d.dictFileName) largeDicts))) hunspellDictionaries;
+    otherDicts = with lib; filter (d: !(hasAttr "dictFileName" d && elem d.dictFileName (map (d: d.dictFileName) largeDicts))) hunspellDictionaries;
     dictionaries = largeDicts ++ otherDicts;
 
     preConfigure = ''
@@ -199,10 +198,7 @@ in
       ''}
 
       for f in {${
-        if server then
-          "crash-handler-proxy,postback,r-ldpath,rpostback,rserver,rserver-pam,rsession,rstudio-server"
-        else
-          "diagnostics,rpostback,rstudio"
+        if server then "crash-handler-proxy,postback,r-ldpath,rpostback,rserver,rserver-pam,rsession,rstudio-server" else "diagnostics,rpostback,rstudio"
       }}; do
         ln -s $out/lib/rstudio/bin/$f $out/bin
       done

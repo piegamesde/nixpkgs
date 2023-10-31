@@ -383,11 +383,7 @@ rec {
                 # indentation level. Otherwise, '' is appended to the last line.
                 lastLine = lib.last escapedLines;
               in
-              "''"
-              + introSpace
-              + concatStringsSep introSpace (lib.init escapedLines)
-              + (if lastLine == "" then outroSpace else introSpace + lastLine)
-              + "''";
+              "''" + introSpace + concatStringsSep introSpace (lib.init escapedLines) + (if lastLine == "" then outroSpace else introSpace + lastLine) + "''";
           in
           if multiline && length lines > 1 then multilineResult else singlelineResult
         else if true == v then
@@ -420,8 +416,7 @@ rec {
             + libStr.concatStringsSep introSpace (
               libAttr.mapAttrsToList
                 (
-                  name: value:
-                  "${libStr.escapeNixIdentifier name} = ${builtins.addErrorContext "while evaluating an attribute `${name}`" (go (indent + "  ") value)};"
+                  name: value: "${libStr.escapeNixIdentifier name} = ${builtins.addErrorContext "while evaluating an attribute `${name}`" (go (indent + "  ") value)};"
                 )
                 v
             )
@@ -638,9 +633,7 @@ rec {
         else if v == { } then
           "{}"
         else
-          "{${introSpace}${
-            concatItems (lib.attrsets.mapAttrsToList (key: value: "[${builtins.toJSON key}] = ${toLua innerArgs value}") v)
-          }${outroSpace}}"
+          "{${introSpace}${concatItems (lib.attrsets.mapAttrsToList (key: value: "[${builtins.toJSON key}] = ${toLua innerArgs value}") v)}${outroSpace}}"
       )
     else
       abort "generators.toLua: type ${typeOf v} is unsupported";

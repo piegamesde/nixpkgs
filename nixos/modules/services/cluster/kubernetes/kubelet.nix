@@ -363,9 +363,7 @@ in
                         ${optionalString (cfg.clientCaFile != null) "--client-ca-file=${cfg.clientCaFile}"} \
                         ${optionalString (cfg.clusterDns != "") "--cluster-dns=${cfg.clusterDns}"} \
                         ${optionalString (cfg.clusterDomain != "") "--cluster-domain=${cfg.clusterDomain}"} \
-                        ${
-                          optionalString (cfg.featureGates != [ ]) "--feature-gates=${concatMapStringsSep "," (feature: "${feature}=true") cfg.featureGates}"
-                        } \
+                        ${optionalString (cfg.featureGates != [ ]) "--feature-gates=${concatMapStringsSep "," (feature: "${feature}=true") cfg.featureGates}"} \
                         --hairpin-mode=hairpin-veth \
                         --healthz-bind-address=${cfg.healthz.bind} \
                         --healthz-port=${toString cfg.healthz.port} \

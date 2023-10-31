@@ -120,8 +120,7 @@ lib.listToAttrs (
             dontBuild = true;
             dontInstall = true;
 
-            nativeCheckInputs =
-              old.nativeCheckInputs ++ home-assistant.getPackages component home-assistant.python.pkgs ++ extraCheckInputs.${component} or [ ];
+            nativeCheckInputs = old.nativeCheckInputs ++ home-assistant.getPackages component home-assistant.python.pkgs ++ extraCheckInputs.${component} or [ ];
 
             disabledTests = old.disabledTests or [ ] ++ extraDisabledTests.${component} or [ ];
             disabledTestPaths = old.disabledTestPaths or [ ] ++ extraDisabledTestPaths.${component} or [ ];
@@ -130,10 +129,7 @@ lib.listToAttrs (
             dontUsePytestXdist = true;
 
             pytestFlagsArray =
-              lib.remove "tests" old.pytestFlagsArray
-              ++ [ "--numprocesses=2" ]
-              ++ extraPytestFlagsArray.${component} or [ ]
-              ++ [ "tests/components/${component}" ];
+              lib.remove "tests" old.pytestFlagsArray ++ [ "--numprocesses=2" ] ++ extraPytestFlagsArray.${component} or [ ] ++ [ "tests/components/${component}" ];
 
             preCheck =
               old.preCheck

@@ -58,9 +58,7 @@ let
     lib.optionals stdenv.is64bit [ "/lib64" ]
     ++ [ "/lib32" ]
     ++ map (x: "/steamrt/${steam-runtime-wrapped.arch}/" + x) steam-runtime-wrapped.libs
-    ++ lib.optionals (steam-runtime-wrapped-i686 != null) (
-      map (x: "/steamrt/${steam-runtime-wrapped-i686.arch}/" + x) steam-runtime-wrapped-i686.libs
-    );
+    ++ lib.optionals (steam-runtime-wrapped-i686 != null) (map (x: "/steamrt/${steam-runtime-wrapped-i686.arch}/" + x) steam-runtime-wrapped-i686.libs);
 
   # Zachtronics and a few other studios expect STEAM_LD_LIBRARY_PATH to be present
   exportLDPath = ''
@@ -293,9 +291,7 @@ buildFHSEnv rec {
     exec steam ${extraArgs} "$@"
   '';
 
-  meta =
-    steam.meta
-    // lib.optionalAttrs (!withGameSpecificLibraries) { description = steam.meta.description + " (without game specific libraries)"; };
+  meta = steam.meta // lib.optionalAttrs (!withGameSpecificLibraries) { description = steam.meta.description + " (without game specific libraries)"; };
 
   # allows for some gui applications to share IPC
   # this fixes certain issues where they don't render correctly

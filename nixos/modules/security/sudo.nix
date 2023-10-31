@@ -20,9 +20,7 @@ let
 
   toCommandsString =
     commands:
-    concatStringsSep ", " (
-      map (command: if (isString command) then command else "${toCommandOptionsString command.options}${command.command}") commands
-    );
+    concatStringsSep ", " (map (command: if (isString command) then command else "${toCommandOptionsString command.options}${command.command}") commands);
 in
 
 {

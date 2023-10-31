@@ -698,9 +698,7 @@ in
       let
         dmConf = cfg.displayManager;
         default =
-          !(
-            dmConf.gdm.enable || dmConf.sddm.enable || dmConf.xpra.enable || dmConf.sx.enable || dmConf.startx.enable || config.services.greetd.enable
-          );
+          !(dmConf.gdm.enable || dmConf.sddm.enable || dmConf.xpra.enable || dmConf.sx.enable || dmConf.startx.enable || config.services.greetd.enable);
       in
       mkIf (default) (mkDefault true);
 
@@ -720,9 +718,7 @@ in
     services.xserver.drivers = flip concatMap cfg.videoDrivers (
       name:
       let
-        driver =
-          attrByPath [ name ] (if xorg ? ${"xf86video" + name} then { modules = [ xorg.${"xf86video" + name} ]; } else null)
-            knownVideoDrivers;
+        driver = attrByPath [ name ] (if xorg ? ${"xf86video" + name} then { modules = [ xorg.${"xf86video" + name} ]; } else null) knownVideoDrivers;
       in
       optional (driver != null) (
         {

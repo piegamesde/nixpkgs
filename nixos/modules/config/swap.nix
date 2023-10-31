@@ -220,8 +220,7 @@ in
         config.swapDevices;
 
     warnings =
-      concatMap
-        (sw: if sw.size != null && hasPrefix "/dev/" sw.device then [ "Setting the swap size of block device ${sw.device} has no effect" ] else [ ])
+      concatMap (sw: if sw.size != null && hasPrefix "/dev/" sw.device then [ "Setting the swap size of block device ${sw.device} has no effect" ] else [ ])
         config.swapDevices;
 
     system.requiredKernelConfig = with config.lib.kernelConfig; [ (isYes "SWAP") ];

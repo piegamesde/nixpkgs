@@ -11,10 +11,7 @@ let
 
   version = "3";
   canonicalExtension =
-    if stdenv.hostPlatform.isLinux then
-      "${stdenv.hostPlatform.extensions.sharedLibrary}.${version}"
-    else
-      stdenv.hostPlatform.extensions.sharedLibrary;
+    if stdenv.hostPlatform.isLinux then "${stdenv.hostPlatform.extensions.sharedLibrary}.${version}" else stdenv.hostPlatform.extensions.sharedLibrary;
 
   lapackImplementation = lib.getName lapackProvider;
   lapackProvider' = if lapackImplementation == "mkl" then lapackProvider else lapackProvider.override { blas64 = isILP64; };

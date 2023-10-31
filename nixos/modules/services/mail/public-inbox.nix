@@ -446,9 +446,7 @@ in
       config.public-inbox_destination_recipient_limit = "1";
 
       # Register the addresses as existing
-      virtual = concatStringsSep "\n" (
-        mapAttrsToList (_: inbox: concatMapStringsSep "\n" (address: "${address} ${address}") inbox.address) cfg.inboxes
-      );
+      virtual = concatStringsSep "\n" (mapAttrsToList (_: inbox: concatMapStringsSep "\n" (address: "${address} ${address}") inbox.address) cfg.inboxes);
 
       # Deliver the addresses with the public-inbox transport
       transport = concatStringsSep "\n" (

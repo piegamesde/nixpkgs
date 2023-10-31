@@ -17688,12 +17688,7 @@ let
             sources."find-cache-dir-3.3.2"
             (sources."fork-ts-checker-webpack-plugin-4.1.6" // { dependencies = [ sources."semver-5.7.1" ]; })
             sources."has-flag-4.0.0"
-            (
-              sources."html-minifier-terser-5.1.1"
-              // {
-                dependencies = [ (sources."terser-4.8.1" // { dependencies = [ sources."commander-2.20.3" ]; }) ];
-              }
-            )
+            (sources."html-minifier-terser-5.1.1" // { dependencies = [ (sources."terser-4.8.1" // { dependencies = [ sources."commander-2.20.3" ]; }) ]; })
             (sources."html-webpack-plugin-4.5.2" // { dependencies = [ sources."loader-utils-1.4.0" ]; })
             sources."htmlparser2-6.1.0"
             sources."is-buffer-1.1.6"
@@ -17947,12 +17942,7 @@ let
             (sources."fill-range-4.0.0" // { dependencies = [ sources."extend-shallow-2.0.1" ]; })
             sources."find-cache-dir-3.3.2"
             sources."has-flag-4.0.0"
-            (
-              sources."html-minifier-terser-5.1.1"
-              // {
-                dependencies = [ (sources."terser-4.8.1" // { dependencies = [ sources."commander-2.20.3" ]; }) ];
-              }
-            )
+            (sources."html-minifier-terser-5.1.1" // { dependencies = [ (sources."terser-4.8.1" // { dependencies = [ sources."commander-2.20.3" ]; }) ]; })
             (sources."html-webpack-plugin-4.5.2" // { dependencies = [ sources."loader-utils-1.4.0" ]; })
             sources."htmlparser2-6.1.0"
             sources."is-buffer-1.1.6"

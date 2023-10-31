@@ -41,8 +41,7 @@ let
             { }
           else
             {
-              nativeBuildInputs =
-                (old.nativeBuildInputs or [ ]) ++ lib.optionals (!(builtins.isNull buildSystem)) [ buildSystem ] ++ map (a: self.${a}) extraAttrs;
+              nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ lib.optionals (!(builtins.isNull buildSystem)) [ buildSystem ] ++ map (a: self.${a}) extraAttrs;
             }
         )
     );
@@ -98,8 +97,7 @@ lib.composeManyExtensions [
 
     {
       automat = super.automat.overridePythonAttrs (
-        old:
-        lib.optionalAttrs (lib.versionOlder old.version "22.10.0") { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.m2r ]; }
+        old: lib.optionalAttrs (lib.versionOlder old.version "22.10.0") { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.m2r ]; }
       );
 
       aiohttp-swagger3 = super.aiohttp-swagger3.overridePythonAttrs (
@@ -522,17 +520,13 @@ lib.composeManyExtensions [
         old: { nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ self.pytest-runner ]; }
       );
 
-      django-hijack = super.django-hijack.overridePythonAttrs (
-        old: { nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ self.pytest-runner ]; }
-      );
+      django-hijack = super.django-hijack.overridePythonAttrs (old: { nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ self.pytest-runner ]; });
 
       django-prometheus = super.django-prometheus.overridePythonAttrs (
         old: { nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ self.pytest-runner ]; }
       );
 
-      django-rosetta = super.django-rosetta.overridePythonAttrs (
-        old: { nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ self.pytest-runner ]; }
-      );
+      django-rosetta = super.django-rosetta.overridePythonAttrs (old: { nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ self.pytest-runner ]; });
 
       django-stubs-ext = super.django-stubs-ext.overridePythonAttrs (old: { prePatch = (old.prePatch or "") + "touch ../LICENSE.txt"; });
 
@@ -1019,9 +1013,7 @@ lib.composeManyExtensions [
         }
       );
 
-      jupyterlab-widgets = super.jupyterlab-widgets.overridePythonAttrs (
-        old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.jupyter-packaging ]; }
-      );
+      jupyterlab-widgets = super.jupyterlab-widgets.overridePythonAttrs (old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.jupyter-packaging ]; });
 
       kerberos = super.kerberos.overrideAttrs (old: { nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.libkrb5 ]; });
 
@@ -1632,8 +1624,7 @@ lib.composeManyExtensions [
         in
         {
           buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.sqlite ];
-          propagatedBuildInputs =
-            (old.propagatedBuildInputs or [ ]) ++ lib.optional withPostgres self.psycopg2 ++ lib.optional withMysql self.mysql-connector;
+          propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ lib.optional withPostgres self.psycopg2 ++ lib.optional withMysql self.mysql-connector;
         }
       );
 
@@ -1728,9 +1719,7 @@ lib.composeManyExtensions [
         }
       );
 
-      prettytable = super.prettytable.overridePythonAttrs (
-        old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.setuptools ]; }
-      );
+      prettytable = super.prettytable.overridePythonAttrs (old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.setuptools ]; });
 
       prophet = super.prophet.overridePythonAttrs (
         old: {
@@ -2020,9 +2009,7 @@ lib.composeManyExtensions [
 
       pytezos = super.pytezos.overridePythonAttrs (old: { buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.libsodium ]; });
 
-      python-bugzilla = super.python-bugzilla.overridePythonAttrs (
-        old: { nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ self.docutils ]; }
-      );
+      python-bugzilla = super.python-bugzilla.overridePythonAttrs (old: { nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ self.docutils ]; });
 
       python-ldap = super.python-ldap.overridePythonAttrs (
         old: {

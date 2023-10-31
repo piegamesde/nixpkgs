@@ -59,9 +59,7 @@ let
   '';
 
   mailmanCfg = lib.generators.toINI { } (
-    recursiveUpdate cfg.settings (
-      (optionalAttrs (cfg.restApiPassFile != null) { webservice.admin_pass = "#NIXOS_MAILMAN_REST_API_PASS_SECRET#"; })
-    )
+    recursiveUpdate cfg.settings ((optionalAttrs (cfg.restApiPassFile != null) { webservice.admin_pass = "#NIXOS_MAILMAN_REST_API_PASS_SECRET#"; }))
   );
 
   mailmanCfgFile = pkgs.writeText "mailman-raw.cfg" mailmanCfg;
@@ -709,9 +707,7 @@ in
               # Since the mailman-web settings.py obstinately creates a logs
               # dir in the cwd, change to the (writable) runtime directory before
               # starting uwsgi.
-              ExecStart = "${pkgs.coreutils}/bin/env -C $RUNTIME_DIRECTORY ${
-                  pkgs.uwsgi.override { plugins = [ "python3" ]; }
-                }/bin/uwsgi --json ${uwsgiConfigFile}";
+              ExecStart = "${pkgs.coreutils}/bin/env -C $RUNTIME_DIRECTORY ${pkgs.uwsgi.override { plugins = [ "python3" ]; }}/bin/uwsgi --json ${uwsgiConfigFile}";
               User = cfg.webUser;
               Group = "mailman";
               RuntimeDirectory = "mailman-uwsgi";

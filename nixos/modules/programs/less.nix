@@ -116,12 +116,9 @@ in
 
     environment.systemPackages = [ pkgs.less ];
 
-    environment.variables =
-      {
-        LESSKEYIN_SYSTEM = toString lessKey;
-      }
-      // optionalAttrs (cfg.lessopen != null) { LESSOPEN = cfg.lessopen; }
-      // optionalAttrs (cfg.lessclose != null) { LESSCLOSE = cfg.lessclose; };
+    environment.variables = {
+      LESSKEYIN_SYSTEM = toString lessKey;
+    } // optionalAttrs (cfg.lessopen != null) { LESSOPEN = cfg.lessopen; } // optionalAttrs (cfg.lessclose != null) { LESSCLOSE = cfg.lessclose; };
 
     warnings = optional (cfg.clearDefaultCommands && (all (x: x != "quit") (attrValues cfg.commands))) ''
       config.programs.less.clearDefaultCommands clears all default commands of less but there is no alternative binding for exiting.

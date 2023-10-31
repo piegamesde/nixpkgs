@@ -52,8 +52,7 @@ let
       };
     };
 
-  ovftoolSystem =
-    if builtins.hasAttr system ovftoolSystems then ovftoolSystems.${system} else throw "System '${system}' is unsupported by ovftool";
+  ovftoolSystem = if builtins.hasAttr system ovftoolSystems then ovftoolSystems.${system} else throw "System '${system}' is unsupported by ovftool";
 
   ovftoolSource =
     if builtins.hasAttr system ovftoolBundles then

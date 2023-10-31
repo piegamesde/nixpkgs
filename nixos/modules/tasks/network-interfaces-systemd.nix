@@ -44,8 +44,7 @@ let
         };
       };
     in
-    optionalAttrs (gateway != [ ]) { routes = override (map makeGateway gateway); }
-    // optionalAttrs (domains != [ ]) { domains = override domains; };
+    optionalAttrs (gateway != [ ]) { routes = override (map makeGateway gateway); } // optionalAttrs (domains != [ ]) { domains = override domains; };
 
   genericDhcpNetworks =
     initrd:
@@ -135,9 +134,7 @@ let
               }
             );
             networkConfig.IPv6PrivacyExtensions = "kernel";
-            linkConfig =
-              optionalAttrs (i.macAddress != null) { MACAddress = i.macAddress; }
-              // optionalAttrs (i.mtu != null) { MTUBytes = toString i.mtu; };
+            linkConfig = optionalAttrs (i.macAddress != null) { MACAddress = i.macAddress; } // optionalAttrs (i.mtu != null) { MTUBytes = toString i.mtu; };
           }
         ];
       }
@@ -489,14 +486,11 @@ in
                   echo "Configuring Open vSwitch ${n}..."
                   ovs-vsctl ${
                     concatStrings (
-                      mapAttrsToList (name: config: " -- add-port ${n} ${name}" + optionalString (config.vlan != null) " tag=${toString config.vlan}")
-                        v.interfaces
+                      mapAttrsToList (name: config: " -- add-port ${n} ${name}" + optionalString (config.vlan != null) " tag=${toString config.vlan}") v.interfaces
                     )
                   } \
                     ${
-                      concatStrings (
-                        mapAttrsToList (name: config: optionalString (config.type != null) " -- set interface ${name} type=${config.type}") v.interfaces
-                      )
+                      concatStrings (mapAttrsToList (name: config: optionalString (config.type != null) " -- set interface ${name} type=${config.type}") v.interfaces)
                     } \
                     ${concatMapStrings (x: " -- set-controller ${n} " + x) v.controllers} \
                     ${concatMapStrings (x: " -- " + x) (splitString "\n" v.extraOvsctlCmds)}

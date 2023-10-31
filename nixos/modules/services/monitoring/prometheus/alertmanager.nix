@@ -212,8 +212,7 @@ in
           DynamicUser = true; # implies PrivateTmp
           EnvironmentFile = lib.mkIf (cfg.environmentFile != null) cfg.environmentFile;
           WorkingDirectory = "/tmp";
-          ExecStart =
-            "${cfg.package}/bin/alertmanager" + optionalString (length cmdlineArgs != 0) (" \\\n  " + concatStringsSep " \\\n  " cmdlineArgs);
+          ExecStart = "${cfg.package}/bin/alertmanager" + optionalString (length cmdlineArgs != 0) (" \\\n  " + concatStringsSep " \\\n  " cmdlineArgs);
           ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         };
       };

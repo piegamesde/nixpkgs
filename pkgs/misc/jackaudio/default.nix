@@ -88,12 +88,10 @@ stdenv.mkDerivation (
     '';
 
     dontAddWafCrossFlags = true;
-    wafConfigureFlags =
-      [
-        "--classic"
-        "--autostart=${if (optDbus != null) then "dbus" else "classic"}"
-      ]
-      ++ lib.optional (optDbus != null) "--dbus" ++ lib.optional (optLibffado != null) "--firewire" ++ lib.optional (optAlsaLib != null) "--alsa";
+    wafConfigureFlags = [
+      "--classic"
+      "--autostart=${if (optDbus != null) then "dbus" else "classic"}"
+    ] ++ lib.optional (optDbus != null) "--dbus" ++ lib.optional (optLibffado != null) "--firewire" ++ lib.optional (optAlsaLib != null) "--alsa";
 
     postInstall =
       (

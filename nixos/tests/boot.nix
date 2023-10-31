@@ -29,8 +29,7 @@ let
       ];
     }).config.system.build.sdImage;
 
-  pythonDict =
-    params: "\n    {\n        ${concatStringsSep ",\n        " (mapAttrsToList (name: param: ''"${name}": "${param}"'') params)},\n    }\n";
+  pythonDict = params: "\n    {\n        ${concatStringsSep ",\n        " (mapAttrsToList (name: param: ''"${name}": "${param}"'') params)},\n    }\n";
 
   makeBootTest =
     name: extraConfig:

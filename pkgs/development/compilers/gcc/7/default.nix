@@ -108,9 +108,7 @@ let
     ++ optional (targetPlatform.libc == "musl") ../libgomp-dont-force-initial-exec.patch
 
     # Obtain latest patch with ../update-mcfgthread-patches.sh
-    ++
-      optional (!crossStageStatic && targetPlatform.isMinGW && threadsCross.model == "mcf")
-        ./Added-mcf-thread-model-support-from-mcfgthread.patch
+    ++ optional (!crossStageStatic && targetPlatform.isMinGW && threadsCross.model == "mcf") ./Added-mcf-thread-model-support-from-mcfgthread.patch
 
     ++ [ ../libsanitizer-no-cyclades-9.patch ];
 

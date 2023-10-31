@@ -131,9 +131,7 @@ let
               }
             );
           config = {
-            flags =
-              filter (name: config.${name} == true) isolateFlags
-              ++ optional (config.SessionGroup != null) "SessionGroup=${toString config.SessionGroup}";
+            flags = filter (name: config.${name} == true) isolateFlags ++ optional (config.SessionGroup != null) "SessionGroup=${toString config.SessionGroup}";
           };
         }
       ))
@@ -201,9 +199,7 @@ let
             );
           config = mkIf doConfig {
             # Only add flags in SOCKSPort to avoid duplicates
-            flags =
-              filter (name: config.${name} == true) flags
-              ++ optional (config.SessionGroup != null) "SessionGroup=${toString config.SessionGroup}";
+            flags = filter (name: config.${name} == true) flags ++ optional (config.SessionGroup != null) "SessionGroup=${toString config.SessionGroup}";
           };
         }
       ))
@@ -284,9 +280,7 @@ let
     else if v ? "unix" && v.unix != null then
       "unix:" + v.unix + optionalString (v ? "flags") (" " + concatStringsSep " " v.flags)
     else if v ? "port" && v.port != null then
-      optionalString (v ? "addr" && v.addr != null) "${v.addr}:"
-      + toString v.port
-      + optionalString (v ? "flags") (" " + concatStringsSep " " v.flags)
+      optionalString (v ? "addr" && v.addr != null) "${v.addr}:" + toString v.port + optionalString (v ? "flags") (" " + concatStringsSep " " v.flags)
     else if k == "ServerTransportPlugin" then
       optionalString (v.transports != [ ]) "${concatStringsSep "," v.transports} exec ${v.exec}"
     else if k == "HidServAuth" then
@@ -1027,10 +1021,7 @@ in
                   path = mkDefault ((if config.secretKey == null then stateDir else runDir) + "/onion/${name}");
                   settings.HiddenServiceVersion = config.version;
                   settings.HiddenServiceAuthorizeClient =
-                    if config.authorizeClient != null then
-                      config.authorizeClient.authType + " " + concatStringsSep "," config.authorizeClient.clientNames
-                    else
-                      null;
+                    if config.authorizeClient != null then config.authorizeClient.authType + " " + concatStringsSep "," config.authorizeClient.clientNames else null;
                   settings.HiddenServicePort = map (p: mkValueString "" p.port + " " + mkValueString "" p.target) config.map;
                 };
               }

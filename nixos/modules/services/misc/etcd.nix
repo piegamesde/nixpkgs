@@ -128,9 +128,7 @@ in
     };
 
     peerClientCertAuth = mkOption {
-      description =
-        lib.mdDoc
-          "Whether to check all incoming peer requests from the cluster for valid client certificates signed by the supplied CA";
+      description = lib.mdDoc "Whether to check all incoming peer requests from the cluster for valid client certificates signed by the supplied CA";
       default = false;
       type = types.bool;
     };

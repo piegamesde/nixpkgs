@@ -68,9 +68,7 @@ stdenv.mkDerivation rec {
     vtk
   ];
 
-  cmakeFlags =
-    lib.optionals stdenv.isDarwin [ "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks" ]
-    ++ lib.optionals withCuda [ "-DWITH_CUDA=true" ];
+  cmakeFlags = lib.optionals stdenv.isDarwin [ "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks" ] ++ lib.optionals withCuda [ "-DWITH_CUDA=true" ];
 
   meta = {
     homepage = "https://pointclouds.org/";

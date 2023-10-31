@@ -295,9 +295,7 @@ rec {
 
         # Symlink units defined by systemd.units which shall be
         # treated as drop-in file.
-        for i in ${
-          toString (mapAttrsToList (n: v: v.unit) (lib.filterAttrs (n: v: v ? overrideStrategy && v.overrideStrategy == "asDropin") units))
-        }; do
+        for i in ${toString (mapAttrsToList (n: v: v.unit) (lib.filterAttrs (n: v: v ? overrideStrategy && v.overrideStrategy == "asDropin") units))}; do
           fn=$(basename $i/*)
           mkdir -p $out/$fn.d
           ln -s $i/$fn $out/$fn.d/overrides.conf
@@ -498,10 +496,7 @@ rec {
             in
             # systemd max line length is now 1MiB
             # https://github.com/systemd/systemd/commit/e6dde451a51dc5aaa7f4d98d39b8fe735f73d2af
-            if stringLength s >= 1048576 then
-              throw "The value of the environment variable ‘${n}’ in systemd service ‘${name}.service’ is too long."
-            else
-              s
+            if stringLength s >= 1048576 then throw "The value of the environment variable ‘${n}’ in systemd service ‘${name}.service’ is too long." else s
           )
           (attrNames env)}
         ${if def ? reloadIfChanged && def.reloadIfChanged then

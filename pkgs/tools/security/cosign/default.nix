@@ -23,9 +23,7 @@ buildGoModule rec {
     hash = "sha256-jJHLCN9hEQy4ijFm6g2E9WvTT43kvPhdRW1aczvEcFs=";
   };
 
-  buildInputs =
-    lib.optional (stdenv.isLinux && pivKeySupport) (lib.getDev pcsclite)
-    ++ lib.optionals (stdenv.isDarwin && pivKeySupport) [ PCSC ];
+  buildInputs = lib.optional (stdenv.isLinux && pivKeySupport) (lib.getDev pcsclite) ++ lib.optionals (stdenv.isDarwin && pivKeySupport) [ PCSC ];
 
   nativeBuildInputs = [
     pkg-config

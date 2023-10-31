@@ -39,10 +39,7 @@ let
       # fails.
       withDrySnippets =
         mapAttrs
-          (
-            a: v:
-            if onlyDry && !v.supportsDryActivation then v // { text = "#### Activation script snippet ${a} does not support dry activation."; } else v
-          )
+          (a: v: if onlyDry && !v.supportsDryActivation then v // { text = "#### Activation script snippet ${a} does not support dry activation."; } else v)
           withHeadlines;
     in
     ''

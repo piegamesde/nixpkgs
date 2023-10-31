@@ -89,16 +89,11 @@ stdenv.mkDerivation {
       patchShebangs pmu-events/jevents.py
     '';
 
-  makeFlags =
-    [
-      "prefix=$(out)"
-      "WERROR=0"
-      "ASCIIDOC8=1"
-    ]
-    ++ kernel.makeFlags
-    ++ lib.optional (!withGtk) "NO_GTK2=1"
-    ++ lib.optional (!withZstd) "NO_LIBZSTD=1"
-    ++ lib.optional (!withLibcap) "NO_LIBCAP=1";
+  makeFlags = [
+    "prefix=$(out)"
+    "WERROR=0"
+    "ASCIIDOC8=1"
+  ] ++ kernel.makeFlags ++ lib.optional (!withGtk) "NO_GTK2=1" ++ lib.optional (!withZstd) "NO_LIBZSTD=1" ++ lib.optional (!withLibcap) "NO_LIBCAP=1";
 
   hardeningDisable = [ "format" ];
 

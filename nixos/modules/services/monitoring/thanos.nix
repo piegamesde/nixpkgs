@@ -706,8 +706,7 @@ let
     assertions = [
       {
         assertion = !hasPrefix "/" cfg.${cmd}.stateDir;
-        message =
-          "The option services.thanos.${cmd}.stateDir should not be an absolute directory." + " It should be a directory relative to /var/lib.";
+        message = "The option services.thanos.${cmd}.stateDir should not be an absolute directory." + " It should be a directory relative to /var/lib.";
       }
     ];
   };
@@ -736,17 +735,14 @@ in
     };
 
     query = paramsToOptions params.query // {
-      enable = mkEnableOption (
-        lib.mdDoc ("the Thanos query node exposing PromQL enabled Query API " + "with data retrieved from multiple store nodes")
-      );
+      enable = mkEnableOption (lib.mdDoc ("the Thanos query node exposing PromQL enabled Query API " + "with data retrieved from multiple store nodes"));
       arguments = mkArgumentsOption "query";
     };
 
     rule = paramsToOptions params.rule // {
       enable = mkEnableOption (
         lib.mdDoc (
-          "the Thanos ruler service which evaluates Prometheus rules against"
-          + " given Query nodes, exposing Store API and storing old blocks in bucket"
+          "the Thanos ruler service which evaluates Prometheus rules against" + " given Query nodes, exposing Store API and storing old blocks in bucket"
         )
       );
       arguments = mkArgumentsOption "rule";
@@ -782,8 +778,7 @@ in
           message = "Please enable services.prometheus when enabling services.thanos.sidecar.";
         }
         {
-          assertion =
-            !(config.services.prometheus.globalConfig.external_labels == null || config.services.prometheus.globalConfig.external_labels == { });
+          assertion = !(config.services.prometheus.globalConfig.external_labels == null || config.services.prometheus.globalConfig.external_labels == { });
           message =
             "services.thanos.sidecar requires uniquely identifying external labels "
             + "to be configured in the Prometheus server. "

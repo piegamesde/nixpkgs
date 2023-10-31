@@ -92,8 +92,7 @@
   canokey-qemu,
   enableDocs ? true,
   hostCpuOnly ? false,
-  hostCpuTargets ?
-    (if hostCpuOnly then (lib.optional stdenv.isx86_64 "i386-softmmu" ++ [ "${stdenv.hostPlatform.qemuArch}-softmmu" ]) else null),
+  hostCpuTargets ? (if hostCpuOnly then (lib.optional stdenv.isx86_64 "i386-softmmu" ++ [ "${stdenv.hostPlatform.qemuArch}-softmmu" ]) else null),
   nixosTestRunner ? false,
   doCheck ? false,
   qemu, # for passthru.tests
@@ -105,10 +104,7 @@ in
 
 stdenv.mkDerivation rec {
   pname =
-    "qemu"
-    + lib.optionalString xenSupport "-xen"
-    + lib.optionalString hostCpuOnly "-host-cpu-only"
-    + lib.optionalString nixosTestRunner "-for-vm-tests";
+    "qemu" + lib.optionalString xenSupport "-xen" + lib.optionalString hostCpuOnly "-host-cpu-only" + lib.optionalString nixosTestRunner "-for-vm-tests";
   version = "8.0.0";
 
   src = fetchurl {

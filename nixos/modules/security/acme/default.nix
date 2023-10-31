@@ -1079,10 +1079,7 @@ in
         }
         // (mapAttrs' (cert: conf: nameValuePair "acme-${cert}" conf.renewService) certConfigs)
         // (optionalAttrs (cfg.preliminarySelfsigned) (
-          {
-            "acme-selfsigned-ca" = selfsignCAService;
-          }
-          // (mapAttrs' (cert: conf: nameValuePair "acme-selfsigned-${cert}" conf.selfsignService) certConfigs)
+          { "acme-selfsigned-ca" = selfsignCAService; } // (mapAttrs' (cert: conf: nameValuePair "acme-selfsigned-${cert}" conf.selfsignService) certConfigs)
         ));
 
       systemd.timers = mapAttrs' (cert: conf: nameValuePair "acme-${cert}" conf.renewTimer) certConfigs;

@@ -1555,12 +1555,7 @@ in
       ];
 
     boot.kernelModules =
-      [ ]
-      ++ optional hasVirtuals "tun"
-      ++ optional hasSits "sit"
-      ++ optional hasGres "gre"
-      ++ optional hasBonds "bonding"
-      ++ optional hasFous "fou";
+      [ ] ++ optional hasVirtuals "tun" ++ optional hasSits "sit" ++ optional hasGres "gre" ++ optional hasBonds "bonding" ++ optional hasFous "fou";
 
     boot.extraModprobeConfig =
       # This setting is intentional as it prevents default bond devices

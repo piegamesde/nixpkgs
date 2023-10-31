@@ -393,9 +393,7 @@ in
         cfg.nginx
         {
           root = mkForce "${snipe-it}/public";
-          extraConfig =
-            optionalString (cfg.nginx.addSSL || cfg.nginx.forceSSL || cfg.nginx.onlySSL || cfg.nginx.enableACME)
-              "fastcgi_param HTTPS on;";
+          extraConfig = optionalString (cfg.nginx.addSSL || cfg.nginx.forceSSL || cfg.nginx.onlySSL || cfg.nginx.enableACME) "fastcgi_param HTTPS on;";
           locations = {
             "/" = {
               index = "index.php";

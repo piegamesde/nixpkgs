@@ -111,9 +111,7 @@ in
       # Conveniently, this will also inform Nix of the fact that glibc depends on
       # gcc.libgcc, since the path will be embedded in the resulting binary.
       #
-      makeFlags =
-        (previousAttrs.makeFlags or [ ])
-        ++ lib.optionals (stdenv.cc.cc ? libgcc) [ "user-defined-trusted-dirs=${stdenv.cc.cc.libgcc}/lib" ];
+      makeFlags = (previousAttrs.makeFlags or [ ]) ++ lib.optionals (stdenv.cc.cc ? libgcc) [ "user-defined-trusted-dirs=${stdenv.cc.cc.libgcc}/lib" ];
 
       postInstall =
         (

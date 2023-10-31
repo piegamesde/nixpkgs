@@ -178,8 +178,7 @@ in
 
       serviceConfig =
         let
-          importMode =
-            if cfg.minLedger != null && cfg.maxLedger != null then "${toString cfg.minLedger} ${toString cfg.maxLedger}" else cfg.importMode;
+          importMode = if cfg.minLedger != null && cfg.maxLedger != null then "${toString cfg.minLedger} ${toString cfg.maxLedger}" else cfg.importMode;
         in
         {
           ExecStart = "${pkgs.ripple-data-api}/bin/importer ${importMode} debug";
@@ -189,9 +188,7 @@ in
 
       preStart = mkMerge [
         (mkIf (cfg.couchdb.create) ''
-          HOST="http://${optionalString (cfg.couchdb.pass != "") "${cfg.couchdb.user}:${cfg.couchdb.pass}@"}${cfg.couchdb.host}:${
-            toString cfg.couchdb.port
-          }"
+          HOST="http://${optionalString (cfg.couchdb.pass != "") "${cfg.couchdb.user}:${cfg.couchdb.pass}@"}${cfg.couchdb.host}:${toString cfg.couchdb.port}"
           curl -X PUT $HOST/${cfg.couchdb.db} || true
         '')
         "${pkgs.ripple-data-api}/bin/update-views"

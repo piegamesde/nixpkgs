@@ -1433,9 +1433,7 @@ in
                   fi
 
                   jq <${pkgs.writeText "database.yml" (builtins.toJSON databaseConfig)} \
-                     '.${
-                       if lib.versionAtLeast (lib.getVersion cfg.packages.gitlab) "15.0" then "production.main" else "production"
-                     }.password = $ENV.db_password' \
+                     '.${if lib.versionAtLeast (lib.getVersion cfg.packages.gitlab) "15.0" then "production.main" else "production"}.password = $ENV.db_password' \
                      >'${cfg.statePath}/config/database.yml'
                 ''
               else

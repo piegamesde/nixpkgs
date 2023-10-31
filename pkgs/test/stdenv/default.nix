@@ -20,8 +20,7 @@ let
     };
     inherit (stdenv.hostPlatform) system;
   };
-  bootStdenvStructuredAttrsByDefault =
-    pkgsStructured.stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv;
+  bootStdenvStructuredAttrsByDefault = pkgsStructured.stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv;
 
   runCommand = earlierPkgs.runCommand;
 

@@ -89,7 +89,4 @@ let
       }
     );
 in
-if wineRelease == "staging" then
-  callPackage ./staging.nix { wineUnstable = wine-build wineBuild "unstable"; }
-else
-  wine-build wineBuild wineRelease
+if wineRelease == "staging" then callPackage ./staging.nix { wineUnstable = wine-build wineBuild "unstable"; } else wine-build wineBuild wineRelease

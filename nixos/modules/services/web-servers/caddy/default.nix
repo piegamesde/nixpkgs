@@ -359,9 +359,7 @@ in
           ""
           "${cfg.package}/bin/caddy reload --config ${cfg.configFile} ${optionalString (cfg.adapter != null) "--adapter ${cfg.adapter}"} --force"
         ];
-        ExecStartPre = "${cfg.package}/bin/caddy validate --config ${cfg.configFile} ${
-            optionalString (cfg.adapter != null) "--adapter ${cfg.adapter}"
-          }";
+        ExecStartPre = "${cfg.package}/bin/caddy validate --config ${cfg.configFile} ${optionalString (cfg.adapter != null) "--adapter ${cfg.adapter}"}";
         User = cfg.user;
         Group = cfg.group;
         ReadWriteDirectories = cfg.dataDir;

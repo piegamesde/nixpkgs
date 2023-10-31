@@ -89,9 +89,7 @@ self: super: {
   vault = dontHaddock super.vault;
 
   # https://github.com/snapframework/snap-core/issues/288
-  snap-core =
-    overrideCabal (drv: { prePatch = "substituteInPlace src/Snap/Internal/Core.hs --replace 'fail   = Fail.fail' ''"; })
-      super.snap-core;
+  snap-core = overrideCabal (drv: { prePatch = "substituteInPlace src/Snap/Internal/Core.hs --replace 'fail   = Fail.fail' ''"; }) super.snap-core;
 
   # Upstream ships a broken Setup.hs file.
   csv = overrideCabal (drv: { prePatch = "rm Setup.hs"; }) super.csv;

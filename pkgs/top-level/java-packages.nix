@@ -80,33 +80,19 @@ in
         openjdk // { headless = openjdk.override { headless = true; }; };
     in
     rec {
-      adoptopenjdk-8 =
-        mkAdoptopenjdk ../development/compilers/adoptopenjdk-bin/jdk8-linux.nix
-          ../development/compilers/adoptopenjdk-bin/jdk8-darwin.nix;
+      adoptopenjdk-8 = mkAdoptopenjdk ../development/compilers/adoptopenjdk-bin/jdk8-linux.nix ../development/compilers/adoptopenjdk-bin/jdk8-darwin.nix;
 
-      adoptopenjdk-11 =
-        mkAdoptopenjdk ../development/compilers/adoptopenjdk-bin/jdk11-linux.nix
-          ../development/compilers/adoptopenjdk-bin/jdk11-darwin.nix;
+      adoptopenjdk-11 = mkAdoptopenjdk ../development/compilers/adoptopenjdk-bin/jdk11-linux.nix ../development/compilers/adoptopenjdk-bin/jdk11-darwin.nix;
 
-      adoptopenjdk-13 =
-        mkAdoptopenjdk ../development/compilers/adoptopenjdk-bin/jdk13-linux.nix
-          ../development/compilers/adoptopenjdk-bin/jdk13-darwin.nix;
+      adoptopenjdk-13 = mkAdoptopenjdk ../development/compilers/adoptopenjdk-bin/jdk13-linux.nix ../development/compilers/adoptopenjdk-bin/jdk13-darwin.nix;
 
-      adoptopenjdk-14 =
-        mkAdoptopenjdk ../development/compilers/adoptopenjdk-bin/jdk14-linux.nix
-          ../development/compilers/adoptopenjdk-bin/jdk14-darwin.nix;
+      adoptopenjdk-14 = mkAdoptopenjdk ../development/compilers/adoptopenjdk-bin/jdk14-linux.nix ../development/compilers/adoptopenjdk-bin/jdk14-darwin.nix;
 
-      adoptopenjdk-15 =
-        mkAdoptopenjdk ../development/compilers/adoptopenjdk-bin/jdk15-linux.nix
-          ../development/compilers/adoptopenjdk-bin/jdk15-darwin.nix;
+      adoptopenjdk-15 = mkAdoptopenjdk ../development/compilers/adoptopenjdk-bin/jdk15-linux.nix ../development/compilers/adoptopenjdk-bin/jdk15-darwin.nix;
 
-      adoptopenjdk-16 =
-        mkAdoptopenjdk ../development/compilers/adoptopenjdk-bin/jdk16-linux.nix
-          ../development/compilers/adoptopenjdk-bin/jdk16-darwin.nix;
+      adoptopenjdk-16 = mkAdoptopenjdk ../development/compilers/adoptopenjdk-bin/jdk16-linux.nix ../development/compilers/adoptopenjdk-bin/jdk16-darwin.nix;
 
-      adoptopenjdk-17 =
-        mkAdoptopenjdk ../development/compilers/adoptopenjdk-bin/jdk17-linux.nix
-          ../development/compilers/adoptopenjdk-bin/jdk17-darwin.nix;
+      adoptopenjdk-17 = mkAdoptopenjdk ../development/compilers/adoptopenjdk-bin/jdk17-linux.nix ../development/compilers/adoptopenjdk-bin/jdk17-darwin.nix;
 
       openjdk8-bootstrap = mkBootstrap adoptopenjdk-8 ../development/compilers/openjdk/bootstrap.nix { version = "8"; };
 
@@ -121,25 +107,15 @@ in
         }
       );
 
-      openjdk14-bootstrap = mkBootstrap adoptopenjdk-14 ../development/compilers/openjdk/13.nix (
-        bootstrapArgs // { inherit openjdk13-bootstrap; }
-      );
+      openjdk14-bootstrap = mkBootstrap adoptopenjdk-14 ../development/compilers/openjdk/13.nix (bootstrapArgs // { inherit openjdk13-bootstrap; });
 
-      openjdk15-bootstrap = mkBootstrap adoptopenjdk-15 ../development/compilers/openjdk/14.nix (
-        bootstrapArgs // { inherit openjdk14-bootstrap; }
-      );
+      openjdk15-bootstrap = mkBootstrap adoptopenjdk-15 ../development/compilers/openjdk/14.nix (bootstrapArgs // { inherit openjdk14-bootstrap; });
 
-      openjdk16-bootstrap = mkBootstrap adoptopenjdk-16 ../development/compilers/openjdk/15.nix (
-        bootstrapArgs // { inherit openjdk15-bootstrap; }
-      );
+      openjdk16-bootstrap = mkBootstrap adoptopenjdk-16 ../development/compilers/openjdk/15.nix (bootstrapArgs // { inherit openjdk15-bootstrap; });
 
-      openjdk17-bootstrap = mkBootstrap adoptopenjdk-17 ../development/compilers/openjdk/16.nix (
-        bootstrapArgs // { inherit openjdk16-bootstrap; }
-      );
+      openjdk17-bootstrap = mkBootstrap adoptopenjdk-17 ../development/compilers/openjdk/16.nix (bootstrapArgs // { inherit openjdk16-bootstrap; });
 
-      openjdk18-bootstrap = mkBootstrap adoptopenjdk-17 ../development/compilers/openjdk/17.nix (
-        bootstrapArgs // { inherit openjdk17-bootstrap; }
-      );
+      openjdk18-bootstrap = mkBootstrap adoptopenjdk-17 ../development/compilers/openjdk/17.nix (bootstrapArgs // { inherit openjdk17-bootstrap; });
 
       openjdk8 = mkOpenjdk ../development/compilers/openjdk/8.nix ../development/compilers/openjdk/darwin/8.nix { };
 
@@ -187,15 +163,11 @@ in
       };
 
       temurin-bin = recurseIntoAttrs (
-        callPackage
-          (if stdenv.isLinux then ../development/compilers/temurin-bin/jdk-linux.nix else ../development/compilers/temurin-bin/jdk-darwin.nix)
-          { }
+        callPackage (if stdenv.isLinux then ../development/compilers/temurin-bin/jdk-linux.nix else ../development/compilers/temurin-bin/jdk-darwin.nix) { }
       );
 
       semeru-bin = recurseIntoAttrs (
-        callPackage
-          (if stdenv.isLinux then ../development/compilers/semeru-bin/jdk-linux.nix else ../development/compilers/semeru-bin/jdk-darwin.nix)
-          { }
+        callPackage (if stdenv.isLinux then ../development/compilers/semeru-bin/jdk-linux.nix else ../development/compilers/semeru-bin/jdk-darwin.nix) { }
       );
     };
 
@@ -209,20 +181,13 @@ in
 
   inherit (callPackage ../development/java-modules/beanshell/bsh.nix { inherit fetchMaven; }) bsh_2_0_b4;
 
-  inherit (callPackage ../development/java-modules/classworlds/classworlds.nix { inherit fetchMaven; })
-    classworlds_1_1_alpha2
-    classworlds_1_1
-  ;
+  inherit (callPackage ../development/java-modules/classworlds/classworlds.nix { inherit fetchMaven; }) classworlds_1_1_alpha2 classworlds_1_1;
 
   inherit (callPackage ../development/java-modules/apache/commons-cli.nix { inherit fetchMaven; }) commonsCli_1_0 commonsCli_1_2;
 
   inherit (callPackage ../development/java-modules/apache/commons-io.nix { inherit fetchMaven; }) commonsIo_2_1;
 
-  inherit (callPackage ../development/java-modules/apache/commons-lang.nix { inherit fetchMaven; })
-    commonsLang_2_1
-    commonsLang_2_3
-    commonsLang_2_6
-  ;
+  inherit (callPackage ../development/java-modules/apache/commons-lang.nix { inherit fetchMaven; }) commonsLang_2_1 commonsLang_2_3 commonsLang_2_6;
 
   inherit (callPackage ../development/java-modules/apache/commons-lang3.nix { inherit fetchMaven; }) commonsLang3_3_1;
 
@@ -283,10 +248,7 @@ in
     mavenDoxiaSinkApi_1_0_alpha10
   ;
 
-  inherit (callPackage ../development/java-modules/maven/enforcer.nix { inherit fetchMaven; })
-    mavenEnforcerApi_1_3_1
-    mavenEnforcerRules_1_3_1
-  ;
+  inherit (callPackage ../development/java-modules/maven/enforcer.nix { inherit fetchMaven; }) mavenEnforcerApi_1_3_1 mavenEnforcerRules_1_3_1;
 
   inherit (callPackage ../development/java-modules/maven/error-diagnostics.nix { inherit fetchMaven; })
     mavenErrorDiagnostics_2_0_1
@@ -390,10 +352,7 @@ in
 
   inherit (callPackage ../development/java-modules/maven/shared-utils.nix { inherit fetchMaven; }) mavenSharedUtils_0_1;
 
-  inherit (callPackage ../development/java-modules/maven/surefire-api.nix { inherit fetchMaven; })
-    mavenSurefireApi_2_12_4
-    mavenSurefireApi_2_17
-  ;
+  inherit (callPackage ../development/java-modules/maven/surefire-api.nix { inherit fetchMaven; }) mavenSurefireApi_2_12_4 mavenSurefireApi_2_17;
 
   inherit (callPackage ../development/java-modules/maven/surefire-booter.nix { inherit fetchMaven; })
     mavenSurefireBooter_2_12_4
@@ -415,9 +374,7 @@ in
 
   inherit (callPackage ../development/java-modules/mojo/animal-sniffer.nix { inherit fetchMaven; }) mojoAnimalSniffer_1_11;
 
-  inherit (callPackage ../development/java-modules/mojo/java-boot-classpath-detector.nix { inherit fetchMaven; })
-    mojoJavaBootClasspathDetector_1_11
-  ;
+  inherit (callPackage ../development/java-modules/mojo/java-boot-classpath-detector.nix { inherit fetchMaven; }) mojoJavaBootClasspathDetector_1_11;
 
   inherit (callPackage ../development/java-modules/ow2/asm-all.nix { inherit fetchMaven; }) ow2AsmAll_4_0;
 
@@ -425,20 +382,11 @@ in
 
   inherit (callPackage ../development/java-modules/plexus/build-api.nix { inherit fetchMaven; }) plexusBuildApi_0_0_4;
 
-  inherit (callPackage ../development/java-modules/plexus/classworlds.nix { inherit fetchMaven; })
-    plexusClassworlds_2_2_2
-    plexusClassworlds_2_4
-  ;
+  inherit (callPackage ../development/java-modules/plexus/classworlds.nix { inherit fetchMaven; }) plexusClassworlds_2_2_2 plexusClassworlds_2_4;
 
-  inherit (callPackage ../development/java-modules/plexus/compiler-api.nix { inherit fetchMaven; })
-    plexusCompilerApi_2_2
-    plexusCompilerApi_2_4
-  ;
+  inherit (callPackage ../development/java-modules/plexus/compiler-api.nix { inherit fetchMaven; }) plexusCompilerApi_2_2 plexusCompilerApi_2_4;
 
-  inherit (callPackage ../development/java-modules/plexus/compiler-javac.nix { inherit fetchMaven; })
-    plexusCompilerJavac_2_2
-    plexusCompilerJavac_2_4
-  ;
+  inherit (callPackage ../development/java-modules/plexus/compiler-javac.nix { inherit fetchMaven; }) plexusCompilerJavac_2_2 plexusCompilerJavac_2_4;
 
   inherit (callPackage ../development/java-modules/plexus/compiler-manager.nix { inherit fetchMaven; })
     plexusCompilerManager_2_2

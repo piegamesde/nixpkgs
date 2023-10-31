@@ -53,9 +53,7 @@ let
   # This becomes the main config file for Prometheus
   promConfig = {
     global = filterValidPrometheus cfg.globalConfig;
-    rule_files = map (promtoolCheck "check rules" "rules") (
-      cfg.ruleFiles ++ [ (pkgs.writeText "prometheus.rules" (concatStringsSep "\n" cfg.rules)) ]
-    );
+    rule_files = map (promtoolCheck "check rules" "rules") (cfg.ruleFiles ++ [ (pkgs.writeText "prometheus.rules" (concatStringsSep "\n" cfg.rules)) ]);
     scrape_configs = filterValidPrometheus cfg.scrapeConfigs;
     remote_write = filterValidPrometheus cfg.remoteWrite;
     remote_read = filterValidPrometheus cfg.remoteRead;

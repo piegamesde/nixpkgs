@@ -49,9 +49,7 @@ let
     $DB['DATABASE'] = '${cfg.database.name}';
     $DB['USER'] = '${cfg.database.user}';
     # NOTE: file_get_contents adds newline at the end of returned string
-    $DB['PASSWORD'] = ${
-      if cfg.database.passwordFile != null then ''trim(file_get_contents('${cfg.database.passwordFile}'), "\r\n")'' else "''"
-    };
+    $DB['PASSWORD'] = ${if cfg.database.passwordFile != null then ''trim(file_get_contents('${cfg.database.passwordFile}'), "\r\n")'' else "''"};
     // Schema name. Used for IBM DB2 and PostgreSQL.
     $DB['SCHEMA'] = ''';
     $ZBX_SERVER = '${cfg.server.address}';

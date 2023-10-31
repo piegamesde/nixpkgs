@@ -28,9 +28,7 @@ let
       pname = "gnome-shell-extension-${pname}";
       version = builtins.toString version;
       src = fetchzip {
-        url = "https://extensions.gnome.org/extension-data/${builtins.replaceStrings [ "@" ] [ "" ] uuid}.v${
-            builtins.toString version
-          }.shell-extension.zip";
+        url = "https://extensions.gnome.org/extension-data/${builtins.replaceStrings [ "@" ] [ "" ] uuid}.v${builtins.toString version}.shell-extension.zip";
         inherit sha256;
         stripRoot = false;
         # The download URL may change content over time. This is because the

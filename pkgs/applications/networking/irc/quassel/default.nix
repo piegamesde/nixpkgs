@@ -92,16 +92,10 @@ in
       kxmlgui
     ];
 
-  cmakeFlags =
-    [
-      "-DEMBED_DATA=OFF"
-      "-DUSE_QT5=ON"
-    ]
-    ++ edf static "STATIC"
-    ++ edf monolithic "WANT_MONO"
-    ++ edf enableDaemon "WANT_CORE"
-    ++ edf client "WANT_QTCLIENT"
-    ++ edf withKDE "WITH_KDE";
+  cmakeFlags = [
+    "-DEMBED_DATA=OFF"
+    "-DUSE_QT5=ON"
+  ] ++ edf static "STATIC" ++ edf monolithic "WANT_MONO" ++ edf enableDaemon "WANT_CORE" ++ edf client "WANT_QTCLIENT" ++ edf withKDE "WITH_KDE";
 
   dontWrapQtApps = true;
 

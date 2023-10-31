@@ -16,8 +16,7 @@ stdenv.mkDerivation (
         hash = "sha256-RdctcqPTtQh1Yb3BrpQ8jtRFQn85OcwOt1l90H6xDZs=";
       })
       (fetchurl {
-        url =
-          "http://common-lisp.net/project/cmucl/downloads/release/" + finalAttrs.version + "/cmucl-${finalAttrs.version}-x86-linux.extra.tar.bz2";
+        url = "http://common-lisp.net/project/cmucl/downloads/release/" + finalAttrs.version + "/cmucl-${finalAttrs.version}-x86-linux.extra.tar.bz2";
         hash = "sha256-zEmiW3m5VPpFgPxV1WJNCqgYRlHMovtaMXcgXyNukls=";
       })
     ];

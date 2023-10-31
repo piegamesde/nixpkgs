@@ -14,8 +14,7 @@ let
     if (limit == null && window == null) then
       null
     else
-      assert asserts.assertMsg (limit != null && window != null) "Both power limit and window must be set";
-      "${toString limit} ${toString window}";
+      assert asserts.assertMsg (limit != null && window != null) "Both power limit and window must be set"; "${toString limit} ${toString window}";
   cliArgs = lib.cli.toGNUCommandLine { } {
     inherit (cfg) verbose temp;
     # `core` and `cache` are both intentionally set to `cfg.coreOffset` as according to the undervolt docs:

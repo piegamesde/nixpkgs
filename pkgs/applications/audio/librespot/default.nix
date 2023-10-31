@@ -29,9 +29,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ] ++ lib.optionals stdenv.isDarwin [ rustPlatform.bindgenHook ];
 
-  buildInputs = [
-    openssl
-  ] ++ lib.optional withALSA alsa-lib ++ lib.optional withPortAudio portaudio ++ lib.optional withPulseAudio libpulseaudio;
+  buildInputs = [ openssl ] ++ lib.optional withALSA alsa-lib ++ lib.optional withPortAudio portaudio ++ lib.optional withPulseAudio libpulseaudio;
 
   buildNoDefaultFeatures = true;
   buildFeatures =

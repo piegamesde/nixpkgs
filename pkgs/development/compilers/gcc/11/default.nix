@@ -109,9 +109,7 @@ let
     ++ optional (stdenv.isDarwin && targetPlatform.isAvr) ./avr-gcc-11.3-darwin.patch
 
     # Obtain latest patch with ../update-mcfgthread-patches.sh
-    ++
-      optional (!crossStageStatic && targetPlatform.isMinGW && threadsCross.model == "mcf")
-        ./Added-mcf-thread-model-support-from-mcfgthread.patch
+    ++ optional (!crossStageStatic && targetPlatform.isMinGW && threadsCross.model == "mcf") ./Added-mcf-thread-model-support-from-mcfgthread.patch
 
     # openjdk build fails without this on -march=opteron; is upstream in gcc12
     ++ [ ./gcc-issue-103910.patch ];

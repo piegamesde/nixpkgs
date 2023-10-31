@@ -13,9 +13,7 @@ let
   mkTlpConfig =
     tlpConfig:
     generators.toKeyValue
-      {
-        mkKeyValue = generators.mkKeyValueDefault { mkValueString = val: if isList val then ''"'' + (toString val) + ''"'' else toString val; } "=";
-      }
+      { mkKeyValue = generators.mkKeyValueDefault { mkValueString = val: if isList val then ''"'' + (toString val) + ''"'' else toString val; } "="; }
       tlpConfig;
 in
 {

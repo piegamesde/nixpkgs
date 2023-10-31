@@ -28,14 +28,10 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs =
-    [
-      libcbor
-      zlib
-    ]
-    ++ lib.optionals stdenv.isDarwin [ hidapi ]
-    ++ lib.optionals stdenv.isLinux [ udev ]
-    ++ lib.optionals (stdenv.isLinux && withPcsclite) [ pcsclite ];
+  buildInputs = [
+    libcbor
+    zlib
+  ] ++ lib.optionals stdenv.isDarwin [ hidapi ] ++ lib.optionals stdenv.isLinux [ udev ] ++ lib.optionals (stdenv.isLinux && withPcsclite) [ pcsclite ];
 
   propagatedBuildInputs = [ openssl ];
 

@@ -307,9 +307,7 @@ let
 
       # N.B. condition is safe because without useLLVM both are the same.
       compiler-rt =
-        if
-          stdenv.hostPlatform.isAndroid || (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64) || (stdenv.hostPlatform.libc == "newlib")
-        then
+        if stdenv.hostPlatform.isAndroid || (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64) || (stdenv.hostPlatform.libc == "newlib") then
           libraries.compiler-rt-libc
         else
           libraries.compiler-rt-no-libc;

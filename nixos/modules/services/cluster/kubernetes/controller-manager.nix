@@ -147,9 +147,7 @@ in
                     --allocate-node-cidrs=${boolToString cfg.allocateNodeCIDRs} \
                     --bind-address=${cfg.bindAddress} \
                     ${optionalString (cfg.clusterCidr != null) "--cluster-cidr=${cfg.clusterCidr}"} \
-                    ${
-                      optionalString (cfg.featureGates != [ ]) "--feature-gates=${concatMapStringsSep "," (feature: "${feature}=true") cfg.featureGates}"
-                    } \
+                    ${optionalString (cfg.featureGates != [ ]) "--feature-gates=${concatMapStringsSep "," (feature: "${feature}=true") cfg.featureGates}"} \
                     --kubeconfig=${top.lib.mkKubeConfig "kube-controller-manager" cfg.kubeconfig} \
                     --leader-elect=${boolToString cfg.leaderElect} \
                     ${optionalString (cfg.rootCaFile != null) "--root-ca-file=${cfg.rootCaFile}"} \

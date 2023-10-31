@@ -87,9 +87,7 @@ let
         mkdir -p build/flutter_assets/fonts
 
         flutter packages get --offline -v
-        flutter build linux -v --release --split-debug-info="$debug" ${
-          builtins.concatStringsSep " " (map (flag: ''"${flag}"'') finalAttrs.flutterBuildFlags)
-        }
+        flutter build linux -v --release --split-debug-info="$debug" ${builtins.concatStringsSep " " (map (flag: ''"${flag}"'') finalAttrs.flutterBuildFlags)}
 
         runHook postBuild
       '';

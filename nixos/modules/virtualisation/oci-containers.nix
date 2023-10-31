@@ -307,10 +307,7 @@ let
         else
           "[ $SERVICE_RESULT = success ] || ${cfg.backend} stop ${name}";
       postStop =
-        if cfg.backend == "podman" then
-          "podman rm -f --ignore --cidfile=/run/podman-${escapedName}.ctr-id"
-        else
-          "${cfg.backend} rm -f ${name} || true";
+        if cfg.backend == "podman" then "podman rm -f --ignore --cidfile=/run/podman-${escapedName}.ctr-id" else "${cfg.backend} rm -f ${name} || true";
 
       serviceConfig =
         {

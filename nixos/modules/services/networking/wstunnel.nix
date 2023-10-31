@@ -9,8 +9,7 @@
 with lib;
 let
   cfg = config.services.wstunnel;
-  attrsToArgs =
-    attrs: utils.escapeSystemdExecArgs (mapAttrsToList (name: value: if value == true then "--${name}" else "--${name}=${value}") attrs);
+  attrsToArgs = attrs: utils.escapeSystemdExecArgs (mapAttrsToList (name: value: if value == true then "--${name}" else "--${name}=${value}") attrs);
   hostPortSubmodule = {
     options = {
       host = mkOption {
@@ -383,9 +382,7 @@ let
         PrivateTmp = true;
         AmbientCapabilities =
           (optionals (clientCfg.soMark != null) [ "CAP_NET_ADMIN" ])
-          ++ (optionals ((clientCfg.dynamicToRemote.port or 1024) < 1024 || (any (x: x.local.port < 1024) clientCfg.localToRemote)) [
-            "CAP_NET_BIND_SERVICE"
-          ]);
+          ++ (optionals ((clientCfg.dynamicToRemote.port or 1024) < 1024 || (any (x: x.local.port < 1024) clientCfg.localToRemote)) [ "CAP_NET_BIND_SERVICE" ]);
         NoNewPrivileges = true;
         RestrictNamespaces = "uts ipc pid user cgroup";
         ProtectSystem = "strict";
@@ -465,8 +462,7 @@ in
       )
       ++ (mapAttrsToList
         (name: serverCfg: {
-          assertion =
-            !((serverCfg.tlsCertificate != null || serverCfg.tlsKey != null) && !(serverCfg.tlsCertificate != null && serverCfg.tlsKey != null));
+          assertion = !((serverCfg.tlsCertificate != null || serverCfg.tlsKey != null) && !(serverCfg.tlsCertificate != null && serverCfg.tlsKey != null));
           message = ''
             services.wstunnel.servers."${name}".tlsCertificate and services.wstunnel.servers."${name}".tlsKey need to be set together.
           '';

@@ -1747,8 +1747,7 @@ rec {
                 (target."arch" == "x86")
                 || (target."arch" == "x86_64")
                 || (
-                  ((target."arch" == "aarch64") || (target."arch" == "arm"))
-                  && ((target."os" == "android") || (target."os" == "fuchsia") || (target."os" == "linux"))
+                  ((target."arch" == "aarch64") || (target."arch" == "arm")) && ((target."os" == "android") || (target."os" == "fuchsia") || (target."os" == "linux"))
                 )
               );
           }
@@ -1760,8 +1759,7 @@ rec {
             name = "web-sys";
             packageId = "web-sys";
             usesDefaultFeatures = false;
-            target =
-              { target, features }: ((target."arch" == "wasm32") && (target."vendor" == "unknown") && (target."os" == "unknown") && (target."env" == ""));
+            target = { target, features }: ((target."arch" == "wasm32") && (target."vendor" == "unknown") && (target."os" == "unknown") && (target."env" == ""));
             features = [
               "Crypto"
               "Window"
@@ -4161,9 +4159,7 @@ rec {
         # Filter out build results
         || (
           type == "directory"
-          && (
-            baseName == "target" || baseName == "_site" || baseName == ".sass-cache" || baseName == ".jekyll-metadata" || baseName == "build-artifacts"
-          )
+          && (baseName == "target" || baseName == "_site" || baseName == ".sass-cache" || baseName == ".jekyll-metadata" || baseName == "build-artifacts")
         )
 
         # Filter out nix-build result symlinks
@@ -4753,8 +4749,7 @@ rec {
       builtins.sort (a: b: a < b) outFeaturesUnique;
 
     deprecationWarning =
-      message: value:
-      if strictDeprecation then builtins.throw "strictDeprecation enabled, aborting: ${message}" else builtins.trace message value;
+      message: value: if strictDeprecation then builtins.throw "strictDeprecation enabled, aborting: ${message}" else builtins.trace message value;
 
     #
     # crate2nix/default.nix (excerpt end)

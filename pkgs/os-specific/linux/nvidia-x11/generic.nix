@@ -188,9 +188,7 @@ let
       homepage = "https://www.nvidia.com/object/unix.html";
       description = "X.org driver and kernel module for NVIDIA graphics cards";
       license = licenses.unfreeRedistributable;
-      platforms = [
-        "x86_64-linux"
-      ] ++ optionals (sha256_32bit != null) [ "i686-linux" ] ++ optionals (sha256_aarch64 != null) [ "aarch64-linux" ];
+      platforms = [ "x86_64-linux" ] ++ optionals (sha256_32bit != null) [ "i686-linux" ] ++ optionals (sha256_aarch64 != null) [ "aarch64-linux" ];
       maintainers = with maintainers; [
         jonringer
         kiskae

@@ -25,8 +25,7 @@ let
   # only 'out' has to be changed, otherwise it would be replaced by the out of the writeTextFile
   placeholderToSubstVar = builtins.replaceStrings [ "${placeholder "out"}" ] [ "@out@" ];
 
-  replacePlaceholderAndListToString =
-    x: if builtins.isList x then placeholderToSubstVar (builtins.concatStringsSep " " x) else placeholderToSubstVar x;
+  replacePlaceholderAndListToString = x: if builtins.isList x then placeholderToSubstVar (builtins.concatStringsSep " " x) else placeholderToSubstVar x;
 
   keywordsSection =
     let

@@ -122,8 +122,7 @@ in
     };
 
     passwordFile = mkOption {
-      default =
-        if localMpd then (findFirst (c: any (x: x == "read") c.permissions) { passwordFile = null; } mpdCfg.credentials).passwordFile else null;
+      default = if localMpd then (findFirst (c: any (x: x == "read") c.permissions) { passwordFile = null; } mpdCfg.credentials).passwordFile else null;
       defaultText = literalMD ''
         The first password file with read access configured for MPD when using a local instance,
         otherwise `null`.

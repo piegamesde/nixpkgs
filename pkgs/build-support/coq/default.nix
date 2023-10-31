@@ -202,9 +202,7 @@ stdenv.mkDerivation (
           // (args.meta or { });
       }
       // (optionalAttrs setCOQBIN { COQBIN = "${coq}/bin/"; })
-      // (optionalAttrs (!args ? installPhase && !args ? useMelquiondRemake) {
-        installFlags = coqlib-flags ++ docdir-flags ++ extraInstallFlags;
-      })
+      // (optionalAttrs (!args ? installPhase && !args ? useMelquiondRemake) { installFlags = coqlib-flags ++ docdir-flags ++ extraInstallFlags; })
       // (optionalAttrs useDune {
         buildPhase = ''
           runHook preBuild

@@ -21,9 +21,7 @@ let
     Summary = pyProject.tool.poetry.description;
   };
 
-  pkgInfoFile = builtins.toFile "${name}-PKG-INFO" (
-    lib.concatStringsSep "\n" (lib.mapAttrsToList (key: value: "${key}: ${value}") pkgInfoFields)
-  );
+  pkgInfoFile = builtins.toFile "${name}-PKG-INFO" (lib.concatStringsSep "\n" (lib.mapAttrsToList (key: value: "${key}: ${value}") pkgInfoFields));
 
   entryPointsFile = builtins.toFile "${name}-entry_points.txt" (lib.generators.toINI { } pyProject.tool.poetry.plugins);
 

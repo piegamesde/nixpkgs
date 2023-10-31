@@ -55,8 +55,7 @@ rec {
       yarnLock,
       flags ? [ ],
     }:
-    pkgs.runCommand "yarn.nix" { }
-      "${yarn2nix}/bin/yarn2nix --lockfile ${yarnLock} --no-patch --builtin-fetchgit ${lib.escapeShellArgs flags} > $out";
+    pkgs.runCommand "yarn.nix" { } "${yarn2nix}/bin/yarn2nix --lockfile ${yarnLock} --no-patch --builtin-fetchgit ${lib.escapeShellArgs flags} > $out";
 
   # Loads the generated offline cache. This will be used by yarn as
   # the package source.

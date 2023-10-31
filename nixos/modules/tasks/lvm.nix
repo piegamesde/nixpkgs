@@ -84,16 +84,14 @@ in
         '';
       };
 
-      environment.etc."lvm/lvm.conf".text =
-        concatMapStringsSep "\n" (bin: "global/${bin}_executable = ${pkgs.thin-provisioning-tools}/bin/${bin}")
-          [
-            "thin_check"
-            "thin_dump"
-            "thin_repair"
-            "cache_check"
-            "cache_dump"
-            "cache_repair"
-          ];
+      environment.etc."lvm/lvm.conf".text = concatMapStringsSep "\n" (bin: "global/${bin}_executable = ${pkgs.thin-provisioning-tools}/bin/${bin}") [
+        "thin_check"
+        "thin_dump"
+        "thin_repair"
+        "cache_check"
+        "cache_dump"
+        "cache_repair"
+      ];
 
       environment.systemPackages = [ pkgs.thin-provisioning-tools ];
     })

@@ -60,8 +60,7 @@ let
       };
     };
 
-  selectPartitionTableLayout =
-    { useEFIBoot, useDefaultFilesystems }: if useDefaultFilesystems then if useEFIBoot then "efi" else "legacy" else "none";
+  selectPartitionTableLayout = { useEFIBoot, useDefaultFilesystems }: if useDefaultFilesystems then if useEFIBoot then "efi" else "legacy" else "none";
 
   driveCmdline =
     idx:
@@ -85,8 +84,7 @@ let
         }
       );
       deviceOpts = mkOpts (deviceExtraOpts // { drive = drvId; });
-      device =
-        if cfg.qemu.diskInterface == "scsi" then "-device lsi53c895a -device scsi-hd,${deviceOpts}" else "-device virtio-blk-pci,${deviceOpts}";
+      device = if cfg.qemu.diskInterface == "scsi" then "-device lsi53c895a -device scsi-hd,${deviceOpts}" else "-device virtio-blk-pci,${deviceOpts}";
     in
     "-drive ${driveOpts} ${device}";
 
@@ -104,8 +102,7 @@ let
 
   lookupDriveDeviceName =
     driveName: driveList:
-    (findSingle (drive: drive.name == driveName) (throw "Drive ${driveName} not found") (throw "Multiple drives named ${driveName}") driveList)
-    .device;
+    (findSingle (drive: drive.name == driveName) (throw "Drive ${driveName} not found") (throw "Multiple drives named ${driveName}") driveList).device;
 
   addDeviceNames = imap1 (idx: drive: drive // { device = driveDeviceName idx; });
 
@@ -226,8 +223,7 @@ let
         ${concatStringsSep " " config.virtualisation.qemu.networkingOptions} \
         ${
           concatStringsSep " \\\n    " (
-            mapAttrsToList (tag: share: "-virtfs local,path=${share.source},security_model=none,mount_tag=${tag}")
-              config.virtualisation.sharedDirectories
+            mapAttrsToList (tag: share: "-virtfs local,path=${share.source},security_model=none,mount_tag=${tag}") config.virtualisation.sharedDirectories
           )
         } \
         ${drivesCmdLine config.virtualisation.qemu.drives} \

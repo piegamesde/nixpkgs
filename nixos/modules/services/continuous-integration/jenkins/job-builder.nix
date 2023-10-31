@@ -124,10 +124,7 @@ in
     assertions = [
       {
         assertion =
-          if cfg.accessUser != "" then
-            (cfg.accessToken != "" && cfg.accessTokenFile == "") || (cfg.accessToken == "" && cfg.accessTokenFile != "")
-          else
-            true;
+          if cfg.accessUser != "" then (cfg.accessToken != "" && cfg.accessTokenFile == "") || (cfg.accessToken == "" && cfg.accessTokenFile != "") else true;
         message = ''
           One of accessToken and accessTokenFile options must be non-empty
           strings, but not both. Current values:

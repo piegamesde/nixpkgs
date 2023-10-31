@@ -86,10 +86,8 @@ stdenv.mkDerivation rec {
 
   postConfigure = ''
     ${optionalString withPython3 "./configure python --module=python3  --config=python3-config  --lib-path=${python3}/lib"}
-    ${optionalString withPHP81
-      "./configure php    --module=php81    --config=${php81-unit.unwrapped.dev}/bin/php-config --lib-path=${php81-unit}/lib"}
-    ${optionalString withPHP82
-      "./configure php    --module=php81    --config=${php82-unit.unwrapped.dev}/bin/php-config --lib-path=${php82-unit}/lib"}
+    ${optionalString withPHP81 "./configure php    --module=php81    --config=${php81-unit.unwrapped.dev}/bin/php-config --lib-path=${php81-unit}/lib"}
+    ${optionalString withPHP82 "./configure php    --module=php81    --config=${php82-unit.unwrapped.dev}/bin/php-config --lib-path=${php82-unit}/lib"}
     ${optionalString withPerl534 "./configure perl   --module=perl534  --perl=${perl534}/bin/perl"}
     ${optionalString withPerl536 "./configure perl   --module=perl536  --perl=${perl536}/bin/perl"}
     ${optionalString withPerldevel "./configure perl   --module=perldev  --perl=${perldevel}/bin/perl"}

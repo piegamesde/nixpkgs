@@ -75,9 +75,7 @@ stdenv.mkDerivation rec {
     "PKG_CONFIG=${buildPackages.pkg-config}/bin/${buildPackages.pkg-config.targetPrefix}pkg-config"
   ] ++ lib.optionals (!enableX11) [ "HAVE_X11=no" ] ++ lib.optionals (!enableGL) [ "HAVE_GLUT=no" ];
 
-  nativeBuildInputs = [
-    pkg-config
-  ] ++ lib.optional (enableGL || enableX11) copyDesktopItems ++ lib.optional stdenv.isDarwin desktopToDarwinBundle;
+  nativeBuildInputs = [ pkg-config ] ++ lib.optional (enableGL || enableX11) copyDesktopItems ++ lib.optional stdenv.isDarwin desktopToDarwinBundle;
 
   buildInputs =
     [

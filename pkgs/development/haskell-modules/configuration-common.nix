@@ -430,8 +430,7 @@ self: super:
   ABList = dontCheck super.ABList;
 
   pandoc-cli =
-    throwIfNot (versionOlder super.pandoc.version "3.0.0")
-      "pandoc-cli contains the pandoc executable starting with 3.0, this needs to be considered now."
+    throwIfNot (versionOlder super.pandoc.version "3.0.0") "pandoc-cli contains the pandoc executable starting with 3.0, this needs to be considered now."
       (markBroken (dontDistribute super.pandoc-cli));
 
   inline-c-cpp =
@@ -1663,9 +1662,7 @@ self: super:
 
   # 2022-09-20: We have overridden lsp to not be the stackage version.
   # dhall-lsp-server needs the older 1.4.0.0 lsp
-  dhall-lsp-server = super.dhall-lsp-server.override {
-    lsp = dontCheck (super.lsp_1_4_0_0.override { lsp-types = super.lsp-types_1_4_0_1; });
-  };
+  dhall-lsp-server = super.dhall-lsp-server.override { lsp = dontCheck (super.lsp_1_4_0_0.override { lsp-types = super.lsp-types_1_4_0_1; }); };
 
   # 2023-04-16: https://github.com/ghcjs/jsaddle/pull/137
   jsaddle-webkit2gtk = lib.pipe super.jsaddle-webkit2gtk [
@@ -1751,9 +1748,7 @@ self: super:
 
   # Fixed upstream but not released to Hackage yet:
   # https://github.com/k0001/hs-libsodium/issues/2
-  libsodium =
-    overrideCabal (drv: { libraryToolDepends = (drv.libraryToolDepends or [ ]) ++ [ self.buildHaskellPackages.c2hs ]; })
-      super.libsodium;
+  libsodium = overrideCabal (drv: { libraryToolDepends = (drv.libraryToolDepends or [ ]) ++ [ self.buildHaskellPackages.c2hs ]; }) super.libsodium;
 
   svgcairo =
     appendPatches

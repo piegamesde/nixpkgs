@@ -898,9 +898,7 @@ rec {
                     libllvm = pkgs."${finalLlvmPackages}".libllvm.override { inherit libxml2; };
                   }
                 );
-                libraries = super."${finalLlvmPackages}".libraries.extend (
-                  llvmSelf: _: { inherit (pkgs."${finalLlvmPackages}") libcxx libcxxabi compiler-rt; }
-                );
+                libraries = super."${finalLlvmPackages}".libraries.extend (llvmSelf: _: { inherit (pkgs."${finalLlvmPackages}") libcxx libcxxabi compiler-rt; });
               in
               { inherit tools libraries; } // tools // libraries
             );

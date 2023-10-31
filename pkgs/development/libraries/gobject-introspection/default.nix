@@ -51,9 +51,7 @@ stdenv.mkDerivation (
     outputBin = "dev";
 
     src = fetchurl {
-      url = "mirror://gnome/sources/gobject-introspection/${
-          lib.versions.majorMinor finalAttrs.version
-        }/gobject-introspection-${finalAttrs.version}.tar.xz";
+      url = "mirror://gnome/sources/gobject-introspection/${lib.versions.majorMinor finalAttrs.version}/gobject-introspection-${finalAttrs.version}.tar.xz";
       sha256 = "GWF4v2Q0VQHc3E2EabNqpv6ASJNU7+cct8uKuCo3OL8=";
     };
 

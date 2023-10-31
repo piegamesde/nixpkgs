@@ -12,9 +12,7 @@ let
     { name, sha256 }:
     fetchpatch {
       inherit name sha256;
-      url =
-        "https://projects.archlinux.org/svntogit/packages.git/plain/trunk/${name}"
-        + "?h=packages/t1lib&id=643a4c2c58e70072b5bc1e9e4624162517b58357";
+      url = "https://projects.archlinux.org/svntogit/packages.git/plain/trunk/${name}" + "?h=packages/t1lib&id=643a4c2c58e70072b5bc1e9e4624162517b58357";
     };
 
   patches = map getPatch [

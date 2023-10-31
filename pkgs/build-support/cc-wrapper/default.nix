@@ -475,9 +475,7 @@ stdenv.mkDerivation {
       for dir in ${gccForLibs}${lib.optionalString (hostPlatform != targetPlatform) "/${targetPlatform.config}"}/include/c++/*; do
         echo "-isystem $dir" >> $out/nix-support/libcxx-cxxflags
       done
-      for dir in ${gccForLibs}${
-        lib.optionalString (hostPlatform != targetPlatform) "/${targetPlatform.config}"
-      }/include/c++/*/${targetPlatform.config}; do
+      for dir in ${gccForLibs}${lib.optionalString (hostPlatform != targetPlatform) "/${targetPlatform.config}"}/include/c++/*/${targetPlatform.config}; do
         echo "-isystem $dir" >> $out/nix-support/libcxx-cxxflags
       done
     ''
@@ -548,12 +546,9 @@ stdenv.mkDerivation {
     # discrepency (x86_64 vs. x86-64), so we provide an "arch" arg in
     # that case.
     # TODO: aarch64-darwin has mcpu incompatible with gcc
-    +
-      optionalString
-        ((targetPlatform ? gcc.arch) && (isClang || !(stdenv.isDarwin && stdenv.isAarch64)) && isGccArchSupported targetPlatform.gcc.arch)
-        ''
-          echo "-march=${targetPlatform.gcc.arch}" >> $out/nix-support/cc-cflags-before
-        ''
+    + optionalString ((targetPlatform ? gcc.arch) && (isClang || !(stdenv.isDarwin && stdenv.isAarch64)) && isGccArchSupported targetPlatform.gcc.arch) ''
+      echo "-march=${targetPlatform.gcc.arch}" >> $out/nix-support/cc-cflags-before
+    ''
 
     # -mcpu is not very useful, except on PowerPC where it is used
     # instead of march. On all other platforms you should use mtune
@@ -660,9 +655,7 @@ stdenv.mkDerivation {
     ## Extra custom steps
     ##
     + extraBuildCommands
-    + lib.strings.concatStringsSep "; " (
-      lib.attrsets.mapAttrsToList (name: value: "echo ${toString value} >> $out/nix-support/${name}") nixSupport
-    );
+    + lib.strings.concatStringsSep "; " (lib.attrsets.mapAttrsToList (name: value: "echo ${toString value} >> $out/nix-support/${name}") nixSupport);
 
   env = {
     # for substitution in utils.bash

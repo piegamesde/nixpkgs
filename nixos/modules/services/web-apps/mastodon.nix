@@ -656,8 +656,7 @@ in
             '';
           }
           {
-            assertion =
-              1 == builtins.length (lib.mapAttrsToList (_: v: builtins.elem "scheduler" v.jobClasses || v.jobClasses == [ ]) cfg.sidekiqProcesses);
+            assertion = 1 == builtins.length (lib.mapAttrsToList (_: v: builtins.elem "scheduler" v.jobClasses || v.jobClasses == [ ]) cfg.sidekiqProcesses);
             message = ''There must be one and only one Sidekiq queue in services.mastodon.sidekiqProcesses with jobClass "scheduler".'';
           }
         ];
@@ -789,8 +788,7 @@ in
           wantedBy = [ "mastodon.target" ];
           description = "Mastodon streaming";
           environment =
-            env
-            // (if cfg.enableUnixSocket then { SOCKET = "/run/mastodon-streaming/streaming.socket"; } else { PORT = toString (cfg.streamingPort); });
+            env // (if cfg.enableUnixSocket then { SOCKET = "/run/mastodon-streaming/streaming.socket"; } else { PORT = toString (cfg.streamingPort); });
           serviceConfig = {
             ExecStart = "${cfg.package}/run-streaming.sh";
             Restart = "always";
@@ -893,9 +891,7 @@ in
 
             locations."/api/v1/streaming/" = {
               proxyPass =
-                (
-                  if cfg.enableUnixSocket then "http://unix:/run/mastodon-streaming/streaming.socket" else "http://127.0.0.1:${toString (cfg.streamingPort)}/"
-                );
+                (if cfg.enableUnixSocket then "http://unix:/run/mastodon-streaming/streaming.socket" else "http://127.0.0.1:${toString (cfg.streamingPort)}/");
               proxyWebsockets = true;
             };
           };

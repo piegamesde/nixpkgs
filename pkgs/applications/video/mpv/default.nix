@@ -173,18 +173,14 @@ stdenv.mkDerivation (
 
     mesonAutoFeatures = "auto";
 
-    nativeBuildInputs =
-      [
-        addOpenGLRunpath
-        docutils # for rst2man
-        meson
-        ninja
-        pkg-config
-        python3
-      ]
-      ++ lib.optionals stdenv.isDarwin [ xcbuild.xcrun ]
-      ++ lib.optionals swiftSupport [ swift ]
-      ++ lib.optionals waylandSupport [ wayland-scanner ];
+    nativeBuildInputs = [
+      addOpenGLRunpath
+      docutils # for rst2man
+      meson
+      ninja
+      pkg-config
+      python3
+    ] ++ lib.optionals stdenv.isDarwin [ xcbuild.xcrun ] ++ lib.optionals swiftSupport [ swift ] ++ lib.optionals waylandSupport [ wayland-scanner ];
 
     buildInputs =
       [

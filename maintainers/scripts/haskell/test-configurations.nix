@@ -115,9 +115,7 @@ let
     .${configName} or setsForVersion;
 
   # attribute set that has all the attributes of haskellPackages set to null
-  availableHaskellPackages = builtins.listToAttrs (
-    builtins.map (attr: lib.nameValuePair attr null) (builtins.attrNames pkgs.haskellPackages)
-  );
+  availableHaskellPackages = builtins.listToAttrs (builtins.map (attr: lib.nameValuePair attr null) (builtins.attrNames pkgs.haskellPackages));
 
   # evaluate a configuration and only return the attributes changed by it,
   # pass availableHaskellPackages as super in case intersectAttrs is used
@@ -142,10 +140,7 @@ let
   packages =
     builtins.filter
       (
-        v:
-        lib.warnIf (v.meta.broken or false) "${v.pname} is marked as broken" (
-          v != null && (skipEvalErrors -> (builtins.tryEval (v.outPath or v)).success)
-        )
+        v: lib.warnIf (v.meta.broken or false) "${v.pname} is marked as broken" (v != null && (skipEvalErrors -> (builtins.tryEval (v.outPath or v)).success))
       )
       (
         lib.concatMap

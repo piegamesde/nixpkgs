@@ -40,10 +40,7 @@ stdenv.mkDerivation (
     ];
     propagatedBuildInputs = [ zlib ];
     buildInputs =
-      lib.optionals withLZMA [ xz ]
-      ++ lib.optionals withBzip2 [ bzip2 ]
-      ++ lib.optionals withOpenssl [ openssl ]
-      ++ lib.optionals withZstd [ zstd ];
+      lib.optionals withLZMA [ xz ] ++ lib.optionals withBzip2 [ bzip2 ] ++ lib.optionals withOpenssl [ openssl ] ++ lib.optionals withZstd [ zstd ];
 
     # Don't build the regression tests because they don't build with
     # pkgsStatic and are not executed anyway.

@@ -167,9 +167,7 @@ in
         }
       '';
     };
-    environment.etc."alsa/conf.d/50-pipewire.conf" = mkIf cfg.alsa.enable {
-      source = "${cfg.package}/share/alsa/alsa.conf.d/50-pipewire.conf";
-    };
+    environment.etc."alsa/conf.d/50-pipewire.conf" = mkIf cfg.alsa.enable { source = "${cfg.package}/share/alsa/alsa.conf.d/50-pipewire.conf"; };
     environment.etc."alsa/conf.d/99-pipewire-default.conf" = mkIf cfg.alsa.enable {
       source = "${cfg.package}/share/alsa/alsa.conf.d/99-pipewire-default.conf";
     };

@@ -58,20 +58,16 @@ stdenv.mkDerivation rec {
     protobuf
   ] ++ lib.optionals stdenv.isLinux [ libnsl ];
 
-  cmakeFlags =
-    [
-      "-DgRPC_ZLIB_PROVIDER=package"
-      "-DgRPC_CARES_PROVIDER=package"
-      "-DgRPC_RE2_PROVIDER=package"
-      "-DgRPC_SSL_PROVIDER=package"
-      "-DgRPC_PROTOBUF_PROVIDER=package"
-      "-DgRPC_ABSL_PROVIDER=package"
-      "-DBUILD_SHARED_LIBS=ON"
-      "-DCMAKE_CXX_STANDARD=${passthru.cxxStandard}"
-    ]
-    ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-      "-D_gRPC_PROTOBUF_PROTOC_EXECUTABLE=${buildPackages.protobuf}/bin/protoc"
-    ];
+  cmakeFlags = [
+    "-DgRPC_ZLIB_PROVIDER=package"
+    "-DgRPC_CARES_PROVIDER=package"
+    "-DgRPC_RE2_PROVIDER=package"
+    "-DgRPC_SSL_PROVIDER=package"
+    "-DgRPC_PROTOBUF_PROVIDER=package"
+    "-DgRPC_ABSL_PROVIDER=package"
+    "-DBUILD_SHARED_LIBS=ON"
+    "-DCMAKE_CXX_STANDARD=${passthru.cxxStandard}"
+  ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [ "-D_gRPC_PROTOBUF_PROTOC_EXECUTABLE=${buildPackages.protobuf}/bin/protoc" ];
 
   # CMake creates a build directory by default, this conflicts with the
   # basel BUILD file on case-insensitive filesystems.

@@ -33,9 +33,7 @@ stdenv.mkDerivation rec {
     zlib
     libgpg-error
   ];
-  configureFlags = [
-    "--enable-introspection=yes"
-  ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ "ac_cv_have_iconv_detect_h=yes" ];
+  configureFlags = [ "--enable-introspection=yes" ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ "ac_cv_have_iconv_detect_h=yes" ];
 
   postPatch = ''
     substituteInPlace tests/testsuite.c \

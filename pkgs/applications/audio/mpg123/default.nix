@@ -36,9 +36,7 @@ stdenv.mkDerivation rec {
     "man"
   ] ++ lib.optional withConplay "conplay";
 
-  nativeBuildInputs = lib.optionals (!libOnly) (
-    lib.optionals withConplay [ makeWrapper ] ++ lib.optionals (withPulse || withJack) [ pkg-config ]
-  );
+  nativeBuildInputs = lib.optionals (!libOnly) (lib.optionals withConplay [ makeWrapper ] ++ lib.optionals (withPulse || withJack) [ pkg-config ]);
 
   buildInputs = lib.optionals (!libOnly) (
     lib.optionals withConplay [ perl ]

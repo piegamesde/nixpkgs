@@ -256,9 +256,7 @@ in
     systemd.services.smartd = {
       description = "S.M.A.R.T. Daemon";
       wantedBy = [ "multi-user.target" ];
-      serviceConfig.ExecStart = "${pkgs.smartmontools}/sbin/smartd ${
-          lib.concatStringsSep " " cfg.extraOptions
-        } --no-fork --configfile=${smartdConf}";
+      serviceConfig.ExecStart = "${pkgs.smartmontools}/sbin/smartd ${lib.concatStringsSep " " cfg.extraOptions} --no-fork --configfile=${smartdConf}";
     };
   };
 }

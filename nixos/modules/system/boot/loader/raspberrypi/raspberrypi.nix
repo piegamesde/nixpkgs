@@ -16,8 +16,7 @@ let
   };
   builderGeneric = import ./raspberrypi-builder.nix { inherit pkgs configTxt; };
 
-  builder =
-    if cfg.uboot.enable then "${builderUboot} -g ${toString cfg.uboot.configurationLimit} -t ${timeoutStr} -c" else "${builderGeneric} -c";
+  builder = if cfg.uboot.enable then "${builderUboot} -g ${toString cfg.uboot.configurationLimit} -t ${timeoutStr} -c" else "${builderGeneric} -c";
 
   blCfg = config.boot.loader;
   timeoutStr = if blCfg.timeout == null then "-1" else toString blCfg.timeout;

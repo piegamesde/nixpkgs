@@ -1083,8 +1083,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       sha256 = "1y9c13igg0kai07sqvf9cm6yqmd8lhfd8hq3q7biilbgs1l99as3";
       USE_FORT = "yes";
       MKPROFILE = "no";
-      extraPaths =
-        with self; _mainLibcExtraPaths ++ [ (fetchNetBSD "external/bsd/jemalloc" "9.2" "0cq704swa0h2yxv4gc79z2lwxibk9k7pxh3q5qfs7axx3jx3n8kb") ];
+      extraPaths = with self; _mainLibcExtraPaths ++ [ (fetchNetBSD "external/bsd/jemalloc" "9.2" "0cq704swa0h2yxv4gc79z2lwxibk9k7pxh3q5qfs7axx3jx3n8kb") ];
       nativeBuildInputs = with buildPackages.netbsd; [
         bsdSetupHook
         netbsdSetupHook

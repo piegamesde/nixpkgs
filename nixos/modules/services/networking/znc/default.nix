@@ -64,10 +64,7 @@ let
           #   </Foo>
           set =
             concatMap
-              (
-                subname:
-                optionals (value.${subname} != null) ([ "<${name} ${subname}>" ] ++ map (line: "	${line}") (toLines value.${subname}) ++ [ "</${name}>" ])
-              )
+              (subname: optionals (value.${subname} != null) ([ "<${name} ${subname}>" ] ++ map (line: "	${line}") (toLines value.${subname}) ++ [ "</${name}>" ]))
               (filter (v: v != null) (attrNames value));
         }
         .${builtins.typeOf value};

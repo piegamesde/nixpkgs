@@ -54,8 +54,7 @@ let
     in
     [ "haskell-language-server-${packages.ghc.version}" ];
   makeSymlinks =
-    version:
-    concatMapStringsSep "\n" (x: "ln -s ${tunedHls (getPackages version)}/bin/haskell-language-server $out/bin/${x}") (targets version);
+    version: concatMapStringsSep "\n" (x: "ln -s ${tunedHls (getPackages version)}/bin/haskell-language-server $out/bin/${x}") (targets version);
 in
 assert supportedGhcVersions != [ ];
 stdenv.mkDerivation {
@@ -63,9 +62,7 @@ stdenv.mkDerivation {
   version = haskellPackages.haskell-language-server.version;
   buildCommand = ''
     mkdir -p $out/bin
-    ln -s ${
-      tunedHls (getPackages (builtins.head supportedGhcVersions))
-    }/bin/haskell-language-server-wrapper $out/bin/haskell-language-server-wrapper
+    ln -s ${tunedHls (getPackages (builtins.head supportedGhcVersions))}/bin/haskell-language-server-wrapper $out/bin/haskell-language-server-wrapper
     ${concatMapStringsSep "\n" makeSymlinks supportedGhcVersions}
   '';
   meta = haskellPackages.haskell-language-server.meta // {

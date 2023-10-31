@@ -82,10 +82,7 @@ stdenv.mkDerivation rec {
       boehmgc
       zlib
     ]
-    ++ lib.optional sslSupport openssl
-    ++ lib.optional mouseSupport gpm-ncurses
-    ++ lib.optional graphicsSupport imlib2
-    ++ lib.optional x11Support libX11;
+    ++ lib.optional sslSupport openssl ++ lib.optional mouseSupport gpm-ncurses ++ lib.optional graphicsSupport imlib2 ++ lib.optional x11Support libX11;
 
   postInstall = lib.optionalString graphicsSupport ''
     ln -s $out/libexec/w3m/w3mimgdisplay $out/bin

@@ -35,18 +35,13 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs =
-    [
-      kronosnet
-      nss
-      nspr
-      libqb
-      systemd.dev
-    ]
-    ++ optional enableDbus dbus
-    ++ optional enableInfiniBandRdma rdma-core
-    ++ optional enableMonitoring libstatgrab
-    ++ optional enableSnmp net-snmp;
+  buildInputs = [
+    kronosnet
+    nss
+    nspr
+    libqb
+    systemd.dev
+  ] ++ optional enableDbus dbus ++ optional enableInfiniBandRdma rdma-core ++ optional enableMonitoring libstatgrab ++ optional enableSnmp net-snmp;
 
   configureFlags =
     [

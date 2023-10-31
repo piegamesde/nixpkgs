@@ -103,10 +103,7 @@ let
         getDeps allRawDeps
         ++ (
           # >=poetry-1.2.0 dependency groups
-          if pyProject.tool.poetry.group or { } != { } then
-            lib.flatten (map (g: getDeps pyProject.tool.poetry.group.${g}.dependencies) groups)
-          else
-            [ ]
+          if pyProject.tool.poetry.group or { } != { } then lib.flatten (map (g: getDeps pyProject.tool.poetry.group.${g}.dependencies) groups) else [ ]
         )
       );
       nativeBuildInputs = mkInput "nativeBuildInputs" [ ];
@@ -231,8 +228,7 @@ lib.makeScope pkgs.newScope (
         partitions =
           let
             supportsPythonVersion =
-              pkgMeta:
-              if pkgMeta ? marker then (evalPep508 pkgMeta.marker) else true && isCompatible (poetryLib.getPythonVersion python) pkgMeta.python-versions;
+              pkgMeta: if pkgMeta ? marker then (evalPep508 pkgMeta.marker) else true && isCompatible (poetryLib.getPythonVersion python) pkgMeta.python-versions;
           in
           lib.partition supportsPythonVersion poetryLock.package;
         compatible = partitions.right;
@@ -419,8 +415,7 @@ lib.makeScope pkgs.newScope (
 
         # Automatically add dependencies with develop = true as editable packages, but only if path dependencies
         getEditableDeps =
-          set:
-          lib.mapAttrs (name: value: projectDir + "/${value.path}") (lib.filterAttrs (name: dep: dep.develop or false && hasAttr "path" dep) set);
+          set: lib.mapAttrs (name: value: projectDir + "/${value.path}") (lib.filterAttrs (name: dep: dep.develop or false && hasAttr "path" dep) set);
 
         excludedEditablePackageNames = builtins.filter (pkg: editablePackageSources."${pkg}" == null) (builtins.attrNames editablePackageSources);
 

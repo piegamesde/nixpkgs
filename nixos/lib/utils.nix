@@ -74,9 +74,7 @@ rec {
     in
     replaceStrings [ "/" ] [ "-" ] (
       replacePrefix "." (strings.escapeC [ "." ] ".") (
-        strings.escapeC (stringToCharacters " !\"#$%&'()*+,;<=>=@[\\]^`{|}~-") (
-          if normalizedPath == "/" then normalizedPath else trim normalizedPath
-        )
+        strings.escapeC (stringToCharacters " !\"#$%&'()*+,;<=>=@[\\]^`{|}~-") (if normalizedPath == "/" then normalizedPath else trim normalizedPath)
       )
     );
 

@@ -158,9 +158,7 @@ in
       {
         assertion = !hasPrefix "/" cfg.stateDir;
         message =
-          "The option services.prometheus.pushgateway.stateDir"
-          + " shouldn't be an absolute directory."
-          + " It should be a directory relative to /var/lib.";
+          "The option services.prometheus.pushgateway.stateDir" + " shouldn't be an absolute directory." + " It should be a directory relative to /var/lib.";
       }
     ];
     systemd.services.pushgateway = {
@@ -169,8 +167,7 @@ in
       serviceConfig = {
         Restart = "always";
         DynamicUser = true;
-        ExecStart =
-          "${cfg.package}/bin/pushgateway" + optionalString (length cmdlineArgs != 0) (" \\\n  " + concatStringsSep " \\\n  " cmdlineArgs);
+        ExecStart = "${cfg.package}/bin/pushgateway" + optionalString (length cmdlineArgs != 0) (" \\\n  " + concatStringsSep " \\\n  " cmdlineArgs);
         StateDirectory = if cfg.persistMetrics then cfg.stateDir else null;
       };
     };
