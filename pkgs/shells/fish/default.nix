@@ -214,9 +214,7 @@ let
       pcre2
     ];
 
-    cmakeFlags = [
-      "-DCMAKE_INSTALL_DOCDIR=${placeholder "doc"}/share/doc/fish"
-    ] ++ lib.optionals stdenv.isDarwin [ "-DMAC_CODESIGN_ID=OFF" ];
+    cmakeFlags = [ "-DCMAKE_INSTALL_DOCDIR=${placeholder "doc"}/share/doc/fish" ] ++ lib.optionals stdenv.isDarwin [ "-DMAC_CODESIGN_ID=OFF" ];
 
     # The optional string is kind of an inelegant way to get fish to cross compile.
     # Fish needs coreutils as a runtime dependency, and it gets put into

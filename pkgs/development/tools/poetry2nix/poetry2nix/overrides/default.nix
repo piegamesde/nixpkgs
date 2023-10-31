@@ -77,8 +77,7 @@ lib.composeManyExtensions [
     let
       buildSystems = lib.importJSON ./build-systems.json;
     in
-    lib.mapAttrs (attr: systems: builtins.foldl' (drv: attr: addBuildSystem { inherit drv self attr; }) super.${attr} systems)
-      buildSystems
+    lib.mapAttrs (attr: systems: builtins.foldl' (drv: attr: addBuildSystem { inherit drv self attr; }) super.${attr} systems) buildSystems
   )
 
   # Build fixes
@@ -100,9 +99,7 @@ lib.composeManyExtensions [
     {
       automat = super.automat.overridePythonAttrs (
         old:
-        lib.optionalAttrs (lib.versionOlder old.version "22.10.0") {
-          propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.m2r ];
-        }
+        lib.optionalAttrs (lib.versionOlder old.version "22.10.0") { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.m2r ]; }
       );
 
       aiohttp-swagger3 = super.aiohttp-swagger3.overridePythonAttrs (
@@ -151,13 +148,9 @@ lib.composeManyExtensions [
         }
       );
 
-      argcomplete = super.argcomplete.overridePythonAttrs (
-        old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.importlib-metadata ]; }
-      );
+      argcomplete = super.argcomplete.overridePythonAttrs (old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.importlib-metadata ]; });
 
-      arpeggio = super.arpeggio.overridePythonAttrs (
-        old: { nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ self.pytest-runner ]; }
-      );
+      arpeggio = super.arpeggio.overridePythonAttrs (old: { nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ self.pytest-runner ]; });
 
       astroid = super.astroid.overridePythonAttrs (old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.pytest-runner ]; });
 
@@ -275,13 +268,9 @@ lib.composeManyExtensions [
         }
       );
 
-      celery = super.celery.overridePythonAttrs (
-        old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.setuptools ]; }
-      );
+      celery = super.celery.overridePythonAttrs (old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.setuptools ]; });
 
-      cerberus = super.cerberus.overridePythonAttrs (
-        old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.setuptools ]; }
-      );
+      cerberus = super.cerberus.overridePythonAttrs (old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.setuptools ]; });
 
       cssselect2 = super.cssselect2.overridePythonAttrs (old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.pytest-runner ]; });
 
@@ -342,9 +331,7 @@ lib.composeManyExtensions [
 
       configparser = super.configparser.overridePythonAttrs (old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.toml ]; });
 
-      confluent-kafka = super.confluent-kafka.overridePythonAttrs (
-        old: { buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.rdkafka ]; }
-      );
+      confluent-kafka = super.confluent-kafka.overridePythonAttrs (old: { buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.rdkafka ]; });
 
       copier = super.copier.overrideAttrs (old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ pkgs.git ]; });
 
@@ -397,9 +384,7 @@ lib.composeManyExtensions [
               ];
             propagatedBuildInputs = old.propagatedBuildInputs or [ ] ++ [ self.cffi ];
           }
-          // lib.optionalAttrs (lib.versionAtLeast old.version "3.4" && lib.versionOlder old.version "3.5") {
-            CRYPTOGRAPHY_DONT_BUILD_RUST = "1";
-          }
+          // lib.optionalAttrs (lib.versionAtLeast old.version "3.4" && lib.versionOlder old.version "3.5") { CRYPTOGRAPHY_DONT_BUILD_RUST = "1"; }
           // lib.optionalAttrs (lib.versionAtLeast old.version "3.5" && !isWheel) rec {
             cargoDeps = pkgs.rustPlatform.fetchCargoTarball {
               src = old.src;
@@ -498,9 +483,7 @@ lib.composeManyExtensions [
         }
       );
 
-      dcli = super.dcli.overridePythonAttrs (
-        old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.setuptools ]; }
-      );
+      dcli = super.dcli.overridePythonAttrs (old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.setuptools ]; });
 
       ddtrace = super.ddtrace.overridePythonAttrs (
         old: { buildInputs = (old.buildInputs or [ ]) ++ (lib.optionals pkgs.stdenv.isDarwin [ pkgs.darwin.IOKit ]); }
@@ -551,9 +534,7 @@ lib.composeManyExtensions [
         old: { nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ self.pytest-runner ]; }
       );
 
-      django-stubs-ext = super.django-stubs-ext.overridePythonAttrs (
-        old: { prePatch = (old.prePatch or "") + "touch ../LICENSE.txt"; }
-      );
+      django-stubs-ext = super.django-stubs-ext.overridePythonAttrs (old: { prePatch = (old.prePatch or "") + "touch ../LICENSE.txt"; });
 
       dlib = super.dlib.overridePythonAttrs (
         old: {
@@ -842,13 +823,9 @@ lib.composeManyExtensions [
 
       hikari-lightbulb = super.hikari-lightbulb.overrideAttrs (old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.setuptools ]; });
 
-      horovod = super.horovod.overridePythonAttrs (
-        old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ pkgs.mpi ]; }
-      );
+      horovod = super.horovod.overridePythonAttrs (old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ pkgs.mpi ]; });
 
-      httplib2 = super.httplib2.overridePythonAttrs (
-        old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.pyparsing ]; }
-      );
+      httplib2 = super.httplib2.overridePythonAttrs (old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.pyparsing ]; });
 
       icecream = super.icecream.overridePythonAttrs (
         old: {
@@ -930,13 +907,9 @@ lib.composeManyExtensions [
 
       intreehooks = super.intreehooks.overridePythonAttrs (old: { doCheck = false; });
 
-      ipython = super.ipython.overridePythonAttrs (
-        old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.setuptools ]; }
-      );
+      ipython = super.ipython.overridePythonAttrs (old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.setuptools ]; });
 
-      isort = super.isort.overridePythonAttrs (
-        old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.setuptools ]; }
-      );
+      isort = super.isort.overridePythonAttrs (old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.setuptools ]; });
 
       jaraco-functools = super.jaraco-functools.overridePythonAttrs (
         old: {
@@ -1017,9 +990,7 @@ lib.composeManyExtensions [
 
       jsonschema =
         if lib.versionAtLeast super.jsonschema.version "4.0.0" then
-          super.jsonschema.overridePythonAttrs (
-            old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.importlib-resources ]; }
-          )
+          super.jsonschema.overridePythonAttrs (old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.importlib-resources ]; })
         else
           super.jsonschema;
 
@@ -1649,9 +1620,7 @@ lib.composeManyExtensions [
         }
       );
 
-      parsel = super.parsel.overridePythonAttrs (
-        old: { nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ self.pytest-runner ]; }
-      );
+      parsel = super.parsel.overridePythonAttrs (old: { nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ self.pytest-runner ]; });
 
       pdal = super.pdal.overridePythonAttrs (old: { PDAL_CONFIG = "${pkgs.pdal}/bin/pdal-config"; });
 
@@ -2209,15 +2178,11 @@ lib.composeManyExtensions [
 
       python-snappy = super.python-snappy.overridePythonAttrs (old: { buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.snappy ]; });
 
-      python-twitter = super.python-twitter.overridePythonAttrs (
-        old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.pytest-runner ]; }
-      );
+      python-twitter = super.python-twitter.overridePythonAttrs (old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.pytest-runner ]; });
 
       pythran = super.pythran.overridePythonAttrs (old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.pytest-runner ]; });
 
-      ffmpeg-python = super.ffmpeg-python.overridePythonAttrs (
-        old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.pytest-runner ]; }
-      );
+      ffmpeg-python = super.ffmpeg-python.overridePythonAttrs (old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.pytest-runner ]; });
 
       python-prctl = super.python-prctl.overridePythonAttrs (old: { buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.libcap ]; });
 
@@ -2302,9 +2267,7 @@ lib.composeManyExtensions [
         '';
       };
 
-      rmfuse = super.rmfuse.overridePythonAttrs (
-        old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.setuptools ]; }
-      );
+      rmfuse = super.rmfuse.overridePythonAttrs (old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.setuptools ]; });
 
       rtree = super.rtree.overridePythonAttrs (
         old: {
@@ -2413,9 +2376,7 @@ lib.composeManyExtensions [
 
           GEOS_LIBRARY_PATH = "${pkgs.geos}/lib/libgeos_c${stdenv.hostPlatform.extensions.sharedLibrary}";
 
-          GEOS_LIBC =
-            lib.optionalString (!stdenv.isDarwin)
-              "${lib.getLib stdenv.cc.libc}/lib/libc${stdenv.hostPlatform.extensions.sharedLibrary}.6";
+          GEOS_LIBC = lib.optionalString (!stdenv.isDarwin) "${lib.getLib stdenv.cc.libc}/lib/libc${stdenv.hostPlatform.extensions.sharedLibrary}.6";
 
           # Fix library paths
           postPatch = lib.optionalString (!(old.src.isWheel or false)) (
@@ -2611,13 +2572,9 @@ lib.composeManyExtensions [
           )
           { };
 
-      typed_ast = super.typed-ast.overridePythonAttrs (
-        old: { nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ self.pytest-runner ]; }
-      );
+      typed_ast = super.typed-ast.overridePythonAttrs (old: { nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ self.pytest-runner ]; });
 
-      urwidtrees = super.urwidtrees.overridePythonAttrs (
-        old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.urwid ]; }
-      );
+      urwidtrees = super.urwidtrees.overridePythonAttrs (old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.urwid ]; });
 
       vose-alias-method = super.vose-alias-method.overridePythonAttrs (
         old: {
@@ -2721,9 +2678,8 @@ lib.composeManyExtensions [
       );
 
       wheel =
-        ((pkgs.python3.pkgs.override { python = self.python; }).wheel.override {
-          inherit (self) buildPythonPackage bootstrapped-pip setuptools;
-        }).overrideAttrs
+        ((pkgs.python3.pkgs.override { python = self.python; }).wheel.override { inherit (self) buildPythonPackage bootstrapped-pip setuptools; })
+        .overrideAttrs
           (
             old: {
               inherit (super.wheel)
@@ -2785,9 +2741,7 @@ lib.composeManyExtensions [
         }
       );
 
-      cytoolz = super.cytoolz.overridePythonAttrs (
-        old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.toolz ]; }
-      );
+      cytoolz = super.cytoolz.overridePythonAttrs (old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.toolz ]; });
 
       # For some reason the toml dependency of tqdm declared here:
       # https://github.com/tqdm/tqdm/blob/67130a23646ae672836b971e1086b6ae4c77d930/pyproject.toml#L2
@@ -2795,9 +2749,7 @@ lib.composeManyExtensions [
       tqdm = super.tqdm.overridePythonAttrs (old: { buildInputs = [ super.toml ] ++ (old.buildInputs or [ ]); });
 
       watchdog = super.watchdog.overrideAttrs (
-        old: {
-          buildInputs = (old.buildInputs or [ ]) ++ lib.optional pkgs.stdenv.isDarwin pkgs.darwin.apple_sdk.frameworks.CoreServices;
-        }
+        old: { buildInputs = (old.buildInputs or [ ]) ++ lib.optional pkgs.stdenv.isDarwin pkgs.darwin.apple_sdk.frameworks.CoreServices; }
       );
 
       # pyee cannot find `vcversioner` and other "setup requirements", so it tries to
@@ -2894,9 +2846,7 @@ lib.composeManyExtensions [
 
       marisa-trie = super.marisa-trie.overridePythonAttrs (old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.pytest-runner ]; });
 
-      ua-parser = super.ua-parser.overridePythonAttrs (
-        old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.pyyaml ]; }
-      );
+      ua-parser = super.ua-parser.overridePythonAttrs (old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.pyyaml ]; });
 
       pygraphviz = super.pygraphviz.overridePythonAttrs (
         old: {
@@ -2917,9 +2867,7 @@ lib.composeManyExtensions [
         }
       );
 
-      selinux = super.selinux.overridePythonAttrs (
-        old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.setuptools-scm-git-archive ]; }
-      );
+      selinux = super.selinux.overridePythonAttrs (old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.setuptools-scm-git-archive ]; });
 
       setuptools-scm = super.setuptools-scm.overridePythonAttrs (
         old: {

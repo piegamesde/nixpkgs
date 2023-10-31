@@ -137,8 +137,7 @@ self: super:
     hmatrix = addBuildDepend darwin.apple_sdk.frameworks.Accelerate super.hmatrix;
 
     blas-hs =
-      overrideCabal
-        (drv: { libraryFrameworkDepends = [ darwin.apple_sdk.frameworks.Accelerate ] ++ (drv.libraryFrameworkDepends or [ ]); })
+      overrideCabal (drv: { libraryFrameworkDepends = [ darwin.apple_sdk.frameworks.Accelerate ] ++ (drv.libraryFrameworkDepends or [ ]); })
         super.blas-hs;
 
     # Ensure the necessary frameworks are propagatedBuildInputs on darwin
@@ -228,9 +227,7 @@ self: super:
         super.HTF;
 
     # conditional dependency via a cabal flag
-    cas-store =
-      overrideCabal (drv: { libraryHaskellDepends = [ self.kqueue ] ++ (drv.libraryHaskellDepends or [ ]); })
-        super.cas-store;
+    cas-store = overrideCabal (drv: { libraryHaskellDepends = [ self.kqueue ] ++ (drv.libraryHaskellDepends or [ ]); }) super.cas-store;
 
     # 2021-05-25: Tests fail and I have no way to debug them.
     hls-class-plugin = dontCheck super.hls-class-plugin;

@@ -72,9 +72,7 @@ let
   depCrates = builtins.deepSeq gitShaOutputHash (builtins.map mkCrate depPackages);
 
   # Map package name + version to git commit SHA for packages with a git source.
-  namesGitShas = builtins.listToAttrs (
-    builtins.map nameGitSha (builtins.filter (pkg: lib.hasPrefix "git+" pkg.source) depPackages)
-  );
+  namesGitShas = builtins.listToAttrs (builtins.map nameGitSha (builtins.filter (pkg: lib.hasPrefix "git+" pkg.source) depPackages));
 
   nameGitSha =
     pkg:

@@ -183,8 +183,7 @@ in
       wants = [ "kres-cache-gc.service" ] ++ map (i: "kresd@${toString i}.service") (range 1 cfg.instances);
     };
     systemd.services."kresd@".serviceConfig = {
-      ExecStart =
-        "${cfg.package}/bin/kresd --noninteractive " + "-c ${cfg.package}/lib/knot-resolver/distro-preconfig.lua -c ${configFile}";
+      ExecStart = "${cfg.package}/bin/kresd --noninteractive " + "-c ${cfg.package}/lib/knot-resolver/distro-preconfig.lua -c ${configFile}";
       # Ensure /run/knot-resolver exists
       RuntimeDirectory = "knot-resolver";
       RuntimeDirectoryMode = "0770";

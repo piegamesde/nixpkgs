@@ -77,9 +77,7 @@ import ./make-test-python.nix (
             echo "Config: $(echo "$config" | ${pkgs.jq}/bin/jq)" >&2
             [[ "$(echo "$config" | ${pkgs.jq}/bin/jq -r ${
               lib.escapeShellArg ".SiteName == $siteName and .Version == ($mattermostName / $sep)[-1] and (${jqExpression})"
-            } --arg siteName ${lib.escapeShellArg siteName} --arg mattermostName ${
-              lib.escapeShellArg pkgs.mattermost.name
-            } --arg sep '-')" = "true" ]]
+            } --arg siteName ${lib.escapeShellArg siteName} --arg mattermostName ${lib.escapeShellArg pkgs.mattermost.name} --arg sep '-')" = "true" ]]
           '';
 
         setConfig =

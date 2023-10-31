@@ -76,10 +76,7 @@ let
       v = lib.lists.head versions;
       vs = lib.lists.tail versions;
     in
-    if (builtins.length versions == 0) then
-      [ ]
-    else
-      (builtins.filter (x: hasInfix v x.file) candidates) ++ (findBestMatches vs candidates);
+    if (builtins.length versions == 0) then [ ] else (builtins.filter (x: hasInfix v x.file) candidates) ++ (findBestMatches vs candidates);
 
   # x = "cpXX" | "py2" | "py3" | "py2.py3"
   isPyVersionCompatible =
@@ -129,11 +126,7 @@ let
         if isLinux then
           if targetMachine != null then
             # See PEP 600 for details.
-            (
-              p:
-              builtins.match "any|manylinux(1|2010|2014)_${escapeRegex targetMachine}|manylinux_[0-9]+_[0-9]+_${escapeRegex targetMachine}" p
-              != null
-            )
+            (p: builtins.match "any|manylinux(1|2010|2014)_${escapeRegex targetMachine}|manylinux_[0-9]+_[0-9]+_${escapeRegex targetMachine}" p != null)
           else
             (p: p == "any")
         else if stdenv.isDarwin then

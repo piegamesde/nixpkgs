@@ -357,9 +357,7 @@ in
         ];
         ExecReload = [
           ""
-          "${cfg.package}/bin/caddy reload --config ${cfg.configFile} ${
-            optionalString (cfg.adapter != null) "--adapter ${cfg.adapter}"
-          } --force"
+          "${cfg.package}/bin/caddy reload --config ${cfg.configFile} ${optionalString (cfg.adapter != null) "--adapter ${cfg.adapter}"} --force"
         ];
         ExecStartPre = "${cfg.package}/bin/caddy validate --config ${cfg.configFile} ${
             optionalString (cfg.adapter != null) "--adapter ${cfg.adapter}"

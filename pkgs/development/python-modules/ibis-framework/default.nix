@@ -120,9 +120,7 @@ buildPythonPackage rec {
       toolz
       typing-extensions
     ]
-    ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
-    ++ pooch.optional-dependencies.progress
-    ++ pooch.optional-dependencies.xxhash;
+    ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ] ++ pooch.optional-dependencies.progress ++ pooch.optional-dependencies.xxhash;
 
   nativeCheckInputs = [
     pytestCheckHook

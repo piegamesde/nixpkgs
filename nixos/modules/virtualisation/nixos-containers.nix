@@ -897,12 +897,7 @@ in
       environment.etc =
         let
           mkPortStr =
-            p:
-            p.protocol
-            + ":"
-            + (toString p.hostPort)
-            + ":"
-            + (if p.containerPort == null then toString p.hostPort else toString p.containerPort);
+            p: p.protocol + ":" + (toString p.hostPort) + ":" + (if p.containerPort == null then toString p.hostPort else toString p.containerPort);
         in
         mapAttrs'
           (
@@ -936,9 +931,7 @@ in
                 ${optionalString cfg.autoStart ''
                   AUTO_START=1
                 ''}
-                EXTRA_NSPAWN_FLAGS="${
-                  mkBindFlags cfg.bindMounts + optionalString (cfg.extraFlags != [ ]) (" " + concatStringsSep " " cfg.extraFlags)
-                }"
+                EXTRA_NSPAWN_FLAGS="${mkBindFlags cfg.bindMounts + optionalString (cfg.extraFlags != [ ]) (" " + concatStringsSep " " cfg.extraFlags)}"
               '';
             }
           )

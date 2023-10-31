@@ -14,9 +14,7 @@ let
     tlpConfig:
     generators.toKeyValue
       {
-        mkKeyValue =
-          generators.mkKeyValueDefault { mkValueString = val: if isList val then ''"'' + (toString val) + ''"'' else toString val; }
-            "=";
+        mkKeyValue = generators.mkKeyValueDefault { mkValueString = val: if isList val then ''"'' + (toString val) + ''"'' else toString val; } "=";
       }
       tlpConfig;
 in
@@ -81,13 +79,9 @@ in
       }
     ];
 
-    environment.etc =
-      {
-        "tlp.conf".text = (mkTlpConfig cfg.settings) + cfg.extraConfig;
-      }
-      // optionalAttrs enableRDW {
-        "NetworkManager/dispatcher.d/99tlp-rdw-nm".source = "${tlp}/etc/NetworkManager/dispatcher.d/99tlp-rdw-nm";
-      };
+    environment.etc = {
+      "tlp.conf".text = (mkTlpConfig cfg.settings) + cfg.extraConfig;
+    } // optionalAttrs enableRDW { "NetworkManager/dispatcher.d/99tlp-rdw-nm".source = "${tlp}/etc/NetworkManager/dispatcher.d/99tlp-rdw-nm"; };
 
     environment.systemPackages = [ tlp ];
 

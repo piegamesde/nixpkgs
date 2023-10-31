@@ -198,12 +198,7 @@ let
 
         with subtest("Assert that /boot get mounted"):
             machine.wait_for_unit("local-fs.target")
-            ${
-              if bootLoader == "grub" then
-                ''machine.succeed("test -e /boot/grub")''
-              else
-                ''machine.succeed("test -e /boot/loader/loader.conf")''
-            }
+            ${if bootLoader == "grub" then ''machine.succeed("test -e /boot/grub")'' else ''machine.succeed("test -e /boot/loader/loader.conf")''}
 
         with subtest("Check whether /root has correct permissions"):
             assert "700" in machine.succeed("stat -c '%a' /root")

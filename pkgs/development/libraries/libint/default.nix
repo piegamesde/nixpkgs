@@ -78,27 +78,17 @@ assert (eri2Deriv >= 0 && eri2Deriv <= 4);
 assert (eri3Deriv >= 0 && eri3Deriv <= 4);
 
 # Ensure valid arguments for generated angular momenta in ERI derivatives are used.
-assert (
-  builtins.length eriAm == eriDeriv + 1 && builtins.foldl' (a: b: a && b) true (builtins.map (a: a <= maxAm && a >= 0) eriAm)
-);
-assert (
-  builtins.length eri3Am == eriDeriv + 1 && builtins.foldl' (a: b: a && b) true (builtins.map (a: a <= maxAm && a >= 0) eri3Am)
-);
-assert (
-  builtins.length eri2Am == eriDeriv + 1 && builtins.foldl' (a: b: a && b) true (builtins.map (a: a <= maxAm && a >= 0) eri2Am)
-);
+assert (builtins.length eriAm == eriDeriv + 1 && builtins.foldl' (a: b: a && b) true (builtins.map (a: a <= maxAm && a >= 0) eriAm));
+assert (builtins.length eri3Am == eriDeriv + 1 && builtins.foldl' (a: b: a && b) true (builtins.map (a: a <= maxAm && a >= 0) eri3Am));
+assert (builtins.length eri2Am == eriDeriv + 1 && builtins.foldl' (a: b: a && b) true (builtins.map (a: a <= maxAm && a >= 0) eri2Am));
 
 # Ensure valid arguments for generated angular momenta in optimised ERI derivatives are used.
+assert (builtins.length eriOptAm == eriDeriv + 1 && builtins.foldl' (a: b: a && b) true (builtins.map (a: a <= maxAm && a >= 0) eriOptAm));
 assert (
-  builtins.length eriOptAm == eriDeriv + 1 && builtins.foldl' (a: b: a && b) true (builtins.map (a: a <= maxAm && a >= 0) eriOptAm)
+  builtins.length eri3OptAm == eriDeriv + 1 && builtins.foldl' (a: b: a && b) true (builtins.map (a: a <= maxAm && a >= 0) eri3OptAm)
 );
 assert (
-  builtins.length eri3OptAm == eriDeriv + 1
-  && builtins.foldl' (a: b: a && b) true (builtins.map (a: a <= maxAm && a >= 0) eri3OptAm)
-);
-assert (
-  builtins.length eri2OptAm == eriDeriv + 1
-  && builtins.foldl' (a: b: a && b) true (builtins.map (a: a <= maxAm && a >= 0) eri2OptAm)
+  builtins.length eri2OptAm == eriDeriv + 1 && builtins.foldl' (a: b: a && b) true (builtins.map (a: a <= maxAm && a >= 0) eri2OptAm)
 );
 
 # Ensure a valid derivative order for one-electron integrals
@@ -240,9 +230,9 @@ let
     # Default is just "double", but SSE2 is available on all x86_64 CPUs.
     # AVX support is advertised, but does not work in 2.6 (possibly in 2.7).
     # Fortran interface is incompatible with changing the LIBINT2_REALTYPE.
-    cmakeFlags =
-      [ "-DLIBINT2_SHGAUSS_ORDERING=${shGaussOrd}" ]
-      ++ lib.optional enableFortran "-DENABLE_FORTRAN=ON" ++ lib.optional enableSSE "-DLIBINT2_REALTYPE=libint2::simd::VectorSSEDouble";
+    cmakeFlags = [
+      "-DLIBINT2_SHGAUSS_ORDERING=${shGaussOrd}"
+    ] ++ lib.optional enableFortran "-DENABLE_FORTRAN=ON" ++ lib.optional enableSSE "-DLIBINT2_REALTYPE=libint2::simd::VectorSSEDouble";
 
     # Can only build in the source-tree. A lot of preprocessing magic fails otherwise.
     dontUseCmakeBuildDir = true;

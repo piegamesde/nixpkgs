@@ -80,8 +80,7 @@ stdenv.mkDerivation {
 
   passthru = {
     # Create tests for all flavors
-    tests =
-      with lib; genAttrs (map (x: x.version) versions) (versionFlavor: azure-static-sites-client.override { inherit versionFlavor; });
+    tests = with lib; genAttrs (map (x: x.version) versions) (versionFlavor: azure-static-sites-client.override { inherit versionFlavor; });
     updateScript = ./update.sh;
   };
 

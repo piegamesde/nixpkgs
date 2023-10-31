@@ -61,7 +61,5 @@ in
 hb.overrideAttrs (
   o:
   lib.optionalAttrs (lib.versions.isGe "1.2.0" o.version || o.version == "dev") { buildPhase = "make build"; }
-  // lib.optionalAttrs (lib.versions.isGe "1.1.0" o.version || o.version == "dev") {
-    installFlags = [ "DESTDIR=$(out)" ] ++ o.installFlags;
-  }
+  // lib.optionalAttrs (lib.versions.isGe "1.1.0" o.version || o.version == "dev") { installFlags = [ "DESTDIR=$(out)" ] ++ o.installFlags; }
 )

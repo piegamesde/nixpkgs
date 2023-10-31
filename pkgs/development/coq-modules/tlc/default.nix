@@ -47,9 +47,5 @@
   };
 }).overrideAttrs
   (
-    x:
-    if lib.versionAtLeast x.version "20210316" then
-      { }
-    else
-      { installFlags = [ "CONTRIB=$(out)/lib/coq/${coq.coq-version}/user-contrib" ]; }
+    x: if lib.versionAtLeast x.version "20210316" then { } else { installFlags = [ "CONTRIB=$(out)/lib/coq/${coq.coq-version}/user-contrib" ]; }
   )

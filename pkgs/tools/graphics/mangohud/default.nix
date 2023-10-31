@@ -137,9 +137,7 @@ stdenv.mkDerivation (
     postPatch = ''
       substituteInPlace bin/mangohud.in \
         --subst-var-by libraryPath ${
-          lib.makeSearchPath "lib/mangohud" (
-            [ (placeholder "out") ] ++ lib.optionals (stdenv.hostPlatform.system == "x86_64-linux") [ mangohud32 ]
-          )
+          lib.makeSearchPath "lib/mangohud" ([ (placeholder "out") ] ++ lib.optionals (stdenv.hostPlatform.system == "x86_64-linux") [ mangohud32 ])
         } \
         --subst-var-by dataDir ${placeholder "out"}/share
 

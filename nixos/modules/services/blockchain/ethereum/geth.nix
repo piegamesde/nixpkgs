@@ -239,17 +239,12 @@ in
                   ${optionalString (cfg.http.apis != null) "--http.api ${lib.concatStringsSep "," cfg.http.apis}"} \
                   ${optionalString cfg.websocket.enable "--ws --ws.addr ${cfg.websocket.address} --ws.port ${toString cfg.websocket.port}"} \
                   ${optionalString (cfg.websocket.apis != null) "--ws.api ${lib.concatStringsSep "," cfg.websocket.apis}"} \
-                  ${
-                    optionalString cfg.metrics.enable "--metrics --metrics.addr ${cfg.metrics.address} --metrics.port ${toString cfg.metrics.port}"
-                  } \
+                  ${optionalString cfg.metrics.enable "--metrics --metrics.addr ${cfg.metrics.address} --metrics.port ${toString cfg.metrics.port}"} \
                   --authrpc.addr ${cfg.authrpc.address} --authrpc.port ${toString cfg.authrpc.port} --authrpc.vhosts ${
                     lib.concatStringsSep "," cfg.authrpc.vhosts
                   } \
                   ${
-                    if (cfg.authrpc.jwtsecret != "") then
-                      "--authrpc.jwtsecret ${cfg.authrpc.jwtsecret}"
-                    else
-                      "--authrpc.jwtsecret ${dataDir}/geth/jwtsecret"
+                    if (cfg.authrpc.jwtsecret != "") then "--authrpc.jwtsecret ${cfg.authrpc.jwtsecret}" else "--authrpc.jwtsecret ${dataDir}/geth/jwtsecret"
                   } \
                   ${lib.escapeShellArgs cfg.extraArgs} \
                   --datadir ${dataDir}

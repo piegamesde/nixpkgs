@@ -181,13 +181,8 @@ in
         ExecStart = concatStringsSep " " (
           [
             "${pkgs.earlyoom}/bin/earlyoom"
-            (
-              "-m ${toString cfg.freeMemThreshold}" + optionalString (cfg.freeMemKillThreshold != null) ",${toString cfg.freeMemKillThreshold}"
-            )
-            (
-              "-s ${toString cfg.freeSwapThreshold}"
-              + optionalString (cfg.freeSwapKillThreshold != null) ",${toString cfg.freeSwapKillThreshold}"
-            )
+            ("-m ${toString cfg.freeMemThreshold}" + optionalString (cfg.freeMemKillThreshold != null) ",${toString cfg.freeMemKillThreshold}")
+            ("-s ${toString cfg.freeSwapThreshold}" + optionalString (cfg.freeSwapKillThreshold != null) ",${toString cfg.freeSwapKillThreshold}")
             "-r ${toString cfg.reportInterval}"
           ]
           ++ optional cfg.enableDebugInfo "-d"

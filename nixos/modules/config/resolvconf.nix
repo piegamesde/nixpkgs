@@ -13,8 +13,7 @@ let
 
   cfg = config.networking.resolvconf;
 
-  resolvconfOptions =
-    cfg.extraOptions ++ optional cfg.dnsSingleRequest "single-request" ++ optional cfg.dnsExtensionMechanism "edns0";
+  resolvconfOptions = cfg.extraOptions ++ optional cfg.dnsSingleRequest "single-request" ++ optional cfg.dnsExtensionMechanism "edns0";
 
   configText =
     ''

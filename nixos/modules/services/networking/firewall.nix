@@ -311,9 +311,7 @@ in
 
     environment.systemPackages = [ cfg.package ] ++ cfg.extraPackages;
 
-    boot.kernelModules =
-      (optional cfg.autoLoadConntrackHelpers "nf_conntrack")
-      ++ map (x: "nf_conntrack_${x}") cfg.connectionTrackingModules;
+    boot.kernelModules = (optional cfg.autoLoadConntrackHelpers "nf_conntrack") ++ map (x: "nf_conntrack_${x}") cfg.connectionTrackingModules;
     boot.extraModprobeConfig = optionalString cfg.autoLoadConntrackHelpers ''
       options nf_conntrack nf_conntrack_helper=1
     '';

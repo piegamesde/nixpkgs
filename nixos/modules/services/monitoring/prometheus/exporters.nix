@@ -402,9 +402,7 @@ in
     ]
     ++ [ (mkIf config.services.prometheus.exporters.rtl_433.enable { hardware.rtl-sdr.enable = mkDefault true; }) ]
     ++ [
-      (mkIf config.services.postfix.enable {
-        services.prometheus.exporters.postfix.group = mkDefault config.services.postfix.setgidGroup;
-      })
+      (mkIf config.services.postfix.enable { services.prometheus.exporters.postfix.group = mkDefault config.services.postfix.setgidGroup; })
     ]
     ++ (mapAttrsToList
       (

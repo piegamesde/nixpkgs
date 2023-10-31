@@ -57,8 +57,7 @@ let
         ${n} ${v}
       '';
   generateSection =
-    indent: settings:
-    concatStringsSep (fixedWidthString indent " " "") (filter (x: x != null) (mapAttrsToList generateLine settings));
+    indent: settings: concatStringsSep (fixedWidthString indent " " "") (filter (x: x != null) (mapAttrsToList generateLine settings));
 
   # generateSection includes a final newline hence weird closing brace
   mkConf =

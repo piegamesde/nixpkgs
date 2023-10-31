@@ -86,9 +86,7 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  passthru = lib.optionalAttrs (gtkSupport != null) {
-    gtkModule = if gtkSupport == "gtk2" then "/lib/gtk-2.0" else "/lib/gtk-3.0/";
-  };
+  passthru = lib.optionalAttrs (gtkSupport != null) { gtkModule = if gtkSupport == "gtk2" then "/lib/gtk-2.0" else "/lib/gtk-3.0/"; };
 
   meta = with lib; {
     description = "An implementation of the XDG Sound Theme and Name Specifications";

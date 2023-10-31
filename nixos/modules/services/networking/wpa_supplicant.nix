@@ -39,10 +39,7 @@ let
 
   # List of all networks (normal + generated fallbacks)
   allNetworks =
-    if cfg.fallbackToWPA2 then
-      map increaseWPA3Priority networkList ++ map mkWPA2Fallback (filter hasMixedWPA networkList)
-    else
-      networkList;
+    if cfg.fallbackToWPA2 then map increaseWPA3Priority networkList ++ map mkWPA2Fallback (filter hasMixedWPA networkList) else networkList;
 
   # Content of wpa_supplicant.conf
   generatedConfig = concatStringsSep "\n" (

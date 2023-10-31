@@ -5,11 +5,7 @@
   nixt,
 }:
 let
-  inherit (import ./update-utils.nix { inherit (pkgs) lib; })
-    extractLatestVersionFromHtml
-    extractSha256FromHtml
-    getLatestStableVersion
-  ;
+  inherit (import ./update-utils.nix { inherit (pkgs) lib; }) extractLatestVersionFromHtml extractSha256FromHtml getLatestStableVersion;
 in
 nixt.mkSuite "LibreOffice Updater" {
   "should extract latest stable version from html" =

@@ -87,9 +87,7 @@ makeTest {
     def create_named_machine(name):
         machine = create_machine(
             {
-                "qemuFlags": "-cpu max ${
-                  if system == "x86_64-linux" then "-m 1024" else "-m 768 -enable-kvm -machine virt,gic-version=host"
-                }",
+                "qemuFlags": "-cpu max ${if system == "x86_64-linux" then "-m 1024" else "-m 768 -enable-kvm -machine virt,gic-version=host"}",
                 "hdaInterface": "virtio",
                 "hda": "vm-state-machine/machine.qcow2",
                 "name": name,

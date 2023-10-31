@@ -20,9 +20,7 @@ buildGoModule rec {
     sha256 = "sha256-Knk1ipBOzjmjrS2OFUMuxi1TkyDcSYlVKezDWT//ERY=";
   };
 
-  buildInputs =
-    lib.optional stdenv.isLinux (lib.getDev pcsclite)
-    ++ lib.optional stdenv.isDarwin (darwin.apple_sdk.frameworks.PCSC);
+  buildInputs = lib.optional stdenv.isLinux (lib.getDev pcsclite) ++ lib.optional stdenv.isDarwin (darwin.apple_sdk.frameworks.PCSC);
 
   nativeBuildInputs = lib.optionals stdenv.isLinux [ pkg-config ];
 

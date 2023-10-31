@@ -94,9 +94,7 @@ stdenv.mkDerivation rec {
 
       patches = (map (x: patch-src + x) (readLinesToList ./config/pjsip_patches));
 
-      configureFlags =
-        (readLinesToList ./config/pjsip_args_common)
-        ++ lib.optionals stdenv.isLinux (readLinesToList ./config/pjsip_args_linux);
+      configureFlags = (readLinesToList ./config/pjsip_args_common) ++ lib.optionals stdenv.isLinux (readLinesToList ./config/pjsip_args_linux);
     }
   );
 

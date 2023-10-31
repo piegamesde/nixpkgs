@@ -111,9 +111,7 @@ in
       sharedLibs = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        description =
-          lib.mdDoc
-            "List containing JAR files or directories with JAR files which are libraries shared by the web applications";
+        description = lib.mdDoc "List containing JAR files or directories with JAR files which are libraries shared by the web applications";
       };
 
       serverXml = mkOption {
@@ -137,9 +135,7 @@ in
         type = types.listOf types.path;
         default = [ tomcat.webapps ];
         defaultText = literalExpression "[ config.services.tomcat.package.webapps ]";
-        description =
-          lib.mdDoc
-            "List containing WAR files or directories with WAR files which are web applications to be deployed on Tomcat";
+        description = lib.mdDoc "List containing WAR files or directories with WAR files which are web applications to be deployed on Tomcat";
       };
 
       virtualHosts = mkOption {

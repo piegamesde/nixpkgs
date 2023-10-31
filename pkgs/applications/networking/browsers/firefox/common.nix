@@ -154,9 +154,7 @@
 }:
 
 assert stdenv.cc.libc or null != null;
-assert pipewireSupport
-  -> !waylandSupport || !webrtcSupport
-  -> throw "${pname}: pipewireSupport requires both wayland and webrtc support.";
+assert pipewireSupport -> !waylandSupport || !webrtcSupport -> throw "${pname}: pipewireSupport requires both wayland and webrtc support.";
 
 let
   inherit (lib) enableFeature;
@@ -177,9 +175,7 @@ let
 
   # LTO requires LLVM bintools including ld.lld and llvm-ar.
   buildStdenv = overrideCC llvmPackages.stdenv (
-    llvmPackages.stdenv.cc.override {
-      bintools = if ltoSupport then buildPackages.rustc.llvmPackages.bintools else stdenv.cc.bintools;
-    }
+    llvmPackages.stdenv.cc.override { bintools = if ltoSupport then buildPackages.rustc.llvmPackages.bintools else stdenv.cc.bintools; }
   );
 
   # Compile the wasm32 sysroot to build the RLBox Sandbox

@@ -25,11 +25,7 @@ let
       f = import m;
       instance = f (mapAttrs (n: _: abort "evaluating ${n} for `meta` failed") (functionArgs f));
     in
-    cfg.nixos.options.splitBuild
-    && builtins.isPath m
-    && isFunction f
-    && instance ? options
-    && instance.meta.buildDocsInSandbox or true;
+    cfg.nixos.options.splitBuild && builtins.isPath m && isFunction f && instance ? options && instance.meta.buildDocsInSandbox or true;
 
   docModules =
     let

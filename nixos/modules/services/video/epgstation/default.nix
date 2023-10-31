@@ -357,9 +357,9 @@ in
       inherit description;
 
       wantedBy = [ "multi-user.target" ];
-      after =
-        [ "network.target" ]
-        ++ lib.optional config.services.mirakurun.enable "mirakurun.service" ++ lib.optional config.services.mysql.enable "mysql.service";
+      after = [
+        "network.target"
+      ] ++ lib.optional config.services.mirakurun.enable "mirakurun.service" ++ lib.optional config.services.mysql.enable "mysql.service";
 
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/epgstation start";

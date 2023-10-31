@@ -33,9 +33,7 @@ rec {
       ];
 
   # a type for options that take a unit name
-  unitNameType =
-    types.strMatching
-      "[a-zA-Z0-9@%:_.\\-]+[.](service|socket|device|mount|automount|swap|target|path|timer|scope|slice)";
+  unitNameType = types.strMatching "[a-zA-Z0-9@%:_.\\-]+[.](service|socket|device|mount|automount|swap|target|path|timer|scope|slice)";
 
   makeUnit =
     name: unit:
@@ -96,8 +94,7 @@ rec {
 
   hexChars = stringToCharacters "0123456789abcdefABCDEF";
 
-  isMacAddress =
-    s: stringLength s == 17 && flip all (splitString ":" s) (bytes: all (byte: elem byte hexChars) (stringToCharacters bytes));
+  isMacAddress = s: stringLength s == 17 && flip all (splitString ":" s) (bytes: all (byte: elem byte hexChars) (stringToCharacters bytes));
 
   assertMacAddress =
     name: group: attr:
@@ -107,13 +104,11 @@ rec {
 
   assertPort =
     name: group: attr:
-    optional (attr ? ${name} && !isPort attr.${name})
-      "Error on the systemd ${group} field `${name}': ${attr.name} is not a valid port number.";
+    optional (attr ? ${name} && !isPort attr.${name}) "Error on the systemd ${group} field `${name}': ${attr.name} is not a valid port number.";
 
   assertValueOneOf =
     name: values: group: attr:
-    optional (attr ? ${name} && !elem attr.${name} values)
-      "Systemd ${group} field `${name}' cannot have value `${toString attr.${name}}'.";
+    optional (attr ? ${name} && !elem attr.${name} values) "Systemd ${group} field `${name}' cannot have value `${toString attr.${name}}'.";
 
   assertHasField =
     name: group: attr:
@@ -126,8 +121,7 @@ rec {
 
   assertMinimum =
     name: min: group: attr:
-    optional (attr ? ${name} && attr.${name} < min)
-      "Systemd ${group} field `${name}' must be greater than or equal to ${toString min}";
+    optional (attr ? ${name} && attr.${name} < min) "Systemd ${group} field `${name}' must be greater than or equal to ${toString min}";
 
   assertOnlyFields =
     fields: group: attr:
@@ -273,9 +267,7 @@ rec {
         # upstream unit.
         for i in ${
           toString (
-            mapAttrsToList (n: v: v.unit) (
-              lib.filterAttrs (n: v: (attrByPath [ "overrideStrategy" ] "asDropinIfExists" v) == "asDropinIfExists") units
-            )
+            mapAttrsToList (n: v: v.unit) (lib.filterAttrs (n: v: (attrByPath [ "overrideStrategy" ] "asDropinIfExists" v) == "asDropinIfExists") units)
           )
         }; do
           fn=$(basename $i/*)
@@ -410,9 +402,7 @@ rec {
           // optionalAttrs (config.partOf != [ ]) { PartOf = toString config.partOf; }
           // optionalAttrs (config.conflicts != [ ]) { Conflicts = toString config.conflicts; }
           // optionalAttrs (config.requisite != [ ]) { Requisite = toString config.requisite; }
-          // optionalAttrs (config ? restartTriggers && config.restartTriggers != [ ]) {
-            X-Restart-Triggers = toString config.restartTriggers;
-          }
+          // optionalAttrs (config ? restartTriggers && config.restartTriggers != [ ]) { X-Restart-Triggers = toString config.restartTriggers; }
           // optionalAttrs (config ? reloadTriggers && config.reloadTriggers != [ ]) { X-Reload-Triggers = toString config.reloadTriggers; }
           // optionalAttrs (config.description != "") { Description = config.description; }
           // optionalAttrs (config.documentation != [ ]) { Documentation = toString config.documentation; }
@@ -447,13 +437,10 @@ rec {
     { config, ... }:
     {
       config = {
-        mountConfig =
-          {
-            What = config.what;
-            Where = config.where;
-          }
-          // optionalAttrs (config.type != "") { Type = config.type; }
-          // optionalAttrs (config.options != "") { Options = config.options; };
+        mountConfig = {
+          What = config.what;
+          Where = config.where;
+        } // optionalAttrs (config.type != "") { Type = config.type; } // optionalAttrs (config.options != "") { Options = config.options; };
       };
     };
 

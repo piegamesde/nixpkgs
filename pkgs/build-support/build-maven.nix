@@ -95,8 +95,7 @@ in
     name = "${info.project.artifactId}-${info.project.version}.jar";
 
     src =
-      builtins.filterSource
-        (path: type: (toString path) != (toString (src + "/target")) && (toString path) != (toString (src + "/.git")))
+      builtins.filterSource (path: type: (toString path) != (toString (src + "/target")) && (toString path) != (toString (src + "/.git")))
         src;
 
     buildInputs = [ maven ];

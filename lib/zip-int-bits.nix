@@ -18,8 +18,7 @@ let
 
   # (bitsToInt [ 0 1 1 ] 0) -> 6
   # (bitsToInt [ 0 1 0 ] 1) -> -6
-  bitsToInt =
-    l: signum: if l == [ ] then (if signum == 0 then 0 else -1) else (builtins.head l) + (2 * (bitsToInt (builtins.tail l) signum));
+  bitsToInt = l: signum: if l == [ ] then (if signum == 0 then 0 else -1) else (builtins.head l) + (2 * (bitsToInt (builtins.tail l) signum));
 
   xsignum = if x < 0 then 1 else 0;
   ysignum = if y < 0 then 1 else 0;

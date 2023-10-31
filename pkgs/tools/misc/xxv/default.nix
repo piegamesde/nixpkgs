@@ -26,9 +26,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "0pmpvlmy4pw252is34r9af1ysrp78xs8pz8cw4rys9s4fh2hmhjb";
 
-  buildInputs =
-    lib.optionals useNcurses [ ncurses ]
-    ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [ Security ]);
+  buildInputs = lib.optionals useNcurses [ ncurses ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [ Security ]);
 
   # I'm picking pancurses for Windows simply because that's the example given in Cursive's
   # documentation for picking an alternative backend. We could just as easily pick crossterm.

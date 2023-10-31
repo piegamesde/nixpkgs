@@ -393,9 +393,7 @@ in
             marginal_path_err_sample_time = mkOption {
               type = nullOr int;
               default = null;
-              description =
-                lib.mdDoc
-                  "One of the four parameters of supporting path check based on accounting IO error such as intermittent error";
+              description = lib.mdDoc "One of the four parameters of supporting path check based on accounting IO error such as intermittent error";
             };
 
             marginal_path_err_rate_threshold = mkOption {
@@ -407,17 +405,13 @@ in
             marginal_path_err_recheck_gap_time = mkOption {
               type = nullOr str;
               default = null;
-              description =
-                lib.mdDoc
-                  "One of the four parameters of supporting path check based on accounting IO error such as intermittent error";
+              description = lib.mdDoc "One of the four parameters of supporting path check based on accounting IO error such as intermittent error";
             };
 
             marginal_path_double_failed_time = mkOption {
               type = nullOr str;
               default = null;
-              description =
-                lib.mdDoc
-                  "One of the four parameters of supporting path check based on accounting IO error such as intermittent error";
+              description = lib.mdDoc "One of the four parameters of supporting path check based on accounting IO error such as intermittent error";
             };
 
             delay_watch_checks = mkOption {
@@ -446,9 +440,7 @@ in
             max_sectors_kb = mkOption {
               type = nullOr int;
               default = null;
-              description =
-                lib.mdDoc
-                  "Sets the max_sectors_kb device parameter on all path devices and the multipath device to the specified value";
+              description = lib.mdDoc "Sets the max_sectors_kb device parameter on all path devices and the multipath device to the specified value";
             };
 
             ghost_delay = mkOption {

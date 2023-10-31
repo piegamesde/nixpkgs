@@ -84,8 +84,7 @@ stdenv.mkDerivation rec {
       "--sysconfdir=/etc"
       "--localstatedir=/var"
     ]
-    ++ lib.optional (!enableBashCompletion) "-Dbash_completion=false"
-    ++ lib.optional (!enableCommandNotFound) "-Dbash_command_not_found=false";
+    ++ lib.optional (!enableBashCompletion) "-Dbash_completion=false" ++ lib.optional (!enableCommandNotFound) "-Dbash_command_not_found=false";
 
   postPatch = ''
     # HACK: we want packagekit to look in /etc for configs but install

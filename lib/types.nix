@@ -207,8 +207,7 @@ let
     #
     # The description of the `optionType`, with parentheses if there may be an
     # ambiguity.
-    optionDescriptionPhrase =
-      unparenthesize: t: if unparenthesize (t.descriptionClass or null) then t.description else "(${t.description})";
+    optionDescriptionPhrase = unparenthesize: t: if unparenthesize (t.descriptionClass or null) then t.description else "(${t.description})";
 
     # When adding new types don't forget to document them in
     # nixos/doc/manual/development/option-types.xml!
@@ -747,9 +746,7 @@ let
         elemType:
         mkOptionType {
           name = "functionTo";
-          description = "function that evaluates to a(n) ${
-              optionDescriptionPhrase (class: class == "noun" || class == "composite") elemType
-            }";
+          description = "function that evaluates to a(n) ${optionDescriptionPhrase (class: class == "noun" || class == "composite") elemType}";
           descriptionClass = "composite";
           check = isFunction;
           merge =

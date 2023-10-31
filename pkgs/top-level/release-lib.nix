@@ -121,8 +121,7 @@ rec {
     in
     map ({ system, ... }: system) matchingPlatforms;
 
-  assertTrue =
-    bool: if bool then pkgs.runCommand "evaluated-to-true" { } "touch $out" else pkgs.runCommand "evaluated-to-false" { } "false";
+  assertTrue = bool: if bool then pkgs.runCommand "evaluated-to-true" { } "touch $out" else pkgs.runCommand "evaluated-to-false" { } "false";
 
   /* The working or failing mails for cross builds will be sent only to
      the following maintainers, as most package maintainers will not be
@@ -160,8 +159,7 @@ rec {
   mapTestOn = _mapTestOnHelper id null;
 
   _mapTestOnHelper =
-    f: crossSystem:
-    mapAttrsRecursive (path: metaPatterns: testOnCross crossSystem metaPatterns (pkgs: f (getAttrFromPath path pkgs)));
+    f: crossSystem: mapAttrsRecursive (path: metaPatterns: testOnCross crossSystem metaPatterns (pkgs: f (getAttrFromPath path pkgs)));
 
   # Similar to the testOn function, but with an additional 'crossSystem'
   # parameter for packageSet', defining the target platform for cross builds,

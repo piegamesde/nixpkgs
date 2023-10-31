@@ -13,9 +13,7 @@ with lib; {
   options.services.meshcentral = with types; {
     enable = mkEnableOption (lib.mdDoc "MeshCentral computer management server");
     package = mkOption {
-      description =
-        lib.mdDoc
-          "MeshCentral package to use. Replacing this may be necessary to add dependencies for extra functionality.";
+      description = lib.mdDoc "MeshCentral package to use. Replacing this may be necessary to add dependencies for extra functionality.";
       type = types.package;
       default = pkgs.meshcentral;
       defaultText = literalExpression "pkgs.meshcentral";

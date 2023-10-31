@@ -88,8 +88,7 @@
 }@args:
 
 let
-  platforms =
-    if args ? meta.platforms then lib.intersectLists args.meta.platforms dotnet-sdk.meta.platforms else dotnet-sdk.meta.platforms;
+  platforms = if args ? meta.platforms then lib.intersectLists args.meta.platforms dotnet-sdk.meta.platforms else dotnet-sdk.meta.platforms;
 
   inherit
     (callPackage ./hooks {

@@ -21,8 +21,7 @@ let
       pkgs.writeText "vdirsyncer-${name}.conf" (
         toIniJson (
           {
-            general =
-              cfg'.config.general // (lib.optionalAttrs (cfg'.config.statusPath == null) { status_path = "/var/lib/vdirsyncer/${name}"; });
+            general = cfg'.config.general // (lib.optionalAttrs (cfg'.config.statusPath == null) { status_path = "/var/lib/vdirsyncer/${name}"; });
           }
           // (mapAttrs' (name: nameValuePair "pair ${name}") cfg'.config.pairs)
           // (mapAttrs' (name: nameValuePair "storage ${name}") cfg'.config.storages)

@@ -97,9 +97,7 @@ stdenv.mkDerivation rec {
       else if stdenv.hostPlatform.isBSD then
         "./Configure BSD-generic${toString stdenv.hostPlatform.parsed.cpu.bits}"
       else if stdenv.hostPlatform.isMinGW then
-        "./Configure mingw${
-          lib.optionalString (stdenv.hostPlatform.parsed.cpu.bits != 32) (toString stdenv.hostPlatform.parsed.cpu.bits)
-        }"
+        "./Configure mingw${lib.optionalString (stdenv.hostPlatform.parsed.cpu.bits != 32) (toString stdenv.hostPlatform.parsed.cpu.bits)}"
       else if stdenv.hostPlatform.isLinux then
         "./Configure linux-generic${toString stdenv.hostPlatform.parsed.cpu.bits}"
       else if stdenv.hostPlatform.isiOS then

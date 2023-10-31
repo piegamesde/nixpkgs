@@ -27,8 +27,7 @@ let
       packageOverrides = pkgs: optCall lhs.packageOverrides pkgs // optCall (attrByPath [ "packageOverrides" ] { } rhs) pkgs;
     }
     // optionalAttrs (lhs ? perlPackageOverrides) {
-      perlPackageOverrides =
-        pkgs: optCall lhs.perlPackageOverrides pkgs // optCall (attrByPath [ "perlPackageOverrides" ] { } rhs) pkgs;
+      perlPackageOverrides = pkgs: optCall lhs.perlPackageOverrides pkgs // optCall (attrByPath [ "perlPackageOverrides" ] { } rhs) pkgs;
     };
 
   configType = mkOptionType {

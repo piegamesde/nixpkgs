@@ -114,9 +114,7 @@ let
                 # Most of these route options have not been tested.
                 # Please fix or report any mistakes you may find.
                 routeConfig =
-                  optionalAttrs (route.address != null && route.prefixLength != null) {
-                    Destination = "${route.address}/${toString route.prefixLength}";
-                  }
+                  optionalAttrs (route.address != null && route.prefixLength != null) { Destination = "${route.address}/${toString route.prefixLength}"; }
                   // optionalAttrs (route.options ? fastopen_no_cookie) { FastOpenNoCookie = route.options.fastopen_no_cookie; }
                   // optionalAttrs (route.via != null) { Gateway = route.via; }
                   // optionalAttrs (route.type != null) { Type = route.type; }

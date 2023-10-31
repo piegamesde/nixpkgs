@@ -844,9 +844,7 @@ self: super:
 
   nvim-metals = super.nvim-metals.overrideAttrs (old: { dontBuild = true; });
 
-  vim-mediawiki-editor = super.vim-mediawiki-editor.overrideAttrs (
-    old: { passthru.python3Dependencies = [ python3.pkgs.mwclient ]; }
-  );
+  vim-mediawiki-editor = super.vim-mediawiki-editor.overrideAttrs (old: { passthru.python3Dependencies = [ python3.pkgs.mwclient ]; });
 
   nvim-spectre = super.nvim-spectre.overrideAttrs (old: { dependencies = with self; [ plenary-nvim ]; });
 
@@ -1165,9 +1163,7 @@ self: super:
     }
   );
 
-  telescope-fzf-writer-nvim = super.telescope-fzf-writer-nvim.overrideAttrs (
-    old: { dependencies = with self; [ telescope-nvim ]; }
-  );
+  telescope-fzf-writer-nvim = super.telescope-fzf-writer-nvim.overrideAttrs (old: { dependencies = with self; [ telescope-nvim ]; });
 
   telescope-fzy-native-nvim = super.telescope-fzy-native-nvim.overrideAttrs (
     old: {
@@ -1292,15 +1288,11 @@ self: super:
 
   vim-addon-async = super.vim-addon-async.overrideAttrs (old: { dependencies = with self; [ vim-addon-signs ]; });
 
-  vim-addon-background-cmd = super.vim-addon-background-cmd.overrideAttrs (
-    old: { dependencies = with self; [ vim-addon-mw-utils ]; }
-  );
+  vim-addon-background-cmd = super.vim-addon-background-cmd.overrideAttrs (old: { dependencies = with self; [ vim-addon-mw-utils ]; });
 
   vim-addon-completion = super.vim-addon-completion.overrideAttrs (old: { dependencies = with self; [ tlib_vim ]; });
 
-  vim-addon-goto-thing-at-cursor = super.vim-addon-goto-thing-at-cursor.overrideAttrs (
-    old: { dependencies = with self; [ tlib_vim ]; }
-  );
+  vim-addon-goto-thing-at-cursor = super.vim-addon-goto-thing-at-cursor.overrideAttrs (old: { dependencies = with self; [ tlib_vim ]; });
 
   vim-addon-manager = super.vim-addon-manager.overrideAttrs (old: { buildInputs = lib.optional stdenv.isDarwin Cocoa; });
 

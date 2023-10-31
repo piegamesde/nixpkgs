@@ -89,8 +89,7 @@ let
 
       ${optionalString (!config.boot.isContainer && config.boot.bootspec.enable) ''
         ${config.boot.bootspec.writer}
-        ${optionalString config.boot.bootspec.enableValidation
-          ''${config.boot.bootspec.validator} "$out/${config.boot.bootspec.filename}"''}
+        ${optionalString config.boot.bootspec.enableValidation ''${config.boot.bootspec.validator} "$out/${config.boot.bootspec.filename}"''}
       ''}
 
       ${config.system.extraSystemBuilderCmds}
@@ -149,8 +148,7 @@ let
 
   # Replace runtime dependencies
   system =
-    foldr ({ oldDependency, newDependency }: drv: pkgs.replaceDependency { inherit oldDependency newDependency drv; })
-      baseSystemAssertWarn
+    foldr ({ oldDependency, newDependency }: drv: pkgs.replaceDependency { inherit oldDependency newDependency drv; }) baseSystemAssertWarn
       config.system.replaceRuntimeDependencies;
 
   systemWithBuildDeps = system.overrideAttrs (

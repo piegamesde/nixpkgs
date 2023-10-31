@@ -400,10 +400,7 @@ let
             # Restart if the service exits (e.g. when wireguard gives up after "Name or service not known" dns failures):
             Restart = "always";
             RestartSec =
-              if null != peer.dynamicEndpointRefreshRestartSeconds then
-                peer.dynamicEndpointRefreshRestartSeconds
-              else
-                peer.dynamicEndpointRefreshSeconds;
+              if null != peer.dynamicEndpointRefreshRestartSeconds then peer.dynamicEndpointRefreshRestartSeconds else peer.dynamicEndpointRefreshSeconds;
           };
       unitConfig = lib.optionalAttrs dynamicRefreshEnabled { StartLimitIntervalSec = 0; };
 
@@ -588,8 +585,7 @@ in
   config = mkIf cfg.enable (
     let
       all_peers = flatten (
-        mapAttrsToList (interfaceName: interfaceCfg: map (peer: { inherit interfaceName interfaceCfg peer; }) interfaceCfg.peers)
-          cfg.interfaces
+        mapAttrsToList (interfaceName: interfaceCfg: map (peer: { inherit interfaceName interfaceCfg peer; }) interfaceCfg.peers) cfg.interfaces
       );
     in
     {

@@ -229,17 +229,11 @@ self: super:
       configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
     }
   );
-  libXxf86dga = super.libXxf86dga.overrideAttrs (
-    attrs: { configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag; }
-  );
-  libXxf86misc = super.libXxf86misc.overrideAttrs (
-    attrs: { configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag; }
-  );
+  libXxf86dga = super.libXxf86dga.overrideAttrs (attrs: { configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag; });
+  libXxf86misc = super.libXxf86misc.overrideAttrs (attrs: { configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag; });
   libdmx = super.libdmx.overrideAttrs (attrs: { configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag; });
   libFS = super.libFS.overrideAttrs (attrs: { configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag; });
-  libWindowsWM = super.libWindowsWM.overrideAttrs (
-    attrs: { configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag; }
-  );
+  libWindowsWM = super.libWindowsWM.overrideAttrs (attrs: { configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag; });
   xdpyinfo = super.xdpyinfo.overrideAttrs (
     attrs: {
       configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
@@ -836,9 +830,7 @@ self: super:
     }
   );
 
-  xf86videoomap = super.xf86videoomap.overrideAttrs (
-    attrs: { env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=format-overflow" ]; }
-  );
+  xf86videoomap = super.xf86videoomap.overrideAttrs (attrs: { env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=format-overflow" ]; });
 
   xf86videoamdgpu = super.xf86videoamdgpu.overrideAttrs (
     attrs: { configureFlags = [ "--with-xorg-conf-dir=$(out)/share/X11/xorg.conf.d" ]; }
@@ -933,9 +925,7 @@ self: super:
 
   xvinfo = super.xvinfo.overrideAttrs (attrs: { buildInputs = attrs.buildInputs ++ [ xorg.libXext ]; });
 
-  xkbcomp = super.xkbcomp.overrideAttrs (
-    attrs: { configureFlags = [ "--with-xkb-config-root=${xorg.xkeyboardconfig}/share/X11/xkb" ]; }
-  );
+  xkbcomp = super.xkbcomp.overrideAttrs (attrs: { configureFlags = [ "--with-xkb-config-root=${xorg.xkeyboardconfig}/share/X11/xkb" ]; });
 
   xkeyboardconfig = super.xkeyboardconfig.overrideAttrs (
     attrs: {

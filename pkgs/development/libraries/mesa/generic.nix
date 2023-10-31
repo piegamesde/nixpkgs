@@ -131,9 +131,7 @@ let
   # Align all the Mesa versions used. Required to prevent explosions when
   # two different LLVMs are loaded in the same process.
   # FIXME: these should really go into some sort of versioned LLVM package set
-  rust-bindgen' = rust-bindgen.override {
-    rust-bindgen-unwrapped = rust-bindgen.unwrapped.override { clang = llvmPackages.clang; };
-  };
+  rust-bindgen' = rust-bindgen.override { rust-bindgen-unwrapped = rust-bindgen.unwrapped.override { clang = llvmPackages.clang; }; };
   spirv-llvm-translator' = spirv-llvm-translator.override { inherit (llvmPackages) llvm; };
 
   haveWayland = lib.elem "wayland" eglPlatforms;

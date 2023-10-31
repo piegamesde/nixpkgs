@@ -36,9 +36,7 @@ let
   pkgList = rec {
     all = lib.filter pkgFilter (combinePkgs (lib.attrValues pkgSet));
     splitBin = builtins.partition (p: p.tlType == "bin") all;
-    bin =
-      splitBin.right
-      ++ lib.optional (lib.any (p: p.tlType == "run" && p.pname == "pdfcrop") splitBin.wrong) (lib.getBin ghostscript);
+    bin = splitBin.right ++ lib.optional (lib.any (p: p.tlType == "run" && p.pname == "pdfcrop") splitBin.wrong) (lib.getBin ghostscript);
     nonbin = splitBin.wrong;
 
     # extra interpreters needed for shebangs, based on 2015 schemes "medium" and "tetex"
@@ -53,9 +51,7 @@ let
         "texliveonfly"
       ];
     pkgNeedsRuby = pkg: pkg.tlType == "run" && pkg.pname == "match-parens";
-    extraInputs =
-      lib.optional (lib.any pkgNeedsPython splitBin.wrong) python3
-      ++ lib.optional (lib.any pkgNeedsRuby splitBin.wrong) ruby;
+    extraInputs = lib.optional (lib.any pkgNeedsPython splitBin.wrong) python3 ++ lib.optional (lib.any pkgNeedsRuby splitBin.wrong) ruby;
   };
 
   name = "texlive-${extraName}-${bin.texliveYear}${extraVersion}";
@@ -191,9 +187,7 @@ in
               2,/^% from/{ /^% from/!p; };
             ''
             # pick up all sections matching packages that we combine
-            +
-              lib.concatMapStrings (pname: section "^% from ${pname}:$" "^% from|^%%% No changes may be made beyond this point.$")
-                hyphenPNames
+            + lib.concatMapStrings (pname: section "^% from ${pname}:$" "^% from|^%%% No changes may be made beyond this point.$") hyphenPNames
             # pick up the footer (for language.def)
             + ''
               /^%%% No changes may be made beyond this point.$/,$p;

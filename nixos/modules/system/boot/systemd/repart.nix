@@ -9,8 +9,7 @@ let
   cfg = config.systemd.repart;
   initrdCfg = config.boot.initrd.systemd.repart;
 
-  writeDefinition =
-    name: partitionConfig: pkgs.writeText "${name}.conf" (lib.generators.toINI { } { Partition = partitionConfig; });
+  writeDefinition = name: partitionConfig: pkgs.writeText "${name}.conf" (lib.generators.toINI { } { Partition = partitionConfig; });
 
   listOfDefinitions = lib.mapAttrsToList writeDefinition (lib.filterAttrs (k: _: !(lib.hasPrefix "_" k)) cfg.partitions);
 

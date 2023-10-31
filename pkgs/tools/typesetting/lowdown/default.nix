@@ -45,9 +45,7 @@ stdenv.mkDerivation rec {
     "bins" # prevents shared object from being built unnecessarily
   ];
 
-  installTargets = [
-    "install"
-  ] ++ lib.optionals enableShared [ "install_shared" ] ++ lib.optionals enableStatic [ "install_static" ];
+  installTargets = [ "install" ] ++ lib.optionals enableShared [ "install_shared" ] ++ lib.optionals enableStatic [ "install_static" ];
 
   # Fix lib extension so that fixDarwinDylibNames detects it, see
   # <https://github.com/kristapsdz/lowdown/issues/87#issuecomment-1532243650>.

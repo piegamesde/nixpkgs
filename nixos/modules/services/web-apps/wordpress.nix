@@ -39,12 +39,8 @@ let
         # Since hard linking directories is not allowed, copying is the next best thing.
 
         # copy additional plugin(s), theme(s) and language(s)
-        ${concatStringsSep "\n" (
-          mapAttrsToList (name: theme: "cp -r ${theme} $out/share/wordpress/wp-content/themes/${name}") cfg.themes
-        )}
-        ${concatStringsSep "\n" (
-          mapAttrsToList (name: plugin: "cp -r ${plugin} $out/share/wordpress/wp-content/plugins/${name}") cfg.plugins
-        )}
+        ${concatStringsSep "\n" (mapAttrsToList (name: theme: "cp -r ${theme} $out/share/wordpress/wp-content/themes/${name}") cfg.themes)}
+        ${concatStringsSep "\n" (mapAttrsToList (name: plugin: "cp -r ${plugin} $out/share/wordpress/wp-content/plugins/${name}") cfg.plugins)}
         ${concatMapStringsSep "\n" (language: "cp -r ${language} $out/share/wordpress/wp-content/languages/") cfg.languages}
       '';
     };
@@ -451,8 +447,7 @@ in
           (mapAttrsToList
             (hostName: cfg: {
               assertion = cfg.database.createLocally -> cfg.database.user == user;
-              message = ''
-                services.wordpress.sites."${hostName}".database.user must be ${user} if the database is to be automatically provisioned'';
+              message = ''services.wordpress.sites."${hostName}".database.user must be ${user} if the database is to be automatically provisioned'';
             })
             eachSite
           )

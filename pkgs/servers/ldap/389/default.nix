@@ -63,27 +63,22 @@ stdenv.mkDerivation rec {
     rustPlatform.rust.rustc
   ] ++ lib.optional withCockpit rsync;
 
-  buildInputs =
-    [
-      cracklib
-      lmdb
-      json_c
-      linux-pam
-      libevent
-      libxcrypt
-      nspr
-      nss
-      cyrus_sasl
-      icu
-      krb5
-      pcre2
-      openssl
-      zlib
-    ]
-    ++ lib.optional withSystemd systemd
-    ++ lib.optional withOpenldap openldap
-    ++ lib.optional withBdb db
-    ++ lib.optional withNetSnmp net-snmp;
+  buildInputs = [
+    cracklib
+    lmdb
+    json_c
+    linux-pam
+    libevent
+    libxcrypt
+    nspr
+    nss
+    cyrus_sasl
+    icu
+    krb5
+    pcre2
+    openssl
+    zlib
+  ] ++ lib.optional withSystemd systemd ++ lib.optional withOpenldap openldap ++ lib.optional withBdb db ++ lib.optional withNetSnmp net-snmp;
 
   postPatch = ''
     patchShebangs ./buildnum.py ./ldap/servers/slapd/mkDBErrStrs.py

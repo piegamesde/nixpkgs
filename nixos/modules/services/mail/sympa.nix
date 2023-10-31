@@ -424,15 +424,11 @@ in
         })
       );
 
-    services.sympa.settingsFile =
-      {
-        "virtual.sympa" = mkDefault { source = virtual; };
-        "transport.sympa" = mkDefault { source = transport; };
-        "etc/list_aliases.tt2" = mkDefault { source = listAliases; };
-      }
-      // (flip mapAttrs' cfg.domains (
-        fqdn: domain: nameValuePair "etc/${fqdn}/robot.conf" (mkDefault { source = robotConfig fqdn domain; })
-      ));
+    services.sympa.settingsFile = {
+      "virtual.sympa" = mkDefault { source = virtual; };
+      "transport.sympa" = mkDefault { source = transport; };
+      "etc/list_aliases.tt2" = mkDefault { source = listAliases; };
+    } // (flip mapAttrs' cfg.domains (fqdn: domain: nameValuePair "etc/${fqdn}/robot.conf" (mkDefault { source = robotConfig fqdn domain; })));
 
     environment = {
       systemPackages = [ pkg ];

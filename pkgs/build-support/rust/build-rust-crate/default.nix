@@ -299,9 +299,7 @@ lib.makeOverridable
         buildDependencies = map lib.getLib buildDependencies_;
 
         completeDeps = lib.unique (dependencies ++ lib.concatMap (dep: dep.completeDeps) dependencies);
-        completeBuildDeps = lib.unique (
-          buildDependencies ++ lib.concatMap (dep: dep.completeBuildDeps ++ dep.completeDeps) buildDependencies
-        );
+        completeBuildDeps = lib.unique (buildDependencies ++ lib.concatMap (dep: dep.completeBuildDeps ++ dep.completeDeps) buildDependencies);
 
         # Create a list of features that are enabled by the crate itself and
         # through the features argument of buildRustCrate. Exclude features
@@ -354,9 +352,7 @@ lib.makeOverridable
         edition = crate.edition or null;
         codegenUnits = if crate ? codegenUnits then crate.codegenUnits else 1;
         extraRustcOpts =
-          lib.optionals (crate ? extraRustcOpts) crate.extraRustcOpts
-          ++ extraRustcOpts_
-          ++ (lib.optional (edition != null) "--edition ${edition}");
+          lib.optionals (crate ? extraRustcOpts) crate.extraRustcOpts ++ extraRustcOpts_ ++ (lib.optional (edition != null) "--edition ${edition}");
         extraRustcOptsForBuildRs =
           lib.optionals (crate ? extraRustcOptsForBuildRs) crate.extraRustcOptsForBuildRs
           ++ extraRustcOptsForBuildRs_

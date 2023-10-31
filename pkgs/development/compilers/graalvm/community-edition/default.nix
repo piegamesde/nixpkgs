@@ -14,8 +14,7 @@ let
     "aarch64-darwin" = "darwin-aarch64";
     "x86_64-darwin" = "darwin-amd64";
   };
-  javaPlatformVersion =
-    javaVersion: "${javaVersion}-${javaPlatform.${stdenv.system} or (throw "Unsupported platform: ${stdenv.system}")}";
+  javaPlatformVersion = javaVersion: "${javaVersion}-${javaPlatform.${stdenv.system} or (throw "Unsupported platform: ${stdenv.system}")}";
   source =
     product: javaVersion:
     (import ./hashes.nix).${product}.${javaPlatformVersion javaVersion}

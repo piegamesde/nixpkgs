@@ -2,8 +2,7 @@
 { lib, pkgs }:
 
 let
-  zeroPad =
-    n: lib.optionalString (n < 16) "0" + (if n > 255 then throw "Can't have more than 255 nets or nodes!" else lib.toHexString n);
+  zeroPad = n: lib.optionalString (n < 16) "0" + (if n > 255 then throw "Can't have more than 255 nets or nodes!" else lib.toHexString n);
 in
 
 rec {
@@ -53,10 +52,7 @@ rec {
         throw "Unsupported host system ${hostSystem}, supported: ${lib.concatStringsSep ", " supportedSystems}";
       throwUnsupportedGuestSystem =
         guestMap:
-        throw
-          "Unsupported guest system ${guestSystem} for host ${hostSystem}, supported: ${
-            lib.concatStringsSep ", " (lib.attrNames guestMap)
-          }";
+        throw "Unsupported guest system ${guestSystem} for host ${hostSystem}, supported: ${lib.concatStringsSep ", " (lib.attrNames guestMap)}";
     in
     if hostStdenv.isLinux then
       linuxHostGuestMatrix.${guestSystem} or "${qemuPkg}/bin/qemu-kvm"

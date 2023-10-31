@@ -60,9 +60,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
   buildInputs =
-    [ ]
-    ++ lib.optionals stdenv.isLinux [ stdenv.cc.libc.out ]
-    ++ lib.optionals (stdenv.hostPlatform.libc == "glibc") [ stdenv.cc.libc.static ];
+    [ ] ++ lib.optionals stdenv.isLinux [ stdenv.cc.libc.out ] ++ lib.optionals (stdenv.hostPlatform.libc == "glibc") [ stdenv.cc.libc.static ];
 
   depsTargetTargetPropagated = lib.optionals stdenv.targetPlatform.isDarwin [
     Foundation

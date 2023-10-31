@@ -22,11 +22,9 @@ stdenv.mkDerivation (
     pname = "hipsolver";
     version = "5.4.4";
 
-    outputs =
-      [ "out" ]
-      ++ lib.optionals buildTests [ "test" ]
-      ++ lib.optionals buildBenchmarks [ "benchmark" ]
-      ++ lib.optionals buildSamples [ "sample" ];
+    outputs = [
+      "out"
+    ] ++ lib.optionals buildTests [ "test" ] ++ lib.optionals buildBenchmarks [ "benchmark" ] ++ lib.optionals buildSamples [ "sample" ];
 
     src = fetchFromGitHub {
       owner = "ROCmSoftwarePlatform";

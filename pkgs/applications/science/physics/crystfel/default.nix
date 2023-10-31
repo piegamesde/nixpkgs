@@ -81,9 +81,7 @@ let
       src =
         if stdenv.isDarwin then
           fetchurl {
-            url = "https://www.mrc-lmb.cam.ac.uk/mosflm/mosflm/ver${
-                builtins.replaceStrings [ "." ] [ "" ] version
-              }/pre-built/mosflm-osx-64-noX11.zip";
+            url = "https://www.mrc-lmb.cam.ac.uk/mosflm/mosflm/ver${builtins.replaceStrings [ "." ] [ "" ] version}/pre-built/mosflm-osx-64-noX11.zip";
             sha256 = "1da5wimv3kl8bccp49j69vh8gi28cn7axg59lrmb38s68c618h7j";
           }
         else

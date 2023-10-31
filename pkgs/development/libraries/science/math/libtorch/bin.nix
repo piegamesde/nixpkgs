@@ -30,8 +30,7 @@ stdenv.mkDerivation {
 
   src = fetchzip srcs."${stdenv.targetPlatform.system}-${device}" or unavailable;
 
-  nativeBuildInputs =
-    if stdenv.isDarwin then [ fixDarwinDylibNames ] else [ patchelf ] ++ lib.optionals cudaSupport [ addOpenGLRunpath ];
+  nativeBuildInputs = if stdenv.isDarwin then [ fixDarwinDylibNames ] else [ patchelf ] ++ lib.optionals cudaSupport [ addOpenGLRunpath ];
 
   dontBuild = true;
   dontConfigure = true;

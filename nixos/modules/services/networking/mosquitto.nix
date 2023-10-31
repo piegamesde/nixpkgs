@@ -153,9 +153,7 @@ let
       makeLines =
         store: file:
         mapAttrsToList (n: u: "addLine ${escapeShellArg n} ${escapeShellArg u.${store}}") (filterAttrs (_: u: u.${store} != null) users)
-        ++ mapAttrsToList (n: u: "addFile ${escapeShellArg n} ${escapeShellArg "${u.${file}}"}") (
-          filterAttrs (_: u: u.${file} != null) users
-        );
+        ++ mapAttrsToList (n: u: "addFile ${escapeShellArg n} ${escapeShellArg "${u.${file}}"}") (filterAttrs (_: u: u.${file} != null) users);
       plainLines = makeLines "password" "passwordFile";
       hashedLines = makeLines "hashedPassword" "hashedPasswordFile";
     in

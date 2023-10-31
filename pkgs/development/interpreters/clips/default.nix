@@ -9,9 +9,7 @@ stdenv.mkDerivation rec {
   pname = "clips";
 
   src = fetchurl {
-    url = "mirror://sourceforge/clipsrules/CLIPS/${version}/clips_core_source_${
-        builtins.replaceStrings [ "." ] [ "" ] version
-      }.tar.gz";
+    url = "mirror://sourceforge/clipsrules/CLIPS/${version}/clips_core_source_${builtins.replaceStrings [ "." ] [ "" ] version}.tar.gz";
     sha256 = "1pr5l61zxf6kjs8b2b028g2aq45pigavwjmrf4l5mrdmlnk3fq5d";
   };
 

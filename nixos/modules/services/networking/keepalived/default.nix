@@ -342,8 +342,7 @@ in
               ${pkgs.envsubst}/bin/envsubst -i "${keepalivedConf}" > ${finalConfigFile}
             ''
           );
-          ExecStart =
-            "${pkgs.keepalived}/sbin/keepalived" + " -f ${finalConfigFile}" + " -p ${pidFile}" + optionalString cfg.snmp.enable " --snmp";
+          ExecStart = "${pkgs.keepalived}/sbin/keepalived" + " -f ${finalConfigFile}" + " -p ${pidFile}" + optionalString cfg.snmp.enable " --snmp";
           ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
           Restart = "always";
           RestartSec = "1s";

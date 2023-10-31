@@ -67,9 +67,7 @@ buildDotnetPackage rec {
       outputLc = toString (add 7 (length plugins));
       patchTemplate = readFile ./keepass-plugins.patch;
       loadTemplate = readFile ./keepass-plugins-load.patch;
-      loads = lib.concatStrings (
-        map (p: replaceStrings [ "$PATH$" ] [ (unsafeDiscardStringContext (toString p)) ] loadTemplate) plugins
-      );
+      loads = lib.concatStrings (map (p: replaceStrings [ "$PATH$" ] [ (unsafeDiscardStringContext (toString p)) ] loadTemplate) plugins);
     in
     replaceStrings
       [

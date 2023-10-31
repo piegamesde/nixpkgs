@@ -583,9 +583,7 @@ in
         mailman = {
           description = "GNU Mailman Master Process";
           before = lib.optional cfg.enablePostfix "postfix.service";
-          after = [
-            "network.target"
-          ] ++ lib.optional cfg.enablePostfix "postfix-setup.service" ++ lib.optional withPostgresql "postgresql.service";
+          after = [ "network.target" ] ++ lib.optional cfg.enablePostfix "postfix-setup.service" ++ lib.optional withPostgresql "postgresql.service";
           restartTriggers = [ mailmanCfgFile ];
           requires = optional withPostgresql "postgresql.service";
           wantedBy = [ "multi-user.target" ];

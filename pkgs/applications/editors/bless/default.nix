@@ -58,9 +58,7 @@ stdenv.mkDerivation rec {
 
   preFixup = ''
     MPATH="${gtk-sharp-2_0}/lib/mono/gtk-sharp-2.0:${glib.out}/lib:${gtk2-x11}/lib:${gtk-sharp-2_0}/lib"
-    wrapProgram $out/bin/bless --prefix MONO_PATH : "$MPATH" --prefix LD_LIBRARY_PATH : "$MPATH" --prefix PATH : ${
-      lib.makeBinPath [ mono ]
-    }
+    wrapProgram $out/bin/bless --prefix MONO_PATH : "$MPATH" --prefix LD_LIBRARY_PATH : "$MPATH" --prefix PATH : ${lib.makeBinPath [ mono ]}
   '';
 
   meta = with lib; {

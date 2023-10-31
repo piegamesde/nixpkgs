@@ -605,9 +605,7 @@ in
           {
             inherit (cfg) path;
             wants = [ "public-inbox-init.service" ];
-            requires = [
-              "public-inbox-init.service"
-            ] ++ optional (cfg.settings.publicinboxwatch.spamcheck == "spamc") "spamassassin.service";
+            requires = [ "public-inbox-init.service" ] ++ optional (cfg.settings.publicinboxwatch.spamcheck == "spamc") "spamassassin.service";
             wantedBy = [ "multi-user.target" ];
             serviceConfig = {
               ExecStart = "${cfg.package}/bin/public-inbox-watch";

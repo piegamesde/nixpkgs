@@ -113,10 +113,7 @@ let
     let
       # Use the latest stable Chrome version if necessary:
       version =
-        if chromium.upstream-info.sha256bin64 != null then
-          chromium.upstream-info.version
-        else
-          (lib.importJSON ./upstream-info.json).stable.version;
+        if chromium.upstream-info.sha256bin64 != null then chromium.upstream-info.version else (lib.importJSON ./upstream-info.json).stable.version;
       sha256 =
         if chromium.upstream-info.sha256bin64 != null then
           chromium.upstream-info.sha256bin64

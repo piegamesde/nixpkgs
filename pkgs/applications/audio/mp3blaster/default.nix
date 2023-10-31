@@ -35,9 +35,7 @@ stdenv.mkDerivation rec {
     libvorbis
   ] ++ lib.optional stdenv.isDarwin SDL;
 
-  env.NIX_CFLAGS_COMPILE = toString (
-    [ "-Wno-narrowing" ] ++ lib.optionals stdenv.cc.isClang [ "-Wno-reserved-user-defined-literal" ]
-  );
+  env.NIX_CFLAGS_COMPILE = toString ([ "-Wno-narrowing" ] ++ lib.optionals stdenv.cc.isClang [ "-Wno-reserved-user-defined-literal" ]);
 
   meta = with lib; {
     description = "An audio player for the text console";

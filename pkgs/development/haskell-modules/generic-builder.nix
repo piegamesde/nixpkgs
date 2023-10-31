@@ -283,12 +283,7 @@ let
         "--with-cpphs=${cpphs}/bin/cpphs --ghc-options=-cpp --ghc-options=-pgmP${cpphs}/bin/cpphs --ghc-options=-optP--cpp"
       )
       (enableFeature
-        (
-          enableDeadCodeElimination
-          && !stdenv.hostPlatform.isAarch32
-          && !stdenv.hostPlatform.isAarch64
-          && (versionAtLeast "8.0.1" ghc.version)
-        )
+        (enableDeadCodeElimination && !stdenv.hostPlatform.isAarch32 && !stdenv.hostPlatform.isAarch64 && (versionAtLeast "8.0.1" ghc.version))
         "split-objs"
       )
       (enableFeature enableLibraryProfiling "library-profiling")
@@ -404,11 +399,9 @@ lib.fix (
     {
       inherit pname version;
 
-      outputs =
-        [ "out" ]
-        ++ (optional enableSeparateDataOutput "data")
-        ++ (optional enableSeparateDocOutput "doc")
-        ++ (optional enableSeparateBinOutput "bin");
+      outputs = [
+        "out"
+      ] ++ (optional enableSeparateDataOutput "data") ++ (optional enableSeparateDocOutput "doc") ++ (optional enableSeparateBinOutput "bin");
       setOutputFlags = false;
 
       pos = builtins.unsafeGetAttrPos "pname" args;
@@ -646,12 +639,11 @@ lib.fix (
           done
         ''}
         ${optionalString doCoverage "mkdir -p $out/share && cp -r dist/hpc $out/share"}
-        ${optionalString (enableSharedExecutables && isExecutable && !isGhcjs && stdenv.isDarwin && lib.versionOlder ghc.version "7.10")
-          ''
-            for exe in "${binDir}/"* ; do
-              install_name_tool -add_rpath "$out/${ghcLibdir}/${pname}-${version}" "$exe"
-            done
-          ''}
+        ${optionalString (enableSharedExecutables && isExecutable && !isGhcjs && stdenv.isDarwin && lib.versionOlder ghc.version "7.10") ''
+          for exe in "${binDir}/"* ; do
+            install_name_tool -add_rpath "$out/${ghcLibdir}/${pname}-${version}" "$exe"
+          done
+        ''}
 
         ${optionalString enableSeparateDocOutput ''
           for x in ${docdir "$doc"}"/html/src/"*.html; do
@@ -719,9 +711,7 @@ lib.fix (
           inherit propagatedBuildInputs otherBuildInputs allPkgconfigDepends;
           haskellBuildInputs = isHaskellPartition.right;
           systemBuildInputs = isHaskellPartition.wrong;
-          isHaskellPartition = lib.partition isHaskellPkg (
-            propagatedBuildInputs ++ otherBuildInputs ++ depsBuildBuild ++ nativeBuildInputs
-          );
+          isHaskellPartition = lib.partition isHaskellPkg (propagatedBuildInputs ++ otherBuildInputs ++ depsBuildBuild ++ nativeBuildInputs);
         };
 
         isHaskellLibrary = isLibrary;
@@ -777,9 +767,7 @@ lib.fix (
             phases = [ "installPhase" ];
             installPhase = "echo $nativeBuildInputs $buildInputs > $out";
             LANG = "en_US.UTF-8";
-            LOCALE_ARCHIVE =
-              lib.optionalString (stdenv.hostPlatform.libc == "glibc")
-                "${buildPackages.glibcLocales}/lib/locale/locale-archive";
+            LOCALE_ARCHIVE = lib.optionalString (stdenv.hostPlatform.libc == "glibc") "${buildPackages.glibcLocales}/lib/locale/locale-archive";
             "NIX_${ghcCommandCaps}" = "${ghcEnv}/bin/${ghcCommand}";
             "NIX_${ghcCommandCaps}PKG" = "${ghcEnv}/bin/${ghcCommand}-pkg";
             # TODO: is this still valid?

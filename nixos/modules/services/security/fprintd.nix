@@ -57,8 +57,6 @@ in
 
     systemd.packages = [ cfg.package ];
 
-    systemd.services.fprintd.environment = mkIf cfg.tod.enable {
-      FP_TOD_DRIVERS_DIR = "${cfg.tod.driver}${cfg.tod.driver.driverPath}";
-    };
+    systemd.services.fprintd.environment = mkIf cfg.tod.enable { FP_TOD_DRIVERS_DIR = "${cfg.tod.driver}${cfg.tod.driver.driverPath}"; };
   };
 }

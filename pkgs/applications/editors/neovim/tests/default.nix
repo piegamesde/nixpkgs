@@ -127,9 +127,8 @@ pkgs.recurseIntoAttrs (rec {
 
   nvim_with_plug = neovim.override {
     extraName = "-with-plug";
-    configure.packages.plugins = with pkgs.vimPlugins; {
-      start = [ (base16-vim.overrideAttrs (old: { pname = old.pname + "-unique-for-tests-please-dont-use"; })) ];
-    };
+    configure.packages.plugins =
+      with pkgs.vimPlugins; { start = [ (base16-vim.overrideAttrs (old: { pname = old.pname + "-unique-for-tests-please-dont-use"; })) ]; };
     configure.customRC = ''
       color base16-tomorrow-night
       set background=dark

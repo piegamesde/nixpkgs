@@ -54,8 +54,7 @@ assert lib.assertMsg (enableOptimizations -> (!stdenv.cc.isClang))
 
 assert lib.assertMsg (reproducibleBuild -> stripBytecode) "Deterministic builds require stripping bytecode.";
 
-assert lib.assertMsg (reproducibleBuild -> (!enableOptimizations))
-    "Deterministic builds are not achieved when optimizations are enabled.";
+assert lib.assertMsg (reproducibleBuild -> (!enableOptimizations)) "Deterministic builds are not achieved when optimizations are enabled.";
 
 assert lib.assertMsg (reproducibleBuild -> (!rebuildBytecode))
     "Deterministic builds are not achieved when (default unoptimized) bytecode is created.";
@@ -265,9 +264,7 @@ let
   };
 
   # Python 2.7 needs this
-  crossCompileEnv = lib.optionalAttrs (stdenv.hostPlatform != stdenv.buildPlatform) {
-    _PYTHON_HOST_PLATFORM = stdenv.hostPlatform.config;
-  };
+  crossCompileEnv = lib.optionalAttrs (stdenv.hostPlatform != stdenv.buildPlatform) { _PYTHON_HOST_PLATFORM = stdenv.hostPlatform.config; };
 in
 # Build the basic Python interpreter without modules that have
 # external dependencies.

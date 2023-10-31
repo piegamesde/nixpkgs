@@ -76,8 +76,7 @@ let
   mkPhpKeyVal =
     k: v:
     let
-      values =
-        if (isAttrs v && (hasAttr "_file" v || hasAttr "_raw" v)) || !isAttrs v then [ " = ${mkPhpValue v};" ] else mkPhpAttrVals v;
+      values = if (isAttrs v && (hasAttr "_file" v || hasAttr "_raw" v)) || !isAttrs v then [ " = ${mkPhpValue v};" ] else mkPhpAttrVals v;
     in
     map (e: "[${escapeShellArg k}]${e}") (flatten values);
 

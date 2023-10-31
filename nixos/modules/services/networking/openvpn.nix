@@ -238,8 +238,7 @@ in
   config = mkIf (cfg.servers != { }) {
 
     systemd.services =
-      (listToAttrs (mapAttrsFlatten (name: value: nameValuePair "openvpn-${name}" (makeOpenVPNJob value name)) cfg.servers))
-      // restartService;
+      (listToAttrs (mapAttrsFlatten (name: value: nameValuePair "openvpn-${name}" (makeOpenVPNJob value name)) cfg.servers)) // restartService;
 
     environment.systemPackages = [ openvpn ];
 

@@ -96,9 +96,7 @@ let
     in
     # The stdenv that we are producing.
     derivation (
-      lib.optionalAttrs (allowedRequisites != null) {
-        allowedRequisites = allowedRequisites ++ defaultNativeBuildInputs ++ defaultBuildInputs;
-      }
+      lib.optionalAttrs (allowedRequisites != null) { allowedRequisites = allowedRequisites ++ defaultNativeBuildInputs ++ defaultBuildInputs; }
       // lib.optionalAttrs config.contentAddressedByDefault {
         __contentAddressed = true;
         outputHashAlgo = "sha256";

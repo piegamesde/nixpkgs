@@ -202,10 +202,7 @@ rec {
             x = head list;
             key = x.key;
           in
-          if elem key doneKeys then
-            work (tail list) doneKeys result
-          else
-            work (tail list ++ operator x) ([ key ] ++ doneKeys) ([ x ] ++ result);
+          if elem key doneKeys then work (tail list) doneKeys result else work (tail list ++ operator x) ([ key ] ++ doneKeys) ([ x ] ++ result);
     in
     work startSet [ ] [ ];
 

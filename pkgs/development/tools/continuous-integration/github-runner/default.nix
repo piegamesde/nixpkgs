@@ -70,8 +70,7 @@ buildDotnetModule rec {
       git
       which
     ]
-    ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ]
-    ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ autoSignDarwinBinariesHook ];
+    ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ autoSignDarwinBinariesHook ];
 
   buildInputs = [ stdenv.cc.cc.lib ];
 

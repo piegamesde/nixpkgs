@@ -20,9 +20,7 @@ let
       );
     generate =
       name: attrs:
-      pkgs.writeText name (
-        lib.strings.concatStringsSep "\n" (lib.attrsets.mapAttrsToList (key: value: "${key}=${builtins.toJSON value}") attrs)
-      );
+      pkgs.writeText name (lib.strings.concatStringsSep "\n" (lib.attrsets.mapAttrsToList (key: value: "${key}=${builtins.toJSON value}") attrs));
   };
 in
 {
@@ -106,8 +104,7 @@ in
                 tls_enable = cfg.enableTLS;
                 file_plugins = pkgs.writeText "uhub-plugins.conf" (
                   lib.strings.concatStringsSep "\n" (
-                    map
-                      ({ plugin, settings }: ''plugin ${plugin} "${toString (lib.attrsets.mapAttrsToList (key: value: "${key}=${value}") settings)}"'')
+                    map ({ plugin, settings }: ''plugin ${plugin} "${toString (lib.attrsets.mapAttrsToList (key: value: "${key}=${value}") settings)}"'')
                       cfg.plugins
                   )
                 );

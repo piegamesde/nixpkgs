@@ -23,9 +23,7 @@ let
 
   dhcp6Config = chooseNotNull cfg.dhcp6.configFile (format.generate "kea-dhcp6.conf" { Dhcp6 = cfg.dhcp6.settings; });
 
-  dhcpDdnsConfig = chooseNotNull cfg.dhcp-ddns.configFile (
-    format.generate "kea-dhcp-ddns.conf" { DhcpDdns = cfg.dhcp-ddns.settings; }
-  );
+  dhcpDdnsConfig = chooseNotNull cfg.dhcp-ddns.configFile (format.generate "kea-dhcp-ddns.conf" { DhcpDdns = cfg.dhcp-ddns.settings; });
 
   package = pkgs.kea;
 in

@@ -50,12 +50,10 @@ stdenv.mkDerivation rec {
     bison
   ];
 
-  buildInputs =
-    [
-      ncurses
-      libevent
-    ]
-    ++ lib.optionals withSystemd [ systemd ] ++ lib.optionals withUtf8proc [ utf8proc ] ++ lib.optionals withUtempter [ libutempter ];
+  buildInputs = [
+    ncurses
+    libevent
+  ] ++ lib.optionals withSystemd [ systemd ] ++ lib.optionals withUtf8proc [ utf8proc ] ++ lib.optionals withUtempter [ libutempter ];
 
   configureFlags =
     [

@@ -11,8 +11,7 @@
 
 let
   hashes =
-    (import ./hashes.nix).${engineVersion}
-      or (throw "There are no known artifact hashes for Flutter engine version ${engineVersion}.");
+    (import ./hashes.nix).${engineVersion} or (throw "There are no known artifact hashes for Flutter engine version ${engineVersion}.");
 
   artifacts = {
     common = {

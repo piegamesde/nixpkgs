@@ -53,8 +53,7 @@ let
     loc: decl: prefix:
     " - option(s) with prefix `${showOption (loc ++ [ prefix ])}' in module `${decl._file}'";
   showRawDecls =
-    loc: decls:
-    concatStringsSep "\n" (sort (a: b: a < b) (concatMap (decl: map (showDeclPrefix loc decl) (attrNames decl.options)) decls));
+    loc: decls: concatStringsSep "\n" (sort (a: b: a < b) (concatMap (decl: map (showDeclPrefix loc decl) (attrNames decl.options)) decls));
 in
 
 rec {
@@ -111,8 +110,7 @@ rec {
     let
       withWarnings =
         x:
-        lib.warnIf (evalModulesArgs ? args) "The args argument to evalModules is deprecated. Please set config._module.args instead."
-          lib.warnIf
+        lib.warnIf (evalModulesArgs ? args) "The args argument to evalModules is deprecated. Please set config._module.args instead." lib.warnIf
           (evalModulesArgs ? check)
           "The check argument to evalModules is deprecated. Please set config._module.check instead."
           x;
@@ -310,8 +308,7 @@ rec {
               let
                 optText = showOption (prefix ++ firstDef.prefix);
                 defText =
-                  builtins.addErrorContext
-                    "while evaluating the error message for definitions for `${optText}', which is an option that does not exist"
+                  builtins.addErrorContext "while evaluating the error message for definitions for `${optText}', which is an option that does not exist"
                     (builtins.addErrorContext "while evaluating a definition from `${firstDef.file}'" (showDefs [ firstDef ]));
               in
               "The option `${optText}' does not exist. Definition values:${defText}";
@@ -807,9 +804,7 @@ rec {
                   nonOptions = filter (m: !isOption m.options) decls;
                 in
                 throw ''
-                  The option `${showOption loc}' in module `${
-                    (lib.head optionDecls)._file
-                  }' would be a parent of the following options, but its type `${
+                  The option `${showOption loc}' in module `${(lib.head optionDecls)._file}' would be a parent of the following options, but its type `${
                     (lib.head optionDecls).options.type.description or "<no description>"
                   }' does not support nested options.
                   ${showRawDecls loc nonOptions}''
@@ -881,9 +876,7 @@ rec {
           typeSet = if (bothHave "type") && typesMergeable then { type = mergedType; } else { };
           bothHave = k: opt.options ? ${k} && res ? ${k};
         in
-        if
-          bothHave "default" || bothHave "example" || bothHave "description" || bothHave "apply" || (bothHave "type" && (!typesMergeable))
-        then
+        if bothHave "default" || bothHave "example" || bothHave "description" || bothHave "apply" || (bothHave "type" && (!typesMergeable)) then
           throw "The option `${showOption loc}' in `${opt._file}' is already declared in ${showFiles res.declarations}."
         else
           let
@@ -1160,13 +1153,11 @@ rec {
   mkVMOverride = mkOverride 10; # used by ‘nixos-rebuild build-vm’
 
   defaultPriority =
-    lib.warnIf (lib.isInOldestRelease 2305)
-      "lib.modules.defaultPriority is deprecated, please use lib.modules.defaultOverridePriority instead."
+    lib.warnIf (lib.isInOldestRelease 2305) "lib.modules.defaultPriority is deprecated, please use lib.modules.defaultOverridePriority instead."
       defaultOverridePriority;
 
   mkFixStrictness =
-    lib.warn
-      "lib.mkFixStrictness has no effect and will be removed. It returns its argument unmodified, so you can just remove any calls."
+    lib.warn "lib.mkFixStrictness has no effect and will be removed. It returns its argument unmodified, so you can just remove any calls."
       id;
 
   mkOrder = priority: content: {
@@ -1241,8 +1232,7 @@ rec {
       options = setAttrByPath optionName (
         mkOption {
           visible = false;
-          apply =
-            x: throw "The option `${showOption optionName}' can no longer be used since it's been removed. ${replacementInstructions}";
+          apply = x: throw "The option `${showOption optionName}' can no longer be used since it's been removed. ${replacementInstructions}";
         }
       );
       config.assertions =
@@ -1299,9 +1289,7 @@ rec {
       inherit from to;
       visible = false;
       warn = lib.isInOldestRelease sinceRelease;
-      use =
-        lib.warnIf (lib.isInOldestRelease sinceRelease)
-          "Obsolete option `${showOption from}' is used. It was renamed to `${showOption to}'.";
+      use = lib.warnIf (lib.isInOldestRelease sinceRelease) "Obsolete option `${showOption from}' is used. It was renamed to `${showOption to}'.";
     };
 
   /* Return a module that causes a warning to be shown if any of the "from"
@@ -1459,8 +1447,7 @@ rec {
       options = setAttrByPath from (
         mkOption {
           inherit visible;
-          description =
-            if markdown then lib.mdDoc "Alias of {option}`${showOption to}`." else "Alias of <option>${showOption to}</option>.";
+          description = if markdown then lib.mdDoc "Alias of {option}`${showOption to}`." else "Alias of <option>${showOption to}</option>.";
           apply = x: use (toOf config);
         }
         // optionalAttrs (toType != null) { type = toType; }
@@ -1471,12 +1458,7 @@ rec {
             optional (warn && fromOpt.isDefined)
               "The option `${showOption from}' defined in ${showFiles fromOpt.files} has been renamed to `${showOption to}'.";
         })
-        (
-          if withPriority then
-            mkAliasAndWrapDefsWithPriority (setAttrByPath to) fromOpt
-          else
-            mkAliasAndWrapDefinitions (setAttrByPath to) fromOpt
-        )
+        (if withPriority then mkAliasAndWrapDefsWithPriority (setAttrByPath to) fromOpt else mkAliasAndWrapDefinitions (setAttrByPath to) fromOpt)
       ];
     };
 

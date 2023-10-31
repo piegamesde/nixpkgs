@@ -163,13 +163,9 @@ in
           <!-- set PATH variable for pam_mount module -->
           <path>${makeBinPath ([ pkgs.util-linux ] ++ cfg.additionalSearchPaths)}</path>
           <!-- create mount point if not present -->
-          <mkmountpoint enable="${if cfg.createMountPoints then "1" else "0"}" remove="${
-            if cfg.removeCreatedMountPoints then "true" else "false"
-          }" />
+          <mkmountpoint enable="${if cfg.createMountPoints then "1" else "0"}" remove="${if cfg.removeCreatedMountPoints then "true" else "false"}" />
           <!-- specify the binaries to be called -->
-          <fusemount>${pkgs.fuse}/bin/mount.fuse %(VOLUME) %(MNTPT) -o ${
-            concatStringsSep "," (cfg.fuseMountOptions ++ [ "%(OPTIONS)" ])
-          }</fusemount>
+          <fusemount>${pkgs.fuse}/bin/mount.fuse %(VOLUME) %(MNTPT) -o ${concatStringsSep "," (cfg.fuseMountOptions ++ [ "%(OPTIONS)" ])}</fusemount>
           <fuseumount>${pkgs.fuse}/bin/fusermount -u %(MNTPT)</fuseumount>
           <cryptmount>${pkgs.pam_mount}/bin/mount.crypt %(VOLUME) %(MNTPT)</cryptmount>
           <cryptumount>${pkgs.pam_mount}/bin/umount.crypt %(MNTPT)</cryptumount>

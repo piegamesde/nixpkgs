@@ -86,10 +86,7 @@ let
       );
       deviceOpts = mkOpts (deviceExtraOpts // { drive = drvId; });
       device =
-        if cfg.qemu.diskInterface == "scsi" then
-          "-device lsi53c895a -device scsi-hd,${deviceOpts}"
-        else
-          "-device virtio-blk-pci,${deviceOpts}";
+        if cfg.qemu.diskInterface == "scsi" then "-device lsi53c895a -device scsi-hd,${deviceOpts}" else "-device virtio-blk-pci,${deviceOpts}";
     in
     "-drive ${driveOpts} ${device}";
 
@@ -107,9 +104,8 @@ let
 
   lookupDriveDeviceName =
     driveName: driveList:
-    (findSingle (drive: drive.name == driveName) (throw "Drive ${driveName} not found") (throw "Multiple drives named ${driveName}")
-      driveList
-    ).device;
+    (findSingle (drive: drive.name == driveName) (throw "Drive ${driveName} not found") (throw "Multiple drives named ${driveName}") driveList)
+    .device;
 
   addDeviceNames = imap1 (idx: drive: drive // { device = driveDeviceName idx; });
 
@@ -877,22 +873,20 @@ in
       )
     );
 
-    warnings =
-      optional (cfg.writableStore && cfg.useNixStoreImage && opt.writableStore.highestPrio > lib.modules.defaultOverridePriority)
-        ''
-          You have enabled ${opt.useNixStoreImage} = true,
-          without setting ${opt.writableStore} = false.
+    warnings = optional (cfg.writableStore && cfg.useNixStoreImage && opt.writableStore.highestPrio > lib.modules.defaultOverridePriority) ''
+      You have enabled ${opt.useNixStoreImage} = true,
+      without setting ${opt.writableStore} = false.
 
-          This causes a store image to be written to the store, which is
-          costly, especially for the binary cache, and because of the need
-          for more frequent garbage collection.
+      This causes a store image to be written to the store, which is
+      costly, especially for the binary cache, and because of the need
+      for more frequent garbage collection.
 
-          If you really need this combination, you can set ${opt.writableStore}
-          explicitly to true, incur the cost and make this warning go away.
-          Otherwise, we recommend
+      If you really need this combination, you can set ${opt.writableStore}
+      explicitly to true, incur the cost and make this warning go away.
+      Otherwise, we recommend
 
-            ${opt.writableStore} = false;
-        '';
+        ${opt.writableStore} = false;
+    '';
 
     # In UEFI boot, we use a EFI-only partition table layout, thus GRUB will fail when trying to install
     # legacy and UEFI. In order to avoid this, we have to put "nodev" to force UEFI-only installs.
@@ -957,9 +951,7 @@ in
       fi
     '';
 
-    boot.initrd.availableKernelModules =
-      optional cfg.writableStore "overlay"
-      ++ optional (cfg.qemu.diskInterface == "scsi") "sym53c8xx";
+    boot.initrd.availableKernelModules = optional cfg.writableStore "overlay" ++ optional (cfg.qemu.diskInterface == "scsi") "sym53c8xx";
 
     virtualisation.additionalPaths = [ config.system.build.toplevel ];
 
@@ -990,8 +982,7 @@ in
           if from == "host" then
             "hostfwd=${proto}:${host.address}:${toString host.port}-" + "${guest.address}:${toString guest.port},"
           else
-            "'guestfwd=${proto}:${guest.address}:${toString guest.port}-"
-            + "cmd:${pkgs.netcat}/bin/nc ${host.address} ${toString host.port}',"
+            "'guestfwd=${proto}:${guest.address}:${toString guest.port}-" + "cmd:${pkgs.netcat}/bin/nc ${host.address} ${toString host.port}',"
         );
         restrictNetworkOption = lib.optionalString cfg.restrictNetwork "restrict=on,";
       in

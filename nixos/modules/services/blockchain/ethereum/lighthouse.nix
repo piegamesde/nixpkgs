@@ -252,8 +252,7 @@ in
           --execution-endpoint http://${cfg.beacon.execution.address}:${toString cfg.beacon.execution.port} \
           --execution-jwt ''${CREDENTIALS_DIRECTORY}/LIGHTHOUSE_JWT \
           ${
-            lib.optionalString cfg.beacon.http.enable
-              "--http --http-address ${cfg.beacon.http.address} --http-port ${toString cfg.beacon.http.port}"
+            lib.optionalString cfg.beacon.http.enable "--http --http-address ${cfg.beacon.http.address} --http-port ${toString cfg.beacon.http.port}"
           } \
           ${
             lib.optionalString cfg.beacon.metrics.enable

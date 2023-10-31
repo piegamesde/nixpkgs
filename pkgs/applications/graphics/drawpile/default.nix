@@ -79,9 +79,7 @@ mkDerivation rec {
 
   nativeBuildInputs = [ extra-cmake-modules ];
 
-  buildInputs = [
-    karchive
-  ] ++ optionals buildClient clientDeps ++ optionals buildServer serverDeps ++ optionals enableKisTablet kisDeps;
+  buildInputs = [ karchive ] ++ optionals buildClient clientDeps ++ optionals buildServer serverDeps ++ optionals enableKisTablet kisDeps;
 
   cmakeFlags = [
     "-Wno-dev"

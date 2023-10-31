@@ -428,9 +428,7 @@ in
     environment.etc = lib.mkMerge [
       (lib.mkIf (cfg.config != null && !cfg.configWritable) { "home-assistant/configuration.yaml".source = configFile; })
 
-      (lib.mkIf (cfg.lovelaceConfig != null && !cfg.lovelaceConfigWritable) {
-        "home-assistant/ui-lovelace.yaml".source = lovelaceConfigFile;
-      })
+      (lib.mkIf (cfg.lovelaceConfig != null && !cfg.lovelaceConfigWritable) { "home-assistant/ui-lovelace.yaml".source = lovelaceConfigFile; })
     ];
 
     systemd.services.home-assistant = {

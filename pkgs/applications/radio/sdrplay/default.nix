@@ -55,9 +55,7 @@ stdenv.mkDerivation rec {
     description = "SDRplay API";
     longDescription = ''
       Proprietary library and api service for working with SDRplay devices. For documentation and licensing details see
-      https://www.sdrplay.com/docs/SDRplay_API_Specification_v${
-        lib.concatStringsSep "." (lib.take 2 (builtins.splitVersion version))
-      }.pdf
+      https://www.sdrplay.com/docs/SDRplay_API_Specification_v${lib.concatStringsSep "." (lib.take 2 (builtins.splitVersion version))}.pdf
     '';
     homepage = "https://www.sdrplay.com/downloads/";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];

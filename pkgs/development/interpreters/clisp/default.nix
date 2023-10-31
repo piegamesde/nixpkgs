@@ -38,8 +38,7 @@
     ++ lib.optional x11Support "clx/new-clx",
 }:
 
-assert x11Support
-  -> (libX11 != null && libXau != null && libXt != null && libXpm != null && xorgproto != null && libXext != null);
+assert x11Support -> (libX11 != null && libXau != null && libXt != null && libXpm != null && xorgproto != null && libXext != null);
 
 stdenv.mkDerivation rec {
   version = "2.49";
@@ -112,8 +111,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = false;
 
   postInstall = lib.optionalString (withModules != [ ]) (
-    ''./clisp-link add "$out"/lib/clisp*/base "$(dirname "$out"/lib/clisp*/base)"/full''
-    + lib.concatMapStrings (x: " " + x) withModules
+    ''./clisp-link add "$out"/lib/clisp*/base "$(dirname "$out"/lib/clisp*/base)"/full'' + lib.concatMapStrings (x: " " + x) withModules
   );
 
   env.NIX_CFLAGS_COMPILE = "-O0 ${lib.optionalString (!stdenv.is64bit) "-falign-functions=4"}";

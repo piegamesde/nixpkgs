@@ -50,9 +50,7 @@ stdenv.mkDerivation rec {
     ];
 
   configurePhase = ''
-    python configure.py --prefix=$out --with-bzip2 --with-zlib ${extraConfigureFlags}${
-      lib.optionalString stdenv.cc.isClang " --cc=clang"
-    }
+    python configure.py --prefix=$out --with-bzip2 --with-zlib ${extraConfigureFlags}${lib.optionalString stdenv.cc.isClang " --cc=clang"}
   '';
 
   enableParallelBuilding = true;

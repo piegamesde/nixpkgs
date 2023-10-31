@@ -328,9 +328,7 @@ rec {
       CoreFoundation = lib.overrideDerivation super.CoreFoundation (drv: { setupHook = ./cf-setup-hook.sh; });
 
       CoreMedia = lib.overrideDerivation super.CoreMedia (
-        drv: {
-          __propagatedImpureHostDeps = drv.__propagatedImpureHostDeps or [ ] ++ [ "/System/Library/Frameworks/CoreImage.framework" ];
-        }
+        drv: { __propagatedImpureHostDeps = drv.__propagatedImpureHostDeps or [ ] ++ [ "/System/Library/Frameworks/CoreImage.framework" ]; }
       );
 
       CoreMIDI = lib.overrideDerivation super.CoreMIDI (

@@ -51,9 +51,7 @@ tcl.mkTclDerivation {
       cp ../macosx/*.h $out/include
     '';
 
-  configureFlags = [
-    "--enable-threads"
-  ] ++ lib.optional stdenv.is64bit "--enable-64bit" ++ lib.optional enableAqua "--enable-aqua";
+  configureFlags = [ "--enable-threads" ] ++ lib.optional stdenv.is64bit "--enable-64bit" ++ lib.optional enableAqua "--enable-aqua";
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ ];
@@ -62,9 +60,7 @@ tcl.mkTclDerivation {
     [ libXft ]
     ++ lib.optionals enableAqua (
       [ darwin.apple_sdk.frameworks.Cocoa ]
-      ++ lib.optionals (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11") [
-        darwin.apple_sdk.frameworks.UniformTypeIdentifiers
-      ]
+      ++ lib.optionals (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11") [ darwin.apple_sdk.frameworks.UniformTypeIdentifiers ]
     );
 
   enableParallelBuilding = true;

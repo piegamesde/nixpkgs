@@ -28,12 +28,7 @@
 }@args:
 
 assert release
-  ->
-    certificateFile != null
-    && certificatePassword != null
-    && provisioningProfile != null
-    && signMethod != null
-    && codeSignIdentity != null;
+  -> certificateFile != null && certificatePassword != null && provisioningProfile != null && signMethod != null && codeSignIdentity != null;
 assert enableWirelessDistribution -> installURL != null && bundleId != null && appVersion != null;
 
 let

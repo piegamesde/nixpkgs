@@ -96,19 +96,13 @@ stdenv.mkDerivation rec {
       fetchurl {
         url = "https://dl.nwjs.io/v${version}/nwjs-sdk-v${version}-linux-${bits}.tar.gz";
         sha256 =
-          if bits == "x64" then
-            "sha256-1qeU4+EIki0M7yJPkRuzFwMdswfDOni5gltdmM6A/ds="
-          else
-            "sha256-wDEGePE9lrKa6OAzeiDLhVj992c0TJgiMHb8lJ4PF80=";
+          if bits == "x64" then "sha256-1qeU4+EIki0M7yJPkRuzFwMdswfDOni5gltdmM6A/ds=" else "sha256-wDEGePE9lrKa6OAzeiDLhVj992c0TJgiMHb8lJ4PF80=";
       }
     else
       fetchurl {
         url = "https://dl.nwjs.io/v${version}/nwjs-v${version}-linux-${bits}.tar.gz";
         sha256 =
-          if bits == "x64" then
-            "sha256-TACEM06K2t6dDXRD44lSW7GRi77yzSW4BZJw8gT+fl4="
-          else
-            "sha256-yX9knqFV5VQTT3TJDmQoDgt17NqH8fLt+bLQAqKleTU=";
+          if bits == "x64" then "sha256-TACEM06K2t6dDXRD44lSW7GRi77yzSW4BZJw8gT+fl4=" else "sha256-yX9knqFV5VQTT3TJDmQoDgt17NqH8fLt+bLQAqKleTU=";
       };
 
   # we have runtime deps like sqlite3 that should remain

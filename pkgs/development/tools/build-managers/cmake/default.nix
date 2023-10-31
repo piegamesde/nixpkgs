@@ -43,8 +43,7 @@ assert lib.subtractLists
 # Minimal, bootstrap cmake does not have toolkits
 assert isBootstrap -> (uiToolkits == [ ]);
 stdenv.mkDerivation rec {
-  pname =
-    "cmake" + lib.optionalString isBootstrap "-boot" + lib.optionalString cursesUI "-cursesUI" + lib.optionalString qt5UI "-qt5UI";
+  pname = "cmake" + lib.optionalString isBootstrap "-boot" + lib.optionalString cursesUI "-cursesUI" + lib.optionalString qt5UI "-qt5UI";
   version = "3.25.3";
 
   src = fetchurl {

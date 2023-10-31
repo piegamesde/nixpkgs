@@ -124,9 +124,7 @@ let
       messengers = mkOption {
         type = listOf str;
         default = [ ];
-        description =
-          lib.mdDoc
-            "List of messengers, see: <https://github.com/knadh/listmonk/blob/master/models/settings.go#L64-L74> for options.";
+        description = lib.mdDoc "List of messengers, see: <https://github.com/knadh/listmonk/blob/master/models/settings.go#L64-L74> for options.";
       };
     };
   };

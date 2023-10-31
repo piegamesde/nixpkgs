@@ -227,8 +227,7 @@ in
       group = cfg.device.group;
     };
 
-    environment.systemPackages =
-      with cfg.backend; [ gammuPackage ] ++ optionals (service == "sql" && sql.driver == "sqlite") [ pkgs.sqlite ];
+    environment.systemPackages = with cfg.backend; [ gammuPackage ] ++ optionals (service == "sql" && sql.driver == "sqlite") [ pkgs.sqlite ];
 
     systemd.services.gammu-smsd = {
       description = "gammu-smsd daemon";

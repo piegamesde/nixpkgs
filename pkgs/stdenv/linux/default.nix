@@ -542,17 +542,13 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
         # Something strange is going on with xgcc and libstdc++ on pkgsMusl.
         patchelf = super.patchelf.overrideAttrs (
           previousAttrs:
-          lib.optionalAttrs super.stdenv.hostPlatform.isMusl {
-            NIX_CFLAGS_COMPILE = (previousAttrs.NIX_CFLAGS_COMPILE or "") + " -static-libstdc++";
-          }
+          lib.optionalAttrs super.stdenv.hostPlatform.isMusl { NIX_CFLAGS_COMPILE = (previousAttrs.NIX_CFLAGS_COMPILE or "") + " -static-libstdc++"; }
         );
       };
 
       # `gettext` comes with obsolete config.sub/config.guess that don't recognize LoongArch64.
       # `libtool` comes with obsolete config.sub/config.guess that don't recognize Risc-V.
-      extraNativeBuildInputs =
-        lib.optional (localSystem.isLoongArch64 || localSystem.isRiscV)
-          prevStage.updateAutotoolsGnuConfigScriptsHook;
+      extraNativeBuildInputs = lib.optional (localSystem.isLoongArch64 || localSystem.isRiscV) prevStage.updateAutotoolsGnuConfigScriptsHook;
     }
   )
 

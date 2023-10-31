@@ -38,9 +38,7 @@ buildPythonPackage rec {
 
   postConfigure = ''
     substituteInPlace glymur/config.py \
-    --replace "path = read_config_file(libname)" "path = '${openjpeg}/lib/lib' + libname + ${
-      if stdenv.isDarwin then "'.dylib'" else "'.so'"
-    }"
+    --replace "path = read_config_file(libname)" "path = '${openjpeg}/lib/lib' + libname + ${if stdenv.isDarwin then "'.dylib'" else "'.so'"}"
   '';
 
   disabledTestPaths = [

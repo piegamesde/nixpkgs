@@ -1949,13 +1949,10 @@ in
       # Ensure that no custom credentials are leaked into the Nix store. Unless the default value
       # is specified, this can be achieved by using the file/env provider:
       # https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/#variable-expansion
-      (optional
-        (doesntUseFileProvider cfg.settings.database.password "" || doesntUseFileProvider cfg.settings.security.admin_password "admin")
-        ''
-          Grafana passwords will be stored as plaintext in the Nix store!
-          Use file provider or an env-var instead.
-        ''
-      )
+      (optional (doesntUseFileProvider cfg.settings.database.password "" || doesntUseFileProvider cfg.settings.security.admin_password "admin") ''
+        Grafana passwords will be stored as plaintext in the Nix store!
+        Use file provider or an env-var instead.
+      '')
       # Warn about deprecated notifiers.
       ++ (optional (cfg.provision.notifiers != [ ]) ''
         Notifiers are deprecated upstream and will be removed in Grafana 10.
@@ -1967,8 +1964,7 @@ in
         (
           let
             datasourcesToCheck = optionals (cfg.provision.datasources.settings != null) cfg.provision.datasources.settings.datasources;
-            declarationUnsafe =
-              { secureJsonData, ... }: secureJsonData != null && any (flip doesntUseFileProvider null) (attrValues secureJsonData);
+            declarationUnsafe = { secureJsonData, ... }: secureJsonData != null && any (flip doesntUseFileProvider null) (attrValues secureJsonData);
           in
           any declarationUnsafe datasourcesToCheck
         )

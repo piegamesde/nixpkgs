@@ -110,9 +110,7 @@ let
                         engineArtifacts.platform.${os}.${architecture}.variants.${variant}
                       )
                     )
-                    (map (artifact: mkPlatformArtifactLinkCommand { inherit artifact os architecture; })
-                      engineArtifacts.platform.${os}.${architecture}.base
-                    )
+                    (map (artifact: mkPlatformArtifactLinkCommand { inherit artifact os architecture; }) engineArtifacts.platform.${os}.${architecture}.base)
                     includedEngineArtifacts.platform.${os}.${architecture}
                   )
                 )

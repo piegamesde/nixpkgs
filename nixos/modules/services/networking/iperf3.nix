@@ -48,9 +48,7 @@ let
     rsaPrivateKey = mkOption {
       type = types.nullOr types.path;
       default = null;
-      description =
-        lib.mdDoc
-          "Path to the RSA private key (not password-protected) used to decrypt authentication credentials from the client.";
+      description = lib.mdDoc "Path to the RSA private key (not password-protected) used to decrypt authentication credentials from the client.";
     };
     authorizedUsersFile = mkOption {
       type = types.nullOr types.path;

@@ -45,9 +45,7 @@ let
 
       TRUSTED_PROXY_IP = cfg.trustedProxy;
     }
-    // lib.optionalAttrs (cfg.database.host != "/run/postgresql" && cfg.database.port != null) {
-      DB_PORT = toString cfg.database.port;
-    }
+    // lib.optionalAttrs (cfg.database.host != "/run/postgresql" && cfg.database.port != null) { DB_PORT = toString cfg.database.port; }
     // lib.optionalAttrs cfg.smtp.authenticate { SMTP_LOGIN = cfg.smtp.user; }
     // cfg.extraConfig;
 
@@ -152,17 +150,13 @@ let
             threads = toString (if processCfg.threads == null then cfg.sidekiqThreads else processCfg.threads);
           in
           {
-            after =
-              [
-                "network.target"
-                "mastodon-init-dirs.service"
-              ]
-              ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
-              ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
-            requires =
-              [ "mastodon-init-dirs.service" ]
-              ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
-              ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
+            after = [
+              "network.target"
+              "mastodon-init-dirs.service"
+            ] ++ lib.optional databaseActuallyCreateLocally "postgresql.service" ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
+            requires = [
+              "mastodon-init-dirs.service"
+            ] ++ lib.optional databaseActuallyCreateLocally "postgresql.service" ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
             description = "Mastodon sidekiq${jobClassLabel}";
             wantedBy = [ "mastodon.target" ];
             environment = env // {
@@ -313,9 +307,7 @@ in
                 };
                 threads = lib.mkOption {
                   type = nullOr int;
-                  description =
-                    lib.mdDoc
-                      "Number of threads this process should use for executing jobs. If null, the configured `sidekiqThreads` are used.";
+                  description = lib.mdDoc "Number of threads this process should use for executing jobs. If null, the configured `sidekiqThreads` are used.";
                 };
               };
             }
@@ -665,9 +657,7 @@ in
           }
           {
             assertion =
-              1 == builtins.length (
-                lib.mapAttrsToList (_: v: builtins.elem "scheduler" v.jobClasses || v.jobClasses == [ ]) cfg.sidekiqProcesses
-              );
+              1 == builtins.length (lib.mapAttrsToList (_: v: builtins.elem "scheduler" v.jobClasses || v.jobClasses == [ ]) cfg.sidekiqProcesses);
             message = ''There must be one and only one Sidekiq queue in services.mastodon.sidekiqProcesses with jobClass "scheduler".'';
           }
         ];
@@ -789,27 +779,18 @@ in
         };
 
         systemd.services.mastodon-streaming = {
-          after =
-            [
-              "network.target"
-              "mastodon-init-dirs.service"
-            ]
-            ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
-            ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
-          requires =
-            [ "mastodon-init-dirs.service" ]
-            ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
-            ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
+          after = [
+            "network.target"
+            "mastodon-init-dirs.service"
+          ] ++ lib.optional databaseActuallyCreateLocally "postgresql.service" ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
+          requires = [
+            "mastodon-init-dirs.service"
+          ] ++ lib.optional databaseActuallyCreateLocally "postgresql.service" ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
           wantedBy = [ "mastodon.target" ];
           description = "Mastodon streaming";
           environment =
             env
-            // (
-              if cfg.enableUnixSocket then
-                { SOCKET = "/run/mastodon-streaming/streaming.socket"; }
-              else
-                { PORT = toString (cfg.streamingPort); }
-            );
+            // (if cfg.enableUnixSocket then { SOCKET = "/run/mastodon-streaming/streaming.socket"; } else { PORT = toString (cfg.streamingPort); });
           serviceConfig = {
             ExecStart = "${cfg.package}/run-streaming.sh";
             Restart = "always";
@@ -838,21 +819,16 @@ in
         };
 
         systemd.services.mastodon-web = {
-          after =
-            [
-              "network.target"
-              "mastodon-init-dirs.service"
-            ]
-            ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
-            ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
-          requires =
-            [ "mastodon-init-dirs.service" ]
-            ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
-            ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
+          after = [
+            "network.target"
+            "mastodon-init-dirs.service"
+          ] ++ lib.optional databaseActuallyCreateLocally "postgresql.service" ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
+          requires = [
+            "mastodon-init-dirs.service"
+          ] ++ lib.optional databaseActuallyCreateLocally "postgresql.service" ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
           wantedBy = [ "mastodon.target" ];
           description = "Mastodon web";
-          environment =
-            env // (if cfg.enableUnixSocket then { SOCKET = "/run/mastodon-web/web.socket"; } else { PORT = toString (cfg.webPort); });
+          environment = env // (if cfg.enableUnixSocket then { SOCKET = "/run/mastodon-web/web.socket"; } else { PORT = toString (cfg.webPort); });
           serviceConfig = {
             ExecStart = "${cfg.package}/bin/puma -C config/puma.rb";
             Restart = "always";
@@ -911,18 +887,14 @@ in
             };
 
             locations."@proxy" = {
-              proxyPass =
-                (if cfg.enableUnixSocket then "http://unix:/run/mastodon-web/web.socket" else "http://127.0.0.1:${toString (cfg.webPort)}");
+              proxyPass = (if cfg.enableUnixSocket then "http://unix:/run/mastodon-web/web.socket" else "http://127.0.0.1:${toString (cfg.webPort)}");
               proxyWebsockets = true;
             };
 
             locations."/api/v1/streaming/" = {
               proxyPass =
                 (
-                  if cfg.enableUnixSocket then
-                    "http://unix:/run/mastodon-streaming/streaming.socket"
-                  else
-                    "http://127.0.0.1:${toString (cfg.streamingPort)}/"
+                  if cfg.enableUnixSocket then "http://unix:/run/mastodon-streaming/streaming.socket" else "http://127.0.0.1:${toString (cfg.streamingPort)}/"
                 );
               proxyWebsockets = true;
             };

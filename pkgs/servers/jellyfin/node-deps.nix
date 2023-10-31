@@ -12135,12 +12135,7 @@ let
       sources."@babel/plugin-transform-member-expression-literals-7.16.7"
       sources."@babel/plugin-transform-modules-amd-7.16.7"
       sources."@babel/plugin-transform-modules-commonjs-7.16.8"
-      (
-        sources."@babel/plugin-transform-modules-systemjs-7.16.7"
-        // {
-          dependencies = [ sources."@babel/helper-validator-identifier-7.16.7" ];
-        }
-      )
+      (sources."@babel/plugin-transform-modules-systemjs-7.16.7" // { dependencies = [ sources."@babel/helper-validator-identifier-7.16.7" ]; })
       sources."@babel/plugin-transform-modules-umd-7.16.7"
       sources."@babel/plugin-transform-named-capturing-groups-regex-7.16.8"
       sources."@babel/plugin-transform-new-target-7.16.7"

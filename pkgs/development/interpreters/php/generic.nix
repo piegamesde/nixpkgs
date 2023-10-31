@@ -93,9 +93,7 @@ let
             ];
             php = generic filteredArgs;
 
-            php-packages =
-              (callPackage ../../../top-level/php-packages.nix { phpPackage = phpWithExtensions; }).overrideScope'
-                packageOverrides;
+            php-packages = (callPackage ../../../top-level/php-packages.nix { phpPackage = phpWithExtensions; }).overrideScope' packageOverrides;
 
             allExtensionFunctions = prevExtensionFunctions ++ [ extensions ];
             enabledExtensions =

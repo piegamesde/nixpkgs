@@ -184,9 +184,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    networking.firewall = mkIf (cfg.openFirewall && cfg.settings.identd_port != 0) {
-      allowedTCPPorts = [ cfg.settings.identd_port ];
-    };
+    networking.firewall = mkIf (cfg.openFirewall && cfg.settings.identd_port != 0) { allowedTCPPorts = [ cfg.settings.identd_port ]; };
 
     systemd.services.biboumi = {
       description = "Biboumi, XMPP to IRC gateway";

@@ -53,8 +53,7 @@ let
   genSection =
     sec: secName: value:
     [ "${sec} ${secName}" ] ++ map (x: " " + x) (genConfig value);
-  genPair =
-    { name, value }: if !isAttrs value then [ "${name} ${value}" ] else concatLists (mapAttrsToList (genSection name) value);
+  genPair = { name, value }: if !isAttrs value then [ "${name} ${value}" ] else concatLists (mapAttrsToList (genSection name) value);
 
   sudo_doas =
     if config.security.sudo.enable then

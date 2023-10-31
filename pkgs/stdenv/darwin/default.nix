@@ -482,9 +482,7 @@ rec {
             // (
               let
                 tools = super."${finalLlvmPackages}".tools.extend (_: _: { inherit (pkgs."${finalLlvmPackages}") clang-unwrapped; });
-                libraries = super."${finalLlvmPackages}".libraries.extend (
-                  _: _: { inherit (pkgs."${finalLlvmPackages}") compiler-rt libcxx libcxxabi; }
-                );
+                libraries = super."${finalLlvmPackages}".libraries.extend (_: _: { inherit (pkgs."${finalLlvmPackages}") compiler-rt libcxx libcxxabi; });
               in
               { inherit tools libraries; } // tools // libraries
             );
@@ -1002,9 +1000,7 @@ rec {
             // (
               let
                 tools = super."${finalLlvmPackages}".tools.extend (_: super: { inherit (pkgs."${finalLlvmPackages}") llvm clang-unwrapped; });
-                libraries = super."${finalLlvmPackages}".libraries.extend (
-                  _: _: { inherit (pkgs."${finalLlvmPackages}") compiler-rt libcxx libcxxabi; }
-                );
+                libraries = super."${finalLlvmPackages}".libraries.extend (_: _: { inherit (pkgs."${finalLlvmPackages}") compiler-rt libcxx libcxxabi; });
               in
               { inherit tools libraries; } // tools // libraries
             );

@@ -131,8 +131,7 @@ stdenv.mkDerivation rec {
     ++ map (mod: "--add-module=${mod.src}") modules;
 
   env.NIX_CFLAGS_COMPILE =
-    "-I${libxml2.dev}/include/libxml2 -Wno-error=implicit-fallthrough"
-    + optionalString stdenv.isDarwin " -Wno-error=deprecated-declarations";
+    "-I${libxml2.dev}/include/libxml2 -Wno-error=implicit-fallthrough" + optionalString stdenv.isDarwin " -Wno-error=deprecated-declarations";
 
   preConfigure = (concatMapStringsSep "\n" (mod: mod.preConfigure or "") modules);
 

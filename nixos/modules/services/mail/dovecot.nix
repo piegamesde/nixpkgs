@@ -240,9 +240,7 @@ in
               enable = mkOption {
                 type = types.listOf types.str;
                 default = [ ];
-                description =
-                  lib.mdDoc
-                    "mail plugins to enable as a list of strings to append to the ${hint} `$mail_plugins` configuration variable";
+                description = lib.mdDoc "mail plugins to enable as a list of strings to append to the ${hint} `$mail_plugins` configuration variable";
               };
             };
           };

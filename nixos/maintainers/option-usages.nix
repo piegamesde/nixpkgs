@@ -103,9 +103,7 @@ let
       # each options.
       tryCollectOptions =
         moduleResult:
-        forEach (excludeOptions (collect isOption moduleResult)) (
-          opt: { name = showOption opt.loc; } // builtins.tryEval (strict opt.value)
-        );
+        forEach (excludeOptions (collect isOption moduleResult)) (opt: { name = showOption opt.loc; } // builtins.tryEval (strict opt.value));
     in
     keepNames (filterChanges (zipLists (tryCollectOptions old) (tryCollectOptions new)));
 

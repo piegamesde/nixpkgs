@@ -42,9 +42,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    libaio
-  ] ++ lib.optionals udevSupport [ udev ] ++ lib.optionals (!onlyLib) [ libuuid ] ++ lib.optionals enableVDO [ vdo ];
+  buildInputs = [ libaio ] ++ lib.optionals udevSupport [ udev ] ++ lib.optionals (!onlyLib) [ libuuid ] ++ lib.optionals enableVDO [ vdo ];
 
   configureFlags =
     [

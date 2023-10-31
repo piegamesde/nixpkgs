@@ -158,8 +158,7 @@ let
       # we convert from the old configure.format to
       plugins =
         if builtins.hasAttr "plug" configure then
-          throw
-            "The neovim legacy wrapper doesn't support configure.plug anymore, please setup your plugins via 'configure.packages' instead"
+          throw "The neovim legacy wrapper doesn't support configure.plug anymore, please setup your plugins via 'configure.packages' instead"
         else
           lib.flatten (lib.mapAttrsToList genPlugin (configure.packages or { }));
       genPlugin =
@@ -227,8 +226,7 @@ let
       };
 
       genProviderCommand =
-        prog: withProg:
-        if withProg then "vim.g.${prog}_host_prog='${placeholder "out"}/bin/nvim-${prog}'" else "vim.g.loaded_${prog}_provider=0";
+        prog: withProg: if withProg then "vim.g.${prog}_host_prog='${placeholder "out"}/bin/nvim-${prog}'" else "vim.g.loaded_${prog}_provider=0";
 
       hostProviderLua = lib.mapAttrsToList genProviderCommand hostprog_check_table;
     in

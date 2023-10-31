@@ -28,9 +28,7 @@ stdenv.mkDerivation rec {
     # based roughly on https://github.com/ivandokov/phockup#linux-without-snap
     mkdir -p $out/bin $out/opt
     mv * $out/opt
-    makeWrapper ${pythonEnv.interpreter} $out/bin/phockup --add-flags "$out/opt/phockup.py" --suffix PATH : ${
-      lib.makeBinPath [ exiftool ]
-    }
+    makeWrapper ${pythonEnv.interpreter} $out/bin/phockup --add-flags "$out/opt/phockup.py" --suffix PATH : ${lib.makeBinPath [ exiftool ]}
 
     runHook postInstall
   '';

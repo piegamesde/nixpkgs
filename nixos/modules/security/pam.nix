@@ -574,9 +574,9 @@ let
               oath = config.security.pam.oath;
             in
             optionalString cfg.oathAuth ''
-              auth requisite ${pkgs.oath-toolkit}/lib/security/pam_oath.so window=${toString oath.window} usersfile=${
-                toString oath.usersFile
-              } digits=${toString oath.digits}
+              auth requisite ${pkgs.oath-toolkit}/lib/security/pam_oath.so window=${toString oath.window} usersfile=${toString oath.usersFile} digits=${
+                toString oath.digits
+              }
             ''
           )
           + (
@@ -656,9 +656,7 @@ let
             auth sufficient ${config.systemd.package}/lib/security/pam_systemd_home.so
           ''
           + optionalString cfg.unixAuth ''
-            auth sufficient pam_unix.so ${optionalString cfg.allowNullPassword "nullok"} ${
-              optionalString cfg.nodelay "nodelay"
-            } likeauth try_first_pass
+            auth sufficient pam_unix.so ${optionalString cfg.allowNullPassword "nullok"} ${optionalString cfg.nodelay "nodelay"} likeauth try_first_pass
           ''
           + optionalString cfg.otpwAuth ''
             auth sufficient ${pkgs.otpw}/lib/security/pam_otpw.so

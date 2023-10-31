@@ -34,22 +34,18 @@ stdenv.mkDerivation rec {
     pkg-config
     python3
   ];
-  buildInputs =
-    [
-      openssl
-      libxml2
-      boost
-      curl
-    ]
-    ++ lib.optional stdenv.isDarwin Security ++ lib.optional (!stdenv.isDarwin) libuuid ++ lib.optional (enableThirdPartyCopy) gsoap;
+  buildInputs = [
+    openssl
+    libxml2
+    boost
+    curl
+  ] ++ lib.optional stdenv.isDarwin Security ++ lib.optional (!stdenv.isDarwin) libuuid ++ lib.optional (enableThirdPartyCopy) gsoap;
 
   # using the url below since the github release page states
   # "please ignore the GitHub-generated tarballs, as they are incomplete"
   # https://github.com/cern-fts/davix/releases/tag/R_0_8_0
   src = fetchurl {
-    url = "https://github.com/cern-fts/davix/releases/download/R_${
-        lib.replaceStrings [ "." ] [ "_" ] version
-      }/davix-${version}.tar.gz";
+    url = "https://github.com/cern-fts/davix/releases/download/R_${lib.replaceStrings [ "." ] [ "_" ] version}/davix-${version}.tar.gz";
     sha256 = "sha256-UZ1W90bobqP9YVvEnlWbUg3wfgUeHKPYwJIGeVjzsrc=";
   };
 

@@ -45,8 +45,7 @@ stdenv.mkDerivation rec {
     repo = "aseprite";
     rev = "v${version}";
     fetchSubmodules = true;
-    sha256 =
-      if unfree then "16yn7y9xdc5jd50cq7bmsm320gv23pp71lr8hg2nmynzc8ibyda8" else "0gd49lns2bpzbkwax5jf9x1xmg1j8ij997kcxr2596cwiswnw4di";
+    sha256 = if unfree then "16yn7y9xdc5jd50cq7bmsm320gv23pp71lr8hg2nmynzc8ibyda8" else "0gd49lns2bpzbkwax5jf9x1xmg1j8ij997kcxr2596cwiswnw4di";
   };
 
   nativeBuildInputs = [

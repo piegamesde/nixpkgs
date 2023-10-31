@@ -44,12 +44,7 @@ packagesWith
     name: pkg:
     (
       if builtins.hasAttr "meta" pkg && builtins.hasAttr "maintainers" pkg.meta then
-        (
-          if builtins.isList pkg.meta.maintainers then
-            builtins.elem maintainer_ pkg.meta.maintainers
-          else
-            maintainer_ == pkg.meta.maintainers
-        )
+        (if builtins.isList pkg.meta.maintainers then builtins.elem maintainer_ pkg.meta.maintainers else maintainer_ == pkg.meta.maintainers)
       else
         false
     )

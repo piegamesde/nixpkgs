@@ -478,9 +478,7 @@ rec {
       ];
       toEscape = builtins.removeAttrs asciiTable unreserved;
     in
-    replaceStrings (builtins.attrNames toEscape) (
-      lib.mapAttrsToList (_: c: "%${fixedWidthString 2 "0" (lib.toHexString c)}") toEscape
-    );
+    replaceStrings (builtins.attrNames toEscape) (lib.mapAttrsToList (_: c: "%${fixedWidthString 2 "0" (lib.toHexString c)}") toEscape);
 
   /* Quote string to be used safely within the Bourne shell.
 
@@ -845,8 +843,7 @@ rec {
         mesonBool "static" false
         => "-Dstatic=false"
   */
-  mesonBool =
-    condition: flag: assert (lib.isString condition); assert (lib.isBool flag); mesonOption condition (lib.boolToString flag);
+  mesonBool = condition: flag: assert (lib.isString condition); assert (lib.isBool flag); mesonOption condition (lib.boolToString flag);
 
   /* Create a -D<feature>={enabled,disabled} string that can be passed to
       typical Meson invocations.
@@ -863,10 +860,7 @@ rec {
         => "-Dsavage=disabled"
   */
   mesonEnable =
-    feature: flag:
-    assert (lib.isString feature);
-    assert (lib.isBool flag);
-    mesonOption feature (if flag then "enabled" else "disabled");
+    feature: flag: assert (lib.isString feature); assert (lib.isBool flag); mesonOption feature (if flag then "enabled" else "disabled");
 
   /* Create an --{enable,disable}-<feat> string that can be passed to
      standard GNU Autoconf scripts.

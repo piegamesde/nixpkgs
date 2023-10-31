@@ -212,9 +212,7 @@ let
 
     # fork -> pattern
     else
-      zipAttrsWith (name: head) (
-        mapAttrsToList (name: child: zoneConfigs' (parent // zone // { children = { }; }) name child) zone.children
-      );
+      zipAttrsWith (name: head) (mapAttrsToList (name: child: zoneConfigs' (parent // zone // { children = { }; }) name child) zone.children);
 
   # options are ordered alphanumerically
   zoneOptions = types.submodule {

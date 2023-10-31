@@ -206,9 +206,7 @@ stdenv.mkDerivation (
         installedTests = nixosTests.installed-tests.flatpak;
 
         validate-icon = runCommand "test-icon-validation" { } ''
-          ${finalAttrs.finalPackage}/libexec/flatpak-validate-icon --sandbox 512 512 ${
-            ../../../applications/audio/zynaddsubfx/ZynLogo.svg
-          } > "$out"
+          ${finalAttrs.finalPackage}/libexec/flatpak-validate-icon --sandbox 512 512 ${../../../applications/audio/zynaddsubfx/ZynLogo.svg} > "$out"
           grep format=svg "$out"
         '';
       };

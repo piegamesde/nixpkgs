@@ -380,8 +380,7 @@ in
 
         e1000e = if lib.versionOlder kernel.version "4.10" then callPackage ../os-specific/linux/e1000e { } else null;
 
-        intel-speed-select =
-          if lib.versionAtLeast kernel.version "5.3" then callPackage ../os-specific/linux/intel-speed-select { } else null;
+        intel-speed-select = if lib.versionAtLeast kernel.version "5.3" then callPackage ../os-specific/linux/intel-speed-select { } else null;
 
         ipu6-drivers = callPackage ../os-specific/linux/ipu6-drivers { };
 
@@ -542,9 +541,7 @@ in
 
         virtualbox = callPackage ../os-specific/linux/virtualbox { virtualbox = pkgs.virtualboxHardened; };
 
-        virtualboxGuestAdditions = callPackage ../applications/virtualization/virtualbox/guest-additions {
-          virtualbox = pkgs.virtualboxHardened;
-        };
+        virtualboxGuestAdditions = callPackage ../applications/virtualization/virtualbox/guest-additions { virtualbox = pkgs.virtualboxHardened; };
 
         vm-tools = callPackage ../os-specific/linux/vm-tools { };
 

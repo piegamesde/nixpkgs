@@ -449,9 +449,7 @@ in
           then
               # While MariaDB comes with a 'mysql' super user account since 10.4.x, MySQL does not
               # Since we don't want to run this service as 'root' we need to ensure the account exists on first run
-              ( echo "CREATE USER IF NOT EXISTS '${cfg.user}'@'localhost' IDENTIFIED WITH ${
-                if isMariaDB then "unix_socket" else "auth_socket"
-              };"
+              ( echo "CREATE USER IF NOT EXISTS '${cfg.user}'@'localhost' IDENTIFIED WITH ${if isMariaDB then "unix_socket" else "auth_socket"};"
                 echo "GRANT ALL PRIVILEGES ON *.* TO '${cfg.user}'@'localhost' WITH GRANT OPTION;"
               ) | ${cfg.package}/bin/mysql -u ${superUser} -N
 
@@ -531,9 +529,7 @@ in
 
           ${concatMapStrings
             (user: ''
-              ( echo "CREATE USER IF NOT EXISTS '${user.name}'@'localhost' IDENTIFIED WITH ${
-                if isMariaDB then "unix_socket" else "auth_socket"
-              };"
+              ( echo "CREATE USER IF NOT EXISTS '${user.name}'@'localhost' IDENTIFIED WITH ${if isMariaDB then "unix_socket" else "auth_socket"};"
                 ${
                   concatStringsSep "\n" (
                     mapAttrsToList

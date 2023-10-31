@@ -52,9 +52,7 @@
                   name: value:
                   if lib.isDerivation value then
                     lib.extendDerivation
-                      (
-                        valid value || throw "${name} should use `buildPythonPackage` or `toPythonModule` if it is to be part of the Python packages set."
-                      )
+                      (valid value || throw "${name} should use `buildPythonPackage` or `toPythonModule` if it is to be part of the Python packages set.")
                       { }
                       value
                   else
@@ -363,8 +361,6 @@
       inherit passthruFun;
     };
 
-    rustpython = darwin.apple_sdk_11_0.callPackage ./rustpython/default.nix {
-      inherit (darwin.apple_sdk_11_0.frameworks) SystemConfiguration;
-    };
+    rustpython = darwin.apple_sdk_11_0.callPackage ./rustpython/default.nix { inherit (darwin.apple_sdk_11_0.frameworks) SystemConfiguration; };
   }
 )

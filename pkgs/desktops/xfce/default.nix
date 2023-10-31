@@ -62,9 +62,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "xfce") keep extra (
 
     xfce4-appfinder = callPackage ./core/xfce4-appfinder { };
 
-    xfce4-dev-tools = callPackage ./core/xfce4-dev-tools {
-      mkXfceDerivation = self.mkXfceDerivation.override { xfce4-dev-tools = null; };
-    };
+    xfce4-dev-tools = callPackage ./core/xfce4-dev-tools { mkXfceDerivation = self.mkXfceDerivation.override { xfce4-dev-tools = null; }; };
 
     #### APPLICATIONS
 
@@ -167,8 +165,6 @@ makeScopeWithSplicing (generateSplicesForMkScope "xfce") keep extra (
 
     thunar-bare = self.thunar.override { thunarPlugins = [ ]; }; # added 2019-11-04
 
-    xfce4-hardware-monitor-plugin =
-      throw
-        "xfce.xfce4-hardware-monitor-plugin has been removed: abandoned by upstream and does not build"; # added 2023-01-15
+    xfce4-hardware-monitor-plugin = throw "xfce.xfce4-hardware-monitor-plugin has been removed: abandoned by upstream and does not build"; # added 2023-01-15
   }
 )

@@ -129,8 +129,7 @@ let
   # }
   overrideNativeBuildInputs =
     overrides: old:
-    lib.mapAttrs
-      (name: value: (builtins.getAttr name old).overrideAttrs (attrs: { nativeBuildInputs = attrs.nativeBuildInputs ++ value; }))
+    lib.mapAttrs (name: value: (builtins.getAttr name old).overrideAttrs (attrs: { nativeBuildInputs = attrs.nativeBuildInputs ++ value; }))
       overrides;
 
   # Overrides package definitions with buildInputs.
@@ -149,8 +148,7 @@ let
   # }
   overrideBuildInputs =
     overrides: old:
-    lib.mapAttrs (name: value: (builtins.getAttr name old).overrideAttrs (attrs: { buildInputs = attrs.buildInputs ++ value; }))
-      overrides;
+    lib.mapAttrs (name: value: (builtins.getAttr name old).overrideAttrs (attrs: { buildInputs = attrs.buildInputs ++ value; })) overrides;
 
   # Overrides package definitions with maintainers.
   # For example,
@@ -166,8 +164,7 @@ let
   #     maintainers = [ lib.maintainers.jsmith ];
   #   };
   # }
-  overrideMaintainers =
-    overrides: old: lib.mapAttrs (name: value: (builtins.getAttr name old).override { maintainers = value; }) overrides;
+  overrideMaintainers = overrides: old: lib.mapAttrs (name: value: (builtins.getAttr name old).override { maintainers = value; }) overrides;
 
   # Overrides package definitions with new R dependencies.
   # For example,
@@ -1397,9 +1394,7 @@ let
 
     slfm = old.slfm.overrideAttrs (attrs: { PKG_LIBS = "-L${pkgs.blas}/lib -lblas -L${pkgs.lapack}/lib -llapack"; });
 
-    SamplerCompare = old.SamplerCompare.overrideAttrs (
-      attrs: { PKG_LIBS = "-L${pkgs.blas}/lib -lblas -L${pkgs.lapack}/lib -llapack"; }
-    );
+    SamplerCompare = old.SamplerCompare.overrideAttrs (attrs: { PKG_LIBS = "-L${pkgs.blas}/lib -lblas -L${pkgs.lapack}/lib -llapack"; });
 
     spMC = old.spMC.overrideAttrs (attrs: { patches = [ ./patches/spMC.patch ]; });
 

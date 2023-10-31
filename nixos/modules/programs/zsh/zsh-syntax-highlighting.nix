@@ -155,9 +155,7 @@ in
           ++ optionals (length (attrNames cfg.patterns) > 0) (
             mapAttrsToList (pattern: design: "ZSH_HIGHLIGHT_PATTERNS+=('${pattern}' '${design}')") cfg.patterns
           )
-          ++ optionals (length (attrNames cfg.styles) > 0) (
-            mapAttrsToList (styles: design: "ZSH_HIGHLIGHT_STYLES[${styles}]='${design}'") cfg.styles
-          )
+          ++ optionals (length (attrNames cfg.styles) > 0) (mapAttrsToList (styles: design: "ZSH_HIGHLIGHT_STYLES[${styles}]='${design}'") cfg.styles)
         )
       );
   };

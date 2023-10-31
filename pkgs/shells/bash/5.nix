@@ -138,8 +138,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://www.gnu.org/software/bash/";
-    description =
-      "GNU Bourne-Again Shell, the de facto standard shell on Linux" + lib.optionalString interactive " (for interactive use)";
+    description = "GNU Bourne-Again Shell, the de facto standard shell on Linux" + lib.optionalString interactive " (for interactive use)";
     longDescription = ''
       Bash is the shell, or command language interpreter, that will
       appear in the GNU operating system.  Bash is an sh-compatible

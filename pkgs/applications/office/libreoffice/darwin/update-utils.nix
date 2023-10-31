@@ -8,10 +8,7 @@ let
       splittedVersions = builtins.split ''href="${majorMinorPatchGroup}'' htmlString;
       stableVersions = builtins.concatLists (builtins.filter (e: builtins.isList e) splittedVersions);
     in
-    if stableVersions == [ ] then
-      abort "Failed to extract versions from html."
-    else
-      lib.last (builtins.sort builtins.lessThan stableVersions);
+    if stableVersions == [ ] then abort "Failed to extract versions from html." else lib.last (builtins.sort builtins.lessThan stableVersions);
 
   # getHtml :: String -> String
   getHtml = url: builtins.readFile (builtins.fetchurl url);

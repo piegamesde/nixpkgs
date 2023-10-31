@@ -59,8 +59,7 @@ let
       preUnpack = ''
         ${lib.optionalString (!autoDepsList) ''
           if ! { [ '${lib.boolToString (depsListFile != null)}' = 'true' ] ${
-            lib.optionalString (depsListFile != null)
-              "&& cmp -s <(jq -Sc . '${depsListFile}') <(jq -Sc . '${finalAttrs.passthru.depsListFile}')"
+            lib.optionalString (depsListFile != null) "&& cmp -s <(jq -Sc . '${depsListFile}') <(jq -Sc . '${finalAttrs.passthru.depsListFile}')"
           }; }; then
             echo 1>&2 -e '\nThe dependency list file was either not given or differs from the expected result.' \
                         '\nPlease choose one of the following solutions:' \

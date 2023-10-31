@@ -254,10 +254,7 @@ let
             # https://github.com/NixOS/nix/issues/2147#issuecomment-659868795
             refs = filter isRef (split "\n" fileContent);
           in
-          if refs == [ ] then
-            { error = "Could not find " + file + " in " + packedRefsName; }
-          else
-            { value = lib.head (matchRef (lib.head refs)); }
+          if refs == [ ] then { error = "Could not find " + file + " in " + packedRefsName; } else { value = lib.head (matchRef (lib.head refs)); }
 
         else
           { error = "Not a .git directory: " + toString path; };

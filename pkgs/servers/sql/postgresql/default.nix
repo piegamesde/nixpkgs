@@ -136,17 +136,13 @@ let
         ++ lib.optionals stdenv'.hostPlatform.isRiscV [ "--disable-spinlocks" ]
         ++ lib.optionals jitSupport [ "--with-llvm" ];
 
-      patches =
-        [
-          ./patches/disable-resolve_symlinks.patch
-          ./patches/less-is-more.patch
-          ./patches/hardcode-pgxs-path.patch
-          ./patches/specify_pkglibdir_at_runtime.patch
-          ./patches/findstring.patch
-        ]
-        ++ lib.optionals stdenv'.isLinux [
-          (if atLeast "13" then ./patches/socketdir-in-run-13.patch else ./patches/socketdir-in-run.patch)
-        ];
+      patches = [
+        ./patches/disable-resolve_symlinks.patch
+        ./patches/less-is-more.patch
+        ./patches/hardcode-pgxs-path.patch
+        ./patches/specify_pkglibdir_at_runtime.patch
+        ./patches/findstring.patch
+      ] ++ lib.optionals stdenv'.isLinux [ (if atLeast "13" then ./patches/socketdir-in-run-13.patch else ./patches/socketdir-in-run.patch) ];
 
       installTargets = [ "install-world" ];
 

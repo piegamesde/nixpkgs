@@ -26,9 +26,7 @@ stdenv.mkDerivation rec {
   };
 
   patchPhase = ''
-    substituteInPlace meson.build --replace "systemd.get_pkgconfig_variable('systemduserunitdir')" "'${
-      placeholder "out"
-    }/lib/systemd/user'"
+    substituteInPlace meson.build --replace "systemd.get_pkgconfig_variable('systemduserunitdir')" "'${placeholder "out"}/lib/systemd/user'"
   '';
 
   buildInputs = [ systemd ];

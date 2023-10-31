@@ -10,8 +10,7 @@ with lib;
 let
   cfg = config.services.wstunnel;
   attrsToArgs =
-    attrs:
-    utils.escapeSystemdExecArgs (mapAttrsToList (name: value: if value == true then "--${name}" else "--${name}=${value}") attrs);
+    attrs: utils.escapeSystemdExecArgs (mapAttrsToList (name: value: if value == true then "--${name}" else "--${name}=${value}") attrs);
   hostPortSubmodule = {
     options = {
       host = mkOption {
@@ -112,9 +111,7 @@ let
         };
 
         restrictTo = mkOption {
-          description =
-            mdDoc
-              "Accepted traffic will be forwarded only to this service. Set to `null` to allow forwarding to arbitrary addresses.";
+          description = mdDoc "Accepted traffic will be forwarded only to this service. Set to `null` to allow forwarding to arbitrary addresses.";
           type = types.nullOr (types.submodule hostPortSubmodule);
           example = {
             host = "127.0.0.1";
@@ -129,18 +126,14 @@ let
         };
 
         tlsCertificate = mkOption {
-          description =
-            mdDoc
-              "TLS certificate to use instead of the hardcoded one in case of HTTPS connections. Use together with `tlsKey`.";
+          description = mdDoc "TLS certificate to use instead of the hardcoded one in case of HTTPS connections. Use together with `tlsKey`.";
           type = types.nullOr types.path;
           default = null;
           example = "/var/lib/secrets/cert.pem";
         };
 
         tlsKey = mkOption {
-          description =
-            mdDoc
-              "TLS key to use instead of the hardcoded on in case of HTTPS connections. Use together with `tlsCertificate`.";
+          description = mdDoc "TLS key to use instead of the hardcoded on in case of HTTPS connections. Use together with `tlsCertificate`.";
           type = types.nullOr types.path;
           default = null;
           example = "/var/lib/secrets/key.pem";
@@ -213,9 +206,7 @@ let
         };
 
         udpTimeout = mkOption {
-          description =
-            mdDoc
-              "When using UDP forwarding, timeout in seconds after which the tunnel connection is closed. `-1` means no timeout.";
+          description = mdDoc "When using UDP forwarding, timeout in seconds after which the tunnel connection is closed. `-1` means no timeout.";
           type = types.int;
           default = 30;
         };
@@ -251,9 +242,7 @@ let
         };
 
         hostHeader = mkOption {
-          description =
-            mdDoc
-              "Use this as the HTTP host header instead of the real hostname. Useful for circumventing hostname-based firewalls.";
+          description = mdDoc "Use this as the HTTP host header instead of the real hostname. Useful for circumventing hostname-based firewalls.";
           type = types.nullOr types.str;
           default = null;
         };
@@ -374,9 +363,7 @@ let
           ${package}/bin/wstunnel \
             ${concatStringsSep " " (builtins.map (x: "--localToRemote=${localRemoteToString x}") localToRemote)} \
             ${concatStringsSep " " (mapAttrsToList (n: v: ''--customHeaders="${n}: ${v}"'') customHeaders)} \
-            ${
-              optionalString (dynamicToRemote != null) "--dynamicToRemote=${utils.escapeSystemdExecArg (hostPortToString dynamicToRemote)}"
-            } \
+            ${optionalString (dynamicToRemote != null) "--dynamicToRemote=${utils.escapeSystemdExecArg (hostPortToString dynamicToRemote)}"} \
             ${optionalString udp "--udp"} \
             ${optionalString (httpProxy != null) "--httpProxy=${httpProxy}"} \
             ${optionalString (soMark != null) "--soMark=${toString soMark}"} \
@@ -479,9 +466,7 @@ in
       ++ (mapAttrsToList
         (name: serverCfg: {
           assertion =
-            !(
-              (serverCfg.tlsCertificate != null || serverCfg.tlsKey != null) && !(serverCfg.tlsCertificate != null && serverCfg.tlsKey != null)
-            );
+            !((serverCfg.tlsCertificate != null || serverCfg.tlsKey != null) && !(serverCfg.tlsCertificate != null && serverCfg.tlsKey != null));
           message = ''
             services.wstunnel.servers."${name}".tlsCertificate and services.wstunnel.servers."${name}".tlsKey need to be set together.
           '';

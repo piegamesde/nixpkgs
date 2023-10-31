@@ -187,8 +187,7 @@ let
       or (throw "cannot bootstrap GHC on this platform ('${stdenv.hostPlatform.system}' with libc '${distSetName}')");
 
   gmpUsed =
-    (builtins.head (builtins.filter (drv: lib.hasPrefix "gmp" (drv.nixPackage.name or "")) binDistUsed.archSpecificLibraries))
-    .nixPackage;
+    (builtins.head (builtins.filter (drv: lib.hasPrefix "gmp" (drv.nixPackage.name or "")) binDistUsed.archSpecificLibraries)).nixPackage;
 
   # GHC has other native backends (like PowerPC), but here only the ones
   # we ship bindists for matter.

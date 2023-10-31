@@ -410,20 +410,14 @@ in
         touch /var/run/xen/dnsmasq.etherfile
         touch /var/run/xen/dnsmasq.leasefile
 
-        IFS='-' read -a data <<< `${pkgs.sipcalc}/bin/sipcalc ${cfg.bridge.address}/${
-          toString cfg.bridge.prefixLength
-        } | grep Usable\ range`
+        IFS='-' read -a data <<< `${pkgs.sipcalc}/bin/sipcalc ${cfg.bridge.address}/${toString cfg.bridge.prefixLength} | grep Usable\ range`
         export XEN_BRIDGE_IP_RANGE_START="${"\${data[1]//[[:blank:]]/}"}"
         export XEN_BRIDGE_IP_RANGE_END="${"\${data[2]//[[:blank:]]/}"}"
 
-        IFS='-' read -a data <<< `${pkgs.sipcalc}/bin/sipcalc ${cfg.bridge.address}/${
-          toString cfg.bridge.prefixLength
-        } | grep Network\ address`
+        IFS='-' read -a data <<< `${pkgs.sipcalc}/bin/sipcalc ${cfg.bridge.address}/${toString cfg.bridge.prefixLength} | grep Network\ address`
         export XEN_BRIDGE_NETWORK_ADDRESS="${"\${data[1]//[[:blank:]]/}"}"
 
-        IFS='-' read -a data <<< `${pkgs.sipcalc}/bin/sipcalc ${cfg.bridge.address}/${
-          toString cfg.bridge.prefixLength
-        } | grep Network\ mask`
+        IFS='-' read -a data <<< `${pkgs.sipcalc}/bin/sipcalc ${cfg.bridge.address}/${toString cfg.bridge.prefixLength} | grep Network\ mask`
         export XEN_BRIDGE_NETMASK="${"\${data[1]//[[:blank:]]/}"}"
 
         echo "${cfg.bridge.address} host gw dns" > /var/run/xen/dnsmasq.hostsfile
@@ -475,9 +469,7 @@ in
       '';
       serviceConfig.ExecStart = "${pkgs.dnsmasq}/bin/dnsmasq --conf-file=/var/run/xen/dnsmasq.conf";
       postStop = ''
-        IFS='-' read -a data <<< `${pkgs.sipcalc}/bin/sipcalc ${cfg.bridge.address}/${
-          toString cfg.bridge.prefixLength
-        } | grep Network\ address`
+        IFS='-' read -a data <<< `${pkgs.sipcalc}/bin/sipcalc ${cfg.bridge.address}/${toString cfg.bridge.prefixLength} | grep Network\ address`
         export XEN_BRIDGE_NETWORK_ADDRESS="${"\${data[1]//[[:blank:]]/}"}"
 
         ${pkgs.inetutils}/bin/ifconfig ${cfg.bridge.name} down

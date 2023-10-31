@@ -52,13 +52,10 @@ rec {
     (
       !(attrs ? platforms)
       || builtins.length attrs.platforms == 0
-      ||
-        builtins.any (platform: platform.engine == rubyEngine && (!(platform ? version) || platform.version == version.majMin))
-          attrs.platforms
+      || builtins.any (platform: platform.engine == rubyEngine && (!(platform ? version) || platform.version == version.majMin)) attrs.platforms
     );
 
-  groupMatches =
-    groups: attrs: groups == null || !(attrs ? groups) || (intersectLists (groups ++ [ "default" ]) attrs.groups) != [ ];
+  groupMatches = groups: attrs: groups == null || !(attrs ? groups) || (intersectLists (groups ++ [ "default" ]) attrs.groups) != [ ];
 
   applyGemConfigs = attrs: (if gemConfig ? ${attrs.gemName} then attrs // gemConfig.${attrs.gemName} attrs else attrs);
 

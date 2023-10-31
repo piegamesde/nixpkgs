@@ -111,9 +111,7 @@ let
       path: pkg:
       (
         if builtins.hasAttr "maintainers" pkg.meta then
-          (
-            if builtins.isList pkg.meta.maintainers then builtins.elem maintainer pkg.meta.maintainers else maintainer == pkg.meta.maintainers
-          )
+          (if builtins.isList pkg.meta.maintainers then builtins.elem maintainer pkg.meta.maintainers else maintainer == pkg.meta.maintainers)
         else
           false
       )

@@ -127,17 +127,13 @@ let
         rocksSubdir = "${self.pname}-${self.version}-rocks";
         luarocks_content =
           let
-            externalDepsGenerated = lib.filter (drv: !drv ? luaModule) (
-              self.nativeBuildInputs ++ self.propagatedBuildInputs ++ self.buildInputs
-            );
+            externalDepsGenerated = lib.filter (drv: !drv ? luaModule) (self.nativeBuildInputs ++ self.propagatedBuildInputs ++ self.buildInputs);
             generatedConfig = luaLib.generateLuarocksConfig {
               externalDeps = lib.unique (self.externalDeps ++ externalDepsGenerated);
               # Filter out the lua derivation itself from the Lua module dependency
               # closure, as it doesn't have a rock tree :)
               # luaLib.hasLuaModule
-              requiredLuaRocks = lib.filter luaLib.hasLuaModule (
-                lua.pkgs.requiredLuaModules (self.nativeBuildInputs ++ self.propagatedBuildInputs)
-              );
+              requiredLuaRocks = lib.filter luaLib.hasLuaModule (lua.pkgs.requiredLuaModules (self.nativeBuildInputs ++ self.propagatedBuildInputs));
               inherit (self) extraVariables rocksSubdir;
             };
           in

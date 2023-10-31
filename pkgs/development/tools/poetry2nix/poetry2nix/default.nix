@@ -232,10 +232,7 @@ lib.makeScope pkgs.newScope (
           let
             supportsPythonVersion =
               pkgMeta:
-              if pkgMeta ? marker then
-                (evalPep508 pkgMeta.marker)
-              else
-                true && isCompatible (poetryLib.getPythonVersion python) pkgMeta.python-versions;
+              if pkgMeta ? marker then (evalPep508 pkgMeta.marker) else true && isCompatible (poetryLib.getPythonVersion python) pkgMeta.python-versions;
           in
           lib.partition supportsPythonVersion poetryLock.package;
         compatible = partitions.right;
@@ -339,12 +336,7 @@ lib.makeScope pkgs.newScope (
               lib.mapAttrs
                 (
                   name: value:
-                  (
-                    if lib.isDerivation value && lib.hasAttr "overridePythonAttrs" value then
-                      value.overridePythonAttrs (_: { doCheck = false; })
-                    else
-                      value
-                  )
+                  (if lib.isDerivation value && lib.hasAttr "overridePythonAttrs" value then value.overridePythonAttrs (_: { doCheck = false; }) else value)
                 )
                 super
             )
@@ -428,13 +420,9 @@ lib.makeScope pkgs.newScope (
         # Automatically add dependencies with develop = true as editable packages, but only if path dependencies
         getEditableDeps =
           set:
-          lib.mapAttrs (name: value: projectDir + "/${value.path}") (
-            lib.filterAttrs (name: dep: dep.develop or false && hasAttr "path" dep) set
-          );
+          lib.mapAttrs (name: value: projectDir + "/${value.path}") (lib.filterAttrs (name: dep: dep.develop or false && hasAttr "path" dep) set);
 
-        excludedEditablePackageNames = builtins.filter (pkg: editablePackageSources."${pkg}" == null) (
-          builtins.attrNames editablePackageSources
-        );
+        excludedEditablePackageNames = builtins.filter (pkg: editablePackageSources."${pkg}" == null) (builtins.attrNames editablePackageSources);
 
         allEditablePackageSources =
           (

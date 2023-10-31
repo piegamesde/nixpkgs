@@ -160,8 +160,7 @@ let
 
       # FIXME when mkChangedOptionModule supports submodules, change to that.
       # This is a workaround
-      extraDomains =
-        data.extraDomainNames ++ (optionals (data.extraDomains != "_mkMergedOptionModule") (builtins.attrNames data.extraDomains));
+      extraDomains = data.extraDomainNames ++ (optionals (data.extraDomains != "_mkMergedOptionModule") (builtins.attrNames data.extraDomains));
 
       # Create hashes for cert data directories based on configuration
       # Flags are separated to avoid collisions
@@ -232,9 +231,7 @@ let
 
       # Although --must-staple is common to both modes, it is not declared as a
       # mode-agnostic argument in lego and thus must come after the mode.
-      runOpts = escapeShellArgs (
-        commonOpts ++ [ "run" ] ++ optionals data.ocspMustStaple [ "--must-staple" ] ++ data.extraLegoRunFlags
-      );
+      runOpts = escapeShellArgs (commonOpts ++ [ "run" ] ++ optionals data.ocspMustStaple [ "--must-staple" ] ++ data.extraLegoRunFlags);
       renewOpts = escapeShellArgs (
         commonOpts
         ++ [
@@ -387,9 +384,7 @@ let
                 if [ -e renewed ]; then
                   rm renewed
                   ${data.postRun}
-                  ${
-                    optionalString (data.reloadServices != [ ]) "systemctl --no-block try-reload-or-restart ${escapeShellArgs data.reloadServices}"
-                  }
+                  ${optionalString (data.reloadServices != [ ]) "systemctl --no-block try-reload-or-restart ${escapeShellArgs data.reloadServices}"}
                 fi
               '');
           }
@@ -455,9 +450,7 @@ let
             # Avoids #85794 and resolves #129838
             if ! lego ${renewOpts} --days ${toString data.validMinDays}; then
               if is_expiration_skippable out/full.pem; then
-                echo 1>&2 "nixos-acme: Ignoring failed renewal because expiration isn't within the coming ${
-                  toString data.validMinDays
-                } days"
+                echo 1>&2 "nixos-acme: Ignoring failed renewal because expiration isn't within the coming ${toString data.validMinDays} days"
               else
                 # High number to avoid Systemd reserved codes.
                 exit 11

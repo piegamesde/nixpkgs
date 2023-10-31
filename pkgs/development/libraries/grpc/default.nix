@@ -89,8 +89,7 @@ stdenv.mkDerivation rec {
   '';
 
   env.NIX_CFLAGS_COMPILE =
-    lib.optionalString stdenv.cc.isClang "-Wno-error=unknown-warning-option"
-    + lib.optionalString stdenv.isAarch64 "-Wno-error=format-security";
+    lib.optionalString stdenv.cc.isClang "-Wno-error=unknown-warning-option" + lib.optionalString stdenv.isAarch64 "-Wno-error=format-security";
 
   enableParallelBuilds = true;
 

@@ -69,9 +69,7 @@ stdenv.mkDerivation {
     xorg.libXtst
   ];
 
-  nativeBuildInputs = [
-    makeWrapper
-  ] ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ] ++ lib.optionals stdenv.isDarwin [ unzip ];
+  nativeBuildInputs = [ makeWrapper ] ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ] ++ lib.optionals stdenv.isDarwin [ unzip ];
 
   installPhase =
     ''

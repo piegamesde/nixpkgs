@@ -34,9 +34,7 @@ let
   netbsdSetupHook = makeSetupHook { name = "netbsd-setup-hook"; } ./setup-hook.sh;
 
   defaultMakeFlags = [
-    "MKSOFTFLOAT=${
-      if stdenv.hostPlatform.gcc.float or (stdenv.hostPlatform.parsed.abi.float or "hard") == "soft" then "yes" else "no"
-    }"
+    "MKSOFTFLOAT=${if stdenv.hostPlatform.gcc.float or (stdenv.hostPlatform.parsed.abi.float or "hard") == "soft" then "yes" else "no"}"
   ];
 in
 makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
@@ -1086,8 +1084,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       USE_FORT = "yes";
       MKPROFILE = "no";
       extraPaths =
-        with self;
-        _mainLibcExtraPaths ++ [ (fetchNetBSD "external/bsd/jemalloc" "9.2" "0cq704swa0h2yxv4gc79z2lwxibk9k7pxh3q5qfs7axx3jx3n8kb") ];
+        with self; _mainLibcExtraPaths ++ [ (fetchNetBSD "external/bsd/jemalloc" "9.2" "0cq704swa0h2yxv4gc79z2lwxibk9k7pxh3q5qfs7axx3jx3n8kb") ];
       nativeBuildInputs = with buildPackages.netbsd; [
         bsdSetupHook
         netbsdSetupHook

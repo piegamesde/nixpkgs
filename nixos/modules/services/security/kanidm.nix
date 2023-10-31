@@ -208,8 +208,7 @@ in
   config = lib.mkIf (cfg.enableClient || cfg.enableServer || cfg.enablePam) {
     assertions = [
       {
-        assertion =
-          !cfg.enableServer || ((cfg.serverSettings.tls_chain or null) == null) || (!lib.isStorePath cfg.serverSettings.tls_chain);
+        assertion = !cfg.enableServer || ((cfg.serverSettings.tls_chain or null) == null) || (!lib.isStorePath cfg.serverSettings.tls_chain);
         message = ''
           <option>services.kanidm.serverSettings.tls_chain</option> points to
           a file in the Nix store. You should use a quoted absolute path to
@@ -241,9 +240,7 @@ in
       {
         assertion =
           !cfg.enableServer
-          || (
-            cfg.serverSettings.domain == null -> cfg.serverSettings.role == "WriteReplica" || cfg.serverSettings.role == "WriteReplicaNoUI"
-          );
+          || (cfg.serverSettings.domain == null -> cfg.serverSettings.role == "WriteReplica" || cfg.serverSettings.role == "WriteReplicaNoUI");
         message = ''
           <option>services.kanidm.serverSettings.domain</option> can only be set if this instance
           is not a ReadOnlyReplica. Otherwise the db would inherit it from

@@ -62,41 +62,37 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs =
-    [
-      gsettings-desktop-schemas
-      glib
-      gtk3
-      gettext
-      libxkbfile
-      libX11
-      freerdp
-      libssh
-      libgcrypt
-      gnutls
-      pcre2
-      libdbusmenu-gtk3
-      libappindicator-gtk3
-      libvncserver
-      libpthreadstubs
-      libXdmcp
-      libxkbcommon
-      libsoup_3
-      spice-protocol
-      spice-gtk
-      libepoxy
-      at-spi2-core
-      openssl
-      gnome.adwaita-icon-theme
-      json-glib
-      libsodium
-      webkitgtk_4_1
-      harfbuzz
-      python3
-    ]
-    ++ lib.optionals withLibsecret [ libsecret ]
-    ++ lib.optionals withKf5Wallet [ libsForQt5.kwallet ]
-    ++ lib.optionals withVte [ vte ];
+  buildInputs = [
+    gsettings-desktop-schemas
+    glib
+    gtk3
+    gettext
+    libxkbfile
+    libX11
+    freerdp
+    libssh
+    libgcrypt
+    gnutls
+    pcre2
+    libdbusmenu-gtk3
+    libappindicator-gtk3
+    libvncserver
+    libpthreadstubs
+    libXdmcp
+    libxkbcommon
+    libsoup_3
+    spice-protocol
+    spice-gtk
+    libepoxy
+    at-spi2-core
+    openssl
+    gnome.adwaita-icon-theme
+    json-glib
+    libsodium
+    webkitgtk_4_1
+    harfbuzz
+    python3
+  ] ++ lib.optionals withLibsecret [ libsecret ] ++ lib.optionals withKf5Wallet [ libsForQt5.kwallet ] ++ lib.optionals withVte [ vte ];
 
   cmakeFlags = [
     "-DWITH_VTE=${if withVte then "ON" else "OFF"}"

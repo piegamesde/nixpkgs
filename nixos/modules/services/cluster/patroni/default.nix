@@ -238,9 +238,7 @@ in
         after = [ "network.target" ];
 
         script = ''
-          ${concatStringsSep "\n" (
-            attrValues (mapAttrs (name: path: ''export ${name}="$(< ${escapeShellArg path})"'') cfg.environmentFiles)
-          )}
+          ${concatStringsSep "\n" (attrValues (mapAttrs (name: path: ''export ${name}="$(< ${escapeShellArg path})"'') cfg.environmentFiles))}
           exec ${patroni}/bin/patroni ${configFile}
         '';
 

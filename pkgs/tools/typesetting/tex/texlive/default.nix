@@ -223,10 +223,7 @@ let
 
       urls =
         args.urls or (
-          if args ? url then
-            [ args.url ]
-          else
-            map (up: "${up}/archive/${urlName}.r${toString revision}.tar.xz") (args.urlPrefixes or urlPrefixes)
+          if args ? url then [ args.url ] else map (up: "${up}/archive/${urlName}.r${toString revision}.tar.xz") (args.urlPrefixes or urlPrefixes)
         );
     in
     runCommand "texlive-${tlName}"
@@ -295,9 +292,7 @@ let
 
   assertions =
     lib.assertMsg (tlpdbVersion.year == version.texliveYear) "TeX Live year in texlive does not match tlpdb.nix, refusing to evaluate"
-    &&
-      lib.assertMsg (tlpdbVersion.frozen == version.final)
-        "TeX Live final status in texlive does not match tlpdb.nix, refusing to evaluate";
+    && lib.assertMsg (tlpdbVersion.frozen == version.final) "TeX Live final status in texlive does not match tlpdb.nix, refusing to evaluate";
 in
 tl
 // {

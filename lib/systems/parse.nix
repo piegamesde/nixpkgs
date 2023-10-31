@@ -61,8 +61,7 @@ rec {
     name = "cpu-type";
     description = "instruction set architecture name and information";
     merge = mergeOneOption;
-    check =
-      x: types.bitWidth.check x.bits && (if 8 < x.bits then types.significantByte.check x.significantByte else !(x ? significantByte));
+    check = x: types.bitWidth.check x.bits && (if 8 < x.bits then types.significantByte.check x.significantByte else !(x ? significantByte));
   };
 
   types.cpuType = enum (attrValues cpuTypes);
@@ -908,9 +907,7 @@ rec {
     }@sys:
     assert isSystem sys;
     let
-      optExecFormat =
-        lib.optionalString (kernel.name == "netbsd" && gnuNetBSDDefaultExecFormat cpu != kernel.execFormat)
-          kernel.execFormat.name;
+      optExecFormat = lib.optionalString (kernel.name == "netbsd" && gnuNetBSDDefaultExecFormat cpu != kernel.execFormat) kernel.execFormat.name;
       optAbi = lib.optionalString (abi != abis.unknown) "-${abi.name}";
     in
     "${cpu.name}-${vendor.name}-${kernelName kernel}${optExecFormat}${optAbi}";

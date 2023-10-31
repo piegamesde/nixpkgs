@@ -54,9 +54,7 @@ in
         type = lib.types.lines;
         default = "";
         example = "ln -s $''{pkgs.bash}/bin/bash $out/bash";
-        description =
-          lib.mdDoc
-            "Extra commands to run in the package that contains fallback executables in case not other executable is found";
+        description = lib.mdDoc "Extra commands to run in the package that contains fallback executables in case not other executable is found";
       };
     };
   };

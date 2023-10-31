@@ -262,8 +262,7 @@ let
         pkgs.runCommand name
           {
             QEMU_OPTS =
-              "-drive file=$bootDiskImage,if=virtio,cache=unsafe,werror=report"
-              + " -drive file=$rootDiskImage,if=virtio,cache=unsafe,werror=report";
+              "-drive file=$bootDiskImage,if=virtio,cache=unsafe,werror=report" + " -drive file=$rootDiskImage,if=virtio,cache=unsafe,werror=report";
             inherit memSize;
             preVM = ''
               PATH=$PATH:${pkgs.qemu_kvm}/bin

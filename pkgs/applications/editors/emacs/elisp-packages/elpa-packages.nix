@@ -73,8 +73,7 @@ let
 
       overrides = {
         # upstream issue: Wrong type argument: arrayp, nil
-        org-transclusion =
-          if super.org-transclusion.version == "1.2.0" then markBroken super.org-transclusion else super.org-transclusion;
+        org-transclusion = if super.org-transclusion.version == "1.2.0" then markBroken super.org-transclusion else super.org-transclusion;
         rcirc-menu = markBroken super.rcirc-menu; # Missing file header
         cl-lib = null; # builtin
         cl-print = null; # builtin

@@ -61,9 +61,7 @@ let
     }
   );
 
-  imageFileStorePaths = writeText "imageFileStorePaths.txt" (
-    lib.concatStringsSep "\n" ((lib.unique imageLayers) ++ [ imageConfig ])
-  );
+  imageFileStorePaths = writeText "imageFileStorePaths.txt" (lib.concatStringsSep "\n" ((lib.unique imageLayers) ++ [ imageConfig ]));
 in
 stdenv.mkDerivation {
   builder = ./fetchdocker-builder.sh;

@@ -24,10 +24,7 @@ rustPlatform.buildRustPackage rec {
 
   # TODO: unify this to one hash because updater do not support this
   cargoHash =
-    if stdenv.isLinux then
-      "sha256-oaBTj+ZSJ36AFwIrB6d0cZppoAzV4QDr3+EylYqY7cw="
-    else
-      "sha256-UNuoW/EOGtuNROm1qZJ4afDfMlecziVsem1m3Z1ZsOU=";
+    if stdenv.isLinux then "sha256-oaBTj+ZSJ36AFwIrB6d0cZppoAzV4QDr3+EylYqY7cw=" else "sha256-UNuoW/EOGtuNROm1qZJ4afDfMlecziVsem1m3Z1ZsOU=";
 
   nativeBuildInputs = [ installShellFiles ];
 

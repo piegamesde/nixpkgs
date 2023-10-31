@@ -79,9 +79,7 @@ in
       twoFingerScroll = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Whether to enable two-finger drag-scrolling. Overridden by horizTwoFingerScroll and vertTwoFingerScroll.";
+        description = lib.mdDoc "Whether to enable two-finger drag-scrolling. Overridden by horizTwoFingerScroll and vertTwoFingerScroll.";
       };
 
       horizTwoFingerScroll = mkOption {

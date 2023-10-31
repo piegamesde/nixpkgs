@@ -13,8 +13,7 @@
 let
   version = "2303";
 
-  sysArch =
-    if stdenv.hostPlatform.system == "x86_64-linux" then "x64" else throw "Unsupported system: ${stdenv.hostPlatform.system}";
+  sysArch = if stdenv.hostPlatform.system == "x86_64-linux" then "x64" else throw "Unsupported system: ${stdenv.hostPlatform.system}";
   # The downloaded archive also contains ARM binaries, but these have not been tested.
 
   # For USB support, ensure that /var/run/vmware/<YOUR-UID>

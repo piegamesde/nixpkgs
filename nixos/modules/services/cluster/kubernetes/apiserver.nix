@@ -466,9 +466,7 @@ in
                                   pkgs.writeText "kube-auth-policy.jsonl" (concatMapStringsSep "\n" (l: builtins.toJSON l) cfg.authorizationPolicy)
                                 }"
                             } \
-                            ${
-                              optionalString (elem "Webhook" cfg.authorizationMode) "--authorization-webhook-config-file=${cfg.webhookConfig}"
-                            } \
+                            ${optionalString (elem "Webhook" cfg.authorizationMode) "--authorization-webhook-config-file=${cfg.webhookConfig}"} \
                           --bind-address=${cfg.bindAddress} \
                           ${optionalString (cfg.advertiseAddress != null) "--advertise-address=${cfg.advertiseAddress}"} \
                           ${optionalString (cfg.clientCaFile != null) "--client-ca-file=${cfg.clientCaFile}"} \
@@ -479,16 +477,13 @@ in
                           ${optionalString (cfg.etcd.certFile != null) "--etcd-certfile=${cfg.etcd.certFile}"} \
                           ${optionalString (cfg.etcd.keyFile != null) "--etcd-keyfile=${cfg.etcd.keyFile}"} \
                           ${
-                            optionalString (cfg.featureGates != [ ])
-                              "--feature-gates=${concatMapStringsSep "," (feature: "${feature}=true") cfg.featureGates}"
+                            optionalString (cfg.featureGates != [ ]) "--feature-gates=${concatMapStringsSep "," (feature: "${feature}=true") cfg.featureGates}"
                           } \
                           ${optionalString (cfg.basicAuthFile != null) "--basic-auth-file=${cfg.basicAuthFile}"} \
                           ${optionalString (cfg.kubeletClientCaFile != null) "--kubelet-certificate-authority=${cfg.kubeletClientCaFile}"} \
                           ${optionalString (cfg.kubeletClientCertFile != null) "--kubelet-client-certificate=${cfg.kubeletClientCertFile}"} \
                           ${optionalString (cfg.kubeletClientKeyFile != null) "--kubelet-client-key=${cfg.kubeletClientKeyFile}"} \
-                          ${
-                            optionalString (cfg.preferredAddressTypes != null) "--kubelet-preferred-address-types=${cfg.preferredAddressTypes}"
-                          } \
+                          ${optionalString (cfg.preferredAddressTypes != null) "--kubelet-preferred-address-types=${cfg.preferredAddressTypes}"} \
                           ${optionalString (cfg.proxyClientCertFile != null) "--proxy-client-cert-file=${cfg.proxyClientCertFile}"} \
                           ${optionalString (cfg.proxyClientKeyFile != null) "--proxy-client-key-file=${cfg.proxyClientKeyFile}"} \
                           ${optionalString (cfg.runtimeConfig != "") "--runtime-config=${cfg.runtimeConfig}"} \

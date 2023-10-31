@@ -421,9 +421,7 @@ rec {
               libAttr.mapAttrsToList
                 (
                   name: value:
-                  "${libStr.escapeNixIdentifier name} = ${
-                    builtins.addErrorContext "while evaluating an attribute `${name}`" (go (indent + "  ") value)
-                  };"
+                  "${libStr.escapeNixIdentifier name} = ${builtins.addErrorContext "while evaluating an attribute `${name}`" (go (indent + "  ") value)};"
                 )
                 v
             )

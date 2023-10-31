@@ -41,8 +41,7 @@ rec {
             final.isAndroid == platform.isAndroid
             && parse.isCompatible final.parsed.cpu platform.parsed.cpu
             && final.parsed.kernel == platform.parsed.kernel;
-          isCompatible =
-            _: throw "2022-05-23: isCompatible has been removed in favor of canExecute, refer to the 22.11 changelog for details";
+          isCompatible = _: throw "2022-05-23: isCompatible has been removed in favor of canExecute, refer to the 22.11 changelog for details";
           # Derived meta-data
           libc =
             if final.isDarwin then
@@ -269,8 +268,7 @@ rec {
           {
             emulatorAvailable = pkgs: (selectEmulator pkgs) != null;
 
-            emulator =
-              pkgs: if (final.emulatorAvailable pkgs) then selectEmulator pkgs else throw "Don't know how to run ${final.config} executables.";
+            emulator = pkgs: if (final.emulatorAvailable pkgs) then selectEmulator pkgs else throw "Don't know how to run ${final.config} executables.";
           }
         )
         // mapAttrs (n: v: v final.parsed) inspect.predicates
@@ -278,8 +276,6 @@ rec {
         // args;
     in
     assert final.useAndroidPrebuilt -> final.isAndroid;
-    assert lib.foldl (pass: { assertion, message }: if assertion final then pass else throw message) true (
-      final.parsed.abi.assertions or [ ]
-    );
+    assert lib.foldl (pass: { assertion, message }: if assertion final then pass else throw message) true (final.parsed.abi.assertions or [ ]);
     final;
 }

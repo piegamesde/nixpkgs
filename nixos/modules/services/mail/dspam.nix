@@ -67,9 +67,7 @@ in
       domainSocket = mkOption {
         type = types.nullOr types.path;
         default = defaultSock;
-        description =
-          lib.mdDoc
-            "Path to local domain socket which is used for communication with the daemon. Set to null to disable UNIX socket.";
+        description = lib.mdDoc "Path to local domain socket which is used for communication with the daemon. Set to null to disable UNIX socket.";
       };
 
       extraConfig = mkOption {

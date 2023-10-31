@@ -46,8 +46,7 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = lib.optional withAACS libaacs;
 
-  NIX_LDFLAGS =
-    lib.optionalString withAACS "-L${libaacs}/lib -laacs" + lib.optionalString withBDplus " -L${libbdplus}/lib -lbdplus";
+  NIX_LDFLAGS = lib.optionalString withAACS "-L${libaacs}/lib -laacs" + lib.optionalString withBDplus " -L${libbdplus}/lib -lbdplus";
 
   preConfigure = lib.optionalString withJava ''
     export JDK_HOME="${jdk.home}"

@@ -91,9 +91,7 @@ let
     '';
   };
 
-  defaultJmxRolesFile = builtins.foldl' (left: right: left + right) "" (
-    map (role: "${role.username} ${role.password}") cfg.jmxRoles
-  );
+  defaultJmxRolesFile = builtins.foldl' (left: right: left + right) "" (map (role: "${role.username} ${role.password}") cfg.jmxRoles);
 
   fullJvmOptions =
     cfg.jvmOpts

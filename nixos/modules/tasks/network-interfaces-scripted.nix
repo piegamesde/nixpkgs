@@ -317,9 +317,7 @@ let
               ];
               bindsTo = deps ++ optional v.rstp "mstpd.service";
               partOf = [ "network-setup.service" ] ++ optional v.rstp "mstpd.service";
-              after = [
-                "network-pre.target"
-              ] ++ deps ++ optional v.rstp "mstpd.service" ++ map (i: "network-addresses-${i}.service") v.interfaces;
+              after = [ "network-pre.target" ] ++ deps ++ optional v.rstp "mstpd.service" ++ map (i: "network-addresses-${i}.service") v.interfaces;
               before = [ "network-setup.service" ];
               serviceConfig.Type = "oneshot";
               serviceConfig.RemainAfterExit = true;
@@ -411,9 +409,7 @@ let
           nameValuePair "${n}-netdev" (
             let
               deps = concatLists (map deviceDependency (attrNames (filterAttrs (_: config: config.type != "internal") v.interfaces)));
-              internalConfigs = map (i: "network-addresses-${i}.service") (
-                attrNames (filterAttrs (_: config: config.type == "internal") v.interfaces)
-              );
+              internalConfigs = map (i: "network-addresses-${i}.service") (attrNames (filterAttrs (_: config: config.type == "internal") v.interfaces));
               ofRules = pkgs.writeText "vswitch-${n}-openFlowRules" v.openFlowRules;
             in
             {
@@ -563,9 +559,7 @@ let
             let
               # if we have a device to bind to we can wait for its addresses to be
               # configured, otherwise external sequencing is required.
-              deps = optionals (v.local != null && v.local.dev != null) (
-                deviceDependency v.local.dev ++ [ "network-addresses-${v.local.dev}.service" ]
-              );
+              deps = optionals (v.local != null && v.local.dev != null) (deviceDependency v.local.dev ++ [ "network-addresses-${v.local.dev}.service" ]);
               fouSpec = "port ${toString v.port} ${if v.protocol != null then "ipproto ${toString v.protocol}" else "gue"} ${
                   optionalString (v.local != null)
                     "local ${escapeShellArg v.local.address} ${optionalString (v.local.dev != null) "dev ${escapeShellArg v.local.dev}"}"

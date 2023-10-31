@@ -491,9 +491,7 @@ in
               HTTP_ADDR = mkOption {
                 type = types.either types.str types.path;
                 default = if lib.hasSuffix "+unix" cfg.settings.server.PROTOCOL then "/run/gitea/gitea.sock" else "0.0.0.0";
-                defaultText =
-                  literalExpression
-                    ''if lib.hasSuffix "+unix" cfg.settings.server.PROTOCOL then "/run/gitea/gitea.sock" else "0.0.0.0"'';
+                defaultText = literalExpression ''if lib.hasSuffix "+unix" cfg.settings.server.PROTOCOL then "/run/gitea/gitea.sock" else "0.0.0.0"'';
                 description = lib.mdDoc "Listen address. Must be a path when using a unix socket.";
               };
 

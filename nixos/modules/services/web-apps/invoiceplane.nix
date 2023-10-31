@@ -23,9 +23,7 @@ let
       DB_HOSTNAME=${cfg.database.host}
       DB_USERNAME=${cfg.database.user}
       # NOTE: file_get_contents adds newline at the end of returned string
-      DB_PASSWORD=${
-        if cfg.database.passwordFile == null then "" else ''trim(file_get_contents('${cfg.database.passwordFile}'), "\r\n")''
-      }
+      DB_PASSWORD=${if cfg.database.passwordFile == null then "" else ''trim(file_get_contents('${cfg.database.passwordFile}'), "\r\n")''}
       DB_DATABASE=${cfg.database.name}
       DB_PORT=${toString cfg.database.port}
       SESS_EXPIRATION=864000
@@ -264,8 +262,7 @@ in
             (hostName: cfg: [
               {
                 assertion = cfg.database.createLocally -> cfg.database.user == user;
-                message = ''
-                  services.invoiceplane.sites."${hostName}".database.user must be ${user} if the database is to be automatically provisioned'';
+                message = ''services.invoiceplane.sites."${hostName}".database.user must be ${user} if the database is to be automatically provisioned'';
               }
               {
                 assertion = cfg.database.createLocally -> cfg.database.passwordFile == null;

@@ -55,9 +55,7 @@ in
       type = types.submodule {
         options = {
           enable = mkEnableOption "" // {
-            description =
-              lib.mdDoc
-                "Whether to start the web-ui. This is the preferred way of configuring things such as the steam guard token.";
+            description = lib.mdDoc "Whether to start the web-ui. This is the preferred way of configuring things such as the steam guard token.";
           };
 
           package = mkOption {
@@ -236,9 +234,7 @@ in
               mkdir -p $out
               # clean potential removed bots
               rm -rf $out/*.json
-              for i in ${
-                strings.concatStringsSep " " (lists.map (x: "${getName x},${x}") (attrsets.mapAttrsToList mkBot cfg.bots))
-              }; do IFS=",";
+              for i in ${strings.concatStringsSep " " (lists.map (x: "${getName x},${x}") (attrsets.mapAttrsToList mkBot cfg.bots))}; do IFS=",";
                 set -- $i
                 ln -fs $2 $out/$1
               done

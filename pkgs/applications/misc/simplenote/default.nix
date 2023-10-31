@@ -35,8 +35,7 @@ let
     inherit pname version meta;
 
     src = fetchurl {
-      url =
-        "https://github.com/Automattic/simplenote-electron/releases/download/" + "v${version}/Simplenote-linux-${version}-amd64.deb";
+      url = "https://github.com/Automattic/simplenote-electron/releases/download/" + "v${version}/Simplenote-linux-${version}-amd64.deb";
       inherit sha256;
     };
 

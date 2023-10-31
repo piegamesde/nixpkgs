@@ -97,8 +97,7 @@ stdenv.mkDerivation rec {
       "-DAUDIODRV_LIBAO=${onOff withLibao}"
     ]
     ++ optionals enableEmulation (
-      [ "-DSNDEMU__ALL=${onOff withAllEmulators}" ]
-      ++ optionals (!withAllEmulators) (lib.lists.forEach emulators (x: "-DSNDEMU_${x}=ON"))
+      [ "-DSNDEMU__ALL=${onOff withAllEmulators}" ] ++ optionals (!withAllEmulators) (lib.lists.forEach emulators (x: "-DSNDEMU_${x}=ON"))
     )
     ++ optionals enableTools [
       "-DUTIL_CHARCNV_ICONV=ON"

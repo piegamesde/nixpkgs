@@ -34,8 +34,7 @@ let
           x86_64-linux = "x86_64";
         };
 
-        systemPlatform =
-          platformMap.${pkgs.stdenv.hostPlatform.system} or (throw "scudo not supported on ${pkgs.stdenv.hostPlatform.system}");
+        systemPlatform = platformMap.${pkgs.stdenv.hostPlatform.system} or (throw "scudo not supported on ${pkgs.stdenv.hostPlatform.system}");
       in
       {
         libPath = "${pkgs.llvmPackages_latest.compiler-rt}/lib/linux/libclang_rt.scudo-${systemPlatform}.so";
@@ -92,9 +91,7 @@ in
         Briefly, the system-wide memory allocator providers are:
 
         - `libc`: the standard allocator provided by libc
-        ${concatStringsSep "\n" (
-          mapAttrsToList (name: value: "- `${name}`: ${replaceStrings [ "\n" ] [ " " ] value.description}") providers
-        )}
+        ${concatStringsSep "\n" (mapAttrsToList (name: value: "- `${name}`: ${replaceStrings [ "\n" ] [ " " ] value.description}") providers)}
 
         ::: {.warning}
         Selecting an alternative allocator (i.e., anything other than

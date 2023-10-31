@@ -308,10 +308,7 @@ in
   config = {
     warnings =
       mapAttrsToList
-        (
-          n: v:
-          "services.restic.backups.${n}.s3CredentialsFile is deprecated, please use services.restic.backups.${n}.environmentFile instead."
-        )
+        (n: v: "services.restic.backups.${n}.s3CredentialsFile is deprecated, please use services.restic.backups.${n}.environmentFile instead.")
         (filterAttrs (n: v: v.s3CredentialsFile != null) config.services.restic.backups);
     assertions =
       mapAttrsToList
@@ -328,10 +325,7 @@ in
             extraOptions = concatMapStrings (arg: " -o ${arg}") backup.extraOptions;
             resticCmd = "${backup.package}/bin/restic${extraOptions}";
             excludeFlags =
-              if (backup.exclude != [ ]) then
-                [ "--exclude-file=${pkgs.writeText "exclude-patterns" (concatStringsSep "\n" backup.exclude)}" ]
-              else
-                [ ];
+              if (backup.exclude != [ ]) then [ "--exclude-file=${pkgs.writeText "exclude-patterns" (concatStringsSep "\n" backup.exclude)}" ] else [ ];
             filesFromTmpFile = "/run/restic-backups-${name}/includes";
             backupPaths =
               if (backup.dynamicFilesFrom == null) then
@@ -369,9 +363,7 @@ in
               serviceConfig = {
                 Type = "oneshot";
                 ExecStart =
-                  (optionals (backupPaths != "") [
-                    "${resticCmd} backup ${concatStringsSep " " (backup.extraBackupArgs ++ excludeFlags)} ${backupPaths}"
-                  ])
+                  (optionals (backupPaths != "") [ "${resticCmd} backup ${concatStringsSep " " (backup.extraBackupArgs ++ excludeFlags)} ${backupPaths}" ])
                   ++ pruneCmd;
                 User = backup.user;
                 RuntimeDirectory = "restic-backups-${name}";

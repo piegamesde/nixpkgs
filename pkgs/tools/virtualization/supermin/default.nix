@@ -16,9 +16,7 @@ stdenv.mkDerivation (
     version = "5.2.2";
 
     src = fetchurl {
-      url = "https://download.libguestfs.org/supermin/${
-          lib.versions.majorMinor finalAttrs.version
-        }-stable/supermin-${finalAttrs.version}.tar.gz";
+      url = "https://download.libguestfs.org/supermin/${lib.versions.majorMinor finalAttrs.version}-stable/supermin-${finalAttrs.version}.tar.gz";
       sha256 = "zjkh02NcgWjPt8oMWoK51c71srJx+Et3bWO4u77sNY4=";
     };
 

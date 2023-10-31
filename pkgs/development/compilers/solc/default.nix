@@ -85,11 +85,9 @@ let
             --replace "${fmtlibUrl}" ${fmtlib}
         '';
 
-        cmakeFlags =
-          [
-            "-DBoost_USE_STATIC_LIBS=OFF"
-          ]
-          ++ (if z3Support then [ "-DSTRICT_Z3_VERSION=OFF" ] else [ "-DUSE_Z3=OFF" ]) ++ lib.optionals (!cvc4Support) [ "-DUSE_CVC4=OFF" ];
+        cmakeFlags = [
+          "-DBoost_USE_STATIC_LIBS=OFF"
+        ] ++ (if z3Support then [ "-DSTRICT_Z3_VERSION=OFF" ] else [ "-DUSE_Z3=OFF" ]) ++ lib.optionals (!cvc4Support) [ "-DUSE_CVC4=OFF" ];
 
         nativeBuildInputs = [ cmake ];
         buildInputs =

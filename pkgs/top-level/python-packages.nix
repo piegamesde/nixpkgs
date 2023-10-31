@@ -61,9 +61,7 @@ with self; {
 
   adb-shell = callPackage ../development/python-modules/adb-shell { };
 
-  adblock = callPackage ../development/python-modules/adblock {
-    inherit (pkgs.darwin.apple_sdk.frameworks) CoreFoundation Security;
-  };
+  adblock = callPackage ../development/python-modules/adblock { inherit (pkgs.darwin.apple_sdk.frameworks) CoreFoundation Security; };
 
   add-trailing-comma = callPackage ../development/python-modules/add-trailing-comma { };
 
@@ -3904,9 +3902,7 @@ with self; {
 
   georss-ign-sismologia-client = callPackage ../development/python-modules/georss-ign-sismologia-client { };
 
-  georss-ingv-centro-nazionale-terremoti-client =
-    callPackage ../development/python-modules/georss-ingv-centro-nazionale-terremoti-client
-      { };
+  georss-ingv-centro-nazionale-terremoti-client = callPackage ../development/python-modules/georss-ingv-centro-nazionale-terremoti-client { };
 
   georss-nrcan-earthquakes-client = callPackage ../development/python-modules/georss-nrcan-earthquakes-client { };
 
@@ -5021,9 +5017,7 @@ with self; {
 
   joblib = callPackage ../development/python-modules/joblib { };
 
-  johnnycanencrypt = callPackage ../development/python-modules/johnnycanencrypt {
-    inherit (pkgs.darwin.apple_sdk.frameworks) PCSC;
-  };
+  johnnycanencrypt = callPackage ../development/python-modules/johnnycanencrypt { inherit (pkgs.darwin.apple_sdk.frameworks) PCSC; };
 
   josepy = callPackage ../development/python-modules/josepy { };
 
@@ -10859,9 +10853,7 @@ with self; {
 
   skytemple-icons = callPackage ../development/python-modules/skytemple-icons { };
 
-  skytemple-rust = callPackage ../development/python-modules/skytemple-rust {
-    inherit (pkgs.darwin.apple_sdk.frameworks) Foundation;
-  };
+  skytemple-rust = callPackage ../development/python-modules/skytemple-rust { inherit (pkgs.darwin.apple_sdk.frameworks) Foundation; };
 
   skytemple-ssb-debugger = callPackage ../development/python-modules/skytemple-ssb-debugger { };
 
@@ -11277,9 +11269,7 @@ with self; {
 
   stanza = callPackage ../development/python-modules/stanza { };
 
-  starlette = callPackage ../development/python-modules/starlette {
-    inherit (pkgs.darwin.apple_sdk.frameworks) ApplicationServices;
-  };
+  starlette = callPackage ../development/python-modules/starlette { inherit (pkgs.darwin.apple_sdk.frameworks) ApplicationServices; };
 
   starkbank-ecdsa = callPackage ../development/python-modules/starkbank-ecdsa { };
 
@@ -12105,9 +12095,7 @@ with self; {
 
   rustworkx = callPackage ../development/python-modules/rustworkx { };
 
-  uamqp = callPackage ../development/python-modules/uamqp {
-    inherit (pkgs.darwin.apple_sdk.frameworks) CFNetwork CoreFoundation Security;
-  };
+  uamqp = callPackage ../development/python-modules/uamqp { inherit (pkgs.darwin.apple_sdk.frameworks) CFNetwork CoreFoundation Security; };
 
   ua-parser = callPackage ../development/python-modules/ua-parser { };
 
@@ -12131,9 +12119,7 @@ with self; {
 
   ueagle = callPackage ../development/python-modules/ueagle { };
 
-  uharfbuzz = callPackage ../development/python-modules/uharfbuzz {
-    inherit (pkgs.darwin.apple_sdk.frameworks) ApplicationServices;
-  };
+  uharfbuzz = callPackage ../development/python-modules/uharfbuzz { inherit (pkgs.darwin.apple_sdk.frameworks) ApplicationServices; };
 
   uhi = callPackage ../development/python-modules/uhi { };
 
@@ -12279,9 +12265,7 @@ with self; {
 
   uvicorn = callPackage ../development/python-modules/uvicorn { };
 
-  uvloop = callPackage ../development/python-modules/uvloop {
-    inherit (pkgs.darwin.apple_sdk.frameworks) ApplicationServices CoreServices;
-  };
+  uvloop = callPackage ../development/python-modules/uvloop { inherit (pkgs.darwin.apple_sdk.frameworks) ApplicationServices CoreServices; };
 
   vaa = callPackage ../development/python-modules/vaa { };
 
@@ -12648,9 +12632,7 @@ with self; {
 
   wurlitzer = callPackage ../development/python-modules/wurlitzer { };
 
-  wxPython_4_2 = callPackage ../development/python-modules/wxPython/4.2.nix {
-    wxGTK = pkgs.wxGTK32.override { withWebKit = true; };
-  };
+  wxPython_4_2 = callPackage ../development/python-modules/wxPython/4.2.nix { wxGTK = pkgs.wxGTK32.override { withWebKit = true; }; };
 
   x-wr-timezone = callPackage ../development/python-modules/x-wr-timezone { };
 

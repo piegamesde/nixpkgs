@@ -118,24 +118,20 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ buildPackages.stdenv.cc ] ++ lib.optionals hexagonSupport [ pkg-config ];
 
-  nativeBuildInputs =
-    [
-      makeWrapper
-      removeReferencesTo
-      pkg-config
-      flex
-      bison
-      meson
-      ninja
+  nativeBuildInputs = [
+    makeWrapper
+    removeReferencesTo
+    pkg-config
+    flex
+    bison
+    meson
+    ninja
 
-      # Don't change this to python3 and python3.pkgs.*, breaks cross-compilation
-      python3Packages.python
-      python3Packages.sphinx
-      python3Packages.sphinx-rtd-theme
-    ]
-    ++ lib.optionals gtkSupport [ wrapGAppsHook ]
-    ++ lib.optionals hexagonSupport [ glib ]
-    ++ lib.optionals stdenv.isDarwin [ sigtool ];
+    # Don't change this to python3 and python3.pkgs.*, breaks cross-compilation
+    python3Packages.python
+    python3Packages.sphinx
+    python3Packages.sphinx-rtd-theme
+  ] ++ lib.optionals gtkSupport [ wrapGAppsHook ] ++ lib.optionals hexagonSupport [ glib ] ++ lib.optionals stdenv.isDarwin [ sigtool ];
 
   buildInputs =
     [

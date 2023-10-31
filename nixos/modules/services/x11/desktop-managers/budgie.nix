@@ -61,9 +61,7 @@ in
       enable = mkEnableOption (mdDoc "the Budgie desktop");
 
       sessionPath = mkOption {
-        description =
-          mdDoc
-            "Additional list of packages to be added to the session search path. Useful for GSettings-conditional autostart.";
+        description = mdDoc "Additional list of packages to be added to the session search path. Useful for GSettings-conditional autostart.";
         type = with types; listOf package;
         example = literalExpression "[ pkgs.budgie.budgie-desktop-view ]";
         default = [ ];

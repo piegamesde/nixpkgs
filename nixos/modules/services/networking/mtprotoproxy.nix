@@ -30,9 +30,7 @@ let
     else
       throw "Invalid option type";
 
-  configFile = pkgs.writeText "config.py" (
-    concatStringsSep "\n" (mapAttrsToList (name: opt: "${name} = ${convertOption opt}") configOpts)
-  );
+  configFile = pkgs.writeText "config.py" (concatStringsSep "\n" (mapAttrsToList (name: opt: "${name} = ${convertOption opt}") configOpts));
 in
 
 {

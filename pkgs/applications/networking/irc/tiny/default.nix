@@ -27,8 +27,7 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "05q3f1wp48mwkz8n0102rwb6jzrgpx3dlbxzf3zcw8r1mblgzim1";
 
   nativeBuildInputs = lib.optional stdenv.isLinux pkg-config;
-  buildInputs =
-    lib.optionals dbusSupport [ dbus ] ++ lib.optionals useOpenSSL [ openssl ] ++ lib.optional stdenv.isDarwin Foundation;
+  buildInputs = lib.optionals dbusSupport [ dbus ] ++ lib.optionals useOpenSSL [ openssl ] ++ lib.optional stdenv.isDarwin Foundation;
 
   buildFeatures = lib.optional notificationSupport "desktop-notifications";
 

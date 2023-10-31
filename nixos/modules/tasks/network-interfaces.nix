@@ -24,9 +24,9 @@ let
   slaves =
     concatMap (i: i.interfaces) (attrValues cfg.bonds)
     ++ concatMap (i: i.interfaces) (attrValues cfg.bridges)
-    ++
-      concatMap (i: attrNames (filterAttrs (name: config: !(config.type == "internal" || hasAttr name cfg.interfaces)) i.interfaces))
-        (attrValues cfg.vswitches);
+    ++ concatMap (i: attrNames (filterAttrs (name: config: !(config.type == "internal" || hasAttr name cfg.interfaces)) i.interfaces)) (
+      attrValues cfg.vswitches
+    );
 
   slaveIfs = map (i: cfg.interfaces.${i}) (filter (i: cfg.interfaces ? ${i}) slaves);
 
@@ -499,9 +499,7 @@ let
       description = "generate IPv6 temporary addresses and use these as source addresses in routing";
     };
   };
-  tempaddrDoc = concatStringsSep "\n" (
-    mapAttrsToList (name: { description, ... }: ''- `"${name}"` to ${description};'') tempaddrValues
-  );
+  tempaddrDoc = concatStringsSep "\n" (mapAttrsToList (name: { description, ... }: ''- `"${name}"` to ${description};'') tempaddrValues);
 
   hostidFile = pkgs.runCommand "gen-hostid" { preferLocalBuild = true; } ''
     hi="${cfg.hostId}"
@@ -1577,9 +1575,7 @@ in
         # networkmanager falls back to "/proc/sys/net/ipv6/conf/default/use_tempaddr"
         "net.ipv6.conf.default.use_tempaddr" = tempaddrValues.${cfg.tempAddresses}.sysctl;
       }
-      // listToAttrs (
-        forEach interfaces (i: nameValuePair "net.ipv4.conf.${replaceStrings [ "." ] [ "/" ] i.name}.proxy_arp" i.proxyARP)
-      )
+      // listToAttrs (forEach interfaces (i: nameValuePair "net.ipv4.conf.${replaceStrings [ "." ] [ "/" ] i.name}.proxy_arp" i.proxyARP))
       // listToAttrs (
         forEach interfaces (
           i:
@@ -1709,9 +1705,7 @@ in
                 in
                 ''
                   # override to ${msg} for ${i.name}
-                  ACTION=="add", SUBSYSTEM=="net", RUN+="${pkgs.procps}/bin/sysctl net.ipv6.conf.${
-                    replaceStrings [ "." ] [ "/" ] i.name
-                  }.use_tempaddr=${val}"
+                  ACTION=="add", SUBSYSTEM=="net", RUN+="${pkgs.procps}/bin/sysctl net.ipv6.conf.${replaceStrings [ "." ] [ "/" ] i.name}.use_tempaddr=${val}"
                 ''
               )
               (filter (i: i.tempAddress != cfg.tempAddresses) interfaces);
@@ -1761,10 +1755,8 @@ in
 
                   # Configure the current interface
                   ${pkgs.iw}/bin/iw dev ${device} set type ${current.type}
-                  ${optionalString (current.type == "mesh" && current.meshID != null)
-                    "${pkgs.iw}/bin/iw dev ${device} set meshid ${current.meshID}"}
-                  ${optionalString (current.type == "monitor" && current.flags != null)
-                    "${pkgs.iw}/bin/iw dev ${device} set monitor ${current.flags}"}
+                  ${optionalString (current.type == "mesh" && current.meshID != null) "${pkgs.iw}/bin/iw dev ${device} set meshid ${current.meshID}"}
+                  ${optionalString (current.type == "monitor" && current.flags != null) "${pkgs.iw}/bin/iw dev ${device} set monitor ${current.flags}"}
                   ${optionalString (current.type == "managed" && current.fourAddr != null)
                     "${pkgs.iw}/bin/iw dev ${device} set 4addr ${if current.fourAddr then "on" else "off"}"}
                   ${optionalString (current.mac != null) "${pkgs.iproute2}/bin/ip link set dev ${device} address ${current.mac}"}
@@ -1800,9 +1792,9 @@ in
                 ${flip (concatMapStringsSep "\n") (wlanListDeviceFirst device wlanDeviceInterfaces.${device}) (
                   interface:
                   ''
-                    ACTION=="add", SUBSYSTEM=="net", ENV{DEVTYPE}=="wlan", ENV{INTERFACE}=="${interface._iName}", ${
-                      systemdAttrs interface._iName
-                    }, RUN+="${newInterfaceScript interface}"''
+                    ACTION=="add", SUBSYSTEM=="net", ENV{DEVTYPE}=="wlan", ENV{INTERFACE}=="${interface._iName}", ${systemdAttrs interface._iName}, RUN+="${
+                      newInterfaceScript interface
+                    }"''
                 )}
 
                 # Add the required, new WLAN interfaces to the default WLAN interface with the

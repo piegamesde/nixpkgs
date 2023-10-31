@@ -395,9 +395,7 @@ in
           };
         };
       mkInstanceUsersConfig = instance: {
-        groups."authelia-${instance.name}" = lib.mkIf (instance.group == "authelia-${instance.name}") {
-          name = "authelia-${instance.name}";
-        };
+        groups."authelia-${instance.name}" = lib.mkIf (instance.group == "authelia-${instance.name}") { name = "authelia-${instance.name}"; };
         users."authelia-${instance.name}" = lib.mkIf (instance.user == "authelia-${instance.name}") {
           name = "authelia-${instance.name}";
           isSystemUser = true;
@@ -411,8 +409,7 @@ in
         lib.flip lib.mapAttrsToList cfg.instances (
           name: instance: [
             {
-              assertion =
-                instance.secrets.manual || (instance.secrets.jwtSecretFile != null && instance.secrets.storageEncryptionKeyFile != null);
+              assertion = instance.secrets.manual || (instance.secrets.jwtSecretFile != null && instance.secrets.storageEncryptionKeyFile != null);
               message = ''
                 Authelia requires a JWT Secret and a Storage Encryption Key to work.
                 Either set them like so:

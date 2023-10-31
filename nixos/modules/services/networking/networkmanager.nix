@@ -488,11 +488,7 @@ in
         "NetworkManager/NetworkManager.conf".source = configFile;
       }
       // builtins.listToAttrs (
-        map
-          (
-            pkg:
-            nameValuePair "NetworkManager/${pkg.networkManagerPlugin}" { source = "${pkg}/lib/NetworkManager/${pkg.networkManagerPlugin}"; }
-          )
+        map (pkg: nameValuePair "NetworkManager/${pkg.networkManagerPlugin}" { source = "${pkg}/lib/NetworkManager/${pkg.networkManagerPlugin}"; })
           cfg.plugins
       )
       // optionalAttrs cfg.enableFccUnlock {
@@ -616,8 +612,7 @@ in
     security.polkit.enable = true;
     security.polkit.extraConfig = polkitConf;
 
-    services.dbus.packages =
-      packages ++ optional cfg.enableStrongSwan pkgs.strongswanNM ++ optional (cfg.dns == "dnsmasq") pkgs.dnsmasq;
+    services.dbus.packages = packages ++ optional cfg.enableStrongSwan pkgs.strongswanNM ++ optional (cfg.dns == "dnsmasq") pkgs.dnsmasq;
 
     services.udev.packages = packages;
   };

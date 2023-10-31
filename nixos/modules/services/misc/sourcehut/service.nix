@@ -305,9 +305,7 @@ in
           { "${srv}.sr.ht".origin = mkDefault "https://${srv}.${cfg.settings."sr.ht".global-domain}"; }
 
           (mkIf cfg.postgresql.enable {
-            "${srv}.sr.ht".connection-string =
-              mkDefault
-                "postgresql:///${srvCfg.postgresql.database}?user=${srvCfg.user}&host=/run/postgresql";
+            "${srv}.sr.ht".connection-string = mkDefault "postgresql:///${srvCfg.postgresql.database}?user=${srvCfg.user}&host=/run/postgresql";
           })
         ];
 

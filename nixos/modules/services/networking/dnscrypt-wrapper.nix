@@ -293,8 +293,7 @@ in
 
     assertions = with cfg; [
       {
-        assertion =
-          (providerKey.public == null && providerKey.secret == null) || (providerKey.secret != null && providerKey.public != null);
+        assertion = (providerKey.public == null && providerKey.secret == null) || (providerKey.secret != null && providerKey.public != null);
         message = "The secret and public provider key must be set together.";
       }
     ];

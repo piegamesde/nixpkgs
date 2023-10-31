@@ -144,9 +144,7 @@ in
         mkIf cfg.useXkbConfig (
           pkgs.runCommand "xkb-console-keymap" { preferLocalBuild = true; } ''
             '${pkgs.buildPackages.ckbcomp}/bin/ckbcomp' \
-              ${
-                optionalString (config.environment.sessionVariables ? XKB_CONFIG_ROOT) "-I${config.environment.sessionVariables.XKB_CONFIG_ROOT}"
-              } \
+              ${optionalString (config.environment.sessionVariables ? XKB_CONFIG_ROOT) "-I${config.environment.sessionVariables.XKB_CONFIG_ROOT}"} \
               -model '${xkbModel}' -layout '${layout}' \
               -option '${xkbOptions}' -variant '${xkbVariant}' > "$out"
           ''
@@ -191,9 +189,7 @@ in
             # Add everything if we want full console setup...
             "/etc/kbd" = lib.mkIf cfg.earlySetup { source = "${consoleEnv config.boot.initrd.systemd.package.kbd}/share"; };
             # ...but only the keymaps if we don't
-            "/etc/kbd/keymaps" = lib.mkIf (!cfg.earlySetup) {
-              source = "${consoleEnv config.boot.initrd.systemd.package.kbd}/share/keymaps";
-            };
+            "/etc/kbd/keymaps" = lib.mkIf (!cfg.earlySetup) { source = "${consoleEnv config.boot.initrd.systemd.package.kbd}/share/keymaps"; };
           };
           boot.initrd.systemd.storePaths =
             [

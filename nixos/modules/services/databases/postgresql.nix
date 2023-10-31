@@ -35,9 +35,7 @@ let
       toString value;
 
   # The main PostgreSQL configuration file.
-  configFile = pkgs.writeTextDir "postgresql.conf" (
-    concatStringsSep "\n" (mapAttrsToList (n: v: "${n} = ${toStr v}") cfg.settings)
-  );
+  configFile = pkgs.writeTextDir "postgresql.conf" (concatStringsSep "\n" (mapAttrsToList (n: v: "${n} = ${toStr v}") cfg.settings));
 
   configFileCheck = pkgs.runCommand "postgresql-configfile-check" { } ''
     ${cfg.package}/bin/postgres -D${configFile} -C config_file >/dev/null
@@ -522,9 +520,7 @@ in
 
     environment.pathsToLink = [ "/share/postgresql" ];
 
-    system.extraDependencies =
-      lib.optional (cfg.checkConfig && pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform)
-        configFileCheck;
+    system.extraDependencies = lib.optional (cfg.checkConfig && pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform) configFileCheck;
 
     systemd.services.postgresql = {
       description = "PostgreSQL Server";
@@ -587,8 +583,7 @@ in
               user:
               let
                 userPermissions = concatStringsSep "\n" (
-                  mapAttrsToList (database: permission: ''$PSQL -tAc 'GRANT ${permission} ON ${database} TO "${user.name}"' '')
-                    user.ensurePermissions
+                  mapAttrsToList (database: permission: ''$PSQL -tAc 'GRANT ${permission} ON ${database} TO "${user.name}"' '') user.ensurePermissions
                 );
 
                 filteredClauses = filterAttrs (name: value: value != null) user.ensureClauses;

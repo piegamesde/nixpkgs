@@ -31,9 +31,7 @@ stdenv.mkDerivation (
       cmocka # cmake expects cmocka module
     ];
 
-    cmakeFlags =
-      lib.optional finalAttrs.doCheck "-DWITH_TESTS=ON"
-      ++ lib.optional (!stdenv.hostPlatform.isStatic) "-DBUILD_SHARED_LIBS=ON";
+    cmakeFlags = lib.optional finalAttrs.doCheck "-DWITH_TESTS=ON" ++ lib.optional (!stdenv.hostPlatform.isStatic) "-DBUILD_SHARED_LIBS=ON";
 
     # Tests are restricted while pkgsStatic.cmocka is broken. Tracked at:
     # https://github.com/NixOS/nixpkgs/issues/213623

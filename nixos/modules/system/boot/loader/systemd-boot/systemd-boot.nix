@@ -308,9 +308,7 @@ in
           (filename: [
             {
               assertion = !(hasPrefix "/" filename);
-              message = "boot.loader.systemd-boot.extraFiles.${
-                  lib.strings.escapeNixIdentifier filename
-                } is invalid: paths must not begin with a slash";
+              message = "boot.loader.systemd-boot.extraFiles.${lib.strings.escapeNixIdentifier filename} is invalid: paths must not begin with a slash";
             }
             {
               assertion = !(hasInfix ".." filename);

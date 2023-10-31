@@ -24,12 +24,7 @@
 let
 
   position =
-    (
-      if args.meta.description or null != null then
-        builtins.unsafeGetAttrPos "description" args.meta
-      else
-        builtins.unsafeGetAttrPos "rev" args
-    );
+    (if args.meta.description or null != null then builtins.unsafeGetAttrPos "description" args.meta else builtins.unsafeGetAttrPos "rev" args);
   baseUrl = "https://${githubBase}/${owner}/${repo}";
   newMeta = meta // {
     homepage = meta.homepage or baseUrl;
@@ -48,8 +43,7 @@ let
     "varPrefix"
   ];
   varBase = "NIX${if varPrefix == null then "" else "_${varPrefix}"}_GITHUB_PRIVATE_";
-  useFetchGit =
-    fetchSubmodules || (leaveDotGit == true) || deepClone || forceFetchGit || !(sparseCheckout == "" || sparseCheckout == [ ]);
+  useFetchGit = fetchSubmodules || (leaveDotGit == true) || deepClone || forceFetchGit || !(sparseCheckout == "" || sparseCheckout == [ ]);
   # We prefer fetchzip in cases we don't need submodules as the hash
   # is more stable in that case.
   fetcher = if useFetchGit then fetchgit else fetchzip;

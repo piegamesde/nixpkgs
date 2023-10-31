@@ -504,10 +504,7 @@ rec {
     # Attribute set with attributes that are lists of values
     attrsOfLists:
     foldl'
-      (
-        listOfAttrs: attrName:
-        concatMap (attrs: map (listValue: attrs // { ${attrName} = listValue; }) attrsOfLists.${attrName}) listOfAttrs
-      )
+      (listOfAttrs: attrName: concatMap (attrs: map (listValue: attrs // { ${attrName} = listValue; }) attrsOfLists.${attrName}) listOfAttrs)
       [ { } ]
       (attrNames attrsOfLists);
 
@@ -1052,9 +1049,7 @@ rec {
     let
       intersection = builtins.intersectAttrs x y;
       collisions = lib.concatStringsSep " " (builtins.attrNames intersection);
-      mask =
-        builtins.mapAttrs (name: value: builtins.throw "unionOfDisjoint: collision on ${name}; complete list: ${collisions}")
-          intersection;
+      mask = builtins.mapAttrs (name: value: builtins.throw "unionOfDisjoint: collision on ${name}; complete list: ${collisions}") intersection;
     in
     (x // y) // mask;
 

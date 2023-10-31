@@ -228,9 +228,7 @@
 
       qtinstaller = callPackage ../development/libraries/qtinstaller { };
 
-      qtkeychain = callPackage ../development/libraries/qtkeychain {
-        inherit (pkgs.darwin.apple_sdk.frameworks) CoreFoundation Security;
-      };
+      qtkeychain = callPackage ../development/libraries/qtkeychain { inherit (pkgs.darwin.apple_sdk.frameworks) CoreFoundation Security; };
 
       qtmpris = callPackage ../development/libraries/qtmpris { };
 

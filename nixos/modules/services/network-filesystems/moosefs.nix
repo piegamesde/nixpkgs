@@ -41,8 +41,7 @@ let
         attrsOf valueType;
 
       generate =
-        name: value:
-        pkgs.writeText name (lib.concatStringsSep "\n" (lib.mapAttrsToList (key: val: "${key} = ${valueToString val}") value));
+        name: value: pkgs.writeText name (lib.concatStringsSep "\n" (lib.mapAttrsToList (key: val: "${key} = ${valueToString val}") value));
     };
 
   initTool = pkgs.writeShellScriptBin "mfsmaster-init" ''
@@ -258,12 +257,8 @@ in
         masterCfg
     );
 
-    systemd.services.mfs-metalogger = mkIf cfg.metalogger.enable (
-      systemdService "metalogger" { Restart = "on-abnormal"; } metaloggerCfg
-    );
+    systemd.services.mfs-metalogger = mkIf cfg.metalogger.enable (systemdService "metalogger" { Restart = "on-abnormal"; } metaloggerCfg);
 
-    systemd.services.mfs-chunkserver = mkIf cfg.chunkserver.enable (
-      systemdService "chunkserver" { Restart = "on-abnormal"; } chunkserverCfg
-    );
+    systemd.services.mfs-chunkserver = mkIf cfg.chunkserver.enable (systemdService "chunkserver" { Restart = "on-abnormal"; } chunkserverCfg);
   };
 }

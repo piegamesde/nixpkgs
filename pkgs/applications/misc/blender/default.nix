@@ -244,8 +244,7 @@ stdenv.mkDerivation rec {
   # libstdc++ in our RPATH. Sigh.
   NIX_LDFLAGS = lib.optionalString cudaSupport "-rpath ${stdenv.cc.cc.lib}/lib";
 
-  blenderExecutable =
-    placeholder "out" + (if stdenv.isDarwin then "/Applications/Blender.app/Contents/MacOS/Blender" else "/bin/blender");
+  blenderExecutable = placeholder "out" + (if stdenv.isDarwin then "/Applications/Blender.app/Contents/MacOS/Blender" else "/bin/blender");
   postInstall =
     lib.optionalString stdenv.isDarwin ''
       mkdir $out/Applications

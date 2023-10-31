@@ -79,9 +79,7 @@ stdenv.mkDerivation {
     zlib
   ];
 
-  nativeBuildInputs = [
-    makeWrapper
-  ] ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ] ++ lib.optionals stdenv.isDarwin [ unzip ];
+  nativeBuildInputs = [ makeWrapper ] ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ] ++ lib.optionals stdenv.isDarwin [ unzip ];
 
   installPhase =
     ''

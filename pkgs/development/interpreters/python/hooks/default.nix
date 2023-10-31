@@ -250,8 +250,7 @@ in
       { };
 
   pythonRemoveBinBytecodeHook =
-    callPackage
-      ({ makePythonHook }: makePythonHook { name = "python-remove-bin-bytecode-hook"; } ./python-remove-bin-bytecode-hook.sh)
+    callPackage ({ makePythonHook }: makePythonHook { name = "python-remove-bin-bytecode-hook"; } ./python-remove-bin-bytecode-hook.sh)
       { };
 
   pythonRemoveTestsDirHook =

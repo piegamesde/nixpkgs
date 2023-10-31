@@ -45,8 +45,7 @@ let
         "," = cond1: cond2: cond1 && cond2; # , means &&
         "&&" = cond1: cond2: cond1 && cond2;
       };
-      splitRe =
-        "(" + (builtins.concatStringsSep "|" (builtins.map (x: lib.replaceStrings [ "|" ] [ "\\|" ] x) (lib.attrNames operators))) + ")";
+      splitRe = "(" + (builtins.concatStringsSep "|" (builtins.map (x: lib.replaceStrings [ "|" ] [ "\\|" ] x) (lib.attrNames operators))) + ")";
     in
     expr:
     let
@@ -271,8 +270,7 @@ let
     let
       gitIgnores = findGitIgnores src;
       pycacheFilter =
-        name: type:
-        (type == "directory" && !lib.strings.hasInfix "__pycache__" name) || (type == "regular" && !lib.strings.hasSuffix ".pyc" name);
+        name: type: (type == "directory" && !lib.strings.hasInfix "__pycache__" name) || (type == "regular" && !lib.strings.hasSuffix ".pyc" name);
     in
     lib.cleanSourceWith {
       filter = lib.cleanSourceFilter;

@@ -59,10 +59,7 @@ let
   # stdenv_32bit but that doesn't work due to host platform mismatch:
   # https://github.com/NixOS/nixpkgs/issues/212494
   buildStdenv =
-    if buildPackages.stdenv.isx86_64 && stdenv.is32bit then
-      buildPackages.pkgsi686Linux.buildPackages.stdenv
-    else
-      buildPackages.stdenv;
+    if buildPackages.stdenv.isx86_64 && stdenv.is32bit then buildPackages.pkgsi686Linux.buildPackages.stdenv else buildPackages.stdenv;
 in
 stdenv.mkDerivation rec {
   pname = "luajit";

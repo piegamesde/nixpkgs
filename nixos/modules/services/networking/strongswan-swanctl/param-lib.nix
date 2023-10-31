@@ -91,9 +91,7 @@ rec {
       recurse =
         path: set:
         let
-          g =
-            name: value:
-            if isAttrs value && cond value then { ${name} = recurse (path ++ [ name ]) value; } else f (path ++ [ name ]) name value;
+          g = name: value: if isAttrs value && cond value then { ${name} = recurse (path ++ [ name ]) value; } else f (path ++ [ name ]) name value;
         in
         mapAttrs'' g set;
     in

@@ -143,9 +143,7 @@ in
 
       openjdk8 = mkOpenjdk ../development/compilers/openjdk/8.nix ../development/compilers/openjdk/darwin/8.nix { };
 
-      openjdk11 = mkOpenjdk ../development/compilers/openjdk/11.nix ../development/compilers/openjdk/darwin/11.nix {
-        openjfx = openjfx11;
-      };
+      openjdk11 = mkOpenjdk ../development/compilers/openjdk/11.nix ../development/compilers/openjdk/darwin/11.nix { openjfx = openjfx11; };
 
       openjdk12 = mkOpenjdkLinuxOnly ../development/compilers/openjdk/12.nix {
         # build segfaults with gcc9 or newer, so use gcc8 like Debian does
@@ -190,9 +188,7 @@ in
 
       temurin-bin = recurseIntoAttrs (
         callPackage
-          (
-            if stdenv.isLinux then ../development/compilers/temurin-bin/jdk-linux.nix else ../development/compilers/temurin-bin/jdk-darwin.nix
-          )
+          (if stdenv.isLinux then ../development/compilers/temurin-bin/jdk-linux.nix else ../development/compilers/temurin-bin/jdk-darwin.nix)
           { }
       );
 
@@ -352,9 +348,7 @@ in
     mavenPluginRegistry_2_2_1
   ;
 
-  inherit (callPackage ../development/java-modules/maven/plugin-testing-harness.nix { inherit fetchMaven; })
-    mavenPluginTestingHarness_1_1
-  ;
+  inherit (callPackage ../development/java-modules/maven/plugin-testing-harness.nix { inherit fetchMaven; }) mavenPluginTestingHarness_1_1;
 
   inherit (callPackage ../development/java-modules/maven/profile.nix { inherit fetchMaven; })
     mavenProfile_2_0_1
@@ -427,10 +421,7 @@ in
 
   inherit (callPackage ../development/java-modules/ow2/asm-all.nix { inherit fetchMaven; }) ow2AsmAll_4_0;
 
-  inherit (callPackage ../development/java-modules/plexus/archiver.nix { inherit fetchMaven; })
-    plexusArchiver_1_0_alpha7
-    plexusArchiver_2_1
-  ;
+  inherit (callPackage ../development/java-modules/plexus/archiver.nix { inherit fetchMaven; }) plexusArchiver_1_0_alpha7 plexusArchiver_2_1;
 
   inherit (callPackage ../development/java-modules/plexus/build-api.nix { inherit fetchMaven; }) plexusBuildApi_0_0_4;
 
@@ -454,9 +445,7 @@ in
     plexusCompilerManager_2_4
   ;
 
-  inherit (callPackage ../development/java-modules/plexus/component-annotations.nix { inherit fetchMaven; })
-    plexusComponentAnnotations_1_5_5
-  ;
+  inherit (callPackage ../development/java-modules/plexus/component-annotations.nix { inherit fetchMaven; }) plexusComponentAnnotations_1_5_5;
 
   inherit (callPackage ../development/java-modules/plexus/container-default.nix { inherit fetchMaven; })
     plexusContainerDefault_1_0_alpha9
@@ -468,9 +457,7 @@ in
 
   inherit (callPackage ../development/java-modules/plexus/i18n.nix { inherit fetchMaven; }) plexusI18n_1_0_beta6;
 
-  inherit (callPackage ../development/java-modules/plexus/interactivity-api.nix { inherit fetchMaven; })
-    plexusInteractivityApi_1_0_alpha4
-  ;
+  inherit (callPackage ../development/java-modules/plexus/interactivity-api.nix { inherit fetchMaven; }) plexusInteractivityApi_1_0_alpha4;
 
   inherit (callPackage ../development/java-modules/plexus/interpolation.nix { inherit fetchMaven; })
     plexusInterpolation_1_11

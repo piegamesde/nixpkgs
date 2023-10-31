@@ -104,9 +104,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { }) (spliced: sp
 
     cctools = callPackage ../os-specific/darwin/cctools/port.nix { stdenv = if stdenv.isDarwin then stdenv else pkgs.libcxxStdenv; };
 
-    cctools-apple = callPackage ../os-specific/darwin/cctools/apple.nix {
-      stdenv = if stdenv.isDarwin then stdenv else pkgs.libcxxStdenv;
-    };
+    cctools-apple = callPackage ../os-specific/darwin/cctools/apple.nix { stdenv = if stdenv.isDarwin then stdenv else pkgs.libcxxStdenv; };
 
     # TODO(@connorbaker): See https://github.com/NixOS/nixpkgs/issues/229389.
     cf-private = self.apple_sdk.frameworks.CoreFoundation;

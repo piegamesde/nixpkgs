@@ -56,10 +56,7 @@ in
   serviceOpts =
     let
       configFile =
-        if cfg.configFile != null then
-          cfg.configFile
-        else
-          "${pkgs.writeText "mikrotik-exporter.yml" (builtins.toJSON cfg.configuration)}";
+        if cfg.configFile != null then cfg.configFile else "${pkgs.writeText "mikrotik-exporter.yml" (builtins.toJSON cfg.configuration)}";
     in
     {
       serviceConfig = {

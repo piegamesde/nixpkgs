@@ -74,9 +74,7 @@ in
         default = config.networking.firewall.package;
         defaultText = literalExpression "config.networking.firewall.package";
         type = types.package;
-        description =
-          lib.mdDoc
-            "The firewall package used by fail2ban service. Defaults to the package for your firewall (iptables or nftables).";
+        description = lib.mdDoc "The firewall package used by fail2ban service. Defaults to the package for your firewall (iptables or nftables).";
       };
 
       extraPackages = mkOption {
@@ -378,8 +376,7 @@ in
       ${optionalString (cfg.bantime-increment.factor != null) "bantime.factor = ${cfg.bantime-increment.factor}"}
       ${optionalString (cfg.bantime-increment.formula != null) "bantime.formula = ${cfg.bantime-increment.formula}"}
       ${optionalString (cfg.bantime-increment.multipliers != null) "bantime.multipliers = ${cfg.bantime-increment.multipliers}"}
-      ${optionalString (cfg.bantime-increment.overalljails != null)
-        "bantime.overalljails = ${boolToString cfg.bantime-increment.overalljails}"}
+      ${optionalString (cfg.bantime-increment.overalljails != null) "bantime.overalljails = ${boolToString cfg.bantime-increment.overalljails}"}
       # Miscellaneous options
       ignoreip    = 127.0.0.1/8 ${optionalString config.networking.enableIPv6 "::1"} ${concatStringsSep " " cfg.ignoreIP}
       ${optionalString (cfg.bantime != null) ''

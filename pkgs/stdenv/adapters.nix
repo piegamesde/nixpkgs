@@ -100,9 +100,7 @@ rec {
             )
         );
       }
-      // lib.optionalAttrs (stdenv0.hostPlatform.libc == "libc") {
-        extraBuildInputs = (old.extraBuildInputs or [ ]) ++ [ pkgs.glibc.static ];
-      }
+      // lib.optionalAttrs (stdenv0.hostPlatform.libc == "libc") { extraBuildInputs = (old.extraBuildInputs or [ ]) ++ [ pkgs.glibc.static ]; }
     );
 
   # Return a modified stdenv that builds static libraries instead of
@@ -199,8 +197,7 @@ rec {
            { env.NIX_CFLAGS_COMPILE = "-O0"; }
            stdenv;
   */
-  addAttrsToDerivation =
-    extraAttrs: stdenv: stdenv.override (old: { mkDerivationFromStdenv = extendMkDerivationArgs old (_: extraAttrs); });
+  addAttrsToDerivation = extraAttrs: stdenv: stdenv.override (old: { mkDerivationFromStdenv = extendMkDerivationArgs old (_: extraAttrs); });
 
   /* Use the trace output to report all processed derivations with their
      license name.
@@ -253,9 +250,7 @@ rec {
     stdenv:
     stdenv.override (
       old: {
-        mkDerivationFromStdenv = extendMkDerivationArgs old (
-          args: { NIX_CFLAGS_LINK = toString (args.NIX_CFLAGS_LINK or "") + " -fuse-ld=gold"; }
-        );
+        mkDerivationFromStdenv = extendMkDerivationArgs old (args: { NIX_CFLAGS_LINK = toString (args.NIX_CFLAGS_LINK or "") + " -fuse-ld=gold"; });
       }
     );
 
@@ -291,9 +286,7 @@ rec {
         # https://github.com/rui314/mold#how-to-use
       }
       // lib.optionalAttrs (stdenv.cc.isClang || (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12")) {
-        mkDerivationFromStdenv = extendMkDerivationArgs old (
-          args: { NIX_CFLAGS_LINK = toString (args.NIX_CFLAGS_LINK or "") + " -fuse-ld=mold"; }
-        );
+        mkDerivationFromStdenv = extendMkDerivationArgs old (args: { NIX_CFLAGS_LINK = toString (args.NIX_CFLAGS_LINK or "") + " -fuse-ld=mold"; });
       }
     );
 

@@ -188,13 +188,11 @@ let
       );
       patched-derivation1 = derivation.overrideAttrs (
         o:
-        optionalAttrs
-          (o.pname != null && o.pname == "mathcomp-all" && o.version != null && o.version != "dev" && versions.isLt "1.7" o.version)
-          {
-            preBuild = "";
-            buildPhase = "";
-            installPhase = "echo doing nothing";
-          }
+        optionalAttrs (o.pname != null && o.pname == "mathcomp-all" && o.version != null && o.version != "dev" && versions.isLt "1.7" o.version) {
+          preBuild = "";
+          buildPhase = "";
+          installPhase = "echo doing nothing";
+        }
       );
       patched-derivation = patched-derivation1.overrideAttrs (
         o:

@@ -32,8 +32,7 @@ let
   ];
   pname = "catppuccin-papirus-folders";
 in
-lib.checkListOfEnum "${pname}: accent colors" validAccents [ accent ] lib.checkListOfEnum "${pname}: flavors" validFlavors
-  [ flavor ]
+lib.checkListOfEnum "${pname}: accent colors" validAccents [ accent ] lib.checkListOfEnum "${pname}: flavors" validFlavors [ flavor ]
 
   stdenvNoCC.mkDerivation
   {

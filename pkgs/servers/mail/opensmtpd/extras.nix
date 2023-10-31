@@ -90,8 +90,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals enableRedis [ "--with-table-redis" ];
 
   env.NIX_CFLAGS_COMPILE =
-    lib.optionalString enableRedis "-I${hiredis}/include/hiredis -lhiredis"
-    + lib.optionalString enableMysql " -L${libmysqlclient}/lib/mysql";
+    lib.optionalString enableRedis "-I${hiredis}/include/hiredis -lhiredis" + lib.optionalString enableMysql " -L${libmysqlclient}/lib/mysql";
 
   meta = with lib; {
     homepage = "https://www.opensmtpd.org/";

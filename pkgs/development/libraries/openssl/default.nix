@@ -92,8 +92,7 @@ let
         setOutputFlags = false;
         separateDebugInfo = !stdenv.hostPlatform.isDarwin && !(stdenv.hostPlatform.useLLVM or false) && stdenv.cc.isGNU;
 
-        nativeBuildInputs =
-          lib.optional (!stdenv.hostPlatform.isWindows) makeWrapper ++ [ perl ] ++ lib.optionals static [ removeReferencesTo ];
+        nativeBuildInputs = lib.optional (!stdenv.hostPlatform.isWindows) makeWrapper ++ [ perl ] ++ lib.optionals static [ removeReferencesTo ];
         buildInputs = lib.optional withCryptodev cryptodev ++ lib.optional withZlib zlib;
 
         # TODO(@Ericson2314): Improve with mass rebuild
@@ -120,9 +119,7 @@ let
               else
                 "./Configure BSD-generic${toString stdenv.hostPlatform.parsed.cpu.bits}"
             else if stdenv.hostPlatform.isMinGW then
-              "./Configure mingw${
-                lib.optionalString (stdenv.hostPlatform.parsed.cpu.bits != 32) (toString stdenv.hostPlatform.parsed.cpu.bits)
-              }"
+              "./Configure mingw${lib.optionalString (stdenv.hostPlatform.parsed.cpu.bits != 32) (toString stdenv.hostPlatform.parsed.cpu.bits)}"
             else if stdenv.hostPlatform.isLinux then
               if stdenv.hostPlatform.isx86_64 then
                 "./Configure linux-x86_64"

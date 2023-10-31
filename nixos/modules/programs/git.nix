@@ -37,11 +37,7 @@ in
               let
                 config =
                   foldl'
-                    (
-                      acc:
-                      { value, ... }@x:
-                      acc // (if isList value then { ordered = acc.ordered ++ value; } else { unordered = acc.unordered ++ [ x ]; })
-                    )
+                    (acc: { value, ... }@x: acc // (if isList value then { ordered = acc.ordered ++ value; } else { unordered = acc.unordered ++ [ x ]; }))
                     {
                       ordered = [ ];
                       unordered = [ ];

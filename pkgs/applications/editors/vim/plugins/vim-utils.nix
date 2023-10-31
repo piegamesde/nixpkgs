@@ -282,9 +282,7 @@ let
         [ beforePlugins ]
         ++ lib.optional (vam != null) (lib.warn "'vam' attribute is deprecated. Use 'packages' instead in your vim configuration" vamImpl)
         ++ lib.optional (packages != null && packages != [ ]) (nativeImpl packages)
-        ++ lib.optional (pathogen != null) (
-          throw "pathogen is now unsupported, replace `pathogen = {}` with `packages.home = { start = []; }`"
-        )
+        ++ lib.optional (pathogen != null) (throw "pathogen is now unsupported, replace `pathogen = {}` with `packages.home = { start = []; }`")
         ++ lib.optional (plug != null) plugImpl
         ++ [ customRC ];
     in
@@ -313,10 +311,7 @@ rec {
           # A shell word used to specify the names of the customized executables.
           # The shell variable $exe can be used to refer to the wrapped executable's name.
           # Examples: "my-$exe", "$exe-with-plugins", "\${exe/vim/v1m}"
-          executableName ? if lib.hasInfix "vim" name then
-            lib.replaceStrings [ "vim" ] [ "$exe" ] name
-          else
-            "\${exe/vim/${lib.escapeShellArg name}}",
+          executableName ? if lib.hasInfix "vim" name then lib.replaceStrings [ "vim" ] [ "$exe" ] name else "\${exe/vim/${lib.escapeShellArg name}}",
           # A custom vimrc configuration, treated as an argument to vimrcContent (see the documentation in this file).
           vimrcConfig ? null,
           # A custom vimrc file.

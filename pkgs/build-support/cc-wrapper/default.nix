@@ -412,9 +412,7 @@ stdenv.mkDerivation {
             # Pull in 'cc.out' target to get 'libstdc++fs.a'. It should be in
             # 'cc.lib'. But it's a gcc package bug.
             # TODO(trofi): remove once gcc is fixed to move libraries to .lib output.
-            echo "-L${gccForLibs}/${
-              optionalString (targetPlatform != hostPlatform) "/${targetPlatform.config}"
-            }/lib" >> $out/nix-support/cc-ldflags
+            echo "-L${gccForLibs}/${optionalString (targetPlatform != hostPlatform) "/${targetPlatform.config}"}/lib" >> $out/nix-support/cc-ldflags
           ''
           # this ensures that when clang passes -lgcc_s to lld (as it does
           # when building e.g. firefox), lld is able to find libgcc_s.so

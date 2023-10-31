@@ -38,11 +38,9 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  buildInputs =
-    [ libxcrypt ]
-    ++ lib.optionals freeipmiSupport [ freeipmi ]
-    ++ lib.optionals gssapiSupport [ libkrb5 ]
-    ++ lib.optionals opensslSupport [ openssl ];
+  buildInputs = [
+    libxcrypt
+  ] ++ lib.optionals freeipmiSupport [ freeipmi ] ++ lib.optionals gssapiSupport [ libkrb5 ] ++ lib.optionals opensslSupport [ openssl ];
 
   configureFlags =
     [

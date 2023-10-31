@@ -86,9 +86,7 @@ self: super:
   # uses doctest
   http-types = dontCheck super.http-types;
 
-  jsaddle =
-    overrideCabal (drv: { libraryHaskellDepends = (drv.libraryHaskellDepends or [ ]) ++ [ self.ghcjs-base ]; })
-      super.jsaddle;
+  jsaddle = overrideCabal (drv: { libraryHaskellDepends = (drv.libraryHaskellDepends or [ ]) ++ [ self.ghcjs-base ]; }) super.jsaddle;
 
   # Tests hang, possibly some issue with tasty and race(async) usage in the nonTerminating tests
   logict = dontCheck super.logict;
@@ -104,8 +102,7 @@ self: super:
   reflex = overrideCabal (drv: { libraryHaskellDepends = (drv.libraryHaskellDepends or [ ]) ++ [ self.ghcjs-base ]; }) super.reflex;
 
   reflex-dom =
-    overrideCabal
-      (drv: { libraryHaskellDepends = removeLibraryHaskellDepends [ "jsaddle-webkit2gtk" ] (drv.libraryHaskellDepends or [ ]); })
+    overrideCabal (drv: { libraryHaskellDepends = removeLibraryHaskellDepends [ "jsaddle-webkit2gtk" ] (drv.libraryHaskellDepends or [ ]); })
       super.reflex-dom;
 
   # https://github.com/dreixel/syb/issues/21

@@ -104,9 +104,7 @@ in
               + optionalString (needBGCond d) ''
 
                 if [ -e $HOME/.background-image ]; then
-                  ${pkgs.feh}/bin/feh --bg-${cfg.wallpaper.mode} ${
-                    optionalString cfg.wallpaper.combineScreens "--no-xinerama"
-                  } $HOME/.background-image
+                  ${pkgs.feh}/bin/feh --bg-${cfg.wallpaper.mode} ${optionalString cfg.wallpaper.combineScreens "--no-xinerama"} $HOME/.background-image
                 fi
               '';
           }

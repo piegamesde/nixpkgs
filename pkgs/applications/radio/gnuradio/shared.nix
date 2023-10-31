@@ -43,8 +43,7 @@ rec {
       (
         feat: info:
         (lib.optionals (hasFeature feat) (
-          (lib.optionals (builtins.hasAttr "native" info) info.native)
-          ++ (lib.optionals (builtins.hasAttr "pythonNative" info) info.pythonNative)
+          (lib.optionals (builtins.hasAttr "native" info) info.native) ++ (lib.optionals (builtins.hasAttr "pythonNative" info) info.pythonNative)
         ))
       )
       featuresInfo
@@ -54,8 +53,7 @@ rec {
       (
         feat: info:
         (lib.optionals (hasFeature feat) (
-          (lib.optionals (builtins.hasAttr "runtime" info) info.runtime)
-          ++ (lib.optionals (builtins.hasAttr "pythonRuntime" info) info.pythonRuntime)
+          (lib.optionals (builtins.hasAttr "runtime" info) info.runtime) ++ (lib.optionals (builtins.hasAttr "pythonRuntime" info) info.pythonRuntime)
         ))
       )
       featuresInfo
@@ -108,18 +106,15 @@ rec {
   # module. It's not that bad since it's a development package for most
   # purposes. If closure size needs to be reduced, features should be disabled
   # via an override.
-  passthru =
-    {
-      inherit
-        hasFeature
-        versionAttr
-        features
-        featuresInfo
-        python
-      ;
-    }
-    // lib.optionalAttrs (hasFeature "gr-qtgui") { inherit qt; }
-    // lib.optionalAttrs (hasFeature "gnuradio-companion") { inherit gtk; };
+  passthru = {
+    inherit
+      hasFeature
+      versionAttr
+      features
+      featuresInfo
+      python
+    ;
+  } // lib.optionalAttrs (hasFeature "gr-qtgui") { inherit qt; } // lib.optionalAttrs (hasFeature "gnuradio-companion") { inherit gtk; };
   # Wrapping is done with an external wrapper
   dontWrapPythonPrograms = true;
   dontWrapQtApps = true;

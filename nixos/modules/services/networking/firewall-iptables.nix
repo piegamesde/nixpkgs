@@ -44,8 +44,7 @@ let
 
   inherit (config.boot.kernelPackages) kernel;
 
-  kernelHasRPFilter =
-    ((kernel.config.isEnabled or (x: false)) "IP_NF_MATCH_RPFILTER") || (kernel.features.netfilterRPFilter or false);
+  kernelHasRPFilter = ((kernel.config.isEnabled or (x: false)) "IP_NF_MATCH_RPFILTER") || (kernel.features.netfilterRPFilter or false);
 
   helpers = import ./helpers.nix { inherit config lib; };
 
@@ -127,9 +126,7 @@ let
       # Perform a reverse-path test to refuse spoofers
       # For now, we just drop, as the mangle table doesn't have a log-refuse yet
       ip46tables -t mangle -N nixos-fw-rpfilter 2> /dev/null || true
-      ip46tables -t mangle -A nixos-fw-rpfilter -m rpfilter --validmark ${
-        optionalString (cfg.checkReversePath == "loose") "--loose"
-      } -j RETURN
+      ip46tables -t mangle -A nixos-fw-rpfilter -m rpfilter --validmark ${optionalString (cfg.checkReversePath == "loose") "--loose"} -j RETURN
 
       # Allows this host to act as a DHCP4 client without first having to use APIPA
       iptables -t mangle -A nixos-fw-rpfilter -p udp --sport 67 --dport 68 -j RETURN

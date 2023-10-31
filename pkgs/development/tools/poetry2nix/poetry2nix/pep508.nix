@@ -76,12 +76,7 @@ let
     exprs:
     let
       splitCond =
-        (
-          s:
-          builtins.map (x: stripStr (if builtins.typeOf x == "list" then (builtins.elemAt x 0) else x)) (
-            builtins.split " (and|or) " (s + " ")
-          )
-        );
+        (s: builtins.map (x: stripStr (if builtins.typeOf x == "list" then (builtins.elemAt x 0) else x)) (builtins.split " (and|or) " (s + " ")));
       mapfn =
         expr:
         (
@@ -207,8 +202,7 @@ let
           else
             builtins.fromJSON v
         );
-      hasElem =
-        needle: haystack: builtins.elem needle (builtins.filter (x: builtins.typeOf x == "string") (builtins.split " " haystack));
+      hasElem = needle: haystack: builtins.elem needle (builtins.filter (x: builtins.typeOf x == "string") (builtins.split " " haystack));
       op = {
         "true" = x: y: true;
         "<=" = x: y: op.">=" y x;

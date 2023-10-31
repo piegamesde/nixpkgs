@@ -71,9 +71,7 @@ let
   preStart = pkgs.writeShellScript "mpdscribble-pre-start" ''
     cp -f "${cfgTemplate}" "${cfgFile}"
     ${replaceSecret cfg.passwordFile "{{MPD_PASSWORD}}" cfgFile}
-    ${concatStringsSep "\n" (
-      mapAttrsToList (secname: cfg: replaceSecret cfg.passwordFile "{{${secname}_PASSWORD}}" cfgFile) cfg.endpoints
-    )}
+    ${concatStringsSep "\n" (mapAttrsToList (secname: cfg: replaceSecret cfg.passwordFile "{{${secname}_PASSWORD}}" cfgFile) cfg.endpoints)}
   '';
 
   localMpd = (cfg.host == "localhost" || cfg.host == "127.0.0.1");
@@ -125,10 +123,7 @@ in
 
     passwordFile = mkOption {
       default =
-        if localMpd then
-          (findFirst (c: any (x: x == "read") c.permissions) { passwordFile = null; } mpdCfg.credentials).passwordFile
-        else
-          null;
+        if localMpd then (findFirst (c: any (x: x == "read") c.permissions) { passwordFile = null; } mpdCfg.credentials).passwordFile else null;
       defaultText = literalMD ''
         The first password file with read access configured for MPD when using a local instance,
         otherwise `null`.

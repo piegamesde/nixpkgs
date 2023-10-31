@@ -258,10 +258,7 @@ let
         else
           lib.remove "pie" supportedHardeningFlags';
       enabledHardeningOptions =
-        if builtins.elem "all" hardeningDisable' then
-          [ ]
-        else
-          lib.subtractLists hardeningDisable' (defaultHardeningFlags ++ hardeningEnable);
+        if builtins.elem "all" hardeningDisable' then [ ] else lib.subtractLists hardeningDisable' (defaultHardeningFlags ++ hardeningEnable);
       # hardeningDisable additionally supports "all".
       erroneousHardeningFlags = lib.subtractLists supportedHardeningFlags (hardeningEnable ++ lib.remove "all" hardeningDisable);
 
@@ -276,9 +273,9 @@ let
             checkDependencyList' ([ index ] ++ positions) name dep
           else
             throw
-              "Dependency is not of a valid type: ${
-                lib.concatMapStrings (ix: "element ${toString ix} of ") ([ index ] ++ positions)
-              }${name} for ${attrs.name or attrs.pname}"
+              "Dependency is not of a valid type: ${lib.concatMapStrings (ix: "element ${toString ix} of ") ([ index ] ++ positions)}${name} for ${
+                attrs.name or attrs.pname
+              }"
         );
     in
     if builtins.length erroneousHardeningFlags != 0 then
@@ -338,9 +335,7 @@ let
           stdenv.extraNativeBuildInputs ++ stdenv.extraBuildInputs ++ lib.concatLists dependencies
         );
 
-        computedPropagatedSandboxProfile = lib.concatMap (input: input.__propagatedSandboxProfile or [ ]) (
-          lib.concatLists propagatedDependencies
-        );
+        computedPropagatedSandboxProfile = lib.concatMap (input: input.__propagatedSandboxProfile or [ ]) (lib.concatLists propagatedDependencies);
 
         computedImpureHostDeps = lib.unique (
           lib.concatMap (input: input.__propagatedImpureHostDeps or [ ]) (
@@ -381,9 +376,7 @@ let
                 # suffix. But we have some weird ones with run-time deps that are
                 # just used for their side-affects. Those might as well since the
                 # hash can't be the same. See #32986.
-                hostSuffix =
-                  lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform && !dontAddHostSuffix)
-                    "-${stdenv.hostPlatform.config}";
+                hostSuffix = lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform && !dontAddHostSuffix) "-${stdenv.hostPlatform.config}";
 
                 # Disambiguate statically built packages. This was originally
                 # introduce as a means to prevent nix-env to get confused between
@@ -482,22 +475,14 @@ let
 
                 crossFlags =
                   [
-                    "-DCMAKE_SYSTEM_NAME=${
-                      lib.findFirst lib.isString "Generic" (lib.optional (!stdenv.hostPlatform.isRedox) stdenv.hostPlatform.uname.system)
-                    }"
+                    "-DCMAKE_SYSTEM_NAME=${lib.findFirst lib.isString "Generic" (lib.optional (!stdenv.hostPlatform.isRedox) stdenv.hostPlatform.uname.system)}"
                   ]
-                  ++ lib.optionals (stdenv.hostPlatform.uname.processor != null) [
-                    "-DCMAKE_SYSTEM_PROCESSOR=${stdenv.hostPlatform.uname.processor}"
-                  ]
+                  ++ lib.optionals (stdenv.hostPlatform.uname.processor != null) [ "-DCMAKE_SYSTEM_PROCESSOR=${stdenv.hostPlatform.uname.processor}" ]
                   ++ lib.optionals (stdenv.hostPlatform.uname.release != null) [ "-DCMAKE_SYSTEM_VERSION=${stdenv.hostPlatform.uname.release}" ]
                   ++ lib.optionals (stdenv.hostPlatform.isDarwin) [ "-DCMAKE_OSX_ARCHITECTURES=${stdenv.hostPlatform.darwinArch}" ]
                   ++ lib.optionals (stdenv.buildPlatform.uname.system != null) [ "-DCMAKE_HOST_SYSTEM_NAME=${stdenv.buildPlatform.uname.system}" ]
-                  ++ lib.optionals (stdenv.buildPlatform.uname.processor != null) [
-                    "-DCMAKE_HOST_SYSTEM_PROCESSOR=${stdenv.buildPlatform.uname.processor}"
-                  ]
-                  ++ lib.optionals (stdenv.buildPlatform.uname.release != null) [
-                    "-DCMAKE_HOST_SYSTEM_VERSION=${stdenv.buildPlatform.uname.release}"
-                  ];
+                  ++ lib.optionals (stdenv.buildPlatform.uname.processor != null) [ "-DCMAKE_HOST_SYSTEM_PROCESSOR=${stdenv.buildPlatform.uname.processor}" ]
+                  ++ lib.optionals (stdenv.buildPlatform.uname.release != null) [ "-DCMAKE_HOST_SYSTEM_VERSION=${stdenv.buildPlatform.uname.release}" ];
               in
               explicitFlags ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) crossFlags;
 

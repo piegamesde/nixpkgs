@@ -332,9 +332,7 @@ builtins.intersectAttrs super {
       )
     ))
   ];
-  glib = disableHardening [ "fortify" ] (
-    addPkgconfigDepend pkgs.glib (addBuildTool self.buildHaskellPackages.gtk2hs-buildtools super.glib)
-  );
+  glib = disableHardening [ "fortify" ] (addPkgconfigDepend pkgs.glib (addBuildTool self.buildHaskellPackages.gtk2hs-buildtools super.glib));
   gtk3 = disableHardening [ "fortify" ] (super.gtk3.override { inherit (pkgs) gtk3; });
   gtk = lib.pipe super.gtk (
     [
@@ -797,9 +795,7 @@ builtins.intersectAttrs super {
   colour = dontCheck super.colour;
   spatial-rotations = dontCheck super.spatial-rotations;
 
-  LDAP = dontCheck (
-    overrideCabal (drv: { librarySystemDepends = drv.librarySystemDepends or [ ] ++ [ pkgs.cyrus_sasl.dev ]; }) super.LDAP
-  );
+  LDAP = dontCheck (overrideCabal (drv: { librarySystemDepends = drv.librarySystemDepends or [ ] ++ [ pkgs.cyrus_sasl.dev ]; }) super.LDAP);
 
   # Not running the "example" test because it requires a binary from lsps test
   # suite which is not part of the output of lsp.
@@ -1288,9 +1284,9 @@ builtins.intersectAttrs super {
   hercules-ci-cnix-expr = addTestToolDepend pkgs.git (
     super.hercules-ci-cnix-expr.override { nix = self.hercules-ci-cnix-store.passthru.nixPackage; }
   );
-  hercules-ci-cnix-store =
-    (super.hercules-ci-cnix-store.override { nix = self.hercules-ci-cnix-store.passthru.nixPackage; }).overrideAttrs
-      (_: { passthru.nixPackage = pkgs.nixVersions.nix_2_14; });
+  hercules-ci-cnix-store = (super.hercules-ci-cnix-store.override { nix = self.hercules-ci-cnix-store.passthru.nixPackage; }).overrideAttrs (
+    _: { passthru.nixPackage = pkgs.nixVersions.nix_2_14; }
+  );
 
   # the testsuite fails because of not finding tsc without some help
   aeson-typescript =

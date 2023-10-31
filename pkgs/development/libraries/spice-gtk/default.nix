@@ -79,23 +79,20 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs =
-    [
-      docbook_xsl
-      gettext
-      gobject-introspection
-      gtk-doc
-      meson
-      ninja
-      perl
-      pkg-config
-      python3
-      python3.pkgs.pyparsing
-      python3.pkgs.six
-      vala
-    ]
-    ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ mesonEmulatorHook ]
-    ++ lib.optionals stdenv.isLinux [ wayland-scanner ];
+  nativeBuildInputs = [
+    docbook_xsl
+    gettext
+    gobject-introspection
+    gtk-doc
+    meson
+    ninja
+    perl
+    pkg-config
+    python3
+    python3.pkgs.pyparsing
+    python3.pkgs.six
+    vala
+  ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ mesonEmulatorHook ] ++ lib.optionals stdenv.isLinux [ wayland-scanner ];
 
   propagatedBuildInputs = [
     gst_all_1.gst-plugins-base

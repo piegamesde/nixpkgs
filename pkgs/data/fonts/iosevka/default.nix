@@ -78,8 +78,7 @@ buildNpmPackage rec {
         darwin.cctools
       ];
 
-  buildPlan =
-    if builtins.isAttrs privateBuildPlan then builtins.toJSON { buildPlans.${pname} = privateBuildPlan; } else privateBuildPlan;
+  buildPlan = if builtins.isAttrs privateBuildPlan then builtins.toJSON { buildPlans.${pname} = privateBuildPlan; } else privateBuildPlan;
 
   inherit extraParameters;
   passAsFile = [

@@ -88,9 +88,7 @@ let
 
           substitute ${run pname pshort pcode} $out/bin/${pshort} \
             --subst-var out
-          substitute ${
-            desktopItem pname pshort plong description
-          }/share/applications/${pname}.desktop $out/share/applications/${pname}.desktop \
+          substitute ${desktopItem pname pshort plong description}/share/applications/${pname}.desktop $out/share/applications/${pname}.desktop \
             --subst-var out
 
           chmod 0755 $out/bin/${pshort}

@@ -191,8 +191,7 @@ in
           preStart =
             ''
               # Cleanup old iptables entries which might be still there
-              ${concatMapStringsSep "\n" ({ table, command }: "while iptables -w -t ${table} -D ${command} 2>/dev/null; do echo; done")
-                iptablesCommands}
+              ${concatMapStringsSep "\n" ({ table, command }: "while iptables -w -t ${table} -D ${command} 2>/dev/null; do echo; done") iptablesCommands}
               ${concatMapStringsSep "\n" ({ table, command }: "iptables -w -t ${table} -A ${command}") iptablesCommands}
 
               # Configure routing for those marked packets

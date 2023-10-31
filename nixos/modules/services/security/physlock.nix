@@ -117,8 +117,7 @@ in
         systemd.services.physlock = {
           enable = true;
           description = "Physlock";
-          wantedBy =
-            optional cfg.lockOn.suspend "suspend.target" ++ optional cfg.lockOn.hibernate "hibernate.target" ++ cfg.lockOn.extraTargets;
+          wantedBy = optional cfg.lockOn.suspend "suspend.target" ++ optional cfg.lockOn.hibernate "hibernate.target" ++ cfg.lockOn.extraTargets;
           before =
             optional cfg.lockOn.suspend "systemd-suspend.service"
             ++ optional cfg.lockOn.hibernate "systemd-hibernate.service"

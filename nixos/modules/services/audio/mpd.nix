@@ -258,8 +258,7 @@ in
         ''
         + optionalString (cfg.credentials != [ ]) (
           concatStringsSep "\n" (
-            imap0 (i: c: "${pkgs.replace-secret}/bin/replace-secret '{{password-${toString i}}}' '${c.passwordFile}' /run/mpd/mpd.conf")
-              cfg.credentials
+            imap0 (i: c: "${pkgs.replace-secret}/bin/replace-secret '{{password-${toString i}}}' '${c.passwordFile}' /run/mpd/mpd.conf") cfg.credentials
           )
         );
 

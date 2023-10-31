@@ -56,9 +56,7 @@ let
   ];
   requiredComponents =
     wmName: enableGnomePanel:
-    "RequiredComponents=${
-      lib.concatStringsSep ";" ([ wmName ] ++ requiredComponentsCommon enableGnomePanel ++ requiredComponentsGsd)
-    };";
+    "RequiredComponents=${lib.concatStringsSep ";" ([ wmName ] ++ requiredComponentsCommon enableGnomePanel ++ requiredComponentsGsd)};";
 
   gnome-flashback = stdenv.mkDerivation rec {
     name = "${pname}-${version}";

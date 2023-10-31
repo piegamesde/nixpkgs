@@ -46,9 +46,7 @@ stdenv.mkDerivation rec {
   postPatch = ''
     substituteInPlace tauon.py \
       --replace 'install_mode = False' 'install_mode = True' \
-      --replace 'install_directory = os.path.dirname(os.path.abspath(__file__))' 'install_directory = "${
-        placeholder "out"
-      }/share/tauon"'
+      --replace 'install_directory = os.path.dirname(os.path.abspath(__file__))' 'install_directory = "${placeholder "out"}/share/tauon"'
 
     substituteInPlace t_modules/t_main.py \
       --replace 'install_mode = False' 'install_mode = True' \

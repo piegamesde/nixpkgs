@@ -52,9 +52,7 @@ in
             options.inheritParentConfig = mkOption {
               type = types.bool;
               default = true;
-              description =
-                lib.mdDoc
-                  "Include the entire system's configuration. Set to false to make a completely differently configured system.";
+              description = lib.mdDoc "Include the entire system's configuration. Set to false to make a completely differently configured system.";
             };
 
             options.configuration = mkOption {

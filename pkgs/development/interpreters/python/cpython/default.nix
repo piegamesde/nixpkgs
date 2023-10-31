@@ -79,8 +79,7 @@ assert enableFramework -> stdenv.isDarwin;
 
 assert lib.assertMsg (reproducibleBuild -> stripBytecode) "Deterministic builds require stripping bytecode.";
 
-assert lib.assertMsg (reproducibleBuild -> (!enableOptimizations))
-    "Deterministic builds are not achieved when optimizations are enabled.";
+assert lib.assertMsg (reproducibleBuild -> (!enableOptimizations)) "Deterministic builds are not achieved when optimizations are enabled.";
 
 assert lib.assertMsg (reproducibleBuild -> (!rebuildBytecode))
     "Deterministic builds are not achieved when (default unoptimized) bytecode is created.";
@@ -433,9 +432,7 @@ stdenv.mkDerivation {
       "ac_cv_file__dev_ptmx=yes"
       "ac_cv_file__dev_ptc=yes"
     ]
-    ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform && pythonAtLeast "3.11") [
-      "--with-build-python=${pythonForBuildInterpreter}"
-    ]
+    ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform && pythonAtLeast "3.11") [ "--with-build-python=${pythonForBuildInterpreter}" ]
     ++
       optionals stdenv.hostPlatform.isLinux
         [

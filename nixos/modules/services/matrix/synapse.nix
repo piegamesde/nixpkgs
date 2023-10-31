@@ -52,9 +52,7 @@ let
       exec ${cfg.package}/bin/register_new_matrix_user \
         $@ \
         ${lib.concatMapStringsSep " " (x: "-c ${x}") ([ configFile ] ++ cfg.extraConfigFiles)} \
-        "${listenerProtocol}://${if (isIpv6 bindAddress) then "[${bindAddress}]" else "${bindAddress}"}:${
-          builtins.toString listener.port
-        }/"
+        "${listenerProtocol}://${if (isIpv6 bindAddress) then "[${bindAddress}]" else "${bindAddress}"}:${builtins.toString listener.port}/"
     '';
 in
 {

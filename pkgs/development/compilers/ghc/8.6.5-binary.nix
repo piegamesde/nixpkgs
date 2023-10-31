@@ -153,14 +153,11 @@ stdenv.mkDerivation rec {
       '';
 
   configurePlatforms = [ ];
-  configureFlags =
-    [
-      "--with-gmp-includes=${lib.getDev gmp}/include"
-      # Note `--with-gmp-libraries` does nothing for GHC bindists:
-      # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/6124
-    ]
-    ++ lib.optional stdenv.isDarwin "--with-gcc=${./gcc-clang-wrapper.sh}"
-    ++ lib.optional stdenv.hostPlatform.isMusl "--disable-ld-override";
+  configureFlags = [
+    "--with-gmp-includes=${lib.getDev gmp}/include"
+    # Note `--with-gmp-libraries` does nothing for GHC bindists:
+    # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/6124
+  ] ++ lib.optional stdenv.isDarwin "--with-gcc=${./gcc-clang-wrapper.sh}" ++ lib.optional stdenv.hostPlatform.isMusl "--disable-ld-override";
 
   # No building is necessary, but calling make without flags ironically
   # calls install-strip ...

@@ -207,10 +207,7 @@ rec {
                 description = singleAtom.description + " or a list of them for duplicate keys";
               }
             else if listToValue != null then
-              coercedTo singleAtom lib.singleton (nonEmptyListOf singleAtom)
-              // {
-                description = singleAtom.description + " or a non-empty list of them";
-              }
+              coercedTo singleAtom lib.singleton (nonEmptyListOf singleAtom) // { description = singleAtom.description + " or a non-empty list of them"; }
             else
               singleAtom;
         in
@@ -219,8 +216,7 @@ rec {
       generate =
         name: value:
         let
-          transformedValue =
-            if listToValue != null then lib.mapAttrs (key: val: if lib.isList val then listToValue val else val) value else value;
+          transformedValue = if listToValue != null then lib.mapAttrs (key: val: if lib.isList val then listToValue val else val) value else value;
         in
         pkgs.writeText name (lib.generators.toKeyValue (removeAttrs args [ "listToValue" ]) transformedValue);
     };

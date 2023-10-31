@@ -944,10 +944,7 @@ in
     '';
 
     nix.nrBuildUsers = mkDefault (
-      if cfg.settings.auto-allocate-uids or false then
-        0
-      else
-        max 32 (if cfg.settings.max-jobs == "auto" then 0 else cfg.settings.max-jobs)
+      if cfg.settings.auto-allocate-uids or false then 0 else max 32 (if cfg.settings.max-jobs == "auto" then 0 else cfg.settings.max-jobs)
     );
 
     users.users = nixbldUsers;

@@ -32,8 +32,7 @@ in
 assert forceWayland -> !enableQt;
 stdenv.mkDerivation (
   finalAttrs: {
-    pname =
-      "ppsspp" + lib.optionalString enableQt "-qt" + lib.optionalString (!enableQt) "-sdl" + lib.optionalString forceWayland "-wayland";
+    pname = "ppsspp" + lib.optionalString enableQt "-qt" + lib.optionalString (!enableQt) "-sdl" + lib.optionalString forceWayland "-wayland";
     version = "1.14.4";
 
     src = fetchFromGitHub {

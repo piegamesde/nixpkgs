@@ -133,8 +133,7 @@ let
             $file 2>&1 >> $out
           done
           set -e
-          ${lib.concatMapStringsSep "\n" (o: ''grep '${o}' $out || {  echo 'output "${o}" not found in:'; cat $out; exit 23; }'')
-            expectedTestOutputs}
+          ${lib.concatMapStringsSep "\n" (o: ''grep '${o}' $out || {  echo 'output "${o}" not found in:'; cat $out; exit 23; }'') expectedTestOutputs}
         ''
       else
         ''

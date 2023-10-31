@@ -36,17 +36,12 @@ mkDerivation rec {
     qttools
   ];
 
-  buildInputs =
-    [
-      gdal
-      proj
-      qtsvg
-      qtwebengine
-    ]
-    ++ lib.optional withGeoimage exiv2
-    ++ lib.optional withGpsdlib gpsd
-    ++ lib.optional withLibproxy libproxy
-    ++ lib.optional withZbar zbar;
+  buildInputs = [
+    gdal
+    proj
+    qtsvg
+    qtwebengine
+  ] ++ lib.optional withGeoimage exiv2 ++ lib.optional withGpsdlib gpsd ++ lib.optional withLibproxy libproxy ++ lib.optional withZbar zbar;
 
   preConfigure = ''
     lrelease src/src.pro

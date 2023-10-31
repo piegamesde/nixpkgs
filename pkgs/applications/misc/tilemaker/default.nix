@@ -49,9 +49,7 @@ stdenv.mkDerivation (
       zlib
     ];
 
-    cmakeFlags =
-      lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
-        "-DPROTOBUF_PROTOC_EXECUTABLE=${buildPackages.protobuf}/bin/protoc";
+    cmakeFlags = lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) "-DPROTOBUF_PROTOC_EXECUTABLE=${buildPackages.protobuf}/bin/protoc";
 
     env.NIX_CFLAGS_COMPILE = toString [ "-DTM_VERSION=${finalAttrs.version}" ];
 

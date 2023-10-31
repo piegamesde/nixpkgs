@@ -149,9 +149,7 @@ stdenv.mkDerivation (
       ];
 
     buildInputs =
-      buildInputs
-      ++ lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ]
-      ++ lib.optionals stdenv.hostPlatform.isMinGW [ windows.pthreads ];
+      buildInputs ++ lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ] ++ lib.optionals stdenv.hostPlatform.isMinGW [ windows.pthreads ];
 
     patches = cargoPatches ++ patches;
 

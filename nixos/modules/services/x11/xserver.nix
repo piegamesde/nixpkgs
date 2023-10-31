@@ -699,12 +699,7 @@ in
         dmConf = cfg.displayManager;
         default =
           !(
-            dmConf.gdm.enable
-            || dmConf.sddm.enable
-            || dmConf.xpra.enable
-            || dmConf.sx.enable
-            || dmConf.startx.enable
-            || config.services.greetd.enable
+            dmConf.gdm.enable || dmConf.sddm.enable || dmConf.xpra.enable || dmConf.sx.enable || dmConf.startx.enable || config.services.greetd.enable
           );
       in
       mkIf (default) (mkDefault true);
@@ -840,9 +835,7 @@ in
       restartIfChanged = false;
 
       environment =
-        optionalAttrs config.hardware.opengl.setLdLibraryPath {
-          LD_LIBRARY_PATH = lib.makeLibraryPath [ pkgs.addOpenGLRunpath.driverLink ];
-        }
+        optionalAttrs config.hardware.opengl.setLdLibraryPath { LD_LIBRARY_PATH = lib.makeLibraryPath [ pkgs.addOpenGLRunpath.driverLink ]; }
         // cfg.displayManager.job.environment;
 
       preStart = ''
@@ -979,28 +972,23 @@ in
               }
 
               ${
-                optionalString
-                  (driver.name != "virtualbox" && (cfg.resolutions != [ ] || cfg.extraDisplaySettings != "" || cfg.virtualScreen != null))
-                  (
-                    let
-                      f = depth: ''
-                        SubSection "Display"
-                          Depth ${toString depth}
-                          ${
-                            optionalString (cfg.resolutions != [ ])
-                              "Modes ${concatMapStrings (res: ''"${toString res.x}x${toString res.y}"'') cfg.resolutions}"
-                          }
-                        ${indent cfg.extraDisplaySettings}
-                          ${optionalString (cfg.virtualScreen != null) "Virtual ${toString cfg.virtualScreen.x} ${toString cfg.virtualScreen.y}"}
-                        EndSubSection
-                      '';
-                    in
-                    concatMapStrings f [
-                      8
-                      16
-                      24
-                    ]
-                  )
+                optionalString (driver.name != "virtualbox" && (cfg.resolutions != [ ] || cfg.extraDisplaySettings != "" || cfg.virtualScreen != null)) (
+                  let
+                    f = depth: ''
+                      SubSection "Display"
+                        Depth ${toString depth}
+                        ${optionalString (cfg.resolutions != [ ]) "Modes ${concatMapStrings (res: ''"${toString res.x}x${toString res.y}"'') cfg.resolutions}"}
+                      ${indent cfg.extraDisplaySettings}
+                        ${optionalString (cfg.virtualScreen != null) "Virtual ${toString cfg.virtualScreen.x} ${toString cfg.virtualScreen.y}"}
+                      EndSubSection
+                    '';
+                  in
+                  concatMapStrings f [
+                    8
+                    16
+                    24
+                  ]
+                )
               }
 
             EndSection

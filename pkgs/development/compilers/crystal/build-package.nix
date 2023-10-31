@@ -121,9 +121,7 @@ stdenv.mkDerivation (
         [ "runHook preBuild" ]
         ++ lib.optional (format == "make") "make \${buildTargets:-build} $makeFlags"
         ++ lib.optionals (format == "crystal") (lib.mapAttrsToList mkCrystalBuildArgs crystalBinaries)
-        ++
-          lib.optional (format == "shards")
-            "shards build --local --production ${lib.concatStringsSep " " (args.options or defaultOptions)}"
+        ++ lib.optional (format == "shards") "shards build --local --production ${lib.concatStringsSep " " (args.options or defaultOptions)}"
         ++ [ "runHook postBuild" ]
       ));
 

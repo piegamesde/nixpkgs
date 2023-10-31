@@ -51,8 +51,7 @@ let
         Valid choices are qtwebengine (recommended) or qtwebkit.
       '';
 
-  buildPythonApplication =
-    if isQt6 then python3Packages.buildPythonApplication else mkDerivationWith python3Packages.buildPythonApplication;
+  buildPythonApplication = if isQt6 then python3Packages.buildPythonApplication else mkDerivationWith python3Packages.buildPythonApplication;
 
   pname = "qutebrowser";
   version = if isQt6 then "unstable-2023-04-18" else "2.5.3";
@@ -187,8 +186,7 @@ buildPythonApplication {
         ${lib.optionalString (pipewireSupport && backend == "webengine") "--prefix LD_LIBRARY_PATH : ${libPath}"}
         ${
           lib.optionalString enableWideVine
-            ''
-              --add-flags "--qt-flag widevine-path=${widevine-cdm}/share/google/chrome/WidevineCdm/_platform_specific/linux_x64/libwidevinecdm.so"''
+            ''--add-flags "--qt-flag widevine-path=${widevine-cdm}/share/google/chrome/WidevineCdm/_platform_specific/linux_x64/libwidevinecdm.so"''
         }
       )
     '';

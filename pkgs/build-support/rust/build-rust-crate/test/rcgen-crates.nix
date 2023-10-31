@@ -1761,8 +1761,7 @@ rec {
             packageId = "web-sys";
             usesDefaultFeatures = false;
             target =
-              { target, features }:
-              ((target."arch" == "wasm32") && (target."vendor" == "unknown") && (target."os" == "unknown") && (target."env" == ""));
+              { target, features }: ((target."arch" == "wasm32") && (target."vendor" == "unknown") && (target."os" == "unknown") && (target."env" == ""));
             features = [
               "Crypto"
               "Window"
@@ -4163,11 +4162,7 @@ rec {
         || (
           type == "directory"
           && (
-            baseName == "target"
-            || baseName == "_site"
-            || baseName == ".sass-cache"
-            || baseName == ".jekyll-metadata"
-            || baseName == "build-artifacts"
+            baseName == "target" || baseName == "_site" || baseName == ".sass-cache" || baseName == ".jekyll-metadata" || baseName == "build-artifacts"
           )
         )
 
@@ -4455,9 +4450,7 @@ rec {
                   url = "https://static.crates.io/crates/${crateConfig.crateName}/${crateConfig.crateName}-${crateConfig.version}.crate";
                   sha256 = assert (lib.assertMsg (crateConfig ? sha256) "Missing sha256 for ${name}"); crateConfig.sha256;
                 });
-              extraRustcOpts =
-                lib.lists.optional (targetFeatures != [ ])
-                  "-C target-feature=${lib.concatMapStringsSep "," (x: "+${x}") targetFeatures}";
+              extraRustcOpts = lib.lists.optional (targetFeatures != [ ]) "-C target-feature=${lib.concatMapStringsSep "," (x: "+${x}") targetFeatures}";
               inherit
                 features
                 dependencies
@@ -4565,8 +4558,7 @@ rec {
         onlyInCargo = builtins.attrNames (lib.filterAttrs (n: v: !(v ? "crate2nix") && (v ? "cargo")) combined);
         onlyInCrate2Nix = builtins.attrNames (lib.filterAttrs (n: v: (v ? "crate2nix") && !(v ? "cargo")) combined);
         differentFeatures =
-          lib.filterAttrs
-            (n: v: (v ? "crate2nix") && (v ? "cargo") && (v.crate2nix.features or [ ]) != (v."cargo".resolved_default_features or [ ]))
+          lib.filterAttrs (n: v: (v ? "crate2nix") && (v ? "cargo") && (v.crate2nix.features or [ ]) != (v."cargo".resolved_default_features or [ ]))
             combined;
       in
       builtins.toJSON { inherit onlyInCargo onlyInCrate2Nix differentFeatures; };
@@ -4700,8 +4692,7 @@ rec {
       assert (builtins.isAttrs featureMap);
       assert (builtins.isList inputFeatures);
       let
-        expandFeature =
-          feature: assert (builtins.isString feature); [ feature ] ++ (expandFeatures featureMap (featureMap."${feature}" or [ ]));
+        expandFeature = feature: assert (builtins.isString feature); [ feature ] ++ (expandFeatures featureMap (featureMap."${feature}" or [ ]));
         outFeatures = lib.concatMap expandFeature inputFeatures;
       in
       sortedUnique outFeatures;

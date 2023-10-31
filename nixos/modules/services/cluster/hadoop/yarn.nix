@@ -126,8 +126,7 @@ in
         serviceConfig = {
           User = "yarn";
           SyslogIdentifier = "yarn-resourcemanager";
-          ExecStart =
-            "${cfg.package}/bin/yarn --config ${hadoopConf} " + " resourcemanager ${escapeShellArgs cfg.yarn.resourcemanager.extraFlags}";
+          ExecStart = "${cfg.package}/bin/yarn --config ${hadoopConf} " + " resourcemanager ${escapeShellArgs cfg.yarn.resourcemanager.extraFlags}";
           Restart = "always";
         };
       };

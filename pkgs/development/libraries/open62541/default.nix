@@ -26,11 +26,7 @@
 }:
 
 let
-  encryptionBackend =
-    {
-      inherit openssl mbedtls;
-    }
-    ."${withEncryption}" or (throw "Unsupported encryption backend: ${withEncryption}");
+  encryptionBackend = { inherit openssl mbedtls; }."${withEncryption}" or (throw "Unsupported encryption backend: ${withEncryption}");
 in
 
 stdenv.mkDerivation (

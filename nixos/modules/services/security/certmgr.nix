@@ -32,8 +32,9 @@ let
   );
 
   specPaths = map dirOf (
-    concatMap (spec: if isAttrs spec then collect isString (filterAttrsRecursive (n: v: isAttrs v || n == "path") spec) else [ spec ])
-      (attrValues cfg.specs)
+    concatMap (spec: if isAttrs spec then collect isString (filterAttrsRecursive (n: v: isAttrs v || n == "path") spec) else [ spec ]) (
+      attrValues cfg.specs
+    )
   );
 
   preStart = ''

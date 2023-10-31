@@ -242,14 +242,8 @@
   ,
   buildSwscale ? withHeadlessDeps # Build swscale library
   ,
-  withLib ? buildAvcodec
-    || buildAvdevice
-    || buildAvfilter
-    || buildAvformat
-    || buildAvutil
-    || buildPostproc
-    || buildSwresample
-    || buildSwscale,
+  withLib ?
+    buildAvcodec || buildAvdevice || buildAvfilter || buildAvformat || buildAvutil || buildPostproc || buildSwresample || buildSwscale,
   # *  Documentation options
   withDocumentation ? withHtmlDoc || withManPages || withPodDoc || withTxtDoc,
   withHtmlDoc ? withHeadlessDeps # HTML documentation pages
@@ -803,8 +797,7 @@ stdenv.mkDerivation (
         a corporation.
       '';
       license =
-        with licenses;
-        [ lgpl21Plus ] ++ optional withGPL gpl2Plus ++ optional withGPLv3 gpl3Plus ++ optional withUnfree unfreeRedistributable;
+        with licenses; [ lgpl21Plus ] ++ optional withGPL gpl2Plus ++ optional withGPLv3 gpl3Plus ++ optional withUnfree unfreeRedistributable;
       pkgConfigModules = [ "libavutil" ];
       platforms = platforms.all;
       maintainers = with maintainers; [ atemu ];

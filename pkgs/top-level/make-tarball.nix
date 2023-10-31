@@ -19,10 +19,7 @@ pkgs.releaseTools.sourceTarball {
   inherit officialRelease;
   version = pkgs.lib.fileContents ../../.version;
   versionSuffix = "pre${
-      if nixpkgs ? lastModified then
-        builtins.substring 0 8 (nixpkgs.lastModifiedDate or nixpkgs.lastModified)
-      else
-        toString nixpkgs.revCount
+      if nixpkgs ? lastModified then builtins.substring 0 8 (nixpkgs.lastModifiedDate or nixpkgs.lastModified) else toString nixpkgs.revCount
     }.${nixpkgs.shortRev or "dirty"}";
 
   buildInputs = with pkgs; [

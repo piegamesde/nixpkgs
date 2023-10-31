@@ -29,22 +29,15 @@ let
   blocklist = config.blocklistedLicenses or config.blacklistedLicenses or [ ];
 
   areLicenseListsValid =
-    if lib.mutuallyExclusive allowlist blocklist then
-      true
-    else
-      throw "allowlistedLicenses and blocklistedLicenses are not mutually exclusive.";
+    if lib.mutuallyExclusive allowlist blocklist then true else throw "allowlistedLicenses and blocklistedLicenses are not mutually exclusive.";
 
   hasLicense = attrs: attrs ? meta.license;
 
   hasAllowlistedLicense =
-    assert areLicenseListsValid;
-    attrs:
-    hasLicense attrs && lib.lists.any (l: builtins.elem l allowlist) (lib.lists.toList attrs.meta.license);
+    assert areLicenseListsValid; attrs: hasLicense attrs && lib.lists.any (l: builtins.elem l allowlist) (lib.lists.toList attrs.meta.license);
 
   hasBlocklistedLicense =
-    assert areLicenseListsValid;
-    attrs:
-    hasLicense attrs && lib.lists.any (l: builtins.elem l blocklist) (lib.lists.toList attrs.meta.license);
+    assert areLicenseListsValid; attrs: hasLicense attrs && lib.lists.any (l: builtins.elem l blocklist) (lib.lists.toList attrs.meta.license);
 
   allowBroken = config.allowBroken || builtins.getEnv "NIXPKGS_ALLOW_BROKEN" == "1";
 
@@ -79,8 +72,7 @@ let
   allowInsecureDefaultPredicate = x: builtins.elem (getName x) (config.permittedInsecurePackages or [ ]);
   allowInsecurePredicate = x: (config.allowInsecurePredicate or allowInsecureDefaultPredicate) x;
 
-  hasAllowedInsecure =
-    attrs: !(isMarkedInsecure attrs) || allowInsecurePredicate attrs || builtins.getEnv "NIXPKGS_ALLOW_INSECURE" == "1";
+  hasAllowedInsecure = attrs: !(isMarkedInsecure attrs) || allowInsecurePredicate attrs || builtins.getEnv "NIXPKGS_ALLOW_INSECURE" == "1";
 
   isNonSource = sourceTypes: lib.lists.any (t: !t.isSource) sourceTypes;
 
@@ -529,8 +521,7 @@ let
       ;
 
       available =
-        validity.valid != "no"
-        && (if config.checkMetaRecursively or false then lib.all (d: d.meta.available or true) references else true);
+        validity.valid != "no" && (if config.checkMetaRecursively or false then lib.all (d: d.meta.available or true) references else true);
     };
 
   assertValidity =

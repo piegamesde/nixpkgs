@@ -41,10 +41,7 @@ let
   accumulateDerivations =
     jobList:
     lib.concatMap
-      (
-        attrs:
-        if lib.isDerivation attrs then [ attrs ] else lib.optionals (lib.isAttrs attrs) (accumulateDerivations (lib.attrValues attrs))
-      )
+      (attrs: if lib.isDerivation attrs then [ attrs ] else lib.optionals (lib.isAttrs attrs) (accumulateDerivations (lib.attrValues attrs)))
       jobList;
 
   # names of all subsets of `pkgs.haskell.packages`
@@ -217,8 +214,7 @@ let
   #   };
   # }
   removePlatforms =
-    platformsToRemove: packageSet:
-    lib.mapAttrsRecursive (_: val: if lib.isList val then removeMany platformsToRemove val else val) packageSet;
+    platformsToRemove: packageSet: lib.mapAttrsRecursive (_: val: if lib.isList val then removeMany platformsToRemove val else val) packageSet;
 
   jobs = recursiveUpdateMany [
     (mapTestOn {
@@ -570,9 +566,7 @@ let
           description = "Aggregate jobset of all haskell packages with a maintainer";
           maintainers = lib.teams.haskell.members;
         };
-        constituents = accumulateDerivations (
-          builtins.map (name: jobs.haskellPackages."${name}") (maintainedPkgNames pkgs.haskellPackages)
-        );
+        constituents = accumulateDerivations (builtins.map (name: jobs.haskellPackages."${name}") (maintainedPkgNames pkgs.haskellPackages));
       };
 
       muslGHCs = pkgs.releaseTools.aggregate {

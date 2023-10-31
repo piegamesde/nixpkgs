@@ -188,9 +188,7 @@ stdenv.mkDerivation rec {
       (enableFeature (temporalDenoisingSupport && (vp9DecoderSupport || vp9EncoderSupport)) "vp9-temporal-denoising")
       (enableFeature coefficientRangeCheckingSupport "coefficient-range-checking")
       (enableFeature (vp9HighbitdepthSupport && is64bit) "vp9-highbitdepth")
-      (enableFeature (experimentalSpatialSvcSupport || experimentalFpMbStatsSupport || experimentalEmulateHardwareSupport)
-        "experimental"
-      )
+      (enableFeature (experimentalSpatialSvcSupport || experimentalFpMbStatsSupport || experimentalEmulateHardwareSupport) "experimental")
     ]
     ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       "--enable-external-build"

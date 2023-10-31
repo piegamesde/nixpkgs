@@ -189,9 +189,7 @@ let
 
               patches =
                 op (lib.versionOlder ver.majMin "3.1") ./do-not-regenerate-revision.h.patch
-                ++ op (atLeast30 && useBaseRuby) (
-                  if atLeast32 then ./do-not-update-gems-baseruby-3.2.patch else ./do-not-update-gems-baseruby.patch
-                )
+                ++ op (atLeast30 && useBaseRuby) (if atLeast32 then ./do-not-update-gems-baseruby-3.2.patch else ./do-not-update-gems-baseruby.patch)
                 ++
                   ops (ver.majMin == "3.0")
                     [

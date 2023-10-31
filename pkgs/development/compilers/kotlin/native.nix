@@ -20,8 +20,7 @@ stdenv.mkDerivation rec {
         }
         .${stdenv.system} or (throw "${pname}-${version}: ${stdenv.system} is unsupported.");
 
-      getUrl =
-        version: arch: "https://github.com/JetBrains/kotlin/releases/download/v${version}/kotlin-native-${arch}-${version}.tar.gz";
+      getUrl = version: arch: "https://github.com/JetBrains/kotlin/releases/download/v${version}/kotlin-native-${arch}-${version}.tar.gz";
 
       getHash =
         arch:

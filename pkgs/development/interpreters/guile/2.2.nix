@@ -37,9 +37,7 @@ builder rec {
   ];
   setOutputFlags = false; # $dev gets into the library otherwise
 
-  depsBuildBuild = [
-    buildPackages.stdenv.cc
-  ] ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) pkgsBuildBuild.guile_2_2;
+  depsBuildBuild = [ buildPackages.stdenv.cc ] ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) pkgsBuildBuild.guile_2_2;
   nativeBuildInputs = [
     makeWrapper
     pkg-config

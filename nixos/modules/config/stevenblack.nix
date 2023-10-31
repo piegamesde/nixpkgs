@@ -50,9 +50,7 @@ in
 
   config = mkIf cfg.enable {
     networking.hostFiles =
-      [ ]
-      ++ optionals (activatedHosts != [ ]) [ hostsPath ]
-      ++ optionals (activatedHosts == [ ]) [ "${pkgs.stevenblack-blocklist}/hosts" ];
+      [ ] ++ optionals (activatedHosts != [ ]) [ hostsPath ] ++ optionals (activatedHosts == [ ]) [ "${pkgs.stevenblack-blocklist}/hosts" ];
   };
 
   meta.maintainers = [

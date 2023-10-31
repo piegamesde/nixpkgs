@@ -78,9 +78,7 @@ let
 
     # Implements the builtins.toString interface.
     __toString =
-      self:
-      self.majMinTiny
-      + (if self.patchLevel != null then "-p${self.patchLevel}" else lib.optionalString (self.tail != "") "-${self.tail}");
+      self: self.majMinTiny + (if self.patchLevel != null then "-p${self.patchLevel}" else lib.optionalString (self.tail != "") "-${self.tail}");
   };
 in
 rubyVersion

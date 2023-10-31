@@ -196,8 +196,7 @@ makeSetupHook
             in
             testLib.runTest "typelib-multiout-user-has-gi-typelib-path" ''
               ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo" "GI_TYPELIB_PATH" "${typelib-Bechamel.lib}/lib/girepository-1.0"}
-              ${expectSomeLineContainingYInFileXToMentionZ "${tested}/libexec/bar" "GI_TYPELIB_PATH"
-                "${typelib-Bechamel.lib}/lib/girepository-1.0"}
+              ${expectSomeLineContainingYInFileXToMentionZ "${tested}/libexec/bar" "GI_TYPELIB_PATH" "${typelib-Bechamel.lib}/lib/girepository-1.0"}
             '';
 
           # Simple derivation that contains a typelib as well as a program using it.
@@ -230,8 +229,7 @@ makeSetupHook
             in
             testLib.runTest "typelib-self-user-has-gi-typelib-path" ''
               ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo" "GI_TYPELIB_PATH" "${typelib-self-user}/lib/girepository-1.0"}
-              ${expectSomeLineContainingYInFileXToMentionZ "${tested}/libexec/bar" "GI_TYPELIB_PATH"
-                "${typelib-self-user}/lib/girepository-1.0"}
+              ${expectSomeLineContainingYInFileXToMentionZ "${tested}/libexec/bar" "GI_TYPELIB_PATH" "${typelib-self-user}/lib/girepository-1.0"}
             '';
         };
     };
