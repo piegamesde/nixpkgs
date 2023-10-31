@@ -1,13 +1,7 @@
-{
-  system,
-  ...
-}:
+{ system, ... }:
 {
   baseConfig =
-    {
-      pkgs,
-      ...
-    }:
+    { pkgs, ... }:
     let
       trivialJob = pkgs.writeTextDir "trivial.nix" ''
         { trivial = builtins.derivation {

@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    lib,
-    pkgs,
-    ...
-  }:
+  { lib, pkgs, ... }:
 
   {
     name = "zammad";
@@ -14,10 +10,7 @@ import ./make-test-python.nix (
     ];
 
     nodes.machine =
-      {
-        config,
-        ...
-      }:
+      { config, ... }:
       {
         services.zammad.enable = true;
         services.zammad.secretKeyBaseFile = pkgs.writeText "secret" ''

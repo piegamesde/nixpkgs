@@ -541,10 +541,7 @@ let
   # security.acme.defaults or security.acme.certs.<name>
   inheritableModule =
     isDefaults:
-    {
-      config,
-      ...
-    }:
+    { config, ... }:
     let
       defaultAndText = name: default: {
         # When ! isDefaults then this is the option declaration for the
@@ -740,11 +737,7 @@ let
   ;
 
   certOpts =
-    {
-      name,
-      config,
-      ...
-    }:
+    { name, config, ... }:
     {
       options = {
         # user option has been removed

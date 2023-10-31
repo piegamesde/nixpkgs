@@ -2,11 +2,7 @@
 # solicication/advertisement using radvd works.
 
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   {
     name = "ipv6";
     meta = with pkgs.lib.maintainers; { maintainers = [ eelco ]; };
@@ -43,9 +39,7 @@ import ./make-test-python.nix (
       };
 
       router =
-        {
-          ...
-        }:
+        { ... }:
         {
           services.radvd.enable = true;
           services.radvd.config = ''

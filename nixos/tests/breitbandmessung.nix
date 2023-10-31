@@ -1,17 +1,11 @@
 import ./make-test-python.nix (
-  {
-    lib,
-    ...
-  }:
+  { lib, ... }:
   {
     name = "breitbandmessung";
     meta.maintainers = with lib.maintainers; [ b4dm4n ];
 
     nodes.machine =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         imports = [
           ./common/user-account.nix

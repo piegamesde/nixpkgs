@@ -47,9 +47,7 @@ let
           };
 
           nodes.machine =
-            {
-              ...
-            }:
+            { ... }:
             {
               imports = [ testConfig ] ++ optional withX11 ../common/x11.nix;
 

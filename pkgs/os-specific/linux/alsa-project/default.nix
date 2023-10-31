@@ -1,7 +1,4 @@
-{
-  lib,
-  pkgs,
-}:
+{ lib, pkgs }:
 
 lib.makeScope pkgs.newScope (
   self: {

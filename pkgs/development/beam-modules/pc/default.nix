@@ -1,7 +1,4 @@
-{
-  lib,
-  buildHex,
-}:
+{ lib, buildHex }:
 
 buildHex {
   name = "pc";

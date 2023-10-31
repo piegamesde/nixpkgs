@@ -5,11 +5,7 @@ let
       fullVersion ? false,
     }:
     import ./make-test-python.nix (
-      {
-        pkgs,
-        lib,
-        ...
-      }:
+      { pkgs, lib, ... }:
       let
         testFile = pkgs.fetchurl {
           url = "https://file-examples.com/storage/fe5947fd2362fc197a3c2df/2017/11/file_example_MP3_700KB.mp3";
@@ -18,10 +14,7 @@ let
 
         makeTestPlay =
           key:
-          {
-            sox,
-            alsa-utils,
-          }:
+          { sox, alsa-utils }:
           pkgs.writeScriptBin key ''
             set -euxo pipefail
             ${sox}/bin/play ${testFile}
@@ -48,9 +41,7 @@ let
         };
 
         nodes.machine =
-          {
-            ...
-          }:
+          { ... }:
 
           {
             imports = [ ./common/wayland-cage.nix ];
@@ -74,9 +65,7 @@ let
         enableOCR = true;
 
         testScript =
-          {
-            ...
-          }:
+          { ... }:
           ''
             machine.wait_until_succeeds("pgrep xterm")
             machine.wait_for_text("alice@machine")

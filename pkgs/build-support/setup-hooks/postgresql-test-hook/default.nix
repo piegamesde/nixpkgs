@@ -1,7 +1,4 @@
-{
-  callPackage,
-  makeSetupHook,
-}:
+{ callPackage, makeSetupHook }:
 
 makeSetupHook
   {

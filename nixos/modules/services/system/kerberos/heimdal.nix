@@ -21,10 +21,7 @@ let
     mapAttrs
       (
         name:
-        {
-          acl,
-          ...
-        }:
+        { acl, ... }:
         pkgs.writeText "${name}.acl" (
           concatMapStrings
             (

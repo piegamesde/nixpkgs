@@ -35,10 +35,7 @@ stdenv.mkDerivation rec {
   patches =
     let
       fetchDebianPatch =
-        {
-          name,
-          sha256,
-        }:
+        { name, sha256 }:
         fetchpatch {
           url = "https://salsa.debian.org/debian/pdfchain/raw/2d29107756a3194fb522bdea8e9b9e393b15a8f3/debian/patches/${name}";
           inherit name sha256;

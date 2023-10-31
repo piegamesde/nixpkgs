@@ -1,8 +1,4 @@
-{
-  lib,
-  pkgs,
-  ...
-}:
+{ lib, pkgs, ... }:
 
 with lib;
 
@@ -115,11 +111,7 @@ let
   ;
 
   opts =
-    {
-      config,
-      name,
-      ...
-    }:
+    { config, name, ... }:
     {
       options.runner = mkOption {
         internal = true;

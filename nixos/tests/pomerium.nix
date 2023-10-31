@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   {
     name = "pomerium";
     meta = with lib.maintainers; { maintainers = [ lukegb ]; };
@@ -12,11 +8,7 @@ import ./make-test-python.nix (
       let
         base =
           myIP:
-          {
-            pkgs,
-            lib,
-            ...
-          }:
+          { pkgs, lib, ... }:
           {
             virtualisation.vlans = [ 1 ];
             networking = {
@@ -45,11 +37,7 @@ import ./make-test-python.nix (
       in
       {
         pomerium =
-          {
-            pkgs,
-            lib,
-            ...
-          }:
+          { pkgs, lib, ... }:
           {
             imports = [ (base "192.168.1.1") ];
             environment.systemPackages = with pkgs; [ chromium ];
@@ -89,11 +77,7 @@ import ./make-test-python.nix (
           }
         ;
         backend =
-          {
-            pkgs,
-            lib,
-            ...
-          }:
+          { pkgs, lib, ... }:
           {
             imports = [ (base "192.168.1.2") ];
             services.nginx.enable = true;
@@ -125,9 +109,7 @@ import ./make-test-python.nix (
     ;
 
     testScript =
-      {
-        ...
-      }:
+      { ... }:
       ''
         backend.wait_for_unit("nginx")
         backend.wait_for_open_port(80)

@@ -30,9 +30,7 @@ let
     case:
     callPackage
       (
-        {
-          writeShellScript,
-        }:
+        { writeShellScript }:
         writeShellScript "test-trivial-callpackage-overriding-${case}" extglobScript
       )
       { }

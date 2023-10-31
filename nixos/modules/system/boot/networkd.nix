@@ -3068,10 +3068,7 @@ let
   };
 
   networkConfig =
-    {
-      config,
-      ...
-    }:
+    { config, ... }:
     {
       config = {
         matchConfig = optionalAttrs (config.name != null) { Name = config.name; };
@@ -3085,10 +3082,7 @@ let
   ;
 
   networkdConfig =
-    {
-      config,
-      ...
-    }:
+    { config, ... }:
     {
       options = {
         routeTables = mkOption {
@@ -3561,11 +3555,7 @@ let
         with types;
         attrsOf (
           submodule (
-            {
-              name,
-              config,
-              ...
-            }:
+            { name, config, ... }:
             {
               options = mapAttrs (_: x: x // { internal = true; }) concreteUnitOptions;
               config = {

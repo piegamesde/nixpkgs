@@ -3,10 +3,7 @@ import ./make-test-python.nix {
 
   nodes = {
     server =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         environment.systemPackages = [ pkgs.dnsutils ];
         services.blocky = {

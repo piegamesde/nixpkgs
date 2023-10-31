@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}:
+{ pkgs, ... }:
 let
   forwardedPort = 19000;
   internalPort = 9000;
@@ -11,10 +8,7 @@ in
 
   nodes = {
     webhookMachine =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         virtualisation.forwardPorts = [ {
           host.port = forwardedPort;
@@ -51,10 +45,7 @@ in
   ];
 
   testScript =
-    {
-      nodes,
-      ...
-    }:
+    { nodes, ... }:
     ''
       import requests
       webhookMachine.wait_for_unit("webhook")

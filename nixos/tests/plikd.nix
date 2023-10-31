@@ -1,17 +1,11 @@
 import ./make-test-python.nix (
-  {
-    lib,
-    ...
-  }:
+  { lib, ... }:
   {
     name = "plikd";
     meta = with lib.maintainers; { maintainers = [ freezeboy ]; };
 
     nodes.machine =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       let
       in
       {

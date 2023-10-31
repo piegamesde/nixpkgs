@@ -1,18 +1,11 @@
-{
-  lib,
-  pkgs,
-  ...
-}:
+{ lib, pkgs, ... }:
 {
   name = "3proxy";
   meta = with lib.maintainers; { maintainers = [ misuzu ]; };
 
   nodes = {
     peer0 =
-      {
-        lib,
-        ...
-      }:
+      { lib, ... }:
       {
         networking.useDHCP = false;
         networking.interfaces.eth1 = {
@@ -31,10 +24,7 @@
     ;
 
     peer1 =
-      {
-        lib,
-        ...
-      }:
+      { lib, ... }:
       {
         networking.useDHCP = false;
         networking.interfaces.eth1 = {
@@ -74,10 +64,7 @@
     ;
 
     peer2 =
-      {
-        lib,
-        ...
-      }:
+      { lib, ... }:
       {
         networking.useDHCP = false;
         networking.interfaces.eth1 = {
@@ -116,11 +103,7 @@
     ;
 
     peer3 =
-      {
-        lib,
-        pkgs,
-        ...
-      }:
+      { lib, pkgs, ... }:
       {
         networking.useDHCP = false;
         networking.interfaces.eth1 = {

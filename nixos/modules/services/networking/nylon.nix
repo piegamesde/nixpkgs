@@ -31,10 +31,7 @@ let
   ;
 
   nylonOpts =
-    {
-      name,
-      ...
-    }:
+    { name, ... }:
     {
 
       options = {

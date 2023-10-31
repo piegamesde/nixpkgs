@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    lib,
-    pkgs,
-    ...
-  }:
+  { lib, pkgs, ... }:
   let
 
     keyfile = pkgs.writeText "luks-keyfile" ''
@@ -16,10 +12,7 @@ import ./make-test-python.nix (
     name = "systemd-initrd-luks-keyfile";
 
     nodes.machine =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         # Use systemd-boot
         virtualisation = {

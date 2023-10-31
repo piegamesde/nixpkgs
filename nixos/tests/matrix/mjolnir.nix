@@ -1,8 +1,5 @@
 import ../make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   let
     # Set up SSL certs for Synapse to be happy.
     runWithOpenSSL =
@@ -37,10 +34,7 @@ import ../make-test-python.nix (
 
     nodes = {
       homeserver =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           services.matrix-synapse = {
             enable = true;
@@ -97,10 +91,7 @@ import ../make-test-python.nix (
       ;
 
       mjolnir =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           services.mjolnir = {
             enable = true;
@@ -116,10 +107,7 @@ import ../make-test-python.nix (
       ;
 
       client =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           environment.systemPackages = [
             (pkgs.writers.writePython3Bin "create_management_room_and_invite_mjolnir"

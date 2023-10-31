@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
 
   {
     name = "samba";
@@ -11,10 +8,7 @@ import ./make-test-python.nix (
 
     nodes = {
       client =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           virtualisation.fileSystems = {
             "/public" = {
@@ -27,9 +21,7 @@ import ./make-test-python.nix (
       ;
 
       server =
-        {
-          ...
-        }:
+        { ... }:
         {
           services.samba.enable = true;
           services.samba.openFirewall = true;

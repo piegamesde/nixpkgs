@@ -27,9 +27,7 @@
         nix-build lib/tests/teams.nix
 */
 
-{
-  lib,
-}:
+{ lib }:
 with lib.maintainers; {
   acme = {
     members = [

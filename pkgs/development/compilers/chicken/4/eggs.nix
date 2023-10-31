@@ -1,6 +1,4 @@
-{
-  pkgs,
-}:
+{ pkgs }:
 rec {
   inherit (pkgs) eggDerivation fetchegg;
 

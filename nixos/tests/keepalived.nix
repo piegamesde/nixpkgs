@@ -1,17 +1,11 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "keepalived";
 
     nodes = {
       node1 =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           networking.firewall.extraCommands = "iptables -A INPUT -p vrrp -j ACCEPT";
           services.keepalived.enable = true;
@@ -26,10 +20,7 @@ import ./make-test-python.nix (
         }
       ;
       node2 =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           networking.firewall.extraCommands = "iptables -A INPUT -p vrrp -j ACCEPT";
           services.keepalived.enable = true;

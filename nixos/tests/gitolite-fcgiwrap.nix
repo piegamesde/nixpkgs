@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
 
   let
     user = "gitolite-admin";
@@ -21,10 +18,7 @@ import ./make-test-python.nix (
     nodes = {
 
       server =
-        {
-          config,
-          ...
-        }:
+        { config, ... }:
         {
           networking.firewall.allowedTCPPorts = [ 80 ];
 
@@ -75,15 +69,7 @@ import ./make-test-python.nix (
         }
       ;
 
-      client =
-        {
-          pkgs,
-          ...
-        }:
-        {
-          environment.systemPackages = [ pkgs.git ];
-        }
-      ;
+      client = { pkgs, ... }: { environment.systemPackages = [ pkgs.git ]; };
     };
 
     testScript = ''

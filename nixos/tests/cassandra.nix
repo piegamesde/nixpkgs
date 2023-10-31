@@ -44,11 +44,7 @@ import ./make-test-python.nix (
     };
     nodeCfg =
       ipAddress: extra:
-      {
-        pkgs,
-        config,
-        ...
-      }:
+      { pkgs, config, ... }:
       rec {
         environment.systemPackages = [ testPackage ];
         networking = {

@@ -23,10 +23,7 @@ let
 
       nodes = {
         ${backend} =
-          {
-            pkgs,
-            ...
-          }:
+          { pkgs, ... }:
           {
             environment.systemPackages = [ pkgs.cntr ];
             virtualisation.oci-containers = {
@@ -69,10 +66,7 @@ let
     };
 
     nodes.machine =
-      {
-        lib,
-        ...
-      }:
+      { lib, ... }:
       {
         environment.systemPackages = [ pkgs.cntr ];
         containers.test = {

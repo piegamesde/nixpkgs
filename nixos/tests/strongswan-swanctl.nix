@@ -17,10 +17,7 @@
 # https://nixos.org/nixos/manual/index.html#sec-running-nixos-tests-interactively
 
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
 
   let
     allowESP = "iptables --insert INPUT --protocol ESP --jump ACCEPT";
@@ -40,9 +37,7 @@ import ./make-test-python.nix (
     nodes = {
 
       alice =
-        {
-          ...
-        }:
+        { ... }:
         {
           virtualisation.vlans = [ 0 ];
           networking = {
@@ -53,10 +48,7 @@ import ./make-test-python.nix (
       ;
 
       moon =
-        {
-          config,
-          ...
-        }:
+        { config, ... }:
         let
           strongswan = config.services.strongswan-swanctl.package;
         in
@@ -118,10 +110,7 @@ import ./make-test-python.nix (
       ;
 
       carol =
-        {
-          config,
-          ...
-        }:
+        { config, ... }:
         let
           strongswan = config.services.strongswan-swanctl.package;
         in

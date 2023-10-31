@@ -1,7 +1,4 @@
-{
-  stdenv,
-  pkgs,
-}:
+{ stdenv, pkgs }:
 
 let
   nodePackages = import ./node-packages.nix {

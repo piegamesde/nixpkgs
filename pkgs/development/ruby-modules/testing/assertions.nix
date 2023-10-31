@@ -1,8 +1,4 @@
-{
-  test,
-  lib,
-  ...
-}:
+{ test, lib, ... }:
 {
   equal =
     expected: actual:

@@ -35,9 +35,7 @@ let
         meta.maintainers = with lib.maintainers; [ pacien ];
 
         nodes.machine =
-          {
-            ...
-          }:
+          { ... }:
           {
             services.postgresql = {
               package = pkg;

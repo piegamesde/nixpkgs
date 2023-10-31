@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}:
+{ pkgs, ... }:
 let
   inherit (pkgs) lib;
 
@@ -22,9 +19,7 @@ let
   );
 
   testLegacyNetwork =
-    {
-      nixopsPkg,
-    }:
+    { nixopsPkg }:
     pkgs.nixosTest ({
       name = "nixops-legacy-network";
       nodes = {
@@ -51,21 +46,11 @@ let
             system.includeBuildDependencies = true;
           }
         ;
-        server =
-          {
-            lib,
-            ...
-          }:
-          {
-            imports = [ ./legacy/base-configuration.nix ];
-          }
-        ;
+        server = { lib, ... }: { imports = [ ./legacy/base-configuration.nix ]; };
       };
 
       testScript =
-        {
-          nodes,
-        }:
+        { nodes }:
         let
           deployerSetup = pkgs.writeScript "deployerSetup" ''
             #!${pkgs.runtimeShell}

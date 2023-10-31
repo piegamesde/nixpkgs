@@ -86,11 +86,7 @@ let
   ;
 
   siteOpts =
-    {
-      lib,
-      name,
-      ...
-    }:
+    { lib, name, ... }:
     {
       options = {
 

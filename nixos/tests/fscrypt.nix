@@ -1,15 +1,10 @@
 import ./make-test-python.nix (
-  {
-    ...
-  }:
+  { ... }:
   {
     name = "fscrypt";
 
     nodes.machine =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         imports = [ ./common/user-account.nix ];
         security.pam.enableFscrypt = true;

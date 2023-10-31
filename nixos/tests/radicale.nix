@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    lib,
-    pkgs,
-    ...
-  }:
+  { lib, pkgs, ... }:
 
   let
     user = "someuser";
@@ -18,10 +14,7 @@ import ./make-test-python.nix (
     meta.maintainers = with lib.maintainers; [ dotlambda ];
 
     nodes.machine =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         services.radicale = {
           enable = true;

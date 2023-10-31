@@ -23,10 +23,7 @@ let
   ];
 
   appConfigModule = types.submodule (
-    {
-      name,
-      ...
-    }:
+    { name, ... }:
     {
       options = {
         desktopID = mkOption {

@@ -1,7 +1,4 @@
-{
-  buildPythonPackage,
-  pycryptodome,
-}:
+{ buildPythonPackage, pycryptodome }:
 
 # This is a dummy package providing the drop-in replacement pycryptodome.
 # https://github.com/NixOS/nixpkgs/issues/21671

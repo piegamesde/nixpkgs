@@ -1,10 +1,6 @@
-{
-  olm,
-}:
+{ olm }:
 
-{
-  ...
-}:
+{ ... }:
 
 {
   runtimeDependencies ? [ ],

@@ -1,6 +1,4 @@
-{
-  runCommand,
-}:
+{ runCommand }:
 
 firmware:
 

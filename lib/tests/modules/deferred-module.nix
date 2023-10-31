@@ -1,7 +1,4 @@
-{
-  lib,
-  ...
-}:
+{ lib, ... }:
 let
   inherit (lib) types mkOption setDefaultModuleLocation;
   inherit (types)
@@ -20,10 +17,7 @@ in
     #   - default
     # where all nodes include the default
     (
-      {
-        config,
-        ...
-      }:
+      { config, ... }:
       {
         _file = "generic.nix";
         options.nodes = mkOption {
@@ -43,10 +37,7 @@ in
     {
       _file = "default-1.nix";
       default =
-        {
-          config,
-          ...
-        }:
+        { config, ... }:
         {
           options.settingsDict = lib.mkOption {
             type = lazyAttrsOf str;
@@ -74,15 +65,7 @@ in
 
     {
       _file = "nodes-foo-c-is-a.nix";
-      nodes.foo =
-        {
-          config,
-          ...
-        }:
-        {
-          settingsDict.c = config.settingsDict.a;
-        }
-      ;
+      nodes.foo = { config, ... }: { settingsDict.c = config.settingsDict.a; };
     }
   ];
 }

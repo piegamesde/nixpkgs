@@ -62,10 +62,7 @@ stdenv.mkDerivation rec {
 
   src =
     (lib.makeOverridable (
-      {
-        name,
-        sha256,
-      }:
+      { name, sha256 }:
       fetchurl {
         url = "https://mirror.racket-lang.org/installers/${version}/${name}-src.tgz";
         inherit sha256;

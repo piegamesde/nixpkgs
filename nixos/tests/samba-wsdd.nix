@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
 
   {
     name = "samba-wsdd";
@@ -10,10 +7,7 @@ import ./make-test-python.nix (
 
     nodes = {
       client_wsdd =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           services.samba-wsdd = {
             enable = true;
@@ -29,9 +23,7 @@ import ./make-test-python.nix (
       ;
 
       server_wsdd =
-        {
-          ...
-        }:
+        { ... }:
         {
           services.samba-wsdd = {
             enable = true;

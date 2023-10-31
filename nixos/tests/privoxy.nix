@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    lib,
-    pkgs,
-    ...
-  }:
+  { lib, pkgs, ... }:
 
   let
     # Note: For some reason Privoxy can't issue valid
@@ -35,9 +31,7 @@ import ./make-test-python.nix (
     meta = with lib.maintainers; { maintainers = [ rnhmjoj ]; };
 
     nodes.machine =
-      {
-        ...
-      }:
+      { ... }:
       {
         services.nginx.enable = true;
         services.nginx.virtualHosts."example.com" = {

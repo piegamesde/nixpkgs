@@ -3,26 +3,9 @@ import ./make-test-python.nix ({
 
   nodes = {
     unrestricted =
-      {
-        config,
-        pkgs,
-        ...
-      }:
-      {
-        virtualisation.restrictNetwork = false;
-      }
-    ;
+      { config, pkgs, ... }: { virtualisation.restrictNetwork = false; };
 
-    restricted =
-      {
-        config,
-        pkgs,
-        ...
-      }:
-      {
-        virtualisation.restrictNetwork = true;
-      }
-    ;
+    restricted = { config, pkgs, ... }: { virtualisation.restrictNetwork = true; };
   };
 
   testScript = ''

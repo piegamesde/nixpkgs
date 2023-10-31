@@ -141,10 +141,7 @@ in
       default = { };
       type = types.attrsOf (
         types.submodule (
-          {
-            config,
-            ...
-          }:
+          { config, ... }:
           {
             options = {
               enable = mkEnableOption (mdDoc "cgit");

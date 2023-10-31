@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
 
   let
 
@@ -17,9 +14,7 @@ import ./make-test-python.nix (
     meta = with pkgs.lib.maintainers; { maintainers = [ eelco ]; };
 
     nodes.machine =
-      {
-        ...
-      }:
+      { ... }:
       {
         services.udisks2.enable = true;
         imports = [ ./common/user-account.nix ];

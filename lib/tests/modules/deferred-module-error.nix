@@ -1,8 +1,4 @@
-{
-  config,
-  lib,
-  ...
-}:
+{ config, lib, ... }:
 let
   inherit (lib)
     types
@@ -28,9 +24,7 @@ in
   };
   config = {
     deferred =
-      {
-        ...
-      }:
+      { ... }:
       # this should be an attrset, so this fails
       true
     ;

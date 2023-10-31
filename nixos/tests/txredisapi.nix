@@ -1,18 +1,12 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "txredisapi";
     meta = with pkgs.lib.maintainers; { maintainers = [ dandellion ]; };
 
     nodes = {
       machine =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
 
         {
           services.redis.servers."".enable = true;
@@ -31,10 +25,7 @@ import ./make-test-python.nix (
     };
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       let
         inherit (nodes.machine.config.services) redis;
       in

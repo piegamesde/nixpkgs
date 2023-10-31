@@ -1,7 +1,4 @@
-{
-  callPackage,
-  libsForQt5,
-}:
+{ callPackage, libsForQt5 }:
 
 let
   stableVersion = "2.2.35.1";

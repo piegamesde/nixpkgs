@@ -9,10 +9,7 @@
    3. Run `git commit -m "nongnu-packages $(date -Idate)" -- nongnu-generated.nix`
 */
 
-{
-  lib,
-  buildPackages,
-}:
+{ lib, buildPackages }:
 
 self:
 let

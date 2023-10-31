@@ -18,9 +18,7 @@ let
   # interface options
 
   interfaceOpts =
-    {
-      ...
-    }:
+    { ... }:
     {
 
       options = {
@@ -677,11 +675,7 @@ in
         ++
           map
             (
-              {
-                interfaceName,
-                peer,
-                ...
-              }:
+              { interfaceName, peer, ... }:
               {
                 assertion = (peer.presharedKey == null) || (peer.presharedKeyFile == null);
                 message = "networking.wireguard.interfaces.${interfaceName} peer «${peer.publicKey}» has both presharedKey and presharedKeyFile set, but only one can be used.";

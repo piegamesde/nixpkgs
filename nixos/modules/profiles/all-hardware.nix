@@ -3,11 +3,7 @@
 # enabled in the initrd.  Its primary use is in the NixOS installation
 # CDs.
 
-{
-  pkgs,
-  lib,
-  ...
-}:
+{ pkgs, lib, ... }:
 let
   platform = pkgs.stdenv.hostPlatform;
 in

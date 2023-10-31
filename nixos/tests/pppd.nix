@@ -10,11 +10,7 @@ import ./make-test-python.nix (
 
     nodes = {
       server =
-        {
-          config,
-          pkgs,
-          ...
-        }:
+        { config, pkgs, ... }:
         {
           config = {
             # Run a PPPoE access concentrator server. It will spawn an
@@ -47,11 +43,7 @@ import ./make-test-python.nix (
         }
       ;
       client =
-        {
-          config,
-          pkgs,
-          ...
-        }:
+        { config, pkgs, ... }:
         {
           services.pppd = {
             enable = true;

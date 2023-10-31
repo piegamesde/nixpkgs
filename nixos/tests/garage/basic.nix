@@ -1,12 +1,6 @@
-args@{
-  mkNode,
-  ...
-}:
+args@{ mkNode, ... }:
 (import ../make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "garage-basic";
     meta = {

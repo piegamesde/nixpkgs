@@ -259,10 +259,7 @@ stdenv.mkDerivation rec {
 
     ${lib.concatMapStringsSep "\n"
       (
-        {
-          jar,
-          file,
-        }:
+        { jar, file }:
         ''
           jar xvf $out/${jar} ${file}
           patchelf --set-rpath $rpath ${file}

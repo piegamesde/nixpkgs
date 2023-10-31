@@ -1,7 +1,4 @@
-{
-  lib,
-  python3,
-}:
+{ lib, python3 }:
 
 let
   inherit (python3.pkgs) buildPythonApplication fetchPypi pythonOlder;

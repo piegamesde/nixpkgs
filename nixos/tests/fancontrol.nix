@@ -1,16 +1,11 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "fancontrol";
     meta = with pkgs.lib.maintainers; { maintainers = [ evils ]; };
 
     nodes.machine =
-      {
-        ...
-      }:
+      { ... }:
       {
         imports = [ ../modules/profiles/minimal.nix ];
         hardware.fancontrol.enable = true;

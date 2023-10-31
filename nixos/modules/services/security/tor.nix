@@ -118,10 +118,7 @@ let
       port
       (enum [ "auto" ])
       (submodule (
-        {
-          config,
-          ...
-        }:
+        { config, ... }:
         {
           options =
             {
@@ -194,10 +191,7 @@ let
     oneOf [
       port
       (submodule (
-        {
-          config,
-          ...
-        }:
+        { config, ... }:
         {
           options =
             {
@@ -249,10 +243,7 @@ let
               port
               (enum [ "auto" ])
               (submodule (
-                {
-                  config,
-                  ...
-                }:
+                { config, ... }:
                 let
                   flags = [
                     "IPv4Only"
@@ -756,11 +747,7 @@ in
           };
           type = types.attrsOf (
             types.submodule (
-              {
-                name,
-                config,
-                ...
-              }:
+              { name, config, ... }:
               {
                 options.clientAuthorizations = mkOption {
                   description = lib.mdDoc ''
@@ -901,11 +888,7 @@ in
           };
           type = types.attrsOf (
             types.submodule (
-              {
-                name,
-                config,
-                ...
-              }:
+              { name, config, ... }:
               {
                 options.path = mkOption {
                   type = types.path;
@@ -933,9 +916,7 @@ in
                   default = null;
                   type = types.nullOr (
                     types.submodule (
-                      {
-                        ...
-                      }:
+                      { ... }:
                       {
                         options = {
                           authType = mkOption {
@@ -986,9 +967,7 @@ in
                       oneOf [
                         port
                         (submodule (
-                          {
-                            ...
-                          }:
+                          { ... }:
                           {
                             options = {
                               port = optionPort;
@@ -996,9 +975,7 @@ in
                                 default = null;
                                 type = nullOr (
                                   submodule (
-                                    {
-                                      ...
-                                    }:
+                                    { ... }:
                                     {
                                       options = {
                                         unix = optionUnix;
@@ -1205,10 +1182,7 @@ in
                     port
                     (enum [ "auto" ])
                     (submodule (
-                      {
-                        config,
-                        ...
-                      }:
+                      { config, ... }:
                       let
                         flags = [
                           "GroupWritable"
@@ -1308,9 +1282,7 @@ in
                   port
                   (enum [ "auto" ])
                   (submodule (
-                    {
-                      ...
-                    }:
+                    { ... }:
                     {
                       options = {
                         addr = optionAddress;
@@ -1441,9 +1413,7 @@ in
               with types;
               nullOr (
                 submodule (
-                  {
-                    ...
-                  }:
+                  { ... }:
                   {
                     options = {
                       transports = mkOption {

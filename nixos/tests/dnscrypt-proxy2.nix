@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   let
     localProxyPort = 43;
   in
@@ -14,9 +11,7 @@ import ./make-test-python.nix (
       # A client running the recommended setup: DNSCrypt proxy as a forwarder
       # for a caching DNS client.
       client =
-        {
-          ...
-        }:
+        { ... }:
         {
           security.apparmor.enable = true;
 

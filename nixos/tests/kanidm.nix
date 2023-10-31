@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   let
     certs = import ./common/acme/server/snakeoil-certs.nix;
     serverDomain = certs.domain;
@@ -50,11 +47,7 @@ import ./make-test-python.nix (
     ;
 
     nodes.client =
-      {
-        pkgs,
-        nodes,
-        ...
-      }:
+      { pkgs, nodes, ... }:
       {
         services.kanidm = {
           enableClient = true;
@@ -78,10 +71,7 @@ import ./make-test-python.nix (
     ;
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       let
         ldapBaseDN = builtins.concatStringsSep "," (
           map (s: "dc=" + s) (pkgs.lib.splitString "." serverDomain)

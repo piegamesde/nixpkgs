@@ -1,16 +1,11 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "lightdm";
     meta = with pkgs.lib.maintainers; { maintainers = [ aszlig ]; };
 
     nodes.machine =
-      {
-        ...
-      }:
+      { ... }:
       {
         imports = [ ./common/user-account.nix ];
         services.xserver.enable = true;
@@ -23,10 +18,7 @@ import ./make-test-python.nix (
     enableOCR = true;
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       let
         user = nodes.machine.config.users.users.alice;
       in

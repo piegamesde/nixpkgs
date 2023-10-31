@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    lib,
-    ...
-  }:
+  { lib, ... }:
 
   with lib;
 
@@ -14,10 +11,7 @@ import ./make-test-python.nix (
     meta.maintainers = with maintainers; [ zopieux ];
 
     nodes.machine =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         environment.systemPackages = [
           pkgs.curl

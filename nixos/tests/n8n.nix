@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    lib,
-    ...
-  }:
+  { lib, ... }:
 
   with lib;
 
@@ -17,10 +14,7 @@ import ./make-test-python.nix (
     ];
 
     nodes.machine =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         services.n8n = {
           enable = true;

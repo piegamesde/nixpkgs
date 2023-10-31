@@ -73,9 +73,7 @@ let
   '';
 
   smartdDeviceOpts =
-    {
-      ...
-    }:
+    { ... }:
     {
 
       options = {

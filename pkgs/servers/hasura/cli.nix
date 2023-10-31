@@ -1,7 +1,4 @@
-{
-  buildGoModule,
-  hasura-graphql-engine,
-}:
+{ buildGoModule, hasura-graphql-engine }:
 
 buildGoModule rec {
   pname = "hasura";

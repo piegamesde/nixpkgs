@@ -1,6 +1,4 @@
-{
-  callPackage,
-}:
+{ callPackage }:
 
 {
   autocomplete-all-the-things =

@@ -1,18 +1,11 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   {
     name = "nar-serve";
     meta.maintainers = [ lib.maintainers.rizary ];
     nodes = {
       server =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           services.nginx = {
             enable = true;

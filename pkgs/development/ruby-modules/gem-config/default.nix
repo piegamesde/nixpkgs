@@ -763,9 +763,7 @@ in
   rainbow = attrs: { buildInputs = [ rainbow_rake ]; };
 
   rbczmq =
-    {
-      ...
-    }:
+    { ... }:
     {
       buildInputs = [
         zeromq

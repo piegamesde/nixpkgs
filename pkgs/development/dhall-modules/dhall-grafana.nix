@@ -1,7 +1,4 @@
-{
-  buildDhallGitHubPackage,
-  Prelude,
-}:
+{ buildDhallGitHubPackage, Prelude }:
 
 buildDhallGitHubPackage {
   name = "grafana";

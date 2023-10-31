@@ -1,8 +1,4 @@
-{
-  pkgs,
-  lib,
-  ...
-}:
+{ pkgs, lib, ... }:
 let
   commonConfig = ./common/acme/client;
 
@@ -137,21 +133,11 @@ let
     in
     {
       "${server}".configuration =
-        {
-          nodes,
-          config,
-          ...
-        }:
-        baseConfig { inherit nodes config; }
-      ;
+        { nodes, config, ... }: baseConfig { inherit nodes config; };
 
       # Test that server reloads when an alias is removed (and subsequently test removal works in acme)
       "${server}-remove-alias".configuration =
-        {
-          nodes,
-          config,
-          ...
-        }:
+        { nodes, config, ... }:
         baseConfig {
           inherit nodes config;
           specialConfig = {
@@ -170,11 +156,7 @@ let
 
       # Test that the server reloads when only the acme configuration is changed.
       "${server}-change-acme-conf".configuration =
-        {
-          nodes,
-          config,
-          ...
-        }:
+        { nodes, config, ... }:
         baseConfig {
           inherit nodes config;
           specialConfig = {
@@ -200,10 +182,7 @@ in
   nodes = {
     # The fake ACME server which will respond to client requests
     acme =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       {
         imports = [ ./common/acme/server ];
         networking.nameservers = lib.mkForce [ (dnsServerIP nodes) ];
@@ -213,10 +192,7 @@ in
     # A fake DNS server which can be configured with records as desired
     # Used to test DNS-01 challenge
     dnsserver =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       {
         networking.firewall.allowedTCPPorts = [
           8055
@@ -238,11 +214,7 @@ in
 
     # A web server which will be the node requesting certs
     webserver =
-      {
-        nodes,
-        config,
-        ...
-      }:
+      { nodes, config, ... }:
       {
         imports = [ commonConfig ];
         networking.nameservers = lib.mkForce [ (dnsServerIP nodes) ];
@@ -279,9 +251,7 @@ in
 
             # First derivation used to test general ACME features
             general.configuration =
-              {
-                ...
-              }:
+              { ... }:
               let
                 caDomain = nodes.acme.test-support.acme.caDomain;
                 email = config.security.acme.defaults.email;
@@ -310,9 +280,7 @@ in
 
             # Test OCSP Stapling
             ocsp-stapling.configuration =
-              {
-                ...
-              }:
+              { ... }:
               lib.mkMerge [
                 webserverBasicConfig
                 {
@@ -330,9 +298,7 @@ in
             # Validate service relationships by adding a slow start service to nginx' wants.
             # Reproducer for https://github.com/NixOS/nixpkgs/issues/81842
             slow-startup.configuration =
-              {
-                ...
-              }:
+              { ... }:
               lib.mkMerge [
                 webserverBasicConfig
                 {
@@ -358,9 +324,7 @@ in
             # Test lego internal server (listenHTTP option)
             # Also tests useRoot option
             lego-server.configuration =
-              {
-                ...
-              }:
+              { ... }:
               {
                 security.acme.useRoot = true;
                 security.acme.certs."lego.example.test" = {
@@ -381,11 +345,7 @@ in
           // (
             let
               baseCaddyConfig =
-                {
-                  nodes,
-                  config,
-                  ...
-                }:
+                { nodes, config, ... }:
                 {
                   security.acme = {
                     defaults = (dnsConfig nodes);
@@ -414,11 +374,7 @@ in
 
               # Test that the server reloads when only the acme configuration is changed.
               "caddy-change-acme-conf".configuration =
-                {
-                  nodes,
-                  config,
-                  ...
-                }:
+                { nodes, config, ... }:
                 lib.mkMerge [
                   (baseCaddyConfig { inherit nodes config; })
                   {
@@ -453,10 +409,7 @@ in
 
     # The client will be used to curl the webserver to validate configuration
     client =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       {
         imports = [ commonConfig ];
         networking.nameservers = lib.mkForce [ (dnsServerIP nodes) ];
@@ -468,10 +421,7 @@ in
   };
 
   testScript =
-    {
-      nodes,
-      ...
-    }:
+    { nodes, ... }:
     let
       caDomain = nodes.acme.test-support.acme.caDomain;
       newServerSystem = nodes.webserver.config.system.build.toplevel;

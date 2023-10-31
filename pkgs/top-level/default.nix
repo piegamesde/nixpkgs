@@ -102,10 +102,7 @@ let
     modules = [
       ./config.nix
       (
-        {
-          options,
-          ...
-        }:
+        { options, ... }:
         {
           _file = "nixpkgs.config";
           config = config1;

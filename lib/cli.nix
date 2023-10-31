@@ -1,6 +1,4 @@
-{
-  lib,
-}:
+{ lib }:
 
 rec {
   /* Automatically convert an attribute set to command-line options.

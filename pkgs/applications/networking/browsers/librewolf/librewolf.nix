@@ -1,6 +1,4 @@
-{
-  callPackage,
-}:
+{ callPackage }:
 let
   src = callPackage ./src.nix { };
 in

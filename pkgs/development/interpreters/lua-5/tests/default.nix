@@ -11,10 +11,7 @@ let
 
   runTest =
     lua:
-    {
-      name,
-      command,
-    }:
+    { name, command }:
     pkgs.runCommandLocal "test-${lua.name}"
       ({
         nativeBuildInputs = [ lua ];

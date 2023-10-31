@@ -74,10 +74,7 @@ rec {
   # `features` and `plugins`. All features and plugins inside these
   # directories will be installed.
   buildEclipseUpdateSite =
-    {
-      name,
-      ...
-    }@attrs:
+    { name, ... }@attrs:
     buildEclipsePluginBase (
       attrs
       // {
@@ -497,10 +494,7 @@ rec {
     srcPlugins =
       let
         fetch =
-          {
-            n,
-            h,
-          }:
+          { n, h }:
           fetchurl {
             url = "https://boothen.github.io/Json-Eclipse-Plugin/plugins/jsonedit-${n}_${version}.jar";
             sha256 = h;

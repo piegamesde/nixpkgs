@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
 
   let
     exampleScript = pkgs.writeTextFile {
@@ -36,11 +33,7 @@ import ./make-test-python.nix (
     name = "systemd-misc";
 
     nodes.machine =
-      {
-        pkgs,
-        lib,
-        ...
-      }:
+      { pkgs, lib, ... }:
       {
         boot.extraSystemdUnitPaths = [ "/etc/systemd-rw/system" ];
 

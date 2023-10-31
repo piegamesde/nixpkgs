@@ -104,10 +104,7 @@ let
   };
 
   hostSubmodule =
-    {
-      config,
-      ...
-    }:
+    { config, ... }:
     {
       options = {
         addresses = mkOption {
@@ -195,10 +192,7 @@ in
           with types;
           attrsOf (
             submodule (
-              {
-                config,
-                ...
-              }:
+              { config, ... }:
               {
                 options = {
 

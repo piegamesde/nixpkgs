@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    lib,
-    pkgs,
-    ...
-  }:
+  { lib, pkgs, ... }:
   let
     fakeReply = pkgs.writeText "namecoin-reply.json" ''
       { "error": null,
@@ -31,9 +27,7 @@ import ./make-test-python.nix (
     meta = with pkgs.lib.maintainers; { maintainers = [ rnhmjoj ]; };
 
     nodes.server =
-      {
-        ...
-      }:
+      { ... }:
       {
         networking.nameservers = [ "::1" ];
 

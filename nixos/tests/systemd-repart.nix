@@ -92,11 +92,7 @@ in
     meta.maintainers = with maintainers; [ nikstur ];
 
     nodes.machine =
-      {
-        config,
-        pkgs,
-        ...
-      }:
+      { config, pkgs, ... }:
       {
         imports = [ common ];
 
@@ -112,10 +108,7 @@ in
     ;
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       ''
         ${useDiskImage nodes.machine}
 
@@ -133,11 +126,7 @@ in
     meta.maintainers = with maintainers; [ nikstur ];
 
     nodes.machine =
-      {
-        config,
-        pkgs,
-        ...
-      }:
+      { config, pkgs, ... }:
       {
         imports = [ common ];
 
@@ -151,10 +140,7 @@ in
     ;
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       ''
         ${useDiskImage nodes.machine}
 

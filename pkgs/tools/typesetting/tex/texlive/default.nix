@@ -286,10 +286,7 @@ let
         # a TeX package is an attribute set { pkgs = [ ... ]; ... } where pkgs is a list of derivations
         # the derivations make up the TeX package and optionally (for backward compatibility) its dependencies
         tlPkgToSets =
-          {
-            pkgs,
-            ...
-          }:
+          { pkgs, ... }:
           map
             (
               {
@@ -310,13 +307,7 @@ let
       in
       builtins.genericClosure {
         startSet = pkgListToSets pkgList;
-        operator =
-          {
-            pkg,
-            ...
-          }:
-          pkgListToSets (pkg.tlDeps or [ ])
-        ;
+        operator = { pkg, ... }: pkgListToSets (pkg.tlDeps or [ ]);
       }
     )
   ;

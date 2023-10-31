@@ -1,8 +1,4 @@
-{
-  pkgs,
-  modulesPath,
-  ...
-}:
+{ pkgs, modulesPath, ... }:
 
 let
   username = "azurenixosuser";

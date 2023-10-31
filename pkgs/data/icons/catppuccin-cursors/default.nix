@@ -33,13 +33,7 @@ let
     ];
   };
   product = lib.attrsets.cartesianProductOfSets dimensions;
-  variantName =
-    {
-      palette,
-      color,
-    }:
-    (lib.strings.toLower palette) + color
-  ;
+  variantName = { palette, color }: (lib.strings.toLower palette) + color;
   variants = map variantName product;
 in
 stdenvNoCC.mkDerivation rec {

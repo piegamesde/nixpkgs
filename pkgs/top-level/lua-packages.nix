@@ -81,9 +81,7 @@ rec {
   lua-resty-core =
     callPackage
       (
-        {
-          fetchFromGitHub,
-        }:
+        { fetchFromGitHub }:
         buildLuaPackage rec {
           pname = "lua-resty-core";
           version = "0.1.24";
@@ -111,9 +109,7 @@ rec {
   lua-resty-lrucache =
     callPackage
       (
-        {
-          fetchFromGitHub,
-        }:
+        { fetchFromGitHub }:
         buildLuaPackage rec {
           pname = "lua-resty-lrucache";
           version = "0.13";
@@ -192,9 +188,7 @@ rec {
   vicious =
     callPackage
       (
-        {
-          fetchFromGitHub,
-        }:
+        { fetchFromGitHub }:
         stdenv.mkDerivation rec {
           pname = "vicious";
           version = "2.6.0";

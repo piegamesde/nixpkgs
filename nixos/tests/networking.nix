@@ -112,10 +112,7 @@ let
     loopback = {
       name = "Loopback";
       nodes.client =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         with pkgs.lib; {
           networking.useDHCP = false;
           networking.useNetworkd = networkd;
@@ -133,10 +130,7 @@ let
       name = "Static";
       nodes.router = router;
       nodes.client =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         with pkgs.lib; {
           virtualisation.vlans = [
             1
@@ -169,9 +163,7 @@ let
         }
       ;
       testScript =
-        {
-          ...
-        }:
+        { ... }:
         ''
           start_all()
 
@@ -210,10 +202,7 @@ let
     routeType = {
       name = "RouteType";
       nodes.client =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         with pkgs.lib; {
           networking = {
             useDHCP = false;
@@ -236,10 +225,7 @@ let
       name = "useDHCP-by-default";
       nodes.router = router;
       nodes.client =
-        {
-          lib,
-          ...
-        }:
+        { lib, ... }:
         {
           # Disable test driver default config
           networking.interfaces = lib.mkForce { };
@@ -262,10 +248,7 @@ let
       name = "SimpleDHCP";
       nodes.router = router;
       nodes.client =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         with pkgs.lib; {
           virtualisation.vlans = [
             1
@@ -288,9 +271,7 @@ let
         }
       ;
       testScript =
-        {
-          ...
-        }:
+        { ... }:
         ''
           start_all()
 
@@ -331,10 +312,7 @@ let
       name = "OneInterfaceDHCP";
       nodes.router = router;
       nodes.client =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         with pkgs.lib; {
           virtualisation.vlans = [
             1
@@ -353,9 +331,7 @@ let
         }
       ;
       testScript =
-        {
-          ...
-        }:
+        { ... }:
         ''
           start_all()
 
@@ -389,10 +365,7 @@ let
       let
         node =
           address:
-          {
-            pkgs,
-            ...
-          }:
+          { pkgs, ... }:
           with pkgs.lib; {
             virtualisation.vlans = [
               1
@@ -423,9 +396,7 @@ let
         nodes.client1 = node "192.168.1.1";
         nodes.client2 = node "192.168.1.2";
         testScript =
-          {
-            ...
-          }:
+          { ... }:
           ''
             start_all()
 
@@ -450,14 +421,8 @@ let
     bridge =
       let
         node =
-          {
-            address,
-            vlan,
-          }:
-          {
-            pkgs,
-            ...
-          }:
+          { address, vlan }:
+          { pkgs, ... }:
           with pkgs.lib; {
             virtualisation.vlans = [ vlan ];
             networking = {
@@ -482,10 +447,7 @@ let
           vlan = 2;
         };
         nodes.router =
-          {
-            pkgs,
-            ...
-          }:
+          { pkgs, ... }:
           with pkgs.lib; {
             virtualisation.vlans = [
               1
@@ -508,9 +470,7 @@ let
           }
         ;
         testScript =
-          {
-            ...
-          }:
+          { ... }:
           ''
             start_all()
 
@@ -538,10 +498,7 @@ let
       name = "MACVLAN";
       nodes.router = router;
       nodes.client =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         with pkgs.lib; {
           environment.systemPackages = [ pkgs.iptables ]; # to debug firewall rules
           virtualisation.vlans = [ 1 ];
@@ -564,9 +521,7 @@ let
         }
       ;
       testScript =
-        {
-          ...
-        }:
+        { ... }:
         ''
           start_all()
 
@@ -603,9 +558,7 @@ let
     fou = {
       name = "foo-over-udp";
       nodes.machine =
-        {
-          ...
-        }:
+        { ... }:
         {
           virtualisation.vlans = [ 1 ];
           networking = {
@@ -642,9 +595,7 @@ let
         }
       ;
       testScript =
-        {
-          ...
-        }:
+        { ... }:
         ''
           import json
 
@@ -678,10 +629,7 @@ let
             remote,
             address6,
           }:
-          {
-            pkgs,
-            ...
-          }:
+          { pkgs, ... }:
           with pkgs.lib; {
             virtualisation.vlans = [ 1 ];
             networking = {
@@ -711,10 +659,7 @@ let
         # client2 does the reverse, sending in proto-41 and accepting only UDP incoming.
         # that way we'll notice when either SIT itself or FOU breaks.
         nodes.client1 =
-          args@{
-            pkgs,
-            ...
-          }:
+          args@{ pkgs, ... }:
           mkMerge [
             (node
               {
@@ -736,10 +681,7 @@ let
           ]
         ;
         nodes.client2 =
-          args@{
-            pkgs,
-            ...
-          }:
+          args@{ pkgs, ... }:
           mkMerge [
             (node
               {
@@ -761,9 +703,7 @@ let
           ]
         ;
         testScript =
-          {
-            ...
-          }:
+          { ... }:
           ''
             start_all()
 
@@ -788,10 +728,7 @@ let
     gre =
       let
         node =
-          {
-            pkgs,
-            ...
-          }:
+          { pkgs, ... }:
           with pkgs.lib; {
             networking = {
               useNetworkd = networkd;
@@ -804,10 +741,7 @@ let
       {
         name = "GRE";
         nodes.client1 =
-          args@{
-            pkgs,
-            ...
-          }:
+          args@{ pkgs, ... }:
           mkMerge [
             (node args)
             {
@@ -855,10 +789,7 @@ let
           ]
         ;
         nodes.client2 =
-          args@{
-            pkgs,
-            ...
-          }:
+          args@{ pkgs, ... }:
           mkMerge [
             (node args)
             {
@@ -906,9 +837,7 @@ let
           ]
         ;
         testScript =
-          {
-            ...
-          }:
+          { ... }:
           ''
             import json
             start_all()
@@ -944,10 +873,7 @@ let
       let
         node =
           address:
-          {
-            pkgs,
-            ...
-          }:
+          { pkgs, ... }:
           with pkgs.lib; {
             #virtualisation.vlans = [ 1 ];
             networking = {
@@ -972,9 +898,7 @@ let
         nodes.client1 = node "192.168.1.1";
         nodes.client2 = node "192.168.1.2";
         testScript =
-          {
-            ...
-          }:
+          { ... }:
           ''
             start_all()
 
@@ -997,10 +921,7 @@ let
         vlanInterface = "vlan42";
         node =
           number:
-          {
-            pkgs,
-            ...
-          }:
+          { pkgs, ... }:
           with pkgs.lib; {
             virtualisation.vlans = [ 1 ];
             networking = {
@@ -1030,9 +951,7 @@ let
         nodes.server = node serverNodeNum;
         nodes.client = node clientNodeNum;
         testScript =
-          {
-            ...
-          }:
+          { ... }:
           ''
             start_all()
 
@@ -1128,9 +1047,7 @@ let
     privacy = {
       name = "Privacy";
       nodes.router =
-        {
-          ...
-        }:
+        { ... }:
         {
           virtualisation.vlans = [ 1 ];
           boot.kernel.sysctl."net.ipv6.conf.all.forwarding" = true;
@@ -1160,10 +1077,7 @@ let
         }
       ;
       nodes.client_with_privacy =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         with pkgs.lib; {
           virtualisation.vlans = [ 1 ];
           networking = {
@@ -1179,10 +1093,7 @@ let
         }
       ;
       nodes.client =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         with pkgs.lib; {
           virtualisation.vlans = [ 1 ];
           networking = {
@@ -1198,9 +1109,7 @@ let
         }
       ;
       testScript =
-        {
-          ...
-        }:
+        { ... }:
         ''
           start_all()
 
@@ -1338,10 +1247,7 @@ let
     rename = {
       name = "RenameInterface";
       nodes.machine =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           virtualisation.vlans = [ 1 ];
           networking = {
@@ -1376,10 +1282,7 @@ let
     link = {
       name = "Link";
       nodes.client =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           virtualisation.vlans = [ 1 ];
           networking = {
@@ -1409,10 +1312,7 @@ let
       {
         name = "WlanInterface";
         nodes.machine =
-          {
-            pkgs,
-            ...
-          }:
+          { pkgs, ... }:
           {
             boot.kernelModules = [ "mac80211_hwsim" ];
             networking.wlanInterfaces = {

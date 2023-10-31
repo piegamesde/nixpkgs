@@ -126,9 +126,7 @@ let
   '';
 
   directorOptions =
-    {
-      ...
-    }:
+    { ... }:
     {
       options = {
         password = mkOption {
@@ -174,9 +172,7 @@ let
   ;
 
   autochangerOptions =
-    {
-      ...
-    }:
+    { ... }:
     {
       options = {
         changerDevice = mkOption {
@@ -239,9 +235,7 @@ let
   ;
 
   deviceOptions =
-    {
-      ...
-    }:
+    { ... }:
     {
       options = {
         archiveDevice = mkOption {

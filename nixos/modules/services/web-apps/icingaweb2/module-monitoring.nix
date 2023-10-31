@@ -98,10 +98,7 @@ in
       description = lib.mdDoc "Monitoring backends to define";
       type = attrsOf (
         submodule (
-          {
-            name,
-            ...
-          }:
+          { name, ... }:
           {
             options = {
               name = mkOption {
@@ -141,10 +138,7 @@ in
       description = lib.mdDoc "Command transports to define";
       type = attrsOf (
         submodule (
-          {
-            name,
-            ...
-          }:
+          { name, ... }:
           {
             options = {
               name = mkOption {

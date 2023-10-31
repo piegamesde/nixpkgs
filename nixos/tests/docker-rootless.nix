@@ -1,21 +1,14 @@
 # This test runs docker and checks if simple container starts
 
 import ./make-test-python.nix (
-  {
-    lib,
-    pkgs,
-    ...
-  }:
+  { lib, pkgs, ... }:
   {
     name = "docker-rootless";
     meta = with pkgs.lib.maintainers; { maintainers = [ abbradar ]; };
 
     nodes = {
       machine =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           virtualisation.docker.rootless.enable = true;
 
@@ -28,10 +21,7 @@ import ./make-test-python.nix (
     };
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       let
         user = nodes.machine.config.users.users.alice;
         sudo = lib.concatStringsSep " " [

@@ -8,10 +8,7 @@
 
 let
   generic =
-    {
-      version,
-      hash,
-    }:
+    { version, hash }:
     stdenv.mkDerivation rec {
       inherit version;
       pname = "h3";

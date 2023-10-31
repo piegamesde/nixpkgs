@@ -9,14 +9,7 @@
 
 # here we wrap fetchurl and fetchFromGitHub, in order to be able to pass additional args around it
 let
-  fetchurl =
-    args@{
-      url,
-      hash,
-      ...
-    }:
-    pkgs.fetchurl { inherit url hash; } // args
-  ;
+  fetchurl = args@{ url, hash, ... }: pkgs.fetchurl { inherit url hash; } // args;
   fetchFromGitHub =
     args@{
       owner,

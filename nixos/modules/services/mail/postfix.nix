@@ -300,9 +300,7 @@ let
   ;
 
   headerCheckOptions =
-    {
-      ...
-    }:
+    { ... }:
     {
       options = {
         pattern = mkOption {

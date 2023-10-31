@@ -4,10 +4,7 @@
   package,
 }:
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   let
     testPath = pkgs.hello;
   in
@@ -17,11 +14,7 @@ import ./make-test-python.nix (
 
     nodes = {
       varnish =
-        {
-          config,
-          pkgs,
-          ...
-        }:
+        { config, pkgs, ... }:
         {
           services.nix-serve = {
             enable = true;
@@ -47,10 +40,7 @@ import ./make-test-python.nix (
       ;
 
       client =
-        {
-          lib,
-          ...
-        }:
+        { lib, ... }:
         {
           nix.settings = {
             require-sigs = false;

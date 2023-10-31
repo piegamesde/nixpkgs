@@ -22,10 +22,7 @@ let
   # FIXME:
   # There's some dragons here. Build host and target concepts are being mixed up.
   ndkInfoFun =
-    {
-      config,
-      ...
-    }:
+    { config, ... }:
     {
       x86_64-apple-darwin = {
         double = "darwin-x86_64";

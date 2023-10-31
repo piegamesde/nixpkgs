@@ -187,15 +187,7 @@ let
 
   libPath = lib.makeLibraryPath (
     # Add arch-specific libraries.
-    map
-      (
-        {
-          nixPackage,
-          ...
-        }:
-        nixPackage
-      )
-      binDistUsed.archSpecificLibraries
+    map ({ nixPackage, ... }: nixPackage) binDistUsed.archSpecificLibraries
   );
 
   libEnvVar =
@@ -278,10 +270,7 @@ stdenv.mkDerivation rec {
           '')
           (lib.concatMapStringsSep "\n"
             (
-              {
-                fileToCheckFor,
-                nixPackage,
-              }:
+              { fileToCheckFor, nixPackage }:
               lib.optionalString (fileToCheckFor != null) ''
                 echo "Checking bindist for ${fileToCheckFor} to ensure that is still used"
                 if ! readelf -d ${buildExeGlob} | grep "${fileToCheckFor}"; then

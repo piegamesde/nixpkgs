@@ -49,11 +49,7 @@ let
   servernameType = strMatching ".{1,64}";
 
   serverOptions =
-    {
-      name,
-      config,
-      ...
-    }:
+    { name, config, ... }:
     {
       options.name = mkOption {
         type = servernameType;

@@ -1,18 +1,12 @@
 import ../make-test-python.nix (
-  {
-    lib,
-    pkgs,
-    ...
-  }:
+  { lib, pkgs, ... }:
   {
     name = "peering-manager";
 
     meta = with lib.maintainers; { maintainers = [ yuka ]; };
 
     nodes.machine =
-      {
-        ...
-      }:
+      { ... }:
       {
         services.peering-manager = {
           enable = true;
@@ -24,9 +18,7 @@ import ../make-test-python.nix (
     ;
 
     testScript =
-      {
-        nodes,
-      }:
+      { nodes }:
       ''
         machine.start()
         machine.wait_for_unit("peering-manager.target")

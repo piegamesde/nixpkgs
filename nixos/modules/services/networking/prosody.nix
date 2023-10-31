@@ -10,9 +10,7 @@ let
   cfg = config.services.prosody;
 
   sslOpts =
-    {
-      ...
-    }:
+    { ... }:
     {
 
       options = {
@@ -335,9 +333,7 @@ let
   '';
 
   mucOpts =
-    {
-      ...
-    }:
+    { ... }:
     {
       options = {
         domain = mkOption {
@@ -481,9 +477,7 @@ let
   ;
 
   uploadHttpOpts =
-    {
-      ...
-    }:
+    { ... }:
     {
       options = {
         domain = mkOption {
@@ -523,9 +517,7 @@ let
   ;
 
   vHostOpts =
-    {
-      ...
-    }:
+    { ... }:
     {
 
       options = {

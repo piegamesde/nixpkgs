@@ -64,9 +64,7 @@ makeTest {
     illustris
   ];
   nodes.machine =
-    {
-      ...
-    }:
+    { ... }:
     {
       virtualisation.qemu.options = [
         "-cdrom"

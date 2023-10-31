@@ -67,9 +67,7 @@ let
   };
 
   linkMutableComponents =
-    {
-      containerName,
-    }:
+    { containerName }:
     ''
       mkdir ${containerName}
 

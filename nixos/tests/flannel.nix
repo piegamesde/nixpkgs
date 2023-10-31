@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    lib,
-    ...
-  }:
+  { lib, ... }:
   {
     name = "flannel";
 
@@ -11,10 +8,7 @@ import ./make-test-python.nix (
     nodes =
       let
         flannelConfig =
-          {
-            pkgs,
-            ...
-          }:
+          { pkgs, ... }:
           {
             services.flannel = {
               enable = true;
@@ -33,9 +27,7 @@ import ./make-test-python.nix (
       in
       {
         etcd =
-          {
-            ...
-          }:
+          { ... }:
           {
             services = {
               etcd = {

@@ -59,10 +59,7 @@ let
     in
     lib.concatStringsSep "\n" (
       lib.forEach files (
-        {
-          src,
-          dst,
-        }:
+        { src, dst }:
         ''
           mkdir -p "${dirOf dst}"
           cp "${package}/${src}" "${dst}"

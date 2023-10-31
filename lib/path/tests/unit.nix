@@ -1,8 +1,6 @@
 # Unit tests for lib.path functions. Use `nix-build` in this directory to
 # run these
-{
-  libpath,
-}:
+{ libpath }:
 let
   lib = import libpath;
   inherit (lib.path) append subpath;

@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    lib,
-    pkgs,
-    ...
-  }:
+  { lib, pkgs, ... }:
   let
 
     v2rayUser = {
@@ -70,10 +66,7 @@ import ./make-test-python.nix (
     name = "v2ray";
     meta = with lib.maintainers; { maintainers = [ servalcatty ]; };
     nodes.machine =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         environment.systemPackages = [ pkgs.curl ];
         services.v2ray = {

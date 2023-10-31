@@ -1,7 +1,4 @@
-{
-  __splicedPackages,
-  lib,
-}:
+{ __splicedPackages, lib }:
 
 let
   pkgs = __splicedPackages;

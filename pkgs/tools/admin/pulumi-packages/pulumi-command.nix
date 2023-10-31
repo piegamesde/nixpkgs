@@ -1,7 +1,4 @@
-{
-  lib,
-  mkPulumiPackage,
-}:
+{ lib, mkPulumiPackage }:
 mkPulumiPackage rec {
   owner = "pulumi";
   repo = "pulumi-command";

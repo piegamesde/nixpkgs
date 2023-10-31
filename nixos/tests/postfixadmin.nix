@@ -1,19 +1,12 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "postfixadmin";
     meta = with pkgs.lib.maintainers; { maintainers = [ globin ]; };
 
     nodes = {
       postfixadmin =
-        {
-          config,
-          pkgs,
-          ...
-        }:
+        { config, pkgs, ... }:
         {
           services.postfixadmin = {
             enable = true;

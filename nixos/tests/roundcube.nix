@@ -1,19 +1,12 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "roundcube";
     meta = with pkgs.lib.maintainers; { maintainers = [ globin ]; };
 
     nodes = {
       roundcube =
-        {
-          config,
-          pkgs,
-          ...
-        }:
+        { config, pkgs, ... }:
         {
           services.roundcube = {
             enable = true;

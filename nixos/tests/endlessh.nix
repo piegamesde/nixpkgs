@@ -1,18 +1,12 @@
 import ./make-test-python.nix (
-  {
-    lib,
-    pkgs,
-    ...
-  }:
+  { lib, pkgs, ... }:
   {
     name = "endlessh";
     meta.maintainers = with lib.maintainers; [ azahi ];
 
     nodes = {
       server =
-        {
-          ...
-        }:
+        { ... }:
         {
           services.endlessh = {
             enable = true;
@@ -28,10 +22,7 @@ import ./make-test-python.nix (
       ;
 
       client =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           environment.systemPackages = with pkgs; [
             curl

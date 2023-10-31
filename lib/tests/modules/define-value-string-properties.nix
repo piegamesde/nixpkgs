@@ -1,7 +1,4 @@
-{
-  lib,
-  ...
-}:
+{ lib, ... }:
 {
 
   imports = [ { value = lib.mkDefault "def"; } ];

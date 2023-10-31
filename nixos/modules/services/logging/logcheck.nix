@@ -43,11 +43,7 @@ let
 
   writeIgnoreRule =
     name:
-    {
-      level,
-      regex,
-      ...
-    }:
+    { level, regex, ... }:
     pkgs.writeTextFile {
       inherit name;
       destination = "/ignore.d.${level}/${name}";
@@ -266,14 +262,7 @@ in
 
     services.cron.systemCronJobs =
       let
-        withTime =
-          name:
-          {
-            timeArgs,
-            ...
-          }:
-          timeArgs != null
-        ;
+        withTime = name: { timeArgs, ... }: timeArgs != null;
         mkCron =
           name:
           {

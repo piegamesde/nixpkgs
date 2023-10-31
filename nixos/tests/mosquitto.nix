@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
 
   let
     port = 1888;
@@ -74,21 +70,11 @@ import ./make-test-python.nix (
     nodes =
       let
         client =
-          {
-            pkgs,
-            ...
-          }:
-          {
-            environment.systemPackages = with pkgs; [ mosquitto ];
-          }
-        ;
+          { pkgs, ... }: { environment.systemPackages = with pkgs; [ mosquitto ]; };
       in
       {
         server =
-          {
-            pkgs,
-            ...
-          }:
+          { pkgs, ... }:
           {
             networking.firewall.allowedTCPPorts = [
               port

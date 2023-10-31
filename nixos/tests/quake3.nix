@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
 
   let
 
@@ -30,10 +26,7 @@ import ./make-test-python.nix (
     ;
 
     client =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
 
       {
         imports = [ ./common/x11.nix ];
@@ -59,10 +52,7 @@ import ./make-test-python.nix (
 
     nodes = {
       server =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
 
         {
           systemd.services.quake3-server = {

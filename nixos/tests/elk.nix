@@ -27,11 +27,7 @@ let
         };
         nodes = {
           one =
-            {
-              pkgs,
-              lib,
-              ...
-            }:
+            { pkgs, lib, ... }:
             {
               # Not giving the machine at least 2060MB results in elasticsearch failing with the following error:
               #

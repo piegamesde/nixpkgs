@@ -1,19 +1,11 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   {
     name = "pass-secret-service";
     meta.maintainers = [ lib.maintainers.aidalgol ];
 
     nodes.machine =
-      {
-        nodes,
-        pkgs,
-        ...
-      }:
+      { nodes, pkgs, ... }:
       {
         imports = [ ./common/user-account.nix ];
 
@@ -46,10 +38,7 @@ import ./make-test-python.nix (
     # Some of the commands are run via a virtual console because they need to be
     # run under a real login session, with D-Bus running in the environment.
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       let
         user = nodes.machine.config.users.users.alice;
         gpg-uid = "alice@example.net";

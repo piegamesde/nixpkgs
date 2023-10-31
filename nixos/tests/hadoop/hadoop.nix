@@ -2,10 +2,7 @@
 # Run this when updating the Hadoop package or making significant changes to the hadoop module.
 # For a more basic test, see hdfs.nix and yarn.nix
 import ../make-test-python.nix (
-  {
-    package,
-    ...
-  }:
+  { package, ... }:
   {
     name = "hadoop-combined";
 
@@ -49,9 +46,7 @@ import ../make-test-python.nix (
       in
       {
         zk1 =
-          {
-            ...
-          }:
+          { ... }:
           {
             services.zookeeper.enable = true;
             networking.firewall.allowedTCPPorts = [ 2181 ];
@@ -60,9 +55,7 @@ import ../make-test-python.nix (
 
         # HDFS cluster
         nn1 =
-          {
-            ...
-          }:
+          { ... }:
           {
             services.hadoop = {
               inherit package coreSite hdfsSite;
@@ -75,9 +68,7 @@ import ../make-test-python.nix (
           }
         ;
         nn2 =
-          {
-            ...
-          }:
+          { ... }:
           {
             services.hadoop = {
               inherit package coreSite hdfsSite;
@@ -91,9 +82,7 @@ import ../make-test-python.nix (
         ;
 
         jn1 =
-          {
-            ...
-          }:
+          { ... }:
           {
             services.hadoop = {
               inherit package coreSite hdfsSite;
@@ -105,9 +94,7 @@ import ../make-test-python.nix (
           }
         ;
         jn2 =
-          {
-            ...
-          }:
+          { ... }:
           {
             services.hadoop = {
               inherit package coreSite hdfsSite;
@@ -119,9 +106,7 @@ import ../make-test-python.nix (
           }
         ;
         jn3 =
-          {
-            ...
-          }:
+          { ... }:
           {
             services.hadoop = {
               inherit package coreSite hdfsSite;
@@ -134,9 +119,7 @@ import ../make-test-python.nix (
         ;
 
         dn1 =
-          {
-            ...
-          }:
+          { ... }:
           {
             services.hadoop = {
               inherit package coreSite hdfsSite;
@@ -150,10 +133,7 @@ import ../make-test-python.nix (
 
         # YARN cluster
         rm1 =
-          {
-            options,
-            ...
-          }:
+          { options, ... }:
           {
             services.hadoop = {
               inherit
@@ -170,10 +150,7 @@ import ../make-test-python.nix (
           }
         ;
         rm2 =
-          {
-            options,
-            ...
-          }:
+          { options, ... }:
           {
             services.hadoop = {
               inherit
@@ -190,10 +167,7 @@ import ../make-test-python.nix (
           }
         ;
         nm1 =
-          {
-            options,
-            ...
-          }:
+          { options, ... }:
           {
             virtualisation.memorySize = 2048;
             services.hadoop = {
@@ -211,10 +185,7 @@ import ../make-test-python.nix (
           }
         ;
         client =
-          {
-            options,
-            ...
-          }:
+          { options, ... }:
           {
             services.hadoop = {
               gatewayRole.enable = true;

@@ -1,7 +1,4 @@
-{
-  lib,
-  systemdUtils,
-}:
+{ lib, systemdUtils }:
 
 with systemdUtils.lib;
 with lib;
@@ -311,11 +308,7 @@ rec {
   stage1CommonUnitOptions = commonUnitOptions;
 
   serviceOptions =
-    {
-      name,
-      config,
-      ...
-    }:
+    { name, config, ... }:
     {
       options = {
 

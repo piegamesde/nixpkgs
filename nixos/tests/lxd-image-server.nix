@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
 
   let
     lxd-image = import ../release.nix {
@@ -27,10 +23,7 @@ import ./make-test-python.nix (
     };
 
     nodes.machine =
-      {
-        lib,
-        ...
-      }:
+      { lib, ... }:
       {
         virtualisation = {
           cores = 2;

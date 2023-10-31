@@ -35,10 +35,7 @@ import ./make-test-python.nix {
 
   nodes = {
     prometheus =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         virtualisation.diskSize = 2 * 1024;
         virtualisation.memorySize = 2048;
@@ -142,10 +139,7 @@ import ./make-test-python.nix {
     ;
 
     query =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         environment.systemPackages = [ pkgs.jq ];
         services.thanos.query = {
@@ -157,10 +151,7 @@ import ./make-test-python.nix {
     ;
 
     store =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         virtualisation.diskSize = 2 * 1024;
         virtualisation.memorySize = 2048;
@@ -190,10 +181,7 @@ import ./make-test-python.nix {
     ;
 
     s3 =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         # Minio requires at least 1GiB of free disk space to run.
         virtualisation = {
@@ -217,10 +205,7 @@ import ./make-test-python.nix {
   };
 
   testScript =
-    {
-      nodes,
-      ...
-    }:
+    { nodes, ... }:
     ''
       import json
 

@@ -1,16 +1,9 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
 
   let
     client =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         environment.systemPackages = [ pkgs.glusterfs ];
         virtualisation.fileSystems = {
@@ -23,10 +16,7 @@ import ./make-test-python.nix (
     ;
 
     server =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         networking.firewall.enable = false;
         services.glusterfs.enable = true;

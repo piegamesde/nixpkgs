@@ -2,20 +2,14 @@ import ./make-test-python.nix {
   name = "dhparams";
 
   nodes.machine =
-    {
-      pkgs,
-      ...
-    }:
+    { pkgs, ... }:
     {
       security.dhparams.enable = true;
       environment.systemPackages = [ pkgs.openssl ];
 
       specialisation = {
         gen1.configuration =
-          {
-            config,
-            ...
-          }:
+          { config, ... }:
           {
             security.dhparams.params = {
               # Use low values here because we don't want the test to run for ages.
@@ -67,10 +61,7 @@ import ./make-test-python.nix {
   ;
 
   testScript =
-    {
-      nodes,
-      ...
-    }:
+    { nodes, ... }:
     let
       getParamPath =
         gen: name:

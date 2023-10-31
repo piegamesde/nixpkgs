@@ -1,7 +1,5 @@
 # Functions for copying sources to the Nix store.
-{
-  lib,
-}:
+{ lib }:
 
 # Tested in lib/tests/sources.sh
 let

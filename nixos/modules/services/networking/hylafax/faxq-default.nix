@@ -1,6 +1,4 @@
-{
-  ...
-}:
+{ ... }:
 
 # see man:hylafax-config(5)
 

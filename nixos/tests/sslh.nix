@@ -3,11 +3,7 @@ import ./make-test-python.nix {
 
   nodes = {
     server =
-      {
-        pkgs,
-        lib,
-        ...
-      }:
+      { pkgs, lib, ... }:
       {
         networking.firewall.allowedTCPPorts = [ 443 ];
         networking.interfaces.eth1.ipv6.addresses = [ {
@@ -48,9 +44,7 @@ import ./make-test-python.nix {
       }
     ;
     client =
-      {
-        ...
-      }:
+      { ... }:
       {
         networking.interfaces.eth1.ipv6.addresses = [ {
           address = "fe00:aa:bb:cc::1";

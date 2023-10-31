@@ -731,10 +731,7 @@ in
         with types;
         attrsOf (
           submodule (
-            {
-              name,
-              ...
-            }:
+            { name, ... }:
             {
               options = {
 

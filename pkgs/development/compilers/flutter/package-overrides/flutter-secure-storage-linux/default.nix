@@ -5,9 +5,7 @@
   jsoncpp,
 }:
 
-{
-  ...
-}:
+{ ... }:
 
 {
   nativeBuildInputs ? [ ],

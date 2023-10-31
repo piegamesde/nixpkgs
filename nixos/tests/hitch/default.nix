@@ -1,16 +1,10 @@
 import ../make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "hitch";
     meta = with pkgs.lib.maintainers; { maintainers = [ jflanglois ]; };
     nodes.machine =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         environment.systemPackages = [ pkgs.curl ];
         services.hitch = {

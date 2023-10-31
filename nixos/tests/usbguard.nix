@@ -1,16 +1,11 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "usbguard";
     meta = with pkgs.lib.maintainers; { maintainers = [ tnias ]; };
 
     nodes.machine =
-      {
-        ...
-      }:
+      { ... }:
       {
         services.usbguard = {
           enable = true;

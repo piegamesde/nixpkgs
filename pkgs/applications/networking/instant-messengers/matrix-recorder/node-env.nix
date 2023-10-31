@@ -53,9 +53,7 @@ let
   ;
 
   includeDependencies =
-    {
-      dependencies,
-    }:
+    { dependencies }:
     lib.optionalString (dependencies != [ ]) (
       lib.concatMapStrings
         (dependency: ''
@@ -132,10 +130,7 @@ let
   ;
 
   pinpointDependencies =
-    {
-      dependencies,
-      production,
-    }:
+    { dependencies, production }:
     let
       pinpointDependenciesFromPackageJSON = writeTextFile {
         name = "pinpointDependencies.js";

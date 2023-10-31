@@ -50,10 +50,7 @@ stdenv.mkDerivation rec {
     in
     lib.concatMapStrings
       (
-        {
-          suffix,
-          configureFlags,
-        }:
+        { suffix, configureFlags }:
         ''
           install -D ${
             stdenv.mkDerivation {

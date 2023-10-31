@@ -69,10 +69,7 @@ stdenv.mkDerivation {
   exes =
     map
       (
-        {
-          name,
-          sha256,
-        }:
+        { name, sha256 }:
         fetchurl {
           url = "mirror://sourceforge/corefonts/${name}32.exe";
           inherit sha256;

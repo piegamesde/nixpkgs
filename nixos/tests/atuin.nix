@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
 
   let
     testPort = 8888;
@@ -17,9 +13,7 @@ import ./make-test-python.nix (
 
     nodes = {
       server =
-        {
-          ...
-        }:
+        { ... }:
         {
           services.atuin = {
             enable = true;
@@ -31,12 +25,7 @@ import ./make-test-python.nix (
         }
       ;
 
-      client =
-        {
-          ...
-        }:
-        { }
-      ;
+      client = { ... }: { };
     };
 
     testScript = with pkgs; ''

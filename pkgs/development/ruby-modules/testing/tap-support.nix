@@ -15,13 +15,7 @@ let
   testDirective = report: "";
   testYaml = report: "";
 
-  okStr =
-    {
-      result,
-      ...
-    }:
-    if result == "pass" then "ok" else "not ok"
-  ;
+  okStr = { result, ... }: if result == "pass" then "ok" else "not ok";
 in
 {
   output =

@@ -9,10 +9,7 @@
 
 let
   phpExt = php.withExtensions (
-    {
-      enabled,
-      all,
-    }:
+    { enabled, all }:
     with all; [
       filter
       mysqlnd

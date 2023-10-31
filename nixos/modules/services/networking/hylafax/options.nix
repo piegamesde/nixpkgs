@@ -56,11 +56,7 @@ let
   cfg = config.services.hylafax;
 
   modemConfigOptions =
-    {
-      name,
-      config,
-      ...
-    }:
+    { name, config, ... }:
     {
       options = {
         name = mkOption {

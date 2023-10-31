@@ -1,6 +1,4 @@
-{
-  pkgs,
-}:
+{ pkgs }:
 {
 
   # List of libraries that are needed for conda binary packages.

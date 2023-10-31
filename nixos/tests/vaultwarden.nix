@@ -39,10 +39,7 @@ let
 
       nodes = {
         server =
-          {
-            pkgs,
-            ...
-          }:
+          { pkgs, ... }:
           let
             backendConfig = {
               mysql = {
@@ -173,14 +170,7 @@ let
         ;
 
         client =
-          {
-            pkgs,
-            ...
-          }:
-          {
-            environment.systemPackages = [ pkgs.bitwarden-cli ];
-          }
-        ;
+          { pkgs, ... }: { environment.systemPackages = [ pkgs.bitwarden-cli ]; };
       };
 
       testScript = ''

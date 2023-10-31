@@ -1,7 +1,4 @@
-{
-  buildEnv,
-  pythonPackages,
-}:
+{ buildEnv, pythonPackages }:
 
 f:
 let

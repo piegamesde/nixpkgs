@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
 
   let
     passphrase = "supersecret";
@@ -44,9 +41,7 @@ import ./make-test-python.nix (
 
     nodes = {
       client =
-        {
-          ...
-        }:
+        { ... }:
         {
           services.borgbackup.jobs = {
 
@@ -121,9 +116,7 @@ import ./make-test-python.nix (
       ;
 
       server =
-        {
-          ...
-        }:
+        { ... }:
         {
           services.openssh = {
             enable = true;

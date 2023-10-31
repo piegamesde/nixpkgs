@@ -5,11 +5,7 @@
   systemdStage1 ? false,
 }:
 import ./make-test-python.nix (
-  {
-    lib,
-    pkgs,
-    ...
-  }:
+  { lib, pkgs, ... }:
   let
 
     keyfile = pkgs.writeText "luks-keyfile" ''
@@ -22,10 +18,7 @@ import ./make-test-python.nix (
     name = "initrd-luks-empty-passphrase";
 
     nodes.machine =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         virtualisation = {
           emptyDiskImages = [ 512 ];

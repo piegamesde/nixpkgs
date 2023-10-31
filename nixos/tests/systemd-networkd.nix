@@ -131,19 +131,13 @@ let
   ;
 in
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "networkd";
     meta = with pkgs.lib.maintainers; { maintainers = [ ninjatrappeur ]; };
     nodes = {
       node1 =
-        {
-          pkgs,
-          ...
-        }@attrs:
+        { pkgs, ... }@attrs:
         let
           localConf = {
             privk = "GDiXWlMQKb379XthwX0haAbK6hTdjblllpjGX0heP00=";
@@ -156,10 +150,7 @@ import ./make-test-python.nix (
       ;
 
       node2 =
-        {
-          pkgs,
-          ...
-        }@attrs:
+        { pkgs, ... }@attrs:
         let
           localConf = {
             privk = "eHxSI2jwX/P4AOI0r8YppPw0+4NZnjOxfbS5mt06K2k=";

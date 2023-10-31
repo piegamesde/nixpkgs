@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   let
     demo-program = pkgs.writeShellScriptBin "demo" ''
       while ${pkgs.coreutils}/bin/sleep 3; do

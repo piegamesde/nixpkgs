@@ -1,16 +1,11 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "zsh-history";
     meta = with pkgs.lib.maintainers; { maintainers = [ ]; };
 
     nodes.default =
-      {
-        ...
-      }:
+      { ... }:
       {
         programs = {
           zsh.enable = true;

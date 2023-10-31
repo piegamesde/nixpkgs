@@ -150,10 +150,7 @@ in
         };
         type = types.attrsOf (
           types.submodule (
-            {
-              name,
-              ...
-            }:
+            { name, ... }:
             {
               options = {
 
@@ -235,10 +232,7 @@ in
         '';
         type = types.attrsOf (
           types.submodule (
-            {
-              name,
-              ...
-            }:
+            { name, ... }:
             {
               options = {
 

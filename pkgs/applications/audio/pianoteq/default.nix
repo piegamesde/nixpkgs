@@ -133,10 +133,7 @@ let
   ;
 
   fetchPianoteqTrial =
-    {
-      name,
-      sha256,
-    }:
+    { name, sha256 }:
     fetchWithCurlScript {
       inherit name sha256;
       script = ''
@@ -171,10 +168,7 @@ let
   ;
 
   fetchPianoteqWithLogin =
-    {
-      name,
-      sha256,
-    }:
+    { name, sha256 }:
     fetchWithCurlScript {
       inherit name sha256;
 

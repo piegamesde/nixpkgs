@@ -15,11 +15,7 @@ let
   postfixCfg = config.services.postfix;
 
   bindSocketOpts =
-    {
-      options,
-      config,
-      ...
-    }:
+    { options, config, ... }:
     {
       options = {
         socket = mkOption {
@@ -69,11 +65,7 @@ let
   traceWarning = w: x: builtins.trace "[1;31mwarning: ${w}[0m" x;
 
   workerOpts =
-    {
-      name,
-      options,
-      ...
-    }:
+    { name, options, ... }:
     {
       options = {
         enable = mkOption {
@@ -300,11 +292,7 @@ let
 
   configFileModule =
     prefix:
-    {
-      name,
-      config,
-      ...
-    }:
+    { name, config, ... }:
     {
       options = {
         enable = mkOption {

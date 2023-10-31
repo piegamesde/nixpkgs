@@ -1,7 +1,4 @@
-{
-  appleDerivation',
-  stdenvNoCC,
-}:
+{ appleDerivation', stdenvNoCC }:
 
 appleDerivation' stdenvNoCC {
   dontConfigure = true;

@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
 
   {
     name = "invoiceplane";
@@ -10,9 +7,7 @@ import ./make-test-python.nix (
 
     nodes = {
       invoiceplane_caddy =
-        {
-          ...
-        }:
+        { ... }:
         {
           services.invoiceplane.webserver = "caddy";
           services.invoiceplane.sites = {

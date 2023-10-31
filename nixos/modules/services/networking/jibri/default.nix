@@ -203,10 +203,7 @@ in
       default = { };
       type = attrsOf (
         submodule (
-          {
-            name,
-            ...
-          }:
+          { name, ... }:
           {
             options = {
               xmppServerHosts = mkOption {

@@ -14,9 +14,7 @@ let
   cfg = config.services.cjdns;
 
   connectToSubmodule =
-    {
-      ...
-    }:
+    { ... }:
     {
       options = {
         password = mkOption {

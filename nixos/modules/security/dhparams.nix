@@ -17,11 +17,7 @@ let
   };
 
   paramsSubmodule =
-    {
-      name,
-      config,
-      ...
-    }:
+    { name, config, ... }:
     {
       options.bits = mkOption {
         type = bitType;
@@ -177,11 +173,7 @@ in
                   lib.mapAttrsToList
                     (
                       name:
-                      {
-                        bits,
-                        path,
-                        ...
-                      }:
+                      { bits, path, ... }:
                       ''
                         if [ "$file" = ${lib.escapeShellArg path} ] && \
                            ${pkgs.openssl}/bin/openssl dhparam -in "$file" -text \
@@ -206,11 +198,7 @@ in
       // lib.mapAttrs'
         (
           name:
-          {
-            bits,
-            path,
-            ...
-          }:
+          { bits, path, ... }:
           lib.nameValuePair "dhparams-gen-${name}" {
             description = "Generate Diffie-Hellman Parameters for ${name}";
             after = [ "dhparams-init.service" ];

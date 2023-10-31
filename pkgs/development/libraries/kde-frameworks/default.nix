@@ -69,9 +69,7 @@ let
         out:
         let
           setupHook =
-            {
-              writeScript,
-            }:
+            { writeScript }:
             writeScript "setup-hook" ''
               if [ "''${hookName:-}" != postHook ]; then
                   postHooks+=("source @dev@/nix-support/setup-hook")

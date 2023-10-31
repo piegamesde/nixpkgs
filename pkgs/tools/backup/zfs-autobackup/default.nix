@@ -1,7 +1,4 @@
-{
-  lib,
-  python3Packages,
-}:
+{ lib, python3Packages }:
 
 let
   pythonPackages = python3Packages;

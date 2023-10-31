@@ -31,10 +31,7 @@
 let
 
   mkElpaPackages =
-    {
-      pkgs,
-      lib,
-    }:
+    { pkgs, lib }:
     import ../applications/editors/emacs/elisp-packages/elpa-packages.nix {
       inherit (pkgs)
         stdenv
@@ -49,10 +46,7 @@ let
   ;
 
   mkNongnuPackages =
-    {
-      pkgs,
-      lib,
-    }:
+    { pkgs, lib }:
     import ../applications/editors/emacs/elisp-packages/nongnu-packages.nix {
       inherit (pkgs) buildPackages;
       inherit lib;
@@ -61,30 +55,21 @@ let
 
   # Contains both melpa stable & unstable
   melpaGeneric =
-    {
-      pkgs,
-      lib,
-    }:
+    { pkgs, lib }:
     import ../applications/editors/emacs/elisp-packages/melpa-packages.nix {
       inherit lib pkgs;
     }
   ;
 
   mkManualPackages =
-    {
-      pkgs,
-      lib,
-    }:
+    { pkgs, lib }:
     import ../applications/editors/emacs/elisp-packages/manual-packages.nix {
       inherit lib pkgs;
     }
   ;
 
   emacsWithPackages =
-    {
-      pkgs,
-      lib,
-    }:
+    { pkgs, lib }:
     import ../build-support/emacs/wrapper.nix {
       inherit (pkgs) makeWrapper runCommand gcc;
       inherit (pkgs.xorg) lndir;

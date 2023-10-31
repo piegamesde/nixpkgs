@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    lib,
-    ...
-  }:
+  { lib, ... }:
 
   with lib;
 
@@ -11,10 +8,7 @@ import ./make-test-python.nix (
     meta.maintainers = with maintainers; [ pbsds ];
 
     nodes.machine =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         environment.systemPackages = [ pkgs.jq ];
         services.polaris = {

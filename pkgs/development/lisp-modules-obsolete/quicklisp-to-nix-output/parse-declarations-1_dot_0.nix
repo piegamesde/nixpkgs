@@ -1,8 +1,5 @@
 # Generated file.
-args@{
-  fetchurl,
-  ...
-}:
+args@{ fetchurl, ... }:
 rec {
   baseName = "parse-declarations-1_dot_0";
   version = "parse-declarations-20101006-darcs";

@@ -1,18 +1,12 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "owncast";
     meta = with pkgs.lib.maintainers; { maintainers = [ MayNiklas ]; };
 
     nodes = {
       client =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         with pkgs.lib; {
           networking = {
             dhcpcd.enable = false;
@@ -28,10 +22,7 @@ import ./make-test-python.nix (
         }
       ;
       server =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         with pkgs.lib; {
           networking = {
             dhcpcd.enable = false;

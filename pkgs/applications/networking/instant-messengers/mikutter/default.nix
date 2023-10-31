@@ -48,9 +48,7 @@ let
   };
 
   mkDesktopItem =
-    {
-      description,
-    }:
+    { description }:
     makeDesktopItem {
       name = "mikutter";
       desktopName = "mikutter";
@@ -63,9 +61,7 @@ let
   ;
 
   mkInfoPlist =
-    {
-      version,
-    }:
+    { version }:
     writeText "Info.plist" (
       lib.generators.toPlist { } {
         CFBundleName = "mikutter";

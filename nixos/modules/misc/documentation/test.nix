@@ -12,11 +12,7 @@ let
       ../version.nix
 
       (
-        {
-          lib,
-          someArg,
-          ...
-        }:
+        { lib, someArg, ... }:
         {
           # Make sure imports from specialArgs are respected
           imports = [ someArg.myModule ];
@@ -39,10 +35,7 @@ let
       }
     ];
     specialArgs.someArg.myModule =
-      {
-        lib,
-        ...
-      }:
+      { lib, ... }:
       {
         options.foobar = lib.mkOption {
           type = lib.types.str;

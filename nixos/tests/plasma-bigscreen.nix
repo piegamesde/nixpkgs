@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
 
   {
     name = "plasma-bigscreen";
@@ -14,9 +11,7 @@ import ./make-test-python.nix (
     };
 
     nodes.machine =
-      {
-        ...
-      }:
+      { ... }:
 
       {
         imports = [ ./common/user-account.nix ];
@@ -34,10 +29,7 @@ import ./make-test-python.nix (
     ;
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       let
         user = nodes.machine.users.users.alice;
         xdo = "${pkgs.xdotool}/bin/xdotool";

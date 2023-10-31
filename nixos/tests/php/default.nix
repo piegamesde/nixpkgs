@@ -7,14 +7,7 @@
 
 let
   php' = php.buildEnv {
-    extensions =
-      {
-        enabled,
-        all,
-      }:
-      with all;
-      enabled ++ [ apcu ]
-    ;
+    extensions = { enabled, all }: with all; enabled ++ [ apcu ];
   };
 in
 {

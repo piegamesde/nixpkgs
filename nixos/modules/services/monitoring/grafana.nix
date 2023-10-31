@@ -2060,10 +2060,7 @@ in
                 cfg.provision.datasources.settings.datasources
             ;
             declarationUnsafe =
-              {
-                secureJsonData,
-                ...
-              }:
+              { secureJsonData, ... }:
               secureJsonData != null
               && any (flip doesntUseFileProvider null) (attrValues secureJsonData)
             ;
@@ -2095,16 +2092,7 @@ in
           let
             prometheusIsNotDirect =
               opt:
-              all
-                (
-                  {
-                    type,
-                    access,
-                    ...
-                  }:
-                  type == "prometheus" -> access != "direct"
-                )
-                opt
+              all ({ type, access, ... }: type == "prometheus" -> access != "direct") opt
             ;
           in
           cfg.provision.datasources.settings == null

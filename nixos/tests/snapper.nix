@@ -1,16 +1,10 @@
 import ./make-test-python.nix (
-  {
-    ...
-  }:
+  { ... }:
   {
     name = "snapper";
 
     nodes.machine =
-      {
-        pkgs,
-        lib,
-        ...
-      }:
+      { pkgs, lib, ... }:
       {
         boot.initrd.postDeviceCommands = ''
           ${pkgs.btrfs-progs}/bin/mkfs.btrfs -f -L aux /dev/vdb

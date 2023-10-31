@@ -163,10 +163,7 @@ let
   system =
     foldr
       (
-        {
-          oldDependency,
-          newDependency,
-        }:
+        { oldDependency, newDependency }:
         drv:
         pkgs.replaceDependency { inherit oldDependency newDependency drv; }
       )
@@ -338,9 +335,7 @@ in
       ;
       type = types.listOf (
         types.submodule (
-          {
-            ...
-          }:
+          { ... }:
           {
             options.original = mkOption {
               type = types.package;
@@ -355,11 +350,7 @@ in
         )
       );
       apply = map (
-        {
-          original,
-          replacement,
-          ...
-        }:
+        { original, replacement, ... }:
         {
           oldDependency = original;
           newDependency = replacement;

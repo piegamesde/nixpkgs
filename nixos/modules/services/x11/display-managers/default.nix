@@ -399,11 +399,7 @@ in
       # Configuration for automatic login. Common for all DM.
       autoLogin = mkOption {
         type = types.submodule (
-          {
-            config,
-            options,
-            ...
-          }:
+          { config, options, ... }:
           {
             options = {
               enable = mkOption {
@@ -457,34 +453,18 @@ in
       The following options are deprecated:
         ${
           concatStringsSep "\n  " (
-            map
-              (
+            map ({ c, t }: t) (
+              filter ({ c, t }: c != null) [
                 {
-                  c,
-                  t,
-                }:
-                t
-              )
-              (
-                filter
-                  (
-                    {
-                      c,
-                      t,
-                    }:
-                    c != null
-                  )
-                  [
-                    {
-                      c = dmDefault;
-                      t = "- services.xserver.desktopManager.default";
-                    }
-                    {
-                      c = wmDefault;
-                      t = "- services.xserver.windowManager.default";
-                    }
-                  ]
-              )
+                  c = dmDefault;
+                  t = "- services.xserver.desktopManager.default";
+                }
+                {
+                  c = wmDefault;
+                  t = "- services.xserver.windowManager.default";
+                }
+              ]
+            )
           )
         }
       Please use
@@ -550,10 +530,7 @@ in
       concatLists (
         builtins.map
           (
-            {
-              dm,
-              wm,
-            }:
+            { dm, wm }:
             let
               sessionName = "${dm.name}${optionalString (wm.name != "none") ("+" + wm.name)}";
               script = xsession dm wm;

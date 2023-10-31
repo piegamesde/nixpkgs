@@ -1,7 +1,4 @@
-{
-  callPackage,
-  ...
-}@args:
+{ callPackage, ... }@args:
 
 callPackage ../../browsers/firefox/update.nix (
   {

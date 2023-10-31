@@ -1,8 +1,5 @@
 # QEMU-related utilities shared between various Nix expressions.
-{
-  lib,
-  pkgs,
-}:
+{ lib, pkgs }:
 
 let
   zeroPad =

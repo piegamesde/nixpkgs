@@ -187,10 +187,7 @@
           ${lib.concatImapStrings
             (
               num:
-              {
-                ip,
-                zones,
-              }:
+              { ip, zones }:
               ''
                 ns${toString num}.fakedns. IN A ${ip}
                 ${lib.concatMapStrings

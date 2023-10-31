@@ -2,10 +2,7 @@
 #
 # Please insert new packages *alphabetically*
 # in the OTHER PACKAGES section.
-{
-  pkgs,
-  haskellLib,
-}:
+{ pkgs, haskellLib }:
 
 let
   removeLibraryHaskellDepends =

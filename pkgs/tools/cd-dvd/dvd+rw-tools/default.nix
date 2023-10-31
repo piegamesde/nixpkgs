@@ -26,10 +26,7 @@ stdenv.mkDerivation rec {
     ++
       builtins.map
         (
-          {
-            pfile,
-            sha256,
-          }:
+          { pfile, sha256 }:
           fetchpatch {
             url = "https://gitweb.gentoo.org/repo/gentoo.git/plain/app-cdr/dvd+rw-tools/files/${pfile}?id=b510df361241e8f16314b1f14642305f0111dac6";
             inherit sha256;

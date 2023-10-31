@@ -1,12 +1,7 @@
-{
-  fetchurl,
-}:
+{ fetchurl }:
 let
   fetchTestInput =
-    {
-      res,
-      sha256,
-    }:
+    { res, sha256 }:
     fetchurl {
       inherit sha256;
       url = "https://www.mkgmap.org.uk/testinput/${res}";

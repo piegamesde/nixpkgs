@@ -66,11 +66,7 @@ in
     ;
 
     defaults =
-      {
-        config,
-        name,
-        ...
-      }:
+      { config, name, ... }:
       {
         # Make sure all derivations referenced by the test
         # script are available on the nodes. When the store is

@@ -31,10 +31,7 @@ let
   # 3. Sections that may contain (1) or (2).
   # 4. Etc.
   prioOf =
-    {
-      name,
-      value,
-    }:
+    { name, value }:
     if !isAttrs value then
       0 # Leaf options.
     else
@@ -60,10 +57,7 @@ let
     [ "${sec} ${secName}" ] ++ map (x: " " + x) (genConfig value)
   ;
   genPair =
-    {
-      name,
-      value,
-    }:
+    { name, value }:
     if !isAttrs value then
       [ "${name} ${value}" ]
     else

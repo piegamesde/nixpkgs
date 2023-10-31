@@ -2,11 +2,7 @@ import ./make-test-python.nix {
   name = "systemd-confinement";
 
   nodes.machine =
-    {
-      pkgs,
-      lib,
-      ...
-    }:
+    { pkgs, lib, ... }:
     let
       testServer = pkgs.writeScript "testserver.sh" ''
         #!${pkgs.runtimeShell}
@@ -224,10 +220,7 @@ import ./make-test-python.nix {
   ;
 
   testScript =
-    {
-      nodes,
-      ...
-    }:
+    { nodes, ... }:
     ''
       def assert_eq(a, b):
           assert a == b, f"{a} != {b}"

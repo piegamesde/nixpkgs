@@ -1,6 +1,4 @@
-{
-  fetchNimble,
-}:
+{ fetchNimble }:
 
 fetchNimble {
   pname = "chroma";

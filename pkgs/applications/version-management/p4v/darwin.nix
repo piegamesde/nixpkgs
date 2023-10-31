@@ -1,7 +1,4 @@
-{
-  stdenv,
-  undmg,
-}:
+{ stdenv, undmg }:
 
 {
   pname,

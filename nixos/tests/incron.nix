@@ -1,18 +1,12 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
 
   {
     name = "incron";
     meta.maintainers = [ lib.maintainers.aanderse ];
 
     nodes.machine =
-      {
-        ...
-      }:
+      { ... }:
       {
         services.incron.enable = true;
         services.incron.extraPackages = [ pkgs.coreutils ];

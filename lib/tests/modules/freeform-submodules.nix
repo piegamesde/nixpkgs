@@ -1,8 +1,4 @@
-{
-  lib,
-  options,
-  ...
-}:
+{ lib, options, ... }:
 with lib.types; {
 
   options.fooDeclarations = lib.mkOption {

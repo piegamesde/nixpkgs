@@ -1,7 +1,4 @@
-{
-  pkgs,
-  lib,
-}:
+{ pkgs, lib }:
 
 rec {
   stable-params = {

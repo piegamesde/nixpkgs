@@ -1,7 +1,4 @@
-{
-  lib,
-  buildManPages,
-}:
+{ lib, buildManPages }:
 
 buildManPages {
   pname = "s6-networking-man-pages";

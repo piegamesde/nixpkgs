@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
 
   let
     testPort = 6052;
@@ -15,9 +11,7 @@ import ./make-test-python.nix (
 
     nodes = {
       esphomeTcp =
-        {
-          ...
-        }:
+        { ... }:
         {
           services.esphome = {
             enable = true;
@@ -29,9 +23,7 @@ import ./make-test-python.nix (
       ;
 
       esphomeUnix =
-        {
-          ...
-        }:
+        { ... }:
         {
           services.esphome = {
             enable = true;

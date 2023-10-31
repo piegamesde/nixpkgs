@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
 
   with pkgs; {
     name = "pgjwt";
@@ -16,9 +12,7 @@ import ./make-test-python.nix (
 
     nodes = {
       master =
-        {
-          ...
-        }:
+        { ... }:
         {
           services.postgresql = {
             enable = true;
@@ -32,10 +26,7 @@ import ./make-test-python.nix (
     };
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       let
         sqlSU = "${nodes.master.config.services.postgresql.superUser}";
         pgProve = "${pkgs.perlPackages.TAPParserSourceHandlerpgTAP}";

@@ -1,7 +1,4 @@
-{
-  stdenv,
-  hspell,
-}:
+{ stdenv, hspell }:
 
 let
   dict =

@@ -1,16 +1,10 @@
 import ./make-test-python.nix (
-  {
-    lib,
-    pkgs,
-    ...
-  }:
+  { lib, pkgs, ... }:
   {
     name = "karma";
     nodes = {
       server =
-        {
-          ...
-        }:
+        { ... }:
         {
           services.prometheus.alertmanager = {
             enable = true;

@@ -2,9 +2,7 @@ let
   mirrors = import ./mirrors.nix;
 in
 
-{
-  system,
-}:
+{ system }:
 
 {
   url ? builtins.head urls,

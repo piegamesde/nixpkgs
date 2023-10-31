@@ -3,11 +3,7 @@ import ./make-test-python.nix {
 
   nodes = {
     server =
-      {
-        pkgs,
-        lib,
-        ...
-      }:
+      { pkgs, lib, ... }:
       {
         networking.firewall.enable = false;
         services.nginx.enable = true;
@@ -46,11 +42,7 @@ import ./make-test-python.nix {
     ;
 
     client =
-      {
-        pkgs,
-        lib,
-        ...
-      }:
+      { pkgs, lib, ... }:
       {
         environment.systemPackages =
           let
@@ -93,10 +85,7 @@ import ./make-test-python.nix {
   };
 
   testScript =
-    {
-      nodes,
-      ...
-    }:
+    { nodes, ... }:
     let
       inherit (nodes.server.config.system.build) toplevel;
       newSystem = "${toplevel}/specialisation/pass-checks";

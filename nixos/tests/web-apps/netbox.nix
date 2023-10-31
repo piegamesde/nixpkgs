@@ -27,10 +27,7 @@ import ../make-test-python.nix (
     };
 
     nodes.machine =
-      {
-        config,
-        ...
-      }:
+      { config, ... }:
       {
         services.netbox = {
           enable = true;

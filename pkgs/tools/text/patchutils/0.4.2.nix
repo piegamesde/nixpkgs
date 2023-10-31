@@ -1,8 +1,4 @@
-{
-  callPackage,
-  python3,
-  ...
-}@args:
+{ callPackage, python3, ... }@args:
 
 callPackage ./generic.nix (
   args

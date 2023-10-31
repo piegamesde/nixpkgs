@@ -1,8 +1,5 @@
 import ../make-test-python.nix (
-  {
-    lib,
-    ...
-  }:
+  { lib, ... }:
   let
     snakeoil-keys = import ./snakeoil-keys.nix;
 
@@ -35,10 +32,7 @@ import ../make-test-python.nix (
     ;
 
     makeTincNode =
-      {
-        config,
-        ...
-      }:
+      { config, ... }:
       name: extraConfig:
       lib.mkMerge [
         {
@@ -106,9 +100,7 @@ import ../make-test-python.nix (
     nodes = {
 
       static =
-        {
-          ...
-        }@args:
+        { ... }@args:
         makeTincNode args "static" {
           virtualisation.vlans = [
             1
@@ -128,18 +120,10 @@ import ../make-test-python.nix (
       ;
 
       dynamic1 =
-        {
-          ...
-        }@args:
-        makeTincNode args "dynamic1" { virtualisation.vlans = [ 1 ]; }
-      ;
+        { ... }@args: makeTincNode args "dynamic1" { virtualisation.vlans = [ 1 ]; };
 
       dynamic2 =
-        {
-          ...
-        }@args:
-        makeTincNode args "dynamic2" { virtualisation.vlans = [ 2 ]; }
-      ;
+        { ... }@args: makeTincNode args "dynamic2" { virtualisation.vlans = [ 2 ]; };
     };
 
     testScript = ''

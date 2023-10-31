@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    lib,
-    ...
-  }:
+  { lib, ... }:
 
   with lib;
 
@@ -10,15 +7,7 @@ import ./make-test-python.nix (
     name = "ombi";
     meta.maintainers = with maintainers; [ woky ];
 
-    nodes.machine =
-      {
-        pkgs,
-        ...
-      }:
-      {
-        services.ombi.enable = true;
-      }
-    ;
+    nodes.machine = { pkgs, ... }: { services.ombi.enable = true; };
 
     testScript = ''
       machine.wait_for_unit("ombi.service")

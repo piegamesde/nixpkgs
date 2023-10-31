@@ -222,10 +222,7 @@ in
   )
 
   (
-    {
-      bootstrapTools,
-      ...
-    }:
+    { bootstrapTools, ... }:
     rec {
       __raw = true;
 

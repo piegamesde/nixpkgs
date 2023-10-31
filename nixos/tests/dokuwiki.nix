@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
 
   let
     template-bootstrap3 = pkgs.stdenv.mkDerivation rec {
@@ -45,9 +42,7 @@ import ./make-test-python.nix (
 
     mkNode =
       webserver:
-      {
-        ...
-      }:
+      { ... }:
       {
         services.dokuwiki = {
           inherit webserver;

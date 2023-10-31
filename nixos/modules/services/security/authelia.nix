@@ -13,10 +13,7 @@ let
 
   autheliaOpts =
     with lib;
-    {
-      name,
-      ...
-    }:
+    { name, ... }:
     {
       options = {
         enable = mkEnableOption (mdDoc "Authelia instance");

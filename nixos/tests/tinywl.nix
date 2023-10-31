@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
 
   {
     name = "tinywl";
@@ -12,10 +8,7 @@ import ./make-test-python.nix (
     };
 
     nodes.machine =
-      {
-        config,
-        ...
-      }:
+      { config, ... }:
       {
         # Automatically login on tty1 as a normal user:
         imports = [ ./common/user-account.nix ];
@@ -48,10 +41,7 @@ import ./make-test-python.nix (
     ;
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       ''
         start_all()
         machine.wait_for_unit("multi-user.target")

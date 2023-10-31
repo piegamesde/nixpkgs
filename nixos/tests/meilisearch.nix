@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   let
     listenAddress = "127.0.0.1";
     listenPort = 7700;
@@ -20,9 +16,7 @@ import ./make-test-python.nix (
     meta.maintainers = with lib.maintainers; [ Br1ght0ne ];
 
     nodes.machine =
-      {
-        ...
-      }:
+      { ... }:
       {
         environment.systemPackages = with pkgs; [
           curl

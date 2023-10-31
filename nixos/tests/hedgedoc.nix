@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   {
     name = "hedgedoc";
 
@@ -11,9 +7,7 @@ import ./make-test-python.nix (
 
     nodes = {
       hedgedocSqlite =
-        {
-          ...
-        }:
+        { ... }:
         {
           services = {
             hedgedoc = {
@@ -25,9 +19,7 @@ import ./make-test-python.nix (
       ;
 
       hedgedocPostgres =
-        {
-          ...
-        }:
+        { ... }:
         {
           systemd.services.hedgedoc.after = [ "postgresql.service" ];
           services = {

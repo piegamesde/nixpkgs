@@ -1,8 +1,4 @@
-{
-  lib,
-  options,
-  ...
-}:
+{ lib, options, ... }:
 
 # Some modules may be distributed separately and need to adapt to other modules
 # that are distributed and versioned separately.

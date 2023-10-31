@@ -1,27 +1,15 @@
 # Mutable users tests.
 
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "mutable-users";
     meta = with pkgs.lib.maintainers; { maintainers = [ gleber ]; };
 
     nodes = {
-      machine =
-        {
-          ...
-        }:
-        {
-          users.mutableUsers = false;
-        }
-      ;
+      machine = { ... }: { users.mutableUsers = false; };
       mutable =
-        {
-          ...
-        }:
+        { ... }:
         {
           users.mutableUsers = true;
           users.users.dry-test.isNormalUser = true;
@@ -30,10 +18,7 @@ import ./make-test-python.nix (
     };
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       let
         immutableSystem = nodes.machine.config.system.build.toplevel;
         mutableSystem = nodes.mutable.config.system.build.toplevel;

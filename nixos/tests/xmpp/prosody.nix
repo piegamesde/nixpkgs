@@ -64,11 +64,7 @@ import ../make-test-python.nix {
       }
     ;
     server =
-      {
-        config,
-        pkgs,
-        ...
-      }:
+      { config, pkgs, ... }:
       {
         security.pki.certificateFiles = [ "${cert pkgs}/cert.pem" ];
         console.keyMap = "fr-bepo";
@@ -102,10 +98,7 @@ import ../make-test-python.nix {
   };
 
   testScript =
-    {
-      nodes,
-      ...
-    }:
+    { nodes, ... }:
     ''
       # Check with sqlite storage
       start_all()

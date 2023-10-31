@@ -1,7 +1,4 @@
-{
-  lib,
-  writeShellScript,
-}:
+{ lib, writeShellScript }:
 let
   output = "hello";
 in

@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   let
     host = "smoke.test";
     port = "8065";
@@ -12,10 +8,7 @@ import ./make-test-python.nix (
 
     makeMattermost =
       mattermostConfig:
-      {
-        config,
-        ...
-      }:
+      { config, ... }:
       {
         environment.systemPackages = [
           pkgs.mattermost

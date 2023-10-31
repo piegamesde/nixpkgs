@@ -1,7 +1,4 @@
-{
-  stdenv,
-  klibc,
-}:
+{ stdenv, klibc }:
 
 stdenv.mkDerivation {
   # !!! For now, the name has to be exactly as long as the original

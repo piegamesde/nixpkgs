@@ -550,10 +550,7 @@ rec {
   ;
 
   buildLayeredImage =
-    {
-      name,
-      ...
-    }@args:
+    { name, ... }@args:
     let
       stream = streamLayeredImage args;
     in
@@ -1394,10 +1391,7 @@ rec {
 
   # Wrapper around streamNixShellImage to build an image from the result
   buildNixShellImage =
-    {
-      drv,
-      ...
-    }@args:
+    { drv, ... }@args:
     let
       stream = streamNixShellImage args;
     in

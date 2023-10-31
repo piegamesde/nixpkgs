@@ -5,10 +5,7 @@ args@{
 }:
 
 (import ../make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   let
     adminpass = "hunter2";
     adminuser = "custom-admin-username";
@@ -19,12 +16,7 @@ args@{
 
     nodes = {
       # The only thing the client needs to do is download a file.
-      client =
-        {
-          ...
-        }:
-        { }
-      ;
+      client = { ... }: { };
 
       nextcloud =
         {

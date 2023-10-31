@@ -1,18 +1,12 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "xrdp";
     meta = with pkgs.lib.maintainers; { maintainers = [ ]; };
 
     nodes = {
       server =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           imports = [ ./common/user-account.nix ];
           services.xrdp.enable = true;
@@ -22,10 +16,7 @@ import ./make-test-python.nix (
       ;
 
       client =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           imports = [
             ./common/x11.nix
@@ -40,10 +31,7 @@ import ./make-test-python.nix (
     };
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       let
         user = nodes.client.config.users.users.alice;
       in

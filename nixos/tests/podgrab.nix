@@ -3,27 +3,15 @@ let
   customPort = 4242;
 in
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "podgrab";
 
     nodes = {
-      default =
-        {
-          ...
-        }:
-        {
-          services.podgrab.enable = true;
-        }
-      ;
+      default = { ... }: { services.podgrab.enable = true; };
 
       customized =
-        {
-          ...
-        }:
+        { ... }:
         {
           services.podgrab = {
             enable = true;

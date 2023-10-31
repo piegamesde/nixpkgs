@@ -1,15 +1,9 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "nix-serve";
     nodes.machine =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         services.nix-serve.enable = true;
         environment.systemPackages = [ pkgs.hello ];

@@ -1,6 +1,4 @@
-{
-  lib,
-}:
+{ lib }:
 
 let
   inherit (lib) throwIfNot;

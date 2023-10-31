@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    lib,
-    ...
-  }:
+  { lib, ... }:
   {
     name = "paperless";
     meta.maintainers = with lib.maintainers; [
@@ -11,10 +8,7 @@ import ./make-test-python.nix (
     ];
 
     nodes.machine =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         environment.systemPackages = with pkgs; [
           imagemagick

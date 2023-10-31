@@ -23,10 +23,7 @@ let
   danIp6 = bobPrefix + "::2";
 in
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "yggdrasil";
     meta = with pkgs.lib.maintainers; { maintainers = [ gazally ]; };
@@ -36,9 +33,7 @@ import ./make-test-python.nix (
       # but has multicast peering disabled.  Alice has part of her
       # yggdrasil config in Nix and part of it in a file.
       alice =
-        {
-          ...
-        }:
+        { ... }:
         {
           networking = {
             interfaces.eth1.ipv4.addresses = [ {
@@ -72,9 +67,7 @@ import ./make-test-python.nix (
       # Bob is set up to peer with Alice, and also to do local multicast
       # peering.  Bob's yggdrasil config is in a file.
       bob =
-        {
-          ...
-        }:
+        { ... }:
         {
           networking.firewall.allowedTCPPorts = [ 54321 ];
           services.yggdrasil = {
@@ -106,11 +99,7 @@ import ./make-test-python.nix (
             privateNetwork = true;
             hostBridge = "br0";
             config =
-              {
-                config,
-                pkgs,
-                ...
-              }:
+              { config, pkgs, ... }:
               {
                 networking.interfaces.eth0.ipv6 = {
                   addresses = [ {
@@ -134,9 +123,7 @@ import ./make-test-python.nix (
 
       # Carol only does local peering.  Carol's yggdrasil config is all Nix.
       carol =
-        {
-          ...
-        }:
+        { ... }:
         {
           networking.firewall.allowedTCPPorts = [ 43210 ];
           services.yggdrasil = {

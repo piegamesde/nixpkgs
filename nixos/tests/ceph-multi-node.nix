@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
 
   let
     cfg = {
@@ -32,9 +28,7 @@ import ./make-test-python.nix (
       };
     };
     generateCephConfig =
-      {
-        daemonConfig,
-      }:
+      { daemonConfig }:
       {
         enable = true;
         global = {
@@ -136,9 +130,7 @@ import ./make-test-python.nix (
     # For other ways to deploy a ceph cluster, look at the documentation at
     # https://docs.ceph.com/docs/master/
     testscript =
-      {
-        ...
-      }:
+      { ... }:
       ''
         start_all()
 

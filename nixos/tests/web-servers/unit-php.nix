@@ -1,8 +1,5 @@
 import ../make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   let
     testdir = pkgs.writeTextDir "www/info.php" "<?php phpinfo();";
   in

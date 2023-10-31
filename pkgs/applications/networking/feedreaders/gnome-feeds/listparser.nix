@@ -1,7 +1,4 @@
-{
-  lib,
-  python3,
-}:
+{ lib, python3 }:
 python3.pkgs.buildPythonPackage rec {
   pname = "listparser";
   version = "0.18";

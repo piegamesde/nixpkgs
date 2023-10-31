@@ -1,8 +1,4 @@
-{
-  testers,
-  fetchpatch,
-  ...
-}:
+{ testers, fetchpatch, ... }:
 
 let
   isFetchpatch2 = fetchpatch.version == 2;

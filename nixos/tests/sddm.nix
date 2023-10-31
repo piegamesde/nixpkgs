@@ -14,9 +14,7 @@ let
       name = "sddm";
 
       nodes.machine =
-        {
-          ...
-        }:
+        { ... }:
         {
           imports = [ ./common/user-account.nix ];
           services.xserver.enable = true;
@@ -29,10 +27,7 @@ let
       enableOCR = true;
 
       testScript =
-        {
-          nodes,
-          ...
-        }:
+        { nodes, ... }:
         let
           user = nodes.machine.config.users.users.alice;
         in
@@ -53,9 +48,7 @@ let
       meta = with pkgs.lib.maintainers; { maintainers = [ ttuegel ]; };
 
       nodes.machine =
-        {
-          ...
-        }:
+        { ... }:
         {
           imports = [ ./common/user-account.nix ];
           services.xserver.enable = true;
@@ -72,10 +65,7 @@ let
       ;
 
       testScript =
-        {
-          nodes,
-          ...
-        }:
+        { nodes, ... }:
         let
           user = nodes.machine.config.users.users.alice;
         in

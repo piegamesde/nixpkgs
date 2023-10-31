@@ -1,7 +1,4 @@
-{
-  lib,
-  pkgs,
-}:
+{ lib, pkgs }:
 let
   inherit (lib) types;
   inherit (types)

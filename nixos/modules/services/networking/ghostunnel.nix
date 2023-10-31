@@ -24,11 +24,7 @@ let
   mainCfg = config.services.ghostunnel;
 
   module =
-    {
-      config,
-      name,
-      ...
-    }:
+    { config, name, ... }:
     {
       options = {
 

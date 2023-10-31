@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "nzbget";
     meta = with pkgs.lib.maintainers; {
@@ -14,9 +11,7 @@ import ./make-test-python.nix (
 
     nodes = {
       server =
-        {
-          ...
-        }:
+        { ... }:
         {
           services.nzbget.enable = true;
 
@@ -36,10 +31,7 @@ import ./make-test-python.nix (
     };
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       ''
         start_all()
 

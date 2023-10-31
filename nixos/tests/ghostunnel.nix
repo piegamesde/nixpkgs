@@ -1,16 +1,10 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "ghostunnel";
     nodes = {
       backend =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           services.nginx.enable = true;
           services.nginx.virtualHosts."backend".root = pkgs.runCommand "webroot" { } ''
@@ -21,9 +15,7 @@ import ./make-test-python.nix (
         }
       ;
       service =
-        {
-          ...
-        }:
+        { ... }:
         {
           services.ghostunnel.enable = true;
           services.ghostunnel.servers."plain-old" = {
@@ -49,15 +41,7 @@ import ./make-test-python.nix (
           ];
         }
       ;
-      client =
-        {
-          pkgs,
-          ...
-        }:
-        {
-          environment.systemPackages = [ pkgs.curl ];
-        }
-      ;
+      client = { pkgs, ... }: { environment.systemPackages = [ pkgs.curl ]; };
     };
 
     testScript = ''

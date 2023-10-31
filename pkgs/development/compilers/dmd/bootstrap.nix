@@ -1,6 +1,4 @@
-{
-  callPackage,
-}:
+{ callPackage }:
 callPackage ./binary.nix {
   version = "2.090.1";
   hashes = {

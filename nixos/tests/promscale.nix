@@ -24,11 +24,7 @@ let
       meta = with pkgs.lib.maintainers; { maintainers = [ anpin ]; };
 
       nodes.machine =
-        {
-          config,
-          pkgs,
-          ...
-        }:
+        { config, pkgs, ... }:
         {
           services.postgresql = {
             enable = true;

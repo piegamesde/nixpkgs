@@ -1,8 +1,5 @@
 # `fetchPypi` function for fetching artifacts from PyPI.
-{
-  fetchurl,
-  makeOverridable,
-}:
+{ fetchurl, makeOverridable }:
 
 let
   computeUrl =

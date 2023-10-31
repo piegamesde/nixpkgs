@@ -3,11 +3,7 @@ let
   ipAddr = "192.168.42.42";
 in
 import ./make-test-python.nix (
-  {
-    lib,
-    pkgs,
-    ...
-  }:
+  { lib, pkgs, ... }:
   {
     name = "apcupsd";
     meta.maintainers = with lib.maintainers; [ bjornfor ];

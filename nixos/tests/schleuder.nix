@@ -5,10 +5,7 @@ in
 import ./make-test-python.nix {
   name = "schleuder";
   nodes.machine =
-    {
-      pkgs,
-      ...
-    }:
+    { pkgs, ... }:
     {
       imports = [ ./common/user-account.nix ];
       services.postfix = {

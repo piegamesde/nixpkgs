@@ -1,6 +1,4 @@
-{
-  pkgs,
-}:
+{ pkgs }:
 self: super: {
 
   irrd = super.irrd.overridePythonAttrs (

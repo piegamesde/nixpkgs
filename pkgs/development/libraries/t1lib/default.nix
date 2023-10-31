@@ -9,10 +9,7 @@
 
 let
   getPatch =
-    {
-      name,
-      sha256,
-    }:
+    { name, sha256 }:
     fetchpatch {
       inherit name sha256;
       url =

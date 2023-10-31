@@ -87,12 +87,7 @@ let
     ;
   };
 
-  importGodeps =
-    {
-      depsFile,
-    }:
-    map dep2src (import depsFile)
-  ;
+  importGodeps = { depsFile }: map dep2src (import depsFile);
 
   goPath =
     if goDeps != null then
@@ -158,10 +153,7 @@ let
             fi
           ''
           + lib.flip lib.concatMapStrings goPath (
-            {
-              src,
-              goPackagePath,
-            }:
+            { src, goPackagePath }:
             ''
               mkdir goPath
               (cd goPath; unpackFile "${src}")

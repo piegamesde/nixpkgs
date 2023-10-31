@@ -1,16 +1,10 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   let
     inherit (import ./ssh-keys.nix pkgs) snakeOilPrivateKey snakeOilPublicKey;
 
     commonConfig =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         virtualisation.emptyDiskImages = [ 2048 ];
         boot.supportedFilesystems = [ "zfs" ];
@@ -24,9 +18,7 @@ import ./make-test-python.nix (
 
     nodes = {
       source =
-        {
-          ...
-        }:
+        { ... }:
         {
           imports = [ commonConfig ];
           networking.hostId = "daa82e91";
@@ -79,9 +71,7 @@ import ./make-test-python.nix (
         }
       ;
       target =
-        {
-          ...
-        }:
+        { ... }:
         {
           imports = [ commonConfig ];
           networking.hostId = "dcf39d36";

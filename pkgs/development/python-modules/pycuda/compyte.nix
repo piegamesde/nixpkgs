@@ -1,7 +1,4 @@
-{
-  mkDerivation,
-  fetchFromGitHub,
-}:
+{ mkDerivation, fetchFromGitHub }:
 
 mkDerivation {
   pname = "compyte";

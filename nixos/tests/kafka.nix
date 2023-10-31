@@ -16,9 +16,7 @@ let
 
         nodes = {
           zookeeper1 =
-            {
-              ...
-            }:
+            { ... }:
             {
               services.zookeeper = {
                 enable = true;
@@ -28,9 +26,7 @@ let
             }
           ;
           kafka =
-            {
-              ...
-            }:
+            { ... }:
             {
               services.apache-kafka = {
                 enable = true;

@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   {
     name = "sway";
     meta = {
@@ -20,10 +16,7 @@ import ./make-test-python.nix (
     skipTypeCheck = true;
 
     nodes.machine =
-      {
-        config,
-        ...
-      }:
+      { config, ... }:
       {
         # Automatically login on tty1 as a normal user:
         imports = [ ./common/user-account.nix ];
@@ -93,10 +86,7 @@ import ./make-test-python.nix (
     enableOCR = true;
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       ''
         import shlex
 

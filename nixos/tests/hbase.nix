@@ -12,10 +12,7 @@ import ./make-test-python.nix (
 
     nodes = {
       hbase =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           services.hbase-standalone = {
             enable = true;

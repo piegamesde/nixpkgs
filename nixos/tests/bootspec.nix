@@ -150,10 +150,7 @@ in
     meta.maintainers = with pkgs.lib.maintainers; [ raitobezarius ];
 
     nodes.machine =
-      {
-        config,
-        ...
-      }:
+      { config, ... }:
       {
         imports = [ standard ];
         environment.systemPackages = [ pkgs.jq ];

@@ -1,6 +1,4 @@
-{
-  cfg,
-}:
+{ cfg }:
 {
   config,
   lib,

@@ -1,6 +1,4 @@
-{
-  rustPlatform,
-}:
+{ rustPlatform }:
 
 rustPlatform.buildRustPackage {
   pname = "git-dependency-tag";

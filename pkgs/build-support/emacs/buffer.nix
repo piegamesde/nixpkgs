@@ -73,9 +73,7 @@ rec {
       project-root, # The monorepo root
       haskellPackages, # The composed haskell packages set that contains all of the packages
     }:
-    {
-      root,
-    }:
+    { root }:
     let
       # The haskell paths.
       haskell-paths = lib.filesystem.haskellPathsInDir project-root;

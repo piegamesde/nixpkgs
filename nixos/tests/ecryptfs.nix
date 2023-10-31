@@ -1,15 +1,10 @@
 import ./make-test-python.nix (
-  {
-    ...
-  }:
+  { ... }:
   {
     name = "ecryptfs";
 
     nodes.machine =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         imports = [ ./common/user-account.nix ];
         boot.kernelModules = [ "ecryptfs" ];

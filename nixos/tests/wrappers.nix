@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   let
     userUid = 1000;
     usersGid = 100;
@@ -19,11 +16,7 @@ import ./make-test-python.nix (
     name = "wrappers";
 
     nodes.machine =
-      {
-        config,
-        pkgs,
-        ...
-      }:
+      { config, pkgs, ... }:
       {
         ids.gids.users = usersGid;
 

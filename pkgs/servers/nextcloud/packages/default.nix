@@ -22,13 +22,7 @@ let
       # This takes the data generated from the go tool.
       mkNextcloudDerivation =
         self.callPackage
-          (
-            { }:
-            {
-              data,
-            }:
-            pkgs.fetchNextcloudApp { inherit (data) url sha256; }
-          )
+          ({ }: { data }: pkgs.fetchNextcloudApp { inherit (data) url sha256; })
           { }
       ;
     }

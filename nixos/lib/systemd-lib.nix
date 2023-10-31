@@ -445,11 +445,7 @@ rec {
   ;
 
   unitConfig =
-    {
-      config,
-      options,
-      ...
-    }:
+    { config, options, ... }:
     {
       config = {
         unitConfig =
@@ -495,10 +491,7 @@ rec {
   ;
 
   serviceConfig =
-    {
-      config,
-      ...
-    }:
+    { config, ... }:
     {
       config.environment.PATH =
         mkIf (config.path != [ ])
@@ -522,10 +515,7 @@ rec {
   stage1ServiceConfig = serviceConfig;
 
   mountConfig =
-    {
-      config,
-      ...
-    }:
+    { config, ... }:
     {
       config = {
         mountConfig =
@@ -541,10 +531,7 @@ rec {
   ;
 
   automountConfig =
-    {
-      config,
-      ...
-    }:
+    { config, ... }:
     {
       config = {
         automountConfig = {

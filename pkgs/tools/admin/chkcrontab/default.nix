@@ -1,7 +1,4 @@
-{
-  python3,
-  lib,
-}:
+{ python3, lib }:
 
 with python3.pkgs;
 

@@ -30,9 +30,7 @@ let
   '';
 
   bindingCfg =
-    {
-      ...
-    }:
+    { ... }:
     {
       options = {
 

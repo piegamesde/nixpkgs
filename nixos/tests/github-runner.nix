@@ -1,16 +1,10 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "github-runner";
     meta = with pkgs.lib.maintainers; { maintainers = [ veehaitch ]; };
     nodes.machine =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         services.github-runners.test = {
           enable = true;

@@ -373,11 +373,7 @@ in
         let
           globalConfig = config;
         in
-        {
-          name,
-          config,
-          ...
-        }:
+        { name, config, ... }:
         {
           options = {
 
@@ -780,9 +776,7 @@ in
     default = { };
     type = types.attrsOf (
       types.submodule (
-        {
-          ...
-        }:
+        { ... }:
         {
           options = {
             path = mkOption {

@@ -4,10 +4,7 @@
 import ./make-test-python.nix (
   let
     common =
-      {
-        lib,
-        ...
-      }:
+      { lib, ... }:
       {
         # override the `false` value from the qemu-vm base profile
         services.timesyncd.enable = lib.mkForce true;
@@ -25,10 +22,7 @@ import ./make-test-python.nix (
     nodes = {
       current = mkVM { };
       pre1909 = mkVM (
-        {
-          lib,
-          ...
-        }:
+        { lib, ... }:
         with lib; {
           # create the path that should be migrated by our activation script when
           # upgrading to a newer nixos version

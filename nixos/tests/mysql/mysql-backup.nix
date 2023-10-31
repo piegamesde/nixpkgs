@@ -21,10 +21,7 @@ let
 
       nodes = {
         master =
-          {
-            pkgs,
-            ...
-          }:
+          { pkgs, ... }:
           {
             services.mysql = {
               inherit package;

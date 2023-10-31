@@ -414,10 +414,7 @@ rec {
 
   # Function that automatically links all plugins for which multiple versions can coexist
   linkPlugins =
-    {
-      name,
-      plugins,
-    }:
+    { name, plugins }:
     lib.optionalString (plugins != [ ]) ''
       mkdir -p ${name}
       ${lib.concatMapStrings
@@ -470,10 +467,7 @@ rec {
   ;
 
   linkSystemImages =
-    {
-      images,
-      check,
-    }:
+    { images, check }:
     lib.optionalString check ''
       mkdir -p system-images
       ${lib.concatMapStrings

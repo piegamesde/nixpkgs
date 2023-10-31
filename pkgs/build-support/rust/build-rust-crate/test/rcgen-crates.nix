@@ -628,24 +628,12 @@ rec {
             name = "libc";
             packageId = "libc";
             usesDefaultFeatures = false;
-            target =
-              {
-                target,
-                features,
-              }:
-              (target."unix" or false)
-            ;
+            target = { target, features }: (target."unix" or false);
           }
           {
             name = "wasi";
             packageId = "wasi";
-            target =
-              {
-                target,
-                features,
-              }:
-              (target."os" == "wasi")
-            ;
+            target = { target, features }: (target."os" == "wasi");
           }
         ];
         features = {
@@ -1070,12 +1058,7 @@ rec {
           name = "libc";
           packageId = "libc";
           target =
-            {
-              target,
-              features,
-            }:
-            ((target."os" == "macos") || (target."os" == "freebsd"))
-          ;
+            { target, features }: ((target."os" == "macos") || (target."os" == "freebsd"));
         } ];
       };
       "oid-registry" = rec {
@@ -1201,13 +1184,7 @@ rec {
           {
             name = "vcpkg";
             packageId = "vcpkg";
-            target =
-              {
-                target,
-                features,
-              }:
-              (target."env" == "msvc")
-            ;
+            target = { target, features }: (target."env" == "msvc");
           }
         ];
         features = {
@@ -1447,26 +1424,14 @@ rec {
             packageId = "libc";
             optional = true;
             usesDefaultFeatures = false;
-            target =
-              {
-                target,
-                features,
-              }:
-              (target."unix" or false)
-            ;
+            target = { target, features }: (target."unix" or false);
           }
           {
             name = "rand_chacha";
             packageId = "rand_chacha";
             optional = true;
             usesDefaultFeatures = false;
-            target =
-              {
-                target,
-                features,
-              }:
-              (!(target."os" == "emscripten"))
-            ;
+            target = { target, features }: (!(target."os" == "emscripten"));
           }
           {
             name = "rand_core";
@@ -1476,13 +1441,7 @@ rec {
             name = "rand_hc";
             packageId = "rand_hc";
             optional = true;
-            target =
-              {
-                target,
-                features,
-              }:
-              (target."os" == "emscripten")
-            ;
+            target = { target, features }: (target."os" == "emscripten");
           }
         ];
         devDependencies = [ {
@@ -1700,12 +1659,7 @@ rec {
             packageId = "libc";
             usesDefaultFeatures = false;
             target =
-              {
-                target,
-                features,
-              }:
-              ((target."os" == "android") || (target."os" == "linux"))
-            ;
+              { target, features }: ((target."os" == "android") || (target."os" == "linux"));
           }
           {
             name = "once_cell";
@@ -1713,12 +1667,7 @@ rec {
             optional = true;
             usesDefaultFeatures = false;
             target =
-              {
-                target,
-                features,
-              }:
-              ((target."os" == "android") || (target."os" == "linux"))
-            ;
+              { target, features }: ((target."os" == "android") || (target."os" == "linux"));
             features = [ "std" ];
           }
           {
@@ -1726,10 +1675,7 @@ rec {
             packageId = "once_cell";
             usesDefaultFeatures = false;
             target =
-              {
-                target,
-                features,
-              }:
+              { target, features }:
               (
                 (target."os" == "dragonfly")
                 || (target."os" == "freebsd")
@@ -1746,10 +1692,7 @@ rec {
             packageId = "spin";
             usesDefaultFeatures = false;
             target =
-              {
-                target,
-                features,
-              }:
+              { target, features }:
               (
                 (target."arch" == "x86")
                 || (target."arch" == "x86_64")
@@ -1773,10 +1716,7 @@ rec {
             packageId = "web-sys";
             usesDefaultFeatures = false;
             target =
-              {
-                target,
-                features,
-              }:
+              { target, features }:
               (
                 (target."arch" == "wasm32")
                 && (target."vendor" == "unknown")
@@ -1793,13 +1733,7 @@ rec {
             name = "winapi";
             packageId = "winapi";
             usesDefaultFeatures = false;
-            target =
-              {
-                target,
-                features,
-              }:
-              (target."os" == "windows")
-            ;
+            target = { target, features }: (target."os" == "windows");
             features = [
               "ntsecapi"
               "wtypesbase"
@@ -1816,12 +1750,7 @@ rec {
           packageId = "libc";
           usesDefaultFeatures = false;
           target =
-            {
-              target,
-              features,
-            }:
-            ((target."unix" or false) || (target."windows" or false))
-          ;
+            { target, features }: ((target."unix" or false) || (target."windows" or false));
         } ];
         features = {
           "default" = [
@@ -2180,24 +2109,12 @@ rec {
           {
             name = "libc";
             packageId = "libc";
-            target =
-              {
-                target,
-                features,
-              }:
-              (target."family" == "unix")
-            ;
+            target = { target, features }: (target."family" == "unix");
           }
           {
             name = "num_threads";
             packageId = "num_threads";
-            target =
-              {
-                target,
-                features,
-              }:
-              (target."family" == "unix")
-            ;
+            target = { target, features }: (target."family" == "unix");
           }
           {
             name = "time-macros";
@@ -3983,23 +3900,13 @@ rec {
             name = "winapi-i686-pc-windows-gnu";
             packageId = "winapi-i686-pc-windows-gnu";
             target =
-              {
-                target,
-                features,
-              }:
-              (stdenv.hostPlatform.config == "i686-pc-windows-gnu")
-            ;
+              { target, features }: (stdenv.hostPlatform.config == "i686-pc-windows-gnu");
           }
           {
             name = "winapi-x86_64-pc-windows-gnu";
             packageId = "winapi-x86_64-pc-windows-gnu";
             target =
-              {
-                target,
-                features,
-              }:
-              (stdenv.hostPlatform.config == "x86_64-pc-windows-gnu")
-            ;
+              { target, features }: (stdenv.hostPlatform.config == "x86_64-pc-windows-gnu");
           }
         ];
         features = {
@@ -4739,10 +4646,7 @@ rec {
           in
           foldOverCache (
             cache:
-            {
-              packageId,
-              features,
-            }:
+            { packageId, features }:
             let
               cacheFeatures = cache.${packageId} or [ ];
               combinedFeatures = sortedUnique (cacheFeatures ++ features);

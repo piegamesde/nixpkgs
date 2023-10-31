@@ -7,10 +7,7 @@
 # protocol to poke a hole in the NAT.
 
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
 
   let
 
@@ -25,9 +22,7 @@ import ./make-test-python.nix (
 
     download-dir = "/var/lib/transmission/Downloads";
     transmissionConfig =
-      {
-        ...
-      }:
+      { ... }:
       {
         environment.systemPackages = [ pkgs.transmission ];
         services.transmission = {
@@ -55,10 +50,7 @@ import ./make-test-python.nix (
 
     nodes = {
       tracker =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           imports = [ transmissionConfig ];
 
@@ -84,11 +76,7 @@ import ./make-test-python.nix (
       ;
 
       router =
-        {
-          pkgs,
-          nodes,
-          ...
-        }:
+        { pkgs, nodes, ... }:
         {
           virtualisation.vlans = [
             1
@@ -120,11 +108,7 @@ import ./make-test-python.nix (
       ;
 
       client1 =
-        {
-          pkgs,
-          nodes,
-          ...
-        }:
+        { pkgs, nodes, ... }:
         {
           imports = [ transmissionConfig ];
           environment.systemPackages = [ pkgs.miniupnpc ];
@@ -141,10 +125,7 @@ import ./make-test-python.nix (
       ;
 
       client2 =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           imports = [ transmissionConfig ];
 
@@ -160,10 +141,7 @@ import ./make-test-python.nix (
     };
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       ''
         start_all()
 

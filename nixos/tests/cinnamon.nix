@@ -1,19 +1,12 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   {
     name = "cinnamon";
 
     meta = with lib; { maintainers = teams.cinnamon.members; };
 
     nodes.machine =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       {
         imports = [ ./common/user-account.nix ];
         services.xserver.enable = true;
@@ -24,10 +17,7 @@ import ./make-test-python.nix (
     enableOCR = true;
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       let
         user = nodes.machine.config.users.users.alice;
         uid = toString user.uid;

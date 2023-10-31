@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   let
     accessKey = "BKIKJAA5BMMU2RHO6IBB";
     secretKey = "V7f1CwQqAcwo80UEIJEjc5gVQUSSx5ohQ9GSrr12";
@@ -37,10 +34,7 @@ import ./make-test-python.nix (
 
     nodes = {
       machine =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           services.minio = {
             enable = true;

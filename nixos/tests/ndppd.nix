@@ -1,19 +1,12 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   {
     name = "ndppd";
     meta = with pkgs.lib.maintainers; { maintainers = [ fpletz ]; };
 
     nodes = {
       upstream =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           environment.systemPackages = [ pkgs.tcpdump ];
           networking.useDHCP = false;
@@ -32,10 +25,7 @@ import ./make-test-python.nix (
         }
       ;
       server =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           boot.kernel.sysctl = {
             "net.ipv6.conf.all.forwarding" = "1";

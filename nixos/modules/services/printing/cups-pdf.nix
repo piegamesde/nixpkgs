@@ -97,11 +97,7 @@ let
   };
 
   instanceConfig =
-    {
-      name,
-      config,
-      ...
-    }:
+    { name, config, ... }:
     {
       options = {
         enable = (lib.mkEnableOption (lib.mdDoc "this cups-pdf instance")) // {

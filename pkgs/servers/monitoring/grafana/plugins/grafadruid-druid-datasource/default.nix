@@ -1,7 +1,4 @@
-{
-  grafanaPlugin,
-  lib,
-}:
+{ grafanaPlugin, lib }:
 
 grafanaPlugin rec {
   pname = "grafadruid-druid-datasource";

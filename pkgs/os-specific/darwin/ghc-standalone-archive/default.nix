@@ -1,7 +1,4 @@
-{
-  runCommand,
-  cctools,
-}:
+{ runCommand, cctools }:
 {
   haskellPackages,
   src,

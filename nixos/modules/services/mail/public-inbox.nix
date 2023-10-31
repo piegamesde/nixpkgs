@@ -203,10 +203,7 @@ in
       default = { };
       type = types.attrsOf (
         types.submodule (
-          {
-            name,
-            ...
-          }:
+          { name, ... }:
           {
             freeformType = types.attrsOf iniAtom;
             options.inboxdir = mkOption {

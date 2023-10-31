@@ -1,8 +1,4 @@
-{
-  reason,
-  fp,
-  ...
-}:
+{ reason, fp, ... }:
 
 {
   pname = "dir";

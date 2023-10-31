@@ -1,9 +1,6 @@
 # DARWIN-SPECIFIC OVERRIDES FOR THE HASKELL PACKAGE SET IN NIXPKGS
 
-{
-  pkgs,
-  haskellLib,
-}:
+{ pkgs, haskellLib }:
 
 let
   inherit (pkgs) lib darwin;

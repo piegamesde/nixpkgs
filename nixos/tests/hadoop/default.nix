@@ -1,8 +1,4 @@
-{
-  handleTestOn,
-  package,
-  ...
-}:
+{ handleTestOn, package, ... }:
 
 {
   all =

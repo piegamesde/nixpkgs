@@ -1,6 +1,4 @@
-{
-  lib,
-}:
+{ lib }:
 
 let
   sources = lib.importJSON ./sources.json;

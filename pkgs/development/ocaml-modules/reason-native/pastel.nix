@@ -1,8 +1,4 @@
-{
-  reason,
-  re,
-  ...
-}:
+{ reason, re, ... }:
 
 {
   pname = "pastel";

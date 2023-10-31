@@ -1,19 +1,12 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "moonraker";
     meta = with pkgs.lib.maintainers; { maintainers = [ zhaofengli ]; };
 
     nodes = {
       printer =
-        {
-          config,
-          pkgs,
-          ...
-        }:
+        { config, pkgs, ... }:
         {
           security.polkit.enable = true;
 

@@ -66,11 +66,7 @@ import ../make-test-python.nix {
       }
     ;
     server =
-      {
-        config,
-        pkgs,
-        ...
-      }:
+      { config, pkgs, ... }:
       {
         nixpkgs.overlays = [
           (self: super: {
@@ -120,11 +116,7 @@ import ../make-test-python.nix {
       }
     ;
     mysql =
-      {
-        config,
-        pkgs,
-        ...
-      }:
+      { config, pkgs, ... }:
       {
         networking.firewall.enable = false;
         services.mysql = {
@@ -142,10 +134,7 @@ import ../make-test-python.nix {
   };
 
   testScript =
-    {
-      nodes,
-      ...
-    }:
+    { nodes, ... }:
     ''
       # Check with mysql storage
       mysql.wait_for_unit("mysql.service")

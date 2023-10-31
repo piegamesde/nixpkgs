@@ -1,20 +1,12 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   {
     name = "babeld";
     meta = with pkgs.lib.maintainers; { maintainers = [ hexa ]; };
 
     nodes = {
       client =
-        {
-          pkgs,
-          lib,
-          ...
-        }:
+        { pkgs, lib, ... }:
         {
           virtualisation.vlans = [ 10 ];
 
@@ -45,11 +37,7 @@ import ./make-test-python.nix (
       ;
 
       local_router =
-        {
-          pkgs,
-          lib,
-          ...
-        }:
+        { pkgs, lib, ... }:
         {
           virtualisation.vlans = [
             10
@@ -112,11 +100,7 @@ import ./make-test-python.nix (
         }
       ;
       remote_router =
-        {
-          pkgs,
-          lib,
-          ...
-        }:
+        { pkgs, lib, ... }:
         {
           virtualisation.vlans = [
             20

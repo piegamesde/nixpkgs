@@ -144,9 +144,7 @@ let
   ;
 
   aclOpts =
-    {
-      ...
-    }:
+    { ... }:
     {
       options = {
 
@@ -262,11 +260,7 @@ let
           "disableactions"
         ])
         (
-          {
-            config,
-            options,
-            ...
-          }:
+          { config, options, ... }:
           let
             showPath =
               suffix:

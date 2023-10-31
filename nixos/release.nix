@@ -83,11 +83,7 @@ let
   ;
 
   makeSdImage =
-    {
-      module,
-      system,
-      ...
-    }:
+    { module, system, ... }:
 
     with import ./.. { inherit system; };
 
@@ -140,9 +136,7 @@ let
           (import ./lib/eval-config.nix {
             inherit system;
             modules = makeModules module (
-              {
-                ...
-              }:
+              { ... }:
               {
                 fileSystems."/".device = mkDefault "/dev/sda1";
                 boot.loader.grub.device = mkDefault "/dev/sda";
@@ -154,11 +148,7 @@ let
   ;
 
   makeNetboot =
-    {
-      module,
-      system,
-      ...
-    }:
+    { module, system, ... }:
     let
       configEvaled = import lib/eval-config.nix {
         inherit system;
@@ -195,59 +185,26 @@ rec {
     ;
   };
 
-  manualHTML =
-    buildFromConfig
-      (
-        {
-          ...
-        }:
-        { }
-      )
-      (config: config.system.build.manual.manualHTML)
-  ;
+  manualHTML = buildFromConfig ({ ... }: { }) (
+    config: config.system.build.manual.manualHTML
+  );
   manual = manualHTML; # TODO(@oxij): remove eventually
   manualEpub =
-    (buildFromConfig
-      (
-        {
-          ...
-        }:
-        { }
-      )
-      (config: config.system.build.manual.manualEpub)
-    );
-  manpages =
-    buildFromConfig
-      (
-        {
-          ...
-        }:
-        { }
-      )
-      (config: config.system.build.manual.manpages)
-  ;
+    (buildFromConfig ({ ... }: { }) (
+      config: config.system.build.manual.manualEpub
+    ));
+  manpages = buildFromConfig ({ ... }: { }) (
+    config: config.system.build.manual.manpages
+  );
   options =
-    (buildFromConfig
-      (
-        {
-          ...
-        }:
-        { }
-      )
-      (config: config.system.build.manual.optionsJSON)
-    ).x86_64-linux;
+    (buildFromConfig ({ ... }: { }) (
+      config: config.system.build.manual.optionsJSON
+    )).x86_64-linux;
 
   # Build the initial ramdisk so Hydra can keep track of its size over time.
-  initialRamdisk =
-    buildFromConfig
-      (
-        {
-          ...
-        }:
-        { }
-      )
-      (config: config.system.build.initialRamdisk)
-  ;
+  initialRamdisk = buildFromConfig ({ ... }: { }) (
+    config: config.system.build.initialRamdisk
+  );
 
   kexec = forMatchingSystems supportedSystems (
     system:
@@ -490,14 +447,7 @@ rec {
               configuration
               versionModule
               ./maintainers/scripts/ec2/amazon-image.nix
-              (
-                {
-                  ...
-                }:
-                {
-                  amazonImage.sizeMB = "auto";
-                }
-              )
+              ({ ... }: { amazonImage.sizeMB = "auto"; })
             ];
           }).config.system.build.amazonImage
         )
@@ -566,9 +516,7 @@ rec {
           (import lib/eval-config.nix {
             inherit system;
             modules = singleton (
-              {
-                ...
-              }:
+              { ... }:
               {
                 fileSystems."/".device = mkDefault "/dev/sda1";
                 boot.loader.grub.device = mkDefault "/dev/sda";
@@ -599,9 +547,7 @@ rec {
   closures = {
 
     smallContainer = makeClosure (
-      {
-        ...
-      }:
+      { ... }:
       {
         boot.isContainer = true;
         services.openssh.enable = true;
@@ -609,9 +555,7 @@ rec {
     );
 
     tinyContainer = makeClosure (
-      {
-        ...
-      }:
+      { ... }:
       {
         boot.isContainer = true;
         imports = [ modules/profiles/minimal.nix ];
@@ -619,18 +563,11 @@ rec {
     );
 
     ec2 = makeClosure (
-      {
-        ...
-      }:
-      {
-        imports = [ modules/virtualisation/amazon-image.nix ];
-      }
+      { ... }: { imports = [ modules/virtualisation/amazon-image.nix ]; }
     );
 
     kde = makeClosure (
-      {
-        ...
-      }:
+      { ... }:
       {
         services.xserver.enable = true;
         services.xserver.displayManager.sddm.enable = true;
@@ -639,9 +576,7 @@ rec {
     );
 
     xfce = makeClosure (
-      {
-        ...
-      }:
+      { ... }:
       {
         services.xserver.enable = true;
         services.xserver.desktopManager.xfce.enable = true;
@@ -649,9 +584,7 @@ rec {
     );
 
     gnome = makeClosure (
-      {
-        ...
-      }:
+      { ... }:
       {
         services.xserver.enable = true;
         services.xserver.displayManager.gdm.enable = true;
@@ -660,9 +593,7 @@ rec {
     );
 
     pantheon = makeClosure (
-      {
-        ...
-      }:
+      { ... }:
       {
         services.xserver.enable = true;
         services.xserver.desktopManager.pantheon.enable = true;
@@ -671,10 +602,7 @@ rec {
 
     # Linux/Apache/PostgreSQL/PHP stack.
     lapp = makeClosure (
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         services.httpd.enable = true;
         services.httpd.adminAddr = "foo@example.org";

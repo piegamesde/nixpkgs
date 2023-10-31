@@ -9,10 +9,7 @@
 }:
 let
   common =
-    {
-      edition,
-      sha256,
-    }:
+    { edition, sha256 }:
     stdenv.mkDerivation (rec {
       pname = "rainloop${lib.optionalString (edition != "") "-${edition}"}";
       version = "1.16.0";

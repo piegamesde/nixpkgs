@@ -15,10 +15,7 @@ let
 
   makeBird2Host =
     hostId:
-    {
-      pkgs,
-      ...
-    }:
+    { pkgs, ... }:
     {
       virtualisation.vlans = [ 1 ];
 

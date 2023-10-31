@@ -1,7 +1,4 @@
-{
-  lib,
-  appleDerivation,
-}:
+{ lib, appleDerivation }:
 
 appleDerivation {
   dontBuild = true;

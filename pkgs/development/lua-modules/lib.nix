@@ -122,10 +122,7 @@ rec {
       depVariables = zipAttrsWithLast (
         lib.lists.map
           (
-            {
-              name,
-              dep,
-            }:
+            { name, dep }:
             {
               "${name}_INCDIR" = "${lib.getDev dep}/include";
               "${name}_LIBDIR" = "${lib.getLib dep}/lib";

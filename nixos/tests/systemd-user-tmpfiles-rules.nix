@@ -1,17 +1,12 @@
 import ./make-test-python.nix (
-  {
-    lib,
-    ...
-  }:
+  { lib, ... }:
   {
     name = "systemd-user-tmpfiles-rules";
 
     meta = with lib.maintainers; { maintainers = [ schnusch ]; };
 
     nodes.machine =
-      {
-        ...
-      }:
+      { ... }:
       {
         users.users = {
           alice.isNormalUser = true;
@@ -26,9 +21,7 @@ import ./make-test-python.nix (
     ;
 
     testScript =
-      {
-        ...
-      }:
+      { ... }:
       ''
         machine.succeed("loginctl enable-linger alice bob")
 

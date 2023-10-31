@@ -1,6 +1,4 @@
-{
-  fetchzip,
-}:
+{ fetchzip }:
 
 fetchzip {
   name = "libguestfs-appliance-1.40.1";

@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    lib,
-    ...
-  }:
+  { lib, ... }:
   {
     name = "tinydns";
     meta = {
@@ -10,11 +7,7 @@ import ./make-test-python.nix (
     };
     nodes = {
       nameserver =
-        {
-          config,
-          lib,
-          ...
-        }:
+        { config, lib, ... }:
         let
           ip = (lib.head config.networking.interfaces.eth1.ipv4.addresses).address;
         in

@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
 
   let
     cagebreakConfigfile = pkgs.writeText "config" ''
@@ -17,10 +13,7 @@ import ./make-test-python.nix (
     meta = with pkgs.lib.maintainers; { maintainers = [ berbiche ]; };
 
     nodes.machine =
-      {
-        config,
-        ...
-      }:
+      { config, ... }:
       let
         alice = config.users.users.alice;
       in
@@ -55,10 +48,7 @@ import ./make-test-python.nix (
     enableOCR = true;
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       let
         user = nodes.machine.config.users.users.alice;
         XDG_RUNTIME_DIR = "/run/user/${toString user.uid}";

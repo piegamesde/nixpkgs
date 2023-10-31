@@ -1,8 +1,4 @@
-{
-  stdenv,
-  unzip,
-  ...
-}:
+{ stdenv, unzip, ... }:
 
 let
   buildMoodlePlugin =

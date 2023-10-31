@@ -1,8 +1,4 @@
-{
-  testers,
-  fetchYarnDeps,
-  ...
-}:
+{ testers, fetchYarnDeps, ... }:
 
 {
   simple = testers.invalidateFetcherByDrvHash fetchYarnDeps {

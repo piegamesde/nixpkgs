@@ -1,7 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-}:
+{ lib, fetchFromGitHub }:
 
 let
 

@@ -1,6 +1,4 @@
-{
-  callPackage,
-}:
+{ callPackage }:
 {
   afternoon-theme =
     callPackage

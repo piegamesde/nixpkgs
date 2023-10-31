@@ -1,13 +1,8 @@
-{
-  lib,
-  ...
-}:
+{ lib, ... }:
 
 let
   submod =
-    {
-      ...
-    }:
+    { ... }:
     {
       options = {
         enable = lib.mkOption {

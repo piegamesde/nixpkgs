@@ -3,10 +3,7 @@
 #   2. GoCD server responds
 
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
 
   {
     name = "gocd-server";
@@ -14,9 +11,7 @@ import ./make-test-python.nix (
 
     nodes = {
       server =
-        {
-          ...
-        }:
+        { ... }:
         {
           virtualisation.memorySize = 2046;
           services.gocd-server.enable = true;

@@ -121,10 +121,7 @@ let
 
   mkExporterOpts =
     (
-      {
-        name,
-        port,
-      }:
+      { name, port }:
       {
         enable = mkEnableOption (lib.mdDoc "the prometheus ${name} exporter");
         port = mkOption {
@@ -199,10 +196,7 @@ let
             options = (mkExporterOpts { inherit name port; } // extraOpts);
           }
           (
-            {
-              config,
-              ...
-            }:
+            { config, ... }:
             mkIf config.openFirewall {
               firewallFilter = mkDefault "-p tcp -m tcp --dport ${toString config.port}";
             }

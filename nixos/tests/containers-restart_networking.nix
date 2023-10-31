@@ -17,11 +17,7 @@ let
   };
 in
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   {
     name = "containers-restart_networking";
     meta = {
@@ -30,10 +26,7 @@ import ./make-test-python.nix (
 
     nodes = {
       client =
-        {
-          lib,
-          ...
-        }:
+        { lib, ... }:
         client_base
         // {
           virtualisation.vlans = [ 1 ];
@@ -52,10 +45,7 @@ import ./make-test-python.nix (
         }
       ;
       client_eth1 =
-        {
-          lib,
-          ...
-        }:
+        { lib, ... }:
         client_base
         // {
           networking.bridges.br0 = {
@@ -72,10 +62,7 @@ import ./make-test-python.nix (
         }
       ;
       client_eth1_rstp =
-        {
-          lib,
-          ...
-        }:
+        { lib, ... }:
         client_base
         // {
           networking.bridges.br0 = {
@@ -94,10 +81,7 @@ import ./make-test-python.nix (
     };
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       let
         originalSystem = nodes.client.config.system.build.toplevel;
         eth1_bridged = nodes.client_eth1.config.system.build.toplevel;

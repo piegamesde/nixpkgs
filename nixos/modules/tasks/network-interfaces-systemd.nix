@@ -216,10 +216,7 @@ in
         ]
         ++ flip mapAttrsToList cfg.bridges (
           n:
-          {
-            rstp,
-            ...
-          }:
+          { rstp, ... }:
           {
             assertion = !rstp;
             message = "networking.bridges.${n}.rstp is not supported by networkd.";
@@ -227,10 +224,7 @@ in
         )
         ++ flip mapAttrsToList cfg.fooOverUDP (
           n:
-          {
-            local,
-            ...
-          }:
+          { local, ... }:
           {
             assertion = local == null;
             message = "networking.fooOverUDP.${n}.local is not supported by networkd.";

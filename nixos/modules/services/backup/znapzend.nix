@@ -71,10 +71,7 @@ let
   destType =
     srcConfig:
     submodule (
-      {
-        name,
-        ...
-      }:
+      { name, ... }:
       {
         options = {
 
@@ -142,11 +139,7 @@ let
   ;
 
   srcType = submodule (
-    {
-      name,
-      config,
-      ...
-    }:
+    { name, config, ... }:
     {
       options = {
 

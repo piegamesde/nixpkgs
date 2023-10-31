@@ -1,7 +1,4 @@
-{
-  version,
-  sha256Hash,
-}:
+{ version, sha256Hash }:
 
 {
   lib,

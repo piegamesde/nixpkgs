@@ -1,7 +1,3 @@
-{
-  pkgs,
-  makeInstalledTest,
-  ...
-}:
+{ pkgs, makeInstalledTest, ... }:
 
 makeInstalledTest { tested = pkgs.graphene; }

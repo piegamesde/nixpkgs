@@ -14,9 +14,7 @@ let
   defaultBackend = options.virtualisation.oci-containers.backend.default;
 
   containerOptions =
-    {
-      ...
-    }:
+    { ... }:
     {
 
       options = {

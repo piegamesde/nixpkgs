@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
 
   {
     name = "morty";
@@ -11,9 +8,7 @@ import ./make-test-python.nix (
     nodes = {
       mortyProxyWithKey =
 
-        {
-          ...
-        }:
+        { ... }:
         {
           services.morty = {
             enable = true;
@@ -25,9 +20,7 @@ import ./make-test-python.nix (
     };
 
     testScript =
-      {
-        ...
-      }:
+      { ... }:
       ''
         mortyProxyWithKey.wait_for_unit("default.target")
         mortyProxyWithKey.wait_for_open_port(3001)

@@ -1,8 +1,5 @@
 import ../make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   let
     pantalaimonInstanceName = "testing";
 
@@ -35,10 +32,7 @@ import ../make-test-python.nix (
     meta = with pkgs.lib; { maintainers = teams.matrix.members; };
 
     nodes.machine =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         services.pantalaimon-headless.instances.${pantalaimonInstanceName} = {
           homeserver = "https://localhost:8448";

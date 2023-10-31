@@ -1,8 +1,6 @@
 # Definitions related to run-time type checking.  Used in particular
 # to type-check NixOS configurations.
-{
-  lib,
-}:
+{ lib }:
 
 let
   inherit (lib)
@@ -784,9 +782,7 @@ let
       ;
 
       unique =
-        {
-          message,
-        }:
+        { message }:
         type:
         mkOptionType rec {
           name = "unique";
@@ -942,10 +938,7 @@ let
               optionModules =
                 map
                   (
-                    {
-                      value,
-                      file,
-                    }:
+                    { value, file }:
                     {
                       _file = file;
                       # There's no way to merge types directly from the module system,
@@ -977,10 +970,7 @@ let
             defs:
             map
               (
-                {
-                  value,
-                  file,
-                }:
+                { value, file }:
                 if isAttrs value && shorthandOnlyDefinesConfig then
                   {
                     _file = file;

@@ -1,7 +1,4 @@
-{
-  pkgs,
-  haskellLib,
-}:
+{ pkgs, haskellLib }:
 
 let
   inherit (pkgs) fetchpatch lib;

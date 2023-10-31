@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   let
     track = pkgs.fetchurl {
       # Sourced from http://freemusicarchive.org/music/Blue_Wave_Theory/Surf_Music_Month_Challenge/Skyhawk_Beach_fade_in
@@ -53,10 +49,7 @@ import ./make-test-python.nix (
     ;
 
     mkServer =
-      {
-        mpd,
-        musicService,
-      }:
+      { mpd, musicService }:
       {
         boot.kernelModules = [ "snd-dummy" ];
         sound.enable = true;
@@ -70,17 +63,10 @@ import ./make-test-python.nix (
     meta = with pkgs.lib.maintainers; { maintainers = [ emmanuelrosa ]; };
 
     nodes = {
-      client =
-        {
-          ...
-        }:
-        { }
-      ;
+      client = { ... }: { };
 
       serverALSA =
-        {
-          ...
-        }:
+        { ... }:
         lib.mkMerge [
           (mkServer {
             mpd = defaultMpdCfg // {
@@ -101,9 +87,7 @@ import ./make-test-python.nix (
       ;
 
       serverPulseAudio =
-        {
-          ...
-        }:
+        { ... }:
         lib.mkMerge [
           (mkServer {
             mpd = defaultMpdCfg // {

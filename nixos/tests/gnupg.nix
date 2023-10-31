@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
 
   {
     name = "gnupg";
@@ -11,9 +7,7 @@ import ./make-test-python.nix (
 
     # server for testing SSH
     nodes.server =
-      {
-        ...
-      }:
+      { ... }:
       {
         imports = [ ../modules/profiles/minimal.nix ];
 
@@ -24,10 +18,7 @@ import ./make-test-python.nix (
 
     # machine for testing GnuPG
     nodes.machine =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         imports = [ ../modules/profiles/minimal.nix ];
 

@@ -1,7 +1,4 @@
-{
-  pkgs,
-  callPackage,
-}:
+{ pkgs, callPackage }:
 
 with pkgs;
 

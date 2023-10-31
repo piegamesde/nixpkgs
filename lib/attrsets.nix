@@ -1,6 +1,4 @@
-{
-  lib,
-}:
+{ lib }:
 # Operations on attribute sets.
 
 let

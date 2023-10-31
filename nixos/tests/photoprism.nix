@@ -1,18 +1,11 @@
 import ./make-test-python.nix (
-  {
-    lib,
-    pkgs,
-    ...
-  }:
+  { lib, pkgs, ... }:
   {
     name = "photoprism";
     meta.maintainers = with lib.maintainers; [ stunkymonkey ];
 
     nodes.machine =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         services.photoprism = {
           enable = true;

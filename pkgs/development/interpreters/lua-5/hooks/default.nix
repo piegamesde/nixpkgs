@@ -34,9 +34,7 @@ in
   luarocksCheckHook =
     callPackage
       (
-        {
-          luarocks,
-        }:
+        { luarocks }:
         makeSetupHook
           {
             name = "luarocks-check-hook";

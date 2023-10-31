@@ -1,10 +1,7 @@
 # This test runs simple etcd cluster
 
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   let
 
     runWithOpenSSL =
@@ -108,9 +105,7 @@ import ./make-test-python.nix (
 
     nodes = {
       node1 =
-        {
-          ...
-        }:
+        { ... }:
         {
           require = [ nodeConfig ];
           services.etcd = {
@@ -124,9 +119,7 @@ import ./make-test-python.nix (
       ;
 
       node2 =
-        {
-          ...
-        }:
+        { ... }:
         {
           require = [ nodeConfig ];
           services.etcd = {
@@ -140,9 +133,7 @@ import ./make-test-python.nix (
       ;
 
       node3 =
-        {
-          ...
-        }:
+        { ... }:
         {
           require = [ nodeConfig ];
           services.etcd = {

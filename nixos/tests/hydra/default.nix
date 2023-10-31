@@ -28,11 +28,7 @@ let
       };
 
       nodes.machine =
-        {
-          pkgs,
-          lib,
-          ...
-        }:
+        { pkgs, lib, ... }:
         {
           imports = [ baseConfig ];
           services.hydra = {

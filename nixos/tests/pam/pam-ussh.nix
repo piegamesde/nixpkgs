@@ -1,9 +1,5 @@
 import ../make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
 
   let
     testOnlySSHCredentials =
@@ -46,9 +42,7 @@ import ../make-test-python.nix (
     meta.maintainers = with lib.maintainers; [ lukegb ];
 
     machine =
-      {
-        ...
-      }:
+      { ... }:
       {
         users.users.alice = {
           isNormalUser = true;

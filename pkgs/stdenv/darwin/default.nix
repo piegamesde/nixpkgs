@@ -198,10 +198,7 @@ rec {
           "/dev/null"
         else
           mkCC (
-            {
-              cc,
-              ...
-            }:
+            { cc, ... }:
             {
               extraPackages = [
                 last.pkgs."${finalLlvmPackages}".libcxxabi
@@ -217,10 +214,7 @@ rec {
           "/dev/null"
         else
           mkCC (
-            {
-              cc,
-              ...
-            }:
+            { cc, ... }:
             {
               libcxx = null;
               extraPackages = [ last.pkgs."${finalLlvmPackages}".compiler-rt ];

@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
 
   {
     name = "pgadmin4";
@@ -13,10 +9,7 @@ import ./make-test-python.nix (
     ];
 
     nodes.machine =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
 
         imports = [ ./common/user-account.nix ];

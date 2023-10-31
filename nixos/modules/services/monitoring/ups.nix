@@ -15,11 +15,7 @@ in
 
 let
   upsOptions =
-    {
-      name,
-      config,
-      ...
-    }:
+    { name, config, ... }:
     {
       options = {
         # This can be inferred from the UPS model by looking at

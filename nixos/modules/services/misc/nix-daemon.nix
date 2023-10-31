@@ -530,11 +530,7 @@ in
                 )
               ;
             in
-            {
-              config,
-              name,
-              ...
-            }:
+            { config, name, ... }:
             {
               options = {
                 from = mkOption {

@@ -95,10 +95,7 @@ let
       mkOfficialWordpressDerivation =
         self.callPackage
           (
-            {
-              mkWordpressDerivation,
-              fetchWordpress,
-            }:
+            { mkWordpressDerivation, fetchWordpress }:
             {
               type,
               pname,
@@ -165,9 +162,7 @@ let
       fetchWordpress =
         self.callPackage
           (
-            {
-              fetchsvn,
-            }:
+            { fetchsvn }:
             type: data:
             fetchsvn {
               inherit (data) rev sha256;

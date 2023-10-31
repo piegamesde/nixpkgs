@@ -15,10 +15,7 @@ let
   inherit (pkgs) lib;
 
   makeCert =
-    {
-      caName,
-      domain,
-    }:
+    { caName, domain }:
     pkgs.runCommand "example-cert" { buildInputs = [ pkgs.gnutls ]; } ''
       mkdir $out
 
@@ -111,12 +108,7 @@ let
   curlTest = makeTest {
     name = "custom-ca-curl";
     meta.maintainers = with lib.maintainers; [ rnhmjoj ];
-    nodes.machine =
-      {
-        ...
-      }:
-      webserverConfig
-    ;
+    nodes.machine = { ... }: webserverConfig;
     testScript = ''
       with subtest("Good certificate is trusted in curl"):
           machine.wait_for_unit("nginx")
@@ -137,10 +129,7 @@ let
       enableOCR = true;
 
       nodes.machine =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           imports = [
             ./common/user-account.nix

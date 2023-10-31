@@ -60,9 +60,7 @@ import ../make-test-python.nix (
       }
     ;
     testScript =
-      {
-        ...
-      }:
+      { ... }:
       ''
         machine.wait_for_unit("nginx.service")
         machine.wait_for_unit("phpfpm-foobar.service")

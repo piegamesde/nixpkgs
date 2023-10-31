@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "maestral";
     meta = with pkgs.lib.maintainers; { maintainers = [ peterhoeg ]; };
@@ -24,9 +21,7 @@ import ./make-test-python.nix (
       in
       {
         cli =
-          {
-            ...
-          }:
+          { ... }:
           common {
             systemd.user.services.maestral = {
               wantedBy = [ "default.target" ];
@@ -36,9 +31,7 @@ import ./make-test-python.nix (
         ;
 
         gui =
-          {
-            ...
-          }:
+          { ... }:
           common {
             services.xserver = {
               enable = true;
@@ -66,10 +59,7 @@ import ./make-test-python.nix (
     ;
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       let
         user = nodes.cli.config.users.users.alice;
       in

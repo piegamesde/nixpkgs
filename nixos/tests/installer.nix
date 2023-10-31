@@ -364,10 +364,7 @@ let
 
         # The configuration of the machine used to run "nixos-install".
         machine =
-          {
-            pkgs,
-            ...
-          }:
+          { pkgs, ... }:
           {
             imports = [
               ../modules/profiles/installation-device.nix

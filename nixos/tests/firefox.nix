@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    firefoxPackage,
-    ...
-  }:
+  { pkgs, firefoxPackage, ... }:
   let
     firefoxPackage' = firefoxPackage.override (
       args: {
@@ -29,10 +25,7 @@ import ./make-test-python.nix (
     };
 
     nodes.machine =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
 
       {
         imports = [ ./common/x11.nix ];

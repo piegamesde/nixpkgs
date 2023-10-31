@@ -1,17 +1,11 @@
 import ./make-test-python.nix (
-  {
-    lib,
-    ...
-  }:
+  { lib, ... }:
   {
     name = "mailhog";
     meta.maintainers = with lib.maintainers; [ jojosch ];
 
     nodes.machine =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         services.mailhog.enable = true;
 

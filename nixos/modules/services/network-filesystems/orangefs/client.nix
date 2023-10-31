@@ -39,9 +39,7 @@ in
           with types;
           listOf (
             submodule (
-              {
-                ...
-              }:
+              { ... }:
               {
                 options = {
 

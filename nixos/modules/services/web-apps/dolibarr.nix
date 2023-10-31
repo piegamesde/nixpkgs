@@ -331,13 +331,7 @@ in
         services.phpfpm.pools.dolibarr = {
           inherit (cfg) user group;
           phpPackage = pkgs.php.buildEnv {
-            extensions =
-              {
-                enabled,
-                all,
-              }:
-              enabled ++ [ all.calendar ]
-            ;
+            extensions = { enabled, all }: enabled ++ [ all.calendar ];
             # recommended by dolibarr web application
             extraConfig = ''
               session.use_strict_mode = 1

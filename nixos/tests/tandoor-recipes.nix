@@ -1,17 +1,11 @@
 import ./make-test-python.nix (
-  {
-    lib,
-    ...
-  }:
+  { lib, ... }:
   {
     name = "tandoor-recipes";
     meta.maintainers = with lib.maintainers; [ ambroisie ];
 
     nodes.machine =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         # Setup using Postgres
         services.tandoor-recipes = {

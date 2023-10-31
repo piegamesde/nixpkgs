@@ -1,8 +1,5 @@
 # Generated file.
-args@{
-  fetchurl,
-  ...
-}:
+args@{ fetchurl, ... }:
 rec {
   baseName = "net_dot_didierverna_dot_asdf-flv";
   version = "asdf-flv-version-2.1";

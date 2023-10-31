@@ -1,6 +1,4 @@
-{
-  pkgs,
-}:
+{ pkgs }:
 
 pkgs.substituteAll {
   src = ./extlinux-conf-builder.sh;

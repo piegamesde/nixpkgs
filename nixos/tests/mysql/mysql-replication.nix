@@ -45,10 +45,7 @@ let
         };
 
         secondary1 =
-          {
-            nodes,
-            ...
-          }:
+          { nodes, ... }:
           {
             services.mysql = {
               inherit package;
@@ -63,10 +60,7 @@ let
         ;
 
         secondary2 =
-          {
-            nodes,
-            ...
-          }:
+          { nodes, ... }:
           {
             services.mysql = {
               inherit package;

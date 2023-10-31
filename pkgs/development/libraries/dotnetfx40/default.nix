@@ -1,6 +1,4 @@
-{
-  stdenv,
-}:
+{ stdenv }:
 
 let
   windir = "/cygdrive/c/WINDOWS";

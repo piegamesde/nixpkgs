@@ -30,10 +30,7 @@ in
         with types;
         attrsOf (
           submodule (
-            {
-              config,
-              ...
-            }:
+            { config, ... }:
             {
 
               options = {

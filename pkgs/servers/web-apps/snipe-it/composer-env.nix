@@ -29,10 +29,7 @@ let
   ;
 
   buildZipPackage =
-    {
-      name,
-      src,
-    }:
+    { name, src }:
     stdenv.mkDerivation {
       inherit name src;
       nativeBuildInputs = [ unzip ];

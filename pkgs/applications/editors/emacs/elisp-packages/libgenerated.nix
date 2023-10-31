@@ -8,18 +8,12 @@ let
       url ? null,
       ...
     }:
-    {
-      sha256,
-      commit,
-      ...
-    }:
+    { sha256, commit, ... }:
     {
       github =
         self.callPackage
           (
-            {
-              fetchFromGitHub,
-            }:
+            { fetchFromGitHub }:
             fetchFromGitHub {
               owner = lib.head (lib.splitString "/" repo);
               repo = lib.head (lib.tail (lib.splitString "/" repo));
@@ -32,9 +26,7 @@ let
       gitlab =
         self.callPackage
           (
-            {
-              fetchFromGitLab,
-            }:
+            { fetchFromGitLab }:
             fetchFromGitLab {
               owner = lib.head (lib.splitString "/" repo);
               repo = lib.head (lib.tail (lib.splitString "/" repo));
@@ -47,9 +39,7 @@ let
       git =
         self.callPackage
           (
-            {
-              fetchgit,
-            }:
+            { fetchgit }:
             (fetchgit {
               rev = commit;
               inherit sha256 url;
@@ -61,9 +51,7 @@ let
       bitbucket =
         self.callPackage
           (
-            {
-              fetchhg,
-            }:
+            { fetchhg }:
             fetchhg {
               rev = commit;
               url = "https://bitbucket.com/${repo}";
@@ -75,9 +63,7 @@ let
       hg =
         self.callPackage
           (
-            {
-              fetchhg,
-            }:
+            { fetchhg }:
             fetchhg {
               rev = commit;
               inherit sha256 url;
@@ -88,9 +74,7 @@ let
       sourcehut =
         self.callPackage
           (
-            {
-              fetchzip,
-            }:
+            { fetchzip }:
             fetchzip {
               url = "https://git.sr.ht/~${repo}/archive/${commit}.tar.gz";
               inherit sha256;
@@ -101,9 +85,7 @@ let
       codeberg =
         self.callPackage
           (
-            {
-              fetchzip,
-            }:
+            { fetchzip }:
             fetchzip {
               url = "https://codeberg.org/${repo}/archive/${commit}.tar.gz";
               inherit sha256;
@@ -138,11 +120,7 @@ in
       lib.nameValuePair ename (
         self.callPackage
           (
-            {
-              melpaBuild,
-              fetchurl,
-              ...
-            }@pkgargs:
+            { melpaBuild, fetchurl, ... }@pkgargs:
             melpaBuild {
               inherit pname ename commit;
               version = lib.optionalString (version != null) (

@@ -1,14 +1,9 @@
 import ./make-test-python.nix (
-  {
-    ...
-  }:
+  { ... }:
 
   let
     node =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         networking = {
           firewall = {

@@ -39,10 +39,7 @@ in
                   foldl'
                     (
                       acc:
-                      {
-                        value,
-                        ...
-                      }@x:
+                      { value, ... }@x:
                       acc
                       // (
                         if isList value then

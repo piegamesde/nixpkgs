@@ -503,10 +503,7 @@ in
                     PasswordAuthentication = false;
                   }'';
         type = types.submodule (
-          {
-            name,
-            ...
-          }:
+          { name, ... }:
           {
             freeformType = settingsFormat.type;
             options = {
@@ -814,11 +811,7 @@ in
 
       ${concatMapStrings
         (
-          {
-            port,
-            addr,
-            ...
-          }:
+          { port, addr, ... }:
           ''
             ListenAddress ${addr}${optionalString (port != null) (":" + toString port)}
           ''
@@ -851,10 +844,7 @@ in
         message = "cannot enable X11 forwarding without setting xauth location";
       } ]
       ++ forEach cfg.listenAddresses (
-        {
-          addr,
-          ...
-        }:
+        { addr, ... }:
         {
           assertion = addr != null;
           message = "addr must be specified in each listenAddresses entry";

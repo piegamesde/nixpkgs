@@ -1,6 +1,4 @@
-{
-  fetchFromGitHub,
-}:
+{ fetchFromGitHub }:
 
 rec {
   version = "4.1.9";

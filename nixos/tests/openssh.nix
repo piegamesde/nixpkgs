@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
 
   let
     inherit (import ./ssh-keys.nix pkgs) snakeOilPrivateKey snakeOilPublicKey;
@@ -19,9 +16,7 @@ import ./make-test-python.nix (
     nodes = {
 
       server =
-        {
-          ...
-        }:
+        { ... }:
 
         {
           services.openssh.enable = true;
@@ -36,9 +31,7 @@ import ./make-test-python.nix (
       ;
 
       server_lazy =
-        {
-          ...
-        }:
+        { ... }:
 
         {
           services.openssh = {
@@ -56,9 +49,7 @@ import ./make-test-python.nix (
       ;
 
       server_localhost_only =
-        {
-          ...
-        }:
+        { ... }:
 
         {
           services.openssh = {
@@ -72,9 +63,7 @@ import ./make-test-python.nix (
       ;
 
       server_localhost_only_lazy =
-        {
-          ...
-        }:
+        { ... }:
 
         {
           services.openssh = {
@@ -88,12 +77,7 @@ import ./make-test-python.nix (
         }
       ;
 
-      client =
-        {
-          ...
-        }:
-        { }
-      ;
+      client = { ... }: { };
     };
 
     testScript = ''

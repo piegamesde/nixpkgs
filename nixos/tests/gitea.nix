@@ -43,11 +43,7 @@ let
 
         nodes = {
           server =
-            {
-              config,
-              pkgs,
-              ...
-            }:
+            { config, pkgs, ... }:
             {
               virtualisation.memorySize = 2048;
               services.gitea = {
@@ -67,26 +63,8 @@ let
               services.openssh.enable = true;
             }
           ;
-          client1 =
-            {
-              config,
-              pkgs,
-              ...
-            }:
-            {
-              environment.systemPackages = [ pkgs.git ];
-            }
-          ;
-          client2 =
-            {
-              config,
-              pkgs,
-              ...
-            }:
-            {
-              environment.systemPackages = [ pkgs.git ];
-            }
-          ;
+          client1 = { config, pkgs, ... }: { environment.systemPackages = [ pkgs.git ]; };
+          client2 = { config, pkgs, ... }: { environment.systemPackages = [ pkgs.git ]; };
         };
 
         testScript =

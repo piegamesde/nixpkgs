@@ -1,7 +1,4 @@
-{
-  callPackage,
-  fetchFromGitHub,
-}:
+{ callPackage, fetchFromGitHub }:
 
 callPackage ./generic.nix {
   variant = "3.2";

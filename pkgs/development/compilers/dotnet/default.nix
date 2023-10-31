@@ -4,9 +4,7 @@
    Hashes and urls are retrieved from:
    https://dotnet.microsoft.com/download/dotnet
 */
-{
-  callPackage,
-}:
+{ callPackage }:
 let
   buildDotnet = attrs: callPackage (import ./build-dotnet.nix attrs) { };
   buildAttrs = {

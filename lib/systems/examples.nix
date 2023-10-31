@@ -1,9 +1,7 @@
 # These can be passed to nixpkgs as either the `localSystem` or
 # `crossSystem`. They are put here for user convenience, but also used by cross
 # tests and linux cross stdenv building, so handle with care!
-{
-  lib,
-}:
+{ lib }:
 let
   platforms = import ./platforms.nix { inherit lib; };
 

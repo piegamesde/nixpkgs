@@ -9,10 +9,7 @@ import ./make-test-python.nix {
   name = "fsck";
 
   nodes.machine =
-    {
-      lib,
-      ...
-    }:
+    { lib, ... }:
     {
       virtualisation.emptyDiskImages = [ 1 ];
 

@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
   {
     name = "containers-unified-hierarchy";
     meta = {
@@ -11,9 +7,7 @@ import ./make-test-python.nix (
     };
 
     nodes.machine =
-      {
-        ...
-      }:
+      { ... }:
       {
         containers = {
           test-container = {

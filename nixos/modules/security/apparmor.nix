@@ -78,11 +78,7 @@ in
         '';
         type = types.attrsOf (
           types.submodule (
-            {
-              name,
-              config,
-              ...
-            }:
+            { name, config, ... }:
             {
               options = {
                 enable = mkDisableOption "loading of the profile into the kernel";

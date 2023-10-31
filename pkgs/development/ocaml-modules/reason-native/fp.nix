@@ -1,7 +1,4 @@
-{
-  reason,
-  ...
-}:
+{ reason, ... }:
 
 {
   pname = "fp";

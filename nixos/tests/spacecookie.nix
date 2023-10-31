@@ -8,9 +8,7 @@ let
   fileName = "file.txt";
 in
 import ./make-test-python.nix (
-  {
-    ...
-  }:
+  { ... }:
   {
     name = "spacecookie";
     nodes = {

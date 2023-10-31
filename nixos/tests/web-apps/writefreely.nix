@@ -9,19 +9,12 @@ with pkgs.lib;
 
 let
   writefreelyTest =
-    {
-      name,
-      type,
-    }:
+    { name, type }:
     makeTest {
       name = "writefreely-${name}";
 
       nodes.machine =
-        {
-          config,
-          pkgs,
-          ...
-        }:
+        { config, pkgs, ... }:
         {
           services.writefreely = {
             enable = true;

@@ -14,11 +14,7 @@ let
       name = "matomo";
 
       nodes.machine =
-        {
-          config,
-          pkgs,
-          ...
-        }:
+        { config, pkgs, ... }:
         {
           services.matomo = {
             package = package;

@@ -1,17 +1,11 @@
 import ./make-test-python.nix (
-  {
-    lib,
-    pkgs,
-    ...
-  }:
+  { lib, pkgs, ... }:
   {
     name = "btrbk-no-timer";
     meta.maintainers = with lib.maintainers; [ oxalica ];
 
     nodes.machine =
-      {
-        ...
-      }:
+      { ... }:
       {
         environment.systemPackages = with pkgs; [ btrfs-progs ];
         services.btrbk.instances.local = {

@@ -117,9 +117,7 @@ let
   ;
 
   orgOptions =
-    {
-      ...
-    }:
+    { ... }:
     {
       options.users = mkOption {
         type = types.uniq (types.listOf types.str);

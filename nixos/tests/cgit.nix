@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   let
     robotsTxt = pkgs.writeText "cgit-robots.txt" ''
       User-agent: *
@@ -15,17 +12,12 @@ import ./make-test-python.nix (
 
     nodes = {
       server =
-        {
-          ...
-        }:
+        { ... }:
         {
           services.cgit."localhost" = {
             enable = true;
             package = pkgs.cgit.overrideAttrs (
-              {
-                postInstall,
-                ...
-              }:
+              { postInstall, ... }:
               {
                 postInstall = ''
                   ${postInstall}
@@ -48,10 +40,7 @@ import ./make-test-python.nix (
     };
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       ''
         start_all()
 

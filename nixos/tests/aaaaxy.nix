@@ -1,8 +1,4 @@
-{
-  pkgs,
-  lib,
-  ...
-}:
+{ pkgs, lib, ... }:
 {
   name = "aaaaxy";
   meta.maintainers = with lib.maintainers; [ Luflosi ];

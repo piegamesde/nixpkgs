@@ -16,11 +16,7 @@ let
       name = "${packageName}";
       meta.maintainers = with lib.maintainers; [ ma27 ];
       nodes.machine =
-        {
-          pkgs,
-          lib,
-          ...
-        }:
+        { pkgs, lib, ... }:
         {
           services.postgresql = {
             enable = true;

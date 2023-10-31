@@ -1,10 +1,6 @@
 # Test a minimal HDFS cluster with no HA
 import ../make-test-python.nix (
-  {
-    package,
-    lib,
-    ...
-  }:
+  { package, lib, ... }:
   with lib; {
     name = "hadoop-hdfs";
 
@@ -18,10 +14,7 @@ import ../make-test-python.nix (
       in
       {
         namenode =
-          {
-            pkgs,
-            ...
-          }:
+          { pkgs, ... }:
           {
             services.hadoop = {
               inherit package;
@@ -42,10 +35,7 @@ import ../make-test-python.nix (
           }
         ;
         datanode =
-          {
-            pkgs,
-            ...
-          }:
+          { pkgs, ... }:
           {
             services.hadoop = {
               inherit package;

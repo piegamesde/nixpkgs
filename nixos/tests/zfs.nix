@@ -29,11 +29,7 @@ let
       };
 
       nodes.machine =
-        {
-          pkgs,
-          lib,
-          ...
-        }:
+        { pkgs, lib, ... }:
         let
           usersharePath = "/var/lib/samba/usershares";
         in
@@ -229,10 +225,7 @@ in
     name = "multi-disk-zfs";
     nodes = {
       machine =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           environment.systemPackages = [ pkgs.parted ];
           boot.supportedFilesystems = [ "zfs" ];
@@ -257,10 +250,7 @@ in
     };
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       ''
         start_all()
         machine.wait_for_unit("default.target")

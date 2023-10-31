@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   let
     keystore = {
       address = "9377bc3936de934c497e22917b81aa8774ac3bb0";
@@ -33,9 +30,7 @@ import ./make-test-python.nix (
 
     nodes = {
       machine =
-        {
-          ...
-        }:
+        { ... }:
         {
           services.quorum = {
             enable = true;

@@ -7,10 +7,7 @@
    Scenarios NOT covered by this test (but perhaps in the future):
    - Sending and receiving emails
 */
-{
-  pkgs,
-  ...
-}:
+{ pkgs, ... }:
 let
   siteName = "NixOS Snipe-IT Test Instance";
 in
@@ -21,9 +18,7 @@ in
 
   nodes = {
     snipeit =
-      {
-        ...
-      }:
+      { ... }:
       {
         services.snipe-it = {
           enable = true;
@@ -51,9 +46,7 @@ in
   };
 
   testScript =
-    {
-      nodes,
-    }:
+    { nodes }:
     let
       backupPath = "${nodes.snipeit.services.snipe-it.dataDir}/storage/app/backups";
 

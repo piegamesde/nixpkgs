@@ -1,8 +1,6 @@
 # Generated using:  ./generate-sdk-packages.sh macos 11.0.1
 
-{
-  applePackage',
-}:
+{ applePackage' }:
 
 {
   CommonCrypto =

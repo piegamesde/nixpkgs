@@ -1,9 +1,5 @@
 import ../make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
 
   with lib;
 
@@ -37,10 +33,7 @@ import ../make-test-python.nix (
 
     nodes = {
       client =
-        {
-          lib,
-          ...
-        }:
+        { lib, ... }:
         {
           inherit krb5 users;
 
@@ -63,10 +56,7 @@ import ../make-test-python.nix (
       ;
 
       server =
-        {
-          lib,
-          ...
-        }:
+        { lib, ... }:
         {
           inherit krb5 users;
 

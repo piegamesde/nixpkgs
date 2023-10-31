@@ -27,10 +27,7 @@ let
   format = pkgs.formats.toml { };
 
   settingsModule =
-    {
-      config,
-      ...
-    }:
+    { config, ... }:
     {
       freeformType = format.type;
       options = {

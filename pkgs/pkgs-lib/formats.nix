@@ -1,7 +1,4 @@
-{
-  lib,
-  pkgs,
-}:
+{ lib, pkgs }:
 rec {
 
   /* Every following entry represents a format for program configuration files
@@ -66,10 +63,7 @@ rec {
         name: value:
         pkgs.callPackage
           (
-            {
-              runCommand,
-              jq,
-            }:
+            { runCommand, jq }:
             runCommand name
               {
                 nativeBuildInputs = [ jq ];
@@ -93,10 +87,7 @@ rec {
         name: value:
         pkgs.callPackage
           (
-            {
-              runCommand,
-              remarshal,
-            }:
+            { runCommand, remarshal }:
             runCommand name
               {
                 nativeBuildInputs = [ remarshal ];
@@ -321,10 +312,7 @@ rec {
         name: value:
         pkgs.callPackage
           (
-            {
-              runCommand,
-              remarshal,
-            }:
+            { runCommand, remarshal }:
             runCommand name
               {
                 nativeBuildInputs = [ remarshal ];
@@ -423,10 +411,7 @@ rec {
       list = values: "[" + (listContent values) + "]";
 
       specialType =
-        {
-          value,
-          _elixirType,
-        }:
+        { value, _elixirType }:
         if _elixirType == "raw" then
           value
         else if _elixirType == "atom" then

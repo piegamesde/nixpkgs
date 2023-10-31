@@ -54,10 +54,7 @@ let
   version = "20.1.1.720";
 
   download =
-    {
-      name,
-      sha256,
-    }:
+    { name, sha256 }:
     fetchurl {
       inherit name sha256;
       # e.g. "20.1.1.720" -> "20.1std.1/720"

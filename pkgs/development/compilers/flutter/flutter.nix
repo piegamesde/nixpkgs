@@ -63,9 +63,7 @@ let
     runCommandLocal "flutter-engine-artifacts-${version}" { } (
       let
         mkCommonArtifactLinkCommand =
-          {
-            artifact,
-          }:
+          { artifact }:
           ''
             mkdir -p $out/common
             ${lndir}/bin/lndir -silent ${artifact} $out/common

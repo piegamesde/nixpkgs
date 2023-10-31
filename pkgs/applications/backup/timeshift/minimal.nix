@@ -1,7 +1,4 @@
-{
-  callPackage,
-  timeshift-unwrapped,
-}:
+{ callPackage, timeshift-unwrapped }:
 let
   timeshift-wrapper = callPackage ./wrapper.nix { };
 in

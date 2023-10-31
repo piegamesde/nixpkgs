@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   let
     # build a getent that itself doesn't see anything in /etc/hosts and
     # /etc/nsswitch.conf, by using libredirect to steer its own requests to
@@ -19,10 +16,7 @@ import ./make-test-python.nix (
     name = "nscd";
 
     nodes.machine =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         imports = [ common/user-account.nix ];
         networking.extraHosts = ''
@@ -49,18 +43,9 @@ import ./make-test-python.nix (
         };
 
         specialisation = {
-          withGlibcNscd.configuration =
-            {
-              ...
-            }:
-            {
-              services.nscd.enableNsncd = false;
-            }
-          ;
+          withGlibcNscd.configuration = { ... }: { services.nscd.enableNsncd = false; };
           withUnscd.configuration =
-            {
-              ...
-            }:
+            { ... }:
             {
               services.nscd.enableNsncd = false;
               services.nscd.package = pkgs.unscd;
@@ -71,10 +56,7 @@ import ./make-test-python.nix (
     ;
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       let
         specialisations = "${nodes.machine.system.build.toplevel}/specialisation";
       in

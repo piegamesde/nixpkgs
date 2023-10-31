@@ -1,7 +1,4 @@
-{
-  buildDhallGitHubPackage,
-  Prelude,
-}:
+{ buildDhallGitHubPackage, Prelude }:
 
 let
   version = "0.9.64";

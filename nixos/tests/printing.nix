@@ -19,9 +19,7 @@ import ./make-test-python.nix (
     };
 
     nodes.server =
-      {
-        ...
-      }:
+      { ... }:
       {
         services.printing = {
           enable = true;
@@ -47,9 +45,7 @@ import ./make-test-python.nix (
     ;
 
     nodes.client =
-      {
-        ...
-      }:
+      { ... }:
       {
         services.printing.enable = true;
         services.printing.startWhenNeeded = socket;

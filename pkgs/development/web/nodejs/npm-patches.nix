@@ -1,6 +1,4 @@
-{
-  fetchpatch,
-}:
+{ fetchpatch }:
 
 [
   # Makes `npm pack` obey `--foreground-scripts`

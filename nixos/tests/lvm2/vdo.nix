@@ -2,20 +2,13 @@
   kernelPackages ? null,
 }:
 import ../make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   {
     name = "lvm2-vdo";
     meta.maintainers = with pkgs.lib.maintainers; [ ajs124 ];
 
     nodes.machine =
-      {
-        pkgs,
-        lib,
-        ...
-      }:
+      { pkgs, lib, ... }:
       {
         # Minimum required size for VDO volume: 5063921664 bytes
         virtualisation.emptyDiskImages = [ 8192 ];

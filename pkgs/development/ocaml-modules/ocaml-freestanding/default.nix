@@ -70,34 +70,24 @@ else
       license = licenses.mit;
       maintainers = [ maintainers.sternenseemann ];
       homepage = "https://github.com/mirage/ocaml-freestanding";
-      platforms =
-        builtins.map
-          (
-            {
-              arch,
-              os,
-            }:
-            "${arch}-${os}"
-          )
-          (
-            cartesianProductOfSets {
-              arch = [
-                "aarch64"
-                "x86_64"
-              ];
-              os = [ "linux" ];
-            }
-            ++ [
-              {
-                arch = "x86_64";
-                os = "freebsd";
-              }
-              {
-                arch = "x86_64";
-                os = "openbsd";
-              }
-            ]
-          )
-      ;
+      platforms = builtins.map ({ arch, os }: "${arch}-${os}") (
+        cartesianProductOfSets {
+          arch = [
+            "aarch64"
+            "x86_64"
+          ];
+          os = [ "linux" ];
+        }
+        ++ [
+          {
+            arch = "x86_64";
+            os = "freebsd";
+          }
+          {
+            arch = "x86_64";
+            os = "openbsd";
+          }
+        ]
+      );
     };
   }

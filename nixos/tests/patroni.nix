@@ -1,9 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    lib,
-    ...
-  }:
+  { pkgs, lib, ... }:
 
   let
     nodesIps = [
@@ -14,10 +10,7 @@ import ./make-test-python.nix (
 
     createNode =
       index:
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       let
         ip = builtins.elemAt nodesIps index; # since we already use IPs to identify servers
       in
@@ -114,10 +107,7 @@ import ./make-test-python.nix (
       node3 = createNode 2;
 
       etcd =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
 
           networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [ {
@@ -135,10 +125,7 @@ import ./make-test-python.nix (
       ;
 
       client =
-        {
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           environment.systemPackages = [ pkgs.postgresql_14 ];
 

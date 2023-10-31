@@ -1,10 +1,6 @@
 # This file defines the structure of the `config` nixpkgs option.
 
-{
-  config,
-  lib,
-  ...
-}:
+{ config, lib, ... }:
 
 with lib;
 

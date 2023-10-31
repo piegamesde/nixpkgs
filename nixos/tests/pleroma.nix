@@ -23,10 +23,7 @@
 */
 
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   let
     send-toot = pkgs.writeScriptBin "send-toot" ''
       set -eux
@@ -262,10 +259,7 @@ import ./make-test-python.nix (
     };
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       ''
         pleroma.wait_for_unit("postgresql.service")
         pleroma.succeed("provision-db")

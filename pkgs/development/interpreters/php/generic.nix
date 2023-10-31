@@ -83,13 +83,7 @@ let
         prevArgs: prevExtensionFunctions:
         lib.makeOverridable (
           {
-            extensions ? (
-              {
-                enabled,
-                ...
-              }:
-              enabled
-            ),
+            extensions ? ({ enabled, ... }: enabled),
             extraConfig ? "",
             ...
           }@innerArgs:

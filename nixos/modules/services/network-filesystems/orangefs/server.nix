@@ -184,9 +184,7 @@ in
           with types;
           attrsOf (
             submodule (
-              {
-                ...
-              }:
+              { ... }:
               {
                 options = {
                   id = mkOption {

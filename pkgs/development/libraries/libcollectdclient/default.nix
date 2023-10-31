@@ -1,7 +1,4 @@
-{
-  lib,
-  collectd,
-}:
+{ lib, collectd }:
 
 collectd.overrideAttrs (
   oldAttrs: {

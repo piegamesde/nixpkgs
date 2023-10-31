@@ -1,10 +1,7 @@
 # this test creates a simple GNU image with docker tools and sees if it executes
 
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
   let
     # nixpkgs#214434: dockerTools.buildImage fails to unpack base images
     # containing duplicate layers when those duplicate tarballs
@@ -65,9 +62,7 @@ import ./make-test-python.nix (
 
     nodes = {
       docker =
-        {
-          ...
-        }:
+        { ... }:
         {
           virtualisation = {
             diskSize = 2048;

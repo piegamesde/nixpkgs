@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    lib,
-    ...
-  }:
+  { lib, ... }:
   {
     name = "user-activation-scripts";
     meta = with lib.maintainers; { maintainers = [ chkno ]; };

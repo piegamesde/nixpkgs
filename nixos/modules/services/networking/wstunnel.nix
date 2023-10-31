@@ -49,18 +49,9 @@ let
       };
     };
   };
-  hostPortToString =
-    {
-      host,
-      port,
-    }:
-    "${host}:${builtins.toString port}"
-  ;
+  hostPortToString = { host, port }: "${host}:${builtins.toString port}";
   localRemoteToString =
-    {
-      local,
-      remote,
-    }:
+    { local, remote }:
     utils.escapeSystemdExecArg
       "${hostPortToString local}:${hostPortToString remote}"
   ;
@@ -114,10 +105,7 @@ let
   };
 
   serverSubmodule =
-    {
-      config,
-      ...
-    }:
+    { config, ... }:
     {
       options = commonOptions // {
         listen = mkOption {
@@ -189,10 +177,7 @@ let
     }
   ;
   clientSubmodule =
-    {
-      config,
-      ...
-    }:
+    { config, ... }:
     {
       options = commonOptions // {
         connectTo = mkOption {

@@ -2,9 +2,7 @@ let
   nginxRoot = "/run/nginx";
 in
 import ./make-test-python.nix (
-  {
-    ...
-  }:
+  { ... }:
   {
     name = "nghttpx";
     nodes = {

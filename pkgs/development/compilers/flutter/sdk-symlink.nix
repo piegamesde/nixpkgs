@@ -1,6 +1,4 @@
-{
-  symlinkJoin,
-}:
+{ symlinkJoin }:
 flutter:
 
 let

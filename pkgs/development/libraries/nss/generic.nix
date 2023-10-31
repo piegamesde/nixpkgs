@@ -1,7 +1,4 @@
-{
-  version,
-  hash,
-}:
+{ version, hash }:
 {
   lib,
   stdenv,

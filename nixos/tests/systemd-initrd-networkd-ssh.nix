@@ -1,19 +1,12 @@
 import ./make-test-python.nix (
-  {
-    lib,
-    ...
-  }:
+  { lib, ... }:
   {
     name = "systemd-initrd-network-ssh";
     meta.maintainers = [ lib.maintainers.elvishjerricco ];
 
     nodes = with lib; {
       server =
-        {
-          config,
-          pkgs,
-          ...
-        }:
+        { config, pkgs, ... }:
         {
           environment.systemPackages = [ pkgs.cryptsetup ];
           boot.loader.systemd-boot.enable = true;
@@ -43,10 +36,7 @@ import ./make-test-python.nix (
       ;
 
       client =
-        {
-          config,
-          ...
-        }:
+        { config, ... }:
         {
           environment.etc = {
             knownHosts = {

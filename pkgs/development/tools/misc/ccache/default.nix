@@ -91,10 +91,7 @@ stdenv.mkDerivation (
       # A derivation that provides gcc and g++ commands, but that
       # will end up calling ccache for the given cacheDir
       links =
-        {
-          unwrappedCC,
-          extraConfig,
-        }:
+        { unwrappedCC, extraConfig }:
         stdenv.mkDerivation {
           pname = "ccache-links";
           inherit (finalAttrs) version;

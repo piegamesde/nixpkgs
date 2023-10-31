@@ -1,6 +1,4 @@
-{
-  callPackage,
-}:
+{ callPackage }:
 {
   "arcmenu@arcmenu.com" = callPackage ./arcmenu { };
   "argos@pew.worldwidemann.com" = callPackage ./argos { };

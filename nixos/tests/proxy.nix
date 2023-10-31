@@ -1,15 +1,9 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
 
   let
     backend =
-      {
-        pkgs,
-        ...
-      }:
+      { pkgs, ... }:
       {
         services.httpd = {
           enable = true;
@@ -26,10 +20,7 @@ import ./make-test-python.nix (
 
     nodes = {
       proxy =
-        {
-          nodes,
-          ...
-        }:
+        { nodes, ... }:
         {
           services.httpd = {
             enable = true;
@@ -71,12 +62,7 @@ import ./make-test-python.nix (
       backend1 = backend;
       backend2 = backend;
 
-      client =
-        {
-          ...
-        }:
-        { }
-      ;
+      client = { ... }: { };
     };
 
     testScript = ''

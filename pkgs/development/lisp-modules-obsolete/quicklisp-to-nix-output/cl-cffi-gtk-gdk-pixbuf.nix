@@ -1,8 +1,5 @@
 # Generated file.
-args@{
-  fetchurl,
-  ...
-}:
+args@{ fetchurl, ... }:
 rec {
   baseName = "cl-cffi-gtk-gdk-pixbuf";
   version = "cl-cffi-gtk-20201220-git";

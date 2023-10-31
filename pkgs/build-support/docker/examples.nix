@@ -707,10 +707,7 @@ rec {
       inherit (pkgs) lib;
       nixosCore =
         (evalMinimalConfig (
-          {
-            config,
-            ...
-          }:
+          { config, ... }:
           {
             imports = [
               pkgs.pkgsModule

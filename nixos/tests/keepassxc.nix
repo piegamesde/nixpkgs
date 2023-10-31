@@ -1,8 +1,5 @@
 import ./make-test-python.nix (
-  {
-    pkgs,
-    ...
-  }:
+  { pkgs, ... }:
 
   {
     name = "keepassxc";
@@ -12,9 +9,7 @@ import ./make-test-python.nix (
     };
 
     nodes.machine =
-      {
-        ...
-      }:
+      { ... }:
 
       {
         imports = [
@@ -42,10 +37,7 @@ import ./make-test-python.nix (
     enableOCR = true;
 
     testScript =
-      {
-        nodes,
-        ...
-      }:
+      { nodes, ... }:
       let
         aliceDo = cmd: ''machine.succeed("su - alice -c '${cmd}' >&2 &");'';
       in
