@@ -257,9 +257,7 @@ in
           } \
           ${
             lib.optionalString cfg.beacon.metrics.enable
-              "--metrics --metrics-address ${cfg.beacon.metrics.address} --metrics-port ${
-                toString cfg.beacon.metrics.port
-              }"
+              "--metrics --metrics-address ${cfg.beacon.metrics.address} --metrics-port ${toString cfg.beacon.metrics.port}"
           } \
           ${cfg.extraArgs} ${cfg.beacon.extraArgs}
       '';

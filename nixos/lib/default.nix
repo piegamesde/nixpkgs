@@ -31,9 +31,7 @@ in
    using a binding like `nixosLib = import (nixpkgs + "/nixos/lib") { }`.
 */
 {
-  inherit (seqAttrsIf (!featureFlags ? minimalModules) minimalModulesWarning eval-config-minimal)
-    evalModules
-  ;
+  inherit (seqAttrsIf (!featureFlags ? minimalModules) minimalModulesWarning eval-config-minimal) evalModules;
 
   inherit (testing-lib) evalTest runTest;
 }

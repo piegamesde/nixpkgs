@@ -35,10 +35,7 @@ let
 
   modulePkgs = flip mapAttrs modules (
     _moduleName: moduleData:
-    if moduleData ? attrPath && isSupported moduleData then
-      getAttrFromPath moduleData.attrPath pkgs
-    else
-      null
+    if moduleData ? attrPath && isSupported moduleData then getAttrFromPath moduleData.attrPath pkgs else null
   );
 in
 modulePkgs

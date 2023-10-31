@@ -41,9 +41,7 @@ import ./make-test-python.nix (
             knownHosts = {
               text = concatStrings [
                 "server,"
-                "${
-                  toString (head (splitString " " (toString (elemAt (splitString "\n" config.networking.extraHosts) 2))))
-                } "
+                "${toString (head (splitString " " (toString (elemAt (splitString "\n" config.networking.extraHosts) 2))))} "
                 "${readFile ./initrd-network-ssh/ssh_host_ed25519_key.pub}"
               ];
             };

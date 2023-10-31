@@ -55,8 +55,7 @@ assert let
   xor = a: b: ((builtins.bitXor (int a) (int b)) == 1);
 in
 lib.assertMsg (xor (gitRelease != null) (officialRelease != null)) (
-  "must specify `gitRelease` or `officialRelease`"
-  + (lib.optionalString (gitRelease != null) " — not both")
+  "must specify `gitRelease` or `officialRelease`" + (lib.optionalString (gitRelease != null) " — not both")
 );
 let
   monorepoSrc' = monorepoSrc;
@@ -327,10 +326,7 @@ let
       compiler-rt-no-libc = callPackage ./compiler-rt {
         inherit llvm_meta;
         stdenv =
-          if stdenv.hostPlatform.useLLVM or false then
-            overrideCC stdenv buildLlvmTools.clangNoCompilerRt
-          else
-            stdenv;
+          if stdenv.hostPlatform.useLLVM or false then overrideCC stdenv buildLlvmTools.clangNoCompilerRt else stdenv;
       };
 
       # N.B. condition is safe because without useLLVM both are the same.

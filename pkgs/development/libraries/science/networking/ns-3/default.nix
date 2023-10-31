@@ -112,8 +112,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  buildTargets =
-    "build" + lib.optionalString enableDoxygen " doxygen" + lib.optionalString withManual "sphinx";
+  buildTargets = "build" + lib.optionalString enableDoxygen " doxygen" + lib.optionalString withManual "sphinx";
 
   # to prevent fatal error: 'backward_warning.h' file not found
   CXXFLAGS = "-D_GLIBCXX_PERMIT_BACKWARD_HASH";
@@ -121,9 +120,7 @@ stdenv.mkDerivation rec {
   postBuild =
     with lib;
     let
-      flags = concatStringsSep ";" (
-        optional enableDoxygen "./waf doxygen" ++ optional withManual "./waf sphinx"
-      );
+      flags = concatStringsSep ";" (optional enableDoxygen "./waf doxygen" ++ optional withManual "./waf sphinx");
     in
     "${flags}";
 

@@ -40,8 +40,7 @@ let
             s
         }"'';
   attrsToText =
-    attrs:
-    concatStringsSep "\n" (mapAttrsToList (n: v: "${n}=${escapeIfNeccessary (toString v)}") attrs) + "\n";
+    attrs: concatStringsSep "\n" (mapAttrsToList (n: v: "${n}=${escapeIfNeccessary (toString v)}") attrs) + "\n";
 
   osReleaseContents = {
     NAME = "${cfg.distroName}";
@@ -218,9 +217,7 @@ in
     configurationRevision = mkOption {
       type = types.nullOr types.str;
       default = null;
-      description =
-        lib.mdDoc
-          "The Git revision of the top-level flake from which this configuration was built.";
+      description = lib.mdDoc "The Git revision of the top-level flake from which this configuration was built.";
     };
   };
 

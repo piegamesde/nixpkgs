@@ -230,8 +230,7 @@ runBuildTests {
 
   testKeyValueListToValue = {
     drv =
-      evalFormat formats.keyValue
-        { listToValue = concatMapStringsSep ", " (generators.mkValueStringDefault { }); }
+      evalFormat formats.keyValue { listToValue = concatMapStringsSep ", " (generators.mkValueStringDefault { }); }
         {
           bar = [
             null

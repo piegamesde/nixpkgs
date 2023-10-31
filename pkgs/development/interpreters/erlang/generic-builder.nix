@@ -89,10 +89,7 @@
 
 assert wxSupport
   -> (
-    if stdenv.isDarwin then
-      wxGTK != null
-    else
-      libGL != null && libGLU != null && wxGTK != null && xorg != null
+    if stdenv.isDarwin then wxGTK != null else libGL != null && libGLU != null && wxGTK != null && xorg != null
   );
 
 assert odbcSupport -> unixODBC != null;
@@ -113,10 +110,7 @@ stdenv.mkDerivation (
     # - not have to pass pnames as argument
     # - have a separate pname for erlang (main module)
     name =
-      "${baseName}"
-      + optionalString javacSupport "_javac"
-      + optionalString odbcSupport "_odbc"
-      + "-${version}";
+      "${baseName}" + optionalString javacSupport "_javac" + optionalString odbcSupport "_odbc" + "-${version}";
 
     inherit src version;
 

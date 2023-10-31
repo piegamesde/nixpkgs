@@ -70,8 +70,7 @@ in
 
 let
   result = stdenv.mkDerivation rec {
-    pname =
-      if installjdk then "oraclejdk" else "oraclejre" + lib.optionalString pluginSupport "-with-plugin";
+    pname = if installjdk then "oraclejdk" else "oraclejre" + lib.optionalString pluginSupport "-with-plugin";
     version = "${productVersion}u${patchVersion}";
 
     src =

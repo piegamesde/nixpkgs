@@ -63,19 +63,16 @@ stdenv.mkDerivation rec {
     ++ lib.optional withLuaJIT luajit
     ++ lib.optional (!withLuaJIT) lua;
 
-  cmakeFlags =
-    [
-      # pcre2 jit seems to cause crashes: https://github.com/NixOS/nixpkgs/pull/181908
-      "-DENABLE_PCRE2=OFF"
-      "-DDEBIAN_BUILD=ON"
-      "-DRUNDIR=/run/rspamd"
-      "-DDBDIR=/var/lib/rspamd"
-      "-DLOGDIR=/var/log/rspamd"
-      "-DLOCAL_CONFDIR=/etc/rspamd"
-      "-DENABLE_JEMALLOC=ON"
-    ]
-    ++ lib.optional withHyperscan "-DENABLE_HYPERSCAN=ON"
-    ++ lib.optional (!withLuaJIT) "-DENABLE_LUAJIT=OFF";
+  cmakeFlags = [
+    # pcre2 jit seems to cause crashes: https://github.com/NixOS/nixpkgs/pull/181908
+    "-DENABLE_PCRE2=OFF"
+    "-DDEBIAN_BUILD=ON"
+    "-DRUNDIR=/run/rspamd"
+    "-DDBDIR=/var/lib/rspamd"
+    "-DLOGDIR=/var/log/rspamd"
+    "-DLOCAL_CONFDIR=/etc/rspamd"
+    "-DENABLE_JEMALLOC=ON"
+  ] ++ lib.optional withHyperscan "-DENABLE_HYPERSCAN=ON" ++ lib.optional (!withLuaJIT) "-DENABLE_LUAJIT=OFF";
 
   passthru.tests.rspamd = nixosTests.rspamd;
 

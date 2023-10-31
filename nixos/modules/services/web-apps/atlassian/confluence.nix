@@ -168,8 +168,7 @@ in
 
     assertions = [
       {
-        assertion =
-          cfg.sso.enable -> ((cfg.sso.applicationPassword == null) != (cfg.sso.applicationPasswordFile));
+        assertion = cfg.sso.enable -> ((cfg.sso.applicationPassword == null) != (cfg.sso.applicationPasswordFile));
         message = "Please set either applicationPassword or applicationPasswordFile";
       }
     ];

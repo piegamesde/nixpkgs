@@ -6,8 +6,7 @@
   writeText,
 }:
 
-lib.throwIfNot (lib.versionAtLeast ocaml.version "4.03")
-  "camlidl is not available for OCaml ${ocaml.version}"
+lib.throwIfNot (lib.versionAtLeast ocaml.version "4.03") "camlidl is not available for OCaml ${ocaml.version}"
 
   stdenv.mkDerivation
   rec {

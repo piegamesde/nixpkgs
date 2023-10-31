@@ -266,9 +266,7 @@ rec {
     # to strings and comparing. This was surprising and confusing.
     warnIf (isPath pref)
       ''
-        lib.strings.hasPrefix: The first argument (${
-          toString pref
-        }) is a path value, but only strings are supported.
+        lib.strings.hasPrefix: The first argument (${toString pref}) is a path value, but only strings are supported.
             There is almost certainly a bug in the calling code, since this function always returns `false` in such a case.
             This function also copies the path to the Nix store, which may not be what you want.
             This behavior is deprecated and will throw an error in the future.''
@@ -325,9 +323,7 @@ rec {
     # to strings and comparing. This was surprising and confusing.
     warnIf (isPath infix)
       ''
-        lib.strings.hasInfix: The first argument (${
-          toString infix
-        }) is a path value, but only strings are supported.
+        lib.strings.hasInfix: The first argument (${toString infix}) is a path value, but only strings are supported.
             There is almost certainly a bug in the calling code, since this function always returns `false` in such a case.
             This function also copies the path to the Nix store, which may not be what you want.
             This behavior is deprecated and will throw an error in the future.''
@@ -631,8 +627,7 @@ rec {
 
   # warning added 12-12-2022
   replaceChars =
-    lib.warn
-      "replaceChars is a deprecated alias of replaceStrings, replace usages of it with replaceStrings."
+    lib.warn "replaceChars is a deprecated alias of replaceStrings, replace usages of it with replaceStrings."
       builtins.replaceStrings;
 
   # Case conversion utilities.
@@ -1085,8 +1080,7 @@ rec {
       generalError = "toInt: Could not convert ${escapeNixString str} to int.";
 
       octalAmbigError =
-        "toInt: Ambiguity in interpretation of ${escapeNixString str}"
-        + " between octal and zero padded integer.";
+        "toInt: Ambiguity in interpretation of ${escapeNixString str}" + " between octal and zero padded integer.";
     in
     # Error on presence of non digit characters.
     if strippedInput == null then

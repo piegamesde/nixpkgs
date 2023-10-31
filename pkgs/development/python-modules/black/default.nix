@@ -43,16 +43,13 @@ buildPythonPackage rec {
     hatchling
   ];
 
-  propagatedBuildInputs =
-    [
-      click
-      mypy-extensions
-      packaging
-      pathspec
-      platformdirs
-    ]
-    ++ lib.optionals (pythonOlder "3.11") [ tomli ]
-    ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ];
+  propagatedBuildInputs = [
+    click
+    mypy-extensions
+    packaging
+    pathspec
+    platformdirs
+  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ] ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ];
 
   passthru.optional-dependencies = {
     colorama = [ colorama ];

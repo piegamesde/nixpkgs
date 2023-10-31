@@ -90,9 +90,7 @@ in
       "nouveau"
     ];
     boot.kernelModules = optional useBbswitch "bbswitch";
-    boot.extraModulePackages =
-      optional useBbswitch kernel.bbswitch
-      ++ optional useNvidia kernel.nvidia_x11.bin;
+    boot.extraModulePackages = optional useBbswitch kernel.bbswitch ++ optional useNvidia kernel.nvidia_x11.bin;
 
     environment.systemPackages = [
       bumblebee

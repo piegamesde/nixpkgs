@@ -80,9 +80,7 @@ let
       };
       set-xauthrequest = setXauthrequest;
     }
-    // lib.optionalAttrs (cfg.email.addresses != null) {
-      authenticated-emails-file = authenticatedEmailsFile;
-    }
+    // lib.optionalAttrs (cfg.email.addresses != null) { authenticated-emails-file = authenticatedEmailsFile; }
     // lib.optionalAttrs (cfg.passBasicAuth) { basic-auth-password = cfg.basicAuthPassword; }
     // lib.optionalAttrs (cfg.htpasswd.file != null) { display-htpasswd-file = cfg.htpasswd.displayForm; }
     // lib.optionalAttrs tls.enable {

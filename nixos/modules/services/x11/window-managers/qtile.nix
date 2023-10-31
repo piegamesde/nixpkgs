@@ -9,9 +9,7 @@ with lib;
 
 let
   cfg = config.services.xserver.windowManager.qtile;
-  pyEnv = pkgs.python3.withPackages (
-    p: [ (cfg.package.unwrapped or cfg.package) ] ++ (cfg.extraPackages p)
-  );
+  pyEnv = pkgs.python3.withPackages (p: [ (cfg.package.unwrapped or cfg.package) ] ++ (cfg.extraPackages p));
 in
 
 {

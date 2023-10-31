@@ -11137,9 +11137,7 @@ let
       (sources."@babel/helper-compilation-targets-7.21.4" // { dependencies = [ sources."semver-6.3.0" ]; })
       sources."@babel/helper-create-class-features-plugin-7.21.4"
       sources."@babel/helper-create-regexp-features-plugin-7.21.4"
-      (
-        sources."@babel/helper-define-polyfill-provider-0.3.3" // { dependencies = [ sources."semver-6.3.0" ]; }
-      )
+      (sources."@babel/helper-define-polyfill-provider-0.3.3" // { dependencies = [ sources."semver-6.3.0" ]; })
       sources."@babel/helper-environment-visitor-7.18.9"
       sources."@babel/helper-explode-assignable-expression-7.18.6"
       sources."@babel/helper-function-name-7.21.0"
@@ -11416,12 +11414,7 @@ let
       sources."@nodelib/fs.scandir-2.1.5"
       sources."@nodelib/fs.stat-2.0.5"
       sources."@nodelib/fs.walk-1.2.8"
-      (
-        sources."@pmmmwh/react-refresh-webpack-plugin-0.5.10"
-        // {
-          dependencies = [ sources."source-map-0.7.4" ];
-        }
-      )
+      (sources."@pmmmwh/react-refresh-webpack-plugin-0.5.10" // { dependencies = [ sources."source-map-0.7.4" ]; })
       sources."@popperjs/core-2.11.7"
       sources."@remix-run/router-1.5.0"
       sources."@rollup/plugin-babel-5.3.1"

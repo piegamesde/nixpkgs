@@ -103,8 +103,7 @@ in
             "-/etc/hosts"
             "-/etc/localtime"
           ]
-          ++ (optional (cfg.secretKeyFile != null) cfg.secretKeyFile)
-          ++ (optional (cfg.saltFile != null) cfg.saltFile);
+          ++ (optional (cfg.secretKeyFile != null) cfg.secretKeyFile) ++ (optional (cfg.saltFile != null) cfg.saltFile);
         CapabilityBoundingSet = "CAP_NET_BIND_SERVICE";
         # ProtectClock= adds DeviceAllow=char-rtc r
         DeviceAllow = "";

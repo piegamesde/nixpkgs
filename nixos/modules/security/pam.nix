@@ -644,9 +644,7 @@ let
                   auth optional ${pkgs.gnome.gnome-keyring}/lib/security/pam_gnome_keyring.so
                 ''
                 + optionalString cfg.gnupg.enable ''
-                  auth optional ${pkgs.pam_gnupg}/lib/security/pam_gnupg.so ${
-                    optionalString cfg.gnupg.storeOnly " store-only"
-                  }
+                  auth optional ${pkgs.pam_gnupg}/lib/security/pam_gnupg.so ${optionalString cfg.gnupg.storeOnly " store-only"}
                 ''
                 + optionalString cfg.failDelay.enable ''
                   auth optional ${pkgs.pam}/lib/security/pam_faildelay.so delay=${toString cfg.failDelay.delay}

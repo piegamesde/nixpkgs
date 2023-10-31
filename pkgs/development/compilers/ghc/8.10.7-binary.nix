@@ -221,9 +221,7 @@ let
     ]
     ++ lib.optionals useLLVM [ (lib.getBin llvmPackages.llvm) ]
     # On darwin, we need unwrapped bintools as well (for otool)
-    ++ lib.optionals (stdenv.targetPlatform.linker == "cctools") [
-      targetPackages.stdenv.cc.bintools.bintools
-    ];
+    ++ lib.optionals (stdenv.targetPlatform.linker == "cctools") [ targetPackages.stdenv.cc.bintools.bintools ];
 in
 
 stdenv.mkDerivation rec {

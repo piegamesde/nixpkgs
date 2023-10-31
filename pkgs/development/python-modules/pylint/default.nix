@@ -37,17 +37,14 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs =
-    [
-      astroid
-      dill
-      isort
-      mccabe
-      platformdirs
-      tomlkit
-    ]
-    ++ lib.optionals (pythonOlder "3.11") [ tomli ]
-    ++ lib.optionals (pythonOlder "3.9") [ typing-extensions ];
+  propagatedBuildInputs = [
+    astroid
+    dill
+    isort
+    mccabe
+    platformdirs
+    tomlkit
+  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ] ++ lib.optionals (pythonOlder "3.9") [ typing-extensions ];
 
   nativeCheckInputs = [
     gitpython

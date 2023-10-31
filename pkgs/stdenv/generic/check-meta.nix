@@ -15,8 +15,7 @@ let
   # import <nixpkgs> { config = { showDerivationWarnings = [ "maintainerless" ]; }; }
   showWarnings = config.showDerivationWarnings;
 
-  getName =
-    attrs: attrs.name or ("${attrs.pname or "«name-missing»"}-${attrs.version or "«version-missing»"}");
+  getName = attrs: attrs.name or ("${attrs.pname or "«name-missing»"}-${attrs.version or "«version-missing»"}");
 
   allowUnfree = config.allowUnfree || builtins.getEnv "NIXPKGS_ALLOW_UNFREE" == "1";
 
@@ -83,14 +82,11 @@ let
 
   hasAllowedInsecure =
     attrs:
-    !(isMarkedInsecure attrs)
-    || allowInsecurePredicate attrs
-    || builtins.getEnv "NIXPKGS_ALLOW_INSECURE" == "1";
+    !(isMarkedInsecure attrs) || allowInsecurePredicate attrs || builtins.getEnv "NIXPKGS_ALLOW_INSECURE" == "1";
 
   isNonSource = sourceTypes: lib.lists.any (t: !t.isSource) sourceTypes;
 
-  hasNonSourceProvenance =
-    attrs: (attrs ? meta.sourceProvenance) && isNonSource attrs.meta.sourceProvenance;
+  hasNonSourceProvenance = attrs: (attrs ? meta.sourceProvenance) && isNonSource attrs.meta.sourceProvenance;
 
   # Allow granular checks to allow only some non-source-built packages
   # Example:
@@ -359,8 +355,7 @@ let
       ''
         key 'meta.${k}' is unrecognized; expected one of: 
           [${lib.concatMapStringsSep ", " (x: "'${x}'") (lib.attrNames metaTypes)}]'';
-  checkMeta =
-    meta: lib.optionals config.checkMeta (lib.remove null (lib.mapAttrsToList checkMetaAttr meta));
+  checkMeta = meta: lib.optionals config.checkMeta (lib.remove null (lib.mapAttrsToList checkMetaAttr meta));
 
   checkOutputsToInstall =
     attrs:
@@ -540,9 +535,7 @@ let
 
       available =
         validity.valid != "no"
-        && (
-          if config.checkMetaRecursively or false then lib.all (d: d.meta.available or true) references else true
-        );
+        && (if config.checkMetaRecursively or false then lib.all (d: d.meta.available or true) references else true);
     };
 
   assertValidity =

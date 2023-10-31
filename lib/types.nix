@@ -231,8 +231,7 @@ let
         merge =
           loc: defs:
           let
-            getType =
-              value: if isAttrs value && isStringLike value then "stringCoercibleSet" else builtins.typeOf value;
+            getType = value: if isAttrs value && isStringLike value then "stringCoercibleSet" else builtins.typeOf value;
 
             # Returns the common type of all definitions, throws an error if they
             # don't have the same type
@@ -319,8 +318,7 @@ let
               inherit name;
               description = docStart + "; between ${betweenDesc lowest highest}";
             };
-          unsign =
-            bit: range: ign 0 (range - 1) "unsignedInt${toString bit}" "${toString bit} bit unsigned integer";
+          unsign = bit: range: ign 0 (range - 1) "unsignedInt${toString bit}" "${toString bit} bit unsigned integer";
           sign =
             bit: range:
             ign (0 - (range / 2)) (range / 2 - 1) "signedInt${toString bit}" "${toString bit} bit signed integer";
@@ -372,8 +370,7 @@ let
 
       numbers =
         let
-          betweenDesc =
-            lowest: highest: "${builtins.toJSON lowest} and ${builtins.toJSON highest} (both inclusive)";
+          betweenDesc = lowest: highest: "${builtins.toJSON lowest} and ${builtins.toJSON highest} (both inclusive)";
         in
         {
           between =
@@ -516,10 +513,7 @@ let
           let
             res = mergeOneOption loc defs;
           in
-          if builtins.isPath res || (builtins.isString res && !builtins.hasContext res) then
-            toDerivation res
-          else
-            res;
+          if builtins.isPath res || (builtins.isString res && !builtins.hasContext res) then toDerivation res else res;
       };
 
       shellPackage = package // {
@@ -537,9 +531,7 @@ let
         elemType:
         mkOptionType rec {
           name = "listOf";
-          description = "list of ${
-              optionDescriptionPhrase (class: class == "noun" || class == "composite") elemType
-            }";
+          description = "list of ${optionDescriptionPhrase (class: class == "noun" || class == "composite") elemType}";
           descriptionClass = "composite";
           check = isList;
           merge =
@@ -747,8 +739,7 @@ let
             if nrNulls == length defs then
               null
             else if nrNulls != 0 then
-              throw
-                "The option `${showOption loc}` is defined both null and not null, in ${showFiles (getFiles defs)}."
+              throw "The option `${showOption loc}` is defined both null and not null, in ${showFiles (getFiles defs)}."
             else
               elemType.merge loc defs;
           emptyValue = {
@@ -976,8 +967,7 @@ let
                 else if lhs.shorthandOnlyDefinesConfig == rhs.shorthandOnlyDefinesConfig then
                   lhs.shorthandOnlyDefinesConfig
                 else
-                  throw
-                    "A submoduleWith option is declared multiple times with conflicting shorthandOnlyDefinesConfig values";
+                  throw "A submoduleWith option is declared multiple times with conflicting shorthandOnlyDefinesConfig values";
               description =
                 if lhs.description == null then
                   rhs.description
@@ -1071,8 +1061,7 @@ let
       oneOf =
         ts:
         let
-          head' =
-            if ts == [ ] then throw "types.oneOf needs to get at least one type in its argument" else head ts;
+          head' = if ts == [ ] then throw "types.oneOf needs to get at least one type in its argument" else head ts;
           tail' = tail ts;
         in
         foldl' either head' tail';

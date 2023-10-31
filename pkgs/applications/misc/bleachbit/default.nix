@@ -43,9 +43,7 @@ python3Packages.buildPythonApplication rec {
   postPatch = ''
     find -type f -exec sed -i -e 's@/usr/share@${placeholder "out"}/share@g' {} \;
     find -type f -exec sed -i -e 's@/usr/bin@${placeholder "out"}/bin@g' {} \;
-    find -type f -exec sed -i -e 's@${
-      placeholder "out"
-    }/bin/python3@${python3Packages.python}/bin/python3@' {} \;
+    find -type f -exec sed -i -e 's@${placeholder "out"}/bin/python3@${python3Packages.python}/bin/python3@' {} \;
   '';
 
   dontBuild = true;

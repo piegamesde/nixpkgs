@@ -21,9 +21,7 @@ stdenv.mkDerivation rec {
   version = "1.1.3";
 
   src = fetchurl {
-    url = "mirror://xfce/src/${category}/${pname}/${
-        lib.versions.majorMinor version
-      }/${pname}-${version}.tar.bz2";
+    url = "mirror://xfce/src/${category}/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.bz2";
     sha256 = "sha256-hO+LtHUiktZMDvEBut97FESHkL+gqF3mRNv6Iphuwlg=";
   };
 

@@ -105,8 +105,7 @@ let
         );
       parse = expr: builtins.filter (x: x != null) (builtins.map mapfn (splitCond expr));
     in
-    builtins.foldl'
-      (acc: v: acc ++ (if builtins.typeOf v == "string" then parse v else [ (parseExpressions v) ]))
+    builtins.foldl' (acc: v: acc ++ (if builtins.typeOf v == "string" then parse v else [ (parseExpressions v) ]))
       [ ]
       exprs;
 
@@ -174,9 +173,7 @@ let
               mOp = "in|[!=<>]+";
               e = stripStr exprs.value;
               m' = builtins.match "^(${mVal}) +(${mOp}) *(${mVal})$" e;
-              m = builtins.map stripStr (
-                if m' != null then m' else builtins.match "^(${mVal}) +(${mOp}) *(${mVal})$" e
-              );
+              m = builtins.map stripStr (if m' != null then m' else builtins.match "^(${mVal}) +(${mOp}) *(${mVal})$" e);
               m0 = processVar (builtins.elemAt m 0);
               m2 = processVar (builtins.elemAt m 2);
             in
@@ -248,9 +245,7 @@ let
           (
             let
               expr = exprs;
-              result = (op."${expr.value.op}") (builtins.elemAt expr.value.values 0) (
-                builtins.elemAt expr.value.values 1
-              );
+              result = (op."${expr.value.op}") (builtins.elemAt expr.value.values 0) (builtins.elemAt expr.value.values 1);
             in
             {
               type = "value";

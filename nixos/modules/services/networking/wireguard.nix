@@ -356,8 +356,7 @@ let
       peer,
     }:
     let
-      psk =
-        if peer.presharedKey != null then pkgs.writeText "wg-psk" peer.presharedKey else peer.presharedKeyFile;
+      psk = if peer.presharedKey != null then pkgs.writeText "wg-psk" peer.presharedKey else peer.presharedKeyFile;
       src = interfaceCfg.socketNamespace;
       dst = interfaceCfg.interfaceNamespace;
       ip = nsWrap "ip" src dst;
@@ -414,9 +413,7 @@ let
             [ ''${wg} set ${interfaceName} peer "${peer.publicKey}"'' ]
             ++ optional (psk != null) ''preshared-key "${psk}"''
             ++ optional (peer.endpoint != null) ''endpoint "${peer.endpoint}"''
-            ++
-              optional (peer.persistentKeepalive != null)
-                ''persistent-keepalive "${toString peer.persistentKeepalive}"''
+            ++ optional (peer.persistentKeepalive != null) ''persistent-keepalive "${toString peer.persistentKeepalive}"''
             ++ optional (peer.allowedIPs != [ ]) ''allowed-ips "${concatStringsSep "," peer.allowedIPs}"''
           );
           route_setup = optionalString interfaceCfg.allowedIPsAsRoutes (
@@ -474,10 +471,7 @@ let
     #assert (values.privateKey != null) != (values.privateKeyFile != null);
     let
       privKey =
-        if values.privateKeyFile != null then
-          values.privateKeyFile
-        else
-          pkgs.writeText "wg-key" values.privateKey;
+        if values.privateKeyFile != null then values.privateKeyFile else pkgs.writeText "wg-key" values.privateKey;
       src = values.socketNamespace;
       dst = values.interfaceNamespace;
       ipPreMove = nsWrap "ip" src null;
@@ -508,8 +502,7 @@ let
         ${values.preSetup}
 
         ${ipPreMove} link add dev "${name}" type wireguard
-        ${optionalString
-          (values.interfaceNamespace != null && values.interfaceNamespace != values.socketNamespace)
+        ${optionalString (values.interfaceNamespace != null && values.interfaceNamespace != values.socketNamespace)
           ''${ipPreMove} link set "${name}" netns "${ns}"''}
         ${optionalString (values.mtu != null) ''${ipPostMove} link set "${name}" mtu ${toString values.mtu}''}
 
@@ -600,9 +593,7 @@ in
     let
       all_peers = flatten (
         mapAttrsToList
-          (
-            interfaceName: interfaceCfg: map (peer: { inherit interfaceName interfaceCfg peer; }) interfaceCfg.peers
-          )
+          (interfaceName: interfaceCfg: map (peer: { inherit interfaceName interfaceCfg peer; }) interfaceCfg.peers)
           cfg.interfaces
       );
     in

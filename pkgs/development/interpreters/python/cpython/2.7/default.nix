@@ -52,8 +52,7 @@ assert x11Support -> tcl != null && tk != null && libX11 != null;
 assert lib.assertMsg (enableOptimizations -> (!stdenv.cc.isClang))
     "Optimizations with clang are not supported. configure: error: llvm-profdata is required for a --enable-optimizations build but could not be found.";
 
-assert lib.assertMsg (reproducibleBuild -> stripBytecode)
-    "Deterministic builds require stripping bytecode.";
+assert lib.assertMsg (reproducibleBuild -> stripBytecode) "Deterministic builds require stripping bytecode.";
 
 assert lib.assertMsg (reproducibleBuild -> (!enableOptimizations))
     "Deterministic builds are not achieved when optimizations are enabled.";

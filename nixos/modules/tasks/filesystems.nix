@@ -186,9 +186,7 @@ let
     pkgs.writeText "mounts.sh" (
       concatMapStringsSep "\n"
         (mount: ''
-          specialMount "${mount.device}" "${mount.mountPoint}" "${
-            concatStringsSep "," mount.options
-          }" "${mount.fsType}"
+          specialMount "${mount.device}" "${mount.mountPoint}" "${concatStringsSep "," mount.options}" "${mount.fsType}"
         '')
         mounts
     );
@@ -228,8 +226,7 @@ let
           "f2fs"
         ];
       isBindMount = fs: builtins.elem "bind" fs.options;
-      skipCheck =
-        fs: fs.noCheck || fs.device == "none" || builtins.elem fs.fsType fsToSkipCheck || isBindMount fs;
+      skipCheck = fs: fs.noCheck || fs.device == "none" || builtins.elem fs.fsType fsToSkipCheck || isBindMount fs;
       # https://wiki.archlinux.org/index.php/fstab#Filepath_spaces
       escape =
         string:
@@ -283,8 +280,7 @@ let
   initrdFstab = pkgs.writeText "initrd-fstab" (
     makeFstabEntries (filter utils.fsNeededForBoot fileSystems) {
       rootPrefix = "/sysroot";
-      extraOpts =
-        fs: (optional fs.autoResize "x-systemd.growfs") ++ (optional fs.autoFormat "x-systemd.makefs");
+      extraOpts = fs: (optional fs.autoResize "x-systemd.growfs") ++ (optional fs.autoFormat "x-systemd.makefs");
     }
   );
 in

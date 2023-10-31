@@ -475,9 +475,7 @@ in
                                 "--authorization-webhook-config-file=${cfg.webhookConfig}"
                             } \
                           --bind-address=${cfg.bindAddress} \
-                          ${
-                            optionalString (cfg.advertiseAddress != null) "--advertise-address=${cfg.advertiseAddress}"
-                          } \
+                          ${optionalString (cfg.advertiseAddress != null) "--advertise-address=${cfg.advertiseAddress}"} \
                           ${optionalString (cfg.clientCaFile != null) "--client-ca-file=${cfg.clientCaFile}"} \
                           --disable-admission-plugins=${concatStringsSep "," cfg.disableAdmissionPlugins} \
                           --enable-admission-plugins=${concatStringsSep "," cfg.enableAdmissionPlugins} \
@@ -491,12 +489,10 @@ in
                           } \
                           ${optionalString (cfg.basicAuthFile != null) "--basic-auth-file=${cfg.basicAuthFile}"} \
                           ${
-                            optionalString (cfg.kubeletClientCaFile != null)
-                              "--kubelet-certificate-authority=${cfg.kubeletClientCaFile}"
+                            optionalString (cfg.kubeletClientCaFile != null) "--kubelet-certificate-authority=${cfg.kubeletClientCaFile}"
                           } \
                           ${
-                            optionalString (cfg.kubeletClientCertFile != null)
-                              "--kubelet-client-certificate=${cfg.kubeletClientCertFile}"
+                            optionalString (cfg.kubeletClientCertFile != null) "--kubelet-client-certificate=${cfg.kubeletClientCertFile}"
                           } \
                           ${
                             optionalString (cfg.kubeletClientKeyFile != null) "--kubelet-client-key=${cfg.kubeletClientKeyFile}"

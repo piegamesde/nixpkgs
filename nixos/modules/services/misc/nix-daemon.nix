@@ -565,9 +565,7 @@ in
                       type = "path";
                       path = config.flake.outPath;
                     }
-                    //
-                      filterAttrs (n: _: n == "lastModified" || n == "rev" || n == "revCount" || n == "narHash")
-                        config.flake
+                    // filterAttrs (n: _: n == "lastModified" || n == "rev" || n == "revCount" || n == "narHash") config.flake
                   )
                 );
               };
@@ -845,9 +843,7 @@ in
                   if (res == [ ]) then "-" else (concatStringsSep "," machine.mandatoryFeatures)
                 )
               ]
-              ++ optional (isNixAtLeast "2.4pre") (
-                if machine.publicHostKey != null then machine.publicHostKey else "-"
-              )
+              ++ optional (isNixAtLeast "2.4pre") (if machine.publicHostKey != null then machine.publicHostKey else "-")
             ))
             + "\n"
           )
@@ -890,11 +886,7 @@ in
       ] ++ optionals cfg.distributedBuilds [ pkgs.gzip ];
 
       environment =
-        cfg.envVars
-        // {
-          CURL_CA_BUNDLE = "/etc/ssl/certs/ca-certificates.crt";
-        }
-        // config.networking.proxy.envVars;
+        cfg.envVars // { CURL_CA_BUNDLE = "/etc/ssl/certs/ca-certificates.crt"; } // config.networking.proxy.envVars;
 
       unitConfig.RequiresMountsFor = "/nix/store";
 

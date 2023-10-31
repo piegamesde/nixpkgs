@@ -21,9 +21,7 @@ let
   # Don't start dhcpcd on explicitly configured interfaces or on
   # interfaces that are part of a bridge, bond or sit device.
   ignoredInterfaces =
-    map (i: i.name) (
-      filter (i: if i.useDHCP != null then !i.useDHCP else i.ipv4.addresses != [ ]) interfaces
-    )
+    map (i: i.name) (filter (i: if i.useDHCP != null then !i.useDHCP else i.ipv4.addresses != [ ]) interfaces)
     ++ mapAttrsToList (i: _: i) config.networking.sits
     ++ concatLists (attrValues (mapAttrs (n: v: v.interfaces) config.networking.bridges))
     ++ flatten (
@@ -108,8 +106,7 @@ let
       noipv6
     ''}
 
-    ${optionalString (config.networking.enableIPv6 && cfg.IPv6rs == null && staticIPv6Addresses != [ ])
-      noIPv6rs}
+    ${optionalString (config.networking.enableIPv6 && cfg.IPv6rs == null && staticIPv6Addresses != [ ]) noIPv6rs}
     ${optionalString (config.networking.enableIPv6 && cfg.IPv6rs == false) ''
       noipv6rs
     ''}

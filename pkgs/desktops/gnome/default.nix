@@ -267,9 +267,7 @@ lib.makeScope pkgs.newScope (
       "The ‘gnome.libgnome-games-support’ alias was removed. Please use ‘pkgs.libgnome-games-support’ directly."; # converted to throw on 2022-10-26
 
   gnome-books = throw "The ‘gnome.gnome-books’ package was removed as it is broken and abandoned."; # added 2022-10-26
-  gnome-documents =
-    throw
-      "The ‘gnome.gnome-documents’ package was removed as it is broken and abandoned."; # added 2022-10-26
+  gnome-documents = throw "The ‘gnome.gnome-documents’ package was removed as it is broken and abandoned."; # added 2022-10-26
   gnome-devel-docs =
     throw
       "The ‘gnome.gnome-devel-docs’ package was removed as it is outdated and no longer relevant."; # added 2022-10-26

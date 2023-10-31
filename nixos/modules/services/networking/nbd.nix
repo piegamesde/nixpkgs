@@ -130,9 +130,7 @@ in
 
         listenAddress = mkOption {
           type = with types; nullOr str;
-          description =
-            lib.mdDoc
-              "Address to listen on. If not specified, the server will listen on all interfaces.";
+          description = lib.mdDoc "Address to listen on. If not specified, the server will listen on all interfaces.";
           default = null;
           example = "10.10.0.1";
         };

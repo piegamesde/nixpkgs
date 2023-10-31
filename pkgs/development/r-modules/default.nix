@@ -133,9 +133,7 @@ let
     lib.mapAttrs
       (
         name: value:
-        (builtins.getAttr name old).overrideAttrs (
-          attrs: { nativeBuildInputs = attrs.nativeBuildInputs ++ value; }
-        )
+        (builtins.getAttr name old).overrideAttrs (attrs: { nativeBuildInputs = attrs.nativeBuildInputs ++ value; })
       )
       overrides;
 
@@ -157,8 +155,7 @@ let
     overrides: old:
     lib.mapAttrs
       (
-        name: value:
-        (builtins.getAttr name old).overrideAttrs (attrs: { buildInputs = attrs.buildInputs ++ value; })
+        name: value: (builtins.getAttr name old).overrideAttrs (attrs: { buildInputs = attrs.buildInputs ++ value; })
       )
       overrides;
 
@@ -1364,9 +1361,7 @@ let
     s2 = old.s2.overrideAttrs (
       attrs: {
         PKGCONFIG_CFLAGS = "-I${pkgs.openssl.dev}/include";
-        PKGCONFIG_LIBS = "-Wl,-rpath,${lib.getLib pkgs.openssl}/lib -L${
-            lib.getLib pkgs.openssl
-          }/lib -lssl -lcrypto";
+        PKGCONFIG_LIBS = "-Wl,-rpath,${lib.getLib pkgs.openssl}/lib -L${lib.getLib pkgs.openssl}/lib -lssl -lcrypto";
       }
     );
 
@@ -1426,18 +1421,14 @@ let
           patchShebangs configure
         '';
         PKGCONFIG_CFLAGS = "-I${pkgs.openssl.dev}/include";
-        PKGCONFIG_LIBS = "-Wl,-rpath,${lib.getLib pkgs.openssl}/lib -L${
-            lib.getLib pkgs.openssl
-          }/lib -lssl -lcrypto";
+        PKGCONFIG_LIBS = "-Wl,-rpath,${lib.getLib pkgs.openssl}/lib -L${lib.getLib pkgs.openssl}/lib -lssl -lcrypto";
       }
     );
 
     websocket = old.websocket.overrideAttrs (
       attrs: {
         PKGCONFIG_CFLAGS = "-I${pkgs.openssl.dev}/include";
-        PKGCONFIG_LIBS = "-Wl,-rpath,${lib.getLib pkgs.openssl}/lib -L${
-            lib.getLib pkgs.openssl
-          }/lib -lssl -lcrypto";
+        PKGCONFIG_LIBS = "-Wl,-rpath,${lib.getLib pkgs.openssl}/lib -L${lib.getLib pkgs.openssl}/lib -lssl -lcrypto";
       }
     );
 
@@ -1708,9 +1699,7 @@ let
 
     Rrdrand = old.Rrdrand.override { platforms = lib.platforms.x86_64 ++ lib.platforms.x86; };
 
-    RandomFieldsUtils = old.RandomFieldsUtils.override {
-      platforms = lib.platforms.x86_64 ++ lib.platforms.x86;
-    };
+    RandomFieldsUtils = old.RandomFieldsUtils.override { platforms = lib.platforms.x86_64 ++ lib.platforms.x86; };
 
     flowClust = old.flowClust.override { platforms = lib.platforms.x86_64 ++ lib.platforms.x86; };
 
@@ -1718,9 +1707,7 @@ let
 
     Rhdf5lib =
       let
-        hdf5 = pkgs.hdf5_1_10.overrideAttrs (
-          attrs: { configureFlags = attrs.configureFlags ++ [ "--enable-cxx" ]; }
-        );
+        hdf5 = pkgs.hdf5_1_10.overrideAttrs (attrs: { configureFlags = attrs.configureFlags ++ [ "--enable-cxx" ]; });
       in
       old.Rhdf5lib.overrideAttrs (
         attrs: {

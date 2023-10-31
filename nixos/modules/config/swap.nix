@@ -210,8 +210,7 @@ in
     assertions =
       map
         (sw: {
-          assertion =
-            sw.randomEncryption.enable -> builtins.match "/dev/disk/by-(uuid|label)/.*" sw.device == null;
+          assertion = sw.randomEncryption.enable -> builtins.match "/dev/disk/by-(uuid|label)/.*" sw.device == null;
           message = ''
             You cannot use swap device "${sw.device}" with randomEncryption enabled.
             The UUIDs and labels will get erased on every boot when the partition is encrypted.

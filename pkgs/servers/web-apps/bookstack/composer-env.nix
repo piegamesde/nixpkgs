@@ -18,8 +18,7 @@ let
     builtins.filterSource
       (
         path: type:
-        type != "directory"
-        || (baseNameOf path != ".git" && baseNameOf path != ".git" && baseNameOf path != ".svn")
+        type != "directory" || (baseNameOf path != ".git" && baseNameOf path != ".git" && baseNameOf path != ".svn")
       )
       src;
 

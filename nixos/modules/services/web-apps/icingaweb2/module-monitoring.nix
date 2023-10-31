@@ -77,9 +77,7 @@ in
     mutableBackends = mkOption {
       type = bool;
       default = false;
-      description =
-        lib.mdDoc
-          "Make backends.ini of the monitoring module mutable (e.g. via the web interface).";
+      description = lib.mdDoc "Make backends.ini of the monitoring module mutable (e.g. via the web interface).";
     };
 
     backends = mkOption {
@@ -200,12 +198,8 @@ in
           source = "${pkgs.icingaweb2}/modules/monitoring";
         };
       }
-      // optionalAttrs (!cfg.generalConfig.mutable) {
-        "icingaweb2/modules/monitoring/config.ini".text = configIni;
-      }
-      // optionalAttrs (!cfg.mutableBackends) {
-        "icingaweb2/modules/monitoring/backends.ini".text = backendsIni;
-      }
+      // optionalAttrs (!cfg.generalConfig.mutable) { "icingaweb2/modules/monitoring/config.ini".text = configIni; }
+      // optionalAttrs (!cfg.mutableBackends) { "icingaweb2/modules/monitoring/backends.ini".text = backendsIni; }
       // optionalAttrs (!cfg.mutableTransports) {
         "icingaweb2/modules/monitoring/commandtransports.ini".text = transportsIni;
       };

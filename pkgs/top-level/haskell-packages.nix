@@ -560,9 +560,7 @@ in
             oldAttrs: {
               ghc = bh.compiler.integer-simple.${name};
               buildHaskellPackages = bh.packages.integer-simple.${name};
-              overrides = pkgs.lib.composeExtensions (oldAttrs.overrides or (_: _: { })) (
-                _: _: { integer-simple = null; }
-              );
+              overrides = pkgs.lib.composeExtensions (oldAttrs.overrides or (_: _: { })) (_: _: { integer-simple = null; });
             }
           )
         );

@@ -17,8 +17,7 @@ let
 
   # Make sure that we are not shadowing something from
   # all-packages.nix.
-  checkInPkgs =
-    n: alias: if builtins.hasAttr n prev then throw "Alias ${n} is still in vim-plugins" else alias;
+  checkInPkgs = n: alias: if builtins.hasAttr n prev then throw "Alias ${n} is still in vim-plugins" else alias;
 
   mapAliases =
     aliases:

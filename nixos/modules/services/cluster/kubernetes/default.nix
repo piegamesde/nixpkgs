@@ -217,9 +217,7 @@ in
     };
 
     masterAddress = mkOption {
-      description =
-        lib.mdDoc
-          "Clusterwide available network address or hostname for the kubernetes master server.";
+      description = lib.mdDoc "Clusterwide available network address or hostname for the kubernetes master server.";
       example = "master.example.com";
       type = types.str;
     };

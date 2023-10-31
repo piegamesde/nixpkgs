@@ -80,9 +80,7 @@ let
     }:
     let
       agdaWithArgs = withPackages (builtins.filter (p: p ? isAgdaDerivation) buildInputs);
-      includePathArgs = concatMapStrings (path: "-i" + path + " ") (
-        includePaths ++ [ (dirOf everythingFile) ]
-      );
+      includePathArgs = concatMapStrings (path: "-i" + path + " ") (includePaths ++ [ (dirOf everythingFile) ]);
     in
     {
       inherit libraryName libraryFile;

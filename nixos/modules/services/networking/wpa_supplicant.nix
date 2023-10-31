@@ -10,8 +10,7 @@
 with lib;
 
 let
-  package =
-    if cfg.allowAuxiliaryImperativeNetworks then pkgs.wpa_supplicant_ro_ssids else pkgs.wpa_supplicant;
+  package = if cfg.allowAuxiliaryImperativeNetworks then pkgs.wpa_supplicant_ro_ssids else pkgs.wpa_supplicant;
 
   cfg = config.networking.wireless;
   opt = options.networking.wireless;
@@ -32,9 +31,7 @@ let
   increaseWPA3Priority =
     opts:
     opts
-    // optionalAttrs (hasMixedWPA opts) {
-      priority = if opts.priority == null then 1 else opts.priority + 1;
-    };
+    // optionalAttrs (hasMixedWPA opts) { priority = if opts.priority == null then 1 else opts.priority + 1; };
 
   # Creates a WPA2 fallback network
   mkWPA2Fallback = opts: opts // { authProtocols = subtractLists wpa3Protocols opts.authProtocols; };
@@ -110,9 +107,7 @@ let
   mkUnit =
     iface:
     let
-      deviceUnit =
-        optional (iface != null)
-          "sys-subsystem-net-devices-${utils.escapeSystemdPath iface}.device";
+      deviceUnit = optional (iface != null) "sys-subsystem-net-devices-${utils.escapeSystemdPath iface}.device";
       configStr =
         if cfg.allowAuxiliaryImperativeNetworks then
           "-c /etc/wpa_supplicant.conf -I ${finalConfig}"
@@ -132,9 +127,7 @@ let
       path = [ package ];
       serviceConfig.RuntimeDirectory = "wpa_supplicant";
       serviceConfig.RuntimeDirectoryMode = "700";
-      serviceConfig.EnvironmentFile = mkIf (cfg.environmentFile != null) (
-        builtins.toString cfg.environmentFile
-      );
+      serviceConfig.EnvironmentFile = mkIf (cfg.environmentFile != null) (builtins.toString cfg.environmentFile);
 
       script = ''
         ${optionalString (configIsGenerated && !cfg.allowAuxiliaryImperativeNetworks) ''

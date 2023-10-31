@@ -85,9 +85,7 @@ in
       plantumlStats = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Set it to on to enable statistics report (https://plantuml.com/statistics-report).";
+        description = lib.mdDoc "Set it to on to enable statistics report (https://plantuml.com/statistics-report).";
       };
 
       httpAuthorization = mkOption {

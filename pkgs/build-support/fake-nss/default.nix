@@ -15,9 +15,7 @@ symlinkJoin {
   paths = [
     (writeTextDir "etc/passwd" ''
       root:x:0:0:root user:/var/empty:/bin/sh
-      ${
-        lib.concatStrings (map (line: line + "\n") extraPasswdLines)
-      }nobody:x:65534:65534:nobody:/var/empty:/bin/sh
+      ${lib.concatStrings (map (line: line + "\n") extraPasswdLines)}nobody:x:65534:65534:nobody:/var/empty:/bin/sh
     '')
     (writeTextDir "etc/group" ''
       root:x:0:

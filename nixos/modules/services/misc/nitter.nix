@@ -326,8 +326,7 @@ in
   config = mkIf cfg.enable {
     assertions = [
       {
-        assertion =
-          !cfg.redisCreateLocally || (cfg.cache.redisHost == "localhost" && cfg.cache.redisPort == 6379);
+        assertion = !cfg.redisCreateLocally || (cfg.cache.redisHost == "localhost" && cfg.cache.redisPort == 6379);
         message = "When services.nitter.redisCreateLocally is enabled, you need to use localhost:6379 as a cache server.";
       }
     ];

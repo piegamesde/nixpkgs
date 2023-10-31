@@ -17,9 +17,7 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Whether to enable fcgiwrap, a server for running CGI applications over FastCGI.";
+        description = lib.mdDoc "Whether to enable fcgiwrap, a server for running CGI applications over FastCGI.";
       };
 
       preforkProcesses = mkOption {

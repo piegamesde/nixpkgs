@@ -177,8 +177,7 @@ let
           ''--capability="${concatStringsSep "," cfg.additionalCapabilities}"''
       } \
       ${
-        optionalString (cfg.tmpfs != null && cfg.tmpfs != [ ])
-          "--tmpfs=${concatStringsSep " --tmpfs=" cfg.tmpfs}"
+        optionalString (cfg.tmpfs != null && cfg.tmpfs != [ ]) "--tmpfs=${concatStringsSep " --tmpfs=" cfg.tmpfs}"
       } \
       ${containerInit cfg} "''${SYSTEM_PATH:-/nix/var/nix/profiles/system}/init"
   '';
@@ -873,8 +872,7 @@ in
                   postStart = postStartScript containerConfig;
                   serviceConfig = serviceDirectives containerConfig;
                   unitConfig.RequiresMountsFor = lib.optional (!containerConfig.ephemeral) "${stateDirectory}/%i";
-                  environment.root =
-                    if containerConfig.ephemeral then "/run/nixos-containers/%i" else "${stateDirectory}/%i";
+                  environment.root = if containerConfig.ephemeral then "/run/nixos-containers/%i" else "${stateDirectory}/%i";
                 }
                 // (
                   if containerConfig.autoStart then

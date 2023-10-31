@@ -126,9 +126,7 @@ mapAliases ({
   glasgow = throw "glasgow has been promoted to a top-level attribute"; # added 2023-02-05
   google_api_python_client = google-api-python-client; # added 2021-03-19
   googleapis_common_protos = googleapis-common-protos; # added 2021-03-19
-  google-apitools =
-    throw
-      "google-apitools was removed because it is deprecated and unsupported by upstream"; # added 2023-02-25
+  google-apitools = throw "google-apitools was removed because it is deprecated and unsupported by upstream"; # added 2023-02-25
   graphite_api = throw "graphite_api was removed, because it is no longer maintained"; # added 2022-07-10
   graphite_beacon = throw "graphite_beacon was removed, because it is no longer maintained"; # added 2022-07-09
   grpc_google_iam_v1 = grpc-google-iam-v1; # added 2021-08-21
@@ -187,9 +185,7 @@ mapAliases ({
   ntlm-auth =
     throw
       "ntlm-auth has been removed, because it relies on the md4 implementation provided by openssl. Use pyspnego instead.";
-  ordereddict =
-    throw
-      "ordereddict has been removed because it is only useful on unsupported python versions."; # added 2022-05-28
+  ordereddict = throw "ordereddict has been removed because it is only useful on unsupported python versions."; # added 2022-05-28
   pafy =
     throw
       "pafy has been removed because it is unmaintained and only a dependency of mps-youtube, itself superseded by yewtube"; # Added 2023-01-19
@@ -362,7 +358,5 @@ mapAliases ({
   XlsxWriter = xlsxwriter; # added 2023-02-19
   Yapsy = yapsy; # added 2023-02-19
   zc-buildout221 = zc-buildout; # added 2021-07-21
-  zc_buildout_nix =
-    throw
-      "zc_buildout_nix was pinned to a version no longer compatible with other modules";
+  zc_buildout_nix = throw "zc_buildout_nix was pinned to a version no longer compatible with other modules";
 })

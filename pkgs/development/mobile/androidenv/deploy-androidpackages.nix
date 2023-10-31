@@ -99,10 +99,7 @@ stdenv.mkDerivation (
       map
         (
           package:
-          if os != null && builtins.hasAttr os package.archives then
-            package.archives.${os}
-          else
-            package.archives.all
+          if os != null && builtins.hasAttr os package.archives then package.archives.${os} else package.archives.all
         )
         packages;
     nativeBuildInputs = [ unzip ] ++ nativeBuildInputs;

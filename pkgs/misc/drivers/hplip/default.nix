@@ -72,8 +72,7 @@ in
 
 assert withPlugin
   ->
-    builtins.elem hplipArch pluginArches
-    || throw "HPLIP plugin not supported on ${stdenv.hostPlatform.system}";
+    builtins.elem hplipArch pluginArches || throw "HPLIP plugin not supported on ${stdenv.hostPlatform.system}";
 
 python3Packages.buildPythonApplication {
   inherit pname version src;

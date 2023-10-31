@@ -4968,9 +4968,7 @@ let
       sources."object-inspect-1.8.0"
       sources."object-keys-1.1.1"
       sources."object.assign-4.1.2"
-      (
-        sources."object.getownpropertydescriptors-2.1.0" // { dependencies = [ sources."es-abstract-1.17.7" ]; }
-      )
+      (sources."object.getownpropertydescriptors-2.1.0" // { dependencies = [ sources."es-abstract-1.17.7" ]; })
       (sources."object.values-1.1.1" // { dependencies = [ sources."es-abstract-1.17.7" ]; })
       sources."once-1.4.0"
       sources."onetime-5.1.2"

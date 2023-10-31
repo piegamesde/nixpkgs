@@ -79,8 +79,7 @@
 
   ,
   # Libdw.c only supports x86_64, i686 and s390x as of 2022-08-04
-  enableDwarf ?
-    (stdenv.targetPlatform.isx86 || (stdenv.targetPlatform.isS390 && stdenv.targetPlatform.is64bit))
+  enableDwarf ? (stdenv.targetPlatform.isx86 || (stdenv.targetPlatform.isS390 && stdenv.targetPlatform.is64bit))
     && lib.meta.availableOn stdenv.hostPlatform elfutils
     && lib.meta.availableOn stdenv.targetPlatform elfutils
     &&
@@ -210,9 +209,7 @@ let
     # https://gitlab.haskell.org/ghc/ghc/-/issues/22081
     ++ lib.optional enableDwarf elfutils
     ++ lib.optional (!enableNativeBignum) gmp
-    ++
-      lib.optional (platform.libc != "glibc" && !targetPlatform.isWindows && !targetPlatform.isGhcjs)
-        libiconv;
+    ++ lib.optional (platform.libc != "glibc" && !targetPlatform.isWindows && !targetPlatform.isGhcjs) libiconv;
 
   # TODO(@sternenseemann): is buildTarget LLVM unnecessary?
   # GHC doesn't seem to have {LLC,OPT}_HOST
@@ -228,8 +225,7 @@ let
     # GHC needs install_name_tool on all darwin platforms. On aarch64-darwin it is
     # part of the bintools wrapper (due to codesigning requirements), but not on
     # x86_64-darwin.
-    install_name_tool =
-      if stdenv.targetPlatform.isAarch64 then targetCC.bintools else targetCC.bintools.bintools;
+    install_name_tool = if stdenv.targetPlatform.isAarch64 then targetCC.bintools else targetCC.bintools.bintools;
     # Same goes for strip.
     strip =
       # TODO(@sternenseemann): also use wrapper if linker == "bfd" or "gold"
@@ -398,8 +394,7 @@ stdenv.mkDerivation (
         "--with-gmp-libraries=${targetPackages.gmp.out}/lib"
       ]
       ++
-        lib.optionals
-          (targetPlatform == hostPlatform && hostPlatform.libc != "glibc" && !targetPlatform.isWindows)
+        lib.optionals (targetPlatform == hostPlatform && hostPlatform.libc != "glibc" && !targetPlatform.isWindows)
           [
             "--with-iconv-includes=${libiconv}/include"
             "--with-iconv-libraries=${libiconv}/lib"

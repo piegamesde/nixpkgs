@@ -59,17 +59,13 @@ assert with lib;
 
 let
 
-  variant = lib.concatStringsSep "," (
-    lib.optional enableRelease "release" ++ lib.optional enableDebug "debug"
-  );
+  variant = lib.concatStringsSep "," (lib.optional enableRelease "release" ++ lib.optional enableDebug "debug");
 
   threading = lib.concatStringsSep "," (
     lib.optional enableSingleThreaded "single" ++ lib.optional enableMultiThreaded "multi"
   );
 
-  link = lib.concatStringsSep "," (
-    lib.optional enableShared "shared" ++ lib.optional enableStatic "static"
-  );
+  link = lib.concatStringsSep "," (lib.optional enableShared "shared" ++ lib.optional enableStatic "static");
 
   runtime-link = if enableShared then "shared" else "static";
 
@@ -90,8 +86,7 @@ let
     else
       "$NIX_BUILD_CORES";
 
-  needUserConfig =
-    stdenv.hostPlatform != stdenv.buildPlatform || useMpi || (stdenv.isDarwin && enableShared);
+  needUserConfig = stdenv.hostPlatform != stdenv.buildPlatform || useMpi || (stdenv.isDarwin && enableShared);
 
   b2Args = lib.concatStringsSep " " (
     [
@@ -190,9 +185,7 @@ stdenv.mkDerivation {
         extraPrefix = "libs/context/";
       }
     )
-    ++
-      lib.optional (lib.versionAtLeast version "1.70" && lib.versionOlder version "1.73")
-        ./cmake-paths.patch
+    ++ lib.optional (lib.versionAtLeast version "1.70" && lib.versionOlder version "1.73") ./cmake-paths.patch
     ++ lib.optional (lib.versionAtLeast version "1.73") ./cmake-paths-173.patch
     ++ lib.optional (version == "1.77.0") (
       fetchpatch {

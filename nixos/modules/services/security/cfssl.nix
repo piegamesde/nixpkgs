@@ -45,9 +45,7 @@ in
     ca = mkOption {
       defaultText = literalExpression ''"''${cfg.dataDir}/ca.pem"'';
       type = types.str;
-      description =
-        lib.mdDoc
-          "CA used to sign the new certificate -- accepts '[file:]fname' or 'env:varname'.";
+      description = lib.mdDoc "CA used to sign the new certificate -- accepts '[file:]fname' or 'env:varname'.";
     };
 
     caKey = mkOption {
@@ -144,9 +142,7 @@ in
     mutualTlsClientCert = mkOption {
       default = null;
       type = types.nullOr types.path;
-      description =
-        lib.mdDoc
-          "Mutual TLS - client certificate to call remote instance requiring client certs.";
+      description = lib.mdDoc "Mutual TLS - client certificate to call remote instance requiring client certs.";
     };
 
     mutualTlsClientKey = mkOption {

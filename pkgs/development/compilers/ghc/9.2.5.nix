@@ -173,8 +173,7 @@ let
     # GHC needs install_name_tool on all darwin platforms. On aarch64-darwin it is
     # part of the bintools wrapper (due to codesigning requirements), but not on
     # x86_64-darwin.
-    install_name_tool =
-      if stdenv.targetPlatform.isAarch64 then targetCC.bintools else targetCC.bintools.bintools;
+    install_name_tool = if stdenv.targetPlatform.isAarch64 then targetCC.bintools else targetCC.bintools.bintools;
     # Same goes for strip.
     strip =
       # TODO(@sternenseemann): also use wrapper if linker == "bfd" or "gold"
@@ -358,8 +357,7 @@ stdenv.mkDerivation (
         "--with-gmp-libraries=${targetPackages.gmp.out}/lib"
       ]
       ++
-        lib.optionals
-          (targetPlatform == hostPlatform && hostPlatform.libc != "glibc" && !targetPlatform.isWindows)
+        lib.optionals (targetPlatform == hostPlatform && hostPlatform.libc != "glibc" && !targetPlatform.isWindows)
           [
             "--with-iconv-includes=${libiconv}/include"
             "--with-iconv-libraries=${libiconv}/lib"

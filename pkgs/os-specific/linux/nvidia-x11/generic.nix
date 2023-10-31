@@ -128,9 +128,7 @@ let
 
     outputs =
       [ "out" ]
-      ++ optional i686bundled "lib32"
-      ++ optional (!libsOnly) "bin"
-      ++ optional (!libsOnly && firmware) "firmware";
+      ++ optional i686bundled "lib32" ++ optional (!libsOnly) "bin" ++ optional (!libsOnly && firmware) "firmware";
     outputDev = if libsOnly then null else "bin";
 
     kernel = if libsOnly then null else kernel.dev;
@@ -179,15 +177,12 @@ let
           )
           openSha256;
       settings =
-        (if settings32Bit then pkgsi686Linux.callPackage else callPackage)
-          (import ./settings.nix self settingsSha256)
+        (if settings32Bit then pkgsi686Linux.callPackage else callPackage) (import ./settings.nix self settingsSha256)
           {
             withGtk2 = preferGtk2;
             withGtk3 = !preferGtk2;
           };
-      persistenced =
-        mapNullable (hash: callPackage (import ./persistenced.nix self hash) { })
-          persistencedSha256;
+      persistenced = mapNullable (hash: callPackage (import ./persistenced.nix self hash) { }) persistencedSha256;
       inherit persistencedVersion settingsVersion;
       compressFirmware = false;
       ibtSupport = ibtSupport || (lib.versionAtLeast version "530");

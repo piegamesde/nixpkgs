@@ -26,8 +26,7 @@ in
 
       stateDir = mkOption {
         type = types.path;
-        default =
-          if versionAtLeast config.system.stateVersion "20.09" then "/var/lib/supybot" else "/home/supybot";
+        default = if versionAtLeast config.system.stateVersion "20.09" then "/var/lib/supybot" else "/home/supybot";
         defaultText = literalExpression "/var/lib/supybot";
         description = lib.mdDoc "The root directory, logs and plugins are stored here";
       };
@@ -147,21 +146,17 @@ in
         // optionalAttrs (!isStateDirHome) { ProtectHome = true; };
     };
 
-    systemd.tmpfiles.rules =
-      [
-        "d '${cfg.stateDir}'              0700 supybot supybot - -"
-        "d '${cfg.stateDir}/backup'       0750 supybot supybot - -"
-        "d '${cfg.stateDir}/conf'         0750 supybot supybot - -"
-        "d '${cfg.stateDir}/data'         0750 supybot supybot - -"
-        "d '${cfg.stateDir}/plugins'      0750 supybot supybot - -"
-        "d '${cfg.stateDir}/logs'         0750 supybot supybot - -"
-        "d '${cfg.stateDir}/logs/plugins' 0750 supybot supybot - -"
-        "d '${cfg.stateDir}/tmp'          0750 supybot supybot - -"
-        "d '${cfg.stateDir}/web'          0750 supybot supybot - -"
-        "L '${cfg.stateDir}/supybot.cfg'  -    -       -       - ${cfg.configFile}"
-      ]
-      ++ (flip mapAttrsToList cfg.plugins (
-        name: dest: "L+ '${cfg.stateDir}/plugins/${name}' - - - - ${dest}"
-      ));
+    systemd.tmpfiles.rules = [
+      "d '${cfg.stateDir}'              0700 supybot supybot - -"
+      "d '${cfg.stateDir}/backup'       0750 supybot supybot - -"
+      "d '${cfg.stateDir}/conf'         0750 supybot supybot - -"
+      "d '${cfg.stateDir}/data'         0750 supybot supybot - -"
+      "d '${cfg.stateDir}/plugins'      0750 supybot supybot - -"
+      "d '${cfg.stateDir}/logs'         0750 supybot supybot - -"
+      "d '${cfg.stateDir}/logs/plugins' 0750 supybot supybot - -"
+      "d '${cfg.stateDir}/tmp'          0750 supybot supybot - -"
+      "d '${cfg.stateDir}/web'          0750 supybot supybot - -"
+      "L '${cfg.stateDir}/supybot.cfg'  -    -       -       - ${cfg.configFile}"
+    ] ++ (flip mapAttrsToList cfg.plugins (name: dest: "L+ '${cfg.stateDir}/plugins/${name}' - - - - ${dest}"));
   };
 }

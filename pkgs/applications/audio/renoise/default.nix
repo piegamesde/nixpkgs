@@ -31,9 +31,7 @@ stdenv.mkDerivation rec {
         fetchurl {
           urls = [
             "https://files.renoise.com/demo/Renoise_${urlVersion version}_Demo_Linux.tar.gz"
-            "https://web.archive.org/web/https://files.renoise.com/demo/Renoise_${
-              urlVersion version
-            }_Demo_Linux.tar.gz"
+            "https://web.archive.org/web/https://files.renoise.com/demo/Renoise_${urlVersion version}_Demo_Linux.tar.gz"
           ];
           sha256 = "0d9pnrvs93d4bwbfqxwyr3lg3k6gnzmp81m95gglzwdzczxkw38k";
         }

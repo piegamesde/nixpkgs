@@ -59,9 +59,7 @@ in
     touchBeforeSync = mkOption {
       default = true;
       example = false;
-      description =
-        lib.mdDoc
-          "Whether {command}`snapraid touch` should be run before {command}`snapraid sync`.";
+      description = lib.mdDoc "Whether {command}`snapraid touch` should be run before {command}`snapraid sync`.";
       type = bool;
     };
     sync.interval = mkOption {
@@ -149,9 +147,7 @@ in
           startAt = scrub.interval;
           serviceConfig = {
             Type = "oneshot";
-            ExecStart = "${pkgs.snapraid}/bin/snapraid scrub -p ${toString scrub.plan} -o ${
-                toString scrub.olderThan
-              }";
+            ExecStart = "${pkgs.snapraid}/bin/snapraid scrub -p ${toString scrub.plan} -o ${toString scrub.olderThan}";
             Nice = 19;
             IOSchedulingPriority = 7;
             CPUSchedulingPolicy = "batch";

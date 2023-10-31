@@ -68,9 +68,7 @@ let
       };
     };
 
-  taints = concatMapStringsSep "," (v: "${v.key}=${v.value}:${v.effect}") (
-    mapAttrsToList (n: v: v) cfg.taints
-  );
+  taints = concatMapStringsSep "," (v: "${v.key}=${v.value}:${v.effect}") (mapAttrsToList (n: v: v) cfg.taints);
 in
 {
   imports = [
@@ -266,9 +264,7 @@ in
     };
 
     taints = mkOption {
-      description =
-        lib.mdDoc
-          "Node taints (https://kubernetes.io/docs/concepts/configuration/assign-pod-node/).";
+      description = lib.mdDoc "Node taints (https://kubernetes.io/docs/concepts/configuration/assign-pod-node/).";
       default = { };
       type = attrsOf (submodule [ taintOptions ]);
     };
@@ -346,8 +342,7 @@ in
               ${if (lib.hasSuffix "gz" img) then
                 ''${pkgs.gzip}/bin/zcat "${img}" | ${pkgs.containerd}/bin/ctr -n k8s.io image import --all-platforms -''
               else
-                ''
-                  ${pkgs.coreutils}/bin/cat "${img}" | ${pkgs.containerd}/bin/ctr -n k8s.io image import --all-platforms -''}
+                ''${pkgs.coreutils}/bin/cat "${img}" | ${pkgs.containerd}/bin/ctr -n k8s.io image import --all-platforms -''}
             '')
             cfg.seedDockerImages}
 

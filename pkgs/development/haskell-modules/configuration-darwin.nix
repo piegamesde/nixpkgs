@@ -37,9 +37,7 @@ self: super:
 
     streamly = addBuildDepend darwin.apple_sdk.frameworks.Cocoa super.streamly;
 
-    apecs-physics =
-      addPkgconfigDepends [ darwin.apple_sdk.frameworks.ApplicationServices ]
-        super.apecs-physics;
+    apecs-physics = addPkgconfigDepends [ darwin.apple_sdk.frameworks.ApplicationServices ] super.apecs-physics;
 
     # Framework deps are hidden behind a flag
     hmidi =
@@ -144,9 +142,7 @@ self: super:
     blas-hs =
       overrideCabal
         (drv: {
-          libraryFrameworkDepends = [
-            darwin.apple_sdk.frameworks.Accelerate
-          ] ++ (drv.libraryFrameworkDepends or [ ]);
+          libraryFrameworkDepends = [ darwin.apple_sdk.frameworks.Accelerate ] ++ (drv.libraryFrameworkDepends or [ ]);
         })
         super.blas-hs;
 
@@ -379,9 +375,9 @@ self: super:
 
     # Build segfaults unless `fixity-th` is disabled.
     # https://github.com/tweag/ormolu/issues/927
-    ormolu =
-      overrideCabal (drv: { libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.file-embed ]; })
-        (disableCabalFlag "fixity-th" super.ormolu);
+    ormolu = overrideCabal (drv: { libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.file-embed ]; }) (
+      disableCabalFlag "fixity-th" super.ormolu
+    );
     fourmolu =
       overrideCabal (drv: { libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.file-embed ]; })
         (disableCabalFlag "fixity-th" super.fourmolu);

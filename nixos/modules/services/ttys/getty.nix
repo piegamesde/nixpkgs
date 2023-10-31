@@ -49,8 +49,7 @@ in
         "getty"
         "serialSpeed"
       ]
-      ''
-        set non-standard baudrates with `boot.kernelParams` i.e. boot.kernelParams = ["console=ttyS2,1500000"];''
+      ''set non-standard baudrates with `boot.kernelParams` i.e. boot.kernelParams = ["console=ttyS2,1500000"];''
     )
   ];
 
@@ -125,9 +124,7 @@ in
   config = {
     # Note: this is set here rather than up there so that changing
     # nixos.label would not rebuild manual pages
-    services.getty.greetingLine =
-      mkDefault
-        "<<< Welcome to NixOS ${config.system.nixos.label} (\\m) - \\l >>>";
+    services.getty.greetingLine = mkDefault "<<< Welcome to NixOS ${config.system.nixos.label} (\\m) - \\l >>>";
     services.getty.helpLine = mkIf (config.documentation.nixos.enable && config.documentation.doc.enable) ''
 
       Run 'nixos-help' for the NixOS manual.'';

@@ -277,9 +277,7 @@ in
         User = cfg.user;
         Group = cfg.group;
         Restart = "always";
-        ExecStart = "${pkgs.znc}/bin/znc --foreground --datadir ${cfg.dataDir} ${
-            escapeShellArgs cfg.extraFlags
-          }";
+        ExecStart = "${pkgs.znc}/bin/znc --foreground --datadir ${cfg.dataDir} ${escapeShellArgs cfg.extraFlags}";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         ExecStop = "${pkgs.coreutils}/bin/kill -INT $MAINPID";
         # Hardening

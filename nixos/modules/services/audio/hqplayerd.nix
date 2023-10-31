@@ -86,9 +86,7 @@ in
 
     environment = {
       etc = {
-        "hqplayer/hqplayerd.xml" = mkIf (cfg.config != null) {
-          source = pkgs.writeText "hqplayerd.xml" cfg.config;
-        };
+        "hqplayer/hqplayerd.xml" = mkIf (cfg.config != null) { source = pkgs.writeText "hqplayerd.xml" cfg.config; };
         "hqplayer/hqplayerd4-key.xml" = mkIf (cfg.licenseFile != null) { source = cfg.licenseFile; };
       };
       systemPackages = [ pkg ];
@@ -121,9 +119,7 @@ in
           stateDir
         ];
 
-        restartTriggers = optionals (cfg.config != null) [
-          config.environment.etc."hqplayer/hqplayerd.xml".source
-        ];
+        restartTriggers = optionals (cfg.config != null) [ config.environment.etc."hqplayer/hqplayerd.xml".source ];
 
         preStart =
           ''

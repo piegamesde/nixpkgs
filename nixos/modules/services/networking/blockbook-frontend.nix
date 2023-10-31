@@ -160,9 +160,7 @@ let
           default = "${config.package}/share/templates/";
           defaultText = literalExpression ''"''${package}/share/templates/"'';
           example = literalExpression ''"''${dataDir}/templates/static/"'';
-          description =
-            lib.mdDoc
-              "Location of the HTML templates. By default, ones shipped with the package are used.";
+          description = lib.mdDoc "Location of the HTML templates. By default, ones shipped with the package are used.";
         };
 
         extraConfig = mkOption {

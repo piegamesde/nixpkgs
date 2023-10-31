@@ -53,12 +53,10 @@ let
 
   # Contains both melpa stable & unstable
   melpaGeneric =
-    { pkgs, lib }:
-    import ../applications/editors/emacs/elisp-packages/melpa-packages.nix { inherit lib pkgs; };
+    { pkgs, lib }: import ../applications/editors/emacs/elisp-packages/melpa-packages.nix { inherit lib pkgs; };
 
   mkManualPackages =
-    { pkgs, lib }:
-    import ../applications/editors/emacs/elisp-packages/manual-packages.nix { inherit lib pkgs; };
+    { pkgs, lib }: import ../applications/editors/emacs/elisp-packages/manual-packages.nix { inherit lib pkgs; };
 
   emacsWithPackages =
     { pkgs, lib }:

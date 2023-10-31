@@ -25,8 +25,7 @@
   # GHC can be built with system libffi or a bundled one.
   libffi ? null,
 
-  useLLVM ?
-    !(stdenv.targetPlatform.isx86 || stdenv.targetPlatform.isPower || stdenv.targetPlatform.isSparc),
+  useLLVM ? !(stdenv.targetPlatform.isx86 || stdenv.targetPlatform.isPower || stdenv.targetPlatform.isSparc),
   # LLVM is conceptually a run-time-only depedendency, but for
   # non-x86, we need LLVM to bootstrap later stages, so it becomes a
   # build-time dependency too.
@@ -333,8 +332,7 @@ stdenv.mkDerivation (
         "--with-gmp-libraries=${targetPackages.gmp.out}/lib"
       ]
       ++
-        lib.optionals
-          (targetPlatform == hostPlatform && hostPlatform.libc != "glibc" && !targetPlatform.isWindows)
+        lib.optionals (targetPlatform == hostPlatform && hostPlatform.libc != "glibc" && !targetPlatform.isWindows)
           [
             "--with-iconv-includes=${libiconv}/include"
             "--with-iconv-libraries=${libiconv}/lib"

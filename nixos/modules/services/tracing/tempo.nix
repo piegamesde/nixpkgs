@@ -61,8 +61,7 @@ in
 
       serviceConfig =
         let
-          conf =
-            if cfg.configFile == null then settingsFormat.generate "config.yaml" cfg.settings else cfg.configFile;
+          conf = if cfg.configFile == null then settingsFormat.generate "config.yaml" cfg.settings else cfg.configFile;
         in
         {
           ExecStart = "${pkgs.tempo}/bin/tempo --config.file=${conf}";

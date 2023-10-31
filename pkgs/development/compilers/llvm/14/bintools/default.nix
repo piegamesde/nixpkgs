@@ -8,9 +8,7 @@
 }:
 
 let
-  prefix =
-    lib.optionalString (stdenv.hostPlatform != stdenv.targetPlatform)
-      "${stdenv.targetPlatform.config}-";
+  prefix = lib.optionalString (stdenv.hostPlatform != stdenv.targetPlatform) "${stdenv.targetPlatform.config}-";
 in
 runCommand "llvm-binutils-${version}"
   {

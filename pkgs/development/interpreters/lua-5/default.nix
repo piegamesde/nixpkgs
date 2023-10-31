@@ -45,8 +45,7 @@ let
               generatedPackages =
                 if (builtins.pathExists ../../lua-modules/generated-packages.nix) then
                   (
-                    final: prev:
-                    callPackage ../../lua-modules/generated-packages.nix { inherit (final) callPackage; } final prev
+                    final: prev: callPackage ../../lua-modules/generated-packages.nix { inherit (final) callPackage; } final prev
                   )
                 else
                   (final: prev: { });

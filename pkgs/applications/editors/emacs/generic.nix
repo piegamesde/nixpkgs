@@ -411,10 +411,7 @@ in
           "The extensible, customizable GNU text editor"
           + optionalString withMacport " with Mitsuharu Yamamoto's macport patches";
         homepage =
-          if withMacport then
-            "https://bitbucket.org/mituharu/emacs-mac/"
-          else
-            "https://www.gnu.org/software/emacs/";
+          if withMacport then "https://bitbucket.org/mituharu/emacs-mac/" else "https://www.gnu.org/software/emacs/";
         license = licenses.gpl3Plus;
         maintainers = with maintainers; [
           lovek323

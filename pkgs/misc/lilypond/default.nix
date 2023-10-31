@@ -45,9 +45,7 @@ stdenv.mkDerivation rec {
   version = "2.24.1";
 
   src = fetchurl {
-    url = "http://lilypond.org/download/sources/v${
-        lib.versions.majorMinor version
-      }/lilypond-${version}.tar.gz";
+    url = "http://lilypond.org/download/sources/v${lib.versions.majorMinor version}/lilypond-${version}.tar.gz";
     sha256 = "sha256-1cWQh1ZKXNbwilK6gOfWUJuRxYXkQ4XcwPo5Jl0YFQk=";
   };
 

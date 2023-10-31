@@ -737,8 +737,7 @@ in
         UMask = "0077";
       };
       preStart = concatStringsSep "\n" (
-        imap0 (idx: listener: makePasswordFile listener.users "${cfg.dataDir}/passwd-${toString idx}")
-          cfg.listeners
+        imap0 (idx: listener: makePasswordFile listener.users "${cfg.dataDir}/passwd-${toString idx}") cfg.listeners
       );
     };
 

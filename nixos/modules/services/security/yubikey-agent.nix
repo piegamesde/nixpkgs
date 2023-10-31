@@ -60,10 +60,7 @@ in
       path = [ pkgs.pinentry.${pinentryFlavor} ];
       wantedBy = [
         (
-          if pinentryFlavor == "tty" || pinentryFlavor == "curses" then
-            "default.target"
-          else
-            "graphical-session.target"
+          if pinentryFlavor == "tty" || pinentryFlavor == "curses" then "default.target" else "graphical-session.target"
         )
       ];
     };

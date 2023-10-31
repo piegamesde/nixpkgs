@@ -190,17 +190,13 @@ in
 
     systemd.services.searx-init = {
       description = "Initialise Searx settings";
-      serviceConfig =
-        {
-          Type = "oneshot";
-          RemainAfterExit = true;
-          User = "searx";
-          RuntimeDirectory = "searx";
-          RuntimeDirectoryMode = "750";
-        }
-        // optionalAttrs (cfg.environmentFile != null) {
-          EnvironmentFile = builtins.toPath cfg.environmentFile;
-        };
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+        User = "searx";
+        RuntimeDirectory = "searx";
+        RuntimeDirectoryMode = "750";
+      } // optionalAttrs (cfg.environmentFile != null) { EnvironmentFile = builtins.toPath cfg.environmentFile; };
       script = generateConfig;
     };
 
@@ -212,15 +208,11 @@ in
       ];
       requires = [ "searx-init.service" ];
       after = [ "searx-init.service" ];
-      serviceConfig =
-        {
-          User = "searx";
-          Group = "searx";
-          ExecStart = "${cfg.package}/bin/searx-run";
-        }
-        // optionalAttrs (cfg.environmentFile != null) {
-          EnvironmentFile = builtins.toPath cfg.environmentFile;
-        };
+      serviceConfig = {
+        User = "searx";
+        Group = "searx";
+        ExecStart = "${cfg.package}/bin/searx-run";
+      } // optionalAttrs (cfg.environmentFile != null) { EnvironmentFile = builtins.toPath cfg.environmentFile; };
       environment = {
         SEARX_SETTINGS_PATH = cfg.settingsFile;
         SEARXNG_SETTINGS_PATH = cfg.settingsFile;

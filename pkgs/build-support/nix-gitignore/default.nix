@@ -81,8 +81,7 @@ rec {
           splitString =
             let
               recurse =
-                str:
-                [ (substring 0 1 str) ] ++ (if str == "" then [ ] else (recurse (substring 1 (stringLength (str)) str)));
+                str: [ (substring 0 1 str) ] ++ (if str == "" then [ ] else (recurse (substring 1 (stringLength (str)) str)));
             in
             str:
             recurse str;
@@ -148,9 +147,9 @@ rec {
     map
       (
         l: # `l' for "line"
-        mapPat
-          (l: handleSlashSuffix (handleSlashPrefix (handleHashesBangs (mapAroundCharclass substWildcards l))))
-          (computeNegation l)
+        mapPat (l: handleSlashSuffix (handleSlashPrefix (handleHashesBangs (mapAroundCharclass substWildcards l)))) (
+          computeNegation l
+        )
       )
       (filter (l: !isList l && !isComment l) (split "\n" gitignore));
 

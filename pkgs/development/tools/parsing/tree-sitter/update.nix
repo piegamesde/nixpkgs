@@ -411,8 +411,7 @@ let
         ${script} "$@"
     '';
 
-  foreachSh =
-    attrs: f: lib.concatMapStringsSep "\n" f (lib.mapAttrsToList (k: v: { name = k; } // v) attrs);
+  foreachSh = attrs: f: lib.concatMapStringsSep "\n" f (lib.mapAttrsToList (k: v: { name = k; } // v) attrs);
 
   jsonNewlines = lib.concatMapStringsSep "\n" (lib.generators.toJSON { });
 
@@ -439,9 +438,7 @@ let
          (writeShellScript "fetch-repo" ''
            ${updateImpl} fetch-repo "$1"
          '')
-         (
-           lib.mapAttrsToList (nixRepoAttrName: attrs: attrs // { inherit nixRepoAttrName outputDir; }) allGrammars
-         )
+         (lib.mapAttrsToList (nixRepoAttrName: attrs: attrs // { inherit nixRepoAttrName outputDir; }) allGrammars)
      }
      ${updateImpl} print-all-grammars-nix-file "$(< ${
        jsonFile "all-grammars.json" {

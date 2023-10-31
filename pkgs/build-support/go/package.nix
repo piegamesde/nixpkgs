@@ -176,9 +176,7 @@ let
       renameImports =
         args.renameImports or (
           let
-            inputsWithAliases = lib.filter (x: x ? goPackageAliases) (
-              buildInputs ++ (args.propagatedBuildInputs or [ ])
-            );
+            inputsWithAliases = lib.filter (x: x ? goPackageAliases) (buildInputs ++ (args.propagatedBuildInputs or [ ]));
             rename = to: from: "echo Renaming '${from}' to '${to}'; govers -d -m ${from} ${to}";
             renames = p: lib.concatMapStringsSep "\n" (rename p.goPackagePath) p.goPackageAliases;
           in

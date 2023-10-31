@@ -106,10 +106,7 @@ let
   # assemble srcs
   srcs =
     map
-      (
-        component:
-        (fetcher (srcFilename component arch version rels.${component} or "") hashes.${component} or "")
-      )
+      (component: (fetcher (srcFilename component arch version rels.${component} or "") hashes.${component} or ""))
       components;
 
   pname = "oracle-instantclient";

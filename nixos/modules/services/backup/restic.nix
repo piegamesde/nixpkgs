@@ -381,8 +381,7 @@ in
               } // optionalAttrs (backup.environmentFile != null) { EnvironmentFile = backup.environmentFile; };
             }
             //
-              optionalAttrs
-                (backup.initialize || backup.dynamicFilesFrom != null || backup.backupPrepareCommand != null)
+              optionalAttrs (backup.initialize || backup.dynamicFilesFrom != null || backup.backupPrepareCommand != null)
                 {
                   preStart = ''
                     ${optionalString (backup.backupPrepareCommand != null) ''

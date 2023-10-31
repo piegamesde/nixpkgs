@@ -139,9 +139,7 @@ rec {
           pkgs.brotli
           pkgs.python3Minimal
         ];
-        options = builtins.toFile "options.json" (
-          builtins.unsafeDiscardStringContext (builtins.toJSON optionsNix)
-        );
+        options = builtins.toFile "options.json" (builtins.unsafeDiscardStringContext (builtins.toJSON optionsNix));
         # merge with an empty set if baseOptionsJSON is null to run markdown
         # processing on the input options
         baseJSON = if baseOptionsJSON == null then builtins.toFile "base.json" "{}" else baseOptionsJSON;
@@ -173,28 +171,26 @@ rec {
     fi >"$out"
   '';
 
-  optionsDocBook =
-    pkgs.runCommand "options-docbook.xml" { nativeBuildInputs = [ pkgs.nixos-render-docs ]; }
-      ''
-        nixos-render-docs -j $NIX_BUILD_CORES options docbook \
-          --manpage-urls ${pkgs.path + "/doc/manpage-urls.json"} \
-          --revision ${lib.escapeShellArg revision} \
-          --document-type ${lib.escapeShellArg documentType} \
-          --varlist-id ${lib.escapeShellArg variablelistId} \
-          --id-prefix ${lib.escapeShellArg optionIdPrefix} \
-          ${lib.optionalString markdownByDefault "--markdown-by-default"} \
-          ${optionsJSON}/share/doc/nixos/options.json \
-          options.xml
+  optionsDocBook = pkgs.runCommand "options-docbook.xml" { nativeBuildInputs = [ pkgs.nixos-render-docs ]; } ''
+    nixos-render-docs -j $NIX_BUILD_CORES options docbook \
+      --manpage-urls ${pkgs.path + "/doc/manpage-urls.json"} \
+      --revision ${lib.escapeShellArg revision} \
+      --document-type ${lib.escapeShellArg documentType} \
+      --varlist-id ${lib.escapeShellArg variablelistId} \
+      --id-prefix ${lib.escapeShellArg optionIdPrefix} \
+      ${lib.optionalString markdownByDefault "--markdown-by-default"} \
+      ${optionsJSON}/share/doc/nixos/options.json \
+      options.xml
 
-        if grep /nixpkgs/nixos/modules options.xml; then
-          echo "The manual appears to depend on the location of Nixpkgs, which is bad"
-          echo "since this prevents sharing via the NixOS channel.  This is typically"
-          echo "caused by an option default that refers to a relative path (see above"
-          echo "for hints about the offending path)."
-          exit 1
-        fi
+    if grep /nixpkgs/nixos/modules options.xml; then
+      echo "The manual appears to depend on the location of Nixpkgs, which is bad"
+      echo "since this prevents sharing via the NixOS channel.  This is typically"
+      echo "caused by an option default that refers to a relative path (see above"
+      echo "for hints about the offending path)."
+      exit 1
+    fi
 
-        ${pkgs.libxslt.bin}/bin/xsltproc \
-          -o "$out" ${./postprocess-option-descriptions.xsl} options.xml
-      '';
+    ${pkgs.libxslt.bin}/bin/xsltproc \
+      -o "$out" ${./postprocess-option-descriptions.xsl} options.xml
+  '';
 }

@@ -50,9 +50,7 @@ stdenv.mkDerivation rec {
       zlib
       libpng
     ]
-    ++ lib.optional enableGUI qtbase
-    ++ lib.optional enablePrinting cups
-    ++ lib.optional enablePDFtoPPM freetype;
+    ++ lib.optional enableGUI qtbase ++ lib.optional enablePrinting cups ++ lib.optional enablePDFtoPPM freetype;
 
   desktopItem = makeDesktopItem {
     name = "xpdf";

@@ -7,8 +7,7 @@
 }:
 let
   isKernelRT =
-    (kernel.structuredExtraConfig ? PREEMPT_RT)
-    && (kernel.structuredExtraConfig.PREEMPT_RT == lib.kernel.yes);
+    (kernel.structuredExtraConfig ? PREEMPT_RT) && (kernel.structuredExtraConfig.PREEMPT_RT == lib.kernel.yes);
 in
 stdenv.mkDerivation rec {
   name = "${pname}-${version}-${kernel.version}";

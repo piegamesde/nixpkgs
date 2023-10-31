@@ -390,9 +390,7 @@ in
 
     # These paths are hardcoded
     environment.etc = lib.mkMerge [
-      (lib.mkIf options.services.kanidm.clientSettings.isDefined {
-        "kanidm/config".source = clientConfigFile;
-      })
+      (lib.mkIf options.services.kanidm.clientSettings.isDefined { "kanidm/config".source = clientConfigFile; })
       (lib.mkIf cfg.enablePam { "kanidm/unixd".source = unixConfigFile; })
     ];
 

@@ -264,9 +264,7 @@ stdenv.mkDerivation (
         mkdir -p $python/share
         mv $out/share/opt-viewer $python/share/opt-viewer
         moveToOutput "bin/llvm-config*" "$dev"
-        substituteInPlace "$dev/lib/cmake/llvm/LLVMExports-${
-          if debugVersion then "debug" else "release"
-        }.cmake" \
+        substituteInPlace "$dev/lib/cmake/llvm/LLVMExports-${if debugVersion then "debug" else "release"}.cmake" \
           --replace "\''${_IMPORT_PREFIX}/lib/lib" "$lib/lib/lib" \
           --replace "$out/bin/llvm-config" "$dev/bin/llvm-config"
         substituteInPlace "$dev/lib/cmake/llvm/LLVMConfig.cmake" \

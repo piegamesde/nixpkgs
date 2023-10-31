@@ -173,9 +173,7 @@ in
             '')
             cfg.userlist
         );
-        defaultText =
-          literalExpression
-            ''pkgs.writeText "userlist" (concatMapStrings (x: "''${x}\n") cfg.userlist)'';
+        defaultText = literalExpression ''pkgs.writeText "userlist" (concatMapStrings (x: "''${x}\n") cfg.userlist)'';
         description = lib.mdDoc ''
           Newline separated list of names to be allowed/denied if {option}`userlistEnable`
           is `true`. Meaning see {option}`userlistDeny`.
@@ -284,8 +282,7 @@ in
     assertions = [
       {
         assertion =
-          (cfg.forceLocalLoginsSSL -> cfg.rsaCertFile != null)
-          && (cfg.forceLocalDataSSL -> cfg.rsaCertFile != null);
+          (cfg.forceLocalLoginsSSL -> cfg.rsaCertFile != null) && (cfg.forceLocalDataSSL -> cfg.rsaCertFile != null);
         message = "vsftpd: If forceLocalLoginsSSL or forceLocalDataSSL is true then a rsaCertFile must be provided!";
       }
       {

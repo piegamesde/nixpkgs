@@ -29,9 +29,7 @@ let
   systemActivationScript =
     set: onlyDry:
     let
-      set' =
-        mapAttrs (_: v: if isString v then (noDepEntry v) // { supportsDryActivation = false; } else v)
-          set;
+      set' = mapAttrs (_: v: if isString v then (noDepEntry v) // { supportsDryActivation = false; } else v) set;
       withHeadlines = addAttributeName set';
       # When building a dry activation script, this replaces all activation scripts
       # that do not support dry mode with a comment that does nothing. Filtering these

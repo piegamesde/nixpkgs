@@ -119,10 +119,7 @@ rec {
       name = "bootstrap-tools";
       builder = bootstrapFiles.sh; # Not a filename! Attribute 'sh' on bootstrapFiles
       args =
-        if localSystem.isAarch64 then
-          [ ./unpack-bootstrap-tools-aarch64.sh ]
-        else
-          [ ./unpack-bootstrap-tools.sh ];
+        if localSystem.isAarch64 then [ ./unpack-bootstrap-tools-aarch64.sh ] else [ ./unpack-bootstrap-tools.sh ];
 
       inherit (bootstrapFiles)
         mkdir
@@ -1055,9 +1052,7 @@ rec {
 
       cc = pkgs."${finalLlvmPackages}".libcxxClang;
 
-      extraNativeBuildInputs = lib.optionals localSystem.isAarch64 [
-        pkgs.updateAutotoolsGnuConfigScriptsHook
-      ];
+      extraNativeBuildInputs = lib.optionals localSystem.isAarch64 [ pkgs.updateAutotoolsGnuConfigScriptsHook ];
 
       extraBuildInputs = [ pkgs.darwin.CF ];
 

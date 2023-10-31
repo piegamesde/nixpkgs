@@ -1360,9 +1360,7 @@ in
       "L+ /run/gitlab/tmp - - - - ${cfg.statePath}/tmp"
       "L+ /run/gitlab/uploads - - - - ${cfg.statePath}/uploads"
 
-      "L+ /run/gitlab/shell-config.yml - - - - ${
-        pkgs.writeText "config.yml" (builtins.toJSON gitlabShellConfig)
-      }"
+      "L+ /run/gitlab/shell-config.yml - - - - ${pkgs.writeText "config.yml" (builtins.toJSON gitlabShellConfig)}"
     ];
 
     systemd.services.gitlab-config = {
@@ -1446,10 +1444,7 @@ in
 
                   jq <${pkgs.writeText "database.yml" (builtins.toJSON databaseConfig)} \
                      '.${
-                       if lib.versionAtLeast (lib.getVersion cfg.packages.gitlab) "15.0" then
-                         "production.main"
-                       else
-                         "production"
+                       if lib.versionAtLeast (lib.getVersion cfg.packages.gitlab) "15.0" then "production.main" else "production"
                      }.password = $ENV.db_password' \
                      >'${cfg.statePath}/config/database.yml'
                 ''
@@ -1698,8 +1693,7 @@ in
           set -o errexit -o pipefail -o nounset
           shopt -s dotglob nullglob inherit_errexit
 
-          ${utils.genJqSecretsReplacementSnippet cfg.workhorse.config
-            "${cfg.statePath}/config/gitlab-workhorse.json"}
+          ${utils.genJqSecretsReplacementSnippet cfg.workhorse.config "${cfg.statePath}/config/gitlab-workhorse.json"}
 
           json2toml "${cfg.statePath}/config/gitlab-workhorse.json" "${cfg.statePath}/config/gitlab-workhorse.toml"
           rm "${cfg.statePath}/config/gitlab-workhorse.json"

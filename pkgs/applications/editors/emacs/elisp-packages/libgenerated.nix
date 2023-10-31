@@ -126,8 +126,7 @@ in
                 )
               );
               # TODO: Broken should not result in src being null (hack to avoid eval errors)
-              src =
-                if (sha256 == null || broken) then null else lib.getAttr fetcher (fetcherGenerators args sourceArgs);
+              src = if (sha256 == null || broken) then null else lib.getAttr fetcher (fetcherGenerators args sourceArgs);
               recipe =
                 if commit == null then
                   null

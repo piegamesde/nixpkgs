@@ -78,8 +78,7 @@ assert bluezSupport -> bluez != null;
 
 assert enableFramework -> stdenv.isDarwin;
 
-assert lib.assertMsg (reproducibleBuild -> stripBytecode)
-    "Deterministic builds require stripping bytecode.";
+assert lib.assertMsg (reproducibleBuild -> stripBytecode) "Deterministic builds require stripping bytecode.";
 
 assert lib.assertMsg (reproducibleBuild -> (!enableOptimizations))
     "Deterministic builds are not achieved when optimizations are enabled.";
@@ -144,9 +143,7 @@ let
     ++
       optionals
         (
-          stdenv.cc.isClang
-          && (!stdenv.hostPlatform.useAndroidPrebuilt or false)
-          && (enableLTO || enableOptimizations)
+          stdenv.cc.isClang && (!stdenv.hostPlatform.useAndroidPrebuilt or false) && (enableLTO || enableOptimizations)
         )
         [ stdenv.cc.cc.libllvm.out ];
 
@@ -277,8 +274,7 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url =
-      with sourceVersion;
-      "https://www.python.org/ftp/python/${major}.${minor}.${patch}/Python-${version}.tar.xz";
+      with sourceVersion; "https://www.python.org/ftp/python/${major}.${minor}.${patch}/Python-${version}.tar.xz";
     inherit hash;
   };
 

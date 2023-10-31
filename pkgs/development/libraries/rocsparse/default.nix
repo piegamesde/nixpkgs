@@ -25,8 +25,7 @@ stdenv.mkDerivation (
 
     outputs =
       [ "out" ]
-      ++ lib.optionals (buildTests || buildBenchmarks) [ "test" ]
-      ++ lib.optionals buildBenchmarks [ "benchmark" ];
+      ++ lib.optionals (buildTests || buildBenchmarks) [ "test" ] ++ lib.optionals buildBenchmarks [ "benchmark" ];
 
     src = fetchFromGitHub {
       owner = "ROCmSoftwarePlatform";

@@ -11909,12 +11909,7 @@ in
       sources."@azure/abort-controller-1.1.0"
       sources."@azure/core-auth-1.4.0"
       (sources."@azure/core-client-1.7.2" // { dependencies = [ sources."@azure/core-tracing-1.0.1" ]; })
-      (
-        sources."@azure/core-http-3.0.0"
-        // {
-          dependencies = [ sources."@azure/core-tracing-1.0.0-preview.13" ];
-        }
-      )
+      (sources."@azure/core-http-3.0.0" // { dependencies = [ sources."@azure/core-tracing-1.0.0-preview.13" ]; })
       sources."@azure/core-http-compat-1.3.0"
       sources."@azure/core-lro-2.5.1"
       sources."@azure/core-paging-1.5.0"

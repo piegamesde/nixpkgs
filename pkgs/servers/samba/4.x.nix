@@ -192,9 +192,7 @@ stdenv.mkDerivation rec {
     ++ optional enableProfiling "--with-profiling-data"
     ++ optional (!enableAcl) "--without-acl-support"
     ++ optional (!enablePam) "--without-pam"
-    ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-      "--bundled-libraries=!asn1_compile,!compile_et"
-    ]
+    ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform) [ "--bundled-libraries=!asn1_compile,!compile_et" ]
     ++
       optionals stdenv.isAarch32
         [

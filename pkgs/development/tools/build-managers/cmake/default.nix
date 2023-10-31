@@ -86,10 +86,7 @@ stdenv.mkDerivation rec {
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
   nativeBuildInputs =
-    setupHooks
-    ++ [ pkg-config ]
-    ++ lib.optionals buildDocs [ texinfo ]
-    ++ lib.optionals qt5UI [ wrapQtAppsHook ];
+    setupHooks ++ [ pkg-config ] ++ lib.optionals buildDocs [ texinfo ] ++ lib.optionals qt5UI [ wrapQtAppsHook ];
 
   buildInputs =
     lib.optionals useSharedLibraries [

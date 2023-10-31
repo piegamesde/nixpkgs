@@ -64,9 +64,7 @@ let
       {
         nixosVersion = config.system.nixos.version;
       }
-      // optionalAttrs (config.system.nixos.revision != null) {
-        nixpkgsRevision = config.system.nixos.revision;
-      }
+      // optionalAttrs (config.system.nixos.revision != null) { nixpkgsRevision = config.system.nixos.revision; }
       // optionalAttrs (config.system.configurationRevision != null) {
         configurationRevision = config.system.configurationRevision;
       }

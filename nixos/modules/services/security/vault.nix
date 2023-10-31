@@ -136,8 +136,7 @@ in
 
       storagePath = mkOption {
         type = types.nullOr types.path;
-        default =
-          if cfg.storageBackend == "file" || cfg.storageBackend == "raft" then "/var/lib/vault" else null;
+        default = if cfg.storageBackend == "file" || cfg.storageBackend == "raft" then "/var/lib/vault" else null;
         defaultText = literalExpression ''
           if config.${opt.storageBackend} == "file" || cfg.storageBackend == "raft"
           then "/var/lib/vault"
@@ -227,9 +226,7 @@ in
     };
     users.groups.vault.gid = config.ids.gids.vault;
 
-    systemd.tmpfiles.rules =
-      optional (cfg.storagePath != null)
-        "d '${cfg.storagePath}' 0700 vault vault - -";
+    systemd.tmpfiles.rules = optional (cfg.storagePath != null) "d '${cfg.storagePath}' 0700 vault vault - -";
 
     systemd.services.vault = {
       description = "Vault server daemon";

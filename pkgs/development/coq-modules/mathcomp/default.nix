@@ -205,9 +205,9 @@ let
       );
       patched-derivation = patched-derivation1.overrideAttrs (
         o:
-        optionalAttrs
-          (versions.isLe "8.7" coq.coq-version || (o.version != "dev" && versions.isLe "1.7" o.version))
-          { installFlags = o.installFlags ++ [ "-f Makefile.coq" ]; }
+        optionalAttrs (versions.isLe "8.7" coq.coq-version || (o.version != "dev" && versions.isLe "1.7" o.version)) {
+          installFlags = o.installFlags ++ [ "-f Makefile.coq" ];
+        }
       );
     in
     patched-derivation;

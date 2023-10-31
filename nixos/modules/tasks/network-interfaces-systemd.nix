@@ -37,8 +37,7 @@ let
     override:
     let
       gateway =
-        optional (cfg.defaultGateway != null && (cfg.defaultGateway.address or "") != "")
-          cfg.defaultGateway.address
+        optional (cfg.defaultGateway != null && (cfg.defaultGateway.address or "") != "") cfg.defaultGateway.address
         ++ optional (cfg.defaultGateway6 != null && (cfg.defaultGateway6.address or "") != "")
           cfg.defaultGateway6.address;
       makeGateway = gateway: {
@@ -124,9 +123,7 @@ let
                   optionalAttrs (route.address != null && route.prefixLength != null) {
                     Destination = "${route.address}/${toString route.prefixLength}";
                   }
-                  // optionalAttrs (route.options ? fastopen_no_cookie) {
-                    FastOpenNoCookie = route.options.fastopen_no_cookie;
-                  }
+                  // optionalAttrs (route.options ? fastopen_no_cookie) { FastOpenNoCookie = route.options.fastopen_no_cookie; }
                   // optionalAttrs (route.via != null) { Gateway = route.via; }
                   // optionalAttrs (route.type != null) { Type = route.type; }
                   // optionalAttrs (route.options ? onlink) { GatewayOnLink = true; }
@@ -142,9 +139,7 @@ let
                   // optionalAttrs (route.options ? from) { Source = route.options.from; }
                   // optionalAttrs (route.options ? table) { Table = route.options.table; }
                   // optionalAttrs (route.options ? advmss) { TCPAdvertisedMaximumSegmentSize = route.options.advmss; }
-                  // optionalAttrs (route.options ? ttl-propagate) {
-                    TTLPropagate = route.options.ttl-propagate == "enabled";
-                  };
+                  // optionalAttrs (route.options ? ttl-propagate) { TTLPropagate = route.options.ttl-propagate == "enabled"; };
               }
             );
             networkConfig.IPv6PrivacyExtensions = "kernel";
@@ -397,9 +392,7 @@ in
                       Encapsulation = if sit.encapsulation.type == "fou" then "FooOverUDP" else "GenericUDPEncapsulation";
                       FOUDestinationPort = sit.encapsulation.port;
                     }
-                    // (optionalAttrs (sit.encapsulation.sourcePort != null) {
-                      FOUSourcePort = sit.encapsulation.sourcePort;
-                    })
+                    // (optionalAttrs (sit.encapsulation.sourcePort != null) { FOUSourcePort = sit.encapsulation.sourcePort; })
                   ));
               };
               networks = mkIf (sit.dev != null) {

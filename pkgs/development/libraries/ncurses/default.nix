@@ -104,8 +104,7 @@ stdenv.mkDerivation (
     # wide-character libraries (e.g. libncurses.so to libncursesw.so).
     postFixup =
       let
-        abiVersion-extension =
-          if stdenv.isDarwin then "${abiVersion}.$dylibtype" else "$dylibtype.${abiVersion}";
+        abiVersion-extension = if stdenv.isDarwin then "${abiVersion}.$dylibtype" else "$dylibtype.${abiVersion}";
       in
       ''
         # Determine what suffixes our libraries have

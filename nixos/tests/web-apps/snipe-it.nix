@@ -51,9 +51,7 @@ in
           shouldSucceed ? true,
         }:
         ''
-          snipeit.${
-            if shouldSucceed then "succeed" else "fail"
-          }("""curl http://localhost/login | grep '${siteName}'""")
+          snipeit.${if shouldSucceed then "succeed" else "fail"}("""curl http://localhost/login | grep '${siteName}'""")
         '';
     in
     ''

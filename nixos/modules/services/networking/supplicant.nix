@@ -239,17 +239,16 @@ in
         name = "99-zzz-60-supplicant.rules";
         destination = "/etc/udev/rules.d/99-zzz-60-supplicant.rules";
         text = ''
-          ${flip (concatMapStringsSep "\n") (filter (n: n != "WLAN" && n != "LAN" && n != "DBUS") (attrNames cfg))
-            (
-              iface:
-              flip (concatMapStringsSep "\n") (splitString " " iface) (
-                i:
-                ''
-                  ACTION=="add", SUBSYSTEM=="net", ENV{INTERFACE}=="${i}", TAG+="systemd", ENV{SYSTEMD_WANTS}+="supplicant-${
-                    replaceStrings [ " " ] [ "-" ] iface
-                  }.service", TAG+="SUPPLICANT_ASSIGNED"''
-              )
-            )}
+          ${flip (concatMapStringsSep "\n") (filter (n: n != "WLAN" && n != "LAN" && n != "DBUS") (attrNames cfg)) (
+            iface:
+            flip (concatMapStringsSep "\n") (splitString " " iface) (
+              i:
+              ''
+                ACTION=="add", SUBSYSTEM=="net", ENV{INTERFACE}=="${i}", TAG+="systemd", ENV{SYSTEMD_WANTS}+="supplicant-${
+                  replaceStrings [ " " ] [ "-" ] iface
+                }.service", TAG+="SUPPLICANT_ASSIGNED"''
+            )
+          )}
 
           ${optionalString (hasAttr "WLAN" cfg) ''
             ACTION=="add", SUBSYSTEM=="net", ENV{DEVTYPE}=="wlan", TAG!="SUPPLICANT_ASSIGNED", TAG+="systemd", PROGRAM="/run/current-system/systemd/bin/systemd-escape -p %E{INTERFACE}", ENV{SYSTEMD_WANTS}+="supplicant-wlan@$result.service"

@@ -73,11 +73,9 @@ pythonPackages.callPackage
               fname != null;
           hasSupportedExtension = fname: builtins.match supportedRegex fname != null;
           isCompatibleEgg =
-            fname:
-            !lib.strings.hasSuffix ".egg" fname || lib.strings.hasSuffix "py${python.pythonVersion}.egg" fname;
+            fname: !lib.strings.hasSuffix ".egg" fname || lib.strings.hasSuffix "py${python.pythonVersion}.egg" fname;
         in
-        builtins.filter (f: matchesVersion f.file && hasSupportedExtension f.file && isCompatibleEgg f.file)
-          files;
+        builtins.filter (f: matchesVersion f.file && hasSupportedExtension f.file && isCompatibleEgg f.file) files;
       toPath = s: pwd + "/${s}";
       isLocked = lib.length fileCandidates > 0;
       isSource = source != null;

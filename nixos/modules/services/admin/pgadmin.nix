@@ -29,9 +29,7 @@ let
   formatAttrset =
     attr:
     "{${
-      concatStringsSep "\n" (
-        mapAttrsToList (key: value: "${builtins.toJSON key}: ${formatPyValue value},") attr
-      )
+      concatStringsSep "\n" (mapAttrsToList (key: value: "${builtins.toJSON key}: ${formatPyValue value},") attr)
     }}";
 
   formatPyValue =

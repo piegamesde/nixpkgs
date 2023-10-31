@@ -47,8 +47,7 @@
                       "setupHook"
                     ]
                     false;
-                valid =
-                  value: pythonPackages.hasPythonModule value || providesSetupHook value || lib.elem value exceptions;
+                valid = value: pythonPackages.hasPythonModule value || providesSetupHook value || lib.elem value exceptions;
                 func =
                   name: value:
                   if lib.isDerivation value then
@@ -107,9 +106,7 @@
                     self: super:
                     lib.optionalAttrs config.allowAliases (import ../../../top-level/python-aliases.nix lib self super);
                 in
-                makeScopeWithSplicing otherSplices keep extra (
-                  lib.extends (lib.composeExtensions aliases extensions) keep
-                )
+                makeScopeWithSplicing otherSplices keep extra (lib.extends (lib.composeExtensions aliases extensions) keep)
               )
               {
                 overrides = packageOverrides;

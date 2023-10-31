@@ -519,8 +519,7 @@ let
         (config: ''
           location ${config.location} {
             ${
-              optionalString (config.proxyPass != null && !cfg.proxyResolveWhileRunning)
-                "proxy_pass ${config.proxyPass};"
+              optionalString (config.proxyPass != null && !cfg.proxyResolveWhileRunning) "proxy_pass ${config.proxyPass};"
             }
             ${
               optionalString (config.proxyPass != null && cfg.proxyResolveWhileRunning) ''
@@ -1283,8 +1282,7 @@ in
         }
 
         {
-          assertion =
-            any (host: host.kTLS) (attrValues virtualHosts) -> versionAtLeast cfg.package.version "1.21.4";
+          assertion = any (host: host.kTLS) (attrValues virtualHosts) -> versionAtLeast cfg.package.version "1.21.4";
           message = ''
             services.nginx.virtualHosts.<name>.kTLS requires nginx version
             1.21.4 or above; see the documentation for services.nginx.package.

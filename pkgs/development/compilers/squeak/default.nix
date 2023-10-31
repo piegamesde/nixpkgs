@@ -62,9 +62,7 @@ let
     fetchurl {
       url = "https://api.github.com/repos/OpenSmalltalk/opensmalltalk-vm/commits/${squeakVmVersionRelease}";
       curlOpts = "--header Accept:application/vnd.github.v3.sha";
-      hash =
-        nullableOr args.squeakVmCommitHashHash or null
-          "sha256-quwmhpJlb2fp0fI9b03fBxSR44j1xmHPW20wkSqTOhQ=";
+      hash = nullableOr args.squeakVmCommitHashHash or null "sha256-quwmhpJlb2fp0fI9b03fBxSR44j1xmHPW20wkSqTOhQ=";
     }
   );
 in

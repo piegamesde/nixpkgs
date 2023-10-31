@@ -99,15 +99,12 @@ stdenv.mkDerivation rec {
       else if stdenv.hostPlatform.isBSD && stdenv.hostPlatform.isx86_64 then
         "./Configure BSD-x86_64"
       else if stdenv.hostPlatform.isBSD && stdenv.hostPlatform.isx86_32 then
-        "./Configure BSD-x86"
-        + lib.optionalString (stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf") "-elf"
+        "./Configure BSD-x86" + lib.optionalString (stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf") "-elf"
       else if stdenv.hostPlatform.isBSD then
         "./Configure BSD-generic${toString stdenv.hostPlatform.parsed.cpu.bits}"
       else if stdenv.hostPlatform.isMinGW then
         "./Configure mingw${
-          lib.optionalString (stdenv.hostPlatform.parsed.cpu.bits != 32) (
-            toString stdenv.hostPlatform.parsed.cpu.bits
-          )
+          lib.optionalString (stdenv.hostPlatform.parsed.cpu.bits != 32) (toString stdenv.hostPlatform.parsed.cpu.bits)
         }"
       else if stdenv.hostPlatform.isLinux then
         "./Configure linux-generic${toString stdenv.hostPlatform.parsed.cpu.bits}"

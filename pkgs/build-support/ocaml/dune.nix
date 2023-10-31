@@ -56,9 +56,7 @@ else
       installPhase = ''
         runHook preInstall
         dune install --prefix $out --libdir $OCAMLFIND_DESTDIR ${pname} \
-         ${
-           if lib.versionAtLeast Dune.version "2.9" then "--docdir $out/share/doc --mandir $out/share/man" else ""
-         }
+         ${if lib.versionAtLeast Dune.version "2.9" then "--docdir $out/share/doc --mandir $out/share/man" else ""}
         runHook postInstall
       '';
 

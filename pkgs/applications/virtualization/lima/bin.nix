@@ -43,9 +43,7 @@ stdenvNoCC.mkDerivation {
   pname = "lima";
   src = fetchurl {
     inherit
-      (dist.${stdenvNoCC.hostPlatform.system}
-        or (throw "Unsupported system: ${stdenvNoCC.hostPlatform.system}")
-      )
+      (dist.${stdenvNoCC.hostPlatform.system} or (throw "Unsupported system: ${stdenvNoCC.hostPlatform.system}"))
       url
       sha256
     ;

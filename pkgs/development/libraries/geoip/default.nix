@@ -11,8 +11,7 @@
 }:
 
 let
-  dataDir =
-    if lib.isDerivation geoipDatabase then "${toString geoipDatabase}/share/GeoIP" else geoipDatabase;
+  dataDir = if lib.isDerivation geoipDatabase then "${toString geoipDatabase}/share/GeoIP" else geoipDatabase;
 in
 stdenv.mkDerivation rec {
   pname = drvName;

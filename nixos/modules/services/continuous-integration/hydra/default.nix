@@ -51,9 +51,7 @@ let
 
   hydra-package =
     let
-      makeWrapperArgs = concatStringsSep " " (
-        mapAttrsToList (key: value: ''--set "${key}" "${value}"'') hydraEnv
-      );
+      makeWrapperArgs = concatStringsSep " " (mapAttrsToList (key: value: ''--set "${key}" "${value}"'') hydraEnv);
     in
     pkgs.buildEnv rec {
       name = "hydra-env";

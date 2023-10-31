@@ -173,9 +173,7 @@ let
     if (targetPlatform.darwinPlatform == "macos" && isGNU) then "macosx" else targetPlatform.darwinPlatform
   );
 
-  darwinMinVersion = optionalString stdenv.targetPlatform.isDarwin (
-    stdenv.targetPlatform.darwinMinVersion
-  );
+  darwinMinVersion = optionalString stdenv.targetPlatform.isDarwin (stdenv.targetPlatform.darwinMinVersion);
 
   darwinMinVersionVariable =
     optionalString stdenv.targetPlatform.isDarwin
@@ -548,9 +546,7 @@ stdenv.mkDerivation {
     ## Hardening support
     ##
     + ''
-      export hardening_unsupported_flags="${
-        builtins.concatStringsSep " " (cc.hardeningUnsupportedFlags or [ ])
-      }"
+      export hardening_unsupported_flags="${builtins.concatStringsSep " " (cc.hardeningUnsupportedFlags or [ ])}"
     ''
 
     # Machine flags. These are necessary to support
@@ -679,8 +675,7 @@ stdenv.mkDerivation {
     ##
     + extraBuildCommands
     + lib.strings.concatStringsSep "; " (
-      lib.attrsets.mapAttrsToList (name: value: "echo ${toString value} >> $out/nix-support/${name}")
-        nixSupport
+      lib.attrsets.mapAttrsToList (name: value: "echo ${toString value} >> $out/nix-support/${name}") nixSupport
     );
 
   env = {

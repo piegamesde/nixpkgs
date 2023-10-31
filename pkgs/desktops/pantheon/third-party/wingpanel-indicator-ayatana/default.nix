@@ -49,9 +49,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = unstableGitUpdater {
-      url = "https://github.com/Lafydev/wingpanel-indicator-ayatana.git";
-    };
+    updateScript = unstableGitUpdater { url = "https://github.com/Lafydev/wingpanel-indicator-ayatana.git"; };
   };
 
   meta = with lib; {

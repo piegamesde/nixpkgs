@@ -17,9 +17,7 @@ stdenv.mkDerivation (
     pname = "rocprim";
     version = "5.4.3";
 
-    outputs = [
-      "out"
-    ] ++ lib.optionals buildTests [ "test" ] ++ lib.optionals buildBenchmarks [ "benchmark" ];
+    outputs = [ "out" ] ++ lib.optionals buildTests [ "test" ] ++ lib.optionals buildBenchmarks [ "benchmark" ];
 
     src = fetchFromGitHub {
       owner = "ROCmSoftwarePlatform";
@@ -45,8 +43,7 @@ stdenv.mkDerivation (
         "-DCMAKE_INSTALL_LIBDIR=lib"
         "-DCMAKE_INSTALL_INCLUDEDIR=include"
       ]
-      ++ lib.optionals buildTests [ "-DBUILD_TEST=ON" ]
-      ++ lib.optionals buildBenchmarks [ "-DBUILD_BENCHMARK=ON" ];
+      ++ lib.optionals buildTests [ "-DBUILD_TEST=ON" ] ++ lib.optionals buildBenchmarks [ "-DBUILD_BENCHMARK=ON" ];
 
     postInstall =
       lib.optionalString buildTests ''

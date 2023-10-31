@@ -39,8 +39,7 @@ let
     "sounds"
   ];
 
-  dirStanzas =
-    baseDir: lib.concatStringsSep "\n" (map (e: "ZM_DIR_${lib.toUpper e}=${baseDir}/${e}") libDirs);
+  dirStanzas = baseDir: lib.concatStringsSep "\n" (map (e: "ZM_DIR_${lib.toUpper e}=${baseDir}/${e}") libDirs);
 
   defaultsFile = pkgs.writeText "60-defaults.conf" ''
     # 01-system-paths.conf

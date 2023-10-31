@@ -237,9 +237,7 @@ in
                       ${if cfg.lookupBySubnet then "--lookup-by-subnet" else "--lookup-by-host"} \
                       --ipv4cidr=${toString cfg.IPv4CIDR} --ipv6cidr=${toString cfg.IPv6CIDR} \
                       ${optionalString cfg.privacy "--privacy"} \
-                      --auto-whitelist-clients=${
-                        toString (if cfg.autoWhitelist == null then 0 else cfg.autoWhitelist)
-                      } \
+                      --auto-whitelist-clients=${toString (if cfg.autoWhitelist == null then 0 else cfg.autoWhitelist)} \
                       --greylist-action=${cfg.greylistAction} \
                       --greylist-text="${cfg.greylistText}" \
                       --x-greylist-header="${cfg.greylistHeader}" \

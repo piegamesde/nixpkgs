@@ -202,12 +202,7 @@ stdenv.mkDerivation rec {
       (if bluraySupport then "--enable-bluray" else "--disable-bluray")
       (if amrSupport then "--enable-libopencore_amrnb" else "--disable-libopencore_amrnb")
       (if cacaSupport then "--enable-caca" else "--disable-caca")
-      (
-        if lameSupport then
-          "--enable-mp3lame --disable-mp3lame-lavc"
-        else
-          "--disable-mp3lame --enable-mp3lame-lavc"
-      )
+      (if lameSupport then "--enable-mp3lame --disable-mp3lame-lavc" else "--disable-mp3lame --enable-mp3lame-lavc")
       (if speexSupport then "--enable-speex" else "--disable-speex")
       (if theoraSupport then "--enable-theora" else "--disable-theora")
       (if x264Support then "--enable-x264 --disable-x264-lavc" else "--disable-x264 --enable-x264-lavc")

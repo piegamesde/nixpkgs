@@ -38,8 +38,7 @@ let
   withDefaults =
     optionSpecs: defaults:
     lib.genAttrs (attrNames optionSpecs) (
-      name:
-      mkOption (optionSpecs.${name} // { default = optionSpecs.${name}.default or defaults.${name} or null; })
+      name: mkOption (optionSpecs.${name} // { default = optionSpecs.${name}.default or defaults.${name} or null; })
     );
 
   latencyProfile = withDefaults {
@@ -341,10 +340,7 @@ in
                     ""
                 }
                 ${
-                  if ps.pipewireBoost.enable then
-                    (schedulerProfileToString "pipewire" ps.pipewireBoost.profile "    ")
-                  else
-                    ""
+                  if ps.pipewireBoost.enable then (schedulerProfileToString "pipewire" ps.pipewireBoost.profile "    ") else ""
                 }
               }
             }

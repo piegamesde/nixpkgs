@@ -176,8 +176,7 @@ let
 
   isGhcjs = ghc.isGhcjs or false;
   isHaLVM = ghc.isHaLVM or false;
-  packageDbFlag =
-    if isGhcjs || isHaLVM || versionOlder "7.6" ghc.version then "package-db" else "package-conf";
+  packageDbFlag = if isGhcjs || isHaLVM || versionOlder "7.6" ghc.version then "package-db" else "package-conf";
 
   # GHC used for building Setup.hs
   #
@@ -667,11 +666,7 @@ lib.fix (
         ${optionalString doCoverage "mkdir -p $out/share && cp -r dist/hpc $out/share"}
         ${optionalString
           (
-            enableSharedExecutables
-            && isExecutable
-            && !isGhcjs
-            && stdenv.isDarwin
-            && lib.versionOlder ghc.version "7.10"
+            enableSharedExecutables && isExecutable && !isGhcjs && stdenv.isDarwin && lib.versionOlder ghc.version "7.10"
           )
           ''
             for exe in "${binDir}/"* ; do
@@ -800,9 +795,7 @@ lib.fix (
             inherit name shellHook;
 
             depsBuildBuild = lib.optional isCross ghcEnvForBuild;
-            nativeBuildInputs = [
-              ghcEnv
-            ] ++ optional (allPkgconfigDepends != [ ]) pkg-config ++ collectedToolDepends;
+            nativeBuildInputs = [ ghcEnv ] ++ optional (allPkgconfigDepends != [ ]) pkg-config ++ collectedToolDepends;
             buildInputs = otherBuildInputsSystem;
             phases = [ "installPhase" ];
             installPhase = "echo $nativeBuildInputs $buildInputs > $out";

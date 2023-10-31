@@ -81,11 +81,9 @@ stdenv.mkDerivation rec {
       substituteInPlace libraries/lib-files/FileNames.cpp \
         --replace /usr/include/linux/magic.h ${linuxHeaders}/include/linux/magic.h
     ''
-    +
-      lib.optionalString (stdenv.isDarwin && lib.versionOlder stdenv.targetPlatform.darwinMinVersion "11.0")
-        ''
-          sed -z -i "s/NSAppearanceName.*systemAppearance//" src/AudacityApp.mm
-        '';
+    + lib.optionalString (stdenv.isDarwin && lib.versionOlder stdenv.targetPlatform.darwinMinVersion "11.0") ''
+      sed -z -i "s/NSAppearanceName.*systemAppearance//" src/AudacityApp.mm
+    '';
 
   nativeBuildInputs = [
     cmake

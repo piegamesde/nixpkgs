@@ -138,9 +138,7 @@ stdenv.mkDerivation {
     ${if stdenv.hostPlatform.system == "x86_64-linux" then
       ''
         bunzip2 $out/share/playonlinux/bin/check_dd_amd64.bz2
-        patchelf --set-interpreter $(cat ${ld64}) --set-rpath ${
-          libs pkgs
-        } $out/share/playonlinux/bin/check_dd_amd64
+        patchelf --set-interpreter $(cat ${ld64}) --set-rpath ${libs pkgs} $out/share/playonlinux/bin/check_dd_amd64
       ''
     else
       ''

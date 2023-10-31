@@ -67,8 +67,7 @@ import ./make-test-python.nix (
           };
         };
 
-      catester =
-        { config, pkgs, ... }: { security.pki.certificateFiles = [ "${test-certificates}/root_ca.crt" ]; };
+      catester = { config, pkgs, ... }: { security.pki.certificateFiles = [ "${test-certificates}/root_ca.crt" ]; };
     };
 
     testScript = ''

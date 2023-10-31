@@ -24,7 +24,5 @@ with lib;
 
   ####### implementation
 
-  config = mkIf config.hardware.onlykey.enable {
-    services.udev.extraRules = builtins.readFile ./onlykey.udev;
-  };
+  config = mkIf config.hardware.onlykey.enable { services.udev.extraRules = builtins.readFile ./onlykey.udev; };
 }

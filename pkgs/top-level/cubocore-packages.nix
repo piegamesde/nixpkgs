@@ -24,9 +24,7 @@ let
         inherit libcprime libcsys;
       };
 
-      corefm = libsForQt5.callPackage ../applications/misc/cubocore-packages/corefm {
-        inherit libcprime libcsys;
-      };
+      corefm = libsForQt5.callPackage ../applications/misc/cubocore-packages/corefm { inherit libcprime libcsys; };
 
       coregarage = libsForQt5.callPackage ../applications/misc/cubocore-packages/coregarage {
         inherit libcprime libcsys;

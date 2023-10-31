@@ -34,9 +34,7 @@ stdenv.mkDerivation rec {
   version = "30.8b15";
 
   src = fetchurl {
-    url = "https://www.mersenne.org/ftp_root/gimps/p95v${
-        lib.replaceStrings [ "." ] [ "" ] version
-      }.source.zip";
+    url = "https://www.mersenne.org/ftp_root/gimps/p95v${lib.replaceStrings [ "." ] [ "" ] version}.source.zip";
     hash = "sha256-CNYorZStHV0aESGX9LfLZ4oD5PFR2UOFLN1MiLaKw58=";
   };
 

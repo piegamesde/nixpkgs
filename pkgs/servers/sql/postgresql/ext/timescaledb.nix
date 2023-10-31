@@ -38,14 +38,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-gI5zPEg2jKQhK63E2rvPd6laF3dmP52oHg/UMitHifk=";
   };
 
-  cmakeFlags =
-    [
-      "-DSEND_TELEMETRY_DEFAULT=OFF"
-      "-DREGRESS_CHECKS=OFF"
-      "-DTAP_CHECKS=OFF"
-    ]
-    ++ lib.optionals (!enableUnfree) [ "-DAPACHE_ONLY=ON" ]
-    ++ lib.optionals stdenv.isDarwin [ "-DLINTER=OFF" ];
+  cmakeFlags = [
+    "-DSEND_TELEMETRY_DEFAULT=OFF"
+    "-DREGRESS_CHECKS=OFF"
+    "-DTAP_CHECKS=OFF"
+  ] ++ lib.optionals (!enableUnfree) [ "-DAPACHE_ONLY=ON" ] ++ lib.optionals stdenv.isDarwin [ "-DLINTER=OFF" ];
 
   # Fix the install phase which tries to install into the pgsql extension dir,
   # and cannot be manually overridden. This is rather fragile but works OK.

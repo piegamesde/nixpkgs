@@ -120,9 +120,7 @@ in
         WorkingDirectory = cfg.home;
         ExecStartPre = "${pkgs.git}/bin/git config --global --replace-all http.sslCAinfo /etc/ssl/certs/ca-certificates.crt";
         ExecStart =
-          "${cfg.package}/bin/houndd"
-          + " -addr ${cfg.listen}"
-          + " -conf ${pkgs.writeText "hound.json" cfg.config}";
+          "${cfg.package}/bin/houndd" + " -addr ${cfg.listen}" + " -conf ${pkgs.writeText "hound.json" cfg.config}";
       };
     };
   };

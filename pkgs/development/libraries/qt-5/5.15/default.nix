@@ -349,8 +349,7 @@ let
     // lib.optionalAttrs config.allowAliases {
       # remove before 23.11
       overrideScope' =
-        lib.warn
-          ''qt5 now uses makeScopeWithSplicing which does not have "overrideScope'", use "overrideScope".''
+        lib.warn ''qt5 now uses makeScopeWithSplicing which does not have "overrideScope'", use "overrideScope".''
           self.overrideScope;
     };
 in

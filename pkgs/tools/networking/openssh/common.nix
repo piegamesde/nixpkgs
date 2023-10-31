@@ -63,15 +63,11 @@ stdenv.mkDerivation rec {
     # https://github.com/NixOS/nixpkgs/pull/107606
     ++ lib.optional withKerberos pkgs.libkrb5
     ++ extraNativeBuildInputs;
-  buildInputs =
-    [
-      zlib
-      openssl
-      libedit
-    ]
-    ++ lib.optional withFIDO libfido2
-    ++ lib.optional withKerberos libkrb5
-    ++ lib.optional stdenv.isLinux pam;
+  buildInputs = [
+    zlib
+    openssl
+    libedit
+  ] ++ lib.optional withFIDO libfido2 ++ lib.optional withKerberos libkrb5 ++ lib.optional stdenv.isLinux pam;
 
   preConfigure = ''
     # Setting LD causes `configure' and `make' to disagree about which linker

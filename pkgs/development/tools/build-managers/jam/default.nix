@@ -98,9 +98,7 @@ in
       };
     in
     base.overrideAttrs (
-      oldAttrs: {
-        makeFlags = (oldAttrs.makeFlags or [ ]) ++ [ "CC=${buildPackages.stdenv.cc.targetPrefix}cc" ];
-      }
+      oldAttrs: { makeFlags = (oldAttrs.makeFlags or [ ]) ++ [ "CC=${buildPackages.stdenv.cc.targetPrefix}cc" ]; }
     );
 
   ftjam =

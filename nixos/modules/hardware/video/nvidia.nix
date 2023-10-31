@@ -353,8 +353,7 @@ in
         }
 
         {
-          assertion =
-            (reverseSyncCfg.enable && pCfg.amdgpuBusId != "") -> versionAtLeast nvidia_x11.version "470.0";
+          assertion = (reverseSyncCfg.enable && pCfg.amdgpuBusId != "") -> versionAtLeast nvidia_x11.version "470.0";
           message = "NVIDIA PRIME render offload for AMD APUs is currently only supported on versions >= 470 beta.";
         }
 

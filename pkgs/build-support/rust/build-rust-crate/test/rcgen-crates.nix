@@ -26,8 +26,7 @@
   # Whether to perform release builds: longer compile times, faster binaries.
   release ? true,
   # Additional crate2nix configuration if it exists.
-  crateConfig ?
-    if builtins.pathExists ./crate-config.nix then pkgs.callPackage ./crate-config.nix { } else { },
+  crateConfig ? if builtins.pathExists ./crate-config.nix then pkgs.callPackage ./crate-config.nix { } else { },
 }:
 
 rec {
@@ -4147,8 +4146,7 @@ rec {
       arch = stdenv.hostPlatform.parsed.cpu.name;
       family = "unix";
       env = "gnu";
-      endian =
-        if stdenv.hostPlatform.parsed.cpu.significantByte.name == "littleEndian" then "little" else "big";
+      endian = if stdenv.hostPlatform.parsed.cpu.significantByte.name == "littleEndian" then "little" else "big";
       pointer_width = toString stdenv.hostPlatform.parsed.cpu.bits;
       vendor = stdenv.hostPlatform.parsed.vendor.name;
       debug_assertions = false;
@@ -4578,9 +4576,7 @@ rec {
           configs
         ];
         onlyInCargo = builtins.attrNames (lib.filterAttrs (n: v: !(v ? "crate2nix") && (v ? "cargo")) combined);
-        onlyInCrate2Nix = builtins.attrNames (
-          lib.filterAttrs (n: v: (v ? "crate2nix") && !(v ? "cargo")) combined
-        );
+        onlyInCrate2Nix = builtins.attrNames (lib.filterAttrs (n: v: (v ? "crate2nix") && !(v ? "cargo")) combined);
         differentFeatures =
           lib.filterAttrs
             (

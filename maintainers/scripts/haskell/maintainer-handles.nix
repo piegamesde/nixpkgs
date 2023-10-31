@@ -15,9 +15,6 @@ let
   inherit (pkgs) lib;
   mkMailGithubPair =
     _: maintainer:
-    if (maintainer ? email) && (maintainer ? github) then
-      { "${maintainer.email}" = maintainer.github; }
-    else
-      { };
+    if (maintainer ? email) && (maintainer ? github) then { "${maintainer.email}" = maintainer.github; } else { };
 in
 lib.zipAttrsWith (_: builtins.head) (lib.mapAttrsToList mkMailGithubPair maintainers)

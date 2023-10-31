@@ -61,10 +61,7 @@ in
                 prevLibs = if prev ? extraLibraries then prev.extraLibraries pkgs else [ ];
                 additionalLibs =
                   with config.hardware.opengl;
-                  if pkgs.stdenv.hostPlatform.is64bit then
-                    [ package ] ++ extraPackages
-                  else
-                    [ package32 ] ++ extraPackages32;
+                  if pkgs.stdenv.hostPlatform.is64bit then [ package ] ++ extraPackages else [ package32 ] ++ extraPackages32;
               in
               prevLibs ++ additionalLibs;
           }
@@ -145,9 +142,7 @@ in
     };
 
     programs.gamescope.enable = mkDefault cfg.gamescopeSession.enable;
-    services.xserver.displayManager.sessionPackages = mkIf cfg.gamescopeSession.enable [
-      gamescopeSessionFile
-    ];
+    services.xserver.displayManager.sessionPackages = mkIf cfg.gamescopeSession.enable [ gamescopeSessionFile ];
 
     # optionally enable 32bit pulseaudio support if pulseaudio is enabled
     hardware.pulseaudio.support32Bit = config.hardware.pulseaudio.enable;

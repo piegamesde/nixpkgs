@@ -773,9 +773,7 @@ in
             export SSL_CERT="$(head -n1 ${lib.escapeShellArg cfg.sslCertFile})"
           ''}
           ${lib.optionalString (cfg.slackIntegration != null) ''
-            export SLACK_VERIFICATION_TOKEN="$(head -n1 ${
-              lib.escapeShellArg cfg.slackIntegration.verificationTokenFile
-            })"
+            export SLACK_VERIFICATION_TOKEN="$(head -n1 ${lib.escapeShellArg cfg.slackIntegration.verificationTokenFile})"
           ''}
           ${lib.optionalString (cfg.smtp != null) ''
             export SMTP_PASSWORD="$(head -n1 ${lib.escapeShellArg cfg.smtp.passwordFile})"

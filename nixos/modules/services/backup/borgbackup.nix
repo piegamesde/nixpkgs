@@ -82,9 +82,7 @@ let
       + optionalString (cfg.prune.keep != { }) ''
         borg prune $extraArgs \
           ${mkKeepArgs cfg} \
-          ${
-            optionalString (cfg.prune.prefix != null) "--glob-archives ${escapeShellArg "${cfg.prune.prefix}*"}"
-          } \
+          ${optionalString (cfg.prune.prefix != null) "--glob-archives ${escapeShellArg "${cfg.prune.prefix}*"}"} \
           $extraPruneArgs
         borg compact $extraArgs $extraCompactArgs
         ${cfg.postPrune}
@@ -214,8 +212,7 @@ let
   mkPassAssertion = name: cfg: {
     assertion = with cfg.encryption; mode != "none" -> passCommand != null || passphrase != null;
     message =
-      "passCommand or passphrase has to be specified because"
-      + ''borgbackup.jobs.${name}.encryption != "none"'';
+      "passCommand or passphrase has to be specified because" + ''borgbackup.jobs.${name}.encryption != "none"'';
   };
 
   mkRepoService =

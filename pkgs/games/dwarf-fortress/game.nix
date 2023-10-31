@@ -51,10 +51,7 @@ let
     else
       throw "Unsupported system: ${stdenv.hostPlatform.system}";
   sha256 =
-    if hasAttr dfPlatform game then
-      getAttr dfPlatform game
-    else
-      throw "Unsupported dfPlatform: ${dfPlatform}";
+    if hasAttr dfPlatform game then getAttr dfPlatform game else throw "Unsupported dfPlatform: ${dfPlatform}";
 in
 
 stdenv.mkDerivation {

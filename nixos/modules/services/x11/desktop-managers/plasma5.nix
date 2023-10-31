@@ -525,8 +525,7 @@ in
             print-manager
           ];
         in
-        requiredPackages
-        ++ utils.removePackagesByName optionalPackages config.environment.plasma5.excludePackages;
+        requiredPackages ++ utils.removePackagesByName optionalPackages config.environment.plasma5.excludePackages;
 
       systemd.user.services = {
         plasma-run-with-systemd = {

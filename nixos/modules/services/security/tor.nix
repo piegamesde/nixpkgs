@@ -1031,9 +1031,7 @@ in
                       config.authorizeClient.authType + " " + concatStringsSep "," config.authorizeClient.clientNames
                     else
                       null;
-                  settings.HiddenServicePort =
-                    map (p: mkValueString "" p.port + " " + mkValueString "" p.target)
-                      config.map;
+                  settings.HiddenServicePort = map (p: mkValueString "" p.port + " " + mkValueString "" p.target) config.map;
                 };
               }
             )
@@ -1403,8 +1401,7 @@ in
     # Not sure if `cfg.relay.role == "private-bridge"` helps as tor
     # sends a lot of stats
     warnings =
-      optional
-        (cfg.settings.BridgeRelay && flatten (mapAttrsToList (n: o: o.map) cfg.relay.onionServices) != [ ])
+      optional (cfg.settings.BridgeRelay && flatten (mapAttrsToList (n: o: o.map) cfg.relay.onionServices) != [ ])
         ''
           Running Tor hidden services on a public relay makes the
           presence of hidden services visible through simple statistical
@@ -1517,9 +1514,9 @@ in
           ];
           AutomapHostsOnResolve = true;
         }
-        //
-          optionalAttrs (flatten (mapAttrsToList (n: o: o.clientAuthorizations) cfg.client.onionServices) != [ ])
-            { ClientOnionAuthDir = runDir + "/ClientOnionAuthDir"; }
+        // optionalAttrs (flatten (mapAttrsToList (n: o: o.clientAuthorizations) cfg.client.onionServices) != [ ]) {
+          ClientOnionAuthDir = runDir + "/ClientOnionAuthDir";
+        }
       ))
     ];
 
@@ -1570,17 +1567,13 @@ in
                         name: onion:
                         optional (onion.authorizedClients != [ ]) ''
                           rm -rf ${escapeShellArg onion.path}/authorized_clients
-                          install -d -o tor -g tor -m 0700 ${escapeShellArg onion.path} ${
-                            escapeShellArg onion.path
-                          }/authorized_clients
+                          install -d -o tor -g tor -m 0700 ${escapeShellArg onion.path} ${escapeShellArg onion.path}/authorized_clients
                         ''
                         ++
                           imap0
                             (i: pubKey: ''
                               echo ${pubKey} |
-                              install -o tor -g tor -m 0400 /dev/stdin ${escapeShellArg onion.path}/authorized_clients/${
-                                toString i
-                              }.auth
+                              install -o tor -g tor -m 0400 /dev/stdin ${escapeShellArg onion.path}/authorized_clients/${toString i}.auth
                             '')
                             onion.authorizedClients
                         ++ optional (onion.secretKey != null) ''
@@ -1641,8 +1634,7 @@ in
             "tor/onion"
           ]
           ++ flatten (
-            mapAttrsToList (name: onion: optional (onion.secretKey == null) "tor/onion/${name}")
-              cfg.relay.onionServices
+            mapAttrsToList (name: onion: optional (onion.secretKey == null) "tor/onion/${name}") cfg.relay.onionServices
           );
         # The following options are only to optimize:
         # systemd-analyze security tor

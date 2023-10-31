@@ -216,9 +216,7 @@ stdenv.mkDerivation (
       }
     );
 
-    nativeBuildInputs = fBuildAttrs.nativeBuildInputs or [ ] ++ [
-      (bazel.override { enableNixHacks = true; })
-    ];
+    nativeBuildInputs = fBuildAttrs.nativeBuildInputs or [ ] ++ [ (bazel.override { enableNixHacks = true; }) ];
 
     preHook =
       fBuildAttrs.preHook or ""

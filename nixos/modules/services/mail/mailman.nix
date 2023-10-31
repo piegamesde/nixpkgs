@@ -131,9 +131,7 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Enable Mailman on this host. Requires an active MTA on the host (e.g. Postfix).";
+        description = lib.mdDoc "Enable Mailman on this host. Requires an active MTA on the host (e.g. Postfix).";
       };
 
       ldap = {
@@ -589,8 +587,7 @@ in
           before = lib.optional cfg.enablePostfix "postfix.service";
           after =
             [ "network.target" ]
-            ++ lib.optional cfg.enablePostfix "postfix-setup.service"
-            ++ lib.optional withPostgresql "postgresql.service";
+            ++ lib.optional cfg.enablePostfix "postfix-setup.service" ++ lib.optional withPostgresql "postgresql.service";
           restartTriggers = [ mailmanCfgFile ];
           requires = optional withPostgresql "postgresql.service";
           wantedBy = [ "multi-user.target" ];

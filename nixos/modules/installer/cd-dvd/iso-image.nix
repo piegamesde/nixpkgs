@@ -134,9 +134,7 @@ let
     LABEL boot-serial
     MENU LABEL ${config.system.nixos.distroName} ${config.system.nixos.label}${config.isoImage.appendToMenuLabel} (serial console=ttyS0,115200n8)
     LINUX /boot/${config.system.boot.loader.kernelFile}
-    APPEND init=${config.system.build.toplevel}/init ${
-      toString config.boot.kernelParams
-    } console=ttyS0,115200n8
+    APPEND init=${config.system.build.toplevel}/init ${toString config.boot.kernelParams} console=ttyS0,115200n8
     INITRD /boot/${config.system.boot.loader.initrdFile}
   '';
 
@@ -818,8 +816,7 @@ in
         }
       ]
       ++
-        optionals
-          (config.boot.loader.grub.memtest86.enable && config.isoImage.makeBiosBootable && canx86BiosBoot)
+        optionals (config.boot.loader.grub.memtest86.enable && config.isoImage.makeBiosBootable && canx86BiosBoot)
           [
             {
               source = "${pkgs.memtest86plus}/memtest.bin";
@@ -848,12 +845,10 @@ in
         bootImage = "/isolinux/isolinux.bin";
         syslinux = if config.isoImage.makeBiosBootable && canx86BiosBoot then pkgs.syslinux else null;
       }
-      //
-        optionalAttrs (config.isoImage.makeUsbBootable && config.isoImage.makeBiosBootable && canx86BiosBoot)
-          {
-            usbBootable = true;
-            isohybridMbrImage = "${pkgs.syslinux}/share/syslinux/isohdpfx.bin";
-          }
+      // optionalAttrs (config.isoImage.makeUsbBootable && config.isoImage.makeBiosBootable && canx86BiosBoot) {
+        usbBootable = true;
+        isohybridMbrImage = "${pkgs.syslinux}/share/syslinux/isohdpfx.bin";
+      }
       // optionalAttrs config.isoImage.makeEfiBootable {
         efiBootable = true;
         efiBootImage = "boot/efi.img";

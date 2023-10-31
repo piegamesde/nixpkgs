@@ -20,9 +20,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  ldflags = [
-    "-X github.com/containernetworking/plugins/pkg/utils/buildversion.BuildVersion=v${version}"
-  ];
+  ldflags = [ "-X github.com/containernetworking/plugins/pkg/utils/buildversion.BuildVersion=v${version}" ];
 
   subPackages = [
     "plugins/ipam/dhcp"

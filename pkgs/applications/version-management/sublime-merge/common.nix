@@ -37,8 +37,7 @@ let
   ];
   primaryBinary = "sublime_merge";
   primaryBinaryAliases = [ "smerge" ];
-  downloadUrl =
-    arch: "https://download.sublimetext.com/sublime_merge_build_${buildVersion}_${arch}.tar.xz";
+  downloadUrl = arch: "https://download.sublimetext.com/sublime_merge_build_${buildVersion}_${arch}.tar.xz";
   versionUrl = "https://www.sublimemerge.com/${if dev then "dev" else "download"}";
   versionFile = builtins.toString ./default.nix;
 
@@ -79,9 +78,7 @@ let
       for binary in ${builtins.concatStringsSep " " binaries}; do
         patchelf \
           --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-          --set-rpath ${libPath}:${libGL}/lib:${stdenv.cc.cc.lib}/lib${
-            lib.optionalString stdenv.is64bit "64"
-          } \
+          --set-rpath ${libPath}:${libGL}/lib:${stdenv.cc.cc.lib}/lib${lib.optionalString stdenv.is64bit "64"} \
           $binary
       done
 

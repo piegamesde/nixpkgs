@@ -58,10 +58,7 @@ in
         # adoptopenjdk not available for i686, so fall back to our old builds for bootstrapping
         if !stdenv.hostPlatform.isi686 then
           # only linux has the gtkSupport option
-          if stdenv.isLinux then
-            adoptopenjdk.jdk-hotspot.override { gtkSupport = false; }
-          else
-            adoptopenjdk.jdk-hotspot
+          if stdenv.isLinux then adoptopenjdk.jdk-hotspot.override { gtkSupport = false; } else adoptopenjdk.jdk-hotspot
         else
           callPackage path args;
 
@@ -148,13 +145,11 @@ in
         bootstrapArgs // { inherit openjdk17-bootstrap; }
       );
 
-      openjdk8 =
-        mkOpenjdk ../development/compilers/openjdk/8.nix ../development/compilers/openjdk/darwin/8.nix
-          { };
+      openjdk8 = mkOpenjdk ../development/compilers/openjdk/8.nix ../development/compilers/openjdk/darwin/8.nix { };
 
-      openjdk11 =
-        mkOpenjdk ../development/compilers/openjdk/11.nix ../development/compilers/openjdk/darwin/11.nix
-          { openjfx = openjfx11; };
+      openjdk11 = mkOpenjdk ../development/compilers/openjdk/11.nix ../development/compilers/openjdk/darwin/11.nix {
+        openjfx = openjfx11;
+      };
 
       openjdk12 = mkOpenjdkLinuxOnly ../development/compilers/openjdk/12.nix {
         # build segfaults with gcc9 or newer, so use gcc8 like Debian does
@@ -177,33 +172,25 @@ in
         openjfx = openjfx15;
       };
 
-      openjdk16 =
-        mkOpenjdk ../development/compilers/openjdk/16.nix ../development/compilers/openjdk/darwin/16.nix
-          {
-            inherit openjdk16-bootstrap;
-            openjfx = openjfx15;
-          };
+      openjdk16 = mkOpenjdk ../development/compilers/openjdk/16.nix ../development/compilers/openjdk/darwin/16.nix {
+        inherit openjdk16-bootstrap;
+        openjfx = openjfx15;
+      };
 
-      openjdk17 =
-        mkOpenjdk ../development/compilers/openjdk/17.nix ../development/compilers/openjdk/darwin/17.nix
-          {
-            inherit openjdk17-bootstrap;
-            openjfx = openjfx17;
-          };
+      openjdk17 = mkOpenjdk ../development/compilers/openjdk/17.nix ../development/compilers/openjdk/darwin/17.nix {
+        inherit openjdk17-bootstrap;
+        openjfx = openjfx17;
+      };
 
-      openjdk18 =
-        mkOpenjdk ../development/compilers/openjdk/18.nix ../development/compilers/openjdk/darwin/18.nix
-          {
-            inherit openjdk18-bootstrap;
-            openjfx = openjfx17;
-          };
+      openjdk18 = mkOpenjdk ../development/compilers/openjdk/18.nix ../development/compilers/openjdk/darwin/18.nix {
+        inherit openjdk18-bootstrap;
+        openjfx = openjfx17;
+      };
 
-      openjdk19 =
-        mkOpenjdk ../development/compilers/openjdk/19.nix ../development/compilers/openjdk/darwin/19.nix
-          {
-            openjdk19-bootstrap = temurin-bin.jdk-19;
-            openjfx = openjfx19;
-          };
+      openjdk19 = mkOpenjdk ../development/compilers/openjdk/19.nix ../development/compilers/openjdk/darwin/19.nix {
+        openjdk19-bootstrap = temurin-bin.jdk-19;
+        openjfx = openjfx19;
+      };
 
       temurin-bin = recurseIntoAttrs (
         callPackage
@@ -252,9 +239,7 @@ in
     commonsCli_1_2
   ;
 
-  inherit (callPackage ../development/java-modules/apache/commons-io.nix { inherit fetchMaven; })
-    commonsIo_2_1
-  ;
+  inherit (callPackage ../development/java-modules/apache/commons-io.nix { inherit fetchMaven; }) commonsIo_2_1;
 
   inherit (callPackage ../development/java-modules/apache/commons-lang.nix { inherit fetchMaven; })
     commonsLang_2_1
@@ -278,13 +263,9 @@ in
     googleCollections_1_0
   ;
 
-  inherit (callPackage ../development/java-modules/hamcrest/all.nix { inherit fetchMaven; })
-    hamcrestAll_1_3
-  ;
+  inherit (callPackage ../development/java-modules/hamcrest/all.nix { inherit fetchMaven; }) hamcrestAll_1_3;
 
-  inherit (callPackage ../development/java-modules/hamcrest/core.nix { inherit fetchMaven; })
-    hamcrestCore_1_3
-  ;
+  inherit (callPackage ../development/java-modules/hamcrest/core.nix { inherit fetchMaven; }) hamcrestCore_1_3;
 
   inherit (callPackage ../development/java-modules/junit { inherit mavenbuild fetchMaven; })
     junit_3_8_1
@@ -316,8 +297,7 @@ in
     mavenArtifactManager_2_2_1
   ;
 
-  inherit
-    (callPackage ../development/java-modules/maven/common-artifact-filters.nix { inherit fetchMaven; })
+  inherit (callPackage ../development/java-modules/maven/common-artifact-filters.nix { inherit fetchMaven; })
     mavenCommonArtifactFilters_1_2
     mavenCommonArtifactFilters_1_3
     mavenCommonArtifactFilters_1_4
@@ -415,8 +395,7 @@ in
     mavenPluginRegistry_2_2_1
   ;
 
-  inherit
-    (callPackage ../development/java-modules/maven/plugin-testing-harness.nix { inherit fetchMaven; })
+  inherit (callPackage ../development/java-modules/maven/plugin-testing-harness.nix { inherit fetchMaven; })
     mavenPluginTestingHarness_1_1
   ;
 
@@ -529,8 +508,7 @@ in
     plexusCompilerManager_2_4
   ;
 
-  inherit
-    (callPackage ../development/java-modules/plexus/component-annotations.nix { inherit fetchMaven; })
+  inherit (callPackage ../development/java-modules/plexus/component-annotations.nix { inherit fetchMaven; })
     plexusComponentAnnotations_1_5_5
   ;
 
@@ -540,9 +518,7 @@ in
     plexusContainerDefault_1_5_5
   ;
 
-  inherit (callPackage ../development/java-modules/plexus/digest.nix { inherit fetchMaven; })
-    plexusDigest_1_0
-  ;
+  inherit (callPackage ../development/java-modules/plexus/digest.nix { inherit fetchMaven; }) plexusDigest_1_0;
 
   inherit (callPackage ../development/java-modules/plexus/i18n.nix { inherit fetchMaven; })
     plexusI18n_1_0_beta6
@@ -594,9 +570,7 @@ in
     xbeanReflect_3_4
   ;
 
-  inherit (callPackage ../development/java-modules/xerces/impl.nix { inherit fetchMaven; })
-    xercesImpl_2_8_0
-  ;
+  inherit (callPackage ../development/java-modules/xerces/impl.nix { inherit fetchMaven; }) xercesImpl_2_8_0;
 
   inherit (callPackage ../development/java-modules/xml-apis { inherit fetchMaven; }) xmlApis_1_3_03;
 }

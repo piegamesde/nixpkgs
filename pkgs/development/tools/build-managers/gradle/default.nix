@@ -76,9 +76,7 @@ rec {
             varNames = lib.imap0 (i: x: prefix i) javaToolchains;
             property = " -Porg.gradle.java.installations.fromEnv='${concatStringsSep "," varNames}'";
           };
-          varDefs = concatStringsSep "\n" (
-            map (x: "  --set ${x} \\") ([ "JAVA_HOME ${java}" ] ++ toolchain.varDefs)
-          );
+          varDefs = concatStringsSep "\n" (map (x: "  --set ${x} \\") ([ "JAVA_HOME ${java}" ] ++ toolchain.varDefs));
         in
         ''
           mkdir -pv $out/lib/gradle/

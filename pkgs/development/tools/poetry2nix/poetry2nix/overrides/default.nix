@@ -18,10 +18,7 @@ let
             fromIsValid = if builtins.hasAttr "from" attr then lib.versionAtLeast drv.version attr.from else true;
             untilIsValid = if builtins.hasAttr "until" attr then lib.versionOlder drv.version attr.until else true;
             intendedBuildSystem =
-              if attr.buildSystem == "cython" then
-                self.python.pythonForBuild.pkgs.cython
-              else
-                self.${attr.buildSystem};
+              if attr.buildSystem == "cython" then self.python.pythonForBuild.pkgs.cython else self.${attr.buildSystem};
           in
           if fromIsValid && untilIsValid then intendedBuildSystem else null
         else if attr == "cython" then
@@ -84,10 +81,7 @@ lib.composeManyExtensions [
       buildSystems = lib.importJSON ./build-systems.json;
     in
     lib.mapAttrs
-      (
-        attr: systems:
-        builtins.foldl' (drv: attr: addBuildSystem { inherit drv self attr; }) super.${attr} systems
-      )
+      (attr: systems: builtins.foldl' (drv: attr: addBuildSystem { inherit drv self attr; }) super.${attr} systems)
       buildSystems
   )
 
@@ -206,9 +200,7 @@ lib.composeManyExtensions [
               "4.0.0" = "sha256-HvfRLyUhlXVuvxWrtSDKx3rMKJbjvuiMcDY6g+pYFS0=";
               "4.0.1" = "sha256-lDWX69YENZFMu7pyBmavUZaalGvFqbHSHfkwkzmDQaY=";
             }
-            .${version} or (lib.warn "Unknown bcrypt version: '${version}'. Please update getCargoHash."
-              lib.fakeHash
-            );
+            .${version} or (lib.warn "Unknown bcrypt version: '${version}'. Please update getCargoHash." lib.fakeHash);
         in
         super.bcrypt.overridePythonAttrs (
           old:
@@ -538,9 +530,7 @@ lib.composeManyExtensions [
       );
 
       ddtrace = super.ddtrace.overridePythonAttrs (
-        old: {
-          buildInputs = (old.buildInputs or [ ]) ++ (lib.optionals pkgs.stdenv.isDarwin [ pkgs.darwin.IOKit ]);
-        }
+        old: { buildInputs = (old.buildInputs or [ ]) ++ (lib.optionals pkgs.stdenv.isDarwin [ pkgs.darwin.IOKit ]); }
       );
 
       dictdiffer = super.dictdiffer.overridePythonAttrs (
@@ -607,9 +597,7 @@ lib.composeManyExtensions [
 
       # Setuptools >= 60 broke build_py_2to3
       docutils =
-        if
-          lib.versionOlder super.docutils.version "0.16" && lib.versionAtLeast super.setuptools.version "60"
-        then
+        if lib.versionOlder super.docutils.version "0.16" && lib.versionAtLeast super.setuptools.version "60" then
           (super.docutils.overridePythonAttrs (old: { SETUPTOOLS_USE_DISTUTILS = "stdlib"; }))
         else
           super.docutils;
@@ -681,9 +669,7 @@ lib.composeManyExtensions [
         }
       );
 
-      fastecdsa = super.fastecdsa.overridePythonAttrs (
-        old: { buildInputs = old.buildInputs ++ [ pkgs.gmp.dev ]; }
-      );
+      fastecdsa = super.fastecdsa.overridePythonAttrs (old: { buildInputs = old.buildInputs ++ [ pkgs.gmp.dev ]; });
 
       fastparquet = super.fastparquet.overridePythonAttrs (
         old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.pytest-runner ]; }
@@ -883,9 +869,7 @@ lib.composeManyExtensions [
         }
       );
 
-      hikari = super.hikari.overrideAttrs (
-        old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.setuptools ]; }
-      );
+      hikari = super.hikari.overrideAttrs (old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.setuptools ]; });
 
       hikari-lightbulb = super.hikari-lightbulb.overrideAttrs (
         old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.setuptools ]; }
@@ -975,9 +959,7 @@ lib.composeManyExtensions [
       # importlib-metadata has an incomplete dependency specification
       importlib-metadata = super.importlib-metadata.overridePythonAttrs (
         old: {
-          propagatedBuildInputs =
-            (old.propagatedBuildInputs or [ ])
-            ++ lib.optional self.python.isPy2 self.pathlib2;
+          propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ lib.optional self.python.isPy2 self.pathlib2;
         }
       );
 
@@ -1168,11 +1150,9 @@ lib.composeManyExtensions [
             else if (lib.versionOlder old.version "0.28.0" && lib.versionAtLeast old.version "0.27.0") then
               pkgs.llvmPackages_7.llvm
             else if (lib.versionOlder old.version "0.27.0" && lib.versionAtLeast old.version "0.23.0") then
-              pkgs.llvmPackages_6.llvm or throw
-                "LLVM6 has been removed from nixpkgs; upgrade llvmlite or use older nixpkgs"
+              pkgs.llvmPackages_6.llvm or throw "LLVM6 has been removed from nixpkgs; upgrade llvmlite or use older nixpkgs"
             else if (lib.versionOlder old.version "0.23.0" && lib.versionAtLeast old.version "0.21.0") then
-              pkgs.llvmPackages_5.llvm or throw
-                "LLVM5 has been removed from nixpkgs; upgrade llvmlite or use older nixpkgs"
+              pkgs.llvmPackages_5.llvm or throw "LLVM5 has been removed from nixpkgs; upgrade llvmlite or use older nixpkgs"
             else
               pkgs.llvm; # Likely to fail.
         in
@@ -1665,9 +1645,7 @@ lib.composeManyExtensions [
               "3.8.7" = "sha256-JBO8nl0sC+XIn17vI7hC8+nA1HYI9jfvZrl9nCE3k1s=";
               "3.8.8" = "sha256-AK4HtqPKg2O2FeLHCbY9o+N1BV4QFMNaHVE1NaFYHa4=";
             }
-            .${version} or (lib.warn "Unknown orjson version: '${version}'. Please update getCargoHash."
-              lib.fakeHash
-            );
+            .${version} or (lib.warn "Unknown orjson version: '${version}'. Please update getCargoHash." lib.fakeHash);
         in
         super.orjson.overridePythonAttrs (
           old: {
@@ -1794,9 +1772,7 @@ lib.composeManyExtensions [
         }
       );
 
-      pip-requirements-parser = super.pip-requirements-parser.overridePythonAttrs (
-        old: { dontConfigure = true; }
-      );
+      pip-requirements-parser = super.pip-requirements-parser.overridePythonAttrs (old: { dontConfigure = true; });
 
       pluralizer = super.pluralizer.overridePythonAttrs (
         old: {
@@ -2775,8 +2751,7 @@ lib.composeManyExtensions [
       # Stop infinite recursion by using bootstrapped pkg from nixpkgs
       bootstrapped-pip = super.bootstrapped-pip.override {
         wheel =
-          ((if self.python.isPy2 then pkgs.python2 else pkgs.python3).pkgs.override { python = self.python; })
-          .wheel;
+          ((if self.python.isPy2 then pkgs.python2 else pkgs.python3).pkgs.override { python = self.python; }).wheel;
       };
 
       watchfiles =
@@ -2889,9 +2864,7 @@ lib.composeManyExtensions [
 
       psutil = super.psutil.overridePythonAttrs (
         old: {
-          buildInputs =
-            (old.buildInputs or [ ])
-            ++ lib.optional stdenv.isDarwin pkgs.darwin.apple_sdk.frameworks.IOKit;
+          buildInputs = (old.buildInputs or [ ]) ++ lib.optional stdenv.isDarwin pkgs.darwin.apple_sdk.frameworks.IOKit;
         }
       );
 
@@ -2927,9 +2900,7 @@ lib.composeManyExtensions [
       # For some reason the toml dependency of tqdm declared here:
       # https://github.com/tqdm/tqdm/blob/67130a23646ae672836b971e1086b6ae4c77d930/pyproject.toml#L2
       # is not translated correctly to a nix dependency.
-      tqdm = super.tqdm.overridePythonAttrs (
-        old: { buildInputs = [ super.toml ] ++ (old.buildInputs or [ ]); }
-      );
+      tqdm = super.tqdm.overridePythonAttrs (old: { buildInputs = [ super.toml ] ++ (old.buildInputs or [ ]); });
 
       watchdog = super.watchdog.overrideAttrs (
         old: {

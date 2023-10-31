@@ -4871,9 +4871,7 @@ in
         }
       )
       sources."@babel/types-7.20.5"
-      (
-        sources."@es-joy/jsdoccomment-0.10.8" // { dependencies = [ sources."jsdoc-type-pratt-parser-1.1.1" ]; }
-      )
+      (sources."@es-joy/jsdoccomment-0.10.8" // { dependencies = [ sources."jsdoc-type-pratt-parser-1.1.1" ]; })
       (
         sources."@eslint/eslintrc-0.4.3"
         // {

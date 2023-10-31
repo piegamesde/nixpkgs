@@ -181,9 +181,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    users.groups = optionalAttrs (cfg.group == "gocd-server") {
-      gocd-server.gid = config.ids.gids.gocd-server;
-    };
+    users.groups = optionalAttrs (cfg.group == "gocd-server") { gocd-server.gid = config.ids.gids.gocd-server; };
 
     users.users = optionalAttrs (cfg.user == "gocd-server") {
       gocd-server = {

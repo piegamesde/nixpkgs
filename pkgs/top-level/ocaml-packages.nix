@@ -144,10 +144,7 @@ let
         camlp-streams = callPackage ../development/ocaml-modules/camlp-streams { };
 
         camlp4 =
-          if lib.versionOlder "4.02" ocaml.version then
-            callPackage ../development/tools/ocaml/camlp4 { }
-          else
-            null;
+          if lib.versionOlder "4.02" ocaml.version then callPackage ../development/tools/ocaml/camlp4 { } else null;
 
         camlp5 = callPackage ../development/tools/ocaml/camlp5 { };
 
@@ -592,10 +589,7 @@ let
         gnuplot = callPackage ../development/ocaml-modules/gnuplot { inherit (pkgs) gnuplot; };
 
         graphics =
-          if lib.versionOlder "4.09" ocaml.version then
-            callPackage ../development/ocaml-modules/graphics { }
-          else
-            null;
+          if lib.versionOlder "4.09" ocaml.version then callPackage ../development/ocaml-modules/graphics { } else null;
 
         graphql = callPackage ../development/ocaml-modules/graphql { };
 
@@ -783,9 +777,7 @@ let
 
         js_of_ocaml-ppx = callPackage ../development/tools/ocaml/js_of_ocaml/ppx.nix { };
 
-        js_of_ocaml-ppx_deriving_json =
-          callPackage ../development/tools/ocaml/js_of_ocaml/ppx_deriving_json.nix
-            { };
+        js_of_ocaml-ppx_deriving_json = callPackage ../development/tools/ocaml/js_of_ocaml/ppx_deriving_json.nix { };
 
         js_of_ocaml-toplevel = callPackage ../development/tools/ocaml/js_of_ocaml/toplevel.nix { };
 
@@ -1134,9 +1126,7 @@ let
 
         ocaml-migrate-parsetree = ocaml-migrate-parsetree-1-8;
 
-        ocaml-migrate-parsetree-1-8 =
-          callPackage ../development/ocaml-modules/ocaml-migrate-parsetree/1.8.x.nix
-            { };
+        ocaml-migrate-parsetree-1-8 = callPackage ../development/ocaml-modules/ocaml-migrate-parsetree/1.8.x.nix { };
 
         ocaml-migrate-parsetree-2 = callPackage ../development/ocaml-modules/ocaml-migrate-parsetree/2.x.nix { };
 
@@ -1167,10 +1157,7 @@ let
         ocaml-vdom = callPackage ../development/ocaml-modules/ocaml-vdom { };
 
         ocamlbuild =
-          if lib.versionOlder "4.03" ocaml.version then
-            callPackage ../development/tools/ocaml/ocamlbuild { }
-          else
-            null;
+          if lib.versionOlder "4.03" ocaml.version then callPackage ../development/tools/ocaml/ocamlbuild { } else null;
 
         ocamlc-loc = callPackage ../development/ocaml-modules/ocamlc-loc { };
 

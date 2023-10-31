@@ -165,8 +165,7 @@ let
         toArgs = _opt: path: optionToArgs "tracing.config-file" path;
         option = mkOption {
           type = with types; nullOr str;
-          default =
-            if cfg.tracing.config == null then null else toString (toYAML "tracing.yaml" cfg.tracing.config);
+          default = if cfg.tracing.config == null then null else toString (toYAML "tracing.yaml" cfg.tracing.config);
           defaultText = literalExpression ''
             if config.services.thanos.<cmd>.tracing.config == null then null
             else toString (toYAML "tracing.yaml" config.services.thanos.<cmd>.tracing.config);
@@ -233,8 +232,7 @@ let
         toArgs = _opt: path: optionToArgs "objstore.config-file" path;
         option = mkOption {
           type = with types; nullOr str;
-          default =
-            if cfg.objstore.config == null then null else toString (toYAML "objstore.yaml" cfg.objstore.config);
+          default = if cfg.objstore.config == null then null else toString (toYAML "objstore.yaml" cfg.objstore.config);
           defaultText = literalExpression ''
             if config.services.thanos.<cmd>.objstore.config == null then null
             else toString (toYAML "objstore.yaml" config.services.thanos.<cmd>.objstore.config);
@@ -734,17 +732,14 @@ in
     };
 
     store = paramsToOptions params.store // {
-      enable = mkEnableOption (
-        lib.mdDoc "the Thanos store node giving access to blocks in a bucket provider."
-      );
+      enable = mkEnableOption (lib.mdDoc "the Thanos store node giving access to blocks in a bucket provider.");
       arguments = mkArgumentsOption "store";
     };
 
     query = paramsToOptions params.query // {
       enable = mkEnableOption (
         lib.mdDoc (
-          "the Thanos query node exposing PromQL enabled Query API "
-          + "with data retrieved from multiple store nodes"
+          "the Thanos query node exposing PromQL enabled Query API " + "with data retrieved from multiple store nodes"
         )
       );
       arguments = mkArgumentsOption "query";

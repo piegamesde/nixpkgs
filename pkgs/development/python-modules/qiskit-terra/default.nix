@@ -101,8 +101,7 @@ buildPythonPackage rec {
       sympy
       tweedledum
     ]
-    ++ lib.optionals withVisualization visualizationPackages
-    ++ lib.optionals withCrosstalkPass crosstalkPackages;
+    ++ lib.optionals withVisualization visualizationPackages ++ lib.optionals withCrosstalkPass crosstalkPackages;
 
   # *** Tests ***
   nativeCheckInputs = [

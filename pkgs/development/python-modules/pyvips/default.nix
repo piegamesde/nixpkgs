@@ -38,9 +38,7 @@ buildPythonPackage rec {
 
   postPatch = ''
     substituteInPlace pyvips/__init__.py \
-      --replace 'libvips.so.42' '${
-        lib.getLib vips
-      }/lib/libvips${stdenv.hostPlatform.extensions.sharedLibrary}' \
+      --replace 'libvips.so.42' '${lib.getLib vips}/lib/libvips${stdenv.hostPlatform.extensions.sharedLibrary}' \
       --replace 'libvips.42.dylib' '${
         lib.getLib vips
       }/lib/libvips${stdenv.hostPlatform.extensions.sharedLibrary}' \

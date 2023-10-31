@@ -102,9 +102,7 @@ stdenv.mkDerivation rec {
   # Options from 'godot/SConstruct' and 'godot/platform/linuxbsd/detect.py'
   sconsFlags = [ "production=true" ];
   preConfigure = ''
-    sconsFlags+=" ${
-      lib.concatStringsSep " " (lib.mapAttrsToList (k: v: "${k}=${builtins.toJSON v}") options)
-    }"
+    sconsFlags+=" ${lib.concatStringsSep " " (lib.mapAttrsToList (k: v: "${k}=${builtins.toJSON v}") options)}"
   '';
 
   outputs = [

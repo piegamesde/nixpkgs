@@ -21,9 +21,7 @@ stdenv.mkDerivation rec {
   version = "3.38.2";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gnome-2048/${
-        lib.versions.majorMinor version
-      }/gnome-2048-${version}.tar.xz";
+    url = "mirror://gnome/sources/gnome-2048/${lib.versions.majorMinor version}/gnome-2048-${version}.tar.xz";
     sha256 = "0s5fg4z5in1h39fcr69j1qc5ynmg7a8mfprk3mc3c0csq3snfwz2";
   };
 

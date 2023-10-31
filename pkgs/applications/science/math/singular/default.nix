@@ -52,13 +52,10 @@ stdenv.mkDerivation rec {
     forceFetchGit = true;
   };
 
-  configureFlags =
-    [
-      "--with-ntl=${ntl}"
-      "--disable-pyobject-module"
-    ]
-    ++ lib.optionals enableDocs [ "--enable-doc-build" ]
-    ++ lib.optionals enableGfanlib [ "--enable-gfanlib" ];
+  configureFlags = [
+    "--with-ntl=${ntl}"
+    "--disable-pyobject-module"
+  ] ++ lib.optionals enableDocs [ "--enable-doc-build" ] ++ lib.optionals enableGfanlib [ "--enable-gfanlib" ];
 
   prePatch = ''
     # don't let the tests depend on `hostname`

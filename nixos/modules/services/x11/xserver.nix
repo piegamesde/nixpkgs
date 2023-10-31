@@ -521,8 +521,7 @@ in
           }
         ];
         type =
-          with types;
-          listOf (coercedTo str (output: { inherit output; }) (submodule { options = xrandrOptions; }));
+          with types; listOf (coercedTo str (output: { inherit output; }) (submodule { options = xrandrOptions; }));
         # Set primary to true for the first head if no other has been set
         # primary already.
         apply =
@@ -855,9 +854,7 @@ in
       '';
 
       # TODO: move declaring the systemd service to its own mkIf
-      script =
-        mkIf (config.systemd.services.display-manager.enable == true)
-          "${cfg.displayManager.job.execCmd}";
+      script = mkIf (config.systemd.services.display-manager.enable == true) "${cfg.displayManager.job.execCmd}";
 
       # Stop restarting if the display manager stops (crashes) 2 times
       # in one minute. Starting X typically takes 3-4s.

@@ -951,8 +951,7 @@ in
                   'trusted_proxies' => ${writePhpArray (c.trustedProxies)},
                   ${optionalString (c.defaultPhoneRegion != null) "'default_phone_region' => '${c.defaultPhoneRegion}',"}
                   ${
-                    optionalString (nextcloudGreaterOrEqualThan "23")
-                      "'profile.enabled' => ${boolToString cfg.globalProfiles},"
+                    optionalString (nextcloudGreaterOrEqualThan "23") "'profile.enabled' => ${boolToString cfg.globalProfiles},"
                   }
                   ${objectstoreConfig}
                 ];
@@ -1251,9 +1250,7 @@ in
               add_header Referrer-Policy no-referrer;
             ''}
             ${optionalString (cfg.https) ''
-              add_header Strict-Transport-Security "max-age=${
-                toString cfg.nginx.hstsMaxAge
-              }; includeSubDomains" always;
+              add_header Strict-Transport-Security "max-age=${toString cfg.nginx.hstsMaxAge}; includeSubDomains" always;
             ''}
             client_max_body_size ${cfg.maxUploadSize};
             fastcgi_buffers 64 4K;

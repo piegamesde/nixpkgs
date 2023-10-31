@@ -77,10 +77,7 @@ let
       toList = attrValues;
       walk =
         acc: node:
-        if length node.lispLibs == 0 then
-          acc
-        else
-          builtins.foldl' walk (acc // toSet node.lispLibs) node.lispLibs;
+        if length node.lispLibs == 0 then acc else builtins.foldl' walk (acc // toSet node.lispLibs) node.lispLibs;
     in
     toList (walk { } { inherit lispLibs; });
 

@@ -154,8 +154,7 @@ stdenv.mkDerivation rec {
       "--disable-ebpf"
       "--with-jemalloc=${jemalloc}"
     ]
-    ++ lib.optionals (!withDBengine) [ "--disable-dbengine" ]
-    ++ lib.optionals (!withCloud) [ "--disable-cloud" ];
+    ++ lib.optionals (!withDBengine) [ "--disable-dbengine" ] ++ lib.optionals (!withCloud) [ "--disable-cloud" ];
 
   postFixup = ''
     wrapProgram $out/bin/netdata-claim.sh --prefix PATH : ${lib.makeBinPath [ openssl ]}

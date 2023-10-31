@@ -337,8 +337,7 @@ let
               ${package}/bin/wstunnel \
                 --server \
                 ${
-                  optionalString (restrictTo != null)
-                    "--restrictTo=${utils.escapeSystemdExecArg (hostPortToString restrictTo)}"
+                  optionalString (restrictTo != null) "--restrictTo=${utils.escapeSystemdExecArg (hostPortToString restrictTo)}"
                 } \
                 ${
                   optionalString (resolvedTlsCertificate != null)
@@ -398,8 +397,7 @@ let
             ${optionalString (tlsSNI != null) "--tlsSNI=${tlsSNI}"} \
             ${optionalString tlsVerifyCertificate "--tlsVerifyCertificate"} \
             ${
-              optionalString (websocketPingInterval != null)
-                "--websocketPingFrequency=${toString websocketPingInterval}"
+              optionalString (websocketPingInterval != null) "--websocketPingFrequency=${toString websocketPingInterval}"
             } \
             ${optionalString (upgradeCredentials != null) "--upgradeCredentials=${upgradeCredentials}"} \
             --udpTimeoutSec=${toString udpTimeout} \
@@ -413,9 +411,7 @@ let
         AmbientCapabilities =
           (optionals (clientCfg.soMark != null) [ "CAP_NET_ADMIN" ])
           ++ (optionals
-            (
-              (clientCfg.dynamicToRemote.port or 1024) < 1024 || (any (x: x.local.port < 1024) clientCfg.localToRemote)
-            )
+            ((clientCfg.dynamicToRemote.port or 1024) < 1024 || (any (x: x.local.port < 1024) clientCfg.localToRemote))
             [ "CAP_NET_BIND_SERVICE" ]
           );
         NoNewPrivileges = true;

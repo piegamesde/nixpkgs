@@ -199,8 +199,7 @@ in
             description =
               if service == "zebra" then "FRR Zebra routing manager" else "FRR ${toUpper service} routing daemon";
 
-            unitConfig.Documentation =
-              if service == "zebra" then "man:zebra(8)" else "man:${daemon}(8) man:zebra(8)";
+            unitConfig.Documentation = if service == "zebra" then "man:zebra(8)" else "man:${daemon}(8) man:zebra(8)";
 
             restartTriggers = [ (configFile service) ];
             reloadIfChanged = true;

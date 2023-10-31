@@ -174,9 +174,7 @@ let
           sphinx-rtd-theme = null;
         }).overridePythonAttrs
           (old: (dropDevOutput old) // { format = "setuptools"; });
-      beautifulsoup4 =
-        (super.beautifulsoup4.override { sphinxHook = null; }).overridePythonAttrs
-          dropDevOutput;
+      beautifulsoup4 = (super.beautifulsoup4.override { sphinxHook = null; }).overridePythonAttrs dropDevOutput;
       pydash = (super.pydash.override { sphinx-rtd-theme = null; }).overridePythonAttrs (
         old: rec {
           version = "5.1.0";

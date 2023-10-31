@@ -184,8 +184,7 @@ let
   isUnixSocket = socket: hasPrefix "/" (if (isString socket) then socket else socket.socket);
 
   mkBindSockets =
-    enabled: socks:
-    concatStringsSep "\n  " (flatten (map (each: ''bind_socket = "${each.rawEntry}";'') socks));
+    enabled: socks: concatStringsSep "\n  " (flatten (map (each: ''bind_socket = "${each.rawEntry}";'') socks));
 
   rspamdConfFile = pkgs.writeText "rspamd.conf" ''
     .include "$CONFDIR/common.conf"
@@ -297,9 +296,7 @@ let
 
   configOverrides =
     (mapAttrs'
-      (
-        n: v: nameValuePair "worker-${if n == "rspamd_proxy" then "proxy" else n}.inc" { text = v.extraConfig; }
-      )
+      (n: v: nameValuePair "worker-${if n == "rspamd_proxy" then "proxy" else n}.inc" { text = v.extraConfig; })
       (filterAttrs (n: v: v.extraConfig != "") cfg.workers)
     )
     // (if cfg.extraConfig == "" then { } else { "extra-config.inc".text = cfg.extraConfig; });

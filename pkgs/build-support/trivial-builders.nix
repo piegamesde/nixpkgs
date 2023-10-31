@@ -780,9 +780,7 @@ rec {
             (map
               (
                 output:
-                lib.filter lib.isList (
-                  builtins.split "(${builtins.storeDir}/[${nixHashChars}]+-${name}-${output})" string
-                )
+                lib.filter lib.isList (builtins.split "(${builtins.storeDir}/[${nixHashChars}]+-${name}-${output})" string)
               )
               (lib.remove "out" value.outputs)
             )

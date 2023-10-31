@@ -179,8 +179,7 @@ let
   );
 
   pluginBuildInputs =
-    plugin:
-    lib.optionals (plugins ? ${plugin} && plugins.${plugin} ? buildInputs) plugins.${plugin}.buildInputs;
+    plugin: lib.optionals (plugins ? ${plugin} && plugins.${plugin} ? buildInputs) plugins.${plugin}.buildInputs;
 
   buildInputs =
     if enabledPlugins == null then

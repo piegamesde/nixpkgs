@@ -19,9 +19,7 @@ in
 {
   options = {
     services.mautrix-facebook = {
-      enable = mkEnableOption (
-        lib.mdDoc "Mautrix-Facebook, a Matrix-Facebook hybrid puppeting/relaybot bridge"
-      );
+      enable = mkEnableOption (lib.mdDoc "Mautrix-Facebook, a Matrix-Facebook hybrid puppeting/relaybot bridge");
 
       settings = mkOption rec {
         apply = recursiveUpdate default;

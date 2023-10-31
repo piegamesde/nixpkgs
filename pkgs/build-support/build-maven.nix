@@ -42,8 +42,7 @@ let
           authenticated = dep.authenticated or false;
           url = dep.url or "";
 
-          fetch =
-            if (url != "") then ((if authenticated then requireFile else fetchurl) { inherit url sha1; }) else "";
+          fetch = if (url != "") then ((if authenticated then requireFile else fetchurl) { inherit url sha1; }) else "";
 
           fetchMetadata = (if authenticated then requireFile else fetchurl) { inherit (metadata) url sha1; };
 
@@ -97,10 +96,7 @@ in
 
     src =
       builtins.filterSource
-        (
-          path: type:
-          (toString path) != (toString (src + "/target")) && (toString path) != (toString (src + "/.git"))
-        )
+        (path: type: (toString path) != (toString (src + "/target")) && (toString path) != (toString (src + "/.git")))
         src;
 
     buildInputs = [ maven ];

@@ -30,8 +30,7 @@ stdenv.mkDerivation rec {
   postPatch =
     let
       makeDirs =
-        output: subDir:
-        lib.concatStringsSep " " (map (path: lib.getOutput output path + "/" + subDir) buildInputs);
+        output: subDir: lib.concatStringsSep " " (map (path: lib.getOutput output path + "/" + subDir) buildInputs);
     in
     ''
       substituteInPlace configure \

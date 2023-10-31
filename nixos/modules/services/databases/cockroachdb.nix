@@ -198,9 +198,7 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "cockroachdb") {
-      cockroachdb.gid = config.ids.gids.cockroachdb;
-    };
+    users.groups = optionalAttrs (cfg.group == "cockroachdb") { cockroachdb.gid = config.ids.gids.cockroachdb; };
 
     networking.firewall.allowedTCPPorts = lib.optionals cfg.openPorts [
       cfg.http.port

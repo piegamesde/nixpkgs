@@ -100,10 +100,7 @@ let
             let
               newPath = path ++ singleton key;
             in
-            if isOption val then
-              attrByPath newPath (notFound newPath) cfg.pki.manual
-            else
-              findPkiDefinitions newPath val;
+            if isOption val then attrByPath newPath (notFound newPath) cfg.pki.manual else findPkiDefinitions newPath val;
         in
         flatten (mapAttrsToList mkSublist attrs);
     in

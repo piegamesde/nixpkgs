@@ -301,9 +301,7 @@ in
           in
           ''
             # Create a modified server.xml which also includes all virtual hosts
-            sed -e "/<Engine name=\"Catalina\" defaultHost=\"localhost\">/a\\"${
-              escapeShellArg hostElementsSedString
-            } \
+            sed -e "/<Engine name=\"Catalina\" defaultHost=\"localhost\">/a\\"${escapeShellArg hostElementsSedString} \
                   ${tomcat}/conf/server.xml > ${cfg.baseDir}/conf/server.xml
           ''}
         ${optionalString (cfg.logDirs != [ ]) ''

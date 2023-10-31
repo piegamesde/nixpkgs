@@ -444,9 +444,7 @@ final: prev: {
         ];
       in
       ''
-        ${lib.concatStringsSep "\n" (
-          map (patch: "patch -d $out/lib/node_modules/node2nix -p1 < ${patch}") patches
-        )}
+        ${lib.concatStringsSep "\n" (map (patch: "patch -d $out/lib/node_modules/node2nix -p1 < ${patch}") patches)}
         wrapProgram "$out/bin/node2nix" --prefix PATH : ${lib.makeBinPath [ pkgs.nix ]}
       '';
   };
@@ -646,9 +644,7 @@ final: prev: {
     nativeBuildInputs = [ final.node-pre-gyp ];
   };
 
-  thelounge-plugin-giphy = prev.thelounge-plugin-giphy.override {
-    nativeBuildInputs = [ final.node-pre-gyp ];
-  };
+  thelounge-plugin-giphy = prev.thelounge-plugin-giphy.override { nativeBuildInputs = [ final.node-pre-gyp ]; };
 
   thelounge-theme-flat-blue = prev.thelounge-theme-flat-blue.override {
     nativeBuildInputs = [ final.node-pre-gyp ];

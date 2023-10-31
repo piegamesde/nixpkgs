@@ -313,9 +313,7 @@ stdenv.mkDerivation (
       makeSearchPathOutput "dev" "include" ([ ] ++ optional (zlib != null) zlib)
     );
 
-    LIBRARY_PATH = optionals (targetPlatform == hostPlatform) (
-      makeLibraryPath (optional (zlib != null) zlib)
-    );
+    LIBRARY_PATH = optionals (targetPlatform == hostPlatform) (makeLibraryPath (optional (zlib != null) zlib));
 
     inherit (callFile ../common/extra-target-flags.nix { }) EXTRA_FLAGS_FOR_TARGET EXTRA_LDFLAGS_FOR_TARGET;
 
@@ -351,15 +349,13 @@ stdenv.mkDerivation (
     };
   }
 
-  //
-    optionalAttrs (targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt" && crossStageStatic)
-      {
-        makeFlags = [
-          "all-gcc"
-          "all-target-libgcc"
-        ];
-        installTargets = "install-gcc install-target-libgcc";
-      }
+  // optionalAttrs (targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt" && crossStageStatic) {
+    makeFlags = [
+      "all-gcc"
+      "all-target-libgcc"
+    ];
+    installTargets = "install-gcc install-target-libgcc";
+  }
 
   // optionalAttrs (enableMultilib) { dontMoveLib64 = true; }
 )

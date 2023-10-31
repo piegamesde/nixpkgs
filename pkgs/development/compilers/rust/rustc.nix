@@ -124,9 +124,7 @@ stdenv.mkDerivation rec {
             # need to add the host platform as well so rustc can compile
             # build.rs scripts.
           ]
-          ++ optionals (stdenv.hostPlatform != stdenv.targetPlatform) [
-            (rust.toRustTargetSpec stdenv.hostPlatform)
-          ]
+          ++ optionals (stdenv.hostPlatform != stdenv.targetPlatform) [ (rust.toRustTargetSpec stdenv.hostPlatform) ]
         )
       }"
 

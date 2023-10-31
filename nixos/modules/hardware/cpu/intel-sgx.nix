@@ -46,15 +46,12 @@ in
           message = "Given user does not exist";
         }
         {
-          assertion =
-            (cfg.provision.group == defaultPrvGroup) || (hasAttr cfg.provision.group config.users.groups);
+          assertion = (cfg.provision.group == defaultPrvGroup) || (hasAttr cfg.provision.group config.users.groups);
           message = "Given group does not exist";
         }
       ];
 
-      users.groups = optionalAttrs (cfg.provision.group == defaultPrvGroup) {
-        "${cfg.provision.group}" = { };
-      };
+      users.groups = optionalAttrs (cfg.provision.group == defaultPrvGroup) { "${cfg.provision.group}" = { }; };
 
       services.udev.extraRules = with cfg.provision; ''
         SUBSYSTEM=="misc", KERNEL=="sgx_provision", OWNER="${user}", GROUP="${group}", MODE="${mode}"

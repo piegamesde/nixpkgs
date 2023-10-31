@@ -67,8 +67,7 @@ let
           apply =
             x:
             assert (
-              builtins.stringLength x < 32
-              || abort "Username '${x}' is longer than 31 characters which is not allowed!"
+              builtins.stringLength x < 32 || abort "Username '${x}' is longer than 31 characters which is not allowed!"
             );
             x;
           description = lib.mdDoc ''
@@ -131,8 +130,7 @@ let
           apply =
             x:
             assert (
-              builtins.stringLength x < 32
-              || abort "Group name '${x}' is longer than 31 characters which is not allowed!"
+              builtins.stringLength x < 32 || abort "Group name '${x}' is longer than 31 characters which is not allowed!"
             );
             x;
           default = "";
@@ -362,9 +360,7 @@ let
         })
         # If !mutableUsers, setting ‘initialPassword’ is equivalent to
         # setting ‘password’ (and similarly for hashed passwords).
-        (mkIf (!cfg.mutableUsers && config.initialPassword != null) {
-          password = mkDefault config.initialPassword;
-        })
+        (mkIf (!cfg.mutableUsers && config.initialPassword != null) { password = mkDefault config.initialPassword; })
         (mkIf (!cfg.mutableUsers && config.initialHashedPassword != null) {
           hashedPassword = mkDefault config.initialHashedPassword;
         })

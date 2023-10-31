@@ -69,10 +69,7 @@ let
   prometheusYml =
     let
       yml =
-        if cfg.configText != null then
-          pkgs.writeText "prometheus.yml" cfg.configText
-        else
-          generatedPrometheusYml;
+        if cfg.configText != null then pkgs.writeText "prometheus.yml" cfg.configText else generatedPrometheusYml;
     in
     promtoolCheck "check config ${lib.optionalString (cfg.checkConfig == "syntax-only") "--syntax-only"}"
       "prometheus.yml"

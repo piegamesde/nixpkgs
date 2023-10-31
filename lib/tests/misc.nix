@@ -1265,8 +1265,7 @@ runTests {
       a.c = a;
     in
     {
-      expr =
-        (builtins.tryEval (generators.toPretty { } (generators.withRecursion { depthLimit = 2; } a))).success;
+      expr = (builtins.tryEval (generators.toPretty { } (generators.withRecursion { depthLimit = 2; } a))).success;
       expected = false;
     };
 
@@ -1461,9 +1460,7 @@ runTests {
     expected = "  x = {\n    [\"y\"] = 42\n  }\n";
   };
 
-  testToLuaBindingsWithSpace = testingThrow (
-    generators.toLua { asBindings = true; } { "with space" = 42; }
-  );
+  testToLuaBindingsWithSpace = testingThrow (generators.toLua { asBindings = true; } { "with space" = 42; });
 
   testToLuaBindingsWithLeadingDigit = testingThrow (
     generators.toLua { asBindings = true; } { "11eleven" = 42; }

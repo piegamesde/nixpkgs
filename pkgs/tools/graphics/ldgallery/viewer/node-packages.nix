@@ -8265,9 +8265,7 @@ let
       (sources."@babel/helper-compilation-targets-7.19.1" // { dependencies = [ sources."semver-6.3.0" ]; })
       sources."@babel/helper-create-class-features-plugin-7.19.0"
       sources."@babel/helper-create-regexp-features-plugin-7.19.0"
-      (
-        sources."@babel/helper-define-polyfill-provider-0.3.3" // { dependencies = [ sources."semver-6.3.0" ]; }
-      )
+      (sources."@babel/helper-define-polyfill-provider-0.3.3" // { dependencies = [ sources."semver-6.3.0" ]; })
       sources."@babel/helper-environment-visitor-7.18.9"
       sources."@babel/helper-explode-assignable-expression-7.18.6"
       sources."@babel/helper-function-name-7.19.0"
@@ -8390,9 +8388,7 @@ let
       sources."@jridgewell/gen-mapping-0.1.1"
       sources."@jridgewell/resolve-uri-3.1.0"
       sources."@jridgewell/set-array-1.1.2"
-      (
-        sources."@jridgewell/source-map-0.3.2" // { dependencies = [ sources."@jridgewell/gen-mapping-0.3.2" ]; }
-      )
+      (sources."@jridgewell/source-map-0.3.2" // { dependencies = [ sources."@jridgewell/gen-mapping-0.3.2" ]; })
       sources."@jridgewell/sourcemap-codec-1.4.14"
       sources."@jridgewell/trace-mapping-0.3.15"
       sources."@leichtgewicht/ip-codec-2.0.4"
@@ -8459,9 +8455,7 @@ let
       sources."@vue/babel-helper-vue-jsx-merge-props-1.4.0"
       sources."@vue/babel-helper-vue-transform-on-1.0.2"
       sources."@vue/babel-plugin-jsx-1.1.1"
-      (
-        sources."@vue/babel-plugin-transform-vue-jsx-1.4.0" // { dependencies = [ sources."html-tags-2.0.0" ]; }
-      )
+      (sources."@vue/babel-plugin-transform-vue-jsx-1.4.0" // { dependencies = [ sources."html-tags-2.0.0" ]; })
       sources."@vue/babel-preset-app-5.0.8"
       sources."@vue/babel-preset-jsx-1.4.0"
       sources."@vue/babel-sugar-composition-api-inject-h-1.4.0"

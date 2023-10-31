@@ -27,9 +27,7 @@ let
 
   buildbot-pkg = python.pkgs.callPackage ./pkg.nix { inherit buildbot; };
   buildbot-worker = python3.pkgs.callPackage ./worker.nix { inherit buildbot; };
-  buildbot = python.pkgs.callPackage ./master.nix {
-    inherit buildbot-pkg buildbot-worker buildbot-plugins;
-  };
+  buildbot = python.pkgs.callPackage ./master.nix { inherit buildbot-pkg buildbot-worker buildbot-plugins; };
   buildbot-plugins = recurseIntoAttrs (callPackage ./plugins.nix { inherit buildbot-pkg; });
 in
 {

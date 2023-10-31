@@ -130,9 +130,7 @@ stdenv.mkDerivation (
         "-DLLVM_INCLUDE_TESTS=ON"
         "-DLLVM_BUILD_TESTS=ON"
       ]
-      ++ lib.optionals (buildTests && !finalAttrs.passthru.isLLVM) [
-        "-DLLVM_EXTERNAL_LIT=${lit}/bin/.lit-wrapped"
-      ]
+      ++ lib.optionals (buildTests && !finalAttrs.passthru.isLLVM) [ "-DLLVM_EXTERNAL_LIT=${lit}/bin/.lit-wrapped" ]
       ++ extraCMakeFlags;
 
     postPatch =

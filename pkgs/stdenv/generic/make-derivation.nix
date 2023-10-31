@@ -326,9 +326,7 @@ let
             (map (drv: drv.__spliced.hostHost or drv) (checkDependencyList "depsHostHost" depsHostHost))
             (map (drv: drv.__spliced.hostTarget or drv) (checkDependencyList "buildInputs" buildInputs'))
           ]
-          [
-            (map (drv: drv.__spliced.targetTarget or drv) (checkDependencyList "depsTargetTarget" depsTargetTarget))
-          ]
+          [ (map (drv: drv.__spliced.targetTarget or drv) (checkDependencyList "depsTargetTarget" depsTargetTarget)) ]
         ];
         propagatedDependencies = map (map lib.chooseDevOutputs) [
           [
@@ -420,8 +418,7 @@ let
                   attrs.name + hostSuffix
                 else
                   # we cannot coerce null to a string below
-                  assert lib.assertMsg (attrs ? version && attrs.version != null)
-                      "The ‘version’ attribute cannot be null.";
+                  assert lib.assertMsg (attrs ? version && attrs.version != null) "The ‘version’ attribute cannot be null.";
                   "${attrs.pname}${staticMarker}${hostSuffix}-${attrs.version}"
               );
           })
@@ -601,9 +598,7 @@ let
             NIX_HARDENING_ENABLE = enabledHardeningOptions;
           }
           // lib.optionalAttrs (stdenv.hostPlatform.isx86_64 && stdenv.hostPlatform ? gcc.arch) {
-            requiredSystemFeatures = attrs.requiredSystemFeatures or [ ] ++ [
-              "gccarch-${stdenv.hostPlatform.gcc.arch}"
-            ];
+            requiredSystemFeatures = attrs.requiredSystemFeatures or [ ] ++ [ "gccarch-${stdenv.hostPlatform.gcc.arch}" ];
           }
           // lib.optionalAttrs (stdenv.buildPlatform.isDarwin) {
             inherit __darwinAllowLocalNetworking;
@@ -621,9 +616,7 @@ let
                 final = lib.concatStringsSep "\n" (lib.filter (x: x != "") (lib.unique profiles));
               in
               final;
-            __propagatedSandboxProfile = lib.unique (
-              computedPropagatedSandboxProfile ++ [ propagatedSandboxProfile ]
-            );
+            __propagatedSandboxProfile = lib.unique (computedPropagatedSandboxProfile ++ [ propagatedSandboxProfile ]);
             __impureHostDeps =
               computedImpureHostDeps
               ++ computedPropagatedImpureHostDeps

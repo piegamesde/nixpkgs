@@ -30,9 +30,7 @@
       );
       linux = lib.optionals stdenv.hostPlatform.isLinux (
         lib.genAttrs
-          (
-            (lib.optional stdenv.hostPlatform.isx86_64 "x64") ++ (lib.optional stdenv.hostPlatform.isAarch64 "arm64")
-          )
+          ((lib.optional stdenv.hostPlatform.isx86_64 "x64") ++ (lib.optional stdenv.hostPlatform.isAarch64 "arm64"))
           (
             architecture: [
               "debug"
@@ -125,9 +123,7 @@ let
               )
             )
             [ ]
-            (
-              builtins.attrNames (if includedEngineArtifacts ? platform then includedEngineArtifacts.platform else { })
-            )
+            (builtins.attrNames (if includedEngineArtifacts ? platform then includedEngineArtifacts.platform else { }))
           )
         )}
       ''

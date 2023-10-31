@@ -49,23 +49,18 @@ let
       parm ${openafsSrv}/libexec/openafs/dasalvager ${cfg.roles.fileserver.salvagerArgs}
       end
     '')
-    + (optionalString
-      (cfg.roles.database.enable && cfg.roles.backup.enable && (!cfg.roles.backup.enableFabs))
-      ''
-        bnode simple buserver 1
-        parm ${openafsSrv}/libexec/openafs/buserver ${cfg.roles.backup.buserverArgs} ${
-          optionalString useBuCellServDB "-cellservdb /etc/openafs/backup/"
-        }
-        end
-      ''
-    )
-    + (optionalString (cfg.roles.database.enable && cfg.roles.backup.enable && cfg.roles.backup.enableFabs)
-      ''
-        bnode simple buserver 1
-        parm ${lib.getBin pkgs.fabs}/bin/fabsys server --config ${fabsConfFile} ${cfg.roles.backup.fabsArgs}
-        end
-      ''
-    )
+    + (optionalString (cfg.roles.database.enable && cfg.roles.backup.enable && (!cfg.roles.backup.enableFabs)) ''
+      bnode simple buserver 1
+      parm ${openafsSrv}/libexec/openafs/buserver ${cfg.roles.backup.buserverArgs} ${
+        optionalString useBuCellServDB "-cellservdb /etc/openafs/backup/"
+      }
+      end
+    '')
+    + (optionalString (cfg.roles.database.enable && cfg.roles.backup.enable && cfg.roles.backup.enableFabs) ''
+      bnode simple buserver 1
+      parm ${lib.getBin pkgs.fabs}/bin/fabsys server --config ${fabsConfFile} ${cfg.roles.backup.fabsArgs}
+      end
+    '')
   );
 
   netInfo =

@@ -9,8 +9,7 @@
   cmdliner,
 }:
 
-lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08")
-  "uuidm is not available for OCaml ${ocaml.version}"
+lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08") "uuidm is not available for OCaml ${ocaml.version}"
 
   stdenv.mkDerivation
   rec {

@@ -204,9 +204,7 @@ stdenv.mkDerivation (
       # See https://github.com/Homebrew/homebrew-core/commit/dfa3ccf1e7d3901e371b5140b935839ba9d8b706
       ++ lib.optional stdenv.isDarwin "TKFRAMEWORK=/nonexistent";
 
-    disallowedReferences = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
-      stdenv.shellPackage
-    ];
+    disallowedReferences = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ stdenv.shellPackage ];
 
     postBuild =
       ''
@@ -343,9 +341,7 @@ stdenv.mkDerivation (
           ''
             # wrap git-send-email
             wrapProgram $out/libexec/git-core/git-send-email \
-                         --set GITPERLLIB "$out/${perlPackages.perl.libPrefix}:${
-                           perlPackages.makePerlPath smtpPerlLibs
-                         }"
+                         --set GITPERLLIB "$out/${perlPackages.perl.libPrefix}:${perlPackages.makePerlPath smtpPerlLibs}"
           ''
         else
           ''

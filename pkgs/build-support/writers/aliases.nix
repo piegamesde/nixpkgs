@@ -14,8 +14,7 @@ let
 
   # Make sure that we are not shadowing something from
   # writers.
-  checkInPkgs =
-    n: alias: if builtins.hasAttr n prev then throw "Alias ${n} is still in writers" else alias;
+  checkInPkgs = n: alias: if builtins.hasAttr n prev then throw "Alias ${n} is still in writers" else alias;
 
   mapAliases =
     aliases:

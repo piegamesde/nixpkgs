@@ -161,9 +161,7 @@ stdenv.mkDerivation {
     meta
   ;
 
-  outputs = [
-    "out"
-  ] ++ lib.optionals buildTests [ "test" ] ++ lib.optionals buildBenchmarks [ "benchmark" ];
+  outputs = [ "out" ] ++ lib.optionals buildTests [ "test" ] ++ lib.optionals buildBenchmarks [ "benchmark" ];
 
   dontUnpack = true;
   dontPatch = true;

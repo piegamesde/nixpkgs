@@ -32,8 +32,7 @@ stdenv.mkDerivation (
       pkg-config
     ];
 
-    buildInputs =
-      optional glibSupport glib ++ optional libevSupport libev ++ optional libeventSupport libevent;
+    buildInputs = optional glibSupport glib ++ optional libevSupport libev ++ optional libeventSupport libevent;
 
     meta = with lib; {
       homepage = "https://github.com/latchset/libverto";

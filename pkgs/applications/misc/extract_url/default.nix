@@ -9,12 +9,10 @@
 }:
 
 let
-  perlDeps =
-    [
-      perlPackages.MIMETools
-      perlPackages.HTMLParser
-    ]
-    ++ lib.optional cursesSupport perlPackages.CursesUI ++ lib.optional uriFindSupport perlPackages.URIFind;
+  perlDeps = [
+    perlPackages.MIMETools
+    perlPackages.HTMLParser
+  ] ++ lib.optional cursesSupport perlPackages.CursesUI ++ lib.optional uriFindSupport perlPackages.URIFind;
 in
 stdenv.mkDerivation rec {
   pname = "extract_url";

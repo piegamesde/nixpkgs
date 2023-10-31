@@ -127,8 +127,7 @@ import ./make-test-python.nix (
 
           environment.systemPackages = with pkgs; [ xfsprogs ];
 
-          environment.etc."initiator-root-disk-closure".source =
-            nodes.initiatorRootDisk.config.system.build.toplevel;
+          environment.etc."initiator-root-disk-closure".source = nodes.initiatorRootDisk.config.system.build.toplevel;
 
           nix.settings = {
             substituters = lib.mkForce [ ];

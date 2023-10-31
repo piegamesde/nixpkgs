@@ -19,8 +19,7 @@ with import ../pkgs/top-level/release-lib.nix { inherit supportedSystems; };
 let
 
   version = fileContents ../.version;
-  versionSuffix =
-    (if stableBranch then "." else "pre") + "${toString nixpkgs.revCount}.${nixpkgs.shortRev}";
+  versionSuffix = (if stableBranch then "." else "pre") + "${toString nixpkgs.revCount}.${nixpkgs.shortRev}";
 
   # Run the tests for each platform.  You can run a test by doing
   # e.g. ‘nix-build release.nix -A tests.login.x86_64-linux’,
@@ -284,11 +283,7 @@ rec {
   sd_image_new_kernel = forMatchingSystems [ "aarch64-linux" ] (
     system:
     makeSdImage {
-      module =
-        {
-          aarch64-linux = ./modules/installer/sd-card/sd-image-aarch64-new-kernel-installer.nix;
-        }
-        .${system};
+      module = { aarch64-linux = ./modules/installer/sd-card/sd-image-aarch64-new-kernel-installer.nix; }.${system};
       type = "minimal-new-kernel";
       inherit system;
     }

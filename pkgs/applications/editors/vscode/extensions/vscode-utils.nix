@@ -65,8 +65,7 @@ let
       }
     );
 
-  fetchVsixFromVscodeMarketplace =
-    mktplcExtRef: fetchurl (import ./mktplcExtRefToFetchArgs.nix mktplcExtRef);
+  fetchVsixFromVscodeMarketplace = mktplcExtRef: fetchurl (import ./mktplcExtRefToFetchArgs.nix mktplcExtRef);
 
   buildVscodeMarketplaceExtension =
     a@{

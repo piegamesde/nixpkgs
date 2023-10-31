@@ -14,8 +14,7 @@ let
   earlierPkgs =
     stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages;
   # use a early stdenv so when hacking on stdenv this test can be run quickly
-  bootStdenv =
-    stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv;
+  bootStdenv = stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv.__bootPackages.stdenv;
   pkgsStructured = import pkgs.path {
     config = {
       structuredAttrsByDefault = true;

@@ -26,9 +26,7 @@ mkOpenModelicaDerivation rec {
   ];
 
   postPatch = with openmodelica; ''
-    sed -i $(find -name qmake.m4) -e '/^\s*LRELEASE=/ s|LRELEASE=.*$|LRELEASE=${
-      lib.getDev qttools
-    }/bin/lrelease|'
+    sed -i $(find -name qmake.m4) -e '/^\s*LRELEASE=/ s|LRELEASE=.*$|LRELEASE=${lib.getDev qttools}/bin/lrelease|'
     sed -i OMShell/OMShell/OMShellGUI/*.pro -e '
       s|\$\$\[QT_INSTALL_BINS\]/lrelease|${lib.getDev qttools}/bin/lrelease|
       /^\s*OMCLIBS =/ s|\$\$(OMBUILDDIR)|${omcompiler}|

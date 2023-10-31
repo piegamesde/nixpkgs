@@ -28,13 +28,9 @@ let
             }
           );
 
-          coredis = super.coredis.overridePythonAttrs (
-            old: { buildInputs = old.buildInputs ++ [ super.setuptools ]; }
-          );
+          coredis = super.coredis.overridePythonAttrs (old: { buildInputs = old.buildInputs ++ [ super.setuptools ]; });
 
-          ariadne = super.ariadne.overridePythonAttrs (
-            old: { buildInputs = old.buildInputs ++ [ super.setuptools ]; }
-          );
+          ariadne = super.ariadne.overridePythonAttrs (old: { buildInputs = old.buildInputs ++ [ super.setuptools ]; });
         })
       ];
     }).python.pkgs;

@@ -490,8 +490,7 @@ in
 
               HTTP_ADDR = mkOption {
                 type = types.either types.str types.path;
-                default =
-                  if lib.hasSuffix "+unix" cfg.settings.server.PROTOCOL then "/run/gitea/gitea.sock" else "0.0.0.0";
+                default = if lib.hasSuffix "+unix" cfg.settings.server.PROTOCOL then "/run/gitea/gitea.sock" else "0.0.0.0";
                 defaultText =
                   literalExpression
                     ''if lib.hasSuffix "+unix" cfg.settings.server.PROTOCOL then "/run/gitea/gitea.sock" else "0.0.0.0"'';
@@ -892,8 +891,7 @@ in
         Type = "oneshot";
         User = cfg.user;
         ExecStart =
-          "${exe} dump --type ${cfg.dump.type}"
-          + optionalString (cfg.dump.file != null) " --file ${cfg.dump.file}";
+          "${exe} dump --type ${cfg.dump.type}" + optionalString (cfg.dump.file != null) " --file ${cfg.dump.file}";
         WorkingDirectory = cfg.dump.backupDir;
       };
     };

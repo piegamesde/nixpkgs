@@ -43,10 +43,7 @@ let
     map
       (
         hostOpts:
-        hostOpts
-        // {
-          certName = if hostOpts.useACMEHost != null then hostOpts.useACMEHost else hostOpts.hostName;
-        }
+        hostOpts // { certName = if hostOpts.useACMEHost != null then hostOpts.useACMEHost else hostOpts.hostName; }
       )
       (filter (hostOpts: hostOpts.enableACME || hostOpts.useACMEHost != null) vhosts);
 

@@ -29,9 +29,7 @@ in
         description = lib.mdDoc "Whether to support multi-user mode by enabling the Disnix D-Bus service";
       };
 
-      useWebServiceInterface = mkEnableOption (
-        lib.mdDoc "the DisnixWebService interface running on Apache Tomcat"
-      );
+      useWebServiceInterface = mkEnableOption (lib.mdDoc "the DisnixWebService interface running on Apache Tomcat");
 
       package = mkOption {
         type = types.path;
@@ -55,9 +53,7 @@ in
   config = mkIf cfg.enable {
     dysnomia.enable = true;
 
-    environment.systemPackages = [
-      pkgs.disnix
-    ] ++ optional cfg.useWebServiceInterface pkgs.DisnixWebService;
+    environment.systemPackages = [ pkgs.disnix ] ++ optional cfg.useWebServiceInterface pkgs.DisnixWebService;
     environment.variables.PATH = lib.optionals cfg.enableProfilePath (
       map (profileName: "/nix/var/nix/profiles/disnix/${profileName}/bin") cfg.profiles
     );

@@ -50,9 +50,7 @@ let
   # replace all secret strings using replace-secret
   generateConfig = pkgs.writeShellScript "mjolnir-generate-config" (
     let
-      yqEvalStr =
-        concatImapStringsSep " * " (pos: _: "select(fileIndex == ${toString (pos - 1)})")
-          configFiles;
+      yqEvalStr = concatImapStringsSep " * " (pos: _: "select(fileIndex == ${toString (pos - 1)})") configFiles;
       yqEvalArgs = concatStringsSep " " configFiles;
     in
     ''
@@ -209,12 +207,8 @@ in
 
     systemd.services.mjolnir = {
       description = "mjolnir - a moderation tool for Matrix";
-      wants = [
-        "network-online.target"
-      ] ++ optionals (cfg.pantalaimon.enable) [ "pantalaimon-mjolnir.service" ];
-      after = [
-        "network-online.target"
-      ] ++ optionals (cfg.pantalaimon.enable) [ "pantalaimon-mjolnir.service" ];
+      wants = [ "network-online.target" ] ++ optionals (cfg.pantalaimon.enable) [ "pantalaimon-mjolnir.service" ];
+      after = [ "network-online.target" ] ++ optionals (cfg.pantalaimon.enable) [ "pantalaimon-mjolnir.service" ];
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {

@@ -36,8 +36,7 @@ let
   # The default for cudatoolkit 10.1 is CUDNN 8.0.5, the last version to support CUDA 10.1.
   # However, this caffe does not build with CUDNN 8.x, so we use CUDNN 7.6.5 instead.
   # Earlier versions of cudatoolkit use pre-8.x CUDNN, so we use the default.
-  cudnn =
-    if lib.versionOlder cudatoolkit.version "10.1" then cudaPackages.cudnn else cudaPackages.cudnn_7_6_5;
+  cudnn = if lib.versionOlder cudatoolkit.version "10.1" then cudaPackages.cudnn else cudaPackages.cudnn_7_6_5;
 in
 
 assert leveldbSupport -> (leveldb != null && snappy != null);

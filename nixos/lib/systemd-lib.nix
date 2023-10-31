@@ -278,8 +278,7 @@ rec {
         for i in ${
           toString (
             mapAttrsToList (n: v: v.unit) (
-              lib.filterAttrs (n: v: (attrByPath [ "overrideStrategy" ] "asDropinIfExists" v) == "asDropinIfExists")
-                units
+              lib.filterAttrs (n: v: (attrByPath [ "overrideStrategy" ] "asDropinIfExists" v) == "asDropinIfExists") units
             )
           )
         }; do
@@ -432,9 +431,7 @@ rec {
           // optionalAttrs (options.startLimitIntervalSec.isDefined) {
             StartLimitIntervalSec = toString config.startLimitIntervalSec;
           }
-          // optionalAttrs (options.startLimitBurst.isDefined) {
-            StartLimitBurst = toString config.startLimitBurst;
-          };
+          // optionalAttrs (options.startLimitBurst.isDefined) { StartLimitBurst = toString config.startLimitBurst; };
       };
     };
 

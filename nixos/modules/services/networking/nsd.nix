@@ -213,8 +213,7 @@ let
     # fork -> pattern
     else
       zipAttrsWith (name: head) (
-        mapAttrsToList (name: child: zoneConfigs' (parent // zone // { children = { }; }) name child)
-          zone.children
+        mapAttrsToList (name: child: zoneConfigs' (parent // zone // { children = { }; }) name child) zone.children
       );
 
   # options are ordered alphanumerically

@@ -24,8 +24,7 @@ let
     concatStringsSep ", " (
       map
         (
-          command:
-          if (isString command) then command else "${toCommandOptionsString command.options}${command.command}"
+          command: if (isString command) then command else "${toCommandOptionsString command.options}${command.command}"
         )
         commands
     );
@@ -259,9 +258,7 @@ in
               rule:
               if (length rule.commands != 0) then
                 [
-                  (map (user: "${toUserString user}	${rule.host}=(${rule.runAs})	${toCommandsString rule.commands}")
-                    rule.users
-                  )
+                  (map (user: "${toUserString user}	${rule.host}=(${rule.runAs})	${toCommandsString rule.commands}") rule.users)
                   (map (group: "${toGroupString group}	${rule.host}=(${rule.runAs})	${toCommandsString rule.commands}")
                     rule.groups
                   )

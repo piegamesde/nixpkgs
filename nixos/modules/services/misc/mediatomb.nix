@@ -424,9 +424,7 @@ in
 
       # Open firewall only if users enable it
       networking.firewall = mkMerge [
-        (mkIf (cfg.openFirewall && cfg.interface != "") {
-          interfaces."${cfg.interface}" = defaultFirewallRules;
-        })
+        (mkIf (cfg.openFirewall && cfg.interface != "") { interfaces."${cfg.interface}" = defaultFirewallRules; })
         (mkIf (cfg.openFirewall && cfg.interface == "") defaultFirewallRules)
       ];
     };

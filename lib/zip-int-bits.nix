@@ -36,8 +36,7 @@ let
     else if snd == [ ] then
       [ (f (builtins.head fst) ysignum) ] ++ (zipListsWith' (builtins.tail fst) [ ])
     else
-      [ (f (builtins.head fst) (builtins.head snd)) ]
-      ++ (zipListsWith' (builtins.tail fst) (builtins.tail snd));
+      [ (f (builtins.head fst) (builtins.head snd)) ] ++ (zipListsWith' (builtins.tail fst) (builtins.tail snd));
 in
 assert (builtins.isInt x) && (builtins.isInt y);
 bitsToInt (zipListsWith' (intToBits x) (intToBits y)) (f xsignum ysignum)

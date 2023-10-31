@@ -10,9 +10,7 @@ with lib;
 let
   cfg = config.services.radicale;
 
-  format = pkgs.formats.ini {
-    listToValue = concatMapStringsSep ", " (generators.mkValueStringDefault { });
-  };
+  format = pkgs.formats.ini { listToValue = concatMapStringsSep ", " (generators.mkValueStringDefault { }); };
 
   pkg = if cfg.package == null then pkgs.radicale else cfg.package;
 

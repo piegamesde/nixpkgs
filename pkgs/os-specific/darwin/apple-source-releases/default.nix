@@ -275,9 +275,7 @@ developerToolsPackages_11_3_1
   architecture =
     applePackage "architecture" "osx-10.11.6" "sha256-cUKeMx6mOAxBSRHIdfzsrR65Qv86m7+20XvpKqVfwVI="
       { };
-  bsdmake =
-    applePackage "bsdmake" "dev-tools-3.2.6" "sha256-CW8zP5QZMhWTGp+rhrm8oHE/vSLsRlv1VRAGe1OUDmI="
-      { };
+  bsdmake = applePackage "bsdmake" "dev-tools-3.2.6" "sha256-CW8zP5QZMhWTGp+rhrm8oHE/vSLsRlv1VRAGe1OUDmI=" { };
   CarbonHeaders =
     applePackage "CarbonHeaders" "osx-10.6.2" "sha256-UNaHvxzYzEBnYYuoMLqWUVprZa6Wqn/3XleoSCco050="
       { };
@@ -289,15 +287,11 @@ developerToolsPackages_11_3_1
       applePackage "Security/boot.nix" "osx-10.9.5" "sha256-7qr0IamjCXCobIJ6V9KtvbMBkJDfRCy4C5eqpHJlQLI="
         { };
   };
-  copyfile =
-    applePackage "copyfile" "osx-10.12.6" "sha256-uHqLFOIpXK+n0RHyOZzVsP2DDZcFDivKCnqHBaXvHns="
-      { };
+  copyfile = applePackage "copyfile" "osx-10.12.6" "sha256-uHqLFOIpXK+n0RHyOZzVsP2DDZcFDivKCnqHBaXvHns=" { };
   Csu = applePackage "Csu" "osx-10.11.6" "sha256-h6a/sQMEVeFxKNWAPgKBXjWhyL2L2nvX9BQUMaTQ6sY=" { };
   dtrace = applePackage "dtrace" "osx-10.12.6" "sha256-Icr22ozixHquI0kRB2XZ+LlxD6V46sJHsHy4L/tDXZg=" { };
   dyld = applePackage "dyld" "osx-10.12.6" "sha256-JmKnOZtBPf96zEx7vhYHLBSTOPyKN71IdYE3R0IeJww=" { };
-  eap8021x =
-    applePackage "eap8021x" "osx-10.11.6" "sha256-54P3+YhVhOanoZQoqswDnr/GbR/AdEERse135nyuIQo="
-      { };
+  eap8021x = applePackage "eap8021x" "osx-10.11.6" "sha256-54P3+YhVhOanoZQoqswDnr/GbR/AdEERse135nyuIQo=" { };
   IOKit = applePackage "IOKit" "osx-10.11.6" "" { inherit IOKitSrcs; };
   launchd = applePackage "launchd" "osx-10.9.5" "sha256-dmV0UK7hG9wvTr+F4Z47nCFXcVZCV+cQ46WbE0DBtJs=" { };
   libauto = applePackage "libauto" "osx-10.9.5" "sha256-GnRcKq8jRbEsI/PSDphwUjWtpEIEcnLlQL9yxYLgSsU=" { };
@@ -318,30 +312,20 @@ developerToolsPackages_11_3_1
   libdispatch =
     applePackage "libdispatch" "osx-10.10.5" "sha256-jfAEk0OLrJa9AIZVikIoHomd+l+4rCfc320Xh50qK5M="
       { };
-  libiconv =
-    applePackage "libiconv" "osx-10.12.6" "sha256-ZzPFkchK3EU95UQUVVrR0t8iilhi/VnIkjjtP6KT2oI="
-      { };
+  libiconv = applePackage "libiconv" "osx-10.12.6" "sha256-ZzPFkchK3EU95UQUVVrR0t8iilhi/VnIkjjtP6KT2oI=" { };
   Libinfo = applePackage "Libinfo" "osx-10.11.6" "sha256-6F7wiwerv4nz/xXHtp1qCHSaFzZgzcRN+jbmXA5oWOQ=" { };
   Libm = applePackage "Libm" "osx-10.7.4" "sha256-KjMETfT4qJm0m0Ux/F6Rq8bI4Q4UVnFx6IKbKxXd+Es=" { };
-  Libnotify =
-    applePackage "Libnotify" "osx-10.12.6" "sha256-6wvMBxAUfiYcQtmlfYCj1d3kFmFM/jdboTd7hRvi3e4="
-      { };
+  Libnotify = applePackage "Libnotify" "osx-10.12.6" "sha256-6wvMBxAUfiYcQtmlfYCj1d3kFmFM/jdboTd7hRvi3e4=" { };
   libplatform =
     applePackage "libplatform" "osx-10.12.6" "sha256-6McMTjw55xtnCsFI3AB1osRagnuB5pSTqeMKD3gpGtM="
       { };
   libpthread =
     applePackage "libpthread" "osx-10.12.6" "sha256-QvJ9PERmrCWBiDmOWrLvQUKZ4JxHuh8gS5nlZKDLqE8="
       { };
-  libresolv =
-    applePackage "libresolv" "osx-10.12.6" "sha256-FtvwjJKSFX6j9APYPC8WLXVOjbHLZa1Gcoc8yxLy8qE="
-      { };
-  Libsystem =
-    applePackage "Libsystem" "osx-10.12.6" "sha256-zvRdCP//TjKCGAqm/5nJXPppshU1cv2fg/L/yK/olGQ="
-      { };
+  libresolv = applePackage "libresolv" "osx-10.12.6" "sha256-FtvwjJKSFX6j9APYPC8WLXVOjbHLZa1Gcoc8yxLy8qE=" { };
+  Libsystem = applePackage "Libsystem" "osx-10.12.6" "sha256-zvRdCP//TjKCGAqm/5nJXPppshU1cv2fg/L/yK/olGQ=" { };
   libutil = applePackage "libutil" "osx-10.12.6" "sha256-4PFuk+CTLwvd/Ll9GLBkiIM0Sh/CVaiKwh5m1noheRs=" { };
-  libunwind =
-    applePackage "libunwind" "osx-10.12.6" "sha256-CC0sndP/mKYe3dZu3v7fjuDASV4V4w7dAcnWMvpoquE="
-      { };
+  libunwind = applePackage "libunwind" "osx-10.12.6" "sha256-CC0sndP/mKYe3dZu3v7fjuDASV4V4w7dAcnWMvpoquE=" { };
   mDNSResponder =
     applePackage "mDNSResponder" "osx-10.12.6" "sha256-ddZr6tropkpdMJhq/kUlm3OwO8b0yxtkrMpwec8R4FY="
       { };
@@ -358,12 +342,8 @@ developerToolsPackages_11_3_1
     else
       macosPackages_11_0_1.xnu;
   hfs = applePackage "hfs" "osx-10.12.6" "sha256-eGi18HQFJrU5UHoBOE0LqO5gQ0xOf8+OJuAWQljfKE4=" { };
-  Librpcsvc =
-    applePackage "Librpcsvc" "osx-10.11.6" "sha256-YHbGws901xONzAbo6sB5zSea4Wp0sgYUJ8YgwVfWxnE="
-      { };
-  adv_cmds =
-    applePackage "adv_cmds" "osx-10.11.6" "sha256-Ztp8ALWcviEpthoiY8ttWzGI8OcsLzsULjlqe8GIzw8="
-      { };
+  Librpcsvc = applePackage "Librpcsvc" "osx-10.11.6" "sha256-YHbGws901xONzAbo6sB5zSea4Wp0sgYUJ8YgwVfWxnE=" { };
+  adv_cmds = applePackage "adv_cmds" "osx-10.11.6" "sha256-Ztp8ALWcviEpthoiY8ttWzGI8OcsLzsULjlqe8GIzw8=" { };
   basic_cmds =
     applePackage "basic_cmds" "osx-10.11.6" "sha256-BYPPTg4/7x6RPs0WwwQlkNiZxxArV+7EVe6bM+a/I6Q="
       { };
@@ -378,18 +358,14 @@ developerToolsPackages_11_3_1
       applePackage "network_cmds" "osx-10.11.6" "sha256-I89CLIswGheewOjiNZwQTgWvWbhm0qtB5+KUqzxnQ5M=" { }
     else
       macosPackages_11_0_1.network_cmds;
-  file_cmds =
-    applePackage "file_cmds" "osx-10.11.6" "sha256-JYy6HwmultKeZtLfaysbsyLoWg+OaTh7eJu54JkJC0Q="
-      { };
+  file_cmds = applePackage "file_cmds" "osx-10.11.6" "sha256-JYy6HwmultKeZtLfaysbsyLoWg+OaTh7eJu54JkJC0Q=" { };
   shell_cmds =
     applePackage "shell_cmds" "osx-10.11.6" "sha256-kmEOprkiJGMVcl7yHkGX8ymk/5KjE99gWuF8j2hK5hY="
       { };
   system_cmds =
     applePackage "system_cmds" "osx-10.11.6" "sha256-KBdGlHeXo2PwgRQOOeElJ1RBqCY1Tdhn5KD42CMhdzI="
       { };
-  text_cmds =
-    applePackage "text_cmds" "osx-10.11.6" "sha256-KSebU7ZyUsPeqn51nzuGNaNxs9pvmlIQQdkWXIVzDxw="
-      { };
+  text_cmds = applePackage "text_cmds" "osx-10.11.6" "sha256-KSebU7ZyUsPeqn51nzuGNaNxs9pvmlIQQdkWXIVzDxw=" { };
   top = applePackage "top" "osx-10.11.6" "sha256-jbz64ODogtpNyLpXGSZj1jCBdFPVXcVcBkL1vc7g5qQ=" { };
   PowerManagement =
     applePackage "PowerManagement" "osx-10.11.6" "sha256-bYGtYnBOcE5W03AZzfVTJXPZ6GgryGAMt/LgLPxFkVk="
@@ -397,12 +373,10 @@ developerToolsPackages_11_3_1
 
   # `configdHeaders` can’t use an override because `pkgs.darwin.configd` on aarch64-darwin will
   # be replaced by SystemConfiguration.framework from the macOS SDK.
-  configdHeaders =
-    applePackage "configd" "osx-10.8.5" "sha256-6I3FWNjTgds5abEcZrD++s9b+P9a2+qUf8KFAb72DwI="
-      {
-        headersOnly = true;
-        Security = null;
-      };
+  configdHeaders = applePackage "configd" "osx-10.8.5" "sha256-6I3FWNjTgds5abEcZrD++s9b+P9a2+qUf8KFAb72DwI=" {
+    headersOnly = true;
+    Security = null;
+  };
   libutilHeaders = pkgs.darwin.libutil.override { headersOnly = true; };
   hfsHeaders = pkgs.darwin.hfs.override { headersOnly = true; };
   libresolvHeaders = pkgs.darwin.libresolv.override { headersOnly = true; };

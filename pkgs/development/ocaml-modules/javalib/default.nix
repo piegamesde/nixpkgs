@@ -9,8 +9,7 @@
   extlib,
 }:
 
-lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08")
-  "javalib is not available for OCaml ${ocaml.version}"
+lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08") "javalib is not available for OCaml ${ocaml.version}"
 
   stdenv.mkDerivation
   rec {

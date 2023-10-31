@@ -75,9 +75,7 @@ in
             toString cfg.http.port
           } --smtp-ip ${cfg.smtp.ip} --smtp-port ${toString cfg.smtp.port}"
           + optionalString (cfg.http.path != null) " --http-path ${cfg.http.path}";
-        AmbientCapabilities =
-          optionalString (cfg.http.port < 1024 || cfg.smtp.port < 1024)
-            "cap_net_bind_service";
+        AmbientCapabilities = optionalString (cfg.http.port < 1024 || cfg.smtp.port < 1024) "cap_net_bind_service";
       };
     };
   };

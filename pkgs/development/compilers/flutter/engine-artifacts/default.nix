@@ -122,9 +122,7 @@ let
     in
     stdenv.mkDerivation (
       {
-        pname = "flutter-artifact${
-            lib.optionalString (platform != null) "-${artifactDirectory}"
-          }-${archiveBasename}";
+        pname = "flutter-artifact${lib.optionalString (platform != null) "-${artifactDirectory}"}-${archiveBasename}";
         version = engineVersion;
 
         src = fetchzip {

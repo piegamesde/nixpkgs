@@ -381,8 +381,7 @@ in
 
         hyperv-daemons = callPackage ../os-specific/linux/hyperv-daemons { };
 
-        e1000e =
-          if lib.versionOlder kernel.version "4.10" then callPackage ../os-specific/linux/e1000e { } else null;
+        e1000e = if lib.versionOlder kernel.version "4.10" then callPackage ../os-specific/linux/e1000e { } else null;
 
         intel-speed-select =
           if lib.versionAtLeast kernel.version "5.3" then
@@ -480,8 +479,7 @@ in
         rtw88 = callPackage ../os-specific/linux/rtw88 { };
         rtlwifi_new = rtw88;
 
-        rtw89 =
-          if lib.versionOlder kernel.version "5.16" then callPackage ../os-specific/linux/rtw89 { } else null;
+        rtw89 = if lib.versionOlder kernel.version "5.16" then callPackage ../os-specific/linux/rtw89 { } else null;
 
         openafs_1_8 = callPackage ../servers/openafs/1.8/module.nix { };
         # Current stable release; don't backport release updates!
@@ -514,10 +512,7 @@ in
         perf = callPackage ../os-specific/linux/kernel/perf { };
 
         phc-intel =
-          if lib.versionAtLeast kernel.version "4.10" then
-            callPackage ../os-specific/linux/phc-intel { }
-          else
-            null;
+          if lib.versionAtLeast kernel.version "4.10" then callPackage ../os-specific/linux/phc-intel { } else null;
 
         prl-tools = callPackage ../os-specific/linux/prl-tools { };
 
@@ -575,8 +570,7 @@ in
 
         x86_energy_perf_policy = callPackage ../os-specific/linux/x86_energy_perf_policy { };
 
-        xone =
-          if lib.versionAtLeast kernel.version "5.4" then callPackage ../os-specific/linux/xone { } else null;
+        xone = if lib.versionAtLeast kernel.version "5.4" then callPackage ../os-specific/linux/xone { } else null;
 
         xpadneo = callPackage ../os-specific/linux/xpadneo { };
 

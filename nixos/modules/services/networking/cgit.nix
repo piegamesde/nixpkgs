@@ -85,9 +85,7 @@ let
     cfg:
     pkgs.writeText "cgitrc" ''
       # global settings
-      ${concatStringsSep "\n" (
-        mapAttrsToList cgitrcLine ({ virtual-root = cfg.nginx.location; } // cfg.settings)
-      )}
+      ${concatStringsSep "\n" (mapAttrsToList cgitrcLine ({ virtual-root = cfg.nginx.location; } // cfg.settings))}
       ${optionalString (cfg.scanPath != null) (cgitrcLine "scan-path" cfg.scanPath)}
 
       # repository settings

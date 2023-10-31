@@ -87,9 +87,7 @@ in
 
   config = lib.mkIf (cfg.wireless.enable || cfg.lcd.enable) {
     environment.systemPackages =
-      [ ]
-      ++ lib.optional cfg.wireless.enable pkgs.ltunify
-      ++ lib.optional cfg.wireless.enableGraphical pkgs.solaar;
+      [ ] ++ lib.optional cfg.wireless.enable pkgs.ltunify ++ lib.optional cfg.wireless.enableGraphical pkgs.solaar;
 
     services.udev = {
       # ltunifi and solaar both provide udev rules but the most up-to-date have been split

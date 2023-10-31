@@ -309,8 +309,7 @@ in
               let
                 nick = mkDefault (
                   builtins.replaceStrings [ "." ] [ "-" ] (
-                    config.networking.hostName
-                    + optionalString (config.networking.domain != null) ".${config.networking.domain}"
+                    config.networking.hostName + optionalString (config.networking.domain != null) ".${config.networking.domain}"
                   )
                 );
               in

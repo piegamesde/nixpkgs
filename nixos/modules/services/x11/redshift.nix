@@ -176,10 +176,7 @@ in
     systemd.user.services.redshift =
       let
         providerString =
-          if lcfg.provider == "manual" then
-            "${toString lcfg.latitude}:${toString lcfg.longitude}"
-          else
-            lcfg.provider;
+          if lcfg.provider == "manual" then "${toString lcfg.latitude}:${toString lcfg.longitude}" else lcfg.provider;
       in
       {
         description = "Redshift colour temperature adjuster";

@@ -254,8 +254,7 @@ let
           pyProject;
       requiredPkgs = builtins.map (n: lib.elemAt (builtins.match "([^!=<>~[]+).*" n) 0) requires;
     in
-    builtins.map
-      (drvAttr: pythonPackages.${drvAttr} or (throw "unsupported build system requirement ${drvAttr}"))
+    builtins.map (drvAttr: pythonPackages.${drvAttr} or (throw "unsupported build system requirement ${drvAttr}"))
       requiredPkgs;
 
   # Find gitignore files recursively in parent directory stopping with .git

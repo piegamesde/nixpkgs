@@ -43,9 +43,7 @@ let
     paths = attrValues cfg.modules;
   };
 
-  configFile = pkgs.writeText "zabbix_server.conf" (
-    toKeyValue { listsAsDuplicateKeys = true; } cfg.settings
-  );
+  configFile = pkgs.writeText "zabbix_server.conf" (toKeyValue { listsAsDuplicateKeys = true; } cfg.settings);
 
   mysqlLocal = cfg.database.createLocally && cfg.database.type == "mysql";
   pgsqlLocal = cfg.database.createLocally && cfg.database.type == "pgsql";

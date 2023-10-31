@@ -20,9 +20,7 @@ stdenv.mkDerivation rec {
   version = "3.3.4";
 
   src = fetchurl {
-    url = "mirror://sourceforge/project/gtkextra/${
-        lib.versions.majorMinor version
-      }/${pname}-${version}.tar.gz";
+    url = "mirror://sourceforge/project/gtkextra/${lib.versions.majorMinor version}/${pname}-${version}.tar.gz";
     sha256 = "1mpihbyzhv3ymfim93l9xnxmzhwyqdba5xb4rdn5vggdg25766v5";
   };
 

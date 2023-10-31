@@ -29,9 +29,7 @@ stdenv.mkDerivation rec {
   version = "44.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gnome-text-editor/${
-        lib.versions.major version
-      }/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/gnome-text-editor/${lib.versions.major version}/${pname}-${version}.tar.xz";
     sha256 = "sha256-9nvDeAc0/6gV/MTF2qe1VdJORZ+B6itUjmqFwWEqMco=";
   };
 

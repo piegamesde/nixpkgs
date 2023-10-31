@@ -168,9 +168,7 @@ let
           onlyConfigJobs =
             ghc: jobs:
             let
-              configFilteredJobset =
-                lib.filterAttrs (jobName: platforms: lib.elem ghc (config."${jobName}" or [ ]))
-                  jobs;
+              configFilteredJobset = lib.filterAttrs (jobName: platforms: lib.elem ghc (config."${jobName}" or [ ])) jobs;
 
               # Remove platforms from each job that are not supported by GHC.
               # This is important so that we don't build jobs for platforms
@@ -226,8 +224,7 @@ let
   # }
   removePlatforms =
     platformsToRemove: packageSet:
-    lib.mapAttrsRecursive (_: val: if lib.isList val then removeMany platformsToRemove val else val)
-      packageSet;
+    lib.mapAttrsRecursive (_: val: if lib.isList val then removeMany platformsToRemove val else val) packageSet;
 
   jobs = recursiveUpdateMany [
     (mapTestOn {

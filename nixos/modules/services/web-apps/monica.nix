@@ -58,8 +58,7 @@ in
 
     hostname = lib.mkOption {
       type = lib.types.str;
-      default =
-        if config.networking.domain != null then config.networking.fqdn else config.networking.hostName;
+      default = if config.networking.domain != null then config.networking.fqdn else config.networking.hostName;
       defaultText = lib.literalExpression "config.networking.fqdn";
       example = "monica.example.com";
       description = lib.mdDoc ''

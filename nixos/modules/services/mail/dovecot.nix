@@ -82,9 +82,7 @@ let
     (optionalString (cfg.sieveScripts != { }) ''
       plugin {
         ${
-          concatStringsSep "\n" (
-            mapAttrsToList (to: from: "sieve_${to} = ${stateDir}/sieve/${to}") cfg.sieveScripts
-          )
+          concatStringsSep "\n" (mapAttrsToList (to: from: "sieve_${to} = ${stateDir}/sieve/${to}") cfg.sieveScripts)
         }
       }
     '')
@@ -280,9 +278,7 @@ in
               };
             };
           };
-        description =
-          lib.mdDoc
-            "Additional entries to add to the mail_plugins variable, globally and per protocol";
+        description = lib.mdDoc "Additional entries to add to the mail_plugins variable, globally and per protocol";
         example = {
           globally.enable = [ "acl" ];
           perProtocol.imap.enable = [ "imap_acl" ];
@@ -361,11 +357,9 @@ in
       description = lib.mdDoc "Path to the server's private key.";
     };
 
-    enablePAM =
-      mkEnableOption (lib.mdDoc "creating a own Dovecot PAM service and configure PAM user logins")
-      // {
-        default = true;
-      };
+    enablePAM = mkEnableOption (lib.mdDoc "creating a own Dovecot PAM service and configure PAM user logins") // {
+      default = true;
+    };
 
     enableDHE = mkEnableOption (lib.mdDoc "enable ssl_dh and generation of primes for the key exchange") // {
       default = true;

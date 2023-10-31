@@ -53,14 +53,12 @@ let
           ''--cmd "lua ${providerLuaRc}"''
           # (lib.intersperse "|" hostProviderViml)
         ]
-        ++
-          lib.optionals (packpathDirs.myNeovimPackages.start != [ ] || packpathDirs.myNeovimPackages.opt != [ ])
-            [
-              "--add-flags"
-              ''--cmd "set packpath^=${vimUtils.packDir packpathDirs}"''
-              "--add-flags"
-              ''--cmd "set rtp^=${vimUtils.packDir packpathDirs}"''
-            ];
+        ++ lib.optionals (packpathDirs.myNeovimPackages.start != [ ] || packpathDirs.myNeovimPackages.opt != [ ]) [
+          "--add-flags"
+          ''--cmd "set packpath^=${vimUtils.packDir packpathDirs}"''
+          "--add-flags"
+          ''--cmd "set rtp^=${vimUtils.packDir packpathDirs}"''
+        ];
 
       providerLuaRc = neovimUtils.generateProviderRc args;
       # providerLuaRc = "toto";

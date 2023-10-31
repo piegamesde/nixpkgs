@@ -283,8 +283,6 @@ in
         enabledNetworks
     );
 
-    users.groups = mkMerge (
-      mapAttrsToList (netName: netCfg: { ${nameToId netName} = { }; }) enabledNetworks
-    );
+    users.groups = mkMerge (mapAttrsToList (netName: netCfg: { ${nameToId netName} = { }; }) enabledNetworks);
   };
 }

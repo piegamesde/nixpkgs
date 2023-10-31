@@ -40,25 +40,22 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pythonRelaxDepsHook ];
 
-  propagatedBuildInputs =
-    [
-      aiohttp
-      eth-abi
-      eth-account
-      eth-hash
-      eth-rlp
-      eth-typing
-      eth-utils
-      hexbytes
-      ipfshttpclient
-      jsonschema
-      lru-dict
-      protobuf
-      requests
-      websockets
-    ]
-    ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
-    ++ eth-hash.optional-dependencies.pycryptodome;
+  propagatedBuildInputs = [
+    aiohttp
+    eth-abi
+    eth-account
+    eth-hash
+    eth-rlp
+    eth-typing
+    eth-utils
+    hexbytes
+    ipfshttpclient
+    jsonschema
+    lru-dict
+    protobuf
+    requests
+    websockets
+  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ] ++ eth-hash.optional-dependencies.pycryptodome;
 
   pythonRelaxDeps = true;
 

@@ -42,9 +42,7 @@ let
       mapAttrsToList (name: value: "${toString name} ${getSep value} ${toConf value};") attrs
     );
 
-  clightConf = pkgs.writeText "clight.conf" (
-    convertAttrs (filterAttrs (_: value: value != null) cfg.settings)
-  );
+  clightConf = pkgs.writeText "clight.conf" (convertAttrs (filterAttrs (_: value: value != null) cfg.settings));
 in
 {
   options.services.clight = {

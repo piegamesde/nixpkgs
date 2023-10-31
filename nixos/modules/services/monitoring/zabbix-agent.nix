@@ -32,9 +32,7 @@ let
     paths = attrValues cfg.modules;
   };
 
-  configFile = pkgs.writeText "zabbix_agent.conf" (
-    toKeyValue { listsAsDuplicateKeys = true; } cfg.settings
-  );
+  configFile = pkgs.writeText "zabbix_agent.conf" (toKeyValue { listsAsDuplicateKeys = true; } cfg.settings);
 in
 
 {

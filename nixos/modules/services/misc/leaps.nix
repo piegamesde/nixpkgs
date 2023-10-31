@@ -24,9 +24,7 @@ in
         default = "";
         type = types.str;
         example = "127.0.0.1";
-        description =
-          lib.mdDoc
-            "Hostname or IP-address to listen to. By default it will listen on all interfaces.";
+        description = lib.mdDoc "Hostname or IP-address to listen to. By default it will listen on all interfaces.";
       };
       path = mkOption {
         default = "/";
@@ -62,9 +60,7 @@ in
         Restart = "on-failure";
         WorkingDirectory = stateDir;
         PrivateTmp = true;
-        ExecStart = "${pkgs.leaps}/bin/leaps -path ${toString cfg.path} -address ${cfg.address}:${
-            toString cfg.port
-          }";
+        ExecStart = "${pkgs.leaps}/bin/leaps -path ${toString cfg.path} -address ${cfg.address}:${toString cfg.port}";
       };
     };
   };

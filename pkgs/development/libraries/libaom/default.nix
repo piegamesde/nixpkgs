@@ -64,9 +64,7 @@ stdenv.mkDerivation rec {
           # CPU detection isn't supported on Darwin and breaks the aarch64-darwin build:
           "-DCONFIG_RUNTIME_CPU_DETECT=0"
         ]
-    ++ lib.optionals (isCross && !stdenv.hostPlatform.isx86) [
-      "-DAS_EXECUTABLE=${stdenv.cc.targetPrefix}as"
-    ]
+    ++ lib.optionals (isCross && !stdenv.hostPlatform.isx86) [ "-DAS_EXECUTABLE=${stdenv.cc.targetPrefix}as" ]
     ++
       lib.optionals stdenv.isAarch32
         [

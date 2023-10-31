@@ -267,8 +267,7 @@ stdenv.mkDerivation (
     # https://github.com/NixOS/nixpkgs/issues/31989
     hardeningDisable =
       [ "bindnow" ]
-      ++ lib.optional (stdenv.hostPlatform.isDarwin) "fortify"
-      ++ lib.optional (supportFlags.mingwSupport) "format";
+      ++ lib.optional (stdenv.hostPlatform.isDarwin) "fortify" ++ lib.optional (supportFlags.mingwSupport) "format";
 
     passthru = {
       inherit pkgArches;
@@ -290,8 +289,7 @@ stdenv.mkDerivation (
           "An Open Source implementation of the Windows API on top of OpenGL and Unix (with experimental Wayland support)"
         else
           "An Open Source implementation of the Windows API on top of X, OpenGL, and Unix";
-      platforms =
-        if supportFlags.waylandSupport then (lib.remove "x86_64-darwin" prevPlatforms) else prevPlatforms;
+      platforms = if supportFlags.waylandSupport then (lib.remove "x86_64-darwin" prevPlatforms) else prevPlatforms;
       maintainers = with lib.maintainers; [
         avnik
         raskin

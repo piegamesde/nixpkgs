@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
     make check
   '';
 
-  installPhase =
-    (lib.optionalString stdenv.isDarwin "HOMEBREW_CAPSTONE=1 ") + "PREFIX=$out ./make.sh install";
+  installPhase = (lib.optionalString stdenv.isDarwin "HOMEBREW_CAPSTONE=1 ") + "PREFIX=$out ./make.sh install";
 
   nativeBuildInputs = [ pkg-config ] ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
 

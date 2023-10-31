@@ -46,9 +46,7 @@ stdenv.mkDerivation rec {
   version = "44.1";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gnome-settings-daemon/${
-        lib.versions.major version
-      }/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/gnome-settings-daemon/${lib.versions.major version}/${pname}-${version}.tar.xz";
     sha256 = "EmU7ctgfFRMApH1wCslBCsG8zjjoPxvdGc3tKTKUOYk=";
   };
 

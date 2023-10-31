@@ -367,8 +367,7 @@ in
             "/etc"
             "/run"
           ]
-          ++ optional
-            (cfg.settings.script-torrent-done-enabled && cfg.settings.script-torrent-done-filename != null)
+          ++ optional (cfg.settings.script-torrent-done-enabled && cfg.settings.script-torrent-done-filename != null)
             cfg.settings.script-torrent-done-filename
           ++
             optional (cfg.settings.watch-dir-enabled && !cfg.settings.trash-original-torrent-files)

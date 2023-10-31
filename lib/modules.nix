@@ -315,9 +315,7 @@ rec {
                 defText =
                   builtins.addErrorContext
                     "while evaluating the error message for definitions for `${optText}', which is an option that does not exist"
-                    (
-                      builtins.addErrorContext "while evaluating a definition from `${firstDef.file}'" (showDefs [ firstDef ])
-                    );
+                    (builtins.addErrorContext "while evaluating a definition from `${firstDef.file}'" (showDefs [ firstDef ]));
               in
               "The option `${optText}' does not exist. Definition values:${defText}";
           in
@@ -897,8 +895,7 @@ rec {
           || bothHave "apply"
           || (bothHave "type" && (!typesMergeable))
         then
-          throw
-            "The option `${showOption loc}' in `${opt._file}' is already declared in ${showFiles res.declarations}."
+          throw "The option `${showOption loc}' in `${opt._file}' is already declared in ${showFiles res.declarations}."
         else
           let
             getSubModules = opt.options.type.getSubModules or null;
@@ -1104,8 +1101,7 @@ rec {
   filterOverrides' =
     defs:
     let
-      getPrio =
-        def: if def.value._type or "" == "override" then def.value.priority else defaultOverridePriority;
+      getPrio = def: if def.value._type or "" == "override" then def.value.priority else defaultOverridePriority;
       highestPrio = foldl' (prio: def: min (getPrio def) prio) 9999 defs;
       strip = def: if def.value._type or "" == "override" then def // { value = def.value.content; } else def;
     in
@@ -1313,9 +1309,7 @@ rec {
       inherit from to;
       visible = false;
       warn = true;
-      use =
-        builtins.trace
-          "Obsolete option `${showOption from}' is used. It was renamed to `${showOption to}'.";
+      use = builtins.trace "Obsolete option `${showOption from}' is used. It was renamed to `${showOption to}'.";
     };
 
   mkRenamedOptionModuleWith =

@@ -63,8 +63,7 @@ rec {
               map
                 (
                   x:
-                  lib.optionalString (x.passthru.version-path != "")
-                    " :${x.passthru.gerbil-package}/${x.passthru.version-path}"
+                  lib.optionalString (x.passthru.version-path != "") " :${x.passthru.gerbil-package}/${x.passthru.version-path}"
                 )
                 gerbilInputs
             )

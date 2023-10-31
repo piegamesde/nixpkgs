@@ -357,9 +357,7 @@ in
                   settings = {
                     DeviceType = mkDefault config.interfaceType;
                     Name = mkDefault (if config.name == null then "$HOST" else config.name);
-                    Ed25519PrivateKeyFile = mkIf (config.ed25519PrivateKeyFile != null) (
-                      mkDefault config.ed25519PrivateKeyFile
-                    );
+                    Ed25519PrivateKeyFile = mkIf (config.ed25519PrivateKeyFile != null) (mkDefault config.ed25519PrivateKeyFile);
                     PrivateKeyFile = mkIf (config.rsaPrivateKeyFile != null) (mkDefault config.rsaPrivateKeyFile);
                     ListenAddress = mkIf (config.listenAddress != null) (mkDefault config.listenAddress);
                     BindToAddress = mkIf (config.bindToAddress != null) (mkDefault config.bindToAddress);

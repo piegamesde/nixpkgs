@@ -117,9 +117,7 @@ in
         ExecStart = ''
           ${pkgs.postsrsd}/sbin/postsrsd "-s${cfg.secretsFile}" "-d${cfg.domain}" -a${cfg.separator} -f${
             toString cfg.forwardPort
-          } -r${toString cfg.reversePort} -t${toString cfg.timeout} "-X${
-            concatStringsSep "," cfg.excludeDomains
-          }"'';
+          } -r${toString cfg.reversePort} -t${toString cfg.timeout} "-X${concatStringsSep "," cfg.excludeDomains}"'';
         User = cfg.user;
         Group = cfg.group;
         PermissionsStartOnly = true;

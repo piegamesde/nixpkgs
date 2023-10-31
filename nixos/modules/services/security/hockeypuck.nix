@@ -103,9 +103,7 @@ in
       serviceConfig = {
         WorkingDirectory = "/var/lib/hockeypuck";
         User = "hockeypuck";
-        ExecStart = "${pkgs.hockeypuck}/bin/hockeypuck -config ${
-            settingsFormat.generate "config.toml" cfg.settings
-          }";
+        ExecStart = "${pkgs.hockeypuck}/bin/hockeypuck -config ${settingsFormat.generate "config.toml" cfg.settings}";
         Restart = "always";
         RestartSec = "5s";
         LogsDirectory = "hockeypuck";

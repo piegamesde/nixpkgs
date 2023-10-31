@@ -42,13 +42,10 @@ stdenv.mkDerivation (
       gfortran
     ];
 
-    buildInputs =
-      [
-        rocblas
-        rocsolver
-      ]
-      ++ lib.optionals buildTests [ gtest ]
-      ++ lib.optionals (buildTests || buildBenchmarks) [ lapack-reference ];
+    buildInputs = [
+      rocblas
+      rocsolver
+    ] ++ lib.optionals buildTests [ gtest ] ++ lib.optionals (buildTests || buildBenchmarks) [ lapack-reference ];
 
     cmakeFlags =
       [

@@ -22,9 +22,7 @@ stdenv.mkDerivation (
     pname = "rocsolver";
     version = "5.4.4";
 
-    outputs = [
-      "out"
-    ] ++ lib.optionals buildTests [ "test" ] ++ lib.optionals buildBenchmarks [ "benchmark" ];
+    outputs = [ "out" ] ++ lib.optionals buildTests [ "test" ] ++ lib.optionals buildBenchmarks [ "benchmark" ];
 
     src = fetchFromGitHub {
       owner = "ROCmSoftwarePlatform";
@@ -39,13 +37,10 @@ stdenv.mkDerivation (
       hip
     ] ++ lib.optionals (buildTests || buildBenchmarks) [ gfortran ];
 
-    buildInputs =
-      [
-        rocblas
-        fmt
-      ]
-      ++ lib.optionals buildTests [ gtest ]
-      ++ lib.optionals (buildTests || buildBenchmarks) [ lapack-reference ];
+    buildInputs = [
+      rocblas
+      fmt
+    ] ++ lib.optionals buildTests [ gtest ] ++ lib.optionals (buildTests || buildBenchmarks) [ lapack-reference ];
 
     cmakeFlags =
       [

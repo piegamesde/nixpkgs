@@ -76,8 +76,7 @@ let
         ln -s ${extraConfig hostName cfg} $out/extraConfig.php
 
         # symlink additional templates
-        ${concatMapStringsSep "\n"
-          (template: "cp -r ${template}/. $out/application/views/invoice_templates/pdf/")
+        ${concatMapStringsSep "\n" (template: "cp -r ${template}/. $out/application/views/invoice_templates/pdf/")
           cfg.invoiceTemplates}
       '';
     };
@@ -279,8 +278,7 @@ in
               }
               {
                 assertion = cfg.cron.enable -> cfg.cron.key != null;
-                message = ''
-                  services.invoiceplane.sites."${hostName}".cron.key must be set in order to use cron service.'';
+                message = ''services.invoiceplane.sites."${hostName}".cron.key must be set in order to use cron service.'';
               }
             ])
             eachSite

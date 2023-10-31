@@ -98,10 +98,7 @@ let
       # return all package sets under haskell.packages matching the version components
       setsForVersion = builtins.map (name: packageSetsWithVersionedHead.${name}) (
         builtins.filter
-          (
-            setName:
-            lib.hasPrefix "ghc${configVersion}" setName && (skipBinaryGHCs -> !(lib.hasInfix "Binary" setName))
-          )
+          (setName: lib.hasPrefix "ghc${configVersion}" setName && (skipBinaryGHCs -> !(lib.hasInfix "Binary" setName)))
           (builtins.attrNames packageSetsWithVersionedHead)
       );
 

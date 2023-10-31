@@ -81,9 +81,7 @@ in
       blockperiod = mkOption {
         type = types.int;
         default = 5;
-        description =
-          lib.mdDoc
-            "Default minimum difference between two consecutive block's timestamps in seconds.";
+        description = lib.mdDoc "Default minimum difference between two consecutive block's timestamps in seconds.";
       };
 
       permissioned = mkOption {

@@ -51,10 +51,7 @@ stdenv.mkDerivation {
 
   configureFlags = [
     (
-      if stdenv.hostPlatform.system == "i686-linux" then
-        "--with-mps=$(TMPDIR)/mps"
-      else
-        "--with-gc=${boehmgc.out}"
+      if stdenv.hostPlatform.system == "i686-linux" then "--with-mps=$(TMPDIR)/mps" else "--with-gc=${boehmgc.out}"
     )
   ];
   buildPhase = "make 3-stage-bootstrap";

@@ -10,20 +10,14 @@ let
   # renderHost :: Either ServerOptions Path -> String
   renderHost =
     server:
-    if builtins.isString server then
-      "unix://${server}"
-    else
-      "${server.host},${builtins.toString server.port}";
+    if builtins.isString server then "unix://${server}" else "${server.host},${builtins.toString server.port}";
 
   # Filter out submodule parameters whose value is null or false or is
   # the key _module.
   #
   # filterParams :: ParamsSubmodule -> ParamsSubmodule
   filterParams =
-    p:
-    lib.filterAttrs (n: v: ("_module" != n) && (null != v) && (false != v)) (
-      lib.optionalAttrs (null != p) p
-    );
+    p: lib.filterAttrs (n: v: ("_module" != n) && (null != v) && (false != v)) (lib.optionalAttrs (null != p) p);
 
   # renderBackend :: BackendSubmodule -> String
   renderBackend =

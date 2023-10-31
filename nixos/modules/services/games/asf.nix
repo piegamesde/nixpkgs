@@ -241,9 +241,7 @@ in
               # clean potential removed bots
               rm -rf $out/*.json
               for i in ${
-                strings.concatStringsSep " " (
-                  lists.map (x: "${getName x},${x}") (attrsets.mapAttrsToList mkBot cfg.bots)
-                )
+                strings.concatStringsSep " " (lists.map (x: "${getName x},${x}") (attrsets.mapAttrsToList mkBot cfg.bots))
               }; do IFS=",";
                 set -- $i
                 ln -fs $2 $out/$1

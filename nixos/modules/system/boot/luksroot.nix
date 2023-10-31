@@ -159,9 +159,7 @@ let
       cschange = "cryptsetup luksChangeKey ${dev.device} ${
           optionalString (dev.header != null) "--header=${dev.header}"
         }";
-      fido2luksCredentials =
-        dev.fido2.credentials
-        ++ optional (dev.fido2.credential != null) dev.fido2.credential;
+      fido2luksCredentials = dev.fido2.credentials ++ optional (dev.fido2.credential != null) dev.fido2.credential;
     in
     ''
       # Wait for luksRoot (and optionally keyFile and/or header) to appear, e.g.
@@ -356,9 +354,7 @@ let
                       toString dev.yubikey.keyLength
                     } $iterations $response | rbtohex)"
                 else
-                    k_luks="$(echo | pbkdf2-sha512 ${
-                      toString dev.yubikey.keyLength
-                    } $iterations $response | rbtohex)"
+                    k_luks="$(echo | pbkdf2-sha512 ${toString dev.yubikey.keyLength} $iterations $response | rbtohex)"
                 fi
 
                 echo -n "$k_luks" | hextorb | ${csopen} --key-file=-
@@ -1076,14 +1072,12 @@ in
       }
 
       {
-        assertion =
-          !config.boot.initrd.systemd.enable -> all (x: x.keyFileTimeout == null) (attrValues luks.devices);
+        assertion = !config.boot.initrd.systemd.enable -> all (x: x.keyFileTimeout == null) (attrValues luks.devices);
         message = "boot.initrd.luks.devices.<name>.keyFileTimeout is only supported for systemd initrd";
       }
 
       {
-        assertion =
-          config.boot.initrd.systemd.enable -> all (dev: !dev.fallbackToPassword) (attrValues luks.devices);
+        assertion = config.boot.initrd.systemd.enable -> all (dev: !dev.fallbackToPassword) (attrValues luks.devices);
         message = "boot.initrd.luks.devices.<name>.fallbackToPassword is implied by systemd stage 1.";
       }
       {
@@ -1092,8 +1086,7 @@ in
       }
       {
         assertion =
-          config.boot.initrd.systemd.enable
-          -> options.boot.initrd.luks.reusePassphrases.highestPrio == defaultPrio;
+          config.boot.initrd.systemd.enable -> options.boot.initrd.luks.reusePassphrases.highestPrio == defaultPrio;
         message = "boot.initrd.luks.reusePassphrases has no effect with systemd stage 1.";
       }
       {

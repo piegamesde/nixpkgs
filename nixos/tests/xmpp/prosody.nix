@@ -55,9 +55,7 @@ import ../make-test-python.nix {
           ${nodes.server.config.networking.primaryIPAddress} conference.example.com
           ${nodes.server.config.networking.primaryIPAddress} uploads.example.com
         '';
-        environment.systemPackages = [
-          (pkgs.callPackage ./xmpp-sendmessage.nix { connectTo = "example.com"; })
-        ];
+        environment.systemPackages = [ (pkgs.callPackage ./xmpp-sendmessage.nix { connectTo = "example.com"; }) ];
       };
     server =
       { config, pkgs, ... }:

@@ -142,9 +142,7 @@ stdenv.mkDerivation rec {
     # > Please do not take this as permission to change, remove, or alter any other preferences as that is forbidden
     # > without express permission according to the Pale Moon Redistribution License.
     # > We are allowing this one and **ONLY** one exception in order to properly facilitate [package manager] repacks.
-    install -Dm644 ${
-      ./zz-disableUpdater.js
-    } $out/lib/palemoon/browser/defaults/preferences/zz-disableUpdates.js
+    install -Dm644 ${./zz-disableUpdater.js} $out/lib/palemoon/browser/defaults/preferences/zz-disableUpdates.js
 
     runHook postInstall
   '';

@@ -106,8 +106,7 @@ let
         cp -d opt/picoscope/lib/* $out/lib
          runHook postInstall
       '';
-      meta =
-        with lib; shared_meta lib // { description = "library for picotech oscilloscope ${name} series"; };
+      meta = with lib; shared_meta lib // { description = "library for picotech oscilloscope ${name} series"; };
     };
 
   scopePkgs = lib.mapAttrs scopePkg sources;

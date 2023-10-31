@@ -23,9 +23,7 @@ let
       version = "2.1.1";
 
       src = fetchurl {
-        url = "http://download.deluge-torrent.org/source/${
-            lib.versions.majorMinor version
-          }/deluge-${version}.tar.xz";
+        url = "http://download.deluge-torrent.org/source/${lib.versions.majorMinor version}/deluge-${version}.tar.xz";
         hash = "sha256-do3TGYAuQkN6s3lOvnW0lxQuCO1bD7JQO61izvRC3/c=";
       };
 

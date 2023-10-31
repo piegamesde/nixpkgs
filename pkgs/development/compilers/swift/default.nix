@@ -100,9 +100,7 @@ let
 
     swift = callPackage ./wrapper { swift = swift-unwrapped; };
 
-    sourcekit-lsp = callPackage ./sourcekit-lsp {
-      inherit (apple_sdk.frameworks) CryptoKit LocalAuthentication;
-    };
+    sourcekit-lsp = callPackage ./sourcekit-lsp { inherit (apple_sdk.frameworks) CryptoKit LocalAuthentication; };
 
     swift-docc = callPackage ./swift-docc { inherit (apple_sdk.frameworks) CryptoKit LocalAuthentication; };
   };

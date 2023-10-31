@@ -228,9 +228,7 @@ let
       dontUnpack = true;
       installPhase = ''
         mkdir -p $out/Library/Frameworks/
-        cp -r ${darwin-stubs}/System/Library/${
-          lib.optionalString private "Private"
-        }Frameworks/${name}.framework \
+        cp -r ${darwin-stubs}/System/Library/${lib.optionalString private "Private"}Frameworks/${name}.framework \
           $out/Library/Frameworks
 
         cd $out/Library/Frameworks/${name}.framework
@@ -328,9 +326,7 @@ rec {
       );
 
       Carbon = lib.overrideDerivation super.Carbon (
-        drv: {
-          extraTBDFiles = [ "Versions/A/Frameworks/HTMLRendering.framework/Versions/A/HTMLRendering.tbd" ];
-        }
+        drv: { extraTBDFiles = [ "Versions/A/Frameworks/HTMLRendering.framework/Versions/A/HTMLRendering.tbd" ]; }
       );
 
       CoreFoundation = lib.overrideDerivation super.CoreFoundation (drv: { setupHook = ./cf-setup-hook.sh; });

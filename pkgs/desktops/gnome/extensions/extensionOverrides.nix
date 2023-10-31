@@ -36,9 +36,7 @@ in
 # the upstream repository's sources.
 super:
 lib.trivial.pipe super [
-  (patchExtension "caffeine@patapon.info" (
-    old: { meta.maintainers = with lib.maintainers; [ eperuffo ]; }
-  ))
+  (patchExtension "caffeine@patapon.info" (old: { meta.maintainers = with lib.maintainers; [ eperuffo ]; }))
 
   (patchExtension "ddterm@amezin.github.com" (
     old: {

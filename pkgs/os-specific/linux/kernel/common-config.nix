@@ -1062,8 +1062,7 @@ let
         WERROR = whenAtLeast "5.15" no;
       }
       //
-        optionalAttrs
-          (stdenv.hostPlatform.system == "x86_64-linux" || stdenv.hostPlatform.system == "aarch64-linux")
+        optionalAttrs (stdenv.hostPlatform.system == "x86_64-linux" || stdenv.hostPlatform.system == "aarch64-linux")
           {
             # Enable CPU/memory hotplug support
             # Allows you to dynamically add & remove CPUs/memory to a VM client running NixOS without requiring a reboot
@@ -1080,8 +1079,7 @@ let
             NR_CPUS = freeform "384";
           }
       //
-        optionalAttrs
-          (stdenv.hostPlatform.system == "armv7l-linux" || stdenv.hostPlatform.system == "aarch64-linux")
+        optionalAttrs (stdenv.hostPlatform.system == "armv7l-linux" || stdenv.hostPlatform.system == "aarch64-linux")
           {
             # Enables support for the Allwinner Display Engine 2.0
             SUN8I_DE2_CCU = yes;

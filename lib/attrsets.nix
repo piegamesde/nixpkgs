@@ -381,10 +381,7 @@ rec {
           let
             v = set.${name};
           in
-          if pred name v then
-            [ (nameValuePair name (if isAttrs v then filterAttrsRecursive pred v else v)) ]
-          else
-            [ ]
+          if pred name v then [ (nameValuePair name (if isAttrs v then filterAttrsRecursive pred v else v)) ] else [ ]
         )
         (attrNames set)
     );
@@ -511,8 +508,7 @@ rec {
     foldl'
       (
         listOfAttrs: attrName:
-        concatMap (attrs: map (listValue: attrs // { ${attrName} = listValue; }) attrsOfLists.${attrName})
-          listOfAttrs
+        concatMap (attrs: map (listValue: attrs // { ${attrName} = listValue; }) attrsOfLists.${attrName}) listOfAttrs
       )
       [ { } ]
       (attrNames attrsOfLists);
@@ -961,8 +957,7 @@ rec {
        getOutput :: String -> Derivation -> String
   */
   getOutput =
-    output: pkg:
-    if !pkg ? outputSpecified || !pkg.outputSpecified then pkg.${output} or pkg.out or pkg else pkg;
+    output: pkg: if !pkg ? outputSpecified || !pkg.outputSpecified then pkg.${output} or pkg.out or pkg else pkg;
 
   /* Get a package's `bin` output.
      If the output does not exist, fallback to `.out` and then to the default.

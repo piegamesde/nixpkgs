@@ -84,9 +84,7 @@ in
             + optionalString (cfg.audioDevice != null) (
               "--gstout-audiodevice=${utils.escapeSystemdExecArg cfg.audioDevice} "
             )
-            + optionalString (cfg.audioSink != null) (
-              "--gstout-audiosink=${utils.escapeSystemdExecArg cfg.audioSink} "
-            )
+            + optionalString (cfg.audioSink != null) ("--gstout-audiosink=${utils.escapeSystemdExecArg cfg.audioSink} ")
             + optionalString (cfg.friendlyName != null) (
               "--friendly-name=${utils.escapeSystemdExecArg cfg.friendlyName} "
             )

@@ -119,8 +119,7 @@ backendStdenv.mkDerivation {
     # official version constraints (as recorded in default.nix). In some cases
     # you _may_ be able to smudge version constraints, just know that you're
     # embarking into unknown and unsupported territory when doing so.
-    broken =
-      strings.versionOlder cudaVersion minCudaVersion || strings.versionOlder maxCudaVersion cudaVersion;
+    broken = strings.versionOlder cudaVersion minCudaVersion || strings.versionOlder maxCudaVersion cudaVersion;
     description = "NVIDIA CUDA Deep Neural Network library (cuDNN)";
     homepage = "https://developer.nvidia.com/cudnn";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];

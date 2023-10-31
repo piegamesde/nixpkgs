@@ -11,9 +11,7 @@ stdenv.mkDerivation rec {
   version = "1.09";
 
   src = fetchurl {
-    url = "https://atari.miribilist.com/${pname}/${pname}${
-        builtins.replaceStrings [ "." ] [ "" ] version
-      }.zip";
+    url = "https://atari.miribilist.com/${pname}/${pname}${builtins.replaceStrings [ "." ] [ "" ] version}.zip";
     hash = "sha256-26shhw2r30GZIPz6S1rf6dOLKRpgpLwrqCRZX3+8PvA=";
   };
 

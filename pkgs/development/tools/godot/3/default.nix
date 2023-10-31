@@ -79,9 +79,7 @@ stdenv.mkDerivation rec {
     "platform=x11"
   ];
   preConfigure = ''
-    sconsFlags+=" ${
-      lib.concatStringsSep " " (lib.mapAttrsToList (k: v: "${k}=${builtins.toJSON v}") options)
-    }"
+    sconsFlags+=" ${lib.concatStringsSep " " (lib.mapAttrsToList (k: v: "${k}=${builtins.toJSON v}") options)}"
   '';
 
   outputs = [

@@ -1607,25 +1607,23 @@ in
         source = "${pkgs.iputils.out}/bin/ping";
       };
     };
-    security.apparmor.policies."bin.ping".profile =
-      lib.mkIf config.security.apparmor.policies."bin.ping".enable
-        (
-          lib.mkAfter ''
-            /run/wrappers/bin/ping {
-              include <abstractions/base>
-              include <nixos/security.wrappers>
-              rpx /run/wrappers/wrappers.*/ping,
-            }
-            /run/wrappers/wrappers.*/ping {
-              include <abstractions/base>
-              include <nixos/security.wrappers>
-              r /run/wrappers/wrappers.*/ping.real,
-              mrpx ${config.security.wrappers.ping.source},
-              capability net_raw,
-              capability setpcap,
-            }
-          ''
-        );
+    security.apparmor.policies."bin.ping".profile = lib.mkIf config.security.apparmor.policies."bin.ping".enable (
+      lib.mkAfter ''
+        /run/wrappers/bin/ping {
+          include <abstractions/base>
+          include <nixos/security.wrappers>
+          rpx /run/wrappers/wrappers.*/ping,
+        }
+        /run/wrappers/wrappers.*/ping {
+          include <abstractions/base>
+          include <nixos/security.wrappers>
+          r /run/wrappers/wrappers.*/ping.real,
+          mrpx ${config.security.wrappers.ping.source},
+          capability net_raw,
+          capability setpcap,
+        }
+      ''
+    );
 
     # Set the host and domain names in the activation script.  Don't
     # clear it if it's not configured in the NixOS configuration,
@@ -1794,15 +1792,13 @@ in
                     "${pkgs.iw}/bin/iw dev ${new._iName} set monitor ${new.flags}"}
                   ${optionalString (new.type == "managed" && new.fourAddr != null)
                     "${pkgs.iw}/bin/iw dev ${new._iName} set 4addr ${if new.fourAddr then "on" else "off"}"}
-                  ${optionalString (new.mac != null)
-                    "${pkgs.iproute2}/bin/ip link set dev ${new._iName} address ${new.mac}"}
+                  ${optionalString (new.mac != null) "${pkgs.iproute2}/bin/ip link set dev ${new._iName} address ${new.mac}"}
                 '';
 
               # Udev attributes for systemd to name the device and to create a .device target.
               systemdAttrs =
                 n:
-                ''
-                  NAME:="${n}", ENV{INTERFACE}="${n}", ENV{SYSTEMD_ALIAS}="/sys/subsystem/net/devices/${n}", TAG+="systemd"'';
+                ''NAME:="${n}", ENV{INTERFACE}="${n}", ENV{SYSTEMD_ALIAS}="/sys/subsystem/net/devices/${n}", TAG+="systemd"'';
             in
             flip (concatMapStringsSep "\n") (attrNames wlanDeviceInterfaces) (
               device:
@@ -1828,9 +1824,7 @@ in
                   systemdAttrs curInterface._iName
                 }, RUN+="${curInterfaceScript device curInterface newInterfaces}"
                 # Generate the same systemd events for both 'add' and 'move' udev events.
-                ACTION=="move", SUBSYSTEM=="net", ENV{DEVTYPE}=="wlan", NAME=="${device}", ${
-                  systemdAttrs curInterface._iName
-                }
+                ACTION=="move", SUBSYSTEM=="net", ENV{DEVTYPE}=="wlan", NAME=="${device}", ${systemdAttrs curInterface._iName}
               ''
             );
         }

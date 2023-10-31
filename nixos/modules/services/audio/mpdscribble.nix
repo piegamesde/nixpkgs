@@ -73,8 +73,7 @@ let
     cp -f "${cfgTemplate}" "${cfgFile}"
     ${replaceSecret cfg.passwordFile "{{MPD_PASSWORD}}" cfgFile}
     ${concatStringsSep "\n" (
-      mapAttrsToList (secname: cfg: replaceSecret cfg.passwordFile "{{${secname}_PASSWORD}}" cfgFile)
-        cfg.endpoints
+      mapAttrsToList (secname: cfg: replaceSecret cfg.passwordFile "{{${secname}_PASSWORD}}" cfgFile) cfg.endpoints
     )}
   '';
 
@@ -128,8 +127,7 @@ in
     passwordFile = mkOption {
       default =
         if localMpd then
-          (findFirst (c: any (x: x == "read") c.permissions) { passwordFile = null; } mpdCfg.credentials)
-          .passwordFile
+          (findFirst (c: any (x: x == "read") c.permissions) { passwordFile = null; } mpdCfg.credentials).passwordFile
         else
           null;
       defaultText = literalMD ''

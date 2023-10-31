@@ -24,9 +24,7 @@ let
     else
       "${name}_${config.networking.hostName}_${hash}";
 
-  hashedServices =
-    mapAttrs' (name: service: nameValuePair (genRunnerName name service) service)
-      cfg.services;
+  hashedServices = mapAttrs' (name: service: nameValuePair (genRunnerName name service) service) cfg.services;
   configPath = ''"$HOME"/.gitlab-runner/config.toml'';
   configureScript = pkgs.writeShellApplication {
     name = "gitlab-runner-configure";

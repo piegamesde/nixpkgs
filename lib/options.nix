@@ -321,9 +321,7 @@ rec {
                 renderOptionValue (opt.defaultText or opt.default)
               );
             }
-            // optionalAttrs (opt ? relatedPackages && opt.relatedPackages != null) {
-              inherit (opt) relatedPackages;
-            };
+            // optionalAttrs (opt ? relatedPackages && opt.relatedPackages != null) { inherit (opt) relatedPackages; };
 
           subOptions =
             let

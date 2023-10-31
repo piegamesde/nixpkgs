@@ -263,9 +263,7 @@ rec {
     + "\n"
     + "${pkgs.jq}/bin/jq >'${output}' "
     + lib.escapeShellArg (
-      concatStringsSep " | " (
-        imap1 (index: name: "${name} = $ENV.secret${toString index}") (attrNames secrets)
-      )
+      concatStringsSep " | " (imap1 (index: name: "${name} = $ENV.secret${toString index}") (attrNames secrets))
     )
     + ''
        <<'EOF'

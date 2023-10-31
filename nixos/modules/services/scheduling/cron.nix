@@ -28,8 +28,7 @@ let
   };
 
   allFiles =
-    optional (config.services.cron.systemCronJobs != [ ]) systemCronJobsFile
-    ++ config.services.cron.cronFiles;
+    optional (config.services.cron.systemCronJobs != [ ]) systemCronJobsFile ++ config.services.cron.cronFiles;
 in
 
 {

@@ -39,8 +39,7 @@ stdenv.mkDerivation rec {
     '';
 
   meta = with lib; {
-    description =
-      if buildClient then "User information lookup program" else "Remote user information server";
+    description = if buildClient then "User information lookup program" else "Remote user information server";
     platforms = platforms.linux;
     license = licenses.bsdOriginal;
   };

@@ -237,12 +237,8 @@ let
     with profile;
     mkMerge ([
       {
-        "xdg/autorandr/${name}/setup".text = concatStringsSep "\n" (
-          mapAttrsToList fingerprintToString fingerprint
-        );
-        "xdg/autorandr/${name}/config".text = concatStringsSep "\n" (
-          mapAttrsToList configToString profile.config
-        );
+        "xdg/autorandr/${name}/setup".text = concatStringsSep "\n" (mapAttrsToList fingerprintToString fingerprint);
+        "xdg/autorandr/${name}/config".text = concatStringsSep "\n" (mapAttrsToList configToString profile.config);
       }
       (mapAttrs' (hookToFile "${name}/postswitch.d") hooks.postswitch)
       (mapAttrs' (hookToFile "${name}/preswitch.d") hooks.preswitch)

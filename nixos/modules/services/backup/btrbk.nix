@@ -137,9 +137,7 @@ in
                 settings = mkOption {
                   type =
                     let
-                      t = types.attrsOf (
-                        types.either types.str (t // { description = "instances of this type recursively"; })
-                      );
+                      t = types.attrsOf (types.either types.str (t // { description = "instances of this type recursively"; }));
                     in
                     t;
                   default = { };

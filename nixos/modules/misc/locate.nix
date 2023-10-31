@@ -296,9 +296,7 @@ in
       ++
         optional (isFindutils && cfg.pruneNames != [ ])
           "findutils locate does not support pruning by directory component"
-      ++
-        optional (isFindutils && cfg.pruneBindMounts)
-          "findutils locate does not support skipping bind mounts";
+      ++ optional (isFindutils && cfg.pruneBindMounts) "findutils locate does not support skipping bind mounts";
 
     systemd.services.update-locatedb = {
       description = "Update Locate Database";

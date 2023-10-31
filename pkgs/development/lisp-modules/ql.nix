@@ -43,9 +43,7 @@ let
         }
       );
       cl-mysql = super.cl-mysql.overrideLispAttrs (o: { nativeLibs = [ pkgs.mariadb.client ]; });
-      clsql-postgresql = super.clsql-postgresql.overrideLispAttrs (
-        o: { nativeLibs = [ pkgs.postgresql.lib ]; }
-      );
+      clsql-postgresql = super.clsql-postgresql.overrideLispAttrs (o: { nativeLibs = [ pkgs.postgresql.lib ]; });
       clsql-sqlite3 = super.clsql-sqlite3.overrideLispAttrs (o: { nativeLibs = [ pkgs.sqlite ]; });
       cl-webkit2 = super.cl-webkit2.overrideLispAttrs (o: { nativeLibs = [ pkgs.webkitgtk ]; });
       dbd-mysql = super.dbd-mysql.overrideLispAttrs (o: { nativeLibs = [ pkgs.mariadb.client ]; });
@@ -62,9 +60,7 @@ let
           nativeLibs = [ pkgs.rabbitmq-c ];
         }
       );
-      trivial-ssh-libssh2 = super.trivial-ssh-libssh2.overrideLispAttrs (
-        o: { nativeLibs = [ pkgs.libssh2 ]; }
-      );
+      trivial-ssh-libssh2 = super.trivial-ssh-libssh2.overrideLispAttrs (o: { nativeLibs = [ pkgs.libssh2 ]; });
       sqlite = super.sqlite.overrideLispAttrs (o: { nativeLibs = [ pkgs.sqlite ]; });
       cl-libuv = super.cl-libuv.overrideLispAttrs (
         o: {

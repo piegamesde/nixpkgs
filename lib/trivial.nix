@@ -460,11 +460,7 @@ rec {
      setFunctionArgs : (a → b) → Map String Bool.
   */
   functionArgs =
-    f:
-    if f ? __functor then
-      f.__functionArgs or (lib.functionArgs (f.__functor f))
-    else
-      builtins.functionArgs f;
+    f: if f ? __functor then f.__functionArgs or (lib.functionArgs (f.__functor f)) else builtins.functionArgs f;
 
   /* Check whether something is a function or something
      annotated with function args.

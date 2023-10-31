@@ -53,12 +53,7 @@ stdenv.mkDerivation rec {
 
   patches = [
     # Based on http://patch-tracker.debian.org/patch/series/dl/nss/2:3.15.4-1/85_security_load.patch
-    (
-      if (lib.versionOlder version "3.84") then
-        ./85_security_load_3.77+.patch
-      else
-        ./85_security_load_3.85+.patch
-    )
+    (if (lib.versionOlder version "3.84") then ./85_security_load_3.77+.patch else ./85_security_load_3.85+.patch)
     ./fix-cross-compilation.patch
   ];
 
@@ -214,9 +209,7 @@ stdenv.mkDerivation rec {
 
   passthru.tests =
     lib.optionalAttrs (lib.versionOlder version "3.69") { inherit (nixosTests) firefox-esr-91; }
-    // lib.optionalAttrs (lib.versionAtLeast version "3.69") {
-      inherit (nixosTests) firefox firefox-esr-102;
-    };
+    // lib.optionalAttrs (lib.versionAtLeast version "3.69") { inherit (nixosTests) firefox firefox-esr-102; };
 
   meta = with lib; {
     homepage = "https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS";

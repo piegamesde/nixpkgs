@@ -350,9 +350,9 @@ import ./make-test-python.nix (
         resolver.wait_for_unit("multi-user.target")
 
         with subtest("client should be able to query the resolver"):
-            test(client, ["${
-              (lib.head nodes.resolver.config.networking.interfaces.eth1.ipv6.addresses).address
-            }", "${(lib.head nodes.resolver.config.networking.interfaces.eth1.ipv4.addresses).address}"], doh=True)
+            test(client, ["${(lib.head nodes.resolver.config.networking.interfaces.eth1.ipv6.addresses).address}", "${
+              (lib.head nodes.resolver.config.networking.interfaces.eth1.ipv4.addresses).address
+            }"], doh=True)
 
         # discard the client we do not need anymore
         client.shutdown()

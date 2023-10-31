@@ -120,8 +120,7 @@ let
         path: value:
         if (builtins.elemAt path ((builtins.length path) - 1)) == "archives" then
           (builtins.listToAttrs (
-            builtins.map (archive: lib.attrsets.nameValuePair archive.os (fetchurl { inherit (archive) url sha1; }))
-              value
+            builtins.map (archive: lib.attrsets.nameValuePair archive.os (fetchurl { inherit (archive) url sha1; })) value
           ))
         else
           value

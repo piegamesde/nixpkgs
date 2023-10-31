@@ -91,9 +91,7 @@ in
         type = types.str;
         default = "B";
         example = ".";
-        description =
-          lib.mdDoc
-            "Use a different container as the root of the directory tree presented to clients.";
+        description = lib.mdDoc "Use a different container as the root of the directory tree presented to clients.";
       };
       options.log_level = mkOption {
         type = types.str;

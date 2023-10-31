@@ -95,8 +95,7 @@ let
           "-DCMAKE_INSTALL_MANDIR=share/man"
           "-DCMAKE_INSTALL_LOCALEDIR=share/locale"
         ]
-        ++ optionals buildServer [ "-DENABLE_PROMETHEUS=1" ]
-        ++ optionals withTouchSupport [ "-DENABLE_TOUCH=TRUE" ];
+        ++ optionals buildServer [ "-DENABLE_PROMETHEUS=1" ] ++ optionals withTouchSupport [ "-DENABLE_TOUCH=TRUE" ];
 
       env.NIX_CFLAGS_COMPILE = "-DluaL_reg=luaL_Reg"; # needed since luajit-2.1.0-beta3
 

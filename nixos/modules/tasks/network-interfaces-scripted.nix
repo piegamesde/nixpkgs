@@ -56,8 +56,7 @@ let
 
   bondWarnings =
     let
-      oneBondWarnings =
-        bondName: bond: mapAttrsToList (bondText bondName) (bondDeprecation.filterDeprecated bond);
+      oneBondWarnings = bondName: bond: mapAttrsToList (bondText bondName) (bondDeprecation.filterDeprecated bond);
       bondText =
         bondName: optName: _:
         "${bondName}.${optName} is deprecated, use ${bondName}.driverOptions";
@@ -169,9 +168,7 @@ let
                 optionalString (cfg.defaultGateway.metric != null) "metric ${toString cfg.defaultGateway.metric}"
               } via "${cfg.defaultGateway.address}" ${
                 optionalString (cfg.defaultGatewayWindowSize != null) "window ${toString cfg.defaultGatewayWindowSize}"
-              } ${
-                optionalString (cfg.defaultGateway.interface != null) "dev ${cfg.defaultGateway.interface}"
-              } proto static
+              } ${optionalString (cfg.defaultGateway.interface != null) "dev ${cfg.defaultGateway.interface}"} proto static
             ''}
             ${optionalString (cfg.defaultGateway6 != null && cfg.defaultGateway6.address != "") ''
               ${optionalString (cfg.defaultGateway6.interface != null) ''

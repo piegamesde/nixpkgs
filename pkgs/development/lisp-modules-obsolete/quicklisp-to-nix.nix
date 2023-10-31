@@ -484,25 +484,23 @@ let
     );
 
     "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank" = buildLispPackage (
-      (f: x: (x // (f x)))
-        (qlOverrides."hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank" or (x: { }))
-        (
-          import ./quicklisp-to-nix-output/hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank.nix {
-            inherit fetchurl;
-            "alexandria" = quicklisp-to-nix-packages."alexandria";
-            "anaphora" = quicklisp-to-nix-packages."anaphora";
-            "hu_dot_dwim_dot_asdf" = quicklisp-to-nix-packages."hu_dot_dwim_dot_asdf";
-            "hu_dot_dwim_dot_def" = quicklisp-to-nix-packages."hu_dot_dwim_dot_def";
-            "hu_dot_dwim_dot_def_plus_swank" = quicklisp-to-nix-packages."hu_dot_dwim_dot_def_plus_swank";
-            "hu_dot_dwim_dot_stefil" = quicklisp-to-nix-packages."hu_dot_dwim_dot_stefil";
-            "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def" =
-              quicklisp-to-nix-packages."hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def";
-            "hu_dot_dwim_dot_stefil_plus_swank" = quicklisp-to-nix-packages."hu_dot_dwim_dot_stefil_plus_swank";
-            "iterate" = quicklisp-to-nix-packages."iterate";
-            "metabang-bind" = quicklisp-to-nix-packages."metabang-bind";
-            "swank" = quicklisp-to-nix-packages."swank";
-          }
-        )
+      (f: x: (x // (f x))) (qlOverrides."hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank" or (x: { })) (
+        import ./quicklisp-to-nix-output/hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank.nix {
+          inherit fetchurl;
+          "alexandria" = quicklisp-to-nix-packages."alexandria";
+          "anaphora" = quicklisp-to-nix-packages."anaphora";
+          "hu_dot_dwim_dot_asdf" = quicklisp-to-nix-packages."hu_dot_dwim_dot_asdf";
+          "hu_dot_dwim_dot_def" = quicklisp-to-nix-packages."hu_dot_dwim_dot_def";
+          "hu_dot_dwim_dot_def_plus_swank" = quicklisp-to-nix-packages."hu_dot_dwim_dot_def_plus_swank";
+          "hu_dot_dwim_dot_stefil" = quicklisp-to-nix-packages."hu_dot_dwim_dot_stefil";
+          "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def" =
+            quicklisp-to-nix-packages."hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def";
+          "hu_dot_dwim_dot_stefil_plus_swank" = quicklisp-to-nix-packages."hu_dot_dwim_dot_stefil_plus_swank";
+          "iterate" = quicklisp-to-nix-packages."iterate";
+          "metabang-bind" = quicklisp-to-nix-packages."metabang-bind";
+          "swank" = quicklisp-to-nix-packages."swank";
+        }
+      )
     );
 
     "hu_dot_dwim_dot_common" = buildLispPackage (

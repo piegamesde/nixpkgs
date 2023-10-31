@@ -8,9 +8,7 @@
 }:
 
 let
-  common = import ../../../development/python-modules/openrazer/common.nix {
-    inherit lib fetchFromGitHub;
-  };
+  common = import ../../../development/python-modules/openrazer/common.nix { inherit lib fetchFromGitHub; };
 in
 stdenv.mkDerivation (
   common

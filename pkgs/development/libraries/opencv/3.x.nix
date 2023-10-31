@@ -295,9 +295,7 @@ stdenv.mkDerivation {
       graphviz-nox
     ];
 
-  propagatedBuildInputs =
-    lib.optional enablePython pythonPackages.numpy
-    ++ lib.optional enableCuda cudatoolkit;
+  propagatedBuildInputs = lib.optional enablePython pythonPackages.numpy ++ lib.optional enableCuda cudatoolkit;
 
   nativeBuildInputs = [
     cmake

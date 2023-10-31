@@ -56,9 +56,7 @@ stdenv.mkDerivation rec {
 
     patchelf \
       --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker) \
-      --set-rpath "${
-        lib.makeLibraryPath [ zlib ]
-      }:$(patchelf --print-rpath $(find "$out/toolbox" -name java))" \
+      --set-rpath "${lib.makeLibraryPath [ zlib ]}:$(patchelf --print-rpath $(find "$out/toolbox" -name java))" \
       "$(find "$out/toolbox" -name java)"
 
     patchelf \

@@ -48,9 +48,7 @@ let
         .include ${cfg.configFile}
         ${addModuleIf cfg.zeroconf.publish.enable "module-zeroconf-publish"}
         ${addModuleIf cfg.zeroconf.discovery.enable "module-zeroconf-discover"}
-        ${addModuleIf cfg.tcp.enable (
-          concatStringsSep " " ([ "module-native-protocol-tcp" ] ++ allAnon ++ ipAnon)
-        )}
+        ${addModuleIf cfg.tcp.enable (concatStringsSep " " ([ "module-native-protocol-tcp" ] ++ allAnon ++ ipAnon))}
         ${addModuleIf config.services.jack.jackd.enable "module-jack-sink"}
         ${addModuleIf config.services.jack.jackd.enable "module-jack-source"}
         ${cfg.extraConfig}
@@ -271,9 +269,7 @@ in
     (mkIf (cfg.extraModules != [ ]) {
       hardware.pulseaudio.daemon.config.dl-search-path =
         let
-          overriddenModules =
-            builtins.map (drv: drv.override { pulseaudio = overriddenPackage; })
-              cfg.extraModules;
+          overriddenModules = builtins.map (drv: drv.override { pulseaudio = overriddenPackage; }) cfg.extraModules;
           modulePaths =
             builtins.map (drv: "${drv}/lib/pulseaudio/modules")
               # User-provided extra modules take precedence
@@ -295,17 +291,13 @@ in
         "pulse/default.pa".source = myConfigFile;
       };
       systemd.user = {
-        services.pulseaudio =
-          {
-            restartIfChanged = true;
-            serviceConfig = {
-              RestartSec = "500ms";
-              PassEnvironment = "DISPLAY";
-            };
-          }
-          // optionalAttrs config.services.jack.jackd.enable {
-            environment.JACK_PROMISCUOUS_SERVER = "jackaudio";
+        services.pulseaudio = {
+          restartIfChanged = true;
+          serviceConfig = {
+            RestartSec = "500ms";
+            PassEnvironment = "DISPLAY";
           };
+        } // optionalAttrs config.services.jack.jackd.enable { environment.JACK_PROMISCUOUS_SERVER = "jackaudio"; };
         sockets.pulseaudio = {
           wantedBy = [ "sockets.target" ];
         };

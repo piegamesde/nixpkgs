@@ -169,8 +169,7 @@ stdenv.mkDerivation rec {
           versionPolicy = "odd-unstable";
         };
         updatePatch =
-          _experimental-update-script-combinators.copyAttrOutputToFile
-            "evolution-data-server.hardcodeGsettingsPatch"
+          _experimental-update-script-combinators.copyAttrOutputToFile "evolution-data-server.hardcodeGsettingsPatch"
             ./hardcode-gsettings.patch;
       in
       _experimental-update-script-combinators.sequence [

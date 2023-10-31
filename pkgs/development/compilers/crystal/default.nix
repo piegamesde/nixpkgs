@@ -180,8 +180,7 @@ let
 
               ''
               +
-                lib.optionalString
-                  (stdenv.isDarwin && lib.versionAtLeast version "1.3.0" && lib.versionOlder version "1.7.0")
+                lib.optionalString (stdenv.isDarwin && lib.versionAtLeast version "1.3.0" && lib.versionOlder version "1.7.0")
                   ''
                     # See https://github.com/NixOS/nixpkgs/pull/195606#issuecomment-1356491277
                     substituteInPlace spec/compiler/loader/unix_spec.cr \

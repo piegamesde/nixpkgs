@@ -156,8 +156,7 @@ rec {
 
          > haskell.lib.compose.removeConfigureFlag "--verbose" haskellPackages.servant
   */
-  removeConfigureFlag =
-    x: overrideCabal (drv: { configureFlags = lib.remove x (drv.configureFlags or [ ]); });
+  removeConfigureFlag = x: overrideCabal (drv: { configureFlags = lib.remove x (drv.configureFlags or [ ]); });
 
   addBuildTool = x: addBuildTools [ x ];
   addBuildTools = xs: overrideCabal (drv: { buildTools = (drv.buildTools or [ ]) ++ xs; });
@@ -172,12 +171,10 @@ rec {
   addTestToolDepends = xs: overrideCabal (drv: { testToolDepends = (drv.testToolDepends or [ ]) ++ xs; });
 
   addPkgconfigDepend = x: addPkgconfigDepends [ x ];
-  addPkgconfigDepends =
-    xs: overrideCabal (drv: { pkg-configDepends = (drv.pkg-configDepends or [ ]) ++ xs; });
+  addPkgconfigDepends = xs: overrideCabal (drv: { pkg-configDepends = (drv.pkg-configDepends or [ ]) ++ xs; });
 
   addSetupDepend = x: addSetupDepends [ x ];
-  addSetupDepends =
-    xs: overrideCabal (drv: { setupHaskellDepends = (drv.setupHaskellDepends or [ ]) ++ xs; });
+  addSetupDepends = xs: overrideCabal (drv: { setupHaskellDepends = (drv.setupHaskellDepends or [ ]) ++ xs; });
 
   enableCabalFlag = x: drv: appendConfigureFlag "-f${x}" (removeConfigureFlag "-f-${x}" drv);
   disableCabalFlag = x: drv: appendConfigureFlag "-f-${x}" (removeConfigureFlag "-f${x}" drv);

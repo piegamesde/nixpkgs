@@ -13,16 +13,14 @@ import ./make-test-python.nix (
 
         environment.systemPackages = [
           # Create a script that tries to make a request to the D-Bus secrets API.
-          (pkgs.writers.writePython3Bin "secrets-dbus-init" { libraries = [ pkgs.python3Packages.secretstorage ]; }
-            ''
-              import secretstorage
-              print("Initializing dbus connection...")
-              connection = secretstorage.dbus_init()
-              print("Requesting default collection...")
-              collection = secretstorage.get_default_collection(connection)
-              print("Done!  dbus-org.freedesktop.secrets should now be active.")
-            ''
-          )
+          (pkgs.writers.writePython3Bin "secrets-dbus-init" { libraries = [ pkgs.python3Packages.secretstorage ]; } ''
+            import secretstorage
+            print("Initializing dbus connection...")
+            connection = secretstorage.dbus_init()
+            print("Requesting default collection...")
+            collection = secretstorage.get_default_collection(connection)
+            print("Done!  dbus-org.freedesktop.secrets should now be active.")
+          '')
           pkgs.pass
         ];
 

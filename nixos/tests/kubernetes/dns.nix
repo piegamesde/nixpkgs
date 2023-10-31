@@ -107,9 +107,7 @@ let
     {
       environment.systemPackages = [ pkgs.bind.host ];
       services.dnsmasq.enable = true;
-      services.dnsmasq.settings.server = [
-        "/cluster.local/${config.services.kubernetes.addons.dns.clusterIp}#53"
-      ];
+      services.dnsmasq.settings.server = [ "/cluster.local/${config.services.kubernetes.addons.dns.clusterIp}#53" ];
     };
 
   base = {

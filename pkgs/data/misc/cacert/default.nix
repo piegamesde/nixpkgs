@@ -156,8 +156,7 @@ stdenv.mkDerivation rec {
           runCommand "verify-the-cacert-filter-output"
             {
               cacert = cacert.unbundled;
-              cacertWithExcludes =
-                (cacert.override { blacklist = builtins.attrNames blacklistCAToFingerprint; }).unbundled;
+              cacertWithExcludes = (cacert.override { blacklist = builtins.attrNames blacklistCAToFingerprint; }).unbundled;
 
               nativeBuildInputs = [ openssl ];
             }

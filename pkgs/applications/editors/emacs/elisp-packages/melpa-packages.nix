@@ -71,8 +71,7 @@ let
       null;
 
   buildWithGit =
-    pkg:
-    pkg.overrideAttrs (attrs: { nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ [ pkgs.git ]; });
+    pkg: pkg.overrideAttrs (attrs: { nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ [ pkgs.git ]; });
 
   fix-rtags = pkg: if pkg != null then dontConfigure (externalSrc pkg pkgs.rtags) else null;
 

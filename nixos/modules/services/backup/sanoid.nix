@@ -165,9 +165,7 @@ in
             freeformType = datasetSettingsType;
             options = commonOptions // datasetOptions;
             config.use_template = modules.mkAliasAndWrapDefsWithPriority id (options.useTemplate or { });
-            config.process_children_only = modules.mkAliasAndWrapDefsWithPriority id (
-              options.processChildrenOnly or { }
-            );
+            config.process_children_only = modules.mkAliasAndWrapDefsWithPriority id (options.processChildrenOnly or { });
           }
         )
       );

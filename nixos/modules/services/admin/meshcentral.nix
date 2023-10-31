@@ -42,9 +42,7 @@ with lib; {
     };
   };
   config = mkIf cfg.enable {
-    services.meshcentral.settings.settings.autoBackup.backupPath =
-      lib.mkDefault
-        "/var/lib/meshcentral/backups";
+    services.meshcentral.settings.settings.autoBackup.backupPath = lib.mkDefault "/var/lib/meshcentral/backups";
     systemd.services.meshcentral = {
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {

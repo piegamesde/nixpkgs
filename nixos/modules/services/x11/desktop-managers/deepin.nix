@@ -183,8 +183,7 @@ in
           deepin-shortcut-viewer
         ];
       in
-      requiredPackages
-      ++ utils.removePackagesByName optionalPackages config.environment.deepin.excludePackages;
+      requiredPackages ++ utils.removePackagesByName optionalPackages config.environment.deepin.excludePackages;
 
     services.dbus.packages = with pkgs.deepin; [
       dde-dock

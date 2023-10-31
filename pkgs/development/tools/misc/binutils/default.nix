@@ -1,7 +1,6 @@
 let
   withGold =
-    platform:
-    platform.parsed.kernel.execFormat.name == "elf" && !platform.isRiscV && !platform.isLoongArch64;
+    platform: platform.parsed.kernel.execFormat.name == "elf" && !platform.isRiscV && !platform.isLoongArch64;
 in
 
 {

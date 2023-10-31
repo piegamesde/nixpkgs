@@ -70,9 +70,7 @@ let
     optionals enable16Bit [ "Makefile" ] ++ optionals enable32Bit [ "Makefile21" ]
   );
   sdlBuildFlags = concatStringsSep " " (optionals enableSDL [ "SDL_VERSION=${withSDLVersion}" ]);
-  sdlBins = concatStringsSep " " (
-    optionals enable16Bit [ "np2kai" ] ++ optionals enable32Bit [ "np21kai" ]
-  );
+  sdlBins = concatStringsSep " " (optionals enable16Bit [ "np2kai" ] ++ optionals enable32Bit [ "np21kai" ]);
   x11ConfigureFlags = concatStringsSep " " (
     (
       if ((enableHAXM && (enable16Bit || enable32Bit)) || (enable16Bit && enable32Bit)) then

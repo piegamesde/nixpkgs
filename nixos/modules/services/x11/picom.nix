@@ -286,8 +286,7 @@ in
         x:
         let
           res = x != "none";
-          msg =
-            "The type of services.picom.vSync has changed to bool:" + " interpreting ${x} as ${boolToString res}";
+          msg = "The type of services.picom.vSync has changed to bool:" + " interpreting ${x} as ${boolToString res}";
         in
         if isBool x then x else warn msg res;
 

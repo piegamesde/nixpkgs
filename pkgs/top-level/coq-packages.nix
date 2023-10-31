@@ -36,10 +36,7 @@ let
       addition-chains = callPackage ../development/coq-modules/addition-chains { };
       autosubst = callPackage ../development/coq-modules/autosubst { };
       bignums =
-        if lib.versionAtLeast coq.coq-version "8.6" then
-          callPackage ../development/coq-modules/bignums { }
-        else
-          null;
+        if lib.versionAtLeast coq.coq-version "8.6" then callPackage ../development/coq-modules/bignums { } else null;
       category-theory = callPackage ../development/coq-modules/category-theory { };
       ceres = callPackage ../development/coq-modules/ceres { };
       Cheerios = callPackage ../development/coq-modules/Cheerios { };
@@ -158,9 +155,7 @@ let
             v = set.${name} or null;
           in
           lib.optional (!v.meta.coqFilter or false) (
-            lib.nameValuePair name (
-              if lib.isAttrs v && v.recurseForDerivations or false then filterCoqPackages v else v
-            )
+            lib.nameValuePair name (if lib.isAttrs v && v.recurseForDerivations or false then filterCoqPackages v else v)
           )
         )
         (lib.attrNames set)

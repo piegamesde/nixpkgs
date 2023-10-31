@@ -29,8 +29,7 @@ let
     }
     // optionalAttrs (lhs ? perlPackageOverrides) {
       perlPackageOverrides =
-        pkgs:
-        optCall lhs.perlPackageOverrides pkgs // optCall (attrByPath [ "perlPackageOverrides" ] { } rhs) pkgs;
+        pkgs: optCall lhs.perlPackageOverrides pkgs // optCall (attrByPath [ "perlPackageOverrides" ] { } rhs) pkgs;
     };
 
   configType = mkOptionType {
@@ -210,9 +209,7 @@ in
       # Make sure that the final value has all fields for sake of other modules
       # referring to this. TODO make `lib.systems` itself use the module system.
       apply = lib.systems.elaborate;
-      defaultText =
-        literalExpression
-          ''(import "''${nixos}/../lib").lib.systems.examples.aarch64-multiplatform'';
+      defaultText = literalExpression ''(import "''${nixos}/../lib").lib.systems.examples.aarch64-multiplatform'';
       description = lib.mdDoc ''
         Specifies the platform where the NixOS configuration will run.
 
@@ -259,9 +256,7 @@ in
       # Make sure that the final value has all fields for sake of other modules
       # referring to this. TODO make `lib.systems` itself use the module system.
       apply = lib.systems.elaborate;
-      defaultText =
-        literalExpression
-          ''(import "''${nixos}/../lib").lib.systems.examples.aarch64-multiplatform'';
+      defaultText = literalExpression ''(import "''${nixos}/../lib").lib.systems.examples.aarch64-multiplatform'';
       description = lib.mdDoc ''
         Systems with a recently generated `hardware-configuration.nix`
         do not need to specify this option, unless cross-compiling, in which case
@@ -373,8 +368,7 @@ in
               config.nixpkgs.localSystem.system or (lib.systems.parse.doubleFromSystem (
                 lib.systems.parse.mkSystemFromString config.nixpkgs.localSystem.config
               ));
-          nixosOption =
-            if config.nixpkgs.crossSystem != null then "nixpkgs.crossSystem" else "nixpkgs.localSystem";
+          nixosOption = if config.nixpkgs.crossSystem != null then "nixpkgs.crossSystem" else "nixpkgs.localSystem";
           pkgsSystem = finalPkgs.stdenv.targetPlatform.system;
         in
         {

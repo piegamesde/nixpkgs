@@ -25,15 +25,9 @@ stdenv.mkDerivation rec {
         };
     in
     [
-      (fp "1" "dd96882877721703e19272fe25034560b794061b"
-        "0vmr0qjwj2ldnzsvccl105ckwgx3ssvn9mp3f27ss0kiyigrzz32"
-      )
-      (fp "2" "dfc801c44a93bed7b3951905b188823d6a0432c8"
-        "1qkrhi3lbxk6hflp6w3h4sgssc0wblv8r0qgxqzbjrm36pqwxiwh"
-      )
-      (fp "3" "236684f6deb3178043fe72a8e2faca538fa2aae1"
-        "0pidkbxalpj5yz4fr95x8h0rizgjij0xgvjgirfkjk460giawwg6"
-      )
+      (fp "1" "dd96882877721703e19272fe25034560b794061b" "0vmr0qjwj2ldnzsvccl105ckwgx3ssvn9mp3f27ss0kiyigrzz32")
+      (fp "2" "dfc801c44a93bed7b3951905b188823d6a0432c8" "1qkrhi3lbxk6hflp6w3h4sgssc0wblv8r0qgxqzbjrm36pqwxiwh")
+      (fp "3" "236684f6deb3178043fe72a8e2faca538fa2aae1" "0pidkbxalpj5yz4fr95x8h0rizgjij0xgvjgirfkjk460giawwg6")
       (fetchpatch {
         # upstream build fix against -fno-common compilers like >=gcc-10
         name = "fno-common-fix.patch";

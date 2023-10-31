@@ -122,9 +122,7 @@
 self: super:
 {
 
-  autosave-nvim = super.autosave-nvim.overrideAttrs (
-    old: { dependencies = with super; [ plenary-nvim ]; }
-  );
+  autosave-nvim = super.autosave-nvim.overrideAttrs (old: { dependencies = with super; [ plenary-nvim ]; });
 
   barbecue-nvim = super.barbecue-nvim.overrideAttrs (
     old: {
@@ -624,9 +622,7 @@ self: super:
 
   ghcid = super.ghcid.overrideAttrs (old: { configurePhase = "cd plugins/nvim"; });
 
-  gitlinker-nvim = super.gitlinker-nvim.overrideAttrs (
-    old: { dependencies = with self; [ plenary-nvim ]; }
-  );
+  gitlinker-nvim = super.gitlinker-nvim.overrideAttrs (old: { dependencies = with self; [ plenary-nvim ]; });
 
   gitsigns-nvim = super.gitsigns-nvim.overrideAttrs (old: { dependencies = with self; [ plenary-nvim ]; });
 
@@ -655,9 +651,7 @@ self: super:
     }
   );
 
-  jellybeans-nvim = super.jellybeans-nvim.overrideAttrs (
-    old: { dependencies = with self; [ lush-nvim ]; }
-  );
+  jellybeans-nvim = super.jellybeans-nvim.overrideAttrs (old: { dependencies = with self; [ lush-nvim ]; });
 
   LanguageClient-neovim =
     let
@@ -696,9 +690,7 @@ self: super:
       '';
     };
 
-  lazy-lsp-nvim = super.lazy-lsp-nvim.overrideAttrs (
-    old: { dependencies = with self; [ nvim-lspconfig ]; }
-  );
+  lazy-lsp-nvim = super.lazy-lsp-nvim.overrideAttrs (old: { dependencies = with self; [ nvim-lspconfig ]; });
 
   lean-nvim = super.lean-nvim.overrideAttrs (
     old: {
@@ -1094,9 +1086,7 @@ self: super:
         in
         ''
           substituteInPlace lua/sqlite/defs.lua \
-            --replace "path = vim.g.sqlite_clib_path" "path = vim.g.sqlite_clib_path or ${
-              lib.escapeShellArg libsqlite
-            }"
+            --replace "path = vim.g.sqlite_clib_path" "path = vim.g.sqlite_clib_path or ${lib.escapeShellArg libsqlite}"
         '';
     }
   );
@@ -1235,9 +1225,7 @@ self: super:
     }
   );
 
-  telescope-nvim = super.telescope-nvim.overrideAttrs (
-    old: { dependencies = with self; [ plenary-nvim ]; }
-  );
+  telescope-nvim = super.telescope-nvim.overrideAttrs (old: { dependencies = with self; [ plenary-nvim ]; });
 
   telescope-symbols-nvim = super.telescope-symbols-nvim.overrideAttrs (
     old: { dependencies = with self; [ telescope-nvim ]; }
@@ -1579,9 +1567,7 @@ self: super:
     }
   );
 
-  vim-speeddating = super.vim-speeddating.overrideAttrs (
-    old: { dependencies = with self; [ vim-repeat ]; }
-  );
+  vim-speeddating = super.vim-speeddating.overrideAttrs (old: { dependencies = with self; [ vim-repeat ]; });
 
   vim-stylish-haskell = super.vim-stylish-haskell.overrideAttrs (
     old: {

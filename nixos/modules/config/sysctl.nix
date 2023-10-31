@@ -25,8 +25,7 @@ in
         freeformType = types.attrsOf sysctlOption;
         options."net.core.rmem_max" = mkOption {
           type = types.nullOr types.ints.unsigned // {
-            merge =
-              loc: defs: foldl (a: b: if b.value == null then null else lib.max a b.value) 0 (filterOverrides defs);
+            merge = loc: defs: foldl (a: b: if b.value == null then null else lib.max a b.value) 0 (filterOverrides defs);
           };
           default = null;
           description =

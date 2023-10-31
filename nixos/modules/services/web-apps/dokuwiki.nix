@@ -329,10 +329,7 @@ let
         aclFile = mkOption {
           type = with types; nullOr str;
           default =
-            if (config.mergedConfig.useacl && config.acl == null) then
-              "/var/lib/dokuwiki/${name}/acl.auth.php"
-            else
-              null;
+            if (config.mergedConfig.useacl && config.acl == null) then "/var/lib/dokuwiki/${name}/acl.auth.php" else null;
           description = lib.mdDoc ''
             Location of the dokuwiki acl rules. Mutually exclusive with services.dokuwiki.acl
             Mutually exclusive with services.dokuwiki.acl which is preferred.
@@ -622,9 +619,7 @@ in
               ]
               ++
                 lib.optional (cfg.aclFile != null)
-                  "C ${cfg.aclFile} 0640 ${user} ${webserver.group} - ${
-                    pkg hostName cfg
-                  }/share/dokuwiki/conf/acl.auth.php.dist"
+                  "C ${cfg.aclFile} 0640 ${user} ${webserver.group} - ${pkg hostName cfg}/share/dokuwiki/conf/acl.auth.php.dist"
               ++
                 lib.optional (cfg.usersFile != null)
                   "C ${cfg.usersFile} 0640 ${user} ${webserver.group} - ${

@@ -342,9 +342,8 @@ package-set { inherit pkgs lib callPackage; } self
     }:
     let
       drv =
-        (extensible-self.extend (
-          pkgs.lib.composeExtensions (self.packageSourceOverrides source-overrides) overrides
-        )).callCabal2nixWithOptions
+        (extensible-self.extend (pkgs.lib.composeExtensions (self.packageSourceOverrides source-overrides) overrides))
+        .callCabal2nixWithOptions
           name
           root
           cabal2nixOptions
@@ -382,9 +381,7 @@ package-set { inherit pkgs lib callPackage; } self
     {
       packages ? [ ],
     }:
-    lib.warn "hoogleLocal is deprecated, use hoogleWithPackages instead" (
-      self.hoogleWithPackages (_: packages)
-    );
+    lib.warn "hoogleLocal is deprecated, use hoogleWithPackages instead" (self.hoogleWithPackages (_: packages));
   # This is like a combination of ghcWithPackages and hoogleWithPackages.
   # It provides a derivation containing both GHC and Hoogle with an index of
   # the given Haskell package database.

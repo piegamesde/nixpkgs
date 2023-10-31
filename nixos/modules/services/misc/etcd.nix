@@ -29,9 +29,7 @@ in
     };
 
     advertiseClientUrls = mkOption {
-      description =
-        lib.mdDoc
-          "Etcd list of this member's client URLs to advertise to the rest of the cluster.";
+      description = lib.mdDoc "Etcd list of this member's client URLs to advertise to the rest of the cluster.";
       default = cfg.listenClientUrls;
       defaultText = literalExpression "config.${opt.listenClientUrls}";
       type = types.listOf types.str;

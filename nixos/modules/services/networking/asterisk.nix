@@ -55,9 +55,7 @@ let
       '';
     }
     // mapAttrs (name: text: { inherit text; }) cfg.confFiles
-    // listToAttrs (
-      map (x: nameValuePair x { source = cfg.package + "/etc/asterisk/" + x; }) defaultConfFiles
-    );
+    // listToAttrs (map (x: nameValuePair x { source = cfg.package + "/etc/asterisk/" + x; }) defaultConfFiles);
 in
 
 {

@@ -26,8 +26,7 @@
 
 let
   upstream-info =
-    (lib.importJSON ../../../../applications/networking/browsers/chromium/upstream-info.json)
-    .stable.chromedriver;
+    (lib.importJSON ../../../../applications/networking/browsers/chromium/upstream-info.json).stable.chromedriver;
   allSpecs = {
     x86_64-linux = {
       system = "linux64";

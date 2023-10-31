@@ -32,9 +32,7 @@ buildPythonPackage rec {
     widechars = [ wcwidth ];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
+  nativeCheckInputs = [ pytestCheckHook ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
   meta = {
     description = "Pretty-print tabular data";

@@ -125,8 +125,7 @@ in
       {
         assertion =
           if cfg.accessUser != "" then
-            (cfg.accessToken != "" && cfg.accessTokenFile == "")
-            || (cfg.accessToken == "" && cfg.accessTokenFile != "")
+            (cfg.accessToken != "" && cfg.accessTokenFile == "") || (cfg.accessToken == "" && cfg.accessTokenFile != "")
           else
             true;
         message = ''
@@ -157,9 +156,7 @@ in
       script =
         let
           yamlJobsFile = builtins.toFile "jobs.yaml" cfg.yamlJobs;
-          jsonJobsFiles = map (x: (builtins.toFile "jobs.json" x)) (
-            cfg.jsonJobs ++ [ (builtins.toJSON cfg.nixJobs) ]
-          );
+          jsonJobsFiles = map (x: (builtins.toFile "jobs.json" x)) (cfg.jsonJobs ++ [ (builtins.toJSON cfg.nixJobs) ]);
           jobBuilderOutputDir = "/run/jenkins-job-builder/output";
           # Stamp file is placed in $JENKINS_HOME/jobs/$JOB_NAME/ to indicate
           # ownership. Enables tracking and removal of stale jobs.

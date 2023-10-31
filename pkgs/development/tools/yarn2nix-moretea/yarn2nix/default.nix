@@ -99,9 +99,7 @@ rec {
       extraNativeBuildInputs = lib.concatMap (key: pkgConfig.${key}.nativeBuildInputs or [ ]) (
         builtins.attrNames pkgConfig
       );
-      extraBuildInputs = lib.concatMap (key: pkgConfig.${key}.buildInputs or [ ]) (
-        builtins.attrNames pkgConfig
-      );
+      extraBuildInputs = lib.concatMap (key: pkgConfig.${key}.buildInputs or [ ]) (builtins.attrNames pkgConfig);
 
       postInstall =
         (builtins.map
@@ -337,8 +335,7 @@ rec {
       baseName = unlessNull name "${safeName}-${version}";
 
       workspaceDependenciesTransitive = lib.unique (
-        (lib.flatten (builtins.map (dep: dep.workspaceDependencies) workspaceDependencies))
-        ++ workspaceDependencies
+        (lib.flatten (builtins.map (dep: dep.workspaceDependencies) workspaceDependencies)) ++ workspaceDependencies
       );
 
       deps = mkYarnModules {

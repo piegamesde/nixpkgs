@@ -225,9 +225,7 @@ let
       inherit (go) GOOS GOARCH;
 
       GO111MODULE = "on";
-      GOFLAGS =
-        lib.optionals (!proxyVendor) [ "-mod=vendor" ]
-        ++ lib.optionals (!allowGoReference) [ "-trimpath" ];
+      GOFLAGS = lib.optionals (!proxyVendor) [ "-mod=vendor" ] ++ lib.optionals (!allowGoReference) [ "-trimpath" ];
       inherit CGO_ENABLED enableParallelBuilding;
 
       configurePhase =

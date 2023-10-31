@@ -80,9 +80,7 @@ stdenv.mkDerivation {
       "OSX_MIN=${stdenv.targetPlatform.darwinMinVersion}"
     ];
 
-  postInstall = optionalString tiles (
-    if !stdenv.isDarwin then patchDesktopFile else installMacOSAppLauncher
-  );
+  postInstall = optionalString tiles (if !stdenv.isDarwin then patchDesktopFile else installMacOSAppLauncher);
 
   dontStrip = debug;
   enableParallelBuilding = true;

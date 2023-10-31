@@ -39,8 +39,7 @@ buildPythonPackage rec {
       packaging
       setuptools
     ]
-    ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ]
-    ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+    ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
   nativeCheckInputs = [
     pytestCheckHook

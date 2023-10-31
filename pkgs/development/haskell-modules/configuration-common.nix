@@ -264,10 +264,7 @@ self: super:
   stylish-haskell =
     if lib.versionAtLeast super.ghc.version "9.2" then
       enableCabalFlag "ghc-lib" (
-        if lib.versionAtLeast super.ghc.version "9.4" then
-          super.stylish-haskell_0_14_4_0
-        else
-          super.stylish-haskell
+        if lib.versionAtLeast super.ghc.version "9.4" then super.stylish-haskell_0_14_4_0 else super.stylish-haskell
       )
     else
       super.stylish-haskell;
@@ -398,9 +395,7 @@ self: super:
   arch-web = doJailbreak super.arch-web;
 
   # Fix test trying to access /home directory
-  shell-conduit =
-    overrideCabal (drv: { postPatch = "sed -i s/home/tmp/ test/Spec.hs"; })
-      super.shell-conduit;
+  shell-conduit = overrideCabal (drv: { postPatch = "sed -i s/home/tmp/ test/Spec.hs"; }) super.shell-conduit;
 
   cachix = self.generateOptparseApplicativeCompletions [ "cachix" ] super.cachix;
 
@@ -2231,8 +2226,7 @@ self: super:
 
   # 2021-04-02: Outdated optparse-applicative bound is fixed but not realeased on upstream.
   trial-optparse-applicative =
-    assert super.trial-optparse-applicative.version == "0.0.0.0";
-    doJailbreak super.trial-optparse-applicative;
+    assert super.trial-optparse-applicative.version == "0.0.0.0"; doJailbreak super.trial-optparse-applicative;
 
   # 2022-12-28: Too strict version bounds on bytestring
   iconv = doJailbreak super.iconv;
@@ -2442,9 +2436,7 @@ self: super:
   gi-gtk-declarative-app-simple = doJailbreak super.gi-gtk-declarative-app-simple;
 
   # 2023-04-09: haskell-ci needs Cabal-syntax 3.10
-  haskell-ci = super.haskell-ci.overrideScope (
-    self: super: { Cabal-syntax = self.Cabal-syntax_3_10_1_0; }
-  );
+  haskell-ci = super.haskell-ci.overrideScope (self: super: { Cabal-syntax = self.Cabal-syntax_3_10_1_0; });
 
   large-hashable =
     lib.pipe

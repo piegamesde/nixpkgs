@@ -47,16 +47,14 @@ in
         alsa_monitor.enable = function() end
       '';
     };
-    environment.etc."wireplumber/main.lua.d/80-systemwide.lua" =
-      lib.mkIf config.services.pipewire.systemWide
-        {
-          text = ''
-            -- When running system-wide, these settings need to be disabled (they
-            -- use functions that aren't available on the system dbus).
-            alsa_monitor.properties["alsa.reserve"] = false
-            default_access.properties["enable-flatpak-portal"] = false
-          '';
-        };
+    environment.etc."wireplumber/main.lua.d/80-systemwide.lua" = lib.mkIf config.services.pipewire.systemWide {
+      text = ''
+        -- When running system-wide, these settings need to be disabled (they
+        -- use functions that aren't available on the system dbus).
+        alsa_monitor.properties["alsa.reserve"] = false
+        default_access.properties["enable-flatpak-portal"] = false
+      '';
+    };
     environment.etc."wireplumber/bluetooth.lua.d/80-systemwide.lua" =
       lib.mkIf config.services.pipewire.systemWide
         {

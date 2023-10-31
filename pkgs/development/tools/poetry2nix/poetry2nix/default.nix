@@ -91,8 +91,7 @@ let
 
       desiredExtrasDeps = lib.unique (lib.concatMap (extra: pyProject.tool.poetry.extras.${extra}) extras);
 
-      allRawDeps =
-        if extras == [ "*" ] then rawDeps else rawRequiredDeps // lib.getAttrs desiredExtrasDeps rawDeps;
+      allRawDeps = if extras == [ "*" ] then rawDeps else rawRequiredDeps // lib.getAttrs desiredExtrasDeps rawDeps;
       checkInputs' =
         getDeps (pyProject.tool.poetry."dev-dependencies" or { }) # <poetry-1.2.0
         # >=poetry-1.2.0 dependency groups
@@ -397,9 +396,7 @@ lib.makeScope pkgs.newScope (
            This guarantees that using the "poetryPackages" attribute will return
            complete list of dependencies for the poetry project to be portable.
         */
-        storePackages = requiredPythonModules (
-          builtins.foldl' (acc: v: acc ++ v) [ ] (lib.attrValues inputAttrs)
-        );
+        storePackages = requiredPythonModules (builtins.foldl' (acc: v: acc ++ v) [ ] (lib.attrValues inputAttrs));
       in
       {
         python = py;

@@ -18,10 +18,7 @@ let
     path: attrs:
     if (builtins.tryEval attrs).success then
       if isDerivation attrs then
-        if (builtins.tryEval attrs.drvPath).success then
-          { inherit (attrs) name drvPath; }
-        else
-          { failed = true; }
+        if (builtins.tryEval attrs.drvPath).success then { inherit (attrs) name drvPath; } else { failed = true; }
       else if attrs == null then
         { }
       else

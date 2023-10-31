@@ -157,17 +157,14 @@ let
   stringifyProperties =
     prefix: properties:
     lib.concatStringsSep " \\\n" (
-      lib.mapAttrsToList
-        (property: value: "${prefix} ${lib.escapeShellArg property}=${lib.escapeShellArg value}")
+      lib.mapAttrsToList (property: value: "${prefix} ${lib.escapeShellArg property}=${lib.escapeShellArg value}")
         properties
     );
 
   createDatasets =
     let
       datasetlist = lib.mapAttrsToList lib.nameValuePair datasets;
-      sorted =
-        lib.sort (left: right: (lib.stringLength left.name) < (lib.stringLength right.name))
-          datasetlist;
+      sorted = lib.sort (left: right: (lib.stringLength left.name) < (lib.stringLength right.name)) datasetlist;
       cmd =
         { name, value }:
         let

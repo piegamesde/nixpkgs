@@ -119,10 +119,7 @@ let
   ;
 
   localDeps =
-    if (projectReferences != [ ]) then
-      linkFarmFromDrvs "${name}-project-references" projectReferences
-    else
-      null;
+    if (projectReferences != [ ]) then linkFarmFromDrvs "${name}-project-references" projectReferences else null;
 
   _nugetDeps =
     if (nugetDeps != null) then

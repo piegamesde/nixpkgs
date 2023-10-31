@@ -236,8 +236,7 @@ let
           isSystemUser = true;
           inherit (conf) group;
         });
-      users.groups =
-        (mkIf (conf.group == "${name}-exporter" && !enableDynamicUser) { "${name}-exporter" = { }; });
+      users.groups = (mkIf (conf.group == "${name}-exporter" && !enableDynamicUser) { "${name}-exporter" = { }; });
       networking.firewall.extraCommands = mkIf conf.openFirewall (
         concatStrings [
           "ip46tables -A nixos-fw ${conf.firewallFilter} "
@@ -358,8 +357,7 @@ in
               '';
             }
             {
-              assertion =
-                cfg.snmp.enable -> ((cfg.snmp.configurationPath == null) != (cfg.snmp.configuration == null));
+              assertion = cfg.snmp.enable -> ((cfg.snmp.configurationPath == null) != (cfg.snmp.configuration == null));
               message = ''
                 Please ensure you have either `services.prometheus.exporters.snmp.configuration'
                   or `services.prometheus.exporters.snmp.configurationPath' set!

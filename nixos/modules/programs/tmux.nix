@@ -108,9 +108,7 @@ in
       customPaneNavigationAndResize = mkOption {
         default = false;
         type = types.bool;
-        description =
-          lib.mdDoc
-            "Override the hjkl and HJKL bindings for pane navigation and resizing in VI mode.";
+        description = lib.mdDoc "Override the hjkl and HJKL bindings for pane navigation and resizing in VI mode.";
       };
 
       escapeTime = mkOption {

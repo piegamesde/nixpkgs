@@ -159,9 +159,7 @@ in
           User = "xrdp";
           Group = "xrdp";
           PermissionsStartOnly = true;
-          ExecStart = "${cfg.package}/bin/xrdp --nodaemon --port ${
-              toString cfg.port
-            } --config ${cfg.confDir}/xrdp.ini";
+          ExecStart = "${cfg.package}/bin/xrdp --nodaemon --port ${toString cfg.port} --config ${cfg.confDir}/xrdp.ini";
         };
       };
 

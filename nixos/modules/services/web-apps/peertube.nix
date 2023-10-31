@@ -311,8 +311,7 @@ in
   config = lib.mkIf cfg.enable {
     assertions = [
       {
-        assertion =
-          cfg.serviceEnvironmentFile == null || !lib.hasPrefix builtins.storeDir cfg.serviceEnvironmentFile;
+        assertion = cfg.serviceEnvironmentFile == null || !lib.hasPrefix builtins.storeDir cfg.serviceEnvironmentFile;
         message = ''
           <option>services.peertube.serviceEnvironmentFile</option> points to
           a file in the Nix store. You should use a quoted absolute path to
@@ -346,8 +345,7 @@ in
         '';
       }
       {
-        assertion =
-          cfg.database.passwordFile == null || !lib.hasPrefix builtins.storeDir cfg.database.passwordFile;
+        assertion = cfg.database.passwordFile == null || !lib.hasPrefix builtins.storeDir cfg.database.passwordFile;
         message = ''
           <option>services.peertube.database.passwordFile</option> points to
           a file in the Nix store. You should use a quoted absolute path to
@@ -943,9 +941,7 @@ in
           pkgs.yarn
         ]
       )
-      (lib.mkIf cfg.redis.enableUnixSocket {
-        ${config.services.peertube.user}.extraGroups = [ "redis-peertube" ];
-      })
+      (lib.mkIf cfg.redis.enableUnixSocket { ${config.services.peertube.user}.extraGroups = [ "redis-peertube" ]; })
     ];
 
     users.groups = {

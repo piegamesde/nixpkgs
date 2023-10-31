@@ -22,9 +22,7 @@ stdenv.mkDerivation rec {
   version = "44.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gnome-font-viewer/${
-        lib.versions.major version
-      }/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/gnome-font-viewer/${lib.versions.major version}/${pname}-${version}.tar.xz";
     sha256 = "oVEd8wsijMLvEXXdnSuTQ46pEuJZE0BLJjzz1Fe7n5c=";
   };
 

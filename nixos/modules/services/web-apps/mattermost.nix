@@ -307,9 +307,7 @@ in
         };
       };
 
-      users.groups = optionalAttrs (cfg.group == "mattermost") {
-        mattermost.gid = config.ids.gids.mattermost;
-      };
+      users.groups = optionalAttrs (cfg.group == "mattermost") { mattermost.gid = config.ids.gids.mattermost; };
 
       services.postgresql.enable = cfg.localDatabaseCreate;
 

@@ -556,8 +556,7 @@ in
           mandatoryPackages = [ pkgs.gnome.gnome-shell ];
           optionalPackages = [ pkgs.gnome.gnome-shell-extensions ];
         in
-        mandatoryPackages
-        ++ utils.removePackagesByName optionalPackages config.environment.gnome.excludePackages;
+        mandatoryPackages ++ utils.removePackagesByName optionalPackages config.environment.gnome.excludePackages;
 
       services.colord.enable = mkDefault true;
       services.gnome.glib-networking.enable = true;
@@ -632,8 +631,7 @@ in
             pkgs.xdg-user-dirs # Update user dirs as described in http://freedesktop.org/wiki/Software/xdg-user-dirs/
           ];
         in
-        mandatoryPackages
-        ++ utils.removePackagesByName optionalPackages config.environment.gnome.excludePackages;
+        mandatoryPackages ++ utils.removePackagesByName optionalPackages config.environment.gnome.excludePackages;
     })
 
     # Adapt from https://gitlab.gnome.org/GNOME/gnome-build-meta/blob/gnome-3-38/elements/core/meta-gnome-core-utilities.bst

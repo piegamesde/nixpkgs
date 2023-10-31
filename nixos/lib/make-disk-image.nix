@@ -687,7 +687,4 @@ let
       ''
   );
 in
-if onlyNixStore then
-  pkgs.runCommand name { } (prepareImage + moveOrConvertImage + postVM)
-else
-  buildImage
+if onlyNixStore then pkgs.runCommand name { } (prepareImage + moveOrConvertImage + postVM) else buildImage

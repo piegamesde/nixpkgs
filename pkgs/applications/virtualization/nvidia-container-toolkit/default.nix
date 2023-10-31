@@ -48,9 +48,7 @@ buildGoPackage rec {
   preBuild = ''
     # replace the default hookDefaultFilePath to the $out path
     substituteInPlace go/src/github.com/NVIDIA/nvidia-container-toolkit/cmd/nvidia-container-runtime/main.go \
-      --replace '/usr/bin/nvidia-container-runtime-hook' '${
-        placeholder "out"
-      }/bin/nvidia-container-runtime-hook'
+      --replace '/usr/bin/nvidia-container-runtime-hook' '${placeholder "out"}/bin/nvidia-container-runtime-hook'
   '';
 
   postInstall = ''

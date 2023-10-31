@@ -10302,12 +10302,7 @@ let
       sources."@pnpm/npm-conf-1.0.5"
       sources."@samverschueren/stream-to-observable-0.3.1"
       (sources."@sindresorhus/slugify-2.1.1" // { dependencies = [ sources."escape-string-regexp-5.0.0" ]; })
-      (
-        sources."@sindresorhus/transliterate-1.5.0"
-        // {
-          dependencies = [ sources."escape-string-regexp-5.0.0" ];
-        }
-      )
+      (sources."@sindresorhus/transliterate-1.5.0" // { dependencies = [ sources."escape-string-regexp-5.0.0" ]; })
       sources."@szmarczak/http-timer-4.0.6"
       sources."@tsconfig/node10-1.0.8"
       sources."@tsconfig/node12-1.0.9"

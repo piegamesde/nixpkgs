@@ -158,9 +158,7 @@ stdenv.mkDerivation rec {
     EOF
     ln -s "$out/lib/pkgconfig/lua.pc" "$out/lib/pkgconfig/lua-${luaversion}.pc"
     ln -s "$out/lib/pkgconfig/lua.pc" "$out/lib/pkgconfig/lua${luaversion}.pc"
-    ln -s "$out/lib/pkgconfig/lua.pc" "$out/lib/pkgconfig/lua${
-      lib.replaceStrings [ "." ] [ "" ] luaversion
-    }.pc"
+    ln -s "$out/lib/pkgconfig/lua.pc" "$out/lib/pkgconfig/lua${lib.replaceStrings [ "." ] [ "" ] luaversion}.pc"
   '';
 
   # copied from python

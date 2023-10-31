@@ -109,10 +109,7 @@ let
         v:
         if isAttrs v then
           if v ? _secret then
-            if isAbsolutePath v._secret then
-              sha256 v._secret
-            else
-              abort "Invalid secret path (_secret = ${v._secret})"
+            if isAbsolutePath v._secret then sha256 v._secret else abort "Invalid secret path (_secret = ${v._secret})"
           else
             mapAttrs (_: val: replaceSec' args val) v
         else if isList v then
@@ -590,9 +587,7 @@ in
           ffmpeg_5-headless
           graphicsmagick-imagemagick-compat
         ];
-        defaultText =
-          literalExpression
-            "with pkgs; [ exiftool graphicsmagick-imagemagick-compat ffmpeg_5-headless ]";
+        defaultText = literalExpression "with pkgs; [ exiftool graphicsmagick-imagemagick-compat ffmpeg_5-headless ]";
         example = literalExpression "with pkgs; [ exiftool imagemagick ffmpeg_5-full ]";
         description = mdDoc ''
           List of extra packages to include in the executable search path of the service unit.
@@ -1047,8 +1042,7 @@ in
       };
 
       nginx = mkOption {
-        type =
-          with types; nullOr (submodule (import ../web-servers/nginx/vhost-options.nix { inherit config lib; }));
+        type = with types; nullOr (submodule (import ../web-servers/nginx/vhost-options.nix { inherit config lib; }));
         default = null;
         description = mdDoc ''
           Extra configuration for the nginx virtual host of Akkoma.

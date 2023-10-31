@@ -43,8 +43,7 @@ let
           mapAttrsToList (name: theme: "cp -r ${theme} $out/share/wordpress/wp-content/themes/${name}") cfg.themes
         )}
         ${concatStringsSep "\n" (
-          mapAttrsToList (name: plugin: "cp -r ${plugin} $out/share/wordpress/wp-content/plugins/${name}")
-            cfg.plugins
+          mapAttrsToList (name: plugin: "cp -r ${plugin} $out/share/wordpress/wp-content/plugins/${name}") cfg.plugins
         )}
         ${concatMapStringsSep "\n" (language: "cp -r ${language} $out/share/wordpress/wp-content/languages/")
           cfg.languages}
@@ -516,9 +515,7 @@ in
                       <Directory "${pkg hostName cfg}/share/wordpress">
                         <FilesMatch "\.php$">
                           <If "-f %{REQUEST_FILENAME}">
-                            SetHandler "proxy:unix:${
-                              config.services.phpfpm.pools."wordpress-${hostName}".socket
-                            }|fcgi://localhost/"
+                            SetHandler "proxy:unix:${config.services.phpfpm.pools."wordpress-${hostName}".socket}|fcgi://localhost/"
                           </If>
                         </FilesMatch>
 

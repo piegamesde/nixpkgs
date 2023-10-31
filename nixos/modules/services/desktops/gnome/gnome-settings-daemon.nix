@@ -68,9 +68,7 @@ in
 
     systemd.packages = [ pkgs.gnome.gnome-settings-daemon ];
 
-    systemd.user.targets."gnome-session-x11-services".wants = [
-      "org.gnome.SettingsDaemon.XSettings.service"
-    ];
+    systemd.user.targets."gnome-session-x11-services".wants = [ "org.gnome.SettingsDaemon.XSettings.service" ];
 
     systemd.user.targets."gnome-session-x11-services-ready".wants = [
       "org.gnome.SettingsDaemon.XSettings.service"

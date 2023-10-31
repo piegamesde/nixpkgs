@@ -56,9 +56,7 @@ let
       ${concatStringsSep "\n" (
         mapAttrsToList
           (k: v: ''
-            ln -s ${
-              if v != null then v else "$src/share/mediawiki/extensions/${k}"
-            } $out/share/mediawiki/extensions/${k}
+            ln -s ${if v != null then v else "$src/share/mediawiki/extensions/${k}"} $out/share/mediawiki/extensions/${k}
           '')
           cfg.extensions
       )}
@@ -506,8 +504,7 @@ in
 
     assertions = [
       {
-        assertion =
-          cfg.database.createLocally -> (cfg.database.type == "mysql" || cfg.database.type == "postgres");
+        assertion = cfg.database.createLocally -> (cfg.database.type == "mysql" || cfg.database.type == "postgres");
         message = "services.mediawiki.createLocally is currently only supported for database type 'mysql' and 'postgres'";
       }
       {

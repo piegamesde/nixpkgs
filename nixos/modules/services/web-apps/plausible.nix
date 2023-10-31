@@ -264,13 +264,11 @@ in
             PrivateTmp = true;
             WorkingDirectory = "/var/lib/plausible";
             StateDirectory = "plausible";
-            LoadCredential =
-              [
-                "ADMIN_USER_PWD:${cfg.adminUser.passwordFile}"
-                "SECRET_KEY_BASE:${cfg.server.secretKeybaseFile}"
-                "RELEASE_COOKIE:${cfg.releaseCookiePath}"
-              ]
-              ++ lib.optionals (cfg.mail.smtp.passwordFile != null) [ "SMTP_USER_PWD:${cfg.mail.smtp.passwordFile}" ];
+            LoadCredential = [
+              "ADMIN_USER_PWD:${cfg.adminUser.passwordFile}"
+              "SECRET_KEY_BASE:${cfg.server.secretKeybaseFile}"
+              "RELEASE_COOKIE:${cfg.releaseCookiePath}"
+            ] ++ lib.optionals (cfg.mail.smtp.passwordFile != null) [ "SMTP_USER_PWD:${cfg.mail.smtp.passwordFile}" ];
           };
         };
       }

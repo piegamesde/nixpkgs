@@ -195,11 +195,7 @@ let
       ]
       ++
         lib.optionals
-          (
-            stdenv.hostPlatform != stdenv.buildPlatform
-            && stdenv.hostPlatform ? nix
-            && stdenv.hostPlatform.nix ? system
-          )
+          (stdenv.hostPlatform != stdenv.buildPlatform && stdenv.hostPlatform ? nix && stdenv.hostPlatform.nix ? system)
           [ "--with-system=${stdenv.hostPlatform.nix.system}" ]
       ++
         lib.optionals (!withLibseccomp)

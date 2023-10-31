@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
         }:
         fetchurl {
           url =
-            "https://salsa.debian.org/debian/autogen/-/raw/debian/${ver}"
-            + "/debian/patches/${pname}.diff?inline=false";
+            "https://salsa.debian.org/debian/autogen/-/raw/debian/${ver}" + "/debian/patches/${pname}.diff?inline=false";
           inherit name sha256;
         };
     in

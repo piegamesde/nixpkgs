@@ -46,8 +46,7 @@ let
     (rec {
       doRunTest =
         arg:
-        ((import ../lib/testing-python.nix { inherit system pkgs; }).evalTest { imports = [ arg ]; })
-        .config.result;
+        ((import ../lib/testing-python.nix { inherit system pkgs; }).evalTest { imports = [ arg ]; }).config.result;
       findTests =
         tree:
         if tree ? recurseForDerivations && tree.recurseForDerivations then
@@ -866,9 +865,7 @@ in
   systemd-machinectl = handleTest ./systemd-machinectl.nix { };
   systemd-networkd = handleTest ./systemd-networkd.nix { };
   systemd-networkd-dhcpserver = handleTest ./systemd-networkd-dhcpserver.nix { };
-  systemd-networkd-dhcpserver-static-leases =
-    handleTest ./systemd-networkd-dhcpserver-static-leases.nix
-      { };
+  systemd-networkd-dhcpserver-static-leases = handleTest ./systemd-networkd-dhcpserver-static-leases.nix { };
   systemd-networkd-ipv6-prefix-delegation = handleTest ./systemd-networkd-ipv6-prefix-delegation.nix { };
   systemd-networkd-vrf = handleTest ./systemd-networkd-vrf.nix { };
   systemd-no-tainted = handleTest ./systemd-no-tainted.nix { };

@@ -190,9 +190,7 @@ in
             '')
             (optionalString cfg.genCfsslAPIToken ''
               if [ ! -f "${cfsslAPITokenPath}" ]; then
-                head -c ${
-                  toString (cfsslAPITokenLength / 2)
-                } /dev/urandom | od -An -t x | tr -d ' ' >"${cfsslAPITokenPath}"
+                head -c ${toString (cfsslAPITokenLength / 2)} /dev/urandom | od -An -t x | tr -d ' ' >"${cfsslAPITokenPath}"
               fi
               chown cfssl "${cfsslAPITokenPath}" && chmod 400 "${cfsslAPITokenPath}"
             '')
@@ -286,9 +284,7 @@ in
             preStart =
               with pkgs;
               let
-                files =
-                  mapAttrsToList (n: v: writeText "${n}.json" (builtins.toJSON v))
-                    top.addonManager.bootstrapAddons;
+                files = mapAttrsToList (n: v: writeText "${n}.json" (builtins.toJSON v)) top.addonManager.bootstrapAddons;
               in
               ''
                 export KUBECONFIG=${clusterAdminKubeconfig}

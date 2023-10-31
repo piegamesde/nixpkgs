@@ -166,9 +166,7 @@ in
       };
 
       extraModulePaths = mkOption {
-        description =
-          lib.mdDoc
-            "A list of paths containing additional modules that are added to the search folders";
+        description = lib.mdDoc "A list of paths containing additional modules that are added to the search folders";
         default = [ ];
         type = types.listOf types.path;
       };

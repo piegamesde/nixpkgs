@@ -66,9 +66,7 @@ let
 
     arteplussept = callPackage ../applications/video/kodi/addons/arteplussept { };
 
-    controller-topology-project =
-      callPackage ../applications/video/kodi/addons/controller-topology-project
-        { };
+    controller-topology-project = callPackage ../applications/video/kodi/addons/controller-topology-project { };
 
     iagl = callPackage ../applications/video/kodi/addons/iagl { };
 

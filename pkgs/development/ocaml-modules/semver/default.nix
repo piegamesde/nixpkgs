@@ -7,8 +7,7 @@
   ocamlbuild,
 }:
 
-lib.throwIfNot (lib.versionAtLeast ocaml.version "4.02")
-  "semver is not available on OCaml older than 4.02"
+lib.throwIfNot (lib.versionAtLeast ocaml.version "4.02") "semver is not available on OCaml older than 4.02"
 
   stdenv.mkDerivation
   rec {

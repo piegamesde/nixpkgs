@@ -62,17 +62,14 @@ stdenv.mkDerivation rec {
       lensfun
       librsvg
     ]
-    ++ lib.optionals stdenv.isLinux [ libcanberra-gtk3 ]
-    ++ lib.optionals stdenv.isDarwin [ gtk-mac-integration ];
+    ++ lib.optionals stdenv.isLinux [ libcanberra-gtk3 ] ++ lib.optionals stdenv.isDarwin [ gtk-mac-integration ];
 
   cmakeFlags =
     [
       "-DPROC_TARGET_NUMBER=2"
       ''-DCACHE_NAME_SUFFIX=""''
     ]
-    ++ lib.optionals stdenv.isDarwin [
-      "-DCMAKE_OSX_DEPLOYMENT_TARGET=${stdenv.hostPlatform.darwinMinVersion}"
-    ];
+    ++ lib.optionals stdenv.isDarwin [ "-DCMAKE_OSX_DEPLOYMENT_TARGET=${stdenv.hostPlatform.darwinMinVersion}" ];
 
   CMAKE_CXX_FLAGS = toString [
     "-std=c++11"

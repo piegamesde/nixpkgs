@@ -323,14 +323,12 @@ stdenv.mkDerivation (
 
       mkHardcodeGsettingsPatch =
         { src, glib-schema-to-var }:
-        builtins.trace
-          "glib.mkHardcodeGsettingsPatch is deprecated, please use makeHardcodeGsettingsPatch instead"
-          (
-            makeHardcodeGsettingsPatch {
-              inherit src;
-              schemaIdToVariableMapping = glib-schema-to-var;
-            }
-          );
+        builtins.trace "glib.mkHardcodeGsettingsPatch is deprecated, please use makeHardcodeGsettingsPatch instead" (
+          makeHardcodeGsettingsPatch {
+            inherit src;
+            schemaIdToVariableMapping = glib-schema-to-var;
+          }
+        );
     };
 
     meta = with lib; {

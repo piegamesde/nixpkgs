@@ -29,9 +29,7 @@ in
       description = "LogKeys Keylogger Daemon";
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart = "${pkgs.logkeys}/bin/logkeys -s${
-            lib.optionalString (cfg.device != null) " -d ${cfg.device}"
-          }";
+        ExecStart = "${pkgs.logkeys}/bin/logkeys -s${lib.optionalString (cfg.device != null) " -d ${cfg.device}"}";
         ExecStop = "${pkgs.logkeys}/bin/logkeys -k";
         Type = "forking";
       };

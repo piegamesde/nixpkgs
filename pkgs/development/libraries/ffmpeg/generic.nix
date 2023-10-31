@@ -98,14 +98,10 @@
   ,
   withMysofa ? withFullDeps # HRTF support via SOFAlizer
   ,
-  withNvdec ? withHeadlessDeps
-    && !stdenv.isDarwin
-    && stdenv.hostPlatform == stdenv.buildPlatform
-    && !stdenv.isAarch32,
-  withNvenc ? withHeadlessDeps
-    && !stdenv.isDarwin
-    && stdenv.hostPlatform == stdenv.buildPlatform
-    && !stdenv.isAarch32,
+  withNvdec ?
+    withHeadlessDeps && !stdenv.isDarwin && stdenv.hostPlatform == stdenv.buildPlatform && !stdenv.isAarch32,
+  withNvenc ?
+    withHeadlessDeps && !stdenv.isDarwin && stdenv.hostPlatform == stdenv.buildPlatform && !stdenv.isAarch32,
   withOgg ? withHeadlessDeps # Ogg container used by vorbis & theora
   ,
   withOpenal ? withFullDeps # OpenAL 1.1 capture support
@@ -404,10 +400,8 @@ assert withUnfree -> withGPL && withGPLv3;
 # *  Build dependencies
 assert withPixelutils -> buildAvutil;
 # *  Program dependencies
-assert buildFfmpeg
-  -> buildAvcodec && buildAvfilter && buildAvformat && (buildSwresample || buildAvresample);
-assert buildFfplay
-  -> buildAvcodec && buildAvformat && buildSwscale && (buildSwresample || buildAvresample);
+assert buildFfmpeg -> buildAvcodec && buildAvfilter && buildAvformat && (buildSwresample || buildAvresample);
+assert buildFfplay -> buildAvcodec && buildAvformat && buildSwscale && (buildSwresample || buildAvresample);
 assert buildFfprobe -> buildAvcodec && buildAvformat;
 # *  Library dependencies
 assert buildAvcodec -> buildAvutil; # configure flag since 0.6
@@ -458,9 +452,7 @@ stdenv.mkDerivation (
     configureFlags =
       [
         #mingw64 is internally treated as mingw32, so 32 and 64 make no difference here
-        "--target_os=${
-          if stdenv.hostPlatform.isMinGW then "mingw64" else stdenv.hostPlatform.parsed.kernel.name
-        }"
+        "--target_os=${if stdenv.hostPlatform.isMinGW then "mingw64" else stdenv.hostPlatform.parsed.kernel.name}"
         "--arch=${stdenv.hostPlatform.parsed.cpu.name}"
         "--pkg-config=${buildPackages.pkg-config.targetPrefix}pkg-config"
         # *  Licensing flags

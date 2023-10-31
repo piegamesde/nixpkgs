@@ -102,9 +102,7 @@ self: super:
       )
       { };
 
-  bdftopcf = super.bdftopcf.overrideAttrs (
-    attrs: { buildInputs = attrs.buildInputs ++ [ xorg.xorgproto ]; }
-  );
+  bdftopcf = super.bdftopcf.overrideAttrs (attrs: { buildInputs = attrs.buildInputs ++ [ xorg.xorgproto ]; });
 
   editres = super.editres.overrideAttrs (attrs: { hardeningDisable = [ "format" ]; });
 
@@ -1473,9 +1471,7 @@ self: super:
 
   xrdb = super.xrdb.overrideAttrs (attrs: { configureFlags = [ "--with-cpp=${mcpp}/bin/mcpp" ]; });
 
-  sessreg = super.sessreg.overrideAttrs (
-    attrs: { preBuild = "sed -i 's|gcc -E|gcc -E -P|' man/Makefile"; }
-  );
+  sessreg = super.sessreg.overrideAttrs (attrs: { preBuild = "sed -i 's|gcc -E|gcc -E -P|' man/Makefile"; });
 
   xrandr = super.xrandr.overrideAttrs (
     attrs: {

@@ -213,9 +213,7 @@ in
       '')
     ];
 
-    systemd.tmpfiles.rules = [
-      "d '${cfg.dataDir}' - ${cfg.user} ${config.users.users.${cfg.user}.group} - -"
-    ];
+    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' - ${cfg.user} ${config.users.users.${cfg.user}.group} - -" ];
 
     systemd.services.etebase-server = {
       description = "An Etebase (EteSync 2.0) server";
@@ -244,8 +242,7 @@ in
       '';
       script =
         let
-          networking =
-            if cfg.unixSocket != null then "-u ${cfg.unixSocket}" else "-b 0.0.0.0 -p ${toString cfg.port}";
+          networking = if cfg.unixSocket != null then "-u ${cfg.unixSocket}" else "-b 0.0.0.0 -p ${toString cfg.port}";
         in
         ''
           cd "${pythonEnv}/lib/etebase-server";

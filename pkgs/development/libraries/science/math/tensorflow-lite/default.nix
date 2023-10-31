@@ -108,21 +108,19 @@ stdenv.mkDerivation rec {
 
   preBuild =
     let
-      includes =
-        lib.concatMapStringsSep " " (subdir: "-I $PWD/tensorflow/lite/tools/make/downloads/${subdir}")
-          [
-            "neon_2_sse"
-            "gemmlowp"
-            "absl"
-            "fp16/include"
-            "farmhash/src"
-            "ruy"
-            "cpuinfo"
-            "cpuinfo/src"
-            "cpuinfo/include"
-            "cpuinfo/deps/clog/include"
-            "eigen"
-          ];
+      includes = lib.concatMapStringsSep " " (subdir: "-I $PWD/tensorflow/lite/tools/make/downloads/${subdir}") [
+        "neon_2_sse"
+        "gemmlowp"
+        "absl"
+        "fp16/include"
+        "farmhash/src"
+        "ruy"
+        "cpuinfo"
+        "cpuinfo/src"
+        "cpuinfo/include"
+        "cpuinfo/deps/clog/include"
+        "eigen"
+      ];
     in
     ''
       # enter the vendoring lair of doom

@@ -133,9 +133,7 @@
               mkRecords =
                 entry:
                 let
-                  records =
-                    lib.optional (entry ? ipv6) "AAAA ${entry.ipv6}"
-                    ++ lib.optional (entry ? ipv4) "A ${entry.ipv4}";
+                  records = lib.optional (entry ? ipv6) "AAAA ${entry.ipv6}" ++ lib.optional (entry ? ipv4) "A ${entry.ipv4}";
                   mkRecord = typeAndData: "${entry.host}. IN ${typeAndData}";
                 in
                 lib.concatMapStringsSep "\n" mkRecord records;

@@ -6,8 +6,7 @@
 let
   addNativeLibs = libs: x: { propagatedBuildInputs = libs; };
   skipBuildPhase = x: { overrides = y: ((x.overrides y) // { buildPhase = "true"; }); };
-  multiOverride =
-    l: x: if l == [ ] then { } else ((builtins.head l) x) // (multiOverride (builtins.tail l) x);
+  multiOverride = l: x: if l == [ ] then { } else ((builtins.head l) x) // (multiOverride (builtins.tail l) x);
   lispName = (clwrapper.lisp.pname or (builtins.parseDrvName clwrapper.lisp.name).name);
   ifLispIn = l: f: if (pkgs.lib.elem lispName l) then f else (x: { });
   ifLispNotIn = l: f: if !(pkgs.lib.elem lispName l) then f else (x: { });
@@ -306,9 +305,7 @@ in
       "postmodern.asd"
       "simple-date.asd"
     ];
-    parasites = (pkgs.lib.filter (x: x != "postmodern/tests") x.parasites) ++ [
-      "simple-date/postgres-glue"
-    ];
+    parasites = (pkgs.lib.filter (x: x != "postmodern/tests") x.parasites) ++ [ "simple-date/postgres-glue" ];
     deps = pkgs.lib.filter (x: x.name != quicklisp-to-nix-packages.simple-date.name) x.deps;
   };
   s-sql = x: {

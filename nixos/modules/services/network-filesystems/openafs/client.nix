@@ -26,9 +26,7 @@ let
     sha256 = "1wmjn6mmyy2r8p10nlbdzs4nrqxy8a9pjyrdciy5nmppg4053rk2";
   };
 
-  clientServDB = pkgs.writeText "client-cellServDB-${cfg.cellName}" (
-    mkCellServDB cfg.cellName cfg.cellServDB
-  );
+  clientServDB = pkgs.writeText "client-cellServDB-${cfg.cellName}" (mkCellServDB cfg.cellName cfg.cellServDB);
 
   afsConfig = pkgs.runCommand "afsconfig" { preferLocalBuild = true; } ''
     mkdir -p $out

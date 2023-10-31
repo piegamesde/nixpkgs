@@ -82,9 +82,7 @@ in
   config = {
     system.systemBuilderCommands = ''
       mkdir $out/specialisation
-      ${concatStringsSep "\n" (
-        mapAttrsToList (name: path: "ln -s ${path} $out/specialisation/${name}") children
-      )}
+      ${concatStringsSep "\n" (mapAttrsToList (name: path: "ln -s ${path} $out/specialisation/${name}") children)}
     '';
   };
 

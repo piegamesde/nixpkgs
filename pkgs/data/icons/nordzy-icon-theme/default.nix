@@ -36,9 +36,7 @@ stdenvNoCC.mkDerivation rec {
 
     name= ./install.sh --dest $out/share/icons \
       ${
-        lib.optionalString (nordzy-themes != [ ]) (
-          lib.strings.concatMapStrings (theme: "-t ${theme} ") nordzy-themes
-        )
+        lib.optionalString (nordzy-themes != [ ]) (lib.strings.concatMapStrings (theme: "-t ${theme} ") nordzy-themes)
       }
 
     # Replace duplicate files with hardlinks to the first file in each

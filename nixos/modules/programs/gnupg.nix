@@ -111,13 +111,9 @@ in
       wantedBy = [ "sockets.target" ];
     };
 
-    systemd.user.sockets.gpg-agent-ssh = mkIf cfg.agent.enableSSHSupport {
-      wantedBy = [ "sockets.target" ];
-    };
+    systemd.user.sockets.gpg-agent-ssh = mkIf cfg.agent.enableSSHSupport { wantedBy = [ "sockets.target" ]; };
 
-    systemd.user.sockets.gpg-agent-extra = mkIf cfg.agent.enableExtraSocket {
-      wantedBy = [ "sockets.target" ];
-    };
+    systemd.user.sockets.gpg-agent-extra = mkIf cfg.agent.enableExtraSocket { wantedBy = [ "sockets.target" ]; };
 
     systemd.user.sockets.gpg-agent-browser = mkIf cfg.agent.enableBrowserSocket {
       wantedBy = [ "sockets.target" ];

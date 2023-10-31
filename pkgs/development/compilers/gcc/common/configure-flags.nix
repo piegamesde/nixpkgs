@@ -239,9 +239,7 @@ let
     ]
 
     # Ada options, gcc can't build the runtime library for a cross compiler
-    ++ lib.optional langAda (
-      if hostPlatform == targetPlatform then "--enable-libada" else "--disable-libada"
-    )
+    ++ lib.optional langAda (if hostPlatform == targetPlatform then "--enable-libada" else "--disable-libada")
 
     # Java options
     ++ lib.optionals langJava [

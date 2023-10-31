@@ -14,9 +14,7 @@ let
 
   classpath = concatStringsSep ":" (cfg.extraClasspathEntries ++ [ "${riemann}/share/java/riemann.jar" ]);
 
-  riemannConfig = concatStringsSep "\n" (
-    [ cfg.config ] ++ (map (f: ''(load-file "${f}")'') cfg.configFiles)
-  );
+  riemannConfig = concatStringsSep "\n" ([ cfg.config ] ++ (map (f: ''(load-file "${f}")'') cfg.configFiles));
 
   launcher = writeScriptBin "riemann" ''
     #!/bin/sh

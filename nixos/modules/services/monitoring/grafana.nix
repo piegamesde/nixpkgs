@@ -276,9 +276,7 @@ let
       send_reminder = mkOption {
         type = types.bool;
         default = true;
-        description =
-          lib.mdDoc
-            "Should the notifier be sent reminder notifications while alerts continue to fire.";
+        description = lib.mdDoc "Should the notifier be sent reminder notifications while alerts continue to fire.";
       };
       frequency = mkOption {
         type = types.str;
@@ -2021,13 +2019,11 @@ in
       }
       {
         assertion =
-          cfg.provision.alerting.contactPoints.settings == null
-          || cfg.provision.alerting.contactPoints.path == null;
+          cfg.provision.alerting.contactPoints.settings == null || cfg.provision.alerting.contactPoints.path == null;
         message = "Cannot set both contact points settings and contact points path";
       }
       {
-        assertion =
-          cfg.provision.alerting.policies.settings == null || cfg.provision.alerting.policies.path == null;
+        assertion = cfg.provision.alerting.policies.settings == null || cfg.provision.alerting.policies.path == null;
         message = "Cannot set both policies settings and policies path";
       }
       {
@@ -2061,8 +2057,7 @@ in
         RuntimeDirectoryMode = "0755";
         # Hardening
         AmbientCapabilities = lib.mkIf (cfg.settings.server.http_port < 1024) [ "CAP_NET_BIND_SERVICE" ];
-        CapabilityBoundingSet =
-          if (cfg.settings.server.http_port < 1024) then [ "CAP_NET_BIND_SERVICE" ] else [ "" ];
+        CapabilityBoundingSet = if (cfg.settings.server.http_port < 1024) then [ "CAP_NET_BIND_SERVICE" ] else [ "" ];
         DeviceAllow = [ "" ];
         LockPersonality = true;
         NoNewPrivileges = true;

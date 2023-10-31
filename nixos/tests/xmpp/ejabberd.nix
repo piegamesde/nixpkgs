@@ -12,9 +12,7 @@ import ../make-test-python.nix (
           '';
 
           environment.systemPackages = [
-            (pkgs.callPackage ./xmpp-sendmessage.nix {
-              connectTo = nodes.server.config.networking.primaryIPAddress;
-            })
+            (pkgs.callPackage ./xmpp-sendmessage.nix { connectTo = nodes.server.config.networking.primaryIPAddress; })
           ];
         };
       server =

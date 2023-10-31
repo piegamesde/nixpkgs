@@ -61,9 +61,7 @@ in
     password = mkOption {
       default = "/etc/cntlm.password";
       type = types.str;
-      description =
-        lib.mdDoc
-          "Proxy account password. Note: use chmod 0600 on /etc/cntlm.password for security.";
+      description = lib.mdDoc "Proxy account password. Note: use chmod 0600 on /etc/cntlm.password for security.";
     };
 
     netbios_hostname = mkOption {

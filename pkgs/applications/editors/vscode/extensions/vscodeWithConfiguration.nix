@@ -22,8 +22,7 @@ let
     e: {
       origin = "${e}/share/vscode/extensions/${e.vscodeExtUniqueId}";
       target = "${vscodeExtsFolderName}/${e.vscodeExtUniqueId}-${
-          (lib.findSingle (ext: "${ext.publisher}.${ext.name}" == e.vscodeExtUniqueId) "" "m" mutableExtensions)
-          .version
+          (lib.findSingle (ext: "${ext.publisher}.${ext.name}" == e.vscodeExtUniqueId) "" "m" mutableExtensions).version
         }";
     }
   );

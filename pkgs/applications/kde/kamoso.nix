@@ -43,9 +43,7 @@ mkDerivation {
     "-DGSTREAMER_VIDEO_INCLUDE_DIR=${gst_all_1.gst-plugins-base.dev}/include/gstreamer-1.0"
   ];
 
-  qtWrapperArgs = [
-    "--prefix GST_PLUGIN_PATH : ${lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" gst}"
-  ];
+  qtWrapperArgs = [ "--prefix GST_PLUGIN_PATH : ${lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" gst}" ];
 
   meta = {
     homepage = "https://apps.kde.org/kamoso/";

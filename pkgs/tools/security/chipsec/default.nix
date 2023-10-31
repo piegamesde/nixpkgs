@@ -57,9 +57,7 @@ python3.pkgs.buildPythonApplication rec {
       $out/${python3.pkgs.python.sitePackages}/drivers/linux/chipsec.ko
   '';
 
-  setupPyBuildFlags = [
-    "--build-lib=$CHIPSEC_BUILD_LIB"
-  ] ++ lib.optionals (!withDriver) [ "--skip-driver" ];
+  setupPyBuildFlags = [ "--build-lib=$CHIPSEC_BUILD_LIB" ] ++ lib.optionals (!withDriver) [ "--skip-driver" ];
 
   pythonImportsCheck = [ "chipsec" ];
 

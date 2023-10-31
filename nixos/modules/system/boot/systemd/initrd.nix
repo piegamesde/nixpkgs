@@ -422,9 +422,7 @@ in
             DefaultEnvironment=PATH=/bin:/sbin
             ${cfg.extraConfig}
             ManagerEnvironment=${
-              lib.concatStringsSep " " (
-                lib.mapAttrsToList (n: v: "${n}=${lib.escapeShellArg v}") cfg.managerEnvironment
-              )
+              lib.concatStringsSep " " (lib.mapAttrsToList (n: v: "${n}=${lib.escapeShellArg v}") cfg.managerEnvironment)
             }
           '';
 

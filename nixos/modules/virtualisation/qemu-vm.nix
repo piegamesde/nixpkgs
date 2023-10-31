@@ -917,24 +917,20 @@ in
 
     boot.loader.supportsInitrdSecrets = mkIf (!cfg.useBootLoader) (mkVMOverride false);
 
-    boot.initrd.extraUtilsCommands =
-      lib.mkIf (cfg.useDefaultFilesystems && !config.boot.initrd.systemd.enable)
-        ''
-          # We need mke2fs in the initrd.
-          copy_bin_and_libs ${pkgs.e2fsprogs}/bin/mke2fs
-        '';
+    boot.initrd.extraUtilsCommands = lib.mkIf (cfg.useDefaultFilesystems && !config.boot.initrd.systemd.enable) ''
+      # We need mke2fs in the initrd.
+      copy_bin_and_libs ${pkgs.e2fsprogs}/bin/mke2fs
+    '';
 
-    boot.initrd.postDeviceCommands =
-      lib.mkIf (cfg.useDefaultFilesystems && !config.boot.initrd.systemd.enable)
-        ''
-          # If the disk image appears to be empty, run mke2fs to
-          # initialise.
-          FSTYPE=$(blkid -o value -s TYPE ${cfg.rootDevice} || true)
-          PARTTYPE=$(blkid -o value -s PTTYPE ${cfg.rootDevice} || true)
-          if test -z "$FSTYPE" -a -z "$PARTTYPE"; then
-              mke2fs -t ext4 ${cfg.rootDevice}
-          fi
-        '';
+    boot.initrd.postDeviceCommands = lib.mkIf (cfg.useDefaultFilesystems && !config.boot.initrd.systemd.enable) ''
+      # If the disk image appears to be empty, run mke2fs to
+      # initialise.
+      FSTYPE=$(blkid -o value -s TYPE ${cfg.rootDevice} || true)
+      PARTTYPE=$(blkid -o value -s PTTYPE ${cfg.rootDevice} || true)
+      if test -z "$FSTYPE" -a -z "$PARTTYPE"; then
+          mke2fs -t ext4 ${cfg.rootDevice}
+      fi
+    '';
 
     boot.initrd.postMountCommands = lib.mkIf (!config.boot.initrd.systemd.enable) ''
       # Mark this as a NixOS machine.

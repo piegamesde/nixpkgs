@@ -18,9 +18,7 @@ let
   opt = options.programs.zsh;
 
   zshAliases = concatStringsSep "\n" (
-    mapAttrsFlatten (k: v: "alias -- ${k}=${escapeShellArg v}") (
-      filterAttrs (k: v: v != null) cfg.shellAliases
-    )
+    mapAttrsFlatten (k: v: "alias -- ${k}=${escapeShellArg v}") (filterAttrs (k: v: v != null) cfg.shellAliases)
   );
 
   zshStartupNotes = ''

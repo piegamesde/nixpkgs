@@ -70,9 +70,7 @@ stdenv.mkDerivation rec {
         for i in "$out"/lib/lib*.a; do
           ar -x $i
         done
-        ${if enableCuda then cudatoolkit else stdenv.cc.outPath}/bin/${
-          if enableCuda then "nvcc" else "cc"
-        } *.o ${
+        ${if enableCuda then cudatoolkit else stdenv.cc.outPath}/bin/${if enableCuda then "nvcc" else "cc"} *.o ${
           if stdenv.isDarwin then "-dynamiclib" else "--shared"
         } -o "$out/lib/libsuitesparse${SHLIB_EXT}" -lblas ${lib.optionalString enableCuda "-lcublas"}
     )

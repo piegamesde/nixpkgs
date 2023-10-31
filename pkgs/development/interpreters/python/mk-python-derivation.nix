@@ -290,9 +290,7 @@ let
         # Longer-term we should get rid of `checkPhase` and use `installCheckPhase`.
         installCheckPhase = attrs.checkPhase;
       }
-      // lib.optionalAttrs (disabledTestPaths != [ ]) {
-        disabledTestPaths = lib.escapeShellArgs disabledTestPaths;
-      }
+      // lib.optionalAttrs (disabledTestPaths != [ ]) { disabledTestPaths = lib.escapeShellArgs disabledTestPaths; }
     )
   );
 
@@ -305,6 +303,5 @@ let
       filename
     ];
 in
-lib.extendDerivation (disabled -> throw "${name} not supported for interpreter ${python.executable}")
-  passthru
+lib.extendDerivation (disabled -> throw "${name} not supported for interpreter ${python.executable}") passthru
   self

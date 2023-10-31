@@ -3594,9 +3594,7 @@ let
           rttablesExtraConfig = ''
 
             # Extra tables defined in NixOS systemd.networkd.config.routeTables.
-            ${concatStringsSep "\n" (
-              mapAttrsToList (name: number: "${toString number} ${name}") cfg.config.routeTables
-            )}
+            ${concatStringsSep "\n" (mapAttrsToList (name: number: "${toString number} ${name}") cfg.config.routeTables)}
           '';
         };
 

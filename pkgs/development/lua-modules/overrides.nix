@@ -290,9 +290,7 @@ with prev; {
     }
   );
 
-  lrexlib-posix = prev.lrexlib-posix.overrideAttrs (
-    oa: { buildInputs = oa.buildInputs ++ [ glibc.dev ]; }
-  );
+  lrexlib-posix = prev.lrexlib-posix.overrideAttrs (oa: { buildInputs = oa.buildInputs ++ [ glibc.dev ]; });
 
   lua-curl = prev.lua-curl.overrideAttrs (oa: { buildInputs = oa.buildInputs ++ [ curl.dev ]; });
 

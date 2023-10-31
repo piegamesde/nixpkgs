@@ -110,8 +110,7 @@ let
     let
       maintainer =
         if !builtins.hasAttr maintainer' lib.maintainers then
-          builtins.throw
-            "Maintainer with name `${maintainer'} does not exist in `maintainers/maintainer-list.nix`."
+          builtins.throw "Maintainer with name `${maintainer'} does not exist in `maintainers/maintainer-list.nix`."
         else
           builtins.getAttr maintainer' lib.maintainers;
     in

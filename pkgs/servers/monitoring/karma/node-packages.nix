@@ -17366,12 +17366,7 @@ let
       sources."@babel/plugin-transform-typescript-7.18.12"
       sources."@babel/plugin-transform-unicode-escapes-7.18.10"
       sources."@babel/plugin-transform-unicode-regex-7.18.6"
-      (
-        sources."@babel/preset-env-7.18.10"
-        // {
-          dependencies = [ sources."babel-plugin-polyfill-corejs3-0.5.3" ];
-        }
-      )
+      (sources."@babel/preset-env-7.18.10" // { dependencies = [ sources."babel-plugin-polyfill-corejs3-0.5.3" ]; })
       sources."@babel/preset-flow-7.18.6"
       sources."@babel/preset-modules-0.1.5"
       sources."@babel/preset-react-7.18.6"
@@ -17600,9 +17595,7 @@ let
       sources."@jridgewell/gen-mapping-0.1.1"
       sources."@jridgewell/resolve-uri-3.1.0"
       sources."@jridgewell/set-array-1.1.2"
-      (
-        sources."@jridgewell/source-map-0.3.2" // { dependencies = [ sources."@jridgewell/gen-mapping-0.3.2" ]; }
-      )
+      (sources."@jridgewell/source-map-0.3.2" // { dependencies = [ sources."@jridgewell/gen-mapping-0.3.2" ]; })
       sources."@jridgewell/sourcemap-codec-1.4.14"
       sources."@jridgewell/trace-mapping-0.3.15"
       sources."@juggle/resize-observer-3.4.0"

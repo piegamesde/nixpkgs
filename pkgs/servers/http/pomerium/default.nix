@@ -78,9 +78,7 @@ buildGoModule rec {
       mapAttrsToFlatList = fn: list: concatMap id (mapAttrsToList fn list);
       varFlags = concatStringsSpace (
         mapAttrsToFlatList
-          (
-            package: packageVars: mapAttrsToList (variable: value: "-X ${package}.${variable}=${value}") packageVars
-          )
+          (package: packageVars: mapAttrsToList (variable: value: "-X ${package}.${variable}=${value}") packageVars)
           setVars
       );
     in

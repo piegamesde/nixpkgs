@@ -102,10 +102,7 @@ else
       # > When the --stdin option is provided, the directories or patterns are read
       # > from standard in as a newline-delimited list instead of from the arguments.
       sparseCheckout =
-        if builtins.isString sparseCheckout then
-          sparseCheckout
-        else
-          builtins.concatStringsSep "\n" sparseCheckout;
+        if builtins.isString sparseCheckout then sparseCheckout else builtins.concatStringsSep "\n" sparseCheckout;
 
       inherit
         url

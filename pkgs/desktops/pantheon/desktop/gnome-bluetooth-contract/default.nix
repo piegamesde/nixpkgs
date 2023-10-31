@@ -41,9 +41,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = unstableGitUpdater {
-      url = "https://github.com/elementary/gnome-bluetooth-contract.git";
-    };
+    updateScript = unstableGitUpdater { url = "https://github.com/elementary/gnome-bluetooth-contract.git"; };
   };
 
   meta = with lib; {

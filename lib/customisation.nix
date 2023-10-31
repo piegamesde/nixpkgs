@@ -95,8 +95,7 @@ rec {
       // {
         override = overrideArgs;
         overrideDerivation = fdrv: overrideResult (x: overrideDerivation x fdrv);
-        ${if result ? overrideAttrs then "overrideAttrs" else null} =
-          fdrv: overrideResult (x: x.overrideAttrs fdrv);
+        ${if result ? overrideAttrs then "overrideAttrs" else null} = fdrv: overrideResult (x: x.overrideAttrs fdrv);
       }
     else if lib.isFunction result then
       # Transform the result into a functor while propagating its arguments

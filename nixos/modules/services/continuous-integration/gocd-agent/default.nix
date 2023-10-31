@@ -163,9 +163,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    users.groups = optionalAttrs (cfg.group == "gocd-agent") {
-      gocd-agent.gid = config.ids.gids.gocd-agent;
-    };
+    users.groups = optionalAttrs (cfg.group == "gocd-agent") { gocd-agent.gid = config.ids.gids.gocd-agent; };
 
     users.users = optionalAttrs (cfg.user == "gocd-agent") {
       gocd-agent = {

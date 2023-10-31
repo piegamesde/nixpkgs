@@ -21,12 +21,10 @@ let
     isBaseSDK = "YES";
   };
 
-  SystemVersion =
-    lib.optionalAttrs (productBuildVer != null) { ProductBuildVersion = productBuildVer; }
-    // {
-      ProductName = "Mac OS X";
-      ProductVersion = sdkVer;
-    };
+  SystemVersion = lib.optionalAttrs (productBuildVer != null) { ProductBuildVersion = productBuildVer; } // {
+    ProductName = "Mac OS X";
+    ProductVersion = sdkVer;
+  };
 in
 
 runCommand "SDKs" { } ''

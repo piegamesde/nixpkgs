@@ -22,9 +22,7 @@ stdenv.mkDerivation rec {
   version = "2.7.7";
 
   src = fetchurl {
-    url = "https://www.haproxy.org/download/${
-        lib.versions.majorMinor version
-      }/src/${pname}-${version}.tar.gz";
+    url = "https://www.haproxy.org/download/${lib.versions.majorMinor version}/src/${pname}-${version}.tar.gz";
     sha256 = "sha256-0PicsyRPx72Ttqbpqr/FZPIThoZyiLXdkxYJE+bMS4k=";
   };
 

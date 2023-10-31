@@ -54,9 +54,7 @@ rustPlatform.buildRustPackage rec {
 
   buildNoDefaultFeatures = true;
   buildFeatures =
-    optional sqliteSupport "sqlite"
-    ++ optional postgresqlSupport "postgres"
-    ++ optional mysqlSupport "mysql";
+    optional sqliteSupport "sqlite" ++ optional postgresqlSupport "postgres" ++ optional mysqlSupport "mysql";
 
   checkPhase =
     ''

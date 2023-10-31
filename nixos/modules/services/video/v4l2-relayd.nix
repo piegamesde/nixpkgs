@@ -207,8 +207,7 @@ in
       mkInstanceServices =
         instances:
         listToAttrs (
-          map
-            (instance: nameValuePair "v4l2-relayd-${escapeSystemdPath instance.name}" (mkInstanceService instance))
+          map (instance: nameValuePair "v4l2-relayd-${escapeSystemdPath instance.name}" (mkInstanceService instance))
             instances
         );
 

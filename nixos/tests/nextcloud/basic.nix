@@ -128,9 +128,7 @@ args@{
               grep "$what" graph >$out || true
             '';
         nextcloudUsesImagick = findInClosure "imagick" nodes.nextcloud.config.system.build.vm;
-        nextcloudWithoutDoesntUseIt =
-          findInClosure "imagick"
-            nodes.nextcloudWithoutMagick.config.system.build.vm;
+        nextcloudWithoutDoesntUseIt = findInClosure "imagick" nodes.nextcloudWithoutMagick.config.system.build.vm;
       in
       ''
         assert open("${nextcloudUsesImagick}").read() != ""

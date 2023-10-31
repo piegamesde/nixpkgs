@@ -80,9 +80,7 @@ stdenv.mkDerivation (
 
       idris --install ${ipkgName}.ipkg --ibcsubdir $out/libs ${lib.escapeShellArgs idrisInstallOptions}
 
-      IDRIS_DOC_PATH=$out/doc idris --installdoc ${ipkgName}.ipkg ${
-        lib.escapeShellArgs idrisDocOptions
-      } || true
+      IDRIS_DOC_PATH=$out/doc idris --installdoc ${ipkgName}.ipkg ${lib.escapeShellArgs idrisDocOptions} || true
 
       # If the ipkg file defines an executable, install that
       executable=$(grep -Po '^executable = \K.*' ${ipkgName}.ipkg || true)

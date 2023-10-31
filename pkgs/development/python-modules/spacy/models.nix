@@ -94,7 +94,6 @@ let
       };
     };
 
-  makeModelSet =
-    models: with lib; listToAttrs (map (m: nameValuePair m.pname (buildModelPackage m)) models);
+  makeModelSet = models: with lib; listToAttrs (map (m: nameValuePair m.pname (buildModelPackage m)) models);
 in
 makeModelSet (lib.importJSON ./models.json)

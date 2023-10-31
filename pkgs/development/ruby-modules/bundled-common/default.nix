@@ -41,8 +41,7 @@ with import ./functions.nix { inherit lib gemConfig; };
 let
   gemFiles = bundlerFiles args;
 
-  importedGemset =
-    if builtins.typeOf gemFiles.gemset != "set" then import gemFiles.gemset else gemFiles.gemset;
+  importedGemset = if builtins.typeOf gemFiles.gemset != "set" then import gemFiles.gemset else gemFiles.gemset;
 
   filteredGemset = filterGemset { inherit ruby groups; } importedGemset;
 

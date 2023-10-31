@@ -105,9 +105,7 @@ in
   ### implementation
 
   config = mkIf (cfg.server.enable || cfg.clients != { }) {
-    boot.kernel.sysctl = optionalAttrs cfg.server.respondToSystemPings {
-      "net.ipv4.icmp_echo_ignore_all" = 1;
-    };
+    boot.kernel.sysctl = optionalAttrs cfg.server.respondToSystemPings { "net.ipv4.icmp_echo_ignore_all" = 1; };
 
     boot.kernelModules = [ "tun" ];
 
@@ -127,8 +125,7 @@ in
         };
       in
       listToAttrs (
-        mapAttrsToList (name: value: nameValuePair "hans-${name}" (createHansClientService name value))
-          cfg.clients
+        mapAttrsToList (name: value: nameValuePair "hans-${name}" (createHansClientService name value)) cfg.clients
       )
       // {
         hans = mkIf (cfg.server.enable) {

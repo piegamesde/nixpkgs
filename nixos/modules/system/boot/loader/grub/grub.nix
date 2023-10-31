@@ -34,10 +34,7 @@ let
 
   grubEfi =
     # EFI version of Grub v2
-    if cfg.efiSupport && (cfg.version == 2) then
-      realGrub.override { efiSupport = cfg.efiSupport; }
-    else
-      null;
+    if cfg.efiSupport && (cfg.version == 2) then realGrub.override { efiSupport = cfg.efiSupport; } else null;
 
   f = x: optionalString (x != null) ("" + x);
 
@@ -902,8 +899,7 @@ in
           }
           {
             assertion =
-              cfg.efiSupport
-              || all (c: c < 2) (mapAttrsToList (n: c: if n == "nodev" then 0 else c) bootDeviceCounters);
+              cfg.efiSupport || all (c: c < 2) (mapAttrsToList (n: c: if n == "nodev" then 0 else c) bootDeviceCounters);
             message = "You cannot have duplicated devices in mirroredBoots";
           }
           {

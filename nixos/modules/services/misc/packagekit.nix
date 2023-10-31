@@ -89,8 +89,6 @@ in
 
     systemd.packages = with pkgs; [ packagekit ];
 
-    environment.etc = listToAttrs (
-      map (e: lib.nameValuePair "PackageKit/${e.name}" { source = e; }) confFiles
-    );
+    environment.etc = listToAttrs (map (e: lib.nameValuePair "PackageKit/${e.name}" { source = e; }) confFiles);
   };
 }

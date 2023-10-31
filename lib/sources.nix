@@ -39,10 +39,7 @@ let
     in
     !(
       # Filter out version control software files/directories
-      (
-        baseName == ".git"
-        || type == "directory" && (baseName == ".svn" || baseName == "CVS" || baseName == ".hg")
-      )
+      (baseName == ".git" || type == "directory" && (baseName == ".svn" || baseName == "CVS" || baseName == ".hg"))
       ||
         # Filter out editor backup / swap files.
         lib.hasSuffix "~" baseName

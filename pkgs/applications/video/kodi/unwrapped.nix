@@ -360,31 +360,27 @@ stdenv.mkDerivation {
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-  cmakeFlags =
-    [
-      "-DAPP_RENDER_SYSTEM=${if gbmSupport then "gles" else "gl"}"
-      "-Dlibdvdcss_URL=${libdvdcss}"
-      "-Dlibdvdnav_URL=${libdvdnav}"
-      "-Dlibdvdread_URL=${libdvdread}"
-      "-DGIT_VERSION=${kodiReleaseDate}"
-      "-DENABLE_EVENTCLIENTS=ON"
-      "-DENABLE_INTERNAL_CROSSGUID=OFF"
-      "-DENABLE_INTERNAL_RapidJSON=OFF"
-      "-DENABLE_OPTICAL=ON"
-      "-DLIRC_DEVICE=/run/lirc/lircd"
-      "-DSWIG_EXECUTABLE=${buildPackages.swig}/bin/swig"
-      "-DFLATBUFFERS_FLATC_EXECUTABLE=${buildPackages.flatbuffers}/bin/flatc"
-      "-DPYTHON_EXECUTABLE=${buildPackages.python3Packages.python}/bin/python"
-      # When wrapped KODI_HOME will likely contain symlinks to static assets
-      # that Kodi's built in webserver will cautiously refuse to serve up
-      # (because their realpaths are outside of KODI_HOME and the other
-      # whitelisted directories). This adds the entire nix store to the Kodi
-      # webserver whitelist to avoid this problem.
-      "-DKODI_WEBSERVER_EXTRA_WHITELIST=${builtins.storeDir}"
-    ]
-    ++ lib.optionals waylandSupport [
-      "-DWAYLANDPP_SCANNER=${buildPackages.waylandpp}/bin/wayland-scanner++"
-    ];
+  cmakeFlags = [
+    "-DAPP_RENDER_SYSTEM=${if gbmSupport then "gles" else "gl"}"
+    "-Dlibdvdcss_URL=${libdvdcss}"
+    "-Dlibdvdnav_URL=${libdvdnav}"
+    "-Dlibdvdread_URL=${libdvdread}"
+    "-DGIT_VERSION=${kodiReleaseDate}"
+    "-DENABLE_EVENTCLIENTS=ON"
+    "-DENABLE_INTERNAL_CROSSGUID=OFF"
+    "-DENABLE_INTERNAL_RapidJSON=OFF"
+    "-DENABLE_OPTICAL=ON"
+    "-DLIRC_DEVICE=/run/lirc/lircd"
+    "-DSWIG_EXECUTABLE=${buildPackages.swig}/bin/swig"
+    "-DFLATBUFFERS_FLATC_EXECUTABLE=${buildPackages.flatbuffers}/bin/flatc"
+    "-DPYTHON_EXECUTABLE=${buildPackages.python3Packages.python}/bin/python"
+    # When wrapped KODI_HOME will likely contain symlinks to static assets
+    # that Kodi's built in webserver will cautiously refuse to serve up
+    # (because their realpaths are outside of KODI_HOME and the other
+    # whitelisted directories). This adds the entire nix store to the Kodi
+    # webserver whitelist to avoid this problem.
+    "-DKODI_WEBSERVER_EXTRA_WHITELIST=${builtins.storeDir}"
+  ] ++ lib.optionals waylandSupport [ "-DWAYLANDPP_SCANNER=${buildPackages.waylandpp}/bin/wayland-scanner++" ];
 
   # 14 tests fail but the biggest issue is that every test takes 30 seconds -
   # I'm guessing there is a thing waiting to time out

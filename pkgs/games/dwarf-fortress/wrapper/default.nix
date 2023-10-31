@@ -149,8 +149,7 @@ let
   };
 in
 
-lib.throwIf (enableTWBT && !enableDFHack) "dwarf-fortress: TWBT requires DFHack to be enabled"
-  lib.throwIf
+lib.throwIf (enableTWBT && !enableDFHack) "dwarf-fortress: TWBT requires DFHack to be enabled" lib.throwIf
   (enableStoneSense && !enableDFHack)
   "dwarf-fortress: StoneSense requires DFHack to be enabled"
   lib.throwIf

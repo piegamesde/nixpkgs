@@ -35,8 +35,7 @@ let
       interpreter = "/run/binfmt/${name}";
       flags =
         if !(matchCredentials -> openBinary) then
-          throw
-            "boot.binfmt.registrations.${name}: you can't specify openBinary = false when matchCredentials = true."
+          throw "boot.binfmt.registrations.${name}: you can't specify openBinary = false when matchCredentials = true."
         else
           optionalString preserveArgvZero "P"
           + optionalString (openBinary && !matchCredentials) "O"

@@ -22,9 +22,7 @@ sgx-azure-dcap-client.overrideAttrs (
     '';
 
     postFixup = ''
-      wrapProgram "$out/bin/tests" --prefix LD_LIBRARY_PATH : "${
-        lib.makeLibraryPath [ sgx-azure-dcap-client ]
-      }"
+      wrapProgram "$out/bin/tests" --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ sgx-azure-dcap-client ]}"
     '';
   }
 )

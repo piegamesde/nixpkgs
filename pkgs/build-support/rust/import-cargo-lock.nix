@@ -262,10 +262,7 @@ let
             mkdir -p $out/.cargo
 
             ${
-              if lockFile != null then
-                "ln -s ${lockFile} $out/Cargo.lock"
-              else
-                "cp $lockFileContentsPath $out/Cargo.lock"
+              if lockFile != null then "ln -s ${lockFile} $out/Cargo.lock" else "cp $lockFileContentsPath $out/Cargo.lock"
             }
 
             cat > $out/.cargo/config <<EOF

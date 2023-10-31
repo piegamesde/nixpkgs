@@ -603,8 +603,7 @@ builtins.intersectAttrs super {
     let
       g = addBuildDepend pkgs.perl super.ginsu;
       g' =
-        overrideCabal
-          (drv: { executableSystemDepends = (drv.executableSystemDepends or [ ]) ++ [ pkgs.ncurses ]; })
+        overrideCabal (drv: { executableSystemDepends = (drv.executableSystemDepends or [ ]) ++ [ pkgs.ncurses ]; })
           g;
     in
     g';
@@ -805,8 +804,7 @@ builtins.intersectAttrs super {
   spatial-rotations = dontCheck super.spatial-rotations;
 
   LDAP = dontCheck (
-    overrideCabal
-      (drv: { librarySystemDepends = drv.librarySystemDepends or [ ] ++ [ pkgs.cyrus_sasl.dev ]; })
+    overrideCabal (drv: { librarySystemDepends = drv.librarySystemDepends or [ ] ++ [ pkgs.cyrus_sasl.dev ]; })
       super.LDAP
   );
 
@@ -938,9 +936,7 @@ builtins.intersectAttrs super {
   # gtk2hs-buildtools is listed in setupHaskellDepends, but we
   # need it during the build itself, too.
   cairo = addBuildTool self.buildHaskellPackages.gtk2hs-buildtools super.cairo;
-  pango = disableHardening [ "fortify" ] (
-    addBuildTool self.buildHaskellPackages.gtk2hs-buildtools super.pango
-  );
+  pango = disableHardening [ "fortify" ] (addBuildTool self.buildHaskellPackages.gtk2hs-buildtools super.pango);
 
   spago =
     let

@@ -49,10 +49,7 @@ let
     exec >$out
     ${concatStringsSep "\n" (
       mapAttrsToList
-        (
-          k: v:
-          optionalString (v.hostname != "") "echo $(${pkgs.cjdns}/bin/publictoip6 ${v.publicKey}) ${v.hostname}"
-        )
+        (k: v: optionalString (v.hostname != "") "echo $(${pkgs.cjdns}/bin/publictoip6 ${v.publicKey}) ${v.hostname}")
         (cfg.ETHInterface.connectTo // cfg.UDPInterface.connectTo)
     )}
   '';

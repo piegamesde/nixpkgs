@@ -75,9 +75,7 @@ let
           priority ${toString i.priority}
           ${optionalString i.noPreempt "nopreempt"}
 
-          ${
-            optionalString i.useVmac ("use_vmac" + optionalString (i.vmacInterface != null) " ${i.vmacInterface}")
-          }
+          ${optionalString i.useVmac ("use_vmac" + optionalString (i.vmacInterface != null) " ${i.vmacInterface}")}
           ${optionalString i.vmacXmitBase "vmac_xmit_base"}
 
           ${optionalString (i.unicastSrcIp != null) "unicast_src_ip ${i.unicastSrcIp}"}

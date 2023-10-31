@@ -63,9 +63,7 @@ let
         in
         map (x: defaultPlugin // (if (x ? plugin) then x else { plugin = x; })) plugins;
 
-      pluginRC =
-        lib.foldl (acc: p: if p.config != null then acc ++ [ p.config ] else acc) [ ]
-          pluginsNormalized;
+      pluginRC = lib.foldl (acc: p: if p.config != null then acc ++ [ p.config ] else acc) [ ] pluginsNormalized;
 
       pluginsPartitioned = lib.partition (x: x.optional == true) pluginsNormalized;
       requiredPlugins = vimUtils.requiredPluginsForPackage myVimPackage;

@@ -66,9 +66,7 @@ let
   # Apply the configured extraIntegrations to the provided agent
   # package. See the documentation of `dd-agent/integrations-core.nix`
   # for detailed information on this.
-  datadogPkg = cfg.package.override {
-    pythonPackages = pkgs.datadog-integrations-core cfg.extraIntegrations;
-  };
+  datadogPkg = cfg.package.override { pythonPackages = pkgs.datadog-integrations-core cfg.extraIntegrations; };
 in
 {
   options.services.datadog-agent = {

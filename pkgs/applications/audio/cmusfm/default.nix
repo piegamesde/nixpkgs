@@ -22,9 +22,7 @@ stdenv.mkDerivation rec {
     sha256 = "1px2is80jdxchg8cpn5cizg6jvcbzyxl0qzs3bn0k3d10qjvdww5";
   };
 
-  configureFlags =
-    lib.optional libnotifySupport "--enable-libnotify"
-    ++ lib.optional debug "--enable-debug";
+  configureFlags = lib.optional libnotifySupport "--enable-libnotify" ++ lib.optional debug "--enable-debug";
 
   nativeBuildInputs = [
     autoreconfHook

@@ -51,9 +51,7 @@ let
       type = with types; nullOr str;
       default = null;
       example = "/path/to/key.pem";
-      description =
-        lib.mdDoc
-          "Path to TLS key to use for connections to {manpage}`public-inbox-${proto}d(1)`.";
+      description = lib.mdDoc "Path to TLS key to use for connections to {manpage}`public-inbox-${proto}d(1)`.";
     };
   };
 
@@ -608,10 +606,7 @@ in
         ];
       })
       (mkIf
-        (
-          any (inbox: inbox.watch != [ ]) (attrValues cfg.inboxes)
-          || cfg.settings.publicinboxwatch.watchspam != null
-        )
+        (any (inbox: inbox.watch != [ ]) (attrValues cfg.inboxes) || cfg.settings.publicinboxwatch.watchspam != null)
         {
           public-inbox-watch = mkMerge [
             (serviceConfig "watch")

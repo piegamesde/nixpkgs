@@ -187,9 +187,7 @@ buildPythonApplication {
         --add-flags '--backend ${backend}'
         --set QUTE_QTWEBENGINE_VERSION_OVERRIDE "${lib.getVersion qtwebengine}"
         ${lib.optionalString isQt6 ''--set QUTE_QT_WRAPPER "PyQt6"''}
-        ${
-          lib.optionalString (pipewireSupport && backend == "webengine") "--prefix LD_LIBRARY_PATH : ${libPath}"
-        }
+        ${lib.optionalString (pipewireSupport && backend == "webengine") "--prefix LD_LIBRARY_PATH : ${libPath}"}
         ${
           lib.optionalString enableWideVine
             ''
