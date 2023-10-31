@@ -9,8 +9,7 @@
   nix-update-script,
   nixosTests,
   # To include additional plugins, pass them here as an overlay.
-  packageOverrides ? self: super:
-    { },
+  packageOverrides ? self: super: { },
 }:
 let
 

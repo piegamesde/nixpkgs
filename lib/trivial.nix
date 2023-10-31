@@ -11,8 +11,7 @@ rec {
   */
   id =
     # The value to return
-    x:
-    x;
+    x: x;
 
   /* The constant function
 
@@ -205,8 +204,7 @@ rec {
     /* Release number of feature introduction as an integer, e.g. 2111 for 21.11.
        Set it to the upcoming release, matching the nixpkgs/.version file.
     */
-    release:
-    release <= lib.trivial.oldestSupportedRelease;
+    release: release <= lib.trivial.oldestSupportedRelease;
 
   /* Returns the current nixpkgs release code name.
 
@@ -505,8 +503,7 @@ rec {
   */
   toFunction =
     # Any value
-    v:
-    if isFunction v then v else k: v;
+    v: if isFunction v then v else k: v;
 
   /* Convert the given positive integer to a string of its hexadecimal
      representation. For example:

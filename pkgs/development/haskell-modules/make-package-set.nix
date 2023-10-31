@@ -501,8 +501,7 @@ package-set { inherit pkgs lib callPackage; } self
       #   extraDependencies = p: {
       #     libraryHaskellDepends = [ p.releaser ];
       #   };
-      extraDependencies ? p:
-        { },
+      extraDependencies ? p: { },
       ...
     }@args:
     let

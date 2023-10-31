@@ -240,8 +240,7 @@
   ,
   # Deprecated but depended upon by some packages.
   # https://github.com/NixOS/nixpkgs/pull/211834#issuecomment-1417435991)
-  buildAvresample ?
-    withHeadlessDeps && lib.versionOlder version "5" # Build avresample library
+  buildAvresample ? withHeadlessDeps && lib.versionOlder version "5" # Build avresample library
   ,
   buildAvutil ? withHeadlessDeps # Build avutil library
   ,

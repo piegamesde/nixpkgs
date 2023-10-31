@@ -155,8 +155,7 @@ rec {
   */
   remove =
     # Element to remove from the list
-    e:
-    filter (x: x != e);
+    e: filter (x: x != e);
 
   /* Find the sole element in the list matching the specified
      predicate, returns `default` if no such element exists, or
@@ -253,8 +252,7 @@ rec {
   */
   count =
     # Predicate
-    pred:
-    foldl' (c: x: if pred x then c + 1 else c) 0;
+    pred: foldl' (c: x: if pred x then c + 1 else c) 0;
 
   /* Return a singleton list or an empty list, depending on a boolean
      value.  Useful when building lists with optional elements
@@ -521,9 +519,7 @@ rec {
     in
     if length list < 2 then
       # finish
-      {
-        result = list;
-      }
+      { result = list; }
     else if dfsthis ? cycle then
       # there's a cycle, starting from the current vertex, return it
       {
@@ -536,9 +532,7 @@ rec {
     # Slow, but short. Can be made a bit faster with an explicit stack.
     else
       # there are no cycles
-      {
-        result = [ dfsthis.minimal ] ++ toporest.result;
-      }
+      { result = [ dfsthis.minimal ] ++ toporest.result; }
   ;
 
   /* Sort a list based on a comparator function which compares two
@@ -654,8 +648,7 @@ rec {
   */
   take =
     # Number of elements to take
-    count:
-    sublist 0 count;
+    count: sublist 0 count;
 
   /* Remove the first (at most) N elements of a list.
 
