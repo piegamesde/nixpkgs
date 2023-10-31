@@ -75,14 +75,12 @@ let
   );
 
   # Ensure the CLI uses our generated configFile
-  wrappedBinaries =
-    pkgs.runCommandLocal "apcupsd-wrapped-binaries" { nativeBuildInputs = [ pkgs.makeWrapper ]; }
-      ''
-        for p in "${lib.getBin pkgs.apcupsd}/bin/"*; do
-            bname=$(basename "$p")
-            makeWrapper "$p" "$out/bin/$bname" --add-flags "-f ${configFile}"
-        done
-      '';
+  wrappedBinaries = pkgs.runCommandLocal "apcupsd-wrapped-binaries" { nativeBuildInputs = [ pkgs.makeWrapper ]; } ''
+    for p in "${lib.getBin pkgs.apcupsd}/bin/"*; do
+        bname=$(basename "$p")
+        makeWrapper "$p" "$out/bin/$bname" --add-flags "-f ${configFile}"
+    done
+  '';
 
   apcupsdWrapped = pkgs.symlinkJoin {
     name = "apcupsd-wrapped";

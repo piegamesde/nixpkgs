@@ -17,13 +17,10 @@ stdenv.mkDerivation rec {
     cp offrss $out/bin
   '';
 
-  buildInputs =
-    [
-      curl
-      libmrss
-    ]
-    ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform) podofo
-    ++ lib.optional (!stdenv.isLinux) libiconv;
+  buildInputs = [
+    curl
+    libmrss
+  ] ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform) podofo ++ lib.optional (!stdenv.isLinux) libiconv;
 
   # Workaround build failure on -fno-common toolchains:
   #   ld: serve_pdf.o:offrss.h:75: multiple definition of `cgi_url_path';

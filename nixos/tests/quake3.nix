@@ -55,8 +55,7 @@ import ./make-test-python.nix (
           systemd.services.quake3-server = {
             wantedBy = [ "multi-user.target" ];
             script =
-              "${pkgs.quake3demo}/bin/quake3-server +set g_gametype 0 "
-              + "+map q3dm7 +addbot grunt +addbot daemia 2> /tmp/log";
+              "${pkgs.quake3demo}/bin/quake3-server +set g_gametype 0 " + "+map q3dm7 +addbot grunt +addbot daemia 2> /tmp/log";
           };
           nixpkgs.config.packageOverrides = overrides;
           nixpkgs.config.allowUnfreePredicate = unfreePredicate;

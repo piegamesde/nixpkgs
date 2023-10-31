@@ -23,9 +23,7 @@ stdenv.mkDerivation (
     version = "44.0";
 
     src = fetchurl {
-      url = "mirror://gnome/sources/hitori/${
-          lib.versions.major finalAttrs.version
-        }/hitori-${finalAttrs.version}.tar.xz";
+      url = "mirror://gnome/sources/hitori/${lib.versions.major finalAttrs.version}/hitori-${finalAttrs.version}.tar.xz";
       sha256 = "QicL1PlSXRgNMVG9ckUzXcXPJIqYTgL2j/kw2nmeWDs=";
     };
 

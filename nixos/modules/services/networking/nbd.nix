@@ -57,9 +57,7 @@ let
     ${lib.generators.toINI { } genericSection}
     ${lib.generators.toINI { } exportSections}
   '';
-  splitLists = partition (path: hasPrefix "/dev/" path) (
-    mapAttrsToList (_: { path, ... }: path) cfg.server.exports
-  );
+  splitLists = partition (path: hasPrefix "/dev/" path) (mapAttrsToList (_: { path, ... }: path) cfg.server.exports);
   allowedDevices = splitLists.right;
   boundPaths = splitLists.wrong;
 in

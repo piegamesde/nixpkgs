@@ -22,10 +22,7 @@ let
         "wlan@"
       else
         (
-          if (iface == "LAN") then
-            "lan@"
-          else
-            (if (iface == "DBUS") then "dbus" else (replaceStrings [ " " ] [ "-" ] iface))
+          if (iface == "LAN") then "lan@" else (if (iface == "DBUS") then "dbus" else (replaceStrings [ " " ] [ "-" ] iface))
         )
     }";
 

@@ -28,10 +28,7 @@ let
             if isList x then
               key + optionalString (key != "" && substring last 1 key != "_") "_" + head x
             else if key != "" && elem (substring 0 1 x) lowerChars then # to handle e.g. [ "disable" [ "2FAR" ] "emember" ]
-              substring 0 last key
-              + optionalString (substring (last - 1) 1 key != "_") "_"
-              + substring last 1 key
-              + toUpper x
+              substring 0 last key + optionalString (substring (last - 1) 1 key != "_") "_" + substring last 1 key + toUpper x
             else
               key + toUpper x
           )

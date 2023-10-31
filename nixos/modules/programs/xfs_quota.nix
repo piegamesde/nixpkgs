@@ -66,9 +66,7 @@ in
           }
         );
 
-        description =
-          lib.mdDoc
-            "Setup of xfs_quota projects. Make sure the filesystem is mounted with the pquota option.";
+        description = lib.mdDoc "Setup of xfs_quota projects. Make sure the filesystem is mounted with the pquota option.";
 
         example = {
           projname = {

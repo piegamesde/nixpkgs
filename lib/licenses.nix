@@ -16,10 +16,7 @@ lib.mapAttrs
           applyDefaults = license: defaultLicense // license;
           applySpdx =
             license:
-            if license ? spdxId then
-              license // { url = "https://spdx.org/licenses/${license.spdxId}.html"; }
-            else
-              license;
+            if license ? spdxId then license // { url = "https://spdx.org/licenses/${license.spdxId}.html"; } else license;
           applyRedistributable = license: { redistributable = license.free; } // license;
         in
         lib.pipe licenseDeclaration [

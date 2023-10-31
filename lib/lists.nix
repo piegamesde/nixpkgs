@@ -708,8 +708,7 @@ rec {
        init [ 1 2 3 ]
        => [ 1 2 ]
   */
-  init =
-    list: assert lib.assertMsg (list != [ ]) "lists.init: list must not be empty!"; take (length list - 1) list;
+  init = list: assert lib.assertMsg (list != [ ]) "lists.init: list must not be empty!"; take (length list - 1) list;
 
   /* Return the image of the cross product of some lists by a function.
 

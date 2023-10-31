@@ -68,9 +68,7 @@ in
           "*pass*"
           "community"
         ];
-        description =
-          lib.mdDoc
-            "List of string patterns for custom variables which should be excluded from user’s view.";
+        description = lib.mdDoc "List of string patterns for custom variables which should be excluded from user’s view.";
       };
     };
 

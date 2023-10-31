@@ -885,11 +885,7 @@ in
 
     warnings =
       optional
-        (
-          cfg.writableStore
-          && cfg.useNixStoreImage
-          && opt.writableStore.highestPrio > lib.modules.defaultOverridePriority
-        )
+        (cfg.writableStore && cfg.useNixStoreImage && opt.writableStore.highestPrio > lib.modules.defaultOverridePriority)
         ''
           You have enabled ${opt.useNixStoreImage} = true,
           without setting ${opt.writableStore} = false.
@@ -1032,9 +1028,7 @@ in
             s: concatMapStrings (c: if builtins.elem c alphaNumericChars then c else "_") (stringToCharacters s);
         in
         mkIf (!cfg.useBootLoader) [
-          "-kernel \${NIXPKGS_QEMU_KERNEL_${
-            sanitizeShellIdent config.system.name
-          }:-${config.system.build.toplevel}/kernel}"
+          "-kernel \${NIXPKGS_QEMU_KERNEL_${sanitizeShellIdent config.system.name}:-${config.system.build.toplevel}/kernel}"
           "-initrd ${config.system.build.toplevel}/initrd"
           ''
             -append "$(cat ${config.system.build.toplevel}/kernel-params) init=${config.system.build.toplevel}/init regInfo=${regInfo}/registration ${consoles} $QEMU_KERNEL_PARAMS"''

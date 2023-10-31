@@ -165,9 +165,7 @@ rec {
 
   _mapTestOnHelper =
     f: crossSystem:
-    mapAttrsRecursive (
-      path: metaPatterns: testOnCross crossSystem metaPatterns (pkgs: f (getAttrFromPath path pkgs))
-    );
+    mapAttrsRecursive (path: metaPatterns: testOnCross crossSystem metaPatterns (pkgs: f (getAttrFromPath path pkgs)));
 
   # Similar to the testOn function, but with an additional 'crossSystem'
   # parameter for packageSet', defining the target platform for cross builds,

@@ -815,14 +815,12 @@ in
           target = "/EFI/boot/efi-background.png";
         }
       ]
-      ++
-        optionals (config.boot.loader.grub.memtest86.enable && config.isoImage.makeBiosBootable && canx86BiosBoot)
-          [
-            {
-              source = "${pkgs.memtest86plus}/memtest.bin";
-              target = "/boot/memtest.bin";
-            }
-          ]
+      ++ optionals (config.boot.loader.grub.memtest86.enable && config.isoImage.makeBiosBootable && canx86BiosBoot) [
+        {
+          source = "${pkgs.memtest86plus}/memtest.bin";
+          target = "/boot/memtest.bin";
+        }
+      ]
       ++ optionals (config.isoImage.grubTheme != null) [
         {
           source = config.isoImage.grubTheme;

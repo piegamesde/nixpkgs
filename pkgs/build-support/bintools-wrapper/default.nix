@@ -132,8 +132,7 @@ let
       "";
 
   expand-response-params =
-    lib.optionalString
-      (buildPackages ? stdenv && buildPackages.stdenv.hasCC && buildPackages.stdenv.cc != "/dev/null")
+    lib.optionalString (buildPackages ? stdenv && buildPackages.stdenv.hasCC && buildPackages.stdenv.cc != "/dev/null")
       (import ../expand-response-params { inherit (buildPackages) stdenv; });
 in
 
@@ -328,9 +327,7 @@ stdenv.mkDerivation {
     # install the wrapper, you get tools like objdump (same for any
     # binaries of libc).
     + optionalString (!nativeTools) ''
-      printWords ${bintools_bin} ${
-        if libc == null then "" else libc_bin
-      } > $out/nix-support/propagated-user-env-packages
+      printWords ${bintools_bin} ${if libc == null then "" else libc_bin} > $out/nix-support/propagated-user-env-packages
     ''
 
     ##

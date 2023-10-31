@@ -11,6 +11,4 @@
 # To do so, change directory to nixpkgs root, and do:
 # $ nix-shell ./maintainers/scripts/update.nix --argstr package optifinePackages.optifine-latest --argstr commit true
 
-recurseIntoAttrs (
-  lib.mapAttrs (name: value: callPackage ./generic.nix value) (lib.importJSON ./versions.json)
-)
+recurseIntoAttrs (lib.mapAttrs (name: value: callPackage ./generic.nix value) (lib.importJSON ./versions.json))

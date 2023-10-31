@@ -82,16 +82,13 @@ let
     let
       inherit (import ./libgenerated.nix lib self) melpaDerivation;
       super =
-        (lib.listToAttrs (
-          builtins.filter (s: s != null) (map (melpaDerivation variant) (lib.importJSON archiveJson))
-        ));
+        (lib.listToAttrs (builtins.filter (s: s != null) (map (melpaDerivation variant) (lib.importJSON archiveJson))));
 
       overrides =
         lib.optionalAttrs (variant == "stable") {
 
           # upstream issue: missing file header
-          abridge-diff =
-            if super.abridge-diff.version == "0.1" then markBroken super.abridge-diff else super.abridge-diff;
+          abridge-diff = if super.abridge-diff.version == "0.1" then markBroken super.abridge-diff else super.abridge-diff;
 
           # upstream issue: missing file header
           bufshow = markBroken super.bufshow;
@@ -127,8 +124,7 @@ let
           fold-dwim = if super.fold-dwim.version == "1.2" then markBroken super.fold-dwim else super.fold-dwim;
 
           # upstream issue: missing file header
-          gl-conf-mode =
-            if super.gl-conf-mode.version == "0.3" then markBroken super.gl-conf-mode else super.gl-conf-mode;
+          gl-conf-mode = if super.gl-conf-mode.version == "0.3" then markBroken super.gl-conf-mode else super.gl-conf-mode;
 
           # upstream issue: missing file header
           ligo-mode = if super.ligo-mode.version == "0.3" then markBroken super.ligo-mode else null; # auto-updater is failing; use manual one
@@ -642,9 +638,7 @@ let
           # upstream issue: missing file header
           sql-presto = markBroken super.sql-presto;
 
-          editorconfig = super.editorconfig.overrideAttrs (
-            attrs: { propagatedUserEnvPkgs = [ pkgs.editorconfig-core-c ]; }
-          );
+          editorconfig = super.editorconfig.overrideAttrs (attrs: { propagatedUserEnvPkgs = [ pkgs.editorconfig-core-c ]; });
 
           # missing dependencies
           evil-search-highlight-persist = super.evil-search-highlight-persist.overrideAttrs (

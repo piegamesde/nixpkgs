@@ -62,9 +62,7 @@ in
     systemd.mounts = mkIf (!cfg.headless) [
       {
         description = "VMware vmblock fuse mount";
-        documentation = [
-          "https://github.com/vmware/open-vm-tools/blob/master/open-vm-tools/vmblock-fuse/design.txt"
-        ];
+        documentation = [ "https://github.com/vmware/open-vm-tools/blob/master/open-vm-tools/vmblock-fuse/design.txt" ];
         unitConfig.ConditionVirtualization = "vmware";
         what = "${open-vm-tools}/bin/vmware-vmblock-fuse";
         where = "/run/vmblock-fuse";

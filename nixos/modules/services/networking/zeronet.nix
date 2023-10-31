@@ -17,9 +17,7 @@ let
   ;
   cfg = config.services.zeronet;
   dataDir = "/var/lib/zeronet";
-  configFile = pkgs.writeText "zeronet.conf" (
-    generators.toINI { } (recursiveUpdate defaultSettings cfg.settings)
-  );
+  configFile = pkgs.writeText "zeronet.conf" (generators.toINI { } (recursiveUpdate defaultSettings cfg.settings));
 
   defaultSettings = {
     global = {

@@ -198,8 +198,7 @@ final: prev: {
     oldAttrs: {
       # The traveling-fastlane-darwin optional dependency aborts build on Linux.
       dependencies =
-        builtins.filter
-          (d: d.packageName != "@expo/traveling-fastlane-${if stdenv.isLinux then "darwin" else "linux"}")
+        builtins.filter (d: d.packageName != "@expo/traveling-fastlane-${if stdenv.isLinux then "darwin" else "linux"}")
           oldAttrs.dependencies;
     }
   );

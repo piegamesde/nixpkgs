@@ -208,8 +208,7 @@ let
     # The description of the `optionType`, with parentheses if there may be an
     # ambiguity.
     optionDescriptionPhrase =
-      unparenthesize: t:
-      if unparenthesize (t.descriptionClass or null) then t.description else "(${t.description})";
+      unparenthesize: t: if unparenthesize (t.descriptionClass or null) then t.description else "(${t.description})";
 
     # When adding new types don't forget to document them in
     # nixos/doc/manual/development/option-types.xml!
@@ -320,8 +319,7 @@ let
             };
           unsign = bit: range: ign 0 (range - 1) "unsignedInt${toString bit}" "${toString bit} bit unsigned integer";
           sign =
-            bit: range:
-            ign (0 - (range / 2)) (range / 2 - 1) "signedInt${toString bit}" "${toString bit} bit signed integer";
+            bit: range: ign (0 - (range / 2)) (range / 2 - 1) "signedInt${toString bit}" "${toString bit} bit signed integer";
         in
         {
           # An int with a fixed range.
@@ -482,9 +480,7 @@ let
         addCheck entryType (str: !(hasInfix ":" str || hasInfix "\n" str))
         // {
           name = "passwdEntry ${entryType.name}";
-          description = "${
-              optionDescriptionPhrase (class: class == "noun") entryType
-            }, not containing newlines or colons";
+          description = "${optionDescriptionPhrase (class: class == "noun") entryType}, not containing newlines or colons";
         };
 
       attrs = mkOptionType {
@@ -726,9 +722,7 @@ let
         elemType:
         mkOptionType rec {
           name = "nullOr";
-          description = "null or ${
-              optionDescriptionPhrase (class: class == "noun" || class == "conjunction") elemType
-            }";
+          description = "null or ${optionDescriptionPhrase (class: class == "noun" || class == "conjunction") elemType}";
           descriptionClass = "conjunction";
           check = x: x == null || elemType.check x;
           merge =

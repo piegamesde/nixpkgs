@@ -279,9 +279,7 @@ in
           "d '${cfg.stateDir}' 0750 ${cfg.user} ${cfg.group}"
           "d '${cfg.stateDir}/documents' 0750 ${cfg.user} ${cfg.group}"
           "f '${cfg.stateDir}/conf.php' 0660 ${cfg.user} ${cfg.group}"
-          "L '${cfg.stateDir}/install.forced.php' - ${cfg.user} ${cfg.group} - ${
-            mkConfigFile "install.forced.php" install
-          }"
+          "L '${cfg.stateDir}/install.forced.php' - ${cfg.user} ${cfg.group} - ${mkConfigFile "install.forced.php" install}"
         ];
 
         services.mysql = mkIf cfg.database.createLocally {

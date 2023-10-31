@@ -156,9 +156,7 @@ let
 
   # TODO(@sternenseemann): is buildTarget LLVM unnecessary?
   # GHC doesn't seem to have {LLC,OPT}_HOST
-  toolsForTarget = [
-    pkgsBuildTarget.targetPackages.stdenv.cc
-  ] ++ lib.optional useLLVM buildTargetLlvmPackages.llvm;
+  toolsForTarget = [ pkgsBuildTarget.targetPackages.stdenv.cc ] ++ lib.optional useLLVM buildTargetLlvmPackages.llvm;
 
   targetCC = builtins.head toolsForTarget;
 
@@ -183,9 +181,7 @@ let
   # see #84670 and #49071 for more background.
   useLdGold =
     targetPlatform.linker == "gold"
-    || (
-      targetPlatform.linker == "bfd" && (targetCC.bintools.bintools.hasGold or false) && !targetPlatform.isMusl
-    );
+    || (targetPlatform.linker == "bfd" && (targetCC.bintools.bintools.hasGold or false) && !targetPlatform.isMusl);
 
   # Makes debugging easier to see which variant is at play in `nix-store -q --tree`.
   variantSuffix = lib.concatStrings [
@@ -272,9 +268,7 @@ stdenv.mkDerivation (
         export CC="${targetCC}/bin/${targetCC.targetPrefix}cc"
         export CXX="${targetCC}/bin/${targetCC.targetPrefix}c++"
         # Use gold to work around https://sourceware.org/bugzilla/show_bug.cgi?id=16177
-        export LD="${targetCC.bintools}/bin/${targetCC.bintools.targetPrefix}ld${
-          lib.optionalString useLdGold ".gold"
-        }"
+        export LD="${targetCC.bintools}/bin/${targetCC.bintools.targetPrefix}ld${lib.optionalString useLdGold ".gold"}"
         export AS="${targetCC.bintools.bintools}/bin/${targetCC.bintools.targetPrefix}as"
         export AR="${targetCC.bintools.bintools}/bin/${targetCC.bintools.targetPrefix}ar"
         export NM="${targetCC.bintools.bintools}/bin/${targetCC.bintools.targetPrefix}nm"
@@ -351,12 +345,10 @@ stdenv.mkDerivation (
         "--with-gmp-includes=${targetPackages.gmp.dev}/include"
         "--with-gmp-libraries=${targetPackages.gmp.out}/lib"
       ]
-      ++
-        lib.optionals (targetPlatform == hostPlatform && hostPlatform.libc != "glibc" && !targetPlatform.isWindows)
-          [
-            "--with-iconv-includes=${libiconv}/include"
-            "--with-iconv-libraries=${libiconv}/lib"
-          ]
+      ++ lib.optionals (targetPlatform == hostPlatform && hostPlatform.libc != "glibc" && !targetPlatform.isWindows) [
+        "--with-iconv-includes=${libiconv}/include"
+        "--with-iconv-libraries=${libiconv}/lib"
+      ]
       ++ lib.optionals (targetPlatform != hostPlatform) [ "--enable-bootstrap-with-devel-snapshot" ]
       ++ lib.optionals useLdGold [
         "CFLAGS=-fuse-ld=gold"

@@ -126,8 +126,7 @@ rustPlatform.buildRustPackage.override { cargo-auditable = cargo-auditable.boots
     doCheck = false;
 
     doInstallCheck =
-      !stdenv.hostPlatform.isStatic
-      && stdenv.hostPlatform.parsed.kernel.execFormat == lib.systems.parse.execFormats.elf;
+      !stdenv.hostPlatform.isStatic && stdenv.hostPlatform.parsed.kernel.execFormat == lib.systems.parse.execFormats.elf;
     installCheckPhase = ''
       runHook preInstallCheck
       readelf -a $out/bin/.cargo-wrapped | grep -F 'Shared library: [libcurl.so'

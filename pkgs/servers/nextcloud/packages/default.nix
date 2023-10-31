@@ -26,10 +26,7 @@ let
     }
     //
       lib.mapAttrs
-        (
-          type: pkgs:
-          lib.makeExtensible (_: lib.mapAttrs (pname: data: self.mkNextcloudDerivation { inherit data; }) pkgs)
-        )
+        (type: pkgs: lib.makeExtensible (_: lib.mapAttrs (pname: data: self.mkNextcloudDerivation { inherit data; }) pkgs))
         generatedJson;
 in
 (lib.makeExtensible (_: (lib.makeScope newScope packages))).extend (selfNC: superNC: { })

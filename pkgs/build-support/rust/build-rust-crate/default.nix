@@ -33,8 +33,7 @@ let
           # Find a choice that matches in name and optionally version.
           findMatchOrUseExtern =
             choices:
-            lib.findFirst (choice: (!(choice ? version) || choice.version == dep.version or "")) { rename = extern; }
-              choices;
+            lib.findFirst (choice: (!(choice ? version) || choice.version == dep.version or "")) { rename = extern; } choices;
           name =
             if lib.hasAttr dep.crateName crateRenames then
               let

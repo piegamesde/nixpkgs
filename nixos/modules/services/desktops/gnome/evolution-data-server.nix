@@ -79,9 +79,7 @@ with lib;
 
   config =
     let
-      bundle = pkgs.evolutionWithPlugins.override {
-        inherit (config.services.gnome.evolution-data-server) plugins;
-      };
+      bundle = pkgs.evolutionWithPlugins.override { inherit (config.services.gnome.evolution-data-server) plugins; };
     in
     mkMerge [
       (mkIf config.services.gnome.evolution-data-server.enable {

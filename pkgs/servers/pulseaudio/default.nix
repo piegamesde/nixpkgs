@@ -179,16 +179,12 @@ stdenv.mkDerivation rec {
       "-Davahi=${if zeroconfSupport then "enabled" else "disabled"}"
       "-Dbluez5=${if !libOnly && bluetoothSupport then "enabled" else "disabled"}"
       # advanced bluetooth audio codecs are provided by gstreamer
-      "-Dbluez5-gstreamer=${
-        if (!libOnly && bluetoothSupport && advancedBluetoothCodecs) then "enabled" else "disabled"
-      }"
+      "-Dbluez5-gstreamer=${if (!libOnly && bluetoothSupport && advancedBluetoothCodecs) then "enabled" else "disabled"}"
       "-Ddatabase=simple"
       "-Ddoxygen=false"
       "-Delogind=disabled"
       # gsettings does not support cross-compilation
-      "-Dgsettings=${
-        if stdenv.isLinux && (stdenv.buildPlatform == stdenv.hostPlatform) then "enabled" else "disabled"
-      }"
+      "-Dgsettings=${if stdenv.isLinux && (stdenv.buildPlatform == stdenv.hostPlatform) then "enabled" else "disabled"}"
       "-Dgstreamer=disabled"
       "-Dgtk=disabled"
       "-Djack=${if jackaudioSupport && !libOnly then "enabled" else "disabled"}"

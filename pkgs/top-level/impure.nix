@@ -88,10 +88,7 @@ in
   else if builtins.pathExists homeOverlaysFile then
     if isDir homeOverlaysFile then throw (homeOverlaysFile + " should be a file") else overlays homeOverlaysFile
   else if builtins.pathExists homeOverlaysDir then
-    if !(isDir homeOverlaysDir) then
-      throw (homeOverlaysDir + " should be a directory")
-    else
-      overlays homeOverlaysDir
+    if !(isDir homeOverlaysDir) then throw (homeOverlaysDir + " should be a directory") else overlays homeOverlaysDir
   else
     [ ],
 

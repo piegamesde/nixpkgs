@@ -1502,10 +1502,7 @@ mapAttrs
             map
               (
                 line:
-                if (builtins.substring 0 1 line == " " || builtins.substring 0 1 line == ")") then
-                  line
-                else
-                  "${nodeName}.${line}"
+                if (builtins.substring 0 1 line == " " || builtins.substring 0 1 line == ")") then line else "${nodeName}.${line}"
               )
               (splitString "\n" (removeSuffix "\n" testConfig.exporterTest))
           )}

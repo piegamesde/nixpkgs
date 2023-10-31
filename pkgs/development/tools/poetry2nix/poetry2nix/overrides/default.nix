@@ -343,9 +343,7 @@ lib.composeManyExtensions [
         }
       );
 
-      colour = super.colour.overridePythonAttrs (
-        old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.d2to1 ]; }
-      );
+      colour = super.colour.overridePythonAttrs (old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.d2to1 ]; });
 
       coincurve = super.coincurve.overridePythonAttrs (
         old: {
@@ -389,13 +387,10 @@ lib.composeManyExtensions [
               "40.0.0" = "sha256-/TBANavYria9YrBpMgjtFyqg5feBcloETcYJ8fdBgkI=";
               "40.0.1" = "sha256-gFfDTc2QWBWHBCycVH1dYlCsWQMVcRZfOBIau+njtDU=";
             }
-            .${version} or (lib.warn "Unknown cryptography version: '${version}'. Please update getCargoHash."
-              lib.fakeHash
-            );
+            .${version} or (lib.warn "Unknown cryptography version: '${version}'. Please update getCargoHash." lib.fakeHash);
           sha256 = getCargoHash super.cryptography.version;
           isWheel = lib.hasSuffix ".whl" super.cryptography.src;
-          scrypto =
-            if isWheel then (super.cryptography.overridePythonAttrs { preferWheel = true; }) else super.cryptography;
+          scrypto = if isWheel then (super.cryptography.overridePythonAttrs { preferWheel = true; }) else super.cryptography;
         in
         scrypto.overridePythonAttrs (
           old:
@@ -490,9 +485,7 @@ lib.composeManyExtensions [
               substituteInPlace ./dbus-python.pc.in --replace 'Cflags: -I''${includedir}' 'Cflags: -I''${includedir}/dbus-1.0'
             '';
 
-          configureFlags = (old.configureFlags or [ ]) ++ [
-            "PYTHON_VERSION=${lib.versions.major self.python.version}"
-          ];
+          configureFlags = (old.configureFlags or [ ]) ++ [ "PYTHON_VERSION=${lib.versions.major self.python.version}" ];
 
           preConfigure = lib.concatStringsSep "\n" [
             (old.preConfigure or "")
@@ -1091,9 +1084,7 @@ lib.composeManyExtensions [
         old: { nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.libkrb5 ]; }
       );
 
-      keyring = super.keyring.overridePythonAttrs (
-        old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.toml ]; }
-      );
+      keyring = super.keyring.overridePythonAttrs (old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.toml ]; });
 
       kiwisolver = super.kiwisolver.overridePythonAttrs (
         old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.cppy ]; }
@@ -1218,9 +1209,7 @@ lib.composeManyExtensions [
       );
 
       markupsafe = super.markupsafe.overridePythonAttrs (
-        old: {
-          src = old.src.override { pname = builtins.replaceStrings [ "markupsafe" ] [ "MarkupSafe" ] old.pname; };
-        }
+        old: { src = old.src.override { pname = builtins.replaceStrings [ "markupsafe" ] [ "MarkupSafe" ] old.pname; }; }
       );
 
       matplotlib = super.matplotlib.overridePythonAttrs (
@@ -1354,9 +1343,7 @@ lib.composeManyExtensions [
         }
       );
 
-      mmdet = super.mmdet.overridePythonAttrs (
-        old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.pytorch ]; }
-      );
+      mmdet = super.mmdet.overridePythonAttrs (old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.pytorch ]; });
 
       molecule =
         if lib.versionOlder super.molecule.version "3.0.0" then
@@ -1441,8 +1428,7 @@ lib.composeManyExtensions [
           patches =
             (old.patches or [ ])
             ++
-              lib.optionals
-                ((lib.strings.versionAtLeast old.version "0.900") && lib.strings.versionOlder old.version "0.940")
+              lib.optionals ((lib.strings.versionAtLeast old.version "0.900") && lib.strings.versionOlder old.version "0.940")
                 [
                   (pkgs.fetchpatch {
                     url = "https://github.com/python/mypy/commit/f1755259d54330cd087cae763cd5bbbff26e3e8a.patch";
@@ -1450,8 +1436,7 @@ lib.composeManyExtensions [
                   })
                 ]
             ++
-              lib.optionals
-                ((lib.strings.versionAtLeast old.version "0.940") && lib.strings.versionOlder old.version "0.960")
+              lib.optionals ((lib.strings.versionAtLeast old.version "0.940") && lib.strings.versionOlder old.version "0.960")
                 [
                   (pkgs.fetchpatch {
                     url = "https://github.com/python/mypy/commit/e7869f05751561958b946b562093397027f6d5fa.patch";
@@ -1459,8 +1444,7 @@ lib.composeManyExtensions [
                   })
                 ]
             ++
-              lib.optionals
-                ((lib.strings.versionAtLeast old.version "0.960") && (lib.strings.versionOlder old.version "0.971"))
+              lib.optionals ((lib.strings.versionAtLeast old.version "0.960") && (lib.strings.versionOlder old.version "0.971"))
                 [
                   (pkgs.fetchpatch {
                     url = "https://github.com/python/mypy/commit/2004ae023b9d3628d9f09886cbbc20868aee8554.patch";
@@ -1790,10 +1774,7 @@ lib.composeManyExtensions [
         old:
         let
           initFile =
-            if lib.versionOlder super.poetry-core.version "1.1" then
-              "poetry/__init__.py"
-            else
-              "./src/poetry/core/__init__.py";
+            if lib.versionOlder super.poetry-core.version "1.1" then "poetry/__init__.py" else "./src/poetry/core/__init__.py";
         in
         {
           # "Vendor" dependencies (for build-system support)
@@ -2119,8 +2100,7 @@ lib.composeManyExtensions [
                   --replace "libpcsclite.so.1" \
                             "${lib.getLib pcsclite}/lib/libpcsclite${stdenv.hostPlatform.extensions.sharedLibrary}"
               '';
-          propagatedBuildInputs =
-            (old.propagatedBuildInputs or [ ]) ++ (if withApplePCSC then [ PCSC ] else [ pcsclite ]);
+          propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ (if withApplePCSC then [ PCSC ] else [ pcsclite ]);
           NIX_CFLAGS_COMPILE = lib.optionalString (!withApplePCSC) "-I ${lib.getDev pcsclite}/include/PCSC";
           nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.swig ];
         }
@@ -2288,9 +2268,7 @@ lib.composeManyExtensions [
         }
       );
 
-      python-olm = super.python-olm.overridePythonAttrs (
-        old: { buildInputs = old.buildInputs or [ ] ++ [ pkgs.olm ]; }
-      );
+      python-olm = super.python-olm.overridePythonAttrs (old: { buildInputs = old.buildInputs or [ ] ++ [ pkgs.olm ]; });
 
       python-snappy = super.python-snappy.overridePythonAttrs (
         old: { buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.snappy ]; }
@@ -2349,9 +2327,7 @@ lib.composeManyExtensions [
         old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.commonmark ]; }
       );
 
-      rich = super.rich.overridePythonAttrs (
-        old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.commonmark ]; }
-      );
+      rich = super.rich.overridePythonAttrs (old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.commonmark ]; });
 
       rockset = super.rockset.overridePythonAttrs (
         old: {
@@ -2750,8 +2726,7 @@ lib.composeManyExtensions [
 
       # Stop infinite recursion by using bootstrapped pkg from nixpkgs
       bootstrapped-pip = super.bootstrapped-pip.override {
-        wheel =
-          ((if self.python.isPy2 then pkgs.python2 else pkgs.python3).pkgs.override { python = self.python; }).wheel;
+        wheel = ((if self.python.isPy2 then pkgs.python2 else pkgs.python3).pkgs.override { python = self.python; }).wheel;
       };
 
       watchfiles =
@@ -3065,9 +3040,7 @@ lib.composeManyExtensions [
         }
       );
 
-      wtforms = super.wtforms.overridePythonAttrs (
-        old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.Babel ]; }
-      );
+      wtforms = super.wtforms.overridePythonAttrs (old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.Babel ]; });
 
       nbconvert =
         let

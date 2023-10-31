@@ -110,8 +110,7 @@ let
     );
 
   extensionFromVscodeMarketplace = mktplcExtRefToExtDrv;
-  extensionsFromVscodeMarketplace =
-    mktplcExtRefList: builtins.map extensionFromVscodeMarketplace mktplcExtRefList;
+  extensionsFromVscodeMarketplace = mktplcExtRefList: builtins.map extensionFromVscodeMarketplace mktplcExtRefList;
 
   vscodeWithConfiguration = import ./vscodeWithConfiguration.nix {
     inherit lib extensionsFromVscodeMarketplace writeShellScriptBin;

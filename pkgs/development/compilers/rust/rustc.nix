@@ -156,9 +156,7 @@ stdenv.mkDerivation rec {
     ++ optionals stdenv.buildPlatform.isMusl [
       "${setBuild}.musl-root=${pkgsBuildBuild.targetPackages.stdenv.cc.libc}"
     ]
-    ++ optionals stdenv.hostPlatform.isMusl [
-      "${setHost}.musl-root=${pkgsBuildHost.targetPackages.stdenv.cc.libc}"
-    ]
+    ++ optionals stdenv.hostPlatform.isMusl [ "${setHost}.musl-root=${pkgsBuildHost.targetPackages.stdenv.cc.libc}" ]
     ++ optionals stdenv.targetPlatform.isMusl [
       "${setTarget}.musl-root=${pkgsBuildTarget.targetPackages.stdenv.cc.libc}"
     ]

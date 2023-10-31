@@ -579,9 +579,7 @@ in
             eachSite
           )
 
-          (optionalAttrs (any (v: v.database.createLocally) (attrValues eachSite)) {
-            httpd.after = [ "mysql.service" ];
-          })
+          (optionalAttrs (any (v: v.database.createLocally) (attrValues eachSite)) { httpd.after = [ "mysql.service" ]; })
         ];
 
         users.users.${user} = {

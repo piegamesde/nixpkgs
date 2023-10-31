@@ -232,9 +232,7 @@ rec {
         innerClosePropagation acc' (
           uniqList {
             inputList =
-              (maybeAttrNullable "propagatedBuildInputs" [ ] y)
-              ++ (maybeAttrNullable "propagatedNativeBuildInputs" [ ] y)
-              ++ ys;
+              (maybeAttrNullable "propagatedBuildInputs" [ ] y) ++ (maybeAttrNullable "propagatedNativeBuildInputs" [ ] y) ++ ys;
             acc = acc';
           }
         );
@@ -304,9 +302,7 @@ rec {
   # exists in both sets
   mergeAttrsWithFunc =
     f: set1: set2:
-    foldr (n: set: if set ? ${n} then setAttr set n (f set.${n} set2.${n}) else set) (set2 // set1) (
-      attrNames set2
-    );
+    foldr (n: set: if set ? ${n} then setAttr set n (f set.${n} set2.${n}) else set) (set2 // set1) (attrNames set2);
 
   # merging two attribute set concatenating the values of same attribute names
   # eg { a = 7; } {  a = [ 2 3 ]; } becomes { a = [ 7 2 3 ]; }

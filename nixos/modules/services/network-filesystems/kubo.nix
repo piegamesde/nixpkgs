@@ -108,9 +108,7 @@ in
 
     services.kubo = {
 
-      enable = mkEnableOption (
-        lib.mdDoc "Interplanetary File System (WARNING: may cause severe network degradation)"
-      );
+      enable = mkEnableOption (lib.mdDoc "Interplanetary File System (WARNING: may cause severe network degradation)");
 
       package = mkOption {
         type = types.package;
@@ -133,8 +131,7 @@ in
 
       dataDir = mkOption {
         type = types.str;
-        default =
-          if versionAtLeast config.system.stateVersion "17.09" then "/var/lib/ipfs" else "/var/lib/ipfs/.ipfs";
+        default = if versionAtLeast config.system.stateVersion "17.09" then "/var/lib/ipfs" else "/var/lib/ipfs/.ipfs";
         defaultText = literalExpression ''
           if versionAtLeast config.system.stateVersion "17.09"
           then "/var/lib/ipfs"
@@ -268,9 +265,7 @@ in
       serviceFdlimit = mkOption {
         type = types.nullOr types.int;
         default = null;
-        description =
-          lib.mdDoc
-            "The fdlimit for the Kubo systemd unit or `null` to have the daemon attempt to manage it";
+        description = lib.mdDoc "The fdlimit for the Kubo systemd unit or `null` to have the daemon attempt to manage it";
         example = 64 * 1024;
       };
 
@@ -330,8 +325,7 @@ in
       ];
 
     # The hardened systemd unit breaks the fuse-mount function according to documentation in the unit file itself
-    systemd.packages =
-      if cfg.autoMount then [ cfg.package.systemd_unit ] else [ cfg.package.systemd_unit_hardened ];
+    systemd.packages = if cfg.autoMount then [ cfg.package.systemd_unit ] else [ cfg.package.systemd_unit_hardened ];
 
     services.kubo.settings = mkIf cfg.autoMount {
       Mounts.FuseAllowOther = lib.mkDefault true;

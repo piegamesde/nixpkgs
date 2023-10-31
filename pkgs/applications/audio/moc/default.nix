@@ -62,8 +62,7 @@ stdenv.mkDerivation rec {
     sha256 = "026v977kwb0wbmlmf6mnik328plxg8wykfx9ryvqhirac0aq39pk";
   };
 
-  patches =
-    [ ] ++ lib.optional ffmpegSupport ./moc-ffmpeg4.patch ++ lib.optional pulseSupport ./pulseaudio.patch;
+  patches = [ ] ++ lib.optional ffmpegSupport ./moc-ffmpeg4.patch ++ lib.optional pulseSupport ./pulseaudio.patch;
 
   nativeBuildInputs = [ pkg-config ] ++ lib.optional pulseSupport autoreconfHook;
 

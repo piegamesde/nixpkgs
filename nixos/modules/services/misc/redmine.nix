@@ -35,9 +35,7 @@ let
       port: ${toString cfg.database.port}
       username: ${cfg.database.user}
       password: #dbpass#
-      ${
-        optionalString (cfg.database.type == "mysql2" && cfg.database.socket != null) "socket: ${cfg.database.socket}"
-      }
+      ${optionalString (cfg.database.type == "mysql2" && cfg.database.socket != null) "socket: ${cfg.database.socket}"}
   '';
 
   configurationYml = format.generate "configuration.yml" cfg.settings;
@@ -400,9 +398,7 @@ in
     ];
 
     systemd.services.redmine = {
-      after = [
-        "network.target"
-      ] ++ optional mysqlLocal "mysql.service" ++ optional pgsqlLocal "postgresql.service";
+      after = [ "network.target" ] ++ optional mysqlLocal "mysql.service" ++ optional pgsqlLocal "postgresql.service";
       wantedBy = [ "multi-user.target" ];
       environment.RAILS_ENV = "production";
       environment.RAILS_CACHE = "${cfg.stateDir}/cache";

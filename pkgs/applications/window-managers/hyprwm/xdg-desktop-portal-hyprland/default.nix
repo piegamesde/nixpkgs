@@ -47,8 +47,6 @@ stdenv.mkDerivation {
   mesonFlags = [ "-Dsd-bus-provider=libsystemd" ];
 
   postInstall = ''
-    wrapProgram $out/libexec/xdg-desktop-portal-hyprland --prefix PATH ":" ${
-      lib.makeBinPath [ hyprland-share-picker ]
-    }
+    wrapProgram $out/libexec/xdg-desktop-portal-hyprland --prefix PATH ":" ${lib.makeBinPath [ hyprland-share-picker ]}
   '';
 }

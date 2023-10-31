@@ -84,24 +84,22 @@ buildPythonPackage rec {
     hash = "sha256-SXC0UqWjWqLlZvKCRBylSX73r4Vale130KzS0zM8gjQ=";
   };
 
-  propagatedBuildInputs =
-    [
-      dill
-      numpy
-      networkx
-      ply
-      psutil
-      python-constraint
-      python-dateutil
-      retworkx
-      scipy
-      scikit-quant
-      stevedore
-      symengine
-      sympy
-      tweedledum
-    ]
-    ++ lib.optionals withVisualization visualizationPackages ++ lib.optionals withCrosstalkPass crosstalkPackages;
+  propagatedBuildInputs = [
+    dill
+    numpy
+    networkx
+    ply
+    psutil
+    python-constraint
+    python-dateutil
+    retworkx
+    scipy
+    scikit-quant
+    stevedore
+    symengine
+    sympy
+    tweedledum
+  ] ++ lib.optionals withVisualization visualizationPackages ++ lib.optionals withCrosstalkPass crosstalkPackages;
 
   # *** Tests ***
   nativeCheckInputs = [

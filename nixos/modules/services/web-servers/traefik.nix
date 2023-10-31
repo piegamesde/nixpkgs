@@ -54,9 +54,7 @@ let
           yj -jt -i \
             < ${
               pkgs.writeText "static_config.json" (
-                builtins.toJSON (
-                  recursiveUpdate cfg.staticConfigOptions { providers.file.filename = "${dynamicConfigFile}"; }
-                )
+                builtins.toJSON (recursiveUpdate cfg.staticConfigOptions { providers.file.filename = "${dynamicConfigFile}"; })
               )
             } \
             > $out

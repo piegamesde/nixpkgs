@@ -327,9 +327,7 @@ with prev; {
     }
   );
 
-  luadbi-postgresql = prev.luadbi-postgresql.overrideAttrs (
-    oa: { buildInputs = oa.buildInputs ++ [ postgresql ]; }
-  );
+  luadbi-postgresql = prev.luadbi-postgresql.overrideAttrs (oa: { buildInputs = oa.buildInputs ++ [ postgresql ]; });
 
   luadbi-sqlite3 = prev.luadbi-sqlite3.overrideAttrs (
     oa: {
@@ -441,9 +439,7 @@ with prev; {
     }
   );
 
-  luasystem = prev.luasystem.overrideAttrs (
-    oa: lib.optionalAttrs stdenv.isLinux { buildInputs = [ glibc.out ]; }
-  );
+  luasystem = prev.luasystem.overrideAttrs (oa: lib.optionalAttrs stdenv.isLinux { buildInputs = [ glibc.out ]; });
 
   luazip = prev.luazip.overrideAttrs (oa: { buildInputs = oa.buildInputs ++ [ zziplib ]; });
 
@@ -460,9 +456,7 @@ with prev; {
     }
   );
 
-  lua-subprocess = prev.lua-subprocess.overrideAttrs (
-    oa: { meta.broken = luaOlder "5.1" || luaAtLeast "5.4"; }
-  );
+  lua-subprocess = prev.lua-subprocess.overrideAttrs (oa: { meta.broken = luaOlder "5.1" || luaAtLeast "5.4"; });
 
   lush-nvim = prev.lush-nvim.overrideAttrs (drv: { doCheck = false; });
 

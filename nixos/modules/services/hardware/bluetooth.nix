@@ -137,9 +137,7 @@ in
 
     environment.etc."bluetooth/input.conf".source = cfgFmt.generate "input.conf" cfg.input;
     environment.etc."bluetooth/network.conf".source = cfgFmt.generate "network.conf" cfg.network;
-    environment.etc."bluetooth/main.conf".source = cfgFmt.generate "main.conf" (
-      recursiveUpdate defaults cfg.settings
-    );
+    environment.etc."bluetooth/main.conf".source = cfgFmt.generate "main.conf" (recursiveUpdate defaults cfg.settings);
     services.udev.packages = [ package ];
     services.dbus.packages = [ package ] ++ optional cfg.hsphfpd.enable pkgs.hsphfpd;
     systemd.packages = [ package ];

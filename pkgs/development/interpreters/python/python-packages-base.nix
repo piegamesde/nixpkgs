@@ -155,7 +155,5 @@ in
   pythonPackages = self;
 
   # Remove?
-  recursivePthLoader = toPythonModule (
-    callPackage ../../../development/python-modules/recursive-pth-loader { }
-  );
+  recursivePthLoader = toPythonModule (callPackage ../../../development/python-modules/recursive-pth-loader { });
 }

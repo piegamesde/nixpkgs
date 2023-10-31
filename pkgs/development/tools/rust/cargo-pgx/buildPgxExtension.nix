@@ -61,9 +61,7 @@
   ...
 }@args:
 let
-  rustfmtInNativeBuildInputs = lib.lists.any (dep: lib.getName dep == "rustfmt") (
-    args.nativeBuildInputs or [ ]
-  );
+  rustfmtInNativeBuildInputs = lib.lists.any (dep: lib.getName dep == "rustfmt") (args.nativeBuildInputs or [ ]);
 in
 
 assert lib.asserts.assertMsg ((args.installPhase or "") == "")

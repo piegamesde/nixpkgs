@@ -4,14 +4,11 @@
 
 {
   CommonCrypto =
-    applePackage' "CommonCrypto" "60178.40.2" "macos-11.0.1"
-      "129gsxhhcxqycg0zjrdrz2ay4dv2ih1ckafqh33qrc499z8dam2p"
+    applePackage' "CommonCrypto" "60178.40.2" "macos-11.0.1" "129gsxhhcxqycg0zjrdrz2ay4dv2ih1ckafqh33qrc499z8dam2p"
       { };
   Csu = applePackage' "Csu" "88" "macos-11.0.1" "1lzp9x8iv60c2h12q2s89nf49b5hvpqq4a9li44zr2fxszn8lqxh" { };
   ICU = applePackage' "ICU" "66108" "macos-11.0.1" "0mclizp99daihghqy2sgzjkid8i93dsn5pi8q9p7b3156chrhw57" { };
-  Libc =
-    applePackage' "Libc" "1439.40.11" "macos-11.0.1" "12k5sbz2k1pl839w2lk9iw414zzl50zdjzgq2x6bm20yjbfj69qm"
-      { };
+  Libc = applePackage' "Libc" "1439.40.11" "macos-11.0.1" "12k5sbz2k1pl839w2lk9iw414zzl50zdjzgq2x6bm20yjbfj69qm" { };
   Libinfo =
     applePackage' "Libinfo" "542.40.3" "macos-11.0.1" "18jvl7cdg64x6clhsfv5pbzxis2aldddpca5r81xqakrmi9mck80"
       { };
@@ -25,8 +22,7 @@
     applePackage' "Libsystem" "1292.50.1" "macos-11.0.1" "0d3flh1p4kskic8ypi8wia4kinfbprx9fvyfqc3mcq0710i0gy77"
       { };
   PowerManagement =
-    applePackage' "PowerManagement" "1132.50.3" "macos-11.0.1"
-      "1sb2nz92vdf6v3h17ry0vgw0z9zsva82lhdrhsf3k60jhfw1fi2v"
+    applePackage' "PowerManagement" "1132.50.3" "macos-11.0.1" "1sb2nz92vdf6v3h17ry0vgw0z9zsva82lhdrhsf3k60jhfw1fi2v"
       { };
   Security =
     applePackage' "Security" "59754.41.1" "macos-11.0.1" "0jq70mnwkvrrhws64ipx0i68pi3n0sk95jlhacxxikdj9f4hpbsw"
@@ -55,27 +51,21 @@
   dtrace =
     applePackage' "dtrace" "370.40.1" "macos-11.0.1" "1qj74mix1x3drffr1qpafm57aby42bc61kynba5q0ppbcf0lrbp1"
       { };
-  dyld =
-    applePackage' "dyld" "832.7.1" "macos-11.0.1" "01q7fsibr6xp94l3w22sh8qfjgwzzf1v82mhgq39ivkxwwc4jdy0"
-      { };
+  dyld = applePackage' "dyld" "832.7.1" "macos-11.0.1" "01q7fsibr6xp94l3w22sh8qfjgwzzf1v82mhgq39ivkxwwc4jdy0" { };
   eap8021x =
     applePackage' "eap8021x" "304.40.1" "macos-11.0.1" "1aihyklri64w380d1mvi830n5cnzs9gd38z8i9ccd37n48gmz88p"
       { };
   file_cmds =
     applePackage' "file_cmds" "321.40.3" "macos-11.0.1" "0p077lnbcy8266m03a0fssj4214bjxh88y3qkspnzcvi0g84k43q"
       { };
-  hfs =
-    applePackage' "hfs" "556.41.1" "macos-11.0.1" "0a0s6b12b0q07wslfifna0bj51dml9v098i4crr2m1vivnx4xj75"
-      { };
+  hfs = applePackage' "hfs" "556.41.1" "macos-11.0.1" "0a0s6b12b0q07wslfifna0bj51dml9v098i4crr2m1vivnx4xj75" { };
   libclosure =
     applePackage' "libclosure" "78" "macos-11.0.1" "0vf9n0k3m8dbprv1bf45zqg0g43bidy2i5z1v9a826bsf8lv7am7"
       { };
   libdispatch =
     applePackage' "libdispatch" "1271.40.12" "macos-11.0.1" "1ck5srcjapg18vqb8wl08gacs7ndc6xr067qjn3ngx39q1jdcywz"
       { };
-  libiconv =
-    applePackage' "libiconv" "59" "macos-11.0.1" "0lwa4brdwm4lvrdnxylzsn1yph4m7csgri2zkc4xb4xiisz32pwp"
-      { };
+  libiconv = applePackage' "libiconv" "59" "macos-11.0.1" "0lwa4brdwm4lvrdnxylzsn1yph4m7csgri2zkc4xb4xiisz32pwp" { };
   libplatform =
     applePackage' "libplatform" "254.40.4" "macos-11.0.1" "1qf3ri0yd8b1xjln1j1gyx7ks6k3a2jhd63blyvfby75y9s7flky"
       { };
@@ -92,18 +82,13 @@
     applePackage' "libutil" "58.40.2" "macos-11.0.1" "11s0vizk7bg0k0yjx21j8vaji4j4vk57131qbp07i9lpksb3bcy4"
       { };
   mDNSResponder =
-    applePackage' "mDNSResponder" "1310.40.42" "macos-11.0.1"
-      "0xxrqqbqsf0pagfs1yzwfbwf7lhr0sns97k18y7kh4ri0p09h44c"
+    applePackage' "mDNSResponder" "1310.40.42" "macos-11.0.1" "0xxrqqbqsf0pagfs1yzwfbwf7lhr0sns97k18y7kh4ri0p09h44c"
       { };
   network_cmds =
     applePackage' "network_cmds" "606.40.2" "macos-11.0.1" "1jsy13nraarafq6wmgh3wyir8wrwfra148xsjns7cw7q5xn40a1w"
       { };
-  objc4 =
-    applePackage' "objc4" "818.2" "macos-11.0.1" "0m8mk1qd18wqjfn2jsq2lx6fxvllhmadmvz11jzg8vjw8pq91nw2"
-      { };
-  ppp =
-    applePackage' "ppp" "877.40.2" "macos-11.0.1" "06xznc77j45zzi12m4cmr3jj853qlc8dbmynbg1z6m9qf5phdbgk"
-      { };
+  objc4 = applePackage' "objc4" "818.2" "macos-11.0.1" "0m8mk1qd18wqjfn2jsq2lx6fxvllhmadmvz11jzg8vjw8pq91nw2" { };
+  ppp = applePackage' "ppp" "877.40.2" "macos-11.0.1" "06xznc77j45zzi12m4cmr3jj853qlc8dbmynbg1z6m9qf5phdbgk" { };
   removefile =
     applePackage' "removefile" "49.40.3" "macos-11.0.1" "0870ihxpmvj8ggaycwlismbgbw9768lz7w6mc9vxf8l6nlc43z4f"
       { };

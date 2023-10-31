@@ -152,9 +152,7 @@ in
           node1 = "tcp://node1:3334";
           node2 = "tcp://node2:3334";
         };
-        description =
-          lib.mdDoc
-            "URLs for storage server including port. The attribute names define the server alias.";
+        description = lib.mdDoc "URLs for storage server including port. The attribute names define the server alias.";
       };
 
       fileSystems = mkOption {

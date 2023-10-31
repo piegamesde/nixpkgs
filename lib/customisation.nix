@@ -186,8 +186,7 @@ rec {
             else
               "<unknown location>";
         in
-        ''Function called without required argument "${arg}" at ''
-        + "${loc'}${prettySuggestions (getSuggestions arg)}";
+        ''Function called without required argument "${arg}" at '' + "${loc'}${prettySuggestions (getSuggestions arg)}";
 
       # Only show the error for the first missing argument
       error = errorForArg (lib.head missingArgs);
@@ -224,8 +223,7 @@ rec {
     let
       outputs = drv.outputs or [ "out" ];
 
-      commonAttrs =
-        drv // (builtins.listToAttrs outputsList) // ({ all = map (x: x.value) outputsList; }) // passthru;
+      commonAttrs = drv // (builtins.listToAttrs outputsList) // ({ all = map (x: x.value) outputsList; }) // passthru;
 
       outputToAttrListElement = outputName: {
         name = outputName;

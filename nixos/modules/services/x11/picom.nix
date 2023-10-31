@@ -13,8 +13,7 @@ let
   cfg = config.services.picom;
   opt = options.services.picom;
 
-  pairOf =
-    x: with types; addCheck (listOf x) (y: length y == 2) // { description = "pair of ${x.description}"; };
+  pairOf = x: with types; addCheck (listOf x) (y: length y == 2) // { description = "pair of ${x.description}"; };
 
   mkDefaultAttrs = mapAttrs (n: v: mkDefault v);
 

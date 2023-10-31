@@ -56,8 +56,7 @@
   # symbolic name and `patch' is the actual patch.  The patch may
   # optionally be compressed with gzip or bzip2.
   kernelPatches ? [ ],
-  ignoreConfigErrors ?
-    stdenv.hostPlatform.linux-kernel.name != "pc" || stdenv.hostPlatform != stdenv.buildPlatform,
+  ignoreConfigErrors ? stdenv.hostPlatform.linux-kernel.name != "pc" || stdenv.hostPlatform != stdenv.buildPlatform,
   extraMeta ? { },
 
   isZen ? false,

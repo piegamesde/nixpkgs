@@ -564,9 +564,7 @@ let
             optionalString (config.security.pam.ussh.enable && cfg.usshAuth) ''
               auth ${ussh.control} ${pkgs.pam_ussh}/lib/security/pam_ussh.so ${
                 optionalString (ussh.caFile != null) "ca_file=${ussh.caFile}"
-              } ${
-                optionalString (ussh.authorizedPrincipals != null) "authorized_principals=${ussh.authorizedPrincipals}"
-              } ${
+              } ${optionalString (ussh.authorizedPrincipals != null) "authorized_principals=${ussh.authorizedPrincipals}"} ${
                 optionalString (ussh.authorizedPrincipalsFile != null)
                   "authorized_principals_file=${ussh.authorizedPrincipalsFile}"
               } ${optionalString (ussh.group != null) "group=${ussh.group}"}
@@ -889,8 +887,7 @@ let
       )
     );
 
-  motd =
-    if config.users.motdFile == null then pkgs.writeText "motd" config.users.motd else config.users.motdFile;
+  motd = if config.users.motdFile == null then pkgs.writeText "motd" config.users.motd else config.users.motdFile;
 
   makePAMService = name: service: {
     name = "pam.d/${name}";

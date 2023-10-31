@@ -27,10 +27,7 @@ let
     ++
       concatMap
         (
-          i:
-          attrNames (
-            filterAttrs (name: config: !(config.type == "internal" || hasAttr name cfg.interfaces)) i.interfaces
-          )
+          i: attrNames (filterAttrs (name: config: !(config.type == "internal" || hasAttr name cfg.interfaces)) i.interfaces)
         )
         (attrValues cfg.vswitches);
 
@@ -1584,9 +1581,7 @@ in
         "net.ipv6.conf.default.use_tempaddr" = tempaddrValues.${cfg.tempAddresses}.sysctl;
       }
       // listToAttrs (
-        forEach interfaces (
-          i: nameValuePair "net.ipv4.conf.${replaceStrings [ "." ] [ "/" ] i.name}.proxy_arp" i.proxyARP
-        )
+        forEach interfaces (i: nameValuePair "net.ipv4.conf.${replaceStrings [ "." ] [ "/" ] i.name}.proxy_arp" i.proxyARP)
       )
       // listToAttrs (
         forEach interfaces (
@@ -1775,8 +1770,7 @@ in
                     "${pkgs.iw}/bin/iw dev ${device} set monitor ${current.flags}"}
                   ${optionalString (current.type == "managed" && current.fourAddr != null)
                     "${pkgs.iw}/bin/iw dev ${device} set 4addr ${if current.fourAddr then "on" else "off"}"}
-                  ${optionalString (current.mac != null)
-                    "${pkgs.iproute2}/bin/ip link set dev ${device} address ${current.mac}"}
+                  ${optionalString (current.mac != null) "${pkgs.iproute2}/bin/ip link set dev ${device} address ${current.mac}"}
                 '';
 
               # Udev script to execute for a new WLAN interface. The script configures the new WLAN interface.
@@ -1797,8 +1791,7 @@ in
 
               # Udev attributes for systemd to name the device and to create a .device target.
               systemdAttrs =
-                n:
-                ''NAME:="${n}", ENV{INTERFACE}="${n}", ENV{SYSTEMD_ALIAS}="/sys/subsystem/net/devices/${n}", TAG+="systemd"'';
+                n: ''NAME:="${n}", ENV{INTERFACE}="${n}", ENV{SYSTEMD_ALIAS}="/sys/subsystem/net/devices/${n}", TAG+="systemd"'';
             in
             flip (concatMapStringsSep "\n") (attrNames wlanDeviceInterfaces) (
               device:

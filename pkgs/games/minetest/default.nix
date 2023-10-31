@@ -78,24 +78,22 @@ let
 
       src = sources.src;
 
-      cmakeFlags =
-        [
-          "-G Ninja"
-          "-DBUILD_CLIENT=${boolToCMake buildClient}"
-          "-DBUILD_SERVER=${boolToCMake buildServer}"
-          "-DENABLE_GETTEXT=1"
-          "-DENABLE_SPATIAL=1"
-          "-DENABLE_SYSTEM_JSONCPP=1"
+      cmakeFlags = [
+        "-G Ninja"
+        "-DBUILD_CLIENT=${boolToCMake buildClient}"
+        "-DBUILD_SERVER=${boolToCMake buildServer}"
+        "-DENABLE_GETTEXT=1"
+        "-DENABLE_SPATIAL=1"
+        "-DENABLE_SYSTEM_JSONCPP=1"
 
-          # Remove when https://github.com/NixOS/nixpkgs/issues/144170 is fixed
-          "-DCMAKE_INSTALL_BINDIR=bin"
-          "-DCMAKE_INSTALL_DATADIR=share"
-          "-DCMAKE_INSTALL_DOCDIR=share/doc"
-          "-DCMAKE_INSTALL_DOCDIR=share/doc"
-          "-DCMAKE_INSTALL_MANDIR=share/man"
-          "-DCMAKE_INSTALL_LOCALEDIR=share/locale"
-        ]
-        ++ optionals buildServer [ "-DENABLE_PROMETHEUS=1" ] ++ optionals withTouchSupport [ "-DENABLE_TOUCH=TRUE" ];
+        # Remove when https://github.com/NixOS/nixpkgs/issues/144170 is fixed
+        "-DCMAKE_INSTALL_BINDIR=bin"
+        "-DCMAKE_INSTALL_DATADIR=share"
+        "-DCMAKE_INSTALL_DOCDIR=share/doc"
+        "-DCMAKE_INSTALL_DOCDIR=share/doc"
+        "-DCMAKE_INSTALL_MANDIR=share/man"
+        "-DCMAKE_INSTALL_LOCALEDIR=share/locale"
+      ] ++ optionals buildServer [ "-DENABLE_PROMETHEUS=1" ] ++ optionals withTouchSupport [ "-DENABLE_TOUCH=TRUE" ];
 
       env.NIX_CFLAGS_COMPILE = "-DluaL_reg=luaL_Reg"; # needed since luajit-2.1.0-beta3
 

@@ -18,8 +18,7 @@
 
 let
 
-  hasHash =
-    (outputHash != "" && outputHashAlgo != "") || md5 != "" || sha1 != "" || sha256 != "" || sha512 != "";
+  hasHash = (outputHash != "" && outputHashAlgo != "") || md5 != "" || sha1 != "" || sha256 != "" || sha512 != "";
 in
 
 if (!hasHash) then

@@ -57,9 +57,9 @@ stdenv.mkDerivation rec {
     "lib"
   ] ++ lib.optionals (enablePython) [ "python" ];
 
-  nativeBuildInputs =
-    [ pkg-config ]
-    ++ lib.optionals (enableApp) [ installShellFiles ] ++ lib.optionals (enablePython) [ python3Packages.cython ];
+  nativeBuildInputs = [
+    pkg-config
+  ] ++ lib.optionals (enableApp) [ installShellFiles ] ++ lib.optionals (enablePython) [ python3Packages.cython ];
 
   buildInputs =
     lib.optionals enableApp [

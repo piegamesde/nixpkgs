@@ -23,9 +23,7 @@ let
 
     eggDerivation = callPackage ./eggDerivation.nix { };
 
-    chicken = callPackage ./chicken.nix {
-      bootstrap-chicken = self.chicken.override { bootstrap-chicken = null; };
-    };
+    chicken = callPackage ./chicken.nix { bootstrap-chicken = self.chicken.override { bootstrap-chicken = null; }; };
 
     chickenEggs = recurseIntoAttrs (
       mapAttrs

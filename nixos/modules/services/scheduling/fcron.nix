@@ -101,8 +101,7 @@ in
             source =
               let
                 isSendmailWrapped = lib.hasAttr "sendmail" config.security.wrappers;
-                sendmailPath =
-                  if isSendmailWrapped then "/run/wrappers/bin/sendmail" else "${config.system.path}/bin/sendmail";
+                sendmailPath = if isSendmailWrapped then "/run/wrappers/bin/sendmail" else "${config.system.path}/bin/sendmail";
               in
               pkgs.writeText "fcron.conf" ''
                 fcrontabs   =       /var/spool/fcron

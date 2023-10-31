@@ -17,8 +17,7 @@ let
       inherit lib pkgs;
 
       addBuildInputs =
-        drv: buildInputs:
-        drv.overrideAttrs (oldAttrs: { buildInputs = (oldAttrs.buildInputs or [ ]) ++ buildInputs; });
+        drv: buildInputs: drv.overrideAttrs (oldAttrs: { buildInputs = (oldAttrs.buildInputs or [ ]) ++ buildInputs; });
     }
   );
 

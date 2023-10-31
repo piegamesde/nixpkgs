@@ -120,8 +120,7 @@ let
 
   configFile =
     let
-      mkValueString =
-        v: if builtins.isList v then concatStringsSep "," v else generators.mkValueStringDefault { } v;
+      mkValueString = v: if builtins.isList v then concatStringsSep "," v else generators.mkValueStringDefault { } v;
 
       mkKeyValue =
         k: v:

@@ -67,9 +67,9 @@ let
     inherit (netsurf) libnsgif;
   };
 
-  backendFlags =
-    builtins.map (b: if builtins.elem b withBackends then "-D${b}=enabled" else "-D${b}=disabled")
-      (builtins.attrNames backends);
+  backendFlags = builtins.map (b: if builtins.elem b withBackends then "-D${b}=enabled" else "-D${b}=disabled") (
+    builtins.attrNames backends
+  );
 in
 
 # check that given window system is valid

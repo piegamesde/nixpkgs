@@ -118,8 +118,7 @@ rec {
 
       name = "bootstrap-tools";
       builder = bootstrapFiles.sh; # Not a filename! Attribute 'sh' on bootstrapFiles
-      args =
-        if localSystem.isAarch64 then [ ./unpack-bootstrap-tools-aarch64.sh ] else [ ./unpack-bootstrap-tools.sh ];
+      args = if localSystem.isAarch64 then [ ./unpack-bootstrap-tools-aarch64.sh ] else [ ./unpack-bootstrap-tools.sh ];
 
       inherit (bootstrapFiles)
         mkdir
@@ -895,9 +894,7 @@ rec {
           # Hack to make sure we don't link ncurses in bootstrap tools. The proper
           # solution is to avoid passing -L/nix-store/...-bootstrap-tools/lib,
           # quite a sledgehammer just to get the C runtime.
-          gettext = super.gettext.overrideAttrs (
-            drv: { configureFlags = drv.configureFlags ++ [ "--disable-curses" ]; }
-          );
+          gettext = super.gettext.overrideAttrs (drv: { configureFlags = drv.configureFlags ++ [ "--disable-curses" ]; });
 
           "${finalLlvmPackages}" =
             super."${finalLlvmPackages}"

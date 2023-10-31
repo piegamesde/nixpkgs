@@ -173,9 +173,7 @@ let
               # Remove platforms from each job that are not supported by GHC.
               # This is important so that we don't build jobs for platforms
               # where GHC can't be compiled.
-              jobsetWithGHCPlatforms =
-                lib.mapAttrs (_: platforms: lib.intersectLists jobs.ghc platforms)
-                  configFilteredJobset;
+              jobsetWithGHCPlatforms = lib.mapAttrs (_: platforms: lib.intersectLists jobs.ghc platforms) configFilteredJobset;
             in
             jobsetWithGHCPlatforms;
         in

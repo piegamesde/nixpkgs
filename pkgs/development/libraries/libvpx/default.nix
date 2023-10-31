@@ -215,9 +215,7 @@ stdenv.mkDerivation rec {
       (enableFeature encodePerfTestsSupport "encode-perf-tests")
       (enableFeature multiResEncodingSupport "multi-res-encoding")
       (enableFeature temporalDenoisingSupport "temporal-denoising")
-      (enableFeature (temporalDenoisingSupport && (vp9DecoderSupport || vp9EncoderSupport))
-        "vp9-temporal-denoising"
-      )
+      (enableFeature (temporalDenoisingSupport && (vp9DecoderSupport || vp9EncoderSupport)) "vp9-temporal-denoising")
       (enableFeature coefficientRangeCheckingSupport "coefficient-range-checking")
       (enableFeature (vp9HighbitdepthSupport && is64bit) "vp9-highbitdepth")
       (enableFeature

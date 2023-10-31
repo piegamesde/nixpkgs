@@ -178,9 +178,7 @@ let
     let
       datasetlist = lib.mapAttrsToList lib.nameValuePair datasets;
       mounts = lib.filter ({ value, ... }: hasDefinedMount value) datasetlist;
-      sorted =
-        lib.sort (left: right: (lib.stringLength left.value.mount) < (lib.stringLength right.value.mount))
-          mounts;
+      sorted = lib.sort (left: right: (lib.stringLength left.value.mount) < (lib.stringLength right.value.mount)) mounts;
       cmd =
         { name, value }:
         ''
@@ -194,9 +192,7 @@ let
     let
       datasetlist = lib.mapAttrsToList lib.nameValuePair datasets;
       mounts = lib.filter ({ value, ... }: hasDefinedMount value) datasetlist;
-      sorted =
-        lib.sort (left: right: (lib.stringLength left.value.mount) > (lib.stringLength right.value.mount))
-          mounts;
+      sorted = lib.sort (left: right: (lib.stringLength left.value.mount) > (lib.stringLength right.value.mount)) mounts;
       cmd =
         { name, value }:
         ''

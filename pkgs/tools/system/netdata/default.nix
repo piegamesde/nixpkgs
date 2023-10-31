@@ -147,20 +147,16 @@ stdenv.mkDerivation rec {
       --replace 'ctypes.util.find_library("sensors")' '"${lm_sensors.out}/lib/libsensors${stdenv.hostPlatform.extensions.sharedLibrary}"'
   '';
 
-  configureFlags =
-    [
-      "--localstatedir=/var"
-      "--sysconfdir=/etc"
-      "--disable-ebpf"
-      "--with-jemalloc=${jemalloc}"
-    ]
-    ++ lib.optionals (!withDBengine) [ "--disable-dbengine" ] ++ lib.optionals (!withCloud) [ "--disable-cloud" ];
+  configureFlags = [
+    "--localstatedir=/var"
+    "--sysconfdir=/etc"
+    "--disable-ebpf"
+    "--with-jemalloc=${jemalloc}"
+  ] ++ lib.optionals (!withDBengine) [ "--disable-dbengine" ] ++ lib.optionals (!withCloud) [ "--disable-cloud" ];
 
   postFixup = ''
     wrapProgram $out/bin/netdata-claim.sh --prefix PATH : ${lib.makeBinPath [ openssl ]}
-    wrapProgram $out/libexec/netdata/plugins.d/cgroup-network-helper.sh --prefix PATH : ${
-      lib.makeBinPath [ bash ]
-    }
+    wrapProgram $out/libexec/netdata/plugins.d/cgroup-network-helper.sh --prefix PATH : ${lib.makeBinPath [ bash ]}
   '';
 
   enableParallelBuild = true;

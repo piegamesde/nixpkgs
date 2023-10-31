@@ -206,8 +206,7 @@ let
 
     rpath = lib.strings.makeLibraryPath libraries;
 
-    passthru.mozillaPlugin =
-      if installjdk then "/jre/lib/${architecture}/plugins" else "/lib/${architecture}/plugins";
+    passthru.mozillaPlugin = if installjdk then "/jre/lib/${architecture}/plugins" else "/lib/${architecture}/plugins";
 
     passthru.jre = result; # FIXME: use multiple outputs or return actual JRE package
 

@@ -85,9 +85,7 @@ let
     ${if fishEnvPreInit != null then
       ''
         and begin
-        ${lib.removeSuffix "\n" (
-          if lib.isFunction fishEnvPreInit then fishEnvPreInit sourceWithFenv else fishEnvPreInit
-        )}
+        ${lib.removeSuffix "\n" (if lib.isFunction fishEnvPreInit then fishEnvPreInit sourceWithFenv else fishEnvPreInit)}
         end''
     else
       ''

@@ -38,9 +38,7 @@ let
     splitBin = builtins.partition (p: p.tlType == "bin") all;
     bin =
       splitBin.right
-      ++ lib.optional (lib.any (p: p.tlType == "run" && p.pname == "pdfcrop") splitBin.wrong) (
-        lib.getBin ghostscript
-      );
+      ++ lib.optional (lib.any (p: p.tlType == "run" && p.pname == "pdfcrop") splitBin.wrong) (lib.getBin ghostscript);
     nonbin = splitBin.wrong;
 
     # extra interpreters needed for shebangs, based on 2015 schemes "medium" and "tetex"

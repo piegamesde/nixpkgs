@@ -46,9 +46,7 @@ stdenv.mkDerivation rec {
     substituteInPlace "$out/share/systemd/user/libinput-gestures.service" --replace "/usr" "$out"
     substituteInPlace "$out/share/applications/libinput-gestures.desktop" --replace "/usr" "$out"
     chmod +x "$out/share/applications/libinput-gestures.desktop"
-    wrapProgram "$out/bin/libinput-gestures" --prefix PATH : "${
-      lib.makeBinPath ([ coreutils ] ++ extraUtilsPath)
-    }"
+    wrapProgram "$out/bin/libinput-gestures" --prefix PATH : "${lib.makeBinPath ([ coreutils ] ++ extraUtilsPath)}"
   '';
 
   meta = with lib; {

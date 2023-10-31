@@ -633,9 +633,7 @@ in
       systemd.services =
         (mapAttrs' generateInterfaceUnit cfg.interfaces)
         // (listToAttrs (map generatePeerUnit all_peers))
-        // (mapAttrs' generateKeyServiceUnit (
-          filterAttrs (name: value: value.generatePrivateKeyFile) cfg.interfaces
-        ));
+        // (mapAttrs' generateKeyServiceUnit (filterAttrs (name: value: value.generatePrivateKeyFile) cfg.interfaces));
 
       systemd.targets = mapAttrs' generateInterfaceTarget cfg.interfaces;
     }

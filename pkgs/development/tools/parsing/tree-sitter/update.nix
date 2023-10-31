@@ -44,9 +44,7 @@ let
     "tree-sitter-tsq"
     "tree-sitter-toml"
   ];
-  knownTreeSitterOrgGrammarReposJson =
-    jsonFile "known-tree-sitter-org-grammar-repos"
-      knownTreeSitterOrgGrammarRepos;
+  knownTreeSitterOrgGrammarReposJson = jsonFile "known-tree-sitter-org-grammar-repos" knownTreeSitterOrgGrammarRepos;
 
   # repos of the tree-sitter github orga we want to ignore (not grammars)
   ignoredTreeSitterOrgRepos = [
@@ -442,8 +440,7 @@ let
      }
      ${updateImpl} print-all-grammars-nix-file "$(< ${
        jsonFile "all-grammars.json" {
-         allGrammars =
-           (lib.mapAttrsToList (nixRepoAttrName: attrs: attrs // { inherit nixRepoAttrName; }) allGrammars);
+         allGrammars = (lib.mapAttrsToList (nixRepoAttrName: attrs: attrs // { inherit nixRepoAttrName; }) allGrammars);
          inherit outputDir;
        }
      })"

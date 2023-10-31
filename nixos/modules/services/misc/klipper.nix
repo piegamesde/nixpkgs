@@ -171,8 +171,7 @@ in
     ];
 
     environment.etc = mkIf (!cfg.mutableConfig) {
-      "klipper.cfg".source =
-        if cfg.settings != null then format.generate "klipper.cfg" cfg.settings else cfg.configFile;
+      "klipper.cfg".source = if cfg.settings != null then format.generate "klipper.cfg" cfg.settings else cfg.configFile;
     };
 
     services.klipper = mkIf cfg.octoprintIntegration {
@@ -184,10 +183,8 @@ in
       let
         klippyArgs =
           "--input-tty=${cfg.inputTTY}" + optionalString (cfg.apiSocket != null) " --api-server=${cfg.apiSocket}";
-        printerConfigPath =
-          if cfg.mutableConfig then cfg.mutableConfigFolder + "/printer.cfg" else "/etc/klipper.cfg";
-        printerConfigFile =
-          if cfg.settings != null then format.generate "klipper.cfg" cfg.settings else cfg.configFile;
+        printerConfigPath = if cfg.mutableConfig then cfg.mutableConfigFolder + "/printer.cfg" else "/etc/klipper.cfg";
+        printerConfigFile = if cfg.settings != null then format.generate "klipper.cfg" cfg.settings else cfg.configFile;
       in
       {
         description = "Klipper 3D Printer Firmware";

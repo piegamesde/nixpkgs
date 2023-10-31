@@ -17,8 +17,7 @@ let
   checkInPkgs = n: alias: if builtins.hasAttr n prev then throw "Alias ${n} is still in writers" else alias;
 
   mapAliases =
-    aliases:
-    lib.mapAttrs (n: alias: removeDistribute (removeRecurseForDerivations (checkInPkgs n alias))) aliases;
+    aliases: lib.mapAttrs (n: alias: removeDistribute (removeRecurseForDerivations (checkInPkgs n alias))) aliases;
 in
 mapAliases ({
   # Cleanup before 22.05, Added 2021-12-11

@@ -44,9 +44,7 @@ let
         }
         trap on_exit EXIT
 
-        archiveName="${
-          if cfg.archiveBaseName == null then "" else cfg.archiveBaseName + "-"
-        }$(date ${cfg.dateFormat})"
+        archiveName="${if cfg.archiveBaseName == null then "" else cfg.archiveBaseName + "-"}$(date ${cfg.dateFormat})"
         archiveSuffix="${optionalString cfg.appendFailedSuffix ".failed"}"
         ${cfg.preHook}
       ''
@@ -246,8 +244,7 @@ let
     users.${cfg.user} = {
       openssh.authorizedKeys.keys =
         (
-          map (mkAuthorizedKey cfg false) cfg.authorizedKeys
-          ++ map (mkAuthorizedKey cfg true) cfg.authorizedKeysAppendOnly
+          map (mkAuthorizedKey cfg false) cfg.authorizedKeys ++ map (mkAuthorizedKey cfg true) cfg.authorizedKeysAppendOnly
         );
       useDefaultShell = true;
       group = cfg.group;

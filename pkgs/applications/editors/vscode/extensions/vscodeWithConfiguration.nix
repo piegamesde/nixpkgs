@@ -36,8 +36,7 @@ let
   '';
   #copy mutable extension out of the nix store
   cpExtensions = ''
-    ${lib.concatMapStringsSep "\n" (e: "ln -sfn ${e}/share/vscode/extensions/* ${vscodeExtsFolderName}/")
-      nixExtsDrvs}
+    ${lib.concatMapStringsSep "\n" (e: "ln -sfn ${e}/share/vscode/extensions/* ${vscodeExtsFolderName}/") nixExtsDrvs}
     ${lib.concatMapStringsSep "\n"
       (ePath: ''
         if [ ! -d ${ePath.target} ]; then

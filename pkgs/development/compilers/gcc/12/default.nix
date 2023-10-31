@@ -91,8 +91,7 @@ let
     # We only apply this patch when building a native toolchain for aarch64-darwin, as it breaks building
     # a foreign one: https://github.com/iains/gcc-12-branch/issues/18
     ++
-      optional
-        (stdenv.isDarwin && stdenv.isAarch64 && buildPlatform == hostPlatform && hostPlatform == targetPlatform)
+      optional (stdenv.isDarwin && stdenv.isAarch64 && buildPlatform == hostPlatform && hostPlatform == targetPlatform)
         (
           fetchpatch {
             name = "gcc-12-darwin-aarch64-support.patch";
@@ -154,9 +153,7 @@ let
   # Cross-gcc settings (build == host != target)
   crossMingw = targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt";
   stageNameAddon = if crossStageStatic then "stage-static" else "stage-final";
-  crossNameAddon =
-    optionalString (targetPlatform != hostPlatform)
-      "${targetPlatform.config}-${stageNameAddon}-";
+  crossNameAddon = optionalString (targetPlatform != hostPlatform) "${targetPlatform.config}-${stageNameAddon}-";
 
   callFile = lib.callPackageWith {
     # lets

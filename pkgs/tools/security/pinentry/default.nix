@@ -87,13 +87,10 @@ pinentryMkDerivation rec {
     autoreconfHook
   ] ++ lib.concatMap (f: flavorInfo.${f}.nativeBuildInputs or [ ]) enabledFlavors;
 
-  buildInputs =
-    [
-      libgpg-error
-      libassuan
-    ]
-    ++ lib.optional withLibsecret libsecret
-    ++ lib.concatMap (f: flavorInfo.${f}.buildInputs or [ ]) enabledFlavors;
+  buildInputs = [
+    libgpg-error
+    libassuan
+  ] ++ lib.optional withLibsecret libsecret ++ lib.concatMap (f: flavorInfo.${f}.buildInputs or [ ]) enabledFlavors;
 
   dontWrapGApps = true;
   dontWrapQtApps = true;

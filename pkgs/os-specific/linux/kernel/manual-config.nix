@@ -175,14 +175,12 @@ lib.makeOverridable (
         # Linux 5.12 marked certain PowerPC-only symbols as GPL, which breaks
         # OpenZFS; this was fixed in Linux 5.19 so we backport the fix
         # https://github.com/openzfs/zfs/pull/13367
-        ++
-          optional (lib.versionAtLeast version "5.12" && lib.versionOlder version "5.19" && stdenv.hostPlatform.isPower)
-            (
-              fetchpatch {
-                url = "https://git.kernel.org/pub/scm/linux/kernel/git/powerpc/linux.git/patch/?id=d9e5c3e9e75162f845880535957b7fd0b4637d23";
-                hash = "sha256-bBOyJcP6jUvozFJU0SPTOf3cmnTQ6ZZ4PlHjiniHXLU=";
-              }
-            );
+        ++ optional (lib.versionAtLeast version "5.12" && lib.versionOlder version "5.19" && stdenv.hostPlatform.isPower) (
+          fetchpatch {
+            url = "https://git.kernel.org/pub/scm/linux/kernel/git/powerpc/linux.git/patch/?id=d9e5c3e9e75162f845880535957b7fd0b4637d23";
+            hash = "sha256-bBOyJcP6jUvozFJU0SPTOf3cmnTQ6ZZ4PlHjiniHXLU=";
+          }
+        );
 
       preUnpack = ''
         # The same preUnpack is used to build the configfile,

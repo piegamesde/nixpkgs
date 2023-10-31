@@ -225,9 +225,7 @@ let
     IODVDStorageFamily = fetchApple "osx-10.10.5" "sha256-Jy3UuRzdd0bBdhJgI/f8vLXh2GdGs1RVN3G2iEs86kQ=";
     # There should be an IOStreamFamily project here, but they haven't released it :(
     IOUSBFamily = fetchApple "osx-10.8.5" "sha256-FwgGoP97Sj47VGXMxbY0oUugKf7jtxAL1RzL6+315cU="; # This is from 10.8 :(
-    IOUSBFamily_older =
-      fetchApple "osx-10.8.4" "sha256-5apCsqtHK0EC8x1uPTTll43x69eal/nsokfS80qLlxs="
-        "IOUSBFamily"; # This is even older :(
+    IOUSBFamily_older = fetchApple "osx-10.8.4" "sha256-5apCsqtHK0EC8x1uPTTll43x69eal/nsokfS80qLlxs=" "IOUSBFamily"; # This is even older :(
     IOKitUser = fetchApple "osx-10.10.5" "sha256-3UHM3g91v4RugmONbM+SAPr1SfoUPY3QPcTwTpt+zuY=";
     # There should be an IOVideo here, but they haven't released it :(
   };
@@ -272,20 +270,14 @@ developerToolsPackages_11_3_1
   # TODO: shorten this list, we should cut down to a minimum set of bootstrap or necessary packages here.
 
   inherit (adv_cmds-boot) ps locale;
-  architecture =
-    applePackage "architecture" "osx-10.11.6" "sha256-cUKeMx6mOAxBSRHIdfzsrR65Qv86m7+20XvpKqVfwVI="
-      { };
+  architecture = applePackage "architecture" "osx-10.11.6" "sha256-cUKeMx6mOAxBSRHIdfzsrR65Qv86m7+20XvpKqVfwVI=" { };
   bsdmake = applePackage "bsdmake" "dev-tools-3.2.6" "sha256-CW8zP5QZMhWTGp+rhrm8oHE/vSLsRlv1VRAGe1OUDmI=" { };
   CarbonHeaders =
     applePackage "CarbonHeaders" "osx-10.6.2" "sha256-UNaHvxzYzEBnYYuoMLqWUVprZa6Wqn/3XleoSCco050="
       { };
-  CommonCrypto =
-    applePackage "CommonCrypto" "osx-10.12.6" "sha256-FLgODBrfv+XsGaAjddncYAm/BIJJYw6LcwX/z7ncKFM="
-      { };
+  CommonCrypto = applePackage "CommonCrypto" "osx-10.12.6" "sha256-FLgODBrfv+XsGaAjddncYAm/BIJJYw6LcwX/z7ncKFM=" { };
   configd = applePackage "configd" "osx-10.8.5" "sha256-6I3FWNjTgds5abEcZrD++s9b+P9a2+qUf8KFAb72DwI=" {
-    Security =
-      applePackage "Security/boot.nix" "osx-10.9.5" "sha256-7qr0IamjCXCobIJ6V9KtvbMBkJDfRCy4C5eqpHJlQLI="
-        { };
+    Security = applePackage "Security/boot.nix" "osx-10.9.5" "sha256-7qr0IamjCXCobIJ6V9KtvbMBkJDfRCy4C5eqpHJlQLI=" { };
   };
   copyfile = applePackage "copyfile" "osx-10.12.6" "sha256-uHqLFOIpXK+n0RHyOZzVsP2DDZcFDivKCnqHBaXvHns=" { };
   Csu = applePackage "Csu" "osx-10.11.6" "sha256-h6a/sQMEVeFxKNWAPgKBXjWhyL2L2nvX9BQUMaTQ6sY=" { };
@@ -302,26 +294,16 @@ developerToolsPackages_11_3_1
       rev = "Libc-997.90.3";
       hash = "sha256-B18RNO+Rai5XE52TKdJV7eknosTZ+bRERkiU12d/kPU=";
     };
-    Libc_old =
-      applePackage "Libc/825_40_1.nix" "osx-10.8.5" "sha256-JvPSY7FzraGpqF/jYLfhU2o/2195NuKrXsryYfVtx3s="
-        { };
+    Libc_old = applePackage "Libc/825_40_1.nix" "osx-10.8.5" "sha256-JvPSY7FzraGpqF/jYLfhU2o/2195NuKrXsryYfVtx3s=" { };
   };
-  libclosure =
-    applePackage "libclosure" "osx-10.11.6" "sha256-L5rQ+UBpf3B+W1U+gZKk7fXulslHsc8lxnCsplV+nr0="
-      { };
-  libdispatch =
-    applePackage "libdispatch" "osx-10.10.5" "sha256-jfAEk0OLrJa9AIZVikIoHomd+l+4rCfc320Xh50qK5M="
-      { };
+  libclosure = applePackage "libclosure" "osx-10.11.6" "sha256-L5rQ+UBpf3B+W1U+gZKk7fXulslHsc8lxnCsplV+nr0=" { };
+  libdispatch = applePackage "libdispatch" "osx-10.10.5" "sha256-jfAEk0OLrJa9AIZVikIoHomd+l+4rCfc320Xh50qK5M=" { };
   libiconv = applePackage "libiconv" "osx-10.12.6" "sha256-ZzPFkchK3EU95UQUVVrR0t8iilhi/VnIkjjtP6KT2oI=" { };
   Libinfo = applePackage "Libinfo" "osx-10.11.6" "sha256-6F7wiwerv4nz/xXHtp1qCHSaFzZgzcRN+jbmXA5oWOQ=" { };
   Libm = applePackage "Libm" "osx-10.7.4" "sha256-KjMETfT4qJm0m0Ux/F6Rq8bI4Q4UVnFx6IKbKxXd+Es=" { };
   Libnotify = applePackage "Libnotify" "osx-10.12.6" "sha256-6wvMBxAUfiYcQtmlfYCj1d3kFmFM/jdboTd7hRvi3e4=" { };
-  libplatform =
-    applePackage "libplatform" "osx-10.12.6" "sha256-6McMTjw55xtnCsFI3AB1osRagnuB5pSTqeMKD3gpGtM="
-      { };
-  libpthread =
-    applePackage "libpthread" "osx-10.12.6" "sha256-QvJ9PERmrCWBiDmOWrLvQUKZ4JxHuh8gS5nlZKDLqE8="
-      { };
+  libplatform = applePackage "libplatform" "osx-10.12.6" "sha256-6McMTjw55xtnCsFI3AB1osRagnuB5pSTqeMKD3gpGtM=" { };
+  libpthread = applePackage "libpthread" "osx-10.12.6" "sha256-QvJ9PERmrCWBiDmOWrLvQUKZ4JxHuh8gS5nlZKDLqE8=" { };
   libresolv = applePackage "libresolv" "osx-10.12.6" "sha256-FtvwjJKSFX6j9APYPC8WLXVOjbHLZa1Gcoc8yxLy8qE=" { };
   Libsystem = applePackage "Libsystem" "osx-10.12.6" "sha256-zvRdCP//TjKCGAqm/5nJXPppshU1cv2fg/L/yK/olGQ=" { };
   libutil = applePackage "libutil" "osx-10.12.6" "sha256-4PFuk+CTLwvd/Ll9GLBkiIM0Sh/CVaiKwh5m1noheRs=" { };
@@ -331,9 +313,7 @@ developerToolsPackages_11_3_1
       { };
   objc4 = applePackage "objc4" "osx-10.12.6" "sha256-ZsxRpdsfv3Dxs7yBBCkjbKXKR6aXwkEpxc1XYXz7ueM=" { };
   ppp = applePackage "ppp" "osx-10.12.6" "sha256-M1zoEjjeKIDUEP6ACbpUJk3OXjobw4g/qzUmxGdX1J0=" { };
-  removefile =
-    applePackage "removefile" "osx-10.12.6" "sha256-UpNk27kGXnZss1ZXWVJU9jLz/NW63ZAZEDLhyCYoi9M="
-      { };
+  removefile = applePackage "removefile" "osx-10.12.6" "sha256-UpNk27kGXnZss1ZXWVJU9jLz/NW63ZAZEDLhyCYoi9M=" { };
   xnu =
     if stdenv.isx86_64 then
       applePackage "xnu" "osx-10.12.6" "sha256-C8TPQlUT3RbzAy8YnZPNtr70hpaVG9Llv0h42s3NENI=" {
@@ -344,27 +324,21 @@ developerToolsPackages_11_3_1
   hfs = applePackage "hfs" "osx-10.12.6" "sha256-eGi18HQFJrU5UHoBOE0LqO5gQ0xOf8+OJuAWQljfKE4=" { };
   Librpcsvc = applePackage "Librpcsvc" "osx-10.11.6" "sha256-YHbGws901xONzAbo6sB5zSea4Wp0sgYUJ8YgwVfWxnE=" { };
   adv_cmds = applePackage "adv_cmds" "osx-10.11.6" "sha256-Ztp8ALWcviEpthoiY8ttWzGI8OcsLzsULjlqe8GIzw8=" { };
-  basic_cmds =
-    applePackage "basic_cmds" "osx-10.11.6" "sha256-BYPPTg4/7x6RPs0WwwQlkNiZxxArV+7EVe6bM+a/I6Q="
-      { };
+  basic_cmds = applePackage "basic_cmds" "osx-10.11.6" "sha256-BYPPTg4/7x6RPs0WwwQlkNiZxxArV+7EVe6bM+a/I6Q=" { };
   developer_cmds =
     applePackage "developer_cmds" "osx-10.11.6" "sha256-h0wMVlS6QdRvKOVJ74W9ziHYGApjvnk77AIR6ukYBRo="
       { };
-  diskdev_cmds =
-    applePackage "diskdev_cmds" "osx-10.11.6" "sha256-VX+hcZ7JhOA8EhwLloPlM3Yx79RXp9OYHV9Mi10uw3Q="
-      { macosPackages_11_0_1 = macosPackages_11_0_1; };
+  diskdev_cmds = applePackage "diskdev_cmds" "osx-10.11.6" "sha256-VX+hcZ7JhOA8EhwLloPlM3Yx79RXp9OYHV9Mi10uw3Q=" {
+    macosPackages_11_0_1 = macosPackages_11_0_1;
+  };
   network_cmds =
     if stdenv.isx86_64 then
       applePackage "network_cmds" "osx-10.11.6" "sha256-I89CLIswGheewOjiNZwQTgWvWbhm0qtB5+KUqzxnQ5M=" { }
     else
       macosPackages_11_0_1.network_cmds;
   file_cmds = applePackage "file_cmds" "osx-10.11.6" "sha256-JYy6HwmultKeZtLfaysbsyLoWg+OaTh7eJu54JkJC0Q=" { };
-  shell_cmds =
-    applePackage "shell_cmds" "osx-10.11.6" "sha256-kmEOprkiJGMVcl7yHkGX8ymk/5KjE99gWuF8j2hK5hY="
-      { };
-  system_cmds =
-    applePackage "system_cmds" "osx-10.11.6" "sha256-KBdGlHeXo2PwgRQOOeElJ1RBqCY1Tdhn5KD42CMhdzI="
-      { };
+  shell_cmds = applePackage "shell_cmds" "osx-10.11.6" "sha256-kmEOprkiJGMVcl7yHkGX8ymk/5KjE99gWuF8j2hK5hY=" { };
+  system_cmds = applePackage "system_cmds" "osx-10.11.6" "sha256-KBdGlHeXo2PwgRQOOeElJ1RBqCY1Tdhn5KD42CMhdzI=" { };
   text_cmds = applePackage "text_cmds" "osx-10.11.6" "sha256-KSebU7ZyUsPeqn51nzuGNaNxs9pvmlIQQdkWXIVzDxw=" { };
   top = applePackage "top" "osx-10.11.6" "sha256-jbz64ODogtpNyLpXGSZj1jCBdFPVXcVcBkL1vc7g5qQ=" { };
   PowerManagement =
@@ -383,7 +357,5 @@ developerToolsPackages_11_3_1
 
   # TODO(matthewbauer):
   # To be removed, once I figure out how to build a newer Security version.
-  Security =
-    applePackage "Security/boot.nix" "osx-10.9.5" "sha256-7qr0IamjCXCobIJ6V9KtvbMBkJDfRCy4C5eqpHJlQLI="
-      { };
+  Security = applePackage "Security/boot.nix" "osx-10.9.5" "sha256-7qr0IamjCXCobIJ6V9KtvbMBkJDfRCy4C5eqpHJlQLI=" { };
 }

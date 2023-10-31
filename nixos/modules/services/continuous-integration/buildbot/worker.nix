@@ -152,9 +152,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    services.buildbot-worker.workerPassFile = mkDefault (
-      pkgs.writeText "buildbot-worker-password" cfg.workerPass
-    );
+    services.buildbot-worker.workerPassFile = mkDefault (pkgs.writeText "buildbot-worker-password" cfg.workerPass);
 
     users.groups = optionalAttrs (cfg.group == "bbworker") { bbworker = { }; };
 

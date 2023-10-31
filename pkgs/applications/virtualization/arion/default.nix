@@ -58,9 +58,7 @@ let
   };
 
   # Unpacked sources for evaluation by `eval`
-  srcUnpacked =
-    runCommand "arion-src" { }
-      "mkdir $out; tar -C $out --strip-components=1 -xf ${arion-compose.src}";
+  srcUnpacked = runCommand "arion-src" { } "mkdir $out; tar -C $out --strip-components=1 -xf ${arion-compose.src}";
 
   /* Function for evaluating a composition
 

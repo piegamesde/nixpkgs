@@ -32,9 +32,7 @@ stdenv.mkDerivation {
   ];
   buildInputs = lib.optional stdenv.hostPlatform.isDarwin libcxxabi;
 
-  env.NIX_CFLAGS_COMPILE = toString [
-    "-DSCUDO_DEFAULT_OPTIONS=DeleteSizeMismatch=0:DeallocationTypeMismatch=0"
-  ];
+  env.NIX_CFLAGS_COMPILE = toString [ "-DSCUDO_DEFAULT_OPTIONS=DeleteSizeMismatch=0:DeallocationTypeMismatch=0" ];
 
   cmakeFlags =
     [
@@ -42,9 +40,7 @@ stdenv.mkDerivation {
       "-DCMAKE_C_COMPILER_TARGET=${stdenv.hostPlatform.config}"
       "-DCMAKE_ASM_COMPILER_TARGET=${stdenv.hostPlatform.config}"
     ]
-    ++ lib.optionals (haveLibc && stdenv.hostPlatform.isGnu) [
-      "-DSANITIZER_COMMON_CFLAGS=-I${libxcrypt}/include"
-    ]
+    ++ lib.optionals (haveLibc && stdenv.hostPlatform.isGnu) [ "-DSANITIZER_COMMON_CFLAGS=-I${libxcrypt}/include" ]
     ++ lib.optionals (useLLVM || bareMetal || isMusl) [
       "-DCOMPILER_RT_BUILD_SANITIZERS=OFF"
       "-DCOMPILER_RT_BUILD_XRAY=OFF"

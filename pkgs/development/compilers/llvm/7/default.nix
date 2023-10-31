@@ -305,21 +305,18 @@ let
 
       libcxx = callPackage ./libcxx {
         inherit llvm_meta;
-        stdenv =
-          if stdenv.hostPlatform.useLLVM or false then overrideCC stdenv buildLlvmTools.clangNoLibcxx else stdenv;
+        stdenv = if stdenv.hostPlatform.useLLVM or false then overrideCC stdenv buildLlvmTools.clangNoLibcxx else stdenv;
       };
 
       libcxxabi = callPackage ./libcxxabi {
         inherit llvm_meta;
-        stdenv =
-          if stdenv.hostPlatform.useLLVM or false then overrideCC stdenv buildLlvmTools.clangNoLibcxx else stdenv;
+        stdenv = if stdenv.hostPlatform.useLLVM or false then overrideCC stdenv buildLlvmTools.clangNoLibcxx else stdenv;
       };
 
       libunwind = callPackage ./libunwind {
         inherit llvm_meta;
         inherit (buildLlvmTools) llvm;
-        stdenv =
-          if stdenv.hostPlatform.useLLVM or false then overrideCC stdenv buildLlvmTools.clangNoLibcxx else stdenv;
+        stdenv = if stdenv.hostPlatform.useLLVM or false then overrideCC stdenv buildLlvmTools.clangNoLibcxx else stdenv;
       };
 
       openmp = callPackage ./openmp { inherit llvm_meta targetLlvm; };

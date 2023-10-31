@@ -9897,10 +9897,7 @@ let
       sources."@bugsnag/safe-json-stringify-6.0.0"
       sources."@colors/colors-1.5.0"
       (
-        sources."@cspotcode/source-map-support-0.8.1"
-        // {
-          dependencies = [ sources."@jridgewell/trace-mapping-0.3.9" ];
-        }
+        sources."@cspotcode/source-map-support-0.8.1" // { dependencies = [ sources."@jridgewell/trace-mapping-0.3.9" ]; }
       )
       sources."@dabh/diagnostics-2.0.2"
       sources."@import-maps/resolve-1.0.1"
@@ -10338,12 +10335,7 @@ let
       sources."@types/yargs-parser-20.2.1"
       sources."@typescript-eslint/types-5.18.0"
       sources."@typescript-eslint/typescript-estree-5.18.0"
-      (
-        sources."@typescript-eslint/visitor-keys-5.18.0"
-        // {
-          dependencies = [ sources."eslint-visitor-keys-3.3.0" ];
-        }
-      )
+      (sources."@typescript-eslint/visitor-keys-5.18.0" // { dependencies = [ sources."eslint-visitor-keys-3.3.0" ]; })
       sources."@vercel/nft-0.22.1"
       sources."abbrev-1.1.1"
       sources."accepts-1.3.8"

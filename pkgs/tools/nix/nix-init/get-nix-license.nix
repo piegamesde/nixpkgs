@@ -18,9 +18,7 @@ let
     warn
   ;
 
-  licenseMap = flip concatMapAttrs licenses (
-    k: v: optionalAttrs (v ? spdxId && !v.deprecated) { ${v.spdxId} = k; }
-  );
+  licenseMap = flip concatMapAttrs licenses (k: v: optionalAttrs (v ? spdxId && !v.deprecated) { ${v.spdxId} = k; });
 
   deprecatedAliases = {
     "AGPL-3.0" = "agpl3Only";

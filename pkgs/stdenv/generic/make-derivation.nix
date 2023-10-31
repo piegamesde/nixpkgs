@@ -274,9 +274,7 @@ let
         positions: name: deps:
         lib.flip lib.imap1 deps (
           index: dep:
-          if
-            lib.isDerivation dep || dep == null || builtins.typeOf dep == "string" || builtins.typeOf dep == "path"
-          then
+          if lib.isDerivation dep || dep == null || builtins.typeOf dep == "string" || builtins.typeOf dep == "path" then
             dep
           else if lib.isList dep then
             checkDependencyList' ([ index ] ++ positions) name dep
@@ -303,8 +301,7 @@ let
       let
         doCheck = doCheck';
         doInstallCheck = doInstallCheck';
-        buildInputs' =
-          buildInputs ++ lib.optionals doCheck checkInputs ++ lib.optionals doInstallCheck installCheckInputs;
+        buildInputs' = buildInputs ++ lib.optionals doCheck checkInputs ++ lib.optionals doInstallCheck installCheckInputs;
         nativeBuildInputs' =
           nativeBuildInputs
           ++ lib.optional separateDebugInfo' ../../build-support/setup-hooks/separate-debug-info.sh
@@ -341,12 +338,8 @@ let
             ))
           ]
           [
-            (map (drv: drv.__spliced.hostHost or drv) (
-              checkDependencyList "depsHostHostPropagated" depsHostHostPropagated
-            ))
-            (map (drv: drv.__spliced.hostTarget or drv) (
-              checkDependencyList "propagatedBuildInputs" propagatedBuildInputs
-            ))
+            (map (drv: drv.__spliced.hostHost or drv) (checkDependencyList "depsHostHostPropagated" depsHostHostPropagated))
+            (map (drv: drv.__spliced.hostTarget or drv) (checkDependencyList "propagatedBuildInputs" propagatedBuildInputs))
           ]
           [
             (map (drv: drv.__spliced.targetTarget or drv) (
@@ -504,9 +497,7 @@ let
                 crossFlags =
                   [
                     "-DCMAKE_SYSTEM_NAME=${
-                      lib.findFirst lib.isString "Generic" (
-                        lib.optional (!stdenv.hostPlatform.isRedox) stdenv.hostPlatform.uname.system
-                      )
+                      lib.findFirst lib.isString "Generic" (lib.optional (!stdenv.hostPlatform.isRedox) stdenv.hostPlatform.uname.system)
                     }"
                   ]
                   ++ lib.optionals (stdenv.hostPlatform.uname.processor != null) [
@@ -515,9 +506,7 @@ let
                   ++ lib.optionals (stdenv.hostPlatform.uname.release != null) [
                     "-DCMAKE_SYSTEM_VERSION=${stdenv.hostPlatform.uname.release}"
                   ]
-                  ++ lib.optionals (stdenv.hostPlatform.isDarwin) [
-                    "-DCMAKE_OSX_ARCHITECTURES=${stdenv.hostPlatform.darwinArch}"
-                  ]
+                  ++ lib.optionals (stdenv.hostPlatform.isDarwin) [ "-DCMAKE_OSX_ARCHITECTURES=${stdenv.hostPlatform.darwinArch}" ]
                   ++ lib.optionals (stdenv.buildPlatform.uname.system != null) [
                     "-DCMAKE_HOST_SYSTEM_NAME=${stdenv.buildPlatform.uname.system}"
                   ]

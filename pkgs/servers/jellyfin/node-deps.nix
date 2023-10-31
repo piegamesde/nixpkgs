@@ -12212,21 +12212,14 @@ let
         }
       )
       sources."@babel/types-7.13.14"
-      (
-        sources."@csstools/postcss-color-function-1.0.3"
-        // {
-          dependencies = [ sources."postcss-value-parser-4.2.0" ];
-        }
-      )
+      (sources."@csstools/postcss-color-function-1.0.3" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; })
       (
         sources."@csstools/postcss-font-format-keywords-1.0.0"
         // {
           dependencies = [ sources."postcss-value-parser-4.2.0" ];
         }
       )
-      (
-        sources."@csstools/postcss-hwb-function-1.0.0" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; }
-      )
+      (sources."@csstools/postcss-hwb-function-1.0.0" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; })
       (sources."@csstools/postcss-ic-unit-1.0.0" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; })
       sources."@csstools/postcss-is-pseudo-class-2.0.1"
       (
@@ -12235,12 +12228,7 @@ let
           dependencies = [ sources."postcss-value-parser-4.2.0" ];
         }
       )
-      (
-        sources."@csstools/postcss-oklab-function-1.0.2"
-        // {
-          dependencies = [ sources."postcss-value-parser-4.2.0" ];
-        }
-      )
+      (sources."@csstools/postcss-oklab-function-1.0.2" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; })
       (
         sources."@csstools/postcss-progressive-custom-properties-1.3.0"
         // {
@@ -12353,12 +12341,7 @@ let
         }
       )
       (sources."@typescript-eslint/utils-5.15.0" // { dependencies = [ sources."@types/json-schema-7.0.10" ]; })
-      (
-        sources."@typescript-eslint/visitor-keys-5.15.0"
-        // {
-          dependencies = [ sources."eslint-visitor-keys-3.3.0" ];
-        }
-      )
+      (sources."@typescript-eslint/visitor-keys-5.15.0" // { dependencies = [ sources."eslint-visitor-keys-3.3.0" ]; })
       sources."@uupaa/dynamic-import-polyfill-1.0.2"
       sources."@webassemblyjs/ast-1.11.1"
       sources."@webassemblyjs/floating-point-hex-parser-1.11.1"
@@ -13240,12 +13223,7 @@ let
       sources."postcss-8.4.12"
       sources."postcss-attribute-case-insensitive-5.0.0"
       (sources."postcss-calc-8.2.4" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; })
-      (
-        sources."postcss-color-functional-notation-4.2.2"
-        // {
-          dependencies = [ sources."postcss-value-parser-4.2.0" ];
-        }
-      )
+      (sources."postcss-color-functional-notation-4.2.2" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; })
       (sources."postcss-color-hex-alpha-8.0.3" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; })
       (sources."postcss-color-rebeccapurple-7.0.2" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; })
       (
@@ -13269,12 +13247,7 @@ let
       sources."postcss-discard-duplicates-5.1.0"
       sources."postcss-discard-empty-5.1.1"
       sources."postcss-discard-overridden-5.1.0"
-      (
-        sources."postcss-double-position-gradients-3.1.1"
-        // {
-          dependencies = [ sources."postcss-value-parser-4.2.0" ];
-        }
-      )
+      (sources."postcss-double-position-gradients-3.1.1" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; })
       (sources."postcss-env-function-4.0.5" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; })
       sources."postcss-focus-visible-6.0.4"
       sources."postcss-focus-within-5.0.4"
@@ -13372,22 +13345,12 @@ let
       sources."postcss-modules-values-4.0.0"
       sources."postcss-nesting-10.1.3"
       sources."postcss-normalize-charset-5.1.0"
-      (
-        sources."postcss-normalize-display-values-5.1.0"
-        // {
-          dependencies = [ sources."postcss-value-parser-4.2.0" ];
-        }
-      )
+      (sources."postcss-normalize-display-values-5.1.0" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; })
       (sources."postcss-normalize-positions-5.1.0" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; })
-      (
-        sources."postcss-normalize-repeat-style-5.1.0" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; }
-      )
+      (sources."postcss-normalize-repeat-style-5.1.0" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; })
       (sources."postcss-normalize-string-5.1.0" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; })
       (
-        sources."postcss-normalize-timing-functions-5.1.0"
-        // {
-          dependencies = [ sources."postcss-value-parser-4.2.0" ];
-        }
+        sources."postcss-normalize-timing-functions-5.1.0" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; }
       )
       (
         sources."postcss-normalize-unicode-5.1.0"

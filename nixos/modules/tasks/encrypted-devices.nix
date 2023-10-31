@@ -15,9 +15,7 @@ let
       enable = mkOption {
         default = false;
         type = types.bool;
-        description =
-          lib.mdDoc
-            "The block device is backed by an encrypted one, adds this device as a initrd luks entry.";
+        description = lib.mdDoc "The block device is backed by an encrypted one, adds this device as a initrd luks entry.";
       };
 
       blkDev = mkOption {

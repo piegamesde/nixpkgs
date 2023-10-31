@@ -1401,17 +1401,16 @@ in
     # Not sure if `cfg.relay.role == "private-bridge"` helps as tor
     # sends a lot of stats
     warnings =
-      optional (cfg.settings.BridgeRelay && flatten (mapAttrsToList (n: o: o.map) cfg.relay.onionServices) != [ ])
-        ''
-          Running Tor hidden services on a public relay makes the
-          presence of hidden services visible through simple statistical
-          analysis of publicly available data.
-          See https://trac.torproject.org/projects/tor/ticket/8742
+      optional (cfg.settings.BridgeRelay && flatten (mapAttrsToList (n: o: o.map) cfg.relay.onionServices) != [ ]) ''
+        Running Tor hidden services on a public relay makes the
+        presence of hidden services visible through simple statistical
+        analysis of publicly available data.
+        See https://trac.torproject.org/projects/tor/ticket/8742
 
-          You can safely ignore this warning if you don't intend to
-          actually hide your hidden services. In either case, you can
-          always create a container/VM with a separate Tor daemon instance.
-        ''
+        You can safely ignore this warning if you don't intend to
+        actually hide your hidden services. In either case, you can
+        always create a container/VM with a separate Tor daemon instance.
+      ''
       ++ flatten (
         mapAttrsToList
           (

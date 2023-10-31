@@ -336,9 +336,7 @@ in
             restartTriggers = [ dhcp4Config ];
 
             serviceConfig = {
-              ExecStart = "${package}/bin/kea-dhcp4 -c /etc/kea/dhcp4-server.conf ${
-                  lib.escapeShellArgs cfg.dhcp4.extraArgs
-                }";
+              ExecStart = "${package}/bin/kea-dhcp4 -c /etc/kea/dhcp4-server.conf ${lib.escapeShellArgs cfg.dhcp4.extraArgs}";
               # Kea does not request capabilities by itself
               AmbientCapabilities = [
                 "CAP_NET_BIND_SERVICE"
@@ -383,9 +381,7 @@ in
             restartTriggers = [ dhcp6Config ];
 
             serviceConfig = {
-              ExecStart = "${package}/bin/kea-dhcp6 -c /etc/kea/dhcp6-server.conf ${
-                  lib.escapeShellArgs cfg.dhcp6.extraArgs
-                }";
+              ExecStart = "${package}/bin/kea-dhcp6 -c /etc/kea/dhcp6-server.conf ${lib.escapeShellArgs cfg.dhcp6.extraArgs}";
               # Kea does not request capabilities by itself
               AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
               CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];

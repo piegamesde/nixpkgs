@@ -66,9 +66,7 @@ lib.init bootStages
             overrides = _: _: { };
             extraBuildInputs =
               [ ] # Old ones run on wrong platform
-              ++ lib.optionals hostPlatform.isDarwin [
-                buildPackages.targetPackages.darwin.apple_sdk.frameworks.CoreFoundation
-              ];
+              ++ lib.optionals hostPlatform.isDarwin [ buildPackages.targetPackages.darwin.apple_sdk.frameworks.CoreFoundation ];
             allowedRequisites = null;
 
             hasCC = !targetPlatform.isGhcjs;

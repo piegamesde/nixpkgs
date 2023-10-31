@@ -43,9 +43,7 @@ runCommand "gnome-gsettings-overrides" { preferLocalBuild = true; } ''
   mkdir -p "$schema_dir"
 
   ${concatMapStringsSep "\n"
-    (
-      pkg: ''cp -rf "${glib.getSchemaPath pkg}"/*.xml "${glib.getSchemaPath pkg}"/*.gschema.override "$schema_dir"''
-    )
+    (pkg: ''cp -rf "${glib.getSchemaPath pkg}"/*.xml "${glib.getSchemaPath pkg}"/*.gschema.override "$schema_dir"'')
     gsettingsOverridePackages}
 
   chmod -R a+w "$data_dir"

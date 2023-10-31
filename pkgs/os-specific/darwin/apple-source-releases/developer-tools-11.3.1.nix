@@ -8,7 +8,6 @@
       "06nw99ajkd264vdi6n2zv252ppxp3wx3120hqf3jqdh6c1wavy0b"
       { };
   developer_cmds =
-    applePackage' "developer_cmds" "66" "developer-tools-11.3.1"
-      "0f7vphpscjcypq49gjckbs20xhm7yjalr4nnbphqcqp8v1al56dc"
+    applePackage' "developer_cmds" "66" "developer-tools-11.3.1" "0f7vphpscjcypq49gjckbs20xhm7yjalr4nnbphqcqp8v1al56dc"
       { };
 }

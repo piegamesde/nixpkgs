@@ -258,9 +258,7 @@ lib.makeScope pkgs.newScope (
   empathy =
     throw
       "The ‘gnome.empathy’ package was removed as it is unmaintained and no longer launches due to libsoup3 migration."; # added 2023-01-20
-  gnome-desktop =
-    throw
-      "The ‘gnome.gnome-desktop’ alias was removed. Please use ‘pkgs.gnome-desktop’ directly."; # converted to throw on 2022-10-26
+  gnome-desktop = throw "The ‘gnome.gnome-desktop’ alias was removed. Please use ‘pkgs.gnome-desktop’ directly."; # converted to throw on 2022-10-26
   gnome-todo = pkgs.endeavour; # added 2022-07-30
   libgnome-games-support =
     throw

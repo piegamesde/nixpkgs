@@ -510,9 +510,7 @@ in
       // listToAttrs (
         lib.imap1
           (i: s: {
-            name = "NetworkManager/dispatcher.d/${dispatcherTypesSubdirMap.${s.type}}03userscript${
-                lib.fixedWidthNumber 4 i
-              }";
+            name = "NetworkManager/dispatcher.d/${dispatcherTypesSubdirMap.${s.type}}03userscript${lib.fixedWidthNumber 4 i}";
             value = {
               mode = "0544";
               inherit (s) source;

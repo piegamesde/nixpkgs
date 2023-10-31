@@ -312,9 +312,7 @@ in
   config = {
 
     programs.ssh.setXAuthLocation = mkDefault (
-      config.services.xserver.enable
-      || config.programs.ssh.forwardX11
-      || config.services.openssh.settings.X11Forwarding
+      config.services.xserver.enable || config.programs.ssh.forwardX11 || config.services.openssh.settings.X11Forwarding
     );
 
     assertions =
@@ -327,8 +325,7 @@ in
       ++ flip mapAttrsToList cfg.knownHosts (
         name: data: {
           assertion =
-            (data.publicKey == null && data.publicKeyFile != null)
-            || (data.publicKey != null && data.publicKeyFile == null);
+            (data.publicKey == null && data.publicKeyFile != null) || (data.publicKey != null && data.publicKeyFile == null);
           message = "knownHost ${name} must contain either a publicKey or publicKeyFile";
         }
       );
@@ -352,8 +349,7 @@ in
 
       ${optionalString (cfg.pubkeyAcceptedKeyTypes != [ ])
         "PubkeyAcceptedKeyTypes ${concatStringsSep "," cfg.pubkeyAcceptedKeyTypes}"}
-      ${optionalString (cfg.hostKeyAlgorithms != [ ])
-        "HostKeyAlgorithms ${concatStringsSep "," cfg.hostKeyAlgorithms}"}
+      ${optionalString (cfg.hostKeyAlgorithms != [ ]) "HostKeyAlgorithms ${concatStringsSep "," cfg.hostKeyAlgorithms}"}
       ${optionalString (cfg.kexAlgorithms != null) "KexAlgorithms ${concatStringsSep "," cfg.kexAlgorithms}"}
       ${optionalString (cfg.ciphers != null) "Ciphers ${concatStringsSep "," cfg.ciphers}"}
       ${optionalString (cfg.macs != null) "MACs ${concatStringsSep "," cfg.macs}"}

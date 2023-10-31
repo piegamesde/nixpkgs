@@ -329,8 +329,7 @@ rec {
      Type:
        catAttrs :: String -> [AttrSet] -> [Any]
   */
-  catAttrs =
-    builtins.catAttrs or (attr: l: concatLists (map (s: if s ? ${attr} then [ s.${attr} ] else [ ]) l));
+  catAttrs = builtins.catAttrs or (attr: l: concatLists (map (s: if s ? ${attr} then [ s.${attr} ] else [ ]) l));
 
   /* Filter an attribute set by removing all attributes for which the
      given predicate return false.
@@ -643,8 +642,7 @@ rec {
         path:
         let
           g =
-            name: value:
-            if isAttrs value && cond value then recurse (path ++ [ name ]) value else f (path ++ [ name ]) value;
+            name: value: if isAttrs value && cond value then recurse (path ++ [ name ]) value else f (path ++ [ name ]) value;
         in
         mapAttrs g;
     in

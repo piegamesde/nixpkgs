@@ -459,9 +459,7 @@ in
     };
     services.postfix.config = mkIf cfg.postfix.enable cfg.postfix.config;
 
-    systemd.services.postfix = mkIf cfg.postfix.enable {
-      serviceConfig.SupplementaryGroups = [ postfixCfg.group ];
-    };
+    systemd.services.postfix = mkIf cfg.postfix.enable { serviceConfig.SupplementaryGroups = [ postfixCfg.group ]; };
 
     # Allow users to run 'rspamc' and 'rspamadm'.
     environment.systemPackages = [ pkgs.rspamd ];

@@ -17,8 +17,7 @@ let
             #  - the test author has a slightly more realistic view of the
             #    final format during development.
             value =
-              lib.throwIfNot (formatSet.type.check def)
-                (builtins.trace def "definition does not pass the type's check function")
+              lib.throwIfNot (formatSet.type.check def) (builtins.trace def "definition does not pass the type's check function")
                 def;
             file = "def${toString n}";
           })
@@ -167,21 +166,19 @@ runBuildTests {
   };
 
   testIniListToValue = {
-    drv =
-      evalFormat formats.ini { listToValue = concatMapStringsSep ", " (generators.mkValueStringDefault { }); }
-        {
-          foo = {
-            bar = [
-              null
-              true
-              "test"
-              1.2
-              10
-            ];
-            baz = false;
-            qux = "qux";
-          };
-        };
+    drv = evalFormat formats.ini { listToValue = concatMapStringsSep ", " (generators.mkValueStringDefault { }); } {
+      foo = {
+        bar = [
+          null
+          true
+          "test"
+          1.2
+          10
+        ];
+        baz = false;
+        qux = "qux";
+      };
+    };
     expected = ''
       [foo]
       bar=null, true, test, 1.200000, 10

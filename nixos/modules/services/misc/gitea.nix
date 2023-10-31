@@ -596,10 +596,7 @@ in
         { DB_TYPE = cfg.database.type; }
         (mkIf (useMysql || usePostgresql) {
           HOST =
-            if cfg.database.socket != null then
-              cfg.database.socket
-            else
-              cfg.database.host + ":" + toString cfg.database.port;
+            if cfg.database.socket != null then cfg.database.socket else cfg.database.host + ":" + toString cfg.database.port;
           NAME = cfg.database.name;
           USER = cfg.database.user;
           PASSWD = "#dbpass#";

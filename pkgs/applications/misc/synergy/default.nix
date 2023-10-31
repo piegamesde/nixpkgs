@@ -117,9 +117,7 @@ stdenv.mkDerivation rec {
     # NSFilenamesPboardType is deprecated in 10.14+
     ++
       lib.optional stdenv.isDarwin
-        "-DCMAKE_OSX_DEPLOYMENT_TARGET=${
-          if stdenv.isAarch64 then "10.13" else stdenv.targetPlatform.darwinSdkVersion
-        }";
+        "-DCMAKE_OSX_DEPLOYMENT_TARGET=${if stdenv.isAarch64 then "10.13" else stdenv.targetPlatform.darwinSdkVersion}";
 
   doCheck = true;
 

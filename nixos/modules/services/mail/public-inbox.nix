@@ -43,9 +43,7 @@ let
       type = with types; nullOr str;
       default = null;
       example = "/path/to/fullchain.pem";
-      description =
-        lib.mdDoc
-          "Path to TLS certificate to use for connections to {manpage}`public-inbox-${proto}d(1)`.";
+      description = lib.mdDoc "Path to TLS certificate to use for connections to {manpage}`public-inbox-${proto}d(1)`.";
     };
     key = mkOption {
       type = with types; nullOr str;
@@ -450,14 +448,12 @@ in
 
       # Register the addresses as existing
       virtual = concatStringsSep "\n" (
-        mapAttrsToList (_: inbox: concatMapStringsSep "\n" (address: "${address} ${address}") inbox.address)
-          cfg.inboxes
+        mapAttrsToList (_: inbox: concatMapStringsSep "\n" (address: "${address} ${address}") inbox.address) cfg.inboxes
       );
 
       # Deliver the addresses with the public-inbox transport
       transport = concatStringsSep "\n" (
-        mapAttrsToList
-          (_: inbox: concatMapStringsSep "\n" (address: "${address} public-inbox:${address}") inbox.address)
+        mapAttrsToList (_: inbox: concatMapStringsSep "\n" (address: "${address} public-inbox:${address}") inbox.address)
           cfg.inboxes
       );
 
@@ -605,8 +601,7 @@ in
           }
         ];
       })
-      (mkIf
-        (any (inbox: inbox.watch != [ ]) (attrValues cfg.inboxes) || cfg.settings.publicinboxwatch.watchspam != null)
+      (mkIf (any (inbox: inbox.watch != [ ]) (attrValues cfg.inboxes) || cfg.settings.publicinboxwatch.watchspam != null)
         {
           public-inbox-watch = mkMerge [
             (serviceConfig "watch")

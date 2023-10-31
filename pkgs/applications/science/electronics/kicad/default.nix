@@ -99,8 +99,7 @@ let
 
   libSrc = name: if srcOverridep name then srcs.${name} else libSrcFetch name;
   # TODO does it make sense to only have one version for all libs?
-  libVersion =
-    if srcOverridep "libVersion" then srcs.libVersion else versionsImport.${baseName}.libVersion.version;
+  libVersion = if srcOverridep "libVersion" then srcs.libVersion else versionsImport.${baseName}.libVersion.version;
 
   wxGTK = wxGTK32;
   python = python3;
@@ -236,10 +235,7 @@ stdenv.mkDerivation rec {
   meta = rec {
     description =
       (
-        if (stable) then
-          "Open Source Electronics Design Automation suite"
-        else
-          "Open Source EDA suite, development build"
+        if (stable) then "Open Source Electronics Design Automation suite" else "Open Source EDA suite, development build"
       )
       + (lib.optionalString (!with3d) ", without 3D models");
     homepage = "https://www.kicad.org/";

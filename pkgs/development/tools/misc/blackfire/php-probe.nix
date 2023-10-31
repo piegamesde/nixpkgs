@@ -144,9 +144,7 @@ let
           createUpdateable =
             path: _value:
 
-            lib.nameValuePair (createName path) (
-              self.overrideAttrs (attrs: { src = makeSource (createSourceParams path); })
-            );
+            lib.nameValuePair (createName path) (self.overrideAttrs (attrs: { src = makeSource (createSourceParams path); }));
 
           hashesOnly =
             # Filter out all attributes other than hashes.

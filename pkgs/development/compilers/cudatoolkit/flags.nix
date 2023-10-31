@@ -106,8 +106,7 @@ let
   gencodeMapper =
     feat:
     lists.map (
-      computeCapability:
-      "-gencode=arch=compute_${dropDot computeCapability},code=${feat}_${dropDot computeCapability}"
+      computeCapability: "-gencode=arch=compute_${dropDot computeCapability},code=${feat}_${dropDot computeCapability}"
     );
 
   formatCapabilities =

@@ -11,8 +11,7 @@ let
   };
   addPkgConfig = old: { nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.pkg-config ]; };
   addToBuildInputsWithPkgConfig = pkg: old: (addPkgConfig old) // (addToBuildInputs pkg old);
-  addToPropagatedBuildInputsWithPkgConfig =
-    pkg: old: (addPkgConfig old) // (addToPropagatedBuildInputs pkg old);
+  addToPropagatedBuildInputsWithPkgConfig = pkg: old: (addPkgConfig old) // (addToPropagatedBuildInputs pkg old);
   broken = old: {
     meta = old.meta // {
       broken = true;

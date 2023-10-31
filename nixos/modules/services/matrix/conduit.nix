@@ -70,9 +70,7 @@ in
           global.allow_encryption = mkOption {
             type = types.bool;
             default = true;
-            description =
-              lib.mdDoc
-                "Whether new encrypted rooms can be created. Note: existing rooms will continue to work.";
+            description = lib.mdDoc "Whether new encrypted rooms can be created. Note: existing rooms will continue to work.";
           };
           global.allow_federation = mkOption {
             type = types.bool;

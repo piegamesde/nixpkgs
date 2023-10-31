@@ -55,8 +55,7 @@ stdenv.mkDerivation rec {
         x86_64-linux = "amd64";
         i686-linux = "i386";
       };
-      platform =
-        platforms.${stdenv.hostPlatform.system} or (throw "unsupported system: ${stdenv.hostPlatform.system}");
+      platform = platforms.${stdenv.hostPlatform.system} or (throw "unsupported system: ${stdenv.hostPlatform.system}");
     in
     ''
       ar p "$src/Debian/${region}/kyodialog_${platform}/kyodialog_${kyodialog_version}-0_${platform}.deb" data.tar.gz | tar -xz

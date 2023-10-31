@@ -7,8 +7,7 @@
 }:
 
 let
-  mk-perl-flags =
-    inputs: lib.concatStringsSep " " (map (dep: "-I ${dep}/${perlPackages.perl.libPrefix}") inputs);
+  mk-perl-flags = inputs: lib.concatStringsSep " " (map (dep: "-I ${dep}/${perlPackages.perl.libPrefix}") inputs);
   postgrey-flags = mk-perl-flags (
     with perlPackages; [
       NetServer

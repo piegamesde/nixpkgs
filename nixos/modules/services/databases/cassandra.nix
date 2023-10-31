@@ -61,9 +61,7 @@ let
       else
         { listen_address = cfg.listenAddress; }
     )
-    // (
-      if cfg.rpcAddress == null then { rpc_interface = cfg.rpcInterface; } else { rpc_address = cfg.rpcAddress; }
-    );
+    // (if cfg.rpcAddress == null then { rpc_interface = cfg.rpcInterface; } else { rpc_address = cfg.rpcAddress; });
 
   cassandraEtc = pkgs.stdenv.mkDerivation {
     name = "cassandra-etc";

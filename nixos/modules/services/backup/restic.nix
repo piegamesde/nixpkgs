@@ -380,21 +380,19 @@ in
                 PrivateTmp = true;
               } // optionalAttrs (backup.environmentFile != null) { EnvironmentFile = backup.environmentFile; };
             }
-            //
-              optionalAttrs (backup.initialize || backup.dynamicFilesFrom != null || backup.backupPrepareCommand != null)
-                {
-                  preStart = ''
-                    ${optionalString (backup.backupPrepareCommand != null) ''
-                      ${pkgs.writeScript "backupPrepareCommand" backup.backupPrepareCommand}
-                    ''}
-                    ${optionalString (backup.initialize) ''
-                      ${resticCmd} snapshots || ${resticCmd} init
-                    ''}
-                    ${optionalString (backup.dynamicFilesFrom != null) ''
-                      ${pkgs.writeScript "dynamicFilesFromScript" backup.dynamicFilesFrom} > ${filesFromTmpFile}
-                    ''}
-                  '';
-                }
+            // optionalAttrs (backup.initialize || backup.dynamicFilesFrom != null || backup.backupPrepareCommand != null) {
+              preStart = ''
+                ${optionalString (backup.backupPrepareCommand != null) ''
+                  ${pkgs.writeScript "backupPrepareCommand" backup.backupPrepareCommand}
+                ''}
+                ${optionalString (backup.initialize) ''
+                  ${resticCmd} snapshots || ${resticCmd} init
+                ''}
+                ${optionalString (backup.dynamicFilesFrom != null) ''
+                  ${pkgs.writeScript "dynamicFilesFromScript" backup.dynamicFilesFrom} > ${filesFromTmpFile}
+                ''}
+              '';
+            }
             // optionalAttrs (backup.dynamicFilesFrom != null || backup.backupCleanupCommand != null) {
               postStop = ''
                 ${optionalString (backup.backupCleanupCommand != null) ''

@@ -520,8 +520,7 @@ in
             monitorConfig = ''Option "Rotate" "left"'';
           }
         ];
-        type =
-          with types; listOf (coercedTo str (output: { inherit output; }) (submodule { options = xrandrOptions; }));
+        type = with types; listOf (coercedTo str (output: { inherit output; }) (submodule { options = xrandrOptions; }));
         # Set primary to true for the first head if no other has been set
         # primary already.
         apply =
@@ -727,8 +726,7 @@ in
       name:
       let
         driver =
-          attrByPath [ name ]
-            (if xorg ? ${"xf86video" + name} then { modules = [ xorg.${"xf86video" + name} ]; } else null)
+          attrByPath [ name ] (if xorg ? ${"xf86video" + name} then { modules = [ xorg.${"xf86video" + name} ]; } else null)
             knownVideoDrivers;
       in
       optional (driver != null) (

@@ -334,8 +334,7 @@ let
       };
 
       # N.B. condition is safe because without useLLVM both are the same.
-      compiler-rt =
-        if stdenv.hostPlatform.isAndroid then libraries.compiler-rt-libc else libraries.compiler-rt-no-libc;
+      compiler-rt = if stdenv.hostPlatform.isAndroid then libraries.compiler-rt-libc else libraries.compiler-rt-no-libc;
 
       stdenv = overrideCC stdenv buildLlvmTools.clang;
 

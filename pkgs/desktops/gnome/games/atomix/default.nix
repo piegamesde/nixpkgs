@@ -21,9 +21,7 @@ stdenv.mkDerivation (
     version = "44.0";
 
     src = fetchurl {
-      url = "mirror://gnome/sources/atomix/${
-          lib.versions.major finalAttrs.version
-        }/atomix-${finalAttrs.version}.tar.xz";
+      url = "mirror://gnome/sources/atomix/${lib.versions.major finalAttrs.version}/atomix-${finalAttrs.version}.tar.xz";
       sha256 = "yISTF2iNh9pzTJBjA1YxBSAH8qh5m2xsyRUmWIC1X7Q=";
     };
 

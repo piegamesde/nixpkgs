@@ -113,8 +113,7 @@ in
                 example = 8080;
                 description =
                   lib.mdDoc
-                    ''
-                      Source port of the external interface; to specify a port range, use a string with a colon (e.g. "60000:61000")'';
+                    ''Source port of the external interface; to specify a port range, use a string with a colon (e.g. "60000:61000")'';
               };
 
               destination = mkOption {

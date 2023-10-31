@@ -35,9 +35,7 @@ let
           fetchSubmodules = false;
           leaveDotGit = true;
           postFetch = ''
-            PATH=${
-              lib.makeBinPath [ getopt ]
-            }:$PATH ${stdenv.shell} $out/util/crossgcc/buildgcc -W > $out/.crossgcc_version
+            PATH=${lib.makeBinPath [ getopt ]}:$PATH ${stdenv.shell} $out/util/crossgcc/buildgcc -W > $out/.crossgcc_version
             rm -rf $out/.git
           '';
           allowedRequisites = [ ];

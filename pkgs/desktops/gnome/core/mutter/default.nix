@@ -78,9 +78,7 @@ stdenv.mkDerivation (
     ];
 
     src = fetchurl {
-      url = "mirror://gnome/sources/mutter/${
-          lib.versions.major finalAttrs.version
-        }/mutter-${finalAttrs.version}.tar.xz";
+      url = "mirror://gnome/sources/mutter/${lib.versions.major finalAttrs.version}/mutter-${finalAttrs.version}.tar.xz";
       sha256 = "lzrq+rQvBvk0oJlPyEh4lYzbTSdmpMhnpczcVH3VcFY=";
     };
 

@@ -36,9 +36,7 @@ let
       modDirVersion' = builtins.replaceStrings [ kernel.version ] [ version ] kernel.modDirVersion;
     in
     kernel.override {
-      structuredExtraConfig = import ../os-specific/linux/kernel/hardened/config.nix {
-        inherit stdenv lib version;
-      };
+      structuredExtraConfig = import ../os-specific/linux/kernel/hardened/config.nix { inherit stdenv lib version; };
       argsOverride = {
         inherit version;
         modDirVersion = modDirVersion' + kernelPatches.hardened.${kernel.meta.branch}.extra;
@@ -369,8 +367,7 @@ in
 
         dpdk = pkgs.dpdk.override { inherit kernel; };
 
-        exfat-nofuse =
-          if lib.versionOlder kernel.version "5.8" then callPackage ../os-specific/linux/exfat { } else null;
+        exfat-nofuse = if lib.versionOlder kernel.version "5.8" then callPackage ../os-specific/linux/exfat { } else null;
 
         evdi = callPackage ../os-specific/linux/evdi { };
 
@@ -384,10 +381,7 @@ in
         e1000e = if lib.versionOlder kernel.version "4.10" then callPackage ../os-specific/linux/e1000e { } else null;
 
         intel-speed-select =
-          if lib.versionAtLeast kernel.version "5.3" then
-            callPackage ../os-specific/linux/intel-speed-select { }
-          else
-            null;
+          if lib.versionAtLeast kernel.version "5.3" then callPackage ../os-specific/linux/intel-speed-select { } else null;
 
         ipu6-drivers = callPackage ../os-specific/linux/ipu6-drivers { };
 
@@ -423,9 +417,7 @@ in
 
         nvidiabl = callPackage ../os-specific/linux/nvidiabl { };
 
-        nvidiaPackages = dontRecurseIntoAttrs (
-          lib.makeExtensible (_: callPackage ../os-specific/linux/nvidia-x11 { })
-        );
+        nvidiaPackages = dontRecurseIntoAttrs (lib.makeExtensible (_: callPackage ../os-specific/linux/nvidia-x11 { }));
 
         nvidia_x11 = nvidiaPackages.stable;
         nvidia_x11_beta = nvidiaPackages.beta;
@@ -488,10 +480,7 @@ in
         facetimehd = callPackage ../os-specific/linux/facetimehd { };
 
         tuxedo-keyboard =
-          if lib.versionAtLeast kernel.version "4.14" then
-            callPackage ../os-specific/linux/tuxedo-keyboard { }
-          else
-            null;
+          if lib.versionAtLeast kernel.version "4.14" then callPackage ../os-specific/linux/tuxedo-keyboard { } else null;
 
         jool = callPackage ../os-specific/linux/jool { };
 
@@ -565,8 +554,7 @@ in
 
         vmware = callPackage ../os-specific/linux/vmware { };
 
-        wireguard =
-          if lib.versionOlder kernel.version "5.6" then callPackage ../os-specific/linux/wireguard { } else null;
+        wireguard = if lib.versionOlder kernel.version "5.6" then callPackage ../os-specific/linux/wireguard { } else null;
 
         x86_energy_perf_policy = callPackage ../os-specific/linux/x86_energy_perf_policy { };
 
@@ -596,9 +584,7 @@ in
       }
       // lib.optionalAttrs config.allowAliases {
         ati_drivers_x11 = throw "ati drivers are no longer supported by any kernel >=4.1"; # added 2021-05-18;
-        xmm7360-pci =
-          throw
-            "Support for the XMM7360 WWAN card was added to the iosm kmod in mainline kernel version 5.18";
+        xmm7360-pci = throw "Support for the XMM7360 WWAN card was added to the iosm kmod in mainline kernel version 5.18";
       }
     );
 

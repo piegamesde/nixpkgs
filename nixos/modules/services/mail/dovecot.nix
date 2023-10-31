@@ -81,9 +81,7 @@ let
 
     (optionalString (cfg.sieveScripts != { }) ''
       plugin {
-        ${
-          concatStringsSep "\n" (mapAttrsToList (to: from: "sieve_${to} = ${stateDir}/sieve/${to}") cfg.sieveScripts)
-        }
+        ${concatStringsSep "\n" (mapAttrsToList (to: from: "sieve_${to} = ${stateDir}/sieve/${to}") cfg.sieveScripts)}
       }
     '')
 

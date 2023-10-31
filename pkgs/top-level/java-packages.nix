@@ -108,9 +108,7 @@ in
         mkAdoptopenjdk ../development/compilers/adoptopenjdk-bin/jdk17-linux.nix
           ../development/compilers/adoptopenjdk-bin/jdk17-darwin.nix;
 
-      openjdk8-bootstrap = mkBootstrap adoptopenjdk-8 ../development/compilers/openjdk/bootstrap.nix {
-        version = "8";
-      };
+      openjdk8-bootstrap = mkBootstrap adoptopenjdk-8 ../development/compilers/openjdk/bootstrap.nix { version = "8"; };
 
       openjdk11-bootstrap = mkBootstrap adoptopenjdk-11 ../development/compilers/openjdk/bootstrap.nix {
         version = "10";
@@ -255,9 +253,7 @@ in
     commonsLoggingApi_1_1
   ;
 
-  inherit (callPackage ../development/java-modules/findbugs/jsr305.nix { inherit fetchMaven; })
-    findbugsJsr305_2_0_1
-  ;
+  inherit (callPackage ../development/java-modules/findbugs/jsr305.nix { inherit fetchMaven; }) findbugsJsr305_2_0_1;
 
   inherit (callPackage ../development/java-modules/google/collections.nix { inherit fetchMaven; })
     googleCollections_1_0
@@ -277,9 +273,7 @@ in
 
   inherit (callPackage ../development/java-modules/log4j { inherit fetchMaven; }) log4j_1_2_12;
 
-  inherit (callPackage ../development/java-modules/maven/archiver.nix { inherit fetchMaven; })
-    mavenArchiver_2_5
-  ;
+  inherit (callPackage ../development/java-modules/maven/archiver.nix { inherit fetchMaven; }) mavenArchiver_2_5;
 
   inherit (callPackage ../development/java-modules/maven/artifact.nix { inherit fetchMaven; })
     mavenArtifact_2_0_1
@@ -336,9 +330,7 @@ in
     mavenErrorDiagnostics_2_2_1
   ;
 
-  inherit (callPackage ../development/java-modules/maven/filtering.nix { inherit fetchMaven; })
-    mavenFiltering_1_1
-  ;
+  inherit (callPackage ../development/java-modules/maven/filtering.nix { inherit fetchMaven; }) mavenFiltering_1_1;
 
   inherit (callPackage ../development/java-modules/maven-hello { inherit mavenbuild; })
     mavenHello_1_0
@@ -380,8 +372,7 @@ in
     mavenPluginDescriptor_2_2_1
   ;
 
-  inherit
-    (callPackage ../development/java-modules/maven/plugin-parameter-documenter.nix { inherit fetchMaven; })
+  inherit (callPackage ../development/java-modules/maven/plugin-parameter-documenter.nix { inherit fetchMaven; })
     mavenPluginParameterDocumenter_2_0_1
     mavenPluginParameterDocumenter_2_0_6
     mavenPluginParameterDocumenter_2_0_9
@@ -472,8 +463,7 @@ in
     mojoAnimalSniffer_1_11
   ;
 
-  inherit
-    (callPackage ../development/java-modules/mojo/java-boot-classpath-detector.nix { inherit fetchMaven; })
+  inherit (callPackage ../development/java-modules/mojo/java-boot-classpath-detector.nix { inherit fetchMaven; })
     mojoJavaBootClasspathDetector_1_11
   ;
 
@@ -520,9 +510,7 @@ in
 
   inherit (callPackage ../development/java-modules/plexus/digest.nix { inherit fetchMaven; }) plexusDigest_1_0;
 
-  inherit (callPackage ../development/java-modules/plexus/i18n.nix { inherit fetchMaven; })
-    plexusI18n_1_0_beta6
-  ;
+  inherit (callPackage ../development/java-modules/plexus/i18n.nix { inherit fetchMaven; }) plexusI18n_1_0_beta6;
 
   inherit (callPackage ../development/java-modules/plexus/interactivity-api.nix { inherit fetchMaven; })
     plexusInteractivityApi_1_0_alpha4

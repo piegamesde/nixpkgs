@@ -87,9 +87,7 @@ import ./make-test-python.nix (
           server.wait_until_succeeds(
               "journalctl -o cat -u snapserver.service | grep -q 'Hello from'"
           )
-          client.wait_until_succeeds("journalctl -o cat -u snapcast-client | grep -q 'buffer: ${
-            toString bufferSize
-          }'")
+          client.wait_until_succeeds("journalctl -o cat -u snapcast-client | grep -q 'buffer: ${toString bufferSize}'")
     '';
   }
 )

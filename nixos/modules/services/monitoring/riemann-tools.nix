@@ -16,9 +16,7 @@ let
 
   healthLauncher = writeScriptBin "riemann-health" ''
     #!/bin/sh
-    exec ${pkgs.riemann-tools}/bin/riemann-health ${
-      builtins.concatStringsSep " " cfg.extraArgs
-    } --host ${riemannHost}
+    exec ${pkgs.riemann-tools}/bin/riemann-health ${builtins.concatStringsSep " " cfg.extraArgs} --host ${riemannHost}
   '';
 in
 {

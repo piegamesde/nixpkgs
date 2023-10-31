@@ -124,9 +124,7 @@ let
           ];
           wants = [ "network.target" ];
           # exclude bridges from the partOf relationship to fix container networking bug #47210
-          partOf = map (i: "network-addresses-${i.name}.service") (
-            filter (i: !(hasAttr i.name cfg.bridges)) interfaces
-          );
+          partOf = map (i: "network-addresses-${i.name}.service") (filter (i: !(hasAttr i.name cfg.bridges)) interfaces);
           conflicts = [ "shutdown.target" ];
           wantedBy = [ "multi-user.target" ] ++ optional hasDefaultGatewaySet "network-online.target";
 
@@ -180,9 +178,7 @@ let
                 optionalString (cfg.defaultGateway6.metric != null) "metric ${toString cfg.defaultGateway6.metric}"
               } via "${cfg.defaultGateway6.address}" ${
                 optionalString (cfg.defaultGatewayWindowSize != null) "window ${toString cfg.defaultGatewayWindowSize}"
-              } ${
-                optionalString (cfg.defaultGateway6.interface != null) "dev ${cfg.defaultGateway6.interface}"
-              } proto static
+              } ${optionalString (cfg.defaultGateway6.interface != null) "dev ${cfg.defaultGateway6.interface}"} proto static
             ''}
           '';
         };
@@ -457,17 +453,13 @@ let
                 ovs-vsctl ${
                   concatStrings (
                     mapAttrsToList
-                      (
-                        name: config:
-                        " -- add-port ${n} ${name}" + optionalString (config.vlan != null) " tag=${toString config.vlan}"
-                      )
+                      (name: config: " -- add-port ${n} ${name}" + optionalString (config.vlan != null) " tag=${toString config.vlan}")
                       v.interfaces
                   )
                 } \
                   ${
                     concatStrings (
-                      mapAttrsToList
-                        (name: config: optionalString (config.type != null) " -- set interface ${name} type=${config.type}")
+                      mapAttrsToList (name: config: optionalString (config.type != null) " -- set interface ${name} type=${config.type}")
                         v.interfaces
                     )
                   } \
@@ -580,9 +572,7 @@ let
               deps = optionals (v.local != null && v.local.dev != null) (
                 deviceDependency v.local.dev ++ [ "network-addresses-${v.local.dev}.service" ]
               );
-              fouSpec = "port ${toString v.port} ${
-                  if v.protocol != null then "ipproto ${toString v.protocol}" else "gue"
-                } ${
+              fouSpec = "port ${toString v.port} ${if v.protocol != null then "ipproto ${toString v.protocol}" else "gue"} ${
                   optionalString (v.local != null)
                     "local ${escapeShellArg v.local.address} ${
                       optionalString (v.local.dev != null) "dev ${escapeShellArg v.local.dev}"

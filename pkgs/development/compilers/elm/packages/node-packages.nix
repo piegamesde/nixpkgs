@@ -14807,10 +14807,7 @@ in
       sources."@jridgewell/set-array-1.1.2"
       sources."@jridgewell/sourcemap-codec-1.4.15"
       (
-        sources."@jridgewell/trace-mapping-0.3.18"
-        // {
-          dependencies = [ sources."@jridgewell/sourcemap-codec-1.4.14" ];
-        }
+        sources."@jridgewell/trace-mapping-0.3.18" // { dependencies = [ sources."@jridgewell/sourcemap-codec-1.4.14" ]; }
       )
       sources."@mrmlnc/readdir-enhanced-2.2.1"
       sources."@nodelib/fs.stat-1.1.3"
@@ -16768,10 +16765,7 @@ in
       sources."@jridgewell/source-map-0.3.3"
       sources."@jridgewell/sourcemap-codec-1.4.15"
       (
-        sources."@jridgewell/trace-mapping-0.3.18"
-        // {
-          dependencies = [ sources."@jridgewell/sourcemap-codec-1.4.14" ];
-        }
+        sources."@jridgewell/trace-mapping-0.3.18" // { dependencies = [ sources."@jridgewell/sourcemap-codec-1.4.14" ]; }
       )
       sources."@nodelib/fs.scandir-2.1.5"
       sources."@nodelib/fs.stat-2.0.5"

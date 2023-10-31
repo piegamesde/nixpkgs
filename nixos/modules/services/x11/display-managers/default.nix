@@ -222,8 +222,7 @@ in
               description = "package with provided sessions";
               check =
                 p:
-                assertMsg
-                  (package.check p && p ? providedSessions && p.providedSessions != [ ] && all isString p.providedSessions)
+                assertMsg (package.check p && p ? providedSessions && p.providedSessions != [ ] && all isString p.providedSessions)
                   ''
                     Package, '${p.name}', did not specify any session names, as strings, in
                     'passthru.providedSessions'. This is required when used as a session package.

@@ -641,8 +641,7 @@ rec {
           inherit depsTargetTargetPropagated;
           propagatedBuildInputs =
             # remove list conditionals before 23.11
-            lib.warnIf (!lib.isList deps)
-              "'deps' argument to makeSetupHook must be a list. content of deps: ${toString deps}"
+            lib.warnIf (!lib.isList deps) "'deps' argument to makeSetupHook must be a list. content of deps: ${toString deps}"
               (
                 lib.warnIf (deps != [ ])
                   "'deps' argument to makeSetupHook is deprecated and will be removed in release 23.11., Please use propagatedBuildInputs instead. content of deps: ${
@@ -779,8 +778,7 @@ rec {
             name: value:
             (map
               (
-                output:
-                lib.filter lib.isList (builtins.split "(${builtins.storeDir}/[${nixHashChars}]+-${name}-${output})" string)
+                output: lib.filter lib.isList (builtins.split "(${builtins.storeDir}/[${nixHashChars}]+-${name}-${output})" string)
               )
               (lib.remove "out" value.outputs)
             )

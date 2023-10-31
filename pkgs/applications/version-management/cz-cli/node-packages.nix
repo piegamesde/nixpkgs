@@ -8159,12 +8159,7 @@ in
       sources."@octokit/openapi-types-11.2.0"
       (sources."@octokit/plugin-paginate-rest-1.1.2" // { dependencies = [ sources."@octokit/types-2.16.2" ]; })
       sources."@octokit/plugin-request-log-1.0.4"
-      (
-        sources."@octokit/plugin-rest-endpoint-methods-2.4.0"
-        // {
-          dependencies = [ sources."@octokit/types-2.16.2" ];
-        }
-      )
+      (sources."@octokit/plugin-rest-endpoint-methods-2.4.0" // { dependencies = [ sources."@octokit/types-2.16.2" ]; })
       (
         sources."@octokit/request-5.6.2"
         // {

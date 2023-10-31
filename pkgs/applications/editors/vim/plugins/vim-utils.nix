@@ -159,8 +159,7 @@ let
 
   findDependenciesRecursively = plugins: lib.concatMap transitiveClosure plugins;
 
-  vamDictToNames =
-    x: if builtins.isString x then [ x ] else (lib.optional (x ? name) x.name) ++ (x.names or [ ]);
+  vamDictToNames = x: if builtins.isString x then [ x ] else (lib.optional (x ? name) x.name) ++ (x.names or [ ]);
 
   rtpPath = ".";
 
@@ -368,9 +367,7 @@ rec {
                 gvimrc=${lib.optionalString (gvimrcFile != null) (lib.escapeShellArg gvimrcFile)}
 
                 mkdir -p "$out/bin"
-                for exe in ${
-                  if standalone then "{,g,r,rg,e}vim {,g}vimdiff vi" else "{,g,r,rg,e}{vim,view} {,g}vimdiff ex vi"
-                }; do
+                for exe in ${if standalone then "{,g,r,rg,e}vim {,g}vimdiff vi" else "{,g,r,rg,e}{vim,view} {,g}vimdiff ex vi"}; do
                   if [[ -e ${vim}/bin/$exe ]]; then
                     dest="$out/bin/${executableName}"
                     if [[ -e $dest ]]; then

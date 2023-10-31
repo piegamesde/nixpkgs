@@ -31,9 +31,7 @@ in
     };
     mountResourceDisk = mkOption {
       default = true;
-      description =
-        lib.mdDoc
-          "Whether the agent should format (ext4) and mount the resource disk to /mnt/resource.";
+      description = lib.mdDoc "Whether the agent should format (ext4) and mount the resource disk to /mnt/resource.";
     };
   };
 

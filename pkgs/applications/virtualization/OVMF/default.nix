@@ -117,8 +117,7 @@ edk2.mkDerivation projectDscPath (
     passthru =
       let
         cpuName = stdenv.hostPlatform.parsed.cpu.name;
-        suffix =
-          suffixes."${cpuName}" or (throw "Host cpu name `${cpuName}` is not supported in this OVMF derivation!");
+        suffix = suffixes."${cpuName}" or (throw "Host cpu name `${cpuName}` is not supported in this OVMF derivation!");
         prefix = "${finalAttrs.finalPackage.fd}/${suffix}";
       in
       {

@@ -124,9 +124,7 @@ let
       preConfigure = ''
         mkdir externals_cache
 
-        ${lib.concatStringsSep "\n" (
-          lib.mapAttrsToList (dst: src: "cp -r --no-preserve=mode ${src} ${dst}") externals
-        )}
+        ${lib.concatStringsSep "\n" (lib.mapAttrsToList (dst: src: "cp -r --no-preserve=mode ${src} ${dst}") externals)}
 
         ${lib.optionalString (externals ? "addons/mp3") "bash contrib/scripts/get_mp3_source.sh || true"}
 

@@ -30,8 +30,7 @@ let
       pkgName = (pkgFun hostPkgs).name;
       args' = lib.concatStringsSep " " args;
     in
-    crossPkgs.runCommand "test-${pkgName}-${crossPkgs.hostPlatform.config}"
-      { nativeBuildInputs = [ pkgs.dos2unix ]; }
+    crossPkgs.runCommand "test-${pkgName}-${crossPkgs.hostPlatform.config}" { nativeBuildInputs = [ pkgs.dos2unix ]; }
       ''
         # Just in case we are using wine, get rid of that annoying extra
         # stuff.

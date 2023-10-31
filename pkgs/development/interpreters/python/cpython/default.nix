@@ -142,9 +142,7 @@ let
     ]
     ++
       optionals
-        (
-          stdenv.cc.isClang && (!stdenv.hostPlatform.useAndroidPrebuilt or false) && (enableLTO || enableOptimizations)
-        )
+        (stdenv.cc.isClang && (!stdenv.hostPlatform.useAndroidPrebuilt or false) && (enableLTO || enableOptimizations))
         [ stdenv.cc.cc.libllvm.out ];
 
   buildInputs =
@@ -273,8 +271,7 @@ stdenv.mkDerivation {
   buildInputs = [ bash ] ++ buildInputs; # bash is only for patchShebangs
 
   src = fetchurl {
-    url =
-      with sourceVersion; "https://www.python.org/ftp/python/${major}.${minor}.${patch}/Python-${version}.tar.xz";
+    url = with sourceVersion; "https://www.python.org/ftp/python/${major}.${minor}.${patch}/Python-${version}.tar.xz";
     inherit hash;
   };
 

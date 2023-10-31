@@ -352,9 +352,7 @@ in
             "oracle"
           ];
           default = "mysql";
-          description =
-            lib.mdDoc
-              "Database engine to use. MySQL/MariaDB is the database of choice by MediaWiki developers.";
+          description = lib.mdDoc "Database engine to use. MySQL/MariaDB is the database of choice by MediaWiki developers.";
         };
 
         host = mkOption {
@@ -653,8 +651,7 @@ in
     };
 
     systemd.services.httpd.after =
-      optional (cfg.webserver == "apache" && cfg.database.createLocally && cfg.database.type == "mysql")
-        "mysql.service"
+      optional (cfg.webserver == "apache" && cfg.database.createLocally && cfg.database.type == "mysql") "mysql.service"
       ++ optional (cfg.webserver == "apache" && cfg.database.createLocally && cfg.database.type == "postgres")
         "postgresql.service";
 

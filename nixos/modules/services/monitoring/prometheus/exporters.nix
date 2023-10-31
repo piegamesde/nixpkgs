@@ -341,8 +341,7 @@ in
         assertions =
           [
             {
-              assertion =
-                cfg.ipmi.enable -> (cfg.ipmi.configFile != null) -> (!(lib.hasPrefix "/tmp/" cfg.ipmi.configFile));
+              assertion = cfg.ipmi.enable -> (cfg.ipmi.configFile != null) -> (!(lib.hasPrefix "/tmp/" cfg.ipmi.configFile));
               message = ''
                 Config file specified in `services.prometheus.exporters.ipmi.configFile' must
                   not reside within /tmp - it won't be visible to the systemd service.
@@ -364,8 +363,7 @@ in
               '';
             }
             {
-              assertion =
-                cfg.mikrotik.enable -> ((cfg.mikrotik.configFile == null) != (cfg.mikrotik.configuration == null));
+              assertion = cfg.mikrotik.enable -> ((cfg.mikrotik.configFile == null) != (cfg.mikrotik.configuration == null));
               message = ''
                 Please specify either `services.prometheus.exporters.mikrotik.configuration'
                   or `services.prometheus.exporters.mikrotik.configFile'.
@@ -406,9 +404,7 @@ in
         services.prometheus.exporters.minio.minioAccessSecret = mkDefault config.services.minio.secretKey;
       })
     ]
-    ++ [
-      (mkIf config.services.prometheus.exporters.rtl_433.enable { hardware.rtl-sdr.enable = mkDefault true; })
-    ]
+    ++ [ (mkIf config.services.prometheus.exporters.rtl_433.enable { hardware.rtl-sdr.enable = mkDefault true; }) ]
     ++ [
       (mkIf config.services.postfix.enable {
         services.prometheus.exporters.postfix.group = mkDefault config.services.postfix.setgidGroup;

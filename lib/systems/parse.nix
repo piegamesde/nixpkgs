@@ -24,8 +24,7 @@ with (import ./inspect.nix { inherit lib; }).predicates;
 let
   inherit (lib.options) mergeOneOption;
 
-  setTypes =
-    type: mapAttrs (name: value: assert type.check value; setType type.name ({ inherit name; } // value));
+  setTypes = type: mapAttrs (name: value: assert type.check value; setType type.name ({ inherit name; } // value));
 in
 
 rec {

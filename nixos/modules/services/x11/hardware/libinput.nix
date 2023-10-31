@@ -230,8 +230,7 @@ let
     MatchIs${matchIs} "${xorgBool true}"
     ${optionalString (cfg.${deviceType}.dev != null) ''MatchDevicePath "${cfg.${deviceType}.dev}"''}
     Option "AccelProfile" "${cfg.${deviceType}.accelProfile}"
-    ${optionalString (cfg.${deviceType}.accelSpeed != null)
-      ''Option "AccelSpeed" "${cfg.${deviceType}.accelSpeed}"''}
+    ${optionalString (cfg.${deviceType}.accelSpeed != null) ''Option "AccelSpeed" "${cfg.${deviceType}.accelSpeed}"''}
     ${optionalString (cfg.${deviceType}.buttonMapping != null)
       ''Option "ButtonMapping" "${cfg.${deviceType}.buttonMapping}"''}
     ${optionalString (cfg.${deviceType}.calibrationMatrix != null)

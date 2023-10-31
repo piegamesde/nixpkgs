@@ -55,9 +55,7 @@ let
 
   removeNixpkgs = removeFilenamePrefix (builtins.toString pkgs.path);
 
-  liblocations = builtins.filter (elem: elem.value != null) (
-    nixpkgsLib.lists.flatten (locatedlibsets nixpkgsLib)
-  );
+  liblocations = builtins.filter (elem: elem.value != null) (nixpkgsLib.lists.flatten (locatedlibsets nixpkgsLib));
 
   fnLocationRelative =
     { name, value }:

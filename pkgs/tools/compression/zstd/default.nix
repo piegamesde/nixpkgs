@@ -58,16 +58,14 @@ stdenv.mkDerivation rec {
 
   LDFLAGS = lib.optionalString stdenv.hostPlatform.isRiscV "-latomic";
 
-  cmakeFlags =
-    lib.attrsets.mapAttrsToList (name: value: "-DZSTD_${name}:BOOL=${if value then "ON" else "OFF"}")
-      {
-        BUILD_SHARED = !static;
-        BUILD_STATIC = static;
-        BUILD_CONTRIB = buildContrib;
-        PROGRAMS_LINK_SHARED = !static;
-        LEGACY_SUPPORT = legacySupport;
-        BUILD_TESTS = doCheck;
-      };
+  cmakeFlags = lib.attrsets.mapAttrsToList (name: value: "-DZSTD_${name}:BOOL=${if value then "ON" else "OFF"}") {
+    BUILD_SHARED = !static;
+    BUILD_STATIC = static;
+    BUILD_CONTRIB = buildContrib;
+    PROGRAMS_LINK_SHARED = !static;
+    LEGACY_SUPPORT = legacySupport;
+    BUILD_TESTS = doCheck;
+  };
 
   cmakeDir = "../build/cmake";
   dontUseCmakeBuildDir = true;

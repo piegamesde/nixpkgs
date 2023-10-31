@@ -253,9 +253,9 @@ in
             idx: block:
             let
               chain = "REDSOCKS${toString idx}";
-              doNotRedirect =
-                concatMapStringsSep "\n" (f: "ip46tables -t nat -A ${chain} ${f} -j RETURN 2>/dev/null || true")
-                  (block.doNotRedirect ++ (optionals block.redirectInternetOnly internetOnly));
+              doNotRedirect = concatMapStringsSep "\n" (f: "ip46tables -t nat -A ${chain} ${f} -j RETURN 2>/dev/null || true") (
+                block.doNotRedirect ++ (optionals block.redirectInternetOnly internetOnly)
+              );
             in
             optionalString (block.redirectCondition != false) ''
               ip46tables -t nat -F ${chain} 2>/dev/null || true

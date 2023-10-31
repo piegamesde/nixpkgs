@@ -96,10 +96,7 @@ rec {
     let
       mkLine = k: v: mkKeyValue k v + "\n";
       mkLines =
-        if listsAsDuplicateKeys then
-          k: v: map (mkLine k) (if lib.isList v then v else [ v ])
-        else
-          k: v: [ (mkLine k v) ];
+        if listsAsDuplicateKeys then k: v: map (mkLine k) (if lib.isList v then v else [ v ]) else k: v: [ (mkLine k v) ];
     in
     attrs:
     libStr.concatStrings (lib.concatLists (libAttr.mapAttrsToList mkLines attrs));
@@ -205,10 +202,7 @@ rec {
     }:
     { globalSection, sections }:
     (
-      if globalSection == { } then
-        ""
-      else
-        (toKeyValue { inherit mkKeyValue listsAsDuplicateKeys; } globalSection) + "\n"
+      if globalSection == { } then "" else (toKeyValue { inherit mkKeyValue listsAsDuplicateKeys; } globalSection) + "\n"
     )
     + (toINI { inherit mkSectionName mkKeyValue listsAsDuplicateKeys; } sections);
 
@@ -650,10 +644,7 @@ rec {
       builtins.toJSON v
     else if isList v then
       (
-        if v == [ ] then
-          "{}"
-        else
-          "{${introSpace}${concatItems (map (value: "${toLua innerArgs value}") v)}${outroSpace}}"
+        if v == [ ] then "{}" else "{${introSpace}${concatItems (map (value: "${toLua innerArgs value}") v)}${outroSpace}}"
       )
     else if isAttrs v then
       (
@@ -663,9 +654,7 @@ rec {
           "{}"
         else
           "{${introSpace}${
-            concatItems (
-              lib.attrsets.mapAttrsToList (key: value: "[${builtins.toJSON key}] = ${toLua innerArgs value}") v
-            )
+            concatItems (lib.attrsets.mapAttrsToList (key: value: "[${builtins.toJSON key}] = ${toLua innerArgs value}") v)
           }${outroSpace}}"
       )
     else

@@ -353,9 +353,7 @@ in
               enable = mkOption {
                 type = bool;
                 default = true;
-                description =
-                  lib.mdDoc
-                    "Whether this file should be generated. This option allows specific files to be disabled.";
+                description = lib.mdDoc "Whether this file should be generated. This option allows specific files to be disabled.";
               };
               text = mkOption {
                 default = null;
@@ -368,9 +366,7 @@ in
               };
             };
 
-            config.source = mkIf (config.text != null) (
-              mkDefault (pkgs.writeText "sympa-${baseNameOf name}" config.text)
-            );
+            config.source = mkIf (config.text != null) (mkDefault (pkgs.writeText "sympa-${baseNameOf name}" config.text));
           }
         )
       );

@@ -129,8 +129,7 @@ rec {
     render = single (attrs: (paramsToRenderedStrings attrs (mapAttrs (_n: _v: param) attrs)));
   };
 
-  mkPrefixedAttrsOfParams =
-    params: mkPrefixedAttrsOf params (types.submodule { options = paramsToOptions params; });
+  mkPrefixedAttrsOfParams = params: mkPrefixedAttrsOf params (types.submodule { options = paramsToOptions params; });
 
   mkPrefixedAttrsOfParam = param: mkPrefixedAttrsOf param param.option.type;
 

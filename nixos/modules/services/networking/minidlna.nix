@@ -76,9 +76,7 @@ in
         type = types.path;
         default = "/var/cache/minidlna";
         example = "/tmp/minidlna";
-        description =
-          lib.mdDoc
-            "Specify the directory where you want MiniDLNA to store its database and album art cache.";
+        description = lib.mdDoc "Specify the directory where you want MiniDLNA to store its database and album art cache.";
       };
       options.friendly_name = mkOption {
         type = types.str;

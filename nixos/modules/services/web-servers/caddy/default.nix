@@ -45,9 +45,7 @@ let
         caddy fmt --overwrite $out/Caddyfile
       '';
     in
-    "${
-      if pkgs.stdenv.buildPlatform == pkgs.stdenv.hostPlatform then Caddyfile-formatted else Caddyfile
-    }/Caddyfile";
+    "${if pkgs.stdenv.buildPlatform == pkgs.stdenv.hostPlatform then Caddyfile-formatted else Caddyfile}/Caddyfile";
 
   acmeHosts = unique (catAttrs "useACMEHost" acmeVHosts);
 

@@ -88,8 +88,7 @@ let
   # installed to `lib/swift/<OS>/<ARCH>`. Note that our setup-hook also adds
   # `lib/swift` for convenience.
   swiftLibSubdir = "lib/swift/${swiftOs}";
-  swiftModuleSubdir =
-    if hostPlatform.isDarwin then "lib/swift/${swiftOs}" else "lib/swift/${swiftOs}/${swiftArch}";
+  swiftModuleSubdir = if hostPlatform.isDarwin then "lib/swift/${swiftOs}" else "lib/swift/${swiftOs}/${swiftArch}";
 
   # And then there's also a separate subtree for statically linked  modules.
   toStaticSubdir = lib.replaceStrings [ "/swift/" ] [ "/swift_static/" ];

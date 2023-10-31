@@ -41,8 +41,7 @@ let
   promtoolCheck =
     what: name: file:
     if checkConfigEnabled then
-      pkgs.runCommandLocal "${name}-${replaceStrings [ " " ] [ "" ] what}-checked"
-        { buildInputs = [ cfg.package.cli ]; }
+      pkgs.runCommandLocal "${name}-${replaceStrings [ " " ] [ "" ] what}-checked" { buildInputs = [ cfg.package.cli ]; }
         ''
           ln -s ${file} $out
           promtool ${what} $out
@@ -68,8 +67,7 @@ let
 
   prometheusYml =
     let
-      yml =
-        if cfg.configText != null then pkgs.writeText "prometheus.yml" cfg.configText else generatedPrometheusYml;
+      yml = if cfg.configText != null then pkgs.writeText "prometheus.yml" cfg.configText else generatedPrometheusYml;
     in
     promtoolCheck "check config ${lib.optionalString (cfg.checkConfig == "syntax-only") "--syntax-only"}"
       "prometheus.yml"

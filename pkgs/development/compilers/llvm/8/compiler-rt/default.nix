@@ -31,9 +31,7 @@ stdenv.mkDerivation {
   ];
   buildInputs = lib.optional stdenv.hostPlatform.isDarwin libcxxabi;
 
-  env.NIX_CFLAGS_COMPILE = toString [
-    "-DSCUDO_DEFAULT_OPTIONS=DeleteSizeMismatch=0:DeallocationTypeMismatch=0"
-  ];
+  env.NIX_CFLAGS_COMPILE = toString [ "-DSCUDO_DEFAULT_OPTIONS=DeleteSizeMismatch=0:DeallocationTypeMismatch=0" ];
 
   cmakeFlags =
     [
@@ -74,16 +72,13 @@ stdenv.mkDerivation {
     "dev"
   ];
 
-  patches =
-    [
-      # https://github.com/llvm/llvm-project/commit/947f9692440836dcb8d88b74b69dd379d85974ce
-      ../../common/compiler-rt/glibc.patch
-      ./codesign.patch # Revert compiler-rt commit that makes codesign mandatory
-      ./gnu-install-dirs.patch
-      ../../common/compiler-rt/libsanitizer-no-cyclades-9.patch
-    ]
-    ++ lib.optional (useLLVM) ./crtbegin-and-end.patch
-    ++ lib.optional stdenv.hostPlatform.isAarch32 ./armv7l.patch;
+  patches = [
+    # https://github.com/llvm/llvm-project/commit/947f9692440836dcb8d88b74b69dd379d85974ce
+    ../../common/compiler-rt/glibc.patch
+    ./codesign.patch # Revert compiler-rt commit that makes codesign mandatory
+    ./gnu-install-dirs.patch
+    ../../common/compiler-rt/libsanitizer-no-cyclades-9.patch
+  ] ++ lib.optional (useLLVM) ./crtbegin-and-end.patch ++ lib.optional stdenv.hostPlatform.isAarch32 ./armv7l.patch;
 
   # TSAN requires XPC on Darwin, which we have no public/free source files for. We can depend on the Apple frameworks
   # to get it, but they're unfree. Since LLVM is rather central to the stdenv, we patch out TSAN support so that Hydra

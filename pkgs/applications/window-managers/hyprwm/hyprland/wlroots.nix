@@ -57,10 +57,7 @@ assert (lib.assertMsg (hidpiXWayland -> enableXWayland) ''
     };
 
     pname =
-      old.pname
-      + "-hyprland"
-      + (if hidpiXWayland then "-hidpi" else "")
-      + (if nvidiaPatches then "-nvidia" else "");
+      old.pname + "-hyprland" + (if hidpiXWayland then "-hidpi" else "") + (if nvidiaPatches then "-nvidia" else "");
 
     patches =
       (old.patches or [ ])

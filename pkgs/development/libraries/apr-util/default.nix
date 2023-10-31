@@ -31,9 +31,7 @@ stdenv.mkDerivation rec {
     sha256 = "0nq3s1yn13vplgl6qfm09f7n0wm08malff9s59bqf9nid9xjzqfk";
   };
 
-  patches = [
-    ./fix-libxcrypt-build.patch
-  ] ++ lib.optional stdenv.isFreeBSD ./include-static-dependencies.patch;
+  patches = [ ./fix-libxcrypt-build.patch ] ++ lib.optional stdenv.isFreeBSD ./include-static-dependencies.patch;
 
   NIX_CFLAGS_LINK = [ "-lcrypt" ];
 

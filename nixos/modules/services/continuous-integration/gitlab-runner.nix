@@ -631,9 +631,7 @@ in
           startAt = cfg.clear-docker-cache.dates;
         };
     # Enable docker if `docker` executor is used in any service
-    virtualisation.docker.enable = mkIf (any (s: s.executor == "docker") (attrValues cfg.services)) (
-      mkDefault true
-    );
+    virtualisation.docker.enable = mkIf (any (s: s.executor == "docker") (attrValues cfg.services)) (mkDefault true);
   };
   imports = [
     (mkRenamedOptionModule

@@ -228,9 +228,7 @@ in
                 # otherwise, some options (e.g.: custom RPC port) will not work
                 ${optionalString cfg.testnet "[test]"}
                 # RPC users
-                ${concatMapStringsSep "\n" (rpcUser: "rpcauth=${rpcUser.name}:${rpcUser.passwordHMAC}") (
-                  attrValues cfg.rpc.users
-                )}
+                ${concatMapStringsSep "\n" (rpcUser: "rpcauth=${rpcUser.name}:${rpcUser.passwordHMAC}") (attrValues cfg.rpc.users)}
                 # Extra config options (from bitcoind nixos service)
                 ${cfg.extraConfig}
               '';
@@ -269,8 +267,7 @@ in
         eachBitcoind;
 
     systemd.tmpfiles.rules = flatten (
-      mapAttrsToList (bitcoindName: cfg: [ "d '${cfg.dataDir}' 0770 '${cfg.user}' '${cfg.group}' - -" ])
-        eachBitcoind
+      mapAttrsToList (bitcoindName: cfg: [ "d '${cfg.dataDir}' 0770 '${cfg.user}' '${cfg.group}' - -" ]) eachBitcoind
     );
 
     users.users =

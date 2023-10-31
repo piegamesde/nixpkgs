@@ -67,10 +67,7 @@ let
             args.efiBootloaderId;
         timeout = if config.boot.loader.timeout == null then -1 else config.boot.loader.timeout;
         users =
-          if cfg.users == { } || cfg.version != 1 then
-            cfg.users
-          else
-            throw "GRUB version 1 does not support user accounts.";
+          if cfg.users == { } || cfg.version != 1 then cfg.users else throw "GRUB version 1 does not support user accounts.";
         theme = f cfg.theme;
         inherit efiSysMountPoint;
         inherit (args) devices;

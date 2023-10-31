@@ -105,8 +105,7 @@ let
         );
       parse = expr: builtins.filter (x: x != null) (builtins.map mapfn (splitCond expr));
     in
-    builtins.foldl' (acc: v: acc ++ (if builtins.typeOf v == "string" then parse v else [ (parseExpressions v) ]))
-      [ ]
+    builtins.foldl' (acc: v: acc ++ (if builtins.typeOf v == "string" then parse v else [ (parseExpressions v) ])) [ ]
       exprs;
 
   # Transform individual expressions to structured expressions
@@ -155,8 +154,7 @@ let
         implementation_version = python.version;
         # extra = "";
       };
-      substituteVar =
-        value: if builtins.hasAttr value variables then (builtins.toJSON variables."${value}") else value;
+      substituteVar = value: if builtins.hasAttr value variables then (builtins.toJSON variables."${value}") else value;
       processVar =
         value:
         builtins.foldl' (acc: v: v acc) value [

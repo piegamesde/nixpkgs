@@ -48,9 +48,7 @@ stdenv.mkDerivation (
     '';
 
     postInstall = ''
-      patchelf --set-rpath $out/lib:${
-        lib.makeLibraryPath finalAttrs.buildInputs
-      } $out/lib/rocprofiler/librocprof-tool.so
+      patchelf --set-rpath $out/lib:${lib.makeLibraryPath finalAttrs.buildInputs} $out/lib/rocprofiler/librocprof-tool.so
     '';
 
     passthru.updateScript = rocmUpdateScript {

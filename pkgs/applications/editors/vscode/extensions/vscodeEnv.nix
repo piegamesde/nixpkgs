@@ -27,9 +27,7 @@
 }:
 let
   mutableExtensionsFilePath = toString mutableExtensionsFile;
-  mutableExtensions = lib.optionals builtins.pathExists mutableExtensionsFile (
-    import mutableExtensionsFilePath
-  );
+  mutableExtensions = lib.optionals builtins.pathExists mutableExtensionsFile (import mutableExtensionsFilePath);
   vscodeWithConfiguration =
     import ./vscodeWithConfiguration.nix
       {

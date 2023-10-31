@@ -30,9 +30,7 @@ stdenv.mkDerivation rec {
   version = "4.18.0";
 
   src = fetchurl {
-    url = "https://ftp.osuosl.org/pub/rpm/releases/rpm-${
-        lib.versions.majorMinor version
-      }.x/rpm-${version}.tar.bz2";
+    url = "https://ftp.osuosl.org/pub/rpm/releases/rpm-${lib.versions.majorMinor version}.x/rpm-${version}.tar.bz2";
     hash = "sha256-KhcVLXGHqzDt8sL7WGRjvfY4jee1g3SAlVZZ5ekFRVQ=";
   };
 

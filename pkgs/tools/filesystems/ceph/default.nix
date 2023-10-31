@@ -417,8 +417,7 @@ rec {
   };
 
   ceph-client =
-    runCommand "ceph-client-${version}"
-      { meta = getMeta "Tools needed to mount Ceph's RADOS Block Devices/Cephfs"; }
+    runCommand "ceph-client-${version}" { meta = getMeta "Tools needed to mount Ceph's RADOS Block Devices/Cephfs"; }
       ''
         mkdir -p $out/{bin,etc,${sitePackages},share/bash-completion/completions}
         cp -r ${ceph}/bin/{ceph,.ceph-wrapped,rados,rbd,rbdmap} $out/bin

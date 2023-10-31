@@ -106,10 +106,7 @@ let
         buildType
       ;
       runtimeId =
-        if runtimeId != null then
-          runtimeId
-        else
-          dotnetCorePackages.systemToDotnetRid stdenvNoCC.targetPlatform.system;
+        if runtimeId != null then runtimeId else dotnetCorePackages.systemToDotnetRid stdenvNoCC.targetPlatform.system;
     })
     dotnetConfigureHook
     dotnetBuildHook
@@ -195,10 +192,7 @@ stdenvNoCC.mkDerivation (
         let
           flags = dotnetFlags ++ dotnetRestoreFlags;
           runtimeIds =
-            if runtimeId != null then
-              [ runtimeId ]
-            else
-              map (system: dotnetCorePackages.systemToDotnetRid system) platforms;
+            if runtimeId != null then [ runtimeId ] else map (system: dotnetCorePackages.systemToDotnetRid system) platforms;
           defaultDepsFile =
             # Wire in the nugetDeps file such that running the script with no args
             # runs it agains the correct deps file by default.

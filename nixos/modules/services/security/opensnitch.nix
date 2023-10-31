@@ -11,9 +11,7 @@ let
   cfg = config.services.opensnitch;
   format = pkgs.formats.json { };
 
-  predefinedRules = flip mapAttrs cfg.rules (
-    name: cfg: { file = pkgs.writeText "rule" (builtins.toJSON cfg); }
-  );
+  predefinedRules = flip mapAttrs cfg.rules (name: cfg: { file = pkgs.writeText "rule" (builtins.toJSON cfg); });
 in
 {
   options = {

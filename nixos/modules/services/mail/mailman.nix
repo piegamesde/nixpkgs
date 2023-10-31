@@ -60,9 +60,7 @@ let
 
   mailmanCfg = lib.generators.toINI { } (
     recursiveUpdate cfg.settings (
-      (optionalAttrs (cfg.restApiPassFile != null) {
-        webservice.admin_pass = "#NIXOS_MAILMAN_REST_API_PASS_SECRET#";
-      })
+      (optionalAttrs (cfg.restApiPassFile != null) { webservice.admin_pass = "#NIXOS_MAILMAN_REST_API_PASS_SECRET#"; })
     )
   );
 
@@ -585,9 +583,9 @@ in
         mailman = {
           description = "GNU Mailman Master Process";
           before = lib.optional cfg.enablePostfix "postfix.service";
-          after =
-            [ "network.target" ]
-            ++ lib.optional cfg.enablePostfix "postfix-setup.service" ++ lib.optional withPostgresql "postgresql.service";
+          after = [
+            "network.target"
+          ] ++ lib.optional cfg.enablePostfix "postfix-setup.service" ++ lib.optional withPostgresql "postgresql.service";
           restartTriggers = [ mailmanCfgFile ];
           requires = optional withPostgresql "postgresql.service";
           wantedBy = [ "multi-user.target" ];

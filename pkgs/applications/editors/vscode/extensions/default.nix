@@ -683,9 +683,7 @@ let
         };
       };
 
-      contextmapper.context-mapper-vscode-extension =
-        callPackage ./contextmapper.context-mapper-vscode-extension
-          { };
+      contextmapper.context-mapper-vscode-extension = callPackage ./contextmapper.context-mapper-vscode-extension { };
 
       coolbear.systemd-unit-file = buildVscodeMarketplaceExtension {
         mktplcRef = {

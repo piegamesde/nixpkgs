@@ -32,10 +32,7 @@ with lib;
 let
   dfGame = versionToName dfVersion;
   dwarf-fortress =
-    if hasAttr dfGame df-games then
-      getAttr dfGame df-games
-    else
-      throw "Unknown Dwarf Fortress version: ${dfVersion}";
+    if hasAttr dfGame df-games then getAttr dfGame df-games else throw "Unknown Dwarf Fortress version: ${dfVersion}";
   dwarf-therapist = dwarf-fortress.dwarf-therapist;
 in
 buildEnv {

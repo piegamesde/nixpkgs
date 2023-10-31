@@ -13,8 +13,7 @@ let
   mapExtra =
     v:
     lib.concatStringsSep "\n" (
-      mapAttrsToList (key: val: "${key} = ${if (isString val) then ''"${val}"'' else "${builtins.toString val}"};")
-        v
+      mapAttrsToList (key: val: "${key} = ${if (isString val) then ''"${val}"'' else "${builtins.toString val}"};") v
     );
 
   listKeys = r: concatStringsSep "," (map (n: ''"${n}"'') (attrNames r));

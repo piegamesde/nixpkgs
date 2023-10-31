@@ -307,10 +307,7 @@ lib.makeScope pkgs.newScope (
               lib.attrsets.mapAttrs
                 (
                   name: value:
-                  if lib.isDerivation value && self.hasPythonModule value && (normalizePackageName name) != name then
-                    null
-                  else
-                    value
+                  if lib.isDerivation value && self.hasPythonModule value && (normalizePackageName name) != name then null else value
                 )
                 super
             )
@@ -591,9 +588,7 @@ lib.makeScope pkgs.newScope (
               lib.optionalAttrs (lib.hasAttr "description" pyProject.tool.poetry) {
                 inherit (pyProject.tool.poetry) description;
               }
-              // lib.optionalAttrs (lib.hasAttr "homepage" pyProject.tool.poetry) {
-                inherit (pyProject.tool.poetry) homepage;
-              }
+              // lib.optionalAttrs (lib.hasAttr "homepage" pyProject.tool.poetry) { inherit (pyProject.tool.poetry) homepage; }
               // {
                 inherit (py.meta) platforms;
                 license = getLicenseBySpdxId (pyProject.tool.poetry.license or "unknown");

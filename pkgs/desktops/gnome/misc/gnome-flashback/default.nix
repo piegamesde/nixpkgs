@@ -35,8 +35,7 @@ let
   version = "3.46.0";
 
   # From data/sessions/Makefile.am
-  requiredComponentsCommon =
-    enableGnomePanel: [ "gnome-flashback" ] ++ lib.optional enableGnomePanel "gnome-panel";
+  requiredComponentsCommon = enableGnomePanel: [ "gnome-flashback" ] ++ lib.optional enableGnomePanel "gnome-panel";
   requiredComponentsGsd = [
     "org.gnome.SettingsDaemon.A11ySettings"
     "org.gnome.SettingsDaemon.Color"
@@ -217,8 +216,7 @@ let
                 }' \
                 "''${gappsWrapperArgs[@]}" \
                 ${
-                  lib.optionalString enableGnomePanel
-                    "--set NIX_GNOME_PANEL_MODULESDIR '${panelModulesEnv}/lib/gnome-panel/modules'"
+                  lib.optionalString enableGnomePanel "--set NIX_GNOME_PANEL_MODULESDIR '${panelModulesEnv}/lib/gnome-panel/modules'"
                 }
             '';
           };

@@ -25,9 +25,7 @@ stdenv.mkDerivation rec {
   version = "2.38.1";
 
   src = fetchurl {
-    url = "mirror://kernel/linux/utils/util-linux/v${
-        lib.versions.majorMinor version
-      }/util-linux-${version}.tar.xz";
+    url = "mirror://kernel/linux/utils/util-linux/v${lib.versions.majorMinor version}/util-linux-${version}.tar.xz";
     hash = "sha256-YEkqGbRObPmj3f9oMlszO4tStsWc4+vWoOyqTFEX6E8=";
   };
 

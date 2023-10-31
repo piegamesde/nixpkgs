@@ -469,9 +469,7 @@ let
       ]
       ++ lib.optionals (mklSupport) [ "--config=mkl" ];
 
-    bazelTargets = [
-      "//tensorflow/tools/pip_package:build_pip_package //tensorflow/tools/lib_package:libtensorflow"
-    ];
+    bazelTargets = [ "//tensorflow/tools/pip_package:build_pip_package //tensorflow/tools/lib_package:libtensorflow" ];
 
     removeRulesCC = false;
     # Without this Bazel complaints about sandbox violations.

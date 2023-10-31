@@ -356,9 +356,7 @@ in
             cfg.settings.download-dir
           ]
           ++ optional cfg.settings.incomplete-dir-enabled cfg.settings.incomplete-dir
-          ++
-            optional (cfg.settings.watch-dir-enabled && cfg.settings.trash-original-torrent-files)
-              cfg.settings.watch-dir;
+          ++ optional (cfg.settings.watch-dir-enabled && cfg.settings.trash-original-torrent-files) cfg.settings.watch-dir;
         BindReadOnlyPaths =
           [
             # No confinement done of /nix/store here like in systemd-confinement.nix,
@@ -369,9 +367,7 @@ in
           ]
           ++ optional (cfg.settings.script-torrent-done-enabled && cfg.settings.script-torrent-done-filename != null)
             cfg.settings.script-torrent-done-filename
-          ++
-            optional (cfg.settings.watch-dir-enabled && !cfg.settings.trash-original-torrent-files)
-              cfg.settings.watch-dir;
+          ++ optional (cfg.settings.watch-dir-enabled && !cfg.settings.trash-original-torrent-files) cfg.settings.watch-dir;
         StateDirectory = [
           "transmission"
           "transmission/.config/transmission-daemon"
@@ -540,15 +536,13 @@ in
         }
       }
 
-      ${optionalString
-        (cfg.settings.script-torrent-done-enabled && cfg.settings.script-torrent-done-filename != null)
-        ''
-          # Stack transmission_directories profile on top of
-          # any existing profile for script-torrent-done-filename
-          # FIXME: to be tested as I'm not sure it works well with NoNewPrivileges=
-          # https://gitlab.com/apparmor/apparmor/-/wikis/AppArmorStacking#seccomp-and-no_new_privs
-          px ${cfg.settings.script-torrent-done-filename} -> &@{dirs},
-        ''}
+      ${optionalString (cfg.settings.script-torrent-done-enabled && cfg.settings.script-torrent-done-filename != null) ''
+        # Stack transmission_directories profile on top of
+        # any existing profile for script-torrent-done-filename
+        # FIXME: to be tested as I'm not sure it works well with NoNewPrivileges=
+        # https://gitlab.com/apparmor/apparmor/-/wikis/AppArmorStacking#seccomp-and-no_new_privs
+        px ${cfg.settings.script-torrent-done-filename} -> &@{dirs},
+      ''}
     '';
   };
 

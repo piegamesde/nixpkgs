@@ -229,7 +229,5 @@ concatMapAttrs
   })
   postgresql-versions
 // {
-  postgresql_11-backup-all =
-    make-postgresql-test "postgresql_11-backup-all" postgresql-versions.postgresql_11
-      true;
+  postgresql_11-backup-all = make-postgresql-test "postgresql_11-backup-all" postgresql-versions.postgresql_11 true;
 }

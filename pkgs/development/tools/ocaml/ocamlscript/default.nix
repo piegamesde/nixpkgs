@@ -6,8 +6,7 @@
   findlib,
 }:
 
-lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08")
-  "ocamlscript is not available for OCaml ${ocaml.version}"
+lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08") "ocamlscript is not available for OCaml ${ocaml.version}"
 
   stdenv.mkDerivation
   rec {

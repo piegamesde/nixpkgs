@@ -89,14 +89,11 @@ stdenv.mkDerivation rec {
       openexr_3
     ];
 
-  cmakeFlags =
-    [
-      "-DOCIO_INSTALL_EXT_PACKAGES=NONE"
-      # GPU test fails with: freeglut (GPU tests): failed to open display ''
-      "-DOCIO_BUILD_GPU_TESTS=OFF"
-    ]
-    ++ lib.optional (!pythonBindings) "-DOCIO_BUILD_PYTHON=OFF"
-    ++ lib.optional (!buildApps) "-DOCIO_BUILD_APPS=OFF";
+  cmakeFlags = [
+    "-DOCIO_INSTALL_EXT_PACKAGES=NONE"
+    # GPU test fails with: freeglut (GPU tests): failed to open display ''
+    "-DOCIO_BUILD_GPU_TESTS=OFF"
+  ] ++ lib.optional (!pythonBindings) "-DOCIO_BUILD_PYTHON=OFF" ++ lib.optional (!buildApps) "-DOCIO_BUILD_APPS=OFF";
 
   # precision issues on non-x86
   doCheck = stdenv.isx86_64;

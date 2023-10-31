@@ -1036,8 +1036,7 @@ rec {
             inherit fromImage maxLayers created;
             imageName = lib.toLower name;
             preferLocalBuild = true;
-            passthru.imageTag =
-              if tag != null then tag else lib.head (lib.strings.splitString "-" (baseNameOf conf.outPath));
+            passthru.imageTag = if tag != null then tag else lib.head (lib.strings.splitString "-" (baseNameOf conf.outPath));
             paths = buildPackages.referencesByPopularity overallClosure;
             nativeBuildInputs = [ jq ];
           }
@@ -1167,8 +1166,7 @@ rec {
     }:
     assert lib.assertMsg (!(drv.drvAttrs.__structuredAttrs or false))
         "streamNixShellImage: Does not work with the derivation ${drv.name} because it uses __structuredAttrs";
-    assert lib.assertMsg (command == null || run == null)
-        "streamNixShellImage: Can't specify both command and run";
+    assert lib.assertMsg (command == null || run == null) "streamNixShellImage: Can't specify both command and run";
     let
 
       # A binary that calls the command to build the derivation

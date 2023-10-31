@@ -50,8 +50,7 @@ let
 in
 mkDerivation {
   pname =
-    baseLib.pname
-    + lib.optionalString (pdfSupport && presentationSupport && vlcSupport && gstreamerSupport) "-full";
+    baseLib.pname + lib.optionalString (pdfSupport && presentationSupport && vlcSupport && gstreamerSupport) "-full";
   inherit (baseLib) version src;
 
   nativeBuildInputs = [

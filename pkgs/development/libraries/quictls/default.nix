@@ -63,8 +63,7 @@ stdenv.mkDerivation rec {
     "doc"
   ];
   setOutputFlags = false;
-  separateDebugInfo =
-    !stdenv.hostPlatform.isDarwin && !(stdenv.hostPlatform.useLLVM or false) && stdenv.cc.isGNU;
+  separateDebugInfo = !stdenv.hostPlatform.isDarwin && !(stdenv.hostPlatform.useLLVM or false) && stdenv.cc.isGNU;
 
   nativeBuildInputs = [
     makeWrapper

@@ -53,9 +53,7 @@ in
     assertions = [
       {
         assertion =
-          (
-            (cfg.configuration == { } -> cfg.configFile != null) && (cfg.configFile != null -> cfg.configuration == { })
-          );
+          ((cfg.configuration == { } -> cfg.configFile != null) && (cfg.configFile != null -> cfg.configuration == { }));
         message = ''
           Please specify either
           'services.mimir.configuration' or
@@ -70,8 +68,7 @@ in
 
       serviceConfig =
         let
-          conf =
-            if cfg.configFile == null then settingsFormat.generate "config.yaml" cfg.configuration else cfg.configFile;
+          conf = if cfg.configFile == null then settingsFormat.generate "config.yaml" cfg.configuration else cfg.configFile;
         in
         {
           ExecStart = "${cfg.package}/bin/mimir --config.file=${conf}";

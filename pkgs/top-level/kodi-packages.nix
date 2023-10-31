@@ -74,9 +74,7 @@ let
 
     libretro = callPackage ../applications/video/kodi/addons/libretro { };
 
-    libretro-genplus = callPackage ../applications/video/kodi/addons/libretro-genplus {
-      inherit genesis-plus-gx;
-    };
+    libretro-genplus = callPackage ../applications/video/kodi/addons/libretro-genplus { inherit genesis-plus-gx; };
 
     libretro-mgba = callPackage ../applications/video/kodi/addons/libretro-mgba { inherit mgba; };
 

@@ -190,9 +190,7 @@ in
           boot.initrd.systemd.contents = {
             "/etc/vconsole.conf".source = vconsoleConf;
             # Add everything if we want full console setup...
-            "/etc/kbd" = lib.mkIf cfg.earlySetup {
-              source = "${consoleEnv config.boot.initrd.systemd.package.kbd}/share";
-            };
+            "/etc/kbd" = lib.mkIf cfg.earlySetup { source = "${consoleEnv config.boot.initrd.systemd.package.kbd}/share"; };
             # ...but only the keymaps if we don't
             "/etc/kbd/keymaps" = lib.mkIf (!cfg.earlySetup) {
               source = "${consoleEnv config.boot.initrd.systemd.package.kbd}/share/keymaps";

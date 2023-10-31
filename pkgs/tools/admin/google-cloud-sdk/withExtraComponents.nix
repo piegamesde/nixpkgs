@@ -27,9 +27,7 @@ let
 
   # Recursively build a list of components with their dependencies
   # TODO this could be made faster, it checks the dependencies too many times
-  findDepsRecursive = lib.converge (
-    drvs: lib.unique (drvs ++ (builtins.concatMap (drv: drv.dependencies) drvs))
-  );
+  findDepsRecursive = lib.converge (drvs: lib.unique (drvs ++ (builtins.concatMap (drv: drv.dependencies) drvs)));
 
   # Components to install by default
   defaultComponents = with components; [

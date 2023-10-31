@@ -12,10 +12,7 @@ let
   configVersion = 26;
 
   dbPort =
-    if cfg.database.port == null then
-      (if cfg.database.type == "pgsql" then 5432 else 3306)
-    else
-      cfg.database.port;
+    if cfg.database.port == null then (if cfg.database.type == "pgsql" then 5432 else 3306) else cfg.database.port;
 
   poolName = "tt-rss";
 
@@ -726,9 +723,7 @@ in
 
         wantedBy = [ "multi-user.target" ];
         requires = optional mysqlLocal "mysql.service" ++ optional pgsqlLocal "postgresql.service";
-        after = [
-          "network.target"
-        ] ++ optional mysqlLocal "mysql.service" ++ optional pgsqlLocal "postgresql.service";
+        after = [ "network.target" ] ++ optional mysqlLocal "mysql.service" ++ optional pgsqlLocal "postgresql.service";
       };
     };
 

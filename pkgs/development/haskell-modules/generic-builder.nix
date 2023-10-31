@@ -279,9 +279,7 @@ let
       (optionalString (enableSharedExecutables && stdenv.isLinux)
         "--ghc-option=-optl=-Wl,-rpath=$out/${ghcLibdir}/${pname}-${version}"
       )
-      (optionalString (enableSharedExecutables && stdenv.isDarwin)
-        "--ghc-option=-optl=-Wl,-headerpad_max_install_names"
-      )
+      (optionalString (enableSharedExecutables && stdenv.isDarwin) "--ghc-option=-optl=-Wl,-headerpad_max_install_names")
       (optionalString enableParallelBuilding "--ghc-options=${parallelBuildingFlags}")
       (optionalString useCpphs
         "--with-cpphs=${cpphs}/bin/cpphs --ghc-options=-cpp --ghc-options=-pgmP${cpphs}/bin/cpphs --ghc-options=-optP--cpp"
@@ -387,8 +385,7 @@ let
   ghcCommand = "${ghc.targetPrefix}${ghcCommand'}";
 
   ghcNameWithPrefix = "${ghc.targetPrefix}${ghc.haskellCompilerName}";
-  mkGhcLibdir =
-    ghc: "lib/${ghc.targetPrefix}${ghc.haskellCompilerName}" + lib.optionalString (ghc ? hadrian) "/lib";
+  mkGhcLibdir = ghc: "lib/${ghc.targetPrefix}${ghc.haskellCompilerName}" + lib.optionalString (ghc ? hadrian) "/lib";
   ghcLibdir = mkGhcLibdir ghc;
 
   nativeGhcCommand = "${nativeGhc.targetPrefix}ghc";
@@ -403,9 +400,7 @@ let
     # we compile with it, and doing so can result in having multiple copies of
     # e.g. Cabal in the database with the same name and version, which is
     # ambiguous.
-    if [ -d "$p/${
-      mkGhcLibdir thisGhc
-    }/package.conf.d" ] && [ "$p" != "${ghc}" ] && [ "$p" != "${nativeGhc}" ]; then
+    if [ -d "$p/${mkGhcLibdir thisGhc}/package.conf.d" ] && [ "$p" != "${ghc}" ] && [ "$p" != "${nativeGhc}" ]; then
       cp -f "$p/${mkGhcLibdir thisGhc}/package.conf.d/"*.conf ${packageConfDir}/
       continue
     fi
@@ -461,9 +456,7 @@ lib.fix (
 
       setupCompilerEnvironmentPhase =
         ''
-          NIX_BUILD_CORES=$(( NIX_BUILD_CORES < ${toString maxBuildCores} ? NIX_BUILD_CORES : ${
-            toString maxBuildCores
-          } ))
+          NIX_BUILD_CORES=$(( NIX_BUILD_CORES < ${toString maxBuildCores} ? NIX_BUILD_CORES : ${toString maxBuildCores} ))
           runHook preSetupCompilerEnvironment
 
           echo "Build with ${ghc}."
@@ -665,9 +658,7 @@ lib.fix (
         ''}
         ${optionalString doCoverage "mkdir -p $out/share && cp -r dist/hpc $out/share"}
         ${optionalString
-          (
-            enableSharedExecutables && isExecutable && !isGhcjs && stdenv.isDarwin && lib.versionOlder ghc.version "7.10"
-          )
+          (enableSharedExecutables && isExecutable && !isGhcjs && stdenv.isDarwin && lib.versionOlder ghc.version "7.10")
           ''
             for exe in "${binDir}/"* ; do
               install_name_tool -add_rpath "$out/${ghcLibdir}/${pname}-${version}" "$exe"

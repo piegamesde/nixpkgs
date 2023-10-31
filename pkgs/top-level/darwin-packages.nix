@@ -49,9 +49,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { }) (spliced: sp
 
     selectAttrs =
       attrs: names:
-      lib.listToAttrs (
-        lib.concatMap (n: lib.optionals (attrs ? "${n}") [ (lib.nameValuePair n attrs."${n}") ]) names
-      );
+      lib.listToAttrs (lib.concatMap (n: lib.optionals (attrs ? "${n}") [ (lib.nameValuePair n attrs."${n}") ]) names);
 
     chooseLibs =
       (

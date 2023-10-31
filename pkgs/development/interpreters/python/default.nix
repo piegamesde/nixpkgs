@@ -103,8 +103,7 @@
                     ++ [ overrides ]
                   );
                   aliases =
-                    self: super:
-                    lib.optionalAttrs config.allowAliases (import ../../../top-level/python-aliases.nix lib self super);
+                    self: super: lib.optionalAttrs config.allowAliases (import ../../../top-level/python-aliases.nix lib self super);
                 in
                 makeScopeWithSplicing otherSplices keep extra (lib.extends (lib.composeExtensions aliases extensions) keep)
               )

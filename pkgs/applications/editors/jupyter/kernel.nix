@@ -75,9 +75,7 @@ in
                   kernel.extraPaths or { }
                   // lib.optionalAttrs (kernel.logo32 != null) { "logo-32x32.png" = kernel.logo32; }
                   // lib.optionalAttrs (kernel.logo64 != null) { "logo-64x64.png" = kernel.logo64; };
-                linkExtraPaths =
-                  lib.mapAttrsToList (name: value: "ln -s ${value} 'kernels/${kernelName}/${name}';")
-                    extraPaths;
+                linkExtraPaths = lib.mapAttrsToList (name: value: "ln -s ${value} 'kernels/${kernelName}/${name}';") extraPaths;
               in
               ''
                 mkdir 'kernels/${kernelName}';

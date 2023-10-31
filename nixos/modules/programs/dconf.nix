@@ -46,9 +46,7 @@ in
       packages = mkOption {
         type = types.listOf types.package;
         default = [ ];
-        description =
-          lib.mdDoc
-            "A list of packages which provide dconf profiles and databases in {file}`/etc/dconf`.";
+        description = lib.mdDoc "A list of packages which provide dconf profiles and databases in {file}`/etc/dconf`.";
       };
     };
   };

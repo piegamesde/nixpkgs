@@ -59,14 +59,11 @@ stdenv.mkDerivation rec {
     ];
 
   # https://github.com/raysan5/raylib/wiki/CMake-Build-Options
-  cmakeFlags =
-    [
-      "-DUSE_EXTERNAL_GLFW=ON"
-      "-DBUILD_EXAMPLES=OFF"
-      "-DCUSTOMIZE_BUILD=1"
-    ]
-    ++ lib.optional includeEverything "-DINCLUDE_EVERYTHING=ON"
-    ++ lib.optional sharedLib "-DBUILD_SHARED_LIBS=ON";
+  cmakeFlags = [
+    "-DUSE_EXTERNAL_GLFW=ON"
+    "-DBUILD_EXAMPLES=OFF"
+    "-DCUSTOMIZE_BUILD=1"
+  ] ++ lib.optional includeEverything "-DINCLUDE_EVERYTHING=ON" ++ lib.optional sharedLib "-DBUILD_SHARED_LIBS=ON";
 
   # fix libasound.so/libpulse.so not being found
   preFixup = ''

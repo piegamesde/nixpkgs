@@ -13,8 +13,7 @@ let
   natural = with types; addCheck int (x: x >= 0);
   natural' = with types; addCheck int (x: x > 0);
 
-  socket =
-    with types; addCheck (either (submodule unixSocket) (submodule inetSocket)) (x: x ? path || x ? port);
+  socket = with types; addCheck (either (submodule unixSocket) (submodule inetSocket)) (x: x ? path || x ? port);
 
   inetSocket = with types; {
     options = {
@@ -146,9 +145,7 @@ in
         type = either str natural;
         default = 2;
         example = "12h";
-        description =
-          lib.mdDoc
-            "Allow N days for the first retry. Use string with appended 'h' to specify time in hours";
+        description = lib.mdDoc "Allow N days for the first retry. Use string with appended 'h' to specify time in hours";
       };
       lookupBySubnet = mkOption {
         type = bool;

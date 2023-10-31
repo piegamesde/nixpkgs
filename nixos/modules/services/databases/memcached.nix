@@ -86,10 +86,7 @@ in
         ExecStart =
           let
             networking =
-              if cfg.enableUnixSocket then
-                "-s /run/memcached/memcached.sock"
-              else
-                "-l ${cfg.listen} -p ${toString cfg.port}";
+              if cfg.enableUnixSocket then "-s /run/memcached/memcached.sock" else "-l ${cfg.listen} -p ${toString cfg.port}";
           in
           "${memcached}/bin/memcached ${networking} -m ${toString cfg.maxMemory} -c ${toString cfg.maxConnections} ${
             concatStringsSep " " cfg.extraOptions

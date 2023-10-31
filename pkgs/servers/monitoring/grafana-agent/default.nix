@@ -58,9 +58,7 @@ buildGoModule rec {
   # Add to RUNPATH so it can be found.
   postFixup = lib.optionalString stdenv.isLinux ''
     patchelf \
-      --set-rpath "${
-        lib.makeLibraryPath [ (lib.getLib systemd) ]
-      }:$(patchelf --print-rpath $out/bin/grafana-agent)" \
+      --set-rpath "${lib.makeLibraryPath [ (lib.getLib systemd) ]}:$(patchelf --print-rpath $out/bin/grafana-agent)" \
       $out/bin/grafana-agent
   '';
 

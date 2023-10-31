@@ -33,12 +33,9 @@ stdenv.mkDerivation rec {
 
   CPPFLAGS = [ "-DSIGCLD=SIGCHLD" ];
 
-  configureFlags =
-    [
-      "--enable-def-interp=${stdenv.shell}" # 183
-    ]
-    ++ lib.optionals historySupport [ "--with-history" ]
-    ++ lib.optionals readlineSupport [ "--with-edit=readline" ];
+  configureFlags = [
+    "--enable-def-interp=${stdenv.shell}" # 183
+  ] ++ lib.optionals historySupport [ "--with-history" ] ++ lib.optionals readlineSupport [ "--with-edit=readline" ];
 
   #reproducible-build
   postPatch = ''

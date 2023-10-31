@@ -281,8 +281,6 @@ in
             restartIfChanged = false;
           };
       in
-      listToAttrs (
-        map createSwapDevice (filter (sw: sw.size != null || sw.randomEncryption.enable) config.swapDevices)
-      );
+      listToAttrs (map createSwapDevice (filter (sw: sw.size != null || sw.randomEncryption.enable) config.swapDevices));
   };
 }

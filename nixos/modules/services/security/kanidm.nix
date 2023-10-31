@@ -269,12 +269,7 @@ in
       after = [ "network.target" ];
       serviceConfig = lib.mkMerge [
         # Merge paths and ignore existing prefixes needs to sidestep mkMerge
-        (
-          defaultServiceConfig
-          // {
-            BindReadOnlyPaths = mergePaths (defaultServiceConfig.BindReadOnlyPaths ++ certPaths);
-          }
-        )
+        (defaultServiceConfig // { BindReadOnlyPaths = mergePaths (defaultServiceConfig.BindReadOnlyPaths ++ certPaths); })
         {
           StateDirectory = "kanidm";
           StateDirectoryMode = "0700";

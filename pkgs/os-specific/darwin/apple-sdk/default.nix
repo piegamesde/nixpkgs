@@ -319,9 +319,7 @@ rec {
     {
       AppKit = lib.overrideDerivation super.AppKit (
         drv: {
-          __propagatedImpureHostDeps = drv.__propagatedImpureHostDeps or [ ] ++ [
-            "/System/Library/PrivateFrameworks/"
-          ];
+          __propagatedImpureHostDeps = drv.__propagatedImpureHostDeps or [ ] ++ [ "/System/Library/PrivateFrameworks/" ];
         }
       );
 
@@ -341,18 +339,14 @@ rec {
 
       CoreMIDI = lib.overrideDerivation super.CoreMIDI (
         drv: {
-          __propagatedImpureHostDeps = drv.__propagatedImpureHostDeps or [ ] ++ [
-            "/System/Library/PrivateFrameworks/"
-          ];
+          __propagatedImpureHostDeps = drv.__propagatedImpureHostDeps or [ ] ++ [ "/System/Library/PrivateFrameworks/" ];
           setupHook = ./private-frameworks-setup-hook.sh;
         }
       );
 
       IMServicePlugIn = lib.overrideDerivation super.IMServicePlugIn (
         drv: {
-          extraTBDFiles = [
-            "Versions/A/Frameworks/IMServicePlugInSupport.framework/Versions/A/IMServicePlugInSupport.tbd"
-          ];
+          extraTBDFiles = [ "Versions/A/Frameworks/IMServicePlugInSupport.framework/Versions/A/IMServicePlugInSupport.tbd" ];
         }
       );
 

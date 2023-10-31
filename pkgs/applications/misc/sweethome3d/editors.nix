@@ -91,9 +91,7 @@ let
         cp "${editorItem}/share/applications/"* $out/share/applications
         makeWrapper ${jre8}/bin/java $out/bin/$exec \
           --prefix XDG_DATA_DIRS : "$XDG_ICON_DIRS:${gtk3.out}/share:${gsettings-desktop-schemas}/share:$out/share:$GSETTINGS_SCHEMAS_PATH" \
-          --add-flags "-jar $out/share/java/${module}-${version}.jar -d${
-            toString stdenv.hostPlatform.parsed.cpu.bits
-          }"
+          --add-flags "-jar $out/share/java/${module}-${version}.jar -d${toString stdenv.hostPlatform.parsed.cpu.bits}"
       '';
 
       dontStrip = true;

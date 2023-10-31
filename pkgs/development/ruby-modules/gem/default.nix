@@ -110,9 +110,7 @@ lib.makeOverridable (
           ruby
           makeWrapper
         ]
-        ++ lib.optionals (type == "git") [ gitMinimal ]
-        ++ lib.optionals (type != "gem") [ bundler ]
-        ++ nativeBuildInputs;
+        ++ lib.optionals (type == "git") [ gitMinimal ] ++ lib.optionals (type != "gem") [ bundler ] ++ nativeBuildInputs;
 
       buildInputs = [ ruby ] ++ lib.optionals stdenv.isDarwin [ libobjc ] ++ buildInputs;
 

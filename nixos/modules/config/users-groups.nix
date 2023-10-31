@@ -484,12 +484,8 @@ let
 
   uidsAreUnique = idsAreUnique (filterAttrs (n: u: u.uid != null) cfg.users) "uid";
   gidsAreUnique = idsAreUnique (filterAttrs (n: g: g.gid != null) cfg.groups) "gid";
-  sdInitrdUidsAreUnique =
-    idsAreUnique (filterAttrs (n: u: u.uid != null) config.boot.initrd.systemd.users)
-      "uid";
-  sdInitrdGidsAreUnique =
-    idsAreUnique (filterAttrs (n: g: g.gid != null) config.boot.initrd.systemd.groups)
-      "gid";
+  sdInitrdUidsAreUnique = idsAreUnique (filterAttrs (n: u: u.uid != null) config.boot.initrd.systemd.users) "uid";
+  sdInitrdGidsAreUnique = idsAreUnique (filterAttrs (n: g: g.gid != null) config.boot.initrd.systemd.groups) "gid";
 
   spec = pkgs.writeText "users-groups.json" (
     builtins.toJSON {

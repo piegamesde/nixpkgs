@@ -16,10 +16,7 @@ let
   crowdProperties = pkgs.writeText "crowd.properties" ''
     application.name                        ${cfg.sso.applicationName}
     application.password                    ${
-      if cfg.sso.applicationPassword != null then
-        cfg.sso.applicationPassword
-      else
-        "@NIXOS_CONFLUENCE_CROWD_SSO_PWD@"
+      if cfg.sso.applicationPassword != null then cfg.sso.applicationPassword else "@NIXOS_CONFLUENCE_CROWD_SSO_PWD@"
     }
     application.login.url                   ${cfg.sso.crowd}/console/
 

@@ -84,9 +84,7 @@ in
       ];
       description = "mopidy music player daemon";
       serviceConfig = {
-        ExecStart = "${mopidyEnv}/bin/mopidy --config ${
-            concatStringsSep ":" ([ mopidyConf ] ++ cfg.extraConfigFiles)
-          }";
+        ExecStart = "${mopidyEnv}/bin/mopidy --config ${concatStringsSep ":" ([ mopidyConf ] ++ cfg.extraConfigFiles)}";
         User = "mopidy";
       };
     };

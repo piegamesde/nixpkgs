@@ -1061,43 +1061,39 @@ let
         # Fresh toolchains frequently break -Werror build for minor issues.
         WERROR = whenAtLeast "5.15" no;
       }
-      //
-        optionalAttrs (stdenv.hostPlatform.system == "x86_64-linux" || stdenv.hostPlatform.system == "aarch64-linux")
-          {
-            # Enable CPU/memory hotplug support
-            # Allows you to dynamically add & remove CPUs/memory to a VM client running NixOS without requiring a reboot
-            ACPI_HOTPLUG_CPU = yes;
-            ACPI_HOTPLUG_MEMORY = yes;
-            MEMORY_HOTPLUG = yes;
-            MEMORY_HOTREMOVE = yes;
-            HOTPLUG_CPU = yes;
-            MIGRATION = yes;
-            SPARSEMEM = yes;
+      // optionalAttrs (stdenv.hostPlatform.system == "x86_64-linux" || stdenv.hostPlatform.system == "aarch64-linux") {
+        # Enable CPU/memory hotplug support
+        # Allows you to dynamically add & remove CPUs/memory to a VM client running NixOS without requiring a reboot
+        ACPI_HOTPLUG_CPU = yes;
+        ACPI_HOTPLUG_MEMORY = yes;
+        MEMORY_HOTPLUG = yes;
+        MEMORY_HOTREMOVE = yes;
+        HOTPLUG_CPU = yes;
+        MIGRATION = yes;
+        SPARSEMEM = yes;
 
-            # Bump the maximum number of CPUs to support systems like EC2 x1.*
-            # instances and Xeon Phi.
-            NR_CPUS = freeform "384";
-          }
-      //
-        optionalAttrs (stdenv.hostPlatform.system == "armv7l-linux" || stdenv.hostPlatform.system == "aarch64-linux")
-          {
-            # Enables support for the Allwinner Display Engine 2.0
-            SUN8I_DE2_CCU = yes;
+        # Bump the maximum number of CPUs to support systems like EC2 x1.*
+        # instances and Xeon Phi.
+        NR_CPUS = freeform "384";
+      }
+      // optionalAttrs (stdenv.hostPlatform.system == "armv7l-linux" || stdenv.hostPlatform.system == "aarch64-linux") {
+        # Enables support for the Allwinner Display Engine 2.0
+        SUN8I_DE2_CCU = yes;
 
-            # See comments on https://github.com/NixOS/nixpkgs/commit/9b67ea9106102d882f53d62890468071900b9647
-            CRYPTO_AEGIS128_SIMD = whenAtLeast "5.4" no;
+        # See comments on https://github.com/NixOS/nixpkgs/commit/9b67ea9106102d882f53d62890468071900b9647
+        CRYPTO_AEGIS128_SIMD = whenAtLeast "5.4" no;
 
-            # Distros should configure the default as a kernel option.
-            # We previously defined it on the kernel command line as cma=
-            # The kernel command line will override a platform-specific configuration from its device tree.
-            # https://github.com/torvalds/linux/blob/856deb866d16e29bd65952e0289066f6078af773/kernel/dma/contiguous.c#L35-L44
-            CMA_SIZE_MBYTES = freeform "32";
+        # Distros should configure the default as a kernel option.
+        # We previously defined it on the kernel command line as cma=
+        # The kernel command line will override a platform-specific configuration from its device tree.
+        # https://github.com/torvalds/linux/blob/856deb866d16e29bd65952e0289066f6078af773/kernel/dma/contiguous.c#L35-L44
+        CMA_SIZE_MBYTES = freeform "32";
 
-            # Many ARM SBCs hand off a pre-configured framebuffer.
-            # This always can can be replaced by the actual native driver.
-            # Keeping it a built-in ensures it will be used if possible.
-            FB_SIMPLE = yes;
-          }
+        # Many ARM SBCs hand off a pre-configured framebuffer.
+        # This always can can be replaced by the actual native driver.
+        # Keeping it a built-in ensures it will be used if possible.
+        FB_SIMPLE = yes;
+      }
       //
         optionalAttrs
           (

@@ -453,10 +453,7 @@ in
                 else if false == v then
                   "false"
                 else if isSecret v then
-                  if (isString v._secret) then
-                    hashString "sha256" v._secret
-                  else
-                    hashString "sha256" (builtins.readFile v._secret)
+                  if (isString v._secret) then hashString "sha256" v._secret else hashString "sha256" (builtins.readFile v._secret)
                 else
                   throw "unsupported type ${typeOf v}: ${(lib.generators.toPretty { }) v}";
             };

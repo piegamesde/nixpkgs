@@ -143,8 +143,7 @@ let
 
         camlp-streams = callPackage ../development/ocaml-modules/camlp-streams { };
 
-        camlp4 =
-          if lib.versionOlder "4.02" ocaml.version then callPackage ../development/tools/ocaml/camlp4 { } else null;
+        camlp4 = if lib.versionOlder "4.02" ocaml.version then callPackage ../development/tools/ocaml/camlp4 { } else null;
 
         camlp5 = callPackage ../development/tools/ocaml/camlp5 { };
 
@@ -427,8 +426,7 @@ let
 
         elpi = callPackage ../development/ocaml-modules/elpi (
           let
-            ppxlib_0_15 =
-              if lib.versionAtLeast ppxlib.version "0.15" then ppxlib.override { version = "0.15.0"; } else ppxlib;
+            ppxlib_0_15 = if lib.versionAtLeast ppxlib.version "0.15" then ppxlib.override { version = "0.15.0"; } else ppxlib;
           in
           {
             ppx_deriving_0_15 = ppx_deriving.override { ppxlib = ppxlib_0_15; };
@@ -756,9 +754,7 @@ let
         janeStreet_0_9_0 = import ../development/ocaml-modules/janestreet/old.nix {
           self = self.janeStreet_0_9_0;
           super = self // {
-            janePackage = callPackage ../development/ocaml-modules/janestreet/janePackage.nix {
-              defaultVersion = "0.9.0";
-            };
+            janePackage = callPackage ../development/ocaml-modules/janestreet/janePackage.nix { defaultVersion = "0.9.0"; };
           };
           inherit (pkgs) stdenv lib openssl;
         };
@@ -811,9 +807,7 @@ let
 
         lablgl = callPackage ../development/ocaml-modules/lablgl { };
 
-        lablgtk = callPackage ../development/ocaml-modules/lablgtk {
-          inherit (pkgs.gnome2) libgnomecanvas gtksourceview;
-        };
+        lablgtk = callPackage ../development/ocaml-modules/lablgtk { inherit (pkgs.gnome2) libgnomecanvas gtksourceview; };
 
         lablgtk-extras =
           if lib.versionOlder "4.02" ocaml.version then
@@ -827,9 +821,7 @@ let
 
         lablgtk3-sourceview3 = callPackage ../development/ocaml-modules/lablgtk3/sourceview3.nix { };
 
-        labltk = callPackage ../development/ocaml-modules/labltk {
-          inherit (pkgs.darwin.apple_sdk.frameworks) Cocoa;
-        };
+        labltk = callPackage ../development/ocaml-modules/labltk { inherit (pkgs.darwin.apple_sdk.frameworks) Cocoa; };
 
         lacaml = callPackage ../development/ocaml-modules/lacaml { };
 
@@ -1097,8 +1089,7 @@ let
 
         npy = callPackage ../development/ocaml-modules/npy { inherit (pkgs.python3Packages) numpy; };
 
-        num =
-          if lib.versionOlder "4.06" ocaml.version then callPackage ../development/ocaml-modules/num { } else null;
+        num = if lib.versionOlder "4.06" ocaml.version then callPackage ../development/ocaml-modules/num { } else null;
 
         ### O ###
 
@@ -1302,9 +1293,7 @@ let
 
         piqi-ocaml = callPackage ../development/ocaml-modules/piqi-ocaml { };
 
-        plotkicadsch = callPackage ../development/ocaml-modules/plotkicadsch {
-          inherit (pkgs) coreutils imagemagick;
-        };
+        plotkicadsch = callPackage ../development/ocaml-modules/plotkicadsch { inherit (pkgs) coreutils imagemagick; };
 
         polynomial = callPackage ../development/ocaml-modules/polynomial { };
 
@@ -1359,10 +1348,7 @@ let
         ppx_repr = callPackage ../development/ocaml-modules/repr/ppx.nix { };
 
         ppx_tools =
-          if lib.versionAtLeast ocaml.version "4.02" then
-            callPackage ../development/ocaml-modules/ppx_tools { }
-          else
-            null;
+          if lib.versionAtLeast ocaml.version "4.02" then callPackage ../development/ocaml-modules/ppx_tools { } else null;
 
         ppx_tools_versioned = callPackage ../development/ocaml-modules/ppx_tools_versioned { };
 

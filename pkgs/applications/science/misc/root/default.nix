@@ -235,9 +235,7 @@ stdenv.mkDerivation rec {
     for prog in rootbrowse rootcp rooteventselector rootls rootmkdir rootmv rootprint rootrm rootslimtree; do
       wrapProgram "$out/bin/$prog" \
         --set PYTHONPATH "$out/lib" \
-        --set ${lib.optionalString stdenv.isDarwin "DY"}LD_LIBRARY_PATH "$out/lib:${
-          lib.makeLibraryPath [ xrootd ]
-        }"
+        --set ${lib.optionalString stdenv.isDarwin "DY"}LD_LIBRARY_PATH "$out/lib:${lib.makeLibraryPath [ xrootd ]}"
     done
 
     # Make ldd and sed available to the ROOT executable by prefixing PATH.

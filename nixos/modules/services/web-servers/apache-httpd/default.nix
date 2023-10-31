@@ -1078,9 +1078,7 @@ in
         restartTriggers = [ cfg.configFile ];
         # Block reloading if not all certs exist yet.
         # Happens when config changes add new vhosts/certs.
-        unitConfig.ConditionPathExists =
-          map (certName: certs.${certName}.directory + "/fullchain.pem")
-            dependentCertNames;
+        unitConfig.ConditionPathExists = map (certName: certs.${certName}.directory + "/fullchain.pem") dependentCertNames;
         serviceConfig = {
           Type = "oneshot";
           TimeoutSec = 60;

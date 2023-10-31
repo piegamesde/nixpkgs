@@ -933,9 +933,7 @@ in
                           iterationStep = mkOption {
                             default = 0;
                             type = types.int;
-                            description =
-                              lib.mdDoc
-                                "How much the iteration count for PBKDF2 is increased at each successful authentication.";
+                            description = lib.mdDoc "How much the iteration count for PBKDF2 is increased at each successful authentication.";
                           };
 
                           gracePeriod = mkOption {
@@ -1066,8 +1064,7 @@ in
 
       {
         assertion =
-          any (dev: dev.bypassWorkqueues) (attrValues luks.devices)
-          -> versionAtLeast kernelPackages.kernel.version "5.9";
+          any (dev: dev.bypassWorkqueues) (attrValues luks.devices) -> versionAtLeast kernelPackages.kernel.version "5.9";
         message = "boot.initrd.luks.devices.<name>.bypassWorkqueues is not supported for kernels older than 5.9";
       }
 

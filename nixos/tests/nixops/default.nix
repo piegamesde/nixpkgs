@@ -14,9 +14,7 @@ let
     # inherit testsForPackage;
   };
 
-  testsForPackage = lib.makeOverridable (
-    args: lib.recurseIntoAttrs { legacyNetwork = testLegacyNetwork args; }
-  );
+  testsForPackage = lib.makeOverridable (args: lib.recurseIntoAttrs { legacyNetwork = testLegacyNetwork args; });
 
   testLegacyNetwork =
     { nixopsPkg }:

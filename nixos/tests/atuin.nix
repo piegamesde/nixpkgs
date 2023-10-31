@@ -36,9 +36,7 @@ import ./make-test-python.nix (
 
       # configure atuin client on server node
       server.execute("mkdir -p ~/.config/atuin")
-      server.execute("echo 'sync_address = \"http://localhost:${
-        toString testPort
-      }\"' > ~/.config/atuin/config.toml")
+      server.execute("echo 'sync_address = \"http://localhost:${toString testPort}\"' > ~/.config/atuin/config.toml")
 
       # register with atuin server on server node
       server.succeed("${atuin}/bin/atuin register -u ${testUser} -p ${testPass} -e ${testEmail}")

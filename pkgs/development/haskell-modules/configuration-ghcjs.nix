@@ -109,9 +109,7 @@ self: super:
   reflex-dom =
     overrideCabal
       (drv: {
-        libraryHaskellDepends = removeLibraryHaskellDepends [ "jsaddle-webkit2gtk" ] (
-          drv.libraryHaskellDepends or [ ]
-        );
+        libraryHaskellDepends = removeLibraryHaskellDepends [ "jsaddle-webkit2gtk" ] (drv.libraryHaskellDepends or [ ]);
       })
       super.reflex-dom;
 

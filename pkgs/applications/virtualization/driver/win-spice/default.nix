@@ -75,8 +75,7 @@ stdenv.mkDerivation {
       copy_vioserial = arch: ''
         mkdir -p $out/${arch}/vioserial; cp ${win-virtio}/${arch}/vioserial/* $out/${arch}/vioserial/. 
       '';
-      copy =
-        arch: version: (copy_qxl arch version) + (copy_usbdk arch) + (copy_vdagent arch) + (copy_vioserial arch);
+      copy = arch: version: (copy_qxl arch version) + (copy_usbdk arch) + (copy_vdagent arch) + (copy_vioserial arch);
     in
     ''
       runHook preInstall

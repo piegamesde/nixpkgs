@@ -27,7 +27,6 @@ symlinkJoin {
 
   meta = with vdr.meta; {
     inherit license homepage;
-    description =
-      description + " (with plugins: " + lib.concatStringsSep ", " (map (x: "" + x.name) plugins) + ")";
+    description = description + " (with plugins: " + lib.concatStringsSep ", " (map (x: "" + x.name) plugins) + ")";
   };
 }

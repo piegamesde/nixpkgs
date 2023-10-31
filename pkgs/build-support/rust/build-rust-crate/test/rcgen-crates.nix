@@ -1763,10 +1763,7 @@ rec {
             target =
               { target, features }:
               (
-                (target."arch" == "wasm32")
-                && (target."vendor" == "unknown")
-                && (target."os" == "unknown")
-                && (target."env" == "")
+                (target."arch" == "wasm32") && (target."vendor" == "unknown") && (target."os" == "unknown") && (target."env" == "")
               );
             features = [
               "Crypto"
@@ -4408,9 +4405,7 @@ rec {
               "resolvedDefaultFeatures"
               "devDependencies"
             ];
-            devDependencies = lib.optionals (runTests && packageId == rootPackageId) (
-              crateConfig'.devDependencies or [ ]
-            );
+            devDependencies = lib.optionals (runTests && packageId == rootPackageId) (crateConfig'.devDependencies or [ ]);
             dependencies = dependencyDerivations {
               inherit features target;
               buildByPackageId =
@@ -4581,9 +4576,7 @@ rec {
           lib.filterAttrs
             (
               n: v:
-              (v ? "crate2nix")
-              && (v ? "cargo")
-              && (v.crate2nix.features or [ ]) != (v."cargo".resolved_default_features or [ ])
+              (v ? "crate2nix") && (v ? "cargo") && (v.crate2nix.features or [ ]) != (v."cargo".resolved_default_features or [ ])
             )
             combined;
       in

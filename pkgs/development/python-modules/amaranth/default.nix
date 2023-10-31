@@ -63,14 +63,11 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  propagatedBuildInputs =
-    [
-      jinja2
-      pyvcd
-      setuptools
-    ]
-    ++ lib.optional (pythonOlder "3.9") importlib-resources
-    ++ lib.optional (pythonOlder "3.8") importlib-metadata;
+  propagatedBuildInputs = [
+    jinja2
+    pyvcd
+    setuptools
+  ] ++ lib.optional (pythonOlder "3.9") importlib-resources ++ lib.optional (pythonOlder "3.8") importlib-metadata;
 
   nativeCheckInputs = [
     pytestCheckHook

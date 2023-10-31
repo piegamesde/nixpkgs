@@ -19,8 +19,7 @@ let
     };
   };
 
-  mkDerivation =
-    if stdenv.isDarwin then callPackage ./darwin.nix { } else libsForQt5.callPackage ./linux.nix { };
+  mkDerivation = if stdenv.isDarwin then callPackage ./darwin.nix { } else libsForQt5.callPackage ./linux.nix { };
 in
 mkDerivation {
   pname = "p4v";

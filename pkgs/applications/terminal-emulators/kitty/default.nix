@@ -256,10 +256,7 @@ buildPythonApplication rec {
       --zsh  <("$out/bin/kitty" +complete setup zsh)
 
     terminfo_src=${
-      if stdenv.isDarwin then
-        ''"$out/Applications/kitty.app/Contents/Resources/terminfo"''
-      else
-        "$out/share/terminfo"
+      if stdenv.isDarwin then ''"$out/Applications/kitty.app/Contents/Resources/terminfo"'' else "$out/share/terminfo"
     }
 
     mkdir -p $terminfo/share

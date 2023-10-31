@@ -62,9 +62,7 @@ let
       (builtins.attrNames sharedLibDeps)
     ++ [ "--with-intl=system-icu" ];
 
-  copyLibHeaders = map (name: "${lib.getDev sharedLibDeps.${name}}/include/*") (
-    builtins.attrNames sharedLibDeps
-  );
+  copyLibHeaders = map (name: "${lib.getDev sharedLibDeps.${name}}/include/*") (builtins.attrNames sharedLibDeps);
 
   extraConfigFlags = lib.optionals (!enableNpm) [ "--without-npm" ];
   self = stdenv.mkDerivation {

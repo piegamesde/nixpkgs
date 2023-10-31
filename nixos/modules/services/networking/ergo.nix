@@ -84,9 +84,7 @@ in
           ip = mkOption {
             type = types.str;
             default = "0.0.0.0";
-            description =
-              lib.mdDoc
-                "IP address that the Ergo node API should listen on if {option}`api.keyHash` is defined.";
+            description = lib.mdDoc "IP address that the Ergo node API should listen on if {option}`api.keyHash` is defined.";
           };
 
           port = mkOption {
@@ -142,9 +140,7 @@ in
       };
     };
 
-    networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.listen.port ] ++ [ cfg.api.listen.port ];
-    };
+    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.listen.port ] ++ [ cfg.api.listen.port ]; };
 
     users.users.${cfg.user} = {
       name = cfg.user;

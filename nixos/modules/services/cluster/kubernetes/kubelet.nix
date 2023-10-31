@@ -232,9 +232,7 @@ in
     kubeconfig = top.lib.mkKubeConfigOptions "Kubelet";
 
     manifests = mkOption {
-      description =
-        lib.mdDoc
-          "List of manifests to bootstrap with kubelet (only pods can be created as manifest entry)";
+      description = lib.mdDoc "List of manifests to bootstrap with kubelet (only pods can be created as manifest entry)";
       type = attrsOf attrs;
       default = { };
     };

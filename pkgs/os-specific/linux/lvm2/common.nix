@@ -30,8 +30,7 @@
 assert enableDmeventd -> enableCmdlib;
 
 stdenv.mkDerivation rec {
-  pname =
-    "lvm2" + lib.optionalString enableDmeventd "-with-dmeventd" + lib.optionalString enableVDO "-with-vdo";
+  pname = "lvm2" + lib.optionalString enableDmeventd "-with-dmeventd" + lib.optionalString enableVDO "-with-vdo";
   inherit version;
 
   src = fetchurl {
@@ -43,11 +42,9 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs =
-    [ libaio ]
-    ++ lib.optionals udevSupport [ udev ]
-    ++ lib.optionals (!onlyLib) [ libuuid ]
-    ++ lib.optionals enableVDO [ vdo ];
+  buildInputs = [
+    libaio
+  ] ++ lib.optionals udevSupport [ udev ] ++ lib.optionals (!onlyLib) [ libuuid ] ++ lib.optionals enableVDO [ vdo ];
 
   configureFlags =
     [

@@ -68,12 +68,8 @@ in
     mkIf cfg.enable ({
       systemd.services.pomerium = {
         description = "Pomerium authenticating reverse proxy";
-        wants = [
-          "network.target"
-        ] ++ (optional (cfg.useACMEHost != null) "acme-finished-${cfg.useACMEHost}.target");
-        after = [
-          "network.target"
-        ] ++ (optional (cfg.useACMEHost != null) "acme-finished-${cfg.useACMEHost}.target");
+        wants = [ "network.target" ] ++ (optional (cfg.useACMEHost != null) "acme-finished-${cfg.useACMEHost}.target");
+        after = [ "network.target" ] ++ (optional (cfg.useACMEHost != null) "acme-finished-${cfg.useACMEHost}.target");
         wantedBy = [ "multi-user.target" ];
         environment = optionalAttrs (cfg.useACMEHost != null) {
           CERTIFICATE_FILE = "fullchain.pem";
@@ -137,9 +133,7 @@ in
         before = [ "acme-finished-${cfg.useACMEHost}.target" ];
         after = [ "acme-${cfg.useACMEHost}.service" ];
         # Block reloading if not all certs exist yet.
-        unitConfig.ConditionPathExists = [
-          "${config.security.acme.certs.${cfg.useACMEHost}.directory}/fullchain.pem"
-        ];
+        unitConfig.ConditionPathExists = [ "${config.security.acme.certs.${cfg.useACMEHost}.directory}/fullchain.pem" ];
         serviceConfig = {
           Type = "oneshot";
           TimeoutSec = 60;

@@ -94,9 +94,7 @@ in
       # out into a dedicated derivation
 
       packages =
-        [ ]
-        ++ lib.optional cfg.wireless.enable pkgs.logitech-udev-rules
-        ++ lib.optional cfg.lcd.enable pkgs.g15daemon;
+        [ ] ++ lib.optional cfg.wireless.enable pkgs.logitech-udev-rules ++ lib.optional cfg.lcd.enable pkgs.g15daemon;
 
       extraRules =
         ''

@@ -41,9 +41,7 @@ stdenv.mkDerivation {
     in
     [
       ./gcc10.patch
-      (fetchDebianPatch "0002-gfxboot-menu-label.patch" "fa1349f1"
-        "sha256-0f6QhM4lJmGflLige4n7AZTodL7vnyAvi5dIedd/Lho="
-      )
+      (fetchDebianPatch "0002-gfxboot-menu-label.patch" "fa1349f1" "sha256-0f6QhM4lJmGflLige4n7AZTodL7vnyAvi5dIedd/Lho=")
       (fetchArchlinuxPatch "0005-gnu-efi-version-compatibility.patch" "821c3da473d1399d930d5b4a086e46a4179eaa45"
         "sha256-hhCVnfbAFWj/R4yh60qsMB87ofW9RznarsByhl6L4tc="
       )

@@ -14,9 +14,7 @@ let
 
       buildDhallGitHubPackage = callPackage ../development/interpreters/dhall/build-dhall-github-package.nix { };
 
-      buildDhallDirectoryPackage =
-        callPackage ../development/interpreters/dhall/build-dhall-directory-package.nix
-          { };
+      buildDhallDirectoryPackage = callPackage ../development/interpreters/dhall/build-dhall-directory-package.nix { };
 
       buildDhallUrl = callPackage ../development/interpreters/dhall/build-dhall-url.nix { };
 

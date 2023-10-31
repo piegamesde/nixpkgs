@@ -325,9 +325,7 @@ if coqAtLeast "8.17" then
       buildPhase = ''
         runHook preBuild
         make dunestrap
-        dune build -p coq-core,coq-stdlib,coq,coqide-server${
-          lib.optionalString buildIde ",coqide"
-        } -j $NIX_BUILD_CORES
+        dune build -p coq-core,coq-stdlib,coq,coqide-server${lib.optionalString buildIde ",coqide"} -j $NIX_BUILD_CORES
         runHook postBuild
       '';
       installPhase = ''

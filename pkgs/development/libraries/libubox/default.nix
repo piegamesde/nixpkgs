@@ -13,9 +13,7 @@
 
 stdenv.mkDerivation {
   pname = "libubox";
-  version = "unstable-2023-01-03${
-      lib.optionalString with_ustream_ssl "-${ustream-ssl.ssl_implementation.pname}"
-    }";
+  version = "unstable-2023-01-03${lib.optionalString with_ustream_ssl "-${ustream-ssl.ssl_implementation.pname}"}";
 
   src = fetchgit {
     url = "https://git.openwrt.org/project/libubox.git";

@@ -92,9 +92,7 @@ in
     configFile = mkOption {
       default = null;
       type = types.nullOr types.str;
-      description =
-        lib.mdDoc
-          "Path to configuration file. Do not put this in nix-store as it might contain secrets.";
+      description = lib.mdDoc "Path to configuration file. Do not put this in nix-store as it might contain secrets.";
     };
 
     responder = mkOption {

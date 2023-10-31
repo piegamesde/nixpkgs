@@ -27,9 +27,7 @@ stdenv.mkDerivation {
 
   enableParallelBuilding = true;
 
-  passthru.updateScript = unstableGitUpdater {
-    url = "https://git.kernel.org/pub/scm/utils/mmc/mmc-utils.git";
-  };
+  passthru.updateScript = unstableGitUpdater { url = "https://git.kernel.org/pub/scm/utils/mmc/mmc-utils.git"; };
 
   meta = with lib; {
     description = "Configure MMC storage devices from userspace";

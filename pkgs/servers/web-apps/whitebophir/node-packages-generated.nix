@@ -853,12 +853,7 @@ in
       sha256 = "e13eecf56ae9c8754f730d106340b4b1ccc32582b30386c001f12ff2ada93b2e";
     };
     dependencies = [
-      (
-        sources."@financial-times/polyfill-useragent-normaliser-1.10.2"
-        // {
-          dependencies = [ sources."semver-7.3.8" ];
-        }
-      )
+      (sources."@financial-times/polyfill-useragent-normaliser-1.10.2" // { dependencies = [ sources."semver-7.3.8" ]; })
       sources."@financial-times/useragent_parser-1.6.3"
       sources."@socket.io/component-emitter-3.1.0"
       sources."@types/cookie-0.4.1"

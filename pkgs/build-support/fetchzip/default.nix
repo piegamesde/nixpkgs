@@ -36,10 +36,7 @@ lib.warnIf (extraPostFetch != "")
   (
     let
       tmpFilename =
-        if extension != null then
-          "download.${extension}"
-        else
-          baseNameOf (if url != "" then url else builtins.head urls);
+        if extension != null then "download.${extension}" else baseNameOf (if url != "" then url else builtins.head urls);
     in
 
     fetchurl (

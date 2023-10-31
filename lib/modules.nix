@@ -611,8 +611,7 @@ rec {
         # evaluation of the option.
         context = name: ''while evaluating the module argument `${name}' in "${key}":'';
         extraArgs =
-          builtins.mapAttrs
-            (name: _: builtins.addErrorContext (context name) (args.${name} or config._module.args.${name}))
+          builtins.mapAttrs (name: _: builtins.addErrorContext (context name) (args.${name} or config._module.args.${name}))
             (lib.functionArgs f);
       in
       # Note: we append in the opposite order such that we can add an error
@@ -995,10 +994,7 @@ rec {
         # Sort mkOrder properties.
         defs''' =
           # Avoid sorting if we don't have to.
-          if any (def: def.value._type or "" == "order") defs''.values then
-            sortProperties defs''.values
-          else
-            defs''.values;
+          if any (def: def.value._type or "" == "order") defs''.values then sortProperties defs''.values else defs''.values;
       in
       {
         values = defs''';
@@ -1268,9 +1264,7 @@ rec {
           apply =
             x:
             throw
-              "The option `${
-                showOption optionName
-              }' can no longer be used since it's been removed. ${replacementInstructions}";
+              "The option `${showOption optionName}' can no longer be used since it's been removed. ${replacementInstructions}";
         }
       );
       config.assertions =
@@ -1508,9 +1502,7 @@ rec {
         (optionalAttrs (options ? warnings) {
           warnings =
             optional (warn && fromOpt.isDefined)
-              "The option `${showOption from}' defined in ${showFiles fromOpt.files} has been renamed to `${
-                showOption to
-              }'.";
+              "The option `${showOption from}' defined in ${showFiles fromOpt.files} has been renamed to `${showOption to}'.";
         })
         (
           if withPriority then

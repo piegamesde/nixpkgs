@@ -45,8 +45,7 @@ let
   };
 
   spec =
-    allSpecs.${stdenv.hostPlatform.system}
-      or (throw "missing chromedriver binary for ${stdenv.hostPlatform.system}");
+    allSpecs.${stdenv.hostPlatform.system} or (throw "missing chromedriver binary for ${stdenv.hostPlatform.system}");
 
   libs = lib.makeLibraryPath [
     stdenv.cc.cc.lib

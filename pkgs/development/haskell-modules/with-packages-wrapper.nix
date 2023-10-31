@@ -72,9 +72,7 @@ let
   hasLibraries = lib.any (x: x.isHaskellLibrary) paths;
   # CLang is needed on Darwin for -fllvm to work:
   # https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/codegens.html#llvm-code-generator-fllvm
-  llvm = lib.makeBinPath (
-    [ llvmPackages.llvm ] ++ lib.optional stdenv.targetPlatform.isDarwin llvmPackages.clang
-  );
+  llvm = lib.makeBinPath ([ llvmPackages.llvm ] ++ lib.optional stdenv.targetPlatform.isDarwin llvmPackages.clang);
 in
 
 assert ghcLibdir != null -> (ghc.isGhcjs or false);

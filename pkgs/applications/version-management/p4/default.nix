@@ -104,14 +104,12 @@ stdenv.mkDerivation rec {
     # See the "Header dependency changes" section of
     # https://www.gnu.org/software/gcc/gcc-11/porting_to.html for more
     # information on why we need to include these.
-    ++
-      lib.optionals (stdenv.cc.isClang || (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.cc.version "11.0.0"))
-        [
-          "-include"
-          "limits"
-          "-include"
-          "thread"
-        ];
+    ++ lib.optionals (stdenv.cc.isClang || (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.cc.version "11.0.0")) [
+      "-include"
+      "limits"
+      "-include"
+      "thread"
+    ];
 
   buildPhase = ''
     runHook preBuild

@@ -109,9 +109,7 @@ stdenv.mkDerivation rec {
 
   C_INCLUDE_PATH = lib.makeSearchPathOutput "dev" "include" buildInputs;
   LIBRARY_PATH = lib.makeLibraryPath buildInputs;
-  LD_LIBRARY_PATH = lib.makeLibraryPath (
-    builtins.filter (x: x.outPath != stdenv.cc.libc.outPath or "") buildInputs
-  );
+  LD_LIBRARY_PATH = lib.makeLibraryPath (builtins.filter (x: x.outPath != stdenv.cc.libc.outPath or "") buildInputs);
 
   patches = [
     ./dont_fetch_vendored_deps.patch

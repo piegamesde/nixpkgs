@@ -151,9 +151,7 @@ let
       checkList = if testOption != null then [ testOption ] else testOptions;
       checkAll = checkList == [ ];
     in
-    flip filter graph (
-      { option, ... }: (checkAll || elem option checkList) && !(elem option excludedTestOptions)
-    );
+    flip filter graph ({ option, ... }: (checkAll || elem option checkList) && !(elem option excludedTestOptions));
 
   graphToDot = graph: ''
     digraph "Option Usages" {

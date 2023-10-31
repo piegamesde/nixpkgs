@@ -13,8 +13,7 @@ let
   version = "1.5.12";
 in
 
-lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08")
-  "${pname} is not available for OCaml ${ocaml.version}"
+lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08") "${pname} is not available for OCaml ${ocaml.version}"
 
   stdenv.mkDerivation
   {

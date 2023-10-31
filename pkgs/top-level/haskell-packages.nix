@@ -91,13 +91,9 @@ in
 
   compiler = rec {
 
-    ghc865Binary = callPackage ../development/compilers/ghc/8.6.5-binary.nix {
-      llvmPackages = pkgs.llvmPackages_6;
-    };
+    ghc865Binary = callPackage ../development/compilers/ghc/8.6.5-binary.nix { llvmPackages = pkgs.llvmPackages_6; };
 
-    ghc8102Binary = callPackage ../development/compilers/ghc/8.10.2-binary.nix {
-      llvmPackages = pkgs.llvmPackages_9;
-    };
+    ghc8102Binary = callPackage ../development/compilers/ghc/8.10.2-binary.nix { llvmPackages = pkgs.llvmPackages_9; };
 
     ghc8102BinaryMinimal = callPackage ../development/compilers/ghc/8.10.2-binary.nix {
       llvmPackages = pkgs.llvmPackages_9;
@@ -113,9 +109,7 @@ in
       minimal = true;
     };
 
-    ghc924Binary = callPackage ../development/compilers/ghc/9.2.4-binary.nix {
-      llvmPackages = pkgs.llvmPackages_12;
-    };
+    ghc924Binary = callPackage ../development/compilers/ghc/9.2.4-binary.nix { llvmPackages = pkgs.llvmPackages_12; };
     ghc924BinaryMinimal = callPackage ../development/compilers/ghc/9.2.4-binary.nix {
       llvmPackages = pkgs.llvmPackages_12;
       minimal = true;

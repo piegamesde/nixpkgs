@@ -12,8 +12,7 @@ let
   rootDir = "/run/biboumi/mnt-root";
   stateDir = "/var/lib/biboumi";
   settingsFile = pkgs.writeText "biboumi.cfg" (
-    generators.toKeyValue
-      { mkKeyValue = k: v: if v == null then "" else generators.mkKeyValueDefault { } "=" k v; }
+    generators.toKeyValue { mkKeyValue = k: v: if v == null then "" else generators.mkKeyValueDefault { } "=" k v; }
       cfg.settings
   );
   need_CAP_NET_BIND_SERVICE = cfg.settings.identd_port != 0 && cfg.settings.identd_port < 1024;

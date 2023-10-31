@@ -8,9 +8,7 @@
 let
   cfg = config.services.xserver.gdk-pixbuf;
 
-  loadersCache = pkgs.gnome._gdkPixbufCacheBuilder_DO_NOT_USE {
-    extraLoaders = lib.unique (cfg.modulePackages);
-  };
+  loadersCache = pkgs.gnome._gdkPixbufCacheBuilder_DO_NOT_USE { extraLoaders = lib.unique (cfg.modulePackages); };
 in
 
 {

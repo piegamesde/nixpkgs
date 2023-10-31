@@ -79,9 +79,7 @@ mkDerivation {
     ''-DNIXPKGS_MYSQL_MYSQLCHECK=\"${lib.optionalString mysqlSupport "${lib.getBin mariadb}/bin/mysqlcheck"}\"''
     ''-DNIXPKGS_POSTGRES_PG_CTL=\"${lib.optionalString postgresSupport "${lib.getBin postgresql}/bin/pg_ctl"}\"''
     ''
-      -DNIXPKGS_POSTGRES_PG_UPGRADE=\"${
-        lib.optionalString postgresSupport "${lib.getBin postgresql}/bin/pg_upgrade"
-      }\"''
+      -DNIXPKGS_POSTGRES_PG_UPGRADE=\"${lib.optionalString postgresSupport "${lib.getBin postgresql}/bin/pg_upgrade"}\"''
     ''-DNIXPKGS_POSTGRES_INITDB=\"${lib.optionalString postgresSupport "${lib.getBin postgresql}/bin/initdb"}\"''
     ''-DNIX_OUT=\"${placeholder "out"}\"''
     "-I${lib.getDev kio}/include/KF5" # Fixes: kio_version.h: No such file or directory

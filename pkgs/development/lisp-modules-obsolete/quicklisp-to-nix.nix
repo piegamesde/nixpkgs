@@ -1741,9 +1741,7 @@ let
     );
 
     "rt" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."rt" or (x: { })) (
-        import ./quicklisp-to-nix-output/rt.nix { inherit fetchurl; }
-      )
+      (f: x: (x // (f x))) (qlOverrides."rt" or (x: { })) (import ./quicklisp-to-nix-output/rt.nix { inherit fetchurl; })
     );
 
     "lisp-unit2" = buildLispPackage (

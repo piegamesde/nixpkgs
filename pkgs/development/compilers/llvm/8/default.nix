@@ -290,8 +290,7 @@ let
       };
 
       # N.B. condition is safe because without useLLVM both are the same.
-      compiler-rt =
-        if stdenv.hostPlatform.isAndroid then libraries.compiler-rt-libc else libraries.compiler-rt-no-libc;
+      compiler-rt = if stdenv.hostPlatform.isAndroid then libraries.compiler-rt-libc else libraries.compiler-rt-no-libc;
 
       stdenv = overrideCC stdenv buildLlvmTools.clang;
 
@@ -299,20 +298,17 @@ let
 
       libcxx = callPackage ./libcxx {
         inherit llvm_meta;
-        stdenv =
-          if stdenv.hostPlatform.useLLVM or false then overrideCC stdenv buildLlvmTools.clangNoLibcxx else stdenv;
+        stdenv = if stdenv.hostPlatform.useLLVM or false then overrideCC stdenv buildLlvmTools.clangNoLibcxx else stdenv;
       };
 
       libcxxabi = callPackage ./libcxxabi {
         inherit llvm_meta;
-        stdenv =
-          if stdenv.hostPlatform.useLLVM or false then overrideCC stdenv buildLlvmTools.clangNoLibcxx else stdenv;
+        stdenv = if stdenv.hostPlatform.useLLVM or false then overrideCC stdenv buildLlvmTools.clangNoLibcxx else stdenv;
       };
 
       libunwind = callPackage ./libunwind {
         inherit llvm_meta;
-        stdenv =
-          if stdenv.hostPlatform.useLLVM or false then overrideCC stdenv buildLlvmTools.clangNoLibcxx else stdenv;
+        stdenv = if stdenv.hostPlatform.useLLVM or false then overrideCC stdenv buildLlvmTools.clangNoLibcxx else stdenv;
       };
 
       openmp = callPackage ./openmp { inherit llvm_meta targetLlvm; };

@@ -62,9 +62,7 @@ stdenv.mkDerivation rec {
   version = "1.42.6";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/NetworkManager/${
-        lib.versions.majorMinor version
-      }/NetworkManager-${version}.tar.xz";
+    url = "mirror://gnome/sources/NetworkManager/${lib.versions.majorMinor version}/NetworkManager-${version}.tar.xz";
     sha256 = "sha256-jDiKw3daxrzrYF+uIb4sPiYcr+YGeZSonw36RhDtAnk=";
   };
 

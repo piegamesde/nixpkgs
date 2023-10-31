@@ -52,10 +52,7 @@ let
       '';
 
   buildPythonApplication =
-    if isQt6 then
-      python3Packages.buildPythonApplication
-    else
-      mkDerivationWith python3Packages.buildPythonApplication;
+    if isQt6 then python3Packages.buildPythonApplication else mkDerivationWith python3Packages.buildPythonApplication;
 
   pname = "qutebrowser";
   version = if isQt6 then "unstable-2023-04-18" else "2.5.3";

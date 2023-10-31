@@ -329,8 +329,7 @@ let
           ExecStart =
             with serverCfg;
             let
-              resolvedTlsCertificate =
-                if useACMEHost != null then "${certConfig.directory}/fullchain.pem" else tlsCertificate;
+              resolvedTlsCertificate = if useACMEHost != null then "${certConfig.directory}/fullchain.pem" else tlsCertificate;
               resolvedTlsKey = if useACMEHost != null then "${certConfig.directory}/key.pem" else tlsKey;
             in
             ''
@@ -396,9 +395,7 @@ let
             ${optionalString (hostHeader != null) "--hostHeader=${hostHeader}"} \
             ${optionalString (tlsSNI != null) "--tlsSNI=${tlsSNI}"} \
             ${optionalString tlsVerifyCertificate "--tlsVerifyCertificate"} \
-            ${
-              optionalString (websocketPingInterval != null) "--websocketPingFrequency=${toString websocketPingInterval}"
-            } \
+            ${optionalString (websocketPingInterval != null) "--websocketPingFrequency=${toString websocketPingInterval}"} \
             ${optionalString (upgradeCredentials != null) "--upgradeCredentials=${upgradeCredentials}"} \
             --udpTimeoutSec=${toString udpTimeout} \
             ${optionalString verboseLogging "--verbose"} \
@@ -484,8 +481,7 @@ in
     assertions =
       (mapAttrsToList
         (name: serverCfg: {
-          assertion =
-            !(serverCfg.useACMEHost != null && (serverCfg.tlsCertificate != null || serverCfg.tlsKey != null));
+          assertion = !(serverCfg.useACMEHost != null && (serverCfg.tlsCertificate != null || serverCfg.tlsKey != null));
           message = ''
             Options services.wstunnel.servers."${name}".useACMEHost and services.wstunnel.servers."${name}".{tlsCertificate, tlsKey} are mutually exclusive.
           '';

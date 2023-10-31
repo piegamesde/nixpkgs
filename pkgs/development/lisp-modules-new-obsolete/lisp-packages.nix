@@ -287,10 +287,7 @@ let
           args
           // {
             src =
-              if builtins.length (args.patches or [ ]) > 0 then
-                pkgs.applyPatches { inherit (args) src patches; }
-              else
-                args.src;
+              if builtins.length (args.patches or [ ]) > 0 then pkgs.applyPatches { inherit (args) src patches; } else args.src;
             patches = [ ];
 
             # make sure that propagated build-inputs from lispLibs are propagated

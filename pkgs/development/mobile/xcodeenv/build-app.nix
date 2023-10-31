@@ -43,8 +43,7 @@ let
 
   _configuration = if configuration == null then if release then "Release" else "Debug" else configuration;
 
-  _sdk =
-    if sdk == null then if release then "iphoneos" + sdkVersion else "iphonesimulator" + sdkVersion else sdk;
+  _sdk = if sdk == null then if release then "iphoneos" + sdkVersion else "iphonesimulator" + sdkVersion else sdk;
 
   # The following is to prevent repetition
   deleteKeychain = ''

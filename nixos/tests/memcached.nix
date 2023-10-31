@@ -10,14 +10,12 @@ import ./make-test-python.nix (
 
     testScript =
       let
-        testScript =
-          pkgs.writers.writePython3 "test_memcache" { libraries = with pkgs.python3Packages; [ memcached ]; }
-            ''
-              import memcache
-              c = memcache.Client(['localhost:11211'])
-              c.set('key', 'value')
-              assert 'value' == c.get('key')
-            '';
+        testScript = pkgs.writers.writePython3 "test_memcache" { libraries = with pkgs.python3Packages; [ memcached ]; } ''
+          import memcache
+          c = memcache.Client(['localhost:11211'])
+          c.set('key', 'value')
+          assert 'value' == c.get('key')
+        '';
       in
       ''
         machine.start()

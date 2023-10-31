@@ -47,9 +47,7 @@ python.pkgs.buildPythonApplication rec {
     in
     ''
       sed -r -i \
-        ${
-          lib.concatStringsSep "\n" (map (package: "-e 's/${package}.*[<>=]+.*/${package}/g' \\") relaxedConstraints)
-        }
+        ${lib.concatStringsSep "\n" (map (package: "-e 's/${package}.*[<>=]+.*/${package}/g' \\") relaxedConstraints)}
       requirements.txt
       # only used for notebooks and visualization
       sed -r -i -e '/umap-learn/d' requirements.txt

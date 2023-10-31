@@ -26,9 +26,7 @@ stdenv.mkDerivation rec {
   version = "3.10-beta";
 
   src = fetchurl {
-    url = "http://www.playwitharena.de/downloads/arenalinux_64bit_${
-        lib.replaceStrings [ "-" ] [ "" ] version
-      }.tar.gz";
+    url = "http://www.playwitharena.de/downloads/arenalinux_64bit_${lib.replaceStrings [ "-" ] [ "" ] version}.tar.gz";
     sha256 = "1pzb9sg4lzbbi4gbldvlb85p8xyl9xnplxwyb9pkk2mwzvvxkf0d";
   };
 

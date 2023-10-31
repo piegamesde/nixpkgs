@@ -80,8 +80,7 @@ let
               "/run/current-system"
               "/run/systemd"
             ]
-            ++ optional cfg.postgresql.enable "/run/postgresql"
-            ++ optional cfg.redis.enable "/run/redis-sourcehut-${srvsrht}";
+            ++ optional cfg.postgresql.enable "/run/postgresql" ++ optional cfg.redis.enable "/run/redis-sourcehut-${srvsrht}";
           # LoadCredential= are unfortunately not available in ExecStartPre=
           # Hence this one is run as root (the +) with RootDirectoryStartOnly=
           # to reach credentials wherever they are.
@@ -251,8 +250,9 @@ in
             {
               "${srvCfg.group}" = { };
             }
-            // optionalAttrs (cfg.postgresql.enable && hasSuffix "0" (postgresql.settings.unix_socket_permissions or ""))
-              { "postgres".members = [ srvCfg.user ]; }
+            // optionalAttrs (cfg.postgresql.enable && hasSuffix "0" (postgresql.settings.unix_socket_permissions or "")) {
+              "postgres".members = [ srvCfg.user ];
+            }
             // optionalAttrs (cfg.redis.enable && hasSuffix "0" (redis.settings.unixsocketperm or "")) {
               "redis-sourcehut-${srvsrht}".members = [ srvCfg.user ];
             };

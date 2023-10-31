@@ -30,9 +30,7 @@ let
       cl-gtk2-pango = super.cl-gtk2-pango.overrideLispAttrs (o: { nativeLibs = [ pkgs.pango ]; });
       cl-rsvg2 = super.cl-rsvg2.overrideLispAttrs (o: { nativeLibs = [ pkgs.librsvg ]; });
       cl-cffi-gtk-gdk = super.cl-cffi-gtk-gdk.overrideLispAttrs (o: { nativeLibs = [ pkgs.gtk3 ]; });
-      cl-cffi-gtk-gdk-pixbuf = super.cl-cffi-gtk-gdk-pixbuf.overrideLispAttrs (
-        o: { nativeLibs = [ pkgs.gdk-pixbuf ]; }
-      );
+      cl-cffi-gtk-gdk-pixbuf = super.cl-cffi-gtk-gdk-pixbuf.overrideLispAttrs (o: { nativeLibs = [ pkgs.gdk-pixbuf ]; });
       cl-cffi-gtk-pango = super.cl-cffi-gtk-pango.overrideLispAttrs (o: { nativeLibs = [ pkgs.pango ]; });
       cl-gobject-introspection = super.cl-gobject-introspection.overrideLispAttrs (
         o: {
@@ -164,9 +162,7 @@ let
           patches = [ ./patches/cl-sat-binary-from-path.patch ];
         }
       );
-      cl-sat_dot_minisat = super.cl-sat_dot_minisat.overrideLispAttrs (
-        o: { propagatedBuildInputs = [ pkgs.minisat ]; }
-      );
+      cl-sat_dot_minisat = super.cl-sat_dot_minisat.overrideLispAttrs (o: { propagatedBuildInputs = [ pkgs.minisat ]; });
       hu_dot_dwim_dot_graphviz = super.hu_dot_dwim_dot_graphviz.overrideLispAttrs (
         o: { nativeLibs = [ pkgs.graphviz ]; }
       );
@@ -191,9 +187,7 @@ let
           ];
         }
       );
-      mcclim-render = super.mcclim-render.overrideLispAttrs (
-        o: { lispLibs = o.lispLibs ++ [ self.mcclim-fonts ]; }
-      );
+      mcclim-render = super.mcclim-render.overrideLispAttrs (o: { lispLibs = o.lispLibs ++ [ self.mcclim-fonts ]; });
       mcclim-layouts = super.mcclim-layouts.overrideLispAttrs (
         o: {
           systems = [
@@ -206,9 +200,6 @@ let
     });
 
   qlpkgs =
-    if builtins.pathExists ./imported.nix then
-      pkgs.callPackage ./imported.nix { inherit build-asdf-system; }
-    else
-      { };
+    if builtins.pathExists ./imported.nix then pkgs.callPackage ./imported.nix { inherit build-asdf-system; } else { };
 in
 qlpkgs.overrideScope' overrides

@@ -9,8 +9,7 @@
   result,
 }:
 
-lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08")
-  "cmdliner 1.1 is not available for OCaml ${ocaml.version}"
+lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08") "cmdliner 1.1 is not available for OCaml ${ocaml.version}"
 
   stdenv.mkDerivation
   rec {

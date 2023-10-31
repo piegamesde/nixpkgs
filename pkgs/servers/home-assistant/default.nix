@@ -426,9 +426,7 @@ python.pkgs.buildPythonApplication rec {
     in
     ''
       sed -r -i \
-        ${
-          lib.concatStringsSep "\n" (map (package: ''-e 's/${package}[<>=]+.*/${package}",/g' \'') relaxedConstraints)
-        }
+        ${lib.concatStringsSep "\n" (map (package: ''-e 's/${package}[<>=]+.*/${package}",/g' \'') relaxedConstraints)}
         pyproject.toml
       substituteInPlace tests/test_config.py --replace '"/usr"' '"/build/media"'
     '';

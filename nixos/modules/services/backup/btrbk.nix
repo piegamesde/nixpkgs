@@ -193,9 +193,7 @@ in
                     "info"
                     "send"
                   ];
-                  description =
-                    lib.mdDoc
-                      "What actions can be performed with this SSH key. See ssh_filter_btrbk(1) for details";
+                  description = lib.mdDoc "What actions can be performed with this SSH key. See ssh_filter_btrbk(1) for details";
                 };
               };
             }

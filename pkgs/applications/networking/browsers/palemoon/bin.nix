@@ -24,12 +24,8 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     urls = [
-      "https://rm-eu.palemoon.org/release/palemoon-${version}.linux-x86_64-gtk${
-        if withGTK3 then "3" else "2"
-      }.tar.xz"
-      "https://rm-us.palemoon.org/release/palemoon-${version}.linux-x86_64-gtk${
-        if withGTK3 then "3" else "2"
-      }.tar.xz"
+      "https://rm-eu.palemoon.org/release/palemoon-${version}.linux-x86_64-gtk${if withGTK3 then "3" else "2"}.tar.xz"
+      "https://rm-us.palemoon.org/release/palemoon-${version}.linux-x86_64-gtk${if withGTK3 then "3" else "2"}.tar.xz"
     ];
     hash =
       if withGTK3 then

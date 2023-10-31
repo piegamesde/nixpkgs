@@ -121,9 +121,7 @@ stdenv.mkDerivation (
         # For xmllint
         libxml2
       ]
-      ++ lib.optionals (withIntrospection && !stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
-        mesonEmulatorHook
-      ]
+      ++ lib.optionals (withIntrospection && !stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ]
       ++ lib.optionals waylandSupport [ wayland-scanner ];
 
     buildInputs = [

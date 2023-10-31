@@ -16,9 +16,7 @@ stdenv.mkDerivation rec {
 
   configureFlags = [ "--with-checksum=${checksumType}" ];
 
-  buildInputs =
-    lib.optional (checksumType == "mhash") libmhash
-    ++ lib.optional (checksumType == "openssl") openssl;
+  buildInputs = lib.optional (checksumType == "mhash") libmhash ++ lib.optional (checksumType == "openssl") openssl;
 
   src = fetchurl {
     urls = [

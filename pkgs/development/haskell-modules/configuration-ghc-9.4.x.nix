@@ -64,9 +64,7 @@ in
 
   # consequences of doctest breakage follow:
 
-  ghc-source-gen = checkAgainAfter super.ghc-source-gen "0.4.3.0" "fails to build" (
-    markBroken super.ghc-source-gen
-  );
+  ghc-source-gen = checkAgainAfter super.ghc-source-gen "0.4.3.0" "fails to build" (markBroken super.ghc-source-gen);
 
   haskell-src-meta = doJailbreak super.haskell-src-meta;
 
@@ -97,9 +95,9 @@ in
   HTTP = overrideCabal (drv: { postPatch = "sed -i -e 's,! Socket,!Socket,' Network/TCP.hs"; }) (
     doJailbreak super.HTTP
   );
-  integer-logarithms =
-    overrideCabal (drv: { postPatch = "sed -i -e 's, <1.1, <1.3,' integer-logarithms.cabal"; })
-      (doJailbreak super.integer-logarithms);
+  integer-logarithms = overrideCabal (drv: { postPatch = "sed -i -e 's, <1.1, <1.3,' integer-logarithms.cabal"; }) (
+    doJailbreak super.integer-logarithms
+  );
   lifted-async = doJailbreak super.lifted-async;
   lukko = doJailbreak super.lukko;
   lzma-conduit = doJailbreak super.lzma-conduit;
@@ -231,9 +229,9 @@ in
 
   ormolu = doDistribute self.ormolu_0_5_3_0;
   # https://github.com/tweag/ormolu/issues/941
-  fourmolu =
-    overrideCabal (drv: { libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.file-embed ]; })
-      (disableCabalFlag "fixity-th" super.fourmolu_0_10_1_0);
+  fourmolu = overrideCabal (drv: { libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.file-embed ]; }) (
+    disableCabalFlag "fixity-th" super.fourmolu_0_10_1_0
+  );
 
   # Apply workaround for Cabal 3.8 bug https://github.com/haskell/cabal/issues/8455
   # by making `pkg-config --static` happy. Note: Cabal 3.9 is also affected, so

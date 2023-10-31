@@ -531,9 +531,7 @@ in
           fi
         done
 
-        ${concatStringsSep "\n" (
-          mapAttrsToList (name: theme: "linkTheme ${theme} ${escapeShellArg name}") cfg.themes
-        )}
+        ${concatStringsSep "\n" (mapAttrsToList (name: theme: "linkTheme ${theme} ${escapeShellArg name}") cfg.themes)}
       '';
 
       keycloakConfig = lib.generators.toKeyValue {

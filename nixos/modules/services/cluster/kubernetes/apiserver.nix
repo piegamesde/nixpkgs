@@ -285,9 +285,7 @@ in
     };
 
     extraSANs = mkOption {
-      description =
-        lib.mdDoc
-          "Extra x509 Subject Alternative Names to be added to the kubernetes apiserver tls cert.";
+      description = lib.mdDoc "Extra x509 Subject Alternative Names to be added to the kubernetes apiserver tls cert.";
       default = [ ];
       type = listOf str;
     };
@@ -465,14 +463,11 @@ in
                             ${
                               optionalString (elem "ABAC" cfg.authorizationMode)
                                 "--authorization-policy-file=${
-                                  pkgs.writeText "kube-auth-policy.jsonl" (
-                                    concatMapStringsSep "\n" (l: builtins.toJSON l) cfg.authorizationPolicy
-                                  )
+                                  pkgs.writeText "kube-auth-policy.jsonl" (concatMapStringsSep "\n" (l: builtins.toJSON l) cfg.authorizationPolicy)
                                 }"
                             } \
                             ${
-                              optionalString (elem "Webhook" cfg.authorizationMode)
-                                "--authorization-webhook-config-file=${cfg.webhookConfig}"
+                              optionalString (elem "Webhook" cfg.authorizationMode) "--authorization-webhook-config-file=${cfg.webhookConfig}"
                             } \
                           --bind-address=${cfg.bindAddress} \
                           ${optionalString (cfg.advertiseAddress != null) "--advertise-address=${cfg.advertiseAddress}"} \
@@ -498,8 +493,7 @@ in
                             optionalString (cfg.kubeletClientKeyFile != null) "--kubelet-client-key=${cfg.kubeletClientKeyFile}"
                           } \
                           ${
-                            optionalString (cfg.preferredAddressTypes != null)
-                              "--kubelet-preferred-address-types=${cfg.preferredAddressTypes}"
+                            optionalString (cfg.preferredAddressTypes != null) "--kubelet-preferred-address-types=${cfg.preferredAddressTypes}"
                           } \
                           ${
                             optionalString (cfg.proxyClientCertFile != null) "--proxy-client-cert-file=${cfg.proxyClientCertFile}"

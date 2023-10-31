@@ -189,9 +189,7 @@ let
       path = "${cudatoolkit}/lib/stubs/libcuda.so";
     }
   ];
-  cudaStubEnv =
-    lib.optionalString cudaSupport
-      "LD_LIBRARY_PATH=${cudaStub}\${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH ";
+  cudaStubEnv = lib.optionalString cudaSupport "LD_LIBRARY_PATH=${cudaStub}\${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH ";
 
   rocmtoolkit_joined = symlinkJoin {
     name = "rocm-merged";

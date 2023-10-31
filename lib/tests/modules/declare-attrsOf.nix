@@ -1,8 +1,7 @@
 { lib, ... }:
 let
   deathtrapArgs =
-    lib.mapAttrs
-      (k: _: throw "The module system is too strict, accessing an unused option's ${k} mkOption-attribute.")
+    lib.mapAttrs (k: _: throw "The module system is too strict, accessing an unused option's ${k} mkOption-attribute.")
       (lib.functionArgs lib.mkOption);
 in
 {

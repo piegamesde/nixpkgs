@@ -31,9 +31,7 @@
   enableNumpy ? false,
   enableIcu ? stdenv.hostPlatform == stdenv.buildPlatform,
   taggedLayout ? (
-    (enableRelease && enableDebug)
-    || (enableSingleThreaded && enableMultiThreaded)
-    || (enableShared && enableStatic)
+    (enableRelease && enableDebug) || (enableSingleThreaded && enableMultiThreaded) || (enableShared && enableStatic)
   ),
   patches ? [ ],
   boostBuildPatches ? [ ],

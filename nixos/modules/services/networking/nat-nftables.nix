@@ -56,8 +56,7 @@ let
       toFwdMap =
         forwardPorts:
         toNftSet (
-          map
-            (fwd: with (splitIPPorts fwd.destination); "${fwd.proto} . ${toNftRange fwd.sourcePort} : ${IP} . ${ports}")
+          map (fwd: with (splitIPPorts fwd.destination); "${fwd.proto} . ${toNftRange fwd.sourcePort} : ${IP} . ${ports}")
             forwardPorts
         );
       fwdMap = toFwdMap fwdPorts;

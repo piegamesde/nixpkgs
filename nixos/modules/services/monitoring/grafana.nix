@@ -1200,9 +1200,7 @@ in
             };
 
             path = mkOption {
-              description =
-                lib.mdDoc
-                  "Only applicable to sqlite3 database. The file path where the database will be stored.";
+              description = lib.mdDoc "Only applicable to sqlite3 database. The file path where the database will be stored.";
               default = "${cfg.dataDir}/data/grafana.db";
               defaultText = literalExpression ''"''${config.${opt.dataDir}}/data/grafana.db"'';
               type = types.path;
@@ -1946,9 +1944,7 @@ in
         doesntUseFileProvider =
           opt: defaultValue:
           let
-            regex = "${
-                optionalString (defaultValue != null) "^${defaultValue}$|"
-              }^\\$__(file|env)\\{.*}$|^\\$[^_\\$][^ ]+$";
+            regex = "${optionalString (defaultValue != null) "^${defaultValue}$|"}^\\$__(file|env)\\{.*}$|^\\$[^_\\$][^ ]+$";
           in
           builtins.match regex opt == null;
       in
@@ -2005,8 +2001,7 @@ in
           let
             prometheusIsNotDirect = opt: all ({ type, access, ... }: type == "prometheus" -> access != "direct") opt;
           in
-          cfg.provision.datasources.settings == null
-          || prometheusIsNotDirect cfg.provision.datasources.settings.datasources;
+          cfg.provision.datasources.settings == null || prometheusIsNotDirect cfg.provision.datasources.settings.datasources;
         message = "For datasources of type `prometheus`, the `direct` access mode is not supported anymore (since Grafana 9.2.0)";
       }
       {
@@ -2027,13 +2022,11 @@ in
         message = "Cannot set both policies settings and policies path";
       }
       {
-        assertion =
-          cfg.provision.alerting.templates.settings == null || cfg.provision.alerting.templates.path == null;
+        assertion = cfg.provision.alerting.templates.settings == null || cfg.provision.alerting.templates.path == null;
         message = "Cannot set both templates settings and templates path";
       }
       {
-        assertion =
-          cfg.provision.alerting.muteTimings.settings == null || cfg.provision.alerting.muteTimings.path == null;
+        assertion = cfg.provision.alerting.muteTimings.settings == null || cfg.provision.alerting.muteTimings.path == null;
         message = "Cannot set both mute timings settings and mute timings path";
       }
     ];

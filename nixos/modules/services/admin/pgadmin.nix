@@ -28,9 +28,7 @@ let
 
   formatAttrset =
     attr:
-    "{${
-      concatStringsSep "\n" (mapAttrsToList (key: value: "${builtins.toJSON key}: ${formatPyValue value},") attr)
-    }}";
+    "{${concatStringsSep "\n" (mapAttrsToList (key: value: "${builtins.toJSON key}: ${formatPyValue value},") attr)}}";
 
   formatPyValue =
     value:
@@ -49,8 +47,7 @@ let
     else
       throw "Unrecognized type";
 
-  formatPy =
-    attrs: concatStringsSep "\n" (mapAttrsToList (key: value: "${key} = ${formatPyValue value}") attrs);
+  formatPy = attrs: concatStringsSep "\n" (mapAttrsToList (key: value: "${key} = ${formatPyValue value}") attrs);
 
   pyType =
     with types;

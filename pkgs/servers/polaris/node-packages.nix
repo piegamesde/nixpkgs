@@ -3575,12 +3575,7 @@ let
     src = ../../../../../../../../../nix/store/fgp5qgah5zc0x8fx5la4fvnnmp45avzw-source;
     dependencies = [
       sources."@babel/code-frame-7.16.7"
-      (
-        sources."@babel/highlight-7.16.10"
-        // {
-          dependencies = [ sources."@babel/helper-validator-identifier-7.16.7" ];
-        }
-      )
+      (sources."@babel/highlight-7.16.10" // { dependencies = [ sources."@babel/helper-validator-identifier-7.16.7" ]; })
       sources."@babel/parser-7.17.8"
       (
         sources."@cypress/listr-verbose-renderer-0.4.1"

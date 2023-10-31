@@ -13,8 +13,7 @@ let
   pname = "uutf";
 in
 
-lib.throwIfNot (lib.versionAtLeast ocaml.version "4.03")
-  "${pname} is not available with OCaml ${ocaml.version}"
+lib.throwIfNot (lib.versionAtLeast ocaml.version "4.03") "${pname} is not available with OCaml ${ocaml.version}"
 
   stdenv.mkDerivation
   rec {

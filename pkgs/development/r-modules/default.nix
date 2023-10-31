@@ -68,8 +68,7 @@ let
   # from the name, version, sha256, and optional per-package arguments above
   #
   deriveBioc = mkDerive {
-    mkHomepage =
-      { name, biocVersion, ... }: "https://bioconductor.org/packages/${biocVersion}/bioc/html/${name}.html";
+    mkHomepage = { name, biocVersion, ... }: "https://bioconductor.org/packages/${biocVersion}/bioc/html/${name}.html";
     mkUrls =
       {
         name,
@@ -154,9 +153,7 @@ let
   overrideBuildInputs =
     overrides: old:
     lib.mapAttrs
-      (
-        name: value: (builtins.getAttr name old).overrideAttrs (attrs: { buildInputs = attrs.buildInputs ++ value; })
-      )
+      (name: value: (builtins.getAttr name old).overrideAttrs (attrs: { buildInputs = attrs.buildInputs ++ value; }))
       overrides;
 
   # Overrides package definitions with maintainers.
@@ -1367,9 +1364,7 @@ let
 
     Rmpi = old.Rmpi.overrideAttrs (attrs: { configureFlags = [ "--with-Rmpi-type=OPENMPI" ]; });
 
-    Rmpfr = old.Rmpfr.overrideAttrs (
-      attrs: { configureFlags = [ "--with-mpfr-include=${pkgs.mpfr.dev}/include" ]; }
-    );
+    Rmpfr = old.Rmpfr.overrideAttrs (attrs: { configureFlags = [ "--with-mpfr-include=${pkgs.mpfr.dev}/include" ]; });
 
     RVowpalWabbit = old.RVowpalWabbit.overrideAttrs (
       attrs: {
@@ -1405,9 +1400,7 @@ let
       }
     );
 
-    slfm = old.slfm.overrideAttrs (
-      attrs: { PKG_LIBS = "-L${pkgs.blas}/lib -lblas -L${pkgs.lapack}/lib -llapack"; }
-    );
+    slfm = old.slfm.overrideAttrs (attrs: { PKG_LIBS = "-L${pkgs.blas}/lib -lblas -L${pkgs.lapack}/lib -llapack"; });
 
     SamplerCompare = old.SamplerCompare.overrideAttrs (
       attrs: { PKG_LIBS = "-L${pkgs.blas}/lib -lblas -L${pkgs.lapack}/lib -llapack"; }

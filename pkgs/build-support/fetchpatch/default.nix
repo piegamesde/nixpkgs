@@ -35,8 +35,7 @@ in
 let
   inherit (args') stripLen extraPrefix;
 in
-lib.throwIfNot (excludes == [ ] || includes == [ ])
-  "fetchpatch: cannot use excludes and includes simultaneously"
+lib.throwIfNot (excludes == [ ] || includes == [ ]) "fetchpatch: cannot use excludes and includes simultaneously"
   fetchurl
   (
     {

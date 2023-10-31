@@ -48,8 +48,7 @@ in
             # needs access to dbus via unix sockets (logind/systemd)
             "AF_UNIX"
           ]
-        ++ optionals
-          (collectorIsEnabled "network_route" || collectorIsEnabled "wifi" || !collectorIsDisabled "netdev")
+        ++ optionals (collectorIsEnabled "network_route" || collectorIsEnabled "wifi" || !collectorIsDisabled "netdev")
           [
             # needs netlink sockets for wireless collector
             "AF_NETLINK"

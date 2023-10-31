@@ -52,9 +52,7 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    lib.optional mbrolaSupport mbrola
-    ++ lib.optional pcaudiolibSupport pcaudiolib
-    ++ lib.optional sonicSupport sonic;
+    lib.optional mbrolaSupport mbrola ++ lib.optional pcaudiolibSupport pcaudiolib ++ lib.optional sonicSupport sonic;
 
   preConfigure = "./autogen.sh";
 
@@ -66,9 +64,7 @@ stdenv.mkDerivation rec {
       --replace 'ESPEAK_DATA_PATH=$(CURDIR) src/espeak-ng' 'ESPEAK_DATA_PATH=$(CURDIR) ${
         lib.getExe buildPackages.espeak-ng
       }' \
-      --replace 'espeak-ng-data/%_dict: src/espeak-ng' 'espeak-ng-data/%_dict: ${
-        lib.getExe buildPackages.espeak-ng
-      }' \
+      --replace 'espeak-ng-data/%_dict: src/espeak-ng' 'espeak-ng-data/%_dict: ${lib.getExe buildPackages.espeak-ng}' \
       --replace '../src/espeak-ng --compile' "${lib.getExe buildPackages.espeak-ng} --compile"
   '';
 

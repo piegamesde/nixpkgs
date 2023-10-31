@@ -23,8 +23,7 @@ let
     matrix.domain = cfg.matrix.domain;
     key.path = "${cfg.dataDir}/signing.key";
     storage = {
-      provider.sqlite.database =
-        if isMa1sd cfg.package then "${cfg.dataDir}/ma1sd.db" else "${cfg.dataDir}/mxisd.db";
+      provider.sqlite.database = if isMa1sd cfg.package then "${cfg.dataDir}/ma1sd.db" else "${cfg.dataDir}/mxisd.db";
     };
   } // optionalAttrs (server != { }) { inherit server; };
 

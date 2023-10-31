@@ -378,9 +378,9 @@ self: super:
     ormolu = overrideCabal (drv: { libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.file-embed ]; }) (
       disableCabalFlag "fixity-th" super.ormolu
     );
-    fourmolu =
-      overrideCabal (drv: { libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.file-embed ]; })
-        (disableCabalFlag "fixity-th" super.fourmolu);
+    fourmolu = overrideCabal (drv: { libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.file-embed ]; }) (
+      disableCabalFlag "fixity-th" super.fourmolu
+    );
 
     # https://github.com/NixOS/nixpkgs/issues/149692
     Agda = removeConfigureFlag "-foptimise-heavily" super.Agda;

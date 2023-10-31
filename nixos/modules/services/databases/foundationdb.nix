@@ -369,9 +369,7 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "foundationdb") {
-      foundationdb.gid = config.ids.gids.foundationdb;
-    };
+    users.groups = optionalAttrs (cfg.group == "foundationdb") { foundationdb.gid = config.ids.gids.foundationdb; };
 
     networking.firewall.allowedTCPPortRanges = mkIf cfg.openFirewall [
       {

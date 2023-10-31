@@ -53,8 +53,7 @@ let
 
   serverPort = cfg.serverProperties.server-port or defaultServerPort;
 
-  rconPort =
-    if cfg.serverProperties.enable-rcon or false then cfg.serverProperties."rcon.port" or 25575 else null;
+  rconPort = if cfg.serverProperties.enable-rcon or false then cfg.serverProperties."rcon.port" or 25575 else null;
 
   queryPort =
     if cfg.serverProperties.enable-query or false then cfg.serverProperties."query.port" or 25565 else null;
@@ -302,9 +301,7 @@ in
       if cfg.declarative then
         {
           allowedUDPPorts = [ serverPort ];
-          allowedTCPPorts = [
-            serverPort
-          ] ++ optional (queryPort != null) queryPort ++ optional (rconPort != null) rconPort;
+          allowedTCPPorts = [ serverPort ] ++ optional (queryPort != null) queryPort ++ optional (rconPort != null) rconPort;
         }
       else
         {

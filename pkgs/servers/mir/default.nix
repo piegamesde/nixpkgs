@@ -73,9 +73,7 @@ stdenv.mkDerivation rec {
       tests/unit-tests/CMakeLists.txt
     do
       substituteInPlace $needsPreloadFixing \
-        --replace 'LD_PRELOAD=liblttng-ust-fork.so' 'LD_PRELOAD=${
-          lib.getLib lttng-ust
-        }/lib/liblttng-ust-fork.so' \
+        --replace 'LD_PRELOAD=liblttng-ust-fork.so' 'LD_PRELOAD=${lib.getLib lttng-ust}/lib/liblttng-ust-fork.so' \
         --replace 'LD_PRELOAD=libumockdev-preload.so.0' 'LD_PRELOAD=${
           lib.getLib umockdev
         }/lib/libumockdev-preload.so.0'

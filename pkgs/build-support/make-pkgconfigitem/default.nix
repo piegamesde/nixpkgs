@@ -26,11 +26,7 @@ let
   placeholderToSubstVar = builtins.replaceStrings [ "${placeholder "out"}" ] [ "@out@" ];
 
   replacePlaceholderAndListToString =
-    x:
-    if builtins.isList x then
-      placeholderToSubstVar (builtins.concatStringsSep " " x)
-    else
-      placeholderToSubstVar x;
+    x: if builtins.isList x then placeholderToSubstVar (builtins.concatStringsSep " " x) else placeholderToSubstVar x;
 
   keywordsSection =
     let
@@ -50,8 +46,7 @@ let
     };
 
   renderVariable =
-    name: value:
-    lib.optionalString (value != "" && value != [ ]) "${name}=${replacePlaceholderAndListToString value}";
+    name: value: lib.optionalString (value != "" && value != [ ]) "${name}=${replacePlaceholderAndListToString value}";
   renderKeyword =
     name: value:
     lib.optionalString (value != "" && value != [ ]) "${name}: ${replacePlaceholderAndListToString value}";

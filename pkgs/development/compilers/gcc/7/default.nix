@@ -117,9 +117,7 @@ let
   # Cross-gcc settings (build == host != target)
   crossMingw = targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt";
   stageNameAddon = if crossStageStatic then "stage-static" else "stage-final";
-  crossNameAddon =
-    optionalString (targetPlatform != hostPlatform)
-      "${targetPlatform.config}-${stageNameAddon}-";
+  crossNameAddon = optionalString (targetPlatform != hostPlatform) "${targetPlatform.config}-${stageNameAddon}-";
 
   callFile = lib.callPackageWith {
     # lets
@@ -274,9 +272,7 @@ stdenv.mkDerivation (
       depsTargetTarget
     ;
 
-    env.NIX_CFLAGS_COMPILE =
-      lib.optionalString (stdenv.cc.isClang && langFortran)
-        "-Wno-unused-command-line-argument";
+    env.NIX_CFLAGS_COMPILE = lib.optionalString (stdenv.cc.isClang && langFortran) "-Wno-unused-command-line-argument";
     NIX_LDFLAGS = lib.optionalString hostPlatform.isSunOS "-lm";
 
     preConfigure = callFile ../common/pre-configure.nix { };

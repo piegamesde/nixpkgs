@@ -127,9 +127,7 @@ let
     mimeTypes = [ "x-scheme-handler/vmware-view" ];
   };
 
-  binLinkCommands =
-    lib.concatMapStringsSep "\n" (bin: "ln -s ${vmwareFHSUserEnv bin}/bin/${bin} $out/bin/")
-      bins;
+  binLinkCommands = lib.concatMapStringsSep "\n" (bin: "ln -s ${vmwareFHSUserEnv bin}/bin/${bin} $out/bin/") bins;
 in
 stdenv.mkDerivation {
   pname = "vmware-horizon-client";

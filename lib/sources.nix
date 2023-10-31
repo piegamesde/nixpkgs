@@ -223,8 +223,7 @@ let
           else
             let
               gitDir = absolutePath (dirOf path) (lib.head m);
-              commonDir'' =
-                if pathIsRegularFile "${gitDir}/commondir" then lib.fileContents "${gitDir}/commondir" else gitDir;
+              commonDir'' = if pathIsRegularFile "${gitDir}/commondir" then lib.fileContents "${gitDir}/commondir" else gitDir;
               commonDir' = lib.removeSuffix "/" commonDir'';
               commonDir = absolutePath gitDir commonDir';
               refFile = lib.removePrefix "${commonDir}/" "${gitDir}/${file}";

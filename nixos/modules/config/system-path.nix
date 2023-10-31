@@ -131,9 +131,7 @@ in
           "info"
           "devdoc"
         ];
-        description =
-          lib.mdDoc
-            "List of additional package outputs to be symlinked into {file}`/run/current-system/sw`.";
+        description = lib.mdDoc "List of additional package outputs to be symlinked into {file}`/run/current-system/sw`.";
       };
 
       extraSetup = mkOption {

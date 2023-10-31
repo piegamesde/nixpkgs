@@ -106,8 +106,7 @@ import ./make-test-python.nix (
         };
 
         specialisation = {
-          declarativeContents.configuration =
-            { ... }: { services.openldap.declarativeContents."dc=example" = dbContents; };
+          declarativeContents.configuration = { ... }: { services.openldap.declarativeContents."dc=example" = dbContents; };
           mutableConfig.configuration =
             { ... }:
             {
@@ -149,9 +148,7 @@ import ./make-test-python.nix (
           machine.succeed('${specializations}/declarativeContents/bin/switch-to-configuration test')
           machine.wait_for_unit("openldap.service")
           machine.succeed('ldapsearch -LLL -D "cn=root,dc=example" -w notapassword')
-          machine.fail('ldapmodify -D cn=root,cn=config -w configpassword -f ${
-            pkgs.writeText "rootpw.ldif" changeRootPw
-          }')
+          machine.fail('ldapmodify -D cn=root,cn=config -w configpassword -f ${pkgs.writeText "rootpw.ldif" changeRootPw}')
 
         with subtest("mutable config"):
           machine.succeed('${specializations}/mutableConfig/bin/switch-to-configuration test')

@@ -3515,10 +3515,9 @@ let
       {
         systemd.network.units = mapAttrs' (n: v: nameValuePair "${n}.link" (linkToUnit n v)) cfg.links;
 
-        systemd.network.wait-online.extraArgs =
-          [ "--timeout=${toString cfg.wait-online.timeout}" ]
-          ++ optional cfg.wait-online.anyInterface "--any"
-          ++ map (i: "--ignore=${i}") cfg.wait-online.ignoredInterfaces;
+        systemd.network.wait-online.extraArgs = [
+          "--timeout=${toString cfg.wait-online.timeout}"
+        ] ++ optional cfg.wait-online.anyInterface "--any" ++ map (i: "--ignore=${i}") cfg.wait-online.ignoredInterfaces;
       }
 
       (mkIf config.systemd.network.enable {

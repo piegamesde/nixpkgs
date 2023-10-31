@@ -58,9 +58,7 @@ rec {
       onAllSupported = x: map (system: "${x}.${system}") (supportedSystems ++ limitedSupportedSystems);
       onSystems =
         systems: x:
-        map (system: "${x}.${system}") (
-          pkgs.lib.intersectLists systems (supportedSystems ++ limitedSupportedSystems)
-        );
+        map (system: "${x}.${system}") (pkgs.lib.intersectLists systems (supportedSystems ++ limitedSupportedSystems));
     in
     pkgs.releaseTools.aggregate {
       name = "nixos-${nixos.channel.version}";

@@ -76,8 +76,7 @@ let
                 inherit (builtins.tryEval value0) success value;
               in
               getOutputs (lib.optionalAttrs success value);
-            getOutputs =
-              value: lib.genAttrs (value.outputs or (lib.optional (value ? out) "out")) (output: value.${output});
+            getOutputs = value: lib.genAttrs (value.outputs or (lib.optional (value ? out) "out")) (output: value.${output});
           in
           # The derivation along with its outputs, which we recur
           # on to splice them together.

@@ -301,9 +301,7 @@ in
 
     services.xserver.displayManager.job.execCmd = ''
       ${optionalString (cfg.pulseaudio) "export PULSE_COOKIE=/run/pulse/.config/pulse/cookie"}
-      exec ${pkgs.xpra}/bin/xpra ${
-        if cfg.desktop == null then "start" else "start-desktop --start=${cfg.desktop}"
-      } \
+      exec ${pkgs.xpra}/bin/xpra ${if cfg.desktop == null then "start" else "start-desktop --start=${cfg.desktop}"} \
         --daemon=off \
         --log-dir=/var/log \
         --log-file=xpra.log \

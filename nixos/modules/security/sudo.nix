@@ -16,16 +16,13 @@ let
   toUserString = user: if (isInt user) then "#${toString user}" else "${user}";
   toGroupString = group: if (isInt group) then "%#${toString group}" else "%${group}";
 
-  toCommandOptionsString =
-    options: "${concatStringsSep ":" options}${optionalString (length options != 0) ":"} ";
+  toCommandOptionsString = options: "${concatStringsSep ":" options}${optionalString (length options != 0) ":"} ";
 
   toCommandsString =
     commands:
     concatStringsSep ", " (
       map
-        (
-          command: if (isString command) then command else "${toCommandOptionsString command.options}${command.command}"
-        )
+        (command: if (isString command) then command else "${toCommandOptionsString command.options}${command.command}")
         commands
     );
 in
@@ -259,9 +256,7 @@ in
               if (length rule.commands != 0) then
                 [
                   (map (user: "${toUserString user}	${rule.host}=(${rule.runAs})	${toCommandsString rule.commands}") rule.users)
-                  (map (group: "${toGroupString group}	${rule.host}=(${rule.runAs})	${toCommandsString rule.commands}")
-                    rule.groups
-                  )
+                  (map (group: "${toGroupString group}	${rule.host}=(${rule.runAs})	${toCommandsString rule.commands}") rule.groups)
                 ]
               else
                 [ ]

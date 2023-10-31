@@ -50,8 +50,7 @@ let
         );
 
       rewrites =
-        depList:
-        lib.fold mergeRewrites { } (map (dep: dep.tbdRewrites) (lib.filter (dep: dep ? tbdRewrites) depList));
+        depList: lib.fold mergeRewrites { } (map (dep: dep.tbdRewrites) (lib.filter (dep: dep ? tbdRewrites) depList));
     in
     lib.escapeShellArgs (rewriteArgs (rewrites (builtins.attrValues deps)));
 

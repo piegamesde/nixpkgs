@@ -146,9 +146,7 @@ let
       hash,
       kind,
     }:
-    "https://files.pythonhosted.org/packages/${kind}/${
-      lib.toLower (builtins.substring 0 1 file)
-    }/${pname}/${file}"
+    "https://files.pythonhosted.org/packages/${kind}/${lib.toLower (builtins.substring 0 1 file)}/${pname}/${file}"
   );
 
   # Fetch from the PyPI index.
@@ -267,9 +265,7 @@ let
       hasGitIgnore = builtins.pathExists gitIgnore;
       gitIgnores = if hasGitIgnore then [ gitIgnore ] else [ ];
     in
-    lib.optionals (builtins.pathExists path && builtins.toString path != "/" && !isGitRoot) (
-      findGitIgnores parent
-    )
+    lib.optionals (builtins.pathExists path && builtins.toString path != "/" && !isGitRoot) (findGitIgnores parent)
     ++ gitIgnores;
 
   /* Provides a source filtering mechanism that:

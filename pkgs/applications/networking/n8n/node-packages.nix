@@ -11958,12 +11958,7 @@ in
           ];
         }
       )
-      (
-        sources."@azure/storage-blob-12.13.0"
-        // {
-          dependencies = [ sources."@azure/core-tracing-1.0.0-preview.13" ];
-        }
-      )
+      (sources."@azure/storage-blob-12.13.0" // { dependencies = [ sources."@azure/core-tracing-1.0.0-preview.13" ]; })
       sources."@babel/parser-7.21.2"
       sources."@babel/runtime-7.21.0"
       sources."@codemirror/autocomplete-6.4.2"

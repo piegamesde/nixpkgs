@@ -204,9 +204,7 @@
 
       pulseaudio-qt = callPackage ../development/libraries/pulseaudio-qt { };
 
-      qca-qt5 = pkgs.darwin.apple_sdk_11_0.callPackage ../development/libraries/qca-qt5 {
-        inherit (libsForQt5) qtbase;
-      };
+      qca-qt5 = pkgs.darwin.apple_sdk_11_0.callPackage ../development/libraries/qca-qt5 { inherit (libsForQt5) qtbase; };
 
       qcoro = callPackage ../development/libraries/qcoro { };
 
@@ -214,9 +212,7 @@
 
       qjson = callPackage ../development/libraries/qjson { };
 
-      qmltermwidget = callPackage ../development/libraries/qmltermwidget {
-        inherit (pkgs.darwin.apple_sdk.libs) utmp;
-      };
+      qmltermwidget = callPackage ../development/libraries/qmltermwidget { inherit (pkgs.darwin.apple_sdk.libs) utmp; };
 
       qmlbox2d = callPackage ../development/libraries/qmlbox2d { };
 

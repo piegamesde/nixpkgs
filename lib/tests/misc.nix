@@ -1462,9 +1462,7 @@ runTests {
 
   testToLuaBindingsWithSpace = testingThrow (generators.toLua { asBindings = true; } { "with space" = 42; });
 
-  testToLuaBindingsWithLeadingDigit = testingThrow (
-    generators.toLua { asBindings = true; } { "11eleven" = 42; }
-  );
+  testToLuaBindingsWithLeadingDigit = testingThrow (generators.toLua { asBindings = true; } { "11eleven" = 42; });
 
   testToLuaBasicExample = {
     expr = generators.toLua { } {

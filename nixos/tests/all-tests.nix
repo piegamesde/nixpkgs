@@ -45,8 +45,7 @@ let
   inherit
     (rec {
       doRunTest =
-        arg:
-        ((import ../lib/testing-python.nix { inherit system pkgs; }).evalTest { imports = [ arg ]; }).config.result;
+        arg: ((import ../lib/testing-python.nix { inherit system pkgs; }).evalTest { imports = [ arg ]; }).config.result;
       findTests =
         tree:
         if tree ? recurseForDerivations && tree.recurseForDerivations then
@@ -848,9 +847,7 @@ in
   systemd-initrd-btrfs-raid = handleTest ./systemd-initrd-btrfs-raid.nix { };
   systemd-initrd-luks-fido2 = handleTest ./systemd-initrd-luks-fido2.nix { };
   systemd-initrd-luks-keyfile = handleTest ./systemd-initrd-luks-keyfile.nix { };
-  systemd-initrd-luks-empty-passphrase = handleTest ./initrd-luks-empty-passphrase.nix {
-    systemdStage1 = true;
-  };
+  systemd-initrd-luks-empty-passphrase = handleTest ./initrd-luks-empty-passphrase.nix { systemdStage1 = true; };
   systemd-initrd-luks-password = handleTest ./systemd-initrd-luks-password.nix { };
   systemd-initrd-luks-tpm2 = handleTest ./systemd-initrd-luks-tpm2.nix { };
   systemd-initrd-modprobe = handleTest ./systemd-initrd-modprobe.nix { };

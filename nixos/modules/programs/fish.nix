@@ -13,9 +13,7 @@ let
 
   cfg = config.programs.fish;
 
-  fishAbbrs = concatStringsSep "\n" (
-    mapAttrsFlatten (k: v: "abbr -ag ${k} ${escapeShellArg v}") cfg.shellAbbrs
-  );
+  fishAbbrs = concatStringsSep "\n" (mapAttrsFlatten (k: v: "abbr -ag ${k} ${escapeShellArg v}") cfg.shellAbbrs);
 
   fishAliases = concatStringsSep "\n" (
     mapAttrsFlatten (k: v: "alias ${k} ${escapeShellArg v}") (filterAttrs (k: v: v != null) cfg.shellAliases)
@@ -155,14 +153,10 @@ in
 
     environment = mkMerge [
       (mkIf cfg.useBabelfish {
-        etc."fish/setEnvironment.fish".source =
-          babelfishTranslate config.system.build.setEnvironment
-            "setEnvironment";
+        etc."fish/setEnvironment.fish".source = babelfishTranslate config.system.build.setEnvironment "setEnvironment";
         etc."fish/shellInit.fish".source = babelfishTranslate envShellInit "shellInit";
         etc."fish/loginShellInit.fish".source = babelfishTranslate envLoginShellInit "loginShellInit";
-        etc."fish/interactiveShellInit.fish".source =
-          babelfishTranslate envInteractiveShellInit
-            "interactiveShellInit";
+        etc."fish/interactiveShellInit.fish".source = babelfishTranslate envInteractiveShellInit "interactiveShellInit";
       })
 
       (mkIf (!cfg.useBabelfish) {

@@ -27,7 +27,5 @@ genericUpdater {
     odd-unstable
     patchlevel-unstable
   ;
-  versionLister = "${common-updater-scripts}/bin/list-git-tags ${
-      lib.optionalString (url != null) "--url=${url}"
-    }";
+  versionLister = "${common-updater-scripts}/bin/list-git-tags ${lib.optionalString (url != null) "--url=${url}"}";
 }

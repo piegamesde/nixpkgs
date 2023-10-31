@@ -86,9 +86,7 @@ in
             alias_prefix = mkOption {
               type = nullOr str;
               default = null;
-              description =
-                lib.mdDoc
-                  "The user_friendly_names prefix to use for this device type, instead of the default mpath";
+              description = lib.mdDoc "The user_friendly_names prefix to use for this device type, instead of the default mpath";
             };
 
             vpd_vendor = mkOption {

@@ -264,9 +264,7 @@ in
       // optionalAttrs (cfg.generalConfig != null) {
         "icingaweb2/config.ini".text = generators.toINI { } (defaultConfig // cfg.generalConfig);
       }
-      // optionalAttrs (cfg.resources != null) {
-        "icingaweb2/resources.ini".text = generators.toINI { } cfg.resources;
-      }
+      // optionalAttrs (cfg.resources != null) { "icingaweb2/resources.ini".text = generators.toINI { } cfg.resources; }
       // optionalAttrs (cfg.authentications != null) {
         "icingaweb2/authentication.ini".text = generators.toINI { } cfg.authentications;
       }

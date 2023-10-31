@@ -474,8 +474,7 @@ let
             echo Failed to fetch certificates. \
               This may mean your DNS records are set up incorrectly. \
               ${
-                optionalString (cfg.preliminarySelfsigned)
-                  "Selfsigned certs are in place and dependant services will still start."
+                optionalString (cfg.preliminarySelfsigned) "Selfsigned certs are in place and dependant services will still start."
               }
             # Exit 10 so that users can potentially amend SuccessExitStatus to ignore this error.
             # High number to avoid Systemd reserved codes.

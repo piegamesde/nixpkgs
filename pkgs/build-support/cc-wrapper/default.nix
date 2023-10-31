@@ -353,10 +353,9 @@ stdenv.mkDerivation {
   propagatedBuildInputs = [ bintools ] ++ extraTools ++ optionals cc.langD or false [ zlib ];
   depsTargetTargetPropagated = optional (libcxx != null) libcxx ++ extraPackages;
 
-  setupHooks =
-    [ ../setup-hooks/role.bash ]
-    ++ lib.optional (cc.langC or true) ./setup-hook.sh
-    ++ lib.optional (cc.langFortran or false) ./fortran-hook.sh;
+  setupHooks = [
+    ../setup-hooks/role.bash
+  ] ++ lib.optional (cc.langC or true) ./setup-hook.sh ++ lib.optional (cc.langFortran or false) ./fortran-hook.sh;
 
   postFixup =
     # Ensure flags files exists, as some other programs cat them. (That these
@@ -469,8 +468,7 @@ stdenv.mkDerivation {
     # We have a libc++ directly, we have one via "smuggled" GCC, or we have one
     # bundled with the C compiler because it is GCC
     +
-      optionalString
-        (libcxx != null || (useGccForLibs && gccForLibs.langCC or false) || (isGNU && cc.langCC or false))
+      optionalString (libcxx != null || (useGccForLibs && gccForLibs.langCC or false) || (isGNU && cc.langCC or false))
         ''
           touch "$out/nix-support/libcxx-cxxflags"
           touch "$out/nix-support/libcxx-ldflags"

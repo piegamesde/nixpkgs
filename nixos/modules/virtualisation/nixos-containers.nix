@@ -176,9 +176,7 @@ let
         optionalString (cfg.additionalCapabilities != null && cfg.additionalCapabilities != [ ])
           ''--capability="${concatStringsSep "," cfg.additionalCapabilities}"''
       } \
-      ${
-        optionalString (cfg.tmpfs != null && cfg.tmpfs != [ ]) "--tmpfs=${concatStringsSep " --tmpfs=" cfg.tmpfs}"
-      } \
+      ${optionalString (cfg.tmpfs != null && cfg.tmpfs != [ ]) "--tmpfs=${concatStringsSep " --tmpfs=" cfg.tmpfs}"} \
       ${containerInit cfg} "''${SYSTEM_PATH:-/nix/var/nix/profiles/system}/init"
   '';
 
@@ -942,8 +940,7 @@ in
                   AUTO_START=1
                 ''}
                 EXTRA_NSPAWN_FLAGS="${
-                  mkBindFlags cfg.bindMounts
-                  + optionalString (cfg.extraFlags != [ ]) (" " + concatStringsSep " " cfg.extraFlags)
+                  mkBindFlags cfg.bindMounts + optionalString (cfg.extraFlags != [ ]) (" " + concatStringsSep " " cfg.extraFlags)
                 }"
               '';
             }

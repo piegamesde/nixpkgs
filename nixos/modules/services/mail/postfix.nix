@@ -20,9 +20,7 @@ let
   haveVirtual = cfg.virtual != "";
   haveLocalRecipients = cfg.localRecipients != null;
 
-  clientAccess =
-    optional (cfg.dnsBlacklistOverrides != "")
-      "check_client_access hash:/etc/postfix/client_access";
+  clientAccess = optional (cfg.dnsBlacklistOverrides != "") "check_client_access hash:/etc/postfix/client_access";
 
   dnsBl = optionals (cfg.dnsBlacklists != [ ]) (map (s: "reject_rbl_client " + s) cfg.dnsBlacklists);
 
@@ -552,9 +550,7 @@ in
           ];
         default = "hash";
         example = "regexp";
-        description =
-          lib.mdDoc
-            "The format the alias map should have. Use regexp if you want to use regular expressions.";
+        description = lib.mdDoc "The format the alias map should have. Use regexp if you want to use regular expressions.";
       };
 
       config = mkOption {

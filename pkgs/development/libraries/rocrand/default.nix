@@ -35,18 +35,16 @@ stdenv.mkDerivation (
 
     buildInputs = lib.optionals buildTests [ gtest ] ++ lib.optionals buildBenchmarks [ gbenchmark ];
 
-    cmakeFlags =
-      [
-        "-DCMAKE_C_COMPILER=hipcc"
-        "-DCMAKE_CXX_COMPILER=hipcc"
-        "-DHIP_ROOT_DIR=${hip}"
-        # Manually define CMAKE_INSTALL_<DIR>
-        # See: https://github.com/NixOS/nixpkgs/pull/197838
-        "-DCMAKE_INSTALL_BINDIR=bin"
-        "-DCMAKE_INSTALL_LIBDIR=lib"
-        "-DCMAKE_INSTALL_INCLUDEDIR=include"
-      ]
-      ++ lib.optionals buildTests [ "-DBUILD_TEST=ON" ] ++ lib.optionals buildBenchmarks [ "-DBUILD_BENCHMARK=ON" ];
+    cmakeFlags = [
+      "-DCMAKE_C_COMPILER=hipcc"
+      "-DCMAKE_CXX_COMPILER=hipcc"
+      "-DHIP_ROOT_DIR=${hip}"
+      # Manually define CMAKE_INSTALL_<DIR>
+      # See: https://github.com/NixOS/nixpkgs/pull/197838
+      "-DCMAKE_INSTALL_BINDIR=bin"
+      "-DCMAKE_INSTALL_LIBDIR=lib"
+      "-DCMAKE_INSTALL_INCLUDEDIR=include"
+    ] ++ lib.optionals buildTests [ "-DBUILD_TEST=ON" ] ++ lib.optionals buildBenchmarks [ "-DBUILD_BENCHMARK=ON" ];
 
     postInstall =
       lib.optionalString buildTests ''

@@ -55,9 +55,7 @@ stdenv.mkDerivation {
     autoreconfHook
     installShellFiles
   ];
-  buildInputs = [
-    libuuid
-  ] ++ lib.optionals stdenv.isDarwin [ libobjc ] ++ lib.optional enableTapiSupport libtapi;
+  buildInputs = [ libuuid ] ++ lib.optionals stdenv.isDarwin [ libobjc ] ++ lib.optional enableTapiSupport libtapi;
 
   patches = [
     ./ld-ignore-rpath-link.patch

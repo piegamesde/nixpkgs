@@ -16,9 +16,7 @@ let
     ${if (cfg.configReplaces != { }) then
       ''
         # Insert secrets
-        ${concatStringsSep "\n" (
-          mapAttrsToList (k: v: ''export ${k}="$(cat "${v}" | tr -d '\n')"'') cfg.configReplaces
-        )}
+        ${concatStringsSep "\n" (mapAttrsToList (k: v: ''export ${k}="$(cat "${v}" | tr -d '\n')"'') cfg.configReplaces)}
 
         ${pkgs.perl}/bin/perl -p ${
           concatStringsSep " " (mapAttrsToList (k: v: ''-e 's/${k}/''${ENV{"${k}"}}/g;' '') cfg.configReplaces)

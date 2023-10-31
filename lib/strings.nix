@@ -295,9 +295,7 @@ rec {
     # to strings and comparing. This was surprising and confusing.
     warnIf (isPath suffix)
       ''
-        lib.strings.hasSuffix: The first argument (${
-          toString suffix
-        }) is a path value, but only strings are supported.
+        lib.strings.hasSuffix: The first argument (${toString suffix}) is a path value, but only strings are supported.
             There is almost certainly a bug in the calling code, since this function always returns `false` in such a case.
             This function also copies the path to the Nix store, which may not be what you want.
             This behavior is deprecated and will throw an error in the future.''
@@ -704,9 +702,7 @@ rec {
     # to strings and comparing. This was surprising and confusing.
     warnIf (isPath prefix)
       ''
-        lib.strings.removePrefix: The first argument (${
-          toString prefix
-        }) is a path value, but only strings are supported.
+        lib.strings.removePrefix: The first argument (${toString prefix}) is a path value, but only strings are supported.
             There is almost certainly a bug in the calling code, since this function never removes any prefix in such a case.
             This function also copies the path to the Nix store, which may not be what you want.
             This behavior is deprecated and will throw an error in the future.''
@@ -737,9 +733,7 @@ rec {
     # to strings and comparing. This was surprising and confusing.
     warnIf (isPath suffix)
       ''
-        lib.strings.removeSuffix: The first argument (${
-          toString suffix
-        }) is a path value, but only strings are supported.
+        lib.strings.removeSuffix: The first argument (${toString suffix}) is a path value, but only strings are supported.
             There is almost certainly a bug in the calling code, since this function never removes any suffix in such a case.
             This function also copies the path to the Nix store, which may not be what you want.
             This behavior is deprecated and will throw an error in the future.''
@@ -748,10 +742,7 @@ rec {
           sufLen = stringLength suffix;
           sLen = stringLength str;
         in
-        if sufLen <= sLen && suffix == substring (sLen - sufLen) sufLen str then
-          substring 0 (sLen - sufLen) str
-        else
-          str
+        if sufLen <= sLen && suffix == substring (sLen - sufLen) sufLen str then substring 0 (sLen - sufLen) str else str
       );
 
   /* Return true if string v1 denotes a version older than v2.
@@ -841,8 +832,7 @@ rec {
         mesonOption "engine" "opengl"
         => "-Dengine=opengl"
   */
-  mesonOption =
-    feature: value: assert (lib.isString feature); assert (lib.isString value); "-D${feature}=${value}";
+  mesonOption = feature: value: assert (lib.isString feature); assert (lib.isString value); "-D${feature}=${value}";
 
   /* Create a -D<condition>={true,false} string that can be passed to typical
       Meson invocations.

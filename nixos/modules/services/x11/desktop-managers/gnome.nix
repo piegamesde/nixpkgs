@@ -484,8 +484,7 @@ in
         enableGnomeKeyring = true;
       };
 
-      systemd.packages =
-        with pkgs.gnome; [ gnome-flashback ] ++ map gnome-flashback.mkSystemdTargetForWm flashbackWms;
+      systemd.packages = with pkgs.gnome; [ gnome-flashback ] ++ map gnome-flashback.mkSystemdTargetForWm flashbackWms;
 
       # gnome-panel needs these for menu applet
       environment.sessionVariables.XDG_DATA_DIRS = [ "${pkgs.gnome.gnome-flashback}/share" ];

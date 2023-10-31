@@ -185,9 +185,7 @@ let
           visible = false;
           description = lib.mdDoc "Alias of {option}${showOption toPath}";
           apply =
-            x:
-            builtins.trace "Obsolete option `${showOption fromPath}' is used. It was renamed to ${showOption toPath}"
-              toOp;
+            x: builtins.trace "Obsolete option `${showOption fromPath}' is used. It was renamed to ${showOption toPath}" toOp;
         }
       );
       config = mkMerge [
@@ -622,9 +620,7 @@ in
                   "C ${cfg.aclFile} 0640 ${user} ${webserver.group} - ${pkg hostName cfg}/share/dokuwiki/conf/acl.auth.php.dist"
               ++
                 lib.optional (cfg.usersFile != null)
-                  "C ${cfg.usersFile} 0640 ${user} ${webserver.group} - ${
-                    pkg hostName cfg
-                  }/share/dokuwiki/conf/users.auth.php.dist"
+                  "C ${cfg.usersFile} 0640 ${user} ${webserver.group} - ${pkg hostName cfg}/share/dokuwiki/conf/users.auth.php.dist"
             )
             eachSite
         );

@@ -68,9 +68,7 @@ stdenv.mkDerivation (
       # FreeType requires GNU Make, which is not part of stdenv on FreeBSD.
       ++ lib.optional (!stdenv.isLinux) gnumake;
 
-    patches = [
-      ./enable-table-validation.patch
-    ] ++ lib.optional useEncumberedCode ./enable-subpixel-rendering.patch;
+    patches = [ ./enable-table-validation.patch ] ++ lib.optional useEncumberedCode ./enable-subpixel-rendering.patch;
 
     outputs = [
       "out"

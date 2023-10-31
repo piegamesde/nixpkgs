@@ -151,9 +151,7 @@ rec {
   # Build resholve invocation for each solution.
   phraseCommands =
     solutions: unresholved:
-    builtins.concatStringsSep "\n" (
-      lib.mapAttrsToList phraseInvocation (injectUnresholved solutions unresholved)
-    );
+    builtins.concatStringsSep "\n" (lib.mapAttrsToList phraseInvocation (injectUnresholved solutions unresholved));
 
   /* subshell/PS4/set -x and : command to output resholve envs
      and invocation. Extra context makes it clearer what the
@@ -191,9 +189,7 @@ rec {
       executable = true;
       checkPhase =
         ''
-          ${(phraseContextForPWD (
-            phraseInvocation name (partialSolution // { scripts = [ "${placeholder "out"}" ]; })
-          ))}
+          ${(phraseContextForPWD (phraseInvocation name (partialSolution // { scripts = [ "${placeholder "out"}" ]; })))}
         ''
         + lib.optionalString (partialSolution.interpreter != "none") ''
           ${partialSolution.interpreter} -n $out

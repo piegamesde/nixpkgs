@@ -11,9 +11,7 @@ let
   cfg = config.services.nginx;
   inherit (config.security.acme) certs;
   vhostsConfigs = mapAttrsToList (vhostName: vhostConfig: vhostConfig) virtualHosts;
-  acmeEnabledVhosts =
-    filter (vhostConfig: vhostConfig.enableACME || vhostConfig.useACMEHost != null)
-      vhostsConfigs;
+  acmeEnabledVhosts = filter (vhostConfig: vhostConfig.enableACME || vhostConfig.useACMEHost != null) vhostsConfigs;
   dependentCertNames = unique (map (hostOpts: hostOpts.certName) acmeEnabledVhosts);
   virtualHosts =
     mapAttrs
@@ -518,9 +516,7 @@ let
       map
         (config: ''
           location ${config.location} {
-            ${
-              optionalString (config.proxyPass != null && !cfg.proxyResolveWhileRunning) "proxy_pass ${config.proxyPass};"
-            }
+            ${optionalString (config.proxyPass != null && !cfg.proxyResolveWhileRunning) "proxy_pass ${config.proxyPass};"}
             ${
               optionalString (config.proxyPass != null && cfg.proxyResolveWhileRunning) ''
                 set $nix_proxy_target "${config.proxyPass}";
@@ -548,8 +544,7 @@ let
             ${optionalString (config.return != null) "return ${config.return};"}
             ${config.extraConfig}
             ${
-              optionalString (config.proxyPass != null && config.recommendedProxySettings)
-                "include ${recommendedProxyConfig};"
+              optionalString (config.proxyPass != null && config.recommendedProxySettings) "include ${recommendedProxyConfig};"
             }
             ${mkBasicAuth "sublocation" config}
           }
@@ -1273,8 +1268,7 @@ in
         }
 
         {
-          assertion =
-            any (host: host.rejectSSL) (attrValues virtualHosts) -> versionAtLeast cfg.package.version "1.19.4";
+          assertion = any (host: host.rejectSSL) (attrValues virtualHosts) -> versionAtLeast cfg.package.version "1.19.4";
           message = ''
             services.nginx.virtualHosts.<name>.rejectSSL requires nginx version
             1.19.4 or above; see the documentation for services.nginx.package.
@@ -1393,8 +1387,7 @@ in
         LockPersonality = true;
         MemoryDenyWriteExecute =
           !(
-            (builtins.any (mod: (mod.allowMemoryWriteExecute or false)) cfg.package.modules)
-            || (cfg.package == pkgs.openresty)
+            (builtins.any (mod: (mod.allowMemoryWriteExecute or false)) cfg.package.modules) || (cfg.package == pkgs.openresty)
           );
         RestrictRealtime = true;
         RestrictSUIDSGID = true;

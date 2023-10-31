@@ -13,9 +13,7 @@ in
 {
 
   options.services.offlineimap = {
-    enable = mkEnableOption (
-      lib.mdDoc "OfflineIMAP, a software to dispose your mailbox(es) as a local Maildir(s)"
-    );
+    enable = mkEnableOption (lib.mdDoc "OfflineIMAP, a software to dispose your mailbox(es) as a local Maildir(s)");
 
     install = mkOption {
       type = types.bool;

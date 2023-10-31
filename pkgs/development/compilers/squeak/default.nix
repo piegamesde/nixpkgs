@@ -216,9 +216,7 @@ stdenv.mkDerivation {
 
   postInstall = ''
     rm "$out/squeak"
-    cp --no-preserve mode "$sourcesSrc" "$out"/lib/squeak/SqueakV${
-      lib.escapeShellArg squeakSourcesVersion
-    }.sources
+    cp --no-preserve mode "$sourcesSrc" "$out"/lib/squeak/SqueakV${lib.escapeShellArg squeakSourcesVersion}.sources
   '';
 
   meta = with lib; {

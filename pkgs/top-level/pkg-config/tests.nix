@@ -16,6 +16,4 @@ let
     overlays = [ ];
   };
 in
-lib.recurseIntoAttrs {
-  defaultPkgConfigPackages = allPkgs.callPackage ./test-defaultPkgConfigPackages.nix { };
-}
+lib.recurseIntoAttrs { defaultPkgConfigPackages = allPkgs.callPackage ./test-defaultPkgConfigPackages.nix { }; }

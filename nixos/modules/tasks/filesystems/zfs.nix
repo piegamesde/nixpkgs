@@ -102,8 +102,7 @@ let
       }
     '';
 
-  getPoolFilesystems =
-    pool: filter (x: x.fsType == "zfs" && (fsToPool x) == pool) config.system.build.fileSystems;
+  getPoolFilesystems = pool: filter (x: x.fsType == "zfs" && (fsToPool x) == pool) config.system.build.fileSystems;
 
   getPoolMounts =
     prefix: pool:
@@ -601,12 +600,7 @@ in
         kernelParams = lib.optionals (!config.boot.zfs.allowHibernation) [ "nohibernate" ];
 
         extraModulePackages = [
-          (
-            if config.boot.zfs.enableUnstable then
-              config.boot.kernelPackages.zfsUnstable
-            else
-              config.boot.kernelPackages.zfs
-          )
+          (if config.boot.zfs.enableUnstable then config.boot.kernelPackages.zfsUnstable else config.boot.kernelPackages.zfs)
         ];
       };
 

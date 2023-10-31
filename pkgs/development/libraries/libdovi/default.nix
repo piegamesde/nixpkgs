@@ -45,9 +45,7 @@ rustPlatform.buildRustPackage rec {
 
   checkPhase = ''
     runHook preCheck
-    cargo ctest -j $NIX_BUILD_CORES --release --frozen --prefix=${
-      placeholder "out"
-    } --target ${rustTargetPlatformSpec}
+    cargo ctest -j $NIX_BUILD_CORES --release --frozen --prefix=${placeholder "out"} --target ${rustTargetPlatformSpec}
     runHook postCheck
   '';
 

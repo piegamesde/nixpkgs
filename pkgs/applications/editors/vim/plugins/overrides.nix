@@ -577,9 +577,7 @@ self: super:
       }
     );
 
-  fuzzy-nvim = super.fuzzy-nvim.overrideAttrs (
-    old: { dependencies = with self; [ telescope-fzy-native-nvim ]; }
-  );
+  fuzzy-nvim = super.fuzzy-nvim.overrideAttrs (old: { dependencies = with self; [ telescope-fzy-native-nvim ]; });
 
   fzf-checkout-vim = super.fzf-checkout-vim.overrideAttrs (
     old: {
@@ -825,13 +823,9 @@ self: super:
     }
   );
 
-  ncm2-neoinclude = super.ncm2-neoinclude.overrideAttrs (
-    old: { dependencies = with self; [ neoinclude-vim ]; }
-  );
+  ncm2-neoinclude = super.ncm2-neoinclude.overrideAttrs (old: { dependencies = with self; [ neoinclude-vim ]; });
 
-  ncm2-neosnippet = super.ncm2-neosnippet.overrideAttrs (
-    old: { dependencies = with self; [ neosnippet-vim ]; }
-  );
+  ncm2-neosnippet = super.ncm2-neosnippet.overrideAttrs (old: { dependencies = with self; [ neosnippet-vim ]; });
 
   ncm2-syntax = super.ncm2-syntax.overrideAttrs (old: { dependencies = with self; [ neco-syntax ]; });
 
@@ -1235,9 +1229,7 @@ self: super:
     old: { dependencies = with self; [ telescope-nvim ]; }
   );
 
-  telescope-z-nvim = super.telescope-z-nvim.overrideAttrs (
-    old: { dependencies = with self; [ telescope-nvim ]; }
-  );
+  telescope-z-nvim = super.telescope-z-nvim.overrideAttrs (old: { dependencies = with self; [ telescope-nvim ]; });
 
   telescope-zoxide = super.telescope-zoxide.overrideAttrs (
     old: {
@@ -1316,17 +1308,13 @@ self: super:
     }
   );
 
-  vim-addon-async = super.vim-addon-async.overrideAttrs (
-    old: { dependencies = with self; [ vim-addon-signs ]; }
-  );
+  vim-addon-async = super.vim-addon-async.overrideAttrs (old: { dependencies = with self; [ vim-addon-signs ]; });
 
   vim-addon-background-cmd = super.vim-addon-background-cmd.overrideAttrs (
     old: { dependencies = with self; [ vim-addon-mw-utils ]; }
   );
 
-  vim-addon-completion = super.vim-addon-completion.overrideAttrs (
-    old: { dependencies = with self; [ tlib_vim ]; }
-  );
+  vim-addon-completion = super.vim-addon-completion.overrideAttrs (old: { dependencies = with self; [ tlib_vim ]; });
 
   vim-addon-goto-thing-at-cursor = super.vim-addon-goto-thing-at-cursor.overrideAttrs (
     old: { dependencies = with self; [ tlib_vim ]; }
@@ -1447,9 +1435,7 @@ self: super:
     }
   );
 
-  vim-fzf-coauthorship = super.vim-fzf-coauthorship.overrideAttrs (
-    old: { dependencies = with self; [ fzf-vim ]; }
-  );
+  vim-fzf-coauthorship = super.vim-fzf-coauthorship.overrideAttrs (old: { dependencies = with self; [ fzf-vim ]; });
 
   # change the go_bin_path to point to a path in the nix store. See the code in
   # fatih/vim-go here

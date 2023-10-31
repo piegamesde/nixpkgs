@@ -151,8 +151,7 @@ stdenv.mkDerivation (
     postPhases = postPhases ++ [ "finalPhase" ];
 
     meta = (if args ? meta then args.meta else { }) // {
-      description =
-        if doCoverageAnalysis then "Coverage analysis" else "Nix package for ${stdenv.hostPlatform.system}";
+      description = if doCoverageAnalysis then "Coverage analysis" else "Nix package for ${stdenv.hostPlatform.system}";
     };
   }
 

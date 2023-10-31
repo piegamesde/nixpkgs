@@ -241,9 +241,7 @@ rec {
     # -g: enables debugging symbols
     # --disable-*-stripping: tell GHC not to strip resulting binaries
     # dontStrip: see above
-    appendConfigureFlag "--ghc-options=-g --disable-executable-stripping --disable-library-stripping" (
-      dontStrip drv
-    );
+    appendConfigureFlag "--ghc-options=-g --disable-executable-stripping --disable-library-stripping" (dontStrip drv);
 
   /* Create a source distribution tarball like those found on hackage,
      instead of building the package.
@@ -295,9 +293,7 @@ rec {
   /* Use the gold linker. It is a linker for ELF that is designed
      "to run as fast as possible on modern systems"
   */
-  linkWithGold =
-    appendConfigureFlag
-      "--ghc-option=-optl-fuse-ld=gold --ld-option=-fuse-ld=gold --with-ld=ld.gold";
+  linkWithGold = appendConfigureFlag "--ghc-option=-optl-fuse-ld=gold --ld-option=-fuse-ld=gold --with-ld=ld.gold";
 
   /* link executables statically against haskell libs to reduce
      closure size

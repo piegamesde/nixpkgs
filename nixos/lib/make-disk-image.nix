@@ -230,8 +230,7 @@ assert (lib.assertMsg (partitionTableType != "none" -> fsType == "ext4")
 );
 assert (lib.assertMsg
   (
-    touchEFIVars
-    -> partitionTableType == "hybrid" || partitionTableType == "efi" || partitionTableType == "legacy+gpt"
+    touchEFIVars -> partitionTableType == "hybrid" || partitionTableType == "efi" || partitionTableType == "legacy+gpt"
   )
   "EFI variables can be used only with a partition table of type: hybrid, efi or legacy+gpt."
 );
@@ -240,8 +239,7 @@ assert (lib.assertMsg (onlyNixStore -> contents == [ ] && configFile == null && 
   "In a only Nix store image, the contents must be empty, no configuration must be provided and no bootloader should be installed."
 );
 # Either both or none of {user,group} need to be set
-assert (lib.assertMsg
-  (lib.all (attrs: ((attrs.user or null) == null) == ((attrs.group or null) == null)) contents)
+assert (lib.assertMsg (lib.all (attrs: ((attrs.user or null) == null) == ((attrs.group or null) == null)) contents)
   "Contents of the disk image should set none of {user, group} or both at the same time."
 );
 

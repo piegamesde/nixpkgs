@@ -67,8 +67,7 @@ in
         # nothing in the final package set should refer to this.
         bootstrapRustPackages = self.buildRustPackages.overrideScope' (
           _: _:
-          lib.optionalAttrs (stdenv.buildPlatform == stdenv.hostPlatform)
-            (selectRustPackage buildPackages).packages.prebuilt
+          lib.optionalAttrs (stdenv.buildPlatform == stdenv.hostPlatform) (selectRustPackage buildPackages).packages.prebuilt
         );
         bootRustPlatform = makeRustPlatform bootstrapRustPackages;
       in

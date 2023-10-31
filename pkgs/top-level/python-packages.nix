@@ -1158,9 +1158,7 @@ with self; {
 
   backports_csv = callPackage ../development/python-modules/backports_csv { };
 
-  backports-datetime-fromisoformat =
-    callPackage ../development/python-modules/backports-datetime-fromisoformat
-      { };
+  backports-datetime-fromisoformat = callPackage ../development/python-modules/backports-datetime-fromisoformat { };
 
   backports-entry-points-selectable =
     callPackage ../development/python-modules/backports-entry-points-selectable
@@ -1727,9 +1725,7 @@ with self; {
 
   chai = callPackage ../development/python-modules/chai { };
 
-  chainer = callPackage ../development/python-modules/chainer {
-    cudaSupport = pkgs.config.cudaSupport or false;
-  };
+  chainer = callPackage ../development/python-modules/chainer { cudaSupport = pkgs.config.cudaSupport or false; };
 
   chainmap = callPackage ../development/python-modules/chainmap { };
 
@@ -2685,9 +2681,7 @@ with self; {
 
   django-logentry-admin = callPackage ../development/python-modules/django-logentry-admin { };
 
-  django-login-required-middleware =
-    callPackage ../development/python-modules/django-login-required-middleware
-      { };
+  django-login-required-middleware = callPackage ../development/python-modules/django-login-required-middleware { };
 
   django-mailman3 = callPackage ../development/python-modules/django-mailman3 { };
 
@@ -2755,9 +2749,7 @@ with self; {
 
   djangorestframework = callPackage ../development/python-modules/djangorestframework { };
 
-  djangorestframework-dataclasses =
-    callPackage ../development/python-modules/djangorestframework-dataclasses
-      { };
+  djangorestframework-dataclasses = callPackage ../development/python-modules/djangorestframework-dataclasses { };
 
   djangorestframework-camel-case = callPackage ../development/python-modules/djangorestframework-camel-case { };
 
@@ -3942,13 +3934,9 @@ with self; {
     callPackage ../development/python-modules/georss-ingv-centro-nazionale-terremoti-client
       { };
 
-  georss-nrcan-earthquakes-client =
-    callPackage ../development/python-modules/georss-nrcan-earthquakes-client
-      { };
+  georss-nrcan-earthquakes-client = callPackage ../development/python-modules/georss-nrcan-earthquakes-client { };
 
-  georss-qld-bushfire-alert-client =
-    callPackage ../development/python-modules/georss-qld-bushfire-alert-client
-      { };
+  georss-qld-bushfire-alert-client = callPackage ../development/python-modules/georss-qld-bushfire-alert-client { };
 
   georss-tfs-incidents-client = callPackage ../development/python-modules/georss-tfs-incidents-client { };
 
@@ -4156,9 +4144,7 @@ with self; {
 
   google-cloud-vision = callPackage ../development/python-modules/google-cloud-vision { };
 
-  google-cloud-websecurityscanner =
-    callPackage ../development/python-modules/google-cloud-websecurityscanner
-      { };
+  google-cloud-websecurityscanner = callPackage ../development/python-modules/google-cloud-websecurityscanner { };
 
   google-compute-engine = callPackage ../tools/virtualization/google-compute-engine { };
 
@@ -4823,9 +4809,7 @@ with self; {
 
   installer = callPackage ../development/python-modules/installer { };
 
-  insteon-frontend-home-assistant =
-    callPackage ../development/python-modules/insteon-frontend-home-assistant
-      { };
+  insteon-frontend-home-assistant = callPackage ../development/python-modules/insteon-frontend-home-assistant { };
 
   intake = callPackage ../development/python-modules/intake { };
 
@@ -5223,9 +5207,7 @@ with self; {
 
   jupyter-packaging = callPackage ../development/python-modules/jupyter-packaging { };
 
-  jupyter-repo2docker = callPackage ../development/python-modules/jupyter-repo2docker {
-    pkgs-docker = pkgs.docker;
-  };
+  jupyter-repo2docker = callPackage ../development/python-modules/jupyter-repo2docker { pkgs-docker = pkgs.docker; };
 
   jupyter-server-mathjax = callPackage ../development/python-modules/jupyter-server-mathjax { };
 
@@ -6882,9 +6864,7 @@ with self; {
 
   open-meteo = callPackage ../development/python-modules/open-meteo { };
 
-  openai-triton = callPackage ../development/python-modules/openai-triton {
-    llvmPackages = pkgs.llvmPackages_rocm;
-  };
+  openai-triton = callPackage ../development/python-modules/openai-triton { llvmPackages = pkgs.llvmPackages_rocm; };
 
   openai-triton-bin = callPackage ../development/python-modules/openai-triton/bin.nix { };
 
@@ -7890,9 +7870,7 @@ with self; {
 
   protonup-ng = callPackage ../development/python-modules/protonup-ng { };
 
-  protonvpn-nm-lib = callPackage ../development/python-modules/protonvpn-nm-lib {
-    pkgs-systemd = pkgs.systemd;
-  };
+  protonvpn-nm-lib = callPackage ../development/python-modules/protonvpn-nm-lib { pkgs-systemd = pkgs.systemd; };
 
   prov = callPackage ../development/python-modules/prov { };
 
@@ -8931,9 +8909,7 @@ with self; {
 
   pyqtgraph = callPackage ../development/python-modules/pyqtgraph { };
 
-  pyqtwebengine = pkgs.libsForQt5.callPackage ../development/python-modules/pyqtwebengine {
-    pythonPackages = self;
-  };
+  pyqtwebengine = pkgs.libsForQt5.callPackage ../development/python-modules/pyqtwebengine { pythonPackages = self; };
 
   pyquery = callPackage ../development/python-modules/pyquery { };
 
@@ -9041,9 +9017,7 @@ with self; {
 
   pysc2 = callPackage ../development/python-modules/pysc2 { };
 
-  pyscard = callPackage ../development/python-modules/pyscard {
-    inherit (pkgs.darwin.apple_sdk.frameworks) PCSC;
-  };
+  pyscard = callPackage ../development/python-modules/pyscard { inherit (pkgs.darwin.apple_sdk.frameworks) PCSC; };
 
   pyscf = callPackage ../development/python-modules/pyscf { };
 
@@ -9087,15 +9061,11 @@ with self; {
     callPackage ../development/python-modules/pyside2-tools { inherit (pkgs) cmake qt5; }
   );
 
-  pyside2 = toPythonModule (
-    callPackage ../development/python-modules/pyside2 { inherit (pkgs) cmake ninja qt5; }
-  );
+  pyside2 = toPythonModule (callPackage ../development/python-modules/pyside2 { inherit (pkgs) cmake ninja qt5; });
 
   pyside = callPackage ../development/python-modules/pyside { inherit (pkgs) mesa; };
 
-  pysideShiboken = callPackage ../development/python-modules/pyside/shiboken.nix {
-    inherit (pkgs) libxml2 libxslt;
-  };
+  pysideShiboken = callPackage ../development/python-modules/pyside/shiboken.nix { inherit (pkgs) libxml2 libxslt; };
 
   pysideTools = callPackage ../development/python-modules/pyside/tools.nix { };
 
@@ -10428,9 +10398,7 @@ with self; {
 
   robotframework-requests = callPackage ../development/python-modules/robotframework-requests { };
 
-  robotframework-selenium2library =
-    callPackage ../development/python-modules/robotframework-selenium2library
-      { };
+  robotframework-selenium2library = callPackage ../development/python-modules/robotframework-selenium2library { };
 
   robotframework-seleniumlibrary = callPackage ../development/python-modules/robotframework-seleniumlibrary { };
 
@@ -10638,9 +10606,7 @@ with self; {
 
   scikitimage = callPackage ../development/python-modules/scikit-image { };
 
-  scikit-learn = callPackage ../development/python-modules/scikit-learn {
-    inherit (pkgs) gfortran glibcLocales;
-  };
+  scikit-learn = callPackage ../development/python-modules/scikit-learn { inherit (pkgs) gfortran glibcLocales; };
 
   scikit-learn-extra = callPackage ../development/python-modules/scikit-learn-extra { };
 
@@ -11199,9 +11165,7 @@ with self; {
 
   sphinxcontrib-blockdiag = callPackage ../development/python-modules/sphinxcontrib-blockdiag { };
 
-  sphinxcontrib-confluencebuilder =
-    callPackage ../development/python-modules/sphinxcontrib-confluencebuilder
-      { };
+  sphinxcontrib-confluencebuilder = callPackage ../development/python-modules/sphinxcontrib-confluencebuilder { };
 
   sphinxcontrib-devhelp = callPackage ../development/python-modules/sphinxcontrib-devhelp { };
 
@@ -11219,9 +11183,7 @@ with self; {
 
   sphinxcontrib-katex = callPackage ../development/python-modules/sphinxcontrib-katex { };
 
-  sphinxcontrib-mscgen = callPackage ../development/python-modules/sphinxcontrib-mscgen {
-    inherit (pkgs) mscgen;
-  };
+  sphinxcontrib-mscgen = callPackage ../development/python-modules/sphinxcontrib-mscgen { inherit (pkgs) mscgen; };
 
   sphinxcontrib-nwdiag = callPackage ../development/python-modules/sphinxcontrib-nwdiag { };
 
@@ -11736,9 +11698,7 @@ with self; {
 
   textacy = callPackage ../development/python-modules/textacy { };
 
-  textnets = callPackage ../development/python-modules/textnets {
-    en_core_web_sm = spacy_models.en_core_web_sm;
-  };
+  textnets = callPackage ../development/python-modules/textnets { en_core_web_sm = spacy_models.en_core_web_sm; };
 
   texttable = callPackage ../development/python-modules/texttable { };
 
@@ -11919,9 +11879,7 @@ with self; {
     inherit (pkgs.llvmPackages_rocm) openmp;
   };
 
-  torch-bin = callPackage ../development/python-modules/torch/bin.nix {
-    openai-triton = self.openai-triton-bin;
-  };
+  torch-bin = callPackage ../development/python-modules/torch/bin.nix { openai-triton = self.openai-triton-bin; };
 
   torchWithCuda = self.torch.override {
     magma = pkgs.magma-cuda;
@@ -12135,9 +12093,7 @@ with self; {
 
   typecode = callPackage ../development/python-modules/typecode { };
 
-  typecode-libmagic = callPackage ../development/python-modules/typecode/libmagic.nix {
-    inherit (pkgs) file zlib;
-  };
+  typecode-libmagic = callPackage ../development/python-modules/typecode/libmagic.nix { inherit (pkgs) file zlib; };
 
   typed-ast = callPackage ../development/python-modules/typed-ast { };
 

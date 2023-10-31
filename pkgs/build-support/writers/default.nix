@@ -26,9 +26,7 @@ let
         check ? "",
       }:
       nameOrPath: content:
-      assert lib.or (types.path.check nameOrPath) (
-        builtins.match "([0-9A-Za-z._])[0-9A-Za-z._-]*" nameOrPath != null
-      );
+      assert lib.or (types.path.check nameOrPath) (builtins.match "([0-9A-Za-z._])[0-9A-Za-z._-]*" nameOrPath != null);
       assert lib.or (types.path.check content) (types.str.check content);
       let
         name = last (builtins.split "/" nameOrPath);
@@ -95,9 +93,7 @@ let
         strip ? true,
       }:
       nameOrPath: content:
-      assert lib.or (types.path.check nameOrPath) (
-        builtins.match "([0-9A-Za-z._])[0-9A-Za-z._-]*" nameOrPath != null
-      );
+      assert lib.or (types.path.check nameOrPath) (builtins.match "([0-9A-Za-z._])[0-9A-Za-z._-]*" nameOrPath != null);
       assert lib.or (types.path.check content) (types.str.check content);
       let
         name = last (builtins.split "/" nameOrPath);
@@ -123,9 +119,7 @@ let
         ''
           ${compileScript}
           ${lib.optionalString strip
-            "${
-              lib.getBin buildPackages.bintools-unwrapped
-            }/bin/${buildPackages.bintools-unwrapped.targetPrefix}strip -S $out"}
+            "${lib.getBin buildPackages.bintools-unwrapped}/bin/${buildPackages.bintools-unwrapped.targetPrefix}strip -S $out"}
           # Sometimes binaries produced for darwin (e. g. by GHC) won't be valid
           # mach-o executables from the get-go, but need to be corrected somehow
           # which is done by fixupPhase.

@@ -41,9 +41,7 @@ let
     ];
   runtimeLibraryPath = lib.makeLibraryPath runtimeDependencies;
   validCpuTypes = builtins.attrNames lib.systems.parse.cpuTypes;
-  providedCpuTypes = builtins.filter (arch: builtins.elem arch validCpuTypes) (
-    builtins.attrNames sourcePerArch
-  );
+  providedCpuTypes = builtins.filter (arch: builtins.elem arch validCpuTypes) (builtins.attrNames sourcePerArch);
   result = stdenv.mkDerivation {
     pname =
       if sourcePerArch.packageType == "jdk" then

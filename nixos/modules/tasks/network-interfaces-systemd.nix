@@ -38,8 +38,7 @@ let
     let
       gateway =
         optional (cfg.defaultGateway != null && (cfg.defaultGateway.address or "") != "") cfg.defaultGateway.address
-        ++ optional (cfg.defaultGateway6 != null && (cfg.defaultGateway6.address or "") != "")
-          cfg.defaultGateway6.address;
+        ++ optional (cfg.defaultGateway6 != null && (cfg.defaultGateway6.address or "") != "") cfg.defaultGateway6.address;
       makeGateway = gateway: {
         routeConfig = {
           Gateway = gateway;
@@ -498,17 +497,13 @@ in
                   ovs-vsctl ${
                     concatStrings (
                       mapAttrsToList
-                        (
-                          name: config:
-                          " -- add-port ${n} ${name}" + optionalString (config.vlan != null) " tag=${toString config.vlan}"
-                        )
+                        (name: config: " -- add-port ${n} ${name}" + optionalString (config.vlan != null) " tag=${toString config.vlan}")
                         v.interfaces
                     )
                   } \
                     ${
                       concatStrings (
-                        mapAttrsToList
-                          (name: config: optionalString (config.type != null) " -- set interface ${name} type=${config.type}")
+                        mapAttrsToList (name: config: optionalString (config.type != null) " -- set interface ${name} type=${config.type}")
                           v.interfaces
                       )
                     } \

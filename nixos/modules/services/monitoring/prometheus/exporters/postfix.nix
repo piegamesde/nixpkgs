@@ -96,10 +96,7 @@ in
               cfg.extraFlags
               ++ optional cfg.systemd.enable "--systemd.enable"
               ++ optional cfg.systemd.enable (
-                if cfg.systemd.slice != null then
-                  "--systemd.slice ${cfg.systemd.slice}"
-                else
-                  "--systemd.unit ${cfg.systemd.unit}"
+                if cfg.systemd.slice != null then "--systemd.slice ${cfg.systemd.slice}" else "--systemd.unit ${cfg.systemd.unit}"
               )
               ++
                 optional (cfg.systemd.enable && (cfg.systemd.journalPath != null))

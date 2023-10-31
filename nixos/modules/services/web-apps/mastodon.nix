@@ -790,9 +790,7 @@ in
             "network.target"
             "mastodon-init-dirs.service"
           ] ++ lib.optional databaseActuallyCreateLocally "postgresql.service";
-          requires = [
-            "mastodon-init-dirs.service"
-          ] ++ lib.optional databaseActuallyCreateLocally "postgresql.service";
+          requires = [ "mastodon-init-dirs.service" ] ++ lib.optional databaseActuallyCreateLocally "postgresql.service";
         };
 
         systemd.services.mastodon-streaming = {
@@ -861,10 +859,7 @@ in
           environment =
             env
             // (
-              if cfg.enableUnixSocket then
-                { SOCKET = "/run/mastodon-web/web.socket"; }
-              else
-                { PORT = toString (cfg.webPort); }
+              if cfg.enableUnixSocket then { SOCKET = "/run/mastodon-web/web.socket"; } else { PORT = toString (cfg.webPort); }
             );
           serviceConfig = {
             ExecStart = "${cfg.package}/bin/puma -C config/puma.rb";

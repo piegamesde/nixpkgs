@@ -472,9 +472,7 @@ in
 
     (mkIf (cfg.kwinrc != { }) { environment.etc."xdg/kwinrc".text = lib.generators.toINI { } cfg.kwinrc; })
 
-    (mkIf (cfg.kdeglobals != { }) {
-      environment.etc."xdg/kdeglobals".text = lib.generators.toINI { } cfg.kdeglobals;
-    })
+    (mkIf (cfg.kdeglobals != { }) { environment.etc."xdg/kdeglobals".text = lib.generators.toINI { } cfg.kdeglobals; })
 
     # Plasma Desktop
     (mkIf cfg.enable {
@@ -558,8 +556,7 @@ in
         {
           # The user interface breaks without pulse
           assertion =
-            config.hardware.pulseaudio.enable
-            || (config.services.pipewire.enable && config.services.pipewire.pulse.enable);
+            config.hardware.pulseaudio.enable || (config.services.pipewire.enable && config.services.pipewire.pulse.enable);
           message = "Plasma Mobile requires pulseaudio.";
         }
       ];

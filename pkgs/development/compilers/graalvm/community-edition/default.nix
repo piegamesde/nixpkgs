@@ -15,13 +15,11 @@ let
     "x86_64-darwin" = "darwin-amd64";
   };
   javaPlatformVersion =
-    javaVersion:
-    "${javaVersion}-${javaPlatform.${stdenv.system} or (throw "Unsupported platform: ${stdenv.system}")}";
+    javaVersion: "${javaVersion}-${javaPlatform.${stdenv.system} or (throw "Unsupported platform: ${stdenv.system}")}";
   source =
     product: javaVersion:
-    (import ./hashes.nix).${product}.${javaPlatformVersion javaVersion} or (throw
-      "Unsupported product combination: product=${product} java=${javaVersion} system=${stdenv.system}"
-    );
+    (import ./hashes.nix).${product}.${javaPlatformVersion javaVersion}
+      or (throw "Unsupported product combination: product=${product} java=${javaVersion} system=${stdenv.system}");
 in
 rec {
   inherit buildGraalvm buildGraalvmProduct;

@@ -33,9 +33,7 @@ mkDerivation rec {
   version = "15.38.3";
 
   src = fetchurl {
-    url = "https://dl.tvcdn.de/download/linux/version_${
-        lib.versions.major version
-      }x/teamviewer_${version}_amd64.deb";
+    url = "https://dl.tvcdn.de/download/linux/version_${lib.versions.major version}x/teamviewer_${version}_amd64.deb";
     sha256 = "sha256-+GGpGV8rl15VQvPRA2PWngQI4VoxCrZ0ArEm9FgdOVE=";
   };
 

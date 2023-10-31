@@ -229,9 +229,7 @@ let
 
   hookToFile =
     folder: name: hook:
-    nameValuePair "xdg/autorandr/${folder}/${name}" {
-      source = "${pkgs.writeShellScriptBin "hook" hook}/bin/hook";
-    };
+    nameValuePair "xdg/autorandr/${folder}/${name}" { source = "${pkgs.writeShellScriptBin "hook" hook}/bin/hook"; };
   profileToFiles =
     name: profile:
     with profile;
@@ -258,9 +256,7 @@ let
         ++ optional (config.mode != "") "mode ${config.mode}"
         ++ optional (config.rate != "") "rate ${config.rate}"
         ++ optional (config.rotate != null) "rotate ${config.rotate}"
-        ++ optional (config.transform != null) (
-          "transform " + concatMapStringsSep "," toString (flatten config.transform)
-        )
+        ++ optional (config.transform != null) ("transform " + concatMapStringsSep "," toString (flatten config.transform))
         ++ optional (config.scale != null) (
           (if config.scale.method == "factor" then "scale" else "scale-from")
           + " ${toString config.scale.x}x${toString config.scale.y}"

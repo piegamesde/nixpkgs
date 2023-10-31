@@ -1296,15 +1296,12 @@ builtins.intersectAttrs super {
     else
       super.hercules-ci-api-core;
 
-  hercules-ci-agent = super.hercules-ci-agent.override {
-    nix = self.hercules-ci-cnix-store.passthru.nixPackage;
-  };
+  hercules-ci-agent = super.hercules-ci-agent.override { nix = self.hercules-ci-cnix-store.passthru.nixPackage; };
   hercules-ci-cnix-expr = addTestToolDepend pkgs.git (
     super.hercules-ci-cnix-expr.override { nix = self.hercules-ci-cnix-store.passthru.nixPackage; }
   );
   hercules-ci-cnix-store =
-    (super.hercules-ci-cnix-store.override { nix = self.hercules-ci-cnix-store.passthru.nixPackage; })
-    .overrideAttrs
+    (super.hercules-ci-cnix-store.override { nix = self.hercules-ci-cnix-store.passthru.nixPackage; }).overrideAttrs
       (_: { passthru.nixPackage = pkgs.nixVersions.nix_2_14; });
 
   # the testsuite fails because of not finding tsc without some help

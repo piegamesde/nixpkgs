@@ -30,9 +30,7 @@ in
 
       configs = mkOption {
         type = types.listOf types.lines;
-        description =
-          lib.mdDoc
-            "Configurations for lircd to load, see man:lircd.conf(5) for details ({file}`lircd.conf`)";
+        description = lib.mdDoc "Configurations for lircd to load, see man:lircd.conf(5) for details ({file}`lircd.conf`)";
       };
 
       extraArguments = mkOption {
