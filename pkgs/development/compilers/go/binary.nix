@@ -7,8 +7,7 @@
   autoPatchelfHook,
 }:
 let
-  toGoKernel =
-    platform: if platform.isDarwin then "darwin" else platform.parsed.kernel.name;
+  toGoKernel = platform: if platform.isDarwin then "darwin" else platform.parsed.kernel.name;
 
   toGoCPU =
     platform:
@@ -31,8 +30,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://go.dev/dl/go${version}.${platform}.tar.gz";
-    sha256 =
-      hashes.${platform} or (throw "Missing Go bootstrap hash for platform ${platform}");
+    sha256 = hashes.${platform} or (throw "Missing Go bootstrap hash for platform ${platform}");
   };
 
   nativeBuildInputs = lib.optionals stdenv.isLinux [ autoPatchelfHook ];

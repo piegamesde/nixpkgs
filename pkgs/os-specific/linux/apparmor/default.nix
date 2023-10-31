@@ -11,8 +11,8 @@
   bison,
   linuxHeaders ? stdenv.cc.libc.linuxHeaders,
   gawk,
-  withPerl ? stdenv.hostPlatform == stdenv.buildPlatform
-    && lib.meta.availableOn stdenv.hostPlatform perl,
+  withPerl ?
+    stdenv.hostPlatform == stdenv.buildPlatform && lib.meta.availableOn stdenv.hostPlatform perl,
   perl,
   withPython ? stdenv.hostPlatform == stdenv.buildPlatform
     && lib.meta.availableOn stdenv.hostPlatform python3,
@@ -117,9 +117,7 @@ let
       perl
     ] ++ lib.optional withPython python;
 
-    buildInputs = [
-      libxcrypt
-    ] ++ lib.optional withPerl perl ++ lib.optional withPython python;
+    buildInputs = [ libxcrypt ] ++ lib.optional withPerl perl ++ lib.optional withPython python;
 
     # required to build apparmor-parser
     dontDisableStatic = true;

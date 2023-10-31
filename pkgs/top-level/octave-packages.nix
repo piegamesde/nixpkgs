@@ -27,13 +27,11 @@ makeScope newScope (
   let
     callPackage = self.callPackage;
 
-    buildOctavePackage =
-      callPackage ../development/interpreters/octave/build-octave-package.nix
-        {
-          inherit lib stdenv;
-          inherit octave;
-          inherit computeRequiredOctavePackages;
-        };
+    buildOctavePackage = callPackage ../development/interpreters/octave/build-octave-package.nix {
+      inherit lib stdenv;
+      inherit octave;
+      inherit computeRequiredOctavePackages;
+    };
 
     # Given a list of required Octave package derivations, get a list of
     # ALL required Octave packages needed for the ones specified to run.
@@ -189,9 +187,7 @@ makeScope newScope (
 
     struct = callPackage ../development/octave-modules/struct { };
 
-    symbolic = callPackage ../development/octave-modules/symbolic {
-      inherit (octave) python;
-    };
+    symbolic = callPackage ../development/octave-modules/symbolic { inherit (octave) python; };
 
     tisean = callPackage ../development/octave-modules/tisean { };
 

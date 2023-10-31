@@ -285,9 +285,7 @@ let
           option = mkOption {
             type = types.str;
             default = "/var/lib/${config.services.prometheus.stateDir}/data";
-            defaultText =
-              literalExpression
-                ''"/var/lib/''${config.services.prometheus.stateDir}/data"'';
+            defaultText = literalExpression ''"/var/lib/''${config.services.prometheus.stateDir}/data"'';
             description = lib.mdDoc ''
               Data directory of TSDB.
             '';
@@ -770,8 +768,7 @@ in
 
     compact = paramsToOptions params.compact // {
       enable = mkEnableOption (
-        lib.mdDoc
-          "the Thanos compactor which continuously compacts blocks in an object store bucket"
+        lib.mdDoc "the Thanos compactor which continuously compacts blocks in an object store bucket"
       );
       arguments = mkArgumentsOption "compact";
     };

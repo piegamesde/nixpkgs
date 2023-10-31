@@ -55,9 +55,7 @@ let
             < ${
               pkgs.writeText "static_config.json" (
                 builtins.toJSON (
-                  recursiveUpdate cfg.staticConfigOptions {
-                    providers.file.filename = "${dynamicConfigFile}";
-                  }
+                  recursiveUpdate cfg.staticConfigOptions { providers.file.filename = "${dynamicConfigFile}"; }
                 )
               )
             } \

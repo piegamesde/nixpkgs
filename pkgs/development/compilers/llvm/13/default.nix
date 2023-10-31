@@ -196,8 +196,7 @@ let
             echo "--unwindlib=libunwind" >> $out/nix-support/cc-cflags
           ''
           +
-            lib.optionalString
-              (!stdenv.targetPlatform.isWasm && stdenv.targetPlatform.useLLVM or false)
+            lib.optionalString (!stdenv.targetPlatform.isWasm && stdenv.targetPlatform.useLLVM or false)
               ''
                 echo "-lunwind" >> $out/nix-support/cc-ldflags
               ''
@@ -315,10 +314,7 @@ let
           else
             (
               # libcxx >= 13 does not build on gcc9
-              if stdenv.cc.isGNU && lib.versionOlder stdenv.cc.version "10" then
-                pkgs.gcc10Stdenv
-              else
-                stdenv
+              if stdenv.cc.isGNU && lib.versionOlder stdenv.cc.version "10" then pkgs.gcc10Stdenv else stdenv
             );
       };
 

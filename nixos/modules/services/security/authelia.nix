@@ -400,16 +400,14 @@ in
           };
         };
       mkInstanceUsersConfig = instance: {
-        groups."authelia-${instance.name}" =
-          lib.mkIf (instance.group == "authelia-${instance.name}")
-            { name = "authelia-${instance.name}"; };
-        users."authelia-${instance.name}" =
-          lib.mkIf (instance.user == "authelia-${instance.name}")
-            {
-              name = "authelia-${instance.name}";
-              isSystemUser = true;
-              group = instance.group;
-            };
+        groups."authelia-${instance.name}" = lib.mkIf (instance.group == "authelia-${instance.name}") {
+          name = "authelia-${instance.name}";
+        };
+        users."authelia-${instance.name}" = lib.mkIf (instance.user == "authelia-${instance.name}") {
+          name = "authelia-${instance.name}";
+          isSystemUser = true;
+          group = instance.group;
+        };
       };
       instances = lib.attrValues cfg.instances;
     in
@@ -421,8 +419,7 @@ in
               assertion =
                 instance.secrets.manual
                 || (
-                  instance.secrets.jwtSecretFile != null
-                  && instance.secrets.storageEncryptionKeyFile != null
+                  instance.secrets.jwtSecretFile != null && instance.secrets.storageEncryptionKeyFile != null
                 );
               message = ''
                 Authelia requires a JWT Secret and a Storage Encryption Key to work.
@@ -442,9 +439,7 @@ in
         map
           (
             instance:
-            lib.mkIf instance.enable {
-              "authelia-${instance.name}" = mkInstanceServiceConfig instance;
-            }
+            lib.mkIf instance.enable { "authelia-${instance.name}" = mkInstanceServiceConfig instance; }
           )
           instances
       );

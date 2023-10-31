@@ -17,15 +17,14 @@ let
   slaves =
     concatMap (i: i.interfaces) (attrValues cfg.bonds)
     ++ concatMap (i: i.interfaces) (attrValues cfg.bridges)
-    ++
-      concatMap (i: attrNames (filterAttrs (_: config: config.type != "internal") i.interfaces))
-        (attrValues cfg.vswitches)
+    ++ concatMap (i: attrNames (filterAttrs (_: config: config.type != "internal") i.interfaces)) (
+      attrValues cfg.vswitches
+    )
     ++ concatMap (i: [ i.interface ]) (attrValues cfg.macvlans)
     ++ concatMap (i: [ i.interface ]) (attrValues cfg.vlans);
 
   # We must escape interfaces due to the systemd interpretation
-  subsystemDevice =
-    interface: "sys-subsystem-net-devices-${escapeSystemdPath interface}.device";
+  subsystemDevice = interface: "sys-subsystem-net-devices-${escapeSystemdPath interface}.device";
 
   interfaceIps = i: i.ipv4.addresses ++ optionals cfg.enableIPv6 i.ipv6.addresses;
 
@@ -59,8 +58,7 @@ let
   bondWarnings =
     let
       oneBondWarnings =
-        bondName: bond:
-        mapAttrsToList (bondText bondName) (bondDeprecation.filterDeprecated bond);
+        bondName: bond: mapAttrsToList (bondText bondName) (bondDeprecation.filterDeprecated bond);
       bondText =
         bondName: optName: _:
         "${bondName}.${optName} is deprecated, use ${bondName}.driverOptions";
@@ -133,9 +131,7 @@ let
             filter (i: !(hasAttr i.name cfg.bridges)) interfaces
           );
           conflicts = [ "shutdown.target" ];
-          wantedBy = [
-            "multi-user.target"
-          ] ++ optional hasDefaultGatewaySet "network-online.target";
+          wantedBy = [ "multi-user.target" ] ++ optional hasDefaultGatewaySet "network-online.target";
 
           unitConfig.ConditionCapability = "CAP_NET_ADMIN";
 
@@ -179,8 +175,7 @@ let
                 optionalString (cfg.defaultGatewayWindowSize != null)
                   "window ${toString cfg.defaultGatewayWindowSize}"
               } ${
-                optionalString (cfg.defaultGateway.interface != null)
-                  "dev ${cfg.defaultGateway.interface}"
+                optionalString (cfg.defaultGateway.interface != null) "dev ${cfg.defaultGateway.interface}"
               } proto static
             ''}
             ${optionalString (cfg.defaultGateway6 != null && cfg.defaultGateway6.address != "") ''
@@ -197,8 +192,7 @@ let
                 optionalString (cfg.defaultGatewayWindowSize != null)
                   "window ${toString cfg.defaultGatewayWindowSize}"
               } ${
-                optionalString (cfg.defaultGateway6.interface != null)
-                  "dev ${cfg.defaultGateway6.interface}"
+                optionalString (cfg.defaultGateway6.interface != null) "dev ${cfg.defaultGateway6.interface}"
               } proto static
             ''}
           '';
@@ -306,9 +300,7 @@ let
           nameValuePair "${i.name}-netdev" {
             description = "Virtual Network Interface ${i.name}";
             bindsTo = optional (!config.boot.isContainer) "dev-net-tun.device";
-            after = optional (!config.boot.isContainer) "dev-net-tun.device" ++ [
-              "network-pre.target"
-            ];
+            after = optional (!config.boot.isContainer) "dev-net-tun.device" ++ [ "network-pre.target" ];
             wantedBy = [
               "network-setup.service"
               (subsystemDevice i.name)
@@ -548,8 +540,7 @@ let
                 echo "Creating new bond ${n}..."
                 ip link add name "${n}" type bond \
                 ${let
-                  opts =
-                    (mapAttrs (const toString) (bondDeprecation.filterDeprecated v)) // v.driverOptions;
+                  opts = (mapAttrs (const toString) (bondDeprecation.filterDeprecated v)) // v.driverOptions;
                 in
                 concatStringsSep "\n" (mapAttrsToList (set: val: "  ${set} ${val} \\") opts)}
 

@@ -109,6 +109,4 @@ in
 assert args ? localSystem -> !(args ? system);
 assert args ? system -> !(args ? localSystem);
 
-import ./. (
-  builtins.removeAttrs args [ "system" ] // { inherit config overlays localSystem; }
-)
+import ./. (builtins.removeAttrs args [ "system" ] // { inherit config overlays localSystem; })

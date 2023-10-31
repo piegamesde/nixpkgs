@@ -464,9 +464,7 @@ rec {
     # A list of attribute sets to fold together by key.
     list_of_attrs:
     foldr
-      (
-        n: a: foldr (name: o: o // { ${name} = op n.${name} (a.${name} or nul); }) a (attrNames n)
-      )
+      (n: a: foldr (name: o: o // { ${name} = op n.${name} (a.${name} or nul); }) a (attrNames n))
       { }
       list_of_attrs;
 

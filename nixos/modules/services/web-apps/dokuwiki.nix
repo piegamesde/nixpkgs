@@ -98,8 +98,7 @@ let
     let
       pc = cfg.pluginsConfig;
       pc_gen =
-        pc:
-        concatStringsSep "\n" (mapAttrsToList (n: v: "$plugins['${n}'] = ${boolToString v};") pc);
+        pc: concatStringsSep "\n" (mapAttrsToList (n: v: "$plugins['${n}'] = ${boolToString v};") pc);
     in
     writePhpFile "plugins.local-${hostName}.php" ''
       ${if isString pc then pc else pc_gen pc}
@@ -116,10 +115,7 @@ let
       localConfig = dokuwikiLocalConfig hostName cfg;
       pluginsConfig = dokuwikiPluginsLocalConfig hostName cfg;
       aclConfig =
-        if cfg.settings.useacl && cfg.acl != null then
-          dokuwikiAclAuthConfig hostName cfg
-        else
-          null;
+        if cfg.settings.useacl && cfg.acl != null then dokuwikiAclAuthConfig hostName cfg else null;
     };
 
   aclOpts =

@@ -127,9 +127,7 @@ stdenv.mkDerivation {
     mkdir -p $out/lib/swipl/pack
   '';
 
-  postInstall = builtins.concatStringsSep "\n" (
-    builtins.map (packInstall "$out") extraPacks
-  );
+  postInstall = builtins.concatStringsSep "\n" (builtins.map (packInstall "$out") extraPacks);
 
   meta = {
     homepage = "https://www.swi-prolog.org";

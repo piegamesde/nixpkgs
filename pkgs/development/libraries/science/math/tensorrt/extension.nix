@@ -46,8 +46,7 @@ let
           if allBuilds ? ${computeName tensorRTDefaultVersion} then
             allBuilds.${computeName tensorRTDefaultVersion}
           else
-            throw
-              "tensorrt-${tensorRTDefaultVersion} does not support your cuda version ${cudaVersion}";
+            throw "tensorrt-${tensorRTDefaultVersion} does not support your cuda version ${cudaVersion}";
       };
     in
     { inherit buildTensorRTPackage; } // allBuilds // defaultBuild;

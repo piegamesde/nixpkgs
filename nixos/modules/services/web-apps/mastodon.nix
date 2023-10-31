@@ -46,8 +46,9 @@ let
 
       TRUSTED_PROXY_IP = cfg.trustedProxy;
     }
-    // lib.optionalAttrs (cfg.database.host != "/run/postgresql" && cfg.database.port != null)
-      { DB_PORT = toString cfg.database.port; }
+    // lib.optionalAttrs (cfg.database.host != "/run/postgresql" && cfg.database.port != null) {
+      DB_PORT = toString cfg.database.port;
+    }
     // lib.optionalAttrs cfg.smtp.authenticate { SMTP_LOGIN = cfg.smtp.user; }
     // cfg.extraConfig;
 
@@ -994,9 +995,7 @@ in
           )
         ];
 
-        users.groups.${cfg.group}.members =
-          lib.optional cfg.configureNginx
-            config.services.nginx.user;
+        users.groups.${cfg.group}.members = lib.optional cfg.configureNginx config.services.nginx.user;
       }
       { systemd.services = sidekiqUnits; }
     ]

@@ -53,9 +53,7 @@ then
           ${lib.concatMapStrings
             (output: ''
               mkdir -p ${"$" + "${output}"}
-              ${lib.getExe buildPackages.xorg.lndir} ${overriddenUnwrappedGir.${output}} ${
-                "$" + "${output}"
-              }
+              ${lib.getExe buildPackages.xorg.lndir} ${overriddenUnwrappedGir.${output}} ${"$" + "${output}"}
             '')
             overriddenUnwrappedGir.outputs}
 
@@ -74,12 +72,8 @@ then
 
             substituteAll "${./wrappers/g-ir-compiler.sh}" "$dev/bin/g-ir-compiler"
             substituteAll "${./wrappers/g-ir-scanner.sh}" "$dev/bin/g-ir-scanner"
-            substituteAll "${
-              ./wrappers/g-ir-scanner-lddwrapper.sh
-            }" "$dev/bin/g-ir-scanner-lddwrapper"
-            substituteAll "${
-              ./wrappers/g-ir-scanner-qemuwrapper.sh
-            }" "$dev/bin/g-ir-scanner-qemuwrapper"
+            substituteAll "${./wrappers/g-ir-scanner-lddwrapper.sh}" "$dev/bin/g-ir-scanner-lddwrapper"
+            substituteAll "${./wrappers/g-ir-scanner-qemuwrapper.sh}" "$dev/bin/g-ir-scanner-qemuwrapper"
             chmod +x $dev/bin/g-ir-compiler
             chmod +x $dev/bin/g-ir-scanner*
           )
@@ -117,9 +111,7 @@ else
         ${lib.concatMapStrings
           (output: ''
             mkdir -p ${"$" + "${output}"}
-            ${lib.getExe buildPackages.xorg.lndir} ${overriddenUnwrappedGir.${output}} ${
-              "$" + "${output}"
-            }
+            ${lib.getExe buildPackages.xorg.lndir} ${overriddenUnwrappedGir.${output}} ${"$" + "${output}"}
           '')
           overriddenUnwrappedGir.outputs}
       '';

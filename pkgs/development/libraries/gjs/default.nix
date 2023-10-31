@@ -71,9 +71,7 @@ stdenv.mkDerivation rec {
       dbus # for dbus-run-session
       gobject-introspection
     ]
-    ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
-      mesonEmulatorHook
-    ];
+    ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
 
   buildInputs = [
     cairo
@@ -86,11 +84,9 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = [ glib ];
 
-  mesonFlags =
-    [ "-Dinstalled_test_prefix=${placeholder "installedTests"}" ]
-    ++ lib.optionals (!stdenv.isLinux || stdenv.hostPlatform.isMusl) [
-      "-Dprofiler=disabled"
-    ];
+  mesonFlags = [
+    "-Dinstalled_test_prefix=${placeholder "installedTests"}"
+  ] ++ lib.optionals (!stdenv.isLinux || stdenv.hostPlatform.isMusl) [ "-Dprofiler=disabled" ];
 
   doCheck = !stdenv.isDarwin;
 

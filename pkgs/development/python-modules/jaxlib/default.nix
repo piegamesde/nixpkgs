@@ -195,9 +195,7 @@ let
     removeRulesCC = false;
 
     GCC_HOST_COMPILER_PREFIX = lib.optionalString cudaSupport "${cudatoolkit_cc_joined}/bin";
-    GCC_HOST_COMPILER_PATH =
-      lib.optionalString cudaSupport
-        "${cudatoolkit_cc_joined}/bin/gcc";
+    GCC_HOST_COMPILER_PATH = lib.optionalString cudaSupport "${cudatoolkit_cc_joined}/bin/gcc";
 
     preConfigure =
       ''

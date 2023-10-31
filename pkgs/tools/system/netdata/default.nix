@@ -119,9 +119,7 @@ stdenv.mkDerivation rec {
   disallowedReferences = if withDebug then [ ] else [ zlib.dev ];
 
   donStrip = withDebug;
-  env.NIX_CFLAGS_COMPILE =
-    lib.optionalString withDebug
-      "-O1 -ggdb -DNETDATA_INTERNAL_CHECKS=1";
+  env.NIX_CFLAGS_COMPILE = lib.optionalString withDebug "-O1 -ggdb -DNETDATA_INTERNAL_CHECKS=1";
 
   postInstall =
     ''

@@ -4869,10 +4869,7 @@ in
       )
       sources."@babel/parser-7.20.5"
       (
-        sources."@babel/template-7.18.10"
-        // {
-          dependencies = [ sources."@babel/code-frame-7.18.6" ];
-        }
+        sources."@babel/template-7.18.10" // { dependencies = [ sources."@babel/code-frame-7.18.6" ]; }
       )
       (
         sources."@babel/traverse-7.20.5"
@@ -4949,12 +4946,7 @@ in
       sources."aggregate-error-3.1.0"
       sources."ajv-6.12.6"
       sources."ansi-colors-4.1.3"
-      (
-        sources."ansi-escape-sequences-4.1.0"
-        // {
-          dependencies = [ sources."array-back-3.1.0" ];
-        }
-      )
+      (sources."ansi-escape-sequences-4.1.0" // { dependencies = [ sources."array-back-3.1.0" ]; })
       sources."ansi-regex-5.0.1"
       sources."ansi-styles-3.2.1"
       sources."anymatch-3.1.3"
@@ -5123,20 +5115,10 @@ in
         }
       )
       sources."eslint-plugin-lodash-7.4.0"
-      (
-        sources."eslint-plugin-mocha-10.1.0"
-        // {
-          dependencies = [ sources."eslint-utils-3.0.0" ];
-        }
-      )
+      (sources."eslint-plugin-mocha-10.1.0" // { dependencies = [ sources."eslint-utils-3.0.0" ]; })
       sources."eslint-plugin-security-1.5.0"
       sources."eslint-scope-5.1.1"
-      (
-        sources."eslint-utils-2.1.0"
-        // {
-          dependencies = [ sources."eslint-visitor-keys-1.3.0" ];
-        }
-      )
+      (sources."eslint-utils-2.1.0" // { dependencies = [ sources."eslint-visitor-keys-1.3.0" ]; })
       sources."eslint-visitor-keys-2.1.0"
       (sources."espree-7.3.1" // { dependencies = [ sources."eslint-visitor-keys-1.3.0" ]; })
       sources."esprima-4.0.1"
@@ -5228,9 +5210,7 @@ in
       sources."isstream-0.1.2"
       sources."istanbul-lib-coverage-3.2.0"
       sources."istanbul-lib-hook-3.0.0"
-      (
-        sources."istanbul-lib-instrument-4.0.3" // { dependencies = [ sources."semver-6.3.0" ]; }
-      )
+      (sources."istanbul-lib-instrument-4.0.3" // { dependencies = [ sources."semver-6.3.0" ]; })
       sources."istanbul-lib-processinfo-2.0.3"
       (
         sources."istanbul-lib-report-3.0.0"
@@ -5290,12 +5270,7 @@ in
       sources."json5-2.2.1"
       sources."jsonparse-1.3.1"
       sources."jsprim-2.0.2"
-      (
-        sources."junit-report-builder-2.1.0"
-        // {
-          dependencies = [ sources."xmlbuilder-10.1.1" ];
-        }
-      )
+      (sources."junit-report-builder-2.1.0" // { dependencies = [ sources."xmlbuilder-10.1.1" ]; })
       sources."just-extend-4.2.1"
       sources."klaw-3.0.0"
       sources."levn-0.4.1"

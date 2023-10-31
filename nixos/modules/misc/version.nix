@@ -41,9 +41,7 @@ let
         }"'';
   attrsToText =
     attrs:
-    concatStringsSep "\n" (
-      mapAttrsToList (n: v: "${n}=${escapeIfNeccessary (toString v)}") attrs
-    )
+    concatStringsSep "\n" (mapAttrsToList (n: v: "${n}=${escapeIfNeccessary (toString v)}") attrs)
     + "\n";
 
   osReleaseContents = {
@@ -59,9 +57,7 @@ let
     DOCUMENTATION_URL =
       lib.optionalString (cfg.distroId == "nixos")
         "https://nixos.org/learn.html";
-    SUPPORT_URL =
-      lib.optionalString (cfg.distroId == "nixos")
-        "https://nixos.org/community.html";
+    SUPPORT_URL = lib.optionalString (cfg.distroId == "nixos") "https://nixos.org/community.html";
     BUG_REPORT_URL =
       lib.optionalString (cfg.distroId == "nixos")
         "https://github.com/NixOS/nixpkgs/issues";

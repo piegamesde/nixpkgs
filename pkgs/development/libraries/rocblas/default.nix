@@ -61,9 +61,7 @@ stdenv.mkDerivation (
         openmp
         amd-blis
       ]
-      ++ lib.optionals (buildTensile || buildTests || buildBenchmarks) [
-        python3Packages.pyyaml
-      ];
+      ++ lib.optionals (buildTensile || buildTests || buildBenchmarks) [ python3Packages.pyyaml ];
 
     cmakeFlags =
       [

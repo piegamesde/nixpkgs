@@ -68,15 +68,12 @@ let
   };
 
   backendFlags =
-    builtins.map
-      (b: if builtins.elem b withBackends then "-D${b}=enabled" else "-D${b}=disabled")
+    builtins.map (b: if builtins.elem b withBackends then "-D${b}=enabled" else "-D${b}=disabled")
       (builtins.attrNames backends);
 in
 
 # check that given window system is valid
-assert lib.assertOneOf "withWindowSystem" withWindowSystem' (
-  builtins.attrNames windowSystems
-);
+assert lib.assertOneOf "withWindowSystem" withWindowSystem' (builtins.attrNames windowSystems);
 # check that every given backend is valid
 assert builtins.all (b: lib.assertOneOf "each backend" b (builtins.attrNames backends))
     withBackends;
@@ -112,14 +109,12 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs =
-    [
-      icu
-      libxkbcommon
-      pango
-      inih
-    ]
-    ++ windowSystems."${withWindowSystem'}" ++ builtins.map (b: backends."${b}") withBackends;
+  buildInputs = [
+    icu
+    libxkbcommon
+    pango
+    inih
+  ] ++ windowSystems."${withWindowSystem'}" ++ builtins.map (b: backends."${b}") withBackends;
 
   postInstall = ''
     # fix the executable path and install the desktop item

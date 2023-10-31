@@ -206,9 +206,7 @@ let
         if [ -d node_modules ]
         then
             cd node_modules
-            ${
-              lib.concatMapStrings (dependency: pinpointDependenciesOfPackage dependency) dependencies
-            }
+            ${lib.concatMapStrings (dependency: pinpointDependenciesOfPackage dependency) dependencies}
             cd ..
         fi
       ''}
@@ -374,8 +372,7 @@ let
       production,
     }:
     let
-      forceOfflineFlag =
-        if bypassCache then "--offline" else "--registry http://www.example.com";
+      forceOfflineFlag = if bypassCache then "--offline" else "--registry http://www.example.com";
     in
     ''
       # Pinpoint the versions of all dependencies to the ones that are actually being used

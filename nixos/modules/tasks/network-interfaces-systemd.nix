@@ -28,9 +28,9 @@ let
     ++ map (vlan: vlan.interface) (attrValues cfg.vlans)
     # add dependency to physical or independently created vswitch member interface
     # TODO: warn the user that any address configured on those interfaces will be useless
-    ++
-      concatMap (i: attrNames (filterAttrs (_: config: config.type != "internal") i.interfaces))
-        (attrValues cfg.vswitches);
+    ++ concatMap (i: attrNames (filterAttrs (_: config: config.type != "internal") i.interfaces)) (
+      attrValues cfg.vswitches
+    );
 
   domains = cfg.search ++ (optional (cfg.domain != null) cfg.domain);
   genericNetwork =
@@ -88,9 +88,7 @@ let
         # Like above, but this is much more likely to be correct.
         matchConfig.WLANInterfaceType = "station";
         DHCP = "yes";
-        linkConfig.RequiredForOnline =
-          lib.mkDefault
-            config.systemd.network.wait-online.anyInterface;
+        linkConfig.RequiredForOnline = lib.mkDefault config.systemd.network.wait-online.anyInterface;
         networkConfig.IPv6PrivacyExtensions = "kernel";
         # We also set the route metric to one more than the default
         # of 1024, so that Ethernet is preferred if both are
@@ -109,9 +107,7 @@ let
               Name = i.name;
               Kind = i.virtualType;
             };
-            "${i.virtualType}Config" = optionalAttrs (i.virtualOwner != null) {
-              User = i.virtualOwner;
-            };
+            "${i.virtualType}Config" = optionalAttrs (i.virtualOwner != null) { User = i.virtualOwner; };
           };
         });
         networks."40-${i.name}" = mkMerge [
@@ -316,9 +312,7 @@ in
                           (mapAttrsToList (k: _: k) do);
                       "";
                     # get those driverOptions that have been set
-                    filterSystemdOptions = filterAttrs (
-                      sysDOpt: kOpts: any (kOpt: do ? ${kOpt}) kOpts.optNames
-                    );
+                    filterSystemdOptions = filterAttrs (sysDOpt: kOpts: any (kOpt: do ? ${kOpt}) kOpts.optNames);
                     # build final set of systemd options to bond values
                     buildOptionSet = mapAttrs (
                       _: kOpts:
@@ -475,8 +469,7 @@ in
       systemd.services =
         let
           # We must escape interfaces due to the systemd interpretation
-          subsystemDevice =
-            interface: "sys-subsystem-net-devices-${escapeSystemdPath interface}.device";
+          subsystemDevice = interface: "sys-subsystem-net-devices-${escapeSystemdPath interface}.device";
           # support for creating openvswitch switches
           createVswitchDevice =
             n: v:

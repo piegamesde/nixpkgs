@@ -42,8 +42,7 @@ let
 
           "0.56" = ./disable-graphviz-0.46.1.patch;
         }
-        .${lib.versions.majorMinor version}
-          or (throw "no graphviz patch for this version of vala");
+        .${lib.versions.majorMinor version} or (throw "no graphviz patch for this version of vala");
 
       disableGraphviz = lib.versionAtLeast version "0.38" && !withGraphviz;
     in

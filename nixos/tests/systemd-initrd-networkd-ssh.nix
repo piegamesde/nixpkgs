@@ -43,9 +43,7 @@ import ./make-test-python.nix (
                 "server,"
                 "${
                   toString (
-                    head (
-                      splitString " " (toString (elemAt (splitString "\n" config.networking.extraHosts) 2))
-                    )
+                    head (splitString " " (toString (elemAt (splitString "\n" config.networking.extraHosts) 2)))
                   )
                 } "
                 "${readFile ./initrd-network-ssh/ssh_host_ed25519_key.pub}"

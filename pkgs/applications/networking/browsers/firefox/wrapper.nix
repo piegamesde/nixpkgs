@@ -146,8 +146,7 @@ let
 
       nameArray = builtins.map (a: a.name) (lib.optionals usesNixExtensions nixExtensions);
 
-      requiresSigning =
-        browser ? MOZ_REQUIRE_SIGNING -> toString browser.MOZ_REQUIRE_SIGNING != "";
+      requiresSigning = browser ? MOZ_REQUIRE_SIGNING -> toString browser.MOZ_REQUIRE_SIGNING != "";
 
       # Check that every extension has a unqiue .name attribute
       # and an extid attribute
@@ -213,9 +212,7 @@ let
         // to be able to install addons that do not have an extid
         // Security is maintained because only user whitelisted addons
         // with a checksum can be installed
-        ${
-          lib.optionalString usesNixExtensions ''lockPref("xpinstall.signatures.required", false)''
-        };
+        ${lib.optionalString usesNixExtensions ''lockPref("xpinstall.signatures.required", false)''};
       '';
     in
     #############################

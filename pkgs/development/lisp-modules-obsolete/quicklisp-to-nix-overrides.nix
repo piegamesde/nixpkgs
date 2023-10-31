@@ -7,8 +7,7 @@ let
   addNativeLibs = libs: x: { propagatedBuildInputs = libs; };
   skipBuildPhase = x: { overrides = y: ((x.overrides y) // { buildPhase = "true"; }); };
   multiOverride =
-    l: x:
-    if l == [ ] then { } else ((builtins.head l) x) // (multiOverride (builtins.tail l) x);
+    l: x: if l == [ ] then { } else ((builtins.head l) x) // (multiOverride (builtins.tail l) x);
   lispName = (clwrapper.lisp.pname or (builtins.parseDrvName clwrapper.lisp.name).name);
   ifLispIn = l: f: if (pkgs.lib.elem lispName l) then f else (x: { });
   ifLispNotIn = l: f: if !(pkgs.lib.elem lispName l) then f else (x: { });
@@ -295,9 +294,7 @@ in
       ];
   };
   cl-postgres = x: {
-    deps =
-      pkgs.lib.filter (x: x.outPath != quicklisp-to-nix-packages.simple-date.outPath)
-        x.deps;
+    deps = pkgs.lib.filter (x: x.outPath != quicklisp-to-nix-packages.simple-date.outPath) x.deps;
     parasites = (x.parasites or [ ]) ++ [
       "simple-date"
       "simple-date/postgres-glue"
@@ -305,9 +302,7 @@ in
     asdFilesToKeep = x.asdFilesToKeep ++ [ "simple-date.asd" ];
   };
   buildnode = x: {
-    deps =
-      pkgs.lib.filter (x: x.name != quicklisp-to-nix-packages.buildnode-xhtml.name)
-        x.deps;
+    deps = pkgs.lib.filter (x: x.name != quicklisp-to-nix-packages.buildnode-xhtml.name) x.deps;
     parasites = pkgs.lib.filter (x: x != "buildnode-test") x.parasites;
   };
   postmodern = x: {

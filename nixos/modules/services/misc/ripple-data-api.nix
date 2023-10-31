@@ -153,9 +153,7 @@ in
 
       environment = {
         NODE_ENV = "production";
-        DEPLOYMENT_ENVS_CONFIG =
-          pkgs.writeText "deployment.environment.json"
-            deployment_env_config;
+        DEPLOYMENT_ENVS_CONFIG = pkgs.writeText "deployment.environment.json" deployment_env_config;
         DB_CONFIG = pkgs.writeText "db.config.json" db_config;
       };
 
@@ -173,9 +171,7 @@ in
 
       environment = {
         NODE_ENV = "production";
-        DEPLOYMENT_ENVS_CONFIG =
-          pkgs.writeText "deployment.environment.json"
-            deployment_env_config;
+        DEPLOYMENT_ENVS_CONFIG = pkgs.writeText "deployment.environment.json" deployment_env_config;
         DB_CONFIG = pkgs.writeText "db.config.json" db_config;
         LOG_FILE = "/dev/null";
       };

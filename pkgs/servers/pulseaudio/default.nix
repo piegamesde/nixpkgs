@@ -180,10 +180,7 @@ stdenv.mkDerivation rec {
       "-Dbluez5=${if !libOnly && bluetoothSupport then "enabled" else "disabled"}"
       # advanced bluetooth audio codecs are provided by gstreamer
       "-Dbluez5-gstreamer=${
-        if (!libOnly && bluetoothSupport && advancedBluetoothCodecs) then
-          "enabled"
-        else
-          "disabled"
+        if (!libOnly && bluetoothSupport && advancedBluetoothCodecs) then "enabled" else "disabled"
       }"
       "-Ddatabase=simple"
       "-Ddoxygen=false"

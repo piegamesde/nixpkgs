@@ -375,9 +375,7 @@ in
       extra-sandbox-paths =
         let
           ruleFor = system: cfg.registrations.${system};
-          hasWrappedRule =
-            lib.any (system: (ruleFor system).wrapInterpreterInShell)
-              cfg.emulatedSystems;
+          hasWrappedRule = lib.any (system: (ruleFor system).wrapInterpreterInShell) cfg.emulatedSystems;
         in
         [ "/run/binfmt" ]
         ++ lib.optional hasWrappedRule "${pkgs.bash}"
@@ -385,9 +383,7 @@ in
     };
 
     environment.etc."binfmt.d/nixos.conf".source = builtins.toFile "binfmt_nixos.conf" (
-      lib.concatStringsSep "\n" (
-        lib.mapAttrsToList makeBinfmtLine config.boot.binfmt.registrations
-      )
+      lib.concatStringsSep "\n" (lib.mapAttrsToList makeBinfmtLine config.boot.binfmt.registrations)
     );
     system.activationScripts.binfmt = stringAfter [ "specialfs" ] ''
       mkdir -p -m 0755 /run/binfmt

@@ -99,9 +99,7 @@ in
         secure = mkOption {
           type = types.bool;
           default = true;
-          description =
-            lib.mdDoc
-              "Whether the connections to the proxy should be considered secure.";
+          description = lib.mdDoc "Whether the connections to the proxy should be considered secure.";
         };
       };
 
@@ -152,9 +150,7 @@ in
         type = types.package;
         default = pkgs.oraclejre8;
         defaultText = literalExpression "pkgs.oraclejre8";
-        description =
-          lib.mdDoc
-            "Note that Atlassian only support the Oracle JRE (JRASERVER-46152).";
+        description = lib.mdDoc "Note that Atlassian only support the Oracle JRE (JRASERVER-46152).";
       };
     };
   };

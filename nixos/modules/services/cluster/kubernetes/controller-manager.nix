@@ -44,9 +44,7 @@ in
   options.services.kubernetes.controllerManager = with lib.types; {
 
     allocateNodeCIDRs = mkOption {
-      description =
-        lib.mdDoc
-          "Whether to automatically allocate CIDR ranges for cluster nodes.";
+      description = lib.mdDoc "Whether to automatically allocate CIDR ranges for cluster nodes.";
       default = true;
       type = bool;
     };
@@ -148,9 +146,7 @@ in
           ${top.package}/bin/kube-controller-manager \
                     --allocate-node-cidrs=${boolToString cfg.allocateNodeCIDRs} \
                     --bind-address=${cfg.bindAddress} \
-                    ${
-                      optionalString (cfg.clusterCidr != null) "--cluster-cidr=${cfg.clusterCidr}"
-                    } \
+                    ${optionalString (cfg.clusterCidr != null) "--cluster-cidr=${cfg.clusterCidr}"} \
                     ${
                       optionalString (cfg.featureGates != [ ])
                         "--feature-gates=${concatMapStringsSep "," (feature: "${feature}=true") cfg.featureGates}"
@@ -163,9 +159,7 @@ in
                       optionalString (cfg.serviceAccountKeyFile != null)
                         "--service-account-private-key-file=${cfg.serviceAccountKeyFile}"
                     } \
-                    ${
-                      optionalString (cfg.tlsCertFile != null) "--tls-cert-file=${cfg.tlsCertFile}"
-                    } \
+                    ${optionalString (cfg.tlsCertFile != null) "--tls-cert-file=${cfg.tlsCertFile}"} \
                     ${
                       optionalString (cfg.tlsKeyFile != null) "--tls-private-key-file=${cfg.tlsKeyFile}"
                     } \

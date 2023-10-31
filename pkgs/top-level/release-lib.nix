@@ -112,9 +112,7 @@ rec {
   # This is written in a funny way so that we only elaborate the systems once.
   supportedMatches =
     let
-      supportedPlatforms =
-        map (system: lib.systems.elaborate { inherit system; })
-          supportedSystems;
+      supportedPlatforms = map (system: lib.systems.elaborate { inherit system; }) supportedSystems;
     in
     metaPatterns:
     let
@@ -168,8 +166,7 @@ rec {
   _mapTestOnHelper =
     f: crossSystem:
     mapAttrsRecursive (
-      path: metaPatterns:
-      testOnCross crossSystem metaPatterns (pkgs: f (getAttrFromPath path pkgs))
+      path: metaPatterns: testOnCross crossSystem metaPatterns (pkgs: f (getAttrFromPath path pkgs))
     );
 
   # Similar to the testOn function, but with an additional 'crossSystem'

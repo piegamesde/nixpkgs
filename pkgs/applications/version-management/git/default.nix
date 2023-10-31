@@ -80,12 +80,7 @@ stdenv.mkDerivation (
       +
         lib.optionalString
           (
-            !svnSupport
-            && !guiSupport
-            && !sendEmailSupport
-            && !withManual
-            && !pythonSupport
-            && !withpcre2
+            !svnSupport && !guiSupport && !sendEmailSupport && !withManual && !pythonSupport && !withpcre2
           )
           "-minimal";
     inherit version;
@@ -188,9 +183,7 @@ stdenv.mkDerivation (
       # Git does not allow setting a shell separately for building and run-time.
       # Therefore lets leave it at the default /bin/sh when cross-compiling
       ++ lib.optional (stdenv.buildPlatform == stdenv.hostPlatform) "SHELL_PATH=${stdenv.shell}"
-      ++ (
-        if perlSupport then [ "PERL_PATH=${perlPackages.perl}/bin/perl" ] else [ "NO_PERL=1" ]
-      )
+      ++ (if perlSupport then [ "PERL_PATH=${perlPackages.perl}/bin/perl" ] else [ "NO_PERL=1" ])
       ++ (if pythonSupport then [ "PYTHON_PATH=${python3}/bin/python" ] else [ "NO_PYTHON=1" ])
       ++ lib.optionals stdenv.isSunOS [
         "INSTALL=install"

@@ -18,9 +18,7 @@ let
     ${pkgs.lsof}/bin/lsof | ${pkgs.gnugrep}/bin/grep $MNTPT | ${pkgs.gawk}/bin/awk '{print $2}' | ${pkgs.findutils}/bin/xargs ${pkgs.util-linux}/bin/kill -$SIGNAL
   '';
 
-  anyPamMount = any (attrByPath [ "pamMount" ] false) (
-    attrValues config.security.pam.services
-  );
+  anyPamMount = any (attrByPath [ "pamMount" ] false) (attrValues config.security.pam.services);
 in
 
 {

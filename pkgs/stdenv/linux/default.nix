@@ -157,16 +157,14 @@ let
 
   # Download and unpack the bootstrap tools (coreutils, GCC, Glibc, ...).
   bootstrapTools =
-    (import (if localSystem.libc == "musl" then ./bootstrap-tools-musl else ./bootstrap-tools)
-      {
-        inherit system bootstrapFiles;
-        extraAttrs = lib.optionalAttrs config.contentAddressedByDefault {
-          __contentAddressed = true;
-          outputHashAlgo = "sha256";
-          outputHashMode = "recursive";
-        };
-      }
-    )
+    (import (if localSystem.libc == "musl" then ./bootstrap-tools-musl else ./bootstrap-tools) {
+      inherit system bootstrapFiles;
+      extraAttrs = lib.optionalAttrs config.contentAddressedByDefault {
+        __contentAddressed = true;
+        outputHashAlgo = "sha256";
+        outputHashMode = "recursive";
+      };
+    })
     // {
       passthru.isFromBootstrapFiles = true;
     };
@@ -232,8 +230,7 @@ let
                 }
               );
 
-        overrides =
-          self: super: (overrides self super) // { fetchurl = thisStdenv.fetchurlBoot; };
+        overrides = self: super: (overrides self super) // { fetchurl = thisStdenv.fetchurlBoot; };
       };
     in
     {

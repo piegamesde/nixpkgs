@@ -126,13 +126,10 @@ stdenv.mkDerivation {
     stdenv.cc.cc.lib
   ] ++ optional stdenv.isLinux libaio ++ optional odbcSupport unixODBC;
 
-  nativeBuildInputs =
-    [
-      makeWrapper
-      unzip
-    ]
-    ++ optional stdenv.isLinux autoPatchelfHook
-    ++ optional stdenv.isDarwin fixDarwinDylibNames;
+  nativeBuildInputs = [
+    makeWrapper
+    unzip
+  ] ++ optional stdenv.isLinux autoPatchelfHook ++ optional stdenv.isDarwin fixDarwinDylibNames;
 
   outputs = [
     "out"

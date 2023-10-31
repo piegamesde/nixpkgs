@@ -405,8 +405,7 @@ in
                   cfg.extraConfig
               } $out/config.js
               cp ${
-                overrideJs "${pkgs.jitsi-meet}/interface_config.js" "interfaceConfig" cfg.interfaceConfig
-                  ""
+                overrideJs "${pkgs.jitsi-meet}/interface_config.js" "interfaceConfig" cfg.interfaceConfig ""
               } $out/interface_config.js
               cp ./libs/external_api.min.js $out/external_api.js
             '';

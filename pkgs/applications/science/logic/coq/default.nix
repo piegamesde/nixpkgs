@@ -77,8 +77,7 @@ let
   };
   releaseRev = v: "V${v}";
   fetched =
-    import ../../../../build-support/coq/meta-fetch/default.nix
-      { inherit lib stdenv fetchzip; }
+    import ../../../../build-support/coq/meta-fetch/default.nix { inherit lib stdenv fetchzip; }
       {
         inherit release releaseRev;
         location = {

@@ -12,10 +12,7 @@ stdenv.mkDerivation rec {
   pname = "mxu11x0";
 
   src =
-    if lib.versionAtLeast kernel.version "5.0" then
-      srcs.mxu11x0_5.src
-    else
-      srcs.mxu11x0_4.src;
+    if lib.versionAtLeast kernel.version "5.0" then srcs.mxu11x0_5.src else srcs.mxu11x0_4.src;
   mxu_version =
     if lib.versionAtLeast kernel.version "5.0" then
       srcs.mxu11x0_5.version

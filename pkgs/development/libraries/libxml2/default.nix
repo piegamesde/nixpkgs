@@ -42,15 +42,12 @@ let
     pname = "libxml2";
     version = "2.10.4";
 
-    outputs =
-      [
-        "bin"
-        "dev"
-        "out"
-        "doc"
-      ]
-      ++ lib.optional pythonSupport "py"
-      ++ lib.optional (enableStatic && enableShared) "static";
+    outputs = [
+      "bin"
+      "dev"
+      "out"
+      "doc"
+    ] ++ lib.optional pythonSupport "py" ++ lib.optional (enableStatic && enableShared) "static";
     outputMan = "bin";
 
     src = fetchurl {
@@ -120,8 +117,7 @@ let
 
     enableParallelBuilding = true;
 
-    doCheck =
-      (stdenv.hostPlatform == stdenv.buildPlatform) && stdenv.hostPlatform.libc != "musl";
+    doCheck = (stdenv.hostPlatform == stdenv.buildPlatform) && stdenv.hostPlatform.libc != "musl";
     preCheck = lib.optional stdenv.isDarwin ''
       export DYLD_LIBRARY_PATH="$PWD/.libs:$DYLD_LIBRARY_PATH"
     '';

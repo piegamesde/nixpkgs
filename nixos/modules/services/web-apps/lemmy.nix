@@ -38,9 +38,7 @@ in
 
     caddy.enable = mkEnableOption (lib.mdDoc "exposing lemmy with the caddy reverse proxy");
 
-    database.createLocally = mkEnableOption (
-      lib.mdDoc "creation of database on the instance"
-    );
+    database.createLocally = mkEnableOption (lib.mdDoc "creation of database on the instance");
 
     settings = mkOption {
       default = { };
@@ -166,8 +164,7 @@ in
         assertion =
           cfg.database.createLocally
           ->
-            cfg.settings.database.host == "localhost"
-            || cfg.settings.database.host == "/run/postgresql";
+            cfg.settings.database.host == "localhost" || cfg.settings.database.host == "/run/postgresql";
         message = "if you want to create the database locally, you need to use a local database";
       }
     ];

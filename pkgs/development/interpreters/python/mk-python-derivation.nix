@@ -169,9 +169,7 @@ let
             * If ${theirName} provides executables that are called at run time, pass its
               bin path to makeWrapperArgs:
 
-                  makeWrapperArgs = [ "--prefix PATH : ''${lib.makeBinPath [ ${
-                    lib.getName drv
-                  } ] }" ];
+                  makeWrapperArgs = [ "--prefix PATH : ''${lib.makeBinPath [ ${lib.getName drv} ] }" ];
 
           ${optionalLocation}
         '';

@@ -55,8 +55,7 @@ stdenv.mkDerivation rec {
           if stdenv.hostPlatform.isDarwin then
             ''
               install_name_tool ${
-                lib.strings.concatMapStrings (x: " -add_rpath ${makeLibraryPath [ x ]} ")
-                  propagatedBuildInputs
+                lib.strings.concatMapStrings (x: " -add_rpath ${makeLibraryPath [ x ]} ") propagatedBuildInputs
               } "$lib"
             ''
           else

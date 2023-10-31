@@ -9032,9 +9032,7 @@ let
       sources."browserify-cipher-1.0.1"
       sources."browserify-des-1.0.2"
       sources."browserify-rsa-4.1.0"
-      (
-        sources."browserify-sign-4.2.1" // { dependencies = [ sources."readable-stream-3.6.0" ]; }
-      )
+      (sources."browserify-sign-4.2.1" // { dependencies = [ sources."readable-stream-3.6.0" ]; })
       sources."browserify-zlib-0.2.0"
       sources."browserslist-4.21.4"
       sources."bs-recipes-1.3.4"
@@ -9117,12 +9115,7 @@ let
       sources."component-emitter-1.3.0"
       sources."concat-map-0.0.1"
       sources."concat-stream-1.6.2"
-      (
-        sources."concat-with-sourcemaps-1.1.0"
-        // {
-          dependencies = [ sources."source-map-0.6.1" ];
-        }
-      )
+      (sources."concat-with-sourcemaps-1.1.0" // { dependencies = [ sources."source-map-0.6.1" ]; })
       (
         sources."connect-3.6.6"
         // {
@@ -9603,9 +9596,7 @@ let
       sources."ionicons-3.0.0"
       sources."is-absolute-1.0.0"
       sources."is-absolute-url-2.1.0"
-      (
-        sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; }
-      )
+      (sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; })
       sources."is-arguments-1.1.1"
       sources."is-arrayish-0.2.1"
       sources."is-bigint-1.0.4"
@@ -10124,9 +10115,7 @@ let
       )
       sources."readdirp-3.6.0"
       sources."rechoir-0.6.2"
-      (
-        sources."reduce-css-calc-1.3.0" // { dependencies = [ sources."balanced-match-0.4.2" ]; }
-      )
+      (sources."reduce-css-calc-1.3.0" // { dependencies = [ sources."balanced-match-0.4.2" ]; })
       sources."reduce-function-call-1.0.3"
       sources."regex-not-1.0.2"
       sources."regexp.prototype.flags-1.4.3"
@@ -10222,12 +10211,7 @@ let
       sources."signal-exit-3.0.7"
       sources."simple-concat-1.0.1"
       sources."slash-3.0.0"
-      (
-        sources."slice-ansi-1.0.0"
-        // {
-          dependencies = [ sources."is-fullwidth-code-point-2.0.0" ];
-        }
-      )
+      (sources."slice-ansi-1.0.0" // { dependencies = [ sources."is-fullwidth-code-point-2.0.0" ]; })
       sources."slimscroll-0.9.1"
       (
         sources."snapdragon-0.8.2"
@@ -10272,12 +10256,7 @@ let
       sources."stack-trace-0.0.10"
       (sources."static-extend-0.1.2" // { dependencies = [ sources."define-property-0.2.5" ]; })
       sources."statuses-1.3.1"
-      (
-        sources."stream-browserify-3.0.0"
-        // {
-          dependencies = [ sources."readable-stream-3.6.0" ];
-        }
-      )
+      (sources."stream-browserify-3.0.0" // { dependencies = [ sources."readable-stream-3.6.0" ]; })
       sources."stream-combiner-0.2.2"
       sources."stream-combiner2-1.1.1"
       sources."stream-counter-1.0.0"

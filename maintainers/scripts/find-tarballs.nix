@@ -60,9 +60,7 @@ let
       concatLists (map derivationsIn' x)
     else if isAttrs x then
       concatLists (
-        mapAttrsToList
-          (n: v: addErrorContext "while finding tarballs in '${n}':" (derivationsIn' v))
-          x
+        mapAttrsToList (n: v: addErrorContext "while finding tarballs in '${n}':" (derivationsIn' v)) x
       )
     else
       [ ];

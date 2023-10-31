@@ -156,8 +156,7 @@ in
         [infinoted]
         ${optionalString (cfg.keyFile != null) "key-file=${cfg.keyFile}"}
         ${optionalString (cfg.certificateFile != null) "certificate-file=${cfg.certificateFile}"}
-        ${optionalString (cfg.certificateChain != null)
-          "certificate-chain=${cfg.certificateChain}"}
+        ${optionalString (cfg.certificateChain != null) "certificate-chain=${cfg.certificateChain}"}
         port=${toString cfg.port}
         security-policy=${cfg.securityPolicy}
         root-directory=${cfg.rootDirectory}

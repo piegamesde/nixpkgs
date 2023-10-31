@@ -403,8 +403,7 @@ rec {
       };
 
       # Merge extraDeps into generatedDeps.
-      deps =
-        generatedDeps // (lib.mapAttrs (name: deps: generatedDeps.${name} // deps) extraDeps);
+      deps = generatedDeps // (lib.mapAttrs (name: deps: generatedDeps.${name} // deps) extraDeps);
 
       # Create derivations, and add private frameworks.
       bareFrameworks =

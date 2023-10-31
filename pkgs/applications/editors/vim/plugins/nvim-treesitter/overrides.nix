@@ -66,9 +66,7 @@ let
     f:
     self.nvim-treesitter.overrideAttrs (
       _: {
-        passthru.dependencies = map grammarToPlugin (
-          f (tree-sitter.builtGrammars // builtGrammars)
-        );
+        passthru.dependencies = map grammarToPlugin (f (tree-sitter.builtGrammars // builtGrammars));
       }
     );
 
@@ -93,9 +91,7 @@ in
 
     tests.check-queries =
       let
-        nvimWithAllGrammars = neovim.override {
-          configure.packages.all.start = [ withAllGrammars ];
-        };
+        nvimWithAllGrammars = neovim.override { configure.packages.all.start = [ withAllGrammars ]; };
       in
       runCommand "nvim-treesitter-check-queries"
         {

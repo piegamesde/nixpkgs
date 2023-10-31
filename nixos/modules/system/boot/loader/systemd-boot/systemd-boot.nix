@@ -347,9 +347,7 @@ in
       (mkIf cfg.memtest86.enable {
         "efi/memtest86/BOOTX64.efi" = "${pkgs.memtest86-efi}/BOOTX64.efi";
       })
-      (mkIf cfg.netbootxyz.enable {
-        "efi/netbootxyz/netboot.xyz.efi" = "${pkgs.netbootxyz-efi}";
-      })
+      (mkIf cfg.netbootxyz.enable { "efi/netbootxyz/netboot.xyz.efi" = "${pkgs.netbootxyz-efi}"; })
     ];
 
     boot.loader.systemd-boot.extraEntries = mkMerge [

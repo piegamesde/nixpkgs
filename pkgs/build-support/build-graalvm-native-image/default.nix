@@ -49,8 +49,7 @@ stdenv.mkDerivation (
       glibcLocales
     ];
 
-    nativeImageBuildArgs =
-      nativeImageBuildArgs ++ extraNativeImageBuildArgs ++ [ graalvmXmx ];
+    nativeImageBuildArgs = nativeImageBuildArgs ++ extraNativeImageBuildArgs ++ [ graalvmXmx ];
 
     buildPhase =
       args.buildPhase or ''
@@ -83,9 +82,7 @@ stdenv.mkDerivation (
       mainProgram = executable;
       # need to have native-image-installable-svm available
       broken =
-        !(builtins.any (p: (p.product or "") == "native-image-installable-svm")
-          graalvmDrv.products
-        );
+        !(builtins.any (p: (p.product or "") == "native-image-installable-svm") graalvmDrv.products);
     } // meta;
   }
   // extraArgs

@@ -497,8 +497,7 @@ lib.makeScope pkgs.newScope (
             }
             {
               name = "openssl";
-              buildInputs =
-                if (lib.versionAtLeast php.version "8.1") then [ openssl ] else [ openssl_1_1 ];
+              buildInputs = if (lib.versionAtLeast php.version "8.1") then [ openssl ] else [ openssl_1_1 ];
               configureFlags = [ "--with-openssl" ];
               doCheck = false;
             }

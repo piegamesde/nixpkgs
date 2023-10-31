@@ -136,8 +136,7 @@ let
       }
     )
     // {
-      satisfiesSubpathInvariant =
-        src ? satisfiesSubpathInvariant && src.satisfiesSubpathInvariant;
+      satisfiesSubpathInvariant = src ? satisfiesSubpathInvariant && src.satisfiesSubpathInvariant;
     };
 
   /* Filter sources by a list of regular expressions.

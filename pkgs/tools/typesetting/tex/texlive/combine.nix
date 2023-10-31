@@ -175,13 +175,9 @@ in
       # now filter hyphenation patterns and formats
       (
         let
-          hyphens =
-            lib.filter (p: p.hasHyphens or false && p.tlType == "run")
-              pkgList.splitBin.wrong;
+          hyphens = lib.filter (p: p.hasHyphens or false && p.tlType == "run") pkgList.splitBin.wrong;
           hyphenPNames = map (p: p.pname) hyphens;
-          formats =
-            lib.filter (p: p.hasFormats or false && p.tlType == "run")
-              pkgList.splitBin.wrong;
+          formats = lib.filter (p: p.hasFormats or false && p.tlType == "run") pkgList.splitBin.wrong;
           formatPNames = map (p: p.pname) formats;
           # sed expression that prints the lines in /start/,/end/ except for /end/
           section = start: end: ''
@@ -199,10 +195,7 @@ in
             # pick up all sections matching packages that we combine
             +
               lib.concatMapStrings
-                (
-                  pname:
-                  section "^% from ${pname}:$" "^% from|^%%% No changes may be made beyond this point.$"
-                )
+                (pname: section "^% from ${pname}:$" "^% from|^%%% No changes may be made beyond this point.$")
                 hyphenPNames
             # pick up the footer (for language.def)
             + ''

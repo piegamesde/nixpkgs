@@ -38,9 +38,7 @@ stdenv.mkDerivation rec {
 
   dontBuild = true;
 
-  mesonFlags = [
-    "-Dgnome_shell_version=${lib.versions.majorMinor gnome.gnome-shell.version}"
-  ];
+  mesonFlags = [ "-Dgnome_shell_version=${lib.versions.majorMinor gnome.gnome-shell.version}" ];
 
   postInstall = ''
     rm $out/share/themes/*/COPYING

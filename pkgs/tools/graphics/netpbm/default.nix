@@ -56,9 +56,7 @@ stdenv.mkDerivation {
   enableParallelBuilding = true;
 
   # Environment variables
-  STRIPPROG = "${
-      lib.getBin stdenv.cc.bintools.bintools
-    }/bin/${stdenv.cc.targetPrefix}strip";
+  STRIPPROG = "${lib.getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}strip";
 
   postPatch = ''
     # Install libnetpbm.so symlink to correct destination

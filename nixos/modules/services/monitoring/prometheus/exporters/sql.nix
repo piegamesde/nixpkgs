@@ -34,9 +34,7 @@ let
       startupSql = mkOption {
         type = listOf str;
         default = [ ];
-        description =
-          lib.mdDoc
-            "A list of SQL statements to execute once after making a connection.";
+        description = lib.mdDoc "A list of SQL statements to execute once after making a connection.";
       };
       queries = mkOption {
         type = attrsOf (submodule queryOptions);
@@ -76,9 +74,7 @@ let
         renameStartupSql = j: removeAttrs (j // { startup_sql = j.startupSql; }) [ "startupSql" ];
         configuration = {
           jobs = map renameStartupSql (
-            nameInline (
-              mapAttrs (k: v: (v // { queries = nameInline v.queries; })) cfg.configuration.jobs
-            )
+            nameInline (mapAttrs (k: v: (v // { queries = nameInline v.queries; })) cfg.configuration.jobs)
           );
         };
       in

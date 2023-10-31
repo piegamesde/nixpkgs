@@ -332,9 +332,7 @@ in
             excludeFlags =
               if (backup.exclude != [ ]) then
                 [
-                  "--exclude-file=${
-                    pkgs.writeText "exclude-patterns" (concatStringsSep "\n" backup.exclude)
-                  }"
+                  "--exclude-file=${pkgs.writeText "exclude-patterns" (concatStringsSep "\n" backup.exclude)}"
                 ]
               else
                 [ ];
@@ -367,9 +365,7 @@ in
                   mapAttrs' (name: value: nameValuePair (rcloneAttrToOpt name) (toRcloneVal value))
                     backup.rcloneOptions
                 )
-                // optionalAttrs (backup.rcloneConfigFile != null) {
-                  RCLONE_CONFIG = backup.rcloneConfigFile;
-                }
+                // optionalAttrs (backup.rcloneConfigFile != null) { RCLONE_CONFIG = backup.rcloneConfigFile; }
                 // optionalAttrs (backup.rcloneConfig != null) (
                   mapAttrs' (name: value: nameValuePair (rcloneAttrToConf name) (toRcloneVal value))
                     backup.rcloneConfig
@@ -398,11 +394,7 @@ in
             }
             //
               optionalAttrs
-                (
-                  backup.initialize
-                  || backup.dynamicFilesFrom != null
-                  || backup.backupPrepareCommand != null
-                )
+                (backup.initialize || backup.dynamicFilesFrom != null || backup.backupPrepareCommand != null)
                 {
                   preStart = ''
                     ${optionalString (backup.backupPrepareCommand != null) ''
@@ -416,18 +408,16 @@ in
                     ''}
                   '';
                 }
-            //
-              optionalAttrs (backup.dynamicFilesFrom != null || backup.backupCleanupCommand != null)
-                {
-                  postStop = ''
-                    ${optionalString (backup.backupCleanupCommand != null) ''
-                      ${pkgs.writeScript "backupCleanupCommand" backup.backupCleanupCommand}
-                    ''}
-                    ${optionalString (backup.dynamicFilesFrom != null) ''
-                      rm ${filesFromTmpFile}
-                    ''}
-                  '';
-                }
+            // optionalAttrs (backup.dynamicFilesFrom != null || backup.backupCleanupCommand != null) {
+              postStop = ''
+                ${optionalString (backup.backupCleanupCommand != null) ''
+                  ${pkgs.writeScript "backupCleanupCommand" backup.backupCleanupCommand}
+                ''}
+                ${optionalString (backup.dynamicFilesFrom != null) ''
+                  rm ${filesFromTmpFile}
+                ''}
+              '';
+            }
           )
         )
         config.services.restic.backups;

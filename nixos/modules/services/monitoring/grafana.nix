@@ -49,9 +49,7 @@ let
     notifiers = cfg.provision.notifiers;
   };
 
-  notifierFileOrDir = pkgs.writeText "notifier.yaml" (
-    builtins.toJSON notifierConfiguration
-  );
+  notifierFileOrDir = pkgs.writeText "notifier.yaml" (builtins.toJSON notifierConfiguration);
 
   generateAlertingProvisioningYaml =
     x:
@@ -1070,9 +1068,7 @@ in
         options = {
           paths = {
             plugins = mkOption {
-              description =
-                lib.mdDoc
-                  "Directory where grafana will automatically scan and look for plugins";
+              description = lib.mdDoc "Directory where grafana will automatically scan and look for plugins";
               default =
                 if (cfg.declarativePlugins == null) then "${cfg.dataDir}/plugins" else declarativePlugins;
               defaultText =
@@ -1124,9 +1120,7 @@ in
             };
 
             domain = mkOption {
-              description =
-                lib.mdDoc
-                  "The public facing domain name used to access grafana from a browser.";
+              description = lib.mdDoc "The public facing domain name used to access grafana from a browser.";
               default = "localhost";
               type = types.str;
             };
@@ -1322,9 +1316,7 @@ in
           };
 
           analytics.reporting_enabled = mkOption {
-            description =
-              lib.mdDoc
-                "Whether to allow anonymous usage reporting to stats.grafana.net.";
+            description = lib.mdDoc "Whether to allow anonymous usage reporting to stats.grafana.net.";
             default = true;
             type = types.bool;
           };
@@ -1998,8 +1990,7 @@ in
                 cfg.provision.datasources.settings.datasources;
             declarationUnsafe =
               { secureJsonData, ... }:
-              secureJsonData != null
-              && any (flip doesntUseFileProvider null) (attrValues secureJsonData);
+              secureJsonData != null && any (flip doesntUseFileProvider null) (attrValues secureJsonData);
           in
           any declarationUnsafe datasourcesToCheck
         )
@@ -2031,14 +2022,12 @@ in
         message = "For datasources of type `prometheus`, the `direct` access mode is not supported anymore (since Grafana 9.2.0)";
       }
       {
-        assertion =
-          cfg.provision.dashboards.settings == null || cfg.provision.dashboards.path == null;
+        assertion = cfg.provision.dashboards.settings == null || cfg.provision.dashboards.path == null;
         message = "Cannot set both dashboards settings and dashboards path";
       }
       {
         assertion =
-          cfg.provision.alerting.rules.settings == null
-          || cfg.provision.alerting.rules.path == null;
+          cfg.provision.alerting.rules.settings == null || cfg.provision.alerting.rules.path == null;
         message = "Cannot set both rules settings and rules path";
       }
       {
@@ -2070,10 +2059,9 @@ in
     systemd.services.grafana = {
       description = "Grafana Service Daemon";
       wantedBy = [ "multi-user.target" ];
-      after =
-        [ "networking.target" ]
-        ++ lib.optional usePostgresql "postgresql.service"
-        ++ lib.optional useMysql "mysql.service";
+      after = [
+        "networking.target"
+      ] ++ lib.optional usePostgresql "postgresql.service" ++ lib.optional useMysql "mysql.service";
       script = ''
         set -o errexit -o pipefail -o nounset -o errtrace
         shopt -s inherit_errexit

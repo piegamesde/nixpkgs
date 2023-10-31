@@ -122,14 +122,12 @@ let
   removed-providers =
     let
       archived =
-        name: date:
-        throw "the ${name} terraform provider has been archived by upstream on ${date}";
+        name: date: throw "the ${name} terraform provider has been archived by upstream on ${date}";
       license =
         name: date:
         throw
           "the ${name} terraform provider removed from nixpkgs on ${date} because of unclear licensing";
-      removed =
-        name: date: throw "the ${name} terraform provider removed from nixpkgs on ${date}";
+      removed = name: date: throw "the ${name} terraform provider removed from nixpkgs on ${date}";
     in
     lib.optionalAttrs config.allowAliases {
       b2 = removed "b2" "2022/06";

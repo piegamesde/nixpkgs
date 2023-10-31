@@ -35,9 +35,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  cmakeFlags = [
-    "-DCUDA_ENABLE=OFF"
-  ] ++ lib.optional (!openclSupport) "-DOpenCL_ENABLE=OFF";
+  cmakeFlags = [ "-DCUDA_ENABLE=OFF" ] ++ lib.optional (!openclSupport) "-DOpenCL_ENABLE=OFF";
 
   nativeBuildInputs = [ cmake ];
   buildInputs =

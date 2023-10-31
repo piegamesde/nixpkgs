@@ -88,9 +88,7 @@ buildNpmPackage rec {
   passAsFile =
     [ "extraParameters" ]
     ++ lib.optionals
-      (
-        !(builtins.isString privateBuildPlan && lib.hasPrefix builtins.storeDir privateBuildPlan)
-      )
+      (!(builtins.isString privateBuildPlan && lib.hasPrefix builtins.storeDir privateBuildPlan))
       [ "buildPlan" ];
 
   configurePhase = ''
@@ -99,9 +97,7 @@ buildNpmPackage rec {
       remarshal -i "$buildPlanPath" -o private-build-plans.toml -if json -of toml
     ''}
     ${lib.optionalString
-      (
-        builtins.isString privateBuildPlan && (!lib.hasPrefix builtins.storeDir privateBuildPlan)
-      )
+      (builtins.isString privateBuildPlan && (!lib.hasPrefix builtins.storeDir privateBuildPlan))
       ''
         cp "$buildPlanPath" private-build-plans.toml
       ''}

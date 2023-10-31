@@ -16,9 +16,7 @@ let
     set -exuo pipefail
     umask 0077
     ${pkgs.yq}/bin/yq \
-      --slurpfile overrides <(${pkgs.yq}/bin/yq . <${
-        lib.escapeShellArg cfg.extraSettingsFile
-      }) \
+      --slurpfile overrides <(${pkgs.yq}/bin/yq . <${lib.escapeShellArg cfg.extraSettingsFile}) \
       < ${settingsFormat.generate "schleuder.yml" cfg.settings} \
       '. * $overrides[0]' \
       > /etc/schleuder/schleuder.yml

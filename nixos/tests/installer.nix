@@ -380,10 +380,7 @@ let
             # the same during and after installation.
             virtualisation.emptyDiskImages = [ 512 ];
             virtualisation.rootDevice =
-              if grubVersion == 1 then
-                "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive2"
-              else
-                "/dev/vdb";
+              if grubVersion == 1 then "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive2" else "/dev/vdb";
             virtualisation.bootLoaderDevice = "/dev/vda";
             virtualisation.qemu.diskInterface = if grubVersion == 1 then "scsi" else "virtio";
 
@@ -444,9 +441,7 @@ let
               ++ optional (bootLoader == "grub" && grubVersion == 1) pkgs.grub
               ++ optionals (bootLoader == "grub" && grubVersion == 2) (
                 let
-                  zfsSupport = lib.any (x: x == "zfs") (
-                    extraInstallerConfig.boot.supportedFilesystems or [ ]
-                  );
+                  zfsSupport = lib.any (x: x == "zfs") (extraInstallerConfig.boot.supportedFilesystems or [ ]);
                 in
                 [
                   (pkgs.grub2.override { inherit zfsSupport; })

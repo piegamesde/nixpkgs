@@ -30,8 +30,7 @@ let
     set: onlyDry:
     let
       set' =
-        mapAttrs
-          (_: v: if isString v then (noDepEntry v) // { supportsDryActivation = false; } else v)
+        mapAttrs (_: v: if isString v then (noDepEntry v) // { supportsDryActivation = false; } else v)
           set;
       withHeadlines = addAttributeName set';
       # When building a dry activation script, this replaces all activation scripts
@@ -166,9 +165,7 @@ in
     };
 
     system.dryActivationScript = mkOption {
-      description =
-        lib.mdDoc
-          "The shell script that is to be run when dry-activating a system.";
+      description = lib.mdDoc "The shell script that is to be run when dry-activating a system.";
       readOnly = true;
       internal = true;
       default =

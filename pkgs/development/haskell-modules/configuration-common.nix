@@ -145,11 +145,9 @@ self: super:
   # 2023-04-03: https://github.com/haskell/haskell-language-server/issues/3546#issuecomment-1494139751
   # There will probably be a new revision soon.
   hls-tactics-plugin =
-    assert super.hls-tactics-plugin.version == "1.8.0.0";
-    doJailbreak super.hls-tactics-plugin;
+    assert super.hls-tactics-plugin.version == "1.8.0.0"; doJailbreak super.hls-tactics-plugin;
   hls-brittany-plugin =
-    assert super.hls-brittany-plugin.version == "1.1.0.0";
-    doJailbreak super.hls-brittany-plugin;
+    assert super.hls-brittany-plugin.version == "1.1.0.0"; doJailbreak super.hls-brittany-plugin;
 
   hls-hlint-plugin = super.hls-hlint-plugin.override {
     # For "ghc-lib" flag see https://github.com/haskell/haskell-language-server/issues/3185#issuecomment-1250264515
@@ -364,8 +362,7 @@ self: super:
   numerals = doJailbreak (dontCheck super.numerals);
 
   # This test keeps being aborted because it runs too quietly for too long
-  Lazy-Pbkdf2 =
-    if pkgs.stdenv.isi686 then dontCheck super.Lazy-Pbkdf2 else super.Lazy-Pbkdf2;
+  Lazy-Pbkdf2 = if pkgs.stdenv.isi686 then dontCheck super.Lazy-Pbkdf2 else super.Lazy-Pbkdf2;
 
   # check requires mysql server
   mysql-simple = dontCheck super.mysql-simple;
@@ -1626,9 +1623,7 @@ self: super:
   # 2022-08-31: Jailbreak is done to allow aeson 2.0.*:
   # https://github.com/haskell-CI/haskell-ci/commit/6ad0d5d701cbe101013335d597acaf5feadd3ab9#r82681900
   cabal-install-parsers = doJailbreak (
-    dontCheck (
-      super.cabal-install-parsers.override { Cabal-syntax = self.Cabal-syntax_3_10_1_0; }
-    )
+    dontCheck (super.cabal-install-parsers.override { Cabal-syntax = self.Cabal-syntax_3_10_1_0; })
   );
 
   # 2022-03-12: Pick patches from master for compat with Stackage Nightly
@@ -1784,9 +1779,7 @@ self: super:
   libsodium =
     overrideCabal
       (drv: {
-        libraryToolDepends = (drv.libraryToolDepends or [ ]) ++ [
-          self.buildHaskellPackages.c2hs
-        ];
+        libraryToolDepends = (drv.libraryToolDepends or [ ]) ++ [ self.buildHaskellPackages.c2hs ];
       })
       super.libsodium;
 
@@ -2806,9 +2799,7 @@ self: super:
   hasura-ekg-core = doJailbreak super.hasura-ekg-core;
 
   # https://github.com/Synthetica9/nix-linter/issues/65
-  nix-linter = super.nix-linter.overrideScope (
-    self: super: { aeson = self.aeson_1_5_6_0; }
-  );
+  nix-linter = super.nix-linter.overrideScope (self: super: { aeson = self.aeson_1_5_6_0; });
 
   # Test suite doesn't support hspec 2.8
   # https://github.com/zellige/hs-geojson/issues/29
@@ -2880,8 +2871,7 @@ self: super:
   clash-prelude = dontCheck super.clash-prelude;
 
   # Too strict upper bound on th-desugar, fixed in 3.1.1
-  singletons-th =
-    assert super.singletons-th.version == "3.1"; doJailbreak super.singletons-th;
+  singletons-th = assert super.singletons-th.version == "3.1"; doJailbreak super.singletons-th;
   singletons-base = doJailbreak super.singletons-base;
 
   # Ships a broken Setup.hs

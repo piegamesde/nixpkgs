@@ -11,9 +11,7 @@ with lib;
 
 let
   # the demo agent isn't built by default, but we need it here
-  package = pkgs.geoclue2.override {
-    withDemoAgent = config.services.geoclue2.enableDemoAgent;
-  };
+  package = pkgs.geoclue2.override { withDemoAgent = config.services.geoclue2.enableDemoAgent; };
 
   cfg = config.services.geoclue2;
 

@@ -14,10 +14,7 @@ let
     v:
     lib.concatStringsSep "\n" (
       mapAttrsToList
-        (
-          key: val:
-          "${key} = ${if (isString val) then ''"${val}"'' else "${builtins.toString val}"};"
-        )
+        (key: val: "${key} = ${if (isString val) then ''"${val}"'' else "${builtins.toString val}"};")
         v
     );
 

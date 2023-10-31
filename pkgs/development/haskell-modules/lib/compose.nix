@@ -151,10 +151,8 @@ rec {
   appendConfigureFlags =
     xs: overrideCabal (drv: { configureFlags = (drv.configureFlags or [ ]) ++ xs; });
 
-  appendBuildFlag =
-    x: overrideCabal (drv: { buildFlags = (drv.buildFlags or [ ]) ++ [ x ]; });
-  appendBuildFlags =
-    xs: overrideCabal (drv: { buildFlags = (drv.buildFlags or [ ]) ++ xs; });
+  appendBuildFlag = x: overrideCabal (drv: { buildFlags = (drv.buildFlags or [ ]) ++ [ x ]; });
+  appendBuildFlags = xs: overrideCabal (drv: { buildFlags = (drv.buildFlags or [ ]) ++ xs; });
 
   /* removeConfigureFlag drv x is a Haskell package like drv, but with
      all cabal configure arguments that are equal to x removed.
@@ -172,8 +170,7 @@ rec {
     xs: overrideCabal (drv: { extraLibraries = (drv.extraLibraries or [ ]) ++ xs; });
 
   addBuildDepend = x: addBuildDepends [ x ];
-  addBuildDepends =
-    xs: overrideCabal (drv: { buildDepends = (drv.buildDepends or [ ]) ++ xs; });
+  addBuildDepends = xs: overrideCabal (drv: { buildDepends = (drv.buildDepends or [ ]) ++ xs; });
 
   addTestToolDepend = x: addTestToolDepends [ x ];
   addTestToolDepends =
@@ -185,13 +182,10 @@ rec {
 
   addSetupDepend = x: addSetupDepends [ x ];
   addSetupDepends =
-    xs:
-    overrideCabal (drv: { setupHaskellDepends = (drv.setupHaskellDepends or [ ]) ++ xs; });
+    xs: overrideCabal (drv: { setupHaskellDepends = (drv.setupHaskellDepends or [ ]) ++ xs; });
 
-  enableCabalFlag =
-    x: drv: appendConfigureFlag "-f${x}" (removeConfigureFlag "-f-${x}" drv);
-  disableCabalFlag =
-    x: drv: appendConfigureFlag "-f-${x}" (removeConfigureFlag "-f${x}" drv);
+  enableCabalFlag = x: drv: appendConfigureFlag "-f${x}" (removeConfigureFlag "-f-${x}" drv);
+  disableCabalFlag = x: drv: appendConfigureFlag "-f-${x}" (removeConfigureFlag "-f${x}" drv);
 
   markBroken = overrideCabal (
     drv: {
@@ -391,8 +385,7 @@ rec {
               ++ map (pkg: "--ignore-package ${pkg}") ignorePackages
             );
           in
-          "${pkgs.haskellPackages.packunused}/bin/packunused"
-          + optionalString (args != "") " ${args}";
+          "${pkgs.haskellPackages.packunused}/bin/packunused" + optionalString (args != "") " ${args}";
       })
       (appendConfigureFlag "--ghc-option=-ddump-minimal-imports" drv);
 
@@ -401,8 +394,7 @@ rec {
   /* Add a dummy command to trigger a build despite an equivalent
      earlier build that is present in the store or cache.
   */
-  triggerRebuild =
-    i: overrideCabal (drv: { postUnpack = ": trigger rebuild ${toString i}"; });
+  triggerRebuild = i: overrideCabal (drv: { postUnpack = ": trigger rebuild ${toString i}"; });
 
   /* Override the sources for the package and optionally the version.
      This also takes of removing editedCabalFile.
@@ -532,9 +524,7 @@ rec {
   # Don't fail at configure time if there are multiple versions of the
   # same package in the (recursive) dependencies of the package being
   # built. Will delay failures, if any, to compile time.
-  allowInconsistentDependencies = overrideCabal (
-    drv: { allowInconsistentDependencies = true; }
-  );
+  allowInconsistentDependencies = overrideCabal (drv: { allowInconsistentDependencies = true; });
 
   # Work around a Cabal bug requiring pkg-config --static --libs to work even
   # when linking dynamically, affecting Cabal 3.8 and 3.9.
@@ -586,12 +576,8 @@ rec {
     in
     overrideCabal (
       old: {
-        benchmarkPkgconfigDepends =
-          propagatedPlainBuildInputs
-            old.benchmarkPkgconfigDepends or [ ];
-        executablePkgconfigDepends =
-          propagatedPlainBuildInputs
-            old.executablePkgconfigDepends or [ ];
+        benchmarkPkgconfigDepends = propagatedPlainBuildInputs old.benchmarkPkgconfigDepends or [ ];
+        executablePkgconfigDepends = propagatedPlainBuildInputs old.executablePkgconfigDepends or [ ];
         libraryPkgconfigDepends = propagatedPlainBuildInputs old.libraryPkgconfigDepends or [ ];
         testPkgconfigDepends = propagatedPlainBuildInputs old.testPkgconfigDepends or [ ];
       }

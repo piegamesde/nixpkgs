@@ -176,9 +176,7 @@ let
     pkgs.runCommand "${name}-wrapper" { nativeBuildInputs = [ pkgs.makeWrapper ]; } (
       with lib; ''
         makeWrapper "${original}" "$out/bin/${name}" \
-          ${
-            concatStringsSep " \\\n " (mapAttrsToList (name: value: ''--set ${name} "${value}"'') set)
-          }
+          ${concatStringsSep " \\\n " (mapAttrsToList (name: value: ''--set ${name} "${value}"'') set)}
       ''
     );
 
@@ -215,8 +213,7 @@ let
     );
 
   mkPassAssertion = name: cfg: {
-    assertion =
-      with cfg.encryption; mode != "none" -> passCommand != null || passphrase != null;
+    assertion = with cfg.encryption; mode != "none" -> passCommand != null || passphrase != null;
     message =
       "passCommand or passphrase has to be specified because"
       + ''borgbackup.jobs.${name}.encryption != "none"'';
@@ -265,8 +262,7 @@ let
 
   mkKeysAssertion = name: cfg: {
     assertion = cfg.authorizedKeys != [ ] || cfg.authorizedKeysAppendOnly != [ ];
-    message =
-      "borgbackup.repos.${name} does not make sense" + " without at least one public key";
+    message = "borgbackup.repos.${name} does not make sense" + " without at least one public key";
   };
 
   mkSourceAssertions = name: cfg: {
@@ -843,8 +839,7 @@ in
 
       users = mkMerge (mapAttrsToList mkUsersConfig repos);
 
-      environment.systemPackages =
-        with pkgs; [ borgbackup ] ++ (mapAttrsToList mkBorgWrapper jobs);
+      environment.systemPackages = with pkgs; [ borgbackup ] ++ (mapAttrsToList mkBorgWrapper jobs);
     }
   );
 }

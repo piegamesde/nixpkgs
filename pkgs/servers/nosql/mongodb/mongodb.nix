@@ -94,9 +94,7 @@ stdenv.mkDerivation rec {
     inherit sha256;
   };
 
-  nativeBuildInputs = [
-    variants.scons
-  ] ++ lib.optionals (versionAtLeast version "4.4") [ xz ];
+  nativeBuildInputs = [ variants.scons ] ++ lib.optionals (versionAtLeast version "4.4") [ xz ];
 
   buildInputs =
     [

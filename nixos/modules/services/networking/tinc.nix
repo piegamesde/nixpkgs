@@ -38,9 +38,7 @@ let
     options = {
       address = mkOption {
         type = types.str;
-        description =
-          lib.mdDoc
-            "The external IP address or hostname where the host can be reached.";
+        description = lib.mdDoc "The external IP address or hostname where the host can be reached.";
       };
 
       port = mkOption {
@@ -364,9 +362,7 @@ in
                     Ed25519PrivateKeyFile = mkIf (config.ed25519PrivateKeyFile != null) (
                       mkDefault config.ed25519PrivateKeyFile
                     );
-                    PrivateKeyFile = mkIf (config.rsaPrivateKeyFile != null) (
-                      mkDefault config.rsaPrivateKeyFile
-                    );
+                    PrivateKeyFile = mkIf (config.rsaPrivateKeyFile != null) (mkDefault config.rsaPrivateKeyFile);
                     ListenAddress = mkIf (config.listenAddress != null) (mkDefault config.listenAddress);
                     BindToAddress = mkIf (config.bindToAddress != null) (mkDefault config.bindToAddress);
                   };
@@ -501,9 +497,7 @@ in
           group = "tinc.${network}";
         })
       );
-      users.groups = flip mapAttrs' cfg.networks (
-        network: _: nameValuePair "tinc.${network}" { }
-      );
+      users.groups = flip mapAttrs' cfg.networks (network: _: nameValuePair "tinc.${network}" { });
     }
   );
 

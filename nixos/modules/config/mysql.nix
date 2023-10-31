@@ -41,9 +41,7 @@ in
             table = mkOption {
               type = types.str;
               example = "users";
-              description =
-                lib.mdDoc
-                  "The name of table that maps unique login names to the passwords.";
+              description = lib.mdDoc "The name of table that maps unique login names to the passwords.";
             };
             updateTable = mkOption {
               type = types.nullOr types.str;
@@ -62,9 +60,7 @@ in
             passwordColumn = mkOption {
               type = types.str;
               example = "password";
-              description =
-                lib.mdDoc
-                  "The name of the column that contains a (encrypted) password string.";
+              description = lib.mdDoc "The name of the column that contains a (encrypted) password string.";
             };
             statusColumn = mkOption {
               type = types.nullOr types.str;
@@ -179,9 +175,7 @@ in
               enable = mkOption {
                 type = types.bool;
                 default = false;
-                description =
-                  lib.mdDoc
-                    "Enables logging of authentication attempts in the MySQL database.";
+                description = lib.mdDoc "Enables logging of authentication attempts in the MySQL database.";
               };
               table = mkOption {
                 type = types.str;

@@ -36,9 +36,7 @@ stdenv.mkDerivation rec {
   version = "24.0.1";
 
   src = fetchurl {
-    urls = [
-      "https://bitcoincore.org/bin/bitcoin-core-${version}/bitcoin-${version}.tar.gz"
-    ];
+    urls = [ "https://bitcoincore.org/bin/bitcoin-core-${version}/bitcoin-${version}.tar.gz" ];
     # hash retrieved from signed SHA256SUMS
     sha256 = "12d4ad6dfab4767d460d73307e56d13c72997e114fad4f274650f95560f5f2ff";
   };

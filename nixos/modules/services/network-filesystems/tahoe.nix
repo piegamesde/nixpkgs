@@ -218,8 +218,7 @@ in
               [node]
               nickname = ${settings.nickname}
               tub.port = ${toString settings.tub.port}
-              ${optionalString (settings.tub.location != null)
-                "tub.location = ${settings.tub.location}"}
+              ${optionalString (settings.tub.location != null) "tub.location = ${settings.tub.location}"}
             '';
           }
         );
@@ -294,8 +293,7 @@ in
               [node]
               nickname = ${settings.nickname}
               tub.port = ${toString settings.tub.port}
-              ${optionalString (settings.tub.location != null)
-                "tub.location = ${settings.tub.location}"}
+              ${optionalString (settings.tub.location != null) "tub.location = ${settings.tub.location}"}
               # This is a Twisted endpoint. Twisted Web doesn't work on
               # non-TCP. ~ C.
               web.port = tcp:${toString settings.web.port}
@@ -303,8 +301,7 @@ in
               [client]
               ${optionalString (settings.client.introducer != null)
                 "introducer.furl = ${settings.client.introducer}"}
-              ${optionalString (settings.client.helper != null)
-                "helper.furl = ${settings.client.helper}"}
+              ${optionalString (settings.client.helper != null) "helper.furl = ${settings.client.helper}"}
 
               shares.needed = ${toString settings.client.shares.needed}
               shares.happy = ${toString settings.client.shares.happy}

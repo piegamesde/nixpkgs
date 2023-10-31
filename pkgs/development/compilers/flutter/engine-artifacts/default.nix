@@ -136,8 +136,7 @@ let
               lib.optionalString (platform != null) "/${artifactDirectory}"
             }/${archive}";
           stripRoot = false;
-          hash =
-            (if artifactDirectory == null then hashes else hashes.${artifactDirectory}).${archive};
+          hash = (if artifactDirectory == null then hashes else hashes.${artifactDirectory}).${archive};
         };
 
         nativeBuildInputs = [ autoPatchelfHook ];

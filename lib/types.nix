@@ -211,10 +211,7 @@ let
     # ambiguity.
     optionDescriptionPhrase =
       unparenthesize: t:
-      if unparenthesize (t.descriptionClass or null) then
-        t.description
-      else
-        "(${t.description})";
+      if unparenthesize (t.descriptionClass or null) then t.description else "(${t.description})";
 
     # When adding new types don't forget to document them in
     # nixos/doc/manual/development/option-types.xml!
@@ -238,10 +235,7 @@ let
           let
             getType =
               value:
-              if isAttrs value && isStringLike value then
-                "stringCoercibleSet"
-              else
-                builtins.typeOf value;
+              if isAttrs value && isStringLike value then "stringCoercibleSet" else builtins.typeOf value;
 
             # Returns the common type of all definitions, throws an error if they
             # don't have the same type
@@ -253,9 +247,7 @@ let
                     type
                   else
                     throw
-                      "The option `${showOption loc}' has conflicting option types in ${
-                        showFiles (getFiles defs)
-                      }"
+                      "The option `${showOption loc}' has conflicting option types in ${showFiles (getFiles defs)}"
                 )
                 (getType (head defs).value)
                 defs;
@@ -269,9 +261,7 @@ let
                 list =
                   if length defs > 1 then
                     throw
-                      "The option `${showOption loc}' has conflicting definitions, in ${
-                        showFiles (getFiles defs)
-                      }."
+                      "The option `${showOption loc}' has conflicting definitions, in ${showFiles (getFiles defs)}."
                   else
                     (listOf anything).merge;
                 # This is the type of packages, only accept a single definition
@@ -318,12 +308,10 @@ let
       # Specialized subdomains of int
       ints =
         let
-          betweenDesc =
-            lowest: highest: "${toString lowest} and ${toString highest} (both inclusive)";
+          betweenDesc = lowest: highest: "${toString lowest} and ${toString highest} (both inclusive)";
           between =
             lowest: highest:
-            assert lib.assertMsg (lowest <= highest)
-                "ints.between: lowest must be smaller than highest";
+            assert lib.assertMsg (lowest <= highest) "ints.between: lowest must be smaller than highest";
             addCheck int (x: x >= lowest && x <= highest)
             // {
               name = "intBetween";
@@ -392,8 +380,7 @@ let
       numbers =
         let
           betweenDesc =
-            lowest: highest:
-            "${builtins.toJSON lowest} and ${builtins.toJSON highest} (both inclusive)";
+            lowest: highest: "${builtins.toJSON lowest} and ${builtins.toJSON highest} (both inclusive)";
         in
         {
           between =
@@ -623,8 +610,7 @@ let
             loc: defs:
             mapAttrs (n: v: v.value) (
               filterAttrs (n: v: v ? value) (
-                zipAttrsWith
-                  (name: defs: (mergeDefinitions (loc ++ [ name ]) elemType defs).optionalValue)
+                zipAttrsWith (name: defs: (mergeDefinitions (loc ++ [ name ]) elemType defs).optionalValue)
                   # Push down position info.
                   (
                     map
@@ -947,8 +933,7 @@ let
         in
         mkOptionType {
           inherit name;
-          description =
-            if description != null then description else freeformType.description or name;
+          description = if description != null then description else freeformType.description or name;
           check = x: isAttrs x || isFunction x || path.check x;
           merge =
             loc: defs:
@@ -1087,10 +1072,7 @@ let
               mt1 = t1.typeMerge (elemAt f'.wrapped 0).functor;
               mt2 = t2.typeMerge (elemAt f'.wrapped 1).functor;
             in
-            if (name == f'.name) && (mt1 != null) && (mt2 != null) then
-              functor.type mt1 mt2
-            else
-              null;
+            if (name == f'.name) && (mt1 != null) && (mt2 != null) then functor.type mt1 mt2 else null;
           functor = (defaultFunctor name) // {
             wrapped = [
               t1

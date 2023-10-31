@@ -51,9 +51,7 @@ in
         options.general.high_temp = mkOption {
           type = types.int;
           default = 66;
-          description =
-            lib.mdDoc
-              "If temperature is above this, fan speed will gradually increase.";
+          description = lib.mdDoc "If temperature is above this, fan speed will gradually increase.";
         };
         options.general.max_temp = mkOption {
           type = types.int;

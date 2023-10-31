@@ -33,10 +33,7 @@ buildGoModule rec {
   postInstall =
     let
       stern =
-        if stdenv.buildPlatform.canExecute stdenv.hostPlatform then
-          "$out"
-        else
-          buildPackages.stern;
+        if stdenv.buildPlatform.canExecute stdenv.hostPlatform then "$out" else buildPackages.stern;
     in
     ''
       for shell in bash zsh; do

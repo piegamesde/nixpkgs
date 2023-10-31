@@ -723,9 +723,7 @@ in
               log_config = mkOption {
                 type = types.path;
                 default = ./synapse-log_config.yaml;
-                defaultText =
-                  lib.literalExpression
-                    "nixos/modules/services/matrix/synapse-log_config.yaml";
+                defaultText = lib.literalExpression "nixos/modules/services/matrix/synapse-log_config.yaml";
                 description = lib.mdDoc ''
                   The file that holds the logging configuration.
                 '';
@@ -920,8 +918,7 @@ in
                   "sqlite3"
                   "psycopg2"
                 ];
-                default =
-                  if versionAtLeast config.system.stateVersion "18.03" then "psycopg2" else "sqlite3";
+                default = if versionAtLeast config.system.stateVersion "18.03" then "psycopg2" else "sqlite3";
                 defaultText = literalExpression ''
                   if versionAtLeast config.system.stateVersion "18.03"
                   then "psycopg2"
@@ -1201,13 +1198,9 @@ in
           --keys-directory ${cfg.dataDir} \
           --generate-keys
       '';
-      environment =
-        {
-          PYTHONPATH = makeSearchPathOutput "lib" cfg.package.python.sitePackages [ pluginsEnv ];
-        }
-        // optionalAttrs (cfg.withJemalloc) {
-          LD_PRELOAD = "${pkgs.jemalloc}/lib/libjemalloc.so";
-        };
+      environment = {
+        PYTHONPATH = makeSearchPathOutput "lib" cfg.package.python.sitePackages [ pluginsEnv ];
+      } // optionalAttrs (cfg.withJemalloc) { LD_PRELOAD = "${pkgs.jemalloc}/lib/libjemalloc.so"; };
       serviceConfig = {
         Type = "notify";
         User = "matrix-synapse";

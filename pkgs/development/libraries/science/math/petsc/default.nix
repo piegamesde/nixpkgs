@@ -35,8 +35,7 @@ stdenv.mkDerivation rec {
       python3
       gfortran
     ]
-    ++ lib.optional mpiSupport mpi
-    ++ lib.optional (mpiSupport && mpi.pname == "openmpi") openssh;
+    ++ lib.optional mpiSupport mpi ++ lib.optional (mpiSupport && mpi.pname == "openmpi") openssh;
   buildInputs = [
     blas
     lapack

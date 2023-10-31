@@ -180,9 +180,7 @@ let
   buildPath = "out/${buildType}";
   libExecPath = "$out/libexec/${packageName}";
 
-  ungoogler = ungoogled-chromium {
-    inherit (upstream-info.deps.ungoogled-patches) rev sha256;
-  };
+  ungoogler = ungoogled-chromium { inherit (upstream-info.deps.ungoogled-patches) rev sha256; };
 
   base = rec {
     pname = "${packageName}-unwrapped";

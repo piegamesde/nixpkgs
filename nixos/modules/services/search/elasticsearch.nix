@@ -16,8 +16,7 @@ let
     network.host: ${cfg.listenAddress}
     cluster.name: ${cfg.cluster_name}
     ${lib.optionalString cfg.single_node "discovery.type: single-node"}
-    ${lib.optionalString (cfg.single_node && es7)
-      "gateway.auto_import_dangling_indices: true"}
+    ${lib.optionalString (cfg.single_node && es7) "gateway.auto_import_dangling_indices: true"}
 
     http.port: ${toString cfg.port}
     transport.port: ${toString cfg.tcp_port}
@@ -81,9 +80,7 @@ in
     };
 
     cluster_name = mkOption {
-      description =
-        lib.mdDoc
-          "Elasticsearch name that identifies your cluster for auto-discovery.";
+      description = lib.mdDoc "Elasticsearch name that identifies your cluster for auto-discovery.";
       default = "elasticsearch";
       type = types.str;
     };

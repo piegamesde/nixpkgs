@@ -89,9 +89,7 @@ let
             --replace /usr/bin/readlink ${pkgs.coreutils}/bin/readlink \
             --replace /usr/bin/basename ${pkgs.coreutils}/bin/basename
         ${optionalString (initrdBin != null) ''
-          substituteInPlace $i --replace '/run/current-system/systemd' "${
-            removeSuffix "/bin" initrdBin
-          }"
+          substituteInPlace $i --replace '/run/current-system/systemd' "${removeSuffix "/bin" initrdBin}"
         ''}
         done
 
@@ -187,9 +185,7 @@ let
 
   compressFirmware =
     firmware:
-    if
-      (config.boot.kernelPackages.kernelAtLeast "5.3" && (firmware.compressFirmware or true))
-    then
+    if (config.boot.kernelPackages.kernelAtLeast "5.3" && (firmware.compressFirmware or true)) then
       pkgs.compressFirmwareXz firmware
     else
       id firmware;
@@ -382,9 +378,7 @@ in
       udev
     ];
 
-    boot.kernelParams = mkIf (!config.networking.usePredictableInterfaceNames) [
-      "net.ifnames=0"
-    ];
+    boot.kernelParams = mkIf (!config.networking.usePredictableInterfaceNames) [ "net.ifnames=0" ];
 
     boot.initrd.extraUdevRulesCommands =
       optionalString

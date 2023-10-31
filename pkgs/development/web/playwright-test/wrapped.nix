@@ -12,8 +12,7 @@ let
   browsers = playwright-driver.browsers;
 
   # nodeDependencies / package / shell
-  playwright-test-raw =
-    (callPackage ./default.nix { })."@playwright/test-${driver.version}";
+  playwright-test-raw = (callPackage ./default.nix { })."@playwright/test-${driver.version}";
 
   playwright-test = playwright-test-raw.overrideAttrs (
     oa: {

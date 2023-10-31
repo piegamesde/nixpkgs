@@ -73,7 +73,5 @@ mkOpenModelicaDerivation (
       platforms = platforms.linux;
     };
   }
-  // lib.optionalAttrs isCross {
-    configureFlags = [ "--with-omc=${nativeOMCompiler}/bin/omc" ];
-  }
+  // lib.optionalAttrs isCross { configureFlags = [ "--with-omc=${nativeOMCompiler}/bin/omc" ]; }
 )

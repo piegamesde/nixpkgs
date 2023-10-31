@@ -3983,9 +3983,7 @@ let
           ];
         }
       )
-      (
-        sources."@parcel/watcher-2.0.5" // { dependencies = [ sources."node-gyp-build-4.3.0" ]; }
-      )
+      (sources."@parcel/watcher-2.0.5" // { dependencies = [ sources."node-gyp-build-4.3.0" ]; })
       (sources."@parcel/workers-2.3.2" // { dependencies = [ sources."@parcel/types-2.3.2" ]; })
       sources."@samverschueren/stream-to-observable-0.3.1"
       sources."@swc/helpers-0.2.14"

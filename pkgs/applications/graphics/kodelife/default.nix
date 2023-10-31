@@ -52,8 +52,7 @@ stdenv.mkDerivation rec {
       armv7l-linux = "linux-armhf";
       x86_64-linux = "linux-x86_64";
     }
-    .${stdenv.hostPlatform.system}
-      or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
   src = fetchurl {
     url = "https://hexler.net/pub/${pname}/${pname}-${version}-${suffix}.deb";
@@ -63,8 +62,7 @@ stdenv.mkDerivation rec {
         armv7l-linux = "sha256-OqomlL7IFHyQQULbdbf5I0dRXdy3lDHY4ej2P1OZgzo=";
         x86_64-linux = "sha256-QNcWMVZ4bTXPLFEtD35hP2LbuNntvF2e9Wk2knt4TBY=";
       }
-      .${stdenv.hostPlatform.system}
-        or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+      .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
   };
 
   unpackCmd = "mkdir root; dpkg-deb -x $curSrc root";

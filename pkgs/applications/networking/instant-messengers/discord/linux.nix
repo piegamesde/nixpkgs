@@ -172,9 +172,7 @@ stdenv.mkDerivation rec {
 
     ln -s $out/opt/${binaryName}/${binaryName} $out/bin/
     # Without || true the install would fail on case-insensitive filesystems
-    ln -s $out/opt/${binaryName}/${binaryName} $out/bin/${
-      lib.strings.toLower binaryName
-    } || true
+    ln -s $out/opt/${binaryName}/${binaryName} $out/bin/${lib.strings.toLower binaryName} || true
 
     ln -s $out/opt/${binaryName}/discord.png $out/share/pixmaps/${pname}.png
     ln -s $out/opt/${binaryName}/discord.png $out/share/icons/hicolor/256x256/apps/${pname}.png

@@ -81,9 +81,9 @@ let
             <para xml:id="${sanitizeId name}">
             Located at
             <link
-              xlink:href="${urlPrefix}/${value.file}#L${
+              xlink:href="${urlPrefix}/${value.file}#L${builtins.toString value.line}">${value.file}:${
                 builtins.toString value.line
-              }">${value.file}:${builtins.toString value.line}</link>
+              }</link>
             in  <literal>&lt;nixpkgs&gt;</literal>.
             </para>
             </section>

@@ -11895,12 +11895,7 @@ in
       sha512 = "U8BRKXk1rQxF8QwPJfZwNJ9K0uTdxPXzulN1EQokOwm12MzRCBIocTYzTzGu9I8pHvyQMhcev8T4zLmZd5bvhw==";
     };
     dependencies = [
-      (
-        sources."@acuminous/bitsyntax-0.1.2"
-        // {
-          dependencies = [ sources."safe-buffer-5.1.2" ];
-        }
-      )
+      (sources."@acuminous/bitsyntax-0.1.2" // { dependencies = [ sources."safe-buffer-5.1.2" ]; })
       (
         sources."@apidevtools/json-schema-ref-parser-9.0.9"
         // {
@@ -12229,12 +12224,7 @@ in
       sources."app-root-path-3.1.0"
       sources."append-field-1.0.0"
       sources."aproba-2.0.0"
-      (
-        sources."are-we-there-yet-2.0.0"
-        // {
-          dependencies = [ sources."readable-stream-3.6.1" ];
-        }
-      )
+      (sources."are-we-there-yet-2.0.0" // { dependencies = [ sources."readable-stream-3.6.1" ]; })
       sources."arg-4.1.3"
       sources."argparse-1.0.10"
       sources."array-flatten-1.1.1"
@@ -13225,12 +13215,7 @@ in
       sources."p-map-2.1.0"
       sources."p-queue-6.6.2"
       sources."p-timeout-3.2.0"
-      (
-        sources."pac-proxy-agent-5.0.0"
-        // {
-          dependencies = [ sources."socks-proxy-agent-5.0.1" ];
-        }
-      )
+      (sources."pac-proxy-agent-5.0.0" // { dependencies = [ sources."socks-proxy-agent-5.0.1" ]; })
       (sources."pac-resolver-5.0.1" // { dependencies = [ sources."ip-1.1.8" ]; })
       sources."packet-reader-1.0.0"
       sources."pako-1.0.11"
@@ -13373,12 +13358,7 @@ in
       sources."reinterval-1.1.0"
       sources."remove-trailing-separator-1.1.0"
       sources."remove-trailing-slash-0.1.1"
-      (
-        sources."replacestream-4.0.3"
-        // {
-          dependencies = [ sources."escape-string-regexp-1.0.5" ];
-        }
-      )
+      (sources."replacestream-4.0.3" // { dependencies = [ sources."escape-string-regexp-1.0.5" ]; })
       (
         sources."request-2.88.2"
         // {
@@ -13392,10 +13372,7 @@ in
       )
       sources."request-promise-core-1.1.4"
       (
-        sources."request-promise-native-1.0.9"
-        // {
-          dependencies = [ sources."tough-cookie-2.5.0" ];
-        }
+        sources."request-promise-native-1.0.9" // { dependencies = [ sources."tough-cookie-2.5.0" ]; }
       )
       sources."require-at-1.0.6"
       sources."require-directory-2.1.1"
@@ -13520,12 +13497,7 @@ in
       sources."stealthy-require-1.1.1"
       sources."stop-iteration-iterator-1.0.0"
       sources."stoppable-1.1.0"
-      (
-        sources."stream-browserify-3.0.0"
-        // {
-          dependencies = [ sources."readable-stream-3.6.1" ];
-        }
-      )
+      (sources."stream-browserify-3.0.0" // { dependencies = [ sources."readable-stream-3.6.1" ]; })
       sources."stream-events-1.0.5"
       sources."stream-shift-1.0.1"
       sources."streamsearch-1.1.0"
@@ -13727,12 +13699,7 @@ in
       sources."widest-line-3.1.0"
       (sources."win-release-1.1.1" // { dependencies = [ sources."semver-5.7.1" ]; })
       (sources."winston-3.8.2" // { dependencies = [ sources."readable-stream-3.6.1" ]; })
-      (
-        sources."winston-transport-4.5.0"
-        // {
-          dependencies = [ sources."readable-stream-3.6.1" ];
-        }
-      )
+      (sources."winston-transport-4.5.0" // { dependencies = [ sources."readable-stream-3.6.1" ]; })
       sources."wmf-1.0.2"
       sources."word-0.3.0"
       sources."word-wrap-1.2.3"

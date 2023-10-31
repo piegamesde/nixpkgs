@@ -9,8 +9,7 @@ with lib;
 let
   cfg = config.services.resolved;
 
-  dnsmasqResolve =
-    config.services.dnsmasq.enable && config.services.dnsmasq.resolveLocalQueries;
+  dnsmasqResolve = config.services.dnsmasq.enable && config.services.dnsmasq.resolveLocalQueries;
 in
 {
 

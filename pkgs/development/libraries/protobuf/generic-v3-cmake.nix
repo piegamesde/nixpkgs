@@ -60,9 +60,7 @@ let
             sha256 = "sha256-SmwaUjOjjZulg/wgNmR/F5b8rhYA2wkKAjHIOxjcQdQ=";
           })
         ]
-      ++ lib.optionals stdenv.hostPlatform.isStatic [
-        ./static-executables-have-no-rpath.patch
-      ];
+      ++ lib.optionals stdenv.hostPlatform.isStatic [ ./static-executables-have-no-rpath.patch ];
 
     nativeBuildInputs =
       let

@@ -365,9 +365,7 @@ let
         logFailures = mkOption {
           default = false;
           type = types.bool;
-          description =
-            lib.mdDoc
-              "Whether to log authentication failures in {file}`/var/log/faillog`.";
+          description = lib.mdDoc "Whether to log authentication failures in {file}`/var/log/faillog`.";
         };
 
         enableAppArmor = mkOption {
@@ -657,9 +655,7 @@ let
                   }
                 ''
                 + optionalString cfg.failDelay.enable ''
-                  auth optional ${pkgs.pam}/lib/security/pam_faildelay.so delay=${
-                    toString cfg.failDelay.delay
-                  }
+                  auth optional ${pkgs.pam}/lib/security/pam_faildelay.so delay=${toString cfg.failDelay.delay}
                 ''
                 + optionalString cfg.googleAuthenticator.enable ''
                   auth required ${pkgs.google-authenticator}/lib/security/pam_google_authenticator.so no_increment_hotp
@@ -795,8 +791,7 @@ let
             session required ${pkgs.pam}/lib/security/pam_limits.so conf=${makeLimitsConf cfg.limits}
           ''
           +
-            optionalString
-              (cfg.showMotd && (config.users.motd != null || config.users.motdFile != null))
+            optionalString (cfg.showMotd && (config.users.motd != null || config.users.motdFile != null))
               ''
                 session optional ${pkgs.pam}/lib/security/pam_motd.so motd=${motd}
               ''
@@ -1003,9 +998,7 @@ in
       '';
     };
 
-    security.pam.enableOTPW = mkEnableOption (
-      lib.mdDoc "the OTPW (one-time password) PAM module"
-    );
+    security.pam.enableOTPW = mkEnableOption (lib.mdDoc "the OTPW (one-time password) PAM module");
 
     security.pam.krb5 = {
       enable = mkOption {
@@ -1494,8 +1487,7 @@ in
         mr ${pkgs.google-guest-oslogin}/lib/security/pam_oslogin_login.so,
       ''
       +
-        optionalString
-          (config.security.pam.enableSSHAgentAuth && isEnabled (cfg: cfg.sshAgentAuth))
+        optionalString (config.security.pam.enableSSHAgentAuth && isEnabled (cfg: cfg.sshAgentAuth))
           ''
             mr ${pkgs.pam_ssh_agent_auth}/libexec/pam_ssh_agent_auth.so,
           ''
@@ -1541,11 +1533,9 @@ in
       + optionalString (isEnabled (cfg: cfg.startSession)) ''
         mr ${config.systemd.package}/lib/security/pam_systemd.so,
       ''
-      +
-        optionalString (isEnabled (cfg: cfg.enableAppArmor) && config.security.apparmor.enable)
-          ''
-            mr ${pkgs.apparmor-pam}/lib/security/pam_apparmor.so,
-          ''
+      + optionalString (isEnabled (cfg: cfg.enableAppArmor) && config.security.apparmor.enable) ''
+        mr ${pkgs.apparmor-pam}/lib/security/pam_apparmor.so,
+      ''
       + optionalString (isEnabled (cfg: cfg.enableKwallet)) ''
         mr ${pkgs.plasma5Packages.kwallet-pam}/lib/security/pam_kwallet5.so,
       ''

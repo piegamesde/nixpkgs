@@ -20,9 +20,7 @@ let
     (
       echo 'updateSettings.nix: Updating ${vscodeSettingsFile}...'
       oldSettings=$(cat ${vscodeSettingsFile})
-      echo $oldSettings' ${
-        builtins.toJSON settings
-      }' | ${jq}/bin/jq -s add > ${vscodeSettingsFile}
+      echo $oldSettings' ${builtins.toJSON settings}' | ${jq}/bin/jq -s add > ${vscodeSettingsFile}
     )'';
 
   createEmptySettingsCmd = ''mkdir -p .vscode && echo "{}" > ${vscodeSettingsFile}'';

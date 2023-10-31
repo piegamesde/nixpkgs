@@ -40,8 +40,7 @@ let
 
         # copy additional plugin(s), theme(s) and language(s)
         ${concatStringsSep "\n" (
-          mapAttrsToList
-            (name: theme: "cp -r ${theme} $out/share/wordpress/wp-content/themes/${name}")
+          mapAttrsToList (name: theme: "cp -r ${theme} $out/share/wordpress/wp-content/themes/${name}")
             cfg.themes
         )}
         ${concatStringsSep "\n" (
@@ -70,10 +69,7 @@ let
       # Always set DB_PASSWORD even when passwordFile is not set. This is the
       # default Wordpress behaviour.
       DB_PASSWORD =
-        if (cfg.database.passwordFile != null) then
-          { _file = cfg.database.passwordFile; }
-        else
-          "";
+        if (cfg.database.passwordFile != null) then { _file = cfg.database.passwordFile; } else "";
     }
     // cfg.settings;
 

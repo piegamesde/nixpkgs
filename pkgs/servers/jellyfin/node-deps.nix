@@ -11829,12 +11829,7 @@ let
     src = ../../../../../../../nix/store/l77pzlsdcdhb2lyan89wpw111nvf348l-source;
     dependencies = [
       sources."@ampproject/remapping-2.1.2"
-      (
-        sources."@apideck/better-ajv-errors-0.3.3"
-        // {
-          dependencies = [ sources."leven-3.1.0" ];
-        }
-      )
+      (sources."@apideck/better-ajv-errors-0.3.3" // { dependencies = [ sources."leven-3.1.0" ]; })
       sources."@babel/code-frame-7.12.13"
       sources."@babel/compat-data-7.17.0"
       (
@@ -12295,12 +12290,7 @@ let
       sources."@rollup/plugin-babel-5.3.1"
       sources."@rollup/plugin-node-resolve-11.2.1"
       sources."@rollup/plugin-replace-2.4.2"
-      (
-        sources."@rollup/pluginutils-3.1.0"
-        // {
-          dependencies = [ sources."@types/estree-0.0.39" ];
-        }
-      )
+      (sources."@rollup/pluginutils-3.1.0" // { dependencies = [ sources."@types/estree-0.0.39" ]; })
       sources."@surma/rollup-plugin-off-main-thread-2.2.3"
       sources."@thornbill/jellyfin-sdk-0.4.1"
       sources."@trysound/sax-0.2.0"
@@ -12353,18 +12343,10 @@ let
           ];
         }
       )
-      (
-        sources."@typescript-eslint/parser-5.15.0"
-        // {
-          dependencies = [ sources."debug-4.3.3" ];
-        }
-      )
+      (sources."@typescript-eslint/parser-5.15.0" // { dependencies = [ sources."debug-4.3.3" ]; })
       sources."@typescript-eslint/scope-manager-5.15.0"
       (
-        sources."@typescript-eslint/type-utils-5.15.0"
-        // {
-          dependencies = [ sources."debug-4.3.3" ];
-        }
+        sources."@typescript-eslint/type-utils-5.15.0" // { dependencies = [ sources."debug-4.3.3" ]; }
       )
       sources."@typescript-eslint/types-5.15.0"
       (
@@ -12579,9 +12561,7 @@ let
       sources."concat-map-0.0.1"
       sources."confusing-browser-globals-1.0.11"
       sources."connect-history-api-fallback-1.6.0"
-      (
-        sources."content-disposition-0.5.4" // { dependencies = [ sources."safe-buffer-5.2.1" ]; }
-      )
+      (sources."content-disposition-0.5.4" // { dependencies = [ sources."safe-buffer-5.2.1" ]; })
       sources."content-type-1.0.4"
       sources."convert-source-map-1.8.0"
       sources."cookie-0.4.1"
@@ -12754,12 +12734,7 @@ let
           ];
         }
       )
-      (
-        sources."eslint-import-resolver-node-0.3.6"
-        // {
-          dependencies = [ sources."debug-3.2.7" ];
-        }
-      )
+      (sources."eslint-import-resolver-node-0.3.6" // { dependencies = [ sources."debug-3.2.7" ]; })
       (
         sources."eslint-module-utils-2.7.2"
         // {
@@ -12978,9 +12953,7 @@ let
       sources."hpack.js-2.1.6"
       sources."html-entities-2.3.2"
       sources."html-loader-3.1.0"
-      (
-        sources."html-minifier-terser-6.1.0" // { dependencies = [ sources."commander-8.3.0" ]; }
-      )
+      (sources."html-minifier-terser-6.1.0" // { dependencies = [ sources."commander-8.3.0" ]; })
       sources."html-tags-3.1.0"
       (
         sources."html-webpack-plugin-5.5.0"
@@ -13017,12 +12990,7 @@ let
       sources."http-errors-1.8.1"
       sources."http-parser-js-0.5.5"
       sources."http-proxy-1.18.1"
-      (
-        sources."http-proxy-middleware-2.0.3"
-        // {
-          dependencies = [ sources."is-plain-obj-3.0.0" ];
-        }
-      )
+      (sources."http-proxy-middleware-2.0.3" // { dependencies = [ sources."is-plain-obj-3.0.0" ]; })
       sources."human-signals-2.1.0"
       sources."iconv-lite-0.6.3"
       sources."icss-utils-5.1.0"
@@ -13291,12 +13259,7 @@ let
       sources."posix-character-classes-0.1.1"
       sources."postcss-8.4.12"
       sources."postcss-attribute-case-insensitive-5.0.0"
-      (
-        sources."postcss-calc-8.2.4"
-        // {
-          dependencies = [ sources."postcss-value-parser-4.2.0" ];
-        }
-      )
+      (sources."postcss-calc-8.2.4" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; })
       (
         sources."postcss-color-functional-notation-4.2.2"
         // {
@@ -13542,12 +13505,7 @@ let
       )
       sources."postcss-overflow-shorthand-3.0.3"
       sources."postcss-page-break-3.0.4"
-      (
-        sources."postcss-place-7.0.4"
-        // {
-          dependencies = [ sources."postcss-value-parser-4.2.0" ];
-        }
-      )
+      (sources."postcss-place-7.0.4" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; })
       (
         sources."postcss-preset-env-7.4.2"
         // {
@@ -13614,12 +13572,7 @@ let
           ];
         }
       )
-      (
-        sources."postcss-svgo-5.1.0"
-        // {
-          dependencies = [ sources."postcss-value-parser-4.2.0" ];
-        }
-      )
+      (sources."postcss-svgo-5.1.0" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; })
       sources."postcss-syntax-0.36.2"
       sources."postcss-unique-selectors-5.1.1"
       sources."postcss-value-parser-4.1.0"
@@ -13798,13 +13751,9 @@ let
       sources."source-list-map-2.0.1"
       sources."source-map-0.5.7"
       sources."source-map-js-1.0.2"
-      (
-        sources."source-map-loader-3.0.1" // { dependencies = [ sources."source-map-js-1.0.1" ]; }
-      )
+      (sources."source-map-loader-3.0.1" // { dependencies = [ sources."source-map-js-1.0.1" ]; })
       sources."source-map-resolve-0.5.3"
-      (
-        sources."source-map-support-0.5.21" // { dependencies = [ sources."source-map-0.6.1" ]; }
-      )
+      (sources."source-map-support-0.5.21" // { dependencies = [ sources."source-map-0.6.1" ]; })
       sources."source-map-url-0.4.1"
       sources."sourcemap-codec-1.4.8"
       sources."spdx-correct-3.1.1"
@@ -13812,9 +13761,7 @@ let
       sources."spdx-expression-parse-3.0.1"
       sources."spdx-license-ids-3.0.7"
       sources."spdy-4.0.2"
-      (
-        sources."spdy-transport-3.0.0" // { dependencies = [ sources."readable-stream-3.6.0" ]; }
-      )
+      (sources."spdy-transport-3.0.0" // { dependencies = [ sources."readable-stream-3.6.0" ]; })
       sources."specificity-0.4.1"
       sources."split-string-3.1.0"
       sources."sprintf-js-1.0.3"
@@ -13941,12 +13888,7 @@ let
               sources."stylelint-9.10.1"
               // {
                 dependencies = [
-                  (
-                    sources."autoprefixer-9.8.6"
-                    // {
-                      dependencies = [ sources."postcss-value-parser-4.1.0" ];
-                    }
-                  )
+                  (sources."autoprefixer-9.8.6" // { dependencies = [ sources."postcss-value-parser-4.1.0" ]; })
                   sources."postcss-7.0.36"
                   sources."postcss-scss-2.1.1"
                 ];
@@ -14051,18 +13993,8 @@ let
               // {
                 dependencies = [
                   sources."ansi-styles-3.2.1"
-                  (
-                    sources."autoprefixer-9.8.6"
-                    // {
-                      dependencies = [ sources."postcss-value-parser-4.1.0" ];
-                    }
-                  )
-                  (
-                    sources."browserslist-4.16.6"
-                    // {
-                      dependencies = [ sources."caniuse-lite-1.0.30001237" ];
-                    }
-                  )
+                  (sources."autoprefixer-9.8.6" // { dependencies = [ sources."postcss-value-parser-4.1.0" ]; })
+                  (sources."browserslist-4.16.6" // { dependencies = [ sources."caniuse-lite-1.0.30001237" ]; })
                   sources."chalk-2.4.2"
                   sources."electron-to-chromium-1.3.752"
                   sources."has-flag-3.0.0"
@@ -14084,9 +14016,7 @@ let
           ];
         }
       )
-      (
-        sources."stylelint-order-5.0.0" // { dependencies = [ sources."postcss-sorting-7.0.1" ]; }
-      )
+      (sources."stylelint-order-5.0.0" // { dependencies = [ sources."postcss-sorting-7.0.1" ]; })
       sources."stylelint-scss-4.2.0"
       (
         sources."sugarss-2.0.0"
@@ -14292,10 +14222,7 @@ let
       sources."wildcard-2.0.0"
       sources."word-wrap-1.2.3"
       (
-        sources."workbox-background-sync-6.5.1"
-        // {
-          dependencies = [ sources."workbox-core-6.5.1" ];
-        }
+        sources."workbox-background-sync-6.5.1" // { dependencies = [ sources."workbox-core-6.5.1" ]; }
       )
       (
         sources."workbox-broadcast-update-6.5.1"
@@ -14322,9 +14249,7 @@ let
         }
       )
       sources."workbox-core-6.2.4"
-      (
-        sources."workbox-expiration-6.5.1" // { dependencies = [ sources."workbox-core-6.5.1" ]; }
-      )
+      (sources."workbox-expiration-6.5.1" // { dependencies = [ sources."workbox-core-6.5.1" ]; })
       (
         sources."workbox-google-analytics-6.5.1"
         // {
@@ -14348,10 +14273,7 @@ let
         }
       )
       (
-        sources."workbox-range-requests-6.5.1"
-        // {
-          dependencies = [ sources."workbox-core-6.5.1" ];
-        }
+        sources."workbox-range-requests-6.5.1" // { dependencies = [ sources."workbox-core-6.5.1" ]; }
       )
       (
         sources."workbox-recipes-6.5.1"
@@ -14363,9 +14285,7 @@ let
         }
       )
       (sources."workbox-routing-6.5.1" // { dependencies = [ sources."workbox-core-6.5.1" ]; })
-      (
-        sources."workbox-strategies-6.5.1" // { dependencies = [ sources."workbox-core-6.5.1" ]; }
-      )
+      (sources."workbox-strategies-6.5.1" // { dependencies = [ sources."workbox-core-6.5.1" ]; })
       (sources."workbox-streams-6.5.1" // { dependencies = [ sources."workbox-core-6.5.1" ]; })
       sources."workbox-sw-6.5.1"
       (

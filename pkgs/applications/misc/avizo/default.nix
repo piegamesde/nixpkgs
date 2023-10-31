@@ -51,9 +51,7 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     wrapProgram $out/bin/volumectl --suffix PATH : $out/bin:${lib.makeBinPath ([ pamixer ])}
-    wrapProgram $out/bin/lightctl --suffix PATH : $out/bin:${
-      lib.makeBinPath ([ brightnessctl ])
-    }
+    wrapProgram $out/bin/lightctl --suffix PATH : $out/bin:${lib.makeBinPath ([ brightnessctl ])}
   '';
 
   meta = with lib; {

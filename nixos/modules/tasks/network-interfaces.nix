@@ -19,8 +19,7 @@ let
   hasSits = cfg.sits != { };
   hasGres = cfg.greTunnels != { };
   hasBonds = cfg.bonds != { };
-  hasFous =
-    cfg.fooOverUDP != { } || filterAttrs (_: s: s.encapsulation != null) cfg.sits != { };
+  hasFous = cfg.fooOverUDP != { } || filterAttrs (_: s: s.encapsulation != null) cfg.sits != { };
 
   slaves =
     concatMap (i: i.interfaces) (attrValues cfg.bonds)
@@ -70,8 +69,7 @@ let
   );
 
   # We must escape interfaces due to the systemd interpretation
-  subsystemDevice =
-    interface: "sys-subsystem-net-devices-${escapeSystemdPath interface}.device";
+  subsystemDevice = interface: "sys-subsystem-net-devices-${escapeSystemdPath interface}.device";
 
   addrOpts =
     v:
@@ -635,9 +633,7 @@ in
         address = "131.211.84.1";
         interface = "enp3s0";
       };
-      type = types.nullOr (
-        types.coercedTo types.str gatewayCoerce (types.submodule gatewayOpts)
-      );
+      type = types.nullOr (types.coercedTo types.str gatewayCoerce (types.submodule gatewayOpts));
       description = lib.mdDoc ''
         The default gateway. It can be left empty if it is auto-detected through DHCP.
         It can be specified as a string or an option set along with a network interface.
@@ -650,9 +646,7 @@ in
         address = "2001:4d0:1e04:895::1";
         interface = "enp3s0";
       };
-      type = types.nullOr (
-        types.coercedTo types.str gatewayCoerce (types.submodule gatewayOpts)
-      );
+      type = types.nullOr (types.coercedTo types.str gatewayCoerce (types.submodule gatewayOpts));
       description = lib.mdDoc ''
         The default ipv6 gateway. It can be left empty if it is auto-detected through DHCP.
         It can be specified as a string or an option set along with a network interface.
@@ -1567,8 +1561,7 @@ in
       ))
       ++ [
         {
-          assertion =
-            cfg.hostId == null || (stringLength cfg.hostId == 8 && isHexString cfg.hostId);
+          assertion = cfg.hostId == null || (stringLength cfg.hostId == 8 && isHexString cfg.hostId);
           message = "Invalid value given to the networking.hostId option.";
         }
       ];
@@ -1596,9 +1589,7 @@ in
       }
       // listToAttrs (
         forEach interfaces (
-          i:
-          nameValuePair "net.ipv4.conf.${replaceStrings [ "." ] [ "/" ] i.name}.proxy_arp"
-            i.proxyARP
+          i: nameValuePair "net.ipv4.conf.${replaceStrings [ "." ] [ "/" ] i.name}.proxy_arp" i.proxyARP
         )
       )
       // listToAttrs (
@@ -1763,9 +1754,7 @@ in
                 device: interfaces:
                 if hasAttr device interfaces then
                   mapAttrsToList (n: v: v // { _iName = n; }) (filterAttrs (n: _: n == device) interfaces)
-                  ++ mapAttrsToList (n: v: v // { _iName = n; }) (
-                    filterAttrs (n: _: n != device) interfaces
-                  )
+                  ++ mapAttrsToList (n: v: v // { _iName = n; }) (filterAttrs (n: _: n != device) interfaces)
                 else
                   mapAttrsToList (n: v: v // { _iName = n; }) interfaces;
 
@@ -1831,15 +1820,13 @@ in
               ''
                 # It is important to have that rule first as overwriting the NAME attribute also prevents the
                 # next rules from matching.
-                ${flip (concatMapStringsSep "\n")
-                  (wlanListDeviceFirst device wlanDeviceInterfaces.${device})
-                  (
-                    interface:
-                    ''
-                      ACTION=="add", SUBSYSTEM=="net", ENV{DEVTYPE}=="wlan", ENV{INTERFACE}=="${interface._iName}", ${
-                        systemdAttrs interface._iName
-                      }, RUN+="${newInterfaceScript interface}"''
-                  )}
+                ${flip (concatMapStringsSep "\n") (wlanListDeviceFirst device wlanDeviceInterfaces.${device}) (
+                  interface:
+                  ''
+                    ACTION=="add", SUBSYSTEM=="net", ENV{DEVTYPE}=="wlan", ENV{INTERFACE}=="${interface._iName}", ${
+                      systemdAttrs interface._iName
+                    }, RUN+="${newInterfaceScript interface}"''
+                )}
 
                 # Add the required, new WLAN interfaces to the default WLAN interface with the
                 # persistent, default name as assigned by udev.

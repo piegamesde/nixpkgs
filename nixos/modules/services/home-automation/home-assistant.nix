@@ -47,8 +47,7 @@ let
     if isDerivation config then
       [ ]
     else if isAttrs config then
-      optional (config ? platform) config.platform
-      ++ concatMap usedPlatforms (attrValues config)
+      optional (config ? platform) config.platform ++ concatMap usedPlatforms (attrValues config)
     else if isList config then
       concatMap usedPlatforms config
     else
@@ -122,8 +121,7 @@ in
     # Running home-assistant on NixOS is considered an installation method that is unsupported by the upstream project.
     # https://github.com/home-assistant/architecture/blob/master/adr/0012-define-supported-installation-method.md#decision
     enable = mkEnableOption (
-      lib.mdDoc
-        "Home Assistant. Please note that this installation method is unsupported upstream"
+      lib.mdDoc "Home Assistant. Please note that this installation method is unsupported upstream"
     );
 
     configDir = mkOption {
@@ -430,9 +428,7 @@ in
       }
     ];
 
-    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [
-      cfg.config.http.server_port
-    ];
+    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.config.http.server_port ];
 
     # symlink the configuration to /etc/home-assistant
     environment.etc = lib.mkMerge [
@@ -661,9 +657,7 @@ in
           RestrictNamespaces = true;
           RestrictRealtime = true;
           RestrictSUIDSGID = true;
-          SupplementaryGroups = optionals (any useComponent componentsUsingSerialDevices) [
-            "dialout"
-          ];
+          SupplementaryGroups = optionals (any useComponent componentsUsingSerialDevices) [ "dialout" ];
           SystemCallArchitectures = "native";
           SystemCallFilter = [
             "@system-service"

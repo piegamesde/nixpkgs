@@ -60,8 +60,7 @@ let
   inherit (lib) throwIfNot;
 
   checked =
-    throwIfNot (lib.isList overlays) "The overlays argument to nixpkgs must be a list."
-      lib.foldr
+    throwIfNot (lib.isList overlays) "The overlays argument to nixpkgs must be a list." lib.foldr
       (x: throwIfNot (lib.isFunction x) "All overlays passed to nixpkgs must be functions.")
       (r: r)
       overlays
@@ -69,9 +68,7 @@ let
       (lib.isList crossOverlays)
       "The crossOverlays argument to nixpkgs must be a list."
       lib.foldr
-      (
-        x: throwIfNot (lib.isFunction x) "All crossOverlays passed to nixpkgs must be functions."
-      )
+      (x: throwIfNot (lib.isFunction x) "All crossOverlays passed to nixpkgs must be functions.")
       (r: r)
       crossOverlays;
 

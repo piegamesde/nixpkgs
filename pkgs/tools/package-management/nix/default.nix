@@ -112,10 +112,7 @@ let
       ;
       boehmgc = boehmgc-nix;
       aws-sdk-cpp =
-        if lib.versionAtLeast args.version "2.12pre" then
-          aws-sdk-cpp-nix
-        else
-          aws-sdk-cpp-old-nix;
+        if lib.versionAtLeast args.version "2.12pre" then aws-sdk-cpp-nix else aws-sdk-cpp-old-nix;
     };
 
   # https://github.com/NixOS/nix/pull/7585

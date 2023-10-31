@@ -162,9 +162,7 @@ let
     substituteInPlace ./configuration/configuration.md \
       --replace \
           '@MODULE_CHAPTERS@' \
-          ${
-            lib.escapeShellArg (lib.concatMapStringsSep "\n" (p: "${p.value}") config.meta.doc)
-          }
+          ${lib.escapeShellArg (lib.concatMapStringsSep "\n" (p: "${p.value}") config.meta.doc)}
     substituteInPlace ./nixos-options.md \
       --replace \
         '@NIXOS_OPTIONS_JSON@' \
@@ -199,9 +197,7 @@ let
           ./manual-combined-pre.xml
 
         xsltproc \
-          -o manual-combined.xml ${
-            ./../../lib/make-options-doc/postprocess-option-descriptions.xsl
-          } \
+          -o manual-combined.xml ${./../../lib/make-options-doc/postprocess-option-descriptions.xsl} \
           manual-combined-pre.xml
 
         ${linterFunctions}

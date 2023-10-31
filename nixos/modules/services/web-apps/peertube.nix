@@ -252,8 +252,7 @@ in
 
       host = lib.mkOption {
         type = lib.types.nullOr lib.types.str;
-        default =
-          if cfg.redis.createLocally && !cfg.redis.enableUnixSocket then "127.0.0.1" else null;
+        default = if cfg.redis.createLocally && !cfg.redis.enableUnixSocket then "127.0.0.1" else null;
         defaultText = lib.literalExpression ''
           if config.${opt.redis.createLocally} && !config.${opt.redis.enableUnixSocket}
           then "127.0.0.1"
@@ -337,8 +336,7 @@ in
         '';
       }
       {
-        assertion =
-          cfg.redis.enableUnixSocket || (cfg.redis.host != null && cfg.redis.port != null);
+        assertion = cfg.redis.enableUnixSocket || (cfg.redis.host != null && cfg.redis.port != null);
         message = ''
           <option>services.peertube.redis.host</option> and <option>services.peertube.redis.port</option> needs to be set if <option>services.peertube.redis.enableUnixSocket</option> is not enabled.
         '';
@@ -504,12 +502,10 @@ in
           secrets:
             peertube: '$(cat ${cfg.secrets.secretsFile})'
         ''}
-        ${lib.optionalString
-          ((!cfg.database.createLocally) && (cfg.database.passwordFile != null))
-          ''
-            database:
-              password: '$(cat ${cfg.database.passwordFile})'
-          ''}
+        ${lib.optionalString ((!cfg.database.createLocally) && (cfg.database.passwordFile != null)) ''
+          database:
+            password: '$(cat ${cfg.database.passwordFile})'
+        ''}
         ${lib.optionalString (cfg.redis.passwordFile != null) ''
           redis:
             auth: '$(cat ${cfg.redis.passwordFile})'

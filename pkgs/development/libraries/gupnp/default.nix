@@ -64,9 +64,7 @@ stdenv.mkDerivation rec {
     libxml2
   ];
 
-  mesonFlags = [
-    "-Dgtk_doc=${lib.boolToString (stdenv.buildPlatform == stdenv.hostPlatform)}"
-  ];
+  mesonFlags = [ "-Dgtk_doc=${lib.boolToString (stdenv.buildPlatform == stdenv.hostPlatform)}" ];
 
   # Bail out! ERROR:../tests/test-bugs.c:168:test_on_timeout: code should not be reached
   doCheck = !stdenv.isDarwin;

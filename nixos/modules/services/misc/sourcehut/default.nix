@@ -103,11 +103,9 @@ let
       type = types.str;
       default = "postgresql:///localhost?user=${srv}srht&host=/run/postgresql";
     };
-    migrate-on-upgrade =
-      mkEnableOption (lib.mdDoc "automatic migrations on package upgrade")
-      // {
-        default = true;
-      };
+    migrate-on-upgrade = mkEnableOption (lib.mdDoc "automatic migrations on package upgrade") // {
+      default = true;
+    };
     oauth-client-id = mkOption {
       description = lib.mdDoc "${srv}.sr.ht's OAuth client id for meta.sr.ht.";
       type = types.str;
@@ -1180,9 +1178,7 @@ in
             # Probably could use gitsrht-shell if output is restricted to just parameters...
             users.users.${cfg.git.user}.shell = pkgs.bash;
             services.sourcehut.settings = {
-              "git.sr.ht::dispatch"."/usr/bin/gitsrht-keys" =
-                mkDefault
-                  "${cfg.git.user}:${cfg.git.group}";
+              "git.sr.ht::dispatch"."/usr/bin/gitsrht-keys" = mkDefault "${cfg.git.user}:${cfg.git.group}";
             };
             systemd.services.sshd = baseService;
           }
@@ -1235,16 +1231,12 @@ in
         extraServices.gitsrht-fcgiwrap = mkIf cfg.nginx.enable {
           serviceConfig = {
             # Socket is passed by gitsrht-fcgiwrap.socket
-            ExecStart = "${pkgs.fcgiwrap}/sbin/fcgiwrap -c ${
-                toString cfg.git.fcgiwrap.preforkProcess
-              }";
+            ExecStart = "${pkgs.fcgiwrap}/sbin/fcgiwrap -c ${toString cfg.git.fcgiwrap.preforkProcess}";
             # No need for config.ini
             ExecStartPre = mkForce [ ];
             User = null;
             DynamicUser = true;
-            BindReadOnlyPaths = [
-              "${cfg.settings."git.sr.ht".repos}:/var/lib/sourcehut/gitsrht/repos"
-            ];
+            BindReadOnlyPaths = [ "${cfg.settings."git.sr.ht".repos}:/var/lib/sourcehut/gitsrht/repos" ];
             IPAddressDeny = "any";
             InaccessiblePaths = [
               "-+/run/postgresql"
@@ -1389,9 +1381,7 @@ in
         extraServices.listssrht-process = {
           serviceConfig = {
             preStart = ''
-              cp ${
-                pkgs.writeText "${srvsrht}-webhooks-celeryconfig.py" cfg.lists.process.celeryConfig
-              } \
+              cp ${pkgs.writeText "${srvsrht}-webhooks-celeryconfig.py" cfg.lists.process.celeryConfig} \
                  /run/sourcehut/${srvsrht}-webhooks/celeryconfig.py
             '';
             ExecStart =
@@ -1451,8 +1441,7 @@ in
                     srv = head srvMatch;
                   in
                   # Configure client(s) as "preauthorized"
-                  optionalString
-                    (srvMatch != null && cfg.${srv}.enable && ((s.oauth-client-id or null) != null))
+                  optionalString (srvMatch != null && cfg.${srv}.enable && ((s.oauth-client-id or null) != null))
                     ''
                       # Configure ${srv}'s OAuth client as "preauthorized"
                       ${postgresql.package}/bin/psql '${cfg.settings."meta.sr.ht".connection-string}' \

@@ -47,9 +47,7 @@ buildPythonPackage rec {
           exiftool = "${exiftool}/bin/exiftool";
           ffmpeg = "${ffmpeg}/bin/ffmpeg";
         }
-        // lib.optionalAttrs dolphinIntegration {
-          kdialog = "${plasma5Packages.kdialog}/bin/kdialog";
-        }
+        // lib.optionalAttrs dolphinIntegration { kdialog = "${plasma5Packages.kdialog}/bin/kdialog"; }
       ))
       # the executable shouldn't be called .mat2-wrapped
       ./executable-name.patch

@@ -682,8 +682,7 @@ in
                   ${config.services.postgresql.package}/bin/psql \
                     -U ${cfg.database.user} \
                     ${
-                      optionalString (cfg.database.host != null)
-                        "-h ${cfg.database.host} --port ${toString dbPort}"
+                      optionalString (cfg.database.host != null) "-h ${cfg.database.host} --port ${toString dbPort}"
                     } \
                     -c '${e}' \
                     ${cfg.database.name}''
@@ -735,9 +734,7 @@ in
         };
 
         wantedBy = [ "multi-user.target" ];
-        requires =
-          optional mysqlLocal "mysql.service"
-          ++ optional pgsqlLocal "postgresql.service";
+        requires = optional mysqlLocal "mysql.service" ++ optional pgsqlLocal "postgresql.service";
         after = [
           "network.target"
         ] ++ optional mysqlLocal "mysql.service" ++ optional pgsqlLocal "postgresql.service";

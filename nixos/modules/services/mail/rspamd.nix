@@ -160,8 +160,7 @@ let
         };
       };
       config =
-        mkIf
-          (name == "normal" || name == "controller" || name == "fuzzy" || name == "rspamd_proxy")
+        mkIf (name == "normal" || name == "controller" || name == "fuzzy" || name == "rspamd_proxy")
           {
             type = mkDefault name;
             includes = mkDefault [
@@ -189,14 +188,11 @@ let
           };
     };
 
-  isUnixSocket =
-    socket: hasPrefix "/" (if (isString socket) then socket else socket.socket);
+  isUnixSocket = socket: hasPrefix "/" (if (isString socket) then socket else socket.socket);
 
   mkBindSockets =
     enabled: socks:
-    concatStringsSep "\n  " (
-      flatten (map (each: ''bind_socket = "${each.rawEntry}";'') socks)
-    );
+    concatStringsSep "\n  " (flatten (map (each: ''bind_socket = "${each.rawEntry}";'') socks));
 
   rspamdConfFile = pkgs.writeText "rspamd.conf" ''
     .include "$CONFDIR/common.conf"
@@ -319,9 +315,7 @@ let
       )
       (filterAttrs (n: v: v.extraConfig != "") cfg.workers)
     )
-    // (
-      if cfg.extraConfig == "" then { } else { "extra-config.inc".text = cfg.extraConfig; }
-    );
+    // (if cfg.extraConfig == "" then { } else { "extra-config.inc".text = cfg.extraConfig; });
 in
 
 {

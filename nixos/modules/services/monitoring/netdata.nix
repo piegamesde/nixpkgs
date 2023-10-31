@@ -212,9 +212,7 @@ in
           ]
         )
         ++ lib.optional cfg.python.enable (pkgs.python3.withPackages cfg.python.extraPackages)
-        ++ lib.optional config.virtualisation.libvirtd.enable (
-          config.virtualisation.libvirtd.package
-        );
+        ++ lib.optional config.virtualisation.libvirtd.enable (config.virtualisation.libvirtd.package);
       environment = {
         PYTHONPATH = "${cfg.package}/libexec/netdata/python.d/python_modules";
       } // lib.optionalAttrs (!cfg.enableAnalyticsReporting) { DO_NOT_TRACK = "1"; };

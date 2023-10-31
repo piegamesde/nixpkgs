@@ -137,9 +137,7 @@ in
         --prefix PATH : '${lib.makeBinPath (tools ++ buildTools)}' \
         --prefix PKG_CONFIG_PATH : "$FLUTTER_PKG_CONFIG_PATH" \
         --prefix LIBRARY_PATH : '${lib.makeLibraryPath appStaticBuildDeps}' \
-        --prefix CXXFLAGS "	" '${
-          builtins.concatStringsSep " " (includeFlags ++ extraCxxFlags)
-        }' \
+        --prefix CXXFLAGS "	" '${builtins.concatStringsSep " " (includeFlags ++ extraCxxFlags)}' \
         --prefix CFLAGS "	" '${builtins.concatStringsSep " " (includeFlags ++ extraCFlags)}' \
         --prefix LDFLAGS "	" '${
           builtins.concatStringsSep " " (map (flag: "-Wl,${flag}") linkerFlags)

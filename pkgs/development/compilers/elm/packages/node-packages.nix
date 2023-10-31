@@ -14306,9 +14306,7 @@ in
       sources."shebang-command-1.2.0"
       sources."shebang-regex-1.0.0"
       sources."source-map-0.7.4"
-      (
-        sources."source-map-support-0.5.21" // { dependencies = [ sources."source-map-0.6.1" ]; }
-      )
+      (sources."source-map-support-0.5.21" // { dependencies = [ sources."source-map-0.6.1" ]; })
       sources."temp-0.9.4"
       sources."terser-5.3.8"
       sources."to-regex-range-5.0.1"
@@ -14531,9 +14529,7 @@ in
       sources."fast-deep-equal-3.1.3"
       sources."fast-json-stable-stringify-2.1.0"
       sources."fill-range-7.0.1"
-      (
-        sources."find-elm-dependencies-2.0.2" // { dependencies = [ sources."firstline-1.2.0" ]; }
-      )
+      (sources."find-elm-dependencies-2.0.2" // { dependencies = [ sources."firstline-1.2.0" ]; })
       sources."find-parent-dir-0.3.1"
       sources."find-up-3.0.0"
       sources."firstline-2.0.2"
@@ -14835,12 +14831,7 @@ in
       sources."@types/tapable-1.0.8"
       (sources."@types/uglify-js-3.17.1" // { dependencies = [ sources."source-map-0.6.1" ]; })
       (sources."@types/webpack-4.41.33" // { dependencies = [ sources."source-map-0.6.1" ]; })
-      (
-        sources."@types/webpack-sources-3.2.0"
-        // {
-          dependencies = [ sources."source-map-0.7.4" ];
-        }
-      )
+      (sources."@types/webpack-sources-3.2.0" // { dependencies = [ sources."source-map-0.7.4" ]; })
       sources."@webassemblyjs/ast-1.9.0"
       sources."@webassemblyjs/floating-point-hex-parser-1.9.0"
       sources."@webassemblyjs/helper-api-error-1.9.0"
@@ -14901,9 +14892,7 @@ in
         }
       )
       sources."assert-plus-1.0.0"
-      (
-        sources."assets-webpack-plugin-3.9.12" // { dependencies = [ sources."lodash-4.17.15" ]; }
-      )
+      (sources."assets-webpack-plugin-3.9.12" // { dependencies = [ sources."lodash-4.17.15" ]; })
       sources."assign-symbols-1.0.0"
       sources."async-0.9.2"
       sources."async-each-1.0.6"
@@ -14927,10 +14916,7 @@ in
       sources."babel-plugin-syntax-object-rest-spread-6.13.0"
       sources."babel-plugin-transform-object-rest-spread-6.26.0"
       (
-        sources."babel-runtime-6.26.0"
-        // {
-          dependencies = [ sources."regenerator-runtime-0.11.1" ];
-        }
+        sources."babel-runtime-6.26.0" // { dependencies = [ sources."regenerator-runtime-0.11.1" ]; }
       )
       sources."babylon-6.18.0"
       sources."balanced-match-1.0.2"
@@ -15004,9 +14990,7 @@ in
         // {
           dependencies = [
             sources."define-property-0.2.5"
-            (
-              sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; }
-            )
+            (sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; })
             (sources."is-data-descriptor-0.1.4" // { dependencies = [ sources."kind-of-3.2.2" ]; })
             sources."is-descriptor-0.1.6"
             sources."kind-of-5.1.0"
@@ -15057,9 +15041,7 @@ in
       sources."connect-history-api-fallback-1.6.0"
       sources."console-browserify-1.2.0"
       sources."constants-browserify-1.0.0"
-      (
-        sources."content-disposition-0.5.4" // { dependencies = [ sources."safe-buffer-5.2.1" ]; }
-      )
+      (sources."content-disposition-0.5.4" // { dependencies = [ sources."safe-buffer-5.2.1" ]; })
       sources."content-type-1.0.5"
       sources."convert-source-map-1.9.0"
       sources."cookie-0.5.0"
@@ -15176,9 +15158,7 @@ in
       (
         sources."del-4.1.1"
         // {
-          dependencies = [
-            (sources."globby-6.1.0" // { dependencies = [ sources."pify-2.3.0" ]; })
-          ];
+          dependencies = [ (sources."globby-6.1.0" // { dependencies = [ sources."pify-2.3.0" ]; }) ];
         }
       )
       sources."delayed-stream-1.0.0"
@@ -15282,9 +15262,7 @@ in
             sources."debug-2.6.9"
             sources."define-property-0.2.5"
             sources."extend-shallow-2.0.1"
-            (
-              sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; }
-            )
+            (sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; })
             (sources."is-data-descriptor-0.1.4" // { dependencies = [ sources."kind-of-3.2.2" ]; })
             sources."is-descriptor-0.1.6"
             sources."kind-of-5.1.0"
@@ -16301,9 +16279,7 @@ in
             sources."debug-2.6.9"
             sources."define-property-0.2.5"
             sources."extend-shallow-2.0.1"
-            (
-              sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; }
-            )
+            (sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; })
             (sources."is-data-descriptor-0.1.4" // { dependencies = [ sources."kind-of-3.2.2" ]; })
             sources."is-descriptor-0.1.6"
             sources."kind-of-5.1.0"
@@ -16311,9 +16287,7 @@ in
           ];
         }
       )
-      (
-        sources."snapdragon-node-2.1.1" // { dependencies = [ sources."define-property-1.0.0" ]; }
-      )
+      (sources."snapdragon-node-2.1.1" // { dependencies = [ sources."define-property-1.0.0" ]; })
       (sources."snapdragon-util-3.0.1" // { dependencies = [ sources."kind-of-3.2.2" ]; })
       (
         sources."sockjs-0.3.20"
@@ -16338,18 +16312,14 @@ in
       sources."source-map-0.5.7"
       sources."source-map-js-1.0.2"
       sources."source-map-resolve-0.5.3"
-      (
-        sources."source-map-support-0.5.21" // { dependencies = [ sources."source-map-0.6.1" ]; }
-      )
+      (sources."source-map-support-0.5.21" // { dependencies = [ sources."source-map-0.6.1" ]; })
       sources."source-map-url-0.4.1"
       sources."spdx-correct-3.2.0"
       sources."spdx-exceptions-2.3.0"
       sources."spdx-expression-parse-3.0.1"
       sources."spdx-license-ids-3.0.13"
       sources."spdy-4.0.2"
-      (
-        sources."spdy-transport-3.0.0" // { dependencies = [ sources."readable-stream-3.6.2" ]; }
-      )
+      (sources."spdy-transport-3.0.0" // { dependencies = [ sources."readable-stream-3.6.2" ]; })
       sources."split-1.0.1"
       sources."split-string-3.1.0"
       sources."sprintf-js-1.0.3"
@@ -16362,9 +16332,7 @@ in
         // {
           dependencies = [
             sources."define-property-0.2.5"
-            (
-              sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; }
-            )
+            (sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; })
             (sources."is-data-descriptor-0.1.4" // { dependencies = [ sources."kind-of-3.2.2" ]; })
             sources."is-descriptor-0.1.6"
             sources."kind-of-5.1.0"
@@ -16654,12 +16622,7 @@ in
         }
       )
       sources."webpack-log-2.0.0"
-      (
-        sources."webpack-manifest-plugin-2.2.0"
-        // {
-          dependencies = [ sources."fs-extra-7.0.1" ];
-        }
-      )
+      (sources."webpack-manifest-plugin-2.2.0" // { dependencies = [ sources."fs-extra-7.0.1" ]; })
       (sources."webpack-sources-1.4.3" // { dependencies = [ sources."source-map-0.6.1" ]; })
       sources."websocket-driver-0.7.4"
       sources."websocket-extensions-0.1.4"
@@ -17143,12 +17106,7 @@ in
       sources."concat-map-0.0.1"
       sources."cross-spawn-7.0.3"
       sources."debug-4.3.4"
-      (
-        sources."decompress-response-6.0.0"
-        // {
-          dependencies = [ sources."mimic-response-3.1.0" ];
-        }
-      )
+      (sources."decompress-response-6.0.0" // { dependencies = [ sources."mimic-response-3.1.0" ]; })
       sources."defaults-1.0.4"
       sources."defer-to-connect-2.0.1"
       sources."elm-tooling-1.13.1"

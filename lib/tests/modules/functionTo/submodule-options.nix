@@ -16,9 +16,7 @@ in
       {
         options = {
           fun = lib.mkOption {
-            type = types.functionTo (
-              types.submodule { options.a = lib.mkOption { default = "a"; }; }
-            );
+            type = types.functionTo (types.submodule { options.a = lib.mkOption { default = "a"; }; });
           };
         };
       }
@@ -30,9 +28,7 @@ in
       {
         options = {
           fun = lib.mkOption {
-            type = types.functionTo (
-              types.submodule { options.b = lib.mkOption { default = "b"; }; }
-            );
+            type = types.functionTo (types.submodule { options.b = lib.mkOption { default = "b"; }; });
           };
         };
       }

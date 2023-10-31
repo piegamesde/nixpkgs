@@ -245,9 +245,7 @@ assert (lib.assertMsg
 );
 # Either both or none of {user,group} need to be set
 assert (lib.assertMsg
-  (lib.all (attrs: ((attrs.user or null) == null) == ((attrs.group or null) == null))
-    contents
-  )
+  (lib.all (attrs: ((attrs.user or null) == null) == ((attrs.group or null) == null)) contents)
   "Contents of the disk image should set none of {user, group} or both at the same time."
 );
 
@@ -609,8 +607,7 @@ let
         ];
         postVM = moveOrConvertImage + postVM;
         QEMU_OPTS = concatStringsSep " " (
-          lib.optional useEFIBoot
-            "-drive if=pflash,format=raw,unit=0,readonly=on,file=${efiFirmware}"
+          lib.optional useEFIBoot "-drive if=pflash,format=raw,unit=0,readonly=on,file=${efiFirmware}"
           ++ lib.optionals touchEFIVars [ "-drive if=pflash,format=raw,unit=1,file=$efiVars" ]
         );
         inherit memSize;
@@ -618,9 +615,7 @@ let
       ''
         export PATH=${binPath}:$PATH
 
-        rootDisk=${
-          if partitionTableType != "none" then "/dev/vda${rootPartition}" else "/dev/vda"
-        }
+        rootDisk=${if partitionTableType != "none" then "/dev/vda${rootPartition}" else "/dev/vda"}
 
         # It is necessary to set root filesystem unique identifier in advance, otherwise
         # bootloader might get the wrong one and fail to boot.

@@ -211,9 +211,7 @@ in
         Driver "synaptics"
         ${optionalString (cfg.minSpeed != null) ''Option "MinSpeed" "${cfg.minSpeed}"''}
         ${optionalString (cfg.maxSpeed != null) ''Option "MaxSpeed" "${cfg.maxSpeed}"''}
-        ${
-          optionalString (cfg.accelFactor != null) ''Option "AccelFactor" "${cfg.accelFactor}"''
-        }
+        ${optionalString (cfg.accelFactor != null) ''Option "AccelFactor" "${cfg.accelFactor}"''}
         ${optionalString cfg.tapButtons tapConfig}
         Option "ClickFinger1" "${builtins.elemAt cfg.buttonsMap 0}"
         Option "ClickFinger2" "${builtins.elemAt cfg.buttonsMap 1}"
@@ -227,9 +225,7 @@ in
           optionalString (cfg.palmMinWidth != null)
             ''Option "PalmMinWidth" "${toString cfg.palmMinWidth}"''
         }
-        ${
-          optionalString (cfg.palmMinZ != null) ''Option "PalmMinZ" "${toString cfg.palmMinZ}"''
-        }
+        ${optionalString (cfg.palmMinZ != null) ''Option "PalmMinZ" "${toString cfg.palmMinZ}"''}
         ${
           optionalString (cfg.scrollDelta != null)
             ''Option "VertScrollDelta" "${toString cfg.scrollDelta}"''

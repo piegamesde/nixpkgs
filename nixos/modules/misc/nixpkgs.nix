@@ -26,8 +26,7 @@ let
     // optionalAttrs (lhs ? packageOverrides) {
       packageOverrides =
         pkgs:
-        optCall lhs.packageOverrides pkgs
-        // optCall (attrByPath [ "packageOverrides" ] { } rhs) pkgs;
+        optCall lhs.packageOverrides pkgs // optCall (attrByPath [ "packageOverrides" ] { } rhs) pkgs;
     }
     // optionalAttrs (lhs ? perlPackageOverrides) {
       perlPackageOverrides =
@@ -71,9 +70,7 @@ let
   hasPlatform = hasHostPlatform || hasBuildPlatform;
 
   # Context for messages
-  hostPlatformLine =
-    optionalString hasHostPlatform
-      "${showOptionWithDefLocs opt.hostPlatform}";
+  hostPlatformLine = optionalString hasHostPlatform "${showOptionWithDefLocs opt.hostPlatform}";
   buildPlatformLine =
     optionalString hasBuildPlatform
       "${showOptionWithDefLocs opt.buildPlatform}";
@@ -81,9 +78,7 @@ let
   legacyOptionsDefined =
     optional (opt.localSystem.highestPrio < (mkDefault { }).priority) opt.system
     ++ optional (opt.localSystem.highestPrio < (mkOptionDefault { }).priority) opt.localSystem
-    ++
-      optional (opt.crossSystem.highestPrio < (mkOptionDefault { }).priority)
-        opt.crossSystem;
+    ++ optional (opt.crossSystem.highestPrio < (mkOptionDefault { }).priority) opt.crossSystem;
 
   defaultPkgs =
     if opt.hostPlatform.isDefined then
@@ -109,8 +104,7 @@ let
         ;
       };
 
-  finalPkgs =
-    if opt.pkgs.isDefined then cfg.pkgs.appendOverlays cfg.overlays else defaultPkgs;
+  finalPkgs = if opt.pkgs.isDefined then cfg.pkgs.appendOverlays cfg.overlays else defaultPkgs;
 in
 
 {
@@ -384,10 +378,7 @@ in
                 lib.systems.parse.mkSystemFromString config.nixpkgs.localSystem.config
               ));
           nixosOption =
-            if config.nixpkgs.crossSystem != null then
-              "nixpkgs.crossSystem"
-            else
-              "nixpkgs.localSystem";
+            if config.nixpkgs.crossSystem != null then "nixpkgs.crossSystem" else "nixpkgs.localSystem";
           pkgsSystem = finalPkgs.stdenv.targetPlatform.system;
         in
         {

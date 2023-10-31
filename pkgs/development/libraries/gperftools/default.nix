@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
 
   # tcmalloc uses libunwind in a way that works correctly only on non-ARM dynamically linked linux
   buildInputs =
-    lib.optional
-      (stdenv.isLinux && !(stdenv.hostPlatform.isAarch || stdenv.hostPlatform.isStatic))
+    lib.optional (stdenv.isLinux && !(stdenv.hostPlatform.isAarch || stdenv.hostPlatform.isStatic))
       libunwind;
 
   # Disable general dynamic TLS on AArch to support dlopen()'ing the library:

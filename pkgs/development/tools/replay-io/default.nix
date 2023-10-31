@@ -41,9 +41,7 @@ rec {
       runHook postInstall
     '';
     postFixup = ''
-      patchelf --set-rpath "$(patchelf --print-rpath $out):${
-        lib.makeLibraryPath [ openssl ]
-      }" $out
+      patchelf --set-rpath "$(patchelf --print-rpath $out):${lib.makeLibraryPath [ openssl ]}" $out
     '';
     meta = with lib; {
       description = "RecordReplay internal recording library";
@@ -56,9 +54,7 @@ rec {
 
   replay-io = stdenv.mkDerivation rec {
     pname = "replay-io";
-    version = builtins.head (
-      builtins.match ".*/linux-gecko-(.*).tar.bz2" metadata.replay.url
-    );
+    version = builtins.head (builtins.match ".*/linux-gecko-(.*).tar.bz2" metadata.replay.url);
     srcs = fetchurl metadata.replay;
     nativeBuildInputs = [
       autoPatchelfHook

@@ -26,9 +26,7 @@ let
   dontConfigure =
     pkg:
     if pkg != null then
-      pkg.override (
-        args: { melpaBuild = drv: args.melpaBuild (drv // { dontConfigure = true; }); }
-      )
+      pkg.override (args: { melpaBuild = drv: args.melpaBuild (drv // { dontConfigure = true; }); })
     else
       null;
 
@@ -88,9 +86,7 @@ let
       inherit (import ./libgenerated.nix lib self) melpaDerivation;
       super =
         (lib.listToAttrs (
-          builtins.filter (s: s != null) (
-            map (melpaDerivation variant) (lib.importJSON archiveJson)
-          )
+          builtins.filter (s: s != null) (map (melpaDerivation variant) (lib.importJSON archiveJson))
         ));
 
       overrides =
@@ -145,8 +141,7 @@ let
               super.gl-conf-mode;
 
           # upstream issue: missing file header
-          ligo-mode =
-            if super.ligo-mode.version == "0.3" then markBroken super.ligo-mode else null; # auto-updater is failing; use manual one
+          ligo-mode = if super.ligo-mode.version == "0.3" then markBroken super.ligo-mode else null; # auto-updater is failing; use manual one
 
           # upstream issue: missing file header
           link = markBroken super.link;
@@ -155,8 +150,7 @@ let
           org-dp = if super.org-dp.version == "1" then markBroken super.org-dp else super.org-dp;
 
           # upstream issue: missing file header
-          revbufs =
-            if super.revbufs.version == "1.2" then markBroken super.revbufs else super.revbufs;
+          revbufs = if super.revbufs.version == "1.2" then markBroken super.revbufs else super.revbufs;
 
           # upstream issue: missing file header
           elmine = markBroken super.elmine;
@@ -168,9 +162,7 @@ let
           # Expects bash to be at /bin/bash
           ac-rtags = fix-rtags super.ac-rtags;
 
-          airline-themes = super.airline-themes.override {
-            inherit (self.melpaPackages) powerline;
-          };
+          airline-themes = super.airline-themes.override { inherit (self.melpaPackages) powerline; };
 
           auto-complete-clang-async = super.auto-complete-clang-async.overrideAttrs (
             old: {
@@ -189,9 +181,7 @@ let
 
           company-rtags = fix-rtags super.company-rtags;
 
-          easy-kill-extras = super.easy-kill-extras.override {
-            inherit (self.melpaPackages) easy-kill;
-          };
+          easy-kill-extras = super.easy-kill-extras.override { inherit (self.melpaPackages) easy-kill; };
 
           dune = dontConfigure super.dune;
 

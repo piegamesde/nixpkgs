@@ -54,10 +54,7 @@ let
     implementation = "pypy";
     libPrefix = "pypy${pythonVersion}";
     executable = "pypy${
-        if isPy39OrNewer then
-          lib.versions.majorMinor pythonVersion
-        else
-          lib.optionalString isPy3k "3"
+        if isPy39OrNewer then lib.versions.majorMinor pythonVersion else lib.optionalString isPy3k "3"
       }";
     sitePackages = "${lib.optionalString isPy38OrNewer "lib/${libPrefix}/"}site-packages";
     hasDistutilsCxxPatch = false;
@@ -138,9 +135,7 @@ stdenv.mkDerivation rec {
     substituteInPlace lib_pypy/pypy_tools/build_cffi_imports.py \
       --replace "multiprocessing.cpu_count()" "$NIX_BUILD_CORES"
 
-    substituteInPlace "lib-python/${
-      if isPy3k then "3/tkinter/tix.py" else "2.7/lib-tk/Tix.py"
-    }" \
+    substituteInPlace "lib-python/${if isPy3k then "3/tkinter/tix.py" else "2.7/lib-tk/Tix.py"}" \
       --replace "os.environ.get('TIX_LIBRARY')" "os.environ.get('TIX_LIBRARY') or '${tix}/lib'"
   '';
 

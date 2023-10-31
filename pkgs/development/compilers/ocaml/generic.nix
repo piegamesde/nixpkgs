@@ -42,8 +42,7 @@ let
   src =
     args.src or (fetchurl {
       url =
-        args.url
-          or "http://caml.inria.fr/pub/distrib/ocaml-${versionNoPatch}/ocaml-${version}.tar.xz";
+        args.url or "http://caml.inria.fr/pub/distrib/ocaml-${versionNoPatch}/ocaml-${version}.tar.xz";
       inherit (args) sha256;
     });
 in
@@ -119,12 +118,10 @@ stdenv.mkDerivation (
       ++
         optional (stdenv.hostPlatform.isStatic && (lib.versionOlder version "4.08"))
           "-no-shared-libs"
-      ++
-        optionals (stdenv.hostPlatform != stdenv.buildPlatform && lib.versionOlder version "4.08")
-          [
-            "-host ${stdenv.hostPlatform.config}"
-            "-target ${stdenv.targetPlatform.config}"
-          ];
+      ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform && lib.versionOlder version "4.08") [
+        "-host ${stdenv.hostPlatform.config}"
+        "-target ${stdenv.targetPlatform.config}"
+      ];
     dontAddStaticConfigureFlags = lib.versionOlder version "4.08";
 
     # on aarch64-darwin using --host and --target causes the build to invoke
@@ -132,8 +129,7 @@ stdenv.mkDerivation (
     # does not exist. So, disable these configure flags on `aarch64-darwin`.
     # See #144785 for details.
     configurePlatforms =
-      lib.optionals
-        (lib.versionAtLeast version "4.08" && !(stdenv.isDarwin && stdenv.isAarch64))
+      lib.optionals (lib.versionAtLeast version "4.08" && !(stdenv.isDarwin && stdenv.isAarch64))
         [
           "host"
           "target"
@@ -159,10 +155,7 @@ stdenv.mkDerivation (
     # sequential order among them as a single rule.
     makefile = ./Makefile.nixpkgs;
     buildFlags =
-      if useNativeCompilers then
-        [ "nixpkgs_world_bootstrap_world_opt" ]
-      else
-        [ "nixpkgs_world" ];
+      if useNativeCompilers then [ "nixpkgs_world_bootstrap_world_opt" ] else [ "nixpkgs_world" ];
     buildInputs =
       optional (lib.versionOlder version "4.07") ncurses
       ++ optionals useX11 [

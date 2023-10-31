@@ -11440,12 +11440,7 @@ let
       sources."@rollup/plugin-babel-5.3.1"
       sources."@rollup/plugin-node-resolve-11.2.1"
       sources."@rollup/plugin-replace-2.4.2"
-      (
-        sources."@rollup/pluginutils-3.1.0"
-        // {
-          dependencies = [ sources."@types/estree-0.0.39" ];
-        }
-      )
+      (sources."@rollup/pluginutils-3.1.0" // { dependencies = [ sources."@types/estree-0.0.39" ]; })
       sources."@rushstack/eslint-patch-1.2.0"
       sources."@sinclair/typebox-0.24.51"
       sources."@sinonjs/commons-1.8.6"
@@ -11612,10 +11607,7 @@ let
       sources."babel-plugin-macros-3.1.0"
       sources."babel-plugin-named-asset-import-0.3.8"
       (
-        sources."babel-plugin-polyfill-corejs2-0.3.3"
-        // {
-          dependencies = [ sources."semver-6.3.0" ];
-        }
+        sources."babel-plugin-polyfill-corejs2-0.3.3" // { dependencies = [ sources."semver-6.3.0" ]; }
       )
       sources."babel-plugin-polyfill-corejs3-0.6.0"
       sources."babel-plugin-polyfill-regenerator-0.4.1"
@@ -11792,9 +11784,7 @@ let
       sources."dom-helpers-5.2.1"
       (sources."dom-serializer-0.2.2" // { dependencies = [ sources."domelementtype-2.3.0" ]; })
       sources."domelementtype-1.3.1"
-      (
-        sources."domexception-2.0.1" // { dependencies = [ sources."webidl-conversions-5.0.0" ]; }
-      )
+      (sources."domexception-2.0.1" // { dependencies = [ sources."webidl-conversions-5.0.0" ]; })
       (sources."domhandler-4.3.1" // { dependencies = [ sources."domelementtype-2.3.0" ]; })
       sources."domutils-1.7.0"
       (sources."dot-case-3.0.4" // { dependencies = [ sources."tslib-2.5.0" ]; })
@@ -11851,12 +11841,7 @@ let
         }
       )
       sources."eslint-config-react-app-7.0.1"
-      (
-        sources."eslint-import-resolver-node-0.3.7"
-        // {
-          dependencies = [ sources."debug-3.2.7" ];
-        }
-      )
+      (sources."eslint-import-resolver-node-0.3.7" // { dependencies = [ sources."debug-3.2.7" ]; })
       (sources."eslint-module-utils-2.8.0" // { dependencies = [ sources."debug-3.2.7" ]; })
       sources."eslint-plugin-flowtype-8.0.3"
       (
@@ -12030,9 +12015,7 @@ let
       sources."html-encoding-sniffer-2.0.1"
       sources."html-entities-2.3.3"
       sources."html-escaper-2.0.2"
-      (
-        sources."html-minifier-terser-6.1.0" // { dependencies = [ sources."commander-8.3.0" ]; }
-      )
+      (sources."html-minifier-terser-6.1.0" // { dependencies = [ sources."commander-8.3.0" ]; })
       sources."html-parse-stringify-3.0.1"
       sources."html-webpack-plugin-5.5.1"
       (
@@ -12111,9 +12094,7 @@ let
       sources."isarray-2.0.5"
       sources."isexe-2.0.0"
       sources."istanbul-lib-coverage-3.2.0"
-      (
-        sources."istanbul-lib-instrument-5.2.1" // { dependencies = [ sources."semver-6.3.0" ]; }
-      )
+      (sources."istanbul-lib-instrument-5.2.1" // { dependencies = [ sources."semver-6.3.0" ]; })
       (
         sources."istanbul-lib-report-3.0.0"
         // {
@@ -12124,10 +12105,7 @@ let
         }
       )
       (
-        sources."istanbul-lib-source-maps-4.0.1"
-        // {
-          dependencies = [ sources."source-map-0.6.1" ];
-        }
+        sources."istanbul-lib-source-maps-4.0.1" // { dependencies = [ sources."source-map-0.6.1" ]; }
       )
       sources."istanbul-reports-3.1.5"
       (
@@ -12813,21 +12791,14 @@ let
       sources."source-map-0.5.7"
       sources."source-map-js-1.0.2"
       (sources."source-map-loader-3.0.2" // { dependencies = [ sources."iconv-lite-0.6.3" ]; })
-      (
-        sources."source-map-support-0.5.21" // { dependencies = [ sources."source-map-0.6.1" ]; }
-      )
+      (sources."source-map-support-0.5.21" // { dependencies = [ sources."source-map-0.6.1" ]; })
       sources."sourcemap-codec-1.4.8"
       sources."spdy-4.0.2"
       sources."spdy-transport-3.0.0"
       sources."sprintf-js-1.0.3"
       sources."stable-0.1.8"
       sources."stack-generator-2.0.10"
-      (
-        sources."stack-utils-2.0.6"
-        // {
-          dependencies = [ sources."escape-string-regexp-2.0.0" ];
-        }
-      )
+      (sources."stack-utils-2.0.6" // { dependencies = [ sources."escape-string-regexp-2.0.0" ]; })
       sources."stackframe-1.3.4"
       (sources."stacktrace-gps-3.1.2" // { dependencies = [ sources."source-map-0.5.6" ]; })
       sources."stacktrace-js-2.0.2"

@@ -79,9 +79,7 @@ in
           db_url = mkOption {
             type = types.nullOr types.str;
             default = null;
-            description =
-              lib.mdDoc
-                "The database to connect to when using postgres, mysql, or mysql2.";
+            description = lib.mdDoc "The database to connect to when using postgres, mysql, or mysql2.";
           };
         };
       };

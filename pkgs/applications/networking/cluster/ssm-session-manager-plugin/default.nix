@@ -35,9 +35,7 @@ buildGo120Package rec {
   checkFlags = [ "-skip=TestSetSessionHandlers" ];
 
   preCheck = ''
-    if ! [[ $(go/bin/sessionmanagerplugin-main --version) = ${
-      lib.escapeShellArg version
-    } ]]; then
+    if ! [[ $(go/bin/sessionmanagerplugin-main --version) = ${lib.escapeShellArg version} ]]; then
       echo 'wrong version'
       exit 1
     fi

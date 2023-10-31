@@ -154,10 +154,8 @@ let
 
       ,
       # TODO(@Ericson2314): Make always true and remove / resolve #178468
-      strictDeps ? if config.strictDepsByDefault then
-        true
-      else
-        stdenv.hostPlatform != stdenv.buildPlatform,
+      strictDeps ?
+        if config.strictDepsByDefault then true else stdenv.hostPlatform != stdenv.buildPlatform,
 
       enableParallelBuilding ? config.enableParallelBuildingByDefault,
 
@@ -185,8 +183,7 @@ let
 
       patches ? [ ],
 
-      __contentAddressed ?
-        (!attrs ? outputHash) # Fixed-output drvs can't be content addressed too
+      __contentAddressed ? (!attrs ? outputHash) # Fixed-output drvs can't be content addressed too
         && config.contentAddressedByDefault,
 
       # Experimental.  For simple packages mostly just works,
@@ -211,8 +208,7 @@ let
       # Turn a derivation into its outPath without a string context attached.
       # See the comment at the usage site.
       unsafeDerivationToUntrackedOutpath =
-        drv:
-        if lib.isDerivation drv then builtins.unsafeDiscardStringContext drv.outPath else drv;
+        drv: if lib.isDerivation drv then builtins.unsafeDiscardStringContext drv.outPath else drv;
 
       noNonNativeDeps =
         builtins.length (
@@ -319,9 +315,7 @@ let
         nativeBuildInputs' =
           nativeBuildInputs
           ++ lib.optional separateDebugInfo' ../../build-support/setup-hooks/separate-debug-info.sh
-          ++
-            lib.optional stdenv.hostPlatform.isWindows
-              ../../build-support/setup-hooks/win-dll-link.sh
+          ++ lib.optional stdenv.hostPlatform.isWindows ../../build-support/setup-hooks/win-dll-link.sh
           ++ lib.optionals doCheck nativeCheckInputs
           ++ lib.optionals doInstallCheck nativeInstallCheckInputs;
 
@@ -343,12 +337,8 @@ let
             ))
           ]
           [
-            (map (drv: drv.__spliced.hostHost or drv) (
-              checkDependencyList "depsHostHost" depsHostHost
-            ))
-            (map (drv: drv.__spliced.hostTarget or drv) (
-              checkDependencyList "buildInputs" buildInputs'
-            ))
+            (map (drv: drv.__spliced.hostHost or drv) (checkDependencyList "depsHostHost" depsHostHost))
+            (map (drv: drv.__spliced.hostTarget or drv) (checkDependencyList "buildInputs" buildInputs'))
           ]
           [
             (map (drv: drv.__spliced.targetTarget or drv) (
@@ -592,9 +582,7 @@ let
 
                 crossFile = builtins.toFile "cross-file.conf" ''
                   [properties]
-                  needs_exe_wrapper = ${
-                    lib.boolToString (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
-                  }
+                  needs_exe_wrapper = ${lib.boolToString (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)}
 
                   [host_machine]
                   system = '${stdenv.targetPlatform.parsed.kernel.name}'
@@ -669,8 +657,7 @@ let
                 "/dev/urandom"
                 "/bin/sh"
               ];
-            __propagatedImpureHostDeps =
-              computedPropagatedImpureHostDeps ++ __propagatedImpureHostDeps;
+            __propagatedImpureHostDeps = computedPropagatedImpureHostDeps ++ __propagatedImpureHostDeps;
           }
           //
             # If we use derivations directly here, they end up as build-time dependencies.
@@ -698,14 +685,10 @@ let
             disallowedRequisites = map unsafeDerivationToUntrackedOutpath attrs.disallowedRequisites;
           }
           // lib.optionalAttrs (attrs ? allowedReferences) {
-            allowedReferences =
-              lib.mapNullable unsafeDerivationToUntrackedOutpath
-                attrs.allowedReferences;
+            allowedReferences = lib.mapNullable unsafeDerivationToUntrackedOutpath attrs.allowedReferences;
           }
           // lib.optionalAttrs (attrs ? allowedRequisites) {
-            allowedRequisites =
-              lib.mapNullable unsafeDerivationToUntrackedOutpath
-                attrs.allowedRequisites;
+            allowedRequisites = lib.mapNullable unsafeDerivationToUntrackedOutpath attrs.allowedRequisites;
           };
 
         meta = checkMeta.commonMeta {

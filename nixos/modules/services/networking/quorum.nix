@@ -108,9 +108,7 @@ in
         port = mkOption {
           type = types.port;
           default = 22004;
-          description =
-            lib.mdDoc
-              "Override the default port on which to listen for RPC connections.";
+          description = lib.mdDoc "Override the default port on which to listen for RPC connections.";
         };
 
         api = mkOption {
@@ -136,9 +134,7 @@ in
         port = mkOption {
           type = types.port;
           default = 8546;
-          description =
-            lib.mdDoc
-              "Override the default port on which to listen for WS-RPC connections.";
+          description = lib.mdDoc "Override the default port on which to listen for WS-RPC connections.";
         };
 
         api = mkOption {
@@ -228,9 +224,7 @@ in
                       --mine --minerthreads 1 \
                       ${
                         optionalString (cfg.rpc.enable)
-                          "--rpc --rpcaddr ${cfg.rpc.address} --rpcport ${
-                            toString cfg.rpc.port
-                          } --rpcapi ${cfg.rpc.api}"
+                          "--rpc --rpcaddr ${cfg.rpc.address} --rpcport ${toString cfg.rpc.port} --rpcapi ${cfg.rpc.api}"
                       } \
                       ${
                         optionalString (cfg.ws.enable)

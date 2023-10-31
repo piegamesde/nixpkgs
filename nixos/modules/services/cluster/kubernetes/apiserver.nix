@@ -479,22 +479,15 @@ in
                             } \
                           --bind-address=${cfg.bindAddress} \
                           ${
-                            optionalString (cfg.advertiseAddress != null)
-                              "--advertise-address=${cfg.advertiseAddress}"
+                            optionalString (cfg.advertiseAddress != null) "--advertise-address=${cfg.advertiseAddress}"
                           } \
                           ${
                             optionalString (cfg.clientCaFile != null) "--client-ca-file=${cfg.clientCaFile}"
                           } \
-                          --disable-admission-plugins=${
-                            concatStringsSep "," cfg.disableAdmissionPlugins
-                          } \
-                          --enable-admission-plugins=${
-                            concatStringsSep "," cfg.enableAdmissionPlugins
-                          } \
+                          --disable-admission-plugins=${concatStringsSep "," cfg.disableAdmissionPlugins} \
+                          --enable-admission-plugins=${concatStringsSep "," cfg.enableAdmissionPlugins} \
                           --etcd-servers=${concatStringsSep "," cfg.etcd.servers} \
-                          ${
-                            optionalString (cfg.etcd.caFile != null) "--etcd-cafile=${cfg.etcd.caFile}"
-                          } \
+                          ${optionalString (cfg.etcd.caFile != null) "--etcd-cafile=${cfg.etcd.caFile}"} \
                           ${
                             optionalString (cfg.etcd.certFile != null) "--etcd-certfile=${cfg.etcd.certFile}"
                           } \

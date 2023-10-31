@@ -77,8 +77,7 @@ stdenv.mkDerivation rec {
 
   NIX_LDFLAGS = toString (
     # when linking stage1 libstd: cc: undefined reference to `__cxa_begin_catch'
-    optional (stdenv.isLinux && !withBundledLLVM)
-      "--push-state --as-needed -lstdc++ --pop-state"
+    optional (stdenv.isLinux && !withBundledLLVM) "--push-state --as-needed -lstdc++ --pop-state"
     ++ optional (stdenv.isDarwin && !withBundledLLVM) "-lc++"
     ++ optional stdenv.isDarwin "-rpath ${llvmSharedForHost}/lib"
   );

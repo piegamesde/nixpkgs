@@ -34,9 +34,7 @@ import ./make-test-python.nix (
               database = {
                 createLocally = false;
                 host = "127.0.0.1";
-                passwordFile = toString (
-                  pkgs.writeText "database-password" "correct horse battery staple"
-                );
+                passwordFile = toString (pkgs.writeText "database-password" "correct horse battery staple");
               };
             };
             # Normally not needed because when connecting to postgres over TCP/IP

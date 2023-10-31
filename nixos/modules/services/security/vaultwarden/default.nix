@@ -57,9 +57,9 @@ let
     {
       DATA_FOLDER = "/var/lib/bitwarden_rs";
     }
-    //
-      optionalAttrs (!(configEnv ? WEB_VAULT_ENABLED) || configEnv.WEB_VAULT_ENABLED == "true")
-        { WEB_VAULT_FOLDER = "${cfg.webVaultPackage}/share/vaultwarden/vault"; }
+    // optionalAttrs (!(configEnv ? WEB_VAULT_ENABLED) || configEnv.WEB_VAULT_ENABLED == "true") {
+      WEB_VAULT_FOLDER = "${cfg.webVaultPackage}/share/vaultwarden/vault";
+    }
     // configEnv;
 
   configFile = pkgs.writeText "vaultwarden.env" (
@@ -251,9 +251,7 @@ in
       serviceConfig = {
         User = user;
         Group = group;
-        EnvironmentFile = [
-          configFile
-        ] ++ optional (cfg.environmentFile != null) cfg.environmentFile;
+        EnvironmentFile = [ configFile ] ++ optional (cfg.environmentFile != null) cfg.environmentFile;
         ExecStart = "${vaultwarden}/bin/vaultwarden";
         LimitNOFILE = "1048576";
         PrivateTmp = "true";

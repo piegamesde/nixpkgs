@@ -10,10 +10,6 @@ in
   jre-hotspot = import ./jdk-darwin-base.nix {
     sourcePerArch = sources.openjdk8.mac.jre.hotspot;
   };
-  jdk-openj9 = import ./jdk-darwin-base.nix {
-    sourcePerArch = sources.openjdk8.mac.jdk.openj9;
-  };
-  jre-openj9 = import ./jdk-darwin-base.nix {
-    sourcePerArch = sources.openjdk8.mac.jre.openj9;
-  };
+  jdk-openj9 = import ./jdk-darwin-base.nix { sourcePerArch = sources.openjdk8.mac.jdk.openj9; };
+  jre-openj9 = import ./jdk-darwin-base.nix { sourcePerArch = sources.openjdk8.mac.jre.openj9; };
 }

@@ -93,9 +93,7 @@ in
 
       elasticsearchHosts = mkOption {
         type = types.listOf types.str;
-        example =
-          literalExpression
-            ''[ "http://node1:9200" "http://user:password@node2:19200" ]'';
+        example = literalExpression ''[ "http://node1:9200" "http://user:password@node2:19200" ]'';
         description =
           lib.mdDoc
             "List of valid URIs of the http ports of your elastic nodes. If one or more of your elasticsearch hosts require authentication, include the credentials in each node URI that requires authentication";

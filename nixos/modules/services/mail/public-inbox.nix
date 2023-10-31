@@ -201,9 +201,7 @@ in
             options.inboxdir = mkOption {
               type = types.str;
               default = "${stateDir}/inboxes/${name}";
-              description =
-                lib.mdDoc
-                  "The absolute path to the directory which hosts the public-inbox.";
+              description = lib.mdDoc "The absolute path to the directory which hosts the public-inbox.";
             };
             options.address = mkOption {
               type = with types; listOf str;
@@ -230,9 +228,7 @@ in
             options.watch = mkOption {
               type = with types; listOf str;
               default = [ ];
-              description =
-                lib.mdDoc
-                  "Paths for {manpage}`public-inbox-watch(1)` to monitor for new mail.";
+              description = lib.mdDoc "Paths for {manpage}`public-inbox-watch(1)` to monitor for new mail.";
               example = [ "maildir:/path/to/test.example.com.git" ];
             };
             options.watchheader = mkOption {
@@ -289,9 +285,7 @@ in
       args = mkOption {
         type = with types; listOf str;
         default = [ ];
-        description =
-          lib.mdDoc
-            "Command-line arguments to pass to {manpage}`public-inbox-mda(1)`.";
+        description = lib.mdDoc "Command-line arguments to pass to {manpage}`public-inbox-mda(1)`.";
       };
     };
     postfix.enable = mkEnableOption (lib.mdDoc "the integration into Postfix");
@@ -450,8 +444,7 @@ in
       allowedTCPPorts = mkMerge (
         map
           (
-            proto:
-            (mkIf (cfg.${proto}.enable && types.port.check cfg.${proto}.port) [ cfg.${proto}.port ])
+            proto: (mkIf (cfg.${proto}.enable && types.port.check cfg.${proto}.port) [ cfg.${proto}.port ])
           )
           [
             "imap"

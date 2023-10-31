@@ -117,9 +117,7 @@ stdenv.mkDerivation rec {
   GI_TYPELIB_PATH = "${placeholder "out"}/lib/girepository-1.0";
   GST_PLUGIN_SYSTEM_PATH_1_0 = "${placeholder "out"}/lib/gstreamer-1.0";
 
-  QT_PLUGIN_PATH =
-    lib.optionalString withGui
-      "${qt5.qtbase.bin}/${qt5.qtbase.qtPluginPrefix}";
+  QT_PLUGIN_PATH = lib.optionalString withGui "${qt5.qtbase.bin}/${qt5.qtbase.qtPluginPrefix}";
 
   dontWrapQtApps = true;
 

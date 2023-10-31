@@ -204,9 +204,7 @@ lib.makeScope pkgs.newScope (
         hasScripts = scripts != { };
         scriptsPackage = self.mkPoetryScriptsPackage { inherit python scripts; };
 
-        editablePackageSources' =
-          lib.filterAttrs (name: path: path != null)
-            editablePackageSources;
+        editablePackageSources' = lib.filterAttrs (name: path: path != null) editablePackageSources;
         hasEditable = editablePackageSources' != { };
         editablePackage = self.mkPoetryEditablePackage {
           inherit pyProject python;
@@ -280,8 +278,7 @@ lib.makeScope pkgs.newScope (
                         sourceSpec =
                           ((normalizePackageSet pyProject.tool.poetry.dependencies or { }).${normalizedName}
                             or (normalizePackageSet pyProject.tool.poetry.dev-dependencies or { }).${normalizedName}
-                              or (normalizePackageSet pyProject.tool.poetry.group.dev.dependencies or { })
-                              .${normalizedName} # Poetry 1.2.0+
+                              or (normalizePackageSet pyProject.tool.poetry.group.dev.dependencies or { }).${normalizedName} # Poetry 1.2.0+
                                 or { }
                           );
                       }
@@ -319,9 +316,7 @@ lib.makeScope pkgs.newScope (
                 (
                   name: value:
                   if
-                    lib.isDerivation value
-                    && self.hasPythonModule value
-                    && (normalizePackageName name) != name
+                    lib.isDerivation value && self.hasPythonModule value && (normalizePackageName name) != name
                   then
                     null
                   else
@@ -458,9 +453,9 @@ lib.makeScope pkgs.newScope (
             lib.filterAttrs (name: dep: dep.develop or false && hasAttr "path" dep) set
           );
 
-        excludedEditablePackageNames =
-          builtins.filter (pkg: editablePackageSources."${pkg}" == null)
-            (builtins.attrNames editablePackageSources);
+        excludedEditablePackageNames = builtins.filter (pkg: editablePackageSources."${pkg}" == null) (
+          builtins.attrNames editablePackageSources
+        );
 
         allEditablePackageSources =
           (
@@ -469,8 +464,7 @@ lib.makeScope pkgs.newScope (
             // (
               # Poetry>=1.2.0
               if pyProject.tool.poetry.group or { } != { } then
-                builtins.foldl'
-                  (acc: g: acc // getEditableDeps pyProject.tool.poetry.group.${g}.dependencies)
+                builtins.foldl' (acc: g: acc // getEditableDeps pyProject.tool.poetry.group.${g}.dependencies)
                   { }
                   groups
               else

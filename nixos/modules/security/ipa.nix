@@ -212,8 +212,7 @@ in
 
       cache_credentials = ${pyBool cfg.cacheCredentials}
       krb5_store_password_if_offline = ${pyBool cfg.offlinePasswords}
-      ${optionalString ((toLower cfg.domain) != (toLower cfg.realm))
-        "krb5_realm = ${cfg.realm}"}
+      ${optionalString ((toLower cfg.domain) != (toLower cfg.realm)) "krb5_realm = ${cfg.realm}"}
 
       dyndns_update = ${pyBool cfg.dyndns.enable}
       dyndns_iface = ${cfg.dyndns.interface}

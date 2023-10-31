@@ -34,9 +34,7 @@ stdenv.mkDerivation {
     autoreconfHook
     pkg-config
   ];
-  propagatedNativeBuildInputs =
-    lib.optional mpiSupport mpi
-    ++ lib.optional isOpenmpi openssh;
+  propagatedNativeBuildInputs = lib.optional mpiSupport mpi ++ lib.optional isOpenmpi openssh;
   propagatedBuildInputs = [ zlib ];
   inherit debugEnable mpiSupport;
 

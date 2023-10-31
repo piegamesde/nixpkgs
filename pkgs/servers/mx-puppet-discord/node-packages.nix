@@ -3735,12 +3735,7 @@ let
           ];
         }
       )
-      (
-        sources."winston-daily-rotate-file-3.10.0"
-        // {
-          dependencies = [ sources."semver-6.3.0" ];
-        }
-      )
+      (sources."winston-daily-rotate-file-3.10.0" // { dependencies = [ sources."semver-6.3.0" ]; })
       sources."winston-transport-4.5.0"
       (sources."wordwrapjs-3.0.0" // { dependencies = [ sources."typical-2.6.1" ]; })
       sources."wrappy-1.0.2"

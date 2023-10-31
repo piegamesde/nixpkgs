@@ -535,9 +535,7 @@ in
         ];
         type =
           with types;
-          listOf (
-            coercedTo str (output: { inherit output; }) (submodule { options = xrandrOptions; })
-          );
+          listOf (coercedTo str (output: { inherit output; }) (submodule { options = xrandrOptions; }));
         # Set primary to true for the first head if no other has been set
         # primary already.
         apply =
@@ -597,9 +595,7 @@ in
           SubSection "extmod"
           EndSubsection
         '';
-        description =
-          lib.mdDoc
-            "Contents of the Module section of the X server configuration file.";
+        description = lib.mdDoc "Contents of the Module section of the X server configuration file.";
       };
 
       serverLayoutSection = mkOption {
@@ -617,9 +613,7 @@ in
         type = types.lines;
         default = "";
         example = "Virtual 2048 2048";
-        description =
-          lib.mdDoc
-            "Lines to be added to every Display subsection of the Screen section.";
+        description = lib.mdDoc "Lines to be added to every Display subsection of the Screen section.";
       };
 
       defaultDepth = mkOption {
@@ -753,12 +747,7 @@ in
       let
         driver =
           attrByPath [ name ]
-            (
-              if xorg ? ${"xf86video" + name} then
-                { modules = [ xorg.${"xf86video" + name} ]; }
-              else
-                null
-            )
+            (if xorg ? ${"xf86video" + name} then { modules = [ xorg.${"xf86video" + name} ]; } else null)
             knownVideoDrivers;
       in
       optional (driver != null) (
@@ -912,9 +901,7 @@ in
       ++ optional (cfg.verbose != null) "-verbose ${toString cfg.verbose}"
       ++ optional (!cfg.enableTCP) "-nolisten tcp"
       ++ optional (cfg.autoRepeatDelay != null) "-ardelay ${toString cfg.autoRepeatDelay}"
-      ++
-        optional (cfg.autoRepeatInterval != null)
-          "-arinterval ${toString cfg.autoRepeatInterval}"
+      ++ optional (cfg.autoRepeatInterval != null) "-arinterval ${toString cfg.autoRepeatInterval}"
       ++ optional cfg.terminateOnReset "-terminate";
 
     services.xserver.modules = concatLists (catAttrs "modules" cfg.drivers) ++ [
@@ -1027,9 +1014,7 @@ in
                           Depth ${toString depth}
                           ${
                             optionalString (cfg.resolutions != [ ])
-                              "Modes ${
-                                concatMapStrings (res: ''"${toString res.x}x${toString res.y}"'') cfg.resolutions
-                              }"
+                              "Modes ${concatMapStrings (res: ''"${toString res.x}x${toString res.y}"'') cfg.resolutions}"
                           }
                         ${indent cfg.extraDisplaySettings}
                           ${

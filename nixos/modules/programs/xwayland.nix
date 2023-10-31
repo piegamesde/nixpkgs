@@ -20,9 +20,7 @@ in
 
     defaultFontPath = mkOption {
       type = types.str;
-      default =
-        optionalString config.fonts.fontDir.enable
-          "/run/current-system/sw/share/X11/fonts";
+      default = optionalString config.fonts.fontDir.enable "/run/current-system/sw/share/X11/fonts";
       defaultText = literalExpression ''
         optionalString config.fonts.fontDir.enable "/run/current-system/sw/share/X11/fonts"
       '';

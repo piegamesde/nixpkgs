@@ -135,9 +135,7 @@ in
       advertisedAddresses = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        description =
-          lib.mdDoc
-            "List of IP addresses this server is advertised under. See NetInfo(5)";
+        description = lib.mdDoc "List of IP addresses this server is advertised under. See NetInfo(5)";
       };
 
       cellName = mkOption {
@@ -165,9 +163,7 @@ in
           enable = mkOption {
             default = true;
             type = types.bool;
-            description =
-              lib.mdDoc
-                "Fileserver role, serves files and volumes from its local storage.";
+            description = lib.mdDoc "Fileserver role, serves files and volumes from its local storage.";
           };
 
           fileserverArgs = mkOption {

@@ -122,9 +122,7 @@ let
     };
 
     certFile = mkOption {
-      description =
-        lib.mdDoc
-          "${prefix} client certificate file used to connect to kube-apiserver.";
+      description = lib.mdDoc "${prefix} client certificate file used to connect to kube-apiserver.";
       type = types.nullOr types.path;
       default = null;
     };

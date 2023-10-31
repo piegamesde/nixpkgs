@@ -22,9 +22,7 @@ let
       cl-cairo2-xlib = super.cl-cairo2-xlib.overrideLispAttrs (
         o: { nativeLibs = [ pkgs.gtk2-x11 ]; }
       );
-      cl-freeimage = super.cl-freeimage.overrideLispAttrs (
-        o: { nativeLibs = [ pkgs.freeimage ]; }
-      );
+      cl-freeimage = super.cl-freeimage.overrideLispAttrs (o: { nativeLibs = [ pkgs.freeimage ]; });
       cl-freetype2 = super.cl-freetype2.overrideLispAttrs (
         o: {
           nativeLibs = [ pkgs.freetype ];
@@ -33,17 +31,11 @@ let
         }
       );
       cl-pango = super.cl-pango.overrideLispAttrs (o: { nativeLibs = [ pkgs.pango ]; });
-      cl-gtk2-gdk = super.cl-gtk2-gdk.overrideLispAttrs (
-        o: { nativeLibs = [ pkgs.gtk2-x11 ]; }
-      );
+      cl-gtk2-gdk = super.cl-gtk2-gdk.overrideLispAttrs (o: { nativeLibs = [ pkgs.gtk2-x11 ]; });
       cl-gtk2-glib = super.cl-gtk2-glib.overrideLispAttrs (o: { nativeLibs = [ pkgs.glib ]; });
-      cl-gtk2-pango = super.cl-gtk2-pango.overrideLispAttrs (
-        o: { nativeLibs = [ pkgs.pango ]; }
-      );
+      cl-gtk2-pango = super.cl-gtk2-pango.overrideLispAttrs (o: { nativeLibs = [ pkgs.pango ]; });
       cl-rsvg2 = super.cl-rsvg2.overrideLispAttrs (o: { nativeLibs = [ pkgs.librsvg ]; });
-      cl-cffi-gtk-gdk = super.cl-cffi-gtk-gdk.overrideLispAttrs (
-        o: { nativeLibs = [ pkgs.gtk3 ]; }
-      );
+      cl-cffi-gtk-gdk = super.cl-cffi-gtk-gdk.overrideLispAttrs (o: { nativeLibs = [ pkgs.gtk3 ]; });
       cl-cffi-gtk-gdk-pixbuf = super.cl-cffi-gtk-gdk-pixbuf.overrideLispAttrs (
         o: { nativeLibs = [ pkgs.gdk-pixbuf ]; }
       );
@@ -58,19 +50,13 @@ let
           ];
         }
       );
-      cl-mysql = super.cl-mysql.overrideLispAttrs (
-        o: { nativeLibs = [ pkgs.mariadb.client ]; }
-      );
+      cl-mysql = super.cl-mysql.overrideLispAttrs (o: { nativeLibs = [ pkgs.mariadb.client ]; });
       clsql-postgresql = super.clsql-postgresql.overrideLispAttrs (
         o: { nativeLibs = [ pkgs.postgresql.lib ]; }
       );
-      clsql-sqlite3 = super.clsql-sqlite3.overrideLispAttrs (
-        o: { nativeLibs = [ pkgs.sqlite ]; }
-      );
+      clsql-sqlite3 = super.clsql-sqlite3.overrideLispAttrs (o: { nativeLibs = [ pkgs.sqlite ]; });
       cl-webkit2 = super.cl-webkit2.overrideLispAttrs (o: { nativeLibs = [ pkgs.webkitgtk ]; });
-      dbd-mysql = super.dbd-mysql.overrideLispAttrs (
-        o: { nativeLibs = [ pkgs.mariadb.client ]; }
-      );
+      dbd-mysql = super.dbd-mysql.overrideLispAttrs (o: { nativeLibs = [ pkgs.mariadb.client ]; });
       lla = super.lla.overrideLispAttrs (o: { nativeLibs = [ pkgs.openblas ]; });
       cffi-libffi = super.cffi-libffi.overrideLispAttrs (
         o: {
@@ -94,9 +80,7 @@ let
           nativeLibs = [ pkgs.libuv ];
         }
       );
-      cl-liballegro = super.cl-liballegro.overrideLispAttrs (
-        o: { nativeLibs = [ pkgs.allegro5 ]; }
-      );
+      cl-liballegro = super.cl-liballegro.overrideLispAttrs (o: { nativeLibs = [ pkgs.allegro5 ]; });
       cl-ode = super.cl-ode.overrideLispAttrs (
         o: {
           nativeLibs =
@@ -133,9 +117,7 @@ let
           nativeLibs = [ pkgs.rdkafka ];
         }
       );
-      cl-async-ssl = super.cl-async-ssl.overrideLispAttrs (
-        o: { nativeLibs = [ pkgs.openssl ]; }
-      );
+      cl-async-ssl = super.cl-async-ssl.overrideLispAttrs (o: { nativeLibs = [ pkgs.openssl ]; });
       iolib = super.iolib.overrideLispAttrs (
         o: {
           nativeBuildInputs = [ pkgs.libfixposix ];
@@ -162,9 +144,7 @@ let
       );
       cl-libyaml = super.cl-libyaml.overrideLispAttrs (o: { nativeLibs = [ pkgs.libyaml ]; });
       cl-libxml2 = super.cl-libxml2.overrideLispAttrs (o: { nativeLibs = [ pkgs.libxml2 ]; });
-      cl-readline = super.cl-readline.overrideLispAttrs (
-        o: { nativeLibs = [ pkgs.readline ]; }
-      );
+      cl-readline = super.cl-readline.overrideLispAttrs (o: { nativeLibs = [ pkgs.readline ]; });
       md5 = super.md5.overrideLispAttrs (o: { lispLibs = [ super.flexi-streams ]; });
       pzmq = super.pzmq.overrideLispAttrs (
         o: {

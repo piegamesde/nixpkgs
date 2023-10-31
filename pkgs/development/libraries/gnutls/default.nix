@@ -49,8 +49,7 @@ let
 
   # XXX: Gnulib's `test-select' fails on FreeBSD:
   # https://hydra.nixos.org/build/2962084/nixlog/1/raw .
-  doCheck =
-    !stdenv.isFreeBSD && !stdenv.isDarwin && stdenv.buildPlatform == stdenv.hostPlatform;
+  doCheck = !stdenv.isFreeBSD && !stdenv.isDarwin && stdenv.buildPlatform == stdenv.hostPlatform;
 
   inherit (stdenv.hostPlatform) isDarwin;
 in
@@ -60,9 +59,7 @@ stdenv.mkDerivation rec {
   version = "3.8.0";
 
   src = fetchurl {
-    url = "mirror://gnupg/gnutls/v${
-        lib.versions.majorMinor version
-      }/gnutls-${version}.tar.xz";
+    url = "mirror://gnupg/gnutls/v${lib.versions.majorMinor version}/gnutls-${version}.tar.xz";
     sha256 = "sha256-DqDRGhZgoeY/lg8Vexl6vm0MjLMlW+JOH7OBWTC5vcU=";
   };
 
@@ -125,8 +122,7 @@ stdenv.mkDerivation rec {
       gettext
       libiconv
     ]
-    ++ lib.optional (withP11-kit) p11-kit
-    ++ lib.optional (tpmSupport && stdenv.isLinux) trousers;
+    ++ lib.optional (withP11-kit) p11-kit ++ lib.optional (tpmSupport && stdenv.isLinux) trousers;
 
   nativeBuildInputs =
     [

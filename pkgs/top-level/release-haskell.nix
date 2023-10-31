@@ -588,9 +588,7 @@ let
           maintainers = lib.teams.haskell.members;
         };
         constituents = accumulateDerivations (
-          builtins.map (name: jobs.haskellPackages."${name}") (
-            maintainedPkgNames pkgs.haskellPackages
-          )
+          builtins.map (name: jobs.haskellPackages."${name}") (maintainedPkgNames pkgs.haskellPackages)
         );
       };
 

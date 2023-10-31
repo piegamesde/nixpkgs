@@ -98,8 +98,7 @@ in
     services.syncthing = {
 
       enable = mkEnableOption (
-        lib.mdDoc
-          "Syncthing, a self-hosted open-source alternative to Dropbox and Bittorrent Sync"
+        lib.mdDoc "Syncthing, a self-hosted open-source alternative to Dropbox and Bittorrent Sync"
       );
 
       cert = mkOption {
@@ -668,9 +667,7 @@ in
                 pkgs.writers.writeBash "syncthing-copy-keys" ''
                   install -dm700 -o ${cfg.user} -g ${cfg.group} ${cfg.configDir}
                   ${optionalString (cfg.cert != null) ''
-                    install -Dm400 -o ${cfg.user} -g ${cfg.group} ${
-                      toString cfg.cert
-                    } ${cfg.configDir}/cert.pem
+                    install -Dm400 -o ${cfg.user} -g ${cfg.group} ${toString cfg.cert} ${cfg.configDir}/cert.pem
                   ''}
                   ${optionalString (cfg.key != null) ''
                     install -Dm400 -o ${cfg.user} -g ${cfg.group} ${toString cfg.key} ${cfg.configDir}/key.pem
@@ -707,22 +704,20 @@ in
           ];
         };
       };
-      syncthing-init =
-        mkIf (cfg.devices != { } || cfg.folders != { } || cfg.extraOptions != { })
-          {
-            description = "Syncthing configuration updater";
-            requisite = [ "syncthing.service" ];
-            after = [ "syncthing.service" ];
-            wantedBy = [ "multi-user.target" ];
+      syncthing-init = mkIf (cfg.devices != { } || cfg.folders != { } || cfg.extraOptions != { }) {
+        description = "Syncthing configuration updater";
+        requisite = [ "syncthing.service" ];
+        after = [ "syncthing.service" ];
+        wantedBy = [ "multi-user.target" ];
 
-            serviceConfig = {
-              User = cfg.user;
-              RemainAfterExit = true;
-              RuntimeDirectory = "syncthing-init";
-              Type = "oneshot";
-              ExecStart = updateConfig;
-            };
-          };
+        serviceConfig = {
+          User = cfg.user;
+          RemainAfterExit = true;
+          RuntimeDirectory = "syncthing-init";
+          Type = "oneshot";
+          ExecStart = updateConfig;
+        };
+      };
 
       syncthing-resume = {
         wantedBy = [ "suspend.target" ];

@@ -49,8 +49,7 @@ let
   buildDrvInheritArgs =
     builtins.foldl'
       (
-        attrs: arg:
-        if buildDrvArgs ? ${arg} then attrs // { ${arg} = buildDrvArgs.${arg}; } else attrs
+        attrs: arg: if buildDrvArgs ? ${arg} then attrs // { ${arg} = buildDrvArgs.${arg}; } else attrs
       )
       { }
       buildDrvInheritArgNames;
@@ -86,8 +85,7 @@ let
         # so we can use lock, diff yaml
         mkdir -p "$out/pubspec"
         cp "pubspec.yaml" "$out/pubspec"
-        ${lib.optionalString (pubspecLockFile != null)
-          "install -m644 ${pubspecLockFile} pubspec.lock"}
+        ${lib.optionalString (pubspecLockFile != null) "install -m644 ${pubspecLockFile} pubspec.lock"}
         if ! cp "pubspec.lock" "$out/pubspec"; then
           echo 1>&2 -e '\nThe pubspec.lock file is missing. This is a requirement for reproducible builds.' \
                        '\nThe following steps should be taken to fix this issue:' \

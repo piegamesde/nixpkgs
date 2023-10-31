@@ -224,8 +224,7 @@ rec {
     else if all isInt list && all (x: x == head list) list then
       head list
     else
-      throw
-        "Cannot merge definitions of `${showOption loc}'. Definition values:${showDefs defs}";
+      throw "Cannot merge definitions of `${showOption loc}'. Definition values:${showDefs defs}";
 
   mergeOneOption = mergeUniqueOption { message = ""; };
 
@@ -310,8 +309,7 @@ rec {
               description = opt.description or null;
               declarations = filter (x: x != unknownModule) opt.declarations;
               internal = opt.internal or false;
-              visible =
-                if (opt ? visible && opt.visible == "shallow") then true else opt.visible or true;
+              visible = if (opt ? visible && opt.visible == "shallow") then true else opt.visible or true;
               readOnly = opt.readOnly or false;
               type = opt.type.description or "unspecified";
             }
@@ -321,9 +319,9 @@ rec {
               );
             }
             // optionalAttrs (opt ? default) {
-              default =
-                builtins.addErrorContext "while evaluating the default value of option `${name}`"
-                  (renderOptionValue (opt.defaultText or opt.default));
+              default = builtins.addErrorContext "while evaluating the default value of option `${name}`" (
+                renderOptionValue (opt.defaultText or opt.default)
+              );
             }
             // optionalAttrs (opt ? relatedPackages && opt.relatedPackages != null) {
               inherit (opt) relatedPackages;
@@ -415,12 +413,10 @@ rec {
     if !isString text then
       throw "literalDocBook expects a string."
     else
-      lib.warnIf (lib.isInOldestRelease 2211)
-        "literalDocBook is deprecated, use literalMD instead"
-        {
-          _type = "literalDocBook";
-          inherit text;
-        };
+      lib.warnIf (lib.isInOldestRelease 2211) "literalDocBook is deprecated, use literalMD instead" {
+        _type = "literalDocBook";
+        inherit text;
+      };
 
   /* Transition marker for documentation that's already migrated to markdown
      syntax.
@@ -477,10 +473,7 @@ rec {
             "<function body>" # functionTo
           ];
         in
-        if builtins.elem part specialIdentifiers then
-          part
-        else
-          lib.strings.escapeNixIdentifier part;
+        if builtins.elem part specialIdentifiers then part else lib.strings.escapeNixIdentifier part;
     in
     (concatStringsSep ".") (map escapeOptionPart parts);
   showFiles = files: concatStringsSep " and " (map (f: "`${f}'") files);

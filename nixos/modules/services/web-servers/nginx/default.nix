@@ -21,8 +21,7 @@ let
         vhostName: vhostConfig:
         let
           serverName = if vhostConfig.serverName != null then vhostConfig.serverName else vhostName;
-          certName =
-            if vhostConfig.useACMEHost != null then vhostConfig.useACMEHost else serverName;
+          certName = if vhostConfig.useACMEHost != null then vhostConfig.useACMEHost else serverName;
         in
         vhostConfig
         // {
@@ -365,10 +364,7 @@ let
             else
               let
                 addrs =
-                  if vhost.listenAddresses != [ ] then
-                    vhost.listenAddresses
-                  else
-                    cfg.defaultListenAddresses;
+                  if vhost.listenAddresses != [ ] then vhost.listenAddresses else cfg.defaultListenAddresses;
               in
               optionals (hasSSL || vhost.rejectSSL) (
                 map
@@ -1113,9 +1109,7 @@ in
       };
 
       virtualHosts = mkOption {
-        type = types.attrsOf (
-          types.submodule (import ./vhost-options.nix { inherit config lib; })
-        );
+        type = types.attrsOf (types.submodule (import ./vhost-options.nix { inherit config lib; }));
         default = {
           localhost = { };
         };
@@ -1297,8 +1291,7 @@ in
 
         {
           assertion =
-            any (host: host.kTLS) (attrValues virtualHosts)
-            -> versionAtLeast cfg.package.version "1.21.4";
+            any (host: host.kTLS) (attrValues virtualHosts) -> versionAtLeast cfg.package.version "1.21.4";
           message = ''
             services.nginx.virtualHosts.<name>.kTLS requires nginx version
             1.21.4 or above; see the documentation for services.nginx.package.
@@ -1504,9 +1497,7 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "nginx") {
-      nginx.gid = config.ids.gids.nginx;
-    };
+    users.groups = optionalAttrs (cfg.group == "nginx") { nginx.gid = config.ids.gids.nginx; };
 
     services.logrotate.settings.nginx = mapAttrs (_: mkDefault) {
       files = "/var/log/nginx/*.log";

@@ -78,9 +78,9 @@ let
       splitCond =
         (
           s:
-          builtins.map
-            (x: stripStr (if builtins.typeOf x == "list" then (builtins.elemAt x 0) else x))
-            (builtins.split " (and|or) " (s + " "))
+          builtins.map (x: stripStr (if builtins.typeOf x == "list" then (builtins.elemAt x 0) else x)) (
+            builtins.split " (and|or) " (s + " ")
+          )
         );
       mapfn =
         expr:
@@ -106,10 +106,7 @@ let
       parse = expr: builtins.filter (x: x != null) (builtins.map mapfn (splitCond expr));
     in
     builtins.foldl'
-      (
-        acc: v:
-        acc ++ (if builtins.typeOf v == "string" then parse v else [ (parseExpressions v) ])
-      )
+      (acc: v: acc ++ (if builtins.typeOf v == "string" then parse v else [ (parseExpressions v) ]))
       [ ]
       exprs;
 
@@ -161,10 +158,7 @@ let
       };
       substituteVar =
         value:
-        if builtins.hasAttr value variables then
-          (builtins.toJSON variables."${value}")
-        else
-          value;
+        if builtins.hasAttr value variables then (builtins.toJSON variables."${value}") else value;
       processVar =
         value:
         builtins.foldl' (acc: v: v acc) value [
@@ -250,9 +244,7 @@ let
         "in" =
           x: y:
           let
-            values = builtins.filter (x: builtins.typeOf x == "string") (
-              builtins.split " " (unmarshal y)
-            );
+            values = builtins.filter (x: builtins.typeOf x == "string") (builtins.split " " (unmarshal y));
           in
           builtins.elem (unmarshal x) values;
       };

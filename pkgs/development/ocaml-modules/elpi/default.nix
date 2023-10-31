@@ -72,10 +72,7 @@ buildDunePackage rec {
       stdlib-shims
     ]
     ++ (
-      if lib.versionAtLeast version "1.15" || version == "dev" then
-        [ menhirLib ]
-      else
-        [ camlp5 ]
+      if lib.versionAtLeast version "1.15" || version == "dev" then [ menhirLib ] else [ camlp5 ]
     )
     ++ (
       if lib.versionAtLeast version "1.13" || version == "dev" then

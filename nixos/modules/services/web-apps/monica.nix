@@ -211,8 +211,7 @@ in
 
     nginx = mkOption {
       type = types.submodule (
-        recursiveUpdate (import ../web-servers/nginx/vhost-options.nix { inherit config lib; })
-          { }
+        recursiveUpdate (import ../web-servers/nginx/vhost-options.nix { inherit config lib; }) { }
       );
       default = { };
       example = ''
@@ -423,9 +422,7 @@ in
                   throw "unsupported type ${typeOf v}: ${(lib.generators.toPretty { }) v}";
             };
           };
-          secretPaths = lib.mapAttrsToList (_: v: v._secret) (
-            lib.filterAttrs (_: isSecret) cfg.config
-          );
+          secretPaths = lib.mapAttrsToList (_: v: v._secret) (lib.filterAttrs (_: isSecret) cfg.config);
           mkSecretReplacement = file: ''
             replace-secret ${
               escapeShellArgs [

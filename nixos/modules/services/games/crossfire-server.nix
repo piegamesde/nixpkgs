@@ -34,9 +34,7 @@ in
     dataDir = mkOption {
       type = types.str;
       default = "${cfg.package}/share/crossfire";
-      defaultText =
-        literalExpression
-          ''"''${config.services.crossfire.package}/share/crossfire"'';
+      defaultText = literalExpression ''"''${config.services.crossfire.package}/share/crossfire"'';
       description = lib.mdDoc ''
         Where to load readonly data from -- maps, archetypes, treasure tables,
         and the like. If you plan to edit the data on the live server (rather

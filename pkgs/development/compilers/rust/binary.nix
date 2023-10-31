@@ -20,8 +20,7 @@ let
 
   bootstrapping = versionType == "bootstrap";
 
-  installComponents =
-    "rustc,rust-std-${platform}" + (optionalString bootstrapping ",cargo");
+  installComponents = "rustc,rust-std-${platform}" + (optionalString bootstrapping ",cargo");
 in
 
 rec {

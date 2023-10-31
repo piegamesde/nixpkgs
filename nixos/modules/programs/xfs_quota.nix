@@ -92,9 +92,7 @@ in
     );
 
     environment.etc.projid.source = pkgs.writeText "etc-projid" (
-      concatStringsSep "\n" (
-        mapAttrsToList (name: opts: "${name}:${toString opts.id}") cfg.projects
-      )
+      concatStringsSep "\n" (mapAttrsToList (name: opts: "${name}:${toString opts.id}") cfg.projects)
     );
 
     systemd.services =

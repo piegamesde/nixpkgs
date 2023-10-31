@@ -10,8 +10,7 @@ with lib;
 let
   cfgFile = pkgs.writeText "reader.conf" config.services.pcscd.readerConfig;
 
-  package =
-    if config.security.polkit.enable then pkgs.pcscliteWithPolkit else pkgs.pcsclite;
+  package = if config.security.polkit.enable then pkgs.pcscliteWithPolkit else pkgs.pcsclite;
 
   pluginEnv = pkgs.buildEnv {
     name = "pcscd-plugins";

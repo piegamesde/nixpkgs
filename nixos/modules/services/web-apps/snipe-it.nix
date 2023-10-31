@@ -33,9 +33,7 @@ in
 {
   options.services.snipe-it = {
 
-    enable = mkEnableOption (
-      lib.mdDoc "A free open source IT asset/license management system"
-    );
+    enable = mkEnableOption (lib.mdDoc "A free open source IT asset/license management system");
 
     user = mkOption {
       default = "snipeit";
@@ -237,8 +235,7 @@ in
 
     nginx = mkOption {
       type = types.submodule (
-        recursiveUpdate (import ../web-servers/nginx/vhost-options.nix { inherit config lib; })
-          { }
+        recursiveUpdate (import ../web-servers/nginx/vhost-options.nix { inherit config lib; }) { }
       );
       default = { };
       example = literalExpression ''
@@ -444,8 +441,7 @@ in
       path = [ pkgs.replace-secret ];
       script =
         let
-          isSecret =
-            v: isAttrs v && v ? _secret && (isString v._secret || builtins.isPath v._secret);
+          isSecret = v: isAttrs v && v ? _secret && (isString v._secret || builtins.isPath v._secret);
           snipeITEnvVars = lib.generators.toKeyValue {
             mkKeyValue = lib.flip lib.generators.mkKeyValueDefault "=" {
               mkValueString =
@@ -468,9 +464,7 @@ in
                   throw "unsupported type ${typeOf v}: ${(lib.generators.toPretty { }) v}";
             };
           };
-          secretPaths = lib.mapAttrsToList (_: v: v._secret) (
-            lib.filterAttrs (_: isSecret) cfg.config
-          );
+          secretPaths = lib.mapAttrsToList (_: v: v._secret) (lib.filterAttrs (_: isSecret) cfg.config);
           mkSecretReplacement = file: ''
             replace-secret ${
               escapeShellArgs [

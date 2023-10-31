@@ -111,8 +111,7 @@ import ../make-test-python.nix (
           environment.systemPackages = [
             (pkgs.writers.writePython3Bin "create_management_room_and_invite_mjolnir"
               {
-                libraries =
-                  with pkgs.python3Packages; [ matrix-nio ] ++ matrix-nio.optional-dependencies.e2e;
+                libraries = with pkgs.python3Packages; [ matrix-nio ] ++ matrix-nio.optional-dependencies.e2e;
               }
               ''
                 import asyncio

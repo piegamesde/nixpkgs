@@ -44,8 +44,7 @@ let
   grubConfig =
     args:
     let
-      efiSysMountPoint =
-        if args.efiSysMountPoint == null then args.path else args.efiSysMountPoint;
+      efiSysMountPoint = if args.efiSysMountPoint == null then args.path else args.efiSysMountPoint;
       efiSysMountPoint' = replaceStrings [ "/" ] [ "-" ] efiSysMountPoint;
     in
     pkgs.writeText "grub-config.xml" (
@@ -125,9 +124,7 @@ let
           if cfg.font == null then
             ""
           else
-            (
-              if lib.last (lib.splitString "." cfg.font) == "pf2" then cfg.font else "${convertedFont}"
-            );
+            (if lib.last (lib.splitString "." cfg.font) == "pf2" then cfg.font else "${convertedFont}");
       }
     );
 
@@ -910,9 +907,7 @@ in
           {
             assertion =
               cfg.efiSupport
-              || all (c: c < 2) (
-                mapAttrsToList (n: c: if n == "nodev" then 0 else c) bootDeviceCounters
-              );
+              || all (c: c < 2) (mapAttrsToList (n: c: if n == "nodev" then 0 else c) bootDeviceCounters);
             message = "You cannot have duplicated devices in mirroredBoots";
           }
           {
@@ -928,8 +923,7 @@ in
             message = "Trusted GRUB does not have ZFS support";
           }
           {
-            assertion =
-              !cfg.trustedBoot.enable || cfg.trustedBoot.systemHasTPM == "YES_TPM_is_activated";
+            assertion = !cfg.trustedBoot.enable || cfg.trustedBoot.systemHasTPM == "YES_TPM_is_activated";
             message = "Trusted GRUB can break the system! Confirm that the system has an activated TPM by setting 'systemHasTPM'.";
           }
           {

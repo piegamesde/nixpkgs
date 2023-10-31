@@ -34,9 +34,7 @@ stdenv.mkDerivation {
     (debianPatch "04_home" "0s15b0liv40jzjd9l4zsq688ky1yp9b1gmb1xhi3bih4y7q9awdz")
     (debianPatch "05_gcc" "06ihgbfrklabs7cb6216w1jjb9sglv86iagzhhmyydwyph4fb782")
     (debianPatch "06_rrootage_highres" "0ifjmh236yiv3g896nfwwydgcnq3njdb8ldah7s3jxp3xkpvwcga")
-    (debianPatch "07_use_system_bulletml"
-      "1sxsl1yzx3msvz8mf0jk1vnahqb1ahq9drm391idgh0afy77l6j7"
-    )
+    (debianPatch "07_use_system_bulletml" "1sxsl1yzx3msvz8mf0jk1vnahqb1ahq9drm391idgh0afy77l6j7")
     (debianPatch "08_windowed_mode" "0knx4g445ngilsz4dvdkq69f5f8i2xv2fnmdmq037xd5rhfg0b23")
     (debianPatch "09_rootage_make_highres_default"
       "1zqz8s54rl8jmqmvdi9c3ayfcma6qkbfkx5vw0fzyn268wcs022p"

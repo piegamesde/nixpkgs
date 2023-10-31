@@ -657,9 +657,7 @@ rec {
       what = mkOption {
         example = "/dev/sda1";
         type = types.str;
-        description =
-          lib.mdDoc
-            "Absolute path of device node, file or other resource. (Mandatory)";
+        description = lib.mdDoc "Absolute path of device node, file or other resource. (Mandatory)";
       };
 
       where = mkOption {

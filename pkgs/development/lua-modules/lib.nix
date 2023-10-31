@@ -123,9 +123,7 @@ rec {
       # example externalDeps': [ { name = "CRYPTO"; dep = pkgs.openssl; } ]
       externalDeps' = lib.filter (dep: !lib.isDerivation dep) externalDeps;
 
-      externalDepsDirs = map (x: builtins.toString x) (
-        lib.filter (lib.isDerivation) externalDeps
-      );
+      externalDepsDirs = map (x: builtins.toString x) (lib.filter (lib.isDerivation) externalDeps);
     in
     toLua { asBindings = true; } (
       {

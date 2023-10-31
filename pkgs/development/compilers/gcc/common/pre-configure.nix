@@ -124,11 +124,9 @@ lib.optionalString (hostPlatform.isSunOS && hostPlatform.is64bit) ''
   export inhibit_libc=true
 ''
 
-+
-  lib.optionalString (!enableMultilib && hostPlatform.is64bit && !hostPlatform.isMips64n32)
-    ''
-      export linkLib64toLib=1
-    ''
++ lib.optionalString (!enableMultilib && hostPlatform.is64bit && !hostPlatform.isMips64n32) ''
+  export linkLib64toLib=1
+''
 
 # On mips platforms, gcc follows the IRIX naming convention:
 #

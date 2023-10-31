@@ -96,9 +96,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    users.groups = optionalAttrs (cfg.group == "hound") {
-      hound.gid = config.ids.gids.hound;
-    };
+    users.groups = optionalAttrs (cfg.group == "hound") { hound.gid = config.ids.gids.hound; };
 
     users.users = optionalAttrs (cfg.user == "hound") {
       hound = {

@@ -366,8 +366,7 @@ let
         SND_USB_CAIAQ_INPUT = yes;
         # Enable Sound Open Firmware support
       }
-      // optionalAttrs
-        (stdenv.hostPlatform.system == "x86_64-linux" && versionAtLeast version "5.5")
+      // optionalAttrs (stdenv.hostPlatform.system == "x86_64-linux" && versionAtLeast version "5.5")
         {
           SND_SOC_INTEL_SOUNDWIRE_SOF_MACH = whenAtLeast "5.10" module;
           SND_SOC_INTEL_USER_FRIENDLY_LONG_NAMES = whenAtLeast "5.10" yes; # dep of SOF_MACH
@@ -1067,10 +1066,7 @@ let
       }
       //
         optionalAttrs
-          (
-            stdenv.hostPlatform.system == "x86_64-linux"
-            || stdenv.hostPlatform.system == "aarch64-linux"
-          )
+          (stdenv.hostPlatform.system == "x86_64-linux" || stdenv.hostPlatform.system == "aarch64-linux")
           {
             # Enable CPU/memory hotplug support
             # Allows you to dynamically add & remove CPUs/memory to a VM client running NixOS without requiring a reboot
@@ -1088,10 +1084,7 @@ let
           }
       //
         optionalAttrs
-          (
-            stdenv.hostPlatform.system == "armv7l-linux"
-            || stdenv.hostPlatform.system == "aarch64-linux"
-          )
+          (stdenv.hostPlatform.system == "armv7l-linux" || stdenv.hostPlatform.system == "aarch64-linux")
           {
             # Enables support for the Allwinner Display Engine 2.0
             SUN8I_DE2_CCU = yes;
@@ -1115,8 +1108,7 @@ let
           (
             versionAtLeast version "5.4"
             && (
-              stdenv.hostPlatform.system == "x86_64-linux"
-              || stdenv.hostPlatform.system == "aarch64-linux"
+              stdenv.hostPlatform.system == "x86_64-linux" || stdenv.hostPlatform.system == "aarch64-linux"
             )
           )
           {
@@ -1134,8 +1126,7 @@ let
             CROS_KBD_LED_BACKLIGHT = module;
           }
       //
-        optionalAttrs
-          (versionAtLeast version "5.4" && stdenv.hostPlatform.system == "x86_64-linux")
+        optionalAttrs (versionAtLeast version "5.4" && stdenv.hostPlatform.system == "x86_64-linux")
           {
             CHROMEOS_LAPTOP = module;
             CHROMEOS_PSTORE = module;

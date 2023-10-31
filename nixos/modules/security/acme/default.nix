@@ -152,9 +152,7 @@ let
       acmeServer = data.server;
       useDns = data.dnsProvider != null;
       destPath = "/var/lib/acme/${cert}";
-      selfsignedDeps = optionals (cfg.preliminarySelfsigned) [
-        "acme-selfsigned-${cert}.service"
-      ];
+      selfsignedDeps = optionals (cfg.preliminarySelfsigned) [ "acme-selfsigned-${cert}.service" ];
 
       # Minica and lego have a "feature" which replaces * with _. We need
       # to make this substitution to reference the output files from both programs.
@@ -325,9 +323,7 @@ let
           minica \
             --ca-key ca/key.pem \
             --ca-cert ca/cert.pem \
-            --domains ${
-              escapeShellArg (builtins.concatStringsSep "," ([ data.domain ] ++ extraDomains))
-            }
+            --domains ${escapeShellArg (builtins.concatStringsSep "," ([ data.domain ] ++ extraDomains))}
 
           # Create files to match directory layout for real certificates
           cd '${keyName}'
@@ -778,9 +774,7 @@ let
         inheritDefaults = mkOption {
           default = true;
           example = true;
-          description =
-            lib.mdDoc
-              "Whether to inherit values set in `security.acme.defaults` or not.";
+          description = lib.mdDoc "Whether to inherit values set in `security.acme.defaults` or not.";
           type = lib.types.bool;
         };
       };

@@ -209,39 +209,37 @@ in
               "plausible-postgres.service"
             ];
 
-          environment =
-            {
-              # NixOS specific option to avoid that it's trying to write into its store-path.
-              # See also https://github.com/lau/tzdata#data-directory-and-releases
-              STORAGE_DIR = "/var/lib/plausible/elixir_tzdata";
+          environment = {
+            # NixOS specific option to avoid that it's trying to write into its store-path.
+            # See also https://github.com/lau/tzdata#data-directory-and-releases
+            STORAGE_DIR = "/var/lib/plausible/elixir_tzdata";
 
-              # Configuration options from
-              # https://plausible.io/docs/self-hosting-configuration
-              PORT = toString cfg.server.port;
-              DISABLE_REGISTRATION = boolToString cfg.server.disableRegistration;
+            # Configuration options from
+            # https://plausible.io/docs/self-hosting-configuration
+            PORT = toString cfg.server.port;
+            DISABLE_REGISTRATION = boolToString cfg.server.disableRegistration;
 
-              RELEASE_TMP = "/var/lib/plausible/tmp";
-              # Home is needed to connect to the node with iex
-              HOME = "/var/lib/plausible";
+            RELEASE_TMP = "/var/lib/plausible/tmp";
+            # Home is needed to connect to the node with iex
+            HOME = "/var/lib/plausible";
 
-              ADMIN_USER_NAME = cfg.adminUser.name;
-              ADMIN_USER_EMAIL = cfg.adminUser.email;
+            ADMIN_USER_NAME = cfg.adminUser.name;
+            ADMIN_USER_EMAIL = cfg.adminUser.email;
 
-              DATABASE_SOCKET_DIR = cfg.database.postgres.socket;
-              DATABASE_NAME = cfg.database.postgres.dbname;
-              CLICKHOUSE_DATABASE_URL = cfg.database.clickhouse.url;
+            DATABASE_SOCKET_DIR = cfg.database.postgres.socket;
+            DATABASE_NAME = cfg.database.postgres.dbname;
+            CLICKHOUSE_DATABASE_URL = cfg.database.clickhouse.url;
 
-              BASE_URL = cfg.server.baseUrl;
+            BASE_URL = cfg.server.baseUrl;
 
-              MAILER_EMAIL = cfg.mail.email;
-              SMTP_HOST_ADDR = cfg.mail.smtp.hostAddr;
-              SMTP_HOST_PORT = toString cfg.mail.smtp.hostPort;
-              SMTP_RETRIES = toString cfg.mail.smtp.retries;
-              SMTP_HOST_SSL_ENABLED = boolToString cfg.mail.smtp.enableSSL;
+            MAILER_EMAIL = cfg.mail.email;
+            SMTP_HOST_ADDR = cfg.mail.smtp.hostAddr;
+            SMTP_HOST_PORT = toString cfg.mail.smtp.hostPort;
+            SMTP_RETRIES = toString cfg.mail.smtp.retries;
+            SMTP_HOST_SSL_ENABLED = boolToString cfg.mail.smtp.enableSSL;
 
-              SELFHOST = "true";
-            }
-            // (optionalAttrs (cfg.mail.smtp.user != null) { SMTP_USER_NAME = cfg.mail.smtp.user; });
+            SELFHOST = "true";
+          } // (optionalAttrs (cfg.mail.smtp.user != null) { SMTP_USER_NAME = cfg.mail.smtp.user; });
 
           path = [
             cfg.package

@@ -342,8 +342,7 @@ in
 
         {
           assertion =
-            primeEnabled
-            -> pCfg.nvidiaBusId != "" && (pCfg.intelBusId != "" || pCfg.amdgpuBusId != "");
+            primeEnabled -> pCfg.nvidiaBusId != "" && (pCfg.intelBusId != "" || pCfg.amdgpuBusId != "");
           message = ''
             When NVIDIA PRIME is enabled, the GPU bus IDs must configured.
           '';
@@ -356,8 +355,7 @@ in
 
         {
           assertion =
-            (reverseSyncCfg.enable && pCfg.amdgpuBusId != "")
-            -> versionAtLeast nvidia_x11.version "470.0";
+            (reverseSyncCfg.enable && pCfg.amdgpuBusId != "") -> versionAtLeast nvidia_x11.version "470.0";
           message = "NVIDIA PRIME render offload for AMD APUs is currently only supported on versions >= 470 beta.";
         }
 
@@ -416,8 +414,7 @@ in
           modules = optionals (igpuDriver == "amdgpu") [ pkgs.xorg.xf86videoamdgpu ];
           deviceSection = ''
             BusID "${igpuBusId}"
-            ${optionalString (syncCfg.enable && igpuDriver != "amdgpu")
-              ''Option "AccelMethod" "none"''}
+            ${optionalString (syncCfg.enable && igpuDriver != "amdgpu") ''Option "AccelMethod" "none"''}
           '';
         }
         ++ singleton {
@@ -583,9 +580,7 @@ in
         optional (offloadCfg.enable || cfg.modesetting.enable) "nvidia-drm.modeset=1"
         ++ optional cfg.powerManagement.enable "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
         ++ optional cfg.open "nvidia.NVreg_OpenRmEnableUnsupportedGpus=1"
-        ++
-          optional (config.boot.kernelPackages.kernel.kernelAtLeast "6.2" && !ibtSupport)
-            "ibt=off";
+        ++ optional (config.boot.kernelPackages.kernel.kernelAtLeast "6.2" && !ibtSupport) "ibt=off";
 
       services.udev.extraRules =
         ''

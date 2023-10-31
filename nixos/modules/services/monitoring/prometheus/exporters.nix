@@ -239,9 +239,7 @@ let
           inherit (conf) group;
         });
       users.groups =
-        (mkIf (conf.group == "${name}-exporter" && !enableDynamicUser) {
-          "${name}-exporter" = { };
-        });
+        (mkIf (conf.group == "${name}-exporter" && !enableDynamicUser) { "${name}-exporter" = { }; });
       networking.firewall.extraCommands = mkIf conf.openFirewall (
         concatStrings [
           "ip46tables -A nixos-fw ${conf.firewallFilter} "
@@ -367,8 +365,7 @@ in
             }
             {
               assertion =
-                cfg.snmp.enable
-                -> ((cfg.snmp.configurationPath == null) != (cfg.snmp.configuration == null));
+                cfg.snmp.enable -> ((cfg.snmp.configurationPath == null) != (cfg.snmp.configuration == null));
               message = ''
                 Please ensure you have either `services.prometheus.exporters.snmp.configuration'
                   or `services.prometheus.exporters.snmp.configurationPath' set!
@@ -416,9 +413,7 @@ in
     ++ [
       (mkIf config.services.minio.enable {
         services.prometheus.exporters.minio.minioAddress = mkDefault "http://localhost:9000";
-        services.prometheus.exporters.minio.minioAccessKey =
-          mkDefault
-            config.services.minio.accessKey;
+        services.prometheus.exporters.minio.minioAccessKey = mkDefault config.services.minio.accessKey;
         services.prometheus.exporters.minio.minioAccessSecret =
           mkDefault
             config.services.minio.secretKey;
@@ -431,9 +426,7 @@ in
     ]
     ++ [
       (mkIf config.services.postfix.enable {
-        services.prometheus.exporters.postfix.group =
-          mkDefault
-            config.services.postfix.setgidGroup;
+        services.prometheus.exporters.postfix.group = mkDefault config.services.postfix.setgidGroup;
       })
     ]
     ++ (mapAttrsToList

@@ -666,8 +666,7 @@ in
                       if config.save == [ ] then
                         ''""'' # Disable saving with `save = ""`
                       else
-                        map (d: "${toString (builtins.elemAt d 0)} ${toString (builtins.elemAt d 1)}")
-                          config.save;
+                        map (d: "${toString (builtins.elemAt d 0)} ${toString (builtins.elemAt d 1)}") config.save;
                     dbfilename = "dump.rdb";
                     dir = "/var/lib/${redisName name}";
                     appendfsync = config.appendFsync;
@@ -715,9 +714,9 @@ in
       (mkIf cfg.vmOverCommit { "vm.overcommit_memory" = "1"; })
     ];
 
-    networking.firewall.allowedTCPPorts =
-      concatMap (conf: optional conf.openFirewall conf.port)
-        (attrValues enabledServers);
+    networking.firewall.allowedTCPPorts = concatMap (conf: optional conf.openFirewall conf.port) (
+      attrValues enabledServers
+    );
 
     environment.systemPackages = [ cfg.package ];
 

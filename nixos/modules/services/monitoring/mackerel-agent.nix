@@ -76,9 +76,7 @@ in
           };
         };
 
-        options.diagnostic = mkEnableOption (
-          lib.mdDoc "Collect memory usage for the agent itself"
-        );
+        options.diagnostic = mkEnableOption (lib.mdDoc "Collect memory usage for the agent itself");
       };
     };
   };

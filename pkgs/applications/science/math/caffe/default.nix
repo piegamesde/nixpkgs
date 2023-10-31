@@ -77,9 +77,7 @@ stdenv.mkDerivation rec {
     # It's important that caffe is passed the major and minor version only because that's what
     # boost_python expects
     [
-      (
-        if pythonSupport then "-Dpython_version=${python.pythonVersion}" else "-DBUILD_python=OFF"
-      )
+      (if pythonSupport then "-Dpython_version=${python.pythonVersion}" else "-DBUILD_python=OFF")
       "-DBLAS=open"
     ]
     ++ (

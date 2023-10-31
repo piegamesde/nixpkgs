@@ -28,9 +28,7 @@ stdenv.mkDerivation (
     ];
 
     # Configure stage fails on aarch64-darwin otherwise, due to either clang 11 or gfortran 10.
-    hardeningDisable = lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
-      "stackprotector"
-    ];
+    hardeningDisable = lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ "stackprotector" ];
 
     cmakeFlags =
       [

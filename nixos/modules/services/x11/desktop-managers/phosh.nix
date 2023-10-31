@@ -120,8 +120,7 @@ let
   renderPhocOutput =
     name: output:
     let
-      modelines =
-        if builtins.isList output.modeline then output.modeline else [ output.modeline ];
+      modelines = if builtins.isList output.modeline then output.modeline else [ output.modeline ];
       renderModeline = l: "modeline = ${l}";
     in
     ''

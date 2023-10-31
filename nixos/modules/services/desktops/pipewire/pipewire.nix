@@ -150,9 +150,7 @@ in
     systemd.user.services.pipewire.enable = !cfg.systemWide;
 
     systemd.sockets.pipewire.wantedBy = lib.mkIf cfg.socketActivation [ "sockets.target" ];
-    systemd.user.sockets.pipewire.wantedBy = lib.mkIf cfg.socketActivation [
-      "sockets.target"
-    ];
+    systemd.user.sockets.pipewire.wantedBy = lib.mkIf cfg.socketActivation [ "sockets.target" ];
     systemd.user.sockets.pipewire-pulse.wantedBy =
       lib.mkIf (cfg.socketActivation && cfg.pulse.enable)
         [ "sockets.target" ];

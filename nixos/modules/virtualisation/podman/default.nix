@@ -16,9 +16,7 @@ let
         cfg.extraPackages
         # setuid shadow
         ++ [ "/run/wrappers" ]
-        ++
-          lib.optional (builtins.elem "zfs" config.boot.supportedFilesystems)
-            config.boot.zfs.package;
+        ++ lib.optional (builtins.elem "zfs" config.boot.supportedFilesystems) config.boot.zfs.package;
     });
 
   # Provides a fake "docker" binary mapping to podman
@@ -176,9 +174,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [
-      cfg.package
-    ] ++ lib.optional cfg.dockerCompat dockerCompat;
+    environment.systemPackages = [ cfg.package ] ++ lib.optional cfg.dockerCompat dockerCompat;
 
     # https://github.com/containers/podman/blob/097cc6eb6dd8e598c0e8676d21267b4edb11e144/docs/tutorials/basic_networking.md#default-network
     environment.etc."containers/networks/podman.json" =

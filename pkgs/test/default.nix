@@ -34,9 +34,7 @@ with pkgs;
 
   fetchurl = callPackages ../build-support/fetchurl/tests.nix { };
   fetchpatch = callPackages ../build-support/fetchpatch/tests.nix { };
-  fetchpatch2 = callPackages ../build-support/fetchpatch/tests.nix {
-    fetchpatch = fetchpatch2;
-  };
+  fetchpatch2 = callPackages ../build-support/fetchpatch/tests.nix { fetchpatch = fetchpatch2; };
   fetchzip = callPackages ../build-support/fetchzip/tests.nix { };
   fetchgit = callPackages ../build-support/fetchgit/tests.nix { };
   fetchFirefoxAddon = callPackages ../build-support/fetchfirefoxaddon/tests.nix { };
@@ -73,9 +71,7 @@ with pkgs;
     writeStringReferencesToFile =
       callPackage ../build-support/trivial-builders/test/writeStringReferencesToFile.nix
         { };
-    writeTextFile =
-      callPackage ../build-support/trivial-builders/test/write-text-file.nix
-        { };
+    writeTextFile = callPackage ../build-support/trivial-builders/test/write-text-file.nix { };
     writeShellScript =
       callPackage ../build-support/trivial-builders/test/write-shell-script.nix
         { };

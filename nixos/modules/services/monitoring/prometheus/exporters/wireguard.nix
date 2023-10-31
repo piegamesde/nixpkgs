@@ -20,9 +20,7 @@ in
     })
   ];
   extraOpts = {
-    verbose = mkEnableOption (
-      lib.mdDoc "Verbose logging mode for prometheus-wireguard-exporter"
-    );
+    verbose = mkEnableOption (lib.mdDoc "Verbose logging mode for prometheus-wireguard-exporter");
 
     wireguardConfig = mkOption {
       type = with types; nullOr (either path str);
@@ -71,9 +69,7 @@ in
           ${optionalString cfg.verbose "-v true"} \
           ${optionalString cfg.singleSubnetPerField "-s true"} \
           ${optionalString cfg.withRemoteIp "-r true"} \
-          ${
-            optionalString (cfg.wireguardConfig != null) "-n ${escapeShellArg cfg.wireguardConfig}"
-          }
+          ${optionalString (cfg.wireguardConfig != null) "-n ${escapeShellArg cfg.wireguardConfig}"}
       '';
       RestrictAddressFamilies =
         [

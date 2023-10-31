@@ -131,8 +131,7 @@ lib.makeOverridable (
         "Icon" = icon;
         "Exec" = exec;
       };
-    renderAction =
-      name: attrs: renderSection "Desktop Action ${name}" (preprocessAction attrs);
+    renderAction = name: attrs: renderSection "Desktop Action ${name}" (preprocessAction attrs);
     actionsRendered = lib.mapAttrsToList renderAction actions;
 
     content = [ mainSectionRendered ] ++ actionsRendered;

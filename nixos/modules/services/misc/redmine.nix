@@ -333,12 +333,8 @@ in
 
     services.redmine.settings = {
       production = {
-        scm_subversion_command =
-          optionalString cfg.components.subversion
-            "${pkgs.subversion}/bin/svn";
-        scm_mercurial_command =
-          optionalString cfg.components.mercurial
-            "${pkgs.mercurial}/bin/hg";
+        scm_subversion_command = optionalString cfg.components.subversion "${pkgs.subversion}/bin/svn";
+        scm_mercurial_command = optionalString cfg.components.mercurial "${pkgs.mercurial}/bin/hg";
         scm_git_command = optionalString cfg.components.git "${pkgs.git}/bin/git";
         scm_cvs_command = optionalString cfg.components.cvs "${pkgs.cvs}/bin/cvs";
         scm_bazaar_command = optionalString cfg.components.breezy "${pkgs.breezy}/bin/bzr";
@@ -461,8 +457,7 @@ in
 
         # handle database.passwordFile & permissions
         DBPASS=${
-          optionalString (cfg.database.passwordFile != null)
-            "$(head -n1 ${cfg.database.passwordFile})"
+          optionalString (cfg.database.passwordFile != null) "$(head -n1 ${cfg.database.passwordFile})"
         }
         cp -f ${databaseYml} "${cfg.stateDir}/config/database.yml"
         sed -e "s,#dbpass#,$DBPASS,g" -i "${cfg.stateDir}/config/database.yml"

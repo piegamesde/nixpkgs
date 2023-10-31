@@ -192,10 +192,8 @@ import ./make-test-python.nix (
     testScript =
       { nodes, ... }:
       let
-        primary4 =
-          (lib.head nodes.primary.config.networking.interfaces.eth1.ipv4.addresses).address;
-        primary6 =
-          (lib.head nodes.primary.config.networking.interfaces.eth1.ipv6.addresses).address;
+        primary4 = (lib.head nodes.primary.config.networking.interfaces.eth1.ipv4.addresses).address;
+        primary6 = (lib.head nodes.primary.config.networking.interfaces.eth1.ipv6.addresses).address;
 
         secondary4 =
           (lib.head nodes.secondary.config.networking.interfaces.eth1.ipv4.addresses).address;

@@ -150,8 +150,7 @@ let
   wmDefault = cfg.windowManager.default;
 
   defaultSessionFromLegacyOptions =
-    dmFallbackDefault
-    + optionalString (wmDefault != null && wmDefault != "none") "+${wmDefault}";
+    dmFallbackDefault + optionalString (wmDefault != null && wmDefault != "none") "+${wmDefault}";
 in
 
 {
@@ -302,13 +301,11 @@ in
             description = "session name";
             check =
               d:
-              assertMsg
-                (d != null -> (str.check d && elem d cfg.displayManager.sessionData.sessionNames))
-                ''
-                  Default graphical session, '${d}', not found.
-                  Valid names for 'services.xserver.displayManager.defaultSession' are:
-                    ${concatStringsSep "\n  " cfg.displayManager.sessionData.sessionNames}
-                '';
+              assertMsg (d != null -> (str.check d && elem d cfg.displayManager.sessionData.sessionNames)) ''
+                Default graphical session, '${d}', not found.
+                Valid names for 'services.xserver.displayManager.defaultSession' are:
+                  ${concatStringsSep "\n  " cfg.displayManager.sessionData.sessionNames}
+              '';
           };
         default =
           if dmDefault != null || wmDefault != null then defaultSessionFromLegacyOptions else null;
@@ -408,8 +405,7 @@ in
   config = {
     assertions = [
       {
-        assertion =
-          cfg.displayManager.autoLogin.enable -> cfg.displayManager.autoLogin.user != null;
+        assertion = cfg.displayManager.autoLogin.enable -> cfg.displayManager.autoLogin.user != null;
         message = ''
           services.xserver.displayManager.autoLogin.enable requires services.xserver.displayManager.autoLogin.user to be set
         '';
@@ -508,8 +504,7 @@ in
             let
               sessionName = "${dm.name}${optionalString (wm.name != "none") ("+" + wm.name)}";
               script = xsession dm wm;
-              desktopNames =
-                if dm ? desktopNames then concatStringsSep ";" dm.desktopNames else sessionName;
+              desktopNames = if dm ? desktopNames then concatStringsSep ";" dm.desktopNames else sessionName;
             in
             optional (dm.name != "none" || wm.name != "none") (
               pkgs.writeTextFile {

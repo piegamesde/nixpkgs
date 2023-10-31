@@ -19,8 +19,7 @@ let
       #     package = pkgs.postgresql_<major>;
       #   };
       # works.
-      base =
-        if cfg.enableJIT && !cfg.package.jitSupport then cfg.package.withJIT else cfg.package;
+      base = if cfg.enableJIT && !cfg.package.jitSupport then cfg.package.withJIT else cfg.package;
     in
     if cfg.extraPlugins == [ ] then base else base.withPackages (_: cfg.extraPlugins);
 
@@ -483,8 +482,7 @@ in
 
     services.postgresql.package =
       let
-        mkThrow =
-          ver: throw "postgresql_${ver} was removed, please upgrade your postgresql version.";
+        mkThrow = ver: throw "postgresql_${ver} was removed, please upgrade your postgresql version.";
         base =
           if versionAtLeast config.system.stateVersion "22.05" then
             pkgs.postgresql_14
@@ -592,18 +590,13 @@ in
               let
                 userPermissions = concatStringsSep "\n" (
                   mapAttrsToList
-                    (
-                      database: permission:
-                      ''$PSQL -tAc 'GRANT ${permission} ON ${database} TO "${user.name}"' ''
-                    )
+                    (database: permission: ''$PSQL -tAc 'GRANT ${permission} ON ${database} TO "${user.name}"' '')
                     user.ensurePermissions
                 );
 
                 filteredClauses = filterAttrs (name: value: value != null) user.ensureClauses;
 
-                clauseSqlStatements = attrValues (
-                  mapAttrs (n: v: if v then n else "no${n}") filteredClauses
-                );
+                clauseSqlStatements = attrValues (mapAttrs (n: v: if v then n else "no${n}") filteredClauses);
 
                 userClauses = ''
                   $PSQL -tAc 'ALTER ROLE "${user.name}" ${concatStringsSep " " clauseSqlStatements}' '';

@@ -20,8 +20,7 @@ let
       map (x: "[fdbserver.${toString (x + cfg.listenPortStart)}]") (range 0 (n - 1))
     );
 
-  backupAgents =
-    n: concatStringsSep "\n" (map (x: "[backup_agent.${toString x}]") (range 1 n));
+  backupAgents = n: concatStringsSep "\n" (map (x: "[backup_agent.${toString x}]") (range 1 n));
 
   configFile = pkgs.writeText "foundationdb.conf" ''
     [general]
@@ -60,8 +59,7 @@ let
     ${optionalString (cfg.locality.zoneId != null) "locality_zoneid=${cfg.locality.zoneId}"}
     ${optionalString (cfg.locality.datacenterId != null)
       "locality_dcid=${cfg.locality.datacenterId}"}
-    ${optionalString (cfg.locality.dataHall != null)
-      "locality_data_hall=${cfg.locality.dataHall}"}
+    ${optionalString (cfg.locality.dataHall != null) "locality_data_hall=${cfg.locality.dataHall}"}
 
     ${fdbServers cfg.serverProcesses}
 
@@ -448,9 +446,7 @@ in
             cf=/etc/foundationdb/fdb.cluster
             desc=$(tr -dc A-Za-z0-9 </dev/urandom 2>/dev/null | head -c8)
             rand=$(tr -dc A-Za-z0-9 </dev/urandom 2>/dev/null | head -c8)
-            echo ''${desc}:''${rand}@${initialIpAddr}:${
-              builtins.toString cfg.listenPortStart
-            } > $cf
+            echo ''${desc}:''${rand}@${initialIpAddr}:${builtins.toString cfg.listenPortStart} > $cf
             chmod 0664 $cf
             touch "${cfg.dataDir}/.first_startup"
         fi

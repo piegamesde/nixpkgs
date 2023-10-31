@@ -45,8 +45,7 @@ let
         hostOpts:
         hostOpts
         // {
-          certName =
-            if hostOpts.useACMEHost != null then hostOpts.useACMEHost else hostOpts.hostName;
+          certName = if hostOpts.useACMEHost != null then hostOpts.useACMEHost else hostOpts.hostName;
         }
       )
       (filter (hostOpts: hostOpts.enableACME || hostOpts.useACMEHost != null) vhosts);
@@ -918,9 +917,7 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "wwwrun") {
-      wwwrun.gid = config.ids.gids.wwwrun;
-    };
+    users.groups = optionalAttrs (cfg.group == "wwwrun") { wwwrun.gid = config.ids.gids.wwwrun; };
 
     security.acme.certs =
       let

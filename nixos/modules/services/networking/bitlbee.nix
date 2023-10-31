@@ -187,8 +187,6 @@ in
 
       environment.systemPackages = [ bitlbeePkg ];
     })
-    (mkIf (config.services.bitlbee.authBackend == "pam") {
-      security.pam.services.bitlbee = { };
-    })
+    (mkIf (config.services.bitlbee.authBackend == "pam") { security.pam.services.bitlbee = { }; })
   ];
 }

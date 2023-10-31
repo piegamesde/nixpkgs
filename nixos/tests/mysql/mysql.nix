@@ -6,11 +6,7 @@
 }:
 
 let
-  inherit (import ./common.nix { inherit pkgs lib; })
-    mkTestName
-    mariadbPackages
-    mysqlPackages
-  ;
+  inherit (import ./common.nix { inherit pkgs lib; }) mkTestName mariadbPackages mysqlPackages;
 
   makeTest = import ./../make-test-python.nix;
   # Setup common users

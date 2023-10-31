@@ -17,9 +17,7 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Whether to enable serving the Nix store as a remote store via SSH.";
+        description = lib.mdDoc "Whether to enable serving the Nix store as a remote store via SSH.";
       };
 
       write = mkOption {

@@ -140,8 +140,7 @@ let
       # https://github.com/NixOS/nix/commits/74b4737d8f0e1922ef5314a158271acf81cd79f8
       (lib.optionalString
         (
-          stdenv.hostPlatform.system == "armv5tel-linux"
-          || stdenv.hostPlatform.system == "armv6l-linux"
+          stdenv.hostPlatform.system == "armv5tel-linux" || stdenv.hostPlatform.system == "armv6l-linux"
         )
         "-latomic"
       )
@@ -192,9 +191,7 @@ let
             "--disable-init-state"
           ]
       ++ lib.optionals atLeast214 [ "CXXFLAGS=-I${lib.getDev rapidcheck}/extras/gtest/include" ]
-      ++ lib.optionals stdenv.isLinux [
-        "--with-sandbox-shell=${busybox-sandbox-shell}/bin/busybox"
-      ]
+      ++ lib.optionals stdenv.isLinux [ "--with-sandbox-shell=${busybox-sandbox-shell}/bin/busybox" ]
       ++ lib.optionals (atLeast210 && stdenv.isLinux && stdenv.hostPlatform.isStatic) [
         "--enable-embedded-sandbox-shell"
       ]
@@ -256,9 +253,7 @@ let
 
       tests = {
         nixi686 =
-          pkgsi686Linux.nixVersions.${
-            "nix_${lib.versions.major version}_${lib.versions.minor version}"
-          };
+          pkgsi686Linux.nixVersions.${"nix_${lib.versions.major version}_${lib.versions.minor version}"};
       };
     };
 

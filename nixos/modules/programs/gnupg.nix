@@ -123,9 +123,7 @@ in
       wantedBy = [ "sockets.target" ];
     };
 
-    systemd.user.sockets.dirmngr = mkIf cfg.dirmngr.enable {
-      wantedBy = [ "sockets.target" ];
-    };
+    systemd.user.sockets.dirmngr = mkIf cfg.dirmngr.enable { wantedBy = [ "sockets.target" ]; };
 
     services.dbus.packages = mkIf (cfg.agent.pinentryFlavor == "gnome3") [ pkgs.gcr ];
 

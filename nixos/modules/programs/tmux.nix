@@ -117,9 +117,7 @@ in
         default = 500;
         example = 0;
         type = types.int;
-        description =
-          lib.mdDoc
-            "Time in milliseconds for which tmux waits after an escape is input.";
+        description = lib.mdDoc "Time in milliseconds for which tmux waits after an escape is input.";
       };
 
       extraConfig = mkOption {
@@ -222,9 +220,7 @@ in
       systemPackages = [ pkgs.tmux ] ++ cfg.plugins;
 
       variables = {
-        TMUX_TMPDIR =
-          lib.optional cfg.secureSocket
-            ''''${XDG_RUNTIME_DIR:-"/run/user/$(id -u)"}'';
+        TMUX_TMPDIR = lib.optional cfg.secureSocket ''''${XDG_RUNTIME_DIR:-"/run/user/$(id -u)"}'';
       };
     };
     security.wrappers = mkIf cfg.withUtempter {

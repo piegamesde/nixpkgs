@@ -125,9 +125,7 @@ in
     };
 
     peerTrustedCaFile = mkOption {
-      description =
-        lib.mdDoc
-          "Certificate authority file to use for peer to peer communication";
+      description = lib.mdDoc "Certificate authority file to use for peer to peer communication";
       default = cfg.trustedCaFile;
       defaultText = literalExpression "config.${opt.trustedCaFile}";
       type = types.nullOr types.path;

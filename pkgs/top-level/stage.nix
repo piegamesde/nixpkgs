@@ -131,10 +131,7 @@ let
     let
       withFallback =
         thisPkgs:
-        (if adjacentPackages == null then self else thisPkgs)
-        // {
-          recurseForDerivations = false;
-        };
+        (if adjacentPackages == null then self else thisPkgs) // { recurseForDerivations = false; };
     in
     {
       # Here are package sets of from related stages. They are all in the form
@@ -239,9 +236,7 @@ let
       if stdenv.hostPlatform.isLinux && stdenv.buildPlatform.is64bit then
         nixpkgsFun {
           overlays = [ (self': super': { pkgsMusl = super'; }) ] ++ overlays;
-          ${
-            if stdenv.hostPlatform == stdenv.buildPlatform then "localSystem" else "crossSystem"
-          } = {
+          ${if stdenv.hostPlatform == stdenv.buildPlatform then "localSystem" else "crossSystem"} = {
             parsed = makeMuslParsedPlatform stdenv.hostPlatform.parsed;
           };
         }
@@ -254,9 +249,7 @@ let
       if stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isx86 then
         nixpkgsFun {
           overlays = [ (self': super': { pkgsi686Linux = super'; }) ] ++ overlays;
-          ${
-            if stdenv.hostPlatform == stdenv.buildPlatform then "localSystem" else "crossSystem"
-          } = {
+          ${if stdenv.hostPlatform == stdenv.buildPlatform then "localSystem" else "crossSystem"} = {
             parsed = stdenv.hostPlatform.parsed // {
               cpu = lib.systems.parse.cpuTypes.i686;
             };
@@ -310,9 +303,7 @@ let
             isStatic = true;
             parsed = makeMuslParsedPlatform stdenv.hostPlatform.parsed;
           }
-          // lib.optionalAttrs (stdenv.hostPlatform.system == "powerpc64-linux") {
-            gcc.abi = "elfv2";
-          };
+          // lib.optionalAttrs (stdenv.hostPlatform.system == "powerpc64-linux") { gcc.abi = "elfv2"; };
       }
     );
   };

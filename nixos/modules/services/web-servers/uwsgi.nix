@@ -40,8 +40,7 @@ let
 
       python =
         if hasPython2 && hasPython3 then
-          throw
-            "`plugins` attribute in uWSGI configuration shouldn't contain both python2 and python3"
+          throw "`plugins` attribute in uWSGI configuration shouldn't contain both python2 and python3"
         else if hasPython2 then
           cfg.package.python2
         else if hasPython3 then
@@ -230,9 +229,7 @@ in
         User = cfg.user;
         Group = cfg.group;
         Type = "notify";
-        ExecStart = "${cfg.package}/bin/uwsgi --json ${
-            buildCfg "server" cfg.instance
-          }/server.json";
+        ExecStart = "${cfg.package}/bin/uwsgi --json ${buildCfg "server" cfg.instance}/server.json";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         ExecStop = "${pkgs.coreutils}/bin/kill -INT $MAINPID";
         NotifyAccess = "main";
@@ -250,9 +247,7 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "uwsgi") {
-      uwsgi.gid = config.ids.gids.uwsgi;
-    };
+    users.groups = optionalAttrs (cfg.group == "uwsgi") { uwsgi.gid = config.ids.gids.uwsgi; };
 
     services.uwsgi.package = pkgs.uwsgi.override { plugins = unique cfg.plugins; };
   };

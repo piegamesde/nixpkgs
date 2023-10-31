@@ -60,10 +60,7 @@ stdenv.mkDerivation {
      runHook preBuild
      cd src
 
-    ${if bootstrapFromC then
-      "./etc/make-liarc.sh --prefix=$out"
-    else
-      "make compile-microcode"}
+    ${if bootstrapFromC then "./etc/make-liarc.sh --prefix=$out" else "make compile-microcode"}
 
      cd ../doc
 

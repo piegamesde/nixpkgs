@@ -154,9 +154,7 @@ rec {
         mapPat
           (
             l:
-            handleSlashSuffix (
-              handleSlashPrefix (handleHashesBangs (mapAroundCharclass substWildcards l))
-            )
+            handleSlashSuffix (handleSlashPrefix (handleHashesBangs (mapAroundCharclass substWildcards l)))
           )
           (computeNegation l)
       )

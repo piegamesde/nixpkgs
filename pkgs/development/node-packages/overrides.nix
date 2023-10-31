@@ -207,9 +207,7 @@ final: prev: {
       dependencies =
         builtins.filter
           (
-            d:
-            d.packageName
-            != "@expo/traveling-fastlane-${if stdenv.isLinux then "darwin" else "linux"}"
+            d: d.packageName != "@expo/traveling-fastlane-${if stdenv.isLinux then "darwin" else "linux"}"
           )
           oldAttrs.dependencies;
     }
@@ -526,16 +524,12 @@ final: prev: {
       wrapProgram "$out/bin/prisma" \
         --set PRISMA_MIGRATION_ENGINE_BINARY ${prisma-engines}/bin/migration-engine \
         --set PRISMA_QUERY_ENGINE_BINARY ${prisma-engines}/bin/query-engine \
-        --set PRISMA_QUERY_ENGINE_LIBRARY ${
-          lib.getLib prisma-engines
-        }/lib/libquery_engine.node \
+        --set PRISMA_QUERY_ENGINE_LIBRARY ${lib.getLib prisma-engines}/lib/libquery_engine.node \
         --set PRISMA_FMT_BINARY ${prisma-engines}/bin/prisma-fmt
     '';
 
     passthru.tests = {
-      simple-execution = pkgs.callPackage ./package-tests/prisma.nix {
-        inherit (final) prisma;
-      };
+      simple-execution = pkgs.callPackage ./package-tests/prisma.nix { inherit (final) prisma; };
     };
   };
 
@@ -633,19 +627,17 @@ final: prev: {
     buildInputs = [ pkgs.libusb1 ];
   };
 
-  tedicross =
-    prev."tedicross-git+https://github.com/TediCross/TediCross.git#v0.8.7".override
-      {
-        nativeBuildInputs = with pkgs; [
-          makeWrapper
-          libtool
-          autoconf
-        ];
-        postInstall = ''
-          makeWrapper '${nodejs}/bin/node' "$out/bin/tedicross" \
-            --add-flags "$out/lib/node_modules/tedicross/main.js"
-        '';
-      };
+  tedicross = prev."tedicross-git+https://github.com/TediCross/TediCross.git#v0.8.7".override {
+    nativeBuildInputs = with pkgs; [
+      makeWrapper
+      libtool
+      autoconf
+    ];
+    postInstall = ''
+      makeWrapper '${nodejs}/bin/node' "$out/bin/tedicross" \
+        --add-flags "$out/lib/node_modules/tedicross/main.js"
+    '';
+  };
 
   thelounge = prev.thelounge.override (
     oldAttrs: {
@@ -748,9 +740,7 @@ final: prev: {
       done
     '';
     passthru.tests = {
-      simple-execution = callPackage ./package-tests/vega-lite.nix {
-        inherit (final) vega-lite;
-      };
+      simple-execution = callPackage ./package-tests/vega-lite.nix { inherit (final) vega-lite; };
     };
   };
 

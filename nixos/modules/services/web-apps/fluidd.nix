@@ -29,9 +29,7 @@ in
     };
 
     nginx = mkOption {
-      type = types.submodule (
-        import ../web-servers/nginx/vhost-options.nix { inherit config lib; }
-      );
+      type = types.submodule (import ../web-servers/nginx/vhost-options.nix { inherit config lib; });
       default = { };
       example = literalExpression ''
         {
@@ -45,8 +43,7 @@ in
   config = mkIf cfg.enable {
     services.nginx = {
       enable = true;
-      upstreams.fluidd-apiserver.servers."${moonraker.address}:${toString moonraker.port}" =
-        { };
+      upstreams.fluidd-apiserver.servers."${moonraker.address}:${toString moonraker.port}" = { };
       virtualHosts."${cfg.hostName}" = mkMerge [
         cfg.nginx
         {

@@ -41,9 +41,7 @@ in
         description = lib.mdDoc "The port to bind to.";
       };
 
-      enableUnixSocket = mkEnableOption (
-        lib.mdDoc "unix socket at /run/memcached/memcached.sock"
-      );
+      enableUnixSocket = mkEnableOption (lib.mdDoc "unix socket at /run/memcached/memcached.sock");
 
       maxMemory = mkOption {
         type = types.ints.unsigned;

@@ -179,9 +179,7 @@ in
         }
       ];
     }
-    (mkIf cfg.enable {
-      systemd.tmpfiles.rules = [ "d '${cfg.location}' 0700 postgres - - -" ];
-    })
+    (mkIf cfg.enable { systemd.tmpfiles.rules = [ "d '${cfg.location}' 0700 postgres - - -" ]; })
     (mkIf (cfg.enable && cfg.backupAll) {
       systemd.services.postgresqlBackup = postgresqlBackupService "all" "pg_dumpall";
     })

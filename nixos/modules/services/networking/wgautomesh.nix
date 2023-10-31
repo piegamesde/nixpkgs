@@ -131,9 +131,7 @@ in
 
   config = mkIf cfg.enable {
     services.wgautomesh.settings = {
-      gossip_secret_file =
-        mkIf cfg.enableGossipEncryption
-          "$CREDENTIALS_DIRECTORY/gossip_secret";
+      gossip_secret_file = mkIf cfg.enableGossipEncryption "$CREDENTIALS_DIRECTORY/gossip_secret";
       persist_file = mkIf cfg.enablePersistence "/var/lib/wgautomesh/state";
     };
 
@@ -149,9 +147,7 @@ in
         ExecStart = "${getExe pkgs.wgautomesh} ${runtimeConfigFile}";
         Restart = "always";
         RestartSec = "30";
-        LoadCredential = mkIf cfg.enableGossipEncryption [
-          "gossip_secret:${cfg.gossipSecretFile}"
-        ];
+        LoadCredential = mkIf cfg.enableGossipEncryption [ "gossip_secret:${cfg.gossipSecretFile}" ];
 
         ExecStartPre = mkIf cfg.enableGossipEncryption [
           ''

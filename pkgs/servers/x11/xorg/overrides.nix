@@ -956,9 +956,7 @@ self: super:
   );
 
   xkbcomp = super.xkbcomp.overrideAttrs (
-    attrs: {
-      configureFlags = [ "--with-xkb-config-root=${xorg.xkeyboardconfig}/share/X11/xkb" ];
-    }
+    attrs: { configureFlags = [ "--with-xkb-config-root=${xorg.xkeyboardconfig}/share/X11/xkb" ]; }
   );
 
   xkeyboardconfig = super.xkeyboardconfig.overrideAttrs (
@@ -1352,8 +1350,7 @@ self: super:
   );
 
   xinit =
-    (super.xinit.override { stdenv = if isDarwin then clangStdenv else stdenv; })
-    .overrideAttrs
+    (super.xinit.override { stdenv = if isDarwin then clangStdenv else stdenv; }).overrideAttrs
       (
         attrs: {
           nativeBuildInputs = attrs.nativeBuildInputs ++ lib.optional isDarwin bootstrap_cmds;

@@ -170,9 +170,7 @@ in
               name = mkOption {
                 type = types.str;
                 default = "${cfg.dataDir}/db.sqlite3";
-                defaultText =
-                  literalExpression
-                    ''"''${config.services.etebase-server.dataDir}/db.sqlite3"'';
+                defaultText = literalExpression ''"''${config.services.etebase-server.dataDir}/db.sqlite3"'';
                 description = lib.mdDoc "The database name.";
               };
             };

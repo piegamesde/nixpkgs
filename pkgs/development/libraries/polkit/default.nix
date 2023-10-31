@@ -88,9 +88,9 @@ stdenv.mkDerivation rec {
       gobject-introspection
       gtk-doc
     ]
-    ++
-      lib.optionals (withIntrospection && !stdenv.buildPlatform.canExecute stdenv.hostPlatform)
-        [ mesonEmulatorHook ];
+    ++ lib.optionals (withIntrospection && !stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
+      mesonEmulatorHook
+    ];
 
   buildInputs =
     [

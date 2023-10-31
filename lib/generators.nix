@@ -34,8 +34,7 @@ rec {
     with builtins;
     let
       err =
-        t: v:
-        abort ("generators.mkValueStringDefault: " + "${t} not supported: ${toPretty { } v}");
+        t: v: abort ("generators.mkValueStringDefault: " + "${t} not supported: ${toPretty { } v}");
     in
     if isInt v then
       toString v
@@ -445,9 +444,7 @@ rec {
                 (
                   name: value:
                   "${libStr.escapeNixIdentifier name} = ${
-                    builtins.addErrorContext "while evaluating an attribute `${name}`" (
-                      go (indent + "  ") value
-                    )
+                    builtins.addErrorContext "while evaluating an attribute `${name}`" (go (indent + "  ") value)
                   };"
                 )
                 v
@@ -639,8 +636,7 @@ rec {
         _type == "lua-inline";
 
       generatedBindings =
-        assert lib.assertMsg (badVarNames == [ ])
-            "Bad Lua var names: ${toPretty { } badVarNames}";
+        assert lib.assertMsg (badVarNames == [ ]) "Bad Lua var names: ${toPretty { } badVarNames}";
         libStr.concatStrings (
           lib.attrsets.mapAttrsToList
             (key: value: ''
@@ -675,8 +671,7 @@ rec {
         else
           "{${introSpace}${
             concatItems (
-              lib.attrsets.mapAttrsToList
-                (key: value: "[${builtins.toJSON key}] = ${toLua innerArgs value}")
+              lib.attrsets.mapAttrsToList (key: value: "[${builtins.toJSON key}] = ${toLua innerArgs value}")
                 v
             )
           }${outroSpace}}"

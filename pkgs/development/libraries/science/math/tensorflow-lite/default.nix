@@ -109,8 +109,7 @@ stdenv.mkDerivation rec {
   preBuild =
     let
       includes =
-        lib.concatMapStringsSep " "
-          (subdir: "-I $PWD/tensorflow/lite/tools/make/downloads/${subdir}")
+        lib.concatMapStringsSep " " (subdir: "-I $PWD/tensorflow/lite/tools/make/downloads/${subdir}")
           [
             "neon_2_sse"
             "gemmlowp"

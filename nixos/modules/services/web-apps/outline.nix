@@ -655,9 +655,7 @@ in
             WEB_CONCURRENCY = builtins.toString cfg.concurrency;
             MAXIMUM_IMPORT_SIZE = builtins.toString cfg.maximumImportSize;
             DEBUG = cfg.debugOutput;
-            GOOGLE_ANALYTICS_ID =
-              lib.optionalString (cfg.googleAnalyticsId != null)
-                cfg.googleAnalyticsId;
+            GOOGLE_ANALYTICS_ID = lib.optionalString (cfg.googleAnalyticsId != null) cfg.googleAnalyticsId;
             SENTRY_DSN = lib.optionalString (cfg.sentryDsn != null) cfg.sentryDsn;
             SENTRY_TUNNEL = lib.optionalString (cfg.sentryTunnel != null) cfg.sentryTunnel;
             TEAM_LOGO = lib.optionalString (cfg.logo != null) cfg.logo;

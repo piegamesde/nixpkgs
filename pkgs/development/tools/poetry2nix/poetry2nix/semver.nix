@@ -21,8 +21,7 @@ let
           m = matchWildCard constraint;
           hasWildcard = m != null;
           c = if hasWildcard then (elemAt m 0) else constraint;
-          v =
-            if hasWildcard then (builtins.substring 0 (builtins.stringLength c) version) else version;
+          v = if hasWildcard then (builtins.substring 0 (builtins.stringLength c) version) else version;
         in
         f v c;
     in

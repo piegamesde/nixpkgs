@@ -414,8 +414,7 @@ let
     '';
 
   foreachSh =
-    attrs: f:
-    lib.concatMapStringsSep "\n" f (lib.mapAttrsToList (k: v: { name = k; } // v) attrs);
+    attrs: f: lib.concatMapStringsSep "\n" f (lib.mapAttrsToList (k: v: { name = k; } // v) attrs);
 
   jsonNewlines = lib.concatMapStringsSep "\n" (lib.generators.toJSON { });
 
@@ -443,8 +442,7 @@ let
            ${updateImpl} fetch-repo "$1"
          '')
          (
-           lib.mapAttrsToList
-             (nixRepoAttrName: attrs: attrs // { inherit nixRepoAttrName outputDir; })
+           lib.mapAttrsToList (nixRepoAttrName: attrs: attrs // { inherit nixRepoAttrName outputDir; })
              allGrammars
          )
      }

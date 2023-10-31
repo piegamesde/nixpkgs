@@ -58,9 +58,7 @@ in
   ###### implementation
 
   config = mkIf (cfg.profiles != { } || cfg.enable) {
-    environment.etc.dconf = mkIf (cfg.profiles != { } || cfg.packages != [ ]) {
-      source = cfgDir;
-    };
+    environment.etc.dconf = mkIf (cfg.profiles != { } || cfg.packages != [ ]) { source = cfgDir; };
 
     services.dbus.packages = [ pkgs.dconf ];
 

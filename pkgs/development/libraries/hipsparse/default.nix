@@ -44,8 +44,7 @@ stdenv.mkDerivation (
         rocsparse
         git
       ]
-      ++ lib.optionals buildTests [ gtest ]
-      ++ lib.optionals (buildTests || buildSamples) [ openmp ];
+      ++ lib.optionals buildTests [ gtest ] ++ lib.optionals (buildTests || buildSamples) [ openmp ];
 
     cmakeFlags = [
       "-DCMAKE_C_COMPILER=hipcc"

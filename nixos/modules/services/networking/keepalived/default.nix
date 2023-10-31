@@ -262,17 +262,13 @@ in
       };
 
       vrrpScripts = mkOption {
-        type = types.attrsOf (
-          types.submodule (import ./vrrp-script-options.nix { inherit lib; })
-        );
+        type = types.attrsOf (types.submodule (import ./vrrp-script-options.nix { inherit lib; }));
         default = { };
         description = lib.mdDoc "Declarative vrrp script config";
       };
 
       vrrpInstances = mkOption {
-        type = types.attrsOf (
-          types.submodule (import ./vrrp-instance-options.nix { inherit lib; })
-        );
+        type = types.attrsOf (types.submodule (import ./vrrp-instance-options.nix { inherit lib; }));
         default = { };
         description = lib.mdDoc "Declarative vhost config";
       };

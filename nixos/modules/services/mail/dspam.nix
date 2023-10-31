@@ -100,9 +100,7 @@ in
           };
         };
 
-        users.groups = optionalAttrs (cfg.group == "dspam") {
-          dspam.gid = config.ids.gids.dspam;
-        };
+        users.groups = optionalAttrs (cfg.group == "dspam") { dspam.gid = config.ids.gids.dspam; };
 
         environment.systemPackages = [ dspam ];
 

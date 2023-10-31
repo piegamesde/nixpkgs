@@ -344,11 +344,9 @@ in
       };
     };
 
-    security.pam.services.vsftpd.text =
-      mkIf (cfg.enableVirtualUsers && cfg.userDbPath != null)
-        ''
-          auth required pam_userdb.so db=${cfg.userDbPath}
-          account required pam_userdb.so db=${cfg.userDbPath}
-        '';
+    security.pam.services.vsftpd.text = mkIf (cfg.enableVirtualUsers && cfg.userDbPath != null) ''
+      auth required pam_userdb.so db=${cfg.userDbPath}
+      account required pam_userdb.so db=${cfg.userDbPath}
+    '';
   };
 }

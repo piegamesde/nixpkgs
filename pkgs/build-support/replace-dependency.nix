@@ -81,8 +81,7 @@ let
   dependsOnOld = drv: dependsOnOldMemo.${discard (toString drv)};
 
   drvName =
-    drv:
-    discard (substring 33 (stringLength (builtins.baseNameOf drv)) (builtins.baseNameOf drv));
+    drv: discard (substring 33 (stringLength (builtins.baseNameOf drv)) (builtins.baseNameOf drv));
 
   rewriteHashes =
     drv: hashes:

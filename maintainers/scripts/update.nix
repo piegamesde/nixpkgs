@@ -227,9 +227,7 @@ let
     };
 
   # JSON file with data for update.py.
-  packagesJson = pkgs.writeText "packages.json" (
-    builtins.toJSON (map packageData packages)
-  );
+  packagesJson = pkgs.writeText "packages.json" (builtins.toJSON (map packageData packages));
 
   optionalArgs =
     lib.optional (max-workers != null) "--max-workers=${max-workers}"

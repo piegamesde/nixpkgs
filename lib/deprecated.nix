@@ -276,9 +276,7 @@ rec {
                 else
                   [ ]
               )
-              (
-                (item.val.propagatedBuildInputs or [ ]) ++ (item.val.propagatedNativeBuildInputs or [ ])
-              );
+              ((item.val.propagatedBuildInputs or [ ]) ++ (item.val.propagatedNativeBuildInputs or [ ]));
       }
     );
 
@@ -307,8 +305,7 @@ rec {
   # exists in both sets
   mergeAttrsWithFunc =
     f: set1: set2:
-    foldr (n: set: if set ? ${n} then setAttr set n (f set.${n} set2.${n}) else set)
-      (set2 // set1)
+    foldr (n: set: if set ? ${n} then setAttr set n (f set.${n} set2.${n}) else set) (set2 // set1)
       (attrNames set2);
 
   # merging two attribute set concatenating the values of same attribute names

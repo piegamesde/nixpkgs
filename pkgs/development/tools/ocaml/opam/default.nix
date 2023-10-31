@@ -103,8 +103,7 @@ stdenv.mkDerivation {
       ncurses
       getconf
     ]
-    ++ lib.optionals stdenv.isLinux [ bubblewrap ]
-    ++ lib.optionals stdenv.isDarwin [ Foundation ];
+    ++ lib.optionals stdenv.isLinux [ bubblewrap ] ++ lib.optionals stdenv.isDarwin [ Foundation ];
 
   src = srcs.opam;
 

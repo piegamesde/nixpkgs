@@ -364,9 +364,7 @@ in
       autoCreation = mkOption {
         type = bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Automatically create the destination dataset if it does not exist.";
+        description = lib.mdDoc "Automatically create the destination dataset if it does not exist.";
       };
 
       zetup = mkOption {
@@ -523,9 +521,7 @@ in
                 "--loglevel=${cfg.logLevel}"
                 (optionalString cfg.noDestroy "--nodestroy")
                 (optionalString cfg.autoCreation "--autoCreation")
-                (optionalString (enabledFeatures != [ ])
-                  "--features=${concatStringsSep "," enabledFeatures}"
-                )
+                (optionalString (enabledFeatures != [ ]) "--features=${concatStringsSep "," enabledFeatures}")
               ];
             in
             "${pkgs.znapzend}/bin/znapzend ${args}";

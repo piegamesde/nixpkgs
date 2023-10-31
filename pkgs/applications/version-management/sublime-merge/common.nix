@@ -38,8 +38,7 @@ let
   primaryBinary = "sublime_merge";
   primaryBinaryAliases = [ "smerge" ];
   downloadUrl =
-    arch:
-    "https://download.sublimetext.com/sublime_merge_build_${buildVersion}_${arch}.tar.xz";
+    arch: "https://download.sublimetext.com/sublime_merge_build_${buildVersion}_${arch}.tar.xz";
   versionUrl = "https://www.sublimemerge.com/${if dev then "dev" else "download"}";
   versionFile = builtins.toString ./default.nix;
 

@@ -68,9 +68,7 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs = [ glib ];
 
   mesonFlags = [
-    "-Dgtk_doc=${
-      if (stdenv.buildPlatform == stdenv.hostPlatform) then "enabled" else "disabled"
-    }"
+    "-Dgtk_doc=${if (stdenv.buildPlatform == stdenv.hostPlatform) then "enabled" else "disabled"}"
     "-Dintrospection=${
       if (stdenv.buildPlatform == stdenv.hostPlatform) then "enabled" else "disabled"
     }"

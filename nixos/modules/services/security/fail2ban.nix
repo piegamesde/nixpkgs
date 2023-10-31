@@ -107,8 +107,7 @@ in
           if config.networking.nftables.enable then "nftables-multiport" else "iptables-multiport";
         defaultText =
           literalExpression
-            ''
-              if config.networking.nftables.enable then "nftables-multiport" else "iptables-multiport"'';
+            ''if config.networking.nftables.enable then "nftables-multiport" else "iptables-multiport"'';
         type = types.str;
         description = lib.mdDoc ''
           Default banning action (e.g. iptables, iptables-new, iptables-multiport,
@@ -119,8 +118,7 @@ in
       };
 
       banaction-allports = mkOption {
-        default =
-          if config.networking.nftables.enable then "nftables-allport" else "iptables-allport";
+        default = if config.networking.nftables.enable then "nftables-allport" else "iptables-allport";
         defaultText =
           literalExpression
             ''if config.networking.nftables.enable then "nftables-allport" else "iptables-allport"'';
@@ -313,9 +311,9 @@ in
       }
     ];
 
-    warnings =
-      mkIf (!config.networking.firewall.enable && !config.networking.nftables.enable)
-        [ "fail2ban can not be used without a firewall" ];
+    warnings = mkIf (!config.networking.firewall.enable && !config.networking.nftables.enable) [
+      "fail2ban can not be used without a firewall"
+    ];
 
     environment.systemPackages = [ cfg.package ];
 

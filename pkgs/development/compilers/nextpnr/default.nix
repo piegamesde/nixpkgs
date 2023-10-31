@@ -47,15 +47,12 @@ stdenv.mkDerivation rec {
   sourceRoot = "nextpnr";
 
   nativeBuildInputs = [ cmake ] ++ (lib.optional enableGui wrapQtAppsHook);
-  buildInputs =
-    [
-      boostPython
-      python3
-      eigen
-      python3Packages.apycula
-    ]
-    ++ (lib.optional enableGui qtbase)
-    ++ (lib.optional stdenv.cc.isClang llvmPackages.openmp);
+  buildInputs = [
+    boostPython
+    python3
+    eigen
+    python3Packages.apycula
+  ] ++ (lib.optional enableGui qtbase) ++ (lib.optional stdenv.cc.isClang llvmPackages.openmp);
 
   cmakeFlags =
     [

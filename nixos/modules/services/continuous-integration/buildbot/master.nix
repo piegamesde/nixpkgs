@@ -153,9 +153,7 @@ in
       extraGroups = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        description =
-          lib.mdDoc
-            "List of extra groups that the buildbot user should be a part of.";
+        description = lib.mdDoc "List of extra groups that the buildbot user should be a part of.";
       };
 
       home = mkOption {
@@ -222,9 +220,7 @@ in
       port = mkOption {
         default = 8010;
         type = types.port;
-        description =
-          lib.mdDoc
-            "Specifies port number on which the buildbot HTTP interface listens.";
+        description = lib.mdDoc "Specifies port number on which the buildbot HTTP interface listens.";
       };
 
       package = mkOption {

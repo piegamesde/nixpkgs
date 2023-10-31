@@ -42,9 +42,7 @@ let
     in
     pkgs.runCommand "buildkite-agent-hooks" { preferLocalBuild = true; } ''
       mkdir $out
-      ${concatStringsSep "\n" (
-        mapAttrsToList mkHookEntry (filterAttrs (n: v: v != null) cfg.hooks)
-      )}
+      ${concatStringsSep "\n" (mapAttrsToList mkHookEntry (filterAttrs (n: v: v != null) cfg.hooks))}
     '';
 
   buildkiteOptions =

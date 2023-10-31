@@ -1266,9 +1266,8 @@ runTests {
     in
     {
       expr =
-        (builtins.tryEval (
-          generators.toPretty { } (generators.withRecursion { depthLimit = 2; } a)
-        )).success;
+        (builtins.tryEval (generators.toPretty { } (generators.withRecursion { depthLimit = 2; } a)))
+        .success;
       expected = false;
     };
 
@@ -1579,9 +1578,7 @@ runTests {
         submodule =
           { lib, ... }:
           {
-            freeformType = lib.types.attrsOf (
-              lib.types.submodule { options.bar = lib.mkOption { }; }
-            );
+            freeformType = lib.types.attrsOf (lib.types.submodule { options.bar = lib.mkOption { }; });
             options.bar = lib.mkOption { };
           };
 

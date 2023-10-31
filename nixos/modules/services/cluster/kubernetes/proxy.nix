@@ -89,9 +89,7 @@ in
         ExecStart = ''
           ${top.package}/bin/kube-proxy \
                     --bind-address=${cfg.bindAddress} \
-                    ${
-                      optionalString (top.clusterCidr != null) "--cluster-cidr=${top.clusterCidr}"
-                    } \
+                    ${optionalString (top.clusterCidr != null) "--cluster-cidr=${top.clusterCidr}"} \
                     ${
                       optionalString (cfg.featureGates != [ ])
                         "--feature-gates=${concatMapStringsSep "," (feature: "${feature}=true") cfg.featureGates}"

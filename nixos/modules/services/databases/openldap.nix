@@ -289,9 +289,7 @@ in
         chmod -R ${if cfg.mutableConfig then "u+rw" else "u+r-w"} ${configDir}
       '';
 
-      contentsFiles =
-        mapAttrs (dn: ldif: pkgs.writeText "${dn}.ldif" ldif)
-          cfg.declarativeContents;
+      contentsFiles = mapAttrs (dn: ldif: pkgs.writeText "${dn}.ldif" ldif) cfg.declarativeContents;
       writeContents = pkgs.writeShellScript "openldap-load" ''
         set -euo pipefail
 
@@ -334,8 +332,7 @@ in
               assertion =
                 (olcDbDirectory != null)
                 -> (
-                  (hasPrefix "/var/lib/openldap/" olcDbDirectory)
-                  && (olcDbDirectory != "/var/lib/openldap/")
+                  (hasPrefix "/var/lib/openldap/" olcDbDirectory) && (olcDbDirectory != "/var/lib/openldap/")
                 );
               message = ''
                 Database ${dn} has `olcDbDirectory` (${olcDbDirectory}) that is not a subdirectory of

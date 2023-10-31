@@ -59,9 +59,7 @@ in
       enable = lib.mkDefault true;
       settings.default_session.command =
         lib.mkDefault
-          "${pkgs.dbus}/bin/dbus-run-session ${lib.getExe pkgs.cage} -s -- ${
-            lib.getExe cfg.package
-          }";
+          "${pkgs.dbus}/bin/dbus-run-session ${lib.getExe pkgs.cage} -s -- ${lib.getExe cfg.package}";
     };
 
     environment.etc = {

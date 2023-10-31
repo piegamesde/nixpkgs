@@ -32,8 +32,7 @@ stdenv.mkDerivation (
       description = "Small epoll implementation using kqueue";
       homepage = "https://github.com/jiixyj/epoll-shim";
       license = licenses.mit;
-      platforms =
-        platforms.darwin ++ platforms.freebsd ++ platforms.netbsd ++ platforms.openbsd;
+      platforms = platforms.darwin ++ platforms.freebsd ++ platforms.netbsd ++ platforms.openbsd;
       maintainers = with maintainers; [ wegank ];
     };
   }

@@ -82,9 +82,7 @@ stdenv.mkDerivation (
         inherit (finalAttrs) version;
       in
       fetchurl {
-        url = "mirror://gnome/sources/gtk+/${
-            lib.versions.majorMinor version
-          }/gtk+-${version}.tar.xz";
+        url = "mirror://gnome/sources/gtk+/${lib.versions.majorMinor version}/gtk+-${version}.tar.xz";
         sha256 = "sha256-Z0XwtMBTeUFR/Q8OJHSwd8zP9fg+ndG/PTn+n+X7f1c=";
       };
 
@@ -123,9 +121,9 @@ stdenv.mkDerivation (
         # For xmllint
         libxml2
       ]
-      ++
-        lib.optionals (withIntrospection && !stdenv.buildPlatform.canExecute stdenv.hostPlatform)
-          [ mesonEmulatorHook ]
+      ++ lib.optionals (withIntrospection && !stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
+        mesonEmulatorHook
+      ]
       ++ lib.optionals waylandSupport [ wayland-scanner ];
 
     buildInputs = [

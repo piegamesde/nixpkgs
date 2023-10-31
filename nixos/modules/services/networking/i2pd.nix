@@ -200,16 +200,11 @@ let
               ++ (if proto ? user then optionalNullString "user" proto.user else [ ])
               ++ (if proto ? pass then optionalNullString "pass" proto.pass else [ ])
               ++ (
-                if proto ? strictHeaders then
-                  optionalNullBool "strictheaders" proto.strictHeaders
-                else
-                  [ ]
+                if proto ? strictHeaders then optionalNullBool "strictheaders" proto.strictHeaders else [ ]
               )
               ++ (if proto ? hostname then optionalNullString "hostname" proto.hostname else [ ])
               ++ (if proto ? outproxy then optionalNullString "outproxy" proto.outproxy else [ ])
-              ++ (
-                if proto ? outproxyPort then optionalNullInt "outproxyport" proto.outproxyPort else [ ]
-              )
+              ++ (if proto ? outproxyPort then optionalNullInt "outproxyport" proto.outproxyPort else [ ])
               ++ (
                 if proto ? outproxyEnable then
                   optionalNullBool "outproxy.enabled" proto.outproxyEnable
@@ -237,27 +232,16 @@ let
                 (strOpt "destination" tun.destination)
               ]
               ++ (
-                if tun ? destinationPort then
-                  optionalNullInt "destinationport" tun.destinationPort
-                else
-                  [ ]
+                if tun ? destinationPort then optionalNullInt "destinationport" tun.destinationPort else [ ]
               )
               ++ (if tun ? keys then optionalNullString "keys" tun.keys else [ ])
               ++ (if tun ? address then optionalNullString "address" tun.address else [ ])
+              ++ (if tun ? inbound.length then optionalNullInt "inbound.length" tun.inbound.length else [ ])
               ++ (
-                if tun ? inbound.length then optionalNullInt "inbound.length" tun.inbound.length else [ ]
+                if tun ? inbound.quantity then optionalNullInt "inbound.quantity" tun.inbound.quantity else [ ]
               )
               ++ (
-                if tun ? inbound.quantity then
-                  optionalNullInt "inbound.quantity" tun.inbound.quantity
-                else
-                  [ ]
-              )
-              ++ (
-                if tun ? outbound.length then
-                  optionalNullInt "outbound.length" tun.outbound.length
-                else
-                  [ ]
+                if tun ? outbound.length then optionalNullInt "outbound.length" tun.outbound.length else [ ]
               )
               ++ (
                 if tun ? outbound.quantity then
@@ -684,15 +668,13 @@ in
         };
       };
 
-      proto.httpProxy =
-        (mkKeyedEndpointOpt "httpproxy" "127.0.0.1" 4444 "httpproxy-keys.dat")
-        // {
-          outproxy = mkOption {
-            type = with types; nullOr str;
-            default = null;
-            description = lib.mdDoc "Upstream outproxy bind address.";
-          };
+      proto.httpProxy = (mkKeyedEndpointOpt "httpproxy" "127.0.0.1" 4444 "httpproxy-keys.dat") // {
+        outproxy = mkOption {
+          type = with types; nullOr str;
+          default = null;
+          description = lib.mdDoc "Upstream outproxy bind address.";
         };
+      };
       proto.socksProxy =
         (mkKeyedEndpointOpt "socksproxy" "127.0.0.1" 4447 "socksproxy-keys.dat")
         // {

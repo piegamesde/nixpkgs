@@ -27,9 +27,7 @@ stdenv.mkDerivation rec {
       bison
       flex
     ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [
-      darwin.apple_sdk.frameworks.DiskArbitration
-    ];
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [ darwin.apple_sdk.frameworks.DiskArbitration ];
 
   buildInputs = [
     zlib.dev

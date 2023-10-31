@@ -37,10 +37,7 @@ stdenv.mkDerivation {
         name: commit: hash:
         fetchurl {
           url =
-            "https://raw.githubusercontent.com/archlinux/svntogit-packages/"
-            + commit
-            + "/trunk/"
-            + name;
+            "https://raw.githubusercontent.com/archlinux/svntogit-packages/" + commit + "/trunk/" + name;
           inherit name hash;
         };
     in
@@ -53,8 +50,7 @@ stdenv.mkDerivation {
         "821c3da473d1399d930d5b4a086e46a4179eaa45"
         "sha256-hhCVnfbAFWj/R4yh60qsMB87ofW9RznarsByhl6L4tc="
       )
-      (fetchArchlinuxPatch "0025-reproducible-build.patch"
-        "821c3da473d1399d930d5b4a086e46a4179eaa45"
+      (fetchArchlinuxPatch "0025-reproducible-build.patch" "821c3da473d1399d930d5b4a086e46a4179eaa45"
         "sha256-mnb291pCSFvDNxY7o4BosJ94ib3BpOGRQIiY8Q3jZmI="
       )
       (fetchDebianPatch

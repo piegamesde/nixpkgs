@@ -75,9 +75,7 @@ crystal.buildCrystalPackage rec {
             placeholder "out"
           }/share/invidious/assets"'
       substituteInPlace src/invidious/helpers/i18n.cr \
-          --replace 'File.read("locales/' 'File.read("${
-            placeholder "out"
-          }/share/invidious/locales/'
+          --replace 'File.read("locales/' 'File.read("${placeholder "out"}/share/invidious/locales/'
 
       # Reference sql initialisation/migration scripts by absolute path
       substituteInPlace src/invidious/database/base.cr \

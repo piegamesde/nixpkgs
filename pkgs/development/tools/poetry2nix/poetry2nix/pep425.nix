@@ -91,10 +91,7 @@ let
     x:
     let
       isCompat =
-        m:
-        builtins.elem m.tag tags
-        && m.major == major
-        && builtins.compareVersions minor m.minor >= 0;
+        m: builtins.elem m.tag tags && m.major == major && builtins.compareVersions minor m.minor >= 0;
       parseMarker =
         v:
         let

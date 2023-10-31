@@ -213,9 +213,7 @@ stdenv.mkDerivation rec {
   passthru.updateScript = ./update.sh;
 
   passthru.tests =
-    lib.optionalAttrs (lib.versionOlder version "3.69") {
-      inherit (nixosTests) firefox-esr-91;
-    }
+    lib.optionalAttrs (lib.versionOlder version "3.69") { inherit (nixosTests) firefox-esr-91; }
     // lib.optionalAttrs (lib.versionAtLeast version "3.69") {
       inherit (nixosTests) firefox firefox-esr-102;
     };

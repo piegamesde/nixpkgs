@@ -189,9 +189,7 @@ in
     buildInputs = [ protobuf ];
   };
 
-  cocoapods-acknowledgements = attrs: {
-    dependencies = attrs.dependencies ++ [ "cocoapods" ];
-  };
+  cocoapods-acknowledgements = attrs: { dependencies = attrs.dependencies ++ [ "cocoapods" ]; };
 
   cocoapods-deploy = attrs: { dependencies = [ "cocoapods" ]; };
 
@@ -451,8 +449,7 @@ in
       [ pkg-config ]
       ++ lib.optional stdenv.isDarwin cctools
       ++
-        lib.optional
-          (lib.versionAtLeast attrs.version "1.53.0" && stdenv.isDarwin && stdenv.isAarch64)
+        lib.optional (lib.versionAtLeast attrs.version "1.53.0" && stdenv.isDarwin && stdenv.isAarch64)
           autoSignDarwinBinariesHook;
     buildInputs = [ openssl ];
     hardeningDisable = [ "format" ];
@@ -484,9 +481,7 @@ in
 
   hitimes = attrs: { buildInputs = lib.optionals stdenv.isDarwin [ CoreServices ]; };
 
-  iconv = attrs: {
-    buildFlags = lib.optional stdenv.isDarwin "--with-iconv-dir=${libiconv}";
-  };
+  iconv = attrs: { buildFlags = lib.optional stdenv.isDarwin "--with-iconv-dir=${libiconv}"; };
 
   idn-ruby = attrs: { buildInputs = [ libidn ]; };
 

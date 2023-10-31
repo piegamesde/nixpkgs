@@ -34,9 +34,7 @@ let
     mkdir -p $out
     echo ${cfg.cellName} > $out/ThisCell
     cat ${cellServDB} ${clientServDB} > $out/CellServDB
-    echo "${cfg.mountPoint}:${cfg.cache.directory}:${
-      toString cfg.cache.blocks
-    }" > $out/cacheinfo
+    echo "${cfg.mountPoint}:${cfg.cache.directory}:${toString cfg.cache.blocks}" > $out/cacheinfo
   '';
 in
 {

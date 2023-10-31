@@ -58,9 +58,9 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (pulseaudioSupport) [ libpulseaudio ]
     ++ lib.optionals (useGtk) [ gtk3 ]
     ++ lib.optionals (useQt) [ qtbase ];
-  configureFlags =
-    [ "--enable-sfml" ]
-    ++ lib.optionals (useGtk) [ "--enable-gtk3" ] ++ lib.optionals (useQt) [ "--enable-qt5" ];
+  configureFlags = [
+    "--enable-sfml"
+  ] ++ lib.optionals (useGtk) [ "--enable-gtk3" ] ++ lib.optionals (useQt) [ "--enable-qt5" ];
 
   meta = with lib; {
     description = "A simple interface for devices supported by the linux UVC driver";

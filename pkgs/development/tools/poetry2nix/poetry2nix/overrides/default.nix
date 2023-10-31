@@ -88,8 +88,7 @@ lib.composeManyExtensions [
     lib.mapAttrs
       (
         attr: systems:
-        builtins.foldl' (drv: attr: addBuildSystem { inherit drv self attr; }) super.${attr}
-          systems
+        builtins.foldl' (drv: attr: addBuildSystem { inherit drv self attr; }) super.${attr} systems
       )
       buildSystems
   )
@@ -209,8 +208,7 @@ lib.composeManyExtensions [
               "4.0.0" = "sha256-HvfRLyUhlXVuvxWrtSDKx3rMKJbjvuiMcDY6g+pYFS0=";
               "4.0.1" = "sha256-lDWX69YENZFMu7pyBmavUZaalGvFqbHSHfkwkzmDQaY=";
             }
-            .${version} or (lib.warn
-              "Unknown bcrypt version: '${version}'. Please update getCargoHash."
+            .${version} or (lib.warn "Unknown bcrypt version: '${version}'. Please update getCargoHash."
               lib.fakeHash
             );
         in
@@ -300,15 +298,11 @@ lib.composeManyExtensions [
       );
 
       celery = super.celery.overridePythonAttrs (
-        old: {
-          propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.setuptools ];
-        }
+        old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.setuptools ]; }
       );
 
       cerberus = super.cerberus.overridePythonAttrs (
-        old: {
-          propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.setuptools ];
-        }
+        old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.setuptools ]; }
       );
 
       cssselect2 = super.cssselect2.overridePythonAttrs (
@@ -330,9 +324,7 @@ lib.composeManyExtensions [
                   # Remove setup.py impurities
                   substituteInPlace setup.py --replace "'-iwithsysroot/usr/include/ffi'" ""
                   substituteInPlace setup.py --replace "'/usr/include/ffi'," ""
-                  substituteInPlace setup.py --replace '/usr/include/libffi' '${
-                    lib.getDev pkgs.libffi
-                  }/include'
+                  substituteInPlace setup.py --replace '/usr/include/libffi' '${lib.getDev pkgs.libffi}/include'
                 '';
             }
           ));
@@ -445,8 +437,7 @@ lib.composeManyExtensions [
             propagatedBuildInputs = old.propagatedBuildInputs or [ ] ++ [ self.cffi ];
           }
           //
-            lib.optionalAttrs
-              (lib.versionAtLeast old.version "3.4" && lib.versionOlder old.version "3.5")
+            lib.optionalAttrs (lib.versionAtLeast old.version "3.4" && lib.versionOlder old.version "3.5")
               { CRYPTOGRAPHY_DONT_BUILD_RUST = "1"; }
           // lib.optionalAttrs (lib.versionAtLeast old.version "3.5" && !isWheel) rec {
             cargoDeps = pkgs.rustPlatform.fetchCargoTarball {
@@ -487,9 +478,7 @@ lib.composeManyExtensions [
         }
       );
 
-      databricks-connect = super.databricks-connect.overridePythonAttrs (
-        old: { sourceRoot = "."; }
-      );
+      databricks-connect = super.databricks-connect.overridePythonAttrs (old: { sourceRoot = "."; });
 
       dbt-extractor = super.dbt-extractor.overridePythonAttrs (
         old: {
@@ -551,9 +540,7 @@ lib.composeManyExtensions [
       );
 
       dcli = super.dcli.overridePythonAttrs (
-        old: {
-          propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.setuptools ];
-        }
+        old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.setuptools ]; }
       );
 
       ddtrace = super.ddtrace.overridePythonAttrs (
@@ -669,9 +656,7 @@ lib.composeManyExtensions [
       # remove eth-hash dependency because eth-hash also depends on eth-utils causing a cycle.
       eth-utils = super.eth-utils.overridePythonAttrs (
         old: {
-          propagatedBuildInputs =
-            builtins.filter (i: i.pname != "eth-hash")
-              old.propagatedBuildInputs;
+          propagatedBuildInputs = builtins.filter (i: i.pname != "eth-hash") old.propagatedBuildInputs;
           preConfigure = ''
             ${old.preConfigure or ""}
             sed -i '/eth-hash/d' setup.py
@@ -1009,15 +994,11 @@ lib.composeManyExtensions [
       intreehooks = super.intreehooks.overridePythonAttrs (old: { doCheck = false; });
 
       ipython = super.ipython.overridePythonAttrs (
-        old: {
-          propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.setuptools ];
-        }
+        old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.setuptools ]; }
       );
 
       isort = super.isort.overridePythonAttrs (
-        old: {
-          propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.setuptools ];
-        }
+        old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.setuptools ]; }
       );
 
       jaraco-functools = super.jaraco-functools.overridePythonAttrs (
@@ -1101,9 +1082,7 @@ lib.composeManyExtensions [
         if lib.versionAtLeast super.jsonschema.version "4.0.0" then
           super.jsonschema.overridePythonAttrs (
             old: {
-              propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [
-                self.importlib-resources
-              ];
+              propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.importlib-resources ];
             }
           )
         else
@@ -1192,30 +1171,18 @@ lib.composeManyExtensions [
           llvm =
             if lib.versionAtLeast old.version "0.37.0" then
               pkgs.llvmPackages_11.llvm
-            else if
-              (lib.versionOlder old.version "0.37.0" && lib.versionAtLeast old.version "0.34.0")
-            then
+            else if (lib.versionOlder old.version "0.37.0" && lib.versionAtLeast old.version "0.34.0") then
               pkgs.llvmPackages_10.llvm
-            else if
-              (lib.versionOlder old.version "0.34.0" && lib.versionAtLeast old.version "0.33.0")
-            then
+            else if (lib.versionOlder old.version "0.34.0" && lib.versionAtLeast old.version "0.33.0") then
               pkgs.llvmPackages_9.llvm
-            else if
-              (lib.versionOlder old.version "0.33.0" && lib.versionAtLeast old.version "0.29.0")
-            then
+            else if (lib.versionOlder old.version "0.33.0" && lib.versionAtLeast old.version "0.29.0") then
               pkgs.llvmPackages_8.llvm
-            else if
-              (lib.versionOlder old.version "0.28.0" && lib.versionAtLeast old.version "0.27.0")
-            then
+            else if (lib.versionOlder old.version "0.28.0" && lib.versionAtLeast old.version "0.27.0") then
               pkgs.llvmPackages_7.llvm
-            else if
-              (lib.versionOlder old.version "0.27.0" && lib.versionAtLeast old.version "0.23.0")
-            then
+            else if (lib.versionOlder old.version "0.27.0" && lib.versionAtLeast old.version "0.23.0") then
               pkgs.llvmPackages_6.llvm or throw
                 "LLVM6 has been removed from nixpkgs; upgrade llvmlite or use older nixpkgs"
-            else if
-              (lib.versionOlder old.version "0.23.0" && lib.versionAtLeast old.version "0.21.0")
-            then
+            else if (lib.versionOlder old.version "0.23.0" && lib.versionAtLeast old.version "0.21.0") then
               pkgs.llvmPackages_5.llvm or throw
                 "LLVM5 has been removed from nixpkgs; upgrade llvmlite or use older nixpkgs"
             else
@@ -1727,8 +1694,7 @@ lib.composeManyExtensions [
               "3.8.7" = "sha256-JBO8nl0sC+XIn17vI7hC8+nA1HYI9jfvZrl9nCE3k1s=";
               "3.8.8" = "sha256-AK4HtqPKg2O2FeLHCbY9o+N1BV4QFMNaHVE1NaFYHa4=";
             }
-            .${version} or (lib.warn
-              "Unknown orjson version: '${version}'. Please update getCargoHash."
+            .${version} or (lib.warn "Unknown orjson version: '${version}'. Please update getCargoHash."
               lib.fakeHash
             );
         in
@@ -1798,9 +1764,7 @@ lib.composeManyExtensions [
         old: { nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ self.pytest-runner ]; }
       );
 
-      pdal = super.pdal.overridePythonAttrs (
-        old: { PDAL_CONFIG = "${pkgs.pdal}/bin/pdal-config"; }
-      );
+      pdal = super.pdal.overridePythonAttrs (old: { PDAL_CONFIG = "${pkgs.pdal}/bin/pdal-config"; });
 
       peewee = super.peewee.overridePythonAttrs (
         old:
@@ -1917,9 +1881,7 @@ lib.composeManyExtensions [
       );
 
       prettytable = super.prettytable.overridePythonAttrs (
-        old: {
-          propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.setuptools ];
-        }
+        old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.setuptools ]; }
       );
 
       prophet = super.prophet.overridePythonAttrs (
@@ -2505,9 +2467,7 @@ lib.composeManyExtensions [
       };
 
       rmfuse = super.rmfuse.overridePythonAttrs (
-        old: {
-          propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.setuptools ];
-        }
+        old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.setuptools ]; }
       );
 
       rtree = super.rtree.overridePythonAttrs (
@@ -3219,9 +3179,7 @@ lib.composeManyExtensions [
           }
         );
 
-      meson-python = super.meson-python.overridePythonAttrs (
-        old: { dontUseMesonConfigure = true; }
-      );
+      meson-python = super.meson-python.overridePythonAttrs (old: { dontUseMesonConfigure = true; });
 
       mkdocs = super.mkdocs.overridePythonAttrs (
         old: { propagatedBuildInputs = old.propagatedBuildInputs or [ ] ++ [ self.babel ]; }

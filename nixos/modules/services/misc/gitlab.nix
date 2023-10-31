@@ -136,15 +136,11 @@ let
       omniauth.enabled = false;
       shared.path = "${cfg.statePath}/shared";
       gitaly.client_path = "${cfg.packages.gitaly}/bin";
-      backup =
-        {
-          gitaly_backup_path = "${cfg.packages.gitaly}/bin/gitaly-backup";
-          path = cfg.backup.path;
-          keep_time = cfg.backup.keepTime;
-        }
-        // (optionalAttrs (cfg.backup.uploadOptions != { }) {
-          upload = cfg.backup.uploadOptions;
-        });
+      backup = {
+        gitaly_backup_path = "${cfg.packages.gitaly}/bin/gitaly-backup";
+        path = cfg.backup.path;
+        keep_time = cfg.backup.keepTime;
+      } // (optionalAttrs (cfg.backup.uploadOptions != { }) { upload = cfg.backup.uploadOptions; });
       gitlab_shell = {
         path = "${cfg.packages.gitlab-shell}";
         hooks_path = "${cfg.statePath}/shell/hooks";
@@ -222,9 +218,7 @@ let
     installPhase = ''
       mkdir -p $out/bin
       makeWrapper ${cfg.packages.gitlab.rubyEnv}/bin/rake $out/bin/gitlab-rake \
-          ${
-            concatStrings (mapAttrsToList (name: value: "--set ${name} '${value}' ") gitlabEnv)
-          } \
+          ${concatStrings (mapAttrsToList (name: value: "--set ${name} '${value}' ") gitlabEnv)} \
           --set PATH '${lib.makeBinPath runtimeDeps}:$PATH' \
           --set RAKEOPT '-f ${cfg.packages.gitlab}/share/gitlab/Rakefile' \
           --chdir '${cfg.packages.gitlab}/share/gitlab'
@@ -239,9 +233,7 @@ let
     installPhase = ''
       mkdir -p $out/bin
       makeWrapper ${cfg.packages.gitlab.rubyEnv}/bin/rails $out/bin/gitlab-rails \
-          ${
-            concatStrings (mapAttrsToList (name: value: "--set ${name} '${value}' ") gitlabEnv)
-          } \
+          ${concatStrings (mapAttrsToList (name: value: "--set ${name} '${value}' ") gitlabEnv)} \
           --set PATH '${lib.makeBinPath runtimeDeps}:$PATH' \
           --chdir '${cfg.packages.gitlab}/share/gitlab'
     '';
@@ -261,8 +253,7 @@ let
         ${optionalString (cfg.smtp.passwordFile != null) ''password: "@smtpPassword@",''}
         domain: "${cfg.smtp.domain}",
         ${
-          optionalString (cfg.smtp.authentication != null)
-            "authentication: :${cfg.smtp.authentication},"
+          optionalString (cfg.smtp.authentication != null) "authentication: :${cfg.smtp.authentication},"
         }
         enable_starttls_auto: ${boolToString cfg.smtp.enableStartTLSAuto},
         tls: ${boolToString cfg.smtp.tls},
@@ -1478,9 +1469,7 @@ in
                 ''
             }
 
-            ${
-              utils.genJqSecretsReplacementSnippet gitlabConfig "${cfg.statePath}/config/gitlab.yml"
-            }
+            ${utils.genJqSecretsReplacementSnippet gitlabConfig "${cfg.statePath}/config/gitlab.yml"}
 
             rm -f '${cfg.statePath}/config/secrets.yml'
 

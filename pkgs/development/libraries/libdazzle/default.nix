@@ -52,9 +52,7 @@ stdenv.mkDerivation rec {
       glib
     ]
     ++ lib.optionals stdenv.isLinux [ xvfb-run ]
-    ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
-      mesonEmulatorHook
-    ];
+    ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
 
   buildInputs = [
     glib

@@ -328,9 +328,7 @@ in
         else
           ''
             exec ${cfg.locate}/bin/updatedb \
-              ${
-                optionalString (cfg.localuser != null && !isMorPLocate) "--localuser=${cfg.localuser}"
-              } \
+              ${optionalString (cfg.localuser != null && !isMorPLocate) "--localuser=${cfg.localuser}"} \
               --output=${toString cfg.output} ${concatStringsSep " " cfg.extraFlags}
           '';
       environment = optionalAttrs (!isMorPLocate) {

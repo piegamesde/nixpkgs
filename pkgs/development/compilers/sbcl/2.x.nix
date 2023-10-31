@@ -6,8 +6,7 @@
   writeText,
   sbclBootstrap,
   zstd,
-  sbclBootstrapHost ?
-    "${sbclBootstrap}/bin/sbcl --disable-debugger --no-userinit --no-sysinit",
+  sbclBootstrapHost ? "${sbclBootstrap}/bin/sbcl --disable-debugger --no-userinit --no-sysinit",
   threadSupport ? (
     stdenv.hostPlatform.isx86
     || "aarch64-linux" == stdenv.hostPlatform.system

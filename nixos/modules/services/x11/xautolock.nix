@@ -62,9 +62,7 @@ in
 
       notifier = mkOption {
         default = null;
-        example =
-          literalExpression
-            ''"''${pkgs.libnotify}/bin/notify-send 'Locking in 10 seconds'"'';
+        example = literalExpression ''"''${pkgs.libnotify}/bin/notify-send 'Locking in 10 seconds'"'';
         type = types.nullOr types.str;
 
         description = lib.mdDoc ''

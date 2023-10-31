@@ -161,9 +161,7 @@ in
           babelfishTranslate config.system.build.setEnvironment
             "setEnvironment";
         etc."fish/shellInit.fish".source = babelfishTranslate envShellInit "shellInit";
-        etc."fish/loginShellInit.fish".source =
-          babelfishTranslate envLoginShellInit
-            "loginShellInit";
+        etc."fish/loginShellInit.fish".source = babelfishTranslate envLoginShellInit "loginShellInit";
         etc."fish/interactiveShellInit.fish".source =
           babelfishTranslate envInteractiveShellInit
             "interactiveShellInit";

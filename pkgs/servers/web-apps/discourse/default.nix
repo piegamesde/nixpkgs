@@ -151,9 +151,7 @@ let
     mkdir -p $out/bin
     makeWrapper ${rubyEnv}/bin/rake $out/bin/discourse-rake \
         ${
-          lib.concatStrings (
-            lib.mapAttrsToList (name: value: "--set ${name} '${value}' ") runtimeEnv
-          )
+          lib.concatStrings (lib.mapAttrsToList (name: value: "--set ${name} '${value}' ") runtimeEnv)
         } \
         --prefix PATH : ${lib.makeBinPath runtimeDeps} \
         --set RAKEOPT '-f ${discourse}/share/discourse/Rakefile' \

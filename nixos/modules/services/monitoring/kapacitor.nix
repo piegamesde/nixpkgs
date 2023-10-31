@@ -121,9 +121,7 @@ in
       enable = mkEnableOption (lib.mdDoc "kapacitor.defaultDatabase");
 
       url = mkOption {
-        description =
-          lib.mdDoc
-            "The URL to an InfluxDB server that serves as the default database";
+        description = lib.mdDoc "The URL to an InfluxDB server that serves as the default database";
         example = "http://localhost:8086";
         type = types.str;
       };

@@ -127,8 +127,7 @@ in
         };
       in
       listToAttrs (
-        mapAttrsToList
-          (name: value: nameValuePair "hans-${name}" (createHansClientService name value))
+        mapAttrsToList (name: value: nameValuePair "hans-${name}" (createHansClientService name value))
           cfg.clients
       )
       // {

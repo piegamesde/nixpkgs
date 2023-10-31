@@ -69,8 +69,7 @@ in
   enableDeadCodeElimination ? (!stdenv.isDarwin) # TODO: use -dead_strip for darwin
   ,
   enableStaticLibraries ? !(stdenv.hostPlatform.isWindows or stdenv.hostPlatform.isWasm),
-  enableHsc2hsViaAsm ?
-    stdenv.hostPlatform.isWindows && lib.versionAtLeast ghc.version "8.4",
+  enableHsc2hsViaAsm ? stdenv.hostPlatform.isWindows && lib.versionAtLeast ghc.version "8.4",
   extraLibraries ? [ ],
   librarySystemDepends ? [ ],
   executableSystemDepends ? [ ],
@@ -178,10 +177,7 @@ let
   isGhcjs = ghc.isGhcjs or false;
   isHaLVM = ghc.isHaLVM or false;
   packageDbFlag =
-    if isGhcjs || isHaLVM || versionOlder "7.6" ghc.version then
-      "package-db"
-    else
-      "package-conf";
+    if isGhcjs || isHaLVM || versionOlder "7.6" ghc.version then "package-db" else "package-conf";
 
   # GHC used for building Setup.hs
   #
@@ -270,9 +266,7 @@ let
     " " + lib.concatStringsSep " " crossCabalFlags
   );
 
-  buildFlagsString = optionalString (buildFlags != [ ]) (
-    " " + concatStringsSep " " buildFlags
-  );
+  buildFlagsString = optionalString (buildFlags != [ ]) (" " + concatStringsSep " " buildFlags);
 
   defaultConfigureFlags =
     [
@@ -379,10 +373,7 @@ let
     ++ setupHaskellDepends
     ++ collectedToolDepends;
   propagatedBuildInputs =
-    buildDepends
-    ++ libraryHaskellDepends
-    ++ executableHaskellDepends
-    ++ libraryFrameworkDepends;
+    buildDepends ++ libraryHaskellDepends ++ executableHaskellDepends ++ libraryFrameworkDepends;
   otherBuildInputsHaskell =
     optionals doCheck (testDepends ++ testHaskellDepends)
     ++ optionals doBenchmark (benchmarkDepends ++ benchmarkHaskellDepends);
@@ -532,48 +523,44 @@ lib.fix (
             fi
         ''
         # It is not clear why --extra-framework-dirs does work fine on Linux
-        +
-          optionalString (!stdenv.buildPlatform.isDarwin || versionAtLeast nativeGhc.version "8.0")
-            ''
-              if [[ -d "$p/Library/Frameworks" ]]; then
-                configureFlags+=" --extra-framework-dirs=$p/Library/Frameworks"
-              fi
-            ''
+        + optionalString (!stdenv.buildPlatform.isDarwin || versionAtLeast nativeGhc.version "8.0") ''
+          if [[ -d "$p/Library/Frameworks" ]]; then
+            configureFlags+=" --extra-framework-dirs=$p/Library/Frameworks"
+          fi
+        ''
         + ''
           done
         ''
         # only use the links hack if we're actually building dylibs. otherwise, the
         # "dynamic-library-dirs" point to nonexistent paths, and the ln command becomes
         # "ln -s $out/lib/links", which tries to recreate the links dir and fails
-        + (optionalString (stdenv.isDarwin && (enableSharedLibraries || enableSharedExecutables))
-          ''
-            # Work around a limit in the macOS Sierra linker on the number of paths
-            # referenced by any one dynamic library:
-            #
-            # Create a local directory with symlinks of the *.dylib (macOS shared
-            # libraries) from all the dependencies.
-            local dynamicLinksDir="$out/lib/links"
-            mkdir -p $dynamicLinksDir
+        + (optionalString (stdenv.isDarwin && (enableSharedLibraries || enableSharedExecutables)) ''
+          # Work around a limit in the macOS Sierra linker on the number of paths
+          # referenced by any one dynamic library:
+          #
+          # Create a local directory with symlinks of the *.dylib (macOS shared
+          # libraries) from all the dependencies.
+          local dynamicLinksDir="$out/lib/links"
+          mkdir -p $dynamicLinksDir
 
-            # Unprettify all package conf files before reading/writing them
-            for d in "$packageConfDir/"*; do
-              # gawk -i inplace seems to strip the last newline
-              gawk -f ${unprettyConf} "$d" > tmp
-              mv tmp "$d"
-            done
+          # Unprettify all package conf files before reading/writing them
+          for d in "$packageConfDir/"*; do
+            # gawk -i inplace seems to strip the last newline
+            gawk -f ${unprettyConf} "$d" > tmp
+            mv tmp "$d"
+          done
 
-            for d in $(grep '^dynamic-library-dirs:' "$packageConfDir"/* | cut -d' ' -f2- | tr ' ' '\n' | sort -u); do
-              for lib in "$d/"*.{dylib,so}; do
-                # Allow overwriting because C libs can be pulled in multiple times.
-                ln -sf "$lib" "$dynamicLinksDir"
-              done
+          for d in $(grep '^dynamic-library-dirs:' "$packageConfDir"/* | cut -d' ' -f2- | tr ' ' '\n' | sort -u); do
+            for lib in "$d/"*.{dylib,so}; do
+              # Allow overwriting because C libs can be pulled in multiple times.
+              ln -sf "$lib" "$dynamicLinksDir"
             done
-            # Edit the local package DB to reference the links directory.
-            for f in "$packageConfDir/"*.conf; do
-              sed -i "s,dynamic-library-dirs: .*,dynamic-library-dirs: $dynamicLinksDir," "$f"
-            done
-          ''
-        )
+          done
+          # Edit the local package DB to reference the links directory.
+          for f in "$packageConfDir/"*.conf; do
+            sed -i "s,dynamic-library-dirs: .*,dynamic-library-dirs: $dynamicLinksDir," "$f"
+          done
+        '')
         + ''
           ${ghcCommand}-pkg --${packageDbFlag}="$packageConfDir" recache
 
@@ -823,8 +810,7 @@ lib.fix (
             # we don't use this at all, and instead put the setupDepends in the main
             # `ghcWithPackages`. This way we don't have two wrapper scripts called `ghc`
             # shadowing each other on the PATH.
-            ghcEnvForBuild =
-              assert isCross; buildHaskellPackages.ghcWithPackages (_: setupHaskellDepends);
+            ghcEnvForBuild = assert isCross; buildHaskellPackages.ghcWithPackages (_: setupHaskellDepends);
 
             ghcEnv = withPackages (
               _:

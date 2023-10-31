@@ -118,8 +118,7 @@ let
 in
 
 assert vp8DecoderSupport || vp8EncoderSupport || vp9DecoderSupport || vp9EncoderSupport;
-assert internalStatsSupport && (vp9DecoderSupport || vp9EncoderSupport)
-  -> postprocSupport;
+assert internalStatsSupport && (vp9DecoderSupport || vp9EncoderSupport) -> postprocSupport;
 /* If spatialResamplingSupport not enabled, build will fail with undeclared variable errors.
    Variables called in vpx_scale/generic/vpx_scale.c are declared by vpx_scale/vpx_scale_rtcd.pl,
    but is only executed if spatialResamplingSupport is enabled
@@ -198,9 +197,7 @@ stdenv.mkDerivation rec {
       (enableFeature isMips "dequant-tokens")
       (enableFeature isMips "dc-recon")
       (enableFeature postprocSupport "postproc")
-      (enableFeature (postprocSupport && (vp9DecoderSupport || vp9EncoderSupport))
-        "vp9-postproc"
-      )
+      (enableFeature (postprocSupport && (vp9DecoderSupport || vp9EncoderSupport)) "vp9-postproc")
       (enableFeature multithreadSupport "multithread")
       (enableFeature internalStatsSupport "internal-stats")
       (enableFeature spatialResamplingSupport "spatial-resampling")

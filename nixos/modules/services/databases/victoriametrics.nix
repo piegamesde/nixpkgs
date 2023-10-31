@@ -74,8 +74,7 @@ in
       postStart =
         let
           bindAddr =
-            (lib.optionalString (lib.hasPrefix ":" cfg.listenAddress) "127.0.0.1")
-            + cfg.listenAddress;
+            (lib.optionalString (lib.hasPrefix ":" cfg.listenAddress) "127.0.0.1") + cfg.listenAddress;
         in
         lib.mkBefore ''
           until ${lib.getBin pkgs.curl}/bin/curl -s -o /dev/null http://${bindAddr}/ping; do

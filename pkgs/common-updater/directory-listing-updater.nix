@@ -28,7 +28,5 @@ genericUpdater {
   ;
   versionLister = "${common-updater-scripts}/bin/list-directory-versions ${
       lib.optionalString (url != null) "--url=${lib.escapeShellArg url}"
-    } ${
-      lib.optionalString (extraRegex != null) "--extra-regex=${lib.escapeShellArg extraRegex}"
-    }";
+    } ${lib.optionalString (extraRegex != null) "--extra-regex=${lib.escapeShellArg extraRegex}"}";
 }

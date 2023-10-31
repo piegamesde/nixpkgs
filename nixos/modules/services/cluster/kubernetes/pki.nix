@@ -45,8 +45,7 @@ let
       keyFile = key;
     };
 
-  remote =
-    with config.services; "https://${kubernetes.masterAddress}:${toString cfssl.port}";
+  remote = with config.services; "https://${kubernetes.masterAddress}:${toString cfssl.port}";
 in
 {
   ###### interface

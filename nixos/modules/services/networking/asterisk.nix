@@ -215,9 +215,7 @@ in
   config = mkIf cfg.enable {
     environment.systemPackages = [ cfg.package ];
 
-    environment.etc =
-      mapAttrs' (name: value: nameValuePair "asterisk/${name}" value)
-        allConfFiles;
+    environment.etc = mapAttrs' (name: value: nameValuePair "asterisk/${name}" value) allConfFiles;
 
     users.users.asterisk = {
       name = asteriskUser;

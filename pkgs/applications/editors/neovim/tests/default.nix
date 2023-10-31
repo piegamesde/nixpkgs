@@ -130,9 +130,7 @@ pkgs.recurseIntoAttrs (rec {
     extraName = "-with-plug";
     configure.packages.plugins = with pkgs.vimPlugins; {
       start = [
-        (base16-vim.overrideAttrs (
-          old: { pname = old.pname + "-unique-for-tests-please-dont-use"; }
-        ))
+        (base16-vim.overrideAttrs (old: { pname = old.pname + "-unique-for-tests-please-dont-use"; }))
       ];
     };
     configure.customRC = ''

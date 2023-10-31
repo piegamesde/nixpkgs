@@ -77,8 +77,7 @@ let
   # Maps the name of a GPU architecture to different versions of that architecture.
   # For example, "Ampere" maps to [ "8.0" "8.6" "8.7" ].
   cudaArchNameToVersions =
-    lists.groupBy' (versions: gpu: versions ++ [ gpu.computeCapability ]) [ ]
-      (gpu: gpu.archName)
+    lists.groupBy' (versions: gpu: versions ++ [ gpu.computeCapability ]) [ ] (gpu: gpu.archName)
       supportedGpus;
 
   # cudaComputeCapabilityToName :: AttrSet String String
@@ -109,9 +108,7 @@ let
     feat:
     lists.map (
       computeCapability:
-      "-gencode=arch=compute_${dropDot computeCapability},code=${feat}_${
-        dropDot computeCapability
-      }"
+      "-gencode=arch=compute_${dropDot computeCapability},code=${feat}_${dropDot computeCapability}"
     );
 
   formatCapabilities =

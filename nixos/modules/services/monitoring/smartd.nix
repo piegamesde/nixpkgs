@@ -58,8 +58,7 @@ let
   '';
 
   notifyOpts = optionalString (nm.enable || nw.enable || nx.enable) (
-    "-m <nomailer> -M exec ${smartdNotify} "
-    + optionalString cfg.notifications.test "-M test "
+    "-m <nomailer> -M exec ${smartdNotify} " + optionalString cfg.notifications.test "-M test "
   );
 
   smartdConf = pkgs.writeText "smartd.conf" ''

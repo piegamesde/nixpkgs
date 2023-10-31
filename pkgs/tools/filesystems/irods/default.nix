@@ -158,8 +158,7 @@ rec {
       meta = common.meta // {
         description = common.meta.description + " CLI clients";
         longDescription =
-          common.meta.longDescription
-          + "This package provides the CLI clients, called 'icommands'.";
+          common.meta.longDescription + "This package provides the CLI clients, called 'icommands'.";
       };
     }
   );

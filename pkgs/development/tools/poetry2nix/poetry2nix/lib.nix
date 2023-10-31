@@ -252,14 +252,11 @@ let
           ]
           (throw missingBuildBackendError)
           pyProject;
-      requiredPkgs =
-        builtins.map (n: lib.elemAt (builtins.match "([^!=<>~[]+).*" n) 0)
-          requires;
+      requiredPkgs = builtins.map (n: lib.elemAt (builtins.match "([^!=<>~[]+).*" n) 0) requires;
     in
     builtins.map
       (
-        drvAttr:
-        pythonPackages.${drvAttr} or (throw "unsupported build system requirement ${drvAttr}")
+        drvAttr: pythonPackages.${drvAttr} or (throw "unsupported build system requirement ${drvAttr}")
       )
       requiredPkgs;
 

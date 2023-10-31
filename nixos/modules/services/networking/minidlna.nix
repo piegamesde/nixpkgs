@@ -70,9 +70,7 @@ in
       options.port = mkOption {
         type = types.port;
         default = 8200;
-        description =
-          lib.mdDoc
-            "Port number for HTTP traffic (descriptions, SOAP, media transfer).";
+        description = lib.mdDoc "Port number for HTTP traffic (descriptions, SOAP, media transfer).";
       };
       options.db_dir = mkOption {
         type = types.path;
@@ -121,9 +119,7 @@ in
           "no"
         ];
         default = "no";
-        description =
-          lib.mdDoc
-            "Support for streaming .jpg and .mp3 files to a TiVo supporting HMO.";
+        description = lib.mdDoc "Support for streaming .jpg and .mp3 files to a TiVo supporting HMO.";
       };
       options.wide_links = mkOption {
         type = types.enum [

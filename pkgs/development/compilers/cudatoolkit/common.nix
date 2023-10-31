@@ -195,11 +195,10 @@ backendStdenv.mkDerivation rec {
           cd ..
         done
       ''}
-      ${lib.optionalString (lib.versionAtLeast version "10.1" && lib.versionOlder version "11")
-        ''
-          cd pkg/builds/cuda-toolkit
-          mv * $out/
-        ''}
+      ${lib.optionalString (lib.versionAtLeast version "10.1" && lib.versionOlder version "11") ''
+        cd pkg/builds/cuda-toolkit
+        mv * $out/
+      ''}
       ${lib.optionalString (lib.versionAtLeast version "11") ''
         mkdir -p $out/bin $out/lib64 $out/include $doc
         for dir in pkg/builds/* pkg/builds/cuda_nvcc/nvvm pkg/builds/cuda_cupti/extras/CUPTI; do
@@ -248,8 +247,7 @@ backendStdenv.mkDerivation rec {
       ''}
 
       # Remove some cruft.
-      ${lib.optionalString
-        ((lib.versionAtLeast version "7.0") && (lib.versionOlder version "10.1"))
+      ${lib.optionalString ((lib.versionAtLeast version "7.0") && (lib.versionOlder version "10.1"))
         "rm $out/bin/uninstall*"}
 
       # Fixup path to samples (needed for cuda 6.5 or else nsight will not find them)
@@ -292,12 +290,10 @@ backendStdenv.mkDerivation rec {
 
         # Remove OpenCL libraries as they are provided by ocl-icd and driver.
         rm -f $out/lib64/libOpenCL*
-        ${lib.optionalString
-          (lib.versionAtLeast version "10.1" && (lib.versionOlder version "11"))
-          ''
-            mv $out/lib64 $out/lib
-            mv $out/extras/CUPTI/lib64/libcupti* $out/lib
-          ''}
+        ${lib.optionalString (lib.versionAtLeast version "10.1" && (lib.versionOlder version "11")) ''
+          mv $out/lib64 $out/lib
+          mv $out/extras/CUPTI/lib64/libcupti* $out/lib
+        ''}
 
         # nvprof do not find any program to profile if LD_LIBRARY_PATH is not set
         wrapProgram $out/bin/nvprof \

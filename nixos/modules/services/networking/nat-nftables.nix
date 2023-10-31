@@ -93,8 +93,7 @@ let
       # nftables set for port forward loopback snat
       # daddr . l4proto . dport
       fwdLoopSnatSet = toNftSet (
-        map (fwd: with (splitIPPorts fwd.destination); "${IP} . ${fwd.proto} . ${ports}")
-          forwardPorts
+        map (fwd: with (splitIPPorts fwd.destination); "${IP} . ${fwd.proto} . ${ports}") forwardPorts
       );
     in
     ''

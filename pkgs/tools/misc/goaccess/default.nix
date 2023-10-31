@@ -28,8 +28,7 @@ stdenv.mkDerivation rec {
       ncurses
       openssl
     ]
-    ++ lib.optionals withGeolocation [ libmaxminddb ]
-    ++ lib.optionals stdenv.isDarwin [ gettext ];
+    ++ lib.optionals withGeolocation [ libmaxminddb ] ++ lib.optionals stdenv.isDarwin [ gettext ];
 
   configureFlags = [
     "--enable-utf8"

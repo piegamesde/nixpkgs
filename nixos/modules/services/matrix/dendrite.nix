@@ -103,9 +103,7 @@ in
             '';
           };
           private_key = lib.mkOption {
-            type = lib.types.either lib.types.path (
-              lib.types.strMatching "^\\$CREDENTIALS_DIRECTORY/.+"
-            );
+            type = lib.types.either lib.types.path (lib.types.strMatching "^\\$CREDENTIALS_DIRECTORY/.+");
             example = "$CREDENTIALS_DIRECTORY/private_key";
             description = lib.mdDoc ''
               The path to the signing private key file, used to sign

@@ -75,8 +75,7 @@ stdenv.mkDerivation rec {
       aarch64-linux = "arm64";
       x86_64-linux = "amd64";
     }
-    .${stdenv.hostPlatform.system}
-      or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
   src = fetchurl {
     url = "https://downloads.vivaldi.com/${branch}/vivaldi-${branch}_${version}-1_${suffix}.deb";
@@ -85,8 +84,7 @@ stdenv.mkDerivation rec {
         aarch64-linux = "sha256-6rETxeExtHxWrKFO0MHzjLgnaHUeREVqsOB9264jZr8=";
         x86_64-linux = "sha256-vvN0AxrKotphYIpkyOKHBgEOQtF4LvYBV1cB591ICbc=";
       }
-      .${stdenv.hostPlatform.system}
-        or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+      .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
   };
 
   unpackPhase = ''

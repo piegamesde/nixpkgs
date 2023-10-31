@@ -46,9 +46,8 @@ let
     (rec {
       doRunTest =
         arg:
-        ((import ../lib/testing-python.nix { inherit system pkgs; }).evalTest {
-          imports = [ arg ];
-        }).config.result;
+        ((import ../lib/testing-python.nix { inherit system pkgs; }).evalTest { imports = [ arg ]; })
+        .config.result;
       findTests =
         tree:
         if tree ? recurseForDerivations && tree.recurseForDerivations then
@@ -305,9 +304,7 @@ in
       { };
   docker-tools-overlay = handleTestOn [ "x86_64-linux" ] ./docker-tools-overlay.nix { };
   documize = handleTest ./documize.nix { };
-  documentation = pkgs.callPackage ../modules/misc/documentation/test.nix {
-    inherit nixosLib;
-  };
+  documentation = pkgs.callPackage ../modules/misc/documentation/test.nix { inherit nixosLib; };
   doh-proxy-rust = handleTest ./doh-proxy-rust.nix { };
   dokuwiki = handleTest ./dokuwiki.nix { };
   dolibarr = handleTest ./dolibarr.nix { };
@@ -346,9 +343,7 @@ in
   ferm = handleTest ./ferm.nix { };
   firefox = handleTest ./firefox.nix { firefoxPackage = pkgs.firefox; };
   firefox-beta = handleTest ./firefox.nix { firefoxPackage = pkgs.firefox-beta; };
-  firefox-devedition = handleTest ./firefox.nix {
-    firefoxPackage = pkgs.firefox-devedition;
-  };
+  firefox-devedition = handleTest ./firefox.nix { firefoxPackage = pkgs.firefox-devedition; };
   firefox-esr = handleTest ./firefox.nix { firefoxPackage = pkgs.firefox-esr; }; # used in `tested` job
   firefox-esr-102 = handleTest ./firefox.nix { firefoxPackage = pkgs.firefox-esr-102; };
   firejail = handleTest ./firejail.nix { };
@@ -638,9 +633,7 @@ in
   nixops = handleTest ./nixops/default.nix { };
   nixos-generate-config = handleTest ./nixos-generate-config.nix { };
   nixos-rebuild-specialisations = handleTest ./nixos-rebuild-specialisations.nix { };
-  nixpkgs = pkgs.callPackage ../modules/misc/nixpkgs/test.nix {
-    inherit evalMinimalConfig;
-  };
+  nixpkgs = pkgs.callPackage ../modules/misc/nixpkgs/test.nix { inherit evalMinimalConfig; };
   node-red = handleTest ./node-red.nix { };
   nomad = handleTest ./nomad.nix { };
   non-default-filesystems = handleTest ./non-default-filesystems.nix { };

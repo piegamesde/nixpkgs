@@ -94,10 +94,7 @@ in
       package = mkOption {
         type = types.package;
         default =
-          if cfg.database.type == "mysql" then
-            pkgs.zabbix.server-mysql
-          else
-            pkgs.zabbix.server-pgsql;
+          if cfg.database.type == "mysql" then pkgs.zabbix.server-mysql else pkgs.zabbix.server-pgsql;
         defaultText = literalExpression "pkgs.zabbix.server-pgsql";
         description = lib.mdDoc "The Zabbix package to use.";
       };

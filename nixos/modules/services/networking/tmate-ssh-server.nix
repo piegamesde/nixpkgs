@@ -30,9 +30,7 @@ in
     host = mkOption {
       type = types.str;
       description = mdDoc "External host name";
-      defaultText =
-        lib.literalExpression
-          "config.networking.domain or config.networking.hostName";
+      defaultText = lib.literalExpression "config.networking.domain or config.networking.hostName";
       default = if domain == null then config.networking.hostName else domain;
     };
 
@@ -99,9 +97,9 @@ in
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart = "${cfg.package}/bin/tmate-ssh-server -h ${cfg.host} -p ${
-            toString cfg.port
-          } -q ${toString cfg.advertisedPort} -k ${keysDir}";
+        ExecStart = "${cfg.package}/bin/tmate-ssh-server -h ${cfg.host} -p ${toString cfg.port} -q ${
+            toString cfg.advertisedPort
+          } -k ${keysDir}";
       };
       preStart = mkIf (cfg.keysDir == null) ''
         if [[ ! -d ${defaultKeysDir} ]]

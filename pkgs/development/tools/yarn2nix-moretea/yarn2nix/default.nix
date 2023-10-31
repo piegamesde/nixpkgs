@@ -499,9 +499,7 @@ rec {
           }
           // lib.optionalAttrs (package ? description) { inherit (package) description; }
           // lib.optionalAttrs (package ? homepage) { inherit (package) homepage; }
-          // lib.optionalAttrs (package ? license) {
-            license = getLicenseFromSpdxId package.license;
-          }
+          // lib.optionalAttrs (package ? license) { license = getLicenseFromSpdxId package.license; }
           // (attrs.meta or { });
       }
     );

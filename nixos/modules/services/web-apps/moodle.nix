@@ -54,9 +54,7 @@ let
     $CFG->dboptions = array (
       'dbpersist' => 0,
       'dbport' => '${toString cfg.database.port}',
-      ${
-        optionalString (cfg.database.socket != null) "'dbsocket' => '${cfg.database.socket}',"
-      }
+      ${optionalString (cfg.database.socket != null) "'dbsocket' => '${cfg.database.socket}',"}
       'dbcollation' => 'utf8mb4_unicode_ci',
     );
 

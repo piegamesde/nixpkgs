@@ -2876,8 +2876,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."lodash._createpadding"."^3.0.0" =
-    self.by-version."lodash._createpadding"."3.6.0";
+  by-spec."lodash._createpadding"."^3.0.0" = self.by-version."lodash._createpadding"."3.6.0";
   by-version."lodash._createpadding"."3.6.0" = self.buildNodePackage {
     name = "lodash._createpadding-3.6.0";
     version = "3.6.0";
@@ -4281,8 +4280,7 @@
     cpu = [ ];
   };
   "ripple-lib-transactionparser" = self.by-version."ripple-lib-transactionparser"."0.3.2";
-  by-spec."ripple-wallet-generator"."^1.0.3" =
-    self.by-version."ripple-wallet-generator"."1.0.3";
+  by-spec."ripple-wallet-generator"."^1.0.3" = self.by-version."ripple-wallet-generator"."1.0.3";
   by-version."ripple-wallet-generator"."1.0.3" = self.buildNodePackage {
     name = "ripple-wallet-generator-1.0.3";
     version = "1.0.3";

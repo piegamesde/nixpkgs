@@ -118,9 +118,7 @@ in
               relay = mkOption {
                 type = types.str;
                 default = "";
-                description =
-                  lib.mdDoc
-                    "DNS server to use as an intermediate relay to the iodined server";
+                description = lib.mdDoc "DNS server to use as an intermediate relay to the iodined server";
                 example = "8.8.8.8";
               };
 

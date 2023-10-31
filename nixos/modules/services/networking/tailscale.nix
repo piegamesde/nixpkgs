@@ -32,8 +32,7 @@ in
       default = "tailscale0";
       description =
         lib.mdDoc
-          ''
-            The interface name for tunnel traffic. Use "userspace-networking" (beta) to not use TUN.'';
+          ''The interface name for tunnel traffic. Use "userspace-networking" (beta) to not use TUN.'';
     };
 
     permitCertUid = mkOption {
@@ -81,14 +80,10 @@ in
         pkgs.procps # for collecting running services (opt-in feature)
         pkgs.glibc # for `getent` to look up user shells
       ];
-      serviceConfig.Environment =
-        [
-          "PORT=${toString cfg.port}"
-          ''"FLAGS=--tun ${lib.escapeShellArg cfg.interfaceName}"''
-        ]
-        ++ (lib.optionals (cfg.permitCertUid != null) [
-          "TS_PERMIT_CERT_UID=${cfg.permitCertUid}"
-        ]);
+      serviceConfig.Environment = [
+        "PORT=${toString cfg.port}"
+        ''"FLAGS=--tun ${lib.escapeShellArg cfg.interfaceName}"''
+      ] ++ (lib.optionals (cfg.permitCertUid != null) [ "TS_PERMIT_CERT_UID=${cfg.permitCertUid}" ]);
       # Restart tailscaled with a single `systemctl restart` at the
       # end of activation, rather than a `stop` followed by a later
       # `start`. Activation over Tailscale can hang for tens of

@@ -142,8 +142,7 @@ let
 
     src = fetchurl {
       url =
-        "https://github.com/wireapp/wire-desktop/releases/download/"
-        + "macos%2F${version}/Wire.pkg";
+        "https://github.com/wireapp/wire-desktop/releases/download/" + "macos%2F${version}/Wire.pkg";
       inherit hash;
     };
 

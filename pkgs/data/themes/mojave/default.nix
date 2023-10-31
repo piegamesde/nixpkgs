@@ -147,19 +147,12 @@ lib.checkListOfEnum "${pname}: button size variants"
           lib.optionalString (buttonSizeVariants != [ ]) "--small "
           + builtins.toString buttonSizeVariants
         } \
+        ${lib.optionalString (buttonVariants != [ ]) "--alt " + builtins.toString buttonVariants} \
+        ${lib.optionalString (colorVariants != [ ]) "--color " + builtins.toString colorVariants} \
         ${
-          lib.optionalString (buttonVariants != [ ]) "--alt " + builtins.toString buttonVariants
+          lib.optionalString (opacityVariants != [ ]) "--opacity " + builtins.toString opacityVariants
         } \
-        ${
-          lib.optionalString (colorVariants != [ ]) "--color " + builtins.toString colorVariants
-        } \
-        ${
-          lib.optionalString (opacityVariants != [ ]) "--opacity "
-          + builtins.toString opacityVariants
-        } \
-        ${
-          lib.optionalString (themeVariants != [ ]) "--theme " + builtins.toString themeVariants
-        } \
+        ${lib.optionalString (themeVariants != [ ]) "--theme " + builtins.toString themeVariants} \
         --dest $out/share/themes
 
       ${lib.optionalString wallpapers ''

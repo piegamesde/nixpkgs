@@ -93,9 +93,7 @@ let
       }"
     ]
     ++ optional (cfg.webExternalUrl != null) "--web.external-url=${cfg.webExternalUrl}"
-    ++
-      optional (cfg.retentionTime != null)
-        "--storage.tsdb.retention.time=${cfg.retentionTime}"
+    ++ optional (cfg.retentionTime != null) "--storage.tsdb.retention.time=${cfg.retentionTime}"
     ++ optional (cfg.webConfigFile != null) "--web.config.file=${cfg.webConfigFile}";
 
   filterValidPrometheus = filterAttrsListRecursive (n: v: !(n == "_module" || v == null));

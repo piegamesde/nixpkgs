@@ -16,8 +16,7 @@ let
       { mkKeyValue = k: v: if v == null then "" else generators.mkKeyValueDefault { } "=" k v; }
       cfg.settings
   );
-  need_CAP_NET_BIND_SERVICE =
-    cfg.settings.identd_port != 0 && cfg.settings.identd_port < 1024;
+  need_CAP_NET_BIND_SERVICE = cfg.settings.identd_port != 0 && cfg.settings.identd_port < 1024;
 in
 {
   options = {
@@ -247,12 +246,8 @@ in
         ];
         # The following options are only for optimizing:
         # systemd-analyze security biboumi
-        AmbientCapabilities = [
-          (optionalString need_CAP_NET_BIND_SERVICE "CAP_NET_BIND_SERVICE")
-        ];
-        CapabilityBoundingSet = [
-          (optionalString need_CAP_NET_BIND_SERVICE "CAP_NET_BIND_SERVICE")
-        ];
+        AmbientCapabilities = [ (optionalString need_CAP_NET_BIND_SERVICE "CAP_NET_BIND_SERVICE") ];
+        CapabilityBoundingSet = [ (optionalString need_CAP_NET_BIND_SERVICE "CAP_NET_BIND_SERVICE") ];
         # ProtectClock= adds DeviceAllow=char-rtc r
         DeviceAllow = "";
         LockPersonality = true;

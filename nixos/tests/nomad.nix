@@ -72,12 +72,11 @@ import ./make-test-python.nix (
             enableDocker = false;
           };
 
-          systemd.services.nomad.serviceConfig.ExecStartPre = "${pkgs.writeShellScript "mk_data_dir"
-              ''
-                set -euxo pipefail
+          systemd.services.nomad.serviceConfig.ExecStartPre = "${pkgs.writeShellScript "mk_data_dir" ''
+            set -euxo pipefail
 
-                ${pkgs.coreutils}/bin/mkdir -p /nomad/data/dir
-              ''}";
+            ${pkgs.coreutils}/bin/mkdir -p /nomad/data/dir
+          ''}";
         };
     };
 

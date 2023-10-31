@@ -261,8 +261,7 @@ in
           ExecReload =
             # Add or replace into the kernel profiles in enabledPolicies
             # (because AppArmor can do that without stopping the processes already confined).
-            mapAttrsToList
-              (n: p: "${pkgs.apparmor-parser}/bin/apparmor_parser --replace ${commonOpts p}")
+            mapAttrsToList (n: p: "${pkgs.apparmor-parser}/bin/apparmor_parser --replace ${commonOpts p}")
               enabledPolicies
             ++
               # Remove from the kernel any profile whose name is not

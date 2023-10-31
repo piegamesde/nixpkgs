@@ -111,13 +111,9 @@ lib.makeScope pkgs.newScope (
 
     networkmanager-vpnc = pkgs.networkmanager-vpnc.override { withGnome = true; };
 
-    networkmanager-openconnect = pkgs.networkmanager-openconnect.override {
-      withGnome = true;
-    };
+    networkmanager-openconnect = pkgs.networkmanager-openconnect.override { withGnome = true; };
 
-    networkmanager-fortisslvpn = pkgs.networkmanager-fortisslvpn.override {
-      withGnome = true;
-    };
+    networkmanager-fortisslvpn = pkgs.networkmanager-fortisslvpn.override { withGnome = true; };
 
     networkmanager-l2tp = pkgs.networkmanager-l2tp.override { withGnome = true; };
 

@@ -67,9 +67,7 @@ let
         };
         extraConfig = mkOption {
           type = types.str;
-          description =
-            lib.mdDoc
-              "Extra zone config to be appended at the end of the zone section.";
+          description = lib.mdDoc "Extra zone config to be appended at the end of the zone section.";
           default = "";
         };
       };

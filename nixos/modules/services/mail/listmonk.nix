@@ -67,9 +67,7 @@ let
       "privacy.domain_blocklist" = mkOption {
         type = listOf str;
         default = [ ];
-        description =
-          lib.mdDoc
-            "E-mail addresses with these domains are disallowed from subscribing.";
+        description = lib.mdDoc "E-mail addresses with these domains are disallowed from subscribing.";
       };
 
       smtp = mkOption {
@@ -146,9 +144,7 @@ in
   ###### interface
   options = {
     services.listmonk = {
-      enable = mkEnableOption (
-        lib.mdDoc "Listmonk, this module assumes a reverse proxy to be set"
-      );
+      enable = mkEnableOption (lib.mdDoc "Listmonk, this module assumes a reverse proxy to be set");
       database = {
         createLocally = mkOption {
           type = types.bool;

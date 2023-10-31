@@ -89,9 +89,7 @@ in
       default = [ ];
       example = literalExpression "[ pkgs.pantheon.elementary-camera ]";
       type = types.listOf types.package;
-      description =
-        lib.mdDoc
-          "Which packages pantheon should exclude from the default environment";
+      description = lib.mdDoc "Which packages pantheon should exclude from the default environment";
     };
   };
 

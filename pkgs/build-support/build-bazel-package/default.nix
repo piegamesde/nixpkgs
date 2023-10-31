@@ -163,8 +163,7 @@ stdenv.mkDerivation (
 
               # Remove all built in external workspaces, Bazel will recreate them when building
               rm -rf $bazelOut/external/{bazel_tools,\@bazel_tools.marker}
-              ${lib.optionalString removeRulesCC
-                "rm -rf $bazelOut/external/{rules_cc,\\@rules_cc.marker}"}
+              ${lib.optionalString removeRulesCC "rm -rf $bazelOut/external/{rules_cc,\\@rules_cc.marker}"}
               rm -rf $bazelOut/external/{embedded_jdk,\@embedded_jdk.marker}
               ${lib.optionalString removeLocalConfigCc
                 "rm -rf $bazelOut/external/{local_config_cc,\\@local_config_cc.marker}"}

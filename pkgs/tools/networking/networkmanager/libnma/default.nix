@@ -64,9 +64,7 @@ stdenv.mkDerivation rec {
       libxml2
       vala
     ]
-    ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
-      mesonEmulatorHook
-    ];
+    ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
 
   buildInputs =
     [
@@ -111,8 +109,7 @@ stdenv.mkDerivation rec {
           versionPolicy = "odd-unstable";
         };
         updateGsettingsPatch =
-          _experimental-update-script-combinators.copyAttrOutputToFile
-            "libnma.hardcodeGsettingsPatch"
+          _experimental-update-script-combinators.copyAttrOutputToFile "libnma.hardcodeGsettingsPatch"
             ./hardcode-gsettings.patch;
       in
       _experimental-update-script-combinators.sequence [

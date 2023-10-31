@@ -20,9 +20,7 @@ let
         cache.blobdescriptor = blobCache;
         delete.enabled = cfg.enableDelete;
       }
-      // (
-        if cfg.storagePath != null then { filesystem.rootdirectory = cfg.storagePath; } else { }
-      );
+      // (if cfg.storagePath != null then { filesystem.rootdirectory = cfg.storagePath; } else { });
     http = {
       addr = "${cfg.listenAddress}:${builtins.toString cfg.port}";
       headers.X-Content-Type-Options = [ "nosniff" ];

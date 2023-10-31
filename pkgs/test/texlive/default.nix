@@ -23,9 +23,7 @@
   opentype-fonts =
     runCommand "texlive-test-opentype"
       {
-        nativeBuildInputs = [
-          (with texlive; combine { inherit scheme-medium libertinus-fonts; })
-        ];
+        nativeBuildInputs = [ (with texlive; combine { inherit scheme-medium libertinus-fonts; }) ];
         input = builtins.toFile "opentype-testfile.tex" ''
           \documentclass{article}
           \usepackage{fontspec}

@@ -293,9 +293,7 @@ let
           "-d"
           "--replace"
         ]
-        ++ (mapAttrsToList (k: v: "-e ${escapeShellArg k}=${escapeShellArg v}")
-          container.environment
-        )
+        ++ (mapAttrsToList (k: v: "-e ${escapeShellArg k}=${escapeShellArg v}") container.environment)
         ++ map (f: "--env-file ${escapeShellArg f}") container.environmentFiles
         ++ map (p: "-p ${escapeShellArg p}") container.ports
         ++ optional (container.user != null) "-u ${escapeShellArg container.user}"
@@ -377,8 +375,7 @@ in
         "podman"
         "docker"
       ];
-      default =
-        if versionAtLeast config.system.stateVersion "22.05" then "podman" else "docker";
+      default = if versionAtLeast config.system.stateVersion "22.05" then "podman" else "docker";
       description = lib.mdDoc "The underlying Docker implementation to use.";
     };
 

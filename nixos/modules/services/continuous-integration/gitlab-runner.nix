@@ -115,15 +115,9 @@ let
                         ++ service.registrationFlags
                         ++ optional (service.buildsDir != null) "--builds-dir ${service.buildsDir}"
                         ++ optional (service.cloneUrl != null) "--clone-url ${service.cloneUrl}"
-                        ++
-                          optional (service.preCloneScript != null)
-                            "--pre-clone-script ${service.preCloneScript}"
-                        ++
-                          optional (service.preBuildScript != null)
-                            "--pre-build-script ${service.preBuildScript}"
-                        ++
-                          optional (service.postBuildScript != null)
-                            "--post-build-script ${service.postBuildScript}"
+                        ++ optional (service.preCloneScript != null) "--pre-clone-script ${service.preCloneScript}"
+                        ++ optional (service.preBuildScript != null) "--pre-build-script ${service.preBuildScript}"
+                        ++ optional (service.postBuildScript != null) "--post-build-script ${service.postBuildScript}"
                         ++ optional (service.tagList != [ ]) "--tag-list ${concatStringsSep "," service.tagList}"
                         ++ optional service.runUntagged "--run-untagged"
                         ++ optional service.protected "--access-level ref_protected"
@@ -620,10 +614,7 @@ in
     # Enable periodic clear-docker-cache script
     systemd.services.gitlab-runner-clear-docker-cache =
       mkIf
-        (
-          cfg.clear-docker-cache.enable
-          && (any (s: s.executor == "docker") (attrValues cfg.services))
-        )
+        (cfg.clear-docker-cache.enable && (any (s: s.executor == "docker") (attrValues cfg.services)))
         {
           description = "Prune gitlab-runner docker resources";
           restartIfChanged = false;

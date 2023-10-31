@@ -34,9 +34,7 @@ stdenv.mkDerivation rec {
         --replace '$(shell pkg-config alsa jack --cflags)' ""
     '';
 
-  nativeBuildInputs = [
-    dos2unix
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ pkg-config ];
+  nativeBuildInputs = [ dos2unix ] ++ lib.optionals stdenv.hostPlatform.isLinux [ pkg-config ];
 
   buildInputs =
     [ zlib ]

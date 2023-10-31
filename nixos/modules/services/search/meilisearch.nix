@@ -134,9 +134,7 @@ in
         ExecStart = "${cfg.package}/bin/meilisearch";
         DynamicUser = true;
         StateDirectory = "meilisearch";
-        EnvironmentFile =
-          mkIf (cfg.masterKeyEnvironmentFile != null)
-            cfg.masterKeyEnvironmentFile;
+        EnvironmentFile = mkIf (cfg.masterKeyEnvironmentFile != null) cfg.masterKeyEnvironmentFile;
       };
     };
   };

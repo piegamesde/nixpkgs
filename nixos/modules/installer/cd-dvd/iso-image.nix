@@ -82,8 +82,7 @@ let
   # Timeout in grub is in seconds.
   # null means max timeout (infinity)
   # 0 means disable timeout
-  grubEfiTimeout =
-    if config.boot.loader.timeout == null then -1 else config.boot.loader.timeout;
+  grubEfiTimeout = if config.boot.loader.timeout == null then -1 else config.boot.loader.timeout;
 
   # The configuration file for syslinux.
 
@@ -118,18 +117,14 @@ let
     LABEL boot-nomodeset
     MENU LABEL ${config.system.nixos.distroName} ${config.system.nixos.label}${config.isoImage.appendToMenuLabel} (nomodeset)
     LINUX /boot/${config.system.boot.loader.kernelFile}
-    APPEND init=${config.system.build.toplevel}/init ${
-      toString config.boot.kernelParams
-    } nomodeset
+    APPEND init=${config.system.build.toplevel}/init ${toString config.boot.kernelParams} nomodeset
     INITRD /boot/${config.system.boot.loader.initrdFile}
 
     # A variant to boot with 'copytoram'
     LABEL boot-copytoram
     MENU LABEL ${config.system.nixos.distroName} ${config.system.nixos.label}${config.isoImage.appendToMenuLabel} (copytoram)
     LINUX /boot/${config.system.boot.loader.kernelFile}
-    APPEND init=${config.system.build.toplevel}/init ${
-      toString config.boot.kernelParams
-    } copytoram
+    APPEND init=${config.system.build.toplevel}/init ${toString config.boot.kernelParams} copytoram
     INITRD /boot/${config.system.boot.loader.initrdFile}
 
     # A variant to boot with verbose logging to the console
@@ -159,8 +154,7 @@ let
   '';
 
   isolinuxCfg = concatStringsSep "\n" (
-    [ baseIsolinuxCfg ]
-    ++ optional config.boot.loader.grub.memtest86.enable isolinuxMemtest86Entry
+    [ baseIsolinuxCfg ] ++ optional config.boot.loader.grub.memtest86.enable isolinuxMemtest86Entry
   );
 
   refindBinary =
@@ -834,9 +828,7 @@ in
       ++
         optionals
           (
-            config.boot.loader.grub.memtest86.enable
-            && config.isoImage.makeBiosBootable
-            && canx86BiosBoot
+            config.boot.loader.grub.memtest86.enable && config.isoImage.makeBiosBootable && canx86BiosBoot
           )
           [
             {
@@ -864,8 +856,7 @@ in
         ;
         bootable = config.isoImage.makeBiosBootable && canx86BiosBoot;
         bootImage = "/isolinux/isolinux.bin";
-        syslinux =
-          if config.isoImage.makeBiosBootable && canx86BiosBoot then pkgs.syslinux else null;
+        syslinux = if config.isoImage.makeBiosBootable && canx86BiosBoot then pkgs.syslinux else null;
       }
       //
         optionalAttrs

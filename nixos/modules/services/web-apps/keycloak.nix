@@ -492,10 +492,8 @@ in
     let
       # We only want to create a database if we're actually going to
       # connect to it.
-      databaseActuallyCreateLocally =
-        cfg.database.createLocally && cfg.database.host == "localhost";
-      createLocalPostgreSQL =
-        databaseActuallyCreateLocally && cfg.database.type == "postgresql";
+      databaseActuallyCreateLocally = cfg.database.createLocally && cfg.database.host == "localhost";
+      createLocalPostgreSQL = databaseActuallyCreateLocally && cfg.database.type == "postgresql";
       createLocalMySQL =
         databaseActuallyCreateLocally
         && elem cfg.database.type [
@@ -579,8 +577,7 @@ in
       assertions = [
         {
           assertion =
-            (cfg.database.useSSL && cfg.database.type == "postgresql")
-            -> (cfg.database.caCert != null);
+            (cfg.database.useSSL && cfg.database.type == "postgresql") -> (cfg.database.caCert != null);
           message = "A CA certificate must be specified (in 'services.keycloak.database.caCert') when PostgreSQL is used with SSL";
         }
         {

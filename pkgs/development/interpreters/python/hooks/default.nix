@@ -8,8 +8,7 @@ let
   setuppy = ../run_setup.py;
 in
 {
-  makePythonHook =
-    args: pkgs.makeSetupHook ({ passthru.provides.setupHook = true; } // args);
+  makePythonHook = args: pkgs.makeSetupHook ({ passthru.provides.setupHook = true; } // args);
 
   condaInstallHook =
     callPackage

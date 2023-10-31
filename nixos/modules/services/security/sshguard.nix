@@ -21,8 +21,7 @@ let
         ]
         ++ (map (name: "-t ${escapeShellArg name}") cfg.services)
       );
-      backend =
-        if config.networking.nftables.enable then "sshg-fw-nft-sets" else "sshg-fw-ipset";
+      backend = if config.networking.nftables.enable then "sshg-fw-nft-sets" else "sshg-fw-ipset";
     in
     pkgs.writeText "sshguard.conf" ''
       BACKEND="${pkgs.sshguard}/libexec/${backend}"

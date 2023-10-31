@@ -130,9 +130,7 @@ in
 
         openFirewall = mkOption {
           type = types.bool;
-          description =
-            lib.mdDoc
-              "Whether to automatically open the necessary ports in the firewall.";
+          description = lib.mdDoc "Whether to automatically open the necessary ports in the firewall.";
           default = false;
         };
 
@@ -174,18 +172,14 @@ in
 
         openFirewall = mkOption {
           type = types.bool;
-          description =
-            lib.mdDoc
-              "Whether to automatically open the necessary ports in the firewall.";
+          description = lib.mdDoc "Whether to automatically open the necessary ports in the firewall.";
           default = false;
         };
 
         hdds = mkOption {
           type = with types; listOf str;
           default = null;
-          description =
-            lib.mdDoc
-              "Mount points to be used by chunkserver for storage (see mfshdd.cfg).";
+          description = lib.mdDoc "Mount points to be used by chunkserver for storage (see mfshdd.cfg).";
           example = [ "/mnt/hdd1" ];
         };
 
@@ -210,14 +204,10 @@ in
 
   config =
     mkIf
-      (
-        cfg.client.enable || cfg.master.enable || cfg.metalogger.enable || cfg.chunkserver.enable
-      )
+      (cfg.client.enable || cfg.master.enable || cfg.metalogger.enable || cfg.chunkserver.enable)
       {
 
-        warnings = [
-          (mkIf (!cfg.runAsUser) "Running moosefs services as root is not recommended.")
-        ];
+        warnings = [ (mkIf (!cfg.runAsUser) "Running moosefs services as root is not recommended.") ];
 
         # Service settings
         services.moosefs = {
@@ -244,8 +234,7 @@ in
 
         # Create system user account for daemons
         users =
-          mkIf
-            (cfg.runAsUser && (cfg.master.enable || cfg.metalogger.enable || cfg.chunkserver.enable))
+          mkIf (cfg.runAsUser && (cfg.master.enable || cfg.metalogger.enable || cfg.chunkserver.enable))
             {
               users.moosefs = {
                 isSystemUser = true;
@@ -256,8 +245,7 @@ in
             };
 
         environment.systemPackages =
-          (lib.optional cfg.client.enable pkgs.moosefs)
-          ++ (lib.optional cfg.master.enable initTool);
+          (lib.optional cfg.client.enable pkgs.moosefs) ++ (lib.optional cfg.master.enable initTool);
 
         networking.firewall.allowedTCPPorts =
           (lib.optionals cfg.master.openFirewall [

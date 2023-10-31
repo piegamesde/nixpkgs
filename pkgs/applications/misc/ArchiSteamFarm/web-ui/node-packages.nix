@@ -6744,10 +6744,7 @@ let
         }
       )
       (
-        sources."babel-plugin-polyfill-corejs2-0.3.3"
-        // {
-          dependencies = [ sources."semver-6.3.0" ];
-        }
+        sources."babel-plugin-polyfill-corejs2-0.3.3" // { dependencies = [ sources."semver-6.3.0" ]; }
       )
       sources."babel-plugin-polyfill-corejs3-0.6.0"
       sources."babel-plugin-polyfill-regenerator-0.4.1"
@@ -6795,9 +6792,7 @@ let
       sources."confusing-browser-globals-1.0.10"
       sources."connect-history-api-fallback-2.0.0"
       sources."consolidate-0.15.1"
-      (
-        sources."content-disposition-0.5.4" // { dependencies = [ sources."safe-buffer-5.2.1" ]; }
-      )
+      (sources."content-disposition-0.5.4" // { dependencies = [ sources."safe-buffer-5.2.1" ]; })
       sources."content-type-1.0.4"
       sources."convert-source-map-1.8.0"
       sources."cookie-0.4.2"
@@ -6890,12 +6885,7 @@ let
           ];
         }
       )
-      (
-        sources."eslint-config-airbnb-base-15.0.0"
-        // {
-          dependencies = [ sources."semver-6.3.0" ];
-        }
-      )
+      (sources."eslint-config-airbnb-base-15.0.0" // { dependencies = [ sources."semver-6.3.0" ]; })
       (
         sources."eslint-import-resolver-node-0.3.7"
         // {
@@ -7034,9 +7024,7 @@ let
       sources."he-1.2.0"
       (sources."hpack.js-2.1.6" // { dependencies = [ sources."readable-stream-2.3.7" ]; })
       sources."html-entities-2.3.2"
-      (
-        sources."html-minifier-terser-6.0.2" // { dependencies = [ sources."commander-8.3.0" ]; }
-      )
+      (sources."html-minifier-terser-6.0.2" // { dependencies = [ sources."commander-8.3.0" ]; })
       sources."html-webpack-plugin-5.5.0"
       sources."htmlparser2-6.1.0"
       sources."http-deceiver-1.2.7"
@@ -7317,9 +7305,7 @@ let
         // {
           dependencies = [
             sources."source-map-0.7.3"
-            (
-              sources."source-map-support-0.5.20" // { dependencies = [ sources."source-map-0.6.1" ]; }
-            )
+            (sources."source-map-support-0.5.20" // { dependencies = [ sources."source-map-0.6.1" ]; })
           ];
         }
       )

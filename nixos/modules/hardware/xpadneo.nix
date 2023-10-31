@@ -6,9 +6,7 @@ let
 in
 {
   options.hardware.xpadneo = {
-    enable = mkEnableOption (
-      lib.mdDoc "the xpadneo driver for Xbox One wireless controllers"
-    );
+    enable = mkEnableOption (lib.mdDoc "the xpadneo driver for Xbox One wireless controllers");
   };
 
   config = mkIf cfg.enable {

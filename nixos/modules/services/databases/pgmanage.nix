@@ -40,9 +40,7 @@ let
 
   pgmanageConnectionsFile = pkgs.writeTextFile {
     name = "pgmanage-connections.conf";
-    text = concatStringsSep "\n" (
-      mapAttrsToList (name: conn: "${name}: ${conn}") cfg.connections
-    );
+    text = concatStringsSep "\n" (mapAttrsToList (name: conn: "${name}: ${conn}") cfg.connections);
   };
 
   pgmanage = "pgmanage";

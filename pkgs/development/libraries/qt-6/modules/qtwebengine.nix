@@ -208,9 +208,7 @@ qtModule {
       "-DQT_FEATURE_webengine_kerberos=ON"
     ]
     ++ lib.optionals stdenv.isLinux [ "-DQT_FEATURE_webengine_webrtc_pipewire=ON" ]
-    ++ lib.optionals enableProprietaryCodecs [
-      "-DQT_FEATURE_webengine_proprietary_codecs=ON"
-    ]
+    ++ lib.optionals enableProprietaryCodecs [ "-DQT_FEATURE_webengine_proprietary_codecs=ON" ]
     ++ lib.optionals stdenv.isDarwin [
       "-DCMAKE_OSX_DEPLOYMENT_TARGET=${stdenv.targetPlatform.darwinSdkVersion}"
     ];

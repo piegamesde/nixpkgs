@@ -40,9 +40,7 @@ stdenvNoCC.mkDerivation (
     passthru.extraWrapperArgs = [
       "--set"
       "FONTCONFIG_FILE"
-      (toString (
-        makeFontsConf { fontDirectories = [ "${finalAttrs.finalPackage}/share/fonts" ]; }
-      ))
+      (toString (makeFontsConf { fontDirectories = [ "${finalAttrs.finalPackage}/share/fonts" ]; }))
     ];
 
     meta = with lib; {

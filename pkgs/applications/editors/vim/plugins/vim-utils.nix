@@ -162,11 +162,7 @@ let
   findDependenciesRecursively = plugins: lib.concatMap transitiveClosure plugins;
 
   vamDictToNames =
-    x:
-    if builtins.isString x then
-      [ x ]
-    else
-      (lib.optional (x ? name) x.name) ++ (x.names or [ ]);
+    x: if builtins.isString x then [ x ] else (lib.optional (x ? name) x.name) ++ (x.names or [ ]);
 
   rtpPath = ".";
 
@@ -204,9 +200,7 @@ let
           allPlugins = lib.unique (startWithDeps ++ depsOfOptionalPlugins);
           allPython3Dependencies =
             ps:
-            lib.flatten (
-              builtins.map (plugin: (plugin.python3Dependencies or (_: [ ])) ps) allPlugins
-            );
+            lib.flatten (builtins.map (plugin: (plugin.python3Dependencies or (_: [ ])) ps) allPlugins);
           python3Env = python3.withPackages allPython3Dependencies;
 
           packdirStart = vimFarm "pack/${packageName}/start" "packdir-start" allPlugins;

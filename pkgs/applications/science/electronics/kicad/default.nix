@@ -146,9 +146,7 @@ stdenv.mkDerivation rec {
     python.pkgs.requests
   ];
 
-  nativeBuildInputs = [
-    makeWrapper
-  ] ++ optionals (withScripting) [ python.pkgs.wrapPython ];
+  nativeBuildInputs = [ makeWrapper ] ++ optionals (withScripting) [ python.pkgs.wrapPython ];
 
   # We are emulating wrapGAppsHook, along with other variables to the wrapper
   makeWrapperArgs =
@@ -170,9 +168,7 @@ stdenv.mkDerivation rec {
       "--prefix KICAD7_TEMPLATE_DIR : ${symbols}/share/kicad/template"
       "--prefix KICAD7_TEMPLATE_DIR : ${footprints}/share/kicad/template"
     ]
-    ++ optionals (with3d) [
-      "--set-default KICAD7_3DMODEL_DIR ${packages3d}/share/kicad/3dmodels"
-    ]
+    ++ optionals (with3d) [ "--set-default KICAD7_3DMODEL_DIR ${packages3d}/share/kicad/3dmodels" ]
     ++ optionals (withNgspice) [ "--prefix LD_LIBRARY_PATH : ${libngspice}/lib" ]
 
     # infinisil's workaround for #39493

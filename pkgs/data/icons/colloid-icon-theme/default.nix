@@ -73,13 +73,9 @@ lib.checkListOfEnum "${pname}: scheme variants"
 
       name= ./install.sh \
         ${
-          lib.optionalString (schemeVariants != [ ]) (
-            "--scheme " + builtins.toString schemeVariants
-          )
+          lib.optionalString (schemeVariants != [ ]) ("--scheme " + builtins.toString schemeVariants)
         } \
-        ${
-          lib.optionalString (colorVariants != [ ]) ("--theme " + builtins.toString colorVariants)
-        } \
+        ${lib.optionalString (colorVariants != [ ]) ("--theme " + builtins.toString colorVariants)} \
         --dest $out/share/icons
 
       jdupes --quiet --link-soft --recurse $out/share

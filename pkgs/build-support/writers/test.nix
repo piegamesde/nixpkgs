@@ -36,8 +36,7 @@ let
     '';
 
     haskell =
-      writeHaskellBin "test-writers-haskell-bin"
-        { libraries = [ haskellPackages.acme-default ]; }
+      writeHaskellBin "test-writers-haskell-bin" { libraries = [ haskellPackages.acme-default ]; }
         ''
           import Data.Default
 
@@ -87,16 +86,14 @@ let
           print(y[0]['test'])
         '';
 
-    pypy3 =
-      writePyPy3Bin "test-writers-pypy3-bin" { libraries = [ pypy3Packages.pyyaml ]; }
-        ''
-          import yaml
+    pypy3 = writePyPy3Bin "test-writers-pypy3-bin" { libraries = [ pypy3Packages.pyyaml ]; } ''
+      import yaml
 
-          y = yaml.load("""
-            - test: success
-          """)
-          print(y[0]['test'])
-        '';
+      y = yaml.load("""
+        - test: success
+      """)
+      print(y[0]['test'])
+    '';
   };
 
   simple = {
@@ -154,16 +151,14 @@ let
       print Test.a
     '';
 
-    python3 =
-      writePython3 "test-writers-python3" { libraries = [ python3Packages.pyyaml ]; }
-        ''
-          import yaml
+    python3 = writePython3 "test-writers-python3" { libraries = [ python3Packages.pyyaml ]; } ''
+      import yaml
 
-          y = yaml.load("""
-            - test: success
-          """)
-          print(y[0]['test'])
-        '';
+      y = yaml.load("""
+        - test: success
+      """)
+      print(y[0]['test'])
+    '';
 
     pypy3 = writePyPy3 "test-writers-pypy3" { libraries = [ pypy3Packages.pyyaml ]; } ''
       import yaml
@@ -269,8 +264,7 @@ runCommand "test-writers"
     meta.platforms = lib.platforms.all;
   }
   ''
-    ${lib.concatMapStringsSep "\n"
-      (test: writeTest "success" test.name "${test}/bin/${test.name}")
+    ${lib.concatMapStringsSep "\n" (test: writeTest "success" test.name "${test}/bin/${test.name}")
       (lib.attrValues bin)}
     ${lib.concatMapStringsSep "\n" (test: writeTest "success" test.name test) (
       lib.attrValues simple

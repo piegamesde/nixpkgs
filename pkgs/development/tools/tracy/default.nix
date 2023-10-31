@@ -49,8 +49,7 @@ stdenv.mkDerivation rec {
       darwin.apple_sdk.frameworks.Carbon
     ]
     ++
-      lib.optionals
-        (stdenv.isDarwin && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11")
+      lib.optionals (stdenv.isDarwin && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11")
         [ darwin.apple_sdk.frameworks.UniformTypeIdentifiers ];
 
   env.NIX_CFLAGS_COMPILE = toString (

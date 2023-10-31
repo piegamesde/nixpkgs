@@ -11,8 +11,7 @@ let
   infoList =
     pkgs:
     lib.concatStringsSep "\n" (
-      lib.mapAttrsToList
-        (name: drv: "${name} ${(builtins.elemAt drv.meta.maintainers 0).github}")
+      lib.mapAttrsToList (name: drv: "${name} ${(builtins.elemAt drv.meta.maintainers 0).github}")
         pkgs
     );
 in

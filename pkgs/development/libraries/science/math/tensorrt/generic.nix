@@ -70,9 +70,7 @@ backendStdenv.mkDerivation rec {
   # (postFixup phase is run before autoPatchelfHook.)
   postFixup =
     let
-      mostOfVersion = builtins.concatStringsSep "." (
-        lib.take 3 (lib.versions.splitVersion version)
-      );
+      mostOfVersion = builtins.concatStringsSep "." (lib.take 3 (lib.versions.splitVersion version));
     in
     ''
       echo 'Patching RPATH of libnvinfer libs'

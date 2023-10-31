@@ -43,9 +43,7 @@
     # ("cross-built-native") compiler; currently nixpkgs has a special build
     # path for these (`crossStageStatic`).  Hopefully at some point that build
     # path will be merged with this one and this conditional will be removed.
-    else if
-      (with stdenvNoCC; buildPlatform != hostPlatform || hostPlatform != targetPlatform)
-    then
+    else if (with stdenvNoCC; buildPlatform != hostPlatform || hostPlatform != targetPlatform) then
       false
 
     # Never add these flags when wrapping the bootstrapFiles' compiler; it has a
@@ -361,9 +359,7 @@ stdenv.mkDerivation {
     '';
 
   strictDeps = true;
-  propagatedBuildInputs = [
-    bintools
-  ] ++ extraTools ++ optionals cc.langD or false [ zlib ];
+  propagatedBuildInputs = [ bintools ] ++ extraTools ++ optionals cc.langD or false [ zlib ];
   depsTargetTargetPropagated = optional (libcxx != null) libcxx ++ extraPackages;
 
   setupHooks =
@@ -497,8 +493,7 @@ stdenv.mkDerivation {
     # additional -isystem flags will confuse gfortran (see
     # https://github.com/NixOS/nixpkgs/pull/209870#issuecomment-1500550903)
     +
-      optionalString
-        (libcxx == null && isClang && (useGccForLibs && gccForLibs.langCC or false))
+      optionalString (libcxx == null && isClang && (useGccForLibs && gccForLibs.langCC or false))
         ''
           for dir in ${gccForLibs}${
             lib.optionalString (hostPlatform != targetPlatform) "/${targetPlatform.config}"
@@ -619,11 +614,9 @@ stdenv.mkDerivation {
         if targetPlatform.gcc.thumb then "thumb" else "arm"
       }" >> $out/nix-support/cc-cflags-before
     ''
-    +
-      optionalString (targetPlatform ? gcc.tune && isGccArchSupported targetPlatform.gcc.tune)
-        ''
-          echo "-mtune=${targetPlatform.gcc.tune}" >> $out/nix-support/cc-cflags-before
-        ''
+    + optionalString (targetPlatform ? gcc.tune && isGccArchSupported targetPlatform.gcc.tune) ''
+      echo "-mtune=${targetPlatform.gcc.tune}" >> $out/nix-support/cc-cflags-before
+    ''
 
     # TODO: categorize these and figure out a better place for them
     + optionalString hostPlatform.isCygwin ''
@@ -635,11 +628,9 @@ stdenv.mkDerivation {
     + optionalString targetPlatform.isAvr ''
       hardening_unsupported_flags+=" stackprotector pic"
     ''
-    +
-      optionalString (targetPlatform.libc == "newlib" || targetPlatform.libc == "newlib-nano")
-        ''
-          hardening_unsupported_flags+=" stackprotector fortify pie pic"
-        ''
+    + optionalString (targetPlatform.libc == "newlib" || targetPlatform.libc == "newlib-nano") ''
+      hardening_unsupported_flags+=" stackprotector fortify pie pic"
+    ''
     + optionalString (targetPlatform.libc == "musl" && targetPlatform.isx86_32) ''
       hardening_unsupported_flags+=" stackprotector"
     ''
@@ -698,9 +689,7 @@ stdenv.mkDerivation {
     ##
     + optionalString isClang ''
       export defaultTarget=${targetPlatform.config}
-      substituteAll ${
-        ./add-clang-cc-cflags-before.sh
-      } $out/nix-support/add-local-cc-cflags-before.sh
+      substituteAll ${./add-clang-cc-cflags-before.sh} $out/nix-support/add-local-cc-cflags-before.sh
     ''
 
     ##
@@ -708,8 +697,7 @@ stdenv.mkDerivation {
     ##
     + extraBuildCommands
     + lib.strings.concatStringsSep "; " (
-      lib.attrsets.mapAttrsToList
-        (name: value: "echo ${toString value} >> $out/nix-support/${name}")
+      lib.attrsets.mapAttrsToList (name: value: "echo ${toString value} >> $out/nix-support/${name}")
         nixSupport
     );
 

@@ -26,8 +26,7 @@ let
   updateFeatures =
     f: up: functions:
     builtins.deepSeq f (
-      lib.lists.foldl' (features: fun: fun features) (lib.attrsets.recursiveUpdate f up)
-        functions
+      lib.lists.foldl' (features: fun: fun features) (lib.attrsets.recursiveUpdate f up) functions
     );
   mapFeatures = features: map (fun: fun { features = features; });
   mkFeatures =

@@ -87,8 +87,7 @@ let
               let
                 matchIP = if isIPv6 fwd.destination then "[[]([0-9a-fA-F:]+)[]]" else "([0-9.]+)";
                 m = builtins.match "${matchIP}:([0-9-]+)" fwd.destination;
-                destinationIP =
-                  if m == null then throw "bad ip:ports `${fwd.destination}'" else elemAt m 0;
+                destinationIP = if m == null then throw "bad ip:ports `${fwd.destination}'" else elemAt m 0;
                 destinationPorts =
                   if m == null then
                     throw "bad ip:ports `${fwd.destination}'"
@@ -102,9 +101,7 @@ let
                   --dport ${builtins.toString fwd.sourcePort} \
                   -j DNAT --to-destination ${fwd.destination}
 
-                # Allow connections to ${loopbackip}:${
-                  toString fwd.sourcePort
-                } from other hosts behind NAT
+                # Allow connections to ${loopbackip}:${toString fwd.sourcePort} from other hosts behind NAT
                 ${iptables} -w -t nat -A nixos-nat-pre \
                   -d ${loopbackip} -p ${fwd.proto} \
                   --dport ${builtins.toString fwd.sourcePort} \

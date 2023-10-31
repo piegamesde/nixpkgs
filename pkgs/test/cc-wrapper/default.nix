@@ -16,9 +16,7 @@ let
       (stdenv.cc.isClang && lib.versionAtLeast (lib.getVersion stdenv.cc.name) "5.0.0")
       || (stdenv.cc.isGNU && stdenv.isLinux)
     );
-  staticLibc =
-    lib.optionalString (stdenv.hostPlatform.libc == "glibc")
-      "-L ${glibc.static}/lib";
+  staticLibc = lib.optionalString (stdenv.hostPlatform.libc == "glibc") "-L ${glibc.static}/lib";
   emulator = stdenv.hostPlatform.emulator buildPackages;
 in
 stdenv.mkDerivation {

@@ -811,9 +811,7 @@ rec {
           )
           packages
       );
-      allPaths = lib.concatStringsSep "\n" (
-        lib.unique (sources ++ namedOutputPaths ++ outputPaths)
-      );
+      allPaths = lib.concatStringsSep "\n" (lib.unique (sources ++ namedOutputPaths ++ outputPaths));
       allPathsWithContext = builtins.appendContext allPaths context;
     in
     if builtins ? getContext then

@@ -71,9 +71,7 @@ in
     hardware.bluetooth = {
       enable = mkEnableOption (lib.mdDoc "support for Bluetooth");
 
-      hsphfpd.enable = mkEnableOption (
-        lib.mdDoc "support for hsphfpd[-prototype] implementation"
-      );
+      hsphfpd.enable = mkEnableOption (lib.mdDoc "support for hsphfpd[-prototype] implementation");
 
       powerOnBoot = mkOption {
         type = types.bool;
@@ -118,9 +116,7 @@ in
             ClassicBondedOnly = true;
           };
         };
-        description =
-          lib.mdDoc
-            "Set configuration for the input service (/etc/bluetooth/input.conf).";
+        description = lib.mdDoc "Set configuration for the input service (/etc/bluetooth/input.conf).";
       };
 
       network = mkOption {
@@ -144,9 +140,7 @@ in
     environment.systemPackages = [ package ] ++ optional cfg.hsphfpd.enable pkgs.hsphfpd;
 
     environment.etc."bluetooth/input.conf".source = cfgFmt.generate "input.conf" cfg.input;
-    environment.etc."bluetooth/network.conf".source =
-      cfgFmt.generate "network.conf"
-        cfg.network;
+    environment.etc."bluetooth/network.conf".source = cfgFmt.generate "network.conf" cfg.network;
     environment.etc."bluetooth/main.conf".source = cfgFmt.generate "main.conf" (
       recursiveUpdate defaults cfg.settings
     );

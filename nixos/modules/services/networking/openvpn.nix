@@ -47,8 +47,7 @@ let
 
       configFile = pkgs.writeText "openvpn-config-${name}" ''
         errors-to-stderr
-        ${optionalString (cfg.up != "" || cfg.down != "" || cfg.updateResolvConf)
-          "script-security 2"}
+        ${optionalString (cfg.up != "" || cfg.down != "" || cfg.updateResolvConf) "script-security 2"}
         ${cfg.config}
         ${optionalString (cfg.up != "" || cfg.updateResolvConf)
           "up ${pkgs.writeShellScript "openvpn-${name}-up" upScript}"}

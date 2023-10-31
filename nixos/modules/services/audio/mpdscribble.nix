@@ -73,8 +73,7 @@ let
     cp -f "${cfgTemplate}" "${cfgFile}"
     ${replaceSecret cfg.passwordFile "{{MPD_PASSWORD}}" cfgFile}
     ${concatStringsSep "\n" (
-      mapAttrsToList
-        (secname: cfg: replaceSecret cfg.passwordFile "{{${secname}_PASSWORD}}" cfgFile)
+      mapAttrsToList (secname: cfg: replaceSecret cfg.passwordFile "{{${secname}_PASSWORD}}" cfgFile)
         cfg.endpoints
     )}
   '';
@@ -115,12 +114,7 @@ in
 
     host = mkOption {
       default =
-        (
-          if mpdCfg.network.listenAddress != "any" then
-            mpdCfg.network.listenAddress
-          else
-            "localhost"
-        );
+        (if mpdCfg.network.listenAddress != "any" then mpdCfg.network.listenAddress else "localhost");
       defaultText = literalExpression ''
         if config.${mpdOpt.network.listenAddress} != "any"
         then config.${mpdOpt.network.listenAddress}
@@ -135,9 +129,8 @@ in
     passwordFile = mkOption {
       default =
         if localMpd then
-          (findFirst (c: any (x: x == "read") c.permissions) { passwordFile = null; }
-            mpdCfg.credentials
-          ).passwordFile
+          (findFirst (c: any (x: x == "read") c.permissions) { passwordFile = null; } mpdCfg.credentials)
+          .passwordFile
         else
           null;
       defaultText = literalMD ''

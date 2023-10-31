@@ -246,8 +246,7 @@ in
         "-d 224.168.0.0/4"
         "-d 240.168.0.0/4"
       ];
-      redCond =
-        block: optionalString (isString block.redirectCondition) block.redirectCondition;
+      redCond = block: optionalString (isString block.redirectCondition) block.redirectCondition;
       iptables =
         concatImapStrings
           (

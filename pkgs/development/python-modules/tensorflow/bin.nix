@@ -59,41 +59,37 @@ buildPythonPackage {
 
   src =
     let
-      pyVerNoDot =
-        lib.strings.stringAsChars (x: if x == "." then "" else x)
-          python.pythonVersion;
+      pyVerNoDot = lib.strings.stringAsChars (x: if x == "." then "" else x) python.pythonVersion;
       platform = if stdenv.isDarwin then "mac" else "linux";
       unit = if cudaSupport then "gpu" else "cpu";
       key = "${platform}_py_${pyVerNoDot}_${unit}";
     in
     fetchurl (packages.${key} or { });
 
-  propagatedBuildInputs =
-    [
-      astunparse
-      flatbuffers
-      typing-extensions
-      packaging
-      protobuf
-      numpy
-      scipy
-      jax
-      termcolor
-      grpcio
-      six
-      astor
-      absl-py
-      gast
-      opt-einsum
-      google-pasta
-      wrapt
-      tensorflow-estimator-bin
-      tensorboard
-      keras-applications
-      keras-preprocessing
-      h5py
-    ]
-    ++ lib.optional (!isPy3k) mock ++ lib.optionals (pythonOlder "3.4") [ backports_weakref ];
+  propagatedBuildInputs = [
+    astunparse
+    flatbuffers
+    typing-extensions
+    packaging
+    protobuf
+    numpy
+    scipy
+    jax
+    termcolor
+    grpcio
+    six
+    astor
+    absl-py
+    gast
+    opt-einsum
+    google-pasta
+    wrapt
+    tensorflow-estimator-bin
+    tensorboard
+    keras-applications
+    keras-preprocessing
+    h5py
+  ] ++ lib.optional (!isPy3k) mock ++ lib.optionals (pythonOlder "3.4") [ backports_weakref ];
 
   nativeBuildInputs = [ wheel ] ++ lib.optionals cudaSupport [ addOpenGLRunpath ];
 

@@ -158,9 +158,7 @@ with prev; {
     }
   );
 
-  lpty = prev.lpty.overrideAttrs (
-    oa: { meta.broken = luaOlder "5.1" || luaAtLeast "5.3"; }
-  );
+  lpty = prev.lpty.overrideAttrs (oa: { meta.broken = luaOlder "5.1" || luaAtLeast "5.3"; });
 
   ldbus = prev.ldbus.overrideAttrs (
     oa: {
@@ -298,9 +296,7 @@ with prev; {
     oa: { buildInputs = oa.buildInputs ++ [ glibc.dev ]; }
   );
 
-  lua-curl = prev.lua-curl.overrideAttrs (
-    oa: { buildInputs = oa.buildInputs ++ [ curl.dev ]; }
-  );
+  lua-curl = prev.lua-curl.overrideAttrs (oa: { buildInputs = oa.buildInputs ++ [ curl.dev ]; });
 
   lua-iconv = prev.lua-iconv.overrideAttrs (
     oa: { buildInputs = oa.buildInputs ++ [ libiconv ]; }
@@ -457,9 +453,7 @@ with prev; {
 
   luazip = prev.luazip.overrideAttrs (oa: { buildInputs = oa.buildInputs ++ [ zziplib ]; });
 
-  lua-yajl = prev.lua-yajl.overrideAttrs (
-    oa: { buildInputs = oa.buildInputs ++ [ yajl ]; }
-  );
+  lua-yajl = prev.lua-yajl.overrideAttrs (oa: { buildInputs = oa.buildInputs ++ [ yajl ]; });
 
   luaunbound = prev.luaunbound.overrideAttrs (
     oa: {

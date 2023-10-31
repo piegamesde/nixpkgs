@@ -121,9 +121,7 @@ lib.makeScope pkgs.newScope (
 
     wingpanel = callPackage ./desktop/wingpanel { };
 
-    wingpanel-with-indicators = callPackage ./desktop/wingpanel/wrapper.nix {
-      indicators = null;
-    };
+    wingpanel-with-indicators = callPackage ./desktop/wingpanel/wrapper.nix { indicators = null; };
 
     #### LIBRARIES
 
@@ -149,9 +147,7 @@ lib.makeScope pkgs.newScope (
 
     #### WINGPANEL INDICATORS
 
-    wingpanel-applications-menu =
-      callPackage ./desktop/wingpanel-indicators/applications-menu
-        { };
+    wingpanel-applications-menu = callPackage ./desktop/wingpanel-indicators/applications-menu { };
 
     wingpanel-indicator-a11y = callPackage ./desktop/wingpanel-indicators/a11y { };
 
@@ -163,9 +159,7 @@ lib.makeScope pkgs.newScope (
 
     wingpanel-indicator-network = callPackage ./desktop/wingpanel-indicators/network { };
 
-    wingpanel-indicator-nightlight =
-      callPackage ./desktop/wingpanel-indicators/nightlight
-        { };
+    wingpanel-indicator-nightlight = callPackage ./desktop/wingpanel-indicators/nightlight { };
 
     wingpanel-indicator-notifications =
       callPackage ./desktop/wingpanel-indicators/notifications
@@ -213,9 +207,7 @@ lib.makeScope pkgs.newScope (
 
     switchboard-plug-printers = callPackage ./apps/switchboard-plugs/printers { };
 
-    switchboard-plug-security-privacy =
-      callPackage ./apps/switchboard-plugs/security-privacy
-        { };
+    switchboard-plug-security-privacy = callPackage ./apps/switchboard-plugs/security-privacy { };
 
     switchboard-plug-sharing = callPackage ./apps/switchboard-plugs/sharing { };
 

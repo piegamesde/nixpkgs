@@ -28,8 +28,7 @@ let
   };
   inherit (stdenv.hostPlatform) system;
   binary =
-    availableBinaries.${system}
-      or (throw "cypress: No binaries available for system ${system}");
+    availableBinaries.${system} or (throw "cypress: No binaries available for system ${system}");
   inherit (binary) platform checksum;
 in
 stdenv.mkDerivation rec {

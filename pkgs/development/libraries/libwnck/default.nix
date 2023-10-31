@@ -61,9 +61,7 @@ stdenv.mkDerivation rec {
       docbook_xsl
       docbook_xml_dtd_412
     ]
-    ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
-      mesonEmulatorHook
-    ];
+    ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
 
   buildInputs = [
     libX11

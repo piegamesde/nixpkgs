@@ -618,9 +618,7 @@ builtins.intersectAttrs super {
       g = addBuildDepend pkgs.perl super.ginsu;
       g' =
         overrideCabal
-          (drv: {
-            executableSystemDepends = (drv.executableSystemDepends or [ ]) ++ [ pkgs.ncurses ];
-          })
+          (drv: { executableSystemDepends = (drv.executableSystemDepends or [ ]) ++ [ pkgs.ncurses ]; })
           g;
     in
     g';
@@ -646,9 +644,7 @@ builtins.intersectAttrs super {
   hscurses = addExtraLibrary pkgs.ncurses super.hscurses;
 
   # Looks like Avahi provides the missing library
-  dnssd = super.dnssd.override {
-    dns_sd = pkgs.avahi.override { withLibdnssdCompat = true; };
-  };
+  dnssd = super.dnssd.override { dns_sd = pkgs.avahi.override { withLibdnssdCompat = true; }; };
 
   # Tests execute goldplate
   goldplate =
@@ -669,9 +665,9 @@ builtins.intersectAttrs super {
       (drv: {
         libraryHaskellDepends =
           (drv.libraryHaskellDepends or [ ])
-          ++ lib.optionals
-            (!(pkgs.stdenv.hostPlatform.isAarch64 || pkgs.stdenv.hostPlatform.isx86_64))
-            [ self.unbounded-delays ];
+          ++ lib.optionals (!(pkgs.stdenv.hostPlatform.isAarch64 || pkgs.stdenv.hostPlatform.isx86_64)) [
+            self.unbounded-delays
+          ];
       })
       super.tasty;
 
@@ -772,8 +768,7 @@ builtins.intersectAttrs super {
   # https://github.com/haskell-servant/servant/pull/1238
   servant-client-core =
     if (pkgs.lib.getVersion super.servant-client-core) == "0.16" then
-      appendPatch ./patches/servant-client-core-redact-auth-header.patch
-        super.servant-client-core
+      appendPatch ./patches/servant-client-core-redact-auth-header.patch super.servant-client-core
     else
       super.servant-client-core;
 
@@ -825,9 +820,7 @@ builtins.intersectAttrs super {
 
   LDAP = dontCheck (
     overrideCabal
-      (drv: {
-        librarySystemDepends = drv.librarySystemDepends or [ ] ++ [ pkgs.cyrus_sasl.dev ];
-      })
+      (drv: { librarySystemDepends = drv.librarySystemDepends or [ ] ++ [ pkgs.cyrus_sasl.dev ]; })
       super.LDAP
   );
 
@@ -1326,9 +1319,7 @@ builtins.intersectAttrs super {
     nix = self.hercules-ci-cnix-store.passthru.nixPackage;
   };
   hercules-ci-cnix-expr = addTestToolDepend pkgs.git (
-    super.hercules-ci-cnix-expr.override {
-      nix = self.hercules-ci-cnix-store.passthru.nixPackage;
-    }
+    super.hercules-ci-cnix-expr.override { nix = self.hercules-ci-cnix-store.passthru.nixPackage; }
   );
   hercules-ci-cnix-store =
     (super.hercules-ci-cnix-store.override {

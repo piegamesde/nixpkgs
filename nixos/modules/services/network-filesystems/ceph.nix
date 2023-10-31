@@ -12,9 +12,7 @@ let
 
   # function that translates "camelCaseOptions" to "camel case options", credits to tilpner in #nixos@freenode
   expandCamelCase = replaceStrings upperChars (map (s: " ${s}") lowerChars);
-  expandCamelCaseAttrs = mapAttrs' (
-    name: value: nameValuePair (expandCamelCase name) value
-  );
+  expandCamelCaseAttrs = mapAttrs' (name: value: nameValuePair (expandCamelCase name) value);
 
   makeServices =
     (
@@ -429,18 +427,10 @@ in
           {
             global = globalSection';
           }
-          // optionalAttrs (cfg.mon.enable && cfg.mon.extraConfig != { }) {
-            mon = cfg.mon.extraConfig;
-          }
-          // optionalAttrs (cfg.mds.enable && cfg.mds.extraConfig != { }) {
-            mds = cfg.mds.extraConfig;
-          }
-          // optionalAttrs (cfg.osd.enable && cfg.osd.extraConfig != { }) {
-            osd = cfg.osd.extraConfig;
-          }
-          //
-            optionalAttrs (cfg.client.enable && cfg.client.extraConfig != { })
-              cfg.client.extraConfig;
+          // optionalAttrs (cfg.mon.enable && cfg.mon.extraConfig != { }) { mon = cfg.mon.extraConfig; }
+          // optionalAttrs (cfg.mds.enable && cfg.mds.extraConfig != { }) { mds = cfg.mds.extraConfig; }
+          // optionalAttrs (cfg.osd.enable && cfg.osd.extraConfig != { }) { osd = cfg.osd.extraConfig; }
+          // optionalAttrs (cfg.client.enable && cfg.client.extraConfig != { }) cfg.client.extraConfig;
       in
       generators.toINI { } totalConfig;
 

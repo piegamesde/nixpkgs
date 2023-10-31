@@ -93,10 +93,7 @@ in
     package = mkOption {
       type = types.package;
       default =
-        if versionAtLeast config.system.stateVersion "23.05" then
-          pkgs.netbox
-        else
-          pkgs.netbox_3_3;
+        if versionAtLeast config.system.stateVersion "23.05" then pkgs.netbox else pkgs.netbox_3_3;
       defaultText = literalExpression ''
         if versionAtLeast config.system.stateVersion "23.05" then pkgs.netbox else pkgs.netbox_3_3;
       '';

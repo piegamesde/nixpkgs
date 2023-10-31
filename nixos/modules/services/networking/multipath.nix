@@ -15,9 +15,7 @@ let
   indentLines =
     n: str:
     concatStringsSep "\n" (
-      map (line: "${fixedWidthString n " " " "}${line}") (
-        filter (x: x != "") (splitString "\n" str)
-      )
+      map (line: "${fixedWidthString n " " " "}${line}") (filter (x: x != "") (splitString "\n" str))
     );
 
   addCheckDesc =
@@ -85,9 +83,7 @@ in
             product_blacklist = mkOption {
               type = nullOr str;
               default = null;
-              description =
-                lib.mdDoc
-                  "Products with the given vendor matching this string are blacklisted";
+              description = lib.mdDoc "Products with the given vendor matching this string are blacklisted";
             };
 
             alias_prefix = mkOption {
@@ -132,9 +128,7 @@ in
                 ]
               );
               default = null; # real default: "failover"
-              description =
-                lib.mdDoc
-                  "The default path grouping policy to apply to unspecified multipaths";
+              description = lib.mdDoc "The default path grouping policy to apply to unspecified multipaths";
             };
 
             uid_attribute = mkOption {
@@ -445,17 +439,13 @@ in
             delay_watch_checks = mkOption {
               type = nullOr str;
               default = null;
-              description =
-                lib.mdDoc
-                  "This option is deprecated, and mapped to san_path_err_forget_rate";
+              description = lib.mdDoc "This option is deprecated, and mapped to san_path_err_forget_rate";
             };
 
             delay_wait_checks = mkOption {
               type = nullOr str;
               default = null;
-              description =
-                lib.mdDoc
-                  "This option is deprecated, and mapped to san_path_err_recovery_time";
+              description = lib.mdDoc "This option is deprecated, and mapped to san_path_err_recovery_time";
             };
 
             skip_kpartx = mkOption {

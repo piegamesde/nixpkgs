@@ -80,8 +80,7 @@ stdenv.mkDerivation {
       pkg-config
       cmake
     ]
-    ++ lib.optionals enableGTK3 [ wrapGAppsHook ]
-    ++ lib.optionals enableQt [ qt5.wrapQtAppsHook ];
+    ++ lib.optionals enableGTK3 [ wrapGAppsHook ] ++ lib.optionals enableQt [ qt5.wrapQtAppsHook ];
 
   buildInputs =
     [

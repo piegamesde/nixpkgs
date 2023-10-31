@@ -10,9 +10,7 @@ with lib;
 let
   cfg = config.services.hologram-agent;
 
-  cfgFile = pkgs.writeText "hologram-agent.json" (
-    builtins.toJSON { host = cfg.dialAddress; }
-  );
+  cfgFile = pkgs.writeText "hologram-agent.json" (builtins.toJSON { host = cfg.dialAddress; });
 in
 {
   options = {
@@ -20,9 +18,7 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Whether to enable the Hologram agent for AWS instance credentials";
+        description = lib.mdDoc "Whether to enable the Hologram agent for AWS instance credentials";
       };
 
       dialAddress = mkOption {

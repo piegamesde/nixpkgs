@@ -38,8 +38,7 @@
     excludedFiles: src:
     builtins.filterSource
       (
-        path: type:
-        lib.all (f: !lib.strings.hasPrefix (toString (src + ("/" + f))) path) excludedFiles
+        path: type: lib.all (f: !lib.strings.hasPrefix (toString (src + ("/" + f))) path) excludedFiles
       )
       src;
 }

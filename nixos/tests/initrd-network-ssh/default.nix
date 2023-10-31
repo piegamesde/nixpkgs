@@ -14,9 +14,7 @@ import ../make-test-python.nix (
       server =
         { config, ... }:
         {
-          boot.kernelParams = [
-            "ip=${config.networking.primaryIPAddress}:::255.255.255.0::eth1:none"
-          ];
+          boot.kernelParams = [ "ip=${config.networking.primaryIPAddress}:::255.255.255.0::eth1:none" ];
           boot.initrd.network = {
             enable = true;
             ssh = {
@@ -45,9 +43,7 @@ import ../make-test-python.nix (
                 "server,"
                 "${
                   toString (
-                    head (
-                      splitString " " (toString (elemAt (splitString "\n" config.networking.extraHosts) 2))
-                    )
+                    head (splitString " " (toString (elemAt (splitString "\n" config.networking.extraHosts) 2)))
                   )
                 } "
                 "${readFile ./ssh_host_ed25519_key.pub}"

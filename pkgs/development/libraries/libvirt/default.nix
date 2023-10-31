@@ -146,9 +146,7 @@ stdenv.mkDerivation rec {
 
       for binary in mount umount mkfs; do
         substituteInPlace meson.build \
-          --replace "find_program('$binary'" "find_program('${
-            lib.getBin util-linux
-          }/bin/$binary'"
+          --replace "find_program('$binary'" "find_program('${lib.getBin util-linux}/bin/$binary'"
       done
 
       substituteInPlace meson.build \

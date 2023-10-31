@@ -34,9 +34,7 @@ let
       version = kernelPatches.hardened.${kernel.meta.branch}.version;
       major = lib.versions.major version;
       sha256 = kernelPatches.hardened.${kernel.meta.branch}.sha256;
-      modDirVersion' =
-        builtins.replaceStrings [ kernel.version ] [ version ]
-          kernel.modDirVersion;
+      modDirVersion' = builtins.replaceStrings [ kernel.version ] [ version ] kernel.modDirVersion;
     in
     kernel.override {
       structuredExtraConfig = import ../os-specific/linux/kernel/hardened/config.nix {
@@ -53,9 +51,7 @@ let
           broken =
             kernel.meta.broken
             || lib.versions.majorMinor version == "4.14"
-            || (
-              stdenv.isx86_64 && lib.versionAtLeast version "4.19" && lib.versionOlder version "5.5"
-            );
+            || (stdenv.isx86_64 && lib.versionAtLeast version "4.19" && lib.versionOlder version "5.5");
         };
       };
       kernelPatches = kernel.kernelPatches ++ [ kernelPatches.hardened.${kernel.meta.branch} ];
@@ -220,31 +216,27 @@ in
           in
           if latest.kernelAtLeast testing.baseVersion then latest else testing;
 
-        linux_testing_bcachefs =
-          callPackage ../os-specific/linux/kernel/linux-testing-bcachefs.nix
-            {
-              # Pinned on the last version which Kent's commits can be cleany rebased up.
-              kernel = buildLinux rec {
-                version = "6.1.3";
-                modDirVersion = lib.versions.pad 3 version;
-                extraMeta.branch = lib.versions.majorMinor version;
-                src = fetchurl {
-                  url = "mirror://kernel/linux/kernel/v6.x/linux-${version}.tar.xz";
-                  hash = "sha256-bcia56dRPkM8WXxzRu1/9L/RFepDo7XiemvbOMVYAxc=";
-                };
-              };
-              kernelPatches = linux_6_1.kernelPatches;
+        linux_testing_bcachefs = callPackage ../os-specific/linux/kernel/linux-testing-bcachefs.nix {
+          # Pinned on the last version which Kent's commits can be cleany rebased up.
+          kernel = buildLinux rec {
+            version = "6.1.3";
+            modDirVersion = lib.versions.pad 3 version;
+            extraMeta.branch = lib.versions.majorMinor version;
+            src = fetchurl {
+              url = "mirror://kernel/linux/kernel/v6.x/linux-${version}.tar.xz";
+              hash = "sha256-bcia56dRPkM8WXxzRu1/9L/RFepDo7XiemvbOMVYAxc=";
             };
+          };
+          kernelPatches = linux_6_1.kernelPatches;
+        };
 
-        linux_hardkernel_4_14 =
-          callPackage ../os-specific/linux/kernel/linux-hardkernel-4.14.nix
-            {
-              kernelPatches = [
-                kernelPatches.bridge_stp_helper
-                kernelPatches.request_key_helper
-                kernelPatches.modinst_arg_list_too_long
-              ];
-            };
+        linux_hardkernel_4_14 = callPackage ../os-specific/linux/kernel/linux-hardkernel-4.14.nix {
+          kernelPatches = [
+            kernelPatches.bridge_stp_helper
+            kernelPatches.request_key_helper
+            kernelPatches.modinst_arg_list_too_long
+          ];
+        };
 
         # Using zenKernels like this due lqx&zen came from one source, but may have different base kernel version
         # https://github.com/NixOS/nixpkgs/pull/161773#discussion_r820134708
@@ -292,15 +284,9 @@ in
         linux_6_1_hardened = hardenedKernelFor kernels.linux_6_1 { };
       }
       // lib.optionalAttrs config.allowAliases {
-        linux_4_9 =
-          throw
-            "linux 4.9 was removed because it will reach its end of life within 22.11";
-        linux_5_18 =
-          throw
-            "linux 5.18 was removed because it has reached its end of life upstream";
-        linux_5_19 =
-          throw
-            "linux 5.19 was removed because it has reached its end of life upstream";
+        linux_4_9 = throw "linux 4.9 was removed because it will reach its end of life within 22.11";
+        linux_5_18 = throw "linux 5.18 was removed because it has reached its end of life upstream";
+        linux_5_19 = throw "linux 5.19 was removed because it has reached its end of life upstream";
         linux_6_0 = throw "linux 6.0 was removed because it has reached its end of life upstream";
 
         linux_xanmod_tt =
@@ -663,9 +649,7 @@ in
       linux_6_3 = recurseIntoAttrs (packagesFor kernels.linux_6_3);
     }
     // lib.optionalAttrs config.allowAliases {
-      linux_4_9 =
-        throw
-          "linux 4.9 was removed because it will reach its end of life within 22.11"; # Added 2022-11-08
+      linux_4_9 = throw "linux 4.9 was removed because it will reach its end of life within 22.11"; # Added 2022-11-08
       linux_5_18 = throw "linux 5.18 was removed because it reached its end of life upstream"; # Added 2022-09-17
       linux_5_19 = throw "linux 5.19 was removed because it reached its end of life upstream"; # Added 2022-11-01
       linux_6_0 = throw "linux 6.0 was removed because it reached its end of life upstream"; # Added 2023-01-20

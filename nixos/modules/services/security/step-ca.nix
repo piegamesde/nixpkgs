@@ -14,9 +14,7 @@ in
   options = {
     services.step-ca = {
       enable = lib.mkEnableOption (lib.mdDoc "the smallstep certificate authority server");
-      openFirewall = lib.mkEnableOption (
-        lib.mdDoc "opening the certificate authority server port"
-      );
+      openFirewall = lib.mkEnableOption (lib.mdDoc "opening the certificate authority server port");
       package = lib.mkOption {
         type = lib.types.package;
         default = pkgs.step-ca;

@@ -643,9 +643,7 @@ rec {
 
         rustCargoTomlInTopDir =
           let
-            withoutCargoTomlSearch = builtins.removeAttrs rustCargoTomlInSubDir [
-              "workspace_member"
-            ];
+            withoutCargoTomlSearch = builtins.removeAttrs rustCargoTomlInSubDir [ "workspace_member" ];
           in
           withoutCargoTomlSearch // { expectedTestOutputs = [ "test ignore_main ... ok" ]; };
         procMacroInPrelude = {
@@ -668,9 +666,7 @@ rec {
       };
       tests =
         lib.mapAttrs
-          (
-            key: value: mkTest (value // lib.optionalAttrs (!value ? crateName) { crateName = key; })
-          )
+          (key: value: mkTest (value // lib.optionalAttrs (!value ? crateName) { crateName = key; }))
           cases;
     in
     tests

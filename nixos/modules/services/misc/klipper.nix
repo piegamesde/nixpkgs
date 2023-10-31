@@ -124,9 +124,7 @@ in
                 };
                 configFile = mkOption {
                   type = path;
-                  description =
-                    lib.mdDoc
-                      "Path to firmware config which is generated using `klipper-genconf`";
+                  description = lib.mdDoc "Path to firmware config which is generated using `klipper-genconf`";
                 };
               };
             }
@@ -174,10 +172,7 @@ in
 
     environment.etc = mkIf (!cfg.mutableConfig) {
       "klipper.cfg".source =
-        if cfg.settings != null then
-          format.generate "klipper.cfg" cfg.settings
-        else
-          cfg.configFile;
+        if cfg.settings != null then format.generate "klipper.cfg" cfg.settings else cfg.configFile;
     };
 
     services.klipper = mkIf cfg.octoprintIntegration {
@@ -191,15 +186,9 @@ in
           "--input-tty=${cfg.inputTTY}"
           + optionalString (cfg.apiSocket != null) " --api-server=${cfg.apiSocket}";
         printerConfigPath =
-          if cfg.mutableConfig then
-            cfg.mutableConfigFolder + "/printer.cfg"
-          else
-            "/etc/klipper.cfg";
+          if cfg.mutableConfig then cfg.mutableConfigFolder + "/printer.cfg" else "/etc/klipper.cfg";
         printerConfigFile =
-          if cfg.settings != null then
-            format.generate "klipper.cfg" cfg.settings
-          else
-            cfg.configFile;
+          if cfg.settings != null then format.generate "klipper.cfg" cfg.settings else cfg.configFile;
       in
       {
         description = "Klipper 3D Printer Firmware";

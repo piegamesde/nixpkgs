@@ -112,8 +112,7 @@ let
 
   # RISC-V: https://github.com/LuaJIT/LuaJIT/issues/628
   withLuaJIT =
-    !(stdenv.hostPlatform.isPower && stdenv.hostPlatform.is64bit)
-    && !stdenv.hostPlatform.isRiscV;
+    !(stdenv.hostPlatform.isPower && stdenv.hostPlatform.is64bit) && !stdenv.hostPlatform.isRiscV;
 in
 rec {
   # un-indented
@@ -595,9 +594,7 @@ rec {
   texlinks = stdenv.mkDerivation rec {
     name = "texlinks";
 
-    src = lib.head (
-      builtins.filter (p: p.tlType == "run") texlive.texlive-scripts-extra.pkgs
-    );
+    src = lib.head (builtins.filter (p: p.tlType == "run") texlive.texlive-scripts-extra.pkgs);
 
     dontBuild = true;
     doCheck = false;

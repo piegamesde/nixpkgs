@@ -27,10 +27,7 @@ let
       key: value:
       let
         value' = lib.optionalString (value != null) (
-          if builtins.isBool value then
-            if value == true then "true" else "false"
-          else
-            toString value
+          if builtins.isBool value then if value == true then "true" else "false" else toString value
         );
       in
       "${key} = ${value'}";
@@ -106,8 +103,7 @@ let
 
   withConfigFile = text: ''
     db_pass=${
-      optionalString (cfg.database.passwordFile != null)
-        "$(head -n1 ${cfg.database.passwordFile})"
+      optionalString (cfg.database.passwordFile != null) "$(head -n1 ${cfg.database.passwordFile})"
     }
 
     cp -f ${configFile} '${cfg.stateDir}/config.ini'
@@ -396,9 +392,7 @@ in
         User = cfg.user;
         Group = cfg.group;
         WorkingDirectory = cfg.stateDir;
-        ReadOnlyPaths =
-          optional (cfg.admin.initialPasswordFile != null)
-            cfg.admin.initialPasswordFile;
+        ReadOnlyPaths = optional (cfg.admin.initialPasswordFile != null) cfg.admin.initialPasswordFile;
       };
 
       script =

@@ -1015,9 +1015,7 @@ in
                       type = with types; nullOr (ints.between 0 65535);
                       default = null;
                     };
-                    options.HiddenServiceMaxStreamsCloseCircuit =
-                      optionBool
-                        "HiddenServiceMaxStreamsCloseCircuit";
+                    options.HiddenServiceMaxStreamsCloseCircuit = optionBool "HiddenServiceMaxStreamsCloseCircuit";
                     options.HiddenServiceNumIntroductionPoints = mkOption {
                       description = lib.mdDoc (descriptionGeneric "HiddenServiceNumIntroductionPoints");
                       type = with types; nullOr (ints.between 0 20);
@@ -1028,15 +1026,11 @@ in
                   };
                 };
                 config = {
-                  path = mkDefault (
-                    (if config.secretKey == null then stateDir else runDir) + "/onion/${name}"
-                  );
+                  path = mkDefault ((if config.secretKey == null then stateDir else runDir) + "/onion/${name}");
                   settings.HiddenServiceVersion = config.version;
                   settings.HiddenServiceAuthorizeClient =
                     if config.authorizeClient != null then
-                      config.authorizeClient.authType
-                      + " "
-                      + concatStringsSep "," config.authorizeClient.clientNames
+                      config.authorizeClient.authType + " " + concatStringsSep "," config.authorizeClient.clientNames
                     else
                       null;
                   settings.HiddenServicePort =
@@ -1175,9 +1169,7 @@ in
           options.DirAllowPrivateAddresses = optionBool "DirAllowPrivateAddresses";
           options.DormantCanceledByStartup = optionBool "DormantCanceledByStartup";
           options.DormantOnFirstStartup = optionBool "DormantOnFirstStartup";
-          options.DormantTimeoutDisabledByIdleStreams =
-            optionBool
-              "DormantTimeoutDisabledByIdleStreams";
+          options.DormantTimeoutDisabledByIdleStreams = optionBool "DormantTimeoutDisabledByIdleStreams";
           options.DirCache = optionBool "DirCache";
           options.DirPolicy = mkOption {
             description = lib.mdDoc (descriptionGeneric "DirPolicy");
@@ -1194,9 +1186,7 @@ in
           options.DNSPort = optionIsolablePorts "DNSPort";
           options.DoSCircuitCreationEnabled = optionBool "DoSCircuitCreationEnabled";
           options.DoSConnectionEnabled = optionBool "DoSConnectionEnabled"; # default is null and like "auto"
-          options.DoSRefuseSingleHopClientRendezvous =
-            optionBool
-              "DoSRefuseSingleHopClientRendezvous";
+          options.DoSRefuseSingleHopClientRendezvous = optionBool "DoSRefuseSingleHopClientRendezvous";
           options.DownloadExtraInfo = optionBool "DownloadExtraInfo";
           options.EnforceDistinctSubnets = optionBool "EnforceDistinctSubnets";
           options.EntryStatistics = optionBool "EntryStatistics";
@@ -1597,9 +1587,9 @@ in
                           imap0
                             (i: pubKey: ''
                               echo ${pubKey} |
-                              install -o tor -g tor -m 0400 /dev/stdin ${
-                                escapeShellArg onion.path
-                              }/authorized_clients/${toString i}.auth
+                              install -o tor -g tor -m 0400 /dev/stdin ${escapeShellArg onion.path}/authorized_clients/${
+                                toString i
+                              }.auth
                             '')
                             onion.authorizedClients
                         ++ optional (onion.secretKey != null) ''

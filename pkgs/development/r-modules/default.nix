@@ -1287,9 +1287,7 @@ let
 
     rzmq = old.rzmq.overrideAttrs (attrs: { preConfigure = "patchShebangs configure"; });
 
-    clustermq = old.clustermq.overrideAttrs (
-      attrs: { preConfigure = "patchShebangs configure"; }
-    );
+    clustermq = old.clustermq.overrideAttrs (attrs: { preConfigure = "patchShebangs configure"; });
 
     Cairo = old.Cairo.overrideAttrs (attrs: { NIX_LDFLAGS = "-lfontconfig"; });
 
@@ -1381,9 +1379,7 @@ let
       }
     );
 
-    Rmpi = old.Rmpi.overrideAttrs (
-      attrs: { configureFlags = [ "--with-Rmpi-type=OPENMPI" ]; }
-    );
+    Rmpi = old.Rmpi.overrideAttrs (attrs: { configureFlags = [ "--with-Rmpi-type=OPENMPI" ]; });
 
     Rmpfr = old.Rmpfr.overrideAttrs (
       attrs: { configureFlags = [ "--with-mpfr-include=${pkgs.mpfr.dev}/include" ]; }
@@ -1576,8 +1572,7 @@ let
     rstan = old.rstan.overrideAttrs (
       attrs: {
         env = (attrs.env or { }) // {
-          NIX_CFLAGS_COMPILE =
-            attrs.env.NIX_CFLAGS_COMPILE + " -DBOOST_PHOENIX_NO_VARIADIC_EXPRESSION";
+          NIX_CFLAGS_COMPILE = attrs.env.NIX_CFLAGS_COMPILE + " -DBOOST_PHOENIX_NO_VARIADIC_EXPRESSION";
         };
       }
     );
@@ -1730,9 +1725,7 @@ let
       platforms = lib.platforms.x86_64 ++ lib.platforms.x86;
     };
 
-    flowClust = old.flowClust.override {
-      platforms = lib.platforms.x86_64 ++ lib.platforms.x86;
-    };
+    flowClust = old.flowClust.override { platforms = lib.platforms.x86_64 ++ lib.platforms.x86; };
 
     geomorph = old.geomorph.overrideAttrs (attrs: { RGL_USE_NULL = "true"; });
 

@@ -51,9 +51,7 @@ stdenv.mkDerivation rec {
   version = "3.25.3";
 
   src = fetchurl {
-    url = "https://cmake.org/files/v${
-        lib.versions.majorMinor version
-      }/cmake-${version}.tar.gz";
+    url = "https://cmake.org/files/v${lib.versions.majorMinor version}/cmake-${version}.tar.gz";
     sha256 = "sha256-zJlXAdWQym3rxCRemYmTkJnKUoJ91GtdNZLwk6/hkBw=";
   };
 
@@ -157,12 +155,8 @@ stdenv.mkDerivation rec {
       "-DCMAKE_CXX_COMPILER=${stdenv.cc.targetPrefix}c++"
       "-DCMAKE_C_COMPILER=${stdenv.cc.targetPrefix}cc"
       "-DCMAKE_AR=${lib.getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}ar"
-      "-DCMAKE_RANLIB=${
-        lib.getBin stdenv.cc.bintools.bintools
-      }/bin/${stdenv.cc.targetPrefix}ranlib"
-      "-DCMAKE_STRIP=${
-        lib.getBin stdenv.cc.bintools.bintools
-      }/bin/${stdenv.cc.targetPrefix}strip"
+      "-DCMAKE_RANLIB=${lib.getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}ranlib"
+      "-DCMAKE_STRIP=${lib.getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}strip"
 
       "-DCMAKE_USE_OPENSSL=${if useOpenSSL then "ON" else "OFF"}"
       # Avoid depending on frameworks.

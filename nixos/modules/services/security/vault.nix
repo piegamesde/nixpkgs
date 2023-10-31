@@ -97,18 +97,14 @@ in
         type = types.nullOr types.str;
         default = null;
         example = "/path/to/your/cert.pem";
-        description =
-          lib.mdDoc
-            "TLS certificate file. TLS will be disabled unless this option is set";
+        description = lib.mdDoc "TLS certificate file. TLS will be disabled unless this option is set";
       };
 
       tlsKeyFile = mkOption {
         type = types.nullOr types.str;
         default = null;
         example = "/path/to/your/key.pem";
-        description =
-          lib.mdDoc
-            "TLS private key file. TLS will be disabled unless this option is set";
+        description = lib.mdDoc "TLS private key file. TLS will be disabled unless this option is set";
       };
 
       listenerExtraConfig = mkOption {
@@ -224,9 +220,7 @@ in
         assertion =
           (
             (cfg.storageBackend == "file" -> (cfg.storagePath != null && cfg.storageConfig == null))
-            && (
-              cfg.storagePath != null -> (cfg.storageBackend == "file" || cfg.storageBackend == "raft")
-            )
+            && (cfg.storagePath != null -> (cfg.storageBackend == "file" || cfg.storageBackend == "raft"))
           );
         message = ''
           You must set services.vault.storagePath only when using the "file" or "raft" backend'';
@@ -251,8 +245,7 @@ in
       wantedBy = [ "multi-user.target" ];
       after =
         [ "network.target" ]
-        ++ optional (config.services.consul.enable && cfg.storageBackend == "consul")
-          "consul.service";
+        ++ optional (config.services.consul.enable && cfg.storageBackend == "consul") "consul.service";
 
       restartIfChanged = false; # do not restart on "nixos-rebuild switch". It would seal the storage and disrupt the clients.
 

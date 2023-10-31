@@ -41,9 +41,7 @@ let
     extraConfig = toKeyValue phpOptions;
   };
 
-  toKeyValue = generators.toKeyValue {
-    mkKeyValue = generators.mkKeyValueDefault { } " = ";
-  };
+  toKeyValue = generators.toKeyValue { mkKeyValue = generators.mkKeyValueDefault { } " = "; };
 
   phpOptions = {
     upload_max_filesize = cfg.maxUploadSize;
@@ -882,8 +880,7 @@ in
                       ${optionalString (s3.region != null) "'region' => '${s3.region}',"}
                       'use_path_style' => ${boolToString s3.usePathStyle},
                       ${
-                        optionalString (s3.sseCKeyFile != null)
-                          "'sse_c_key' => nix_read_secret('${s3.sseCKeyFile}'),"
+                        optionalString (s3.sseCKeyFile != null) "'sse_c_key' => nix_read_secret('${s3.sseCKeyFile}'),"
                       }
                     ],
                   ]
@@ -933,25 +930,21 @@ in
                     [ 'path' => '${cfg.home}/apps', 'url' => '/apps', 'writable' => false ],
                     [ 'path' => '${cfg.home}/store-apps', 'url' => '/store-apps', 'writable' => true ],
                   ],
-                  ${
-                    optionalString (showAppStoreSetting) "'appstoreenabled' => ${renderedAppStoreSetting},"
-                  }
+                  ${optionalString (showAppStoreSetting) "'appstoreenabled' => ${renderedAppStoreSetting},"}
                   'datadirectory' => '${datadir}/data',
                   'skeletondirectory' => '${cfg.skeletonDirectory}',
                   ${optionalString cfg.caching.apcu "'memcache.local' => '\\OC\\Memcache\\APCu',"}
                   'log_type' => '${cfg.logType}',
                   'loglevel' => '${builtins.toString cfg.logLevel}',
                   ${
-                    optionalString (c.overwriteProtocol != null)
-                      "'overwriteprotocol' => '${c.overwriteProtocol}',"
+                    optionalString (c.overwriteProtocol != null) "'overwriteprotocol' => '${c.overwriteProtocol}',"
                   }
                   ${optionalString (c.dbname != null) "'dbname' => '${c.dbname}',"}
                   ${optionalString (c.dbhost != null) "'dbhost' => '${c.dbhost}',"}
                   ${optionalString (c.dbport != null) "'dbport' => '${toString c.dbport}',"}
                   ${optionalString (c.dbuser != null) "'dbuser' => '${c.dbuser}',"}
                   ${
-                    optionalString (c.dbtableprefix != null)
-                      "'dbtableprefix' => '${toString c.dbtableprefix}',"
+                    optionalString (c.dbtableprefix != null) "'dbtableprefix' => '${toString c.dbtableprefix}',"
                   }
                   ${
                     optionalString (c.dbpassFile != null) ''
@@ -1033,9 +1026,7 @@ in
               wantedBy = [ "multi-user.target" ];
               before = [ "phpfpm-nextcloud.service" ];
               after = optional mysqlLocal "mysql.service" ++ optional pgsqlLocal "postgresql.service";
-              requires =
-                optional mysqlLocal "mysql.service"
-                ++ optional pgsqlLocal "postgresql.service";
+              requires = optional mysqlLocal "mysql.service" ++ optional pgsqlLocal "postgresql.service";
               path = [ occ ];
               script = ''
                 ${optionalString (c.dbpassFile != null) ''
@@ -1062,9 +1053,7 @@ in
                 # Install extra apps
                 ln -sfT \
                   ${
-                    pkgs.linkFarm "nix-apps" (
-                      mapAttrsToList (name: path: { inherit name path; }) cfg.extraApps
-                    )
+                    pkgs.linkFarm "nix-apps" (mapAttrsToList (name: path: { inherit name path; }) cfg.extraApps)
                   } \
                   ${cfg.home}/nix-apps
 

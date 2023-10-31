@@ -44,8 +44,7 @@
   # If enabled, GHC will be built with the GPL-free but slightly slower native
   # bignum backend instead of the faster but GPLed gmp backend.
   enableNativeBignum ? !(
-    lib.meta.availableOn stdenv.hostPlatform gmp
-    && lib.meta.availableOn stdenv.targetPlatform gmp
+    lib.meta.availableOn stdenv.hostPlatform gmp && lib.meta.availableOn stdenv.targetPlatform gmp
   ),
   gmp
 
@@ -104,9 +103,7 @@ let
   inherit (bootPkgs) ghc;
 
   # TODO(@Ericson2314) Make unconditional
-  targetPrefix =
-    lib.optionalString (targetPlatform != hostPlatform)
-      "${targetPlatform.config}-";
+  targetPrefix = lib.optionalString (targetPlatform != hostPlatform) "${targetPlatform.config}-";
 
   buildMK =
     ''
@@ -211,8 +208,7 @@ in
 # currently only able to build GHC if hostPlatform == buildPlatform.
 assert targetCC == pkgsHostTarget.targetPackages.stdenv.cc;
 assert buildTargetLlvmPackages.llvm == llvmPackages.llvm;
-assert stdenv.targetPlatform.isDarwin
-  -> buildTargetLlvmPackages.clang == llvmPackages.clang;
+assert stdenv.targetPlatform.isDarwin -> buildTargetLlvmPackages.clang == llvmPackages.clang;
 
 stdenv.mkDerivation (
   rec {
@@ -366,18 +362,12 @@ stdenv.mkDerivation (
       ]
       ++
         lib.optionals
-          (
-            targetPlatform == hostPlatform
-            && hostPlatform.libc != "glibc"
-            && !targetPlatform.isWindows
-          )
+          (targetPlatform == hostPlatform && hostPlatform.libc != "glibc" && !targetPlatform.isWindows)
           [
             "--with-iconv-includes=${libiconv}/include"
             "--with-iconv-libraries=${libiconv}/lib"
           ]
-      ++ lib.optionals (targetPlatform != hostPlatform) [
-        "--enable-bootstrap-with-devel-snapshot"
-      ]
+      ++ lib.optionals (targetPlatform != hostPlatform) [ "--enable-bootstrap-with-devel-snapshot" ]
       ++ lib.optionals useLdGold [
         "CFLAGS=-fuse-ld=gold"
         "CONF_GCC_LINKER_OPTS_STAGE1=-fuse-ld=gold"
@@ -419,9 +409,7 @@ stdenv.mkDerivation (
 
     # required, because otherwise all symbols from HSffi.o are stripped, and
     # that in turn causes GHCi to abort
-    stripDebugFlags = [
-      "-S"
-    ] ++ lib.optional (!targetPlatform.isDarwin) "--keep-file-symbols";
+    stripDebugFlags = [ "-S" ] ++ lib.optional (!targetPlatform.isDarwin) "--keep-file-symbols";
 
     checkTarget = "test";
 

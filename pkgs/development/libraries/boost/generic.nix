@@ -91,9 +91,7 @@ let
       "$NIX_BUILD_CORES";
 
   needUserConfig =
-    stdenv.hostPlatform != stdenv.buildPlatform
-    || useMpi
-    || (stdenv.isDarwin && enableShared);
+    stdenv.hostPlatform != stdenv.buildPlatform || useMpi || (stdenv.isDarwin && enableShared);
 
   b2Args = lib.concatStringsSep " " (
     [

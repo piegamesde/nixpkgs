@@ -19,8 +19,7 @@ let
     mapAttrsToList
       (
         n: v:
-        ''
-          "${n}":  ${if isBool v then "" else ''"''}${convType v}${if isBool v then "" else ''"''}''
+        ''"${n}":  ${if isBool v then "" else ''"''}${convType v}${if isBool v then "" else ''"''}''
       )
       cfg.config;
 
@@ -57,9 +56,7 @@ in
 
     services.cgminer = {
 
-      enable = mkEnableOption (
-        lib.mdDoc "cgminer, an ASIC/FPGA/GPU miner for bitcoin and litecoin"
-      );
+      enable = mkEnableOption (lib.mdDoc "cgminer, an ASIC/FPGA/GPU miner for bitcoin and litecoin");
 
       package = mkOption {
         default = pkgs.cgminer;

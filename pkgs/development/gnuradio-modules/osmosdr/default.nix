@@ -87,10 +87,7 @@ mkDerivation {
     ];
   cmakeFlags = [
     (
-      if (gnuradio.hasFeature "python-support") then
-        "-DENABLE_PYTHON=ON"
-      else
-        "-DENABLE_PYTHON=OFF"
+      if (gnuradio.hasFeature "python-support") then "-DENABLE_PYTHON=ON" else "-DENABLE_PYTHON=OFF"
     )
   ];
   nativeBuildInputs =

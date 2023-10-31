@@ -172,8 +172,7 @@ let
     pkg:
     let
       builtPkg = build-asdf-system pkg;
-      withExtras =
-        pkg // (optionalAttrs (hasAttr pkg.pname extras) (extras.${pkg.pname} builtPkg));
+      withExtras = pkg // (optionalAttrs (hasAttr pkg.pname extras) (extras.${pkg.pname} builtPkg));
       fixedUp = fixup withExtras;
     in
     build-asdf-system fixedUp;

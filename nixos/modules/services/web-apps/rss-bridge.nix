@@ -10,9 +10,7 @@ let
 
   poolName = "rss-bridge";
 
-  whitelist = pkgs.writeText "rss-bridge_whitelist.txt" (
-    concatStringsSep "\n" cfg.whitelist
-  );
+  whitelist = pkgs.writeText "rss-bridge_whitelist.txt" (concatStringsSep "\n" cfg.whitelist);
 in
 {
   options = {

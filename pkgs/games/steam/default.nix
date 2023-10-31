@@ -28,10 +28,7 @@ let
       steam-fhsenv = callPackage ./fhsenv.nix {
         glxinfo-i686 = if self.steamArch == "amd64" then pkgsi686Linux.glxinfo else glxinfo;
         steam-runtime-wrapped-i686 =
-          if self.steamArch == "amd64" then
-            pkgsi686Linux.steamPackages.steam-runtime-wrapped
-          else
-            null;
+          if self.steamArch == "amd64" then pkgsi686Linux.steamPackages.steam-runtime-wrapped else null;
         inherit buildFHSEnv;
       };
       steam-fhsenv-small = steam-fhsenv.override { withGameSpecificLibraries = false; };
@@ -40,5 +37,4 @@ let
   keep = self: { };
   extra = spliced0: { };
 in
-makeScopeWithSplicing (generateSplicesForMkScope "steamPackages") keep extra
-  steamPackagesFun
+makeScopeWithSplicing (generateSplicesForMkScope "steamPackages") keep extra steamPackagesFun

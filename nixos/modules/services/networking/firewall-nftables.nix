@@ -64,8 +64,7 @@ in
       }
       {
         assertion = cfg.pingLimit == null || !(hasPrefix "--" cfg.pingLimit);
-        message = ''
-          nftables syntax like "2/second" should be used in networking.firewall.pingLimit'';
+        message = ''nftables syntax like "2/second" should be used in networking.firewall.pingLimit'';
       }
       {
         assertion = config.networking.nftables.rulesetFile == null;
@@ -101,8 +100,7 @@ in
           type filter hook input priority filter; policy drop;
 
           ${
-            optionalString (ifaceSet != "")
-              ''iifname { ${ifaceSet} } accept comment "trusted interfaces"''
+            optionalString (ifaceSet != "") ''iifname { ${ifaceSet} } accept comment "trusted interfaces"''
           }
 
           # Some ICMPv6 types like NDP is untracked

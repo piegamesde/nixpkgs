@@ -32,9 +32,7 @@ let
           install -d $out/langs/bin
           echo -n $version > $out/langs/bin/BUNDLE-VERSION
         ''
-        + lib.concatStringsSep "\n" (
-          map (g: "ln -s ${g}/parser $out/langs/bin/${soName g}") plugins
-        )
+        + lib.concatStringsSep "\n" (map (g: "ln -s ${g}/parser $out/langs/bin/${soName g}") plugins)
       );
   siteDir = "$out/share/emacs/site-lisp/elpa/${tree-sitter-langs.pname}-${tree-sitter-langs.version}";
 in

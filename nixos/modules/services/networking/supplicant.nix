@@ -40,10 +40,7 @@ let
             [ "sys-subsystem-net-devices-%i.device" ]
           else
             (
-              if (iface == "DBUS") then
-                [ "dbus.service" ]
-              else
-                (map subsystemDevice (splitString " " iface))
+              if (iface == "DBUS") then [ "dbus.service" ] else (map subsystemDevice (splitString " " iface))
             )
         )
         ++ optional (suppl.bridge != "") (subsystemDevice suppl.bridge);
@@ -62,9 +59,7 @@ let
           '';
     in
     {
-      description = "Supplicant ${iface}${
-          optionalString (iface == "WLAN" || iface == "LAN") " %I"
-        }";
+      description = "Supplicant ${iface}${optionalString (iface == "WLAN" || iface == "LAN") " %I"}";
       wantedBy = [ "multi-user.target" ] ++ deps;
       wants = [ "network.target" ];
       bindsTo = deps;
@@ -169,9 +164,7 @@ in
               bridge = mkOption {
                 type = types.str;
                 default = "";
-                description =
-                  lib.mdDoc
-                    "Name of the bridge interface that wpa_supplicant should listen at.";
+                description = lib.mdDoc "Name of the bridge interface that wpa_supplicant should listen at.";
               };
 
               userControlled = {
@@ -247,9 +240,7 @@ in
 
     services.dbus.packages = [ pkgs.wpa_supplicant ];
 
-    systemd.services =
-      mapAttrs' (n: v: nameValuePair (serviceName n) (supplicantService n v))
-        cfg;
+    systemd.services = mapAttrs' (n: v: nameValuePair (serviceName n) (supplicantService n v)) cfg;
 
     services.udev.packages = [
       (pkgs.writeTextFile {

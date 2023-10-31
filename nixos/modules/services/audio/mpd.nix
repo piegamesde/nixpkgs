@@ -20,8 +20,7 @@ let
       creds:
       let
         placeholders =
-          (imap0
-            (i: c: ''password "{{password-${toString i}}}@${concatStringsSep "," c.permissions}"'')
+          (imap0 (i: c: ''password "{{password-${toString i}}}@${concatStringsSep "," c.permissions}"'')
             creds
           );
       in

@@ -77,8 +77,7 @@ stdenv.mkDerivation (
         check
         texlive.bin.core
       ]
-      ++ lib.optional stdenv.isLinux libseccomp
-      ++ lib.optional stdenv.isDarwin gtk-mac-integration;
+      ++ lib.optional stdenv.isLinux libseccomp ++ lib.optional stdenv.isDarwin gtk-mac-integration;
 
     doCheck = !stdenv.isDarwin;
 

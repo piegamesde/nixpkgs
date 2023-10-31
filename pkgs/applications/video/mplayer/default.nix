@@ -218,12 +218,7 @@ stdenv.mkDerivation rec {
       )
       (if jackaudioSupport then "" else "--disable-jack")
       (if pulseSupport then "--enable-pulse" else "--disable-pulse")
-      (
-        if v4lSupport then
-          "--enable-v4l2 --enable-tv-v4l2"
-        else
-          "--disable-v4l2 --disable-tv-v4l2"
-      )
+      (if v4lSupport then "--enable-v4l2 --enable-tv-v4l2" else "--disable-v4l2 --disable-tv-v4l2")
       "--disable-xanim"
       "--disable-xvid --disable-xvid-lavc"
       "--disable-ossaudio"

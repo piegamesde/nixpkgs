@@ -16,9 +16,7 @@ in
       enable = mkEnableOption (lib.mdDoc "System to defeat internet censorship");
 
       broker = mkOption {
-        description =
-          lib.mdDoc
-            ''Broker URL (default "https://snowflake-broker.torproject.net/")'';
+        description = lib.mdDoc ''Broker URL (default "https://snowflake-broker.torproject.net/")'';
         type = with types; nullOr str;
         default = null;
       };
@@ -30,9 +28,7 @@ in
       };
 
       relay = mkOption {
-        description =
-          lib.mdDoc
-            ''websocket relay URL (default "wss://snowflake.bamsoftware.com/")'';
+        description = lib.mdDoc ''websocket relay URL (default "wss://snowflake.bamsoftware.com/")'';
         type = with types; nullOr str;
         default = null;
       };

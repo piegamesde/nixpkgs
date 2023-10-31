@@ -54,9 +54,7 @@ let
 
     buildKodiAddon = callPackage ../applications/video/kodi/build-kodi-addon.nix { };
 
-    buildKodiBinaryAddon =
-      callPackage ../applications/video/kodi/build-kodi-binary-addon.nix
-        { };
+    buildKodiBinaryAddon = callPackage ../applications/video/kodi/build-kodi-binary-addon.nix { };
 
     # regular packages
 
@@ -82,9 +80,7 @@ let
       inherit genesis-plus-gx;
     };
 
-    libretro-mgba = callPackage ../applications/video/kodi/addons/libretro-mgba {
-      inherit mgba;
-    };
+    libretro-mgba = callPackage ../applications/video/kodi/addons/libretro-mgba { inherit mgba; };
 
     libretro-snes9x = callPackage ../applications/video/kodi/addons/libretro-snes9x {
       inherit snes9x;
@@ -144,9 +140,7 @@ let
 
     idna = callPackage ../applications/video/kodi/addons/idna { };
 
-    inputstream-adaptive =
-      callPackage ../applications/video/kodi/addons/inputstream-adaptive
-        { };
+    inputstream-adaptive = callPackage ../applications/video/kodi/addons/inputstream-adaptive { };
 
     inputstream-ffmpegdirect =
       callPackage ../applications/video/kodi/addons/inputstream-ffmpegdirect

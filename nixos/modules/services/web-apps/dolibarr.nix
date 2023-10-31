@@ -180,14 +180,12 @@ in
     nginx = mkOption {
       type = types.nullOr (
         types.submodule (
-          lib.recursiveUpdate
-            (import ../web-servers/nginx/vhost-options.nix { inherit config lib; })
-            {
-              # enable encryption by default,
-              # as sensitive login and Dolibarr (ERP) data should not be transmitted in clear text.
-              options.forceSSL.default = true;
-              options.enableACME.default = true;
-            }
+          lib.recursiveUpdate (import ../web-servers/nginx/vhost-options.nix { inherit config lib; }) {
+            # enable encryption by default,
+            # as sensitive login and Dolibarr (ERP) data should not be transmitted in clear text.
+            options.forceSSL.default = true;
+            options.enableACME.default = true;
+          }
         )
       );
       default = null;
@@ -319,9 +317,7 @@ in
           ]
         );
 
-        systemd.services."phpfpm-dolibarr".after = mkIf cfg.database.createLocally [
-          "mysql.service"
-        ];
+        systemd.services."phpfpm-dolibarr".after = mkIf cfg.database.createLocally [ "mysql.service" ];
         services.phpfpm.pools.dolibarr = {
           inherit (cfg) user group;
           phpPackage = pkgs.php.buildEnv {

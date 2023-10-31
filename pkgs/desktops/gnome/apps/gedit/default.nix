@@ -37,9 +37,7 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gedit/${
-        lib.versions.major version
-      }/gedit-${version}.tar.xz";
+    url = "mirror://gnome/sources/gedit/${lib.versions.major version}/gedit-${version}.tar.xz";
     sha256 = "O7sbN3XUwnfa9UqqtEsOuDpOsfCfA5GAAEHJ5WiT7BE=";
   };
 

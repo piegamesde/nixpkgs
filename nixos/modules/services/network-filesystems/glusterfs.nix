@@ -147,9 +147,7 @@ in
 
               caCert = mkOption {
                 type = types.path;
-                description =
-                  lib.mdDoc
-                    "Path certificate authority used to sign the cluster certificates.";
+                description = lib.mdDoc "Path certificate authority used to sign the cluster certificates.";
               };
             };
           }

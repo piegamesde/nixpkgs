@@ -177,9 +177,7 @@ let
     lib.optionals final [
       # tlnet-final snapshot; used when texlive.tlpdb is frozen
       # the TeX Live yearly freeze typically happens in mid-March
-      "http://ftp.math.utah.edu/pub/tex/historic/systems/texlive/${
-        toString texliveYear
-      }/tlnet-final"
+      "http://ftp.math.utah.edu/pub/tex/historic/systems/texlive/${toString texliveYear}/tlnet-final"
       "ftp://tug.org/texlive/historic/${toString texliveYear}/tlnet-final"
     ]
     ++ [
@@ -243,9 +241,7 @@ let
             {
               inherit pname tlType version;
             }
-            // lib.optionalAttrs (tlType == "run" && args ? deps) {
-              tlDeps = map (n: tl.${n}) args.deps;
-            }
+            // lib.optionalAttrs (tlType == "run" && args ? deps) { tlDeps = map (n: tl.${n}) args.deps; }
             // lib.optionalAttrs (tlType == "run") {
               hasFormats = args.hasFormats or false;
               hasHyphens = args.hasHyphens or false;

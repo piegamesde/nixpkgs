@@ -103,8 +103,7 @@ stdenv.mkDerivation rec {
     # Propagated for #include <X11/Xlib.h> and <X11/Xatom.h> in SDL_syswm.h.
     ++ lib.optionals x11Support [ libX11 ];
 
-  propagatedBuildInputs =
-    lib.optionals x11Support [ xorgproto ] ++ dlopenPropagatedBuildInputs;
+  propagatedBuildInputs = lib.optionals x11Support [ xorgproto ] ++ dlopenPropagatedBuildInputs;
 
   dlopenBuildInputs =
     lib.optionals alsaSupport [

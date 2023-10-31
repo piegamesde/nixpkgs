@@ -22,10 +22,7 @@ let
       name,
       src,
       version,
-      archdir ? if (stdenv.hostPlatform.system == "aarch64-linux") then
-        "arm-64bit"
-      else
-        "x86-64bit",
+      archdir ? if (stdenv.hostPlatform.system == "aarch64-linux") then "arm-64bit" else "x86-64bit",
       ...
     }:
     stdenv.mkDerivation rec {

@@ -97,25 +97,23 @@ stdenv.mkDerivation rec {
     scdoc
   ];
 
-  buildInputs =
-    [
-      wayland
-      libxkbcommon
-      pcre2
-      json_c
-      libevdev
-      pango
-      cairo
-      libinput
-      libcap
-      pam
-      gdk-pixbuf
-      librsvg
-      wayland-protocols
-      libdrm
-      (wlroots_0_16.override { inherit enableXWayland; })
-    ]
-    ++ lib.optionals dbusSupport [ dbus ] ++ lib.optionals enableXWayland [ xorg.xcbutilwm ];
+  buildInputs = [
+    wayland
+    libxkbcommon
+    pcre2
+    json_c
+    libevdev
+    pango
+    cairo
+    libinput
+    libcap
+    pam
+    gdk-pixbuf
+    librsvg
+    wayland-protocols
+    libdrm
+    (wlroots_0_16.override { inherit enableXWayland; })
+  ] ++ lib.optionals dbusSupport [ dbus ] ++ lib.optionals enableXWayland [ xorg.xcbutilwm ];
 
   mesonFlags =
     [ "-Dsd-bus-provider=${sd-bus-provider}" ]

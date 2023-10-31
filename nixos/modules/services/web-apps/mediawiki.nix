@@ -88,8 +88,7 @@ let
     else if cfg.database.type == "postgres" then
       "${cfg.database.socket}"
     else
-      throw
-        "Unsupported database type: ${cfg.database.type} for socket: ${cfg.database.socket}";
+      throw "Unsupported database type: ${cfg.database.type} for socket: ${cfg.database.socket}";
 
   mediawikiConfig = pkgs.writeText "LocalSettings.php" ''
     <?php
@@ -210,9 +209,7 @@ let
       ${concatStringsSep "\n" (mapAttrsToList (k: v: "wfLoadSkin('${k}');") cfg.skins)}
 
       # Enabled extensions.
-      ${
-        concatStringsSep "\n" (mapAttrsToList (k: v: "wfLoadExtension('${k}');") cfg.extensions)
-      }
+      ${concatStringsSep "\n" (mapAttrsToList (k: v: "wfLoadExtension('${k}');") cfg.extensions)}
 
 
       # End of automatically generated settings.
@@ -258,9 +255,7 @@ in
           if cfg.webserver == "apache" then
             "${
               if
-                cfg.httpd.virtualHost.addSSL
-                || cfg.httpd.virtualHost.forceSSL
-                || cfg.httpd.virtualHost.onlySSL
+                cfg.httpd.virtualHost.addSSL || cfg.httpd.virtualHost.forceSSL || cfg.httpd.virtualHost.onlySSL
               then
                 "https"
               else
@@ -552,20 +547,18 @@ in
       ];
     };
 
-    services.postgresql =
-      mkIf (cfg.database.type == "postgres" && cfg.database.createLocally)
+    services.postgresql = mkIf (cfg.database.type == "postgres" && cfg.database.createLocally) {
+      enable = true;
+      ensureDatabases = [ cfg.database.name ];
+      ensureUsers = [
         {
-          enable = true;
-          ensureDatabases = [ cfg.database.name ];
-          ensureUsers = [
-            {
-              name = cfg.database.user;
-              ensurePermissions = {
-                "DATABASE \"${cfg.database.name}\"" = "ALL PRIVILEGES";
-              };
-            }
-          ];
-        };
+          name = cfg.database.user;
+          ensurePermissions = {
+            "DATABASE \"${cfg.database.name}\"" = "ALL PRIVILEGES";
+          };
+        }
+      ];
+    };
 
     services.phpfpm.pools.mediawiki = {
       inherit user group;
@@ -652,8 +645,7 @@ in
           } \
           --dbuser ${cfg.database.user} \
           ${
-            optionalString (cfg.database.passwordFile != null)
-              "--dbpassfile ${cfg.database.passwordFile}"
+            optionalString (cfg.database.passwordFile != null) "--dbpassfile ${cfg.database.passwordFile}"
           } \
           --passfile ${cfg.passwordFile} \
           --dbtype ${cfg.database.type} \
@@ -676,9 +668,7 @@ in
         (cfg.webserver == "apache" && cfg.database.createLocally && cfg.database.type == "mysql")
         "mysql.service"
       ++ optional
-        (
-          cfg.webserver == "apache" && cfg.database.createLocally && cfg.database.type == "postgres"
-        )
+        (cfg.webserver == "apache" && cfg.database.createLocally && cfg.database.type == "postgres")
         "postgresql.service";
 
     users.users.${user} = {

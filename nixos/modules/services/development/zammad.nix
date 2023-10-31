@@ -230,21 +230,19 @@ in
       }
     ];
 
-    services.mysql =
-      optionalAttrs (cfg.database.createLocally && cfg.database.type == "MySQL")
+    services.mysql = optionalAttrs (cfg.database.createLocally && cfg.database.type == "MySQL") {
+      enable = true;
+      package = mkDefault pkgs.mariadb;
+      ensureDatabases = [ cfg.database.name ];
+      ensureUsers = [
         {
-          enable = true;
-          package = mkDefault pkgs.mariadb;
-          ensureDatabases = [ cfg.database.name ];
-          ensureUsers = [
-            {
-              name = cfg.database.user;
-              ensurePermissions = {
-                "${cfg.database.name}.*" = "ALL PRIVILEGES";
-              };
-            }
-          ];
-        };
+          name = cfg.database.user;
+          ensurePermissions = {
+            "${cfg.database.name}.*" = "ALL PRIVILEGES";
+          };
+        }
+      ];
+    };
 
     services.postgresql =
       optionalAttrs (cfg.database.createLocally && cfg.database.type == "PostgreSQL")
@@ -328,9 +326,7 @@ in
       requires = [ "zammad-web.service" ];
       description = "Zammad websocket";
       wantedBy = [ "multi-user.target" ];
-      script = "./script/websocket-server.rb -b ${cfg.host} -p ${
-          toString cfg.websocketPort
-        } start";
+      script = "./script/websocket-server.rb -b ${cfg.host} -p ${toString cfg.websocketPort} start";
     };
 
     systemd.services.zammad-scheduler = {

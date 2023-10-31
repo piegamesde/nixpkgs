@@ -155,9 +155,7 @@ in
         type = types.package;
         default = pkgs.oraclejre8;
         defaultText = literalExpression "pkgs.oraclejre8";
-        description =
-          lib.mdDoc
-            "Note that Atlassian only support the Oracle JRE (JRASERVER-46152).";
+        description = lib.mdDoc "Note that Atlassian only support the Oracle JRE (JRASERVER-46152).";
       };
     };
   };
@@ -171,8 +169,7 @@ in
     assertions = [
       {
         assertion =
-          cfg.sso.enable
-          -> ((cfg.sso.applicationPassword == null) != (cfg.sso.applicationPasswordFile));
+          cfg.sso.enable -> ((cfg.sso.applicationPassword == null) != (cfg.sso.applicationPasswordFile));
         message = "Please set either applicationPassword or applicationPasswordFile";
       }
     ];

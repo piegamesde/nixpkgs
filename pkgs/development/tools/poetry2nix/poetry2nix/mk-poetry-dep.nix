@@ -167,9 +167,7 @@ pythonPackages.callPackage
       nativeBuildInputs =
         [ hooks.poetry2nixFixupHook ]
         ++ lib.optional (!pythonPackages.isPy27) hooks.poetry2nixPythonRequiresPatchHook
-        ++
-          lib.optional (isLocked && (getManyLinuxDeps fileInfo.name).str != null)
-            autoPatchelfHook
+        ++ lib.optional (isLocked && (getManyLinuxDeps fileInfo.name).str != null) autoPatchelfHook
         ++ lib.optionals (format == "wheel") [
           hooks.wheelUnpackHook
           pythonPackages.pipInstallHook
@@ -233,10 +231,9 @@ pythonPackages.callPackage
               ref =
                 sourceSpec.branch or (if sourceSpec ? tag then "refs/tags/${sourceSpec.tag}" else "HEAD");
             }
-            // (lib.optionalAttrs
-              ((sourceSpec ? rev) && (lib.versionAtLeast builtins.nixVersion "2.4"))
-              { allRefs = true; }
-            )
+            // (lib.optionalAttrs ((sourceSpec ? rev) && (lib.versionAtLeast builtins.nixVersion "2.4")) {
+              allRefs = true;
+            })
           ))
         else if isWheelUrl then
           builtins.fetchurl {

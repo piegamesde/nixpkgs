@@ -179,8 +179,7 @@ with lib;
     {
       assertions = [
         {
-          assertion =
-            config.boot.loader.systemd-boot.enable -> config.proxmox.qemuConf.bios == "ovmf";
+          assertion = config.boot.loader.systemd-boot.enable -> config.proxmox.qemuConf.bios == "ovmf";
           message = "systemd-boot requires 'ovmf' bios";
         }
         {
@@ -192,8 +191,7 @@ with lib;
           message = "'legacy' disk partitioning requires 'seabios' bios";
         }
         {
-          assertion =
-            partitionTableType == "legacy+gpt" -> config.proxmox.qemuConf.bios == "seabios";
+          assertion = partitionTableType == "legacy+gpt" -> config.proxmox.qemuConf.bios == "seabios";
           message = "'legacy+gpt' disk partitioning requires 'seabios' bios";
         }
       ];

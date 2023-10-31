@@ -155,8 +155,7 @@ let
     wants = mapModems ({ name, ... }: "hylafax-faxgetty@${name}.service");
     wantedBy = mkIf cfg.autostart [ "multi-user.target" ];
     serviceConfig.Type = "forking";
-    serviceConfig.ExecStart = ''
-      ${pkgs.hylafaxplus}/spool/bin/faxq -q "${cfg.spoolAreaPath}"'';
+    serviceConfig.ExecStart = ''${pkgs.hylafaxplus}/spool/bin/faxq -q "${cfg.spoolAreaPath}"'';
     # This delays the "readiness" of this service until
     # all modems are initialized (or a timeout is reached).
     # Otherwise, sending a fax with the fax service
@@ -166,8 +165,7 @@ let
     serviceConfig.ExecStartPost = [ "${waitFaxqScript}" ];
     # faxquit fails if the pipe is already gone
     # (e.g. the service is already stopping)
-    serviceConfig.ExecStop = ''
-      -${pkgs.hylafaxplus}/spool/bin/faxquit -q "${cfg.spoolAreaPath}"'';
+    serviceConfig.ExecStop = ''-${pkgs.hylafaxplus}/spool/bin/faxquit -q "${cfg.spoolAreaPath}"'';
     # disable some systemd hardening settings
     serviceConfig.PrivateDevices = null;
     serviceConfig.RestrictRealtime = null;

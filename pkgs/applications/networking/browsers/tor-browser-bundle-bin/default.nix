@@ -82,8 +82,7 @@ let
       stdenv.cc.libc
       zlib
     ]
-    ++ lib.optionals pulseaudioSupport [ libpulseaudio ]
-    ++ lib.optionals mediaSupport [ ffmpeg ];
+    ++ lib.optionals pulseaudioSupport [ libpulseaudio ] ++ lib.optionals mediaSupport [ ffmpeg ];
 
   # Library search path for the fte transport
   fteLibPath = lib.makeLibraryPath [
@@ -285,8 +284,7 @@ stdenv.mkDerivation rec {
     EOF
 
     WRAPPER_LD_PRELOAD=${
-      lib.optionalString useHardenedMalloc
-        "${graphene-hardened-malloc}/lib/libhardened_malloc.so"
+      lib.optionalString useHardenedMalloc "${graphene-hardened-malloc}/lib/libhardened_malloc.so"
     }
 
     WRAPPER_XDG_DATA_DIRS=${

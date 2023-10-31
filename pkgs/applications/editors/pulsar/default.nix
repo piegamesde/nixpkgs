@@ -33,8 +33,7 @@ let
       aarch64-linux.tarname = "ARM.Linux.${pname}-${version}-arm64.tar.gz";
       aarch64-linux.hash = "sha256-f+s54XtLLdhTFY9caKTKngJF6zLai0F7ur9v37bwuNE=";
     }
-    .${stdenv.hostPlatform.system}
-      or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
   additionalLibs = lib.makeLibraryPath [
     xorg.libxshmfence

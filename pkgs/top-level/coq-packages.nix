@@ -101,9 +101,7 @@ let
       mathcomp-field = self.mathcomp.field;
       mathcomp-character = self.mathcomp.character;
       mathcomp-abel = callPackage ../development/coq-modules/mathcomp-abel { };
-      mathcomp-algebra-tactics =
-        callPackage ../development/coq-modules/mathcomp-algebra-tactics
-          { };
+      mathcomp-algebra-tactics = callPackage ../development/coq-modules/mathcomp-algebra-tactics { };
       mathcomp-analysis = callPackage ../development/coq-modules/mathcomp-analysis { };
       mathcomp-apery = callPackage ../development/coq-modules/mathcomp-apery { };
       mathcomp-bigenough = callPackage ../development/coq-modules/mathcomp-bigenough { };

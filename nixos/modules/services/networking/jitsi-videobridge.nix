@@ -229,12 +229,10 @@ in
   config = mkIf cfg.enable {
     users.groups.jitsi-meet = { };
 
-    services.jitsi-videobridge.extraProperties =
-      optionalAttrs (cfg.nat.localAddress != null)
-        {
-          "org.ice4j.ice.harvest.NAT_HARVESTER_LOCAL_ADDRESS" = cfg.nat.localAddress;
-          "org.ice4j.ice.harvest.NAT_HARVESTER_PUBLIC_ADDRESS" = cfg.nat.publicAddress;
-        };
+    services.jitsi-videobridge.extraProperties = optionalAttrs (cfg.nat.localAddress != null) {
+      "org.ice4j.ice.harvest.NAT_HARVESTER_LOCAL_ADDRESS" = cfg.nat.localAddress;
+      "org.ice4j.ice.harvest.NAT_HARVESTER_PUBLIC_ADDRESS" = cfg.nat.publicAddress;
+    };
 
     systemd.services.jitsi-videobridge2 =
       let

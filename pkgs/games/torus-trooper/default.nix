@@ -46,9 +46,7 @@ stdenv.mkDerivation rec {
     (debianPatch "lowest-level-position-602808"
       "19r48wirc9zssjmv57drn2fd0f56dcgyqqaz3j49cvv6yd74qf20"
     )
-    (debianPatch "libbulletml0v5-segfault"
-      "0pad2daz60hswkhkdpssxaqc9p9ca0sw1nraqzr453x0zdwwq0hn"
-    )
+    (debianPatch "libbulletml0v5-segfault" "0pad2daz60hswkhkdpssxaqc9p9ca0sw1nraqzr453x0zdwwq0hn")
     (debianPatch "std.math.fabs" "18xnnqlj20bxv2h9fa8dn4rmxwi3k6y3g50kwvh8i8p3b4hgag3r")
     (debianPatch "gdc-8" "10z702y75c48hjcnvv8m7f3ka52cj3r3jqafdbby85nb0p2lbssx")
   ];

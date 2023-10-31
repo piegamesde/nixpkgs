@@ -847,8 +847,7 @@ in
           '';
           "/etc/group".text = ''
             ${lib.concatStringsSep "\n" (
-              lib.mapAttrsToList (n: { gid }: "${n}:x:${toString gid}:")
-                config.boot.initrd.systemd.groups
+              lib.mapAttrsToList (n: { gid }: "${n}:x:${toString gid}:") config.boot.initrd.systemd.groups
             )}
           '';
         };

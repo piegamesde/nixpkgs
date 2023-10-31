@@ -4147,8 +4147,7 @@ rec {
 
       # This doesn't appear to be officially documented anywhere yet.
       # See https://github.com/rust-lang-nursery/rust-forge/issues/101.
-      os =
-        if stdenv.hostPlatform.isDarwin then "macos" else stdenv.hostPlatform.parsed.kernel.name;
+      os = if stdenv.hostPlatform.isDarwin then "macos" else stdenv.hostPlatform.parsed.kernel.name;
       arch = stdenv.hostPlatform.parsed.cpu.name;
       family = "unix";
       env = "gnu";
@@ -4444,9 +4443,7 @@ rec {
               dependencies: filterEnabledDependencies { inherit dependencies features target; };
             dependenciesWithRenames = lib.filter (d: d ? "rename") (
               filterEnabledDependenciesForThis (
-                (crateConfig.buildDependencies or [ ])
-                ++ (crateConfig.dependencies or [ ])
-                ++ devDependencies
+                (crateConfig.buildDependencies or [ ]) ++ (crateConfig.dependencies or [ ]) ++ devDependencies
               )
             );
             # Crate renames have the form:
@@ -4482,8 +4479,7 @@ rec {
                   # Not rate-limited, CDN URL.
                   url = "https://static.crates.io/crates/${crateConfig.crateName}/${crateConfig.crateName}-${crateConfig.version}.crate";
                   sha256 =
-                    assert (lib.assertMsg (crateConfig ? sha256) "Missing sha256 for ${name}");
-                    crateConfig.sha256;
+                    assert (lib.assertMsg (crateConfig ? sha256) "Missing sha256 for ${name}"); crateConfig.sha256;
                 });
               extraRustcOpts =
                 lib.lists.optional (targetFeatures != [ ])
@@ -4692,9 +4688,7 @@ rec {
           featuresByPackageId // { "${packageId}" = combinedFeatures; };
         cacheWithDependencies = resolveDependencies cacheWithSelf "dep" (
           crateConfig.dependencies or [ ]
-          ++ lib.optionals (runTests && packageId == rootPackageId) (
-            crateConfig.devDependencies or [ ]
-          )
+          ++ lib.optionals (runTests && packageId == rootPackageId) (crateConfig.devDependencies or [ ])
         );
         cacheWithAll = resolveDependencies cacheWithDependencies "build" (
           crateConfig.buildDependencies or [ ]

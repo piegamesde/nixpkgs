@@ -38,9 +38,7 @@ let
   makeSetupHookArgs =
     deps:
     if
-      lib.elem "propagatedBuildInputs" (
-        builtins.attrNames (builtins.functionArgs makeSetupHook)
-      )
+      lib.elem "propagatedBuildInputs" (builtins.attrNames (builtins.functionArgs makeSetupHook))
     then
       { propagatedBuildInputs = deps; }
     else

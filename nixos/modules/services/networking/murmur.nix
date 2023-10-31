@@ -121,9 +121,7 @@ in
         type = types.nullOr types.path;
         default = null;
         example = "/var/log/murmur/murmurd.log";
-        description =
-          lib.mdDoc
-            "Path to the log file for Murmur daemon. Empty means log to journald.";
+        description = lib.mdDoc "Path to the log file for Murmur daemon. Empty means log to journald.";
       };
 
       welcometext = mkOption {

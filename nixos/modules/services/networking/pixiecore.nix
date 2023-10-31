@@ -81,9 +81,7 @@ in
       cmdLine = mkOption {
         type = types.str;
         default = "";
-        description =
-          lib.mdDoc
-            "Kernel commandline arguments. Ignored unless mode is set to 'boot'";
+        description = lib.mdDoc "Kernel commandline arguments. Ignored unless mode is set to 'boot'";
       };
 
       listen = mkOption {
@@ -107,9 +105,7 @@ in
       apiServer = mkOption {
         type = types.str;
         example = "localhost:8080";
-        description =
-          lib.mdDoc
-            "host:port to connect to the API. Ignored unless mode is set to 'api'";
+        description = lib.mdDoc "host:port to connect to the API. Ignored unless mode is set to 'api'";
       };
 
       extraArguments = mkOption {

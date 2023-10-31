@@ -103,8 +103,7 @@ let
     '';
 
   getPoolFilesystems =
-    pool:
-    filter (x: x.fsType == "zfs" && (fsToPool x) == pool) config.system.build.fileSystems;
+    pool: filter (x: x.fsType == "zfs" && (fsToPool x) == pool) config.system.build.fileSystems;
 
   getPoolMounts =
     prefix: pool:
@@ -129,9 +128,7 @@ let
       in
       {
         hasKeys = keys != [ ];
-        command = "${cfgZfs.package}/sbin/zfs list -Ho name,keylocation,keystatus ${
-            toString keys
-          }";
+        command = "${cfgZfs.package}/sbin/zfs list -Ho name,keylocation,keystatus ${toString keys}";
       };
 
   createImportService =
@@ -740,9 +737,7 @@ in
         };
 
       system.fsPackages = [ cfgZfs.package ]; # XXX: needed? zfs doesn't have (need) a fsck
-      environment.systemPackages = [
-        cfgZfs.package
-      ] ++ optional cfgSnapshots.enable autosnapPkg; # so the user can run the command to see flags
+      environment.systemPackages = [ cfgZfs.package ] ++ optional cfgSnapshots.enable autosnapPkg; # so the user can run the command to see flags
 
       services.udev.packages = [ cfgZfs.package ]; # to hook zvol naming, etc.
       systemd.packages = [ cfgZfs.package ];
@@ -889,9 +884,7 @@ in
                 after = [ "zfs-import.target" ];
                 serviceConfig = {
                   Type = "oneshot";
-                  ExecStart = "${zfsAutoSnap} ${cfgSnapFlags} ${snapName} ${
-                      toString (numSnapshots snapName)
-                    }";
+                  ExecStart = "${zfsAutoSnap} ${cfgSnapFlags} ${snapName} ${toString (numSnapshots snapName)}";
                 };
                 restartIfChanged = false;
               };

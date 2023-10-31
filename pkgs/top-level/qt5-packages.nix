@@ -172,9 +172,7 @@
 
       libqtav = callPackage ../development/libraries/libqtav { };
 
-      libqaccessibilityclient =
-        callPackage ../development/libraries/libqaccessibilityclient
-          { };
+      libqaccessibilityclient = callPackage ../development/libraries/libqaccessibilityclient { };
 
       kpmcore = callPackage ../development/libraries/kpmcore { };
 
@@ -196,9 +194,7 @@
 
       phonon-backend-vlc = callPackage ../development/libraries/phonon/backends/vlc.nix { };
 
-      plasma-wayland-protocols =
-        callPackage ../development/libraries/plasma-wayland-protocols
-          { };
+      plasma-wayland-protocols = callPackage ../development/libraries/plasma-wayland-protocols { };
 
       polkit-qt = callPackage ../development/libraries/polkit-qt-1 { };
 

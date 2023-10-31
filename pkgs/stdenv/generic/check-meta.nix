@@ -17,8 +17,7 @@ let
 
   getName =
     attrs:
-    attrs.name
-      or ("${attrs.pname or "«name-missing»"}-${attrs.version or "«version-missing»"}");
+    attrs.name or ("${attrs.pname or "«name-missing»"}-${attrs.version or "«version-missing»"}");
 
   allowUnfree = config.allowUnfree || builtins.getEnv "NIXPKGS_ALLOW_UNFREE" == "1";
 
@@ -54,16 +53,13 @@ let
   allowBroken = config.allowBroken || builtins.getEnv "NIXPKGS_ALLOW_BROKEN" == "1";
 
   allowUnsupportedSystem =
-    config.allowUnsupportedSystem
-    || builtins.getEnv "NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM" == "1";
+    config.allowUnsupportedSystem || builtins.getEnv "NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM" == "1";
 
   isUnfree = licenses: lib.lists.any (l: !l.free or true) licenses;
 
-  hasUnfreeLicense =
-    attrs: hasLicense attrs && isUnfree (lib.lists.toList attrs.meta.license);
+  hasUnfreeLicense = attrs: hasLicense attrs && isUnfree (lib.lists.toList attrs.meta.license);
 
-  hasNoMaintainers =
-    attrs: attrs ? meta.maintainers && (lib.length attrs.meta.maintainers) == 0;
+  hasNoMaintainers = attrs: attrs ? meta.maintainers && (lib.length attrs.meta.maintainers) == 0;
 
   isMarkedBroken = attrs: attrs.meta.broken or false;
 
@@ -88,8 +84,7 @@ let
 
   allowInsecureDefaultPredicate =
     x: builtins.elem (getName x) (config.permittedInsecurePackages or [ ]);
-  allowInsecurePredicate =
-    x: (config.allowInsecurePredicate or allowInsecureDefaultPredicate) x;
+  allowInsecurePredicate = x: (config.allowInsecurePredicate or allowInsecureDefaultPredicate) x;
 
   hasAllowedInsecure =
     attrs:
@@ -126,9 +121,7 @@ let
 
   remediation = {
     unfree = remediate_allowlist "Unfree" (remediate_predicate "allowUnfreePredicate");
-    non-source = remediate_allowlist "NonSource" (
-      remediate_predicate "allowNonSourcePredicate"
-    );
+    non-source = remediate_allowlist "NonSource" (remediate_predicate "allowNonSourcePredicate");
     broken = remediate_allowlist "Broken" (x: "");
     unsupported = remediate_allowlist "UnsupportedSystem" (x: "");
     blocklisted = x: "";
@@ -168,9 +161,7 @@ let
   flakeNote = "\n Note: For `nix shell`, `nix build`, `nix develop` or any other Nix 2.4+\n (Flake) command, `--impure` must be passed in order to read this\n environment variable.\n    ";
 
   remediate_allowlist = allow_attr: rebuild_amendment: attrs: ''
-    a) To temporarily allow ${
-      remediation_phrase allow_attr
-    }, you can use an environment variable
+    a) To temporarily allow ${remediation_phrase allow_attr}, you can use an environment variable
        for a single invocation of the nix tools.
 
          $ export ${remediation_env_var allow_attr}=1
@@ -228,18 +219,14 @@ let
     let
       expectedOutputs = attrs.meta.outputsToInstall or [ ];
       actualOutputs = attrs.outputs or [ "out" ];
-      missingOutputs =
-        builtins.filter (output: !builtins.elem output actualOutputs)
-          expectedOutputs;
+      missingOutputs = builtins.filter (output: !builtins.elem output actualOutputs) expectedOutputs;
     in
     ''
       The package ${getName attrs} has set meta.outputsToInstall to: ${
         builtins.concatStringsSep ", " expectedOutputs
       }
 
-      however ${getName attrs} only has the outputs: ${
-        builtins.concatStringsSep ", " actualOutputs
-      }
+      however ${getName attrs} only has the outputs: ${builtins.concatStringsSep ", " actualOutputs}
 
       and is missing the following ouputs:
 
@@ -379,17 +366,14 @@ let
         key 'meta.${k}' is unrecognized; expected one of: 
           [${lib.concatMapStringsSep ", " (x: "'${x}'") (lib.attrNames metaTypes)}]'';
   checkMeta =
-    meta:
-    lib.optionals config.checkMeta (lib.remove null (lib.mapAttrsToList checkMetaAttr meta));
+    meta: lib.optionals config.checkMeta (lib.remove null (lib.mapAttrsToList checkMetaAttr meta));
 
   checkOutputsToInstall =
     attrs:
     let
       expectedOutputs = attrs.meta.outputsToInstall or [ ];
       actualOutputs = attrs.outputs or [ "out" ];
-      missingOutputs =
-        builtins.filter (output: !builtins.elem output actualOutputs)
-          expectedOutputs;
+      missingOutputs = builtins.filter (output: !builtins.elem output actualOutputs) expectedOutputs;
     in
     if config.checkMeta then builtins.length missingOutputs > 0 else false;
 

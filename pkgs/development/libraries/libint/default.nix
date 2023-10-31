@@ -204,9 +204,7 @@ let
         "--enable-1body=${builtins.toString oneBodyDerivOrd}"
         "--enable-1body-property-derivs"
       ]
-      ++
-        optional (multipoleOrd > 0)
-          "--with-multipole-max-order=${builtins.toString multipoleOrd}"
+      ++ optional (multipoleOrd > 0) "--with-multipole-max-order=${builtins.toString multipoleOrd}"
       ++ optional enableGeneric "--enable-generic"
       ++ optional enableContracted "--enable-contracted-ints"
       ++ optional eri3PureSh "--enable-eri3-pure-sh"

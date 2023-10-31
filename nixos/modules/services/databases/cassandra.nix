@@ -467,8 +467,7 @@ in
 
     jmxRolesFile = mkOption {
       type = types.nullOr types.path;
-      default =
-        if atLeast3_11 then pkgs.writeText "jmx-roles-file" defaultJmxRolesFile else null;
+      default = if atLeast3_11 then pkgs.writeText "jmx-roles-file" defaultJmxRolesFile else null;
       defaultText =
         literalMD
           "generated configuration file if version is at least 3.11, otherwise `null`";
@@ -583,17 +582,15 @@ in
       };
     };
 
-    systemd.timers.cassandra-incremental-repair =
-      mkIf (cfg.incrementalRepairInterval != null)
-        {
-          description = "Schedule incremental repairs on Cassandra";
-          wantedBy = [ "timers.target" ];
-          timerConfig = {
-            OnBootSec = cfg.incrementalRepairInterval;
-            OnUnitActiveSec = cfg.incrementalRepairInterval;
-            Persistent = true;
-          };
-        };
+    systemd.timers.cassandra-incremental-repair = mkIf (cfg.incrementalRepairInterval != null) {
+      description = "Schedule incremental repairs on Cassandra";
+      wantedBy = [ "timers.target" ];
+      timerConfig = {
+        OnBootSec = cfg.incrementalRepairInterval;
+        OnUnitActiveSec = cfg.incrementalRepairInterval;
+        Persistent = true;
+      };
+    };
   };
 
   meta.maintainers = with lib.maintainers; [ roberth ];

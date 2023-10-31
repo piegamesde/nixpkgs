@@ -37,8 +37,7 @@ let
       ''The given string "${value}" starts with a `/`, representing an absolute path''
     # We don't support ".." components, see ./path.md#parent-directory
     else if match "(.*/)?\\.\\.(/.*)?" value != null then
-      ''
-        The given string "${value}" contains a `..` component, which is not allowed in subpaths''
+      ''The given string "${value}" contains a `..` component, which is not allowed in subpaths''
     else
       null;
 

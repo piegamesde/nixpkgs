@@ -33,9 +33,7 @@ let
     ''
       # server.properties managed by NixOS configuration
     ''
-    + concatStringsSep "\n" (
-      mapAttrsToList (n: v: "${n}=${cfgToString v}") cfg.serverProperties
-    )
+    + concatStringsSep "\n" (mapAttrsToList (n: v: "${n}=${cfgToString v}") cfg.serverProperties)
   );
 
   stopScript = pkgs.writeShellScript "minecraft-server-stop" ''

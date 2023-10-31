@@ -26,10 +26,7 @@ stdenv.mkDerivation {
   postPatch =
     let
       configFile =
-        if lib.isDerivation conf || builtins.isPath conf then
-          conf
-        else
-          writeText "blocks.def.h" conf;
+        if lib.isDerivation conf || builtins.isPath conf then conf else writeText "blocks.def.h" conf;
     in
     lib.optionalString (conf != null) "cp ${configFile} blocks.def.h";
 

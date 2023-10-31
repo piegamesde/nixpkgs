@@ -16,8 +16,7 @@ let
 
   # Disabling distribution prevents top-level aliases for non-recursed package
   # sets from building on Hydra.
-  removeDistribute =
-    alias: with lib; if isDerivation alias then dontDistribute alias else alias;
+  removeDistribute = alias: with lib; if isDerivation alias then dontDistribute alias else alias;
 
   # Make sure that we are not shadowing something from
   # all-packages.nix.
@@ -27,8 +26,7 @@ let
 
   mapAliases =
     aliases:
-    lib.mapAttrs
-      (n: alias: removeDistribute (removeRecurseForDerivations (checkInPkgs n alias)))
+    lib.mapAttrs (n: alias: removeDistribute (removeRecurseForDerivations (checkInPkgs n alias)))
       aliases;
 
   deprecations =

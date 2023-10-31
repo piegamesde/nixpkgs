@@ -154,9 +154,7 @@ let
       csopen =
         "cryptsetup luksOpen ${dev.device} ${dev.name}"
         + optionalString dev.allowDiscards " --allow-discards"
-        +
-          optionalString dev.bypassWorkqueues
-            " --perf-no_read_workqueue --perf-no_write_workqueue"
+        + optionalString dev.bypassWorkqueues " --perf-no_read_workqueue --perf-no_write_workqueue"
         + optionalString (dev.header != null) " --header=${dev.header}";
       cschange = "cryptsetup luksChangeKey ${dev.device} ${
           optionalString (dev.header != null) "--header=${dev.header}"
@@ -261,16 +259,13 @@ let
                         optionalString (dev.keyFileSize != null) "--keyfile-size=${toString dev.keyFileSize}"
                       } \
                       ${
-                        optionalString (dev.keyFileOffset != null)
-                          "--keyfile-offset=${toString dev.keyFileOffset}"
+                        optionalString (dev.keyFileOffset != null) "--keyfile-offset=${toString dev.keyFileOffset}"
                       }
                     cs_status=$?
                     if [ $cs_status -ne 0 ]; then
                       echo "Key File ${dev.keyFile} failed!"
                       if ! try_empty_passphrase; then
-                        ${
-                          if dev.fallbackToPassword then "echo" else "die"
-                        } "${dev.keyFile} is unavailable"
+                        ${if dev.fallbackToPassword then "echo" else "die"} "${dev.keyFile} is unavailable"
                         echo " - failing back to interactive password prompt"
                         do_open_passphrase
                       fi
@@ -410,9 +405,7 @@ let
 
             new_challenge="$(echo -n $new_salt | openssl-wrap dgst -binary -sha512 | rbtohex)"
 
-            new_response="$(ykchalresp -${
-              toString dev.yubikey.slot
-            } -x $new_challenge 2>/dev/null)"
+            new_response="$(ykchalresp -${toString dev.yubikey.slot} -x $new_challenge 2>/dev/null)"
 
             if [ ! -z "$k_user" ]; then
                 new_k_luks="$(echo -n $k_user | pbkdf2-sha512 ${
@@ -615,9 +608,7 @@ let
               ++ optional (v.header != null) "header=${v.header}"
               ++ optional (v.keyFileOffset != null) "keyfile-offset=${toString v.keyFileOffset}"
               ++ optional (v.keyFileSize != null) "keyfile-size=${toString v.keyFileSize}"
-              ++
-                optional (v.keyFileTimeout != null)
-                  "keyfile-timeout=${builtins.toString v.keyFileTimeout}s"
+              ++ optional (v.keyFileTimeout != null) "keyfile-timeout=${builtins.toString v.keyFileTimeout}s"
               ++ optional (v.tryEmptyPassphrase) "try-empty-password=true";
           in
           "${n} ${v.device} ${if v.keyFile == null then "-" else v.keyFile} ${
@@ -809,9 +800,7 @@ in
                 preLVM = mkOption {
                   default = true;
                   type = types.bool;
-                  description =
-                    lib.mdDoc
-                      "Whether the luksOpen will be attempted before LVM scan or after it.";
+                  description = lib.mdDoc "Whether the luksOpen will be attempted before LVM scan or after it.";
                 };
 
                 allowDiscards = mkOption {

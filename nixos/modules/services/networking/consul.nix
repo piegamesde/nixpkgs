@@ -279,9 +279,7 @@ in
       }
 
       # deprecated
-      (mkIf (cfg.forceIpv4 != null && cfg.forceIpv4) {
-        services.consul.forceAddrFamily = "ipv4";
-      })
+      (mkIf (cfg.forceIpv4 != null && cfg.forceIpv4) { services.consul.forceAddrFamily = "ipv4"; })
 
       (mkIf (cfg.alerts.enable) {
         systemd.services.consul-alerts = {

@@ -29,9 +29,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
       # Must use pkgs.callPackage to avoid infinite recursion.
 
       # Open source packages that are built from source
-      appleSourcePackages =
-        pkgs.callPackage ../os-specific/darwin/apple-source-releases { }
-          self;
+      appleSourcePackages = pkgs.callPackage ../os-specific/darwin/apple-source-releases { } self;
 
       impure-cmds = pkgs.callPackage ../os-specific/darwin/impure-cmds { };
 
@@ -54,8 +52,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
       selectAttrs =
         attrs: names:
         lib.listToAttrs (
-          lib.concatMap (n: lib.optionals (attrs ? "${n}") [ (lib.nameValuePair n attrs."${n}") ])
-            names
+          lib.concatMap (n: lib.optionals (attrs ? "${n}") [ (lib.nameValuePair n attrs."${n}") ]) names
         );
 
       chooseLibs =
@@ -93,10 +90,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
 
       binutils = pkgs.wrapBintoolsWith {
         libc =
-          if stdenv.targetPlatform != stdenv.hostPlatform then
-            pkgs.libcCross
-          else
-            pkgs.stdenv.cc.libc;
+          if stdenv.targetPlatform != stdenv.hostPlatform then pkgs.libcCross else pkgs.stdenv.cc.libc;
         bintools = self.binutils-unwrapped;
       };
 
@@ -108,10 +102,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
 
       binutilsDualAs = pkgs.wrapBintoolsWith {
         libc =
-          if stdenv.targetPlatform != stdenv.hostPlatform then
-            pkgs.libcCross
-          else
-            pkgs.stdenv.cc.libc;
+          if stdenv.targetPlatform != stdenv.hostPlatform then pkgs.libcCross else pkgs.stdenv.cc.libc;
         bintools = self.binutilsDualAs-unwrapped;
       };
 

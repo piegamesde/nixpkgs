@@ -289,15 +289,11 @@ package-set { inherit pkgs lib callPackage; } self
   callCabal2nixWithOptions =
     name: src: extraCabal2nixOptions: args:
     let
-      filter =
-        path: type: pkgs.lib.hasSuffix ".cabal" path || baseNameOf path == "package.yaml";
+      filter = path: type: pkgs.lib.hasSuffix ".cabal" path || baseNameOf path == "package.yaml";
       expr = self.haskellSrc2nix {
         inherit name extraCabal2nixOptions;
         src =
-          if pkgs.lib.canCleanSource src then
-            pkgs.lib.cleanSourceWith { inherit src filter; }
-          else
-            src;
+          if pkgs.lib.canCleanSource src then pkgs.lib.cleanSourceWith { inherit src filter; } else src;
       };
     in
     overrideCabal (orig: { inherit src; }) (callPackageKeepDeriver expr args);
@@ -367,9 +363,7 @@ package-set { inherit pkgs lib callPackage; } self
   # GHC is setup with a package database with all the specified Haskell packages.
   #
   # ghcWithPackages :: (HaskellPkgSet -> [ HaskellPkg ]) -> Derivation
-  ghcWithPackages = self.callPackage ./with-packages-wrapper.nix {
-    haskellPackages = self;
-  };
+  ghcWithPackages = self.callPackage ./with-packages-wrapper.nix { haskellPackages = self; };
 
   # Put 'hoogle' into the derivation's PATH with a database containing all
   # the package's dependencies; run 'hoogle server --local' in a shell to
@@ -587,8 +581,7 @@ package-set { inherit pkgs lib callPackage; } self
       # packageInputs are set correctly.
       genericBuilderArgs =
         {
-          pname =
-            if pkgs.lib.length selected == 1 then (pkgs.lib.head selected).name else "packages";
+          pname = if pkgs.lib.length selected == 1 then (pkgs.lib.head selected).name else "packages";
           version = "0";
           license = null;
         }

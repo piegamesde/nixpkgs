@@ -18,9 +18,7 @@ let
 
       addBuildInputs =
         drv: buildInputs:
-        drv.overrideAttrs (
-          oldAttrs: { buildInputs = (oldAttrs.buildInputs or [ ]) ++ buildInputs; }
-        );
+        drv.overrideAttrs (oldAttrs: { buildInputs = (oldAttrs.buildInputs or [ ]) ++ buildInputs; });
     }
   );
 

@@ -9883,9 +9883,7 @@ let
       sources."exec-sh-0.3.2"
       sources."execa-1.0.0"
       sources."exit-0.1.2"
-      (
-        sources."expand-brackets-2.1.4" // { dependencies = [ sources."define-property-0.2.5" ]; }
-      )
+      (sources."expand-brackets-2.1.4" // { dependencies = [ sources."define-property-0.2.5" ]; })
       sources."expand-tilde-2.0.2"
       sources."expect-24.9.0"
       (sources."express-4.17.1" // { dependencies = [ sources."path-to-regexp-0.1.7" ]; })
@@ -10028,9 +10026,7 @@ let
       sources."isomorphic-ws-4.0.1"
       sources."isstream-0.1.2"
       sources."istanbul-lib-coverage-2.0.5"
-      (
-        sources."istanbul-lib-instrument-3.3.0" // { dependencies = [ sources."semver-6.3.0" ]; }
-      )
+      (sources."istanbul-lib-instrument-3.3.0" // { dependencies = [ sources."semver-6.3.0" ]; })
       (
         sources."istanbul-lib-report-2.0.8"
         // {

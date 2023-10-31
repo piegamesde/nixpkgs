@@ -101,15 +101,7 @@ buildPythonPackage rec {
 
   passthru.optional-dependencies = rec {
     all =
-      accelerate
-      ++ compress
-      ++ encryption
-      ++ nvx
-      ++ serialization
-      ++ scram
-      ++ twisted
-      ++ ui
-      ++ xbr;
+      accelerate ++ compress ++ encryption ++ nvx ++ serialization ++ scram ++ twisted ++ ui ++ xbr;
     accelerate =
       [
         # wsaccel

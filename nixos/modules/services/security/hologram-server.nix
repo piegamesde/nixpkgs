@@ -41,9 +41,7 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Whether to enable the Hologram server for AWS instance credentials";
+        description = lib.mdDoc "Whether to enable the Hologram server for AWS instance credentials";
       };
 
       listenAddress = mkOption {

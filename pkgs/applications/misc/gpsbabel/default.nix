@@ -82,14 +82,11 @@ stdenv.mkDerivation rec {
       perl
     ];
 
-  buildInputs =
-    [
-      libusb1
-      shapelib
-      zlib
-    ]
-    ++ lib.optional withGUI qtserialport
-    ++ lib.optional (withGUI && withMapPreview) qtwebengine;
+  buildInputs = [
+    libusb1
+    shapelib
+    zlib
+  ] ++ lib.optional withGUI qtserialport ++ lib.optional (withGUI && withMapPreview) qtwebengine;
 
   nativeCheckInputs = [
     libxml2

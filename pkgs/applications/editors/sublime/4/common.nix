@@ -45,8 +45,7 @@ let
     "sublime4"
   ];
   downloadUrl =
-    arch:
-    "https://download.sublimetext.com/sublime_text_build_${buildVersion}_${arch}.tar.xz";
+    arch: "https://download.sublimetext.com/sublime_text_build_${buildVersion}_${arch}.tar.xz";
   versionUrl = "https://download.sublimetext.com/latest/${if dev then "dev" else "stable"}";
   versionFile = builtins.toString ./packages.nix;
 

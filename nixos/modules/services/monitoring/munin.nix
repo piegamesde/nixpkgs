@@ -90,8 +90,7 @@ let
   # store, with no renaming.
   # This is suitable for use with munin-node-configure --suggest, i.e.
   # munin.extraAutoPlugins.
-  internManyPlugins =
-    name: path: "find '${path}' -type f -perm /a+x -exec cp -a -t . '{}' '+'";
+  internManyPlugins = name: path: "find '${path}' -type f -perm /a+x -exec cp -a -t . '{}' '+'";
 
   # Use the appropriate intern-fn to copy the plugins into the store and patch
   # them afterwards in an attempt to get them to run on NixOS.

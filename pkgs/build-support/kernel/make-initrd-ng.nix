@@ -47,9 +47,8 @@ in
   # included for clarity, but $out/initrd will always be a symlink to
   # the final image.
   # If this isn't guessed, you may want to complete the metadata above and send a PR :)
-  extension ? _compressorMeta.extension or (throw
-    "Unrecognised compressor ${_compressorName}, please specify filename extension"
-  ),
+  extension ? _compressorMeta.extension
+    or (throw "Unrecognised compressor ${_compressorName}, please specify filename extension"),
 
   # List of { object = path_or_derivation; symlink = "/path"; }
   # The paths are copied into the initramfs in their nix store path
@@ -73,9 +72,8 @@ in
   # The name of the compression, as recognised by u-boot.
   # See https://gitlab.denx.de/u-boot/u-boot/-/blob/9bfb567e5f1bfe7de8eb41f8c6d00f49d2b9a426/common/image.c#L195-204 for a list.
   # If this isn't guessed, you may want to complete the metadata above and send a PR :)
-  uInitrdCompression ? _compressorMeta.ubootName or (throw
-    "Unrecognised compressor ${_compressorName}, please specify uInitrdCompression"
-  ),
+  uInitrdCompression ? _compressorMeta.ubootName
+    or (throw "Unrecognised compressor ${_compressorName}, please specify uInitrdCompression"),
 }:
 runCommand name
   ({

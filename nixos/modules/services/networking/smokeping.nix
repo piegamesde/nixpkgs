@@ -76,9 +76,7 @@ in
       cgiUrl = mkOption {
         type = types.str;
         default = "http://${cfg.hostName}:${toString cfg.port}/smokeping.cgi";
-        defaultText =
-          literalExpression
-            ''"http://''${hostName}:''${toString port}/smokeping.cgi"'';
+        defaultText = literalExpression ''"http://''${hostName}:''${toString port}/smokeping.cgi"'';
         example = "https://somewhere.example.com/smokeping.cgi";
         description = lib.mdDoc "URL to the smokeping cgi.";
       };

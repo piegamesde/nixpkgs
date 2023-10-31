@@ -161,9 +161,7 @@ let
       '';
 
     passthru = {
-      makePluginPath =
-        lib.makeSearchPathOutput "lib"
-          "lib/purple-${lib.versions.major version}";
+      makePluginPath = lib.makeSearchPathOutput "lib" "lib/purple-${lib.versions.major version}";
     };
 
     meta = with lib; {

@@ -61,14 +61,10 @@ with lib;
           };
           msmtp = super.msmtp.override { withKeyring = false; };
           neofetch = super.neofetch.override { x11Support = false; };
-          networkmanager-fortisslvpn = super.networkmanager-fortisslvpn.override {
-            withGnome = false;
-          };
+          networkmanager-fortisslvpn = super.networkmanager-fortisslvpn.override { withGnome = false; };
           networkmanager-iodine = super.networkmanager-iodine.override { withGnome = false; };
           networkmanager-l2tp = super.networkmanager-l2tp.override { withGnome = false; };
-          networkmanager-openconnect = super.networkmanager-openconnect.override {
-            withGnome = false;
-          };
+          networkmanager-openconnect = super.networkmanager-openconnect.override { withGnome = false; };
           networkmanager-openvpn = super.networkmanager-openvpn.override { withGnome = false; };
           networkmanager-sstp = super.networkmanager-vpnc.override { withGnome = false; };
           networkmanager-vpnc = super.networkmanager-vpnc.override { withGnome = false; };

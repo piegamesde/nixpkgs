@@ -110,9 +110,7 @@ let
     sed '/nameserver /d' /etc/resolv.conf > $tmp
     grep 'nameserver ' /etc/resolv.conf | \
       grep -vf ${ns (cfg.appendNameservers ++ cfg.insertNameservers)} > $tmp.ns
-    cat $tmp ${ns cfg.insertNameservers} $tmp.ns ${
-      ns cfg.appendNameservers
-    } > /etc/resolv.conf
+    cat $tmp ${ns cfg.insertNameservers} $tmp.ns ${ns cfg.appendNameservers} > /etc/resolv.conf
     rm -f $tmp $tmp.ns
   '';
 
@@ -144,12 +142,10 @@ let
     '';
   };
 
-  packages =
-    [
-      pkgs.modemmanager
-      pkgs.networkmanager
-    ]
-    ++ cfg.plugins ++ lib.optionals (!delegateWireless && !enableIwd) [ pkgs.wpa_supplicant ];
+  packages = [
+    pkgs.modemmanager
+    pkgs.networkmanager
+  ] ++ cfg.plugins ++ lib.optionals (!delegateWireless && !enableIwd) [ pkgs.wpa_supplicant ];
 in
 {
 
@@ -607,9 +603,7 @@ in
         ];
       }
 
-      (mkIf cfg.enableStrongSwan {
-        networkmanager.plugins = [ pkgs.networkmanager_strongswan ];
-      })
+      (mkIf cfg.enableStrongSwan { networkmanager.plugins = [ pkgs.networkmanager_strongswan ]; })
 
       (mkIf enableIwd { wireless.iwd.enable = true; })
 

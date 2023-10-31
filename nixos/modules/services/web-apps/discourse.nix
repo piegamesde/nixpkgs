@@ -27,8 +27,7 @@ let
   # We only want to create a database if we're actually going to connect to it.
   databaseActuallyCreateLocally = cfg.database.createLocally && cfg.database.host == null;
 
-  tlsEnabled =
-    cfg.enableACME || cfg.sslCertificate != null || cfg.sslCertificateKey != null;
+  tlsEnabled = cfg.enableACME || cfg.sslCertificate != null || cfg.sslCertificateKey != null;
 in
 {
   options = {
@@ -350,9 +349,7 @@ in
       mail = {
         notificationEmailAddress = lib.mkOption {
           type = lib.types.str;
-          default = "${
-              if cfg.mail.incoming.enable then "notifications" else "noreply"
-            }@${cfg.hostname}";
+          default = "${if cfg.mail.incoming.enable then "notifications" else "noreply"}@${cfg.hostname}";
           defaultText = lib.literalExpression ''
             "''${if config.services.discourse.mail.incoming.enable then "notifications" else "noreply"}@''${config.services.discourse.hostname}"
           '';
@@ -474,9 +471,7 @@ in
           replyEmailAddress = lib.mkOption {
             type = lib.types.str;
             default = "%{reply_key}@${cfg.hostname}";
-            defaultText =
-              lib.literalExpression
-                ''"%{reply_key}@''${config.services.discourse.hostname}"'';
+            defaultText = lib.literalExpression ''"%{reply_key}@''${config.services.discourse.hostname}"'';
             description = lib.mdDoc ''
               Template for reply by email incoming email address, for
               example: %{reply_key}@reply.example.com or
@@ -577,8 +572,7 @@ in
       db_port = null;
       db_backup_port = 5432;
       db_name = cfg.database.name;
-      db_username =
-        if databaseActuallyCreateLocally then "discourse" else cfg.database.username;
+      db_username = if databaseActuallyCreateLocally then "discourse" else cfg.database.username;
       db_password = cfg.database.passwordFile;
       db_prepared_statements = false;
       db_replica_host = null;

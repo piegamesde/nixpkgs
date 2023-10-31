@@ -10,9 +10,7 @@ let
     let
       callPackage = newScope self;
 
-      buildDhallPackage =
-        callPackage ../development/interpreters/dhall/build-dhall-package.nix
-          { };
+      buildDhallPackage = callPackage ../development/interpreters/dhall/build-dhall-package.nix { };
 
       buildDhallGitHubPackage =
         callPackage ../development/interpreters/dhall/build-dhall-github-package.nix
@@ -40,9 +38,7 @@ let
 
       lib = import ../development/dhall-modules/lib.nix { inherit lib; };
 
-      dhall-cloudformation =
-        callPackage ../development/dhall-modules/dhall-cloudformation.nix
-          { };
+      dhall-cloudformation = callPackage ../development/dhall-modules/dhall-cloudformation.nix { };
 
       dhall-grafana = callPackage ../development/dhall-modules/dhall-grafana.nix { };
 

@@ -2,8 +2,7 @@ import ./make-test-python.nix (
   { pkgs, ... }:
   let
     ifAddr =
-      node: iface:
-      (pkgs.lib.head node.config.networking.interfaces.${iface}.ipv4.addresses).address;
+      node: iface: (pkgs.lib.head node.config.networking.interfaces.${iface}.ipv4.addresses).address;
   in
   {
     name = "gobgpd";

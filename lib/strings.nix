@@ -310,9 +310,7 @@ rec {
             There is almost certainly a bug in the calling code, since this function always returns `false` in such a case.
             This function also copies the path to the Nix store, which may not be what you want.
             This behavior is deprecated and will throw an error in the future.''
-      (
-        lenContent >= lenSuffix && substring (lenContent - lenSuffix) lenContent content == suffix
-      );
+      (lenContent >= lenSuffix && substring (lenContent - lenSuffix) lenContent content == suffix);
 
   /* Determine whether a string contains the given infix
 
@@ -551,8 +549,7 @@ rec {
   */
   toShellVar =
     name: value:
-    lib.throwIfNot (isValidPosixName name)
-      "toShellVar: ${name} is not a valid shell variable name"
+    lib.throwIfNot (isValidPosixName name) "toShellVar: ${name} is not a valid shell variable name"
       (
         if isAttrs value && !isStringLike value then
           "declare -A ${name}=(${
@@ -1264,9 +1261,7 @@ rec {
     a: b:
     let
       # Two dimensional array with dimensions (stringLength a + 1, stringLength b + 1)
-      arr = lib.genList (i: lib.genList (j: dist i j) (stringLength b + 1)) (
-        stringLength a + 1
-      );
+      arr = lib.genList (i: lib.genList (j: dist i j) (stringLength b + 1)) (stringLength a + 1);
       d = x: y: lib.elemAt (lib.elemAt arr x) y;
       dist =
         i: j:
@@ -1307,9 +1302,7 @@ rec {
         i:
         if i >= m then
           m
-        else if
-          substring (stringLength a - i - 1) 1 a == substring (stringLength b - i - 1) 1 b
-        then
+        else if substring (stringLength a - i - 1) 1 a == substring (stringLength b - i - 1) 1 b then
           go (i + 1)
         else
           i;

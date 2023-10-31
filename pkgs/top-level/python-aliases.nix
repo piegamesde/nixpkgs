@@ -15,22 +15,17 @@ let
 
   # Disabling distribution prevents top-level aliases for non-recursed package
   # sets from building on Hydra.
-  removeDistribute =
-    alias: with lib; if isDerivation alias then dontDistribute alias else alias;
+  removeDistribute = alias: with lib; if isDerivation alias then dontDistribute alias else alias;
 
   # Make sure that we are not shadowing something from
   # python-packages.nix.
   checkInPkgs =
     n: alias:
-    if builtins.hasAttr n super then
-      throw "Alias ${n} is still in python-packages.nix"
-    else
-      alias;
+    if builtins.hasAttr n super then throw "Alias ${n} is still in python-packages.nix" else alias;
 
   mapAliases =
     aliases:
-    lib.mapAttrs
-      (n: alias: removeDistribute (removeRecurseForDerivations (checkInPkgs n alias)))
+    lib.mapAttrs (n: alias: removeDistribute (removeRecurseForDerivations (checkInPkgs n alias)))
       aliases;
 in
 
@@ -63,9 +58,7 @@ mapAliases ({
   buildbot-full = throw "use pkgs.buildbot-full instead"; # added 2022-04-07
   buildbot-plugins = throw "use pkgs.buildbot-plugins instead"; # added 2022-04-07
   buildbot-worker = throw "use pkgs.buildbot-worker instead"; # added 2022-04-07
-  buildbot-pkg =
-    throw
-      "buildbot-pkg has been removed, it's only internally used in buildbot"; # added 2022-04-07
+  buildbot-pkg = throw "buildbot-pkg has been removed, it's only internally used in buildbot"; # added 2022-04-07
   bt_proximity = bt-proximity; # added 2021-07-02
   BTrees = btrees; # added 2023-02-19
   carrot = throw "carrot has been removed, as its development was discontinued in 2012"; # added 2022-01-18
@@ -78,13 +71,9 @@ mapAliases ({
   coronavirus =
     throw
       "coronavirus was removed, because the source is not providing the data anymore."; # added 2023-05-04
-  cozy =
-    throw
-      "cozy was removed because it was not actually https://pypi.org/project/Cozy/."; # added 2022-01-14
+  cozy = throw "cozy was removed because it was not actually https://pypi.org/project/Cozy/."; # added 2022-01-14
   cryptography_vectors = "cryptography_vectors is no longer exposed in python*Packages because it is used for testing cryptography only."; # Added 2022-03-23
-  dask-xgboost =
-    throw
-      "dask-xgboost was removed because its features are available in xgboost"; # added 2022-05-24
+  dask-xgboost = throw "dask-xgboost was removed because its features are available in xgboost"; # added 2022-05-24
   dateutil = python-dateutil; # added 2021-07-03
   demjson =
     throw
@@ -116,9 +105,7 @@ mapAliases ({
   dns = dnspython; # added 2017-12-10
   dogpile_cache = dogpile-cache; # added 2021-10-28
   dogpile-core = throw "dogpile-core is no longer maintained, use dogpile-cache instead"; # added 2021-11-20
-  eebrightbox =
-    throw
-      "eebrightbox is unmaintained upstream and has therefore been removed"; # added 2022-02-03
+  eebrightbox = throw "eebrightbox is unmaintained upstream and has therefore been removed"; # added 2022-02-03
   EasyProcess = easyprocess; # added 2023-02-19
   email_validator = email-validator; # added 2022-06-22
   Fabric = fabric; # addedd 2023-02-19
@@ -154,9 +141,7 @@ mapAliases ({
     throw
       "google-apitools was removed because it is deprecated and unsupported by upstream"; # added 2023-02-25
   graphite_api = throw "graphite_api was removed, because it is no longer maintained"; # added 2022-07-10
-  graphite_beacon =
-    throw
-      "graphite_beacon was removed, because it is no longer maintained"; # added 2022-07-09
+  graphite_beacon = throw "graphite_beacon was removed, because it is no longer maintained"; # added 2022-07-09
   grpc_google_iam_v1 = grpc-google-iam-v1; # added 2021-08-21
   ha-av = throw "ha-av was removed, because it is no longer maintained"; # added 2022-04-06
   HAP-python = hap-python; # added 2021-06-01
@@ -167,9 +152,7 @@ mapAliases ({
       "hdlparse has been removed, it was using setuptools 2to3 translation feature, which has been removed in setuptools 58"; # added 2022-01-18
   HTSeq = htseq; # added 2023-02-19
   hyperkitty = throw "Please use pkgs.mailmanPackages.hyperkitty"; # added 2022-04-29
-  ihatemoney =
-    throw
-      "ihatemoney was removed because it is no longer maintained downstream"; # added 2023-04-08
+  ihatemoney = throw "ihatemoney was removed because it is no longer maintained downstream"; # added 2023-04-08
   IMAPClient = imapclient; # added 2021-10-28
   imdbpy = throw "imdbpy has been renamed to cinemagoer"; # added 2022-08-08
   intreehook =
@@ -190,9 +173,7 @@ mapAliases ({
   Keras = keras; # added 2021-11-25
   ldap = python-ldap; # added 2022-09-16
   lammps-cython = throw "lammps-cython no longer builds and is unmaintained"; # added 2021-07-04
-  logilab_astng =
-    throw
-      "logilab-astng has not been released since 2013 and is unmaintained"; # added 2022-11-29
+  logilab_astng = throw "logilab-astng has not been released since 2013 and is unmaintained"; # added 2022-11-29
   logilab_common = logilab-common; # added 2022-11-21
   loo-py = loopy; # added 2022-05-03
   Mako = mako; # added 2023-02-19
@@ -275,27 +256,15 @@ mapAliases ({
     throw
       "pyramid_hawkauth has been removed because it is no longer maintained"; # added 2023-02-2
   pyreadability = readability-lxml; # added 2022-05-24
-  pyroute2-core =
-    throw
-      "pyroute2 migrated back to a single package scheme in version 0.7.1"; # added 2022-07-16
-  pyroute2-ethtool =
-    throw
-      "pyroute2 migrated back to a single package scheme in version 0.7.1"; # added 2022-07-16
-  pyroute2-ipdb =
-    throw
-      "pyroute2 migrated back to a single package scheme in version 0.7.1"; # added 2022-07-16
-  pyroute2-ipset =
-    throw
-      "pyroute2 migrated back to a single package scheme in version 0.7.1"; # added 2022-07-16
-  pyroute2-ndb =
-    throw
-      "pyroute2 migrated back to a single package scheme in version 0.7.1"; # added 2022-07-16
+  pyroute2-core = throw "pyroute2 migrated back to a single package scheme in version 0.7.1"; # added 2022-07-16
+  pyroute2-ethtool = throw "pyroute2 migrated back to a single package scheme in version 0.7.1"; # added 2022-07-16
+  pyroute2-ipdb = throw "pyroute2 migrated back to a single package scheme in version 0.7.1"; # added 2022-07-16
+  pyroute2-ipset = throw "pyroute2 migrated back to a single package scheme in version 0.7.1"; # added 2022-07-16
+  pyroute2-ndb = throw "pyroute2 migrated back to a single package scheme in version 0.7.1"; # added 2022-07-16
   pyroute2-nftables =
     throw
       "pyroute2 migrated back to a single package scheme in version 0.7.1"; # added 2022-07-16
-  pyroute2-nslink =
-    throw
-      "pyroute2 migrated back to a single package scheme in version 0.7.1"; # added 2022-07-16
+  pyroute2-nslink = throw "pyroute2 migrated back to a single package scheme in version 0.7.1"; # added 2022-07-16
   pyroute2-protocols =
     throw
       "pyroute2 migrated back to a single package scheme in version 0.7.1"; # added 2022-07-16
@@ -304,9 +273,7 @@ mapAliases ({
   PyRSS2Gen = pyrss2gen; # added 2023-02-19
   pysmart-smartx = pysmart; # added 2021-10-22
   pysparse = throw "pysparse has been abandoned upstream."; # added 2023-02-28
-  pyspotify =
-    throw
-      "pyspotify has been removed because Spotify stopped supporting libspotify"; # added 2022-05-29
+  pyspotify = throw "pyspotify has been removed because Spotify stopped supporting libspotify"; # added 2022-05-29
   PyStemmer = pystemmer; # added 2023-02-19
   pytest_6 = pytest; # added 2022-02-10
   pytestcov = pytest-cov; # added 2021-01-04
@@ -336,9 +303,7 @@ mapAliases ({
   python-subunit = subunit; # added 2021-09-10
   pytest_xdist = pytest-xdist; # added 2021-01-04
   python_simple_hipchat = python-simple-hipchat; # added 2021-07-21
-  pytoml =
-    throw
-      "pytoml has been removed because it is unmaintained and is superseded by toml"; # Added 2023-04-11
+  pytoml = throw "pytoml has been removed because it is unmaintained and is superseded by toml"; # Added 2023-04-11
   pytorch = torch; # added 2022-09-30
   pytorch-bin = torch-bin; # added 2022-09-30
   pytorchWithCuda = torchWithCuda; # added 2022-09-30
@@ -362,9 +327,7 @@ mapAliases ({
   rl-coach = "rl-coach was removed because the project is discontinued and was archived by upstream"; # added 2023-05-03
   roboschool = throw "roboschool is deprecated in favor of PyBullet and has been removed"; # added 2022-01-15
   ROPGadget = ropgadget; # added 2021-07-06
-  rotate-backups =
-    throw
-      "rotate-backups was removed in favor of the top-level rotate-backups"; # added 2021-07-01
+  rotate-backups = throw "rotate-backups was removed in favor of the top-level rotate-backups"; # added 2021-07-01
   ruamel_base = ruamel-base; # added 2021-11-01
   ruamel_yaml = ruamel-yaml; # added 2021-11-01
   ruamel_yaml_clib = ruamel-yaml-clib; # added 2021-11-01

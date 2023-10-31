@@ -31,9 +31,7 @@ in
 
 runCommand "SDKs" { } ''
   sdk=$out/${sdkName}.sdk
-  install -D ${
-    writeText "SDKSettings.plist" (toPlist { } SDKSettings)
-  } $sdk/SDKSettings.plist
+  install -D ${writeText "SDKSettings.plist" (toPlist { } SDKSettings)} $sdk/SDKSettings.plist
   install -D ${writeText "SDKSettings.json" (toJSON { } SDKSettings)} $sdk/SDKSettings.json
   install -D ${
     writeText "SystemVersion.plist" (toPlist { } SystemVersion)

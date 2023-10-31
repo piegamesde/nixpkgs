@@ -70,12 +70,7 @@ let
         newArgs: origArgs // (if pkgs.lib.isFunction newArgs then newArgs origArgs else newArgs);
     in
     if builtins.isAttrs ff then
-      (
-        ff
-        // {
-          overrideLispAttrs = newArgs: makeOverridableLispPackage f (overrideWith newArgs);
-        }
-      )
+      (ff // { overrideLispAttrs = newArgs: makeOverridableLispPackage f (overrideWith newArgs); })
     else if builtins.isFunction ff then
       {
         overrideLispAttrs = newArgs: makeOverridableLispPackage f (overrideWith newArgs);

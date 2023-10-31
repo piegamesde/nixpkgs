@@ -489,9 +489,7 @@ in
                   "fcgi+unix"
                 ];
                 default = "http";
-                description =
-                  lib.mdDoc
-                    ''Listen protocol. `+unix` means "over unix", not "in addition to."'';
+                description = lib.mdDoc ''Listen protocol. `+unix` means "over unix", not "in addition to."'';
               };
 
               HTTP_ADDR = mkOption {
@@ -522,9 +520,7 @@ in
 
               ROOT_URL = mkOption {
                 type = types.str;
-                default = "http://${cfg.settings.server.DOMAIN}:${
-                    toString cfg.settings.server.HTTP_PORT
-                  }/";
+                default = "http://${cfg.settings.server.DOMAIN}:${toString cfg.settings.server.HTTP_PORT}/";
                 defaultText =
                   literalExpression
                     ''
@@ -715,10 +711,9 @@ in
 
     systemd.services.gitea = {
       description = "gitea";
-      after =
-        [ "network.target" ]
-        ++ lib.optional usePostgresql "postgresql.service"
-        ++ lib.optional useMysql "mysql.service";
+      after = [
+        "network.target"
+      ] ++ lib.optional usePostgresql "postgresql.service" ++ lib.optional useMysql "mysql.service";
       wantedBy = [ "multi-user.target" ];
       path = [
         cfg.package

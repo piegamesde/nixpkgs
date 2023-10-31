@@ -31,9 +31,7 @@ makeSetupHook
     # depsTargetTargetPropagated will essentially be buildInputs when wrapGAppsHook is placed into nativeBuildInputs
     # the librsvg and gtk3 above should be removed but kept to not break anything that implicitly depended on its binaries
     depsTargetTargetPropagated =
-      assert (lib.assertMsg (!targetPackages ? raw)
-        "wrapGAppsHook must be in nativeBuildInputs"
-      );
+      assert (lib.assertMsg (!targetPackages ? raw) "wrapGAppsHook must be in nativeBuildInputs");
       lib.optionals isGraphical [
         # librsvg provides a module for gdk-pixbuf to allow rendering
         # SVG icons. Most icon themes are SVG-based and so are some
@@ -102,8 +100,7 @@ makeSetupHook
               testLib.skip stdenv.isDarwin ''
                 ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo" "GDK_PIXBUF_MODULE_FILE"
                   "${lib.getLib librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"}
-                ${expectSomeLineContainingYInFileXToMentionZ "${tested}/libexec/bar"
-                  "GDK_PIXBUF_MODULE_FILE"
+                ${expectSomeLineContainingYInFileXToMentionZ "${tested}/libexec/bar" "GDK_PIXBUF_MODULE_FILE"
                   "${lib.getLib librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"}
               ''
             );

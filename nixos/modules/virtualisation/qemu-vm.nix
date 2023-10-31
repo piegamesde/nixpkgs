@@ -929,9 +929,7 @@ in
     boot.loader.grub.gfxmodeBios = with cfg.resolution; "${toString x}x${toString y}";
     virtualisation.rootDevice = mkDefault suggestedRootDevice;
 
-    boot.initrd.kernelModules = optionals (cfg.useNixStoreImage && !cfg.writableStore) [
-      "erofs"
-    ];
+    boot.initrd.kernelModules = optionals (cfg.useNixStoreImage && !cfg.writableStore) [ "erofs" ];
 
     boot.loader.supportsInitrdSecrets = mkIf (!cfg.useBootLoader) (mkVMOverride false);
 
@@ -1152,13 +1150,11 @@ in
               "size=${toString config.boot.tmp.tmpfsSize}"
             ];
           };
-          "/nix/${if cfg.writableStore then ".ro-store" else "store"}" =
-            lib.mkIf cfg.useNixStoreImage
-              {
-                device = "${lookupDriveDeviceName "nix-store" cfg.qemu.drives}";
-                neededForBoot = true;
-                options = [ "ro" ];
-              };
+          "/nix/${if cfg.writableStore then ".ro-store" else "store"}" = lib.mkIf cfg.useNixStoreImage {
+            device = "${lookupDriveDeviceName "nix-store" cfg.qemu.drives}";
+            neededForBoot = true;
+            options = [ "ro" ];
+          };
           "/nix/.rw-store" = lib.mkIf (cfg.writableStore && cfg.writableStoreUseTmpfs) {
             fsType = "tmpfs";
             options = [ "mode=0755" ];
@@ -1199,9 +1195,7 @@ in
     };
 
     swapDevices = (if cfg.useDefaultFilesystems then mkVMOverride else mkDefault) [ ];
-    boot.initrd.luks.devices =
-      (if cfg.useDefaultFilesystems then mkVMOverride else mkDefault)
-        { };
+    boot.initrd.luks.devices = (if cfg.useDefaultFilesystems then mkVMOverride else mkDefault) { };
 
     # Don't run ntpd in the guest.  It should get the correct time from KVM.
     services.timesyncd.enable = false;
@@ -1217,9 +1211,7 @@ in
         ''
           mkdir -p $out/bin
           ln -s ${config.system.build.toplevel} $out/system
-          ln -s ${
-            cfg.host.pkgs.writeScript "run-nixos-vm" startVM
-          } $out/bin/run-${config.system.name}-vm
+          ln -s ${cfg.host.pkgs.writeScript "run-nixos-vm" startVM} $out/bin/run-${config.system.name}-vm
         '';
 
     # When building a regular system configuration, override whatever

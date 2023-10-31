@@ -53,9 +53,7 @@ in
     postgresHost = mkOption {
       type = types.str;
       default = "/run/postgresql";
-      description =
-        lib.mdDoc
-          "The Postgresql hostname or socket path OnlyOffice should connect to.";
+      description = lib.mdDoc "The Postgresql hostname or socket path OnlyOffice should connect to.";
     };
 
     postgresName = mkOption {

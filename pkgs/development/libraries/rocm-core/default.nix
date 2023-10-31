@@ -8,8 +8,7 @@
 }:
 
 let
-  rocm_version =
-    with lib; concatStrings (intersperse "0" (splitString "." stdenv.cc.version));
+  rocm_version = with lib; concatStrings (intersperse "0" (splitString "." stdenv.cc.version));
 in
 stdenv.mkDerivation (
   finalAttrs: {

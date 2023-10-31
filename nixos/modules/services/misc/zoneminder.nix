@@ -357,9 +357,7 @@ in
         ];
         preStart =
           lib.optionalString useCustomDir ''
-            install -dm775 -o ${user} -g ${group} ${cfg.storageDir}/{${
-              lib.concatStringsSep "," libDirs
-            }}
+            install -dm775 -o ${user} -g ${group} ${cfg.storageDir}/{${lib.concatStringsSep "," libDirs}}
           ''
           + lib.optionalString cfg.database.createLocally ''
             if ! test -e "/var/lib/${dirName}/db-created"; then

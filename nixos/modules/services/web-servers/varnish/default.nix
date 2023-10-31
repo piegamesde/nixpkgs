@@ -23,11 +23,9 @@ in
     services.varnish = {
       enable = mkEnableOption (lib.mdDoc "Varnish Server");
 
-      enableConfigCheck =
-        mkEnableOption (lib.mdDoc "checking the config during build time")
-        // {
-          default = true;
-        };
+      enableConfigCheck = mkEnableOption (lib.mdDoc "checking the config during build time") // {
+        default = true;
+      };
 
       package = mkOption {
         type = types.package;

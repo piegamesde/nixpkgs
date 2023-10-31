@@ -23,8 +23,7 @@ in
 
 let
   polymlEnableShared =
-    with pkgs;
-    lib.overrideDerivation polyml (attrs: { configureFlags = [ "--enable-shared" ]; });
+    with pkgs; lib.overrideDerivation polyml (attrs: { configureFlags = [ "--enable-shared" ]; });
 in
 
 stdenv.mkDerivation {

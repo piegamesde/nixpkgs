@@ -144,9 +144,7 @@ in
           (lib.getLib cfg.pkcs11.package)
         ];
 
-        services.udev.extraRules = lib.mkIf cfg.applyUdevRules (
-          udevRules cfg.tssUser cfg.tssGroup
-        );
+        services.udev.extraRules = lib.mkIf cfg.applyUdevRules (udevRules cfg.tssUser cfg.tssGroup);
 
         # Create the tss user and group only if the default value is used
         users.users.${cfg.tssUser} = lib.mkIf (cfg.tssUser == "tss") {

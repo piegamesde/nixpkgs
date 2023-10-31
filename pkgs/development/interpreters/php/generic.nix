@@ -161,9 +161,7 @@ let
                 overrideAttrs =
                   f:
                   let
-                    newPhpAttrsOverrides =
-                      composeOverrides (filteredArgs.phpAttrsOverrides or (attrs: { }))
-                        f;
+                    newPhpAttrsOverrides = composeOverrides (filteredArgs.phpAttrsOverrides or (attrs: { })) f;
                     php = generic (filteredArgs // { phpAttrsOverrides = newPhpAttrsOverrides; });
                   in
                   php.buildEnv { inherit extensions extraConfig; };
@@ -337,8 +335,7 @@ let
             updateScript =
               let
                 script =
-                  writeShellScript
-                    "php${lib.versions.major version}${lib.versions.minor version}-update-script"
+                  writeShellScript "php${lib.versions.major version}${lib.versions.minor version}-update-script"
                     ''
                       set -o errexit
                       PATH=${

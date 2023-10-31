@@ -185,15 +185,11 @@ in
             "${pkgs.earlyoom}/bin/earlyoom"
             (
               "-m ${toString cfg.freeMemThreshold}"
-              +
-                optionalString (cfg.freeMemKillThreshold != null)
-                  ",${toString cfg.freeMemKillThreshold}"
+              + optionalString (cfg.freeMemKillThreshold != null) ",${toString cfg.freeMemKillThreshold}"
             )
             (
               "-s ${toString cfg.freeSwapThreshold}"
-              +
-                optionalString (cfg.freeSwapKillThreshold != null)
-                  ",${toString cfg.freeSwapKillThreshold}"
+              + optionalString (cfg.freeSwapKillThreshold != null) ",${toString cfg.freeSwapKillThreshold}"
             )
             "-r ${toString cfg.reportInterval}"
           ]

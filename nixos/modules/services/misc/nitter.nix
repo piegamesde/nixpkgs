@@ -107,9 +107,7 @@ in
         staticDir = mkOption {
           type = types.path;
           default = "${cfg.package}/share/nitter/public";
-          defaultText =
-            literalExpression
-              ''"''${config.services.nitter.package}/share/nitter/public"'';
+          defaultText = literalExpression ''"''${config.services.nitter.package}/share/nitter/public"'';
           description = lib.mdDoc "Path to the static files directory.";
         };
 
@@ -216,9 +214,7 @@ in
           type = types.str;
           default = "";
           example = "teddit.net";
-          description =
-            lib.mdDoc
-              "Replace Reddit links with links to this instance (blank to disable).";
+          description = lib.mdDoc "Replace Reddit links with links to this instance (blank to disable).";
         };
 
         replaceInstagram = mkOption {
@@ -337,8 +333,7 @@ in
     assertions = [
       {
         assertion =
-          !cfg.redisCreateLocally
-          || (cfg.cache.redisHost == "localhost" && cfg.cache.redisPort == 6379);
+          !cfg.redisCreateLocally || (cfg.cache.redisHost == "localhost" && cfg.cache.redisPort == 6379);
         message = "When services.nitter.redisCreateLocally is enabled, you need to use localhost:6379 as a cache server.";
       }
     ];

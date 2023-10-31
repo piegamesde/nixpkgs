@@ -10397,9 +10397,7 @@ let
       sources."aproba-2.0.0"
       (sources."archive-type-4.0.0" // { dependencies = [ sources."file-type-4.4.0" ]; })
       sources."archiver-5.3.0"
-      (
-        sources."archiver-utils-2.1.0" // { dependencies = [ sources."readable-stream-2.3.7" ]; }
-      )
+      (sources."archiver-utils-2.1.0" // { dependencies = [ sources."readable-stream-2.3.7" ]; })
       sources."are-we-there-yet-2.0.0"
       sources."arg-4.1.3"
       sources."argparse-2.0.1"
@@ -10468,9 +10466,7 @@ let
         // {
           dependencies = [
             sources."define-property-0.2.5"
-            (
-              sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; }
-            )
+            (sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; })
             (sources."is-data-descriptor-0.1.4" // { dependencies = [ sources."kind-of-3.2.2" ]; })
             sources."is-descriptor-0.1.6"
             sources."kind-of-5.1.0"
@@ -10478,12 +10474,7 @@ let
         }
       )
       sources."clean-deep-3.4.0"
-      (
-        sources."clean-stack-4.2.0"
-        // {
-          dependencies = [ sources."escape-string-regexp-5.0.0" ];
-        }
-      )
+      (sources."clean-stack-4.2.0" // { dependencies = [ sources."escape-string-regexp-5.0.0" ]; })
       sources."cli-boxes-2.2.1"
       sources."cli-cursor-2.1.0"
       sources."cli-progress-3.10.0"
@@ -10528,9 +10519,7 @@ let
         }
       )
       sources."console-control-strings-1.1.0"
-      (
-        sources."content-disposition-0.5.4" // { dependencies = [ sources."safe-buffer-5.2.1" ]; }
-      )
+      (sources."content-disposition-0.5.4" // { dependencies = [ sources."safe-buffer-5.2.1" ]; })
       sources."content-type-1.0.4"
       sources."cookie-0.5.0"
       sources."cookie-signature-1.0.6"
@@ -10608,12 +10597,7 @@ let
           ];
         }
       )
-      (
-        sources."decompress-response-6.0.0"
-        // {
-          dependencies = [ sources."mimic-response-3.1.0" ];
-        }
-      )
+      (sources."decompress-response-6.0.0" // { dependencies = [ sources."mimic-response-3.1.0" ]; })
       (
         sources."decompress-tar-4.1.1"
         // {
@@ -10668,23 +10652,13 @@ let
       sources."deprecation-2.3.1"
       sources."destroy-1.2.0"
       sources."detect-libc-2.0.1"
-      (
-        sources."detective-amd-4.0.1" // { dependencies = [ sources."node-source-walk-5.0.0" ]; }
-      )
-      (
-        sources."detective-cjs-4.0.0" // { dependencies = [ sources."node-source-walk-5.0.0" ]; }
-      )
-      (
-        sources."detective-es6-3.0.0" // { dependencies = [ sources."node-source-walk-5.0.0" ]; }
-      )
+      (sources."detective-amd-4.0.1" // { dependencies = [ sources."node-source-walk-5.0.0" ]; })
+      (sources."detective-cjs-4.0.0" // { dependencies = [ sources."node-source-walk-5.0.0" ]; })
+      (sources."detective-es6-3.0.0" // { dependencies = [ sources."node-source-walk-5.0.0" ]; })
       sources."detective-less-1.0.2"
       sources."detective-postcss-6.1.0"
-      (
-        sources."detective-sass-4.0.1" // { dependencies = [ sources."node-source-walk-5.0.0" ]; }
-      )
-      (
-        sources."detective-scss-3.0.0" // { dependencies = [ sources."node-source-walk-5.0.0" ]; }
-      )
+      (sources."detective-sass-4.0.1" // { dependencies = [ sources."node-source-walk-5.0.0" ]; })
+      (sources."detective-scss-3.0.0" // { dependencies = [ sources."node-source-walk-5.0.0" ]; })
       sources."detective-stylus-2.0.1"
       (
         sources."detective-typescript-9.0.0"
@@ -10773,9 +10747,7 @@ let
             sources."debug-2.6.9"
             sources."define-property-0.2.5"
             sources."extend-shallow-2.0.1"
-            (
-              sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; }
-            )
+            (sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; })
             (sources."is-data-descriptor-0.1.4" // { dependencies = [ sources."kind-of-3.2.2" ]; })
             sources."is-descriptor-0.1.6"
             sources."is-extendable-0.1.1"
@@ -10887,10 +10859,7 @@ let
       sources."fuzzy-0.1.3"
       sources."gauge-3.0.2"
       (
-        sources."get-amd-module-type-4.0.0"
-        // {
-          dependencies = [ sources."node-source-walk-5.0.0" ];
-        }
+        sources."get-amd-module-type-4.0.0" // { dependencies = [ sources."node-source-walk-5.0.0" ]; }
       )
       sources."get-caller-file-2.0.5"
       sources."get-intrinsic-1.1.1"
@@ -10996,12 +10965,7 @@ let
       sources."is-extglob-2.1.1"
       sources."is-fullwidth-code-point-4.0.0"
       sources."is-glob-4.0.3"
-      (
-        sources."is-installed-globally-0.4.0"
-        // {
-          dependencies = [ sources."global-dirs-3.0.0" ];
-        }
-      )
+      (sources."is-installed-globally-0.4.0" // { dependencies = [ sources."global-dirs-3.0.0" ]; })
       sources."is-interactive-1.0.0"
       sources."is-natural-number-4.0.1"
       sources."is-npm-5.0.0"
@@ -11194,12 +11158,7 @@ let
       sources."minizlib-2.1.2"
       sources."mixin-deep-1.3.2"
       sources."mkdirp-0.5.6"
-      (
-        sources."module-definition-4.0.0"
-        // {
-          dependencies = [ sources."node-source-walk-5.0.0" ];
-        }
-      )
+      (sources."module-definition-4.0.0" // { dependencies = [ sources."node-source-walk-5.0.0" ]; })
       sources."moize-6.1.3"
       (sources."move-file-3.0.0" // { dependencies = [ sources."path-exists-5.0.0" ]; })
       sources."ms-2.1.3"
@@ -11230,9 +11189,7 @@ let
           ];
         }
       )
-      (
-        sources."netlify-onegraph-internal-0.10.1" // { dependencies = [ sources."uuid-8.3.2" ]; }
-      )
+      (sources."netlify-onegraph-internal-0.10.1" // { dependencies = [ sources."uuid-8.3.2" ]; })
       (
         sources."netlify-redirect-parser-14.0.2"
         // {
@@ -11365,12 +11322,7 @@ let
           ];
         }
       )
-      (
-        sources."parallel-transform-1.2.0"
-        // {
-          dependencies = [ sources."readable-stream-2.3.7" ];
-        }
-      )
+      (sources."parallel-transform-1.2.0" // { dependencies = [ sources."readable-stream-2.3.7" ]; })
       sources."parse-github-url-1.0.2"
       sources."parse-gitignore-2.0.0"
       sources."parse-json-5.2.0"
@@ -11392,12 +11344,7 @@ let
       sources."pinkie-promise-2.0.1"
       sources."posix-character-classes-0.1.1"
       sources."postcss-8.4.14"
-      (
-        sources."postcss-values-parser-6.0.2"
-        // {
-          dependencies = [ sources."color-name-1.1.4" ];
-        }
-      )
+      (sources."postcss-values-parser-6.0.2" // { dependencies = [ sources."color-name-1.1.4" ]; })
       (sources."precinct-9.0.1" // { dependencies = [ sources."node-source-walk-5.0.0" ]; })
       sources."precond-0.2.3"
       sources."prepend-http-2.0.0"
@@ -11491,12 +11438,7 @@ let
       sources."reusify-1.0.4"
       sources."rfdc-1.3.0"
       sources."rimraf-3.0.2"
-      (
-        sources."rollup-pluginutils-2.8.2"
-        // {
-          dependencies = [ sources."estree-walker-0.6.1" ];
-        }
-      )
+      (sources."rollup-pluginutils-2.8.2" // { dependencies = [ sources."estree-walker-0.6.1" ]; })
       sources."run-async-2.4.1"
       sources."run-parallel-1.2.0"
       sources."rusha-0.8.14"
@@ -11545,9 +11487,7 @@ let
             sources."debug-2.6.9"
             sources."define-property-0.2.5"
             sources."extend-shallow-2.0.1"
-            (
-              sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; }
-            )
+            (sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; })
             (sources."is-data-descriptor-0.1.4" // { dependencies = [ sources."kind-of-3.2.2" ]; })
             sources."is-descriptor-0.1.6"
             sources."is-extendable-0.1.1"
@@ -11556,18 +11496,14 @@ let
           ];
         }
       )
-      (
-        sources."snapdragon-node-2.1.1" // { dependencies = [ sources."define-property-1.0.0" ]; }
-      )
+      (sources."snapdragon-node-2.1.1" // { dependencies = [ sources."define-property-1.0.0" ]; })
       (sources."snapdragon-util-3.0.1" // { dependencies = [ sources."kind-of-3.2.2" ]; })
       (sources."sort-keys-1.1.2" // { dependencies = [ sources."is-plain-obj-1.1.0" ]; })
       sources."sort-keys-length-1.0.1"
       sources."source-map-0.5.7"
       sources."source-map-js-1.0.2"
       sources."source-map-resolve-0.5.3"
-      (
-        sources."source-map-support-0.5.21" // { dependencies = [ sources."source-map-0.6.1" ]; }
-      )
+      (sources."source-map-support-0.5.21" // { dependencies = [ sources."source-map-0.6.1" ]; })
       sources."source-map-url-0.4.1"
       sources."spdx-correct-3.1.1"
       sources."spdx-exceptions-2.3.0"
@@ -11582,9 +11518,7 @@ let
         // {
           dependencies = [
             sources."define-property-0.2.5"
-            (
-              sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; }
-            )
+            (sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; })
             (sources."is-data-descriptor-0.1.4" // { dependencies = [ sources."kind-of-3.2.2" ]; })
             sources."is-descriptor-0.1.6"
             sources."kind-of-5.1.0"
@@ -11611,29 +11545,16 @@ let
       sources."strict-uri-encode-1.1.0"
       sources."string-similarity-4.0.4"
       (
-        sources."string-width-4.2.3"
-        // {
-          dependencies = [ sources."is-fullwidth-code-point-3.0.0" ];
-        }
+        sources."string-width-4.2.3" // { dependencies = [ sources."is-fullwidth-code-point-3.0.0" ]; }
       )
       sources."string_decoder-1.1.1"
       sources."strip-ansi-6.0.1"
       sources."strip-ansi-control-characters-2.0.0"
       sources."strip-dirs-2.1.0"
       sources."strip-final-newline-2.0.0"
-      (
-        sources."strip-outer-1.0.1"
-        // {
-          dependencies = [ sources."escape-string-regexp-1.0.5" ];
-        }
-      )
+      (sources."strip-outer-1.0.1" // { dependencies = [ sources."escape-string-regexp-1.0.5" ]; })
       sources."supports-color-9.2.2"
-      (
-        sources."supports-hyperlinks-2.2.0"
-        // {
-          dependencies = [ sources."supports-color-7.2.0" ];
-        }
-      )
+      (sources."supports-hyperlinks-2.2.0" // { dependencies = [ sources."supports-color-7.2.0" ]; })
       sources."supports-preserve-symlinks-flag-1.0.0"
       sources."symbol-observable-1.2.0"
       sources."tabtab-3.0.2"
@@ -11683,12 +11604,7 @@ let
       sources."toml-3.0.0"
       sources."tomlify-j0.4-3.0.0"
       sources."tr46-0.0.3"
-      (
-        sources."trim-repeated-1.0.0"
-        // {
-          dependencies = [ sources."escape-string-regexp-1.0.5" ];
-        }
-      )
+      (sources."trim-repeated-1.0.0" // { dependencies = [ sources."escape-string-regexp-1.0.5" ]; })
       sources."triple-beam-1.3.0"
       (sources."ts-node-10.8.1" // { dependencies = [ sources."diff-4.0.2" ]; })
       sources."tslib-1.14.1"
@@ -11730,9 +11646,7 @@ let
             sources."chalk-5.1.2"
             sources."cli-boxes-3.0.0"
             sources."configstore-6.0.0"
-            (
-              sources."crypto-random-string-4.0.0" // { dependencies = [ sources."type-fest-1.4.0" ]; }
-            )
+            (sources."crypto-random-string-4.0.0" // { dependencies = [ sources."type-fest-1.4.0" ]; })
             sources."emoji-regex-9.2.2"
             sources."escape-goat-4.0.0"
             sources."got-12.5.2"

@@ -72,9 +72,7 @@ let
   sdlMakefiles = concatMapStringsSep " " (x: x + "." + sdlMakefileSuffix) (
     optionals enable16Bit [ "Makefile" ] ++ optionals enable32Bit [ "Makefile21" ]
   );
-  sdlBuildFlags = concatStringsSep " " (
-    optionals enableSDL [ "SDL_VERSION=${withSDLVersion}" ]
-  );
+  sdlBuildFlags = concatStringsSep " " (optionals enableSDL [ "SDL_VERSION=${withSDLVersion}" ]);
   sdlBins = concatStringsSep " " (
     optionals enable16Bit [ "np2kai" ] ++ optionals enable32Bit [ "np21kai" ]
   );
@@ -161,9 +159,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   # TODO Remove when bumping past rev22
-  env.NIX_CFLAGS_COMPILE =
-    lib.optionalString stdenv.hostPlatform.isDarwin
-      "-D_DARWIN_C_SOURCE";
+  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isDarwin "-D_DARWIN_C_SOURCE";
 
   buildPhase =
     optionalString enableSDL ''

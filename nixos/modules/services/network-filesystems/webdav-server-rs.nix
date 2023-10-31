@@ -110,9 +110,7 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "webdav") {
-      webdav.gid = config.ids.gids.webdav;
-    };
+    users.groups = optionalAttrs (cfg.group == "webdav") { webdav.gid = config.ids.gids.webdav; };
 
     systemd.services.webdav-server-rs = {
       description = "WebDAV server";

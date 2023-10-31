@@ -13365,8 +13365,7 @@ with self;
       TestFatal
     ];
     meta = {
-      description = ''
-        Define functions and methods with parameter lists ("subroutine signatures")'';
+      description = ''Define functions and methods with parameter lists ("subroutine signatures")'';
       license = with lib.licenses; [
         artistic1
         gpl1Plus
@@ -17340,9 +17339,7 @@ with self;
       TextUnidecode
       XMLLibXSLT
     ];
-    nativeBuildInputs = [
-      pkgs.makeWrapper
-    ] ++ lib.optional stdenv.isDarwin shortenPerlShebang;
+    nativeBuildInputs = [ pkgs.makeWrapper ] ++ lib.optional stdenv.isDarwin shortenPerlShebang;
     makeMakerFlags = [
       "TEXMF=\${tex}"
       "NOMKTEXLSR"
@@ -17451,9 +17448,7 @@ with self;
       ApacheTest
       ExtUtilsXSBuilder
     ];
-    propagatedBuildInputs = [
-      (pkgs.apacheHttpdPackages.mod_perl.override { inherit perl; })
-    ];
+    propagatedBuildInputs = [ (pkgs.apacheHttpdPackages.mod_perl.override { inherit perl; }) ];
     makeMakerFlags = [
       "--with-apache2-src=${pkgs.apacheHttpd.dev}"
       "--with-apache2-apxs=${pkgs.apacheHttpd.dev}/bin/apxs"
@@ -24985,9 +24980,7 @@ with self;
 
     configurePhase = ''
       substituteInPlace Makefile.PL \
-        --replace "@@libpaths@@" '${
-          lib.concatStringsSep "\n" (map (f: "-L${f}/lib") buildInputs)
-        }'
+        --replace "@@libpaths@@" '${lib.concatStringsSep "\n" (map (f: "-L${f}/lib") buildInputs)}'
 
       cp -v ${../development/perl-modules/perl-opengl-gl-extensions.txt} utils/glversion.txt
 

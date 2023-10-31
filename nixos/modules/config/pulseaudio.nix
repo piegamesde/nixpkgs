@@ -167,8 +167,7 @@ in
 
       package = mkOption {
         type = types.package;
-        default =
-          if config.services.jack.jackd.enable then pkgs.pulseaudioFull else pkgs.pulseaudio;
+        default = if config.services.jack.jackd.enable then pkgs.pulseaudioFull else pkgs.pulseaudio;
         defaultText = literalExpression "pkgs.pulseaudio";
         example = literalExpression "pkgs.pulseaudioFull";
         description = lib.mdDoc ''
@@ -242,9 +241,7 @@ in
         "pulse/client.conf".source = clientConf;
       };
 
-      hardware.pulseaudio.configFile =
-        mkDefault
-          "${getBin overriddenPackage}/etc/pulse/default.pa";
+      hardware.pulseaudio.configFile = mkDefault "${getBin overriddenPackage}/etc/pulse/default.pa";
     }
 
     (mkIf cfg.enable {

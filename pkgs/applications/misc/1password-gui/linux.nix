@@ -45,9 +45,7 @@
 }:
 let
   # Convert the polkitPolicyOwners variable to a polkit-compatible string for the polkit file.
-  policyOwners = lib.concatStringsSep " " (
-    map (user: "unix-user:${user}") polkitPolicyOwners
-  );
+  policyOwners = lib.concatStringsSep " " (map (user: "unix-user:${user}") polkitPolicyOwners);
 in
 stdenv.mkDerivation {
   inherit

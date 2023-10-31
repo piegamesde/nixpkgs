@@ -170,9 +170,7 @@ in
     otherDicts =
       with lib;
       filter
-        (
-          d: !(hasAttr "dictFileName" d && elem d.dictFileName (map (d: d.dictFileName) largeDicts))
-        )
+        (d: !(hasAttr "dictFileName" d && elem d.dictFileName (map (d: d.dictFileName) largeDicts)))
         hunspellDictionaries;
     dictionaries = largeDicts ++ otherDicts;
 

@@ -178,9 +178,7 @@ stdenv.mkDerivation rec {
         -t "$out/share/applications"
       for size in 16 22 32 48 256 512; do
         install -vDm 644 "gtk2_ardour/resources/Ardour-icon_''${size}px.png" \
-          "$out/share/icons/hicolor/''${size}x''${size}/apps/ardour${
-            lib.versions.major version
-          }.png"
+          "$out/share/icons/hicolor/''${size}x''${size}/apps/ardour${lib.versions.major version}.png"
       done
       install -vDm 644 "ardour.1"* -t "$out/share/man/man1"
 

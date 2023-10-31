@@ -55,9 +55,7 @@ stdenv.mkDerivation rec {
         --with-lock-dir=/run/lock \
         --with-pid-dir=/run \
         --enable-usb \
-        ${
-          lib.optionalString enableCgiScripts "--enable-cgi --with-cgi-bin=$out/libexec/cgi-bin"
-        }
+        ${lib.optionalString enableCgiScripts "--enable-cgi --with-cgi-bin=$out/libexec/cgi-bin"}
         "
   '';
 

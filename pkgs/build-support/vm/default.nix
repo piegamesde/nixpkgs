@@ -393,9 +393,7 @@ rec {
 
           mkdir -p $out
           mkdir -p tmp
-          mount -o loop,ro,ufstype=44bsd ${
-            lib.optionalString (fs != null) "-t ${fs} "
-          }${file} tmp ||
+          mount -o loop,ro,ufstype=44bsd ${lib.optionalString (fs != null) "-t ${fs} "}${file} tmp ||
             mount -o loop,ro ${lib.optionalString (fs != null) "-t ${fs} "}${file} tmp
           cp -Rv tmp/* $out/ || exit 0
         '';

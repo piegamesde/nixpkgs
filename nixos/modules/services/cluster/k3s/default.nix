@@ -104,9 +104,7 @@ in
 
     tokenFile = mkOption {
       type = types.nullOr types.path;
-      description =
-        lib.mdDoc
-          "File path containing k3s token to use when connecting to the server.";
+      description = lib.mdDoc "File path containing k3s token to use when connecting to the server.";
       default = null;
     };
 

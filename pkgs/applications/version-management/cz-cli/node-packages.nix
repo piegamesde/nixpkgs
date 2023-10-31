@@ -8248,12 +8248,7 @@ in
         }
       )
       sources."@sinonjs/commons-1.8.3"
-      (
-        sources."@sinonjs/formatio-3.2.2"
-        // {
-          dependencies = [ sources."@sinonjs/samsam-3.3.3" ];
-        }
-      )
+      (sources."@sinonjs/formatio-3.2.2" // { dependencies = [ sources."@sinonjs/samsam-3.3.3" ]; })
       sources."@sinonjs/samsam-2.1.3"
       sources."@sinonjs/text-encoding-0.7.1"
       sources."@types/glob-7.2.0"
@@ -8378,9 +8373,7 @@ in
         // {
           dependencies = [
             sources."define-property-0.2.5"
-            (
-              sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; }
-            )
+            (sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; })
             (sources."is-data-descriptor-0.1.4" // { dependencies = [ sources."kind-of-3.2.2" ]; })
             sources."is-descriptor-0.1.6"
             sources."kind-of-5.1.0"
@@ -8420,10 +8413,7 @@ in
       sources."conventional-changelog-angular-5.0.13"
       sources."conventional-changelog-conventionalcommits-4.4.0"
       (
-        sources."conventional-changelog-writer-4.1.0"
-        // {
-          dependencies = [ sources."split-1.0.1" ];
-        }
+        sources."conventional-changelog-writer-4.1.0" // { dependencies = [ sources."split-1.0.1" ]; }
       )
       sources."conventional-commit-types-3.0.0"
       sources."conventional-commits-filter-2.0.7"
@@ -8510,9 +8500,7 @@ in
           dependencies = [
             sources."define-property-0.2.5"
             sources."extend-shallow-2.0.1"
-            (
-              sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; }
-            )
+            (sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; })
             (sources."is-data-descriptor-0.1.4" // { dependencies = [ sources."kind-of-3.2.2" ]; })
             sources."is-descriptor-0.1.6"
             sources."kind-of-5.1.0"
@@ -8860,12 +8848,7 @@ in
           ];
         }
       )
-      (
-        sources."mocha-junit-reporter-1.18.0"
-        // {
-          dependencies = [ sources."strip-ansi-4.0.0" ];
-        }
-      )
+      (sources."mocha-junit-reporter-1.18.0" // { dependencies = [ sources."strip-ansi-4.0.0" ]; })
       (
         sources."mocha-multi-reporters-1.1.7"
         // {
@@ -9157,9 +9140,7 @@ in
           dependencies = [
             sources."define-property-0.2.5"
             sources."extend-shallow-2.0.1"
-            (
-              sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; }
-            )
+            (sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; })
             (sources."is-data-descriptor-0.1.4" // { dependencies = [ sources."kind-of-3.2.2" ]; })
             sources."is-descriptor-0.1.6"
             sources."kind-of-5.1.0"
@@ -9167,9 +9148,7 @@ in
           ];
         }
       )
-      (
-        sources."snapdragon-node-2.1.1" // { dependencies = [ sources."define-property-1.0.0" ]; }
-      )
+      (sources."snapdragon-node-2.1.1" // { dependencies = [ sources."define-property-1.0.0" ]; })
       (sources."snapdragon-util-3.0.1" // { dependencies = [ sources."kind-of-3.2.2" ]; })
       sources."sntp-0.2.4"
       sources."source-map-0.6.1"
@@ -9200,9 +9179,7 @@ in
         // {
           dependencies = [
             sources."define-property-0.2.5"
-            (
-              sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; }
-            )
+            (sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; })
             (sources."is-data-descriptor-0.1.4" // { dependencies = [ sources."kind-of-3.2.2" ]; })
             sources."is-descriptor-0.1.6"
             sources."kind-of-5.1.0"

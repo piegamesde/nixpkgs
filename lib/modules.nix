@@ -313,9 +313,7 @@ rec {
 
       checkUnmatched =
         if
-          config._module.check
-          && config._module.freeformType == null
-          && merged.unmatchedDefns != [ ]
+          config._module.check && config._module.freeformType == null && merged.unmatchedDefns != [ ]
         then
           let
             firstDef = head merged.unmatchedDefns;
@@ -629,8 +627,7 @@ rec {
         extraArgs =
           builtins.mapAttrs
             (
-              name: _:
-              builtins.addErrorContext (context name) (args.${name} or config._module.args.${name})
+              name: _: builtins.addErrorContext (context name) (args.${name} or config._module.args.${name})
             )
             (lib.functionArgs f);
       in
@@ -967,9 +964,9 @@ rec {
                 defs';
           in
           throw
-            "The option `${
-              showOption loc
-            }' is read-only, but it's set multiple times. Definition values:${showDefs separateDefs}"
+            "The option `${showOption loc}' is read-only, but it's set multiple times. Definition values:${
+              showDefs separateDefs
+            }"
         else
           mergeDefinitions loc opt.type defs';
 
@@ -1131,22 +1128,14 @@ rec {
     let
       getPrio =
         def:
-        if def.value._type or "" == "override" then
-          def.value.priority
-        else
-          defaultOverridePriority;
+        if def.value._type or "" == "override" then def.value.priority else defaultOverridePriority;
       highestPrio = foldl' (prio: def: min (getPrio def) prio) 9999 defs;
       strip =
         def:
-        if def.value._type or "" == "override" then
-          def // { value = def.value.content; }
-        else
-          def;
+        if def.value._type or "" == "override" then def // { value = def.value.content; } else def;
     in
     {
-      values =
-        concatMap (def: if getPrio def == highestPrio then [ (strip def) ] else [ ])
-          defs;
+      values = concatMap (def: if getPrio def == highestPrio then [ (strip def) ] else [ ]) defs;
       inherit highestPrio;
     };
 
@@ -1168,8 +1157,7 @@ rec {
         else
           def;
       defs' = map strip defs;
-      compare =
-        a: b: (a.priority or defaultOrderPriority) < (b.priority or defaultOrderPriority);
+      compare = a: b: (a.priority or defaultOrderPriority) < (b.priority or defaultOrderPriority);
     in
     sort compare defs';
 
@@ -1447,9 +1435,7 @@ rec {
         }
         // setAttrByPath to (
           mkMerge (
-            optional (any (f: (getAttrFromPath f config) != "_mkMergedOptionModule") from) (
-              mergeFn config
-            )
+            optional (any (f: (getAttrFromPath f config) != "_mkMergedOptionModule") from) (mergeFn config)
           )
         );
     };
@@ -1557,9 +1543,9 @@ rec {
         (optionalAttrs (options ? warnings) {
           warnings =
             optional (warn && fromOpt.isDefined)
-              "The option `${showOption from}' defined in ${
-                showFiles fromOpt.files
-              } has been renamed to `${showOption to}'.";
+              "The option `${showOption from}' defined in ${showFiles fromOpt.files} has been renamed to `${
+                showOption to
+              }'.";
         })
         (
           if withPriority then

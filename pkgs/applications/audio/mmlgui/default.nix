@@ -71,9 +71,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.updateScript = unstableGitUpdater {
-    url = "https://github.com/superctr/mmlgui.git";
-  };
+  passthru.updateScript = unstableGitUpdater { url = "https://github.com/superctr/mmlgui.git"; };
 
   meta = with lib; {
     homepage = "https://github.com/superctr/mmlgui";

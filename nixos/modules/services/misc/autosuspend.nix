@@ -35,9 +35,8 @@ let
   # Whether the given check is enabled
   hasCheck =
     class:
-    (filterAttrs (n: v: v.enabled && (if v.class == null then n else v.class) == class)
-      cfg.checks
-    ) != { };
+    (filterAttrs (n: v: v.enabled && (if v.class == null then n else v.class) == class) cfg.checks)
+    != { };
 
   # Dependencies needed by specific checks
   dependenciesForChecks = {
@@ -235,9 +234,7 @@ in
   config = mkIf cfg.enable {
     systemd.services.autosuspend = {
       description = "A daemon to suspend your server in case of inactivity";
-      documentation = [
-        "https://autosuspend.readthedocs.io/en/latest/systemd_integration.html"
-      ];
+      documentation = [ "https://autosuspend.readthedocs.io/en/latest/systemd_integration.html" ];
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
       path = flatten (attrValues (filterAttrs (n: _: hasCheck n) dependenciesForChecks));
@@ -248,9 +245,7 @@ in
 
     systemd.services.autosuspend-detect-suspend = {
       description = "Notifies autosuspend about suspension";
-      documentation = [
-        "https://autosuspend.readthedocs.io/en/latest/systemd_integration.html"
-      ];
+      documentation = [ "https://autosuspend.readthedocs.io/en/latest/systemd_integration.html" ];
       wantedBy = [ "sleep.target" ];
       after = [ "sleep.target" ];
       serviceConfig = {

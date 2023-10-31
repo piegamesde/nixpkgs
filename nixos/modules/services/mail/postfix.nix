@@ -180,8 +180,7 @@ let
           mkBool = bool: if bool then "y" else "n";
           mkArg = arg: "${optionalString (hasPrefix "-" arg) "\n  "}${arg}";
 
-          maybeOption =
-            fun: option: if options.${option}.isDefined then fun config.${option} else "-";
+          maybeOption = fun: option: if options.${option}.isDefined then fun config.${option} else "-";
 
           # This is special, because we have two options for this value.
           wakeup =
@@ -189,8 +188,7 @@ let
               wakeupDefined = options.wakeup.isDefined;
               wakeupUCDefined = options.wakeupUnusedComponent.isDefined;
               finalValue =
-                toString config.wakeup
-                + optionalString (wakeupUCDefined && !config.wakeupUnusedComponent) "?";
+                toString config.wakeup + optionalString (wakeupUCDefined && !config.wakeupUnusedComponent) "?";
             in
             if wakeupDefined then finalValue else "-";
         in
@@ -325,9 +323,7 @@ let
   localRecipientMapFile = pkgs.writeText "postfix-local-recipient-map" (
     concatMapStrings (x: x + " ACCEPT\n") cfg.localRecipients
   );
-  checkClientAccessFile =
-    pkgs.writeText "postfix-check-client-access"
-      cfg.dnsBlacklistOverrides;
+  checkClientAccessFile = pkgs.writeText "postfix-check-client-access" cfg.dnsBlacklistOverrides;
   mainCfFile = pkgs.writeText "postfix-main.cf" mainCf;
   masterCfFile = pkgs.writeText "postfix-master.cf" masterCfContent;
   transportFile = pkgs.writeText "postfix-transport" cfg.transport;
@@ -940,9 +936,7 @@ in
           // optionalAttrs (cfg.recipientDelimiter != "") {
             recipient_delimiter = cfg.recipientDelimiter;
           }
-          // optionalAttrs haveAliases {
-            alias_maps = [ "${cfg.aliasMapType}:/etc/postfix/aliases" ];
-          }
+          // optionalAttrs haveAliases { alias_maps = [ "${cfg.aliasMapType}:/etc/postfix/aliases" ]; }
           // optionalAttrs haveTransport { transport_maps = [ "hash:/etc/postfix/transport" ]; }
           // optionalAttrs haveVirtual {
             virtual_alias_maps = [ "${cfg.virtualMapType}:/etc/postfix/virtual" ];
@@ -952,9 +946,7 @@ in
               "hash:/etc/postfix/local_recipients"
             ] ++ optional haveAliases "$alias_maps";
           }
-          // optionalAttrs (cfg.dnsBlacklists != [ ]) {
-            smtpd_client_restrictions = clientRestrictions;
-          }
+          // optionalAttrs (cfg.dnsBlacklists != [ ]) { smtpd_client_restrictions = clientRestrictions; }
           // optionalAttrs cfg.useSrs {
             sender_canonical_maps = [ "tcp:127.0.0.1:10001" ];
             sender_canonical_classes = [ "envelope_sender" ];
@@ -1118,9 +1110,7 @@ in
       (mkIf haveLocalRecipients {
         services.postfix.mapFiles.local_recipients = localRecipientMapFile;
       })
-      (mkIf cfg.enableHeaderChecks {
-        services.postfix.mapFiles.header_checks = headerChecksFile;
-      })
+      (mkIf cfg.enableHeaderChecks { services.postfix.mapFiles.header_checks = headerChecksFile; })
       (mkIf (cfg.dnsBlacklists != [ ]) {
         services.postfix.mapFiles.client_access = checkClientAccessFile;
       })

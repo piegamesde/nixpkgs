@@ -113,9 +113,7 @@ stdenv.mkDerivation rec {
       --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker) \
       opt/BlueJeans/resources/BluejeansHelper
 
-    cc $localtime64_stub -shared -o "${
-      placeholder "out"
-    }"/opt/BlueJeans/liblocaltime64_stub.so
+    cc $localtime64_stub -shared -o "${placeholder "out"}"/opt/BlueJeans/liblocaltime64_stub.so
 
     # make xdg-open overrideable at runtime
     makeWrapper $out/opt/BlueJeans/bluejeans-v2 $out/bin/bluejeans \

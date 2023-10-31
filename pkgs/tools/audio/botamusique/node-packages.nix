@@ -4650,12 +4650,7 @@ let
       sources."@types/tapable-1.0.6"
       (sources."@types/uglify-js-3.11.1" // { dependencies = [ sources."source-map-0.6.1" ]; })
       (sources."@types/webpack-4.41.25" // { dependencies = [ sources."source-map-0.6.1" ]; })
-      (
-        sources."@types/webpack-sources-2.0.0"
-        // {
-          dependencies = [ sources."source-map-0.7.3" ];
-        }
-      )
+      (sources."@types/webpack-sources-2.0.0" // { dependencies = [ sources."source-map-0.7.3" ]; })
       sources."@webassemblyjs/ast-1.9.0"
       sources."@webassemblyjs/floating-point-hex-parser-1.9.0"
       sources."@webassemblyjs/helper-api-error-1.9.0"
@@ -5080,9 +5075,7 @@ let
       sources."slice-ansi-2.1.0"
       sources."source-list-map-2.0.1"
       sources."source-map-0.5.7"
-      (
-        sources."source-map-support-0.5.19" // { dependencies = [ sources."source-map-0.6.1" ]; }
-      )
+      (sources."source-map-support-0.5.19" // { dependencies = [ sources."source-map-0.6.1" ]; })
       sources."spdx-correct-3.1.1"
       sources."spdx-exceptions-2.3.0"
       sources."spdx-expression-parse-3.0.1"

@@ -196,9 +196,7 @@ import ./make-test-python.nix (
 
           # mosquitto grabs *one* random address per type for bind_interface
           (has4, has6) = (False, False)
-          for line in server.succeed("ss -HlptnO sport = ${
-            toString bindTestPort
-          }").splitlines():
+          for line in server.succeed("ss -HlptnO sport = ${toString bindTestPort}").splitlines():
               items = line.split()
               if "mosquitto" not in items[5]: continue
               listener = items[3].rsplit(':', maxsplit=1)[0].strip('[]')

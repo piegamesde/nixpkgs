@@ -28,10 +28,8 @@ in
     '';
 
     # Trick just to set 'sh' after the extraUtils nuke-refs.
-    boot.initrd.extraUtilsCommandsTest =
-      mkIf (inInitrd && !config.boot.initrd.systemd.enable)
-        ''
-          sed -i -e 's,^#!.*,#!'$out/bin/sh, $out/bin/fsck.xfs
-        '';
+    boot.initrd.extraUtilsCommandsTest = mkIf (inInitrd && !config.boot.initrd.systemd.enable) ''
+      sed -i -e 's,^#!.*,#!'$out/bin/sh, $out/bin/fsck.xfs
+    '';
   };
 }

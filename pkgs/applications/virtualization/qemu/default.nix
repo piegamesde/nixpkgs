@@ -95,10 +95,7 @@
   hostCpuOnly ? false,
   hostCpuTargets ? (
     if hostCpuOnly then
-      (
-        lib.optional stdenv.isx86_64 "i386-softmmu"
-        ++ [ "${stdenv.hostPlatform.qemuArch}-softmmu" ]
-      )
+      (lib.optional stdenv.isx86_64 "i386-softmmu" ++ [ "${stdenv.hostPlatform.qemuArch}-softmmu" ])
     else
       null
   ),
@@ -124,9 +121,7 @@ stdenv.mkDerivation rec {
     sha256 = "u2DwNBUxGB1sw5ad0ZoBPQQnqH+RgZOXDZrbkRMeVtA=";
   };
 
-  depsBuildBuild = [
-    buildPackages.stdenv.cc
-  ] ++ lib.optionals hexagonSupport [ pkg-config ];
+  depsBuildBuild = [ buildPackages.stdenv.cc ] ++ lib.optionals hexagonSupport [ pkg-config ];
 
   nativeBuildInputs =
     [

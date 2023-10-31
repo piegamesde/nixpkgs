@@ -8,8 +8,7 @@
       "129gsxhhcxqycg0zjrdrz2ay4dv2ih1ckafqh33qrc499z8dam2p"
       { };
   Csu =
-    applePackage' "Csu" "88" "macos-11.0.1"
-      "1lzp9x8iv60c2h12q2s89nf49b5hvpqq4a9li44zr2fxszn8lqxh"
+    applePackage' "Csu" "88" "macos-11.0.1" "1lzp9x8iv60c2h12q2s89nf49b5hvpqq4a9li44zr2fxszn8lqxh"
       { };
   ICU =
     applePackage' "ICU" "66108" "macos-11.0.1"
@@ -156,8 +155,7 @@
       "17fn35m6i866zjrf8da6cq6crydp6vp4zq0aaab243rv1fx303yy"
       { };
   top =
-    applePackage' "top" "129" "macos-11.0.1"
-      "0d9pqmv3mwkfcv7c05hfvnvnn4rbsl92plr5hsazp854pshzqw2k"
+    applePackage' "top" "129" "macos-11.0.1" "0d9pqmv3mwkfcv7c05hfvnvnn4rbsl92plr5hsazp854pshzqw2k"
       { };
   xnu =
     applePackage' "xnu" "7195.50.7.100.1" "macos-11.0.1"

@@ -212,9 +212,7 @@ in
           map
             (
               instance:
-              nameValuePair "v4l2-relayd-${escapeSystemdPath instance.name}" (
-                mkInstanceService instance
-              )
+              nameValuePair "v4l2-relayd-${escapeSystemdPath instance.name}" (mkInstanceService instance)
             )
             instances
         );

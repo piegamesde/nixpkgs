@@ -68,8 +68,7 @@ let
   docDir = "$out/share/doc/ghc/html";
   packageCfgDir = "${libDir}/package.conf.d";
   paths = lib.concatLists (
-    builtins.map
-      (pkg: [ pkg ] ++ lib.optionals installDocumentation [ (lib.getOutput "doc" pkg) ])
+    builtins.map (pkg: [ pkg ] ++ lib.optionals installDocumentation [ (lib.getOutput "doc" pkg) ])
       (lib.filter (x: x ? isHaskellLibrary) (lib.closePropagation packages))
   );
   hasLibraries = lib.any (x: x.isHaskellLibrary) paths;
@@ -90,8 +89,7 @@ else
     # if such a feature is needed, the real compiler name should be saved
     # as a dedicated drv attribute, like `compiler-name`
     name = ghc.name + "-with-packages";
-    paths =
-      paths ++ [ ghc ] ++ lib.optionals installDocumentation [ (lib.getOutput "doc" ghc) ];
+    paths = paths ++ [ ghc ] ++ lib.optionals installDocumentation [ (lib.getOutput "doc" ghc) ];
     nativeBuildInputs = [ makeWrapper ];
     postBuild =
       ''

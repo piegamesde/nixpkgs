@@ -319,8 +319,7 @@ in
     assertions =
       [
         {
-          assertion =
-            cfg.configFile == configFile -> cfg.adapter == "caddyfile" || cfg.adapter == null;
+          assertion = cfg.configFile == configFile -> cfg.adapter == "caddyfile" || cfg.adapter == null;
           message = "To specify an adapter other than 'caddyfile' please provide your own configuration via `services.caddy.configFile`";
         }
       ]
@@ -397,9 +396,7 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "caddy") {
-      caddy.gid = config.ids.gids.caddy;
-    };
+    users.groups = optionalAttrs (cfg.group == "caddy") { caddy.gid = config.ids.gids.caddy; };
 
     security.acme.certs =
       let

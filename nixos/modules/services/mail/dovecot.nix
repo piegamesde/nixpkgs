@@ -45,8 +45,7 @@ let
           ssl_cert = <${cfg.sslServerCert}
           ssl_key = <${cfg.sslServerKey}
           ${optionalString (cfg.sslCACert != null) ("ssl_ca = <" + cfg.sslCACert)}
-          ${optionalString cfg.enableDHE
-            "ssl_dh = <${config.security.dhparams.params.dovecot2.path}"}
+          ${optionalString cfg.enableDHE "ssl_dh = <${config.security.dhparams.params.dovecot2.path}"}
           disable_plaintext_auth = yes
         ''
     )
@@ -209,9 +208,7 @@ in
   options.services.dovecot2 = {
     enable = mkEnableOption (lib.mdDoc "the dovecot 2.x POP3/IMAP server");
 
-    enablePop3 = mkEnableOption (
-      lib.mdDoc "starting the POP3 listener (when Dovecot is enabled)"
-    );
+    enablePop3 = mkEnableOption (lib.mdDoc "starting the POP3 listener (when Dovecot is enabled)");
 
     enableImap =
       mkEnableOption (lib.mdDoc "starting the IMAP listener (when Dovecot is enabled)")
@@ -219,9 +216,7 @@ in
         default = true;
       };
 
-    enableLmtp = mkEnableOption (
-      lib.mdDoc "starting the LMTP listener (when Dovecot is enabled)"
-    );
+    enableLmtp = mkEnableOption (lib.mdDoc "starting the LMTP listener (when Dovecot is enabled)");
 
     protocols = mkOption {
       type = types.listOf types.str;
@@ -282,9 +277,7 @@ in
                 };
               };
               perProtocol = mkOption {
-                description =
-                  lib.mdDoc
-                    "Additional entries to add to the mail_plugins variable, per protocol";
+                description = lib.mdDoc "Additional entries to add to the mail_plugins variable, per protocol";
                 type = attrsOf (plugins "corresponding per-protocol");
                 default = { };
                 example = {
@@ -375,9 +368,7 @@ in
     };
 
     enablePAM =
-      mkEnableOption (
-        lib.mdDoc "creating a own Dovecot PAM service and configure PAM user logins"
-      )
+      mkEnableOption (lib.mdDoc "creating a own Dovecot PAM service and configure PAM user logins")
       // {
         default = true;
       };
@@ -489,9 +480,7 @@ in
         dovenull.gid = config.ids.gids.dovenull2;
       }
       // optionalAttrs (cfg.group == "dovecot2") { dovecot2.gid = config.ids.gids.dovecot2; }
-      // optionalAttrs (cfg.createMailUser && cfg.mailGroup != null) {
-        ${cfg.mailGroup} = { };
-      };
+      // optionalAttrs (cfg.createMailUser && cfg.mailGroup != null) { ${cfg.mailGroup} = { }; };
 
     environment.etc."dovecot/modules".source = modulesDir;
     environment.etc."dovecot/dovecot.conf".source = cfg.configFile;

@@ -14,9 +14,7 @@ let
   # This is to provide support for old configuration options (as much as is
   # reasonable). This can be removed after 18.03 was released.
   defaultConfig = {
-    libdefaults = optionalAttrs (cfg.defaultRealm != null) {
-      default_realm = cfg.defaultRealm;
-    };
+    libdefaults = optionalAttrs (cfg.defaultRealm != null) { default_realm = cfg.defaultRealm; };
 
     realms =
       optionalAttrs
@@ -115,9 +113,7 @@ in
 
   options = {
     krb5 = {
-      enable = mkEnableOption (
-        lib.mdDoc "building krb5.conf, configuration file for Kerberos V"
-      );
+      enable = mkEnableOption (lib.mdDoc "building krb5.conf, configuration file for Kerberos V");
 
       kerberos = mkOption {
         type = types.package;

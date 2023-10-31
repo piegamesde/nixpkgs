@@ -114,8 +114,7 @@ rec {
 
   # Pull out specific solution keys to build ENV=val pairs
   phraseEnvs =
-    solution: value:
-    spaces (lib.mapAttrsToList (phraseEnv solution) (removeUnneededArgs value));
+    solution: value: spaces (lib.mapAttrsToList (phraseEnv solution) (removeUnneededArgs value));
 
   # Pull out specific solution keys to build CLI argstring
   phraseArgs =

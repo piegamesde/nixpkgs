@@ -57,8 +57,7 @@ rec {
         builtins.any
           (
             platform:
-            platform.engine == rubyEngine
-            && (!(platform ? version) || platform.version == version.majMin)
+            platform.engine == rubyEngine && (!(platform ? version) || platform.version == version.majMin)
           )
           attrs.platforms
     );
@@ -71,9 +70,7 @@ rec {
 
   applyGemConfigs =
     attrs:
-    (
-      if gemConfig ? ${attrs.gemName} then attrs // gemConfig.${attrs.gemName} attrs else attrs
-    );
+    (if gemConfig ? ${attrs.gemName} then attrs // gemConfig.${attrs.gemName} attrs else attrs);
 
   genStubsScript =
     {

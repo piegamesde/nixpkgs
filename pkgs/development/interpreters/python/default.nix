@@ -49,9 +49,7 @@
                     false;
                 valid =
                   value:
-                  pythonPackages.hasPythonModule value
-                  || providesSetupHook value
-                  || lib.elem value exceptions;
+                  pythonPackages.hasPythonModule value || providesSetupHook value || lib.elem value exceptions;
                 func =
                   name: value:
                   if lib.isDerivation value then

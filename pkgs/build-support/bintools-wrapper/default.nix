@@ -136,9 +136,7 @@ let
   expand-response-params =
     lib.optionalString
       (
-        buildPackages ? stdenv
-        && buildPackages.stdenv.hasCC
-        && buildPackages.stdenv.cc != "/dev/null"
+        buildPackages ? stdenv && buildPackages.stdenv.hasCC && buildPackages.stdenv.cc != "/dev/null"
       )
       (import ../expand-response-params { inherit (buildPackages) stdenv; });
 in
@@ -149,9 +147,7 @@ stdenv.mkDerivation {
 
   preferLocalBuild = true;
 
-  outputs = [
-    "out"
-  ] ++ optionals propagateDoc ([ "man" ] ++ optional (bintools ? info) "info");
+  outputs = [ "out" ] ++ optionals propagateDoc ([ "man" ] ++ optional (bintools ? info) "info");
 
   passthru = {
     inherit targetPrefix suffixSalt;
@@ -430,9 +426,7 @@ stdenv.mkDerivation {
         export darwinMinVersion=${darwinMinVersion}
         export darwinSdkVersion=${darwinSdkVersion}
         export darwinMinVersionVariable=${darwinMinVersionVariable}
-        substituteAll ${
-          ./add-darwin-ldflags-before.sh
-        } $out/nix-support/add-local-ldflags-before.sh
+        substituteAll ${./add-darwin-ldflags-before.sh} $out/nix-support/add-local-ldflags-before.sh
       ''
     )
 

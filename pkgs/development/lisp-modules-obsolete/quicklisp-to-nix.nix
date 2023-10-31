@@ -490,16 +490,14 @@ let
       (f: x: (x // (f x)))
         (qlOverrides."hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank" or (x: { }))
         (
-          import
-            ./quicklisp-to-nix-output/hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank.nix
+          import ./quicklisp-to-nix-output/hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank.nix
             {
               inherit fetchurl;
               "alexandria" = quicklisp-to-nix-packages."alexandria";
               "anaphora" = quicklisp-to-nix-packages."anaphora";
               "hu_dot_dwim_dot_asdf" = quicklisp-to-nix-packages."hu_dot_dwim_dot_asdf";
               "hu_dot_dwim_dot_def" = quicklisp-to-nix-packages."hu_dot_dwim_dot_def";
-              "hu_dot_dwim_dot_def_plus_swank" =
-                quicklisp-to-nix-packages."hu_dot_dwim_dot_def_plus_swank";
+              "hu_dot_dwim_dot_def_plus_swank" = quicklisp-to-nix-packages."hu_dot_dwim_dot_def_plus_swank";
               "hu_dot_dwim_dot_stefil" = quicklisp-to-nix-packages."hu_dot_dwim_dot_stefil";
               "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def" =
                 quicklisp-to-nix-packages."hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def";
@@ -1137,9 +1135,7 @@ let
 
     "net_dot_didierverna_dot_asdf-flv" = buildLispPackage (
       (f: x: (x // (f x))) (qlOverrides."net_dot_didierverna_dot_asdf-flv" or (x: { })) (
-        import ./quicklisp-to-nix-output/net_dot_didierverna_dot_asdf-flv.nix {
-          inherit fetchurl;
-        }
+        import ./quicklisp-to-nix-output/net_dot_didierverna_dot_asdf-flv.nix { inherit fetchurl; }
       )
     );
 

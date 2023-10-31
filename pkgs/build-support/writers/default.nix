@@ -299,8 +299,7 @@ let
       {
         libraries ? [ ],
       }:
-      makeScriptWriter { interpreter = "${pkgs.perl.withPackages (p: libraries)}/bin/perl"; }
-        name;
+      makeScriptWriter { interpreter = "${pkgs.perl.withPackages (p: libraries)}/bin/perl"; } name;
 
     # writePerlBin takes the same arguments as writePerl but outputs a directory (like writeScriptBin)
     writePerlBin = name: writePerl "/bin/${name}";

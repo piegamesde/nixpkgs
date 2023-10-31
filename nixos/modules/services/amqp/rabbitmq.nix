@@ -210,9 +210,7 @@ in
             [ ${concatStringsSep "," cfg.plugins} ].
           '';
         }
-        // optionalAttrs (cfg.config != "") {
-          RABBITMQ_ADVANCED_CONFIG_FILE = advanced_config_file;
-        };
+        // optionalAttrs (cfg.config != "") { RABBITMQ_ADVANCED_CONFIG_FILE = advanced_config_file; };
 
       serviceConfig = {
         ExecStart = "${cfg.package}/sbin/rabbitmq-server";

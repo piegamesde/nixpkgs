@@ -24,9 +24,7 @@ let
             ${v.target}'')
           (lib.filterAttrs (_: v: v.enable) cfg.contents);
     in
-    pkgs.writeText "shutdown-ramfs-contents" (
-      lib.concatStringsSep "\n" (storePaths ++ contents)
-    );
+    pkgs.writeText "shutdown-ramfs-contents" (lib.concatStringsSep "\n" (storePaths ++ contents));
 in
 {
   options.systemd.shutdownRamfs = {

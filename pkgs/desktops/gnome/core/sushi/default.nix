@@ -28,9 +28,7 @@ stdenv.mkDerivation rec {
   version = "43.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/sushi/${
-        lib.versions.major version
-      }/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/sushi/${lib.versions.major version}/${pname}-${version}.tar.xz";
     sha256 = "V4SFJhSasceE+5L7yTTDUU/lIqumSdXZ/t7H4bFHUns=";
   };
 

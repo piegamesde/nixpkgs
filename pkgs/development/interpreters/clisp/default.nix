@@ -123,9 +123,7 @@ stdenv.mkDerivation rec {
     + lib.concatMapStrings (x: " " + x) withModules
   );
 
-  env.NIX_CFLAGS_COMPILE = "-O0 ${
-      lib.optionalString (!stdenv.is64bit) "-falign-functions=4"
-    }";
+  env.NIX_CFLAGS_COMPILE = "-O0 ${lib.optionalString (!stdenv.is64bit) "-falign-functions=4"}";
 
   # TODO : make mod-check fails
   doCheck = false;

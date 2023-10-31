@@ -42,8 +42,7 @@ assert javahlBindings -> jdk != null && perl != null;
 let
   # Update libtool for macOS 11 support
   needsAutogen =
-    stdenv.hostPlatform.isDarwin
-    && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11";
+    stdenv.hostPlatform.isDarwin && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11";
 
   common =
     {

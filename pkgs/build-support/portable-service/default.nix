@@ -56,9 +56,7 @@ let
         PRETTY_NAME = "NixOS";
         BUILD_ID = "rolling";
       };
-      os-release = pkgs.writeText "os-release" (
-        envFileGenerator (filterNull os-release-params)
-      );
+      os-release = pkgs.writeText "os-release" (envFileGenerator (filterNull os-release-params));
     in
     stdenv.mkDerivation {
       pname = "root-fs-scaffold";

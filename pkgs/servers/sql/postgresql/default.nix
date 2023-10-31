@@ -147,10 +147,7 @@ let
         ]
         ++ lib.optionals stdenv'.isLinux [
           (
-            if atLeast "13" then
-              ./patches/socketdir-in-run-13.patch
-            else
-              ./patches/socketdir-in-run.patch
+            if atLeast "13" then ./patches/socketdir-in-run-13.patch else ./patches/socketdir-in-run.patch
           )
         ];
 
@@ -220,12 +217,10 @@ let
           ''}
         '';
 
-      postFixup =
-        lib.optionalString (!stdenv'.isDarwin && stdenv'.hostPlatform.libc == "glibc")
-          ''
-            # initdb needs access to "locale" command from glibc.
-            wrapProgram $out/bin/initdb --prefix PATH ":" ${glibc.bin}/bin
-          '';
+      postFixup = lib.optionalString (!stdenv'.isDarwin && stdenv'.hostPlatform.libc == "glibc") ''
+        # initdb needs access to "locale" command from glibc.
+        wrapProgram $out/bin/initdb --prefix PATH ":" ${glibc.bin}/bin
+      '';
 
       doCheck = !stdenv'.isDarwin;
       # autodetection doesn't seem to able to find this, but it's there.
@@ -290,13 +285,9 @@ let
               }
               this.pkgs;
 
-          tests =
-            {
-              postgresql = nixosTests.postgresql-wal-receiver.${thisAttr};
-            }
-            // lib.optionalAttrs jitSupport {
-              postgresql-jit = nixosTests.postgresql-jit.${thisAttr};
-            };
+          tests = {
+            postgresql = nixosTests.postgresql-wal-receiver.${thisAttr};
+          } // lib.optionalAttrs jitSupport { postgresql-jit = nixosTests.postgresql-jit.${thisAttr}; };
         }
         // lib.optionalAttrs jitSupport { inherit (llvmPackages) llvm; };
 

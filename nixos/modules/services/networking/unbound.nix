@@ -28,9 +28,7 @@ let
     else if isList v then
       (concatMapStringsSep "\n" (toConf indent n) v)
     else if isAttrs v then
-      (concatStringsSep "\n" (
-        [ "${indent}${n}:" ] ++ (mapAttrsToList (toConf "${indent}  ") v)
-      ))
+      (concatStringsSep "\n" ([ "${indent}${n}:" ] ++ (mapAttrsToList (toConf "${indent}  ") v)))
     else
       throw (traceSeq v "services.unbound.settings: unexpected type");
 

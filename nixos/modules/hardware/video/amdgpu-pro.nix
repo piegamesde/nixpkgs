@@ -71,8 +71,7 @@ in
       optional config.hardware.opengl.driSupport32Bit package32.vulkan;
 
     environment.etc = {
-      "modprobe.d/blacklist-radeon.conf".source =
-        package + "/etc/modprobe.d/blacklist-radeon.conf";
+      "modprobe.d/blacklist-radeon.conf".source = package + "/etc/modprobe.d/blacklist-radeon.conf";
       amd.source = package + "/etc/amd";
     };
   };

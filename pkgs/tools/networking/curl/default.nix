@@ -178,9 +178,9 @@ stdenv.mkDerivation (
         "--without-ca-bundle"
         "--without-ca-path"
       ]
-      ++
-        lib.optionals (!gnutlsSupport && !opensslSupport && !wolfsslSupport && !rustlsSupport)
-          [ "--without-ssl" ];
+      ++ lib.optionals (!gnutlsSupport && !opensslSupport && !wolfsslSupport && !rustlsSupport) [
+        "--without-ssl"
+      ];
 
     CXX = "${stdenv.cc.targetPrefix}c++";
     CXXCPP = "${stdenv.cc.targetPrefix}c++ -E";

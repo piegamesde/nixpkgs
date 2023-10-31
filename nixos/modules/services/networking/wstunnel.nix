@@ -12,8 +12,7 @@ let
   attrsToArgs =
     attrs:
     utils.escapeSystemdExecArgs (
-      mapAttrsToList (name: value: if value == true then "--${name}" else "--${name}=${value}")
-        attrs
+      mapAttrsToList (name: value: if value == true then "--${name}" else "--${name}=${value}") attrs
     );
   hostPortSubmodule = {
     options = {
@@ -281,9 +280,7 @@ let
 
         # The original argument name `websocketPingFrequency` is a misnomer, as the frequency is the inverse of the interval.
         websocketPingInterval = mkOption {
-          description =
-            mdDoc
-              "Do a heartbeat ping every N seconds to keep up the websocket connection.";
+          description = mdDoc "Do a heartbeat ping every N seconds to keep up the websocket connection.";
           type = types.nullOr types.ints.unsigned;
           default = null;
         };
@@ -335,8 +332,7 @@ let
             let
               resolvedTlsCertificate =
                 if useACMEHost != null then "${certConfig.directory}/fullchain.pem" else tlsCertificate;
-              resolvedTlsKey =
-                if useACMEHost != null then "${certConfig.directory}/key.pem" else tlsKey;
+              resolvedTlsKey = if useACMEHost != null then "${certConfig.directory}/key.pem" else tlsKey;
             in
             ''
               ${package}/bin/wstunnel \
@@ -350,8 +346,7 @@ let
                     "--tlsCertificate=${utils.escapeSystemdExecArg resolvedTlsCertificate}"
                 } \
                 ${
-                  optionalString (resolvedTlsKey != null)
-                    "--tlsKey=${utils.escapeSystemdExecArg resolvedTlsKey}"
+                  optionalString (resolvedTlsKey != null) "--tlsKey=${utils.escapeSystemdExecArg resolvedTlsKey}"
                 } \
                 ${optionalString verboseLogging "--verbose"} \
                 ${attrsToArgs extraArgs} \
@@ -401,9 +396,7 @@ let
               )
             } \
             ${
-              concatStringsSep " " (
-                mapAttrsToList (n: v: ''--customHeaders="${n}: ${v}"'') customHeaders
-              )
+              concatStringsSep " " (mapAttrsToList (n: v: ''--customHeaders="${n}: ${v}"'') customHeaders)
             } \
             ${
               optionalString (dynamicToRemote != null)
@@ -412,9 +405,7 @@ let
             ${optionalString udp "--udp"} \
             ${optionalString (httpProxy != null) "--httpProxy=${httpProxy}"} \
             ${optionalString (soMark != null) "--soMark=${toString soMark}"} \
-            ${
-              optionalString (upgradePathPrefix != null) "--upgradePathPrefix=${upgradePathPrefix}"
-            } \
+            ${optionalString (upgradePathPrefix != null) "--upgradePathPrefix=${upgradePathPrefix}"} \
             ${optionalString (hostHeader != null) "--hostHeader=${hostHeader}"} \
             ${optionalString (tlsSNI != null) "--tlsSNI=${tlsSNI}"} \
             ${optionalString tlsVerifyCertificate "--tlsVerifyCertificate"} \
@@ -422,9 +413,7 @@ let
               optionalString (websocketPingInterval != null)
                 "--websocketPingFrequency=${toString websocketPingInterval}"
             } \
-            ${
-              optionalString (upgradeCredentials != null) "--upgradeCredentials=${upgradeCredentials}"
-            } \
+            ${optionalString (upgradeCredentials != null) "--upgradeCredentials=${upgradeCredentials}"} \
             --udpTimeoutSec=${toString udpTimeout} \
             ${optionalString verboseLogging "--verbose"} \
             ${attrsToArgs extraArgs} \
@@ -517,8 +506,7 @@ in
         (name: serverCfg: {
           assertion =
             !(
-              serverCfg.useACMEHost != null
-              && (serverCfg.tlsCertificate != null || serverCfg.tlsKey != null)
+              serverCfg.useACMEHost != null && (serverCfg.tlsCertificate != null || serverCfg.tlsKey != null)
             );
           message = ''
             Options services.wstunnel.servers."${name}".useACMEHost and services.wstunnel.servers."${name}".{tlsCertificate, tlsKey} are mutually exclusive.

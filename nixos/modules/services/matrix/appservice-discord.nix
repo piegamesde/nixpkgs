@@ -133,9 +133,7 @@ in
           ${cfg.package}/bin/matrix-appservice-discord \
             --generate-registration \
             --url=${escapeShellArg cfg.url} \
-            ${
-              optionalString (cfg.localpart != null) "--localpart=${escapeShellArg cfg.localpart}"
-            } \
+            ${optionalString (cfg.localpart != null) "--localpart=${escapeShellArg cfg.localpart}"} \
             --config='${settingsFile}' \
             --file='${registrationFile}'
         fi

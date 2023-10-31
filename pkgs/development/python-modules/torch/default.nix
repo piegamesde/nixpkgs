@@ -288,9 +288,7 @@ buildPythonPackage rec {
       substituteInPlace cmake/public/LoadHIP.cmake \
         --replace "set(ROCM_PATH \$ENV{ROCM_PATH})" \
           "set(ROCM_PATH \$ENV{ROCM_PATH})
-      set(ROCM_VERSION ${
-        lib.concatStrings (lib.intersperse "0" (lib.splitString "." hip.version))
-      })"
+      set(ROCM_VERSION ${lib.concatStrings (lib.intersperse "0" (lib.splitString "." hip.version))})"
     ''
     # error: no member named 'aligned_alloc' in the global namespace; did you mean simply 'aligned_alloc'
     # This lib overrided aligned_alloc hence the error message. Tltr: his function is linkable but not in header.

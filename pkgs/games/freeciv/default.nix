@@ -55,8 +55,7 @@ stdenv.mkDerivation rec {
       autoreconfHook
       pkg-config
     ]
-    ++ lib.optionals qtClient [ qt5.wrapQtAppsHook ]
-    ++ lib.optionals gtkClient [ wrapGAppsHook ];
+    ++ lib.optionals qtClient [ qt5.wrapQtAppsHook ] ++ lib.optionals gtkClient [ wrapGAppsHook ];
 
   buildInputs =
     [

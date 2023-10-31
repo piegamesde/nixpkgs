@@ -49,8 +49,7 @@ let
   # List of all networks (normal + generated fallbacks)
   allNetworks =
     if cfg.fallbackToWPA2 then
-      map increaseWPA3Priority networkList
-      ++ map mkWPA2Fallback (filter hasMixedWPA networkList)
+      map increaseWPA3Priority networkList ++ map mkWPA2Fallback (filter hasMixedWPA networkList)
     else
       networkList;
 
@@ -69,8 +68,7 @@ let
     ++ optional (cfg.extraConfig != "") cfg.extraConfig
   );
 
-  configIsGenerated =
-    with cfg; networks != { } || extraConfig != "" || userControlled.enable;
+  configIsGenerated = with cfg; networks != { } || extraConfig != "" || userControlled.enable;
 
   # the original configuration file
   configFile =
@@ -540,8 +538,7 @@ in
               pskRaw
               auth
             ] <= 1;
-          message = ''
-            options networking.wireless."${name}".{psk,pskRaw,auth} are mutually exclusive'';
+          message = ''options networking.wireless."${name}".{psk,pskRaw,auth} are mutually exclusive'';
         }
       )
       ++ [

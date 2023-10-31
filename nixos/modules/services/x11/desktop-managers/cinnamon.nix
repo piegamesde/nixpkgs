@@ -59,9 +59,7 @@ in
       default = [ ];
       example = literalExpression "[ pkgs.cinnamon.blueberry ]";
       type = types.listOf types.package;
-      description =
-        lib.mdDoc
-          "Which packages cinnamon should exclude from the default environment";
+      description = lib.mdDoc "Which packages cinnamon should exclude from the default environment";
     };
   };
 

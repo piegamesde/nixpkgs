@@ -68,9 +68,7 @@ in
         copytruncate = true;
       };
 
-      systemd.tmpfiles.rules = [
-        "d /var/www/simplestreams 0755 lxd-image-server ${cfg.group}"
-      ];
+      systemd.tmpfiles.rules = [ "d /var/www/simplestreams 0755 lxd-image-server ${cfg.group}" ];
 
       systemd.services.lxd-image-server = {
         wantedBy = [ "multi-user.target" ];

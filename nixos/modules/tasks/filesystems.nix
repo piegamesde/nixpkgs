@@ -233,10 +233,7 @@ let
       isBindMount = fs: builtins.elem "bind" fs.options;
       skipCheck =
         fs:
-        fs.noCheck
-        || fs.device == "none"
-        || builtins.elem fs.fsType fsToSkipCheck
-        || isBindMount fs;
+        fs.noCheck || fs.device == "none" || builtins.elem fs.fsType fsToSkipCheck || isBindMount fs;
       # https://wiki.archlinux.org/index.php/fstab#Filepath_spaces
       escape =
         string:
@@ -291,9 +288,7 @@ let
     makeFstabEntries (filter utils.fsNeededForBoot fileSystems) {
       rootPrefix = "/sysroot";
       extraOpts =
-        fs:
-        (optional fs.autoResize "x-systemd.growfs")
-        ++ (optional fs.autoFormat "x-systemd.makefs");
+        fs: (optional fs.autoResize "x-systemd.growfs") ++ (optional fs.autoFormat "x-systemd.makefs");
     }
   );
 in
@@ -400,8 +395,7 @@ in
     assertions =
       let
         ls = sep: concatMapStringsSep sep (x: x.mountPoint);
-        notAutoResizable =
-          fs: fs.autoResize && !(hasPrefix "ext" fs.fsType || fs.fsType == "f2fs");
+        notAutoResizable = fs: fs.autoResize && !(hasPrefix "ext" fs.fsType || fs.fsType == "f2fs");
       in
       [
         {
@@ -475,8 +469,7 @@ in
 
     boot.initrd.systemd.storePaths = [ initrdFstab ];
     boot.initrd.systemd.managerEnvironment.SYSTEMD_SYSROOT_FSTAB = initrdFstab;
-    boot.initrd.systemd.services.initrd-parse-etc.environment.SYSTEMD_SYSROOT_FSTAB =
-      initrdFstab;
+    boot.initrd.systemd.services.initrd-parse-etc.environment.SYSTEMD_SYSROOT_FSTAB = initrdFstab;
 
     # Provide a target that pulls in all filesystems.
     systemd.targets.fs = {

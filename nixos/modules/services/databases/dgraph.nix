@@ -127,9 +127,7 @@ in
         StateDirectory = "dgraph-zero";
         WorkingDirectory = "/var/lib/dgraph-zero";
         DynamicUser = true;
-        ExecStart = "${cfg.package}/bin/dgraph zero --my ${cfg.zero.host}:${
-            toString cfg.zero.port
-          }";
+        ExecStart = "${cfg.package}/bin/dgraph zero --my ${cfg.zero.host}:${toString cfg.zero.port}";
         Restart = "on-failure";
       } // securityOptions;
     };

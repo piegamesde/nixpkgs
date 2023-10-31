@@ -188,8 +188,7 @@ in
 
     assertions = concatLists [
       (singleton {
-        assertion =
-          (length (attrValues cfg.servers) != 0) || ((length (attrValues cfg.clients)) != 0);
+        assertion = (length (attrValues cfg.servers) != 0) || ((length (attrValues cfg.clients)) != 0);
         message = "stunnel: At least one server- or client-configuration has to be present.";
       })
 

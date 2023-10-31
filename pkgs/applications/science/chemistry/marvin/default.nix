@@ -59,9 +59,7 @@ stdenv.mkDerivation rec {
     ${concatStrings (
       map
         (name: ''
-          substitute ${
-            ./. + "/${name}.desktop"
-          } $out/share/applications/${name}.desktop --subst-var out
+          substitute ${./. + "/${name}.desktop"} $out/share/applications/${name}.desktop --subst-var out
         '')
         [
           "LicenseManager"

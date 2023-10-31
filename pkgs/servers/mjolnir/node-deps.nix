@@ -3982,9 +3982,7 @@ let
       sources."doctrine-3.0.0"
       sources."dom-serializer-1.4.1"
       sources."domelementtype-2.3.0"
-      (
-        sources."domexception-2.0.1" // { dependencies = [ sources."webidl-conversions-5.0.0" ]; }
-      )
+      (sources."domexception-2.0.1" // { dependencies = [ sources."webidl-conversions-5.0.0" ]; })
       sources."domhandler-4.3.1"
       sources."domutils-2.8.0"
       sources."ecc-jsbn-0.1.2"
@@ -4023,12 +4021,7 @@ let
         }
       )
       (sources."eslint-scope-5.1.1" // { dependencies = [ sources."estraverse-4.3.0" ]; })
-      (
-        sources."eslint-utils-2.1.0"
-        // {
-          dependencies = [ sources."eslint-visitor-keys-1.3.0" ];
-        }
-      )
+      (sources."eslint-utils-2.1.0" // { dependencies = [ sources."eslint-visitor-keys-1.3.0" ]; })
       sources."eslint-visitor-keys-2.1.0"
       (
         sources."espree-7.3.1"
@@ -4282,12 +4275,7 @@ let
       sources."source-map-support-0.5.21"
       sources."sprintf-js-1.0.3"
       sources."sshpk-1.17.0"
-      (
-        sources."stack-utils-2.0.5"
-        // {
-          dependencies = [ sources."escape-string-regexp-2.0.0" ];
-        }
-      )
+      (sources."stack-utils-2.0.5" // { dependencies = [ sources."escape-string-regexp-2.0.0" ]; })
       sources."statuses-2.0.1"
       sources."stealthy-require-1.1.1"
       sources."steno-0.4.4"

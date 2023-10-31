@@ -22,9 +22,7 @@ let
   };
 
   pkgInfoFile = builtins.toFile "${name}-PKG-INFO" (
-    lib.concatStringsSep "\n" (
-      lib.mapAttrsToList (key: value: "${key}: ${value}") pkgInfoFields
-    )
+    lib.concatStringsSep "\n" (lib.mapAttrsToList (key: value: "${key}: ${value}") pkgInfoFields)
   );
 
   entryPointsFile = builtins.toFile "${name}-entry_points.txt" (

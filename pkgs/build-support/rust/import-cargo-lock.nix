@@ -74,9 +74,7 @@ let
 
   # Map package name + version to git commit SHA for packages with a git source.
   namesGitShas = builtins.listToAttrs (
-    builtins.map nameGitSha (
-      builtins.filter (pkg: lib.hasPrefix "git+" pkg.source) depPackages
-    )
+    builtins.map nameGitSha (builtins.filter (pkg: lib.hasPrefix "git+" pkg.source) depPackages)
   );
 
   nameGitSha =
@@ -120,8 +118,7 @@ let
     pkg: downloadUrl:
     let
       checksum =
-        pkg.checksum
-          or parsedLockFile.metadata."checksum ${pkg.name} ${pkg.version} (${pkg.source})";
+        pkg.checksum or parsedLockFile.metadata."checksum ${pkg.name} ${pkg.version} (${pkg.source})";
     in
     assert lib.assertMsg (checksum != null) ''
       Package ${pkg.name} does not have a checksum.
@@ -155,9 +152,7 @@ let
       gitParts = parseGit pkg.source;
       registryIndexUrl = lib.removePrefix "registry+" pkg.source;
     in
-    if
-      lib.hasPrefix "registry+" pkg.source && builtins.hasAttr registryIndexUrl registries
-    then
+    if lib.hasPrefix "registry+" pkg.source && builtins.hasAttr registryIndexUrl registries then
       let
         crateTarball = fetchCrate pkg registries.${registryIndexUrl};
       in

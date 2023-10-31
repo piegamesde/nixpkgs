@@ -35,17 +35,15 @@ let
       DBDir = ${cfg.backend.sql.database}
     ''}
 
-    ${optionalString
-      (cfg.backend.service == "sql" && cfg.backend.sql.driver == "native_pgsql")
-      (
-        with cfg.backend; ''
-          Driver = ${sql.driver}
-          ${optionalString (sql.database != null) "Database = ${sql.database}"}
-          ${optionalString (sql.host != null) "Host = ${sql.host}"}
-          ${optionalString (sql.user != null) "User = ${sql.user}"}
-          ${optionalString (sql.password != null) "Password = ${sql.password}"}
-        ''
-      )}
+    ${optionalString (cfg.backend.service == "sql" && cfg.backend.sql.driver == "native_pgsql") (
+      with cfg.backend; ''
+        Driver = ${sql.driver}
+        ${optionalString (sql.database != null) "Database = ${sql.database}"}
+        ${optionalString (sql.host != null) "Host = ${sql.host}"}
+        ${optionalString (sql.user != null) "User = ${sql.user}"}
+        ${optionalString (sql.password != null) "Password = ${sql.password}"}
+      ''
+    )}
 
     ${cfg.extraConfig.smsd}
   '';
@@ -110,9 +108,7 @@ in
         file = mkOption {
           type = types.str;
           default = "syslog";
-          description =
-            lib.mdDoc
-              "Path to file where information about communication will be stored";
+          description = lib.mdDoc "Path to file where information about communication will be stored";
         };
 
         format = mkOption {
@@ -235,8 +231,7 @@ in
 
     environment.systemPackages =
       with cfg.backend;
-      [ gammuPackage ]
-      ++ optionals (service == "sql" && sql.driver == "sqlite") [ pkgs.sqlite ];
+      [ gammuPackage ] ++ optionals (service == "sql" && sql.driver == "sqlite") [ pkgs.sqlite ];
 
     systemd.services.gammu-smsd = {
       description = "gammu-smsd daemon";
@@ -245,8 +240,7 @@ in
 
       wants =
         with cfg.backend;
-        [ ]
-        ++ optionals (service == "sql" && sql.driver == "native_pgsql") [ "postgresql.service" ];
+        [ ] ++ optionals (service == "sql" && sql.driver == "native_pgsql") [ "postgresql.service" ];
 
       preStart =
         with cfg.backend;

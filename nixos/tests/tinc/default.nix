@@ -37,9 +37,7 @@ import ../make-test-python.nix (
           services.tinc.networks.myNetwork = {
             inherit name;
             rsaPrivateKeyFile = builtins.toFile "rsa.priv" snakeoil-keys.${name}.rsaPrivate;
-            ed25519PrivateKeyFile =
-              builtins.toFile "ed25519.priv"
-                snakeoil-keys.${name}.ed25519Private;
+            ed25519PrivateKeyFile = builtins.toFile "ed25519.priv" snakeoil-keys.${name}.ed25519Private;
 
             hostSettings = lib.mapAttrs makeTincHost {
               static = {

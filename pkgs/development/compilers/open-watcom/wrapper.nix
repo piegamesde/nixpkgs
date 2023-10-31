@@ -67,9 +67,7 @@ let
         for binDir in ${lib.strings.concatStringsSep " " binDirs}; do
           for exe in $(find ${open-watcom}/$binDir \
           -type f -executable \
-          ${
-            lib.optionalString stdenv.hostPlatform.isLinux "-not -iname '*.so' -not -iname '*.exe'"
-          } \
+          ${lib.optionalString stdenv.hostPlatform.isLinux "-not -iname '*.so' -not -iname '*.exe'"} \
           ); do
             if [ ! -f $out/bin/$(basename $exe) ]; then
               makeWrapper $exe $out/bin/$(basename $exe) \

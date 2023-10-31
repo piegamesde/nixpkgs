@@ -125,8 +125,7 @@ in
       {
         imports = [ common ];
         boot.loader.systemd-boot.memtest86.enable = true;
-        nixpkgs.config.allowUnfreePredicate =
-          pkg: builtins.elem (lib.getName pkg) [ "memtest86-efi" ];
+        nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "memtest86-efi" ];
       };
 
     testScript = ''
@@ -162,8 +161,7 @@ in
         imports = [ common ];
         boot.loader.systemd-boot.memtest86.enable = true;
         boot.loader.systemd-boot.memtest86.entryFilename = "apple.conf";
-        nixpkgs.config.allowUnfreePredicate =
-          pkg: builtins.elem (lib.getName pkg) [ "memtest86-efi" ];
+        nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "memtest86-efi" ];
       };
 
     testScript = ''

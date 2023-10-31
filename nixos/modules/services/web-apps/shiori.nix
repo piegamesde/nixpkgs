@@ -46,9 +46,7 @@ in
       environment.SHIORI_DIR = "/var/lib/shiori";
 
       serviceConfig = {
-        ExecStart = "${package}/bin/shiori serve --address '${address}' --port '${
-            toString port
-          }'";
+        ExecStart = "${package}/bin/shiori serve --address '${address}' --port '${toString port}'";
 
         DynamicUser = true;
         StateDirectory = "shiori";

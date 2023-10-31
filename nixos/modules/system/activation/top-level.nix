@@ -353,8 +353,7 @@ in
 
     system.name = mkOption {
       type = types.str;
-      default =
-        if config.networking.hostName == "" then "unnamed" else config.networking.hostName;
+      default = if config.networking.hostName == "" then "unnamed" else config.networking.hostName;
       defaultText = literalExpression ''
         if config.networking.hostName == ""
         then "unnamed"
@@ -412,23 +411,21 @@ in
         fi
       '';
 
-    system.systemBuilderArgs =
-      lib.optionalAttrs (config.system.forbiddenDependenciesRegex != "")
-        {
-          inherit (config.system) forbiddenDependenciesRegex;
-          closureInfo = pkgs.closureInfo {
-            rootPaths =
-              [
-                # override to avoid  infinite recursion (and to allow using extraDependencies to add forbidden dependencies)
-                (config.system.build.toplevel.overrideAttrs (
-                  _: {
-                    extraDependencies = [ ];
-                    closureInfo = null;
-                  }
-                ))
-              ];
-          };
-        };
+    system.systemBuilderArgs = lib.optionalAttrs (config.system.forbiddenDependenciesRegex != "") {
+      inherit (config.system) forbiddenDependenciesRegex;
+      closureInfo = pkgs.closureInfo {
+        rootPaths =
+          [
+            # override to avoid  infinite recursion (and to allow using extraDependencies to add forbidden dependencies)
+            (config.system.build.toplevel.overrideAttrs (
+              _: {
+                extraDependencies = [ ];
+                closureInfo = null;
+              }
+            ))
+          ];
+      };
+    };
 
     system.build.toplevel =
       if config.system.includeBuildDependencies then systemWithBuildDeps else system;

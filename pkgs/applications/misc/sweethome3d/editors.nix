@@ -16,8 +16,7 @@
 
 let
 
-  sweetExec =
-    with lib; m: "sweethome3d-" + removeSuffix "libraryeditor" (toLower m) + "-editor";
+  sweetExec = with lib; m: "sweethome3d-" + removeSuffix "libraryeditor" (toLower m) + "-editor";
 
   applicationSrc = stdenv.mkDerivation {
     name = "application-src";

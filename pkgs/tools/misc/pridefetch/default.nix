@@ -20,9 +20,7 @@ in
 stdenv.mkDerivation {
   inherit pname version src;
   nativeBuildInputs = [ zip ];
-  buildInputs = [
-    (python3.withPackages (pythonPackages: with pythonPackages; [ distro ]))
-  ];
+  buildInputs = [ (python3.withPackages (pythonPackages: with pythonPackages; [ distro ])) ];
   buildPhase = ''
     runHook preBuild
     pushd src

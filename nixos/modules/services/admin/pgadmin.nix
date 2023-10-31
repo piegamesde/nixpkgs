@@ -53,9 +53,7 @@ let
 
   formatPy =
     attrs:
-    concatStringsSep "\n" (
-      mapAttrsToList (key: value: "${key} = ${formatPyValue value}") attrs
-    );
+    concatStringsSep "\n" (mapAttrsToList (key: value: "${key} = ${formatPyValue value}") attrs);
 
   pyType =
     with types;

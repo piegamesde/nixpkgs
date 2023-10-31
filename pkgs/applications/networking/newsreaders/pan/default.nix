@@ -57,15 +57,12 @@ stdenv.mkDerivation rec {
       gcr
     ];
 
-  configureFlags =
-    [
-      "--with-dbus"
-      "--with-gtk3"
-      "--with-gnutls"
-      "--enable-libnotify"
-    ]
-    ++ lib.optional spellChecking "--with-gtkspell"
-    ++ lib.optional gnomeSupport "--enable-gkr";
+  configureFlags = [
+    "--with-dbus"
+    "--with-gtk3"
+    "--with-gnutls"
+    "--enable-libnotify"
+  ] ++ lib.optional spellChecking "--with-gtkspell" ++ lib.optional gnomeSupport "--enable-gkr";
 
   postInstall = ''
     wrapProgram $out/bin/pan --suffix PATH : ${gnupg}/bin

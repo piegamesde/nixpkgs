@@ -64,6 +64,4 @@
     license = licenses.lgpl21Plus;
   };
 }).overrideAttrs
-  (
-    { version, ... }: if lib.versions.isGe "9.0" version then { repo = "topology"; } else { }
-  )
+  ({ version, ... }: if lib.versions.isGe "9.0" version then { repo = "topology"; } else { })

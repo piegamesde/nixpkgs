@@ -55,9 +55,7 @@ in
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
-        ExecStart = "${cfg.package}/bin/openrgb --server --server-port ${
-            toString cfg.server.port
-          }";
+        ExecStart = "${cfg.package}/bin/openrgb --server --server-port ${toString cfg.server.port}";
         Restart = "always";
       };
     };

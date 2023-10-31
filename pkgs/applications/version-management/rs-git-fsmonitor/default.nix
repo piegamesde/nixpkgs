@@ -22,9 +22,7 @@ rustPlatform.buildRustPackage rec {
   nativeBuildInputs = [ makeWrapper ];
 
   fixupPhase = ''
-    wrapProgram $out/bin/rs-git-fsmonitor --prefix PATH ":" "${
-      lib.makeBinPath [ watchman ]
-    }" ;
+    wrapProgram $out/bin/rs-git-fsmonitor --prefix PATH ":" "${lib.makeBinPath [ watchman ]}" ;
   '';
 
   meta = with lib; {

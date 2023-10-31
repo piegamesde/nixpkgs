@@ -12,8 +12,7 @@ let
   cfg = config.services.neo4j;
   opt = options.services.neo4j;
   certDirOpt = options.services.neo4j.directories.certificates;
-  isDefaultPathOption =
-    opt: isOption opt && opt.type == types.path && opt.highestPrio >= 1500;
+  isDefaultPathOption = opt: isOption opt && opt.type == types.path && opt.highestPrio >= 1500;
 
   sslPolicies =
     mapAttrsToList
@@ -548,9 +547,7 @@ in
                 baseDirectory = mkOption {
                   type = types.path;
                   default = "${cfg.directories.certificates}/${name}";
-                  defaultText =
-                    literalExpression
-                      ''"''${config.${opt.directories.certificates}}/''${name}"'';
+                  defaultText = literalExpression ''"''${config.${opt.directories.certificates}}/''${name}"'';
                   description = lib.mdDoc ''
                     The mandatory base directory for cryptographic objects of this
                     policy. This path is only automatically generated when this

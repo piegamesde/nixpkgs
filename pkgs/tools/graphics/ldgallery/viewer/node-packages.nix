@@ -8501,9 +8501,7 @@ let
           ];
         }
       )
-      (
-        sources."@vue/babel-sugar-v-on-1.4.0" // { dependencies = [ sources."camelcase-5.3.1" ]; }
-      )
+      (sources."@vue/babel-sugar-v-on-1.4.0" // { dependencies = [ sources."camelcase-5.3.1" ]; })
       sources."@vue/cli-overlay-5.0.8"
       sources."@vue/cli-plugin-babel-5.0.8"
       sources."@vue/cli-plugin-eslint-5.0.8"
@@ -8615,10 +8613,7 @@ let
       sources."babel-loader-8.2.5"
       sources."babel-plugin-dynamic-import-node-2.3.3"
       (
-        sources."babel-plugin-polyfill-corejs2-0.3.3"
-        // {
-          dependencies = [ sources."semver-6.3.0" ];
-        }
+        sources."babel-plugin-polyfill-corejs2-0.3.3" // { dependencies = [ sources."semver-6.3.0" ]; }
       )
       sources."babel-plugin-polyfill-corejs3-0.6.0"
       sources."babel-plugin-polyfill-regenerator-0.4.1"
@@ -8698,9 +8693,7 @@ let
       sources."concat-map-0.0.1"
       sources."connect-history-api-fallback-2.0.0"
       sources."consolidate-0.15.1"
-      (
-        sources."content-disposition-0.5.4" // { dependencies = [ sources."safe-buffer-5.2.1" ]; }
-      )
+      (sources."content-disposition-0.5.4" // { dependencies = [ sources."safe-buffer-5.2.1" ]; })
       sources."content-type-1.0.4"
       sources."convert-source-map-1.8.0"
       sources."cookie-0.5.0"
@@ -8823,12 +8816,7 @@ let
       )
       sources."eslint-config-standard-17.0.0"
       sources."eslint-import-resolver-custom-alias-1.3.0"
-      (
-        sources."eslint-import-resolver-node-0.3.6"
-        // {
-          dependencies = [ sources."debug-3.2.7" ];
-        }
-      )
+      (sources."eslint-import-resolver-node-0.3.6" // { dependencies = [ sources."debug-3.2.7" ]; })
       (sources."eslint-module-utils-2.7.4" // { dependencies = [ sources."debug-3.2.7" ]; })
       (
         sources."eslint-plugin-es-4.1.0"
@@ -8864,12 +8852,7 @@ let
       sources."eslint-plugin-promise-6.0.0"
       sources."eslint-plugin-vue-9.3.0"
       sources."eslint-scope-5.1.1"
-      (
-        sources."eslint-utils-3.0.0"
-        // {
-          dependencies = [ sources."eslint-visitor-keys-2.1.0" ];
-        }
-      )
+      (sources."eslint-utils-3.0.0" // { dependencies = [ sources."eslint-visitor-keys-2.1.0" ]; })
       sources."eslint-visitor-keys-3.3.0"
       (
         sources."eslint-webpack-plugin-3.2.0"
@@ -8991,9 +8974,7 @@ let
         }
       )
       sources."html-entities-2.3.3"
-      (
-        sources."html-minifier-terser-6.1.0" // { dependencies = [ sources."commander-8.3.0" ]; }
-      )
+      (sources."html-minifier-terser-6.1.0" // { dependencies = [ sources."commander-8.3.0" ]; })
       sources."html-tags-3.2.0"
       sources."html-webpack-plugin-5.5.0"
       sources."htmlparser2-6.1.0"
@@ -9381,12 +9362,7 @@ let
       (sources."svgo-2.8.0" // { dependencies = [ sources."commander-7.2.0" ]; })
       sources."tapable-2.2.1"
       sources."terser-5.15.0"
-      (
-        sources."terser-webpack-plugin-5.3.6"
-        // {
-          dependencies = [ sources."schema-utils-3.1.1" ];
-        }
-      )
+      (sources."terser-webpack-plugin-5.3.6" // { dependencies = [ sources."schema-utils-3.1.1" ]; })
       sources."text-table-0.2.0"
       sources."thenify-3.3.1"
       sources."thenify-all-1.6.0"

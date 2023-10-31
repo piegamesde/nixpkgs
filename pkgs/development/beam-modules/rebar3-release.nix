@@ -76,8 +76,7 @@ let
 
         configurePhase = ''
           runHook preConfigure
-          ${lib.optionalString (checkouts != null)
-            "cp --no-preserve=all -R ${checkouts}/_checkouts ."}
+          ${lib.optionalString (checkouts != null) "cp --no-preserve=all -R ${checkouts}/_checkouts ."}
           runHook postConfigure
         '';
 

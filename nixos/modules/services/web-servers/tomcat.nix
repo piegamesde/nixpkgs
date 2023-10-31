@@ -67,9 +67,7 @@ in
       extraConfigFiles = mkOption {
         default = [ ];
         type = types.listOf types.path;
-        description =
-          lib.mdDoc
-            "Extra configuration files to pull into the tomcat conf directory";
+        description = lib.mdDoc "Extra configuration files to pull into the tomcat conf directory";
       };
 
       extraEnvironment = mkOption {

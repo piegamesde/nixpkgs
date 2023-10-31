@@ -6090,9 +6090,7 @@ in
             // {
               dependencies = [
                 sources."define-property-0.2.5"
-                (
-                  sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; }
-                )
+                (sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; })
                 (sources."is-data-descriptor-0.1.4" // { dependencies = [ sources."kind-of-3.2.2" ]; })
                 sources."is-descriptor-0.1.6"
                 sources."kind-of-5.1.0"
@@ -6118,9 +6116,7 @@ in
           sources."concat-map-0.0.1"
           sources."concat-stream-1.6.2"
           sources."config-chain-1.1.13"
-          (
-            sources."convert-source-map-1.8.0" // { dependencies = [ sources."safe-buffer-5.1.2" ]; }
-          )
+          (sources."convert-source-map-1.8.0" // { dependencies = [ sources."safe-buffer-5.1.2" ]; })
           sources."copy-descriptor-0.1.1"
           (sources."copy-props-2.0.5" // { dependencies = [ sources."is-plain-object-5.0.0" ]; })
           sources."core-util-is-1.0.3"
@@ -6204,9 +6200,7 @@ in
                 sources."debug-2.6.9"
                 sources."define-property-0.2.5"
                 sources."extend-shallow-2.0.1"
-                (
-                  sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; }
-                )
+                (sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; })
                 (sources."is-data-descriptor-0.1.4" // { dependencies = [ sources."kind-of-3.2.2" ]; })
                 sources."is-descriptor-0.1.6"
                 sources."kind-of-5.1.0"
@@ -6680,9 +6674,7 @@ in
                 sources."debug-2.6.9"
                 sources."define-property-0.2.5"
                 sources."extend-shallow-2.0.1"
-                (
-                  sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; }
-                )
+                (sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; })
                 (sources."is-data-descriptor-0.1.4" // { dependencies = [ sources."kind-of-3.2.2" ]; })
                 sources."is-descriptor-0.1.6"
                 sources."kind-of-5.1.0"
@@ -6690,9 +6682,7 @@ in
               ];
             }
           )
-          (
-            sources."snapdragon-node-2.1.1" // { dependencies = [ sources."define-property-1.0.0" ]; }
-          )
+          (sources."snapdragon-node-2.1.1" // { dependencies = [ sources."define-property-1.0.0" ]; })
           (sources."snapdragon-util-3.0.1" // { dependencies = [ sources."kind-of-3.2.2" ]; })
           sources."source-map-0.5.7"
           sources."source-map-resolve-0.5.3"
@@ -6711,9 +6701,7 @@ in
             // {
               dependencies = [
                 sources."define-property-0.2.5"
-                (
-                  sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; }
-                )
+                (sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; })
                 (sources."is-data-descriptor-0.1.4" // { dependencies = [ sources."kind-of-3.2.2" ]; })
                 sources."is-descriptor-0.1.6"
                 sources."kind-of-5.1.0"
@@ -6806,9 +6794,7 @@ in
           (sources."verror-1.10.0" // { dependencies = [ sources."core-util-is-1.0.2" ]; })
           sources."vinyl-2.2.1"
           sources."vinyl-fs-3.0.3"
-          (
-            sources."vinyl-sourcemap-1.1.0" // { dependencies = [ sources."normalize-path-2.1.1" ]; }
-          )
+          (sources."vinyl-sourcemap-1.1.0" // { dependencies = [ sources."normalize-path-2.1.1" ]; })
           sources."which-1.3.1"
           sources."which-module-1.0.0"
           sources."wide-align-1.1.3"

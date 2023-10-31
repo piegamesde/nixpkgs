@@ -40,9 +40,7 @@ in
       host = mkOption {
         type = types.str;
         default = "0.0.0.0";
-        description =
-          lib.mdDoc
-            "Address to listen on (use 0.0.0.0 to allow access from any address).";
+        description = lib.mdDoc "Address to listen on (use 0.0.0.0 to allow access from any address).";
       };
 
       port = mkOption {

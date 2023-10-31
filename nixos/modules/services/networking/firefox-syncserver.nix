@@ -41,9 +41,7 @@ let
         node_capacity_release_rate = 1;
       };
   };
-  configFile = format.generate "syncstorage.toml" (
-    lib.recursiveUpdate settings cfg.settings
-  );
+  configFile = format.generate "syncstorage.toml" (lib.recursiveUpdate settings cfg.settings);
   setupScript = pkgs.writeShellScript "firefox-syncserver-setup" ''
     set -euo pipefail
     shopt -s inherit_errexit
@@ -175,9 +173,7 @@ in
       };
 
       singleNode = {
-        enable = lib.mkEnableOption (
-          lib.mdDoc "auto-configuration for a simple single-node setup"
-        );
+        enable = lib.mkEnableOption (lib.mdDoc "auto-configuration for a simple single-node setup");
 
         enableTLS = lib.mkEnableOption (lib.mdDoc "automatic TLS setup");
 

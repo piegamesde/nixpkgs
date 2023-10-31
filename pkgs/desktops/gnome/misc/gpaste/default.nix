@@ -67,9 +67,7 @@ stdenv.mkDerivation rec {
   ];
 
   mesonFlags = [
-    "-Dcontrol-center-keybindings-dir=${
-      placeholder "out"
-    }/share/gnome-control-center/keybindings"
+    "-Dcontrol-center-keybindings-dir=${placeholder "out"}/share/gnome-control-center/keybindings"
     "-Ddbus-services-dir=${placeholder "out"}/share/dbus-1/services"
     "-Dsystemd-user-unit-dir=${placeholder "out"}/etc/systemd/user"
   ];

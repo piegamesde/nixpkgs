@@ -356,8 +356,7 @@ let
     d:
     let
       flagPrefix = if d.isReadOnly then " --bind-ro=" else " --bind=";
-      mountstr =
-        if d.hostPath != null then "${d.hostPath}:${d.mountPoint}" else "${d.mountPoint}";
+      mountstr = if d.hostPath != null then "${d.hostPath}:${d.mountPoint}" else "${d.mountPoint}";
     in
     flagPrefix + mountstr;
 
@@ -843,9 +842,7 @@ in
     {
       warnings =
         (optional
-          (
-            config.virtualisation.containers.enable && versionOlder config.system.stateVersion "22.05"
-          )
+          (config.virtualisation.containers.enable && versionOlder config.system.stateVersion "22.05")
           ''
             Enabling both boot.enableContainers & virtualisation.containers on system.stateVersion < 22.05 is unsupported.
           ''

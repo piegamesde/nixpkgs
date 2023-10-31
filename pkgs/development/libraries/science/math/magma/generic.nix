@@ -182,7 +182,6 @@ stdenv.mkDerivation {
     platforms = platforms.unix;
     maintainers = with maintainers; [ connorbaker ];
     # CUDA and ROCm are mutually exclusive
-    broken =
-      cudaSupport && rocmSupport || cudaSupport && strings.versionOlder cudaVersion "9";
+    broken = cudaSupport && rocmSupport || cudaSupport && strings.versionOlder cudaVersion "9";
   };
 }

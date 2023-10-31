@@ -290,9 +290,7 @@ lib.makeOverridable
         ;
 
         src = crate.src or (fetchCrate { inherit (crate) crateName version sha256; });
-        name = "rust_${crate.crateName}-${crate.version}${
-            lib.optionalString buildTests_ "-test"
-          }";
+        name = "rust_${crate.crateName}-${crate.version}${lib.optionalString buildTests_ "-test"}";
         version = crate.version;
         depsBuildBuild = [ pkgsBuildBuild.stdenv.cc ];
         nativeBuildInputs =
@@ -310,9 +308,7 @@ lib.makeOverridable
         dependencies = map lib.getLib dependencies_;
         buildDependencies = map lib.getLib buildDependencies_;
 
-        completeDeps = lib.unique (
-          dependencies ++ lib.concatMap (dep: dep.completeDeps) dependencies
-        );
+        completeDeps = lib.unique (dependencies ++ lib.concatMap (dep: dep.completeDeps) dependencies);
         completeBuildDeps = lib.unique (
           buildDependencies
           ++ lib.concatMap (dep: dep.completeBuildDeps ++ dep.completeDeps) buildDependencies

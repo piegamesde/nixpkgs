@@ -36,8 +36,7 @@ let
   defaultMakeFlags = [
     "MKSOFTFLOAT=${
       if
-        stdenv.hostPlatform.gcc.float or (stdenv.hostPlatform.parsed.abi.float or "hard")
-        == "soft"
+        stdenv.hostPlatform.gcc.float or (stdenv.hostPlatform.parsed.abi.float or "hard") == "soft"
       then
         "yes"
       else
@@ -334,9 +333,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
             include.src
             libc.src
             libutil.src
-            (fetchNetBSD "external/bsd/flex" "9.2"
-              "0h98jpfj7vx5zh7vd7bk6b1hmzgkcb757a8j6d9zgygxxv13v43m"
-            )
+            (fetchNetBSD "external/bsd/flex" "9.2" "0h98jpfj7vx5zh7vd7bk6b1hmzgkcb757a8j6d9zgygxxv13v43m")
             (fetchNetBSD "sys/sys" "9.2" "0zawhw51klaigqqwkx0lzrx3mim2jywrc24cm7c66qsf1im9awgd")
             (fetchNetBSD "common/include/rpc/types.h" "9.2"
               "0n2df12mlc3cbc48jxq35yzl1y7ghgpykvy7jnfh898rdhac7m9a"
@@ -408,15 +405,11 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       ];
       propagatedBuildInputs = with self; compatIfNeeded;
       extraPaths = with self; [
-        (fetchNetBSD "lib/libc/gen/fts.c" "9.2"
-          "1a8hmf26242nmv05ipn3ircxb0jqmmi66rh78kkyi9vjwkfl3qn7"
-        )
+        (fetchNetBSD "lib/libc/gen/fts.c" "9.2" "1a8hmf26242nmv05ipn3ircxb0jqmmi66rh78kkyi9vjwkfl3qn7")
         (fetchNetBSD "lib/libc/include/namespace.h" "9.2"
           "0kksr3pdwdc1cplqf5z12ih4cml6l11lqrz91f7hjjm64y7785kc"
         )
-        (fetchNetBSD "lib/libc/gen/fts.3" "9.2"
-          "1asxw0n3fhjdadwkkq3xplfgqgl3q32w1lyrvbakfa3gs0wz5zc1"
-        )
+        (fetchNetBSD "lib/libc/gen/fts.3" "9.2" "1asxw0n3fhjdadwkkq3xplfgqgl3q32w1lyrvbakfa3gs0wz5zc1")
       ];
       skipIncludesPhase = true;
       buildPhase = ''
@@ -727,9 +720,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       makeFlags = defaultMakeFlags ++ [ "RPCGEN_CPP=${buildPackages.stdenv.cc.cc}/bin/cpp" ];
     };
 
-    common =
-      fetchNetBSD "common" "9.2"
-        "1pfylz9r3ap5wnwwbwczbfjb1m5qdyspzbnmxmcdkpzz2zgj64b9";
+    common = fetchNetBSD "common" "9.2" "1pfylz9r3ap5wnwwbwczbfjb1m5qdyspzbnmxmcdkpzz2zgj64b9";
 
     sys-headers = mkDerivation {
       pname = "sys-headers";
@@ -909,9 +900,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
         make -C $BSDSRCDIR/share/terminfo $makeFlags BINDIR=$out/share install
       '';
       extraPaths = with self; [
-        (fetchNetBSD "share/terminfo" "9.2"
-          "1vh9rl4w8118a9qdpblfxmv1wkpm83rm9gb4rzz5bpm56i6d7kk7"
-        )
+        (fetchNetBSD "share/terminfo" "9.2" "1vh9rl4w8118a9qdpblfxmv1wkpm83rm9gb4rzz5bpm56i6d7kk7")
       ];
     };
 

@@ -128,9 +128,7 @@ stdenv.mkDerivation rec {
         else
           (
             "liblua.a"
-            +
-              lib.optionalString (!staticOnly)
-                " liblua.so liblua.so.${luaversion} liblua.so.${version}"
+            + lib.optionalString (!staticOnly) " liblua.so liblua.so.${luaversion} liblua.so.${version}"
           )
       }" )
 
@@ -194,10 +192,7 @@ stdenv.mkDerivation rec {
       luaOnBuildForTarget = override pkgsBuildTarget.${luaAttr};
       luaOnHostForHost = override pkgsHostHost.${luaAttr};
       luaOnTargetForTarget =
-        if lib.hasAttr luaAttr pkgsTargetTarget then
-          (override pkgsTargetTarget.${luaAttr})
-        else
-          { };
+        if lib.hasAttr luaAttr pkgsTargetTarget then (override pkgsTargetTarget.${luaAttr}) else { };
     };
 
   meta = {

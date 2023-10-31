@@ -73,9 +73,7 @@ let
             rpcthreads=16
             logips=1
           '';
-          description =
-            lib.mdDoc
-              "Additional configurations to be appended to {file}`bitcoin.conf`.";
+          description = lib.mdDoc "Additional configurations to be appended to {file}`bitcoin.conf`.";
         };
 
         dataDir = mkOption {
@@ -294,9 +292,7 @@ in
         )
         eachBitcoind;
 
-    users.groups =
-      mapAttrs' (bitcoindName: cfg: (nameValuePair "${cfg.group}" { }))
-        eachBitcoind;
+    users.groups = mapAttrs' (bitcoindName: cfg: (nameValuePair "${cfg.group}" { })) eachBitcoind;
   };
 
   meta.maintainers = with maintainers; [ _1000101 ];

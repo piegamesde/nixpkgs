@@ -119,9 +119,7 @@ with lib;
 
     environment.systemPackages =
       # We increase the priority a little, so that plain glibc in systemPackages can't win.
-      optional (config.i18n.supportedLocales != [ ]) (
-        lib.setPrio (-1) config.i18n.glibcLocales
-      );
+      optional (config.i18n.supportedLocales != [ ]) (lib.setPrio (-1) config.i18n.glibcLocales);
 
     environment.sessionVariables = {
       LANG = config.i18n.defaultLocale;
@@ -135,9 +133,7 @@ with lib;
     # ‘/etc/locale.conf’ is used by systemd.
     environment.etc."locale.conf".source = pkgs.writeText "locale.conf" ''
       LANG=${config.i18n.defaultLocale}
-      ${concatStringsSep "\n" (
-        mapAttrsToList (n: v: "${n}=${v}") config.i18n.extraLocaleSettings
-      )}
+      ${concatStringsSep "\n" (mapAttrsToList (n: v: "${n}=${v}") config.i18n.extraLocaleSettings)}
     '';
   };
 }

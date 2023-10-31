@@ -14,8 +14,7 @@ let
       cfg.configFile;
 
   containerdConfigChecked =
-    pkgs.runCommand "containerd-config-checked.toml"
-      { nativeBuildInputs = [ pkgs.containerd ]; }
+    pkgs.runCommand "containerd-config-checked.toml" { nativeBuildInputs = [ pkgs.containerd ]; }
       ''
         containerd -c ${configFile} config dump >/dev/null
         ln -s ${configFile} $out

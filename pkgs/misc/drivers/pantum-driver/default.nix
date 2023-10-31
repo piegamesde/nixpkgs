@@ -18,8 +18,7 @@ let
       i686-linux = "i386";
       x86_64-linux = "amd64";
     }
-    .${stdenv.hostPlatform.system}
-      or (throw "unsupported system ${stdenv.hostPlatform.system}");
+    .${stdenv.hostPlatform.system} or (throw "unsupported system ${stdenv.hostPlatform.system}");
 in
 stdenv.mkDerivation rec {
   pname = "pantum-driver";

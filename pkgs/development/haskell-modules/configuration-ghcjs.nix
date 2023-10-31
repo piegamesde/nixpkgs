@@ -89,9 +89,7 @@ self: super:
 
   jsaddle =
     overrideCabal
-      (drv: {
-        libraryHaskellDepends = (drv.libraryHaskellDepends or [ ]) ++ [ self.ghcjs-base ];
-      })
+      (drv: { libraryHaskellDepends = (drv.libraryHaskellDepends or [ ]) ++ [ self.ghcjs-base ]; })
       super.jsaddle;
 
   # Tests hang, possibly some issue with tasty and race(async) usage in the nonTerminating tests
@@ -107,9 +105,7 @@ self: super:
 
   reflex =
     overrideCabal
-      (drv: {
-        libraryHaskellDepends = (drv.libraryHaskellDepends or [ ]) ++ [ self.ghcjs-base ];
-      })
+      (drv: { libraryHaskellDepends = (drv.libraryHaskellDepends or [ ]) ++ [ self.ghcjs-base ]; })
       super.reflex;
 
   reflex-dom =

@@ -69,10 +69,7 @@ in
       package = mkOption {
         type = types.package;
         default =
-          if pkgs.stdenv.hostPlatform.libc == "glibc" then
-            pkgs.stdenv.cc.libc.bin
-          else
-            pkgs.glibc.bin;
+          if pkgs.stdenv.hostPlatform.libc == "glibc" then pkgs.stdenv.cc.libc.bin else pkgs.glibc.bin;
         defaultText = lib.literalExpression ''
           if pkgs.stdenv.hostPlatform.libc == "glibc"
             then pkgs.stdenv.cc.libc.bin

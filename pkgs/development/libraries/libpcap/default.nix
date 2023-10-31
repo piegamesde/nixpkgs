@@ -21,9 +21,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-7RmgOD+tcuOtQ1/SOdfNgNZJFrhyaVUBWdIORxYOvl8=";
   };
 
-  buildInputs =
-    lib.optionals stdenv.isLinux [ libnl ]
-    ++ lib.optionals withRemote [ libxcrypt ];
+  buildInputs = lib.optionals stdenv.isLinux [ libnl ] ++ lib.optionals withRemote [ libxcrypt ];
 
   nativeBuildInputs = [
     flex

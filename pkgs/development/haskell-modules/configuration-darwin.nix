@@ -161,9 +161,7 @@ self: super:
       overrideCabal
         (drv: {
           librarySystemDepends = [ ];
-          libraryHaskellDepends = drv.libraryHaskellDepends ++ [
-            darwin.apple_sdk.frameworks.OpenGL
-          ];
+          libraryHaskellDepends = drv.libraryHaskellDepends ++ [ darwin.apple_sdk.frameworks.OpenGL ];
           preConfigure =
             ''
               frameworkPaths=($(for i in $nativeBuildInputs; do if [ -d "$i"/Library/Frameworks ]; then echo "-F$i/Library/Frameworks"; fi done))
@@ -177,9 +175,7 @@ self: super:
       overrideCabal
         (drv: {
           librarySystemDepends = [ ];
-          libraryHaskellDepends = drv.libraryHaskellDepends ++ [
-            darwin.apple_sdk.frameworks.OpenGL
-          ];
+          libraryHaskellDepends = drv.libraryHaskellDepends ++ [ darwin.apple_sdk.frameworks.OpenGL ];
         })
         super.GLURaw;
     bindings-GLFW =
@@ -201,9 +197,7 @@ self: super:
       overrideCabal
         (drv: {
           librarySystemDepends = [ ];
-          libraryHaskellDepends = drv.libraryHaskellDepends ++ [
-            darwin.apple_sdk.frameworks.OpenCL
-          ];
+          libraryHaskellDepends = drv.libraryHaskellDepends ++ [ darwin.apple_sdk.frameworks.OpenCL ];
         })
         super.OpenCL;
 

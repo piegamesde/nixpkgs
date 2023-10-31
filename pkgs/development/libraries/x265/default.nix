@@ -8,8 +8,7 @@
 
   # NUMA support enabled by default on NUMA platforms:
   numaSupport ? (
-    stdenv.hostPlatform.isLinux
-    && (stdenv.hostPlatform.isx86 || stdenv.hostPlatform.isAarch64)
+    stdenv.hostPlatform.isLinux && (stdenv.hostPlatform.isx86 || stdenv.hostPlatform.isAarch64)
   ),
   numactl,
 
@@ -117,9 +116,7 @@ stdenv.mkDerivation rec {
   # Builds 10bits and 12bits static libs on the side if multi bit-depth is wanted
   # (we are in x265_<version>/source/build)
   preBuild = lib.optionalString (multibitdepthSupport) ''
-    cmake -S ../ -B ../build-10bits ${toString cmakeCommonFlags} ${
-      toString cmakeStaticLibFlags
-    }
+    cmake -S ../ -B ../build-10bits ${toString cmakeCommonFlags} ${toString cmakeStaticLibFlags}
     make -C ../build-10bits -j $NIX_BUILD_CORES
     cmake -S ../ -B ../build-12bits ${toString cmakeCommonFlags} ${
       toString cmakeStaticLibFlags

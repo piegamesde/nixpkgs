@@ -23,10 +23,7 @@ let
         name = "kubernetes-cni-config";
         paths =
           imap
-            (
-              i: entry:
-              pkgs.writeTextDir "${toString (10 + i)}-${entry.type}.conf" (builtins.toJSON entry)
-            )
+            (i: entry: pkgs.writeTextDir "${toString (10 + i)}-${entry.type}.conf" (builtins.toJSON entry))
             cfg.cni.config;
       });
 
@@ -197,9 +194,7 @@ in
     };
 
     containerRuntimeEndpoint = mkOption {
-      description =
-        lib.mdDoc
-          "Endpoint at which to find the container runtime api interface/socket";
+      description = lib.mdDoc "Endpoint at which to find the container runtime api interface/socket";
       type = str;
       default = "unix:///run/containerd/containerd.sock";
     };
@@ -407,9 +402,7 @@ in
                         --register-node=${boolToString cfg.registerNode} \
                         ${optionalString (taints != "") "--register-with-taints=${taints}"} \
                         --root-dir=${top.dataDir} \
-                        ${
-                          optionalString (cfg.tlsCertFile != null) "--tls-cert-file=${cfg.tlsCertFile}"
-                        } \
+                        ${optionalString (cfg.tlsCertFile != null) "--tls-cert-file=${cfg.tlsCertFile}"} \
                         ${
                           optionalString (cfg.tlsKeyFile != null) "--tls-private-key-file=${cfg.tlsKeyFile}"
                         } \

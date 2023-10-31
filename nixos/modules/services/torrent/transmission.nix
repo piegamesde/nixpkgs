@@ -182,9 +182,7 @@ in
             type = types.path;
             default = "${cfg.home}/${watchDir}";
             defaultText = literalExpression ''"''${config.${opt.home}}/${watchDir}"'';
-            description =
-              lib.mdDoc
-                "Watch a directory for torrent files and add them to transmission.";
+            description = lib.mdDoc "Watch a directory for torrent files and add them to transmission.";
           };
           options.watch-dir-enabled = mkOption {
             type = types.bool;
@@ -370,10 +368,7 @@ in
             "/run"
           ]
           ++ optional
-            (
-              cfg.settings.script-torrent-done-enabled
-              && cfg.settings.script-torrent-done-filename != null
-            )
+            (cfg.settings.script-torrent-done-enabled && cfg.settings.script-torrent-done-filename != null)
             cfg.settings.script-torrent-done-filename
           ++
             optional (cfg.settings.watch-dir-enabled && !cfg.settings.trash-original-torrent-files)
@@ -530,9 +525,7 @@ in
         rw ${cfg.settings.incomplete-dir}/**,
       ''}
       ${optionalString cfg.settings.watch-dir-enabled ''
-        r${
-          optionalString cfg.settings.trash-original-torrent-files "w"
-        } ${cfg.settings.watch-dir}/**,
+        r${optionalString cfg.settings.trash-original-torrent-files "w"} ${cfg.settings.watch-dir}/**,
       ''}
       profile dirs {
         rw ${cfg.settings.download-dir}/**,
@@ -543,18 +536,13 @@ in
         }
         ${
           optionalString cfg.settings.watch-dir-enabled ''
-            r${
-              optionalString cfg.settings.trash-original-torrent-files "w"
-            } ${cfg.settings.watch-dir}/**,
+            r${optionalString cfg.settings.trash-original-torrent-files "w"} ${cfg.settings.watch-dir}/**,
           ''
         }
       }
 
       ${optionalString
-        (
-          cfg.settings.script-torrent-done-enabled
-          && cfg.settings.script-torrent-done-filename != null
-        )
+        (cfg.settings.script-torrent-done-enabled && cfg.settings.script-torrent-done-filename != null)
         ''
           # Stack transmission_directories profile on top of
           # any existing profile for script-torrent-done-filename

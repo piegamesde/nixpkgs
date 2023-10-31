@@ -13,9 +13,7 @@ let
   configFile = pkgs.writeTextFile {
     name = "knot.conf";
     text =
-      (concatMapStringsSep "\n" (file: "include: ${file}") cfg.keyFiles)
-      + "\n"
-      + cfg.extraConfig;
+      (concatMapStringsSep "\n" (file: "include: ${file}") cfg.keyFiles) + "\n" + cfg.extraConfig;
     checkPhase = lib.optionalString (cfg.keyFiles == [ ]) ''
       ${cfg.package}/bin/knotc --config=$out conf-check
     '';

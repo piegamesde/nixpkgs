@@ -57,9 +57,7 @@ stdenv.mkDerivation (
       '';
 
     enableParallelBuilding = true;
-    env.NIX_CFLAGS_COMPILE =
-      lib.optionalString stdenv.cc.isClang
-        "-Wno-error=c++11-narrowing";
+    env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-error=c++11-narrowing";
 
     makeFlags = [
       "DEST_BIN=${placeholder "out"}/bin"

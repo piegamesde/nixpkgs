@@ -22,13 +22,10 @@ stdenv.mkDerivation rec {
   patches = [ ./timidity-iA-Oj.patch ];
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs =
-    [
-      libjack2
-      ncurses
-    ]
-    ++ lib.optionals stdenv.isLinux [ alsa-lib ]
-    ++ lib.optionals stdenv.isDarwin [ CoreAudio ];
+  buildInputs = [
+    libjack2
+    ncurses
+  ] ++ lib.optionals stdenv.isLinux [ alsa-lib ] ++ lib.optionals stdenv.isDarwin [ CoreAudio ];
 
   configureFlags =
     [

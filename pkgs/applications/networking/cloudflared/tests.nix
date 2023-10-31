@@ -33,8 +33,7 @@ in
       '';
 }
 //
-  lib.optionalAttrs
-    (buildPlatform.isLinux && (buildPlatform.isi686 || buildPlatform.isx86_64))
+  lib.optionalAttrs (buildPlatform.isLinux && (buildPlatform.isi686 || buildPlatform.isx86_64))
     {
       runs-through-wine =
         runCommand "cloudflared-${version}-runs-through-wine"

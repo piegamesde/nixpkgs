@@ -57,8 +57,7 @@ let
     destination = "/share/gnome-background-properties/nixos.xml";
   };
 
-  flashbackEnabled =
-    cfg.flashback.enableMetacity || length cfg.flashback.customSessions > 0;
+  flashbackEnabled = cfg.flashback.enableMetacity || length cfg.flashback.customSessions > 0;
   flashbackWms =
     optional cfg.flashback.enableMetacity {
       wmName = "metacity";
@@ -414,9 +413,7 @@ in
       default = [ ];
       example = literalExpression "[ pkgs.gnome.totem ]";
       type = types.listOf types.package;
-      description =
-        lib.mdDoc
-          "Which packages gnome should exclude from the default environment";
+      description = lib.mdDoc "Which packages gnome should exclude from the default environment";
     };
   };
 
@@ -490,8 +487,7 @@ in
       };
 
       systemd.packages =
-        with pkgs.gnome;
-        [ gnome-flashback ] ++ map gnome-flashback.mkSystemdTargetForWm flashbackWms;
+        with pkgs.gnome; [ gnome-flashback ] ++ map gnome-flashback.mkSystemdTargetForWm flashbackWms;
 
       # gnome-panel needs these for menu applet
       environment.sessionVariables.XDG_DATA_DIRS = [ "${pkgs.gnome.gnome-flashback}/share" ];

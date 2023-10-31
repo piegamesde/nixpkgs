@@ -208,8 +208,7 @@ stdenv.mkDerivation (
         free and open source and great for both casual users and computer experts.
       '';
       changelog = "https://github.com/kovidgoyal/calibre/releases/tag/v${finalAttrs.version}";
-      license =
-        if unrarSupport then lib.licenses.unfreeRedistributable else lib.licenses.gpl3Plus;
+      license = if unrarSupport then lib.licenses.unfreeRedistributable else lib.licenses.gpl3Plus;
       maintainers = with lib.maintainers; [
         pSub
         AndersonTorres

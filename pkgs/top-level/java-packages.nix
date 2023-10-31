@@ -119,40 +119,37 @@ in
         mkBootstrap adoptopenjdk-11 ../development/compilers/openjdk/bootstrap.nix
           { version = "10"; };
 
-      openjdk13-bootstrap =
-        mkBootstrap adoptopenjdk-13 ../development/compilers/openjdk/12.nix
-          (
-            bootstrapArgs
-            // {
-              inherit openjdk11-bootstrap;
-              # build segfaults with gcc9 or newer, so use gcc8 like Debian does
-              stdenv = gcc8Stdenv;
-            }
-          );
+      openjdk13-bootstrap = mkBootstrap adoptopenjdk-13 ../development/compilers/openjdk/12.nix (
+        bootstrapArgs
+        // {
+          inherit openjdk11-bootstrap;
+          # build segfaults with gcc9 or newer, so use gcc8 like Debian does
+          stdenv = gcc8Stdenv;
+        }
+      );
 
-      openjdk14-bootstrap =
-        mkBootstrap adoptopenjdk-14 ../development/compilers/openjdk/13.nix
-          (bootstrapArgs // { inherit openjdk13-bootstrap; });
+      openjdk14-bootstrap = mkBootstrap adoptopenjdk-14 ../development/compilers/openjdk/13.nix (
+        bootstrapArgs // { inherit openjdk13-bootstrap; }
+      );
 
-      openjdk15-bootstrap =
-        mkBootstrap adoptopenjdk-15 ../development/compilers/openjdk/14.nix
-          (bootstrapArgs // { inherit openjdk14-bootstrap; });
+      openjdk15-bootstrap = mkBootstrap adoptopenjdk-15 ../development/compilers/openjdk/14.nix (
+        bootstrapArgs // { inherit openjdk14-bootstrap; }
+      );
 
-      openjdk16-bootstrap =
-        mkBootstrap adoptopenjdk-16 ../development/compilers/openjdk/15.nix
-          (bootstrapArgs // { inherit openjdk15-bootstrap; });
+      openjdk16-bootstrap = mkBootstrap adoptopenjdk-16 ../development/compilers/openjdk/15.nix (
+        bootstrapArgs // { inherit openjdk15-bootstrap; }
+      );
 
-      openjdk17-bootstrap =
-        mkBootstrap adoptopenjdk-17 ../development/compilers/openjdk/16.nix
-          (bootstrapArgs // { inherit openjdk16-bootstrap; });
+      openjdk17-bootstrap = mkBootstrap adoptopenjdk-17 ../development/compilers/openjdk/16.nix (
+        bootstrapArgs // { inherit openjdk16-bootstrap; }
+      );
 
-      openjdk18-bootstrap =
-        mkBootstrap adoptopenjdk-17 ../development/compilers/openjdk/17.nix
-          (bootstrapArgs // { inherit openjdk17-bootstrap; });
+      openjdk18-bootstrap = mkBootstrap adoptopenjdk-17 ../development/compilers/openjdk/17.nix (
+        bootstrapArgs // { inherit openjdk17-bootstrap; }
+      );
 
       openjdk8 =
-        mkOpenjdk ../development/compilers/openjdk/8.nix
-          ../development/compilers/openjdk/darwin/8.nix
+        mkOpenjdk ../development/compilers/openjdk/8.nix ../development/compilers/openjdk/darwin/8.nix
           { };
 
       openjdk11 =
@@ -236,9 +233,7 @@ in
       );
     };
 
-  mavenPlugins = recurseIntoAttrs (
-    callPackage ../development/java-modules/mavenPlugins.nix { }
-  );
+  mavenPlugins = recurseIntoAttrs (callPackage ../development/java-modules/mavenPlugins.nix { });
 
   inherit
     (callPackage ../development/java-modules/eclipse/aether-util.nix { inherit fetchMaven; })
@@ -254,15 +249,12 @@ in
     antLauncher_1_8_2
   ;
 
-  inherit
-    (callPackage ../development/java-modules/beanshell/bsh.nix { inherit fetchMaven; })
+  inherit (callPackage ../development/java-modules/beanshell/bsh.nix { inherit fetchMaven; })
     bsh_2_0_b4
   ;
 
   inherit
-    (callPackage ../development/java-modules/classworlds/classworlds.nix {
-      inherit fetchMaven;
-    })
+    (callPackage ../development/java-modules/classworlds/classworlds.nix { inherit fetchMaven; })
     classworlds_1_1_alpha2
     classworlds_1_1
   ;
@@ -273,8 +265,7 @@ in
     commonsCli_1_2
   ;
 
-  inherit
-    (callPackage ../development/java-modules/apache/commons-io.nix { inherit fetchMaven; })
+  inherit (callPackage ../development/java-modules/apache/commons-io.nix { inherit fetchMaven; })
     commonsIo_2_1
   ;
 
@@ -297,8 +288,7 @@ in
     commonsLoggingApi_1_1
   ;
 
-  inherit
-    (callPackage ../development/java-modules/findbugs/jsr305.nix { inherit fetchMaven; })
+  inherit (callPackage ../development/java-modules/findbugs/jsr305.nix { inherit fetchMaven; })
     findbugsJsr305_2_0_1
   ;
 
@@ -311,8 +301,7 @@ in
     hamcrestAll_1_3
   ;
 
-  inherit
-    (callPackage ../development/java-modules/hamcrest/core.nix { inherit fetchMaven; })
+  inherit (callPackage ../development/java-modules/hamcrest/core.nix { inherit fetchMaven; })
     hamcrestCore_1_3
   ;
 
@@ -324,17 +313,13 @@ in
 
   inherit (callPackage ../development/java-modules/jogl { }) jogl_2_3_2;
 
-  inherit (callPackage ../development/java-modules/log4j { inherit fetchMaven; })
-    log4j_1_2_12
-  ;
+  inherit (callPackage ../development/java-modules/log4j { inherit fetchMaven; }) log4j_1_2_12;
 
-  inherit
-    (callPackage ../development/java-modules/maven/archiver.nix { inherit fetchMaven; })
+  inherit (callPackage ../development/java-modules/maven/archiver.nix { inherit fetchMaven; })
     mavenArchiver_2_5
   ;
 
-  inherit
-    (callPackage ../development/java-modules/maven/artifact.nix { inherit fetchMaven; })
+  inherit (callPackage ../development/java-modules/maven/artifact.nix { inherit fetchMaven; })
     mavenArtifact_2_0_1
     mavenArtifact_2_0_6
     mavenArtifact_2_0_8
@@ -344,9 +329,7 @@ in
   ;
 
   inherit
-    (callPackage ../development/java-modules/maven/artifact-manager.nix {
-      inherit fetchMaven;
-    })
+    (callPackage ../development/java-modules/maven/artifact-manager.nix { inherit fetchMaven; })
     mavenArtifactManager_2_0_1
     mavenArtifactManager_2_0_6
     mavenArtifactManager_2_0_9
@@ -363,9 +346,7 @@ in
   ;
 
   inherit
-    (callPackage ../development/java-modules/maven/compiler-plugin.nix {
-      inherit fetchMaven;
-    })
+    (callPackage ../development/java-modules/maven/compiler-plugin.nix { inherit fetchMaven; })
     mavenCompiler_3_2
   ;
 
@@ -377,9 +358,7 @@ in
   ;
 
   inherit
-    (callPackage ../development/java-modules/maven/dependency-tree.nix {
-      inherit fetchMaven;
-    })
+    (callPackage ../development/java-modules/maven/dependency-tree.nix { inherit fetchMaven; })
     mavenDependencyTree_2_1
   ;
 
@@ -390,24 +369,20 @@ in
     mavenDoxiaSinkApi_1_0_alpha10
   ;
 
-  inherit
-    (callPackage ../development/java-modules/maven/enforcer.nix { inherit fetchMaven; })
+  inherit (callPackage ../development/java-modules/maven/enforcer.nix { inherit fetchMaven; })
     mavenEnforcerApi_1_3_1
     mavenEnforcerRules_1_3_1
   ;
 
   inherit
-    (callPackage ../development/java-modules/maven/error-diagnostics.nix {
-      inherit fetchMaven;
-    })
+    (callPackage ../development/java-modules/maven/error-diagnostics.nix { inherit fetchMaven; })
     mavenErrorDiagnostics_2_0_1
     mavenErrorDiagnostics_2_0_6
     mavenErrorDiagnostics_2_0_9
     mavenErrorDiagnostics_2_2_1
   ;
 
-  inherit
-    (callPackage ../development/java-modules/maven/filtering.nix { inherit fetchMaven; })
+  inherit (callPackage ../development/java-modules/maven/filtering.nix { inherit fetchMaven; })
     mavenFiltering_1_1
   ;
 
@@ -424,8 +399,7 @@ in
     mavenModel_3_0_3
   ;
 
-  inherit
-    (callPackage ../development/java-modules/maven/monitor.nix { inherit fetchMaven; })
+  inherit (callPackage ../development/java-modules/maven/monitor.nix { inherit fetchMaven; })
     mavenMonitor_2_0_1
     mavenMonitor_2_0_6
     mavenMonitor_2_0_9
@@ -433,15 +407,12 @@ in
   ;
 
   inherit
-    (callPackage ../development/java-modules/maven/plugin-annotations.nix {
-      inherit fetchMaven;
-    })
+    (callPackage ../development/java-modules/maven/plugin-annotations.nix { inherit fetchMaven; })
     mavenPluginAnnotations_3_1
     mavenPluginAnnotations_3_2
   ;
 
-  inherit
-    (callPackage ../development/java-modules/maven/plugin-api.nix { inherit fetchMaven; })
+  inherit (callPackage ../development/java-modules/maven/plugin-api.nix { inherit fetchMaven; })
     mavenPluginApi_2_0_1
     mavenPluginApi_2_0_6
     mavenPluginApi_2_0_9
@@ -450,9 +421,7 @@ in
   ;
 
   inherit
-    (callPackage ../development/java-modules/maven/plugin-descriptor.nix {
-      inherit fetchMaven;
-    })
+    (callPackage ../development/java-modules/maven/plugin-descriptor.nix { inherit fetchMaven; })
     mavenPluginDescriptor_2_0_1
     mavenPluginDescriptor_2_0_6
     mavenPluginDescriptor_2_0_9
@@ -470,9 +439,7 @@ in
   ;
 
   inherit
-    (callPackage ../development/java-modules/maven/plugin-registry.nix {
-      inherit fetchMaven;
-    })
+    (callPackage ../development/java-modules/maven/plugin-registry.nix { inherit fetchMaven; })
     mavenPluginRegistry_2_0_1
     mavenPluginRegistry_2_0_6
     mavenPluginRegistry_2_0_9
@@ -486,16 +453,14 @@ in
     mavenPluginTestingHarness_1_1
   ;
 
-  inherit
-    (callPackage ../development/java-modules/maven/profile.nix { inherit fetchMaven; })
+  inherit (callPackage ../development/java-modules/maven/profile.nix { inherit fetchMaven; })
     mavenProfile_2_0_1
     mavenProfile_2_0_6
     mavenProfile_2_0_9
     mavenProfile_2_2_1
   ;
 
-  inherit
-    (callPackage ../development/java-modules/maven/project.nix { inherit fetchMaven; })
+  inherit (callPackage ../development/java-modules/maven/project.nix { inherit fetchMaven; })
     mavenProject_2_0_1
     mavenProject_2_0_6
     mavenProject_2_0_8
@@ -512,17 +477,14 @@ in
   ;
 
   inherit
-    (callPackage ../development/java-modules/maven/repository-metadata.nix {
-      inherit fetchMaven;
-    })
+    (callPackage ../development/java-modules/maven/repository-metadata.nix { inherit fetchMaven; })
     mavenRepositoryMetadata_2_0_1
     mavenRepositoryMetadata_2_0_6
     mavenRepositoryMetadata_2_0_9
     mavenRepositoryMetadata_2_2_1
   ;
 
-  inherit
-    (callPackage ../development/java-modules/maven/settings.nix { inherit fetchMaven; })
+  inherit (callPackage ../development/java-modules/maven/settings.nix { inherit fetchMaven; })
     mavenSettings_2_0_1
     mavenSettings_2_0_6
     mavenSettings_2_0_9
@@ -530,9 +492,7 @@ in
   ;
 
   inherit
-    (callPackage ../development/java-modules/maven/shared-incremental.nix {
-      inherit fetchMaven;
-    })
+    (callPackage ../development/java-modules/maven/shared-incremental.nix { inherit fetchMaven; })
     mavenSharedIncremental_1_1
   ;
 
@@ -548,30 +508,23 @@ in
   ;
 
   inherit
-    (callPackage ../development/java-modules/maven/surefire-booter.nix {
-      inherit fetchMaven;
-    })
+    (callPackage ../development/java-modules/maven/surefire-booter.nix { inherit fetchMaven; })
     mavenSurefireBooter_2_12_4
     mavenSurefireBooter_2_17
   ;
 
   inherit
-    (callPackage ../development/java-modules/maven/surefire-common.nix {
-      inherit fetchMaven;
-    })
+    (callPackage ../development/java-modules/maven/surefire-common.nix { inherit fetchMaven; })
     mavenSurefireCommon_2_12_4
     mavenSurefireCommon_2_17
   ;
 
   inherit
-    (callPackage ../development/java-modules/maven/surefire-junit4.nix {
-      inherit fetchMaven;
-    })
+    (callPackage ../development/java-modules/maven/surefire-junit4.nix { inherit fetchMaven; })
     mavenSurefireJunit4_2_12_4
   ;
 
-  inherit
-    (callPackage ../development/java-modules/maven/toolchain.nix { inherit fetchMaven; })
+  inherit (callPackage ../development/java-modules/maven/toolchain.nix { inherit fetchMaven; })
     mavenToolchain_1_0
     mavenToolchain_2_0_9
     mavenToolchain_2_2_1
@@ -593,14 +546,12 @@ in
     ow2AsmAll_4_0
   ;
 
-  inherit
-    (callPackage ../development/java-modules/plexus/archiver.nix { inherit fetchMaven; })
+  inherit (callPackage ../development/java-modules/plexus/archiver.nix { inherit fetchMaven; })
     plexusArchiver_1_0_alpha7
     plexusArchiver_2_1
   ;
 
-  inherit
-    (callPackage ../development/java-modules/plexus/build-api.nix { inherit fetchMaven; })
+  inherit (callPackage ../development/java-modules/plexus/build-api.nix { inherit fetchMaven; })
     plexusBuildApi_0_0_4
   ;
 
@@ -617,17 +568,13 @@ in
   ;
 
   inherit
-    (callPackage ../development/java-modules/plexus/compiler-javac.nix {
-      inherit fetchMaven;
-    })
+    (callPackage ../development/java-modules/plexus/compiler-javac.nix { inherit fetchMaven; })
     plexusCompilerJavac_2_2
     plexusCompilerJavac_2_4
   ;
 
   inherit
-    (callPackage ../development/java-modules/plexus/compiler-manager.nix {
-      inherit fetchMaven;
-    })
+    (callPackage ../development/java-modules/plexus/compiler-manager.nix { inherit fetchMaven; })
     plexusCompilerManager_2_2
     plexusCompilerManager_2_4
   ;
@@ -640,16 +587,13 @@ in
   ;
 
   inherit
-    (callPackage ../development/java-modules/plexus/container-default.nix {
-      inherit fetchMaven;
-    })
+    (callPackage ../development/java-modules/plexus/container-default.nix { inherit fetchMaven; })
     plexusContainerDefault_1_0_alpha9
     plexusContainerDefault_1_0_alpha9_stable1
     plexusContainerDefault_1_5_5
   ;
 
-  inherit
-    (callPackage ../development/java-modules/plexus/digest.nix { inherit fetchMaven; })
+  inherit (callPackage ../development/java-modules/plexus/digest.nix { inherit fetchMaven; })
     plexusDigest_1_0
   ;
 
@@ -658,9 +602,7 @@ in
   ;
 
   inherit
-    (callPackage ../development/java-modules/plexus/interactivity-api.nix {
-      inherit fetchMaven;
-    })
+    (callPackage ../development/java-modules/plexus/interactivity-api.nix { inherit fetchMaven; })
     plexusInteractivityApi_1_0_alpha4
   ;
 
@@ -699,8 +641,7 @@ in
     sisuGuice_2_9_4
   ;
 
-  inherit
-    (callPackage ../development/java-modules/sisu/inject-bean.nix { inherit fetchMaven; })
+  inherit (callPackage ../development/java-modules/sisu/inject-bean.nix { inherit fetchMaven; })
     sisuInjectBean_2_1_1
   ;
 

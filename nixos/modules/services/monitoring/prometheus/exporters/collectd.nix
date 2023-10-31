@@ -25,9 +25,7 @@ in
       port = mkOption {
         type = types.port;
         default = 25826;
-        description =
-          lib.mdDoc
-            "Network address on which to accept collectd binary network packets.";
+        description = lib.mdDoc "Network address on which to accept collectd binary network packets.";
       };
 
       listenAddress = mkOption {

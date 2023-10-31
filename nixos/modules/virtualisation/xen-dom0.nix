@@ -171,8 +171,7 @@ in
         message = "Xen currently not supported on ${pkgs.stdenv.hostPlatform.system}";
       }
       {
-        assertion =
-          config.boot.loader.grub.enable && (config.boot.loader.grub.efiSupport == false);
+        assertion = config.boot.loader.grub.enable && (config.boot.loader.grub.efiSupport == false);
         message = "Xen currently does not support EFI boot";
       }
     ];

@@ -127,17 +127,13 @@ let
         };
 
         user = mkOption {
-          description =
-            lib.mdDoc
-              "When set, these credentials will be required on HTTP/S requests.";
+          description = lib.mdDoc "When set, these credentials will be required on HTTP/S requests.";
           type = types.str;
           default = "";
         };
 
         password = mkOption {
-          description =
-            lib.mdDoc
-              "When set, these credentials will be required on HTTP/S requests.";
+          description = lib.mdDoc "When set, these credentials will be required on HTTP/S requests.";
           type = types.str;
           default = "";
         };

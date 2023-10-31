@@ -29,8 +29,9 @@ let
     ++ mapAttrsToList (i: _: i) config.networking.sits
     ++ concatLists (attrValues (mapAttrs (n: v: v.interfaces) config.networking.bridges))
     ++ flatten (
-      concatMap (i: attrNames (filterAttrs (_: config: config.type != "internal") i.interfaces))
-        (attrValues config.networking.vswitches)
+      concatMap (i: attrNames (filterAttrs (_: config: config.type != "internal") i.interfaces)) (
+        attrValues config.networking.vswitches
+      )
     )
     ++ concatLists (attrValues (mapAttrs (n: v: v.interfaces) config.networking.bonds))
     ++ config.networking.dhcpcd.denyInterfaces;
@@ -86,9 +87,7 @@ let
     # Ignore peth* devices; on Xen, they're renamed physical
     # Ethernet cards used for bridging.  Likewise for vif* and tap*
     # (Xen) and virbr* and vnet* (libvirt).
-    denyinterfaces ${
-      toString ignoredInterfaces
-    } lo peth* vif* tap* tun* virbr* vnet* vboxnet* sit*
+    denyinterfaces ${toString ignoredInterfaces} lo peth* vif* tap* tun* virbr* vnet* vboxnet* sit*
 
     # Use the list of allowed interfaces if specified
     ${optionalString (allowInterfaces != null) "allowinterfaces ${toString allowInterfaces}"}
@@ -264,16 +263,12 @@ in
         cfgN = config.networking;
         hasDefaultGatewaySet =
           (cfgN.defaultGateway != null && cfgN.defaultGateway.address != "")
-          && (
-            !cfgN.enableIPv6 || (cfgN.defaultGateway6 != null && cfgN.defaultGateway6.address != "")
-          );
+          && (!cfgN.enableIPv6 || (cfgN.defaultGateway6 != null && cfgN.defaultGateway6.address != ""));
       in
       {
         description = "DHCP Client";
 
-        wantedBy = [
-          "multi-user.target"
-        ] ++ optional (!hasDefaultGatewaySet) "network-online.target";
+        wantedBy = [ "multi-user.target" ] ++ optional (!hasDefaultGatewaySet) "network-online.target";
         wants = [ "network.target" ];
         before = [ "network-online.target" ];
 

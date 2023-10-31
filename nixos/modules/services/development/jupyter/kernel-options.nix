@@ -56,9 +56,7 @@ with lib;
     logo32 = mkOption {
       type = types.nullOr types.path;
       default = null;
-      example =
-        literalExpression
-          ''"''${env.sitePackages}/ipykernel/resources/logo-32x32.png"'';
+      example = literalExpression ''"''${env.sitePackages}/ipykernel/resources/logo-32x32.png"'';
       description = lib.mdDoc ''
         Path to 32x32 logo png.
       '';
@@ -66,9 +64,7 @@ with lib;
     logo64 = mkOption {
       type = types.nullOr types.path;
       default = null;
-      example =
-        literalExpression
-          ''"''${env.sitePackages}/ipykernel/resources/logo-64x64.png"'';
+      example = literalExpression ''"''${env.sitePackages}/ipykernel/resources/logo-64x64.png"'';
       description = lib.mdDoc ''
         Path to 64x64 logo png.
       '';

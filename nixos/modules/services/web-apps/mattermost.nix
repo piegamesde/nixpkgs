@@ -73,9 +73,7 @@ let
         installPhase = ''
           mkdir -p $out/data/plugins
           plugins=(${
-            escapeShellArgs (
-              map (plugin: "${plugin}/share/plugin.tar.gz") mattermostPluginDerivations
-            )
+            escapeShellArgs (map (plugin: "${plugin}/share/plugin.tar.gz") mattermostPluginDerivations)
           })
           for plugin in "''${plugins[@]}"; do
             hash="$(sha256sum "$plugin" | cut -d' ' -f1)"
@@ -118,9 +116,7 @@ let
       }
   );
 
-  mattermostConfJSON = pkgs.writeText "mattermost-config.json" (
-    builtins.toJSON mattermostConf
-  );
+  mattermostConfJSON = pkgs.writeText "mattermost-config.json" (builtins.toJSON mattermostConf);
 in
 
 {

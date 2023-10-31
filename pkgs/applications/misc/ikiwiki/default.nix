@@ -126,8 +126,7 @@ stdenv.mkDerivation rec {
       ${lib.optionalString subversionSupport "--prefix PATH : ${subversion.out}/bin "} \
       ${lib.optionalString mercurialSupport "--prefix PATH : ${mercurial}/bin "} \
       ${
-        lib.optionalString docutilsSupport
-          ''--prefix PYTHONPATH : "$(toPythonPath ${docutils})" ''
+        lib.optionalString docutilsSupport ''--prefix PYTHONPATH : "$(toPythonPath ${docutils})" ''
       } \
       ${lib.concatMapStrings (x: "--prefix PATH : ${x}/bin ") extraUtils}
     done

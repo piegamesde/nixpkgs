@@ -214,9 +214,7 @@ in
       thirdparty = pkgs.icingaweb2-thirdparty;
     };
 
-    systemd.services."phpfpm-${poolName}".serviceConfig.ReadWritePaths = [
-      "/etc/icingaweb2"
-    ];
+    systemd.services."phpfpm-${poolName}".serviceConfig.ReadWritePaths = [ "/etc/icingaweb2" ];
 
     services.nginx = {
       enable = true;

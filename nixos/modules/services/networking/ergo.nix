@@ -123,9 +123,7 @@ in
       openFirewall = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Open ports in the firewall for the Ergo node as well as the API.";
+        description = lib.mdDoc "Open ports in the firewall for the Ergo node as well as the API.";
       };
     };
   };

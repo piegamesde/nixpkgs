@@ -89,9 +89,7 @@ in
     };
 
     network = mkOption {
-      description =
-        lib.mdDoc
-          " IPv4 network in CIDR format to use for the entire flannel network.";
+      description = lib.mdDoc " IPv4 network in CIDR format to use for the entire flannel network.";
       type = types.str;
     };
 
@@ -143,9 +141,7 @@ in
     };
 
     backend = mkOption {
-      description =
-        lib.mdDoc
-          "Type of backend to use and specific configurations for that backend.";
+      description = lib.mdDoc "Type of backend to use and specific configurations for that backend.";
       type = types.attrs;
       default = {
         Type = "vxlan";

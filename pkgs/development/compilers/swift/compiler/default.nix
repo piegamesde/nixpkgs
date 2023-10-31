@@ -91,10 +91,7 @@ let
   # `lib/swift` for convenience.
   swiftLibSubdir = "lib/swift/${swiftOs}";
   swiftModuleSubdir =
-    if hostPlatform.isDarwin then
-      "lib/swift/${swiftOs}"
-    else
-      "lib/swift/${swiftOs}/${swiftArch}";
+    if hostPlatform.isDarwin then "lib/swift/${swiftOs}" else "lib/swift/${swiftOs}/${swiftArch}";
 
   # And then there's also a separate subtree for statically linked  modules.
   toStaticSubdir = lib.replaceStrings [ "/swift/" ] [ "/swift_static/" ];
@@ -294,8 +291,7 @@ stdenv.mkDerivation {
     # TODO: eliminate use of env.
     find -type f -print0 | xargs -0 sed -i \
     ${
-      lib.optionalString stdenv.isDarwin
-        "-e 's|/usr/libexec/PlistBuddy|${xcbuild}/bin/PlistBuddy|g'"
+      lib.optionalString stdenv.isDarwin "-e 's|/usr/libexec/PlistBuddy|${xcbuild}/bin/PlistBuddy|g'"
     } \
       -e 's|/usr/bin/env|${coreutils}/bin/env|g' \
       -e 's|/usr/bin/make|${gnumake}/bin/make|g' \

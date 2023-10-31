@@ -230,9 +230,7 @@ in
       };
 
       relayRules = mkOption {
-        description =
-          lib.mdDoc
-            "Relay rules are used to send certain metrics to a certain backend.";
+        description = lib.mdDoc "Relay rules are used to send certain metrics to a certain backend.";
         default = null;
         type = types.nullOr types.str;
         example = ''
@@ -243,9 +241,7 @@ in
       };
 
       enableAggregator = mkOption {
-        description =
-          lib.mdDoc
-            "Whether to enable carbon aggregator, the carbon buffering service.";
+        description = lib.mdDoc "Whether to enable carbon aggregator, the carbon buffering service.";
         default = false;
         type = types.bool;
       };
@@ -400,9 +396,7 @@ in
         environment = {
           PYTHONPATH =
             let
-              penv = pkgs.python3.buildEnv.override {
-                extraLibs = [ pkgs.python3Packages.graphite-web ];
-              };
+              penv = pkgs.python3.buildEnv.override { extraLibs = [ pkgs.python3Packages.graphite-web ]; };
               penvPack = "${penv}/${pkgs.python3.sitePackages}";
             in
             concatStringsSep ":" [

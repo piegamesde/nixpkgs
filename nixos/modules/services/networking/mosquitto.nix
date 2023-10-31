@@ -371,9 +371,7 @@ let
       "listener ${toString listener.port} ${toString listener.address}"
       "acl_file ${makeACLFile idx listener.users listener.acl}"
     ]
-    ++
-      optional (!listener.omitPasswordAuth)
-        "password_file ${cfg.dataDir}/passwd-${toString idx}"
+    ++ optional (!listener.omitPasswordAuth) "password_file ${cfg.dataDir}/passwd-${toString idx}"
     ++ formatFreeform { } listener.settings
     ++ concatMap formatAuthPlugin listener.authPlugins;
 
@@ -479,9 +477,7 @@ let
     name: bridge:
     [
       "connection ${name}"
-      "addresses ${
-        concatMapStringsSep " " (a: "${a.address}:${toString a.port}") bridge.addresses
-      }"
+      "addresses ${concatMapStringsSep " " (a: "${a.address}:${toString a.port}") bridge.addresses}"
     ]
     ++ map (t: "topic ${t}") bridge.topics
     ++ formatFreeform { } bridge.settings;
@@ -741,8 +737,7 @@ in
         UMask = "0077";
       };
       preStart = concatStringsSep "\n" (
-        imap0
-          (idx: listener: makePasswordFile listener.users "${cfg.dataDir}/passwd-${toString idx}")
+        imap0 (idx: listener: makePasswordFile listener.users "${cfg.dataDir}/passwd-${toString idx}")
           cfg.listeners
       );
     };

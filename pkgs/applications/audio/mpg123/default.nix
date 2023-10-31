@@ -64,8 +64,7 @@ stdenv.mkDerivation rec {
         )
       }"
     ]
-    ++ lib.optional (stdenv.hostPlatform ? mpg123)
-      "--with-cpu=${stdenv.hostPlatform.mpg123.cpu}";
+    ++ lib.optional (stdenv.hostPlatform ? mpg123) "--with-cpu=${stdenv.hostPlatform.mpg123.cpu}";
 
   enableParallelBuilding = true;
 

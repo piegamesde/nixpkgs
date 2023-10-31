@@ -90,8 +90,7 @@ lib.makeOverridable (
               # aren't expected to have multiple outputs.
               (
                 if
-                  (!drv ? outputSpecified || !drv.outputSpecified)
-                  && drv.meta.outputsToInstall or null != null
+                  (!drv ? outputSpecified || !drv.outputSpecified) && drv.meta.outputsToInstall or null != null
                 then
                   map (outName: drv.${outName}) drv.meta.outputsToInstall
                 else

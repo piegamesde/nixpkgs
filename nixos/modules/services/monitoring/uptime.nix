@@ -63,9 +63,7 @@ in
     };
 
     usesRemoteMongo = mkOption {
-      description =
-        lib.mdDoc
-          "Whether the configuration file specifies a remote mongo instance";
+      description = lib.mdDoc "Whether the configuration file specifies a remote mongo instance";
 
       default = false;
 

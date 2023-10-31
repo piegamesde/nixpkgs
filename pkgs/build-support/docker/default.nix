@@ -922,9 +922,7 @@ rec {
       extraCommands ? "",
       ...
     }:
-    (buildLayeredImage (
-      args // { extraCommands = (mkDbExtraCommand contents) + extraCommands; }
-    ));
+    (buildLayeredImage (args // { extraCommands = (mkDbExtraCommand contents) + extraCommands; }));
 
   streamLayeredImage =
     {
@@ -1044,10 +1042,7 @@ rec {
             imageName = lib.toLower name;
             preferLocalBuild = true;
             passthru.imageTag =
-              if tag != null then
-                tag
-              else
-                lib.head (lib.strings.splitString "-" (baseNameOf conf.outPath));
+              if tag != null then tag else lib.head (lib.strings.splitString "-" (baseNameOf conf.outPath));
             paths = buildPackages.referencesByPopularity overallClosure;
             nativeBuildInputs = [ jq ];
           }

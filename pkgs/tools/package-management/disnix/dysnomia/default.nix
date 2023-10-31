@@ -67,12 +67,7 @@ stdenv.mkDerivation rec {
     (if enableMySQLDatabase then "--with-mysql" else "--without-mysql")
     (if enablePostgreSQLDatabase then "--with-postgresql" else "--without-postgresql")
     (if enableSubversionRepository then "--with-subversion" else "--without-subversion")
-    (
-      if enableTomcatWebApplication then
-        "--with-tomcat=${catalinaBaseDir}"
-      else
-        "--without-tomcat"
-    )
+    (if enableTomcatWebApplication then "--with-tomcat=${catalinaBaseDir}" else "--without-tomcat")
     (if enableMongoDatabase then "--with-mongodb" else "--without-mongodb")
     (if enableInfluxDatabase then "--with-influxdb" else "--without-influxdb")
     (if enableSupervisordProgram then "--with-supervisord" else "--without-supervisord")

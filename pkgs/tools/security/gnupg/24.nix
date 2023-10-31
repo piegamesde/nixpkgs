@@ -81,9 +81,7 @@ stdenv.mkDerivation rec {
       sed -i 's,\(hkps\|https\)://keyserver.ubuntu.com,hkps://keys.openpgp.org,g' configure configure.ac doc/dirmngr.texi doc/gnupg.info-1
     ''
     + lib.optionalString (stdenv.isLinux && withPcsc) ''
-      sed -i 's,"libpcsclite\.so[^"]*","${
-        lib.getLib pcsclite
-      }/lib/libpcsclite.so",g' scd/scdaemon.c
+      sed -i 's,"libpcsclite\.so[^"]*","${lib.getLib pcsclite}/lib/libpcsclite.so",g' scd/scdaemon.c
     '';
 
   configureFlags =

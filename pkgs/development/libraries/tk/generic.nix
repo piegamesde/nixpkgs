@@ -54,10 +54,9 @@ tcl.mkTclDerivation {
       cp ../macosx/*.h $out/include
     '';
 
-  configureFlags =
-    [ "--enable-threads" ]
-    ++ lib.optional stdenv.is64bit "--enable-64bit"
-    ++ lib.optional enableAqua "--enable-aqua";
+  configureFlags = [
+    "--enable-threads"
+  ] ++ lib.optional stdenv.is64bit "--enable-64bit" ++ lib.optional enableAqua "--enable-aqua";
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ ];

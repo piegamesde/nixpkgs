@@ -169,9 +169,7 @@ in
           apply =
             x:
             x
-            ++ optional (cfg.userActions != "") (
-              toString (pkgs.writeText "user.actions" cfg.userActions)
-            );
+            ++ optional (cfg.userActions != "") (toString (pkgs.writeText "user.actions" cfg.userActions));
           default = [
             "match-all.action"
             "default.action"
@@ -188,9 +186,7 @@ in
           apply =
             x:
             x
-            ++ optional (cfg.userFilters != "") (
-              toString (pkgs.writeText "user.filter" cfg.userFilters)
-            );
+            ++ optional (cfg.userFilters != "") (toString (pkgs.writeText "user.filter" cfg.userFilters));
           description = lib.mdDoc ''
             List of paths to Privoxy filter files. These paths may either be
             absolute or relative to the privoxy configuration directory.

@@ -44,9 +44,7 @@ with lib; {
       );
 
       deps =
-        deps
-        ++ optionals allOptionalMods optionalDeps
-        ++ optionals allRecommendedMods recommendedDeps;
+        deps ++ optionals allOptionalMods optionalDeps ++ optionals allRecommendedMods recommendedDeps;
 
       preferLocalBuild = true;
       buildCommand = ''

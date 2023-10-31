@@ -57,8 +57,7 @@
   # If enabled, GHC will be built with the GPL-free but slightly slower native
   # bignum backend instead of the faster but GPLed gmp backend.
   enableNativeBignum ? !(
-    lib.meta.availableOn stdenv.hostPlatform gmp
-    && lib.meta.availableOn stdenv.targetPlatform gmp
+    lib.meta.availableOn stdenv.hostPlatform gmp && lib.meta.availableOn stdenv.targetPlatform gmp
   )
     || stdenv.targetPlatform.isGhcjs,
   gmp
@@ -83,8 +82,7 @@
   ,
   # Libdw.c only supports x86_64, i686 and s390x as of 2022-08-04
   enableDwarf ? (
-    stdenv.targetPlatform.isx86
-    || (stdenv.targetPlatform.isS390 && stdenv.targetPlatform.is64bit)
+    stdenv.targetPlatform.isx86 || (stdenv.targetPlatform.isS390 && stdenv.targetPlatform.is64bit)
   )
     && lib.meta.availableOn stdenv.hostPlatform elfutils
     && lib.meta.availableOn stdenv.targetPlatform elfutils
@@ -188,21 +186,15 @@ let
   inherit (bootPkgs) ghc;
 
   # TODO(@Ericson2314) Make unconditional
-  targetPrefix =
-    lib.optionalString (targetPlatform != hostPlatform)
-      "${targetPlatform.config}-";
+  targetPrefix = lib.optionalString (targetPlatform != hostPlatform) "${targetPlatform.config}-";
 
   hadrianSettings =
     # -fexternal-dynamic-refs apparently (because it's not clear from the
     # documentation) makes the GHC RTS able to load static libraries, which may
     # be needed for TemplateHaskell. This solution was described in
     # https://www.tweag.io/blog/2020-09-30-bazel-static-haskell
-    lib.optionals enableRelocatedStaticLibs [
-      "*.*.ghc.*.opts += -fPIC -fexternal-dynamic-refs"
-    ]
-    ++ lib.optionals targetPlatform.useAndroidPrebuilt [
-      "*.*.ghc.c.opts += -optc-std=gnu99"
-    ];
+    lib.optionals enableRelocatedStaticLibs [ "*.*.ghc.*.opts += -fPIC -fexternal-dynamic-refs" ]
+    ++ lib.optionals targetPlatform.useAndroidPrebuilt [ "*.*.ghc.c.opts += -optc-std=gnu99" ];
 
   # GHC's build system hadrian built from the GHC-to-build's source tree
   # using our bootstrap GHC.
@@ -222,8 +214,7 @@ let
     ++ lib.optional enableDwarf elfutils
     ++ lib.optional (!enableNativeBignum) gmp
     ++
-      lib.optional
-        (platform.libc != "glibc" && !targetPlatform.isWindows && !targetPlatform.isGhcjs)
+      lib.optional (platform.libc != "glibc" && !targetPlatform.isWindows && !targetPlatform.isGhcjs)
         libiconv;
 
   # TODO(@sternenseemann): is buildTarget LLVM unnecessary?
@@ -279,8 +270,7 @@ in
 # currently only able to build GHC if hostPlatform == buildPlatform.
 assert !targetPlatform.isGhcjs -> targetCC == pkgsHostTarget.targetPackages.stdenv.cc;
 assert buildTargetLlvmPackages.llvm == llvmPackages.llvm;
-assert stdenv.targetPlatform.isDarwin
-  -> buildTargetLlvmPackages.clang == llvmPackages.clang;
+assert stdenv.targetPlatform.isDarwin -> buildTargetLlvmPackages.clang == llvmPackages.clang;
 
 stdenv.mkDerivation (
   {
@@ -419,18 +409,12 @@ stdenv.mkDerivation (
       ]
       ++
         lib.optionals
-          (
-            targetPlatform == hostPlatform
-            && hostPlatform.libc != "glibc"
-            && !targetPlatform.isWindows
-          )
+          (targetPlatform == hostPlatform && hostPlatform.libc != "glibc" && !targetPlatform.isWindows)
           [
             "--with-iconv-includes=${libiconv}/include"
             "--with-iconv-libraries=${libiconv}/lib"
           ]
-      ++ lib.optionals (targetPlatform != hostPlatform) [
-        "--enable-bootstrap-with-devel-snapshot"
-      ]
+      ++ lib.optionals (targetPlatform != hostPlatform) [ "--enable-bootstrap-with-devel-snapshot" ]
       ++ lib.optionals useLdGold [
         "CFLAGS=-fuse-ld=gold"
         "CONF_GCC_LINKER_OPTS_STAGE1=-fuse-ld=gold"
@@ -498,9 +482,7 @@ stdenv.mkDerivation (
 
     # required, because otherwise all symbols from HSffi.o are stripped, and
     # that in turn causes GHCi to abort
-    stripDebugFlags = [
-      "-S"
-    ] ++ lib.optional (!targetPlatform.isDarwin) "--keep-file-symbols";
+    stripDebugFlags = [ "-S" ] ++ lib.optional (!targetPlatform.isDarwin) "--keep-file-symbols";
 
     checkTarget = "test";
 

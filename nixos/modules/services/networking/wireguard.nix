@@ -420,16 +420,13 @@ let
             ++
               optional (peer.persistentKeepalive != null)
                 ''persistent-keepalive "${toString peer.persistentKeepalive}"''
-            ++
-              optional (peer.allowedIPs != [ ])
-                ''allowed-ips "${concatStringsSep "," peer.allowedIPs}"''
+            ++ optional (peer.allowedIPs != [ ]) ''allowed-ips "${concatStringsSep "," peer.allowedIPs}"''
           );
           route_setup = optionalString interfaceCfg.allowedIPsAsRoutes (
             concatMapStringsSep "\n"
               (
                 allowedIP:
-                ''
-                  ${ip} route replace "${allowedIP}" dev "${interfaceName}" table "${interfaceCfg.table}"''
+                ''${ip} route replace "${allowedIP}" dev "${interfaceName}" table "${interfaceCfg.table}"''
               )
               peer.allowedIPs
           );

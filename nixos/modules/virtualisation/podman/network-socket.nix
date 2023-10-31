@@ -86,9 +86,7 @@ in
   };
 
   config = {
-    networking.firewall.allowedTCPPorts =
-      lib.optional (cfg.enable && cfg.openFirewall)
-        cfg.port;
+    networking.firewall.allowedTCPPorts = lib.optional (cfg.enable && cfg.openFirewall) cfg.port;
   };
 
   meta.maintainers = lib.teams.podman.members ++ [ lib.maintainers.roberth ];

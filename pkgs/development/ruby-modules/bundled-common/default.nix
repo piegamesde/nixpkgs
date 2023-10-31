@@ -42,10 +42,7 @@ let
   gemFiles = bundlerFiles args;
 
   importedGemset =
-    if builtins.typeOf gemFiles.gemset != "set" then
-      import gemFiles.gemset
-    else
-      gemFiles.gemset;
+    if builtins.typeOf gemFiles.gemset != "set" then import gemFiles.gemset else gemFiles.gemset;
 
   filteredGemset = filterGemset { inherit ruby groups; } importedGemset;
 

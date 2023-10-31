@@ -36,9 +36,7 @@ mkDerivation rec {
   ];
 
   postPatch = ''
-    substituteInPlace stopmotion.pro --replace '$$[QT_INSTALL_BINS]' '${
-      lib.getDev qttools
-    }/bin'
+    substituteInPlace stopmotion.pro --replace '$$[QT_INSTALL_BINS]' '${lib.getDev qttools}/bin'
   '';
 
   meta = with lib; {

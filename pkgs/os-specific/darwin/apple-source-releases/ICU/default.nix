@@ -76,9 +76,7 @@ appleDerivation {
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       # darwin* platform properties are only defined on darwin
       # hack to use our lower macos version
-      "MAC_OS_X_VERSION_MIN_REQUIRED=${
-        formatVersionNumeric stdenv.hostPlatform.darwinMinVersion
-      }"
+      "MAC_OS_X_VERSION_MIN_REQUIRED=${formatVersionNumeric stdenv.hostPlatform.darwinMinVersion}"
       "ICU_TARGET_VERSION=-m${stdenv.hostPlatform.darwinPlatform}-version-min=${stdenv.hostPlatform.darwinMinVersion}"
     ]
     ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [

@@ -37,9 +37,7 @@ let
           inherit withPackages;
           tests = {
             inherit (nixosTests) agda;
-            allPackages = withPackages (
-              lib.filter self.lib.isUnbrokenAgdaPackage (lib.attrValues self)
-            );
+            allPackages = withPackages (lib.filter self.lib.isUnbrokenAgdaPackage (lib.attrValues self));
           };
         };
         inherit (Agda) meta;
@@ -126,8 +124,7 @@ let
       # set this only on non-darwin.
       LC_ALL = lib.optionalString (!stdenv.isDarwin) "C.UTF-8";
 
-      meta =
-        if meta.broken or false then meta // { hydraPlatforms = lib.platforms.none; } else meta;
+      meta = if meta.broken or false then meta // { hydraPlatforms = lib.platforms.none; } else meta;
 
       # Retrieve all packages from the finished package set that have the current package as a dependency and build them
       passthru.tests =

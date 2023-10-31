@@ -141,9 +141,7 @@ in
       maxAge = mkOption {
         type = natural;
         default = 35;
-        description =
-          lib.mdDoc
-            "Delete entries from whitelist if they haven't been seen for N days";
+        description = lib.mdDoc "Delete entries from whitelist if they haven't been seen for N days";
       };
       retryWindow = mkOption {
         type = either str natural;
@@ -250,12 +248,8 @@ in
                       --greylist-action=${cfg.greylistAction} \
                       --greylist-text="${cfg.greylistText}" \
                       --x-greylist-header="${cfg.greylistHeader}" \
-                      ${
-                        concatMapStringsSep " " (x: "--whitelist-clients=" + x) cfg.whitelistClients
-                      } \
-                      ${
-                        concatMapStringsSep " " (x: "--whitelist-recipients=" + x) cfg.whitelistRecipients
-                      }
+                      ${concatMapStringsSep " " (x: "--whitelist-clients=" + x) cfg.whitelistClients} \
+                      ${concatMapStringsSep " " (x: "--whitelist-recipients=" + x) cfg.whitelistRecipients}
           '';
           Restart = "always";
           RestartSec = 5;

@@ -54271,9 +54271,7 @@ lib.makeScope pkgs.newScope (
           (getAttr "hu_dot_dwim_dot_def_plus_contextl" self)
           (getAttr "hu_dot_dwim_dot_def_plus_hu_dot_dwim_dot_delico" self)
           (getAttr "hu_dot_dwim_dot_logger_plus_iolib" self)
-          (getAttr "hu_dot_dwim_dot_quasi-quote_dot_xml_plus_hu_dot_dwim_dot_quasi-quote_dot_js"
-            self
-          )
+          (getAttr "hu_dot_dwim_dot_quasi-quote_dot_xml_plus_hu_dot_dwim_dot_quasi-quote_dot_js" self)
           (getAttr "hu_dot_dwim_dot_syntax-sugar" self)
           (getAttr "hu_dot_dwim_dot_uri" self)
           (getAttr "hu_dot_dwim_dot_util" self)

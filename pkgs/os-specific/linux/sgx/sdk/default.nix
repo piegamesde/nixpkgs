@@ -100,9 +100,7 @@ stdenv.mkDerivation rec {
 
       sgx-asm-pp = "python ${src}/build-scripts/sgx-asm-pp.py --assembler=nasm";
 
-      nasm-load =
-        writeShellScript "nasm-load"
-          "${sgx-asm-pp} --MITIGATION-CVE-2020-0551=LOAD $@";
+      nasm-load = writeShellScript "nasm-load" "${sgx-asm-pp} --MITIGATION-CVE-2020-0551=LOAD $@";
       ipp-crypto-cve_2020_0551_load = callPackage ./ipp-crypto.nix {
         extraCmakeFlags = [ "-DCMAKE_ASM_NASM_COMPILER=${nasm-load}" ];
       };

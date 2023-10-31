@@ -1105,8 +1105,7 @@ in
   config = mkIf cfg.enable {
     assertions = [
       {
-        assertion =
-          cfg.settings.db == { } -> (cfg.settings.dbURL != "" && cfg.settings.dbURL != null);
+        assertion = cfg.settings.db == { } -> (cfg.settings.dbURL != "" && cfg.settings.dbURL != null);
         message = "Database configuration for HedgeDoc missing.";
       }
     ];

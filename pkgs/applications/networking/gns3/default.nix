@@ -20,8 +20,7 @@ let
       );
     };
   };
-  mkGui =
-    args: libsForQt5.callPackage (import ./gui.nix (addVersion args // extraArgs)) { };
+  mkGui = args: libsForQt5.callPackage (import ./gui.nix (addVersion args // extraArgs)) { };
   mkServer = args: callPackage (import ./server.nix (addVersion args // extraArgs)) { };
   guiSrcHash = "sha256-iVvADwIp01HeZoDayvH1dilYRHRkRBTBR3Fh395JBq0=";
   serverSrcHash = "sha256-41dbiSjvmsDNYr9/rRkeQVOnPSVND34xx1SNknCgHfc=";

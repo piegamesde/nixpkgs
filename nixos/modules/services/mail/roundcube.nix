@@ -129,9 +129,9 @@ in
 
   config = mkIf cfg.enable {
     # backward compatibility: if password is set but not passwordFile, make one.
-    services.roundcube.database.passwordFile =
-      mkIf (!localDB && cfg.database.password != "")
-        (mkDefault ("${pkgs.writeText "roundcube-password" cfg.database.password}"));
+    services.roundcube.database.passwordFile = mkIf (!localDB && cfg.database.password != "") (
+      mkDefault ("${pkgs.writeText "roundcube-password" cfg.database.password}")
+    );
     warnings =
       lib.optional (!localDB && cfg.database.password != "")
         "services.roundcube.database.password is deprecated and insecure; use services.roundcube.database.passwordFile instead";
@@ -150,9 +150,7 @@ in
       $config = array();
       $config['db_dsnw'] = 'pgsql://${cfg.database.username}${
         lib.optionalString (!localDB) ":' . $password . '"
-      }@${
-        if localDB then "unix(/run/postgresql)" else cfg.database.host
-      }/${cfg.database.dbname}';
+      }@${if localDB then "unix(/run/postgresql)" else cfg.database.host}/${cfg.database.dbname}';
       $config['log_driver'] = 'syslog';
       $config['max_message_size'] =  '${cfg.maxAttachmentSize}';
       $config['plugins'] = [${concatMapStringsSep "," (p: "'${p}'") cfg.plugins}];

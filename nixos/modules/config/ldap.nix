@@ -37,8 +37,7 @@ let
     base ${cfg.base}
     timelimit ${toString cfg.timeLimit}
     bind_timelimit ${toString cfg.bind.timeLimit}
-    ${optionalString (cfg.bind.distinguishedName != "")
-      "binddn ${cfg.bind.distinguishedName}"}
+    ${optionalString (cfg.bind.distinguishedName != "") "binddn ${cfg.bind.distinguishedName}"}
     ${optionalString (cfg.daemon.rootpwmoddn != "") "rootpwmoddn ${cfg.daemon.rootpwmoddn}"}
     ${optionalString (cfg.daemon.extraConfig != "") cfg.daemon.extraConfig}
   '';
